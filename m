@@ -4,160 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2861AD185E9
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 12:31:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2183AD185ED
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 12:36:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA6AF10E33B;
-	Thu,  8 Jan 2026 12:31:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66B4D10E6F9;
+	Thu,  8 Jan 2026 12:36:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ENlj2Yuq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k47fS0bh";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010009.outbound.protection.outlook.com [52.101.46.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5089F10E33B
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Jan 2026 12:31:38 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011016.outbound.protection.outlook.com
+ [40.93.194.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00A2410E6F9;
+ Thu,  8 Jan 2026 12:36:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TRUgvzNPYKfrNmammzHgYfZ4dfjRRQsZlNHZR3ljRAb9VhFjHAeJp3xzBcKX5vYXxckM7Z0he2M48BhUp2RU9IZ2x7DwcvtzqkOmK/Y9mi697I1jYqrQPyDnTp5OwrGz0XIhIramMgob20D7JtYNYB4p1u7RfU+Na7tjlDTV4r6NWj4vlUXtVp7en6ruEgXrWOHsVMahRVIQ2fdQjfcd6bI//Bv/mnQdk2Xx0GiTB8V8EDDQ7YeAXQ1u0mz9/7RBC0+UOOmkxnazH6U4B6EfczVG/CTVMUwmTfdo99IQkWS/vZLdPcyQBER5obzRMRkNYc/N/HH2IzTDE2BIXgYkuw==
+ b=tQ3TGAx+RycSRy2TYTDkaioBpur29EOiM3Oe6g4E5d69ezmEIP26hOQRP6+MK6VkM8S0K9ifWobJdLnjOHxUOpw1bpSEZRNrTvo13JcXZP9GKLuBke0VsWLfoJF48rsKc27Yk3G6DeyQBhaxCjqoowwrwIpyE08zGv72MwVyKjyicRSE3c68nDa7Hsa9nRpFCCwvW9cF9w9AUila1QEkLaqLpgBLD2+wKFE9sJmUmqxkBVZpEAbpZTQ0mRbT2y/AeSb0KHrkdLKhw2UUl3ojQ5xMpy/+AbJjwkVRzNpYrMLkOT1tR4gWKjNio4J36D+vjm/WvbubFamXT1Nt7Vt4vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=77hyS31ZMTwD7E2T9uQ6LXOKm+0rhCKBiiyc0qv9EUc=;
- b=pwwC7aVfALNkWrZK43W9GszFTE8qBK5Dt7wKpzcCtkNLBzmlQvJQ84RRMuQPjo5duY/NbnlSBwfPyHFciOB4/P2Uh5IGjUvM9CEasaMJeIU9FJHoIntJxtmTZXHA38CvHpFCiGQBEnJIPFXVHPhCYzCVMWap0OhsEx01Cz37kSk1VLGOA4ZCEQEmBL9weXLkjnI7B3E9KIAeh6xaOIuyq96aBisMBaT0HKmE182KU2hHCmij5nZlaRWX19AUwAS+YCRTeua6XV7+jUwnymcetkNc74AHiUtjxjycqVOSlKFf9j6YpULT3YRDcOWFPQpiItCgHxBQN+UKuexa3+hYyg==
+ bh=RXkfGSha1tcLjsDBagCkCg7x/kkHihCkb5+8I21JTKE=;
+ b=N55DJPRUHun2IT7Py7VT1h1zQiGekQZudTGb0tnz94tjJJ6dBJfLq5NcvlNJeSIYVH8ge2lejMPFZIODkm6jiIJXoEkf00a5+tvm+pYsPrcQTy9r7cVI3rrxzhwyKQCdmSDuS+O/1QwFqSrDBzx8nzGtxUpP/mCtpxohdzuEju7FtRuduhD2Getvcvtf9bqX9cJQQTtpNT97nFCHhkLKhIrVp23f/SrVrncb2wRzI7GH6T6TLgxKRiukN5VzcQfUylXvjm/ZisVlrlKAyrb2EIllawoaJwaUtl9ZEnM57BTJfBmWdpiqKD38bZAwZ9EQ24kB75Av+gcwtSlQaxy4Ew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=77hyS31ZMTwD7E2T9uQ6LXOKm+0rhCKBiiyc0qv9EUc=;
- b=ENlj2Yuq2eGJRe0/M7FyANeE0+3HCLAcp5AM/MXbQvSRfP9UXKVZoOq8Q8kd0t2W8/jfU61goFwanee0t+AjT4iprdNaAr6DoN1Bf334zPtWu6rFsC7N1/QEZ8QMMll07psTZRK0X02TRFWsAzCBjbRMrPoQug+jMCiV2iQMLlg=
+ bh=RXkfGSha1tcLjsDBagCkCg7x/kkHihCkb5+8I21JTKE=;
+ b=k47fS0bhlUbvKcmsMfxd98F1aKTPqOWU4x0MsLDJkCX+UGR7LikGFA48ZS5dqJJP20JqHpM6pcG5LnSJngYS3R0J/y8l7mRQVnBRNNjooQFEq1jZWY1O3tsvilJxieTeoJsDUXBGavMMCUnw06M99raroaSOpMWyfrpSKrmdgoE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB7775.namprd12.prod.outlook.com (2603:10b6:208:431::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.4; Thu, 8 Jan
- 2026 12:31:35 +0000
+ by SA5PPF50009C446.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8c8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.3; Thu, 8 Jan
+ 2026 12:36:21 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9499.003; Thu, 8 Jan 2026
- 12:31:35 +0000
-Message-ID: <430ac9a5-8665-4f0a-a658-5266668bc846@amd.com>
-Date: Thu, 8 Jan 2026 13:31:30 +0100
+ 12:36:21 +0000
+Message-ID: <77fa0344-3507-420e-9d77-d454ace55cfd@amd.com>
+Date: Thu, 8 Jan 2026 13:36:18 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 4/8] amdgpu/amdgpu_ttm: Fix
- AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K page size
-To: Donet Tom <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Philip Yang <yangp@amd.com>,
- "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
-Cc: Kent.Russell@amd.com, Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>
-References: <cover.1765519875.git.donettom@linux.ibm.com>
- <465b106ddc1ff0d661f0f3db0eb9a9d092097825.1765519875.git.donettom@linux.ibm.com>
- <277c65ad-a3c3-4d99-a0f4-a6ca99e61ab4@amd.com>
- <c28b117f-b3bb-42de-a1fb-a4dceccfbb72@linux.ibm.com>
+Subject: Re: [PATCH 1/1] drm/amdgpu: Fix TLB flush failures after hibernation
+ resume
+To: "Ionut Nechita (Sunlight Linux)" <sunlightlinux@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mario Limonciello <superm1@kernel.org>, Ionut Nechita <ionut_n2001@yahoo.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260106125929.25214-3-sunlightlinux@gmail.com>
+ <20260106125929.25214-6-sunlightlinux@gmail.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <c28b117f-b3bb-42de-a1fb-a4dceccfbb72@linux.ibm.com>
+In-Reply-To: <20260106125929.25214-6-sunlightlinux@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN0PR04CA0182.namprd04.prod.outlook.com
- (2603:10b6:408:e9::7) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BN9P222CA0013.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:408:10c::18) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7775:EE_
-X-MS-Office365-Filtering-Correlation-Id: c02def20-7ea6-4278-237e-08de4eb1dc7f
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA5PPF50009C446:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2b0d220a-62a1-46bd-9801-08de4eb2876e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WTBXbUxiUUxYdnArS3ZjYlpXQUNENUh0ZW1Vd1ZySldtQ3VVOUV1b1V1bk5T?=
- =?utf-8?B?V3ZrVGZuMWZNVTRZbjlDam1IQVpCamNjdmVteVFidnV6MkhBUEYxc1FQakZD?=
- =?utf-8?B?UkxFanc3RFQ4eGljVWMzSVFEZVlGNHhNQ1A2czBaV3dxM0xYSEZKc0o2TXdH?=
- =?utf-8?B?K2duOHg5OXhWM1Vrd2JmQTFrUmNQcXF2WTY5RUJoT2FWTHNwNnBXRElZQkt3?=
- =?utf-8?B?aWR1dk1aQmN5SVI5NlZieXRyZlNqWGMzb0UyeHpwU1d1UVdqQmRaWTBGWHdt?=
- =?utf-8?B?T2EvWHRyQk1QZ3crR2FjK1lVRDNESkt2amFtd3VoVFJkbkRaZExIQXo4YlR3?=
- =?utf-8?B?b1hONC9HSlh4MWlUcUlKZlRaL0RxNVdKaHN4eEllZm9CMG1iSVA3bzlrdFQy?=
- =?utf-8?B?UVpWR01WWSt6L3RuTStac2NzY2RoNS9nY1ZzWDE2Slo1TENMNnZxRVBVMzZM?=
- =?utf-8?B?dk04RXdKREhON2t0WUp2MGZ1SGtWSlZBeis2R2lUb1Z6Y1NHZkFOdWNTaVA5?=
- =?utf-8?B?T1RNMHRBRFlVd1AwckpTMWhxWG9WbkE1NlZLQk5iK2F6aHpaalRtNmxpdXJV?=
- =?utf-8?B?SXNrWkVzNFZ5eGRsbnJwR0lrdEp4U3NxZnRPVUw3aENON1dTUjUyQkFWVDhX?=
- =?utf-8?B?b1lFY2lTUmZPYlI3djM5Qy85WWxyUUxFNFFEdC9iVUlzNFdmVVNRc1o2VTVh?=
- =?utf-8?B?Y0c3bmRjKzQxaGc0VzJXTzg2b1M2ZVBjQlBKUWZidDhQODg3MmdRV09Mczdi?=
- =?utf-8?B?NW91QkNURnpYbEExeHpMaUw2ZHp5eGtnWXFHTnFybmx3VjBOd2Y1MFlGWS9j?=
- =?utf-8?B?eTZQdVo0MnAvNFFqUXhpalVZVkFIMlBrcHhtRzh3RzRoS1cwSTdMZE9qa2tO?=
- =?utf-8?B?b1IrODE0Qk1nV3Q3MWZVeldUV3VRTkxOTGxaMys2YnE4OC9wamt5YW8vTmZB?=
- =?utf-8?B?RG5LVC94RUlid0tIOTNlMEdZYTl6UzA2YncvRDZpcVAwOFJ3a1p6V0R1M01i?=
- =?utf-8?B?MGZEazJnNXlGdWhtR053OGpuOC9Na1o3L08zKzlKbVZwL0JGTHpRL2NDRCtU?=
- =?utf-8?B?Q1BOYTBFV3cvSVNtMWd0MmFsbDdaR2lxMkJLRi9JTXdFVXJCQ3JmMXI0cyt2?=
- =?utf-8?B?Nm56eHc0MmcrcS9sNnNSN1JKbUttcU1GcmREVkRWdm5YM0dUWHJMOUVSTzU1?=
- =?utf-8?B?RXZsZUJiYmp6NXN3TWpGV3U4TUhhMHZjVEt6bGIwN2ZUWVNrTGpINldHcnVo?=
- =?utf-8?B?SXJhazRwNGw3Vjh3dVJvTGZQeFFHMnltaUNwWlFERGlFNEd4VUY5c2RjZWxT?=
- =?utf-8?B?R0xwa1lwK0hHQW10YS84Y1pSMGxTdGdDK0ZBQXZmTWNRa3NOaVViZUVSQnhl?=
- =?utf-8?B?RjdUYnFwYWRGaklZSXRpTGx5cmR5LzI2U0IyaTU3amNyQVFzMnNtYUF0VGZG?=
- =?utf-8?B?bkZnYVZielQxd3VLcGRmaWF2aCs0Q2dzRGh5dG5DdUhiQ2FtY2RqL1ppQ0xB?=
- =?utf-8?B?aEFXK1pnbUZJdmFiLzIyVElrSkR3Y3R2STR5U3hGeE9UTUlmQjRVQ2M0cVNl?=
- =?utf-8?B?OXNGVFNEZU9iNXhDR3lPUVB0aWE0NW9mUkRxNE1mWnp5U2NWeC9TR0pzMklH?=
- =?utf-8?B?RERQaUs1NDlkYmRNY2NNbkJiZExRTE00RUNrdHJvMTRSNVJzVTI0T281ZXh2?=
- =?utf-8?B?blZraGgwRkJzL3dCMDV1UjdtNWtaVHBoUHZXQVhyVTdyeXRYNnNYaUVKeUcx?=
- =?utf-8?B?R1MwcWlBb0RudWpoZlJmdDBSZEcxaEp5cGdEWTM3Ynd5N3g4VWt2RXhtd0FK?=
- =?utf-8?B?SFdXNmV0Vlk0NEFsRUpQZUNzTG1sTEUzcVJ1UExDTmNxR09vZlN3RHVEYm1Q?=
- =?utf-8?B?c01qWVdZMldiaE1FRkFvaTlNY25vb012M2hnS0UvdnhCTkRNY0kvVzdZcThN?=
- =?utf-8?Q?mWRwjAJW13BVRLDLy0Z1ebfzNmOFTx8s?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Sm5HZTM4Sy9nRTdwbHdrRTk1UTRPWFBNbjZXNmNlZzVkSDJreFZ6RGZhU1F3?=
+ =?utf-8?B?a2lHZW0xNlZlZXU1YzZiKzRvcTBYbEZRNXBNRzNQYXNkOUxMUDRETkc0cGhn?=
+ =?utf-8?B?QXA2d3Z0amFWUGx6emUwL0JrYis2QzFaT3dqRG9zWCtybE0rb1dPbU8wZmxy?=
+ =?utf-8?B?dmxmRTlmTnljM05pYTQ4WTR2S0RrQXFibDlra2dTZ3NnU3M3Y3dNMXdhNVBI?=
+ =?utf-8?B?cC9Pa004ZTlxdVFIYXBQN3RiYlYzVGExZjN3aFBXM3ZZQisxTk95SzRiL0Zk?=
+ =?utf-8?B?OUlXZVR6MTRUWmdNNTE1SXdVcUZlQlJaV0U1aVdZanlWR204Y3FjNGJIalFI?=
+ =?utf-8?B?NGcyRUh5YU5BaTlDSUNzWTNuR1gvYkU1UitoY0M5QXgxSW45OTd3LzVvRjJ0?=
+ =?utf-8?B?M2VtNDZicko4VHFBOWZHQkkzTVJ3d1hrMXNIVzBlRTUybmFLdXhnbUFPbWh3?=
+ =?utf-8?B?ek5HNTcxKzN6U3dsQTlraVljYk9mVTY3aUFYbzF0dmpPejZRdHZCdGlSTzRv?=
+ =?utf-8?B?UWR0Vmhsb0pzVCtUMjhGWFNYT0JaUDFwZjNsV09rMlNmSlVlL0RUZkFwRUpu?=
+ =?utf-8?B?aVRWeWp5eWo4ZkxWcmlvY3RWZ2dIVjh1NDM4emk2Y0x4Wm5KSVhpWERUc051?=
+ =?utf-8?B?aHpkMUdzRENNOFJOeGdTT2FzSUUzSTY2VkxmVG9OMCtxYzFVUW5tQ2N2aUlV?=
+ =?utf-8?B?dkRRMjhkWXNtOUN2VloxZmZqYTJHRUxmcmFoOEJoM3VLSGNmUlFwM0Z2RDdP?=
+ =?utf-8?B?VThDSXdGOUdad0dQWHcyTWZYaXZRQytUeWFFbG50dEIwTVpIdmNsY1BhcnZZ?=
+ =?utf-8?B?TStEZE9TeThSdkRHVjNmL2hEdkZBVWs3TzN5Snd4WDFwM1Z0WVM2NWMxWGw5?=
+ =?utf-8?B?eFNEM2ZDYlFtOVo1Uzl2aGxYVmxFUTdrdi9KbFcvQkRORmQ5NWZpZFo5WXJw?=
+ =?utf-8?B?MW16ZnhVSXN4Zmg3YmE4SkpGOXdTU1hqNzhyb0JWWWF0blRLTWxmaEIrTW54?=
+ =?utf-8?B?TUpjNG5yVitkT01KeTFJejJncC82SE02Nkp6c1VyU2d6Z2tzUEpNbksyNDNS?=
+ =?utf-8?B?MDNyZjhNVnlEVkY4eXRmTXpBQ0o3Q2FhZ2N3a29XUFFFdjZBbmQ3aGdqTzZa?=
+ =?utf-8?B?SEZvNEV3Szc4NHdleDNIV2RKUG85NXVzTEs1d0NEdHZWYkE2SDNPbFBWbnJY?=
+ =?utf-8?B?WTRuWlNhM3haSUhkRFJaY3VHSmVzQTdqQjg1QVNxVVlDcGxIUXJqM2plRTdX?=
+ =?utf-8?B?dnA4MTdGTCthVGJKUWhRdEVCRlhubXd6dXpjUG9wTmlKdUhUSk1aNUMwZlZn?=
+ =?utf-8?B?aFhNOEpGVVRlcHpoR0phVGJ1UlJiRXVURTJKTUpXODJKbXhCcEdFVFRQZWZs?=
+ =?utf-8?B?WW9rSHowS0g4eUxkNU04WWN3bTZNVEZXa3VwZld4dTNlZEJRVGQrWGlBdGs4?=
+ =?utf-8?B?NHpOaG9xWHlyVjdGb1owcWR1RUxVb2JFRjNRVVV3TW9VcDdDT0pyV0NQY01U?=
+ =?utf-8?B?bndyRHpUNlhWc0RDaU5zSVE3VmZTOEVQYlZWMS9tUHpsamM3WkV2OUtkUWs4?=
+ =?utf-8?B?L0xRQ1BNZ1VwMTBhQmJ5cGxRczYrYW5sQjVIMVhMZ0VkLzd0WGEwT1NvZDNr?=
+ =?utf-8?B?bFQwZ0VtSkk1RW9ENFA1NlN5aG9zNlhoOURqNVBpbm9iNnRSNjJUUFpHczBQ?=
+ =?utf-8?B?cmZsM2N4MVlVOU94SlVaQVdRcmRKYTVTSnVWb1ovbkJHc1BsZ1FrNVRIOEZO?=
+ =?utf-8?B?TDJERkZ0enBTYkEvNWVEWVhvS3dBZzk1cU0xTk43YW1jQWF0Njl0ZkRqa0Zy?=
+ =?utf-8?B?dEtBdDZhYlJrZThPMTFQQVNyY2pEWDN0c2VIRU9yMis3MmtTb1Z4MDJJVGdJ?=
+ =?utf-8?B?OEJhbW52ODh3VWNmcG5pZjhhaThtc2hUNTY4R2s1TjUxVlpHbjVVWUxJYXIx?=
+ =?utf-8?Q?SI1IumqiUEUemqedf8fELj6uY3lk1vFW?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UTdKaU9LSDdYbW9pSUNRL3hDMWs1WGZKUUNsNlRXZlJ4cjRiRXo3TTJoK2ZX?=
- =?utf-8?B?cFZuT1NXaUdJdHNkTHUrd1FMT0ZpZVRKMUMrbmNFcjVFUTlyS2JnT0twUk8z?=
- =?utf-8?B?ZEQ5RVNTR3VhUzl5VHNDTzQ4NW56Mmg5eTFFdzRCMkhhYXZuZFBKR1VuUnEy?=
- =?utf-8?B?NWtPZFUyUzRkRlYvWEE5dFdVN0ZiTEJ1VUk5bEN0YkV3SzN5MGEwWnVVOHdi?=
- =?utf-8?B?VVlPeStNNFFCMUlYZXYyUTJZZ3dibVhGNjMvOUIvT3dOSGlQbE55Z2lJaGxa?=
- =?utf-8?B?am8yOHVTdnhuNm56aGthdFRMQjNwUnd0VHV3a2FlS3Bva0gydEs3a0tqbFlm?=
- =?utf-8?B?MERsTUMyVnVTMVYzLzZFOHViU2psWW51MzVseS9ZMGx3bmlhMEttRXAyUHcz?=
- =?utf-8?B?OFRBMEl2TkVxRm9jMHlCRnpTVFcvaWVIQzRkaTh2a3JTUFVnOTFDZHVLaGw3?=
- =?utf-8?B?NkxqTSthYVU3QklSeHVxTFNTYzNOcjhmRzBwWGtQaXd3MDZ1ZmZaOTJsdTR3?=
- =?utf-8?B?MG5oUXFIKzdBUzJyTUJaTUxkUWJ2VEh3dEJoTnU1L2JYWnVlbjlMWWlxQ2tD?=
- =?utf-8?B?RTFWUStRWEhhUmtZNHM2Y1dZYklGQWR1QW9iT3hudncraUpxYVJpYnpuaCty?=
- =?utf-8?B?Uy94VXBVRWZWM3c0ZTJQOEpYY0lpNkZpNzgxeEVHYXo4SFNtMXVyQWFML3A1?=
- =?utf-8?B?NkJiazUwL1BZU1Y5eTRhMUl1UithZ3RNNVF0RWJjSzNhMmdLd0x4YnNPR1F2?=
- =?utf-8?B?ZFh0djJ1djNQWGQ0MW5ydm9FV2p1TnJLTEdXRjJKd3Jlc09pa0xoUVF4VjZ0?=
- =?utf-8?B?cXAraDc1Ujc4M1A0RU92ZmZPY0J6ZjcxTXNmWWdVeHlyN3RBSFpGOXJoekVT?=
- =?utf-8?B?NGtLQTBTa0xxVllFMHVHN1JlWnhqdlFTSmtTbXpUaWFmQ1NtK0MrZ2VwcFdl?=
- =?utf-8?B?a3FRTEl2NUtIR0RkMmM4aEQ2RWJrN000ZHlNV0FhWHpDYytlLzM3SkM3V2dE?=
- =?utf-8?B?WDV1OUV6V1o5SUdZblZhOTdhUnR4aVRFRFhaYXBIZXNKYy94UGVPaVVoUkFJ?=
- =?utf-8?B?VUhEYkhGWHFFY3JRU3MrbTgyM25oVUlLT1krSGNEVW0xb1lPak5qT1Q1TUFu?=
- =?utf-8?B?UE92MHNkT0tkK0Y3aFU5N3MxbGxEVXR0UjBLUTI0RDBsekd6d2QvWkFMeXR3?=
- =?utf-8?B?ajBUYXFSNXkwRTdaYTJWSkFKQno5S2lMSFFYbklqTDFiM05ObVg1bnFyRmhL?=
- =?utf-8?B?WDVJeFdsT1MzNlhqeVZ2d2ZabzRuekJVR2s1NFkrTHBjUFBIWTJzd3c2T050?=
- =?utf-8?B?c2ZKOXk0UnVucUZud1AwcDQxYXBXaWRjenFLTHMvWURRSldyMVpleXRoOHQz?=
- =?utf-8?B?Mm9VT21DcSthM0pOTENHNzhYUVlRejZ0UW83Q1NkdG5kR294eWJmYUdzcTR6?=
- =?utf-8?B?UHNaYm80ZFFYUHF6L203RkhzRStvZUMzNXVVV2JDMEc5TXZGS3JPTi9FblRq?=
- =?utf-8?B?Qk1DL2YvTjk4WTdpYWdpQmtGYUJFQ3lWOEorVXVvWGxETEdQS1JjZVFUQ2I1?=
- =?utf-8?B?d2FzWGJvalBnQ2N3M0EzUnd2SVZ2c2pWYTV4KzFBTkEzL2tva0FvNmk2a21v?=
- =?utf-8?B?S1VmVEJKMFo2WTVyTkFBVEZIVXFBdXpFdUhNVVNmbHpLMjRTY0VqV2R2ZjM1?=
- =?utf-8?B?aFpTTWV3eFk0WUFzWUJESnhpM2xDeEF3NXlrVUpWb2Q0dFVPaitNaFpPbklV?=
- =?utf-8?B?dnZjZkI1dWRGVW1yZ1ptUjhRNjZhTGltN1RqSnVTUHNtamZaWS9mWGcxQW1G?=
- =?utf-8?B?dTZ3bEc4UVBHVnFXYjJzQ3VqZTRrUDR4L2Y4OHkyUmkvWXgxYTRaN2ZUeitk?=
- =?utf-8?B?THZoSGw0bmpTdU9iZlVwT0xUa1cvSUpvMkhsM09QKy9FMjhoYlE0VGRLWk5D?=
- =?utf-8?B?R25wdDJrMzFoWW5SelNRaUxETzJKY2t5WGoveDQ4SE51dFlrbFNGTmxzNUt3?=
- =?utf-8?B?VUpFWFZtbHgwZDhDcWtLNWVoTzRReEx4QXRpVk9NdmZLTlZrZ0ZKUjVPVlFQ?=
- =?utf-8?B?VmtGZG9jODU1UmtBU3FlTWFtZjZRdnRwV0Nabk1xV0ZoNW5RTGwrV2pzcGor?=
- =?utf-8?B?SXFoTlhlQkU4TVVtWVNLTE8rczZSUkk2cko2cHFVdG9Tcm5zNXdhZWNmMzR1?=
- =?utf-8?B?Y0swQldqTC9vK1VTZ1l1OXdTMGhyMUdUL3VwS29TSUhoUGp4UjNiUTZORmFs?=
- =?utf-8?B?YmZUdlpjS3d2TDVidTEzeWFSa3ZKT2xtb1lHR2l4SEl2SE15Z0pvajNxKzhF?=
- =?utf-8?Q?sX8kX35seZWBmm2jjB?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VExsK0FlWkM0Mktmb3lLS1RYNXk3elZ0MnhKTXhYZzJVRXJBcEE3eDJyVDNy?=
+ =?utf-8?B?dHRYc0FXM3liS3NhaVJsekxRaU95VlE2UldCZjBsMlRENUZUNXpnbDVLSHVv?=
+ =?utf-8?B?dVdPdEp3SmdzRVhXTEd1YnBXK1VWZzJFMzVaOXVXTjF2TTRlZEY5VkhneFRp?=
+ =?utf-8?B?OHJuOER6WkhuMnMvK1BzZ1MvSmF1elNZTmsyckd5NEFPQVNHRTRPVU1KdXhS?=
+ =?utf-8?B?L0E3VFdlYXRocEVjYTg5L0ZpT0ZtWjhNYlp5NnZzZ2YvMXdERWJ5RXFUTjd0?=
+ =?utf-8?B?NmZLUk1kTzB0cTA1WXFmQXhJQ2RIL3ZlcTB2SGNOc1Z5aUdlWEZoaGZucG01?=
+ =?utf-8?B?eitGQXJJYXZmQ2lCQm9ING40V3BUSUxQcU5BK1hTZ0I0d1JRcnRwb3pkVkxm?=
+ =?utf-8?B?Yk9kc09sZ1RXSFMybTgxUjEzTXIwcWorQ0ZLaDBPajdLZmVNOE5tZFhtQzVw?=
+ =?utf-8?B?WXJmaWFoeHZWVlJlRXFBZ3FIeDFWdUIwQmtTV2FVR2xOendTMjVmdFlOY212?=
+ =?utf-8?B?a04ybEFqQ1FoZDFocm1Xc0w2emoyR01GUHI0YVZFU0w3N2U2R0pRT0dwOG1E?=
+ =?utf-8?B?MWRpRnV5S2JuR09sOTg5dVQvdjA4UHZuVXJYSEJOdUNXVzdTZE9OMHhmWUZo?=
+ =?utf-8?B?NmZUVWZuL1FXK0U2eHlPZ21ZWGs4UUZRdHZ6VnkzeTZzSmI3bzFybE5kclVx?=
+ =?utf-8?B?Z2NqZU5UMkw3YXdIb3pleTAxWkdIUVd3V0cvT0RualpRc3BhTkpPQjRieUg3?=
+ =?utf-8?B?cEdEdmQ2aHBDVkVhWUhpeExvQkxlOXExbnppWHZUTWszYlQ4eXVxeEZ6NTZn?=
+ =?utf-8?B?N2xxTStxQWJiZFU3NDR2OE1sVWdnaUxYM1h1QndwRlFFcE1XMEp5ZEFlbzR6?=
+ =?utf-8?B?MFoyYVlXSGNTQ0ZJczBhcUwxR3pPOUdlVHBHQVlDTEZHWTRoV0QyRW5PSDli?=
+ =?utf-8?B?czJKWmFLUUNnb2hvUlp0bUltaTB5NGI0TituMlhDNUdIWWhzRXBEL0VsZUVC?=
+ =?utf-8?B?V0dHQXIwMXpIaytMa08yYVVCYmJvTkVNRDRKR0djUGFuSER0em1iYjJqc20r?=
+ =?utf-8?B?eWNLNXZVbnZFYkkwbFNETnhteFhyRFllMWlzL2w4RWtocmQvZVhWRDYrbDc0?=
+ =?utf-8?B?b0hrWm02aXdacXJaS0VEcExHSERHYUtGTDI5RzRSd1JmUEJXcW5zcHV2aDdQ?=
+ =?utf-8?B?bk9TV1RicmdJeEkyM2V5NnVSMzJrZ1RQNHY3V0E1eU1SUGtqOFJRRHBpQXZC?=
+ =?utf-8?B?SG10VTk2ekszSzIyWWtQOG94cTMydis4U2Z5eUhmMm9YQlVxaUozK1pVbmsv?=
+ =?utf-8?B?SmhhWEI0Z1NnRnlqMm1TL2t2SjM4Nmo0U1FRQWVnb0xnUkQrYi9kUzIyV2xM?=
+ =?utf-8?B?NVJWekdlSlErNGFUV3c4TDl1VjlZUDZXMk9CNmxQdmthNHQ5U0xiTUprMnBp?=
+ =?utf-8?B?bWFxcWJ5aFU2VXVzV2ZwVFFnVkYrYW8wN3pZM1JlZEdmTFdrR25KMmVDcnJx?=
+ =?utf-8?B?NHROKzdpQ2tDaDZlQjd6bDNhMTU4VjN2QWNPRmloUjdhMkl4MGFGR3NYUVdt?=
+ =?utf-8?B?bTJrMGxrNFhiRUpJQlc1MFE3VGJlcDRaTHMvSm8wRjNBMkdmVGNqVVVOWndH?=
+ =?utf-8?B?NHBUbmwwUFZ0RE94VW41KzBUQ2ozWDUwdlBPVUkxd0ZGcTNVZDNVdzdCc1kv?=
+ =?utf-8?B?ODdCSk4xVCtLaDd5Z0ozL0ZjRGIwL2Q3TkNsSEdZeVE0QmRtQVZsYUxadGdq?=
+ =?utf-8?B?UVpRb1J5andNeVFmZzZOSW03RVJ6cy9YT3A5KytmdnlEenpBY3VjNUtYRWNt?=
+ =?utf-8?B?WUVibWVCQmpmODFQNmJlYmVMdGVrVjlMWHFrU0JkSGF5OFdxT1Y5Q1d5RHRU?=
+ =?utf-8?B?Q3k5OTd3SWRDS0o4clRTazl6VEVkWEVHTWlTWW5Sc0lBY0hFWUc5VUZhY2l3?=
+ =?utf-8?B?Ym5xaHZ2NDR2VnhzUWRTS3RZcWd6Qk5rTU1YYmg5bGdaaXJUcE9JN0pjeE9j?=
+ =?utf-8?B?SjZUZGVzcE5yNVVJTDg2Zi96VkZMQS95TXhENXpiMngyK0VQNnZNWDhYNm5Q?=
+ =?utf-8?B?Q29OV0N1WVptUjBsNk95RjJJbEJScGtRSnQrcTREVEdramQzQUlJM05TZFps?=
+ =?utf-8?B?b0NjNVNOV3ladVZsMjRvK3I3RkxIaGJhT3hvelVBWTh3SlhPWTY2YU11TWQz?=
+ =?utf-8?B?eXR6YS80THRXV2xIb294ODBhSm11OGwzWUdIcVVBaVZ1MjBrYUtIRUd0WDY5?=
+ =?utf-8?B?UThTNkNmUWhxUFA2M2xyRjRyYW1jV3RrcGZHTHlxNi9vUTc1eUdiRnRwZDBi?=
+ =?utf-8?Q?iqKQ6Brc05cknKkVl2?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c02def20-7ea6-4278-237e-08de4eb1dc7f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b0d220a-62a1-46bd-9801-08de4eb2876e
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2026 12:31:35.0649 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2026 12:36:21.7775 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jZYYTopMCmC0WVzNsgPEMNDENQZ4or4SBbJBK/9uQZ4lf4ou/pRiz+ZmkS8OeC3i
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7775
+X-MS-Exchange-CrossTenant-UserPrincipalName: t9WtZ1h6F6bTx+ddHjldwgU3XU+sPNF3fOs8rriveqOgMTx4lbdzJpIL+G8mtqOT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF50009C446
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,92 +169,172 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/6/26 13:55, Donet Tom wrote:
+On 1/6/26 13:59, Ionut Nechita (Sunlight Linux) wrote:
+> From: Ionut Nechita <ionut_n2001@yahoo.com>
 > 
-> On 12/12/25 2:23 PM, Christian König wrote:
->> On 12/12/25 07:40, Donet Tom wrote:
->>> The SDMA engine has a hardware limitation of 4 MB maximum transfer
->>> size per operation.
->> That is not correct. This is only true on ancient HW.
->>
->> What problems are you seeing here?
->>
->>> AMDGPU_GTT_MAX_TRANSFER_SIZE was hardcoded to
->>> 512 pages, which worked correctly on systems with 4K pages but fails
->>> on systems with larger page sizes.
->>>
->>> This patch divides the max transfer size / AMDGPU_GPU_PAGES_IN_CPU_PAGE
->>> to match with non-4K page size systems.
->> That is actually a bad idea. The value was meant to match the PMD size.
-> 
-> 
-> Hi Christian, Felix, Alex and philip
-> 
-> Instead of hardcoding the AMDGPU_GTT_MAX_TRANSFER_SIZE value to 512,
-> what do you think about doing something like the change below?
-> This should work across all architectures and page sizes, so
-> AMDGPU_GTT_MAX_TRANSFER_SIZE will always correspond to the PMD
-> size on all architectures and with all page sizes.
-> 
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index 0be2728aa872..c594ed7dff18 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -37,7 +37,7 @@
->  #define AMDGPU_PL_MMIO_REMAP   (TTM_PL_PRIV + 5)
->  #define __AMDGPU_PL_NUM        (TTM_PL_PRIV + 6)
->  
-> -#define AMDGPU_GTT_MAX_TRANSFER_SIZE   512
-> +#define AMDGPU_GTT_MAX_TRANSFER_SIZE   1 << (PMD_SHIFT - PAGE_SHIFT)
->  #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS  
-> 
-> Could you please provide your thoughts on above? Is it looking ok to you?
+> After resume from hibernation, the amdgpu driver experiences TLB
+> flush failures with errors:
 
-It's at least reasonable. My only concern is that we have patches in the pipeline to remove that define and make it independent of the PMD size.
-
-@Pierre-Eric how far along are we with that?
+In general we don't support hibernation with the driver.
 
 > 
-> If this looks good - here is what we were thinking:
+>   amdgpu: TLB flush failed for PASID xxxxx
+>   amdgpu: failed to write reg 28b4 wait reg 28c6
+>   amdgpu: failed to write reg 1a6f4 wait reg 1a706
 > 
-> Patches 1-4 are required to fix initial non-4k pagesize support to AMD GPU.
-> And since these patches are looking in good shape (since Philip has already
-> reviewed [1-3])- We thought it will be good to split the patch series into two.
-> I will send a v2 of Part-1 with patches [1-4] (will also address the review comments
-> in v2 for Patch-1 & 2 from Philip) and for the rest of the patches [5-8] Part-2, we
-> can continue the discussion till other things are sorted. That will also allow us to
-> get these initial fixes in Part-1 ready before the 6.20 merge window. 
-> 
-> Thoughts?
+> Root Cause:
+> -----------
+> The KIQ (Kernel Interface Queue) ring is marked as ready
+> (ring.sched.ready = true) during resume, but the hardware is not
+> fully functional yet.
 
-Sounds reasonable to me.
+Well since that is the root cause we should probably fix that.
+
+> When TLB invalidation attempts to use KIQ
+> for register access, the commands fail because the GPU hasn't
+> completed initialization.
+> 
+> Solution:
+> ---------
+> 1. Add resume_gpu_stable flag (initially false on resume)
+> 2. Force TLB invalidation to use direct MMIO path instead of KIQ
+>    when resume_gpu_stable is false
+
+That is a really bad idea. So absolutely clear NAK to this patch here.
+
+> 3. After ring tests pass in gfx_v9_0_cp_resume(), set
+>    resume_gpu_stable to true
+> 4. From that point forward, use faster KIQ path for TLB invalidation
+> 
+> This ensures TLB flushes work correctly during early resume while
+> still benefiting from KIQ-based invalidation after the GPU is stable.
+
+No it doesn't. This patch only works by coincident and not proper engineering.
+
+This only works because the TLB flush is most likely not necesssary.
+
+Question is why the KIQ is not up and running before we do anything with it?
 
 Regards,
 Christian.
 
 > 
+> Changes:
+> --------
+> - amdgpu.h: Add resume_gpu_stable flag to amdgpu_device
+> - amdgpu_device.c: Initialize resume_gpu_stable to false on resume
+> - amdgpu_gmc.c: Check resume_gpu_stable in flush_gpu_tlb_pasid
+> - gfx_v9_0.c: Set resume_gpu_stable after ring tests pass
+> - gmc_v9_0.c: Check resume_gpu_stable before using KIQ path
 > 
->> Regards,
->> Christian.
->>
->>> Signed-off-by: Donet Tom <donettom@linux.ibm.com>
->>> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->>> ---
->>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 2 +-
->>>  1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>> index 0be2728aa872..9d038feb25b0 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
->>> @@ -37,7 +37,7 @@
->>>  #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
->>>  #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
->>>  
->>> -#define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
->>> +#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(512 / AMDGPU_GPU_PAGES_IN_CPU_PAGE)
->>>  #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
->>>  
->>>  extern const struct attribute_group amdgpu_vram_mgr_attr_group;
+> Tested on AMD Cezanne (Renoir) with ROCm workloads after hibernation.
+> Result: Eliminates TLB flush failures on resume.
+> 
+> Signed-off-by: Ionut Nechita <ionut_n2001@yahoo.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  9 +++++++--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      | 10 ++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c      |  6 +++++-
+>  5 files changed, 29 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 9f9774f58ce1c..6bf4f6c90164c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1225,6 +1225,7 @@ struct amdgpu_device {
+>  	bool				in_s4;
+>  	bool				in_s0ix;
+>  	suspend_state_t			last_suspend_state;
+> +	bool				resume_gpu_stable;
+>  
+>  	enum pp_mp1_state               mp1_state;
+>  	struct amdgpu_doorbell_index doorbell_index;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 12201b8e99b3f..440d86ed1e0d3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5457,6 +5457,12 @@ int amdgpu_device_resume(struct drm_device *dev, bool notify_clients)
+>  		goto exit;
+>  	}
+>  
+> +	/*
+> +	 * Set resume_gpu_stable to false BEFORE KFD resume to ensure
+> +	 * extended timeouts are used for TLB flushes during hibernation recovery
+> +	 */
+> +	adev->resume_gpu_stable = false;
+> +
+>  	r = amdgpu_amdkfd_resume(adev, !amdgpu_sriov_vf(adev) && !adev->in_runpm);
+>  	if (r)
+>  		goto exit;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 869bceb0fe2c6..83fe30f0ada75 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -731,7 +731,12 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
+>  	if (!down_read_trylock(&adev->reset_domain->sem))
+>  		return 0;
+>  
+> -	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready) {
+> +	/*
+> +	 * After hibernation resume, KIQ may report as ready but not be fully
+> +	 * functional. Use direct MMIO path until GPU is confirmed stable.
+> +	 */
+> +	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready ||
+> +	    !adev->resume_gpu_stable) {
+>  		if (adev->gmc.flush_tlb_needs_extra_type_2)
+>  			adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
+>  								 2, all_hub,
+> @@ -835,9 +840,9 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
+>  		goto failed_kiq;
+>  
+>  	might_sleep();
+> +
+>  	while (r < 1 && cnt++ < MAX_KIQ_REG_TRY &&
+>  	       !amdgpu_reset_pending(adev->reset_domain)) {
+> -
+>  		msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+>  		r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+>  	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 0148d7ff34d99..fbd07b455b915 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -3985,6 +3985,16 @@ static int gfx_v9_0_cp_resume(struct amdgpu_device *adev)
+>  		amdgpu_ring_test_helper(ring);
+>  	}
+>  
+> +	/*
+> +	 * After successful ring tests, mark GPU as stable for resume.
+> +	 * This allows KIQ-based TLB invalidation to be used instead of
+> +	 * slower direct MMIO path.
+> +	 */
+> +	if (!adev->resume_gpu_stable) {
+> +		adev->resume_gpu_stable = true;
+> +		dev_info(adev->dev, "GPU rings verified, enabling KIQ path\n");
+> +	}
+> +
+>  	gfx_v9_0_enable_gui_idle_interrupt(adev, true);
+>  
+>  	return 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index 8ad7519f7b581..8a0202f6b3e3c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -855,9 +855,13 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>  
+>  	/* This is necessary for SRIOV as well as for GFXOFF to function
+>  	 * properly under bare metal
+> +	 *
+> +	 * After hibernation resume, KIQ may report as ready but not be fully
+> +	 * functional. Use direct MMIO path until GPU is confirmed stable.
+>  	 */
+>  	if (adev->gfx.kiq[inst].ring.sched.ready &&
+> -	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
+> +	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) &&
+> +	    adev->resume_gpu_stable) {
+>  		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
+>  		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
+>  
 
