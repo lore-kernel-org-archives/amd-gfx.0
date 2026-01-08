@@ -4,133 +4,164 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47342D1D482
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 17:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 868F8D1D486
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 17:15:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCD1510E7A1;
-	Thu,  8 Jan 2026 17:14:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16EE410E7A2;
+	Thu,  8 Jan 2026 17:15:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dyVamz/s";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DvjysEwU";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010033.outbound.protection.outlook.com [52.101.85.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9A4410E7A1
- for <amd-gfx@lists.freedesktop.org>; Thu,  8 Jan 2026 17:14:30 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010062.outbound.protection.outlook.com
+ [40.93.198.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF8910E7A2;
+ Thu,  8 Jan 2026 17:15:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BM7l+n5KsUR6+rdu5VWEGb96TW7Pt0kXxTK1z/BoJMzJX6m3didu/40aZgaxvriaSABJ3cSrF6Lolo1zLn1b1YD9pR+AV90JhKQFZ+jWBhRnoObjfwzN/a7g3WczNmKnDh3WR8XAMzIvYQOsIy1Sglf2gzMjwLyy2cHtaT8UdNDnKhkL/Mfz0U25fnoVQH2lWyemdBFUGXU66MYbdqf8wNel9iWf84PZEGXNT4GGVbHcj04b3QrWCLy9HW5C8dNzSMNAlgcq12hDKpOEXAOxochkwrqc0Dhk3r9f/0tlHPfYJEwGIjpb0FKYJ60YZLIxIBxo+JxFhx2IMg5C7ALGJg==
+ b=liBaCDjLGLXvTGM49cZPJc/eW6VYu3d88zzOw0WjmGt2+EKkEt58wP+ZktqCGBQlmXDTarhkXqG9oPX6BaJUDT0ww1yPohI4GNYkxGeF1qeUKxbnntHYRkRx8BeUtuaTWZbb+wlImnpYhtKic+YsNFxaZXOfQpWJxMrn3AY3GnOF8NZhL0opOMX+wgp5HOdPnipH4aUn0Gz5uumHp28Qla8Cp0Kfdk0Oc3U0QNWR8D//bEkSvDWsJwNbg53OYdyuGqll0yP6TQ14zWIFptDd3airn2jBPFo9oVvV5b6lb1G7cI92AJsA2SLGzYX7IUAJzPCP0ckN5Q4ddFwxDghSDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+R765nPejDXl4MhpICLcqhPUcZWNqjvcGXw1or8Qa1o=;
- b=sQBO0JBsvza5HBZOhC1s7YeqRg0oeY0SmxOHKsJnw12rHLrCgdme0Jm4itkMm+AF3rYi7gb07K7DbKM7I6FBRKPQ46eLi8I/+tTjAQYPk59x/sS2ALVYBIGtpyu5SVuUi4NkAvC2D9jpTbTVWJxCstIEoOj7X+P/aWG87nEurmdh5BmLnOpYQ+Txzvwf/k6fJK0iaT5EuO6WSWss7DhcmNu11/veWAgCWAw0Uyt8ACV5koSXj13rSZR9LbxKXX+ZnUd8i7ILZf1kwolmEbpejXvTZE0h43L8a+Y9XpwHbHtwkSxCkuVwdURWmvZ08zlMTqBlhXda4HofOiGX0I+X/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=BJ50JGs3nVXXAE8HNsm/IzTlWbFx+nUJNFWsKeIMN/8=;
+ b=nkVwPZEFWMKUNdSJV91XPi6RbDEnlak7vdRSVwBrxKxjn7qUHYo/7GghFb7dEhUuMljeIhpN8Qt5o7JXRTD2bDIsL/T3zY6nY885GrWkSYGJyabn8bXguvBivBlGOf6XSfCGY4dGUjd3K2KVAYgZ8BVGT92yYJtP5asXPE09yuU1YQbWcDgQ93cC/+PIIYSdIeAgy9+YMYFp/3dFmWRpLluPL+UXwVZNyeye9sczxgPdD310msPls7KpH37pMiclhCJtFJHhiT10IZAT98Dym1pCZZi6SAvGNHBWOyI6Y7Y22Hmmt1OJ7hB4Iokh8Z7cssNtaNyQ6pcE0YWi9SxgrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+R765nPejDXl4MhpICLcqhPUcZWNqjvcGXw1or8Qa1o=;
- b=dyVamz/sybvrUXW9v4DZmSgdeESUZinQJY74PxsQ4C0zfheNibcBy94iYFf8N5h8jZyhspzEASqry9HUX+T7STQgaL17XNyfZ/ppc9CibIQbqVrKWaBjMMukMP66uBPV8iaP+CjtfZ31K4lYwr7ZTuj/Y4oqcAXwuWMwR5COVwo=
-Received: from CH0PR04CA0082.namprd04.prod.outlook.com (2603:10b6:610:74::27)
- by DS2PR12MB9638.namprd12.prod.outlook.com (2603:10b6:8:27b::13) with
+ bh=BJ50JGs3nVXXAE8HNsm/IzTlWbFx+nUJNFWsKeIMN/8=;
+ b=DvjysEwU8Nw1HQM7WkZUNpAYP/LhI7xA6Z8S1bbVAF9ccZelv+kKWZluqVy4RjFGm5zzPyEBwYMDk2rKIvHRXherf3FdJN0C3kUX/5XaBr/jKJO6sMftyT8sj9u1GNav+lYrlJxwoPJhu2FWYngqC6X/MSrZFjpkzWvY6EwU2To=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by DS7PR12MB8083.namprd12.prod.outlook.com (2603:10b6:8:e4::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Thu, 8 Jan
- 2026 17:14:17 +0000
-Received: from DS2PEPF00003447.namprd04.prod.outlook.com
- (2603:10b6:610:74:cafe::79) by CH0PR04CA0082.outlook.office365.com
- (2603:10b6:610:74::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.4 via Frontend Transport; Thu, 8
- Jan 2026 17:14:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF00003447.mail.protection.outlook.com (10.167.17.74) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Thu, 8 Jan 2026 17:14:13 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 8 Jan 2026 11:14:10 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <ckoenig.leichtzumerken@gmail.com>, Leo Liu <leo.liu@amd.com>, Ruijing Dong
- <ruijing.dong@amd.com>, David Wu <David.Wu3@amd.com>
-Subject: [v3,1/2] drm/amdgpu: Drop MMIO_REMAP domain bit and keep it Internal
-Date: Thu, 8 Jan 2026 22:43:53 +0530
-Message-ID: <20251223141427.36850-2-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-X-Patchwork-Id: 696201
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.3; Thu, 8 Jan
+ 2026 17:15:07 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9499.002; Thu, 8 Jan 2026
+ 17:15:07 +0000
+Message-ID: <462edc00-1919-4925-b62b-1f9e55a6cbf3@amd.com>
+Date: Thu, 8 Jan 2026 10:15:04 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/13] drm: Allow driver-managed destruction of colorop
+ objects
+To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, jani.nikula@linux.intel.com,
+ louis.chauvet@bootlin.com, mwen@igalia.com, contact@emersion.fr,
+ daniels@collabora.com, uma.shankar@intel.com, suraj.kandpal@intel.com,
+ nfraprado@collabora.com, ville.syrjala@linux.intel.com,
+ matthew.d.roper@intel.com
+References: <20251219065614.190834-1-chaitanya.kumar.borah@intel.com>
+ <20251219065614.190834-6-chaitanya.kumar.borah@intel.com>
+ <4b71d7cd-72d4-4666-8f9e-81a30ce1817f@amd.com>
+ <96fd9dee-20f1-4e1d-84b1-6243251a1e40@intel.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <96fd9dee-20f1-4e1d-84b1-6243251a1e40@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: MW4PR03CA0248.namprd03.prod.outlook.com
+ (2603:10b6:303:b4::13) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003447:EE_|DS2PR12MB9638:EE_
-X-MS-Office365-Filtering-Correlation-Id: f07579ab-bf2a-453d-2681-08de4ed958c5
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS7PR12MB8083:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72d677a6-67d8-44a0-68ae-08de4ed97834
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?aWVlSXhzWmhxZFJUSHhGVGxWVHArSnJ6TUlPREJBTHhDWm9VRXBUT2t1bW9C?=
- =?utf-8?B?RTdIUW5XUWhaSTdIdVEvWGQyd2ZJZW9RNGs1ZVlGdDdqV0hUZnJmcWNLODhy?=
- =?utf-8?B?RHRWS25xNlN4bDlYM0FncU0zckFqOFB4Y202SDNVVityMHJvRndDTHFPc2Vm?=
- =?utf-8?B?TGhJam9JY2RPYTJ0eFhuRStLam1OWEtOekNOSFdMS0Z3RXhKT3ZJOGNYMzIy?=
- =?utf-8?B?TDdPQSs4TmJBOEFQNlFMTzVUWVdNVW1Tcm5xa2tYeFFtKzYrUWMxRHBuN1Ex?=
- =?utf-8?B?Zlk1ZEltYUtCc1hoUEdxMk5iQUUwVWorYTd0UGF3eXAvS1gzcmVyRUlkNVZ4?=
- =?utf-8?B?MG1FZzFyM3FEMkoxa21Uc3FnMEtUM0NnVHpGanFEWllZTjlzUkREb1NMZ3ow?=
- =?utf-8?B?MWlaRGtSR1VjQ3RLTE13TisxbEhzNVFWWk9HK1ZFdnVlK05LbmxFNzFkRlVi?=
- =?utf-8?B?bUozUU1EZ2o1OHZnSnR2SnErc1g5TjR5dnhwNFRPU1NjQ2ptcFZkMlA1ckN0?=
- =?utf-8?B?WkFkVzFpaDV1anU4dlJEVFhmTklVMTVKajhMYW9YV01pRU5ISjBlUG8xUmNo?=
- =?utf-8?B?ZmpnbzhWZ2VoajF5SStlUTZYa2Vyd3pvWEgwd2huZU1wT0hJVVZIQVdMMjJu?=
- =?utf-8?B?QXlYcU0wMGNaQ2R4Qlp1cU1pbHlIcWtGaWduUjd2VFRUcndwVWVabHA1ZFM5?=
- =?utf-8?B?VWxTampZc2VKMFJEN1dtOVkwU3VsR0FqR09tTVc0c0tOYzJQRFM1R0R6Qk1O?=
- =?utf-8?B?TFpVY0l2RDZ0eld1ZVZDR0E5U2ZZS2xBSFliQ0NPUnM3SEo0SC8xZkErOWxE?=
- =?utf-8?B?N21mMStSMjBuRnVDaVZEd2RGeFF6STFjV1V2NnZrYlorMDBlaDB1bHVOcS9W?=
- =?utf-8?B?VWhxN2liaGhTREJnMDBteWNMdWVtVDR0dmRUR1FQM1NXbklzMmx6THdXRW5y?=
- =?utf-8?B?L0FudW1FNGoya05lamg5alJJRkVRS0lMOFZGNEhSc1BJN3d1emUrRVRVODB1?=
- =?utf-8?B?MG5NTTBmWlFOYkZpNHBjYVZXNDFuZFlydDM5Vk50OWY1YWZxT21laGducUpT?=
- =?utf-8?B?K2loVVU1YnJHSTI5aWpvWnk1b1RyWWJFSUd3R3B6dXFMdHQwYyt0Vk43NEIy?=
- =?utf-8?B?aEVGUGVSdXlISWkwZ0xTaS9JU2tCU1dCSlpKY1JWWTE2eFQ1a1kvSzFIYkpw?=
- =?utf-8?B?cHlLM3B1UXVoVmJraldVUmw5VThIZ3hBQTJtYWlCWHM5UWx6R25WM2tmRTMv?=
- =?utf-8?B?VUs1bjBqRmd4THdKQ3I1OS9yYXRrWFFJa2d3U0VnVlIyQ2ExWmtGN3NUYmda?=
- =?utf-8?B?T0h5NFU1V3lucVFwY21XbXRlSjRXS1h1Qm5GZFJCckl0OEU1bVpzVmRWVDNw?=
- =?utf-8?B?TGlLRkxacXVDM2pUSGhWY3RwdmdJdDVwM2h3eTZUeXpLeG1RUHhFR0NUTWha?=
- =?utf-8?B?NVhwOExUNFIxczdqOXEwdVgraDNacmpZNFhKUzl4ajJoNFZPelU4N2RWaWhn?=
- =?utf-8?B?Um1RNEd3Y09UZ2lPL2Fkb1VoTE41RDlWbWtxQkhtMVArOHprMVl0UCtWV0d0?=
- =?utf-8?B?enQ2N1ZnUEsxZXJ6Z1NRekNDNXZ4Z0dWNjJxOUM0UDhOWGFUVFE3cHRuaGZi?=
- =?utf-8?B?MWQyYnhKdzcwS1cyMmV4RmRxZ3p4amxFV2F2anpYS3pzczFWUWxyUjRjd0cy?=
- =?utf-8?B?bWNKMVNMcHRLT0pJb2p3SEZaUlMxTXdNSXFjYVNMeWJ2bnhiNm1mYm5uS2hh?=
- =?utf-8?B?dFYxUkt3R2huTDZabThnTmoyMldxU2Ftc2x2QkJyeDBDTXQwVUFDRE5YK01J?=
- =?utf-8?B?bmsyS2tMY1JjcFNnUFJqWkM2TDhHcUk5SEZvNFFPakh0YTl4ZlMrT28xZUVo?=
- =?utf-8?B?SzlZejJHcFhlSnBhcFl4dUN6aXNGM2lRNDd1Tmg3Rm8rRE1SVjdqclhzd2d3?=
- =?utf-8?B?S0xxZGR0ZzZHVUNrK3Yra2gxZ2NkRVJGL2o0RGRrQnh0M29lMmdrdmRKdEFm?=
- =?utf-8?B?WUpsaXFKUGJpUDBHNnJod3RNQWs1UHZENnRPUis1U1JvTUJYNDZUK2s0U2dB?=
- =?utf-8?B?REl1ZzhsaThuVE4zakZ5eVFISlJVcHdPd2R4NU1lZ1RsbEZ3c3JqZWJDenQw?=
- =?utf-8?Q?/nPk=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ ARA:13230040|7416014|376014|1800799024|366016|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YzdOekMvaFRYdmRJaGh4THJTSjM5N01NVWk4ejJySjc5S2Y1QXJsanBlOERB?=
+ =?utf-8?B?a2h4bi9tMXJjcitrUWZ4K1pxcTRJSFUrL2dBU2FISFRaZHgvOHZ2RWZVRDZG?=
+ =?utf-8?B?ZlR1ejVyQkxTaDcwUmhHYnJKcEN6aFFTSFZEaDIrejBrN2MrR2lsQU9EeHVa?=
+ =?utf-8?B?ejMwcDQxTnQ0bkM4VHF1R3BveXNYbEJ3ZWp3RU1nek9RVlV3Vkt2UmV3QXNZ?=
+ =?utf-8?B?NC9ZTnJqdDNtbTJpd2dZMkxWc1EyRDhRMzQ1bXFvaHNlWXpWV1RFRC9uU0Q1?=
+ =?utf-8?B?cERwd25qNnRqNWpzdi9JL0ppR2V0ZVVObnVJZkh3NGVsVUNKNzhQbnEvMHhw?=
+ =?utf-8?B?QlpTTU5qWjR4aWpHV3MxbTNqVkVjN1ozZnJoQlZpTnA4T2tKQll2aklhbSty?=
+ =?utf-8?B?MGZ2UENtZktGczhmSmtpNzc2NXE3RTBTZ3BNMFRmNnVYclQrUDNFQmVFM2Vx?=
+ =?utf-8?B?dm5USEp3M0pOOTgyekVrQjYwNXR6Mno4alp3ZTFvUHNYWExpL1pabUthbStP?=
+ =?utf-8?B?SWlrdUxSVGgzOURhZ1JNd0RHS1JOUkdOMW1EVXlSVzdvdjRTQUVsZTBRbzBs?=
+ =?utf-8?B?TnBVUUdsZUJUWHk4Y1FzVVVTS1l4bXBVY3RRMS93SmV4cFZPaTJtOUJBRG9H?=
+ =?utf-8?B?Y2NtVWI3Z2tTVWxIcW9aOStjOW9rWmxmQ2lZUk1MVXN2V1RWUXpQdGdzK2Q4?=
+ =?utf-8?B?NXZIMDBPV2RLYkx0TGJHb3UrRTJTcDl2a3Z0ak91S3NKdGMxTklWTVpreFNC?=
+ =?utf-8?B?VHA3WURYNHJnV1dLaytvV2JEOUV6YkFWcnZ2NlJDUzFxb1FjQUtGdkVNQmll?=
+ =?utf-8?B?cTZ4M2lGcjRhTHlXTWViaHc0d3JOTFMwYS9keWk0bTk2YVRURzZHN0dyNHN2?=
+ =?utf-8?B?d2tNS1RYVUpiMzFVSWN4VXQrRDk0dUZ4LzViTStKWUtrc0V1UGt0ZVdLb3lz?=
+ =?utf-8?B?R3FucVhYZEtINmNhMWtKSnhITDNWZmlVM2cwUTJvWmVFRjRmcXo0RHZOOWcw?=
+ =?utf-8?B?WUgrRkF4RElscUpidVoyNkRjSnpCWmJST0NjbUZQcXp3V3IyNU9heGJXUWp4?=
+ =?utf-8?B?Z1ZFblM1YkV0QXI4MU5ZVkFieXQ2Q2lrVHdlQkZJWUlQVFo4Rjk3NlN4WFBt?=
+ =?utf-8?B?Zlo2YVpXNTRvdDZRRVdtdEI4b1pVdE5sN3NObHpjVkNMME4xT3lNclVyK2dr?=
+ =?utf-8?B?cUUvUm5lQ2dZWUtNQzJWdzZlVC9TVThqOVdEM1p0dS9qMDN3R3QzSlM4MTlV?=
+ =?utf-8?B?M2JOeDloSkRyTDZKbGxjb0NvKzVjRGp3TTZlNlkzN1g1U21XWlRQS2tvd0Jl?=
+ =?utf-8?B?OEowR1Z2SStIUU9PQVJyVzlaZGFjTWE4cUFzQnhjcFdGU1RvdU1iQUwwN2E4?=
+ =?utf-8?B?MTI0YUdMcTNlbGE0TUlhdDdJdjY0ajlSRFJBdW9RTmlCOGFldEo3Z1lqUnBv?=
+ =?utf-8?B?Q1plaFloMys5VFJhUHBqODZ2QzBLNlBOREpjVVBScXRYY0R6UHZHZmhWSnJn?=
+ =?utf-8?B?Qmh1cHFlWS8yMVord2l6cGJjMVQzR0tNbTd1S2JjVHhOVUduVU1wM1J6RHY1?=
+ =?utf-8?B?dHA3R0d2K2IxR3AxU3hKd2l4MHFQSTVkc2xnbUQ1S2h2V1dWVXpFVUdkdUVm?=
+ =?utf-8?B?N0dnSkcwS3BZMkU1NGFIV0xOcWhiZVJsMUhOTHVsOXRBdnZWUDVSVjRJT1RB?=
+ =?utf-8?B?NUp6QkpkRWQ2bEg3WGZ5aW9RNDRPeVNhRjlCU3E5N084cHFJSkt5U2liRmdy?=
+ =?utf-8?B?M0NIeFlSbWN2Y1ROL1N2WG42Wkh5dUhMSlBwQnhvQkx6S1VDVDB1Wm8xYmJD?=
+ =?utf-8?B?eWpucVlqcG9jY0VvUWZQT3RGSXkzQ05xcmRCdkZYdTBWY3lZT1Z3UFg0Y0Mx?=
+ =?utf-8?B?YkxNWnlKUUhrR0hpREZ3aDdhNG9UOUlNZUwzV0p5TEQrZFR5MWg1MjR3VFNX?=
+ =?utf-8?Q?fEi8kYeIQ8JhE4Px+L8Jsh/6tj7m+szh?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(7053199007); DIR:OUT;
  SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SE1YcnduRVEza1RNY2ZDQkxLVUpnQWdLdW11RzMvdWhTVmlRV2ZuWjRGNXJF?=
+ =?utf-8?B?UHhtanlCVUlJdkNDTmMxRDl2STZWRDRyV2RzVllGejBIOHMxc083T2I3WERl?=
+ =?utf-8?B?dzdhY3poVVVLdGxSVjFBWXRFTFNNa0VTNTAxWEM1TkpNVnc4Q1h0SmdENE53?=
+ =?utf-8?B?Zy9iajlFc2kycXdHbGlhSjB1VHJFWjFGNi9JYlU1UjZ0ckxvS05yaUV2Rll6?=
+ =?utf-8?B?dW5lSWFTODdzUHptcFU5SkN4akZ0MXhTeGhjTS9oTUhzKzNiK1BQalFZbXht?=
+ =?utf-8?B?Q1J4T2ZYTndzWU54UjkzSzdQTTB0MmorYk1DeDJZUFFYeHdNMHFXZ2dpT3ll?=
+ =?utf-8?B?eE5qUVE5ZlAweW5aZU9yMzhyb3RtYmczUUY5c3Z2VDBWTU80Y1Vudk1YMFNz?=
+ =?utf-8?B?WVVMQk5KQVdZNzFCTEVhSE1WZlA3ODhKUjVkYktYV1YyQndFWFFIVm03aElM?=
+ =?utf-8?B?clZueDdxQ2Q3dThTSVl5ajc5ZlNuWlMraWx0VEhqS0RkZjIrNDlQejlKRE1i?=
+ =?utf-8?B?SkdQalhFV2lnSStmSkhmYkg0NmtuVTB6czU5ZDB5YXJtSExhSnFZTU9QQ2RD?=
+ =?utf-8?B?VGZSeGpYRFROTFdjWktMZGRHOFlQQ1VNZ0xuZ2dseW1SM3ZBUS9LVzVvdERQ?=
+ =?utf-8?B?Yk5SRDVYTWh4Z2RZMSt1akhOTExpVG13Z25KY2JuVmpINld0YkYvQ3BJZ1l3?=
+ =?utf-8?B?QlZmZXpDVUlFTnB0VkpyM05hQ3dqTUJUYk4ycUlTcVN0ZzBia0R4WjdXdVgw?=
+ =?utf-8?B?Z3FGdmtiZlMvVHlvMFhJeTRmNEQ3STVnUkRVQTBGZ200eG5wRDhHNC84MUU3?=
+ =?utf-8?B?OUk1Y25IYktrRmllYUx6Q05hY1VWeVdHUGg3R0ZkT2NOWmROSitGbkQ3WTM0?=
+ =?utf-8?B?N1Rka2c3ODljN3AyeStPOHVMQjdXbzkvY052R2pPQ2d3cm1WQ1l1a1F0TUtJ?=
+ =?utf-8?B?cThxaSt1S3VneldwUHR5a2pvL0wydnplMGhiWHM4RXJrSGpDYjFDcVVvbjhV?=
+ =?utf-8?B?MldZRFd3Vy8vRzJyWXBIaE9sbWoweGkxM2JnVjQ0MkxjY2swQzZ0YVN2YTJV?=
+ =?utf-8?B?REFjWVRVcXFVVEdCL09pZ1lsS0dpOXo0SGhYa1pXQzVENW1lemtlTTAweDd5?=
+ =?utf-8?B?TEpuaGlRbjRwNS8vcWk4amo0Y04xbHRGSTA2UjJDOER0bDlsV2VJUGlUK2xy?=
+ =?utf-8?B?YnJLa2N4c0Mvb2pKSXUxNjhreXBLb2JIQU9CL3M0eVVaa0k2N2gvN2JPS0pk?=
+ =?utf-8?B?c2NQVlR4WWd1dThWRjZHLzdiTVlyZHZLWlFoQllpL29zY2lpaUZzQnNUdFZS?=
+ =?utf-8?B?cHp4cTVuTzNwRjJCKzVqZURDNlAzdHlMZ0NDYmRwZHpRYTlIa3hxZzZZTnpt?=
+ =?utf-8?B?emxFMm8rN3o2dFAzQ0ZaSTVXR3RzUXdZbGxvd2V0ZHhFTS9YSCtqdFlTK2Nu?=
+ =?utf-8?B?RW9yMjNoVUlaT1FIb092VU0xRkNYcFo3YWloUXlXL1RpT2VYNHRyWHNHZkts?=
+ =?utf-8?B?bC9IU3dmUFM1NHlEdkRSK2hPWWxWS1EvZ2dVZjVwSSt4elMxY3VBVnZCcjgr?=
+ =?utf-8?B?ckF3V0FCMGJ0YVNGd0w4QmhDeGNsVGdldGlpTDJ2K3ZOSmpHdTRzY0VxdnIy?=
+ =?utf-8?B?eUIreGJTcXZXeG8zTGRRYnVLSnpRNnVLaFBJeHdzYXNSMGlCMWFiVFFGTjRN?=
+ =?utf-8?B?NkZtSW44STF5bHNvbk5WSnJCa1hjd21lLy84ZU5tUU5aK2NCcGpvMVVCZHRF?=
+ =?utf-8?B?ZFBBR2NPSGhQbXYzY1c3TEhrZU40eHdTbHlyQ0M5b25KZkpwaWlmOXNtV0lr?=
+ =?utf-8?B?ZHBMcUs1OXlnbVprMkxzbTIycmphT2VpYkhjK0QrWXdhcC9EYjM4VEg5ei9u?=
+ =?utf-8?B?cTROb2ZHaVhFWjhnTGcvdnV5TmFmTGVKNHdOa2RyL1hXVlp0c1B5UUExYlBj?=
+ =?utf-8?B?NTVWSVRTWjNUUHZLTGhBc2dySjE4QzBzSnhpNjJUbWx1cUdsQVJiSGsyYU1L?=
+ =?utf-8?B?NnNxUEpmQ1BWZEczbzlWcWkrNkNWMFNsQ3FEdXh4QzZVajVhWllVa25CVmRJ?=
+ =?utf-8?B?RjF5ei96eXI3WXRmN29GQyt4SmNhY0dtWHQ5cHBpT2RhUldqcVNIWEYreEYw?=
+ =?utf-8?B?K25RRVBPdjBUYklRL2tmNFlQSFVPZkRIWkd6aE0xN3BSZGdrU240TEtBZ0lD?=
+ =?utf-8?B?bVpYSDJuTEtUc1M4d25saWQ0QnhZVWVlYWQ4alpQS3ZZdlJsMEYyRGF6bXJm?=
+ =?utf-8?B?T3cxVGY5NW4vUUhhTHlrTFo1WnFNeVJIbUd6cEdLQk8xTkFwQnh5aFNrMEwx?=
+ =?utf-8?B?K1lucGwySGQ5bjlZUHhLVW1JSWtQTjF0aDdsamZpcUYzajRRQkdwQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2026 17:14:13.6579 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f07579ab-bf2a-453d-2681-08de4ed958c5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72d677a6-67d8-44a0-68ae-08de4ed97834
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jan 2026 17:15:07.0684 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003447.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9638
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Bo/4BdjSAr6XC9DtRbO6KRX18SJud9q1FE6L3zSLKOM1QTbcOxpXzbJ5PAve+Dpd3C5mYme3YOs9m3lgzSXJlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8083
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,311 +175,460 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-Message-ID: <20260108171353.0waSwI-_aQ6lnhGm-rh1jRdTGGXBqte948T7d-y58Vg@z>
 
-From: Christian König <ckoenig.leichtzumerken@gmail.com>
 
-"AMDGPU_GEM_DOMAIN_MMIO_REMAP" - Never activated as UAPI and it turned
-out that this was to inflexible.
 
-Allocate the MMIO_REMAP buffer object as a regular GEM BO and explicitly
-move it into the fixed AMDGPU_PL_MMIO_REMAP placement at the TTM level.
+On 1/8/26 07:11, Borah, Chaitanya Kumar wrote:
+> 
+> On 1/7/2026 5:32 AM, Alex Hung wrote:
+>> It is a nitpick, but is it better to have patch 6 first, and then 
+>> separate changes to drm to a single patch, and move the changes in 
+>> amdgpu, vkms and i915 in the following corresponding patches (7, 8 and 
+>> 9)?
+>>
+>> We can avoid passing NULL to struct drm_colorop_funcs *funcs.
+> 
+> Thank you very much, Alex, for the review.
+> 
+> I structured the patches this way to keep each patch buildable and to 
+> keep the existing behavior intact until all changes are in place.
+> 
+> Once the prototypes of the init functions are changed, all call sites 
+> need to be updated. I couldn’t find a way to keep the DRM changes 
+> isolated while also preserving per-patch buildability. If I am missing 
+> something here, please let me know. I can respin accordingly.
+> 
+> In any case, I can move patch 6 ahead of this one.
 
-This avoids relying on GEM domain bits for MMIO_REMAP, keeps the
-placement purely internal, and makes the lifetime and pinning of the
-global MMIO_REMAP BO explicit. The BO is pinned in TTM so it cannot be
-migrated or evicted.
+Sounds good to me.
 
-The corresponding free path relies on normal DRM teardown ordering,
-where no further user ioctls can access the global BO once TTM teardown
-begins.
 
-v2 (Srini):
-- Updated patch title.
-- Drop use of AMDGPU_GEM_DOMAIN_MMIO_REMAP in amdgpu_ttm.c. The
-  MMIO_REMAP domain bit is removed from UAPI, so keep the MMIO_REMAP BO
-  allocation domain-less (bp.domain = 0) and rely on the TTM placement
-  (AMDGPU_PL_MMIO_REMAP) for backing/pinning.
-- Keep fdinfo/mem-stats visibility for MMIO_REMAP by classifying BOs
-  based on bo->tbo.resource->mem_type == AMDGPU_PL_MMIO_REMAP, since the
-  domain bit is removed.
+> 
+> ==
+> Chaitanya
+> 
+>>
+>> Otherwise it looks good to me.
+>>
+>> Reviewed-by: Alex Hung <alex.hung@amd.com>
+>>
+>> On 12/18/25 23:56, Chaitanya Kumar Borah wrote:
+>>> Some drivers might want to embed struct drm_colorop inside
+>>> driver-specific objects, similar to planes or CRTCs. In such
+>>> cases, freeing only the drm_colorop is incorrect.
+>>>
+>>> Add a drm_colorop_funcs callback to allow drivers to provide a destroy
+>>> hook that cleans up the full enclosing object. Make changes in helper
+>>> functions to accept helper functions as argument. Pass NULL for now
+>>> to retain current behavior.
+>>>
+>>> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>>> ---
+>>>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c | 18 ++++++-----
+>>>   drivers/gpu/drm/drm_colorop.c                 | 31 +++++++++++++------
+>>>   .../drm/i915/display/intel_color_pipeline.c   |  8 ++---
+>>>   drivers/gpu/drm/vkms/vkms_colorop.c           | 10 +++---
+>>>   include/drm/drm_colorop.h                     | 30 +++++++++++++++---
+>>>   5 files changed, 66 insertions(+), 31 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/ 
+>>> amdgpu_dm_colorop.c b/drivers/gpu/drm/amd/display/amdgpu_dm/ 
+>>> amdgpu_dm_colorop.c
+>>> index a2de3bba8346..dfdb4fb4219f 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c
+>>> @@ -72,7 +72,7 @@ int amdgpu_dm_initialize_default_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>           goto cleanup;
+>>>       }
+>>> -    ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane,
+>>> +    ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane, NULL,
+>>>                             amdgpu_dm_supported_degam_tfs,
+>>>                             DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>       if (ret)
+>>> @@ -89,7 +89,7 @@ int amdgpu_dm_initialize_default_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>           goto cleanup;
+>>>       }
+>>> -    ret = drm_plane_colorop_mult_init(dev, ops[i], plane, 
+>>> DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>> +    ret = drm_plane_colorop_mult_init(dev, ops[i], plane, NULL, 
+>>> DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>       if (ret)
+>>>           goto cleanup;
+>>> @@ -104,7 +104,8 @@ int amdgpu_dm_initialize_default_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>           goto cleanup;
+>>>       }
+>>> -    ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, 
+>>> DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>> +    ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, NULL,
+>>> +                         DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>       if (ret)
+>>>           goto cleanup;
+>>> @@ -120,7 +121,7 @@ int amdgpu_dm_initialize_default_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>               goto cleanup;
+>>>           }
+>>> -        ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane,
+>>> +        ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane, NULL,
+>>>                           amdgpu_dm_supported_shaper_tfs,
+>>>                           DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>           if (ret)
+>>> @@ -137,7 +138,8 @@ int amdgpu_dm_initialize_default_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>               goto cleanup;
+>>>           }
+>>> -        ret = drm_plane_colorop_curve_1d_lut_init(dev, ops[i], 
+>>> plane, MAX_COLOR_LUT_ENTRIES,
+>>> +        ret = drm_plane_colorop_curve_1d_lut_init(dev, ops[i], 
+>>> plane, NULL,
+>>> +                            MAX_COLOR_LUT_ENTRIES,
+>>>                               DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
+>>>                               DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>           if (ret)
+>>> @@ -154,7 +156,7 @@ int amdgpu_dm_initialize_default_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>               goto cleanup;
+>>>           }
+>>> -        ret = drm_plane_colorop_3dlut_init(dev, ops[i], plane, 
+>>> LUT3D_SIZE,
+>>> +        ret = drm_plane_colorop_3dlut_init(dev, ops[i], plane, NULL, 
+>>> LUT3D_SIZE,
+>>>                       DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
+>>>                       DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>           if (ret)
+>>> @@ -172,7 +174,7 @@ int amdgpu_dm_initialize_default_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>           goto cleanup;
+>>>       }
+>>> -    ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane,
+>>> +    ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane, NULL,
+>>>                             amdgpu_dm_supported_blnd_tfs,
+>>>                             DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>       if (ret)
+>>> @@ -189,7 +191,7 @@ int amdgpu_dm_initialize_default_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>           goto cleanup;
+>>>       }
+>>> -    ret = drm_plane_colorop_curve_1d_lut_init(dev, ops[i], plane, 
+>>> MAX_COLOR_LUT_ENTRIES,
+>>> +    ret = drm_plane_colorop_curve_1d_lut_init(dev, ops[i], plane, 
+>>> NULL, MAX_COLOR_LUT_ENTRIES,
+>>>                             DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
+>>>                             DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>       if (ret)
+>>> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/ 
+>>> drm_colorop.c
+>>> index 44eb823585d2..efe61bdd9b24 100644
+>>> --- a/drivers/gpu/drm/drm_colorop.c
+>>> +++ b/drivers/gpu/drm/drm_colorop.c
+>>> @@ -93,7 +93,8 @@ static const struct drm_prop_enum_list 
+>>> drm_colorop_lut3d_interpolation_list[] =
+>>>   /* Init Helpers */
+>>>   static int drm_plane_colorop_init(struct drm_device *dev, struct 
+>>> drm_colorop *colorop,
+>>> -                  struct drm_plane *plane, enum drm_colorop_type type,
+>>> +                  struct drm_plane *plane, const struct 
+>>> drm_colorop_funcs *funcs,
+>>> +                  enum drm_colorop_type type,
+>>>                     uint32_t flags)
+>>>   {
+>>>       struct drm_mode_config *config = &dev->mode_config;
+>>> @@ -109,6 +110,7 @@ static int drm_plane_colorop_init(struct 
+>>> drm_device *dev, struct drm_colorop *co
+>>>       colorop->type = type;
+>>>       colorop->plane = plane;
+>>>       colorop->next = NULL;
+>>> +    colorop->funcs = funcs;
+>>>       list_add_tail(&colorop->head, &config->colorop_list);
+>>>       colorop->index = config->num_colorop++;
+>>> @@ -203,6 +205,7 @@ EXPORT_SYMBOL(drm_colorop_pipeline_destroy);
+>>>    * @dev: DRM device
+>>>    * @colorop: The drm_colorop object to initialize
+>>>    * @plane: The associated drm_plane
+>>> + * @funcs: control functions for the new colorop
+>>>    * @supported_tfs: A bitfield of supported 
+>>> drm_plane_colorop_curve_1d_init enum values,
+>>>    *                 created using BIT(curve_type) and combined with 
+>>> the OR '|'
+>>>    *                 operator.
+>>> @@ -210,7 +213,8 @@ EXPORT_SYMBOL(drm_colorop_pipeline_destroy);
+>>>    * @return zero on success, -E value on failure
+>>>    */
+>>>   int drm_plane_colorop_curve_1d_init(struct drm_device *dev, struct 
+>>> drm_colorop *colorop,
+>>> -                    struct drm_plane *plane, u64 supported_tfs, 
+>>> uint32_t flags)
+>>> +                    struct drm_plane *plane, const struct 
+>>> drm_colorop_funcs *funcs,
+>>> +                    u64 supported_tfs, uint32_t flags)
+>>>   {
+>>>       struct drm_prop_enum_list enum_list[DRM_COLOROP_1D_CURVE_COUNT];
+>>>       int i, len;
+>>> @@ -231,7 +235,7 @@ int drm_plane_colorop_curve_1d_init(struct 
+>>> drm_device *dev, struct drm_colorop *
+>>>           return -EINVAL;
+>>>       }
+>>> -    ret = drm_plane_colorop_init(dev, colorop, plane, 
+>>> DRM_COLOROP_1D_CURVE, flags);
+>>> +    ret = drm_plane_colorop_init(dev, colorop, plane, funcs, 
+>>> DRM_COLOROP_1D_CURVE, flags);
+>>>       if (ret)
+>>>           return ret;
+>>> @@ -288,20 +292,23 @@ static int drm_colorop_create_data_prop(struct 
+>>> drm_device *dev, struct drm_color
+>>>    * @dev: DRM device
+>>>    * @colorop: The drm_colorop object to initialize
+>>>    * @plane: The associated drm_plane
+>>> + * @funcs: control functions for new colorop
+>>>    * @lut_size: LUT size supported by driver
+>>>    * @interpolation: 1D LUT interpolation type
+>>>    * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
+>>>    * @return zero on success, -E value on failure
+>>>    */
+>>>   int drm_plane_colorop_curve_1d_lut_init(struct drm_device *dev, 
+>>> struct drm_colorop *colorop,
+>>> -                    struct drm_plane *plane, uint32_t lut_size,
+>>> +                    struct drm_plane *plane,
+>>> +                    const struct drm_colorop_funcs *funcs,
+>>> +                    uint32_t lut_size,
+>>>                       enum drm_colorop_lut1d_interpolation_type 
+>>> interpolation,
+>>>                       uint32_t flags)
+>>>   {
+>>>       struct drm_property *prop;
+>>>       int ret;
+>>> -    ret = drm_plane_colorop_init(dev, colorop, plane, 
+>>> DRM_COLOROP_1D_LUT, flags);
+>>> +    ret = drm_plane_colorop_init(dev, colorop, plane, funcs, 
+>>> DRM_COLOROP_1D_LUT, flags);
+>>>       if (ret)
+>>>           return ret;
+>>> @@ -339,11 +346,12 @@ int drm_plane_colorop_curve_1d_lut_init(struct 
+>>> drm_device *dev, struct drm_color
+>>>   EXPORT_SYMBOL(drm_plane_colorop_curve_1d_lut_init);
+>>>   int drm_plane_colorop_ctm_3x4_init(struct drm_device *dev, struct 
+>>> drm_colorop *colorop,
+>>> -                   struct drm_plane *plane, uint32_t flags)
+>>> +                   struct drm_plane *plane, const struct 
+>>> drm_colorop_funcs *funcs,
+>>> +                   uint32_t flags)
+>>>   {
+>>>       int ret;
+>>> -    ret = drm_plane_colorop_init(dev, colorop, plane, 
+>>> DRM_COLOROP_CTM_3X4, flags);
+>>> +    ret = drm_plane_colorop_init(dev, colorop, plane, funcs, 
+>>> DRM_COLOROP_CTM_3X4, flags);
+>>>       if (ret)
+>>>           return ret;
+>>> @@ -363,16 +371,18 @@ EXPORT_SYMBOL(drm_plane_colorop_ctm_3x4_init);
+>>>    * @dev: DRM device
+>>>    * @colorop: The drm_colorop object to initialize
+>>>    * @plane: The associated drm_plane
+>>> + * @funcs: control functions for the new colorop
+>>>    * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
+>>>    * @return zero on success, -E value on failure
+>>>    */
+>>>   int drm_plane_colorop_mult_init(struct drm_device *dev, struct 
+>>> drm_colorop *colorop,
+>>> -                struct drm_plane *plane, uint32_t flags)
+>>> +                struct drm_plane *plane, const struct 
+>>> drm_colorop_funcs *funcs,
+>>> +                uint32_t flags)
+>>>   {
+>>>       struct drm_property *prop;
+>>>       int ret;
+>>> -    ret = drm_plane_colorop_init(dev, colorop, plane, 
+>>> DRM_COLOROP_MULTIPLIER, flags);
+>>> +    ret = drm_plane_colorop_init(dev, colorop, plane, funcs, 
+>>> DRM_COLOROP_MULTIPLIER, flags);
+>>>       if (ret)
+>>>           return ret;
+>>> @@ -391,6 +401,7 @@ EXPORT_SYMBOL(drm_plane_colorop_mult_init);
+>>>   int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct 
+>>> drm_colorop *colorop,
+>>>                    struct drm_plane *plane,
+>>> +                 const struct drm_colorop_funcs *funcs,
+>>>                    uint32_t lut_size,
+>>>                    enum drm_colorop_lut3d_interpolation_type 
+>>> interpolation,
+>>>                    uint32_t flags)
+>>> @@ -398,7 +409,7 @@ int drm_plane_colorop_3dlut_init(struct 
+>>> drm_device *dev, struct drm_colorop *col
+>>>       struct drm_property *prop;
+>>>       int ret;
+>>> -    ret = drm_plane_colorop_init(dev, colorop, plane, 
+>>> DRM_COLOROP_3D_LUT, flags);
+>>> +    ret = drm_plane_colorop_init(dev, colorop, plane, funcs, 
+>>> DRM_COLOROP_3D_LUT, flags);
+>>>       if (ret)
+>>>           return ret;
+>>> diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/ 
+>>> drivers/gpu/drm/i915/display/intel_color_pipeline.c
+>>> index 04af552b3648..d3d73d60727c 100644
+>>> --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+>>> +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+>>> @@ -25,7 +25,7 @@ int _intel_color_pipeline_plane_init(struct 
+>>> drm_plane *plane, struct drm_prop_en
+>>>       colorop = intel_colorop_create(INTEL_PLANE_CB_PRE_CSC_LUT);
+>>> -    ret = drm_plane_colorop_curve_1d_lut_init(dev, &colorop->base, 
+>>> plane,
+>>> +    ret = drm_plane_colorop_curve_1d_lut_init(dev, &colorop->base, 
+>>> plane, NULL,
+>>>                             PLANE_DEGAMMA_SIZE,
+>>>                             DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
+>>>                             DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>> @@ -39,7 +39,7 @@ int _intel_color_pipeline_plane_init(struct 
+>>> drm_plane *plane, struct drm_prop_en
+>>>       prev_op = &colorop->base;
+>>>       colorop = intel_colorop_create(INTEL_PLANE_CB_CSC);
+>>> -    ret = drm_plane_colorop_ctm_3x4_init(dev, &colorop->base, plane,
+>>> +    ret = drm_plane_colorop_ctm_3x4_init(dev, &colorop->base, plane, 
+>>> NULL,
+>>>                            DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>       if (ret)
+>>>           return ret;
+>>> @@ -52,7 +52,7 @@ int _intel_color_pipeline_plane_init(struct 
+>>> drm_plane *plane, struct drm_prop_en
+>>>           plane->type == DRM_PLANE_TYPE_PRIMARY) {
+>>>           colorop = intel_colorop_create(INTEL_PLANE_CB_3DLUT);
+>>> -        ret = drm_plane_colorop_3dlut_init(dev, &colorop->base, 
+>>> plane, 17,
+>>> +        ret = drm_plane_colorop_3dlut_init(dev, &colorop->base, 
+>>> plane, NULL, 17,
+>>>                              
+>>> DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL,
+>>>                              true);
+>>>           if (ret)
+>>> @@ -64,7 +64,7 @@ int _intel_color_pipeline_plane_init(struct 
+>>> drm_plane *plane, struct drm_prop_en
+>>>       }
+>>>       colorop = intel_colorop_create(INTEL_PLANE_CB_POST_CSC_LUT);
+>>> -    ret = drm_plane_colorop_curve_1d_lut_init(dev, &colorop->base, 
+>>> plane,
+>>> +    ret = drm_plane_colorop_curve_1d_lut_init(dev, &colorop->base, 
+>>> plane, NULL,
+>>>                             PLANE_GAMMA_SIZE,
+>>>                             DRM_COLOROP_LUT1D_INTERPOLATION_LINEAR,
+>>>                             DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>> diff --git a/drivers/gpu/drm/vkms/vkms_colorop.c b/drivers/gpu/drm/ 
+>>> vkms/vkms_colorop.c
+>>> index d03a1f2e9c41..9e9dd0494628 100644
+>>> --- a/drivers/gpu/drm/vkms/vkms_colorop.c
+>>> +++ b/drivers/gpu/drm/vkms/vkms_colorop.c
+>>> @@ -31,7 +31,7 @@ static int vkms_initialize_color_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>           goto cleanup;
+>>>       }
+>>> -    ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane, 
+>>> supported_tfs,
+>>> +    ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane, NULL, 
+>>> supported_tfs,
+>>>                             DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>       if (ret)
+>>>           goto cleanup;
+>>> @@ -48,7 +48,8 @@ static int vkms_initialize_color_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>           goto cleanup;
+>>>       }
+>>> -    ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, 
+>>> DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>> +    ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, NULL,
+>>> +                         DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>       if (ret)
+>>>           goto cleanup;
+>>> @@ -64,7 +65,8 @@ static int vkms_initialize_color_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>           goto cleanup;
+>>>       }
+>>> -    ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, 
+>>> DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>> +    ret = drm_plane_colorop_ctm_3x4_init(dev, ops[i], plane, NULL,
+>>> +                         DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>       if (ret)
+>>>           goto cleanup;
+>>> @@ -80,7 +82,7 @@ static int vkms_initialize_color_pipeline(struct 
+>>> drm_plane *plane, struct drm_pr
+>>>           goto cleanup;
+>>>       }
+>>> -    ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane, 
+>>> supported_tfs,
+>>> +    ret = drm_plane_colorop_curve_1d_init(dev, ops[i], plane, NULL, 
+>>> supported_tfs,
+>>>                             DRM_COLOROP_FLAG_ALLOW_BYPASS);
+>>>       if (ret)
+>>>           goto cleanup;
+>>> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+>>> index a3a32f9f918c..45d1b1d3faf9 100644
+>>> --- a/include/drm/drm_colorop.h
+>>> +++ b/include/drm/drm_colorop.h
+>>> @@ -187,6 +187,19 @@ struct drm_colorop_state {
+>>>       struct drm_atomic_state *state;
+>>>   };
+>>> +/**
+>>> + * struct drm_colorop_funcs - driver colorop control functions
+>>> + */
+>>> +struct drm_colorop_funcs {
+>>> +    /**
+>>> +     * @destroy:
+>>> +     *
+>>> +     * Clean up colorop resources. This is called at driver unload time
+>>> +     * through drm_mode_config_cleanup()
+>>> +     */
+>>> +    void (*destroy)(struct drm_colorop *colorop);
+>>> +};
+>>> +
+>>>   /**
+>>>    * struct drm_colorop - DRM color operation control structure
+>>>    *
+>>> @@ -362,6 +375,8 @@ struct drm_colorop {
+>>>        */
+>>>       struct drm_property *next_property;
+>>> +    /** @funcs: colorop control functions */
+>>> +    const struct drm_colorop_funcs *funcs;
+>>>   };
+>>>   #define obj_to_colorop(x) container_of(x, struct drm_colorop, base)
+>>> @@ -390,17 +405,22 @@ void drm_colorop_pipeline_destroy(struct 
+>>> drm_device *dev);
+>>>   void drm_colorop_cleanup(struct drm_colorop *colorop);
+>>>   int drm_plane_colorop_curve_1d_init(struct drm_device *dev, struct 
+>>> drm_colorop *colorop,
+>>> -                    struct drm_plane *plane, u64 supported_tfs, 
+>>> uint32_t flags);
+>>> +                    struct drm_plane *plane, const struct 
+>>> drm_colorop_funcs *funcs,
+>>> +                    u64 supported_tfs, uint32_t flags);
+>>>   int drm_plane_colorop_curve_1d_lut_init(struct drm_device *dev, 
+>>> struct drm_colorop *colorop,
+>>> -                    struct drm_plane *plane, uint32_t lut_size,
+>>> +                    struct drm_plane *plane,
+>>> +                    const struct drm_colorop_funcs *funcs,
+>>> +                    uint32_t lut_size,
+>>>                       enum drm_colorop_lut1d_interpolation_type 
+>>> interpolation,
+>>>                       uint32_t flags);
+>>>   int drm_plane_colorop_ctm_3x4_init(struct drm_device *dev, struct 
+>>> drm_colorop *colorop,
+>>> -                   struct drm_plane *plane, uint32_t flags);
+>>> +                   struct drm_plane *plane, const struct 
+>>> drm_colorop_funcs *funcs,
+>>> +                   uint32_t flags);
+>>>   int drm_plane_colorop_mult_init(struct drm_device *dev, struct 
+>>> drm_colorop *colorop,
+>>> -                struct drm_plane *plane, uint32_t flags);
+>>> +                struct drm_plane *plane, const struct 
+>>> drm_colorop_funcs *funcs,
+>>> +                uint32_t flags);
+>>>   int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct 
+>>> drm_colorop *colorop,
+>>> -                 struct drm_plane *plane,
+>>> +                 struct drm_plane *plane, const struct 
+>>> drm_colorop_funcs *funcs,
+>>>                    uint32_t lut_size,
+>>>                    enum drm_colorop_lut3d_interpolation_type 
+>>> interpolation,
+>>>                    uint32_t flags);
+>>
+> 
 
-v3: Squash patches #1 & #3
-
-Fixes: dd2bf86d1383 ("drm/amdgpu/uapi: Introduce AMDGPU_GEM_DOMAIN_MMIO_REMAP")
-Fixes: 2f711aebfa64 ("drm/amdgpu/ttm: Allocate/Free 4K MMIO_REMAP Singleton")
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Leo Liu <leo.liu@amd.com>
-Cc: Ruijing Dong <ruijing.dong@amd.com>
-Cc: David (Ming Qiang) Wu <David.Wu3@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Signed-off-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  3 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 21 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    | 77 ++++++++++++++--------
- include/uapi/drm/amdgpu_drm.h              |  6 +-
- 5 files changed, 60 insertions(+), 49 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 9b81a6677f90..b46b61297f68 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -458,9 +458,6 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 	/* always clear VRAM */
- 	flags |= AMDGPU_GEM_CREATE_VRAM_CLEARED;
- 
--	if (args->in.domains & AMDGPU_GEM_DOMAIN_MMIO_REMAP)
--		return -EINVAL;
--
- 	/* create a gem object to contain this object in */
- 	if (args->in.domains & (AMDGPU_GEM_DOMAIN_GDS |
- 	    AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index b676310ce9ac..1fb956400696 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -153,14 +153,6 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
- 		c++;
- 	}
- 
--	if (domain & AMDGPU_GEM_DOMAIN_MMIO_REMAP) {
--		places[c].fpfn = 0;
--		places[c].lpfn = 0;
--		places[c].mem_type = AMDGPU_PL_MMIO_REMAP;
--		places[c].flags = 0;
--		c++;
--	}
--
- 	if (domain & AMDGPU_GEM_DOMAIN_GTT) {
- 		places[c].fpfn = 0;
- 		places[c].lpfn = 0;
-@@ -1546,8 +1538,17 @@ u64 amdgpu_bo_gpu_offset_no_check(struct amdgpu_bo *bo)
-  */
- uint32_t amdgpu_bo_mem_stats_placement(struct amdgpu_bo *bo)
- {
--	uint32_t domain = bo->preferred_domains & AMDGPU_GEM_DOMAIN_MASK;
-+	u32 domain;
- 
-+	/*
-+	 * MMIO_REMAP is internal now, so it no longer maps from a userspace
-+	 * domain bit. Keep fdinfo/mem-stats visibility by checking the actual
-+	 * TTM placement.
-+	 */
-+	if (bo->tbo.resource && bo->tbo.resource->mem_type == AMDGPU_PL_MMIO_REMAP)
-+		return AMDGPU_PL_MMIO_REMAP;
-+
-+	domain = bo->preferred_domains & AMDGPU_GEM_DOMAIN_MASK;
- 	if (!domain)
- 		return TTM_PL_SYSTEM;
- 
-@@ -1566,8 +1567,6 @@ uint32_t amdgpu_bo_mem_stats_placement(struct amdgpu_bo *bo)
- 		return AMDGPU_PL_OA;
- 	case AMDGPU_GEM_DOMAIN_DOORBELL:
- 		return AMDGPU_PL_DOORBELL;
--	case AMDGPU_GEM_DOMAIN_MMIO_REMAP:
--		return AMDGPU_PL_MMIO_REMAP;
- 	default:
- 		return TTM_PL_SYSTEM;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index 52c2d1731aab..912c9afaf9e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -168,8 +168,6 @@ static inline unsigned amdgpu_mem_type_to_domain(u32 mem_type)
- 		return AMDGPU_GEM_DOMAIN_OA;
- 	case AMDGPU_PL_DOORBELL:
- 		return AMDGPU_GEM_DOMAIN_DOORBELL;
--	case AMDGPU_PL_MMIO_REMAP:
--		return AMDGPU_GEM_DOMAIN_MMIO_REMAP;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index f27ffe64aafa..6d7a5bf2d0c8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1909,42 +1909,45 @@ static void amdgpu_ttm_pools_fini(struct amdgpu_device *adev)
- }
- 
- /**
-- * amdgpu_ttm_mmio_remap_bo_init - Allocate the singleton 4K MMIO_REMAP BO
-+ * amdgpu_ttm_mmio_remap_bo_init - Allocate the singleton MMIO_REMAP BO
-  * @adev: amdgpu device
-  *
-- * Allocates a one-page (4K) GEM BO in AMDGPU_GEM_DOMAIN_MMIO_REMAP when the
-+ * Allocates a global BO with backing AMDGPU_PL_MMIO_REMAP when the
-  * hardware exposes a remap base (adev->rmmio_remap.bus_addr) and the host
-  * PAGE_SIZE is <= AMDGPU_GPU_PAGE_SIZE (4K). The BO is created as a regular
-  * GEM object (amdgpu_bo_create).
-  *
-- * The BO is created as a normal GEM object via amdgpu_bo_create(), then
-- * reserved and pinned at the TTM level (ttm_bo_pin()) so it can never be
-- * migrated or evicted. No CPU mapping is established here.
-- *
-  * Return:
-  *  * 0 on success or intentional skip (feature not present/unsupported)
-  *  * negative errno on allocation failure
-  */
--static int amdgpu_ttm_mmio_remap_bo_init(struct amdgpu_device *adev)
-+static int amdgpu_ttm_alloc_mmio_remap_bo(struct amdgpu_device *adev)
- {
-+	struct ttm_operation_ctx ctx = { false, false };
-+	struct ttm_placement placement;
-+	struct ttm_buffer_object *tbo;
-+	struct ttm_place placements;
- 	struct amdgpu_bo_param bp;
-+	struct ttm_resource *tmp;
- 	int r;
- 
- 	/* Skip if HW doesn't expose remap, or if PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE (4K). */
- 	if (!adev->rmmio_remap.bus_addr || PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE)
- 		return 0;
- 
-+	/*
-+	 * Allocate a BO first and then move it to AMDGPU_PL_MMIO_REMAP.
-+	 * The initial TTM resource assigned by amdgpu_bo_create() is
-+	 * replaced below with a fixed MMIO_REMAP placement.
-+	 */
- 	memset(&bp, 0, sizeof(bp));
--
--	/* Create exactly one GEM BO in the MMIO_REMAP domain. */
--	bp.type        = ttm_bo_type_device;          /* userspace-mappable GEM */
--	bp.size        = AMDGPU_GPU_PAGE_SIZE;        /* 4K */
-+	bp.type        = ttm_bo_type_device;
-+	bp.size        = AMDGPU_GPU_PAGE_SIZE;
- 	bp.byte_align  = AMDGPU_GPU_PAGE_SIZE;
--	bp.domain      = AMDGPU_GEM_DOMAIN_MMIO_REMAP;
-+	bp.domain      = 0;
- 	bp.flags       = 0;
- 	bp.resv        = NULL;
- 	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
--
- 	r = amdgpu_bo_create(adev, &bp, &adev->rmmio_remap.bo);
- 	if (r)
- 		return r;
-@@ -1953,42 +1956,60 @@ static int amdgpu_ttm_mmio_remap_bo_init(struct amdgpu_device *adev)
- 	if (r)
- 		goto err_unref;
- 
-+	tbo = &adev->rmmio_remap.bo->tbo;
-+
- 	/*
- 	 * MMIO_REMAP is a fixed I/O placement (AMDGPU_PL_MMIO_REMAP).
--	 * Use TTM-level pin so the BO cannot be evicted/migrated,
--	 * independent of GEM domains. This
--	 * enforces the “fixed I/O window”
- 	 */
--	ttm_bo_pin(&adev->rmmio_remap.bo->tbo);
-+	placement.num_placement = 1;
-+	placement.placement = &placements;
-+	placements.fpfn = 0;
-+	placements.lpfn = 0;
-+	placements.mem_type = AMDGPU_PL_MMIO_REMAP;
-+	placements.flags = 0;
-+	/* Force the BO into the fixed MMIO_REMAP placement */
-+	r = ttm_bo_mem_space(tbo, &placement, &tmp, &ctx);
-+	if (unlikely(r))
-+		goto err_unlock;
-+
-+	ttm_resource_free(tbo, &tbo->resource);
-+	ttm_bo_assign_mem(tbo, tmp);
-+	ttm_bo_pin(tbo);
- 
- 	amdgpu_bo_unreserve(adev->rmmio_remap.bo);
- 	return 0;
- 
-+err_unlock:
-+	amdgpu_bo_unreserve(adev->rmmio_remap.bo);
-+
- err_unref:
--	if (adev->rmmio_remap.bo)
--		amdgpu_bo_unref(&adev->rmmio_remap.bo);
-+	amdgpu_bo_unref(&adev->rmmio_remap.bo);
- 	adev->rmmio_remap.bo = NULL;
- 	return r;
- }
- 
- /**
-- * amdgpu_ttm_mmio_remap_bo_fini - Free the singleton MMIO_REMAP BO
-+ * amdgpu_ttm_free_mmio_remap_bo - Free the singleton MMIO_REMAP BO
-  * @adev: amdgpu device
-  *
-  * Frees the kernel-owned MMIO_REMAP BO if it was allocated by
-  * amdgpu_ttm_mmio_remap_bo_init().
-  */
--static void amdgpu_ttm_mmio_remap_bo_fini(struct amdgpu_device *adev)
-+static void amdgpu_ttm_free_mmio_remap_bo(struct amdgpu_device *adev)
- {
--	struct amdgpu_bo *bo = adev->rmmio_remap.bo;
--
--	if (!bo)
--		return;   /* <-- safest early exit */
-+	if (!adev->rmmio_remap.bo)
-+		return;
- 
- 	if (!amdgpu_bo_reserve(adev->rmmio_remap.bo, true)) {
- 		ttm_bo_unpin(&adev->rmmio_remap.bo->tbo);
- 		amdgpu_bo_unreserve(adev->rmmio_remap.bo);
- 	}
-+
-+    /*
-+     * At this point we rely on normal DRM teardown ordering:
-+     * no new user ioctls can access the global MMIO_REMAP BO
-+     * once TTM teardown begins.
-+     */
- 	amdgpu_bo_unref(&adev->rmmio_remap.bo);
- 	adev->rmmio_remap.bo = NULL;
- }
-@@ -2169,8 +2190,8 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 		return r;
- 	}
- 
--	/* Allocate the singleton MMIO_REMAP BO (4K) if supported */
--	r = amdgpu_ttm_mmio_remap_bo_init(adev);
-+	/* Allocate the singleton MMIO_REMAP BO if supported */
-+	r = amdgpu_ttm_alloc_mmio_remap_bo(adev);
- 	if (r)
- 		return r;
- 
-@@ -2238,7 +2259,7 @@ void amdgpu_ttm_fini(struct amdgpu_device *adev)
- 	amdgpu_bo_free_kernel(&adev->mman.sdma_access_bo, NULL,
- 					&adev->mman.sdma_access_ptr);
- 
--	amdgpu_ttm_mmio_remap_bo_fini(adev);
-+	amdgpu_ttm_free_mmio_remap_bo(adev);
- 	amdgpu_ttm_fw_reserve_vram_fini(adev);
- 	amdgpu_ttm_drv_reserve_vram_fini(adev);
- 
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 9680548ee41b..ab2bf47553e1 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -105,8 +105,6 @@ extern "C" {
-  *
-  * %AMDGPU_GEM_DOMAIN_DOORBELL	Doorbell. It is an MMIO region for
-  * signalling user mode queues.
-- *
-- * %AMDGPU_GEM_DOMAIN_MMIO_REMAP	MMIO remap page (special mapping for HDP flushing).
-  */
- #define AMDGPU_GEM_DOMAIN_CPU		0x1
- #define AMDGPU_GEM_DOMAIN_GTT		0x2
-@@ -115,15 +113,13 @@ extern "C" {
- #define AMDGPU_GEM_DOMAIN_GWS		0x10
- #define AMDGPU_GEM_DOMAIN_OA		0x20
- #define AMDGPU_GEM_DOMAIN_DOORBELL	0x40
--#define AMDGPU_GEM_DOMAIN_MMIO_REMAP	0x80
- #define AMDGPU_GEM_DOMAIN_MASK		(AMDGPU_GEM_DOMAIN_CPU | \
- 					 AMDGPU_GEM_DOMAIN_GTT | \
- 					 AMDGPU_GEM_DOMAIN_VRAM | \
- 					 AMDGPU_GEM_DOMAIN_GDS | \
- 					 AMDGPU_GEM_DOMAIN_GWS | \
- 					 AMDGPU_GEM_DOMAIN_OA |	\
--					 AMDGPU_GEM_DOMAIN_DOORBELL | \
--					 AMDGPU_GEM_DOMAIN_MMIO_REMAP)
-+					 AMDGPU_GEM_DOMAIN_DOORBELL)
- 
- /* Flag that CPU access will be required for the case of VRAM domain */
- #define AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED	(1 << 0)
