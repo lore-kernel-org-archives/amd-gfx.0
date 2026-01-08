@@ -4,42 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD6E9D185FB
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:37:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF319D185F8
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:45:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63C9E10E732;
-	Thu,  8 Jan 2026 13:37:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 933FB10E735;
+	Thu,  8 Jan 2026 13:45:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="dl7542Xp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="laVDJOxN";
 	dkim-atps=neutral
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9140810E111;
- Wed,  7 Jan 2026 17:28:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1767806912; x=1768066112;
- bh=Qj2fYs3gJhfydf16uezC3qPyLcMKDfKf2EsPDnDOFOw=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=dl7542XpCdL7Jp5/Eu1i/ldgYv2evn5v7qFP+7nqbkHO8Gb6FBjPzPU1rRrSSl4mb
- M21430hnRGyWG/3//Z5HTYYF2TNQ9wDg5CtyVrUaOk+zZNb6X1BJbR0UfzI2K/FAYd
- XtG47OSLSA8JV/gpzkf5D+Cc67OygjXgDVWOdv1vHbzm/CCQHrr6jSdoV9lxgxKCZZ
- +fBFgddGZiFeThjLA3vfiHEytiSZJGJoeLiTUJusJSvXD8a/U+YdcTMRh4YItqb9nj
- 7KP2btBxBAdjD0Y+SFWcsUfekJIRxR9hRKfkmmm4fve6EoG5Ob6dcgDG6n0A0WQIoO
- CT6LQQO3XaV9A==
-Date: Wed, 07 Jan 2026 17:28:28 +0000
-To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-From: alliancetrooper <alliancetrooper@proton.me>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: External HDMI monitor fails to wake up from DPMS/consoleblank since
- kernel 6.18
-Message-ID: <x22LVmFvTwDrklnrfzto0X8folnEtLitNgQKjJxtTH99P9Bplb8S28jJT74Eqd_9w3jfQepZ5Q62_bIw6DhpzG5iDiTboHr-8B8Ilx3Qjzg=@proton.me>
-Feedback-ID: 88488025:user:proton
-X-Pm-Message-ID: 9ab3630095f6539bf609c4206c7d09eec8527798
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 765D310E736
+ for <amd-gfx@lists.freedesktop.org>; Thu,  8 Jan 2026 13:45:24 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-122008d4dc0so40237c88.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 08 Jan 2026 05:45:24 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1767879924; cv=none;
+ d=google.com; s=arc-20240605;
+ b=ZbpvhAFGdpB/zVH/GGH6+lBjsuJTr0g1HuSg7EyeJ0jBXgd6almVVe6/byd7I8OXqF
+ JTApLK4xCaZpxvsUlXx3Z0ddLOL10e4aMnTcRKsB4qsKJo0L3AiCMP+MBkm5mfTS4GV+
+ OXkWBvjLUGBOR5ApBOP/Yxp1yxcTjcfj9Luqa5hPHnlSJteSa4Us5wPTipxaifI2yekP
+ M1lpUN++4so1hTLHgohtsSffNF0ChF2WQztM5ho5w3+uIYCz1zUn03Z5LlcDtvlrRUDk
+ Xi37K/r5W+I4VO1B/9jv7pXI/F7kiJqdPIfzvMOer9JhsK31VFp6f7wIbcbbSztamrYJ
+ 8S4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=5kQ2xUBja8BPoXZgKKixyqanUA0WqT9oPPSrbJ2WMqY=;
+ fh=TyrN4UHeSRgv5JUkFpg7+Vh1rbFQQeIKCJoH2Uu7G48=;
+ b=fZt1JzFJdY8aY03aYx/u3532J3g4kIYOe6WV69L4Y0+WDdTXGDAPcT8ErYPnCoTRdE
+ Sw/zSCADXIp0uHLHWYtvfAx583wYJukj98ZQQx4AL21VCesIlL49WzY+1C9ljbqB0tG9
+ 3151A3DJzLx/VldM7tvE1r9kL0RhWZ0wg6upkTNTr2+uANIxgV5hTGfF8a49CK/3PiUI
+ oNIaK4NkV1M1IfFVvNKLgjAAN1BWQCqyA06uNnHk3SWE1YbMPzq3sOtmh5S/dej+PwvX
+ N4k/7+4UvWwVudAXOKD9YlhRtHlybc5JWqex8YlUj2FF52gwlCj9Eik7PBj4HQXZHuUn
+ AHSQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1767879924; x=1768484724; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=5kQ2xUBja8BPoXZgKKixyqanUA0WqT9oPPSrbJ2WMqY=;
+ b=laVDJOxNi2I+YZMsIO2Ti4NB/zMl1fO+sCl2fqK/th/gB2wU1u4rnU6jE4vrx7l0Au
+ FlLpRB7wTgYB1iXa368EK+6VmxkUf2x3gJwOV6BJK+D2KDVKxej6y8l1232cahGjPUso
+ ixWs24x/UOwM6BvcsFZaJYsvMp0SbvWRh3gtBd0mk5leaYoFbNz59lysfOBXItl2LDg+
+ YQUtZeEKsB1WvC/HFMRro5EYOvws0h1bjkCh3qQM7ldFz1JiRtqETr8zhFqbATHp1fEZ
+ SCSSy8J0rvjx0GhUoFoby/E1TFjaG+/oeam+mGcvnjieOTj3cJJm6vxN67Wx4A8l/CRj
+ QsXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1767879924; x=1768484724;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=5kQ2xUBja8BPoXZgKKixyqanUA0WqT9oPPSrbJ2WMqY=;
+ b=cyYKuvN1IZ3Gtqw4glIMVqpF4O/a8KPPeplNHmyE7U92V9wEVsQ/KMw0dr+1rHPAs4
+ BD+WD2lSbTGzNYEPeh20C7BijpA0KL3B2KVhJXBld2sfoa/7W6CoLVKgNlFNGRP2TkLm
+ qtwi+ZZKD9ELfSEg1+ocnng3CW+bgPaQ3nHK/Sk2fUx/LmlpmxM05QrtMUjH+ceXfIk5
+ YG8OHynWFvV9M3CWfYU89GZwXXHAPbGSeTgkj4zY6iQWAaZvy5en4HcVyS54gxiOitNz
+ VO2n4s83BXYScWWiUoszVnc2dORiV9U2J6a6IwEddS0mUh1/D3HPaRsHnz75ebjbnNqD
+ +SDw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX72Ugv54JyuFuGxjbQl8qLCttOAVAsxFer501Mzkv3VAGrErobkwOkG/T5tHDj4r2anY4DRNPx@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyrltqyKMsKY2YDVTPIEa1MVXXvt04niti0fLVG250lLHBXKtKz
+ xbajvja1HbBBeXfby8e+dtd/QTDt8sbtmOkdBQWE8s6/GI7eO/AMGZ84H7HjNO/Tkm8ybGijWgQ
+ /hsZes5aQn5FpNSaM7BIdCcMBNgUWU8Y=
+X-Gm-Gg: AY/fxX4odlHN9OtdLB05MbsFRt4QMQ3KltRQJczsVOICfdafg44D/jzwD1swV7O+CAh
+ EXrxDB49bBZgEFLrevVeDUic5efdmIfaCb1iv8SSAqf7gddzMmv86ygfehHmPOd2O243kDmgnug
+ oB7PMR6QumbD+gEa3c8ESKKQLPrur04H83nXN3/aFHRaX+8QJchVFDzufa5+ZfMG+HnEUQTaEbg
+ rEtjBiRizQdG9NOwXm66UG2rqp8noh7PGqyVThvBOWPtOMXj7r9+MoE09dL2gslChExdVVbFbEG
+ iVc47RE=
+X-Google-Smtp-Source: AGHT+IEBdT/4NQPN1Q/dZKLpUk5ZjD5kfC8Qu4NKTxN7CASsd1b5HxOvqIf2jcUrrdSL7grjTpF/8/huDcpRGx09DGk=
+X-Received: by 2002:a05:7022:30b:b0:11e:3e9:3e98 with SMTP id
+ a92af1059eb24-121f8b770a1mr2665225c88.7.1767879923526; Thu, 08 Jan 2026
+ 05:45:23 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="b1=_aLXrvzmwPk682esnm9fwoDMjY9t6ddbisdPlvQQIK30"
-X-Mailman-Approved-At: Thu, 08 Jan 2026 13:37:29 +0000
+References: <x22LVmFvTwDrklnrfzto0X8folnEtLitNgQKjJxtTH99P9Bplb8S28jJT74Eqd_9w3jfQepZ5Q62_bIw6DhpzG5iDiTboHr-8B8Ilx3Qjzg=@proton.me>
+In-Reply-To: <x22LVmFvTwDrklnrfzto0X8folnEtLitNgQKjJxtTH99P9Bplb8S28jJT74Eqd_9w3jfQepZ5Q62_bIw6DhpzG5iDiTboHr-8B8Ilx3Qjzg=@proton.me>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 8 Jan 2026 08:45:12 -0500
+X-Gm-Features: AQt7F2r9b6T3KTqlzpOXr8acssEsjb91F3IbJYBGIxUXINPOAbbEyhP0aqPoATc
+Message-ID: <CADnq5_OoZeFi-VeeMV4AMDxgt+__TmAiN6WE+m0hmYXtmSjx1Q@mail.gmail.com>
+Subject: Re: External HDMI monitor fails to wake up from DPMS/consoleblank
+ since kernel 6.18
+To: alliancetrooper <alliancetrooper@proton.me>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,60 +106,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---b1=_aLXrvzmwPk682esnm9fwoDMjY9t6ddbisdPlvQQIK30
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+On Wed, Jan 7, 2026 at 5:42=E2=80=AFPM alliancetrooper
+<alliancetrooper@proton.me> wrote:
+>
+> Hello.
+>
+> I am reporting a regression in the kernel. an external HDMI monitor fails=
+ to wake up from a low-power state.
+> The issue occurs both in the VT console (using consoleblank parameter) an=
+d in the X.Org graphical session (using xset dpms force off).
+> The internal laptop display resumes correctly. This problem was not prese=
+nt in Linux kernel 6.17. It started occurring after updating to kernel 6.18=
+.0.
 
-SGVsbG8uCgpJIGFtIHJlcG9ydGluZyBhIHJlZ3Jlc3Npb24gaW4gdGhlIGtlcm5lbC4gYW4gZXh0
-ZXJuYWwgSERNSSBtb25pdG9yIGZhaWxzIHRvIHdha2UgdXAgZnJvbSBhIGxvdy1wb3dlciBzdGF0
-ZS4KVGhlIGlzc3VlIG9jY3VycyBib3RoIGluIHRoZSBWVCBjb25zb2xlICh1c2luZyBjb25zb2xl
-YmxhbmsgcGFyYW1ldGVyKSBhbmQgaW4gdGhlIFguT3JnIGdyYXBoaWNhbCBzZXNzaW9uICh1c2lu
-ZyB4c2V0IGRwbXMgZm9yY2Ugb2ZmKS4KVGhlIGludGVybmFsIGxhcHRvcCBkaXNwbGF5IHJlc3Vt
-ZXMgY29ycmVjdGx5LiBUaGlzIHByb2JsZW0gd2FzIG5vdCBwcmVzZW50IGluIExpbnV4IGtlcm5l
-bCA2LjE3LiBJdCBzdGFydGVkIG9jY3VycmluZyBhZnRlciB1cGRhdGluZyB0byBrZXJuZWwgNi4x
-OC4wLgpNeSBLZXJuZWw6IDYuMTguMywgYnVpbHQgZnJvbSB2YW5pbGxhIHNvdXJjZXMgaW4gR2Vu
-dG9vLiBEaXNwbGF5IGNvbnRyb2xsZXI6IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4gW0FN
-RC9BVEldIFN0cml4IFtSYWRlb24gODgwTSAvIDg5ME1dIChyZXYgYzQpLgoKTm8gbWVzc2FnZXMg
-aW4gZG1lc2cgcmVnYXJkaW5nIHRoaXMuCgpTdGVwcyB0byBSZXByb2R1Y2U6CjEuIENvbm5lY3Qg
-YW4gZXh0ZXJuYWwgbW9uaXRvciB2aWEgSERNSS4KMi4gQm9vdCB3aXRoIHRoZSBrZXJuZWwgcGFy
-YW1ldGVyIGNvbnNvbGVibGFuaz0zMC4KMy4gV2FpdCAzMCBzZWNvbmRzIGZvciB0aGUgc2NyZWVu
-IHRvIGJsYW5rIGFuZCBzb21lIHRpbWUgKG5vIG1vcmUgdGhhbiA1IG1pbnMpIGFkZGl0aW9uYWxs
-eS4KNC4gVHJ5IHRvIHdha2UgdGhlIGRpc3BsYXkgYnkgcHJlc3NpbmcgYSBrZXkuIFRoZSBleHRl
-cm5hbCBtb25pdG9yIHJlbWFpbnMgb2ZmLCB3aGlsZSB0aGUgaW50ZXJuYWwgbGFwdG9wIGRpc3Bs
-YXkgdHVybnMgb24uCjUuIEFsc28gcmVwcm9kdWNpYmxlIGluIFgxMS9Yb3JnIHNlc3Npb24gdXNp
-bmcgeHNldCBkcG1zIGZvcmNlIG9mZi4gSXQgaXMgYWxzbyBuZWVkZWQgdG8gc3BlbnQgc29tZSB0
-aW1lIGluIG9mZiBzdGF0ZS4KClRoYW5rIHlvdS4=
+Please file a ticket at:
+https://gitlab.freedesktop.org/drm/amd/-/issues
 
---b1=_aLXrvzmwPk682esnm9fwoDMjY9t6ddbisdPlvQQIK30
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
+Can you bisect?
 
-PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IEFyaWFsLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDE0
-cHg7Ij5IZWxsby48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogQXJpYWwsIHNhbnMtc2Vy
-aWY7IGZvbnQtc2l6ZTogMTRweDsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTog
-QXJpYWwsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTogMTRweDsiPkkgYW0gcmVwb3J0aW5nIGEgcmVn
-cmVzc2lvbiBpbiB0aGUga2VybmVsLiBhbiBleHRlcm5hbCBIRE1JIG1vbml0b3IgZmFpbHMgdG8g
-d2FrZSB1cCBmcm9tIGEgbG93LXBvd2VyIHN0YXRlLjxicj4NClRoZSBpc3N1ZSBvY2N1cnMgYm90
-aCBpbiB0aGUgVlQgY29uc29sZSAodXNpbmcgPGNvZGU+Y29uc29sZWJsYW5rPC9jb2RlPiBwYXJh
-bWV0ZXIpIGFuZCBpbiB0aGUgWC5PcmcgZ3JhcGhpY2FsIHNlc3Npb24gKHVzaW5nIDxjb2RlPnhz
-ZXQgZHBtcyBmb3JjZSBvZmY8L2NvZGU+KS48YnI+VGhlIGludGVybmFsIGxhcHRvcCBkaXNwbGF5
-IHJlc3VtZXMgY29ycmVjdGx5LiBUaGlzIHByb2JsZW0gd2FzIG5vdCBwcmVzZW50IGluIExpbnV4
-IGtlcm5lbCA2LjE3LiBJdCBzdGFydGVkIG9jY3VycmluZyBhZnRlciB1cGRhdGluZyB0byBrZXJu
-ZWwgNi4xOC4wLjxicj4NCk15IEtlcm5lbDogNi4xOC4zLCBidWlsdCBmcm9tIHZhbmlsbGEgc291
-cmNlcyBpbiBHZW50b28uIERpc3BsYXkgY29udHJvbGxlcjogQWR2YW5jZWQgTWljcm8gRGV2aWNl
-cywgSW5jLiBbQU1EL0FUSV0gU3RyaXggW1JhZGVvbiA4ODBNIC8gODkwTV0gKHJldiBjNCkuPGJy
-Pg0KPGJyPg0KTm8gbWVzc2FnZXMgaW4gZG1lc2cgcmVnYXJkaW5nIHRoaXMuPGJyPg0KPGJyPg0K
-U3RlcHMgdG8gUmVwcm9kdWNlOjxicj4NCjEuICZuYnNwO0Nvbm5lY3QgYW4gZXh0ZXJuYWwgbW9u
-aXRvciB2aWEgSERNSS48YnI+DQoyLiAmbmJzcDtCb290IHdpdGggdGhlIGtlcm5lbCBwYXJhbWV0
-ZXIgPGNvZGU+Y29uc29sZWJsYW5rPTMwPC9jb2RlPi48YnI+DQozLiAmbmJzcDtXYWl0IDMwIHNl
-Y29uZHMgZm9yIHRoZSBzY3JlZW4gdG8gYmxhbmsgYW5kIHNvbWUgdGltZSAobm8gbW9yZSB0aGFu
-IDUgbWlucykgYWRkaXRpb25hbGx5Ljxicj4NCjQuICZuYnNwO1RyeSB0byB3YWtlIHRoZSBkaXNw
-bGF5IGJ5IHByZXNzaW5nIGEga2V5LiBUaGUgZXh0ZXJuYWwgbW9uaXRvciByZW1haW5zIG9mZiwg
-d2hpbGUgdGhlIGludGVybmFsIGxhcHRvcCBkaXNwbGF5IHR1cm5zIG9uLjxicj4NCjUuICZuYnNw
-O0Fsc28gcmVwcm9kdWNpYmxlIGluIFgxMS9Yb3JnIHNlc3Npb24gdXNpbmcgPGNvZGU+eHNldCBk
-cG1zIGZvcmNlIG9mZjwvY29kZT4uIEl0IGlzIGFsc28gbmVlZGVkIHRvIHNwZW50IHNvbWUgdGlt
-ZSBpbiBvZmYgc3RhdGUuPGJyPg0KPGJyPg0KVGhhbmsgeW91LjwvZGl2Pg==
+Thanks,
 
+Alex
 
---b1=_aLXrvzmwPk682esnm9fwoDMjY9t6ddbisdPlvQQIK30--
-
+> My Kernel: 6.18.3, built from vanilla sources in Gentoo. Display controll=
+er: Advanced Micro Devices, Inc. [AMD/ATI] Strix [Radeon 880M / 890M] (rev =
+c4).
+>
+> No messages in dmesg regarding this.
+>
+> Steps to Reproduce:
+> 1.  Connect an external monitor via HDMI.
+> 2.  Boot with the kernel parameter consoleblank=3D30.
+> 3.  Wait 30 seconds for the screen to blank and some time (no more than 5=
+ mins) additionally.
+> 4.  Try to wake the display by pressing a key. The external monitor remai=
+ns off, while the internal laptop display turns on.
+> 5.  Also reproducible in X11/Xorg session using xset dpms force off. It i=
+s also needed to spent some time in off state.
+>
+> Thank you.
