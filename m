@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D8B5D185FD
-	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:37:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEC32D185FC
+	for <amd-gfx@archiver.kernel.org>; Thu,  8 Jan 2026 13:37:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29D2010E727;
-	Thu,  8 Jan 2026 13:37:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="BevhwU23";
-	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B52CB10E2DB
- for <amd-gfx@lists.freedesktop.org>; Wed,  7 Jan 2026 20:55:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=onCYdfBJPf4AnSBVwJ2/aEqS6jrss/1BLUDHPeErKyY=; b=BevhwU23jXy7xBnkUWiBMQhaqv
- R6sPWMjAr+rKAe7A0FmmrwGQv87wr6BoDLHGWK8Nirt4cOJxD5bBnI35sVUwaPAYpEyAsuiNfb3R8
- SqzrIjpgDFtsdRe2lfF8B9YclMUz2k1wbV8XvIsPjhpckjjnWI8WXoss9bqrZB9sFAvS3rNelehfw
- wssT0vUTINtXtevh7HAcwg+ZgAhiXpPf/8xaaP1iZy7/QQQKySUM9ZTwKqbpkZ+XiNH7cvzF2RSFf
- MSyWMP8oEPS4/pJTR5cK6CrokTWx04RcATzMyJd4Bzdn26Ap1tG7V7pSFRlASMD/kA9LL3FLizffP
- YnMkACxw==;
-Received: from willy by casper.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1vdaYu-0000000DwPV-0E06;
- Wed, 07 Jan 2026 20:55:24 +0000
-Date: Wed, 7 Jan 2026 20:55:23 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Pedro Falcato <pfalcato@suse.de>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Hildenbrand <david@redhat.com>, amd-gfx@lists.freedesktop.org,
- linux-mm@kvack.org, Vlastimil Babka <vbabka@suse.cz>,
- Jann Horn <jannh@google.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] mm_take_all_locks: change -EINTR to -ERESTARTSYS
-Message-ID: <aV7IO8-trMSI1twA@casper.infradead.org>
-References: <20260107203113.690118053@debian4.vm>
- <20260107203224.969740802@debian4.vm>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3509710E72E;
+	Thu,  8 Jan 2026 13:37:31 +0000 (UTC)
+Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 252EA10E20F;
+ Thu,  8 Jan 2026 07:18:27 +0000 (UTC)
+Received: from localhost.localdomain (unknown [36.112.3.223])
+ by APP-05 (Coremail) with SMTP id zQCowACHHRFAWl9pfor3Aw--.56272S2;
+ Thu, 08 Jan 2026 15:18:24 +0800 (CST)
+From: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
+To: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, ozeng@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>,
+ stable@vger.kernel.org
+Subject: [PATCH v3] drm/amdkfd: fix a memory leak in
+ device_queue_manager_init()
+Date: Thu,  8 Jan 2026 15:18:22 +0800
+Message-Id: <20260108071822.297364-1-lihaoxiang@isrc.iscas.ac.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260107203224.969740802@debian4.vm>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: zQCowACHHRFAWl9pfor3Aw--.56272S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CFyUKw1rXw1fAFy3try3XFb_yoW8Zw1kpF
+ Z3Ja45J348tr429asrZayUCa43Gw4fGr93WrWxK3s2gr4avr98Xrn5Xr4rW3yrKrWxCF4j
+ q3yrKFW5tr10yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+ 6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+ 4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+ MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+ VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-Originating-IP: [36.112.3.223]
+X-CM-SenderInfo: 5olkt0x0ld0ww6lv2u4olvutnvoduhdfq/1tbiCQ4BE2le-Z5SAQABsT
 X-Mailman-Approved-At: Thu, 08 Jan 2026 13:37:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,9 +62,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 07, 2026 at 09:31:14PM +0100, Mikulas Patocka wrote:
-> This commit changes -EINTR to -ERESTARTSYS, so that if the signal handler
-> was installed with the SA_RESTART flag, the operation is automatically
-> restarted.
+If dqm->ops.initialize() fails, add deallocate_hiq_sdma_mqd()
+to release the memory allocated by allocate_hiq_sdma_mqd().
+Move deallocate_hiq_sdma_mqd() up to ensure proper function
+visibility at the point of use.
 
-No, this is bonkers.  If you get a signal, you return -EINTR.
+Fixes: 11614c36bc8f ("drm/amdkfd: Allocate MQD trunk for HIQ and SDMA")
+Cc: stable@vger.kernel.org
+Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
+---
+Chnages in v3:
+- recheck the patch format.
+Changes in v2:
+- Move deallocate_hiq_sdma_mqd() up. Thanks, Felix!
+- Add a Fixes tag.
+---
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 19 +++++++++++--------
+ 1 file changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index d7a2e7178ea9..8af0929ca40a 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2919,6 +2919,14 @@ static int allocate_hiq_sdma_mqd(struct device_queue_manager *dqm)
+ 	return retval;
+ }
+ 
++static void deallocate_hiq_sdma_mqd(struct kfd_node *dev,
++				    struct kfd_mem_obj *mqd)
++{
++	WARN(!mqd, "No hiq sdma mqd trunk to free");
++
++	amdgpu_amdkfd_free_gtt_mem(dev->adev, &mqd->gtt_mem);
++}
++
+ struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
+ {
+ 	struct device_queue_manager *dqm;
+@@ -3042,19 +3050,14 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
+ 		return dqm;
+ 	}
+ 
++	if (!dev->kfd->shared_resources.enable_mes)
++		deallocate_hiq_sdma_mqd(dev, &dqm->hiq_sdma_mqd);
++
+ out_free:
+ 	kfree(dqm);
+ 	return NULL;
+ }
+ 
+-static void deallocate_hiq_sdma_mqd(struct kfd_node *dev,
+-				    struct kfd_mem_obj *mqd)
+-{
+-	WARN(!mqd, "No hiq sdma mqd trunk to free");
+-
+-	amdgpu_amdkfd_free_gtt_mem(dev->adev, &mqd->gtt_mem);
+-}
+-
+ void device_queue_manager_uninit(struct device_queue_manager *dqm)
+ {
+ 	dqm->ops.stop(dqm);
+-- 
+2.25.1
+
