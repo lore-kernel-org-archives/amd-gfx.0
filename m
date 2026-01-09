@@ -4,132 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DDFD232EE
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 08:25:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9EBAD232F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 08:42:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6767D10E816;
-	Fri,  9 Jan 2026 08:25:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7405810E81C;
+	Fri,  9 Jan 2026 08:42:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lf4S2jdR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="O0NCuAJb";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010035.outbound.protection.outlook.com [52.101.61.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 324A110E816
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jan 2026 08:25:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vqHRfTHFWwOrIHEIRi4NzFeLZ5se3RFCufFzWD/vWG9kFWG4BxcdvHp0yAlR7rRLCUobUsDiPV97anga7qNLVeB8pFNmkR/eXHUCVjrbxpzlXYrTUhdhHxSB5m4rhVciE1C5Mn6KBpLrSJoxwf3pT+S3Ci2oErcWWlQzHDVcmcKSC1dV6f48yDioY+sNQjAfzY+QivhFqH1jWHTg0SnfOVtKER/BhQr7bxyKPmwVbdlAuQIk7B6h2qsdt2tukpMmNhAKM1+K/T4YHfsCkI5TJTtOviSqkbhop0Z/0MOThRWgP5IIeT4kwdGnwdZPT6bOCQFoumcXXIQRA93Im9tn2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nkp1qxEvuMg3UTazoovzGsKUc8svNuJZQeSjHZP8vTY=;
- b=fQzX5TY3hFkOv4+RwRoADpizS/+v1hvTXughOtOV6gU+tOHbB7ZEPGoVruRaD3HaHI/62ROMffBUcFx2PRf1ukoeLdJXQKFRfTCA4YfSy44G0GaGd5vzdz3VpairUKfJiY7eV0uszjTctRXSANZlvkG81xmPeLTjeGzRP4yNtMTbl7KaxS1w1E08sF3rOP6KZqkH1vuJh66JJTAdItmRjqGZENF6qO2AUT5QkXoAQ9dJM5W5mgrzm/+F6ntknuSDz6ziGK/UpkicEuFaV9rx98Dd/VUUfStInNiybM85/I0Ue20ox+QTtdEepeagkJ4MlGIPLsXoJD5sLWl5Bv3evQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nkp1qxEvuMg3UTazoovzGsKUc8svNuJZQeSjHZP8vTY=;
- b=lf4S2jdR48zzm6ezmUsi6GNuJZAi0f9EDit7XYROscxQzi2HnoSdlvwWhGI5oXh8KA4ieBrdtU4L6LCEy9xSUPSjFqSDBLEPLTZ474hsGe17nTHvfPPLvvATVeVT35s5w5IYjYOfhSU8czc5W2qdN6NHrYEGHNbznyyH0fbH0Vg=
-Received: from BN0PR07CA0029.namprd07.prod.outlook.com (2603:10b6:408:141::11)
- by LV5PR12MB9828.namprd12.prod.outlook.com (2603:10b6:408:304::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.5; Fri, 9 Jan
- 2026 08:25:40 +0000
-Received: from BN1PEPF00004680.namprd03.prod.outlook.com
- (2603:10b6:408:141:cafe::e9) by BN0PR07CA0029.outlook.office365.com
- (2603:10b6:408:141::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.4 via Frontend Transport; Fri, 9
- Jan 2026 08:25:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004680.mail.protection.outlook.com (10.167.243.85) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Fri, 9 Jan 2026 08:25:40 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
- 2026 02:25:38 -0600
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, <phil@jpmr.org>, 
- Prike Liang <Prike.Liang@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: validate the flush_gpu_tlb_pasid()
-Date: Fri, 9 Jan 2026 16:25:23 +0800
-Message-ID: <20260109082523.889564-2-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260109082523.889564-1-Prike.Liang@amd.com>
-References: <20260109082523.889564-1-Prike.Liang@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C5AA10E817;
+ Fri,  9 Jan 2026 08:42:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1767948178; x=1799484178;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=KbTCncQ97eerYnw4Wnp91TIcTti+LR3nCKvYH1J59aA=;
+ b=O0NCuAJbxovJWCsIc0rdwx//7xYBqj3W60ixSSKSz/V9qhFORLYRPGBx
+ xcddnU01o7WFeu5QOML9n2Jgxj1+sHXpwGGqiHeQDxzwvC5pjSx3qI542
+ KPf4Q2+VS3W00FilYYXCnBI+mXMOQobXHhVsvD8Ey+cky8i/WK/YQ2ZEN
+ /+Bo50MilqNcx2BmDbfAYOfeUbUFuw1xVElSAPYSnqSoGL4rlSQmePyGw
+ TIByaXufrhsRslU+nfROV0qWUdXPtpKIjEN/t217hDXo18HHNmZQqE2ur
+ RCogqHVDUSoxUwzOIzEIzkhq8veJ/++nKaZlQ15oc7dwSGDE1IEV4N+hW g==;
+X-CSE-ConnectionGUID: 4q+uutgZTFWFnZt/I9G8fQ==
+X-CSE-MsgGUID: +TchHBtISS+pidLfZ4JqCQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11665"; a="69241385"
+X-IronPort-AV: E=Sophos;i="6.21,212,1763452800"; d="scan'208";a="69241385"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2026 00:42:58 -0800
+X-CSE-ConnectionGUID: ps0lOmumRfGomJYoGwQ6Qw==
+X-CSE-MsgGUID: K6mETJ7JSumbVto6QyMiaw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,212,1763452800"; d="scan'208";a="240924425"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by orviesa001.jf.intel.com with ESMTP; 09 Jan 2026 00:42:53 -0800
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, jani.nikula@linux.intel.com,
+ louis.chauvet@bootlin.com, mwen@igalia.com, contact@emersion.fr,
+ alex.hung@amd.com, daniels@collabora.com, uma.shankar@intel.com,
+ suraj.kandpal@intel.com, nfraprado@collabora.com,
+ ville.syrjala@linux.intel.com, matthew.d.roper@intel.com
+Subject: [PATCH v2 00/13] drm: Color pipeline teardown and follow-up
+ fixes/improvements
+Date: Fri,  9 Jan 2026 13:47:15 +0530
+Message-Id: <20260109081728.478844-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004680:EE_|LV5PR12MB9828:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0d547885-009e-44dd-820c-08de4f58acae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?VU5mcmMxYlhhS01yQ1ZieU5kMHZOa2hFRmxLUzdBMks2WHE3MHBUM3BBT1Rh?=
- =?utf-8?B?b3ZsWDBwNnV5cnphRG1FMXRjRnVIbnJBU0VvSzZrdzlCMGVXWDgvbGgzUjBW?=
- =?utf-8?B?aWIxT2d4VndDM2pzamV5RjRKVWJXNVhLdEt3akdUMU5hVWlpOHlqNU5yTjRt?=
- =?utf-8?B?OTEzSzlyci9FMGZlbHAvNll1Y3R1eWE0ZWE0cmNxZWdRdjBiT2swNHdNZ0lY?=
- =?utf-8?B?NFpQTTFQN3VLNzlITldEL2ZHL3dxWnBZTCtob3ZOZGhtcS9ONlRFbFBKakxY?=
- =?utf-8?B?d3JMQitnYTE5R2VUb2w5T1BENlBFemIza1BvU2hZUmZJcjVkNk9HYUs1T2Jw?=
- =?utf-8?B?eEY3dlRQZWJVWmJvUnZSK0U4VDVvYkFFcUdzdTNnVXlYMmpVREdKV3ZzeWFZ?=
- =?utf-8?B?OE5HNWpQVlFEVmIrWVZNOGFQS2dySW1YdmNUbFl5MU02NTdCVFNORDZxVzV5?=
- =?utf-8?B?RC9aZ1ZJY3FVVHVheEg4S201Njg2bVZrR3o3TXdUZWlUdkRMQVhFQml2aWpi?=
- =?utf-8?B?MStoOTAyaG0yUkZiS0VyNThNQVhCQjAxMzFhTHZacVJkdkV1MFFja3BLamtY?=
- =?utf-8?B?cFN0NXRuaEtWYU56OWI2Y3NVZ01iZzJib0FNcnNnMVdSWUFtVlA4OU1YSkla?=
- =?utf-8?B?T0F5Y0FJWWhwb0ZKN05NV3VBR1NrOUlBOW9XZHR6WUhWRi80bVZpVG5JcTJU?=
- =?utf-8?B?RDJSZzc4MVdiUTlHdXdaeDdGTmtTMzFTNjlxdnZQN0hFNTRiRlYxdjQ0Z0lK?=
- =?utf-8?B?N0h4bVpTblhZaDZKdGtLSzVXZDh3VUNwN3c0YnhUYTY1K283K2VxQ0lXM2Ux?=
- =?utf-8?B?THgwMzAzaEoybkxiR2Z6a0Y0Q0J2c2hhK29VWUkwSzYzYkJRR25jSk5Zb0x6?=
- =?utf-8?B?Nk95N3dPQ2lqRW1PeDhzWTBWUlZyRjZ6NkhCK01wZzFyYTZiZnJBbEtrclJ5?=
- =?utf-8?B?dk5vNHkxWWh1ZFRWTG9FQ2YxZFhrZnQ0S1k5L2lHUERhaElvek5XNUlwZ0Ri?=
- =?utf-8?B?aW5uSmxvWEhHeEEvSDlWSERvYUI4MVVvUEhhMW1kajFyZHpsMkwxcnVPYWtr?=
- =?utf-8?B?RG9oazhQNU5BMXg4Skpnc1Z5L2FnRzdBME4yZUwwWFhaanFpZ2xKSWtyQlpZ?=
- =?utf-8?B?aGkrQm9VZlA1TWN5aTdVcUVkVTc4S3B0UU40bWxGcFo5aVJHeHZOQ1BGK3Iy?=
- =?utf-8?B?dlJqcEsyUXowYjV4UElPZWtIeDhodVFtbjVmdFpiUWhRWU0zYU1xNTNFMGZm?=
- =?utf-8?B?ZTRwY0pXbTNhbEdvekc5UkhxcE9SZzVrcWI2eUZoS1FyaXREcFliK2ZpY1Vx?=
- =?utf-8?B?cDB5SlZsdG9BM1g5clYxSzlRSVRmTmYzSGlveFlsV1dnbUtva2hMYTluc1Bq?=
- =?utf-8?B?NlhJU2g4ZVNVMERIT2FBZ3lhSnEzUk0xWlRaWmd1MEFtQUZyM2F1U1gwZHZF?=
- =?utf-8?B?T21yOStTTm5PV1NZelJHanhmeWNGSENwMWFOazVJR3YrR3ZZSks0YUtCVFJW?=
- =?utf-8?B?TmVEZGRza3ptT2RSYTJFT2o0UC9uYTZEdHBKSlZFcGp3Zkttc1p3MkNhQlhq?=
- =?utf-8?B?UTJ0eldDcHVIZ3hrY2U0REl1LzVVUFRtWDlKaVFoQi9CYXNTeWF1bmRMbFJV?=
- =?utf-8?B?YnRqQXNwNC9jZ3FGQmluam80Skk0Tlk0MUcvOUh0eVRoRU1qTTVCM2hxeVh3?=
- =?utf-8?B?ZFIxWUthM3E5Nmh4Q1RDMGpXR3FRdmtNSGoxT0F4V0lZbEo1VDdBbWg3ZnZy?=
- =?utf-8?B?LzlzSGlvS2ExQnpnbDZOVUFjUkswb3lucGdZT0d3OFZjR2xwYkRUSk5nSlVU?=
- =?utf-8?B?NUppVGhYdThxdWRBYXJzNHRweU1iWVFrMVRwc1N3R21VUElkTDBldDFvTW12?=
- =?utf-8?B?SER4ekc1ai9XWi91T3lGeDJ4cVNUREl5YjlZZmEyNE9rdGtmeHV0WlYwQjhx?=
- =?utf-8?B?K1l0bWxhQVlPWWtnVTFuUlcyZzIySmVJRks2WGlUY0g2YlVXSzBiOFNYb1Vn?=
- =?utf-8?B?cnlvNmFIRytScWtsZkNUVlJoNTF5YWptK29leWtTWjc1L1J3ZTNidWZ5Uk9n?=
- =?utf-8?B?TnB2Rys5QzFyeW12cVNqZTRqak9OYlpUaEFXWTNkQVBmSzdmalZGNmtqbUR6?=
- =?utf-8?Q?dxcY=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 08:25:40.5601 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0d547885-009e-44dd-820c-08de4f58acae
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004680.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9828
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,29 +70,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Validate flush_gpu_tlb_pasid() availability before flushing tlb.
+This series contains follow-up fixes and improvements for the DRM color
+pipeline infrastructure that was introduced in v6.19.[1][2]
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 4 ++++
- 1 file changed, 4 insertions(+)
+The central handling of clean up of colorop from the mode_config list
+is missing. While vkms calls drm_colorop_pipeline_destroy() in vkms_destroy(),
+amd driver calls it only during failure of the init path and i915/xe driver
+does not call it at all. This means amd and intel leaks these objects on
+driver removal.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 6d7b8bb953ae..0e67fa4338ff 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -780,6 +780,10 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
- 		return 0;
- 
- 	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready) {
-+
-+		if (!adev->gmc.gmc_funcs->flush_gpu_tlb_pasid)
-+			return 0;
-+
- 		if (adev->gmc.flush_tlb_needs_extra_type_2)
- 			adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
- 								 2, all_hub,
+This series adds the teardown of mode_config.colorop_list in drm_mode_config_cleanup().
+Since, i915/xe sub-classes the drm_colorop within intel_colorop it was not enough
+to just use drm_colorop_pipeline_destroy(). Therefore, this series
+
+- Introduces driver-managed destruction for drm_colorop objects and
+  updates core helpers to use driver-provided destroy callbacks.
+- Ensures all colorop objects are correctly torn down during
+  mode_config cleanup and driver removal.
+
+In addition to that following changes are made in the series
+- Fixes enum name lifetime leaks in color pipeline init in i915, amdgpu_dm, and vkms
+- Corrects the ordering of the 3D LUT block in the i915 plane color pipeline
+- Refactors i915 plane color pipeline initialization to reliably clean
+  up partially constructed pipelines on failure.
+
+Thanks for taking a look. Feedback is welcome.
+
+[1] https://lore.kernel.org/dri-devel/cbe00ac4-a535-47d3-813a-e2eda7e9b991@amd.com/
+[2] https://lore.kernel.org/intel-gfx/20251203085211.3663374-1-uma.shankar@intel.com/
+
+v2:
+ - Re-arrange patches (Alex)
+ - Re-factor code to avoid repitition in pipeline creation (Suraj)
+
+==
+Chaitanya
+
+Cc: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Suraj Kandpal <suraj.kandpal@intel.com>
+Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
+Cc: Matt Roper <matthew.d.roper@intel.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Simon Ser <contact@emersion.fr>
+Cc: Daniel Stone <daniels@collabora.com>
+Cc: Nícolas F. R. A. Prado <nfraprado@collabora.com>
+
+Chaitanya Kumar Borah (13):
+  drm/i915/color: Place 3D LUT after CSC in plane color pipeline
+  drm/amd/display: Fix color pipeline enum name leak
+  drm/vkms: Fix color pipeline enum name leak
+  drm/i915/display: Fix color pipeline enum name leak
+  drm/colorop: Add destroy helper for colorop objects
+  drm: Allow driver-managed destruction of colorop objects
+  drm/amd/display: Hook up colorop destroy helper for plane pipelines
+  drm/vkms: Hook up colorop destroy helper for plane pipelines
+  drm/i915/display: Hook up intel_colorop_destroy
+  drm: Clean up colorop objects during mode_config cleanup
+  drm/vkms: Remove drm_colorop_pipeline_destroy() from vkms_destroy()
+  drm/colorop: Use destroy callback for color pipeline teardown
+  drm/i915/color: Add failure handling in plane color pipeline init
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  31 ++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |  13 +-
+ drivers/gpu/drm/drm_colorop.c                 |  46 +++--
+ drivers/gpu/drm/drm_mode_config.c             |   6 +
+ .../drm/i915/display/intel_color_pipeline.c   | 179 +++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_colorop.c  |   6 +
+ drivers/gpu/drm/i915/display/intel_colorop.h  |   1 +
+ drivers/gpu/drm/vkms/vkms_colorop.c           |  31 +--
+ drivers/gpu/drm/vkms/vkms_drv.c               |   1 -
+ include/drm/drm_colorop.h                     |  40 +++-
+ 10 files changed, 264 insertions(+), 90 deletions(-)
+
 -- 
-2.34.1
+2.25.1
 
