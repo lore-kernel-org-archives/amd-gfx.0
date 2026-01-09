@@ -4,123 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DCD1D277D1
-	for <amd-gfx@archiver.kernel.org>; Sat, 10 Jan 2026 04:52:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A728D232D3
+	for <amd-gfx@archiver.kernel.org>; Sat, 10 Jan 2026 17:58:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0476310E2C4;
-	Sat, 10 Jan 2026 04:52:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAEEA10E04E;
+	Sat, 10 Jan 2026 17:58:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="K8S1+7lx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jD6DlzBQ";
 	dkim-atps=neutral
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com
- [209.85.216.97])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68A1910E39E
- for <amd-gfx@lists.freedesktop.org>; Sat, 10 Jan 2026 04:52:21 +0000 (UTC)
-Received: by mail-pj1-f97.google.com with SMTP id
- 98e67ed59e1d1-34b75fba315so2983886a91.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Jan 2026 20:52:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768020741; x=1768625541;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=gdEkYQhK8RCUcABTlzAZxt9zs7C+vSnS48JVz3Z7v1s=;
- b=IBXNagFD5cepWNJ0PYfwBDaOcft/FioLK9C0RZMn3hqM2G3RLnnRPHV0+8uamyZidA
- ZfOaWQxtIKdRxH2Hv3K+spa9YkbU0KtobdW3XaNZrQE/9kktv2v8wllFAWvs4N9mZUkS
- FK1qmO4Cj+/w54HEY3OGArvL2L/FnokQ3PZ9UKujaecSOAZCgngJU1qOQvkr9kE6TViV
- LoGeFPxpIqnYrJTSkLI6XBIEuSTJ0eDgHBHtfUe4h0+V+PVycD1/dM9dM4kqzAb9Mo+/
- WiSefxoYpiJnSHRiIpMoESzvOjiMtz51IxI7w14CWKUwhjaqEKN5EBPGoYK9sXZZhzu6
- xDMg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVNpSxQsc9yiJlUzUyM5N3rW7PD6T/HoVM0GJbhns1zSInmLhyPSnHUCTGG30YxJAYtKxk4fZEO@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywt0ADJgjwL4nY1XT/kxcRFArr1mY0qdEOV2jjBXxGigAezGKH0
- /kkw43zrCiE/RJ78pPz97xJj4gN+mkl7x4RVNCwST0L+MogBxjlqqDKKpDC4LzmV36MqedHZakw
- MxiOl8K/9tkhyHf+7DYaDR/CIHro/w0/esUlaH5L4DO+QIMdCYUKscUzzQ0lCLUroozcElF/2T4
- 1K1YwmwLpIMjGrKryz7TMsu6tPV0/2xE4S45h2T++GisvIGHn9Wifx0llFbQlplZtCClStiBZGt
- V/PGb1QtSFTN45AGA==
-X-Gm-Gg: AY/fxX7LpboSn5MWFkit12Q4VcPJ6K/STNBZhI8YKUBAYTF5eFJ3M+Y84cKnsiUuFQq
- SUVdE253uzsJu/McW+gbfM66v4hrVKq/+0eV38vhpyft5Vtu+OyOmVOs1ytFpq6ZFuwclqUfvKf
- MAd1T0ThzObxMTL2/81+9XbliPKEmL7yXe0BFOmzm3n4Qj5PIRhJsTwhYfClQCP9ajiP6c490fg
- L04JndpAbkEMbrZxh8VHZHlZdX4aXJ0z8qwLtY0XvuclfBBtRHT7dPnKGOiAWgJ/XiKOseBXkkx
- 5OHvvWy9GHmRuAq3ezog9IdgZ9o0zjGjhmlbJfZrCpxbAV4gxAI489nDyKWM8kdOO3owt1CW689
- I+uK77kzO+tMjxmX70gEtF3eV/azr7cIKoEBg/H86Yc3p8vip5BujPM1rixCR1he3L1IFror5qP
- fgQwZB8Cn2+vebBvumvj1V/ZCstp/9YX2MD9SJYaQ=
-X-Google-Smtp-Source: AGHT+IHz23L1xLCzOl/umg3XwmmSXCsQDxsMcFhVB/kGf5tqXRbpZlRsFclzlWk7OvWmJnBTcQBkdppSIh2n
-X-Received: by 2002:a17:90b:57c4:b0:34c:a211:e52a with SMTP id
- 98e67ed59e1d1-34f68cae46emr10955782a91.27.1768020740780; 
- Fri, 09 Jan 2026 20:52:20 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-2.dlp.protect.broadcom.com. [144.49.247.2])
- by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-34f5f8f4df1sm1729204a91.4.2026.01.09.20.52.20
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 09 Jan 2026 20:52:20 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lf1-f71.google.com with SMTP id
- 2adb3069b0e04-59b70088327so3439578e87.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 09 Jan 2026 20:52:19 -0800 (PST)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A86D110E919
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jan 2026 16:25:13 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-43246af170aso1856433f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 09 Jan 2026 08:25:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1768020738; x=1768625538;
- darn=lists.freedesktop.org; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=gdEkYQhK8RCUcABTlzAZxt9zs7C+vSnS48JVz3Z7v1s=;
- b=K8S1+7lx5315PXCn9YhwYMgao8QmtUOf52GUlOC0xJ/XV0TD2P6FAlMbXZOc3ZcIuY
- fUPmL4dkFvsGX9Ih1JB5Uj7V+EhRy9QqKCISsONibDyk7Zk9VxOJJsYVWlPlXEvsBa98
- bvqnwIJdtVSpHnM70eLUH/OcPVV3QgsLfHGII=
-X-Forwarded-Encrypted: i=1;
- AJvYcCVFao+4Eg7ZMKGpCBHZCR5dUZzv3NapCJ/C3cegSVKm3i0ixj4e46Dmo/uSrmI4dYf4gBwHpO9T@lists.freedesktop.org
-X-Received: by 2002:a05:6512:b05:b0:598:eb48:cdd7 with SMTP id
- 2adb3069b0e04-59b6f036b6dmr3303254e87.32.1768020738308; 
- Fri, 09 Jan 2026 20:52:18 -0800 (PST)
-X-Received: by 2002:a05:6512:b05:b0:598:eb48:cdd7 with SMTP id
- 2adb3069b0e04-59b6f036b6dmr3303240e87.32.1768020737789; Fri, 09 Jan 2026
- 20:52:17 -0800 (PST)
+ d=gmail.com; s=20230601; t=1767975912; x=1768580712; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=6D61jCcPKdIzLOh1VTWA3yx/fr9rhqVqmFGIMjfLvdI=;
+ b=jD6DlzBQ8b3umEHA5KBKdl2+sVzHdGneZm8tb8taJFFKc7hMsj3VdeyHqsJXbu8XhY
+ 0QOhDoEZVU0BKCH1bXzlldkugetGhgAXgq8XtSV0kK+3jM7DXVnPNq1LTZEl5hRHVwKn
+ eFdXWOzt/w2iBpWoLn7qobA9bu9b5u7QRQfC1DvtGTQklMlXfBEIIS80somrEkipRsBl
+ KPpyAZr5kL4DXBsinyCHziDV9ZgM/HIlEaUVO52wXfRsMFuXtrj8uKVUiQ3SXZoPmd43
+ UzDiF44WzNHUr2GpxBqpJZsuH3+DhQEz5v/s3RyvqHRUJb6nDFq3PbVilaDz2eHmhUs+
+ F1BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1767975912; x=1768580712;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6D61jCcPKdIzLOh1VTWA3yx/fr9rhqVqmFGIMjfLvdI=;
+ b=rIF9Wajdg6hHyJu0/LTqyXXCyHOFp4g9xGItBmDIM+pgSTgCCeXe4Luz5U60JSr1jp
+ eNtzQQX31cNYPquFR7aRkJyD0muTUK49H3U5AGbZlSeL2bjAiNBC73uEmhah32I+nZD6
+ paiyJoLtj2Zp47T0DT0RQJNabeAuKnglzb94dMLgZXfVTSuY+Mf47Ue8Vfedq7Wd1VcH
+ 0DLJVXBhiH6CzJdkvwcXf7QNiYR7PCVrxXGndbjLgdKMOcoKtGarrRJ2qAIWGtcWnLmS
+ z2FfjF3ksRslNJGIQgNed0Dw2+YhR0KJK9mMCa1BTgmPv7Egqpqv6/g/FvBAlI4pv28g
+ y7bA==
+X-Gm-Message-State: AOJu0YyY1rd/h8mZ4raiDux/JghrRqYL3V44CjA3MqqIT3/jYDz46jyR
+ aNVsAZDfD8fsPLVDHu/oXt6oNKrLYupWNyOdjQk/O8DWR0V2vedYlb+O
+X-Gm-Gg: AY/fxX77DwnzKfFRtr8TBCziTyPW/ZsgvHxz0OTp6CHb4hU+hTe7+2ci8Q7DJaPcTjJ
+ gb9UBUCZOy/M/cjEhAQUG7Np6os3OY14UanPebsmSWm14Cm/tKXyNgTNRTVhYAld7Slyr0YxxB6
+ sO4TuHIj+Da84ckyyRn4haBFtndREU2QsSZgKbxPgYTPg5HB72WIwhKDv713x2FVZ4fSRW9nrp9
+ iJjRYCuKbwnapA9AfXvc1cLjGp36QIq7vTI9Co8I5hjM0YilHW+JpYz3wYqOQm2oFV4wLS9CYke
+ SWB7jXrwobi2iuV7kIHajqlbPN3sybjH12WgJ+8L324uEtgt4VcLjF2K4vd7oSphBH4z0pNj+zk
+ TkHeDE2If+EzIhhJCTe5XxdDX38v1ysy0gAfVirMa3lNB7cTpItify3nyLlVP/UULn7nVddvfc+
+ /j+dOnErptO4FzLJD7lE2aFSKN
+X-Google-Smtp-Source: AGHT+IETHFe1bt83p7OLl4C3e0be5VCh+jmS63D91zqEYAh74kxUAD5M7+gilHthbzHGo+uLzSlcbA==
+X-Received: by 2002:a05:6000:2010:b0:431:f5:c36f with SMTP id
+ ffacd0b85a97d-432bcfe4cfamr17880196f8f.31.1767975911920; 
+ Fri, 09 Jan 2026 08:25:11 -0800 (PST)
+Received: from Arch-Spectre.dur.ac.uk ([129.234.0.168])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432bd5ff0b2sm23201743f8f.42.2026.01.09.08.25.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Jan 2026 08:25:11 -0800 (PST)
+From: Yicong Hui <yiconghui@gmail.com>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ skhan@linuxfoundation.org, david.hunter.linux@gmail.com,
+ linux-hardening@vger.kernel.org, Yicong Hui <yiconghui@gmail.com>
+Subject: [PATCH] drm/amdgpu: Replace deprecated strcpy() in
+ amdgpu_virt_write_vf2pf_data
+Date: Fri,  9 Jan 2026 16:25:14 +0000
+Message-ID: <20260109162514.308143-1-yiconghui@gmail.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-References: <20251229215906.3688205-1-zack.rusin@broadcom.com>
- <c816f7ed-66e0-4773-b3d1-4769234bd30b@suse.de>
-In-Reply-To: <c816f7ed-66e0-4773-b3d1-4769234bd30b@suse.de>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Fri, 9 Jan 2026 23:52:05 -0500
-X-Gm-Features: AQt7F2p8B_T8ovfD5ZSr9MTIdbY91q6Tpr9PYo2oe7dWWszTv7Z59e7mmZ6IEig
-Message-ID: <CABQX2QNQU4XZ1rJFqnJeMkz8WP=t9atj0BqXHbDQab7ZnAyJxg@mail.gmail.com>
-Subject: Re: [PATCH 00/12] Recover sysfb after DRM probe failure
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx@lists.freedesktop.org, Ard Biesheuvel <ardb@kernel.org>,
- Ce Sun <cesun102@amd.com>, Chia-I Wu <olvaffe@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>, 
- Deepak Rawat <drawat.floss@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Hans de Goede <hansg@kernel.org>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Helge Deller <deller@gmx.de>, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Javier Martinez Canillas <javierm@redhat.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Lijo Lazar <lijo.lazar@amd.com>, linux-efi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, 
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Lucas De Marchi <lucas.demarchi@intel.com>, Lyude Paul <lyude@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>, 
- Maxime Ripard <mripard@kernel.org>, nouveau@lists.freedesktop.org, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, 
- spice-devel@lists.freedesktop.org, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, virtualization@lists.linux.dev, 
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="00000000000016e3370648016826"
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sat, 10 Jan 2026 17:58:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,187 +88,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000016e3370648016826
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+strcpy() is deprecated as it does not do any bounds checking (as
+specified in Documentation/process/deprecated.rst).
 
-On Fri, Jan 9, 2026 at 5:34=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
-de> wrote:
->
-> Hi
->
-> Am 29.12.25 um 22:58 schrieb Zack Rusin:
-> > Almost a rite of passage for every DRM developer and most Linux users
-> > is upgrading your DRM driver/updating boot flags/changing some config
-> > and having DRM driver fail at probe resulting in a blank screen.
-> >
-> > Currently there's no way to recover from DRM driver probe failure. PCI
-> > DRM driver explicitly throw out the existing sysfb to get exclusive
-> > access to PCI resources so if the probe fails the system is left withou=
-t
-> > a functioning display driver.
-> >
-> > Add code to sysfb to recever system framebuffer when DRM driver's probe
-> > fails. This means that a DRM driver that fails to load reloads the syst=
-em
-> > framebuffer driver.
-> >
-> > This works best with simpledrm. Without it Xorg won't recover because
-> > it still tries to load the vendor specific driver which ends up usually
-> > not working at all. With simpledrm the system recovers really nicely
-> > ending up with a working console and not a blank screen.
-> >
-> > There's a caveat in that some hardware might require some special magic
-> > register write to recover EFI display. I'd appreciate it a lot if
-> > maintainers could introduce a temporary failure in their drivers
-> > probe to validate that the sysfb recovers and they get a working consol=
-e.
-> > The easiest way to double check it is by adding:
-> >   /* XXX: Temporary failure to test sysfb restore - REMOVE BEFORE COMMI=
-T */
-> >   dev_info(&pdev->dev, "Testing sysfb restore: forcing probe failure\n"=
-);
-> >   ret =3D -EINVAL;
-> >   goto out_error;
-> > or such right after the devm_aperture_remove_conflicting_pci_devices .
->
-> Recovering the display like that is guess work and will at best work
-> with simple discrete devices where the framebuffer is always located in
-> a confined graphics aperture.
->
-> But the problem you're trying to solve is a real one.
->
-> What we'd want to do instead is to take the initial hardware state into
-> account when we do the initial mode-setting operation.
->
-> The first step is to move each driver's remove_conflicting_devices call
-> to the latest possible location in the probe function. We usually do it
-> first, because that's easy. But on most hardware, it could happen much
-> later.
+There is a risk of buffer overflow in the case that the value for
+THIS_MODULE->version exceeds the 64 characters. This is unlikely, but
+replacing the deprecated function will pre-emptively remove this risk
+entirely.
 
-Well, some drivers (vbox, vmwgfx, bochs and currus-qemu) do it because
-they request pci regions which is going to fail otherwise. Because
-grabbining the pci resources is in general the very first thing that
-those drivers need to do to setup anything, we
-remove_conflicting_devices first or at least very early.
+Replace both instances of strcpy() with the safer strscpy() function.
 
-I also don't think it's possible or even desirable by some drivers to
-reuse the initial state, good example here is vmwgfx where by default
-some people will setup their vm's with e.g. 8mb ram, when the vmwgfx
-loads we allow scanning out from system memory, so you can set your vm
-up with 8mb of vram but still use 4k resolutions when the driver
-loads, this way the suspend size of the vm is very predictable (tiny
-vram plus whatever ram was setup) while still allowing a lot of
-flexibility.
+Changes have been compile tested.
 
-In general I think however this is planned it's two or three separate serie=
-s:
-1) infrastructure to reload the sysfb driver (what this series is)
-2) making sure that drivers that do want to recover cleanly actually
-clean out all the state on exit properly,
-3) abstracting at least some of that cleanup in some driver independent way
+Signed-off-by: Yicong Hui <yiconghui@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-z
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 47a6ce4fdc74..1c4e74e35cf3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -604,10 +604,10 @@ static int amdgpu_virt_write_vf2pf_data(struct amdgpu_device *adev)
+ 
+ #ifdef MODULE
+ 	if (THIS_MODULE->version != NULL)
+-		strcpy(vf2pf_info->driver_version, THIS_MODULE->version);
++		strscpy(vf2pf_info->driver_version, THIS_MODULE->version);
+ 	else
+ #endif
+-		strcpy(vf2pf_info->driver_version, "N/A");
++		strscpy(vf2pf_info->driver_version, "N/A");
+ 
+ 	vf2pf_info->pf2vf_version_required = 0; // no requirement, guest understands all
+ 	vf2pf_info->driver_cert = 0;
+-- 
+2.52.0
 
---00000000000016e3370648016826
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEII5o
-RGTEyV0XeAfpw/3EFhD4hnN34Z3brBUKW0xqk8cVMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDExMDA0NTIxOFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAF1Xo42N3K3eae8tcsSKl342yCGSrVLRINZtTEq9
-r63VqEAIdk89PCmgq61M9rT5wC/lhrOuNPE4WrW+Z1ZjnyFFroTD6ML1O92fBD6ngQfenx0qqqiN
-3EMvaNZEewav2YLeGmd1133vuOm0UNdoCPNK0xq3AR7gtCqt7p38R15PaQgZzWhc4K8GrVEYcbJy
-k1CeiWNlU+e4sXGmWAAIP2yyfTSxZc116VnRSp1vp8IKeUID6E5ozB304N1HPFHMjw+nSCeOOyCb
-TWO3GNDKajKdndjDywgT4lpgz2KIjnQLKIRoYwb9pAavWOIt+M1v21zeOFwh+Iofvs4XuSoq8G8=
---00000000000016e3370648016826--
