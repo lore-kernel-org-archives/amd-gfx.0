@@ -4,136 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B792CD26D94
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 19:24:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62E43D26D9D
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 21:14:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BDB710E93D;
-	Fri,  9 Jan 2026 19:24:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F406D10E94A;
+	Fri,  9 Jan 2026 21:14:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iW3XWIzB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x4f/j37Q";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010071.outbound.protection.outlook.com [52.101.85.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50CAC10E93D;
- Fri,  9 Jan 2026 19:24:36 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011014.outbound.protection.outlook.com [40.107.208.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D768510E949;
+ Fri,  9 Jan 2026 21:14:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m4BEezx4hr3FBgBQE+YOhs7Av97avN5V5uI5kOOKJnv/u7TGK73AbYc8HM4lOtZ26orQUAcKtWwumDCZIRrvNbalFpRJt6K7y/ssKMgVI5egv7ElT7idb9fZxYM14qVLqiRlGeVX04lEO2L+6Q6gdtLWt/WF61NOqnK5mlWgLrZtWcaZTMqxS7jhZ0E9wLFtujugr4DXX/q3OMiwkjDgToCPFqA6jX0EMcWmvTgUNb5w2cRlySvjv616+2+gcp8cnO/4jQsOQn8RNfLS9kHpTK38yiBI1ujL2EPkhToMU84Q5cUYBS3osGQO1FpCZwWUfUXUTo+K28Sl8znXPYxMcA==
+ b=JkWnKRA5ojF9I3V2YAE4ZPJfN4Da54WeHgNNcLf+Vo41z2H6/XgaYK222OqOF074dzj+ZJJiQoReqmp6DmRjm8eICuV869dObhdCkU5KTaNkb0+ehmGPo824psc8GUdPfBcAzd9lqyNKLq5HSyxpFjABVvBLHvm2E8PU6/Q+bIpQ91UKWbcipWydoV1MHw2Xip+T9zVSE2qkmki91ovaJ2y2q31OZomZC1Hc+l+PIPgxht2zd7daXd9uvLiaOSt+FEDSxWB29T6Zr++SP2XibnyxEWPvDzApnHVhKRa/OqxlqmNCKiQseEJuEOPWVxI3s7BGSeR/mvnzcbwXG2CD6g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MdoHr9u56DRjqjXhVeG1eqZ7XPopP0RJ6CEMg9tSB6w=;
- b=CWJ8aBkM/pzRhvhal+MgvA3fbLF0EV7rcaXNPOUSX+CreKfuXwxUAX8LzHMcNfLlQ8IA5Nvgw4doL1LAuRpz5N4Xbr2eqTIY4Z6ewHqoTsqH+mtRT7GtRrXgRaS6pGn1K5uIFPZCQcvA6J9WB6AsGO8WNWEUyArww0HWBfvz4BbcbiBCtCFgOdukTMk3je9my0CF4mYeOGuLAvKCPSj5zhjlABdR1rLKxikrlfK8tdPvT05AK9+W1XVPpiJzTdgHmKdJbI1cIZFHXvduGK29I/2ReB1DPuyhMNZEa6SI6c1WjZ+XOEXvxh7xmsrSFqK/QbTtrZM2mnZII/ehL2CkMA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=Lvb8DKqMBf0o2frilaZd7JE9cOUAvmxxiPnXJnwzf8w=;
+ b=kd8lZbMcVsQKSL8AMdmEdap9HJpCaKbgwydPaut8oAOlVvCFG8/xTpIRvNjv+PcMjZaOcY7Hjwimr+tZCzEIQcD88PSjn5v3bvuTqVwM75Wwhd7EHsIHG02SvYfIpbWARFt5IHNi3zr7xiI4R+j21uUONffetXnc7O0JC6VQ7FykfiK6NK3mZtk+g7tg10cvtR6yzJHsx3ap37BU35rjs2HK48iL/lROZPg6mmNBYgklyFlHInW+4kcw9kASBY8h4VJZCz1ngu6oimuyzDIX8n+ArldBamuck9+CajwKwFJCbSxlbsOXNRTz2rJphgFu27e0AVZMy+JNHnPWsm7k8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MdoHr9u56DRjqjXhVeG1eqZ7XPopP0RJ6CEMg9tSB6w=;
- b=iW3XWIzBuWW9ha/DMEXN2qCLPq/E1ehUGNX/EIKJ/dkARJBQGtnr598O64U757utpzXWU2V109o7TB9KEPpfKptW2MzDDCpbtpuF8tGzaUGTlJxyyrwIs0bR7zZ/hzKqxe5EEwUEHIEX8liVoFS3vZ186qHctAhASpdplrhiPJk=
-Received: from SA0PR12CA0006.namprd12.prod.outlook.com (2603:10b6:806:6f::11)
- by DS0PR12MB6414.namprd12.prod.outlook.com (2603:10b6:8:cd::12) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=Lvb8DKqMBf0o2frilaZd7JE9cOUAvmxxiPnXJnwzf8w=;
+ b=x4f/j37QJXiBjRiUsOYsVQzLiw158K1KSrhQqI96ku/94Jcnw/1oZhE16+NN0HGrTB5As+RJczTMZlxrcj820h4NcmiUP7TNIyCICaNgapdNK15Bo+KxIbRdBMh64NSdlMmDionfZcveGch3iVTEYpTB32uRfwirNh8LQ2jRURA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com (2603:10b6:408:118::14)
+ by IA0PR12MB8328.namprd12.prod.outlook.com (2603:10b6:208:3dd::5)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.4; Fri, 9 Jan
- 2026 19:24:31 +0000
-Received: from SA2PEPF00003AE5.namprd02.prod.outlook.com
- (2603:10b6:806:6f:cafe::ea) by SA0PR12CA0006.outlook.office365.com
- (2603:10b6:806:6f::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.4 via Frontend Transport; Fri, 9
- Jan 2026 19:24:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003AE5.mail.protection.outlook.com (10.167.248.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Fri, 9 Jan 2026 19:24:30 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
- 2026 13:24:30 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 9 Jan
- 2026 13:24:30 -0600
-Received: from [10.254.94.155] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 9 Jan 2026 13:24:27 -0600
-Message-ID: <a2b22837-5867-430f-8e7b-37eba3357ad1@amd.com>
-Date: Fri, 9 Jan 2026 14:24:21 -0500
-MIME-Version: 1.0
+ 2026 21:14:19 +0000
+Received: from BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81]) by BN9PR12MB5115.namprd12.prod.outlook.com
+ ([fe80::9269:317f:e85:cf81%7]) with mapi id 15.20.9499.004; Fri, 9 Jan 2026
+ 21:14:19 +0000
+Message-ID: <ab5d1bb7-7896-49fd-a9ea-19294f4f57ca@amd.com>
+Date: Fri, 9 Jan 2026 16:14:16 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm: Introduce drm_crtc_vblank_prepare()
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <simona@ffwll.ch>, <airlied@gmail.com>,
- <jani.nikula@linux.intel.com>, <ville.syrjala@linux.intel.com>
-References: <20260109192027.116325-1-sunpeng.li@amd.com>
+Subject: Re: [PATCH v2 0/4] drm/amdkfd: Add batch userptr allocation support
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Honglei Huang <honghuan@amd.com>
+Cc: dmitry.osipenko@collabora.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, akpm@linux-foundation.org,
+ Honglei Huang <honglei1.huang@amd.com>, alexander.deucher@amd.com,
+ Ray.Huang@amd.com
+References: <20260104072122.3045656-1-honglei1.huang@amd.com>
+ <64f0d21c-1217-4f84-b1ce-b65c1f5c2ef1@amd.com>
+ <b6004bee-ffef-48ea-ba0d-57b390cb771c@amd.com>
+ <76c44385-bcf8-4820-a909-569bd2d36198@amd.com>
 Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20260109192027.116325-1-sunpeng.li@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <76c44385-bcf8-4820-a909-569bd2d36198@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR0101CA0298.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6d::25) To BN9PR12MB5115.namprd12.prod.outlook.com
+ (2603:10b6:408:118::14)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE5:EE_|DS0PR12MB6414:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0a61d969-3c83-41f7-cdf4-08de4fb4b662
+X-MS-TrafficTypeDiagnostic: BN9PR12MB5115:EE_|IA0PR12MB8328:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0361ec00-756d-41a9-52ff-08de4fc40d8c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700013|42112799006|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TEE3OWxEdURud0VHSWNKbCsxa0RlMldydnp0Yk9zRVFhQVd2b3pOampxLzZU?=
- =?utf-8?B?cW9pZjJNUWcvRmJFaCt6QW1XZzlJcHhjazdrREsvQytIcVFFcVlSWkZiRUd0?=
- =?utf-8?B?SExNWEh3S0hQMGZzUUtwNFZGU1FkMUNDaHBLUFZsRXcrTE5iZzJ6dUczSlZp?=
- =?utf-8?B?S1RaQWdvbmpXc05MV21wSFRMUld3OE9jUEU2cVhoV0VKb3kwQ1dPRGNpRldX?=
- =?utf-8?B?c240ZmVVdkE4dlJCN1M4UkNQTlh1UjM0a0RCWVdVTzhHTE5CT2dGQmlHa0p2?=
- =?utf-8?B?NG4yb0xLWXMrbUR6bmlrdmxYSm9MSHlKQUh2UkF3Nmlub3pYWW9BaHQrSExV?=
- =?utf-8?B?QWRwa2dOcDBIdmRNMEtDRVVrVGdWL25tMHJaS0NjNUpJeU01ait4V1FrMEZX?=
- =?utf-8?B?OEZxNVlsUWlaZUtxY1NqTXN1dThIZHNzcVRaamVsNGdqWldBREo3MDgrbWRs?=
- =?utf-8?B?bllxdHowQS8xVDB0R281WHNoWUYzUmk5VVlhdjFyYlcwYWhhK0laYXAwMVE1?=
- =?utf-8?B?MWRnbHg3aFVibkZWNkhRK05TSHV5c0paVFFPNWZOY2RVam82dHNnZUtrQzZv?=
- =?utf-8?B?bTM5TEZlNU9tbHA4OVNVazZNVjZ5R2U5OVdNbkZKeGs4Rk1hcjJUUXJGMWx5?=
- =?utf-8?B?RS9PbE14aHdYQm1YL21sdmVYWXNBSk5XbUx5eFBYMExibEVjK2dkSUV4YXA5?=
- =?utf-8?B?Qk40Vm0yMDA4cEdwcE4xaEN5b0liUEh4WVRtQnNwQXdNTG1XUkZyWWg3V0Iy?=
- =?utf-8?B?QVVsejRhblJlamYyU3N4a3lrQWpGOUFxL1ZUTnd6dUl0Ry9QY1dIQUxDU1NQ?=
- =?utf-8?B?OHdTRzRvVTdOa1gvbi9ZM3pmSUJsTkRPY0ZYZXlYZnp5WEsxb0V6WU1tbXZs?=
- =?utf-8?B?bEREMmtYWTNacitOaFpacGhmMytVdElVRHQ2NnIzMDRGWEVWYUdEemxjbVRD?=
- =?utf-8?B?ZTdYdDZmMVlrTERKZkpZYktuRlJPSmtUZFc3UmtEQUtqN0ZUdDFjRkQ0R1Zz?=
- =?utf-8?B?cFZFZ2Iza1hxcE1IY3ZUYkQ3V2R5cmFoSlVhb0V6cWl2c2h1T05BRDFzMG1R?=
- =?utf-8?B?dUtSOE9JWVlQNjFvZzRyZFZJSE5WQmFtTTB6VHp2c3lPWFBtV21XZUxrSUZE?=
- =?utf-8?B?ZEMvWjA2aEhYcHVIekFOVTlSTlR6KzlIRTgrVUt3M2l6V1NaMk9RN1YxK0ZC?=
- =?utf-8?B?dVJqd21GTXlLRFV5YUVaOXlpc1ZZTXl6V2NIaEdHUjdmNVkwcnpjcEhlN0wx?=
- =?utf-8?B?Yjl3TEF3TlFocTlLdnZ2cmtxRHcydi9INmVRQWRrdWRiLzVSZVpwYWMxQ2lu?=
- =?utf-8?B?VUJ3Y3ZOZUtncVZIbURSeHMxU1lxaWtYdmtpRzZTcTByYTRBQnl5eEFtV2dM?=
- =?utf-8?B?UTdjZ1Y2dVlCOHIrcVhsTGxlYitoVUthQVdaU3RrWUNoRkFQc1dpRU1BdCtL?=
- =?utf-8?B?TUw1MHp5OG9LcHJ1VVZVQjhxNE4xaDlXRGZBQ0l6QkRSbFdmbXpXR2pqTEt0?=
- =?utf-8?B?d3dhVDRlYVFVYmtKT1JTeFkyQ3dsaVNmaEtwc0s1RDdUNWdYa2tNLy9keHNR?=
- =?utf-8?B?WU9URXN2NmhOVGlwQVlxQm9UeVdXcXRMbndIRDVXZE0ycTRkVEpIbjZEUlYr?=
- =?utf-8?B?aHN6L1NPNFlsdmRPUkx5Sm9uOHd4UStLMDk5Vkg2OWNmQWw3L0NjcUlCSUtv?=
- =?utf-8?B?YmExUUdqK0JaWUFYZWFwM0g4dEdXMEs4dFpPcnh4SlRWamJuY3dTd1FHU3Ft?=
- =?utf-8?B?RmVkM0hDZ1JObitJRWtMWkVLN255bzN4RmI3ZnE3aDBSMzJWNyt1S1NWaXdp?=
- =?utf-8?B?bzRPMFczWlE4elBMMFlTWERLdlFvT3pNbkc4aFd1RTRZcXBmU1k4Y0lSWGxw?=
- =?utf-8?B?YmRzSk9pVzZxSnMxd0FpK0xpV211QjFMUHF1ekY3QU5JWURrRFJ3eERPem0w?=
- =?utf-8?B?dVFUS1ExMVp5QjZGMHg5ZzFwNnEvTyt1WXROdHNSdFBVWUF2RTNKcmhmaUFE?=
- =?utf-8?B?WTc1RzllRUpvYVBFNHpjeVlGVkM0NHg1TjVXRGNxQU5xc0lvY2lzU0tzT296?=
- =?utf-8?B?eCs5aUtMZVgyUTJCU1dVM3V0UENBVStISjViOUVieTFlckFhMHpnY2kzSlB0?=
- =?utf-8?Q?VeN0=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700013)(42112799006)(376014)(1800799024);
- DIR:OUT; SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?V05uVGlrNXlrRlRWbENRdDFlc0doUTgzaFloUTVJZHZGSHRwaHVhdWkrMGI0?=
+ =?utf-8?B?MXZydXFnTkZmbm5IVk01ZzNob1EvK1NlZnk0UWRVaTBDSjQ4bzVwWlpmN0k0?=
+ =?utf-8?B?SXc2V0YwME5EZ1dVMlRHMmdQeTcvQWQ5UHpzelRqV0MraVR5ZXFkUVZwS1VU?=
+ =?utf-8?B?T2RONDJMcVhtbUk4YTQra1FwdGptOHMzeDhRNmQzeVZyM2J4S2YrTzFhUm5E?=
+ =?utf-8?B?UkdCQnIrTkhxUE1Fb0ZXK0FwOUhqTDExeVE0UENQRk84STFkMms0S3BsMVpP?=
+ =?utf-8?B?MVhGV2VSNVk4cThrOFlxRUtFekl1cHFRbDZHRDE4YndTRFFzN2UwT3RkbzE4?=
+ =?utf-8?B?SzdJNitxUlNVK0J2cnZIN0R2VWdWYzBzd295UE1nbnp3KzlwdUQ0aEZmL1Rw?=
+ =?utf-8?B?a1J2TURlanpaQm5QY01GS1ZDbXlYamQvNUpoRkp2cmJZUkZRdTJTYWVmRnpD?=
+ =?utf-8?B?MVVGeThHRWdETFNueUloekc0OGNZa1JLbzE1cCtoUWNVVWhuMzJyVnpWTCsv?=
+ =?utf-8?B?dGZMd2ZYdkEwTGZrTTFFckFzdHVnZEFDNnZPK2tXTUwrQXlvdzlCeko2TmZL?=
+ =?utf-8?B?RlpLZ3lwYXJoTGl0V0o1RnhtMUJTdFpOYzBWclg1LzAzeVhqa3czay92WHlz?=
+ =?utf-8?B?UlJ2YjlIK2E1S2RzTm9oRXkvbmFuY0ptazlzTGhLUi9VcHh0bmNIZTBnUG5L?=
+ =?utf-8?B?OUFadzlEdk9CZkNMWHVLVXI1U0xOeVZoMC9maWhMZGd1WWFHWWVEU3BmL042?=
+ =?utf-8?B?OWl5VDRqOU1xaFAwTGxic01TT0tlV0YvS2tBZlpJOWFzZ01YQnllb2pPVnVS?=
+ =?utf-8?B?RWY1WjNYLy9ERUMxNlRra3lQQ1I3Z2lXUGQ2dmlnU2xTQXNUT0lKWFcvVzZo?=
+ =?utf-8?B?MVB6RktMVlpsakFxM2l2aUdmbkZVanFpQmUvdks0SlRidytBRWYxeFJPU21S?=
+ =?utf-8?B?bFBFU2VSeDdqN2M4OUdHSTJDamh0aUhRdTcrT1ZvUnlBejJpSG9GcUV3Yi8w?=
+ =?utf-8?B?LzNBdEN4QXd5V01mSWxQUXBYUitzb1hYWWJDTThUVTM4WnhWUlVZcVllaGNz?=
+ =?utf-8?B?VDdGQUg3RU9SWU5QVUdGc2wzR3pwR2ZoN0NkZktwV2tVeVIxRXJoVTgwUElr?=
+ =?utf-8?B?WVNQK3c3UmkxRVhSbHM4Wk00VGZyRExGUUZaWWhwSFdpQkNFSHJJbkp0R1Fh?=
+ =?utf-8?B?MHJrbjhCaEZKaUJLTTBxeE0rd0cwZTBMVHlJaksrbHFITEpMUHlQVHhQMUFP?=
+ =?utf-8?B?aklDWEI1QnF1eExVdU9mK3NxVXVPWEhEUm1JSUk5VjUwVWs4M3VwWGhOZUZS?=
+ =?utf-8?B?NnQ0Z3p4UGMrTmN6alk3ZzZhNGkzRWU3eHhMZEFQUEd0c05DbkpPWjIxN3VH?=
+ =?utf-8?B?dXl2bi96MnZxc3M1U25ab3ZmR01BeTFrTkliclVqK2RkNHR2TjJoZC9vYzgr?=
+ =?utf-8?B?anRQSHkyWHpsdllMTTd2NnE5Y2d6QXFXTm1DbEg0RnBsdFhoWVFtNVdMZW5C?=
+ =?utf-8?B?QitMbnB2cHJ6eTVmd3oxVmhrU2k0WEt0QktMYit6S3dyTER6RDY4NmxWZ2N4?=
+ =?utf-8?B?Z25lUFYzVEdMNk84Nm51N1YweHFLTm10WGxSaGV2bW0wbXZtcGZvM1NDWWVE?=
+ =?utf-8?B?eE5hc2QxWVMwNldNcDQwUEpHYUZvRERtQ2JiV0Via29DRSs0TjFMUUxZU2hw?=
+ =?utf-8?B?Z3NYTnEwbFNPdlhOY0w1cFB6aEZxeXh5WEdFWitXYjdiTmp5ZGJucEY5TUts?=
+ =?utf-8?B?WGM4T3N2UWsrQnNKaUJTeFkvNzVMSmhRNzRtT0xvR0FTb1paTjUzd2xFU2xk?=
+ =?utf-8?B?cUhzSkpBNmhTVzFlaHRrdURKbUlSWnRSOExUZTU0aFFiNmg5aTg0TzREN0tU?=
+ =?utf-8?B?RlRHa1ZQMWMzdXVyUkRXemlYNWZQcGxaWkUyOGRYZEdtd3U4d0ZOZHpTOGNo?=
+ =?utf-8?Q?KwZwTyRlgQY/aWs9z8B6TZuMLsYUmZ85?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YWJWSkh2Ly9iWEtnWklzQlJmaTlraU9CRFVnNy9vbXpJeGwwNklHekRuQzNE?=
+ =?utf-8?B?cVNKcUNyRWFISExXSDhPQW9wVTV6eHdFeW5DRXFvem9ycWxmaVpiV2xrbHBB?=
+ =?utf-8?B?aFN3UHNmN1NkMC8zUUJDOGdQais0S00rVmF0bVhGQ3JIL0tWN0xtNEM5bkcz?=
+ =?utf-8?B?cUFWQVJETy9DdUFhcEhyaCszRFR1ZjIxb2V2b3FJbm5tN0VieDF4ejYzWEhh?=
+ =?utf-8?B?b252MFJLa2g2dEZYK2k1VHBOMzQwRHYvMENFZnRNZVR2LzJ3QkFSQTJSbmo2?=
+ =?utf-8?B?RXRQeXVtK1pHZkc1ZXkyVW5oeHQ5dU1pOTdyRnhvZWFmRnJ0NHA4T1ExM3NT?=
+ =?utf-8?B?QlhWcGFmTVJva1ZDUG02ZlpydGxQWjFWODhDd2d2OVFLaE1Mdm13T2ZySk4x?=
+ =?utf-8?B?eGhtVkZoK2Z5Z0VSSmRTOXMrUDlOMGFqQkxYOGhNOWlWQVE0QTJuUmlRNGFi?=
+ =?utf-8?B?bHRzM0l5UTJBd0dKcDQxclB3SVVCT3UreHJRb1BsSXM5NEgzWVJJTWlnSnV5?=
+ =?utf-8?B?bkRmRHg2VDBtR2ZqSUlFejNrWDhhajFyTjl4N0RqNXNSMFl3c0pqMTZ4SlRy?=
+ =?utf-8?B?NlJLOGt1bE9JaTFTRTZQOTdzakVoc2o0YjhDL1M2Z0JYUm1YQVdGZzllZ0tq?=
+ =?utf-8?B?Y3FiSi9jTEg3OTZickFSbytFblQvTVFwSTY2eklydXhEeUxsVG53VU1aT2kv?=
+ =?utf-8?B?a01RZmZ0YzEwM1cxek0wUmtBQy82N2dHcGZtM2srb0NVdnQwMzhDQU94VGZh?=
+ =?utf-8?B?MUd5WGp6cUp4U1lKQjVhNVRaejZGMXY4dTFTdWRtWGthdDJNUmE0U3QzTTlz?=
+ =?utf-8?B?Ymt6Zkt5anhWbWhzaFhPRWdyRnFpcmVLNUF6MGE5ZDZGK2ljRjV2Ri93QTVP?=
+ =?utf-8?B?VFpmcXdDblo1cFd0bS84Zk5MR255WHBZaFpWd1FVYlk3NTIzSmNraXFjcDRN?=
+ =?utf-8?B?cndHaTdHdy90Sm5xdjQ3VUo3SkliUlJzaXpJdFQra0tvR25rVVQ0Uk9kUDB0?=
+ =?utf-8?B?aUZ1cFI5WGxuL29kSUxjZmpSK3pqaU11aHk1UlV5ZzE1cVRFSHhGalB3VUFS?=
+ =?utf-8?B?K1lndkN1MC9JK1dZT0FmRGlIZ2Rqd016cmlOT084cXlqcmhKbWk3VDg1OEZh?=
+ =?utf-8?B?MzE3eGRDUWJZbTZCV1RJS3RuVWE1OGp5WmxiWW0vN25RalRlaTRWeWx1eEJ5?=
+ =?utf-8?B?d092YVpScmcwTVR6emx5SVFxOWFHNHkrY2lNemc5cHRQeTdZQ1Q5NnBuVWFq?=
+ =?utf-8?B?YnpvMmoraU1FRWhrbEVpeDIvbUhJODUxYUlLcFUrVU8rY0k5aGRad1FjQ0RW?=
+ =?utf-8?B?MDFITjJ4eGJqMXRuZXc0Qjd6RWJVYkVGbzErZ21FMkZZM3VyVzVnUFJJclVr?=
+ =?utf-8?B?VzU0WlNWS1huTkQ3bnVmUTcwVmsxTVEwUWthaFVaMjhNaDk3ckxBT1VsVWFH?=
+ =?utf-8?B?ZHBzdGQrTUpDVC9CUWJVV3FFYTk3WGtuRmh4SzJUVWpYelFIcE0rdzBraWo4?=
+ =?utf-8?B?T1FnK20zVkdpYzN5TVprRVJQMExHbTNwUXJrSjJHLzA0RHd3NHY2b29OdzNC?=
+ =?utf-8?B?Tmk2VGwzakRnaUhBWnJOdmEzMHczdHBWSlkwbkVUOER4RERCYmFSWmMzQ0lh?=
+ =?utf-8?B?Nzg5UWdaUkdVejdJYW1LTW9SeGJCc0F6Qy9vd25jN3dRT3R3MlNtTTZoT2xZ?=
+ =?utf-8?B?RVNhTGdQeWlFTHR1aHJqU2JaQjd1U0RudzRoeU0yQndERGJjM3FpU3RMNFhn?=
+ =?utf-8?B?MElobFdBSjJ1dEJrYUVWTkRoTXN5YlFzNUp6cSs3M3psdG01VldOWXdTekRO?=
+ =?utf-8?B?U2RTR0lZZE8zQ3JUOFlwMXRlY3lqYml2d0lIS2FmMDh4YnNkOVpBOVZEekoy?=
+ =?utf-8?B?a1BqVUdHMmlCbGFCeUhCN0ROOE1QcDJ1aGw0bnNFNEkzNmJpUldQeEoyVUgr?=
+ =?utf-8?B?YkxaOUxJNXVVVDJ2NzVLV2dRWittbkRCdFg2NTEwUDhOSWw5cEt2QXJZYU9G?=
+ =?utf-8?B?R3lrQVNnS2lWeUZvdXJETHlXZkI2Z1ZVZVkzUjZBY1BjTmNzU25kUmFJVmlp?=
+ =?utf-8?B?K1F4bUJ0QUEvemVWYnFqeDdMS2puYkpNU3ZDWXBwcGRBcHpScGdid2l6MjUr?=
+ =?utf-8?B?UmdqcGtUSUNFbzRKYkVXWnY0eTZ0WUJ5NU5DOFVzMXowZDNsdGFaSXlLcnh3?=
+ =?utf-8?B?Ym8zeXFLYjd1a21FbGl6K0tyN3gyU3Y2ZmhXdXZPZ0dBcVlYa2ZDRUtZQTBz?=
+ =?utf-8?B?eEV0MkNtOXVIbTMybjhUSFdiVUNQL0pXM0wxRTBrUWVYeVJvMnpINkFhR21K?=
+ =?utf-8?B?cXQwYmZEV3RXQUhnTGhpd2VpWUZuY2tKaUtBalRubGV2eFcwSHg0QT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 19:24:30.5203 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a61d969-3c83-41f7-cdf4-08de4fb4b662
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0361ec00-756d-41a9-52ff-08de4fc40d8c
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5115.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 21:14:19.3959 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6414
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zPGN9idpa0W8tZYPiM40ONQth+dfQbaNbvZN3RUWbeyv7JoCOliqRQl3b5/qd5kJhtt4DWrACNUp7tFI/OyPNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8328
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,311 +172,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+FWIW, ROCr already uses rendernode APIs for our implementation of the 
+CUDA VM API (DMABuf imports into rendernode contexts that share the VA 
+space with KFD and VA mappings with more flexibility than what we have 
+in the KFD API). So the transition to render node APIs has already 
+started, especially in the memory management area. It's not some far-off 
+future thing.
 
+Regards,
+   Felix
 
-On 2026-01-09 14:20, sunpeng.li@amd.com wrote:
-> From: Leo Li <sunpeng.li@amd.com>
-> 
-> Some drivers need to perform sleepable operations prior to enabling
-> vblank interrupts. A display hardware spin-up from a low-power state
-> that requires synchronization with the rest of the driver, for example.
-> 
-> To support this, introduce a DRM-internal drm_crtc_vblank_prepare()
-> helper that calls back into the driver -- if implemented -- for DRM to
-> do such preparation work before enabling vblank.
-> 
-> v3:
-> * Unexport drm_crtc_vblank_prepare() and make it DRM internal
-> * Drop warnings in drm core for vblank_prepare(), drivers can do so in
->   their implementations
-> * Drop unnecessary crtc null checks
-> * Check for drm_dev_has_vblank()
-> * Rebase on latest drm-misc-next
-> 
-> Signed-off-by: Leo Li <sunpeng.li@amd.com>
-> ---
->  drivers/gpu/drm/drm_atomic_helper.c  |  9 ++++++
->  drivers/gpu/drm/drm_client_modeset.c |  4 +++
->  drivers/gpu/drm/drm_internal.h       |  1 +
->  drivers/gpu/drm/drm_plane.c          |  5 +++
->  drivers/gpu/drm/drm_vblank.c         | 48 ++++++++++++++++++++++++++++
->  drivers/gpu/drm/drm_vblank_helper.c  |  5 ++-
->  drivers/gpu/drm/drm_vblank_work.c    |  8 +++++
->  include/drm/drm_crtc.h               | 21 ++++++++++++
->  include/drm/drm_vblank.h             |  1 +
->  9 files changed, 101 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index 5840e9cc6f666..2b9fa4aa48a1a 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -48,6 +48,7 @@
->  
->  #include "drm_crtc_helper_internal.h"
->  #include "drm_crtc_internal.h"
-> +#include "drm_internal.h"
->  
->  /**
->   * DOC: overview
-> @@ -1268,6 +1269,10 @@ crtc_disable(struct drm_device *dev, struct drm_atomic_state *state)
->  		if (!drm_dev_has_vblank(dev))
->  			continue;
->  
-> +		ret = drm_crtc_vblank_prepare(crtc);
-> +		if (ret)
-> +			continue;
-> +
->  		ret = drm_crtc_vblank_get(crtc);
->  		/*
->  		 * Self-refresh is not a true "disable"; ensure vblank remains
-> @@ -1823,6 +1828,10 @@ drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
->  		if (!new_crtc_state->active)
->  			continue;
->  
-> +		ret = drm_crtc_vblank_prepare(crtc);
-> +		if (ret != 0)
-> +			continue;
-> +
->  		ret = drm_crtc_vblank_get(crtc);
->  		if (ret != 0)
->  			continue;
-> diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-> index fc4caf7da5fcd..6ccbde921dde4 100644
-> --- a/drivers/gpu/drm/drm_client_modeset.c
-> +++ b/drivers/gpu/drm/drm_client_modeset.c
-> @@ -1325,6 +1325,10 @@ int drm_client_modeset_wait_for_vblank(struct drm_client_dev *client, unsigned i
->  	 * Only wait for a vblank event if the CRTC is enabled, otherwise
->  	 * just don't do anything, not even report an error.
->  	 */
-> +	ret = drm_crtc_vblank_prepare(crtc);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret = drm_crtc_vblank_get(crtc);
->  	if (!ret) {
->  		drm_crtc_wait_one_vblank(crtc);
-> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
-> index f893b1e3a596e..8e3e21d734075 100644
-> --- a/drivers/gpu/drm/drm_internal.h
-> +++ b/drivers/gpu/drm/drm_internal.h
-> @@ -112,6 +112,7 @@ static inline bool drm_vblank_passed(u64 seq, u64 ref)
->  }
->  
->  void drm_vblank_disable_and_save(struct drm_device *dev, unsigned int pipe);
-> +int drm_crtc_vblank_prepare(struct drm_crtc *crtc);
->  int drm_vblank_get(struct drm_device *dev, unsigned int pipe);
->  void drm_vblank_put(struct drm_device *dev, unsigned int pipe);
->  u64 drm_vblank_count(struct drm_device *dev, unsigned int pipe);
-> diff --git a/drivers/gpu/drm/drm_plane.c b/drivers/gpu/drm/drm_plane.c
-> index bed2562bf911b..41681a3d96b15 100644
-> --- a/drivers/gpu/drm/drm_plane.c
-> +++ b/drivers/gpu/drm/drm_plane.c
-> @@ -35,6 +35,7 @@
->  #include <drm/drm_vblank.h>
->  
->  #include "drm_crtc_internal.h"
-> +#include "drm_internal.h"
->  
->  /**
->   * DOC: overview
-> @@ -1421,6 +1422,10 @@ int drm_mode_page_flip_ioctl(struct drm_device *dev,
->  		u32 current_vblank;
->  		int r;
->  
-> +		r = drm_crtc_vblank_prepare(crtc);
-> +		if (r)
-> +			return r;
-> +
->  		r = drm_crtc_vblank_get(crtc);
->  		if (r)
->  			return r;
-> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
-> index 42fe11cc139b9..b8a967a4ba7e5 100644
-> --- a/drivers/gpu/drm/drm_vblank.c
-> +++ b/drivers/gpu/drm/drm_vblank.c
-> @@ -1208,6 +1208,32 @@ static int drm_vblank_enable(struct drm_device *dev, unsigned int pipe)
->  	return ret;
->  }
->  
-> +/**
-> + * drm_crtc_vblank_prepare - prepare to enable vblank interrupts
-> + *
-> + * @crtc: which CRTC to prepare
-> + *
-> + * Some drivers may need to spin-up hardware from a low power state before
-> + * enabling vblank interrupts. This function calls the prepare_enable_vblank
-> + * callback, if available, to allow drivers to do that.
-> + *
-> + * This is a DRM-internal function, and is a thin wrapper around a driver
-> + * callback. Drivers are expected to sequence their own prepare work internally.
-> + *
-> + * The spin-up may call sleeping functions, such as mutex_lock(). Therefore,
-> + * this must be called from process context, where sleeping is allowed.
-> + */
-> +int drm_crtc_vblank_prepare(struct drm_crtc *crtc)
-> +{
-> +	if (!drm_dev_has_vblank(crtc->dev))
-> +		return -EINVAL;
-> +
-> +	if (crtc->funcs->prepare_enable_vblank)
-> +		return crtc->funcs->prepare_enable_vblank(crtc);
-> +
-> +	return 0;
-> +}
-> +
->  int drm_vblank_get(struct drm_device *dev, unsigned int pipe)
->  {
->  	struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
-> @@ -1306,6 +1332,10 @@ int drm_crtc_wait_one_vblank(struct drm_crtc *crtc)
->  	int ret;
->  	u64 last;
->  
-> +	ret = drm_crtc_vblank_prepare(crtc);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret = drm_vblank_get(dev, pipe);
->  	if (drm_WARN(dev, ret, "vblank not available on crtc %i, ret=%i\n",
->  		     pipe, ret))
-> @@ -1489,6 +1519,9 @@ void drm_crtc_vblank_on_config(struct drm_crtc *crtc,
->  	if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
->  		return;
->  
-> +	if (drm_crtc_vblank_prepare(crtc))
-> +		return;
-> +
->  	spin_lock_irq(&dev->vbl_lock);
->  	drm_dbg_vbl(dev, "crtc %d, vblank enabled %d, inmodeset %d\n",
->  		    pipe, vblank->enabled, vblank->inmodeset);
-> @@ -1796,6 +1829,13 @@ int drm_wait_vblank_ioctl(struct drm_device *dev, void *data,
->  		return 0;
->  	}
->  
-> +	crtc = drm_crtc_from_index(dev, vblank->pipe);
-> +	if (crtc) {
-> +		ret = drm_crtc_vblank_prepare(crtc);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	ret = drm_vblank_get(dev, pipe);
->  	if (ret) {
->  		drm_dbg_core(dev,
-> @@ -2031,6 +2071,10 @@ int drm_crtc_get_sequence_ioctl(struct drm_device *dev, void *data,
->  		READ_ONCE(vblank->enabled);
->  
->  	if (!vblank_enabled) {
-> +		ret = drm_crtc_vblank_prepare(crtc);
-> +		if (ret)
-> +			return ret;
-> +
->  		ret = drm_crtc_vblank_get(crtc);
->  		if (ret) {
->  			drm_dbg_core(dev,
-> @@ -2098,6 +2142,10 @@ int drm_crtc_queue_sequence_ioctl(struct drm_device *dev, void *data,
->  	if (e == NULL)
->  		return -ENOMEM;
->  
-> +	ret = drm_crtc_vblank_prepare(crtc);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret = drm_crtc_vblank_get(crtc);
->  	if (ret) {
->  		drm_dbg_core(dev,
-> diff --git a/drivers/gpu/drm/drm_vblank_helper.c b/drivers/gpu/drm/drm_vblank_helper.c
-> index a04a6ba1b0ca0..fc5915acfa7f3 100644
-> --- a/drivers/gpu/drm/drm_vblank_helper.c
-> +++ b/drivers/gpu/drm/drm_vblank_helper.c
-> @@ -8,6 +8,8 @@
->  #include <drm/drm_vblank.h>
->  #include <drm/drm_vblank_helper.h>
->  
-> +#include "drm_internal.h"
-> +
->  /**
->   * DOC: overview
->   *
-> @@ -61,7 +63,8 @@ void drm_crtc_vblank_atomic_flush(struct drm_crtc *crtc,
->  	crtc_state->event = NULL;
->  
->  	if (event) {
-> -		if (drm_crtc_vblank_get(crtc) == 0)
-> +		if (drm_crtc_vblank_prepare(crtc) == 0 &&
-> +		    drm_crtc_vblank_get(crtc) == 0)
->  			drm_crtc_arm_vblank_event(crtc, event);
->  		else
->  			drm_crtc_send_vblank_event(crtc, event);
-> diff --git a/drivers/gpu/drm/drm_vblank_work.c b/drivers/gpu/drm/drm_vblank_work.c
-> index 70f0199251ea0..252f60007781b 100644
-> --- a/drivers/gpu/drm/drm_vblank_work.c
-> +++ b/drivers/gpu/drm/drm_vblank_work.c
-> @@ -113,11 +113,19 @@ int drm_vblank_work_schedule(struct drm_vblank_work *work,
->  {
->  	struct drm_vblank_crtc *vblank = work->vblank;
->  	struct drm_device *dev = vblank->dev;
-> +	struct drm_crtc *crtc;
->  	u64 cur_vbl;
->  	unsigned long irqflags;
->  	bool passed, inmodeset, rescheduling = false, wake = false;
->  	int ret = 0;
->  
-> +	crtc = drm_crtc_from_index(dev, vblank->pipe);
-> +	if (crtc) {
-> +		ret = drm_crtc_vblank_prepare(crtc);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	spin_lock_irqsave(&dev->event_lock, irqflags);
->  	if (work->cancelling)
->  		goto out;
-> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
-> index 66278ffeebd68..e5cf232d604c9 100644
-> --- a/include/drm/drm_crtc.h
-> +++ b/include/drm/drm_crtc.h
-> @@ -871,6 +871,27 @@ struct drm_crtc_funcs {
->  	 */
->  	u32 (*get_vblank_counter)(struct drm_crtc *crtc);
->  
-> +	/**
-> +	 * @prepare_enable_vblank:
-> +	 *
-> +	 * An optional callback to prepare driver for enabling of vblank
-> +	 * interrupts. It allows drivers to perform any blocking operations for
-> +	 * hardware setup that might be needed, and thus is called before any
-> +	 * vblank spinlocks are acquired. It is called unconditionally,
-> +	 * regardless of whether vblank interrupts are already enabled or not.
-> +	 *
-> +	 * Consequently, this callback is not synchronized with the rest of
-> +	 * vblank management. Drivers should not access spinlock protected
-> +	 * states here.
-> +	 *
-> +	 * This callback is optional. If not set, no preparation is performed.
-> +	 *
-> +	 * Returns:
-> +	 *
-> +	 * Zero on success, negative errno on failure.
-> +	 */
-> +	int (*prepare_enable_vblank)(struct drm_crtc *crtc);
-> +
->  	/**
->  	 * @enable_vblank:
->  	 *
-> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
-> index 2fcef9c0f5b1b..c91384ee2617b 100644
-> --- a/include/drm/drm_vblank.h
-> +++ b/include/drm/drm_vblank.h
-> @@ -301,6 +301,7 @@ void drm_vblank_set_event(struct drm_pending_vblank_event *e,
->  bool drm_handle_vblank(struct drm_device *dev, unsigned int pipe);
->  bool drm_crtc_handle_vblank(struct drm_crtc *crtc);
->  int drm_crtc_vblank_get(struct drm_crtc *crtc);
-> +int drm_crtc_vblank_prepare_and_get(struct drm_crtc *crtc);
-
-Oops, please ignore this line -- a remenant of a previous idea that I missed cleaning up.
-- Leo
-
->  void drm_crtc_vblank_put(struct drm_crtc *crtc);
->  int drm_crtc_wait_one_vblank(struct drm_crtc *crtc);
->  void drm_crtc_vblank_off(struct drm_crtc *crtc);
-
+On 2026-01-09 04:07, Christian König wrote:
+> Hi Honglei,
+>
+> I have to agree with Felix. Adding such complexity to the KFD API is a clear no-go from my side.
+>
+> Just skimming over the patch it's obvious that this isn't correctly implemented. You simply can't the MMU notifier ranges likes this.
+>
+> Regards,
+> Christian.
+>
+> On 1/9/26 08:55, Honglei Huang wrote:
+>> Hi Felix,
+>>
+>> Thank you for the feedback. I understand your concern about API maintenance.
+>>
+>>  From what I can see, KFD is still the core driver for all GPU compute workloads. The entire compute ecosystem is built on KFD's infrastructure and continues to rely on it. While the unification work is ongoing, any transition to DRM render node APIs would naturally take considerable time, and KFD is expected to remain the primary interface for compute for the foreseeable future. This batch allocation issue is affecting performance in some specific computing scenarios.
+>>
+>> You're absolutely right about the API proliferation concern. Based on your feedback, I'd like to revise the approach for v3 to minimize impact by reusing the existing ioctl instead of adding a new API:
+>>
+>> - Reuse existing AMDKFD_IOC_ALLOC_MEMORY_OF_GPU ioctl
+>> - Add one flag: KFD_IOC_ALLOC_MEM_FLAGS_USERPTR_BATCH
+>> - When flag is set, mmap_offset field points to range array
+>> - No new ioctl command, no new structure
+>>
+>> This changes the API surface from adding a new ioctl to adding just one flag.
+>>
+>> Actually the implementation modifies DRM's GPU memory management
+>> infrastructure in amdgpu_amdkfd_gpuvm.c. If DRM render node needs similar functionality later, these functions could be directly reused.
+>>
+>> Would you be willing to review v3 with this approach?
+>>
+>> Regards,
+>> Honglei Huang
+>>
+>> On 2026/1/9 03:46, Felix Kuehling wrote:
+>>> I don't have time to review this in detail right now. I am concerned about adding new KFD API, when the trend is moving towards DRM render node APIs. This creates additional burden for ongoing support of these APIs in addition to the inevitable DRM render node duplicates we'll have in the future. Would it be possible to implement this batch userptr allocation in a render node API from the start?
+>>>
+>>> Regards,
+>>>     Felix
+>>>
+>>>
+>>> On 2026-01-04 02:21, Honglei Huang wrote:
+>>>> From: Honglei Huang <honghuan@amd.com>
+>>>>
+>>>> Hi all,
+>>>>
+>>>> This is v2 of the patch series to support allocating multiple non- contiguous
+>>>> CPU virtual address ranges that map to a single contiguous GPU virtual address.
+>>>>
+>>>> **Key improvements over v1:**
+>>>> - NO memory pinning: uses HMM for page tracking, pages can be swapped/ migrated
+>>>> - NO impact on SVM subsystem: avoids complexity during KFD/KGD unification
+>>>> - Better approach: userptr's VA remapping design is ideal for scattered VA registration
+>>>>
+>>>> Based on community feedback, v2 takes a completely different implementation
+>>>> approach by leveraging the existing userptr infrastructure rather than
+>>>> introducing new SVM-based mechanisms that required memory pinning.
+>>>>
+>>>> Changes from v1
+>>>> ===============
+>>>>
+>>>> v1 attempted to solve this problem through the SVM subsystem by:
+>>>> - Adding a new AMDKFD_IOC_SVM_RANGES ioctl for batch SVM range registration
+>>>> - Introducing KFD_IOCTL_SVM_ATTR_MAPPED attribute for special VMA handling
+>>>> - Using pin_user_pages_fast() to pin scattered memory ranges
+>>>> - Registering multiple SVM ranges with pinned pages
+>>>>
+>>>> This approach had significant drawbacks:
+>>>> 1. Memory pinning defeated the purpose of HMM-based SVM's on-demand paging
+>>>> 2. Added complexity to the SVM subsystem
+>>>> 3. Prevented memory oversubscription and dynamic migration
+>>>> 4. Could cause memory pressure due to locked pages
+>>>> 5. Interfered with NUMA optimization and page migration
+>>>>
+>>>> v2 Implementation Approach
+>>>> ==========================
+>>>>
+>>>> 1. **No memory pinning required**
+>>>>      - Uses HMM (Heterogeneous Memory Management) for page tracking
+>>>>      - Pages are NOT pinned, can be swapped/migrated when not in use
+>>>>      - Supports dynamic page eviction and on-demand restore like standard userptr
+>>>>
+>>>> 2. **Zero impact on KFD SVM subsystem**
+>>>>      - Extends ALLOC_MEMORY_OF_GPU path, not SVM
+>>>>      - New ioctl: AMDKFD_IOC_ALLOC_MEMORY_OF_GPU_BATCH
+>>>>      - Zero changes to SVM code, limited scope of changes
+>>>>
+>>>> 3. **Perfect fit for non-contiguous VA registration**
+>>>>      - Userptr design naturally supports GPU VA != CPU VA mapping
+>>>>      - Multiple non-contiguous CPU VA ranges -> single contiguous GPU VA
+>>>>      - Unlike KFD SVM which maintains VA identity, userptr allows remapping,
+>>>>        This VA remapping capability makes userptr ideal for scattered allocations
+>>>>
+>>>> **Implementation Details:**
+>>>>      - Each CPU VA range gets its own mmu_interval_notifier for invalidation
+>>>>      - All ranges validated together and mapped to contiguous GPU VA
+>>>>      - Single kgd_mem object with array of user_range_info structures
+>>>>      - Unified eviction/restore path for all ranges in a batch
+>>>>
+>>>> Patch Series Overview
+>>>> =====================
+>>>>
+>>>> Patch 1/4: Add AMDKFD_IOC_ALLOC_MEMORY_OF_GPU_BATCH ioctl and data structures
+>>>>       - New ioctl command and kfd_ioctl_userptr_range structure
+>>>>       - UAPI for userspace to request batch userptr allocation
+>>>>
+>>>> Patch 2/4: Extend kgd_mem for batch userptr support
+>>>>       - Add user_range_info and associated fields to kgd_mem
+>>>>       - Data structures for tracking multiple ranges per allocation
+>>>>
+>>>> Patch 3/4: Implement batch userptr allocation and management
+>>>>       - Core functions: init_user_pages_batch(), get_user_pages_batch()
+>>>>       - Per-range eviction/restore handlers with unified management
+>>>>       - Integration with existing userptr eviction/validation flows
+>>>>
+>>>> Patch 4/4: Wire up batch userptr ioctl handler
+>>>>       - Ioctl handler with input validation
+>>>>       - SVM conflict checking for GPU VA and CPU VA ranges
+>>>>       - Integration with kfd_process and process_device infrastructure
+>>>>
+>>>> Performance Comparison
+>>>> ======================
+>>>>
+>>>> Before implementing this patch, we attempted a userspace solution that makes
+>>>> multiple calls to the existing AMDKFD_IOC_ALLOC_MEMORY_OF_GPU ioctl to
+>>>> register non-contiguous VA ranges individually. This approach resulted in
+>>>> severe performance degradation:
+>>>>
+>>>> **Userspace Multiple ioctl Approach:**
+>>>> - Benchmark score: ~80,000 (down from 200,000 on bare metal)
+>>>> - Performance loss: 60% degradation
+>>>>
+>>>> **This Kernel Batch ioctl Approach:**
+>>>> - Benchmark score: 160,000 - 190,000 (80%-95% of bare metal)
+>>>> - Performance improvement: 2x-2.4x faster than userspace approach
+>>>> - Achieves near-native performance in virtualized environments
+>>>>
+>>>> The batch registration in kernel avoids the repeated syscall overhead and
+>>>> enables efficient unified management of scattered VA ranges, recovering most
+>>>> of the performance lost to virtualization.
+>>>>
+>>>> Testing Results
+>>>> ===============
+>>>>
+>>>> The series has been tested with:
+>>>> - Multiple scattered malloc() allocations (2-4000+ ranges)
+>>>> - Various allocation sizes (4KB to 1G+ per range)
+>>>> - GPU compute workloads using the batch-allocated ranges
+>>>> - Memory pressure scenarios and eviction/restore cycles
+>>>> - OpenCL CTS in KVM guest environment
+>>>> - HIP catch tests in KVM guest environment
+>>>> - AI workloads: Stable Diffusion, ComfyUI in virtualized environments
+>>>> - Small LLM inference (3B-7B models) using HuggingFace transformers
+>>>>
+>>>> Corresponding userspace patche
+>>>> ================================
+>>>> Userspace ROCm changes for new ioctl:
+>>>> - libhsakmt: https://github.com/ROCm/rocm-systems/commit/ ac21716e5d6f68ec524e50eeef10d1d6ad7eae86
+>>>>
+>>>> Thank you for your review and waiting for the feedback.
+>>>>
+>>>> Best regards,
+>>>> Honglei Huang
+>>>>
+>>>> Honglei Huang (4):
+>>>>     drm/amdkfd: Add batch userptr allocation UAPI
+>>>>     drm/amdkfd: Extend kgd_mem for batch userptr support
+>>>>     drm/amdkfd: Implement batch userptr allocation and management
+>>>>     drm/amdkfd: Wire up batch userptr ioctl handler
+>>>>
+>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  21 +
+>>>>    .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 543 +++++++++++++++++-
+>>>>    drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 159 +++++
+>>>>    include/uapi/linux/kfd_ioctl.h                |  37 +-
+>>>>    4 files changed, 740 insertions(+), 20 deletions(-)
+>>>>
