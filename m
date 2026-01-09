@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2F9CD1A627
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 13:33:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DC40D1A62D
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 13:33:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEDCE10E8C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0E8E10E8C4;
 	Fri,  9 Jan 2026 13:33:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FRgVcCDR";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="f2Oke8Z3";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9E3A10E8C3
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jan 2026 13:33:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9781C10E8C3
+ for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jan 2026 13:33:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,25 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=bZPJ59r+Q9wnl96Hpbe30wUJP7ZgwQ+r0BA3B7yEb1k=; b=FRgVcCDR/fADlYnMZlS8n+4tc8
- npNZAtSEBfUY7axleUacVMc9wmluPWC3OjiibJPwQXgLDNMFUPAB1Hbl5SRmQBnv6/Tv51kj/2QfC
- Pu3Yd8uOgojZbly91CUIjTDNKH0EvZbi56ftsep760mbAAH5er23CoS7kCwMLZiWObm18matjz7Sv
- Fyzg+aWXlTr07plIDY+CrxCW0Dx70O9ijWy3cJsrItteObli0939rjMnk0bvar3lQ7Jrfj80OAg6U
- vv9N2Gxkr7lbCaFD/XGSsUY/yPS7KoILThg90O7/s6CDNZWVd8ZguXyjW3LSxMlS4uP2xftGp6PqO
- Ty/IEO/g==;
+ bh=jbdxM3SeSr1YjCV5Pr0Kxwkc9F71WWovNIeqJvbtPk0=; b=f2Oke8Z3m1sNCskJ5ENmZdYEvf
+ Mfoi31/57nKtqVlS50nFSgT2dDm+DNo6Pcr+09BnGhAPdHnw3NMIOtIQO/L+7l0Q1jH9A+za0o4m4
+ aYyInvngIwN7ucZr9on+sdVQi57ayEhhdqYqRE0cr92OI/GsQBqcu7ef24Uot1wpafMbUUA3MVKdX
+ fPeqqTsG+T4zdpbFrZHJf7tooV2iHcWs1He4wBp4R0Lw6a9zaM0oq/Kdspvsf7X+GP2dmwINIhZAh
+ 2Na68UCUmpKtobaJ4II7FL0bKYOCdsqomQ4su00/l+kzpRcaMf6ilETjOlysXvQX/FGsvfTI2/Atc
+ HYwXBYKQ==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1veCcG-003QbH-5u; Fri, 09 Jan 2026 14:33:24 +0100
+ id 1veCcG-003QbO-SV; Fri, 09 Jan 2026 14:33:24 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v3 04/12] drm/amdgpu: Remove the bo list mutex
-Date: Fri,  9 Jan 2026 13:33:06 +0000
-Message-ID: <20260109133314.88548-5-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v3 05/12] drm/amdgpu: Remove a few holes from struct amdgpu_ctx
+Date: Fri,  9 Jan 2026 13:33:07 +0000
+Message-ID: <20260109133314.88548-6-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260109133314.88548-1-tvrtko.ursulin@igalia.com>
 References: <20260109133314.88548-1-tvrtko.ursulin@igalia.com>
@@ -61,115 +61,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The bo list is immutable during command submission since the drm_exec
-conversion so we can remove the mutex.
+Re-order the struct members a bit to avoid some holes:
+
+ /* size: 408, cachelines: 7, members: 15 */
+ /* sum members: 393, holes: 4, sum holes: 15 */
+ /* last cacheline: 24 bytes */
+
+ /* size: 400, cachelines: 7, members: 15 */
+ /* sum members: 393, holes: 1, sum holes: 7 */
+ /* last cacheline: 16 bytes */
+
+While doing so we notice a duplicate but will address than in the
+following patch.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c |  3 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h |  4 ----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      | 15 ++++-----------
- 3 files changed, 5 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index d340a6438aaa..a7a58126c8db 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -41,7 +41,7 @@ static void amdgpu_bo_list_free_rcu(struct rcu_head *rcu)
- {
- 	struct amdgpu_bo_list *list = container_of(rcu, struct amdgpu_bo_list,
- 						   rhead);
--	mutex_destroy(&list->bo_list_mutex);
-+
- 	kvfree(list);
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index 090dfe86f75b..aed758d0acaa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -44,20 +44,20 @@ struct amdgpu_ctx_entity {
  
-@@ -133,7 +133,6 @@ int amdgpu_bo_list_create(struct amdgpu_device *adev, struct drm_file *filp,
- 
- 	trace_amdgpu_cs_bo_status(list->num_entries, total_size);
- 
--	mutex_init(&list->bo_list_mutex);
- 	*result = list;
- 	return 0;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-index 2b5e7c46a39d..1acf53f8b2f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.h
-@@ -51,10 +51,6 @@ struct amdgpu_bo_list {
- 	unsigned first_userptr;
- 	unsigned num_entries;
- 
--	/* Protect access during command submission.
--	 */
--	struct mutex bo_list_mutex;
--
- 	struct amdgpu_bo_list_entry entries[] __counted_by(num_entries);
+ struct amdgpu_ctx {
+ 	struct kref			refcount;
+-	struct amdgpu_ctx_mgr		*mgr;
++	spinlock_t			ring_lock;
+ 	unsigned			reset_counter;
+ 	unsigned			reset_counter_query;
+-	uint64_t			generation;
+-	spinlock_t			ring_lock;
+-	struct amdgpu_ctx_entity	*entities[AMDGPU_HW_IP_NUM][AMDGPU_MAX_ENTITY_NUM];
+-	bool				preamble_presented;
+ 	int32_t				init_priority;
+ 	int32_t				override_priority;
++	uint32_t			stable_pstate;
+ 	atomic_t			guilty;
++	bool				preamble_presented;
++	uint64_t			generation;
+ 	unsigned long			ras_counter_ce;
+ 	unsigned long			ras_counter_ue;
+-	uint32_t			stable_pstate;
++	struct amdgpu_ctx_mgr		*mgr;
+ 	struct amdgpu_ctx_mgr		*ctx_mgr;
++	struct amdgpu_ctx_entity	*entities[AMDGPU_HW_IP_NUM][AMDGPU_MAX_ENTITY_NUM];
  };
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 82bb70167f5a..5d53767aa941 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -874,8 +874,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 			return r;
- 	}
- 
--	mutex_lock(&p->bo_list->bo_list_mutex);
--
- 	/* Get userptr backing pages. If pages are updated after registered
- 	 * in amdgpu_gem_userptr_ioctl(), amdgpu_cs_list_validate() will do
- 	 * amdgpu_ttm_backend_bind() to flush and invalidate new pages
-@@ -991,7 +989,6 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,
- 		amdgpu_hmm_range_free(e->range);
- 		e->range = NULL;
- 	}
--	mutex_unlock(&p->bo_list->bo_list_mutex);
- 	return r;
- }
- 
-@@ -1372,7 +1369,6 @@ static int amdgpu_cs_submit(struct amdgpu_cs_parser *p,
- 	amdgpu_vm_move_to_lru_tail(p->adev, &fpriv->vm);
- 
- 	mutex_unlock(&p->adev->notifier_lock);
--	mutex_unlock(&p->bo_list->bo_list_mutex);
- 	return 0;
- }
- 
-@@ -1444,28 +1440,25 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 
- 	r = amdgpu_cs_patch_jobs(&parser);
- 	if (r)
--		goto error_backoff;
-+		goto error_fini;
- 
- 	r = amdgpu_cs_vm_handling(&parser);
- 	if (r)
--		goto error_backoff;
-+		goto error_fini;
- 
- 	r = amdgpu_cs_sync_rings(&parser);
- 	if (r)
--		goto error_backoff;
-+		goto error_fini;
- 
- 	trace_amdgpu_cs_ibs(&parser);
- 
- 	r = amdgpu_cs_submit(&parser, data);
- 	if (r)
--		goto error_backoff;
-+		goto error_fini;
- 
- 	amdgpu_cs_parser_fini(&parser);
- 	return 0;
- 
--error_backoff:
--	mutex_unlock(&parser.bo_list->bo_list_mutex);
--
- error_fini:
- 	amdgpu_cs_parser_fini(&parser);
- 	return r;
+ struct amdgpu_ctx_mgr {
 -- 
 2.52.0
 
