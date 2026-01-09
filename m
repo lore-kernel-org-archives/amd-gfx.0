@@ -4,131 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 691FDD26D75
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 16:41:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DF57D26D75
+	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 16:42:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00A5810E90B;
-	Fri,  9 Jan 2026 16:41:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1DB510E916;
+	Fri,  9 Jan 2026 16:42:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rpLblaRM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZdbkAvfz";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010020.outbound.protection.outlook.com [52.101.61.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12B0510E907
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jan 2026 16:41:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TnqoE/RTyiswFpoR31MvL74kaW65cIbcJKy/qFChJ6dJyiR9RCOSs2mneT2RAxgRhWEU7YU0lUhkbnR9/KdJayIB+Eie9/0LkdRrD6Ch30mvlvIlzgv2efRrRo8RFUKQxgzbLZQnhtyZBFX3nd+gx92XAvS6pqgpRdYu+a0hcbF4pDIc/idPk51H34g/L1dTaMOoGADsyeCa+3dJ7x7p1VSGCLs4UoZZAFzm+bWo9PjCIIsj5Q+mMRvLSI8VSnHNGH4TY0LaugBaRLxeFczGsdhvP8J+g/xnqEloTnBQdPXbz9MUnrHSESkqOU4OP3rmuyY2j1ltraRtZP1CEyh0JA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N0cTYppm60TiYGcKxcKFNWf4FUYge9sc3NUgfPBSRfA=;
- b=JsYbsxiaLa4Z2xfe40CiBoVX8SRjIcy5zKPMEDa9eH23dN0JjfutYfQHIVDuyAdzm3UvfwkwKsjZXVk5HK3Jy2l+nROpOfDZleW9mFxBO6TpxvBAabTzzPFr0qiJ5gBpHQn2bVZ2Hb7nQ0dwwqKDNKeUh2ji84fjanQ2ngw6Bf1eUFzDYSMFiUrvbaKaZeiID7xYxj8B4kj7cfV9pxFbCTxQvN2znyP+Ay8IAykKDPuWdSfxA1RC4d8ITtG0m40Pw2Kje99UR+0rMIl6I4vClzSdp5LxecPO9sEDORr6nEVtJ+5wgRADpK1v7MXe4MsaJQIcdKJQOXFDMY1N7KdZfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N0cTYppm60TiYGcKxcKFNWf4FUYge9sc3NUgfPBSRfA=;
- b=rpLblaRMlCjwGqqX9xtkIHFYubTwzSqj7rqchYo3TfkSwi7NTSTukKCo1L9fTeaiHPkooyzcbfQTdRkTqQQufOunZgx6DTcwLZvG0FQoZSiWMDAsN6Z3uNL5ei1ZZtN5nhNlFocJZvLR2do4Tt3BKfqQmQJx7bgc/mDBa0cxdcc=
-Received: from SJ0PR05CA0209.namprd05.prod.outlook.com (2603:10b6:a03:330::34)
- by CY5PR12MB6154.namprd12.prod.outlook.com (2603:10b6:930:26::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.5; Fri, 9 Jan
- 2026 16:40:54 +0000
-Received: from MWH0EPF000989EA.namprd02.prod.outlook.com
- (2603:10b6:a03:330:cafe::6b) by SJ0PR05CA0209.outlook.office365.com
- (2603:10b6:a03:330::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.0 via Frontend Transport; Fri, 9
- Jan 2026 16:40:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000989EA.mail.protection.outlook.com (10.167.241.137) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Fri, 9 Jan 2026 16:40:53 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Fri, 9 Jan 2026 10:40:51 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v7] drm/amdgpu: Refactor amdgpu_gem_va_ioctl for Handling Last
- Fence Update and Timeline Management v6
-Date: Fri, 9 Jan 2026 22:10:37 +0530
-Message-ID: <20260109164037.104927-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 174CB10E910;
+ Fri,  9 Jan 2026 16:42:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1767976936; x=1799512936;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=0jjufuSgUGdcBWU99CGbO/ni1CnXtJoDNBcE6WTvAvA=;
+ b=ZdbkAvfzlD0Eg3D9TAEwpIKFMjUVcwSqL5liDjLaVp8h8vFdfwE43l+Q
+ r2BogF4BThfLAvdj4BEz4sTo0dVAdmf+TNOL3M2nU9o7x3gOfPiwjRj+2
+ /AruLzCQP9vcdbyTQO+STEcqWXt3WpgdgLxwt4KBOpMHbBoEavO4xujlI
+ FSUddUgI40E0OBJlJk7q2R9CKEIDAW8jAmrxqobC/C90mQksvYBFU1uQf
+ e/dlmQ22TbqG17fyh0oUrHi4ZruXrm3JIklDRk6ghNVsZ7xi/aCs3DMhW
+ DHAPwQQI3j8SsVqIES+BNdWBTQRVKjMG0uMz4I7WuBUyAnd5Q+xj7Htk9 g==;
+X-CSE-ConnectionGUID: eQ8D0Ji3SHOjXKdohKhVbA==
+X-CSE-MsgGUID: Dmeua9XVRJ67qZIcSg9asg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11666"; a="69517847"
+X-IronPort-AV: E=Sophos;i="6.21,214,1763452800"; d="scan'208";a="69517847"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2026 08:42:15 -0800
+X-CSE-ConnectionGUID: Usj9Z4mCTO2SN271sYyxQQ==
+X-CSE-MsgGUID: Ss/XKTXjQLe0QXYrelNlxw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,214,1763452800"; d="scan'208";a="203427027"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.244.142])
+ ([10.245.244.142])
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jan 2026 08:42:13 -0800
+Message-ID: <b2aa28aa-ce9c-4948-9bed-289700f4eb4a@intel.com>
+Date: Fri, 9 Jan 2026 16:42:11 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] drm/buddy: Optimize large alignment handling to avoid
+ unnecessary splits
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20251211122319.2054-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20251211122319.2054-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989EA:EE_|CY5PR12MB6154:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea2a73fb-053d-43f2-6f97-08de4f9ddb2c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ck1lM2FoeG0rSmV1dHM2QmxnN0Z5Z0duZlM5SFFLRTlLa1RCZjJWTi9TUHMw?=
- =?utf-8?B?WW5URUZNVlN2dDZ1RG1BZ0FibGo3WDBYTGNGUkJreUFCY1Q3c1ppdlhjSlh2?=
- =?utf-8?B?UXA2amQ2UG5ITXpURkhzbkhCRXFvZmZ6RW5YR1g5SGpnQ0J1ZTVXUmZaZXYr?=
- =?utf-8?B?eDNaT2pXb1Vod0YvMDBuUTRqdGpOajJLWXVHNklJQkxYOW5TOTlIVDFEOXQ5?=
- =?utf-8?B?ZHVMK1NIYVFhVlpXdEJqdFVrNDkxeTZuV2REYXVQY2EzMTZtZmdmaEtSL29I?=
- =?utf-8?B?aWRZRk9qYnVDOG82Qi9vV0xzRElSbWZzOUptRjB4T0ZRQTFEMnVvZGxMSGNP?=
- =?utf-8?B?VExYanRZQ3RDd3JlUnNIamtib3JGaE85TUNpV0lsSElEYnpoVHBOSGtqd0pa?=
- =?utf-8?B?N25NUS9mYk5LbGpmRnloUnJ4VTM4VFVBcmVJb2JsVTJoTTNNbW84bzlwTHoy?=
- =?utf-8?B?WitpZUI1M25rWVlZL2pOSGVBWHI1NkQyMUpHVnU0VGYvNTRzWUhJL3h6S3Vj?=
- =?utf-8?B?dmFGM2hPS25YQWVxTWlOYmkxQjF6WmZMN2tLd3NOV1YvSmhTZXFPblc2dGNp?=
- =?utf-8?B?TEt1Tk90VGJJY0tCSG43VTZDaDBBTzVxb0JPNDFaYTBsYWFBMTEybmIzck9n?=
- =?utf-8?B?VmVoQnVYVGFiR0E2WmI3UU1KRWNLRktYa0loQWV2cFgwQ3JISWNWaEdpL0d3?=
- =?utf-8?B?TU5qQ3pkSjIydnJQUk1EODhhTEVLOHd5bk81L21ZMnZPRjJRQlA3KzU1V0w5?=
- =?utf-8?B?aUo3Rk1yWk1CejMvdTM3U1VRc1B1Y04rVWVLSEhKaDNOSDBSUE9CVWZPSDMw?=
- =?utf-8?B?YndHcmxLYU01YVN6cW5wN1VjL3NndnpBTnZBRy94KzhMNEh0SE0xWGxVa2py?=
- =?utf-8?B?b0xhRU9RWUE5SzFmUlFLc1ZXVFc2Tm5qaWpGcHNpRTBCdjY3SmRuRW80R1pl?=
- =?utf-8?B?Vk5acUlWR1d4VGJxQ2hCVmtXMHRQSm5xdWM5Qytmb0FjcHVTSTN3TERWOTVN?=
- =?utf-8?B?UG95bHR4RVptQnd0ZzdualJlMjFpaVZRRW1ucHZBQzVoV0VYbzZpV01yYXpX?=
- =?utf-8?B?Y1gwVFIybnRmWmZpdW42QkhQSWllZTk0M2NIYVRhSGJSUzlPOEwrc1BJYmJN?=
- =?utf-8?B?dkVpUGtKRkI4ajl5Q3R5dkdiRXByQmxURUM1cFFybWFFUnN3S21lQWhyTUc1?=
- =?utf-8?B?R3ZzVXZDa1NDQnZUUUNTQXMwR1F4S214MW85VDgyaGFocFFZMGkzT2o4c2dN?=
- =?utf-8?B?bGVmd3dyV3ZacUhGcmJ6Tlp2SXRxNG9Jc09JOEtndnVHdmtpZzJHd2d0VFQz?=
- =?utf-8?B?UjNsLzB1NFhIdzZUTThrd1lCZ3p3WlhJOGJMcDBvSDJnVDVPbEZlWUh1WkR5?=
- =?utf-8?B?WWI2eVp2aG43NmE0OE9NR1BycTMvb1RYam02QTRLY0tjb1pXTGVjK1EzQVZa?=
- =?utf-8?B?WnJJSm5mcDJRejdUN1ZVOGY3VHN1VVFWNjhaS3E5L0xyZkZiU2kzRnVPNEdq?=
- =?utf-8?B?RmkzYndQWHBRbmxwcXAzYld0YzZrbGp5N1ViWlFLYXZmNGJyZytnOHpOZFFp?=
- =?utf-8?B?VTNIaDhUdHZ5dGRIVEdJbWhrb3JPRWtLa3FNc0lpd2d1S0N3emM3UEVoOXBP?=
- =?utf-8?B?TFZSMzZqa1Yxb1U4UXZKL2JOWE9mQkNycklXeGtjeEZDbXJBc1diOHAzQzNu?=
- =?utf-8?B?S0phRm5zbW9JblVlNUxzTW1Zd2ovRG1tUEYwckM3OVZQampyRStValplb2hh?=
- =?utf-8?B?RVB6NUIyTXpRb3BPZFNWMnE5azlXaW1QcHcrR2VsWEVaY0xtODlPSFhmQXhY?=
- =?utf-8?B?NkFleC9xQlZzRTFGdzVVaE8wamFGQVZkTWhnenp6UkRpTm10N09QWHJkREpO?=
- =?utf-8?B?Tm1UOHBUd2doUjIvYUFRelBOM1hEWnlwR3JEMFBGcEFaSDM3UWs1TXVSbFV6?=
- =?utf-8?B?L2RPcDNqQ0FwV3haMDF2RkhCR1BWVG41RWlYVmk3U0lhbFFFNEEyMWVDUy9O?=
- =?utf-8?B?K0xVTXc2Z3BuWE04K0hVU1FlR2hZNXJuaVNGYWhEekgyUTBUVjg1elhOZmty?=
- =?utf-8?B?VFVTakxiaWdORVRTaGplUXpDakdYakJrYm00UFl6WS9yc3lDTE42QjNMUDhK?=
- =?utf-8?Q?enpU=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(82310400026)(1800799024); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 16:40:53.7431 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea2a73fb-053d-43f2-6f97-08de4f9ddb2c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989EA.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6154
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,151 +73,328 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When GPU memory mappings are updated, the driver returns a fence so
-userspace knows when the update is finished.
+On 11/12/2025 12:23, Arunpravin Paneer Selvam wrote:
+> Large alignment requests previously forced the allocator to search by
+> alignment order, causing large free blocks to be split even when a
+> smaller aligned range existed within them. This patch switches the
+> search to prioritize the requested size and uses an augmented RB-tree
+> field (subtree_max_alignment) to efficiently locate blocks that satisfy
+> both size and alignment. This prevents unnecessary block splitting and
+> significantly reduces fragmentation.
+> 
+> A practical example is the VKCTS test
+> dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000, which
+> allocates 8 KiB buffers with a 256 KiB alignment. Previously, these
+> requests caused the allocator to split large blocks despite having
+> smaller aligned portions within them that could satisfy the allocation.
+> The new design now identifies and allocates from these portions,
+> avoiding unnecessary splitting.
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Suggested-by: Christian König <christian.koenig@amd.com>
+> ---
+>   drivers/gpu/drm/drm_buddy.c | 205 +++++++++++++++++++++++++++++++++---
+>   include/drm/drm_buddy.h     |   3 +
+>   2 files changed, 191 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+> index f2c92902e4a3..f749814bb270 100644
+> --- a/drivers/gpu/drm/drm_buddy.c
+> +++ b/drivers/gpu/drm/drm_buddy.c
+> @@ -23,6 +23,18 @@ static struct kmem_cache *slab_blocks;
+>   #define for_each_free_tree(tree) \
+>   	for ((tree) = 0; (tree) < DRM_BUDDY_MAX_FREE_TREES; (tree)++)
+>   
+> +static unsigned int drm_buddy_min_offset_or_size_order(struct drm_buddy_block *block)
+> +{
+> +	return min_t(unsigned int,
+> +		     __ffs(drm_buddy_block_offset(block)),
+> +		     drm_buddy_block_order(block));
 
-The previous refactor could pick the wrong fence or rely on checks that
-are not safe for GPU mappings that stay valid even when memory is
-missing. In some cases this could return an invalid fence or cause fence
-reference counting problems.
+Didn't quite get this bit. Why do we pick the min between the order and 
+"alignment"? Say we have order zero block but is has 256K addr alignment 
+this just selects zero? What is the idea here?
 
-Fix this by (v6, per Christian):
-- Starting from the VM’s existing last update fence, so a valid and
-  meaningful fence is always returned even when no new work is required.
-- Selecting the VM-level fence only for always-valid / PRT mappings using
-  the required combined bo_va + bo guard.
-- Using the per-BO page table update fence for normal MAP and REPLACE
-  operations.
-- For UNMAP and CLEAR, returning the fence provided by
-  amdgpu_vm_clear_freed(), which may remain unchanged when nothing needs
-  clearing.
-- Keeping fence reference counting balanced.
+> +}
+> +
+> +RB_DECLARE_CALLBACKS_MAX(static, drm_buddy_augment_cb,
+> +			 struct drm_buddy_block, rb,
+> +			 unsigned int, subtree_max_alignment,
+> +			 drm_buddy_min_offset_or_size_order);
+> +
+>   static struct drm_buddy_block *drm_block_alloc(struct drm_buddy *mm,
+>   					       struct drm_buddy_block *parent,
+>   					       unsigned int order,
+> @@ -40,6 +52,9 @@ static struct drm_buddy_block *drm_block_alloc(struct drm_buddy *mm,
+>   	block->header |= order;
+>   	block->parent = parent;
+>   
+> +	block->subtree_max_alignment =
+> +		drm_buddy_min_offset_or_size_order(block);
+> +
+>   	RB_CLEAR_NODE(&block->rb);
+>   
+>   	BUG_ON(block->header & DRM_BUDDY_HEADER_UNUSED);
+> @@ -76,26 +91,32 @@ static bool rbtree_is_empty(struct rb_root *root)
+>   	return RB_EMPTY_ROOT(root);
+>   }
+>   
+> -static bool drm_buddy_block_offset_less(const struct drm_buddy_block *block,
+> -					const struct drm_buddy_block *node)
+> -{
+> -	return drm_buddy_block_offset(block) < drm_buddy_block_offset(node);
+> -}
+> -
+> -static bool rbtree_block_offset_less(struct rb_node *block,
+> -				     const struct rb_node *node)
+> -{
+> -	return drm_buddy_block_offset_less(rbtree_get_free_block(block),
+> -					   rbtree_get_free_block(node));
+> -}
+> -
+>   static void rbtree_insert(struct drm_buddy *mm,
+>   			  struct drm_buddy_block *block,
+>   			  enum drm_buddy_free_tree tree)
+>   {
+> -	rb_add(&block->rb,
+> -	       &mm->free_trees[tree][drm_buddy_block_order(block)],
+> -	       rbtree_block_offset_less);
+> +	struct rb_node **link, *parent = NULL;
+> +	struct drm_buddy_block *node;
+> +	struct rb_root *root;
+> +	unsigned int order;
+> +
+> +	order = drm_buddy_block_order(block);
+> +
+> +	root = &mm->free_trees[tree][order];
+> +	link = &root->rb_node;
+> +
+> +	while (*link) {
+> +		parent = *link;
+> +		node = rbtree_get_free_block(parent);
+> +
+> +		if (drm_buddy_block_offset(block) < drm_buddy_block_offset(node))
+> +			link = &parent->rb_left;
+> +		else
+> +			link = &parent->rb_right;
 
-v7: Drop the extra bo_va/bo NULL guard since
-    amdgpu_vm_is_bo_always_valid() handles NULL BOs correctly (including
-    PRT). (Christian)
+Is this correct? From the docs it sounds like we are meant to update the 
+max alignment for each subtree on the path leading up to the insertion? 
+It looks like insert_augmentated will only do it if there is something 
+to be rebalanced.
 
-This makes VM timeline fences correct and prevents crashes caused by
-incorrect fence handling.
+> +	}
+> +
+> +	rb_link_node(&block->rb, parent, link);
+> +	rb_insert_augmented(&block->rb, root, &drm_buddy_augment_cb);
+>   }
+>   
+>   static void rbtree_remove(struct drm_buddy *mm,
+> @@ -108,7 +129,7 @@ static void rbtree_remove(struct drm_buddy *mm,
+>   	tree = get_block_tree(block);
+>   	root = &mm->free_trees[tree][order];
+>   
+> -	rb_erase(&block->rb, root);
+> +	rb_erase_augmented(&block->rb, root, &drm_buddy_augment_cb);
+>   	RB_CLEAR_NODE(&block->rb);
+>   }
+>   
+> @@ -596,6 +617,88 @@ static bool block_incompatible(struct drm_buddy_block *block, unsigned int flags
+>   	return needs_clear != drm_buddy_block_is_clear(block);
+>   }
+>   
+> +static bool drm_buddy_subtree_can_satisfy(struct rb_node *node,
+> +					  unsigned int alignment)
+> +{
+> +	struct drm_buddy_block *block;
+> +
+> +	if (!node)
+> +		return false;
+> +
+> +	block = rbtree_get_free_block(node);
+> +	return block->subtree_max_alignment >= alignment;
+> +}
+> +
+> +static struct drm_buddy_block *
+> +drm_buddy_find_block_aligned(struct drm_buddy *mm,
+> +			     enum drm_buddy_free_tree tree,
+> +			     unsigned int order,
+> +			     unsigned int tmp,
+> +			     unsigned int alignment,
+> +			     unsigned long flags)
+> +{
+> +	struct rb_root *root = &mm->free_trees[tree][tmp];
+> +	struct rb_node *rb = root->rb_node;
+> +
+> +	/* Try to find a block of the requested size that is already aligned */
+> +	while (rb) {
+> +		struct drm_buddy_block *block = rbtree_get_free_block(rb);
+> +		struct rb_node *left_node = rb->rb_left, *right_node = rb->rb_right;
+> +
+> +		if (left_node) {
+> +			if (drm_buddy_subtree_can_satisfy(left_node, alignment)) {
+> +				rb = left_node;
+> +				continue;
+> +			}
+> +		}
+> +
+> +		if (drm_buddy_block_order(block) >= order &&
+> +		    __ffs(drm_buddy_block_offset(block)) >= alignment)
+> +			return block;
+> +
+> +		if (right_node) {
+> +			if (drm_buddy_subtree_can_satisfy(right_node, alignment)) {
+> +				rb = right_node;
+> +				continue;
+> +			}
+> +		}
+> +
+> +		break;
+> +	}
+> +
+> +	if (tmp < max(order, alignment))
+> +		return NULL;
+> +
+> +	/* If none found, look for a larger block that can satisfy the alignment */
 
-Fixes: 463b33e780ae ("drm/amdgpu: Refactor amdgpu_gem_va_ioctl for Handling Last Fence Update and Timeline Management v4")
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 73 +++++++++++++------------
- 1 file changed, 37 insertions(+), 36 deletions(-)
+What is the idea here? IIUC we are looking at some specific order and we 
+want some min addr alignment, if the above can't find any subtree with 
+suitable max alignment then we should bail and try the next order? Why 
+instead do we do the search again with the same alignment below?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index e5fb8f5346b6..baa624717345 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -732,15 +732,23 @@ amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
- 			struct amdgpu_bo_va *bo_va,
- 			uint32_t operation)
- {
--	struct dma_fence *clear_fence = dma_fence_get_stub();
--	struct dma_fence *last_update = NULL;
--	int r;
-+	struct dma_fence *fence;
-+	int r = 0;
-+
-+	/* Always start from the VM's existing last update fence. */
-+	fence = dma_fence_get(vm->last_update);
- 
- 	if (!amdgpu_vm_ready(vm))
--		return clear_fence;
-+		return fence;
- 
--	/* First clear freed BOs and get a fence for that work, if any. */
--	r = amdgpu_vm_clear_freed(adev, vm, &clear_fence);
-+	/*
-+	 * First clean up any freed mappings in the VM.
-+	 *
-+	 * amdgpu_vm_clear_freed() may replace @fence with a new fence if it
-+	 * schedules GPU work. If nothing needs clearing, @fence can remain as
-+	 * the original vm->last_update.
-+	 */
-+	r = amdgpu_vm_clear_freed(adev, vm, &fence);
- 	if (r)
- 		goto error;
- 
-@@ -758,35 +766,38 @@ amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
- 		goto error;
- 
- 	/*
--	 * Decide which fence represents the "last update" for this VM/BO:
-+	 * Decide which fence best represents the last update:
-+	 *
-+	 * MAP/REPLACE:
-+	 *   - For always-valid mappings, use vm->last_update.
-+	 *   - Otherwise, export bo_va->last_pt_update.
- 	 *
--	 * - For MAP/REPLACE we want the PT update fence, which is tracked as
--	 *   either vm->last_update (for always-valid BOs) or bo_va->last_pt_update
--	 *   (for per-BO updates).
-+	 * UNMAP/CLEAR:
-+	 *   Keep the fence returned by amdgpu_vm_clear_freed(). If no work was
-+	 *   needed, it can remain as vm->last_pt_update.
- 	 *
--	 * - For UNMAP/CLEAR we rely on the fence returned by
--	 *   amdgpu_vm_clear_freed(), which already covers the page table work
--	 *   for the removed mappings.
-+	 * The VM and BO update fences are always initialized to a valid value.
-+	 * vm->last_update and bo_va->last_pt_update always start as valid fences.
-+	 * and are never expected to be NULL.
- 	 */
- 	switch (operation) {
- 	case AMDGPU_VA_OP_MAP:
- 	case AMDGPU_VA_OP_REPLACE:
--		if (bo_va && bo_va->base.bo) {
--			if (amdgpu_vm_is_bo_always_valid(vm, bo_va->base.bo)) {
--				if (vm->last_update)
--					last_update = dma_fence_get(vm->last_update);
--			} else {
--				if (bo_va->last_pt_update)
--					last_update = dma_fence_get(bo_va->last_pt_update);
--			}
--		}
-+		/*
-+		 * For MAP/REPLACE, return the page table update fence for the
-+		 * mapping we just modified. bo_va is expected to be valid here.
-+		 */
-+		dma_fence_put(fence);
-+
-+		if (amdgpu_vm_is_bo_always_valid(vm, bo_va->base.bo))
-+			fence = dma_fence_get(vm->last_update);
-+		else
-+			fence = dma_fence_get(bo_va->last_pt_update);
- 		break;
- 	case AMDGPU_VA_OP_UNMAP:
- 	case AMDGPU_VA_OP_CLEAR:
--		if (clear_fence)
--			last_update = dma_fence_get(clear_fence);
--		break;
- 	default:
-+		/* keep @fence as returned by amdgpu_vm_clear_freed() */
- 		break;
- 	}
- 
-@@ -794,17 +805,7 @@ amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
- 	if (r && r != -ERESTARTSYS)
- 		DRM_ERROR("Couldn't update BO_VA (%d)\n", r);
- 
--	/*
--	 * If we managed to pick a more specific last-update fence, prefer it
--	 * over the generic clear_fence and drop the extra reference to the
--	 * latter.
--	 */
--	if (last_update) {
--		dma_fence_put(clear_fence);
--		return last_update;
--	}
--
--	return clear_fence;
-+	return fence;
- }
- 
- int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
--- 
-2.34.1
+> +	rb = root->rb_node;
+> +	while (rb) {
+> +		struct drm_buddy_block *block = rbtree_get_free_block(rb);
+> +		struct rb_node *left_node = rb->rb_left, *right_node = rb->rb_right;
+> +
+> +		if (left_node) {
+> +			if (drm_buddy_subtree_can_satisfy(left_node, alignment)) {
+> +				rb = left_node;
+> +				continue;
+> +			}
+> +		}
+> +
+> +		if (drm_buddy_block_order(block) >= max(order, alignment) &&
+> +		    drm_buddy_min_offset_or_size_order(block) >= alignment)
+> +			return block;
+> +
+> +		if (right_node) {
+> +			if (drm_buddy_subtree_can_satisfy(right_node, alignment)) {
+> +				rb = right_node;
+> +				continue;
+> +			}
+> +		}
+> +
+> +		break;
+> +	}
+> +
+> +	return NULL;
+> +}
+> +
+>   static struct drm_buddy_block *
+>   __alloc_range_bias(struct drm_buddy *mm,
+>   		   u64 start, u64 end,
+> @@ -798,6 +901,69 @@ alloc_from_freetree(struct drm_buddy *mm,
+>   	return ERR_PTR(err);
+>   }
+>   
+> +static int drm_buddy_offset_aligned_allocation(struct drm_buddy *mm,
+> +					       u64 size,
+> +					       u64 min_block_size,
+> +					       unsigned long flags,
+> +					       struct list_head *blocks)
+> +{
+> +	struct drm_buddy_block *block = NULL;
+> +	unsigned int order, tmp, alignment;
+> +	enum drm_buddy_free_tree tree;
+> +	unsigned long pages;
+> +
+> +	alignment = ilog2(min_block_size);
+> +	pages = size >> ilog2(mm->chunk_size);
+> +	order = fls(pages) - 1;
+> +
+> +	tree = (flags & DRM_BUDDY_CLEAR_ALLOCATION) ?
+> +		DRM_BUDDY_CLEAR_TREE : DRM_BUDDY_DIRTY_TREE;
+> +
+> +	for (tmp = order; tmp <= mm->max_order; ++tmp) {
+> +		block = drm_buddy_find_block_aligned(mm, tree, order,
+> +						     tmp, alignment, flags);
+> +		if (!block) {
+> +			tree = (tree == DRM_BUDDY_CLEAR_TREE) ?
+> +				DRM_BUDDY_DIRTY_TREE : DRM_BUDDY_CLEAR_TREE;
+> +			block = drm_buddy_find_block_aligned(mm, tree, order,
+> +							     tmp, alignment, flags);
+> +		}
+> +
+> +		if (block)
+> +			break;
+> +	}
+> +
+> +	if (!block)
+> +		return -ENOSPC;
+> +
+> +	while (drm_buddy_block_order(block) > order) {
+> +		unsigned int child_order = drm_buddy_block_order(block) - 1;
+> +		struct drm_buddy_block *left, *right;
+> +		int r;
+> +
+> +		r = split_block(mm, block);
+> +		if (r)
+> +			return r;
+> +
+> +		left  = block->left;
+> +		right = block->right;
+> +
+> +		if (child_order >= alignment)
+> +			block = right;
+> +		else
+> +			block = left;
+> +	}
+> +
+> +	mark_allocated(mm, block);
+> +	mm->avail -= drm_buddy_block_size(mm, block);
+> +	if (drm_buddy_block_is_clear(block))
+> +		mm->clear_avail -= drm_buddy_block_size(mm, block);
+> +	kmemleak_update_trace(block);
+> +	list_add_tail(&block->link, blocks);
+> +
+> +	return 0;
+> +}
+> +
+>   static int __alloc_range(struct drm_buddy *mm,
+>   			 struct list_head *dfs,
+>   			 u64 start, u64 size,
+> @@ -1147,6 +1313,11 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>   		min_block_size = size;
+>   	/* Align size value to min_block_size */
+>   	} else if (!IS_ALIGNED(size, min_block_size)) {
+> +		if (min_block_size > size && is_power_of_2(size))
+> +			return drm_buddy_offset_aligned_allocation(mm, size,
+> +								   min_block_size,
+> +								   flags,
+> +								   blocks);
+>   		size = round_up(size, min_block_size);
+>   	}
+>   
+> diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+> index d7891d08f67a..da6a40fb4763 100644
+> --- a/include/drm/drm_buddy.h
+> +++ b/include/drm/drm_buddy.h
+> @@ -11,6 +11,7 @@
+>   #include <linux/slab.h>
+>   #include <linux/sched.h>
+>   #include <linux/rbtree.h>
+> +#include <linux/rbtree_augmented.h>
+>   
+>   #include <drm/drm_print.h>
+>   
+> @@ -60,6 +61,8 @@ struct drm_buddy_block {
+>   	};
+>   
+>   	struct list_head tmp_link;
+> +
+> +	unsigned int subtree_max_alignment;
+>   };
+>   
+>   /* Order-zero must be at least SZ_4K */
 
