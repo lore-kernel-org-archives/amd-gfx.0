@@ -4,145 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91AACD277CD
-	for <amd-gfx@archiver.kernel.org>; Sat, 10 Jan 2026 03:26:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DCD1D277D1
+	for <amd-gfx@archiver.kernel.org>; Sat, 10 Jan 2026 04:52:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26FED10E074;
-	Sat, 10 Jan 2026 03:26:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0476310E2C4;
+	Sat, 10 Jan 2026 04:52:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f77AfAZN";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="K8S1+7lx";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012033.outbound.protection.outlook.com [40.107.209.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EDA410E074
- for <amd-gfx@lists.freedesktop.org>; Sat, 10 Jan 2026 03:26:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WYL3cod2OLOUJ+5k4HsWRXdbMKwAjxRrBb0DzbQRiA1uW225d7bAR7CqjsvyPvHZoMPfXCmgzJlGNYm8BoDCzVgbCS7zfFljSqZYk3YpvbqVqg9adrah1dl5Y9od+c19Sg4UhnzU/23YFI7tDc1YFcHyxUBRu8/+rZniRmrj8abfR/NNxhCgW6UDmGzvqoKh8a5+ZjuiGP/Fv70pQgm6YusuB5HKm2lMO7fuuFvhXXY74hmUFVPbR2ix7TWB4wPTl5DDy/T3rktIfYQOt58cLZ0wlHjZ2lsCGLaqMbuRLbeV5jVwiPvDKAiBYdJ3wgPIHMg7clU3QkvE5Lc6nUdcGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ioKIC1RSLJB/kcCyb6sDyKLNxacqKU0+BG8jN4UVipk=;
- b=atB+Q2EXjUj9/UHfqE27BciGc56QCZ5vAWuJ2zA2maQSdEYpjzJ3kCXRlZMVeYqofGzZvHtOrWNZUvTT5kMhFovOefgdpXej8GE/rvap07kChpkDpqfQkNxLCW7bAWM8gGsvJae+bDHkSnn9YeWtQnhuxXvA/qYNlr8D+8VMRT5oU9VNv6k5RjyxjncfTE5FOPOCr/4Ais55Hbse15X5d4CmmzmqgSBeFqUPA40zUbXzfyB/rDEe7sZm11FD2YZ4re9Nw1zF+5dDI0Kk/qRFy2OdQT3WqLuS5xIxKKvtpJP+kyAI7VSfuAXco6hk6k9nZfNvCJTMB7dnGMiYsg0Xeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ioKIC1RSLJB/kcCyb6sDyKLNxacqKU0+BG8jN4UVipk=;
- b=f77AfAZNl327Tjt+b7WnJ7/8UiL52zut1dXOpx3aN9blfmilGdw+8WGDXy8WF/hKUVoykk8EmsWR6eI+WJfbvsFLJyBGZe0XfOYrqx8V64VQJ+8LVEkZUgSjBUc8wZSq1UvzJkikTxHschCNWl1h6dINIxMokvfAN8VfW/qc43s=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- PH7PR12MB6696.namprd12.prod.outlook.com (2603:10b6:510:1b3::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Sat, 10 Jan
- 2026 03:26:36 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::ab84:617d:61a9:3727]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::ab84:617d:61a9:3727%6]) with mapi id 15.20.9499.003; Sat, 10 Jan 2026
- 03:26:36 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Koenig, Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: make sure userqs are enabled in userq IOCTLs
-Thread-Topic: [PATCH] drm/amdgpu: make sure userqs are enabled in userq IOCTLs
-Thread-Index: AQHcgW/zEunqh76D70uoJ7YHLLHoFLVKvcZA
-Date: Sat, 10 Jan 2026 03:26:36 +0000
-Message-ID: <DS7PR12MB6005FB96E1549C1293D90351FB83A@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20260109135743.3241773-1-alexander.deucher@amd.com>
-In-Reply-To: <20260109135743.3241773-1-alexander.deucher@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-01-10T03:22:24.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|PH7PR12MB6696:EE_
-x-ms-office365-filtering-correlation-id: 9a5613b9-00bc-4e43-49f0-08de4ff80f97
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?3+MboEHoMT2uqkI3EMq+D6ReVp3dYcar/BrHhe1cQoJtlg8MYLWVgcy9g3u0?=
- =?us-ascii?Q?Ma6ALx1FblhKLJVOwKqDSsVsnKgShHj+Wr2daZxDx3cfemD0fj2zCRiX4IO5?=
- =?us-ascii?Q?3VRgDr0Ye3rkUEgBZDrw7V/vprQS5CTIehetEa6CgSF4G8GDIBQsWYDJ82cM?=
- =?us-ascii?Q?w8Q0F/q9zCMKbN8IyMjDGzZ5vrdfPR4xKC0Rv9y0sLwAJorkMf4+RArM95wW?=
- =?us-ascii?Q?9tKsYbQvdrujpzUa4+NaxbDrmQFiBxUh5pko+Cf2cnTpgJk2pm6EyVgZd3/o?=
- =?us-ascii?Q?cIWUMmVbUdXgNTzA+50RWSWMR1ibcSVFZPE3zSs1g/XqtkaGNlixhW1g/yWz?=
- =?us-ascii?Q?2MdOvHqNRSIqDvfgnB9lb09R90EItSbfh+Cw8gHZXy6QdONzdmT8ii3inrKs?=
- =?us-ascii?Q?0jhFo0iVsMLxPfG+0Ogr9fXTgE4/othbJl+7qhuFqDZFHvj6H+V4e9vNGkmx?=
- =?us-ascii?Q?OxlAtgES9kN2qozxWiltrq3wArn9YqhL5/NdHIgzlesEG/YhsaOaR4enwKZp?=
- =?us-ascii?Q?jS4lVDyn3dorp4oCa8H/pgP6O26d7VGSpju8qW6IZMQT79t2EJLUt4gy+eYf?=
- =?us-ascii?Q?UPvXUjNJsVX5TBkD0UumHiIsRjZeN8bOfuDuVx7r3lmgGdEe529/Y/rOOF1W?=
- =?us-ascii?Q?kNYjmq3MSe/Qf8gHjng0RsLTtBYlnsj0mbivRVA3FP/S93JXGfdRidtZ8Rnk?=
- =?us-ascii?Q?Y8v00z0hz17mFuCxF981lypAkKyfeEQcuCZfdkcBZZdO2MW8BqU6hsO1NWpB?=
- =?us-ascii?Q?q1Smj6Vc+xmoFaDS0vMEYUAyl7JnBsbgcLmrEux2ntYg9BDFafYthKJpVtYp?=
- =?us-ascii?Q?yI2igFWmY2xs00R6W+e2/keJzC3alHzYYT+pFZ6tonU2Ho8vBDRak3HY/heJ?=
- =?us-ascii?Q?y7/cE4b9HdvQa1+JMYnZeALIxAuXQpzT+Xb51JN0zDyZ1H5ySC+B03ipwgcO?=
- =?us-ascii?Q?OOdqxPOoti7uUxQUfQ1ZiXrJMyUEUHfjTWjdblbvh0C3Bcg1oFKz2TxG7oDe?=
- =?us-ascii?Q?GtX+N5ZHy2iosQ+GdvI8NyYm0omBxa4aGrJzf8b+J8P6CdIA3E/w7kqqClBY?=
- =?us-ascii?Q?U2+hYlww2DzPaY771MQHe73YU4ZS0wmCAxVO9asBQn6qW4A87T2ww3KA3PIG?=
- =?us-ascii?Q?kGidzZLR2vogqz0S1dGjOwuj5iXnQmFt9i0/0NGkfbD2Bwe5yWK5kBbWgnqd?=
- =?us-ascii?Q?BL6dL7aSv2os0fnAiwsGLMzWZxiIfo8hdaFwfVeIcMJl5R/1B98CDgBBUFpF?=
- =?us-ascii?Q?s0RlbMNfxHnVOMio83+4ETFSS75SZx2w3T6717koZd6ef0DDyjsrUagDSxKl?=
- =?us-ascii?Q?rHNYa+WIpn3EGj/tIRx1zsj3GjkJhk1Tcwp2cz2qAftJCpog0XLuT+4T6cCb?=
- =?us-ascii?Q?ghhgVVQ1J9vECzw5UgrfGA1mVdWhW9BnZGgMGinqGZoQf+oFJOkTYSwIXsfC?=
- =?us-ascii?Q?uzeGiecy6oTc0myziooICA3Iqrj6x/NE0lK6BK2EAZXVxh9t4hYGUjcE7PLm?=
- =?us-ascii?Q?cGU1Nl7zz51bhbZ1mQE1rcLuJwdlYGW1H1BV?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QdMPLR2/1U9v3/vF4CsJME0ao8HnLGhSV3ctSrXNRJuchYlDXrFBkBt6dRMY?=
- =?us-ascii?Q?Ls0JNEsrreFG4JmR0PKM6TpQnTb7NBqLtDj2m1G+6UZyCQEvGcbQSp6s/oQj?=
- =?us-ascii?Q?dCYjYhr97ony9QYJ3M2o2yalF3EVCzcs1qAl9wg1eeqYhRnqbCVmABQTfQ+B?=
- =?us-ascii?Q?TfU0lOxRop2wADUKt0vIObMNF5cnGPmtYq7Z+TOrP3U7/RbreQFwqThivHQV?=
- =?us-ascii?Q?hfpD1ho8iL42y99YkWdaKkBlGC93OC8nfuLcFeynZNKtjOPVfc/4EpGLnYOg?=
- =?us-ascii?Q?HFsQuSSXLj+rQYFajlvOC93iM77kRsBZa5xmjTHGVclAw9FB8ZoesXxcgcty?=
- =?us-ascii?Q?nmGqS88NgT32lpGgAxAg2+lcEHH6VBkc7bX78nMyhRzqBuUt6YC1NqfHVbC2?=
- =?us-ascii?Q?YGO2ppZzCfc6i1Qsld4LULSUDRufHan1W/Xup8xP+QMmkLoZNa6uXG/gJvRG?=
- =?us-ascii?Q?rZyZRveEUilRSFiawY2+DClUP09KqZQzx9jSzHP9CKvCrGj3L9dO+d3CCYkG?=
- =?us-ascii?Q?pACAwiOEtysbYLtOovUGP8Nl4GVFTWwNHzBlyYMXztg9GASqqUuVCIdxDa/a?=
- =?us-ascii?Q?sol9W/kvi57TYPNEXtc/g+TenjKa+hjKi5aqC/AXkPum22li0xyfBJ+vtfIb?=
- =?us-ascii?Q?gV0BCAyMAZ+ZTWswV7ZGPZ0lmyzO6LqJEXG7HTcj2ag9ewDZ6qFKoN5rIswQ?=
- =?us-ascii?Q?ESEBhvvqP6wB1vk+yURmYjvo3tMCwkzxyhl5UwDp9xtB7geTAvYCyztBUbNK?=
- =?us-ascii?Q?AtbjWU6Pz4aVrFkQMa3e7wcv/OwbJd3jWOLqy+IwJu4doHSvUAJxEeqXYECx?=
- =?us-ascii?Q?VkVAiK2sHdsnIYkSE/YunZmMpdamLDnW3hzfITS0mwz5jta8+COKUGeXhNi2?=
- =?us-ascii?Q?ONdGMtqJLVwmmcEfZFz3tRGQAKqP2e/PbDcz6JBE2zoy6Ud7U8oUnR8cALOv?=
- =?us-ascii?Q?kyMFkDCaqN8S7m9oDhWrUSwbmxBGYlzrjWDtmyU7dts7iPqQ+8cttCRJwD/6?=
- =?us-ascii?Q?+bwGjg3KRCFJjrXsiWpDshJfGCscDTPE5IxqI/E8lqjE9Np4ohPkWrmjVwIj?=
- =?us-ascii?Q?Pg5AEp15MVrhZyDqdPUYF3aUq4IGjehAUs7BwxVwUCRYJE0B7h53uGlB4+cT?=
- =?us-ascii?Q?j6WbMIym9hdyjimZmMGINti0mXCkwxC6ohc2pS1YnOnvY+qIwaBoG6PaI9r0?=
- =?us-ascii?Q?rdwMfZxEN6Km+jKRQtgM6CMijAP6U/bfOEoroweu2bYBHpqlDzHxPr/K1Yo5?=
- =?us-ascii?Q?Co1W0LvvIzSnadQoZoNszFXnrJef9wxShf1J8M5n3Ps+hDyxvwAyHDzkaSS3?=
- =?us-ascii?Q?JTkfq4qDVJlF1+v9WBX3w/tWoXn+SmoO65cXF8w90PQ2wZBJkYGEZG9zVufO?=
- =?us-ascii?Q?0jMeZ5ztF9U8eLqrvSYULO18yvNxOzltE5dB+ZOPY0KjwR9ilIBcSr3Z6kwU?=
- =?us-ascii?Q?5nqdEqL4ay43FALqjfw1F25jcjhPlcrDnI5CGhOxoj1wByfT/4aMjV37beax?=
- =?us-ascii?Q?AHDGlXgDJqlKjg/SFIj048RD0oSFdvrk8USvg6fmJ0niP8V76Ut+epxJEE0J?=
- =?us-ascii?Q?QhVOqiGZLc0mZJfGY5MHWyC9/3v79PlAV+00fYBwrUxbM8kt7csO1yRt1gm7?=
- =?us-ascii?Q?KsN5adfE6jzld8jvIZNYZ0CwQM3Am0cqHWH4t6UaSm8PDU2TRDMMVi6kjlWR?=
- =?us-ascii?Q?zBdsVlEjF3RN7oQca8Kfo3df4vDYAn8nn0n0EWL9K1dH8mCP?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com
+ [209.85.216.97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68A1910E39E
+ for <amd-gfx@lists.freedesktop.org>; Sat, 10 Jan 2026 04:52:21 +0000 (UTC)
+Received: by mail-pj1-f97.google.com with SMTP id
+ 98e67ed59e1d1-34b75fba315so2983886a91.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 09 Jan 2026 20:52:21 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768020741; x=1768625541;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gdEkYQhK8RCUcABTlzAZxt9zs7C+vSnS48JVz3Z7v1s=;
+ b=IBXNagFD5cepWNJ0PYfwBDaOcft/FioLK9C0RZMn3hqM2G3RLnnRPHV0+8uamyZidA
+ ZfOaWQxtIKdRxH2Hv3K+spa9YkbU0KtobdW3XaNZrQE/9kktv2v8wllFAWvs4N9mZUkS
+ FK1qmO4Cj+/w54HEY3OGArvL2L/FnokQ3PZ9UKujaecSOAZCgngJU1qOQvkr9kE6TViV
+ LoGeFPxpIqnYrJTSkLI6XBIEuSTJ0eDgHBHtfUe4h0+V+PVycD1/dM9dM4kqzAb9Mo+/
+ WiSefxoYpiJnSHRiIpMoESzvOjiMtz51IxI7w14CWKUwhjaqEKN5EBPGoYK9sXZZhzu6
+ xDMg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVNpSxQsc9yiJlUzUyM5N3rW7PD6T/HoVM0GJbhns1zSInmLhyPSnHUCTGG30YxJAYtKxk4fZEO@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywt0ADJgjwL4nY1XT/kxcRFArr1mY0qdEOV2jjBXxGigAezGKH0
+ /kkw43zrCiE/RJ78pPz97xJj4gN+mkl7x4RVNCwST0L+MogBxjlqqDKKpDC4LzmV36MqedHZakw
+ MxiOl8K/9tkhyHf+7DYaDR/CIHro/w0/esUlaH5L4DO+QIMdCYUKscUzzQ0lCLUroozcElF/2T4
+ 1K1YwmwLpIMjGrKryz7TMsu6tPV0/2xE4S45h2T++GisvIGHn9Wifx0llFbQlplZtCClStiBZGt
+ V/PGb1QtSFTN45AGA==
+X-Gm-Gg: AY/fxX7LpboSn5MWFkit12Q4VcPJ6K/STNBZhI8YKUBAYTF5eFJ3M+Y84cKnsiUuFQq
+ SUVdE253uzsJu/McW+gbfM66v4hrVKq/+0eV38vhpyft5Vtu+OyOmVOs1ytFpq6ZFuwclqUfvKf
+ MAd1T0ThzObxMTL2/81+9XbliPKEmL7yXe0BFOmzm3n4Qj5PIRhJsTwhYfClQCP9ajiP6c490fg
+ L04JndpAbkEMbrZxh8VHZHlZdX4aXJ0z8qwLtY0XvuclfBBtRHT7dPnKGOiAWgJ/XiKOseBXkkx
+ 5OHvvWy9GHmRuAq3ezog9IdgZ9o0zjGjhmlbJfZrCpxbAV4gxAI489nDyKWM8kdOO3owt1CW689
+ I+uK77kzO+tMjxmX70gEtF3eV/azr7cIKoEBg/H86Yc3p8vip5BujPM1rixCR1he3L1IFror5qP
+ fgQwZB8Cn2+vebBvumvj1V/ZCstp/9YX2MD9SJYaQ=
+X-Google-Smtp-Source: AGHT+IHz23L1xLCzOl/umg3XwmmSXCsQDxsMcFhVB/kGf5tqXRbpZlRsFclzlWk7OvWmJnBTcQBkdppSIh2n
+X-Received: by 2002:a17:90b:57c4:b0:34c:a211:e52a with SMTP id
+ 98e67ed59e1d1-34f68cae46emr10955782a91.27.1768020740780; 
+ Fri, 09 Jan 2026 20:52:20 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-2.dlp.protect.broadcom.com. [144.49.247.2])
+ by smtp-relay.gmail.com with ESMTPS id
+ 98e67ed59e1d1-34f5f8f4df1sm1729204a91.4.2026.01.09.20.52.20
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 09 Jan 2026 20:52:20 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lf1-f71.google.com with SMTP id
+ 2adb3069b0e04-59b70088327so3439578e87.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 09 Jan 2026 20:52:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1768020738; x=1768625538;
+ darn=lists.freedesktop.org; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=gdEkYQhK8RCUcABTlzAZxt9zs7C+vSnS48JVz3Z7v1s=;
+ b=K8S1+7lx5315PXCn9YhwYMgao8QmtUOf52GUlOC0xJ/XV0TD2P6FAlMbXZOc3ZcIuY
+ fUPmL4dkFvsGX9Ih1JB5Uj7V+EhRy9QqKCISsONibDyk7Zk9VxOJJsYVWlPlXEvsBa98
+ bvqnwIJdtVSpHnM70eLUH/OcPVV3QgsLfHGII=
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVFao+4Eg7ZMKGpCBHZCR5dUZzv3NapCJ/C3cegSVKm3i0ixj4e46Dmo/uSrmI4dYf4gBwHpO9T@lists.freedesktop.org
+X-Received: by 2002:a05:6512:b05:b0:598:eb48:cdd7 with SMTP id
+ 2adb3069b0e04-59b6f036b6dmr3303254e87.32.1768020738308; 
+ Fri, 09 Jan 2026 20:52:18 -0800 (PST)
+X-Received: by 2002:a05:6512:b05:b0:598:eb48:cdd7 with SMTP id
+ 2adb3069b0e04-59b6f036b6dmr3303240e87.32.1768020737789; Fri, 09 Jan 2026
+ 20:52:17 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a5613b9-00bc-4e43-49f0-08de4ff80f97
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Jan 2026 03:26:36.4695 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sAfc9vhMpJWF4/aYSHfrdUXeW3dA4Km2F58xcn528o7IuuK3wZO3+/z5dWbMY/vu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6696
+References: <20251229215906.3688205-1-zack.rusin@broadcom.com>
+ <c816f7ed-66e0-4773-b3d1-4769234bd30b@suse.de>
+In-Reply-To: <c816f7ed-66e0-4773-b3d1-4769234bd30b@suse.de>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Fri, 9 Jan 2026 23:52:05 -0500
+X-Gm-Features: AQt7F2p8B_T8ovfD5ZSr9MTIdbY91q6Tpr9PYo2oe7dWWszTv7Z59e7mmZ6IEig
+Message-ID: <CABQX2QNQU4XZ1rJFqnJeMkz8WP=t9atj0BqXHbDQab7ZnAyJxg@mail.gmail.com>
+Subject: Re: [PATCH 00/12] Recover sysfb after DRM probe failure
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Ard Biesheuvel <ardb@kernel.org>,
+ Ce Sun <cesun102@amd.com>, Chia-I Wu <olvaffe@gmail.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>, 
+ Deepak Rawat <drawat.floss@gmail.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Hans de Goede <hansg@kernel.org>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Helge Deller <deller@gmx.de>, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>, linux-efi@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, 
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Lucas De Marchi <lucas.demarchi@intel.com>, Lyude Paul <lyude@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Mario Limonciello <mario.limonciello@amd.com>, 
+ Maxime Ripard <mripard@kernel.org>, nouveau@lists.freedesktop.org, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, 
+ spice-devel@lists.freedesktop.org, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, virtualization@lists.linux.dev, 
+ Vitaly Prosyak <vitaly.prosyak@amd.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="00000000000016e3370648016826"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,114 +135,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+--00000000000016e3370648016826
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Should we validate support for the specific target queue type, rather than =
-allowing the userq IOCTL to proceed as long as any one queue type is valid?
+On Fri, Jan 9, 2026 at 5:34=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse.=
+de> wrote:
+>
+> Hi
+>
+> Am 29.12.25 um 22:58 schrieb Zack Rusin:
+> > Almost a rite of passage for every DRM developer and most Linux users
+> > is upgrading your DRM driver/updating boot flags/changing some config
+> > and having DRM driver fail at probe resulting in a blank screen.
+> >
+> > Currently there's no way to recover from DRM driver probe failure. PCI
+> > DRM driver explicitly throw out the existing sysfb to get exclusive
+> > access to PCI resources so if the probe fails the system is left withou=
+t
+> > a functioning display driver.
+> >
+> > Add code to sysfb to recever system framebuffer when DRM driver's probe
+> > fails. This means that a DRM driver that fails to load reloads the syst=
+em
+> > framebuffer driver.
+> >
+> > This works best with simpledrm. Without it Xorg won't recover because
+> > it still tries to load the vendor specific driver which ends up usually
+> > not working at all. With simpledrm the system recovers really nicely
+> > ending up with a working console and not a blank screen.
+> >
+> > There's a caveat in that some hardware might require some special magic
+> > register write to recover EFI display. I'd appreciate it a lot if
+> > maintainers could introduce a temporary failure in their drivers
+> > probe to validate that the sysfb recovers and they get a working consol=
+e.
+> > The easiest way to double check it is by adding:
+> >   /* XXX: Temporary failure to test sysfb restore - REMOVE BEFORE COMMI=
+T */
+> >   dev_info(&pdev->dev, "Testing sysfb restore: forcing probe failure\n"=
+);
+> >   ret =3D -EINVAL;
+> >   goto out_error;
+> > or such right after the devm_aperture_remove_conflicting_pci_devices .
+>
+> Recovering the display like that is guess work and will at best work
+> with simple discrete devices where the framebuffer is always located in
+> a confined graphics aperture.
+>
+> But the problem you're trying to solve is a real one.
+>
+> What we'd want to do instead is to take the initial hardware state into
+> account when we do the initial mode-setting operation.
+>
+> The first step is to move each driver's remove_conflicting_devices call
+> to the latest possible location in the probe function. We usually do it
+> first, because that's easy. But on most hardware, it could happen much
+> later.
 
-Regards,
-      Prike
+Well, some drivers (vbox, vmwgfx, bochs and currus-qemu) do it because
+they request pci regions which is going to fail otherwise. Because
+grabbining the pci resources is in general the very first thing that
+those drivers need to do to setup anything, we
+remove_conflicting_devices first or at least very early.
 
-> -----Original Message-----
-> From: Alex Deucher <alexander.deucher@amd.com>
-> Sent: Friday, January 9, 2026 9:58 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Koenig, Christian <Christian.Koenig@amd.com>; Liang, Prike
-> <Prike.Liang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> Subject: [PATCH] drm/amdgpu: make sure userqs are enabled in userq IOCTLs
->
-> These IOCTLs shouldn't be called when userqs are not enabled.  Make sure =
-they are
-> enabled before executing the IOCTLs.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c       | 16 ++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h       |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c |  6 ++++++
->  3 files changed, 23 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 98110f543307d..256ceca6d429b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -888,12 +888,28 @@ static int amdgpu_userq_input_args_validate(struct
-> drm_device *dev,
->       return 0;
->  }
->
-> +bool amdgpu_userq_enabled(struct drm_device *dev) {
-> +     struct amdgpu_device *adev =3D drm_to_adev(dev);
-> +     int i;
-> +
-> +     for (i =3D 0; i < AMDGPU_HW_IP_NUM; i++) {
-> +             if (adev->userq_funcs[i])
-> +                     return true;
-> +     }
-> +
-> +     return false;
-> +}
-> +
->  int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
->                      struct drm_file *filp)
->  {
->       union drm_amdgpu_userq *args =3D data;
->       int r;
->
-> +     if (!amdgpu_userq_enabled(dev))
-> +             return -ENOTSUPP;
-> +
->       if (amdgpu_userq_input_args_validate(dev, args, filp) < 0)
->               return -EINVAL;
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> index 7a5ec17704567..468b65d953b0d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -136,6 +136,7 @@ uint64_t amdgpu_userq_get_doorbell_index(struct
-> amdgpu_userq_mgr *uq_mgr,
->                                            struct drm_file *filp);
->
->  u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev);
-> +bool amdgpu_userq_enabled(struct drm_device *dev);
->
->  int amdgpu_userq_suspend(struct amdgpu_device *adev);  int
-> amdgpu_userq_resume(struct amdgpu_device *adev); diff --git
-> a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index 1a23e7709dea9..d6fc65803a309 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -493,6 +493,9 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev,=
- void
-> *data,
->       struct drm_exec exec;
->       u64 wptr;
->
-> +     if (!amdgpu_userq_enabled(dev))
-> +             return -ENOTSUPP;
-> +
->       num_syncobj_handles =3D args->num_syncobj_handles;
->       syncobj_handles =3D memdup_user(u64_to_user_ptr(args->syncobj_handl=
-es),
->                                     size_mul(sizeof(u32), num_syncobj_han=
-dles));
-> @@ -680,6 +683,9 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, v=
-oid
-> *data,
->       int r, i, rentry, wentry, cnt;
->       struct drm_exec exec;
->
-> +     if (!amdgpu_userq_enabled(dev))
-> +             return -ENOTSUPP;
-> +
->       num_read_bo_handles =3D wait_info->num_bo_read_handles;
->       bo_handles_read =3D memdup_user(u64_to_user_ptr(wait_info-
-> >bo_read_handles),
->                                     size_mul(sizeof(u32), num_read_bo_han=
-dles));
-> --
-> 2.52.0
+I also don't think it's possible or even desirable by some drivers to
+reuse the initial state, good example here is vmwgfx where by default
+some people will setup their vm's with e.g. 8mb ram, when the vmwgfx
+loads we allow scanning out from system memory, so you can set your vm
+up with 8mb of vram but still use 4k resolutions when the driver
+loads, this way the suspend size of the vm is very predictable (tiny
+vram plus whatever ram was setup) while still allowing a lot of
+flexibility.
 
+In general I think however this is planned it's two or three separate serie=
+s:
+1) infrastructure to reload the sysfb driver (what this series is)
+2) making sure that drivers that do want to recover cleanly actually
+clean out all the state on exit properly,
+3) abstracting at least some of that cleanup in some driver independent way
+
+z
+
+--00000000000016e3370648016826
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+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
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEII5o
+RGTEyV0XeAfpw/3EFhD4hnN34Z3brBUKW0xqk8cVMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDExMDA0NTIxOFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAF1Xo42N3K3eae8tcsSKl342yCGSrVLRINZtTEq9
+r63VqEAIdk89PCmgq61M9rT5wC/lhrOuNPE4WrW+Z1ZjnyFFroTD6ML1O92fBD6ngQfenx0qqqiN
+3EMvaNZEewav2YLeGmd1133vuOm0UNdoCPNK0xq3AR7gtCqt7p38R15PaQgZzWhc4K8GrVEYcbJy
+k1CeiWNlU+e4sXGmWAAIP2yyfTSxZc116VnRSp1vp8IKeUID6E5ozB304N1HPFHMjw+nSCeOOyCb
+TWO3GNDKajKdndjDywgT4lpgz2KIjnQLKIRoYwb9pAavWOIt+M1v21zeOFwh+Iofvs4XuSoq8G8=
+--00000000000016e3370648016826--
