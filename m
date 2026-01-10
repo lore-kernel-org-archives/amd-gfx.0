@@ -4,154 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B825D277C1
-	for <amd-gfx@archiver.kernel.org>; Fri,  9 Jan 2026 23:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19792D277C9
+	for <amd-gfx@archiver.kernel.org>; Sat, 10 Jan 2026 02:29:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB2610E0BA;
-	Fri,  9 Jan 2026 23:19:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97ABA10E070;
+	Sat, 10 Jan 2026 02:29:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XK3woA3D";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sY9Wyoza";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013053.outbound.protection.outlook.com
- [40.93.196.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EA8710E0BA
- for <amd-gfx@lists.freedesktop.org>; Fri,  9 Jan 2026 23:19:32 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010040.outbound.protection.outlook.com [52.101.201.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2968510E070;
+ Sat, 10 Jan 2026 02:29:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Je9U3GsK3/RZ6fhjK56a2Ce3HHwS5pDFkL78eAVhdL3QqdRPt+lflRaRTLcafejFWzq5K/x1fDocRvkzINsOrGlIMJkxJLZjwdszxXnYEgHFkqMkBTImwVFT4nXXK5QkDMuMiFdLaEOCPHRaMz7JhmM3zFvbkz0XH0kttvrU7gSVBrtmpf/EJP00ROVgdBdydKphsu7XrF3KhH2FEfeT8imyky6GjvhG8CbaAcI0AT71xoV/F5Xlswbsum4HzsquATRRyElsHacJV00zL0gUJM1L36ShJuL4pIiRLSedeEXk8BlnxRnoRKLxSgqMC4UcN5vMcUGVF+UtSWpddUkS4A==
+ b=j1PxnZQ5vxpCFxzTC14IsuPWtXLsG5jbLb5ZzJSK/0b2JN7xGNQ2WAsTKdCZdzSUXiCHEghsErZCfFUQe38DlhrXm0tFeC/GfUjqxkZBX0r7QU2x8FH5vS4fIcN5Gi3idxKbMUhIhTOMkvciei0zRFrU86lZ8c30G+JxPuhw30xABzDIfAMeHp7yzhgV9MrzS6dr4D5S+id99bxJl9kMipdTmyLasiv9LaHQOnmdBTHtwvmaH6Xqp+X1Ch4BoV/l2tE8XxUuI4pjUfr/kPigZ73Rk0du9m84qdU5oT54Tej3dh54ubdio/oSH3QPP1xrzV6ldrkmpv41bhiwFEoYiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FeWgbEYeaj40rcObOaxOWr4AL/LKkrdoEXbgW9hPEo8=;
- b=INoBMTwWGHPVkAhAOC0kVXys5pR+mAPEEHfwRXCsfQi1w9ir7D4p+FCs4qYMyuQkgTps9Kxu0LPJtkGGXaiITWPeq9EUo6maZnRtZWMu1wcxgKJ+Q3t1akQiE1b861osDJGtMi4QlRexf2ZlrixPqRF3Q14W0fk3gXEeGgJ5x38C2Iw9mB62rbVkO9NHaRUQ1Sk7hn9Gjpjr1qBzBOElpjgWKd8Clr0Q9Mkam7tAm2LwAXMWWWhyOUwi9mimdutcH1CyopoSzrvYMg5b9MEX2eUZiOkS/PsZLAukndOWIdyPaz0ywRmsnLGafwo5mKYdTt2FcRnf7BQEJsTETuDdtA==
+ bh=Mc7lLxq350px9vG2SJM0EJDOlUmqsmVXrstpdcaw6tg=;
+ b=ufHNlE2eObH8XwORRLIRyIGDRGPIe9aYbeNR3bu/ePV/yGz0LVu3dqvbv48pyNWe9BygKT8yTYR+rKUiYZ72zzV51u+laOYYvy/zNS4WeY40xROXwRu1E9R1osI4FrWZqTL5XzYBCW+Hd6R/TsYInqmTte5+8iND6W18wzyukWrIaBk+4EFO1hwtakd3NVo7inwFWf+DHnH9PEQ6gONYPuHRpCyhaXKseyiwHe44+BfEIsl7hWVb9vjxVKAW9T3OhxdtV5+Gdw1Ueanr9GhlaITxEYgTSz58s3QdoKoBWmsc/oCvJVQ8gVuUFh/nnZWpmbmZiNquQSBfr8xHBXJp2Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FeWgbEYeaj40rcObOaxOWr4AL/LKkrdoEXbgW9hPEo8=;
- b=XK3woA3Dbh4CMd7BZCGXDWdADxfU30xzjOKeeALOmKUsaAjvSgXXXPOlZeENjlYMw6MCqtMzZWpZl6rYKIv5YuvbihO5OlzWUPiP4ZMr3v4HmoFMBzOUDR8zHDcmvgaa9kz6tMUrjHWcF5V4/mVCNd50PkzuaU59m995xekb7Rk=
+ bh=Mc7lLxq350px9vG2SJM0EJDOlUmqsmVXrstpdcaw6tg=;
+ b=sY9Wyozaqh3rUQ6imwSb697u8pxWRSKhwvnMk56OdzHFS458hfT19bVZGkzEakzMyVwwvll0JkjZLaBTtiR6o80GnjLnZ52pqsEL3/1hVq1YtaYG+LuvlaXXOpqFV5KFKP6mB+vtHphkYT7Nlzik6CF2H3wNboDHdMHyfJyJkq8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5112.namprd12.prod.outlook.com (2603:10b6:208:316::16)
- by MW6PR12MB8915.namprd12.prod.outlook.com (2603:10b6:303:23e::16)
+Received: from IA1PR12MB6435.namprd12.prod.outlook.com (2603:10b6:208:3ad::10)
+ by CY8PR12MB7658.namprd12.prod.outlook.com (2603:10b6:930:9e::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.4; Fri, 9 Jan
- 2026 23:19:29 +0000
-Received: from BL1PR12MB5112.namprd12.prod.outlook.com
- ([fe80::d977:95c9:e89:ff27]) by BL1PR12MB5112.namprd12.prod.outlook.com
- ([fe80::d977:95c9:e89:ff27%6]) with mapi id 15.20.9499.005; Fri, 9 Jan 2026
- 23:19:29 +0000
-Message-ID: <b755d8e8-e314-49c7-be0a-ef3ee69bbaf7@amd.com>
-Date: Fri, 9 Jan 2026 18:19:27 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.4; Sat, 10 Jan
+ 2026 02:28:58 +0000
+Received: from IA1PR12MB6435.namprd12.prod.outlook.com
+ ([fe80::8b77:7cdb:b17a:a8e2]) by IA1PR12MB6435.namprd12.prod.outlook.com
+ ([fe80::8b77:7cdb:b17a:a8e2%5]) with mapi id 15.20.9499.004; Sat, 10 Jan 2026
+ 02:28:58 +0000
+Message-ID: <dc1f5de7-40c4-4649-8f2f-0fee4b540783@amd.com>
+Date: Sat, 10 Jan 2026 10:28:49 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] drm/amdkfd: Move gfx9.4.3 and gfx 9.5 MQD to HBM
-To: Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com, david.yatsin@amd.com, kent.russell@amd.com,
- jay.cornwall@amd.com
-References: <20260107192341.3521748-1-Philip.Yang@amd.com>
- <20260107192341.3521748-3-Philip.Yang@amd.com>
+Subject: Re: [PATCH v2 0/4] drm/amdkfd: Add batch userptr allocation support
+To: "Kuehling, Felix" <felix.kuehling@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: dmitry.osipenko@collabora.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, akpm@linux-foundation.org,
+ Honglei Huang <honglei1.huang@amd.com>, alexander.deucher@amd.com,
+ Ray.Huang@amd.com
+References: <20260104072122.3045656-1-honglei1.huang@amd.com>
+ <64f0d21c-1217-4f84-b1ce-b65c1f5c2ef1@amd.com>
+ <b6004bee-ffef-48ea-ba0d-57b390cb771c@amd.com>
+ <76c44385-bcf8-4820-a909-569bd2d36198@amd.com>
+ <ab5d1bb7-7896-49fd-a9ea-19294f4f57ca@amd.com>
 Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <20260107192341.3521748-3-Philip.Yang@amd.com>
+From: Honglei Huang <honghuan@amd.com>
+In-Reply-To: <ab5d1bb7-7896-49fd-a9ea-19294f4f57ca@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQBPR01CA0024.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01::32)
- To BL1PR12MB5112.namprd12.prod.outlook.com
- (2603:10b6:208:316::16)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SG2PR03CA0127.apcprd03.prod.outlook.com
+ (2603:1096:4:91::31) To IA1PR12MB6435.namprd12.prod.outlook.com
+ (2603:10b6:208:3ad::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5112:EE_|MW6PR12MB8915:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fe51c0c-ba13-459f-3efe-08de4fd589b2
+X-MS-TrafficTypeDiagnostic: IA1PR12MB6435:EE_|CY8PR12MB7658:EE_
+X-MS-Office365-Filtering-Correlation-Id: 639fe93d-2398-43df-991a-08de4ff0024c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NmFUb25HNWgreTFySDRvblpkRDlnTkpzZHVnMm12dHlLZzNZVHhjc3NKanlG?=
- =?utf-8?B?bG5QUFFCeWpXSmllclNkS25zV2x2YUJmVnVHbStVMHZrUUJQTnBucFd0cStE?=
- =?utf-8?B?ajRvamRlOEVQRTBBY3JBNG44Z0hMOVQ2bWM2c0RLV1poR3JEVCtJSFNnYXJa?=
- =?utf-8?B?RTJRVjE2Uk1Rd08xanMxYk5DbU1JcVpvdlpaeGpjSnNHTkh5d0V6ZTFZb1hp?=
- =?utf-8?B?cmgzZFVtdGl4WFdTcy93RHh0NkduMWlJQ0hxV1R1cjhjaVU5SFhUdjZzWUpl?=
- =?utf-8?B?dEQ4V3oyTE9mbDhFN1VzbWJtandmZ1Jtc0EwNnNpTnV5SHl2Zk9XN2gybU4w?=
- =?utf-8?B?RkUzOEFQM1NuNjA4UUZXZGo3RmovY3RQdHJ0UnFqZGY2aXNQWjFiRXhXSmhB?=
- =?utf-8?B?cCtORDZFYWFlS0ozZURVUEMrakJtU1lpTzlvYXNBSjFUcVdFZUU2VDB3L3FM?=
- =?utf-8?B?MDBwWDZuNXBGNnVVZUNOaVo3WjIreWsxRmUvTlB5a3JPdWlwVzhxSUZJVytj?=
- =?utf-8?B?aGlscFZEaVpqYjhOT0lHelZ2cHZGVGFlcWc0UERwYm15YS9ZU245Q3k2eHM2?=
- =?utf-8?B?RFlBb3hZZkhwdWVoVjhzVndhT21JZE5TQ0hRWlNCMXg4WjNHeU1jclROZXhY?=
- =?utf-8?B?U25kMXBIOHdLL055U3pNdGRjL0RYSzd2MGlzeHptajNDMVFSSTd5TERkRWx3?=
- =?utf-8?B?bnVtZ1NIb2RhTEwzdXBoNmJNanBGR1JZYzhzU0dacUd6VFkwYjhUT1YvN2tr?=
- =?utf-8?B?STA2dmpIOXBKSEh5bHIrUFYwY3A0RitsY3ZLSzV0eEIxc1ZWcmFtd0VsOFFl?=
- =?utf-8?B?dnFOZmVoV0MrZlRTN0NLeVhoc0JpRjBTSWYyQUJNU1d0TlNhM1p5Q083cDVm?=
- =?utf-8?B?OENGbjdYc283cWtQTHBMaDY4OEZyUFJQeWVVZTFkVWROcXpwSnZTRldFZDJE?=
- =?utf-8?B?QnhOSzNwaHkrTnNsUEFadUQwNmFUOTNRSkFEek4vMHM4MEdPZEs4MWJxalEw?=
- =?utf-8?B?amQwS2FvM1hubS9wVnlOY0NZdlRGczFhY1pXQ0wrcU9LdkpML1pCdStPajRj?=
- =?utf-8?B?c0NSVjM4WW5lZVZ6WC9uRFZTVWI5MG5OY0Y2Yy9RN04xZ1V1RWJlbllMRU9H?=
- =?utf-8?B?czJJVjU0N0NSemNvRUYwS2dhNExyVk1Gd3BqTERMem90S013c0RqRlBwSk5B?=
- =?utf-8?B?Ry90SWgrbWhpOXVNTWlLUjliODJieUJUVzJ3eHkyZFF2dnZhZUQ5QUlGRnhN?=
- =?utf-8?B?QVlQV0xjZktmOVB4M2Y0a2ZhZkdibTRXMjVvd1FMSDBSc1ovbWJjcTFkYW9T?=
- =?utf-8?B?NEVHbDR2VDRBbTJPUEo5RFFHK0hydGora05YUlBIZkxQbXM2bTY2WFZzYmdN?=
- =?utf-8?B?N3RsMkdpV29sQ1JSc003eDd6ZGZDbGFOc1p1aGRSZVdaVHZGdGt2RWpXVVlG?=
- =?utf-8?B?WU85RngwT0p5YVdxcndPc0JUNWJUKzBoWDlsdlBmUHF2ZzNHcExXdzg4dndY?=
- =?utf-8?B?YWVlM2JnVlJsbEVwY2k0SnRHVWJ5bGIxMjZhNTBqVVNvdmgzRGg0Tk00R3Zl?=
- =?utf-8?B?SmlGU0hKUFl4QTBvbmdzUWplYU9Bc04zRTNSN2VHcGFpLzNuNXZ4cGJ3L3lT?=
- =?utf-8?B?ME43MzhYM3I2N3R3SUwvUnN2Q0RTS2JTSEgwZDJhL3dERGxPaUxYWDdlZHhJ?=
- =?utf-8?B?ZlVkOEQ5ZEIzR3R5MmxEaGU4SXZldWgrOHpvODZMWE5sNWM2cWd1cnZXazdB?=
- =?utf-8?B?cnNmcDhwVnJ0NGJCQUxsS25EODlWSWJYSGNlTXNDd1ZqMC9zYXVWOTQ2UlVq?=
- =?utf-8?B?SHFCVk96K3l0QVpFdjVJbDd2cHE2T1orQU1PSU1ZRjBDMjNCYmpuU1VlK0or?=
- =?utf-8?B?NHQxdFZBcy9GMk5kZG1hVmNHN2NJSVNwN1pHQVg5QTV1TTlZQWp3Y2pKdXln?=
- =?utf-8?Q?PwjUZ1WmfBdZ/P0uCCWDKm0ntG7xth+8?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?L2g3eXVnSTlQdUhGNUJLMFludEhSbDdOWjAzQUsxb1JpcWRRaGJ5MFcxUlgv?=
+ =?utf-8?B?ZGxQVDg2ZGltbzJEd2pFQmtuZW00blQrZzBOV3pySkx6YTg1UmVTNmcrZHBK?=
+ =?utf-8?B?WGhXVUxZZ2ltaGhESU0xM0E0SzFWamw5YkRwV0I2SG51Sm1WRGJFWktOSlcx?=
+ =?utf-8?B?YUhNK1Y0M1htS24xVi8rVUkwY0UrYXdNcVJOUWhPM01xSjVNYWJ1aUJYbXcx?=
+ =?utf-8?B?ODVBM2pVTUVucE9QYjR5Qmh5MVpyeE0zbTVubmRQYTlCZXhWVlJ3bWV3b2xI?=
+ =?utf-8?B?UmJHdzczMFRoc0d2TWdnZmJndUExTVlQTkNDTzUrcUg1blpuVVh4UlN2WndO?=
+ =?utf-8?B?ZVFWY3ZhMjNqTHRMckhCMUllR3N1MDQrU1M3b3lZZVc0Wi9zWkQ2S3hHUEVt?=
+ =?utf-8?B?RWhZUmZpelhveTJhVi8rVi9IRDZwVk5Qcm9aMFQ5N1AzZE5BOTVvL1ZsSGFD?=
+ =?utf-8?B?RWl1WlBaa3FodFRLUm1xdDFBOWVrVlh6Wm9zZUlic1k4OVlaRXdpaTNFWGlh?=
+ =?utf-8?B?dlRZaGlBQ1gvSnJReEZQZkd6YnNqRVdyOUV0SDlDbXh5d3Y0ZTh3YTZzcUxs?=
+ =?utf-8?B?Q3lyR1NML0xsTmhFcm1UNGZ3RzRlbGYrTTBiL0VXdmNOYzBMTHpxTDRFbUVp?=
+ =?utf-8?B?VkZ6WGlSSEZkVFdmaVVTeWtGRnFEY1RJcjlxOXE5cFRxZHFQN21UTUtsWW83?=
+ =?utf-8?B?eXJ1c1RDL3djVWZQcFlrc1I0aGFYTEEybUYrWUt5UXhBUFdIOGN6UjQ3RDM3?=
+ =?utf-8?B?TWRRbkhLRWFlWkFtNXd1VytLUlBlbUhGWWh3bmJlSThsYWJIZzBLWjZPelQz?=
+ =?utf-8?B?dkN4eVhmd2VRSFZQWkVoRjk3ZVloRW5yMURsaGowaTZUcklReWZGNjM2Tjlu?=
+ =?utf-8?B?bTNQQmdka3RqSEFBK0tHYmZ5cmN6V28vQVpsRUVmMHRTZldIYWdVWDdKVGpl?=
+ =?utf-8?B?UEhkYWprNkRyT0ZTeFk0VVFhVUFsdG1TdVVFQU9qblRYMEhNQWJjYTA4dkF5?=
+ =?utf-8?B?dlFDcDNLZFU4MXlzZDlMbmcrSlEvbmJkb0xvb1lMSWI5SzFsNjhyZXMySXBh?=
+ =?utf-8?B?eWNKTDl1ZXpiU3liTjZHemRCRmRsaE5qOHVEMUVOZzllQUxiL0ZhNVhRbG9z?=
+ =?utf-8?B?dkdNdmt3bWhwamdiKzhzc2pocnVudm00K0hrVUJxeFpQMlhTSEZBb1lwd0Zh?=
+ =?utf-8?B?QWhpVmYzd2V3YVh6UXZtcE9qaUcvSmdmYmFvMHFZNzcwSlpwMUExdktBVTFC?=
+ =?utf-8?B?ZzRMakxYSzdLTmdHaVhEcXFjVlJyMDlJVWE2dVlqTE9GSEZ5Q0ZPdjJ1bWwz?=
+ =?utf-8?B?bjZFSDZYV0YxanlZS1hRSVF4TFRQaEkxem5iaHJIWDVScjB5L0tkb3pCRnJo?=
+ =?utf-8?B?TnBRUTBybFNCNzBmZUZLZDdrWi9IbTZzU2xQYWpVSUNYTnZ4a3p2bzhBcnh6?=
+ =?utf-8?B?RnpqaHFzY1BxL1A4R05Mb2JCVDZQL0crZkRDOUJhcnllK0p6M2l0RFdhd0ZY?=
+ =?utf-8?B?b3NzWE5DZkpxOS9Zcmwzb0U1a0JLRHVnb3FrUWFlQ1Evd2VPT1g1MTB1c0Za?=
+ =?utf-8?B?RG9EOTRLdkhrWU5GYjBqcDZ1ZHVsMnUyZzFmSnE0ZG9oclowVDdYdHNMN0FR?=
+ =?utf-8?B?YjhkMjFHWnRER2Q2ZzZiS2FVMU1NdEkrdncwandYdFJCWEo0c3NzL085MHJK?=
+ =?utf-8?B?WjhNQVN1WGdibFJaeWNkSnVWQzlZN0FybTZnT1pEQmQvRVh3Q3dhL2h2YytG?=
+ =?utf-8?B?b29oRlRINGZ5U08xcVZ4YnJuN3dSSFRuVjJ6aG1mRWc5WTJ2N0hVZTN4bThH?=
+ =?utf-8?B?U0JkN01YUmZYOWNiMTI5T0sveWpaZEdHV2N6RW1aSHlNeXVtZW1ST2ZZVlZS?=
+ =?utf-8?B?c1BrRW84ZHZ2WVZpSEFQTWlJU0RqNDBQNlRMZ1JjUEw0RTdIejBOcjg3YWJT?=
+ =?utf-8?Q?wTzDIszUvOTDWfS2D4twMWFJTFmo95BQ?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5112.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:IA1PR12MB6435.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dGlMbWVBckRyV0FtbitqSXRQNWFoWHVscDI0eUg3VnFudWFoY2FnKy9RcmFP?=
- =?utf-8?B?UHhRdUIzbEllMloxMVkySi8wWGVNM2h4d2pQTXBzaWFzZThGTzlaU1R6aEhL?=
- =?utf-8?B?bmNkYm9NT0RZYTQ5N2hZZFpxQ0lpZE11SGVqY0t1OStUa0QrU3lCenJYZ1g1?=
- =?utf-8?B?VFlkY1BlbkRPajA0U0FsR1VPTWxoTXNPdFkwRmJKRk9KR0YvQW8rVWIzdUhN?=
- =?utf-8?B?amVrWlNTSmhpZUlyN2ptSnhrMldIdEJEK1NlRHBWRjFyZWNOdGJBcHBhQXV6?=
- =?utf-8?B?eFh0SjdYQUtLbnBnLzFuekNEYU5Fa3NEU0NZbU5iMUdGbkNGSEdpMmZDOEVF?=
- =?utf-8?B?d0VTVitzb0VBRmwwQkkrQ3h5eTFNTkUzM0hHWDBCcm5EeVJZNDBhUWt1SG1u?=
- =?utf-8?B?aytNVS95NFMyOFlDU0w3OGFsUXkwdUF5TksreElLMVpwWHpjOW1CL202U2Mx?=
- =?utf-8?B?MnJNOFNPbER1cUVBeDFFNUhOTUVRRmpOU2lqK3Y2U1IwRzMxTnNaQXNkcHZv?=
- =?utf-8?B?SHhPL1dhZWdOYkVZak5zSVpKbW1GdlJGbDd0bHo2bjBqK3ZKNHlCd0NRck9Y?=
- =?utf-8?B?ckk1K2ptaXhseFdEVjJqZ2M2MXc0Ky9ZYmJrM1lTQlh5dkdPdU11eWFDUFd0?=
- =?utf-8?B?VmtwekFmazNxaXJVWEFvZHpZVVZ1ditONEpDVTFESUlEbFR1OWExN3JTVm9M?=
- =?utf-8?B?eVlYeWY1bmR0eHBmMVdEbEhYK3c5RWJhQzNlR3QzMkYyc0djSEJhR1ZWTDF5?=
- =?utf-8?B?V3p4RjdJSkJyM2dwSXBJWFpUbGQ2N2VxT3M2UUNTSVRBSE5kd3JneVU5eUJt?=
- =?utf-8?B?dHBLbDlVYWdaNGlHeWZPc2Jmc1E5cWF5Y1A3a2c5UmVaNnZxUmk2aHhFQ1Q0?=
- =?utf-8?B?eDl1YWVMNnJwOTRPeVlNZjRIVURTSUVCbzdmVk5RQkMzaXRrZUVBRFJ2N3Er?=
- =?utf-8?B?NmlqSXBxS3Vzb2hpODZyY3JkNGZROEhxa0MrV2Y3Y0hPTy90UGZhR0VFK1BM?=
- =?utf-8?B?aUNSR3owZnJJckZGSW9Bc3ZpeDJyelhoZjJaZGpJdDRuNmZ4TWhPNnpBRGg1?=
- =?utf-8?B?K1ZVcWN4Y3NqWjMyb1VHdlR5NDMyKzRRWkpENnNKUitKYjFsLzhlTFErb3ZS?=
- =?utf-8?B?bWVQenZrMnpJbmpqWmM2NE00aFROYmZReGpXSkFWbFF6aG10VlJHRVpsTnQv?=
- =?utf-8?B?R2dRcyt2bE05V2dtNVU2ZFZDVVFNTC90NFZtQitkL0ZoNVVHTkxKUHk1dlAx?=
- =?utf-8?B?bkIyQzFTdVd3TWVYV2l4WUFidmpPYmpjRnhacUlDZXhuWXpCTFl4WktVeXF0?=
- =?utf-8?B?RkpLSGNVRkFJU29sSnU1TXpqTlpycEs0REJBa0NCOFV4blNIMTBhOFRmUnVO?=
- =?utf-8?B?Z0VhUEhVRzhhQmxmdWljUSs1MzFwcVpFUTh5djNTTkhWcWtrb3gwdEx4c0dn?=
- =?utf-8?B?UWNUZkEyUnJyZXRyYjBzYTdvWmltMDZ5cFBCakNpRDcyRUw0Z0FmVDFUSHoz?=
- =?utf-8?B?WmJsSjRpOSsrWG1Tc3Btd2R5cENrOEdGMVF5UkdtMUZHNkRDTWdkTzVuUHBm?=
- =?utf-8?B?WEZWT01sNE0rL0RaNE9zcFBCQkxtZlhyYnVQL29ZVVNyRFhoclBXRzA5R0FY?=
- =?utf-8?B?VW10Z2N0UmFSYlBlQ1NwN0E0YmRvQzhtbEM1bExSMVNvbDRZdW5hNkhMMENz?=
- =?utf-8?B?bTVEWTRRcHpxMkJ4SDVzbUo3MzFuMXB6Y1YrOWhOQmJXbDl3NFZkcWxycVV0?=
- =?utf-8?B?RnFzMDRGMC9Bb1R4TGh3U0cwVTRFNSs3ZWhHZ09CWFB2VUlvNjhTRGxQSDlX?=
- =?utf-8?B?ZVVWUENIaHVLN1Q2NWRpZVcvMVBRbXBWeEVha0FRak4vVS8wUXpUekptNWs2?=
- =?utf-8?B?QVdVUm9vajkvaTYzWDFiRHc0TGdrR0NyK3g3VG1ZbVpLWENXdUtWTGRyYjY4?=
- =?utf-8?B?RkQwR3BZTmpBemJUVlBmYmlEM2FJSkkyUWlhV0xMalNjQkFwaWVpRDlOazY0?=
- =?utf-8?B?UnBXUlhJeEl1cDRsNTU4ZkpXR254Y0YzK29kbG5WZmVGdEcyakVmbW1La1ZY?=
- =?utf-8?B?RlZSa1hzcnREVVpoUEFGYjl4cXQ2b3JWYW9pdjV0Y2VNMm5VTHFWRzI0TjhC?=
- =?utf-8?B?Z29xdkxJK1VOS0RIdnA4d01TSzhuVFBDVklsSG1aai9MNW5IN3V5REx0aDRF?=
- =?utf-8?B?RkVLUWVQbHpGd0RLVWFoQVYwRFFzenE5dE9KejUwV3Z3bzE2MU1URzJybG9n?=
- =?utf-8?B?c1d6eFp0WlE1Z1hVeU5na2IrYStVMTdJVnlWOC82Sms1cW5YVWowL3lwSUdU?=
- =?utf-8?B?eC82Rnkwcy8rekxkK1FCclRocXBEcUpobGo5WlZmTlM1dktvdTdDUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVczZG9rNG13aWJySkdmZndlZFVRc3gyZFRLcTM4NkV1L0kzMXZVcXdoOUFE?=
+ =?utf-8?B?d25iY25kKzNjNExGaEFscFRoQjExcWRSWTZOQ3BrR3N0ejVBdHltNGxEWDBt?=
+ =?utf-8?B?TWNLbldoTXpDVmxiTlR1a0FoVHRCN1FGb09iTWhaNWt5Nko0RkE2YlFhY29q?=
+ =?utf-8?B?SENnSk9sZHlpTTEzYm9CRmFDRWJ2VnJDZVl6UUxYV3pZdURMZlNXeFdmYXFT?=
+ =?utf-8?B?R016disydnh1Sy9TTjV1TEFMWEJBZldxNzdlS2F3T2dyODZrdktTUk5Pb3Jy?=
+ =?utf-8?B?Z0RmU2orRkJoclJpNk9wVlYxcG9HYzRId28rVlZJMHlGN3FUdTJMQm8yTlRD?=
+ =?utf-8?B?dXY2ZWsxeGdkb0pwVi9kbm8vQ2Z5QkRydSt3OE41OVhzL0hJT0I0dTJZNUg4?=
+ =?utf-8?B?T1lmYjBXdHVDOWM1UTZyZlNoYmFYSVhPekVoUjN2ZE5UT1UvSXdaWUxxbWlQ?=
+ =?utf-8?B?Tys4dHIvY3dzeFY0MEl3V0RiZFMyMmZKS0dFOS85VTdTTzJieXdNTllDb0wv?=
+ =?utf-8?B?SkVpMUxaWmNWS1NoWEdzQ0RiNDJnYWt3NFBNNHMzN3JYRi9uOE1VVTU3QlJv?=
+ =?utf-8?B?RlR4a1J5VkhRTDlSVUNsakJTSHB2Vkp3N1hMYnFiRWNnWkxlYUlnb2xHb2N1?=
+ =?utf-8?B?WFFDNnVKOHlDUmlZSjNNZUhFZWJrTjhuMXVqZWV1akZpTVBhRW00VmE5emFz?=
+ =?utf-8?B?a2tkVEVETGxBcHFsUDdheGp0eklPa2MrKzZid2todkRibEFtOHVXbWFJWlFz?=
+ =?utf-8?B?Tk9lVkNTeVdlUTl6SWVHL010L0hyM0hjY1dvUTJmdkx1dHhxb1JlNE9QVmZ3?=
+ =?utf-8?B?QzZwREJXcWJtcnRhSGZPcWI3R1p6L0FLUnpMeEtXUjB2RlRRRlVGa3pzbmVI?=
+ =?utf-8?B?Y1hKYTc1dmFCRzhjd3FjWjVjSWg0RldSejFieGxCaTQ4aUgxMm1aclVHWENI?=
+ =?utf-8?B?N09qUnRxOURxL2xwdmluMENIMXpKUENsUjNVM1VPa0NLRnpjcVp5YkdBUE5E?=
+ =?utf-8?B?OUtjUXQwNEgwSlJmZFVhTWU0bXNrM0RoZ3BaVkd0eHhxcjJTQXc3cTd0eWhO?=
+ =?utf-8?B?NEtCUGZWUCtLTmc5YUdmTzJYaXpWWkhlUEwrR28rVDN0SHNyQjQ2QjFocHhq?=
+ =?utf-8?B?WFA3ZmFsL1FJeGpjRE50OFlJRHNad3hWQTZsS0JncTcrQWw3aWdmK1MvanBW?=
+ =?utf-8?B?c2VTVTFYOUNwUjFjeVVxdWxlSHF5ajMvY3JTU0Rna2pRb2F1YXduQlBTQzRQ?=
+ =?utf-8?B?amZzR3BWRmhPdit5YlRhVGZreXFuc1BxV0NEYWxhK3NJMHlsOTZ1eE5ITEth?=
+ =?utf-8?B?Y1Q5TkRNR1pkaW5VRGkzczhGdDkvcll0NUFwQm4rZEFaZW5PbDdOdEMyRU5V?=
+ =?utf-8?B?TGNGU2Zlem5yc3ZlTURFRlN1RUhqUnl3NTA0L2NSeEdxMWJjRkJDbHljQkh5?=
+ =?utf-8?B?QlNjcVBFL0taM3V3ekNYOXJDdGhXVU5hbWh1bEc3bjFOYUxsY1NtdTRIMm54?=
+ =?utf-8?B?SHNmb2tkSGNzNHYyejVXMFYyVkhJTVE0UG5mTG1qODgvYjN6VWwrOVBvZ3ZX?=
+ =?utf-8?B?VHl6NFY4S1JieGxIVXlQNzhLMElMcnFBVXRIWVhLQmxRYVYwQlZyZUo1RWhQ?=
+ =?utf-8?B?WGN4czg2L1VPekRCMkxPV0FtWDNjYWNUd2VZV21xSE5QRCt5MDJXaUswTHd1?=
+ =?utf-8?B?ZWg2amI1aHQwbXduMTRoWXRuNjdmQ1ltZGdBQXpZN3dTcjJaNmZwVWdVVWxM?=
+ =?utf-8?B?NHNMZ29UK205S3F1c29iSE9BKzlwS1pWYzBuZzQ2U0hhaXFhVjRZdnd4a3Rz?=
+ =?utf-8?B?WDBwMUpiSVlLVTBCbkRnTzFuZDJmcEZtdzZQVHNwaUFQc0JjaW9tb0Z0VXJT?=
+ =?utf-8?B?ckJkQU9VOHJtRTgwQU9QUHU3ekYwNWpaUk45dHZZUVBGN2V6TmhhTUV3YzBl?=
+ =?utf-8?B?WWpRaGxKczlYdnRWUnV1Q0lydGFiMDdxb2VtTU03RHJ5blVXYXg2TzFFdDdr?=
+ =?utf-8?B?ZHQyR2FFbDV5aWM4NGpCd0ZXeCtsOUpTYTJpUzhCYU02Qnd4a051Rmk0MGt0?=
+ =?utf-8?B?RThiZC9PbjFKejFLZXJrNE56N2ppcjlqOERBTFc4dGtXVWUra1I1TlZjOFJt?=
+ =?utf-8?B?Mk96c3RZbDRNQ1lvc2g5OGorNG5iVmwyY25MRzVaN0VRekhOLzAzMU9wLzNq?=
+ =?utf-8?B?MFp2MDdFdU1qODMwdnhHTjZWTW1IME1Kb3g5eGo5OGVKYWFXem1KRFFieURO?=
+ =?utf-8?B?LzluOUEyVFk0d0xJeW1sNmdnc3VhanlCR3NqamdzVTJyb1I5Zmx2R3FmZkVW?=
+ =?utf-8?B?UjlXZFB2R3FBeWgrWmR6OVRBTFdYQXdzcWJOdnJPNGtsZG52bVJidz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fe51c0c-ba13-459f-3efe-08de4fd589b2
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5112.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 639fe93d-2398-43df-991a-08de4ff0024c
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6435.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2026 23:19:29.2269 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2026 02:28:58.6126 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YnAMjuBJtcloM4dk2VRVMqT9n0R3Yofybqp0XXSbmn3u4DZeJQoRvZfpBpIDAPO0hQQLzNVC1owiezdM1tXjBg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8915
+X-MS-Exchange-CrossTenant-UserPrincipalName: +/hID5nld8bUbiE40jRCAIIZsakli1AgRxWLOPa8pU6pjSFy/WO9PymK/a313w1pn+3ndfDvLv1qXeEONlXR7w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7658
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,100 +173,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-01-07 14:23, Philip Yang wrote:
-> To reduce queue switch latency further, move MQD to VRAM domain, CP
-> access MQD and control stack via FB aperture, this requires contiguous
-> pages.
->
-> After MQD is initialized, updated or restored, flush HDP to guarantee
-> the data is written to HBM and GPU cache is invalidated, then CP will
-> read the new MQD.
->
-> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 
-Patches 1 and 2 are
+Hi Felix,
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+You're right - I understand now that the render node transition is already
+Appreciate the clarification.
+
+Regards,
+Honglei
 
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  3 ++-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 23 ++++++++++++++++++-
->   2 files changed, 24 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index 39c0b5a385c9..c1ffae9e96d7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -329,7 +329,8 @@ int amdgpu_amdkfd_alloc_kernel_mem(struct amdgpu_device *adev, size_t size,
->   	bp.size = size;
->   	bp.byte_align = PAGE_SIZE;
->   	bp.domain = domain;
-> -	bp.flags = AMDGPU_GEM_CREATE_CPU_GTT_USWC;
-> +	bp.flags = AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
-> +		   AMDGPU_GEM_CREATE_CPU_GTT_USWC;
->   	bp.type = ttm_bo_type_kernel;
->   	bp.resv = NULL;
->   	bp.bo_ptr_size = sizeof(struct amdgpu_bo);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> index d234db138182..d867dccae675 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> @@ -109,6 +109,17 @@ static void set_priority(struct v9_mqd *m, struct queue_properties *q)
->   	m->cp_hqd_queue_priority = q->priority;
->   }
->   
-> +static bool mqd_on_vram(struct amdgpu_device *adev)
-> +{
-> +	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
-> +	case IP_VERSION(9, 4, 3):
-> +	case IP_VERSION(9, 5, 0):
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
->   static struct kfd_mem_obj *allocate_mqd(struct kfd_node *node,
->   		struct queue_properties *q)
->   {
-> @@ -139,7 +150,8 @@ static struct kfd_mem_obj *allocate_mqd(struct kfd_node *node,
->   			(ALIGN(q->ctl_stack_size, PAGE_SIZE) +
->   			ALIGN(sizeof(struct v9_mqd), PAGE_SIZE)) *
->   			NUM_XCC(node->xcc_mask),
-> -			AMDGPU_GEM_DOMAIN_GTT,
-> +			mqd_on_vram(node->adev) ? AMDGPU_GEM_DOMAIN_VRAM :
-> +						  AMDGPU_GEM_DOMAIN_GTT,
->   			&(mqd_mem_obj->mem),
->   			&(mqd_mem_obj->gpu_addr),
->   			(void *)&(mqd_mem_obj->cpu_ptr), true);
-> @@ -739,6 +751,9 @@ static void init_mqd_v9_4_3(struct mqd_manager *mm, void **mqd,
->   			*gart_addr = xcc_gart_addr;
->   		}
->   	}
-> +
-> +	if (mqd_on_vram(mm->dev->adev))
-> +		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
->   }
->   
->   static void update_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
-> @@ -775,6 +790,9 @@ static void update_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
->   			m->pm4_target_xcc_in_xcp = q->pm4_target_xcc;
->   		}
->   	}
-> +
-> +	if (mqd_on_vram(mm->dev->adev))
-> +		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
->   }
->   
->   static void restore_mqd_v9_4_3(struct mqd_manager *mm, void **mqd,
-> @@ -813,6 +831,9 @@ static void restore_mqd_v9_4_3(struct mqd_manager *mm, void **mqd,
->   					(uint8_t *)ctl_stack_src + xcc *  mqd_ctl_stack_size,
->   					mqd_ctl_stack_size);
->   	}
-> +
-> +	if (mqd_on_vram(mm->dev->adev))
-> +		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
->   }
->   static int destroy_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
->   		   enum kfd_preempt_type type, unsigned int timeout,
+On 2026/1/10 05:14, Kuehling, Felix wrote:
+> FWIW, ROCr already uses rendernode APIs for our implementation of the 
+> CUDA VM API (DMABuf imports into rendernode contexts that share the VA 
+> space with KFD and VA mappings with more flexibility than what we have 
+> in the KFD API). So the transition to render node APIs has already 
+> started, especially in the memory management area. It's not some far-off 
+> future thing.
+> 
+> Regards,
+>    Felix
+> 
+> On 2026-01-09 04:07, Christian König wrote:
+>> Hi Honglei,
+>>
+>> I have to agree with Felix. Adding such complexity to the KFD API is a 
+>> clear no-go from my side.
+>>
+>> Just skimming over the patch it's obvious that this isn't correctly 
+>> implemented. You simply can't the MMU notifier ranges likes this.
+>>
+>> Regards,
+>> Christian.
+>>
+>> On 1/9/26 08:55, Honglei Huang wrote:
+>>> Hi Felix,
+>>>
+>>> Thank you for the feedback. I understand your concern about API 
+>>> maintenance.
+>>>
+>>>  From what I can see, KFD is still the core driver for all GPU 
+>>> compute workloads. The entire compute ecosystem is built on KFD's 
+>>> infrastructure and continues to rely on it. While the unification 
+>>> work is ongoing, any transition to DRM render node APIs would 
+>>> naturally take considerable time, and KFD is expected to remain the 
+>>> primary interface for compute for the foreseeable future. This batch 
+>>> allocation issue is affecting performance in some specific computing 
+>>> scenarios.
+>>>
+>>> You're absolutely right about the API proliferation concern. Based on 
+>>> your feedback, I'd like to revise the approach for v3 to minimize 
+>>> impact by reusing the existing ioctl instead of adding a new API:
+>>>
+>>> - Reuse existing AMDKFD_IOC_ALLOC_MEMORY_OF_GPU ioctl
+>>> - Add one flag: KFD_IOC_ALLOC_MEM_FLAGS_USERPTR_BATCH
+>>> - When flag is set, mmap_offset field points to range array
+>>> - No new ioctl command, no new structure
+>>>
+>>> This changes the API surface from adding a new ioctl to adding just 
+>>> one flag.
+>>>
+>>> Actually the implementation modifies DRM's GPU memory management
+>>> infrastructure in amdgpu_amdkfd_gpuvm.c. If DRM render node needs 
+>>> similar functionality later, these functions could be directly reused.
+>>>
+>>> Would you be willing to review v3 with this approach?
+>>>
+>>> Regards,
+>>> Honglei Huang
+>>>
+>>> On 2026/1/9 03:46, Felix Kuehling wrote:
+>>>> I don't have time to review this in detail right now. I am concerned 
+>>>> about adding new KFD API, when the trend is moving towards DRM 
+>>>> render node APIs. This creates additional burden for ongoing support 
+>>>> of these APIs in addition to the inevitable DRM render node 
+>>>> duplicates we'll have in the future. Would it be possible to 
+>>>> implement this batch userptr allocation in a render node API from 
+>>>> the start?
+>>>>
+>>>> Regards,
+>>>>     Felix
+>>>>
+>>>>
+>>>> On 2026-01-04 02:21, Honglei Huang wrote:
+>>>>> From: Honglei Huang <honghuan@amd.com>
+>>>>>
+>>>>> Hi all,
+>>>>>
+>>>>> This is v2 of the patch series to support allocating multiple non- 
+>>>>> contiguous
+>>>>> CPU virtual address ranges that map to a single contiguous GPU 
+>>>>> virtual address.
+>>>>>
+>>>>> **Key improvements over v1:**
+>>>>> - NO memory pinning: uses HMM for page tracking, pages can be 
+>>>>> swapped/ migrated
+>>>>> - NO impact on SVM subsystem: avoids complexity during KFD/KGD 
+>>>>> unification
+>>>>> - Better approach: userptr's VA remapping design is ideal for 
+>>>>> scattered VA registration
+>>>>>
+>>>>> Based on community feedback, v2 takes a completely different 
+>>>>> implementation
+>>>>> approach by leveraging the existing userptr infrastructure rather than
+>>>>> introducing new SVM-based mechanisms that required memory pinning.
+>>>>>
+>>>>> Changes from v1
+>>>>> ===============
+>>>>>
+>>>>> v1 attempted to solve this problem through the SVM subsystem by:
+>>>>> - Adding a new AMDKFD_IOC_SVM_RANGES ioctl for batch SVM range 
+>>>>> registration
+>>>>> - Introducing KFD_IOCTL_SVM_ATTR_MAPPED attribute for special VMA 
+>>>>> handling
+>>>>> - Using pin_user_pages_fast() to pin scattered memory ranges
+>>>>> - Registering multiple SVM ranges with pinned pages
+>>>>>
+>>>>> This approach had significant drawbacks:
+>>>>> 1. Memory pinning defeated the purpose of HMM-based SVM's on-demand 
+>>>>> paging
+>>>>> 2. Added complexity to the SVM subsystem
+>>>>> 3. Prevented memory oversubscription and dynamic migration
+>>>>> 4. Could cause memory pressure due to locked pages
+>>>>> 5. Interfered with NUMA optimization and page migration
+>>>>>
+>>>>> v2 Implementation Approach
+>>>>> ==========================
+>>>>>
+>>>>> 1. **No memory pinning required**
+>>>>>      - Uses HMM (Heterogeneous Memory Management) for page tracking
+>>>>>      - Pages are NOT pinned, can be swapped/migrated when not in use
+>>>>>      - Supports dynamic page eviction and on-demand restore like 
+>>>>> standard userptr
+>>>>>
+>>>>> 2. **Zero impact on KFD SVM subsystem**
+>>>>>      - Extends ALLOC_MEMORY_OF_GPU path, not SVM
+>>>>>      - New ioctl: AMDKFD_IOC_ALLOC_MEMORY_OF_GPU_BATCH
+>>>>>      - Zero changes to SVM code, limited scope of changes
+>>>>>
+>>>>> 3. **Perfect fit for non-contiguous VA registration**
+>>>>>      - Userptr design naturally supports GPU VA != CPU VA mapping
+>>>>>      - Multiple non-contiguous CPU VA ranges -> single contiguous 
+>>>>> GPU VA
+>>>>>      - Unlike KFD SVM which maintains VA identity, userptr allows 
+>>>>> remapping,
+>>>>>        This VA remapping capability makes userptr ideal for 
+>>>>> scattered allocations
+>>>>>
+>>>>> **Implementation Details:**
+>>>>>      - Each CPU VA range gets its own mmu_interval_notifier for 
+>>>>> invalidation
+>>>>>      - All ranges validated together and mapped to contiguous GPU VA
+>>>>>      - Single kgd_mem object with array of user_range_info structures
+>>>>>      - Unified eviction/restore path for all ranges in a batch
+>>>>>
+>>>>> Patch Series Overview
+>>>>> =====================
+>>>>>
+>>>>> Patch 1/4: Add AMDKFD_IOC_ALLOC_MEMORY_OF_GPU_BATCH ioctl and data 
+>>>>> structures
+>>>>>       - New ioctl command and kfd_ioctl_userptr_range structure
+>>>>>       - UAPI for userspace to request batch userptr allocation
+>>>>>
+>>>>> Patch 2/4: Extend kgd_mem for batch userptr support
+>>>>>       - Add user_range_info and associated fields to kgd_mem
+>>>>>       - Data structures for tracking multiple ranges per allocation
+>>>>>
+>>>>> Patch 3/4: Implement batch userptr allocation and management
+>>>>>       - Core functions: init_user_pages_batch(), 
+>>>>> get_user_pages_batch()
+>>>>>       - Per-range eviction/restore handlers with unified management
+>>>>>       - Integration with existing userptr eviction/validation flows
+>>>>>
+>>>>> Patch 4/4: Wire up batch userptr ioctl handler
+>>>>>       - Ioctl handler with input validation
+>>>>>       - SVM conflict checking for GPU VA and CPU VA ranges
+>>>>>       - Integration with kfd_process and process_device infrastructure
+>>>>>
+>>>>> Performance Comparison
+>>>>> ======================
+>>>>>
+>>>>> Before implementing this patch, we attempted a userspace solution 
+>>>>> that makes
+>>>>> multiple calls to the existing AMDKFD_IOC_ALLOC_MEMORY_OF_GPU ioctl to
+>>>>> register non-contiguous VA ranges individually. This approach 
+>>>>> resulted in
+>>>>> severe performance degradation:
+>>>>>
+>>>>> **Userspace Multiple ioctl Approach:**
+>>>>> - Benchmark score: ~80,000 (down from 200,000 on bare metal)
+>>>>> - Performance loss: 60% degradation
+>>>>>
+>>>>> **This Kernel Batch ioctl Approach:**
+>>>>> - Benchmark score: 160,000 - 190,000 (80%-95% of bare metal)
+>>>>> - Performance improvement: 2x-2.4x faster than userspace approach
+>>>>> - Achieves near-native performance in virtualized environments
+>>>>>
+>>>>> The batch registration in kernel avoids the repeated syscall 
+>>>>> overhead and
+>>>>> enables efficient unified management of scattered VA ranges, 
+>>>>> recovering most
+>>>>> of the performance lost to virtualization.
+>>>>>
+>>>>> Testing Results
+>>>>> ===============
+>>>>>
+>>>>> The series has been tested with:
+>>>>> - Multiple scattered malloc() allocations (2-4000+ ranges)
+>>>>> - Various allocation sizes (4KB to 1G+ per range)
+>>>>> - GPU compute workloads using the batch-allocated ranges
+>>>>> - Memory pressure scenarios and eviction/restore cycles
+>>>>> - OpenCL CTS in KVM guest environment
+>>>>> - HIP catch tests in KVM guest environment
+>>>>> - AI workloads: Stable Diffusion, ComfyUI in virtualized environments
+>>>>> - Small LLM inference (3B-7B models) using HuggingFace transformers
+>>>>>
+>>>>> Corresponding userspace patche
+>>>>> ================================
+>>>>> Userspace ROCm changes for new ioctl:
+>>>>> - libhsakmt: https://github.com/ROCm/rocm-systems/commit/ 
+>>>>> ac21716e5d6f68ec524e50eeef10d1d6ad7eae86
+>>>>>
+>>>>> Thank you for your review and waiting for the feedback.
+>>>>>
+>>>>> Best regards,
+>>>>> Honglei Huang
+>>>>>
+>>>>> Honglei Huang (4):
+>>>>>     drm/amdkfd: Add batch userptr allocation UAPI
+>>>>>     drm/amdkfd: Extend kgd_mem for batch userptr support
+>>>>>     drm/amdkfd: Implement batch userptr allocation and management
+>>>>>     drm/amdkfd: Wire up batch userptr ioctl handler
+>>>>>
+>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  21 +
+>>>>>    .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 543 ++++++++++++ 
+>>>>> +++++-
+>>>>>    drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 159 +++++
+>>>>>    include/uapi/linux/kfd_ioctl.h                |  37 +-
+>>>>>    4 files changed, 740 insertions(+), 20 deletions(-)
+>>>>>
+
