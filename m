@@ -4,51 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61A82C9EC66
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jan 2026 10:29:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC4D0C9EC63
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jan 2026 10:40:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEE6110E341;
-	Mon, 12 Jan 2026 10:29:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5603C10E347;
+	Mon, 12 Jan 2026 10:40:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ivSQONP0";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TPG+AbAh";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 015BD10E33E;
- Mon, 12 Jan 2026 10:29:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2B4410E347
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jan 2026 10:40:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=CUDPMkr/BfqDfgAdrNtIoI7UWB+5RtkTpAa2KIFVzyk=; b=ivSQONP0yjW55JI6zSU6/nYn59
- iugtn8jkvdW/6YewHpqaz6NNx7T9263vng9G8/vS69pcvUrnK15CSjMgI4xc9ZBEf0J+7F0KrEBLp
- qq8yq8cIFTX8qeIuUjDgrtmXcyB4hU0Q71XlEwhzM4G9NZKF+eBgCb2ZH80HKvFmXMHd/iPriVXd8
- bIOfuxSpWiSlppQX4llAQ6vC9kmWTsGrE3se9N5kaYAukiKRfM30CVvOkDAxeONfAR2njliPK49TT
- EZY+R0Li4i2KKeLnJQna7/CcZiMSeY4Ci9J7/v/VSN3ZgDyR9s1b51sbjLCydFC6TNBpVqBy2dP1N
- qWd8tNrQ==;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
+ Cc:To:From:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=j7G8Ykw+xVXU/Y+bwKknohLYeS2hofhESkp1Cg8jQHM=; b=TPG+AbAh8JWq62RhEXTVN1wYqx
+ d5bylRs9PmeycNB+b15qdwkzwcwax5EOeA4rrG2A8ax9B+Ndm3nqFUmdBs3U7V/SkajBYRwYVmfoP
+ LW+jmTol3HzP1QteUH02pQnAPusOEnAhzV+TW8Nur1I/Ayf4rpHVgrH50DKKbwOeTbQgorVlKdEVC
+ XDQtzb05MzePqu2DqgkkF4H4pjcaGTvS2aMZIfNoMt/hbxoT2tZTne1Di06Hz0SaSNhnRxPYHqUD8
+ 6ISXw+R/mtJA/yZwPOwo63gd0hL4YxPbPwQ19N/Ce7oysjb+JuhOO2wyHbr8lY35pl1Mb7HiySCej
+ OPVNjBbQ==;
 Received: from [90.240.106.137] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vfFAj-004LxJ-H9; Mon, 12 Jan 2026 11:29:17 +0100
-Message-ID: <340d0ce2-85e6-4fd8-992c-c35dda9b0cbb@igalia.com>
-Date: Mon, 12 Jan 2026 10:29:16 +0000
+ id 1vfFLE-004MDe-3Y; Mon, 12 Jan 2026 11:40:08 +0100
+Message-ID: <6e89511e-3056-49ca-8de6-433e9e635921@igalia.com>
+Date: Mon, 12 Jan 2026 10:40:07 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC 3/3] drm/sched: Disallow initializing entities with no
- schedulers
-To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>
-References: <20260107124351.94738-1-tvrtko.ursulin@igalia.com>
- <20260107124351.94738-4-tvrtko.ursulin@igalia.com>
- <a763700944ed4ccfe2f36ae805e4a348dd3fd10f.camel@mailbox.org>
-Content-Language: en-GB
+Subject: Re: [PATCH 01/12] drm/amdgpu/userq: Fix reference leak in
+ amdgpu_userq_wait_ioctl
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <a763700944ed4ccfe2f36ae805e4a348dd3fd10f.camel@mailbox.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+References: <20251205134035.91551-1-tvrtko.ursulin@igalia.com>
+ <20251205134035.91551-2-tvrtko.ursulin@igalia.com>
+ <562c2fcd-d99f-4072-b005-31a26f85448e@amd.com>
+ <25e5c8bd-7c8e-4170-8912-45f616163013@igalia.com>
+Content-Language: en-GB
+In-Reply-To: <25e5c8bd-7c8e-4170-8912-45f616163013@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -66,100 +67,61 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 08/01/2026 13:54, Philipp Stanner wrote:
-> What's the merge plan for this series? Christian?
-
-It sounds that staged merge would be safest. First two patches could go 
-to amd-next and if everything will look fine, I would follow up by 
-sending the DRM scheduler patch once amdgpu patches land to drm-next.
-
-Or if DRM scheduler maintainers are happy for the DRM scheduler patch to 
-also go via amd-next that is another option.
-  > On Wed, 2026-01-07 at 12:43 +0000, Tvrtko Ursulin wrote:
->> Since we have removed the case where amdgpu was initializing entitites
->> with either no schedulers on the list, or with a single NULL scheduler,
->> and there appears no other drivers which rely on this, we can simplify the
->> scheduler by explictly rejecting that early.
+On 05/12/2025 14:59, Tvrtko Ursulin wrote:
+> 
+> On 05/12/2025 14:46, Christian König wrote:
+>> On 12/5/25 14:40, Tvrtko Ursulin wrote:
+>>> Drop reference to syncobj and timeline fence when aborting the ioctl due
+>>> output array being too small.
+>>>
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> Fixes: a292fdecd728 ("drm/amdgpu: Implement userqueue signal/wait 
+>>> IOCTL")
+>>> Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: <stable@vger.kernel.org> # v6.16+
 >>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> ---
->>   drivers/gpu/drm/scheduler/sched_entity.c | 13 ++++---------
->>   1 file changed, 4 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->> index fe174a4857be..bb7e5fc47f99 100644
->> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->> @@ -61,32 +61,27 @@ int drm_sched_entity_init(struct drm_sched_entity *entity,
->>   			  unsigned int num_sched_list,
->>   			  atomic_t *guilty)
->>   {
->> -	if (!(entity && sched_list && (num_sched_list == 0 || sched_list[0])))
->> +	if (!entity || !sched_list || !num_sched_list || !sched_list[0])
-> 
-> I personally am a fan of checking integers explicitly against a number,
-> which would make the diff a bit more straightforward, too. But I accept
-> that like that is common kernel practice.
-> 
->>   		return -EINVAL;
->>   
->>   	memset(entity, 0, sizeof(struct drm_sched_entity));
->>   	INIT_LIST_HEAD(&entity->list);
->>   	entity->rq = NULL;
->>   	entity->guilty = guilty;
->> -	entity->num_sched_list = num_sched_list;
->>   	entity->priority = priority;
->>   	entity->last_user = current->group_leader;
->> -	/*
->> -	 * It's perfectly valid to initialize an entity without having a valid
->> -	 * scheduler attached. It's just not valid to use the scheduler before it
->> -	 * is initialized itself.
->> -	 */
->> +	entity->num_sched_list = num_sched_list;
-> 
-> Why do you move that line downwards? Just leave it where it was?
-> num_sched_list isn't changed or anything, so I don't see a logical
-> connection to the line below so that grouping would make sense.
+>> I need to double check the code when I have time, but of hand looks 
+>> legitimate to me.
 
-It looks completely logical to me to have both lines dealing with the 
-same scheduler list, accessing the same input parameter even, next to 
-each other:
+Gentle reminder that there is this memory leak fix pending.
 
-   entity->num_sched_list = num_sched_list;
-   entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
+>> Where are patches #3-#12 from this series?
+> 
+> On amd-gfx only, since 3-12 only contains cleanups I thought not pollute 
+> the inboxes too much.
 
-No? In other words, I can respin if you insist but I don't see the need.
+Should I re-send the series and copy you on all patches explicitly?
 
 Regards,
 
 Tvrtko
-
-> 
-> With that:
-> Acked-by: Philipp Stanner <phasta@kernel.org>
-> 
-> 
-> P.
-> 
->>   	entity->sched_list = num_sched_list > 1 ? sched_list : NULL;
->>   	RCU_INIT_POINTER(entity->last_scheduled, NULL);
->>   	RB_CLEAR_NODE(&entity->rb_tree_node);
->>   
->> -	if (num_sched_list && !sched_list[0]->sched_rq) {
->> +	if (!sched_list[0]->sched_rq) {
->>   		/* Since every entry covered by num_sched_list
->>   		 * should be non-NULL and therefore we warn drivers
->>   		 * not to do this and to fix their DRM calling order.
->>   		 */
->>   		pr_warn("%s: called with uninitialized scheduler\n", __func__);
->> -	} else if (num_sched_list) {
->> +	} else {
->>   		/* The "priority" of an entity cannot exceed the number of run-queues of a
->>   		 * scheduler. Protect against num_rqs being 0, by converting to signed. Choose
->>   		 * the lowest priority available.
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 2 ++
+>>>   1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/ 
+>>> drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>>> index eba9fb359047..13c5d4462be6 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>>> @@ -865,6 +865,7 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
+>>> *dev, void *data,
+>>>                   dma_fence_unwrap_for_each(f, &iter, fence) {
+>>>                       if (WARN_ON_ONCE(num_fences >= wait_info- 
+>>> >num_fences)) {
+>>>                           r = -EINVAL;
+>>> +                        dma_fence_put(fence);
+>>>                           goto free_fences;
+>>>                       }
+>>> @@ -889,6 +890,7 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
+>>> *dev, void *data,
+>>>               if (WARN_ON_ONCE(num_fences >= wait_info->num_fences)) {
+>>>                   r = -EINVAL;
+>>> +                dma_fence_put(fence);
+>>>                   goto free_fences;
+>>>               }
+>>
 > 
 
