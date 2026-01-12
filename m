@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70860C9EC64
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jan 2026 10:22:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53A5CC9EC63
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jan 2026 10:22:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D827B10E329;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D95B210E32F;
 	Mon, 12 Jan 2026 10:22:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UqfvzaE1";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Tea247Ru";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39AC510E331
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jan 2026 10:22:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0B6610E329
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jan 2026 10:22:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,26 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=UUWU7Wnj9ArXLe6ETpq9l5c5gdb7MUu5FPWiRbeS4vY=; b=UqfvzaE1hRs9/NNQKRFx0fUsRF
- hHrHmHAfpHujLooM2mmhepAOWxyaPyYx+T+x3EYKwPX+hDkXTcUxlL7Gwe+iv2oHZTm+BuLAaFBjS
- ybbsKbzW9bV9niXuf4u7A1XIkPInmMeHY2sBSV74dWpaBhQ0lt0OzXVWe8V47ZwLGuXW22o6Bhv2s
- XRiQFkBidLey0404FFtn/sBImuaZtmDxfTs8y+9WfM6vKJOlN9k8y67TLI6cKmmXJd6Xy2RW6psA2
- vYKpP5ldbMkHM7cMejktDE5FKp43oZ9G/zBCRn8c9YzkBKesOKrkKQ9MGoyBSfHv5Hev4AbqFeB/M
- VGGq7htA==;
+ bh=8UwPFoZmcpCOEo8/ILGCsmuGwBzriX1Se7V7H0WSC6I=; b=Tea247RuksSCf6qAlvN0MFchTC
+ HPgvmGsIqo6FNIC2jMXOVIquL5p5ipySt0kEb3y9we54+mmLulqBOq3qUVTcIwtO/aj4HdunPQ9IZ
+ 7WVcUGrYs9o/5bw5jTtM1TC5XGkVG8ZhFy2nchQiXJRya+ofYhPtx8LQzUMtOAE69sSlSU+3UuuLT
+ pkTGPIsV3dovgmETPgbR2QV8LyeE2wzWd6sPoM4/MYo7EH6QpKU28QymQk6C/QlSkT1IdSuin51nN
+ MOH72WeEz0YjnpaecHUSCi4PTTRMrgNlqXsRQgHXYlQf06rguQY6sYQ01784NHhOLV8it09TlX0Zq
+ er8D4Drg==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vfF4T-004LcL-ER; Mon, 12 Jan 2026 11:22:49 +0100
+ id 1vfF4R-004LcB-VR; Mon, 12 Jan 2026 11:22:48 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v4 03/12] drm/amdgpu: Drop support for variable struct
- drm_amdgpu_bo_list_entry size
-Date: Mon, 12 Jan 2026 10:22:35 +0000
-Message-ID: <20260112102244.63308-4-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v4 01/12] drm/amdgpu/mes: Remove idr leftovers
+Date: Mon, 12 Jan 2026 10:22:33 +0000
+Message-ID: <20260112102244.63308-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260112102244.63308-1-tvrtko.ursulin@igalia.com>
 References: <20260112102244.63308-1-tvrtko.ursulin@igalia.com>
@@ -62,67 +61,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Userspace always uses struct drm_amdgpu_bo_list_in->bo_info_size equal to
-sizeof(struct drm_amdgpu_bo_list_entry) and there are no plans to extend
-it. Even if the structure is extended at some point, older kernels will
-note that they do not support the additional fields by rejecting the new
-structure size.
+Commit
+cb17fff3a254 ("drm/amdgpu/mes: remove unused functions")
+removed most of the code using these IDRs but forgot to remove the struct
+members and init/destroy paths.
+
+There is also interrupt handling code in SDMA 5.0 and 5.2 which appears to
+be using it, but is is unreachable since nothing ever allocates the
+relevant IDR. We replace those with one time warnings just to avoid any
+functional difference, but it is also possible they should be removed.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
+References: cb17fff3a254 ("drm/amdgpu/mes: remove unused functions")
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Reviewed-by: Christian König <christian.koenig@amd.com>
---
-v2:
- * Expand commit message a bit.
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 31 +++++----------------
- 1 file changed, 7 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c |  9 ---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h |  3 ---
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c  | 18 +++---------------
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c  | 18 +++---------------
+ 4 files changed, 6 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index 87ec46c56a6e..d340a6438aaa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -182,33 +182,16 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
- int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
- 				      struct drm_amdgpu_bo_list_entry **info_param)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index 9c182ce501af..505619d504ea 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -94,9 +94,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+ 
+ 	adev->mes.adev = adev;
+ 
+-	idr_init(&adev->mes.pasid_idr);
+-	idr_init(&adev->mes.gang_id_idr);
+-	idr_init(&adev->mes.queue_id_idr);
+ 	ida_init(&adev->mes.doorbell_ida);
+ 	spin_lock_init(&adev->mes.queue_id_lock);
+ 	mutex_init(&adev->mes.mutex_hidden);
+@@ -218,9 +215,6 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+ 				      adev->mes.query_status_fence_offs[i]);
+ 	}
+ 
+-	idr_destroy(&adev->mes.pasid_idr);
+-	idr_destroy(&adev->mes.gang_id_idr);
+-	idr_destroy(&adev->mes.queue_id_idr);
+ 	ida_destroy(&adev->mes.doorbell_ida);
+ 	mutex_destroy(&adev->mes.mutex_hidden);
+ 	return r;
+@@ -248,9 +242,6 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
+ 
+ 	amdgpu_mes_doorbell_free(adev);
+ 
+-	idr_destroy(&adev->mes.pasid_idr);
+-	idr_destroy(&adev->mes.gang_id_idr);
+-	idr_destroy(&adev->mes.queue_id_idr);
+ 	ida_destroy(&adev->mes.doorbell_ida);
+ 	mutex_destroy(&adev->mes.mutex_hidden);
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index e989225b354b..f45129277479 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -68,9 +68,6 @@ struct amdgpu_mes {
+ 
+ 	struct mutex                    mutex_hidden;
+ 
+-	struct idr                      pasid_idr;
+-	struct idr                      gang_id_idr;
+-	struct idr                      queue_id_idr;
+ 	struct ida                      doorbell_ida;
+ 
+ 	spinlock_t                      queue_id_lock;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index 8ddc4df06a1f..ab9e6199b01d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -1704,24 +1704,12 @@ static int sdma_v5_0_process_trap_irq(struct amdgpu_device *adev,
+ 				      struct amdgpu_irq_src *source,
+ 				      struct amdgpu_iv_entry *entry)
  {
--	const uint32_t info_size = sizeof(struct drm_amdgpu_bo_list_entry);
--	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
--	const uint32_t bo_info_size = in->bo_info_size;
--	const uint32_t bo_number = in->bo_number;
- 	struct drm_amdgpu_bo_list_entry *info;
- 
--	/* copy the handle array from userspace to a kernel buffer */
--	if (likely(info_size == bo_info_size)) {
--		info = vmemdup_array_user(uptr, bo_number, info_size);
--		if (IS_ERR(info))
--			return PTR_ERR(info);
--	} else {
--		const uint32_t bytes = min(bo_info_size, info_size);
--		unsigned i;
-+	if (in->bo_info_size != sizeof(struct drm_amdgpu_bo_list_entry))
-+		return -EINVAL;
- 
--		info = kvmalloc_array(bo_number, info_size, GFP_KERNEL);
--		if (!info)
--			return -ENOMEM;
+-	uint32_t mes_queue_id = entry->src_data[0];
 -
--		memset(info, 0, bo_number * info_size);
--		for (i = 0; i < bo_number; ++i, uptr += bo_info_size) {
--			if (copy_from_user(&info[i], uptr, bytes)) {
--				kvfree(info);
--				return -EFAULT;
--			}
--		}
--	}
-+	info = vmemdup_array_user(u64_to_user_ptr(in->bo_info_ptr),
-+				  in->bo_number,
-+				  sizeof(struct drm_amdgpu_bo_list_entry));
-+	if (IS_ERR(info))
-+		return PTR_ERR(info);
+ 	DRM_DEBUG("IH: SDMA trap\n");
  
- 	*info_param = info;
- 	return 0;
+-	if (adev->enable_mes && (mes_queue_id & AMDGPU_FENCE_MES_QUEUE_FLAG)) {
+-		struct amdgpu_mes_queue *queue;
+-
+-		mes_queue_id &= AMDGPU_FENCE_MES_QUEUE_ID_MASK;
+-
+-		spin_lock(&adev->mes.queue_id_lock);
+-		queue = idr_find(&adev->mes.queue_id_idr, mes_queue_id);
+-		if (queue) {
+-			DRM_DEBUG("process smda queue id = %d\n", mes_queue_id);
+-			amdgpu_fence_process(queue->ring);
+-		}
+-		spin_unlock(&adev->mes.queue_id_lock);
++	if (drm_WARN_ON_ONCE(&adev->ddev,
++			     adev->enable_mes &&
++			     (entry->src_data[0] & AMDGPU_FENCE_MES_QUEUE_FLAG)))
+ 		return 0;
+-	}
+ 
+ 	switch (entry->client_id) {
+ 	case SOC15_IH_CLIENTID_SDMA0:
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index 51101b0aa2fa..4f78dd93939c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -1617,24 +1617,12 @@ static int sdma_v5_2_process_trap_irq(struct amdgpu_device *adev,
+ 				      struct amdgpu_irq_src *source,
+ 				      struct amdgpu_iv_entry *entry)
+ {
+-	uint32_t mes_queue_id = entry->src_data[0];
+-
+ 	DRM_DEBUG("IH: SDMA trap\n");
+ 
+-	if (adev->enable_mes && (mes_queue_id & AMDGPU_FENCE_MES_QUEUE_FLAG)) {
+-		struct amdgpu_mes_queue *queue;
+-
+-		mes_queue_id &= AMDGPU_FENCE_MES_QUEUE_ID_MASK;
+-
+-		spin_lock(&adev->mes.queue_id_lock);
+-		queue = idr_find(&adev->mes.queue_id_idr, mes_queue_id);
+-		if (queue) {
+-			DRM_DEBUG("process smda queue id = %d\n", mes_queue_id);
+-			amdgpu_fence_process(queue->ring);
+-		}
+-		spin_unlock(&adev->mes.queue_id_lock);
++	if (drm_WARN_ON_ONCE(&adev->ddev,
++			     adev->enable_mes &&
++			     (entry->src_data[0] & AMDGPU_FENCE_MES_QUEUE_FLAG)))
+ 		return 0;
+-	}
+ 
+ 	switch (entry->client_id) {
+ 	case SOC15_IH_CLIENTID_SDMA0:
 -- 
 2.52.0
 
