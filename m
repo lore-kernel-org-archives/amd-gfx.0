@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE3A0D29DE8
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 08:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BBD1D29DE9
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 08:02:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 242F810E20F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 657FA10E45B;
 	Tue, 13 Jan 2026 08:02:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Bat6wu0U";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="feqa8xza";
 	dkim-atps=neutral
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
- [209.85.160.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9B0B10E41E
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jan 2026 16:50:03 +0000 (UTC)
-Received: by mail-qt1-f176.google.com with SMTP id
- d75a77b69052e-4fc42188805so69728261cf.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jan 2026 08:50:03 -0800 (PST)
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com
+ [209.85.222.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3E6710E43F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jan 2026 23:53:08 +0000 (UTC)
+Received: by mail-qk1-f177.google.com with SMTP id
+ af79cd13be357-8b1e54aefc5so624097585a.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jan 2026 15:53:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1768236603; x=1768841403; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=eAxh70JY3ShLNfnDxBWsRZWpalCHcaRfsM5YzKZ+W9w=;
- b=Bat6wu0UmG9fuCZn5Iq+jd5OxvWiNpQdIq69eBLJAYXkYQWDeAMwNBJ5Y0b1/2B+d+
- B0G6komz5bqCZYsgSITfSNPdBzcVf0tjViU4xq+Txkgph+iNLcPkLZ7PFGAwpPwOuPkc
- iY8Czei3UIRUh5uOIZpQCl0QZHn9eYXAXI4kazYPlVShGUvbzk4nBmWxDV6oTIgkP4Bx
- qLNRohAt09eNZp4HJdf0cNdSZ1JNHeIBe75r/rx+lcKZhSuyD7Vclo2NzLgLCLq7nwoa
- dbeoOYpcoH3Mkui+6mbyEz1OJkRvlSAW+/48hQ3LQ754slxzzgbwEFseE7AAscvSfFVg
- 8WOA==
+ d=ziepe.ca; s=google; t=1768261987; x=1768866787; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=MFAPVPPrTQcXGzmX4uMQny5ONRwVZsvoYJMZG32QBJM=;
+ b=feqa8xzaI2PGqHAXING1kUF3gh9XohkXBW2JeIHEgAPKO0lGL9J9eKMP4iOHOZbUMT
+ 5eT2qKWaez4z+FvlofahN5HD+fod6+fF7TRPKrAhsbiiuZdIsQtQwxLkBxEfVjQCee9Y
+ BldS7KGYkthMXZdAtCcjC3cQDiAkk+dx+m7fj/dgn9S0NCzG3IdYEPNqGhoofcYsDmYb
+ XSRQxTOmyioFGd1dR7mZlos2baQb0KtU1VivsGEtqD66RLLlnA4/TBQJMkY0Trq14j1Q
+ 6RQ0VYCgjYNb7f0Oz2UMIcv9ZB/CzUNyEXXcINiMva4G03ISKtwI6eOZo0fBw6LQjNHL
+ HUVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768236603; x=1768841403;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=eAxh70JY3ShLNfnDxBWsRZWpalCHcaRfsM5YzKZ+W9w=;
- b=O3I9W7e1ujfGpN762F8ENMY/JDZ/v4Frr98MtDz81G+qz8a80XRrAWdKj3eSQrS3IQ
- ZW1PqEs1jMaFEnfGQwJBMbpuUNV81WBBXIJqbriZ06/krmsnSbQMgWyT2C6g6vS0RsO1
- ge9BMcw/5yXiAH9ewjNI6Tfdl83V8hEsjNDFEkpxrSCrS+BIyGm3Cxmtzxwhq9akZYaP
- NXgknPXamQsTZi00kZqPchcFdEGoYXRpM8TZuDWpGm5rf44KvM3LEdIQCi96AwVUpc5F
- W0FmgOB5NOSoUaMryh9qnEAIKpgx1pI2emwWvzeL4uRI5NF2sNlReeixFwT00uZJk1mX
- X62Q==
+ d=1e100.net; s=20230601; t=1768261987; x=1768866787;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=MFAPVPPrTQcXGzmX4uMQny5ONRwVZsvoYJMZG32QBJM=;
+ b=SJAq28ysjwKtd4y1jfGPXnUosyH12+S9Vd/k5SpCstIPEhxacd+tQr23D1S3g7gSHc
+ xdWRYC5NSOJ4+byeBklKOI3LA2UEXfXhH5961B6t34rJJF+1PLB+FFuGM6Y7vUIa1zBd
+ 5mpw2TzQ0oQE9+cCjCXdiuHo3NXvhgm2kQnKlwGtRsL3Hakcr3hYtjYp34Y6aHcDdfvj
+ t1z3wkzy/qzQg8/r6jBq1S7BpF2+EpdsvfdVz7vDZttjLU01MMzIBECSxXgnVhypgO24
+ mO5RzLOrs2Cn9swmbKDxV3A1ygxCMVZKgs4U3myl3DbvVvQbQprEjhtRwwIA1RWCa/vN
+ RFuw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW9bmvt8QO7r0WTVJFyOH3OLa2V2O6M8X0ki0mQ5v+YxZGuiOuJjf0NopK5AXyP9wwQcMT0ERJA@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy+fyyKdVNpkMYW6krkapRK0kdLMovG8kAleHFywQdH9XU4NWuN
- orLnPUlAu8cGliXk+I3gnF3WWJKRXnXAhO2gTxyPDytYRM/11JmwrT6Zm2ej8r+MULE=
-X-Gm-Gg: AY/fxX4FI18eBSAwgbxxDrSOfxqkhMqY8rWPnsIRJQFQ8hS19N9tqJRW7dTWbwe6Zqj
- on4M2/1tfq/CWRXF7luySo2B7K55tXoCXCHPpv8RLmuuBbM2QgN8QaYK/MxjFualjWJFiB2ZbiK
- fBq4WrsecfGuovyrtym2cVYWXdMkXiu+uk1ShJD2u6WmcCgN44zi9Qoi1aFpUtNGMh8bEiBBxkq
- 0HgaYB1PbSjCewal+pK2W6BO4IXhC+k+G5yv+sgrzZRAPsvRNwR1102ADm8eDVuAjZyZxpL9gRX
- dkckY6SN+oZoLWbK+TihD5AEpomFUcnPKzTt3roipUKK7kyS9WodNGkszbKY7UXnX5z/ZVVd5dE
- v/kZqUg+0O1IdbUIiZUKp/de87NcUh7HQd9Z/8B1n17gPWjnzkkvLxaV3KcbWBz1EKJ6rAkBiBO
- 0mtRsIomZnUL9yABmguwVuwS8hL2qbQj+En7e7gPzeuwiAOnAAVlGOc9QXjQaIOZPAuuQ=
-X-Google-Smtp-Source: AGHT+IE/A98Uf8f6ySXPvh9xamBlLANpUoYS4iXttzp8YDJn905I/7mcjcPxPkNVMXbRPnmf8UaJPg==
-X-Received: by 2002:ac8:6f1a:0:b0:4ee:208a:fbec with SMTP id
- d75a77b69052e-4ffb4a1ed32mr255276771cf.66.1768236602551; 
- Mon, 12 Jan 2026 08:50:02 -0800 (PST)
+ AJvYcCUIuTsvtkshTRGlkrEiof/xctAdRJASREdi2iRQOomybebnMPE3efTt6dh4PoQsIFJgannEhPvh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxiGDbpqj9mWvrIfGzBem1SvJKYbL5dPKxxfv01oRsQDl4ynJdg
+ l2ZZ1xslrXWCDG+BioNOT0iEUCiyP0H3qejJC9X2EBkKjw4NrZ2O3NTnbyLW+/pRlB8=
+X-Gm-Gg: AY/fxX4T/RXS5+5pKB2F7mgUEvJsSoYJD87woT7QnoNIJjZOJqn8U/cX9NZwIluQC3w
+ v0kNo8fFxQVEzJUyffGJ9syo8T22A2yPGxfjgQmZAuTRWN4lUDyJtlgXWSL5QNzLhcVAEzxnk4E
+ DTFnNWKbDIFuaeM3GNvkDtblyq+D5kMuJ1fUXF0+ykOdW0VNQutoymzaRX6gJGg21SKzCb8E5U8
+ 40X0iTM5zAek5SC+//34KLirMq+9SMa1epwJa5chM2ftHzjmFQVQm3J8bfscvOnbAAwzBsj/79Z
+ sMlA8Pw+5iwEHhzzPfyhi5dzqGGCRsMKz8fnYmVrIu9FUC3+VpM/8i1wmaC+fM87Qn524oaK0wI
+ M7C9u4UFpxcNNcR705Kn9Av1169uZIRRZKvLSIcpGXLsyjzN9lcKlqeWMypPr4pWOZpkEBovCa5
+ LhTAn6V9hBrc5irjHtKI5VDgkSTJs633sw9BJKYXbC1FUCE5ND4ovzDNmnBtXhXLXjcShFDvkkX
+ SzY/g==
+X-Google-Smtp-Source: AGHT+IECCLtz04Q1g6y58MlK+cu2G+IQ+shlJTLlvJFkV+wtTDGmcQVfka7R8tosUNuc3dGp+UEbDg==
+X-Received: by 2002:a05:620a:4804:b0:8b2:7536:bd2c with SMTP id
+ af79cd13be357-8c3894188a8mr2759937485a.78.1768261987580; 
+ Mon, 12 Jan 2026 15:53:07 -0800 (PST)
 Received: from ziepe.ca
  (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
  [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-89077253218sm139285396d6.43.2026.01.12.08.50.02
+ af79cd13be357-8c37f530907sm1597443885a.39.2026.01.12.15.53.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 12 Jan 2026 08:50:02 -0800 (PST)
+ Mon, 12 Jan 2026 15:53:07 -0800 (PST)
 Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1vfL7B-00000003RcK-2R9k;
- Mon, 12 Jan 2026 12:50:01 -0400
-Date: Mon, 12 Jan 2026 12:50:01 -0400
+ (envelope-from <jgg@ziepe.ca>) id 1vfRic-00000003fUQ-2VnR;
+ Mon, 12 Jan 2026 19:53:06 -0400
+Date: Mon, 12 Jan 2026 19:53:06 -0400
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Zi Yan <ziy@nvidia.com>
 Cc: Matthew Wilcox <willy@infradead.org>, Balbir Singh <balbirs@nvidia.com>,
@@ -99,19 +99,21 @@ Cc: Matthew Wilcox <willy@infradead.org>, Balbir Singh <balbirs@nvidia.com>,
  linux-pci@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org
 Subject: Re: [PATCH v4 1/7] mm/zone_device: Add order argument to folio_free
  callback
-Message-ID: <20260112165001.GG745888@ziepe.ca>
-References: <20260111205820.830410-1-francois.dugast@intel.com>
- <20260111205820.830410-2-francois.dugast@intel.com>
- <aWQlsyIVVGpCvB3y@casper.infradead.org>
- <874d29da-2008-47e6-9c27-6c00abbf404a@nvidia.com>
+Message-ID: <20260112235306.GN745888@ziepe.ca>
+References: <874d29da-2008-47e6-9c27-6c00abbf404a@nvidia.com>
  <0D532F80-6C4D-4800-9473-485B828B55EC@nvidia.com>
  <20260112134510.GC745888@ziepe.ca>
  <218D42B0-3E08-4ABC-9FB4-1203BB31E547@nvidia.com>
+ <20260112165001.GG745888@ziepe.ca>
+ <86D91C8B-C3EA-4836-8DC2-829499477618@nvidia.com>
+ <20260112182500.GI745888@ziepe.ca>
+ <6AFCEB51-8EE1-4AC9-8F39-FCA561BE8CB5@nvidia.com>
+ <20260112192816.GL745888@ziepe.ca>
+ <8DB7DC41-FDBD-4739-AABC-D363A1572ADD@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <218D42B0-3E08-4ABC-9FB4-1203BB31E547@nvidia.com>
+In-Reply-To: <8DB7DC41-FDBD-4739-AABC-D363A1572ADD@nvidia.com>
 X-Mailman-Approved-At: Tue, 13 Jan 2026 08:02:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,52 +129,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 12, 2026 at 11:31:04AM -0500, Zi Yan wrote:
-> > folio_free()
-> >
-> > 1) Allocator finds free memory
-> > 2) zone_device_page_init() allocates the memory and makes refcount=1
-> > 3) __folio_put() knows the recount 0.
-> > 4) free_zone_device_folio() calls folio_free(), but it doesn't
-> >    actually need to undo prep_compound_page() because *NOTHING* can
-> >    use the page pointer at this point.
-> > 5) Driver puts the memory back into the allocator and now #1 can
-> >    happen. It knows how much memory to put back because folio->order
-> >    is valid from #2
-> > 6) #1 happens again, then #2 happens again and the folio is in the
-> >    right state for use. The successor #2 fully undoes the work of the
-> >    predecessor #2.
+On Mon, Jan 12, 2026 at 06:34:06PM -0500, Zi Yan wrote:
+> page[1].flags.f &= ~PAGE_FLAGS_SECOND. It clears folio->order.
 > 
-> But how can a successor #2 undo the work if the second #1 only allocates
-> half of the original folio? For example, an order-9 at PFN 0 is
-> allocated and freed, then an order-8 at PFN 0 is allocated and another
-> order-8 at PFN 256 is allocated. How can two #2s undo the same order-9
-> without corrupting each other’s data?
-
-What do you mean? The fundamental rule is you can't read the folio or
-the order outside folio_free once it's refcount reaches 0.
-
-So the successor #2 will write updated heads and order to the order 8
-pages at PFN 0 and the ones starting at PFN 256 will remain with
-garbage.
-
-This is OK because nothing is allowed to read them as their refcount
-is 0.
-
-If later PFN256 is allocated then it will get updated head and order
-at the same time it's refcount becomes 1.
-
-There is corruption and they don't corrupt each other's data.
-
-> > If the allocator is using the struct page memory then step #5 should
-> > also clean up the struct page with the allocator data before returning
-> > it to the allocator.
+> free_tail_page_prepare() clears ->mapping, which is TAIL_MAPPING, and
+> compound_head at the end.
 > 
-> Do you mean ->folio_free() callback should undo prep_compound_page()
-> instead?
+> page->flags.f &= ~PAGE_FLAGS_CHECK_AT_PREP. It clears PG_head for compound
+> pages.
+> 
+> These three parts undo prep_compound_page().
 
-I wouldn't say undo, I was very careful to say it needs to get the
-struct page memory into a state that the allocator algorithm expects,
-whatever that means.
+Well, mm doesn't clear all things on alloc..
+
+> In current nouveau code, ->free_folios is used holding the freed folio.
+> In nouveau_dmem_page_alloc_locked(), the freed folio is passed to
+> zone_device_folio_init(). If the allocated folio order is different
+> from the freed folio order, I do not know how you are going to keep
+> track of the rest of the freed folio. Of course you can implement a
+> buddy allocator there.
+
+nouveau doesn't support high order folios.
+
+A simple linked list is not really a suitable data structure to ever
+support high order folios with.. If it were to use such a thing, and
+did want to take a high order folio off the list, and reduce its
+order, then it would have to put the remainder back on the list with a
+revised order value. That's all, nothing hard.
+
+Again if the driver needs to store information in the struct page to
+manage its free list mechanism (ie linked pointers, order, whatever)
+then it should be doing that directly.
+
+When it takes the memory range off the free list it should call
+zone_device_page_init() to make it ready to be used again. I think it
+is a poor argument to say that zone_device_page_init() should rely on
+values already in the struct page to work properly :\
+
+The usable space within the struct page, and what values must be fixed
+for correct system function, should exactly mirror what frozen pages
+require. After free it is effectively now a frozen page owned by the
+device driver.
+
+I haven't seen any documentation on that, but I suspect Matthew and
+David have some ideas..
+
+If there is a reason for order, flags and mapping to be something
+particular then it should flow from the definition of frozen pages,
+and be documented, IMHO.
 
 Jason
