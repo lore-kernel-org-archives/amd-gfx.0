@@ -4,138 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8AAEC9EC95
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jan 2026 14:35:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 370FFC9EC8D
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jan 2026 15:05:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DCA510E3F2;
-	Mon, 12 Jan 2026 14:35:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B65AD10E3FE;
+	Mon, 12 Jan 2026 15:05:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oz9NFaRC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lgXY4nZG";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012008.outbound.protection.outlook.com [52.101.43.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 752D410E3F0;
- Mon, 12 Jan 2026 14:35:37 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013000.outbound.protection.outlook.com
+ [40.107.201.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 761DC10E0E8;
+ Mon, 12 Jan 2026 15:05:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OCd3YJk3YgAhTwinjBhcLXyhBIXyWM9ciJKGpadecekIrVGCazA6uUGSrx7Ahzqc1yqg+BCsglvwCiwIqXMW96hS4gzxur0CMx2jAl2dDxJ8BU6OAQ0zp1DFLzndlvXG7eQF1Uw4I+gAVQCc2lJpyngOyrOfdaHbkCGTsaAPimrSYqZhSxz1MAV/7MypHdUrs7HKKZNUSb1rWwDDvBXarVNZqjsP0CoVyAvdA9xoNaEE2X0gRdII9Btn74zwl4IU0dy3h1+egeKNzHoY51wOanvnagUBqVdbcH5GreWdo8hzE1ACjS+sAWr9FBb3DiBFOh+iXHDp1G+4X7Oj16NMhA==
+ b=qckveTrsGX4m8nDjbBkohw6yb15hT/YWkoQuYstnypI/+nrlqMEVfQhhNbeN26BDC23XO6cRVifOYQji2k7HqMkacp1lwrdWL2SAAJLg6eo6EJJYoSIHaQSbMaXWQ3L8jDvP/OMhKSSuaPwvvsBsCJLeJqA1EKQGvGWYm7MO9FP9Vu87wKLrCbiAttsYnTbmH2ypkmHjy4MKCEPKwUML6TUEysGO0P64Qlzp8V2uiyGRUU20oeSkYi0MMueyAGng/o0U4kp13DSa9wJD18ee81nrLY3pPK1sG1Plk4WdufVHOqrsEKEZOcqBfSopyAk8AE120i9gJjOEaKsE0uQqwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L3qpgEPlZGdCjqufdlC/OSiGjKGeWwjvAv8CfTqAaBk=;
- b=RVYDLO7rXKdNwazu4qsgCPd9CuCXpLwqQ5uOdME/AjR3KkBqTJpl2m+piH72DPpfPMppEBESS86RIQspOIM7a69ImQfZ9nlLiAPB/uYPBO8yFvxwUPiW9DQ1rwNvRNiKZqo2hKEJwZ9wVtb+gq8ip/mtKTFAWCBK2cDdPwsiZFz3wy7or045SXJ7dMUSZtTGQsHH7VrSu81VyQpcM/grhuYwBekptpfkWNHvgm4wbQZxCZU7OuqEhWytXT2LV8QOt8Kag/BNc6stKiwrARQdNf7mLbOt5SzVfNyGs5IIEYpF1M5YJtnczH/N8abeisCRin/wbbHDJjWpM9NF9KbLfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=/Palenug6X6fa40GrrIycU6TIxwZ90e0ZPZHQfxQvd8=;
+ b=xySd+2MJuyBAOTWCgW+BWaeldigLNxjv6vyZYeH+tYp6GFvKB7e2xhL8RWfbHyw8zf4DYT2m16BGIfhNdt0edClFEMXMR7jQpoNwd/7Z9RSEssovgD0ob4N4SmSFyER4u+wM3qFws4UaLojNHhN9KykpoVpLUDApXFwyBa6cK6l1bZfIpGW7oyPKTdMmkera1h6Bib78WDKh5dBOOg6uOEGWD8wRLrOGyDp43zn/vcn3xGcAaNs/o8hNcGnd03Ez2pY9CvfHmmfAvJJIIutlsgRJCEfpxXKSJPU2djkVLNpQWSV/M5ncRqaA65YJxO4yniB4k9g4xHvBL69ykMDxTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L3qpgEPlZGdCjqufdlC/OSiGjKGeWwjvAv8CfTqAaBk=;
- b=oz9NFaRC1M3fYzn3ZqCHaJR1dPRfowbW6IW6OudTjI9sQKdTluFmScn4yHUt7T5KMV77mcc2y+EXr3JCVekicfW6EvlXJF0Hrs4goZkinTF+vwCqGPMJ6HWR7SsUi++wVrg5+Eg+Ujbc3X4X5ahHfcWmV8JIvkzbdtm1hwmDlGA=
-Received: from PH7P220CA0119.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::6)
- by DS0PR12MB9038.namprd12.prod.outlook.com (2603:10b6:8:f2::20) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=/Palenug6X6fa40GrrIycU6TIxwZ90e0ZPZHQfxQvd8=;
+ b=lgXY4nZG7WYwAEgba8v6hwp3dSVu4OIIV924kGCCnPGOzkQn8FKC0jXEqjbFeT3T7aTXxK9rAfc3IMWCzm/nQNhnqL9dntH9bZc+nrTmtNe2R/Wi2tcbRXvwmSLRLedeGG15LM7wfd1PBZ+DCONKLEBUOSPXYOjijssKWMBO/Os=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PR12MB7604.namprd12.prod.outlook.com (2603:10b6:208:438::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Mon, 12 Jan
- 2026 14:35:29 +0000
-Received: from CY4PEPF0000EE36.namprd05.prod.outlook.com
- (2603:10b6:510:32d:cafe::57) by PH7P220CA0119.outlook.office365.com
- (2603:10b6:510:32d::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.7 via Frontend Transport; Mon,
- 12 Jan 2026 14:35:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE36.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Mon, 12 Jan 2026 14:35:27 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 12 Jan
- 2026 08:35:27 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 12 Jan
- 2026 08:35:26 -0600
-Received: from [10.254.94.191] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 12 Jan 2026 08:35:26 -0600
-Message-ID: <066cd83a-752b-4e2c-b5ef-34c5d8555305@amd.com>
-Date: Mon, 12 Jan 2026 09:35:26 -0500
-MIME-Version: 1.0
+ 2026 15:05:48 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9499.005; Mon, 12 Jan 2026
+ 15:05:48 +0000
+Message-ID: <585ab6cc-d508-4d8a-912e-4d3a530bc224@amd.com>
+Date: Mon, 12 Jan 2026 16:05:40 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH i-g-t] tests/amdgpu: Add test for native cursor fallback
- to overlay
-To: <IVAN.LIPSKI@amd.com>, <igt-dev@lists.freedesktop.org>
-CC: <harry.wentland@amd.com>, <amd-gfx@lists.freedesktop.org>
-References: <20260108030750.1012908-1-IVAN.LIPSKI@amd.com>
+Subject: Re: [PATCH v2 0/4] drm/amdkfd: Add batch userptr allocation support
+To: Honglei Huang <honghuan@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>, dmitry.osipenko@collabora.com,
+ airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, akpm@linux-foundation.org,
+ Honglei Huang <honglei1.huang@amd.com>, alexander.deucher@amd.com,
+ Ray.Huang@amd.com
+References: <20260104072122.3045656-1-honglei1.huang@amd.com>
+ <64f0d21c-1217-4f84-b1ce-b65c1f5c2ef1@amd.com>
+ <b6004bee-ffef-48ea-ba0d-57b390cb771c@amd.com>
+ <76c44385-bcf8-4820-a909-569bd2d36198@amd.com>
+ <7ea29163-d6cf-4a4c-91c7-72802dd49018@amd.com>
+ <d932d813-f1cf-482c-9697-80199b3b4771@amd.com>
+ <3f9028ae-6f34-4fa9-aba6-fb2a6e223725@amd.com>
+ <57ce883c-532b-4596-97e0-cb811ecb0c8d@amd.com>
+ <c0fe19b7-df1a-442f-9ec9-794b14a81c28@amd.com>
 Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20260108030750.1012908-1-IVAN.LIPSKI@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Received-SPF: None (SATLEXMB03.amd.com: sunpeng.li@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <c0fe19b7-df1a-442f-9ec9-794b14a81c28@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0176.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::14) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE36:EE_|DS0PR12MB9038:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c80c8ef-ed1d-464c-63f0-08de51e7d44f
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7604:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11703c3b-c8f8-42a0-13b0-08de51ec116b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|42112799006|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?b1huTkZoM2dJeDUvTERlUXcvQjJXM0NQOTN6WUFqYnpMWld5Q3FZdVRpSmRX?=
- =?utf-8?B?dWRUdUdNek1VdTliSTVEdzB1WnJXZFBQOXFCcURjdUttTGVqUDJ3NVUzRlFk?=
- =?utf-8?B?VmEwUm5qeHg5SGE5TDYzdkt3MG1kSDhLMlJuWXZwbFN4KzBkLzhmU0QwTUtO?=
- =?utf-8?B?U3RIZkdjQ0U0cXN1Y1pxNEpTNEJkdEdYNjVlVmxVWDRuZGxNQXhnWkQ4aDB0?=
- =?utf-8?B?bk5BbzNzQzMyYWNQcHRHNDRPMndLVUJjdmhkVlROYlJjc09XcERyb3VFRDNr?=
- =?utf-8?B?Wko0VG13c1dDWmRnTzdHaEtBRlpHenJscW9wZDFQcEczenNWY1ZzRlVNV051?=
- =?utf-8?B?UHpQaXg3SFM1NnI0NGp0WUZDa3BPVjdkQjRjT05kUmVmUzkxd0UzTXQ1TENh?=
- =?utf-8?B?Vm9hM0gwZDJneHJqZ01hOGE3NSsrQ0c4Vk84dXhyaXR0V1BSRXlFVk14dWE2?=
- =?utf-8?B?U01NcE9ZWDk3TmYzcm9zZUtZSnNwSitGSXEzS012VHZ0eXVDeVNtby8wT0Jt?=
- =?utf-8?B?WTdkTEFhdWZhWUtLL2ZoajJrSWhOdWplQ0I1MDlLL1FkSm5pSEFWR0VhbFBJ?=
- =?utf-8?B?T0ZaOHMyNHF0YzNCdGkyRUdsUFc2bjhDMVpJaXFvL01NVnRwU3JEV0JtZFZw?=
- =?utf-8?B?V3RhK3liTzBoUEVWZDJLL1NldWJVK0JpcEY3cHQ0NjFVeHBucGFTcVlwSy9J?=
- =?utf-8?B?NmtMSHZ0cTNtNThJV25kZFdWSDIybnlKanlzZ2VyaTl4WERET0hvTGdOQWo0?=
- =?utf-8?B?VVhjWW9VUXJZcGlpZUkzeGo2NFBnRmJybVNmRWxadWFmbGUzS2lsQmxkY2Vu?=
- =?utf-8?B?cE82NkhLVG9TZVptM0tDdTcvKzZmZktQODJPdGM4d3NMUVVJUVRuNTZ5NVFB?=
- =?utf-8?B?dUVnRDhnWDdtanZEeUVzdHF0R1FDa2wva2NJbkI5MzBVOFU0QzFSaXpGcmlW?=
- =?utf-8?B?Mm44WGwyUXM0T0k4V2QrRExRZGErVWYvVXI1T25tVEhsSktpQlRJazNCVC9F?=
- =?utf-8?B?WUVuU1NGYUZvSVkwOStMN3lUY0dPTmJtRmpERyt0WFNHelYxN2U3Zm5xUHh5?=
- =?utf-8?B?K1cwYTg4WUFzaVZONVQ4NVpTVmZGeEo0RjliTUlGKyt1ZHNMc0FyTmZkSDBC?=
- =?utf-8?B?Z2JBb00vdXdqekNVNDJoa0VWencwVGNnbUwrV3lnVDFQajlZK2tvT01FcUxp?=
- =?utf-8?B?VDdBL0NkbjdDNHhjWi8vZUoyY1d1a0U2amlkZFp3ZVY5U01sa21hWXlkdi81?=
- =?utf-8?B?MjNBN2ZYSjNGYVBRRWVEUm1OQitndFQ4elBEd2VzR1VXSTBnTUhHVkVTYTVo?=
- =?utf-8?B?ZHQzYmxGQk1SVTZPWmQ4T0JaSk5lYTRqWFNYUjZSbjZhdEFtYkJBbGdnTmtS?=
- =?utf-8?B?bVFGeFlQUHRFbDYzSVJ3SzZJL3hxSkVXQ2taYlBEVkpSMmZoOThBWStXS1hI?=
- =?utf-8?B?REtuU3VmRW1xa0RlSnZOZzRmOW9BRzdFd0QvWFU1VnN5UlJKTVVqUzRNMENz?=
- =?utf-8?B?eHdKYTdWM0RRVHZiL2VrNzlySTVzcFpwWFdEbjMvZVNmVkpPRE5RYlkrZzg3?=
- =?utf-8?B?dGYyMlZwc0RFckd5V0pmSVNDbFBqa1hUWE1OcjJXdG9TRm52cm4rR0JINDh3?=
- =?utf-8?B?VlZEY3UrUGpXUVd2VzlHa1NvQzRTNkd5TS9tcEg4a1B0TVN4VHhpSWpNYkRQ?=
- =?utf-8?B?MFZKanpHUUtReVdxWFN5dWxIRDA4eldxbVZiSG8xcGFOTUNjMERUYk5zOVRZ?=
- =?utf-8?B?Vk52ZUt0UVdwUjdKWFkvZnZ3V2tiVHp3d1NaT1pxb3l5cmVlZVF2Y2FhRXd2?=
- =?utf-8?B?OEhmejhhWEg1NGlURW1KY1ozQi9tVTA3V1ZDc05xVVNLYjZDU0Y0VEtWNWs5?=
- =?utf-8?B?UzFCdzhMVjBma0pyMmQ3ekdzTVlYVm0vRy8vZGRkeUJjRHZmWEh3WXM0V2Ru?=
- =?utf-8?B?L0NCWVBwQTFEWHA5Unc0WEc2c3NzeXJZeGk0WTlLVHhWV1dsOEVYNE1VOW1m?=
- =?utf-8?B?TUNic0U3M00rU05NRmx4TERkdkkwSkZiMVNrVDMyMU13bnVScm9obWJraEU5?=
- =?utf-8?B?VC9PeTdKWXMrV0dCSnI2d2pBUWpucmF5SXVoalhKU3YyaVUyWGdkTm9sRHZa?=
- =?utf-8?Q?JHNc=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(42112799006)(36860700013)(1800799024)(82310400026);
- DIR:OUT; SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZTRCVnNEUGd5bitsOUVoZmtBRmlUSGxzMHV3czlCQ1FWUElHd2dqNk16NU0y?=
+ =?utf-8?B?Rm1zbkdHODRzYWJVZldPeGF1d1pxM1JCSFJqbnMvVXk0ays4R1g0eFFDSXBx?=
+ =?utf-8?B?YnY0ejNrdTRURmtUdysyV0JtZVRlb1Y4aHFGVlQ3bEZBV0kzL3VLZ2tDZnA5?=
+ =?utf-8?B?RjBHTlNEb3VqbS9MQnFtL3hxdkZLVGZGd1p6ZmRHQmZqTVNyM1c0aURxT095?=
+ =?utf-8?B?L3EyZEt2d080bzJNS0FQMUlieU8vMDRpNitaTXF3RGd1S3YwK3E5UExoNVU4?=
+ =?utf-8?B?OWZxWXZObi95cVY2Z1ROREZpWFUzMCtQN0hFUjF2RlZhOEw0NjlwSGx2Nk9X?=
+ =?utf-8?B?bjUwOTk0WHZWODZjcTFaU0pDcFZ4emFaWW04NndJYkF0bW4ydXMxaFZWbU9S?=
+ =?utf-8?B?VTFFQ2g0R1kySlFKN1BnbjJrZWQvbVoyM3ptUCtlWFpmSXVTbnJzQ3J3SENJ?=
+ =?utf-8?B?SVY0bC9LREtXQjZDMkx2d2lPcTUyZGdWSGM1S1hFSHptNVFURUNGUUN5Mk5v?=
+ =?utf-8?B?bFVaNkYrYUExV0NmVFNLT0xiYXcwaDI0RXY0UlhTOEM2dkNkelk0L1RaQ1hB?=
+ =?utf-8?B?dmMydFAzN2hia1JZeVNqQzQwRFU3dGIySFZUaytyRUlvQlI5WUFHNGJyWHc1?=
+ =?utf-8?B?V3hmTFVweFBvSlJOcUVXc2NBL2VwdGs1UXRpMGIybEF4ZWxoNXEzMnd0L0NV?=
+ =?utf-8?B?a2VmV1VDNVMrWXR0VEVnelZGY3VjRUMzMm1Ib1dQbXNrWkFFcktKcWphcjlV?=
+ =?utf-8?B?cjk5VEk2ZTJVTFhDNnZzTmN1OGh3RXh2T3ZudFFTWnlxa3FpU1hZeExXRU03?=
+ =?utf-8?B?ZWlaZ216OStaVW45VmNWaVB4TEZ0ZS9USHI3dUpYNWQrYXlwWXBxTWJUMkRE?=
+ =?utf-8?B?czJDUkVNc3VTZDVmY1ZDSVZiKzUzMytYLzZJdFF1TytXbGtEeVJaNXBLby9M?=
+ =?utf-8?B?NGhMNEtpTGQ0OUxJRThQZ3dMU2RxK1h3WXg3MFdyUlZicXRSOHR0aVZJRitK?=
+ =?utf-8?B?aE1kSVlNUkhKWXB1TFZBQndVK1ZuNG1TbFV4SjAzcHF2UjViRC9weTJMTTBw?=
+ =?utf-8?B?L2lkV0REM2wvdjBSVnVBaElmYjFndUgweG5PUkFlL1FxZExobHdXUEdBMXMv?=
+ =?utf-8?B?WjNVWUkxQzFqOXpra0xPLzdXM2NKaUZJVlZEd3N4b1NyaDVBRGlROHVMODc1?=
+ =?utf-8?B?UWNKTmk1RXNPN3FYZ2NzeSt6aERCTVRGa2NHcU5NOXVBRkNRQXRBM05MbG5H?=
+ =?utf-8?B?alR0WjdoTHNpb0JWTkpQRHlzdDA2ejkvQWhRNU03MUdXRDZDTHNXRjJHTUlH?=
+ =?utf-8?B?eGlieDBxMVRibUFWQW80SmlxNjAxUHpjK005RytlWlg3eGJWSjhzRldha0pE?=
+ =?utf-8?B?VEh4anIxeWxua2ZVdlRMWmk5c1F1ZFVhNXFoNmd1akNsWEd0QStXUWFacjBH?=
+ =?utf-8?B?NGZKajVmMGlBWC9oSldXbUI5WVFQd1V2UjZyUWg5bFEzYjBHYWlIM1R2YS85?=
+ =?utf-8?B?aHA4cWhUODNRUkdhVWY5THJzWmg2MU9zUllsdy8vemQ0QlJrdllrNERyM1hT?=
+ =?utf-8?B?U2xiaWtRTjNQdHVuZEVZRDhYQkc4R2RMUmJDY0x1SlFMT2c4MU1MOEsyWktB?=
+ =?utf-8?B?ZS90K1JFby9HUlBhK1hvelgxanVpa0RCV2V0Rk5sUkNFK2J3ZWd5aThWdGw1?=
+ =?utf-8?B?MmR1dXlOVTZCQ3BJaXd1RlFHL29sZzdrVFo5VVQwMDdsZkozYW1YdEJucXdx?=
+ =?utf-8?B?d0RCZ214cE1rVThhelZvQ0YvaFVoUWF0M0tGSUpRRm9qOXpmUVZXY2NsTEVD?=
+ =?utf-8?B?YzdJNTltUnBKek9uTE1YekVTSjdpMlpsOWdMcCt0dUcrbmNOYXRGTHJoT2Ny?=
+ =?utf-8?B?eThmK2oxZ0tBVG9LdXVYZVV2czBDeDV6Rzl1UXRGMEN6UVlxVWlSWTlackQr?=
+ =?utf-8?Q?r3NYjieI9qyBLmKVcWVYFlsyfltf0t/J?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjJETjRtM3JhemlEeUN4Smdsdlkra1JObXozV05lZFYyRGpxSzh4eUhZaXND?=
+ =?utf-8?B?RGdRSTRDMXB3TkFlUVh2QXpiRVhxaGV1QXpHN05HSTVaWWVwblpVeWFOMFZh?=
+ =?utf-8?B?dWx3L0cvY0p1N1lMWlNNU1RRZ0FQN0c1dnVnZHZ1S2R3V1hyNzB5bmxlOSsz?=
+ =?utf-8?B?dFNtUjNjN2lVeUNJUlk3UTJBUE51d1pkNkNFdmt0aU5rRGxGcHp2MmphQjc0?=
+ =?utf-8?B?ekh6THc5V0k4Z1lSdkxYMFZMLzk5UW1kVlBFcUtPaHQ3MGtRV1Y1Q0M3UE9E?=
+ =?utf-8?B?NGZSZFVXbTIwdTliYks3UXJSMXFSd3dmZ29Wck9iMTU0bUxGZE9XcHhWdUhl?=
+ =?utf-8?B?andoWFY2elk2SmxKaE5tL0lvRDh3SlRHR0JlVHd6VzVtN1NLOW9ZN3oweGZE?=
+ =?utf-8?B?Ynl2RXVWbkR6ZjF1V2pZMlE1U0xmZUVGWm0zcURQcWIrU3gvVDFCenNlOWJC?=
+ =?utf-8?B?VEJhczBqdk9Jc1FoSTNNbDh5M2dHeFRUT3dBY3JCM1FjekpSSE93Zm5nU0ps?=
+ =?utf-8?B?N2U3aUhZZFlENDh1cGkxWUY5UmU5Yy9UK2NHNDRXT2JVZ2pVdE03TkZPOEZZ?=
+ =?utf-8?B?L0JhMUdHZFVYYi9aWmdwNTZhdVVPN252QTFsb2w2VDNSVUw0aDRrLzR4RzNx?=
+ =?utf-8?B?dVpjYWh2UGZrbi83bzhsS1VCOGQ5bG1FUzBsNG5QOU84VC82Q1NBRWdtd0Q4?=
+ =?utf-8?B?czdHcFVFeEFSbEVVUTBJRjZCWUl4ZjNBZjd4dkRBV0tFL0dnYmgvSEpINEhn?=
+ =?utf-8?B?eHJuQkFPQ0NXOEtYMDd5MDVESm03U3RTcmhwbmFqK1JvV1ZqMnZxRGRiTkM4?=
+ =?utf-8?B?Z1hMTThQQmN2V2l6QUt0NXBHQ00va2licXFBNXVlZHg0MGVRQkxKN3k0TTFs?=
+ =?utf-8?B?VU1aTDlsT1RBZml2c2hlTCsrRUdEZjRzZE1LWUpQYndGVHVBMnZwV1VnQUtw?=
+ =?utf-8?B?MGZwbURBRjhFOWNMUmhmc0FGSmUvSjRXenRNNEJ4R0xTaUlCNHUyeFRUTWlQ?=
+ =?utf-8?B?VTBuUncyUk1pNno4WkZFaFFWcm9CQ1ZCcFVidFllSDZ3d09tTW4yOTFoUTQ2?=
+ =?utf-8?B?N2N0MWZyVjNVMkxmMndBNlVDaFFXMmEzZ28xWmQvRG11dkIzQ3BUM2luNCtE?=
+ =?utf-8?B?QkovNm9EZ3daRXJZZDNvUWNCZE4xeThwajUyQjQ0RUlvdEYyUVNpTVM5MHh4?=
+ =?utf-8?B?Sm0rZFFNVStOUWx3UFBaMm4rcW9URituYkVrNjNvQ25Dc1NEdWFnNGxuc0Js?=
+ =?utf-8?B?c2Zmc0pzREFKYkxiS3FXMnBlejRoRmVPN1p3TWUxTERaNmY5MXZVb05lbTM4?=
+ =?utf-8?B?K09wMVB6VUx3bG5YOWxiVXBKald0R2dyOGlYaTFWQWhFWkltUW5jZndYbnhL?=
+ =?utf-8?B?UUQwSlcwREt3ZkxqQlFrZlYweDNuUitZUnhCclUrRlJ2OUgwNVN4a2xmSjln?=
+ =?utf-8?B?Q3VvSzQvYWFFb1pCSVNtaEFaTkN6dHUxbkk3QWF3cy8xTGMwTkw1cExWQmgv?=
+ =?utf-8?B?S3dZbVNBK2lZWW5ld0JzanRMQTlKZnkzcnhqZUJEdUJ0SkRnYVNFaHo3ekpD?=
+ =?utf-8?B?WENybFdGMTRCdzFlZnY0TTlQUTl6SjdYQmRSMHlrR1FTazRDWjk1Ry93U2l6?=
+ =?utf-8?B?bFFKb2w2TVorejBkYzJVZk1FcENMQmZpVXV3OHUrY21zZFFVTXFpZHNnT082?=
+ =?utf-8?B?OW1tVXczdnlQVGlDMmE5aC80ckJjaEpUZHVESVlUZ0lLTmpXSm1nU2RVQmhP?=
+ =?utf-8?B?NmllTnBJNVBoSTRNR09TSlUxQTNCYjdyd1ZuWExCd0RSTmkvT0QxVmdMbHZo?=
+ =?utf-8?B?eTFNdlZUWFlVMTVOSFQ1NEJTazdseHk4TDJHV2tPcEkzUlhWVTFwczY2cTJ4?=
+ =?utf-8?B?MzkzdzVjWW5CekV1OHBXZnVyaXdyc3pYTEthK1BQNmJ1UkZmelZvbFMrclIx?=
+ =?utf-8?B?NVB2MnhoOFYwUFlPN2c0ZUNjQWZRcDhNdGxkaFB4ek9sdG9TeW9rVGN3RURB?=
+ =?utf-8?B?dnBRait5QklEbnpnRkdvakN2aTdVTXNjODJ5Nm5IZ1JrUlE5d2dxVis5Q2Ji?=
+ =?utf-8?B?aFVWdEJaNkJGTXljRFI3djBTRGN4MkxwRXh0TjJpOGxSQkxBcDhuUkdmUUVV?=
+ =?utf-8?B?cFdsRzkyK3NCaWh5WVplNmtwR2w3dDNqdlVBNGwrY1hmMHpoTzJObFlualgw?=
+ =?utf-8?B?MGNsK2NuZms4aG9NU3NJWnpMc3JISnMrcDVlZ3RLdWF5M2kxUHlLclpFMVpI?=
+ =?utf-8?B?SUhXeHFkZG1oU1RQUFlZdThod3hqZi9FN2E1c3M1TUs2T2FWNHlRZVdlOWNP?=
+ =?utf-8?Q?DUCTbb4UVMwDkHEOih?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2026 14:35:27.3583 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c80c8ef-ed1d-464c-63f0-08de51e7d44f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11703c3b-c8f8-42a0-13b0-08de51ec116b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2026 15:05:48.3638 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE36.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9038
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lUAQw+KMkktNxVqbleLHUDlEOCjq74jvNYghmL3rOys48O5L4UEd6uPz0TwLoqbi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7604
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,607 +177,308 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Honglei,
 
+On 1/12/26 15:14, Honglei Huang wrote:
+> 
+> Hi Christian,
+> 
+> Thank you for the `mremap` suggestion!
+> 
+> I have actually experimented with this approach, but it hits a scalability wall.
+> 
+> For example, a single Guest userptr can easily correspond to thousands of scattered VMA chunks in QEMU. Stitching them with mremap consumes thousands of map counts per allocation, quickly exhausting vm.max_map_count and making the operation inefficient due to VMA management overhead.
 
-On 2026-01-07 22:07, IVAN.LIPSKI@amd.com wrote:
-> From: Ivan Lipski <ivan.lipski@amd.com>
-> 
-> [Why & How]
-> The AMD display hardware does not use dedicated cursor planes.
-> Instead, the cursor is rendered either using the primary plane (native)
-> or an available overlay plane (overlay). This test verifies that the
-> cursor correctly falls back from native to overlay mode
-> when the underneath primary plane is incompatible.
-> It has 5 subtests:
-> 
-> rgb-to-yuv
-> Switches the primary plane to a YUV format FB and verifies that
-> the cursor falls back from primary to overlay plane. Uses CRC to verify
-> that the cursor fall back to overlay plane is successful.
-> 
-> non-full
-> Switches the primary plane to a FB that does not fill the entire CRTC, not
-> underneath the cursor to trigger the fall back from native to overlay
-> plane. Uses CRC to verify that the cursor fall back to overlay plane is
-> successful.
-> 
-> scaling-[50,75,125,150,175,200]
-> Switches the primary plane to a FB with a chosen scaling (50%-200%), which
-> is then filled in the CRTC. Uses CRC to verify that the cursor fall back
-> to overlay plane is successful.
-> 
-> max-planes
-> Enables all but one overlay planes, a primary plane and a cursor above
-> the primary plane. Then switches the primary plane to YUV to cause the
-> cursor to fall back to use an overlay plane. Uses CRC to verify that the
-> cursor fall back to overlay plane is successful.
-> 
-> no-available-planes
-> Enables all available overlay planes, a primary plane and a cursor above
-> the primary plane. Then switches the primary plane to YUV to cause the
-> cursor to fall back to overlay. Verifies that the atomic commit fails due
-> to no available overlay planes.
-> NOTE: This subtest is currently only available for DCN 2.1 & DCN 3.5 AMD
-> APU's.
-> 
-> Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+Yeah, I've also feared that this could be a problem.
 
-Thanks for the test!
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
+> After evaluating multiple options, the proposed kernel-side batching is currently the most reasonable and efficient solution found as far as I can see.
 
-- Leo
+As far as I can see that will not work either. Adding that many MMU notifiers has pretty much the same problem.
 
-> ---
->  tests/amdgpu/amd_cursor_overlay.c | 529 ++++++++++++++++++++++++++++++
->  tests/amdgpu/meson.build          |   1 +
->  2 files changed, 530 insertions(+)
->  create mode 100644 tests/amdgpu/amd_cursor_overlay.c
+The only doable way I see is that we have a new userptr IOCTL which creates an userptr BO from an array of VAs but registers the MMU notifier for the full range lowest..highest address.
+
+Can we at least assume that all addresses are in the same VMA?
+
+> I will continue to explore optimized implementations to address your
+
+To avoid work which won't be used please stop doing that until Felix and I had a chance to decide which approach to follow.
+
+Regards,
+Christian.
+
+> concerns.
 > 
-> diff --git a/tests/amdgpu/amd_cursor_overlay.c b/tests/amdgpu/amd_cursor_overlay.c
-> new file mode 100644
-> index 000000000..481219f9f
-> --- /dev/null
-> +++ b/tests/amdgpu/amd_cursor_overlay.c
-> @@ -0,0 +1,529 @@
-> +// SPDX-License-Identifier: MIT
-> +// Copyright 2025 Advanced Micro Devices, Inc.
-> +
-> +#include "igt.h"
-> +#include "igt_kms.h"
-> +#include "amdgpu_drm.h"
-> +#include "amdgpu.h"
-> +
-> +/*
-> + * Only two ASICs of FAMILY_RV are DCN 2.1.
-> + * They can be determined by their external chip revision.
-> + *
-> + * This is necessary to determine if the NO_AVAILABLE_PLANES subtest is
-> + * applicable to the ASIC under test.
-> + *
-> + * NOTE: Copied from dal_asic_id.h in AMD's display driver on Linux.
-> + */
-> +#define ASICREV_IS_RENOIR(eChipRev) ((eChipRev >= 0x91) && (eChipRev < 0xF0))
-> +#define ASICREV_IS_GREEN_SARDINE(eChipRev) ((eChipRev >= 0xA1) && (eChipRev < 0xFF))
-> +
-> +
-> +/**
-> + * TEST: amd_cursor_overlay
-> + * Category: Display
-> + * Description: Tests cursor fall back from native to overlay
-> + * Driver requirement: amdgpu
-> + */
-> +
-> +/**
-> + * SUBTEST: rgb-to-yuv
-> + * Description: Tests native cursor fall back to overlay cursor when a top plane
-> + *				switches from RGB to YUV.
-> + * SUBTEST: non-full
-> + * Description: Tests native cursor fall back to overlay cursor when a top plane
-> + *				does not fill the crtc.
-> + * SUBTEST: scaling-%d
-> + * Description: Tests native cursor fall back to overlay cursor when a top plane
-> + *				is scaled.
-> + *
-> + * arg[1].values: 50, 75, 125, 150, 175, 200
-> + *
-> + * SUBTEST: max-planes
-> + * Description: Tests native cursor fall back to overlay cursor when a top plane
-> + *				is YUV and there are all but one overlay planes are used.
-> + *
-> + * SUBTEST: no-available-planes
-> + * Description: Tests native cursor attempt to fall back to overlay cursor,
-> + *				but fails atomic commit due to no available overlay planes.
-> + */
-> +
-> +enum {
-> +	TEST_YUV = 1,
-> +	TEST_QUARTER_FB = 1 << 1,
-> +	TEST_SCALING = 1 << 2,
-> +	TEST_MAX_PLANES = 1 << 3,
-> +	TEST_NO_AVAILABLE_PLANES = 1 << 4,
-> +};
-> +
-> +typedef struct {
-> +	int x;
-> +	int y;
-> +} pos_t;
-> +
-> +/* Common test data. */
-> +typedef struct data {
-> +	igt_display_t display;
-> +	igt_plane_t *primary;
-> +	igt_plane_t *cursor;
-> +	igt_plane_t *overlays[6];
-> +	igt_output_t *output;
-> +	igt_crtc_t *pipe;
-> +	igt_pipe_crc_t *pipe_crc;
-> +	drmModeModeInfo *mode;
-> +	igt_fb_t rgb_fb;
-> +	igt_fb_t rgb_fb_o;
-> +	igt_fb_t yuv_fb;
-> +	igt_fb_t quarter_fb;
-> +	igt_fb_t scale_fb;
-> +	igt_fb_t cfb;
-> +	enum pipe pipe_id;
-> +	int drm_fd;
-> +	int available_overlay_planes;
-> +	uint64_t max_curw;
-> +	uint64_t max_curh;
-> +} data_t;
-> +
-> +/* Retuns the number of available overlay planes. */
-> +static int get_overlay_planes_count(igt_display_t *display, enum pipe pipe)
-> +{
-> +	int count = 0;
-> +	igt_plane_t *plane;
-> +
-> +	for_each_plane_on_pipe(display, pipe, plane)
-> +		if (plane->type == DRM_PLANE_TYPE_OVERLAY)
-> +			count++;
-> +
-> +	return count;
-> +}
-> +
-> +/* Sets all overlay planes to the given fb and position, then commits. */
-> +static void set_overlay_planes(data_t *data, int count, igt_fb_t *fb, int x, int y)
-> +{
-> +	for (int i = 0; i < count; i++) {
-> +		igt_plane_set_fb(data->overlays[i], fb);
-> +		igt_plane_set_position(data->overlays[i], x, y);
-> +	}
-> +	igt_display_commit_atomic(&data->display, 0, NULL);
-> +}
-> +
-> +/*
-> + * Checks the ASIC has enough overlay planes and from a supported family.
-> + *
-> + * Currently TEST_NO_AVAILABLE_PLANES subtest is only
-> + * applicable to DCN 2.1 & DCN 3.5+ APUs.
-> + */
-> +static bool can_support_all_overlay_planes(int available_overlay_planes, int family_id, int chip_rev_id)
-> +{
-> +	/* For now we only support ASICs with 3 overlay planes. */
-> +	if (available_overlay_planes != 3)
-> +		return false;
-> +
-> +	switch (family_id) {
-> +	case AMDGPU_FAMILY_RV:
-> +		return (ASICREV_IS_RENOIR(chip_rev_id) ||
-> +			ASICREV_IS_GREEN_SARDINE(chip_rev_id));
-> +	case AMDGPU_FAMILY_GC_11_5_0:
-> +		return true;
-> +	default:
-> +		return false;
-> +	}
-> +}
-> +
-> +/* Common test setup. */
-> +static void test_init(data_t *data, enum pipe pipe_id, igt_output_t *output,
-> +		      unsigned int flags, int available_overlay_planes)
-> +{
-> +	int i;
-> +
-> +	data->pipe_id = pipe_id;
-> +	data->available_overlay_planes = available_overlay_planes;
-> +	data->pipe = &data->display.pipes[data->pipe_id];
-> +	data->output = output;
-> +	data->mode = igt_output_get_mode(data->output);
-> +	data->primary = igt_pipe_get_plane_type(data->pipe, DRM_PLANE_TYPE_PRIMARY);
-> +	data->cursor = igt_pipe_get_plane_type(data->pipe, DRM_PLANE_TYPE_CURSOR);
-> +
-> +	if (flags & TEST_MAX_PLANES)
-> +		for (i = 0; i < available_overlay_planes - 1; i++)
-> +			data->overlays[i] = igt_pipe_get_plane_type_index(data->pipe,
-> +						DRM_PLANE_TYPE_OVERLAY, i);
-> +	if (flags & TEST_NO_AVAILABLE_PLANES)
-> +		for (i = 0; i < available_overlay_planes; i++)
-> +			data->overlays[i] = igt_pipe_get_plane_type_index(data->pipe,
-> +						DRM_PLANE_TYPE_OVERLAY, i);
-> +
-> +	igt_info("Using (pipe %s + %s) to run the subtest.\n",
-> +		 kmstest_pipe_name(data->pipe_id), igt_output_name(data->output));
-> +
-> +	igt_require_pipe_crc(data->drm_fd);
-> +	data->pipe_crc = igt_pipe_crc_new(data->drm_fd, data->pipe_id,
-> +					  IGT_PIPE_CRC_SOURCE_AUTO);
-> +}
-> +
-> +/* Common test finish. */
-> +static void test_fini(data_t *data)
-> +{
-> +	/* Free CRC collector first */
-> +	igt_pipe_crc_free(data->pipe_crc);
-> +
-> +	/* Clear all planes */
-> +	igt_plane_set_fb(data->primary, NULL);
-> +	igt_plane_set_fb(data->cursor, NULL);
-> +
-> +	for (int i = 0; i < data->available_overlay_planes; i++)
-> +		if (data->overlays[i])
-> +			igt_plane_set_fb(data->overlays[i], NULL);
-> +
-> +	/* Commit the cleared plane state before resetting the graph */
-> +	igt_display_commit2(&data->display, COMMIT_ATOMIC);
-> +
-> +	/* Reset the display graph after committing the null state */
-> +	igt_display_reset(&data->display);
-> +}
-> +
-> +/* Common test cleanup. */
-> +static void test_cleanup(data_t *data)
-> +{
-> +	igt_remove_fb(data->drm_fd, &data->cfb);
-> +	igt_remove_fb(data->drm_fd, &data->rgb_fb);
-> +	igt_remove_fb(data->drm_fd, &data->rgb_fb_o);
-> +	igt_remove_fb(data->drm_fd, &data->yuv_fb);
-> +	igt_remove_fb(data->drm_fd, &data->quarter_fb);
-> +	igt_remove_fb(data->drm_fd, &data->scale_fb);
-> +}
-> +
-> +
-> +static void test_cursor_pos(data_t *data, int x, int y, unsigned int flags)
-> +{
-> +	igt_crc_t ref_crc, test_crc;
-> +	cairo_t *cr;
-> +	igt_fb_t *rgb_fb = &data->rgb_fb;
-> +	igt_fb_t *rgb_fb_o = &data->rgb_fb_o;
-> +	igt_fb_t *yuv_fb = &data->yuv_fb;
-> +	igt_fb_t *quarter_fb = &data->quarter_fb;
-> +	igt_fb_t *cfb = &data->cfb;
-> +	igt_fb_t *scale_fb = &data->scale_fb;
-> +	int cw = cfb->width;
-> +	int ch = cfb->height;
-> +	int available_overlay_planes = data->available_overlay_planes;
-> +	int opp_x, opp_y, ret;
-> +
-> +	cr = igt_get_cairo_ctx(rgb_fb->fd, rgb_fb);
-> +
-> +	igt_plane_set_fb(data->primary, rgb_fb);
-> +	igt_display_commit2(&data->display, COMMIT_ATOMIC);
-> +
-> +	igt_paint_color(cr, 0, 0, rgb_fb->width, rgb_fb->height, 0.0, 0.0, 0.0);
-> +
-> +	/* Draw a magenta square where the cursor should be. */
-> +	igt_paint_color(cr, x, y, cw, ch, 1.0, 0.0, 1.0);
-> +	igt_put_cairo_ctx(cr);
-> +
-> +	/* Display the cursor. */
-> +	igt_plane_set_fb(data->cursor, cfb);
-> +	igt_plane_set_position(data->cursor, x, y);
-> +	igt_display_commit_atomic(&data->display, 0, NULL);
-> +
-> +	/* Place the overlay plane on the opposite quarter of the screen from the cursor. */
-> +	if (flags & TEST_MAX_PLANES ||
-> +	    flags & TEST_NO_AVAILABLE_PLANES ||
-> +	    flags & TEST_QUARTER_FB) {
-> +		opp_x = x < (data->mode->hdisplay / 2) ? (data->mode->hdisplay / 2) : 0;
-> +		opp_y = y < (data->mode->vdisplay / 2) ? (data->mode->vdisplay / 2) : 0;
-> +	}
-> +
-> +	if (flags & TEST_NO_AVAILABLE_PLANES) {
-> +
-> +		/* Display the overlay planes. */
-> +		set_overlay_planes(data, available_overlay_planes, rgb_fb_o, opp_x, opp_y);
-> +
-> +		/*
-> +		 * Trigger cursor fall back due to a YUV plane;
-> +		 * expect the atomic commit to fail due to no
-> +		 * available overlay planes.
-> +		 */
-> +		igt_plane_set_fb(data->primary, &data->yuv_fb);
-> +		ret = igt_display_try_commit_atomic(&data->display,
-> +			 DRM_MODE_ATOMIC_ALLOW_MODESET, 0);
-> +
-> +		/* Expected atomic commit to fail due to no available overlay planes. */
-> +		igt_assert_f(ret == -EINVAL,
-> +			"Expected commit fail due to no available overlay planes.\n");
-> +
-> +		/* Exit early. */
-> +		return;
-> +	}
-> +
-> +	/* Display the overlay planes as a reference for TEST_MAX_PLANES. */
-> +	if (flags & TEST_MAX_PLANES) {
-> +		/* Display the overlay planes. */
-> +		set_overlay_planes(data, available_overlay_planes - 1, rgb_fb_o, opp_x, opp_y);
-> +	}
-> +
-> +	/** Record a reference CRC. */
-> +	igt_pipe_crc_start(data->pipe_crc);
-> +	igt_pipe_crc_get_current(data->drm_fd, data->pipe_crc, &ref_crc);
-> +
-> +	/* Switch primary plane to YUV FB for TEST_YUV and TEST_MAX_PLANES. */
-> +	if (flags & TEST_YUV || flags & TEST_MAX_PLANES) {
-> +		igt_plane_set_fb(data->primary, yuv_fb);
-> +		igt_plane_set_position(data->primary, 0, 0);
-> +		igt_plane_set_size(data->primary, yuv_fb->width, yuv_fb->height);
-> +		igt_display_commit_atomic(&data->display, DRM_MODE_ATOMIC_ALLOW_MODESET, 0);
-> +
-> +	/* Switch primary plane to use a quarter-sized FB, opposite from cursor. */
-> +	} else if (flags & TEST_QUARTER_FB) {
-> +		igt_plane_set_fb(data->primary, quarter_fb);
-> +		igt_plane_set_position(data->primary, opp_x, opp_y);
-> +		igt_display_commit_atomic(&data->display, 0, NULL);
-> +
-> +	/* Switch primary plane to use a scaled FB. */
-> +	} else if (flags & TEST_SCALING) {
-> +		igt_plane_set_fb(data->primary, scale_fb);
-> +		igt_plane_set_position(data->primary, 0, 0);
-> +		igt_plane_set_size(data->primary, data->mode->hdisplay, data->mode->vdisplay);
-> +		igt_display_commit_atomic(&data->display, 0, NULL);
-> +	}
-> +
-> +	/*
-> +	 * Wait for one more vblank since cursor updates are not
-> +	 * synchronized to the same frame on AMD hw.
-> +	 */
-> +	if(is_amdgpu_device(data->drm_fd))
-> +		igt_wait_for_vblank_count(igt_crtc_for_pipe(&data->display, data->pipe_id), 1);
-> +
-> +	/* Record the new CRC. */
-> +	igt_pipe_crc_get_current(data->drm_fd, data->pipe_crc, &test_crc);
-> +	igt_pipe_crc_stop(data->pipe_crc);
-> +
-> +	/* CRC Check is sufficient for this test */
-> +	igt_assert_crc_equal(&ref_crc, &test_crc);
-> +}
-> +
-> +/*
-> + * Tests the cursor on a variety of positions on the screen.
-> + * Specific edge cases that should be captured here are the negative edges
-> + * of each plane and the centers.
-> + */
-> +static void test_cursor_spots(data_t *data, int size, unsigned int flags)
-> +{
-> +	int sw = data->mode->hdisplay;
-> +	int sh = data->mode->vdisplay;
-> +	int i;
-> +		const pos_t pos[] = {
-> +		/* Test diagonally from top left to bottom right. */
-> +		{ -size / 3, -size / 3 },
-> +		{ 0, 0 },
-> +		{ sw / 4 - size, sh / 4 - size },
-> +		{ sw / 4 - size / 3, sh / 4 - size / 3 },
-> +		{ sw / 4, sh / 4 },
-> +		{ sw / 4 + size, sh / 4 + size },
-> +		{ sw / 2, sh / 2 },
-> +		{ sw / 4 + sw / 2 - size, sh / 4 + sh / 2 - size },
-> +		{ sw / 4 + sw / 2 - size / 3, sh / 4 + sh / 2 - size / 3 },
-> +		{ sw / 4 + sw / 2 + size, sh / 4 + sh / 2 + size },
-> +		{ sw - size, sh - size },
-> +		{ sw - size / 3, sh - size / 3 },
-> +		/* Test remaining corners. */
-> +		{ sw - size, 0 },
-> +		{ 0, sh - size },
-> +		{ sw / 4 + sw / 2 - size, sh / 4 },
-> +		{ sw / 4, sh / 4 + sh / 2 - size }
-> +	};
-> +
-> +	for (i = 0; i < ARRAY_SIZE(pos); ++i)
-> +		test_cursor_pos(data, pos[i].x, pos[i].y, flags);
-> +}
-> +
-> +static void test_cursor(data_t *data, int size, unsigned int flags, unsigned int scaling_factor)
-> +{
-> +	int sw, sh;
-> +
-> +	igt_skip_on(size > data->max_curw || size > data->max_curh);
-> +
-> +	sw = data->mode->hdisplay;
-> +	sh = data->mode->vdisplay;
-> +
-> +	test_cleanup(data);
-> +
-> +	/* Create primary FB. */
-> +	igt_create_color_fb(data->drm_fd, sw, sh, DRM_FORMAT_XRGB8888,
-> +			    DRM_FORMAT_MOD_LINEAR, 0.0, 0.0, 0.0, &data->rgb_fb);
-> +
-> +	/* Create cursor FB. */
-> +	igt_create_color_fb(data->drm_fd, size, size, DRM_FORMAT_ARGB8888,
-> +				DRM_FORMAT_MOD_LINEAR, 1.0, 0.0, 1.0, &data->cfb);
-> +
-> +	/* Create YUV FB for RGB-to-YUV, MAX_PLANES and NO_AVAILABLE_PLANES subtests */
-> +	if (flags & TEST_YUV ||
-> +	    flags & TEST_MAX_PLANES ||
-> +	    flags & TEST_NO_AVAILABLE_PLANES)
-> +		igt_create_fb(data->drm_fd, sw, sh, DRM_FORMAT_NV12,
-> +					DRM_FORMAT_MOD_NONE, &data->yuv_fb);
-> +
-> +	/* Create a quarter-sized FB. */
-> +	if (flags & TEST_QUARTER_FB)
-> +		igt_create_color_fb(data->drm_fd, sw / 2, sh / 2, DRM_FORMAT_XRGB8888,
-> +					DRM_FORMAT_MOD_LINEAR, 0.0, 0.0, 0.0, &data->quarter_fb);
-> +
-> +	/* Create a FB for scaling. */
-> +	if (flags & TEST_SCALING)
-> +		igt_create_color_fb(data->drm_fd, (sw * scaling_factor) / 100, (sh * scaling_factor) / 100, DRM_FORMAT_XRGB8888,
-> +					DRM_FORMAT_MOD_LINEAR, 0.0, 0.0, 0.0, &data->scale_fb);
-> +
-> +	/*
-> +	 * Create RGB FB for overlay planes for MAX_PLANES and
-> +	 * NO_AVAILABLE_PLANES subtests.
-> +	 *
-> +	 * The overlay FB size is quarter the screen size to ensure that
-> +	 * the cursor can be placed on the primary plane to trigger fall back.
-> +	 */
-> +	if (flags & TEST_MAX_PLANES || flags & TEST_NO_AVAILABLE_PLANES) {
-> +		/* Create RGB FB for overlay planes. */
-> +		igt_create_color_fb(data->drm_fd, sw / 2, sh / 2, DRM_FORMAT_XRGB8888,
-> +					DRM_FORMAT_MOD_LINEAR, 0.0, 1.0, 0.0, &data->rgb_fb_o);
-> +	}
-> +
-> +	igt_output_set_crtc(data->output,
-> +		igt_crtc_for_pipe(data->output->display, data->pipe_id));
-> +
-> +	/* Run the test for different cursor spots. */
-> +	test_cursor_spots(data, size, flags);
-> +}
-> +
-> +int igt_main()
-> +{
-> +	static const int cursor_sizes[] = { 64, 128, 256 };
-> +	data_t data = { .max_curw = 64, .max_curh = 64 };
-> +	enum pipe pipe;
-> +	igt_output_t *output;
-> +	igt_display_t *display;
-> +	int i, j, available_overlay_planes;
-> +	int ret, err, family_id, chip_rev_id;
-> +	uint32_t major, minor;
-> +	amdgpu_device_handle device;
-> +	struct amdgpu_gpu_info gpu_info = {0};
-> +	struct {
-> +		const char *name;
-> +		unsigned int flags;
-> +		unsigned int scale_factor;
-> +		const char *desc;
-> +	} tests[] = {
-> +		{ "rgb-to-yuv", TEST_YUV, 100,
-> +		"Tests native cursor fall back to overlay cursor when a top plane switches from RGB to YUV" },
-> +		{"non-full", TEST_QUARTER_FB, 100,
-> +		"Tests native cursor fall back to overlay cursor when a top plane does not fill the crtc"},
-> +		{"max-planes", TEST_MAX_PLANES, 100,
-> +		"Tests native cursor fall back to overlay cursor when a top plane is YUV and there are all but one overlay planes used."},
-> +		{"no-available-planes", TEST_NO_AVAILABLE_PLANES, 100,
-> +		"Tests native cursor attempt to fall back to overlay cursor required, but fails atomic commit due to no available overlay planes."},
-> +		{"scaling-50", TEST_SCALING, 50,
-> +		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-> +		{"scaling-75", TEST_SCALING, 75,
-> +		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-> +		{"scaling-125", TEST_SCALING, 125,
-> +		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-> +		{"scaling-150", TEST_SCALING, 150,
-> +		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-> +		{"scaling-175", TEST_SCALING, 175,
-> +		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-> +		{"scaling-200", TEST_SCALING, 200,
-> +		"Tests native cursor fall back to overlay cursor when a top plane is scaled"},
-> +	};
-> +
-> +	igt_fixture() {
-> +
-> +		/* Initialize the driver and retrieve GPU info. */
-> +		data.drm_fd = drm_open_driver_master(DRIVER_AMDGPU);
-> +		err = amdgpu_device_initialize(data.drm_fd, &major, &minor, &device);
-> +		igt_require(err == 0);
-> +
-> +		err = amdgpu_query_gpu_info(device, &gpu_info);
-> +		igt_require(err == 0);
-> +
-> +		family_id = gpu_info.family_id;
-> +		chip_rev_id = gpu_info.chip_external_rev;
-> +
-> +		igt_display_require(&data.display, data.drm_fd);
-> +		igt_require(data.display.is_atomic);
-> +		igt_display_require_output(&data.display);
-> +		display = &data.display;
-> +
-> +		ret = drmGetCap(data.drm_fd, DRM_CAP_CURSOR_WIDTH, &data.max_curw);
-> +		igt_assert(ret == 0 || errno == EINVAL);
-> +		ret = drmGetCap(data.drm_fd, DRM_CAP_CURSOR_HEIGHT, &data.max_curh);
-> +		igt_assert(ret == 0 || errno == EINVAL);
-> +
-> +		kmstest_set_vt_graphics_mode();
-> +	}
-> +
-> +
-> +	for (i = 0; i < ARRAY_SIZE(tests); i++) {
-> +		igt_describe_f("%s", tests[i].desc);
-> +		igt_subtest_with_dynamic_f("%s", tests[i].name) {
-> +
-> +			/*
-> +			 * Skip YUV, MAX_PLANES and NO_AVAILABLE_PLANES subtests
-> +			 * if YUV is not supported.
-> +			 */
-> +			if (tests[i].flags & TEST_YUV ||
-> +			    tests[i].flags & TEST_MAX_PLANES ||
-> +			    tests[i].flags & TEST_NO_AVAILABLE_PLANES)
-> +				igt_require(igt_display_has_format_mod(display,
-> +							DRM_FORMAT_NV12,
-> +							DRM_FORMAT_MOD_LINEAR));
-> +
-> +			for_each_pipe_with_single_output(&data.display, pipe, output) {
-> +
-> +				igt_display_reset(display);
-> +				igt_output_set_crtc(output,
-> +					igt_crtc_for_pipe(output->display, pipe));
-> +
-> +				available_overlay_planes = get_overlay_planes_count(display, pipe);
-> +
-> +				/* Require at least one overlay plane. */
-> +				if (!available_overlay_planes)
-> +					igt_skip("%s subtest requires at least 1 overlay plane.\n",
-> +						 tests[i].name);
-> +
-> +				/*
-> +				 * For now, NO_AVAILABLE_PLANES substest is only appropriate for
-> +				 * AMD ASICs with 3 overlay planes and with DCN 2.1 & 3.5+ APU's.
-> +				 */
-> +				if (tests[i].flags & TEST_NO_AVAILABLE_PLANES &&
-> +				    !can_support_all_overlay_planes(available_overlay_planes, family_id, chip_rev_id))
-> +					igt_skip("%s subtest requires 3 overlay planes with a supported DCN.\n",
-> +						 tests[i].name);
-> +
-> +				test_init(&data, pipe, output, tests[i].flags, available_overlay_planes);
-> +
-> +				for (j = 0; j < ARRAY_SIZE(cursor_sizes); j++) {
-> +					int size = cursor_sizes[j];
-> +
-> +					igt_dynamic_f("pipe-%s-%s-size-%d",
-> +						      kmstest_pipe_name(pipe),
-> +						      igt_output_name(output),
-> +						      size)
-> +						test_cursor(&data, size, tests[i].flags, tests[i].scale_factor);
-> +
-> +					test_cleanup(&data);
-> +				}
-> +
-> +				test_fini(&data);
-> +
-> +				/* Detach output and commit a clean state before moving to the next subtest */
-> +				igt_output_set_crtc(output, NULL);
-> +				igt_display_commit2(&data.display, COMMIT_ATOMIC);
-> +			}
-> +		}
-> +	}
-> +
-> +	igt_fixture() {
-> +
-> +		igt_display_reset(&data.display);
-> +		igt_display_commit2(&data.display, COMMIT_ATOMIC);
-> +		igt_display_fini(&data.display);
-> +		drm_close_driver(data.drm_fd);
-> +	}
-> +}
-> diff --git a/tests/amdgpu/meson.build b/tests/amdgpu/meson.build
-> index b718699f1..01c8b4fec 100644
-> --- a/tests/amdgpu/meson.build
-> +++ b/tests/amdgpu/meson.build
-> @@ -12,6 +12,7 @@ if libdrm_amdgpu.found()
->  			  'amd_color',
->  			  'amd_cp_dma_misc',
->  			  'amd_cs_nop',
-> +			  'amd_cursor_overlay',
->  			  'amd_deadlock',
->  			  'amd_dp_dsc',
->  			  'amd_freesync_video_mode',
+> Regards,
+> Honglei
+> 
+> 
+> On 2026/1/12 21:14, Christian König wrote:
+>> Hi Honglei,
+>>
+>> On 1/12/26 13:57, Honglei Huang wrote:
+>>>
+>>> Yes, you are absolutely correct. The use case is exactly userptr handling in QEMU for KFD SVM support.
+>>
+>> Well userptr and at least HMM based SVM are two completely different things, but I think your use case is just to import selected pages from the guest as userptr into the driver instance on the host side, correct?
+>>
+>>>> "What we could potentially do is to create an userptr which is not backed by a range in the user space VA, but rather individual offsets."
+>>>
+>>> I'm very interested in understanding how to implement this "single object with individual offsets" pattern properly.
+>>>
+>>> Since standard `mmu_interval_notifier` is designed for contiguous VA ranges, my main question is how to handle invalidation for a set of scattered offsets
+>>
+>> Yeah exactly that's the point: This is use case is not supported at all by MMU notifiers!
+>>
+>> MMU notifiers are designed to have a handful of ranges to invalidate, and *not* individual pages. So even the core Linux components can't handle this use case efficiently.
+>>
+>> We would need to modify the MMU notifiers to do this and that is extremely unlikely to happen.
+>>
+>> What could maybe work is to avoid the problem from a complete different direction. mremap() can be used in userspace to make scattered VA addresses look linear.
+>>
+>> See the MREMAP_DONTUNMAP flag to the mremap() system call here: https://www.man7.org/linux/man-pages/man2/mremap.2.html
+>>
+>> So what could be done is to instead of giving the driver hundreds of different userptr VAs to map into a single buffer map them in userspace into a linear VA and then use that instead.
+>>
+>>> with a single notifier:
+>>>
+>>> 1. Notifier Registration: Would we register a single notifier covering the entire min-to-max VA span of all offsets? Or is there a way to make a notifier aware of a non-contiguous list?
+>>>
+>>> 2. Structure: Should we introduce a new `kgd_mem` variants that holds a scatter-list of `(va, size)` pairs instead of `(start, size)`?
+>>
+>> Please drop any plan to implement this in the KFD interface. I think both Felix and I agree that this isn't feasible any more.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>>
+>>> Regards,
+>>> Honglei
+>>>
+>>> On 2026/1/12 18:12, Christian König wrote:
+>>>> Hi Honglei,
+>>>>
+>>>> as far as I can see this is only very very trickily doable.
+>>>>
+>>>> What exactly is the use case for this? Userptr handling in QEMU?
+>>>>
+>>>> What we could potentially do is to create an userptr which is not backed by a range in the user space VA, but rather individual offsets.
+>>>>
+>>>> And yes in general you need a single MMU notifier for this, but the notifier mechanism is actually not really made for this use case.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>> On 1/10/26 03:30, Honglei Huang wrote:
+>>>>>
+>>>>> Hi Christian,
+>>>>>
+>>>>> Thank you for reviewing the patch. You mentioned the MMU notifier range
+>>>>> handling is incorrect - I'd really appreciate your guidance on what the
+>>>>> proper approach should be.
+>>>>>
+>>>>> Specifically, could you help me understand what's wrong with the current
+>>>>> implementation:
+>>>>>
+>>>>> 1. Is the per-range mmu_interval_notifier approach fundamentally flawed?
+>>>>> 2. Should multiple ranges be handled with a single notifier instead?
+>>>>> 3. Is there a different mechanism I should be using for scattered userptr ranges?
+>>>>> 4. Are there locking or synchronization issues I'm missing?
+>>>>>
+>>>>> I want to understand if this is:
+>>>>> - A fixable implementation issue where I can correct the approach and resubmit, or
+>>>>> - A fundamentally wrong direction where I should pursue a different solution entirely
+>>>>>
+>>>>> Either way, I'd value your technical guidance on the correct approach for
+>>>>> handling multiple non-contiguous userptr ranges, as the underlying performance
+>>>>> problem in virtualized environments is something I need to solve.
+>>>>>
+>>>>> Thanks for your time,
+>>>>>
+>>>>> Regards,
+>>>>> Honglei Huang
+>>>>> On 2026/1/9 17:07, Christian König wrote:
+>>>>>> Hi Honglei,
+>>>>>>
+>>>>>> I have to agree with Felix. Adding such complexity to the KFD API is a clear no-go from my side.
+>>>>>>
+>>>>>> Just skimming over the patch it's obvious that this isn't correctly implemented. You simply can't the MMU notifier ranges likes this.
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>> On 1/9/26 08:55, Honglei Huang wrote:
+>>>>>>>
+>>>>>>> Hi Felix,
+>>>>>>>
+>>>>>>> Thank you for the feedback. I understand your concern about API maintenance.
+>>>>>>>
+>>>>>>>    From what I can see, KFD is still the core driver for all GPU compute workloads. The entire compute ecosystem is built on KFD's infrastructure and continues to rely on it. While the unification work is ongoing, any transition to DRM render node APIs would naturally take considerable time, and KFD is expected to remain the primary interface for compute for the foreseeable future. This batch allocation issue is affecting performance in some specific computing scenarios.
+>>>>>>>
+>>>>>>> You're absolutely right about the API proliferation concern. Based on your feedback, I'd like to revise the approach for v3 to minimize impact by reusing the existing ioctl instead of adding a new API:
+>>>>>>>
+>>>>>>> - Reuse existing AMDKFD_IOC_ALLOC_MEMORY_OF_GPU ioctl
+>>>>>>> - Add one flag: KFD_IOC_ALLOC_MEM_FLAGS_USERPTR_BATCH
+>>>>>>> - When flag is set, mmap_offset field points to range array
+>>>>>>> - No new ioctl command, no new structure
+>>>>>>>
+>>>>>>> This changes the API surface from adding a new ioctl to adding just one flag.
+>>>>>>>
+>>>>>>> Actually the implementation modifies DRM's GPU memory management
+>>>>>>> infrastructure in amdgpu_amdkfd_gpuvm.c. If DRM render node needs similar functionality later, these functions could be directly reused.
+>>>>>>>
+>>>>>>> Would you be willing to review v3 with this approach?
+>>>>>>>
+>>>>>>> Regards,
+>>>>>>> Honglei Huang
+>>>>>>>
+>>>>>>> On 2026/1/9 03:46, Felix Kuehling wrote:
+>>>>>>>> I don't have time to review this in detail right now. I am concerned about adding new KFD API, when the trend is moving towards DRM render node APIs. This creates additional burden for ongoing support of these APIs in addition to the inevitable DRM render node duplicates we'll have in the future. Would it be possible to implement this batch userptr allocation in a render node API from the start?
+>>>>>>>>
+>>>>>>>> Regards,
+>>>>>>>>       Felix
+>>>>>>>>
+>>>>>>>>
+>>>>>>>> On 2026-01-04 02:21, Honglei Huang wrote:
+>>>>>>>>> From: Honglei Huang <honghuan@amd.com>
+>>>>>>>>>
+>>>>>>>>> Hi all,
+>>>>>>>>>
+>>>>>>>>> This is v2 of the patch series to support allocating multiple non- contiguous
+>>>>>>>>> CPU virtual address ranges that map to a single contiguous GPU virtual address.
+>>>>>>>>>
+>>>>>>>>> **Key improvements over v1:**
+>>>>>>>>> - NO memory pinning: uses HMM for page tracking, pages can be swapped/ migrated
+>>>>>>>>> - NO impact on SVM subsystem: avoids complexity during KFD/KGD unification
+>>>>>>>>> - Better approach: userptr's VA remapping design is ideal for scattered VA registration
+>>>>>>>>>
+>>>>>>>>> Based on community feedback, v2 takes a completely different implementation
+>>>>>>>>> approach by leveraging the existing userptr infrastructure rather than
+>>>>>>>>> introducing new SVM-based mechanisms that required memory pinning.
+>>>>>>>>>
+>>>>>>>>> Changes from v1
+>>>>>>>>> ===============
+>>>>>>>>>
+>>>>>>>>> v1 attempted to solve this problem through the SVM subsystem by:
+>>>>>>>>> - Adding a new AMDKFD_IOC_SVM_RANGES ioctl for batch SVM range registration
+>>>>>>>>> - Introducing KFD_IOCTL_SVM_ATTR_MAPPED attribute for special VMA handling
+>>>>>>>>> - Using pin_user_pages_fast() to pin scattered memory ranges
+>>>>>>>>> - Registering multiple SVM ranges with pinned pages
+>>>>>>>>>
+>>>>>>>>> This approach had significant drawbacks:
+>>>>>>>>> 1. Memory pinning defeated the purpose of HMM-based SVM's on-demand paging
+>>>>>>>>> 2. Added complexity to the SVM subsystem
+>>>>>>>>> 3. Prevented memory oversubscription and dynamic migration
+>>>>>>>>> 4. Could cause memory pressure due to locked pages
+>>>>>>>>> 5. Interfered with NUMA optimization and page migration
+>>>>>>>>>
+>>>>>>>>> v2 Implementation Approach
+>>>>>>>>> ==========================
+>>>>>>>>>
+>>>>>>>>> 1. **No memory pinning required**
+>>>>>>>>>        - Uses HMM (Heterogeneous Memory Management) for page tracking
+>>>>>>>>>        - Pages are NOT pinned, can be swapped/migrated when not in use
+>>>>>>>>>        - Supports dynamic page eviction and on-demand restore like standard userptr
+>>>>>>>>>
+>>>>>>>>> 2. **Zero impact on KFD SVM subsystem**
+>>>>>>>>>        - Extends ALLOC_MEMORY_OF_GPU path, not SVM
+>>>>>>>>>        - New ioctl: AMDKFD_IOC_ALLOC_MEMORY_OF_GPU_BATCH
+>>>>>>>>>        - Zero changes to SVM code, limited scope of changes
+>>>>>>>>>
+>>>>>>>>> 3. **Perfect fit for non-contiguous VA registration**
+>>>>>>>>>        - Userptr design naturally supports GPU VA != CPU VA mapping
+>>>>>>>>>        - Multiple non-contiguous CPU VA ranges -> single contiguous GPU VA
+>>>>>>>>>        - Unlike KFD SVM which maintains VA identity, userptr allows remapping,
+>>>>>>>>>          This VA remapping capability makes userptr ideal for scattered allocations
+>>>>>>>>>
+>>>>>>>>> **Implementation Details:**
+>>>>>>>>>        - Each CPU VA range gets its own mmu_interval_notifier for invalidation
+>>>>>>>>>        - All ranges validated together and mapped to contiguous GPU VA
+>>>>>>>>>        - Single kgd_mem object with array of user_range_info structures
+>>>>>>>>>        - Unified eviction/restore path for all ranges in a batch
+>>>>>>>>>
+>>>>>>>>> Patch Series Overview
+>>>>>>>>> =====================
+>>>>>>>>>
+>>>>>>>>> Patch 1/4: Add AMDKFD_IOC_ALLOC_MEMORY_OF_GPU_BATCH ioctl and data structures
+>>>>>>>>>         - New ioctl command and kfd_ioctl_userptr_range structure
+>>>>>>>>>         - UAPI for userspace to request batch userptr allocation
+>>>>>>>>>
+>>>>>>>>> Patch 2/4: Extend kgd_mem for batch userptr support
+>>>>>>>>>         - Add user_range_info and associated fields to kgd_mem
+>>>>>>>>>         - Data structures for tracking multiple ranges per allocation
+>>>>>>>>>
+>>>>>>>>> Patch 3/4: Implement batch userptr allocation and management
+>>>>>>>>>         - Core functions: init_user_pages_batch(), get_user_pages_batch()
+>>>>>>>>>         - Per-range eviction/restore handlers with unified management
+>>>>>>>>>         - Integration with existing userptr eviction/validation flows
+>>>>>>>>>
+>>>>>>>>> Patch 4/4: Wire up batch userptr ioctl handler
+>>>>>>>>>         - Ioctl handler with input validation
+>>>>>>>>>         - SVM conflict checking for GPU VA and CPU VA ranges
+>>>>>>>>>         - Integration with kfd_process and process_device infrastructure
+>>>>>>>>>
+>>>>>>>>> Performance Comparison
+>>>>>>>>> ======================
+>>>>>>>>>
+>>>>>>>>> Before implementing this patch, we attempted a userspace solution that makes
+>>>>>>>>> multiple calls to the existing AMDKFD_IOC_ALLOC_MEMORY_OF_GPU ioctl to
+>>>>>>>>> register non-contiguous VA ranges individually. This approach resulted in
+>>>>>>>>> severe performance degradation:
+>>>>>>>>>
+>>>>>>>>> **Userspace Multiple ioctl Approach:**
+>>>>>>>>> - Benchmark score: ~80,000 (down from 200,000 on bare metal)
+>>>>>>>>> - Performance loss: 60% degradation
+>>>>>>>>>
+>>>>>>>>> **This Kernel Batch ioctl Approach:**
+>>>>>>>>> - Benchmark score: 160,000 - 190,000 (80%-95% of bare metal)
+>>>>>>>>> - Performance improvement: 2x-2.4x faster than userspace approach
+>>>>>>>>> - Achieves near-native performance in virtualized environments
+>>>>>>>>>
+>>>>>>>>> The batch registration in kernel avoids the repeated syscall overhead and
+>>>>>>>>> enables efficient unified management of scattered VA ranges, recovering most
+>>>>>>>>> of the performance lost to virtualization.
+>>>>>>>>>
+>>>>>>>>> Testing Results
+>>>>>>>>> ===============
+>>>>>>>>>
+>>>>>>>>> The series has been tested with:
+>>>>>>>>> - Multiple scattered malloc() allocations (2-4000+ ranges)
+>>>>>>>>> - Various allocation sizes (4KB to 1G+ per range)
+>>>>>>>>> - GPU compute workloads using the batch-allocated ranges
+>>>>>>>>> - Memory pressure scenarios and eviction/restore cycles
+>>>>>>>>> - OpenCL CTS in KVM guest environment
+>>>>>>>>> - HIP catch tests in KVM guest environment
+>>>>>>>>> - AI workloads: Stable Diffusion, ComfyUI in virtualized environments
+>>>>>>>>> - Small LLM inference (3B-7B models) using HuggingFace transformers
+>>>>>>>>>
+>>>>>>>>> Corresponding userspace patche
+>>>>>>>>> ================================
+>>>>>>>>> Userspace ROCm changes for new ioctl:
+>>>>>>>>> - libhsakmt: https://github.com/ROCm/rocm-systems/commit/ ac21716e5d6f68ec524e50eeef10d1d6ad7eae86
+>>>>>>>>>
+>>>>>>>>> Thank you for your review and waiting for the feedback.
+>>>>>>>>>
+>>>>>>>>> Best regards,
+>>>>>>>>> Honglei Huang
+>>>>>>>>>
+>>>>>>>>> Honglei Huang (4):
+>>>>>>>>>       drm/amdkfd: Add batch userptr allocation UAPI
+>>>>>>>>>       drm/amdkfd: Extend kgd_mem for batch userptr support
+>>>>>>>>>       drm/amdkfd: Implement batch userptr allocation and management
+>>>>>>>>>       drm/amdkfd: Wire up batch userptr ioctl handler
+>>>>>>>>>
+>>>>>>>>>      drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  21 +
+>>>>>>>>>      .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 543 +++++++++++++++++-
+>>>>>>>>>      drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 159 +++++
+>>>>>>>>>      include/uapi/linux/kfd_ioctl.h                |  37 +-
+>>>>>>>>>      4 files changed, 740 insertions(+), 20 deletions(-)
+>>>>>>>>>
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
+> 
 
