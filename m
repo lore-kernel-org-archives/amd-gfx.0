@@ -4,70 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33A1CD25050
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jan 2026 08:32:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15EA3D232D7
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jan 2026 09:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3B7D10E306;
-	Mon, 12 Jan 2026 08:32:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 472B610E083;
+	Mon, 12 Jan 2026 09:43:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="DgDVv7+N";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="kgS/AYlw";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2ED10E009;
- Sun, 11 Jan 2026 22:35:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=85a7PrT0zgtz96jS4pRWuysfpQ780Eq5/9sjyOwO120=; b=DgDVv7+Nsz6PtaysJzaqZ6PHpD
- 7eUBRGwOGYg9vHMBVIIPRyiBnuK76spGj3oXGGj4wyZX6r9oSGMmnZMYwWnWBiZ1rsCyNHXnn/f2D
- pG9odPnA+wDKBP7AaT6hVx/Qw9COSWSROCEpkSZ7f9xAUG3jNo3/Q8MyXGSwhueXWLlKS1h4mINFP
- tkajdWvGC1JmwhHglaEtAwZA+VRaFUNjOp0M1oggFAASNkZRm0WT5lB4Uyn7kVavnYAkCwaCqq7YL
- sz0+a7OdQLxR4KwcjKCIJTe2EekXRoEuSZH9JJPqycDT5s/znS4lx8ndXQg4tuCRgX8duH0UlsxPa
- j2NF+t2w==;
-Received: from willy by casper.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1vf41z-00000002OPX-35go;
- Sun, 11 Jan 2026 22:35:31 +0000
-Date: Sun, 11 Jan 2026 22:35:31 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Francois Dugast <francois.dugast@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>, Zi Yan <ziy@nvidia.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Balbir Singh <balbirs@nvidia.com>,
- Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R . Howlett" <Liam.Howlett@oracle.com>,
- Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Alistair Popple <apopple@nvidia.com>, linuxppc-dev@lists.ozlabs.org,
- kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-pci@vger.kernel.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org
-Subject: Re: [PATCH v4 1/7] mm/zone_device: Add order argument to folio_free
- callback
-Message-ID: <aWQlsyIVVGpCvB3y@casper.infradead.org>
-References: <20260111205820.830410-1-francois.dugast@intel.com>
- <20260111205820.830410-2-francois.dugast@intel.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D46010E035;
+ Mon, 12 Jan 2026 09:43:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1768211029; x=1799747029;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=hFYjGeENMmJdLOhWkBSt6iYzYmiySYP8v4Ssk0NNA7A=;
+ b=kgS/AYlw2hxRjralxOlCjWWd5l8FUkTtpdBgjaK6GlapTQLlnf+YS1UR
+ +iYO7G8r3BIzic+FUDS7xD5s5nePpAIchBDLrGW4mNtKnGpT4enFduu7A
+ CyE25eQQQEJ2zQvmRSeHkFkAXfiBYI2X3Cmp7BYgMIWaWsD16Qwzst8+w
+ 40LIByiYJc2S74YSpLEITVrXYGEcLDxxr6LPS/lEhyiVGyICWyxg3PRYg
+ 2wj8T4+x1h8503eYKYAXulNZnSRcZtcJ8vMC+tT7j+307n2j9ZrGNUXrU
+ 9W4fmQXCSD5TE+cBeU5l8acivLj45P8vUnWMMmZl7e823jocylImDV+Pj A==;
+X-CSE-ConnectionGUID: JO9T+cIeT76PAEWLhttnOw==
+X-CSE-MsgGUID: NlIe/cTDRgWka/Vu2j17cw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11668"; a="80848540"
+X-IronPort-AV: E=Sophos;i="6.21,219,1763452800"; d="scan'208";a="80848540"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2026 01:43:48 -0800
+X-CSE-ConnectionGUID: xTCsY2C6Qda7frW4ZnkaaQ==
+X-CSE-MsgGUID: WEhYTkkMQF22ETdVgDQkgg==
+X-ExtLoop1: 1
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO [10.245.245.87])
+ ([10.245.245.87])
+ by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2026 01:43:45 -0800
+Message-ID: <4d76d9f8-0cf1-46b0-bced-8d6e71ff322b@intel.com>
+Date: Mon, 12 Jan 2026 09:43:43 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260111205820.830410-2-francois.dugast@intel.com>
-X-Mailman-Approved-At: Mon, 12 Jan 2026 08:32:08 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: drm: add maintainers for DRM buddy allocator
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, airlied@gmail.com, simona@ffwll.ch
+References: <20260112072447.299685-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260112072447.299685-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,20 +71,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jan 11, 2026 at 09:55:40PM +0100, Francois Dugast wrote:
-> The core MM splits the folio before calling folio_free, restoring the
-> zone pages associated with the folio to an initialized state (e.g.,
-> non-compound, pgmap valid, etc...). The order argument represents the
-> folio’s order prior to the split which can be used driver side to know
-> how many pages are being freed.
+On 12/01/2026 07:24, Arunpravin Paneer Selvam wrote:
+> The DRM buddy allocator is a shared DRM memory management
+> component used by multiple DRM drivers.
+> 
+> Matthew Auld and Arun Pravin have been actively involved in
+> maintaining this code, including patch review and functional
+> changes.
+> 
+> Add a dedicated MAINTAINERS entry to reflect the current
+> maintainership.
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   MAINTAINERS | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 6169bd4d7bac..3cd69f6905ae 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8780,6 +8780,16 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+>   F:	drivers/gpu/drm/ttm/
+>   F:	include/drm/ttm/
+>   
+> +DRM BUDDY ALLOCATOR
+> +M:	Matthew Auld <matthew.auld@intel.com>
+> +M:	Arun Pravin <arunpravin.paneerselvam@amd.com>
+> +R:	Christian Koenig <christian.koenig@amd.com>
+> +L:	dri-devel@lists.freedesktop.org
+> +S:	Maintained
+> +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+> +F:	drivers/gpu/drm/drm_buddy.c
+> +F:	include/drm/drm_buddy.h
 
-This really feels like the wrong way to fix this problem.
+I guess we should also add:
 
-I think someone from the graphics side really needs to take the lead on
-understanding what the MM is doing (both currently and in the future).
-I'm happy to work with you, but it feels like there's a lot of churn right
-now because there's a lot of people working on this without understanding
-the MM side of things (and conversely, I don't think (m)any people on the
-MM side really understand what graphics cards are trying to accomplish).
+drivers/gpu/drm/tests/drm_buddy_test.c
 
-Who is that going to be?  I'm happy to get on the phone with someone.
+?
+
+Acked-by: Matthew Auld <matthew.auld@intel.com>
+
+> +
+>   DRM AUTOMATED TESTING
+>   M:	Helen Koike <helen.fornazier@gmail.com>
+>   M:	Vignesh Raman <vignesh.raman@collabora.com>
+
