@@ -4,107 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 674E8C9EC90
-	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jan 2026 14:07:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81BFFC9EC90
+	for <amd-gfx@archiver.kernel.org>; Mon, 12 Jan 2026 14:10:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E64E010E3DA;
-	Mon, 12 Jan 2026 14:07:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFD6210E3DF;
+	Mon, 12 Jan 2026 14:10:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="kYoloAIh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KjrDl3j+";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EB8F10E3DA
- for <amd-gfx@lists.freedesktop.org>; Mon, 12 Jan 2026 14:07:48 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 60C3a2lo009533;
- Mon, 12 Jan 2026 14:07:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=RXr4yXuDWeq77LKR1
- oi440ztCfC+6sPoPTU25dlQV7c=; b=kYoloAIhhoAeHHutw3ehBF6dTMmadp7Nj
- JrBaKQg8E1ZVECLxen8R9HYGM7JkPr5+ez8W1wU1vZd3FTaQE/pSI0+MQrQxadcO
- iaYJNqi4GfxS/jGGKkxpg8mrS+3nKwheNmG1rpvq5P1p9i01USFXsnYNUDGOi0CA
- +IMy7MfeeUhaqZd+GiVMz/tOCR73dMtL7ICQrLRfDoOoRRfLlp8u/TjvU9DT57NH
- 7jqFPY1uTcZh1DMMPv54mVVmYc4MKu9wZ+d+bji3fsnGYBXNWr+OIt+hcjj6YAS8
- /fN/TZOLrxzzmOMrVC2odghAc8mzmUjRoqz+MH7/90z/ZUJ9Iq1gg==
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4bkeg47b7s-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Jan 2026 14:07:46 +0000 (GMT)
-Received: from m0356517.ppops.net (m0356517.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 60CDuKsM016289;
- Mon, 12 Jan 2026 14:07:46 GMT
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4bkeg47b7k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Jan 2026 14:07:46 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 60CD39O6014278;
- Mon, 12 Jan 2026 14:07:44 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4bm1fxxdfs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 12 Jan 2026 14:07:44 +0000
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com
- [10.20.54.106])
- by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 60CE7eK556492316
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 12 Jan 2026 14:07:40 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8E13E20043;
- Mon, 12 Jan 2026 14:07:40 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id ADE6D20040;
- Mon, 12 Jan 2026 14:07:37 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.in.ibm.com (unknown
- [9.109.215.183])
- by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Mon, 12 Jan 2026 14:07:37 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- Mukesh Kumar Chaurasiya <mkchauras@linux.ibm.com>,
- donettom@linux.ibm.com, Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH v2 3/3] drm/amdkfd: Fix GART PTE for non-4K pagesize in
- svm_migrate_gart_map()
-Date: Mon, 12 Jan 2026 19:36:56 +0530
-Message-ID: <25f33ef289e8d5f5290082010ccb22a22b6323e8.1768223974.git.donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1768223974.git.donettom@linux.ibm.com>
-References: <cover.1768223974.git.donettom@linux.ibm.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFD2410E3DE;
+ Mon, 12 Jan 2026 14:10:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6EAC842AFD;
+ Mon, 12 Jan 2026 14:10:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7771EC16AAE;
+ Mon, 12 Jan 2026 14:10:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1768227033;
+ bh=CfNJPE1nl/7o5k/wDQ4X6fS/hd3zNOqhNxuVfUQZkxU=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=KjrDl3j+2AfjB9/eZ36YStEGgwjSiXVe0+Pb69beUBaY10cZ2oknCPZw45Rps7xOa
+ kJjjWD4HPlHmXqKBtSM+nzIF2xjYyDo0nccIJ1c1tuRaiDadE9PljcA9NRhizaO0Ib
+ HNTimgli+moD6ttdkwJuNE7EGywiKVSTUMx/pMonxrpKTQ75JclWcKGeQjM1xjZy3s
+ 7j/j+A7BcEs+vquxLe3TaR+6kLBHcmovCnDptlyTyeNKU7nWJpGqNioIPTDmcbwwy4
+ 7mZPC+1joDR4FJgJAxWPFeNSrB3UaXbSilhEnG6joK0CqB6QDDpabAZ+0Wuoa1q/vf
+ cA+5sV4NLLSyQ==
+Message-ID: <7ec7b4ae-6186-4961-a857-f97afcfc3ded@kernel.org>
+Date: Mon, 12 Jan 2026 08:10:31 -0600
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEyMDExMSBTYWx0ZWRfX1EajK2zVODQD
- ogkS7prFtstcN1nQxS2dhrG6wSEbmM6xQiVQYkyhPwFBxzfd8qCrSA6RhbzPW3LsVFiK1JQ13Gu
- jmOvufTKy3VAEb+ydErwWk/kOfeLt7xlDfrSzOUxmVjGmC8Yrxjm3ghrvBmr7rSxsElGe1a9pp5
- vxIE2rBc/YO0rDtfz44x6zjyMj7H8WPJdWyv9t+kEDCKlyCACLRVoJivbd9DR99STC5FGVjUnrH
- BfztIsTAA0/DLLvfqkZ3fLzAqTl9RZFIIuOyxVsmQqCMVfDs+VMzfEAb3GX4HohSpbEhYqNFy+2
- nKJuyfHqSzI3fL/76APm+OPC2B7VBfU2YjxX+qNSu2W/XoyTpqyLafIFWa9/sRGsh1vmm2rh+C5
- /JvyJopPEwIvDATEH8IjJJ5Lm+GWnVKGIzyz8cbbNBG8jig5Yof2xfzh86OxnokGAtNTLVpTe7S
- 1v1DdFpLt4jNPEZFUpA==
-X-Proofpoint-ORIG-GUID: ySbXYsfkCKaU-_CNVO_UlC3QXzQ4hMtf
-X-Authority-Analysis: v=2.4 cv=B/60EetM c=1 sm=1 tr=0 ts=69650032 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=vUbySO9Y5rIA:10 a=VkNPw1HP01LnGYTKEx00:22 a=zd2uoN0lAAAA:8 a=pGLkceISAAAA:8
- a=VnNF1IyMAAAA:8 a=8H52i5D8jjzlX-VSk4YA:9
-X-Proofpoint-GUID: bLHB7WKS93jw_rtH_94dtmbm0doTRcDg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-12_04,2026-01-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 impostorscore=0
- malwarescore=0 phishscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.19.0-2512120000 definitions=main-2601120111
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] drm/amd/display: Initialise backlight level values
+ from hw
+To: Vivek Das Mohapatra <vivek@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260112122140.2609679-1-vivek@collabora.com>
+Content-Language: en-US
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260112122140.2609679-1-vivek@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,36 +64,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In svm_migrate_gart_map(), while migrating GART mapping, the number of
-bytes copied for the GART table only accounts for CPU pages. On non-4K
-systems, each CPU page can contain multiple GPU pages, and the GART
-requires one 8-byte PTE per GPU page. As a result, an incorrect size was
-passed to the DMA, causing only a partial update of the GART table.
+On 1/12/26 6:20 AM, Vivek Das Mohapatra wrote:
+> Internal backlight levels are initialised from ACPI but the values
+> are sometimes out of sync with the levels in effect until there has
+> been a read from hardware (eg triggered by reading from sysfs).
+> 
+> This means that the first drm_commit can cause the levels to be set
+> to a different value than the actual starting one, which results in
+> a sudden change in brightness.
+> 
+> This path shows the problem (when the values are out of sync):
+> 
+>     amdgpu_dm_atomic_commit_tail()
+>     -> amdgpu_dm_commit_streams()
+>     -> amdgpu_dm_backlight_set_level(..., dm->brightness[n])
+> 
+> This patch calls the backlight ops get_brightness explicitly
+> at the end of backlight registration to make sure dm->brightness[n]
+> is in sync with the actual hardware levels.
+> 
+> Signed-off-by: Vivek Das Mohapatra <vivek@collabora.com>
 
-Fix this function to work correctly on non-4K page-size systems by
-accounting for the number of GPU pages per CPU page when calculating the
-number of bytes to be copied.
+Thanks for the patch.  One comment below.
 
-Reviewed-by: Philip Yang <Philip.Yang@amd.com>
-Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> ---
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++++++++++
+>   1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 354e359c4507..50f0547ed63c 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5258,6 +5258,8 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+>   	struct amdgpu_dm_backlight_caps *caps;
+>   	char bl_name[16];
+>   	int min, max;
+> +	int real_brightness;
+> +	int init_brightness;
+>   
+>   	if (aconnector->bl_idx == -1)
+>   		return;
+> @@ -5282,6 +5284,8 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+>   	} else
+>   		props.brightness = props.max_brightness = MAX_BACKLIGHT_LEVEL;
+>   
+> +	init_brightness = props.brightness;
+> +
+>   	if (caps->data_points && !(amdgpu_dc_debug_mask & DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE)) {
+>   		drm_info(drm, "Using custom brightness curve\n");
+>   		props.scale = BACKLIGHT_SCALE_NON_LINEAR;
+> @@ -5297,6 +5301,18 @@ amdgpu_dm_register_backlight_device(struct amdgpu_dm_connector *aconnector)
+>   					  &amdgpu_dm_backlight_ops, &props);
+>   	dm->brightness[aconnector->bl_idx] = props.brightness;
+>   
+> +	/*
+> +	 * dm->brightness[x] can be inconsistent just after startup until
+> +	 * ops.get_brightness is called.
+> +	 */
+> +	real_brightness =
+> +		amdgpu_dm_backlight_ops.get_brightness(dm->backlight_dev[aconnector->bl_idx]);
+> +
+> +	if (real_brightness != init_brightness) {
+> +		dm->actual_brightness[aconnector->bl_idx] = real_brightness;
+> +		dm->brightness[aconnector->bl_idx] = real_brightness;
+> +	}
+> +
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index af53e796ea1b..fd7721e3333a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -61,7 +61,7 @@ svm_migrate_gart_map(struct amdgpu_ring *ring, u64 npages,
- 	*gart_addr = adev->gmc.gart_start;
- 
- 	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
--	num_bytes = npages * 8;
-+	num_bytes = npages * 8 * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 
- 	r = amdgpu_job_alloc_with_ib(adev, &adev->mman.high_pr,
- 				     AMDGPU_FENCE_OWNER_UNDEFINED,
--- 
-2.52.0
+I think this call should be after the IS_ERR() check right below it in 
+only the case that IS_ERR() failed.
+
+>   	if (IS_ERR(dm->backlight_dev[aconnector->bl_idx])) {
+>   		drm_err(drm, "DM: Backlight registration failed!\n");
+>   		dm->backlight_dev[aconnector->bl_idx] = NULL;
 
