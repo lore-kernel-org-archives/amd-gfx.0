@@ -4,194 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED944D0C850
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 10:53:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02864D2D0F9
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 13:13:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F57410E4E0;
-	Tue, 13 Jan 2026 10:53:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 976E210E4D0;
+	Tue, 13 Jan 2026 13:13:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ULCKjyIG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EMwWHh6p";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4935B10E4DC;
- Tue, 13 Jan 2026 10:53:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768301604; x=1799837604;
- h=message-id:date:subject:to:cc:references:from:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=wkz+pHxlSw6OCC840TH9xzSMOl4QQZk7Pgar3q7xAtE=;
- b=ULCKjyIG3dwXelD8rfqoHSaPGev0Tqn6YQx32H0GGKh4L0PxzvO/iWLn
- ySNhHp22bVnsIml+Lqj8T/ytpvji5U8ghqPgae4CzCytNVzzA80f3HWIS
- pBggpKN3Ml8LsYLVlOZwhLSS+tLs4l87jkRpaj+tTtpF+MoL3+cnvvDsc
- 5R0SO7PGx00LyLUuKmJvlIl0y+57yJmDBWy22BxBccFhHJEygm9XY2xxG
- cb7n10Vj/W4+xgmZyl4hZvMDxHrfkpn35NvtbZD9Ox6Gqga8YPpQVgn0T
- WMBmIRyqf2ayT01KYCwv+CaxpxYsE0/jB5W/urOzveIuM+nRYn6eLUxuj g==;
-X-CSE-ConnectionGUID: iyHXpXZ5Swq6hIF42u+GqQ==
-X-CSE-MsgGUID: fEAYTeLWRym1BzIiUK5BsA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11669"; a="95057467"
-X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; d="scan'208";a="95057467"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2026 02:53:24 -0800
-X-CSE-ConnectionGUID: w2Drx+1lR4K95zeJUdieSA==
-X-CSE-MsgGUID: xlzFMw7HRZ+9CeJNMxcbTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; d="scan'208";a="204162805"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2026 02:53:24 -0800
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 13 Jan 2026 02:53:23 -0800
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29 via Frontend Transport; Tue, 13 Jan 2026 02:53:23 -0800
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.11) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Tue, 13 Jan 2026 02:53:23 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f3n3YF6rGZB9yM07k8S6KMg5K6M+sE9iXZtOYdLULZH6ZyxXaMGSkrDPbl2Lx9dNfoNhwzmj2C/o4IRnwr0YvM6cV0Y698vhPPAGdeVVpkrdDDcgFILvPhAFdizPh4sy7GgZ6+GNi/I3xtIAnqy6y05F+OlWwEiWGV59KhMGYS4Qs47GSGbpoqahbrs6ED+PNwv+FZp5/kjt75wMFZhOVWyViyZ0KRxUylD1NZwOqU8xmj2JMGvhrT4uLDsqlqNHbOyJhkgo1WY13OCW5cPSEAqW2N9vffXnqMXH4p9qB1lX/EwRKloYxpnf4RGtp1HiRGFf6Agxfgj7HyycfoJsIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CwIjK+fiBpeKq/cYR8vOBAHkAET/A9JErXKexkuxPn8=;
- b=qHX1Tt7h4SR1nvcy5MsMWnzMj5xAvwGKK9JQskeBNFovSU/iCNLmqSPTSJugH6cDL0g3UwQoROVSFCQhT4JzORhyZcWA6ZNKLX8BO0SdUw/pornhtPLxJZpyoZhI8tQF+s7XMdhJh9cswCgLd13nIBxAvu/s7SaiFd/U5f6fvoZ8fdD4814AjthD2Uu0WbCcc4D0PLb3PKyISrm6bwyMhMX5QNGhMif49A9aNwd9PJgwZN2jkjvHb3mbPjzEFme84YyZy1PdnrzVyKNHImQVBkG9j6Yge5OUd8DzkF31T5CXBiXDZ98C/I6Y3Yw++EqDJStsWVHcjVo2g0/vZnnowg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
- by PH0PR11MB7586.namprd11.prod.outlook.com (2603:10b6:510:26e::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Tue, 13 Jan
- 2026 10:53:20 +0000
-Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
- ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9499.005; Tue, 13 Jan 2026
- 10:53:20 +0000
-Message-ID: <76400db2-4bbc-4b5f-a1b2-497dabc9ee73@intel.com>
-Date: Tue, 13 Jan 2026 16:23:10 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/13] drm/colorop: Add destroy helper for colorop
- objects
-Content-Language: en-GB
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <harry.wentland@amd.com>, <louis.chauvet@bootlin.com>, <mwen@igalia.com>, 
- <contact@emersion.fr>, <alex.hung@amd.com>, <daniels@collabora.com>,
- <uma.shankar@intel.com>, <suraj.kandpal@intel.com>,
- <nfraprado@collabora.com>, <ville.syrjala@linux.intel.com>,
- <matthew.d.roper@intel.com>
-References: <20260109081728.478844-1-chaitanya.kumar.borah@intel.com>
- <20260109081728.478844-6-chaitanya.kumar.borah@intel.com>
- <bd769e61d261899ada538818b5a3923070ba2b72@intel.com>
-From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-In-Reply-To: <bd769e61d261899ada538818b5a3923070ba2b72@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA1P287CA0020.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a00:35::32) To SJ1PR11MB6129.namprd11.prod.outlook.com
- (2603:10b6:a03:488::12)
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com
+ [209.85.219.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3F8310E4D0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 13:13:00 +0000 (UTC)
+Received: by mail-qv1-f48.google.com with SMTP id
+ 6a1803df08f44-88a35a00506so108400956d6.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 05:13:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1768309980; x=1768914780; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=n7e9eLVPEJw5WTVoSjsOPENgHwRipeDaJA1mlmGwp6g=;
+ b=EMwWHh6pk1EfR/anfrT/VoR2Fo9Ng/mNLkrhSS0SaJfWCpdh8wPUxPqKaCYaxBGDK3
+ SQacEb0wRfSIwh9FBhG1YkrzjIWHcnG82jdp7ZeMuaDWT12YqilK6v5V21MlCRiS4sZ5
+ lPjCgzFN5Kjgk7Y0hHf27Ise8ho/S9dn5kU3/CkDHtisZUzbstvsIjTJaPQ/ViVBYqSA
+ 5oWy2B3aIwGBPEAzfwI60JDnEXwQNgsaZ9rl/giHWe5M4017V3FJE6jBi2KerBktbzws
+ kjYQuApBrTvOjTX1a0v6MDI2ZpNtMP6JTScnBDhS3GjlgppSJFUuu7hCs6fUfT1xfst7
+ WBbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768309980; x=1768914780;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=n7e9eLVPEJw5WTVoSjsOPENgHwRipeDaJA1mlmGwp6g=;
+ b=HXZ1SbeUk1/+gWIuWubscrdgM0qNC43AQhhTcroJS0tcsUhx7BRZxDqhuSF58WX+51
+ WHbETXRiTEwnrVYolsoyQlcj0CVYCPI/XyPhH8oGj9THYJLhe5shgR/8wiScZEH1/uTO
+ UpmIC/aqFdLkchnmIvxYyLUGRHUycFH1aorjt3AHAtk1DWDS+L6ES4AQRs1QVAzhFEQ5
+ Lo21KtfFUfcpUZmfGbvMp/52qwznFHAar+zsWLrgJQbQ76fRyXrCKXGOPokRZZ/ac3qX
+ dTv/L4RpvP02tIDnQBehBPSuDdZt5YCi+aFkp2s/m6I3hCq5htZk21G/kodLZ9o0lGxm
+ 1zuQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVQO5HY4hEDyTZMpFEuNBluRW1ycl9eQVV8gWlWL1FRGDXMT1fE+fjv3bXG0cJBS3LrYEhF7Cvt@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyARti66kie9qWzCf71UQiK6h221AbH66lEUoq21LFU13Y4oRqd
+ TWKr1ATKdR0AMD3sOHclVWXTXaGBe26s0wSWkgUFdMChdfdvMGksLxBA
+X-Gm-Gg: AY/fxX5ZCd8OVrjwkj+X1/rcXf1/nzhvRYCIOPXR4NsHuNF0hZTo1kPTeWdhBfpQg5l
+ 7yot5xreKSqX7lax5kSLI+NVNwsezLD6nQUKc3lg3jHY3OgrDfzts1ebdjJPRcLZJe8rPMgeCrl
+ nt+RBERjcqFWRLRlV9sFw6/3aJkNBLybtQxRjnkGSeqCnJZb6c82pcoZALtK/ZFvxvd6niDpYtP
+ XqaDaDTA7gWN+54iazYwZ621VwR5L2jXPcybfkp/hsZvVuVWa12iZCKN+V38IInbuv8PGwLkQq2
+ DwDvdIrz29rgFE4NdYxxZ6RpjYfchFSgu05lQEUqTlW4AhU4LxrDpAgGu7idnmY9EdYciPhPxx5
+ FKaPQY3cHZ4MXza+AUsPnzQsvTLKQcTEZATBQE23ES3Eo5GRinuyWdZl4zcGfi3Fq0Q7xUgHAAc
+ 0TjQU9qVk6VGh6byBR32z35ifmO4ptSDH2+Xvn+kZEXeI=
+X-Google-Smtp-Source: AGHT+IG3a0n8mUGoBsn7oxnsd4floF+Z04SMWmIApIqvZBqAnZopTBqAa+rZs1nQCgJWxK0BaT36xw==
+X-Received: by 2002:a05:6214:4a89:b0:721:a9d7:297a with SMTP id
+ 6a1803df08f44-8908417a44amr287187896d6.7.1768309979729; 
+ Tue, 13 Jan 2026 05:12:59 -0800 (PST)
+Received: from [10.254.120.192] (mkmvpn.amd.com. [165.204.54.211])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-50145d7c610sm1452181cf.22.2026.01.13.05.12.58
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 13 Jan 2026 05:12:59 -0800 (PST)
+Message-ID: <73176491-e648-4a8b-bcaf-d40394dad0c7@gmail.com>
+Date: Tue, 13 Jan 2026 14:12:58 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|PH0PR11MB7586:EE_
-X-MS-Office365-Filtering-Correlation-Id: c548a4b9-61b8-4843-6d5f-08de5291f6b7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|7416014|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Y3JWWkhyRUN0UGtXS1U5UWNWS0VkbGpRZDhaTnprQW9Xa3ppUUUxeXBISlN0?=
- =?utf-8?B?T2JVYXhyZUxRRWtHaWxKMDhDNWt4SENrUGc5ZGhGODdyYkd6ZFVxcGc0cHFJ?=
- =?utf-8?B?M3M3Vm1VYVA1OVh1NEdMWXRBUmNmNVdXVFg4Yjc1WDcrYml3MXlSQi9RSXVN?=
- =?utf-8?B?eGdBMXVlOHZPQUhKaGRIVjFmc2dFYmsxd2Y3ZENrK2VzZFQyQk1vUnNwMzFR?=
- =?utf-8?B?OU5hb2V0WFhUaUkvT080cElqNWtjRENyYnhnUnMrRWMwV2JDMWVnWUc3Y1Bn?=
- =?utf-8?B?dmRmeWRwV2hIYUcvRlhQdFJYWjY2eVhtMXFOQURKMStnb0Q4Q3NrWk4rcWcr?=
- =?utf-8?B?Qi9RUjNrMjVGeHFtMGhzM3BEUU5XbU8rdHNzRGVraUxPQjR1TVZ6LzJTN2Rw?=
- =?utf-8?B?azdmcG0vMExxa3dnMFNFSzhGalp6d2xJWkw4L3d3RC84cVMzZjErU2tLQk1J?=
- =?utf-8?B?c1Fvby9NVlUwUFVEUjc5MnZXVUVDWTJ2UStmRkJtbXpWR0FDdW1JVEFYc1dN?=
- =?utf-8?B?SVc2MExGSVNGZHFsT0s4TytaV3pMeUFQaWlSYXNlcW00TWE1dzVNaVlkeWpG?=
- =?utf-8?B?ZlVhRFRISzlXR1hJOTZrVHRhZW9vUERwd1YzYkxGRDVRZHFCQTRQUTg5QkUy?=
- =?utf-8?B?NElqVklqNTNMRnZRd29TWGZxVFV4QWZPL2c2aTRkSjIwU0Qrb0lxNVlxYkxF?=
- =?utf-8?B?cndqakpScytnL3hudGQ1NmZXWnM3KzdCOVQ0QlF5T0FpdzRrVXFsdkwybnhQ?=
- =?utf-8?B?YjRMejZYOVBTMEhLemR3RTlSTWROYlcyN1Zvci82cEQ1UmZHSVBybmVFWUgy?=
- =?utf-8?B?SWU1clN2bmNCS002a1Q0U204cXRkd0V6dEF5L0lsb1Q1MGJ6VDc4TnFSc1Uw?=
- =?utf-8?B?VmJrSm5UeHlNZ2RoQU5mM3U3UVRiSGxId1E2aHVrdmI3aDNBQXAwWmpRb00r?=
- =?utf-8?B?K2RsMnpvSEV5eTNrNURoTGQ2MTg1QkQ3M3hPK0Z1SHJPTHFrTlF6amtCREll?=
- =?utf-8?B?bVJ6WjJja2RtYjN1OVM2cjF4cXA4ZkFycXVvanFiWDd6djE0WG4zL2NiMU9s?=
- =?utf-8?B?UzVSRkNJMENzbW9rZUt4eHBXa05LeFJ6K3lyRWxqTFdDVEZTa21lWHgvR0xN?=
- =?utf-8?B?UE1Da094S2t2MmtONVRMTm5XenNVUmd6YVErUEIweVk1ZWhwYWpTL1lsbWVH?=
- =?utf-8?B?Q1N1cERtSzhBOFBoZlowUHBYV2ltQ2xiWW1Tc291R2dyL2g1WE9XR1o3TFlM?=
- =?utf-8?B?N1hvYjZoVTNtUDdVQzl1KzRHMEVvRXdpTVF2eGlkeWk3WmRtWnJiUHl3NzQv?=
- =?utf-8?B?TTA0Mysyakh4K3ZEWUhjaUt5YVVDbmhERnJwQzByZTR4Ry9sczFwUlBoMlhi?=
- =?utf-8?B?ZktDaXUrdFRnVG02RksrUGdVVkNwRk1GK0VXdFFjRDN4cWRQTTZneWZ0M1Bo?=
- =?utf-8?B?bWgvaksxNDNGTmcyZW5uSXdpT1RhbG9xeVlXMXlOMFFtSC9TcHN6SXFud0FC?=
- =?utf-8?B?ajBGRmN1WnBCc3ozZlZUQXdLVlR1YWJaOUpKRm83blBwOERJUldNRE9PQmgr?=
- =?utf-8?B?aHFobkp3OUN2dWZqdnRuU0U4dFFEaVgwckoybVJKQlFBaTc0ZkdxaHI1SWJC?=
- =?utf-8?B?aDhKRFVTSGlVVWNESUQ3RjZoU1IzM2lQTklTWGE0NGZXUitMZS95bHk5OVg3?=
- =?utf-8?B?V0RYY3ZxUStKeXhrL0dnN0xwVFZxRU9VZW05bG4wK2JpSmxBeWRYYUQ0Y0pv?=
- =?utf-8?B?TEhvYzkvcHU3UmNsM2hLa0loN3ZDeEwxbDBDRTdxL2NDcjd5bnJzTHhSK1BG?=
- =?utf-8?B?Qm5SSlRyYWE3Q1BBUEgwUTR1amdSWHBvQ1R0OFVHTE0zUERhaUlMSzh3UXlB?=
- =?utf-8?B?MnVoNit4ck9xRWxab0ZidjZOS0pPcEZTdk9td1p4dFMrRzhGekVzekRNMmVW?=
- =?utf-8?Q?zwRWcLZno9IQzfsPWe4y8KwDxFotNUa9?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K09MRDZWYXU4Sm9XQmdDNVNNdVIwZ3Zjc0hEcHcvczZVTmZUZ05LY2NLOU5a?=
- =?utf-8?B?Y2c2eTNnS0xUK2kyUnlxcUhwM1NVWjRoQXZtWGJOUUtXSElBOElvSkpzNUdW?=
- =?utf-8?B?VFlqZS8zL0tPYUdkbTg2UFZObWVta0xpVlZUSXhoYnlhVSthSkdMR2FWb0Iz?=
- =?utf-8?B?cGt1RGZNQkRpTWpxQWREN3cwdk91OXoybzA1ZTJFckRoVHNiVjFPS3l2MUNt?=
- =?utf-8?B?ZjVYUU1yU3M0dmkwSnJjRVBxZTdudG4vWUJ0NDRSMHp3Y1l5emVFekdJMVVa?=
- =?utf-8?B?cXRCb1VLaFBaVXFEc2dnU0tOV2hIVDZYNHp1RWJ5K1YxUE15TmhKUHhYakVs?=
- =?utf-8?B?NUNiMzYwL09sQ0hhTEhXVmJySDl3a3NRZzdPTVFyVE9IR0l0TEVkRXpCK2hU?=
- =?utf-8?B?TUpQam92RlVwZ0hhcC9sQzNsOWVWZlpQQ21SQ25xUDg2WVRzZUFMdHZlU1lS?=
- =?utf-8?B?WUhlSGI1alhsRmw4S1NNbVZnQzBlS3N2eW15c08vZUpHYTgwMVB0a25BTXNh?=
- =?utf-8?B?TTIvNytuQVJwRDhaU2R4d1BXVXlSM0wvV04vMmdKSWo0WWVEQjJRUnFId2ds?=
- =?utf-8?B?VEJVNmdVdUF2Mm93OUxwODlZcGE4VnlmMHViVDFvMlRkNW03ejlLYzZRNjEr?=
- =?utf-8?B?M2R6SHZxNGRjUFBrVEsxZHpVZ29CL3U5aVMwNWtjTXVNQURYS2RoMEZ1cHla?=
- =?utf-8?B?Z1ZaMXQvSWhLN2g3MXJVTThDTE5aaEtyUVZCZmlsSzN5MzRnTEw1MHIzV01Z?=
- =?utf-8?B?UU52azRYNERwTmpRSlpBT2NISkZ1SUI4NElVUlFzTmlMN3JxKytlTHFQZ1VI?=
- =?utf-8?B?MDFEbTltVnZ4blU5SnEvM2ZjR0N1WnlKdU80ZEM3Wnc3OURnVUhTOU1GdnRa?=
- =?utf-8?B?cFJadk4zTVcvVEszNER5enM5dHdXd09qWmRSQjY4cXcvb2VhRlBUZm5rcWYz?=
- =?utf-8?B?SlJWUTRUOVplajVmbFoxdnF2b1ViVlpFUGpXRlBldEdZZEYzRGFSYVVnVkVO?=
- =?utf-8?B?UGRhYlVZMkJxY1ZuZkoxcnpPVWRuT2w1L2lzYUFZOGNVTVpqYmtodXRyakF2?=
- =?utf-8?B?QXhSOENpc1crclZ5ajY4ZHNKNzFZRm8rUEVwRlVJZ0xtb0F5MlZVbnhiQjdh?=
- =?utf-8?B?aFJJMFBlYmRTZlJIOFVTMUI1Q291bmtYMjlFRnZnQ2RyNWJDd3c2emJlbW5K?=
- =?utf-8?B?OTY3VE9keXZRNEFWSUxrRWFZM3pXbkVaQ3ZuWnQzVHRtS2k4MGVLNnhQL2lB?=
- =?utf-8?B?RFFsK3FRcGJDZml4bXVCdkZjV0RXeGFCSkRNTGVDbmtHRENFUThzQ1kwMFpW?=
- =?utf-8?B?UC9xZFJxdWtLTHU5Si9lY3hoNzd0aW9MVFhQUzlXTnlwQ2I2T1UxZzNMMU1D?=
- =?utf-8?B?Q0VsUFhXRG1QVE9CMFZMdHV6TW5mbDVnY3JiN3VFNXVLWVVjdko4aDBQRy9O?=
- =?utf-8?B?dmc1K0pDbnQ3UGJ1UnlBVU9BTzd0eG0zUnk1U1d6RkRTem5BTlFEZlZVMWVv?=
- =?utf-8?B?NVd5N2xNYWdDWFZMN1k5RHBXMXVVdllUWXVSaFdHcDBMelNqWVdUTUZZUS9t?=
- =?utf-8?B?c2tRTUgwU3p3ZTYrRVJCTnlPUkF2UmZpZUdBR3Y4enMyeDFlOVQ1elBMa3Ju?=
- =?utf-8?B?blQ3ZjhJT2ZtY2srNjBBM0hnY2d0NDR2U0daV2l6L2RFYngyUkZKbThSN3Fw?=
- =?utf-8?B?L3VPWkRuekNBV3BZTXQwM0libUdDemh6NHFvQlhoZmNCK3cyY2FUNWNzYVVD?=
- =?utf-8?B?dk9vU0pnQmhBVHdTaUFXMG1zNDV3NG9UazJsWlc4Ynh0Z2NTN3VCVXdWYTRP?=
- =?utf-8?B?TkcwaEtkeThYdU5QVS9uWHowVUhEck1nRGVTN3diamJGS0VEZ0lMQlZZcC9z?=
- =?utf-8?B?bndMMTlJMWM1MXlrcWNnVlAyOHJoVFdmZ2R4cXdaUzhydjdsU1JCVkFIanZt?=
- =?utf-8?B?MDlDaTBJY1RaQ2JsdjdvTko3dzZJclI0RlhwVGVoTUU1cmsrNVB6ZURSV3pt?=
- =?utf-8?B?MkZMUG1qRTl1ZFAyZ1lYeXdqQi94QWs1QzA3OXhFU1gxRUpyNzVITjBqYjNt?=
- =?utf-8?B?cEo5dWlJTGpuUDJKdERZSUQ0bU1VSC96WTlPM2Y1MDhHRjUzd1NlZEN6V1R1?=
- =?utf-8?B?VUx0eWZJZllaSkVidTVMeHZZTUptYnBOdzdZa0VKak5LUWlXNlBoYVdPQUpt?=
- =?utf-8?B?a05zVHJmZk04MDBTb2VNWmlWQzdFT1k3UVZYRm5ta0hBQzd4WUd1Qk1rZGhB?=
- =?utf-8?B?Z0VSc3RMRlRIU212WUxGeWNsMXlMMmtOQ01mNmtuSjZ2RmJSSWhwQmNKbDBB?=
- =?utf-8?B?NldCd1NXSHFlM2ZjU0JjMEZReW9maDRtVkxaTG1xcEFGYjN1MW45K3pJajF6?=
- =?utf-8?Q?vHYyRmx5wBOt8KoY=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: c548a4b9-61b8-4843-6d5f-08de5291f6b7
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 10:53:19.9160 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NEyVeAp+RhGRwUePDpHkc+XGflHbRoYJirza/Dog8a6KilB7GhBpP8CwV8OqlR1lmdtqHk/8stGs3Cz2mH2VurAZNlKWD+3sCzazZWfetL8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB7586
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 27/42] drm/amdgpu: mark fences with errors before ring
+ reset
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20260108144843.493816-1-alexander.deucher@amd.com>
+ <20260108144843.493816-28-alexander.deucher@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+In-Reply-To: <20260108144843.493816-28-alexander.deucher@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -206,79 +92,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 1/8/26 15:48, Alex Deucher wrote:
+> Mark fences with errors before we reset the rings as
+> we may end up signalling fences as part of the reset
+> sequence.  The error needs to be set before the fence
+> is signalled.
 
+Setting the error is a good idea, but signaling the fence before the reset is clearly a NAK.
 
-On 1/12/2026 4:53 PM, Jani Nikula wrote:
-> On Fri, 09 Jan 2026, Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com> wrote:
->> Add a helper that performs common cleanup and frees the
->> associated object. This can be used by drivers if they do not
->> require any driver-specific teardown.
->>
->> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> Reviewed-by: Suraj Kandpal <suraj.kandpal@intel.com>
->> Reviewed-by: Uma Shankar <uma.shankar@intel.com>
->> Reviewed-by: Alex Hung <alex.hung@amd.com>
->> ---
->>   drivers/gpu/drm/drm_colorop.c | 12 ++++++++++++
->>   include/drm/drm_colorop.h     | 10 ++++++++++
->>   2 files changed, 22 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
->> index 44eb823585d2..ba19a3ab23cb 100644
->> --- a/drivers/gpu/drm/drm_colorop.c
->> +++ b/drivers/gpu/drm/drm_colorop.c
->> @@ -178,6 +178,18 @@ void drm_colorop_cleanup(struct drm_colorop *colorop)
->>   }
->>   EXPORT_SYMBOL(drm_colorop_cleanup);
->>   
->> +/**
->> + * drm_colorop_destroy() - Helper for colorop destruction
->> + *
->> + * @colorop: colorop to destroy
->> + */
->> +void drm_colorop_destroy(struct drm_colorop *colorop)
->> +{
->> +	drm_colorop_cleanup(colorop);
->> +	kfree(colorop);
->> +}
->> +EXPORT_SYMBOL(drm_colorop_destroy);
->> +
->>   /**
->>    * drm_colorop_pipeline_destroy - Helper for color pipeline destruction
->>    *
->> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
->> index a3a32f9f918c..0f5ba72c1704 100644
->> --- a/include/drm/drm_colorop.h
->> +++ b/include/drm/drm_colorop.h
->> @@ -420,6 +420,16 @@ void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
->>    */
->>   void drm_colorop_reset(struct drm_colorop *colorop);
->>   
->> +/**
->> + * drm_colorop_destroy - destroy colorop
->> + * @colorop: drm colorop
->> + *
->> + * Destroys @colorop by performing common DRM cleanup and freeing the
->> + * colorop object. This can be used by drivers if they do not
->> + * require any driver-specific teardown.
->> + */
+Fence signaling can only happen after we are sure that the DMA operation has been canceled.
+
+Regards,
+Christian.
+
 > 
-> The kernel-doc should be with the function definition, not at the
-> declaration, and certainly not both.
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 > 
-
-Thank you, Jani, for pointing it out. I have removed it in v3.
-
-Regards
-Chaitanya
-
-> BR,
-> Jani.
-> 
->> +void drm_colorop_destroy(struct drm_colorop *colorop);
->> +
->>   /**
->>    * drm_colorop_index - find the index of a registered colorop
->>    * @colorop: colorop to find index for
-> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> index 600e6bb98af7a..5defdebd7091e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+> @@ -872,6 +872,10 @@ void amdgpu_ring_reset_helper_begin(struct amdgpu_ring *ring,
+>  	drm_sched_wqueue_stop(&ring->sched);
+>  	/* back up the non-guilty commands */
+>  	amdgpu_ring_backup_unprocessed_commands(ring, guilty_fence);
+> +	/* signal the guilty fence and set an error on all fences from the context */
+> +	if (guilty_fence)
+> +		amdgpu_fence_driver_guilty_force_completion(guilty_fence);
+> +
+>  }
+>  
+>  int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
+> @@ -885,9 +889,6 @@ int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
+>  	if (r)
+>  		return r;
+>  
+> -	/* signal the guilty fence and set an error on all fences from the context */
+> -	if (guilty_fence)
+> -		amdgpu_fence_driver_guilty_force_completion(guilty_fence);
+>  	/* Re-emit the non-guilty commands */
+>  	if (ring->ring_backup_entries_to_copy) {
+>  		amdgpu_ring_alloc_reemit(ring, ring->ring_backup_entries_to_copy);
 
