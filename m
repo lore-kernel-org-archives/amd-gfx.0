@@ -4,80 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FAD7D31A26
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 08:29:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B2BBD31A2A
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 08:29:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24E8810E5D5;
-	Wed, 14 Jan 2026 08:29:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 01E5D10E5E4;
+	Wed, 14 Jan 2026 08:29:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VS7SFDzv";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="hJpYi4z7";
 	dkim-atps=neutral
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3C110E553
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 21:41:09 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-64b7d213fd6so1122161a12.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 13:41:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768340468; x=1768945268; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jnOk7xTeKASHRNhT1/DjMa9A/4WgBFppfopFsMljQZA=;
- b=VS7SFDzv6AcHSxJRdAEBpMC/ZBS/xBIZ6Nj992KG5tZI9PaSRoc63Wq5DScN4ElBxI
- fXsnRLjGX1zgOTxO8rkcv2LuQgytgnyoeZ5UQTEkCXYYMw73TYoeotqwjg5bDhekEAkZ
- y2cQXcyZrmKvZNIQnMJjU7hc7tEY1HRzq1oGT2gPfbh7Lx9vhciSciidXaDYBB6b3g+X
- +YsMJ0fmL7KNS+iWWPoC154rY6zXpBz0LWn192K35mkV5FQbdS0fPOCQts9kAelefIlW
- zZfJvXrFdpPDXkZ8qUtgbmUp6YkPMDF4z4dA/Gto+CW3jEtHqPCo/XiCrhTbHfSnZxVP
- gDIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768340468; x=1768945268;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=jnOk7xTeKASHRNhT1/DjMa9A/4WgBFppfopFsMljQZA=;
- b=ARI9uD0X4uSJP++ywOyIop3L1UOG+friI9URifBdosWcbH/ZUWLnT1LJi2yCaUwTfG
- NQdfvgzcUrd0bV+AisczqkeQyT/jvBFkr0kfxi+k/m/eNcR1b6irZIuLboWIUFlGZyR8
- vh67CZ2VSiptnZllhG6sFhnXN0zJvtiM001aN6EnM2mfkoWf4R7jTBLIdHnaCpbRCVaA
- sQxXOpMIr6wq5uUiNgyMWFxcV2YWZvlB487qXjERdC+sPASE/ijm7PmPzrXGjE+oRjhp
- MiCzyBJZpqGtKtOqMFzAq2Q3GjYEbZpvAGIa7vllEoTQaQ/swGWMXZCZmArMSBKE0HT8
- gcPg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWqx95j0DxR4RlgRgj+JdZ019IqI3k8LO97yEAjUhhcQJBwEXrWPHtFCf87lZZNleiZWQw+QqYP@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzPL89/MKBhV6m3HyBtfvxRJ3G4aTSszx+8kO9BiNyUR0gwby4I
- Ktj4u+KQWu/ck4KodRerUhT4RnTi4FxqG8FSxZXQtT9DEhoB2oWqf4eJ
-X-Gm-Gg: AY/fxX5nfdqgur7+3NWrPpYjjdu0ltEckMJS1YeoQyE2zBCaN+Jtjr7gXa7dtf/7y0W
- 01Hl9iWaM4wP9wZ9Cco+ix1zH0YMB75L4nVdsRkIx+72w85M3srlkoCfTMa5krt0jTKbT7BT/Df
- KLxF0q+LV1kAlNiG8r3axz1C8KPvxPLEBZwbzzJStZZcsAKa0Zdc41wyHTK8xNPvBKLm09eyY9a
- F4p0LH6VjSrFqr4q7Q5tf+1LvEgK09YkgESUjpO4VSO5wu5A6q2a01QogWMfM7eSYyVyjcrxUIY
- XmJAKS/sk/P+LRPsvCUmUG1AFBUkbRU98CXyUX2H7R4g1R5sYEG6n+amqvgKCS4F7GzW4kuilSi
- Wp0EGXKt+Tu9+NrdtfuxeYG2C07f0yzy0naCATq8ArBJoFP7pJRYpqKI/Ou3ewuRdjiTk+DDeZw
- NHIUQ6j18ttOO5rWHVSMI+UYoPMgyPCFB4bvQ8GIcTWsE2ENG0fuaF+GQv7jdHxym3
-X-Received: by 2002:a05:6402:35ca:b0:64d:2889:cf4e with SMTP id
- 4fb4d7f45d1cf-653ec47d79emr190526a12.7.1768340467986; 
- Tue, 13 Jan 2026 13:41:07 -0800 (PST)
-Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6507bf6d5e0sm20858052a12.31.2026.01.13.13.41.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Jan 2026 13:41:07 -0800 (PST)
-From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: alexander.deucher@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, harry.wentland@amd.com, sunpeng.li@amd.com,
- siqueira@igalia.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] drm/edid: parse more info from HDMI Forum vsdb
-Date: Tue, 13 Jan 2026 22:41:02 +0100
-Message-ID: <20260113214104.146856-2-tomasz.pakula.oficjalny@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260113214104.146856-1-tomasz.pakula.oficjalny@gmail.com>
-References: <20260113214104.146856-1-tomasz.pakula.oficjalny@gmail.com>
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88B5C10E303
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 15:16:39 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4drCWm2HJXz9skn;
+ Tue, 13 Jan 2026 16:16:36 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1768317396; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=CZZLqsPfDXtH4RkyEdBt8woGh6V/cM3QypUAdX3RAPo=;
+ b=hJpYi4z7eOSlc1l3hIiyf0sWtIA3+Fooa/bQhS0VxFp57B1fLZ/7COp2TxE18SpxCJQr5I
+ nQQDx+qxe6+yOQJi7JSdfrtOBxNJCAFHXrmRnXdrdcYUEu99ZrZX138df1b5lTmluzD22X
+ 8RUCjFfBX8T6KQdu2Z63QCjSA/PECONoOeE9GW4T/ldgMTe64gNlbctuPwOFnkYSLBvmzr
+ 80vL607yzX4pLEgYDVOTKajSXSJBjxrzwfe6q/kV34eVtcun1tyRmghaRuFpUXyreIu4NK
+ PFErPuESCjnrXMDIdRXtriSARghC4OS3/JRfE1xcsrsffxFGTLnAEXOZGvpwXw==
+Message-ID: <8411d93a1b4c48b44b5a1d2deecaef6f382ccb1b.camel@mailbox.org>
+Subject: Re: [PATCH 29/42] drm/amdgpu: don't call drm_sched_stop/start() in
+ asic reset
+From: Philipp Stanner <phasta@mailbox.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ phasta@kernel.org, Alex Deucher <alexander.deucher@amd.com>, 
+ amd-gfx@lists.freedesktop.org
+Date: Tue, 13 Jan 2026 16:16:34 +0100
+In-Reply-To: <bcd6ee8a-b951-4088-94c7-b9d260fe0c48@gmail.com>
+References: <20260108144843.493816-1-alexander.deucher@amd.com>
+ <20260108144843.493816-30-alexander.deucher@amd.com>
+ <08a6057a-7e95-4007-a4ee-ec8f6e3e5540@gmail.com>
+ <8a8dbf04b6d13d67541dc2bc1fb91769def373c2.camel@mailbox.org>
+ <bcd6ee8a-b951-4088-94c7-b9d260fe0c48@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 01a80c8a48f5eb35136
+X-MBO-RS-META: 8zd3wdntmmjrfast4ja6njjzbcchu69h
 X-Mailman-Approved-At: Wed, 14 Jan 2026 08:29:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,151 +65,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Adds flags and a struct to hold HDMI VRR information. `supported` here
-is an additional property which allows easier parsing in consumers and
-adds a bit of logic used to detect malformed VRRmin/VRRmax values.
+On Tue, 2026-01-13 at 15:37 +0100, Christian K=C3=B6nig wrote:
+> On 1/13/26 14:34, Philipp Stanner wrote:
+> > On Tue, 2026-01-13 at 14:17 +0100, Christian K=C3=B6nig wrote:
+> > > On 1/8/26 15:48, Alex Deucher wrote:
+> > > > We only want to stop the work queues, not mess with the
+> > > > pending list so just stop the work queues.
+> >=20
+> > Ideally amdgpu could stop touching the pending_list altogether forever,
+> > as discussed at XDC. Is work for that in the pipe? Is that what this
+> > patch is for?
+>=20
+> Yes.
 
-Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
-Tested-by: Bernhard Berger <bernhard.berger@gmail.com>
----
- drivers/gpu/drm/drm_edid.c  | 41 +++++++++++++++++++++++++++++++-
- include/drm/drm_connector.h | 47 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 87 insertions(+), 1 deletion(-)
+Good!
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index e2e85345aa9a..1e066d614da7 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6149,6 +6149,33 @@ static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
- 	hdmi->y420_dc_modes = dc_mask;
- }
- 
-+static void drm_parse_vrr_info(struct drm_hdmi_info *hdmi, const u8 *db)
-+{
-+	struct drm_hdmi_vrr_cap *vrr = &hdmi->vrr_cap;
-+
-+	if (cea_db_payload_len(db) < 8)
-+		return;
-+
-+	hdmi->fapa_start_location = db[8] & DRM_EDID_FAPA_START_LOCATION;
-+	hdmi->allm = db[8] & DRM_EDID_ALLM;
-+	hdmi->fva = db[8] & DRM_EDID_FVA;
-+	vrr->cnmvrr = db[8] & DRM_EDID_CNMVRR;
-+	vrr->cinema_vrr = db[8] & DRM_EDID_CINEMA_VRR;
-+	vrr->mdelta = db[8] & DRM_EDID_MDELTA;
-+
-+	if (cea_db_payload_len(db) < 9)
-+		return;
-+
-+	vrr->vrr_min = db[9] & DRM_EDID_VRR_MIN_MASK;
-+	vrr->supported = (vrr->vrr_min >= 1 && vrr->vrr_min <= 48);
-+
-+	if (cea_db_payload_len(db) < 10)
-+		return;
-+
-+	vrr->vrr_max = (db[9] & DRM_EDID_VRR_MAX_UPPER_MASK) << 2 | db[10];
-+	vrr->supported &= (vrr->vrr_max == 0 || vrr->vrr_max >= 100);
-+}
-+
- static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
- 			       const u8 *hf_scds)
- {
-@@ -6274,7 +6301,7 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 	}
- 
- 	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
--
-+	drm_parse_vrr_info(&connector->display_info.hdmi, hf_scds);
- 	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
- 		drm_parse_dsc_info(hdmi_dsc, hf_scds);
- 		dsc_support = true;
-@@ -6284,6 +6311,18 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 		    "[CONNECTOR:%d:%s] HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
- 		    connector->base.id, connector->name,
- 		    max_tmds_clock, str_yes_no(max_frl_rate), str_yes_no(dsc_support));
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] FAPA in blanking: %s, ALLM support: %s, Fast Vactive support: %s\n",
-+		    connector->base.id, connector->name, str_yes_no(hdmi->fapa_start_location),
-+		    str_yes_no(hdmi->allm), str_yes_no(hdmi->fva));
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] Negative M VRR support: %s, CinemaVRR support: %s, Mdelta: %d\n",
-+		    connector->base.id, connector->name, str_yes_no(hdmi->vrr_cap.cnmvrr),
-+		    str_yes_no(hdmi->vrr_cap.cinema_vrr), hdmi->vrr_cap.mdelta);
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] VRRmin: %u, VRRmax: %u, VRR supported: %s\n",
-+		    connector->base.id, connector->name, hdmi->vrr_cap.vrr_min,
-+		    hdmi->vrr_cap.vrr_max, str_yes_no(hdmi->vrr_cap.supported));
- }
- 
- static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 8f34f4b8183d..296f26551206 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -254,6 +254,41 @@ struct drm_scdc {
- 	struct drm_scrambling scrambling;
- };
- 
-+/**
-+ * struct drm_hdmi_vrr_cap - Information about VRR capabilities of a HDMI sink
-+ *
-+ * Describes the VRR support provided by HDMI 2.1 sink. The information is
-+ * fetched fom additional HFVSDB blocks defined for HDMI 2.1.
-+ */
-+struct drm_hdmi_vrr_cap {
-+	/** @mcnmvrr: flag for Negative M VRR support by sink */
-+	bool cnmvrr;
-+
-+	/** @mcinema_vrr: flag for Cinema VRR support by sink */
-+	bool cinema_vrr;
-+
-+	/** @mdelta: flag for limited frame-to-frame compensation support */
-+	bool mdelta;
-+
-+	/**
-+	 * @vrr_min : minimum supported variable refresh rate in Hz.
-+	 * Valid values only inide 1 - 48 range
-+	 */
-+	u16 vrr_min;
-+
-+	/**
-+	 * @vrr_max : maximum supported variable refresh rate in Hz (optional).
-+	 * Valid values are either 0 (max based on video mode) or >= 100
-+	 */
-+	u16 vrr_max;
-+
-+	/**
-+	 * @supported: flag for vrr support based on checking for VRRmin and
-+	 * VRRmax values having correct values.
-+	 */
-+	bool supported;
-+};
-+
- /**
-  * struct drm_hdmi_dsc_cap - DSC capabilities of HDMI sink
-  *
-@@ -330,6 +365,18 @@ struct drm_hdmi_info {
- 	/** @max_lanes: supported by sink */
- 	u8 max_lanes;
- 
-+	/** @fapa_start_location: flag for the FAPA in blanking support */
-+	bool fapa_start_location;
-+
-+	/** @allm: flag for Auto Low Latency Mode support by sink */
-+	bool allm;
-+
-+	/** @fva: flag for Fast Vactive support by sink */
-+	bool fva;
-+
-+	/** @vrr_cap: VRR capabilities of the sink */
-+	struct drm_hdmi_vrr_cap vrr_cap;
-+
- 	/** @dsc_cap: DSC capabilities of the sink */
- 	struct drm_hdmi_dsc_cap dsc_cap;
- };
--- 
-2.52.0
+>=20
+> >=20
+> > >=20
+> > > Oh, yes please! I can't remember how long we have worked towards
+> > > that.
+> > >=20
+> > > But we also need to change the return code so that the scheduler
+> > > now re-inserts the job into the pending list.
+> >=20
+> > You're referring to false-positive timeouts. Porting users to that
+> > typically consists of adding that return code and also removing
+> > whatever the driver used to do to inject the non-timedout job into
+> > the
+> > scheduler again.
+> >=20
+> > How is that being done here?
+>=20
+> Previously drm_sched_stop() would insert the job back into the
+> pending list after stopping the scheduler thread.
+
+Why does it even do that?
+
+The entire function drm_sched_stop() looks insane to me. I'm not even
+sure we're talking about the same reinserting.
+
+Why is it that anyone has any interest at all of keeping a broken job
+in the pending_list?
+
+
+>=20
+> But when that is replaced with drm_sched_wqueue_stop() then that
+> won't happen any more. That is a good thing and prevents us from
+> running into problems like UAF because the HW fence signaled.
+>=20
+> As far as I can see we should start returning
+> DRM_GPU_SCHED_STAT_NO_HANG from amdgpu even when there was actually a
+> hang (maybe rename the return code).
+
+Well, no. That's not how NO_HANG was designed.
+
+Why would you want that?
+
+
+P.
+
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > P.
+> >=20
+> > >=20
+> > > Adding Philip on CC to double check what I say above.
+> > >=20
+> > > Regards,
+> > > Christian.
+> > >=20
+> > > >=20
+> > > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > > > ---
+> > > > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
+> > > > =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
+> > > >=20
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_device.c
+> > > > index 80572f71ff627..868ab5314c0d1 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > @@ -6301,7 +6301,7 @@ static void amdgpu_device_halt_activities(str=
+uct amdgpu_device *adev,
+> > > > =C2=A0			if (!amdgpu_ring_sched_ready(ring))
+> > > > =C2=A0				continue;
+> > > > =C2=A0
+> > > > -			drm_sched_stop(&ring->sched, job ? &job->base : NULL);
+> > > > +			drm_sched_wqueue_stop(&ring->sched);
+> > > > =C2=A0
+> > > > =C2=A0			if (need_emergency_restart)
+> > > > =C2=A0				amdgpu_job_stop_all_jobs_on_sched(&ring->sched);
+> > > > @@ -6385,7 +6385,7 @@ static int amdgpu_device_sched_resume(struct =
+list_head *device_list,
+> > > > =C2=A0			if (!amdgpu_ring_sched_ready(ring))
+> > > > =C2=A0				continue;
+> > > > =C2=A0
+> > > > -			drm_sched_start(&ring->sched, 0);
+> > > > +			drm_sched_wqueue_start(&ring->sched);
+> > > > =C2=A0		}
+> > > > =C2=A0
+> > > > =C2=A0		if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) && =
+!job_signaled)
+> > >=20
+> >=20
+>=20
 
