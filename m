@@ -4,92 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00AE8D30CC2
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 21:45:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56D08D30CDB
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 22:30:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DCF710E554;
-	Tue, 13 Jan 2026 21:45:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADB0310E55C;
+	Tue, 13 Jan 2026 22:30:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZUX/+u3a";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ryKHz2rm";
 	dkim-atps=neutral
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F56010E554
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 21:45:58 +0000 (UTC)
-Received: by mail-dl1-f45.google.com with SMTP id
- a92af1059eb24-11ddccf4afdso599880c88.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 13:45:58 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1768340757; cv=none;
- d=google.com; s=arc-20240605;
- b=eYk+QRgfFlbT90xuVykOups8pPUErfTpH2HJ/JotZq2Mbhxf5rj9sbEbnHowE6FKaA
- +5a7IaMbMLx4XY7s9+hnAMTvLuWPmwzNjWYbZrprWhcQrG+ymv73vPd88x+4mNezSJsg
- HEqMiW8hqMASpyM3g4uRj/HhidOiezb0LJfjOB9zHGK125JzckVVYcogN2Ic9b7aoAVe
- Lf5Lj4zNAgEMaHG12/gJ+3dEvIvzlnQF9PAOnbsSE/Mx7fR86+Cg7anSu5PUe/7tf7Pa
- pxNeKnaCNa7s2Um3c+EGD6efM8zekSWaOLJLWCpvVoew3f2orY1C/w9d8xgWNhXC0qFo
- gjSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=JXdYC4zDBcnajwvj8nPar9Esj55mdAw2r8xz40Hsc3o=;
- fh=1BQ4rCM0JLUCgEPOjwKA/tl4LXSw3ngXdzfmDsqLWig=;
- b=blF1HfMSRWDa8dgyX3aw2Ml82Az98Opbjge2ROUe+CYbnv0E5wfPWXG1ytGwpYRSZ+
- GYkAOtVOd0i6wnb5KbvJlf3gx4TvLikyFT5VLkpaUfWnroe7AvzcR/YhtpifeN77PPUl
- 1Y9Ju4OaF1GFcmIuFMrL9mk6c40tvb2N7q9nahYqMdGduU8+ck3qkJaJc44+cEWv9ppJ
- dj6f86dVMmHcQVuGZ950Mp5C4K3mkYQJbAYNCcFw8yqxPFui1zwVYwaIrP5ZPI/5TWsS
- Lt9aENbrB5e47cEErWWktrxBdAvLiP7aDWaJf9wDRhKSRXutVk9vmMj3Z4XEFle7KVDi
- QmoQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768340757; x=1768945557; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=JXdYC4zDBcnajwvj8nPar9Esj55mdAw2r8xz40Hsc3o=;
- b=ZUX/+u3a2rwc8zURhZedi5ftwgsnw5UQdhEQQeeC4OjOUtCR7ROV67Ykmv4GiEVhGe
- 7/+NTIcPRIqLwN7Z6X7N1SFDnagwduRZnxmIDLw4EqBygTj/d4iCGkzi9HZEZ0FcSlXT
- Tn8vxgYjeOQuJW0w424eVFVQCaGyOCFPO1uhSnzLFPI24YKxi4dE4Aa3BiLXJ8/Nmfu0
- YH3CAC0fCFHIARvcoSWi79Td4M40H4f85UnfpCcoPdmSwQMVE1UocjWid9TdEjHrQMYC
- Dda7w2aavoLrj39GCWbFecYS8VNDCAsIW5v/ZJUXOTG8EoiR66ac2DaqiPB8UPPhVJRF
- 3sMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768340757; x=1768945557;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=JXdYC4zDBcnajwvj8nPar9Esj55mdAw2r8xz40Hsc3o=;
- b=cVgfIAfkAmj+b49SRLanAJZSd3MBEibU3dcoFJhbxCFSJyMz29opm3iZxRSHtNSzjR
- APjv/SOgFRjazd83KfEXexac2wi4I6dCGc8VVHhfJYGjw13GiW3OLwcglxdbPDucp+Om
- OySJCIpgFOUHALpSJR9regXjGjJfn7TRVA5kCWTP7fH6NRZOemgf2LughIP7xylbWaSC
- 1x6LnmTiUAPqTUDuqTAl76C+6qaV243ntCo1ZU2Dno8zVWmo1QLUKuSkKqLAP48n5guB
- Cn6m9/tVV+95uws7UpHC4e6vaLvchF/vciLVfzqFXhhgTp1vkeGUqHTBmXuMdg+j7OwJ
- cicg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWwY82L57AXzAd0eA4rhDI+Dq/xHmWYQkhloQpmJ0SBQcd6zhQBjKuE971ae0VcFCDeVSuPj1IP@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwAX8fCIz51IuPTSl6Z72IQxuEjpW0CpaK6CkMke3zO1KWCqRbH
- OzLTZ2VWrpveYHcAGzkRwtKZnYMnBKoRCN//Si4UgUv9M9B1TfbGfmKX15X9mxlrJgsBT96w2ai
- 3qPaff4zRj+B9HI0a9h3yI27BcYsae5I=
-X-Gm-Gg: AY/fxX6Ok5OEOpFGyJHNkspC06JzlQrXCsu42R093SDDhOKBrQkPF7at4I5lkV8FHRH
- HvylkrDPk7+0Evqb7lFr2UXzdERd0i7OIbGoHffpL/xFiMl/K2EpWtANKWkw+oncqhxD23uqzea
- RDLSyOVcdhKCpSeyhS016JSs6MAjNtuzr5ioL12MeFBVY24Z7pplB7/DBbImfJVhql57yXzryFJ
- z+po7KDlmqc/vGuCuUxTM6I6TN17miw7D0HKvjFo2bc+5p+C/Z5H6Y+poIF9cCerjnTTEvJ
-X-Received: by 2002:a05:7022:7e82:b0:11e:332:1e01 with SMTP id
- a92af1059eb24-12336a94480mr195815c88.3.1768340757484; Tue, 13 Jan 2026
- 13:45:57 -0800 (PST)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013046.outbound.protection.outlook.com
+ [40.107.201.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 974AC10E55C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 22:30:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MBcHcdYldN4P6iFfD6dLfabgPQoDo0SU4OQ1atwR0rH35fpjGl1VpJjAjNPb0mI6ZOe5lBxs1O5JwRuAp9kdav+mIjss9wiaqdgOhIszrPBrnRFg6K2aSPh6OJqjusUGxhM1bYDg5EfAsxPdJliIaJZU46g0AB0UZD20Jk3SUpKy3gqkOtDV41U6a2ZL6gFEWgSmvQdhK28qtqlsRPWQ3j1F5aTl9I+AJ0mAtW4s2swJqLk4ZwOyMFYrhFoycOgUprWaSUDSgGPV+9oPi5CIH35ZdB89LzW6+AmdekUFlYyaTLxcpLCMaX1aLlwi1tC83FftU7Ry9UWZyRD2hh04hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CC2vyGciyHjgQ5f8WbFVBH4Zj9vhhF4e3pIoyaAImdc=;
+ b=aMreXNdrIn/hjUdDYMG0tRBoyUwMrenWq26fRtN76B6pI2XLoyGtBtUMaIubTzzx9TsisvLtkKI9tLobGOh/D9faGLP7WunJw4yEifpXP1EwXo7xUzyavEPNkwlFmd2FbbPltR7jpmJxzIsLUQFhKnDhVjydkRWfattwlRMEQ1Po0uCIkmD+sDokI1TdzQt4kw9ocj8eCRKq0OYPoqZ1yHIZXUqGo4bexyR2zupxKdyWNFTOJ2K1zffNTHzoMMXZ3a8XxV2d39ptpL0LchgPV6hidG0OLkcXkH2W3QUXSEPv3OlgsMZO+oEAF7BUIjHpTC5gyhxq4lUDXWDs43hC6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CC2vyGciyHjgQ5f8WbFVBH4Zj9vhhF4e3pIoyaAImdc=;
+ b=ryKHz2rmmx4/JQIdraSG3RCrJ6BNBdbx6w6ai1Sr/mM/rfeP0qHNeruJcWnVN+r3xLj+stZRs2nv3oTCUYWe4B0Un8aTx14fJFmpm2SnnZHs6ONGHQ1qQ2+gnfDrSkpm5xC81OifRcRTv5np8n8V5ofUIdcJGQNdPtzOtW7E+Oo=
+Received: from CH5P221CA0020.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:1f2::11)
+ by PH0PR12MB7012.namprd12.prod.outlook.com (2603:10b6:510:21c::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.4; Tue, 13 Jan
+ 2026 22:30:31 +0000
+Received: from CH2PEPF00000149.namprd02.prod.outlook.com
+ (2603:10b6:610:1f2:cafe::61) by CH5P221CA0020.outlook.office365.com
+ (2603:10b6:610:1f2::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.4 via Frontend Transport; Tue,
+ 13 Jan 2026 22:30:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00000149.mail.protection.outlook.com (10.167.244.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9520.1 via Frontend Transport; Tue, 13 Jan 2026 22:30:31 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 13 Jan
+ 2026 16:30:31 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 13 Jan
+ 2026 14:30:30 -0800
+Received: from box-0.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 13 Jan 2026 16:30:30 -0600
+From: <IVAN.LIPSKI@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, <stable@vger.kernel.org>, Ivan Lipski
+ <ivan.lipski@amd.com>
+Subject: [PATCH] drm/amd/display: Add an hdmi_hpd_debounce_delay_ms module
+Date: Tue, 13 Jan 2026 17:29:59 -0500
+Message-ID: <20260113223012.494982-1-IVAN.LIPSKI@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260108144843.493816-1-alexander.deucher@amd.com>
- <20260108144843.493816-31-alexander.deucher@amd.com>
- <0426aa4f-869c-484a-b057-a4877fe3d26a@gmail.com>
- <CADnq5_OA1+hpGFUd1=5sorUKjCK0hYcNPoZR11n+6D67NycjQw@mail.gmail.com>
-In-Reply-To: <CADnq5_OA1+hpGFUd1=5sorUKjCK0hYcNPoZR11n+6D67NycjQw@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 13 Jan 2026 16:45:45 -0500
-X-Gm-Features: AZwV_QixMj6wdz9IYmL0mL11gCkJqxE-0b0kOTkpHt01owY8b0njJLdBZeh1Et8
-Message-ID: <CADnq5_NxXQbiYPaaqik2-=v=F_AduVqcp5V8S1V+rzQWmzaycQ@mail.gmail.com>
-Subject: Re: [PATCH 30/42] drm/amdgpu: drop drm_sched_increase_karma()
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000149:EE_|PH0PR12MB7012:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79afcf78-93c9-4ec0-7cf6-08de52f35c60
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700013|1800799024|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?XGmLt9+8bGQ+qHP9/gzG33co/ldZzcZR84OMd7JckfL5ixSaTa7ctHT3Pv5C?=
+ =?us-ascii?Q?FTdbzIT3BAQounjoWeb8r9ozWtWl0iPLOCpOBcMco09MhtrFrEC/Bw+0eScv?=
+ =?us-ascii?Q?gcX72BWm0k9Vob8NEGZVjh55QfexpgWZ8TS4vgCiAhk1G/dloBD8XzaZkQ7E?=
+ =?us-ascii?Q?7yGRpBUb5bnG0BTMVdEbsPrWirtT+CVUuaDdf3150O4JiSgYXSAqlzO5SnHv?=
+ =?us-ascii?Q?LeMdF0dbMWrvx7EC4gb65EhgcQpMN+apYXJTpGW7EVtFRYL5HyfS0wpi7tFb?=
+ =?us-ascii?Q?5RZPTz/5b0SHRgb1as0zb2mFApNXtWwQReOiuWIDwS+TlUiXf/CVA/frkkjR?=
+ =?us-ascii?Q?ZS3vj5a8JErOx3yi+jZ40hYN51h8BFIhXYiYakmdSFBBlKgUaVx1qJe5Cx6P?=
+ =?us-ascii?Q?246Usn81LGGkAyl1yVpCbt1QhS7NiDhYipPeI1uqw/E+GUF730dfj4ucQzlS?=
+ =?us-ascii?Q?bNo2EB1rjoCsO3R71plxpu2B/0RYT2QjMVw85lYkOmBeDXSzmQuPB6OYehNe?=
+ =?us-ascii?Q?NzL/enw2ZcNS/K8VGE2ewIPY8RzkHqRkqCVFo2NdMI45ObUyJ8C1IwYUEOwE?=
+ =?us-ascii?Q?VYxAZxlklZHVIjHmcAsogFkSfGhJGBJjlW9YH1qjRdhUACqmCx+CLDhhYA7S?=
+ =?us-ascii?Q?G2nu+ku3ICMzfCguPjPq0fCXyFwwjsC4bKqaDobsTUZuQ9/qcL5dWK6LDnJe?=
+ =?us-ascii?Q?w7kr9Z3DyhGP9JHxBa5CyNkiTR3PyQzgHbwtDwVcI68DEIlkQunSvbSKG8dJ?=
+ =?us-ascii?Q?nLOQB5c5YpjSozHJ6aH/AWTRWQC+bIUAe8+pz9R50KUhUsWrRTE9GGDVtsY3?=
+ =?us-ascii?Q?F4GA+Wm7Aotjt07XPDpwFmuLuwTeLZxzbVtnZHcVhih7F8qMd5ETsTHivzF1?=
+ =?us-ascii?Q?ZJSx3KQIFIC9F+FZ7MmxwvsxzwSjm5itSF8NQTkpO5TelI2M7/Df2yN+Wdti?=
+ =?us-ascii?Q?ihoMrW5Nwp8cR4VLwqViJtUE+tXfrOlCPNxQw7swYqwzfXHJwXZRzjgnPSp6?=
+ =?us-ascii?Q?s03rIY/s+izPYOWDZySV71eTroXhneWcSmQGLuS7NVGZLcqLhBpUX/l4DtSE?=
+ =?us-ascii?Q?h9N1h4UCRhJXDsd2rlMEpn4uix2e0w/kYdap+4rtdrAHZBUG4gkvJeK9rt01?=
+ =?us-ascii?Q?hYtjZtew1tGMdaca3uWovPvMg++c07Mw1r0ZfQ5vabSL04bjQtLW02FnWeGp?=
+ =?us-ascii?Q?8fvGNRRKI+n+mElf/cESGJ1Se+XdEOUHcNXWEgrcShDUBSsXS9rXiAT6M4Ml?=
+ =?us-ascii?Q?OeDWwxr7qIaxlvfPp2P3T55Kp0k5Pyl9JEy2BcBNQIRq0tJk18CKZ41LVLET?=
+ =?us-ascii?Q?hFm6DqImp1wqjjcG/pPqUNv+AxmX1wjv/jivAKkZVRs9mtZqLaReTBHOA1eg?=
+ =?us-ascii?Q?RuEW9TK/LPQX/e6CeFHFiimYYhjEyuEXNrMe8qF7zGus99jHLbJl+EPy8AKw?=
+ =?us-ascii?Q?da7d5dQWxPjNO2rJoCuFO4XwdUChSACebyEEF0kYXtLhrvsYO4NBMSpYdlnk?=
+ =?us-ascii?Q?W1Yq28fax8ryi3DIteH3XcdWDstq9BdUTfp8?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 22:30:31.2991 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79afcf78-93c9-4ec0-7cf6-08de52f35c60
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000149.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7012
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,63 +137,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 13, 2026 at 4:27=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
-> wrote:
->
-> On Tue, Jan 13, 2026 at 8:42=E2=80=AFAM Christian K=C3=B6nig
-> <ckoenig.leichtzumerken@gmail.com> wrote:
-> >
-> > On 1/8/26 15:48, Alex Deucher wrote:
-> > > It was leftover from when the driver supported drm sched
-> > > resubmit.  That was dropped long ago, so drop this as well.
-> >
-> > We unfortunately still need that to update the guilty flag in the conte=
-xt so that amdgpu_ctx_query2() works correctly.
->
-> I don't think it matters?  We don't call this for per queue resets and
-> the errors seem to make their way up to userspace properly.  Maybe it
-> would be better to move drm_sched_increase_karma() into
-> amdgpu_job_timedout() so it covers both queue resets and adapter
-> resets.
+From: Ivan Lipski <ivan.lipski@amd.com>
 
-Calling drm_sched_increase_karma() appears to not do the right thing.
-If I keep it in place, the context always shows up as innocent.  If I
-move it up to amdgpu_job_timedout(), even per queue reset contexts
-show up as innocent.  The behavior is better with it removed.
+[Why&How]
+Right now, the HDMI HPD filter is enabled by default at 1500ms.
 
-Alex
+We want to disable it by default, as most modern displays with HDMI do
+not require it for DPMS mode.
 
->
-> Alex
->
-> >
-> > But we could change the code in amdgpu_ctx_query2() to check the indivi=
-dual entities for error codes instead.
-> >
-> > Regards,
-> > Christian.
-> >
-> > >
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
-> > >  1 file changed, 3 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_device.c
-> > > index 868ab5314c0d1..c9954dd8d83c8 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > > @@ -5808,9 +5808,6 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_=
-device *adev,
-> > >
-> > >       amdgpu_fence_driver_isr_toggle(adev, false);
-> > >
-> > > -     if (job && job->vm)
-> > > -             drm_sched_increase_karma(&job->base);
-> > > -
-> > >       r =3D amdgpu_reset_prepare_hwcontext(adev, reset_context);
-> > >       /* If reset handler not implemented, continue; otherwise return=
- */
-> > >       if (r =3D=3D -EOPNOTSUPP)
-> >
+The HPD can instead be enabled as a driver parameter with a custom delay
+value in ms (up to 5000ms).
+
+Fixes: c97da4785b3b ("drm/amd/display: Add an HPD filter for HDMI")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4859
+
+Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 11 +++++++++++
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++++++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  5 ++++-
+ 4 files changed, 29 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 11a36c132905..9903da2d28b0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -269,6 +269,8 @@ extern int amdgpu_rebar;
+ extern int amdgpu_wbrf;
+ extern int amdgpu_user_queue;
+ 
++extern int amdgpu_hdmi_hpd_debounce_delay_ms;
++
+ #define AMDGPU_VM_MAX_NUM_CTX			4096
+ #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
+ #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS	        3000
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index d67bbaa8ce02..771c89c84608 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -247,6 +247,7 @@ int amdgpu_damage_clips = -1; /* auto */
+ int amdgpu_umsch_mm_fwlog;
+ int amdgpu_rebar = -1; /* auto */
+ int amdgpu_user_queue = -1;
++uint amdgpu_hdmi_hpd_debounce_delay_ms;
+ 
+ DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+ 			"DRM_UT_CORE",
+@@ -1123,6 +1124,16 @@ module_param_named(rebar, amdgpu_rebar, int, 0444);
+ MODULE_PARM_DESC(user_queue, "Enable user queues (-1 = auto (default), 0 = disable, 1 = enable, 2 = enable UQs and disable KQs)");
+ module_param_named(user_queue, amdgpu_user_queue, int, 0444);
+ 
++/*
++ * DOC: hdmi_hpd_debounce_delay_ms (uint)
++ * HDMI HPD disconnect debounce delay in milliseconds.
++ *
++ * Used to filter short disconnect->reconnect HPD toggles some HDMI sinks
++ * generate while entering/leaving power save. Set to 0 to disable by default.
++ */
++MODULE_PARM_DESC(hdmi_hpd_debounce_delay_ms, "HDMI HPD disconnect debounce delay in milliseconds (0 to disable (by default), 1500 is common)");
++module_param_named(hdmi_hpd_debounce_delay_ms, amdgpu_hdmi_hpd_debounce_delay_ms, uint, 0644);
++
+ /* These devices are not supported by amdgpu.
+  * They are supported by the mach64, r128, radeon drivers
+  */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 354e359c4507..ba7e1f72fde1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8918,9 +8918,18 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	mutex_init(&aconnector->hpd_lock);
+ 	mutex_init(&aconnector->handle_mst_msg_ready);
+ 
+-	aconnector->hdmi_hpd_debounce_delay_ms = AMDGPU_DM_HDMI_HPD_DEBOUNCE_MS;
+-	INIT_DELAYED_WORK(&aconnector->hdmi_hpd_debounce_work, hdmi_hpd_debounce_work);
+-	aconnector->hdmi_prev_sink = NULL;
++	/*
++	 * If HDMI HPD debounce delay is set, use the minimum between selected
++	 * value and AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS
++	 */
++	if (amdgpu_hdmi_hpd_debounce_delay_ms) {
++		aconnector->hdmi_hpd_debounce_delay_ms = min(amdgpu_hdmi_hpd_debounce_delay_ms,
++							     AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS);
++		INIT_DELAYED_WORK(&aconnector->hdmi_hpd_debounce_work, hdmi_hpd_debounce_work);
++		aconnector->hdmi_prev_sink = NULL;
++	} else {
++		aconnector->hdmi_hpd_debounce_delay_ms = 0;
++	}
+ 
+ 	/*
+ 	 * configure support HPD hot plug connector_>polled default value is 0
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 7065b20aa2e6..6fe7f78b66c5 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -59,7 +59,10 @@
+ 
+ #define AMDGPU_HDR_MULT_DEFAULT (0x100000000LL)
+ 
+-#define AMDGPU_DM_HDMI_HPD_DEBOUNCE_MS 1500
++/*
++ * Maximum HDMI HPD debounce delay in milliseconds
++ */
++#define AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS 5000
+ /*
+ #include "include/amdgpu_dal_power_if.h"
+ #include "amdgpu_dm_irq.h"
+-- 
+2.43.0
+
