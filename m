@@ -4,79 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA788D2D0F9
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 13:17:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DBE1D2D0FB
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 13:22:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59E7D10E1C2;
-	Tue, 13 Jan 2026 13:17:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32C498911A;
+	Tue, 13 Jan 2026 13:22:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jjkr9xJg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K8OnxdR9";
 	dkim-atps=neutral
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
- [209.85.222.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4EB710E1C2
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 13:17:46 +0000 (UTC)
-Received: by mail-qk1-f176.google.com with SMTP id
- af79cd13be357-8bb6a27d407so734694585a.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 05:17:46 -0800 (PST)
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
+ [209.85.160.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3B038911A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 13:22:32 +0000 (UTC)
+Received: by mail-qt1-f174.google.com with SMTP id
+ d75a77b69052e-4ee14ba3d9cso83630561cf.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 05:22:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768310266; x=1768915066; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1768310552; x=1768915352; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id:from
  :to:cc:subject:date:message-id:reply-to;
- bh=q0yzFDQr4MVzbwYnCxDXUlBCDC8a1ozaF40EsWAGP5U=;
- b=jjkr9xJgEGyxWHjj/jDuHzu8gFxBVhUV/Oa7jciHOPA0HyABUXhdp0g5CMllgIjkXF
- oG0mjHIWkE85/vB507F9aEyASq1+OGsCBjAkx7j5sx9cKkD0JHaz7yGiplTlTYU8B+Sj
- P1N6FEd/v2ptcrcbswMeknk66USXJ/I8qtkSVn4k/RWi+NJBI0zSKzjCBmmelDOrWm5x
- Cf1eX6b5nCKS4ahy0vIGZDB8DtDiKG4xm4lGGyPtmRZ1EYpsRyFG7RDvFqEfFfTZFla0
- lw6p1sAeFT/ECYY+WLR7lV1uWymNQxiQ3xanckvm7+H1xWNSDO8+ctHvpZ6q0SkCXp5x
- v1/Q==
+ bh=b7o3gdAVsbkG4pSvtEEJrn+vyfH4Mvry9MCrwqL54Ms=;
+ b=K8OnxdR9Uc//MPuMcSv/bEyEebJSV3Lg6Wuo65PFfIimnM8jjA8wV4DysQB2+l7gXm
+ rtr5OWKcG4MpHchY9sOutRhCH4KzAP4r4jMXAfWFYXbl51fd9r++lENe4ZW3gpd1hFl8
+ qdnJxpCCqN/gR9xrFT00HvGSTx4uQrbx+ky3XnPn91R0vxrYMwOWsvgCoNZxquuLF7UI
+ RuoC00U1zQJkiL8f9HueFsxCC+ELHRqO/gZ92Ttv5wUefP8aYqOYIzHLQvOs9GodFBgL
+ B8PyLlMv6cFQTWO1bNidUpJ5rCJDWCGaw5QZszxoO/3qLWsZWWOx7lUyFjf56AG+N2nG
+ iItw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768310266; x=1768915066;
+ d=1e100.net; s=20230601; t=1768310552; x=1768915352;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=q0yzFDQr4MVzbwYnCxDXUlBCDC8a1ozaF40EsWAGP5U=;
- b=Tt0mdtyimASLPxOwoXkD0Mx2EZ449n08Bb2uJ8QQrrd+09Z030EMUzCtsNUi478U99
- UwVJsSFsFF+58VWfbZPv3A0hDU/E8lJWHMViCbbvKJXeASCSxzr0TUDiO/czhfaYdJ0V
- ZCLh2RE8lBNN5ncWPBuQDhiktrBeGmoqvEc/2dxACSsgSDgvmfdMhFdAj3Nd9Dll8VUI
- LHP+ac3TdhQzxUskMGi7V+aewWpmnb7nTdGdX9DUokadUCBJip45cvMDaLS6ofdWIEJ3
- A0E3Y4rACwMHR3hNfoRSFDn37fVmrHkJ1sNqGJ/VcHOiMerD1HxpYzpTAoHdUORDWbJl
- 8a7A==
+ bh=b7o3gdAVsbkG4pSvtEEJrn+vyfH4Mvry9MCrwqL54Ms=;
+ b=f7ECoDG+7H1WZVNPf8Q2klnxZGf515+HfXwEbxy55dHDw/Kq13SUqEszqpAgFvOs14
+ 4L7vQaNNL8kVolGvs1fhNiANMxADvcs1YfMrIQO004LmDqHwb/JVK6n3GH2V0egwdtP9
+ 2uc5SkVVtbQ/wKDVCQfHIOGcO4XbV7R3lNbx3MQim+LAhbNQeNTgJ72OUmBL5OxByQa3
+ IqXeMEQ1KtHaZddp68Z993AlE/CWZvPtxrN9UELRYdAnwLQl8w1gYgFmwzEyHItpRzqe
+ ebGe0Alqp4ckf3atVnucfeVuCPLNAo3NX3L87EkO6xbSOQT12cc149Z7E5CGgDJFkPxd
+ w5lA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXtaFnDofAA+MAATK8faBiLiCglh9bNF/szb2IFWMh9tHnIBYtbZKg54vLXZpPXxWux1ZBLeIGD@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywx8TzNQ6UKKfnfeRwQQe6wOdV06/mnZ+eT44LQQnq1aQ17TfY0
- alH2+AXyD5hKHL8M6M5FQPb/W85ukeuLb/XKdP8vWJMYaalWPurm5xOp
-X-Gm-Gg: AY/fxX5ouRdkITrqNF9LL7av8Y8R6kYOGAM0BCTWRV7Zgr8S546ms187WpErk9xX37z
- +SJzS6+drk2zdiEzDHU16A+jEEmbZ+sEtpZ+rcu1G4pq7vXuvyxrS3dO8q09Ku9Uy6Geb3vYPei
- umjpvu+kMOq6eknlSYseIrAeRBft6Av+6brdwWb0mPLDw7JmwksRJ9c7/1qqWjcuH4uFrC+bbqV
- IsR1K4Xy2s1ftkKm0GXcWj3UxUgi2TXsU2KGqift6RKYHgfR59w97z08nSGNkHe5oTJYRI0w6v+
- 0mo0CG/eop2NoicbnFB78qGZA8chtoCEKiUkDJPjWwdAsC6/++qOaUw2dkpPnkg2s6aefGTwBzP
- 906+BUIjkqJs5/VCu8LFCV6grFj7VHNCh0BHD6eF+AUei7sXTVCsSrQ938kiEsUx+fLvaGoz+3g
- ydi2GBbq1IIh7IlqTaxpNyx2+0SYtUA5MT4z2owQeC0iA=
-X-Google-Smtp-Source: AGHT+IGvA7Xdrkatn1fPD0vZcJIlJIjzrJXB6Pu1NM+ZqjDenAkRO77iYso7WVXblV1ZytyNGUnSIg==
-X-Received: by 2002:a05:620a:3188:b0:8b2:7754:f492 with SMTP id
- af79cd13be357-8c38940cfa7mr2876416085a.81.1768310265723; 
- Tue, 13 Jan 2026 05:17:45 -0800 (PST)
+ AJvYcCUq2In353AYWWQT1QUJ3o4GCy0LdBdaui3kc1UONV/YfSRwr3PSeMF7bT85ArcRX4qA5v8X60VU@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyGSigZBm0tlpzIYUM1hiIci08pOWvTa6ne3kqkM0Ib7FR5ok45
+ nWhbk1civBq8WBGuUXe/yiY9dWb58KTBoi0HqBSyV/E6hlNvMr4kXjhUFRuwwDUa
+X-Gm-Gg: AY/fxX5socACtsaIIQ8H1+hWFIJos7cuIpJbEZ1xTpEA0SIs5wa0olEtykoRYjQ1wK3
+ /0CaF06fb056KKJ8GwtJnggdz8dxat/LapCw1MMvfc9008ro+nRBy8dJiFNw44yXOUORhDFZDax
+ 2t6sLXML0VKLPC3cRWk9izySCx5iis6DeXOJ+q/EnDaMVQ1V4ST65Jfmf1rgbtAloIopBdTDF8U
+ cnUnsuvVBDUWdFFlBNy8MPCssBU+dS7sYY0ziUmgjUwDZLsx36GeljKMf1+wdRF91ZErbIzvzkD
+ EjesSXpELfkjGJOA5PY3pHklQvjmlBF6y0Di1FkA/aEQ4W+h4fX6asFpF+g8fTE7rzyDGGtCkYv
+ elL/RAEarDUXeoHQb8Nq/LPXhTfr8jFfbudGUC/K55ABaPAl8Sdl1oHL88VN+jqauRcZEDm2m7o
+ 9+3DIWlrHc58t5z+XYCiIpiIuVUsuhJOcj4xdcycBYZMAmss2v9u6m1g==
+X-Google-Smtp-Source: AGHT+IFHXGNz9EOecvNHRuPfMKJS9wfhbpWWGrxh6fLyFkBrHaO/pdjMTfkN0IQ4QSF9zHYrhgcgDw==
+X-Received: by 2002:a05:622a:1b9f:b0:4ee:209c:be59 with SMTP id
+ d75a77b69052e-4ffb49e6644mr301563481cf.55.1768310551725; 
+ Tue, 13 Jan 2026 05:22:31 -0800 (PST)
 Received: from [10.254.120.192] (mkmvpn.amd.com. [165.204.54.211])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-890770d2cf5sm157085306d6.1.2026.01.13.05.17.44
+ d75a77b69052e-4ffa8d55656sm145401531cf.9.2026.01.13.05.22.30
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 13 Jan 2026 05:17:45 -0800 (PST)
-Message-ID: <08a6057a-7e95-4007-a4ee-ec8f6e3e5540@gmail.com>
-Date: Tue, 13 Jan 2026 14:17:43 +0100
+ Tue, 13 Jan 2026 05:22:31 -0800 (PST)
+Message-ID: <0426aa4f-869c-484a-b057-a4877fe3d26a@gmail.com>
+Date: Tue, 13 Jan 2026 14:22:30 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 29/42] drm/amdgpu: don't call drm_sched_stop/start() in
- asic reset
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Philipp Stanner <phasta@kernel.org>
+Subject: Re: [PATCH 30/42] drm/amdgpu: drop drm_sched_increase_karma()
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20260108144843.493816-1-alexander.deucher@amd.com>
- <20260108144843.493816-30-alexander.deucher@amd.com>
+ <20260108144843.493816-31-alexander.deucher@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20260108144843.493816-30-alexander.deucher@amd.com>
+In-Reply-To: <20260108144843.493816-31-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -94,14 +92,12 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 1/8/26 15:48, Alex Deucher wrote:
-> We only want to stop the work queues, not mess with the
-> pending list so just stop the work queues.
+> It was leftover from when the driver supported drm sched
+> resubmit.  That was dropped long ago, so drop this as well.
 
-Oh, yes please! I can't remember how long we have worked towards that.
+We unfortunately still need that to update the guilty flag in the context so that amdgpu_ctx_query2() works correctly.
 
-But we also need to change the return code so that the scheduler now re-inserts the job into the pending list.
-
-Adding Philip on CC to double check what I say above.
+But we could change the code in amdgpu_ctx_query2() to check the individual entities for error codes instead.
 
 Regards,
 Christian.
@@ -109,29 +105,21 @@ Christian.
 > 
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
+>  1 file changed, 3 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 80572f71ff627..868ab5314c0d1 100644
+> index 868ab5314c0d1..c9954dd8d83c8 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -6301,7 +6301,7 @@ static void amdgpu_device_halt_activities(struct amdgpu_device *adev,
->  			if (!amdgpu_ring_sched_ready(ring))
->  				continue;
+> @@ -5808,9 +5808,6 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
 >  
-> -			drm_sched_stop(&ring->sched, job ? &job->base : NULL);
-> +			drm_sched_wqueue_stop(&ring->sched);
+>  	amdgpu_fence_driver_isr_toggle(adev, false);
 >  
->  			if (need_emergency_restart)
->  				amdgpu_job_stop_all_jobs_on_sched(&ring->sched);
-> @@ -6385,7 +6385,7 @@ static int amdgpu_device_sched_resume(struct list_head *device_list,
->  			if (!amdgpu_ring_sched_ready(ring))
->  				continue;
->  
-> -			drm_sched_start(&ring->sched, 0);
-> +			drm_sched_wqueue_start(&ring->sched);
->  		}
->  
->  		if (!drm_drv_uses_atomic_modeset(adev_to_drm(tmp_adev)) && !job_signaled)
+> -	if (job && job->vm)
+> -		drm_sched_increase_karma(&job->base);
+> -
+>  	r = amdgpu_reset_prepare_hwcontext(adev, reset_context);
+>  	/* If reset handler not implemented, continue; otherwise return */
+>  	if (r == -EOPNOTSUPP)
 
