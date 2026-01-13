@@ -4,89 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DF1BD30CC1
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 21:23:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD5DFD30CC2
+	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 21:27:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B951D10E165;
-	Tue, 13 Jan 2026 21:23:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C03210E54A;
+	Tue, 13 Jan 2026 21:27:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jrsDGvNM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ply9nB/3";
 	dkim-atps=neutral
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE48310E165
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 21:23:14 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-122008d4dc0so368250c88.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 13:23:14 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1768339394; cv=none;
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 778DD10E54A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 21:27:44 +0000 (UTC)
+Received: by mail-dl1-f45.google.com with SMTP id
+ a92af1059eb24-1232de2e2c6so41164c88.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 13:27:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1768339664; cv=none;
  d=google.com; s=arc-20240605;
- b=MpfHVTFcm1r0Pu5NRKex7PwIyvOJzRECYtdTGeiw0p5/jeblcs63YWaRhP6CdT/7yV
- 1RGcFNe7ncmJWAkrn1Uv8hm/1k7w2tqFnghRfYZbu2l5UZ9iPHrCtJZqKLbzzmMZffo3
- Fcv52LLuPj3UfG5OrT42sVrP/50gO0qLZZ5mhsjiJNX18Lvr1zQBFn1NMsS56RZRt0vJ
- RQC6ld1sD1Y3vEfYOxEuT4T+exuFWx4/DGolwOc1FCdpdgy0ib7b6C9CVINJowoaZQlb
- cOkS8MaEzuWnBFZhhIz5nNAEe/YzTSVrx7hSylBbovhwFEDav0F+Sc9P/UD+OB7n0nsE
- lwdg==
+ b=K3Bds0f881Zmxb3BFW9o1y2K/gO/CqyFQ3ZGHgq1Y6GmpgiOlkppZ9k5zNg3JCcNiy
+ DHDODR4HEUT/YWGrXXVExhCQ/VCB8DybGdyr+IBw2OVCXbTqeS+jgXsEQVPl5uY4n5de
+ HoRH0j0O5FDIXN0RovIPWO80dddwUdyT/YByWtXty6bOzn93V6XGL0REGEv0Lm0eKND9
+ 5r3hoHVRWDrkHqdax1iiHTxEEdSGI38YdVRmdw8R2DCeyLOq5ND6gcY4gmK1XoJkvPE6
+ AUVF65pT+axpEJhnVn2BG27u+awfu9Eyukoi3ncAmUgAt9s30ziEG4d1exO8jxwN2LOG
+ dhLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=RXsZLSEG5OvY/ugwq92hC44nKU98a/G97p0FOCYnOgQ=;
- fh=gWI5KnsOpz9fwpUwkIgat+YVpFBrLZ2GvT9yL+HM51I=;
- b=HAZkoQM6Cg7PRdboXrjPUKSO0vLKWNsEfIXoqF9qQJMkrqW17d2fxHDl6F4r+WanC1
- /m2wM+tPxZo0Ko3Q6DJRAzRmsXe6Y36NTfh0B4xENjVOVw347nIY74VUVfIKg3bMFm6H
- xqgqa3g5KF7GgG9OB46h8LBw/Yb3NpqL1TJIjzDIrW7b7B2anf8fyqTv3iR7OMRL9Y+l
- 4TWcEMNhU2Su//lWq2otEYM4HlCP3/Y6yPQCTCOdm65ZNRjaSc5rMK1Em+yY2ts2e3RG
- fXvOS/bjyCZUbumOpxeefT9JtKbnqIKN45SZcf9kUg64eMdk40FDk3rwm7duxq1fdh6h
- YgDQ==; darn=lists.freedesktop.org
+ bh=58BsIDrICp+NodFaHir3wcHXJQ/3Dx9pD67mgXvAbWk=;
+ fh=iccpKRTaQZzl4OW5ogxxwrDEWvn+b36IQOED7deNc0k=;
+ b=X1iuSym5LcXal5TmEUGbVBFl/BuvEtxTxXQSASynJW0qI0xcrEuC3YkpBDuJa0MQJF
+ Mb8fNiJcowsKmIZOP2XsQprEyO5uwtkgAjbzQh05NdV+T6f2MfQvlffv0M/o5eZDbQ6W
+ M2BNBWqIA5JyII0rOIy2IfOqpBj53R4mJavBV037ZhPpUdIYpcIBELLvvsNsUd/++uQZ
+ mOZuURWWdW937jiiYhH8EHlmB2cvshwxPHG1Stb/LQgs9JUd35T3K5KsGnbamZ23ioII
+ 6gASJ/fF3adSGlpLSjA2H7Mp+bd9eoFxFS/MPyAYHtXPtu6t2Nk7LtmwxAPKU9Xa3NlT
+ 2LbA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768339394; x=1768944194; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1768339664; x=1768944464; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=RXsZLSEG5OvY/ugwq92hC44nKU98a/G97p0FOCYnOgQ=;
- b=jrsDGvNMfs4Q6iTr969GSS0cyG2MtnNifSfu6bmPuMkqKt021MXIHnqwt6GIMMc3i4
- 47gyh3sihATmEkUbOKIy18Xh++Yb4sVHcYfdmf3saaiLGJq2eOb3tW02OpGutHWsfpsl
- lLWI/7b+y097DlNr83iguqW/bs1gry0T/dfkM4ewrUxQBR/pehcjMcN6suD5C86qfakT
- s/kdE6lBZYvzv/S+PAdrhFxMX5dngff8bntWq0GtZfYFXNhKEtltWBijCsIICDCQazyg
- 3OgY31eod7rUdXTGhnRTaT/cAVkS7lgVakVrsfm5s2BcDN4VVBRHVMzT/66Pof9pQH9M
- w1Lg==
+ bh=58BsIDrICp+NodFaHir3wcHXJQ/3Dx9pD67mgXvAbWk=;
+ b=Ply9nB/31vB+sWGSgssEZaYe6iW4cGZ5p4leAKIDdfEsgjZ9l53rTYjDPw6fn2BxnQ
+ Ce8+VET8kE/uBnrLfOThc68R9WqccbdwVLGMwlN1rgnY3hxXCb78o5oAPdlT+jdrn5Sf
+ bcxrMkcDqQ7jDB6hfUviVqm1kS57ZL660mhge+T0AmyDfFRqbsSg2y6iKFfB7MzNyTy/
+ RDUT6b79UovA3nUku5YIE+puSNyd/kLEmhCdpEUAIYRADOrqiKfag/DlLYBjJp4ndN5n
+ JAyYo4qqVHt2KUO6WowOzqyFe9RcWmqFvr7Mih626r1ipCLdggomm0OGT8lY93PUcGXS
+ mtqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768339394; x=1768944194;
+ d=1e100.net; s=20230601; t=1768339664; x=1768944464;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=RXsZLSEG5OvY/ugwq92hC44nKU98a/G97p0FOCYnOgQ=;
- b=WpEXARVhfycbKj5Ajkh0csdikHVK9vFnn0dlPxG/weNslxo52qsfb4qR4orKQH13S5
- zTd8wA57q/vgm7lFMiJe02nptomIuzfajy2QMRi9JxXxVQLHSYqBvH63psJ8W6d+y9ew
- jwsBGnrrMLVmNw+YES2KMQXbKL2u6a1UVoeQ1HNhxZEo3uetdKdrryLd+SOE9gLpZf9s
- RL2USZjEkYvnDdApSkmiUzX3iHpKvZDwKHvO7ubeoPg4YyEyuuy0hk/YLsgs7nobbS/l
- BbpPQ4OTG/JXh2MDW9MVy2pAlfOszaYEDx0S5McEGXaAZysr8mo8YRmvPK2s4xno66H3
- IMvg==
+ bh=58BsIDrICp+NodFaHir3wcHXJQ/3Dx9pD67mgXvAbWk=;
+ b=CsK7R4JrcY6Pyk4ZeV6JujpfWszs8MgaKT56M3LzFywYfuyOLO4N1Z6nOj/1j9wcCS
+ vPgqjLAa2CATlGUAp13hOD9qNpvE6FQiErj4gXV/d/M8gJAQ2BW2ZdkeLkbtxa4XdpGj
+ viFhrNozxRRU19JU6yUXkf7GWmaoZwqlwKbj1vgJB9KfThNlzAXldTN2S+56F7rOhep0
+ eSpX+P8zi5Eb0VheSkV6XjIPnDhFwgrnR85gcZTAIiLLTUjyerXCTkbmVf8u/NpOBmkp
+ fkjSBHgjJ0w1u7R44CqQR+xFIg4J0/BkoYTriosBSxzEt6nCvCCAP+a1SUm+E9WvNqIs
+ yQHw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW35CQ3kaF4yUQQfiQk4g7uFNHMsOSt65nQ/mZaXPBVHvpH7CaUqpwYeV1spGugquW3KYu/eMsK@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzCk+n2U/z6xBg8+p+BiPvCj1at293kVeftvxTkTeC/4rGASuU7
- yMTR9Ule3U6EUDOIKVhMiITw+rrubWVhaklw+QHhtXmM1iMEGXH53r1CcfKZ1+ptpgVV0FrTZuw
- GzmCK+k/8vMccRhnv62pb3Ld0sjdUg8M=
-X-Gm-Gg: AY/fxX4x4oEYnAgVlbJGSna1XOChbl+2DY44EFtgcjciYN724whc6JaSiWxEPRV/8Om
- /N+5aYTLIazqL3cEz+8dedxci9k6NHe2HWk1CVnufQuEA1QIUzdL1ysmQxz/AWpf9CluNgBIuNS
- cSlt8IQcdGkxUdK3RJozC6acH90IodCDSoKpCIbEKCkn8/awbqQsRyp71ZvOqwn+LcLv8Js9Zec
- Pf4rST4JOpEPZ9Qad3PXoRym0fY0f6U416PVM/KuWOmehj9Q0Kld/kkIvN75fMbUGy66OqR
-X-Received: by 2002:a05:7022:b902:b0:123:308f:667b with SMTP id
- a92af1059eb24-12336a2e6bemr180412c88.2.1768339393894; Tue, 13 Jan 2026
- 13:23:13 -0800 (PST)
+ AJvYcCV5jiKijjusjpnSmOH4NivPq3a7mibvORW+UH8yBncl74x7YlKnlpnPOM0raJsQtYpOnecVqXS/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyEyIS98C/bBfRAwbMLjaIUjckoDPMIpvskthrCz8+XInOmiw45
+ 5sCPeAGj1PIj0gxN0BR6AuFCLIZ3tjBQVDVx8Z6DsfY5JQMhWl/GKSCLkfCgqQDI/1ZRNxPElsL
+ 6/OjJt7kvXJm2dG57HlMO3AW6rdxo3QQ=
+X-Gm-Gg: AY/fxX6Y/P2AGhX62e3SU57DX0IyWpkHGEGSKFi8pOvUtfGxwzx+KAfctIWeoYrpMHu
+ SIwJt0t+Q6mpOS6Aqd15XfmoTmMKyZj+BEovLJjRmdcT70U8kCw+o2wj7Cbz463PEnmEwY33ypj
+ VayrpIVGpTGKi4PH9h4O5xdQduLXHO8kz26jQvM+Qw3h9MdYrTZZSnk0k0QhHd/oyq/MRWLvzxX
+ TiDJgBgn74dhEhaXC9cNeab8agSxsEaGCeFVFhhONaNM+A/NO3EgRU2c8rWWnYjMFS7fV9R
+X-Received: by 2002:a05:7022:7e82:b0:119:e55a:95a1 with SMTP id
+ a92af1059eb24-12336a96a3emr167834c88.3.1768339663628; Tue, 13 Jan 2026
+ 13:27:43 -0800 (PST)
 MIME-Version: 1.0
 References: <20260108144843.493816-1-alexander.deucher@amd.com>
- <20260108144843.493816-28-alexander.deucher@amd.com>
- <73176491-e648-4a8b-bcaf-d40394dad0c7@gmail.com>
- <CADnq5_O+9wLA9_n8jamLA0EpVw4y4WY8FfH9=5pr8SxJkLXRmg@mail.gmail.com>
-In-Reply-To: <CADnq5_O+9wLA9_n8jamLA0EpVw4y4WY8FfH9=5pr8SxJkLXRmg@mail.gmail.com>
+ <20260108144843.493816-31-alexander.deucher@amd.com>
+ <0426aa4f-869c-484a-b057-a4877fe3d26a@gmail.com>
+In-Reply-To: <0426aa4f-869c-484a-b057-a4877fe3d26a@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 13 Jan 2026 16:23:02 -0500
-X-Gm-Features: AZwV_QjxiugsPsMJInqe7sneWGIlUDnyz_R_VLezCMVMzi7PC1uk5nOOr84fOHc
-Message-ID: <CADnq5_NECdibuaSwKHjg0MrPPSGEN2zcLydiYedpfraWnMz3Yg@mail.gmail.com>
-Subject: Re: [PATCH 27/42] drm/amdgpu: mark fences with errors before ring
- reset
+Date: Tue, 13 Jan 2026 16:27:32 -0500
+X-Gm-Features: AZwV_QgmxDegpkhlI2eqTMxm7PjwcibDUMlbGmoYO2JqGXinSXSO9ami9Apl4vs
+Message-ID: <CADnq5_OA1+hpGFUd1=5sorUKjCK0hYcNPoZR11n+6D67NycjQw@mail.gmail.com>
+Subject: Re: [PATCH 30/42] drm/amdgpu: drop drm_sched_increase_karma()
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -105,75 +103,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 13, 2026 at 10:39=E2=80=AFAM Alex Deucher <alexdeucher@gmail.co=
-m> wrote:
+On Tue, Jan 13, 2026 at 8:42=E2=80=AFAM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> On Tue, Jan 13, 2026 at 8:13=E2=80=AFAM Christian K=C3=B6nig
-> <ckoenig.leichtzumerken@gmail.com> wrote:
-> >
-> > On 1/8/26 15:48, Alex Deucher wrote:
-> > > Mark fences with errors before we reset the rings as
-> > > we may end up signalling fences as part of the reset
-> > > sequence.  The error needs to be set before the fence
-> > > is signalled.
-> >
-> > Setting the error is a good idea, but signaling the fence before the re=
-set is clearly a NAK.
-> >
-> > Fence signaling can only happen after we are sure that the DMA operatio=
-n has been canceled.
+> On 1/8/26 15:48, Alex Deucher wrote:
+> > It was leftover from when the driver supported drm sched
+> > resubmit.  That was dropped long ago, so drop this as well.
 >
-> This function doesn't actually signal any fences any more.  I just
-> sets errors on the fences.  That's why I renamed it in the next patch.
+> We unfortunately still need that to update the guilty flag in the context=
+ so that amdgpu_ctx_query2() works correctly.
 
-I've reordered these to make that clearer.
+I don't think it matters?  We don't call this for per queue resets and
+the errors seem to make their way up to userspace properly.  Maybe it
+would be better to move drm_sched_increase_karma() into
+amdgpu_job_timedout() so it covers both queue resets and adapter
+resets.
 
 Alex
 
 >
-> Alex
+> But we could change the code in amdgpu_ctx_query2() to check the individu=
+al entities for error codes instead.
+>
+> Regards,
+> Christian.
 >
 > >
-> > Regards,
-> > Christian.
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
+> >  1 file changed, 3 deletions(-)
 > >
-> > >
-> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 7 ++++---
-> > >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/d=
-rm/amd/amdgpu/amdgpu_ring.c
-> > > index 600e6bb98af7a..5defdebd7091e 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-> > > @@ -872,6 +872,10 @@ void amdgpu_ring_reset_helper_begin(struct amdgp=
-u_ring *ring,
-> > >       drm_sched_wqueue_stop(&ring->sched);
-> > >       /* back up the non-guilty commands */
-> > >       amdgpu_ring_backup_unprocessed_commands(ring, guilty_fence);
-> > > +     /* signal the guilty fence and set an error on all fences from =
-the context */
-> > > +     if (guilty_fence)
-> > > +             amdgpu_fence_driver_guilty_force_completion(guilty_fenc=
-e);
-> > > +
-> > >  }
-> > >
-> > >  int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
-> > > @@ -885,9 +889,6 @@ int amdgpu_ring_reset_helper_end(struct amdgpu_ri=
-ng *ring,
-> > >       if (r)
-> > >               return r;
-> > >
-> > > -     /* signal the guilty fence and set an error on all fences from =
-the context */
-> > > -     if (guilty_fence)
-> > > -             amdgpu_fence_driver_guilty_force_completion(guilty_fenc=
-e);
-> > >       /* Re-emit the non-guilty commands */
-> > >       if (ring->ring_backup_entries_to_copy) {
-> > >               amdgpu_ring_alloc_reemit(ring, ring->ring_backup_entrie=
-s_to_copy);
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_device.c
+> > index 868ab5314c0d1..c9954dd8d83c8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -5808,9 +5808,6 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_de=
+vice *adev,
 > >
+> >       amdgpu_fence_driver_isr_toggle(adev, false);
+> >
+> > -     if (job && job->vm)
+> > -             drm_sched_increase_karma(&job->base);
+> > -
+> >       r =3D amdgpu_reset_prepare_hwcontext(adev, reset_context);
+> >       /* If reset handler not implemented, continue; otherwise return *=
+/
+> >       if (r =3D=3D -EOPNOTSUPP)
+>
