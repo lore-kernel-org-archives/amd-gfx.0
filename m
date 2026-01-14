@@ -4,45 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2166D30CDB
-	for <amd-gfx@archiver.kernel.org>; Tue, 13 Jan 2026 22:38:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B845D30CDB
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 00:20:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9CE10E561;
-	Tue, 13 Jan 2026 22:38:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F175D10E37F;
+	Wed, 14 Jan 2026 00:19:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="vLckx10g";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="kuKQCbhT";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CofAYN5I";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5EC310E561
- for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 22:38:44 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 50CE640AAB;
- Tue, 13 Jan 2026 22:38:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA28BC19423;
- Tue, 13 Jan 2026 22:38:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768343924;
- bh=4cgnKUefhRKwFLUbnV8rNzACEXUctKDlbClwQFLMNRA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=vLckx10gDHTCse67SFqunTLsqRh9OfleOGudyQBor/aqHLCZXmHR3yjlkZvOtso83
- 6yOmB7wjW0ifWFhduf7UKV7E/WxpDzhGI6a3z5rh9GVbcXGNQEj0UtxAWTb5Czacjp
- nP4FqMgFsMs2TXcRhEsdGcXHCBtHARmG0QP1oho95DGEuu6jQEwFn4pRJmbiwwgGPk
- tvJvv8CVh19G7QYtlRDAXBxWyjHx93oWneDfirAEbA8ivHnS+1j0JoucVZQRdAvoDs
- jJlfZS+p7k1OVBgf9W3UtgxB3HUEU0hBrdAA7bhv0cNP2FyjJXR+vjb+KD24IdngID
- 48kmJ2SLh06Kg==
-Message-ID: <f2849dc4-ae29-463e-9f67-667e9174c5b5@kernel.org>
-Date: Tue, 13 Jan 2026 16:38:42 -0600
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6CEA10E37F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 00:19:56 +0000 (UTC)
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60DNI1S42204164
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 00:19:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ kT48Gh8ZEybWr5oJNkZWcqfokdQKTKrcVUWBmWF3mMg=; b=kuKQCbhT2iqKBNLs
+ 5MJqCHG9QobaIDWui2IDBvjmB6XNOfyZHUJw8ErysEHkFvDo0yQJmXqrAqkvsI5Y
+ Cs2m0PDIiVTXkKIJFgwz7ZNsJI7MqPD0NvdFAQuTLJlHWfkfRoOnO63Fk2MbFN2+
+ 4UL93nPadqflq9o5MFcKaE3JrX3Fn/50Op8wSRLhxjcXV9XiEqM7CAoTA5JUDbay
+ 93Eb5EHg2kaF8Q2zanLF4kAY4q1NxZY9QTqfcOjpF8gYsvStgNrS/VVg1QdV0AU0
+ 59aIRPaNHKcyKOXhWj3+u8W68xRUL//F5ea1xB8hVIC7dekftERlsYM8D3O7inLk
+ AgYmxg==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bns8v1dmf-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 00:19:55 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id
+ 6a1803df08f44-88a47331c39so226367876d6.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 13 Jan 2026 16:19:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1768349995; x=1768954795;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=kT48Gh8ZEybWr5oJNkZWcqfokdQKTKrcVUWBmWF3mMg=;
+ b=CofAYN5IxXOmW3eVB0qBDXU2Vd8BA95XHGKE+sfi9rSLquz7dNRqM4TyKajv1Lgx0T
+ e1/00JDPSl9cW28wU+viy7QtOR95qJiUjH72IvsvMFo9kQFJZvjJy3Za5xeb98yyvl6r
+ NAezKIx8RNVAZB8VXptawWWlnKqsLjIDFYGkrIvx4nel91AA3vsNa4OaOY5H8YTgcpE/
+ xjFeFsLzsjXtyA4x9cJn55pqMXeMm0G5YejkcPmCpYM1sbyjtKg1RFgTkHXOMTFxtfwR
+ EvXl8nz6FZBLcM97+RgdwUtqXiuDznuLy0OmDIF+atwpiwE8A3iWfU7iSzF1TXLIsj5e
+ +E/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768349995; x=1768954795;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=kT48Gh8ZEybWr5oJNkZWcqfokdQKTKrcVUWBmWF3mMg=;
+ b=iKalShx3fCNVYZHTdPYPDQuwATYyzG298035HcSJdDfewHuqsG58M6OYLYFTSsm0Sq
+ ZqQ/RZIgnFchaRvXIDYnA93YmN0hrBIOo4NX/c5sKQLTPN7ZFLd0aHMpQSeJNAJOT7/v
+ bptXj3kDxbX6sGDXK2yNQTGdCbWBNoEeWjxm2CUIwaivdN9Qc82O/3gXNRYhrLbU5oFw
+ OqZrdjGEktHVCACOI0oQ6sqNAjpNCeLBRlQPKZObCjvpIifAxqyoTiVCQXpLEovRZawr
+ FT9aw+uCW0nFiUAA+91RBV7Y8Mrqh7DBgY+56a/hOCvGD33I/WQbUByLV1crB1tWrT36
+ UjhQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXa0a8pyGn7GpnyWrOx08X6QizjMzVUOiDBdyeoBFVZfYBd04K8j6P1rfs56cFOahAloPUWcgyS@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxJJSMdoAlaWIwLcbZ49A10zcNTJHau5i28Tml+dztFhiICmkm0
+ bW24UkYDAfp5hdqg344fZDWz3619UfuMkjCYrKrMKxDbZK2UEGPReSgSJRIIe9+l+6Nxm3CO8Xb
+ fyH0yacuvzM606dbcs6LGW0iDsaNxFty63H24uMyGI31kqYjpI5/dpEu99dT0UnkpnDAS
+X-Gm-Gg: AY/fxX4dAZrvbX2pZpFovTYXR3OlfIu/X5+jrlXSqbRMmj9dGnYOgkyB83Ea8uBSUfU
+ l5nJhHa+O6poXuqY/2iSagZ2WjKfc9xxFVzYFelyvIFKwuqQJBpYCJqHPrU3aqC95/6QRvYcSdB
+ nO7KFNzR4dv+wgKMbcsgbdNtMn8c+KILC+pI+rlKnmFqgK4/Jcw/95OKOXw4zs7QgAJxcfATS4c
+ gEcTFnS+4+roMF/wPyESQAKgtge2/5lkMfZZRKb/E4/OWHJoIWFmq1PKb28YdIe/1BmFP/KW6uC
+ 0COU9Mtx9eRHcBbVQVfjx6eMQJbHfCY+Ig+70s7bbZfpvmAXTn/0eJ5AqJUz51tv2z4H6ulDyyW
+ RKGiGozDYNCcodu6+lHWR83W/t5lMaxXWkF5X/J9VGQc7SiPM4Jgna6iXdsO2oU494uGcy5+4IF
+ 998etmzg34PmF+ccjaUKJmpyo=
+X-Received: by 2002:a05:620a:400d:b0:8b2:f145:7f28 with SMTP id
+ af79cd13be357-8c52fb1d058mr146353785a.33.1768349994648; 
+ Tue, 13 Jan 2026 16:19:54 -0800 (PST)
+X-Received: by 2002:a05:620a:400d:b0:8b2:f145:7f28 with SMTP id
+ af79cd13be357-8c52fb1d058mr146351485a.33.1768349994199; 
+ Tue, 13 Jan 2026 16:19:54 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-59ba101accesm159500e87.5.2026.01.13.16.19.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Jan 2026 16:19:52 -0800 (PST)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/3] drm/atomic: restrict the size of of gamma /
+ degamma LUTs
+Date: Wed, 14 Jan 2026 02:19:48 +0200
+Message-ID: <176834997569.1930094.10133613563248496827.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260106-drm-fix-lut-checks-v3-0-f7f979eb73c8@oss.qualcomm.com>
+References: <20260106-drm-fix-lut-checks-v3-0-f7f979eb73c8@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Add an hdmi_hpd_debounce_delay_ms module
-To: IVAN.LIPSKI@amd.com, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-References: <20260113223012.494982-1-IVAN.LIPSKI@amd.com>
-Content-Language: en-US
-From: "Mario Limonciello (AMD) (kernel.org)" <superm1@kernel.org>
-In-Reply-To: <20260113223012.494982-1-IVAN.LIPSKI@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=aY5sXBot c=1 sm=1 tr=0 ts=6966e12b cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=srJBafmTjFzwu2qPh78A:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=zZCYzV9kfG8A:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-ORIG-GUID: o83vWPO7yCa9_Sxh8PGqfNQol3Gg4cnT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTE0MDAwMCBTYWx0ZWRfXzsJy9yNf7LgG
+ iewGGJ8BJwpuwP3en1OaKtfZhXRu4OqyTIk6z23YiEdGTiBTDSqLGErbDXZMU8erz/vSYog03rl
+ egn+42SNix/c0gS12rs0qE1JtRy+J+0EL76QLQ31LZJhf8EFArHgLqrA2HcQasw+eM8XGoNyqxu
+ exYigSMqQD5ltrV1AoxCgrjAvNxmIQRJXj2fEoVVDvG6Haz62Qqpgm9uslYFE2EMpjNuDrowmIz
+ TTsZufx+G/GnIAN6FViEy13hxPgRfBhgHd7c3SlodEkz/IiKZqO9qdmS3EMHzPxQhkQZMukY+AS
+ 5wP4HvZ0MbeLoFFYy+QfSi0CbL1KOWODPK5+YfEJx0pCb90uAunj7GqUuuO2+JZP5mvzTyUi6X1
+ bfs8yoC+FNp1UdervWtt7tLPvMQbw+y5wRymqw2aUM2YX1CQE9nG/Ba7PnbblpC7PIJLeu+7GYA
+ KdwcIwEKq73JOQTusHw==
+X-Proofpoint-GUID: o83vWPO7yCa9_Sxh8PGqfNQol3Gg4cnT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
+ definitions=2026-01-13_04,2026-01-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 suspectscore=0 malwarescore=0 bulkscore=0
+ lowpriorityscore=0 clxscore=1015 adultscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601140000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,118 +148,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, 06 Jan 2026 05:09:54 +0200, Dmitry Baryshkov wrote:
+> While picking up the Gamma correction patch for the msm driver I noticed
+> that kms_color@invalid-gamma-lut-sizes and
+> kms_color@invalid-degamma-lut-sizes tests fail. These tests attempt
+> submitting LUT tables greater than the size specified by the
+> corresponding property. The issue doesn't seem to be specific to msm
+> driver only. Add generic check that LUT size is not greater than the
+> size passed to drm_crtc_enable_color_mgmt().
+> 
+> [...]
 
+Applied to drm-misc-next, thanks!
 
-On 1/13/2026 4:29 PM, IVAN.LIPSKI@amd.com wrote:
-> From: Ivan Lipski <ivan.lipski@amd.com>
-> 
-> [Why&How]
-> Right now, the HDMI HPD filter is enabled by default at 1500ms.
-> 
-> We want to disable it by default, as most modern displays with HDMI do
-> not require it for DPMS mode.
-> 
-> The HPD can instead be enabled as a driver parameter with a custom delay
-> value in ms (up to 5000ms).
-> 
-> Fixes: c97da4785b3b ("drm/amd/display: Add an HPD filter for HDMI")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4859
-> 
-> Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
-> ---
+[1/3] drm/mode_object: add drm_object_immutable_property_get_value()
+      commit: 66c9c0cfe765af7f30eac880da0fa047aea8617d
+[2/3] drm/atomic: add max_size check to drm_property_replace_blob_from_id()
+      commit: ca59e33f5a1f642d13ae0e558fdbdd9aaa9fe203
+[3/3] drm/atomic: verify that gamma/degamma LUTs are not too big
+      commit: cea6e6e8717e81de266aa496f44088b2b960aa32
 
-Makes sense to me.
-
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-
->   drivers/gpu/drm/amd/amdgpu/amdgpu.h               |  2 ++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c           | 11 +++++++++++
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++++++---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  5 ++++-
->   4 files changed, 29 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 11a36c132905..9903da2d28b0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -269,6 +269,8 @@ extern int amdgpu_rebar;
->   extern int amdgpu_wbrf;
->   extern int amdgpu_user_queue;
->   
-> +extern int amdgpu_hdmi_hpd_debounce_delay_ms;
-> +
->   #define AMDGPU_VM_MAX_NUM_CTX			4096
->   #define AMDGPU_SG_THRESHOLD			(256*1024*1024)
->   #define AMDGPU_WAIT_IDLE_TIMEOUT_IN_MS	        3000
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index d67bbaa8ce02..771c89c84608 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -247,6 +247,7 @@ int amdgpu_damage_clips = -1; /* auto */
->   int amdgpu_umsch_mm_fwlog;
->   int amdgpu_rebar = -1; /* auto */
->   int amdgpu_user_queue = -1;
-> +uint amdgpu_hdmi_hpd_debounce_delay_ms;
->   
->   DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
->   			"DRM_UT_CORE",
-> @@ -1123,6 +1124,16 @@ module_param_named(rebar, amdgpu_rebar, int, 0444);
->   MODULE_PARM_DESC(user_queue, "Enable user queues (-1 = auto (default), 0 = disable, 1 = enable, 2 = enable UQs and disable KQs)");
->   module_param_named(user_queue, amdgpu_user_queue, int, 0444);
->   
-> +/*
-> + * DOC: hdmi_hpd_debounce_delay_ms (uint)
-> + * HDMI HPD disconnect debounce delay in milliseconds.
-> + *
-> + * Used to filter short disconnect->reconnect HPD toggles some HDMI sinks
-> + * generate while entering/leaving power save. Set to 0 to disable by default.
-> + */
-> +MODULE_PARM_DESC(hdmi_hpd_debounce_delay_ms, "HDMI HPD disconnect debounce delay in milliseconds (0 to disable (by default), 1500 is common)");
-> +module_param_named(hdmi_hpd_debounce_delay_ms, amdgpu_hdmi_hpd_debounce_delay_ms, uint, 0644);
-> +
->   /* These devices are not supported by amdgpu.
->    * They are supported by the mach64, r128, radeon drivers
->    */
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 354e359c4507..ba7e1f72fde1 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -8918,9 +8918,18 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
->   	mutex_init(&aconnector->hpd_lock);
->   	mutex_init(&aconnector->handle_mst_msg_ready);
->   
-> -	aconnector->hdmi_hpd_debounce_delay_ms = AMDGPU_DM_HDMI_HPD_DEBOUNCE_MS;
-> -	INIT_DELAYED_WORK(&aconnector->hdmi_hpd_debounce_work, hdmi_hpd_debounce_work);
-> -	aconnector->hdmi_prev_sink = NULL;
-> +	/*
-> +	 * If HDMI HPD debounce delay is set, use the minimum between selected
-> +	 * value and AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS
-> +	 */
-> +	if (amdgpu_hdmi_hpd_debounce_delay_ms) {
-> +		aconnector->hdmi_hpd_debounce_delay_ms = min(amdgpu_hdmi_hpd_debounce_delay_ms,
-> +							     AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS);
-> +		INIT_DELAYED_WORK(&aconnector->hdmi_hpd_debounce_work, hdmi_hpd_debounce_work);
-> +		aconnector->hdmi_prev_sink = NULL;
-> +	} else {
-> +		aconnector->hdmi_hpd_debounce_delay_ms = 0;
-> +	}
->   
->   	/*
->   	 * configure support HPD hot plug connector_>polled default value is 0
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 7065b20aa2e6..6fe7f78b66c5 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -59,7 +59,10 @@
->   
->   #define AMDGPU_HDR_MULT_DEFAULT (0x100000000LL)
->   
-> -#define AMDGPU_DM_HDMI_HPD_DEBOUNCE_MS 1500
-> +/*
-> + * Maximum HDMI HPD debounce delay in milliseconds
-> + */
-> +#define AMDGPU_DM_MAX_HDMI_HPD_DEBOUNCE_MS 5000
->   /*
->   #include "include/amdgpu_dal_power_if.h"
->   #include "amdgpu_dm_irq.h"
+Best regards,
+-- 
+With best wishes
+Dmitry
 
