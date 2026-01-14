@@ -4,65 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9599ED4114B
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jan 2026 09:25:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2E06D41149
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jan 2026 09:25:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2406810E713;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4722110E715;
 	Thu, 15 Jan 2026 09:25:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Vfb3gBTf";
+	dkim=pass (2048-bit key; unprotected) header.d=worksmobile.com header.i=@worksmobile.com header.b="BdwAZmnn";
+	dkim=pass (1024-bit key; unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.b="Ty6cAw7z";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E42D10E6A3;
- Thu, 15 Jan 2026 02:40:45 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1036C60144;
- Thu, 15 Jan 2026 02:40:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D4C2C4CEF7;
- Thu, 15 Jan 2026 02:40:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
- s=korg; t=1768444844;
- bh=kEIihbTO7hsA7HfHf64JRGq8WxboK1l9W0XcXEHbfeo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Vfb3gBTf+rsrpPAPcJ/Dig6SSOOLelLK4b09yec6FTVrBjTNJT3KBH/W/IuyCOUUG
- rWCMabju6IaOer0i0XS9FstGNEW6IG96OZlxk9eDNmuYljuhHuOo2Q6G5GIosWUK/o
- TtHClSrBGTI6P5GEFzOrr+RjoUt0V7nWJ0JUctS8=
-Date: Wed, 14 Jan 2026 18:40:42 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Francois Dugast <francois.dugast@intel.com>,
- <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, Zi Yan
- <ziy@nvidia.com>, Alistair Popple <apopple@nvidia.com>, adhavan Srinivasan
- <maddy@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, Michael
- Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)"
- <chleroy@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Lyude Paul <lyude@redhat.com>, Danilo Krummrich
- <dakr@kernel.org>, "David Hildenbrand" <david@kernel.org>, Oscar Salvador
- <osalvador@suse.de>, "Jason Gunthorpe" <jgg@ziepe.ca>, Leon Romanovsky
- <leon@kernel.org>, Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
- "Liam R . Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, "Suren Baghdasaryan"
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>, "Balbir Singh"
- <balbirs@nvidia.com>, <linuxppc-dev@lists.ozlabs.org>,
- <kvm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <nouveau@lists.freedesktop.org>,
- <linux-mm@kvack.org>, <linux-cxl@vger.kernel.org>
-Subject: Re: [PATCH v5 1/5] mm/zone_device: Reinitialize large zone device
- private folios
-Message-Id: <20260114184042.64fc3df3e43e6e62870bb705@linux-foundation.org>
-In-Reply-To: <aWgr9Fp+0AeTu4zL@lstrano-desk.jf.intel.com>
-References: <20260114192111.1267147-1-francois.dugast@intel.com>
- <20260114192111.1267147-2-francois.dugast@intel.com>
- <20260114134825.8bf1cb3e897c8e41c73dc8ae@linux-foundation.org>
- <aWgn/THidvOQf9n2@lstrano-desk.jf.intel.com>
- <aWgr9Fp+0AeTu4zL@lstrano-desk.jf.intel.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from cvsmtppost102.wmail.worksmobile.com
+ (cvsmtppost102.wmail.worksmobile.com [125.209.209.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F44A10E2AB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 16:38:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=worksmobile.com;
+ s=s20171120; t=1768408689;
+ bh=jW3niGFTEaJ0K8AOflj/yHyQ/c0Y6u8SGkEJ2hz38xQ=;
+ h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
+ X-Works-Security;
+ b=BdwAZmnnGqiDtl3wZYKy92Dj6P8VeaRR6Sbriy9rkaW1gNB5/qZx2BQ7G74HQIYmp
+ LRGSr4guFUxvSFwtePymXlka/Ci4Tpu7mIg4zBNhgiYxmrFLONOviei/d8LDA04WRa
+ AzA5JquArkU4CyJffNEDl7avmB3akbqgrvkGDTy5QyJazjaVfQl9ScGqNQExK6sbek
+ ks0NutArnszIDINpN/tQ7IylsE64ATqM0SUqy0PwUm9mj4shj1vPLLjs7+kZPiMX/v
+ TVwfwWijf/EOTy1BtxT+5ceo/HASxaZCAOzPjFFW721qXJL8RpIDRg4rk5O7AliDWt
+ o2TWDz0v62zqg==
+X-Originating-IP: 163.152.163.130
+Received: from cvsendbo002.wmail ([10.113.20.164])
+ by cvsmtppost102.wmail.worksmobile.com with ESMTP id i51mi-OtQ0CUP7grTeIvRg
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 16:38:09 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=korea.ac.kr;
+ s=naverworks; t=1768408689;
+ bh=jW3niGFTEaJ0K8AOflj/yHyQ/c0Y6u8SGkEJ2hz38xQ=;
+ h=From:To:Subject:Date:Message-Id:From:Subject:Feedback-ID:
+ X-Works-Security;
+ b=Ty6cAw7zGaqdn2cwWho9cvxmzy4f2if5VE+bIcAi8embs9gZFRogxUuALapwsRBcG
+ aaRMPbspd5/ZpzOkTWcJ47h0mcAiD01VCkKzQUtLaFHgWneD7Ce+Dac6BqJtpNkSd5
+ WYYWqULuEvfjBkqpJXnT24y064b1mjtixhAPMpNc=
+X-Session-ID: Ot37YJnORnuHHAgqcZ+spw
+X-Originating-IP: 163.152.163.130
+X-Works-Send-Opt: EenqjAJYjHm/FqM9FqJYFxMqFNwYjAg=
+X-Works-Smtp-Source: g9bXKq2rFqJZ+HmlaAUr+6E=
+Received: from s2lab05.. ([163.152.163.130])
+ by jvnsmtp401.gwmail.worksmobile.com with ESMTP id Ot37YJnORnuHHAgqcZ+spw
+ for <multiple recipients>
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Wed, 14 Jan 2026 16:38:09 -0000
+From: Ingyu Jang <ingyujang25@korea.ac.kr>
+To: amd-gfx@lists.freedesktop.org
+Cc: kenneth.feng@amd.com, alexander.deucher@amd.com,
+ Ingyu Jang <ingyujang25@korea.ac.kr>
+Subject: [PATCH] drm/amd/pm: remove dead code in
+ smu7_patch_dependency_tables_with_leakage()
+Date: Thu, 15 Jan 2026 01:38:07 +0900
+Message-Id: <20260114163807.2525868-1-ingyujang25@korea.ac.kr>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <BL1PR12MB51443B02293AA31A924754C6F782A@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <BL1PR12MB51443B02293AA31A924754C6F782A@BL1PR12MB5144.namprd12.prod.outlook.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 15 Jan 2026 09:24:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -79,48 +77,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 14 Jan 2026 15:51:16 -0800 Matthew Brost <matthew.brost@intel.com> wrote:
+All smu7_patch_*() functions called in this function always return 0.
+They internally call smu7_patch_ppt_v0_with_vdd_leakage() which is a
+void function with no error paths.
 
-> On Wed, Jan 14, 2026 at 03:34:21PM -0800, Matthew Brost wrote:
-> > On Wed, Jan 14, 2026 at 01:48:25PM -0800, Andrew Morton wrote:
-> > > On Wed, 14 Jan 2026 20:19:52 +0100 Francois Dugast <francois.dugast@intel.com> wrote:
-> > > 
-> > > > Reinitialize metadata for large zone device private folios in
-> > > > zone_device_page_init prior to creating a higher-order zone device
-> > > > private folio. This step is necessary when the folio’s order changes
-> > > > dynamically between zone_device_page_init calls to avoid building a
-> > > > corrupt folio. As part of the metadata reinitialization, the dev_pagemap
-> > > > must be passed in from the caller because the pgmap stored in the folio
-> > > > page may have been overwritten with a compound head.
-> > > 
-> > > Thanks.  What are the worst-case userspace-visible effects of the bug?
-> > 
-> > If you reallocate a subset of pages from what was originally a large
-> > device folio, the pgmap mapping becomes invalid because it was
-> > overwritten by the compound head, and this can crash the kernel.
-> > 
-> > Alternatively, consider the case where the original folio had an order
-> > of 9 and _nr_pages was set. If you then reallocate the folio plus one as
-> 
-> s/_nr_pages/the order was encoded the page flags.
-> 
-> ...
->
-> s/best to have kernel/best to not have kernels
-> 
+Remove the unnecessary return value checks that can never be true.
 
-Great, thanks.  I pasted all the above into the changelog to help
-explain our reasons.  I'll retain the patch in mm-hotfixes, targeting
-6.19-rcX.  The remainder of the series is DRM stuff, NotMyProblem.  I
-assume that getting this into 6.19-rcX is helpful to DRM - if not, and
-if taking this via the DRM tree is preferable then let's discuss.
+Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+---
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 61 ++++---------------
+ 1 file changed, 12 insertions(+), 49 deletions(-)
 
-Can reviewers please take a look at this reasonably promptly?
-
-
-btw, this patch uses
-
-+		struct folio *new_folio = (struct folio *)new_page;
-
-Was page_folio() unsuitable?
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index 9b28c07282699..cabf1a5db5e61 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -2784,55 +2784,18 @@ static int smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_leakage_ta
+ 
+ static int smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *hwmgr)
+ {
+-	int tmp;
+-
+-	tmp = smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_sclk);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_mclk);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddci(hwmgr, hwmgr->dyn_state.vddci_dependency_on_mclk);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_uvd_vddc(hwmgr, hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_samu_vddc(hwmgr, hwmgr->dyn_state.samu_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_acp_vddc(hwmgr, hwmgr->dyn_state.acp_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddc_shed_limit(hwmgr, hwmgr->dyn_state.vddc_phase_shed_limits_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_ac);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_dc);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_cac_vddc(hwmgr, hwmgr->dyn_state.cac_leakage_table);
+-	if (tmp)
+-		return -EINVAL;
++	smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_sclk);
++	smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_mclk);
++	smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dep_on_dal_pwrl);
++	smu7_patch_vddci(hwmgr, hwmgr->dyn_state.vddci_dependency_on_mclk);
++	smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_voltage_dependency_table);
++	smu7_patch_uvd_vddc(hwmgr, hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
++	smu7_patch_samu_vddc(hwmgr, hwmgr->dyn_state.samu_clock_voltage_dependency_table);
++	smu7_patch_acp_vddc(hwmgr, hwmgr->dyn_state.acp_clock_voltage_dependency_table);
++	smu7_patch_vddc_shed_limit(hwmgr, hwmgr->dyn_state.vddc_phase_shed_limits_table);
++	smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_ac);
++	smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_dc);
++	smu7_patch_cac_vddc(hwmgr, hwmgr->dyn_state.cac_leakage_table);
+ 
+ 	return 0;
+ }
+-- 
+2.34.1
 
