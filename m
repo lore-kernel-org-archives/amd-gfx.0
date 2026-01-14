@@ -4,95 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00B3ED38FE9
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 16:36:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9365D38FEC
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 16:47:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF6610E651;
-	Wed, 14 Jan 2026 16:36:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 481BD10E61D;
+	Wed, 14 Jan 2026 16:47:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CkdFLAPb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ywVmVOcl";
 	dkim-atps=neutral
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4255010E651
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 16:36:56 +0000 (UTC)
-Received: by mail-dl1-f44.google.com with SMTP id
- a92af1059eb24-1233bc11279so24711c88.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 08:36:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1768408615; cv=none;
- d=google.com; s=arc-20240605;
- b=THmEuKSZ46rhLn+pzsU1p7NxxCnBBsba4L1r51+caAa570Fsu7qPk5ExMs1WRq3lTd
- KeSI9wCLTctsdlMaJOi6oBcQwzQXNq+zjoo7e11D8ZWtrL1tcjU37dQ2ihE3YDBoz8az
- zaSEpa0Gk2eRRsBn7J9eZ363bwuElplsLOW+rs5BmQDJv210B5QvkgBI1WP6Ldvh8w+k
- 0ywOeORLIFnKVCG4UAdN5nRMvTM3QxMFwkRTfIRlzxl4egn/pxNL9SY7J0W7gsLKFT8T
- 0sNRiwBzKnC0PpMepxlfwL2cgqqQkiT+Epxw9zs+rFZcbr+MECoGnoAen8/bASWdqevc
- brBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=5A93CSIZrMw6etjsHl7A2FO98Ispb4UaIMjrAZz//HA=;
- fh=xq6EPdmQT5uJjDXZ2buWH1xN4a3L0xqYvypv346+Mxw=;
- b=DgN8eN4CFEyRRzUyPdxYkNCyNNOhc9e/XyoAUHuVZlNp5S0eWSanZUHbrrwFcFjHYw
- DlapdeVSJy3rhsaPGcp1NzpROn5MZ+HarRtmXtqVs8aGoFj2zLjEL6MmDvK7QcYnBIqg
- BbF81sTSCl65yI/E1mMJDf1uAYrDkLKjE3wPvbSkpU2412MUlK0NUMY2ecO5IklSRfn0
- UT5F4FRLp2Fj03b3Agy/6oGPxUWuoU7f9/3va3VcZZZ+4ge++TH3hCA6koNXuGFhCGaL
- M1dZtx7Vm7m4gCztO07ICxF9OuOANwAHiIA5aFY+zlElyPSBJSFK1XtglNTpVha+CG6A
- VjmA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768408615; x=1769013415; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5A93CSIZrMw6etjsHl7A2FO98Ispb4UaIMjrAZz//HA=;
- b=CkdFLAPbgaKiQv7HiVQkMDnkTEcCaG/XgJEtlHM+p1ccOmbpfpgYhHE/pWPHOr3q/c
- Uez+caxYeV0XhLeE3x4Df25E1smjXv0ZmceIJ8OIp8k8xfpgS2mvGeqxVP6RoiB36SFg
- fO1qnYRKsh7zNjkuxWCC3vG/2EbzD5GEkYZzBo81lfXul815AtJlvLHwwavdz2XH5Cot
- WYvN99UuV8LPWf4svyDk/OjFFKR8bNIygHnWlJFMX1ZuXpxXz0pyHW8PMvAxGb2SMH27
- Sta5nvc30WP0Kxl8Y7Sm1UM9VudPtfsdmNUanwtSSH1hjy4xuGZw/rrBGbUGRw1OhNFG
- RIYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768408615; x=1769013415;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5A93CSIZrMw6etjsHl7A2FO98Ispb4UaIMjrAZz//HA=;
- b=ky9JZEenicOzGTNcyI8GwxFVMaBQ3RvP+Q5y/RoUJ7chHgMm+7MtrT5xiu8Tr2jgpd
- +jkwSdygOqQaNSv8l4OE8lf1lID9POjm9S5/9nRKjbEtLQTlzD/IrGvg+Se4cv07Y/Oc
- UowfNBfHaVMcl0K7yYWLjmBXT3/XXtd9dVhubaWcl3YFzX6PMGixLc1cXMNsqxg7XpHk
- GID3xSeGWOCu5jLchNhxa4ZZIw4nMwFsXb8df/9/FKuLW/MfLw3gfeE7Ma/n6+KVffCJ
- +0E8PNJ+toJceYxqq86D84A85u54LEA2KDOUbBMlqthRv15xWDYWV/twYzhr5PJ0jf3h
- cJIQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUcrFKAeeqZUJM/P3ej+5/aBVrbn2VAOfJX3UJpRmCGlUQl6R/dU3IP567EUZ+vzksCIkXzbRSH@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7tTLi/9KPcM7AzmiQoiEA0Z2aXNq6EWLTXmLoDBcBkdg0Er/B
- cLghekOAt8zr9D1Elr5yhbXVs4nZMInoxX5OVsli4UP5FyqklTFmNg8q7KzWBKqHqLru6sL6gWI
- 4ALqE0fMED1ecDGHovRDGMDS54UEVv2bP0A==
-X-Gm-Gg: AY/fxX4RSNDq4QnnClcJD0y1iGviVLZF6zz258/ZUuMUtpur9sTetJQVewkBbqDBYzB
- BCMF7kWf3IC5UzrKXlTRK1Deq0qNRwVa5sgy2O7Eh7Rl+r8lFmPtdeF84CJ3IpjsGO1OnGyUVBx
- Fv7pPC+X1f5X1Si7v8M+nvwiLC2wKA1n07jqtZ4GDql6ivid06vVnM7Rgw3lTjX0Lok5PMtBlfH
- yq6saK8iJV46545xgJQrtjuqdUX7GV2Dj/ss9iq6MunPfdd+fRINiRr1/WeMRSM6Fm5B6OV
-X-Received: by 2002:a05:7022:f8d:b0:11e:3e9:3e9c with SMTP id
- a92af1059eb24-12336ad5f3bmr1819589c88.7.1768408615302; Wed, 14 Jan 2026
- 08:36:55 -0800 (PST)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010022.outbound.protection.outlook.com [52.101.85.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DD7D10E05F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 16:47:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rw6N3dLrGQsKr3Qh75uY7V57bI9/dZvqeOzMYwbLw3ypeAAnxs79XoZhrKs9gftrOXjFP97jgLRmMPUavrcdi57rrj1H6Azeote7ZRWqnLvXpr411OxzkPFzmiFkmDpKaCkO2wEjQ96lA2jKFA8XcLTvksa0x+4gqkb/7/428rk+pxx3i2IiTPB654tfsdYRD+ldOlq6yMDrVwn3gvQYCHSIbKf6s6Y4wKMFBjn8chfhKmGaz1cgXqggnqlG5FzyGo1o5aWCYUyOsUM+dNWLdB9ZsOGG/fi1smSzBVziyeC0E/I/ngl9dsEicR8eFMpBcuzVHxc5+rBnFjnPkVuFlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e6FSnYzs1uJzBGByByaVmXOWJ2jHBh6U3RMG2xpQ1F4=;
+ b=Bonkqvp5U/TgYW6uDKg5GG6wDLAHsxZ+x6ABP5813HN0H6UcyezydMd0gHDn1Njo+e9LTBmimJPytDEizBlmdxgiOk15R+JglZFK9xME1EerMhEWwPUsyTJMokfdOiC58H0EYwfkr1XBJGuTW6IMmWm8KWHmjIDCCwuRCnPVRMQrufrNoukF/M7shCeYa0yW+lp1OVgzdnfLXUqqHH9dn9yqU3eTBw20ArFehXhZbG/kidyweWPWcJMUjw1NLQc/rKOA2TDV9utA9tMG8Wx+cZq1LXe2iA0qUNXXfFwCAEJQnD4xhtvVYyVZiVhLs7mTiVle42p3fGbDaUGIPHi2mA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e6FSnYzs1uJzBGByByaVmXOWJ2jHBh6U3RMG2xpQ1F4=;
+ b=ywVmVOclJ620LsR2mlnTMUfHweShCCiHHvZYN17ZgpdTfpmjY7p+OVgU7zernasKk0/3Go/FNLffVwImvBK//Ud/Li+lZtgW+TT3WTvInNNXi8ibssWYi7+MXpPiXDm3kc17cMEAZcce2IsD/b3z6+NPt5flnHuF9jgLD4cpLsA=
+Received: from PH8P221CA0007.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::25)
+ by PH7PR12MB6465.namprd12.prod.outlook.com (2603:10b6:510:1f7::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Wed, 14 Jan
+ 2026 16:47:38 +0000
+Received: from CY4PEPF0000E9D6.namprd05.prod.outlook.com
+ (2603:10b6:510:2d8:cafe::f) by PH8P221CA0007.outlook.office365.com
+ (2603:10b6:510:2d8::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.5 via Frontend Transport; Wed,
+ 14 Jan 2026 16:47:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000E9D6.mail.protection.outlook.com (10.167.241.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9520.1 via Frontend Transport; Wed, 14 Jan 2026 16:47:38 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 14 Jan
+ 2026 10:47:36 -0600
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 14 Jan 2026 10:47:36 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 01/42] drm/amdgpu/job: use GFP_ATOMIC while in gpu reset
+Date: Wed, 14 Jan 2026 11:46:46 -0500
+Message-ID: <20260114164727.15367-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260114164727.15367-1-alexander.deucher@amd.com>
+References: <20260114164727.15367-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-References: <20260108144843.493816-1-alexander.deucher@amd.com>
- <ca9d73f3-60c6-4a51-a62d-d1358940ac3c@amd.com>
- <CADnq5_MJbjn8zD5O-sjL8vNk4eUD04jTXwkmS9Cwq3_WSajGqg@mail.gmail.com>
- <0288bbdf-880e-4149-ae0e-f2d2154cfbe0@amd.com>
- <CADnq5_M8-Qq14yYjoWJXgBRqQ42prGar1O6e8nxcEN5WNROTQw@mail.gmail.com>
- <CADnq5_PoHgp_Pf7EsV_bRwmh0Q7GuWfnEW-3Pp0gscT80VAnLg@mail.gmail.com>
- <6bbdb38b-75d0-4867-b4b6-afa5dc0b479e@amd.com>
-In-Reply-To: <6bbdb38b-75d0-4867-b4b6-afa5dc0b479e@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 Jan 2026 11:36:43 -0500
-X-Gm-Features: AZwV_QiSknmmRN5xjQ0C3eGicHnUIr8lbVgbtddf0Uc3tfX80zGxUr5uBiuMabo
-Message-ID: <CADnq5_Nm+E3trPt7LLUMBC697Upjnm6y46vdyXwBLxb_PHLxCQ@mail.gmail.com>
-Subject: Re: [PATCH 00/42] Improvements for IB handling
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D6:EE_|PH7PR12MB6465:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e9907f6-8f0d-4c8c-e76c-08de538ca082
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?zypd0BCxxGJpeM6eLDW8H/E/XlzKJxwA0c7xIprGdHuudkxpSSli8LuRl+I8?=
+ =?us-ascii?Q?mDQUYiOqQPc8ltk1aaRRXoHX6AFbXRT9+FQBHXuNOHIc2knH6XA1WLUWX/8P?=
+ =?us-ascii?Q?Y0ve7sP35+qG0CurnxwIV9xpZTg2oJD6hOBarxzJKf5wXTi0mT0ry4gJQPvI?=
+ =?us-ascii?Q?EBLafnrIN3v+9KCZ1vbw40ppyJqXbcbEOua/Wgb5X7aSH9rlVyxoiowXxfr+?=
+ =?us-ascii?Q?x+o6+88XAsAtjOmc0aC+RajtY75cAej31Wv1Jr514rHbk6S6LsEByZNe0QOz?=
+ =?us-ascii?Q?n+iWJr5iFS9r7HrIYtwRw/lyD6FBut7jcO+RrK+GiE75VxFadDdFYDT2itN1?=
+ =?us-ascii?Q?nDF8HY+MAuTb0BUuXbBv6DkT3bs3SJ5E024tva3csIhSzQP2SoWI1sncyA++?=
+ =?us-ascii?Q?tYAf7pSvC6FxtxghaP80tSfHBZ6Un7Du5gr7XV4gjRBb6miqjsnWwBseRJU4?=
+ =?us-ascii?Q?mUwVR9w8cokTZYllWaHhK8PQ0DDkH4hMbhh5C5yN0NQTHfXYyS8Og+ZbrEeW?=
+ =?us-ascii?Q?9khPzHIL9OF6jLBolslmVgGac3hs1AxMhsCHjNKf1sd7yIEI9GYdaxqK6/15?=
+ =?us-ascii?Q?hCMPBvrsRJI2r1TjOUypokzmKiD9U2e1jOrtdBo7IpTxN9NL78D5OI2TB0sq?=
+ =?us-ascii?Q?30pPGoqy8xqJU2TZquqA5i/X+1eGethUIxgQbPYmz6ZO5resyA6rO8//IEuX?=
+ =?us-ascii?Q?iY0lTPpk/v8dYE6mw8dDHdS5NbgnfAzvFyRQHX/yRF/ai3pn1fNXJieWzwhI?=
+ =?us-ascii?Q?flmKgP0KD4HyeypQRFjqxdjBagRQyS1ilMxnYUr+smf1BIqdqgt1TvEBD8le?=
+ =?us-ascii?Q?PW4xdbtrnmO8C3kCiBtdHDMWdXxXI09lPmrspTkntgARnnqrsSHif5GufDWP?=
+ =?us-ascii?Q?F6qLDGSfzHYnJnaFE0PwqcQeD21G+GWt+sNfNzSbYZWHpJ2bItH/sHgtUDNs?=
+ =?us-ascii?Q?WFfVQ8MfdE6wR5RNCysKZpuiUUCkd8waUwZkuTv0SnkniePo9LcRcUOXHCOq?=
+ =?us-ascii?Q?8Qf722SoDRVHkou0ZdEnSCbm5HEHSETqCiUPO/rEYjDlBzensKd2HfCiyxH1?=
+ =?us-ascii?Q?EnyccSS9ThyHyX+kIXCKiCL9VpBpSgC5vTuYSvX+vGStARyHlyRTceXZL+pL?=
+ =?us-ascii?Q?9OFEuE1KWONa9xn1Kurb1JpwAzjRlu3F/geoejAyWMoswjSvUSUgkhS/iJAd?=
+ =?us-ascii?Q?+rLhJB/kGCBeSVPxKn2d2xkVRFgwRgZOu8sug+3x0+rx1I4TfyGyuu0mbnBv?=
+ =?us-ascii?Q?VYrT8SbCACAvyubUcGBJXlcqlG1h+czx2L9bby4qUmENkwqM5RHDkukvD74L?=
+ =?us-ascii?Q?eEYOy08JWBnYy3lKc7xdOFuEUrG5wjeZXUuRrD4xhNxLa2i8Kqtd8j+7IUkK?=
+ =?us-ascii?Q?JkZYVrW0dQvhl0c5qt2CnztyJTrX68MOKzbbm3KPBTQDQc825z36KFjto8qc?=
+ =?us-ascii?Q?EnLBhBTYofBlZM5EnZdt0bbasfbmhVc80NVTX7LptyaK/9JDmDkbvbIYDvhr?=
+ =?us-ascii?Q?qL7K+OEkN2upY1vyYVGRakkKzoCC0/bi8kOrWiQ/+fAi7PnCPcNdzhqgle5U?=
+ =?us-ascii?Q?7JA49rcRbj6FScesbb1XCdKAgteHMFmNZuRuBp1OlgwluedzPD8w9RTL/AKz?=
+ =?us-ascii?Q?kF465tjZw540+t7Wgbc8crxnKysCWSH+Jl+IEWhLtfIC4KgLJG7uxTrpDNlT?=
+ =?us-ascii?Q?RGW4wA=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2026 16:47:38.5784 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e9907f6-8f0d-4c8c-e76c-08de538ca082
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6465
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,336 +135,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 14, 2026 at 5:45=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 1/13/26 23:36, Alex Deucher wrote:
-> > On Tue, Jan 13, 2026 at 10:34=E2=80=AFAM Alex Deucher <alexdeucher@gmai=
-l.com> wrote:
-> >>
-> >> On Tue, Jan 13, 2026 at 9:48=E2=80=AFAM Christian K=C3=B6nig
-> >> <christian.koenig@amd.com> wrote:
-> >>>
-> >>> On 1/13/26 15:10, Alex Deucher wrote:
-> >>>> On Tue, Jan 13, 2026 at 8:57=E2=80=AFAM Christian K=C3=B6nig
-> >>>> <christian.koenig@amd.com> wrote:
-> >>>>>
-> >>>>> Patches #1-#3: Reviewed-by: Christian K=C3=B6nig <christian.koenig@=
-amd.com>
-> >>>>>
-> >>>>> Comment on patch #4 which also affects patches #5-#26.
-> >>>>>
-> >>>>> Comment on patch #27 and #28. When #28 comes before #27 then that w=
-ould potentially solve the issue with #27.
-> >>>>>
-> >>>>> Patches #31: Reviewed-by: Christian K=C3=B6nig <christian.koenig@am=
-d.com>
-> >>>>>
-> >>>>> Patches #32-#40 that looks extremely questionable to me. I've inten=
-tionally removed that state from the job because it isn't job dependent and=
- sometimes has inter-job meaning.
-> >>>>>
-> >>>>> Patch #41: Absolutely clear NAK! We have exercised that nonsense to=
- the max and I'm clearly against doing that over and over again. Saving the=
- ring content clearly seems to be the saver approach.
-> >>>>>
-> >>>>
-> >>>> I disagree.  If the ring emit functions are purely just emitting
-> >>>> packets to the ring, it's a much cleaner approach than trying to sav=
-e
-> >>>> and restore packet sequences repeatedly.
-> >>>
-> >>> Exactly that's the problem, this is not what they do.
-> >>>
-> >>> See gfx_v11_0_ring_emit_gfx_shadow() for an example:
-> >>>
-> >>> ...
-> >>>         /*
-> >>>          * We start with skipping the prefix SET_Q_MODE and always ex=
-ecuting
-> >>>          * the postfix SET_Q_MODE packet. This is changed below with =
-a
-> >>>          * WRITE_DATA command when the postfix executed.
-> >>>          */
-> >>>         amdgpu_ring_write(ring, shadow_va ? 1 : 0);
-> >>>         amdgpu_ring_write(ring, 0);
-> >>>
-> >>>         if (ring->set_q_mode_offs) {
-> >>>                 uint64_t addr;
-> >>>
-> >>>                 addr =3D amdgpu_bo_gpu_offset(ring->ring_obj);
-> >>>                 addr +=3D ring->set_q_mode_offs << 2;
-> >>>                 end =3D gfx_v11_0_ring_emit_init_cond_exec(ring, addr=
-);
-> >>>         }
-> >>> ...
-> >>>         if (shadow_va) {
-> >>>                 uint64_t token =3D shadow_va ^ csa_va ^ gds_va ^ vmid=
-;
-> >>>
-> >>>                 /*
-> >>>                  * If the tokens match try to skip the last postfix S=
-ET_Q_MODE
-> >>>                  * packet to avoid saving/restoring the state all the=
- time.
-> >>>                  */
-> >>>                 if (ring->set_q_mode_ptr && ring->set_q_mode_token =
-=3D=3D token)
-> >>>                         *ring->set_q_mode_ptr =3D 0;
-> >>>
-> >>>                 ring->set_q_mode_token =3D token;
-> >>>         } else {
-> >>>                 ring->set_q_mode_ptr =3D &ring->ring[ring->set_q_mode=
-_offs];
-> >>>         }
-> >>>
-> >>>         ring->set_q_mode_offs =3D offs;
-> >>> }
-> >>>
-> >>> Executing this multiple times is simply not possible without saving s=
-et_q_mode_offs, the token and the CPU pointer (and restoring the CPU pointe=
-r content).
-> >>>
-> >>> And that is just the tip of the iceberg, we have tons of state like t=
-his.
-> >>
-> >> There is not much more than that.  I looked when I wrote these
-> >> patches.  Even this state should be handled correctly.  In this case,
-> >> the state is saved in the job at the original submission time and is
-> >> explicitly passed to the emit ring functions.  As such the original
-> >> state is reproduced.  In this case, ring->set_q_mode_offs and
-> >> ring->set_q_mode_ptr get reset in gfx_v11_0_ring_emit_vm_flush().
-> >> Then they get set as appropriate based on the saved state in the job
-> >> in gfx_v11_0_ring_emit_gfx_shadow().  It emits the same ring state
-> >> again.
-> >>
-> >
-> > I just fixed up the set_q handling locally.  I added a helper which
-> > saves the state of the ring (any ring->set_q values, etc.) in the job
-> > before we schedule the IB.  Then after the reset I restore the ring
-> > state before re-emitting the IB state.
->
-> Exactly that doesn't work.
->
-> See the set_q_mode handling works by looking at the next job in the queue=
- and determining based in PM4 code if executing the packet is necessary or =
-not.
->
-> When we drop some jobs from execution because they belong to the same con=
-text as the one who caused the timeout we write incorrect commands into the=
- PM4 stream when re-emitting.
->
-> We would need to extend the handling in a way where we can say ok this jo=
-b is now skipped, but we need to pretend that it isn't so that the set_q_mo=
-de handling works and then still not execute the IBs in the job.
->
+If we need to allocate a job during GPU reset, use
+GFP_ATOMIC rather than GFP_KERNEL.
 
-Explicit re-emit is the only way this can easily work correctly.  We
-save the ring state and and job state in the job and then we replay
-the state and re-emit a proper coherent packet stream after the reset.
-When we re-emit, we update the offsets as appropriate so that the
-logic works properly as you replay the job stream.  You can skip the
-IBs for the timedout context, but as long as the rest of the logic is
-there, everything works.  Saving and restoring the opaque ring
-contents is much harder because you need to either save a bunch of
-pointers or try and determine which offsets to patch, etc.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c     | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 9 ++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 3 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c     | 6 ++++--
+ 4 files changed, 13 insertions(+), 7 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+index 72ec455fa932c..136e50de712a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -68,7 +68,7 @@ int amdgpu_ib_get(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	int r;
+ 
+ 	if (size) {
+-		r = amdgpu_sa_bo_new(&adev->ib_pools[pool_type],
++		r = amdgpu_sa_bo_new(adev, &adev->ib_pools[pool_type],
+ 				     &ib->sa_bo, size);
+ 		if (r) {
+ 			dev_err(adev->dev, "failed to get a new IB (%d)\n", r);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 7f5d01164897f..35c19215a2e0a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -192,18 +192,21 @@ int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (num_ibs == 0)
+ 		return -EINVAL;
+ 
+-	*job = kzalloc(struct_size(*job, ibs, num_ibs), GFP_KERNEL);
++	*job = kzalloc(struct_size(*job, ibs, num_ibs),
++		       amdgpu_in_reset(adev) ? GFP_ATOMIC : GFP_KERNEL);
+ 	if (!*job)
+ 		return -ENOMEM;
+ 
+-	af = kzalloc(sizeof(struct amdgpu_fence), GFP_KERNEL);
++	af = kzalloc(sizeof(struct amdgpu_fence),
++		     amdgpu_in_reset(adev) ? GFP_ATOMIC : GFP_KERNEL);
+ 	if (!af) {
+ 		r = -ENOMEM;
+ 		goto err_job;
+ 	}
+ 	(*job)->hw_fence = af;
+ 
+-	af = kzalloc(sizeof(struct amdgpu_fence), GFP_KERNEL);
++	af = kzalloc(sizeof(struct amdgpu_fence),
++		     amdgpu_in_reset(adev) ? GFP_ATOMIC : GFP_KERNEL);
+ 	if (!af) {
+ 		r = -ENOMEM;
+ 		goto err_fence;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index 912c9afaf9e11..7ee0cc46b4608 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -339,7 +339,8 @@ void amdgpu_sa_bo_manager_fini(struct amdgpu_device *adev,
+ 				      struct amdgpu_sa_manager *sa_manager);
+ int amdgpu_sa_bo_manager_start(struct amdgpu_device *adev,
+ 				      struct amdgpu_sa_manager *sa_manager);
+-int amdgpu_sa_bo_new(struct amdgpu_sa_manager *sa_manager,
++int amdgpu_sa_bo_new(struct amdgpu_device *adev,
++		     struct amdgpu_sa_manager *sa_manager,
+ 		     struct drm_suballoc **sa_bo,
+ 		     unsigned int size);
+ void amdgpu_sa_bo_free(struct drm_suballoc **sa_bo,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
+index 39070b2a4c04f..fc13969f8ef49 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
+@@ -76,12 +76,14 @@ void amdgpu_sa_bo_manager_fini(struct amdgpu_device *adev,
+ 	amdgpu_bo_free_kernel(&sa_manager->bo, &sa_manager->gpu_addr, &sa_manager->cpu_ptr);
+ }
+ 
+-int amdgpu_sa_bo_new(struct amdgpu_sa_manager *sa_manager,
++int amdgpu_sa_bo_new(struct amdgpu_device *adev,
++		     struct amdgpu_sa_manager *sa_manager,
+ 		     struct drm_suballoc **sa_bo,
+ 		     unsigned int size)
+ {
+ 	struct drm_suballoc *sa = drm_suballoc_new(&sa_manager->base, size,
+-						   GFP_KERNEL, false, 0);
++						   amdgpu_in_reset(adev) ? GFP_ATOMIC : GFP_KERNEL,
++						   false, 0);
+ 
+ 	if (IS_ERR(sa)) {
+ 		*sa_bo = NULL;
+-- 
+2.52.0
 
-> Long story short that is seriously not going to work. So absolutely clear=
- NAK from my side to this approach.
->
-> What we could do to avoid problems and patching pointers in the command s=
-tream is to emit only the fence signaling for skipped jobs and fill everyth=
-ing else with NOPs.
->
-> Regards,
-> Christian.
->
-> >  At that point the ring has the
-> > same state it had before the queue was reset and the state gets
-> > updated in the ring as the IBs are reemitted.
-> >
-> > That's it.  The only other state dependent on the ring was the seq
-> > number to wait on for pipeline sync and I fixed that by making it
-> > explicit.
-> >
-> > Alex
-> >
-> >>>
-> >>>> If the relevant state is
-> >>>> stored in the job, you can re-emit it and get the same ring state ea=
-ch
-> >>>> time.
-> >>>
-> >>> No, you can't. Background is that the relevant state is not job depen=
-dent, but inter job dependent.
-> >>>
-> >>> In other words it doesn't depend on what job is executing now but rat=
-her which one was executed right before that one.
-> >>>
-> >>> Or even worse in the case of the set_q_mode packet on the job depende=
-nt after the one you want to execute.
-> >>>
-> >>> I can absolutely not see how stuff like that should work with re-subm=
-ission.
-> >>
-> >> All you need to do is save the state that was used to emit the packets
-> >> in the original submission.
-> >>
-> >>>
-> >>>> If you end up with multiple queue resets in a row, it gets
-> >>>> really complex to try and save and restore opaque ring contents.  By
-> >>>> the time you fix up the state tracking to handle that, you end up
-> >>>> pretty close to this solution.
-> >>>
-> >>> Not even remotely, you have tons of state we would need to save and r=
-estore and a lot of that is outside of the job.
-> >>>
-> >>> Updating a few fence pointers on re-submission is absolutely trivial =
-compared to that.
-> >>
-> >> It's not that easy.  If you want to just emit the fences for bad
-> >> contexts rather than the whole IB stream, you can also potentially
-> >> mess up the ring state.  You'd end up needing a pile of pointers that
-> >> need to be recalculated on every reset to try and remit the
-> >> appropriate state again.  This approach also paves the way for
-> >> re-emitting state for all queues after adapter reset when VRAM is not
-> >> lost.
-> >>
-> >> Alex
-> >>
-> >>>
-> >>> Regards,
-> >>> Christian.
-> >>>
-> >>>>
-> >>>> Alex
-> >>>>
-> >>>>> Regards,
-> >>>>> Christian.
-> >>>>>
-> >>>>> On 1/8/26 15:48, Alex Deucher wrote:
-> >>>>>> This set contains a number of bug fixes and cleanups for
-> >>>>>> IB handling that I worked on over the holidays.
-> >>>>>>
-> >>>>>> Patches 1-2:
-> >>>>>> Simple bug fixes.
-> >>>>>>
-> >>>>>> Patches 3-26:
-> >>>>>> Removes the direct submit path for IBs and requires
-> >>>>>> that all IB submissions use a job structure.  This
-> >>>>>> greatly simplifies the IB submission code.
-> >>>>>>
-> >>>>>> Patches 27-42:
-> >>>>>> Split IB state setup and ring emission.  This keeps all
-> >>>>>> of the IB state in the job.  This greatly simplifies
-> >>>>>> re-emission of non-timed-out jobs after a ring reset and
-> >>>>>> allows for re-emission multiple times if multiple resets
-> >>>>>> happen in a row.  It also properly handles the dma fence
-> >>>>>> error handling for timedout jobs with adapter resets.
-> >>>>>>
-> >>>>>> Alex Deucher (42):
-> >>>>>>   drm/amdgpu/jpeg4.0.3: remove redundant sr-iov check
-> >>>>>>   drm/amdgpu: fix error handling in ib_schedule()
-> >>>>>>   drm/amdgpu: add new job ids
-> >>>>>>   drm/amdgpu/vpe: switch to using job for IBs
-> >>>>>>   drm/amdgpu/gfx6: switch to using job for IBs
-> >>>>>>   drm/amdgpu/gfx7: switch to using job for IBs
-> >>>>>>   drm/amdgpu/gfx8: switch to using job for IBs
-> >>>>>>   drm/amdgpu/gfx9: switch to using job for IBs
-> >>>>>>   drm/amdgpu/gfx9.4.2: switch to using job for IBs
-> >>>>>>   drm/amdgpu/gfx9.4.3: switch to using job for IBs
-> >>>>>>   drm/amdgpu/gfx10: switch to using job for IBs
-> >>>>>>   drm/amdgpu/gfx11: switch to using job for IBs
-> >>>>>>   drm/amdgpu/gfx12: switch to using job for IBs
-> >>>>>>   drm/amdgpu/gfx12.1: switch to using job for IBs
-> >>>>>>   drm/amdgpu/si_dma: switch to using job for IBs
-> >>>>>>   drm/amdgpu/cik_sdma: switch to using job for IBs
-> >>>>>>   drm/amdgpu/sdma2.4: switch to using job for IBs
-> >>>>>>   drm/amdgpu/sdma3: switch to using job for IBs
-> >>>>>>   drm/amdgpu/sdma4: switch to using job for IBs
-> >>>>>>   drm/amdgpu/sdma4.4.2: switch to using job for IBs
-> >>>>>>   drm/amdgpu/sdma5: switch to using job for IBs
-> >>>>>>   drm/amdgpu/sdma5.2: switch to using job for IBs
-> >>>>>>   drm/amdgpu/sdma6: switch to using job for IBs
-> >>>>>>   drm/amdgpu/sdma7: switch to using job for IBs
-> >>>>>>   drm/amdgpu/sdma7.1: switch to using job for IBs
-> >>>>>>   drm/amdgpu: require a job to schedule an IB
-> >>>>>>   drm/amdgpu: mark fences with errors before ring reset
-> >>>>>>   drm/amdgpu: rename amdgpu_fence_driver_guilty_force_completion()
-> >>>>>>   drm/amdgpu: don't call drm_sched_stop/start() in asic reset
-> >>>>>>   drm/amdgpu: drop drm_sched_increase_karma()
-> >>>>>>   drm/amdgpu: plumb timedout fence through to force completion
-> >>>>>>   drm/amdgpu: change function signature for emit_pipeline_sync()
-> >>>>>>   drm/amdgpu: drop extra parameter for vm_flush
-> >>>>>>   drm/amdgpu: move need_ctx_switch into amdgpu_job
-> >>>>>>   drm/amdgpu: store vm flush state in amdgpu_job
-> >>>>>>   drm/amdgpu: split fence init and emit logic
-> >>>>>>   drm/amdgpu: split vm flush and vm flush emit logic
-> >>>>>>   drm/amdgpu: split ib schedule and ib emit logic
-> >>>>>>   drm/amdgpu: move drm sched stop/start into amdgpu_job_timedout()
-> >>>>>>   drm/amdgpu: add an all_instance_rings_reset ring flag
-> >>>>>>   drm/amdgpu: rework reset reemit handling
-> >>>>>>   drm/amdgpu: simplify per queue reset code
-> >>>>>>
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c  |   2 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   2 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  13 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 136 +++------
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c      | 289 ++++++++++-----=
------
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  40 ++-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     |  13 +
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    |  67 -----
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    |  37 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c    |   4 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c     |   2 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c     |  21 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      | 141 +++++-----
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c     |  45 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/cik_sdma.c       |  36 ++-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c      |  41 ++-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c      |  41 ++-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c      |  41 ++-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c      |  33 ++-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c       |  28 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c       |  30 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c       | 143 +++++-----
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c       | 149 +++++-----
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c     |  26 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c     |  38 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c      |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c      |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c      |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c      |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c    |   6 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c    |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c    |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c    |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c    |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c      |  43 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c      |  43 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c      |  43 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c    |  45 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c      |  46 ++--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c      |  45 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c      |  45 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c      |  45 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c      |  45 +--
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/si_dma.c         |  34 ++-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c       |   8 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c       |   4 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c       |   2 +
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c       |   2 +
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c       |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c     |   4 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c     |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c     |   3 +-
-> >>>>>>  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c     |   4 +-
-> >>>>>>  54 files changed, 952 insertions(+), 966 deletions(-)
-> >>>>>>
-> >>>>>
-> >>>
->
