@@ -4,89 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09D09D39003
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 18:14:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9C88D3900B
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 18:51:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC5110E288;
-	Wed, 14 Jan 2026 18:14:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 673E710E266;
+	Wed, 14 Jan 2026 18:51:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GSrhmTfk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S6sabobq";
 	dkim-atps=neutral
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49A2610E288
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 18:14:30 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-1233985e56aso7686c88.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 10:14:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1768414469; cv=none;
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABC7110E266
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 18:51:20 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-1233608c7e9so956c88.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 10:51:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1768416680; cv=none;
  d=google.com; s=arc-20240605;
- b=h0jdg7W4mPBtBfAwLmQBKdb/+ZCIioOo/OrHZmcqX9fUy9/jty5VcfL4UdiSN0keaq
- oNsAH8cvkC+CSoso3JNWpfrstysd6KUZls38F7RWWNtsmro6Voada4G2mGVeHGe68pUZ
- q63GEuaP4EFk15cePFnbmyOouHhuwbMUjrx11zVIQV1zKt41kQrjepRJyJwLgGjiGPnj
- DS+Y8QZyVpAReP7ehisZfPyww8T2x2vQ7xJfUJiph+aeZxuwIbLZlXc4uUQD/hasVmTq
- 6+eZeheuUwpHrT6ykGblvFM4Cimy8az1p1s0ChXbJu3mbJgk/D9kw3D0C15DqXBWCtVv
- uISg==
+ b=VJ9/Qc9UL3amwBCizJwNUufXJksN+6HHuYUdijYPD0iMNT6yVWrx0O55+nnU9Y180q
+ ksGGCpdSLff59ee+y21cGoi9/lo2tMrJ8xE6qEK5BNz2QSm3lqlP88fGsVkwsIXyQyU8
+ 7cQm3iB4UHVYlXzfqOIxj4z4rmiCmI/PvLvd3RYQpG02vwSNVs1+HQRXMXrVydxka51q
+ RD9P0/M5jtTH19kMZDC0+1n9mGgLpB8OMkwDR7ysjGfXO1/WIchFJQhdpXYG/8epGwdM
+ BQ5Mymduw+mzemYJZjQpCwlVIN2lGI/O+/ik91OHPVf9DwbxjnOdeB1vOb9Q7oA8LRhw
+ 8GYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=k3IB4Y6DO18Sibvhy9KJ3idq+kTRhK3PkEdnt2BuZWw=;
- fh=3tIvC4twIXlR8c+yrHQbGNZ7115BvrPPgutCb2nPJlU=;
- b=jK9zVOmJ7N2nxbiAdPiR5soWCMdvcnrPuGzvEeHNJlBnRSXUl+FU/sKH+OkmDliReF
- jhgWbajeuOKA0jgpg2UfSelyv/AnEIHemy0B9kbF8nCkaukxU7Z5qGKd7Bvr4XJwt3aX
- jhabzIoGHmvp7YlqfhhdJ/6hjcjH6A3UialpxEDrK0jk+TfpIZKeB5Q6G7QCygoQ9W+5
- BfPz80VU35cPVzfY3M3UbrcZhvE4J2IopLgjDCjd45MoZhkqOxglKEx4uaa2NZWs4vmm
- MTxwD3YD0awes7VgaxNt0mrQZrXk7NnMx402BEExoZYpWxN8fPDglUs+LSzn1meU4CJo
- u6qw==; darn=lists.freedesktop.org
+ bh=gHrC5RuwshvWuIHXPXR+4XpJrBNiR+UR2u085bpYo5I=;
+ fh=eLETJQUWJWAkOM2sXDzFT8JBP8bLYFHao9rHC9tL2hQ=;
+ b=WoVTEViehe2DweSoYYNW71ZVC9zMfs8gSVta0rJiBr9cqo42wjpXcCkxKMCXVaMvSb
+ VehhsXYy6qe4tpOGQp1kOazsyAx6aVzkLFi/MsDxpxhDN5M9Xk5veVKizpipWUk6WsXf
+ KIrECovyeREi2kCFbTl1O7MhkNqntKhuImWuucl57c6ZwqyjjFQNL/zZLeZ06FCQNXFO
+ bGlzK0vN7TKu2c10sBk0aRhDSxAyp3mecQ0gjVJTmNsQwgkT4k6r/xDZD9yMW9L0rE6A
+ L7si1sVGm+mscGNhitb0cYF3L/mpejt1fFE86hwiiXFQnVI3Pd/xFBxrlGH4CsVddT46
+ BW9A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768414469; x=1769019269; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1768416680; x=1769021480; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=k3IB4Y6DO18Sibvhy9KJ3idq+kTRhK3PkEdnt2BuZWw=;
- b=GSrhmTfkJzNKIn5vzBjPGZb5WyminDFfsRXf6slezOtysrJDxFZJDIlbrGxMi6x85m
- ekPbYtjj188uS29XTDmyT6FUApicIX2Rb1/nlci0Wb9s6lU6Ej2Ixl9RB+mmewirShs0
- jpsASbb9fGXt64HNzG5bhMdY9qXkrAnfh7wq5QpH6ZrqoLAOeEcuQ2U/s+IqGBqLntVh
- VBaV7JZp1Nojpc3BiSp7dUAOZBckm5n53DW4Zg6BqZ0rdqDe1A8HoDaJVyAc9I7Yb9Wr
- utMy9XYQbPq3gADCyAKBwRuvwtE3zpWBi7AZfyR+S7+pwSrQfz42H93p2gBlYfPAVz24
- E3NA==
+ bh=gHrC5RuwshvWuIHXPXR+4XpJrBNiR+UR2u085bpYo5I=;
+ b=S6sabobqZeqsHLHz8DpCAqQQT0ZxUQ5JFUpzmNdhVjA9lP3Xwd+CGwTen0iH3Grv2E
+ PzX7qp0QwvMqSwqgNGfg1ckgN716kvCZcFGIB8mA1j7aWoROsp3YqsMik1ksKEzNprev
+ gYvo+itTDo1m69BhP7OdIbqC4QICRBId9bIJcI5TZGGVM04nPesn73KeCYvFlusCVPos
+ 8/o6OIA22op5OExQ9ZRxZI1ASm+aT33ZFjRw+AiN6M+Tw4UqIkMcbvoHiaOyAqgYCURW
+ yYCftN+PEQTYRHb3ezJ30dUX+x1FDkGTBxSY8sORj6jyF4GbExztwvpEDBkjnprmJZJT
+ nvxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768414469; x=1769019269;
+ d=1e100.net; s=20230601; t=1768416680; x=1769021480;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=k3IB4Y6DO18Sibvhy9KJ3idq+kTRhK3PkEdnt2BuZWw=;
- b=ewTo+THPl82uz5x6eMqOIXSrs8/SIkfl2/5rAX36Bq5h+BIyTmN+hElt/cMcsM4VI+
- 1Ei0Q3RQfnIez+Fe/hnEaRXpvXzzxFN71Wr1VWXYlLH8uOvqQdvhKbDyRehsgc2nQ3Lo
- xlvwWmQFITPK5bAm9qMat96GCvvs+1asXTJKHsEX6FCSo7ShoRqCIrzW4Ffq3m2KZAMW
- OWq+PEwxfstgW5kw/FqF3iWtGNIvTGplY8GrHdh5dtRs75GQPd34HKuQ5GwfUZivU3An
- SdfM0nqtjPbHZkF8371kw6qpYEjfNH2E0xLek4bZYVHsTZocGtQN4WOV9S4A0vIdgH9p
- n8/g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXrC+bQATQsJ9wqfsKbSX5knz5GCFEnurHZs/r08Aa2//qPOKqU9YD6mOuGKTxrmpnIqQDwOBqT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzZUz7DhS4ukIxAVcUSglGntetF0/uRAnIs0lPHGeCpzLk2YkO7
- nMWHSXMfipqah4fyas2Wqh+QD7k4m+AW/dw4V7j+HYTzcvg6MOZl9dQUFbUgutT9av1DKCFUxEI
- 8KolpLQiWLLT1l9gtjR+hEK7E9XId97g=
-X-Gm-Gg: AY/fxX62Mtr8LWGFcjWGotkNE6rEAnsX/X8KMcla0NnPpZDLPRwlWmFkZAToDvP5eq1
- ZxU4tqBdddAvmIHoL31AcBylkGAMGQtDsRweiEB7DKAsf8m63Oau2S00ClcveIIQfRpUKVR9P74
- EpPxBJQWZBcFVWUp1c20vcWlqkfRFiDop6bSZQHAKyBVI1RM4mn532ymEV+MW/gi4iFPq/Pg2YR
- FVUaU9IhX+04Zk7ZQHhHqYovO+6LdoNSWJq4oTaNBiffqcqJ1fk5Z85xYTWilOCFbqpHP8K
-X-Received: by 2002:a05:7022:1e09:b0:119:e56b:46b6 with SMTP id
- a92af1059eb24-123369702e7mr1633841c88.0.1768414469246; Wed, 14 Jan 2026
- 10:14:29 -0800 (PST)
+ bh=gHrC5RuwshvWuIHXPXR+4XpJrBNiR+UR2u085bpYo5I=;
+ b=WCsOfI+Lcbr5R07IGOy9UcSKC3s/sSJfQHv7TNXppc9iWn+aq9iuDTwE4MsrmnK2Fb
+ MVuebOqgXgWwh+kcWMw00k4qVsoQhIMXGjPWcjEJxcyM5UBcx3rWp6uZZFHs1Ezz42r5
+ ZYfC6C4eiWE7sd5pp8tUX84ZV3lsoQfZ9feWc1EeXHniitKiQU9VXXQsU3A6f/3DY+AB
+ ntwu00j8D8Wr/7tUkujcpWnERhBrcX+ovkxd+nJqoZ3DrokdkUh8OuIoNsSI1Iyd5reA
+ C3eoNldZN/DHekGikDNrWnxTMxj4BTGK3KFn3XLOYZ9GdJOuZcHD3uTD0rO2MOsTKkio
+ 3TQA==
+X-Gm-Message-State: AOJu0Yz29ofLG8ddmFJOddAXPzxHImmn1s7RaByKkyxau82p1sV9sKk6
+ 2WJzGLcIBgvCw+MzW8BBnLPtIR2J/jpGNhyKq3ebUnjnU50dzGl0gr/DgeckcknqXJ2ukGvRFJW
+ vmcqWvlq7DrF/2RCs+bNK4ev/ts50bz5sKQ==
+X-Gm-Gg: AY/fxX5A9lxE2nOew5Hee8N8nNEuFqWOMLTywodQAA36K52I4dPYEzs7yzIWNQH8tND
+ s5UgKqkyMRv3+VtZqFsMzR9qkIOD0/wjLbucnUBy7rDxCYEahCUgRVFJpjRnZ7jcSofx5vE5uHS
+ wqlKJdGj6F88ncQ4GJCVEsQ8J/nktlsmAgEYqkIQraKuy4OeMlYtPhtoyMtpNQwmjocGf8p3nXx
+ LHVstG42X14r2w2KybxQUW5PtM54Qm7DL+sOL6R0MzMXaQo7APkdOqIUMcE93dzdgl/snDU
+X-Received: by 2002:a05:7023:907:b0:122:33e:6ec1 with SMTP id
+ a92af1059eb24-1233698fff7mr1987147c88.0.1768416679619; Wed, 14 Jan 2026
+ 10:51:19 -0800 (PST)
 MIME-Version: 1.0
-References: <20260114090056.356633-1-Jesse.Zhang@amd.com>
- <585f1f3e-6e1c-40b6-a7ca-da0e871ffb00@amd.com>
-In-Reply-To: <585f1f3e-6e1c-40b6-a7ca-da0e871ffb00@amd.com>
+References: <20260113082241.291255-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20260113082241.291255-1-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 14 Jan 2026 13:14:17 -0500
-X-Gm-Features: AZwV_QgIab6A0eYVJjjmM3v5CAMYkW9_amJ-CH84rZyC_3FCrPk7CC9Z4XiRfTU
-Message-ID: <CADnq5_ORTuUvfAzRxptnkGpSP6ZyFM7xM2zLtOk-XEqP_jd1qw@mail.gmail.com>
-Subject: Re: [PATCH 1/5] drm/amdgpu/vcn4.0.3: rework reset handling
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: "Jesse.Zhang" <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org, 
- Alexander.Deucher@amd.com, Christian Koenig <christian.koenig@amd.com>
+Date: Wed, 14 Jan 2026 13:51:08 -0500
+X-Gm-Features: AZwV_Qj0rGm4GGUdhzDSWfUG_KALXRKufDZfnp7GlpbvoC0ywNOPcK0b1-T8uRc
+Message-ID: <CADnq5_PdSLrZA0bLs4GT5iFo-btBoYnM423nwEtHg29vyWZBWA@mail.gmail.com>
+Subject: Re: [PATCH v4] drm/amd/amdgpu: Add independent hang detect work for
+ user queue fence
+To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -103,153 +101,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 14, 2026 at 6:27=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wr=
-ote:
+On Tue, Jan 13, 2026 at 3:42=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> w=
+rote:
 >
+> In error scenarios (e.g., malformed commands), user queue fences may neve=
+r
+> be signaled, causing processes to wait indefinitely. To address this whil=
+e
+> preserving the requirement of infinite fence waits, implement an independ=
+ent
+> timeout detection mechanism:
 >
+> 1. Initialize a hang detect work when creating a user queue (one-time set=
+up)
+> 2. Start the work with queue-type-specific timeout (gfx/compute/sdma) whe=
+n
+>        the last fence is created via amdgpu_userq_signal_ioctl (per-fence=
+ timing)
+> 3. Trigger queue reset logic if the timer expires before the fence is sig=
+naled
 >
-> On 14-Jan-26 2:29 PM, Jesse.Zhang wrote:
-> > From: "Alex Deucher" <alexander.deucher@amd.com>
-> >
-> > Resetting VCN resets the entire tile, including jpeg.
-> > When we reset VCN, we also need to handle the jpeg queues.
-> > Add a helper to handle recovering the jpeg queues when
-> > VCN is reset.
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 11 +++++--
-> >   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  | 42 ++++++++++++++++++++++-=
--
-> >   2 files changed, 49 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c b/drivers/gpu/drm=
-/amd/amdgpu/jpeg_v4_0_3.c
-> > index aae7328973d1..1a32dadf8c5d 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> > @@ -1145,13 +1145,20 @@ static int jpeg_v4_0_3_ring_reset(struct amdgpu=
-_ring *ring,
-> >                                 unsigned int vmid,
-> >                                 struct amdgpu_fence *timedout_fence)
-> >   {
-> > +     struct amdgpu_device *adev =3D ring->adev;
-> > +     struct amdgpu_vcn_inst *vinst =3D &adev->vcn.inst[ring->me];
-> > +     int r;
-> > +
-> >       if (amdgpu_sriov_vf(ring->adev))
-> >               return -EOPNOTSUPP;
-> > -
-> > +     /* take the vcn reset mutex here because resetting VCN will reset=
- jpeg as well */
-> > +     mutex_lock(&vinst->engine_reset_mutex);
-> >       amdgpu_ring_reset_helper_begin(ring, timedout_fence);
-> >       jpeg_v4_0_3_core_stall_reset(ring);
-> >       jpeg_v4_0_3_start_jrbc(ring);
-> > -     return amdgpu_ring_reset_helper_end(ring, timedout_fence);
-> > +     r =3D amdgpu_ring_reset_helper_end(ring, timedout_fence);
-> > +     mutex_unlock(&vinst->engine_reset_mutex);
-> > +     return r;
-> >   }
-> >
-> >   static const struct amd_ip_funcs jpeg_v4_0_3_ip_funcs =3D {
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c b/drivers/gpu/drm/=
-amd/amdgpu/vcn_v4_0_3.c
-> > index cb7123ec1a5d..31d93c10dfb1 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> > @@ -1596,6 +1596,32 @@ static void vcn_v4_0_3_unified_ring_set_wptr(str=
-uct amdgpu_ring *ring)
-> >       }
-> >   }
-> >
-> > +static int vcn_v4_0_3_reset_jpeg_helper(struct amdgpu_device *adev,
-> > +                                     int inst)
-> > +{
-> > +     struct amdgpu_ring *ring;
-> > +     int i, r;
-> > +
-> > +     for (i =3D 0; i < adev->jpeg.num_jpeg_rings; ++i) {
-> > +             ring =3D &adev->jpeg.inst[inst].ring_dec[i];
-> > +             drm_sched_wqueue_stop(&ring->sched);
-> > +             amdgpu_fence_driver_force_completion(ring);
-> > +             if (ring->use_doorbell)
-> > +                     WREG32_SOC15_OFFSET(
-> > +                             VCN, GET_INST(VCN, inst),
-> > +                             regVCN_JPEG_DB_CTRL,
-> > +                             (ring->pipe ? (ring->pipe - 0x15) : 0),
-> > +                             ring->doorbell_index
-> > +                             << VCN_JPEG_DB_CTRL__OFFSET__SHIFT |
-> > +                             VCN_JPEG_DB_CTRL__EN_MASK);
-> > +             r =3D amdgpu_ring_test_helper(ring);
-> > +             if (r)
-> > +                     return r;
-> > +             drm_sched_wqueue_start(&ring->sched);
-> > +     }
-> > +     return 0;
-> > +}
-> > +
-> >   static int vcn_v4_0_3_ring_reset(struct amdgpu_ring *ring,
-> >                                unsigned int vmid,
-> >                                struct amdgpu_fence *timedout_fence)
-> > @@ -1605,6 +1631,9 @@ static int vcn_v4_0_3_ring_reset(struct amdgpu_ri=
-ng *ring,
-> >       struct amdgpu_device *adev =3D ring->adev;
-> >       struct amdgpu_vcn_inst *vinst =3D &adev->vcn.inst[ring->me];
-> >
-> > +     /* take the vcn reset mutex here because resetting VCN will reset=
- jpeg as well */
-> > +     mutex_lock(&vinst->engine_reset_mutex);
-> > +
-> >       amdgpu_ring_reset_helper_begin(ring, timedout_fence);
-> >
-> >       vcn_inst =3D GET_INST(VCN, ring->me);
-> > @@ -1612,7 +1641,7 @@ static int vcn_v4_0_3_ring_reset(struct amdgpu_ri=
-ng *ring,
-> >
-> >       if (r) {
-> >               DRM_DEV_ERROR(adev->dev, "VCN reset fail : %d\n", r);
-> > -             return r;
-> > +             goto unlock;
-> >       }
-> >
-> >       /* This flag is not set for VF, assumed to be disabled always */
-> > @@ -1621,7 +1650,16 @@ static int vcn_v4_0_3_ring_reset(struct amdgpu_r=
-ing *ring,
-> >       vcn_v4_0_3_hw_init_inst(vinst);
-> >       vcn_v4_0_3_start_dpg_mode(vinst, adev->vcn.inst[ring->me].indirec=
-t_sram);
-> >
-> > -     return amdgpu_ring_reset_helper_end(ring, timedout_fence);
-> > +     r =3D amdgpu_ring_reset_helper_end(ring, timedout_fence);
-> > +     if (r)
-> > +             goto unlock;
-> > +
-> > +     r =3D vcn_v4_0_3_reset_jpeg_helper(adev, ring->me);
+> v2: make timeout per queue type (adev->gfx_timeout vs adev->compute_timeo=
+ut vs adev->sdma_timeout) to be consistent with kernel queues. (Alex)
+> v3: The timeout detection must be independent from the fence, e.g. you do=
+n't wait for a timeout on the fence
+>         but rather have the timeout start as soon as the fence is initial=
+ized. (Christian)
+> v4: replace the timer with the `hang_detect_work` delayed work.
 >
-> This doesn't seem to handle any ongoing jpeg activity before doing a vcn
-> reset. Is that fine?
+> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 
-We could split the helper in two, in the top helper we can stop the
-sched workqueues and attempt to wait for any outstanding fences. Then
-in the bottom helper, we can force completion, re-init the rings, and
-restart the sched workqueues.  With the patch as is, any outstanding
-job fences would be marked with an error, and signalled so userspace
-would see their jobs lost.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 70 ++++++++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |  3 +
+>  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  1 +
+>  3 files changed, 73 insertions(+), 1 deletion(-)
 >
-> Thanks,
-> Lijo
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index 98110f543307..664a15278c1d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -148,6 +148,69 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_u=
+serq_mgr *uq_mgr)
+>         return r;
+>  }
 >
-> > +
-> > +unlock:
-> > +     mutex_unlock(&vinst->engine_reset_mutex);
-> > +
-> > +     return r;
-> >   }
-> >
-> >   static const struct amdgpu_ring_funcs vcn_v4_0_3_unified_ring_vm_func=
-s =3D {
+> +static void amdgpu_userq_hang_detect_work(struct work_struct *work)
+> +{
+> +       struct amdgpu_usermode_queue *queue =3D container_of(work,
+> +                                                         struct amdgpu_u=
+sermode_queue,
+> +                                                         hang_detect_wor=
+k.work);
+> +       struct dma_fence *fence;
+> +       struct amdgpu_userq_mgr *uq_mgr;
+> +
+> +       if (!queue || !queue->userq_mgr)
+> +               return;
+> +
+> +       uq_mgr =3D queue->userq_mgr;
+> +       fence =3D READ_ONCE(queue->hang_detect_fence);
+> +       /* Fence already signaled =E2=80=93 no action needed */
+> +       if (!fence || dma_fence_is_signaled(fence))
+> +               return;
+> +
+> +       mutex_lock(&uq_mgr->userq_mutex);
+> +       amdgpu_userq_detect_and_reset_queues(uq_mgr);
+> +       mutex_unlock(&uq_mgr->userq_mutex);
+> +}
+> +
+> +/*
+> + * Start hang detection for a user queue fence. A delayed work will be s=
+cheduled
+> + * to check if the fence is still pending after the timeout period.
+> +*/
+> +void amdgpu_userq_start_hang_detect_work(struct amdgpu_usermode_queue *q=
+ueue)
+> +{
+> +       struct amdgpu_device *adev;
+> +       unsigned long timeout_ms;
+> +
+> +       if (!queue || !queue->userq_mgr || !queue->userq_mgr->adev)
+> +               return;
+> +
+> +       adev =3D queue->userq_mgr->adev;
+> +       /* Determine timeout based on queue type */
+> +       switch (queue->queue_type) {
+> +       case AMDGPU_RING_TYPE_GFX:
+> +               timeout_ms =3D adev->gfx_timeout;
+> +               break;
+> +       case AMDGPU_RING_TYPE_COMPUTE:
+> +               timeout_ms =3D adev->compute_timeout;
+> +               break;
+> +       case AMDGPU_RING_TYPE_SDMA:
+> +               timeout_ms =3D adev->sdma_timeout;
+> +               break;
+> +       default:
+> +               timeout_ms =3D adev->gfx_timeout;
+> +               break;
+> +       }
+> +
+> +       /* Store the fence to monitor and schedule hang detection */
+> +       WRITE_ONCE(queue->hang_detect_fence, queue->last_fence);
+> +       schedule_delayed_work(&queue->hang_detect_work,
+> +                    msecs_to_jiffies(timeout_ms));
+> +}
+> +
+> +static void amdgpu_userq_init_hang_detect_work(struct amdgpu_usermode_qu=
+eue *queue)
+> +{
+> +       INIT_DELAYED_WORK(&queue->hang_detect_work, amdgpu_userq_hang_det=
+ect_work);
+> +       queue->hang_detect_fence =3D NULL;
+> +}
+> +
+>  static int amdgpu_userq_buffer_va_list_add(struct amdgpu_usermode_queue =
+*queue,
+>                                            struct amdgpu_bo_va_mapping *v=
+a_map, u64 addr)
+>  {
+> @@ -572,7 +635,6 @@ amdgpu_userq_destroy(struct drm_file *filp, int queue=
+_id)
+>
+>         cancel_delayed_work_sync(&uq_mgr->resume_work);
+>         mutex_lock(&uq_mgr->userq_mutex);
+> -
+>         queue =3D amdgpu_userq_find(uq_mgr, queue_id);
+>         if (!queue) {
+>                 drm_dbg_driver(adev_to_drm(uq_mgr->adev), "Invalid queue =
+id to destroy\n");
+> @@ -580,6 +642,11 @@ amdgpu_userq_destroy(struct drm_file *filp, int queu=
+e_id)
+>                 return -EINVAL;
+>         }
+>         amdgpu_userq_wait_for_last_fence(queue);
+> +       /* Cancel any pending hang detection work and cleanup */
+> +       if (queue->hang_detect_fence) {
+> +               cancel_delayed_work_sync(&queue->hang_detect_work);
+> +               queue->hang_detect_fence =3D NULL;
+> +       }
+>         r =3D amdgpu_bo_reserve(queue->db_obj.obj, true);
+>         if (!r) {
+>                 amdgpu_bo_unpin(queue->db_obj.obj);
+> @@ -818,6 +885,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_=
+amdgpu_userq *args)
+>         queue->debugfs_queue =3D debugfs_create_dir(queue_name, filp->deb=
+ugfs_client);
+>         debugfs_create_file("mqd_info", 0444, queue->debugfs_queue, queue=
+, &amdgpu_mqd_info_fops);
+>  #endif
+> +       amdgpu_userq_init_hang_detect_work(queue);
+>         kfree(queue_name);
+>
+>         args->out.queue_id =3D qid;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.h
+> index 1eaa94f8a291..06a06272b41a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> @@ -72,6 +72,8 @@ struct amdgpu_usermode_queue {
+>         u32                     xcp_id;
+>         int                     priority;
+>         struct dentry           *debugfs_queue;
+> +       struct delayed_work hang_detect_work;
+> +       struct dma_fence *hang_detect_fence;
+>
+>         struct list_head        userq_va_list;
+>  };
+> @@ -146,6 +148,7 @@ int amdgpu_userq_start_sched_for_enforce_isolation(st=
+ruct amdgpu_device *adev,
+>  void amdgpu_userq_reset_work(struct work_struct *work);
+>  void amdgpu_userq_pre_reset(struct amdgpu_device *adev);
+>  int amdgpu_userq_post_reset(struct amdgpu_device *adev, bool vram_lost);
+> +void amdgpu_userq_start_hang_detect_work(struct amdgpu_usermode_queue *q=
+ueue);
+>
+>  int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
+>                                    struct amdgpu_usermode_queue *queue,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index 25f178536469..374fbd0e859a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -569,6 +569,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev,=
+ void *data,
+>
+>         dma_fence_put(queue->last_fence);
+>         queue->last_fence =3D dma_fence_get(fence);
+> +       amdgpu_userq_start_hang_detect_work(queue);
+>         mutex_unlock(&userq_mgr->userq_mutex);
+>
+>         drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT,
+> --
+> 2.49.0
 >
