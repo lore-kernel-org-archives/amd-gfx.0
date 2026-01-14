@@ -4,123 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E962D38FEF
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 16:47:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A7DD38FEC
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 16:47:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B007610E643;
-	Wed, 14 Jan 2026 16:47:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D84FA10E641;
+	Wed, 14 Jan 2026 16:47:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U4CuCbsI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZPf2pU3S";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012052.outbound.protection.outlook.com [52.101.43.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 631A710E63F
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 16:47:50 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012034.outbound.protection.outlook.com [52.101.53.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 188D810E644
+ for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 16:47:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KVl23LvogGfbhaOSaiEi9VZSmvOs7rPeEjhfr8K8wkX1TuIrhQ1M0BNMQcR8Q3ABlFiNRzEdxbDzl6e1qMfMoU7rVWvoG0Z4zsMPFedk8O/9ROowvTppMMaFFdCM1njlj8aLBMyAGpfMI+q8imExthYNenKEq+1AqbiyqMURarOYawX5ukIaNMvujF7aLnYFOYOrTEh88/gwaMS6Dh5u3qB6hLKX1SbIoD25rVO3H5G1Qs0SJYWo/WMdk71E3L9EAB9Wa9xv45yQQ3AZ/foTeDNoQbIk4hoyj5pqBB2PkJQu2s3Kisnp8ern1a27T8iDomctVjBMreVXEW2tmszmFg==
+ b=T3Rzkgyv7HDaafKhRTtp8uHoVvnFAfUYNYszUc43cYH9YTiSILut1IzvtpeRbymKOUaikQSGPe4cIi+ev2VI3o8QTYt2QNJsYF6fTXCp7yGac/6M2+RYjerOvrTQTFe8Tmm9a033gCKKzZMnrmYnIWAKc29cayNe3c+JwRjFhdMKBNaxcuD/AtEMnv8YjKb9hGJBqxmYEetUviEAEegy1lxfpBl4CCfxBGM4t859c2Oc66d1EQd08/UHPuZerEtwgv2/M5KzopLikoL58Rk9fZjVFvEVv1eQ6N3Y0DXevYeZjL73srMd4WKalcyr9sxYFlvH1M6xXAolHzNlCkbhMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3OY0cyDYzTSjJTbX7GpKgcHhe/B5OJJ8XK5ki5JWe38=;
- b=ONJU9Hs6FpdeE9ePfCeISqmk3YtLpRqzOtZBK7OIPeJuweQiytjh54WeCkzhaBetsqyhftFVhPxpZ0ttGHAyHX6Uhx/Fcx/hmlr9D/rouqWSHNW2qXf6JhDT/86Zk8QRi9YvgYHOZDPtAcfzTmjP+W4QL7EEjgJ2St2eWFmF1QIevGSTeLG0bQfWBV0Ks94olf+tTZQ2PRNq9rF4LGGgXW1RYhRMrNDaKA//d9B87oD7qIkKH5bucCn0mo/x2EvUZk3LAhiiGAka1scHpaQkXpx5cYvCZyMOahzkqvDipGujs2bNS1Rx47ECIyHSQoWPMX7BI4RQqtAiiBuWz/zkPA==
+ bh=36XO/5yHycsO0BpfUGL5MUBYAbmsecvoOX2cixyMNOM=;
+ b=N8sMQh4Z274iq29IHf99AjiY1ViSdCFzCW52bscTGpCsSyH1087JaoqOjPNF/fUMueXI05nKEvkdYbZgadHXO3ylwTNtCGvxpedpfVhch9h/SabrhS2GVKdpWz3IxmA4pl8+407DZtgPLOEOcIHnmmyjte5fbPRGTthJYKijxP3ez1qCvXFbf6++b5Y3ovrb53DQQLIFiEmZkT+8ERZq+hr9I5L/JgrNjvoR5nLRrnY6OYbUWoHFd0j+/VHUbIXln3hcCJBkQV5Z8HEw4KeS3EvPe3n3IiUJfOBgYp76oZerwsVArdjyyRMI9ozYnp48JOoFCCCamkCffJSWirO9AA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3OY0cyDYzTSjJTbX7GpKgcHhe/B5OJJ8XK5ki5JWe38=;
- b=U4CuCbsIy3u2fnMcXgrGtXxnEtr+XmRUQ9PQpV3d+n5TxpIQf3jiTkOn3I6NwgjQWkYvyzs2bADxzMf6i96nPn+BRmtTfiEBQ2spnYTcNC9fIZ8VBBWwYJydY0OwIbl7z9em4Lqx7clhTr0OAVLXvdeV6TzF3yOlA6o2hIaznYQ=
-Received: from PH8P221CA0001.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::16)
- by IA1PR12MB8264.namprd12.prod.outlook.com (2603:10b6:208:3f5::21)
+ bh=36XO/5yHycsO0BpfUGL5MUBYAbmsecvoOX2cixyMNOM=;
+ b=ZPf2pU3S12PtmgHh3QGA85J0LQjtep6RMPUynkIu0aF4KHUPY6pVLDBrggSsSZiYJHujZJZbIhn+zx+dockUgUyzzDAq+Agq4+WZDk+034AbXPWDsFbvvn6g7DCy37fLXLAA+N3veSAIy3JmBZrMNkCS2D//LN9VVSA4IIA4w58=
+Received: from SJ0PR03CA0246.namprd03.prod.outlook.com (2603:10b6:a03:3a0::11)
+ by SA3PR12MB7949.namprd12.prod.outlook.com (2603:10b6:806:31a::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Wed, 14 Jan
- 2026 16:47:45 +0000
-Received: from CY4PEPF0000E9D6.namprd05.prod.outlook.com
- (2603:10b6:510:2d8:cafe::c) by PH8P221CA0001.outlook.office365.com
- (2603:10b6:510:2d8::16) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 16:47:44 +0000
+Received: from SJ5PEPF00000203.namprd05.prod.outlook.com
+ (2603:10b6:a03:3a0:cafe::3a) by SJ0PR03CA0246.outlook.office365.com
+ (2603:10b6:a03:3a0::11) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.5 via Frontend Transport; Wed,
- 14 Jan 2026 16:47:44 +0000
+ 14 Jan 2026 16:47:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000E9D6.mail.protection.outlook.com (10.167.241.69) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ5PEPF00000203.mail.protection.outlook.com (10.167.244.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.9520.1 via Frontend Transport; Wed, 14 Jan 2026 16:47:44 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 14 Jan
- 2026 10:47:38 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 14 Jan
+ 2026 10:47:41 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 Jan
+ 2026 10:47:41 -0600
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 14 Jan 2026 10:47:38 -0600
+ Transport; Wed, 14 Jan 2026 10:47:41 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 06/42] drm/amdgpu/gfx9: switch to using job for IBs
-Date: Wed, 14 Jan 2026 11:46:51 -0500
-Message-ID: <20260114164727.15367-7-alexander.deucher@amd.com>
+Subject: [PATCH 11/42] drm/amdgpu/gfx12: switch to using job for IBs
+Date: Wed, 14 Jan 2026 11:46:56 -0500
+Message-ID: <20260114164727.15367-12-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260114164727.15367-1-alexander.deucher@amd.com>
 References: <20260114164727.15367-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9D6:EE_|IA1PR12MB8264:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc4c7807-0794-48f0-f35f-08de538ca426
+X-MS-TrafficTypeDiagnostic: SJ5PEPF00000203:EE_|SA3PR12MB7949:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41263ff9-8d09-451a-0711-08de538ca3e2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+mkC/gY6UQL04Rgjy6HkZNZXrYNbEi/1/OV0KzZ2vRXrM6np5IHllFn+Yeub?=
- =?us-ascii?Q?R3YtRBIUAEsv5mjMnRfGBjiufnG30R0DSUqYG/gS4/1xVqH48iWJ6wOiZjIZ?=
- =?us-ascii?Q?IdaIntgzq8mvCQc7hmsIkesHwM6K9OFx1nn7xZ8/sVrKChYc4jiIsNcEQ4+h?=
- =?us-ascii?Q?v/Nu0MnVxM3KwkNBVPmfJE+ylF2WozhaeXDe6mxnLr3tiEXNn6y6PdreF9zi?=
- =?us-ascii?Q?AEvE2sW/2v079wKRZIXcZhUrbrpoU58P0gniSxPI6c4Y0eJfeo0aBrTgKNAI?=
- =?us-ascii?Q?FaJcZohiGgpHI0YZpyljv6MvFAyeCr2PMksmZ88BwHJh8pqc0f6QMWGEbMsL?=
- =?us-ascii?Q?ZzDDBnulve43MeL5iAMYwvn62RiNsDBnj0qHTZ9F8kIdxD3MZWTKhf0DkXcE?=
- =?us-ascii?Q?zkPzW8YV0X76N6/djhOjtOuwDWnWXrKTBEd2do/cF4QZ5vAcWXhwJ/bOBtl6?=
- =?us-ascii?Q?cS53Oz7/N2K7GFmoy6qn3ISpHYj3kgpSWtRUryLAIcOeAY1mJk6j0nig7RHb?=
- =?us-ascii?Q?hphpe/+lEaHLThkeObMEFGAcxTyA+i2w2mVvEaFWcqZ4jgI5OmfL055WFRy0?=
- =?us-ascii?Q?WXSOg5nFgmfktecPmEE/gxD7uNkCV6ncTTI7sRWvPSq2NlHuCdr9K1SzHpWY?=
- =?us-ascii?Q?kFdnek8L2nhzHW2XMxFOB1KtIVow4WnNGxdhu/yosDM+mjoYGTXYP2auqXZ+?=
- =?us-ascii?Q?PNNnJ+hkLDvdrNf4ccRsausceIL2VupkDtE6R7Og7yyFjFe2BmSO8L7vXTd8?=
- =?us-ascii?Q?8cZQRvUQOcNd5nQaP+Hx/LmYETK48BSgwYWGJY5T8u8drb/AIhvMmvs4YoE5?=
- =?us-ascii?Q?n/pocCmisbpHrqixWt1j9/7+YJH/zySVUo/xgX5ZmAWgfUdrHMW7SRnv20ck?=
- =?us-ascii?Q?q2cB59uvEGpGBM90cTmjNWycfLC8yZgc4kkoIWMRAhvPkABW4WjFb0rN6rhD?=
- =?us-ascii?Q?HgNiHNwefC0qR1DGjq/WDKiz4wii7vODuV4OHvKhcWibDjgF6a9V/FVCxU7w?=
- =?us-ascii?Q?5kQtACWiI7wHUSgyD6ptnWTiJBtr0g6/iDIe1e/bqUe36KwCpVyAO05z4q2a?=
- =?us-ascii?Q?tfWMh8YCSFoGHycy/fz2IoZSbNV87IZlg8qDauO2Zc+PJkycFq27/CAfgPOw?=
- =?us-ascii?Q?0oI8KE2j/EZBPAcMAOG1rE09jUDyXpVJEzXvm4TythH1wIEklUqDJBQMQu5j?=
- =?us-ascii?Q?4ibK9SOSC0eP1A1uZPQjG+ZX6fJe9+LYmmSTyniWC+N64jDfKoylwfIos5Yh?=
- =?us-ascii?Q?xfZOj5dgFjq980XneS5qc6LAY9890GT/skRTnNEge/tUpsir4W+XHsEoSZr+?=
- =?us-ascii?Q?R8qTOUylXaYTFYhE9exvI61xrqpXIWo2Hez0nSi71uu9SsgHnQNcLmMlljnX?=
- =?us-ascii?Q?Glt3l+EcMcD7n+JE8PJzAmcN8ZzRJHQXf7H6Hr3l3DGt/KheWj6GwXM8z/1p?=
- =?us-ascii?Q?ccxya4p0gjsPYPy7DnP4vev/o8v2vnzAG0hiV/pkSvQK9Cs7+TQoFxwV92sq?=
- =?us-ascii?Q?aXXMMPJ/VCV4I9waGFqzbTMK39PFw17CcCFxNH97JiMGg3LL0HmziwDFfPmf?=
- =?us-ascii?Q?n5mGuzIAEZW/bz2NzB1F196nAgD6sgMLWKcBWg2uOuT4jgueAFhG/y7c5px9?=
- =?us-ascii?Q?7vfcv6S7e+DvWbiIDlNCzC7EzfFU7MAdIvhCMAj7q7o2ob0+HnvSnkzrujio?=
- =?us-ascii?Q?GalGqg=3D=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?g+B3FQ7aYFQ4iADopyXb1xnf+aF7moIWLFCdv+juZ3EO5HkSEr8ZhDP3UhNt?=
+ =?us-ascii?Q?NBJi6I4T9Hb83v5Kw0bQwy9BQ6aGtPE6LrqetJ7S+ayXgRPOYpX7iOEKBQmA?=
+ =?us-ascii?Q?q+zAjyfrBnIy92zz/169+KDKBdgE/XxMQzqSt7REAir1UyiS9C0ARBwNrqup?=
+ =?us-ascii?Q?/nxnMDtveIpuYxLONEVS23ggq/LkmLtW+V8zPfql/+Nni4Rpr1bi36wtcETr?=
+ =?us-ascii?Q?/YX1dr/6t2uLnAQ6WARdO6ougvSolMy2XKpTe2/TFrA+Gg/WjwnDzs1NcTTD?=
+ =?us-ascii?Q?ZTlkgPjpxGIomd8YlXW5byXsv8tgze0M6348AyjYS11XeX19BtVc0jflQbL+?=
+ =?us-ascii?Q?UBKJueIIJJyln0gDVKSPqhE2OWMoKcvhR4pglF9bYaDvc8sXYX/Y5fQg0Re9?=
+ =?us-ascii?Q?GrFFTEbbD6VtiuXQlrwlenI92bZ0ND/TkUcUSKDbxhJBgHEL2HSsrudxYJu0?=
+ =?us-ascii?Q?EfSu4FxOpTcLBri0NtYxRsa3DDwVb1xT+Lqr9j3YDIEXDj0VX1ZXiYfMOtfC?=
+ =?us-ascii?Q?k9fAzAzTsNuR62kh16Pn1w4TUvS8aNB7ARcj2b/NhPB6b/dH5qEoyjXaDFgA?=
+ =?us-ascii?Q?YVM8AF/YLSFqau4ZKYCd4CeNmISydjA9J5Xcv3+Wd/tCs57EQj4reMNTkJfK?=
+ =?us-ascii?Q?OGRlELUjGb4pKGjCcoFsm2oDJzBGoGN6dY5jBwT2KfZQkFMDdgGuhq/EaqBl?=
+ =?us-ascii?Q?tzJJApzOoEylzreMPQx5FY6hruo05JR8Hw8KYRPOV5BNQNuPSy8vmbWGqQXw?=
+ =?us-ascii?Q?X/PMfEpQECG2qOI+iRrLeOs6lzbTEPQVpS28Kk9184kXPs77VjFJS72muyMH?=
+ =?us-ascii?Q?oKOfDXUOAUrHc9UBEiKk2kyMDdJLK9vd/gVg9quBLUXWa1Nkx9UkDpN/ycGG?=
+ =?us-ascii?Q?dKyobnsv/YqWI5MEkIbbYpiQEsM46XRrDO1X9/CEJ+JtXNMBEtj6AJ5kQq7h?=
+ =?us-ascii?Q?GgqdZ2EnK2SZRcnp2mv9PDd0yqkg0NZqOXP0NDqaOP5+gZIy2SbWPp16guYg?=
+ =?us-ascii?Q?N8HUun3STU29lXlkNxEu/lw2vmsiS78uTLmSpTQW/1RGvBEXVZINO0mkHl6h?=
+ =?us-ascii?Q?rlhJ24D+b/BSJKHv40lNnd7ZP/u2YpqjbFd6cGYFHvSnaqW2nzbtZL6x9xWg?=
+ =?us-ascii?Q?WdQ2LD0a+7OZp3Ewv08ETDTvN6V4OI4ZfwI94CQKESjKohiWI8gS2xshd6DZ?=
+ =?us-ascii?Q?FGP9Q4H92Ymry9cErU052Tn6c6Th88VKCAvz90sQBOfNr1WfYkRSPTKsnvp4?=
+ =?us-ascii?Q?cP5yCT7N7dLcvL6Pf2MQtmMwgVCTDassCMBzjUi7whUoMovG4h4am2oKgnAN?=
+ =?us-ascii?Q?n/K+C/wF1a0wLhy+0kZkty989X0x+M3MELOra3rtysNbkSEf1TVQEtWfwnJM?=
+ =?us-ascii?Q?BCEBnYDV47t2GQDqpAJytUT+a6E1By03C9uf/3d+LDY8K1OXtA5JvjvdYSST?=
+ =?us-ascii?Q?pb3co88bXGQTXnimE6xrY7ErmhX+zLzFO+tV5mdEW7QQyV8fnOxkgDqDsHZd?=
+ =?us-ascii?Q?gBt9BNqbkDwghBZeXdwIF6uBpVM1bqlrhvsFlE4CKGT0jN+lSwZ7SaOVgQ1B?=
+ =?us-ascii?Q?QCcy33KlWlngyZL5SiHg88lBKN7buPeQwFwIw9gTZJYEZHGqYPU0vUhni/HQ?=
+ =?us-ascii?Q?ddqu1mbMgK4BEpc1AUvKCYAFDC58U7+zDeab9CZYVLY6eF0aymzgrXA6j+yk?=
+ =?us-ascii?Q?0KVZGA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2026 16:47:44.6861 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc4c7807-0794-48f0-f35f-08de538ca426
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2026 16:47:44.1885 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41263ff9-8d09-451a-0711-08de538ca3e2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9D6.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF00000203.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8264
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7949
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,37 +145,45 @@ Switch to using a job structure for IBs.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 138 +++++++++++++-------------
- 1 file changed, 71 insertions(+), 67 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 29 ++++++++++++++------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 7e9d753f4a808..36f0300a21bfa 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1224,9 +1224,9 @@ static int gfx_v9_0_ring_test_ring(struct amdgpu_ring *ring)
- static int gfx_v9_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 6cd16f016c374..5862b5f60a6ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -494,7 +494,8 @@ static int gfx_v12_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
  {
  	struct amdgpu_device *adev = ring->adev;
 -	struct amdgpu_ib ib;
 +	struct amdgpu_job *job;
 +	struct amdgpu_ib *ib;
  	struct dma_fence *f = NULL;
--
  	unsigned index;
  	uint64_t gpu_addr;
- 	uint32_t tmp;
-@@ -1238,22 +1238,26 @@ static int gfx_v9_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+@@ -506,8 +507,6 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	    ring->funcs->type == AMDGPU_RING_TYPE_KIQ)
+ 		return 0;
  
- 	gpu_addr = adev->wb.gpu_addr + (index * 4);
- 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
 -	memset(&ib, 0, sizeof(ib));
+-
+ 	r = amdgpu_device_wb_get(adev, &index);
+ 	if (r)
+ 		return r;
+@@ -516,22 +515,27 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+ 	cpu_ptr = &adev->wb.wb[index];
  
--	r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
-+	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 20,
+-	r = amdgpu_ib_get(adev, NULL, 16, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 16,
 +				     AMDGPU_IB_POOL_DIRECT, &job,
 +				     AMDGPU_KERNEL_JOB_ID_GFX_RING_TEST);
- 	if (r)
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "failed to get ib (%ld).\n", r);
  		goto err1;
+ 	}
++	ib = &job->ibs[0];
  
 -	ib.ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
 -	ib.ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
@@ -177,7 +191,6 @@ index 7e9d753f4a808..36f0300a21bfa 100644
 -	ib.ptr[3] = upper_32_bits(gpu_addr);
 -	ib.ptr[4] = 0xDEADBEEF;
 -	ib.length_dw = 5;
-+	ib = &job->ibs[0];
 +	ib->ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
 +	ib->ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
 +	ib->ptr[2] = lower_32_bits(gpu_addr);
@@ -195,198 +208,14 @@ index 7e9d753f4a808..36f0300a21bfa 100644
  
  	r = dma_fence_wait_timeout(f, false, timeout);
  	if (r == 0) {
-@@ -1270,7 +1274,6 @@ static int gfx_v9_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+@@ -546,7 +550,6 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	else
  		r = -EINVAL;
- 
  err2:
 -	amdgpu_ib_free(&ib, NULL);
  	dma_fence_put(f);
  err1:
  	amdgpu_device_wb_free(adev, index);
-@@ -4624,7 +4627,8 @@ static int gfx_v9_0_do_edc_gds_workarounds(struct amdgpu_device *adev)
- static int gfx_v9_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ring *ring = &adev->gfx.compute_ring[0];
--	struct amdgpu_ib ib;
-+	struct amdgpu_job *job;
-+	struct amdgpu_ib *ib;
- 	struct dma_fence *f = NULL;
- 	int r, i;
- 	unsigned total_size, vgpr_offset, sgpr_offset;
-@@ -4670,9 +4674,9 @@ static int gfx_v9_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
- 	total_size += sizeof(sgpr_init_compute_shader);
- 
- 	/* allocate an indirect buffer to put the commands in */
--	memset(&ib, 0, sizeof(ib));
--	r = amdgpu_ib_get(adev, NULL, total_size,
--					AMDGPU_IB_POOL_DIRECT, &ib);
-+	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, total_size,
-+				     AMDGPU_IB_POOL_DIRECT, &job,
-+				     AMDGPU_KERNEL_JOB_ID_RUN_SHADER);
- 	if (r) {
- 		drm_err(adev_to_drm(adev), "failed to get ib (%d).\n", r);
- 		return r;
-@@ -4680,102 +4684,103 @@ static int gfx_v9_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
- 
- 	/* load the compute shaders */
- 	for (i = 0; i < vgpr_init_shader_size/sizeof(u32); i++)
--		ib.ptr[i + (vgpr_offset / 4)] = vgpr_init_shader_ptr[i];
-+		ib->ptr[i + (vgpr_offset / 4)] = vgpr_init_shader_ptr[i];
- 
- 	for (i = 0; i < ARRAY_SIZE(sgpr_init_compute_shader); i++)
--		ib.ptr[i + (sgpr_offset / 4)] = sgpr_init_compute_shader[i];
-+		ib->ptr[i + (sgpr_offset / 4)] = sgpr_init_compute_shader[i];
- 
- 	/* init the ib length to 0 */
--	ib.length_dw = 0;
-+	ib->length_dw = 0;
- 
- 	/* VGPR */
- 	/* write the register state for the compute dispatch */
- 	for (i = 0; i < gpr_reg_size; i++) {
--		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
--		ib.ptr[ib.length_dw++] = SOC15_REG_ENTRY_OFFSET(vgpr_init_regs_ptr[i])
-+		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
-+		ib->ptr[ib->length_dw++] = SOC15_REG_ENTRY_OFFSET(vgpr_init_regs_ptr[i])
- 								- PACKET3_SET_SH_REG_START;
--		ib.ptr[ib.length_dw++] = vgpr_init_regs_ptr[i].reg_value;
-+		ib->ptr[ib->length_dw++] = vgpr_init_regs_ptr[i].reg_value;
- 	}
- 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
--	gpu_addr = (ib.gpu_addr + (u64)vgpr_offset) >> 8;
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
--	ib.ptr[ib.length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
-+	gpu_addr = (ib->gpu_addr + (u64)vgpr_offset) >> 8;
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
-+	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
- 							- PACKET3_SET_SH_REG_START;
--	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
--	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
- 
- 	/* write dispatch packet */
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
--	ib.ptr[ib.length_dw++] = compute_dim_x * 2; /* x */
--	ib.ptr[ib.length_dw++] = 1; /* y */
--	ib.ptr[ib.length_dw++] = 1; /* z */
--	ib.ptr[ib.length_dw++] =
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
-+	ib->ptr[ib->length_dw++] = compute_dim_x * 2; /* x */
-+	ib->ptr[ib->length_dw++] = 1; /* y */
-+	ib->ptr[ib->length_dw++] = 1; /* z */
-+	ib->ptr[ib->length_dw++] =
- 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
- 
- 	/* write CS partial flush packet */
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
--	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
-+	ib->ptr[ib->length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
- 
- 	/* SGPR1 */
- 	/* write the register state for the compute dispatch */
- 	for (i = 0; i < gpr_reg_size; i++) {
--		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
--		ib.ptr[ib.length_dw++] = SOC15_REG_ENTRY_OFFSET(sgpr1_init_regs[i])
-+		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
-+		ib->ptr[ib->length_dw++] = SOC15_REG_ENTRY_OFFSET(sgpr1_init_regs[i])
- 								- PACKET3_SET_SH_REG_START;
--		ib.ptr[ib.length_dw++] = sgpr1_init_regs[i].reg_value;
-+		ib->ptr[ib->length_dw++] = sgpr1_init_regs[i].reg_value;
- 	}
- 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
--	gpu_addr = (ib.gpu_addr + (u64)sgpr_offset) >> 8;
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
--	ib.ptr[ib.length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
-+	gpu_addr = (ib->gpu_addr + (u64)sgpr_offset) >> 8;
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
-+	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
- 							- PACKET3_SET_SH_REG_START;
--	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
--	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
- 
- 	/* write dispatch packet */
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
--	ib.ptr[ib.length_dw++] = compute_dim_x / 2 * sgpr_work_group_size; /* x */
--	ib.ptr[ib.length_dw++] = 1; /* y */
--	ib.ptr[ib.length_dw++] = 1; /* z */
--	ib.ptr[ib.length_dw++] =
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
-+	ib->ptr[ib->length_dw++] = compute_dim_x / 2 * sgpr_work_group_size; /* x */
-+	ib->ptr[ib->length_dw++] = 1; /* y */
-+	ib->ptr[ib->length_dw++] = 1; /* z */
-+	ib->ptr[ib->length_dw++] =
- 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
- 
- 	/* write CS partial flush packet */
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
--	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
-+	ib->ptr[ib->length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
- 
- 	/* SGPR2 */
- 	/* write the register state for the compute dispatch */
- 	for (i = 0; i < gpr_reg_size; i++) {
--		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
--		ib.ptr[ib.length_dw++] = SOC15_REG_ENTRY_OFFSET(sgpr2_init_regs[i])
-+		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
-+		ib->ptr[ib->length_dw++] = SOC15_REG_ENTRY_OFFSET(sgpr2_init_regs[i])
- 								- PACKET3_SET_SH_REG_START;
--		ib.ptr[ib.length_dw++] = sgpr2_init_regs[i].reg_value;
-+		ib->ptr[ib->length_dw++] = sgpr2_init_regs[i].reg_value;
- 	}
- 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
--	gpu_addr = (ib.gpu_addr + (u64)sgpr_offset) >> 8;
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
--	ib.ptr[ib.length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
-+	gpu_addr = (ib->gpu_addr + (u64)sgpr_offset) >> 8;
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
-+	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
- 							- PACKET3_SET_SH_REG_START;
--	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
--	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
-+	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
-+	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
- 
- 	/* write dispatch packet */
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
--	ib.ptr[ib.length_dw++] = compute_dim_x / 2 * sgpr_work_group_size; /* x */
--	ib.ptr[ib.length_dw++] = 1; /* y */
--	ib.ptr[ib.length_dw++] = 1; /* z */
--	ib.ptr[ib.length_dw++] =
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
-+	ib->ptr[ib->length_dw++] = compute_dim_x / 2 * sgpr_work_group_size; /* x */
-+	ib->ptr[ib->length_dw++] = 1; /* y */
-+	ib->ptr[ib->length_dw++] = 1; /* z */
-+	ib->ptr[ib->length_dw++] =
- 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
- 
- 	/* write CS partial flush packet */
--	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
--	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
-+	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
-+	ib->ptr[ib->length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
- 
- 	/* shedule the ib on the ring */
--	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
-+	r = amdgpu_job_submit_direct(job, ring, &f);
- 	if (r) {
- 		drm_err(adev_to_drm(adev), "ib schedule failed (%d).\n", r);
-+		amdgpu_job_free(job);
- 		goto fail;
- 	}
- 
-@@ -4787,7 +4792,6 @@ static int gfx_v9_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
- 	}
- 
- fail:
--	amdgpu_ib_free(&ib, NULL);
- 	dma_fence_put(f);
- 
- 	return r;
 -- 
 2.52.0
 
