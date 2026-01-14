@@ -4,130 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACF56D38FED
-	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 16:53:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA156D39000
+	for <amd-gfx@archiver.kernel.org>; Wed, 14 Jan 2026 17:48:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4959710E670;
-	Wed, 14 Jan 2026 16:53:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A8810E1CB;
+	Wed, 14 Jan 2026 17:48:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T7EnIgru";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dqs2jsyG";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012055.outbound.protection.outlook.com
- [40.93.195.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CFCB10E661
- for <amd-gfx@lists.freedesktop.org>; Wed, 14 Jan 2026 16:53:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lsdcQvZ499dYXA2lv/esIBErVRuRMavLQZxON+7TLFO8zzOZTY/CN1i+06ouJ04lsE2/7b/Z0yxPaTa3POm5gYBBqgISZr6ID2MwK4/gE91PdV5Ki+45mbopVsw1SQjB+yUaaHvQJyGhhxuPEAlc6XR+9vC5hkKdlXHa2GJY42SgrU++Qf0LGCEQTFKdMUElY928GluuB0jWiPIA4TjkO8Nl+4xt9o8pVtaRbP0wKEc5TtBe/GsZrZy8+8W/HTmdwoWxfW6tp4bWwvG5ts3UU/l1wFumymCjNBUamPI+uTh874ygRO4fkw6D9MQ6eqKehNoFkNxPrTFapQIdMll95Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3X4+jFaGZMFve3DlAczezF+oWf7/jHf3AOqGH0mKAuU=;
- b=D0jFp6QpESNOOqemwFRcPNl8y/jZ1hB+2whgbnY/eDfnx6S3CqYEghc0Rrle66XX9n5FZhYsU3Xy14BpQ+Xv1hRRcjjAL8ltM4LMD7fSAl/b+e6chLpcHRQHaVPtgSTgUbOT8W4R+cOIxor65gaKbXP0AyB7JhrKIcx8EUZUi3fro/uermuXrsGYPuBQ9ENtroHYU9vQZ+lV/n0AJ2ZtOhKa9PXFVI7slE6GGRE1HDwW/B85EBaaJYOL/VERdo+bNech9+Djzgc0AZoE/umygvrK3KPUKee8JNF2VXvh4EkpwhnKu3QAQncMcdlaysZ6anpFdn6DcMKyV/2BqkN8PQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3X4+jFaGZMFve3DlAczezF+oWf7/jHf3AOqGH0mKAuU=;
- b=T7EnIgru8vUuT6W0IABjUalKR3d46EdLStvJz56PAA3+3feQNULOtklU6Ta+/ACYgip6H//HVu1zTNhzYqe5wlnGHPdBIKMKb07DpBmxGRyN10rFYeYCNofPvCIZYH5PGnGJR0ULv53SmHF0qu5xVHjSflShRbL2n5l2fARk084=
-Received: from SJ0PR13CA0223.namprd13.prod.outlook.com (2603:10b6:a03:2c1::18)
- by SJ5PPF000ACABD1.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::984) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Wed, 14 Jan
- 2026 16:53:10 +0000
-Received: from CO1PEPF000075F1.namprd03.prod.outlook.com
- (2603:10b6:a03:2c1:cafe::63) by SJ0PR13CA0223.outlook.office365.com
- (2603:10b6:a03:2c1::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.5 via Frontend Transport; Wed,
- 14 Jan 2026 16:53:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF000075F1.mail.protection.outlook.com (10.167.249.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Wed, 14 Jan 2026 16:53:10 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 14 Jan
- 2026 10:47:54 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 14 Jan
- 2026 10:47:54 -0600
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 14 Jan 2026 10:47:54 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 39/42] drm/amdgpu: add an all_instance_rings_reset ring flag
-Date: Wed, 14 Jan 2026 11:47:24 -0500
-Message-ID: <20260114164727.15367-40-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260114164727.15367-1-alexander.deucher@amd.com>
-References: <20260114164727.15367-1-alexander.deucher@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F1:EE_|SJ5PPF000ACABD1:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5c88d65f-8e4f-4e8a-5442-08de538d663e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VCqAR1Qv8DQqU9NRnrp9wHofNwsS3YLjy8SiuHnDjLVsHWVAOofLLOotCU1i?=
- =?us-ascii?Q?Wr2TlcqRjVFRvF7IBJNu+UyFBwOkIeFODdf8VlIgRppj4563c9E2tPVSzIKl?=
- =?us-ascii?Q?iyAcKWWd0Twpm8NNypzsOAfd+IvtgUwTohWk7U2mP9aULeHd8WpV53FYsfqz?=
- =?us-ascii?Q?u+n1tJtvfJQi2DDCkAcRZG6XPL5UNiOetsxVixH++UFP/7oDP+TcEvOzjF1H?=
- =?us-ascii?Q?IGTGaJdIiB4Am0UyXzjLQAH7FWQnk4RjadnlumNcV/YOaburxQjhAKVTsTmf?=
- =?us-ascii?Q?HEg/U9B03MQXUHE1qCgSdC9nHXXz5R9SL9NYZZmOxOfjgqRRIfusTnnAyr89?=
- =?us-ascii?Q?mozaXLfX+nWowQXSWTE202oDZW7TCJ7F/tI/O5ROE/SGb+VO5l6KCJJypKnb?=
- =?us-ascii?Q?t3OfTmgbJvCjH+WI5BqYkLNUoDEupze2D+p7Lk/zMA0ar9rIWC435Wks7/dt?=
- =?us-ascii?Q?Azzhd/5obDE0JRRHgIFm6hogJTKThuwzY9RnGXWmUJjhH80tDnpZx3+IHoSX?=
- =?us-ascii?Q?sgd+m8Sbk2NpVmoIahqXqDTyGzzYBtf3C0TzJZj2arkXFxH/2vyrO45y96eC?=
- =?us-ascii?Q?Gm5DPdzvzvgcilB6cRqA88YkwO4fyTB13zotaSgxx88s/EyD3MSV9nwd7L9h?=
- =?us-ascii?Q?2bqQrv7Zx29r1AyFJz+cIBuMKTmN0vfC1D/ND6cuki4Pqg7LXcpD6ZU6Eq9K?=
- =?us-ascii?Q?X9JtxX5/wYpMUwdYIIr/fPaibR/pOUSadYDYgybggbZO09k7DfjOyzVqIfF7?=
- =?us-ascii?Q?+NGXDgqW0IcXnIryOLRz4bNFsYQzCwMprDuNvyRItVg/GqvxYquZZbNkvWtn?=
- =?us-ascii?Q?JMPURp5FljlrIAu7Bwvfib3sCchUjl303+IOSfUKlde1CORJWUx4XgDr1ToV?=
- =?us-ascii?Q?hEHm14WUNK/Bdl31ip7XEpcLxgZNLrL0D1iGLkoIZaPmHoj52Nq33dsZq1xI?=
- =?us-ascii?Q?fVcqJMYzCG54iFRfsta8EBH8evLQhAT7Iq+h+ts/XKX35p59WB+tIqeiphJw?=
- =?us-ascii?Q?1jyocjS6j+d4KctCUdd9rpC4rdxXwFb2+IjHO3JerbraKszpVeuWiG2gU3Au?=
- =?us-ascii?Q?OThLAnBQl/De0Y35bGcQW5J7Wx5a9v/nIiQO1KaUBJUE/vb2BJaM+Lekp8Fi?=
- =?us-ascii?Q?E86YM4Gq6W+6WblwgxN4GgF4HvHgqYKSH48zg7UhFRBD9J/0sADYZhkgwy1Q?=
- =?us-ascii?Q?M0GHN1qFpAkhdR5lXGv2TIYmC5s3adXKugCFCvGV12a76GKbZO7Jzge6Ope4?=
- =?us-ascii?Q?N+ULfIZNYi6XxX1GGTCO2/ul688wUDJk9egwAw42iBPs5x7PiHbN9/uHRgG0?=
- =?us-ascii?Q?5g7ritjP1ls3brN7fw84YK9oqCvQSrz/rTHu6za7Qieop2rrqeC+JcZBbRcs?=
- =?us-ascii?Q?/weoqz4XS2EDnQxWY9iv5sHSo1ltQegu+NMnMWZwV/rs8f9YrIfnIL0NKb35?=
- =?us-ascii?Q?c+sdlrzaAfI3nZYXR0xc7PjVCQ6Ft5BFg63dU1il5DTnxlYbW14/aKjzEoAk?=
- =?us-ascii?Q?iz12Q87IV3VywOOxfY0Cyk700wNDiyQycTMRHnrvE5njnjzne4jsaHbq06o+?=
- =?us-ascii?Q?E+VH4g2wQQnYnrdQImCxdIWgK5f3DDgTllugHhHgR1IHXGJkwaHZWIHvDrb1?=
- =?us-ascii?Q?WM4JzOEwShs9litrXD96K+SXYlCBKsjBs7SE9c8WCGd2AB9+0p1+p0WONq+1?=
- =?us-ascii?Q?1znm6g=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jan 2026 16:53:10.2715 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5c88d65f-8e4f-4e8a-5442-08de538d663e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075F1.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF000ACABD1
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C4610E1CB;
+ Wed, 14 Jan 2026 17:48:19 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7CD56441D6;
+ Wed, 14 Jan 2026 17:48:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9993C4CEF7;
+ Wed, 14 Jan 2026 17:48:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1768412899;
+ bh=2wiV/q/zC+XkjZ/cVcpsOvrVpiD/BLMSojQnfCtXnWw=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To:From;
+ b=Dqs2jsyG0vUz8fUHhgGtgOPiO6A17Ax2BbjwtyDz6gcXdIR2tzqwdP9qfgz7DjQWS
+ peWRWvHncAq3qcVeAcflyoszk33XGWKy11179Wwf1RgPT2VId1QzWY2GIEMsn6w2RY
+ ejslwFUtDpJCSgCnoHeYcdVSaQAf1ULf8QqpvdqcrNfX5tvG7zn6LXYqLD12HZk5rh
+ GksP+irFmKX+SIcHXfj+YO0ZCu0bJbRxtsISIEdUikKAfKdUly035w0VSc/Axy9pyH
+ v+NEvEX55ab/5LVVhpUCfb3WPu1vjbpwLZy7pI/MsRUhWUgcRgFZ6X8b5Uo6m+ht4u
+ tXkxhh0GekW2A==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 14 Jan 2026 18:48:16 +0100
+Message-Id: <DFOI1X68AUI6.3N4LRMFN589FI@kernel.org>
+To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v5 07/28] drm/sched: Account entity GPU time
+Cc: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <kernel-dev@igalia.com>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Matthew Brost" <matthew.brost@intel.com>,
+ "Philipp Stanner" <phasta@kernel.org>
+References: <20251219135351.25880-1-tvrtko.ursulin@igalia.com>
+ <20251219135351.25880-8-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20251219135351.25880-8-tvrtko.ursulin@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,90 +59,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some IPs only support instance reset.  If there are multiple
-rings on the instance, they will all be reset.  Add a flag
-to handle note this case.
+On Fri Dec 19, 2025 at 2:53 PM CET, Tvrtko Ursulin wrote:
+> +/**
+> + * drm_sched_entity_stats_alloc - Allocate a new struct drm_sched_entity=
+_stats object
+> + *
+> + * Return: Pointer to newly allocated struct drm_sched_entity_stats obje=
+ct.
+> + */
+> +static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(void)
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h | 1 +
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 2 ++
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c    | 2 ++
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c    | 2 ++
- 4 files changed, 7 insertions(+)
+NIT: This function allocates and initializes the structure, hence something
+along the lines of *_new() is a better fit.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 8aab82af2e0e0..63272425a12f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -388,6 +388,7 @@ struct amdgpu_ring {
- 	u32			doorbell_index;
- 	bool			use_doorbell;
- 	bool			use_pollmem;
-+	bool			all_instance_rings_reset;
- 	unsigned		wptr_offs;
- 	u64			wptr_gpu_addr;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 86b800e2b4329..e508703d24d33 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -1469,6 +1469,7 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
- 		ring = &adev->sdma.instance[i].ring;
- 		ring->ring_obj = NULL;
- 		ring->use_doorbell = true;
-+		ring->all_instance_rings_reset = true;
- 		aid_id = adev->sdma.instance[i].aid_id;
- 
- 		DRM_DEBUG("SDMA %d use_doorbell being set to: [%s]\n", i,
-@@ -1490,6 +1491,7 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
- 			ring = &adev->sdma.instance[i].page;
- 			ring->ring_obj = NULL;
- 			ring->use_doorbell = true;
-+			ring->all_instance_rings_reset = true;
- 
- 			/* doorbell index of page queue is assigned right after
- 			 * gfx queue on the same instance
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index cebee453871c1..694eaa61c4b6b 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -334,6 +334,7 @@ static int vcn_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 		ring = &adev->vcn.inst[j].ring_dec;
- 		ring->use_doorbell = true;
-+		ring->all_instance_rings_reset = true;
- 
- 		ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
- 				(amdgpu_sriov_vf(adev) ? 2*j : 8*j);
-@@ -354,6 +355,7 @@ static int vcn_v2_5_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 			ring = &adev->vcn.inst[j].ring_enc[i];
- 			ring->use_doorbell = true;
-+			ring->all_instance_rings_reset = true;
- 
- 			ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
- 					(amdgpu_sriov_vf(adev) ? (1 + i + 2*j) : (2 + i + 8*j));
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 02d5c5af65f23..cda3154692b35 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -234,6 +234,7 @@ static int vcn_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 		ring = &adev->vcn.inst[i].ring_dec;
- 		ring->use_doorbell = true;
-+		ring->all_instance_rings_reset = true;
- 		if (amdgpu_sriov_vf(adev)) {
- 			ring->doorbell_index = vcn_doorbell_index + i * (adev->vcn.inst[i].num_enc_rings + 1);
- 		} else {
-@@ -258,6 +259,7 @@ static int vcn_v3_0_sw_init(struct amdgpu_ip_block *ip_block)
- 
- 			ring = &adev->vcn.inst[i].ring_enc[j];
- 			ring->use_doorbell = true;
-+			ring->all_instance_rings_reset = true;
- 			if (amdgpu_sriov_vf(adev)) {
- 				ring->doorbell_index = vcn_doorbell_index + i * (adev->vcn.inst[i].num_enc_rings + 1) + 1 + j;
- 			} else {
--- 
-2.52.0
+> +{
+> +	struct drm_sched_entity_stats *stats;
+> +
+> +	stats =3D kzalloc(sizeof(*stats), GFP_KERNEL);
+> +	if (!stats)
+> +		return NULL;
+> +
+> +	kref_init(&stats->kref);
+> +	spin_lock_init(&stats->lock);
+> +
+> +	return stats;
+> +}
 
+<snip>
+
+> +/**
+> + * struct drm_sched_entity_stats - execution stats for an entity.
+> + * @kref: reference count for the object.
+> + * @lock: lock guarding the @runtime updates.
+> + * @runtime: time entity spent on the GPU.
+> + *
+> + * Because jobs and entities have decoupled lifetimes, ie. we cannot acc=
+ess the
+
+The beginning of this sentence seems slightly broken.
+
+> + * entity once the job is completed and we know how much time it took on=
+ the
+> + * GPU, we need to track these stats in a separate object which is then
+> + * reference counted by both entities and jobs.
+> + */
+> +struct drm_sched_entity_stats {
+> +	struct kref	kref;
+> +	spinlock_t	lock;
+> +	ktime_t		runtime;
+
+We can avoid the lock entirely by using a atomic64_t instead. ktime_t is ju=
+st a
+typedef for s64.
+
+> +};
+
+<snip>
+
+> +/**
+> + * drm_sched_entity_stats_job_add_gpu_time - Account job execution time =
+to entity
+> + * @job: Scheduler job to account.
+> + *
+> + * Accounts the execution time of @job to its respective entity stats ob=
+ject.
+> + */
+> +static inline void
+> +drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+> +{
+> +	struct drm_sched_entity_stats *stats =3D job->entity_stats;
+> +	struct drm_sched_fence *s_fence =3D job->s_fence;
+> +	ktime_t start, end;
+> +
+> +	start =3D dma_fence_timestamp(&s_fence->scheduled);
+> +	end =3D dma_fence_timestamp(&s_fence->finished);
+> +
+> +	spin_lock(&stats->lock);
+> +	stats->runtime =3D ktime_add(stats->runtime, ktime_sub(end, start));
+> +	spin_unlock(&stats->lock);
+> +}
+
+This shouldn't be an inline function in the header, please move to
+sched_entity.c.
+
+> +
+>  #endif
+> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/sch=
+eduler/sched_main.c
+> index f825ad9e2260..4c10c7ba6704 100644
+> --- a/drivers/gpu/drm/scheduler/sched_main.c
+> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> @@ -660,6 +660,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
+> =20
+>  	job->sched =3D sched;
+>  	job->s_priority =3D entity->priority;
+> +	job->entity_stats =3D drm_sched_entity_stats_get(entity->stats);
+> =20
+>  	drm_sched_fence_init(job->s_fence, job->entity);
+>  }
+> @@ -849,6 +850,7 @@ void drm_sched_job_cleanup(struct drm_sched_job *job)
+>  		 * been called.
+>  		 */
+>  		dma_fence_put(&job->s_fence->finished);
+> +		drm_sched_entity_stats_put(job->entity_stats);
+>  	} else {
+>  		/* The job was aborted before it has been committed to be run;
+>  		 * notably, drm_sched_job_arm() has not been called.
+> @@ -1000,8 +1002,10 @@ static void drm_sched_free_job_work(struct work_st=
+ruct *w)
+>  		container_of(w, struct drm_gpu_scheduler, work_free_job);
+>  	struct drm_sched_job *job;
+> =20
+> -	while ((job =3D drm_sched_get_finished_job(sched)))
+> +	while ((job =3D drm_sched_get_finished_job(sched))) {
+> +		drm_sched_entity_stats_job_add_gpu_time(job);
+
+Is it really always OK to update this value in the free job work? What if a=
+ new
+job gets scheduled concurrently. Doesn't this hurt accuracy, since the enti=
+ty
+value has not been updated yet?
+
+>  		sched->ops->free_job(job);
+> +	}
