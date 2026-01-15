@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29215D33A00
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jan 2026 08:29:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45DBDD41147
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jan 2026 08:56:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA7CC10E6D3;
-	Thu, 15 Jan 2026 08:29:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF1E610E704;
+	Thu, 15 Jan 2026 08:56:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="f28IW+Cv";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CgWASz95";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C99710E6D3;
- Thu, 15 Jan 2026 08:29:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0761010E703;
+ Thu, 15 Jan 2026 08:56:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
@@ -22,33 +22,32 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5uMlpcJyCXwB6+skuQb61mTYya2pwG9DB/So1FWSFB8=; b=f28IW+CvsVaZ1h145FVCQw2HuI
- GnK9YSKrx6/Rxgux5n73UbKIqFJjqOtl3JQm+FQeOSgyMveaMC1PP95Gmb+frsTJc8VBv1ljyuMry
- 5QYmHos2XfV0r1REM4mm3jErQYqjwhPGANZrbuMaFpRsQSW3wr4/oaD5bGym961PQnXHoWwdGh5DC
- KMjisbjPfHihqYIdjQ6FL+1D7FWH1cK//2ZDLxeVK79xVFlzvbHVN4HWcThglhTlKtZGTCP1SukeH
- sw9CcczdbANqXT/U9NwdKOjNeSaPZ+/IGvz+Ho+aL1CVpwAZ1Xrk79xq0zUdQ3N4/SLqtEM9+f2+P
- KizP5zlg==;
+ bh=6br01WQN2sPbNd5JxCJZK4I+bNmGQhIZBjNyAAJ4Uc8=; b=CgWASz95jX4qw4AL+SbQnp3VXe
+ Q15+0TipjAYECpnNbcb//Trkc8cV1s6FmRVMiHnIbHTetqCuB8UiQa/YsLOwH7o0fhBh+Eb0QABgS
+ 8gB697k6qYC4CdPi69BEXlTpXufQYLuFMgZBFCIIDYxFP4wLb1SfFjADftrxLxmKfvBQ8ztrmluP6
+ Ux8B43kvwqs8Tkqpqh4RAAsvln4tMGBKAEXktvfpwXDfgQOSBNv57Gm+Q59mz0Fc/f4VZpOaQ6y/V
+ vgU0hmmD41B8jGP6/CqGr3R5q7Ml9xfv+7+rmsLiSUrNvGdfruRToOe7ypHBf/NqSpT3CO5t3UAdc
+ Y6l5WhYQ==;
 Received: from [90.240.106.137] (helo=[192.168.0.101])
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vgIix-005e1F-Tf; Thu, 15 Jan 2026 09:28:59 +0100
-Message-ID: <1fceb644-ff22-45c8-bd83-4a32786c35f2@igalia.com>
-Date: Thu, 15 Jan 2026 08:28:59 +0000
+ id 1vgJ9D-005eVe-IU; Thu, 15 Jan 2026 09:56:07 +0100
+Message-ID: <5a267bb7-341d-4a68-9fa9-50166ccd528c@igalia.com>
+Date: Thu, 15 Jan 2026 08:56:06 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/28] drm/sched: Add fair scheduling policy
+Subject: Re: [PATCH v5 07/28] drm/sched: Account entity GPU time
 To: Danilo Krummrich <dakr@kernel.org>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
  <christian.koenig@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+ Philipp Stanner <phasta@kernel.org>
 References: <20251219135351.25880-1-tvrtko.ursulin@igalia.com>
- <20251219135351.25880-10-tvrtko.ursulin@igalia.com>
- <DFONORJMB1ZM.1JHSIXB9ULHJV@kernel.org>
+ <20251219135351.25880-8-tvrtko.ursulin@igalia.com>
+ <DFOI1X68AUI6.3N4LRMFN589FI@kernel.org>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <DFONORJMB1ZM.1JHSIXB9ULHJV@kernel.org>
+In-Reply-To: <DFOI1X68AUI6.3N4LRMFN589FI@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -66,96 +65,148 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 14/01/2026 22:13, Danilo Krummrich wrote:
+On 14/01/2026 17:48, Danilo Krummrich wrote:
 > On Fri Dec 19, 2025 at 2:53 PM CET, Tvrtko Ursulin wrote:
->> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
->> index 2d1f579d8352..2fde309d02a6 100644
->> --- a/drivers/gpu/drm/scheduler/sched_rq.c
->> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
->> @@ -16,6 +16,35 @@ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
->>   	return ktime_before(ea->oldest_job_waiting, eb->oldest_job_waiting);
->>   }
->>   
->> +static void drm_sched_rq_update_prio(struct drm_sched_rq *rq)
+>> +/**
+>> + * drm_sched_entity_stats_alloc - Allocate a new struct drm_sched_entity_stats object
+>> + *
+>> + * Return: Pointer to newly allocated struct drm_sched_entity_stats object.
+>> + */
+>> +static struct drm_sched_entity_stats *drm_sched_entity_stats_alloc(void)
+> 
+> NIT: This function allocates and initializes the structure, hence something
+> along the lines of *_new() is a better fit.
+
+Can do.
+
 >> +{
->> +	enum drm_sched_priority prio = DRM_SCHED_PRIORITY_INVALID;
->> +	struct rb_node *rb;
+>> +	struct drm_sched_entity_stats *stats;
 >> +
->> +	lockdep_assert_held(&rq->lock);
+>> +	stats = kzalloc(sizeof(*stats), GFP_KERNEL);
+>> +	if (!stats)
+>> +		return NULL;
 >> +
->> +	rb = rb_first_cached(&rq->rb_tree_root);
->> +	if (rb) {
->> +		struct drm_sched_entity *entity =
->> +			rb_entry(rb, typeof(*entity), rb_tree_node);
+>> +	kref_init(&stats->kref);
+>> +	spin_lock_init(&stats->lock);
 >> +
->> +		/*
->> +		 * The normal locking order is entity then run-queue so taking
->> +		 * the entity lock here would be a locking inversion for the
->> +		 * case when the current head of the run-queue is different from
->> +		 * the one we already have locked. The unlocked read is fine
->> +		 * though, because if the priority had just changed it is no big
->> +		 * deal for our algorithm, but just a transient reachable only
->> +		 * by drivers with userspace dynamic priority changes API. Equal
->> +		 * in effect to the priority change becoming visible a few
->> +		 * instructions later.
->> +		 */
->> +		prio = READ_ONCE(entity->priority);
+>> +	return stats;
+>> +}
 > 
-> I still think that we should address the root cause of the lock inversion
-> problem instead.
+> <snip>
 > 
-> I previously mentioned that I can take a look at this beginning of this year,
-> which I can do soon.
+>> +/**
+>> + * struct drm_sched_entity_stats - execution stats for an entity.
+>> + * @kref: reference count for the object.
+>> + * @lock: lock guarding the @runtime updates.
+>> + * @runtime: time entity spent on the GPU.
+>> + *
+>> + * Because jobs and entities have decoupled lifetimes, ie. we cannot access the
 > 
-> In the meantime, can you please explain what's the problem with this specific
-> case? This function is only ever called from drm_sched_rq_remove_fifo_locked()
-> and drm_sched_rq_update_fifo_locked(), which already seem to hold both locks.
+> The beginning of this sentence seems slightly broken.
 
-The entity which is locked is likely not the same as entity at the head 
-of the run-queue from either call chains.
+Suggest me an alternative because I don't see it?
 
-In one case we have just removed the locked entity from the run-queue, 
-while in the other tree has been re-balanced so a different entity may 
-have taken the head position.
+>> + * entity once the job is completed and we know how much time it took on the
+>> + * GPU, we need to track these stats in a separate object which is then
+>> + * reference counted by both entities and jobs.
+>> + */
+>> +struct drm_sched_entity_stats {
+>> +	struct kref	kref;
+>> +	spinlock_t	lock;
+>> +	ktime_t		runtime;
+> 
+> We can avoid the lock entirely by using a atomic64_t instead. ktime_t is just a
+> typedef for s64.
 
-Also to note is 99% of cases entity->priority is invariant. Only amdgpu 
-allows for change of priority post entity creation. So for the rest 
-locking would not gain anything.
+Later in the series lock is needed (more members get added) so I wanted 
+to avoid the churn of converting the atomic64_t to ktime_t in the fair 
+policy patch.
 
-Even for amdgpu the unlocked read is not very relevant, since the only 
-thing this is used is to determine the run-queue insertion position of a 
-re-joining entity. So worst thing that could happen, if userspace thread 
-would race set priority with the job worker picking the next job, is to 
-*one time* pick a different job.
+>> +};
+> 
+> <snip>
+> 
+>> +/**
+>> + * drm_sched_entity_stats_job_add_gpu_time - Account job execution time to entity
+>> + * @job: Scheduler job to account.
+>> + *
+>> + * Accounts the execution time of @job to its respective entity stats object.
+>> + */
+>> +static inline void
+>> +drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+>> +{
+>> +	struct drm_sched_entity_stats *stats = job->entity_stats;
+>> +	struct drm_sched_fence *s_fence = job->s_fence;
+>> +	ktime_t start, end;
+>> +
+>> +	start = dma_fence_timestamp(&s_fence->scheduled);
+>> +	end = dma_fence_timestamp(&s_fence->finished);
+>> +
+>> +	spin_lock(&stats->lock);
+>> +	stats->runtime = ktime_add(stats->runtime, ktime_sub(end, start));
+>> +	spin_unlock(&stats->lock);
+>> +}
+> 
+> This shouldn't be an inline function in the header, please move to
+> sched_entity.c.
 
-Also to address the root cause of the lock inversion would IMHO be to 
-re-design the whole scheduler and this specific function here does not 
-seem should be the trigger for that.
+It is not super pretty for a static inline but it was a pragmatic choice 
+because it doesn't really belong to sched_entity.c. The whole entity 
+stats object that is. Jobs and entities have only an association 
+relationship to struct drm_sched_entity_stats. The only caller for this 
+is even in sched_main.c while other updates are done in and from sched_rq.c.
+
+So if pragmatic approach is not acceptable I would even rather create a 
+new file along the lines of sched_entity_stats.h|c. Unless that turns 
+out would have some other design wart of leaking knowledge of some other 
+part of the scheduler (ie wouldn't be fully standalone).
+
+>> +
+>>   #endif
+>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+>> index f825ad9e2260..4c10c7ba6704 100644
+>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>> @@ -660,6 +660,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
+>>   
+>>   	job->sched = sched;
+>>   	job->s_priority = entity->priority;
+>> +	job->entity_stats = drm_sched_entity_stats_get(entity->stats);
+>>   
+>>   	drm_sched_fence_init(job->s_fence, job->entity);
+>>   }
+>> @@ -849,6 +850,7 @@ void drm_sched_job_cleanup(struct drm_sched_job *job)
+>>   		 * been called.
+>>   		 */
+>>   		dma_fence_put(&job->s_fence->finished);
+>> +		drm_sched_entity_stats_put(job->entity_stats);
+>>   	} else {
+>>   		/* The job was aborted before it has been committed to be run;
+>>   		 * notably, drm_sched_job_arm() has not been called.
+>> @@ -1000,8 +1002,10 @@ static void drm_sched_free_job_work(struct work_struct *w)
+>>   		container_of(w, struct drm_gpu_scheduler, work_free_job);
+>>   	struct drm_sched_job *job;
+>>   
+>> -	while ((job = drm_sched_get_finished_job(sched)))
+>> +	while ((job = drm_sched_get_finished_job(sched))) {
+>> +		drm_sched_entity_stats_job_add_gpu_time(job);
+> 
+> Is it really always OK to update this value in the free job work? What if a new
+> job gets scheduled concurrently. Doesn't this hurt accuracy, since the entity
+> value has not been updated yet?
+
+What exactly you mean by entity value?
+
+If a new job gets scheduled concurrently then it is either just about to 
+run, still running, both of which are not relevant for this finished 
+job, and once finished will also end up here to have it's duration 
+accounted against the stats.
 
 Regards,
 
 Tvrtko
 
+> 
+>>   		sched->ops->free_job(job);
 >> +	}
->> +
->> +	rq->head_prio = prio;
->> +}
->> +
->>   static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
->>   					    struct drm_sched_rq *rq)
->>   {
->> @@ -25,6 +54,7 @@ static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
->>   	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
->>   		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
->>   		RB_CLEAR_NODE(&entity->rb_tree_node);
->> +		drm_sched_rq_update_prio(rq);
->>   	}
->>   }
->>   
->> @@ -46,6 +76,7 @@ static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
->>   
->>   	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
->>   		      drm_sched_entity_compare_before);
->> +	drm_sched_rq_update_prio(rq);
->>   }
 
