@@ -4,50 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36485D41177
-	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jan 2026 11:44:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40658D4117A
+	for <amd-gfx@archiver.kernel.org>; Thu, 15 Jan 2026 12:06:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFCFE10E11C;
-	Thu, 15 Jan 2026 11:44:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2E4B10E73F;
+	Thu, 15 Jan 2026 12:06:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oi7JGdzU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sgM70cgY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04B0310E11C;
- Thu, 15 Jan 2026 11:44:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D528110E73F;
+ Thu, 15 Jan 2026 12:06:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AFDB443BAF;
- Thu, 15 Jan 2026 11:44:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E30AC116D0;
- Thu, 15 Jan 2026 11:44:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D954B601B6;
+ Thu, 15 Jan 2026 12:06:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 358F9C16AAE;
+ Thu, 15 Jan 2026 12:06:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768477468;
- bh=us7oGf8s7A31Hz7qsGcqOwfc6BdegtJ5RHsN+2wnK5U=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To:From;
- b=oi7JGdzUlFzP/FMb8kEp7Q105WqQ3FGFR+OkCz/Ch/V8YuaGIEpFfY4ky1/60h3UV
- fDPQi9zXutKdJ05VDGVpkzEyHXaEF0zI4rGFfQQ+3eb3mF4AOIs/7eqsZINDkexlhw
- 60co1YZ3+XOwVoGLNwjo9h7610r0H4WtBBCifZPJ4Y/TMG3Z7FxCOMdtqeLaEWaPBS
- G62WW0HWvlV81CSZENm6c0hcThYR4/eF9Ow1BJRBikeyCKIenFKAZTba5iuUNCDAKp
- 7grboJso5ANcb/AGRkSiLKxts9tJIZiVyKMjqHKge3swMhy1dkXEYYAKsjcecStkxn
- mQzHUddP2dwyw==
+ s=k20201202; t=1768478765;
+ bh=1zLqS6UrIiqxCeVgF7KQg6HX5nS/nZt8sJ2Yi0vZmEI=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To:From;
+ b=sgM70cgYgd9DtSFmvzw25EYN3bFfGjFKtS9weeK6IsN9jj4ZG5zTbre90U+rtxrVD
+ d0R0+AALvDhw2qi16eUVyUcXD4EFkKAJOAhacd5OnSah0gtCz4XnPbcERG/hhyuCRB
+ 33ls2j/++JGfLqTaC3KCakKaR3CXHg2l8tLfr8/tTfk+cNdke0KV5WxQxps1mO0R5q
+ iQ91Lf7N6Dxp+Il16iJEeXNTXUX/38GDHuWHFbvu5zvLGiVJ0g8lugMSiO/DrkMtK4
+ VIdm6/zI9U40NvkH3rIKYtRG5q2JmN6p/qyTvFn9nGDLlW7GvzdErL8xelAA1IVP9C
+ lcNom+ZbKYUyQ==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 15 Jan 2026 12:44:25 +0100
-Message-Id: <DFP4XVVKNIRC.2O817MGMKCQ3P@kernel.org>
+Date: Thu, 15 Jan 2026 13:06:02 +0100
+Message-Id: <DFP5EFORAYIX.6R67Z52W65PL@kernel.org>
+To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
 From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v5 09/28] drm/sched: Add fair scheduling policy
+Subject: Re: [PATCH v5 07/28] drm/sched: Account entity GPU time
 Cc: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <kernel-dev@igalia.com>, =?utf-8?q?Christian_K=C3=B6nig?=
  <christian.koenig@amd.com>, "Matthew Brost" <matthew.brost@intel.com>,
- "Philipp Stanner" <phasta@kernel.org>, "Pierre-Eric Pelloux-Prayer"
- <pierre-eric.pelloux-prayer@amd.com>
-To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>
+ "Philipp Stanner" <phasta@kernel.org>
 References: <20251219135351.25880-1-tvrtko.ursulin@igalia.com>
- <20251219135351.25880-10-tvrtko.ursulin@igalia.com>
- <DFONORJMB1ZM.1JHSIXB9ULHJV@kernel.org>
- <1fceb644-ff22-45c8-bd83-4a32786c35f2@igalia.com>
-In-Reply-To: <1fceb644-ff22-45c8-bd83-4a32786c35f2@igalia.com>
+ <20251219135351.25880-8-tvrtko.ursulin@igalia.com>
+ <DFOI1X68AUI6.3N4LRMFN589FI@kernel.org>
+ <5a267bb7-341d-4a68-9fa9-50166ccd528c@igalia.com>
+In-Reply-To: <5a267bb7-341d-4a68-9fa9-50166ccd528c@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,107 +61,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu Jan 15, 2026 at 9:28 AM CET, Tvrtko Ursulin wrote:
->
-> On 14/01/2026 22:13, Danilo Krummrich wrote:
+On Thu Jan 15, 2026 at 9:56 AM CET, Tvrtko Ursulin wrote:
+> On 14/01/2026 17:48, Danilo Krummrich wrote:
 >> On Fri Dec 19, 2025 at 2:53 PM CET, Tvrtko Ursulin wrote:
->>> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/sch=
-eduler/sched_rq.c
->>> index 2d1f579d8352..2fde309d02a6 100644
->>> --- a/drivers/gpu/drm/scheduler/sched_rq.c
->>> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
->>> @@ -16,6 +16,35 @@ drm_sched_entity_compare_before(struct rb_node *a, c=
-onst struct rb_node *b)
->>>   	return ktime_before(ea->oldest_job_waiting, eb->oldest_job_waiting);
->>>   }
->>>  =20
->>> +static void drm_sched_rq_update_prio(struct drm_sched_rq *rq)
->>> +{
->>> +	enum drm_sched_priority prio =3D DRM_SCHED_PRIORITY_INVALID;
->>> +	struct rb_node *rb;
->>> +
->>> +	lockdep_assert_held(&rq->lock);
->>> +
->>> +	rb =3D rb_first_cached(&rq->rb_tree_root);
->>> +	if (rb) {
->>> +		struct drm_sched_entity *entity =3D
->>> +			rb_entry(rb, typeof(*entity), rb_tree_node);
->>> +
->>> +		/*
->>> +		 * The normal locking order is entity then run-queue so taking
->>> +		 * the entity lock here would be a locking inversion for the
->>> +		 * case when the current head of the run-queue is different from
->>> +		 * the one we already have locked. The unlocked read is fine
->>> +		 * though, because if the priority had just changed it is no big
->>> +		 * deal for our algorithm, but just a transient reachable only
->>> +		 * by drivers with userspace dynamic priority changes API. Equal
->>> +		 * in effect to the priority change becoming visible a few
->>> +		 * instructions later.
->>> +		 */
->>> +		prio =3D READ_ONCE(entity->priority);
+>>> +/**
+>>> + * struct drm_sched_entity_stats - execution stats for an entity.
+>>> + * @kref: reference count for the object.
+>>> + * @lock: lock guarding the @runtime updates.
+>>> + * @runtime: time entity spent on the GPU.
+>>> + *
+>>> + * Because jobs and entities have decoupled lifetimes, ie. we cannot a=
+ccess the
 >>=20
->> I still think that we should address the root cause of the lock inversio=
+>> The beginning of this sentence seems slightly broken.
+>
+> Suggest me an alternative because I don't see it?
+
+Nevermind, I misread, the sentence seems fine gramatically. However,...
+
+>>> + * entity once the job is completed and we know how much time it took =
+on the
+
+...this seems wrong. It should say something like "once the job has been ta=
+ken
+from the entity queue". There is no guarantee that the entity the job origi=
+nated
+from lives until the job is completed.
+
+>>> + * GPU, we need to track these stats in a separate object which is the=
 n
->> problem instead.
+>>> + * reference counted by both entities and jobs.
+>>> + */
+>>> +struct drm_sched_entity_stats {
+>>> +	struct kref	kref;
+>>> +	spinlock_t	lock;
+>>> +	ktime_t		runtime;
 >>=20
->> I previously mentioned that I can take a look at this beginning of this =
-year,
->> which I can do soon.
+>> We can avoid the lock entirely by using a atomic64_t instead. ktime_t is=
+ just a
+>> typedef for s64.
+>
+> Later in the series lock is needed (more members get added) so I wanted=
+=20
+> to avoid the churn of converting the atomic64_t to ktime_t in the fair=20
+> policy patch.
+
+Fair enough. Are those subsequently fields in some relationship with the
+timestamp, i.e. do those fields need to be updated all together atomically?
+
+>>> +};
 >>=20
->> In the meantime, can you please explain what's the problem with this spe=
-cific
->> case? This function is only ever called from drm_sched_rq_remove_fifo_lo=
-cked()
->> and drm_sched_rq_update_fifo_locked(), which already seem to hold both l=
-ocks.
+>> <snip>
+>>=20
+>>> +/**
+>>> + * drm_sched_entity_stats_job_add_gpu_time - Account job execution tim=
+e to entity
+>>> + * @job: Scheduler job to account.
+>>> + *
+>>> + * Accounts the execution time of @job to its respective entity stats =
+object.
+>>> + */
+>>> +static inline void
+>>> +drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+>>> +{
+>>> +	struct drm_sched_entity_stats *stats =3D job->entity_stats;
+>>> +	struct drm_sched_fence *s_fence =3D job->s_fence;
+>>> +	ktime_t start, end;
+>>> +
+>>> +	start =3D dma_fence_timestamp(&s_fence->scheduled);
+>>> +	end =3D dma_fence_timestamp(&s_fence->finished);
+>>> +
+>>> +	spin_lock(&stats->lock);
+>>> +	stats->runtime =3D ktime_add(stats->runtime, ktime_sub(end, start));
+>>> +	spin_unlock(&stats->lock);
+>>> +}
+>>=20
+>> This shouldn't be an inline function in the header, please move to
+>> sched_entity.c.
 >
-> The entity which is locked is likely not the same as entity at the head=
+> It is not super pretty for a static inline but it was a pragmatic choice=
 =20
-> of the run-queue from either call chains.
+> because it doesn't really belong to sched_entity.c. The whole entity=20
+> stats object that is. Jobs and entities have only an association=20
+> relationship to struct drm_sched_entity_stats. The only caller for this=
+=20
+> is even in sched_main.c while other updates are done in and from sched_rq=
+.c.
+
+But you put drm_sched_entity_stats_release() and drm_sched_entity_stats_all=
+oc()
+into sched_entity.c as well, I don't see how that is different.
+
+Besides, the struct is called struct drm_sched_entity_stats, i.e. stats of =
+an
+entity. The documentation says "execution stats for an entity", so it clear=
+ly
+belongs to entites, no?
+
+> So if pragmatic approach is not acceptable I would even rather create a=
+=20
+> new file along the lines of sched_entity_stats.h|c. Unless that turns=20
+> out would have some other design wart of leaking knowledge of some other=
+=20
+> part of the scheduler (ie wouldn't be fully standalone).
+
+Given the above, please just move this function into sched_entity.c.
+
+>>> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/s=
+cheduler/sched_main.c
+>>> index f825ad9e2260..4c10c7ba6704 100644
+>>> --- a/drivers/gpu/drm/scheduler/sched_main.c
+>>> +++ b/drivers/gpu/drm/scheduler/sched_main.c
+>>> @@ -660,6 +660,7 @@ void drm_sched_job_arm(struct drm_sched_job *job)
+>>>  =20
+>>>   	job->sched =3D sched;
+>>>   	job->s_priority =3D entity->priority;
+>>> +	job->entity_stats =3D drm_sched_entity_stats_get(entity->stats);
+>>>  =20
+>>>   	drm_sched_fence_init(job->s_fence, job->entity);
+>>>   }
+>>> @@ -849,6 +850,7 @@ void drm_sched_job_cleanup(struct drm_sched_job *jo=
+b)
+>>>   		 * been called.
+>>>   		 */
+>>>   		dma_fence_put(&job->s_fence->finished);
+>>> +		drm_sched_entity_stats_put(job->entity_stats);
+>>>   	} else {
+>>>   		/* The job was aborted before it has been committed to be run;
+>>>   		 * notably, drm_sched_job_arm() has not been called.
+>>> @@ -1000,8 +1002,10 @@ static void drm_sched_free_job_work(struct work_=
+struct *w)
+>>>   		container_of(w, struct drm_gpu_scheduler, work_free_job);
+>>>   	struct drm_sched_job *job;
+>>>  =20
+>>> -	while ((job =3D drm_sched_get_finished_job(sched)))
+>>> +	while ((job =3D drm_sched_get_finished_job(sched))) {
+>>> +		drm_sched_entity_stats_job_add_gpu_time(job);
+>>=20
+>> Is it really always OK to update this value in the free job work? What i=
+f a new
+>> job gets scheduled concurrently. Doesn't this hurt accuracy, since the e=
+ntity
+>> value has not been updated yet?
 >
-> In one case we have just removed the locked entity from the run-queue,=20
-> while in the other tree has been re-balanced so a different entity may=20
-> have taken the head position.
-
-Ick! That makes it even worse because this would mean that even if we would=
- be
-able to take the entity lock here, this is also prone to lock inversion bet=
-ween
-entities.
-
-I.e. that is a huge indicator that it is even more necessary to revisit loc=
-king
-design in general.
-
-> Also to note is 99% of cases entity->priority is invariant. Only amdgpu=
-=20
-> allows for change of priority post entity creation. So for the rest=20
-> locking would not gain anything.
+> What exactly you mean by entity value?
 >
-> Even for amdgpu the unlocked read is not very relevant, since the only=20
-> thing this is used is to determine the run-queue insertion position of a=
+> If a new job gets scheduled concurrently then it is either just about to=
 =20
-> re-joining entity. So worst thing that could happen, if userspace thread=
-=20
-> would race set priority with the job worker picking the next job, is to=
-=20
-> *one time* pick a different job.
+> run, still running, both of which are not relevant for this finished=20
+> job, and once finished will also end up here to have it's duration=20
+> accounted against the stats.
 
-I get that; it is less that dealing with the priority field by itself is a =
-huge
-issue we can't handle, it is more that the above workaround clearly points =
-out a
-(locking) design issue, which we should not ignore. It's not only about cod=
-e
-the code working or being correct, it's also about maintainability.
+So, what I mean is that the timeframe between a running job's fence being
+signaled due to completion and the this same job is being freed in the free=
+ job
+work by the driver can be pretty big.
 
-(Even though I'm aware that DRM scheduler maintainability is a bit the DRM
-equivalent of the infamous 3x+1 problem. :)
+In the meantime the scheduler might have to take multiple decisions on whic=
+h
+entity is next to be scheduled. And by calling
+drm_sched_entity_stats_job_add_gpu_time() in drm_sched_job_cleanup() rather=
+ than
+when it's finished fence is signaled we give up on accuracy in terms of
+fairness, while fairness is the whole purpose of this scheduling approach.
 
-> Also to address the root cause of the lock inversion would IMHO be to=20
-> re-design the whole scheduler and this specific function here does not=20
-> seem should be the trigger for that.
-
-I'm not sure it is that bad, let me take a look in the next days and see wh=
-at
-options we have.
+- Danilo
