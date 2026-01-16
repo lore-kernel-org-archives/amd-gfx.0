@@ -4,131 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60029C982C0
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 20:26:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9359C982C0
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 20:28:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 036D710E062;
-	Fri, 16 Jan 2026 20:26:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C2AB10E926;
+	Fri, 16 Jan 2026 20:28:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QXmyI3Ry";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MCqRg5ov";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013040.outbound.protection.outlook.com
- [40.107.201.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DFF510E062;
- Fri, 16 Jan 2026 20:26:29 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010020.outbound.protection.outlook.com [52.101.85.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19FDB10E926;
+ Fri, 16 Jan 2026 20:28:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=flljpGPbPUQtn0KpxwD5ZrZ1GJEh3nKX0DiM11+BbXC+2VzxOi5Cdh6SZ75PCRjKfdZWUSSp5KPMV2dxjDeLaBW/tyffBPI9e+LkTJLHKHi71uYhYzIbv17wbEoWNpr71PUeQmNxRvKymoPrzMakPIie6E8SkSAOqTVZU0ZnVKX4beDCMcfm86xwv5lp+hTDJv4baC8F/+NVCsGDKYVb7Kk1kMsR8tZ56O+L9LFH/jrUG2iAY7kVMXP/MhVjsO69J2/SAwU1p0whljGUaSVo3/pJWA33RjNNK8d2uYe3nwsYvU0I88aHmDObGrzsOEyvcIPKgWmia0aWwrGMU0QOqw==
+ b=xOxSbHOl7X0/6JnAbytiqa4g0Qz1/iXC3sxCrKwXh4YDrogsBF+56sDhgajAvpS+JIvSWrBD3dbVbkESBaclufYwPStANzKxyRrqglTCwNUGDAg4rl68txGdf+hPijqT04UyHg1Zqddcl6wu8LhZpJQCHa7rfdyLanTTDqtk7YMQPo+10YyZDfX9r9ST9UuQ2ctDHV42MrAU6sRJQxspEsMbyiY1kruFcA9KNBxR0psB+ejkP+EQ/+H3alFX6nn8f/jPQYQOzgdyePbZ5duUM7gpzTyFSS40948yA0sH/+m9BgkD1i4lII9XlMZ/QJqKZVOfVOOev5GRXQs9TVhVNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tjSuUQ2tIUnZM8G4oZdQRzduobCVMtEj23IZJAczfGo=;
- b=N9RCt4St+2SMILuVNmQRWekHTzaBaYAD+iwgWKB1Citr/WdjtXZL9Zf4odeVgjVQSZD+SZKvgUl71Jlb/Pb7BzNLrSoQedHNIOrr9OKI+lEeMRsbvtWzchRY8D7MAQnNQqjo88cL4YHB9oSMJPvJ6Hlxjnc4uU6XwPyHlw6HN+FT2E9EG8YMuCZREv2ggpcK5zvoYWnTemerXvmabpMPdzq7CBxIalfVdTv/o9zaRwaMH6rCCzFAuJPgCeyh5WGKdbjDHbPQ/ycQLjIHCXutM8C/ZcRiO//YltvVaR5rNJ7bssoH/0AG3pFY8ymkHJm9F33MeGMloE7Uc+rGEt2FRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=eVR2AoMqB0HkUoLxzzsVTu38jt4IA1bFppVlpuNiHuA=;
+ b=v9SGPInHGLoho79b9mM+QQAshmp7pBMOWnvxWhjZmFeQLr5EqqUXj1FU/WAV9mA/C77ET+PE5ixHsGEkgd70FQq+yUzCff2430ADRWv7wUbpeofY7CwEKyknr6/I4NsMQPjrXLwRzG6W8HVxlSmZ9VeixZhaU+NV9z7gGXK0ye2DetQX1avt2+nsbU9UVuHxHz1VYYlUoaexU+9wss0iCcsLCwZg5T3+ER+wmZyKEX7Z4+8UaciNMFDHaQck1orJr/d16W+eIf58rIn/VHAfLfI7TZ9rVceqf4R+Z2+Tcs/wQnajRLknsmvZ5MVLYus4zw/JVRho5dOPtMYcffop7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tjSuUQ2tIUnZM8G4oZdQRzduobCVMtEj23IZJAczfGo=;
- b=QXmyI3Ry5Yg6m0LQFEJ5x4jATBv2NDNOtFpc8vH/yRNY+H6OVJ8waB060/gOZE4gMOcZWkbLaRLfsBkpYKKqcRcKSXNmAwE+U0JUd6Tt+beaMDqjA1DShk4peARlJpKWViR6sFcPH0oSXe0R81v9kRciwyV5VhQpLx7smRXFT8o=
-Received: from BLAPR05CA0023.namprd05.prod.outlook.com (2603:10b6:208:36e::25)
- by SJ5PPFF6E64BC2C.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::9aa) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.4; Fri, 16 Jan
- 2026 20:26:23 +0000
-Received: from BL02EPF00021F6A.namprd02.prod.outlook.com
- (2603:10b6:208:36e:cafe::3c) by BLAPR05CA0023.outlook.office365.com
- (2603:10b6:208:36e::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.5 via Frontend Transport; Fri,
- 16 Jan 2026 20:26:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F6A.mail.protection.outlook.com (10.167.249.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.4 via Frontend Transport; Fri, 16 Jan 2026 20:26:23 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 16 Jan
- 2026 14:26:22 -0600
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 16 Jan 2026 14:26:22 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-next-6.20
-Date: Fri, 16 Jan 2026 15:26:07 -0500
-Message-ID: <20260116202609.23107-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.52.0
+ bh=eVR2AoMqB0HkUoLxzzsVTu38jt4IA1bFppVlpuNiHuA=;
+ b=MCqRg5ov6bvGx3GZ0xI6DLoRVmWESTXtGGhiLHHZGGwS+YAE7ivCTl5olRvX4INqBYZ+Wkw3SXqZd7/oJqcadLkp+uLoc/Tx1pPkavLNMzDcvFhn4HRepMR3gO93onllz7EvKrLHLolz4NrlzgCXyhCE3Sr+il1HSy3Xw7rWkV0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
+ by PH7PR12MB6882.namprd12.prod.outlook.com (2603:10b6:510:1b8::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.9; Fri, 16 Jan
+ 2026 20:28:05 +0000
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe%4]) with mapi id 15.20.9499.005; Fri, 16 Jan 2026
+ 20:28:05 +0000
+Message-ID: <a18c26d2-0664-4eb8-914b-52667fcc63f0@amd.com>
+Date: Fri, 16 Jan 2026 15:27:59 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/2] drm/amd/display: extend delta clamping logic to
+ CM3 LUT helper
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com
+Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20251208234741.293037-1-mwen@igalia.com>
+ <20251208234741.293037-3-mwen@igalia.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20251208234741.293037-3-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR01CA0105.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:3::41) To BL1PR12MB5126.namprd12.prod.outlook.com
+ (2603:10b6:208:312::8)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|SJ5PPFF6E64BC2C:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1441e898-b051-4a60-ced1-08de553d842d
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|PH7PR12MB6882:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d88b5c3-4a96-47dd-d398-08de553dc0d7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700013|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?N0RyT3IrQitOU0RnMXZyMXZlbk5waWYvTXk2S3p0bHNEVXhNMmc5dGlyeEdv?=
- =?utf-8?B?WEZxVDdIOFVicGY2YmwxOGpsWlo1OWlMQzcwYk5GUEk1VTNlZE1KVGI3SlhT?=
- =?utf-8?B?TTVyQnQ4MktMem1TWm5xZkpXNnBidXREbU9GSkxvMC8za1RzODR4L3JlOXBs?=
- =?utf-8?B?aFNOMVJOZTVmbG9MYzlXaGZBdDJlSEx0ZnBNYW11dmZjNXNyS1lzNUJ6VEtH?=
- =?utf-8?B?a2hjOHF6V3duWE05dE1uN0lZS3FjZGdhRk5kalcvenJkcXdna29kTkF0cWhL?=
- =?utf-8?B?WFBjN1NWaDYvc1hzMjdOQU5sQWgvRjdqbTBseHNWc096Uyt3cFpBYmRjeVUr?=
- =?utf-8?B?MDJtcm4vM0pLcTdMZnN1MGppOElaQ0JhcERyR2RjeEtBMGwxZlNEZVU4Z3Jr?=
- =?utf-8?B?RHdlSmNobUlOVFA1RDY4d3BuNFZYemZ2MjFlOW80S3FSMVhwWWJmRmdsbkpi?=
- =?utf-8?B?alFCditmQU9ET1VGSGZNUEVKOHg0dWlIV21aNGR1byt1OGFaVlBmQ2JiU2R2?=
- =?utf-8?B?ekQ5Z1NrTUJhSEVUcWlES1VFMkVkeFBOdmhRM0swNVRhM3hXelMyaTkvMVlu?=
- =?utf-8?B?L1Z0Kzc5RkZTTGNiQ1A1Sjh3WG90WHE1Y0VRQ3ZwaVJYUFAyd2pjcUp2clJZ?=
- =?utf-8?B?U091bEd2Nm41eGN0RVd1M0ZzU1ZuWFdiMVpTZHNMUDEyNWJlMmRmeE5jL1dV?=
- =?utf-8?B?dGZlZGk2TllXUDVkMGQ3WFNIcVArNWNBQnNRQklsT0FaT1J5T1R1cThvK1d3?=
- =?utf-8?B?UW9BOThVZWoxcTg4KzlwUG5KZWhIQmU0KzhHNEhDNFoweWtIV2twTnhBVDR5?=
- =?utf-8?B?SmZxdlZmL2tCdzUzTTZoMHBpM3Nua3Q1bVdFNlBtVzBmYTJnRWh2bnlPN2Iz?=
- =?utf-8?B?cmFRTWhiZE0rd2NzY0NyTXNmMUorWm1qV0NHNSs3aXhXZ2RLY3lWTXBkOE1W?=
- =?utf-8?B?bzlydzU2bHhrZWJDUXdFeGg2MXpRZlVsVXlPelhGVEVLaDhsdmtWeGlKMHFN?=
- =?utf-8?B?a01WMmk3c05HaUJid0E4MlgxeFdRTit2WG5qV3hCWTBWZE91WHVhTSsyMzZ0?=
- =?utf-8?B?aUFUVUJSVkZNcXBqc1duWnhxNWNGY0ttYVozTnlCTTBTcldoeEtEK2JsRUta?=
- =?utf-8?B?QjVucDFWYVlQM0kwdk16em92TTV4L01Nc3pnSmF0K2RPcEMzMHJnd3oyMDBq?=
- =?utf-8?B?OEFBdVV2WnVGWG1GZjFJcjc1ZTdkZU5nU0JlRGY5THFIT2s2THMzbXZIeW5Q?=
- =?utf-8?B?YmVoWmpLL0ZSNHFMTDJmUjJIR2x6eTRBNEhMVHI0RTBobzYwY0MzOWpwcE54?=
- =?utf-8?B?d0dlNjcxdlBXWGR2MC8zMUlaWUhCNTlaZ0ZmcTk4TzN6Y3BtZSsrUVV5L1pp?=
- =?utf-8?B?cFlyQVQzK0xHVHVEeWlUOTdxRXU5VHlqc0FlSVFienkvWkNObWQ3Qzdwd25k?=
- =?utf-8?B?QW1OMUxjMk9SSStmcnJPT0h3ODcvdTgxT2lLMTIvZXV1RUxyc20vS3NLcCtK?=
- =?utf-8?B?TEJsQWVRQ1BpQVpGeVlMcTlaUHRvdTVUWnFYV29DNmZNTDdUYkFLSlFRSW5V?=
- =?utf-8?B?QUdzMElkSm9CMndJMTJ0WDBoVTBGYmtMUjMxMEdTaFNqNkFyU283Y29ZRUho?=
- =?utf-8?B?RjBtQ3VGbmlLRDRkbk54QlhNSys5c3BuTGNWK1hXZHN6S1YzNjVjZFM5aG1O?=
- =?utf-8?B?a1JiMkNjUkl4R0VLaHh3bHE3cy9LNXhidmNYSGJXQnZkdUdhalI2dVVjeWtF?=
- =?utf-8?B?R2hMbkk3Q3cxWmpteStJU2xpT0lHT24xZyt1bW53ZndKMW5ub09tT0Q2dDNW?=
- =?utf-8?B?RUF1MXAydEZEYWlNOEV6U2dqQlZFK2ZyQmd3WU1seERUclFtQnhiNDhhVlJK?=
- =?utf-8?B?TCt6NGFBM3pGWU1EUVlMb0czbXdueGU5UG42ZDRKRWZ6c3VnY0hRZHhvOFpm?=
- =?utf-8?B?V09ma1ltRmNnVzZPejlMWktFbFZQU05Za25NOFA0MXhpWWZKQUNBemJJR2Vy?=
- =?utf-8?B?dXF5WEFPOVorcW1PS2c2VzMwUzRCbkZVUnhIR05pZlRVS3kyUlpSajJBMWYz?=
- =?utf-8?B?V01UdDRndStMbjV4ZkpSRVZ1SlhTLzI2T0RIenY1SXpjaGorSUlHSDdWZFAr?=
- =?utf-8?B?UW1Mci9SMGpPd0JUUFlYOXhiTTArT1M2dC92eTlqdEE2czM1SjVZR0QzUDd0?=
- =?utf-8?B?M2c9PQ==?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700013)(13003099007);
- DIR:OUT; SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?R3VwU2FLOHJtR1BKbkJQbHg1UzhnU0pwTHpOcmNRbk0wd1E5Z2o4VktpSlQx?=
+ =?utf-8?B?cG1TWndJQ2NPcVBBSm82dmFqVUlHUTlTUjdUNjU5d3dPTU5pa0hJUXY0TDZp?=
+ =?utf-8?B?K1g3QzBVQTBiZzEzakk0UlZFRGZiMnoyb1hUakM4TWk2UGJ6UlhTWHBZRHpH?=
+ =?utf-8?B?cEcxdFVxejFXVkFnZXM3QThDSWswUTJHTzJGcDlBQStVcFljMnZOZzY5YW9N?=
+ =?utf-8?B?U0FjU0xYMGpRbElFZCtvRDBjd25wOFpKZVRTTFpDSDJaWHRLdzVpd1BncXdk?=
+ =?utf-8?B?dllGRFluU25JTVZ0MFAwbXhvKzdwaTdyZUVtTFhialVJU2t0aFdlaXZ5VU1B?=
+ =?utf-8?B?U1Zhd01hZGR2ZEcxNE5yRE44L0hFRkIvY05abDZqeEg3UEk1NTJNV2RGcDhJ?=
+ =?utf-8?B?eFl4dFRhUmJpYjFLcVV0THEreWc1dUNYSFdNUlEyekcvNmovUUNaRGNlZnp1?=
+ =?utf-8?B?L21FazMwNUtWR1BwNUI4NjZubVM3MWxhVkhOZlVSQ24xR2FPNmZPbWdkRFN0?=
+ =?utf-8?B?bVliSXAvc0k2ZHJXK2NyckVOQ0NpZVhhVWVDQWI0UWRBQ2pKb0szYW9xNk1F?=
+ =?utf-8?B?UTBBTVVUckgzRGhDdUxmR2VFeGdVaWcwdExtdkYvdVV6U2ppODZtRGVPY1Mx?=
+ =?utf-8?B?QktoVlVQaEhScGVSeW54TkNaNlFla2hLbU9NRFR1Qm05eWhPaHVHclltSVp1?=
+ =?utf-8?B?RlhqME5EVmtDb2M5czQ2ZlJYQ05qdTY1YWYxeStHbE1mZ1lDUGdrMWxSa3Zo?=
+ =?utf-8?B?WC92WWhYak1lUmxlT3k2akdxaGpVT01lS2N0ViswZVJhYXN0bnY5K3gwdlNV?=
+ =?utf-8?B?S203d3ZzaHVMU1krT0ljaDZXS3UrN09rYittN3M4S0tDK08zVGZyYkFERXln?=
+ =?utf-8?B?b2pBMy9tUU54VTBjU2MySjhlUHBtc0hqZGRWbUYwZURsUDlYK1hyVUduTVZk?=
+ =?utf-8?B?L1JzYnJkSjliUWVqaEJsdFJBbmJ5THpTdkZid3M3QU5MMy9yTW0wSHZlRWtH?=
+ =?utf-8?B?T0pUOVJNVVVFdkswMEpjUWtGVG9nTUlQaEVGaFoxMXM4NE0rWG96eVd6SzUv?=
+ =?utf-8?B?V3I4bmNVT1kyYk15TXV5ZXg5VVJ5YWtvWXZQUFMraloyVDJEd0FsN3VBTnRN?=
+ =?utf-8?B?WTJiZGgyaVhVODZpdDFFbDZOTnpIelBXUWRNRFRXbVFxbkRpdHRCeGY4ZGo1?=
+ =?utf-8?B?OHBUZi91UlgvcVBXTWw0YUs5UzZ5NzNZbXlqdmtaN3FiUWt1TkZZcDNvSGVZ?=
+ =?utf-8?B?bVZJL1BQdXo1QzNjQ2hDRVZWRTVUNC9kTkhVTFZPZzN2ckNueFlFQTBBZXFq?=
+ =?utf-8?B?R0ZLeSt0TlZJQmRBOU94cU1FdFNGRHIzREJhbXlZRGkxNHNNMU43TFRGc1gy?=
+ =?utf-8?B?SWp0Z3dmNTczUHRtMTR4amRKNFlXOHNjZ3pjck5kdUJyYkJydXZJY0Q4MXdN?=
+ =?utf-8?B?SXlGVEdzZlBXZXk0eU91NVlndW5yekV5a1VjZUZIcXYwak9kV1dpYXVISGs0?=
+ =?utf-8?B?eVJZQXBKSVU4LzFOMWNxN0NreXhxWWdCOGRyRGxZWUhoUHhzYzA0Vm0wZUZi?=
+ =?utf-8?B?cElCL1RsTEhwK3Z5ZWZTS1VNaFN2WlR4OFNzTDVBUndiNmN4T2dXWW85U0ZL?=
+ =?utf-8?B?dTl4Y0pOSWpLWlVpQWdXUXB4Y0JzS2QxdVRBM1MyZTkxdU1MUWtCSXl0aUJi?=
+ =?utf-8?B?YWdub2VpTkNyRTBvcnhRTnY5U2Y0dHErSm9LK0oxeEM2UnlRRWlNamIvZ0I0?=
+ =?utf-8?B?MzlscDFwTno3cWEyK1Y0Sk1vaFFNUWh2Q1JKUURkVWEralE0YzQ4WDJwejB1?=
+ =?utf-8?B?V1B1dW9lR3hUVFROaHNXT2JNZkZXQk9GMXBQaWtVeXYzMy90ZkErZzkwSFZs?=
+ =?utf-8?B?YVJlQW80azhOMlMvKzNER0ZvSnlmdkdrdkZYUUpab2NmcytpaStrcnNBRmJJ?=
+ =?utf-8?B?bXg0OUwyUHhHOHIyNUU0ZjVZNDN3SjNXZUhWdHNEOEtpYm1sSWFqYjNMWFQ3?=
+ =?utf-8?B?QzMzNTZZTWpEVjd2VzZrYjkxTml3TVh5S0hrKzdTZFpjZldMM21lM3pRZktN?=
+ =?utf-8?B?bVB6V0xVMjlxMmF4NzllUHMya1BhczFpWVRhWC85aTBvR3MzWnkyT1d5VGF3?=
+ =?utf-8?Q?ahAc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OUxqeUY2SHVmYzRjWjZvRmpNUnFMbHBuNTRkL21QZFBUbWJFQXNPUFgrM0JO?=
+ =?utf-8?B?VE9aM3N5RklxVUhNOGk1MzVQYXgxb2VsTkkvdVZXb1JYMWlvbHpJbTdPTnV5?=
+ =?utf-8?B?azg1Z0dIWUI1QmhtZWVQZUNZRWdXYWpiQjIrTEwxVXNwNVJvQUhWc1BVVjBl?=
+ =?utf-8?B?VThyK3dWZy9yTG1Qa1dPcW5VeHFEQkkxN0tGTDNBVGsvQllJbmxRc1BJT3oy?=
+ =?utf-8?B?RnI2cFY2QkxmaGdxb282cHhWcC9YeGFMb0NSMENvbmJQSk80NmdZeHROZ0Ur?=
+ =?utf-8?B?OVhodEsrL0lFelhJd1l0akFieUFkd3BvZWF2eFlXeW5ZZVA4emsxZ1Y1SEZO?=
+ =?utf-8?B?WFdSQzdZV01sY0JkaUcvMGJDbGlYY1cxSzlBRGxkVisrVThXSGZ3ZG4xSXdj?=
+ =?utf-8?B?UWFCT1NJTFFPSlJnZ05LSGVZQ3ZnV0F5V09IeWV0d0U0aStxenR1OWhzU0k1?=
+ =?utf-8?B?VzgwWTlKQzhqZ1E3ZVozV0ZCck5WQndsb09PTVVYcXhJMDRaczFZaThZQjRC?=
+ =?utf-8?B?WkRIczRGdm5ydUJLdmZUZzc0VVg4VVZaOC9rWnNDd2VacStla2tLdllvUjdC?=
+ =?utf-8?B?aWxLT2dSZjZLd1RxS1dsSXYrRHdYUGlJektjQVk3dTd3YlpXdHUxRUREUHlx?=
+ =?utf-8?B?REJyZ3lZbGR0WUNJN3k0UE1MWWRDaHhnS3lwVURDRWNiL3JNbFp1L1BuNmxm?=
+ =?utf-8?B?OUNNTUZJeUVWQVc4WkVhOE9MK2hQZFZ5MmxZeGJKWVdoTEZ0WHozTE9hQTZ4?=
+ =?utf-8?B?WlNvMElDVHJvcVFWSjRoNDVYTGxIWDdvUDdpejc4OUFKSmZVb2FLR0JjWkRB?=
+ =?utf-8?B?Rmw3dHFmRzNNRUdPa2ZtZ0FTVlRXZitEZTY0WTd5OXFOYWxUei9SR0NSQVc4?=
+ =?utf-8?B?VXYwRGlCNDY4UEtBeUxNaFdKY01CM2lPOTJhbnUzTGIzSTlBcjRiNHdQblYz?=
+ =?utf-8?B?UklXc1kxL0h6U2pTU3RPTmtDNXlmWkdpZ0J4YWVJOVJGaS9BdkhBY0tRSUNm?=
+ =?utf-8?B?cy9zMlRZV0NCcDhEK0x0Q2N1SXpYbVkzVzczRkg2cGlHTnJZNExBaDlWNmJQ?=
+ =?utf-8?B?aGFpNWFCM2oyZVY0Sy96blhaZDBDRGlXNnZCVnZ2TEZ1eHpJOVdPYUt5MXh1?=
+ =?utf-8?B?YldqdnRvR0VobUpYcmRqdlBVRm9rcWIxY29yUUFoMC9TTkNBRWRTalhDUGtJ?=
+ =?utf-8?B?ck5sNFFhYmlyN2FNcU91NFNyQzNubnlaWHpYM3NRTk5ieUxKT1ZoK0o2ajdh?=
+ =?utf-8?B?V1pwclBQVEtoWDdIcW4vdDJCRlBJbHhFdStJZ3lSaXQ5L2UvM212Si9XQzNo?=
+ =?utf-8?B?UlBzK1ZRYldwUTRJK2hLdGZ0TTlMZDFmQlNOTHFhMUtVT2Q0RlB0OTMvWGJF?=
+ =?utf-8?B?Qi9TOUdzZDR3akhKbElyakFIM0Z4QWxwc0NmMHlKNjJQMDBuZDZhTEFzdktv?=
+ =?utf-8?B?TlhGamdLRlF1eUtxTUt6SzlIai9aT0tSZ3RrODVqQWlLTlh5aGlqSUt4aDFP?=
+ =?utf-8?B?aWJJbjI3Ti9jU0V2L0pMZ3k4SFZzbnNWTW9MZ0tRdFY3dTJ2T3RaMGRWQjhs?=
+ =?utf-8?B?Q0o1ako2T1BGTlVVcG1UazBobDJ0cXhmbjgrVGFha1pidnd4dTZhamxqdzRT?=
+ =?utf-8?B?Z1pLdEJDVmJ1MUxSNkF6c29mV0psaEphcEJ3aFcwZjlUT1IwbHpPdFdvc094?=
+ =?utf-8?B?ZzA5UTJCancvTnZmcmErTDJ4R0RVT21TUXhCZTJxczcrdTBtMS9jRkl6ZXFa?=
+ =?utf-8?B?R3VqTm5tUHlKK2NFUVFIL2lHTUhHZFRGRk5xOEEzMVA4WlR2amRXcGloM0or?=
+ =?utf-8?B?U2t0TnkzVGhNTFlNaWZhRHROMTdhV1JaUUJrOVFjWnZZTzdSaXpFeWJ6WnZR?=
+ =?utf-8?B?ZkZ2NnVhTGZybnRWNWxNVVdpbHJUbEZMN05wbHVwYUE2L3dwdVYwVExDVVht?=
+ =?utf-8?B?RWx5RklEKzRqTFNvc1cwWWJ3ekhhbDAzSUpURFZ5Q2t3TXJtcU9BUmZ1bmFx?=
+ =?utf-8?B?c2hlYkpFRDVyUHhBMld3cUh3YkhudHpWOEkvbHhEN25yMGVtUnhzVm02R1pU?=
+ =?utf-8?B?Z3BFWXBFcHdzVkpCS2U2SG11RW14a2NHdEQxeEl5bmt6NjRhMnhjSy9XWHNM?=
+ =?utf-8?B?MUVVN2NTemN4VlU5aXgrcFB5SHFJdHI4T1RMNHNtK1VLeTJ6S1NxNkNEalFS?=
+ =?utf-8?B?dFlPc1d5WTBPL3R4d0xCVHJuMkxKRnU4VzcrSm03TlhvN0kxLy9xZ2xzSVhI?=
+ =?utf-8?B?NDRGbUtSY2xGVmk2NXJHL2cySUJuektLaDlrVjkvWkhuMUVsZnU0Ulp6bVhy?=
+ =?utf-8?B?bmpYNzJPTVlhVnFQTkpoNVdtbFhuaVI3bmdLTEF1c0ZBQUJ6T3JyUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2026 20:26:23.1713 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1441e898-b051-4a60-ced1-08de553d842d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d88b5c3-4a96-47dd-d398-08de553dc0d7
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2026 20:28:05.2651 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFF6E64BC2C
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VRHTXlFaM3XVKC/o7TupnrxE/E+ZTL5YDTQS2YAmLhe+awjOBIFHOEu45LhDnDcm48YpuFhlQss7TU7Tgiti5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6882
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,276 +171,232 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
 
-Updates for 6.20.
 
-The following changes since commit 38a0f4cf8c6147fd10baa206ab349f8ff724e391:
+On 2025-12-08 18:44, Melissa Wen wrote:
+> Commit 27fc10d1095f ("drm/amd/display: Fix the delta clamping for shaper
+> LUT") fixed banding when using plane shaper LUT in DCN10 CM helper.  The
+> problem is also present in DCN30 CM helper, fix banding by extending the
+> same bug delta clamping fix to CM3.
+> 
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 
-  Revert duplicate "drm/amdgpu: disable peer-to-peer access for DCC-enabled GC12 VRAM surfaces" (2026-01-08 15:18:13 -0500)
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
-are available in the Git repository at:
+Harry
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.20-2026-01-16
+> ---
+>  .../amd/display/dc/dcn30/dcn30_cm_common.c    | 30 +++++++++++++++----
+>  .../display/dc/dwb/dcn30/dcn30_cm_common.h    |  2 +-
+>  .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  9 +++---
+>  .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 17 ++++++-----
+>  .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 16 +++++-----
+>  5 files changed, 49 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
+> index ba20575be214..b1c2c8da1937 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
+> @@ -105,9 +105,12 @@ void cm_helper_program_gamcor_xfer_func(
+>  #define NUMBER_REGIONS     32
+>  #define NUMBER_SW_SEGMENTS 16
+>  
+> -bool cm3_helper_translate_curve_to_hw_format(
+> -				const struct dc_transfer_func *output_tf,
+> -				struct pwl_params *lut_params, bool fixpoint)
+> +#define DC_LOGGER \
+> +		ctx->logger
+> +
+> +bool cm3_helper_translate_curve_to_hw_format(struct dc_context *ctx,
+> +					     const struct dc_transfer_func *output_tf,
+> +					     struct pwl_params *lut_params, bool fixpoint)
+>  {
+>  	struct curve_points3 *corner_points;
+>  	struct pwl_result_data *rgb_resulted;
+> @@ -248,6 +251,10 @@ bool cm3_helper_translate_curve_to_hw_format(
+>  	if (fixpoint == true) {
+>  		i = 1;
+>  		while (i != hw_points + 2) {
+> +			uint32_t red_clamp;
+> +			uint32_t green_clamp;
+> +			uint32_t blue_clamp;
+> +
+>  			if (i >= hw_points) {
+>  				if (dc_fixpt_lt(rgb_plus_1->red, rgb->red))
+>  					rgb_plus_1->red = dc_fixpt_add(rgb->red,
+> @@ -260,9 +267,20 @@ bool cm3_helper_translate_curve_to_hw_format(
+>  							rgb_minus_1->delta_blue);
+>  			}
+>  
+> -			rgb->delta_red_reg   = dc_fixpt_clamp_u0d10(rgb->delta_red);
+> -			rgb->delta_green_reg = dc_fixpt_clamp_u0d10(rgb->delta_green);
+> -			rgb->delta_blue_reg  = dc_fixpt_clamp_u0d10(rgb->delta_blue);
+> +			rgb->delta_red   = dc_fixpt_sub(rgb_plus_1->red,   rgb->red);
+> +			rgb->delta_green = dc_fixpt_sub(rgb_plus_1->green, rgb->green);
+> +			rgb->delta_blue  = dc_fixpt_sub(rgb_plus_1->blue,  rgb->blue);
+> +
+> +			red_clamp = dc_fixpt_clamp_u0d14(rgb->delta_red);
+> +			green_clamp = dc_fixpt_clamp_u0d14(rgb->delta_green);
+> +			blue_clamp = dc_fixpt_clamp_u0d14(rgb->delta_blue);
+> +
+> +			if (red_clamp >> 10 || green_clamp >> 10 || blue_clamp >> 10)
+> +				DC_LOG_ERROR("Losing delta precision while programming shaper LUT.");
+> +
+> +			rgb->delta_red_reg   = red_clamp & 0x3ff;
+> +			rgb->delta_green_reg = green_clamp & 0x3ff;
+> +			rgb->delta_blue_reg  = blue_clamp & 0x3ff;
+>  			rgb->red_reg         = dc_fixpt_clamp_u0d14(rgb->red);
+>  			rgb->green_reg       = dc_fixpt_clamp_u0d14(rgb->green);
+>  			rgb->blue_reg        = dc_fixpt_clamp_u0d14(rgb->blue);
+> diff --git a/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_cm_common.h b/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_cm_common.h
+> index b86347c9b038..95f9318a54ef 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_cm_common.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dwb/dcn30/dcn30_cm_common.h
+> @@ -59,7 +59,7 @@ void cm_helper_program_gamcor_xfer_func(
+>  	const struct pwl_params *params,
+>  	const struct dcn3_xfer_func_reg *reg);
+>  
+> -bool cm3_helper_translate_curve_to_hw_format(
+> +bool cm3_helper_translate_curve_to_hw_format(struct dc_context *ctx,
+>  	const struct dc_transfer_func *output_tf,
+>  	struct pwl_params *lut_params, bool fixpoint);
+>  
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+> index 81bcadf5e57e..f2d4cd527874 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+> @@ -239,7 +239,7 @@ bool dcn30_set_blend_lut(
+>  	if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
+>  		blend_lut = &plane_state->blend_tf.pwl;
+>  	else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
+> -		result = cm3_helper_translate_curve_to_hw_format(
+> +		result = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+>  				&plane_state->blend_tf, &dpp_base->regamma_params, false);
+>  		if (!result)
+>  			return result;
+> @@ -334,8 +334,9 @@ bool dcn30_set_input_transfer_func(struct dc *dc,
+>  	if (plane_state->in_transfer_func.type == TF_TYPE_HWPWL)
+>  		params = &plane_state->in_transfer_func.pwl;
+>  	else if (plane_state->in_transfer_func.type == TF_TYPE_DISTRIBUTED_POINTS &&
+> -		cm3_helper_translate_curve_to_hw_format(&plane_state->in_transfer_func,
+> -				&dpp_base->degamma_params, false))
+> +		cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+> +							&plane_state->in_transfer_func,
+> +							&dpp_base->degamma_params, false))
+>  		params = &dpp_base->degamma_params;
+>  
+>  	result = dpp_base->funcs->dpp_program_gamcor_lut(dpp_base, params);
+> @@ -406,7 +407,7 @@ bool dcn30_set_output_transfer_func(struct dc *dc,
+>  				params = &stream->out_transfer_func.pwl;
+>  			else if (pipe_ctx->stream->out_transfer_func.type ==
+>  					TF_TYPE_DISTRIBUTED_POINTS &&
+> -					cm3_helper_translate_curve_to_hw_format(
+> +					cm3_helper_translate_curve_to_hw_format(stream->ctx,
+>  					&stream->out_transfer_func,
+>  					&mpc->blender_params, false))
+>  				params = &mpc->blender_params;
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> index b213a2ac827a..27abc08918bc 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
+> @@ -486,8 +486,9 @@ bool dcn32_set_mcm_luts(
+>  	if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
+>  		lut_params = &plane_state->blend_tf.pwl;
+>  	else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
+> -		result = cm3_helper_translate_curve_to_hw_format(&plane_state->blend_tf,
+> -				&dpp_base->regamma_params, false);
+> +		result = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+> +								 &plane_state->blend_tf,
+> +								 &dpp_base->regamma_params, false);
+>  		if (!result)
+>  			return result;
+>  
+> @@ -502,8 +503,9 @@ bool dcn32_set_mcm_luts(
+>  	else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
+>  		// TODO: dpp_base replace
+>  		ASSERT(false);
+> -		cm3_helper_translate_curve_to_hw_format(&plane_state->in_shaper_func,
+> -				&dpp_base->shaper_params, true);
+> +		cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+> +							&plane_state->in_shaper_func,
+> +							&dpp_base->shaper_params, true);
+>  		lut_params = &dpp_base->shaper_params;
+>  	}
+>  
+> @@ -543,8 +545,9 @@ bool dcn32_set_input_transfer_func(struct dc *dc,
+>  	if (plane_state->in_transfer_func.type == TF_TYPE_HWPWL)
+>  		params = &plane_state->in_transfer_func.pwl;
+>  	else if (plane_state->in_transfer_func.type == TF_TYPE_DISTRIBUTED_POINTS &&
+> -		cm3_helper_translate_curve_to_hw_format(&plane_state->in_transfer_func,
+> -				&dpp_base->degamma_params, false))
+> +		cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+> +							&plane_state->in_transfer_func,
+> +							&dpp_base->degamma_params, false))
+>  		params = &dpp_base->degamma_params;
+>  
+>  	dpp_base->funcs->dpp_program_gamcor_lut(dpp_base, params);
+> @@ -575,7 +578,7 @@ bool dcn32_set_output_transfer_func(struct dc *dc,
+>  				params = &stream->out_transfer_func.pwl;
+>  			else if (pipe_ctx->stream->out_transfer_func.type ==
+>  					TF_TYPE_DISTRIBUTED_POINTS &&
+> -					cm3_helper_translate_curve_to_hw_format(
+> +					cm3_helper_translate_curve_to_hw_format(stream->ctx,
+>  					&stream->out_transfer_func,
+>  					&mpc->blender_params, false))
+>  				params = &mpc->blender_params;
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+> index 2fbc22afb89c..5eda7648d0d2 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+> @@ -430,7 +430,7 @@ void dcn401_populate_mcm_luts(struct dc *dc,
+>  		if (mcm_luts.lut1d_func->type == TF_TYPE_HWPWL)
+>  			m_lut_params.pwl = &mcm_luts.lut1d_func->pwl;
+>  		else if (mcm_luts.lut1d_func->type == TF_TYPE_DISTRIBUTED_POINTS) {
+> -			rval = cm3_helper_translate_curve_to_hw_format(
+> +			rval = cm3_helper_translate_curve_to_hw_format(mpc->ctx,
+>  					mcm_luts.lut1d_func,
+>  					&dpp_base->regamma_params, false);
+>  			m_lut_params.pwl = rval ? &dpp_base->regamma_params : NULL;
+> @@ -450,7 +450,7 @@ void dcn401_populate_mcm_luts(struct dc *dc,
+>  			m_lut_params.pwl = &mcm_luts.shaper->pwl;
+>  		else if (mcm_luts.shaper->type == TF_TYPE_DISTRIBUTED_POINTS) {
+>  			ASSERT(false);
+> -			rval = cm3_helper_translate_curve_to_hw_format(
+> +			rval = cm3_helper_translate_curve_to_hw_format(mpc->ctx,
+>  					mcm_luts.shaper,
+>  					&dpp_base->regamma_params, true);
+>  			m_lut_params.pwl = rval ? &dpp_base->regamma_params : NULL;
+> @@ -627,8 +627,9 @@ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
+>  	if (plane_state->blend_tf.type == TF_TYPE_HWPWL)
+>  		lut_params = &plane_state->blend_tf.pwl;
+>  	else if (plane_state->blend_tf.type == TF_TYPE_DISTRIBUTED_POINTS) {
+> -		rval = cm3_helper_translate_curve_to_hw_format(&plane_state->blend_tf,
+> -				&dpp_base->regamma_params, false);
+> +		rval = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+> +							       &plane_state->blend_tf,
+> +							       &dpp_base->regamma_params, false);
+>  		lut_params = rval ? &dpp_base->regamma_params : NULL;
+>  	}
+>  	result = mpc->funcs->program_1dlut(mpc, lut_params, mpcc_id);
+> @@ -639,8 +640,9 @@ bool dcn401_set_mcm_luts(struct pipe_ctx *pipe_ctx,
+>  		lut_params = &plane_state->in_shaper_func.pwl;
+>  	else if (plane_state->in_shaper_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
+>  		// TODO: dpp_base replace
+> -		rval = cm3_helper_translate_curve_to_hw_format(&plane_state->in_shaper_func,
+> -				&dpp_base->shaper_params, true);
+> +		rval = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+> +							       &plane_state->in_shaper_func,
+> +							       &dpp_base->shaper_params, true);
+>  		lut_params = rval ? &dpp_base->shaper_params : NULL;
+>  	}
+>  	result &= mpc->funcs->program_shaper(mpc, lut_params, mpcc_id);
+> @@ -674,7 +676,7 @@ bool dcn401_set_output_transfer_func(struct dc *dc,
+>  				params = &stream->out_transfer_func.pwl;
+>  			else if (pipe_ctx->stream->out_transfer_func.type ==
+>  					TF_TYPE_DISTRIBUTED_POINTS &&
+> -					cm3_helper_translate_curve_to_hw_format(
+> +					cm3_helper_translate_curve_to_hw_format(stream->ctx,
+>  					&stream->out_transfer_func,
+>  					&mpc->blender_params, false))
+>  				params = &mpc->blender_params;
 
-for you to fetch changes up to 6a681cd9034587fe3550868bacfbd639d1c6891f:
-
-  drm/amd/display: Add an hdmi_hpd_debounce_delay_ms module (2026-01-14 14:28:59 -0500)
-
-----------------------------------------------------------------
-amd-drm-next-6.20-2026-01-16:
-
-amdgpu:
-- SR-IOV fixes
-- Rework SMU mailbox handling
-- Drop MMIO_REMAP domain
-- UserQ fixes
-- MES cleanups
-- Panel Replay updates
-- HDMI fixes
-- Backlight fixes
-- SMU 14.x fixes
-- SMU 15 updates
-
-amdkfd:
-- Fix a memory leak
-- Fixes for systems with non-4K pages
-- LDS/Scratch cleanup
-- MES process eviction fix
-
-----------------------------------------------------------------
-Alex Deucher (1):
-      drm/amdgpu: make sure userqs are enabled in userq IOCTLs
-
-Aurabindo Pillai (2):
-      drm/amd/display: switch to drm_dbg_kms() from DRM_DEBUG_KMS
-      drm/amd/display: switch to drm_dbg_ macros instead of DRM_DEBUG_ variants
-
-Ausef Yousof (1):
-      drm/amd/display: correct clip x assignment in cursor programming
-
-Christian König (1):
-      drm/amdgpu: Drop MMIO_REMAP domain bit and keep it Internal
-
-Christophe JAILLET (1):
-      drm/amdgpu: Slightly simplify base_addr_show()
-
-Cruise Hung (1):
-      drm/amd/display: Always update divider settings for DP tunnel
-
-Derek Lai (1):
-      drm/amd/display: revert "write default Vesa Aux backlight control in dmub"
-
-Dmytro Laktyushkin (1):
-      drm/amd/display: only power down dig on phy endpoints
-
-Donet Tom (3):
-      drm/amdkfd: Relax size checking during queue buffer get
-      drm/amdkfd: Fix SVM map/unmap address conversion for non-4k page sizes
-      drm/amdkfd: Fix GART PTE for non-4K pagesize in svm_migrate_gart_map()
-
-Haoxiang Li (1):
-      drm/amdkfd: fix a memory leak in device_queue_manager_init()
-
-Harish Kasiviswanathan (1):
-      drm/amdkfd: No need to suspend whole MES to evict process
-
-Ivan Lipski (1):
-      drm/amd/display: Add an hdmi_hpd_debounce_delay_ms module
-
-Jack Chang (2):
-      drm/amd/display: DPCD for Selective Update
-      drm/amd/display: PR error HPD_IRQ handling
-
-Joshua Aberback (1):
-      drm/amd/display: Re-implement minimal transition deferral
-
-Lang Yu (2):
-      drm/amdgpu/mes: Simplify hqd mask initialization
-      drm/amdkfd: Switch to using GC VERSION to decide LDS/Scratch base
-
-Leo Chen (1):
-      drm/amd/display: Add global fgcg function prototype to DCCG
-
-Lijo Lazar (26):
-      drm/amd/pm: Add smu message control block
-      drm/amd/pm: Add message control for SMUv11
-      drm/amd/pm: Add message control for SMUv12
-      drm/amd/pm: Add message control for SMUv13
-      drm/amd/pm: Add message control for SMUv14
-      drm/amd/pm: Add message control for SMUv15
-      drm/amd/pm: Use message control in messaging
-      drm/amd/pm: Add async message call support
-      drm/amd/pm: Replace without wait with async calls
-      drm/amd/pm: Remove unused legacy message functions
-      drm/amd/pm: Drop legacy message fields from SMUv11
-      drm/amd/pm: Drop legacy message fields from SMUv12
-      drm/amd/pm: Drop legacy message fields from SMUv13
-      drm/amd/pm: Drop legacy message fields from SMUv14
-      drm/amd/pm: Drop legacy message fields from SMUv15
-      drm/amd/pm: Drop legacy message related fields
-      drm/amd/pm: Drop unused ppt callback from SMUv11
-      drm/amd/pm: Drop unused ppt callback from SMUv12
-      drm/amd/pm: Drop unused ppt callback from SMUv13
-      drm/amd/pm: Drop unused ppt callback from SMUv14
-      drm/amd/pm: Drop unused ppt callback from SMUv15
-      drm/amd/pm: Drop unused ppt callback definitions
-      drm/amd/pm: Add debug message callback
-      drm/amd/pm: Use message control for debug mailbox
-      drm/amd/pm: Use emit clock levels in SMU v15.0.0
-      drm/amd/pm: Deprecate print_clk_levels callback
-
-Mario Limonciello (1):
-      drm/amd/display: Bump the HDMI clock to 340MHz
-
-Mario Limonciello (AMD) (1):
-      drm/amd/display: Show link name in PSR status message
-
-Nicholas Kazlauskas (2):
-      drm/amd/display: Adjust PHY FSM transition to TX_EN-to-PLL_ON for TMDS on DCN35
-      drm/amd/display: Add pwait status to DMCUB debug logging
-
-Peichen Huang (3):
-      drm/amd/display: move panel replay out from edp
-      drm/amd/display: init code for external panel replay
-      drm/amd/display: Add replay_events in replay settings
-
-Philip Yang (1):
-      drm/amdkfd: Add domain parameter to alloc kernel BO
-
-Prike Liang (2):
-      drm/amdgpu: validate the flush_gpu_tlb_pasid()
-      Revert "drm/amdgpu: don't attach the tlb fence for SI"
-
-Ray Wu (1):
-      drm/amd/display: disable replay when crc source is enabled
-
-Robin Chen (1):
-      drm/amd/display: Remove unused DMUB replay commands
-
-Srinivasan Shanmugam (2):
-      drm/amdgpu: Refactor amdgpu_gem_va_ioctl for Handling Last Fence Update and Timeline Management v7
-      drm/amdgpu/userq: Fix fence reference leak on queue teardown v2
-
-Taimur Hassan (2):
-      drm/amd/display: [FW Promotion] Release 0.1.42.0
-      drm/amd/display: Promote DC to 3.2.365
-
-Vivek Das Mohapatra (1):
-      drm/amd/display: Initialise backlight level values from hw
-
-Xiaogang Chen (2):
-      drm/amdgpu: Use correct address to setup gart page table for vram access
-      drm/amdkfd: kfd driver supports hot unplug/replug amdgpu devices
-
-Yang Wang (2):
-      drm/amd/pm: fix issue of missing '*' on pp_dpm_xxx nodes
-      drm/amd/pm: fix smu overdrive data type wrong issue on smu 14.0.2
-
-YuBiao Wang (1):
-      drm/amdgpu: Skip loading SDMA_RS64 in VF
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c         |  15 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h         |  17 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |  11 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  11 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c           |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |  76 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |   4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c            |  65 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c         |  21 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h         |   2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  77 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  16 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h          |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |   8 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c             |   3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_device.c            |  89 ++-
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  36 +-
- drivers/gpu/drm/amd/amdkfd/kfd_events.c            |  29 +
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c       |   4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           |   2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c       |  14 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c |   4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |   9 +-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |   4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c           |  14 +-
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  12 +-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |   6 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c               |  29 +-
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c          |  22 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  91 ++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   6 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  25 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   9 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c           |  49 +-
- .../gpu/drm/amd/display/dc/core/dc_link_exports.c  |   9 +-
- drivers/gpu/drm/amd/display/dc/dc.h                |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c       |   1 +
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h       |  34 +-
- drivers/gpu/drm/amd/display/dc/dc_hdmi_types.h     |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h       |   6 +
- drivers/gpu/drm/amd/display/dc/dc_types.h          |   3 +-
- .../gpu/drm/amd/display/dc/dce/dmub_hw_lock_mgr.c  |   2 +-
- drivers/gpu/drm/amd/display/dc/dce/dmub_replay.c   |  13 -
- .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |   6 +-
- .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |  52 ++
- .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h    |   3 +
- .../gpu/drm/amd/display/dc/hwss/dcn35/dcn35_init.c |   2 +-
- .../drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c  |   2 +
- drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h       |   1 +
- drivers/gpu/drm/amd/display/dc/inc/link_service.h  |  12 +-
- drivers/gpu/drm/amd/display/dc/link/Makefile       |   2 +-
- .../amd/display/dc/link/accessories/link_dp_cts.c  |   7 +-
- .../gpu/drm/amd/display/dc/link/link_detection.c   |   6 +-
- drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |   8 +-
- drivers/gpu/drm/amd/display/dc/link/link_factory.c |  19 +-
- .../display/dc/link/protocols/link_dp_capability.c |  49 +-
- .../dc/link/protocols/link_dp_irq_handler.c        |  43 ++
- .../dc/link/protocols/link_dp_panel_replay.c       | 343 ++++++++++
- .../dc/link/protocols/link_dp_panel_replay.h       |  38 ++
- .../dc/link/protocols/link_edp_panel_control.c     | 297 +--------
- .../dc/link/protocols/link_edp_panel_control.h     |  10 +-
- .../amd/display/dc/resource/dcn31/dcn31_resource.c |  11 +-
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  54 +-
- drivers/gpu/drm/amd/display/include/dpcd_defs.h    |  30 +
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |   2 -
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      | 120 ++--
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v11_0.h       |   3 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v12_0.h       |   3 +
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h       |   3 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h       |   6 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h       |   2 -
- drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  |   5 +-
- .../drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c    |   5 +-
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |   5 +-
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  27 +-
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     |  18 +-
- drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   |  21 +-
- drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c    |  18 +-
- drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c     |  17 +
- drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c |  29 +-
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     |  32 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  27 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c   |  24 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c   |  23 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  32 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |   3 +-
- .../gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c   |   5 +-
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c     |  12 +-
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |  23 +-
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  34 +-
- drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c     |  12 +-
- .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c   |  56 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             | 731 ++++++++++++---------
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h             |  22 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_internal.h        |   2 -
- include/uapi/drm/amdgpu_drm.h                      |   6 +-
- 101 files changed, 1951 insertions(+), 1239 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_panel_replay.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_panel_replay.h
