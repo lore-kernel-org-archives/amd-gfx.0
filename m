@@ -4,157 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2525D4A607
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 07:58:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9B1DD4A60D
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 08:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E25510E81D;
-	Fri, 16 Jan 2026 07:58:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4593B10E82F;
+	Fri, 16 Jan 2026 08:02:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="R04uVWab";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MZ1Ehz5Y";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="R04uVWab";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MZ1Ehz5Y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ENigbdhj";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A50310E81D
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jan 2026 07:58:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BB3173368D;
- Fri, 16 Jan 2026 07:58:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1768550309; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=tEBnbJXoSEVNx2d1sg+6yp9TJGIDCgDTADCnwPCP7K0=;
- b=R04uVWabAymZykGlX+71SwYrLQ6fCzyjOgy+9ATKoaBXltpvMrjIlYpv5Q3yl4hyqJQqQk
- ic0hgpJzRhcu/XCONdInAYct22wQf9B2hRKDGAhcBsOhViR6cCBFk0lM9YwDMZwWYtbOhZ
- 3CIEsweVt1ZK6QNpJiQvBRvHy9sHwyI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1768550309;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=tEBnbJXoSEVNx2d1sg+6yp9TJGIDCgDTADCnwPCP7K0=;
- b=MZ1Ehz5YNpca9ytNX4G/92HJJlPCJPBDy2lqLRB9ZcbIoy5+YWZTdll3DfwqPiZkbmZXaV
- ibH4XxwwepxK2qBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1768550309; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=tEBnbJXoSEVNx2d1sg+6yp9TJGIDCgDTADCnwPCP7K0=;
- b=R04uVWabAymZykGlX+71SwYrLQ6fCzyjOgy+9ATKoaBXltpvMrjIlYpv5Q3yl4hyqJQqQk
- ic0hgpJzRhcu/XCONdInAYct22wQf9B2hRKDGAhcBsOhViR6cCBFk0lM9YwDMZwWYtbOhZ
- 3CIEsweVt1ZK6QNpJiQvBRvHy9sHwyI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1768550309;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=tEBnbJXoSEVNx2d1sg+6yp9TJGIDCgDTADCnwPCP7K0=;
- b=MZ1Ehz5YNpca9ytNX4G/92HJJlPCJPBDy2lqLRB9ZcbIoy5+YWZTdll3DfwqPiZkbmZXaV
- ibH4XxwwepxK2qBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AF64F3EA63;
- Fri, 16 Jan 2026 07:58:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id gp4oKaTvaWk8ZAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 16 Jan 2026 07:58:28 +0000
-Message-ID: <f3643c19-c250-4927-b39d-37d2494c7c84@suse.de>
-Date: Fri, 16 Jan 2026 08:58:28 +0100
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010038.outbound.protection.outlook.com [52.101.85.38])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AE4210E824
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jan 2026 08:02:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cLSE1ZKdEjUyum0K8NG/5bHOXnhP09pP6hXJ6O5p81ckPWCtw3c/Jqd97GPHRhuz+izzERkOs4UaTXugcMEQH82BjffPpRkCGQAYvXwtd/XwGvDHP4piY03dG9FApdjiTo8tQX8JN9ViQrR0LM0ZBKum4VaWNWxbTsTQOFLyf8NHNorbcj9w+9wEyikd999wbiyfFDJHNINvNUlExsBp54au+43/r3sWeoY+PT8uY9ypQoDQoaCqDZodG8Yb5SGS3GCOhcUA+rEgWEv26B1Y+V63lNHTVLgJ01i44yix4VQRXsbM6J23PKp+wGAcXg1TWQZoOqNEKxk0qqLsbBNfxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e/MWi5Xd/IhCLKryknnOfZkZLeYWxv396DFE6dOUY6E=;
+ b=qiEJwUg6bYoQviYJ8Xdeazmpy4FvElPrTv7QmlZJXEgn/GmBQeLUxdx1ogCISJj1Cfd38douyrCHOZOcgE4zr6ZQWpXZC3ybM6W29YUvNIe5oNpR37w3cFMdf8Aq3nx1TNtHfc25FwV3mEA0VHJPc17w1xFr62WSXaewe38vv6s0tFsCXb9ZLP+nO1YePGqxnT6eZ27xHSADnIObXjWh0ifo7F0y5NlTIXpeP3h4r2xY/+sKBs8jSJeTFMrredwrUap9UdLzsteFUXqE6zl5ZBlYZ6iL/WyB34BqyVb3OQxv76Oe712tDXOrAGPU6gx4qTrsLhZ+Koth7jLkbTdLVQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e/MWi5Xd/IhCLKryknnOfZkZLeYWxv396DFE6dOUY6E=;
+ b=ENigbdhjuziC87q0SW6huCGF8Fdpma2Iai8qSpXeVm3+8t/ZhAiVyej4Gq49riHNG9yQ7M0ZR59/3zWVo3yDeWumCQZgcU8huoVJdIuEgPcHaYOQDsGqaI8pCiK6U6d2oZqPLwRVVvdQyoRKbvp4vQEJ0LWQ5bzoy8BnMzw/ktI=
+Received: from PH8PR02CA0013.namprd02.prod.outlook.com (2603:10b6:510:2d0::14)
+ by MN2PR12MB4470.namprd12.prod.outlook.com (2603:10b6:208:260::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Fri, 16 Jan
+ 2026 08:02:39 +0000
+Received: from SJ1PEPF000023D6.namprd21.prod.outlook.com
+ (2603:10b6:510:2d0:cafe::7e) by PH8PR02CA0013.outlook.office365.com
+ (2603:10b6:510:2d0::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.7 via Frontend Transport; Fri,
+ 16 Jan 2026 08:02:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000023D6.mail.protection.outlook.com (10.167.244.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9542.0 via Frontend Transport; Fri, 16 Jan 2026 08:02:37 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 16 Jan
+ 2026 02:02:35 -0600
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <hawking.zhang@amd.com>, <alexander.deucher@amd.com>,
+ <kenneth.feng@amd.com>
+Subject: [PATCH] drm/amd/pm: initialize the smu dpm table by pptable on smu
+ 14.0.2
+Date: Fri, 16 Jan 2026 16:02:23 +0800
+Message-ID: <20260116080223.3014638-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/12] Recover sysfb after DRM probe failure
-To: Zack Rusin <zack.rusin@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org, Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Ard Biesheuvel <ardb@kernel.org>, Ce Sun <cesun102@amd.com>,
- Chia-I Wu <olvaffe@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Dave Airlie <airlied@redhat.com>, Deepak Rawat <drawat.floss@gmail.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Hans de Goede <hansg@kernel.org>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Helge Deller <deller@gmx.de>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Jocelyn Falempe <jfalempe@redhat.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Lijo Lazar <lijo.lazar@amd.com>, linux-efi@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, Lucas De Marchi <lucas.demarchi@intel.com>,
- Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Maxime Ripard <mripard@kernel.org>, nouveau@lists.freedesktop.org,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>,
- spice-devel@lists.freedesktop.org,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, virtualization@lists.linux.dev,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-References: <20251229215906.3688205-1-zack.rusin@broadcom.com>
- <c816f7ed-66e0-4773-b3d1-4769234bd30b@suse.de>
- <CABQX2QNQU4XZ1rJFqnJeMkz8WP=t9atj0BqXHbDQab7ZnAyJxg@mail.gmail.com>
- <97993761-5884-4ada-b345-9fb64819e02a@suse.de>
- <CABQX2QMn_dTh2h44LRwB7+RxGqK3Jn+QCx38xWrzpNJG5SZ9-Q@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CABQX2QMn_dTh2h44LRwB7+RxGqK3Jn+QCx38xWrzpNJG5SZ9-Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
- MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
- TO_DN_SOME(0.00)[]; RCPT_COUNT_TWELVE(0.00)[43];
- TAGGED_RCPT(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLxtqcp3yg5i7i9mi6syp13ijk)];
- FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[lists.freedesktop.org,amd.com,kernel.org,gmail.com,redhat.com,collabora.com,chromium.org,gmx.de,linux.intel.com,vger.kernel.org,intel.com,ffwll.ch,ursulin.net,lists.linux.dev];
- RCVD_TLS_ALL(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url]
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D6:EE_|MN2PR12MB4470:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4f48a33-03e1-48d1-7a18-08de54d59d19
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|376014|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?b2XNGiZ71gsbKkRUazNWJnyUpRqWARmM1RVQAgzY9g66Cu5+C1Q/h+4cRWf9?=
+ =?us-ascii?Q?haMWjKhF0WBnNNsbLXIxgzk0Rld3SJTEYEd72vGKehJhOnrN3Z654zrJjrhF?=
+ =?us-ascii?Q?8S1xJRDp8dsOr8SAWzoTT6txiJaK+EPCe2YceMTk1O/+i5PFRCfticYn+BPC?=
+ =?us-ascii?Q?1sOAg1VlftShMVgOQXRkiCS4f8Gm3Kaz1AB16mTYhCvltPWqmCwrnyX+fLdK?=
+ =?us-ascii?Q?v2DT4+BopaqpwI67i06Y74/Q2x3WdBGQ0XrQt+yZFBTDrVZ9Mc6JaInrcn69?=
+ =?us-ascii?Q?c1WPui/9+9nAVNqqymO3xSAFcbTQRaFKrobFrXkgCby9L1vFb/XE+88NKOVG?=
+ =?us-ascii?Q?/bohvco9vO9BQh8uCA6mpghSJ4jpHgS7u9HC1KSuySCZQ9B0z7bvsMTjrtgU?=
+ =?us-ascii?Q?9Q7Kj4Q9klPDkl8DQkEkCnD4T60tJ8BC6UT+/SfDHNd6uq+9evveiluo8cV6?=
+ =?us-ascii?Q?waquC83KrEKFMilxEqZWWVxJ2y8HiSfQ8hNsUD9mIIGOLTM/25gIgHD2hQUs?=
+ =?us-ascii?Q?dB/C4a8SqGRMPAmj6fJQIMoJ/Jxo1G5VE0zVukbSnbD9Nc638jfk3BmtTLAV?=
+ =?us-ascii?Q?4Q7lCSeXpacyFu3fB5SrqDEHOeN0lIii0kjVObDOJlDdVATh5rB03smagQlg?=
+ =?us-ascii?Q?VqNlt5BR8CJ4585SSRa784BzKhYus7UskFfD690+bwMpEr++M2I5EJgUGbMp?=
+ =?us-ascii?Q?C+lKSifxRxGZic0oBXXrEbnKnZFuM5OF6taQwQVpssJgDLozCGW9Kb2PA5mR?=
+ =?us-ascii?Q?tQRfTtUUoL2w37k0YsX2muHa1m7SNmmLPVUc6cC30UUKT6km4oVLCTKCRwUo?=
+ =?us-ascii?Q?Qr+ONLF4o2X6neqXIAyy0Qihin9RuDnx5vTu9PKQYXgrRGyZXoXJ0EqugRUq?=
+ =?us-ascii?Q?06jxjnIPGS9yNP0qi3inqSZMCXxoQoOLqOpjT6p+OWsSvG5k5Kh3mopQ1Ckx?=
+ =?us-ascii?Q?iVyOYvX9XolyURNoUUWe3ebwCgcaKW63BvFpOtPd9j2ip06ph6zvOdcOeIMD?=
+ =?us-ascii?Q?MldpirB1Wico7/diMN9/etruGjmICcx0lyYjtHRP+bu37iNae3F3O1jAMJeD?=
+ =?us-ascii?Q?exya02ep7dA9ZliDOVZNCszMEjnmLj3vWOws23H6EKnWsspW4iVTUpbQm+6E?=
+ =?us-ascii?Q?Y6riQYafGOa44lw16P2AQzab1bW4D6X7+CKUw9s8kswllezK/Xqd0git2413?=
+ =?us-ascii?Q?5InJkrPfnBYGuBfDYYrRwMJ1G5DutJ2BWfJhAsYdMQJav58e5RFMxnueK+7s?=
+ =?us-ascii?Q?a4E6wNpVFgSoNF+lUylVs2CT2TDPOLzeA/1ySYcZ/S2LOUdtmHS1MD6QqBSf?=
+ =?us-ascii?Q?w40nJU+YbUDIzf3k9QP6Xj/s74eciE15LsUPv3IvhLtFraQuTrvyE98cEXws?=
+ =?us-ascii?Q?GfqsfNgR9Y/qX9BeGnHzKfBywDswv4COzv4sRLz729xtdswo1xSpcI8WJ988?=
+ =?us-ascii?Q?P0/qHWfLd9qndKQVZID+49v7xT+3xof1fncAPrjQq2apAkVgflcEPYqA2NgT?=
+ =?us-ascii?Q?1Y8aEZAdt4t3HnP+P6v+tmXtIQbfVx05ZGICFXMFAhk8KErYFLLAeg/0pj9I?=
+ =?us-ascii?Q?L3kcxXxWcYGgSUQmW29tqpwWsF2YEW7pyQ8QoTGIP5+eG2zcKtLOu+11uZo7?=
+ =?us-ascii?Q?km9elCH+IoGXAe/7+BM1ygT1ZPBtR3pX004VU6vfiVE0OuAaqpDd4aNHys7x?=
+ =?us-ascii?Q?uemKDQ=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(376014)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2026 08:02:37.2858 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4f48a33-03e1-48d1-7a18-08de54d59d19
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D6.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4470
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,82 +135,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+Use PPTable to initialize the dpm table to avoid loss of frequency precision
+when using SMU message PPSMC_MSG_GetDpmFreqByIndex.
 
-Am 16.01.26 um 04:59 schrieb Zack Rusin:
-> On Thu, Jan 15, 2026 at 6:02 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> That's really not going to work. For example, in the current series, you
->> invoke devm_aperture_remove_conflicting_pci_devices_done() after
->> drm_mode_reset(), drm_dev_register() and drm_client_setup().
-> That's perfectly fine,
-> devm_aperture_remove_conflicting_pci_devices_done is removing the
-> reload behavior not doing anything.
->
-> This series, essentially, just adds a "defer" statement to
-> aperture_remove_conflicting_pci_devices that says
->
-> "reload sysfb if this driver unloads".
->
-> devm_aperture_remove_conflicting_pci_devices_done just cancels that defer.
+e.g: uclk dpm on smu 14.0.2
+- by SMU MSG: 96, 456, 772, 875, 1124, 1258
+- by PPTable: 97, 457, 773, 875, 1125, 1259
 
-Exactly. And if that reload happens after the hardware state has been 
-changed, the result is undefined.
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 112 ++++++++++++++----
+ 1 file changed, 91 insertions(+), 21 deletions(-)
 
->
-> You could ask why have
-> devm_aperture_remove_conflicting_pci_devices_done at all then and it's
-> because I didn't want to change the default behavior of anything.
->
-> There are three cases:
-> 1) Driver fails to load before
-> aperture_remove_conflicting_pci_devices, in which case sysfb is still
-> active and there's no problem,
-> 2) Driver fails to load after aperture_remove_conflicting_pci_devices,
-> in which case sysfb is gone and the screen is blank
-> 3) Driver is unloaded after the probe succeeded. igt tests this too.
->
-> Without devm_aperture_remove_conflicting_pci_devices_done we'd try to
-> reload sysfb in #3, which, in general makes sense to me and I'd
-> probably remove it in my drivers, but there might be people or tests
-> (again, igt does it and we don't need to flip-flop between sysfb and
-> the driver there) that depend on specifically that behavior of not
-> having anything driving fb so I didn't want to change it.
->
-> So with this series the worst case scenario is that the driver that
-> failed after aperture_remove_conflicting_pci_devices changed the
-> hardware state so much that sysfb can't recover and the fb is blank.
-> So it was blank before and this series can't fix it because the driver
-> in its cleanup routine will need to do more unwinding for sysfb to
-> reload (i.e. we'd need an extra patch to unwind the driver state).
-
-The current recovery/reload is not reliable in any case. A number of 
-high-profile devs have also said that it doesn't work with their driver. 
-The same is true for ast. So the current approach is not going to happen.
-
-> There also might be the case of some crazy behavior, e.g. pci bar
-> resize in the driver makes the vga hardware crash or something, in
-> which case, yea, we should definitely skip this patch, at least until
-> those drivers properly cleanup on exit.
-
-There's nothing crazy here. It's standard probing code.
-
-If you want to to move forward, my suggestion is to look at the proposal 
-with the aperture_funcs callbacks that control sysfb device access. And 
-from there, build a full prototype with one or two drivers.
-
-Best regards
-Thomas
-
-
->
-> z
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index faae1da81bd4..03246455d727 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -497,6 +497,76 @@ static int smu_v14_0_2_init_smc_tables(struct smu_context *smu)
+ 	return smu_v14_0_init_smc_tables(smu);
+ }
+ 
++static int smu_v14_0_2_set_dpm_table(struct smu_context *smu,
++				     enum smu_clk_type clk_type,
++				     struct smu_dpm_table *dpm_table,
++				     DpmDescriptor_t *dpm_desc, uint16_t *freqtable)
++{
++	int i;
++
++	for (i = 0; i < dpm_desc->NumDiscreteLevels; i++) {
++		dpm_table->dpm_levels[i].enabled = true;
++		dpm_table->dpm_levels[i].value = freqtable[i];
++	}
++
++	dpm_table->count = dpm_desc->NumDiscreteLevels;
++	dpm_table->clk_type = clk_type;
++	if (!dpm_desc->SnapToDiscrete)
++		dpm_table->flags |= SMU_DPM_TABLE_FINE_GRAINED;
++
++	return 0;
++}
++
++static int smu_v14_0_2_set_dpm_table_by_pptable(struct smu_context *smu,
++						enum smu_clk_type clk_type,
++						struct smu_dpm_table *dpm_table)
++{
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *pptable = table_context->driver_pptable;
++	SkuTable_t *skutable = &pptable->SkuTable;
++	DpmDescriptor_t *dpm_desc;
++	uint16_t *freqtable;
++
++	switch (clk_type) {
++	case SMU_SCLK:
++	case SMU_GFXCLK:
++		dpm_desc = &skutable->DpmDescriptor[PPCLK_GFXCLK];
++		freqtable = skutable->FreqTableGfx;
++		break;
++	case SMU_SOCCLK:
++		dpm_desc = &skutable->DpmDescriptor[PPCLK_SOCCLK];
++		freqtable = skutable->FreqTableSocclk;
++		break;
++	case SMU_UCLK:
++	case SMU_MCLK:
++		dpm_desc = &skutable->DpmDescriptor[PPCLK_UCLK];
++		freqtable = skutable->FreqTableUclk;
++		break;
++	case SMU_FCLK:
++		dpm_desc = &skutable->DpmDescriptor[PPCLK_FCLK];
++		freqtable = skutable->FreqTableFclk;
++		break;
++	case SMU_VCLK:
++		dpm_desc = &skutable->DpmDescriptor[PPCLK_VCLK_0];
++		freqtable = skutable->FreqTableVclk;
++		break;
++	case SMU_DCLK:
++		dpm_desc = &skutable->DpmDescriptor[PPCLK_DCLK_0];
++		freqtable = skutable->FreqTableDclk;
++		break;
++	case SMU_DCEFCLK:
++		dpm_desc = &skutable->DpmDescriptor[PPCLK_DCFCLK];
++		freqtable = skutable->FreqTableDcfclk;
++		break;
++	default:
++		dev_dbg(smu->adev->dev, "[%s] Unsupported smu clock type: %d!",
++			__func__, clk_type);
++		return -EINVAL;
++	}
++
++	return smu_v14_0_2_set_dpm_table(smu, clk_type, dpm_table, dpm_desc, freqtable);
++}
++
+ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
+ {
+ 	struct smu_14_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
+@@ -510,9 +580,9 @@ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
+ 	dpm_table = &dpm_context->dpm_tables.soc_table;
+ 	dpm_table->clk_type = SMU_SOCCLK;
+ 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_SOCCLK_BIT)) {
+-		ret = smu_v14_0_set_single_dpm_table(smu,
+-						     SMU_SOCCLK,
+-						     dpm_table);
++		ret = smu_v14_0_2_set_dpm_table_by_pptable(smu,
++							   SMU_SOCCLK,
++							   dpm_table);
+ 		if (ret)
+ 			return ret;
+ 	} else {
+@@ -525,9 +595,9 @@ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
+ 	dpm_table = &dpm_context->dpm_tables.gfx_table;
+ 	dpm_table->clk_type = SMU_GFXCLK;
+ 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_GFXCLK_BIT)) {
+-		ret = smu_v14_0_set_single_dpm_table(smu,
+-						     SMU_GFXCLK,
+-						     dpm_table);
++		ret = smu_v14_0_2_set_dpm_table_by_pptable(smu,
++							   SMU_GFXCLK,
++							   dpm_table);
+ 		if (ret)
+ 			return ret;
+ 
+@@ -556,9 +626,9 @@ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
+ 	dpm_table = &dpm_context->dpm_tables.uclk_table;
+ 	dpm_table->clk_type = SMU_UCLK;
+ 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT)) {
+-		ret = smu_v14_0_set_single_dpm_table(smu,
+-						     SMU_UCLK,
+-						     dpm_table);
++		ret = smu_v14_0_2_set_dpm_table_by_pptable(smu,
++							   SMU_UCLK,
++							   dpm_table);
+ 		if (ret)
+ 			return ret;
+ 	} else {
+@@ -571,9 +641,9 @@ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
+ 	dpm_table = &dpm_context->dpm_tables.fclk_table;
+ 	dpm_table->clk_type = SMU_FCLK;
+ 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_FCLK_BIT)) {
+-		ret = smu_v14_0_set_single_dpm_table(smu,
+-						     SMU_FCLK,
+-						     dpm_table);
++		ret = smu_v14_0_2_set_dpm_table_by_pptable(smu,
++							   SMU_FCLK,
++							   dpm_table);
+ 		if (ret)
+ 			return ret;
+ 	} else {
+@@ -586,9 +656,9 @@ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
+ 	dpm_table = &dpm_context->dpm_tables.vclk_table;
+ 	dpm_table->clk_type = SMU_VCLK;
+ 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_VCLK_BIT)) {
+-		ret = smu_v14_0_set_single_dpm_table(smu,
+-						     SMU_VCLK,
+-						     dpm_table);
++		ret = smu_v14_0_2_set_dpm_table_by_pptable(smu,
++							   SMU_VCLK,
++							   dpm_table);
+ 		if (ret)
+ 			return ret;
+ 	} else {
+@@ -601,9 +671,9 @@ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
+ 	dpm_table = &dpm_context->dpm_tables.dclk_table;
+ 	dpm_table->clk_type = SMU_DCLK;
+ 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCLK_BIT)) {
+-		ret = smu_v14_0_set_single_dpm_table(smu,
+-						     SMU_DCLK,
+-						     dpm_table);
++		ret = smu_v14_0_2_set_dpm_table_by_pptable(smu,
++							   SMU_DCLK,
++							   dpm_table);
+ 		if (ret)
+ 			return ret;
+ 	} else {
+@@ -616,9 +686,9 @@ static int smu_v14_0_2_set_default_dpm_table(struct smu_context *smu)
+ 	dpm_table = &dpm_context->dpm_tables.dcef_table;
+ 	dpm_table->clk_type = SMU_DCEFCLK;
+ 	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_DCN_BIT)) {
+-		ret = smu_v14_0_set_single_dpm_table(smu,
+-						     SMU_DCEFCLK,
+-						     dpm_table);
++		ret = smu_v14_0_2_set_dpm_table_by_pptable(smu,
++							   SMU_DCEFCLK,
++							   dpm_table);
+ 		if (ret)
+ 			return ret;
+ 	} else {
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
