@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DA63C982FE
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 20:40:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8004BC982FE
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 20:40:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDC2C10E934;
-	Fri, 16 Jan 2026 20:40:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EDD0D10E932;
+	Fri, 16 Jan 2026 20:40:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="awD707BA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DQ275rEJ";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012060.outbound.protection.outlook.com [52.101.53.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74E7C10E932
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jan 2026 20:40:23 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013012.outbound.protection.outlook.com
+ [40.93.201.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B33B010E932
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jan 2026 20:40:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IdAYZI23jTjJ/Nn7k8eOM2TiwD4RArZ9dS/VMtukVWK50HPSz2bQnQzZ9C3qwsriB5F8HbO1EUhG1Q0UeWN1GDKPzkn+AGlpiN3Zn/1YbBu2+rjp41OIUeB5APp7WRLkZDXs3YlRDpuW+wxqrlDQ6K4RyH+Ewih8KRoxJvxsjR4GN09+0W/XW/63Ieb8xHOKXLAF5UwmTQFdEy7Kjot/+1rOMX5K5zzEEW/Hzc+uZAuoFQliRwqC1JpgUljuyfpIXyTRnW0Sw03UMn7lQ8RMNtguITj8Dikn0yEmsi0zBCKJcFAuSukJDU5tD2mg9RgcizHL+DOOa0UaB4Dv+EGJRA==
+ b=CNZGATAuHf1VzAwHDXFHtToCXN+f5ZZlkKV5/xyqFH8+xTZr8i/RQ3SjeciWDzRqd99KLVtlyjzOPRFyZenKz2Gr+hh5cfzOLETYJdtZybRbJvOeD9108Z7joXj6vlbczH3Ks08bQfQZLJKGxLKVhgqNw+gdocCs2VE6si2QEciLbSIwKDkYtyCMyxx3cLfv/EZhvJbs3IxzDVk25w3ATE2edPPdXHrhTAP0kh5VLySSJm/qg6UtRsnzrmp3CGCwzah6nn+6+Vo+tpNOKVI4zpnt0wpaz7v3DYsWRNTk1u58dBYk5U54Tps0AzM3OiDxj7JOojA6/doIVpbqLbfvhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FjrybUoCIbIz98EHXJ969c6iBJXPYmVOjmOjzI6p/es=;
- b=Y10XHse9b56IaKVKqkeUxuq0Momgti5kHq0Vxy8uS64dlHmeR8SdPOjq7AoqH1EOBmh23yHZCbt6iHzMq8B8SHLAZ/7rltU1bgKyv4HwSmfqjmzvb7mBryjlIiUchGdyH0AAcYMRkmZ6OpSGVrkOJYL9E3osX+1OdaA4Maq0iiKjJ0QAzHF13klAk9D6qr2QgFkJ5Leoxli3RG0eeL+15wY7NaeZzMrww2Rv3hpL/2Get5vpA+wunQ4myqhSt75vN9HUi9kufNBKSVafZLTpaKgFRxTyyLhF5C2YLd8rxNwh0MB5WuowuWDwLbsowmkRClKJu5d8nHyQbNF56tBuRA==
+ bh=/x0ggp4LWxWP/jPDdoIAqge8jLt7ipqVZnkbo4KH+9Q=;
+ b=QGWD5UPHfmSogpzGI2oLhUyHkFikJ5ZzjPX38yxSbgjleoXPrZFunlh3CaQ+k5mHHN5fGp6FIEv/1SnJO5w9qrhhfa2++litBweoJ6SaN6dZkQ16a49AQTCo7PhFMefmERIjGv8ObDjxcrO45bAp1aHsj7pQ8MVWCWzTcQT4TWgl0ROQmaIMzpUJCRYMibstY9kUMUp0lVm0dQtzdFa1lFtV/VBYTZ5BcpAYQLtVhyLIRt9534tKWdFI3VQceb6ePcYk30Vyyh/Q0PHhccVzx9EHHaFBbTIUVCEbWV2Jomkb5HPjjiJ3C5WrEXfoLAbm3dt3U2A+c08KPbg91Kqb1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FjrybUoCIbIz98EHXJ969c6iBJXPYmVOjmOjzI6p/es=;
- b=awD707BA8hwdIartbdshXFVtHPLpbpyCB4IoWRILWztrE66OisyzA6y1vx+M2HEbJ4y01qBR3B5PsOoNADY5nfyz+qE1G/B5vBDGuC8t6vPrtSpG7izf2IGkUjIjZOc+4SBVOmO84GJ9n2r5tWiHntfHG7tIK0xZcSTMeBFYWDM=
-Received: from BN9PR03CA0284.namprd03.prod.outlook.com (2603:10b6:408:f5::19)
- by SA1PR12MB5616.namprd12.prod.outlook.com (2603:10b6:806:22a::11)
+ bh=/x0ggp4LWxWP/jPDdoIAqge8jLt7ipqVZnkbo4KH+9Q=;
+ b=DQ275rEJHuGdxRYkFFf6UFSR+ISPJWVFnkPoAmslZFdECIQ9yWdxcS3uce+mGvDIXQK6DkVE83FBSYlfsbFbPq//ZnVqow3S7pckc8UmnnXh5x8AuDLdLYBNzfZB56FEAxpWViUSSpIsDYxx/H5CS3h811iT21vRuaYDtLYtILw=
+Received: from BN9PR03CA0295.namprd03.prod.outlook.com (2603:10b6:408:f5::30)
+ by IA0PR12MB8226.namprd12.prod.outlook.com (2603:10b6:208:403::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.4; Fri, 16 Jan
- 2026 20:40:20 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.7; Fri, 16 Jan
+ 2026 20:40:18 +0000
 Received: from BN1PEPF00005FFD.namprd05.prod.outlook.com
- (2603:10b6:408:f5:cafe::7) by BN9PR03CA0284.outlook.office365.com
- (2603:10b6:408:f5::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.7 via Frontend Transport; Fri,
- 16 Jan 2026 20:40:19 +0000
+ (2603:10b6:408:f5:cafe::72) by BN9PR03CA0295.outlook.office365.com
+ (2603:10b6:408:f5::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.6 via Frontend Transport; Fri,
+ 16 Jan 2026 20:40:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,20 +51,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN1PEPF00005FFD.mail.protection.outlook.com (10.167.243.229) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.4 via Frontend Transport; Fri, 16 Jan 2026 20:40:19 +0000
+ 15.20.9542.4 via Frontend Transport; Fri, 16 Jan 2026 20:40:18 +0000
 Received: from jc-d.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 16 Jan
  2026 14:40:17 -0600
 From: Jay Cornwall <jay.cornwall@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Lancelot Six <lancelot.six@amd.com>, Alexey Kondratiev
- <Alexey.Kondratiev@amd.com>, Jay Cornwall <jay.cornwall@amd.com>, "Vladimir
- Indic" <vladimir.indic@amd.com>
-Subject: [PATCH 5/5] drm/amdkfd: Do not include VGPR MSBs in saved PC during
- save
-Date: Fri, 16 Jan 2026 14:39:32 -0600
-Message-ID: <20260116203932.988704-6-jay.cornwall@amd.com>
+CC: Jay Cornwall <jay.cornwall@amd.com>, Gang Ba <Gang.Ba@amd.com>, "Harish
+ Kasiviswanathan" <Harish.Kasiviswanathan@amd.com>, Lancelot Six
+ <lancelot.six@amd.com>, Vladimir Indic <vladimir.indic@amd.com>
+Subject: [PATCH 3/5] drm/amdkfd: gfx12.1 cluster barrier context save
+ workaround
+Date: Fri, 16 Jan 2026 14:39:30 -0600
+Message-ID: <20260116203932.988704-4-jay.cornwall@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260116203932.988704-1-jay.cornwall@amd.com>
 References: <20260116203932.988704-1-jay.cornwall@amd.com>
@@ -75,55 +76,55 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFD:EE_|SA1PR12MB5616:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23fb3098-fac3-42ce-be6b-08de553f76e4
+X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFD:EE_|IA0PR12MB8226:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21de9e6b-94ba-4333-0ae2-08de553f761b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?vPFGAurwQAwLHVsy96EfD6yO5oVHFKkIPg+dLVRJYRvWdp8t5Oo/p0ZTVvyO?=
- =?us-ascii?Q?Z2i/dJ+NGLAZQ3CyyY6roHW5OS5MYu2j0n6KKEwFMTZ9fhn0x/gMaid0X+Yf?=
- =?us-ascii?Q?LTqyhTSNSWe/Kba/Zmvt0UmJa9Q0ltpyzZGeKftqUobGnAbqddEjw7UME4qb?=
- =?us-ascii?Q?+u4tKMMNr6nbdohrtiKjMlm/CHzVJmMZEXNNd+yu8vU05dO1xGhIHM7T0Auo?=
- =?us-ascii?Q?8654hIlV5CantBM9TNWOt29KeOxZ+nay7TLu4OPtR6E2pIaFtThY9S6VqJQc?=
- =?us-ascii?Q?jO5mzdXIIyBs+VzRP0fcmvj8FpBUroMWk/YPC7WroGw298Dj3dwdjv564bEr?=
- =?us-ascii?Q?DdnxMxzsGmwwWEvjl+t/Dc5Fer80Cj9gNSaABRGx7LrbAk1636QHwbrgdD90?=
- =?us-ascii?Q?LCEeeb6nDPvLD9MAvKpivbqpPf/QyDeFakjNhlndwEqmyHAz8PFIEJr7dqBd?=
- =?us-ascii?Q?WHmpjE1d/QD6Ma85UIZTTU9ZhOHMJs6Q0drFH7ED317Q/lS4Q+Rqsc53fSuP?=
- =?us-ascii?Q?SD1NC05ZHVdgMhms4/QkL0dCmS3pT+w9Y0OlC82C2IV7GiJaRXxbSuzUCEYm?=
- =?us-ascii?Q?8BwRlQUQ+B+XsT4TNpCpQDTQY61RLlENnPeBkYBtPUALTWPHKndneFXY2kCC?=
- =?us-ascii?Q?UOBq/frKijkER+gVnC/Oms/ptAD7nLI5/Tt08XbnvMLKjJ/9C+o0mJIWw77h?=
- =?us-ascii?Q?TSbdzcdFj5PG4gpO38Bmp9l6WrK+EVBhyKueihHDdWexoquEspYPqAXehZ5b?=
- =?us-ascii?Q?KWNqFjDPhmFY5yNRpSUEPMm9mFE9lXeTo11P6q2qtNLlT3ypWdw5IlA9f7aM?=
- =?us-ascii?Q?25deU+x7u4H6WjYl9aT8UlPuu+TQK79Ax8CkRmUTTfuSN3UdZwEm/fv+2mxX?=
- =?us-ascii?Q?WEoLTD2rsZe1mHrCjGNv3j65CONhrk2AiVgPp+5K20/g6VGZwGgH7sZI+y1Z?=
- =?us-ascii?Q?HX+q9/cfC0RnWy+N9CsyY8dahPPiwDNwJM1YkTcbbqRcYY1/LfJxzu3cy3Tt?=
- =?us-ascii?Q?b4EkrgvofOeze4u8WnQ8kCwnTDiMQsck0aztFcZNtCwm9nrG8eDokKj1c75Y?=
- =?us-ascii?Q?31Ezcos0+ICmC/OwZaWR3Wdxkvka9g7f1y3wUx2/EZ9ulQRurrBWwj+1x6OI?=
- =?us-ascii?Q?fIEWNBFg0+1Dw1VleAKdEBPbW2VJHOCj4OklezT960saopoI/g+QrKb/1OLY?=
- =?us-ascii?Q?tS2q5mFTE8/oL+CCR4Gk8c8btJB6aV+mUJN6obk8t12lbMjZEcgFS/8nM3xD?=
- =?us-ascii?Q?HshP7Me3xK+tR19NhsaIws8kV9pfQwAcwjK/Z82S4OUlNkSM4NGrIBUyppwE?=
- =?us-ascii?Q?0QWyyGQlhELn9AE1dUKNhkaQEsPpip7+eCGzPx62ktBdXGsP3vbCE5VkRLCM?=
- =?us-ascii?Q?OWxORn1o8ik1BXc9nz4rs4101z0aoadLlhUcfeR7vI1B3GKvbztPbM0ceAzv?=
- =?us-ascii?Q?onKG37Hk+7IP0o5eRJhOq0LzAVCzHd+V8+m3bZ3TYKlzH36xZ3CaEQ850qX/?=
- =?us-ascii?Q?lNk//hksmhg/WLhKd1me7Y6FVeccGIQIItK6ozI/bJQ1n5xP3u5giPG3JfNi?=
- =?us-ascii?Q?b2lUCIbeuQTNP89CccyGs1jYerd698F5OpUavIpOYSlouVkn0VCw05SWkU+t?=
- =?us-ascii?Q?zG88LWU1dAtCraurmsRbWe70x2FFR3FfZGddREQLVHJbV+zJdTseA8MWaaiD?=
- =?us-ascii?Q?qdTc9w=3D=3D?=
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?jZ6bDGq82NKEbywQUpnaboNck6qtIgi0HeRtltuM4uOKL7Z0Nv9AwsNJSn5V?=
+ =?us-ascii?Q?5lvwsbSmB8IaoU/Z0MozpRXsglcq2UkY9suE94nrSav8Acb+spRmuwrZZqsx?=
+ =?us-ascii?Q?XnBUs+dbrzmxSsln0cDfh1VLRp2GLtcPQyeHiaXcSdE/hztlcZf1xj2DXRDl?=
+ =?us-ascii?Q?6dniNE/kvA+/BPsaynmGGxhU3hPlzfO155TKypC8cM1tYlTXrDHxIxM3udVp?=
+ =?us-ascii?Q?f09hAP2fzT1YQkqjPE9FDUVGnjRZe1IwNn9Ue83IhMh3W3Eb3tURdOnjWXEj?=
+ =?us-ascii?Q?C593r+jiwE7iT5MHizL08nJDG9DPb+nOwIVnHJgze5Fqh4AVOt7W+bqFsGpq?=
+ =?us-ascii?Q?Xp4qmfPl3eSgQK9ShkG8DtyDYs5XXwVr1KcGCN5pGnE+Ei5bbhNFyjnti3e/?=
+ =?us-ascii?Q?63qKlxTPrpmmJbuGsuv5e+J1VtOKh7QvtTfaYHWQBX8l2ZmzSnaMyf6YarRt?=
+ =?us-ascii?Q?qzemrFfVmtLOd4L9ZHsWX7KqVS8YSUZy3Nq/dio9FLnnsNGXQ+KngyUrs5WR?=
+ =?us-ascii?Q?TWmRG/dWGOey+lgmCPiDXezse+0RG5KcbwpdJzXIihG2Y9b6n1LuiT60kvYs?=
+ =?us-ascii?Q?ScO1e0d4WdDVMo2qOcv35sLSZXvDHibxvbEppl7YY3inEIxkZjLtrblrgV6N?=
+ =?us-ascii?Q?Uu4O4JqsLzR1rqMwTX9z6mWpD/dm2TjNuezrNywWJYccJaMvZYD9OQs5fb5S?=
+ =?us-ascii?Q?xSZy8Mt8pAwfj3a9JTtAMDOtI0xsBRWuKYQKsnmk0V8oEEryE0eKJgIEwg2L?=
+ =?us-ascii?Q?quwZ7KAgjfawh9T3+92j63vtu4ikkZsE5Co64ZPFEBTrz7dfgWV+tbDtLfFj?=
+ =?us-ascii?Q?rDUgeWJs/iDyMxt19pu4jVZOYiA+1x4CfWe26rh+FNPB2eiGLsNqsOXqGGvK?=
+ =?us-ascii?Q?JOzdAETzL5AzHGmvVHTRgHmffWe6bKmOaHH621cgE6g9UkuoWg1JBGSF1ZpQ?=
+ =?us-ascii?Q?9FUhgsTXpoeh4B5cOLq9SD9n1NJr2Cao7EDDOciRNQMi7ygpnwrQ6M/mMwea?=
+ =?us-ascii?Q?kFsu2GVwllqoxK5WhhGkBQI8Y+d4huORGTtARPM0XXRa9MoOvFuU06seHYD9?=
+ =?us-ascii?Q?6mOz2hj/O+MmjAi9gXFwZRBeHwhG4TpuKgRtpcuXQkRpBbHFLYrAcczOlwrz?=
+ =?us-ascii?Q?CLRcTPIvKNUas7vgQvqapwjGI/EvZwPWP8RFCoMPCOvpxE2PMfqITHK54Bpd?=
+ =?us-ascii?Q?4AdgOHIoSb0XXU7a2iItgvYtiDWtJhkm+94Stw9rGOMjzNwTDUid68k0uw4h?=
+ =?us-ascii?Q?NtKmOu/XSqiQeTEDZIv6lpFolpNQUiXkm2dIrLL2Xpb+EYaMNwbqu7mzMeLS?=
+ =?us-ascii?Q?JgNaEujNDpZnH67PcqtQguoxq82zlqoFcUVFZNPUU92YIhVe8xinp3/eov/P?=
+ =?us-ascii?Q?ln8viTt8NuoiWyCq7w+KmoPTuawYPhP5EjX9kRya/r3dA6aCoHiLR0srV0uK?=
+ =?us-ascii?Q?RpmJp5BqC5eo3N8F/oV2PoP0XQLZYGH8RTNFf1lDvM1VPfWVxrHFmsUXKXV/?=
+ =?us-ascii?Q?GUfImtbcPm7jYGCqyeyZL1hSHi3GcqZ45Wufh/r3J58uBPiR3/WHdtCNAH9C?=
+ =?us-ascii?Q?MnbObek3BlDclQmYhmiL2BNPHD6jayA56gc1IHwxiQZkEQ68tVlZDZqfCd6t?=
+ =?us-ascii?Q?l3ly1NUb+m+utpcFzUNQZ+Or6iT5x2RdiSpRjec3/4HpuUpOjAAYDZagiMRf?=
+ =?us-ascii?Q?wUIXkw=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2026 20:40:19.8756 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23fb3098-fac3-42ce-be6b-08de553f76e4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2026 20:40:18.5533 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21de9e6b-94ba-4333-0ae2-08de553f761b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFD.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5616
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8226
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,71 +139,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lancelot Six <lancelot.six@amd.com>
+Trap cluster barrier may not serialize with user cluster barrier
+under some circumstances. Add a check for pending user cluster
+barrier complete.
 
-The current trap handler uses the top bits of ttmp1 to store a copy of
-sq_wave_mode.*vgpr_msb (except for src2_vgpr_msb).  This is so the
-effective values in sq_wave_mode can be cleared to ensure correct
-behavior of the trap handler.
-
-When saving sq_wave_mode, the trap handler correctly rebuilds the
-expected value (with *vgpr_msb restored), so the save area is correct.
-However, the PC itself is copied from ttmp[0:1], which contains the
-wave's PC as well as the saved MSBs.
-
-The debugger reads the PC from the save area and is confused when non-0
-values from VGPR_MSBs are present.
-
-This patch fixes this by saving the PC in the save area's PC slot, not
-the composite of the PC and VGPR_MSBs.  On restore, the VGPR_MSBs are
-restored from sq_wave_mode.
-
-Signed-off-by: Lancelot Six <lancelot.six@amd.com>
-Tested-by: Alexey Kondratiev <Alexey.Kondratiev@amd.com>
-Reviewed-by: Jay Cornwall <jay.cornwall@amd.com>
+Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
+Tested-by: Gang Ba <Gang.Ba@amd.com>
+Cc: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Cc: Lancelot Six <lancelot.six@amd.com>
 Cc: Vladimir Indic <vladimir.indic@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h         | 6 +++---
- drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 31 +++++++++-------
+ .../amd/amdkfd/cwsr_trap_handler_gfx12.asm    | 36 +++++++++++++++----
+ 2 files changed, 47 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-index 9bb7fb6a83ed..39bdc98b8b6d 100644
+index 453c08845d74..d86bccc49e3f 100644
 --- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
 +++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
-@@ -3760,8 +3760,8 @@ static const uint32_t cwsr_trap_gfx12_hex[] = {
- 	0xb8faf804, 0x8b7a847a,
- 	0x91788478, 0x8c787a78,
+@@ -3754,11 +3754,11 @@ static const uint32_t cwsr_trap_gfx12_hex[] = {
+ 	0x84708a70, 0x8070ff70,
+ 	0x00000200, 0x7e000280,
+ 	0x7e020280, 0x7e040280,
+-	0xbefd0080, 0xbe804ec2,
+-	0xbf94fffe, 0xb8faf804,
+-	0x8b7a847a, 0x91788478,
+-	0x8c787a78, 0xd7610002,
++	0xbefd0080, 0xd7610002,
+ 	0x0000fa71, 0x807d817d,
++	0xbe804ec2, 0xbf94fffe,
++	0xb8faf804, 0x8b7a847a,
++	0x91788478, 0x8c787a78,
  	0xd7610002, 0x0000fa6c,
--	0x807d817d, 0x917aff6d,
--	0x80000000, 0xd7610002,
-+	0x807d817d, 0x8b7aff6d,
-+	0x0000ffff, 0xd7610002,
- 	0x0000fa7a, 0x807d817d,
- 	0xd7610002, 0x0000fa6e,
- 	0x807d817d, 0xd7610002,
-@@ -4848,7 +4848,7 @@ static const uint32_t cwsr_trap_gfx12_1_0_hex[] = {
- 	0x9178ff78, 0x0001000c,
- 	0x8c787a78, 0xd7610002,
- 	0x0000fa6c, 0x807d817d,
--	0x917aff6d, 0x80000000,
-+	0x8b7aff6d, 0x01ffffff,
- 	0xd7610002, 0x0000fa7a,
- 	0x807d817d, 0xd7610002,
- 	0x0000fa6e, 0x807d817d,
+ 	0x807d817d, 0x917aff6d,
+ 	0x80000000, 0xd7610002,
+@@ -4587,7 +4587,7 @@ static const uint32_t cwsr_trap_gfx9_5_0_hex[] = {
+ };
+ 
+ static const uint32_t cwsr_trap_gfx12_1_0_hex[] = {
+-	0xbfa00001, 0xbfa003aa,
++	0xbfa00001, 0xbfa003b4,
+ 	0xb0804009, 0xb8eef81a,
+ 	0xbf880000, 0xb980081a,
+ 	0x00000000, 0xb8f8f804,
+@@ -4838,15 +4838,20 @@ static const uint32_t cwsr_trap_gfx12_1_0_hex[] = {
+ 	0x84708a70, 0x8070ff70,
+ 	0x00000200, 0x7e000280,
+ 	0x7e020280, 0x7e040280,
+-	0xbefd0080, 0xb8faf802,
+-	0xbf0c8b7a, 0xbfa20003,
+-	0xbe804fc2, 0xbf94fffe,
+-	0xbfa10001, 0xbe804ec4,
+-	0xbf94fffc, 0xb8faf804,
+-	0x8b7aff7a, 0x0001000c,
+-	0x9178ff78, 0x0001000c,
+-	0x8c787a78, 0xd7610002,
++	0xbefd0080, 0xd7610002,
+ 	0x0000fa71, 0x807d817d,
++	0xb8faf802, 0xbf0c8b7a,
++	0xbfa20003, 0xbe804fc2,
++	0xbf94fffe, 0xbfa10001,
++	0xbe804ec4, 0xbf94fffc,
++	0xbefa4c88, 0xbfc70000,
++	0xbf0c807a, 0xbfa20006,
++	0x9371ff7a, 0x00070004,
++	0x937aff7a, 0x00070010,
++	0xbf06717a, 0xbfa2fff6,
++	0xb8faf804, 0x8b7aff7a,
++	0x0001000c, 0x9178ff78,
++	0x0001000c, 0x8c787a78,
+ 	0xd7610002, 0x0000fa6c,
+ 	0x807d817d, 0x917aff6d,
+ 	0x80000000, 0xd7610002,
 diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
-index ccc61f60ceb3..c33e7660d8f4 100644
+index 7ed4b502eb22..ace2a9f2ac73 100644
 --- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
 +++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
-@@ -544,7 +544,7 @@ L_SAVE_HWREG:
+@@ -35,6 +35,7 @@
+ #define HAVE_BANKED_VGPRS (ASIC_FAMILY == CHIP_GC_12_0_3)
+ #define NUM_NAMED_BARRIERS (ASIC_FAMILY == CHIP_GC_12_0_3 ? 0x10 : 0)
+ #define HAVE_CLUSTER_BARRIER (ASIC_FAMILY == CHIP_GC_12_0_3)
++#define CLUSTER_BARRIER_SERIALIZE_WORKAROUND (ASIC_FAMILY == CHIP_GC_12_0_3)
+ 
+ #define SINGLE_STEP_MISSED_WORKAROUND 1	//workaround for lost TRAP_AFTER_INST exception when SAVECTX raised
+ #define HAVE_VALU_SGPR_HAZARD (ASIC_FAMILY == CHIP_GFX12)
+@@ -104,6 +105,7 @@ var SQ_WAVE_SCHED_MODE_DEP_MODE_SHIFT		= 0
+ var SQ_WAVE_SCHED_MODE_DEP_MODE_SIZE		= 2
+ 
+ var BARRIER_STATE_SIGNAL_OFFSET			= 16
++var BARRIER_STATE_SIGNAL_SIZE			= 7
+ var BARRIER_STATE_MEMBER_OFFSET			= 4
+ var BARRIER_STATE_MEMBER_SIZE			= 7
+ var BARRIER_STATE_VALID_OFFSET			= 0
+@@ -520,9 +522,11 @@ L_SAVE_HWREG:
+ 	v_mov_b32	v2, 0x0							//Set of SGPRs for TCP store
+ 	s_mov_b32	m0, 0x0							//Next lane of v2 to write to
+ 
++	write_hwreg_to_v2(s_save_m0)
++
+ 	// Ensure no further changes to barrier or LDS state.
+ 	// STATE_PRIV.*BARRIER_COMPLETE may change up to this point.
+-	wait_trap_barriers(s_save_tmp)
++	wait_trap_barriers(s_save_tmp, s_save_m0, 1)
+ 
+ 	// Re-read final state of *BARRIER_COMPLETE fields for save.
+ 	s_getreg_b32	s_save_tmp, hwreg(HW_REG_WAVE_STATE_PRIV)
+@@ -530,7 +534,6 @@ L_SAVE_HWREG:
+ 	s_andn2_b32	s_save_state_priv, s_save_state_priv, SQ_WAVE_STATE_PRIV_ALL_BARRIER_COMPLETE_MASK
  	s_or_b32	s_save_state_priv, s_save_state_priv, s_save_tmp
  
+-	write_hwreg_to_v2(s_save_m0)
  	write_hwreg_to_v2(s_save_pc_lo)
--	s_andn2_b32	s_save_tmp, s_save_pc_hi, S_SAVE_PC_HI_FIRST_WAVE_MASK
-+	s_and_b32       s_save_tmp, s_save_pc_hi, ADDRESS_HI32_MASK
+ 	s_andn2_b32	s_save_tmp, s_save_pc_hi, S_SAVE_PC_HI_FIRST_WAVE_MASK
  	write_hwreg_to_v2(s_save_tmp)
- 	write_hwreg_to_v2(s_save_exec_lo)
- #if WAVE32_ONLY
+@@ -1198,7 +1201,7 @@ L_SKIP_CLUSTER_BARRIER_RESTORE:
+ 
+ 	// Make barrier and LDS state visible to all waves in the group/cluster.
+ 	// STATE_PRIV.*BARRIER_COMPLETE may change after this point.
+-	wait_trap_barriers(s_restore_tmp)
++	wait_trap_barriers(s_restore_tmp, 0, 0)
+ 
+ #if HAVE_CLUSTER_BARRIER
+ 	// SCC is changed by wait_trap_barriers, restore it separately.
+@@ -1211,7 +1214,7 @@ L_SKIP_CLUSTER_BARRIER_RESTORE:
+ L_END_PGM:
+ 	// Make sure that no wave of the group/cluster can exit the trap handler
+ 	// before the group/cluster barrier state is saved.
+-	wait_trap_barriers(s_restore_tmp)
++	wait_trap_barriers(s_restore_tmp, 0, 0)
+ 
+ 	s_endpgm_saved
+ end
+@@ -1301,11 +1304,11 @@ function restore_xnack_state_priv(s_tmp)
+ end
+ #endif
+ 
+-function wait_trap_barriers(s_tmp)
++function wait_trap_barriers(s_tmp1, s_tmp2, serialize_wa)
+ #if HAVE_CLUSTER_BARRIER
+ 	// If not in a WG then wave cannot use s_barrier_signal_isfirst.
+-	s_getreg_b32	s_tmp, hwreg(HW_REG_WAVE_STATUS)
+-	s_bitcmp0_b32	s_tmp, SQ_WAVE_STATUS_IN_WG_SHIFT
++	s_getreg_b32	s_tmp1, hwreg(HW_REG_WAVE_STATUS)
++	s_bitcmp0_b32	s_tmp1, SQ_WAVE_STATUS_IN_WG_SHIFT
+ 	s_cbranch_scc1	L_TRAP_CLUSTER_BARRIER_SIGNAL
+ 
+ 	s_barrier_signal_isfirst	-2
+@@ -1319,6 +1322,25 @@ L_TRAP_CLUSTER_BARRIER_SIGNAL:
+ 
+ L_SKIP_TRAP_CLUSTER_BARRIER_SIGNAL:
+ 	s_barrier_wait	-4
++
++#if CLUSTER_BARRIER_SERIALIZE_WORKAROUND
++if serialize_wa
++	// Trap cluster barrier may complete with a user cluster barrier in-flight.
++	// This is indicated if user cluster member count and signal count are equal.
++L_WAIT_USER_CLUSTER_BARRIER_COMPLETE:
++	s_sendmsg_rtn_b32	s_tmp1, sendmsg(MSG_RTN_GET_CLUSTER_BARRIER_STATE)
++	s_wait_kmcnt	0
++	s_bitcmp0_b32	s_tmp1, BARRIER_STATE_VALID_OFFSET
++	s_cbranch_scc1	L_NOT_IN_CLUSTER
++
++	s_bfe_u32	s_tmp2, s_tmp1, (BARRIER_STATE_MEMBER_OFFSET | (BARRIER_STATE_MEMBER_SIZE << 0x10))
++	s_bfe_u32	s_tmp1, s_tmp1, (BARRIER_STATE_SIGNAL_OFFSET | (BARRIER_STATE_SIGNAL_SIZE << 0x10))
++	s_cmp_eq_u32	s_tmp1, s_tmp2
++	s_cbranch_scc1	L_WAIT_USER_CLUSTER_BARRIER_COMPLETE
++end
++L_NOT_IN_CLUSTER:
++#endif
++
+ #else
+ 	s_barrier_signal	-2
+ 	s_barrier_wait	-2
 -- 
 2.34.1
 
