@@ -4,96 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE761D489A8
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 13:49:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA262C2A06C
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 13:53:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DA0610E8A3;
-	Fri, 16 Jan 2026 13:49:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45E1210E89F;
+	Fri, 16 Jan 2026 13:53:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ts+tddMG";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JraaNnca";
 	dkim-atps=neutral
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21AD210E89F
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jan 2026 13:49:48 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-2b1161400afso168445eec.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jan 2026 05:49:48 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1768571387; cv=none;
- d=google.com; s=arc-20240605;
- b=JN8DzDRC62vKMDX9XLhBufXJ+q3C5UY2N4y5erug2Yb8nZHNSEfApBAtWikgM/hSDI
- h7ZtdAew7H8pyCgSXLkm0wufv+K5+vai6ZEpQz0ONcB2Wg4fd0z2w2GaIdqQ2zODPikq
- LE+jdWAMR0jRV5YeGbpapLthUakrhwhs+e8Oyo/Hi3ltueYYmXHzFOQXiuXWAbuw8Uym
- YbaPFHVi0ZdFiJ9nkUP+0T92/5jzX7r9IiTVZOsuSrC5PxVnmk/jAlQyrnGupCKHnOgK
- Va1B/UAtFTfaJqzDSDEh3Fvqea0Pmi0FUq+eyIHVmK/7LqD20Y9eR8cnHnfBRR4o9zpQ
- xfRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Ll8yb0R5czW70goEZYUkAB2u4PjxzyVEJ0d++6iLD0Q=;
- fh=cnvegLCbJ8QNIRzlx/86yofUaKCMEj/sP7T12u9p4ws=;
- b=TEYahwXQvuvfAui1TnjWIygHz0o5Y1DBW+VqNcKBpsqFW2NRD9UG350Zz8yKNDCzTh
- /rqqJv8S1vasWJTLRzdAYQ34VIimUVlJUQvSpL1CrLZ56lpgMTTVPqxjq8cQ/sdlu9Ql
- 5niVkDZDw6Zi4Q3j3ImGwrTgScWMwPL4tnb8m0oQnlfjSkckdMl0jIfzmYc4lCBdy3mE
- wNVQ/kLWaLMZ/e4eI3hq9kWnRgX0vJALrfXWplIeKH30/xmJHJzZj1C5jfHvTh4ZcyCg
- pgJV2EChbOjIDR5Dkc+VghvuZ8NBJ1xKgAMKjSf5s0WrJ76D9Jwl7TO/nMRl02JPe5NL
- jN7Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768571387; x=1769176187; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ll8yb0R5czW70goEZYUkAB2u4PjxzyVEJ0d++6iLD0Q=;
- b=Ts+tddMGG0GMzAY4gueIzgZWfpl93wYaYsfyXzMnoyV/JowK48LaoJqnpGXff+o5qA
- HqaghWHx7pntCBthA1vLJD3/AHcoEk0UPrML7Lz5gJWn42EOw25Vyo5C+CJmitldMFJo
- Rl4s86jE+AoLxCZmBbJqr+FBYoF4NzuEdtymvw3jZuXq/UeM9jzevT3Up9UqHOfmcD/7
- tCgAw7jJmV1NpOaBMK+64JTlIu0fotPCwZic6VLuUjGXcJtZw/F9OeekbrGQA5WXLXVS
- kopexI/iIeVegl89g2/VA1uXNDLC15CUhhsnQHsf88ICFOLsdULXo/xsaVI1ZEM79EIZ
- 2h6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768571387; x=1769176187;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Ll8yb0R5czW70goEZYUkAB2u4PjxzyVEJ0d++6iLD0Q=;
- b=pJ6QN8VY7tEFUMMq498NkLHSBoQQAUj/Lx6CH1pNpF42XDiAgQOHZDAp/J1V/3kdr9
- KYgPWpEEzIYnrxZeeK9qfAtCXxudHPrHsq9v0QHV4TxEqNOhg++Gzxx4uufuLVxstbS8
- Mc04qe4suMXiIxG/AsECIzgqgi9rGABV3IZ3tybcOd5gxLKx65JHH6lipoB0VNG+dr4m
- R0t193HAy3ZoZvUwHZUjA9qE9I80KCVBfWoCTXJ30iyq72JRwuDNQdD8OQmR4EqtlXqs
- BLUsZNaYh4num91VF0mQtZ8Bqs6zqZNn8eSDaSSFn1KC4fW9OoNYVs7wJjQ+VDt52qx6
- ZocA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWDoGRwMKGbU+DRf6ze2CwhqW2cxnKdquwNG4MzNCPW884U7fO8r0cv6yvWoRK4UyYAZQXWobc2@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxwrJWeMVMiG6l5l5+JjTnYze1a+ARWPqigjud9NLFXQ6s48+fF
- b0/WhFGPxh/xK14a+9DK3ntXIYoG40E5iJdnN840h2kDJA+QtA+SBU1fRVjyRbrhfllFdMzRQ/B
- FXqzI9rge8lTbhEIT57oBVko5C1t3RAY=
-X-Gm-Gg: AY/fxX5KqiBCsC4tdfnUEn4gkecIMDIbLF47Wc9Zj61M57LqcBJQnjfvsPcNLMSKzyM
- 4wSc6jm2BujNevZuAuIIwmS72sjI4tpGQMfS++IZLQt7+DuhYv/DocKikzRWSxjV9SDw3+0PRLv
- Tktj2j80rAfmQBadyYwAz3OYs2J6NO3PciwwWCALkrYOie3DsH8NwyzseaIfrr0m98xyVFd9Us9
- /vt2p0h3zlwQPiyORYHyQzc5vyOT6xTy/riFq0amfIniRRRkXN/MucgeJM5PaI5XFBiSn39
-X-Received: by 2002:a05:701b:2502:b0:11e:3e9:3e89 with SMTP id
- a92af1059eb24-1244a7f3784mr1159489c88.7.1768571387331; Fri, 16 Jan 2026
- 05:49:47 -0800 (PST)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5EAD10E89F;
+ Fri, 16 Jan 2026 13:53:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1768571589; x=1800107589;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=DT/E4BgkqYQY28FJUE+qldgJ4WbSC4j4l/OQFFrGl4o=;
+ b=JraaNncalAmbF4+rBmkXcmvU6TUvvnrY4jAfXUcUff5PCqjhyIJTBQ2m
+ tLkCAfeblinDjWoyfOQz8Kx6tCnufF0loEB9/EFjjz0WYzOqpVkx+PTYJ
+ 13jegGlpO08dkBn+VuVqAKc10GvmJmaT3zfCCWW24OhUIlkM+iBJqp3bA
+ 9P6j3RqHJ64jemmGTNVBKjQK9HWvOzZHl9XWsCNrz6eJYaHHnZC/Eb4Ft
+ 5fokDqvJRfAccRuby0WhOzk8Mg0SAtC7jzjFhfmHh3sv1GbNREwtyYp1g
+ iy20lEQJwnxwwd5tbteiCF522rzpduVU3nElsPk9egx6NKH64FgRXVWWM g==;
+X-CSE-ConnectionGUID: lgcVh5eURh6m07DP2AxI4g==
+X-CSE-MsgGUID: SI7Avt+dTXuFSzr2jKaCFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11673"; a="69780858"
+X-IronPort-AV: E=Sophos;i="6.21,231,1763452800"; d="scan'208";a="69780858"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2026 05:53:05 -0800
+X-CSE-ConnectionGUID: 0vHhAGUDQYS0P5v64xPltA==
+X-CSE-MsgGUID: ZigddSHuT9inTQ1M30X5ag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,231,1763452800"; d="scan'208";a="205527646"
+Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
+ by fmviesa008.fm.intel.com with ESMTP; 16 Jan 2026 05:53:01 -0800
+Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vgkG3-00000000Kts-0g2Q;
+ Fri, 16 Jan 2026 13:52:59 +0000
+Date: Fri, 16 Jan 2026 21:52:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, Harry.Wentland@amd.com, simona@ffwll.ch,
+ airlied@gmail.com, jani.nikula@linux.intel.com,
+ ville.syrjala@linux.intel.com, Leo Li <sunpeng.li@amd.com>
+Subject: Re: [PATCH v3 2/2] drm/amd/display: Implement prepare_vblank_enable
+ callback
+Message-ID: <202601162111.x5OKj7WN-lkp@intel.com>
+References: <20260109192027.116325-2-sunpeng.li@amd.com>
 MIME-Version: 1.0
-References: <20260114090056.356633-1-Jesse.Zhang@amd.com>
- <585f1f3e-6e1c-40b6-a7ca-da0e871ffb00@amd.com>
- <CADnq5_ORTuUvfAzRxptnkGpSP6ZyFM7xM2zLtOk-XEqP_jd1qw@mail.gmail.com>
- <DM4PR12MB5152E079374990BF66E5FC88E38CA@DM4PR12MB5152.namprd12.prod.outlook.com>
-In-Reply-To: <DM4PR12MB5152E079374990BF66E5FC88E38CA@DM4PR12MB5152.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 16 Jan 2026 08:49:36 -0500
-X-Gm-Features: AZwV_Qh__7CmVZuZ3D8jXYh8S7UIrDCaXxBPEeU8xF50jb0I17Sypz8BNNcTlnI
-Message-ID: <CADnq5_NHvW5NyNs+s+Sy73w4qGV4Vxp7Dn9-d++r6e7+1kjJWw@mail.gmail.com>
-Subject: Re: [PATCH 1/5] drm/amdgpu/vcn4.0.3: rework reset handling
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
-Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260109192027.116325-2-sunpeng.li@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,206 +72,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 15, 2026 at 10:10=E2=80=AFAM Zhang, Jesse(Jie) <Jesse.Zhang@amd=
-.com> wrote:
->
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Thursday, January 15, 2026 2:14 AM
-> > To: Lazar, Lijo <Lijo.Lazar@amd.com>
-> > Cc: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; amd-gfx@lists.freedesktop.=
-org;
-> > Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>
-> > Subject: Re: [PATCH 1/5] drm/amdgpu/vcn4.0.3: rework reset handling
-> >
-> > On Wed, Jan 14, 2026 at 6:27=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com=
-> wrote:
-> > >
-> > >
-> > >
-> > > On 14-Jan-26 2:29 PM, Jesse.Zhang wrote:
-> > > > From: "Alex Deucher" <alexander.deucher@amd.com>
-> > > >
-> > > > Resetting VCN resets the entire tile, including jpeg.
-> > > > When we reset VCN, we also need to handle the jpeg queues.
-> > > > Add a helper to handle recovering the jpeg queues when VCN is reset=
-.
-> > > >
-> > > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > > > ---
-> > > >   drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c | 11 +++++--
-> > > >   drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c  | 42
-> > ++++++++++++++++++++++--
-> > > >   2 files changed, 49 insertions(+), 4 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> > > > index aae7328973d1..1a32dadf8c5d 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c
-> > > > @@ -1145,13 +1145,20 @@ static int jpeg_v4_0_3_ring_reset(struct
-> > amdgpu_ring *ring,
-> > > >                                 unsigned int vmid,
-> > > >                                 struct amdgpu_fence *timedout_fence=
-)
-> > > >   {
-> > > > +     struct amdgpu_device *adev =3D ring->adev;
-> > > > +     struct amdgpu_vcn_inst *vinst =3D &adev->vcn.inst[ring->me];
-> > > > +     int r;
-> > > > +
-> > > >       if (amdgpu_sriov_vf(ring->adev))
-> > > >               return -EOPNOTSUPP;
-> > > > -
-> > > > +     /* take the vcn reset mutex here because resetting VCN will r=
-eset jpeg as
-> > well */
-> > > > +     mutex_lock(&vinst->engine_reset_mutex);
-> > > >       amdgpu_ring_reset_helper_begin(ring, timedout_fence);
-> > > >       jpeg_v4_0_3_core_stall_reset(ring);
-> > > >       jpeg_v4_0_3_start_jrbc(ring);
-> > > > -     return amdgpu_ring_reset_helper_end(ring, timedout_fence);
-> > > > +     r =3D amdgpu_ring_reset_helper_end(ring, timedout_fence);
-> > > > +     mutex_unlock(&vinst->engine_reset_mutex);
-> > > > +     return r;
-> > > >   }
-> > > >
-> > > >   static const struct amd_ip_funcs jpeg_v4_0_3_ip_funcs =3D { diff
-> > > > --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> > > > b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> > > > index cb7123ec1a5d..31d93c10dfb1 100644
-> > > > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> > > > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c
-> > > > @@ -1596,6 +1596,32 @@ static void vcn_v4_0_3_unified_ring_set_wptr=
-(struct
-> > amdgpu_ring *ring)
-> > > >       }
-> > > >   }
-> > > >
-> > > > +static int vcn_v4_0_3_reset_jpeg_helper(struct amdgpu_device *adev=
-,
-> > > > +                                     int inst) {
-> > > > +     struct amdgpu_ring *ring;
-> > > > +     int i, r;
-> > > > +
-> > > > +     for (i =3D 0; i < adev->jpeg.num_jpeg_rings; ++i) {
-> > > > +             ring =3D &adev->jpeg.inst[inst].ring_dec[i];
-> > > > +             drm_sched_wqueue_stop(&ring->sched);
-> > > > +             amdgpu_fence_driver_force_completion(ring);
-> > > > +             if (ring->use_doorbell)
-> > > > +                     WREG32_SOC15_OFFSET(
-> > > > +                             VCN, GET_INST(VCN, inst),
-> > > > +                             regVCN_JPEG_DB_CTRL,
-> > > > +                             (ring->pipe ? (ring->pipe - 0x15) : 0=
-),
-> > > > +                             ring->doorbell_index
-> > > > +                             << VCN_JPEG_DB_CTRL__OFFSET__SHIFT |
-> > > > +                             VCN_JPEG_DB_CTRL__EN_MASK);
-> > > > +             r =3D amdgpu_ring_test_helper(ring);
-> > > > +             if (r)
-> > > > +                     return r;
-> > > > +             drm_sched_wqueue_start(&ring->sched);
-> > > > +     }
-> > > > +     return 0;
-> > > > +}
-> > > > +
-> > > >   static int vcn_v4_0_3_ring_reset(struct amdgpu_ring *ring,
-> > > >                                unsigned int vmid,
-> > > >                                struct amdgpu_fence *timedout_fence)
-> > > > @@ -1605,6 +1631,9 @@ static int vcn_v4_0_3_ring_reset(struct amdgp=
-u_ring
-> > *ring,
-> > > >       struct amdgpu_device *adev =3D ring->adev;
-> > > >       struct amdgpu_vcn_inst *vinst =3D &adev->vcn.inst[ring->me];
-> > > >
-> > > > +     /* take the vcn reset mutex here because resetting VCN will r=
-eset jpeg as
-> > well */
-> > > > +     mutex_lock(&vinst->engine_reset_mutex);
-> > > > +
-> > > >       amdgpu_ring_reset_helper_begin(ring, timedout_fence);
-> > > >
-> > > >       vcn_inst =3D GET_INST(VCN, ring->me); @@ -1612,7 +1641,7 @@
-> > > > static int vcn_v4_0_3_ring_reset(struct amdgpu_ring *ring,
-> > > >
-> > > >       if (r) {
-> > > >               DRM_DEV_ERROR(adev->dev, "VCN reset fail : %d\n", r);
-> > > > -             return r;
-> > > > +             goto unlock;
-> > > >       }
-> > > >
-> > > >       /* This flag is not set for VF, assumed to be disabled always
-> > > > */ @@ -1621,7 +1650,16 @@ static int vcn_v4_0_3_ring_reset(struct
-> > amdgpu_ring *ring,
-> > > >       vcn_v4_0_3_hw_init_inst(vinst);
-> > > >       vcn_v4_0_3_start_dpg_mode(vinst,
-> > > > adev->vcn.inst[ring->me].indirect_sram);
-> > > >
-> > > > -     return amdgpu_ring_reset_helper_end(ring, timedout_fence);
-> > > > +     r =3D amdgpu_ring_reset_helper_end(ring, timedout_fence);
-> > > > +     if (r)
-> > > > +             goto unlock;
-> > > > +
-> > > > +     r =3D vcn_v4_0_3_reset_jpeg_helper(adev, ring->me);
-> > >
-> > > This doesn't seem to handle any ongoing jpeg activity before doing a
-> > > vcn reset. Is that fine?
-> >
-> > We could split the helper in two, in the top helper we can stop the sch=
-ed workqueues
-> > and attempt to wait for any outstanding fences. Then in the bottom help=
-er, we can
-> > force completion, re-init the rings, and restart the sched workqueues. =
- With the patch
-> > as is, any outstanding job fences would be marked with an error, and si=
-gnalled so
-> > userspace would see their jobs lost.
-> [Zhang, Jesse(Jie)]   Is it possible to back up these commands in the top=
- helper ?
-> This would avoid waiting for any unfinished fence synchronization.
-> Because these commands might time out.
+Hi,
 
-Not really if you want to salvage any currently active jobs.  Any jobs
-that are already running either need to wait for completion or you
-need to stop the queue and set error on the fence.  You could add a
-function to try and salvage the unprocessed jobs, but the one(s)
-already on the hardware would have to be lost.
+kernel test robot noticed the following build errors:
 
-Alex
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-tip/drm-tip next-20260115]
+[cannot apply to drm-i915/for-linux-next drm-i915/for-linux-next-fixes linus/master v6.19-rc5]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> static int vcn_v4_0_3_reset_jpeg_pre_helper(struct amdgpu_device *adev, i=
-nt inst)
-> {
->         ...
->         for (i =3D 0; i < adev->jpeg.num_jpeg_rings; ++i) {
->                 ring =3D &adev->jpeg.inst[inst].ring_dec[i];
->
->                 drm_sched_wqueue_stop(&ring->sched);
->                 /* back up the non-guilty commands */
->                 amdgpu_ring_backup_unprocessed_commands(ring, guilty_fenc=
-e);
->
->        }
-> }
-> Thanks
-> Jesse.
->
-> >
-> > Alex
-> >
-> > >
-> > > Thanks,
-> > > Lijo
-> > >
-> > > > +
-> > > > +unlock:
-> > > > +     mutex_unlock(&vinst->engine_reset_mutex);
-> > > > +
-> > > > +     return r;
-> > > >   }
-> > > >
-> > > >   static const struct amdgpu_ring_funcs
-> > > > vcn_v4_0_3_unified_ring_vm_funcs =3D {
-> > >
+url:    https://github.com/intel-lab-lkp/linux/commits/sunpeng-li-amd-com/drm-amd-display-Implement-prepare_vblank_enable-callback/20260110-032355
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260109192027.116325-2-sunpeng.li%40amd.com
+patch subject: [PATCH v3 2/2] drm/amd/display: Implement prepare_vblank_enable callback
+config: csky-allmodconfig (https://download.01.org/0day-ci/archive/20260116/202601162111.x5OKj7WN-lkp@intel.com/config)
+compiler: csky-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260116/202601162111.x5OKj7WN-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202601162111.x5OKj7WN-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   In file included from include/linux/preempt.h:11,
+                    from include/linux/spinlock.h:56,
+                    from include/drm/drm_crtc.h:28,
+                    from drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_crc.c:27:
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_crc.c: In function 'amdgpu_dm_crtc_set_crc_source':
+>> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_crc.c:659:38: error: 'dm' undeclared (first use in this function); did you mean 'dc'?
+     659 |                 scoped_guard(mutex, &dm->dc_lock) {
+         |                                      ^~
+   include/linux/cleanup.h:433:34: note: in definition of macro '__scoped_guard'
+     433 |         for (CLASS(_name, scope)(args);                                 \
+         |                                  ^~~~
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_crc.c:659:17: note: in expansion of macro 'scoped_guard'
+     659 |                 scoped_guard(mutex, &dm->dc_lock) {
+         |                 ^~~~~~~~~~~~
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_crc.c:659:38: note: each undeclared identifier is reported only once for each function it appears in
+     659 |                 scoped_guard(mutex, &dm->dc_lock) {
+         |                                      ^~
+   include/linux/cleanup.h:433:34: note: in definition of macro '__scoped_guard'
+     433 |         for (CLASS(_name, scope)(args);                                 \
+         |                                  ^~~~
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_crc.c:659:17: note: in expansion of macro 'scoped_guard'
+     659 |                 scoped_guard(mutex, &dm->dc_lock) {
+         |                 ^~~~~~~~~~~~
+
+
+vim +659 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_crc.c
+
+   542	
+   543	int amdgpu_dm_crtc_set_crc_source(struct drm_crtc *crtc, const char *src_name)
+   544	{
+   545		enum amdgpu_dm_pipe_crc_source source = dm_parse_crc_source(src_name);
+   546		enum amdgpu_dm_pipe_crc_source cur_crc_src;
+   547		struct drm_crtc_commit *commit;
+   548		struct dm_crtc_state *crtc_state;
+   549		struct drm_device *drm_dev = crtc->dev;
+   550	#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+   551		struct amdgpu_device *adev = drm_to_adev(drm_dev);
+   552		struct amdgpu_display_manager *dm = &adev->dm;
+   553	#endif
+   554		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
+   555		struct drm_dp_aux *aux = NULL;
+   556		bool enable = false;
+   557		bool enabled = false;
+   558		int ret = 0;
+   559	
+   560		if (source < 0) {
+   561			DRM_DEBUG_DRIVER("Unknown CRC source %s for CRTC%d\n",
+   562					 src_name, crtc->index);
+   563			return -EINVAL;
+   564		}
+   565	
+   566		ret = drm_modeset_lock(&crtc->mutex, NULL);
+   567		if (ret)
+   568			return ret;
+   569	
+   570		spin_lock(&crtc->commit_lock);
+   571		commit = list_first_entry_or_null(&crtc->commit_list,
+   572						  struct drm_crtc_commit, commit_entry);
+   573		if (commit)
+   574			drm_crtc_commit_get(commit);
+   575		spin_unlock(&crtc->commit_lock);
+   576	
+   577		if (commit) {
+   578			/*
+   579			 * Need to wait for all outstanding programming to complete
+   580			 * in commit tail since it can modify CRC related fields and
+   581			 * hardware state. Since we're holding the CRTC lock we're
+   582			 * guaranteed that no other commit work can be queued off
+   583			 * before we modify the state below.
+   584			 */
+   585			ret = wait_for_completion_interruptible_timeout(
+   586				&commit->hw_done, 10 * HZ);
+   587			if (ret)
+   588				goto cleanup;
+   589		}
+   590	
+   591		enable = amdgpu_dm_is_valid_crc_source(source);
+   592		crtc_state = to_dm_crtc_state(crtc->state);
+   593		spin_lock_irq(&drm_dev->event_lock);
+   594		cur_crc_src = acrtc->dm_irq_params.crc_src;
+   595		spin_unlock_irq(&drm_dev->event_lock);
+   596	
+   597		/*
+   598		 * USER REQ SRC | CURRENT SRC | BEHAVIOR
+   599		 * -----------------------------
+   600		 * None         | None        | Do nothing
+   601		 * None         | CRTC        | Disable CRTC CRC, set default to dither
+   602		 * None         | DPRX        | Disable DPRX CRC, need 'aux', set default to dither
+   603		 * None         | CRTC DITHER | Disable CRTC CRC
+   604		 * None         | DPRX DITHER | Disable DPRX CRC, need 'aux'
+   605		 * CRTC         | XXXX        | Enable CRTC CRC, no dither
+   606		 * DPRX         | XXXX        | Enable DPRX CRC, need 'aux', no dither
+   607		 * CRTC DITHER  | XXXX        | Enable CRTC CRC, set dither
+   608		 * DPRX DITHER  | XXXX        | Enable DPRX CRC, need 'aux', set dither
+   609		 */
+   610		if (dm_is_crc_source_dprx(source) ||
+   611		    (source == AMDGPU_DM_PIPE_CRC_SOURCE_NONE &&
+   612		     dm_is_crc_source_dprx(cur_crc_src))) {
+   613			struct amdgpu_dm_connector *aconn = NULL;
+   614			struct drm_connector *connector;
+   615			struct drm_connector_list_iter conn_iter;
+   616	
+   617			drm_connector_list_iter_begin(crtc->dev, &conn_iter);
+   618			drm_for_each_connector_iter(connector, &conn_iter) {
+   619				if (!connector->state || connector->state->crtc != crtc)
+   620					continue;
+   621	
+   622				if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
+   623					continue;
+   624	
+   625				aconn = to_amdgpu_dm_connector(connector);
+   626				break;
+   627			}
+   628			drm_connector_list_iter_end(&conn_iter);
+   629	
+   630			if (!aconn) {
+   631				DRM_DEBUG_DRIVER("No amd connector matching CRTC-%d\n", crtc->index);
+   632				ret = -EINVAL;
+   633				goto cleanup;
+   634			}
+   635	
+   636			aux = (aconn->mst_output_port) ? &aconn->mst_output_port->aux : &aconn->dm_dp_aux.aux;
+   637	
+   638			if (!aux) {
+   639				DRM_DEBUG_DRIVER("No dp aux for amd connector\n");
+   640				ret = -EINVAL;
+   641				goto cleanup;
+   642			}
+   643	
+   644			if ((aconn->base.connector_type != DRM_MODE_CONNECTOR_DisplayPort) &&
+   645					(aconn->base.connector_type != DRM_MODE_CONNECTOR_eDP)) {
+   646				DRM_DEBUG_DRIVER("No DP connector available for CRC source\n");
+   647				ret = -EINVAL;
+   648				goto cleanup;
+   649			}
+   650	
+   651		}
+   652	
+   653		/*
+   654		 * Reading the CRC requires the vblank interrupt handler to be
+   655		 * enabled. Keep a reference until CRC capture stops.
+   656		 */
+   657		enabled = amdgpu_dm_is_valid_crc_source(cur_crc_src);
+   658		if (!enabled && enable) {
+ > 659			scoped_guard(mutex, &dm->dc_lock) {
+   660				dc_exit_ips_for_hw_access(dm->dc);
+   661				ret = drm_crtc_vblank_get(crtc);
+   662			}
+   663	
+   664			if (ret)
+   665				goto cleanup;
+   666		}
+   667	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
