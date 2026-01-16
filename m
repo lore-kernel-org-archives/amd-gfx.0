@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F41F1C982D8
-	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 16:20:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 601BAC982D7
+	for <amd-gfx@archiver.kernel.org>; Fri, 16 Jan 2026 16:20:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D1EA10E8DF;
-	Fri, 16 Jan 2026 16:20:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF37C10E8DE;
+	Fri, 16 Jan 2026 16:20:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tZaDX5Sx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="otx7m/JU";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012046.outbound.protection.outlook.com [52.101.48.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3298610E8DF
- for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jan 2026 16:20:55 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010019.outbound.protection.outlook.com [52.101.85.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5402910E8DC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 16 Jan 2026 16:20:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hty/oPMbdWQvOGrzVpXDWV6XaTYf25HQQQdXmCeucT5FXO8wE9C/oBRL90DGOpRyctUS6fzyXN5Y0Z3V5ZtegROsgzzC+W9Tji0tE56sdqsAWq0fGT0U+rzw32OKBAZVKRv9frgJGbWDHE0rFtpKQkg8QwEQZsI/Rubw09lLnRJOqhmwEAW8ihBUeO2X4mH40ihR3Pk74krIkRCxeztioLoR8SP2slGSuInvvv4FAFobaCgEmP15BT1vLaT81yeLd5qCAiBgB8SwLv/KDjJAHSAA1oanewsVjoBZCAoayrLHPaCtWAeYio07vP57xCfoH+fzp1JZd81oEDV+EfU+yw==
+ b=y/C028o/2fHmjH4VvJM2g9Kypk8BDPjzP219DHZTIwsdQIrdS8QmAz3Vn2HH+3qNSkJ+7L6M1vgNlClT488CPq5VCnKpG7U+8bFBWBSBFwHwuc9KWura+epz1DMcKgN5llt5Q6CiJXLtXRDoOFit1TGfMA2GjtJPOb30NDGXNXV7FUs0089yScB5T3MubcEz7zmVEq62g1MU9aX2DX/D5pNGZyCdtz6olpvVQXJei4u5evGw3VSEPGmcUhqtK8J430rp5IlJvxRV6JKmtrt7DMMHO8+HY9MOVzmYe8ctwy5LkEVjg7ngsth128vkB8QTF0Hyr7mSDhoFxUCxi0k3dQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6YS7Oir2ORtvZ8vBE/hm9iJqTyNl0yjEdINvmbUVHmU=;
- b=YyUT8ENjQTqn73OxF9o/5jO1k6e+uKEimejcdg8go03fql5Fmo20QI8LsHLGBYSipvLNVfWR/xTRbhc78FUp3yeiyrh6JUTXknEeM9KpLepFhJof2oHdrRq8AMXC6GTRFsvQDIgOX+0hOalNfZEFeJvBRtV44pIhGPP54hjZ9tzUzDx7VKpyChR9RVSXKyQuK3mERwB/j0uXkltqrvIbSosQK09yBTsj7NyiQkHeXqY3gEqED2qq6n4LMO2wW2Wv+ZQRELLyLEO8sBM29+cdVtMgU32rotHELItzq6uJjMgVCfRFN4743A63bx+PcbiB9sA4w6P+HDJ7b9KotncYhA==
+ bh=0GgcjLxHL1K/YacKOEWv3bHI7jICjEBiqnQ3Ro+gYSg=;
+ b=rHTzCnKRsvTrV85Gft8pHscsYxa20oI3qASvX5PcA4iuvMfnH97cXOpXQCeUl15R+JFB3HnBP6+HyC3R+ZOfK95FnpbSwrfzXNf3zgyNo0eHsE/f7zUEwL/3YD75j063vnzL0FnzXp6tVElarzoJXkqI57lRFA/11IDKY9OKzmFkaNUxzhbzqf8x2KO5hPlCd97ia5B/GSEPUpSzOtkAKC8Cs00/jd3iICiuZRA5edoR5gp+Ro4s0Lu2xZxX35C9onmcsKmXVPFubzZ3YJ7t0VUasUhKskjmPzbqtcTQA7Nm1P0BHVab8Sg4vJgRsGHLmb3uYDQVa0O+gJ/eBSDpaw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6YS7Oir2ORtvZ8vBE/hm9iJqTyNl0yjEdINvmbUVHmU=;
- b=tZaDX5Sx6OvJie46M6H16fRE+JMexg62DVi4HZ+kjAxyOOx/6QmfShRkFgzGcICzZXPcMnH42AbLPoBsXaJWosnq3FlJxZm3rVX+BepPUPD7eP+yTD1yciPBT7oBpJKidMJBl9BCc0xLMSmxKQyqnDtL3YTbRBOZ+ygHMn3tP6k=
-Received: from BL1PR13CA0337.namprd13.prod.outlook.com (2603:10b6:208:2c6::12)
- by SA1PR12MB8723.namprd12.prod.outlook.com (2603:10b6:806:385::12)
+ bh=0GgcjLxHL1K/YacKOEWv3bHI7jICjEBiqnQ3Ro+gYSg=;
+ b=otx7m/JUDr2S5Zq7TcL/37/i80F7aePt4spGMzEeJW7ejbbYdLjypZDsGdfZFMkC8ALm+O/zvxLaBNgcBObVEv0GPYaIzzqeo8vzqVdNmofBOGMO3pJEDP0tSgbzB5F9B4hYb/+AnsK7XBgcQ+UwQV3s4HRSfXaPFPhOGetrBqQ=
+Received: from BL1PR13CA0338.namprd13.prod.outlook.com (2603:10b6:208:2c6::13)
+ by MW4PR12MB7429.namprd12.prod.outlook.com (2603:10b6:303:21b::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Fri, 16 Jan
- 2026 16:20:48 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.6; Fri, 16 Jan
+ 2026 16:20:44 +0000
 Received: from BL02EPF0001A0FF.namprd03.prod.outlook.com
- (2603:10b6:208:2c6:cafe::ff) by BL1PR13CA0337.outlook.office365.com
- (2603:10b6:208:2c6::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.4 via Frontend Transport; Fri,
- 16 Jan 2026 16:20:45 +0000
+ (2603:10b6:208:2c6:cafe::f5) by BL1PR13CA0338.outlook.office365.com
+ (2603:10b6:208:2c6::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.4 via Frontend Transport; Fri,
+ 16 Jan 2026 16:20:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,94 +50,81 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF0001A0FF.mail.protection.outlook.com (10.167.242.106) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.4 via Frontend Transport; Fri, 16 Jan 2026 16:20:47 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ 15.20.9542.4 via Frontend Transport; Fri, 16 Jan 2026 16:20:44 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 16 Jan
- 2026 10:20:44 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 16 Jan
- 2026 10:20:44 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 16 Jan
+ 2026 10:20:42 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 16 Jan
+ 2026 10:20:42 -0600
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 16 Jan 2026 10:20:44 -0600
+ Transport; Fri, 16 Jan 2026 10:20:42 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH 08/10] drm/amdgpu: plumb timedout fence through to force
- completion
-Date: Fri, 16 Jan 2026 11:20:25 -0500
-Message-ID: <20260116162027.21550-9-alexander.deucher@amd.com>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 04/10] drm/amdgpu: switch all IPs to using job for IBs
+Date: Fri, 16 Jan 2026 11:20:21 -0500
+Message-ID: <20260116162027.21550-5-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260116162027.21550-1-alexander.deucher@amd.com>
 References: <20260116162027.21550-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
- designate permitted sender hosts)
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|SA1PR12MB8723:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a8b11c5-abc4-4f05-af12-08de551b3535
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FF:EE_|MW4PR12MB7429:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc2d99fa-8f83-4d36-be92-08de551b333d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?R2dXR1RhVWlmNnhmbGhoVTVBY2luYlBVWUNKNkhwMnNPL2tCVDYzeEpaSjFv?=
- =?utf-8?B?NHVacTRIUnJCWkZDM2dTWGxnTDFDcFplVElJZW53S205bkh3L3ZMckEyc1pi?=
- =?utf-8?B?dEN1dXduYTBTNFpObVFXWWZFclhiRldvTVZ3U0VlWG55QXhxdDZ1Q3lwN3Ra?=
- =?utf-8?B?eDhEYjF2YXR6d2lEOUFVdWJrekVjMnNtU1RXazloNmVHTmVXSTNMRms1dzlj?=
- =?utf-8?B?UkhSM2Iyc3ZBWk45d213ZExkOWd5cjRKR28zN2dVeWJKZlFacVFrbW9GdmxR?=
- =?utf-8?B?OWFFWUp2REhzWkxsT09xa1pTdG5FNXlDSllsbThLQTNzNlJnN0puWmd1c3Vm?=
- =?utf-8?B?OHVnQm91WUxPYkZlQ1VpeEV2SmlPZ3pjUjRtTUh5KzBxUEI4NUphclVQTVZn?=
- =?utf-8?B?R3h4aE80dVZ6SW9qUk5VKzZvTTcveDFJVWd5bURoTE1IZmVvTUJGdGZyVEI1?=
- =?utf-8?B?VmIwclFhQ2tiRGJOc3pwbUFIcUQxdHlraWFpMVlvMnZYbFRzMnBJMk9kd1lH?=
- =?utf-8?B?NnRBbDJLaWlMQ0xWVVdCWTRobEJWVjBTc3pzbXJNZ1ozd21rK0VwdDVKdjZL?=
- =?utf-8?B?ZWhaQW9OWDZhckk3WC94RnI3eE9HOHkraHB0cDhtT3lRS05YNE1iUzdwQkY3?=
- =?utf-8?B?SldqSkhoVTcyRkNJanNkbkcrbGM5STBzSytzZ094NTNnODBSdk5vTnZvamtM?=
- =?utf-8?B?L1lGRVgyQ2pZR1d5QmVlaGpFZk84eThSOHh0R2wreDZLV3BNK0c3d1ZTdWpI?=
- =?utf-8?B?cks5TkZ5dU1JTGxOMWk3TkdNN042WE12VDg5QkludUlZWG9ZMzNzeldtVGVx?=
- =?utf-8?B?R3IzOURCdG1KMm90V2YxTVFMNWhmajdSK2loK3BFc05NVENGelRrejQrZldw?=
- =?utf-8?B?V1NXSlFPaERMb1o5dEtWM2pNY1pkMW0yZzhoWUZDYTNmcHorMUV3dWRDcGNG?=
- =?utf-8?B?bjhUNjF1ZFVKYkxPdk1JbmV0RnhQSkNBVjc5dGFZQUx5TmEwdlFaZ28xQVQ1?=
- =?utf-8?B?Vjlvam1KL1dkbWZiNHQzbTIyemh4WFFTbVRPZk4vclR3UmVBSnF4Z1VRNGQ3?=
- =?utf-8?B?QldRSmtXS2FseHZuK3Vmek9EZUp0OXArSzFJWjAwcTNuZ3YxRlV4aWxtRGhJ?=
- =?utf-8?B?OWJaelJqbXIweG85Tmx6UHZKajZoZDdYdTlVbFY4ZmJqbytrdU16UW85ZEtk?=
- =?utf-8?B?MVdkVFR2V1Rra3kwVml4U3U2dWp1bEw3VTZSYUZsQkFtU1I5MGk1MmJsbzBB?=
- =?utf-8?B?NFJ3UEpzN0dOeUtwWllkdVNpUzdHZmNFTnRlN056NHFwaGpLcUhLVHRNZEh0?=
- =?utf-8?B?MUpHMWtJYkNtNktxWitWbStYSFNsN3YzTXlRMmRpdnBUSmR2SmtDVE1uQkhU?=
- =?utf-8?B?OEtWZjBOVGEremc5YTFSbndDU2xHZ0V6UTA4elVoQktTaElpSkhKdkJSdmZD?=
- =?utf-8?B?ek5STHNuMENJZ2Vkd3VvRnAvMk5pN3lYOGZMcHAyaExTTFVRb3JGZWZsN0xl?=
- =?utf-8?B?ZW1SY3ZNemozM1c1WlpCR3hFV3M5S2ttdTFIQjJ4UEpkTnhOeFdnR0QzUlY5?=
- =?utf-8?B?UkU4Q3Uzck5TbWpkTytVMlJiaGdVRWZMWExpNXZEaVJDcytxTzlJR0FzcDJK?=
- =?utf-8?B?aGx4TnlNbFU5QVZVbFhLVC80c2F4MFgrbFcrSUN2MEZYcnBBNEtQV244R0Zy?=
- =?utf-8?B?UU5sU0pTTldvZzN3U0ZzVzJQKzVyMUlhL1czdklQV2ZZSW9PVGRxWEx0Zm9h?=
- =?utf-8?B?UUVnMEU3c1ZTdXdxL1hzRlN1TVpvb1NRMmxUTjZjcjJ3dDN2Q2hkNWRPM0p6?=
- =?utf-8?B?aGNxYUlrT0hrM1UwaDdoZE52SXZENWN3NjQvcytKVE9oRDZWQmhJSjFiWFJz?=
- =?utf-8?B?eWR1RFNLY0p0Si9XdFdOa3RaUkI4bHBVSE1vV0Y0dXNMeHlTUG9zRXd5Q1o2?=
- =?utf-8?B?cFhLWEdnclp4MFlPYjIzcThlTUoyN0E3SThvbHIybTFyUzhvTkdPQ21VRmpm?=
- =?utf-8?B?VFNBS2UzN1ZIRW93VVZXSnVMdFUwQXRTTDRsYStVcnVKZStxY0ROamdCZU9G?=
- =?utf-8?B?MlUybTA5b1JjcWY4RkZTTE0wY2EzTVZsUGNjemhZcEdseDBSTnU2VzgydVdl?=
- =?utf-8?B?dFYrelg0c2g4UWNYWmp4c3JORVRZVlpjU1NFeG8rRW04MzVybnZ0Ylppdmk3?=
- =?utf-8?B?UFZ5UUVlcVE0aTVtd2VwVEw3SzcwRXY4U1JOc1hUR20vMlk4RFlwK1padm5j?=
- =?utf-8?B?UjgzQVRXWXI2UkRHcmpIR0JONFd3PT0=?=
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?L30RlAL5tEVlipkGEVvfGhCBKD6wzkCzwMoCcdAaYVNn5rHAvjqc98sR+o1U?=
+ =?us-ascii?Q?uUipHh/XsHQI8F9Z/N+4McB7V/cpHf1RBZvqiX7VLlJ42pRNseXDqgOfT+7e?=
+ =?us-ascii?Q?zIN7GTCyhyATx+9gVWhnHSTtIHDGoqx0kz8g9CiE0RSJ4v1HqtlsBEDwfsdl?=
+ =?us-ascii?Q?yXDcrypOZZYo02QkaySuxVVxPNZrd1TQoCZVQuawfvdxJJ3ee/XNEMa2eUBj?=
+ =?us-ascii?Q?3X9WSRyCol2d/rBQQ64RRQx/upW58x1Qe0lhK0VmYXTwZ7wE6ger3URxJKS1?=
+ =?us-ascii?Q?nraaCRNWAYR6f/YKNDaLEoJ4S0hqlaBlgpYPD9fmq/MjBVkruOZpDgBC5SUA?=
+ =?us-ascii?Q?OBUO84MnU54yYjfd2E2+9kFofTdYJhA9iPIfoNZoPOos9LKfRXz/s10ab0Di?=
+ =?us-ascii?Q?w/xEdjv+ap7pOShDOhsTnQ5uZuSKSmBmAzyN68AGyTECWhYVl006S3WReTME?=
+ =?us-ascii?Q?X6BJwBX/E7S8TIUY/IktxJnxRI8oi2mHOUJuBFUeP22NQQ9u7W3Wrcu3H88R?=
+ =?us-ascii?Q?ivppee58zPb2ofO1YmkP+9MTiHhHrEU/5rcpCVkw6CGcS0AVBzM6nkJnLtt7?=
+ =?us-ascii?Q?VLrd3cWQNiAY3sEnr9F0oAElS5faTL6QcJL6QvvLvGNpt730FAVJ+4SkTbui?=
+ =?us-ascii?Q?1zwvnVt8I0CkopRURsqwUlpaQNEA1tg6CZ8UUz2jJRtGqZ5LMdtVC+YkqKTJ?=
+ =?us-ascii?Q?LlI1nQS7HFPDAyf1VLCaQgi02UM5MizOaK4eDXwElA9hpoymWUA1zVX3qgfv?=
+ =?us-ascii?Q?kYh/0OrQAnJVUX/DdHhGfH31uuzrfOO5W47jhz89MCKM8fPdOxpoVhyG2D7H?=
+ =?us-ascii?Q?2M8BG0Y1CPRNpL0A9En1Y3akgQ/F2LH0MJJsTujWnajsYqsIlSixHZZ/CWFW?=
+ =?us-ascii?Q?T1h3nI4U0ZmM3mfsRthJ2UsjceDhg8IM8AROP/LJEIGiaH1OUOOkr/7q9usz?=
+ =?us-ascii?Q?YXRCM2Wz5fog53V/H5dlvAWMGSSOJZigmf/88BCu0+6LNkgRZ9PLZwEF6USi?=
+ =?us-ascii?Q?/NbFYyv1YZOst2XZjCKG9pOkgmc8CxqPzlxY49YoVN5bMXMUQLCuoIPQvwCd?=
+ =?us-ascii?Q?ZeEJ6jA15hVzjAJA3pZ3OzsuPqj91hoQ71wUkxEauqob27fqU2zwHiQB2jLP?=
+ =?us-ascii?Q?vfrXFpzcFULgghhIvE7vYPTE997DwpM2EdJdVftnGkL/Fxk8o7lRQ+avLiLk?=
+ =?us-ascii?Q?dtse4YOYqnTTivyz2gR9gTGhn3wBRwcwhkHHSSa3lz7hc/OMhnh9bS0GfUsV?=
+ =?us-ascii?Q?Cu7/gpCgbzVPbG8crlg7QrZeZt3Hl60hoZqpLZFZ8RxF0xlk28v5yQPuLmD8?=
+ =?us-ascii?Q?YUWHlqIOwovXBQKcnOvymni1MsgKvTyXoqGvB8MutTcpnmSccX1DK5u8+Yvh?=
+ =?us-ascii?Q?5aWRCbt6/EiUKDWlGcOj5hOQDVYyDqGp/ZkZybaYNKDJVrsxhyH5NZz52K6v?=
+ =?us-ascii?Q?J2VnUt3oDC8SlALMT0J4SVlLnTG2i0tmGrjuLYqaQNwM4GiZg7yJkf/S6Tyh?=
+ =?us-ascii?Q?kdqNmWgPTEL/MOVFvK87orcH9lBD5CHDSzhDlxzHfdcQDEwmqgQzLf57gK8p?=
+ =?us-ascii?Q?axFhwF1FHtNxczYeYElDChnEBe7pReHCMGyIfn7F9TqFnZLgwX/heQf3uh7u?=
+ =?us-ascii?Q?kU6WsfUMKx6XKqGBWZbpOJMBZREORdMgScTB9EnncaF7IfyrZmxAwe6V7t3l?=
+ =?us-ascii?Q?JyO8mQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2026 16:20:47.7931 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a8b11c5-abc4-4f05-af12-08de551b3535
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2026 16:20:44.4902 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc2d99fa-8f83-4d36-be92-08de551b333d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FF.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8723
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7429
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,221 +139,1905 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When we do a full adapter reset, if we know the timedout fence
-mark the fence with -ETIME rather than -ECANCELED so it
-gets properly handled by userspace.
+Switch to using a job structure for IBs.
 
-Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  6 ++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 28 +++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c    |  4 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c     |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c     | 21 ++++++++++------
- 7 files changed, 47 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c  |  37 +++---
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c    |  31 ++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |  29 ++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c   |  29 ++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c   |  29 ++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c   |  29 ++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c    |  24 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c    |  25 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    | 139 ++++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 138 +++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c  |  26 ++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  |  29 ++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   |  38 ++++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   |  38 ++++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   |  38 ++++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c |  38 ++++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  37 +++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  36 +++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  36 +++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |  36 +++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c   |  36 +++---
+ drivers/gpu/drm/amd/amdgpu/si_dma.c      |  29 +++--
+ 22 files changed, 500 insertions(+), 427 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 1f3e52637326b..e36c8e3cfb0f0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1960,7 +1960,7 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 		/* swap out the old fences */
- 		amdgpu_ib_preempt_fences_swap(ring, fences);
- 
--		amdgpu_fence_driver_force_completion(ring);
-+		amdgpu_fence_driver_force_completion(ring, NULL);
- 
- 		/* resubmit unfinished jobs */
- 		amdgpu_ib_preempt_job_recovery(&ring->sched);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 70faf914b4f0b..2daf8cd55e74f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5792,6 +5792,7 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+index fd881388d6125..9fb1946be1ba2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c
+@@ -817,7 +817,8 @@ static int vpe_ring_test_ib(struct amdgpu_ring *ring, long timeout)
  {
- 	int i, r = 0;
- 	struct amdgpu_job *job = NULL;
-+	struct dma_fence *fence = NULL;
- 	struct amdgpu_device *tmp_adev = reset_context->reset_req_dev;
- 	bool need_full_reset =
- 		test_bit(AMDGPU_NEED_FULL_RESET, &reset_context->flags);
-@@ -5804,6 +5805,9 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 	struct amdgpu_device *adev = ring->adev;
+ 	const uint32_t test_pattern = 0xdeadbeef;
+-	struct amdgpu_ib ib = {};
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	uint32_t index;
+ 	uint64_t wb_addr;
+@@ -832,23 +833,28 @@ static int vpe_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	adev->wb.wb[index] = 0;
+ 	wb_addr = adev->wb.gpu_addr + (index * 4);
  
- 	amdgpu_fence_driver_isr_toggle(adev, true);
- 
-+	if (job)
-+		fence = &job->hw_fence->base;
-+
- 	/* block all schedulers and reset given job's ring */
- 	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
- 		struct amdgpu_ring *ring = adev->rings[i];
-@@ -5812,7 +5816,7 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
- 			continue;
- 
- 		/* after all hw jobs are reset, hw fence is meaningless, so force_completion */
--		amdgpu_fence_driver_force_completion(ring);
-+		amdgpu_fence_driver_force_completion(ring, fence);
- 	}
- 
- 	amdgpu_fence_driver_isr_toggle(adev, false);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index c7a2dff33d80b..d48f61076c06a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -568,7 +568,7 @@ void amdgpu_fence_driver_hw_fini(struct amdgpu_device *adev)
- 			r = -ENODEV;
- 		/* no need to trigger GPU reset as we are unloading */
- 		if (r)
--			amdgpu_fence_driver_force_completion(ring);
-+			amdgpu_fence_driver_force_completion(ring, NULL);
- 
- 		if (!drm_dev_is_unplugged(adev_to_drm(adev)) &&
- 		    ring->fence_drv.irq_src &&
-@@ -683,16 +683,34 @@ void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error)
-  * amdgpu_fence_driver_force_completion - force signal latest fence of ring
-  *
-  * @ring: fence of the ring to signal
-+ * @timedout_fence: fence of the timedout job
-  *
-  */
--void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring)
-+void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring,
-+					  struct dma_fence *timedout_fence)
- {
--	amdgpu_fence_driver_set_error(ring, -ECANCELED);
-+	struct amdgpu_fence_driver *drv = &ring->fence_drv;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&drv->lock, flags);
-+	for (unsigned int i = 0; i <= drv->num_fences_mask; ++i) {
-+		struct dma_fence *fence;
-+
-+		fence = rcu_dereference_protected(drv->fences[i],
-+						  lockdep_is_held(&drv->lock));
-+		if (fence && !dma_fence_is_signaled_locked(fence)) {
-+			if (fence == timedout_fence)
-+				dma_fence_set_error(fence, -ETIME);
-+			else
-+				dma_fence_set_error(fence, -ECANCELED);
-+		}
-+	}
-+	spin_unlock_irqrestore(&drv->lock, flags);
-+
- 	amdgpu_fence_write(ring, ring->fence_drv.sync_seq);
- 	amdgpu_fence_process(ring);
- }
- 
+-	ret = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
++	ret = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				       AMDGPU_IB_POOL_DIRECT, &job,
++				       AMDGPU_KERNEL_JOB_ID_VPE_RING_TEST);
+ 	if (ret)
+ 		goto err0;
 -
- /*
-  * Kernel queue reset handling
-  *
-@@ -753,7 +771,7 @@ void amdgpu_fence_driver_update_timedout_fence_state(struct amdgpu_fence *af)
+-	ib.ptr[0] = VPE_CMD_HEADER(VPE_CMD_OPCODE_FENCE, 0);
+-	ib.ptr[1] = lower_32_bits(wb_addr);
+-	ib.ptr[2] = upper_32_bits(wb_addr);
+-	ib.ptr[3] = test_pattern;
+-	ib.ptr[4] = VPE_CMD_HEADER(VPE_CMD_OPCODE_NOP, 0);
+-	ib.ptr[5] = VPE_CMD_HEADER(VPE_CMD_OPCODE_NOP, 0);
+-	ib.ptr[6] = VPE_CMD_HEADER(VPE_CMD_OPCODE_NOP, 0);
+-	ib.ptr[7] = VPE_CMD_HEADER(VPE_CMD_OPCODE_NOP, 0);
+-	ib.length_dw = 8;
+-
+-	ret = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (ret)
++	ib = &job->ibs[0];
++
++	ib->ptr[0] = VPE_CMD_HEADER(VPE_CMD_OPCODE_FENCE, 0);
++	ib->ptr[1] = lower_32_bits(wb_addr);
++	ib->ptr[2] = upper_32_bits(wb_addr);
++	ib->ptr[3] = test_pattern;
++	ib->ptr[4] = VPE_CMD_HEADER(VPE_CMD_OPCODE_NOP, 0);
++	ib->ptr[5] = VPE_CMD_HEADER(VPE_CMD_OPCODE_NOP, 0);
++	ib->ptr[6] = VPE_CMD_HEADER(VPE_CMD_OPCODE_NOP, 0);
++	ib->ptr[7] = VPE_CMD_HEADER(VPE_CMD_OPCODE_NOP, 0);
++	ib->length_dw = 8;
++
++	ret = amdgpu_job_submit_direct(job, ring, &f);
++	if (ret) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
  
- 	if (reemitted) {
- 		/* if we've already reemitted once then just cancel everything */
--		amdgpu_fence_driver_force_completion(af->ring);
-+		amdgpu_fence_driver_force_completion(af->ring, &af->base);
- 		af->ring->ring_backup_entries_to_copy = 0;
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 86a788d476957..ce095427611fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -160,7 +160,8 @@ struct amdgpu_fence {
- extern const struct drm_sched_backend_ops amdgpu_sched_ops;
+ 	ret = dma_fence_wait_timeout(f, false, timeout);
+ 	if (ret <= 0) {
+@@ -859,7 +865,6 @@ static int vpe_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	ret = (le32_to_cpu(adev->wb.wb[index]) == test_pattern) ? 0 : -EINVAL;
  
- void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error);
--void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
-+void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring,
-+					  struct dma_fence *timedout_fence);
- void amdgpu_fence_driver_update_timedout_fence_state(struct amdgpu_fence *af);
- void amdgpu_fence_save_wptr(struct amdgpu_fence *af);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-index 8b8a04138711c..c270a40de5e5d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -597,10 +597,10 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
- 		 * to be submitted to the queues after the reset is complete.
- 		 */
- 		if (!ret) {
--			amdgpu_fence_driver_force_completion(gfx_ring);
-+			amdgpu_fence_driver_force_completion(gfx_ring, NULL);
- 			drm_sched_wqueue_start(&gfx_ring->sched);
- 			if (adev->sdma.has_page_queue) {
--				amdgpu_fence_driver_force_completion(page_ring);
-+				amdgpu_fence_driver_force_completion(page_ring, NULL);
- 				drm_sched_wqueue_start(&page_ring->sched);
- 			}
- 		}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-index 9d5cca7da1d9e..3a3bc0d370fa6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -512,7 +512,7 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
- 			}
- 			memset_io(ptr, 0, size);
- 			/* to restore uvd fence seq */
--			amdgpu_fence_driver_force_completion(&adev->uvd.inst[i].ring);
-+			amdgpu_fence_driver_force_completion(&adev->uvd.inst[i].ring, NULL);
- 		}
- 	}
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-index 75ae9b429420e..d22c8980fa42b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -1482,15 +1482,16 @@ int vcn_set_powergating_state(struct amdgpu_ip_block *ip_block,
- 
- /**
-  * amdgpu_vcn_reset_engine - Reset a specific VCN engine
-- * @adev: Pointer to the AMDGPU device
-- * @instance_id: VCN engine instance to reset
-+ * @ring: Pointer to the VCN ring
-+ * @timedout_fence: fence that timed out
-  *
-  * Returns: 0 on success, or a negative error code on failure.
-  */
--static int amdgpu_vcn_reset_engine(struct amdgpu_device *adev,
--				   uint32_t instance_id)
-+static int amdgpu_vcn_reset_engine(struct amdgpu_ring *ring,
-+				   struct amdgpu_fence *timedout_fence)
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+index 9e8715b4739da..e2ca96f5a7cfb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+@@ -652,7 +652,8 @@ static int cik_sdma_ring_test_ring(struct amdgpu_ring *ring)
+ static int cik_sdma_ring_test_ib(struct amdgpu_ring *ring, long timeout)
  {
--	struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[instance_id];
-+	struct amdgpu_device *adev = ring->adev;
-+	struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[ring->me];
- 	int r, i;
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	u32 tmp = 0;
+@@ -666,22 +667,27 @@ static int cik_sdma_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	tmp = 0xCAFEDEAD;
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 256,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
++
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r)
+ 		goto err0;
++	ib = &job->ibs[0];
  
- 	mutex_lock(&vinst->engine_reset_mutex);
-@@ -1514,9 +1515,13 @@ static int amdgpu_vcn_reset_engine(struct amdgpu_device *adev,
- 		if (r)
- 			goto unlock;
+-	ib.ptr[0] = SDMA_PACKET(SDMA_OPCODE_WRITE,
++	ib->ptr[0] = SDMA_PACKET(SDMA_OPCODE_WRITE,
+ 				SDMA_WRITE_SUB_OPCODE_LINEAR, 0);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr);
+-	ib.ptr[3] = 1;
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.length_dw = 5;
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr);
++	ib->ptr[3] = 1;
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->length_dw = 5;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -697,7 +703,6 @@ static int cik_sdma_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 41bbedb8e157e..496121bdc1de1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4071,15 +4071,14 @@ static int gfx_v10_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int gfx_v10_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned int index;
+ 	uint64_t gpu_addr;
+ 	uint32_t *cpu_ptr;
+ 	long r;
+ 
+-	memset(&ib, 0, sizeof(ib));
+-
+ 	r = amdgpu_device_wb_get(adev, &index);
+ 	if (r)
+ 		return r;
+@@ -4088,22 +4087,27 @@ static int gfx_v10_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+ 	cpu_ptr = &adev->wb.wb[index];
+ 
+-	r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 20,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_GFX_RING_TEST);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "failed to get ib (%ld).\n", r);
+ 		goto err1;
  	}
--	amdgpu_fence_driver_force_completion(&vinst->ring_dec);
-+	amdgpu_fence_driver_force_completion(&vinst->ring_dec,
-+					     (&vinst->ring_dec == ring) ?
-+					     &timedout_fence->base : NULL);
- 	for (i = 0; i < vinst->num_enc_rings; i++)
--		amdgpu_fence_driver_force_completion(&vinst->ring_enc[i]);
-+		amdgpu_fence_driver_force_completion(&vinst->ring_enc[i],
-+						     (&vinst->ring_enc[i] == ring) ?
-+						     &timedout_fence->base : NULL);
++	ib = &job->ibs[0];
  
- 	/* Restart the scheduler's work queue for the dec and enc rings
- 	 * if they were stopped by this function. This allows new tasks
-@@ -1552,7 +1557,7 @@ int amdgpu_vcn_ring_reset(struct amdgpu_ring *ring,
- 	if (adev->vcn.inst[ring->me].using_unified_queue)
- 		return -EINVAL;
+-	ib.ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
+-	ib.ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
+-	ib.ptr[2] = lower_32_bits(gpu_addr);
+-	ib.ptr[3] = upper_32_bits(gpu_addr);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.length_dw = 5;
++	ib->ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
++	ib->ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
++	ib->ptr[2] = lower_32_bits(gpu_addr);
++	ib->ptr[3] = upper_32_bits(gpu_addr);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->length_dw = 5;
  
--	return amdgpu_vcn_reset_engine(adev, ring->me);
-+	return amdgpu_vcn_reset_engine(ring, timedout_fence);
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err2;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -4118,7 +4122,6 @@ static int gfx_v10_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	else
+ 		r = -EINVAL;
+ err2:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err1:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 3a4ca104b1612..5ad2516a60240 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -604,7 +604,8 @@ static int gfx_v11_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	uint64_t gpu_addr;
+@@ -616,8 +617,6 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	    ring->funcs->type == AMDGPU_RING_TYPE_KIQ)
+ 		return 0;
+ 
+-	memset(&ib, 0, sizeof(ib));
+-
+ 	r = amdgpu_device_wb_get(adev, &index);
+ 	if (r)
+ 		return r;
+@@ -626,22 +625,27 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+ 	cpu_ptr = &adev->wb.wb[index];
+ 
+-	r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 20,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_GFX_RING_TEST);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "failed to get ib (%ld).\n", r);
+ 		goto err1;
+ 	}
++	ib = &job->ibs[0];
+ 
+-	ib.ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
+-	ib.ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
+-	ib.ptr[2] = lower_32_bits(gpu_addr);
+-	ib.ptr[3] = upper_32_bits(gpu_addr);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.length_dw = 5;
++	ib->ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
++	ib->ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
++	ib->ptr[2] = lower_32_bits(gpu_addr);
++	ib->ptr[3] = upper_32_bits(gpu_addr);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->length_dw = 5;
+ 
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err2;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -656,7 +660,6 @@ static int gfx_v11_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	else
+ 		r = -EINVAL;
+ err2:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err1:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index 40660b05f9794..4d5c6bdd8cad7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -493,7 +493,8 @@ static int gfx_v12_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	uint64_t gpu_addr;
+@@ -505,8 +506,6 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	    ring->funcs->type == AMDGPU_RING_TYPE_KIQ)
+ 		return 0;
+ 
+-	memset(&ib, 0, sizeof(ib));
+-
+ 	r = amdgpu_device_wb_get(adev, &index);
+ 	if (r)
+ 		return r;
+@@ -515,22 +514,27 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+ 	cpu_ptr = &adev->wb.wb[index];
+ 
+-	r = amdgpu_ib_get(adev, NULL, 16, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 16,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_GFX_RING_TEST);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "failed to get ib (%ld).\n", r);
+ 		goto err1;
+ 	}
++	ib = &job->ibs[0];
+ 
+-	ib.ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
+-	ib.ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
+-	ib.ptr[2] = lower_32_bits(gpu_addr);
+-	ib.ptr[3] = upper_32_bits(gpu_addr);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.length_dw = 5;
++	ib->ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
++	ib->ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
++	ib->ptr[2] = lower_32_bits(gpu_addr);
++	ib->ptr[3] = upper_32_bits(gpu_addr);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->length_dw = 5;
+ 
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err2;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -545,7 +549,6 @@ static int gfx_v12_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	else
+ 		r = -EINVAL;
+ err2:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err1:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+index 86cc90a662965..7d02569cd4738 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -306,7 +306,8 @@ static int gfx_v12_1_ring_test_ring(struct amdgpu_ring *ring)
+ static int gfx_v12_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	uint64_t gpu_addr;
+@@ -318,8 +319,6 @@ static int gfx_v12_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	    ring->funcs->type == AMDGPU_RING_TYPE_KIQ)
+ 		return 0;
+ 
+-	memset(&ib, 0, sizeof(ib));
+-
+ 	r = amdgpu_device_wb_get(adev, &index);
+ 	if (r)
+ 		return r;
+@@ -328,22 +327,27 @@ static int gfx_v12_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+ 	cpu_ptr = &adev->wb.wb[index];
+ 
+-	r = amdgpu_ib_get(adev, NULL, 16, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 16,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_GFX_RING_TEST);
+ 	if (r) {
+ 		dev_err(adev->dev, "amdgpu: failed to get ib (%ld).\n", r);
+ 		goto err1;
+ 	}
++	ib = &job->ibs[0];
+ 
+-	ib.ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
+-	ib.ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
+-	ib.ptr[2] = lower_32_bits(gpu_addr);
+-	ib.ptr[3] = upper_32_bits(gpu_addr);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.length_dw = 5;
++	ib->ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
++	ib->ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
++	ib->ptr[2] = lower_32_bits(gpu_addr);
++	ib->ptr[3] = upper_32_bits(gpu_addr);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->length_dw = 5;
+ 
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err2;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -358,7 +362,6 @@ static int gfx_v12_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	else
+ 		r = -EINVAL;
+ err2:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err1:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+index 73223d97a87f5..2f8aa99f17480 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+@@ -1895,24 +1895,29 @@ static int gfx_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct dma_fence *f = NULL;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	uint32_t tmp = 0;
+ 	long r;
+ 
+ 	WREG32(mmSCRATCH_REG0, 0xCAFEDEAD);
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_GFX_RING_TEST);
+ 	if (r)
+ 		return r;
+ 
+-	ib.ptr[0] = PACKET3(PACKET3_SET_CONFIG_REG, 1);
+-	ib.ptr[1] = mmSCRATCH_REG0 - PACKET3_SET_CONFIG_REG_START;
+-	ib.ptr[2] = 0xDEADBEEF;
+-	ib.length_dw = 3;
++	ib = &job->ibs[0];
++	ib->ptr[0] = PACKET3(PACKET3_SET_CONFIG_REG, 1);
++	ib->ptr[1] = mmSCRATCH_REG0 - PACKET3_SET_CONFIG_REG_START;
++	ib->ptr[2] = 0xDEADBEEF;
++	ib->length_dw = 3;
+ 
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto error;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -1928,7 +1933,6 @@ static int gfx_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ error:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ 	return r;
  }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+index 2b691452775bc..fa235b981c2e9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -2291,25 +2291,31 @@ static void gfx_v7_ring_emit_cntxcntl(struct amdgpu_ring *ring, uint32_t flags)
+ static int gfx_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	uint32_t tmp = 0;
+ 	long r;
  
- int amdgpu_vcn_reg_dump_init(struct amdgpu_device *adev,
+ 	WREG32(mmSCRATCH_REG0, 0xCAFEDEAD);
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
++
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_GFX_RING_TEST);
+ 	if (r)
+ 		return r;
+ 
+-	ib.ptr[0] = PACKET3(PACKET3_SET_UCONFIG_REG, 1);
+-	ib.ptr[1] = mmSCRATCH_REG0 - PACKET3_SET_UCONFIG_REG_START;
+-	ib.ptr[2] = 0xDEADBEEF;
+-	ib.length_dw = 3;
++	ib = &job->ibs[0];
++	ib->ptr[0] = PACKET3(PACKET3_SET_UCONFIG_REG, 1);
++	ib->ptr[1] = mmSCRATCH_REG0 - PACKET3_SET_UCONFIG_REG_START;
++	ib->ptr[2] = 0xDEADBEEF;
++	ib->length_dw = 3;
+ 
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto error;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -2325,7 +2331,6 @@ static int gfx_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ error:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ 	return r;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index a6b4c8f41dc11..4736216cd0211 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -868,9 +868,9 @@ static int gfx_v8_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+-
+ 	unsigned int index;
+ 	uint64_t gpu_addr;
+ 	uint32_t tmp;
+@@ -882,22 +882,26 @@ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+-	memset(&ib, 0, sizeof(ib));
+ 
+-	r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 20,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_GFX_RING_TEST);
+ 	if (r)
+ 		goto err1;
+ 
+-	ib.ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
+-	ib.ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
+-	ib.ptr[2] = lower_32_bits(gpu_addr);
+-	ib.ptr[3] = upper_32_bits(gpu_addr);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.length_dw = 5;
++	ib = &job->ibs[0];
++	ib->ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
++	ib->ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
++	ib->ptr[2] = lower_32_bits(gpu_addr);
++	ib->ptr[3] = upper_32_bits(gpu_addr);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->length_dw = 5;
+ 
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err2;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -914,7 +918,6 @@ static int gfx_v8_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err2:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err1:
+ 	amdgpu_device_wb_free(adev, index);
+@@ -1474,7 +1477,8 @@ static const u32 sec_ded_counter_registers[] =
+ static int gfx_v8_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ring *ring = &adev->gfx.compute_ring[0];
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	int r, i;
+ 	u32 tmp;
+@@ -1505,106 +1509,108 @@ static int gfx_v8_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+ 	total_size += sizeof(sgpr_init_compute_shader);
+ 
+ 	/* allocate an indirect buffer to put the commands in */
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, total_size,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, total_size,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_RUN_SHADER);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "failed to get ib (%d).\n", r);
+ 		return r;
+ 	}
++	ib = &job->ibs[0];
+ 
+ 	/* load the compute shaders */
+ 	for (i = 0; i < ARRAY_SIZE(vgpr_init_compute_shader); i++)
+-		ib.ptr[i + (vgpr_offset / 4)] = vgpr_init_compute_shader[i];
++		ib->ptr[i + (vgpr_offset / 4)] = vgpr_init_compute_shader[i];
+ 
+ 	for (i = 0; i < ARRAY_SIZE(sgpr_init_compute_shader); i++)
+-		ib.ptr[i + (sgpr_offset / 4)] = sgpr_init_compute_shader[i];
++		ib->ptr[i + (sgpr_offset / 4)] = sgpr_init_compute_shader[i];
+ 
+ 	/* init the ib length to 0 */
+-	ib.length_dw = 0;
++	ib->length_dw = 0;
+ 
+ 	/* VGPR */
+ 	/* write the register state for the compute dispatch */
+ 	for (i = 0; i < ARRAY_SIZE(vgpr_init_regs); i += 2) {
+-		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
+-		ib.ptr[ib.length_dw++] = vgpr_init_regs[i] - PACKET3_SET_SH_REG_START;
+-		ib.ptr[ib.length_dw++] = vgpr_init_regs[i + 1];
++		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
++		ib->ptr[ib->length_dw++] = vgpr_init_regs[i] - PACKET3_SET_SH_REG_START;
++		ib->ptr[ib->length_dw++] = vgpr_init_regs[i + 1];
+ 	}
+ 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
+-	gpu_addr = (ib.gpu_addr + (u64)vgpr_offset) >> 8;
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
+-	ib.ptr[ib.length_dw++] = mmCOMPUTE_PGM_LO - PACKET3_SET_SH_REG_START;
+-	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
+-	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
++	gpu_addr = (ib->gpu_addr + (u64)vgpr_offset) >> 8;
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
++	ib->ptr[ib->length_dw++] = mmCOMPUTE_PGM_LO - PACKET3_SET_SH_REG_START;
++	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
+ 
+ 	/* write dispatch packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
+-	ib.ptr[ib.length_dw++] = 8; /* x */
+-	ib.ptr[ib.length_dw++] = 1; /* y */
+-	ib.ptr[ib.length_dw++] = 1; /* z */
+-	ib.ptr[ib.length_dw++] =
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
++	ib->ptr[ib->length_dw++] = 8; /* x */
++	ib->ptr[ib->length_dw++] = 1; /* y */
++	ib->ptr[ib->length_dw++] = 1; /* z */
++	ib->ptr[ib->length_dw++] =
+ 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
+ 
+ 	/* write CS partial flush packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
+-	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
++	ib->ptr[ib->length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
+ 
+ 	/* SGPR1 */
+ 	/* write the register state for the compute dispatch */
+ 	for (i = 0; i < ARRAY_SIZE(sgpr1_init_regs); i += 2) {
+-		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
+-		ib.ptr[ib.length_dw++] = sgpr1_init_regs[i] - PACKET3_SET_SH_REG_START;
+-		ib.ptr[ib.length_dw++] = sgpr1_init_regs[i + 1];
++		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
++		ib->ptr[ib->length_dw++] = sgpr1_init_regs[i] - PACKET3_SET_SH_REG_START;
++		ib->ptr[ib->length_dw++] = sgpr1_init_regs[i + 1];
+ 	}
+ 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
+-	gpu_addr = (ib.gpu_addr + (u64)sgpr_offset) >> 8;
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
+-	ib.ptr[ib.length_dw++] = mmCOMPUTE_PGM_LO - PACKET3_SET_SH_REG_START;
+-	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
+-	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
++	gpu_addr = (ib->gpu_addr + (u64)sgpr_offset) >> 8;
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
++	ib->ptr[ib->length_dw++] = mmCOMPUTE_PGM_LO - PACKET3_SET_SH_REG_START;
++	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
+ 
+ 	/* write dispatch packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
+-	ib.ptr[ib.length_dw++] = 8; /* x */
+-	ib.ptr[ib.length_dw++] = 1; /* y */
+-	ib.ptr[ib.length_dw++] = 1; /* z */
+-	ib.ptr[ib.length_dw++] =
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
++	ib->ptr[ib->length_dw++] = 8; /* x */
++	ib->ptr[ib->length_dw++] = 1; /* y */
++	ib->ptr[ib->length_dw++] = 1; /* z */
++	ib->ptr[ib->length_dw++] =
+ 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
+ 
+ 	/* write CS partial flush packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
+-	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
++	ib->ptr[ib->length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
+ 
+ 	/* SGPR2 */
+ 	/* write the register state for the compute dispatch */
+ 	for (i = 0; i < ARRAY_SIZE(sgpr2_init_regs); i += 2) {
+-		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
+-		ib.ptr[ib.length_dw++] = sgpr2_init_regs[i] - PACKET3_SET_SH_REG_START;
+-		ib.ptr[ib.length_dw++] = sgpr2_init_regs[i + 1];
++		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
++		ib->ptr[ib->length_dw++] = sgpr2_init_regs[i] - PACKET3_SET_SH_REG_START;
++		ib->ptr[ib->length_dw++] = sgpr2_init_regs[i + 1];
+ 	}
+ 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
+-	gpu_addr = (ib.gpu_addr + (u64)sgpr_offset) >> 8;
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
+-	ib.ptr[ib.length_dw++] = mmCOMPUTE_PGM_LO - PACKET3_SET_SH_REG_START;
+-	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
+-	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
++	gpu_addr = (ib->gpu_addr + (u64)sgpr_offset) >> 8;
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
++	ib->ptr[ib->length_dw++] = mmCOMPUTE_PGM_LO - PACKET3_SET_SH_REG_START;
++	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
+ 
+ 	/* write dispatch packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
+-	ib.ptr[ib.length_dw++] = 8; /* x */
+-	ib.ptr[ib.length_dw++] = 1; /* y */
+-	ib.ptr[ib.length_dw++] = 1; /* z */
+-	ib.ptr[ib.length_dw++] =
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
++	ib->ptr[ib->length_dw++] = 8; /* x */
++	ib->ptr[ib->length_dw++] = 1; /* y */
++	ib->ptr[ib->length_dw++] = 1; /* z */
++	ib->ptr[ib->length_dw++] =
+ 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
+ 
+ 	/* write CS partial flush packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
+-	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
++	ib->ptr[ib->length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
+ 
+ 	/* shedule the ib on the ring */
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
++	r = amdgpu_job_submit_direct(job, ring, &f);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "ib submit failed (%d).\n", r);
++		amdgpu_job_free(job);
+ 		goto fail;
+ 	}
+ 
+@@ -1629,7 +1635,6 @@ static int gfx_v8_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+ 		RREG32(sec_ded_counter_registers[i]);
+ 
+ fail:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 7e9d753f4a808..36f0300a21bfa 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1224,9 +1224,9 @@ static int gfx_v9_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int gfx_v9_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+-
+ 	unsigned index;
+ 	uint64_t gpu_addr;
+ 	uint32_t tmp;
+@@ -1238,22 +1238,26 @@ static int gfx_v9_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+-	memset(&ib, 0, sizeof(ib));
+ 
+-	r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 20,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_GFX_RING_TEST);
+ 	if (r)
+ 		goto err1;
+ 
+-	ib.ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
+-	ib.ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
+-	ib.ptr[2] = lower_32_bits(gpu_addr);
+-	ib.ptr[3] = upper_32_bits(gpu_addr);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.length_dw = 5;
++	ib = &job->ibs[0];
++	ib->ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
++	ib->ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
++	ib->ptr[2] = lower_32_bits(gpu_addr);
++	ib->ptr[3] = upper_32_bits(gpu_addr);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->length_dw = 5;
+ 
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err2;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -1270,7 +1274,6 @@ static int gfx_v9_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err2:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err1:
+ 	amdgpu_device_wb_free(adev, index);
+@@ -4624,7 +4627,8 @@ static int gfx_v9_0_do_edc_gds_workarounds(struct amdgpu_device *adev)
+ static int gfx_v9_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ring *ring = &adev->gfx.compute_ring[0];
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	int r, i;
+ 	unsigned total_size, vgpr_offset, sgpr_offset;
+@@ -4670,9 +4674,9 @@ static int gfx_v9_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+ 	total_size += sizeof(sgpr_init_compute_shader);
+ 
+ 	/* allocate an indirect buffer to put the commands in */
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, total_size,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, total_size,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_RUN_SHADER);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "failed to get ib (%d).\n", r);
+ 		return r;
+@@ -4680,102 +4684,103 @@ static int gfx_v9_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+ 
+ 	/* load the compute shaders */
+ 	for (i = 0; i < vgpr_init_shader_size/sizeof(u32); i++)
+-		ib.ptr[i + (vgpr_offset / 4)] = vgpr_init_shader_ptr[i];
++		ib->ptr[i + (vgpr_offset / 4)] = vgpr_init_shader_ptr[i];
+ 
+ 	for (i = 0; i < ARRAY_SIZE(sgpr_init_compute_shader); i++)
+-		ib.ptr[i + (sgpr_offset / 4)] = sgpr_init_compute_shader[i];
++		ib->ptr[i + (sgpr_offset / 4)] = sgpr_init_compute_shader[i];
+ 
+ 	/* init the ib length to 0 */
+-	ib.length_dw = 0;
++	ib->length_dw = 0;
+ 
+ 	/* VGPR */
+ 	/* write the register state for the compute dispatch */
+ 	for (i = 0; i < gpr_reg_size; i++) {
+-		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
+-		ib.ptr[ib.length_dw++] = SOC15_REG_ENTRY_OFFSET(vgpr_init_regs_ptr[i])
++		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
++		ib->ptr[ib->length_dw++] = SOC15_REG_ENTRY_OFFSET(vgpr_init_regs_ptr[i])
+ 								- PACKET3_SET_SH_REG_START;
+-		ib.ptr[ib.length_dw++] = vgpr_init_regs_ptr[i].reg_value;
++		ib->ptr[ib->length_dw++] = vgpr_init_regs_ptr[i].reg_value;
+ 	}
+ 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
+-	gpu_addr = (ib.gpu_addr + (u64)vgpr_offset) >> 8;
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
+-	ib.ptr[ib.length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
++	gpu_addr = (ib->gpu_addr + (u64)vgpr_offset) >> 8;
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
++	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
+ 							- PACKET3_SET_SH_REG_START;
+-	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
+-	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
+ 
+ 	/* write dispatch packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
+-	ib.ptr[ib.length_dw++] = compute_dim_x * 2; /* x */
+-	ib.ptr[ib.length_dw++] = 1; /* y */
+-	ib.ptr[ib.length_dw++] = 1; /* z */
+-	ib.ptr[ib.length_dw++] =
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
++	ib->ptr[ib->length_dw++] = compute_dim_x * 2; /* x */
++	ib->ptr[ib->length_dw++] = 1; /* y */
++	ib->ptr[ib->length_dw++] = 1; /* z */
++	ib->ptr[ib->length_dw++] =
+ 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
+ 
+ 	/* write CS partial flush packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
+-	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
++	ib->ptr[ib->length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
+ 
+ 	/* SGPR1 */
+ 	/* write the register state for the compute dispatch */
+ 	for (i = 0; i < gpr_reg_size; i++) {
+-		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
+-		ib.ptr[ib.length_dw++] = SOC15_REG_ENTRY_OFFSET(sgpr1_init_regs[i])
++		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
++		ib->ptr[ib->length_dw++] = SOC15_REG_ENTRY_OFFSET(sgpr1_init_regs[i])
+ 								- PACKET3_SET_SH_REG_START;
+-		ib.ptr[ib.length_dw++] = sgpr1_init_regs[i].reg_value;
++		ib->ptr[ib->length_dw++] = sgpr1_init_regs[i].reg_value;
+ 	}
+ 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
+-	gpu_addr = (ib.gpu_addr + (u64)sgpr_offset) >> 8;
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
+-	ib.ptr[ib.length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
++	gpu_addr = (ib->gpu_addr + (u64)sgpr_offset) >> 8;
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
++	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
+ 							- PACKET3_SET_SH_REG_START;
+-	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
+-	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
+ 
+ 	/* write dispatch packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
+-	ib.ptr[ib.length_dw++] = compute_dim_x / 2 * sgpr_work_group_size; /* x */
+-	ib.ptr[ib.length_dw++] = 1; /* y */
+-	ib.ptr[ib.length_dw++] = 1; /* z */
+-	ib.ptr[ib.length_dw++] =
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
++	ib->ptr[ib->length_dw++] = compute_dim_x / 2 * sgpr_work_group_size; /* x */
++	ib->ptr[ib->length_dw++] = 1; /* y */
++	ib->ptr[ib->length_dw++] = 1; /* z */
++	ib->ptr[ib->length_dw++] =
+ 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
+ 
+ 	/* write CS partial flush packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
+-	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
++	ib->ptr[ib->length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
+ 
+ 	/* SGPR2 */
+ 	/* write the register state for the compute dispatch */
+ 	for (i = 0; i < gpr_reg_size; i++) {
+-		ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
+-		ib.ptr[ib.length_dw++] = SOC15_REG_ENTRY_OFFSET(sgpr2_init_regs[i])
++		ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 1);
++		ib->ptr[ib->length_dw++] = SOC15_REG_ENTRY_OFFSET(sgpr2_init_regs[i])
+ 								- PACKET3_SET_SH_REG_START;
+-		ib.ptr[ib.length_dw++] = sgpr2_init_regs[i].reg_value;
++		ib->ptr[ib->length_dw++] = sgpr2_init_regs[i].reg_value;
+ 	}
+ 	/* write the shader start address: mmCOMPUTE_PGM_LO, mmCOMPUTE_PGM_HI */
+-	gpu_addr = (ib.gpu_addr + (u64)sgpr_offset) >> 8;
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
+-	ib.ptr[ib.length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
++	gpu_addr = (ib->gpu_addr + (u64)sgpr_offset) >> 8;
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_SET_SH_REG, 2);
++	ib->ptr[ib->length_dw++] = SOC15_REG_OFFSET(GC, 0, mmCOMPUTE_PGM_LO)
+ 							- PACKET3_SET_SH_REG_START;
+-	ib.ptr[ib.length_dw++] = lower_32_bits(gpu_addr);
+-	ib.ptr[ib.length_dw++] = upper_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = lower_32_bits(gpu_addr);
++	ib->ptr[ib->length_dw++] = upper_32_bits(gpu_addr);
+ 
+ 	/* write dispatch packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
+-	ib.ptr[ib.length_dw++] = compute_dim_x / 2 * sgpr_work_group_size; /* x */
+-	ib.ptr[ib.length_dw++] = 1; /* y */
+-	ib.ptr[ib.length_dw++] = 1; /* z */
+-	ib.ptr[ib.length_dw++] =
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_DISPATCH_DIRECT, 3);
++	ib->ptr[ib->length_dw++] = compute_dim_x / 2 * sgpr_work_group_size; /* x */
++	ib->ptr[ib->length_dw++] = 1; /* y */
++	ib->ptr[ib->length_dw++] = 1; /* z */
++	ib->ptr[ib->length_dw++] =
+ 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
+ 
+ 	/* write CS partial flush packet */
+-	ib.ptr[ib.length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
+-	ib.ptr[ib.length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
++	ib->ptr[ib->length_dw++] = PACKET3(PACKET3_EVENT_WRITE, 0);
++	ib->ptr[ib->length_dw++] = EVENT_TYPE(7) | EVENT_INDEX(4);
+ 
+ 	/* shedule the ib on the ring */
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
++	r = amdgpu_job_submit_direct(job, ring, &f);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "ib schedule failed (%d).\n", r);
++		amdgpu_job_free(job);
+ 		goto fail;
+ 	}
+ 
+@@ -4787,7 +4792,6 @@ static int gfx_v9_0_do_edc_gpr_workarounds(struct amdgpu_device *adev)
+ 	}
+ 
+ fail:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ 
+ 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+index 8058ea91ecafd..424b05b84ea74 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c
+@@ -345,12 +345,13 @@ const struct soc15_reg_entry sgpr64_init_regs_aldebaran[] = {
+ 
+ static int gfx_v9_4_2_run_shader(struct amdgpu_device *adev,
+ 				 struct amdgpu_ring *ring,
+-				 struct amdgpu_ib *ib,
+ 				 const u32 *shader_ptr, u32 shader_size,
+ 				 const struct soc15_reg_entry *init_regs, u32 regs_size,
+ 				 u32 compute_dim_x, u64 wb_gpu_addr, u32 pattern,
+ 				 struct dma_fence **fence_ptr)
+ {
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	int r, i;
+ 	uint32_t total_size, shader_offset;
+ 	u64 gpu_addr;
+@@ -360,10 +361,9 @@ static int gfx_v9_4_2_run_shader(struct amdgpu_device *adev,
+ 	shader_offset = total_size;
+ 	total_size += ALIGN(shader_size, 256);
+ 
+-	/* allocate an indirect buffer to put the commands in */
+-	memset(ib, 0, sizeof(*ib));
+-	r = amdgpu_ib_get(adev, NULL, total_size,
+-					AMDGPU_IB_POOL_DIRECT, ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, total_size,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_RUN_SHADER);
+ 	if (r) {
+ 		dev_err(adev->dev, "failed to get ib (%d).\n", r);
+ 		return r;
+@@ -408,11 +408,11 @@ static int gfx_v9_4_2_run_shader(struct amdgpu_device *adev,
+ 	ib->ptr[ib->length_dw++] =
+ 		REG_SET_FIELD(0, COMPUTE_DISPATCH_INITIATOR, COMPUTE_SHADER_EN, 1);
+ 
+-	/* shedule the ib on the ring */
+-	r = amdgpu_ib_schedule(ring, 1, ib, NULL, fence_ptr);
++	/* schedule the ib on the ring */
++	r = amdgpu_job_submit_direct(job, ring, fence_ptr);
+ 	if (r) {
+ 		dev_err(adev->dev, "ib submit failed (%d).\n", r);
+-		amdgpu_ib_free(ib, NULL);
++		amdgpu_job_free(job);
+ 	}
+ 	return r;
+ }
+@@ -493,7 +493,6 @@ static int gfx_v9_4_2_do_sgprs_init(struct amdgpu_device *adev)
+ 	int wb_size = adev->gfx.config.max_shader_engines *
+ 			 CU_ID_MAX * SIMD_ID_MAX * WAVE_ID_MAX;
+ 	struct amdgpu_ib wb_ib;
+-	struct amdgpu_ib disp_ibs[3];
+ 	struct dma_fence *fences[3];
+ 	u32 pattern[3] = { 0x1, 0x5, 0xa };
+ 
+@@ -514,7 +513,6 @@ static int gfx_v9_4_2_do_sgprs_init(struct amdgpu_device *adev)
+ 
+ 	r = gfx_v9_4_2_run_shader(adev,
+ 			&adev->gfx.compute_ring[0],
+-			&disp_ibs[0],
+ 			sgpr112_init_compute_shader_aldebaran,
+ 			sizeof(sgpr112_init_compute_shader_aldebaran),
+ 			sgpr112_init_regs_aldebaran,
+@@ -539,7 +537,6 @@ static int gfx_v9_4_2_do_sgprs_init(struct amdgpu_device *adev)
+ 
+ 	r = gfx_v9_4_2_run_shader(adev,
+ 			&adev->gfx.compute_ring[1],
+-			&disp_ibs[1],
+ 			sgpr96_init_compute_shader_aldebaran,
+ 			sizeof(sgpr96_init_compute_shader_aldebaran),
+ 			sgpr96_init_regs_aldebaran,
+@@ -579,7 +576,6 @@ static int gfx_v9_4_2_do_sgprs_init(struct amdgpu_device *adev)
+ 	memset(wb_ib.ptr, 0, (1 + wb_size) * sizeof(uint32_t));
+ 	r = gfx_v9_4_2_run_shader(adev,
+ 			&adev->gfx.compute_ring[0],
+-			&disp_ibs[2],
+ 			sgpr64_init_compute_shader_aldebaran,
+ 			sizeof(sgpr64_init_compute_shader_aldebaran),
+ 			sgpr64_init_regs_aldebaran,
+@@ -611,13 +607,10 @@ static int gfx_v9_4_2_do_sgprs_init(struct amdgpu_device *adev)
+ 	}
+ 
+ disp2_failed:
+-	amdgpu_ib_free(&disp_ibs[2], NULL);
+ 	dma_fence_put(fences[2]);
+ disp1_failed:
+-	amdgpu_ib_free(&disp_ibs[1], NULL);
+ 	dma_fence_put(fences[1]);
+ disp0_failed:
+-	amdgpu_ib_free(&disp_ibs[0], NULL);
+ 	dma_fence_put(fences[0]);
+ pro_end:
+ 	amdgpu_ib_free(&wb_ib, NULL);
+@@ -637,7 +630,6 @@ static int gfx_v9_4_2_do_vgprs_init(struct amdgpu_device *adev)
+ 	int wb_size = adev->gfx.config.max_shader_engines *
+ 			 CU_ID_MAX * SIMD_ID_MAX * WAVE_ID_MAX;
+ 	struct amdgpu_ib wb_ib;
+-	struct amdgpu_ib disp_ib;
+ 	struct dma_fence *fence;
+ 	u32 pattern = 0xa;
+ 
+@@ -657,7 +649,6 @@ static int gfx_v9_4_2_do_vgprs_init(struct amdgpu_device *adev)
+ 
+ 	r = gfx_v9_4_2_run_shader(adev,
+ 			&adev->gfx.compute_ring[0],
+-			&disp_ib,
+ 			vgpr_init_compute_shader_aldebaran,
+ 			sizeof(vgpr_init_compute_shader_aldebaran),
+ 			vgpr_init_regs_aldebaran,
+@@ -687,7 +678,6 @@ static int gfx_v9_4_2_do_vgprs_init(struct amdgpu_device *adev)
+ 	}
+ 
+ disp_failed:
+-	amdgpu_ib_free(&disp_ib, NULL);
+ 	dma_fence_put(fence);
+ pro_end:
+ 	amdgpu_ib_free(&wb_ib, NULL);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index ad4d442e7345e..d78b2c2ae13a3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -451,9 +451,9 @@ static int gfx_v9_4_3_ring_test_ring(struct amdgpu_ring *ring)
+ static int gfx_v9_4_3_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+-
+ 	unsigned index;
+ 	uint64_t gpu_addr;
+ 	uint32_t tmp;
+@@ -465,22 +465,26 @@ static int gfx_v9_4_3_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(0xCAFEDEAD);
+-	memset(&ib, 0, sizeof(ib));
+ 
+-	r = amdgpu_ib_get(adev, NULL, 20, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 20,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_GFX_RING_TEST);
+ 	if (r)
+ 		goto err1;
+ 
+-	ib.ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
+-	ib.ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
+-	ib.ptr[2] = lower_32_bits(gpu_addr);
+-	ib.ptr[3] = upper_32_bits(gpu_addr);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.length_dw = 5;
++	ib = &job->ibs[0];
++	ib->ptr[0] = PACKET3(PACKET3_WRITE_DATA, 3);
++	ib->ptr[1] = WRITE_DATA_DST_SEL(5) | WR_CONFIRM;
++	ib->ptr[2] = lower_32_bits(gpu_addr);
++	ib->ptr[3] = upper_32_bits(gpu_addr);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->length_dw = 5;
+ 
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err2;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -497,7 +501,6 @@ static int gfx_v9_4_3_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err2:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err1:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+index 92ce580647cdc..46263d50cc9ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+@@ -584,7 +584,8 @@ static int sdma_v2_4_ring_test_ring(struct amdgpu_ring *ring)
+ static int sdma_v2_4_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	u32 tmp = 0;
+@@ -598,26 +599,30 @@ static int sdma_v2_4_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	tmp = 0xCAFEDEAD;
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 256,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
++
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r)
+ 		goto err0;
+ 
+-	ib.ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
++	ib = &job->ibs[0];
++	ib->ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+ 		SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr);
+-	ib.ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(1);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.ptr[5] = SDMA_PKT_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[6] = SDMA_PKT_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[7] = SDMA_PKT_HEADER_OP(SDMA_OP_NOP);
+-	ib.length_dw = 8;
+-
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr);
++	ib->ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(1);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->ptr[5] = SDMA_PKT_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[6] = SDMA_PKT_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[7] = SDMA_PKT_HEADER_OP(SDMA_OP_NOP);
++	ib->length_dw = 8;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -633,7 +638,6 @@ static int sdma_v2_4_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+index 1c076bd1cf73e..f9f05768072ad 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+@@ -858,7 +858,8 @@ static int sdma_v3_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int sdma_v3_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	u32 tmp = 0;
+@@ -872,26 +873,30 @@ static int sdma_v3_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	tmp = 0xCAFEDEAD;
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 256,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
++
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r)
+ 		goto err0;
+ 
+-	ib.ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
++	ib = &job->ibs[0];
++	ib->ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+ 		SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr);
+-	ib.ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(1);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.length_dw = 8;
+-
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr);
++	ib->ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(1);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->length_dw = 8;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -906,7 +911,6 @@ static int sdma_v3_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	else
+ 		r = -EINVAL;
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index f38004e6064e5..56d2832ccba2d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -1516,7 +1516,8 @@ static int sdma_v4_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int sdma_v4_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	long r;
+@@ -1530,26 +1531,30 @@ static int sdma_v4_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	tmp = 0xCAFEDEAD;
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 256,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
++
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r)
+ 		goto err0;
+ 
+-	ib.ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
++	ib = &job->ibs[0];
++	ib->ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+ 		SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr);
+-	ib.ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.length_dw = 8;
+-
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr);
++	ib->ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->length_dw = 8;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -1565,7 +1570,6 @@ static int sdma_v4_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+index a1443990d5c60..dd8d6a572710d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
+@@ -1112,7 +1112,8 @@ static int sdma_v4_4_2_ring_test_ring(struct amdgpu_ring *ring)
+ static int sdma_v4_4_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	long r;
+@@ -1126,26 +1127,30 @@ static int sdma_v4_4_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	tmp = 0xCAFEDEAD;
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 256,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
++
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r)
+ 		goto err0;
+ 
+-	ib.ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
++	ib = &job->ibs[0];
++	ib->ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+ 		SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr);
+-	ib.ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.length_dw = 8;
+-
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr);
++	ib->ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->length_dw = 8;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -1161,7 +1166,6 @@ static int sdma_v4_4_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index 7811cbb1f7ba3..786f1776fa30d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -1074,7 +1074,8 @@ static int sdma_v5_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	long r;
+@@ -1082,7 +1083,6 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	u64 gpu_addr;
+ 
+ 	tmp = 0xCAFEDEAD;
+-	memset(&ib, 0, sizeof(ib));
+ 
+ 	r = amdgpu_device_wb_get(adev, &index);
+ 	if (r) {
+@@ -1093,27 +1093,31 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+ 
+-	r = amdgpu_ib_get(adev, NULL, 256,
+-			  AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "failed to get ib (%ld).\n", r);
+ 		goto err0;
+ 	}
+ 
+-	ib.ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
++	ib = &job->ibs[0];
++	ib->ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+ 		SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr);
+-	ib.ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.length_dw = 8;
+-
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr);
++	ib->ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->length_dw = 8;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -1133,7 +1137,6 @@ static int sdma_v5_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index dbe5b8f109f6a..49005b96aa3f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -974,7 +974,8 @@ static int sdma_v5_2_ring_test_ring(struct amdgpu_ring *ring)
+ static int sdma_v5_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	long r;
+@@ -982,7 +983,6 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	u64 gpu_addr;
+ 
+ 	tmp = 0xCAFEDEAD;
+-	memset(&ib, 0, sizeof(ib));
+ 
+ 	r = amdgpu_device_wb_get(adev, &index);
+ 	if (r) {
+@@ -993,26 +993,31 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+ 
+-	r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "failed to get ib (%ld).\n", r);
+ 		goto err0;
+ 	}
+ 
+-	ib.ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
++	ib = &job->ibs[0];
++	ib->ptr[0] = SDMA_PKT_HEADER_OP(SDMA_OP_WRITE) |
+ 		SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr);
+-	ib.ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.length_dw = 8;
+-
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr);
++	ib->ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->length_dw = 8;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -1032,7 +1037,6 @@ static int sdma_v5_2_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+index eec659194718d..210ea6ba6212f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
+@@ -981,7 +981,8 @@ static int sdma_v6_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int sdma_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	long r;
+@@ -989,7 +990,6 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	u64 gpu_addr;
+ 
+ 	tmp = 0xCAFEDEAD;
+-	memset(&ib, 0, sizeof(ib));
+ 
+ 	r = amdgpu_device_wb_get(adev, &index);
+ 	if (r) {
+@@ -1000,26 +1000,31 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+ 
+-	r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "failed to get ib (%ld).\n", r);
+ 		goto err0;
+ 	}
+ 
+-	ib.ptr[0] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
++	ib = &job->ibs[0];
++	ib->ptr[0] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
+ 		SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr);
+-	ib.ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.length_dw = 8;
+-
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr);
++	ib->ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->length_dw = 8;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -1039,7 +1044,6 @@ static int sdma_v6_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+index 8d16ef257bcb9..3b4417d19212e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c
+@@ -997,7 +997,8 @@ static int sdma_v7_0_ring_test_ring(struct amdgpu_ring *ring)
+ static int sdma_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	long r;
+@@ -1005,7 +1006,6 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	u64 gpu_addr;
+ 
+ 	tmp = 0xCAFEDEAD;
+-	memset(&ib, 0, sizeof(ib));
+ 
+ 	r = amdgpu_device_wb_get(adev, &index);
+ 	if (r) {
+@@ -1016,26 +1016,31 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+ 
+-	r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r) {
+ 		drm_err(adev_to_drm(adev), "failed to get ib (%ld).\n", r);
+ 		goto err0;
+ 	}
+ 
+-	ib.ptr[0] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
++	ib = &job->ibs[0];
++	ib->ptr[0] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
+ 		SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr);
+-	ib.ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.length_dw = 8;
+-
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr);
++	ib->ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->length_dw = 8;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -1055,7 +1060,6 @@ static int sdma_v7_0_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+index 5bc45c3e00d18..d71a546bdde61 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
+@@ -987,7 +987,8 @@ static int sdma_v7_1_ring_test_ring(struct amdgpu_ring *ring)
+ static int sdma_v7_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	long r;
+@@ -995,7 +996,6 @@ static int sdma_v7_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	u64 gpu_addr;
+ 
+ 	tmp = 0xCAFEDEAD;
+-	memset(&ib, 0, sizeof(ib));
+ 
+ 	r = amdgpu_device_wb_get(adev, &index);
+ 	if (r) {
+@@ -1006,26 +1006,31 @@ static int sdma_v7_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+ 
+-	r = amdgpu_ib_get(adev, NULL, 256, AMDGPU_IB_POOL_DIRECT, &ib);
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r) {
+ 		DRM_ERROR("amdgpu: failed to get ib (%ld).\n", r);
+ 		goto err0;
+ 	}
+ 
+-	ib.ptr[0] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
++	ib = &job->ibs[0];
++	ib->ptr[0] = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_WRITE) |
+ 		SDMA_PKT_COPY_LINEAR_HEADER_SUB_OP(SDMA_SUBOP_WRITE_LINEAR);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr);
+-	ib.ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
+-	ib.ptr[4] = 0xDEADBEEF;
+-	ib.ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
+-	ib.length_dw = 8;
+-
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr);
++	ib->ptr[3] = SDMA_PKT_WRITE_UNTILED_DW_3_COUNT(0);
++	ib->ptr[4] = 0xDEADBEEF;
++	ib->ptr[5] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[6] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->ptr[7] = SDMA_PKT_NOP_HEADER_OP(SDMA_OP_NOP);
++	ib->length_dw = 8;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -1045,7 +1050,6 @@ static int sdma_v7_1_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+index 74fcaa340d9b1..b67bd343f795f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+@@ -259,7 +259,8 @@ static int si_dma_ring_test_ring(struct amdgpu_ring *ring)
+ static int si_dma_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+-	struct amdgpu_ib ib;
++	struct amdgpu_job *job;
++	struct amdgpu_ib *ib;
+ 	struct dma_fence *f = NULL;
+ 	unsigned index;
+ 	u32 tmp = 0;
+@@ -273,20 +274,25 @@ static int si_dma_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 	gpu_addr = adev->wb.gpu_addr + (index * 4);
+ 	tmp = 0xCAFEDEAD;
+ 	adev->wb.wb[index] = cpu_to_le32(tmp);
+-	memset(&ib, 0, sizeof(ib));
+-	r = amdgpu_ib_get(adev, NULL, 256,
+-					AMDGPU_IB_POOL_DIRECT, &ib);
++
++	r = amdgpu_job_alloc_with_ib(ring->adev, NULL, NULL, 256,
++				     AMDGPU_IB_POOL_DIRECT, &job,
++				     AMDGPU_KERNEL_JOB_ID_SDMA_RING_TEST);
+ 	if (r)
+ 		goto err0;
+ 
+-	ib.ptr[0] = DMA_PACKET(DMA_PACKET_WRITE, 0, 0, 0, 1);
+-	ib.ptr[1] = lower_32_bits(gpu_addr);
+-	ib.ptr[2] = upper_32_bits(gpu_addr) & 0xff;
+-	ib.ptr[3] = 0xDEADBEEF;
+-	ib.length_dw = 4;
+-	r = amdgpu_ib_schedule(ring, 1, &ib, NULL, &f);
+-	if (r)
++	ib = &job->ibs[0];
++	ib->ptr[0] = DMA_PACKET(DMA_PACKET_WRITE, 0, 0, 0, 1);
++	ib->ptr[1] = lower_32_bits(gpu_addr);
++	ib->ptr[2] = upper_32_bits(gpu_addr) & 0xff;
++	ib->ptr[3] = 0xDEADBEEF;
++	ib->length_dw = 4;
++
++	r = amdgpu_job_submit_direct(job, ring, &f);
++	if (r) {
++		amdgpu_job_free(job);
+ 		goto err1;
++	}
+ 
+ 	r = dma_fence_wait_timeout(f, false, timeout);
+ 	if (r == 0) {
+@@ -302,7 +308,6 @@ static int si_dma_ring_test_ib(struct amdgpu_ring *ring, long timeout)
+ 		r = -EINVAL;
+ 
+ err1:
+-	amdgpu_ib_free(&ib, NULL);
+ 	dma_fence_put(f);
+ err0:
+ 	amdgpu_device_wb_free(adev, index);
 -- 
 2.52.0
 
