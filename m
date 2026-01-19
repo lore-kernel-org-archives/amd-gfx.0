@@ -4,78 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10E62CCF2E7
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 11:20:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AEACCA5FF6
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 11:38:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EEE710E29A;
-	Mon, 19 Jan 2026 11:20:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B20EB10E3BF;
+	Mon, 19 Jan 2026 11:38:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i89gRt1w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o95lIUnI";
 	dkim-atps=neutral
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
- [209.85.218.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 338C410E29A
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 11:20:49 +0000 (UTC)
-Received: by mail-ej1-f48.google.com with SMTP id
- a640c23a62f3a-b8719aeebc8so732114666b.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 03:20:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768821647; x=1769426447; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=1c2GyvC2UdsZJAiaaAeRG6luou9hiuLNFgVbTNLXipI=;
- b=i89gRt1w1ygY9Nnzc69nA7lSbxK1YqBjUrROiVsxRthI4gWME65QV6uUh4uT12TpMf
- IAM1egOxxjVjkVlQpsi1MzUhxqNWcm01lkJjdrDVv+uIkkKN+5X4yFXoW4K4Pct5fi3N
- +aGuUI31OYQuljOdDcdCHQJyLnQbFlM5kvo/tG12W6X9RXyn2BA8jMFovwZejo9gCiYE
- wKdrppbZGdErzHt3Wn0wy3xf627fMEldk/Tj7vmTRj6XQYuUsVhadHUndGwpNVnNSOlx
- HWqeFuhaE2Jb/URl8cEnm/ENgOtYeToO68PagdUxIp43RenCKeHPvlJJQ1JByeDQX0hk
- yIVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768821647; x=1769426447;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=1c2GyvC2UdsZJAiaaAeRG6luou9hiuLNFgVbTNLXipI=;
- b=gUZsRkQTAEmItZzShpDrWskP7R2gtcfNqxVFhIfjwOtp9IWL0fg9ot+faM4LJELLJz
- n3SQ5q5s3S2rSO8DaOEemJbuCOb1S3rxTY2R9PfrFLPTJRGBpynhuKu71d/uwnCT3JJG
- 18VQUowVdU6Nm8P+RBeYMa5EuuR13u4JLjvFX74s0peb1aqIoj5CmSSGmoC/D4NSAFAr
- cLncScnlBvVeO/Cq3zo+aXvykmyyfG6aDt6JQ76Yaz3CwmSIDszelkXkTx8qsoWH34ic
- NlSay6ba9zXQ28GFzzVv8VfRSzxFlPHSWuY0WI3gl+l16AC/R4gbMF/P/b4R+puTN6A4
- VilA==
-X-Gm-Message-State: AOJu0YzFs7zv02GxyKU1YDDm76i9F4oa8QbveSWt6DCW8D9KDCBe6Hcw
- qgCU5KpJeW0ahp/BI9JAqG6PH0/LJ4mDF7UhZ9xXSoveMlZ/6RKsfRx8zWYyxg==
-X-Gm-Gg: AY/fxX7SG09FzRYAJDkmby1NAaQ0d1v5S4ecUf4r1rImltfubLZzxStR2zpprmA9nX0
- km/RnbOxMa5jQIzco0qePiLQvSjruyeGtEr9mjqGn23R045tqh46lI/A7rZUROpHIfbJqqvQmat
- qcNTD0KOeX82pK5Vn62G7M47wsFGXEqtXxSU9kbAixOQRzIadESPLxax49WRhD8OeSWsSSJ6H3i
- CiCJF1UFwWA8Uxrnes6w97MiETDsZOVwxW5ZI+YKYj7KjWryHsMqi6BC8FIp9/WPJ5zPgz18ysl
- p9tnN4a8J8z0jXUaOgXxc8yIH32Yjod/DfaP+C16YKxj1G3FAIZ1TfKTwitgfTCjdGZtPeOPUxN
- kQbB5wQGfpNC2gLAr6yVsvI5GW0uXSW8NQYklTUTrO/w4S7HFaQUrttD1oj2SNLBz5rGL9uaUgO
- JgRlcJ2fF3CvXNPMKq3XV/WIa/X0OmBd2p94X9yvrUzRNldwd4qkrykvOtde1VwfRmtE1qHhSyJ
- VChBmpeU4Y8yolAHQv8FWaq
-X-Received: by 2002:a17:906:9fc9:b0:b87:91cb:7412 with SMTP id
- a640c23a62f3a-b8792fea1f1mr974863466b.53.1768821646926; 
- Mon, 19 Jan 2026 03:20:46 -0800 (PST)
-Received: from timur-hyperion.localnet
- (20014C4E24E47400AD77F2CC91C9A6FE.dsl.pool.telekom.hu.
- [2001:4c4e:24e4:7400:ad77:f2cc:91c9:a6fe])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b879513e6d3sm1081718366b.4.2026.01.19.03.20.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jan 2026 03:20:46 -0800 (PST)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- Prike Liang <Prike.Liang@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix validating flush_gpu_tlb_pasid()
-Date: Mon, 19 Jan 2026 12:20:45 +0100
-Message-ID: <4856897.vXUDI8C0e8@timur-hyperion>
-In-Reply-To: <0b3603e5-f6d1-4be8-80dc-e9aaaac48e40@amd.com>
-References: <20260118125746.40221-1-timur.kristof@gmail.com>
- <0b3603e5-f6d1-4be8-80dc-e9aaaac48e40@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6B4610E3FD;
+ Mon, 19 Jan 2026 11:38:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6BFF6401C4;
+ Mon, 19 Jan 2026 11:38:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAF89C116C6;
+ Mon, 19 Jan 2026 11:38:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1768822694;
+ bh=CrClsIc2cQ+j4T9ctzlJIQ48V1LHgsZOne+eJYYteFE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=o95lIUnIJLtm5H1ecUwFhfTaqZ8nSqbrYNgIxNbIA+6WYIcEq1Sqa87rxGSeMo0VL
+ vHw8DC9FbCqX0Nz0mhvt/PSlcRAy6Mq8sHRPplxRDJV/qfoAKynbCMEPYtXkEdQcFv
+ hrVCOI6apHff0eWTN4cuFHgEPuj9zajAjVYCZAmd1dER2smDFHw4xdnCUlx0th2L8Y
+ 5QybSPqj9mVswDPkVUtI1X5Mr1T6sCm+yMRqR62crXiBa3ESXKu9C4kv1sEQ46AdVu
+ uphdTz7g5eh0YGgDtE2pWT++/+mPznpxIOF26+4LbowbUaBJFL8U2wd9WzgaqQWyVu
+ ZlZrKl0qiby9g==
+Date: Mon, 19 Jan 2026 13:38:09 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dma-buf: Rename .move_notify() callback to a
+ clearer identifier
+Message-ID: <20260119113809.GK13201@unreal>
+References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
+ <20260118-dmabuf-revoke-v2-1-a03bb27c0875@nvidia.com>
+ <345b8dcb-5015-4801-b263-0dca4d1b3fca@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <345b8dcb-5015-4801-b263-0dca4d1b3fca@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,91 +79,225 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, January 19, 2026 11:12:02=E2=80=AFAM Central European Standard T=
-ime=20
-Christian K=C3=B6nig wrote:
-> On 1/18/26 13:57, Timur Krist=C3=B3f wrote:
-> > When a function holds a lock and we return without unlocking it,
-> > it deadlocks the kernel. We should always unlock before returning.
-> >=20
-> > This commit fixes suspend/resume on SI.
-> > Tested on two Tahiti GPUs: FirePro W9000 and R9 280X.
-> >=20
-> > Fixes: bc2dea30038a ("drm/amdgpu: validate the flush_gpu_tlb_pasid()")
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+On Mon, Jan 19, 2026 at 11:22:27AM +0100, Christian König wrote:
+> On 1/18/26 13:08, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > Rename the .move_notify() callback to .invalidate_mappings() to make its
+> > purpose explicit and highlight that it is responsible for invalidating
+> > existing mappings.
+> > 
+> > Suggested-by: Christian König <christian.koenig@amd.com>
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> 
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+
+Thanks,
+
+BTW, I didn't update the various xxx_move_notify() functions to use
+xxx_invalidate_mappings() names. Should those be converted as well?
+
+> 
 > > ---
-> >=20
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 5 ++---
-> >  1 file changed, 2 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c index
-> > 0e67fa4338ff..4fa24be1bf45 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> > @@ -769,7 +769,7 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct
-> > amdgpu_device *adev, uint16_t pasid,>=20
-> >  	struct amdgpu_ring *ring =3D &adev->gfx.kiq[inst].ring;
-> >  	struct amdgpu_kiq *kiq =3D &adev->gfx.kiq[inst];
-> >  	unsigned int ndw;
-> >=20
-> > -	int r, cnt =3D 0;
-> > +	int r =3D 0, cnt =3D 0;
->=20
-> Please don't initialize return values in the declaration, that is usually
-> considered bad coding style.
-
-The initialization is necessary, otherwise the function will return an=20
-uninitialized value when flush_gpu_tlb_pasid=3D=3DNULL
-
-> >  	uint32_t seq;
-> >  =09
+> >  drivers/dma-buf/dma-buf.c                   | 6 +++---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 4 ++--
+> >  drivers/gpu/drm/virtio/virtgpu_prime.c      | 2 +-
+> >  drivers/gpu/drm/xe/tests/xe_dma_buf.c       | 6 +++---
+> >  drivers/gpu/drm/xe/xe_dma_buf.c             | 2 +-
+> >  drivers/infiniband/core/umem_dmabuf.c       | 4 ++--
+> >  drivers/infiniband/hw/mlx5/mr.c             | 2 +-
+> >  drivers/iommu/iommufd/pages.c               | 2 +-
+> >  include/linux/dma-buf.h                     | 6 +++---
+> >  9 files changed, 17 insertions(+), 17 deletions(-)
+> > 
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index edaa9e4ee4ae..59cc647bf40e 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -948,7 +948,7 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
+> >  	if (WARN_ON(!dmabuf || !dev))
+> >  		return ERR_PTR(-EINVAL);
+> >  
+> > -	if (WARN_ON(importer_ops && !importer_ops->move_notify))
+> > +	if (WARN_ON(importer_ops && !importer_ops->invalidate_mappings))
+> >  		return ERR_PTR(-EINVAL);
+> >  
+> >  	attach = kzalloc(sizeof(*attach), GFP_KERNEL);
+> > @@ -1055,7 +1055,7 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_pin, "DMA_BUF");
+> >   *
+> >   * This unpins a buffer pinned by dma_buf_pin() and allows the exporter to move
+> >   * any mapping of @attach again and inform the importer through
+> > - * &dma_buf_attach_ops.move_notify.
+> > + * &dma_buf_attach_ops.invalidate_mappings.
+> >   */
+> >  void dma_buf_unpin(struct dma_buf_attachment *attach)
+> >  {
+> > @@ -1262,7 +1262,7 @@ void dma_buf_move_notify(struct dma_buf *dmabuf)
+> >  
+> >  	list_for_each_entry(attach, &dmabuf->attachments, node)
+> >  		if (attach->importer_ops)
+> > -			attach->importer_ops->move_notify(attach);
+> > +			attach->importer_ops->invalidate_mappings(attach);
+> >  }
+> >  EXPORT_SYMBOL_NS_GPL(dma_buf_move_notify, "DMA_BUF");
+> >  
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > index e22cfa7c6d32..863454148b28 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> > @@ -450,7 +450,7 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+> >  }
+> >  
+> >  /**
+> > - * amdgpu_dma_buf_move_notify - &attach.move_notify implementation
+> > + * amdgpu_dma_buf_move_notify - &attach.invalidate_mappings implementation
+> >   *
+> >   * @attach: the DMA-buf attachment
+> >   *
+> > @@ -521,7 +521,7 @@ amdgpu_dma_buf_move_notify(struct dma_buf_attachment *attach)
+> >  
+> >  static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops = {
+> >  	.allow_peer2peer = true,
+> > -	.move_notify = amdgpu_dma_buf_move_notify
+> > +	.invalidate_mappings = amdgpu_dma_buf_move_notify
+> >  };
+> >  
+> >  /**
+> > diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
+> > index ce49282198cb..19c78dd2ca77 100644
+> > --- a/drivers/gpu/drm/virtio/virtgpu_prime.c
+> > +++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
+> > @@ -288,7 +288,7 @@ static void virtgpu_dma_buf_move_notify(struct dma_buf_attachment *attach)
+> >  
+> >  static const struct dma_buf_attach_ops virtgpu_dma_buf_attach_ops = {
+> >  	.allow_peer2peer = true,
+> > -	.move_notify = virtgpu_dma_buf_move_notify
+> > +	.invalidate_mappings = virtgpu_dma_buf_move_notify
+> >  };
+> >  
+> >  struct drm_gem_object *virtgpu_gem_prime_import(struct drm_device *dev,
+> > diff --git a/drivers/gpu/drm/xe/tests/xe_dma_buf.c b/drivers/gpu/drm/xe/tests/xe_dma_buf.c
+> > index 5df98de5ba3c..1f2cca5c2f81 100644
+> > --- a/drivers/gpu/drm/xe/tests/xe_dma_buf.c
+> > +++ b/drivers/gpu/drm/xe/tests/xe_dma_buf.c
+> > @@ -23,7 +23,7 @@ static bool p2p_enabled(struct dma_buf_test_params *params)
+> >  static bool is_dynamic(struct dma_buf_test_params *params)
+> >  {
+> >  	return IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY) && params->attach_ops &&
+> > -		params->attach_ops->move_notify;
+> > +		params->attach_ops->invalidate_mappings;
+> >  }
+> >  
+> >  static void check_residency(struct kunit *test, struct xe_bo *exported,
+> > @@ -60,7 +60,7 @@ static void check_residency(struct kunit *test, struct xe_bo *exported,
+> >  
 > >  	/*
-> >=20
-> > @@ -782,7 +782,7 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct
-> > amdgpu_device *adev, uint16_t pasid,>=20
-> >  	if (!adev->gmc.flush_pasid_uses_kiq || !ring->sched.ready) {
-> >  =09
-> >  		if (!adev->gmc.gmc_funcs->flush_gpu_tlb_pasid)
-> >=20
-> > -			return 0;
-> > +			goto error_unlock_reset;
->=20
-> Ah, yes good catch!
->=20
-> With the change to r initialization dropped: Reviewed-by: Christian K=C3=
-=B6nig
-> <christian.koenig@amd.com>
-
-If I drop it, then it will regress again because it returns an uninitialize=
-d=20
-value.
-
->=20
-> Regards,
-> Christian.
->=20
-> >  		if (adev->gmc.flush_tlb_needs_extra_type_2)
-> >  	=09
-> >  			adev->gmc.gmc_funcs-
->flush_gpu_tlb_pasid(adev, pasid,
-> >=20
-> > @@ -797,7 +797,6 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct
-> > amdgpu_device *adev, uint16_t pasid,>=20
-> >  		adev->gmc.gmc_funcs->flush_gpu_tlb_pasid(adev, pasid,
-> >  	=09
-> >  							=20
-flush_type, all_hub,
-> >  							=20
-inst);
-> >=20
-> > -		r =3D 0;
-> >=20
-> >  	} else {
-> >  =09
-> >  		/* 2 dwords flush + 8 dwords fence */
-> >  		ndw =3D kiq->pmf->invalidate_tlbs_size + 8;
-
-
-
-
+> >  	 * Evict exporter. Evicting the exported bo will
+> > -	 * evict also the imported bo through the move_notify() functionality if
+> > +	 * evict also the imported bo through the invalidate_mappings() functionality if
+> >  	 * importer is on a different device. If they're on the same device,
+> >  	 * the exporter and the importer should be the same bo.
+> >  	 */
+> > @@ -198,7 +198,7 @@ static void xe_test_dmabuf_import_same_driver(struct xe_device *xe)
+> >  
+> >  static const struct dma_buf_attach_ops nop2p_attach_ops = {
+> >  	.allow_peer2peer = false,
+> > -	.move_notify = xe_dma_buf_move_notify
+> > +	.invalidate_mappings = xe_dma_buf_move_notify
+> >  };
+> >  
+> >  /*
+> > diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
+> > index 7c74a31d4486..1b9cd043e517 100644
+> > --- a/drivers/gpu/drm/xe/xe_dma_buf.c
+> > +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+> > @@ -287,7 +287,7 @@ static void xe_dma_buf_move_notify(struct dma_buf_attachment *attach)
+> >  
+> >  static const struct dma_buf_attach_ops xe_dma_buf_attach_ops = {
+> >  	.allow_peer2peer = true,
+> > -	.move_notify = xe_dma_buf_move_notify
+> > +	.invalidate_mappings = xe_dma_buf_move_notify
+> >  };
+> >  
+> >  #if IS_ENABLED(CONFIG_DRM_XE_KUNIT_TEST)
+> > diff --git a/drivers/infiniband/core/umem_dmabuf.c b/drivers/infiniband/core/umem_dmabuf.c
+> > index 0ec2e4120cc9..d77a739cfe7a 100644
+> > --- a/drivers/infiniband/core/umem_dmabuf.c
+> > +++ b/drivers/infiniband/core/umem_dmabuf.c
+> > @@ -129,7 +129,7 @@ ib_umem_dmabuf_get_with_dma_device(struct ib_device *device,
+> >  	if (check_add_overflow(offset, (unsigned long)size, &end))
+> >  		return ret;
+> >  
+> > -	if (unlikely(!ops || !ops->move_notify))
+> > +	if (unlikely(!ops || !ops->invalidate_mappings))
+> >  		return ret;
+> >  
+> >  	dmabuf = dma_buf_get(fd);
+> > @@ -195,7 +195,7 @@ ib_umem_dmabuf_unsupported_move_notify(struct dma_buf_attachment *attach)
+> >  
+> >  static struct dma_buf_attach_ops ib_umem_dmabuf_attach_pinned_ops = {
+> >  	.allow_peer2peer = true,
+> > -	.move_notify = ib_umem_dmabuf_unsupported_move_notify,
+> > +	.invalidate_mappings = ib_umem_dmabuf_unsupported_move_notify,
+> >  };
+> >  
+> >  struct ib_umem_dmabuf *
+> > diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
+> > index 325fa04cbe8a..97099d3b1688 100644
+> > --- a/drivers/infiniband/hw/mlx5/mr.c
+> > +++ b/drivers/infiniband/hw/mlx5/mr.c
+> > @@ -1620,7 +1620,7 @@ static void mlx5_ib_dmabuf_invalidate_cb(struct dma_buf_attachment *attach)
+> >  
+> >  static struct dma_buf_attach_ops mlx5_ib_dmabuf_attach_ops = {
+> >  	.allow_peer2peer = 1,
+> > -	.move_notify = mlx5_ib_dmabuf_invalidate_cb,
+> > +	.invalidate_mappings = mlx5_ib_dmabuf_invalidate_cb,
+> >  };
+> >  
+> >  static struct ib_mr *
+> > diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+> > index dbe51ecb9a20..76f900fa1687 100644
+> > --- a/drivers/iommu/iommufd/pages.c
+> > +++ b/drivers/iommu/iommufd/pages.c
+> > @@ -1451,7 +1451,7 @@ static void iopt_revoke_notify(struct dma_buf_attachment *attach)
+> >  
+> >  static struct dma_buf_attach_ops iopt_dmabuf_attach_revoke_ops = {
+> >  	.allow_peer2peer = true,
+> > -	.move_notify = iopt_revoke_notify,
+> > +	.invalidate_mappings = iopt_revoke_notify,
+> >  };
+> >  
+> >  /*
+> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> > index 0bc492090237..1b397635c793 100644
+> > --- a/include/linux/dma-buf.h
+> > +++ b/include/linux/dma-buf.h
+> > @@ -407,7 +407,7 @@ struct dma_buf {
+> >  	 *   through the device.
+> >  	 *
+> >  	 * - Dynamic importers should set fences for any access that they can't
+> > -	 *   disable immediately from their &dma_buf_attach_ops.move_notify
+> > +	 *   disable immediately from their &dma_buf_attach_ops.invalidate_mappings
+> >  	 *   callback.
+> >  	 *
+> >  	 * IMPORTANT:
+> > @@ -458,7 +458,7 @@ struct dma_buf_attach_ops {
+> >  	bool allow_peer2peer;
+> >  
+> >  	/**
+> > -	 * @move_notify: [optional] notification that the DMA-buf is moving
+> > +	 * @invalidate_mappings: [optional] notification that the DMA-buf is moving
+> >  	 *
+> >  	 * If this callback is provided the framework can avoid pinning the
+> >  	 * backing store while mappings exists.
+> > @@ -475,7 +475,7 @@ struct dma_buf_attach_ops {
+> >  	 * New mappings can be created after this callback returns, and will
+> >  	 * point to the new location of the DMA-buf.
+> >  	 */
+> > -	void (*move_notify)(struct dma_buf_attachment *attach);
+> > +	void (*invalidate_mappings)(struct dma_buf_attachment *attach);
+> >  };
+> >  
+> >  /**
+> > 
+> 
