@@ -4,82 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAD19CA600A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BEE8CA5FFF
 	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3087C10E3AE;
-	Mon, 19 Jan 2026 08:18:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF94210E3A9;
+	Mon, 19 Jan 2026 08:18:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XL4JAsgm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S5dnYFod";
 	dkim-atps=neutral
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8330D10E27E
- for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 11:41:18 +0000 (UTC)
-Received: by mail-ed1-f66.google.com with SMTP id
- 4fb4d7f45d1cf-64b7d213fd6so633729a12.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 03:41:18 -0800 (PST)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BFF210E30B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:12:08 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-64b7d213fd6so714486a12.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:12:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768736477; x=1769341277; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=mLh48X5tXDlaNj7wOvjo2Wepz3Px1aU/XLKAVLX3p/k=;
- b=XL4JAsgmigUv1g+pPDe7C0YIdcq3pN8/T6CEBSjtSbiKqq+Rx95RE6E66soTedNNLb
- e4C+2tShvOA8tnbFIycSAwmhNNQLhGhrvNa1ZYCxRlR2N3jMYOplWfhlnmDEpFHK4MaP
- p1zPJ3DmNHkRQAmnsZwn1cPfg4khzSEzyHfybsumyllpuBCkbePnB0NBemXBbKbxM+9v
- a8M+b3kcbuoxzBgtK95X27VG6EZwCPTuXoBs/rfQiZDtwFGb7TuUOYE0mT14i2vS8Y2O
- h1bZEBK6pKjoEwJjVE2Cmyo74r0vBC1Jx9qMDifXG1RWSSpkt2qGhB7YGTnKdiK6VmKj
- JiOw==
+ d=gmail.com; s=20230601; t=1768785127; x=1769389927; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=s0u8eLdbLCl3RDSNLAMEHYXwCr/EaTB1bb2BDCNJLyI=;
+ b=S5dnYFod0NPGHmQdsQj4HNGJLaWwYhTZaFr776uv27n86G8gJs8dA8zxAy4JPYSOmM
+ UI+WBCZ/sHyWCC1RpHsF8yCWYtlumSx1mHmSke/u7C4YHaOqOgqhQGeG0rE5mpUVKMuU
+ PFh/w6HfrUlN6+lLI7Q5c8Prlv2dqQd74pIifOpcGZeW1nNMiv3s7SYi6wSkCcb11BaV
+ ZzY9lYjPYd1GcaWSes8nBp72PS2k6KRdgwJ6NQVxqirHBGUqzNBxUrVD8Xin9wvRa1K7
+ 696ictE/0mcaFsfZaA3ctGxj4yV7uu7dPKfAP2wfeLHTmbfZiO/E3KPPDhZ4siEfr8ia
+ QOlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768736477; x=1769341277;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=mLh48X5tXDlaNj7wOvjo2Wepz3Px1aU/XLKAVLX3p/k=;
- b=YruO4oyZ1ZrWawwPz7OROjZDVYKfKAkJIaVh+aXUqHNAJ3eDf160tRI5fayFX8vDAj
- yoyzDI+NSl9deDxj9JUSVQTiaNKFfiRirAamg6WwRZZ30/Z/Zi7L+kjVJy+TWoGXdMB9
- imwTmTZ2vvnsiWQ+M/9TVtbM4kgRHPt/7pbjtRr1iLzEGqN6mYIgpBk1GalwIqx46AAK
- kQFV1Lar8UQJwg2ehShzTG6VPhFrYTe1ROxKBzjZs9kOKn8pdFmlE/u6KIDw+cHbHsI8
- rnmVfSFJ/4P84HCAfnqwn7XV2UtkkP6tLy2XweyPt/YIQraGcwpiZbsFQ0VvPlBC8h8T
- 97Yg==
+ d=1e100.net; s=20230601; t=1768785127; x=1769389927;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=s0u8eLdbLCl3RDSNLAMEHYXwCr/EaTB1bb2BDCNJLyI=;
+ b=Tl1CjGIccbsfFsZy7tQxtz3xXxOJb54lLSIwj9CuNZEKlwx+on6PeUY5+9RbPpA5qE
+ AqGdKe2ZvfChsSHyetEt6EL6fsQZgheFWA+d1kbnr1tFx9ON2kZtjt68Cs/ygzpEuYFv
+ dvo5d6KhjwTmnZ/5PM1IW4/+B8Xky9dzwM9QlXVZtGhd4fLYx6bZz6JPZRteJhWY0e3Y
+ 20EMQeHNkEICMBItu9BqUanGYR3qd2aIa9kwyQx5QA6kGL/ihZ/XfHuorPpGIrG5UwP1
+ KO6OBiBAAqVSvsrTWT7aRjELC3fCvqsb4KdRAJ97Ml6zmBZ+Qpr19Q82f3gqRFrmJ4Hw
+ oZjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCU4ckmowXC0eZY1SlicLq6c0dpeE2qwU0L5PfCpHu6t13s9PGkI2knVWtvBCaQ0+z1w3P1mielK@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy/C4tUevSsPk9CMfR/v8b3DvFU3Y3EXjN197K7L+co6PqlQ023
- kw73RDRsios4whMm9fKYIdSZCWxPqDuuqhUWwBtmO//NRCY/wJD2ZMrQ
-X-Gm-Gg: AY/fxX7+HmcPyfexGRibZOp2VSL6M6Hef39A9FsxVYfhg1jeKFgQ0OO0lPQ+omOljzx
- MQZJL3FggIT8z8/FAKqrTGZbXzVMEkq3hEMHrvlfi0fZz6l5sNDlzyqnusLANSu3fV+v9L03C4P
- +qlXcUNYZSoX13vQq96TYcep+RQKtrfQkIvaKGaKuhtr9Yzy3yeczUYZB1CxB7ng4a2Q94foRuk
- I3g/LyyOjzIkkx4iAKbud1vFmtuC41jqM3t1DbzrTVksdsWcCwhVM6xdYXloc4vCSJUSlMiSCgi
- qHu5AxiAet1UVAwdP7/LIgG1ChJXZ9t/TbD+MG+nZavOsuNLZkbp5F7CmIVzaR3E8h1TMFckS9W
- 9JjjwQ7CjrETY4aEN5oATrSYoJ9NK09XLFvpviLK7ux18Ckv5MN94GOocuHVTDd37a3ycpKipfW
- kMev4aTr0Q/BSGgcuOX+4Y7fP9pBnssIz/hBzt3gjy174zjjmTYMYFWHzRo3o6+KfE8g9HRFk=
-X-Received: by 2002:a05:6402:4404:b0:647:853a:f161 with SMTP id
- 4fb4d7f45d1cf-654523ccc08mr3578553a12.2.1768736476668; 
- Sun, 18 Jan 2026 03:41:16 -0800 (PST)
-Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
- [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-654533cc70fsm7658121a12.17.2026.01.18.03.41.15
+ AJvYcCVyo6EYQ1dKXHnkImDNrLVPr7opQ9fVbXQyzcy2UlG76OYe5kXTW5aturePPx/vce4hSzvKt0Ps@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWIbLLv06gVEjZF/3QJIS5noUAzrHws4pnKwzoQ+L0U+N5U1i1
+ y1aImfW1ANgneYWCSTu5i2IxBcyIW0hKhSJTndmFhqu0P8+9PQFzpChl
+X-Gm-Gg: AY/fxX7iulDNia+g+rI9Eok24BqmLaaEFrUlPtYMbb5creCoyLbX+t9cwUVD0rx2cxE
+ G80WoGH1jmmWBUIjprwKqiIgfrX/7t14aiO3IFBG2cPT1KYuobBm2t/64zRMsrnhCRkkUXQQGU9
+ 57U1N+yhwc6tg9YKYmRr8Ef1bcGcrALTDFZBLqm5K718jvVasxKsAhZeKJBxGORwnXmTUYS8RIr
+ VWGGQwU0JKQKfoeA+BPcLQRXpkNuFHgRcPjHfI61mfCzxILlVzu/1oIj+eAi9dmQXZud6Cctq2A
+ 2IsWPtSh1+TSBMeQHKAMEthyhESdaYp/no7ZbRh2HbXtEhQRUmioahmWM59lIKqrEAC6EcI+U3t
+ 4ONFKga8RF7aihNVfC4sj03pjN1dlumgeRih8c2Mshr6FoHU5HxCUaxsdIZJ/6296BRFhNuAjWC
+ P0P8yiQ+huhOmrCXm7dfKpEoe2DJvav6i2xdPeowcoL8SaHYPtS6HOiTmdVtpJi3KB
+X-Received: by 2002:a05:6402:5216:b0:64b:3b7c:7920 with SMTP id
+ 4fb4d7f45d1cf-65452cd36d2mr4017295a12.8.1768785126847; 
+ Sun, 18 Jan 2026 17:12:06 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.12.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Jan 2026 03:41:16 -0800 (PST)
-Message-ID: <f7eb4d8540e1453fa7612e76ad7b78e5f4c165a4.camel@gmail.com>
-Subject: Re: [PATCH v2 0/3] amdgpu: Enable Adaptive Sync over PCON with HDMI
- VRR
-From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: alexander.deucher@amd.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	harry.wentland@amd.com, sunpeng.li@amd.com,
- siqueira@igalia.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Date: Sun, 18 Jan 2026 12:41:14 +0100
-In-Reply-To: <20260113214104.146856-1-tomasz.pakula.oficjalny@gmail.com>
-References: <20260113214104.146856-1-tomasz.pakula.oficjalny@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.2 
+ Sun, 18 Jan 2026 17:12:06 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
+ bernhard.berger@gmail.com
+Subject: [PATCH 12/17] drm/amd/display: Build HDMI vsif in correct slot
+Date: Mon, 19 Jan 2026 02:11:41 +0100
+Message-ID: <20260119011146.62302-13-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 19 Jan 2026 08:18:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,51 +95,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-01-13 at 22:41 +0100, Tomasz Paku=C5=82a wrote:
-> Adaptive Sync over PCON is only available as FreeSync over HDMI. TVs whic=
-h do
-> not support FreeSync, do not have working VRR with DP -> HDMI 2.1 adapter=
-s even
-> though adapters will take care of HDMI VRR info packets.
->=20
-> Since HDMI VRR relies on FRL modes, this will only be enabled for PCONs i=
-n the
-> VRR whitelist. HDMI VRR for native HDMI connector will still not be
-> possible/attempted.
->=20
-> I myself validated these changes with my Samsung S95B + Bernhard validate=
-d on
-> LG C4 + FreeSync-less Sony Bravia 8. I used Alienware AW3423DWF that only
-> has HDMI 2.0 to check that FreeSync still triggers properly for "older" h=
-ardware
->=20
-> For missing VRRmax or VRRmax =3D=3D 0, the upper boundary is the currentl=
-y selected
-> video mode refresh rate. I wasn't sure how best to implement it but 10000
-> works since the driver already limits VRR range to the currently selected
-> video mode and 10000 Hz should be good enough for years to come.
->=20
-> Changes in v2:
-> - More info parsed from HDMI Forum vsdb
-> - EDID parsing squashed into one commit
-> - Support for VRRmax =3D=3D 0
->=20
-> Tomasz Paku=C5=82a (3):
->   drm/edid: parse more info from HDMI Forum vsdb
->   drm/amd/display: rename PCON adaptive sync types
->   drm/amd/display: enable HDMI VRR over PCON
->=20
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 27 +++++++++--
->  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  2 +-
->  .../amd/display/modules/inc/mod_info_packet.h |  4 +-
->  .../display/modules/info_packet/info_packet.c |  4 +-
->  drivers/gpu/drm/drm_edid.c                    | 41 +++++++++++++++-
->  include/drm/drm_connector.h                   | 47 +++++++++++++++++++
->  6 files changed, 114 insertions(+), 11 deletions(-)
+[Why]
+HDMI vsif was assigned to vsp_infopacket (FreeSync) field
 
-I'd like to inform you that this patch series will be superseded by
-another, bigger patch series which compiles my recent work as all the
-separate series/patches di conflict with each other.
+[How]
+Build HDMI vsif in the correct hfvsif_infopacket field
 
-Thank you.
-Tomasz
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 3c535a361882..ef7e02ebda41 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -7362,7 +7362,7 @@ create_stream_for_sink(struct drm_connector *connector,
+ 	update_stream_signal(stream, sink);
+ 
+ 	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+-		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket);
++		mod_build_hf_vsif_infopacket(stream, &stream->hfvsif_infopacket);
+ 
+ 	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT ||
+ 	    stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
+-- 
+2.52.0
+
