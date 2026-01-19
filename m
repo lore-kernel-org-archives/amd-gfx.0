@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D349CA6012
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3101CA6009
 	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D98C710E3B9;
-	Mon, 19 Jan 2026 08:18:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B49A10E3C3;
+	Mon, 19 Jan 2026 08:18:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VQzp6NrZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VCT1wNq5";
 	dkim-atps=neutral
-Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com
- [209.85.218.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AB4210E303
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:12:04 +0000 (UTC)
-Received: by mail-ej1-f68.google.com with SMTP id
- a640c23a62f3a-b8773fcff60so77526466b.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:12:04 -0800 (PST)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E57C10E309
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:12:02 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-64b5b68a9bdso593721a12.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:12:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768785123; x=1769389923; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1768785121; x=1769389921; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6HUGS6jvxmoIyvr+IqDq6ssoVfWMzXazHZIMF4nNX64=;
- b=VQzp6NrZYaIj/jPFy1O2356rAR4WJEHgRTLKKT4dZ8FZ4vqS3wCT0Lt4AGhJGPPNZM
- 7tFs/Xu+lrT5o1Hg/vA+qCxJPMGBL/1X234d0PqQHdDF7ZH6Z4xBniPxBqAdhJCIgQPg
- Ay4J3juZqKXZibEgznj3w7T+IHCKRPZW1arrj2rvwNfvIAdoJSpJwD++Q/xBH9oyTy4M
- jPpCZPIKPA9wB7wP/zo4NsMNGfb2/n74lptLyeQqGBovdoZntPy+Awsj7YUR05yRYCGg
- kcK3YuVvIkcr4ueo4gKpuD6+kyGArvQD+PZWLjrUUGq/Rv1Xa8NhpJr42WGolC2Se9ks
- bLIg==
+ bh=0A5eHusdWY5bDg+aivWCgCoxrDZwEpdh2mh6IhrC0mc=;
+ b=VCT1wNq5l7XDBpKphGVmPHuywXhlzpwpLDsN2B+ZBmOeuD1g4txMHJfaemzTeO8UAV
+ RHtsUigjk/edCqUh+7mtZktQBAov8nmZWq/JqE5WPocSJCFSCTf49hF2iKWS4lFumkwl
+ ugZTIwV6G1B+MqyvD7kGn0Cvo/hpNpA0GKK1hNuaN8Y5KS5yRzgRGFuHnC9RqzbLKv4t
+ 2EzLSLFhoXheCbXjfuy0CzQW/5fVpIKXkDAVj5iqXPq0G7OJxHzxXwKYOEJl2L+tqxCQ
+ fnNrh30X4c/v5WEXVYYxG3iYT4FuBMHf9JSQmZGARYXbIEV6mIevOHodTScDMg0oMptX
+ T/uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768785123; x=1769389923;
+ d=1e100.net; s=20230601; t=1768785121; x=1769389921;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=6HUGS6jvxmoIyvr+IqDq6ssoVfWMzXazHZIMF4nNX64=;
- b=nCTBtiODtQ/EqTX1gQfQzLmFrW93rrrp8Pb7BkGXPtheycVAJQY9NV6CP8L609t9CI
- X8myjVm98esqH9RKOh1hw78x6DnoqCUDnM1YxWKNCWuCdF3Z8ULWM5qghU9TnAuKJzWV
- vb68Wxf/o+InDuXEO7ApRkXAIDoRHQ7DXR+fUEGv5A0MJgou5f6W6pvboRML7U7Y/EdU
- g4R1D0K2gapekVyqRWz8dG/5eGtRONOWAArvoXUh9qwUHoRji3Dh/hkYJpSQvo+THaCw
- aQvgG0ICoTeKSiDZGQbyd/V3aJ9HViWaFNpdTKeX9hP4hZlHHNBgpkope9kazU4LXRwO
- ya+Q==
+ bh=0A5eHusdWY5bDg+aivWCgCoxrDZwEpdh2mh6IhrC0mc=;
+ b=fDmYlkBaAPPvhFMV/goJ4EkdNC1E6Z/63YeRL4V7uYsCKxA8Q0iIsumg3XG4nBARvN
+ bQ7KikEVEE7c+x5gXixy7BTINSOzkGHeNnE6DmVe9thpFp/BdZB7C/RvAFCLtP217jEP
+ ZiKyqfRZTimRRNDtHaRvbdR4BKAPVgSZzNNMd59b2OnvAwxYLuLqYrIKiLR3gdH3Dy1b
+ L384fe5QZNNPZ4XA3F2/sf3KnWHkDilxL9AhjDwyP8VEzSp8y6Fy7W7IQZ5xO1mxRR+x
+ tds57e4H0CvaHHyuv+6EpW7WjgG2TfezhXAoCpBh8vW+unsgwbMhVct6iliGIjwF29D7
+ gw9g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUmDFdfNGSliJBFHoecJaBQCNXDpjTaMquPtn5g0CLMMe9iIyX2rEyQhnDAgjzFbZ0KFI40wFcY@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2M2Px5lnW5K4UvB7e1npHmRMP9QLjDXY5CCqKPS5lsLqk/Aj8
- U4TpyDvAS8cTXPw+qAG37xT6gWL7w5pSX3J3KHmKzmOnNgZCr2J347Xh
-X-Gm-Gg: AY/fxX7Gss4lxUEv4ClGLmN7wi0nn4mEmoyjXPHbizuhXWp8Nl2D7JadxE6ABO5bt4e
- l7GAU6ia1M3WFJYGoQeAdA7kp2rFc1nfDEar9wOSajtvPjL5Y6X8qKs9gDy9jsTcqZ0QoG4E221
- HJdLlYCSyd0R8iPTgNILPh9ncv/D47EtGAj9fhma4q/KuMavRj8YmxXIusB+Q9tQszmXQebpYWt
- Q2qG/7gXE5wjej1tLoVcgZt+32qern80a8CpubFzBifp7CCORf9KOCHoay5dCUKRwMKijO+jzKj
- b9pH0e4R23mIaIddIDAI3C2Zgalnf2V7bwfJNYrRxKmXPOfqdWBbS6aB/dTVgvzfaR5SsojZLAF
- 6OytPk2zfD1zb7mrKrYhaTu6CAjIjizwm8MlDs3f9KIFVZa5TpAymaAyiUaVkKlFWj9V38JnnU6
- xs1fwk2Qy7vks8xIAhGpVbGdyHsYq745FFOP40eX/ow0JBsoyatdcCw/AvXRGm80agtns0E2cOX
- WQ=
-X-Received: by 2002:a05:6402:3513:b0:64d:46f:331 with SMTP id
- 4fb4d7f45d1cf-65452ddd6edmr4683637a12.8.1768785122665; 
- Sun, 18 Jan 2026 17:12:02 -0800 (PST)
+ AJvYcCW4RK9bf3ZiTPReA7Xqhfi2g+29QWX/K4vwD2pxlhVYY69DQZ8Tdr/N38yi7JE+zgdML51i1L04@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxomQsJHwaqWHmhtESfuWRllxBp7DyloEYeMHfM+eEtD2ZVAG1B
+ PDrXx8aGN30V3L3ucqe8njMQ0MsfZw6WSSAWfKUg5DRy+7rWkXC6eKel
+X-Gm-Gg: AY/fxX4uknCCZ/le4T6HDdQ7EUHN6ZYlBRW15YxJJklmEtNanyp+svESJtB5o4u5D2D
+ xXdzlohk7Ypc5jaHI0xTiTGtl1zqNq5o30iGW9AXXpzA9Bgu/y7DRsAASmcsIdNRoyxPoTu3y2T
+ cMbsQGD3VzVK0lxSgg1BCfdzWqsnGsLQiNtzXYqVVHIBSP1ymA1XBrwEVCGvp2ctXF3hfa5NbAI
+ chi51QQLOf6Tma1hKHVbX5G1kAWLOeOmvddEv5aoXXBPX+wmFGGcWCAffE7lF7Y0qB6FHVzFJu0
+ 6uZNegzP1LCF2Vp700MvU2QxcTZzlRDMma+fzppOk3WTX9jEXLOj0RVdSJV1B8gb4ir1WWkQAe2
+ R3tkmCWedeV7qHpV35ChCWw9lP6HwHDZpKFQ2TwxHaZBX+t5Kf+7uqm2+7UOt8Spc/sebdFcGg8
+ HCZrQsXYpOurGLo/CuTSOQ43ZkD/FlkL6S821ecbVzYgi1pKd5mlTqIn8+r8ulhYO3
+X-Received: by 2002:a05:6402:520c:b0:64d:23ac:6ca6 with SMTP id
+ 4fb4d7f45d1cf-65452ad0b19mr4219339a12.4.1768785120824; 
+ Sun, 18 Jan 2026 17:12:00 -0800 (PST)
 Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.12.01
+ 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.11.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Jan 2026 17:12:02 -0800 (PST)
+ Sun, 18 Jan 2026 17:12:00 -0800 (PST)
 From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
 To: alexander.deucher@amd.com,
 	harry.wentland@amd.com,
@@ -72,9 +71,9 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
  bernhard.berger@gmail.com
-Subject: [PATCH 09/17] drm/amd/display: Rename PCON adaptive sync types
-Date: Mon, 19 Jan 2026 02:11:38 +0100
-Message-ID: <20260119011146.62302-10-tomasz.pakula.oficjalny@gmail.com>
+Subject: [PATCH 08/17] drm/edid: Parse more info from HDMI Forum vsdb
+Date: Mon, 19 Jan 2026 02:11:37 +0100
+Message-ID: <20260119011146.62302-9-tomasz.pakula.oficjalny@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
 References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
@@ -97,87 +96,152 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-PCONs support sending out HDMI VRR infopackets on their own and this
-makes this types not specific to FreeSync
+Drivers may need info about gaming features exposed by HDMI sinks. Add
+a central way of storing this information.
 
 [How]
-Make the name more generic for the upcoming HDMI VRR over PCON
-implementation
+Adds flags and a struct to hold HDMI VRR information. `supported` here
+is an additional property which allows easier parsing in consumers and
+adds a bit of logic used to detect malformed VRRmin/VRRmax values.
 
 Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 Tested-by: Bernhard Berger <bernhard.berger@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c      |  5 +++--
- .../gpu/drm/amd/display/modules/inc/mod_info_packet.h  | 10 +++++-----
- .../drm/amd/display/modules/info_packet/info_packet.c  |  4 ++--
- 3 files changed, 10 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/drm_edid.c  | 41 +++++++++++++++++++++++++++++++-
+ include/drm/drm_connector.h | 47 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 87 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 859e34235769..b7deff137df4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9597,7 +9597,8 @@ static void update_freesync_state_on_stream(
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index e2e85345aa9a..5bdacd425908 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6149,6 +6149,33 @@ static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
+ 	hdmi->y420_dc_modes = dc_mask;
+ }
  
- 	aconn = (struct amdgpu_dm_connector *)new_stream->dm_stream_context;
++static void drm_parse_hdmi_gaming_info(struct drm_hdmi_info *hdmi, const u8 *db)
++{
++	struct drm_hdmi_vrr_cap *vrr = &hdmi->vrr_cap;
++
++	if (cea_db_payload_len(db) < 8)
++		return;
++
++	hdmi->fapa_start_location = db[8] & DRM_EDID_FAPA_START_LOCATION;
++	hdmi->allm = db[8] & DRM_EDID_ALLM;
++	vrr->fva = db[8] & DRM_EDID_FVA;
++	vrr->cnmvrr = db[8] & DRM_EDID_CNMVRR;
++	vrr->cinema_vrr = db[8] & DRM_EDID_CINEMA_VRR;
++	vrr->mdelta = db[8] & DRM_EDID_MDELTA;
++
++	if (cea_db_payload_len(db) < 9)
++		return;
++
++	vrr->vrr_min = db[9] & DRM_EDID_VRR_MIN_MASK;
++	vrr->supported = (vrr->vrr_min > 0 && vrr->vrr_min <= 48);
++
++	if (cea_db_payload_len(db) < 10)
++		return;
++
++	vrr->vrr_max = (db[9] & DRM_EDID_VRR_MAX_UPPER_MASK) << 2 | db[10];
++	vrr->supported &= (vrr->vrr_max == 0 || vrr->vrr_max >= 100);
++}
++
+ static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
+ 			       const u8 *hf_scds)
+ {
+@@ -6274,7 +6301,7 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 	}
  
--	if (aconn && (aconn->as_type == FREESYNC_TYPE_PCON_IN_WHITELIST || aconn->vsdb_info.replay_mode)) {
-+	if (aconn && (aconn->as_type == ADAPTIVE_SYNC_TYPE_PCON_ALLOWED ||
-+		      aconn->vsdb_info.replay_mode)) {
- 		pack_sdp_v1_3 = aconn->pack_sdp_v1_3;
+ 	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
+-
++	drm_parse_hdmi_gaming_info(&connector->display_info.hdmi, hf_scds);
+ 	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
+ 		drm_parse_dsc_info(hdmi_dsc, hf_scds);
+ 		dsc_support = true;
+@@ -6284,6 +6311,18 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 		    "[CONNECTOR:%d:%s] HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
+ 		    connector->base.id, connector->name,
+ 		    max_tmds_clock, str_yes_no(max_frl_rate), str_yes_no(dsc_support));
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] FAPA in blanking: %s, ALLM support: %s, Fast Vactive support: %s\n",
++		    connector->base.id, connector->name, str_yes_no(hdmi->fapa_start_location),
++		    str_yes_no(hdmi->allm), str_yes_no(hdmi->vrr_cap.fva));
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] Negative M VRR support: %s, CinemaVRR support: %s, Mdelta: %d\n",
++		    connector->base.id, connector->name, str_yes_no(hdmi->vrr_cap.cnmvrr),
++		    str_yes_no(hdmi->vrr_cap.cinema_vrr), hdmi->vrr_cap.mdelta);
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] VRRmin: %u, VRRmax: %u, VRR supported: %s\n",
++		    connector->base.id, connector->name, hdmi->vrr_cap.vrr_min,
++		    hdmi->vrr_cap.vrr_max, str_yes_no(hdmi->vrr_cap.supported));
+ }
  
- 		if (aconn->vsdb_info.amd_vsdb_version == 1)
-@@ -13324,7 +13325,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 
- 	/* DP -> HDMI PCON */
- 	} else if (pcon_allowed && vsdb_freesync) {
--		amdgpu_dm_connector->as_type = FREESYNC_TYPE_PCON_IN_WHITELIST;
-+		amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_PCON_ALLOWED;
- 		amdgpu_dm_connector->pack_sdp_v1_3 = true;
- 		amdgpu_dm_connector->vsdb_info = vsdb_info;
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-index ddd64b7e4c04..5de8a6918e6a 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-@@ -48,11 +48,11 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
- 		struct dc_info_packet *info_packet);
- 
- enum adaptive_sync_type {
--	ADAPTIVE_SYNC_TYPE_NONE                  = 0,
--	ADAPTIVE_SYNC_TYPE_DP                    = 1,
--	FREESYNC_TYPE_PCON_IN_WHITELIST          = 2,
--	FREESYNC_TYPE_PCON_NOT_IN_WHITELIST      = 3,
--	ADAPTIVE_SYNC_TYPE_EDP                   = 4,
-+	ADAPTIVE_SYNC_TYPE_NONE             = 0,
-+	ADAPTIVE_SYNC_TYPE_DP               = 1,
-+	ADAPTIVE_SYNC_TYPE_PCON_ALLOWED     = 2,
-+	ADAPTIVE_SYNC_TYPE_PCON_NOT_ALLOWED = 3,
-+	ADAPTIVE_SYNC_TYPE_EDP              = 4,
+ static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 8f34f4b8183d..dab9d5521f41 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -254,6 +254,44 @@ struct drm_scdc {
+ 	struct drm_scrambling scrambling;
  };
  
- enum adaptive_sync_sdp_version {
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 00473c6284d5..294f56d20062 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -590,7 +590,7 @@ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
- 		if (stream != NULL)
- 			mod_build_adaptive_sync_infopacket_v2(stream, param, info_packet);
- 		break;
--	case FREESYNC_TYPE_PCON_IN_WHITELIST:
-+	case ADAPTIVE_SYNC_TYPE_PCON_ALLOWED:
- 	case ADAPTIVE_SYNC_TYPE_EDP:
- 		if (stream && stream->link->replay_settings.config.replay_supported &&
- 			stream->link->replay_settings.config.replay_version == DC_VESA_PANEL_REPLAY)
-@@ -599,7 +599,7 @@ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
- 			mod_build_adaptive_sync_infopacket_v1(info_packet);
- 		break;
- 	case ADAPTIVE_SYNC_TYPE_NONE:
--	case FREESYNC_TYPE_PCON_NOT_IN_WHITELIST:
-+	case ADAPTIVE_SYNC_TYPE_PCON_NOT_ALLOWED:
- 	default:
- 		break;
- 	}
++/**
++ * struct drm_hdmi_vrr_cap - Information about VRR capabilities of a HDMI sink
++ *
++ * Describes the VRR support provided by HDMI 2.1 sink. The information is
++ * fetched fom additional HFVSDB blocks defined for HDMI 2.1.
++ */
++struct drm_hdmi_vrr_cap {
++	/** @fva: flag for Fast VActive (Quick Frame Transport) support */
++	bool fva;
++
++	/** @mcnmvrr: flag for Negative M VRR support */
++	bool cnmvrr;
++
++	/** @mcinema_vrr: flag for Cinema VRR support */
++	bool cinema_vrr;
++
++	/** @mdelta: flag for limited frame-to-frame compensation support */
++	bool mdelta;
++
++	/**
++	 * @vrr_min : minimum supported variable refresh rate in Hz.
++	 * Valid values only inide 1 - 48 range
++	 */
++	u16 vrr_min;
++
++	/**
++	 * @vrr_max : maximum supported variable refresh rate in Hz (optional).
++	 * Valid values are either 0 (max based on video mode) or >= 100
++	 */
++	u16 vrr_max;
++
++	/**
++	 * @supported: flag for vrr support based on checking for VRRmin and
++	 * VRRmax values having correct values.
++	 */
++	bool supported;
++};
++
+ /**
+  * struct drm_hdmi_dsc_cap - DSC capabilities of HDMI sink
+  *
+@@ -330,6 +368,15 @@ struct drm_hdmi_info {
+ 	/** @max_lanes: supported by sink */
+ 	u8 max_lanes;
+ 
++	/** @fapa_start_location: flag for the FAPA in blanking support */
++	bool fapa_start_location;
++
++	/** @allm: flag for Auto Low Latency Mode support by sink */
++	bool allm;
++
++	/** @vrr_cap: VRR capabilities of the sink */
++	struct drm_hdmi_vrr_cap vrr_cap;
++
+ 	/** @dsc_cap: DSC capabilities of the sink */
+ 	struct drm_hdmi_dsc_cap dsc_cap;
+ };
 -- 
 2.52.0
 
