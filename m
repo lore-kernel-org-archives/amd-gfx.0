@@ -4,80 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76B14D2ED17
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD2BAD2ED18
 	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 08:26:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0200210E586;
-	Tue, 20 Jan 2026 08:26:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF75810E585;
+	Tue, 20 Jan 2026 08:25:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="EfXAQxKX";
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="RSr4oavw";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Jema+que";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8795B10E576
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 08:18:59 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3A4B93371C;
- Tue, 20 Jan 2026 08:18:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1768897138; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Q6cpBlQu0Ap+fT+JaqOV2zSr1RCFwBggI0A+6THe6Gs=;
- b=EfXAQxKXDqyEMf9cenYZEuR6nv8jW6dO0w0GjGyxuTl7USuncIDKZ0gUI+iX2O2SFR4W/6
- R0H+UFc4bASV4s+jkpnFqcOXcGnNWsG+ziWnZflyiYF6vfT1n+H+1/M3yw0E15hwgFV+Qi
- NMZDiVjyg15VuqbuYvbNsV+qhupGMZ8=
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
- t=1768897137; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Q6cpBlQu0Ap+fT+JaqOV2zSr1RCFwBggI0A+6THe6Gs=;
- b=RSr4oavwTryGeUH4FDsxzJmcUrdi3LCHkThOoABu4/hofqM2gsjEn3p1NK2eeyIxt6Mdut
- OICwXl1OvegMF5DQOEuP9TOyeuSCngzmFF4IZUB53dKuZAWJS6F7NTBqyXDzmt3NNMXGMD
- lI0sYPAxIHb0+guZmy9fVnq857py52E=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E39413EA65;
- Tue, 20 Jan 2026 08:18:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 2DYkNnA6b2n1bQAAD6G6ig
- (envelope-from <tzimmermann@suse.com>); Tue, 20 Jan 2026 08:18:56 +0000
-From: Thomas Zimmermann <tzimmermann@suse.com>
-To: kernel-kabi@suse.de
-Cc: Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH 1/2] drm, fbcon,
- vga_switcheroo: Avoid race condition in fbcon setup
-Date: Tue, 20 Jan 2026 09:13:37 +0100
-Message-ID: <20260120081841.9827-2-tzimmermann@suse.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260120081841.9827-1-tzimmermann@suse.com>
-References: <20260120081841.9827-1-tzimmermann@suse.com>
+Received: from mail-qv1-f67.google.com (mail-qv1-f67.google.com
+ [209.85.219.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00D4110E4D1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 16:58:45 +0000 (UTC)
+Received: by mail-qv1-f67.google.com with SMTP id
+ 6a1803df08f44-88a2d21427dso33403876d6.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 08:58:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1768841925; x=1769446725; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=ljxKTxaVdu8I0ces4FnKFMKgo+H8JcchtOlXOe2X8IE=;
+ b=Jema+queIL0hQwAtJFjPoQTtTKh/xtjTGhoD6njed7GJWMUrzhR5YhlssnJTF/XK7O
+ /Kqf8kWiuvM3qijCCiQi+t+km8lLR1/23sLOL2S3FsC3tMOschYF7BJViBdeVSxsK/Ot
+ 9LKl7P0z65DxYczWufYFxOmYVUpxfAu1tThZdxyYnGuiIkjt/PrYCwIXFmDM8VQ79f9n
+ KeXlchhlcqnbyWlWjpLviRLXM30BxaJ9kpuIXl1IVQh6ifwGCM5iDmqXT6BFY25y650q
+ LP0U+NdWcqlupLjL/1Es5zwZtgGhSC9INZXGwSQa7UOPL77rsXQ94kMZwW3OGlyZBiz9
+ 2vcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768841925; x=1769446725;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=ljxKTxaVdu8I0ces4FnKFMKgo+H8JcchtOlXOe2X8IE=;
+ b=A20vNrcJB6IBjqsaYwTwH+1Do3uvh1VeuPflnUzD/kirBArVHeVQgthcRysO4IVPPg
+ s8O2riwCE738e+6lKq7b1SbAmtd3hoyVQcw/w0nUtQvT9RUlOw527vxuViBagSFaXc8g
+ pdphNhtmgt7TDRx7XyQKjwwfyHtSf8pJ19eJRQcVHnMWElR8/aKNOmXylTbm2TAZCjdr
+ pg6MjDO7bYUqkblYTQph88EYyk0Y/SgqlpStN7jTx9oEz0VN6mI/jTxjDjs8ioLmsH1x
+ TMx8nNKuEy/mD/GKDoHIT7cuZkU9eTayV7zA79aZbD83p9nvW9EWn3kNLIk1xy8ZH3o0
+ 3oPQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU8DU7V8SwKJjNv6xRMWICDWNJV/lXil4zRKcZEg0NBMhIPoTPSi4sYdcTtO6bSmcJsuttE2g48@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz1ogNmfd4JvpuZc/BWS1PN2ZezE4cIbo7RrB3d3wsRWI49AW5x
+ WRQkoKRElcA+1RMNpTzjhyNkaU5ba2EJ91tYDoemAan7oqDkoyGLG0DzqpSifb9+LII=
+X-Gm-Gg: AZuq6aLV6fwu4BT+cRr770HOzZMEDbbohzUBCpYWoIosiwx+Vr2d3qqF3lGpXPnYYNy
+ AwM6BnVHOrO1kwKri8fGilJPjD005hPvmdup7fM6plOp93gjUO8SS7uHwe1xvILtCipdu0ckH51
+ KXrvdCWRbV/5msUPE5aVqtJRaioRSVR68HrJ5cE5cUvP0IIjtJIXkQHD4FYppi5Fhc6IcwRlhOu
+ DgX28JaS5N4DBseUiilhMbz9NhMnPLdooUqhVln0/eX2/qmpmlGIcnz2VOgQCVb1Vk3X/4NSKIU
+ wxxpPNX11Rq4NdfG3QPPnTCpQBw96Ce8bKI5fbLvCb4NZduo+ypV1OEtw6qbqe98PAD/gi0ZSSe
+ EkCVG/NAEyrBLnfYat4bsuDQl2APv2a2dlMuTeLz2AogNwMy4Xm7la9lWVNb6/UNZBvawkT2GUf
+ 15ffzg72uqrRgXOHEbxcgn9OWUzNDP9wxlr+1tIPgnEEMY5lUmoHWkZA6KnRWdZj35D9wE+Lyjc
+ 9/HJQ==
+X-Received: by 2002:a05:6214:2523:b0:88a:2e39:957e with SMTP id
+ 6a1803df08f44-8942dd9e90fmr129930286d6.57.1768841924690; 
+ Mon, 19 Jan 2026 08:58:44 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8942e5e526dsm87021366d6.12.2026.01.19.08.58.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Jan 2026 08:58:44 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1vhsaR-00000005IQb-2Wqn;
+ Mon, 19 Jan 2026 12:58:43 -0400
+Date: Mon, 19 Jan 2026 12:58:43 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] dma-buf: document revoke mechanism to invalidate
+ shared buffers
+Message-ID: <20260119165843.GH961572@ziepe.ca>
+References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
- R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_HAS_DN(0.00)[]; MIME_TRACE(0.00)[0:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,bootlin.com:url,suse.com:mid];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; RCPT_COUNT_SEVEN(0.00)[9];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.com:s=susede1]; TO_DN_SOME(0.00)[];
- RCVD_TLS_ALL(0.00)[]
+In-Reply-To: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
 X-Mailman-Approved-At: Tue, 20 Jan 2026 08:25:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,165 +115,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+On Sun, Jan 18, 2026 at 02:08:44PM +0200, Leon Romanovsky wrote:
+> Changelog:
+> v2:
+>  * Changed series to document the revoke semantics instead of
+>    implementing it.
+> v1: https://patch.msgid.link/20260111-dmabuf-revoke-v1-0-fb4bcc8c259b@nvidia.com
+> 
+> -------------------------------------------------------------------------
+> This series documents a dma-buf “revoke” mechanism: to allow a dma-buf
+> exporter to explicitly invalidate (“kill”) a shared buffer after it has
+> been distributed to importers, so that further CPU and device access is
+> prevented and importers reliably observe failure.
+> 
+> The change in this series is to properly document and use existing core
+> “revoked” state on the dma-buf object and a corresponding exporter-triggered
+> revoke operation. Once a dma-buf is revoked, new access paths are blocked so
+> that attempts to DMA-map, vmap, or mmap the buffer fail in a consistent way.
 
-Protect vga_switcheroo_client_fb_set() with console lock. Avoids OOB
-access in fbcon_remap_all(). Without holding the console lock the call
-races with switching outputs.
+I think it would help to explain the bigger picture in the cover letter:
 
-VGA switcheroo calls fbcon_remap_all() when switching clients. The fbcon
-function uses struct fb_info.node, which is set by register_framebuffer().
-As the fb-helper code currently sets up VGA switcheroo before registering
-the framebuffer, the value of node is -1 and therefore not a legal value.
-For example, fbcon uses the value within set_con2fb_map() [1] as an index
-into an array.
 
-Moving vga_switcheroo_client_fb_set() after register_framebuffer() can
-result in VGA switching that does not switch fbcon correctly.
+DMABUF has quietly allowed calling move_notify on pinned DMABUFs, even
+though legacy importers using dma_buf_attach() would simply ignore
+these calls.
 
-Therefore move vga_switcheroo_client_fb_set() under fbcon_fb_registered(),
-which already holds the console lock. Fbdev calls fbcon_fb_registered()
-from within register_framebuffer(). Serializes the helper with VGA
-switcheroo's call to fbcon_remap_all().
+RDMA saw this and needed to use allow_peer2peer=true, so implemented a
+new-style pinned importer with an explicitly non-working move_notify()
+callback.
 
-Although vga_switcheroo_client_fb_set() takes an instance of struct fb_info
-as parameter, it really only needs the contained fbcon state. Moving the
-call to fbcon initialization is therefore cleaner than before. Only amdgpu,
-i915, nouveau and radeon support vga_switcheroo. For all other drivers,
-this change does nothing.
+This has been tolerable because the existing exporters are thought to
+only call move_notify() on a pinned DMABUF under RAS events and we
+have been willing to tolerate the UAF that results by allowing the
+importer to continue to use the mapping in this rare case.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Link: https://elixir.bootlin.com/linux/v6.17/source/drivers/video/fbdev/core/fbcon.c#L2942 # [1]
-Fixes: 6a9ee8af344e ("vga_switcheroo: initial implementation (v15)")
-Acked-by: Javier Martinez Canillas <javierm@redhat.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Cc: amd-gfx@lists.freedesktop.org
-Cc: linux-fbdev@vger.kernel.org
-Cc: <stable@vger.kernel.org> # v2.6.34+
-Link: https://patch.msgid.link/20251105161549.98836-1-tzimmermann@suse.de
-(cherry picked from commit eb76d0f5553575599561010f24c277cc5b31d003)
----
- drivers/gpu/drm/drm_fb_helper.c            | 6 ------
- drivers/gpu/drm/i915/display/intel_fbdev.c | 2 --
- drivers/gpu/drm/radeon/radeon_fbdev.c      | 3 ---
- drivers/video/fbdev/core/fbcon.c           | 9 +++++++++
- 4 files changed, 9 insertions(+), 11 deletions(-)
+VFIO wants to implement a pin supporting exporter that will issue a
+revoking move_notify() around FLRs and a few other user triggerable
+operations. Since this is much more common we are not willing to
+tolerate the security UAF caused by interworking with
+non-move_notify() supporting drivers. Thus till now VFIO has required
+dynamic importers, even though it never actually moves the buffer
+location.
 
-diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
-index b507c1c008a3e..3915a8b17bc4c 100644
---- a/drivers/gpu/drm/drm_fb_helper.c
-+++ b/drivers/gpu/drm/drm_fb_helper.c
-@@ -32,7 +32,6 @@
- #include <linux/console.h>
- #include <linux/pci.h>
- #include <linux/sysrq.h>
--#include <linux/vga_switcheroo.h>
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_drv.h>
-@@ -1668,7 +1667,6 @@ static int drm_fb_helper_find_sizes(struct drm_fb_helper *fb_helper,
- static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
- {
- 	struct drm_client_dev *client = &fb_helper->client;
--	struct drm_device *dev = fb_helper->dev;
- 	struct drm_fb_helper_surface_size sizes;
- 	int ret;
- 
-@@ -1687,10 +1685,6 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
- 
- 	strcpy(fb_helper->fb->comm, "[fbcon]");
- 
--	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
--	if (dev_is_pci(dev->dev))
--		vga_switcheroo_client_fb_set(to_pci_dev(dev->dev), fb_helper->info);
--
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
-index 31d0d695d5671..8bad7e7909f7b 100644
---- a/drivers/gpu/drm/i915/display/intel_fbdev.c
-+++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
-@@ -36,7 +36,6 @@
- #include <linux/string.h>
- #include <linux/sysrq.h>
- #include <linux/tty.h>
--#include <linux/vga_switcheroo.h>
- 
- #include <drm/drm_crtc.h>
- #include <drm/drm_fb_helper.h>
-@@ -337,7 +336,6 @@ static int intelfb_create(struct drm_fb_helper *helper,
- 	ifbdev->vma_flags = flags;
- 
- 	intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
--	vga_switcheroo_client_fb_set(pdev, info);
- 	return 0;
- 
- out_unpin:
-diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
-index fb70de29545c6..730efabe05f6b 100644
---- a/drivers/gpu/drm/radeon/radeon_fbdev.c
-+++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
-@@ -303,7 +303,6 @@ static void radeon_fbdev_client_unregister(struct drm_client_dev *client)
- 	struct radeon_device *rdev = dev->dev_private;
- 
- 	if (fb_helper->info) {
--		vga_switcheroo_client_fb_set(rdev->pdev, NULL);
- 		drm_helper_force_disable_all(dev);
- 		drm_fb_helper_unregister_info(fb_helper);
- 	} else {
-@@ -342,8 +341,6 @@ static int radeon_fbdev_client_hotplug(struct drm_client_dev *client)
- 	if (ret)
- 		goto err_drm_fb_helper_fini;
- 
--	vga_switcheroo_client_fb_set(rdev->pdev, fb_helper->info);
--
- 	return 0;
- 
- err_drm_fb_helper_fini:
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 79525ee90e3b2..57b21b6869231 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -64,6 +64,7 @@
- #include <linux/console.h>
- #include <linux/string.h>
- #include <linux/kd.h>
-+#include <linux/pci.h>
- #include <linux/slab.h>
- #include <linux/fb.h>
- #include <linux/fbcon.h>
-@@ -75,6 +76,7 @@
- #include <linux/interrupt.h>
- #include <linux/crc32.h> /* For counting font checksums */
- #include <linux/uaccess.h>
-+#include <linux/vga_switcheroo.h>
- #include <asm/irq.h>
- 
- #include "fbcon.h"
-@@ -2909,6 +2911,9 @@ void fbcon_fb_unregistered(struct fb_info *info)
- 
- 	console_lock();
- 
-+	if (info->device && dev_is_pci(info->device))
-+		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
-+
- 	fbcon_registered_fb[info->node] = NULL;
- 	fbcon_num_registered_fb--;
- 
-@@ -3042,6 +3047,10 @@ static int do_fb_registered(struct fb_info *info)
- 		}
- 	}
- 
-+	/* Set the fb info for vga_switcheroo clients. Does nothing otherwise. */
-+	if (info->device && dev_is_pci(info->device))
-+		vga_switcheroo_client_fb_set(to_pci_dev(info->device), NULL);
-+
- 	return ret;
- }
- 
--- 
-2.52.0
+To allow VFIO to work with pinned importers, according to how DMABUF
+was intended, we need to allow VFIO to detect if an importer is legacy
+or RDMA and does not actually implement move_notify().
 
+Introduce a new function that exporters can call to detect these less
+capable importers. VFIO can then refuse to accept them during attach.
+
+In theory all exporters that call move_notify() on pinned DMABUF's
+should call this function, however that would break a number of widely
+used NIC/GPU flows. Thus for now do not spread this further than VFIO
+until we can understand how much of RDMA can implement the full
+semantic.
+
+In the process clarify how move_notify is intended to be used with
+pinned DMABUFs.
+
+Jason
