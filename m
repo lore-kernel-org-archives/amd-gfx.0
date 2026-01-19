@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C48C8CA6013
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C613CA6018
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB96210E3CB;
-	Mon, 19 Jan 2026 08:18:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 693D910E3C1;
+	Mon, 19 Jan 2026 08:18:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Gj6OT7pl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GZPv+di2";
 	dkim-atps=neutral
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54F1210E30E
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:12:11 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-64b686e7d04so460168a12.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:12:11 -0800 (PST)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EFAC10E312
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:12:14 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-64b6f896689so391932a12.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:12:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768785130; x=1769389930; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1768785133; x=1769389933; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ZSHN2Af/L95S4Os5yYFaV1hvvj2RmaOdeVqj+0nIWBY=;
- b=Gj6OT7plJLi1XQaAj81/8j6ARvQ+6GzzWvEWfmR0VPeGOy5a2DtqDKImDi6c9vKz0u
- 402nhTPbzsuafMWpxYGa5OPnUP8+VVb3aoyLW97gcjdGa20Emz3Tdiqtd+BeO8Sp6NWa
- 6iYGzAmZ5gyzQVZkv6XLhWE7YxZ8KTccLturiL1m+n9USkwlBHUFvUEuHwQPw6UUa8lh
- c7ME2bwLfJl+MPJx+xSLOM4+95ZdQ6leG7vs3VHkRyr6x+rHlaO544UYBhf4ErZnq1hB
- OPoFBCoQbMOkl0p9qwRv20a6g6PVulVm0DHXAUxkisHbElR8xbDa+T2OmgnTJ/ApwVSL
- RltQ==
+ bh=1/v14AdAvKdOYKZOFFftRQMfCxKt3hfYMcPs2TGZb9c=;
+ b=GZPv+di2LAGRT+JQtOiwkqtHPVylxk3WBFZndQ3R8aslBPRae67B+psnQoL1jOGCkR
+ CZGPKHAQLf5245PjS4WPlgh/58O0alIVAuigY7uzZ6hjHmT85bhe5egOCjP/wYDsTL1X
+ Xfs67hHddLD+oxbWXXZJyGINKwqoSVkS2qkZ7bYvTLVq/QNABiwuyPqOC55yLMiG05+8
+ ebz7TTOwK14z1pT6K2LHJXj/YGqztOpKaZqySefyxyjo37GeD06Ey+Q7wzWMej/vCrvN
+ +OLXicfMcRlsBIJzscZg1kZZjthh4AN2vrCTj3QmhoB/RIhdP1inpJD0hgng9h0Dm0jz
+ 6B1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768785130; x=1769389930;
+ d=1e100.net; s=20230601; t=1768785133; x=1769389933;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ZSHN2Af/L95S4Os5yYFaV1hvvj2RmaOdeVqj+0nIWBY=;
- b=EbiP7e0nwkqL0fV6+AosuSJrkijmjLzxqAwVsrTI081auvTaUzakp3gLtj7lcXSJ/6
- QOIgg12Gw7E3KS6foN1gf5JYocXj0fh+An8ZJ9XMyJAj9hjO/wczmqqm6DLFDRmjhsOx
- l2Jak3cbPFhWXVkiH/VorkRu1GGPClAUb9ZSOCdGaImDbzqAvdQYTR1yGhf818hldyAu
- n4D1jKdWycZVWX3Z7JpHQFRxGW6DFUgb46QyJA6OEQ8FFrHIb3win9JJViOwAQ+8CjXH
- CbS6uEZR8J6qvJBlQqR8ECXIXvmfSjkFG0hO1PerXy8ChD/izKyh5pIZQFXohO26YjS0
- CNYQ==
+ bh=1/v14AdAvKdOYKZOFFftRQMfCxKt3hfYMcPs2TGZb9c=;
+ b=l1yOG7SN5lJwBE3bjWxMhuyQOWs7N6As2omu4pZKlrQHNexdNHu/FIJhcmyYZ3+fXZ
+ QEMv7T4CAC2+/doI5y28BUfvj6eVWfQX4ndROG7yYs6NY1Yen2UI0R7jvsKcsFKyyLdV
+ EpNQ0aXJJRcHwqzdY37nlREKi5Ei6wljh5ciL99Otw0SZtKKaoCzPk2fq8lV3P8UG4Gj
+ sbYcKGZI2CMoeraL7hJVGpNxhk1Rb5nQ4GqUheTIXlEfH5HZ/0hIoZdr81a4qm9RS8s2
+ 4IC872ND4zsF3iHTZH/Zkc2aGbcC4DpDRQTeyG9omdpZlgPIxAczIoGSjPmFEqg/OJPZ
+ rusA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUztovUJ1SjTaE6MyQ7Ysfit98SI7Fjrv5INpQywe7TJomwVDQM8FNhihXx1l2pQP8tR3z2iY0C@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6bpQstFrP13wfDUceunePokmDEypFo2elE20XpX67pCHUYteh
- KfHC1akXs3qeDOJCKBVEeQwy/YjzTiQon2700ShPq0MIRF8HXVZ+XDT4
-X-Gm-Gg: AY/fxX4513DA1zmWnqNwcGlHmCZdOGAc1zq0XJx8eQ59zBDzUwPNwnDYjasARBmCQSN
- djDfd1uj1sjE/Utp2ghPr+9WaAaDyty68pYz4EA1lOznHLuWNVItDO8g2SVzBYaNyHLmVoxla0k
- q77Z0htirNfUZRhAp5WQ/wK4pY9l7D2uMJEm+ahrhc6m+64w4Eq/fv+RdyyP/+xlsshxiMF4uWp
- AkYL0aye5cXAoJhku6FN944I/XX/Y39lvIgNl4aN4CmHMKEsNpS5w6YcSyK8tYZWjchKH328/am
- zr4buE2vKvzcXcVuce8FxHpZsL/HTQPQa4taSaUjouc+c7LIGbcLQBEoRwhz+sTrQm7gJmfA033
- 4h8Y4exoJKNWepep5aSHzL0eLRS/TpFrJA1Hwvd9BqsRmeUHsaeUkcR5IKJWiPGFXbyegZtllbH
- NQ3BeE09rqPjC/wO1QHl6vjjWETsVw8wlK/Wih4s4xrnU6k8OkZ2XvPYOHAFSPkH/TfrcVN/9tx
- jk=
-X-Received: by 2002:a05:6402:350f:b0:649:5709:aafc with SMTP id
- 4fb4d7f45d1cf-65452cdaddemr4632382a12.7.1768785129599; 
- Sun, 18 Jan 2026 17:12:09 -0800 (PST)
+ AJvYcCVoIm4ubdfGmdG0qRuj7dEMl7bm33O6X166stNo+8OH5XlytJSWGUC6sQYS+oL6gh/13IFf2Z1x@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyOUtyjEgRxhznH/c5Y3p4z8TNu/zQU8R10DpvpA6GjrRJFFbgy
+ gprFqG0SDha9JjCTUbuMyQzf+w4Er2FvE29q62toS4cXH5pzjuOAkPJH
+X-Gm-Gg: AY/fxX5EBgphXSD/5PyXEIJ7O6cFtE4KCs0fNwlW8CRGv4N7OfJFFxAK435Dnx5oty3
+ 8EASAdBBRMc/5XRRzH/Hw0ZORSrPydpGDZWC7bGz2qHCqWkA/wOyL9QsBkQbpq4rF8pw8tpnane
+ cs8Xv3PmLSN3cpOGK9Is9u7zyxdw2MznKE+DEnG6ziN+uCiho6j55myx+dRYwG1/6dO/4i7YVT7
+ N3oehof7tz5tx1JtRHPfnz20jd58cVCwv/JK+2IGPLZzMwADvEZjCN78PXkMdtXBNO50Ap/NBVN
+ Ehjc6Is66B0Fyf/pXIGT1ZvPpGf+d+1peBOzQ8ZotnKSEvKcY4mmUFS8Rxpe+hJtMslMzEd0crC
+ hRnM38d0ihpXH0au+ge7IFas0R07FQfqZ54kZhUWZ4wbwBaLROP9IK04/VQ048TVzjy2ryM401m
+ xspGM5Ppwy7/1OKRdCkao8m/MU0d10E727NU6PsUgBJkXeO/NUjvsPByyY9uXfx0LwZngm9A+y2
+ K8=
+X-Received: by 2002:a05:6402:510c:b0:649:b47b:2ef7 with SMTP id
+ 4fb4d7f45d1cf-65452acc99bmr4627883a12.3.1768785132818; 
+ Sun, 18 Jan 2026 17:12:12 -0800 (PST)
 Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.12.08
+ 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.12.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Jan 2026 17:12:09 -0800 (PST)
+ Sun, 18 Jan 2026 17:12:12 -0800 (PST)
 From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
 To: alexander.deucher@amd.com,
 	harry.wentland@amd.com,
@@ -72,9 +72,9 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
  bernhard.berger@gmail.com
-Subject: [PATCH 14/17] drm/amd/display: Restore ALLM support in HDMI vsif
-Date: Mon, 19 Jan 2026 02:11:43 +0100
-Message-ID: <20260119011146.62302-15-tomasz.pakula.oficjalny@gmail.com>
+Subject: [PATCH 16/17] drm/amd/display: Reintroduce VTEM info frame
+Date: Mon, 19 Jan 2026 02:11:45 +0100
+Message-ID: <20260119011146.62302-17-tomasz.pakula.oficjalny@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
 References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
@@ -97,192 +97,248 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-Support for triggering ALLM in modern TVs is missing.
-
-When HDMI vsif was added in 2019:
-commit 3c2381b92cba ("drm/amd/display: add support for VSIP info packet")
-it was improperly handeled as HDMI actually has two separate vsifs. The
-implementation was based on H14b-vsif and ALLM bit was messing it up
-because H14b-vsif doesn't support ALLM. It was later removed in:
-commit 75f77aafe281 ("drm/amd/display: Send H14b-VSIF specified in HDMI")
-
-ALLM is supported by hf-vsif (HDMI Forum) instead.
+VTEM info fram building was removed back in: commit a9f54ce3c603
+("drm/amd/display: Refactoring VTEM"), but it's needed to support
+HDMI VRR signalling.
 
 [How]
-Add proper logic to construct either h14b-vsif or hf-vsif based on
-required capabilities. Currently, only ALLM from hf-vsif is supported.
+Build completely new and more robust functions to build out the VTEM
+infopacket. Many values are defined but could have added logic in the
+future, that's shy they are not static values but already value + bit
+position in it's byte.
 
-Turns out, hf-vsif is almost identical to h14b-vsif, BUT has additional
-two bytes of data after OUI. First byte is static and seems like
-a version supported by leftover define. Second byte consists of 3D and
-ALLM bits.
+Reduced blanking detection was previously missing. The standards for
+RB and RBv2 use a fixed 160 or 80 lines for the horizontal blank period.
+RB v3 can use either 160 or 80. Use this to detect if the current timing
+mode uses reduced blankinig.
 
-Implement logic to offset 3D data if building hf-vsif.
+It doesn't hurt that the new functions look better and cleaner
 
 Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 ---
- .../display/modules/info_packet/info_packet.c | 112 ++++++++++++------
- 1 file changed, 73 insertions(+), 39 deletions(-)
+ .../amd/display/modules/inc/mod_info_packet.h |   4 +
+ .../display/modules/info_packet/info_packet.c | 173 ++++++++++++------
+ 2 files changed, 116 insertions(+), 61 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+index 67274ce129bd..7bca0541443c 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+@@ -49,6 +49,10 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+ 		struct dc_info_packet *info_packet);
+ 
++void mod_build_vtem_infopacket(const struct dc_stream_state *stream,
++		const struct mod_vrr_params *vrr,
++		struct dc_info_packet *infopacket);
++
+ enum adaptive_sync_type {
+ 	ADAPTIVE_SYNC_TYPE_NONE             = 0,
+ 	ADAPTIVE_SYNC_TYPE_DP               = 1,
 diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 294f56d20062..1a1ddcdb4362 100644
+index 0db2db7a197f..42a736a5509a 100644
 --- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
 +++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -49,7 +49,10 @@ enum vsc_packet_revision {
+@@ -48,80 +48,59 @@ enum vsc_packet_revision {
+ 	vsc_packet_rev7 = 7,
  };
  
++#define HDMI_INFOFRAME_TYPE_EMP    0x7F
  #define HDMI_INFOFRAME_TYPE_VENDOR 0x81
--#define HF_VSIF_VERSION 1
-+#define HDMI_INFOFRAME_LENGTH_MASK 0x1F
-+#define HF_VSIF_VERSION  1
-+#define HF_VSIF_3D_BIT   0
-+#define HF_VSIF_ALLM_BIT 1
+ #define HDMI_INFOFRAME_LENGTH_MASK 0x1F
+ #define HF_VSIF_VERSION  1
+ #define HF_VSIF_3D_BIT   0
+ #define HF_VSIF_ALLM_BIT 1
  
- // VTEM Byte Offset
- #define VTEM_PB0		0
-@@ -496,9 +499,28 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
- 	}
+-// VTEM Byte Offset
+-#define VTEM_PB0		0
+-#define VTEM_PB1		1
+-#define VTEM_PB2		2
+-#define VTEM_PB3		3
+-#define VTEM_PB4		4
+-#define VTEM_PB5		5
+-#define VTEM_PB6		6
++#define VTEM_ORG_ID          1
++#define VTEM_DATA_SET_TAG    1
++#define VTEM_DATA_SET_LENGTH 4
+ 
+-#define VTEM_MD0		7
+-#define VTEM_MD1		8
+-#define VTEM_MD2		9
+-#define VTEM_MD3		10
++#define VTEM_M_CONST    0
++#define VTEM_FVA_FACTOR 0
+ 
++#define VTEM_BRR_MASK_UPPER 0x03
++#define VTEM_BRR_MASK_LOWER 0xFF
+ 
+-// VTEM Byte Masks
+-//PB0
+-#define MASK_VTEM_PB0__RESERVED0  0x01
+-#define MASK_VTEM_PB0__SYNC       0x02
+-#define MASK_VTEM_PB0__VFR        0x04
+-#define MASK_VTEM_PB0__AFR        0x08
+-#define MASK_VTEM_PB0__DS_TYPE    0x30
+-	//0: Periodic pseudo-static EM Data Set
+-	//1: Periodic dynamic EM Data Set
+-	//2: Unique EM Data Set
+-	//3: Reserved
+-#define MASK_VTEM_PB0__END        0x40
+-#define MASK_VTEM_PB0__NEW        0x80
++/* VTEM Byte Offset */
++#define VTEM_PB0 0
++#define VTEM_PB1 1
++#define VTEM_PB2 2
++#define VTEM_PB3 3
++#define VTEM_PB4 4
++#define VTEM_PB5 5
++#define VTEM_PB6 6
+ 
+-//PB1
+-#define MASK_VTEM_PB1__RESERVED1 0xFF
++#define VTEM_MD0 7
++#define VTEM_MD1 8
++#define VTEM_MD2 9
++#define VTEM_MD3 10
+ 
+-//PB2
+-#define MASK_VTEM_PB2__ORGANIZATION_ID 0xFF
+-	//0: This is a Vendor Specific EM Data Set
+-	//1: This EM Data Set is defined by This Specification (HDMI 2.1 r102.clean)
+-	//2: This EM Data Set is defined by CTA-861-G
+-	//3: This EM Data Set is defined by VESA
+-//PB3
+-#define MASK_VTEM_PB3__DATA_SET_TAG_MSB    0xFF
+-//PB4
+-#define MASK_VTEM_PB4__DATA_SET_TAG_LSB    0xFF
+-//PB5
+-#define MASK_VTEM_PB5__DATA_SET_LENGTH_MSB 0xFF
+-//PB6
+-#define MASK_VTEM_PB6__DATA_SET_LENGTH_LSB 0xFF
++/* Extended Metadata Packet */
++/* Header */
++#define EMP_LAST_BIT  6
++#define EMP_FIRST_BIT 7
++/* PB0 */
++#define EMP_SNC_BIT 1
++#define EMP_VFR_BIT 2
++#define EMP_AFR_BIT 3
++#define EMP_DST_BIT 4
++#define EMP_END_BIT 6
++#define EMP_NEW_BIT 7
++/* PB7 = MD0 */
++#define VTEM_VRR_BIT     0
++#define VTEM_M_CONST_BIT 1
++#define VTEM_FVA_BIT     4
++/* MD1 Base_Vfront */
++/* MD2 */
++#define VTEM_BRR_UPPER_BIT 0
++#define VTEM_RB_BIT        2
++/* MD3 BRR Lower */
+ 
+ 
+-
+-//PB7-27 (20 bytes):
+-//PB7 = MD0
+-#define MASK_VTEM_MD0__VRR_EN         0x01
+-#define MASK_VTEM_MD0__M_CONST        0x02
+-#define MASK_VTEM_MD0__QMS_EN         0x04
+-#define MASK_VTEM_MD0__RESERVED2      0x08
+-#define MASK_VTEM_MD0__FVA_FACTOR_M1  0xF0
+-
+-//MD1
+-#define MASK_VTEM_MD1__BASE_VFRONT    0xFF
+-
+-//MD2
+-#define MASK_VTEM_MD2__BASE_REFRESH_RATE_98  0x03
+-#define MASK_VTEM_MD2__RB                    0x04
+-#define MASK_VTEM_MD2__NEXT_TFR              0xF8
+-
+-//MD3
+-#define MASK_VTEM_MD3__BASE_REFRESH_RATE_07  0xFF
+-
+ enum ColorimetryRGBDP {
+ 	ColorimetryRGB_DP_sRGB               = 0,
+ 	ColorimetryRGB_DP_AdobeRGB           = 3,
+@@ -611,6 +590,78 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+ 		info_packet->valid = true;
  }
  
-+static bool is_hdmi_vic_mode(const struct dc_stream_state *stream)
++static void build_vtem_infopacket_header(struct dc_info_packet *infopacket)
 +{
-+	bool allm = stream->link->local_sink->edid_caps.allm;
-+	bool stereo = stream->view_format != VIEW_3D_FORMAT_NONE;
++	uint8_t pb0 = 0;
 +
-+	if (stream->timing.hdmi_vic == 0)
-+		return false;
++	/* might need logic in the future */
++	pb0 |= 0 << EMP_SNC_BIT;
++	pb0 |= 1 << EMP_VFR_BIT;
++	pb0 |= 0 << EMP_AFR_BIT;
++	pb0 |= 0 << EMP_DST_BIT;
++	pb0 |= 0 << EMP_END_BIT;
++	pb0 |= 1 << EMP_NEW_BIT;
 +
-+	if (stream->timing.h_total < 3840 ||
-+	    stream->timing.v_total < 2160)
-+		return false;
++	infopacket->hb0 = HDMI_INFOFRAME_TYPE_EMP;
++	infopacket->hb1 = (1 << EMP_FIRST_BIT) | (1 << EMP_LAST_BIT);
++	infopacket->hb2 = 0; // sequence
 +
-+	if (stereo || allm)
-+		return false;
-+
-+	return true;
++	infopacket->sb[VTEM_PB0] = pb0;
++	infopacket->sb[VTEM_PB2] = VTEM_ORG_ID;
++	infopacket->sb[VTEM_PB4] = VTEM_DATA_SET_TAG;
++	infopacket->sb[VTEM_PB6] = VTEM_DATA_SET_LENGTH;
 +}
 +
- /**
-  *  mod_build_hf_vsif_infopacket - Prepare HDMI Vendor Specific info frame.
-  *                                 Follows HDMI Spec to build up Vendor Specific info frame
-+ *                                 Conforms to h14b-vsif or hf-vsif based on the capabilities
-  *
-  *  @stream:      contains data we may need to construct VSIF (i.e. timing_3d_format, etc.)
-  *  @info_packet: output structure where to store VSIF
-@@ -506,63 +528,75 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
- void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
- 		struct dc_info_packet *info_packet)
- {
--		unsigned int length = 5;
- 		bool hdmi_vic_mode = false;
-+		bool allm = false;
-+		bool stereo = false;
- 		uint8_t checksum = 0;
--		uint32_t i = 0;
-+		uint8_t offset = 0;
-+		uint8_t i = 0;
-+		uint8_t length = 5;
-+		uint32_t oui = HDMI_IEEE_OUI;
- 		enum dc_timing_3d_format format;
- 
- 		info_packet->valid = false;
++static void build_vtem_infopacket_data(const struct dc_stream_state *stream,
++		const struct mod_vrr_params *vrr,
++		struct dc_info_packet *infopacket)
++{
++	unsigned int brr = 0;
++	bool hdmi_vic_mode = false;
++	bool vrr_active = false;
++	bool rb = false;
 +
- 		format = stream->timing.timing_3d_format;
- 		if (stream->view_format == VIEW_3D_FORMAT_NONE)
- 			format = TIMING_3D_FORMAT_NONE;
-+		stereo = format != TIMING_3D_FORMAT_NONE;
-+		hdmi_vic_mode = is_hdmi_vic_mode(stream);
- 
--		if (stream->timing.hdmi_vic != 0
--				&& stream->timing.h_total >= 3840
--				&& stream->timing.v_total >= 2160
--				&& format == TIMING_3D_FORMAT_NONE)
--			hdmi_vic_mode = true;
--
--		if ((format == TIMING_3D_FORMAT_NONE) && !hdmi_vic_mode)
-+		if (!stereo && !hdmi_vic_mode && !allm)
- 			return;
- 
--		info_packet->sb[1] = 0x03;
--		info_packet->sb[2] = 0x0C;
--		info_packet->sb[3] = 0x00;
-+		if (allm)
-+			oui = HDMI_FORUM_IEEE_OUI;
- 
--		if (format != TIMING_3D_FORMAT_NONE)
--			info_packet->sb[4] = (2 << 5);
-+		info_packet->sb[1] = oui & 0xff;
-+		info_packet->sb[2] = (oui >> 8) & 0xff;
-+		info_packet->sb[3] = (oui >> 16) & 0xff;
- 
--		else if (hdmi_vic_mode)
--			info_packet->sb[4] = (1 << 5);
--
--		switch (format) {
--		case TIMING_3D_FORMAT_HW_FRAME_PACKING:
--		case TIMING_3D_FORMAT_SW_FRAME_PACKING:
--			info_packet->sb[5] = (0x0 << 4);
--			break;
--
--		case TIMING_3D_FORMAT_SIDE_BY_SIDE:
--		case TIMING_3D_FORMAT_SBS_SW_PACKED:
--			info_packet->sb[5] = (0x8 << 4);
--			length = 6;
--			break;
--
--		case TIMING_3D_FORMAT_TOP_AND_BOTTOM:
--		case TIMING_3D_FORMAT_TB_SW_PACKED:
--			info_packet->sb[5] = (0x6 << 4);
--			break;
--
--		default:
--			break;
-+		if (oui == HDMI_FORUM_IEEE_OUI) {
-+			offset = 2;
-+			length += 2;
-+			info_packet->sb[4] = HF_VSIF_VERSION;
-+			info_packet->sb[5] = stereo << HF_VSIF_3D_BIT;
-+			info_packet->sb[5] = allm << HF_VSIF_ALLM_BIT;
- 		}
- 
--		if (hdmi_vic_mode)
-+		if (stereo) {
-+			info_packet->sb[4 + offset] = (2 << 5);
++	hdmi_vic_mode = is_hdmi_vic_mode(stream);
++	vrr_active = vrr->state == VRR_STATE_ACTIVE_VARIABLE ||
++		     vrr->state == VRR_STATE_ACTIVE_FIXED;
 +
-+			switch (format) {
-+			case TIMING_3D_FORMAT_HW_FRAME_PACKING:
-+			case TIMING_3D_FORMAT_SW_FRAME_PACKING:
-+				info_packet->sb[5 + offset] = (0x0 << 4);
-+				break;
++	infopacket->sb[VTEM_MD0] = VTEM_M_CONST << VTEM_M_CONST_BIT;
++	infopacket->sb[VTEM_MD0] |= VTEM_FVA_FACTOR << VTEM_FVA_BIT;
++	infopacket->sb[VTEM_MD0] |= vrr_active << VTEM_VRR_BIT;
 +
-+			case TIMING_3D_FORMAT_SIDE_BY_SIDE:
-+			case TIMING_3D_FORMAT_SBS_SW_PACKED:
-+				info_packet->sb[5 + offset] = (0x8 << 4);
-+				++length;
-+				break;
++	infopacket->sb[VTEM_MD1] = 0;
++	infopacket->sb[VTEM_MD2] = 0;
++	infopacket->sb[VTEM_MD3] = 0;
 +
-+			case TIMING_3D_FORMAT_TOP_AND_BOTTOM:
-+			case TIMING_3D_FORMAT_TB_SW_PACKED:
-+				info_packet->sb[5 + offset] = (0x6 << 4);
-+				break;
++	if (hdmi_vic_mode || !vrr_active)
++		return;
++	/*
++	 * Reduced Blanking standard defines a fixed value of
++	 * 160 for hblank, further reduced to 80 in RB2
++	 */
++	rb = (stream->timing.h_total - stream->timing.h_addressable) <= 160;
++	brr = mod_freesync_calc_nominal_field_rate(stream) / 1000000;
 +
-+			default:
-+				break;
-+			}
++	if (brr > VTEM_BRR_MAX) {
++		infopacket->valid = false;
++		return;
++	}
 +
-+		/* Doesn't need the offset as it can't be used with hf-vsif */
-+		} else if (hdmi_vic_mode) {
-+			info_packet->sb[4] = (1 << 5);
- 			info_packet->sb[5] = stream->timing.hdmi_vic;
-+		}
- 
- 		info_packet->hb0 = HDMI_INFOFRAME_TYPE_VENDOR;
- 		info_packet->hb1 = 0x01;
--		info_packet->hb2 = (uint8_t) (length);
-+		info_packet->hb2 = length & HDMI_INFOFRAME_LENGTH_MASK;
- 
- 		checksum += info_packet->hb0;
- 		checksum += info_packet->hb1;
++	infopacket->sb[VTEM_MD1] = (uint8_t) stream->timing.v_front_porch;
++	infopacket->sb[VTEM_MD2] = rb << VTEM_RB_BIT;
++	infopacket->sb[VTEM_MD2] |= (brr & VTEM_BRR_MASK_UPPER) >> 8;
++	infopacket->sb[VTEM_MD3] = brr & VTEM_BRR_MASK_LOWER;
++}
++
++void mod_build_vtem_infopacket(const struct dc_stream_state *stream,
++		const struct mod_vrr_params *vrr,
++		struct dc_info_packet *infopacket)
++{
++	infopacket->valid = true;
++	build_vtem_infopacket_header(infopacket);
++	build_vtem_infopacket_data(stream, vrr, infopacket);
++}
++
+ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
+ 		enum adaptive_sync_type asType,
+ 		const struct AS_Df_params *param,
 -- 
 2.52.0
 
