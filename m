@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B4BCD4A5F4
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 07:25:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E0CCCA5FFF
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 07:52:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7C1610E375;
-	Mon, 19 Jan 2026 07:25:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BFC110E158;
+	Mon, 19 Jan 2026 07:52:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OOYMTqRr";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VL41eV1F";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8829610E370;
- Mon, 19 Jan 2026 07:25:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E5F210E158;
+ Mon, 19 Jan 2026 07:52:35 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 16355434B7;
- Mon, 19 Jan 2026 07:25:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F96C116C6;
- Mon, 19 Jan 2026 07:25:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9503B60159;
+ Mon, 19 Jan 2026 07:52:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94EE5C19424;
+ Mon, 19 Jan 2026 07:52:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768807529;
- bh=Sy0oZJNxE3l4wUF1ShDJYtcIYRfebTgMszB/pVPpbG8=;
+ s=k20201202; t=1768809154;
+ bh=FgccbxSW4ALrowfCLmsRR/Zu7j7Ob42C2Xqwm3A13m4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=OOYMTqRrGNEs2jAmSYlM686r10g9BCiY0dH1nHfSd9wBLODRb8DM164wJPnvPjUZJ
- icgeXWdtQ7Oia1ErMzqcQuhf52/tfn7nc5Db0Pgu4mF4oKXHNz7EAU6VPQm5fLTGmH
- dpWD45Ghuyew+XIW6NcIv4QphDm7ZCu0u2N2glr45RlAuFFKTsiYSKNgep1eD0k+ze
- DGHBEAu/8vNU8SRkbYapnqC57ld4+aZRHd6cB3kj5nGczjtxNRKaQQAT7M5FarOcTS
- +AznVeitmh0vPl0biNbAXazx0fJsZPdtNy+ZzqhsViFUZFhUJS6vri3NJErSen8Aar
- zIN3x/bF6bUXQ==
-Date: Mon, 19 Jan 2026 09:25:24 +0200
+ b=VL41eV1F4pT4aqEBXrqmgMj8ay967tZwnXgdE3sr95zj66Szyt/gEQZ9ZHC1/ZCoI
+ zHdHVoh19kPdrpptXHDlZLHPfMWdCRNwsBdwJ7VBIbjsDDrXymv7wyQjLraR/owc8z
+ evQ3EyRQBsTDbPFCBP+u0no9EvPNSeIC1y3//MY6sa/XWAJj/UJTznEsT5zeykc+UM
+ MOLIbXeG3taFetfPJqqhIWgSSkBbREOAi0MKLUbM9986sLho/+clz8Gf3zrknd4884
+ dnnSFY+E5761ocKkG9RiPkmSgCPvhyyXYSXwcxbhpYQalj7/p76ack/evO/E3Y0LdM
+ pnmfKlRF+LN7g==
+Date: Mon, 19 Jan 2026 09:52:29 +0200
 From: Leon Romanovsky <leon@kernel.org>
-To: John Hubbard <jhubbard@nvidia.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
 Cc: Sumit Semwal <sumit.semwal@linaro.org>,
  Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -45,7 +45,6 @@ Cc: Sumit Semwal <sumit.semwal@linaro.org>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
  Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
@@ -55,15 +54,16 @@ Cc: Sumit Semwal <sumit.semwal@linaro.org>,
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
  linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] dma-buf: Document revoke semantics
-Message-ID: <20260119072524.GD13201@unreal>
+Subject: Re: [PATCH v2 0/4] dma-buf: document revoke mechanism to invalidate
+ shared buffers
+Message-ID: <20260119075229.GE13201@unreal>
 References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
- <20260118-dmabuf-revoke-v2-2-a03bb27c0875@nvidia.com>
- <d41d08e3-6a86-40a4-925c-6a3172670079@nvidia.com>
+ <f115c91bbc9c6087d8b32917b9e24e3363a91f33.camel@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <d41d08e3-6a86-40a4-925c-6a3172670079@nvidia.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f115c91bbc9c6087d8b32917b9e24e3363a91f33.camel@linux.intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,33 +78,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jan 18, 2026 at 01:40:11PM -0800, John Hubbard wrote:
-> On 1/18/26 4:08 AM, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> ...
-> > +/**
-> > + * dma_buf_attachment_is_revoke - check if a DMA-buf importer implements
-> > + * revoke semantics.
-> > + * @attach: the DMA-buf attachment to check
-> > + *
-> > + * Returns true if DMA-buf importer honors revoke semantics, which is
-> > + * negotiated with the exporter, by making sure that importer implements
-> > + * .invalidate_mappings() callback and calls to dma_buf_pin() after
-> > + * DMA-buf attach.
-> > + */
-> > +static inline bool
-> > +dma_buf_attachment_is_revoke(struct dma_buf_attachment *attach)
+On Sun, Jan 18, 2026 at 03:16:25PM +0100, Thomas Hellström wrote:
+> Hi, Leon,
 > 
-> Maybe a slight rename, to dma_buf_attachment_is_revocable()?
+> On Sun, 2026-01-18 at 14:08 +0200, Leon Romanovsky wrote:
+> > Changelog:
+> > v2:
+> >  * Changed series to document the revoke semantics instead of
+> >    implementing it.
+> > v1:
+> > https://patch.msgid.link/20260111-dmabuf-revoke-v1-0-fb4bcc8c259b@nvidia.com
+> > 
+> > ---------------------------------------------------------------------
+> > ----
+> > This series documents a dma-buf “revoke” mechanism: to allow a dma-
+> > buf
+> > exporter to explicitly invalidate (“kill”) a shared buffer after it
+> > has
+> > been distributed to importers, so that further CPU and device access
+> > is
+> > prevented and importers reliably observe failure.
+> > 
+> > The change in this series is to properly document and use existing
+> > core
+> > “revoked” state on the dma-buf object and a corresponding exporter-
+> > triggered
+> > revoke operation. Once a dma-buf is revoked, new access paths are
+> > blocked so
+> > that attempts to DMA-map, vmap, or mmap the buffer fail in a
+> > consistent way.
+> 
+> This sounds like it does not match how many GPU-drivers use the
+> move_notify() callback.
 
-I can do that. The issue is that even "dma_buf_attachment_is_revoke"
-is already too long. :)
+No change for them.
+
+> 
+> move_notify() would typically invalidate any device maps and any
+> asynchronous part of that invalidation would be complete when the dma-
+> buf's reservation object becomes idle WRT DMA_RESV_USAGE_BOOKKEEP
+> fences.
+
+This part has not changed and remains the same for the revocation flow as well.
+
+> 
+> However, the importer could, after obtaining the resv lock, obtain a
+> new map using dma_buf_map_attachment(), and I'd assume the CPU maps
+> work in the same way, I.E. move_notify() does not *permanently* revoke
+> importer access.
+
+This part diverges by design and is documented to match revoke semantics.  
+It defines what must occur after the exporter requests that the buffer be  
+"killed". An importer that follows revoke semantics will not attempt to call  
+dma_buf_map_attachment(), and the exporter will block any remapping attempts  
+regardless. See the priv->revoked flag in the VFIO exporter.
+
+In addition, in this email thread, Christian explains that revoke
+semantics already exists, with the combination of dma_buf_pin and
+dma_buf_move_notify, just not documented:
+https://lore.kernel.org/all/f7f1856a-44fa-44af-b496-eb1267a05d11@amd.com/
 
 Thanks
 
 > 
+> /Thomas
 > 
-> thanks,
-> -- 
-> John Hubbard
+> 
+> > 
+> > Thanks
+> > 
+> > Cc: linux-media@vger.kernel.org
+> > Cc: dri-devel@lists.freedesktop.org
+> > Cc: linaro-mm-sig@lists.linaro.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Cc: virtualization@lists.linux.dev
+> > Cc: intel-xe@lists.freedesktop.org
+> > Cc: linux-rdma@vger.kernel.org
+> > Cc: iommu@lists.linux.dev
+> > Cc: kvm@vger.kernel.org
+> > To: Sumit Semwal <sumit.semwal@linaro.org>
+> > To: Christian König <christian.koenig@amd.com>
+> > To: Alex Deucher <alexander.deucher@amd.com>
+> > To: David Airlie <airlied@gmail.com>
+> > To: Simona Vetter <simona@ffwll.ch>
+> > To: Gerd Hoffmann <kraxel@redhat.com>
+> > To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+> > To: Gurchetan Singh <gurchetansingh@chromium.org>
+> > To: Chia-I Wu <olvaffe@gmail.com>
+> > To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > To: Maxime Ripard <mripard@kernel.org>
+> > To: Thomas Zimmermann <tzimmermann@suse.de>
+> > To: Lucas De Marchi <lucas.demarchi@intel.com>
+> > To: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > To: Jason Gunthorpe <jgg@ziepe.ca>
+> > To: Leon Romanovsky <leon@kernel.org>
+> > To: Kevin Tian <kevin.tian@intel.com>
+> > To: Joerg Roedel <joro@8bytes.org>
+> > To: Will Deacon <will@kernel.org>
+> > To: Robin Murphy <robin.murphy@arm.com>
+> > To: Alex Williamson <alex@shazbot.org>
+> > 
+> > ---
+> > Leon Romanovsky (4):
+> >       dma-buf: Rename .move_notify() callback to a clearer identifier
+> >       dma-buf: Document revoke semantics
+> >       iommufd: Require DMABUF revoke semantics
+> >       vfio: Add pinned interface to perform revoke semantics
+> > 
+> >  drivers/dma-buf/dma-buf.c                   |  6 +++---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  4 ++--
+> >  drivers/gpu/drm/virtio/virtgpu_prime.c      |  2 +-
+> >  drivers/gpu/drm/xe/tests/xe_dma_buf.c       |  6 +++---
+> >  drivers/gpu/drm/xe/xe_dma_buf.c             |  2 +-
+> >  drivers/infiniband/core/umem_dmabuf.c       |  4 ++--
+> >  drivers/infiniband/hw/mlx5/mr.c             |  2 +-
+> >  drivers/iommu/iommufd/pages.c               | 11 +++++++++--
+> >  drivers/vfio/pci/vfio_pci_dmabuf.c          | 16 ++++++++++++++++
+> >  include/linux/dma-buf.h                     | 25
+> > ++++++++++++++++++++++---
+> >  10 files changed, 60 insertions(+), 18 deletions(-)
+> > ---
+> > base-commit: 9ace4753a5202b02191d54e9fdf7f9e3d02b85eb
+> > change-id: 20251221-dmabuf-revoke-b90ef16e4236
+> > 
+> > Best regards,
+> > --  
+> > Leon Romanovsky <leonro@nvidia.com>
+> > 
 > 
