@@ -4,74 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D52DBCA600D
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E59CCA6008
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6287610E3B3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E25910E3B4;
 	Mon, 19 Jan 2026 08:18:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hP6EF4ql";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QkZ8lDQC";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D99C110E2CB;
- Sun, 18 Jan 2026 14:29:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768746552; x=1800282552;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=0+eaeMN1EHDT+lkQ4GIUQ4W12gE3E7ctCy4zVXTxlPk=;
- b=hP6EF4qlFgUINJkL2wEWjnpQchlqDrmCV5hr8bn0J7Uo+tKFnsaVtLe5
- js9HqIZiQAm6dGmfPqM1uEZ0/rtrljDFMYUHZi2VRnXNk+HOM11u7qe5t
- 2lxaYRRbnw1VNY6qoJ0KTMO38YSxMVt9mGtQatwQwPmu64kdxPLVG1cnv
- nHs2WHeRfDrgNGNJNhphBhglK+hwquVfgPkGRjoVCnsDFlYaE3kagKKQv
- dEJXnzoTBc0V0gfhzHKXhS85NNHAGPA+1QVjEoxU21WjztschKfCzyPao
- UdxJbF89U36/gogfK8j1f3Wr4Cf3dr9TctJREiXANulNL2cYXMOtl/jNb Q==;
-X-CSE-ConnectionGUID: rx6aeg53S+SZ7mJG2RPdNA==
-X-CSE-MsgGUID: p2cv+WlqT0q0Vm43RpUTAQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11675"; a="70146416"
-X-IronPort-AV: E=Sophos;i="6.21,235,1763452800"; d="scan'208";a="70146416"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2026 06:29:12 -0800
-X-CSE-ConnectionGUID: nCY8yfQeS1CtWSbdd073Iw==
-X-CSE-MsgGUID: VxUvo3fYR72cV06gEahrOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,235,1763452800"; d="scan'208";a="205447268"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO [10.245.244.5])
- ([10.245.244.5])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2026 06:29:04 -0800
-Message-ID: <8bc75706c18c410f9564805c487907aba0aab627.camel@linux.intel.com>
-Subject: Re: [PATCH v2 2/4] dma-buf: Document revoke semantics
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Leon Romanovsky <leon@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Gerd Hoffmann
- <kraxel@redhat.com>,  Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu	
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Lucas De Marchi	 <lucas.demarchi@intel.com>, Rodrigo
- Vivi <rodrigo.vivi@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian
- <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon
- <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Alex Williamson
- <alex@shazbot.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev, 
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Date: Sun, 18 Jan 2026 15:29:02 +0100
-In-Reply-To: <20260118-dmabuf-revoke-v2-2-a03bb27c0875@nvidia.com>
-References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
- <20260118-dmabuf-revoke-v2-2-a03bb27c0875@nvidia.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.3 (3.54.3-2.fc41) 
+Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
+ [209.85.208.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADFFF10E305
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:12:00 +0000 (UTC)
+Received: by mail-ed1-f65.google.com with SMTP id
+ 4fb4d7f45d1cf-64ce9d80429so430632a12.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:12:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1768785119; x=1769389919; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LZXVwXnPctt9VEWjXx91N6i+1aICn1iOJ7TSOyayxAY=;
+ b=QkZ8lDQCsX+8WRPu8nZ8XNcDKrzvDaX1r1oeugh1JuNfomx1+xbh4iqF8Wyx5wUcTQ
+ dyEc3QOU6fFA6I5tgPSZQbeYKVE9kXtxp7Rf7fzXMaRatUF1cCf+WuYmq3+/DtYGbaHo
+ 3Ez+mjyaKAB2bLACAup70zndGn1f3aBBSYHNt7c2raPLMVoMie3PC+g+0V55lbbmvpPk
+ Hb2lR34Doz5coe65eA3yET9GB8EUFSQU4d0Azbqzja8wlfuhNJTmmNW1ZnRVWa8tQad2
+ F02V/F3vql0x1koaS5yu54Wak2WEpajZN2GoyXr9wKsXpuYFuEqT1k3/b5JtpfUxSnjZ
+ wKqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768785119; x=1769389919;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=LZXVwXnPctt9VEWjXx91N6i+1aICn1iOJ7TSOyayxAY=;
+ b=QIuEMJfaEzRVDmr9ZUcu5zOAiiqdDgGdfaFKN48dHXqyjSa0nzLphabMFg6T79D366
+ gVpBVkMnhNJh6uLsVUbNn+B9hSuJZorU9eL5EypYuiM0jhQ8iEBHRT9vGhLlfktWH8rQ
+ WZX9cQkMUxC0C6l4BmKKj5znidUnLW4O7maYtUtNlhrGPBVQdpRdblPrkCvuXLm4t9Bl
+ 1tYje3Fhh24b0QM7Jnk3dkiXLs/kUdXcyMJzwemIrxytSclyP3cIQYskxZPNy4olDwI0
+ h2qi+U66XQkjtCSV3SMx5+PbREzJ9HpebdW13Vg0C4Aj8nT4B6JEvupura2WWKcgzhPF
+ IuMw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUr2srOgRqK+smf+9UPPFx/lQZqfzhyg+cncbowsRPkc33MDTu99ttmnjPDUjdiCdABflElEgRb@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyRzYW3OoIArVshdpZjmjUeujEB0XMmK7Nn8TwB44jdipgDRj0J
+ iSZT2m9mB1A8+L2wnVy1+RQXHLnN4i6nn99juCLG07KZmQNBIzlWIuKj
+X-Gm-Gg: AY/fxX7fBWZTN3rlTrWlGVcz3eBiaeudlmKpAe1ZL1s9HXzWnJMq2ZkF3QkA0//LDa4
+ 5ecHWjuGKr6HilaxZySGBjMzfijeTDl3r6w/+jlhGPEftNUf9qUuc8TRQm9SPO0OuyI0LQpXQin
+ aXCPUKVc9ZEx5jLi2ncL5RpQjUVzdqZeQeJfCNmfcBh8VxP0MWTJLhfqRi1qsc04vmJOpT7rKg9
+ OaabFipI8VKsEvnebOGl1IwCPN7gUzKLNmERpr4OqVJOixttQSDYHOjkeFENMGYqh6eKZIK9/SN
+ IOXh7vjVFP8qwnJ+T95z3T2X9vu+pMUP/MfoybMY4anvrBsi88Dthg9CfWbaeN9JZik97cIS0CJ
+ xw9Lk7rTQWb/9i/oyhliVf5rq1Nc5Q/Ga3y2y8ru2TDp/7sySdy4L2alcrxBLBjrecawMbimI6K
+ nRv0QimSDNx1cADU1bdY0Mup859npCjR9hMpC8j6gVzReqZzGMNj1uwCgG3Iz+wDpSHDifuNLZH
+ hk=
+X-Received: by 2002:a05:6402:42d2:b0:64d:23ac:6cae with SMTP id
+ 4fb4d7f45d1cf-65452bce08amr4211650a12.6.1768785119145; 
+ Sun, 18 Jan 2026 17:11:59 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.11.57
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 18 Jan 2026 17:11:58 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
+ bernhard.berger@gmail.com
+Subject: [PATCH 07/17] drm/amd/display: Add CH7218 PCON ID
+Date: Mon, 19 Jan 2026 02:11:36 +0100
+Message-ID: <20260119011146.62302-8-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 19 Jan 2026 08:18:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,37 +96,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 2026-01-18 at 14:08 +0200, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
->=20
-> Document a DMA-buf revoke mechanism that allows an exporter to
-> explicitly
-> invalidate ("kill") a shared buffer after it has been handed out to
-> importers. Once revoked, all further CPU and device access is
-> blocked, and
-> importers consistently observe failure.
+[Why]
+Chrontel CH7218 found in Ugreen DP -> HDMI 2.1 adapter (model 85564)
+works perfectly with VRR after testing. VRR and FreeSync compatibility
+is explicitly advertised as a feature so it's addition is a formality.
 
-See previous comment WRT this.
+Support FreeSync info packet passthrough and "generic" HDMI VRR.
 
->=20
-> This requires both importers and exporters to honor the revoke
-> contract.
->=20
-> For importers, this means implementing .invalidate_mappings() and
-> calling
-> dma_buf_pin() after the DMA=E2=80=91buf is attached to verify the exporte=
-r=E2=80=99s
-> support
-> for revocation.
+[How]
+Add CH7218's ID to dm_helpers_is_vrr_pcon_allowed()
 
-Why would the importer want to verify the exporter's support for
-revocation? If the exporter doesn't support it, the only consequence
-would be that invalidate_mappings() would never be called, and that
-dma_buf_pin() is a NOP. Besides, dma_buf_pin() would not return an
-error if the exporter doesn't implement the pin() callback?
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4773
 
-Or perhaps I missed a prereq patch?
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
+ drivers/gpu/drm/amd/display/include/ddc_service_types.h   | 1 +
+ 2 files changed, 2 insertions(+)
 
-Thanks,
-Thomas
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 2ef515a4e1c4..37747f87b55a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -1390,6 +1390,7 @@ bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link, const struct drm
+ 	case DP_BRANCH_DEVICE_ID_0060AD:
+ 	case DP_BRANCH_DEVICE_ID_00E04C:
+ 	case DP_BRANCH_DEVICE_ID_90CC24:
++	case DP_BRANCH_DEVICE_ID_2B02F0:
+ 		return true;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/display/include/ddc_service_types.h b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
+index 1c603b12957f..e838f7c1269c 100644
+--- a/drivers/gpu/drm/amd/display/include/ddc_service_types.h
++++ b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
+@@ -36,6 +36,7 @@
+ #define DP_BRANCH_DEVICE_ID_006037 0x006037
+ #define DP_BRANCH_DEVICE_ID_001CF8 0x001CF8
+ #define DP_BRANCH_DEVICE_ID_0060AD 0x0060AD
++#define DP_BRANCH_DEVICE_ID_2B02F0 0x2B02F0 /* Chrontel CH7218 */
+ #define DP_BRANCH_HW_REV_10 0x10
+ #define DP_BRANCH_HW_REV_20 0x20
+ 
+-- 
+2.52.0
 
