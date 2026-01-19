@@ -4,76 +4,170 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A93FED29C2F
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 14:26:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 104F5D29C2E
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 14:26:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C45610E471;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9550C10E472;
 	Mon, 19 Jan 2026 14:26:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lCUcN4om";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="WOs3lDaS";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC40210E3CC;
- Mon, 19 Jan 2026 09:27:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768814840; x=1800350840;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=1LWdKy0wxcp3AbNhZv5YgZA5HhjEKmlwhhAIxDXEKnI=;
- b=lCUcN4omlnVLN9ToWQL+8Os53D1o+igys0Zvkj+AmwYNh3yNMpzITGQ9
- LKVVm536jQWElFYBWjbDRfuTyXh8OGHIuiEU4bfBL6AEgip3PsMOtekuC
- UgkHnxyiVSuOIpqeUBcCsxK9d5CPOjflvWtNcls+sM3quly4iT2X1QmXD
- +Uj3JsByIjomPs5SNQnPZjQmmNNb9N4sdMNQmASFP0ncAl+HjbB6R/vXS
- 9iX11OmRwFl2xgdnPcKoWGJNm3gXpMRhePV3RghoSVq8E/DzsF6o8DxVS
- CpVh4kTALyT5kciHzRfGdvTeWBvfCg85VGKs26DYKE4dLnnbLhnKByW2B A==;
-X-CSE-ConnectionGUID: +u7F0y4nSiaGHF8yBkiesA==
-X-CSE-MsgGUID: igF9WvVUThu3fpKA7bQLRw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11675"; a="69223451"
-X-IronPort-AV: E=Sophos;i="6.21,237,1763452800"; d="scan'208";a="69223451"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2026 01:27:19 -0800
-X-CSE-ConnectionGUID: wVDcltDLQGSQ0FDWpueWJw==
-X-CSE-MsgGUID: rdbnuLpiR2SkFhlwu7xzJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,237,1763452800"; d="scan'208";a="210835738"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO [10.245.244.32])
- ([10.245.244.32])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2026 01:27:11 -0800
-Message-ID: <9112a605d2ee382e83b84b50c052dd9e4a79a364.camel@linux.intel.com>
-Subject: Re: [PATCH v2 0/4] dma-buf: document revoke mechanism to invalidate
- shared buffers
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Alex Deucher
- <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Gerd Hoffmann <kraxel@redhat.com>,  Dmitry
- Osipenko <dmitry.osipenko@collabora.com>, Gurchetan Singh
- <gurchetansingh@chromium.org>, Chia-I Wu	 <olvaffe@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Lucas De
- Marchi	 <lucas.demarchi@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, Joerg
- Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy
- <robin.murphy@arm.com>, Alex Williamson <alex@shazbot.org>, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev, 
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Date: Mon, 19 Jan 2026 10:27:00 +0100
-In-Reply-To: <20260119075229.GE13201@unreal>
-References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
- <f115c91bbc9c6087d8b32917b9e24e3363a91f33.camel@linux.intel.com>
- <20260119075229.GE13201@unreal>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.3 (3.54.3-2.fc41) 
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011018.outbound.protection.outlook.com [40.107.208.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DABB10E28F;
+ Mon, 19 Jan 2026 14:20:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ycl8ZvOEjkMFTNMNRm3aDOFR2u15apMVmA7LQbHP0PS7K0nMdlXbqA2tZNxYv/Y5ogYkCjR/tAowYOkU1IfD05IzBczdj/DxDN2jZxkyP97ep4fsK/yZ0MHKV8PVhXTmkIvcFkvhaPSOV1MbPiC7be7jMhKOnayucP5iRHMw8SFvMN+4M8yHiAXpJXg44oIWDVXKbFk/PGWQJIa8E+NjgHDnC5nufIMsjz2mh6MAAPzGii3ANnYrdLaRVuOgaHP/HWKlQ8OpnnmlmPgIABe3zReNMFi/MO00Rr36cTh3+8r8zZ/RP3HhskMzsq+BIMahWours7RtqRwrAayfjQI6eQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iCNnr7NUjm5/1nDgaPXZZoWC+17OmNd33pf1v65MhW0=;
+ b=RgsVKqxbYMjwBbP8/ftRaE70cISRmSvgU9g4iEgN5cgtaoYm7MHOt4VnNHZSv8RrFm2IOt7TvFlgj/3LRVtLWQwUXbuS84NyZqjJJG7T/s+uck6UF+W5/aE/+2sOf7KERJz3dVh3ladhJaN5NZIaG8ZEowgy3UanXnNwzq+roi3ecDIRfJ8ZGnsqM1ICfDcXlocogovyrTKGgVijN0wv+Oj153u6s5VA6Yc4lc/KIyeB6ClEA/FoxBbgqmJtd65F6M6gUAemNGD5h5QdZz5DaMmH7aA5qpO0/dUmwbQJHgYCbCWo79pgK2fl6LJxDGZF2qYxHU1OgrlYh2aL0apCPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iCNnr7NUjm5/1nDgaPXZZoWC+17OmNd33pf1v65MhW0=;
+ b=WOs3lDaSdVVavS74MwtJ5kHFM0FCdHYFjpJ9UXnq+E9vqLsC+kqQ1zmOhqVRgwY3S/u+u96CCccUYm5JYygbU2hMvxeaG8rR9oF4XagssFKpA3p2bhwZIs6FpMHRj2QAGMqNwDqskGRx9ZyS1FTplNLdhYmzqlceg0Put6YGD9izykKt6oRrrCVu1+NQX39W57w8vDfPd594kpWf2CUzdjvabK1t7gnEIVA0G2RUy5OQY+8KhChauk2Q6apH5yfHOcTXs/koEAl3v2qJA0th9euUL8+Fx+OOPG48wwjJuAbVnrHbsvhsXxftVqOpBUjBEdEdZ4WOve+laOIHFtt8ZA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.12; Mon, 19 Jan
+ 2026 14:20:21 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::1b59:c8a2:4c00:8a2c]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::1b59:c8a2:4c00:8a2c%3]) with mapi id 15.20.9520.011; Mon, 19 Jan 2026
+ 14:20:20 +0000
+Date: Mon, 19 Jan 2026 10:20:19 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Alistair Popple <apopple@nvidia.com>
+Cc: Matthew Brost <matthew.brost@intel.com>,
+ Balbir Singh <balbirs@nvidia.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Francois Dugast <francois.dugast@intel.com>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Zi Yan <ziy@nvidia.com>, adhavan Srinivasan <maddy@linux.ibm.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Leon Romanovsky <leon@kernel.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-mm@kvack.org, linux-cxl@vger.kernel.org
+Subject: Re: [PATCH v6 1/5] mm/zone_device: Reinitialize large zone device
+ private folios
+Message-ID: <20260119142019.GG1134360@nvidia.com>
+References: <20260116111325.1736137-1-francois.dugast@intel.com>
+ <20260116111325.1736137-2-francois.dugast@intel.com>
+ <20260116174947.GA1134434@nvidia.com>
+ <8006ea5f-8845-436a-a2d7-125399428762@suse.cz>
+ <aWqgHTZ5hjlRvlKU@lstrano-desk.jf.intel.com>
+ <20260117005114.GC1134360@nvidia.com>
+ <aWsIT8A2dLciFvhj@lstrano-desk.jf.intel.com>
+ <eb94d115-18a6-455b-b020-f18f372e283a@nvidia.com>
+ <aWsdv6dX2RgqajFQ@lstrano-desk.jf.intel.com>
+ <4k72r4n5poss2glrof5fsapczkpcrnpokposeikw5wjvtodbto@wpqsxoxzpvy6>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4k72r4n5poss2glrof5fsapczkpcrnpokposeikw5wjvtodbto@wpqsxoxzpvy6>
+X-ClientProxiedBy: MN2PR14CA0007.namprd14.prod.outlook.com
+ (2603:10b6:208:23e::12) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|MN2PR12MB4488:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0090533b-3dc0-4c52-06ad-08de5765e0b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|1800799024|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LoEN0bw0YS9QODI+HLd0i6RV+fi6M6ZIgolk8Cp/x2iU3hTg6SdG4YBbK/FV?=
+ =?us-ascii?Q?4XxBQkFRFBB9vsupBtulHg3ykdXtq/ECXZErkIsTBjPLHPjrvXTf9wsLX30E?=
+ =?us-ascii?Q?dywWvmrtumGTm+ETZ1+oi1XJr49Ldlz/4PJJgM28WcNd65e1cYpl+3H/2VgU?=
+ =?us-ascii?Q?9L0bhblRGA1EnjeQVLvQYTIC/mkGT48As0ggBg+ce0kjp45P9Kst6pljBCDJ?=
+ =?us-ascii?Q?NTIxZDc7LCXcVbn8TAd7WpkOt/j7L7CZxSo+wySNtD6zdEm9ldjuc4n3U4al?=
+ =?us-ascii?Q?bdg5FB+eIqzzaF1IK14AuRQfwwSS3BR4KvSDLN6hLitY07Wol3wWukktEaQH?=
+ =?us-ascii?Q?J9yUWZUWHs37y7VB7fFJa1lWC+maXewmkSfl8XSizNxLpxX4KpDccAS3KInH?=
+ =?us-ascii?Q?NPFEaznPHnmupRP/RiFxLFq5NsaopXC2ClzWhRzwOtG/eRomtcHOd+NLEcLQ?=
+ =?us-ascii?Q?J0Bm1uugInxcGkCFwoVyN0XkCF6JGAjUTLzsYVzgGgHV7eUi0KZ+IFICAO9u?=
+ =?us-ascii?Q?3+ILL+Sd+EkbOOuMuq/rPZbc5Kpn25mP3C5+kRdp2gwzV7gE5K8p3omWFZP1?=
+ =?us-ascii?Q?NFRPlJdmDOlLQ08KAy312GXQntpHb94Hr4zAP8THNOgMvr1r7KifTDkqZtST?=
+ =?us-ascii?Q?hMLJI9RaSopGF6hI5vLN0rEOYbjM8ttLNMvrBt+eeZ9qGANbfXPmKPt48yud?=
+ =?us-ascii?Q?wuGJT1+aswfYzqI6p+DlmLFMPc4wA1N259paS8Bq6ebyI5vyaqJcr2nFzYjC?=
+ =?us-ascii?Q?wEuIuuORj0cfg5weZxNrcUWhRiG5RvzqJk930ghPpXdS/sfBhWkJrghAsZbL?=
+ =?us-ascii?Q?tRkaneE34K/3d05Yp3X9Kl52LxxCbeP7qNGsRnK8GW0zFCw4je8WGqqbeIKm?=
+ =?us-ascii?Q?zcrSxjgdS323Eu4CQxbZzY0XNoDr4LpIiOjgT1/HEEO63fvQOdX/dIFnCtng?=
+ =?us-ascii?Q?2OlxaY6xNrL8SXnFHTr5oVsHfy36wPajkmY7R7gjG3Ms0TZchqX8VbDR0fwP?=
+ =?us-ascii?Q?NFyd5oVysHwqHS6fP5ZjhAEeRCsjClZzDepVq50bW5lVJKms95aL9An6dEKw?=
+ =?us-ascii?Q?1xPOGcWXd9U0dcGVk63EU82ol0tDhvkgjdUM91W/A5QnteqCcHscB2Zy2NQY?=
+ =?us-ascii?Q?Zzx7tdcJfJpz4nc00l5Y0ub49C81OBAtwj0A5fx4F02cNCE4fwtsxah53OLg?=
+ =?us-ascii?Q?0yDJinRE2mNoKIqt7WtvN+rDnmV+eCEMnhAZkhCiUh3zk8TbSjOmvWEJmyLI?=
+ =?us-ascii?Q?4DFOv6cVyx4J7MmQNPpD5d6AfIEt30MgMaSVulWTivxnDM9rZjPrbNdffTi8?=
+ =?us-ascii?Q?7u6UO9H0SbwdQDsEk1+2nfOO63dzWZVC/mXU5fgr17v4pI/HSQwwxkoOPV2D?=
+ =?us-ascii?Q?F6dMQdxh1V1ZesfBn0DSQksdD6FPwFhROjlPfCdTN2RDKQ3lgYBOUpwnmpi/?=
+ =?us-ascii?Q?ZtAFWXRRMvHtso5G+IVdikW4jKZ/ozZZ6nC0VSGB8uO5V9lEqTyrZN3Wm/oe?=
+ =?us-ascii?Q?MSN3vw8Z4rvjll3x7MX0QZQaMsGkYdtI/5qbuS99AggxCjdLrzXstASv0YJg?=
+ =?us-ascii?Q?eDBF9XWFfZcr9VOqkzM=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(1800799024)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?yZiOPg9xsIusNXWKYrcMlAkd//pisBeQtzjIy2wQNOxFeT3S213+qnBqdP9o?=
+ =?us-ascii?Q?kq7jOOLSRZx25oVCQCu/WjAALBMNcUmI2tP+IMdruuEzvY2i9t9nhFbxFa+U?=
+ =?us-ascii?Q?momjG4yGw6KQJpwKgdUPEFlJeXzYDc8VaxZRrlF4UKqj5IoPZyHjcQ/rK0nQ?=
+ =?us-ascii?Q?UEltPwKfduUif1w+cdZCv1VIxDrUaH4n0pwdX6EXagIq016+qsxivTZmT/p7?=
+ =?us-ascii?Q?1g0v8a3/p+X8M/lwsxBsp+lya2ME4t8Mh/S1SU10oq2Xt16YKQinooCYni+b?=
+ =?us-ascii?Q?KtclZPVuFTxzWhE+0RykC+3I3Gg0Vz9zMjM1ou5Pf7S7vzucZlcNZSdq6w6q?=
+ =?us-ascii?Q?HSNEYIaUzfhBwCasBKOpcMa2+cfwf1JPFFUkElgxU+n2iGpxhJ+Hn5ZCBVWS?=
+ =?us-ascii?Q?t4o8UXtniK4HaKj+gpmqZSbp7B34WmpqBSkb8BICDpjoyiGWNzaKWNCQhzL0?=
+ =?us-ascii?Q?IzOjIFH+lSY9pMx1YJWJQ7Zm0Y5nazVffDDYgKsc96ydzIeu05+6Q4tZdmWZ?=
+ =?us-ascii?Q?8mVhP8+byWqLUh3YDpPtP3Hrm8/M3wAYvmgtBWhaQFq4l+rw3CTlhlKu75gs?=
+ =?us-ascii?Q?UyDOTnJBH6OF0q0Vgn5gHlSmfV9pz7jW60s9aodTaYg+tAz9dbZKRemTxjmZ?=
+ =?us-ascii?Q?50yaI7tg7/+H5tOf/Qhs3w1N5KMY/8L87e6YXnhgvdvk5Rc6nAF6+roeUtEb?=
+ =?us-ascii?Q?o9alh4qEd6V/2FDw49/jUVO4xCMGoY65lYCRlfFbFVPM6pMCGHakxPDa6he0?=
+ =?us-ascii?Q?r8nX9erU4mfd7pWZOJJi40DHFEOXkrVp02qIDiK5rzeYEcINFfBmFP32hdWR?=
+ =?us-ascii?Q?seXcCBuP25wss4QFsJrYL7zUOacbFBhIvV2RfWlRQrvpHE1aazGRCaBqHgR4?=
+ =?us-ascii?Q?tbchTcPj80EDEwjSu8m+OZqma5xd4U3RRZguQGYKuwyDY4LqylGj5Z75xE/n?=
+ =?us-ascii?Q?aIauAR7mf6HV3cUPpTAEWMJx8k43GJW0CSYKFkhlpMb4ttpZZ+lnqR1lVYOJ?=
+ =?us-ascii?Q?+bQbx3FrMDDd7lEkcF0Byb5eLcMVtm0704dLyxvwAnz8obvDbao1N1iMGftO?=
+ =?us-ascii?Q?rEy+SI6haRBNrOp6S6yAXhybstydtKLMMtKiYkD2c2l9doYX/tS9RbuQW6bR?=
+ =?us-ascii?Q?b3yjyfPmnIQcfICdNX9rPDF3Luxu08DsDWywoHWMdoQZZr7dnkwufkNWQdch?=
+ =?us-ascii?Q?8GEnyh2jGviWKEvWU1/rYr8Epz4GDUG7tvZgFHRUfMo+TdyWXjeAsvcpgipv?=
+ =?us-ascii?Q?qvJDG49waxkLEssgVN2VmDwyFtYqD3/quxpMh2VuM/zYU1UXo273rNyHxxvR?=
+ =?us-ascii?Q?4xcU4OkXhJirZP7Y/4Vr6804tLKJp+Y/ROfDXtySzVphxrVThAGmWa3NcEOW?=
+ =?us-ascii?Q?0kqwvHhEExrPKXQUwl0yFI3MQQBkt/POI3rvaZnUObQl1eIRmf9ZZLM28wG2?=
+ =?us-ascii?Q?vCABytuzxpK3B/UVNiVhjKI5Ie0J9aZl+zsyDli0KAztNlvkSEaJIWlqDwqc?=
+ =?us-ascii?Q?Q6WwTbS/F3ThoKEGoOBTg5rTgqUkgsVIR/RAkpC1HL1/REoS6tY/B0rMpm4E?=
+ =?us-ascii?Q?41tgJ2YvnLFRXOwgf8t+VPo7fdk9Jn0dW8LVLNQu8LfcGJqKNAoLqq6XxTlo?=
+ =?us-ascii?Q?pgx+9ec4tTah96exu50roD1tAUYXhoHtSZkxBpaWXkpq8oTolgJp/3CO/ynM?=
+ =?us-ascii?Q?qEnr32tqo5VNwPbWmOvuXDoEVqtaWtDy7LxCVu1DvKC1Mkqj?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0090533b-3dc0-4c52-06ad-08de5765e0b5
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2026 14:20:20.9107 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0TOulGg/0Qeus+stAinh5JODxd5DbewXniOsPQ6m+fCqqlLgh67kJabR2vwgZZ1+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4488
 X-Mailman-Approved-At: Mon, 19 Jan 2026 14:26:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,187 +183,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2026-01-19 at 09:52 +0200, Leon Romanovsky wrote:
-> On Sun, Jan 18, 2026 at 03:16:25PM +0100, Thomas Hellstr=C3=B6m wrote:
-> > Hi, Leon,
-> >=20
-> > On Sun, 2026-01-18 at 14:08 +0200, Leon Romanovsky wrote:
-> > > Changelog:
-> > > v2:
-> > > =C2=A0* Changed series to document the revoke semantics instead of
-> > > =C2=A0=C2=A0 implementing it.
-> > > v1:
-> > > https://patch.msgid.link/20260111-dmabuf-revoke-v1-0-fb4bcc8c259b@nvi=
-dia.com
-> > >=20
-> > > -----------------------------------------------------------------
-> > > ----
-> > > ----
-> > > This series documents a dma-buf =E2=80=9Crevoke=E2=80=9D mechanism: t=
-o allow a
-> > > dma-
-> > > buf
-> > > exporter to explicitly invalidate (=E2=80=9Ckill=E2=80=9D) a shared b=
-uffer after
-> > > it
-> > > has
-> > > been distributed to importers, so that further CPU and device
-> > > access
-> > > is
-> > > prevented and importers reliably observe failure.
-> > >=20
-> > > The change in this series is to properly document and use
-> > > existing
-> > > core
-> > > =E2=80=9Crevoked=E2=80=9D state on the dma-buf object and a correspon=
-ding
-> > > exporter-
-> > > triggered
-> > > revoke operation. Once a dma-buf is revoked, new access paths are
-> > > blocked so
-> > > that attempts to DMA-map, vmap, or mmap the buffer fail in a
-> > > consistent way.
-> >=20
-> > This sounds like it does not match how many GPU-drivers use the
-> > move_notify() callback.
->=20
-> No change for them.
->=20
-> >=20
-> > move_notify() would typically invalidate any device maps and any
-> > asynchronous part of that invalidation would be complete when the
-> > dma-
-> > buf's reservation object becomes idle WRT DMA_RESV_USAGE_BOOKKEEP
-> > fences.
->=20
-> This part has not changed and remains the same for the revocation
-> flow as well.
->=20
-> >=20
-> > However, the importer could, after obtaining the resv lock, obtain
-> > a
-> > new map using dma_buf_map_attachment(), and I'd assume the CPU maps
-> > work in the same way, I.E. move_notify() does not *permanently*
-> > revoke
-> > importer access.
->=20
-> This part diverges by design and is documented to match revoke
-> semantics.=C2=A0=20
-> It defines what must occur after the exporter requests that the
-> buffer be=C2=A0=20
-> "killed". An importer that follows revoke semantics will not attempt
-> to call=C2=A0=20
-> dma_buf_map_attachment(), and the exporter will block any remapping
-> attempts=C2=A0=20
-> regardless. See the priv->revoked flag in the VFIO exporter.
->=20
-> In addition, in this email thread, Christian explains that revoke
-> semantics already exists, with the combination of dma_buf_pin and
-> dma_buf_move_notify, just not documented:
-> https://lore.kernel.org/all/f7f1856a-44fa-44af-b496-eb1267a05d11@amd.com/
+On Mon, Jan 19, 2026 at 04:59:56PM +1100, Alistair Popple wrote:
+> On 2026-01-17 at 16:27 +1100, Matthew Brost <matthew.brost@intel.com> wrote...
+> > On Sat, Jan 17, 2026 at 03:42:16PM +1100, Balbir Singh wrote:
+> > > On 1/17/26 14:55, Matthew Brost wrote:
+> > > > On Fri, Jan 16, 2026 at 08:51:14PM -0400, Jason Gunthorpe wrote:
+> > > >> On Fri, Jan 16, 2026 at 12:31:25PM -0800, Matthew Brost wrote:
+> > > >>>> I suppose we could be getting say an order-9 folio that was previously used
+> > > >>>> as two order-8 folios? And each of them had their _nr_pages in their head
+> > > >>>
+> > > >>> Yes, this is a good example. At this point we have idea what previous
+> > > >>> allocation(s) order(s) were - we could have multiple places in the loop
+> > > >>> where _nr_pages is populated, thus we have to clear this everywhere. 
+> > > >>
+> > > >> Why? The fact you have to use such a crazy expression to even access
+> > > >> _nr_pages strongly says nothing will read it as _nr_pages.
+> > > >>
+> > > >> Explain each thing:
+> > > >>
+> > > >> 		new_page->flags.f &= ~0xffUL;	/* Clear possible order, page head */
+> > > >>
+> > > >> OK, the tail page flags need to be set right, and prep_compound_page()
+> > > >> called later depends on them being zero.
+> > > >>
+> > > >> 		((struct folio *)(new_page - 1))->_nr_pages = 0;
+> > > >>
+> > > >> Can't see a reason, nothing reads _nr_pages from a random tail
+> > > >> page. _nr_pages is the last 8 bytes of struct page so it overlaps
+> > > >> memcg_data, which is also not supposed to be read from a tail page?
+> 
+> This is (or was) either a order-0 page, a head page or a tail page, who
+> knows. So it doesn't really matter whether or not _nr_pages or memcg_data are
+> supposed to be read from a tail page or not. What really matters is does any of
+> vm_insert_page(), migrate_vma_*() or prep_compound_page() expect this to be a
+> particular value when called on this page?
 
+This weird expression is doing three things,
+1) it is zeroing memcg on the head page
+2) it is zeroing _nr_pages on the head folio
+3) it is zeroing memcg on all the tail pages.
 
-Hmm,
+Are you aruging for 1, 2 or 3?
 
-Considering=20
+#1 is missing today
+#2 is handled directly by the prep_compound_page() -> prep_compound_head() -> folio_set_order()
+#3 I argue isn't necessary.
 
-https://elixir.bootlin.com/linux/v6.19-rc5/source/drivers/infiniband/core/u=
-mem_dmabuf.c#L192
+> AFAIK memcg_data is at least expected to be NULL for migrate_vma_*() when called
+> on an order-0 page, which means it has to be cleared.
 
-this sounds like it's not just undocumented but also in some cases
-unimplemented. The xe driver for one doesn't expect move_notify() to be
-called on pinned buffers, so if that is indeed going to be part of the
-dma-buf protocol,  wouldn't support for that need to be advertised by
-the importer?
+Great, so lets write that in prep_compound_head()!
 
-Thanks,
-Thomas
+> Although I think it would be far less confusing if it was just written like that
+> rather than the folio math but it achieves the same thing and is technically
+> correct.
 
->=20
-> Thanks
->=20
-> >=20
-> > /Thomas
-> >=20
-> >=20
-> > >=20
-> > > Thanks
-> > >=20
-> > > Cc: linux-media@vger.kernel.org
-> > > Cc: dri-devel@lists.freedesktop.org
-> > > Cc: linaro-mm-sig@lists.linaro.org
-> > > Cc: linux-kernel@vger.kernel.org
-> > > Cc: amd-gfx@lists.freedesktop.org
-> > > Cc: virtualization@lists.linux.dev
-> > > Cc: intel-xe@lists.freedesktop.org
-> > > Cc: linux-rdma@vger.kernel.org
-> > > Cc: iommu@lists.linux.dev
-> > > Cc: kvm@vger.kernel.org
-> > > To: Sumit Semwal <sumit.semwal@linaro.org>
-> > > To: Christian K=C3=B6nig <christian.koenig@amd.com>
-> > > To: Alex Deucher <alexander.deucher@amd.com>
-> > > To: David Airlie <airlied@gmail.com>
-> > > To: Simona Vetter <simona@ffwll.ch>
-> > > To: Gerd Hoffmann <kraxel@redhat.com>
-> > > To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> > > To: Gurchetan Singh <gurchetansingh@chromium.org>
-> > > To: Chia-I Wu <olvaffe@gmail.com>
-> > > To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > > To: Maxime Ripard <mripard@kernel.org>
-> > > To: Thomas Zimmermann <tzimmermann@suse.de>
-> > > To: Lucas De Marchi <lucas.demarchi@intel.com>
-> > > To: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> > > To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > > To: Jason Gunthorpe <jgg@ziepe.ca>
-> > > To: Leon Romanovsky <leon@kernel.org>
-> > > To: Kevin Tian <kevin.tian@intel.com>
-> > > To: Joerg Roedel <joro@8bytes.org>
-> > > To: Will Deacon <will@kernel.org>
-> > > To: Robin Murphy <robin.murphy@arm.com>
-> > > To: Alex Williamson <alex@shazbot.org>
-> > >=20
-> > > ---
-> > > Leon Romanovsky (4):
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma-buf: Rename .move_notify() callbac=
-k to a clearer
-> > > identifier
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma-buf: Document revoke semantics
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iommufd: Require DMABUF revoke semanti=
-cs
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vfio: Add pinned interface to perform =
-revoke semantics
-> > >=20
-> > > =C2=A0drivers/dma-buf/dma-buf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 6 +++---
-> > > =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |=C2=A0 4 ++--
-> > > =C2=A0drivers/gpu/drm/virtio/virtgpu_prime.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 2 +-
-> > > =C2=A0drivers/gpu/drm/xe/tests/xe_dma_buf.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 6 +++---
-> > > =C2=A0drivers/gpu/drm/xe/xe_dma_buf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > =C2=A0drivers/infiniband/core/umem_dmabuf.c=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 |=C2=A0 4 ++--
-> > > =C2=A0drivers/infiniband/hw/mlx5/mr.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> > > =C2=A0drivers/iommu/iommufd/pages.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 11 +++++++++--
-> > > =C2=A0drivers/vfio/pci/vfio_pci_dmabuf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 16
-> > > ++++++++++++++++
-> > > =C2=A0include/linux/dma-buf.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 | 25
-> > > ++++++++++++++++++++++---
-> > > =C2=A010 files changed, 60 insertions(+), 18 deletions(-)
-> > > ---
-> > > base-commit: 9ace4753a5202b02191d54e9fdf7f9e3d02b85eb
-> > > change-id: 20251221-dmabuf-revoke-b90ef16e4236
-> > >=20
-> > > Best regards,
-> > > --=C2=A0=20
-> > > Leon Romanovsky <leonro@nvidia.com>
-> > >=20
-> >=20
+I have yet to hear a reason to do #3.
 
+> > > >> 		new_folio->mapping = NULL;
+> > > >>
+> > > >> Pointless, prep_compound_page() -> prep_compound_tail() -> p->mapping = TAIL_MAPPING;
+>
+> Not pointless - vm_insert_page() for example expects folio_test_anon() which
+> which won't be the case if p->mapping was previously set to TAIL_MAPPING so it
+> needs to be cleared. migrate_vma_setup() has a similar issue.
+
+It is pointless to put it in the loop! Sure set the head page.
+
+> > > >> 		new_folio->pgmap = pgmap;	/* Also clear compound head */
+> > > >>
+> > > >> Pointless, compound_head is set in prep_compound_tail(): set_compound_head(p, head);
+> 
+> No it isn't - we're not clearing tail pages here, we're initialising ZONE_DEVICE
+> struct pages ready for use by the core-mm which means the pgmap needs to be
+> correct.
+
+See above, same issue. The tail pages have pgmap set to NULL because
+prep_compound_tail() does it. So why do we set it to pgmap here and
+then clear it a few lines below?
+
+Set it once in the head folio outside this loop.
+
+> No problem with the above, and FWIW it seems correct. Although I suspect just
+> setting page->memcg_data = 0 would have been far less controversial ;)
+
+It is "correct" but horrible.
+
+What is wrong with this? Isn't it so much better and more efficient??
+
+diff --git a/mm/internal.h b/mm/internal.h
+index e430da900430a1..a7d3f5e4b85e49 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -806,14 +806,21 @@ static inline void prep_compound_head(struct page *page, unsigned int order)
+ 		atomic_set(&folio->_pincount, 0);
+ 		atomic_set(&folio->_entire_mapcount, -1);
+ 	}
+-	if (order > 1)
++	if (order > 1) {
+ 		INIT_LIST_HEAD(&folio->_deferred_list);
++	} else {
++		folio->mapping = NULL;
++#ifdef CONFIG_MEMCG
++		folio->memcg_data = 0;
++#endif
++	}
+ }
+ 
+ static inline void prep_compound_tail(struct page *head, int tail_idx)
+ {
+ 	struct page *p = head + tail_idx;
+ 
++	p->flags.f &= ~0xffUL;	/* Clear possible order, page head */
+ 	p->mapping = TAIL_MAPPING;
+ 	set_compound_head(p, head);
+ 	set_page_private(p, 0);
+diff --git a/mm/memremap.c b/mm/memremap.c
+index 4c2e0d68eb2798..7ec034c11068e1 100644
+--- a/mm/memremap.c
++++ b/mm/memremap.c
+@@ -479,19 +479,23 @@ void free_zone_device_folio(struct folio *folio)
+ 	}
+ }
+ 
+-void zone_device_page_init(struct page *page, unsigned int order)
++void zone_device_page_init(struct page *page, struct dev_pagemap *pgmap,
++			   unsigned int order)
+ {
+ 	VM_WARN_ON_ONCE(order > MAX_ORDER_NR_PAGES);
++	struct folio *folio;
+ 
+ 	/*
+ 	 * Drivers shouldn't be allocating pages after calling
+ 	 * memunmap_pages().
+ 	 */
+ 	WARN_ON_ONCE(!percpu_ref_tryget_many(&page_pgmap(page)->ref, 1 << order));
+-	set_page_count(page, 1);
+-	lock_page(page);
+ 
+-	if (order)
+-		prep_compound_page(page, order);
++	prep_compound_page(page, order);
++
++	folio = page_folio(page);
++	folio->pgmap = pgmap;
++	folio_lock(folio);
++	folio_set_count(folio, 1);
+ }
+ EXPORT_SYMBOL_GPL(zone_device_page_init);
+
+Jason
