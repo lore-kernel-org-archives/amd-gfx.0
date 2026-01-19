@@ -4,74 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0ED47CA6015
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74C2ACA6016
 	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A8E6010E3C7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF79710E3CA;
 	Mon, 19 Jan 2026 08:18:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gJbr+/P+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="O4hDBWGR";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19FCC10E2A6;
- Sun, 18 Jan 2026 14:16:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768745805; x=1800281805;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=UudtuDq34MYJqWXnxCgj7hLDUtpJxnIbpapqDIrG7M8=;
- b=gJbr+/P+MKHPZ+tCx6H9X5e2RxJAHi3CMH/0d98U3N9fSxupLpY1QeHk
- nhTtMSlFMBM2s6+wxdRTnK1q1Wm/5sDwBDci7YgKYPHic+ePCdk1Ei+TY
- ZK5ruH5VRkpUsPN2LZTR6CDPWygkzubawuZvsFkGCKVpLOTua1J4UkAQ6
- amx34nH8NyNv5S9OwfFzHi56quMtC3ROjMXF5Y6GpVCNlYpZG+Uix2eTa
- 1oL97e7laPoCuL4s6yGf+t6kDk90o0YXElzHKKC0vznw/Kwri9Gm5VIVJ
- Bi9XUwmPuKzgU027EKzo/ub4YuiKUk2h3UkNfGoSORJrY4SbSFh09Q+wt Q==;
-X-CSE-ConnectionGUID: 2cufV3UxT7GWxVchB7t1Jg==
-X-CSE-MsgGUID: 9eyf3BurSRm6vLRpypiPaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11675"; a="80279033"
-X-IronPort-AV: E=Sophos;i="6.21,235,1763452800"; d="scan'208";a="80279033"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2026 06:16:44 -0800
-X-CSE-ConnectionGUID: uEuCMJyAT1SPhq5oFgFZ9A==
-X-CSE-MsgGUID: YCbX+3UhScWByywIYHhhTQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,235,1763452800"; d="scan'208";a="205264188"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO [10.245.244.5])
- ([10.245.244.5])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2026 06:16:38 -0800
-Message-ID: <f115c91bbc9c6087d8b32917b9e24e3363a91f33.camel@linux.intel.com>
-Subject: Re: [PATCH v2 0/4] dma-buf: document revoke mechanism to invalidate
- shared buffers
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Leon Romanovsky <leon@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Gerd Hoffmann
- <kraxel@redhat.com>,  Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu	
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Lucas De Marchi	 <lucas.demarchi@intel.com>, Rodrigo
- Vivi <rodrigo.vivi@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian
- <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon
- <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Alex Williamson
- <alex@shazbot.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev, 
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Date: Sun, 18 Jan 2026 15:16:25 +0100
-In-Reply-To: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
-References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.54.3 (3.54.3-2.fc41) 
+Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
+ [209.85.218.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A29AE10E30B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:12:05 +0000 (UTC)
+Received: by mail-ej1-f65.google.com with SMTP id
+ a640c23a62f3a-b8712506a3eso22992566b.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:12:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1768785124; x=1769389924; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=r18vhTswb3nOt1VBJpOlruOgjP/ijyrBC8r/JG8t7Ms=;
+ b=O4hDBWGRi9clgsLkpcl/dRjs8BKKhkgWb+HKbwDA55xnpumF7NbDDY9P/lCk1h74ye
+ X1NOaqvMMMIsS01nmRSRT4blIFwrzQcNNYCAztrkhMkjukhEB7us9rn+bTE8teKzDglN
+ 7hE0hZ8uwcAkLSAYMY+bpiskMLAEYNPOtiWT+M8GD1y1OJ1ly91g7NpzJc6DvB2XUdmi
+ uiwtU8bRTqSHRN7nMwapDhOL6FxN+UZ37LaKWiBSNPR4vhprQp/LfibWPg1HX/fW0Ce/
+ HIjDamrPIhgp7LMU7qxEyX69+n/ePTgweTG2vD7D4qYx4jnMVDJPmQQUbgE/LMV63g2T
+ qd0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768785124; x=1769389924;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=r18vhTswb3nOt1VBJpOlruOgjP/ijyrBC8r/JG8t7Ms=;
+ b=Vvl8le2sQhDVMlmYbwQnmuBY9rVvvW1SMmV2Jq0LBB2DxPi18R5Lt9e+gzMX61jqXb
+ M35gmWhmwIYDQaTDWSznD1wXzmFN2ak+NgmsmRXFX6IfhIk1TIZ3c1eT9vXZW02r81e+
+ wH3MB3L6MS8TSyGkMhTacI8GoNO6GbUc4MaliHdC7ffLmg2YJDLyZRjVSep2v1FHGhlW
+ eOrSRPfTvmaJICLuiCDx8I5Ru6DejBnIVgC2j4EnYLzh6+xcIkiyLuyCUvjNnQQngrZ6
+ vzTR6D9mpBSCMD0DZwSmNplyNaoyCyV6LO1cKhhFg6b1YgxFoK6cntuQgerVeXk39nR0
+ ZkCQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW4HxfSx7mqbaoC2dNHCT1zrxjPC83ZDz4d/hy6PMWzg6oi39Kw7+A+/A0XrKTx020w3s01IK+H@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxGsLqmUJQrHiUSQ/317adDpcnGDHGR6+wH+oHjGxffqGPZgETK
+ y4guqXm+AJ8ckm/iS/5hyL0nNGhSjY1zRN+ql0SNVEWgWjU6MHVt636I
+X-Gm-Gg: AY/fxX4W5mY/A/meQcy/5vpt3IfujwRGmiTMOH6W3SHZuR3VTBs0rZrolKYl86AWWKH
+ +tLqEQbVyDIFWC3Y+TW+OW7TECgT1UwgmzXXMY/EtV/p0AUbx/+pwb71E+8earmZRsbdH9Dy9L7
+ Jpc6SnIe4nseRHctotVYRoyQ7xF6h3Fv7AiUGBREQ3yK6Io+R7tl5wO4KeeiQ7gHozDuFG2ygJv
+ zF9F7QPIq9nHHRvaNbDnvjKr5ggKGHd4UtWqCkNpbPbNtlelTlZyExDRvULNqcJEWtQy3Te5lwp
+ saCeWsD3ZNWk+H7K0YArAbJXbMK8eqKWtRYvHr7BUeNb3LNGxuDT1NL1oaM5I36APIGdDwY/45/
+ RQ+IbI0UMkvwEEoY/tkVgZybFHlys/STT2pQRn1OeRnRIDwrn6bGipEwu567MuZYlBaOqpQQHrD
+ mVj9hWl/TWMJswz9RBtoMSD5uAzBV/CVlJuu6IcIS5blImYC8rlGhOnVL/hkysrHEr
+X-Received: by 2002:a05:6402:348d:b0:64c:9e19:982d with SMTP id
+ 4fb4d7f45d1cf-654523cc85bmr4269711a12.1.1768785124078; 
+ Sun, 18 Jan 2026 17:12:04 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.12.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 18 Jan 2026 17:12:03 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
+ bernhard.berger@gmail.com
+Subject: [PATCH 10/17] drm/amd/display: Enable HDMI VRR over PCON
+Date: Mon, 19 Jan 2026 02:11:39 +0100
+Message-ID: <20260119011146.62302-11-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 19 Jan 2026 08:18:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,129 +95,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, Leon,
+[Why]
+Not all TVs support FreeSync and many TVs suffer from VRR flickering
+while Freesync is activated.
 
-On Sun, 2026-01-18 at 14:08 +0200, Leon Romanovsky wrote:
-> Changelog:
-> v2:
-> =C2=A0* Changed series to document the revoke semantics instead of
-> =C2=A0=C2=A0 implementing it.
-> v1:
-> https://patch.msgid.link/20260111-dmabuf-revoke-v1-0-fb4bcc8c259b@nvidia.=
-com
->=20
-> ---------------------------------------------------------------------
-> ----
-> This series documents a dma-buf =E2=80=9Crevoke=E2=80=9D mechanism: to al=
-low a dma-
-> buf
-> exporter to explicitly invalidate (=E2=80=9Ckill=E2=80=9D) a shared buffe=
-r after it
-> has
-> been distributed to importers, so that further CPU and device access
-> is
-> prevented and importers reliably observe failure.
->=20
-> The change in this series is to properly document and use existing
-> core
-> =E2=80=9Crevoked=E2=80=9D state on the dma-buf object and a corresponding=
- exporter-
-> triggered
-> revoke operation. Once a dma-buf is revoked, new access paths are
-> blocked so
-> that attempts to DMA-map, vmap, or mmap the buffer fail in a
-> consistent way.
+[How]
+This works the same as FreeSync over PCON just without sending FreeSync
+info packets (we're sending standard DisplayPort info packets) + reading
+the VRR range from the HDMI Forum vendor specific data block. PCONs take
+over HDMI VRR triggering.
 
-This sounds like it does not match how many GPU-drivers use the
-move_notify() callback.
+Prefer HDMI VRR over FreeSync to reduce VRR flickering on many TVs.
+FreeSync over HDMI seems to be a fallback solution and not a first-class
+citizen. This especially helps VMM7100.
 
-move_notify() would typically invalidate any device maps and any
-asynchronous part of that invalidation would be complete when the dma-
-buf's reservation object becomes idle WRT DMA_RESV_USAGE_BOOKKEEP
-fences.
+Tested with VMM7100 and CH7218 based adapters on multiple HDMI 2.1 and
+HDMI 2.0 devices. (Samsung S95B, LG C4, Sony Bravia 8, Dell AW3423DWF)
 
-However, the importer could, after obtaining the resv lock, obtain a
-new map using dma_buf_map_attachment(), and I'd assume the CPU maps
-work in the same way, I.E. move_notify() does not *permanently* revoke
-importer access.
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4805
 
-/Thomas
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+Tested-by: Bernhard Berger <bernhard.berger@gmail.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 ++++++++++++++++---
+ 1 file changed, 26 insertions(+), 5 deletions(-)
 
-
->=20
-> Thanks
->=20
-> Cc: linux-media@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linaro-mm-sig@lists.linaro.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: virtualization@lists.linux.dev
-> Cc: intel-xe@lists.freedesktop.org
-> Cc: linux-rdma@vger.kernel.org
-> Cc: iommu@lists.linux.dev
-> Cc: kvm@vger.kernel.org
-> To: Sumit Semwal <sumit.semwal@linaro.org>
-> To: Christian K=C3=B6nig <christian.koenig@amd.com>
-> To: Alex Deucher <alexander.deucher@amd.com>
-> To: David Airlie <airlied@gmail.com>
-> To: Simona Vetter <simona@ffwll.ch>
-> To: Gerd Hoffmann <kraxel@redhat.com>
-> To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-> To: Gurchetan Singh <gurchetansingh@chromium.org>
-> To: Chia-I Wu <olvaffe@gmail.com>
-> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> To: Maxime Ripard <mripard@kernel.org>
-> To: Thomas Zimmermann <tzimmermann@suse.de>
-> To: Lucas De Marchi <lucas.demarchi@intel.com>
-> To: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
-> To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> To: Jason Gunthorpe <jgg@ziepe.ca>
-> To: Leon Romanovsky <leon@kernel.org>
-> To: Kevin Tian <kevin.tian@intel.com>
-> To: Joerg Roedel <joro@8bytes.org>
-> To: Will Deacon <will@kernel.org>
-> To: Robin Murphy <robin.murphy@arm.com>
-> To: Alex Williamson <alex@shazbot.org>
->=20
-> ---
-> Leon Romanovsky (4):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma-buf: Rename .move_notify() callback to=
- a clearer identifier
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 dma-buf: Document revoke semantics
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iommufd: Require DMABUF revoke semantics
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vfio: Add pinned interface to perform revo=
-ke semantics
->=20
-> =C2=A0drivers/dma-buf/dma-buf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
-6 +++---
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |=C2=A0 4 ++--
-> =C2=A0drivers/gpu/drm/virtio/virtgpu_prime.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/xe/tests/xe_dma_buf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 6 +++---
-> =C2=A0drivers/gpu/drm/xe/xe_dma_buf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0drivers/infiniband/core/umem_dmabuf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 4 ++--
-> =C2=A0drivers/infiniband/hw/mlx5/mr.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0drivers/iommu/iommufd/pages.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 11 +++++++++--
-> =C2=A0drivers/vfio/pci/vfio_pci_dmabuf.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 | 16 ++++++++++++++++
-> =C2=A0include/linux/dma-buf.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 | 25
-> ++++++++++++++++++++++---
-> =C2=A010 files changed, 60 insertions(+), 18 deletions(-)
-> ---
-> base-commit: 9ace4753a5202b02191d54e9fdf7f9e3d02b85eb
-> change-id: 20251221-dmabuf-revoke-b90ef16e4236
->=20
-> Best regards,
-> --=C2=A0=20
-> Leon Romanovsky <leonro@nvidia.com>
->=20
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b7deff137df4..772deaa136d7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -13193,6 +13193,20 @@ static void monitor_range_from_vsdb(struct drm_connector *conn,
+ 	range->max_vfreq = vsdb->max_refresh_rate_hz;
+ }
+ 
++/*
++ * Get VRR range from HDMI VRR info in EDID.
++ *
++ * @conn: drm_connector with HDMI VRR info
++ */
++static void monitor_range_from_hdmi(struct drm_connector *conn)
++{
++	struct drm_monitor_range_info *range = &conn->display_info.monitor_range;
++	struct drm_hdmi_vrr_cap *caps = &conn->display_info.hdmi.vrr_cap;
++
++	range->min_vfreq = caps->vrr_min;
++	range->max_vfreq = caps->vrr_max;
++}
++
+ /**
+  * Returns true if connector is capable of freesync
+  * Optionally, can fetch the range from AMD vsdb
+@@ -13242,6 +13256,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 	struct amdgpu_hdmi_vsdb_info vsdb_info = {0};
+ 	struct amdgpu_hdmi_vsdb_info vsdb_did = {0};
+ 	struct dpcd_caps dpcd_caps = {0};
++	struct drm_hdmi_vrr_cap *hdmi_vrr;
+ 	const struct edid *edid;
+ 	bool freesync_capable = false;
+ 	bool valid_vsdb_cea = false;
+@@ -13279,6 +13294,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
+ 	valid_vsdb_cea = parse_amd_vsdb_cea(amdgpu_dm_connector, edid, &vsdb_info) >= 0;
+ 	vsdb_freesync = valid_vsdb_cea && vsdb_info.freesync_supported;
++	hdmi_vrr = &connector->display_info.hdmi.vrr_cap;
+ 
+ 	if (amdgpu_dm_connector->dc_link) {
+ 		dpcd_caps = amdgpu_dm_connector->dc_link->dpcd_caps;
+@@ -13324,12 +13340,17 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		freesync_capable = copy_range_to_amdgpu_connector(connector);
+ 
+ 	/* DP -> HDMI PCON */
+-	} else if (pcon_allowed && vsdb_freesync) {
+-		amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_PCON_ALLOWED;
+-		amdgpu_dm_connector->pack_sdp_v1_3 = true;
+-		amdgpu_dm_connector->vsdb_info = vsdb_info;
++	} else if (pcon_allowed) {
++		/* Prefer HDMI VRR */
++		if (hdmi_vrr->supported && hdmi_vrr->vrr_max > 0)
++			monitor_range_from_hdmi(connector);
++		else if (vsdb_freesync) {
++			amdgpu_dm_connector->vsdb_info = vsdb_info;
++			monitor_range_from_vsdb(connector, &vsdb_info);
++		}
+ 
+-		monitor_range_from_vsdb(connector, &vsdb_info);
++		amdgpu_dm_connector->pack_sdp_v1_3 = true;
++		amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_PCON_ALLOWED;
+ 		freesync_capable = copy_range_to_amdgpu_connector(connector);
+ 	}
+ 
+-- 
+2.52.0
 
