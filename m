@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A36CCA5FFF
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52614CA6017
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F0BA10E3BD;
-	Mon, 19 Jan 2026 08:18:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A05F10E3C6;
+	Mon, 19 Jan 2026 08:18:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kA1skWMG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hT941CHp";
 	dkim-atps=neutral
-Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
- [209.85.218.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD6810E303
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:11:59 +0000 (UTC)
-Received: by mail-ej1-f65.google.com with SMTP id
- a640c23a62f3a-b8718294331so56144866b.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:11:59 -0800 (PST)
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ECB810E13C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:11:51 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-b8718294331so56143366b.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:11:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768785118; x=1769389918; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1768785110; x=1769389910; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=fP5YEeeE3B0IdA9ryOj35W/sze8zh4cUnFXv3GSvmyE=;
- b=kA1skWMGq8O+uUc4sFSTQDfCgi7ji1cI04WCIryNgbULLVR4m7sCuJnzSdcbZjGcn3
- +/8Xi2hM90K7YNuvgrykfEXC5OeeqbAB9MvfeuPJmcU55UpQn1F/gxFjpBmhhk/knXra
- CQ752AJRacbtz0X9O5mroXZbTC8HPpntRkCxdgenctYjqrUJzbaRJSPDt/nTrpl0xfV2
- uBXEs6jcwLVR7YOwXg7wHmoki5Me+T/6pyka2kIOFTR/2TAbCpLYFb/JdKMd8NNrEeWI
- krAKHTbbLeydKQkGXNcsEKQ4w+3whbklt+kSvTaWGeCfn2UY6s89Jm4JL9DiDq7gbHAm
- A4IQ==
+ bh=5i79BDrxuHBezOHdjkerpF2EfskLPnOmytUYpUqDeYc=;
+ b=hT941CHpQca7aA+jT6YLJA7pafTlueg/CxnE4M/Sl1wID9hI8+ccesw+aiPLpDWYSL
+ 02O9mdqijb5kWYuVmb7DCXoo+IdZNxSfsEkFPuyU+muITczvJBDGD9x01bEZny2u+XqX
+ yE1mE/9kWQxV96pKgAcO0U19A9y5OiPB9Zj0N7npG+xvE/yHVqTUPhKr0acIG0hWZ5yM
+ 9d8A3W6pa67+gGRznN63t2YO0OCpx333DGWAjMiq3Ucj2Nbd9bmksnDRa7rK2cNZqxHJ
+ 8zi/EWsp21+f0KGukfwep1pFZ7IhfVeTY+f+9S9U9WqNvTQata/1kZpC1BErnXC91344
+ 58uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768785118; x=1769389918;
+ d=1e100.net; s=20230601; t=1768785110; x=1769389910;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=fP5YEeeE3B0IdA9ryOj35W/sze8zh4cUnFXv3GSvmyE=;
- b=bZMd8YqdOPhQjSu8wIKoyWQAkcvwxKzmB5s3aJwFTxMKOsieE1ZyYaXesvC/kEcPFC
- WeYnPM07hbPLt1w07mv2h29b2R2Lt2/0t4TprG7ZOeZGCwHh0ixhZHd05QJOsUNFTeWQ
- c+7RTfSmiqJXKTta4s1XKTRwXx0JXVaq3UpPTn2zpWRbUNh4wH+M0w8a0DwhLnvU6mwD
- SQgoPxzPkbCZBK4Y6UopqBaNPKfzO+4eTS7pvmzKxxUPF2F7L0UdJk05GUoHFxUzcbvC
- yipOFdfLgKJH+Q7Ou7/cg1a4zzM2QK9rIcBJkIKb+Ne8aA/EBZ5gNuoSDyDHdIwHRkwW
- EwYA==
+ bh=5i79BDrxuHBezOHdjkerpF2EfskLPnOmytUYpUqDeYc=;
+ b=XBERZrOshvTf1uOBJhCPa81eZBeM8aSboer8bA6Os/FPJ1sYMcXL+GI/eaznN32POH
+ QYyinWA0NsgAFfoV8LyNY4n5m2LbAGtNaM34/WYrz2OzjURyAzIH74oMmkDU+ZE/y6AA
+ N4FA1SoP4ySiI1k/z3hlqr0Y0L+1NPgWfaISaP9E58tq2fbO71RvbTdo1IBHHrbM4t3L
+ x30mjmUZpvYTG2jETQRbtSlPYvKMsaGqSmhMMh5uOFAMZh2mVAE3exdAnea4uuk/ymKF
+ FhB+K33oC807eWKQKJqifpdKVRTPv+6DTkKK2ycWzf2E971ty8oDwgGS3dY1g/fzi/bM
+ bOOg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWi+TJ7E37J/tamQwIUL5IfOeBu9YO/gL8ZuwLGcKY62f96Py24TLTEzhI470u7jXaXbxuPItLT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyduG+8pZt1/txvNZm/KRZXx/Q8yd25dG8CKG7LjZs0szsRixNy
- 9bhkXUi1hIQuCZZDiWvq4oR/2k4/KFkHoKzaurdVkXdKmJz4CDzQ3lk4
-X-Gm-Gg: AY/fxX70gPhQezkN8VzhR0nWD5yKQUE+/JP5KMxH9FIQcDx4rqpFko2vf9Tbx54B3C1
- Fw0DDoUnH4U6B1OSvYKCvZDTHIqTAuWEfgzCjinLUtUGGUkIjrzqML/Ar31CMKSbafgXVSgbBX6
- hXHSVPRpftrX9odHmTjsShJGQ5mYPJroNU/J0jikx9Z6bFqvfvtvFSHuEO74ws2Wi/mviGl8P1A
- 8xWHs7hd45TCwvQsb0yNImnzMEoVPh32mce5ihWcWPRDlB7130DITykNcadseaYjENmM0SJ2SUf
- GYk99ekN7psOcVi9RxgWQ9dgh0cuhZljeUZcvohVTmWsdRfstmp01AER68YtLDNbxvyYI+/EVn6
- +RhHj0FdJ2zu0HrV0+nFA+E1kQqxjv10DBzYjDKXtbg/mZ9N9RXKj55VPQVg6N5yqa8EGNqAuVh
- hy+DpO1fwpMCGw6hxImmbcz1LYeBk89+BjIz/eFULJQA6vGGW+GFs1ZaAu9KvKZ3mN
-X-Received: by 2002:a05:6402:510c:b0:649:b47b:2ef7 with SMTP id
- 4fb4d7f45d1cf-65452acc99bmr4627590a12.3.1768785117830; 
- Sun, 18 Jan 2026 17:11:57 -0800 (PST)
+ AJvYcCW3wZmW9tehNNG7V6ozSgQPGc3Km4XiRKyeszEFHJg2Fs9zJ1+kyCQsoW3uXCQ+Ln2y8zvkAh+I@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsvvoyaFQYZ9H8jhyoK+piYLp7Cb6hOCGauczFZQdJd1ENdlov
+ uzApPsHw05my2PNlGfif7pPfVZFyDS9FX3U6oHa2T7txndqc+sxMSgl2
+X-Gm-Gg: AY/fxX4oHl3o4KvLx5EnoEoALON3ozZ+Y0ngcLfTX5UkBz89q42gkVh/nlYizTmBgHL
+ bw/dGGsKA4d80pbVnhdiQKr8yHniT/cVd1IIPbqJvGYWR2qj5v7X0AtA+Z1ZRjyVYXieHJO8DdV
+ bKfS0RJNqTTkY/t9s8ZJnVw9aK32HMCrUOIUSrbenoYNcDG1o5RDwzpNK2io14ZedaKdK9/KTaz
+ BrtPbuNdkLAv9bYkRtRrOqtJQjeWVV757nZCbo77e0JfXfxrWfMB3XjsbFNkr5gJjvucLJSIlA5
+ Yi5nXtuuL2GpqpiTeY779Q/C1RMdpcHG6ao8xqArWm6BWvRAACE473GcZYiebbYR2swHQL2Tgk6
+ whnRVlifs6h44i3MvxuOYse4kp1jODaGqJRivlqe4xoAdzvRalvi2Xt5O93MmR/8XuxdKQbK7T2
+ abOPO5qAY+tMnMvu5+47EBlDmEvBACC53VvhztqRZHyTfM9+seVx2F4mQVEkl6qS+K
+X-Received: by 2002:a05:6402:270d:b0:649:9c37:5d5f with SMTP id
+ 4fb4d7f45d1cf-65452bccb59mr4148768a12.5.1768785109659; 
+ Sun, 18 Jan 2026 17:11:49 -0800 (PST)
 Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.11.56
+ 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.11.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Jan 2026 17:11:57 -0800 (PST)
+ Sun, 18 Jan 2026 17:11:49 -0800 (PST)
 From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
 To: alexander.deucher@amd.com,
 	harry.wentland@amd.com,
@@ -71,9 +71,10 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
  bernhard.berger@gmail.com
-Subject: [PATCH 06/17] drm/amd/display: Add PCON VRR ID check override
-Date: Mon, 19 Jan 2026 02:11:35 +0100
-Message-ID: <20260119011146.62302-7-tomasz.pakula.oficjalny@gmail.com>
+Subject: [PATCH 01/17] drm/amd/display: Return if DisplayID not found in
+ parse_amd_vsdb()
+Date: Mon, 19 Jan 2026 02:11:30 +0100
+Message-ID: <20260119011146.62302-2-tomasz.pakula.oficjalny@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
 References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
@@ -96,114 +97,32 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-It's currently very hard to test if a random PCON supports VRR and
-report it's ID.
+The function would continue to try to parse EDID even if DisplayID
+extension block wasn't found. Sometimes it got lucky and found AMD vsdb
+in CEA extension block which made debugging harder.
 
 [How]
-Adds override as part of dc debug mask. Allows faster testing and
-reporting of VRR-compatible DP->HDMI adapters.
+Add a return if DisplayID extension block wasn't found
 
 Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c         | 6 +++++-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 8 +++++++-
- drivers/gpu/drm/amd/display/dc/dc.h                       | 1 +
- drivers/gpu/drm/amd/display/dc/dm_helpers.h               | 2 +-
- drivers/gpu/drm/amd/include/amd_shared.h                  | 6 ++++++
- 5 files changed, 20 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 662f51faf949..859e34235769 100644
+index 655c9fcb078a..a0d23853b8fc 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2062,6 +2062,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
- 	if (amdgpu_dc_debug_mask & DC_SKIP_DETECTION_LT)
- 		adev->dm.dc->debug.skip_detection_link_training = true;
- 
-+	if (amdgpu_dc_debug_mask & DC_OVERRIDE_PCON_VRR_ID_CHECK)
-+		adev->dm.dc->debug.override_pcon_vrr_id_check = true;
-+
- 	adev->dm.dc->debug.visual_confirm = amdgpu_dc_visual_confirm;
- 
- 	/* TODO: Remove after DP2 receiver gets proper support of Cable ID feature */
-@@ -13279,7 +13282,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (amdgpu_dm_connector->dc_link) {
- 		dpcd_caps = amdgpu_dm_connector->dc_link->dpcd_caps;
- 		is_pcon = dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER;
--		pcon_allowed = dm_helpers_is_vrr_pcon_allowed(amdgpu_dm_connector->dc_link);
-+		pcon_allowed = dm_helpers_is_vrr_pcon_allowed(
-+			amdgpu_dm_connector->dc_link, connector->dev);
+@@ -13113,6 +13113,9 @@ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ 			break;
  	}
  
- 	/* Some eDP panels only have the refresh rate range info in DisplayID */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 76a10fe8d545..2ef515a4e1c4 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -1375,7 +1375,7 @@ void dm_helpers_dp_mst_update_branch_bandwidth(
- 	// TODO
- }
- 
--bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link)
-+bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link, const struct drm_device *dev)
- {
- 	if (link->dpcd_caps.dongle_type != DISPLAY_DONGLE_DP_HDMI_CONVERTER)
- 		return false;
-@@ -1393,6 +1393,12 @@ bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link)
- 		return true;
- 	}
- 
-+	if (link->dc->debug.override_pcon_vrr_id_check) {
-+		drm_info(dev, "Overriding VRR PCON check for ID: 0x%06x\n",
-+			 link->dpcd_caps.branch_dev_id);
-+		return true;
-+	}
++	if (i == edid->extensions)
++		return false;
 +
- 	return false;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 4068d5baef21..5be0507f8a27 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -1056,6 +1056,7 @@ struct dc_debug_options {
- 	bool scl_reset_length10;
- 	bool hdmi20_disable;
- 	bool skip_detection_link_training;
-+	bool override_pcon_vrr_id_check;
- 	uint32_t edid_read_retry_times;
- 	unsigned int force_odm_combine; //bit vector based on otg inst
- 	unsigned int seamless_boot_odm_combine;
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-index f8b45a09d680..ea94c52d2b87 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-@@ -222,7 +222,7 @@ int dm_helpers_dmub_set_config_sync(struct dc_context *ctx,
- 
- enum dc_edid_status dm_helpers_get_sbios_edid(struct dc_link *link, struct dc_edid *edid);
- 
--bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link);
-+bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link, const struct drm_device *dev);
- bool dm_helpers_is_fullscreen(struct dc_context *ctx, struct dc_stream_state *stream);
- bool dm_helpers_is_hdr_on(struct dc_context *ctx, struct dc_stream_state *stream);
- 
-diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
-index ac2d3701e2bd..894e1e738ce0 100644
---- a/drivers/gpu/drm/amd/include/amd_shared.h
-+++ b/drivers/gpu/drm/amd/include/amd_shared.h
-@@ -412,6 +412,12 @@ enum DC_DEBUG_MASK {
- 	 * @DC_SKIP_DETECTION_LT: (0x200000) If set, skip detection link training
- 	 */
- 	DC_SKIP_DETECTION_LT = 0x200000,
-+
-+	/**
-+	 * @DC_OVERRIDE_PCON_VRR_ID_CHECK: (0x400000) If set, always return true if checking for
-+	 * PCON VRR compatibility and print it's ID in kernel log.
-+	 */
-+	DC_OVERRIDE_PCON_VRR_ID_CHECK = 0x400000,
- };
- 
- enum amd_dpm_forced_level;
+ 	while (j < EDID_LENGTH - sizeof(struct amd_vsdb_block)) {
+ 		struct amd_vsdb_block *amd_vsdb = (struct amd_vsdb_block *)&edid_ext[j];
+ 		unsigned int ieeeId = (amd_vsdb->ieee_id[2] << 16) | (amd_vsdb->ieee_id[1] << 8) | (amd_vsdb->ieee_id[0]);
 -- 
 2.52.0
 
