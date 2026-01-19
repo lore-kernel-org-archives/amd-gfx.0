@@ -4,70 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82FD6D29C33
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 14:26:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64100D29C30
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 14:26:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EFFA10E476;
-	Mon, 19 Jan 2026 14:26:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="nQZmVDyU";
-	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFB6310E2BE;
- Mon, 19 Jan 2026 08:45:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1768812273;
- bh=ilKrAQCTxqHXY73OKSd4JAnjeZQxW+6DAUiB7tpeB6U=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=nQZmVDyUw0RzZnoj34rm+CrvtzVbNtLiv+4/vVOLbn7iW0Mae/pI3trMpBMLQKpBw
- 5D45I2i/FRYCCHi2YUj/TmJD2SbnRylC+bUk1qjDesetWGP2DJ1gaZ/qFpIXT5qfdF
- 6GRoaAqUEaRpnCDMxPnbS+Gs+qKiRKkEQCXCW0XU=
-X-QQ-mid: zesmtpip3t1768812258t4c99ab23
-X-QQ-Originating-IP: maSrQqJsLAMKNUYdteq/URaJb0gZKggMFHvg67I9+No=
-Received: from PECI2107 ( [localhost]) by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 19 Jan 2026 16:44:05 +0800 (CST)
-X-QQ-SSF: 0002000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 17832099907739608377
-EX-QQ-RecipientCnt: 15
-From: Runrun Liu <liurunrun@uniontech.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, zhanjun@uniontech.com,
- niecheng1@uniontech.com, kernel@uniontech.com,
- Runrun Liu <liurunrun@uniontech.com>,
- Cryolitia PukNgae <cryolitia@uniontech.com>
-Subject: [PATCH] drm/amd/display: fix misspelling of "minimum" in dc_dsc.c
-Date: Mon, 19 Jan 2026 16:44:03 +0800
-Message-ID: <97A9D651052AA8A7+20260119084403.1420962-1-liurunrun@uniontech.com>
-X-Mailer: git-send-email 2.51.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E829010E473;
+	Mon, 19 Jan 2026 14:26:39 +0000 (UTC)
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A6A8A10E2BE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 08:53:59 +0000 (UTC)
+Received: from loongson.cn (unknown [113.200.148.30])
+ by gateway (Coremail) with SMTP id _____8Cx68Ik8W1pt0AKAA--.33353S3;
+ Mon, 19 Jan 2026 16:53:56 +0800 (CST)
+Received: from [10.130.40.83] (unknown [113.200.148.30])
+ by front1 (Coremail) with SMTP id qMiowJBx78Ii8W1pYRMlAA--.10191S3;
+ Mon, 19 Jan 2026 16:53:54 +0800 (CST)
+Subject: Re: [RFC PATCH] drm/amdgpu: Avoid unnecessary Call Traces in
+ amdgpu_irq_put()
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Alan Liu <haoping.liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260115012830.31182-1-yangtiezhu@loongson.cn>
+ <6ac02ffa-5d62-4fc7-9882-6ccf7b44eaf4@amd.com>
+ <0afdb83a-d2db-53d9-3b1b-253e466a5cc3@loongson.cn>
+ <1673a119-838f-455e-88fb-528bbd72e1ea@amd.com>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <1a0dab04-cb13-9307-2853-38221193e38e@loongson.cn>
+Date: Mon, 19 Jan 2026 16:53:30 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <1673a119-838f-455e-88fb-528bbd72e1ea@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NVjywrp/tdK0imBRfrhOgtDbwr2pq1DPDW5tj/KnkigoG4567F8iSJoc
- XboCA4iw5Mo1cpj+SLkp1Rr9DvFfuOrtIN2nk1jcnt2eujYjA7nck5dULJBlaY59nYZDDES
- YVjbeKWw4Fe13uoUJw2clAWNUIMmzzFZbpd9wk0PIMB2A7KzgtL+//u07PruGuiKKeIPfKr
- C1T6kTd3U6o3ktM1niOw0EwJ6TL0Ohc069L+jjGEPleU7EZHimOTbO4e+LMpbtUL3hpzAeh
- R8q18uWRP3DXcjOjZw5RTYivExdMKO+he26IJFufR/p70g1/qxFxF8ie0kkPWaoNyUtNIaM
- RcBOjFROXInGJjB7Cr6aH2W8juBJ5HA62Ek/tEX3RrHlNgHNk+Aj55IkAguw17ULJgyt2C/
- 6aXY2nMG8hKlBRoipaHD4Gqt0wioDAIzI7/PLMp3xx4EdEudyvqWWEFyupaQPIfqQIDQyYr
- Vl+gGXqjCLMIAVOmHZQjj6QdSImrNRPreinQloqyv5viBgofXxmYM9mCScZbTvKIs+hOH7l
- pDBfmIzaSNIGEKTX1apJM2aNd7urf7MKOOhcKq/9kFQ1Uh+Vm+FpGl4nLiFJ/zGgdfnxI3h
- grWpPOTt239Y1Un+kcIRF+WWvB0aDz231Kq0Hrsk5E6TuZSrnkIiuLJIL9bKSP8KqVuG2Rx
- iJnH6rANBjAjT0Qfv/Sy6ZV5W4tCN6wXOj1iQkKcT6TQOJp4SRjPdcKdAgmR1ecjqa0wGbX
- c0ib4lYyGKSSjxw7Oj1Ys1o0X3NSpCMzUV12uOt8r1gBJb0Ip1/W3I+OwTZqQPc/Uhxinbm
- rqjuRIxIGqqw7EPVefVpQ08+veA4RBERVukRINf3gpKDB0+i7dOYDNiqbbNU7Oi0ibyO20j
- X1fKwuKifBrXgq1uOr/FC4K/UH2/Uz/ly5igsN7BWXjyE7vNnkO/2RENskT9HCoNdg9Vr28
- 03P03EauQuiRtAhz9iANPGKVq+Bmue6Qe5Yq5KGI75zP4RlUkmvnVbnzxpEZW5T83CxA7jU
- 5uoB/VRBgjEesDdb1NOenA+v2sjR2CEPrX/+mI2s6Yl+G5jyD1NpL/V/VzONg=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+X-CM-TRANSID: qMiowJBx78Ii8W1pYRMlAA--.10191S3
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7tFy3uFy7Xw1UAryfWF17Arc_yoW8ZrWDpF
+ n3tFy2yrn5uF4jyr1jk3W8uFyYyw1UXa4fKr1UC34I9w4jyrn5KF1xtF18Kr9rGrWxCF42
+ yr9Yq3yIqF1qvFcCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+ xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+ 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv
+ 67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
+ AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+ F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw
+ 1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
+ xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
+ 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1wL
+ 05UUUUU==
 X-Mailman-Approved-At: Mon, 19 Jan 2026 14:26:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,31 +72,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the typo "miniumum" → "minimum" in a comment in dc_dsc.c.
+On 2026/1/16 下午6:03, Christian König wrote:
+> On 1/16/26 02:20, Tiezhu Yang wrote:
+>> On 2026/1/15 下午9:47, Christian König wrote:
+>>> On 1/15/26 02:28, Tiezhu Yang wrote:
+>>>> Currently, there are many Call Traces when booting kernel on LoongArch,
+>>>> here are the trimmed kernel log messages:
+>>>>
+>>>>     amdgpu 0000:07:00.0: amdgpu: hw_init of IP block <gfx_v6_0> failed -110
+>>>>     amdgpu 0000:07:00.0: amdgpu: amdgpu_device_ip_init failed
+>>>>     amdgpu 0000:07:00.0: amdgpu: Fatal error during GPU init
+>>>>     amdgpu 0000:07:00.0: amdgpu: amdgpu: finishing device.
+>>>>     ------------[ cut here ]------------
+>>>>     WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c:639 at amdgpu_irq_put+0xb0/0x140 [amdgpu], CPU#0: kworker/0:0/9
+>>>>     ...
+>>>>     Call Trace:
 
-This typo is already listed in scripts/spelling.txt by commit
-8c3200265787 ("scripts/spelling.txt: add several more common spelling
-mistakes").
+...
 
-Suggested-by: Cryolitia PukNgae <cryolitia@uniontech.com>
-Signed-off-by: Runrun Liu <liurunrun@uniontech.com>
----
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> The warning can basically only be triggered by two conditions:
+> 1. A fatal problem while loading the driver and the error handling is not 100% clean.
+> 2. A driver coding error.
+> 
+> And we really need to catch all of those, so there is no real rational to limit the warning.
+> 
+> I mean when you run into any of those they should potentially be fixed at some point.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-index e4144b244332..5b3584ad5b6b 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-@@ -1157,7 +1157,7 @@ static bool setup_dsc_config(
- 	if (!is_dsc_possible)
- 		goto done;
+I did the following change and it can fix the problem, given that I am
+not familiar with amdgpu driver, could you please check it? If it is OK,
+I will send a formal patch later.
+
+----->8-----
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c 
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+index 8112ffc85995..ac19565e7c45 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+@@ -138,6 +138,9 @@ void amdgpu_irq_disable_all(struct amdgpu_device *adev)
+                         if (!src || !src->funcs->set || !src->num_types)
+                                 continue;
+
++                       kfree(src->enabled_types);
++                       src->enabled_types = NULL;
++
+                         for (k = 0; k < src->num_types; ++k) {
+                                 r = src->funcs->set(adev, src, k,
  
--	/* increase miniumum slice count to meet sink slice width limitations */
-+	/* increase minimum slice count to meet sink slice width limitations */
- 	min_slices_h = dc_fixpt_ceil(dc_fixpt_max(
- 			dc_fixpt_div_int(dc_fixpt_from_int(pic_width), dsc_common_caps.max_slice_width), // sink min
- 			dc_fixpt_from_int(min_slices_h))); // source min
--- 
-2.51.0
+AMDGPU_IRQ_STATE_DISABLE);
+
+Thanks,
+Tiezhu
 
