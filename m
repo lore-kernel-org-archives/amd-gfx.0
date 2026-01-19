@@ -4,178 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE5D6CA6007
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C1AECA600F
 	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8737610E3B6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84CF310E3B5;
 	Mon, 19 Jan 2026 08:18:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="UK3t6y8a";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="byx7xqXq";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012006.outbound.protection.outlook.com [52.101.48.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D69B410E370;
- Mon, 19 Jan 2026 07:32:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XNXKGxQw1J8SHfgUDATczXC/maCXIpp3lo5NS0YYa8qklly9WIHh4vY8yrwMTm4GegB0f1Wt6XIMsUZqwwq+crehfzb62LYh5dxywBIk4Me/sPqWDgDuHiw2qy4xvwbvf1gw9Lb3F0J6w9hPyT5t5W4VPm5nhsIOHaf/UUWwoXp6Fbpx0REKcuvqNTIus0NV7lchYWojsCNOaGPrGYuZtfHdP1v8ULzscm0aHuvJU+k4IoUHyfNls9YB8jXpkVXw71s0Wy8pzZP25UyqCplyf7xx31mtdyqM1Ot3YWD9YnH/ZpPf6yqot1fo2hSFZ9dhEXgR0obKfaniXRefR4YDgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=en0sa9rYwczFxfgrjJTEK/gEsvRV0Px66cu+bWR/+L8=;
- b=wET1yuDZX7+OE8k3rl5QOrthZoCg+8MuiDIhkwvHWg7OncNSqyJK3u+Tpqys6w7nvEFhZJx0El6Pbo4Qc3mECu+7EZLyKQCMUiT00WEcJJi+oR9gpfxS2V25+VbeowMFqpFK/3lWS45VRIS7gVDrr/m6dxB2iFHHxVabrsHI9zv/Hi7IqulX0dekl3eAiijr822xH2Q+OtzHHJJWtHgMhDGN6ANwWpsRjQMqZ0Zm6ISWDs+RAosyBuctK++tlbevq1CtU6eBHY4PAq5bBh/4Y/W/z+8HvGBPol4cfRJ2omW1Q32L5AG/94VXJMXb3/cL1D95vnHKCGYnkiRM/d+F5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=en0sa9rYwczFxfgrjJTEK/gEsvRV0Px66cu+bWR/+L8=;
- b=UK3t6y8arrkw/RispBdrd15alGtqYZzpS+ZQofF2kb9HY3ZL7Ha8ZBZCBfXbCQS82Y2kEBDzyrAWbmExFTeDXtgug5D5pQ3d8Qc14gNoO+CleV0Hnt3M+GuBMdFszzfdR2PH+RFObWHLsQchWYKhSluHAtLff+WkA55RZOuH+3KTfPs4vYepGzyAhU6Q+HiiVsv+bI9fdjEsh+Hl5gQzH9yRf1v8D3L0GmkY5K6d2SSeEQ4/O4j0y4UJ5XIWBagpJs8eUUKgHGIuMJhTRwLnFRk5ayYNUWlQaYvaF4nyT+VACvzAiGSi/7HFHWXnHnll5i5GAP1KGewz61rtSxZcug==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV3PR12MB9412.namprd12.prod.outlook.com (2603:10b6:408:211::18)
- by CH1PR12MB9621.namprd12.prod.outlook.com (2603:10b6:610:2b2::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.12; Mon, 19 Jan
- 2026 07:32:28 +0000
-Received: from LV3PR12MB9412.namprd12.prod.outlook.com
- ([fe80::c319:33b5:293:6ec4]) by LV3PR12MB9412.namprd12.prod.outlook.com
- ([fe80::c319:33b5:293:6ec4%5]) with mapi id 15.20.9520.010; Mon, 19 Jan 2026
- 07:32:28 +0000
-Message-ID: <3380a80a-7574-4dbf-87cb-0735fb20cd15@nvidia.com>
-Date: Sun, 18 Jan 2026 23:32:20 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] dma-buf: Document revoke semantics
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
-References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
- <20260118-dmabuf-revoke-v2-2-a03bb27c0875@nvidia.com>
- <d41d08e3-6a86-40a4-925c-6a3172670079@nvidia.com>
- <20260119072524.GD13201@unreal>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20260119072524.GD13201@unreal>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BYAPR04CA0005.namprd04.prod.outlook.com
- (2603:10b6:a03:40::18) To LV3PR12MB9412.namprd12.prod.outlook.com
- (2603:10b6:408:211::18)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com
+ [209.85.208.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EF1810E301
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:11:52 +0000 (UTC)
+Received: by mail-ed1-f49.google.com with SMTP id
+ 4fb4d7f45d1cf-64b6f896689so391918a12.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:11:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1768785111; x=1769389911; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=DDkX9tiIpLGCY4WDxdoWW0wKCm3VG7e/EcS3/xb60P4=;
+ b=byx7xqXqLfUCo1LN+QpJqc9Fegpk4oFQDJicdfkkZ7ghEY6OhCZJZ9SjkkNXYEKk7C
+ vYZtFVmawAObzmF5rfpQ1teHT8SrCGBf32iYKA2HrJVtGYWt+gpGIClIFtzPFtycAoJQ
+ eIz01J/FRkrHGd56bXGZ87h3+vtB92gHHrPUe7u57xFdtw5WE7SbazHETVqxVZYF82Gs
+ ySS4MlnlbFL1/ND1iXuHjG0u/djcFiKrGUnaGpJDWJ8nm4KOZ4zQQcsfH/6gj4DsV4PW
+ ummDSWvj9BlxwxJIjZdB2VPLLgkbUMRupJ32FikjhomQ9XzN6jz1lKbotjxDWKJt1lkh
+ I+MQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768785111; x=1769389911;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=DDkX9tiIpLGCY4WDxdoWW0wKCm3VG7e/EcS3/xb60P4=;
+ b=bIDPznsr0BX/CR6TKwMbCmQuOehVlIBSgrp78hUXCB4SOboD8dL2d3kJlC/cqTrO/q
+ Di65fJnIsY27lgBJqj5LbJNJ2xgw6H36KJWK/XFnstbY+6D7N9edDmDKHa3vkKtwhwT7
+ Hk4D9eJYkj6nu0uNIs/c2Rr4GuENv0yAeTjCeyesDIhwW7UuPNbwYqTVjCsldQoJ3/8U
+ bhCwPd1dzNpMY9+niOcHnECxXH3Wtg7FsjTmzQaG1jdjllOKBhmpmqF+r2bTkpBKaGAU
+ iIiLwSS5tSXyWLYBVUFhhmwSmblKemzRcQ6S1MCYt6b5vyp669JjsjHdZ/tQ7SAlpSNZ
+ 7uYA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUH9npm8EXj7jPPqjicLA5S3ffy/yVbOodcGxS+Hod1o0F1mWWE3zvXoi+UfnNawXMN4R5EmzR9@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxmXWnEldxNJ3Q+f/BExVwHQMhQI3v4KQMIQ+6RZQO9VD3/TeoD
+ JoeA6Y5gkosZsP2pWStV9KhNWfhRtKojiS5MSW6I6dceAVUI7OJeBgag
+X-Gm-Gg: AY/fxX5HvaARTsrVkI5z4UlwGWEKXAgRXdu6eircJO+CLxxaHghY9lrEUp4X4m7ZGQr
+ 7hhZKDO8h3vOLzN+DfnPdzy+PEM7x+e8KE79S3JbY/m6U4EMcBf9BsiHEKqfowElhX/KPWPJMwB
+ 2BBhEb++odtqSx/v8B0vvDLmZuPiKp7M1qptCbOcXDtgftf4KvYkG3zirpqbIXviS3UF8/2MoKv
+ TGYc8BXmbjkAlezjxn8oLiEhyhYHzees8eIIZEFc3XLkdnQ1fW9zwhGaZw6XYatTRwF3c88M57f
+ AxtDAe1i3gpY1jaRDun73Rm4In/dqKmJE7gSldew7hmvdiyYDB5pIJ0xYXgIZVBeLD8ywLpX+gA
+ DMEU82P1Uhekc4/A1TXbgwEC/0tTVfAzH1xUZh0kQXwOXZAf1u+ODyECSnqxGwZ3q/ziGSITRnF
+ hfD8zWJkOuT6FDe8sVbWrgVg4C8A0fS2HzsMAt3iwYvT4v1exm5Z5UFR1OIdh1jbM+
+X-Received: by 2002:a05:6402:27cf:b0:64d:4623:8475 with SMTP id
+ 4fb4d7f45d1cf-654524cf67cmr4280700a12.2.1768785110864; 
+ Sun, 18 Jan 2026 17:11:50 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.11.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 18 Jan 2026 17:11:50 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
+ bernhard.berger@gmail.com
+Subject: [PATCH 02/17] drm/amd/display: Refactor
+ amdgpu_dm_update_freesync_caps()
+Date: Mon, 19 Jan 2026 02:11:31 +0100
+Message-ID: <20260119011146.62302-3-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR12MB9412:EE_|CH1PR12MB9621:EE_
-X-MS-Office365-Filtering-Correlation-Id: 420ccf31-48b7-4b28-6193-08de572ce578
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|10070799003|366016; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dExjZXM3VnJlREMzand3UzlnWWpJd3NzR0JWM0tKbi9DNHlCUDVFWHNMT29o?=
- =?utf-8?B?dUpqaWpXY1ZmZ3NEckdBNXpsOHpKMWdzSW5vd3dFRCs4NnROMTRzbXdRelNi?=
- =?utf-8?B?czcvbVVMcExVaXBJcDN5djB1TlNkWTN2TXk1Q0l2UERzZ0F6UTFBdDRwYjJo?=
- =?utf-8?B?Z3NkZERYUGZ5ODVOWTg0T3dlY2xta0ZiMFRtSERkSDgvV2pIeXlNNU1Pb3Y0?=
- =?utf-8?B?TnR2akxwR0dwaDZoSGQrUUxYeTJQUEZXZHNzdmRxcVFZNnh1Tk9yQUhKRlIx?=
- =?utf-8?B?RHRKVFljRmhkVjlKckY1U0MrNFNzMEYyejhCUUhsOTFCRkJlTGxwWG10MVlx?=
- =?utf-8?B?SUtRMFd6UFNaOFllQjdxWVczY1VnZlFlTVR1UUsrMkRmNG55ek1QZ0tyaVBC?=
- =?utf-8?B?SC8rRTdoN1VaVnliL1hXcGtJVU83YjlUYWZUNnhoVmcrSm5Ma3JjUXpvc3BU?=
- =?utf-8?B?aG8zdmdGckt1TExzQlFHcm96cWJiOEZ0dGdBWVEzcy80ditUakNmS3RGMzg4?=
- =?utf-8?B?R3ovYW4ydjNLOUpXTnhFcitUN1ViVkkyNk94THFEUXJZUjVxZEc4VTBlb0R2?=
- =?utf-8?B?eW0vM1pXVWFuendqVFJqTk5tVjJGMlhJL1R0U0lvSWwvV2o3YnNsU2RIZVFF?=
- =?utf-8?B?bEMxQ1NIMm4vdkF2ajJLYkhObFFDNjVsNFYybWc4cmJRMlRYYjhCbXR1WHJX?=
- =?utf-8?B?MTFEWmdBYmVScExoRjc1Si9IUCtySStpdTg4QWpwOWMveXZnLzJyWFZpQjM1?=
- =?utf-8?B?emljQklua2N1OC9CcnArSWFQRFBpdC9HZUgzUzBCWTYvZnBCTm14Wm1JT3gz?=
- =?utf-8?B?Z3NjRVBpYW8rUzc2UWJqTkF2YUdjeTJuL1lXT2Q5a29FMDFxV0tMUmUzRml5?=
- =?utf-8?B?Q1pYYjNScFAyN0FtYy9pbHFSajUraHZ0STVXNkZVMWJwL25Oc0hvRWVtWGpk?=
- =?utf-8?B?cmFMTk9lUm9uSjcwSkl1SXJmWXF3bjc2MjJWTXU2UlJyYmYyMFZmQng1TVlX?=
- =?utf-8?B?enB4YXFWZEkzYnBkcjdJeW5KOXQ0U2E5TTlhV24xbnVnOTdPZzVQZlI5YWVG?=
- =?utf-8?B?bFhBNksrYjdGUWpZeE9jQkdpMHhiaWxnc3h2b0lNYzFPVHFzNTRma3M4alFB?=
- =?utf-8?B?NUR4ekNLRWovRGpScVdlRXQ0V29rNi81OGd5ZWY5TlJYenBHcExvWUN3S1ZI?=
- =?utf-8?B?dm9EeHNoNVNMUFJJYm1EZWExK2RvZjE1cDRRS25xWVdXMEhpUXpqTWNzMjdw?=
- =?utf-8?B?cTVUM3p6TXVmMmRZN2tOZnlETTl0MlA0S2dEcElXaHJVeGE3My9ITjYwQTQ1?=
- =?utf-8?B?ZFhLbCtObVZqMENxMi9ZUzhMTjhNWStxQlU2M1R0d3A4K2lHYTlPMGg2blIx?=
- =?utf-8?B?RDlTRlZDNndDRFA0TUFwMlNxTmptNDlObHJSdG9IODBQZU5nMExLZWphWFJr?=
- =?utf-8?B?ZXEybVNiVGFZRFNPcitqeGsrSE5PSWMweCtaNlRJUHU2TG9IdHo4Snl0ZUZS?=
- =?utf-8?B?NHd6WWxXa21oOHBrSWlXY2g1eVhwTWxQbVA4L2JtYVQxa0VqUmEyM2d5UW83?=
- =?utf-8?B?N0N2VmNKN2ZuMmo1RkpFWnUyTWV4NkV5NFhaVnZibnl3UStrelBxRFBCTWJB?=
- =?utf-8?B?Y012RUM0QnJzZ0VJa2hlQlpCTkRxWVpST1h5MFRyekNvWE1UcEg2cUVITHY1?=
- =?utf-8?B?VnVCajBZb3VMSUhaWTRhT1R4elZveFErdFdDU1MrdmgvUmZLcnRlQUJDZzlX?=
- =?utf-8?B?MGUrRFo0L0VKR1hPRkNWZHRjU2NHTG1NVGFJOERCd0JCUlJXYTJnUWUyQ3BX?=
- =?utf-8?B?WlA3ZGJvano0M3pTeS9UVVhjVmkrV2ptRjhwcDFuc1RqTzdDVmFlaUs4akhm?=
- =?utf-8?B?NGdhMDJhcGkwUXZLeWJTMVRDbTZCR20vQ2M1b2VOK1BjVTZPd2VOY0NaVGR6?=
- =?utf-8?B?L2hJVXV5aSsvaXBqejduSDM3UVdQUHNaUkt6UFNlQytWTFg3QjZnTTF0Z0JK?=
- =?utf-8?B?TVd4WW1jRjRwaktDUEd4MXl6eFE2dHJhaHIzQWgxNGJwcGhRZWtlY213dVcv?=
- =?utf-8?B?YmlTZ3JYYVQxUUNiRnp3UGlsL2NpeG42dDBvVlZiRnk1azJkZkRBMHRQVFEy?=
- =?utf-8?Q?802E=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV3PR12MB9412.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(10070799003)(366016); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UWJXK0RHQ1pvaVJ5Q2I3cjgvNGZ4cVBzOVIzb1pyWXMrMWtLWWtuT212S3ls?=
- =?utf-8?B?cHdPd1dDVkFqV05tZ2JvTXpZeE1ZdTBNTHZkeU52QXVYbVBxZWZtL1BKanJ5?=
- =?utf-8?B?Lzlwc05UdksrRVNYL2Q1a1cxTVN6Ym53TFhTZllRb052bVZEZXNneHNnWGR0?=
- =?utf-8?B?empIQTY2YXlRNnBzT0FuZW9rUzk4OG56bi9wSXBzZHhuWjJPeWZSVllOUkx2?=
- =?utf-8?B?STI0d3BnOCtVdVdFUnd6eXI1Tmp5dk5oQjkrZ1FIZlUvV1Z0d1VsdS83bEVs?=
- =?utf-8?B?cVBhYldndHlhZUtYeUJuWlFXNlBZQlpVSm9JUUhqRlgrTkpBTjRUMEdoN0lu?=
- =?utf-8?B?Y1dXSVFpN1MyUjBCWnBZQU9kSmhycnBjSmdlaEZ4VXpIZVptN2ZCVHM4VVo3?=
- =?utf-8?B?NGliVmVQK01HM2lqTCtOOXJsOE5PZUM1T1NtOTVSNkJUYkxnUzFhUWpYUWVx?=
- =?utf-8?B?K1VsbkRkSmxrZm93N1MzVTNLdVZiOVdrRDdiV1c3QXNqNkhwdjJTa2F4UlhP?=
- =?utf-8?B?S2N5TE5URmJ5VjdiNjJ5MlZzTUFXSHY0RDlWMXBwRTFrWjdqUWIvdFpuN2RT?=
- =?utf-8?B?Y3RGZmh6V0g3TGVvVVdIMnI5RXFEQ2I0cEdqNCtJUllzeTVSZVF1cTJUbDd0?=
- =?utf-8?B?SWptVC9tTVQrS3BTbVN2dEpiYnBFaW8zWkJvZm9GSHhOMTdWVUVLWkRMRWlH?=
- =?utf-8?B?ZWNreHA4cjFjT24wUmlMaU1yb3VvQjVLa3JFS0gvR0lmdGI4Qy9PdU9KUjVO?=
- =?utf-8?B?ZFRPQUQyamRrNjBvSmdvTThKaUtyZFBUYXgyTFkwQWJTc3c0bm52Mk12RkNO?=
- =?utf-8?B?YXIrZFA3NTA3WEJYVzZYeHNCVEJoOG4zejh1SzNMRlNZSis1cGdvdjBDMkxC?=
- =?utf-8?B?MTVpbVlUTG5nN1I0d3RGNmhRenMzWkREZUhUUU9TUUhCZmExdFhmK3Z6Um9p?=
- =?utf-8?B?VWh6V3k2UHRCQkRhQ0hVcTdZVUFjNUd1d1p4bkkrYXV2MUJ0d3BPeWFqL3Bm?=
- =?utf-8?B?ck1xOGkyOFJIdDRUbnlkTlcydFpIQ09aMktXTVN5NXhIME13MDliWmUvQWtC?=
- =?utf-8?B?aXQ0TTNqWDlHZENCV2k3a1JLM1QzNWNXdDJtN0JTVE45UlRScUppSjdISTR0?=
- =?utf-8?B?cVBYWGZQMnhZUEljbDVDcXhDbE5uRVF2SVlEQnZXcEFLSzNXcS9TbVpFSmRr?=
- =?utf-8?B?NHlVcFNXOElXTGNhSjR3MTBVRHh5ckdtSHc3NkVPdm1DWWx0L05TRHQ4a2Vs?=
- =?utf-8?B?d0pRQkJ0VTJITnNqd2VZY28zZloxdkRrbTA2YVZ6cTZ1NlVocUg2NVB1ZjZk?=
- =?utf-8?B?Q1hqOUgvTzVKbUtuZ0dVR2JsUDZFdTlJaEloWnFaRHBiVi8veGMzb0huN3l3?=
- =?utf-8?B?SDlOS1B5UDcxWVdhOEdJVEJXcHRJOGtQUk9IQ2Vab1pycnlEeHNHcERKUCs5?=
- =?utf-8?B?QTY3SjNZNU9wa3R4RGdMTFhtSEE3QVFwRnJROTVBc1BhaHY5azBacEVrUG9K?=
- =?utf-8?B?QjBFUzBlRXIzcFh1bjJXcTMrQ3pJMUlsdDh5WmQ0endsbGJUUkZEdFFFb2cr?=
- =?utf-8?B?bCt2THlEYlJnWGdZZmRML3dkMmdVTE5PK1dQSnJJSThBK2REeGIvbTJ0TWZK?=
- =?utf-8?B?MmNmNXBneVErR0dSTXlvald2YnRrRzdkREU4TC91V05NL0xaUGhqZDFvMWpS?=
- =?utf-8?B?NDdTQUVmblZRSmY2RC9lZDFzWXlubC9yK3BQY0lxWUVTdHJNTEpNRVBYdEt2?=
- =?utf-8?B?dXRYdXBIb09HOTdXUFVzZzhhemRDenZBUFh4S0dZa1JPNlovM3dha25DSXo3?=
- =?utf-8?B?RWtTa2Roc1RZMEtSdVRnT2kxQ3Zid00xTks4WHo2R3lsTFM5cDVKQk5NTmV6?=
- =?utf-8?B?MkFWSEZWRXQrakRES3VIVXdsM01WSU1kZjZ6M05wZjZZUC80eVo3TlgvaFFW?=
- =?utf-8?B?cE9uVWl3eEE1ZGZ4NzUzMGIySHowT2lUQTBFL0ZVS2pCZ0hWV3lSYnFkODQ1?=
- =?utf-8?B?bzlnaTA0WEsvbXNNaGFzejVucE93bWFPSnJNRE9oM0Y2Sjh6Z2dpMkZYUTdV?=
- =?utf-8?B?MXpHRU1zeitJeWZjbXJhRDZyeU9Yb1BRZEFOK0JhUWtmcVdKWEZhVmxPMWk5?=
- =?utf-8?B?S2ZzMjdGT0pDRkR6cVRHRnVDbWphVkhNM0pQcGJmK05jT1AxVlR5SktoMEtm?=
- =?utf-8?B?b0NSWjVNV25OLzZRcG90ODhJQlJsbkMxOURkRzhSSGVrUmhJTHRVOStrWTVt?=
- =?utf-8?B?VWN1TlEyRDhtY1lRdDdqL2tpNHV5aDVtZ28yYmdha1FMaXdEZ052WGpqNFhO?=
- =?utf-8?B?aFlvUFV4aDZMYWNHWkV4YVpFQ3ZhRkhaQ2tJN2dEamViUHcyeVFkZmRVMTc5?=
- =?utf-8?Q?SiQVPWIdf9cbPX4g=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 420ccf31-48b7-4b28-6193-08de572ce578
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9412.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2026 07:32:27.7438 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NgMHu6lfaUQeXV90usdKJqOTT7KBR0HtbsRs+n/1NPrcSfMcEHXDIdOrD1N7eyjrQVHB+zUdi+Z3d3p771JzBQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9621
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 19 Jan 2026 08:18:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -191,37 +96,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/18/26 11:25 PM, Leon Romanovsky wrote:
-> On Sun, Jan 18, 2026 at 01:40:11PM -0800, John Hubbard wrote:
->> On 1/18/26 4:08 AM, Leon Romanovsky wrote:
->>> From: Leon Romanovsky <leonro@nvidia.com>
->> ...
->>> +/**
->>> + * dma_buf_attachment_is_revoke - check if a DMA-buf importer implements
->>> + * revoke semantics.
->>> + * @attach: the DMA-buf attachment to check
->>> + *
->>> + * Returns true if DMA-buf importer honors revoke semantics, which is
->>> + * negotiated with the exporter, by making sure that importer implements
->>> + * .invalidate_mappings() callback and calls to dma_buf_pin() after
->>> + * DMA-buf attach.
->>> + */
->>> +static inline bool
->>> +dma_buf_attachment_is_revoke(struct dma_buf_attachment *attach)
->>
->> Maybe a slight rename, to dma_buf_attachment_is_revocable()?
-> 
-> I can do that. The issue is that even "dma_buf_attachment_is_revoke"
-> is already too long. :)
-> 
+[Why]
+This function started to get very messy and hard to follow.
 
-If you're really pressed for space for some reason, maybe
-dma_buf_attach_revocable() ?
+[How]
+Eject some functionality to separate functions and simplify greatly.
 
-Just trying to hang on to the "revocable" part of the name, as
-I think it's an improvement.
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 119 +++++++++++-------
+ 1 file changed, 72 insertions(+), 47 deletions(-)
 
-thanks,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a0d23853b8fc..d83c65dc93d7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -13096,8 +13096,8 @@ static void parse_edid_displayid_vrr(struct drm_connector *connector,
+ 	}
+ }
+ 
+-static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+-			  const struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
++static int parse_amd_vsdb_did(struct amdgpu_dm_connector *aconnector,
++			      const struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
+ {
+ 	u8 *edid_ext = NULL;
+ 	int i;
+@@ -13134,9 +13134,9 @@ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ 	return false;
+ }
+ 
+-static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+-			       const struct edid *edid,
+-			       struct amdgpu_hdmi_vsdb_info *vsdb_info)
++static int parse_amd_vsdb_cea(struct amdgpu_dm_connector *aconnector,
++			      const struct edid *edid,
++			      struct amdgpu_hdmi_vsdb_info *vsdb_info)
+ {
+ 	u8 *edid_ext = NULL;
+ 	int i;
+@@ -13166,6 +13166,44 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ 	return valid_vsdb_found ? i : -ENODEV;
+ }
+ 
++static bool is_monitor_range_invalid(struct drm_connector *conn)
++{
++	return conn->display_info.monitor_range.min_vfreq == 0 ||
++	       conn->display_info.monitor_range.max_vfreq == 0;
++}
++
++/**
++ * Returns true if (max_vfreq - min_vfreq) > 10
++ */
++static bool is_freesync_capable(struct drm_monitor_range_info *range)
++{
++	return (range->max_vfreq - range->min_vfreq) > 10;
++}
++
++static void monitor_range_from_vsdb(struct drm_connector *conn,
++				    struct amdgpu_hdmi_vsdb_info *vsdb)
++{
++	struct drm_monitor_range_info *range = &conn->display_info.monitor_range;
++
++	range->min_vfreq = vsdb->min_refresh_rate_hz;
++	range->max_vfreq = vsdb->max_refresh_rate_hz;
++}
++
++/**
++ * Returns true if connector is capable of freesync
++ * Optionally, can fetch the range from AMD vsdb
++ */
++static bool copy_range_to_amdgpu_connector(struct drm_connector *conn)
++{
++	struct amdgpu_dm_connector *aconn = to_amdgpu_dm_connector(conn);
++	struct drm_monitor_range_info *range = &conn->display_info.monitor_range;
++
++	aconn->min_vfreq = range->min_vfreq;
++	aconn->max_vfreq = range->max_vfreq;
++
++	return is_freesync_capable(range);
++}
++
+ /**
+  * amdgpu_dm_update_freesync_caps - Update Freesync capabilities
+  *
+@@ -13180,15 +13218,18 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 				    const struct drm_edid *drm_edid)
+ {
+-	int i = 0;
+ 	struct amdgpu_dm_connector *amdgpu_dm_connector =
+ 			to_amdgpu_dm_connector(connector);
+ 	struct dm_connector_state *dm_con_state = NULL;
+ 	struct dc_sink *sink;
+ 	struct amdgpu_device *adev = drm_to_adev(connector->dev);
+ 	struct amdgpu_hdmi_vsdb_info vsdb_info = {0};
++	struct amdgpu_hdmi_vsdb_info vsdb_did = {0};
++	struct dpcd_caps dpcd_caps = {0};
+ 	const struct edid *edid;
+ 	bool freesync_capable = false;
++	bool valid_vsdb_cea = false;
++	bool vsdb_freesync = false;
+ 	enum adaptive_sync_type as_type = ADAPTIVE_SYNC_TYPE_NONE;
+ 
+ 	if (!connector->state) {
+@@ -13218,62 +13259,46 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		goto update;
+ 
+ 	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
++	valid_vsdb_cea = parse_amd_vsdb_cea(amdgpu_dm_connector, edid, &vsdb_info) >= 0;
++	vsdb_freesync = valid_vsdb_cea && vsdb_info.freesync_supported;
++	if (amdgpu_dm_connector->dc_link)
++		dpcd_caps = amdgpu_dm_connector->dc_link->dpcd_caps;
+ 
+ 	/* Some eDP panels only have the refresh rate range info in DisplayID */
+-	if ((connector->display_info.monitor_range.min_vfreq == 0 ||
+-	     connector->display_info.monitor_range.max_vfreq == 0))
++	if (is_monitor_range_invalid(connector))
+ 		parse_edid_displayid_vrr(connector, edid);
+ 
+-	if (edid && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
+-		     sink->sink_signal == SIGNAL_TYPE_EDP)) {
+-		if (amdgpu_dm_connector->dc_link &&
+-		    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_param) {
+-			amdgpu_dm_connector->min_vfreq = connector->display_info.monitor_range.min_vfreq;
+-			amdgpu_dm_connector->max_vfreq = connector->display_info.monitor_range.max_vfreq;
+-			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
+-				freesync_capable = true;
+-		}
++	if (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
++	    sink->sink_signal == SIGNAL_TYPE_EDP) {
+ 
+-		parse_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
++		if (dpcd_caps.allow_invalid_MSA_timing_param)
++			freesync_capable = copy_range_to_amdgpu_connector(connector);
+ 
+-		if (vsdb_info.replay_mode) {
+-			amdgpu_dm_connector->vsdb_info.replay_mode = vsdb_info.replay_mode;
+-			amdgpu_dm_connector->vsdb_info.amd_vsdb_version = vsdb_info.amd_vsdb_version;
++		/* eDP */
++		if (edid)
++			parse_amd_vsdb_did(amdgpu_dm_connector, edid, &vsdb_did);
++
++		if (vsdb_did.replay_mode) {
++			amdgpu_dm_connector->vsdb_info.replay_mode = vsdb_did.replay_mode;
++			amdgpu_dm_connector->vsdb_info.amd_vsdb_version = vsdb_did.amd_vsdb_version;
+ 			amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_EDP;
+ 		}
+ 
+-	} else if (drm_edid && sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+-		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+-		if (i >= 0 && vsdb_info.freesync_supported) {
+-			amdgpu_dm_connector->min_vfreq = vsdb_info.min_refresh_rate_hz;
+-			amdgpu_dm_connector->max_vfreq = vsdb_info.max_refresh_rate_hz;
+-			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
+-				freesync_capable = true;
+-
+-			connector->display_info.monitor_range.min_vfreq = vsdb_info.min_refresh_rate_hz;
+-			connector->display_info.monitor_range.max_vfreq = vsdb_info.max_refresh_rate_hz;
+-		}
++	} else if (sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A && vsdb_freesync) {
++		monitor_range_from_vsdb(connector, &vsdb_info);
++		freesync_capable = copy_range_to_amdgpu_connector(connector);
+ 	}
+ 
+ 	if (amdgpu_dm_connector->dc_link)
+ 		as_type = dm_get_adaptive_sync_support_type(amdgpu_dm_connector->dc_link);
+ 
+-	if (as_type == FREESYNC_TYPE_PCON_IN_WHITELIST) {
+-		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+-		if (i >= 0 && vsdb_info.freesync_supported && vsdb_info.amd_vsdb_version > 0) {
++	if (as_type == FREESYNC_TYPE_PCON_IN_WHITELIST && vsdb_freesync) {
++		amdgpu_dm_connector->pack_sdp_v1_3 = true;
++		amdgpu_dm_connector->as_type = as_type;
++		amdgpu_dm_connector->vsdb_info = vsdb_info;
+ 
+-			amdgpu_dm_connector->pack_sdp_v1_3 = true;
+-			amdgpu_dm_connector->as_type = as_type;
+-			amdgpu_dm_connector->vsdb_info = vsdb_info;
+-
+-			amdgpu_dm_connector->min_vfreq = vsdb_info.min_refresh_rate_hz;
+-			amdgpu_dm_connector->max_vfreq = vsdb_info.max_refresh_rate_hz;
+-			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
+-				freesync_capable = true;
+-
+-			connector->display_info.monitor_range.min_vfreq = vsdb_info.min_refresh_rate_hz;
+-			connector->display_info.monitor_range.max_vfreq = vsdb_info.max_refresh_rate_hz;
+-		}
++		monitor_range_from_vsdb(connector, &vsdb_info);
++		freesync_capable = copy_range_to_amdgpu_connector(connector);
+ 	}
+ 
+ update:
 -- 
-John Hubbard
+2.52.0
 
