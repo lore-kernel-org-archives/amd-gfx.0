@@ -4,82 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 239CBCA6011
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3748CA6010
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 08:18:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFE2310E3BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDB3C10E3B8;
 	Mon, 19 Jan 2026 08:18:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="McJSTm2y";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="jUbGVqYx";
 	dkim-atps=neutral
-Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com
- [209.85.218.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E2B3710E303
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 01:11:57 +0000 (UTC)
-Received: by mail-ej1-f68.google.com with SMTP id
- a640c23a62f3a-b86ff9ff9feso39037266b.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 18 Jan 2026 17:11:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768785116; x=1769389916; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=O/+mgz8tz1oq1jAsf41mu+R3jbahLDvbH8hDJMkGxqs=;
- b=McJSTm2yfBa/a8idzZVTqnFpIFkhrm3TeSfzbO2ZeAouGUMybFn+ptqDvvQAADsV0L
- H79dH1aNn5mowzQXbY6d5d5urXE+/RlA6ZIoEmmkdH9utn6gvS/3Ld6n2A37BJ8BBg2P
- brZNYxfvoIZcfjpBbqSruXv/K1dyVRDKyRuOxGN+m1dVhBUrtWLZHpQToPKl9BBAMVjW
- cm6OINlHBYbTAyOiD3Lv+HplyOTbfO/UPlW0jg89ggxwdQf7Lb4kUeIQV77UTz4TPgE8
- 9mn29Th3AT7bieQ4Y6r0RNkSeONbk8YRCWT8Gzm5Nbt35RnikrXjLorjoX+NfEdYPWi4
- DCEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768785116; x=1769389916;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=O/+mgz8tz1oq1jAsf41mu+R3jbahLDvbH8hDJMkGxqs=;
- b=u4SeSsqzhgT9pF5xNbFNhaaREEIkU7CPwjEj4SaA4/89VKt1k3r//OFTlzoHMmOXix
- SHuE0W6Y9KZoIrbqSMdc8GK4B8o+6SSFfRBpgXFcGYrHiSr2pV8rmwDYuuX7T9HYPUQY
- 8U2q8GKZDMTOl/kNtl0AkNjxtcazQRGWdHK831ogop6TDzIgjBynPdarvaU1rS5pL3yo
- 7XI0ZhzapoWCOa8muTdFLpRQL8Le6niia55scQjlbm4XhJiGqY79iuUx5QcVX35tuFp/
- gNLj5o6GswsoFP311Tj8htphQZTwUMMThD7euYSLUNmCaI0yhAX0ssKTpHawN6eiuHyE
- OMUQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCURzdkMwHKXEzhojiEh3NcVuPpSdbuFYhUhJCtmbdRZ1749GX4UwdDsvxIzcsweLwUryEx5ukGx@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxjf681BfYbCMIfID9G54nRszaRTtgxwDWnhMJyHEGJJFdNHEKS
- lbI+DpyqKt2/gmu38TAi+FoSfHf3Mo21c+Jy1MCLyqiHC55C45ST4aHT
-X-Gm-Gg: AY/fxX57p27p3Qk+EhQZ+U84XXESzUnutTuG+5fRnnJa1Kb7XeBVSUWFtacMZ/E56UX
- lOO2656O52tfax5dgTlaB2k65bHihLeSsqq0Ms4Fq2dPJRY9nxmka4jHHtnqp/dxyljm4A4qtuE
- yNs1vEsZhlneDsy9VllrkewQQTcVzrmyazbpkkcLbP2PjGXit5H5hpBPRtj2P3okg6hZ6DuZAZC
- R02sFRcVy5Iq6ZIVf8ZWOkegwaNNGewmN8SE/MzV3YS+5QRQhXD8JV7IMX98Z6bShTWpFp0vfka
- Akto0Fyy2G/4ONt3fNILLk3uNIDKRld7fgMG3mHVA5RQLa5r3zx7G4WaAv5d8mVBMsdKzxXmO0m
- W5Th19+VzoUx1IIHubZ6rI5UIt0Memf07PFxjMnBYB2F9TD98qP3HtMOcwNbPEINnZsDSktZ+8o
- NuX4nV5t1wYeqNhCqz9r3Xz1wvQ7ugxyAEQfHh2asWpq2TWwFV0xz65NoOHldNJvds
-X-Received: by 2002:a05:6402:5114:b0:64b:45db:3624 with SMTP id
- 4fb4d7f45d1cf-654529d2140mr4486900a12.3.1768785116317; 
- Sun, 18 Jan 2026 17:11:56 -0800 (PST)
-Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-654535c4912sm8989806a12.30.2026.01.18.17.11.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 18 Jan 2026 17:11:55 -0800 (PST)
-From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: alexander.deucher@amd.com,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
- bernhard.berger@gmail.com
-Subject: [PATCH 05/17] drm/amd/display: Refactor PCON VRR compatibility check
-Date: Mon, 19 Jan 2026 02:11:34 +0100
-Message-ID: <20260119011146.62302-6-tomasz.pakula.oficjalny@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
-References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012049.outbound.protection.outlook.com [52.101.53.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E62010E261;
+ Mon, 19 Jan 2026 05:41:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wE5Bv7/ig79+QnmvXPZjggD2v0pYM6wzLfOtwd4qE2UOK6BBRdT7q+F66Fjlg4BEGTTKWtk6xoOgODXMNGBYsb9OUN5qF/iUIKdzmO3a9Bb/MX2084+ihWLJjianpFD2TzBgqMGPEnwv2yvQZ0xLNwU9GHt/4Tq67oJTGMgzo7Mso4CUB96g4u+zHAYlD7wKC7ppvnzDCCVzAI7mRTTQ6HDT5d7VwzQ3iO2R2XZdPs+l4f+2AuVlGfXEokKlwn9Ci4xowZaUGSixODceQzRPD20WDCPeLUvm0EB9OJkkITnz6N8LlUVPYw8ykx6rXsvDOKikoNsaWKuWchg9WXtQ0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qK3XiTS+uSs4Wa2VPlJvbJxUnlZWwPdIxsUpN6pCDjQ=;
+ b=Z6ujz6TEXuRC6rHeXDkfu8+R/xHy7Wqx1K8c8gVGWQu+HsfxiwiHtl5pAPZS9c+fYoUY7eL0FgVemlKeI56wZAVxdcVSQaA3eXA1+ro+UCpBoPOhTc3O0D99sXVo+gegwLReylkHdb3FJCcH2zVc6cdPSA53lytqNFLOGu3umQQJEPJP5mlBkvTvbl8fQaTWifEpleagfuG8leQTGOV02RWqkCXsGbZ9Vy/gkbNsXdOe66loGomuZHdK6jP10kKMSBnBY5fB6iV4Jn0ZlqNptDMwvEyS50o2fXHyBdlbaKeGg8hT+slEX9bSF/SpdPe96V5MNRHSb6cc3Ai1BQVURw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qK3XiTS+uSs4Wa2VPlJvbJxUnlZWwPdIxsUpN6pCDjQ=;
+ b=jUbGVqYxt9lDNuZjrmpaFO3l7m3FLYsgnvoyzQl/L+fXIPAeUlJ9LQ5NxtRSuzacEqxcsWYUbZYEqsERW8zhIM5iAc5r9o3r8knahxS+80+aq85JedpPoPtkLcLEDDnPz6QKPA682Ts4Uw7WJxODYcbxW/ZgpxsfcRlk1TqUVlyKDzIvpg9TWbbb96rH4ixzUB0Xjpuh+5WygBnE7rqQCx4qPmhANymI/7Tpt95V490e0jz6MlkpqSwlmZVCZfuD3XZgIPq+JK4c88TQhT6F8AbHULJdv3ES5lAhzN7KI4YYJA8bSD70KS70goUbNqEMQt8rMlWt5d6UZh5cpfUB9A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
+ PH7PR12MB9256.namprd12.prod.outlook.com (2603:10b6:510:2fe::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.12; Mon, 19 Jan
+ 2026 05:41:49 +0000
+Received: from DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::953f:2f80:90c5:67fe]) by DS0PR12MB7726.namprd12.prod.outlook.com
+ ([fe80::953f:2f80:90c5:67fe%4]) with mapi id 15.20.9520.011; Mon, 19 Jan 2026
+ 05:41:49 +0000
+Date: Mon, 19 Jan 2026 16:41:42 +1100
+From: Alistair Popple <apopple@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>, 
+ Francois Dugast <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ Matthew Brost <matthew.brost@intel.com>, Zi Yan <ziy@nvidia.com>, 
+ adhavan Srinivasan <maddy@linux.ibm.com>, Nicholas Piggin <npiggin@gmail.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, 
+ Andrew Morton <akpm@linux-foundation.org>, Leon Romanovsky <leon@kernel.org>, 
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Balbir Singh <balbirs@nvidia.com>,
+ linuxppc-dev@lists.ozlabs.org, 
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-mm@kvack.org, linux-cxl@vger.kernel.org
+Subject: Re: [PATCH v6 1/5] mm/zone_device: Reinitialize large zone device
+ private folios
+Message-ID: <y7dm2sqf5t5txirxkbu7hlmsfsnlbtdirgn4ts2l4st3z4kawo@qpa56ysy5v3t>
+References: <20260116111325.1736137-1-francois.dugast@intel.com>
+ <20260116111325.1736137-2-francois.dugast@intel.com>
+ <20260116174947.GA1134434@nvidia.com>
+ <8006ea5f-8845-436a-a2d7-125399428762@suse.cz>
+ <20260117001921.GB1134360@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260117001921.GB1134360@nvidia.com>
+X-ClientProxiedBy: SY5P282CA0028.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:202::14) To DS0PR12MB7726.namprd12.prod.outlook.com
+ (2603:10b6:8:130::6)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|PH7PR12MB9256:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2437e481-3942-431b-7785-08de571d70bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?DF7cAHISt2s3lbua59Aks1H4DGe9dQkCJ4vR+Rq1U5NULpWQysaxM0tTIAf1?=
+ =?us-ascii?Q?DC6OIcmszD3q/VnDHezCAcFYCiR3SvA6yyRjsDg8lQKaj1iHhtRrhDIn2T/m?=
+ =?us-ascii?Q?EnZAiLxrxtNLQNonzw3Q8bARNlTcdakNUAWx/l9LJTawXJd6abH1kWz75win?=
+ =?us-ascii?Q?3c8eWpslO/i+liuTL5ENG53nHHNdPQX1QYICNE33JfDDZygSwtyh3/7aLTW4?=
+ =?us-ascii?Q?Rq8lE2YaF40AxZol/BvkahB//rZrcMQW5jfuHjnTX0BDYzfzTVkOVyreCgea?=
+ =?us-ascii?Q?h9B4gd5ECkY3dwDMFFplwTKfWc2M4tTwdS0JQyIycc6j0yYEqSXnS+X77HQU?=
+ =?us-ascii?Q?uk3yxc9LRvFVDrOQMY9VaWUHT5nbENbrXD47GgKtxLYf4Ka9o/AzIVjUFs4Q?=
+ =?us-ascii?Q?x4egJykK5HEq2AozipbVQSObRkskZQT1O8QJw7/AxoZNiI0j89hNiaXBVVn3?=
+ =?us-ascii?Q?9rENectb670Y+U9uDkPK1D7m/M/7neVJt9imI/oTG+wSKIShp9IQUUXpiN6T?=
+ =?us-ascii?Q?FCXQRQqLIc7kj6Cgvfo7YrsN4ua8fbI+/4FVuFyoUU6QxtMScl2h4xPS0ni2?=
+ =?us-ascii?Q?XtwKEhBmPD7quf4deUluRPfrXyINBGAUWSy315HxGHjNpcJm9MN4ljvzXFVx?=
+ =?us-ascii?Q?oxaf0ek3tTZRs6ZUjCm4kOyWIoba6d7Lbtx1D0fGwR5RBR3Lt0QOlOXxBwSP?=
+ =?us-ascii?Q?kEzT7K9B+xn3y2Zeb1l3ilUehKGDO+JnW1JjesB6M4BYrsZW0VqWmEDekbBg?=
+ =?us-ascii?Q?VW1201rsErESVQDBLJqEh6L3iGQM4y9Nq6Wk3m6a2otIMBbmKfEQBnshWsnL?=
+ =?us-ascii?Q?optR6YaNee0tPOGOhF1iu3aLEVoj/yT/0c1bMv/HRXsXRlehqLCazpGJ4FCG?=
+ =?us-ascii?Q?aMWx7sv89ML6JzdI6S3e4pCXInj4F6kPaLi9yfbtVCj1hFgKiT5qeNYMT7nD?=
+ =?us-ascii?Q?AGhlBXheFOmACsBQpxP5tfHcHDKppiPKkSodgfXQ5O6c/JDZOIqkOIFfDEi4?=
+ =?us-ascii?Q?tz2412nOKKKE1RtLecHpWA1b1u9MYeP/3M9FCk/5/bya7myHz6Ys7uW7wFEz?=
+ =?us-ascii?Q?gA3/NQLduf+B84rywz01FIuq+pDfmiz0+3AuY65m79sRqMgTOJI5SlHEbLPc?=
+ =?us-ascii?Q?Vla9U4jcC+THc8EDRObouMqlemVcPC6i4GWQ4/dvvnOUzCNRGhin6GU4LiUD?=
+ =?us-ascii?Q?1XH7RWYWdyIA6vwgNccNlVHz8T3X2yvzyMSaCtElZFFQUE7dlxY0UCJ/MBK0?=
+ =?us-ascii?Q?rfkcAP0xF3eR+jXIh3gBJOyFu5881IdXOzbAEZvOmWXpWKISoa8VCdTYQJNU?=
+ =?us-ascii?Q?oDGAuZe6h1AXAKh6BRYmDlH7z8eCR6Z9Cf4m+MgPm1nxu6wGMCg2s59kgdXu?=
+ =?us-ascii?Q?6EKFfuyqc7F2YoVoYLACh1Bp7ora4efJgdeqjiCd3/Pcsc0ePv3qBxWFpX/d?=
+ =?us-ascii?Q?WqqhzklK1I2DBDQ51vmftCZHf2xZNbIGbMx+Z1ATRU5YVZIZQFqrVbjNTQIs?=
+ =?us-ascii?Q?R4g6n7uPBvAMkhA1CgfsgNgG+EW7uwPHq+PxDwVzCcMnq2Hm7F26nPlgdV4M?=
+ =?us-ascii?Q?Kyn16ShYTrSvMmt5ZIE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?UL6vDGw3053/l9bc+92xDLkK1xVCNND8u/eOQjpJCMCAWDI5fCcBeR8P9itV?=
+ =?us-ascii?Q?RPNzyXJmeiUgUPJbyqY1m5X0bFILQprcOMgncC4u8eAfgbOVa5ylXWE0vtFP?=
+ =?us-ascii?Q?foYHTGAEEm0hQBg2laEBfOH0x4IaJhNE9rFBKga0E9Mh0ZJ9z7tAW9ZfdjII?=
+ =?us-ascii?Q?rVU9BoZDrrecGyqkZ8TTBgd9CJWU55KwEgr06jtIHPsgHtQ3xP/zBBEZkpCa?=
+ =?us-ascii?Q?HCRW0oW+nYvOx8QU6k5CUhpoxrUu5u2474moBgDrnATE3ooavjB3p3dBqgVu?=
+ =?us-ascii?Q?K0NtKdmchmeAOVkFliaw48qoREI8COb/6IHmJ5OoPafiGOmL3NWrO67KeG5g?=
+ =?us-ascii?Q?Gvo+MYqugnJTtpCGxzMSjMOuygsUvQSjVz46NXRtBQW70u2on488e8kPCmsk?=
+ =?us-ascii?Q?tox4EBlTrcxmpMUa1YOx6Z+IsbK/LWLjoPApSiJR50HnrG1LIWq4e79PQHy9?=
+ =?us-ascii?Q?j74Y08q+UNv5IqKmvrQMPDdiVAY5I7r/D8b8+ZU8Z86Hz50vvb1fgGPkspPD?=
+ =?us-ascii?Q?MxwZtBrpdO1o/yRwDW5CTqehAKSBt92Vis2HZc9qJYsSCb9hJZ5hKVO9/L6Z?=
+ =?us-ascii?Q?ZjpqiWA/GfuF9kEO88Gr5duydHBG09vTv/IsCSyNXOkRcCMrqWVmSOsZnXyQ?=
+ =?us-ascii?Q?Q2aEA7smF9I1M6ajwkWVUAT7zhNDtK8N5wyC0NOtdZ0cDTRpnBqMi/80NhLm?=
+ =?us-ascii?Q?g0eEIuYB3U/Kt/aCaUSqFt/DicRwY1MO4P2ggsYukDc+xF+lfv6QrL2JIafF?=
+ =?us-ascii?Q?gFSCpCm8X19J0ryfmU+Usj8IWQvQod6Gd2y/1IhbFkr/50muBvw5gM+cJmz6?=
+ =?us-ascii?Q?pIWaGryM57tAUyqsoaAZUrUt9FI+fhOqYJF7GyPkJ3I+DjQjhphtARWjBTJw?=
+ =?us-ascii?Q?J5QjffNuZ/odntLsFJujY13t5cMiScvszGK5+JqpVw1nXZ834/1r9zCWaj01?=
+ =?us-ascii?Q?V7slNsPE4Mytro4Ylf142faZLtOoCY554ddE1riwJ003FAeigduBOkV7uNYj?=
+ =?us-ascii?Q?CJ82E1KtkULcDzFs7vdvbPpIye4fluIAC+1NZtEPvbEtO3fjKjPf2TsYq0C+?=
+ =?us-ascii?Q?WOfQ2yiCWvr+EqL5dPfmu5Ao5u2+wN2DR94URRkQm5oBmHlPnzMZgluXZ6c2?=
+ =?us-ascii?Q?epYf+65mXnGfL06zZeNDSGqF5nrERxyOiLQG/Aq34RGU0fIIx4EIRERfetXu?=
+ =?us-ascii?Q?VNsAUsRuUCyBHbv4fF2gcLmid4G9NWuKPWMTN47CDjtsf1z2sMuFw8zHLabX?=
+ =?us-ascii?Q?KYMGeO3ZgIwqk9/RcdEbmh+nAGA4h1oDcuLMC7m696gSTE20fXPzBud0tnO5?=
+ =?us-ascii?Q?WwqjeV3Wg4WV1ywQptwSyMaTsFzOq3qVfZbvZLu+yvCFJZLvppYhN+cC7Mci?=
+ =?us-ascii?Q?xM3jlMZl9tu0O3xOmpBGGiZeCanS4aGuMqBCGBw+A3AdghyoSXbW2X+FUy14?=
+ =?us-ascii?Q?AS1MDBOG/SsPFQ5jB5ST8hFIpzkvrf/CvrWZ5liB0n8G7Y42nFYAepVwl599?=
+ =?us-ascii?Q?95uICIksg8pznNIJrcbi7eIv7pF5U20SiDr21mGmnjNmQfErzXH+hdBpsJ8l?=
+ =?us-ascii?Q?y4AvCaZiDjGz/7Lon6zii7cIv8NlUgoVoZYwhlGl8rIdvJT9kn9G3sFZQ8Ii?=
+ =?us-ascii?Q?YwdsqpDHWbRh8acWlU3WWkdySnsXo8PtTxSde70jNCVxJa3ZJf03dyJ/ezMt?=
+ =?us-ascii?Q?DSj5xnLU31uQ0uoSCGZM3KXFa4dcCSd6OHNW42UgOVkL8WT7lnoX1Pun6m1C?=
+ =?us-ascii?Q?vZaCncgRUQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2437e481-3942-431b-7785-08de571d70bc
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2026 05:41:49.4159 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ki3Svp+xizI3bno4NIrSroQ46uIc+M8KbCin65A8XaIduLWGlvcvX8U6tiiVPqgbjRiIOcZK1Gfm0A8/vONK8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9256
 X-Mailman-Approved-At: Mon, 19 Jan 2026 08:18:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,159 +176,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-DP->HDMI PCONs prevously entered the DP path
+On 2026-01-17 at 11:19 +1100, Jason Gunthorpe <jgg@nvidia.com> wrote...
+> On Fri, Jan 16, 2026 at 08:17:22PM +0100, Vlastimil Babka wrote:
+> > >> +#ifdef NR_PAGES_IN_LARGE_FOLIO
+> > >> +		/*
+> > >> +		 * This pointer math looks odd, but new_page could have been
+> > >> +		 * part of a previous higher order folio, which sets _nr_pages
+> > >> +		 * in page + 1 (new_page). Therefore, we use pointer casting to
+> > >> +		 * correctly locate the _nr_pages bits within new_page which
+> > >> +		 * could have modified by previous higher order folio.
+> > >> +		 */
+> > >> +		((struct folio *)(new_page - 1))->_nr_pages = 0;
+> > >> +#endif
+> > > 
+> > > This seems too weird, why is it in the loop?  There is only one
+> > > _nr_pages per folio.
 
-[How]
-Restructure amdgpu_dm_update_freesync_caps() and move
-dm_get_adaptive_sync_support_type() to dm_helpers_is_vrr_pcon_allowed()
-to better reflect what this function does. It never actually gave us any
-other info.
+Yeah, I don't really know what the motivation is for going via the folio
+field which needs the odd pointer math versus just setting page->memcg_data
+= 0 directly which would work equally well and would have avoided a lot of
+confusion.
 
-Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 25 +++++++-----
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 39 ++++++-------------
- drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  2 +-
- 3 files changed, 28 insertions(+), 38 deletions(-)
+> > I suppose we could be getting say an order-9 folio that was previously used
+> > as two order-8 folios? And each of them had their _nr_pages in their head
+> > and we can't know that at this point so we have to reset everything?
+> 
+> Er, did I miss something - who reads _nr_pages from a random tail
+> page? Doesn't everything working with random tail pages read order,
+> compute the head page, cast to folio and then access _nr_pages?
+> 
+> > Or maybe you mean that stray _nr_pages in some tail page from previous
+> > lifetimes can't affect the current lifetime in a wrong way for something
+> > looking at said page? I don't know immediately.
+> 
+> Yes, exactly.
+> 
+> Basically, what bytes exactly need to be set to what in tail pages for
+> the system to work? Those should be set.
+> 
+> And if we want to have things set on free that's fine too, but there
+> should be reasons for doing stuff, and this weird thing above makes
+> zero sense.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 37ab89532408..662f51faf949 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -13242,7 +13242,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	bool freesync_capable = false;
- 	bool valid_vsdb_cea = false;
- 	bool vsdb_freesync = false;
--	enum adaptive_sync_type as_type = ADAPTIVE_SYNC_TYPE_NONE;
-+	bool pcon_allowed = false;
-+	bool is_pcon = false;
- 
- 	if (!connector->state) {
- 		drm_err(adev_to_drm(adev), "%s - Connector has no state", __func__);
-@@ -13270,18 +13271,24 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
- 		goto update;
- 
-+	/* Gather all data */
- 	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
- 	valid_vsdb_cea = parse_amd_vsdb_cea(amdgpu_dm_connector, edid, &vsdb_info) >= 0;
- 	vsdb_freesync = valid_vsdb_cea && vsdb_info.freesync_supported;
--	if (amdgpu_dm_connector->dc_link)
-+
-+	if (amdgpu_dm_connector->dc_link) {
- 		dpcd_caps = amdgpu_dm_connector->dc_link->dpcd_caps;
-+		is_pcon = dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER;
-+		pcon_allowed = dm_helpers_is_vrr_pcon_allowed(amdgpu_dm_connector->dc_link);
-+	}
- 
- 	/* Some eDP panels only have the refresh rate range info in DisplayID */
- 	if (is_monitor_range_invalid(connector))
- 		parse_edid_displayid_vrr(connector, edid);
- 
--	if (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
--	    sink->sink_signal == SIGNAL_TYPE_EDP) {
-+	/* DP & eDP excluding PCONs */
-+	if ((sink->sink_signal == SIGNAL_TYPE_EDP ||
-+	     sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT) && !is_pcon) {
- 		/*
- 		 * Many monitors expose AMD vsdb in CAE even for DP and their
- 		 * monitor ranges do not contain Range Limits Only flag
-@@ -13306,17 +13313,15 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 			amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_EDP;
- 		}
- 
-+	/* HDMI */
- 	} else if (sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A && vsdb_freesync) {
- 		monitor_range_from_vsdb(connector, &vsdb_info);
- 		freesync_capable = copy_range_to_amdgpu_connector(connector);
--	}
- 
--	if (amdgpu_dm_connector->dc_link)
--		as_type = dm_get_adaptive_sync_support_type(amdgpu_dm_connector->dc_link);
--
--	if (as_type == FREESYNC_TYPE_PCON_IN_WHITELIST && vsdb_freesync) {
-+	/* DP -> HDMI PCON */
-+	} else if (pcon_allowed && vsdb_freesync) {
-+		amdgpu_dm_connector->as_type = FREESYNC_TYPE_PCON_IN_WHITELIST;
- 		amdgpu_dm_connector->pack_sdp_v1_3 = true;
--		amdgpu_dm_connector->as_type = as_type;
- 		amdgpu_dm_connector->vsdb_info = vsdb_info;
- 
- 		monitor_range_from_vsdb(connector, &vsdb_info);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index e5e993d3ef74..76a10fe8d545 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -1375,40 +1375,25 @@ void dm_helpers_dp_mst_update_branch_bandwidth(
- 	// TODO
- }
- 
--static bool dm_is_freesync_pcon_whitelist(const uint32_t branch_dev_id)
-+bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link)
- {
--	bool ret_val = false;
-+	if (link->dpcd_caps.dongle_type != DISPLAY_DONGLE_DP_HDMI_CONVERTER)
-+		return false;
- 
--	switch (branch_dev_id) {
-+	if (!link->dpcd_caps.allow_invalid_MSA_timing_param)
-+		return false;
-+
-+	if (!link->dpcd_caps.adaptive_sync_caps.dp_adap_sync_caps.bits.ADAPTIVE_SYNC_SDP_SUPPORT)
-+		return false;
-+
-+	switch (link->dpcd_caps.branch_dev_id) {
- 	case DP_BRANCH_DEVICE_ID_0060AD:
- 	case DP_BRANCH_DEVICE_ID_00E04C:
- 	case DP_BRANCH_DEVICE_ID_90CC24:
--		ret_val = true;
--		break;
--	default:
--		break;
-+		return true;
- 	}
- 
--	return ret_val;
--}
--
--enum adaptive_sync_type dm_get_adaptive_sync_support_type(struct dc_link *link)
--{
--	struct dpcd_caps *dpcd_caps = &link->dpcd_caps;
--	enum adaptive_sync_type as_type = ADAPTIVE_SYNC_TYPE_NONE;
--
--	switch (dpcd_caps->dongle_type) {
--	case DISPLAY_DONGLE_DP_HDMI_CONVERTER:
--		if (dpcd_caps->adaptive_sync_caps.dp_adap_sync_caps.bits.ADAPTIVE_SYNC_SDP_SUPPORT == true &&
--			dpcd_caps->allow_invalid_MSA_timing_param == true &&
--			dm_is_freesync_pcon_whitelist(dpcd_caps->branch_dev_id))
--			as_type = FREESYNC_TYPE_PCON_IN_WHITELIST;
--		break;
--	default:
--		break;
--	}
--
--	return as_type;
-+	return false;
- }
- 
- bool dm_helpers_is_fullscreen(struct dc_context *ctx, struct dc_stream_state *stream)
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-index 9d160b39e8c5..f8b45a09d680 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-@@ -219,10 +219,10 @@ int dm_helpers_dmub_set_config_sync(struct dc_context *ctx,
- 		const struct dc_link *link,
- 		struct set_config_cmd_payload *payload,
- 		enum set_config_status *operation_result);
--enum adaptive_sync_type dm_get_adaptive_sync_support_type(struct dc_link *link);
- 
- enum dc_edid_status dm_helpers_get_sbios_edid(struct dc_link *link, struct dc_edid *edid);
- 
-+bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link);
- bool dm_helpers_is_fullscreen(struct dc_context *ctx, struct dc_stream_state *stream);
- bool dm_helpers_is_hdr_on(struct dc_context *ctx, struct dc_stream_state *stream);
- 
--- 
-2.52.0
+You can't think of these as tail pages or head pages. They are just random
+struct pages, possibly order-0 or PageHead or PageTail, with fields in a
+"random" state based on what they were last used for.
 
+All this function should be trying to do is initialising this random state to
+something sane as defined by the core-mm for it to consume. Yes, some might
+later end up being tail (or head) pages if order > 0 and prep_compound_page()
+is called. But the point of this function and the loop is to initialise the
+struct page as an order-0 page with "sane" fields to pass to core-mm or call
+prep_compound_page() on.
+
+This could for example just use memset(new_page, 0, sizeof(struct page)) and
+then refill all the fields correctly (although Vlastimil pointed out some page
+flags need preservation). But a big part of the problem is there is no single
+definition (AFAIK) of what state a struct page should be in before handing it to
+the core-mm via either vm_insert_page()/pages()/etc. or migrate_vma_*() nor what
+state the kernel leaves it in once freed.
+
+I would like to see this addressed because it leads to all sorts of weirdness -
+for example vm_insert_page() and migrate_vma_*() both require the page refcount
+to be 1 for no good reason (drivers usually have to drop it immediately after
+the call and they implicitly own the ZONE_DEVICE page lifetimes anyway so why make them
+hold a reference just to map the page). Yet only migrate_vma_*() requires the
+page to be locked (so other ZONE_DEVICE users just have to immediately unlock).
+
+And I presume page->memcg_data must be set to zero, or Matthew wouldn't have
+run into problems prompting him to reinit it. But I don't really know what other
+requirements there are for setting page fields, they all sort of come implicitly
+from the vm_insert_page/migrate_vma APIs.
+
+ - Alistair
+
+> Jason
