@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5917D29C36
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 15:33:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79EF9D29C37
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 15:33:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46A4C10E48D;
-	Mon, 19 Jan 2026 15:33:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FB1F10E2C8;
+	Mon, 19 Jan 2026 15:33:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oa554t01";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2+pNulq0";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012011.outbound.protection.outlook.com
- [40.107.200.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 473C210E48D
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 15:33:39 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010040.outbound.protection.outlook.com [52.101.201.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0105310E498
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 15:33:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=clAzaKF4C6Lbiu1e5WwS+r1ee7AAhRpnPM509rNeDBacS7YpOys9ySVogk4/yYuYBfSOIbDyLqiAxp5dvqeeo2+qKFn5EyLL71KIomB0MeNwaOZtyB4OyKPy72IeDM+fXHJV+pYXrz7pmISi96OW2NoChMcgHLjojoaOYgXwJG2XehuDKSuuSoYff6ltjXbQeF74DwjvQfdN9/hwNOSCB/NDha2D3m0vzFlFKLiUuuWkC7dgdOKsHpnm93baLSl72+ku6bVX4i99xmd4RpdVOp+MIUVO7lNKUixPvD9CMSMLD7F5rJcU6qIsGO+NMOS4vGPrS8BVetxjn0C1PA3SaA==
+ b=VsjErtHyr/MGhLZVIOTodlv29ssoHX5C+dcE0kVIXHMnlyaQFbmvptuModvzJWWO5CK5w6/QQQKKTBcCRoETzkOIfR6f9R2JzPpZ/3tkBsffBrDS/cib9dv8eWZOon28C8jDWNZEIr989UN1uro9RrAjHaLW32bffYQmP0iXMhcK/N10qAiYq4ZBe3ls9LsRnIPE5vNu92LqMORuxmanIWp2KP0NBRljhw5obdHLewR41yFGw3kvPOJwk82GqsaeyYD63w/JGGqB5B7wpxREKsLZvSEkNp1RfzKiA5T+8UlAD43LS+LjJmpmjE7Tbn1RmzQYDifPZlVvvUUhKrv2lQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CMDzQkLP4OZ7BvMmKjKrm4NObVDc5hv92MrcMcvcOUQ=;
- b=kN0tlVoON1LltY2wmTcD5w4ojy8Aitdff8BEun+OS5flQpC0B+XjsekYhBia8UeVscJeK5WoDIbRdLZpBrUjPt4gjnMvDTUialJIfKBlp7riWyUL23Cav5jibEZqXqaVJkUZuBITJ2bwhPZeB/lctIFQi/rZbtO+lqbYOJopYIpbYTx0/SEjf4PcDfYJ21tnOB9Az6YzKWoAl2U39wujwiiSD+JAhhJzZa3da6R5853mpFQiGif0QNknUf7eud4iXjeiO6je5WKk4EnsfG0LiZcLo9a8CZ6r8gPij91cKElINhgfBNGD2NWx5kSPnwAQO01yQHQL9RAaHJiV3bhoYA==
+ bh=s3Dt2B02JcYaLcJv6n7FVB28FndVBCKV/GrXwMAUq5M=;
+ b=Znn+SCvtRk4oyzssKwVQ8dI/K7XrPdv4/bHJMV7jFbRhiecZXO6fhLXmBOgtA3Q4znbMbe2UrMC1ay2siwC7c3+wDB3dBG6ZTXCxPDbS2MbghD1NF8OHsw8/Lmekp33CRJe8sjmobMpTlRYfcQFZ1SsQtObWenyUSC/Qwf3/+ogR5i9KSTa7h/CqsMFKX8O8uvIrE4fAyzzv5MTJcJYXCik9gbZD/lQ8bCW7xUvmX+/vZAOqascbEkyJeyoWyKz/csuPDkwGwQ4/szZP4CPqbOWl1/o4i3DJvadjadXTv9nHDB0rX5bqxlZ6j4DUSutGhlpb1vNvSseI1cGs09pgCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CMDzQkLP4OZ7BvMmKjKrm4NObVDc5hv92MrcMcvcOUQ=;
- b=oa554t01KXZpZnTr+Co1DxhVXQKb8Kz2UeBfOjbBAvysKZWKfHGrZ3yajC6VpF470Llx05WHA9ZZ8soYspZ7l99VZAVqKZ5wVuLqPXLuaXUDcH7VZXUlg+0QTJtSdaZbV2zB5mWEtHUjZamK1nH230aT9mqICK5idN3AvK77cMI=
-Received: from BL1PR13CA0019.namprd13.prod.outlook.com (2603:10b6:208:256::24)
- by DS4PR12MB9684.namprd12.prod.outlook.com (2603:10b6:8:281::11) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=s3Dt2B02JcYaLcJv6n7FVB28FndVBCKV/GrXwMAUq5M=;
+ b=2+pNulq0yU7I+G2TGiYO/6zs3izbRtMNOC0cAnq22P6WTLpgn7G487WoPahcS/Pd1eTcjDN5iVbYLJ0pW3FCSwSCwZN3Dr4ehoBd3PgC09D6bmpetP2dSZC2VPj5cP78owbvbYW85+AV48N1FodPy5a22RVJFkwbTA0rCqEBfiY=
+Received: from BL1PR13CA0198.namprd13.prod.outlook.com (2603:10b6:208:2be::23)
+ by IA0PR12MB8278.namprd12.prod.outlook.com (2603:10b6:208:3dc::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.12; Mon, 19 Jan
- 2026 15:33:34 +0000
-Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
- (2603:10b6:208:256:cafe::33) by BL1PR13CA0019.outlook.office365.com
- (2603:10b6:208:256::24) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 15:33:40 +0000
+Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
+ (2603:10b6:208:2be:cafe::a8) by BL1PR13CA0198.outlook.office365.com
+ (2603:10b6:208:2be::23) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.8 via Frontend Transport; Mon,
- 19 Jan 2026 15:33:10 +0000
+ 19 Jan 2026 15:33:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,21 +48,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
+ MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.4 via Frontend Transport; Mon, 19 Jan 2026 15:33:34 +0000
+ 15.20.9542.4 via Frontend Transport; Mon, 19 Jan 2026 15:33:40 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 19 Jan
- 2026 09:33:32 -0600
+ 2026 09:33:38 -0600
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
  <Asad.Kamal@amd.com>, <kevinyang.wang@amd.com>
-Subject: [PATCH 0/7] Refactor smu feature bit implementation
-Date: Mon, 19 Jan 2026 20:58:17 +0530
-Message-ID: <20260119153309.1234663-1-lijo.lazar@amd.com>
+Subject: [PATCH 3/7] drm/amd/pm: Remove unused logic in SMUv14.0.2
+Date: Mon, 19 Jan 2026 20:58:20 +0530
+Message-ID: <20260119153309.1234663-4-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20260119153309.1234663-1-lijo.lazar@amd.com>
+References: <20260119153309.1234663-1-lijo.lazar@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,54 +73,55 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|DS4PR12MB9684:EE_
-X-MS-Office365-Filtering-Correlation-Id: fcc2746d-24c0-4fd6-3a61-08de57701b6b
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|IA0PR12MB8278:EE_
+X-MS-Office365-Filtering-Correlation-Id: e85fbb70-56bc-45ac-4dea-08de57701f41
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uOpBcYtFtp7UUHm5wj5ou77igwM/YPG6Af9QGYAl5+aEJkakHaqJlUI2zq9W?=
- =?us-ascii?Q?Dwhn86mPvrImqGM6HJLHiDq5tPemXYXOy4rDtKZLxiwepZmaVaaAtzhNI/W1?=
- =?us-ascii?Q?o++kYrrIDZ2xtedVIkH8qm9ZKyuUR7qKZMgDNZQ408EuuO7NcMdX9hjRyo8l?=
- =?us-ascii?Q?8rapu3DhvWIKUDsodmcySaT6fco5xeUfUNM1Tm4pQ3XuMMsZk+qZ863laAi4?=
- =?us-ascii?Q?vrtm+4bPQcVCURCbLWi7n3YKZS46NZSBjBUftjMjagNoL4Jzn0VMQ+1kWNhc?=
- =?us-ascii?Q?cla4Y5tarA/+OpCaLQRLoETg42U66f+zDLLv2w7j3dDUrQhM2gDKAulIrgPO?=
- =?us-ascii?Q?yFhVDw17nEtdqcrolCO1niZ6E+CDzeCSKYA8jcaBSxdNaV0msy37Pm7jij+l?=
- =?us-ascii?Q?Q2N7A7gCPI40687z/gw8n0sGpmQaFlKQF7MQp+Fz/2NXGR4hmJvrcWVJndbm?=
- =?us-ascii?Q?GYevdatPAq4KQMihm83osLusVoF6o50PCpROti7hPotBx0z0gUVAe9v1XXme?=
- =?us-ascii?Q?AhPVlvK63H4CSnuDwcr6CgBZ7thB+SbNLXwk4FZBfExlENcM7cbTWuul6BHk?=
- =?us-ascii?Q?XJ0DZMxmRavCXP638Raqsuaxm/euUDlesrN+wJMGpEsVSxffqbqlTLNYCi5l?=
- =?us-ascii?Q?Am1AG+t0QiZhpJ5oAGOWDANW4Y01NM/xMlWPm8KQ3xne0sMNcRCSNETTmdL4?=
- =?us-ascii?Q?yWzl5xaXuv/OrJOUB+yv/73e6b2Z6hM5anPjm/jMfmMcZ2gw3+nIjhwdyeLY?=
- =?us-ascii?Q?llvkYQrGQAkrRw4zpfaPBkIOK45ilv7dK1mv6CtwAoDcy2jhfYI4PKvPmA/l?=
- =?us-ascii?Q?N73nMvIsFYxSJYCwa009Sym+lep5CAyKieMK6/7WcShMCvCTJ5FxuqDRUezk?=
- =?us-ascii?Q?Z2nKSa7fUg8U6XzTFJU+Q275uYBs8IbbI/6lCvAXYStjT5lR17EtbA4P44c1?=
- =?us-ascii?Q?/nDcMyxH6oiwTJ9hptpdjA0rb/7Uod5tOOAIs5aFs6s6fCJH1q9rvFimdAR6?=
- =?us-ascii?Q?NBUBDsC+hpvwIToRoCQcXgjHLTvuL7wQdus2bYV9RmmoxXcKzoA2cF+HcmSS?=
- =?us-ascii?Q?XvQKc7mNK7iunLjRZ5nMHB4RwT9sf7a/WbX3RNwJyzZueqgti4DZazGIZq+v?=
- =?us-ascii?Q?Ot/RhqtziEq59H7GIQZ3nafX+Q1u00zjt83UnppiFyR8OKpSD07tE0yd2jT/?=
- =?us-ascii?Q?/h1UN7CN/VjSIWClM/g4ZmfpRkOMvTQIiEj1SlgiuuKpWrtf6Wa/qj1bBem6?=
- =?us-ascii?Q?l6qIAWcZOyYuPxM8XYZQUvVxp3SjV2aQNASwHCKO3x7ERZej+JN+73n6yMCV?=
- =?us-ascii?Q?nj/x5xdpvUn0g6f/UfhwUPTBsKPTeQDSXnejEsnc8B4ymekQOyk5rck6jK/X?=
- =?us-ascii?Q?2a/PKuIBftPgEFOQv6LmEWJdcKfqVxlD0KCI3bcpZBsNc972RRabUey7q7Jd?=
- =?us-ascii?Q?cGEwrTovZF3tjWCmxvE5CKFKcMW7nSBbAnpvKc2y2xYBE4aCQcmx0XdwlVzl?=
- =?us-ascii?Q?qOfBMv09IxcKPbZL2r7ktbV43M06ArjXEJ9MS6FUbKg2qDv/RCuWFVnAA4yr?=
- =?us-ascii?Q?JbnPz4tTRfGwbS0cDOL6eG6eu5w4m5jhOp5QNX67qKXFq8bfya9/bBAxTxnt?=
- =?us-ascii?Q?RYekV2c6rD9WaUffNbVFAxhu4fIgvB0wYpjTff3MBfo0?=
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?4FW+cOBmDKUW92pikrBHccFU8i5ygM2sXoVROZqUCCy/5NDEMlGLxZBZCJln?=
+ =?us-ascii?Q?wOyjP8n7+CgdhDYUeAL3C4jMvyvzQ+17dwd05yS1z6+8mSNp69pZl4U0wWKh?=
+ =?us-ascii?Q?a0u2CdVyyp/LyscZd1dY06KBz+3XxqOEWBJyrTzSzV9ThEYGTLRkUi4u7BzM?=
+ =?us-ascii?Q?LLVwjUUDdSleVqlbWGdEbi43hO9cCUbzfCZjL933bCeep8g1EbSs2W3N9NJD?=
+ =?us-ascii?Q?pxfhM0bRbtadtRJmMOCPvhapjRixCqfopNtRBieqFF/BJkTzjvFYv94fyHdK?=
+ =?us-ascii?Q?tjQLb7vw1DrTRuhAtFImSY/4CS/GPULnbAhssfLzkp+5HvKn0bfbnd2rvcZy?=
+ =?us-ascii?Q?IG8g2T9bpc140Axy1i5efmjx3cdokWxUmLBiU5TRHyJ1bLqcsap6sU4J0UVZ?=
+ =?us-ascii?Q?2fASgT3TL9Wr1ra0rUefIGuJH2cVFClxTKiwSOK48FrKP35fASmpLdkzPpcJ?=
+ =?us-ascii?Q?zvCA5JxsS67zaDKhJuVfxsDkCM18geu/xUkydrktAJmaWb971YnzA5aNxY4v?=
+ =?us-ascii?Q?gmq1KAr/lqZdvG+wW+DGPvB1dDTUGbPXIn7lyYv5GaAXji0BIlqN+fi3dVo8?=
+ =?us-ascii?Q?ayIPhMRXbLXwd0twd2b5fRnisKM36bFkR//Fm5+O0nELFiBfLsPpg9LghHLO?=
+ =?us-ascii?Q?61eapUqlm6Oz3UeV9gXpzJmnby43DKhVHFgMcVnQO25f/TOoZ+LEQUOfN6Qq?=
+ =?us-ascii?Q?4MdHZ/uvTbV4kmW9bwQePBcxTFuLuylIEqcTAnlQ1Pa0f6f8EgWgLhK0VF5C?=
+ =?us-ascii?Q?LS3By0VUqd6ei3X2iJnIVLHRweQyUwSl2o0zLlbxwIcOQPTnXyENVJ27PHvI?=
+ =?us-ascii?Q?jtdlYAR9pSatZcNXgZ2mvAn2X9vUuwtp8hRP81nCo/iywDIiZirhHdur4Oq1?=
+ =?us-ascii?Q?mBkVj+VuqZuTN7TlYz9DjAntSudUx3TDTSFebhiLmb0MckqT+52e929PW/0c?=
+ =?us-ascii?Q?oRdwb8YlFH74Y/IcbaoWqBBAcbsEFlxFRlMMegUxh+5mb92NHi+OSB6AjWGD?=
+ =?us-ascii?Q?XO6eEhVEhcflRHMB/ShivuzOgtVb8MN+CykM48npZk8yHrLIVfekcRcb5jiU?=
+ =?us-ascii?Q?/CvsVIbuE/A7Ehfik1lToHflaCBnFoYp4iiomglEmtNB0SPu8clLXB+tcNQT?=
+ =?us-ascii?Q?FOjMwyPxMJvBeMWOx28ufFC5eVargBKgau+NIAmt1/GjjGeLaXUvD/fkJ2y+?=
+ =?us-ascii?Q?0TW1ur+8q4XJSYhydTSp0hyn8C2l+aGqHdxl2jeDjgK3ZSp4GAAg1P9TWuB7?=
+ =?us-ascii?Q?/YaSGGKVUWajJACI+uiEu/0IYKHUo7bScNoNCuYEM6IECXAghE76V2XhZfRM?=
+ =?us-ascii?Q?bTUpITuoMOoM1TbjGAxYvJWjZ/TLwYFxWWE/QmrW2Ji/TqafGGW71WDL0RR4?=
+ =?us-ascii?Q?l/iji91zPcIWWi9ZWtyIy8dCdRllH2VwYaloIbKyA83ynUQrhUkq+FqCeBjU?=
+ =?us-ascii?Q?SI9ZqqCNqMZD+SJAQnayZj/FASRHmab0m7wI9Uuh9zrWuqZugfxoMrycKXFO?=
+ =?us-ascii?Q?AxuNvRerwUBJONHTHrtSrRqqLU6KEGscSdzRvMXBJS2UCNawlupCzmI0jHgH?=
+ =?us-ascii?Q?n1qLH5kNt3pt2zTX92wEUNKIReM+bE0CJwURiAr2dAKGYAaQiuJAG1/U5iVo?=
+ =?us-ascii?Q?OU9h2KI+Onq6ddKdS6zdMEBro2BOpriROxaNTA1aq7SOu06k6b8ZbFADISbG?=
+ =?us-ascii?Q?XrvSmA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2026 15:33:34.0712 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fcc2746d-24c0-4fd6-3a61-08de57701b6b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2026 15:33:40.5087 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e85fbb70-56bc-45ac-4dea-08de57701f41
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DF.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9684
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8278
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,48 +136,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Presently a 64-bit bitmask is used to represent the PM features enabled/supported by SOC. The
-number of features has grown to nearly 64 and could extend beyond that. Instead of using a 64-bit
-mask, implement a data structure around bitmap and move the implementation to use the datastructure
-instead of directly operating on 64-bit bitmask.
+Remove commented and redundant logic in get_allowed_feature_mask
+implementation.
 
-Lijo Lazar (7):
-  drm/amd/pm: Add smu feature bits data struct
-  drm/amd/pm: Add smu feature interface functions
-  drm/amd/pm: Remove unused logic in SMUv14.0.2
-  drm/amd/pm: Initialize allowed feature list
-  drm/amd/pm: Use feature bits data structure
-  drm/amd/pm: Change get_enabled_mask signature
-  drm/amd/pm: Add default feature number definition
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  | 39 -------------------
+ 1 file changed, 39 deletions(-)
 
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  48 ++---
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h | 204 +++++++++++++++++-
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  33 ++-
- .../amd/pm/swsmu/smu11/cyan_skillfish_ppt.c   |  24 ++-
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 119 +++++-----
- .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   | 116 +++++-----
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |   5 +-
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  29 +--
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |   4 +-
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  37 ++--
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |   6 +-
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  58 +++--
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c |  20 +-
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c  |  34 +--
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c  |  29 +--
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  39 ++--
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  | 103 +++++----
- .../drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c  |  29 +--
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    |   6 +-
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c  |  33 +--
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  69 ++----
- .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c    |   6 +-
- .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c  |  33 +--
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c        |  82 +++----
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h        |   2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_internal.h   |   2 +-
- 26 files changed, 662 insertions(+), 508 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+index faae1da81bd4..d2aa5fabfca4 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+@@ -268,50 +268,11 @@ static int
+ smu_v14_0_2_get_allowed_feature_mask(struct smu_context *smu,
+ 				  uint32_t *feature_mask, uint32_t num)
+ {
+-	struct amdgpu_device *adev = smu->adev;
+-	/*u32 smu_version;*/
+-
+ 	if (num > 2)
+ 		return -EINVAL;
+ 
+ 	memset(feature_mask, 0xff, sizeof(uint32_t) * num);
+ 
+-	if (adev->pm.pp_feature & PP_SCLK_DPM_MASK) {
+-		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_GFXCLK_BIT);
+-		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_GFX_IMU_BIT);
+-	}
+-#if 0
+-	if (!(adev->pg_flags & AMD_PG_SUPPORT_ATHUB) ||
+-	    !(adev->pg_flags & AMD_PG_SUPPORT_MMHUB))
+-		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_ATHUB_MMHUB_PG_BIT);
+-
+-	if (!(adev->pm.pp_feature & PP_SOCCLK_DPM_MASK))
+-		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_DPM_SOCCLK_BIT);
+-
+-	/* PMFW 78.58 contains a critical fix for gfxoff feature */
+-	smu_cmn_get_smc_version(smu, NULL, &smu_version);
+-	if ((smu_version < 0x004e3a00) ||
+-	     !(adev->pm.pp_feature & PP_GFXOFF_MASK))
+-		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_GFXOFF_BIT);
+-
+-	if (!(adev->pm.pp_feature & PP_MCLK_DPM_MASK)) {
+-		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_DPM_UCLK_BIT);
+-		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_VMEMP_SCALING_BIT);
+-		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_VDDIO_MEM_SCALING_BIT);
+-	}
+-
+-	if (!(adev->pm.pp_feature & PP_SCLK_DEEP_SLEEP_MASK))
+-		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_DS_GFXCLK_BIT);
+-
+-	if (!(adev->pm.pp_feature & PP_PCIE_DPM_MASK)) {
+-		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_DPM_LINK_BIT);
+-		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_DS_LCLK_BIT);
+-	}
+-
+-	if (!(adev->pm.pp_feature & PP_ULV_MASK))
+-		*(uint64_t *)feature_mask &= ~FEATURE_MASK(FEATURE_GFX_ULV_BIT);
+-#endif
+-
+ 	return 0;
+ }
+ 
 -- 
 2.49.0
 
