@@ -4,66 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 261BFD29C59
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 18:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAFB4CCF2DE
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 19:06:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2A8B10E4E1;
-	Mon, 19 Jan 2026 18:23:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D10510E4EC;
+	Mon, 19 Jan 2026 19:06:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kODgE/7I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AKYDyAd5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2980210E1CB;
- Mon, 19 Jan 2026 18:23:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C747843845;
- Mon, 19 Jan 2026 18:23:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104A7C116C6;
- Mon, 19 Jan 2026 18:23:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768846985;
- bh=Lii9Wo3zMBgNZu8BfSOY2bf+6SIZLbGpUqMsnL7Mo1g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kODgE/7I98Q5Jmc8h+EJtQ/PsgbfKxiuG7+i/OKTqySamVeiXJ1ev5n9Tu8e8+7Am
- eWcBTByTaCuS0pN4zKkZls5MedNPAn4I+Hsbq1SmcbRlCuZl8IS6k6KUcZhOQ5cwPq
- QEvQx8PMi6vRf/Cyws5p8kXrMKU7fcqSObgUcH6YasVT8Do8FUt//3CHGrsQYSZI57
- JjtDLmYAxiJIjWc5xqiuIHK7ya1LGuV3tOBOZ43uv2pzg/gzqVH+Fg7JPomEkrSv71
- pD+WzkHxHEeR8S/rk6YdY1H6mMFPgde202sJs+pg6vR5YElq7bO8BTz55Zfg/qynqM
- P7D/uGSD1I3oQ==
-Date: Mon, 19 Jan 2026 20:23:00 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] iommufd: Require DMABUF revoke semantics
-Message-ID: <20260119182300.GO13201@unreal>
-References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
- <20260118-dmabuf-revoke-v2-3-a03bb27c0875@nvidia.com>
- <20260119165951.GI961572@ziepe.ca>
+Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
+ [209.85.218.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4A110E4EC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 19:06:16 +0000 (UTC)
+Received: by mail-ej1-f65.google.com with SMTP id
+ a640c23a62f3a-b874c00a39fso814014466b.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 11:06:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1768849574; x=1769454374; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=NVf7l6jb7An3bkHhAtYLx+VYE2ou3D6SubtoY1Dd+fI=;
+ b=AKYDyAd5wqFy3GDeo19lSFE8B1jd02Tcwlw8PwRE89z2ayvNhumuiX4iO+2qtXL+Bj
+ XeDSftB6t7DRSENTgFhAZj3QFFnAj7LrkwbY0+5VZaLIFcesGdr2VFAlkSCa+VDtKKBa
+ h8bab5qY1XtAasJ2Ka7P62hUiQIxv07nrIssGFVHZHrMB8Oh+G5rRm5hHY/EXO5kF6W4
+ tDKP3ElYWA/4g99h3OzM/99WsmLKU4/Vx+kRt+bMwg2NQECTIeM92nXP0QKX+mPJRMMC
+ T21YlqLdVPa5O92/tJun0c71/4DuEg4Xq6KWpD+d821NHDW2DQr/6hI9XnutFQziSdRJ
+ xWDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768849574; x=1769454374;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=NVf7l6jb7An3bkHhAtYLx+VYE2ou3D6SubtoY1Dd+fI=;
+ b=Ms2a/Z4+bY9S7ZAKP3dS8xrjTzPTTBaXJoACy8sRhnSl7plFc9fFq+nJ2DdxJZ0/HB
+ 1u3XXcwIyE+QvgVo0J2AfaH/V8j0mUo+ulG2GZ4zu0k7H1JGkQZPNWa4JidX88ReeHUl
+ 6YtZQu5PknTC3dFUEwxiB0HVy5K1biqcVdQHk+0l9UC7Pwqtp0Q8XxmN2R+u6ihLTYQ+
+ aAFzJmv0h4NSqq10nEecIbo1ccokv9dBE6DNM3iEXi197sK5tDbdXBYUPTVQVvBlN/dQ
+ QO6gAukwowxCTOPcTzOycVM9ubuV7YA53aJ4ABmSrVlns43g8kAjx0sPqga92LsD8hV1
+ FhCw==
+X-Gm-Message-State: AOJu0YyzG72BmNKJhJjXgGjN2zmQhFTT9yaLro0aFO1bze7AJTnV6Omx
+ MhCR5fti1KYUGneC9d4J7mce0pwyTc6ZLIUhAJioUOkMCFl/vaCmV7AiyRJ2iChv
+X-Gm-Gg: AZuq6aJT3Ww/cwjR6eRszugVV8aHMH3qcrKV7RifacowA2/XSSQQ90mPTYC4yKrqOP1
+ qotz5VqpMg+jBwErCjyamQZkq5YQhhWINqk+/GbMejU44zXFfGSFgv86M1KTGNyiy+ZaL7mM2IV
+ qsioGoj3BxNVoo7oO6ks2vkxxR5SoWPvMRi4vczXj3wgirfeKYLs66ZaNMb8saRMFPZa8Oc3ky9
+ qdpyJnzmd+Cv6JjHjaQ8WbKL+5MS4iA26BYKlIlLjSNGFJRzFmabMtY342MBN8YYSkgI76+T1AO
+ ZfKaO4Pld8ipEX4uIayZU1pjuMsDPZ/nj5VJ1vZl2CmznNXUSrdM42GguaS4HrkqWukU/4TshPY
+ yC63prZy7moPsNT2evMfJNBip9mfM1oGC85NyO7D5FlncKTqJKBS11sn1W5w5nLh8GoMFd9EIzV
+ LY66AGkndQeawy6b0ZK3fRssGT+hsHCHVzUB/AHNZOItHUoVP7K1rF8b8AsQwxX41TRfVkZ2Z2B
+ BmiPNxcy1JwXI0UnzJ7fxYm
+X-Received: by 2002:a17:906:9557:b0:b76:d8cc:dfd9 with SMTP id
+ a640c23a62f3a-b8777bc5e1fmr1235972366b.18.1768849574161; 
+ Mon, 19 Jan 2026 11:06:14 -0800 (PST)
+Received: from timur-hyperion.localnet
+ (20014C4E24E47400AD77F2CC91C9A6FE.dsl.pool.telekom.hu.
+ [2001:4c4e:24e4:7400:ad77:f2cc:91c9:a6fe])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8795a2f1aesm1202127366b.61.2026.01.19.11.06.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Jan 2026 11:06:13 -0800 (PST)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Cc: Matthew Schwartz <matthew.schwartz@linux.dev>
+Subject: Re: [PATCH] drm/amd/display: Only poll analog connectors
+Date: Mon, 19 Jan 2026 20:06:12 +0100
+Message-ID: <5021716.OV4Wx5bFTl@timur-hyperion>
+In-Reply-To: <47aaaa83-012c-45bb-8f51-8f09c0ad20ce@amd.com>
+References: <20260118130345.43356-1-timur.kristof@gmail.com>
+ <47aaaa83-012c-45bb-8f51-8f09c0ad20ce@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260119165951.GI961572@ziepe.ca>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,51 +91,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 19, 2026 at 12:59:51PM -0400, Jason Gunthorpe wrote:
-> On Sun, Jan 18, 2026 at 02:08:47PM +0200, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > IOMMUFD does not support page fault handling, and after a call to
-> > .invalidate_mappings() all mappings become invalid. Ensure that
-> > the IOMMUFD DMABUF importer is bound to a revoke‑aware DMABUF exporter
-> > (for example, VFIO).
-> > 
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+On Monday, January 19, 2026 6:21:40=E2=80=AFPM Central European Standard Ti=
+me Harry=20
+Wentland wrote:
+> On 2026-01-18 08:03, Timur Krist=C3=B3f wrote:
+> > Analog connectors may be hot-plugged unlike other connector
+> > types that don't support HPD.
+> >=20
+> > Stop DRM from polling other connector types that don't
+> > support HPD, such as eDP, LVDS, etc. These were wrongly
+> > polled when analog connector support was added,
+> > causing issues with the seamless boot process.
+> >=20
+> > Fixes: c4f3f114e73c ("drm/amd/display: Poll analog connectors (v3)")
+> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > Reported-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 > > ---
-> >  drivers/iommu/iommufd/pages.c | 9 ++++++++-
-> >  1 file changed, 8 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
-> > index 76f900fa1687..a5eb2bc4ef48 100644
-> > --- a/drivers/iommu/iommufd/pages.c
-> > +++ b/drivers/iommu/iommufd/pages.c
-> > @@ -1501,16 +1501,22 @@ static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
-> >  		mutex_unlock(&pages->mutex);
-> >  	}
-> >  
-> > -	rc = sym_vfio_pci_dma_buf_iommufd_map(attach, &pages->dmabuf.phys);
-> > +	rc = dma_buf_pin(attach);
-> >  	if (rc)
-> >  		goto err_detach;
-> >  
-> > +	rc = sym_vfio_pci_dma_buf_iommufd_map(attach, &pages->dmabuf.phys);
-> > +	if (rc)
-> > +		goto err_unpin;
+> >=20
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 10 ++++++++--
+> >  1 file changed, 8 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c index
+> > 0a2a3f233a0e..e7b0928bd3db 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> > @@ -915,13 +915,19 @@ void amdgpu_dm_hpd_init(struct amdgpu_device *ade=
+v)
+> >=20
+> >  		struct amdgpu_dm_connector *amdgpu_dm_connector;
+> >  		const struct dc_link *dc_link;
+> >=20
+> > -		use_polling |=3D connector->polled !=3D=20
+DRM_CONNECTOR_POLL_HPD;
+> > -
+> >=20
+> >  		if (connector->connector_type =3D=3D=20
+DRM_MODE_CONNECTOR_WRITEBACK)
+> >  	=09
+> >  			continue;
+> >  	=09
+> >  		amdgpu_dm_connector =3D=20
+to_amdgpu_dm_connector(connector);
+> >=20
+> > +		/*
+> > +		 * Analog connectors may be hot-plugged unlike other=20
+connector
+> > +		 * types that don't support HPD. Only poll analog=20
+connectors.
+> > +		 */
+> > +		use_polling |=3D
+> > +			amdgpu_dm_connector->dc_link &&
+> > +		=09
+dc_connector_supports_analog(amdgpu_dm_connector->dc_link->link_id.id)
+> > ;
+>=20
+> Why isn't the aconnector->base.polled assignment in
+> amdgpu_dm_connector_init_helper doing the trick?
+>=20
+> Harry
+
+Hi Harry,
+
+The issue is that checking "connector->polled !=3D DRM_CONNECTOR_POLL_HPD" =
+will=20
+also match connectors that don't support hotplugging, such as eDP, LVDS etc.
+
+amdgpu_dm_connector_init_helper is working correctly, it doesn't set the=20
+DRM_CONNECTOR_POLL_HPD flag for neither analog connectors, nor eDP, LVDS, e=
+tc.=20
+which is correct. The problem is with this check in amdgpu_dm_hpd_init.
+
+Best regards,
+Timur
+
+>=20
 > > +
-> >  	dma_resv_unlock(dmabuf->resv);
-> >  
-> >  	/* On success iopt_release_pages() will detach and put the dmabuf. */
-> >  	pages->dmabuf.attach = attach;
-> >  	return 0;
-> 
-> Don't we need an explicit unpin after unmapping?
-
-Yes, but this patch is going to be dropped in v3 because of this
-suggestion.
-https://lore.kernel.org/all/a397ff1e-615f-4873-98a9-940f9c16f85c@amd.com
-
-Thanks
+> >=20
+> >  		dc_link =3D amdgpu_dm_connector->dc_link;
+> >  	=09
+> >  		/*
 
 
-> 
-> Jason
+
+
