@@ -4,124 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6467AD29C36
-	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 15:33:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32DB0D29C40
+	for <amd-gfx@archiver.kernel.org>; Mon, 19 Jan 2026 16:07:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0509310E49E;
-	Mon, 19 Jan 2026 15:33:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B66BC10E338;
+	Mon, 19 Jan 2026 16:07:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZERJg3LH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RbyV4CSl";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011060.outbound.protection.outlook.com [52.101.52.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9B7B10E498
- for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 15:33:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qm/2g9FVm/gHXKWTxxnblTPO9DWUSFgM0yO21hoi/+v859rrAWlFrIcv9eBNzvIHaCnDHYRPA3NvYzuhfwFspbrLrdEp0Lef4zNf8WLHIzJbcvARru/t8ltQHUHqh1D0htNNlgAGuZ2yKhva5vkVRy0Q3RtBQTS1bbruWbygpxQCPiAEpp1cjWK3SDE2FWZ0Rzi8EOkUE+/yPaJ/nUcpFVG0CySHPFijNedd2Vfdc1qXgC+LtIYGCM0OyElYU0vR+jNW8BX2sRwfVeY5cI8OHZ+Ox+pP6bwRxm/y5tzU/e0JHI1FbJWO4LmFvjSkG66LkEDSPKo6wSfFi66KpiDdOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zyZENtdPFbb1f2r1+MQMu0RX3SpyzEWd2OlcCegU0+E=;
- b=rrFxJcx1wSyvAr5ZdS4opfTa7AHRS0RVXcyBlWNP4rt5FlI4gly5NeOuZkR9aSHY4ybFRHbaIlpTvCVw4k4A32H2ki+o0wzrwHN+kD8XLYWzg3945Clq8Xk08nDCBe1b43PEDc1cCIy+nnC20wkH7nPDQGw38SMUC/XnOvFr30u/mlE0wafjsSlEFS9306miN28P+Aov6UMYRY4pfowOcWttehunaBGOvn8WQ3jUe8uSxi5DBbnkLUA3xOH1WyAJiChBm3XXZKyK9Ox3rWvguDT2S2Ti1WByc31n+r2ZfZbiLisCPJj5UdBzHI7mIuPYWNZyrfCyWNdfhOA7+a3Dtw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zyZENtdPFbb1f2r1+MQMu0RX3SpyzEWd2OlcCegU0+E=;
- b=ZERJg3LHSxz3qdOE0LlDkP8TFM6+FbLiZ7A3NRg2bkF+3wIki/HyfeaXNeooVw9PDTGCtklJA9cHK8gu8tyy/Hz7+akwPfDk44Sv2TevgBEhT/CTr+K2uuV7/CaoHNTzj0ibj4ib9IKn3P3/pJA8Hf4dXUM961hpyeBYr3xrBsY=
-Received: from MN0PR03CA0008.namprd03.prod.outlook.com (2603:10b6:208:52f::15)
- by CY8PR12MB7313.namprd12.prod.outlook.com (2603:10b6:930:53::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.6; Mon, 19 Jan
- 2026 15:33:49 +0000
-Received: from MN1PEPF0000F0E1.namprd04.prod.outlook.com
- (2603:10b6:208:52f:cafe::ad) by MN0PR03CA0008.outlook.office365.com
- (2603:10b6:208:52f::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9520.12 via Frontend Transport; Mon,
- 19 Jan 2026 15:33:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000F0E1.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.4 via Frontend Transport; Mon, 19 Jan 2026 15:33:49 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 19 Jan
- 2026 09:33:47 -0600
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Asad.Kamal@amd.com>, <kevinyang.wang@amd.com>
-Subject: [PATCH 7/7] drm/amd/pm: Add default feature number definition
-Date: Mon, 19 Jan 2026 20:58:24 +0530
-Message-ID: <20260119153309.1234663-8-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260119153309.1234663-1-lijo.lazar@amd.com>
-References: <20260119153309.1234663-1-lijo.lazar@amd.com>
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68CAF10E4A5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 16:07:47 +0000 (UTC)
+Received: by mail-dl1-f46.google.com with SMTP id
+ a92af1059eb24-1233e05c77bso183196c88.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 19 Jan 2026 08:07:47 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1768838867; cv=none;
+ d=google.com; s=arc-20240605;
+ b=iTdj4Q6ybU0MKsV2KOnqXZ1XRS51pyU9ytgy2xhS9qzvZzdhnDr7UZRx4lYM3PomX8
+ qp/00+pxYcTrULkiULinhjXcUl+M9RmNykVOwNOCgGfe/hJo4+TcDkwar6Ab37+dixj4
+ YblXn7SUK+94OkVeKCtt/8JtRnpmXxt2ZGUFoUQXRGK/qXnvOvEBCt2k/Wd5kcjrcsQs
+ FRRgN16B/ufwdJGk09DdDsbeCxHWZHEv/mUNqzoikvjnypfHupuz7Thjy5z22Hu4BgJF
+ JjqDeA0n3CqVVJulZHZ1TwSAYcn9Ln2dp4GWykMOQNjCLr4IsuSuhdH0OIG56m+B287v
+ mjKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Qbaj/fDRaiKGOljlG6RQUY1Wy+mpyX2rcVYCDkUh0n4=;
+ fh=8AJQVp9Blf/6+0wqheef1+KkKuYzUmOHEA0ieDLovTA=;
+ b=h/o7LtfLPj9yS2hEq7CyGLcxUcS0VTyd7ukTkoM/6CxPRpIMKPk3XWNCQqIvFygDZE
+ ZHBW6Loiia0JIMPIvHg3OvKzOJ7qWnkllgF4ieu+xMqLsRkNHYSBMLts7TudLJmy6AKR
+ gRAa6kr4CiOO2b+1/BM6TtVF4o6s80KT9S37bXSIwO7sup1f0SPWYFUxrqknNmFi4olX
+ c3CzqtfGdA3FIpVQvG5osWdCzzyMF0Fds/B/ErsBLAonosdn72Bz7T0laz8+OlNRbYPo
+ RTtUky9m9LHg+L1LgnBCk82WemdvwmMQw6ti9Y8/Cao2Ru0rjTlsDReES5rK8tF8KTxQ
+ aAjQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1768838867; x=1769443667; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Qbaj/fDRaiKGOljlG6RQUY1Wy+mpyX2rcVYCDkUh0n4=;
+ b=RbyV4CSllzaSKvMkrw8QU0/RESwv8UeKdCSokdnINjlDJXY3wrwUWDgAkf3mZhadVk
+ N54WupFmlqZ/WWpFfid8HVTDLEY5uOnkKiLuazANGVSNLpcm/+3g0mwbtQ+2uQbKTh9J
+ SLugKcCDgTObxNVsku0k/RNowhq9WxyTZzh0tNpo2ZcMiLTRcibd0RlXw5cYfO6Wf/sg
+ goDZ1wj4QG27jZHfk32yQaRIqgg2e6yURwEY46fdgEO92mtD8oBB/pQla2Q5vFoKbOiQ
+ lhdEx0XmCk5xxqv3LyE3YZ3Olx7Cwm2gIvIH4yg0IHEZWJ+WKgNUXZ6rCgzWXgD/pnBq
+ Klhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768838867; x=1769443667;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Qbaj/fDRaiKGOljlG6RQUY1Wy+mpyX2rcVYCDkUh0n4=;
+ b=spT3+dYwZWLLeRcwf7TTDSAbt0IVMKvwkdHnhxFPcMuv6BT2ntoP9vMte7j4OvIfZT
+ 89bClOMubida0VaX8RiXLrkWeSJ+bQWNm4QrXomBfmKyCuWve7MyPdG6GEY7e3GtTC0d
+ gBNjjI3TU29+BpuvJpwDLH3el3Mn2EjxxzyJ+p1zeYhXyTprqYgg0JlK5oiTmZZ7wg/v
+ JwUpCchRpCXLDDt/g8N7Co4fwLFjTlK9wJENq+G0pq8BFffRmH4N58thRysOaJT7HJUI
+ gMlyy2ddMUccCPDWFn/n0i0YOS413FDWpjx7yyEdU9nOXRoLYK5cef4igjyE7jDiTZkT
+ k/kw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUG9f8QFcktWnGk1Jc1GRmb0yrNzyDr5k+0XZDGDam31LSp6dQiKARLAXqiqyYbH7U7KgdhaSUt@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyyO7i/ZWEak+vavPCMqxu+udV6HR/87yGUhIHOS41/EssrMVWT
+ DlgMUJBDJlsrHecBWMzcBWhGbCZ3+YIExaZAjm+KZyW2D+MYw5NnkreRnB1fnaoOawZuLUHXiiI
+ m3uAmQbJk6vMEkc6DNq+H6NXgHvYwG5g=
+X-Gm-Gg: AY/fxX5Tba+8JCakE9fms17udjg5VRQa4oILZ9kWEKiANM7Gxr8D94GYXyS4YUGiCQW
+ jv693/QlxgoTofPHEv5t+ipQX+adNTNwmOeiMpdeaRWkRrPeR7YNrZzTUBmwwJJap8N5tt7557c
+ Gi5Soq4zin7N39KdvDDcrG5dCNgaHicx8/hc5EcxjgNys5kaPdjv+d7aac9ayivhZ2U4Fj2TmS3
+ +KRnKTmBYpnGo/bI8z+jThtRkNuieu4pnYkOgRkb4Pn1djK2iAUTX46Clr5kl3d6kKcgb0J
+X-Received: by 2002:a05:7023:a8e:b0:119:e55a:95a3 with SMTP id
+ a92af1059eb24-1244a7a2266mr4526044c88.5.1768838866559; Mon, 19 Jan 2026
+ 08:07:46 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E1:EE_|CY8PR12MB7313:EE_
-X-MS-Office365-Filtering-Correlation-Id: e4a45447-6d5b-4998-b6eb-08de57702461
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?GvG9RytnFhsfI6Nfpcjfeg523b6yOtsCe92xJmNFykRBaZ880uHUoKR9aUgN?=
- =?us-ascii?Q?RA6+a3AUIRaA02KdqJ79pQFZwD/y5cdUIuNBkd0An26tYT8nCWkIum9wncfd?=
- =?us-ascii?Q?ScEPhnjXaR7zifuS4tMC2vIn9gzSp9oKpO3Yj5ou+RGrvPo9TBXeppS39jWk?=
- =?us-ascii?Q?uiU6dQROMBYSb2KCAWARxonXAa1mnDl96T31lefT8EvipaT08Ka6Y+AswOap?=
- =?us-ascii?Q?KneMCsVmgOD08vMin+SU2lGKJobbxO48KtPdd82UBhDtFvytJTLSw6PSlw50?=
- =?us-ascii?Q?EREYI4EBz+YVLtcU0y8T5N4VBf9VkkZyQBTo/TyuMI6+kn2m1muEWRhKkzkL?=
- =?us-ascii?Q?kNqHUwDCBYjLdH6V0gMIaUIFnXMWKEKKIjm7jtFvPPzxyzqjiruBcxgp3G9W?=
- =?us-ascii?Q?FJ7DM6kja7n4xKhsR+hiMGoTWGEkR9+ngSEJtX5s5XGe4J7C4lLuDSvqZXeR?=
- =?us-ascii?Q?p4O3KrpFdHy59uUlL28NkglY0h3mNb9q6eWF6tF79XHt//Joku3KtxFrJeCL?=
- =?us-ascii?Q?b2feI8HYr2DCxuw12jpBuQaAWp8/eoJndoUmZWdiqF6s3zOJM91TqQdpMfJE?=
- =?us-ascii?Q?3coNIISLK/+wO0v1MNLuL6Dq/Vegs2A14RRgftMebFrRoxV1AzBPsx5hTEvv?=
- =?us-ascii?Q?/ExDiHLyxRB3qbw8P1T3iVLNMypWW0gvFsmvmH4dXobXhFxGDtLCNYzRFZ8b?=
- =?us-ascii?Q?dEX+urFdf4yN4FQa8bir+5/M3t08dWDp+KanBva+Gkm24cmbxkVjN1qS4ORs?=
- =?us-ascii?Q?iowJ/GF7pnEeAHWuhHQ95VSodaCi1nDHju/YDDNXT6sl7pDqGJecfvmO7RML?=
- =?us-ascii?Q?WUODn1RuVwlfHs1By+aziKRKbZL4hTLt/ZEJFkgF/QAl1OvBGjW+hNNy3bdW?=
- =?us-ascii?Q?JDZI7y5AEWXp4XsBy5V5WpkRYQmBLmiObNCA4JOs6rWYpRD2dwLfd2PBWnAf?=
- =?us-ascii?Q?YHM4UDIjlezbjVd0sUQEX+9fYAyeMEBUfaV6TEUp/TF8XGKHqpkN0mzpSst4?=
- =?us-ascii?Q?Uqo/erP0/e3gIOyspYY9TKZc3LZx5AeE+wpcd7jOO9jy1USiSKUvil9xZAwP?=
- =?us-ascii?Q?J/bSHsHLKrM7ERztMVOt+Ym30mn1NqwkMz6jcqRFW5/lKSCELsa0vHbONjcM?=
- =?us-ascii?Q?9hNg6IT0+2Ia753HPORWGcyjq2aYOdQvuM5JJrVBP2Yz4LZ3ixgdzLWKY2ov?=
- =?us-ascii?Q?cYFyGBrz6jfkRiPe8RNWuv6F6RAF83y0ylppnv7rxcmn65ZwlIK+JaJzY7T5?=
- =?us-ascii?Q?kJ3ScVjYk9GUQ4zlN7e87+yCe4Il9ltJdxnxMHOyoH9Q2cZGTE2gKIHTVuBD?=
- =?us-ascii?Q?CsND81LS97XEEx7M670JQ9EPKFGTXuwtuvyEde+4dRxvinoAHq4KoVUOsd8t?=
- =?us-ascii?Q?j2AUjwKcz1uLj+eZ4DiMFSKJxALYhFwVX0xL7r0Ht3RzsqozIiJwEwxjY5nq?=
- =?us-ascii?Q?1zMg7gkId1Ed+/+BqmA/6L7j6zOCNeX8jQGAF+zsaLOPHls4CANMjiHNPp/7?=
- =?us-ascii?Q?v4i2I4nwATMcPvTt7vb6BAQlvI+FX+02SgXQmNRazyHjshPovzMIg/7lyoPE?=
- =?us-ascii?Q?Pojg3T2OlXJJGpD8V7FufRlO2lQHNtduzhzjqblKYN01W5JynfZcYLa467sd?=
- =?us-ascii?Q?8fm9Tn18Wnte62gy5sTcwc2J1gUjTgRgo46nODzlHspvo4/KhzoGcRJmvEkc?=
- =?us-ascii?Q?ZfJq+Q=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2026 15:33:49.1085 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4a45447-6d5b-4998-b6eb-08de57702461
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E1.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7313
+References: <97A9D651052AA8A7+20260119084403.1420962-1-liurunrun@uniontech.com>
+In-Reply-To: <97A9D651052AA8A7+20260119084403.1420962-1-liurunrun@uniontech.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 19 Jan 2026 11:07:34 -0500
+X-Gm-Features: AZwV_QiaSJACqBg91UrPZBLMVc4s2iWPeLAMoh73ofm6h_RDkP4qnw_boTeip8A
+Message-ID: <CADnq5_Nd1ok+fZUadHC6ukreUAJB-XE3NxUg29t8zfi3VXhb5A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix misspelling of "minimum" in dc_dsc.c
+To: Runrun Liu <liurunrun@uniontech.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ zhanjun@uniontech.com, niecheng1@uniontech.com, kernel@uniontech.com, 
+ Cryolitia PukNgae <cryolitia@uniontech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,124 +109,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The number of default features could be different from the actual width
-of the bitmap. Use a different definition for it. Also increase the max
-width of bitmap to 128.
+Applied.  Thanks!
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c      | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h  | 3 ++-
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c | 2 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c         | 6 ++++--
- 7 files changed, 11 insertions(+), 8 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index 62d34f69149c..5ea4c6dab2de 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1352,7 +1352,7 @@ static int smu_sw_init(struct amdgpu_ip_block *ip_block)
- 	int i, ret;
- 
- 	smu->pool_size = adev->pm.smu_prv_buffer_size;
--	smu_feature_init(smu, SMU_FEATURE_MAX);
-+	smu_feature_init(smu, SMU_FEATURE_NUM_DEFAULT);
- 
- 	INIT_WORK(&smu->throttling_logging_work, smu_throttling_logging_work_fn);
- 	INIT_WORK(&smu->interrupt_work, smu_interrupt_work_fn);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-index 4019ef859504..512493a8452b 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -471,7 +471,8 @@ struct smu_power_context {
- 	struct smu_power_gate power_gate;
- };
- 
--#define SMU_FEATURE_MAX	(64)
-+#define SMU_FEATURE_NUM_DEFAULT (64)
-+#define SMU_FEATURE_MAX (128)
- 
- struct smu_feature_bits {
- 	DECLARE_BITMAP(bits, SMU_FEATURE_MAX);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 1d0f9f8ddf9b..56efcfa327df 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -751,7 +751,7 @@ int smu_v11_0_set_allowed_mask(struct smu_context *smu)
- 	uint32_t feature_mask[2];
- 
- 	if (smu_feature_list_is_empty(smu, SMU_FEATURE_LIST_ALLOWED) ||
--	    feature->feature_num < 64) {
-+	    feature->feature_num < SMU_FEATURE_NUM_DEFAULT) {
- 		ret = -EINVAL;
- 		goto failed;
- 	}
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index d9b1725c3afc..c4a994445b80 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -762,7 +762,7 @@ int smu_v13_0_set_allowed_mask(struct smu_context *smu)
- 	uint32_t feature_mask[2];
- 
- 	if (smu_feature_list_is_empty(smu, SMU_FEATURE_LIST_ALLOWED) ||
--	    feature->feature_num < 64)
-+	    feature->feature_num < SMU_FEATURE_NUM_DEFAULT)
- 		return -EINVAL;
- 
- 	smu_feature_list_to_arr32(smu, SMU_FEATURE_LIST_ALLOWED, feature_mask);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-index 5c991e2e15ff..79ce32c4bb4d 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-@@ -747,7 +747,7 @@ int smu_v14_0_set_allowed_mask(struct smu_context *smu)
- 	uint32_t feature_mask[2];
- 
- 	if (smu_feature_list_is_empty(smu, SMU_FEATURE_LIST_ALLOWED) ||
--	    feature->feature_num < 64)
-+	    feature->feature_num < SMU_FEATURE_NUM_DEFAULT)
- 		return -EINVAL;
- 
- 	smu_feature_list_to_arr32(smu, SMU_FEATURE_LIST_ALLOWED, feature_mask);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-index d77eaac556d9..a2854d528bab 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-@@ -716,7 +716,7 @@ int smu_v15_0_set_allowed_mask(struct smu_context *smu)
- 	uint32_t feature_mask[2];
- 
- 	if (smu_feature_list_is_empty(smu, SMU_FEATURE_LIST_ALLOWED) ||
--	    feature->feature_num < 64)
-+	    feature->feature_num < SMU_FEATURE_NUM_DEFAULT)
- 		return -EINVAL;
- 
- 	smu_feature_list_to_arr32(smu, SMU_FEATURE_LIST_ALLOWED, feature_mask);
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-index da35d54a6e4e..a4f05082c1b3 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -794,7 +794,8 @@ int smu_cmn_get_enabled_mask(struct smu_context *smu,
- 	}
- 
- 	if (!ret)
--		smu_feature_bits_from_arr32(feature_mask, features, 64);
-+		smu_feature_bits_from_arr32(feature_mask, features,
-+					    SMU_FEATURE_NUM_DEFAULT);
- 
- 	return ret;
- }
-@@ -909,7 +910,8 @@ size_t smu_cmn_get_pp_feature_mask(struct smu_context *smu,
- 	size += sysfs_emit_at(buf, size, "%-2s. %-20s  %-3s : %-s\n",
- 			"No", "Feature", "Bit", "State");
- 
--	for (feature_index = 0; feature_index < SMU_FEATURE_MAX; feature_index++) {
-+	for (feature_index = 0; feature_index < smu->smu_feature.feature_num;
-+	     feature_index++) {
- 		if (sort_feature[feature_index] < 0)
- 			continue;
- 
--- 
-2.49.0
-
+On Mon, Jan 19, 2026 at 8:57=E2=80=AFAM Runrun Liu <liurunrun@uniontech.com=
+> wrote:
+>
+> Fix the typo "miniumum" =E2=86=92 "minimum" in a comment in dc_dsc.c.
+>
+> This typo is already listed in scripts/spelling.txt by commit
+> 8c3200265787 ("scripts/spelling.txt: add several more common spelling
+> mistakes").
+>
+> Suggested-by: Cryolitia PukNgae <cryolitia@uniontech.com>
+> Signed-off-by: Runrun Liu <liurunrun@uniontech.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/dr=
+m/amd/display/dc/dsc/dc_dsc.c
+> index e4144b244332..5b3584ad5b6b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+> @@ -1157,7 +1157,7 @@ static bool setup_dsc_config(
+>         if (!is_dsc_possible)
+>                 goto done;
+>
+> -       /* increase miniumum slice count to meet sink slice width limitat=
+ions */
+> +       /* increase minimum slice count to meet sink slice width limitati=
+ons */
+>         min_slices_h =3D dc_fixpt_ceil(dc_fixpt_max(
+>                         dc_fixpt_div_int(dc_fixpt_from_int(pic_width), ds=
+c_common_caps.max_slice_width), // sink min
+>                         dc_fixpt_from_int(min_slices_h))); // source min
+> --
+> 2.51.0
+>
