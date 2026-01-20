@@ -4,85 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66AF1D2ECE9
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 14:32:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 840EED2ECF7
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 14:32:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08E5410E106;
-	Tue, 20 Jan 2026 14:32:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB24F10E609;
+	Tue, 20 Jan 2026 14:32:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VuIrJPzp";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="LjEUGirS";
 	dkim-atps=neutral
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEE4810E5CC
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 12:07:08 +0000 (UTC)
-Received: by mail-ed1-f52.google.com with SMTP id
- 4fb4d7f45d1cf-64b6f22bc77so931031a12.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 04:07:08 -0800 (PST)
+Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
+ [209.85.222.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 689E410E5EC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 13:15:33 +0000 (UTC)
+Received: by mail-qk1-f196.google.com with SMTP id
+ af79cd13be357-8b2f0f9e4cbso439752985a.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 05:15:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768910827; x=1769515627; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=6mJN4EWiKZWaSZItRX0vL+7HkWk5OupdgIHdp6FGDiU=;
- b=VuIrJPzpMsP4ftNNjh88B4HdKAbfjvCz3R3aY86rJkjFP9OH9DrDNx7B1vc/Xey3Qr
- vRDCb/3cHAy4Tyl8YDRXy9r0Xqdnf82kMTzcux1PQ/o8P5mafZfh/iAVMMuuUuoWOSyH
- EZYOdYebmqT3/n7bYJOBDuZHZRa/bb2WOfjhyIJy55JMooW+ZmZKteguBBPzep55oEpG
- lNbT/AhqjJp05WvdhfaSJ5oLQO2PEpP1Ds1jW28DeU1B4pnvZw5xUCjaRthbq2nenUca
- j0kAuH0kB1on0XrcAtnA6sOKOkJxj1G8V+TLcDGX7mamd9Chgn0clxWuq+naCR3M3Flj
- /7Iw==
+ d=ziepe.ca; s=google; t=1768914932; x=1769519732; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=Jl2KF0othdvrwDImGzxJcxoX7WKdbBXFC823mMEO8nY=;
+ b=LjEUGirSRwSa2OJJ9ghicZtfex1eNEPksqh2a+ZOBsyMfG0hD9ixxWh2fzuQYmyoo3
+ 22XcZ2qt8OwznTVhAriKP5NNJMwX1Kh5E6H88ZMbne8pworwR2QXveJyVf88g+4qW+De
+ I4bGjb+U4NfEYkHHukd3Pu/iCiIS6lUv4BS5n4zdhX8aIhZkhew6Er73i4sFn/bgnTfB
+ aMWkbfPKjd0GS/QiF/3/ItWJM6ixxP0FVGuc8XVKHR8EPh672r7ddBHSk1ADgkSjyc1Z
+ erv9/svM8IL1SSJOKD5uz6b3rP2YVdN6NhaAD4mK2E1U5d16rNu85rxGwiVk4q7BoU5f
+ Caag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768910827; x=1769515627;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=6mJN4EWiKZWaSZItRX0vL+7HkWk5OupdgIHdp6FGDiU=;
- b=KcEVIp5Y+l32I87v5c66mrtY3nYtN1ugtqLWoPR7QANkfsARQP5YVc5Erq8wabds7+
- GV2tnJHqjaXwUgNQmqCzJjV14ut477Ns+rxqQ2T5841LfKp7ykQ/Jsg4L/Gmsj+wrt/P
- t/fRUksLnj/UF6YTHl7CQm8k7/dMelVH+6i/KPnJK3KK/q5lqj6tPxam4oqP9Y4AOGSu
- O7t4PPK0ZXvxey9qOw1oxXyE1k2RgMRyF/bzg/PkOS4SjP/6yjNU40oN1dGl8aK/sT3J
- jG73Sk15UHERDDNARG1Fl6eDhMZS+yvQ26je7NYZkLAagT3sBNRb/UzqFoevzMApbTIN
- jRLw==
+ d=1e100.net; s=20230601; t=1768914932; x=1769519732;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=Jl2KF0othdvrwDImGzxJcxoX7WKdbBXFC823mMEO8nY=;
+ b=Q/oZavL0sc5o1t36uyMGMuJzDNEKSCbTe0JURKZ5ZwvYN0N8nQ7cF/mRHXjiYJUHJc
+ q9b8lzatkj9uWBkAlgeK1YMMmNusdNEcSs2hsT7QDpfbnUqb5DJ+aCfLMMs76/kyTRhz
+ zx72pZ6GWFgRymmr//fqBV+PWUVj+QrguFgB+fGJibWumnMoktEMXD15FaZyTcifYv9k
+ +ecsCzFZII69d8vxrhDnPBv9naTTX2tlKCd27gkzJw4cX3o+3NbPT9vVlRLQHFsL4Zgz
+ UzAuK592oooxWkH5ASsg47HYL+QltiRdAbxwD64VyDc157FnjAkK4rNyl1eH1UnGFVV6
+ Y2EA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUuSMya+bUWHyEK/n853p8seouzc0dLReFlK82tygVwnNOnAZ/g0a2Fe1jnb5oTX4GI4BISND1o@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxosTXh+aGh4pyaUZbAIgzcwugKRV2E1jR0C7kecSw3HSV7NPRz
- EEAMpUhVqr6gDP2uKDU7xgbb7y2FMLQqE3pCHn1Rz9lUhgLl2msCBVz5
-X-Gm-Gg: AZuq6aIxVKn0Iv9Mk5hDlgt3tI1rS3o0Xg7CIDeS2yWzP0AbbEQue7Sr9w9nMGKehV2
- 4798zcb6HJtryEdUN5gwvZIfvnzzjQvQonrCZ4k4dm0fgjaaUpIZrJ4N76c4s4igjC4C4weOMy+
- Wqoqy9M85rUzLPsNmrKv4Szks1fJzOcFhMys4P91OGnrwQTqZWqHXyHlWU997a6aJL3n+fhD3tu
- sO4Xdszv49o0fa6MdSmz80BMHuiUnnU5gX6FIQchXYYwEKTazeWjG0LGwxRP3oTw8jS5GtWRfxV
- 54FoAqn7+jcEy2DYUaMo7YtkIx+7ATCZBeLU5PDx1NdR/kl6RdqyFl+g6jJvaKAz4Oi2lyN897y
- 02zORYuxp3nnXTEkpM21LKuUtpuDj2G8+ynt0Wty9kqhnbMDYxoVlSyvR2LEXiNelHQX369kMKI
- GZDZ6/h0OoBFhj1Q5Cbe8BQS6SHZVlR/9KE6unDU9KxNrqugv4uJ+uPgZXKFPDalZ1e2JgMgs=
-X-Received: by 2002:aa7:d74d:0:b0:658:dc6:6d08 with SMTP id
- 4fb4d7f45d1cf-6580dc6702dmr167598a12.7.1768910827175; 
- Tue, 20 Jan 2026 04:07:07 -0800 (PST)
-Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
- [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-65452bce433sm13190978a12.3.2026.01.20.04.07.05
+ AJvYcCUOsIGx2KfAHKHwv3c1U+KK/7Jj169/yrD671tYQquavHSevsMDPVDwanZ7DKB7iCTJzzl7vEkD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzz7EclcOh2dZdD2Qn1FFvqenXyfsG9bazrHCVXcbH53Y5i7sv7
+ qVslUW2Vq9WyEKvy0fsm9iyJa/Sp3x0LJhh0MNs9FpPG+FqlwWp8zu8CLdozmjzSSGg=
+X-Gm-Gg: AY/fxX67rHF4QryFGaqG5MxB+OYHzloaBK9O4srmJtUnUFkJTsIoaZHI8Vuq2U7mU7p
+ ohbotNuLx/yESrlUve8plIze4a++ChnrTu0KFL5Qlxc3XO2WkdRUgwrKPSjPmDb1lg6+iB2XUW8
+ xKcUrY8AttzE2ItDFCeWGRq7x+aTBNoFIA+Dm1Ly4NysILAK2vsA8GzIrbAOMNlMFG+/MU1xNoa
+ am5y2GGrLkLK7VL+9zrgarYE2xPqBcFGWuGDENY1gs/FUZPnKcRJclGHpSDU8Rwz/L7iz3yeF3Z
+ M7EUs87TFWOmE05+jcnRXCIziX7mdtKRyBVcbf3JZ6yroiFhWWpumIzHX4M2VJfknfYrHdsM0hF
+ s3y6g3dvoevF+gY62NWlYuOfUv6GEvR6se32kBY16hOA/5g5TbQtcsKFeRNX3wPn5hynkZRaM21
+ iZsLXrJz2GSMmNuVvVyoo2eo/EE5RFT9RCevnlrYzsXelrX19BG7meXaae5ri2ic52YSg=
+X-Received: by 2002:a05:620a:999:b0:8c6:a68a:bc04 with SMTP id
+ af79cd13be357-8c6a68ac1c8mr1389837085a.7.1768914931884; 
+ Tue, 20 Jan 2026 05:15:31 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8c6a7292cfbsm1017788585a.50.2026.01.20.05.15.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jan 2026 04:07:06 -0800 (PST)
-Message-ID: <222c4c14ee6c20f18381580b249d160d197ce3e4.camel@gmail.com>
-Subject: Re: [PATCH 01/17] drm/amd/display: Return if DisplayID not found in
- parse_amd_vsdb()
-From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, alexander.deucher@amd.com, 
- harry.wentland@amd.com, sunpeng.li@amd.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
- siqueira@igalia.com, 	dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
- bernhard.berger@gmail.com
-Date: Tue, 20 Jan 2026 13:07:03 +0100
-In-Reply-To: <b535614d27e30831628b4a70b7ed825fd03791d4@intel.com>
-References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
- <20260119011146.62302-2-tomasz.pakula.oficjalny@gmail.com>
- <b535614d27e30831628b4a70b7ed825fd03791d4@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.2 
+ Tue, 20 Jan 2026 05:15:31 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1viBZy-00000005W6K-36CW;
+ Tue, 20 Jan 2026 09:15:30 -0400
+Date: Tue, 20 Jan 2026 09:15:30 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] iommufd: Require DMABUF revoke semantics
+Message-ID: <20260120131530.GN961572@ziepe.ca>
+References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
+ <20260118-dmabuf-revoke-v2-3-a03bb27c0875@nvidia.com>
+ <20260119165951.GI961572@ziepe.ca> <20260119182300.GO13201@unreal>
+ <20260119195444.GL961572@ziepe.ca> <20260120131046.GS13201@unreal>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260120131046.GS13201@unreal>
 X-Mailman-Approved-At: Tue, 20 Jan 2026 14:32:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,37 +116,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2026-01-19 at 15:23 +0200, Jani Nikula wrote:
-> On Mon, 19 Jan 2026, Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.co=
-m> wrote:
-> > [Why]
-> > The function would continue to try to parse EDID even if DisplayID
-> > extension block wasn't found. Sometimes it got lucky and found AMD vsdb
-> > in CEA extension block which made debugging harder.
-> >=20
-> > [How]
-> > Add a return if DisplayID extension block wasn't found
->=20
-> Maybe don't use homegrown EDID parsing, but use drm_edid.c instead?
->=20
-> BR,
-> Jani.
->=20
+On Tue, Jan 20, 2026 at 03:10:46PM +0200, Leon Romanovsky wrote:
+> On Mon, Jan 19, 2026 at 03:54:44PM -0400, Jason Gunthorpe wrote:
+> > On Mon, Jan 19, 2026 at 08:23:00PM +0200, Leon Romanovsky wrote:
+> > > On Mon, Jan 19, 2026 at 12:59:51PM -0400, Jason Gunthorpe wrote:
+> > > > On Sun, Jan 18, 2026 at 02:08:47PM +0200, Leon Romanovsky wrote:
+> > > > > From: Leon Romanovsky <leonro@nvidia.com>
+> > > > > 
+> > > > > IOMMUFD does not support page fault handling, and after a call to
+> > > > > .invalidate_mappings() all mappings become invalid. Ensure that
+> > > > > the IOMMUFD DMABUF importer is bound to a revoke‑aware DMABUF exporter
+> > > > > (for example, VFIO).
+> > > > > 
+> > > > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > > > > ---
+> > > > >  drivers/iommu/iommufd/pages.c | 9 ++++++++-
+> > > > >  1 file changed, 8 insertions(+), 1 deletion(-)
+> > > > > 
+> > > > > diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+> > > > > index 76f900fa1687..a5eb2bc4ef48 100644
+> > > > > --- a/drivers/iommu/iommufd/pages.c
+> > > > > +++ b/drivers/iommu/iommufd/pages.c
+> > > > > @@ -1501,16 +1501,22 @@ static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
+> > > > >  		mutex_unlock(&pages->mutex);
+> > > > >  	}
+> > > > >  
+> > > > > -	rc = sym_vfio_pci_dma_buf_iommufd_map(attach, &pages->dmabuf.phys);
+> > > > > +	rc = dma_buf_pin(attach);
+> > > > >  	if (rc)
+> > > > >  		goto err_detach;
+> > > > >  
+> > > > > +	rc = sym_vfio_pci_dma_buf_iommufd_map(attach, &pages->dmabuf.phys);
+> > > > > +	if (rc)
+> > > > > +		goto err_unpin;
+> > > > > +
+> > > > >  	dma_resv_unlock(dmabuf->resv);
+> > > > >  
+> > > > >  	/* On success iopt_release_pages() will detach and put the dmabuf. */
+> > > > >  	pages->dmabuf.attach = attach;
+> > > > >  	return 0;
+> > > > 
+> > > > Don't we need an explicit unpin after unmapping?
+> > > 
+> > > Yes, but this patch is going to be dropped in v3 because of this
+> > > suggestion.
+> > > https://lore.kernel.org/all/a397ff1e-615f-4873-98a9-940f9c16f85c@amd.com
+> > 
+> > That's not right, that suggestion is about changing VFIO. iommufd must
+> > still act as a pinning importer!
+> 
+> There is no change in iommufd, as it invokes dma_buf_dynamic_attach()
+> with a valid &iopt_dmabuf_attach_revoke_ops. The check determining whether
+> iommufd can perform a revoke is handled there.
 
-I would be all for it but I didn't want to make even more changes. I
-cannot refactor the whole amdgpu on my own :)
+iommufd is a pining importer. I did not add a call to pin because it
+only worked with VFIO that would not support it. Now that this series
+fixes it the pin must be added. Don't drop this patch.
 
-Plus, the generic drm code doesn't yet parse AMD vsdb. I could certainly
-add such functionality, especially since it's already in projects like
-edid-decode but amdgpu seems to be doing a lot of home-grown edid
-parsing and I'm not really sure why, even sending stuff to firmware.
+All the explanations we just gave say this special revoke mode only
+activates if the buffer is pinned by the importer, so iommufd must pin
+it. Otherwise it says it is working in the move mode with faulting
+that it cannot support.
 
-Especially confusing is the part where AMD vsdb is parsed differently if
-it's in CTA extensiton block or DisplayID. They honestly are identical.
-
-At least, here in, setting the freesync caps, getting info from generic
-drm should be ok. I'll think about it and probably intoroduce AMD vsdb
-parsing to drm in a separate series.
-
->=20
-Tomasz
+Jason
