@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3D62D2ED0F
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 11:46:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D45D2ECF7
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 13:10:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 676E110E5C4;
-	Tue, 20 Jan 2026 11:46:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 200CD10E5E8;
+	Tue, 20 Jan 2026 13:10:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WesA/p25";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H66meatB";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E7E010E5C4;
- Tue, 20 Jan 2026 11:46:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768909566; x=1800445566;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=VfkdrEkuxGBt0yQebKVLiNCY5ulSNr8bK3vrF4D2C7I=;
- b=WesA/p256JifGLToOxSbvOJwBGuOJuvNHVJOosX2Zft9mDFhpAFT3gq2
- dOxQ6K63CpTdORsC8vPOV41VanCZLn6IWA6woJG2Ku5S3IIqjbf4/E1Zw
- i0QXB4RJ/0GrmNServKEoGaVQtSLBs5xpY174DV5zN/Aq4nfrUAy/vYNP
- SME6wL0m+iROA2pSVDMqjX50+yUSTL++7YwAI3gj/tJj65mQvHmPxl6Qe
- Wxpoqjy+CEVi3xDHNMT6NT+aNeInGnmU3teeqS7TLQPKx3gwT17HP6ZDu
- /fUpPt4RMlzLsgatHe+4C6Nwy6kJHjCDWI58DDpYBQtcQbQ7Lw3ngSita g==;
-X-CSE-ConnectionGUID: aX3aG4EpR6i/tjHFc7u9fA==
-X-CSE-MsgGUID: 3ZPgtJ6xTfGsDWFJAOWQYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11676"; a="69126911"
-X-IronPort-AV: E=Sophos;i="6.21,240,1763452800"; d="scan'208";a="69126911"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2026 03:46:06 -0800
-X-CSE-ConnectionGUID: TAxA7YP6RlS42cqtIE4aaA==
-X-CSE-MsgGUID: Cl2Gk52kQYSrQXOFlgBWww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,240,1763452800"; d="scan'208";a="205901516"
-Received: from fdefranc-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.246.69])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2026 03:46:00 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Daniel Stone <daniel@fooishbar.org>, Michel =?utf-8?Q?D=C3=A4nzer?=
- <michel.daenzer@mailbox.org>
-Cc: Tomasz =?utf-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
- alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- siqueira@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- bernhard.berger@gmail.com, ville.syrjala@linux.intel.com
-Subject: Re: [PATCH 15/17] drm/amd/display: Trigger ALLM if it's available
-In-Reply-To: <CAPj87rPyt2+cWjM7KmpRzY4sBgaUzZBOS3FJoxF+PjkijapTag@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
- <20260119011146.62302-16-tomasz.pakula.oficjalny@gmail.com>
- <82645a06-2d15-48fe-a250-56d736d636da@mailbox.org>
- <CAPj87rPyt2+cWjM7KmpRzY4sBgaUzZBOS3FJoxF+PjkijapTag@mail.gmail.com>
-Date: Tue, 20 Jan 2026 13:45:57 +0200
-Message-ID: <34863839c6d54e911597192bba6a54c3b9c97b75@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD0C010E5E8;
+ Tue, 20 Jan 2026 13:10:52 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B307B60018;
+ Tue, 20 Jan 2026 13:10:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75BAFC16AAE;
+ Tue, 20 Jan 2026 13:10:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1768914651;
+ bh=FxDNhPLLAfmPmJMIRFTFPDZNe22KPzHCzmgh6qnQqZo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=H66meatBSh1LI3Kc+LtMKEFS7m/ZmLrZH8aGGFmAavlTQIAP9kvlFc180LzVGJOgr
+ VoRWA4PU3SRHk8ISpZJdCvufUfOsvhppfpHpEfM58TVVzk9DO1cdoyeGURjHg7KtNd
+ KABkX1mR2+dvVQiNrmFGlqzzMsXnRBAxpFHqa85G/7inSS7ETTqyimUMX3lonMWl6T
+ bm5tEJJ4PHjUrvp4SfDAhg4FbxylObYHHNiJu7ye5doDxIjXpEUakjTHcek5KgasRt
+ eArvXoDxK+mhIA6mo36uedrLvFigSp5RiqJqQg/qPinytKXgMEvV0BndlvT75uBnWe
+ oNtAMHkWz4fAA==
+Date: Tue, 20 Jan 2026 15:10:46 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] iommufd: Require DMABUF revoke semantics
+Message-ID: <20260120131046.GS13201@unreal>
+References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
+ <20260118-dmabuf-revoke-v2-3-a03bb27c0875@nvidia.com>
+ <20260119165951.GI961572@ziepe.ca> <20260119182300.GO13201@unreal>
+ <20260119195444.GL961572@ziepe.ca>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260119195444.GL961572@ziepe.ca>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,37 +79,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 20 Jan 2026, Daniel Stone <daniel@fooishbar.org> wrote:
-> Hi,
->
-> On Tue, 20 Jan 2026 at 10:33, Michel D=C3=A4nzer <michel.daenzer@mailbox.=
-org> wrote:
->> On 1/19/26 02:11, Tomasz Paku=C5=82a wrote:
->> > [Why]
->> > ALLM automatically puts TVs into low latency modes (gaming modes) which
->> > we basically always want for PC use, be it gaming, or using precise
->> > inputs like mice and keyboards.
->>
->> How about e.g. video playback though?
->>
->> It might make sense to let the Wayland compositor control this, e.g. via=
- the Wayland content type hint protocol.
->
-> Yes, I think this should be a connector property. We'll happily
-> implement support for Weston as the uAPI vehicle.
+On Mon, Jan 19, 2026 at 03:54:44PM -0400, Jason Gunthorpe wrote:
+> On Mon, Jan 19, 2026 at 08:23:00PM +0200, Leon Romanovsky wrote:
+> > On Mon, Jan 19, 2026 at 12:59:51PM -0400, Jason Gunthorpe wrote:
+> > > On Sun, Jan 18, 2026 at 02:08:47PM +0200, Leon Romanovsky wrote:
+> > > > From: Leon Romanovsky <leonro@nvidia.com>
+> > > > 
+> > > > IOMMUFD does not support page fault handling, and after a call to
+> > > > .invalidate_mappings() all mappings become invalid. Ensure that
+> > > > the IOMMUFD DMABUF importer is bound to a revoke‑aware DMABUF exporter
+> > > > (for example, VFIO).
+> > > > 
+> > > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > > > ---
+> > > >  drivers/iommu/iommufd/pages.c | 9 ++++++++-
+> > > >  1 file changed, 8 insertions(+), 1 deletion(-)
+> > > > 
+> > > > diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
+> > > > index 76f900fa1687..a5eb2bc4ef48 100644
+> > > > --- a/drivers/iommu/iommufd/pages.c
+> > > > +++ b/drivers/iommu/iommufd/pages.c
+> > > > @@ -1501,16 +1501,22 @@ static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
+> > > >  		mutex_unlock(&pages->mutex);
+> > > >  	}
+> > > >  
+> > > > -	rc = sym_vfio_pci_dma_buf_iommufd_map(attach, &pages->dmabuf.phys);
+> > > > +	rc = dma_buf_pin(attach);
+> > > >  	if (rc)
+> > > >  		goto err_detach;
+> > > >  
+> > > > +	rc = sym_vfio_pci_dma_buf_iommufd_map(attach, &pages->dmabuf.phys);
+> > > > +	if (rc)
+> > > > +		goto err_unpin;
+> > > > +
+> > > >  	dma_resv_unlock(dmabuf->resv);
+> > > >  
+> > > >  	/* On success iopt_release_pages() will detach and put the dmabuf. */
+> > > >  	pages->dmabuf.attach = attach;
+> > > >  	return 0;
+> > > 
+> > > Don't we need an explicit unpin after unmapping?
+> > 
+> > Yes, but this patch is going to be dropped in v3 because of this
+> > suggestion.
+> > https://lore.kernel.org/all/a397ff1e-615f-4873-98a9-940f9c16f85c@amd.com
+> 
+> That's not right, that suggestion is about changing VFIO. iommufd must
+> still act as a pinning importer!
 
-Content type might be a useful policy hint also for content adaptive
-brightness control and the like.
+There is no change in iommufd, as it invokes dma_buf_dynamic_attach()
+with a valid &iopt_dmabuf_attach_revoke_ops. The check determining whether
+iommufd can perform a revoke is handled there.
 
-Ville and I have also tossed around ideas for passing the "power mode"
-to the DRM drivers (e.g. Performance, Balanced, Power Saver). There are
-various cases where the drivers need to make policy decisions that would
-be better decided by userspace. However, it gets complicated and
-unweildy if all of them are individual knobs. A power mode input might
-be useful in making the latency decisions too.
+Thanks
 
-BR,
-Jani.
-
---=20
-Jani Nikula, Intel
+> 
+> Jason
+> 
