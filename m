@@ -4,65 +4,168 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A48EDC4450B
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 08:24:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A632DC4450E
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 08:24:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E810110E6FC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F14C310E726;
 	Wed, 21 Jan 2026 08:24:31 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF95B10E202;
- Wed, 21 Jan 2026 03:50:08 +0000 (UTC)
-Received: from [127.0.0.2] (unknown [210.73.43.101])
- by APP-01 (Coremail) with SMTP id qwCowADXfWnhTHBp_WqTBQ--.5409S3;
- Wed, 21 Jan 2026 11:49:55 +0800 (CST)
-From: Vivian Wang <wangruikang@iscas.ac.cn>
-Date: Wed, 21 Jan 2026 11:49:37 +0800
-Subject: [PATCH v2 1/4] PCI/MSI: Conservatively generalize no_64bit_msi
- into msi_addr_mask
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="kjG74h7+";
+	dkim-atps=neutral
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011051.outbound.protection.outlook.com [52.101.52.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D66E10E67F;
+ Tue, 20 Jan 2026 20:44:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CpZhTczc54LBgZcUUShAXnIt24Jk/6aMNn6ejrbYxICw4WKl7eObMaaz+ghUCDpXBxh0YXdovXQjIfP2dLw9QxreqJwKCTW2cBJZF/5ztOFcI6BPHZBgtkIxhLEcRjwgaSWHRHon8xilAEF/NbjvGA+Qcyf4HaKhknkxwJX9IfmSl9ECVV4jsVkclMejDDJG7WuKMAD2n4xmd6DLTbWJ6ie93bBedDROsiJ0gBEaasHd+Ci/vqjkpXDRHppZ/VPrwDZgdtQAUB7/9qT6YFIC3RG3dWPE+m499fvJ5kwuISBm98Lo2hA+OqetHk830Ji9cjTyPZy0xrAL4fkloNqYXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fNts2CmvatAyriteG+SRpJclNlHKGoF0tPzgCYqNO2o=;
+ b=r4zLxg+hvIcaYq0VQ1Ra5pFbBbbVx3Eru8gG1DuCWRXAPdhdUM7APDVV6apIkGDPUxR2EAEf1xUkLSWItiHzPmfTecVukD9y+4i9gsFcPReThYjzFfoSgSfHl0nntIUB/8Lz+ZxyOVFXDS78C0MTZARjw9AGaM21+iiU65ErIEiX3R0moe5MsDEqWyjM135LpTHEsP2jeYc3sLY82sARTVr7MQDObzHtYRZWD6FFHg+Wjn//cLoEpBiAfDrNit9qHlKrpXQFqgl1rXXnNeEUQVO/l9Vc5zzrFyhu2aft5YsIBVtFg2vYICwqUa5UnKxVEdmCMTGOV24uiv8/hJqWdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fNts2CmvatAyriteG+SRpJclNlHKGoF0tPzgCYqNO2o=;
+ b=kjG74h7+w0R+eCsy+zRmxTKKOpXizDeRsxnafrnfJZ2IehsZIm8DbDTWsKdXhfGOOBfvobVC/fB+cOHuKA2czOZUOnQSb/tKbDPrV48kPr+/SyIAjhlWba7qwVNeAB2XS5boCX/AXidYNmfm5YjMwUstRwZp/VjOAvd9CPQKef814b4SvIeJoipsr7/hkKIefS00/11q7lnLP6wMHdSPZT8MMk1TfUmxW0yq2FU0RwzVABLUvqRaFfwJF0+LO/a92ANtaH7G37TrEU8+P/RQy1nFBj2E/CiBv2XHXRn2KlpXqcpX2t55jQXw/tnySTJiHw98/Hl1gccVWCrS+2gntQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ CY1PR12MB9651.namprd12.prod.outlook.com (2603:10b6:930:104::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9520.13; Tue, 20 Jan 2026 20:44:28 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9542.008; Tue, 20 Jan 2026
+ 20:44:28 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>,
+ Daniel Almeida <daniel.almeida@collabora.com>, joel@joelfernandes.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [PATCH RFC v6 22/26] nova-core: mm: Add PRAMIN aperture self-tests
+Date: Tue, 20 Jan 2026 15:42:59 -0500
+Message-Id: <20260120204303.3229303-23-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260120204303.3229303-1-joelagnelf@nvidia.com>
+References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MN2PR20CA0057.namprd20.prod.outlook.com
+ (2603:10b6:208:235::26) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-pci-msi-addr-mask-v2-1-f42593168989@iscas.ac.cn>
-References: <20260121-pci-msi-addr-mask-v2-0-f42593168989@iscas.ac.cn>
-In-Reply-To: <20260121-pci-msi-addr-mask-v2-0-f42593168989@iscas.ac.cn>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- "Creeley, Brett" <bcreeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>
-Cc: Han Gao <gaohan@iscas.ac.cn>, Vivian Wang <wangruikang@iscas.ac.cn>, 
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- netdev@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-riscv@lists.infradead.org, 
- sophgo@lists.linux.dev
-X-Mailer: b4 0.14.3
-X-CM-TRANSID: qwCowADXfWnhTHBp_WqTBQ--.5409S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxtF17JryDZw4UKrykZr1UJrb_yoW3Xw18pa
- yDCFWfKrWrK3yUJayqy3WUuF13Xan093yfWrWUK3sa93ZIvFyUXFn7try7Jwn7XrsrCF1a
- qFyUKw4UWFnxX3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUmY14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
- x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
- Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
- 8EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
- 0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
- IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
- Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
- xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
- JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
- kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
- 6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42
- IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIev
- Ja73UjIFyTuYvjTRMfOzDUUUU
-X-Originating-IP: [210.73.43.101]
-X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CY1PR12MB9651:EE_
+X-MS-Office365-Filtering-Correlation-Id: 430b97a4-a43c-4ba1-dec1-08de5864b46f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5Lpir1Q3pFdQMvUfJeVXUUFtfMjwoNNREsxEPtBA+eDzTQZtr/YrpRdg+dbz?=
+ =?us-ascii?Q?WAEPAOGfi76+q1HUGesxLy27bLoZTLqDiylPjIl4Eku4vfHnshdlAkJ3GW2P?=
+ =?us-ascii?Q?VFxSuJHkE+jTp6es/JgNMhNOp5zBOav7roZXYzRGxXfhGtoHukdn/ECEXtyh?=
+ =?us-ascii?Q?OxNegu5d8TQgALpUPLcGSG87cUcwSOm5zIgZzfr6ZhgaxpUlCwLcIY3a0W+V?=
+ =?us-ascii?Q?6K+gUjopTDPu29C3PCbE/9rLME0XKWg9Bz7Ik7FYPWZiOcEJ8oAucxwKylpN?=
+ =?us-ascii?Q?+qhW5IZtlu9i+Dd7zVAUJ+Yrtr7qW5JfrgoukGWbV++ZypwoncK3ATsS9zGK?=
+ =?us-ascii?Q?1eI1dt8C6pnC0Z/U4kwcB5dXJIqpxI0oz5icJAWzIiHLSI+Iro6m52HsCnN/?=
+ =?us-ascii?Q?3hpcpXn0j0pi0+ePf+PcqHZvQfoL5rD4owXWhC6bft+tCEccRyM+9zjYnYZv?=
+ =?us-ascii?Q?1YROxkH7REhjR+CPsk0iKdinzRAylQ7cIavKG96xX6/HJ23/Dv2LTfC8Ri9d?=
+ =?us-ascii?Q?du+bKZMbUsn9JgpqWQW64i78MOLBw0Qn6yGDMVNnPXN/s+2BNXkU0KeQtZLT?=
+ =?us-ascii?Q?lm2HA8SMNum+5+BEskM3FKkOnLRjEbympNDIN8grEHPzPUBNaxbz3nh0xrSA?=
+ =?us-ascii?Q?9Yh6ZG35w6zXIVEljTQyoACg01PVhAu+xwsYXZ7CkHM0Uzbh7jTn5TRYXAIL?=
+ =?us-ascii?Q?hvBHGRt8TPSGy+urbf7ngo1GY31wwAn/ca8RHzJg6qXwe9Y9CFSX6+kIPq8z?=
+ =?us-ascii?Q?Es1VQZRqLEtCy+mRbySldKd3B8WIwahjr71wpYUnKfCJU8W75F2s6WG6BRGf?=
+ =?us-ascii?Q?F75wGhsj7Rgrpne+KnkBuYk50CiZVjs6Yn0XQXtBL+cSGB3odpjgBiiS07iQ?=
+ =?us-ascii?Q?nYMjARCt9SdJpj/BTO/g9I0V4JgFLmf0NQH5HkPNeW24+j0kky9jF+pLRhd2?=
+ =?us-ascii?Q?oaIKrt25S6HkSEYGw/W2kzhQg9LlLnTNLgZnJp0NfSe5Q0B/XgnQw2JUNO/I?=
+ =?us-ascii?Q?cuLbGyxecfOH5heiDyFs8Dgi16a7je5Q1ocgH0yoYd6FdonZhINZOrG1hXQY?=
+ =?us-ascii?Q?SRQHQ4QLkFZqK3UaVJaLXN7TgDF6YY3ILDG2MUdHK+N57OniPiJrFsMA2us4?=
+ =?us-ascii?Q?ezE8hfzYoGRIGpOaTFwnFNKKYc3to6CmYkHawcmL0h0cQ8nMlUlUoqqHYGFP?=
+ =?us-ascii?Q?Cv/MzGCmApOodnUPIh+9F8PiljUCbQSfOacigpSebjjLtDwavYNdaITdWd/I?=
+ =?us-ascii?Q?2mMrbAEiYb/rLRnkqNCbn8h2eWoNRJm3CXLydciN3API7a5oFXRsdn0Anvpo?=
+ =?us-ascii?Q?rL1l3gBsyIeIs7HrmlBuAYMrgEQw7D3H9JPOvkJJJR5T5GmgqhEI6oVMgKJO?=
+ =?us-ascii?Q?cDE4rTPP2NHwTmwpUtNGO+Qip6MMCa00yv4YF+t5/c4xaR/t6lN7Vetsfkl4?=
+ =?us-ascii?Q?yErV27zgfFj21nibxqfBugtOWJ4DDcVSXMx5FTtUpGFAeI1NV5iQWTIRu3+M?=
+ =?us-ascii?Q?16eXVzcja4hpBLy4zEi0wDZn3I520igXKHOlFxR10KGkdOGVJiFmz6kB6Tj0?=
+ =?us-ascii?Q?3spkMrQWheGDoQGmFe8=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?uSKmWR2z0SPKSQMWbgSQ1N8L9Df0Loju/CuxWzvfrPaT3GRi7DPbAc4DgrU2?=
+ =?us-ascii?Q?noOAaQphwpc4YhDzNqDF1FDjzkAmVhAKGz2lq1pZ1tM4mOzxzdDZaqlFC/Me?=
+ =?us-ascii?Q?jd7QmIOQy1q0qb9/yX5b0gn9iEkfUzwq2e9i5GvI53EYti747t2NAYTtwWCM?=
+ =?us-ascii?Q?+gc0qvoV9chnShVOIwukwUMrUqSiAt5S/dXWMU/tDs4PrIamkh+PeDRCbdri?=
+ =?us-ascii?Q?76qh/AIOX1ZXGwJZMb9K9VF0B3mhmrK7KwhXk5XtoWVH0fcPZy0VWKQlOF+K?=
+ =?us-ascii?Q?ReoCtGbdyx+KhtPksHjXTuhPeooE82/+BRo3qE71OEm3YHfv4aPvD4QCGZfd?=
+ =?us-ascii?Q?mo7I98SV/f4THVhuMcG2TJ2WviTUOLHBWsJnAjkiK1IxPl6KXsrD4qT64iTU?=
+ =?us-ascii?Q?H8YLi+zwGZ43TYx7nJr7DP+8KoJ0gvpN9sSKuA9e5aTR1OjEScVS7odcPOOy?=
+ =?us-ascii?Q?It4S4iT72NRLzW4PeVHKEnr7RBm2b7WqFDgur2ivaTG9gtu7IY2qy0rf9d1Y?=
+ =?us-ascii?Q?VwhmPI7cCa2IxMoVmQCwq5CbuMqjvtkVkxVwqAS/PQEwdY6OZ+Dc85A6D2gh?=
+ =?us-ascii?Q?bIAHl9m8Mz6gbEuL81Biz7p7G1wsa3pFwc/WvioPEj9lfu0sdlCdYJzTKdyh?=
+ =?us-ascii?Q?MFZhOq9+xfzxYXO+6DdKj6MnaTUiKR/gVb2MFBfYLLpoqj/VrJJDjUgh2rpF?=
+ =?us-ascii?Q?d7R0fG3Yxa/vQ0KRmj+gtq5D3D1bDyA+LFPHN3/bPrMbaGDUaIizBDbkfzwX?=
+ =?us-ascii?Q?CcJ3vL5Bu2VPD0GZdex2h3uEBGAmQ8fr+w/A1SH1egUvBQ2AAY9H9wOHV3A6?=
+ =?us-ascii?Q?LYTVzFS9uTcbZKRYXMpTDZqW78btb04/l0/mHPj2bNnz2sln+HXkdQHs+IEa?=
+ =?us-ascii?Q?EW9mq3I5pn4GHsZbOPqe90i8VQeebDQEVvmOBVY0dtCkZYcNuxO+A3meoKbf?=
+ =?us-ascii?Q?0vRQH0QDrptyhoebI9fGMTyqwnAIi2gWsa3p1vV+2B0uVFzwqJSnkl2QOS2B?=
+ =?us-ascii?Q?+5TQjTaUjn5PA8FFOCnD6+QIlcmn3iazV9sSKUFuKCBZQMdFcS4BcO9rd+aa?=
+ =?us-ascii?Q?bNV6NEqsPcBSebgf2+d86X5hHoStHBLsVeL1epu81wI3hh6L0mQBEg55MNHB?=
+ =?us-ascii?Q?p9VCY+P/K9XaLU4L3mq9QPlsW7RXhxfVsGF+lXpgg11vaRjwvWizQf5ZPNi8?=
+ =?us-ascii?Q?KGBfsUKnnEXysY8lM7UBSnNA5m67554mWeC6KW1VfVZRTdVSOAtRcv3kjLff?=
+ =?us-ascii?Q?uHCFvWbDWXFdbbzet6tTULZC2aJ6wJK1UpLbejhUiQcAGiFg8rULffAP0W0b?=
+ =?us-ascii?Q?ziqsm+BZht3PWWGmaptcUvD7V5LR8m/RDcK7tYzbNAHz3vmDX0ZcaP/BJeo4?=
+ =?us-ascii?Q?uxtCwc5ZVHFgY9p+SGXk/nkr5e1HGDi11PNS84w5IkmoC+rax61Bj90U9/3d?=
+ =?us-ascii?Q?LBIMFpfSvNYHZym/6S7DvT8PDKAvGqqRVMRbi9Pab1YZNZ5GtbSmGPcDR1Fh?=
+ =?us-ascii?Q?Oqc3fpHwCODnSmYRjuSb7xTJ0lCSzPsW3W9QMKpWx4swyp1cb21gs9zMwV9F?=
+ =?us-ascii?Q?0nGZ6hnNQ7mdqiU1RlHpp59VMJUSrep32IeEi5oQonYD5J0khomvkl8oKrDr?=
+ =?us-ascii?Q?HNlqNnVWRXQTd6w/xCg4ihk5UrtMFeebxFV1SJB0gPYnzpDBRHTNeHY505Fq?=
+ =?us-ascii?Q?SRGpId6LBcV0bmUw9oEhj4XhZvS2hMWEfyTPqqgn4Vxtdx9wfMYY2g8MYuYV?=
+ =?us-ascii?Q?bwRWhLtEJA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 430b97a4-a43c-4ba1-dec1-08de5864b46f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2026 20:44:28.4558 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: z8S1/twqvH9hApD3w/5edTgb8i0rE/QA9+G/d1mgN9gRzOdy+S4s5RfgFhOf/TDuMP+h+fedi8hHLqWVxScT6Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9651
 X-Mailman-Approved-At: Wed, 21 Jan 2026 08:24:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,197 +181,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Some PCI devices have PCI_MSI_FLAGS_64BIT in the MSI capability, but
-implement less than 64 address bits. This breaks on platforms where such
-a device is assigned an MSI address higher than what's reachable.
+Add self-tests for the PRAMIN aperture mechanism to verify correct
+operation during GPU probe. The tests validate various alignment
+requirements and corner cases.
 
-Currently, we deal with this with a single no_64bit_msi flag, and
-(notably on powerpc) forces 32-bit MSI address for these devices.
-However, on some platforms the MSI doorbell address is above 32-bit but
-within device ability.
+The tests are default disabled and behind CONFIG_NOVA_PRAMIN_SELFTESTS
+When enabled, tests run after GSP boot during probe.
 
-As a first step to enabling MSI on those combinations of devices and
-platforms, conservatively generalize the single-bit flag no_64bit_msi
-into msi_addr_mask. (The name msi_addr_mask is chosen to avoid confusion
-with msi_mask.)
-
-The translation is essentially:
-
-- no_64bit_msi = 1    ->    msi_addr_mask = DMA_BIT_MASK(32)
-- no_64bit_msi = 0    ->    msi_addr_mask = DMA_BIT_MASK(64)
-- if (no_64bit_msi)   ->    if (msi_addr_mask < DMA_BIT_MASK(64))
-
-Since no values other than DMA_BIT_MASK(32) and DMA_BIT_MASK(64) is
-used, no functional change is intended. Future patches that make use of
-intermediate values of msi_addr_mask will follow, allowing devices that
-cannot use full 64-bit addresses for MSI to work on platforms with MSI
-doorbell above 32-bit address space.
-
-Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
-
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
+ drivers/gpu/nova-core/Kconfig      |  11 ++
+ drivers/gpu/nova-core/gpu.rs       |  14 +++
+ drivers/gpu/nova-core/mm/pramin.rs | 160 +++++++++++++++++++++++++++++
+ 3 files changed, 185 insertions(+)
 
-v2: Minor rewording. No code changes.
-
-checkpatch complains about the comment include/linux/pci.h, which I have
-formatted similarly with other comments in the vicinity.
----
- arch/powerpc/platforms/powernv/pci-ioda.c           | 2 +-
- arch/powerpc/platforms/pseries/msi.c                | 4 ++--
- drivers/gpu/drm/radeon/radeon_irq_kms.c             | 2 +-
- drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c | 2 +-
- drivers/pci/msi/msi.c                               | 2 +-
- drivers/pci/msi/pcidev_msi.c                        | 2 +-
- drivers/pci/probe.c                                 | 7 +++++++
- include/linux/pci.h                                 | 8 +++++++-
- sound/hda/controllers/intel.c                       | 2 +-
- 9 files changed, 22 insertions(+), 9 deletions(-)
-
-diff --git a/arch/powerpc/platforms/powernv/pci-ioda.c b/arch/powerpc/platforms/powernv/pci-ioda.c
-index b0c1d9d16fb5..1c78fdfb7b03 100644
---- a/arch/powerpc/platforms/powernv/pci-ioda.c
-+++ b/arch/powerpc/platforms/powernv/pci-ioda.c
-@@ -1666,7 +1666,7 @@ static int __pnv_pci_ioda_msi_setup(struct pnv_phb *phb, struct pci_dev *dev,
- 		return -ENXIO;
+diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconfig
+index 257bca5aa0ef..cbdbc1fb02b2 100644
+--- a/drivers/gpu/nova-core/Kconfig
++++ b/drivers/gpu/nova-core/Kconfig
+@@ -25,3 +25,14 @@ config NOVA_MM_SELFTESTS
+ 	  BAR1 virtual memory mapping functionality.
  
- 	/* Force 32-bit MSI on some broken devices */
--	if (dev->no_64bit_msi)
-+	if (dev->msi_addr_mask < DMA_BIT_MASK(64))
- 		is_64 = 0;
- 
- 	/* Assign XIVE to PE */
-diff --git a/arch/powerpc/platforms/pseries/msi.c b/arch/powerpc/platforms/pseries/msi.c
-index a82aaa786e9e..7473c7ca1db0 100644
---- a/arch/powerpc/platforms/pseries/msi.c
-+++ b/arch/powerpc/platforms/pseries/msi.c
-@@ -383,7 +383,7 @@ static int rtas_prepare_msi_irqs(struct pci_dev *pdev, int nvec_in, int type,
- 	 */
- again:
- 	if (type == PCI_CAP_ID_MSI) {
--		if (pdev->no_64bit_msi) {
-+		if (pdev->msi_addr_mask < DMA_BIT_MASK(64)) {
- 			rc = rtas_change_msi(pdn, RTAS_CHANGE_32MSI_FN, nvec);
- 			if (rc < 0) {
- 				/*
-@@ -409,7 +409,7 @@ static int rtas_prepare_msi_irqs(struct pci_dev *pdev, int nvec_in, int type,
- 		if (use_32bit_msi_hack && rc > 0)
- 			rtas_hack_32bit_msi_gen2(pdev);
- 	} else {
--		if (pdev->no_64bit_msi)
-+		if (pdev->msi_addr_mask < DMA_BIT_MASK(64))
- 			rc = rtas_change_msi(pdn, RTAS_CHANGE_32MSIX_FN, nvec);
- 		else
- 			rc = rtas_change_msi(pdn, RTAS_CHANGE_MSIX_FN, nvec);
-diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-index 9961251b44ba..d550554a6f3f 100644
---- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-@@ -252,7 +252,7 @@ static bool radeon_msi_ok(struct radeon_device *rdev)
- 	 */
- 	if (rdev->family < CHIP_BONAIRE) {
- 		dev_info(rdev->dev, "radeon: MSI limited to 32-bit\n");
--		rdev->pdev->no_64bit_msi = 1;
-+		rdev->pdev->msi_addr_mask = DMA_BIT_MASK(32);
- 	}
- 
- 	/* force MSI on */
-diff --git a/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c b/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
-index 70d86c5f52fb..0671deae9a28 100644
---- a/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
-+++ b/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
-@@ -331,7 +331,7 @@ static int ionic_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- #ifdef CONFIG_PPC64
- 	/* Ensure MSI/MSI-X interrupts lie within addressable physical memory */
--	pdev->no_64bit_msi = 1;
-+	pdev->msi_addr_mask = DMA_BIT_MASK(32);
- #endif
- 
- 	err = ionic_setup_one(ionic);
-diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
-index 34d664139f48..48f5f03d1479 100644
---- a/drivers/pci/msi/msi.c
-+++ b/drivers/pci/msi/msi.c
-@@ -322,7 +322,7 @@ static int msi_verify_entries(struct pci_dev *dev)
- {
- 	struct msi_desc *entry;
- 
--	if (!dev->no_64bit_msi)
-+	if (dev->msi_addr_mask == DMA_BIT_MASK(64))
- 		return 0;
- 
- 	msi_for_each_desc(entry, &dev->dev, MSI_DESC_ALL) {
-diff --git a/drivers/pci/msi/pcidev_msi.c b/drivers/pci/msi/pcidev_msi.c
-index 5520aff53b56..0b0346813092 100644
---- a/drivers/pci/msi/pcidev_msi.c
-+++ b/drivers/pci/msi/pcidev_msi.c
-@@ -24,7 +24,7 @@ void pci_msi_init(struct pci_dev *dev)
- 	}
- 
- 	if (!(ctrl & PCI_MSI_FLAGS_64BIT))
--		dev->no_64bit_msi = 1;
-+		dev->msi_addr_mask = DMA_BIT_MASK(32);
- }
- 
- void pci_msix_init(struct pci_dev *dev)
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index 41183aed8f5d..a2bff57176a3 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -2047,6 +2047,13 @@ int pci_setup_device(struct pci_dev *dev)
- 	 */
- 	dev->dma_mask = 0xffffffff;
- 
-+	/*
-+	 * Assume 64-bit addresses for MSI initially. Will be changed to 32-bit
-+	 * if MSI (rather than MSI-X) capability does not have
-+	 * PCI_MSI_FLAGS_64BIT. Can also be overridden by driver.
-+	 */
-+	dev->msi_addr_mask = DMA_BIT_MASK(64);
+ 	  This is a testing option and is default-disabled.
 +
- 	dev_set_name(&dev->dev, "%04x:%02x:%02x.%d", pci_domain_nr(dev->bus),
- 		     dev->bus->number, PCI_SLOT(dev->devfn),
- 		     PCI_FUNC(dev->devfn));
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 864775651c6f..0fe32fef0331 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -377,6 +377,13 @@ struct pci_dev {
- 					   0xffffffff.  You only need to change
- 					   this if your device has broken DMA
- 					   or supports 64-bit transfers.  */
-+	u64		msi_addr_mask;	/* Mask of the bits of bus address for
-+					   MSI that this device implements.
-+					   Normally set based on device
-+					   capabilities. You only need to
-+					   change this if your device claims
-+					   to support 64-bit MSI but implements
-+					   fewer than 64 address bits. */
++config NOVA_PRAMIN_SELFTESTS
++	bool "PRAMIN self-tests"
++	depends on NOVA_CORE
++	default n
++	help
++	  Enable self-tests for the PRAMIN aperture mechanism. When enabled,
++	  basic tests are run during GPU probe after GSP boot to
++	  verify PRAMIN functionality.
++
++	  This is a testing option and is default-disabled.
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 938828508f2c..a1bcf6679e2a 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -324,10 +324,24 @@ pub(crate) fn run_selftests(
+         mut self: Pin<&mut Self>,
+         pdev: &pci::Device<device::Bound>,
+     ) -> Result {
++        self.as_mut().run_pramin_selftest(pdev)?;
+         self.as_mut().run_mm_selftest(pdev)?;
+         Ok(())
+     }
  
- 	struct device_dma_parameters dma_parms;
++    fn run_pramin_selftest(self: Pin<&mut Self>, pdev: &pci::Device<device::Bound>) -> Result {
++        #[cfg(CONFIG_NOVA_PRAMIN_SELFTESTS)]
++        {
++            use crate::mm::pagetable::MmuVersion;
++
++            let mmu_version = MmuVersion::from(self.spec.chipset.arch());
++            crate::mm::pramin::run_self_test(pdev.as_ref(), self.bar.clone(), mmu_version)?;
++        }
++
++        let _ = pdev; // Suppress unused warning when selftests disabled.
++        Ok(())
++    }
++
+     fn run_mm_selftest(mut self: Pin<&mut Self>, pdev: &pci::Device<device::Bound>) -> Result {
+         #[cfg(CONFIG_NOVA_MM_SELFTESTS)]
+         {
+diff --git a/drivers/gpu/nova-core/mm/pramin.rs b/drivers/gpu/nova-core/mm/pramin.rs
+index 6a7ea2dc7d77..06384fb24841 100644
+--- a/drivers/gpu/nova-core/mm/pramin.rs
++++ b/drivers/gpu/nova-core/mm/pramin.rs
+@@ -242,3 +242,163 @@ unsafe impl Send for Window {}
  
-@@ -441,7 +448,6 @@ struct pci_dev {
- 
- 	unsigned int	is_busmaster:1;		/* Is busmaster */
- 	unsigned int	no_msi:1;		/* May not use MSI */
--	unsigned int	no_64bit_msi:1;		/* May only use 32-bit MSIs */
- 	unsigned int	block_cfg_access:1;	/* Config space access blocked */
- 	unsigned int	broken_parity_status:1;	/* Generates false positive parity */
- 	unsigned int	irq_reroute_variant:2;	/* Needs IRQ rerouting variant */
-diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
-index 1e8e3d61291a..c9542ebdf7e2 100644
---- a/sound/hda/controllers/intel.c
-+++ b/sound/hda/controllers/intel.c
-@@ -1905,7 +1905,7 @@ static int azx_first_init(struct azx *chip)
- 
- 	if (chip->msi && chip->driver_caps & AZX_DCAPS_NO_MSI64) {
- 		dev_dbg(card->dev, "Disabling 64bit MSI\n");
--		pci->no_64bit_msi = true;
-+		pci->msi_addr_mask = DMA_BIT_MASK(32);
- 	}
- 
- 	pci_set_master(pci);
-
+ // SAFETY: `Window` requires `&mut self` for all accessors.
+ unsafe impl Sync for Window {}
++
++/// Run PRAMIN self-tests during boot if self-tests are enabled.
++#[cfg(CONFIG_NOVA_PRAMIN_SELFTESTS)]
++pub(crate) fn run_self_test(
++    dev: &kernel::device::Device,
++    bar: Arc<Devres<Bar0>>,
++    mmu_version: super::pagetable::MmuVersion,
++) -> Result {
++    use super::pagetable::MmuVersion;
++
++    // PRAMIN support is only for MMU v2 for now (Turing/Ampere/Ada).
++    if mmu_version != MmuVersion::V2 {
++        dev_info!(
++            dev,
++            "PRAMIN: Skipping self-tests for MMU {:?} (only V2 supported)\n",
++            mmu_version
++        );
++        return Ok(());
++    }
++
++    dev_info!(dev, "PRAMIN: Starting self-test...\n");
++
++    let mut win = Window::new(bar)?;
++
++    // Use offset 0x1000 as test area.
++    let base: usize = 0x1000;
++
++    // Test 1: Read/write at byte-aligned locations.
++    for i in 0u8..4 {
++        let offset = base + 1 + usize::from(i); // Offsets 0x1001, 0x1002, 0x1003, 0x1004
++        let val = 0xA0 + i;
++        win.try_write8(offset, val)?;
++        let read_val = win.try_read8(offset)?;
++        if read_val != val {
++            dev_err!(
++                dev,
++                "PRAMIN: FAIL - offset {:#x}: wrote {:#x}, read {:#x}\n",
++                offset,
++                val,
++                read_val
++            );
++            return Err(EIO);
++        }
++    }
++
++    // Test 2: Write `u32` and read back as `u8`s.
++    let test2_offset = base + 0x10;
++    let test2_val: u32 = 0xDEADBEEF;
++    win.try_write32(test2_offset, test2_val)?;
++
++    // Read back as individual bytes (little-endian: EF BE AD DE).
++    let expected_bytes: [u8; 4] = [0xEF, 0xBE, 0xAD, 0xDE];
++    for (i, &expected) in expected_bytes.iter().enumerate() {
++        let read_val = win.try_read8(test2_offset + i)?;
++        if read_val != expected {
++            dev_err!(
++                dev,
++                "PRAMIN: FAIL - offset {:#x}: expected {:#x}, read {:#x}\n",
++                test2_offset + i,
++                expected,
++                read_val
++            );
++            return Err(EIO);
++        }
++    }
++
++    // Test 3: Window repositioning across 1MB boundaries.
++    // Write to offset > 1MB to trigger window slide, then verify.
++    let test3_offset_a: usize = base; // First 1MB region.
++    let test3_offset_b: usize = 0x200000 + base; // 2MB + base (different 1MB region).
++    let val_a: u32 = 0x11111111;
++    let val_b: u32 = 0x22222222;
++
++    // Write to first region.
++    win.try_write32(test3_offset_a, val_a)?;
++
++    // Write to second region (triggers window reposition).
++    win.try_write32(test3_offset_b, val_b)?;
++
++    // Read back from second region.
++    let read_b = win.try_read32(test3_offset_b)?;
++    if read_b != val_b {
++        dev_err!(
++            dev,
++            "PRAMIN: FAIL - offset {:#x}: expected {:#x}, read {:#x}\n",
++            test3_offset_b,
++            val_b,
++            read_b
++        );
++        return Err(EIO);
++    }
++
++    // Read back from first region (triggers window reposition again).
++    let read_a = win.try_read32(test3_offset_a)?;
++    if read_a != val_a {
++        dev_err!(
++            dev,
++            "PRAMIN: FAIL - offset {:#x}: expected {:#x}, read {:#x}\n",
++            test3_offset_a,
++            val_a,
++            read_a
++        );
++        return Err(EIO);
++    }
++
++    // Test 4: Invalid offset rejection (beyond 40-bit address space).
++    {
++        // 40-bit address space limit check.
++        let invalid_offset: usize = MAX_VRAM_OFFSET + 1;
++        let result = win.try_read32(invalid_offset);
++        if result.is_ok() {
++            dev_err!(
++                dev,
++                "PRAMIN: FAIL - read at invalid offset {:#x} should have failed\n",
++                invalid_offset
++            );
++            return Err(EIO);
++        }
++    }
++
++    // Test 5: Misaligned multi-byte access rejection.
++    // Verify that misaligned `u16`/`u32`/`u64` accesses are properly rejected.
++    {
++        // `u16` at odd offset (not 2-byte aligned).
++        let offset_u16 = base + 0x21;
++        if win.try_write16(offset_u16, 0xABCD).is_ok() {
++            dev_err!(
++                dev,
++                "PRAMIN: FAIL - misaligned u16 write at {:#x} should have failed\n",
++                offset_u16
++            );
++            return Err(EIO);
++        }
++
++        // `u32` at 2-byte-aligned (not 4-byte-aligned) offset.
++        let offset_u32 = base + 0x32;
++        if win.try_write32(offset_u32, 0x12345678).is_ok() {
++            dev_err!(
++                dev,
++                "PRAMIN: FAIL - misaligned u32 write at {:#x} should have failed\n",
++                offset_u32
++            );
++            return Err(EIO);
++        }
++
++        // `u64` read at 4-byte-aligned (not 8-byte-aligned) offset.
++        let offset_u64 = base + 0x44;
++        if win.try_read64(offset_u64).is_ok() {
++            dev_err!(
++                dev,
++                "PRAMIN: FAIL - misaligned u64 read at {:#x} should have failed\n",
++                offset_u64
++            );
++            return Err(EIO);
++        }
++    }
++
++    dev_info!(dev, "PRAMIN: All self-tests PASSED\n");
++    Ok(())
++}
 -- 
-2.52.0
+2.34.1
 
