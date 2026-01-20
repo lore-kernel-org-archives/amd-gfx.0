@@ -4,103 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 840EED2ECF7
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E45ED2ED0F
 	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 14:32:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB24F10E609;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A452010E605;
 	Tue, 20 Jan 2026 14:32:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="LjEUGirS";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="R4A+PMNi";
+	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.b="R4A+PMNi";
 	dkim-atps=neutral
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
- [209.85.222.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 689E410E5EC
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 13:15:33 +0000 (UTC)
-Received: by mail-qk1-f196.google.com with SMTP id
- af79cd13be357-8b2f0f9e4cbso439752985a.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 05:15:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1768914932; x=1769519732; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=Jl2KF0othdvrwDImGzxJcxoX7WKdbBXFC823mMEO8nY=;
- b=LjEUGirSRwSa2OJJ9ghicZtfex1eNEPksqh2a+ZOBsyMfG0hD9ixxWh2fzuQYmyoo3
- 22XcZ2qt8OwznTVhAriKP5NNJMwX1Kh5E6H88ZMbne8pworwR2QXveJyVf88g+4qW+De
- I4bGjb+U4NfEYkHHukd3Pu/iCiIS6lUv4BS5n4zdhX8aIhZkhew6Er73i4sFn/bgnTfB
- aMWkbfPKjd0GS/QiF/3/ItWJM6ixxP0FVGuc8XVKHR8EPh672r7ddBHSk1ADgkSjyc1Z
- erv9/svM8IL1SSJOKD5uz6b3rP2YVdN6NhaAD4mK2E1U5d16rNu85rxGwiVk4q7BoU5f
- Caag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768914932; x=1769519732;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Jl2KF0othdvrwDImGzxJcxoX7WKdbBXFC823mMEO8nY=;
- b=Q/oZavL0sc5o1t36uyMGMuJzDNEKSCbTe0JURKZ5ZwvYN0N8nQ7cF/mRHXjiYJUHJc
- q9b8lzatkj9uWBkAlgeK1YMMmNusdNEcSs2hsT7QDpfbnUqb5DJ+aCfLMMs76/kyTRhz
- zx72pZ6GWFgRymmr//fqBV+PWUVj+QrguFgB+fGJibWumnMoktEMXD15FaZyTcifYv9k
- +ecsCzFZII69d8vxrhDnPBv9naTTX2tlKCd27gkzJw4cX3o+3NbPT9vVlRLQHFsL4Zgz
- UzAuK592oooxWkH5ASsg47HYL+QltiRdAbxwD64VyDc157FnjAkK4rNyl1eH1UnGFVV6
- Y2EA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUOsIGx2KfAHKHwv3c1U+KK/7Jj169/yrD671tYQquavHSevsMDPVDwanZ7DKB7iCTJzzl7vEkD@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzz7EclcOh2dZdD2Qn1FFvqenXyfsG9bazrHCVXcbH53Y5i7sv7
- qVslUW2Vq9WyEKvy0fsm9iyJa/Sp3x0LJhh0MNs9FpPG+FqlwWp8zu8CLdozmjzSSGg=
-X-Gm-Gg: AY/fxX67rHF4QryFGaqG5MxB+OYHzloaBK9O4srmJtUnUFkJTsIoaZHI8Vuq2U7mU7p
- ohbotNuLx/yESrlUve8plIze4a++ChnrTu0KFL5Qlxc3XO2WkdRUgwrKPSjPmDb1lg6+iB2XUW8
- xKcUrY8AttzE2ItDFCeWGRq7x+aTBNoFIA+Dm1Ly4NysILAK2vsA8GzIrbAOMNlMFG+/MU1xNoa
- am5y2GGrLkLK7VL+9zrgarYE2xPqBcFGWuGDENY1gs/FUZPnKcRJclGHpSDU8Rwz/L7iz3yeF3Z
- M7EUs87TFWOmE05+jcnRXCIziX7mdtKRyBVcbf3JZ6yroiFhWWpumIzHX4M2VJfknfYrHdsM0hF
- s3y6g3dvoevF+gY62NWlYuOfUv6GEvR6se32kBY16hOA/5g5TbQtcsKFeRNX3wPn5hynkZRaM21
- iZsLXrJz2GSMmNuVvVyoo2eo/EE5RFT9RCevnlrYzsXelrX19BG7meXaae5ri2ic52YSg=
-X-Received: by 2002:a05:620a:999:b0:8c6:a68a:bc04 with SMTP id
- af79cd13be357-8c6a68ac1c8mr1389837085a.7.1768914931884; 
- Tue, 20 Jan 2026 05:15:31 -0800 (PST)
-Received: from ziepe.ca
- (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8c6a7292cfbsm1017788585a.50.2026.01.20.05.15.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jan 2026 05:15:31 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1viBZy-00000005W6K-36CW;
- Tue, 20 Jan 2026 09:15:30 -0400
-Date: Tue, 20 Jan 2026 09:15:30 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] iommufd: Require DMABUF revoke semantics
-Message-ID: <20260120131530.GN961572@ziepe.ca>
-References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
- <20260118-dmabuf-revoke-v2-3-a03bb27c0875@nvidia.com>
- <20260119165951.GI961572@ziepe.ca> <20260119182300.GO13201@unreal>
- <20260119195444.GL961572@ziepe.ca> <20260120131046.GS13201@unreal>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD46810E580
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 08:28:50 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 623B2337C0;
+ Tue, 20 Jan 2026 08:28:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1768897729; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q6cpBlQu0Ap+fT+JaqOV2zSr1RCFwBggI0A+6THe6Gs=;
+ b=R4A+PMNiMN3Hwix5ayoiKJUrTVlfduigtxPZ34/x26fpUxxGJEHEIcHdjjj50H2MCfs11w
+ kwZcDIZNAzAYYt9LAEgUBYEPPUioc124NZa6/lxEcjUknpZbsxzIfnNBd5YM/7/AdwvsKJ
+ R2JGq9ed7ZoPQXSllWjffD2FbNyAm0w=
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+ t=1768897729; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Q6cpBlQu0Ap+fT+JaqOV2zSr1RCFwBggI0A+6THe6Gs=;
+ b=R4A+PMNiMN3Hwix5ayoiKJUrTVlfduigtxPZ34/x26fpUxxGJEHEIcHdjjj50H2MCfs11w
+ kwZcDIZNAzAYYt9LAEgUBYEPPUioc124NZa6/lxEcjUknpZbsxzIfnNBd5YM/7/AdwvsKJ
+ R2JGq9ed7ZoPQXSllWjffD2FbNyAm0w=
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 23A103EA65;
+ Tue, 20 Jan 2026 08:28:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6AlSB8E8b2k0dwAAD6G6ig
+ (envelope-from <tzimmermann@suse.com>); Tue, 20 Jan 2026 08:28:49 +0000
+From: Thomas Zimmermann <tzimmermann@suse.com>
+To: kernel-kabi@suse.de
+Cc: Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH 1/2] drm, fbcon,
+ vga_switcheroo: Avoid race condition in fbcon setup
+Date: Tue, 20 Jan 2026 09:28:04 +0100
+Message-ID: <20260120082841.11381-2-tzimmermann@suse.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260120082841.11381-1-tzimmermann@suse.com>
+References: <20260120082841.11381-1-tzimmermann@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260120131046.GS13201@unreal>
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000]; MID_CONTAINS_FROM(1.00)[];
+ R_MISSING_CHARSET(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FROM_HAS_DN(0.00)[]; MIME_TRACE(0.00)[0:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:url,suse.com:mid,imap1.dmz-prg2.suse.org:helo,suse.de:email,lists.freedesktop.org:email];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; RCPT_COUNT_SEVEN(0.00)[9];
+ RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.com:s=susede1]; TO_DN_SOME(0.00)[];
+ RCVD_TLS_ALL(0.00)[]
 X-Mailman-Approved-At: Tue, 20 Jan 2026 14:32:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,66 +93,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 20, 2026 at 03:10:46PM +0200, Leon Romanovsky wrote:
-> On Mon, Jan 19, 2026 at 03:54:44PM -0400, Jason Gunthorpe wrote:
-> > On Mon, Jan 19, 2026 at 08:23:00PM +0200, Leon Romanovsky wrote:
-> > > On Mon, Jan 19, 2026 at 12:59:51PM -0400, Jason Gunthorpe wrote:
-> > > > On Sun, Jan 18, 2026 at 02:08:47PM +0200, Leon Romanovsky wrote:
-> > > > > From: Leon Romanovsky <leonro@nvidia.com>
-> > > > > 
-> > > > > IOMMUFD does not support page fault handling, and after a call to
-> > > > > .invalidate_mappings() all mappings become invalid. Ensure that
-> > > > > the IOMMUFD DMABUF importer is bound to a revoke‑aware DMABUF exporter
-> > > > > (for example, VFIO).
-> > > > > 
-> > > > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > > > > ---
-> > > > >  drivers/iommu/iommufd/pages.c | 9 ++++++++-
-> > > > >  1 file changed, 8 insertions(+), 1 deletion(-)
-> > > > > 
-> > > > > diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
-> > > > > index 76f900fa1687..a5eb2bc4ef48 100644
-> > > > > --- a/drivers/iommu/iommufd/pages.c
-> > > > > +++ b/drivers/iommu/iommufd/pages.c
-> > > > > @@ -1501,16 +1501,22 @@ static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
-> > > > >  		mutex_unlock(&pages->mutex);
-> > > > >  	}
-> > > > >  
-> > > > > -	rc = sym_vfio_pci_dma_buf_iommufd_map(attach, &pages->dmabuf.phys);
-> > > > > +	rc = dma_buf_pin(attach);
-> > > > >  	if (rc)
-> > > > >  		goto err_detach;
-> > > > >  
-> > > > > +	rc = sym_vfio_pci_dma_buf_iommufd_map(attach, &pages->dmabuf.phys);
-> > > > > +	if (rc)
-> > > > > +		goto err_unpin;
-> > > > > +
-> > > > >  	dma_resv_unlock(dmabuf->resv);
-> > > > >  
-> > > > >  	/* On success iopt_release_pages() will detach and put the dmabuf. */
-> > > > >  	pages->dmabuf.attach = attach;
-> > > > >  	return 0;
-> > > > 
-> > > > Don't we need an explicit unpin after unmapping?
-> > > 
-> > > Yes, but this patch is going to be dropped in v3 because of this
-> > > suggestion.
-> > > https://lore.kernel.org/all/a397ff1e-615f-4873-98a9-940f9c16f85c@amd.com
-> > 
-> > That's not right, that suggestion is about changing VFIO. iommufd must
-> > still act as a pinning importer!
-> 
-> There is no change in iommufd, as it invokes dma_buf_dynamic_attach()
-> with a valid &iopt_dmabuf_attach_revoke_ops. The check determining whether
-> iommufd can perform a revoke is handled there.
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-iommufd is a pining importer. I did not add a call to pin because it
-only worked with VFIO that would not support it. Now that this series
-fixes it the pin must be added. Don't drop this patch.
+Protect vga_switcheroo_client_fb_set() with console lock. Avoids OOB
+access in fbcon_remap_all(). Without holding the console lock the call
+races with switching outputs.
 
-All the explanations we just gave say this special revoke mode only
-activates if the buffer is pinned by the importer, so iommufd must pin
-it. Otherwise it says it is working in the move mode with faulting
-that it cannot support.
+VGA switcheroo calls fbcon_remap_all() when switching clients. The fbcon
+function uses struct fb_info.node, which is set by register_framebuffer().
+As the fb-helper code currently sets up VGA switcheroo before registering
+the framebuffer, the value of node is -1 and therefore not a legal value.
+For example, fbcon uses the value within set_con2fb_map() [1] as an index
+into an array.
 
-Jason
+Moving vga_switcheroo_client_fb_set() after register_framebuffer() can
+result in VGA switching that does not switch fbcon correctly.
+
+Therefore move vga_switcheroo_client_fb_set() under fbcon_fb_registered(),
+which already holds the console lock. Fbdev calls fbcon_fb_registered()
+from within register_framebuffer(). Serializes the helper with VGA
+switcheroo's call to fbcon_remap_all().
+
+Although vga_switcheroo_client_fb_set() takes an instance of struct fb_info
+as parameter, it really only needs the contained fbcon state. Moving the
+call to fbcon initialization is therefore cleaner than before. Only amdgpu,
+i915, nouveau and radeon support vga_switcheroo. For all other drivers,
+this change does nothing.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Link: https://elixir.bootlin.com/linux/v6.17/source/drivers/video/fbdev/core/fbcon.c#L2942 # [1]
+Fixes: 6a9ee8af344e ("vga_switcheroo: initial implementation (v15)")
+Acked-by: Javier Martinez Canillas <javierm@redhat.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: nouveau@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+Cc: linux-fbdev@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v2.6.34+
+Link: https://patch.msgid.link/20251105161549.98836-1-tzimmermann@suse.de
+(cherry picked from commit eb76d0f5553575599561010f24c277cc5b31d003)
+---
+ drivers/gpu/drm/drm_fb_helper.c            | 6 ------
+ drivers/gpu/drm/i915/display/intel_fbdev.c | 2 --
+ drivers/gpu/drm/radeon/radeon_fbdev.c      | 3 ---
+ drivers/video/fbdev/core/fbcon.c           | 9 +++++++++
+ 4 files changed, 9 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_fb_helper.c b/drivers/gpu/drm/drm_fb_helper.c
+index b507c1c008a3e..3915a8b17bc4c 100644
+--- a/drivers/gpu/drm/drm_fb_helper.c
++++ b/drivers/gpu/drm/drm_fb_helper.c
+@@ -32,7 +32,6 @@
+ #include <linux/console.h>
+ #include <linux/pci.h>
+ #include <linux/sysrq.h>
+-#include <linux/vga_switcheroo.h>
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_drv.h>
+@@ -1668,7 +1667,6 @@ static int drm_fb_helper_find_sizes(struct drm_fb_helper *fb_helper,
+ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
+ {
+ 	struct drm_client_dev *client = &fb_helper->client;
+-	struct drm_device *dev = fb_helper->dev;
+ 	struct drm_fb_helper_surface_size sizes;
+ 	int ret;
+ 
+@@ -1687,10 +1685,6 @@ static int drm_fb_helper_single_fb_probe(struct drm_fb_helper *fb_helper)
+ 
+ 	strcpy(fb_helper->fb->comm, "[fbcon]");
+ 
+-	/* Set the fb info for vgaswitcheroo clients. Does nothing otherwise. */
+-	if (dev_is_pci(dev->dev))
+-		vga_switcheroo_client_fb_set(to_pci_dev(dev->dev), fb_helper->info);
+-
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_fbdev.c b/drivers/gpu/drm/i915/display/intel_fbdev.c
+index 31d0d695d5671..8bad7e7909f7b 100644
+--- a/drivers/gpu/drm/i915/display/intel_fbdev.c
++++ b/drivers/gpu/drm/i915/display/intel_fbdev.c
+@@ -36,7 +36,6 @@
+ #include <linux/string.h>
+ #include <linux/sysrq.h>
+ #include <linux/tty.h>
+-#include <linux/vga_switcheroo.h>
+ 
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_fb_helper.h>
+@@ -337,7 +336,6 @@ static int intelfb_create(struct drm_fb_helper *helper,
+ 	ifbdev->vma_flags = flags;
+ 
+ 	intel_runtime_pm_put(&dev_priv->runtime_pm, wakeref);
+-	vga_switcheroo_client_fb_set(pdev, info);
+ 	return 0;
+ 
+ out_unpin:
+diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
+index fb70de29545c6..730efabe05f6b 100644
+--- a/drivers/gpu/drm/radeon/radeon_fbdev.c
++++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
+@@ -303,7 +303,6 @@ static void radeon_fbdev_client_unregister(struct drm_client_dev *client)
+ 	struct radeon_device *rdev = dev->dev_private;
+ 
+ 	if (fb_helper->info) {
+-		vga_switcheroo_client_fb_set(rdev->pdev, NULL);
+ 		drm_helper_force_disable_all(dev);
+ 		drm_fb_helper_unregister_info(fb_helper);
+ 	} else {
+@@ -342,8 +341,6 @@ static int radeon_fbdev_client_hotplug(struct drm_client_dev *client)
+ 	if (ret)
+ 		goto err_drm_fb_helper_fini;
+ 
+-	vga_switcheroo_client_fb_set(rdev->pdev, fb_helper->info);
+-
+ 	return 0;
+ 
+ err_drm_fb_helper_fini:
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 79525ee90e3b2..57b21b6869231 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -64,6 +64,7 @@
+ #include <linux/console.h>
+ #include <linux/string.h>
+ #include <linux/kd.h>
++#include <linux/pci.h>
+ #include <linux/slab.h>
+ #include <linux/fb.h>
+ #include <linux/fbcon.h>
+@@ -75,6 +76,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/crc32.h> /* For counting font checksums */
+ #include <linux/uaccess.h>
++#include <linux/vga_switcheroo.h>
+ #include <asm/irq.h>
+ 
+ #include "fbcon.h"
+@@ -2909,6 +2911,9 @@ void fbcon_fb_unregistered(struct fb_info *info)
+ 
+ 	console_lock();
+ 
++	if (info->device && dev_is_pci(info->device))
++		vga_switcheroo_client_fb_set(to_pci_dev(info->device), info);
++
+ 	fbcon_registered_fb[info->node] = NULL;
+ 	fbcon_num_registered_fb--;
+ 
+@@ -3042,6 +3047,10 @@ static int do_fb_registered(struct fb_info *info)
+ 		}
+ 	}
+ 
++	/* Set the fb info for vga_switcheroo clients. Does nothing otherwise. */
++	if (info->device && dev_is_pci(info->device))
++		vga_switcheroo_client_fb_set(to_pci_dev(info->device), NULL);
++
+ 	return ret;
+ }
+ 
+-- 
+2.52.0
+
