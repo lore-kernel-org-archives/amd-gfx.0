@@ -4,59 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C348D2ECF7
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 14:47:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F3D0D2ED0F
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 14:52:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F237710E61E;
-	Tue, 20 Jan 2026 14:47:51 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 8892010E61D
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 14:47:51 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6B2E31517
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 06:47:44 -0800 (PST)
-Received: from e142607.local (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- A7FF13F694
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 06:47:50 -0800 (PST)
-Date: Tue, 20 Jan 2026 14:45:51 +0000
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- amd-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v3 15/15] drm/atomic: Remove state argument to
- drm_atomic_private_obj_init
-Message-ID: <aW-VH0JN8WOlsiyb@e142607>
-References: <20260119-drm-private-obj-reset-v3-0-b931abe3a5e3@redhat.com>
- <20260119-drm-private-obj-reset-v3-15-b931abe3a5e3@redhat.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AD9F10E614;
+	Tue, 20 Jan 2026 14:52:28 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K6cWv3x7";
+	dkim-atps=neutral
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012069.outbound.protection.outlook.com [52.101.48.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32FC410E612
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 14:52:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pglC0sc2c7cU7m4yXxCzF+ZCsdjMOESpDJT1pA63OsVwwiL5ltbpeQKG5kyWGzWeDmTsJV23rZ6x9n3RJoDfU59UazCdXmuj35/IxB0Qwu1SEsn6vs2nDz36x+xCw8aliRPld5gs1RKQPNQNIiUMHtiXAQhsgaFeS/NGGKsLykxUJeLFAS8GgfmffrDqur+U3vdK6n33n4OxJdMwQ+l0IiaxCbtErnEIh50usBJBIkCCNtTQcyJxRHkDGQK9kFypyXc7HaNE8stLlYs7HrYhuqDVmxm22xSseaCt3H7cIDcT6v1IN/w/rYpGoNkTHUKdzQy9+2CGn9UqIJKPTwA5QQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nJFZG1y8I7lvveNsQ56NBjVJ2lIJXdsbWXU3XBT66Q8=;
+ b=iEpJpUpnl4aPOeG4EXz3kZWGyM2u9r+8UzjTfy74KLmK+ZcTIJ1wrW+UbkFDy3GiaUI20XN0StTEQuxL9sQ0fbfxE4+RCEAG126uyAbVV5mJFH7t+ANvgck9y74a6L6Ve2cGdfXcTkbELG8x9yczU6AKaMEOUy2ME3GQSqFYPP3V1xRkttAklQYr3z1P0dH64j3gGJVSxQFD77C3/sO7PLqhI10b6gL0tJlGXnKEES05NRQzDB4b6G/toWlYlPnzjwLJGBTMUgfRHHtUocjV8eHMm5SEng5pWb0Ai3jGA2oXsH4AHYndPX8iI/wXEaN/ML0+h/qQ3xJYYb3HMdWBuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nJFZG1y8I7lvveNsQ56NBjVJ2lIJXdsbWXU3XBT66Q8=;
+ b=K6cWv3x7ooC9ntclAqb9ld0Ubb+vmopjdvdRrynlyd2JmWRntPefCyc3pDPUBwqhKMxf47X9dax8MeLSuF4sXGoLp+JukQD8SBh1k8Yq0apJByxFU9aJ297aK8I3zsPTKrfv18pvGhns1bBJTwFSLJ0s4zBOl72ly/RZ6v14T1Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH3PR12MB9079.namprd12.prod.outlook.com (2603:10b6:610:1a1::9)
+ by DM4PR12MB7695.namprd12.prod.outlook.com (2603:10b6:8:101::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Tue, 20 Jan
+ 2026 14:52:18 +0000
+Received: from CH3PR12MB9079.namprd12.prod.outlook.com
+ ([fe80::5a7a:2adf:1862:35c3]) by CH3PR12MB9079.namprd12.prod.outlook.com
+ ([fe80::5a7a:2adf:1862:35c3%3]) with mapi id 15.20.9520.010; Tue, 20 Jan 2026
+ 14:52:13 +0000
+Message-ID: <be87031b-fbcb-4373-983a-18f091e3b0a7@amd.com>
+Date: Tue, 20 Jan 2026 14:52:08 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: add mask for debug trap flag setting
+To: James Zhu <jamesz@amd.com>, "Zhu, James" <James.Zhu@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Kim, Jonathan" <Jonathan.Kim@amd.com>
+References: <20260119171503.624080-1-James.Zhu@amd.com>
+ <CH3PR12MB9079B611647BA43699682D418389A@CH3PR12MB9079.namprd12.prod.outlook.com>
+ <3676a7eb-0a81-4165-bd8d-0905cff7dea2@amd.com>
+Content-Language: en-US
+From: Lancelot SIX <Lancelot.Six@amd.com>
+In-Reply-To: <3676a7eb-0a81-4165-bd8d-0905cff7dea2@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260119-drm-private-obj-reset-v3-15-b931abe3a5e3@redhat.com>
+X-ClientProxiedBy: FR2P281CA0104.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9c::11) To CH3PR12MB9079.namprd12.prod.outlook.com
+ (2603:10b6:610:1a1::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB9079:EE_|DM4PR12MB7695:EE_
+X-MS-Office365-Filtering-Correlation-Id: 188ece93-d091-4db7-c179-08de58337eea
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?anFTa1BIaW9wT0ZCWkUrMHhlVTNiZ0hwYnBUMXh6VFl0RUdCSjJrQ25oN2Vj?=
+ =?utf-8?B?dlhCdk9FeTlBY1FaaGhrRTh4MVQ0aTBIRVM4VzdocjB1R1IzeHlBTXM0L3Uw?=
+ =?utf-8?B?aEYyMzNtOWlkQXJDNmtkR01IU2xIdHJPcEVGRERkenljRjd2SHgwb1M5dTBm?=
+ =?utf-8?B?K3FUNWJaaTkyZTYzL2w1anA2dGZocWNJZFNNbFdJRllOUVl6VnYvekpFMk5h?=
+ =?utf-8?B?dENoWHZhYnlKNnVsZGlLeGNRU3hxNXRjMGs0aW1SQmdscVI1WER3ekl5R09Z?=
+ =?utf-8?B?WURnQm5yL0NFM1FXNnB4U0UrUWlzOGs1K3VHdXNMRXdtT1pZS1ZLSi9VNXIz?=
+ =?utf-8?B?aTBHQ052QkdvaXR5WG0rT3l1TUNHckVzVHNuaUZSb2NmODJIV2pOZUlpR2Y3?=
+ =?utf-8?B?aUhoVE12V2xFVVY4MmhmcHNmbjNTNUR5dFNjZFVrc21GbzZEeXg5SlN4QVhF?=
+ =?utf-8?B?R1BZQmdYdTFJYWVPUmY3Q1NxNWdKVnBaVS9QeHMwOGhzS21sZ3ppalZWdkZ6?=
+ =?utf-8?B?akh5bFN5c1d1TUZrVXV0dnBvRkh0YTFkT0ZtcG1abzhJQ2U5ZG9Wd0lwU1ZQ?=
+ =?utf-8?B?Uk93eFMyZ2NZNHJ5SmMyY3FQUXRMcUJ2bEYyTmJOM0lpMXJ4QkpEU29CMzhH?=
+ =?utf-8?B?NVBXazRYenN6M1Z1WGh5UFYySUJtWVN4K0hXTlAxV0tPK1pkbmpvTURmR1NI?=
+ =?utf-8?B?eDVwVWdaa2JDYUJJVFAvRll2emtvRDFTRFhjdkNoQ1NkRUV0Z2NXL1RGUDV5?=
+ =?utf-8?B?R0M4NVBYQlRkMzNHViszVkhnb0x4TEJMc1c1NXoxeUZTdkRRSmFuellRNWxF?=
+ =?utf-8?B?KzlvUTRGWUdoWm92WTJLMnhQN3hvRmdsbzZZOU1JakNxejJwTDhCRGxKZmdZ?=
+ =?utf-8?B?RzdGNm9jV0g2Q1NuUWZ1ZUtrN1pSWi94R0VMbERIWS9vTmF5RTV6MWRzOWNY?=
+ =?utf-8?B?RzI5WFR0WVc2MGFZalJsZnpFUS9nQW5wR045K1kvVXNYa2JiUUNZd3J6UlZl?=
+ =?utf-8?B?d2V5SVphUzVwMTF4QjVMaUJNZEJMRDQ0ekVWdi9yVzByVGFZRjV4NWYzQ2g2?=
+ =?utf-8?B?cnFLTk41eENHVVZMaEh2eWF6UUxvTkZzR2IvcW5UeEZtdlVkM05MMDh0cjNX?=
+ =?utf-8?B?Z3k5ZVFtQ1JBdWJadDJJY1FmM3VEVHhCRjQveUZjK0htLzF6clAzL1FFSHpH?=
+ =?utf-8?B?ZVZXOExFSGloVmI1Tk5xTW9EZXhsNU1DakJyeEdFUE93RmhHMkQ2clNRUXYz?=
+ =?utf-8?B?YVMwbzcrbWFhQUttQ2dCRTY5VHZQSDYwZXRDRGp1M2NTaTFBbEJvUytvVHJ0?=
+ =?utf-8?B?YXFLSUxZT0tyRG10RG51Nzk2NllMcDVpNVViQzRYTE1lV28xcTNxa280VGVY?=
+ =?utf-8?B?MkNSWml3WEx2cGx0ZDdRQndJL3oyY3JFaDRZZVRnNUlWNGJ5QUV4TFM1ckwx?=
+ =?utf-8?B?blUxRzdGK3A4U0JTdUFHVkg3N3E4OUZBWFVINmszS1Y0UVBEQStEQzRPeHAr?=
+ =?utf-8?B?dFBjL2l3OWc5STZ0YU5EbWlPZElOckFUeURxWlVqV2llUEZDL21xcWxZY2da?=
+ =?utf-8?B?RGpUWkE5bUtaMEFLVmYrTmJwU04yU1ZXOVV4NTYzem1kNjNJS0Z1blVleElK?=
+ =?utf-8?B?bGdXRVUzalkrcEhnNE10REJxNEIwb2tBQkV5ZW9vSi9RTytTRFBycDliL0pM?=
+ =?utf-8?B?SUU2WXRsWXZCbkFmYU5jaWtqM2ZWZk56TVViTlZoTmZhWkRaU25RZlIvMFFZ?=
+ =?utf-8?B?M1RmaXlpOWdlMWIrRVIvbjBxdm1XMGovL0l0S1R2ZHhqVFBlQnh1bHBYemNr?=
+ =?utf-8?B?eTljVDhFcFdsNmQ5VDJ1andGRDF2YXhHQmNVaTVvNGdiTG1uMVBURDNCeXNI?=
+ =?utf-8?B?TGtJNy9ScTU4c092UHZoMGxMNUtvQjZub3lQaW9aSENtTXR5VUF4azRSZEIw?=
+ =?utf-8?B?N3h0YlJkVWE2M2V0QVJZTmlYRCtCWnppc3QrTVlIRXFQbHhHNmUyZVkwY2Rw?=
+ =?utf-8?B?STBWaEE2YXB6c0hUVkxnY0VYQVZLdkZIdGRrcEJqVTVtV1U5bjV2YWlHdG5a?=
+ =?utf-8?B?L3I2M3JQV1U3eGl0RHh3d1pRZlhYU0N5VTFqYUNOcDc1VTFrWnVoWENiZTRS?=
+ =?utf-8?Q?W7B0=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH3PR12MB9079.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHU5dThaME1hNVFaN2NaaFNWT1QzdytLRm9IeUVxcnNDVUUwOERJeWE3MGVq?=
+ =?utf-8?B?bm04d3JPM2x0dFpPb3doMmlYT0FOdjFSSWVacWM5WkgrOEhzSktaWWVGQjJE?=
+ =?utf-8?B?RzcyZ3N0QkxLb2lCVWEzUkgxZ0pZYVlRUzVwTkVUUlFtOWEyTXBlZm1JbmxC?=
+ =?utf-8?B?ZVBHc0trc01sREw3Y081R2tzeEpPWkFyL3lxOGx5ODU4REJLOXBKMGVacG9G?=
+ =?utf-8?B?RFd0S01LaWxTRDVaY0d2cGVhdk5ZeFRpNFh4eVBhdy9DcW02SHlKaTFiM3hX?=
+ =?utf-8?B?M1JZQml4NlAzMlc5MzZ2WEVwc3RLOXZaeDZvLzFtS1Y3K05qM1Z3VVl5a3Yy?=
+ =?utf-8?B?UGVrTVVkNlU0ajJXeEtWelEzTmljcnpwSVA2c2grZ3dsRXMraDRrcGQwc1hH?=
+ =?utf-8?B?NzZ6aDFLZ0pZOE9qQ0ZsMEZMbGNVOXBKR3RnVzRCTmtVVXpQWHU4dUJ2NXhh?=
+ =?utf-8?B?YTlUR1RKSWlZVEM1bGNUUEYybktRd1c4WFlvWFJHSmc0NktneE15ckNucjcy?=
+ =?utf-8?B?K3hHZCtqRkx2bHRaTHl3ZU9USTVXRkdJM3F5U1NIdW5HRFdXNUF2cVlDU3Na?=
+ =?utf-8?B?SjZMQjlVYk14VGEwT1FHdDdiSCtHb0ZCUmxNZlJtOXVXSmJkTHRjT1A0S2pF?=
+ =?utf-8?B?VzJqS0dXUml2K1dFWTVDb2ozbG1ucEQ5VG8xNko0Yi95ZmcyeEltaGQ2WjFL?=
+ =?utf-8?B?RnBJMmc5THlyRlRWM0p2MEI0ZkQxZ1ViZHBSMFc3S1lhbDdVT2FDbys1UUN2?=
+ =?utf-8?B?U1RXV24wLzZBOFhZTHZ0bk94NlUrQ1JLU1FZMUJMd2l1V3VlVDJMM3R2VjFE?=
+ =?utf-8?B?aW50NlFlZ2FEMURqZW1YUGFjeGNXMDhhaFR6M1BPQ3l6K3RDdlpsK2tWenNJ?=
+ =?utf-8?B?N29OaDFrMGZ2bFRrbjREay93YU9NZnY3WndYRkhlWGYreGRBQzFiaHZVbXRo?=
+ =?utf-8?B?QlBPc2F3WUlRQVdjSHNLRWF5aXFrRUFHTkVwYXUvLzVHcVBpeWtPaVFGRHN4?=
+ =?utf-8?B?SVVpTmw5YXlzcTBIVEtOankyRXBRYnJwcVdpMDZoRzkvQU9hSFhKaGUyQ0tY?=
+ =?utf-8?B?TEVWT1RKN1dCeFk0WXlUM0d1S2VqR3oxZlluVURuaFpYOXNsdkJJaENYSExY?=
+ =?utf-8?B?Qm1aUlpHRmZHbC93MDlBNTRGR1IxKysxRjA3cHhWR3FoRkVZd3ZiL1pVaHdI?=
+ =?utf-8?B?cGdFa3hyeDVJR3BTNGZLVFFwYUUrWlpXbEt1QmhLYUJ4QzFtcDZRQStJVzcx?=
+ =?utf-8?B?dHM3SDN3eWVXbi9jTUZSc2xsZ1VwYy84V0pGcGNJc0kydVN6dk41djdnSnNF?=
+ =?utf-8?B?bUo3bjQvaFBnSElqam85OW5wcG1IMjNsbVFMdzdVUjBPMHNYV1FMeGM0dXo4?=
+ =?utf-8?B?ZzR5a1QvK2U1d3RVUSsxWE5VSkxvSmNzSWlBUGlRM213ZFhWeXh0a2RpRzV4?=
+ =?utf-8?B?MWZZbjU3YktKU1pTOUtScFY1RGJpUklPQ1FXcW5Yck9VQXRtUm9ZNzJsVDRa?=
+ =?utf-8?B?SFZFaDZNOG5pbmZFMnUzQmJGUUVwZjFCeVRqdHRzbVp3SDhxN2lsVUVQZVha?=
+ =?utf-8?B?SEhvTnloU043aldGR2RqKzBJWEVsZVFYR1doL214RVhHVlBqaGo3QnA2dFhL?=
+ =?utf-8?B?cmI5N3dkOFR4VFNuMGlab2FKUkVXbGliVVZJTHVOUHdIZ0FVQ05UZE43R3Fh?=
+ =?utf-8?B?RTFVcFBIVkhuKzYrVU5PUFVGOGFidG43c2ovQkIrTjB0RW9tVUtlSUtPcjAv?=
+ =?utf-8?B?a2JQU1lOWDA2WU90Y0c4MktEWGtYbTZQbTRIczFKRWRBVVlyMm12M0xzcGxw?=
+ =?utf-8?B?S1dUV2N6UnV4M3pXdm5palc0aWtidVlaUHJkZkdZVTMzK2xLZ05mTi9xVVRh?=
+ =?utf-8?B?YkRUTytUbWNxQ0szSkhCVFhBdU1NU2xoRFNVdkJYcHp2MzVVUVlNRWZtVzQy?=
+ =?utf-8?B?RFJjN2hVL0dsSUtoQ1hNVjlBeUxxVXFBK3QrMG5LQ1gzV2QxcXNFSTZLZDlU?=
+ =?utf-8?B?YkZRYzRoZVVIN1cwWmV1VW12RHVOaGpuZXpUUUxVVVgrVGoyU29vZkdnaEJR?=
+ =?utf-8?B?VUJRbXNVR0c5NzcyYzVJVkdyenZtbFRSUG5XREdLclNUSzdvTkR2bnFVd3FU?=
+ =?utf-8?B?MTNIUTZaUERyQy9PSHBtNzdpMTVCdFNtSHhZbDlRYy80cXM3eDBrMWhnN1ox?=
+ =?utf-8?B?MWNxZVVqS05uQTVOak15UUkzR2htdEYwdkpFc1EzNU5CUDhDNG9tMlNaREpM?=
+ =?utf-8?B?ZUJ2TDgxSks5UEI0WUxJaHFTUGF1S05hcGhXN21Ha3ZULzhpTWlMODJNd1dh?=
+ =?utf-8?Q?rE6NTS6FWkHJGpwR4X?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 188ece93-d091-4db7-c179-08de58337eea
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9079.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2026 14:52:13.0846 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /wMlgU6504Psfi7eoFfYrmrDuzuEEw7xMjdal5QTehcru6w7GnCGksW7KIJQAcSRK/+af92b3O0JUbEInPMi9Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7695
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,457 +169,262 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 19, 2026 at 01:50:11PM +0100, Maxime Ripard wrote:
-> Now that all drm_private_objs users have been converted to use
-> atomic_create_state instead of the old ad-hoc initialization, we can
-> remove the state parameter from drm_private_obj_init and the fallback
-> code.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
-> 
-> To: Liviu Dudau <liviu.dudau@arm.com>
-> To: Andrzej Hajda <andrzej.hajda@intel.com>
-> To: Neil Armstrong <neil.armstrong@linaro.org>
-> To: Robert Foss <rfoss@kernel.org>
-> To: Paul Cercueil <paul@crapouillou.net>
-> To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> To: Thierry Reding <thierry.reding@gmail.com>
-> To: Mikko Perttunen <mperttunen@nvidia.com>
-> To: Jonathan Hunter <jonathanh@nvidia.com>
-> To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: Rodrigo Siqueira <siqueira@igalia.com>
-> Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-> Cc: Jonas Karlman <jonas@kwiboo.se>
-> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-> Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: "Maíra Canal" <mcanal@igalia.com>
-> Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: linux-mips@vger.kernel.org
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: linux-tegra@vger.kernel.org
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  1 -
->  .../drm/arm/display/komeda/komeda_private_obj.c    | 16 ++++++++--------
 
-For the komeda part:
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+On 20/01/2026 14:39, James Zhu wrote:
+> 
+> On 2026-01-20 05:34, Six, Lancelot wrote:
+>> [AMD Official Use Only - AMD Internal Distribution Only]
+>>
+>> Hi,
+>>
+>>
+>>> -----Original Message-----
+>>> From: Zhu, James<James.Zhu@amd.com>
+>>> Sent: 19 January 2026 17:15
+>>> To:amd-gfx@lists.freedesktop.org
+>>> Cc: Six, Lancelot<Lancelot.Six@amd.com>; Kim, Jonathan
+>>> <Jonathan.Kim@amd.com>; Zhu, James<James.Zhu@amd.com>
+>>> Subject: [PATCH] drm/amdkfd: add mask for debug trap flag setting
+>>>
+>>> to specify which bits are valid setting on flags.
+>>>
+>>> Signed-off-by: James Zhu<James.Zhu@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |  2 +-
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_debug.c   | 48 ++++++++++++------------
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_debug.h   |  3 +-
+>>>   include/uapi/linux/kfd_ioctl.h           |  3 +-
+>>>   4 files changed, 30 insertions(+), 26 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> index 79586abad7fd..fd43ef7c9076 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>> @@ -3377,7 +3377,7 @@ static int kfd_ioctl_set_debug_trap(struct file *filep,
+>>> struct kfd_process *p, v
+>>>                                args->clear_node_address_watch.id);
+>>>                break;
+>>>        case KFD_IOC_DBG_TRAP_SET_FLAGS:
+>>> -             r = kfd_dbg_trap_set_flags(target, &args->set_flags.flags);
+>>> +             r = kfd_dbg_trap_set_flags(target, &args->set_flags);
+>>>                break;
+>>>        case KFD_IOC_DBG_TRAP_QUERY_DEBUG_EVENT:
+>>>                r = kfd_dbg_ev_query_debug_event(target,
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+>>> index a04875236647..279160ca71a9 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.c
+>>> @@ -512,38 +512,42 @@ static void
+>>> kfd_dbg_clear_process_address_watch(struct kfd_process *target)
+>>>                        kfd_dbg_trap_clear_dev_address_watch(target-
+>>>> pdds[i], j);
+>>>   }
+>>>
+>>> -int kfd_dbg_trap_set_flags(struct kfd_process *target, uint32_t *flags)
+>>> +int kfd_dbg_trap_set_flags(struct kfd_process *target,
+>>> +     struct kfd_ioctl_dbg_trap_set_flags_args *set_flags)
+>>>   {
+>>>        uint32_t prev_flags = target->dbg_flags;
+>>>        int i, r = 0, rewind_count = 0;
+>>>
+>>> +     if (!((set_flags->flags ^ prev_flags) & set_flags->mask))
+>>> +             return 0;
+>>> +
+>>>        for (i = 0; i < target->n_pdds; i++) {
+>>>                struct kfd_topology_device *topo_dev =
+>>>                                kfd_topology_device_by_id(target->pdds[i]-
+>>>> dev->id);
+>>>                uint32_t caps = topo_dev->node_props.capability;
+>>>                uint32_t caps2 = topo_dev->node_props.capability2;
+>>> +             struct amdgpu_device *adev = target->pdds[i]->dev->adev;
+>>>
+>>> -             if (!(caps &
+>>> HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED) &&
+>>> -                     (*flags & KFD_DBG_TRAP_FLAG_SINGLE_MEM_OP)) {
+>>> -                     *flags = prev_flags;
+>>> -                     return -EACCES;
+>>> -             }
+>>> -
+>>> -             if (!(caps &
+>>> HSA_CAP_TRAP_DEBUG_PRECISE_ALU_OPERATIONS_SUPPORTED) &&
+>>> -                 (*flags & KFD_DBG_TRAP_FLAG_SINGLE_ALU_OP)) {
+>>> -                     *flags = prev_flags;
+>>> -                     return -EACCES;
+>>> -             }
+>>> -
+>>> -             if (!(caps2 &
+>>> HSA_CAP2_TRAP_DEBUG_LDS_OUT_OF_ADDR_RANGE_SUPPORTED) &&
+>>> -                 (*flags &
+>>> KFD_DBG_TRAP_FLAG_LDS_OUT_OF_ADDR_RANGE)) {
+>>> -                     *flags = prev_flags;
+>>> +             if (set_flags->mask == 0xFFFFFFFF && !set_flags->flags)
+>>> +                     break;
+>>> +             if ((!(caps &
+>>> HSA_CAP_TRAP_DEBUG_PRECISE_MEMORY_OPERATIONS_SUPPORTED) &&
+>>> +                     (set_flags->mask &
+>>> KFD_DBG_TRAP_FLAG_SINGLE_MEM_OP)) ||
+>>> +                     (!(caps &
+>>> HSA_CAP_TRAP_DEBUG_PRECISE_ALU_OPERATIONS_SUPPORTED) &&
+>>> +                 (set_flags->mask & KFD_DBG_TRAP_FLAG_SINGLE_ALU_OP))
+>>> ||
+>>> +                     (!(caps2 &
+>>> HSA_CAP2_TRAP_DEBUG_LDS_OUT_OF_ADDR_RANGE_SUPPORTED) &&
+>>> +                 (set_flags->mask &
+>>> KFD_DBG_TRAP_FLAG_LDS_OUT_OF_ADDR_RANGE))) {
+>>> +                     set_flags->flags = prev_flags;
+>>> +                     dev_dbg(adev->dev, "Debug Trap set mask 0x%x caps
+>>> 0x%x caps2 0x%x",
+>>> +                             set_flags->mask, caps, caps2);
+>> The logic here seems odd.  If "set_flags->mask" is the set of flags a caller wants to modify (I don't think it should, see below), a call which asks for PRECISE_MEMORY to be disabled would return EACCESS if PRECISE_MEMORY is not supported.  Before this patch, it would have been perfectly valid set (or confirm) the PRECISE_MEMORY flag to 0.
+>> [JZ] the logical here is checking input setting, if caps does not support such feature, mask trys to set this feature bit, then exit with -EACCESS.
+>> Also, consider the following scenario where a user wants to set PRECISE_ALU=0 and PRECISE_MEMORY=1:
+>>
+>>    set_flags->flags = KFD_DBG_TRAP_FLAG_SINGLE_MEM_OP;
+>>    set_flags->mask = KFD_DBG_TRAP_FLAG_SINGLE_MEM_OP | KFD_DBG_TRAP_FLAG_SINGLE_ALU_OP;
+>>
+>> If the platform only supports PRECISE_MEMORY (like gfx11 for example), the call would erroneously fail with EACCESS.  This was possible before this patch.
+> 
+> [JZ] then mask should not include KFD_DBG_TRAP_FLAG_SINGLE_ALU_OP which 
+> tells user want to clear KFD_DBG_TRAP_FLAG_SINGLE_ALU_OP on this
+> 
+> ASIC, but it actually not been supported. err tells user that the 
+> operation clearing PRECISE_ALU is invalid.
 
-Best regards,
-Liviu
+See below.
 
->  drivers/gpu/drm/display/drm_dp_mst_topology.c      |  1 -
->  drivers/gpu/drm/display/drm_dp_tunnel.c            |  2 +-
->  drivers/gpu/drm/drm_atomic.c                       | 22 +++++-----------------
->  drivers/gpu/drm/drm_bridge.c                       |  1 -
->  drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  2 +-
->  drivers/gpu/drm/ingenic/ingenic-ipu.c              |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  1 -
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  1 -
->  drivers/gpu/drm/omapdrm/omap_drv.c                 |  2 +-
->  drivers/gpu/drm/tegra/hub.c                        |  2 +-
->  drivers/gpu/drm/vc4/vc4_kms.c                      |  4 +---
->  include/drm/drm_atomic.h                           |  1 -
->  14 files changed, 19 insertions(+), 39 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index a97e1bf1bfdc6384a6ac83f907878807bb3b62a0..cff3d00a367728449b4a4de4cc9f3c9036e3924f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4932,11 +4932,10 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
->  	/* indicates support for immediate flip */
->  	adev_to_drm(adev)->mode_config.async_page_flip = true;
->  
->  	drm_atomic_private_obj_init(adev_to_drm(adev),
->  				    &adev->dm.atomic_obj,
-> -				    NULL,
->  				    &dm_atomic_state_funcs);
->  
->  	r = amdgpu_display_modeset_create_props(adev);
->  	if (r)
->  		return r;
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c b/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-> index 4994b69c6595637ea832b97629b052e3aea97ee7..6270e5c525db221267b1215a27653ace578eeb0a 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-> @@ -63,11 +63,11 @@ static const struct drm_private_state_funcs komeda_layer_obj_funcs = {
->  };
->  
->  static int komeda_layer_obj_add(struct komeda_kms_dev *kms,
->  				struct komeda_layer *layer)
->  {
-> -	drm_atomic_private_obj_init(&kms->base, &layer->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &layer->base.obj,
->  				    &komeda_layer_obj_funcs);
->  	return 0;
->  }
->  
->  static struct drm_private_state *
-> @@ -116,11 +116,11 @@ static const struct drm_private_state_funcs komeda_scaler_obj_funcs = {
->  
->  static int komeda_scaler_obj_add(struct komeda_kms_dev *kms,
->  				 struct komeda_scaler *scaler)
->  {
->  	drm_atomic_private_obj_init(&kms->base,
-> -				    &scaler->base.obj, NULL,
-> +				    &scaler->base.obj,
->  				    &komeda_scaler_obj_funcs);
->  	return 0;
->  }
->  
->  static struct drm_private_state *
-> @@ -168,11 +168,11 @@ static const struct drm_private_state_funcs komeda_compiz_obj_funcs = {
->  };
->  
->  static int komeda_compiz_obj_add(struct komeda_kms_dev *kms,
->  				 struct komeda_compiz *compiz)
->  {
-> -	drm_atomic_private_obj_init(&kms->base, &compiz->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &compiz->base.obj,
->  				    &komeda_compiz_obj_funcs);
->  
->  	return 0;
->  }
->  
-> @@ -222,11 +222,11 @@ static const struct drm_private_state_funcs komeda_splitter_obj_funcs = {
->  
->  static int komeda_splitter_obj_add(struct komeda_kms_dev *kms,
->  				   struct komeda_splitter *splitter)
->  {
->  	drm_atomic_private_obj_init(&kms->base,
-> -				    &splitter->base.obj, NULL,
-> +				    &splitter->base.obj,
->  				    &komeda_splitter_obj_funcs);
->  
->  	return 0;
->  }
->  
-> @@ -275,11 +275,11 @@ static const struct drm_private_state_funcs komeda_merger_obj_funcs = {
->  
->  static int komeda_merger_obj_add(struct komeda_kms_dev *kms,
->  				 struct komeda_merger *merger)
->  {
->  	drm_atomic_private_obj_init(&kms->base,
-> -				    &merger->base.obj, NULL,
-> +				    &merger->base.obj,
->  				    &komeda_merger_obj_funcs);
->  
->  	return 0;
->  }
->  
-> @@ -328,11 +328,11 @@ static const struct drm_private_state_funcs komeda_improc_obj_funcs = {
->  };
->  
->  static int komeda_improc_obj_add(struct komeda_kms_dev *kms,
->  				 struct komeda_improc *improc)
->  {
-> -	drm_atomic_private_obj_init(&kms->base, &improc->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &improc->base.obj,
->  				    &komeda_improc_obj_funcs);
->  
->  	return 0;
->  }
->  
-> @@ -381,11 +381,11 @@ static const struct drm_private_state_funcs komeda_timing_ctrlr_obj_funcs = {
->  };
->  
->  static int komeda_timing_ctrlr_obj_add(struct komeda_kms_dev *kms,
->  				       struct komeda_timing_ctrlr *ctrlr)
->  {
-> -	drm_atomic_private_obj_init(&kms->base, &ctrlr->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &ctrlr->base.obj,
->  				    &komeda_timing_ctrlr_obj_funcs);
->  
->  	return 0;
->  }
->  
-> @@ -435,11 +435,11 @@ static const struct drm_private_state_funcs komeda_pipeline_obj_funcs = {
->  };
->  
->  static int komeda_pipeline_obj_add(struct komeda_kms_dev *kms,
->  				   struct komeda_pipeline *pipe)
->  {
-> -	drm_atomic_private_obj_init(&kms->base, &pipe->obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &pipe->obj,
->  				    &komeda_pipeline_obj_funcs);
->  
->  	return 0;
->  }
->  
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> index 1ab0233a2a18f784d8c43e61b94e40a06bd4baf6..7e0e5b90df7251beed6985e16d1c3270ddfb3f37 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> @@ -5763,11 +5763,10 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
->  	mgr->max_dpcd_transaction_bytes = max_dpcd_transaction_bytes;
->  	mgr->max_payloads = max_payloads;
->  	mgr->conn_base_id = conn_base_id;
->  
->  	drm_atomic_private_obj_init(dev, &mgr->base,
-> -				    NULL,
->  				    &drm_dp_mst_topology_state_funcs);
->  
->  	return 0;
->  }
->  EXPORT_SYMBOL(drm_dp_mst_topology_mgr_init);
-> diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
-> index 2abd714efd19f27697770813b38194e384be87ce..241498cef7de497afdf2837f750113743c001240 100644
-> --- a/drivers/gpu/drm/display/drm_dp_tunnel.c
-> +++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
-> @@ -1598,11 +1598,11 @@ static bool init_group(struct drm_dp_tunnel_mgr *mgr, struct drm_dp_tunnel_group
->  {
->  	group->mgr = mgr;
->  	group->available_bw = -1;
->  	INIT_LIST_HEAD(&group->tunnels);
->  
-> -	drm_atomic_private_obj_init(mgr->dev, &group->base, NULL,
-> +	drm_atomic_private_obj_init(mgr->dev, &group->base,
->  				    &tunnel_group_funcs);
->  
->  	return true;
->  }
->  
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index e3029c8f02e5a3698781117bcc80eff98407cf16..243579fa1c756cd2eda660ad658cb49d67106584 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -919,11 +919,10 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
->  
->  /**
->   * drm_atomic_private_obj_init - initialize private object
->   * @dev: DRM device this object will be attached to
->   * @obj: private object
-> - * @state: initial private object state
->   * @funcs: pointer to the struct of function pointers that identify the object
->   * type
->   *
->   * Initialize the private object, which can be embedded into any
->   * driver private object that needs its own atomic state.
-> @@ -931,37 +930,26 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
->   * RETURNS:
->   * Zero on success, error code on failure
->   */
->  int drm_atomic_private_obj_init(struct drm_device *dev,
->  				struct drm_private_obj *obj,
-> -				struct drm_private_state *state,
->  				const struct drm_private_state_funcs *funcs)
->  {
-> +	struct drm_private_state *state;
->  	memset(obj, 0, sizeof(*obj));
->  
->  	drm_modeset_lock_init(&obj->lock);
->  
->  	obj->dev = dev;
->  	obj->funcs = funcs;
->  	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
->  
-> -	/*
-> -	 * Not all users of drm_atomic_private_obj_init have been
-> -	 * converted to using &drm_private_obj_funcs.atomic_create_state yet.
-> -	 * For the time being, let's only call reset if the passed state is
-> -	 * NULL. Otherwise, we will fallback to the previous behaviour.
-> -	 */
-> -	if (!state) {
-> -		state = obj->funcs->atomic_create_state(obj);
-> -		if (IS_ERR(state))
-> -			return PTR_ERR(state);
-> +	state = obj->funcs->atomic_create_state(obj);
-> +	if (IS_ERR(state))
-> +		return PTR_ERR(state);
->  
-> -		obj->state = state;
-> -	} else {
-> -		obj->state = state;
-> -		state->obj = obj;
-> -	}
-> +	obj->state = state;
->  
->  	return 0;
->  }
->  EXPORT_SYMBOL(drm_atomic_private_obj_init);
->  
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index 316cf84519de54c4dc4bfb3bc3addc4990a200f5..4b120751605e15e0d07ebe1d4a7324c0ccfc34dd 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -553,11 +553,10 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
->  			goto err_reset_bridge;
->  	}
->  
->  	if (drm_bridge_is_atomic(bridge))
->  		drm_atomic_private_obj_init(bridge->dev, &bridge->base,
-> -					    NULL,
->  					    &drm_bridge_priv_state_funcs);
->  
->  	return 0;
->  
->  err_reset_bridge:
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> index 862691991ed2770d30342bf531e828e34bd7080a..e6b003c16e63609180881b1d3b0c7acbd5218ada 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> @@ -1399,11 +1399,11 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
->  	if (ret) {
->  		dev_err(dev, "Unable to register clock notifier\n");
->  		goto err_devclk_disable;
->  	}
->  
-> -	drm_atomic_private_obj_init(drm, &priv->private_obj, NULL,
-> +	drm_atomic_private_obj_init(drm, &priv->private_obj,
->  				    &ingenic_drm_private_state_funcs);
->  
->  	ret = drmm_add_action_or_reset(drm, ingenic_drm_atomic_private_obj_fini,
->  				       &priv->private_obj);
->  	if (ret)
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-ipu.c b/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> index 253a1ce30997308547b61339468d52e6875785d3..635ef2b1efa57556f32fded612f0ff1068e23e8c 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> @@ -899,11 +899,11 @@ static int ingenic_ipu_bind(struct device *dev, struct device *master, void *d)
->  	if (err) {
->  		dev_err(dev, "Unable to prepare clock\n");
->  		return err;
->  	}
->  
-> -	drm_atomic_private_obj_init(drm, &ipu->private_obj, NULL,
-> +	drm_atomic_private_obj_init(drm, &ipu->private_obj,
->  				    &ingenic_ipu_private_state_funcs);
->  
->  	return 0;
->  }
->  
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index e33995a9522d2a9e8d0627069f7b5f44902278de..e52fd6b79c614a67d910e404efc24be014ec8f5e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1159,11 +1159,10 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->  
->  	dev->mode_config.cursor_width = 512;
->  	dev->mode_config.cursor_height = 512;
->  
->  	drm_atomic_private_obj_init(dpu_kms->dev, &dpu_kms->global_state,
-> -				    NULL,
->  				    &dpu_kms_global_state_funcs);
->  
->  	atomic_set(&dpu_kms->bandwidth_ref, 0);
->  
->  	rc = pm_runtime_resume_and_get(&dpu_kms->pdev->dev);
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> index 1fc9671590762b800bdeb6cd440b1ae6ee634679..c41bb03e5b96a162340b886d32656dfe4b0d1a99 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> @@ -715,11 +715,10 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
->  	int ret;
->  
->  	mdp5_kms->dev = dev;
->  
->  	drm_atomic_private_obj_init(mdp5_kms->dev, &mdp5_kms->glob_state,
-> -				    NULL,
->  				    &mdp5_global_state_funcs);
->  
->  	/* we need to set a default rate before enabling.  Set a safe
->  	 * rate first, then figure out hw revision, and then set a
->  	 * more optimal rate:
-> diff --git a/drivers/gpu/drm/omapdrm/omap_drv.c b/drivers/gpu/drm/omapdrm/omap_drv.c
-> index febee3fea01dd40faec7d631279b1393a17822ba..27de798026365f710b78306a7ec2a72ddff20828 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_drv.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_drv.c
-> @@ -297,11 +297,11 @@ static const struct drm_private_state_funcs omap_global_state_funcs = {
->  
->  static int omap_global_obj_init(struct drm_device *dev)
->  {
->  	struct omap_drm_private *priv = dev->dev_private;
->  
-> -	drm_atomic_private_obj_init(dev, &priv->glob_obj, NULL,
-> +	drm_atomic_private_obj_init(dev, &priv->glob_obj,
->  				    &omap_global_state_funcs);
->  	return 0;
->  }
->  
->  static void omap_global_obj_fini(struct omap_drm_private *priv)
-> diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
-> index e8cc4382532fffaea99020755ad78d3252613c26..5c7fd36aaadc405b9dae0acb1e8b4f12f12c84bd 100644
-> --- a/drivers/gpu/drm/tegra/hub.c
-> +++ b/drivers/gpu/drm/tegra/hub.c
-> @@ -955,11 +955,11 @@ static int tegra_display_hub_init(struct host1x_client *client)
->  {
->  	struct tegra_display_hub *hub = to_tegra_display_hub(client);
->  	struct drm_device *drm = dev_get_drvdata(client->host);
->  	struct tegra_drm *tegra = drm->dev_private;
->  
-> -	drm_atomic_private_obj_init(drm, &hub->base, NULL,
-> +	drm_atomic_private_obj_init(drm, &hub->base,
->  				    &tegra_display_hub_state_funcs);
->  
->  	tegra->hub = hub;
->  
->  	return 0;
-> diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
-> index f82c7ea1d74eeaa075296533a1ffe3561f197748..8f60e9e98380984a0de7c9243c5ba703316d0c13 100644
-> --- a/drivers/gpu/drm/vc4/vc4_kms.c
-> +++ b/drivers/gpu/drm/vc4/vc4_kms.c
-> @@ -114,11 +114,11 @@ static void vc4_ctm_obj_fini(struct drm_device *dev, void *unused)
->  
->  static int vc4_ctm_obj_init(struct vc4_dev *vc4)
->  {
->  	drm_modeset_lock_init(&vc4->ctm_state_lock);
->  
-> -	drm_atomic_private_obj_init(&vc4->base, &vc4->ctm_manager, NULL,
-> +	drm_atomic_private_obj_init(&vc4->base, &vc4->ctm_manager,
->  				    &vc4_ctm_state_funcs);
->  
->  	return drmm_add_action_or_reset(&vc4->base, vc4_ctm_obj_fini, NULL);
->  }
->  
-> @@ -755,11 +755,10 @@ static void vc4_load_tracker_obj_fini(struct drm_device *dev, void *unused)
->  }
->  
->  static int vc4_load_tracker_obj_init(struct vc4_dev *vc4)
->  {
->  	drm_atomic_private_obj_init(&vc4->base, &vc4->load_tracker,
-> -				    NULL,
->  				    &vc4_load_tracker_state_funcs);
->  
->  	return drmm_add_action_or_reset(&vc4->base, vc4_load_tracker_obj_fini, NULL);
->  }
->  
-> @@ -847,11 +846,10 @@ static void vc4_hvs_channels_obj_fini(struct drm_device *dev, void *unused)
->  }
->  
->  static int vc4_hvs_channels_obj_init(struct vc4_dev *vc4)
->  {
->  	drm_atomic_private_obj_init(&vc4->base, &vc4->hvs_channels,
-> -				    NULL,
->  				    &vc4_hvs_state_funcs);
->  
->  	return drmm_add_action_or_reset(&vc4->base, vc4_hvs_channels_obj_fini, NULL);
->  }
->  
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 0b1b32bcd2bda1b92299fd369ba7c23b1c2d3dfa..f03cd199aee73fa8e15b2d9e16a53d134fc7de7d 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -736,11 +736,10 @@ struct drm_connector_state * __must_check
->  drm_atomic_get_connector_state(struct drm_atomic_state *state,
->  			       struct drm_connector *connector);
->  
->  int drm_atomic_private_obj_init(struct drm_device *dev,
->  				struct drm_private_obj *obj,
-> -				struct drm_private_state *state,
->  				const struct drm_private_state_funcs *funcs);
->  void drm_atomic_private_obj_fini(struct drm_private_obj *obj);
->  
->  struct drm_private_state * __must_check
->  drm_atomic_get_private_obj_state(struct drm_atomic_state *state,
+>>>                        return -EACCES;
+>>>                }
+>>>        }
+>>>
+>>> -     target->dbg_flags = *flags;
+>>> -     *flags = prev_flags;
+>>> +     target->dbg_flags ^= (target->dbg_flags ^ set_flags->flags) & set_flags-
+>>>> mask;
+>>> +     pr_debug("Debug Trap previous flags 0x%x set flags 0x%x set mask
+>>> 0x%x target flags 0x%x",
+>>> +             prev_flags, set_flags->flags, set_flags->mask, target->dbg_flags);
+>>> +
+>>> +     set_flags->flags = prev_flags;
+>>>        for (i = 0; i < target->n_pdds; i++) {
+>>>                struct kfd_process_device *pdd = target->pdds[i];
+>>>
+>>> @@ -555,10 +559,8 @@ int kfd_dbg_trap_set_flags(struct kfd_process *target,
+>>> uint32_t *flags)
+>>>                else
+>>>                        r = kfd_dbg_set_mes_debug_mode(pdd, true);
+>>>
+>>> -             if (r) {
+>>> -                     target->dbg_flags = prev_flags;
+>>> +             if (r)
+>>>                        break;
+>>> -             }
+>>>
+>>>                rewind_count++;
+>>>        }
+>>> @@ -596,7 +598,7 @@ void kfd_dbg_trap_deactivate(struct kfd_process
+>>> *target, bool unwind, int unwind
+>>>        int i;
+>>>
+>>>        if (!unwind) {
+>>> -             uint32_t flags = 0;
+>>> +             struct kfd_ioctl_dbg_trap_set_flags_args set_flags = {0,
+>>> 0xFFFFFFFF};
+>>>                int resume_count = resume_queues(target, 0, NULL);
+>>>
+>>>                if (resume_count)
+>>> @@ -606,7 +608,7 @@ void kfd_dbg_trap_deactivate(struct kfd_process
+>>> *target, bool unwind, int unwind
+>>>                kfd_dbg_clear_process_address_watch(target);
+>>>                kfd_dbg_trap_set_wave_launch_mode(target, 0);
+>>>
+>>> -             kfd_dbg_trap_set_flags(target, &flags);
+>>> +             kfd_dbg_trap_set_flags(target, &set_flags);
+>>>        }
+>>>
+>>>        for (i = 0; i < target->n_pdds; i++) {
+>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+>>> b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+>>> index 894753818cba..34d27eb500a5 100644
+>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_debug.h
+>>> @@ -62,7 +62,8 @@ int kfd_dbg_trap_set_dev_address_watch(struct
+>>> kfd_process_device *pdd,
+>>>                                        uint32_t watch_address_mask,
+>>>                                        uint32_t *watch_id,
+>>>                                        uint32_t watch_mode);
+>>> -int kfd_dbg_trap_set_flags(struct kfd_process *target, uint32_t *flags);
+>>> +int kfd_dbg_trap_set_flags(struct kfd_process *target,
+>>> +             struct kfd_ioctl_dbg_trap_set_flags_args *set_flags);
+>>>   int kfd_dbg_trap_query_exception_info(struct kfd_process *target,
+>>>                uint32_t source_id,
+>>>                uint32_t exception_code,
+>>> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+>>> index e9b756ca228c..0522fe7344e4 100644
+>>> --- a/include/uapi/linux/kfd_ioctl.h
+>>> +++ b/include/uapi/linux/kfd_ioctl.h
+>>> @@ -1515,6 +1515,7 @@ struct
+>>> kfd_ioctl_dbg_trap_clear_node_address_watch_args {
+>>>    *     Sets flags for wave behaviour.
+>>>    *
+>>>    *     @flags (IN/OUT) - IN = flags to enable, OUT = flags previously enabled
+>>> + *     @mask  (IN)     - IN = specified debug trap operation bits on flag
+>> I am not sure I fully understand this comment.  Is it meant to say which bits from FLAGS will be set?
+>>
+>> Also, this seems to break backwards compatibility.  Before this patch, a caller would call this ioctl with "flags" set, and the PAD field would be 0.  The semantics of this call is to set all bits from flags.  The updated semantics of MASK would make it so no flags are set instead of alle.
+> [JZ] Jon has pointed out this. I have a new version to fix it.  I will 
+> add below code fallback to old version.
+>      if (!set_flags->mask)
+>          set_flags->mask = set_flags->flags;
 > 
-> -- 
-> 2.52.0
-> 
+>> The updated ioctl must preserve this existing pattern, so instead of mask telling which bits must be changed, it should specify which bits should be preserved (or ignored from FLAGS).
+>>
+>> To make it clearer, I'd probably call this "preserve_mask"
+> [JZ] to use mask to tell which bits in flag will be modified seem more 
+> straightforward.
+
+I agree, but I don't think this is relevant.
+
+There are clients today using this ioctl, which 0-initialize the bits 
+used to hold MASK.
+
+If you change the meaning of those bits, this breaks backwards 
+compatibility, and this is a no-go.
+
+I see 2 options:
+- add the MASK field after the existing PAD (effectively extend the struct).
+- Re-use PAD's bit to hold the mask, in which case we need to ensure 
+that old patterns contiune to work as they do today: setting 0s means to 
+replace all flags, and it is valid to ask clear flags which are not 
+supported for the current platform.
+
+I don't have a strong opinion either way, just need to make sure old 
+clients continue to work once this patch lands.
+
+Best,
+Lancelot.
+
+>>          @preserve_mask (IN)     - IN = Specify flags which must not be modified.
+>>
+>> Best,
+>> Lancelot.
+>>
+>>>    *
+>>>    *     Generic errors apply (see kfd_dbg_trap_operations).
+>>>    *     Return - 0 on SUCCESS.
+>>> @@ -1522,7 +1523,7 @@ struct
+>>> kfd_ioctl_dbg_trap_clear_node_address_watch_args {
+>>>    */
+>>>   struct kfd_ioctl_dbg_trap_set_flags_args {
+>>>        __u32 flags;
+>>> -     __u32 pad;
+>>> +     __u32 mask;
+>>>   };
+>>>
+>>>   /**
+>>> --
+>>> 2.34.1
+
