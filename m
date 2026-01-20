@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF90FD2ECFD
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 01:34:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6204D2ECEF
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 01:34:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AF9710E54A;
-	Tue, 20 Jan 2026 01:34:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB1210E1D2;
+	Tue, 20 Jan 2026 01:34:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Md0sRdDi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0MxmkFGG";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010033.outbound.protection.outlook.com [52.101.61.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A80510E29D
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 01:34:27 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010054.outbound.protection.outlook.com
+ [40.93.198.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9200810E545
+ for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 01:34:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UdP00HSgNIUGA06TZV4gmTINFq7+f/uGQkG9CYQymal9hd7axQ38HVubqpxXFX6zywFeh36xJE8R0Nf8iUB7CIX7sNN1VmRLgz09wNQT20qQZT8YjN/32gM3JdHWa+7xb0zbXTixY53I4hjQyhyGFMkea8bH5jAnO5UK4vDY/0094ydCIaGjJT8M3Yh8XwKuemCINT+4WOe16sF0NUVSMXPFhqnGVKC35bEblxfGmPvMRrvWv1ILUiFR54ZMt+UxnDvR+Yi4i6Rs72XNSIHNG7Bb9fMso6D8Kt3qq5l1KIWj7G625iOQHmBlFcdrGhXmr5BbFDLfd1xr7wGeEtF9fA==
+ b=U6/L00QYfoPWCyOQKtplVkLN8NVfK3kj4Yp8jpHsA5SRokLxifaB2t4//ye5hM+tkCJ28WFIID5xCmHHv1Ccb+ObPdnTnek7lS4W8RFFAvuvN53H1oMCSoD3HsPw3ekcADsFA9n3sB2fxNqPCmOgpJ8fxjokGSluj5bRbCYAe3eMs+ADo+gOsCDDwCVsI8VvSuRoh1+4vA2eXX3ldmrRm69ug78jfyo6kxfoXBelGtUs5taPmwCh1sbOLktw7ucoKo55jDES7jjxNY/+HXqVNJuQnB+TWZlK8m411fesOXig3GVTFOW+mq4lypgl1Q1ky3c7KzeYy4bVO/a4UucGtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BDJOX9/uhmclwmMgT20EDYmTUUsmmvFABSnBPTAcQfU=;
- b=JeoxQaZNySmJUn+V3w9SQvsxFifp9HKzDZmQC6dsromINJnqxi6zsS7AmWQdEFIbKAUYfMxjr4xhDvB+jE0XJbYrBuWcgW7OCS7oRvLGgX/qr1tSFsAQYtBhC6RPo2wEa2yP2rT1i9TeZkfEZZtdNpa7+9hmIdTpswMo9h/lCSnbA6euJVopVroqt3khZxTY6aN4jWEcK48lFQuGSoXpbIhrKhJROWIPTHcxK0Nb8FwWYTZJ4LGVJVu2tra2nnOLi0NYsi8O6IaLbPjBzgkSjcweACy5NL5HWzrKScIxcy4AUvqyKeS7vaIPYPEp62fpW0KG4Yi+kRDaktNw486wkw==
+ bh=GrZ+KM+v1+iAoxCIGeFlgKrkCEYG5WJxAWBix6NbgXo=;
+ b=UrFykSg2MxZeqUmEhCqN/BGqBbd2WiXHkxdw/zrIqvmnbSdBWeKE6e+cR2STv6AwLdNdl9xAy6ZkuNKRCMbrGrLPdqkHVt12K6jG3UQdJiMQuz5PIe7myHKOeHRfJiGHnJ63pNvjB+uwoRN2m32FdeVJ5z4r7b5t/n2x3A2Kla6PR1znGuUEKPHQGeciovugrx3mRXbsNiZD6Z/B0J6aaTmFsRERevZzscmFhgJzXjsnbpyASwCEIqkBnmjspHE2T2ctefbm4fSohAnvd9oPAuF1Zey+n5zAcyoajY/ogFHHz2PKJ8R/hJTYHRgAPRuNLbO0hIusgVT4UaVUnBiL4w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BDJOX9/uhmclwmMgT20EDYmTUUsmmvFABSnBPTAcQfU=;
- b=Md0sRdDiWsPQAsuYrnN8lxWGUhqKcVrvB+rRKCAMtIVa/iF4j8CVSrtb2BoxhQL2wiZPlPXZe5gOmertA9kgbXYOZ6NtoOxtXWIymFoxYnpE0X6fzOrKmWoC/IrA98INoz1e2+nh/SOOGarmwBZ2PSyfNWjAyVzq50+sJx9yrF0=
-Received: from BY3PR05CA0004.namprd05.prod.outlook.com (2603:10b6:a03:254::9)
- by DS0PR12MB8317.namprd12.prod.outlook.com (2603:10b6:8:f4::10) with
+ bh=GrZ+KM+v1+iAoxCIGeFlgKrkCEYG5WJxAWBix6NbgXo=;
+ b=0MxmkFGGFF5h7VNMbBg9U9og40K8wje+EVwoNpHOva9Vakq4IMJSWkOzCgd0p80QlWm2E5xUeZPIBGsPu5FiGei3lBznSsPugkUf6sXk393sBxIRMieetplmY6G4pYUYNMeP/XmwIu9K23jVMMlzGxqqrhAHbeuFCEzT2d0CMLE=
+Received: from BY3PR05CA0008.namprd05.prod.outlook.com (2603:10b6:a03:254::13)
+ by DM4PR12MB6591.namprd12.prod.outlook.com (2603:10b6:8:8e::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.9; Tue, 20 Jan
- 2026 01:34:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9478.4; Tue, 20 Jan
+ 2026 01:34:26 +0000
 Received: from MWH0EPF000989E6.namprd02.prod.outlook.com
- (2603:10b6:a03:254:cafe::16) by BY3PR05CA0004.outlook.office365.com
- (2603:10b6:a03:254::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.7 via Frontend Transport; Tue,
- 20 Jan 2026 01:34:01 +0000
+ (2603:10b6:a03:254:cafe::84) by BY3PR05CA0008.outlook.office365.com
+ (2603:10b6:a03:254::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.8 via Frontend Transport; Tue,
+ 20 Jan 2026 01:34:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,78 +51,82 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  MWH0EPF000989E6.mail.protection.outlook.com (10.167.241.133) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.4 via Frontend Transport; Tue, 20 Jan 2026 01:34:21 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ 15.20.9542.4 via Frontend Transport; Tue, 20 Jan 2026 01:34:25 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 19 Jan
- 2026 19:34:19 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Mon, 19 Jan
+ 2026 19:34:22 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 19 Jan
+ 2026 19:34:22 -0600
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 19 Jan 2026 17:34:18 -0800
+ Transport; Mon, 19 Jan 2026 17:34:22 -0800
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 01/10] drm/amdgpu: re-add the bad job to the pending list for
- ring resets
-Date: Mon, 19 Jan 2026 20:34:02 -0500
-Message-ID: <20260120013411.15659-2-alexander.deucher@amd.com>
+Subject: [PATCH 08/10] drm/amdgpu: simplify VCN reset helper
+Date: Mon, 19 Jan 2026 20:34:09 -0500
+Message-ID: <20260120013411.15659-9-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260120013411.15659-1-alexander.deucher@amd.com>
 References: <20260120013411.15659-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E6:EE_|DS0PR12MB8317:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d399ec7-9878-4e98-635e-08de57c40937
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E6:EE_|DM4PR12MB6591:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5db3373-bbaa-4e9f-9c29-08de57c40bfe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?fvyX4nBJ64tkuV/9a2m9eHIGKKvth3VYAQ4yzfmSDEZfeAIlzR1JnBKODIP6?=
- =?us-ascii?Q?vgpC/xWs26vCQ3D82IF8DqkNcoCvXrDoY/+rWMHYCz8riB7UbEw4ENIyoDrZ?=
- =?us-ascii?Q?V8hTdFk1YPuYyo6/3oxhFDSz2/6cwqouuypuyxqFrIJ0ZsvEzKtyg2GPkXeO?=
- =?us-ascii?Q?w7nq3DEZC9Er7YCtK6rtw+jFiXrGyn1xQqKQF3Ta6UEFpWp3G1lwWiq2IwDS?=
- =?us-ascii?Q?G9EWzqAD8HTFXxwWAymPAI6FJYEP7Y0WVknnIVDu8qXg7zDC1aTM6QyWPkCr?=
- =?us-ascii?Q?q0W5RvG+U9Zb1hoefJOz5PjKVV5SOfoChXMCG8X330M94kjM3T6W6t0K9+9w?=
- =?us-ascii?Q?kA9I4Tyw9DGmWJ4crq25yVz1CBt+umcxOKwCEBsGYMJfDnxT1A0W15o6NTVU?=
- =?us-ascii?Q?INj/SfmSIYD4/c89TtW2pUnl+de71T7+nmNIMVDAG7MG+Xlt+gsWvegVUCqK?=
- =?us-ascii?Q?GwtoweGoddIZytT3DHPDevX9V+lFE6fcZDFyYjwAkPWggkq2pGsbR3//A4Ra?=
- =?us-ascii?Q?a5I87hEoGa4dz+MW6M6xccbhS660Mb6pp8ngsTB+PpHJ1CVXjp5Xx5ONclSC?=
- =?us-ascii?Q?eh0uO5JaTKx2zX0Cj34yxjh9vgI+SMjcROzG8Vv3/rCAUbhfZXfOiefj/GV2?=
- =?us-ascii?Q?Im6BNWLJjZqxuIgCggMPMLLiwRXfS4AMVRueqc+x24tzZV+fD4w4TESq6zZv?=
- =?us-ascii?Q?H/pbNPR6Xg5cVjBcVQF/IYwOuwOf1lBLXQ0XVw3dlJbZV4DIkKQC8+cUPN5E?=
- =?us-ascii?Q?R87djMi8I4v0gr5WDz/YnjVxWcwOtZ1MSpWGYtRmzC/ocAEVpPkV14W8ysEj?=
- =?us-ascii?Q?b0qq4VjOiDQxj4cZiIzSrWWG9GaB+bG9CYFZt6A9lVEy0dF9WT0dJsmoQQbt?=
- =?us-ascii?Q?SUjOP9rdMRroY4AGt6d8HR5+2WX4/hSYa/0zOM1xO/7w2LvFT9r96K+EKdtr?=
- =?us-ascii?Q?2CbZxBeLP4ExC2dlrh9IfxTgFzYu7n2UV5odk97tsaDFd/j1S4twTH0nzRof?=
- =?us-ascii?Q?x8CsxjWOLCdjMUC8RxtzzKdjt6NkRx0IwDyv2eLbzfQHg4wIQj6htstFDvsJ?=
- =?us-ascii?Q?I2MvMTvMCwGNq4n6+LjBzVEhc8hqJI1lvBHQxIHp6tJfTHSgcERQwQvPso1W?=
- =?us-ascii?Q?00PPFLb2/SxHluzNfKhPGrzeeVTaJ/wBLhgXnTCyxU2Pq7L9EHJ6GHg9hQKI?=
- =?us-ascii?Q?NyAeuxCpbwDj9o5/pns77sdPPT3RjaTKpJmChXAtNh4KRnBVnsnUrSiGpWGs?=
- =?us-ascii?Q?sl6vxxeuYBgC7LMk3Qn/VPTsAT1Oe5wFmePL2Eisrmuf+GzKWUBxDJYYevZt?=
- =?us-ascii?Q?EOKKsl/38vyJRJKFhKq1qM0kqJDlxw4gkq0TKtoXxmS8kcwr1dk+0Mo4+rD0?=
- =?us-ascii?Q?YTjwAsZGdvodpWXIPcIg/ohGy7OXAWhONY/5nWyuirDxlA7AiS5dKM1cx5JB?=
- =?us-ascii?Q?BQfKxWCx3r/kf58sOTSes7M+ANds3xFIJBBceSydTVr+cFL4rGMtx2JxhGPF?=
- =?us-ascii?Q?MgPPBSgizy7b323DDMuVvDK51WUNLLgIWuKVMpraSglvscVPmhrJK35I/4Hg?=
- =?us-ascii?Q?1yQ5nA8gBdzKHzCE6Ily0E8w4+VnkN8kiZjnB0b4TZtJl7PX9J/FT2DdaoO8?=
- =?us-ascii?Q?r4VYJ1d5Jk0pxUSnXArzyb8kuxIm5UnX043ZjXMric16D5V+1T+PXp49QhnP?=
- =?us-ascii?Q?D6zlkA=3D=3D?=
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?TaRImWfPGdD/LEvKX+rCA8tBxzZWTgdjJ68RKrCIDV6yGbqIc/8p5m2ObdJC?=
+ =?us-ascii?Q?SYI/BEUT3RdLsmIaphvf/Af8yPCSYl9KFwJiFnVzVsbBJgtg8MDv9bhwWAXG?=
+ =?us-ascii?Q?1vEw6/9NXli/0I1Fy6yauIxbyxK3mJKMuTQHd4+Mbh0G5QeP8L6EPddzsuvX?=
+ =?us-ascii?Q?RQzuc+PekBQpM9ZJPA2KVSRalOVzof4nsOzT85yvTEtBmfTEgcEm6iKBUgxW?=
+ =?us-ascii?Q?vQOyiFB+qIHAsVbWpd/SDOvFd0SyvFZrfiXINOOpOJ7s/dQGtj0FbrKGHM/m?=
+ =?us-ascii?Q?2QfD1hK+DwYWIbpUG7kZKsDwtM2nXO8NsNlqRN0OTEdOp97drCwJeBd8A1r6?=
+ =?us-ascii?Q?NTXXLe5iPgIYfxHo3htPzj1SeFYDEvNYzm0w2Rt1t8Xf1BEt96xcn8kYrNrK?=
+ =?us-ascii?Q?S9dIqlmRQwE2zp2ruAKpwL9jOf+Av78k82i+p4nP1OsgO6Zf736eeu5Osytc?=
+ =?us-ascii?Q?KkkMDqgYBV9jwq88zdYGpjb2jE8ZeLMuPhcJ3om3wm4FsSp/o8CEuuSfztGQ?=
+ =?us-ascii?Q?SiAnXGUydxiHwvVD3oIPC8lKhUuI4ewRTKzg6FV0yw9nKGNs7k2W2GbaPbAk?=
+ =?us-ascii?Q?rP1JtHTnVjo0SXsyMnKnrIjZ54U1sI2OXYmdXsvsZiXIJt0c6ekhodlWFzQ2?=
+ =?us-ascii?Q?REOmO/b30pDDVJrDjfq++SpSTniLvQsQG+Pkv23z0qs8E7sPwcUsOOYTDr7x?=
+ =?us-ascii?Q?NYc4fYrccbF2K/qo1MHpeX8T3FmBo2/YyCffCkT3x3+CxACTgOD7vu+rlTet?=
+ =?us-ascii?Q?6O9qjz+iLUfJRHWEs+bFPA7sUwB4UjCM22Ou36g4fwHwfrrHB5W5oi/QrXki?=
+ =?us-ascii?Q?Imaxix9CkA6cfWPc3mo7lP6C+nILD4JcuWdxKlSRZtuwzYBwTuE2y0TmBSkZ?=
+ =?us-ascii?Q?jtVr3NuBHUGZMBjyoZaqTsCBPGJJKsHg0V9QZCSRjZeKFZnHfPn9cjs7WwMe?=
+ =?us-ascii?Q?SI/6pnnlHazsoBFIGL43pY0NvhIxziHEN6DoH/iJx/WoPJMxNG7iEA3hhsMv?=
+ =?us-ascii?Q?MQhiaIDpHFHQWrkFJLfmBExMAc1jDVBNrODoORPoFj9veZXWQzL0/MdO6ros?=
+ =?us-ascii?Q?1Vxhl65FDiXvwGfBlU6+IMStmuvFAcekBU0tI6okKiz69xjl04C98zU63hEP?=
+ =?us-ascii?Q?WRwQSJCD9XjiJJTIBcCT4/Ng8Wmp7FIBXRHr0WV40Qur5zXyEmFQRBTP+SOl?=
+ =?us-ascii?Q?wryroBL7DaldcQLqyA/uRywhfpodnA3HcJfHHQtk8dnuEspUIv2k0Y8doTy/?=
+ =?us-ascii?Q?3GdFuhrDtRIHPtcTTJcTKAh9AE6MEafPIdYilZlKEm7eDfXurZZZFFz0kVBj?=
+ =?us-ascii?Q?3VGucbwC3woJyEddUAfwzizhl74Mc9XikeWvHPA7OL9UshbSj1U+rtLthfZs?=
+ =?us-ascii?Q?uhgps/PTsILMfvjiDs7iqi/PveTgeIW2OsHbhPMKVBXy7Y7as+flmXXkqw3A?=
+ =?us-ascii?Q?ADD8Ww42/zXIPlD4c321yKMJx+0rH5d8PnnIOO0hfalPUiUvSO8/toGkBnqA?=
+ =?us-ascii?Q?cQ/MDruqXr7dIZxQcAmboNx0RXYNREOmBAEzqjnJgoJydq5Sei5ykfg+l/s8?=
+ =?us-ascii?Q?t2Kn/bOI6IZxswXYvhmNXZDNYVmhDaM1Lm5GIjANjuK4d+l3GBhWWHKAebrI?=
+ =?us-ascii?Q?qyvjTCF8f5MxKXgh7BgipdyBnfYealElAZ9giAQP6J6q?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013); DIR:OUT;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2026 01:34:21.1721 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d399ec7-9878-4e98-635e-08de57c40937
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2026 01:34:25.8281 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5db3373-bbaa-4e9f-9c29-08de57c40bfe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E6.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8317
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6591
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,56 +141,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Need to re-add the bad job to the pending list before we
-restart the scheduler.
+Remove the wrapper function.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  | 6 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 4 ----
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 41 ++++++++-----------------
+ 1 file changed, 13 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 1daa9145b217e..ec8d74db62758 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -135,8 +135,14 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	    ring->funcs->reset) {
- 		dev_err(adev->dev, "Starting %s ring reset\n",
- 			s_job->sched->name);
-+		/* Stop the scheduler to prevent anybody else from touching the ring buffer. */
-+		drm_sched_wqueue_stop(&ring->sched);
- 		r = amdgpu_ring_reset(ring, job->vmid, job->hw_fence);
- 		if (!r) {
-+			/* add the job back to the pending list */
-+			list_add(&s_job->list, &s_job->sched->pending_list);
-+			/* Start the scheduler again */
-+			drm_sched_wqueue_start(&ring->sched);
- 			atomic_inc(&ring->adev->gpu_reset_counter);
- 			dev_err(adev->dev, "Ring %s reset succeeded\n",
- 				ring->sched.name);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index b82357c657237..129ad51386535 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -868,8 +868,6 @@ bool amdgpu_ring_sched_ready(struct amdgpu_ring *ring)
- void amdgpu_ring_reset_helper_begin(struct amdgpu_ring *ring,
- 				    struct amdgpu_fence *guilty_fence)
- {
--	/* Stop the scheduler to prevent anybody else from touching the ring buffer. */
--	drm_sched_wqueue_stop(&ring->sched);
- 	/* back up the non-guilty commands */
- 	amdgpu_ring_backup_unprocessed_commands(ring, guilty_fence);
- }
-@@ -895,8 +893,6 @@ int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
- 			amdgpu_ring_write(ring, ring->ring_backup[i]);
- 		amdgpu_ring_commit(ring);
- 	}
--	/* Start the scheduler again */
--	drm_sched_wqueue_start(&ring->sched);
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+index d22c8980fa42b..4de5c8b9a4cc4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
+@@ -1481,19 +1481,27 @@ int vcn_set_powergating_state(struct amdgpu_ip_block *ip_block,
  }
  
+ /**
+- * amdgpu_vcn_reset_engine - Reset a specific VCN engine
+- * @ring: Pointer to the VCN ring
+- * @timedout_fence: fence that timed out
++ * amdgpu_vcn_ring_reset - Reset a VCN ring
++ * @ring: ring to reset
++ * @vmid: vmid of guilty job
++ * @timedout_fence: fence of timed out job
+  *
++ * This helper is for VCN blocks without unified queues because
++ * resetting the engine resets all queues in that case.  With
++ * unified queues we have one queue per engine.
+  * Returns: 0 on success, or a negative error code on failure.
+  */
+-static int amdgpu_vcn_reset_engine(struct amdgpu_ring *ring,
+-				   struct amdgpu_fence *timedout_fence)
++int amdgpu_vcn_ring_reset(struct amdgpu_ring *ring,
++			  unsigned int vmid,
++			  struct amdgpu_fence *timedout_fence)
+ {
+ 	struct amdgpu_device *adev = ring->adev;
+ 	struct amdgpu_vcn_inst *vinst = &adev->vcn.inst[ring->me];
+ 	int r, i;
+ 
++	if (adev->vcn.inst[ring->me].using_unified_queue)
++		return -EINVAL;
++
+ 	mutex_lock(&vinst->engine_reset_mutex);
+ 	/* Stop the scheduler's work queue for the dec and enc rings if they are running.
+ 	 * This ensures that no new tasks are submitted to the queues while
+@@ -1537,29 +1545,6 @@ static int amdgpu_vcn_reset_engine(struct amdgpu_ring *ring,
+ 	return r;
+ }
+ 
+-/**
+- * amdgpu_vcn_ring_reset - Reset a VCN ring
+- * @ring: ring to reset
+- * @vmid: vmid of guilty job
+- * @timedout_fence: fence of timed out job
+- *
+- * This helper is for VCN blocks without unified queues because
+- * resetting the engine resets all queues in that case.  With
+- * unified queues we have one queue per engine.
+- * Returns: 0 on success, or a negative error code on failure.
+- */
+-int amdgpu_vcn_ring_reset(struct amdgpu_ring *ring,
+-			  unsigned int vmid,
+-			  struct amdgpu_fence *timedout_fence)
+-{
+-	struct amdgpu_device *adev = ring->adev;
+-
+-	if (adev->vcn.inst[ring->me].using_unified_queue)
+-		return -EINVAL;
+-
+-	return amdgpu_vcn_reset_engine(ring, timedout_fence);
+-}
+-
+ int amdgpu_vcn_reg_dump_init(struct amdgpu_device *adev,
+ 			     const struct amdgpu_hwip_reg_entry *reg, u32 count)
+ {
 -- 
 2.52.0
 
