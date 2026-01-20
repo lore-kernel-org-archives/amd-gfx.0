@@ -4,66 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8380AD2ED0F
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 09:46:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8248FD2ED0F
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 09:51:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F13B10E3B1;
-	Tue, 20 Jan 2026 09:46:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2520910E5A3;
+	Tue, 20 Jan 2026 09:51:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dLp9ReyQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FzvkvTJh";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C93E10E3B1;
- Tue, 20 Jan 2026 09:46:05 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1D0BC41908;
- Tue, 20 Jan 2026 09:46:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B94BC16AAE;
- Tue, 20 Jan 2026 09:46:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768902365;
- bh=xwqfvmhHmuW9plUqJwJFOo0A9JPdncx7ymGaNl95+yo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dLp9ReyQRpZBQ1HsP4UfwVvklS8InFrF5hZROHOsUQf2ANERezVMKk+6yLg6Ao4g3
- bLcG3imT0sMt+H8fCaljcj6H6q3C49oKM5UFuq9mCGfKKoc58e7IfUyEjHp9yyDWly
- YIKTxAK65ASJJqdGUsUzRrjLdUxxrZkSb5a45Yin99EzC3KcC/KU54U44uAJoCTHCk
- /GXbSQK/AWWMtHtI6tfkHgvO0RI0YfUByVjh5FRuPknr3l7QRpVrbBG7WUGy8+TysZ
- sOw9jD1XrRQTSSUqXvrM/yMlG1kzWM8fP+8vKPFCkbcyIu4rYCttJvTje8CuUxTa6t
- RL0gf/JISbozw==
-Date: Tue, 20 Jan 2026 11:45:59 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] dma-buf: Document revoke semantics
-Message-ID: <20260120094559.GR13201@unreal>
-References: <20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com>
- <20260118-dmabuf-revoke-v2-2-a03bb27c0875@nvidia.com>
- <20260119164421.GF961572@ziepe.ca>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EFEF10E5A3;
+ Tue, 20 Jan 2026 09:51:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=8qNj/Nnvyivr9EuRGcKz3wI3QHvS+TPp2PlLgCyIQ2Q=; b=FzvkvTJh9J9Xzr1pOVOTJdyjbe
+ eV5aRW2ZheeVR4a1v47VZff3kFCEG4WPHBXmesl4pldQXbtLrmMfWUCoO1jfIkhyckHdcn//JuQQr
+ Opu9lW2/UnQ57wVrNP3K58hXN26p7/U4WDGMYA6j/YNhHQGYmDupr8fcwMThM2IPa+SzmthLhWQ2f
+ 0cEy9VubkIiXRYUBqNvDkRF3t3xj/43gfXU1XE/jZr6+EQjeli+ASNlNqGynro77Y+VN/qnf//6QQ
+ +cVt3xRzZ92xYPSHc3Mtus6CifV0tu8Bv0mqfTsysIXZhMUPrpXE3+uNvHY+z+s43UadHnwUCnTLB
+ 1i5UCavg==;
+Received: from [90.240.106.137] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1vi8Or-007Vqr-Jv; Tue, 20 Jan 2026 10:51:49 +0100
+Message-ID: <b5b3461f-7434-42db-bad3-ae9187fdbfc1@igalia.com>
+Date: Tue, 20 Jan 2026 09:51:48 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260119164421.GF961572@ziepe.ca>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 09/28] drm/sched: Add fair scheduling policy
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+References: <20251219135351.25880-1-tvrtko.ursulin@igalia.com>
+ <20251219135351.25880-10-tvrtko.ursulin@igalia.com>
+ <DFONORJMB1ZM.1JHSIXB9ULHJV@kernel.org>
+ <1fceb644-ff22-45c8-bd83-4a32786c35f2@igalia.com>
+ <DFP4XVVKNIRC.2O817MGMKCQ3P@kernel.org>
+ <7b1d848c-a0e3-4960-94da-4f9001c1d96f@igalia.com>
+ <DFPK5HIP7G9C.2LJ6AOH2UPLEO@kernel.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <DFPK5HIP7G9C.2LJ6AOH2UPLEO@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,117 +69,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 19, 2026 at 12:44:21PM -0400, Jason Gunthorpe wrote:
-> On Sun, Jan 18, 2026 at 02:08:46PM +0200, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Document a DMA-buf revoke mechanism that allows an exporter to explicitly
-> > invalidate ("kill") a shared buffer after it has been handed out to
-> > importers. Once revoked, all further CPU and device access is blocked, and
-> > importers consistently observe failure.
-> > 
-> > This requires both importers and exporters to honor the revoke contract.
-> > 
-> > For importers, this means implementing .invalidate_mappings() and calling
-> > dma_buf_pin() after the DMA‑buf is attached to verify the exporter’s support
-> > for revocation.
-> > 
-> > For exporters, this means implementing the .pin() callback, which checks
-> > the DMA‑buf attachment for a valid revoke implementation.
-> > 
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  include/linux/dma-buf.h | 19 +++++++++++++++++++
-> >  1 file changed, 19 insertions(+)
-> > 
-> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> > index 1b397635c793..e0bc0b7119f5 100644
-> > --- a/include/linux/dma-buf.h
-> > +++ b/include/linux/dma-buf.h
-> > @@ -579,6 +579,25 @@ static inline bool dma_buf_is_dynamic(struct dma_buf *dmabuf)
-> >  	return !!dmabuf->ops->pin;
-> >  }
-> >  
-> > +/**
-> > + * dma_buf_attachment_is_revoke - check if a DMA-buf importer implements
-> > + * revoke semantics.
-> > + * @attach: the DMA-buf attachment to check
-> > + *
-> > + * Returns true if DMA-buf importer honors revoke semantics, which is
-> > + * negotiated with the exporter, by making sure that importer implements
-> > + * .invalidate_mappings() callback and calls to dma_buf_pin() after
-> > + * DMA-buf attach.
-> > + */
-> 
-> I think this clarification should also have comment to
-> dma_buf_move_notify(). Maybe like this:
-> 
-> @@ -1324,7 +1324,18 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_sgt_unmap_attachment_unlocked, "DMA_BUF");
->   * @dmabuf:    [in]    buffer which is moving
->   *
->   * Informs all attachments that they need to destroy and recreate all their
-> - * mappings.
-> + * mappings. If the attachment is dynamic then the dynamic importer is expected
-> + * to invalidate any caches it has of the mapping result and perform a new
-> + * mapping request before allowing HW to do any further DMA.
-> + *
-> + * If the attachment is pinned then this informs the pinned importer that
-> + * the underlying mapping is no longer available. Pinned importers may take
-> + * this is as a permanent revocation so exporters should not trigger it
-> + * lightly.
-> + *
-> + * For legacy pinned importers that cannot support invalidation this is a NOP.
-> + * Drivers can call dma_buf_attachment_is_revoke() to determine if the
-> + * importer supports this.
->   */
-> 
-> Also it would be nice to document what Christian pointed out regarding
-> fences after move_notify.
 
-I added this comment too:
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 6dd70f7b992d..478127dc63e9 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1253,6 +1253,10 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_unmap_attachment_unlocked, "DMA_BUF");
-  * For legacy pinned importers that cannot support invalidation this is a NOP.
-  * Drivers can call dma_buf_attach_revocable() to determine if the importer
-  * supports this.
-+ *
-+ * NOTE: The invalidation triggers asynchronous HW operation and the callers
-+ * need to wait for this operation to complete by calling
-+ * to dma_resv_wait_timeout().
-  */
- void dma_buf_move_notify(struct dma_buf *dmabuf)
- {
+On 15/01/2026 23:39, Danilo Krummrich wrote:
+> On Thu Jan 15, 2026 at 2:00 PM CET, Tvrtko Ursulin wrote:
 
-> 
-> > +static inline bool
-> > +dma_buf_attachment_is_revoke(struct dma_buf_attachment *attach)
-> > +{
-> > +	return IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY) &&
-> > +	       dma_buf_is_dynamic(attach->dmabuf) &&
-> > +	       (attach->importer_ops &&
-> > +		attach->importer_ops->invalidate_mappings);
-> > +}
-> 
-> And I don't think we should use a NULL invalidate_mappings function
-> pointer to signal this.
-> 
-> It sounds like the direction is to require importers to support
-> move_notify, so we should not make it easy to just drop a NULL in the
-> ops struct to get out of the desired configuration.
-> 
-> I suggest defining a function
-> "dma_buf_unsupported_invalidate_mappings" and use
-> EXPORT_SYMBOL_FOR_MODULES so only RDMA can use it. Then check for that
-> along with NULL importer_ops to cover the two cases where it is not
-> allowed.
-> 
-> The only reason RDMA has to use dma_buf_dynamic_attach() is to set the
-> allow_p2p=true ..
+8><
 
-Will do.
-
+>> Okay but I am sure you know there are memory barriers, RCU, SPSC queue,
+>> completions, worker management, and at least two locks, and everything
+>> is interdependent.
 > 
-> Jason
+> I am, and I couldn't describe the maintainance burden of the scheduler any
+> better. :)
+> 
+>> This series at least removes a bunch of code without making things more
+>> complicated and so can be a good base for further rework. If you suggest to
+>> hold it until all of the above is resolved it will be a few more years easily.
+> 
+> Let me explain a bit where I'm coming from:
+> 
+>  From a maintainer perspective - without saying that things are either black or
+> white - I'm assessing contributors and contributions on whether the intention is
+> to improve the infrastructure in terms of design and maintainability or whether
+> the main intention is to "just" get a certain feature merged.
+> 
+> While both are valuable contributions that are appreciated, contributions that
+> have a tendency into the latter direction, have to be seen with more sceptisism.
+> 
+> Especially when the code base already has known design issues, bulding features
+> on top is very dangerous. Not necessarily because the resulting code might be
+> wrong or because of regressions, etc. But because it most likely increases the
+> difficulty resolving the existing issues -- in the worst case leading to a dead
+> end.
+> 
+> Having that said, I am not saying that you "just" try to get your feature merged
+> no matter what. Quite the opposite, I very much appreciate your contributions to
+> the scheduler and recognize the cleanup work you are doing.
+> 
+> However, for this series I require you to acknowledge that, even if correct,
+> some of this code introduces additional workarounds due to existing design
+> issues, locking and synchronization subtleties that should be solved in better
+> ways.
+> 
+> I have no objections going ahead with this series if we are on the same page
+> regarding this and you are willing to also help out fixing those underlying
+> design issues, locking and synchronization quirks, etc. subsequently.
+> 
+> But if you are more leaning in the direction of "I don't see an issue overall,
+> the code is correct!" I do have concerns.
+> 
+> Improving the situation with the scheduler is the fundamental reason why Philipp
+> and me were stepping up as maintainers, Philipp being more of the active part
+> (doing a great job) and me working more in the background, helping and mentoring
+> him.
+> 
+> Believe me when I say that we want this to move forward, but we also have to
+> ensure that we are not making a step into the direction of increasing the
+> difficulty to solve the underlying issues.
+> 
+> So, again, if we are on the same page with this, no objections from my side.
+
+I thought it would have been obvious by now that I am trying to improve 
+and fix things across the board. I even mentioned I had attempted a more 
+ambitious rewrite already, which hit some stumbling blocks, so I settled 
+for this smaller step first.
+
+I am also glad to hear there is desire to attempt more significant 
+refactors. Because in the past I was a bit concerned with a little bit 
+of "it's scary don't touch it" messaging.
+
+So yes, I do plan to stick around to keep fixing and improving things.
+
+Regards,
+
+Tvrtko
+
