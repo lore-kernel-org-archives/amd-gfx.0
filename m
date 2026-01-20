@@ -4,89 +4,170 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 354F8D2ED12
-	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 14:32:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18D1CD2ECE9
+	for <amd-gfx@archiver.kernel.org>; Tue, 20 Jan 2026 14:32:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0F1610E604;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0F8110E60A;
 	Tue, 20 Jan 2026 14:32:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lZayfKvh";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="ctUfXaZk";
 	dkim-atps=neutral
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D97E110E5D9
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 12:47:11 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-64ce9d80429so684053a12.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 20 Jan 2026 04:47:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768913230; x=1769518030; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=b2YlJZiAZT7kTnDMLrP5TooRkttJj7D7VhWFPs2HhFs=;
- b=lZayfKvhXOtv5qrQMJbtA2oaHbedmYmdycFlwn/PbO9pmNvE+37F3ynt6F7pfG3oAm
- eApjHJ7oXEzjLWGqMyMsWl4wK6w7EFVEatYItnwFhYtI92ubZc6anKpExy8uc4xrY18K
- +V5LO0qQyvGGUbExOY7Xl5EueyJgZ5AkfVnZ+B8vxZ2pc1WuDvJMfHy3JPdggE56VtW3
- YW9c4v3jem05j3hbt/t9tK4yaczCZ12WMCl3SX//CKHzqSzl5Y5wsMu3KU4qBbDM17gs
- x9csaPCLmVUZ4Y3w8ScFHXZzfSW5Px4GUadiV+Vyx4EUPky7EWLSYkjgK7fBfIMQ4ZOT
- XgVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768913230; x=1769518030;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=b2YlJZiAZT7kTnDMLrP5TooRkttJj7D7VhWFPs2HhFs=;
- b=ZLMNLkCqIV0MhAdSucG9MkIRXVN6gl91hIkUiqvlneEstg9+fMkZEF92PQ5fyRXtrd
- MCstiwnTAozTSrFOk93urVCDgO2b+Vv61Rd3UsTKL+hA7h60aCMmAWeMZqHEXf5JAD21
- qDR2RkgsTv9oLttC5RXwyenlNFw+QnhxkXzEHSiJQTxSDeaTm+H72moJs80LeJMg/CMT
- lBJ/+6mr956TJiifQoewZ/ldd4JbgWtTGRLsLduStrLHBc6/Rap6P+uYzslRuZ2Uhdv+
- KT9EQ6JUZWAFIRlaseYkmpLwOGmX7SB5kHgCIPvZ8ghEw6gP1bzxU+tFoGTYVLSnwj3M
- 5PnA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXSoVE017PL3XGWbqYF31PbstbmEPInQK+EdZHXZM2C9gEcWhJsFGxHiddF1GmAYRd/NwPxNPIS@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyGBZwwMGmnZdY7IAyd9l/qgktzAKqtl2igYQMnysyrXAvHtuY7
- 54sTMywltZW107NlEDR/8lsL/pqm3MDYU62cf2WTmwecaYeVE4wSvZ/7
-X-Gm-Gg: AZuq6aLkbP1pEcFFNZawfftpfuMpoNQkUaE/e6zsqqLsEvqhKc283xbR9s8MNJepqrZ
- QzwIEwN05DGS//3wCM1ZtnvIKn/fDMCVWLmokiy1MDFR5nxVJs1GEs7QSngMwAT72Foy/u8pJfn
- OSIsc4YBmTSbBQzi3lUKlwMAiHj4A3XjI72YFP5GLGfMnMYlWkRmN3EYYlRkj9rIwPmUdcrUiKA
- 4BCnAcBygpD24i0hSEiNeKCJD4RNcN7AoWeCEcK1wmgyUK4jzGorWdxNQFJ/oDaLo0AIrYV6MI7
- UZmx+PBCugnr4J/2o6vClHo5XajuOtXNu4l+gsRrKbup/qpg0QByQB3oyaVCok35N+KFrZJC8hI
- qH9QUuZeyX+APLT50kIm3+zw0I+ijc1B1OOSKdvA1/+WNEzW/G09bSiZq15nU0NeH8StkEv3QCA
- 9fSwOlZT/rOQBOE7iFz2avOLBAz9tM9hmkH2Ii/A3cctEo75DIZZ5Uwqavryz6cXpY3yEBjGStU
- NwB1mC5Gw==
-X-Received: by 2002:a05:6402:27cf:b0:64d:4623:8475 with SMTP id
- 4fb4d7f45d1cf-654524cf67cmr6634369a12.2.1768913229909; 
- Tue, 20 Jan 2026 04:47:09 -0800 (PST)
-Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
- [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-658029e060asm1309600a12.21.2026.01.20.04.47.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jan 2026 04:47:09 -0800 (PST)
-Message-ID: <de91cf5d1e282f12cb902a9c4b87ed074338b71b.camel@gmail.com>
-Subject: Re: [PATCH 15/17] drm/amd/display: Trigger ALLM if it's available
-From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, Daniel Stone
- <daniel@fooishbar.org>, Michel =?ISO-8859-1?Q?D=E4nzer?=
- <michel.daenzer@mailbox.org>
-Cc: alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com, 
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, bernhard.berger@gmail.com, 
- ville.syrjala@linux.intel.com
-Date: Tue, 20 Jan 2026 13:47:06 +0100
-In-Reply-To: <34863839c6d54e911597192bba6a54c3b9c97b75@intel.com>
-References: <20260119011146.62302-1-tomasz.pakula.oficjalny@gmail.com>
- <20260119011146.62302-16-tomasz.pakula.oficjalny@gmail.com>
- <82645a06-2d15-48fe-a250-56d736d636da@mailbox.org>
- <CAPj87rPyt2+cWjM7KmpRzY4sBgaUzZBOS3FJoxF+PjkijapTag@mail.gmail.com>
- <34863839c6d54e911597192bba6a54c3b9c97b75@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.2 
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012008.outbound.protection.outlook.com [52.101.53.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABAC210E0E3;
+ Tue, 20 Jan 2026 13:53:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a/yAV2OsVWAKUCbeHT8zWYP976PzAXsd0c/ov2sLr4IDvUmwkAOGpSaQ8kc0XkwX1uDNarEb6o2Njd3Fcr2lcrU1F9BlS5+RZsaflO9WLHhtq4daUaQFNA2zCYC39/U4Zjx2T1dOKzfHCuPFd3refb+feRIezuvLSpmvB9HqI5QrlhFUO+PF9Bxzf2HlXTNQdQj0YOROy8K1uaq73jjDAWddMSDxA66Qh147ejJedVWh+heD9ZsTWDePltJMWfrv64Xv5reISWNw0r16LJbmq/ueqVs85K7sEMxP557nDgGmP9B84NXc2/4UQDLPQSpiJA/UCAj3x8kXcBdJZ9oNZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6yV0MjnIMSgXlCPH6QjRGrABkDPiQV9OrN4wQZMvM8U=;
+ b=dFS0+CUNNAIuaW/dX2uOle6juvJ7ykG0teSJpCf5nzXaISVUs7CwgfvtZqxB5EkinAUXOLbEMGwnBNm3eljnO2Rubyz12BMRHvAHpHNgiJDaxT+ULJOmODqsY8Fq/Feg0kG4XKCslweJQSbHXuw/IlP02P9/aSfKl9BuBjkzldo6MOWAKw4biuvt9EFusH78nF20+OxkxO+17d4lt4ZpXDNM1E7f0TLw6/VdWIX3PJ/rkDgeX3mnsdItE2wBDlPShyp2/5HJtaNrrDpz9zX+Rro3lckcK7WMUyeSjmCSCsNDcS7uH8Qc+nmf5AI4Nxd0nK2asF+knxZjQ5/UZHGWQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6yV0MjnIMSgXlCPH6QjRGrABkDPiQV9OrN4wQZMvM8U=;
+ b=ctUfXaZk1UJrlj4hzhLIhjK7vgXAOtVETlQd8NW+XwHiZH8u79q9+725pKkfnuGk4ojBougtFEDtIMjVfNBFPU1qeV94HMCmY4rRPmptco2T4UQlXhe5M6eWNhDpUkdmsosV9dJDsh6L1rHcqqzXPuw5xkTaW86SEY7WBNeDZ61hZ5qzsPF/IclWckkrvmaRffdp0MvIzxThJPmo4faxUdN39M80emo+hkxIXwddMCvc5AqiEp4iAHtZbCgxjbG7hOaRMtBKOu1HorjDv1wNmtPErIJuu8IPafAP8LL7A2RvrZc3S6i7Wf46xz5H5haZ15RXX7bBcP5Q09sQRSJG7g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by SJ0PR12MB6928.namprd12.prod.outlook.com (2603:10b6:a03:47a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.12; Tue, 20 Jan
+ 2026 13:53:43 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::1b59:c8a2:4c00:8a2c]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::1b59:c8a2:4c00:8a2c%3]) with mapi id 15.20.9542.008; Tue, 20 Jan 2026
+ 13:53:41 +0000
+Date: Tue, 20 Jan 2026 09:53:40 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Balbir Singh <balbirs@nvidia.com>, Matthew Wilcox <willy@infradead.org>,
+ Alistair Popple <apopple@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Francois Dugast <francois.dugast@intel.com>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ adhavan Srinivasan <maddy@linux.ibm.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Leon Romanovsky <leon@kernel.org>,
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-mm@kvack.org, linux-cxl@vger.kernel.org
+Subject: Re: [PATCH v6 1/5] mm/zone_device: Reinitialize large zone device
+ private folios
+Message-ID: <20260120135340.GA1134360@nvidia.com>
+References: <20260117005114.GC1134360@nvidia.com>
+ <aWsIT8A2dLciFvhj@lstrano-desk.jf.intel.com>
+ <eb94d115-18a6-455b-b020-f18f372e283a@nvidia.com>
+ <aWsdv6dX2RgqajFQ@lstrano-desk.jf.intel.com>
+ <4k72r4n5poss2glrof5fsapczkpcrnpokposeikw5wjvtodbto@wpqsxoxzpvy6>
+ <20260119142019.GG1134360@nvidia.com>
+ <96926697-070C-45DE-AD26-559652625859@nvidia.com>
+ <20260119203551.GQ1134360@nvidia.com>
+ <ef6ef1e2-25f1-4f1b-a8d4-98c0d7b4ad0c@nvidia.com>
+ <EE2956E3-CCEA-4EF9-A1A4-A483245091FC@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <EE2956E3-CCEA-4EF9-A1A4-A483245091FC@nvidia.com>
+X-ClientProxiedBy: MN0PR02CA0006.namprd02.prod.outlook.com
+ (2603:10b6:208:530::24) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|SJ0PR12MB6928:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71829233-679d-4bc3-4863-08de582b51e2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7416014;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?eg9I9g/PdacY1gF8NG/ttlR7nd8IqsLI6dUu6HtqCOia6cHxf0+sNoyOc3kr?=
+ =?us-ascii?Q?ITyn05E7d+3k6ItUJKKq93sjxZ7UStWK4nWotPlJCI98eYl7FuSK4l8nXO2K?=
+ =?us-ascii?Q?yiUTcqrBFa3vpcuOmUyG+wlSrAC9N9h3hfmx0Ic3+DxpgwPeJpotiQUw5mkV?=
+ =?us-ascii?Q?UfK9y/vwylINnvx3JlWB9Gvdtcvev6Cko6GGur9Iup6nP13SbG6hXyhhskX7?=
+ =?us-ascii?Q?2Fn4UmpMS8Nli9hjNooQWrTxWOOIvNFzKrWmLXBwGlggZvR+P3oSNHzNTxT0?=
+ =?us-ascii?Q?mcFoqn5CjX2OzFCOhNpFdvM8fumQ/a/8/RPq2YoE+ZZIyA9WwKkGPHKntgPU?=
+ =?us-ascii?Q?pMBaZXcyfB2cHZ5N5c5dSi38xHE/Up0KTVWyEfJDX0SMB0HgloeydQ7nDMdS?=
+ =?us-ascii?Q?r/WLebz1kyyHt9l9J8TXaZ6DUEc29izzIwDrC7VjkdagSczn55zxplSYze/J?=
+ =?us-ascii?Q?kONjxqs+TwTG68dTOab1hcmYYFyu/jkrC2UDVv7KfTV4xax6UvFF90zv/uOY?=
+ =?us-ascii?Q?qmy7FsmXxjMgXYczWs9IGElB4wDmOWEBs9jiKCMApu3HFqu2k0eqNebn+OAF?=
+ =?us-ascii?Q?CtnHuZmlLSPhOuSFrmG/qFAciNQ34lXyezwFQqf4Cn8GRaDHp4fWHIVFltT5?=
+ =?us-ascii?Q?x3FNbXTIBbP6uhLBw+FgglQ4vAFURqaln5R2D5rAtcjNHVFwH2WYf42hABHv?=
+ =?us-ascii?Q?qovk8HT+quBeJxOWz8i1UjNyVMbmAmi/BbDlLM8S+pIfoKbZ0anabvAbw2C+?=
+ =?us-ascii?Q?/O/1qvU+id3gBsgz30DRLJ0+8UNBO3ngLJ804npqxq7aNqOnURCdRyM1cZIz?=
+ =?us-ascii?Q?OOM4ZaM0WvManQ8XtndefiqSU4j9S1Qf24zvNio6gH0Y3iiykYy3pAXetNHm?=
+ =?us-ascii?Q?NcC7RzzdBmQR6anL9P+VQCIeyhfPzHaRG6tEExxn/ukdDBXyDwXOQ5zlO9cZ?=
+ =?us-ascii?Q?Op5jTs2qJvAx2YV0YXTpUOeeiGS7z4JZahDMq7wv7Czn7GNe1kzdBJTu1Z7b?=
+ =?us-ascii?Q?BpkyPD566FY5NHMpYwpaHesa0CyAZAb/Pb6gQYRS5TSWMJmUCWdSUWX/1I9c?=
+ =?us-ascii?Q?7s1BkBDl85aHmBhKHwhOaRLKBdSaEnCAVZ+Cu4UdOkdTuRy/Xsq0h/0PFKLI?=
+ =?us-ascii?Q?vDxoGVVRWbcgRgzrO6s7uLgYe/CSIvmIKD9m3YBuswQQR/5RX0ukKIsezxlI?=
+ =?us-ascii?Q?LFBOklOuCwCeE3MWqeWDGKlCq9fxKQCQ/FPCOLdWj6nhdYzE9OkMdsD6j7pl?=
+ =?us-ascii?Q?idglFNGH1iP/aUtaz1hzvuvq6gHEQiQVQrmaML0Ar6jo+YwKmUlOfUGLWQ5U?=
+ =?us-ascii?Q?kgLaQczlCNa2okvnIIYIj0WqVRMzDN4rF4VuWh+K0bW6shsxRRp7BJjn5Cu9?=
+ =?us-ascii?Q?kHmIOtxvZHzVuHVXZWRbx8nM/WL5g8HxYlAH+f3dRIf5zVnRaLQQZmTX8xZ8?=
+ =?us-ascii?Q?FN/dM/5wSsx3QE2uCtjitGCEmd+rdi/dNfXt/aEUHe6ezK1SEGOtGJK46V0E?=
+ =?us-ascii?Q?D/i2BD66KQlGKRbXMI+2SB8NSLs4rldCChrbbW5VM4H1napG0aO4K4Gq9sR5?=
+ =?us-ascii?Q?9ENWTokdj3w42kNTZL8=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?glynzuZQ9be97VaA8buD1+Epuo30eglKyBCYM1tLXW1XW9OCebq3RPJWWywN?=
+ =?us-ascii?Q?p0lZQpcgVt7wB0KEBtnLkwNjRrLw8y/vzBK9JsqT3dAZfQRgp8Gd7O0Qloc4?=
+ =?us-ascii?Q?CgjKELzVxI7aC2tztb4cMiI5qjnzHbGeo+XeOAezYUXU5jZlRWIZDCJ8YrPF?=
+ =?us-ascii?Q?xVUKqGGbrB9ZLF/ETfaG75KWHMKZTlHWaK8VrHc9IxkEJ+n32nRar96LtEE1?=
+ =?us-ascii?Q?0dsoUGqatG5AArLJbO1FlIbQH7AW1IboYNacYGBtrb3v35MvGRGuL1EFZih2?=
+ =?us-ascii?Q?DvpAHgE9KozoUkbxEaDu1m+K1msmH2kyidzJLbE9FIA6neSa+b5aIQdFTKOS?=
+ =?us-ascii?Q?m6MZe1kzOpLDNyBhdNqwQ5ELVDmEMCy8sLLDV8canDh5t2GjkCVVfFS0xBLV?=
+ =?us-ascii?Q?tHgMPnFtSSKPoxr4zAFk/EBQXlkpw0ufyMWxb7xngc2slY8B05ZvA4ta/8SZ?=
+ =?us-ascii?Q?CqgyR+YTyjAn06EI3hUqLp1HS4IvOiF6X3oUXF3G5QowCdNDhk0FXJWM4bZh?=
+ =?us-ascii?Q?nZzTiplZz/qVlBiVgX+oxBieP+dz2HYvbAsjkUURCaNvymGcdml7YBQHFPTF?=
+ =?us-ascii?Q?HijIRbNHvy2OQ3JOkKclF6kziFnsxu175+IAzK/+mGiIB1z32o0+i+typf8b?=
+ =?us-ascii?Q?x/ReCqH4l9A3/UyTv9TuYDyqw650WeO6e1j7443NzXQraxfDdJnQCS1gV8U3?=
+ =?us-ascii?Q?zOlAXpiv4XkEQ9wo9O9lFbUBES+rPxK9rm4eoxttAk+TicYzzeorpJPv7rGj?=
+ =?us-ascii?Q?noFu6upmlrvompjvKAQ43uMw8Tmx6rLRmR8Yz56qC8XdiwfFpPxV6H+KkAi9?=
+ =?us-ascii?Q?dnqWMxUyZ9SIQwi802KBLeGh7vkgTWBO1CuvM2tNAXPR9ApaFNLyK5uOamFj?=
+ =?us-ascii?Q?dL4hx+xuEZCR2XWpIugC7JsP6wCnJq3jj8hraW3Xj12KKf7fE8gj634/qs8O?=
+ =?us-ascii?Q?0YqC3WjISkLXbDvZxe1GAvfbMcXksfbW6NB1xZ8tUhoFCrT+2rZEFBwA4tJ+?=
+ =?us-ascii?Q?QPALs6YMoFgE3UYDgDtOjR4ajn1LMj++WL3kNkh0cVxvkztX4hVtz5Y6iBFo?=
+ =?us-ascii?Q?eJ/ei66KtPB3+vToH+YGcgQU0RmrfQG4paHBxBM+mEP0ADRNVsPrv+pkbuhc?=
+ =?us-ascii?Q?G5Zt4orsNO4fELGOb0QwatsmIoc2JG/QL1fHFdsezJee2k4rD4s+bubA+N4C?=
+ =?us-ascii?Q?OgNsHQr93Gs1roPfpD0/fmziDb2qDieg7fweEGV02hBqNFVw5fUnPhTvMiya?=
+ =?us-ascii?Q?GPQhqa/eUZaNurZqo6f5DgPpFZsFg9gmLUjqW/8BoOiU52rYKO7JCX6W2Vbx?=
+ =?us-ascii?Q?xPCJmW0HqF0yw91+3qeoJyTHb3dkvyWFQU2CQ+wz5T0IqkRyNQP79dJHAwyi?=
+ =?us-ascii?Q?RTHtIE2OOXQqs65TSGs8MZzU7BMxrrQrrTOsLv1OAdPTH7bF+InRoowhM2jz?=
+ =?us-ascii?Q?rLpUeKMeo5tIjKKay9A0mmX20aogJsFEicnQTbmhvCf9eNvSB04DkxgG0F5B?=
+ =?us-ascii?Q?pDq3ECWZMqKo5AS5z51dQnfduk5rDpor4DoL4hobsHNyctw2t2sXoJcpwaKx?=
+ =?us-ascii?Q?znKF3oM9Kbpi1EMjcLjrOa6AaUWgtP6MqG9U9QygZfw2LB/PJCOC+/slUAjc?=
+ =?us-ascii?Q?ni62H3sBHeffelQ8159mRswsztncSJK5FDJXtQIO+B3Gmp4UEsBnSSOZnFo2?=
+ =?us-ascii?Q?3i9TMIxrh+R7JxUP1oDKMbsJLmGeZzoiEROqPePvxzoOAnmrTvyXuDwC1IXN?=
+ =?us-ascii?Q?w97NMoiCrg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71829233-679d-4bc3-4863-08de582b51e2
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2026 13:53:41.5667 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ku7KMIEOtPh7gWQBRyQBeG9s/g1lvhq/kYisr1/5PylT68RySaM+h45Ib3Mi9DWv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6928
 X-Mailman-Approved-At: Tue, 20 Jan 2026 14:32:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,101 +183,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-01-20 at 13:45 +0200, Jani Nikula wrote:
-> On Tue, 20 Jan 2026, Daniel Stone <daniel@fooishbar.org> wrote:
-> > Hi,
-> >=20
-> > On Tue, 20 Jan 2026 at 10:33, Michel D=C3=A4nzer <michel.daenzer@mailbo=
-x.org> wrote:
-> > > On 1/19/26 02:11, Tomasz Paku=C5=82a wrote:
-> > > > [Why]
-> > > > ALLM automatically puts TVs into low latency modes (gaming modes) w=
-hich
-> > > > we basically always want for PC use, be it gaming, or using precise
-> > > > inputs like mice and keyboards.
-> > >=20
-> > > How about e.g. video playback though?
-> > >=20
-> > > It might make sense to let the Wayland compositor control this, e.g. =
-via the Wayland content type hint protocol.
-> >=20
-> > Yes, I think this should be a connector property. We'll happily
-> > implement support for Weston as the uAPI vehicle.
->=20
-> Content type might be a useful policy hint also for content adaptive
-> brightness control and the like.
->=20
-> Ville and I have also tossed around ideas for passing the "power mode"
-> to the DRM drivers (e.g. Performance, Balanced, Power Saver). There are
-> various cases where the drivers need to make policy decisions that would
-> be better decided by userspace. However, it gets complicated and
-> unweildy if all of them are individual knobs. A power mode input might
-> be useful in making the latency decisions too.
->=20
-> BR,
-> Jani.
+On Mon, Jan 19, 2026 at 09:50:16PM -0500, Zi Yan wrote:
+> >> I suppose we want some prep_single_page(page) and some reorg to share
+> >> code with the other prep function.
+> 
+> This is just an unnecessary need due to lack of knowledge of/do not want
+> to investigate core MM page and folio initialization code.
 
-Hmm, looking at the wp_content_type_v1 enum, I see it was probably based
-on the CTA-861 Content Type information than can be supplied to the AVI
-info frame? The values are identical. This surely could be plumbed into
-drm_connector and basically directly set in the AVI info frame.
+It will be better to keep this related code together, not spread all
+around.
 
-But, ALLM is something different and overrides the content type info. It
-should be separate information, probably a simple switch to inform
-drm_connector if it should be used. I don't know if ALLM setting should
-always be exposed and let the drivers determine if it can be used, or
-should it appear dynamically based on EDID though that's a consideration
-for desktop environments.
+> >> I don't think so. It should do the above job efficiently and iterate
+> >> over the page list exactly once.
+> 
+> folio initialization should not iterate over any page list, since folio is
+> supposed to be treated as a whole instead of individual pages.
 
-In this case, ALLM of course would always take precedence and as far as
-it's activation, it maybe would only be disabled when presenting
-fullscreen photos/video? Content type notwithstanding.
+The tail pages need to have the right data in them or compound_head
+won't work.
 
-Now, from a perspective of someone that actually uses PCs connected to
-TVs and dip his toes into more TV topics, there should be a way to force
-ALLM to be always on, no matter the content. I'd even advocate for it to
-be the default because a long standing truth is that all the special
-modes we have in our TVs and Monitors are garbage. They mess up the
-picture, boost it to high heavens and some mode forcibly turn on motion-
-smoothing.
+> folio->mapping = NULL;
+> folio->memcg_data = 0;
+> folio->flags.f &= ~PAGE_FLAGS_CHECK_AT_PREP;
+> 
+> should be enough.
 
-With a PCs, we always expect the content to already be sent in high
-quality, and even HTPC users prefer any post-process to be done on the
-PC itself. Moreover, mode picture mode switching causes jarring
-transitions and in same cases, toggling game mode can even blank a
-screen for a moment, though it's rare.
+This seems believable to me for setting up an order 0 page.
 
-We at least got Filmmaker mode as a crux, that often still need little
-fine tuning, but doesn't make a mess of the picture. Oftentimes TVs will
-detect PCs and disable most processing outright and content types can
-have little to no effect. Again, like always with TVs, YMMV.
+> if (order)
+> 	folio_set_large_rmappable(folio);
 
-Game mode, sometimes merged with PC mode doesn't suck, and usually gives
-the picture that's the closest to what the media actually is (be it
-vide, HDR video, photo) and closest to selected color gamut standards
-like bt.709, DCI-P3, bt.2020. In many ways, it will provide best picture
-quality already, but maybe marketing departments wouldn't agree.
+That one is in zone_device_folio_init()
 
-I can assure you, that as soon as the TV starts changing modes based on
-the content, and there isn't a way to disable it, people will complain
-hard.
+And maybe the naming has got really confused if we have both functions
+now :\
 
-All in all, if there will be a way to obtain all this information and
-set appropriate info in AVI/HF-VSDB, then I'm sure it will be plumbed
-through but for now, I think just having ALLM forced is a good idea.=20
-
-Maybe, just maybe a property in sysfs/module setting could be used to
-disable this if there's a big need.
-
-There's another thing though. amdgpu already sets the IT content type
-bit which already disables most if not all post-processing in sink
-devices (or at least should). TVs often detect this as "PC" mode.
-Sometimes ALLM is then needed to expose features like higher refresh
-rate and VRR, thus the aforementioned mode change to update the exposed
-EDID.
-
-Oh, and ALLM only toggles the game mode if the game mode setting on the
-TV is actually auto, with other values "off" and "on". It's just nice to
-not have to manually turn it on.
-
-Tomasz
+Jason
