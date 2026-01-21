@@ -4,77 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BD7BD62602
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36A7CD625F8
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D53610E927;
-	Thu, 22 Jan 2026 08:36:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83A0910E920;
+	Thu, 22 Jan 2026 08:36:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="iO6FQYjn";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="j4MZKsgU";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 672B610E7E4;
- Wed, 21 Jan 2026 14:46:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1769006756; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=MgYsQQddbifBnu+nOkEzNQw1WU+VigUHVK9sLKhal9livHe1Y9HsIxSMyW+I9+0AjfeEhvWyqLKc12IeLG5HCLaHibvjB/4TwenLxp5ZibkpQ+Ha1n8At+gqyFIXnw7gFMGzXFaK+05ah8S1SyRrh64mMV+FcFodhr+74MoWFq4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1769006756;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=8tbnRLxC7YN9OmZ6Ssd8CDhleEgMPvrSDskSel3YjYw=; 
- b=D2CXptLAku/drVkwAoCDRhnKHOlAmO3vKSFB5O5bHIR4EcL7m5wF1G+vCUuydtUVC8NtM9VJ4ZO0EPPVBZSIPWEhCAaO3qh1RnTF0lFPqryVluxX/dQ3RjUxwLz3MxmEf/71Sf5Lysll7/YxWZOI8NyvRqdszcnte6UZcWBu+P4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769006755; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=8tbnRLxC7YN9OmZ6Ssd8CDhleEgMPvrSDskSel3YjYw=;
- b=iO6FQYjnegKcMOITAfY79lLHQa5UPzO8bc1xFaUWTCmwfumF/8huMt0H3MTsGzVI
- c22hr9QXVHp4s0bCLJuRiRksLYXIubarApwlxuDfxdnFx4OqFT2kxB3jddFa047TBu8
- ZGLwvxQaiXqLoOkJa54kH0ywvmEE974SDVJOvpjk=
-Received: by mx.zohomail.com with SMTPS id 1769006754616214.55177118562654;
- Wed, 21 Jan 2026 06:45:54 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 21 Jan 2026 15:45:10 +0100
-Subject: [PATCH v7 03/22] drm: Add enum conversions between
- DRM_COLOR_FORMAT and HDMI_COLORSPACE
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
+ [209.85.219.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 996F310E821
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 15:41:39 +0000 (UTC)
+Received: by mail-qv1-f45.google.com with SMTP id
+ 6a1803df08f44-888bd3bd639so12378956d6.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 07:41:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1769010099; x=1769614899; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Ou8wYJVgke38aZatOGIOXXNbnvyF2AuO4MiXOCQfuAM=;
+ b=j4MZKsgUzjKQEpQMncc+/HcrEhb5f8k9TQICdU9VNuXmlenrDEpZRNk6OUPg2FQBZg
+ 5oUzaIrEAGpXUfT8bt68kqaimPLQ9lnU37FzB/va3EHpDGg/ZvBD01LFMHd+lii3pXr7
+ Xzec+FExy4n7Q6eihGRIq1E4sUChCKXe1KgLhSbiw84bKGwO5sfXBd5no5iSYm40FCm3
+ /IcgQU+LmiMmxV60xEunnfTpCTx+AYLGV11mi9LAop2ydcz24suGmc8r0zVEnCjNKuKj
+ oJUIQ8H0J0X4bjpMwB7oo0dY3/mbBXX5m0X8i0Xv9X5MRukEttpTMeeeybrzypo++0JP
+ ZpFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769010099; x=1769614899;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Ou8wYJVgke38aZatOGIOXXNbnvyF2AuO4MiXOCQfuAM=;
+ b=GrME1fQMdYZYFwlFFbf2g7fyvun/yWYU3Nlp50RLAshOj1VUmv8AzP6LYy/aHSywa4
+ k+P0N51hR+BYDBkoj9pXQsjtUZubOZfcNYRu7FmpvJ/o9V64D00HTJl2XFUlS7tP+p4b
+ 08M1FZfGsPKxW0AwP0TA0WNwkSXKz9pRZLfMR43N1Q901mvJIlLkHzZuoaqnkaEfNy9L
+ LUO5YtCQchU4LhdvHKYbcLbTAOezHLHJlkhqq1dwVcXgjgC0muGblVCtMyCG1y5A9KAb
+ ZW5ti4CqVBcjwXLIll7t9/X4vVPnaGYGQBY+ujpFuCIC6sVrzFoRY+w85aTQqh9F8VVr
+ JbHQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXzr+/zeOmmHoblzOf5yQW7dZJTPDvBNAzGsM74pKuDUc+qKtb7UZqv4PMrd+Ze/LlowJsEV1gD@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyqpNydsiSISxQ2bckcy6GS8Xh8OfhRjDS2JdJGktjlzeczkDpU
+ COpA/KwxwK9tp3UGa9rm54AaNlWXNHimhm1LivJpkpS6ji8Yi38D11DZFh4rkgzXiVU=
+X-Gm-Gg: AZuq6aLQ63IsJVYIaEMzmehOnSrL4GUUK4IkkdDd+j9koLaCdoLKAZy+e1kw0nE3ygQ
+ Ffquf9hu3v7GtIEo1sMDpSFLS999MUlXlyqrv5zaKPFaUOTqMdSf+EGgMpi0kiiUQdQVaRjWypv
+ yMg1F+r7ng4Y3atD8yc/WQAcEXxig+/SxN1pmMSyC/mragums9zHJ4tlojK1iVSpbikOdjjUsaH
+ uoxywOjf/caWFM6bwimTiMfxn12C/ztPLcodQaDYNEgcJLkqwWbIm0vFjUVRG6FSpTt/YC8i4Kr
+ uJMNEiafdHrJvUAW7kkOdwWxRofLHBADra9Tc43JC9UfKSsD2VSffvSRnxzOCJ9YIuG0U18ltHg
+ nIsjFeKPPUpiiJQ4uayk44CoYHuFyEBOtyX+8L9K0iLmRM9h//ax5WInEEUI06O5EAGaRq4Jl/E
+ dvHTiuQWr6R+FFPu5tD6Ec3C0OPJhe6su2zSzB+lpG9JAdmUFf4aeIFKJWpbrKZle4Y61Sn1X6K
+ cHHZQ==
+X-Received: by 2002:a05:6214:212b:b0:888:6fde:7b72 with SMTP id
+ 6a1803df08f44-8942d7e0460mr262093776d6.32.1769010098574; 
+ Wed, 21 Jan 2026 07:41:38 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-8946a1e3d28sm30951806d6.7.2026.01.21.07.41.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Jan 2026 07:41:37 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1viaKv-00000006EjK-1pDz;
+ Wed, 21 Jan 2026 11:41:37 -0400
+Date: Wed, 21 Jan 2026 11:41:37 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v4 8/8] vfio: Validate dma-buf revocation semantics
+Message-ID: <20260121154137.GD961572@ziepe.ca>
+References: <20260121-dmabuf-revoke-v4-0-d311cbc8633d@nvidia.com>
+ <20260121-dmabuf-revoke-v4-8-d311cbc8633d@nvidia.com>
+ <20260121134712.GZ961572@ziepe.ca> <20260121144701.GF13201@unreal>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-color-format-v7-3-ef790dae780c@collabora.com>
-References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
-In-Reply-To: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Marius Vlad <marius.vlad@collabora.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260121144701.GF13201@unreal>
 X-Mailman-Approved-At: Thu, 22 Jan 2026 08:36:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,91 +117,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-While the two enums have similar values, they're not identical, and
-HDMI's enum is defined as per the HDMI standard.
+On Wed, Jan 21, 2026 at 04:47:01PM +0200, Leon Romanovsky wrote:
+> > We need to push an urgent -rc fix to implement a pin function here
+> > that always fails. That was missed and it means things like rdma can
+> > import vfio when the intention was to block that. It would be bad for
+> > that uAPI mistake to reach a released kernel.
+> 
+> I don't see any urgency here. In the current kernel, the RDMA importer
+> prints a warning to indicate it was attached to the wrong exporter.
+> VFIO also invokes dma_buf_move_notify().
 
-Add a simple conversion function from DRM to HDMI. Unexpected inputs
-aren't handled in any clever way, DRM_COLOR_FORMAT_AUTO and any other
-value that doesn't cleanly map to HDMI just gets returned as
-HDMI_COLORSPACE_RGB.
+The design of vfio was always that it must not work with RDMA because
+we cannot tolerate the errors that happen due to ignoring the
+move_notify.
 
-Add a second conversion function that gets a DRM_COLOR_FORMAT from an
-HDMI_COLORSPACE as well. In this case, reserved HDMI values that can't
-be converted will result in an -EINVAL return value.
+The entire purpose of this series could be stated as continuing to
+block RDMA while opening up other pining users.
 
-Co-developed-by: Marius Vlad <marius.vlad@collabora.com>
-Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- include/drm/drm_connector.h | 54 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 54 insertions(+)
+So it must be addressed urgently before someone builds an application
+relying on this connection.
 
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index b5604dca728a..ffeb42f3b4a3 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2612,6 +2612,60 @@ int drm_connector_attach_color_format_property(struct drm_connector *connector);
- 
- const char *drm_get_color_format_name(enum drm_color_format color_fmt);
- 
-+/**
-+ * drm_color_format_to_hdmi_colorspace - convert DRM color format to HDMI
-+ * @fmt: the &enum drm_color_format to convert
-+ *
-+ * Convert a given &enum drm_color_format to an equivalent
-+ * &enum hdmi_colorspace. For non-representable values and
-+ * %DRM_COLOR_FORMAT_AUTO, the value %HDMI_COLORSPACE_RGB is returned.
-+ *
-+ * Returns: the corresponding &enum hdmi_colorspace value
-+ */
-+static inline enum hdmi_colorspace __pure
-+drm_color_format_to_hdmi_colorspace(enum drm_color_format fmt)
-+{
-+	switch (fmt) {
-+	default:
-+	case DRM_COLOR_FORMAT_AUTO:
-+	case DRM_COLOR_FORMAT_RGB444:
-+		return HDMI_COLORSPACE_RGB;
-+	case DRM_COLOR_FORMAT_YCBCR444:
-+		return HDMI_COLORSPACE_YUV444;
-+	case DRM_COLOR_FORMAT_YCBCR422:
-+		return HDMI_COLORSPACE_YUV422;
-+	case DRM_COLOR_FORMAT_YCBCR420:
-+		return HDMI_COLORSPACE_YUV420;
-+	}
-+}
-+
-+/**
-+ * drm_color_format_from_hdmi_colorspace - convert HDMI color format to DRM
-+ * @fmt: the &enum hdmi_colorspace to convert
-+ *
-+ * Convert a given &enum hdmi_colorspace to an equivalent
-+ * &enum drm_color_format. For non-representable values,
-+ * %-EINVAL is returned.
-+ *
-+ * Returns: the corresponding &enum drm_color_format value, or %-EINVAL
-+ */
-+static inline enum drm_color_format __pure
-+drm_color_format_from_hdmi_colorspace(enum hdmi_colorspace fmt)
-+{
-+	switch (fmt) {
-+	default:
-+		return -EINVAL;
-+	case HDMI_COLORSPACE_RGB:
-+		return DRM_COLOR_FORMAT_RGB444;
-+	case HDMI_COLORSPACE_YUV444:
-+		return DRM_COLOR_FORMAT_YCBCR444;
-+	case HDMI_COLORSPACE_YUV422:
-+		return DRM_COLOR_FORMAT_YCBCR422;
-+	case HDMI_COLORSPACE_YUV420:
-+		return DRM_COLOR_FORMAT_YCBCR420;
-+	}
-+}
-+
- /**
-  * drm_for_each_connector_iter - connector_list iterator macro
-  * @connector: &struct drm_connector pointer used as cursor
-
--- 
-2.52.0
-
+Jason
