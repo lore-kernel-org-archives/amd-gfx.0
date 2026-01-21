@@ -4,127 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CED8C44506
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 18:25:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37512C44536
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 19:45:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C386410E247;
-	Wed, 21 Jan 2026 18:25:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9218910E87B;
+	Wed, 21 Jan 2026 19:45:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="peJfQvGc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XfF373wv";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011005.outbound.protection.outlook.com [52.101.62.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BB0C10E247
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 18:25:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VgdAfK3u1E/Xd7vCbRNQlGp+zEc67wekdlGNawq3gNcnZm6SD/28C5PQ7S0jKuWDUKH8MBEujm8gag1sOsoMKMhiaL2lfBPgHO0vp3egVUH6UDcb4PHkL11qtz8xdo93KaHdMKmTy2LU/ozd+QqtGmbi/1pBLrhVlBvKeQOYCJ1/7sTex2qJxDU+FmPUZMDPmh4MJsqizjs5+t8EhUZMFqdzRvAob5xL3ICmCT5KzEyuUp50fQyqdqna3kxZvk66FGgAmrvD58JHBstM/gVLTTEoLJw3iOEQz3UsWrUlJZToCkUBeHH1wT8lEHHvjnQiox6NjepmpV5ZXMi62S44eQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NH9YHgN9lD5HFV2Oi2iFawNUKAAxcT2kbxtrLJkBhqo=;
- b=CEZjro/TaGhTtWIoI5cc3kiqVe4uJBBhyTpx0w1H6EGp51Y9L/eG0jefTXx/4eGOGEtMl965pQ8Gdp3bLcCocqh867eG3Cd3Q5/AFZ4UjEgxMElZ6AfcGkWBxZ8JWAb2DvRydnIXXtJxyEZaGofm60ZFFfwNxDZYzhzWBmk+kGNJ8RxYwU2jti4NNqCIZhjJSl21NW2iuEKwKoD2RDqzikNmZ3Su+HpkmDOkkxkHfh+j4mm7FbW0I1gV1li2EaAQPv6RISbPuQyWTcL9BZ5WMVtfU0296RSgw4yKn+lmBbb1deXG1k8kNaVQW776LIudDSBzwZHH25JQJRX2YMYGFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NH9YHgN9lD5HFV2Oi2iFawNUKAAxcT2kbxtrLJkBhqo=;
- b=peJfQvGckl1UDpaKewPcf3wxb5yR9Snl5inlenBhsgvFYKNKIko905PmIRrxsPx+uENvZrQMoY/A9xpcWR76GMniCgnfv4kVwUOqT//gdTCiV8+I+zCaIf9uv/iO7WYGQQCdYS/xZ4jsgqdIS22O4mUMYNJqEfXUdd+DvA9p7g0=
-Received: from SA9P221CA0002.NAMP221.PROD.OUTLOOK.COM (2603:10b6:806:25::7) by
- DM6PR12MB4060.namprd12.prod.outlook.com (2603:10b6:5:216::15) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.10; Wed, 21 Jan 2026 18:25:01 +0000
-Received: from SA2PEPF00003AE5.namprd02.prod.outlook.com
- (2603:10b6:806:25:cafe::f7) by SA9P221CA0002.outlook.office365.com
- (2603:10b6:806:25::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.9 via Frontend Transport; Wed,
- 21 Jan 2026 18:24:55 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SA2PEPF00003AE5.mail.protection.outlook.com (10.167.248.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.4 via Frontend Transport; Wed, 21 Jan 2026 18:25:00 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 21 Jan
- 2026 12:25:00 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 21 Jan
- 2026 12:24:59 -0600
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Wed, 21 Jan 2026 12:24:59 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Jon Doron <jond@wiz.io>, <stable@vger.kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: fix NULL pointer dereference in
- amdgpu_gmc_filter_faults_remove
-Date: Wed, 21 Jan 2026 13:24:47 -0500
-Message-ID: <20260121182447.2434085-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.52.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 013A110E876;
+ Wed, 21 Jan 2026 19:45:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id D4D47600AA;
+ Wed, 21 Jan 2026 19:45:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC137C4CEF1;
+ Wed, 21 Jan 2026 19:45:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1769024716;
+ bh=HVyQFgBfMrcX6zrVZsiDIfHM3nU3cIMX1ciddzliDxg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=XfF373wvasaVYywYyQxHoClwiMWz8KrFsYUXRcwzTWFXH8jFxRN6XiMEK/sTFr3Mn
+ 0RFROVxbShCa80gix4sGne/fdv97W8+yFsXmVIxx/HhTzIfo6pd+EqqAFJxax21d14
+ hsRYEjzVVYESAgzWRY+cmOE810Uu7FX/j75AaUmsYFnNYoBxublO4Ix0LrY/exf8xB
+ Uh1bbuO/eo8XNc2/Tz/6CsZaAuTQbajnDXxsZzzFO4Zl4/U/owt1IqABFjQKJqg03K
+ 4z1fXd7fxdfSHEXD0kFJnkGug7nA67PwGWh1Ql0FmCsiVgChnPf47gVSCBSqWlyJMQ
+ oyDq0tZSmVGSA==
+Date: Wed, 21 Jan 2026 21:45:06 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v3 6/7] vfio: Wait for dma-buf invalidation to complete
+Message-ID: <20260121194506.GI13201@unreal>
+References: <20260120-dmabuf-revoke-v3-0-b7e0b07b8214@nvidia.com>
+ <20260120-dmabuf-revoke-v3-6-b7e0b07b8214@nvidia.com>
+ <b129f0c1-b61e-4efb-9e25-d8cdadaca1b3@amd.com>
+ <20260121133146.GY961572@ziepe.ca>
+ <b88b500c-bacc-483d-9d1a-725d4158302a@amd.com>
+ <20260121160140.GF961572@ziepe.ca>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE5:EE_|DM6PR12MB4060:EE_
-X-MS-Office365-Filtering-Correlation-Id: f9e8b1af-5d0a-4dce-7945-08de591a635f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?dr33kPgjKXtfjM/5mLxBkrESdjIG79Q8xID1O9NxBNm/TnsA6YTm7/KnsFMa?=
- =?us-ascii?Q?n10sMiXV2INOBbJd6EOM/CdPUm80YJvzE5HtHieSL/A0OVEk1iPJeI8qzBZp?=
- =?us-ascii?Q?ZO/qsO6wJPZVYBEs8lLdmo+hlqLT8MdgvR2uFf1gTFH05rF/cv+GMFqisGF2?=
- =?us-ascii?Q?gPrQPvxaRGTCO9GKj9RHAuGS/S9uHIgDw5TwZytVEEEBptILWy/s6Hbz03lz?=
- =?us-ascii?Q?w1+W5r+GILzzrhPt6JE8xO8SMoXYuj+RYJ4rpbuyOj7IkgOHbpXE1DZ4WenV?=
- =?us-ascii?Q?qf3EuaWER6UxrpkV00X9VA4CIqz4xQTaFyJFf486zpfueJWS9bBjueBTjDyI?=
- =?us-ascii?Q?TPR3mqE3TbY6tZbxnHQdXQ6SBkXgya6l4ko1e9DL8J523/lHxevz0ygmm8mH?=
- =?us-ascii?Q?+72DznxnQGQh3XIxA8cVAzQ2HYYRO/HnaO2mQECFpSKLV0Sh1ZUSehrVch0c?=
- =?us-ascii?Q?0ag9mOA7gKVmEiUxdPSOWZ1+dveGHAOzgZwFFqYVaziFu68oWpP5sfnUNbjG?=
- =?us-ascii?Q?FXFB32YeG0aabG8xpkpzMhfQZK/dQQSHoOR1mc+agrKkQFhlICFpx9CvE+mk?=
- =?us-ascii?Q?yrm9em1/iR6Mh55qX9rT1WHJn8d81LDmJTs+FdYXpPvSpD2gbmvL3VzhM8ca?=
- =?us-ascii?Q?vD7QRG8WyqOWbLwpOBh+IIcnsYKCzkQ7yCHb6r+In+nlpDggskwfoVsPGKrA?=
- =?us-ascii?Q?4gf35yObhefaSBXWAuShGpU7OgaL7GpdBLOHHcrZAEC8hJzcN7lAjvzI5U9W?=
- =?us-ascii?Q?aLLUzb32u8NInhxogVk89qwcRYJ0PJ21UBGdVPg63X5iGSTbLeXAszFU3emk?=
- =?us-ascii?Q?l7dkhkHBaj69FSEgAdvptqdPvTBfASncSZNXXEVOQxoD4KOhYmCMI7GtlaOd?=
- =?us-ascii?Q?t/KDoIztFg3dnuRmZgKGEosFN5tXgheQppptyKTSemyKfS6iOepSpap12tF3?=
- =?us-ascii?Q?52NPxWk3A3B5Zom7GUqHgqZwJCASpjfZd67fkfpN2Pe4O12wkDCcnd2zCK9g?=
- =?us-ascii?Q?YADpXRJikYAFclN+AxILIM+7+S+0XjUgqSKVMr/2r5cUxLBeM+151vpelleO?=
- =?us-ascii?Q?ffxEHCFCxqdM3kJmAVA3tE9Uo9c385NpJPADdfR6uFykQ4AHwAvRToqHdwjC?=
- =?us-ascii?Q?2eTYw/MquQcUtZxJrrt3eqGvAVECgVNaRxz8/uxJ41L8S4lLPI0Ej5/8XApD?=
- =?us-ascii?Q?OuvtKCihrYoB8/Hd+pWIAPeVzpeM0jton/UuN1IkCBXAZo7MuGYU3phUDM/1?=
- =?us-ascii?Q?vtu/lIBFZvoBkgerCAV1Kk4pdlSMHxMbxku+Hkq9iQLPgzyUa5cBfTQNu+WV?=
- =?us-ascii?Q?t4+8BbtCBIqkuEkZBe3scEFMfJBc/iT8SI6UCXIGt55DBnqSB9hSozR/YRdA?=
- =?us-ascii?Q?PYydhH1QpOJDmPXQgGhUP26F68/X3Z+CqhDVnQODDiRw1sqTg9vFMBCh+zcC?=
- =?us-ascii?Q?IgltEkPI219qZBBzlAPUBVPBIVgaF2gDhREc/ftaTkSduPiF3HS828XvH4LP?=
- =?us-ascii?Q?ctJf2+3anTwYIylkNh5rBgEUuxKJoSESDH44qPQsK1N77EXzLYXlvYJQDqjp?=
- =?us-ascii?Q?KSJxilIr9NRUCxZRQRZ4Omh8CNK5dxLWsPVPpXKF3tStN7LrY3SUWpBt5foz?=
- =?us-ascii?Q?Ca5+8W9rQMWTvrXh3qXRP7cO9HR5dMbsfe4T/hOc78/k2MPPBaxY+HUOJ6Zv?=
- =?us-ascii?Q?aQ3OWw=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026)(13003099007);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2026 18:25:00.4097 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f9e8b1af-5d0a-4dce-7945-08de591a635f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4060
+In-Reply-To: <20260121160140.GF961572@ziepe.ca>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,72 +84,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jon Doron <jond@wiz.io>
+On Wed, Jan 21, 2026 at 12:01:40PM -0400, Jason Gunthorpe wrote:
+> On Wed, Jan 21, 2026 at 04:28:17PM +0100, Christian König wrote:
+> > On 1/21/26 14:31, Jason Gunthorpe wrote:
+> > > On Wed, Jan 21, 2026 at 10:20:51AM +0100, Christian König wrote:
+> > >> On 1/20/26 15:07, Leon Romanovsky wrote:
+> > >>> From: Leon Romanovsky <leonro@nvidia.com>
+> > >>>
+> > >>> dma-buf invalidation is performed asynchronously by hardware, so VFIO must
+> > >>> wait until all affected objects have been fully invalidated.
+> > >>>
+> > >>> Fixes: 5d74781ebc86 ("vfio/pci: Add dma-buf export support for MMIO regions")
+> > >>> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > >>
+> > >> Reviewed-by: Christian König <christian.koenig@amd.com>
+> > >>
+> > >> Please also keep in mind that the while this wait for all fences for
+> > >> correctness you also need to keep the mapping valid until
+> > >> dma_buf_unmap_attachment() was called.
+> > > 
+> > > Can you elaborate on this more?
+> > > 
+> > > I think what we want for dma_buf_attach_revocable() is the strong
+> > > guarentee that the importer stops doing all access to the memory once
+> > > this sequence is completed and the exporter can rely on it. I don't
+> > > think this works any other way.
+> > > 
+> > > This is already true for dynamic move capable importers, right?
+> > 
+> > Not quite, no.
+> 
+> :(
+> 
+> It is kind of shocking to hear these APIs work like this with such a
+> loose lifetime definition. Leon can you include some of these detail
+> in the new comments?
 
-On APUs such as Raven and Renoir (GC 9.1.0, 9.2.2, 9.3.0), the ih1 and
-ih2 interrupt ring buffers are not initialized. This is by design, as
-these secondary IH rings are only available on discrete GPUs. See
-vega10_ih_sw_init() which explicitly skips ih1/ih2 initialization when
-AMD_IS_APU is set.
+If we can clarify what needs to be addressed for v5, I will proceed.  
+At the moment, it's still unclear what is missing in v4.
 
-However, amdgpu_gmc_filter_faults_remove() unconditionally uses ih1 to
-get the timestamp of the last interrupt entry. When retry faults are
-enabled on APUs (noretry=0), this function is called from the SVM page
-fault recovery path, resulting in a NULL pointer dereference when
-amdgpu_ih_decode_iv_ts_helper() attempts to access ih->ring[].
-
-The crash manifests as:
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000004
-  RIP: 0010:amdgpu_ih_decode_iv_ts_helper+0x22/0x40 [amdgpu]
-  Call Trace:
-   amdgpu_gmc_filter_faults_remove+0x60/0x130 [amdgpu]
-   svm_range_restore_pages+0xae5/0x11c0 [amdgpu]
-   amdgpu_vm_handle_fault+0xc8/0x340 [amdgpu]
-   gmc_v9_0_process_interrupt+0x191/0x220 [amdgpu]
-   amdgpu_irq_dispatch+0xed/0x2c0 [amdgpu]
-   amdgpu_ih_process+0x84/0x100 [amdgpu]
-
-This issue was exposed by commit 1446226d32a4 ("drm/amdgpu: Remove GC HW
-IP 9.3.0 from noretry=1") which changed the default for Renoir APU from
-noretry=1 to noretry=0, enabling retry fault handling and thus
-exercising the buggy code path.
-
-Fix this by adding a check for ih1.ring_size before attempting to use
-it. Also restore the soft_ih support from commit dd299441654f ("drm/amdgpu:
-Rework retry fault removal").  This is needed if the hardware doesn't
-support secondary HW IH rings.
-
-v2: additional updates (Alex)
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3814
-Fixes: dd299441654f ("drm/amdgpu: Rework retry fault removal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jon Doron <jond@wiz.io>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 8e65fec9f534e..243d75917458a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -498,8 +498,13 @@ void amdgpu_gmc_filter_faults_remove(struct amdgpu_device *adev, uint64_t addr,
- 
- 	if (adev->irq.retry_cam_enabled)
- 		return;
-+	else if (adev->irq.ih1.ring_size)
-+		ih = &adev->irq.ih1;
-+	else if (adev->irq.ih_soft.enabled)
-+		ih = &adev->irq.ih_soft;
-+	else
-+		return;
- 
--	ih = &adev->irq.ih1;
- 	/* Get the WPTR of the last entry in IH ring */
- 	last_wptr = amdgpu_ih_get_wptr(adev, ih);
- 	/* Order wptr with ring data. */
--- 
-2.52.0
-
+Thanks
