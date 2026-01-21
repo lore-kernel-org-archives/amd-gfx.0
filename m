@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1847CD625F8
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A926D625FD
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6901910E910;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73DE210E914;
 	Thu, 22 Jan 2026 08:36:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="HHseh6MX";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="aoBfCCNX";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7843310E7C5;
- Wed, 21 Jan 2026 13:48:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1769003307; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12EF010E801;
+ Wed, 21 Jan 2026 14:46:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1769006764; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=ARvJ1uwWpvMQ4frAs+b1t7+FVlXNeYOqtpz5gkhqq8nUOkhKtXMajZMSRnLegeKmxV5007Be9eTSwcJo7gnxxV5Er8IscDK6aCPA+OA95lKgezaIb3e7JafaNXStRnXM+PgbLXV0Wn4XlF6C0+N9B+BgX56TeduDa6lEzyrLzBw=
+ b=MVHVqYLLVG3mL7Zy3MP08nfCdKTJpammXNPDsHsO8Rc3eSPiAX/jMlknExbp7Hm1pJbBNAWH874YSN/GtbVOmsmF/kvJrAdXRtyRd9S8j6AEd3zE5iWUvLIwW7GTzaQVyByNu70RT6qIFbuni9lbn+m10gg3+TQ7b94F+zpV+No=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1769003307;
+ s=zohoarc; t=1769006764;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ps4BnNAGF4U24DnSoeoMdVWWIbGEhgg92/5V7kamsSY=; 
- b=fBBYcV4FmzFQ5EUFjTq5tpprZMGu6vTXVpTmKFOfh2eC7eM6zGbQEOJVKkrcTtZT94CgHzmV+7sO4c1vmBPnMy8hKHvzJvXER/8BKxkpntyNG2GfXX3xsxPa8L0co+Oaigv6qq0HTgIV0/RQtN0lLQWNykFDVajoEZkFpYw03oE=
+ bh=0ckm22GV4N5RkT5M/XROps5bGf+cWWlT/dPSb77qDWQ=; 
+ b=DHvSMgBDD4FzDt+7KO/lcqyrIqBO91V6d+QwAEpllS4nLGK5fcYrnRVfFCkXaE5x6H04BZa19cOrSOeBtzBpiRI3lC3ZFgSVJZ2bB4PNHxlkjTQGEt32ihw2nwy02P8chmQNuT+lngxK4AxmVM/7JiPV4gziQCaMCEdx/FNr36w=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769003307; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769006763; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=ps4BnNAGF4U24DnSoeoMdVWWIbGEhgg92/5V7kamsSY=;
- b=HHseh6MXaXmkXHYYWhMMmvqzudl5sVn+PJcpdUS8YrQZVXKDLb66ExldprGXEx3W
- m5o7znX+kQARlIby9oZmcBvN6noJRWNDUcjtvRw8JDTOjbl9yv6iFWWmKPIO3c4qohV
- gbL7z7Ubrk3JW7JcQyhO+EAiRgM1SkaTMa3ADXeE=
-Received: by mx.zohomail.com with SMTPS id 1769003304993745.5600624955455;
- Wed, 21 Jan 2026 05:48:24 -0800 (PST)
+ bh=0ckm22GV4N5RkT5M/XROps5bGf+cWWlT/dPSb77qDWQ=;
+ b=aoBfCCNX/W60R2HabG2hbC7aOvfjO8lKfzxP+BbxDB/5lQv6wolWtaPXJo3w+Jws
+ dUzl7noZUAjzoT6Y0oxzTW/8JYWTi7r+e54Bzg48C6S5o6jZa9BioIcc+rE6XLoIxzb
+ 6iUj+P1541FZEQBLbiwFdSB5JGudd/BYRLEpMRB8=
+Received: by mx.zohomail.com with SMTPS id 1769006762563160.36179163173904;
+ Wed, 21 Jan 2026 06:46:02 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 21 Jan 2026 14:45:45 +0100
-Subject: [PATCH v6 19/21] drm/tests: hdmi: Add tests for HDMI helper's
- mode_valid
+Date: Wed, 21 Jan 2026 15:45:11 +0100
+Subject: [PATCH v7 04/22] drm/bridge: Act on the DRM color format property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-color-format-v6-19-7b81a771cd0b@collabora.com>
-References: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
-In-Reply-To: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
+Message-Id: <20260121-color-format-v7-4-ef790dae780c@collabora.com>
+References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
+In-Reply-To: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -89,147 +88,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add some KUnit tests to verify that the HDMI state helper's mode_valid
-implementation does not improperly reject chroma subsampled modes on the
-basis of their clock rate not being satisfiable in RGB.
+The new DRM color format property allows userspace to request a specific
+color format on a connector. In turn, this fills the connector state's
+color_format member to switch color formats.
+
+Make drm_bridges consider the color_format set in the connector state
+during the atomic bridge check. For bridges that represent HDMI bridges,
+rely on whatever format the HDMI logic set. Reject any output bus
+formats that do not correspond to the requested color format.
+
+Non-HDMI last bridges with DRM_COLOR_FORMAT_AUTO set will end up
+choosing the first output format that functions to make a whole
+recursive bridge chain format selection succeed.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 109 +++++++++++++++++++++
- 1 file changed, 109 insertions(+)
+ drivers/gpu/drm/drm_bridge.c | 79 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 78 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-index f9648f9de46b..b2c421d7e986 100644
---- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-@@ -77,6 +77,23 @@ static struct drm_display_mode *find_420_only_mode(struct drm_connector *connect
- 	return NULL;
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 6dcf8f6d3ecf..b0dfa03dbb81 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -1116,6 +1116,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
+ 	return ret;
  }
  
-+static struct drm_display_mode *find_420_also_mode(struct drm_connector *connector)
++static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_color_format fmt)
 +{
-+	struct drm_device *drm = connector->dev;
-+	struct drm_display_mode *mode;
++	if (fmt == DRM_COLOR_FORMAT_AUTO)
++		return true;
 +
-+	mutex_lock(&drm->mode_config.mutex);
-+	list_for_each_entry(mode, &connector->modes, head) {
-+		if (drm_mode_is_420_also(&connector->display_info, mode)) {
-+			mutex_unlock(&drm->mode_config.mutex);
-+			return mode;
-+		}
++	switch (bus_fmt) {
++	case MEDIA_BUS_FMT_FIXED:
++		return true;
++	case MEDIA_BUS_FMT_RGB888_1X24:
++	case MEDIA_BUS_FMT_RGB101010_1X30:
++	case MEDIA_BUS_FMT_RGB121212_1X36:
++	case MEDIA_BUS_FMT_RGB161616_1X48:
++		return fmt == DRM_COLOR_FORMAT_RGB444;
++	case MEDIA_BUS_FMT_YUV8_1X24:
++	case MEDIA_BUS_FMT_YUV10_1X30:
++	case MEDIA_BUS_FMT_YUV12_1X36:
++	case MEDIA_BUS_FMT_YUV16_1X48:
++		return fmt == DRM_COLOR_FORMAT_YCBCR444;
++	case MEDIA_BUS_FMT_UYVY8_1X16:
++	case MEDIA_BUS_FMT_VYUY8_1X16:
++	case MEDIA_BUS_FMT_YUYV8_1X16:
++	case MEDIA_BUS_FMT_YVYU8_1X16:
++	case MEDIA_BUS_FMT_UYVY10_1X20:
++	case MEDIA_BUS_FMT_YUYV10_1X20:
++	case MEDIA_BUS_FMT_VYUY10_1X20:
++	case MEDIA_BUS_FMT_YVYU10_1X20:
++	case MEDIA_BUS_FMT_UYVY12_1X24:
++	case MEDIA_BUS_FMT_VYUY12_1X24:
++	case MEDIA_BUS_FMT_YUYV12_1X24:
++	case MEDIA_BUS_FMT_YVYU12_1X24:
++		return fmt == DRM_COLOR_FORMAT_YCBCR422;
++	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
++	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
++	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
++	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
++		return fmt == DRM_COLOR_FORMAT_YCBCR420;
++	default:
++		return false;
 +	}
-+	mutex_unlock(&drm->mode_config.mutex);
-+
-+	return NULL;
 +}
 +
- static int set_connector_edid(struct kunit *test, struct drm_connector *connector,
- 			      const void *edid, size_t edid_len)
- {
-@@ -2700,11 +2717,103 @@ static void drm_test_check_mode_valid_reject_max_clock(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, preferred->clock, 25200);
- }
+ /*
+  * This function is called by &drm_atomic_bridge_chain_check() just before
+  * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
+@@ -1159,6 +1200,7 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+ 	struct drm_encoder *encoder = bridge->encoder;
+ 	struct drm_bridge_state *last_bridge_state;
+ 	unsigned int i, num_out_bus_fmts = 0;
++	enum drm_color_format fmt;
+ 	u32 *out_bus_fmts;
+ 	int ret = 0;
  
-+/*
-+ * Test that drm_hdmi_connector_mode_valid() will accept modes that require a
-+ * 4:2:0 chroma subsampling, even if said mode would violate maximum clock
-+ * constraints if it used RGB 4:4:4.
-+ */
-+static void drm_test_check_mode_valid_yuv420_only_max_clock(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *dank;
-+	struct drm_connector *conn;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(HDMI_COLORSPACE_RGB) |
-+				BIT(HDMI_COLORSPACE_YUV420),
-+				8,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	conn = &priv->connector;
-+	KUNIT_ASSERT_EQ(test, conn->display_info.max_tmds_clock, 200 * 1000);
-+
-+	dank = find_420_only_mode(conn);
-+	KUNIT_ASSERT_NOT_NULL(test, dank);
-+	KUNIT_EXPECT_EQ(test, dank->hdisplay, 3840);
-+	KUNIT_EXPECT_EQ(test, dank->vdisplay, 2160);
-+
+@@ -1200,13 +1242,48 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+ 			out_bus_fmts[0] = MEDIA_BUS_FMT_FIXED;
+ 	}
+ 
 +	/*
-+	 * Note: The mode's "clock" here is not accurate to the actual TMDS
-+	 * clock that HDMI will use for a subsampled mode. Hence, why the mode's
-+	 * clock is above the .max_tmds_clock of 200MHz.
++	 * On HDMI connectors, use the output format chosen by whatever does the
++	 * HDMI logic. For everyone else, just trust that the bridge out_bus_fmts
++	 * are sorted by preference for %DRM_COLOR_FORMAT_AUTO, as
++	 * bus_format_is_color_fmt() always returns true for AUTO.
 +	 */
-+	KUNIT_EXPECT_EQ(test, dank->clock, 297000);
-+}
++	if (last_bridge->ops & DRM_BRIDGE_OP_HDMI) {
++		fmt = drm_color_format_from_hdmi_colorspace(conn_state->hdmi.output_format);
++		if (fmt < 0) {
++			ret = fmt;
++			drm_dbg_kms(last_bridge->dev,
++				    "Couldn't convert HDMI format to DRM format: %pe\n",
++				    ERR_PTR(ret));
++			goto out_free;
++		}
++		drm_dbg_kms(last_bridge->dev, "HDMI bridge requests format %s\n",
++			    drm_get_color_format_name(fmt));
++	} else {
++		fmt = conn_state->color_format;
++		drm_dbg_kms(last_bridge->dev, "Non-HDMI bridge requests format %s\n",
++			    drm_get_color_format_name(fmt));
++	}
 +
-+/*
-+ * Test that drm_hdmi_connector_mode_valid() will reject modes that require
-+ * 4:2:0 chroma subsampling, if the connector does not support 4:2:0.
-+ */
-+static void
-+drm_test_check_mode_valid_reject_yuv420_only_connector(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *dank;
-+	struct drm_connector *conn;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(HDMI_COLORSPACE_RGB),
-+				8,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	conn = &priv->connector;
-+	KUNIT_ASSERT_EQ(test, conn->display_info.max_tmds_clock, 200 * 1000);
-+
-+	dank = find_420_only_mode(conn);
-+	KUNIT_EXPECT_NULL(test, dank);
-+}
-+
-+/*
-+ * Test that drm_hdmi_connector_mode_valid() will accept modes that allow (among
-+ * other color formats) 4:2:0 chroma subsampling, even if the connector does not
-+ * support 4:2:0, but the mode's clock works for RGB 4:4:4.
-+ */
-+static void
-+drm_test_check_mode_valid_accept_yuv420_also_connector_rgb(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *mode;
-+	struct drm_connector *conn;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(HDMI_COLORSPACE_RGB),
-+				8,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	conn = &priv->connector;
-+	KUNIT_ASSERT_EQ(test, conn->display_info.max_tmds_clock, 340 * 1000);
-+
-+	mode = find_420_also_mode(conn);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+	KUNIT_EXPECT_EQ(test, mode->hdisplay, 3840);
-+	KUNIT_EXPECT_EQ(test, mode->vdisplay, 2160);
-+	KUNIT_EXPECT_EQ(test, mode->clock, 297000);
-+}
-+
- static struct kunit_case drm_atomic_helper_connector_hdmi_mode_valid_tests[] = {
- 	KUNIT_CASE(drm_test_check_mode_valid),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject_rate),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject_max_clock),
-+	KUNIT_CASE(drm_test_check_mode_valid_yuv420_only_max_clock),
-+	KUNIT_CASE(drm_test_check_mode_valid_reject_yuv420_only_connector),
-+	KUNIT_CASE(drm_test_check_mode_valid_accept_yuv420_also_connector_rgb),
- 	{ }
- };
+ 	for (i = 0; i < num_out_bus_fmts; i++) {
++		if (!bus_format_is_color_fmt(out_bus_fmts[i], fmt)) {
++			drm_dbg_kms(last_bridge->dev,
++				    "Skipping bus format 0x%04x as it doesn't match %s\n",
++				    out_bus_fmts[i], drm_get_color_format_name(fmt));
++			ret = -ENOTSUPP;
++			continue;
++		}
+ 		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
+ 					       conn_state, out_bus_fmts[i]);
+-		if (ret != -ENOTSUPP)
++		if (ret != -ENOTSUPP) {
++			drm_dbg_kms(last_bridge->dev,
++				    "Found bridge chain ending with bus format 0x%04x\n",
++				    out_bus_fmts[i]);
+ 			break;
++		}
+ 	}
  
++out_free:
+ 	kfree(out_bus_fmts);
+ 
+ 	return ret;
 
 -- 
 2.52.0
