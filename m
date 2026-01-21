@@ -4,64 +4,168 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2561FC44503
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BF41C44505
 	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 08:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7316C10E70B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C351610E710;
 	Wed, 21 Jan 2026 08:24:30 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA73710E694;
- Wed, 21 Jan 2026 03:50:08 +0000 (UTC)
-Received: from [127.0.0.2] (unknown [210.73.43.101])
- by APP-01 (Coremail) with SMTP id qwCowADXfWnhTHBp_WqTBQ--.5409S5;
- Wed, 21 Jan 2026 11:49:55 +0800 (CST)
-From: Vivian Wang <wangruikang@iscas.ac.cn>
-Date: Wed, 21 Jan 2026 11:49:39 +0800
-Subject: [PATCH v2 3/4] drm/radeon: Raise msi_addr_mask to dma_bits
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="LqrT5m5/";
+	dkim-atps=neutral
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012008.outbound.protection.outlook.com [52.101.53.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF84B10E688;
+ Wed, 21 Jan 2026 03:01:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Urqq3YBhzbNZKP8ys0UTVTp2yCsULQD+2Hrh+Ih+9Ri7rpREWWf9hgQpybPiTfk+qeooCK7KEfxPoSqvKbBMmcQYOkEONK7/ShtgB9jN4NhEJXh4xAHMwVWE6Q2iG3McwXaAyaCEaOBYVVAjrORD2SUuY5uUVJprm/98uPu4xggwVqsRCE3/u6ukflqYiROiIXF4qvrK6LJe1HT1oYy0cLQC2vPhqZC7RCmgW99N2j9dIFsNwXvIUKQNTbYVUNiPKXahJ6nN5y9QXBNH5BHXJR2QkfrL006wGbogDmpHYOYr3COgDGX8D6J7IGgS5lLS3avplv7HGst4wMiI7Plw9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RGFm5omnIbaI7TAwbR2BigF2BJ7B7uq7yqX3EsQ89QY=;
+ b=jrUxvawLzoTrDMcSCbd505z2XPzbAd02EzMEbCcWWahJ8DL0kjBSsng2Odmgd85iX1qe441TUNMljpIRdVQJWYRarR2KPh6d2Ng8BFxwWJB5D3q1m1p8s+agZ6XLzFxCFEUOwQ67Of05rzNQj6ac4mljcoF/l+1qrHd/6umGsdyhm6Sv1Gm2qQqskAp73CGge5ZtqPmeyoZVvgcw5yuRJuJhFHwPQcYSDtaOFBR6CSwA3JUlDaWg8rmEG9M9AR1RFqOwf2sz1vuKEZJeSzapAjf9DHWlbKxUkRjgqRl+RfaLjiuQ+dgchf3vjRDYPagc9B7RiWkcHXTYRcwyI2q4NQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RGFm5omnIbaI7TAwbR2BigF2BJ7B7uq7yqX3EsQ89QY=;
+ b=LqrT5m5/NaVC/cikPYwj+WQCasGEaY+ZO8A4u2AgI48Ee46wiPiLUrO+S3c2U41zP3ddiHtpGCsEHuzx50ZAJYHjTWmQNpWHNJl2QJ0iaI9pdJ47WDxnAw6ezqx8omrEJbxCS79i/gL7R1SjF6lCWrr+cPN+LgiGw20XWLnc2cV7Uk20Lr44WCB20Ip5G9vSjzGRcKBtfUO2sDW6wh37xS5Xeg3M6J8XLWs8m/UqGNMHlIMkQQ8YjcQ+zN99iY5YHMmePXPYvBKNVWzgIrx/U5K/fYhe5bESsRpXwsqLWpzSY/Xo9DxY7uTZnq3yD6zF2rcUxVCfGIy0ENv5YGj0Xg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS7PR12MB9473.namprd12.prod.outlook.com (2603:10b6:8:252::5) by
+ SJ0PR12MB6991.namprd12.prod.outlook.com (2603:10b6:a03:47c::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Wed, 21 Jan
+ 2026 03:01:28 +0000
+Received: from DS7PR12MB9473.namprd12.prod.outlook.com
+ ([fe80::f01d:73d2:2dda:c7b2]) by DS7PR12MB9473.namprd12.prod.outlook.com
+ ([fe80::f01d:73d2:2dda:c7b2%4]) with mapi id 15.20.9542.008; Wed, 21 Jan 2026
+ 03:01:28 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Balbir Singh <balbirs@nvidia.com>, Matthew Wilcox <willy@infradead.org>,
+ Alistair Popple <apopple@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Francois Dugast <francois.dugast@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, adhavan Srinivasan <maddy@linux.ibm.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>, Leon Romanovsky <leon@kernel.org>, 
+ Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, linuxppc-dev@lists.ozlabs.org,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-mm@kvack.org, linux-cxl@vger.kernel.org
+Subject: Re: [PATCH v6 1/5] mm/zone_device: Reinitialize large zone device
+ private folios
+Date: Tue, 20 Jan 2026 22:01:18 -0500
+X-Mailer: MailMate (2.0r6290)
+Message-ID: <F7E3DF24-A37B-40A0-A507-CEF4AB76C44D@nvidia.com>
+In-Reply-To: <20260120135340.GA1134360@nvidia.com>
+References: <20260117005114.GC1134360@nvidia.com>
+ <aWsIT8A2dLciFvhj@lstrano-desk.jf.intel.com>
+ <eb94d115-18a6-455b-b020-f18f372e283a@nvidia.com>
+ <aWsdv6dX2RgqajFQ@lstrano-desk.jf.intel.com>
+ <4k72r4n5poss2glrof5fsapczkpcrnpokposeikw5wjvtodbto@wpqsxoxzpvy6>
+ <20260119142019.GG1134360@nvidia.com>
+ <96926697-070C-45DE-AD26-559652625859@nvidia.com>
+ <20260119203551.GQ1134360@nvidia.com>
+ <ef6ef1e2-25f1-4f1b-a8d4-98c0d7b4ad0c@nvidia.com>
+ <EE2956E3-CCEA-4EF9-A1A4-A483245091FC@nvidia.com>
+ <20260120135340.GA1134360@nvidia.com>
+Content-Type: text/plain
+X-ClientProxiedBy: BYAPR11CA0088.namprd11.prod.outlook.com
+ (2603:10b6:a03:f4::29) To DS7PR12MB9473.namprd12.prod.outlook.com
+ (2603:10b6:8:252::5)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-pci-msi-addr-mask-v2-3-f42593168989@iscas.ac.cn>
-References: <20260121-pci-msi-addr-mask-v2-0-f42593168989@iscas.ac.cn>
-In-Reply-To: <20260121-pci-msi-addr-mask-v2-0-f42593168989@iscas.ac.cn>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- "Creeley, Brett" <bcreeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>
-Cc: Han Gao <gaohan@iscas.ac.cn>, Vivian Wang <wangruikang@iscas.ac.cn>, 
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- netdev@vger.kernel.org, linux-pci@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-riscv@lists.infradead.org, 
- sophgo@lists.linux.dev
-X-Mailer: b4 0.14.3
-X-CM-TRANSID: qwCowADXfWnhTHBp_WqTBQ--.5409S5
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF4kGw1rtw45Xr4DJr18Krg_yoW8ur48pF
- 43GFZxtrZIkw1UKay2kay7ZF15Aa18KayrWr4DG39I9a45AryUur9xZw17J34kXr1kXr4j
- qry8G3y5uF1FvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUmI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JrWl82xGYIkIc2
- x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
- Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
- A2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
- e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
- 8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
- jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
- kIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
- Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1V
- AY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAI
- cVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMI
- IF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnI
- WIevJa73UjIFyTuYvjTRM6wCDUUUU
-X-Originating-IP: [210.73.43.101]
-X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB9473:EE_|SJ0PR12MB6991:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0efbd241-e62b-464e-db2f-08de58995ee5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?lfuh+qkEQaKyB2lJwwjUa0vFHhPgaa/HmR6thYwVQC1HLEC9Pgad1PXLwA0j?=
+ =?us-ascii?Q?5YEP7+WXyjpnlHMXxfW2tPkSkvdo8o3VlHWINEIeo3mG8CH/Wgsr69D6d9VO?=
+ =?us-ascii?Q?7pD47HfaMr8mik6onZYBfAfPTxp5Va473xf+iGbk3ZGJiFwVxn36xtEUsjuZ?=
+ =?us-ascii?Q?S/ZtgZrf/RikT2Eob66QPhzNCNixlfAXa6VLrFVnUg2YyseGlgotwKy7Tq43?=
+ =?us-ascii?Q?jraqthFX0HvP1iBQkv53DJppnUUUC2Hc4JV8WhljF24BKVTKdutiZ4kuxzDB?=
+ =?us-ascii?Q?txCqly79zwvn5OI/RAiHMgwBdozq3ONzHjhmlVygBV/s6pe3gvn6MzachKK0?=
+ =?us-ascii?Q?n7CrTCMe69jnVEB2Xh6ERzAfAElb4+9aVt93Piwr0tgYpaT4/6v41D1XeSTu?=
+ =?us-ascii?Q?jcI+Jix6yb1im7qwU54+E8xIHAmNaGIhIpNkpHDQGpwiET97rdBkIaUKz0Nj?=
+ =?us-ascii?Q?OkWfW2pW1A8yjvfBXpohR8AsLVDNHXLLw99deqPo2wf0vKLxe4B0oPu3RB6u?=
+ =?us-ascii?Q?sQog6GeUmpS9TjNewIbUqvPwgYXUYfIA69v6KKe4uu0CJ+mVglcIDg9LSwCK?=
+ =?us-ascii?Q?uULoVKZ4fVJ/Oydv49rbn5/vrKG7/hDRxY3L0smehEFZyuxOS9eT1v2FR/pR?=
+ =?us-ascii?Q?5nuRnLZd6xEeYwzvpc/KXfY/xnvNJvgJWOmJeim2V4Ip8vIYD4DwfMUwpkif?=
+ =?us-ascii?Q?UmD25InoHVMFfRjfgcD9RREVQA9LevJB/vB5BnYoomUjv2CPtiMBgM+2ldnN?=
+ =?us-ascii?Q?j9yUoiXXihq5u6nHFgWk9IxAP6vwx+0Mg9niU7JrFw7wdipdl+07l9WirKvS?=
+ =?us-ascii?Q?HcAhYntU3+FiLquiaHX41j1UcvfibevtNsLJtpDsgYScrxqaPHK1jXSA8xgs?=
+ =?us-ascii?Q?9Q0Fx+IwDyQrTsUd/pBUEZwdGRGFmjxjKEgAI/n0XKyZ1CJTm7ovD7tramcJ?=
+ =?us-ascii?Q?d2ELjaPZOe44CNzopgrU4+hWKfLs6NYbGcw2olDGIL5GxBG555PP9564A5Ca?=
+ =?us-ascii?Q?TgVxBhmHGmGYLN3EWmYRXXRoe4HdbBm6usbRicwy6CRMN8My1O8imliQSN9L?=
+ =?us-ascii?Q?bP0oteG5J2vlvBF/f+JR/jOjwoJzyM/4PrHV7h6ksY6uSxpCGAovv9QAiIy5?=
+ =?us-ascii?Q?jQznbTHDOHTUjXQrr9MM0pXLOTg/XbV3vZLahVmt4z1QSIJcugnxyjo7A19J?=
+ =?us-ascii?Q?UdJxW5l+FUnOtSmkpagDMMNVjxHPijzQDtVYs+jhyFYaV1vs53W0GB/kXsm9?=
+ =?us-ascii?Q?GCDgk5VCn/m8kLzK47kcP75N6F34IqiScwZOdWIE0L+Y0MerFx/lewGyWMec?=
+ =?us-ascii?Q?+I58hb8JQGywi4leFb7ZgIxv2iICnBstXIZ6EclWfC5hTf57zKHAFWLbMAaX?=
+ =?us-ascii?Q?ksHiBXRPeTAslRosRN6SGCpV2/idDWdkOnwvba/FpQyqcpGvdh8IX+h+G/eQ?=
+ =?us-ascii?Q?gPDRErnLdlsUM907Eo2g7wk+zV/9NcU0hR0PEePKVy6LGN/Pe8uV6+rUjD6T?=
+ =?us-ascii?Q?MKQf6a92G0wqd2oHZp1NLh2mvezwYJ/XVeZEEHb2BWBg6vGlWhLmMmhEjy1s?=
+ =?us-ascii?Q?4flEFgX38rBihYgjUXE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB9473.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?lRtQCVXIz6ccof1ZDmXy7mnbpwUPci5DGqAVOk5KEuVorU8Ke7sgiENw3YKP?=
+ =?us-ascii?Q?ToXamJvFZ/mloO5o4hoCbPczNrAh1K0Swe+yzGxsmOmvabbpOo74dLnjOZBA?=
+ =?us-ascii?Q?cgyTISfpYKiljqgbSthQsVsCf1MBrq2AU2rXMdx5LgsZNmX/eHhQNjjsZ4Bp?=
+ =?us-ascii?Q?Q9NjVSEUTDKWwaso2fORM0VEqhBi4qXXXW/ASo8MQF3hjpdmfAVP6sXL0b6R?=
+ =?us-ascii?Q?iK1Z4P9Dnxcop7YgzXJFvZuWhCu1dr82jZshixCLb/gzYxbu3I0zsaZqjLui?=
+ =?us-ascii?Q?qD25CR43jSsCeagmr9kwt0qY+23TYq9COp5Uhcakaab1MlGdTxokLwyB1V5K?=
+ =?us-ascii?Q?76AeCN8MLbD4w3AsB0LXEW0KrkqZAVemZkdFlJDefJ5PjYzPC9xp0qdiOsDT?=
+ =?us-ascii?Q?dMacWfZQk5rCLfBysmo/KdMVUmfKUof1lIIprLJdL4RUxP8PwQwAD6JQhsnx?=
+ =?us-ascii?Q?CmwZgLuHjklihp9hfXJwC7aVG9tc5X8JkJ1Xneg+NILeIx9wDpVHj0vlRFYy?=
+ =?us-ascii?Q?XlncR/bXC1ys1AiMJAGE7GhPzGMm8f30raN8kumD0+XZ9iOPlX7BjQ4KwQWQ?=
+ =?us-ascii?Q?3ocNFKq/TKWRf6kqZOkq7YqfG3xmNzXFPKX+7n/PLG3UMI0ZRFHLx4kiqpdR?=
+ =?us-ascii?Q?yT7U4+mjLfOM9D9AjxSmYHTEQl9BIG9pcCDWXzj2Hga/Y82Zl2HgnMYX0wMn?=
+ =?us-ascii?Q?hqKiA0EeyrR33QWihhBrbRCGesjYUZ4o7vTQoGl4KaudPYwtvjm3D7Oo4IvB?=
+ =?us-ascii?Q?yXiczJdzdPM/Uv9Fdxj+v8ekQV0VEolG7CINU4TOcdiOIidOcElL7TzmMv/h?=
+ =?us-ascii?Q?B9ybShkfyNUq7WMYZBAOG60VFnnq7QAv6xQmL+8e6Jz5AXE0A6uw4lLFb9r+?=
+ =?us-ascii?Q?ai+CLOr6PoRhDWNOecXXN6nICCRfzIeiwc1jCfVI5DXb9cZQavyefLz3z/Z/?=
+ =?us-ascii?Q?lzsNaFJYjCO6dFNM9qE67hQseE1oDJY8e55ceXXPu831zpmc09wPK+4cC5KW?=
+ =?us-ascii?Q?NDdP+N1U2lay1W/MrK7z9QL+8vRjk0tcmxcxtIc8FksIErhc4NpUdrYDyEre?=
+ =?us-ascii?Q?yQxmQkW9Kin+EsDgY7hQZu58Cfba2SiOQNQ3b6279V6pk3Q+QgytlsPnPiZ6?=
+ =?us-ascii?Q?PiqoibmBY0fbPG2f8I7FveYReGcGHBSidKaBXzfd7VEueVfSUKys034Fnb0b?=
+ =?us-ascii?Q?Cwcix0YoqUmG3eOAu/lHh1Qs/b6zKgVPGmMymXqO9C0Z8YhelX15h/IGj2iJ?=
+ =?us-ascii?Q?bVdvIZAlmHZmMJUKyw8ln5rk6jjc5ItmZhRkFlRtisMTVpEXpIKtrhjI4WFz?=
+ =?us-ascii?Q?kB/OsYoL6nOJEmvvQd140e1xZuxqkeAR2OUTyd9AdzD/Rrl0e7WzMUmZrNHZ?=
+ =?us-ascii?Q?UBx9xSOaXSz/lgLIJpnF1GxXBHrkVQfgTdoWvKmKW8J/sTuFNNt/D2tADN0/?=
+ =?us-ascii?Q?1hlPW/5zGy8dRV2hFjyE+q4k8IOdRnI2YtOpyqU25pRnLG8OSCcbgRSbYE6J?=
+ =?us-ascii?Q?fqnMOG/hSATt16XAsY7LZXu89zkffITe4a2vxLc6Y9Vx3kNJv5HOE91ZuDUA?=
+ =?us-ascii?Q?fPy+L0Y0VPYd9vxAfRuy+hzwZYFHWjTwUkjJbYUyLr81+97jQe9FZCt/fYze?=
+ =?us-ascii?Q?2JZI8hklfmKVK+c5y6OcoAslDz18AwdMIzYBSVfAzIoSCCTAeDa3KuSva2F4?=
+ =?us-ascii?Q?9LDV99k7Bv820U0qufheSBC3mzUFtEEqOKTtRnZZCmv/M21sjLAidby6mdG/?=
+ =?us-ascii?Q?C9FSxM7C5g=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0efbd241-e62b-464e-db2f-08de58995ee5
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9473.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2026 03:01:27.9608 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aem6RdwLpjonSfd2FXJ5u73h39IXM+leI13R6v/jjfThlpJv3jC46ShxirGGhY7q
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6991
 X-Mailman-Approved-At: Wed, 21 Jan 2026 08:24:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,59 +181,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The code was originally written using no_64bit_msi, which restricts the
-device to 32-bit MSI addresses.
+On 20 Jan 2026, at 8:53, Jason Gunthorpe wrote:
 
-Since msi_addr_mask is introduced, use DMA_BIT_MASK(dma_bits) instead of
-DMA_BIT_MASK(32) here for msi_addr_mask, describing the restriction more
-precisely and allowing these devices to work on platforms with MSI
-doorbell address above 32-bit space, as long as it is within the
-hardware's addressable space.
+> On Mon, Jan 19, 2026 at 09:50:16PM -0500, Zi Yan wrote:
+>>>> I suppose we want some prep_single_page(page) and some reorg to share
+>>>> code with the other prep function.
+>>
+>> This is just an unnecessary need due to lack of knowledge of/do not want
+>> to investigate core MM page and folio initialization code.
+>
+> It will be better to keep this related code together, not spread all
+> around.
 
-Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
+Or clarify what code is for preparing pages, which would go away at memdesc
+time, and what code is for preparing folios, which would stay.
 
----
-v2: Set msi_addr_mask to same as DMA addr mask (Christian), and minor
-rewording
----
- drivers/gpu/drm/radeon/radeon_device.c  |  1 +
- drivers/gpu/drm/radeon/radeon_irq_kms.c | 10 ----------
- 2 files changed, 1 insertion(+), 10 deletions(-)
+>
+>>>> I don't think so. It should do the above job efficiently and iterate
+>>>> over the page list exactly once.
+>>
+>> folio initialization should not iterate over any page list, since folio is
+>> supposed to be treated as a whole instead of individual pages.
+>
+> The tail pages need to have the right data in them or compound_head
+> won't work.
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 60afaa8e56b4..5faae0361361 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1374,6 +1374,7 @@ int radeon_device_init(struct radeon_device *rdev,
- 		pr_warn("radeon: No suitable DMA available\n");
- 		return r;
- 	}
-+	rdev->pdev->msi_addr_mask = DMA_BIT_MASK(dma_bits);
- 	rdev->need_swiotlb = drm_need_swiotlb(dma_bits);
- 
- 	/* Registers mapping */
-diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-index d550554a6f3f..839d619e5602 100644
---- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-@@ -245,16 +245,6 @@ static bool radeon_msi_ok(struct radeon_device *rdev)
- 	if (rdev->flags & RADEON_IS_AGP)
- 		return false;
- 
--	/*
--	 * Older chips have a HW limitation, they can only generate 40 bits
--	 * of address for "64-bit" MSIs which breaks on some platforms, notably
--	 * IBM POWER servers, so we limit them
--	 */
--	if (rdev->family < CHIP_BONAIRE) {
--		dev_info(rdev->dev, "radeon: MSI limited to 32-bit\n");
--		rdev->pdev->msi_addr_mask = DMA_BIT_MASK(32);
--	}
--
- 	/* force MSI on */
- 	if (radeon_msi == 1)
- 		return true;
+That is done by set_compound_head() in prep_compound_tail().
+prep_compound_page() take cares of it. As long as it is called, even if
+the pages in that compound page have random states before, the compound
+page should function correctly afterwards.
 
--- 
-2.52.0
+>
+>> folio->mapping = NULL;
+>> folio->memcg_data = 0;
+>> folio->flags.f &= ~PAGE_FLAGS_CHECK_AT_PREP;
+>>
+>> should be enough.
+>
+> This seems believable to me for setting up an order 0 page.
 
+It works for any folio, regardless of its order. fields used in second
+or third subpages are all taken care of by prep_compound_page().
+
+>
+>> if (order)
+>> 	folio_set_large_rmappable(folio);
+>
+> That one is in zone_device_folio_init()
+
+Yes. And the code location looks right to me.
+
+>
+> And maybe the naming has got really confused if we have both functions
+> now :\
+
+Yes. One of the issues is that device private code used to only handles
+order-0 pages and was converted to use high order folio directly without
+using high order page (namely compound page) as an intermediate step.
+This two-step-in-one caused confusion. But the key thing to avoid the
+confusion is that to form a high order folio, a list of contiguous pages
+would become a compound page by calling prep_compound_page(), then
+the compound page becomes a folio by calling folio_set_large_rmappable().
+
+BTW, the code in prep_compound_head() after folio_set_order(folio, order)
+should belong to folio_set_large_rmappable() and they are causing confusion,
+since they are only applicable to rmappable large folios. I am going to
+send a patch to fix it.
+
+
+Best Regards,
+Yan, Zi
