@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF74C44508
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 721A6C44536
 	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 22:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2ECF10E892;
-	Wed, 21 Jan 2026 22:33:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0398F10E893;
+	Wed, 21 Jan 2026 22:33:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xoKrJTzk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yLBr7na9";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013010.outbound.protection.outlook.com
- [40.107.201.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F35810E892
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012058.outbound.protection.outlook.com [52.101.48.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56E1A10E893
  for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 22:33:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uIIPGhz3HGPe0uBdVsyEdPfJf5ujxkUVWR7YOhGMcWN6qwDPwlXxCK0WxMDm+55IguTd4+QOacVMO7rMPErEg/6L1Yxm5CeSlxY+hB7OH9iwjBTCZ3ZEmZ3bV42Pim4cDT5GMAU7FfUR+VPiIaVY0phQOnBC2oVVLCpy/l7eqax8PEuJMOh5P5ilNXcozq7GBZdlRxotk9cXJ6JWGko186trGY1q1B+aWVxnRXfGPkbclUOSuQq52OGbIH0IvCKVfC8kM5Al0UB7ZnHz40SQuo7bzg9SjDMeh23cvTklPfOAL7wfhkbaV6QYjCuq20zomcsyvrciscy2OGx3EmWcfg==
+ b=xGxV4KCu20HqNaoUQ58/gbNrhAV80KNrfmZkXcpvnLT6Bmg0tL7F53GBmlo99HoFoz2t6ZebI9tstrWUHNyBOehxzqv4dzYZVrRiMsPxQp+10WwufeV/epz4kujP7mTcFhvgGL35/RnFGGBtj6caQzGyQ4aSHyCLRX+0vcBysVVr56XS6wa9Lxwf1uqlH9Y/V9FgN5UcZndlb5ISLYs8rdqPnyULQKevFbkpO0T57AKPri+fcUohDDvUK8Zk5ju29L5LDuW7wAg7jqnX8OsS8cT11GO6+886CiGTN6MWzYcbrqcFJyP6LkYYUsN1T1Q9/jzF1+NIXMUv9MTxFEVN7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ziqfSomiVC37/2pxKocoK5vPtSCxdgKe4aqUfO9c63w=;
- b=HQMYo02gTvwpPkEyZvxLrN32sWIb5BLUyiW5lQk6mjGccYJohBni5ExfZwVrgRt4SmuVnsmEAk6QjGTTRR8GHwgPZm+A/zxFgaANDyMFlzBvMLRciW+zTzJbBugQlYH8gdrhy02UV0Pkc0BkeAVwgL6pf4FQ2qRTUc7VXMzO32GDiz5Z3JCxWPMk1cPortW/yXF7LlzKtwDxWd4Z6EulBpEnX43peRB75FrH/dvCIRVtcMw5cYctVDfiy6l2gPf4Zm0eEO7wOYhyhDvwNx9kpoosI9mEA3we+nnKh4B2cLnLaWdwjYviIrqL5rJv2PDlb/scLZe/GxBPM0kfHQ6wdQ==
+ bh=N98xpKRyqKteQSFtanITzVlgfmnGccjSO8Dx06ibovo=;
+ b=oh1HgPZhfPNWqUDyg6CwtTqikQ7c3o9cZ4iC/kTQiitC+3oveWuf9wcaPPyDqtwPSPEhWQw2njpFXYKOvdCgcgubQm/PUMWpC25Tv1GimcD8OHFzPWzz449BhwQFGuJ9tjsDhnPPP7CxlHA3mMgMClM4WPK3JEnLLMAEPCPH3C853f5utTp7/4dhKxG3U66nSjd6JFmHtzFLujAaML3dhAs1HkPXPDc+rQPOCBbPYDbhOGL4zj7XcPr6KSMb9m5BMM2pb3GMI39QHSc5KmFvVY78KcLfZyR/E6WVpiVIEqzaFCduVjbhnoZ3WWCzHQWF3kskgiJ4mN+1YgeTZ7CRNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ziqfSomiVC37/2pxKocoK5vPtSCxdgKe4aqUfO9c63w=;
- b=xoKrJTzkobZjYqXHsmInViIXNfYdV8UNYX8Iv3vNCviMubhHJrAoYEuv0q1ZmGQhwCPnRIqTJ7bjpd3KuKYfwzAKncyJNC524DqKhHIceqbpc10xjL6sWXaP4O/0KjYiqkWvYpFZTx1sikGD7GuoILbqv76hpHVfOAdmQGB5uUE=
-Received: from SN7PR04CA0071.namprd04.prod.outlook.com (2603:10b6:806:121::16)
- by PH0PR12MB999087.namprd12.prod.outlook.com (2603:10b6:510:38f::11)
+ bh=N98xpKRyqKteQSFtanITzVlgfmnGccjSO8Dx06ibovo=;
+ b=yLBr7na97IjY7cp1YYMhW2sCVin0BWgh32hDtErG3bSjsUOQJL/8y0WQD2VRAtgEC4wwCIp+8iEdWElSOenzC54F4wrpuju0n3/odw1tPM6QrPhxlYF6BheCb5RPuBBSex/fO4hX9jDtAZEqzggOIjaX0Ve0YaF6okDP+HssEB4=
+Received: from SN7PR04CA0083.namprd04.prod.outlook.com (2603:10b6:806:121::28)
+ by MW3PR12MB4443.namprd12.prod.outlook.com (2603:10b6:303:2d::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.12; Wed, 21 Jan
- 2026 22:33:10 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Wed, 21 Jan
+ 2026 22:33:09 +0000
 Received: from SA2PEPF00003F64.namprd04.prod.outlook.com
- (2603:10b6:806:121:cafe::5d) by SN7PR04CA0071.outlook.office365.com
- (2603:10b6:806:121::16) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:806:121:cafe::f4) by SN7PR04CA0083.outlook.office365.com
+ (2603:10b6:806:121::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.9 via Frontend Transport; Wed,
- 21 Jan 2026 22:33:09 +0000
+ 21 Jan 2026 22:33:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SA2PEPF00003F64.mail.protection.outlook.com (10.167.248.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.4 via Frontend Transport; Wed, 21 Jan 2026 22:33:09 +0000
+ 15.20.9542.4 via Frontend Transport; Wed, 21 Jan 2026 22:33:08 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 21 Jan
- 2026 16:33:02 -0600
+ 2026 16:33:01 -0600
 Received: from aaurabin-tumbleweed.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17
  via Frontend Transport; Wed, 21 Jan 2026 14:33:01 -0800
@@ -66,11 +65,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Charlene Liu <Charlene.Liu@amd.com>, "Ovidiu (Ovi)
- Bunea" <ovidiu.bunea@amd.com>
-Subject: [PATCH 06/13] drm/amd/display: add setup_stereo for dcn4x or later
-Date: Wed, 21 Jan 2026 17:31:42 -0500
-Message-ID: <20260121223247.186241-7-aurabindo.pillai@amd.com>
+ <alex.hung@amd.com>
+Subject: [PATCH 05/13] drm/amd/display: perform clear update flags for all DCN
+ asics
+Date: Wed, 21 Jan 2026 17:31:41 -0500
+Message-ID: <20260121223247.186241-6-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260121223247.186241-1-aurabindo.pillai@amd.com>
 References: <20260121223247.186241-1-aurabindo.pillai@amd.com>
@@ -79,55 +78,55 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F64:EE_|PH0PR12MB999087:EE_
-X-MS-Office365-Filtering-Correlation-Id: fdcd5723-b858-4fdd-7e5d-08de593d0e27
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F64:EE_|MW3PR12MB4443:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a98ebd0-d2e4-4b48-f77d-08de593d0da6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ov6BGUbslzXlwyZu0iJOHFgpIWt8Bg6JMyQ4FgJjnscmxQIZqZKqadnKb0h/?=
- =?us-ascii?Q?3WI+6D5oOAFn4Uxe3B66JfzcypLOWXhYfiQ0tMi9l7Z3jW+mUmLQYyCw02a2?=
- =?us-ascii?Q?nJcW3yiehh7b42Y8LHGHItG6i0ckdPN5WD7Qvf/PooVKu95fUzW+WYyOS3D3?=
- =?us-ascii?Q?mRdsl8xJ0Wn2M2KzYEVU8b4+Iaf72R1RCqCv3Pk2aoCm76X1BAcKPDzoKRxS?=
- =?us-ascii?Q?l3JzupjrZOeKlCAb11lfa1aUz86czHq8EGSaJ+Kb2x6eb/Rzpol5EX+VFC1g?=
- =?us-ascii?Q?m5rwt9XKQtjKwDW6lLP5h9JRtW8O5VPGvnPVKFRjCm1dSgSAZtuPP/QOwFp8?=
- =?us-ascii?Q?xVsJh1Aet7o7DyWmbW18zL8X7KDfGHsJ3uFcBOVkzfLHkHT82dbEpu9uN/Ff?=
- =?us-ascii?Q?8s9blT3UL2DwIO/mgORa6TqnlTKeK4IbpWr2AF7dbTmNSmXpQ6eTYCW0LDpw?=
- =?us-ascii?Q?OP9MCWRaD5hf3VJagxE59Qr19sxRKaJm74MuLhsw24u5Ou7b/murAxTJTO9v?=
- =?us-ascii?Q?sZ3Wv++kkI2ZKvpDB7sfC6IFkJYRJr6UVzi4LguRLG7HcvqnOZFQsIsnbww2?=
- =?us-ascii?Q?0mroYvytMlMUcvPUTJRjz3y0pyKdz5n36f8usM10fTtLiNojEQG5lCiQvnHq?=
- =?us-ascii?Q?sAJMdNLRQhPh+EcvVyEgg2NqtQCF6Mb8W8m+VltF/1dzhBGxOt14cklmUA5h?=
- =?us-ascii?Q?PuuSV5jjVk8AqT0pC4xdLIKqefWcY6gjp5cA3fzbnGCACCVnz2LYY5WDqBBw?=
- =?us-ascii?Q?jXVTBlMny4OS92ATz+0wGIdEA7jdOyokgmvg/0q4YFqw4En6/GYdioK5M0Ky?=
- =?us-ascii?Q?90OUJVCxwEr2Prj8W3+0Nm7kmR+tCij8amoPPskdI2k3q5U8ya7XyGsStfk4?=
- =?us-ascii?Q?NBr7yL9qjLDB5YTX8iUBTmwwYRE+uARBHfpkrBuCg3kzKkZ960YALTujFmMp?=
- =?us-ascii?Q?lLZcy0rFcys/V3KhqgG++fPezyqpzAH4C1KhMoEYLdjM1/ypb70sWNguEDeg?=
- =?us-ascii?Q?ugZpGN4R0x/BLnnNLnlWojJLEEGMffnFNVnufwr7AJJjzw0NLUI0RmFyhlZB?=
- =?us-ascii?Q?wHwLajESR9TCzeCXhGdxcHO6byuU3gLE878YFX/fskjoPFk/Z5BSxAxxPuLa?=
- =?us-ascii?Q?alETovRPr2JFdlUYi/pH0/qKSAGedAzkz/EULPeuppdqf2QHikziDUcD91SC?=
- =?us-ascii?Q?ULcKfOdvvJ6c4Zz/+x5/sr4844lU/FtzPnGhN7/5QjsYq3eGdgAVlqxb/52Z?=
- =?us-ascii?Q?WCKIAarWV6okW+Kgabeq4CeSsxcgAiuBLBs0unDBdM2R8hV8LPWihV8Flu/i?=
- =?us-ascii?Q?0edQDFy2n+Y2TYykYaDmD+FslPaf3gq8qNanbXGE66j5wB4+zd6BdYwtdoXV?=
- =?us-ascii?Q?cms2yVOJysQKZjG5CpbS01oz9UZvHFt3+3hTNw7Gd5qxbV36J26zW4V5Egjo?=
- =?us-ascii?Q?rpbYSeqq8HpM7xGM61PF0NzXvTkaM0Oub/G9x4eoAMpq9QLMtj1lBEEhxLh+?=
- =?us-ascii?Q?q9PZmjzg6h93/MvtDiNJK9Wg8zfakE29AGzAZP7QxUNIzIkRPyV2vW94CcVW?=
- =?us-ascii?Q?umkaXNgTlie6a9gp99HcVvlE3HC4o2V6/W7wVivvTeY5A0vS8dFNtnHI7UaA?=
- =?us-ascii?Q?cnJNosbHjSdTZrc0FhR4l+emCTAQKgbgcOboJy98HlOtg4xgRtMn4DXCIdNg?=
- =?us-ascii?Q?a6Rvgg=3D=3D?=
+ ARA:13230040|36860700013|1800799024|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?x/UnTMV+T1fRFOJ6MNiFVKyZ2gNnN37+Qctz1zSFEtYIr8AdVLvkz3UO3SNK?=
+ =?us-ascii?Q?IynA/HeBaNQbkpd2ZzEYSjjVfMoy9frJlCJZIMZe+c51gazUntDHJVgP4tID?=
+ =?us-ascii?Q?fExkY2GbvZUM4vEwuFLHrq2pYnwY9u4c/OBr+qaVL5AjBmAiNljgcpACiRUq?=
+ =?us-ascii?Q?14fT+lm9BFrH89xlpAMnyjl8C4T/tqyJ8QOtVHuWKcPZx3B89ix1pSg1o58o?=
+ =?us-ascii?Q?Su4TNMeJv5k+YUk0KgYM/5pglMVjim4T4DAE0pvjrHV249ubvgY7ay/BWeed?=
+ =?us-ascii?Q?mAKUXgV+d718mmuGWhPVfCsQgU0JubTXqkOAgKJd4NI8S7QSJFX23lbAAVQy?=
+ =?us-ascii?Q?ikTcIr+IifKngZGewQQTf2WG7T7cMx1EMmwcO5n+obxs7p3ZZ7T3/2nTJWpb?=
+ =?us-ascii?Q?HQail0tICzQ4V3C+ENczFrfz3qpLZoSHlcJn0IJoZ4MKwTY80w7rclcp7XFh?=
+ =?us-ascii?Q?57b019ht8yjJtMKVkCqC71pGkDfGbIdhH383K1NiHaCh4i7mE0tnvVz7z3wg?=
+ =?us-ascii?Q?I+ltR/3SzGAEPSS0EOwFM9DZ9344GJE56tZ66CQu2gPT1xCMcq2hP3TN1a6A?=
+ =?us-ascii?Q?CmCFe9m4okpjR9J9804qQFV2UwiZ5dC8cTwZbcFlDGKc4z/Kd6T2Ykf4bxY/?=
+ =?us-ascii?Q?MkiFr9zzxXaKDb3ZoGGL6A5rdcIMH0fCC1lvCabK6pYN+iCARsB1n2RpbOCa?=
+ =?us-ascii?Q?2u/LIdFB/MPs0fMcUpUTbegS6X5rcZwhA/6WWAzMAgzYB5jP/eaecZFLGDee?=
+ =?us-ascii?Q?AWbiXr/inHRuv1kzMG6MmPvJ0rcYqjgGIxVbUHJLcZWtakbZBb98Gpk8hDwE?=
+ =?us-ascii?Q?0B5+SoaYhunYsUAiVRMgaSbTbHug24SX5qSd01E8MJ/Y3/BW8Gw3l0tpemWX?=
+ =?us-ascii?Q?FlpUVEy1AHqnDv2SzmhRGo4jriEnL/vfGs22Tk69E3jHesy+t5zz16vacQ/q?=
+ =?us-ascii?Q?03C+26UFRyJr+wRApwcj/YfCWDmS/epCV3H5tpZNh5YO/SOFsQwxLCvX+rE5?=
+ =?us-ascii?Q?mZMJ3nOtuzATfNdJZA2DVMetDSkLrm+xnvyLup7AxBlnFpzb9+KQNgDBFgqL?=
+ =?us-ascii?Q?vin4NQOHQh2O5s7uhOajYCCw0uddmJ0421VjjvfGNUJa1R+0fu1Du2f8Cxro?=
+ =?us-ascii?Q?ozA54lG/IZlidnZu2qSKNEZNpZg0z18/v7v7gBeBulAkNnPDkxEw0v4bpPKg?=
+ =?us-ascii?Q?ONrxaRKUOq7uOZ++o7VnwqMfVEbLg7PRfYULFfJNTPhvryEY1zUUsXZcWAlW?=
+ =?us-ascii?Q?S5FeN3/qjK1GkQayF7w72zH5CaQJG8NE74kZFQwgC9Xp61+GTbe3Kku7DLni?=
+ =?us-ascii?Q?cSlm3xhdxKl0563tALTg4VJD1iCGaTvtrZQkSRmq8LMRWIkGr7zg2uMmc683?=
+ =?us-ascii?Q?fDSYpgyxAs3P5Y8rGw9nbai8GJO/FwUknIEYdxJlHqCaVY3rl+KzH4ZgGIBs?=
+ =?us-ascii?Q?xK1+1LQwpBiVL0Jm6hJlaVCj7DFf3+KpYslCCCaSqekfyMUBUDKUBM1Pq9Ja?=
+ =?us-ascii?Q?oLCUveG5Z1ZiFazwLIBGYsfMzCNK44vWBPjRJqQJgdNUWLcs969kXFvXH/5B?=
+ =?us-ascii?Q?mw8f5VZCvmcUhAk4as6mp5yxMaX8tAtAo0cO0LTPfbpViG++m6Et3UB9wBug?=
+ =?us-ascii?Q?9D0XJ3eKlQuPuJkXGaa/YJ1xRUW7MPPbXE3jcFEqWEyTABM1m5pvbP205w5Y?=
+ =?us-ascii?Q?U3HClQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2026 22:33:09.7911 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdcd5723-b858-4fdd-7e5d-08de593d0e27
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2026 22:33:08.9494 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a98ebd0-d2e4-4b48-f77d-08de593d0da6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F64.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999087
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4443
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,44 +141,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Charlene Liu <Charlene.Liu@amd.com>
+Existing version check that limits the sequence to clear update flags
+should be performed for all asics. Exclude DCE asics for now.
 
-[why]
-stereo_sync pin is removed, but we still support display stereo
-
-Reviewed-by: Ovidiu (Ovi) Bunea <ovidiu.bunea@amd.com>
-Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
 Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c | 2 +-
- drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index 8a23763ca98e..73f469ce7cdd 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -3474,7 +3474,7 @@ void dcn10_set_static_screen_control(struct pipe_ctx **pipe_ctx,
- 					triggers, params->num_frames);
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index ad8ce46ce310..cb85b7ac2697 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -7506,7 +7506,7 @@ struct dc_update_scratch_space *dc_update_planes_and_stream_init(
+ 		.stream = stream,
+ 		.stream_update = stream_update,
+ 		.update_v3 = version >= DCN_VERSION_4_01 || version == DCN_VERSION_3_2 || version == DCN_VERSION_3_21,
+-		.do_clear_update_flags = version >= DCN_VERSION_3_2 || version == DCN_VERSION_3_01,
++		.do_clear_update_flags = version >= DCN_VERSION_1_0,
+ 	};
  
--static void dcn10_config_stereo_parameters(
-+void dcn10_config_stereo_parameters(
- 		struct dc_stream_state *stream, struct crtc_stereo_flags *flags)
- {
- 	enum view_3d_format view_format = stream->view_format;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h
-index 57d30ea225f2..476095c5dd0c 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h
-@@ -217,5 +217,7 @@ void dcn10_update_visual_confirm_color(
- void dcn10_reset_surface_dcc_and_tiling(struct pipe_ctx *pipe_ctx,
- 					struct dc_plane_state *plane_state,
- 					bool clear_tiling);
-+void dcn10_config_stereo_parameters(
-+		struct dc_stream_state *stream, struct crtc_stereo_flags *flags);
- 
- #endif /* __DC_HWSS_DCN10_H__ */
+ 	return scratch;
 -- 
 2.52.0
 
