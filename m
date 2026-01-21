@@ -4,100 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E171D625FF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15F86D625FE
 	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB4CE10E91B;
-	Thu, 22 Jan 2026 08:36:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F62710E91F;
+	Thu, 22 Jan 2026 08:36:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="buP14dfE";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="PD/13wmz";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0991410E7EF
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 14:22:42 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2a0d06cfa93so75705ad.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 06:22:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20230601; t=1769005361; x=1769610161;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Df9DnST7C0sPqC8cKGnMiT7cxfRi0XBTWHY9JjLQ7zk=;
- b=buP14dfEBR6sdmQ6ARRBNj1DQtd7iiSjOMwtgEQudS2oCVri+dH6m6rH6gPsngQ4yn
- gVYhCEoqRoGU8lO0s6wDwrWTjGXOa3Cwz9RcUfJl8UtuMpbUXjY0BIPvZBxCmNp5wdbM
- dwqqbfZ0iYHScBLltbRAeEAh5fnZlCz2fsuPaVXg1dN8+a1fvN+v7JS8Cpk6SqWnd7Ao
- H7Rjznu/8LBUvNCKPZ5pRTL9Qn3N0AGta+H2c/ZAu+hUVe8VwrZ6vFnBP65LTDWBYVNQ
- a5jrBk4YxVMkr+tkWwXfbDfEWkGKjFZyyLngfSt3ZNvJBKb7NnSytZKZpPRepeQYG99f
- N5AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769005361; x=1769610161;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=Df9DnST7C0sPqC8cKGnMiT7cxfRi0XBTWHY9JjLQ7zk=;
- b=CWuJkHVyO+yuA62sXTMlgoGm1cVEYCJAGqpegsewMZFWxu9if8dSaTnbAVKPMDyULW
- M7fnhto98f+pJ0c5cCGEbE7U1sXSxnL65fpxwVEYC7YM4ZzwHXR3rdrGaOdClLnRJ9OZ
- BpeD5EaQfho1TsjBD0i10el/BnmsbkUUqe8x77+dInejRXlmj73S5UQ5UKjRgtfdbu/o
- pbu8doP8gc2zBv8KSjNPRgH8MPbrT+qIypjtiyLL2mHyzev6eWKYD5WcSjSXT4telFtK
- piFxBx1pX0HM/Pehbok+H8+WVIpcdmm0VDovBjxcXwRtoKL4nQvjBJz6b6RBHUNBQ7sg
- rGUw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVxhkLUQ7ZH0suJc7gFAE9I/ClFxbyU+MXuymwnj6rpb2yZBwR7ddQ35zwrs7TiCbFvWTZEppAa@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxnUzutIvtKSwPwowNegWTCx5bDXpRXyoK8RCGue+DdFyV73PAy
- 3N/7od9zL4tlhLlaIZyhBDLOodEobTmWOxAYzdDlrbCC/JGvGI5+bulTcEq1Qsb7fQ==
-X-Gm-Gg: AZuq6aI/DbwHLRiGOdta4yGhbSgynMVwNEfNDKrOU1gqjGQ87eAsQ91mSZ5sqEsxYQe
- 53OfX0HbUJnUoZbOax6dtr3nZt3WQssNI+O+OnaXgFpz54m2ynyde36Gfl1X5l6SQtEzJAsmZPi
- 9QWrmFt1zPFkUBX3njFsY+7FU6QKz0WiqZXHFTzZLq9QVu2+Jn0XHLD8xjEtfTbLDv8qUArNg/G
- u41tIutOQNTDGrO/vNU+SwGngdFMzG+Xc+Sg4zqDKDsP1CpcwPiVs3sOCLHug6YSzSUt3rlCYVc
- iqjNKHy3Xvh9WnHZJWw9tzfP+arCBoNbol6RfPy06FiQausS6QS/xhFOxxOmxl6ZLeTPPje6jK2
- 3GR0oW9HMEMENXI0/XvI025tjE4f7EKHgy476m2I/u15i3o27A8kLzW5T+kVg1tzB9osZ5b65l2
- kssMkezj2yIKhvUJ6KgdHdQp/V4roJqYC9Zzb6z5pxSxKMXAcK
-X-Received: by 2002:a17:903:1c8:b0:295:5405:46be with SMTP id
- d9443c01a7336-2a7a23cc8f3mr2519245ad.1.1769005361111; 
- Wed, 21 Jan 2026 06:22:41 -0800 (PST)
-Received: from google.com (222.245.187.35.bc.googleusercontent.com.
- [35.187.245.222]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2a7190ce6a9sm159451235ad.34.2026.01.21.06.22.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jan 2026 06:22:40 -0800 (PST)
-Date: Wed, 21 Jan 2026 14:22:31 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v4 8/8] vfio: Validate dma-buf revocation semantics
-Message-ID: <aXDhJ89Yru577jeY@google.com>
-References: <20260121-dmabuf-revoke-v4-0-d311cbc8633d@nvidia.com>
- <20260121-dmabuf-revoke-v4-8-d311cbc8633d@nvidia.com>
- <20260121134712.GZ961572@ziepe.ca>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5562910E7E4;
+ Wed, 21 Jan 2026 14:45:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1769006739; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=EDpacV5GRpjsVsy5kahPOBn7V/bd4biOvelOKIypKRtd1YGpsj5hTivOSdOb19ZtjW4uj6ZFZWvz3VswcN4ccRgUVkgzoCueAnohS9sKcjArsRtRj5vZd2qcRa7rCwGQson6yNLIYOWYNiZ7W06cq/35HEUDEu4eGojoF+JlhXU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1769006739;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=QLGL7sAGGjAc4J4kRVufIDJ5+o6RGlXVLshIz0+jGpw=; 
+ b=dARYEwK+8TpqXef7NC8VWgr9vE/3xkDX4taEr3ROTSbmjqVCxXQoebRCyPoWBe1RnBWvMCZfxnjY7HI7qWQICv6YmrcDHgDRFd+uTaZk8hFJT0v/sHhaFBHoTB2HNaI9IgADLJRgLa28klQ6U6gUKmmjL7N+xbhbqZo4sipkjhk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769006739; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=QLGL7sAGGjAc4J4kRVufIDJ5+o6RGlXVLshIz0+jGpw=;
+ b=PD/13wmzGtmQf6oLwWL2wxBUHBbme8zZcB8zE68ESllUKP0bDM3YaUm5Zj2cCWmx
+ 0q6HSb+0cZLBX3jGnBSavk9p3GH5pSCcEMJ6bp6jMsnt1idJh2iyRttbVTCHtG7+HV0
+ 3RMacshZeqrlMOZYl7HGmUT1JTWwyFKkFck2mL5I=
+Received: by mx.zohomail.com with SMTPS id 1769006737835241.10313051735613;
+ Wed, 21 Jan 2026 06:45:37 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Wed, 21 Jan 2026 15:45:08 +0100
+Subject: [PATCH v7 01/22] drm/amd/display: Remove unnecessary
+ SIGNAL_TYPE_HDMI_TYPE_A check
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260121134712.GZ961572@ziepe.ca>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260121-color-format-v7-1-ef790dae780c@collabora.com>
+References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
+In-Reply-To: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Werner Sembach <wse@tuxedocomputers.com>, 
+ Andri Yngvason <andri@yngvason.is>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Thu, 22 Jan 2026 08:36:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,58 +91,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 21, 2026 at 09:47:12AM -0400, Jason Gunthorpe wrote:
-> On Wed, Jan 21, 2026 at 02:59:16PM +0200, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > Use the new dma_buf_attach_revocable() helper to restrict attachments to
-> > importers that support mapping invalidation.
-> > 
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  drivers/vfio/pci/vfio_pci_dmabuf.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > index 5fceefc40e27..85056a5a3faf 100644
-> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > @@ -31,6 +31,9 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
-> >  	if (priv->revoked)
-> >  		return -ENODEV;
-> >  
-> > +	if (!dma_buf_attach_revocable(attachment))
-> > +		return -EOPNOTSUPP;
-> > +
-> >  	return 0;
-> >  }
-> 
-> We need to push an urgent -rc fix to implement a pin function here
-> that always fails. That was missed and it means things like rdma can
-> import vfio when the intention was to block that. It would be bad for
-> that uAPI mistake to reach a released kernel.
-> 
-> It's tricky that NULL pin ops means "I support pin" :|
-> 
+From: Werner Sembach <wse@tuxedocomputers.com>
 
-I've been wondering about this for a while now, I've been sitting on the
-following:
+Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check that was performed in the
+drm_mode_is_420_only() case, but not in the drm_mode_is_420_also() &&
+force_yuv420_output case.
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index a4d8f2ff94e4..962bce959366 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1133,6 +1133,8 @@ int dma_buf_pin(struct dma_buf_attachment *attach)
+Without further knowledge if YCbCr 4:2:0 is supported outside of HDMI,
+there is no reason to use RGB when the display
+reports drm_mode_is_420_only() even on a non HDMI connection.
 
-        if (dmabuf->ops->pin)
-                ret = dmabuf->ops->pin(attach);
-+       else
-+               ret = -EOPNOTSUPP;
+This patch also moves both checks in the same if-case. This  eliminates an
+extra else-if-case.
 
-        return ret;
- }
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Signed-off-by: Andri Yngvason <andri@yngvason.is>
+Tested-by: Andri Yngvason <andri@yngvason.is>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-But didn't get a chance to dive in the history yet. I thought there's a
-good reason we didn't have it? Would it break exisitng dmabuf users?
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index cb13a2b0de62..4a2491a66fdd 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6699,12 +6699,9 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	timing_out->v_border_top = 0;
+ 	timing_out->v_border_bottom = 0;
+ 	/* TODO: un-hardcode */
+-	if (drm_mode_is_420_only(info, mode_in)
+-			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
+-		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-	else if (drm_mode_is_420_also(info, mode_in)
+-			&& aconnector
+-			&& aconnector->force_yuv420_output)
++	if (drm_mode_is_420_only(info, mode_in) ||
++	    (aconnector && aconnector->force_yuv420_output &&
++	     drm_mode_is_420_also(info, mode_in)))
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+ 	else if ((connector->display_info.color_formats & DRM_COLOR_FORMAT_YCBCR422)
+ 			&& aconnector
 
-Praan
+-- 
+2.52.0
+
