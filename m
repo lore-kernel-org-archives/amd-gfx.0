@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7909AD625FF
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AE14D625E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5B1110E911;
-	Thu, 22 Jan 2026 08:36:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D36510E90E;
+	Thu, 22 Jan 2026 08:36:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="UpcmeBVO";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="f+EqDH3a";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6737710E830;
- Wed, 21 Jan 2026 14:48:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1769006884; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B66DF10E22B;
+ Wed, 21 Jan 2026 14:47:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1769006814; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=XDF04ArA/ApQBHZKmy01QKKuWLjIHfLwjRNfbnXHgk+Up4YXpc7Xte6tjnpQiVaOdBH2GqZIepQyccFbv7S6XzNj8uMaPy2IQfN8iv2BDxXoqKNSZNIovkPOuRQyJmnUDdi38xrr+EremzL5xxSXcT+y6H5YjCjZZ0k3Ktb3u70=
+ b=Vb+9LKr511zHX6eegVlSx/OjtQgelcyAgVtzFhNwE8/bcmWUw6KUGmBdzIud+XZ89Gd/83TdFSwPwnw7L3USvJa5fCKcG+pFB/4c0+pogPTQA6D96OVAArtc2aPiChXW+JkrIypmkB+lPVcgyGYwQWu3/3miq3s4Lyew71rzSWE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1769006884;
+ s=zohoarc; t=1769006814;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ps4BnNAGF4U24DnSoeoMdVWWIbGEhgg92/5V7kamsSY=; 
- b=I9oCykcybmQ0SQkqJXd3+EvabOpxin+9V1T2oyKGpDkd/RshUVagZ0E2EKIQfd69js5gi+mSpoZvBvEeUF+93oKHm0kZIKHhKG6Pc3mEL0qI7U4P1eLeWlRWFTHeiIeezWrJ/Eq6C5Tik5JVbifuqehDyI39EwxEOp/HswDnXe4=
+ bh=wtYUwdUZsrNFIDbbFkRufRXGPspOM1ME+M4e+AuGxio=; 
+ b=BpH9UtnU2dHSDXy0Tx1B8VW7763hqZoaAf6z6lCJyfrOBSKVPuhX+N2+0xdXbuv7Y+HUHTGvPoptDE7DinIF6tcc/V4FrHNJko1GUbkaAE4Mkqu7Lt3HWmvqTZoByBTH7nvsjS0z1EzL9Z48Vp61h8OR4/p+JQ+c+htuFqs/BN0=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769006884; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769006814; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=ps4BnNAGF4U24DnSoeoMdVWWIbGEhgg92/5V7kamsSY=;
- b=UpcmeBVOQexJFu2sQ5PWtzJkTq+8kHibYaVPiDsYg2+MkEoGMO5rhkANEtn8+zFT
- kVa7/I8P7NYo3Qm20JXLTJkuhBGIuqzGPCkw5pfTfc8Q261uqM7PUffegaKoE/Ony6O
- ZEOucfP9uLfTTBLgkTBFaKv9w2iuYf0SiRoWKLyw=
-Received: by mx.zohomail.com with SMTPS id 1769006882991361.2124863507353;
- Wed, 21 Jan 2026 06:48:02 -0800 (PST)
+ bh=wtYUwdUZsrNFIDbbFkRufRXGPspOM1ME+M4e+AuGxio=;
+ b=f+EqDH3aVu2kl64X+UsHbR2CJv4ynXZNNLP8fYYtsOWVTtPOjQs7ykZ6FwmKKQbG
+ Ub0ox7iljk9Va0y1ysFvwnSKJx61L1BqboTAxBNJlem5I08MlUD3K4wnhYW7NfO8MT2
+ ypVLQGD8rI0P9wFqnSahk1bjYvhi/3qM9285LmQ8=
+Received: by mx.zohomail.com with SMTPS id 1769006811743442.0611183045577;
+ Wed, 21 Jan 2026 06:46:51 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 21 Jan 2026 15:45:26 +0100
-Subject: [PATCH v7 19/22] drm/tests: hdmi: Add tests for HDMI helper's
- mode_valid
+Date: Wed, 21 Jan 2026 15:45:17 +0100
+Subject: [PATCH v7 10/22] drm/rockchip: vop2: Fix YUV444 output
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-color-format-v7-19-ef790dae780c@collabora.com>
+Message-Id: <20260121-color-format-v7-10-ef790dae780c@collabora.com>
 References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
 In-Reply-To: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -89,147 +88,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add some KUnit tests to verify that the HDMI state helper's mode_valid
-implementation does not improperly reject chroma subsampled modes on the
-basis of their clock rate not being satisfiable in RGB.
+YUV444 (aka YCbCr444) output isn't working quite right on RK3588. The
+resulting image on the display, while identifying itself as YUV444, has
+some components swapped, even after adding the necessary DRM formats to
+the conversion functions.
 
+Judging by downstream, this is because YUV444 also needs an rb swap
+performed in the AFBC case.
+
+Add the DRM formats to the appropriate switch statements, and add a
+function for checking whether an rb swap needs to be performed in the
+AFBC case.
+
+Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 109 +++++++++++++++++++++
- 1 file changed, 109 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-index f9648f9de46b..b2c421d7e986 100644
---- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-@@ -77,6 +77,23 @@ static struct drm_display_mode *find_420_only_mode(struct drm_connector *connect
- 	return NULL;
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index ec3b4fde10db..469c63dd97d5 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -176,6 +176,7 @@ static enum vop2_data_format vop2_convert_format(u32 format)
+ 	case DRM_FORMAT_ARGB2101010:
+ 	case DRM_FORMAT_XBGR2101010:
+ 	case DRM_FORMAT_ABGR2101010:
++	case DRM_FORMAT_VUY101010:
+ 		return VOP2_FMT_XRGB101010;
+ 	case DRM_FORMAT_XRGB8888:
+ 	case DRM_FORMAT_ARGB8888:
+@@ -184,6 +185,7 @@ static enum vop2_data_format vop2_convert_format(u32 format)
+ 		return VOP2_FMT_ARGB8888;
+ 	case DRM_FORMAT_RGB888:
+ 	case DRM_FORMAT_BGR888:
++	case DRM_FORMAT_VUY888:
+ 		return VOP2_FMT_RGB888;
+ 	case DRM_FORMAT_RGB565:
+ 	case DRM_FORMAT_BGR565:
+@@ -225,6 +227,7 @@ static enum vop2_afbc_format vop2_convert_afbc_format(u32 format)
+ 	case DRM_FORMAT_ARGB2101010:
+ 	case DRM_FORMAT_XBGR2101010:
+ 	case DRM_FORMAT_ABGR2101010:
++	case DRM_FORMAT_VUY101010:
+ 		return VOP2_AFBC_FMT_ARGB2101010;
+ 	case DRM_FORMAT_XRGB8888:
+ 	case DRM_FORMAT_ARGB8888:
+@@ -233,6 +236,7 @@ static enum vop2_afbc_format vop2_convert_afbc_format(u32 format)
+ 		return VOP2_AFBC_FMT_ARGB8888;
+ 	case DRM_FORMAT_RGB888:
+ 	case DRM_FORMAT_BGR888:
++	case DRM_FORMAT_VUY888:
+ 		return VOP2_AFBC_FMT_RGB888;
+ 	case DRM_FORMAT_RGB565:
+ 	case DRM_FORMAT_BGR565:
+@@ -270,6 +274,19 @@ static bool vop2_win_rb_swap(u32 format)
+ 	}
  }
  
-+static struct drm_display_mode *find_420_also_mode(struct drm_connector *connector)
++static bool vop2_afbc_rb_swap(u32 format)
 +{
-+	struct drm_device *drm = connector->dev;
-+	struct drm_display_mode *mode;
-+
-+	mutex_lock(&drm->mode_config.mutex);
-+	list_for_each_entry(mode, &connector->modes, head) {
-+		if (drm_mode_is_420_also(&connector->display_info, mode)) {
-+			mutex_unlock(&drm->mode_config.mutex);
-+			return mode;
-+		}
++	switch (format) {
++	case DRM_FORMAT_NV24:
++	case DRM_FORMAT_NV30:
++	case DRM_FORMAT_VUY888:
++	case DRM_FORMAT_VUY101010:
++		return true;
++	default:
++		return false;
 +	}
-+	mutex_unlock(&drm->mode_config.mutex);
-+
-+	return NULL;
 +}
 +
- static int set_connector_edid(struct kunit *test, struct drm_connector *connector,
- 			      const void *edid, size_t edid_len)
+ static bool vop2_afbc_uv_swap(u32 format)
  {
-@@ -2700,11 +2717,103 @@ static void drm_test_check_mode_valid_reject_max_clock(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, preferred->clock, 25200);
- }
+ 	switch (format) {
+@@ -1291,6 +1308,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
+ 		 /* It's for head stride, each head size is 16 byte */
+ 		stride = ALIGN(stride, block_w) / block_w * 16;
  
-+/*
-+ * Test that drm_hdmi_connector_mode_valid() will accept modes that require a
-+ * 4:2:0 chroma subsampling, even if said mode would violate maximum clock
-+ * constraints if it used RGB 4:4:4.
-+ */
-+static void drm_test_check_mode_valid_yuv420_only_max_clock(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *dank;
-+	struct drm_connector *conn;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(HDMI_COLORSPACE_RGB) |
-+				BIT(HDMI_COLORSPACE_YUV420),
-+				8,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	conn = &priv->connector;
-+	KUNIT_ASSERT_EQ(test, conn->display_info.max_tmds_clock, 200 * 1000);
-+
-+	dank = find_420_only_mode(conn);
-+	KUNIT_ASSERT_NOT_NULL(test, dank);
-+	KUNIT_EXPECT_EQ(test, dank->hdisplay, 3840);
-+	KUNIT_EXPECT_EQ(test, dank->vdisplay, 2160);
-+
-+	/*
-+	 * Note: The mode's "clock" here is not accurate to the actual TMDS
-+	 * clock that HDMI will use for a subsampled mode. Hence, why the mode's
-+	 * clock is above the .max_tmds_clock of 200MHz.
-+	 */
-+	KUNIT_EXPECT_EQ(test, dank->clock, 297000);
-+}
-+
-+/*
-+ * Test that drm_hdmi_connector_mode_valid() will reject modes that require
-+ * 4:2:0 chroma subsampling, if the connector does not support 4:2:0.
-+ */
-+static void
-+drm_test_check_mode_valid_reject_yuv420_only_connector(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *dank;
-+	struct drm_connector *conn;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(HDMI_COLORSPACE_RGB),
-+				8,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	conn = &priv->connector;
-+	KUNIT_ASSERT_EQ(test, conn->display_info.max_tmds_clock, 200 * 1000);
-+
-+	dank = find_420_only_mode(conn);
-+	KUNIT_EXPECT_NULL(test, dank);
-+}
-+
-+/*
-+ * Test that drm_hdmi_connector_mode_valid() will accept modes that allow (among
-+ * other color formats) 4:2:0 chroma subsampling, even if the connector does not
-+ * support 4:2:0, but the mode's clock works for RGB 4:4:4.
-+ */
-+static void
-+drm_test_check_mode_valid_accept_yuv420_also_connector_rgb(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *mode;
-+	struct drm_connector *conn;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+				BIT(HDMI_COLORSPACE_RGB),
-+				8,
-+				&dummy_connector_hdmi_funcs,
-+				test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	conn = &priv->connector;
-+	KUNIT_ASSERT_EQ(test, conn->display_info.max_tmds_clock, 340 * 1000);
-+
-+	mode = find_420_also_mode(conn);
-+	KUNIT_ASSERT_NOT_NULL(test, mode);
-+	KUNIT_EXPECT_EQ(test, mode->hdisplay, 3840);
-+	KUNIT_EXPECT_EQ(test, mode->vdisplay, 2160);
-+	KUNIT_EXPECT_EQ(test, mode->clock, 297000);
-+}
-+
- static struct kunit_case drm_atomic_helper_connector_hdmi_mode_valid_tests[] = {
- 	KUNIT_CASE(drm_test_check_mode_valid),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject_rate),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject_max_clock),
-+	KUNIT_CASE(drm_test_check_mode_valid_yuv420_only_max_clock),
-+	KUNIT_CASE(drm_test_check_mode_valid_reject_yuv420_only_connector),
-+	KUNIT_CASE(drm_test_check_mode_valid_accept_yuv420_also_connector_rgb),
- 	{ }
- };
- 
++		rb_swap = vop2_afbc_rb_swap(fb->format->format);
+ 		uv_swap = vop2_afbc_uv_swap(fb->format->format);
+ 		/*
+ 		 * This is a workaround for crazy IC design, Cluster
+@@ -1308,6 +1326,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
+ 			vop2_win_write(win, VOP2_WIN_AFBC_ENABLE, 1);
+ 		vop2_win_write(win, VOP2_WIN_AFBC_FORMAT, afbc_format);
+ 		vop2_win_write(win, VOP2_WIN_AFBC_UV_SWAP, uv_swap);
++		vop2_win_write(win, VOP2_WIN_AFBC_RB_SWAP, rb_swap);
+ 		/*
+ 		 * On rk3566/8, this bit is auto gating enable,
+ 		 * but this function is not work well so we need
 
 -- 
 2.52.0
