@@ -4,70 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E2D9D262B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 07:59:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8503ED262B2
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 08:15:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8892B10E0EE;
-	Wed, 21 Jan 2026 07:59:35 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dfyuJlQZ";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F198D10E0EE;
- Wed, 21 Jan 2026 07:59:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A89F043E8F;
- Wed, 21 Jan 2026 07:59:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9A6FC116D0;
- Wed, 21 Jan 2026 07:59:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768982374;
- bh=lEy1yZ/ijqL0f8O4r3b/+kmhBy9GW/pNUeqgzBHM/dA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dfyuJlQZbT+khgy1UNrCtf//gRr41b5TeKPoiYg80AS6Fc/HmDd3VwtiI+5NSenuw
- 2Spobvzc4gCbVDeqXVaQQbRwrS6+CHKVy3XbpOJDk9mphG7a3wdXKInoc7n0OfcKWE
- 8SWHbICqvKTijL1hBIfRy4blDhgnKn5Fu+boDiKbghi+pmOrn0ZdSCoarjSE6+E1nR
- 24AKgBy+Kh5VI/MLAyjcYTcRF130zk6/0Xf1/w1d4GVohJUI57MraMOfQ3eptReL80
- 6JZuVHv3OQrm+n2zA8FnYBMhG1FJ8jnjl2gjc7wulNG8aRh7RUGCDXECKS4I2EibU8
- Rp2oext3FgQ8w==
-Date: Wed, 21 Jan 2026 09:59:29 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v3 6/7] vfio: Wait for dma-buf invalidation to complete
-Message-ID: <20260121075929.GU13201@unreal>
-References: <20260120-dmabuf-revoke-v3-0-b7e0b07b8214@nvidia.com>
- <20260120-dmabuf-revoke-v3-6-b7e0b07b8214@nvidia.com>
- <aW/pQmOO8komCgOK@lstrano-desk.jf.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aW/pQmOO8komCgOK@lstrano-desk.jf.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C17010E6E8;
+	Wed, 21 Jan 2026 08:15:13 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3938A10E6EA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 08:15:12 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0B0ED5BCCA;
+ Wed, 21 Jan 2026 08:15:11 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5AF593EA63;
+ Wed, 21 Jan 2026 08:15:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id XS7yFA6LcGn7cAAAD6G6ig
+ (envelope-from <tiwai@suse.de>); Wed, 21 Jan 2026 08:15:10 +0000
+Date: Wed, 21 Jan 2026 09:15:09 +0100
+Message-ID: <878qdrs7oy.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Vivian Wang <wangruikang@iscas.ac.cn>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,	Michael Ellerman
+ <mpe@ellerman.id.au>,	Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,	Alex Deucher
+ <alexander.deucher@amd.com>,	Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>,	David Airlie <airlied@gmail.com>,	Simona Vetter
+ <simona@ffwll.ch>,	"Creeley, Brett" <bcreeley@amd.com>,	Andrew Lunn
+ <andrew+netdev@lunn.ch>,	"David S. Miller" <davem@davemloft.net>,	Eric
+ Dumazet <edumazet@google.com>,	Jakub Kicinski <kuba@kernel.org>,	Paolo
+ Abeni <pabeni@redhat.com>,	Bjorn Helgaas <bhelgaas@google.com>,	Jaroslav
+ Kysela <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,	Han Gao
+ <gaohan@iscas.ac.cn>,	linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org,	amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,	netdev@vger.kernel.org,
+ linux-pci@vger.kernel.org,	linux-sound@vger.kernel.org,
+ linux-riscv@lists.infradead.org,	sophgo@lists.linux.dev
+Subject: Re: [PATCH v2 4/4] ALSA: hda/intel: Raise msi_addr_mask to dma_bits
+In-Reply-To: <20260121-pci-msi-addr-mask-v2-4-f42593168989@iscas.ac.cn>
+References: <20260121-pci-msi-addr-mask-v2-0-f42593168989@iscas.ac.cn>
+ <20260121-pci-msi-addr-mask-v2-4-f42593168989@iscas.ac.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.1 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Pre-Result: action=no action; module=replies;
+ Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 0B0ED5BCCA
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00]; REPLY(-4.00)[];
+ TAGGED_RCPT(0.00)[netdev]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,92 +79,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 20, 2026 at 12:44:50PM -0800, Matthew Brost wrote:
-> On Tue, Jan 20, 2026 at 04:07:06PM +0200, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > dma-buf invalidation is performed asynchronously by hardware, so VFIO must
-> > wait until all affected objects have been fully invalidated.
-> > 
-> > Fixes: 5d74781ebc86 ("vfio/pci: Add dma-buf export support for MMIO regions")
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > ---
-> >  drivers/vfio/pci/vfio_pci_dmabuf.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > index d4d0f7d08c53..33bc6a1909dd 100644
-> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > @@ -321,6 +321,9 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
-> >  			dma_resv_lock(priv->dmabuf->resv, NULL);
-> >  			priv->revoked = revoked;
-> >  			dma_buf_move_notify(priv->dmabuf);
-> > +			dma_resv_wait_timeout(priv->dmabuf->resv,
-> > +					      DMA_RESV_USAGE_KERNEL, false,
-> > +					      MAX_SCHEDULE_TIMEOUT);
+On Wed, 21 Jan 2026 04:49:40 +0100,
+Vivian Wang wrote:
 > 
-> Should we explicitly call out in the dma_buf_move_notify() /
-> invalidate_mappings kernel-doc that KERNEL slots are the mechanism
-> for communicating asynchronous dma_buf_move_notify /
-> invalidate_mappings events via fences?
+> The code was originally written using no_64bit_msi, which restricts the
+> device to 32-bit MSI addresses.
 > 
-> Yes, this is probably implied, but it wouldn’t hurt to state this
-> explicitly as part of the cross-driver contract.
+> Since msi_addr_mask is introduced, use DMA_BIT_MASK(dma_bits) instead of
+> DMA_BIT_MASK(32) here for msi_addr_mask, describing the restriction more
+> precisely and allowing these devices to work on platforms with MSI
+> doorbell address above 32-bit space, as long as it is within the
+> hardware's addressable space.
 > 
-> Here is what we have now:
+> Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
 > 
->  	 * - Dynamic importers should set fences for any access that they can't
-> 	 *   disable immediately from their &dma_buf_attach_ops.invalidate_mappings
->  	 *   callback.
+> ---
+> v2: No changes
+> 
+> hda/intel maintainers: I don't know if this is the correct restriction.
+> Please help with checking. Thanks.
 
-I believe I documented this in patch 4:
-https://lore.kernel.org/all/20260120-dmabuf-revoke-v3-4-b7e0b07b8214@nvidia.com/"
-Is there anything else that should be added?
+The quirk is used only for AMD graphics chips, so this should
+(hopefully) work.
 
-  1275 /**
-  1276  * dma_buf_move_notify - notify attachments that DMA-buf is moving
-  1277  *
-  1278  * @dmabuf:     [in]    buffer which is moving
-  1279  *
-  1280  * Informs all attachments that they need to destroy and recreate all their
-  1281  * mappings. If the attachment is dynamic then the dynamic importer is expected
-  1282  * to invalidate any caches it has of the mapping result and perform a new
-  1283  * mapping request before allowing HW to do any further DMA.
-  1284  *
-  1285  * If the attachment is pinned then this informs the pinned importer that
-  1286  * the underlying mapping is no longer available. Pinned importers may take
-  1287  * this is as a permanent revocation so exporters should not trigger it
-  1288  * lightly.
-  1289  *
-  1290  * For legacy pinned importers that cannot support invalidation this is a NOP.
-  1291  * Drivers can call dma_buf_attach_revocable() to determine if the importer
-  1292  * supports this.
-  1293  *
-  1294  * NOTE: The invalidation triggers asynchronous HW operation and the callers
-  1295  * need to wait for this operation to complete by calling
-  1296  * to dma_resv_wait_timeout().
-  1297  */
-
-Thanks
+Acked-by: Takashi Iwai <tiwai@suse.de>
 
 
-> 
-> Matt
-> 
-> >  			dma_resv_unlock(priv->dmabuf->resv);
-> >  		}
-> >  		fput(priv->dmabuf->file);
-> > @@ -342,6 +345,8 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
-> >  		priv->vdev = NULL;
-> >  		priv->revoked = true;
-> >  		dma_buf_move_notify(priv->dmabuf);
-> > +		dma_resv_wait_timeout(priv->dmabuf->resv, DMA_RESV_USAGE_KERNEL,
-> > +				      false, MAX_SCHEDULE_TIMEOUT);
-> >  		dma_resv_unlock(priv->dmabuf->resv);
-> >  		vfio_device_put_registration(&vdev->vdev);
-> >  		fput(priv->dmabuf->file);
-> > 
-> > -- 
-> > 2.52.0
-> > 
+thanks,
+
+Takashi
