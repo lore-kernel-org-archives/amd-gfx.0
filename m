@@ -4,157 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 507C5CA5FD7
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:47:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAC71C4453D
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:47:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBB8010E7AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84FF810E796;
 	Wed, 21 Jan 2026 13:47:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DM1Fq1jx";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="a3i31YDV";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010028.outbound.protection.outlook.com [52.101.61.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43CF810E166;
- Wed, 21 Jan 2026 09:55:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hSh8BgZXfzA1K+hOWPVPtCXknXs2aHe31UwViPGmJNXKMVA0iBjmO21ZfOOKxi1sdmllVXj/UjploiqFJEgt/SluTztictcolIPCCikPzfZmuyvtZO0iEEoBjjJjfXGRJAsk+S4LK9lJcot9j1zuCmd0t7w33ZypxH71/8CNXujBAz7stw8E8JQTcQE3eRwuprRyGBLL15ddpccRJ6rxz1GGLipAk/lHq8ssRxYrGeUXdIPj8rvO+rea9sDUJPpUz9rt5Z4Lbwfm48lmBTyulsuFismEYcJv7Lblmbz3TxuTtWBemB1PVCp2SirIT5TlUqsQ73tYSNa1SZaMI33jJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nfjaO8rLX6OnscGNkcc9LBgeJjOZ4fSgjTrxS/oKuHw=;
- b=c7xbIKfsvmte5GloY8NOWIA+wypqVUZTVy0Tp+qf/n5Ln07hVKNLvMGnqQuDF/qCL5byt/atmUm1VCRJ8dT/Rh+YIh0bFsRi2W5J8sqka9oXvAJpZxF4BiHtBR6yFlfn+lI1UaI3j1zv6EXNOOgfyyLiP9L13UaIO6Igoib3Kl1z2o5D7BxTSB3AjU9SrAz6qHtLTMCYIekmy4OUbhwygzGpQAuOH7SUrBFPUSFa5IDvVk3v8XDv/Gra/mtzyxN+ccIuTkgt4xYHPlajG53UufJaMrHpCzlHS257OkFscHun07F0nXlj6RBsI74MRT0MQGzpKb/xOVpau0DzHoCZZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.233) smtp.rcpttodomain=protonmail.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nfjaO8rLX6OnscGNkcc9LBgeJjOZ4fSgjTrxS/oKuHw=;
- b=DM1Fq1jxvgX2xfmIwtQPWQk0dTp2rckEUhYwVvw+B1YACffrS/nALeU1GcETff5Uyj4TJnKu8ojV9n5UZpzP8opiezAnAvoqFj2lET8fXc5dRb6UGaOuvrkP7FQQ10mE8p+mwMgimlw78oxTDaibXVYtT9iGWQ4Hm0+Ib80Pz6ds30zQLup3cHSWntGvUUw/9NMObQWhajojlKd4ZwpqR4Czky5j7FzmDxWcRhrhrQCgWOFS3xc99h4QzrAzjjDrzUHSDwdTsl7PVmxFNBoNksmh4QSNmPWmZoiy3LgUrLWJN22XtHgtLLx+gMXLPEQ+c59Z8jZDF6dB2y3zr5ULdQ==
-Received: from SJ0PR03CA0288.namprd03.prod.outlook.com (2603:10b6:a03:39e::23)
- by CH3PR12MB8658.namprd12.prod.outlook.com (2603:10b6:610:175::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Wed, 21 Jan
- 2026 09:55:01 +0000
-Received: from MWH0EPF000989E7.namprd02.prod.outlook.com
- (2603:10b6:a03:39e:cafe::62) by SJ0PR03CA0288.outlook.office365.com
- (2603:10b6:a03:39e::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.9 via Frontend Transport; Wed,
- 21 Jan 2026 09:54:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
- smtp.mailfrom=nvidia.com;
- dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.233) by
- MWH0EPF000989E7.mail.protection.outlook.com (10.167.241.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.4 via Frontend Transport; Wed, 21 Jan 2026 09:55:00 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 21 Jan
- 2026 01:54:47 -0800
-Received: from drhqmail202.nvidia.com (10.126.190.181) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.20; Wed, 21 Jan 2026 01:54:46 -0800
-Received: from inno-thin-client (10.127.8.10) by mail.nvidia.com
- (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
- Transport; Wed, 21 Jan 2026 01:54:37 -0800
-Date: Wed, 21 Jan 2026 11:54:36 +0200
-From: Zhi Wang <zhiw@nvidia.com>
-To: Joel Fernandes <joelagnelf@nvidia.com>
-CC: <linux-kernel@vger.kernel.org>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, "Alex
- Deucher" <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
- "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
- <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost
- <matthew.brost@intel.com>, Lucas De Marchi <lucas.demarchi@intel.com>, Thomas
- =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>, Helge Deller
- <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor
- <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, Gary Guo
- <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- "Alistair Popple" <apopple@nvidia.com>, Alexandre Courbot
- <acourbot@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, Alexey Ivanov
- <alexeyi@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, Elle Rhumsaa
- <elle@weathered-steel.dev>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- <joel@joelfernandes.org>, <nouveau@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH RFC v6 13/26] nova-core: mm: Add unified page table
- entry wrapper enums
-Message-ID: <20260121115436.45e174d3.zhiw@nvidia.com>
-In-Reply-To: <20260120204303.3229303-14-joelagnelf@nvidia.com>
-References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
- <20260120204303.3229303-14-joelagnelf@nvidia.com>
-Organization: NVIDIA
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.33; x86_64-pc-linux-gnu)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B608910E792;
+ Wed, 21 Jan 2026 13:46:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1769003211; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=UahnWBh+1ptHiVj3A6VrSncXqwM8NfiFV8Qd6h8O8exZ236C80aos1sfR50waTU/kXRPuoRSb2qUvGB1n8QMgRPZeasZMxse6qZq4fTCm3fR4rlkCQ4GVJKmGaoaLF1Qx+68iuG+0KimlItGnCH5xpO5rUjQVFbYgmUntp5BMN4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1769003211;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=szv7zeisuWuGrBdunRvMTfpswrAihzvQghry6ST4+nA=; 
+ b=PG0Y3VL4wCwut+/3bJ4YMJYWGRJ2k1cYyxCrMDlDX6S+0bL7xQWDdCY6XhNv+WyUyROgeuxuHn9p8pWAUdihocX+c7l4bdVRKYjFZ4xBLJAQrC9BUfNPISJ/Uq1sk+QXPS9z1O38ZuMd0h/5x9EWiJ+wL7Q3KeSI5jbdxxuOL9M=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769003211; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=szv7zeisuWuGrBdunRvMTfpswrAihzvQghry6ST4+nA=;
+ b=a3i31YDVPHIMNay4YHTwoRHYOmbGRsn3KEKjbaNbnzL7HsDOYtbl6fSjsv5aSrVA
+ Ncm/qcE6uGXtb1haMpIigQVau0uVdJlE8scl+DavweW9nQMlflWz1JUtlBObpAzta/Y
+ vLLlqwh58f6nN2usNb9Oieuv4VPTkTsU56gfl0Lk=
+Received: by mx.zohomail.com with SMTPS id 1769003209639644.8935929039475;
+ Wed, 21 Jan 2026 05:46:49 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Wed, 21 Jan 2026 14:45:33 +0100
+Subject: [PATCH v6 07/21] drm/i915: Implement the "color format" DRM property
 MIME-Version: 1.0
-Content-Type: text/plain; charset="US-ASCII"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000989E7:EE_|CH3PR12MB8658:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13692daa-06af-4a4b-a34a-08de58d32486
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|82310400026|376014|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BfFD3JixCOQrWeO3dToJjYMBti1Mba6PdFGRHDccfZwBAGCuvTmfC0B6o6E9?=
- =?us-ascii?Q?aLr4CRAXDjQWgJKXlzmPqghHsyAqgz/pH20xzV1NVI8K5K2+rWBoqxOcGfd8?=
- =?us-ascii?Q?BCBLGx/7CA9PEi9cpC39LA7vhkQwVgDl/QgNd4nH27trSuXZkaQ6pNAooNHL?=
- =?us-ascii?Q?iDbjjfUIWBLxb8nNUBuE6c5rRRBqAVlYhjLYduLjE4hiXIJNqzmb9Y4GBUb3?=
- =?us-ascii?Q?boEcNwnFXXm3sKU6yUzWgOI+Zhpy+aHjjiqknPc05ATuDgaodQc38JLZR/KM?=
- =?us-ascii?Q?iGwOpgIUyqjsmhKp8nVvNKsAh9ZxoBSmvn5bxeHsAFu/9b7GFQHf1WiGkcrE?=
- =?us-ascii?Q?CE996EJAg0khnZfBz1nTQeHrygQIixqIRjfJEPyyngI0fYZkAz+hghsfM5pV?=
- =?us-ascii?Q?MHvchPd18bJE9LVx91VJPzK+w2z5pnEbgacIiP+YKI4d9S5ckQO1BPVKfAlm?=
- =?us-ascii?Q?rXlPr0+mZtvGIev263eyoTBEcSmDkjcIANsbEotpA0dDSBXxsk9ecf5zG8ux?=
- =?us-ascii?Q?+A9B4jnF/SlWWNeebTAKlgbV9wcM3RO3ATXte4nI2DEeMKhlu3/o8eG6gpqa?=
- =?us-ascii?Q?izvIKyI6sxCrLZsnjeNsxJEUb9utqQmpa8h7jNXEH57o5XCnWccKvR8oZmHQ?=
- =?us-ascii?Q?lSHuGDVNtOGtB5Lmv9PSJYEtcOGWPyJ6zNWSamm3yt/ASxpmQffQ2SwWc0XI?=
- =?us-ascii?Q?dZAaLXAfni7Wd+FM1pivKysOMX7i9AXYvg6js8wNlYwzMoxFaxMQVzBoo8nW?=
- =?us-ascii?Q?ELM8SUTO/50GIh7RnLJ1vo5LdWVF2opqZtoYi2upOJIKBOO9tKpdmhFj6ccA?=
- =?us-ascii?Q?FLOh/TUEBvYAQzUar+kmaemFgQMTactA5oGsSgwdghnslF2pR8NTaqTTwdVF?=
- =?us-ascii?Q?H3cqqrmSVh0slWTRQB347oGmmbcWEiZloJikmCrBXhMkHV6y40ZFN+f0iUFC?=
- =?us-ascii?Q?rgjRZSgEhSb9dLwLf+8hzGKv7LesCJAObidAe5btUSu1IxRpvCx8hBZ9SMbv?=
- =?us-ascii?Q?LiY8rYmDhAg53DpBgWMlQZyU84RiYHbJT1X9QVxTMYSsTZlViAO/Sf91B3Tz?=
- =?us-ascii?Q?N+mGleW56le7lvWa6k0lGXfstTsCmgHYYlDSqKhPEG6ctGVyrkzQMZ3aMkWl?=
- =?us-ascii?Q?WBp6yyYrnOKKqtqvla0mf07ETkxnkm4FouxWqqwbbHLEbxRw7r4WdAMtWU61?=
- =?us-ascii?Q?Mb5Qqc8FG9dMBZZslyVBmTB4JrCus33ng+lsfu2vFdRcpIC8Pq+S8hN0WE6L?=
- =?us-ascii?Q?b5+hRkJJYxkHMrcDN25z3Bzu4zeUIYeOLyQd2L0QpJ5vFPPfWiAvVM//eJWl?=
- =?us-ascii?Q?t0mahh0a9tijJTH1Hsv3gT3poRjdXMMf1yfvaq9k4M5R7FYc4OzLZp3xXVkM?=
- =?us-ascii?Q?PYU7/H+Of7sC+stbFAV7GVi6I/Gh6fYWeBVFknofB+EF+QsgnHECuiXB1TiP?=
- =?us-ascii?Q?QsfIfVB8UrXtUCxigTbGikiDpp1GDqVgfPzf3XXavCq0IRmIyV7LNOCn40aj?=
- =?us-ascii?Q?hJ+ak9vS180fhD7AqIilrgZiNWJpQcFTiloJvMyokORSW+YBsD7ZA+8zLEKL?=
- =?us-ascii?Q?lMKuECOiDCIV2wVTpzaXFQT7mae04T+J8EwUMQl78TajBOpmGns9Leu1FNdP?=
- =?us-ascii?Q?Cmkfe+4LCFbW2TkRRz85i7GrrEYVdODR9fjRVpnqWcIG/H05GZV+ZOQZyuvj?=
- =?us-ascii?Q?tLF6Mg=3D=3D?=
-X-Forefront-Antispam-Report: CIP:216.228.118.233; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc7edge2.nvidia.com; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(82310400026)(376014)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2026 09:55:00.6781 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13692daa-06af-4a4b-a34a-08de58d32486
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.118.233];
- Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E7.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8658
+Message-Id: <20260121-color-format-v6-7-7b81a771cd0b@collabora.com>
+References: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
+In-Reply-To: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Werner Sembach <wse@tuxedocomputers.com>, 
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Wed, 21 Jan 2026 13:47:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -170,72 +90,360 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 20 Jan 2026 15:42:50 -0500
-Joel Fernandes <joelagnelf@nvidia.com> wrote:
-> Add unified Pte, Pde, and DualPde wrapper enums that abstract over
-> MMU v2 and v3 page table entry formats. These enums allow the page
-> table walker and VMM to work with both MMU versions.
-> 
+This includes RGB, YUV420, YUV444 and Auto. Auto will pick RGB, unless
+the mode being asked for is YUV420-only, in which case it picks YUV420.
 
-snip
+Should the explicitly requested color format not be supported by the
+sink, then an error is returned to userspace, so that it can make a
+better choice.
 
-> +impl DualPde {
-> +    /// Create a [`DualPde`] from raw 128-bit value (two `u64`s) for
-> the given MMU version.
-> +    pub(crate) fn new(version: MmuVersion, big: u64, small: u64) ->
-> Self {
-> +        match version {
-> +            MmuVersion::V2 => Self::V2(ver2::DualPde::new(big, small)),
-> +            MmuVersion::V3 => Self::V3(ver3::DualPde::new(big, small)),
-> +        }
-> +    }
-> +
-> +    /// Create a [`DualPde`] with only the small page table pointer set.
-> +    pub(crate) fn new_small(version: MmuVersion, table_pfn: Pfn) ->
-> Self {
-> +        match version {
-> +            MmuVersion::V2 =>
-> Self::V2(ver2::DualPde::new_small(table_pfn)),
-> +            MmuVersion::V3 =>
-> Self::V3(ver3::DualPde::new_small(table_pfn)),
-> +        }
-> +    }
-> +
-> +    /// Check if the small page table pointer is valid.
-> +    pub(crate) fn has_small(&self) -> bool {
-> +        match self {
-> +            Self::V2(d) => d.has_small(),
-> +            Self::V3(d) => d.has_small(),
-> +        }
-> +    }
-> +
+Co-developed-by: Werner Sembach <wse@tuxedocomputers.com>
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Co-developed-by: Andri Yngvason <andri@yngvason.is>
+Signed-off-by: Andri Yngvason <andri@yngvason.is>
+Co-developed-by: Marius Vlad <marius.vlad@collabora.com>
+Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/i915/display/intel_connector.c     | 11 +++++
+ drivers/gpu/drm/i915/display/intel_connector.h     |  1 +
+ drivers/gpu/drm/i915/display/intel_display_types.h | 15 ++++++
+ drivers/gpu/drm/i915/display/intel_dp.c            | 55 +++++++++++++++++-----
+ drivers/gpu/drm/i915/display/intel_dp.h            |  4 ++
+ drivers/gpu/drm/i915/display/intel_dp_mst.c        | 36 +++++++++++++-
+ drivers/gpu/drm/i915/display/intel_hdmi.c          | 54 +++++++++++++++------
+ 7 files changed, 148 insertions(+), 28 deletions(-)
 
-Should we also have a has_big here as well?
+diff --git a/drivers/gpu/drm/i915/display/intel_connector.c b/drivers/gpu/drm/i915/display/intel_connector.c
+index 682bf1be350d..2d690e0400b5 100644
+--- a/drivers/gpu/drm/i915/display/intel_connector.c
++++ b/drivers/gpu/drm/i915/display/intel_connector.c
+@@ -38,6 +38,10 @@
+ #include "intel_hdcp.h"
+ #include "intel_panel.h"
+ 
++static const u32 supported_colorformats = DRM_COLOR_FORMAT_RGB444 |
++					  DRM_COLOR_FORMAT_YCBCR444 |
++					  DRM_COLOR_FORMAT_YCBCR420;
++
+ static void intel_connector_modeset_retry_work_fn(struct work_struct *work)
+ {
+ 	struct intel_connector *connector = container_of(work, typeof(*connector),
+@@ -321,6 +325,13 @@ intel_attach_dp_colorspace_property(struct drm_connector *connector)
+ 		drm_connector_attach_colorspace_property(connector);
+ }
+ 
++void
++intel_attach_colorformat_property(struct drm_connector *connector)
++{
++	if (!drm_mode_create_color_format_property(connector, supported_colorformats))
++		drm_connector_attach_color_format_property(connector);
++}
++
+ void
+ intel_attach_scaling_mode_property(struct drm_connector *connector)
+ {
+diff --git a/drivers/gpu/drm/i915/display/intel_connector.h b/drivers/gpu/drm/i915/display/intel_connector.h
+index 0aa86626e646..fe6149d1d559 100644
+--- a/drivers/gpu/drm/i915/display/intel_connector.h
++++ b/drivers/gpu/drm/i915/display/intel_connector.h
+@@ -31,6 +31,7 @@ void intel_attach_broadcast_rgb_property(struct drm_connector *connector);
+ void intel_attach_aspect_ratio_property(struct drm_connector *connector);
+ void intel_attach_hdmi_colorspace_property(struct drm_connector *connector);
+ void intel_attach_dp_colorspace_property(struct drm_connector *connector);
++void intel_attach_colorformat_property(struct drm_connector *connector);
+ void intel_attach_scaling_mode_property(struct drm_connector *connector);
+ void intel_connector_queue_modeset_retry_work(struct intel_connector *connector);
+ void intel_connector_cancel_modeset_retry_work(struct intel_connector *connector);
+diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
+index e6298279dc89..520d5670f8da 100644
+--- a/drivers/gpu/drm/i915/display/intel_display_types.h
++++ b/drivers/gpu/drm/i915/display/intel_display_types.h
+@@ -2251,6 +2251,21 @@ to_intel_frontbuffer(struct drm_framebuffer *fb)
+ 	return fb ? to_intel_framebuffer(fb)->frontbuffer : NULL;
+ }
+ 
++static inline __pure enum drm_color_format
++intel_output_format_to_drm_color_format(enum intel_output_format input)
++{
++	switch (input) {
++	case INTEL_OUTPUT_FORMAT_RGB:
++		return DRM_COLOR_FORMAT_RGB444;
++	case INTEL_OUTPUT_FORMAT_YCBCR444:
++		return DRM_COLOR_FORMAT_YCBCR444;
++	case INTEL_OUTPUT_FORMAT_YCBCR420:
++		return DRM_COLOR_FORMAT_YCBCR420;
++	}
++
++	return DRM_COLOR_FORMAT_AUTO;
++}
++
+ /*
+  * Conversion functions/macros from various pointer types to struct
+  * intel_display pointer.
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
+index 79fd3b8d8b25..063c8514fd41 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.c
++++ b/drivers/gpu/drm/i915/display/intel_dp.c
+@@ -1178,7 +1178,7 @@ dfp_can_convert(struct intel_dp *intel_dp,
+ 	return false;
+ }
+ 
+-static enum intel_output_format
++enum intel_output_format
+ intel_dp_output_format(struct intel_connector *connector,
+ 		       enum intel_output_format sink_format)
+ {
+@@ -3187,17 +3187,24 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ 	struct intel_connector *connector = intel_dp->attached_connector;
+ 	const struct drm_display_info *info = &connector->base.display_info;
+ 	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+-	bool ycbcr_420_only;
++	enum drm_color_format sink_format_drm;
+ 	int ret;
+ 
+-	ycbcr_420_only = drm_mode_is_420_only(info, adjusted_mode);
++	if ((conn_state->color_format == DRM_COLOR_FORMAT_YCBCR420 &&
++	     drm_mode_is_420(info, adjusted_mode)) ||
++	    (conn_state->color_format == DRM_COLOR_FORMAT_AUTO &&
++	     drm_mode_is_420_only(info, adjusted_mode)))
++		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
++	else if (conn_state->color_format == DRM_COLOR_FORMAT_YCBCR444)
++		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR444;
++	else
++		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_RGB;
+ 
+-	if (ycbcr_420_only && !connector->base.ycbcr_420_allowed) {
++	if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 &&
++	    !connector->base.ycbcr_420_allowed) {
+ 		drm_dbg_kms(display->drm,
+-			    "YCbCr 4:2:0 mode but YCbCr 4:2:0 output not possible. Falling back to RGB.\n");
+-		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_RGB;
+-	} else {
+-		crtc_state->sink_format = intel_dp_sink_format(connector, adjusted_mode);
++			"YCbCr 4:2:0 mode requested but unsupported by connector.\n");
++		return -EINVAL;
+ 	}
+ 
+ 	crtc_state->output_format = intel_dp_output_format(connector, crtc_state->sink_format);
+@@ -3205,9 +3212,20 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ 	ret = intel_dp_compute_link_config(encoder, crtc_state, conn_state,
+ 					   respect_downstream_limits);
+ 	if (ret) {
+-		if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
+-		    !connector->base.ycbcr_420_allowed ||
+-		    !drm_mode_is_420_also(info, adjusted_mode))
++		/*
++		 * If no valid link config can be found due to bandwidth constraints,
++		 * degrade from RGB/YCbCr 4:4:4 to YCbCr 4:2:0 if permitted by
++		 * the source and sink.
++		 */
++		if (!connector->base.ycbcr_420_allowed)
++			return ret;
++		/* No point in trying YCbCr420 a second time. */
++		if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420)
++			return ret;
++		if (!drm_mode_is_420(info, adjusted_mode))
++			return ret;
++		/* If a non-AUTO color format is chosen, don't fall back. */
++		if (conn_state->color_format)
+ 			return ret;
+ 
+ 		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
+@@ -3215,9 +3233,20 @@ intel_dp_compute_output_format(struct intel_encoder *encoder,
+ 								   crtc_state->sink_format);
+ 		ret = intel_dp_compute_link_config(encoder, crtc_state, conn_state,
+ 						   respect_downstream_limits);
++		if (ret)
++			return ret;
+ 	}
+ 
+-	return ret;
++	sink_format_drm = intel_output_format_to_drm_color_format(crtc_state->sink_format);
++	if (conn_state->color_format && conn_state->color_format != sink_format_drm) {
++		drm_dbg_kms(display->drm,
++			    "Explicitly asked for color format %s, got sink format %s\n",
++			    drm_get_color_format_name(conn_state->color_format),
++			    drm_get_color_format_name(sink_format_drm));
++		return -EINVAL;
++	}
++
++	return 0;
+ }
+ 
+ void
+@@ -6684,6 +6713,8 @@ intel_dp_add_properties(struct intel_dp *intel_dp, struct drm_connector *_connec
+ 		intel_attach_dp_colorspace_property(&connector->base);
+ 	}
+ 
++	intel_attach_colorformat_property(&connector->base);
++
+ 	if (intel_dp_has_gamut_metadata_dip(&dp_to_dig_port(intel_dp)->base))
+ 		drm_connector_attach_hdr_output_metadata_property(&connector->base);
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
+index 25bfbfd291b0..fd47a4bcba6e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp.h
++++ b/drivers/gpu/drm/i915/display/intel_dp.h
+@@ -205,6 +205,10 @@ bool intel_dp_compute_config_limits(struct intel_dp *intel_dp,
+ void intel_dp_get_dsc_sink_cap(u8 dpcd_rev,
+ 			       const struct drm_dp_desc *desc, bool is_branch,
+ 			       struct intel_connector *connector);
++enum intel_output_format
++intel_dp_output_format(struct intel_connector *connector,
++		       enum intel_output_format sink_format);
++
+ bool intel_dp_has_gamut_metadata_dip(struct intel_encoder *encoder);
+ 
+ bool intel_dp_link_params_valid(struct intel_dp *intel_dp, int link_rate,
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+index 24f8e60df9ac..5118decfbc97 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
+@@ -607,6 +607,8 @@ static int mst_stream_compute_config(struct intel_encoder *encoder,
+ 		to_intel_connector(conn_state->connector);
+ 	const struct drm_display_mode *adjusted_mode =
+ 		&pipe_config->hw.adjusted_mode;
++	const struct drm_display_info *info = &connector->base.display_info;
++	enum drm_color_format sink_format_drm;
+ 	struct link_config_limits limits;
+ 	bool dsc_needed, joiner_needs_dsc;
+ 	int num_joined_pipes;
+@@ -625,10 +627,35 @@ static int mst_stream_compute_config(struct intel_encoder *encoder,
+ 	if (num_joined_pipes > 1)
+ 		pipe_config->joiner_pipes = GENMASK(crtc->pipe + num_joined_pipes - 1, crtc->pipe);
+ 
+-	pipe_config->sink_format = INTEL_OUTPUT_FORMAT_RGB;
+-	pipe_config->output_format = INTEL_OUTPUT_FORMAT_RGB;
++	if ((conn_state->color_format == DRM_COLOR_FORMAT_YCBCR420 &&
++	     drm_mode_is_420(info, adjusted_mode)) ||
++	    (conn_state->color_format == DRM_COLOR_FORMAT_AUTO &&
++	     drm_mode_is_420_only(info, adjusted_mode)))
++		pipe_config->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
++	else if (conn_state->color_format == DRM_COLOR_FORMAT_YCBCR444)
++		pipe_config->sink_format = INTEL_OUTPUT_FORMAT_YCBCR444;
++	else
++		pipe_config->sink_format = INTEL_OUTPUT_FORMAT_RGB;
++
++	if (pipe_config->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 &&
++	    !connector->base.ycbcr_420_allowed) {
++		drm_dbg_kms(display->drm,
++			    "YCbCr 4:2:0 mode requested but unsupported by connector.\n");
++		return -EINVAL;
++	}
++
++	pipe_config->output_format = intel_dp_output_format(connector, pipe_config->sink_format);
+ 	pipe_config->has_pch_encoder = false;
+ 
++	sink_format_drm = intel_output_format_to_drm_color_format(pipe_config->sink_format);
++	if (conn_state->color_format && conn_state->color_format != sink_format_drm) {
++		drm_dbg_kms(display->drm,
++			    "Unsupported color format %s (0x%x), sink has 0x%x\n",
++			    drm_get_color_format_name(conn_state->color_format),
++			    conn_state->color_format, sink_format_drm);
++		return -EINVAL;
++	}
++
+ 	joiner_needs_dsc = intel_dp_joiner_needs_dsc(display, num_joined_pipes);
+ 
+ 	dsc_needed = joiner_needs_dsc || intel_dp->force_dsc_en ||
+@@ -1608,6 +1635,11 @@ static int mst_topology_add_connector_properties(struct intel_dp *intel_dp,
+ 	if (connector->base.max_bpc_property)
+ 		drm_connector_attach_max_bpc_property(&connector->base, 6, 12);
+ 
++	connector->base.color_format_property =
++		intel_dp->attached_connector->base.color_format_property;
++	if (connector->base.color_format_property)
++		intel_attach_colorformat_property(&connector->base);
++
+ 	return drm_connector_set_path_property(&connector->base, pathprop);
+ }
+ 
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 05e898d10a2b..8c402a0794d0 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2270,30 +2270,54 @@ static int intel_hdmi_compute_output_format(struct intel_encoder *encoder,
+ 	struct intel_connector *connector = to_intel_connector(conn_state->connector);
+ 	const struct drm_display_mode *adjusted_mode = &crtc_state->hw.adjusted_mode;
+ 	const struct drm_display_info *info = &connector->base.display_info;
+-	bool ycbcr_420_only = drm_mode_is_420_only(info, adjusted_mode);
++	enum drm_color_format req_fmt = conn_state->color_format;
++	enum drm_color_format sink_format_drm;
+ 	int ret;
+ 
+-	crtc_state->sink_format =
+-		intel_hdmi_sink_format(crtc_state, connector, ycbcr_420_only);
+-
+-	if (ycbcr_420_only && crtc_state->sink_format != INTEL_OUTPUT_FORMAT_YCBCR420) {
+-		drm_dbg_kms(display->drm,
+-			    "YCbCr 4:2:0 mode but YCbCr 4:2:0 output not possible. Falling back to RGB.\n");
+-		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_RGB;
+-	}
++	if (!req_fmt)
++		crtc_state->sink_format =
++			intel_hdmi_sink_format(crtc_state, connector,
++					       drm_mode_is_420_only(info, adjusted_mode));
++	else if (req_fmt == DRM_COLOR_FORMAT_YCBCR444)
++		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR444;
++	else
++		crtc_state->sink_format =
++			intel_hdmi_sink_format(crtc_state, connector,
++					       req_fmt == DRM_COLOR_FORMAT_YCBCR420);
+ 
+ 	crtc_state->output_format = intel_hdmi_output_format(crtc_state);
+ 	ret = intel_hdmi_compute_clock(encoder, crtc_state, respect_downstream_limits);
+ 	if (ret) {
+-		if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420 ||
+-		    !crtc_state->has_hdmi_sink ||
+-		    !connector->base.ycbcr_420_allowed ||
+-		    !drm_mode_is_420_also(info, adjusted_mode))
++		/*
++		 * If no valid link config can be found due to bandwidth constraints,
++		 * degrade from RGB/YCbCr 4:4:4 to YCbCr 4:2:0 if permitted by
++		 * the source and sink.
++		 */
++		if (!connector->base.ycbcr_420_allowed)
++			return ret;
++		/* No point in trying YCbCr420 a second time. */
++		if (crtc_state->sink_format == INTEL_OUTPUT_FORMAT_YCBCR420)
++			return ret;
++		if (!drm_mode_is_420(info, adjusted_mode))
++			return ret;
++		/* If a non-AUTO color format is chosen, don't fall back. */
++		if (req_fmt)
+ 			return ret;
+ 
+ 		crtc_state->sink_format = INTEL_OUTPUT_FORMAT_YCBCR420;
+ 		crtc_state->output_format = intel_hdmi_output_format(crtc_state);
+ 		ret = intel_hdmi_compute_clock(encoder, crtc_state, respect_downstream_limits);
++		if (ret)
++			return ret;
++	}
++
++	sink_format_drm = intel_output_format_to_drm_color_format(crtc_state->sink_format);
++	if (req_fmt && req_fmt != sink_format_drm) {
++		drm_dbg_kms(display->drm,
++			    "Explicitly asked for color format %s, got sink format %s\n",
++			    drm_get_color_format_name(req_fmt),
++			    drm_get_color_format_name(sink_format_drm));
++		ret = -EINVAL;
+ 	}
+ 
+ 	return ret;
+@@ -2689,8 +2713,10 @@ intel_hdmi_add_properties(struct intel_hdmi *intel_hdmi, struct drm_connector *_
+ 	if (DISPLAY_VER(display) >= 10)
+ 		drm_connector_attach_hdr_output_metadata_property(&connector->base);
+ 
+-	if (!HAS_GMCH(display))
++	if (!HAS_GMCH(display)) {
+ 		drm_connector_attach_max_bpc_property(&connector->base, 8, 12);
++		intel_attach_colorformat_property(&connector->base);
++	}
+ }
+ 
+ /*
 
-Z.
-
-> +    /// Get the small page table VRAM address.
-> +    pub(crate) fn small_vram_address(&self) -> VramAddress {
-> +        match self {
-> +            Self::V2(d) => d.small.table_vram_address(),
-> +            Self::V3(d) => d.small.table_vram_address(),
-> +        }
-> +    }
-> +
-> +    /// Get the raw `u64` value of the big PDE.
-> +    pub(crate) fn big_raw_u64(&self) -> u64 {
-> +        match self {
-> +            Self::V2(d) => d.big.raw_u64(),
-> +            Self::V3(d) => d.big.raw_u64(),
-> +        }
-> +    }
-> +
-> +    /// Get the raw `u64` value of the small PDE.
-> +    pub(crate) fn small_raw_u64(&self) -> u64 {
-> +        match self {
-> +            Self::V2(d) => d.small.raw_u64(),
-> +            Self::V3(d) => d.small.raw_u64(),
-> +        }
-> +    }
-> +}
+-- 
+2.52.0
 
