@@ -4,105 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51FC8D26296
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:47:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDE42D111B0
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:47:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0B3610E7A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29C5110E7A4;
 	Wed, 21 Jan 2026 13:47:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="dr0ExeED";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ITAr1cTn";
 	dkim-atps=neutral
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
- [209.85.160.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 358FB88F94
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 13:31:52 +0000 (UTC)
-Received: by mail-qt1-f179.google.com with SMTP id
- d75a77b69052e-502a26e8711so28381861cf.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 05:31:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1769002311; x=1769607111; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=aX294P4TliS2B0BrPhrC1yfpgvWNBReUGID/aL6TSBE=;
- b=dr0ExeEDyi5g/bVQS07zFXkgjtpQtmdamxgvPGa+Qbt/TLE9ulnRuTb7t3D5dZVvMe
- esid7rScWII/APmsLWprvrilGK25VG4wiMFTEwMFsqLMep3Qd98RCrpTnaSSgbYketgo
- yECNYaz6dqFX5Tj1zQdBPEG5SNFI5bhclWDYpM68gS2axBR0z03aaGyCNVbdlkqUKr1V
- tJnThtjASU/QEBYtNcMV/k6T15M/jntvWQjn2HmwQucJB1AcVvEYuJDir4nE0Zxz2p73
- Qj008tDzN1BE98X79V1ittf2pcofPaCJN+M1bZJAfJ+ufY3sL+V0x07tQi3WMgPfC29C
- sCyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769002311; x=1769607111;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=aX294P4TliS2B0BrPhrC1yfpgvWNBReUGID/aL6TSBE=;
- b=uGTje9RgJc/br6Xne83ZxOx8TXe+GzFl0MrjYlW9yM5HEPgfGYZZsYsRdJck529jGZ
- 8hQkZ+8a9zv6sIHwByTmIa/PZ3KCfG7exvHwBOrPLoi2+GFuBSTEpgW04M+G7EqZW44d
- CBxSEqwn4mqlGQoplPDTqxmDy2BUp9XWYnCMAJCODKldjQHAI4+QuPCcVqXnWPrSwvpA
- Fi3ZNrzBqKUpjgXIKqrjp2l/AE0hAf5HSq8XWqp+iRGxgZfijfKs/VQjMYKwN9Kvqfuc
- YZ4dsAaaELZ/PTczmuspEo2B4lgNLwudJRvuT+iqWVKOcFkq/zjf/MSBhL9L8PlgpjDE
- MpOA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVTGlK+jA69BnOldTSclYOvQIUsnl0Y7Fq8PIdb66dzWip8qzbVdLBw2YRK15dsqaGf8n1fK2j/@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyd+FMGJk+qpezAJdS1+IsNxZL1mKZmEvjcxp1MmzGrbE+0XsBY
- nl+i0uqoqlQGkQwDQeG0Ssjr2LWH3IWX77Yi8k4d5RceiF0H0FzpcDU9mIv091skYxk=
-X-Gm-Gg: AZuq6aINEsolBBpur1K2DpHtt7Fpu/Dv3ZDzPMKAhrYvQvz30Ep4nRBJ8Mv5Q8JZB4s
- ithk/Lt8wvdxgOkzwh6tWgF9lAlNCUXLe0o65uhVW2sYDxerdkt2901id+zQmA34DYFNCU7XA8j
- 5DmM/R+jqiOrEZpcenwPs3vwTNqhi6ifhgo8NhFFqwYlA9p+N0eaC8PGKsPw74ud2RmSwH0eilT
- bXMJYKkXg++oqzARyonhgmwotnK9xm0Pa4jJMnaTDhYsGwZ8sUafq/kvFuZiHl8Jz5OYIDxOwck
- dYtuacNE1Je0fkXtvlZcn39JbfSDgkSYx2WUyf5hFQjBE68SGL56sTSjjXwqBu9qrp1qflPaTgE
- qLJ0vRYhi50yEawM+0PmRxZf1R87I5HYoBNukcPAqj0r/KmGSo9o+chaM7ZEztX/nFCCqedpRzr
- sXl1PeAyCGH2I3oLD4wnrMOBWOipdmijwFpvExeblirp7fTJg9AoDlebrbIwKGy2DyZsyirXLWU
- tnTyQ==
-X-Received: by 2002:a05:622a:1aa1:b0:4ee:2200:409e with SMTP id
- d75a77b69052e-502d82772a6mr67009251cf.4.1769002308002; 
- Wed, 21 Jan 2026 05:31:48 -0800 (PST)
-Received: from ziepe.ca
- (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-502a1f1c1c4sm108692291cf.33.2026.01.21.05.31.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jan 2026 05:31:47 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1viYJG-00000006Dbm-2x5v;
- Wed, 21 Jan 2026 09:31:46 -0400
-Date: Wed, 21 Jan 2026 09:31:46 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v3 6/7] vfio: Wait for dma-buf invalidation to complete
-Message-ID: <20260121133146.GY961572@ziepe.ca>
-References: <20260120-dmabuf-revoke-v3-0-b7e0b07b8214@nvidia.com>
- <20260120-dmabuf-revoke-v3-6-b7e0b07b8214@nvidia.com>
- <b129f0c1-b61e-4efb-9e25-d8cdadaca1b3@amd.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D19F110E791;
+ Wed, 21 Jan 2026 13:46:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1769003186; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=G5uCFp0YQOV+6HqdtLpBQSuVszSxi1HdPRfmU1lYOjm+9q2qabyJO2R45T4/MD3Nt6tRn5TpuCVGmhmjGVmHG4e6Wvxb/wS26d3p0Zms9ZJx5a7rc8Vt6Tk9J683b0b1/gqrsTghlfxW31sAvTrg4atE/blvQsAd2X4TTRq0+FQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1769003186;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=0ckm22GV4N5RkT5M/XROps5bGf+cWWlT/dPSb77qDWQ=; 
+ b=k8kWF5oD+ZkzGHqb+jPcOaE2e5TErQFdapbqLqBH2OtyTE6u2L0tcfrvMguo5hkTkv26g9XsdOKJFpiLeKSUhT0EcqFwxHUY7h5SFr/0z3ng2vqUWW6txuhFhAcs3Wl/AUsAGUy8riJ7q3nlKNWUxW6fQCjdjHlNv7YtTA9+ERs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769003186; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=0ckm22GV4N5RkT5M/XROps5bGf+cWWlT/dPSb77qDWQ=;
+ b=ITAr1cTn0HbUhRe4BdHCYFDovQDXlDLF/3K8OItEr2NwPFPM+5JmIAIGGAtBfrA/
+ 4f085LQV2Q5NkSXgqzeVCrIbtXyUU0ejhdCjR5Vfrx69yKNiU0lTNZK8iaS/2aflXa/
+ +OEba+Nz2cy3KDM1/QlbbTwgTjJ4FG0XVJFLgF7s=
+Received: by mx.zohomail.com with SMTPS id 1769003184702668.8609552382727;
+ Wed, 21 Jan 2026 05:46:24 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Wed, 21 Jan 2026 14:45:30 +0100
+Subject: [PATCH v6 04/21] drm/bridge: Act on the DRM color format property
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b129f0c1-b61e-4efb-9e25-d8cdadaca1b3@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260121-color-format-v6-4-7b81a771cd0b@collabora.com>
+References: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
+In-Reply-To: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Wed, 21 Jan 2026 13:47:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,40 +88,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 21, 2026 at 10:20:51AM +0100, Christian König wrote:
-> On 1/20/26 15:07, Leon Romanovsky wrote:
-> > From: Leon Romanovsky <leonro@nvidia.com>
-> > 
-> > dma-buf invalidation is performed asynchronously by hardware, so VFIO must
-> > wait until all affected objects have been fully invalidated.
-> > 
-> > Fixes: 5d74781ebc86 ("vfio/pci: Add dma-buf export support for MMIO regions")
-> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> 
-> Reviewed-by: Christian König <christian.koenig@amd.com>
-> 
-> Please also keep in mind that the while this wait for all fences for
-> correctness you also need to keep the mapping valid until
-> dma_buf_unmap_attachment() was called.
+The new DRM color format property allows userspace to request a specific
+color format on a connector. In turn, this fills the connector state's
+color_format member to switch color formats.
 
-Can you elaborate on this more?
+Make drm_bridges consider the color_format set in the connector state
+during the atomic bridge check. For bridges that represent HDMI bridges,
+rely on whatever format the HDMI logic set. Reject any output bus
+formats that do not correspond to the requested color format.
 
-I think what we want for dma_buf_attach_revocable() is the strong
-guarentee that the importer stops doing all access to the memory once
-this sequence is completed and the exporter can rely on it. I don't
-think this works any other way.
+Non-HDMI last bridges with DRM_COLOR_FORMAT_AUTO set will end up
+choosing the first output format that functions to make a whole
+recursive bridge chain format selection succeed.
 
-This is already true for dynamic move capable importers, right?
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/drm_bridge.c | 79 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 78 insertions(+), 1 deletion(-)
 
-For the non-revocable importers I can see the invalidate sequence is
-more of an advisory thing and you can't know the access is gone until
-the map is undone.
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 6dcf8f6d3ecf..b0dfa03dbb81 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -1116,6 +1116,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
+ 	return ret;
+ }
+ 
++static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_color_format fmt)
++{
++	if (fmt == DRM_COLOR_FORMAT_AUTO)
++		return true;
++
++	switch (bus_fmt) {
++	case MEDIA_BUS_FMT_FIXED:
++		return true;
++	case MEDIA_BUS_FMT_RGB888_1X24:
++	case MEDIA_BUS_FMT_RGB101010_1X30:
++	case MEDIA_BUS_FMT_RGB121212_1X36:
++	case MEDIA_BUS_FMT_RGB161616_1X48:
++		return fmt == DRM_COLOR_FORMAT_RGB444;
++	case MEDIA_BUS_FMT_YUV8_1X24:
++	case MEDIA_BUS_FMT_YUV10_1X30:
++	case MEDIA_BUS_FMT_YUV12_1X36:
++	case MEDIA_BUS_FMT_YUV16_1X48:
++		return fmt == DRM_COLOR_FORMAT_YCBCR444;
++	case MEDIA_BUS_FMT_UYVY8_1X16:
++	case MEDIA_BUS_FMT_VYUY8_1X16:
++	case MEDIA_BUS_FMT_YUYV8_1X16:
++	case MEDIA_BUS_FMT_YVYU8_1X16:
++	case MEDIA_BUS_FMT_UYVY10_1X20:
++	case MEDIA_BUS_FMT_YUYV10_1X20:
++	case MEDIA_BUS_FMT_VYUY10_1X20:
++	case MEDIA_BUS_FMT_YVYU10_1X20:
++	case MEDIA_BUS_FMT_UYVY12_1X24:
++	case MEDIA_BUS_FMT_VYUY12_1X24:
++	case MEDIA_BUS_FMT_YUYV12_1X24:
++	case MEDIA_BUS_FMT_YVYU12_1X24:
++		return fmt == DRM_COLOR_FORMAT_YCBCR422;
++	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
++	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
++	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
++	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
++		return fmt == DRM_COLOR_FORMAT_YCBCR420;
++	default:
++		return false;
++	}
++}
++
+ /*
+  * This function is called by &drm_atomic_bridge_chain_check() just before
+  * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
+@@ -1159,6 +1200,7 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+ 	struct drm_encoder *encoder = bridge->encoder;
+ 	struct drm_bridge_state *last_bridge_state;
+ 	unsigned int i, num_out_bus_fmts = 0;
++	enum drm_color_format fmt;
+ 	u32 *out_bus_fmts;
+ 	int ret = 0;
+ 
+@@ -1200,13 +1242,48 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+ 			out_bus_fmts[0] = MEDIA_BUS_FMT_FIXED;
+ 	}
+ 
++	/*
++	 * On HDMI connectors, use the output format chosen by whatever does the
++	 * HDMI logic. For everyone else, just trust that the bridge out_bus_fmts
++	 * are sorted by preference for %DRM_COLOR_FORMAT_AUTO, as
++	 * bus_format_is_color_fmt() always returns true for AUTO.
++	 */
++	if (last_bridge->ops & DRM_BRIDGE_OP_HDMI) {
++		fmt = drm_color_format_from_hdmi_colorspace(conn_state->hdmi.output_format);
++		if (fmt < 0) {
++			ret = fmt;
++			drm_dbg_kms(last_bridge->dev,
++				    "Couldn't convert HDMI format to DRM format: %pe\n",
++				    ERR_PTR(ret));
++			goto out_free;
++		}
++		drm_dbg_kms(last_bridge->dev, "HDMI bridge requests format %s\n",
++			    drm_get_color_format_name(fmt));
++	} else {
++		fmt = conn_state->color_format;
++		drm_dbg_kms(last_bridge->dev, "Non-HDMI bridge requests format %s\n",
++			    drm_get_color_format_name(fmt));
++	}
++
+ 	for (i = 0; i < num_out_bus_fmts; i++) {
++		if (!bus_format_is_color_fmt(out_bus_fmts[i], fmt)) {
++			drm_dbg_kms(last_bridge->dev,
++				    "Skipping bus format 0x%04x as it doesn't match %s\n",
++				    out_bus_fmts[i], drm_get_color_format_name(fmt));
++			ret = -ENOTSUPP;
++			continue;
++		}
+ 		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
+ 					       conn_state, out_bus_fmts[i]);
+-		if (ret != -ENOTSUPP)
++		if (ret != -ENOTSUPP) {
++			drm_dbg_kms(last_bridge->dev,
++				    "Found bridge chain ending with bus format 0x%04x\n",
++				    out_bus_fmts[i]);
+ 			break;
++		}
+ 	}
+ 
++out_free:
+ 	kfree(out_bus_fmts);
+ 
+ 	return ret;
 
-> In other words you can only redirect the DMA-addresses previously
-> given out into nirvana (or a dummy memory or similar), but you still
-> need to avoid re-using them for something else.
+-- 
+2.52.0
 
-Does any driver do this? If you unload/reload a GPU driver it is
-going to re-use the addresses handed out?
-
-Jason
