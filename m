@@ -4,178 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09DAFC44500
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 08:33:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A14D3C44500
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 08:37:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FE4210E708;
-	Wed, 21 Jan 2026 08:33:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EC8210E72C;
+	Wed, 21 Jan 2026 08:37:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Vk2deEeC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yDR9EBqx";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011005.outbound.protection.outlook.com
- [40.93.194.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B501010E705;
- Wed, 21 Jan 2026 08:33:41 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010069.outbound.protection.outlook.com
+ [40.93.198.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 139A610E71D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 08:37:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=teIBefKFNd4FhnO7DRqpn5vomGSFGfjO/W4ahStVoVu69mMIr7WJFzmXqJ+GCA9BR0cMdaiYu5aWrEM5W1hdUOge04ZBjLiZnyC6OqVTBpqu7EObHxaGos32p0L/NWh2O+0oNdJAME9zPnZuPtuFVtkCeHlSS4u8YY98vgWgi3y/WYMFwZ2RWgJohy/EI1avFoK1cAWenBO91A4vAYPVyxlWmErxaG6kkDjo7Hzcv/5nVtPLbvBJFI7GCWPBHmL7HDKJ5z+9wxj8aBmr7vj1gbJVpeOGFpEuLfdmBF3CzvSUBOUDlV/9SrBjiqCL0Bx5l7BiUJ1uFRtUWhpmxFm5lw==
+ b=wuVoS4hCjL/LjuDHGGQ0Kn1XpGljGNePOtZefRGNDaVzeo42fxXQf1gqsOY8zgPto21XMYKgqZJ4znuf8X1W/BcprNnTunMHFhPH5824lGE46kxOEYF8DL/96tpT/M1leYbQfSaw3qAUN3jHJso0ecNPVrOXDwIQZ/ESS8sLDCCGj3gXdnOD4lhxsI2U8ngx5yrki7CHpqqr1UUAIImocHFrpcPCmGAgBZ3v+BeulryaeSUzeFbzDGHIdxl58O259ovWixwPnTe4sPpTQ0W0AmxzuTXNBTlg2Bkj3B4thn2g+ETj8siJqzuI7t1e9jFZddHgVo0BhC2TLvdNnou/xQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ClBS+oBA9W5t8/yley4yGCiyQpZDtw903Z/EEcKauQ0=;
- b=B/cnli3cF6WAf+P76pEXrCclXNnhLsh9ClB42+x+SrL7e8k7vyv/rE6J03eH4GjREd95OfmpqVItLtgOa9qWz2IlvePzftC1vwNBKYi/v7pEdn4NdQORwbHpSyN63PUQ9LuBOEQw0YVCRbmPqVxbq49jaZTYWycmhECqpZag5WJivXi+FnOqvpA7rlXlRP3aGmYb7LaJtaEq3xLZyGpWAFWjKYtqfCh9+0ePR/XyVRy1DUl80a2XhubNGAyJNKtAmFyd7u7LokUnaId8wqwiVju+AZuvLBwCVJa/0VZqaE3Sp8LaEkGDtlVnethxne8kPwgsNS6txWPN4wFC8OPSZA==
+ bh=QbIayRabejiduH32+x5fa93gzoJUAGo/gm/oFsm65Fk=;
+ b=HptbyPPuaWwJyY0IIuxCX5S0cm5J5t/xKF0D/iEfnTa+mI3mRSzIgVmxPlEO2RN9cBiT4NfJWj3eiD2Ev6YpvQ9nnz3w3Vh1LvqXOZIvixzLhABcZn1Xn5DaLP72jDKhh6dXJ72jbN/UKWr6rpJGGGX2WVOSLEhKbm5xJJtQT8nuxbCmjnGRv4Ky4rGdzZtqKWI56tLYV1XVzA32JGTkfGrVWWVStSGnxDCt+3EzA3lDIO42LqXMqSYQaT4CZpbsguokGXlOiHssaU1sUAc8/W2wW/dveRT1L01D0hZit6Z3ZOBtTn0gt7b3tTjKbmjcBZeVW/ud4Cuh2oS0ybNC8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ClBS+oBA9W5t8/yley4yGCiyQpZDtw903Z/EEcKauQ0=;
- b=Vk2deEeCJvvKlHVtPtTU0WV3wPdbCQbXIbgkCsub+DLJBhUoi4PAUGcrhdnqAhm8QzX1zZQr55swZq7HtPlO6XjHEYEvXOlSiJ7tieohoA7CTHU6bVegnfbK8mOxpByz/7hFqQT39Xb0PwtnwYN9zWKHMITb6Kyu4SmyBXUvyzA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB7531.namprd12.prod.outlook.com (2603:10b6:208:43f::12)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=QbIayRabejiduH32+x5fa93gzoJUAGo/gm/oFsm65Fk=;
+ b=yDR9EBqxuMwLSWppwNwItRZTVi7v3roKNAR5oSPtFihhbng/iU7r/mmehdT3qXvbdb+ZqSClxK6ZA8CJjz6kdGQHE1LD3u0PHhhu/otdHkL1kM6hhyRStGSqKII9AFPhaGmAWy6DsslDiVJZ2WqEFlg5kMaZCPjPGZtDVV955mI=
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
+ by LV3PR12MB9094.namprd12.prod.outlook.com (2603:10b6:408:19e::18) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Wed, 21 Jan
- 2026 08:33:37 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9542.008; Wed, 21 Jan 2026
- 08:33:36 +0000
-Message-ID: <59762c7e-f00b-49c6-bfab-ff647d3fe05d@amd.com>
-Date: Wed, 21 Jan 2026 09:33:27 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] dma-buf: Rename .move_notify() callback to a
- clearer identifier
-To: Leon Romanovsky <leon@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org
-References: <20260120-dmabuf-revoke-v3-0-b7e0b07b8214@nvidia.com>
- <20260120-dmabuf-revoke-v3-1-b7e0b07b8214@nvidia.com>
+ 2026 08:37:50 +0000
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::d4b5:6a30:96d5:e3ed]) by DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::d4b5:6a30:96d5:e3ed%5]) with mapi id 15.20.9542.009; Wed, 21 Jan 2026
+ 08:37:50 +0000
+From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 02/10] drm/amdgpu/job: use GFP_ATOMIC while in gpu reset
+Thread-Topic: [PATCH 02/10] drm/amdgpu/job: use GFP_ATOMIC while in gpu reset
+Thread-Index: AQHcioI8vB/GHY8CVUeqK7SsnOAtBLVcTWig
+Date: Wed, 21 Jan 2026 08:37:49 +0000
+Message-ID: <DM4PR12MB51521803FE5F8276966A1346E396A@DM4PR12MB5152.namprd12.prod.outlook.com>
+References: <20260121030057.1683102-1-alexander.deucher@amd.com>
+ <20260121030057.1683102-3-alexander.deucher@amd.com>
+In-Reply-To: <20260121030057.1683102-3-alexander.deucher@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260120-dmabuf-revoke-v3-1-b7e0b07b8214@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0043.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-01-21T08:37:44.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|LV3PR12MB9094:EE_
+x-ms-office365-filtering-correlation-id: abf61a1d-b0b8-458d-13d3-08de58c85c71
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|38070700021|7053199007; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?tm+eUIkJTQdUHLoWxJUZA3EsTaSgoWcQfTOlk80DfPAl3055Dqcn6F225aTo?=
+ =?us-ascii?Q?lohJTyDbeo9q0/7k0iNZO8DRSUPiNkyyJSBaNzKwYeWK0gh9vCZDrfTT2Wwb?=
+ =?us-ascii?Q?/R5IZTiXF9kdsK+G1ram3noyKX3OKZcR04wHrB0CUpNFtZwKUw7v/HAwnUrb?=
+ =?us-ascii?Q?HRVxwGVQQIKNWs+Zx10FM0kFitjFij9pbOAySdsjrd/OqSVUFUct2DMr/XyK?=
+ =?us-ascii?Q?LvrVBw/hymHAwm7BkMkBSxumTK4SIMQQy6V3YbHj7ddjLSXmOGONDjeXIb1M?=
+ =?us-ascii?Q?633XAaDy0CkGo23kevLVU7OFp4sFK55q6Sy59nwxAJhMfJB38Ctb+doemslX?=
+ =?us-ascii?Q?1a11kAF9xxjykfVIv/w+tNqqmQEzbT7gBr5BEOHtX3aSGeIWYL5EYnnEMHp3?=
+ =?us-ascii?Q?AltzlAESgnw2IyPpjTNqyCcnBggG+duOQcPr3ncwLS+uIZW43sakFAfoGtJg?=
+ =?us-ascii?Q?NwKeSiFBz82b/mnUDx9hMZlIyP+pMF4eIvYvAttuIMy4b1kFg+BFh2tO00aa?=
+ =?us-ascii?Q?ME2ld1wgZMhgCxvLdimElHl9j4URA1K9i4sdzfv4y15+yQ3ZN9paISg7iGD/?=
+ =?us-ascii?Q?yQ+S1EpLQB1M7IR/k/QpOVgRCA7UETVY5aH6hYgdJDBRBiECwr8YdXgpcOmB?=
+ =?us-ascii?Q?34LndWy1SL8uNEVk0YNJm7fVeWhB6db8KGZmFmDOp9+J2kPZZh3015DIp/Wg?=
+ =?us-ascii?Q?GnWSvMMoCHDvCTycF0NVrN+xcx893GOq2lvn9sGABnDZ07TxX78R2yPDgKzy?=
+ =?us-ascii?Q?v9fgj2yy4YlKxqE+k2MWoJKRs7DawL8KStO3jqmiHOZR3lnKGRebNPtUm/oe?=
+ =?us-ascii?Q?oUuzRL0TQvNPFSimJvU5pO/EWcHZO3Owyzlij+OjVEmmNcCU19LHsnABuOpT?=
+ =?us-ascii?Q?3EG/QalC+7AL0FHMgkbzrT3C7zfYUFEboXin4mvykCgJwrPG0Glbi9oQn8jf?=
+ =?us-ascii?Q?lVRVM/Qw8hpZhJqVvvtN5fugxSWiybObQNiguIoo0UUSgFoPT1Ts/ehNzTSx?=
+ =?us-ascii?Q?5B1uXVHUw8TorxSTUbZnFCGAiKHdsYzDLZSh8DMNy99EWqJ94d99iwq6b228?=
+ =?us-ascii?Q?/uSgCBN4b43vvXBJNnvfV1cHWhTUGJawj5CLxzveBf6ORJX5WYUL83cDrMLP?=
+ =?us-ascii?Q?qP+DDzwgp26eOkUtedtbSP1wI8j2O3eb0Ih+Rp9IJ795blz2fn6adMgk3V/J?=
+ =?us-ascii?Q?+6ldIT5BbseB2HNsBm6ELj91Exw2UR9MrF6Q/WqYgd8Y/2M//ONhiHkNQvnT?=
+ =?us-ascii?Q?rRNU5ZuI9YMxcPzKcYGdVYk4c1mDOY+K6a7PIaGHBad522m2Zni1DwB9NfON?=
+ =?us-ascii?Q?76SbbElI2z0zNYVQVBZgWKhobDwdghly0QyjqB+Tn9XhIQPWFEfCBXvHfDrO?=
+ =?us-ascii?Q?5wVmp+h6Hb9CuYx2mdiwhyTazJg9XUxT2kPQE5lVKhoHJ/bJZ3Yy3jy5k7h4?=
+ =?us-ascii?Q?AwVbSjj4hq/Xy8WD7sJGRQyeCGcLPYx4sWD2A6a5mc6TcGJ7ELYTOG6JyR9Z?=
+ =?us-ascii?Q?mp35M5B+nKkdtg6BDwUDr8t6v/uW47YfHbnCRDZ4U7t+FGg66sxaiZl1wykJ?=
+ =?us-ascii?Q?9Y7IRzW1kZk5ha2D12aj0+gqVK44Yn52o922aH/YYghixf1KykIwkesEx/rj?=
+ =?us-ascii?Q?jLD6LPOm4WNMhxAU7h2et6A=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?GH5AR4RmF2z4XkJS4cmijPTdejQ8UchSBzXSArd46QfO/4yZKtt7lqGX/0rI?=
+ =?us-ascii?Q?u4VtNeGQ+nhi/CRNTWE10j/hnj8j60c9udiy3kRh4pRe1huAjJhh/6vewAOP?=
+ =?us-ascii?Q?umZzXzzlj/nRQNKOoH7PW7XA9n9ojEx3+6FK+io+1tHwaUTJ2RgP6OB76ag/?=
+ =?us-ascii?Q?H1XU8mGX4eMBG3+XBmNHmrja3kecTUhyF4evYdkmes92M0/iu0Xsa+7FTjKc?=
+ =?us-ascii?Q?68+KjmUmNRJMCdNLcCKTU4bGNKcbUpHVOi34g037wy4e4uAbnvoT8My6oAwa?=
+ =?us-ascii?Q?jx5ZSxkBTxJK4NrXWPQYDechL/2yonxk1i0LqvfG6KufgYt08/r1d9cVgDxj?=
+ =?us-ascii?Q?z1wUYdhbNHF4lItMKeyEhhgSMg0LsOZsGc2SwIs1FXmOTUhvZBv8zuqlDce6?=
+ =?us-ascii?Q?r5I3JWkkGyFM/5a8MpGw8ITuaH0Q1vx9gUOSE9Uucjasoju5AmpjU9yfS9/u?=
+ =?us-ascii?Q?GkqV0SKkkyWjxw1vW3ZJ5RiVX9bUeCJHvh2PXKR7ZP4qwbBkJXN57dwm7NH6?=
+ =?us-ascii?Q?/QMeo1XVGw47j8b9dPj/URjMWUc8ju6lw4JVoVJXVwSDjjVQZUpeGNiBQgzN?=
+ =?us-ascii?Q?5DoytN+IYJOJD8vwUsKCJwLFohfDTLIfEgWsvglBc9UdiKQ+s4WDP4rrEByX?=
+ =?us-ascii?Q?qQvSSr1w36Jqyc8g78lcZpVORPCB0E7V3k8issqAUEI16dSqsC3OpK/qPNvp?=
+ =?us-ascii?Q?5hlFx7vSsCegs5mcgwmndVSt6sNQjgMG4o6kj7R+S7f9WmcvK8blLZs7OunG?=
+ =?us-ascii?Q?ihe3y6urJMdnXyKvM/GuvgWv3hnvEUQ+jx1VhLCUpQWsptY/TJNF3Q204iXt?=
+ =?us-ascii?Q?1fsoGFYyFDE81MuIFmGR40e8DdmLGhBxjL9h62xO+yZXYcFMaXy/FnIbBS+p?=
+ =?us-ascii?Q?9B1aI/skStP0VBuyEySUUxqg+Sv35oXiQkiI9lJ1C0T0czrGbrq69wXLtvCV?=
+ =?us-ascii?Q?7H73qq8y2Uu1xnt/KjY88HzNv69BITbLF9KFV/P9mzX6J/weU4P1domWJl09?=
+ =?us-ascii?Q?qhJOeHD37AEh2YiTg4Wg8Eto52bwY9hMj+cQ9t4sQ54ZNxGKEaKxjmTV1fdv?=
+ =?us-ascii?Q?iLRa1eN4BZa8Q2EZXBUadurxYrPMC5brXifRCvGm5eo6Cc1PCITWAVw/P2YB?=
+ =?us-ascii?Q?npaaq4E3Rvsmj5nv9p09tayGkkUFpiqiI+kojr5ORiZuL+Ovg4QDtaJlrHu8?=
+ =?us-ascii?Q?HJM1aQx2KaJS3j49QN/mGSiEHu6F2B2VARvCrkn9qXPCdX/4JhFRvy6S9RiY?=
+ =?us-ascii?Q?CZ4GsMQ3edEZ66Hw/gi1o8CbSjkObz02zq7K4cApw5kqP3hRrRHYku2o2ZES?=
+ =?us-ascii?Q?l/rE5PJnWlLB7mHanFiZSS274pbD68OvmwSZ3ES7Q2BTo1Q3hVtXQYrVS5iI?=
+ =?us-ascii?Q?DQ9agUePJzsCfw7I3wXvgxeo71hMTr2hE/jCUplq+yBTti3HLxIn3jKsSL6f?=
+ =?us-ascii?Q?JC7DXxBJAdTvAn1nYEXxbF7NFjcRK0EgkIOHVHY7+a4ndy/02FIgk3nO7jXj?=
+ =?us-ascii?Q?RIcV5HcMFKcJZJUxH+7hB01FQV67jgDLEZzQLXFT8XUIUb0oiaHiYgaA8GXk?=
+ =?us-ascii?Q?L7J9f6YS4a/mw5KnA6wyGIAJyYBilhCdgNa1Y8rW1V9dCUcuxSD6wZs4NSJg?=
+ =?us-ascii?Q?bieYSu+KESNYOAt+gOhbYmor+TStq+UmkSZ+B67a/JILloshNT8qAvCgUByf?=
+ =?us-ascii?Q?DRZE9zywN4olMdwVt/AVEZp0Dqbo53RjZV+5zUiDX0IWrM9L?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7531:EE_
-X-MS-Office365-Filtering-Correlation-Id: 328ffb78-28a2-4a17-a353-08de58c7c55f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SmhoN3hUTmhtR3Q2SnBqZ1dIL1FqSFIxS3ZiTW80blVxRlg0RGJBR2ZYanZr?=
- =?utf-8?B?dDJlcmhOT2VUMlpZY3hhN1E5d1VKV2hjUnIvUCsrbVk0NmZTTCszTDBhMjZy?=
- =?utf-8?B?dnZpZE1ZNzRBNEtkdUxIWmZZRDY2emJJeWpmZFU2SUh0bFpSclVrNVNtMXJ1?=
- =?utf-8?B?dTFmeGIveDE4MGF0S3JiWWRRYUtGQU9aWkZNQndueGR5eWdneEtsMEpJYVN1?=
- =?utf-8?B?SGZnVGdUWEpBdnVBa2laWWdSTFVxYXFiR3VuK3B2SXd4YUxOOTFrdTBSUGtJ?=
- =?utf-8?B?R25ocVRFck9sNGxXYXY1aFA3cnlPR3ZocVZUT0ZzMzQwR3VOMEx6S05zN1FT?=
- =?utf-8?B?MTh3KzZDNXY1U3ZkRUFaY2FHM2RaVEJBYVZ1WVd2KzJ1bENGV0JUOWRwM2Rj?=
- =?utf-8?B?VGFvc0tRMGJHN3BLOHVYblhOY1hhK2lFckFQVThZckljMXZEMXR3LzNkS0pF?=
- =?utf-8?B?SDBlWllhbU9UN3hpT0RaQ251S0hNTCtOemxMV2VhNkY5RTUwTVowenlTbG00?=
- =?utf-8?B?YWFpVzJUUnZHVzNqT3dzQ2JmSWNFbGZvUmhTM2tFRnZxQ0ZKcmJRTlhuK0VI?=
- =?utf-8?B?VGd1cGx5TVY1RkNKMFVYY2VwczlhY1FkMGI4elM3N3JiUDF0REpqcmRDOFYx?=
- =?utf-8?B?eml6ck5wVjcwWU96OG5EMS8yWmJLZkFBaXZxVTVtWFpoUFZyclhaLzdJNHJs?=
- =?utf-8?B?ZEhsb0hlVVpaejY1OE02bWhZTWV1OW9PaVk5VU5McFI5SnpiSDJlVWNKMXNY?=
- =?utf-8?B?Qm9weExaT2NyQUVscy8rNE9nM084VVY3L1BxazBmMEwyY2d0cmhmaXI0SWYr?=
- =?utf-8?B?ejdZMWNCbTBUcVVQV1dQa0RpMWNxQ3J1RG9pc3ZwcUtTaXJOK3JCdDRtV3Nh?=
- =?utf-8?B?ZzkzeHhOaGdDUHZCTmcyUHh6TVorSFgvNEpad1BtTmlqd3N1UXJMU2JBSE0w?=
- =?utf-8?B?MHV2ekdCTW1sM1FkN0w2YTg2YTVkWDBMcHpieVhDZnpZQ3N1eEJPKzdCYndP?=
- =?utf-8?B?T2Z3eXhVTXZUZUdZR1VoNC80RHd0Nno5T1ZJbzNYNFNKUzB5ZnRJSkhPSmdQ?=
- =?utf-8?B?Slc0VW9Kd0tIVUZnakNNL1V6T0duV3hFZTVxSS8rbnNCenFSTGR5SW1VK3Jl?=
- =?utf-8?B?dU9SUEU5eXJybXh2aHZ0WHdzNUNjWmRlK3AwMmx0SlIzb2NPSVVmMEE5eFVS?=
- =?utf-8?B?dHZkbjJSNU5odkFZSFVEV2hZOXVQWThLWEtLdjA5ZXBtWGs0SFhTY0U3SldF?=
- =?utf-8?B?dE82MkFjbUVqRk9VeklOTmlDbUVxRGNSWHVkUytRbldjQXhNQ2hsRExaV3N0?=
- =?utf-8?B?YXNVa1B4RitjT3JTbjhhSGJmYmpqSE5sbFQvamZ1VXJqbDhaNFBGdVBxYmw5?=
- =?utf-8?B?MVpmVnJaUUowRHZ1MklEUFpjMHdEWWNYc2ZBVEdkb1d0YVg5K2oxcVBxaGEr?=
- =?utf-8?B?dVVROW1haSs4TTBuZDdaMFV1N3llR2VJYVN2bktKaHJCUkdnMkFFdTlQWjlm?=
- =?utf-8?B?NkNPNzR1cEE1UmNibWRuSW5UVEcyS2E1ajJuUFNJWDV1Zmt5SE55UVJQdTJH?=
- =?utf-8?B?RUw3QlRGZ1ZBSWN3VVM1V1ZxTjJkMFRKMUVNRG9xZGVRdVlEdVR5R3E0Vmtq?=
- =?utf-8?B?RzdKU3BqMG9SaHpaSEgvVTllNUdVNlg1emNoRnpGSWswaXdGL21Kc1QrVGQv?=
- =?utf-8?B?NlE1Tjhld3NLb3lXSUZWMGZXakh0VTZjakNKTWN4aXYvVGZwemFpQ1RTK0V1?=
- =?utf-8?B?aTJWaHZKTFBYYi9qcG1sSTBMb2dqc0xaMEpJOEtaN0RWb3VrZ05Db1NGdS9i?=
- =?utf-8?B?eTA5NHhFa0tuZ3NuaEhQbXZxWWNyQ3ZWczlIak9TaEF0VEpOZVZMVHNQQlFW?=
- =?utf-8?B?YXVWWlRpSlExaHo3bDgxdFpWU0U4eGNxWUp1U0NSY1UvVmxSRm5CUzlxZFFp?=
- =?utf-8?B?b3VTOVhxWHRLaitJN3BDQjI0L0k2aFNkdVozMVJzTU5GQ2xjWk5nbUwvZmpU?=
- =?utf-8?B?UTdlek9BR2RjSy8zVWNmdjBBOW5EY2R0bTFIYUlpbHhocFhHVTVLVnlYUnZm?=
- =?utf-8?B?M1h4bnA3TDlBNzhnZEhWb1ZUSldXaWU5UjZVSCtsQWhwZldJbEhlTnp1Nysr?=
- =?utf-8?B?NWV6czBIQ0ZvVGQ1WnZSQXAzK1JKWkxDK3JHOTVlS2hoaW5UaWlWa3dTazVO?=
- =?utf-8?B?MkE9PQ==?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(921020); DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SWh5YjdmNXJKbmtReVRjK1FUdzRvWmZkakVteXN6Y0UzKzMvdk90NjBhWDlr?=
- =?utf-8?B?eThoc2NsTm4zQ0lubzBxMnM3ck0wUUJTdkd4b3ZnNGRWYlUyaERJMkVRSER4?=
- =?utf-8?B?cFIxOVl0WUdRcC9RU21YM2J2NjNPRGlrZUgxdWwvWDJ2NGlKSzdjWW9qV2lT?=
- =?utf-8?B?eE05TGk1Z01tczk4cDRtWjhzOGFkQ0lKajQ3Tmk4MjZMaWYwU1FlZU16N1l0?=
- =?utf-8?B?U0lvVnJsWUk4U1JScTZ4THpHN1dXK28zRzVXVE5Zbjg2OU9RM1FDS1FzNytY?=
- =?utf-8?B?OE1aUTZQMTh2Tjh4anVKcVkrTUVPaXFxd0RjaGY1U1lYRkNNbWxYdFZ5RGs1?=
- =?utf-8?B?QS9QTStJUisvdHlyNTBLVHUwNk1acDFBL0JaYmFXSDBBSnZNOXVoWWoxSjBx?=
- =?utf-8?B?aTdabzA5WTlZais0TWRaTDVnM0hZOHo1enN5bkVnZEpUWFFEYkdaMk93VGh0?=
- =?utf-8?B?dDhpOHpzdXNraWRsczhjZkRoZ0ZHREZtTVBNZVJ2RU9jdTBLaFBhSWRXcHpY?=
- =?utf-8?B?QUVnQzZ6Rkp0QllCV3BaR1k0Y2o5M3ZLYTFzdXl2c1EyWVljZE9lRTBmMmJY?=
- =?utf-8?B?Q0JCSVI5dnNZN2RHaTNwZEw0OVJTR1oyYWJ4bkNkZE5Bd2JHYzRIazVwSlFw?=
- =?utf-8?B?UkNIOVJNNXArOU5DT2FyWncreVJET3RncmhtS1dIMnhoaC9YL2h4SktIWXVo?=
- =?utf-8?B?Q2NwQ1VNWXB2OHZHVUdvSHhLR0F0VmhzcWlyV3J1dElxdDhudUgzaVl0OVY2?=
- =?utf-8?B?ZlNjVTFsMHFycjdpNHEwOWlKWXkxTnNQVzJvcjJrbFZhbi9MUXQxTEVJQXBn?=
- =?utf-8?B?alRRYUd1aVAzanJoS2N2bXNiQysrTTF2MTliNmxyYk52SzJFbE9WQlcyUnhn?=
- =?utf-8?B?em9oTEJvVGZrNThtU1NBVXhpV3RqWEFIc3A5MHppMWE0OW52QndFTE8rUFBX?=
- =?utf-8?B?b1dCWTl2VnB6b1A5TDZzb1RxM3BPT3o2TEpiNnlLN0VWNkFDaExlSDRENXdm?=
- =?utf-8?B?TGN3bGFpd3c0cWMvTWZQQkZ3d003VkY0SkRlMzE2L1h4Zi9jRHcyYjY1U2RB?=
- =?utf-8?B?OTJiRnYyNXhNQU9EWEU0c2J1U1dOYUVncGJjdDB1N0dkMUdxMlU4NVZKMW03?=
- =?utf-8?B?bEZOVlpDT3RET25HUDNhazYzR2pVMy9VVHZzcHFjQ0JnOWNHbi82dDhVcEdG?=
- =?utf-8?B?T2NRd0VuUlY0TnErM1JnTGRaaDk2R0dvcHVjNWUxRDA3UjZtQ3lZOUtTMS9X?=
- =?utf-8?B?cFdNYUZYNXJKWkVYdzhBUE1OSm1qckhkMHcrbWJVWUpmbEtZdkdzMHdrMFRp?=
- =?utf-8?B?R1NNRDN3ajlkeXd6RXI1VElTTmlueXNlWGhxek9lOWs1WFArNXMvZC9neXdE?=
- =?utf-8?B?TWZjK3oxN0pPYmluc2k1VG5wc0tDWVc5Y0JFVlhPcUlReFRFNnIrTTNtV0RK?=
- =?utf-8?B?eWN1RXR6OU55eEI5WUd6eWU3NHhoNVJtRUk1ZkhyQk1FcXRPenhTZHorNTBQ?=
- =?utf-8?B?Qk5jdDhOdkhncTZuMGhxd2R5RWZpbzhvWlJhNnIvMmpyWlpVWVd0R05MVW1L?=
- =?utf-8?B?Ulo3cDBkZTZXMGg4ZHBSbDg0bHJBejlJM1NBSFRwT2wzZCtMSlFJVVFJSTdv?=
- =?utf-8?B?YzZSdlpxcE56bUgrSm1yWVRybEJ1c2duTEpJYWxQY3hQZi9uUWgyMjV0bDNH?=
- =?utf-8?B?MnZ1VHNMNmc5Y0g5eEIxK2E2a25BNzFPSHFIWnBOSTFXNEt4Vzk2Q2hxNVFP?=
- =?utf-8?B?OWgxWEdLYm1abVpnV1ovNTZ3WVEvdEhaME8rMnBlNGdQWFdJeDNWSG5RY0JP?=
- =?utf-8?B?VEJLMjdXMGVnYjV6eXU0TGRLWUpTd0UzZUZiWTB1QitxaVg0N0ZCTEd6ODNZ?=
- =?utf-8?B?SmhUUGFpbVhCQ2xZT2cyMnpBREV6WFF4NzZPaitIUGJTdEZBNTNrVEdTdzVo?=
- =?utf-8?B?YkI3NWJRUGRJN2oyL0JpSmRVcitPWXVUZmdHUEVQcFhiRG5vQ3cwRlNhRG9H?=
- =?utf-8?B?RmdGSHhwdkh0TzlhSi9QQktQWWlpZHpnd3B0TTRlVHRrNE1ldFRSUUY2Yzdn?=
- =?utf-8?B?Y2NrbHFBODJwdGlKeHdzdGpBMjhmQmhnSjdvTEtIMHprN1V4SDFlV2NEbmFw?=
- =?utf-8?B?MmhNcWV0NG5uNWF0SmZJZUErSU1OOUcvZE1SSVZ4cUxQaUZvZE9wY3FvTFUr?=
- =?utf-8?B?K2dJQ2wyT0FmTGJCY2xndEZjdlpBQTY3MTFHdU5ZalJtR2RxdXJrUllIR0Vk?=
- =?utf-8?B?d0x4emtvbDFpeE45WVFPaFlXaHc3T2Nta1VxcFFNL2xmdERaeGk2dVZ1OHZB?=
- =?utf-8?Q?uvjtKdD1+d7JDgFnls?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 328ffb78-28a2-4a17-a353-08de58c7c55f
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2026 08:33:36.8621 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IiXV6pAOAbeuvLyD/omQzKuzoS5sOLIIW/+RqI+o7hwcnMmH3OstJiWn7ej+97mg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7531
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: abf61a1d-b0b8-458d-13d3-08de58c85c71
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jan 2026 08:37:50.0456 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TbNTe690bp65d4xn4mz2LIeFw6j8DgHanlEKRsfDM27mQlu/+w49j30Bg8sbqNNWMprm5KPNDpWwjcgDV4VZCg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9094
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -190,222 +161,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/20/26 15:07, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> Rename the .move_notify() callback to .invalidate_mappings() to make its
-> purpose explicit and highlight that it is responsible for invalidating
-> existing mappings.
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Reviewed-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+Reviewed-by: Jesse Zhang <jesse.zhang@amd.com>
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex
+> Deucher
+> Sent: Wednesday, January 21, 2026 11:01 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH 02/10] drm/amdgpu/job: use GFP_ATOMIC while in gpu reset
+>
+> If we need to allocate a job during GPU reset, use GFP_ATOMIC rather than
+> GFP_KERNEL.
+>
+> v2: use pool type it determine alloc flags.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/dma-buf/dma-buf.c                   | 6 +++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 4 ++--
->  drivers/gpu/drm/virtio/virtgpu_prime.c      | 2 +-
->  drivers/gpu/drm/xe/tests/xe_dma_buf.c       | 6 +++---
->  drivers/gpu/drm/xe/xe_dma_buf.c             | 2 +-
->  drivers/infiniband/core/umem_dmabuf.c       | 4 ++--
->  drivers/infiniband/hw/mlx5/mr.c             | 2 +-
->  drivers/iommu/iommufd/pages.c               | 2 +-
->  include/linux/dma-buf.h                     | 6 +++---
->  9 files changed, 17 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index edaa9e4ee4ae..59cc647bf40e 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -948,7 +948,7 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct device *dev,
->  	if (WARN_ON(!dmabuf || !dev))
->  		return ERR_PTR(-EINVAL);
->  
-> -	if (WARN_ON(importer_ops && !importer_ops->move_notify))
-> +	if (WARN_ON(importer_ops && !importer_ops->invalidate_mappings))
->  		return ERR_PTR(-EINVAL);
->  
->  	attach = kzalloc(sizeof(*attach), GFP_KERNEL);
-> @@ -1055,7 +1055,7 @@ EXPORT_SYMBOL_NS_GPL(dma_buf_pin, "DMA_BUF");
->   *
->   * This unpins a buffer pinned by dma_buf_pin() and allows the exporter to move
->   * any mapping of @attach again and inform the importer through
-> - * &dma_buf_attach_ops.move_notify.
-> + * &dma_buf_attach_ops.invalidate_mappings.
->   */
->  void dma_buf_unpin(struct dma_buf_attachment *attach)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c     |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 13 ++++++++-----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.h    |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c     |  5 +++--
+>  7 files changed, 16 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index 877d0df50376a..89df26dd5ada7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -672,7 +672,7 @@ int amdgpu_amdkfd_submit_ib(struct amdgpu_device
+> *adev,
+>               goto err;
+>       }
+>
+> -     ret =3D amdgpu_job_alloc(adev, NULL, NULL, NULL, 1, &job, 0);
+> +     ret =3D amdgpu_job_alloc(adev, NULL, NULL, NULL, 1, &job, 0, false)=
+;
+>       if (ret)
+>               goto err;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index d591dce0f3b3c..4d53d9cb8490d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -282,7 +282,7 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p=
+,
+>       for (i =3D 0; i < p->gang_size; ++i) {
+>               ret =3D amdgpu_job_alloc(p->adev, vm, p->entities[i], vm,
+>                                      num_ibs[i], &p->jobs[i],
+> -                                    p->filp->client_id);
+> +                                    p->filp->client_id, false);
+>               if (ret)
+>                       goto free_all_kdata;
+>               switch (p->adev->enforce_isolation[fpriv->xcp_id]) { diff -=
+-git
+> a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> index 72ec455fa932c..d90966daf52fc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -69,7 +69,7 @@ int amdgpu_ib_get(struct amdgpu_device *adev, struct
+> amdgpu_vm *vm,
+>
+>       if (size) {
+>               r =3D amdgpu_sa_bo_new(&adev->ib_pools[pool_type],
+> -                                  &ib->sa_bo, size);
+> +                                  &ib->sa_bo, size, pool_type =3D=3D
+> AMDGPU_IB_POOL_DIRECT);
+>               if (r) {
+>                       dev_err(adev->dev, "failed to get a new IB (%d)\n",=
+ r);
+>                       return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index ec8d74db62758..8660e3d1c3088 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -190,7 +190,7 @@ static enum drm_gpu_sched_stat
+> amdgpu_job_timedout(struct drm_sched_job *s_job)  int amdgpu_job_alloc(st=
+ruct
+> amdgpu_device *adev, struct amdgpu_vm *vm,
+>                    struct drm_sched_entity *entity, void *owner,
+>                    unsigned int num_ibs, struct amdgpu_job **job,
+> -                  u64 drm_client_id)
+> +                  u64 drm_client_id, bool need_atomic)
 >  {
-> @@ -1262,7 +1262,7 @@ void dma_buf_move_notify(struct dma_buf *dmabuf)
-
-Thinking more about it we can keep the function names as they are in the importers, but renaming renaming this framework function as well would be really nice to have.
-
-Regards,
-Christian.
-
->  
->  	list_for_each_entry(attach, &dmabuf->attachments, node)
->  		if (attach->importer_ops)
-> -			attach->importer_ops->move_notify(attach);
-> +			attach->importer_ops->invalidate_mappings(attach);
->  }
->  EXPORT_SYMBOL_NS_GPL(dma_buf_move_notify, "DMA_BUF");
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index e22cfa7c6d32..863454148b28 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -450,7 +450,7 @@ amdgpu_dma_buf_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
->  }
->  
->  /**
-> - * amdgpu_dma_buf_move_notify - &attach.move_notify implementation
-> + * amdgpu_dma_buf_move_notify - &attach.invalidate_mappings implementation
->   *
->   * @attach: the DMA-buf attachment
->   *
-> @@ -521,7 +521,7 @@ amdgpu_dma_buf_move_notify(struct dma_buf_attachment *attach)
->  
->  static const struct dma_buf_attach_ops amdgpu_dma_buf_attach_ops = {
->  	.allow_peer2peer = true,
-> -	.move_notify = amdgpu_dma_buf_move_notify
-> +	.invalidate_mappings = amdgpu_dma_buf_move_notify
->  };
->  
->  /**
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
-> index ce49282198cb..19c78dd2ca77 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_prime.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
-> @@ -288,7 +288,7 @@ static void virtgpu_dma_buf_move_notify(struct dma_buf_attachment *attach)
->  
->  static const struct dma_buf_attach_ops virtgpu_dma_buf_attach_ops = {
->  	.allow_peer2peer = true,
-> -	.move_notify = virtgpu_dma_buf_move_notify
-> +	.invalidate_mappings = virtgpu_dma_buf_move_notify
->  };
->  
->  struct drm_gem_object *virtgpu_gem_prime_import(struct drm_device *dev,
-> diff --git a/drivers/gpu/drm/xe/tests/xe_dma_buf.c b/drivers/gpu/drm/xe/tests/xe_dma_buf.c
-> index 5df98de5ba3c..1f2cca5c2f81 100644
-> --- a/drivers/gpu/drm/xe/tests/xe_dma_buf.c
-> +++ b/drivers/gpu/drm/xe/tests/xe_dma_buf.c
-> @@ -23,7 +23,7 @@ static bool p2p_enabled(struct dma_buf_test_params *params)
->  static bool is_dynamic(struct dma_buf_test_params *params)
+>       struct amdgpu_fence *af;
+>       int r;
+> @@ -198,18 +198,21 @@ int amdgpu_job_alloc(struct amdgpu_device *adev,
+> struct amdgpu_vm *vm,
+>       if (num_ibs =3D=3D 0)
+>               return -EINVAL;
+>
+> -     *job =3D kzalloc(struct_size(*job, ibs, num_ibs), GFP_KERNEL);
+> +     *job =3D kzalloc(struct_size(*job, ibs, num_ibs),
+> +                    need_atomic ? GFP_ATOMIC : GFP_KERNEL);
+>       if (!*job)
+>               return -ENOMEM;
+>
+> -     af =3D kzalloc(sizeof(struct amdgpu_fence), GFP_KERNEL);
+> +     af =3D kzalloc(sizeof(struct amdgpu_fence),
+> +                  need_atomic ? GFP_ATOMIC : GFP_KERNEL);
+>       if (!af) {
+>               r =3D -ENOMEM;
+>               goto err_job;
+>       }
+>       (*job)->hw_fence =3D af;
+>
+> -     af =3D kzalloc(sizeof(struct amdgpu_fence), GFP_KERNEL);
+> +     af =3D kzalloc(sizeof(struct amdgpu_fence),
+> +                  need_atomic ? GFP_ATOMIC : GFP_KERNEL);
+>       if (!af) {
+>               r =3D -ENOMEM;
+>               goto err_fence;
+> @@ -248,7 +251,7 @@ int amdgpu_job_alloc_with_ib(struct amdgpu_device
+> *adev,
+>       int r;
+>
+>       r =3D amdgpu_job_alloc(adev, NULL, entity, owner, 1, job,
+> -                          k_job_id);
+> +                          k_job_id, pool_type =3D=3D AMDGPU_IB_POOL_DIRE=
+CT);
+>       if (r)
+>               return r;
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> index 56a88e14a0448..9de2cae966fea 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> @@ -113,7 +113,7 @@ static inline struct amdgpu_ring *amdgpu_job_ring(str=
+uct
+> amdgpu_job *job)  int amdgpu_job_alloc(struct amdgpu_device *adev, struct
+> amdgpu_vm *vm,
+>                    struct drm_sched_entity *entity, void *owner,
+>                    unsigned int num_ibs, struct amdgpu_job **job,
+> -                  u64 drm_client_id);
+> +                  u64 drm_client_id, bool need_atomic);
+>  int amdgpu_job_alloc_with_ib(struct amdgpu_device *adev,
+>                            struct drm_sched_entity *entity, void *owner,
+>                            size_t size, enum amdgpu_ib_pool_type pool_typ=
+e, diff --
+> git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> index 912c9afaf9e11..8abff5fdae81d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -341,7 +341,7 @@ int amdgpu_sa_bo_manager_start(struct amdgpu_device
+> *adev,
+>                                     struct amdgpu_sa_manager *sa_manager)=
+;  int
+> amdgpu_sa_bo_new(struct amdgpu_sa_manager *sa_manager,
+>                    struct drm_suballoc **sa_bo,
+> -                  unsigned int size);
+> +                  unsigned int size, bool need_atomic);
+>  void amdgpu_sa_bo_free(struct drm_suballoc **sa_bo,
+>                      struct dma_fence *fence);
+>  #if defined(CONFIG_DEBUG_FS)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
+> index 39070b2a4c04f..1d44b95de7e55 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c
+> @@ -78,10 +78,11 @@ void amdgpu_sa_bo_manager_fini(struct amdgpu_device
+> *adev,
+>
+>  int amdgpu_sa_bo_new(struct amdgpu_sa_manager *sa_manager,
+>                    struct drm_suballoc **sa_bo,
+> -                  unsigned int size)
+> +                  unsigned int size, bool need_atomic)
 >  {
->  	return IS_ENABLED(CONFIG_DMABUF_MOVE_NOTIFY) && params->attach_ops &&
-> -		params->attach_ops->move_notify;
-> +		params->attach_ops->invalidate_mappings;
->  }
->  
->  static void check_residency(struct kunit *test, struct xe_bo *exported,
-> @@ -60,7 +60,7 @@ static void check_residency(struct kunit *test, struct xe_bo *exported,
->  
->  	/*
->  	 * Evict exporter. Evicting the exported bo will
-> -	 * evict also the imported bo through the move_notify() functionality if
-> +	 * evict also the imported bo through the invalidate_mappings() functionality if
->  	 * importer is on a different device. If they're on the same device,
->  	 * the exporter and the importer should be the same bo.
->  	 */
-> @@ -198,7 +198,7 @@ static void xe_test_dmabuf_import_same_driver(struct xe_device *xe)
->  
->  static const struct dma_buf_attach_ops nop2p_attach_ops = {
->  	.allow_peer2peer = false,
-> -	.move_notify = xe_dma_buf_move_notify
-> +	.invalidate_mappings = xe_dma_buf_move_notify
->  };
->  
->  /*
-> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
-> index 7c74a31d4486..1b9cd043e517 100644
-> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
-> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-> @@ -287,7 +287,7 @@ static void xe_dma_buf_move_notify(struct dma_buf_attachment *attach)
->  
->  static const struct dma_buf_attach_ops xe_dma_buf_attach_ops = {
->  	.allow_peer2peer = true,
-> -	.move_notify = xe_dma_buf_move_notify
-> +	.invalidate_mappings = xe_dma_buf_move_notify
->  };
->  
->  #if IS_ENABLED(CONFIG_DRM_XE_KUNIT_TEST)
-> diff --git a/drivers/infiniband/core/umem_dmabuf.c b/drivers/infiniband/core/umem_dmabuf.c
-> index 0ec2e4120cc9..d77a739cfe7a 100644
-> --- a/drivers/infiniband/core/umem_dmabuf.c
-> +++ b/drivers/infiniband/core/umem_dmabuf.c
-> @@ -129,7 +129,7 @@ ib_umem_dmabuf_get_with_dma_device(struct ib_device *device,
->  	if (check_add_overflow(offset, (unsigned long)size, &end))
->  		return ret;
->  
-> -	if (unlikely(!ops || !ops->move_notify))
-> +	if (unlikely(!ops || !ops->invalidate_mappings))
->  		return ret;
->  
->  	dmabuf = dma_buf_get(fd);
-> @@ -195,7 +195,7 @@ ib_umem_dmabuf_unsupported_move_notify(struct dma_buf_attachment *attach)
->  
->  static struct dma_buf_attach_ops ib_umem_dmabuf_attach_pinned_ops = {
->  	.allow_peer2peer = true,
-> -	.move_notify = ib_umem_dmabuf_unsupported_move_notify,
-> +	.invalidate_mappings = ib_umem_dmabuf_unsupported_move_notify,
->  };
->  
->  struct ib_umem_dmabuf *
-> diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
-> index 325fa04cbe8a..97099d3b1688 100644
-> --- a/drivers/infiniband/hw/mlx5/mr.c
-> +++ b/drivers/infiniband/hw/mlx5/mr.c
-> @@ -1620,7 +1620,7 @@ static void mlx5_ib_dmabuf_invalidate_cb(struct dma_buf_attachment *attach)
->  
->  static struct dma_buf_attach_ops mlx5_ib_dmabuf_attach_ops = {
->  	.allow_peer2peer = 1,
-> -	.move_notify = mlx5_ib_dmabuf_invalidate_cb,
-> +	.invalidate_mappings = mlx5_ib_dmabuf_invalidate_cb,
->  };
->  
->  static struct ib_mr *
-> diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
-> index dbe51ecb9a20..76f900fa1687 100644
-> --- a/drivers/iommu/iommufd/pages.c
-> +++ b/drivers/iommu/iommufd/pages.c
-> @@ -1451,7 +1451,7 @@ static void iopt_revoke_notify(struct dma_buf_attachment *attach)
->  
->  static struct dma_buf_attach_ops iopt_dmabuf_attach_revoke_ops = {
->  	.allow_peer2peer = true,
-> -	.move_notify = iopt_revoke_notify,
-> +	.invalidate_mappings = iopt_revoke_notify,
->  };
->  
->  /*
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index 0bc492090237..1b397635c793 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -407,7 +407,7 @@ struct dma_buf {
->  	 *   through the device.
->  	 *
->  	 * - Dynamic importers should set fences for any access that they can't
-> -	 *   disable immediately from their &dma_buf_attach_ops.move_notify
-> +	 *   disable immediately from their &dma_buf_attach_ops.invalidate_mappings
->  	 *   callback.
->  	 *
->  	 * IMPORTANT:
-> @@ -458,7 +458,7 @@ struct dma_buf_attach_ops {
->  	bool allow_peer2peer;
->  
->  	/**
-> -	 * @move_notify: [optional] notification that the DMA-buf is moving
-> +	 * @invalidate_mappings: [optional] notification that the DMA-buf is moving
->  	 *
->  	 * If this callback is provided the framework can avoid pinning the
->  	 * backing store while mappings exists.
-> @@ -475,7 +475,7 @@ struct dma_buf_attach_ops {
->  	 * New mappings can be created after this callback returns, and will
->  	 * point to the new location of the DMA-buf.
->  	 */
-> -	void (*move_notify)(struct dma_buf_attachment *attach);
-> +	void (*invalidate_mappings)(struct dma_buf_attachment *attach);
->  };
->  
->  /**
-> 
+>       struct drm_suballoc *sa =3D drm_suballoc_new(&sa_manager->base, siz=
+e,
+> -                                                GFP_KERNEL, false, 0);
+> +                                                need_atomic ? GFP_ATOMIC=
+ :
+> GFP_KERNEL,
+> +                                                false, 0);
+>
+>       if (IS_ERR(sa)) {
+>               *sa_bo =3D NULL;
+> --
+> 2.52.0
 
