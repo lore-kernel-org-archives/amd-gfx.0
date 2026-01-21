@@ -4,48 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AE14D625E0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09D96C44500
 	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D36510E90E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3AB10E908;
 	Thu, 22 Jan 2026 08:36:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="f+EqDH3a";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="NBgc6ozo";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B66DF10E22B;
- Wed, 21 Jan 2026 14:47:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1769006814; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D21CB10E7C4;
+ Wed, 21 Jan 2026 13:48:51 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1769003323; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Vb+9LKr511zHX6eegVlSx/OjtQgelcyAgVtzFhNwE8/bcmWUw6KUGmBdzIud+XZ89Gd/83TdFSwPwnw7L3USvJa5fCKcG+pFB/4c0+pogPTQA6D96OVAArtc2aPiChXW+JkrIypmkB+lPVcgyGYwQWu3/3miq3s4Lyew71rzSWE=
+ b=Qu5HcFI7eZQyiLafHMrl40Bks9ctbn3Ag/wWiDv4upwjKR2blsOUlAAB+pwG4gnk1oMbo6IckVIieq4tPo2co0flrE6JQDG75MFPG2S8idT5LkDpkZRny0maeIl33YuuAvdD8Wa1Hcqu7VlU76nJ4rFSTTi3fw7mqUR/byQ4XEQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1769006814;
+ s=zohoarc; t=1769003323;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=wtYUwdUZsrNFIDbbFkRufRXGPspOM1ME+M4e+AuGxio=; 
- b=BpH9UtnU2dHSDXy0Tx1B8VW7763hqZoaAf6z6lCJyfrOBSKVPuhX+N2+0xdXbuv7Y+HUHTGvPoptDE7DinIF6tcc/V4FrHNJko1GUbkaAE4Mkqu7Lt3HWmvqTZoByBTH7nvsjS0z1EzL9Z48Vp61h8OR4/p+JQ+c+htuFqs/BN0=
+ bh=SfjcxeAT2W+o+UxrPmZJDMJEXHj1m3+fRUI5YUGISxM=; 
+ b=KhH6sT8FeyTWPQ93V/yBX/pRI+veKpouS2PgUmP8OeIaNEDLH4tu9tNIuh5NGYd4VowpJqrG5L8LoetvhaqhC13gGxEw/pFfh6b9XtAhyf5J54GPblqhxvTmTAmu6pd7bjSFhcGqnT32X0rrlhg0+5GWhbZerJ4jMWH9TxxPO4k=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769006814; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769003323; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=wtYUwdUZsrNFIDbbFkRufRXGPspOM1ME+M4e+AuGxio=;
- b=f+EqDH3aVu2kl64X+UsHbR2CJv4ynXZNNLP8fYYtsOWVTtPOjQs7ykZ6FwmKKQbG
- Ub0ox7iljk9Va0y1ysFvwnSKJx61L1BqboTAxBNJlem5I08MlUD3K4wnhYW7NfO8MT2
- ypVLQGD8rI0P9wFqnSahk1bjYvhi/3qM9285LmQ8=
-Received: by mx.zohomail.com with SMTPS id 1769006811743442.0611183045577;
- Wed, 21 Jan 2026 06:46:51 -0800 (PST)
+ bh=SfjcxeAT2W+o+UxrPmZJDMJEXHj1m3+fRUI5YUGISxM=;
+ b=NBgc6ozo0i/RTDRfPAIxxMCsaynl11+ueBDC0eT6tGUo92Lv21csWpMu8MW+PpwE
+ HG8fPD/kd3L6KIb+sPpMgHUXL3U4hMtwD8b3oN8/K0qN3AdNNpVXmLt5KKxEhNA3ehu
+ /RZi4IFp0AyKU9yvGug+X0zTy4RLOdZFb0bOtYKI=
+Received: by mx.zohomail.com with SMTPS id 1769003320832411.20417740809444;
+ Wed, 21 Jan 2026 05:48:40 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 21 Jan 2026 15:45:17 +0100
-Subject: [PATCH v7 10/22] drm/rockchip: vop2: Fix YUV444 output
+Date: Wed, 21 Jan 2026 14:45:47 +0100
+Subject: [PATCH v6 21/21] drm/bridge: Document bridge chain format
+ selection
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-color-format-v7-10-ef790dae780c@collabora.com>
-References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
-In-Reply-To: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
+Message-Id: <20260121-color-format-v6-21-7b81a771cd0b@collabora.com>
+References: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
+In-Reply-To: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
  Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
@@ -88,96 +89,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-YUV444 (aka YCbCr444) output isn't working quite right on RK3588. The
-resulting image on the display, while identifying itself as YUV444, has
-some components swapped, even after adding the necessary DRM formats to
-the conversion functions.
+The bridge chain format selection behaviour was, until now,
+undocumented. With the addition of the "color format" DRM property, it's
+not sufficiently complex enough that documentation is warranted,
+especially for driver authors trying to do the right thing.
 
-Judging by downstream, this is because YUV444 also needs an rb swap
-performed in the AFBC case.
+Add a high-level overview of how the process is supposed to work, and
+mention what the display driver is supposed to do if it wants to make
+use of this functionality.
 
-Add the DRM formats to the appropriate switch statements, and add a
-function for checking whether an rb swap needs to be performed in the
-AFBC case.
-
-Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ Documentation/gpu/drm-kms-helpers.rst |  6 ++++++
+ drivers/gpu/drm/drm_bridge.c          | 39 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 45 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index ec3b4fde10db..469c63dd97d5 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -176,6 +176,7 @@ static enum vop2_data_format vop2_convert_format(u32 format)
- 	case DRM_FORMAT_ARGB2101010:
- 	case DRM_FORMAT_XBGR2101010:
- 	case DRM_FORMAT_ABGR2101010:
-+	case DRM_FORMAT_VUY101010:
- 		return VOP2_FMT_XRGB101010;
- 	case DRM_FORMAT_XRGB8888:
- 	case DRM_FORMAT_ARGB8888:
-@@ -184,6 +185,7 @@ static enum vop2_data_format vop2_convert_format(u32 format)
- 		return VOP2_FMT_ARGB8888;
- 	case DRM_FORMAT_RGB888:
- 	case DRM_FORMAT_BGR888:
-+	case DRM_FORMAT_VUY888:
- 		return VOP2_FMT_RGB888;
- 	case DRM_FORMAT_RGB565:
- 	case DRM_FORMAT_BGR565:
-@@ -225,6 +227,7 @@ static enum vop2_afbc_format vop2_convert_afbc_format(u32 format)
- 	case DRM_FORMAT_ARGB2101010:
- 	case DRM_FORMAT_XBGR2101010:
- 	case DRM_FORMAT_ABGR2101010:
-+	case DRM_FORMAT_VUY101010:
- 		return VOP2_AFBC_FMT_ARGB2101010;
- 	case DRM_FORMAT_XRGB8888:
- 	case DRM_FORMAT_ARGB8888:
-@@ -233,6 +236,7 @@ static enum vop2_afbc_format vop2_convert_afbc_format(u32 format)
- 		return VOP2_AFBC_FMT_ARGB8888;
- 	case DRM_FORMAT_RGB888:
- 	case DRM_FORMAT_BGR888:
-+	case DRM_FORMAT_VUY888:
- 		return VOP2_AFBC_FMT_RGB888;
- 	case DRM_FORMAT_RGB565:
- 	case DRM_FORMAT_BGR565:
-@@ -270,6 +274,19 @@ static bool vop2_win_rb_swap(u32 format)
- 	}
- }
+diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
+index 781129f78b06..47c4f593cf9d 100644
+--- a/Documentation/gpu/drm-kms-helpers.rst
++++ b/Documentation/gpu/drm-kms-helpers.rst
+@@ -181,6 +181,12 @@ Bridge Operations
+ .. kernel-doc:: drivers/gpu/drm/drm_bridge.c
+    :doc: bridge operations
  
-+static bool vop2_afbc_rb_swap(u32 format)
-+{
-+	switch (format) {
-+	case DRM_FORMAT_NV24:
-+	case DRM_FORMAT_NV30:
-+	case DRM_FORMAT_VUY888:
-+	case DRM_FORMAT_VUY101010:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
++Bridge Chain Format Selection
++-----------------------------
 +
- static bool vop2_afbc_uv_swap(u32 format)
- {
- 	switch (format) {
-@@ -1291,6 +1308,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 		 /* It's for head stride, each head size is 16 byte */
- 		stride = ALIGN(stride, block_w) / block_w * 16;
++.. kernel-doc:: drivers/gpu/drm/drm_bridge.c
++   :doc: bridge chain format selection
++
+ Bridge Connector Helper
+ -----------------------
  
-+		rb_swap = vop2_afbc_rb_swap(fb->format->format);
- 		uv_swap = vop2_afbc_uv_swap(fb->format->format);
- 		/*
- 		 * This is a workaround for crazy IC design, Cluster
-@@ -1308,6 +1326,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 			vop2_win_write(win, VOP2_WIN_AFBC_ENABLE, 1);
- 		vop2_win_write(win, VOP2_WIN_AFBC_FORMAT, afbc_format);
- 		vop2_win_write(win, VOP2_WIN_AFBC_UV_SWAP, uv_swap);
-+		vop2_win_write(win, VOP2_WIN_AFBC_RB_SWAP, rb_swap);
- 		/*
- 		 * On rk3566/8, this bit is auto gating enable,
- 		 * but this function is not work well so we need
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index b0dfa03dbb81..a155b8aa4a3d 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -198,6 +198,45 @@
+  * driver.
+  */
+ 
++/**
++ * DOC: bridge chain format selection
++ *
++ * A bridge chain, from display output processor to connector, may contain
++ * bridges capable of converting between bus formats on their inputs, and
++ * output formats on their outputs. For example, a bridge may be able to convert
++ * from RGB to YCbCr 4:4:4, and pass through YCbCr 4:2:0 as-is, but not convert
++ * from RGB to YCbCr 4:2:0. This means not all input formats map to all output
++ * formats.
++ *
++ * Further adding to this, a desired output color format, as specified with the
++ * "color format" DRM property, might not correspond to what the display driver
++ * should set at its output 1:1. The bridge chain it feeds into may only be able
++ * to reach the desired output format, if a conversion from a different starting
++ * format is performed.
++ *
++ * To deal with this complexity, the recursive bridge chain bus format selection
++ * logic starts with the last bridge in the chain, usually the connector, and
++ * then recursively walks the chain of bridges backwards to the first bridge,
++ * trying to find a path.
++ *
++ * For a display driver to work in such a scenario, it should read the first
++ * bridge's bridge state to figure out which bus format the chain resolved to.
++ * If the first bridge's input format resolved to %MEDIA_BUS_FMT_FIXED, then its
++ * output format should be used.
++ *
++ * Special handling is done for HDMI as it relates to format selection. Instead
++ * of directly using the "color format" DRM property for bridge chains that end
++ * in HDMI bridges, the bridge chain format selection logic will trust the logic
++ * that set the HDMI output format. For the common HDMI state helper
++ * functionality, this means that %DRM_COLOR_FORMAT_AUTO will allow fallbacks to
++ * YCBCr 4:2:0 if the bandwidth requirements would otherwise be too high but the
++ * mode and connector allow it.
++ *
++ * For bridge chains that do not end in an HDMI bridge, %DRM_COLOR_FORMAT_AUTO
++ * will be satisfied with the first output format on the last bridge for which
++ * it can find a path back to the first bridge.
++ */
++
+ /* Protect bridge_list and bridge_lingering_list */
+ static DEFINE_MUTEX(bridge_lock);
+ static LIST_HEAD(bridge_list);
 
 -- 
 2.52.0
