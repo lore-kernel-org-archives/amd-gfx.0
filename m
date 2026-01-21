@@ -4,76 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 171B6CA5FDF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51FC8D26296
 	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:47:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EBEC10E7A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0B3610E7A9;
 	Wed, 21 Jan 2026 13:47:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e6+k0CNt";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="dr0ExeED";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A181310E72B;
- Wed, 21 Jan 2026 09:36:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768988192; x=1800524192;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=qL9iu/H5hpUrP/X6+ggfEAqN7pCzi7K6vLcfE1tY/YA=;
- b=e6+k0CNtnOrCxHtia9YZYzbn6HZW3/yeAn50pdVz48/oDX5d4hn1NAYZ
- AInXBnGemUHtxKJnNyMo7YZGh6+wwKxRd/vnrFhKidws+QIUrRyByb5cK
- i5jtMfa5qcBvSykXn2mD/yhUo09Ffm2jPdVwBGS5K++DEEhU6Vs3zfemu
- VJJMw6Wc0AIqNAjVbY9xaKDolfHAe2/3Rmli8FxqZgcgHNbpp2WisUxpA
- lt3ipjM7CI28EH6dxYEFYSMjlh1hdfSAZeZfQhNw5cBGfRJlqgJrXCb0n
- bvpOioRiWQNwV6oR2t/cagC6zqPVVgTD6FnRdJKINY9eHEwwahWl4TP1n Q==;
-X-CSE-ConnectionGUID: 8h/OYap6TlCgU6jGfQYAig==
-X-CSE-MsgGUID: YCmR13y9TliCJByGsV6MLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11677"; a="87624104"
-X-IronPort-AV: E=Sophos;i="6.21,242,1763452800"; d="scan'208";a="87624104"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2026 01:36:32 -0800
-X-CSE-ConnectionGUID: 60Hy4B3ETOyz27yzkkUGrg==
-X-CSE-MsgGUID: Cg2+ahF4Sdui1FjdHXerRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,242,1763452800"; d="scan'208";a="206639396"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO [10.245.245.107])
- ([10.245.245.107])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2026 01:36:24 -0800
-Message-ID: <107464758df9444a465a3a9e387f5a42827aff51.camel@linux.intel.com>
-Subject: Re: [PATCH v3 6/7] vfio: Wait for dma-buf invalidation to complete
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Leon
- Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Alex
- Deucher	 <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter	 <simona@ffwll.ch>, Gerd Hoffmann <kraxel@redhat.com>, Dmitry
- Osipenko	 <dmitry.osipenko@collabora.com>, Gurchetan Singh
- <gurchetansingh@chromium.org>,  Chia-I Wu <olvaffe@gmail.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard	
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Lucas De
- Marchi	 <lucas.demarchi@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, Joerg
- Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy
- <robin.murphy@arm.com>, Felix Kuehling	 <Felix.Kuehling@amd.com>, Alex
- Williamson <alex@shazbot.org>, Ankit Agrawal	 <ankita@nvidia.com>, Vivek
- Kasireddy <vivek.kasireddy@intel.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev, 
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org, 
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 358FB88F94
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 13:31:52 +0000 (UTC)
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-502a26e8711so28381861cf.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 05:31:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1769002311; x=1769607111; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=aX294P4TliS2B0BrPhrC1yfpgvWNBReUGID/aL6TSBE=;
+ b=dr0ExeEDyi5g/bVQS07zFXkgjtpQtmdamxgvPGa+Qbt/TLE9ulnRuTb7t3D5dZVvMe
+ esid7rScWII/APmsLWprvrilGK25VG4wiMFTEwMFsqLMep3Qd98RCrpTnaSSgbYketgo
+ yECNYaz6dqFX5Tj1zQdBPEG5SNFI5bhclWDYpM68gS2axBR0z03aaGyCNVbdlkqUKr1V
+ tJnThtjASU/QEBYtNcMV/k6T15M/jntvWQjn2HmwQucJB1AcVvEYuJDir4nE0Zxz2p73
+ Qj008tDzN1BE98X79V1ittf2pcofPaCJN+M1bZJAfJ+ufY3sL+V0x07tQi3WMgPfC29C
+ sCyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769002311; x=1769607111;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=aX294P4TliS2B0BrPhrC1yfpgvWNBReUGID/aL6TSBE=;
+ b=uGTje9RgJc/br6Xne83ZxOx8TXe+GzFl0MrjYlW9yM5HEPgfGYZZsYsRdJck529jGZ
+ 8hQkZ+8a9zv6sIHwByTmIa/PZ3KCfG7exvHwBOrPLoi2+GFuBSTEpgW04M+G7EqZW44d
+ CBxSEqwn4mqlGQoplPDTqxmDy2BUp9XWYnCMAJCODKldjQHAI4+QuPCcVqXnWPrSwvpA
+ Fi3ZNrzBqKUpjgXIKqrjp2l/AE0hAf5HSq8XWqp+iRGxgZfijfKs/VQjMYKwN9Kvqfuc
+ YZ4dsAaaELZ/PTczmuspEo2B4lgNLwudJRvuT+iqWVKOcFkq/zjf/MSBhL9L8PlgpjDE
+ MpOA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVTGlK+jA69BnOldTSclYOvQIUsnl0Y7Fq8PIdb66dzWip8qzbVdLBw2YRK15dsqaGf8n1fK2j/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyd+FMGJk+qpezAJdS1+IsNxZL1mKZmEvjcxp1MmzGrbE+0XsBY
+ nl+i0uqoqlQGkQwDQeG0Ssjr2LWH3IWX77Yi8k4d5RceiF0H0FzpcDU9mIv091skYxk=
+X-Gm-Gg: AZuq6aINEsolBBpur1K2DpHtt7Fpu/Dv3ZDzPMKAhrYvQvz30Ep4nRBJ8Mv5Q8JZB4s
+ ithk/Lt8wvdxgOkzwh6tWgF9lAlNCUXLe0o65uhVW2sYDxerdkt2901id+zQmA34DYFNCU7XA8j
+ 5DmM/R+jqiOrEZpcenwPs3vwTNqhi6ifhgo8NhFFqwYlA9p+N0eaC8PGKsPw74ud2RmSwH0eilT
+ bXMJYKkXg++oqzARyonhgmwotnK9xm0Pa4jJMnaTDhYsGwZ8sUafq/kvFuZiHl8Jz5OYIDxOwck
+ dYtuacNE1Je0fkXtvlZcn39JbfSDgkSYx2WUyf5hFQjBE68SGL56sTSjjXwqBu9qrp1qflPaTgE
+ qLJ0vRYhi50yEawM+0PmRxZf1R87I5HYoBNukcPAqj0r/KmGSo9o+chaM7ZEztX/nFCCqedpRzr
+ sXl1PeAyCGH2I3oLD4wnrMOBWOipdmijwFpvExeblirp7fTJg9AoDlebrbIwKGy2DyZsyirXLWU
+ tnTyQ==
+X-Received: by 2002:a05:622a:1aa1:b0:4ee:2200:409e with SMTP id
+ d75a77b69052e-502d82772a6mr67009251cf.4.1769002308002; 
+ Wed, 21 Jan 2026 05:31:48 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-502a1f1c1c4sm108692291cf.33.2026.01.21.05.31.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Jan 2026 05:31:47 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1viYJG-00000006Dbm-2x5v;
+ Wed, 21 Jan 2026 09:31:46 -0400
+Date: Wed, 21 Jan 2026 09:31:46 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
  iommu@lists.linux.dev, kvm@vger.kernel.org
-Date: Wed, 21 Jan 2026 10:36:09 +0100
-In-Reply-To: <b129f0c1-b61e-4efb-9e25-d8cdadaca1b3@amd.com>
+Subject: Re: [PATCH v3 6/7] vfio: Wait for dma-buf invalidation to complete
+Message-ID: <20260121133146.GY961572@ziepe.ca>
 References: <20260120-dmabuf-revoke-v3-0-b7e0b07b8214@nvidia.com>
  <20260120-dmabuf-revoke-v3-6-b7e0b07b8214@nvidia.com>
  <b129f0c1-b61e-4efb-9e25-d8cdadaca1b3@amd.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.2 (3.58.2-1.fc43) 
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <b129f0c1-b61e-4efb-9e25-d8cdadaca1b3@amd.com>
 X-Mailman-Approved-At: Wed, 21 Jan 2026 13:47:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,71 +118,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi, Christian,
-
-On Wed, 2026-01-21 at 10:20 +0100, Christian K=C3=B6nig wrote:
+On Wed, Jan 21, 2026 at 10:20:51AM +0100, Christian König wrote:
 > On 1/20/26 15:07, Leon Romanovsky wrote:
 > > From: Leon Romanovsky <leonro@nvidia.com>
-> >=20
-> > dma-buf invalidation is performed asynchronously by hardware, so
-> > VFIO must
+> > 
+> > dma-buf invalidation is performed asynchronously by hardware, so VFIO must
 > > wait until all affected objects have been fully invalidated.
-> >=20
-> > Fixes: 5d74781ebc86 ("vfio/pci: Add dma-buf export support for MMIO
-> > regions")
+> > 
+> > Fixes: 5d74781ebc86 ("vfio/pci: Add dma-buf export support for MMIO regions")
 > > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
->=20
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->=20
+> 
+> Reviewed-by: Christian König <christian.koenig@amd.com>
+> 
 > Please also keep in mind that the while this wait for all fences for
 > correctness you also need to keep the mapping valid until
 > dma_buf_unmap_attachment() was called.
 
-I'm wondering shouldn't we require DMA_RESV_USAGE_BOOKKEEP here, as
-*any* unsignaled fence could indicate access through the map?
+Can you elaborate on this more?
 
-/Thomas
+I think what we want for dma_buf_attach_revocable() is the strong
+guarentee that the importer stops doing all access to the memory once
+this sequence is completed and the exporter can rely on it. I don't
+think this works any other way.
 
->=20
+This is already true for dynamic move capable importers, right?
+
+For the non-revocable importers I can see the invalidate sequence is
+more of an advisory thing and you can't know the access is gone until
+the map is undone.
+
 > In other words you can only redirect the DMA-addresses previously
 > given out into nirvana (or a dummy memory or similar), but you still
 > need to avoid re-using them for something else.
->=20
-> Regards,
-> Christian.
->=20
-> > ---
-> > =C2=A0drivers/vfio/pci/vfio_pci_dmabuf.c | 5 +++++
-> > =C2=A01 file changed, 5 insertions(+)
-> >=20
-> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > index d4d0f7d08c53..33bc6a1909dd 100644
-> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> > @@ -321,6 +321,9 @@ void vfio_pci_dma_buf_move(struct
-> > vfio_pci_core_device *vdev, bool revoked)
-> > =C2=A0			dma_resv_lock(priv->dmabuf->resv, NULL);
-> > =C2=A0			priv->revoked =3D revoked;
-> > =C2=A0			dma_buf_move_notify(priv->dmabuf);
-> > +			dma_resv_wait_timeout(priv->dmabuf->resv,
-> > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> > DMA_RESV_USAGE_KERNEL, false,
-> > +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> > MAX_SCHEDULE_TIMEOUT);
-> > =C2=A0			dma_resv_unlock(priv->dmabuf->resv);
-> > =C2=A0		}
-> > =C2=A0		fput(priv->dmabuf->file);
-> > @@ -342,6 +345,8 @@ void vfio_pci_dma_buf_cleanup(struct
-> > vfio_pci_core_device *vdev)
-> > =C2=A0		priv->vdev =3D NULL;
-> > =C2=A0		priv->revoked =3D true;
-> > =C2=A0		dma_buf_move_notify(priv->dmabuf);
-> > +		dma_resv_wait_timeout(priv->dmabuf->resv,
-> > DMA_RESV_USAGE_KERNEL,
-> > +				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 false,
-> > MAX_SCHEDULE_TIMEOUT);
-> > =C2=A0		dma_resv_unlock(priv->dmabuf->resv);
-> > =C2=A0		vfio_device_put_registration(&vdev->vdev);
-> > =C2=A0		fput(priv->dmabuf->file);
-> >=20
+
+Does any driver do this? If you unload/reload a GPU driver it is
+going to re-use the addresses handed out?
+
+Jason
