@@ -4,77 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 749BDC4453A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E3EAC4453D
 	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:47:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2A5A10E7A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C358410E7A3;
 	Wed, 21 Jan 2026 13:47:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="EXDLm7Pl";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="ogVqmj1l";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C8F210E22D;
- Wed, 21 Jan 2026 13:46:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1769003178; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=SyAMyDaKKo4o8sMbqVNu9U1VYcy6ru7q/Sa6d6S+xV6PCoP2D7ivYsSfKuAsWwR78jINhE1QHCOlBrNyYNQsDl5Baq6904fgC6rX+q2vVKyMQRXN4ZCVPeKchrmoiioa2PnjO6n2rjPer9OZpGyvaeP3RD0qZO90VNOTumIy9eY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1769003178;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=8tbnRLxC7YN9OmZ6Ssd8CDhleEgMPvrSDskSel3YjYw=; 
- b=oBH0DP9UsaQ5coKQJE3hc/8IS14W1xqqa1b0JVNdz26oVOk+LoGFVFutJxlqXVb3tpvnfOWk/vlp2+aj9Hqi2hPNW7v/Z5Z88+kT0+ZCS+LDZVSxFyQndMKymvT+fO1rHnkKmX5EVbe3mz4Qz5JA3hV7XEYbHAL15in0iOOmGs4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769003178; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=8tbnRLxC7YN9OmZ6Ssd8CDhleEgMPvrSDskSel3YjYw=;
- b=EXDLm7PlBylZ09uoyc7VtUczgxLe8v4VUF/RlL0G6gkcy0DIwysXoug9F04WjlAu
- jAcKbhuh+DSpxEnf6TbKNYH7NhLXYBvKk8d6qfuN/I7mgFDy/NXi0v0cyFdA3SLsLTv
- HSGBIbHWZ5NC8YtwWzmo8ALBrv42lUa4vb3GV93s=
-Received: by mx.zohomail.com with SMTPS id 1769003176579352.97627818605895;
- Wed, 21 Jan 2026 05:46:16 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 21 Jan 2026 14:45:29 +0100
-Subject: [PATCH v6 03/21] drm: Add enum conversions between
- DRM_COLOR_FORMAT and HDMI_COLORSPACE
+Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
+ [209.85.222.196])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84E4810E1EF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 13:18:55 +0000 (UTC)
+Received: by mail-qk1-f196.google.com with SMTP id
+ af79cd13be357-8c538d17816so846594585a.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 05:18:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1769001534; x=1769606334; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=wNQCHIWEBRMpiFqsZYjt880FRkRpyp1yzlc3O4lUKsM=;
+ b=ogVqmj1lFq0VLtfSIM84UcyM5lgYt3S8nd+JxAFD1e2wx+WgMk6zjfXLcYmP0Hzpsn
+ RBETwhsPdVCqLlBXyxa1EWR6XdVL9toE9d4pp7hw9e9N17SDuq/sEzKGOU8QgYlvnnKn
+ hWeXYIYtZ9ssUyumpjOm+dJ/CWkgKbiyfwU1HSbqkZjVOwr6Xf4MhehwEAnv9teyO4ZF
+ WYJKQyspAKWeehNezBh8Z3rYcT55g0O9mp8FJntuqodEOx6nZAC2gh2SkrNjfjCSG4Yb
+ C6nqZeNG8kbWA4WPrQY9ynLlOtPGU6oUeAxc7EPKrZAmXzkYZT2+BNla5EK0fT7Vl3pU
+ CMvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769001534; x=1769606334;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=wNQCHIWEBRMpiFqsZYjt880FRkRpyp1yzlc3O4lUKsM=;
+ b=pKJaE1rPos+FVnd65reSP+QxHDJfK3MxqVlJ7j42Ds4Lw8wr7adj6+u1AwO8TJDsSz
+ /I438IZtLVIjbkMAY0vPOCom6/LIznlpIOM9AR7x6fRnze6An2P9kXS5M+uo081tGlZD
+ TdLILKt/dQBjuQAtHdme5EtNTAwrU4+SL+vx0nBu2no2w+wkPNr+TRpZbmyOtG9OAlSs
+ E3Be8okV3RSX8JBZti4uUnb6N72DB+LF84yPttnbZUbc5exWysUqaRDYXmhzCY0nVCfg
+ soTKZC5fNZAxJeddWsvMseBPCD5m6P/pSb5wpwPYap742z2XMulRcP3BZTM3kTTW0SnS
+ YeZw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVuxZMXku6sqMKylP85lW7/qgy7ZslTwdHPo3UhHrd/stk6EV3rmUmD+wyO9hqpHWDmztqluu5t@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzoqanPFwHA5pmr8+dYdevRwYlRq4Rmjtkq1LyLm8lLyZFWTMdb
+ vbxpRFJe2vOw9TsH80sNO+DPL7VW73FMd5Fkeb4up59epomE41+1VlYhorWWWorvL2E=
+X-Gm-Gg: AZuq6aJUhvJPYlTeeiQCXUyWppXDDZTN5wJoV55adXEq8DG4VEzy4pe7gYGzkGAwAY/
+ yPXqhrDq59w0A/Ettts6G6yyCPcKaKPoYLoEBAYvAqx1emOyGMQ1wy7Bl4Tv7wi4rTVKKQEYbtB
+ CP54Z8ENi8gGb8goYMWESAJkXUAuWIpHRS+81+D9aCwPy9xalMb0mnPUYAg/3hlXFRx3dbgeVD/
+ u+K7yoizWnpVG38MpCBVujLl3o6VJl/dJW0qDJ6Tto4RqFdOI9dZXWCxdIay1rpkD45W8VJniFb
+ Y2SLcq/BB7q7+ROGVkqb/7raOOgg5QcVHC/w0yknyrd3QHEZlztd54x8O5hThzDfkb5s7UufyA4
+ +JShMHrM2V0WPX2mKdEOq7coEhZUG1yq22ndELmKZny4Kac6AZ/Zc70Hb/Sq6UFGd1y8sxhDZE2
+ OLqmQLNgR0zOWSuSsxMYmFeaKGd2/yQbL9q9MDTZhficiP0lGeFc/KT3MaOR5eit2s1kk=
+X-Received: by 2002:a05:620a:a819:b0:8c6:aaf3:cb44 with SMTP id
+ af79cd13be357-8c6aaf3cd9bmr2247463385a.4.1769001534382; 
+ Wed, 21 Jan 2026 05:18:54 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8c6a71ad820sm1209794385a.10.2026.01.21.05.18.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Jan 2026 05:18:53 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1viY6m-00000006DUF-3lkE;
+ Wed, 21 Jan 2026 09:18:52 -0400
+Date: Wed, 21 Jan 2026 09:18:52 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v3 3/7] dma-buf: Document RDMA non-ODP
+ invalidate_mapping() special case
+Message-ID: <20260121131852.GX961572@ziepe.ca>
+References: <20260120-dmabuf-revoke-v3-0-b7e0b07b8214@nvidia.com>
+ <20260120-dmabuf-revoke-v3-3-b7e0b07b8214@nvidia.com>
+ <4fe42e7e-846c-4aae-8274-3e9a5e7f9a6d@amd.com>
+ <20260121091423.GY13201@unreal>
+ <7cfe0495-f654-4f9d-8194-fa5717eeafff@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-color-format-v6-3-7b81a771cd0b@collabora.com>
-References: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
-In-Reply-To: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Marius Vlad <marius.vlad@collabora.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7cfe0495-f654-4f9d-8194-fa5717eeafff@amd.com>
 X-Mailman-Approved-At: Wed, 21 Jan 2026 13:47:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,91 +120,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-While the two enums have similar values, they're not identical, and
-HDMI's enum is defined as per the HDMI standard.
+On Wed, Jan 21, 2026 at 10:17:16AM +0100, Christian König wrote:
+> The whole idea is to make invalidate_mappings truly optional.
 
-Add a simple conversion function from DRM to HDMI. Unexpected inputs
-aren't handled in any clever way, DRM_COLOR_FORMAT_AUTO and any other
-value that doesn't cleanly map to HDMI just gets returned as
-HDMI_COLORSPACE_RGB.
+But it's not really optional! It's absence means we are ignoring UAF
+security issues when the exporters do their move_notify() and nothing
+happens.
 
-Add a second conversion function that gets a DRM_COLOR_FORMAT from an
-HDMI_COLORSPACE as well. In this case, reserved HDMI values that can't
-be converted will result in an -EINVAL return value.
+Given this I don't want to loose the warning log either, the situation
+needs to be reported..
 
-Co-developed-by: Marius Vlad <marius.vlad@collabora.com>
-Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- include/drm/drm_connector.h | 54 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 54 insertions(+)
-
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index b5604dca728a..ffeb42f3b4a3 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2612,6 +2612,60 @@ int drm_connector_attach_color_format_property(struct drm_connector *connector);
- 
- const char *drm_get_color_format_name(enum drm_color_format color_fmt);
- 
-+/**
-+ * drm_color_format_to_hdmi_colorspace - convert DRM color format to HDMI
-+ * @fmt: the &enum drm_color_format to convert
-+ *
-+ * Convert a given &enum drm_color_format to an equivalent
-+ * &enum hdmi_colorspace. For non-representable values and
-+ * %DRM_COLOR_FORMAT_AUTO, the value %HDMI_COLORSPACE_RGB is returned.
-+ *
-+ * Returns: the corresponding &enum hdmi_colorspace value
-+ */
-+static inline enum hdmi_colorspace __pure
-+drm_color_format_to_hdmi_colorspace(enum drm_color_format fmt)
-+{
-+	switch (fmt) {
-+	default:
-+	case DRM_COLOR_FORMAT_AUTO:
-+	case DRM_COLOR_FORMAT_RGB444:
-+		return HDMI_COLORSPACE_RGB;
-+	case DRM_COLOR_FORMAT_YCBCR444:
-+		return HDMI_COLORSPACE_YUV444;
-+	case DRM_COLOR_FORMAT_YCBCR422:
-+		return HDMI_COLORSPACE_YUV422;
-+	case DRM_COLOR_FORMAT_YCBCR420:
-+		return HDMI_COLORSPACE_YUV420;
-+	}
-+}
-+
-+/**
-+ * drm_color_format_from_hdmi_colorspace - convert HDMI color format to DRM
-+ * @fmt: the &enum hdmi_colorspace to convert
-+ *
-+ * Convert a given &enum hdmi_colorspace to an equivalent
-+ * &enum drm_color_format. For non-representable values,
-+ * %-EINVAL is returned.
-+ *
-+ * Returns: the corresponding &enum drm_color_format value, or %-EINVAL
-+ */
-+static inline enum drm_color_format __pure
-+drm_color_format_from_hdmi_colorspace(enum hdmi_colorspace fmt)
-+{
-+	switch (fmt) {
-+	default:
-+		return -EINVAL;
-+	case HDMI_COLORSPACE_RGB:
-+		return DRM_COLOR_FORMAT_RGB444;
-+	case HDMI_COLORSPACE_YUV444:
-+		return DRM_COLOR_FORMAT_YCBCR444;
-+	case HDMI_COLORSPACE_YUV422:
-+		return DRM_COLOR_FORMAT_YCBCR422;
-+	case HDMI_COLORSPACE_YUV420:
-+		return DRM_COLOR_FORMAT_YCBCR420;
-+	}
-+}
-+
- /**
-  * drm_for_each_connector_iter - connector_list iterator macro
-  * @connector: &struct drm_connector pointer used as cursor
-
--- 
-2.52.0
-
+Jason
