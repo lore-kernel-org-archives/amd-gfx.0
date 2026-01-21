@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D4B8C44525
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:00:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD82C4452B
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:00:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1613510E78C;
-	Wed, 21 Jan 2026 13:00:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53F9710E77D;
+	Wed, 21 Jan 2026 13:00:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NA7uryHE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XiD5Mw8d";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84D8810E787;
- Wed, 21 Jan 2026 12:59:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 35C2510E77F;
+ Wed, 21 Jan 2026 13:00:06 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6A60D43BEA;
- Wed, 21 Jan 2026 12:59:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CB17C19424;
- Wed, 21 Jan 2026 12:59:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5075060053;
+ Wed, 21 Jan 2026 13:00:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE989C116D0;
+ Wed, 21 Jan 2026 13:00:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769000398;
- bh=vLjazFYFrcdZwtehxf7gnTv1xyibOoNdpX1K34q0p3I=;
+ s=k20201202; t=1769000405;
+ bh=tkBWbuPcCcp/u7j2SLPWnxsR4yn6Id6uZvGXefafQVg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NA7uryHE9iDwVHrzumlE7t+lD0n+J50JcM2WsmP8rdBM5V740UnFfQSpZd3zEgQlO
- 3KuJZ6ov0sgy0kSEri4J3GcU92CTaacv1iawToZP3zTfDkLPoCbRlTEsUsBEe52rEc
- H47Ac15N2NaKplHUwls8z7+InCqBENsxsXQF8/RCGnFXRTDFrKhCbgA2GMXnHQyxSU
- LyMRfAJwBN8olNZH3eI4jquRR8lckL3LXaGHHC4SUsFUZT5VjOEGNCySBpArnoBXn3
- rVWTFBcdxQK1AlCtQ3m2cgXv4OCxHy8eDXYIXsRQUkN7bFS8HznJU9Rs3eJu7usZDz
- eXLD+zUaulSww==
+ b=XiD5Mw8d/xml0FH5gdmZRlHA4aqR6JveYCrrTDcuzyZ8kXqorfmqTk0E2cd2aFlBt
+ IlyaERqz/4+Csnj0W4X3sPWUI0vbrjrgEL0V0anU1ZWHg3tzvQ51QR6kUlpeWNHigz
+ /6RxVyfBlfEh48rUkNs9u4d+7M8ZsMYk4KBuyFSmmNeFgcNiBYRQFbz4vz8RuQrqKY
+ auHzS5OkYP2LlC6XzGHo2c9H1BmRrxt6eMjDollxj61ne6mII8UwDp3yRoV+SqJ9s8
+ rxCQH4EJGsUoAN6qzjYdeDerw+95p8+z+ILF5ZfB9wY+I1YInEeUO4Awvob9xoaXY2
+ 4zfXVFobpIydg==
 From: Leon Romanovsky <leon@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -55,9 +55,9 @@ Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
  intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
  iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: [PATCH v4 8/8] vfio: Validate dma-buf revocation semantics
-Date: Wed, 21 Jan 2026 14:59:16 +0200
-Message-ID: <20260121-dmabuf-revoke-v4-8-d311cbc8633d@nvidia.com>
+Subject: [PATCH v4 7/8] vfio: Wait for dma-buf invalidation to complete
+Date: Wed, 21 Jan 2026 14:59:15 +0200
+Message-ID: <20260121-dmabuf-revoke-v4-7-d311cbc8633d@nvidia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260121-dmabuf-revoke-v4-0-d311cbc8633d@nvidia.com>
 References: <20260121-dmabuf-revoke-v4-0-d311cbc8633d@nvidia.com>
@@ -81,28 +81,39 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Leon Romanovsky <leonro@nvidia.com>
 
-Use the new dma_buf_attach_revocable() helper to restrict attachments to
-importers that support mapping invalidation.
+dma-buf invalidation is performed asynchronously by hardware, so VFIO must
+wait until all affected objects have been fully invalidated.
 
+Fixes: 5d74781ebc86 ("vfio/pci: Add dma-buf export support for MMIO regions")
 Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 ---
- drivers/vfio/pci/vfio_pci_dmabuf.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-index 5fceefc40e27..85056a5a3faf 100644
+index 362e3d149817..5fceefc40e27 100644
 --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
 +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-@@ -31,6 +31,9 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
- 	if (priv->revoked)
- 		return -ENODEV;
- 
-+	if (!dma_buf_attach_revocable(attachment))
-+		return -EOPNOTSUPP;
-+
- 	return 0;
- }
- 
+@@ -321,6 +321,9 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_device *vdev, bool revoked)
+ 			dma_resv_lock(priv->dmabuf->resv, NULL);
+ 			priv->revoked = revoked;
+ 			dma_buf_invalidate_mappings(priv->dmabuf);
++			dma_resv_wait_timeout(priv->dmabuf->resv,
++					      DMA_RESV_USAGE_BOOKKEEP, false,
++					      MAX_SCHEDULE_TIMEOUT);
+ 			dma_resv_unlock(priv->dmabuf->resv);
+ 		}
+ 		fput(priv->dmabuf->file);
+@@ -342,6 +345,9 @@ void vfio_pci_dma_buf_cleanup(struct vfio_pci_core_device *vdev)
+ 		priv->vdev = NULL;
+ 		priv->revoked = true;
+ 		dma_buf_invalidate_mappings(priv->dmabuf);
++		dma_resv_wait_timeout(priv->dmabuf->resv,
++				      DMA_RESV_USAGE_BOOKKEEP, false,
++				      MAX_SCHEDULE_TIMEOUT);
+ 		dma_resv_unlock(priv->dmabuf->resv);
+ 		vfio_device_put_registration(&vdev->vdev);
+ 		fput(priv->dmabuf->file);
 
 -- 
 2.52.0
