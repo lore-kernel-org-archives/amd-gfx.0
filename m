@@ -4,76 +4,189 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CAC5C44536
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EF99D625FB
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80A4710E915;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC13810E918;
 	Thu, 22 Jan 2026 08:36:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="N3OyL3JI";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="pJ8mlpjr";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78F3288FAE;
- Wed, 21 Jan 2026 13:47:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1769003267; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=bg6117jJr729sFxLoNVNtJ12kdLxqQkhl/AU94N9fu+G1X+JuTVkAm4ypLGaSa+G3OIILcDXmU88OKNe+EKCkwUXeDL0skOaIXihXyVArcKUMbrljA0a/QXJx1p45jJNY98LaLkrdpbegz5pFJJuO/24sOhp2fncN+Ozjy2VvvU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1769003267;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=7Yjl7AEz7PGojFt2JYw9FMo7Abi02d/7TPFmWTuR52w=; 
- b=RiUkyeA6EfJUZi0X7Lyose5BGL2wZveCPKK5gVkX+xg5oi5p/MIdMGwdyb5ey0wEpIDl5x1uZlr/rK9YsyhCRa3WiJBnLC04hZs6JUjrt//s4aBeBMMGyDlANzXCXHNZ7nE7fu0roh6WzMgp8CsXGW8ueFn9KP5DS0ynESFJxpM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769003267; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=7Yjl7AEz7PGojFt2JYw9FMo7Abi02d/7TPFmWTuR52w=;
- b=N3OyL3JIgoj3a8y4KBnjXINcQU2lSMmGaFe9fNLwZBeu3AgIQHpu9mt7dYmOCHKU
- NsXDwIIIjRT5D/dQtlww9YUXSZU17CoCcRN1tzPSHMytCaTXJAm1/GIxT2Lla6KcmMZ
- Nx9mkxBWvAe4AFcJ5QncVeIQbrKHXYUFr1AdlbmM=
-Received: by mx.zohomail.com with SMTPS id 176900326583051.079850612094674;
- Wed, 21 Jan 2026 05:47:45 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 21 Jan 2026 14:45:40 +0100
-Subject: [PATCH v6 14/21] drm/bridge: dw-hdmi-qp: Implement
- atomic_get_output_bus_fmts
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012010.outbound.protection.outlook.com [40.107.209.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D8510E25C;
+ Wed, 21 Jan 2026 20:42:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y2c6dowiGxspV05uaihdLHMAQEd8OvC+OjFyh6mThSk1bUjKml8/zd89pnEpB0PJXpMwqO3VQBrCNF5zoo3AjX0ekM9mJLk6X52CHxOsq3UaH7dKw7OlGaDX/gHGuWa5K1lK9kO1j3z9Gtb4UKbNwqJzingREciUb26DF9MRPhHOgCpRIF5hx18GcT5M30oZv5Ga/jbIMmelFte+wuTD95IAyuVH2aC5Nvk/RpGn4H7wUBKc+6qXz/y0G71udOzFBS9KFCQ6BnRVuSyosI/a7vGgYQcpfmt+ZN7cGVeP2SRTFvnzRsMxuGpsSd1SN+ZhNjp0n7Rc3+BuRdUTjjYZEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x9yIimd4Vs4NazgOmQmC7OLtq204HNUvG5UbFCINeVM=;
+ b=vh1FkeBADq03rhWGo/WVS/k1OMfAtbmK2WR5kamR/tbACvjaf7pyHmbfGosui4BWivb79dW9J0oVt5FmGqCcdO5LKPv4tZfuX731AnltfrvVon7rP4FqpzSX5ymqt41XxD+Q53vAzHefw55mzLk38aIpcOtetL6sOyuKR75acvpt4/9yrgz5gZJCEOyWFz/W5KQjkYXyodq16aAeT+fHhSwut2pto/QOxSJT5+vd+ndwAoLlcuFrevKlHpehtPLnvEjofafkWeWSZh6ehc/JxpWI2fChiWcoXlHz4wRbS/RuaIl96omL0qIIjnw7bhEAsLUEYoaplxc/6eeiVZ4cHQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x9yIimd4Vs4NazgOmQmC7OLtq204HNUvG5UbFCINeVM=;
+ b=pJ8mlpjrP1PshbaOyiyp9bCOxKwLxF8sJr2QeUHXjWKFWZKaJLztQelmf+xZvaGbPayFMAFUweNfAFjVX55Z6p/y5ZJJ1RxgT9qPWhm/SOK+u3oS7z1y6w7gaLhq1V+wae5kCtmbyYFTPMFDmX/KDu8c86hFxXXTKdp7o3XR3UCycTS2Il/ZdaJ9dpDrBYOI/zccEicB+j3FdBX1hf2ki2QMtTUMAzf/TX69HrPWEMGffVmZRgBoyXbmhFiA81gCbRftoPHMNwLxcjoi+gkjde/uvKPn3WIFkmyGa7h+kcIZKKtypp9jLP5KQnmuv+X6hcH5CbSANoAJYvxgNqyk4w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ SA1PR12MB7367.namprd12.prod.outlook.com (2603:10b6:806:2b5::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Wed, 21 Jan
+ 2026 20:41:57 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9542.008; Wed, 21 Jan 2026
+ 20:41:57 +0000
+Message-ID: <020a3944-1413-4090-a230-52a55d264dc3@nvidia.com>
+Date: Wed, 21 Jan 2026 15:41:53 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v6 01/26] rust: clist: Add support to interface with C
+ linked lists
+To: Gary Guo <gary@garyguo.net>, linux-kernel@vger.kernel.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>,
+ Daniel Almeida <daniel.almeida@collabora.com>, joel@joelfernandes.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
+ <20260120204303.3229303-2-joelagnelf@nvidia.com>
+ <DFTTGUYGY72V.3VLVSCB2OOXIB@garyguo.net>
+ <01a981f1-64c7-4504-b309-45a024258fe9@nvidia.com>
+ <DFUK089V1IEU.U83YQT72BO3@garyguo.net>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <DFUK089V1IEU.U83YQT72BO3@garyguo.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-color-format-v6-14-7b81a771cd0b@collabora.com>
-References: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
-In-Reply-To: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.14.3
+X-ClientProxiedBy: MN0P222CA0018.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:531::19) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SA1PR12MB7367:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85a51e10-7854-463e-bd7f-08de592d84cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?bGZ0NU1KVFY4UWwxK2ZRMGRKVmwrUy9WL0NUZ1RKUFY3NUFaMUhjSjV0cDBH?=
+ =?utf-8?B?VEpFUEV0aEJDQ3lBaU5rK0lRalhSOFdDc0lhSS9YbDV6cXFOaElFNUEveElS?=
+ =?utf-8?B?Q0V1bFR2aHZGN2FxdEgvR2RaQVMxZTZ4ZC9TTFpQTE9qMnZFdlRIMXBhL0FT?=
+ =?utf-8?B?Vi9CZWNNZ3BtamxKWDNvYXhjeXg2NjFKQXR0RE1vclBSZndWeDM2U1FlbGpl?=
+ =?utf-8?B?aVRMczRTbkpGRnluZzdsTGQ0Q05SQyszdmR0RjJHRERhUXRkL3owNHQzS1R1?=
+ =?utf-8?B?RDVDRkprR2N5OGlsN1dWTVY2M01rSTg4YlNWNkNyTUN1Qjk5WVIwN2krWHdt?=
+ =?utf-8?B?N2hJSSs1SUI1QnNHVTBSa3M1dHZVSVhqa3lmNUxjT1N3MUI2ZnRYOXVVK2kx?=
+ =?utf-8?B?S0pWc3lEbm5vdGJxU3UwT0hqK084ekFPRVdqUWxVcmI3ZjRiKytnQm5nMFc4?=
+ =?utf-8?B?d3hEd0t2TlVoQTFPak1ibXpEWkQvZ293UGFDcksyby93Qm9SNGUvZjZhKy82?=
+ =?utf-8?B?R3MycExHdi9zUFFyaVhDR1NOalNUZXorMTRXUzVlekFocmdCVVJ5OEU4anJY?=
+ =?utf-8?B?OTNCSXpKL29OOU9JNVNlZ0w2T0YxRFlYODJwWi9FVFR4OW9CY29VbHduUE1u?=
+ =?utf-8?B?TitRZkx6aVpHTjBvM2VTRmhGV2MxaHlKbStBc3ZkQW84aGdPZXNpUE00dk9U?=
+ =?utf-8?B?OElLejA1NnlETG1hMERTTkJiR0VMY2ZsRENZOGdrNm92TWpkU0E3bldmVjRx?=
+ =?utf-8?B?NjRybHU5cGkydFp1Ly9nQ01SNXEwV3liSWJBY3FHV2dBWUxJRWgvRUVkc3ZG?=
+ =?utf-8?B?cXB3LzRxL05nR1BOamVtMWRkb3FGSmJRZWNwUm1pajdKem0wT2RncVd6YmFF?=
+ =?utf-8?B?dWhHSXBtanlVUnJaak1MelhjSW94bzZKOWxtQktBSkIwTWFKWXJiY3BodTJ5?=
+ =?utf-8?B?NlhwSjhjWWdCQ1VaTXNGZFJCczRvYWRwT1hJUUV0d0RkblM0TWxSTmo1Y2Vk?=
+ =?utf-8?B?cTRVWWZ6M01udXpjdGs3NTVDUVZLRktabnN0NzN0YzFIcVdiVmNuWEh5TkFW?=
+ =?utf-8?B?UmxkRi85WDFlM1h6ZWpOcU9NT1IrTXFQNTlDLzIrMnNINFhQbTM1Zks1MjRl?=
+ =?utf-8?B?WkxtcWFSY0VReGdDd2V2cmE5T0xZeWc0OGhMdVNGb2pYclF3aUh6VVBpbHpa?=
+ =?utf-8?B?ZkJoV0FqZisyY0xOTXZYR0xFN2JBbWY4Q2gxdnJOVGh6bEczYW1nWjdYQzZj?=
+ =?utf-8?B?dmpUSWl4ZkJWbzBIdHozbjcrdUNVWCs5ODBvWmdXVThQeENrb3JZTWRkU2kx?=
+ =?utf-8?B?eUtjVGFSRzhNZEtaN09YKy9uekF1SnkxRVNQRCt2WlFOTjlCV2RXRWgyemVB?=
+ =?utf-8?B?RTdzMXk2SklNS2d1WnFFQ1ZXcWRsUnJyekQxVzhGMnNudDNaUGIxRGdwZTBF?=
+ =?utf-8?B?RWg1TzR6eTF3eVo5RlhVY3VETzZySGRLNVJxMTZoRW5xa1JVZUZyWjJRam9j?=
+ =?utf-8?B?enpxMzk2WE5LbDgzdnBKMWNyL1RYVkt3eFpNZkdQRDlwMjY4WnhtY2JJaC85?=
+ =?utf-8?B?bDFVY3RqSUhNckMvMmR1ZXl3UXJHN1JUZ0wrc0RvOVJzZVFCd3FLNS94akg1?=
+ =?utf-8?B?cndTaVg1NG5RSFlPei9Ca1dZQndxcWpWOWUvckh6KzZGdFhSbEp5MVB1N09i?=
+ =?utf-8?B?d25rOGZvRmhod2JleFpRc3ZzRFh4ZituSTJ4eHhleE8vVEVZbXNIVGNHRitp?=
+ =?utf-8?B?NTB3dENFVExSTnZHT0d4eDlEanIrdnlRcnNJaE5zVmNkWUlVMG92aDZNb1pN?=
+ =?utf-8?B?ZnBzMWdlR3dkRmNYOXlnb1QzMUJrS0dVL1doZGxEREVQc1BPUDdlQ1FOZjR3?=
+ =?utf-8?B?K0QxRHlqMEZISExYVTBkUmdVQ2NObnBPV2s0ZEV0STZzU2FRNS9JbWhxRTNa?=
+ =?utf-8?B?dUM2MFY4NEwzMkxSeHYyVEpMczBVam9OREdqaFFDZ2FNb0trZ2Y5SkpYcC9T?=
+ =?utf-8?B?YWRnK0NkODAwNGpmMHhyNWxZeW9ydGRIZXdSRDZGUmJhZFlodVNGejZyWGE3?=
+ =?utf-8?B?Ullqd0ZnOHVEWmlPcDV0L3cxR2huQ0hmaWlZbnBHTzM3TEM4U0tBNWlCUFNX?=
+ =?utf-8?Q?VI1I=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUUwdkQ4UHVHU29TOWN5cTMrWExlVytoazI3eEtNMUlpM0cxYkl4MWZuRVRX?=
+ =?utf-8?B?NWs0T01jeFZIMzVubXlheVZGNk9GY2lrRGJwSlFyMERXZ1BlRCthU0ZjOU0r?=
+ =?utf-8?B?Q2hpSnVraFdCbnVGalFyN3oyWStXNWRlNVNhT21OT1VxZnZyZGhLajFmR1pR?=
+ =?utf-8?B?Q1BTMHVCaElqYUV5V0VsSHZ1L2lWbExseU5xNzN3cWJ0NnhFVHBNZEVxNEJa?=
+ =?utf-8?B?NDJMRHo5U0IydEtoWWFPL2tLWGo5OTFUN3VWS0tsZ3hWcXNoUWw3SFN0eWdD?=
+ =?utf-8?B?SVJ6cmZhVmhsdnExQnlMQ1dBQTBCaVQ5NWFXT2lvUmxSTThOenlveGNpZHRh?=
+ =?utf-8?B?ZjZIOGFJWC91VVhWSVRheGhIbGxSQ3Q4NUJseHhpQ1JoWEY1bnFJVVpkK0Np?=
+ =?utf-8?B?M0UyQ095a2JLalk3TlhEcEtNNTlKNU1mUGtSWWd0bEYvU0hlMU93TkxoZ1pL?=
+ =?utf-8?B?RXdPUzYyZ09qN21yL25oZTk2UFlYeVZWY05VMDJDems0a1daanVGZ3l2WGVP?=
+ =?utf-8?B?d1pyWDNHb3ZiZFFaVzlrTFZrdnlPSyt6dFdra3NXdHZWazRNeE1MaTlyYWpv?=
+ =?utf-8?B?ZUJsRU1HaE5XZEtBMkxrckRrK1o2NkdQVDVjaXNqbEh1VVNPb25uMFZHaG9E?=
+ =?utf-8?B?K2dKL2JnTi93dmdWQ2Foa3NIUVRxZmVPNkZjNVpkanYrbU5pNXZGRWUrSnlG?=
+ =?utf-8?B?VnZXS1RyNXdpenp3VGx2R2VYaVlRWGVtVGlkL2RLaCt2V1hIcVY5MU9Gbkk0?=
+ =?utf-8?B?dmVwQ0JHUlc2VU90amdnV21Mblc3Z3Z4L2FjeWRsMlJUV01tNlZjWm1oWTBk?=
+ =?utf-8?B?ZW9mSlRlUEl5dmZuV3JyNy9MaVgwUkZ3dnNoYmpXYWw3aUI4SGhtUkFWT1Q0?=
+ =?utf-8?B?WVIxZ05GOWNDc2F0ZThveTh0c25mVll5WG14S3F4K2tWRzJ6UlpXRVM5RGFH?=
+ =?utf-8?B?TDlJMUR1bjRqWmJpWEZYd2UzOWo5RC9ScGNOenhmSU5seUFqa0tWamZSNE1Y?=
+ =?utf-8?B?YmFDNnFPazBHYjZLZHA0c3gxalNrWG5mUkZhbWZTajZteGFtS3hWSHpkRDhl?=
+ =?utf-8?B?RjRuQkVBVUlYSjhHV0NLQ2dCb1hBYk1BQ3JLajRaaitSV1FjbjQwd0NvQTQ3?=
+ =?utf-8?B?R1EwQittWCtXRmIvcXNObGxCY0cvc2JSOG10bUtPV1NxUkQ3TXcrUUVueXpY?=
+ =?utf-8?B?OHlpKzRRYWZPSFhjRkRVbDIxWTBKQ1pwM0Q5TDVNNTRRYlFwOEZMN2RhVjBj?=
+ =?utf-8?B?R3VvWmg3OHNsNmNUVkF3Tkk4akpCcDBqbzVqb3VRdlhsK3NQUHU4dHMvTk9R?=
+ =?utf-8?B?RDdVVkVOSlY5amsrbHJVMWdzMUp3NG1UeitwaWpsS0JvdVhxVXpzV2p5MVlq?=
+ =?utf-8?B?QlUvaFB4dnBOZSs4bjhodW9STVZmNnE3MVE4Nkw3RlZwSEg2SFJxVmJiSGJq?=
+ =?utf-8?B?OHBwWG5xSmJLU3p6a3BobWFiYnhOUjZIN1JsOUwzMWd2UUpEdFJ5U2JLU1Y2?=
+ =?utf-8?B?dC9QT1NENEo3TURjYnhhWmRuOXhXMmtUVE5FOWV5T01aN1NnTWRGTFI2NFhL?=
+ =?utf-8?B?T01naDZXUjBEWDFESko3VWpJWklhK0ROVTM4cHJueHJVblpyc0s5ZzAwYTNh?=
+ =?utf-8?B?UkFEanpSZW1LWkptdmtzQTFOcTJnTHBycnBRYjFTVkpLMWFIWUdqN3ljbzJE?=
+ =?utf-8?B?dHVza0pKSWVUM2gxL01vN2NvcEdXdmRHaXpNeVI1bk9MS0lwbjZiSXBLNGwx?=
+ =?utf-8?B?MzZQMzhMM0daZytXUDlzRm9NckRvcUp1SVgwaHVySHQ5dUoxdlZURGY5MHNS?=
+ =?utf-8?B?WjFVdS94LzVYVlA4UXNBS2JEK1pjWnFlWXB2Z0JJdVlQdjlOaDZETmk0T2t4?=
+ =?utf-8?B?TXVZc0p0bDJtbm9XcTgyWDlLQlkzcjNkQnpKakVGcWpOWVFvUStCUWRaeXFX?=
+ =?utf-8?B?b2RGWm15YTg4YkhFK20wZEZ2OFdjQlNqZDNuK0x0VUZNaWI0d2hJRVFUeGIv?=
+ =?utf-8?B?bmpVY2pCd0NXTkxrU3pqT2J2R0RJKzJRdndONVVxR3ZlVnNFelZ2eHNWYUpr?=
+ =?utf-8?B?QzNpb3J5ZzdEM1NpS2pmWDMzbnpGeUtyZnJsTG9xSUgzMVAxTFlFblczQTJX?=
+ =?utf-8?B?SFJ6b3pmTnhXOFNwdUFIb1RXV25qMnJZNnUva1VmaGpadmJmdWhrbGNHSlA3?=
+ =?utf-8?B?dFowQ3hvS2VQK3Q5ektmeGk0NTgzZXdIZGpvRGk2VDZMUVVvSG1HbUVVS04v?=
+ =?utf-8?B?bkQ4SW80OTdVeTJSNjluS1ZFNFl2dGJ6ai9jU0Z4ZThMTFRVSGdtNzZoVTZL?=
+ =?utf-8?B?d1JKejVEa3V1anhVNVAwazlNWWRHR1l4Mkd2Mkp3SGtGVmNuU3Fxdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85a51e10-7854-463e-bd7f-08de592d84cc
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2026 20:41:57.3448 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IDXBRDxcBIcpdd+CG+K7hM9j/g885mCCvJhi63+dMKYy1Xk8egdaES+NLStjrn1gSbPgdzQWyrrOWRORmCe+Zg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7367
 X-Mailman-Approved-At: Thu, 22 Jan 2026 08:36:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,112 +202,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The atomic_get_output_bus_fmts callback is used by the DRM bridge layer
-to recursively select a suitable output format in a bridge chain.
 
-As a bridge that outputs to HDMI, dw-hdmi-qp will have its output
-formats determined by which formats the platform-specific integration of
-the hardware supports, and the chosen HDMI output bit depth.
 
-Implement this callback. The returned u32* buffer is supposed to be
-freed by the caller of this callback, as specified by the callback's
-documentation.
+On 1/21/2026 3:36 PM, Gary Guo wrote:
+>> There are 2 users:
+>>
+>>     pub fn try_init<E>(
+>>
+>> and the self-tests:
+> This is not really a public user. It's hidden in the doc test too, you could
+> initialize using try_init too.
+> 
+>> //! # let head = head.as_mut_ptr();
+>> //! # // SAFETY: head and all the items are test objects allocated in [..]
+>> //! # unsafe { init_list_head(head) };
+>> //! #
 
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 64 ++++++++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
+True, but if we initialize purely within try_init() without using a helper, does
+that not defeat the argument of adding a separate INIT_LIST_HEAD helper such
+that we don't deviate from the C side?
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index ab7fed6214e0..82a63964f7f7 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -11,6 +11,7 @@
- #include <linux/export.h>
- #include <linux/i2c.h>
- #include <linux/irq.h>
-+#include <linux/media-bus-format.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
-@@ -862,6 +863,68 @@ static int dw_hdmi_qp_config_audio_infoframe(struct dw_hdmi_qp *hdmi,
- 	return 0;
- }
- 
-+static u32*
-+dw_hdmi_qp_bridge_get_output_bus_fmts(struct drm_bridge *bridge,
-+				      struct drm_bridge_state *bridge_state,
-+				      struct drm_crtc_state *crtc_state,
-+				      struct drm_connector_state *conn_state,
-+				      unsigned int *num_output_fmts)
-+{
-+	unsigned int num_fmts = 0;
-+	u32 *out_fmts;
-+
-+	/*
-+	 * bridge->supported_formats is a bit field of the HDMI_COLORSPACE_* enums.
-+	 * These enums are defined by the HDMI standard, and currently top out at
-+	 * 7. Consequently, BIT(7) is the highest bit that will be set here, unless
-+	 * the standard runs out of reserved pixel formats. Therefore, hweight8()
-+	 * will give an accurate count of how many bus formats we'll output.
-+	 */
-+	out_fmts = kmalloc_array(hweight8(bridge->supported_formats), sizeof(u32),
-+				 GFP_KERNEL);
-+	if (!out_fmts) {
-+		*num_output_fmts = 0;
-+		return NULL;
-+	}
-+
-+	switch (conn_state->hdmi.output_bpc) {
-+	case 12:
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_RGB))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB121212_1X36;
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV444))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV12_1X36;
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV422))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY12_1X24;
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV420))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY12_0_5X36;
-+		break;
-+	case 10:
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_RGB))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB101010_1X30;
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV444))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV10_1X30;
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV422))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY10_1X20;
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV420))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY10_0_5X30;
-+		break;
-+	default:
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_RGB))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB888_1X24;
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV444))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV8_1X24;
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV422))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY8_1X16;
-+		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV420))
-+			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY8_0_5X24;
-+		break;
-+	}
-+
-+	*num_output_fmts = num_fmts;
-+
-+	return out_fmts;
-+}
-+
- static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
- 					    struct drm_atomic_state *state)
- {
-@@ -1213,6 +1276,7 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
- #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
- 
- static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
-+	.atomic_get_output_bus_fmts = dw_hdmi_qp_bridge_get_output_bus_fmts,
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_reset = drm_atomic_helper_bridge_reset,
+Regarding your other comment about the try_init block itself, I will take a look
+at your suggestion and see if I can simplify.
 
 -- 
-2.52.0
+Joel Fernandes
 
