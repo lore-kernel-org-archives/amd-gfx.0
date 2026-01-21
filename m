@@ -4,168 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB19CD111B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 08:24:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFAB6CA5FBA
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 08:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3EA310E6F1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6A5610E6F6;
 	Wed, 21 Jan 2026 08:24:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="NydVoLgG";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="oemnVqHS";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012043.outbound.protection.outlook.com [52.101.48.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 73DD410E6EA;
- Tue, 20 Jan 2026 20:44:36 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011035.outbound.protection.outlook.com [52.101.62.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EFCD10E6D1;
+ Wed, 21 Jan 2026 08:08:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QiXh/hIfuVXjl0/bB3Di49zx2npXJ3f2E9DvG56W5Z0xmdjSr/CvIFoe9AIFBxGZPSL70/vbTIVKRz51RcrC1feiCjNSfXCQixoeL5iE86OfBQbJKfrxMAH0xCdt3IwZF9SSbRycgSbTOm8TxuRwBD5L+WkEYIDCBtge61Sv98h5d6pW7IOZhO35tFPfEjJOEO0Af/wsxUn0Hhw3bxSbSNS52Pv+iXUA2TKwqwkJDeCuONuGFzKUCYMj2Vv8KXnt0zrPBS3VlHq53bCmnK2o9sd5jQRuMr7o62GDN2vUVi1LnalyeBDcySGTxFxOKEyq4CD2mSv8Z+Basr6LjaeRpg==
+ b=j2l342ef7IroXVigXOVsON7VcFDYHdIdYS9dM2fFd81wys5JNE5M0RU2P+XIYU5CepLE6qUbJmIPeNA8gt1zXwfePPUEcsXvtAAikTcH/9oa2FjNs8SIYILgWZbdMIJeH229V+g7qyS2CvXTu9BbfWGia4eUrpNxJUR/x/lWcLmgbHx8I0zDEec+md6QI1U6DpYSeEPPOoJhARJ15rZsx9inLQS7PW/SFSXopycela1SAYyoCSH333TR3tp3W6sOth9WFB/CgRfq3PgSb/00+bPS0LG4AVPD90w6SatAA9CAsjAM0YFxUtGiqkQgFNCf7C4ojeOfg2LRJQnDgxi4mw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nulEOsZpSeXJ7Y5H4Pmyy0krRZ8hN+O1WrImhGyRv9k=;
- b=oZfemtkj6Y8y1pIdRDzYX4mjqvFfeWdpHb5BFpKlALyyTn/d0QbdG1atDgO0ihDrjp4rGaMyS4A2/cQ0PVgV3RAne8GW+pxQkGwPO1a8f8Efh2P/82wAejIBtgHY4oX2yuAR3eReteQxiM/rto0oHM+rkxfpNkvO4GpSJhIxQjMNXO3vE/wYWy9XDhJluAs6DgJ8ycyu7CWZM+WPcvhkGGz81Mhe9fw74TeIYMPhnnNg6BLH9uVSOueM8wwA35da5I+SdmYI0DS/4mieJBW1PT+A820bA9wXNSFZ+YUfqL/xEAVkXodQN3ktugP6f01F+pAT8YBBA13xeLg4//Amlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
+ bh=pHVJd6REl+meqWtvaqgwQfiNlcwUHCoPoutxoGdIu94=;
+ b=u9I8+/PZ4EohZj1aMWxp7znT4ryVc/j9TyxrL34UxNGdNcRVhayb/01ZkhpwetqYyWDrDVLL65BCduCnpgBVGKL9AqiKFqIC0bz6QF8ImMaeubf6ebYUlDy+PuSm5HijndVVspgU5PMafHVxwziuliHnrSZtKF1/CTJDnamnVxaO/ghX5depeLVX62IKwptFAxsBcQYOU7Mb1iXjCBiC0viDC2qRpIDXUrrhA7bmGQls/V93edtkt2KaSDclcrRgonbIWtMPtHGGwDKwyWYhfAp8ZEpOLzTX3BXeA4fXlu6oMb3hu0VYAO43MOqO6eTNvxp0eXa51b4N8YXQBcTX9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nulEOsZpSeXJ7Y5H4Pmyy0krRZ8hN+O1WrImhGyRv9k=;
- b=NydVoLgGfZ8oQ7xYLmZvQdNBjKweF6uTnLlyXoIpjuKUUOkX5QKoHReBt2MIPe3mP+72QMuLqGP5uAuCAqtqasVqf4w5yvX2DkW3Rai9Zayw+4Ic4D23aQHPUdnG5GJFjjig6mhOBQemxgfnGCO+SpBJmiJNUJIUUobu8C1AkUBmy9InIOUDI61a8AFhlAk2AWKwS9qSRkBwzwzRARq3gTqswmheQnhCYZcn6w5y4d8Otbu/7rJJGsclpHFZO9nViw+Nz8cb7F9RyTg+xpMrXbOJ+8kTMFBfFtc0r+CKRqdGjpT/YZqdRaNkwwUJ2SXGk7eQqPryqJ855nw7gjIq4A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- CY1PR12MB9651.namprd12.prod.outlook.com (2603:10b6:930:104::8) with
- Microsoft
+ bh=pHVJd6REl+meqWtvaqgwQfiNlcwUHCoPoutxoGdIu94=;
+ b=oemnVqHSZLDs0H2V9KuAbRc1b3RmiPFn4VMa48LEenyhPL+zYRz1vmKr1PzhXv6BcmSs80wsV+8gmHmqx839jKCoN1hIhwmLFCrU70Jpk0ziPTclVu5vTqT2xmYxl0nF8tfdtf5mfGaisCcLpb0dti6NG2d2VBc7SnN+zLP5XpsTlmlYmNIdCfSgBCkfDX72j5WR4F30rce34GDvsxsUlyUEGkiHJY2hHtQsLprCpCPreYNQ/kJD8FVdHCaOTr0CtKQVW1VrEV9WZMgVJpz4iJ2FX+9IdjsP0JOHEiz+rh0KD6TH41YHII4isiBMqSGoCeAhpKctibgQztFs4wPByQ==
+Received: from BLAP220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::13)
+ by PH7PR12MB8016.namprd12.prod.outlook.com (2603:10b6:510:26b::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Wed, 21 Jan
+ 2026 08:08:06 +0000
+Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
+ (2603:10b6:208:32c:cafe::4) by BLAP220CA0008.outlook.office365.com
+ (2603:10b6:208:32c::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.9 via Frontend Transport; Wed,
+ 21 Jan 2026 08:08:04 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
+ smtp.mailfrom=nvidia.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.13; Tue, 20 Jan 2026 20:44:32 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9542.008; Tue, 20 Jan 2026
- 20:44:32 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+ 15.20.9542.4 via Frontend Transport; Wed, 21 Jan 2026 08:08:05 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 21 Jan
+ 2026 00:07:57 -0800
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.20; Wed, 21 Jan 2026 00:07:56 -0800
+Received: from inno-thin-client (10.127.8.10) by mail.nvidia.com
+ (10.126.190.182) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
+ Transport; Wed, 21 Jan 2026 00:07:46 -0800
+Date: Wed, 21 Jan 2026 10:07:45 +0200
+From: Zhi Wang <zhiw@nvidia.com>
+To: Joel Fernandes <joelagnelf@nvidia.com>
+CC: <linux-kernel@vger.kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>, joel@joelfernandes.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH RFC v6 24/26] nova-core: fb: Add usable_vram field to FbLayout
-Date: Tue, 20 Jan 2026 15:43:01 -0500
-Message-Id: <20260120204303.3229303-25-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260120204303.3229303-1-joelagnelf@nvidia.com>
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, "Alex
+ Deucher" <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost
+ <matthew.brost@intel.com>, Lucas De Marchi <lucas.demarchi@intel.com>, Thomas
+ =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>, Helge Deller
+ <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor
+ <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, Gary Guo
+ <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, "John
+ Hubbard" <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>, Alexandre Courbot
+ <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>, Andy Ritger
+ <aritger@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>, Balbir Singh
+ <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
+ <elle@weathered-steel.dev>, Daniel Almeida <daniel.almeida@collabora.com>,
+ <joel@joelfernandes.org>, <nouveau@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH RFC v6 05/26] nova-core: mm: Add support to use PRAMIN
+ windows to write to VRAM
+Message-ID: <20260121100745.2b5a58e5.zhiw@nvidia.com>
+In-Reply-To: <20260120204303.3229303-6-joelagnelf@nvidia.com>
 References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BL1PR13CA0097.namprd13.prod.outlook.com
- (2603:10b6:208:2b9::12) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ <20260120204303.3229303-6-joelagnelf@nvidia.com>
+Organization: NVIDIA
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CY1PR12MB9651:EE_
-X-MS-Office365-Filtering-Correlation-Id: 923f5975-b2f0-4087-889f-08de5864b6e2
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|PH7PR12MB8016:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46ebc44a-58ca-4049-f78b-08de58c43520
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?MyLVl2DzY00W+YqekWO3Zyh3RWpVxF7y5FcX9zyfHOyB15CCH/M5WVYZIpiP?=
- =?us-ascii?Q?+tL4o8OZpdwIwTtUSaQl1E4gIDwB7Fqs5QgObQ9y7YXJU+D4PBnfSKPO9v/u?=
- =?us-ascii?Q?GFRrirfUJtKQ4lorn82YXq6vKna5QbTOASL/Hvi5sEhVwYynQc4OgzY70vns?=
- =?us-ascii?Q?i3q6xnnDtwwA5Voj+7pzQun22pVOhBKqNYwuAfjVvrBkj/htuNGPTE0USIFB?=
- =?us-ascii?Q?Qe7+2sYLCI0ywMNJR5rpZqvDLAybRmo1KJG/a5ND9MMvBhOfIhTMvg3FQ9Tt?=
- =?us-ascii?Q?r8FxrYhfqJGLT9jnUFX2vdXAt4azfU52/Q2J3Pnlhtrptc9sbZlaRCP7ZoFc?=
- =?us-ascii?Q?cSyYMZqlIEwAC9hANiB7vzCbD9HXLwyWexAlASrwhz9yo1/5jJHbOvpzRJrC?=
- =?us-ascii?Q?FFKadBh7HpHvmtnGhT8qiUHwvgZiaDSxsWS8q99t9u8J4MgRlCIYOazFMjBq?=
- =?us-ascii?Q?kA6j62GN5qI+onLngHDjuVOo4oppzIFXqmBFKoLJg0tpeADaCHx9j58hRQ2a?=
- =?us-ascii?Q?7jqRdZ/p2gTEP2ITb44+xpQ1F9dGzcnYuHCi+cUujg7IVh0JsEgonWMviDmX?=
- =?us-ascii?Q?7moxCHxK1hmcwSDbaSo1AMnW8enIuBvpL3pixhL2MCKDu0KoEYzV+iABHPt/?=
- =?us-ascii?Q?DI7YQ39tdC75aCf9L5y3WyZIRxNZS2oeUMSk34gEIRhdicR9vApuDIkzmbx2?=
- =?us-ascii?Q?/kzZnJ0fXt6OSihh89bx9BxpSN8Q0rXdz2Du9Jx/ChZEKoLE2xyeb19R+hDr?=
- =?us-ascii?Q?u0WFZ57bhaalDMSAD4shydIUio67PEtH5rDQieecE+cxdakhpTXf2IwKfeiP?=
- =?us-ascii?Q?VzrZ/sMjG4DKXH0XPjd6BM2Mdi5JGwuutaVMtGvJU1U0+ENKweK7OX7NMSqb?=
- =?us-ascii?Q?3IfxPus9sX3ZBCcm0W2yERGl22UZcPPL+DGzE7QQUSsLg3qkcs3kwxhJcaT8?=
- =?us-ascii?Q?j1yKG51z6bIuwpufXDLMXxNdC/ft3UxSAfugXtnUvuzTrt9eSyjFAIp0xiV9?=
- =?us-ascii?Q?xksv74FBLmUMgLQvKMCDKtmLwjN2QyGEy7JwPd4w5+GRHfiE4hFkjOsdt68Z?=
- =?us-ascii?Q?SUBvjw3wfBYvLRapmlY2xQKHUah8OtoIl8zfi5ESbfChY0HurXqb05lwgtmp?=
- =?us-ascii?Q?Xl/thFY7yQrBhxULp/Uno6H74bqAxNVSmC9CVQyVXMx1BdRoRFi+NHogESVG?=
- =?us-ascii?Q?opeRFogM/M6noL01yTSsVZFdEdTMZAI9nETGikAJQxHLFSFXMNzxwLmWz9Zp?=
- =?us-ascii?Q?jl6ZCnZ06FqatKpgIinaqeNPYnCshFjGUGb5JcjU5e7oIaFCDudIKycDr1r/?=
- =?us-ascii?Q?67TARJjHrzOSlzCSWLyjzuRJ1GmEQ2hA5yPpRkkQSbvOclOO1aufuKB4UcoZ?=
- =?us-ascii?Q?9aq9MxzHcBv9ARSa7rcKFmPS/F/TzfQ2vNDCM8scYCuLGY2to62+wpyf57Xw?=
- =?us-ascii?Q?WJ5/gQZMUtUhbXEhK1g6frb2wNzjovwt8zd4b0OlIsock83fiytIZIEuzeyJ?=
- =?us-ascii?Q?TyaGGrw/7+9Bnwc4LZkNb9/dUGzHEU/4FtJOlcyu7RiE2BUmKqMZwR5ZM2+5?=
- =?us-ascii?Q?JYYiB9xT8ZWQIqE40yU=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?dX9lmpa0iuV3uA4IBHFB9Ls1rJR6fpnr+MIWVaGidgfsaoYlA5JfWbiWTLob?=
- =?us-ascii?Q?fRKup65M+Up4p+XRr7zoA8Dtl+NEqM6GCi/oVu4BGczQnDry5yfNtY5cR76M?=
- =?us-ascii?Q?+8PemTPtavonlalXT+p4WBF3yxNcE7rT1Tvhfx7HCr2lf4mNKTcjQMEQpJY9?=
- =?us-ascii?Q?B7setFPU7vbIKidKQQDRq5WsiSdQxpCX352HIn6ojfA1c1szY53SqDiw0IRE?=
- =?us-ascii?Q?TIc7cuCTW6Fvq2ye5i+p891gClsrGFMFFmkqgqxrPJLM6d5fuz/iJZgGQKnP?=
- =?us-ascii?Q?CaCaGd3bPkra5bs8tn+1EXQPQoFM/fIzF8O2RTtar3mcPngYF8aBrTbIIYhC?=
- =?us-ascii?Q?99VrlNvWYIle4qrqYALI9u/FkWauKuOHsKAcl8QiKBf4dqh6S5QmTbj4O/Hs?=
- =?us-ascii?Q?7fYRSTgTkpJ17dERvrkn9zt2hjunpi7fUqEwJSb3yVousi/9fZNgxIdR4Ljn?=
- =?us-ascii?Q?TBe/nECfAIISnJL9j5uSWhrUdvWqBtMj6MT5cICJ0xSOhJnqFeiqhMvHGL6Q?=
- =?us-ascii?Q?8ch7qIN++O+Zo1xqm3nWqexsijrkggYm2dHuLPHoG3AJpQs/yF+72mjtGQKm?=
- =?us-ascii?Q?FQbI0rn6A8L4RbmW990WVxMkvja3fsvwaPb+GhMvhRgxbqR8wAKJ5ln1PV/Y?=
- =?us-ascii?Q?jZSkegjpwcwO0L0xa9ptPWjS/nq/Mje4qB3np4cDaTbShOZWlBqOSSFUNgYM?=
- =?us-ascii?Q?9BB/mK5uqXISThq24RV6b//lg5hbdP6Tb9ORyeMbGWRIDRS465f4QweMOSg4?=
- =?us-ascii?Q?s4lIu8jy4SXdXcytg2O3WalFqxgv3hz9bzWQc/X+gQeCDM5NVaZIncK0y6Wv?=
- =?us-ascii?Q?q56lAq2cgHmK8D/bIBbXPaQk/40G+QENnr43htc/dwazHoDftY8o1Oq5gCXC?=
- =?us-ascii?Q?2cTIXgq/aPXnQSNaTnnKhJfjLjJ7sx2ajQhssAwNgX0Nk8WGU+UBa6jAgKjo?=
- =?us-ascii?Q?ZjGzBnblrhMlh+PdF/JYpmvTMoP8S8pF2M+8jtjOfhLEErM4vOnhQOben2QZ?=
- =?us-ascii?Q?fAMuiJunFrNJPBB9LfxMzxHRBd772WOHSjQ32uL+SbPN0JHWM8zHeAhlVcnq?=
- =?us-ascii?Q?vc3TE3uv26hHK89jOc8r/kLxUMzx+wvwfvVg91CH618Hdg6mDbAI0Y9WJp19?=
- =?us-ascii?Q?NoAybl2nmPGh301zUu9t4L9zIf3u20HhOQE79Zr1ke0BIUF+37/4jzP0z8/3?=
- =?us-ascii?Q?e4dXOJ6sN9vVgGmedwuZC6P4yIFFd7WO1YJdvmzrQ9qYAlQUFBgmla3fHP2X?=
- =?us-ascii?Q?N0CYE6Dy6Fy1Gm8X0r90Em3gbNHN10XdNXtCXBmVylw7JBAyOml5jYbR1Vzq?=
- =?us-ascii?Q?i87bzyMA/a9E11ApAzRNVbkXnSuGVhJcw+TYFuObFJFLnxFbcymz+yemRBZp?=
- =?us-ascii?Q?9F+OdX+Pcd0jCW7kaDO+BZ8aHPuIt2t4abf0wBbcci+viA5V10Q0x8dC7vEl?=
- =?us-ascii?Q?3+J/+c+vSbd0NVIZtbKjM78u8BYPvONI0pSOKgLYVeFuL94tuVfNLVSIF7UR?=
- =?us-ascii?Q?dbfBmrh8jbh405mNBNN2fDqfo8EttDZ6T40wGLIdcPkNgTPtrIpwpXSBPCbF?=
- =?us-ascii?Q?VU7jIKtuRRakcNyO9WSgG2EYoCxmUPuf5/9L2zAxnooYi/KlYUV//ha/+sKg?=
- =?us-ascii?Q?GHbrJqeBmmU8zFXW5n5Wdj+BZbSl3UCmE/ZprMyJShLsMtf040/4Mn1hsJ4q?=
- =?us-ascii?Q?FZCE6XZdbsyfcJ+CqNX/68ijzEcTXgUYvxl51rP2/FRGlLib4hsisw6CReal?=
- =?us-ascii?Q?EMTMHuY4tg=3D=3D?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+/DG+zXL3MSiopJ83yiyS9mf3jozI9zbO4SatqCGczg1jsR/lUflES9WN9t+?=
+ =?us-ascii?Q?2Y3Pw6zMZUEQT48BPPN1c+ezscimrAyhG7Tjp55J4/3gWDYz5IeXAN/69WxA?=
+ =?us-ascii?Q?s91+QWGt1wsgIAEIDdt+cW51yMHT/wpX0kiYc6EJYYvpNTwL5H3PNga5ysJi?=
+ =?us-ascii?Q?w4SS6vN0rBRwSBpTs4BVnPOj60s7ztDvOhQYzhz7R52URABLosy17wumdMTY?=
+ =?us-ascii?Q?Pg9CjSer4dmrWdpn5c5Gyv6skwtOwiaCaqbF5mbeGVwAX2ziU2+JpnP+XD7D?=
+ =?us-ascii?Q?ewSwblu5BJTda2IPwMlI5tvhSLgrN7UHOSY4wdrf7u3xFNbDP0uLGzqyhzYH?=
+ =?us-ascii?Q?VX+Sj4/VMNky+qKf3uQD8E5bqMsN1bgqZtTpal0338PqroXWMJAnFVmIuqb3?=
+ =?us-ascii?Q?RwwtoLM+KUJ8BiOVVprEC4vUGI01XUKv2n/GGWi9ON86sTayLIeL67NNL1KA?=
+ =?us-ascii?Q?ZHm43I5Zfw3fk79U7WpGON8WooMhmwDUzGEO0zquHzN4eoU4k8+VvT/Lyokh?=
+ =?us-ascii?Q?Bqq4YuPgQGvjApb9K2qfxsb0Xg7hEgpoMcywsTERFnm73OuK4Oe2AZdZFPWO?=
+ =?us-ascii?Q?WVp9INkBlj8ZteS/DKrf2fG6CzU/MYcj5YcS/c7M/QPWLHs4Jp444tXoEPbC?=
+ =?us-ascii?Q?XVwcLljII4rcq6yVVfRWEcYIAkMseOQEnhNjOtGFPZtyKFFLlRQHwWxA1VQv?=
+ =?us-ascii?Q?HD2H7TMrZkum9tvwZ4WreNRPudjUr1CiwKQoiTv9Vb/O/CynZ5gBu5jV1bL6?=
+ =?us-ascii?Q?1RYTyX2L0pcUxPpcGTm1+q4BYrgSYSWFKtqcPy0Gt2JfPwtB3KEcaSehyY5C?=
+ =?us-ascii?Q?4mS2Uf6XHghFslk71Mfuh9J/XmkWEMdhcTyDKqMcbgb75c/Py//Fbk/apCCd?=
+ =?us-ascii?Q?ufN54yv1WyE+t15nNXAGPdEadm+RFlAe70B0pnb5pnQ8/PdEZI+wsCZU9z3T?=
+ =?us-ascii?Q?BA+UV+c/VaHfJ9iSTJTXBvPQTtbEMzhQ7L1A64/HJ0Vm15/a2nTCIfs/ramH?=
+ =?us-ascii?Q?mOTYT3dJVqyqe0/o70FL2O2rF7yGjJBwZ40WITqj70mzpQgXOW/SKGD2tgzl?=
+ =?us-ascii?Q?MgECeWYl1vy4callMa5HMjR1M9xVJUHrrs9LWTGXUEcqNWT4UWwz5pbnRKkk?=
+ =?us-ascii?Q?IH7RuvG747cxP2wqs5i2nhSwIOvyBzSONmpJTtNLEdDXQ5eYyEyUzDE49fk0?=
+ =?us-ascii?Q?UNAWT12UWt/4AKa1VkOoUoo3ref2yKdqnGnn3KdNS3JLmlt7ojtIVUnUF92d?=
+ =?us-ascii?Q?c3yi78FqojwbhRWGFjT7nG2jq2PRFovD3LYR54Q/mySZmbUEUNRM858wkjy+?=
+ =?us-ascii?Q?Hzn/lL885c2j5hE/Q/xgXo3Bo1P6XQQf6oExvY+nTiJHdlPZ6M6jQrEm/Gao?=
+ =?us-ascii?Q?fU5sWK/t671wJuttIYikf+5lnvR3aG59d2soQsfnm0pZyuD+ow+9Ujlq4/Ul?=
+ =?us-ascii?Q?brytRNEQbd/qwwDRwKNKIjTVsaTS4/5Aev0MnFLtma1kq4m2BUXDyeOseO1U?=
+ =?us-ascii?Q?VcttVioRg4KJ2SbgJyrX3jAORUy0jQarVMP1z7YWFndDaYAnYjPq1BVTW4R4?=
+ =?us-ascii?Q?AKlzZ5V7NNmfrbqtxYKHMJk+umk3jWTEaW1lDSPcIlc33iVZ7M/xQKjRy8cI?=
+ =?us-ascii?Q?xe65WhZknvWB70PQmJnYt1uJnDlYkR2P8+v9d7dYAVlVPUOWvlaScHrMvXAi?=
+ =?us-ascii?Q?jOOLAQ=3D=3D?=
+X-Forefront-Antispam-Report: CIP:216.228.118.232; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc7edge1.nvidia.com; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 923f5975-b2f0-4087-889f-08de5864b6e2
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2026 20:44:32.3394 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2026 08:08:05.9895 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46ebc44a-58ca-4049-f78b-08de58c43520
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2a7NoyYxJw8a5rEhbUmX4+c0dKj+QYWpNOje01600O43glKtA2sTrJiPKdzpGc4WiB/PeFEyYaHA7Sj4N3ix0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9651
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.118.232];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBA.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8016
 X-Mailman-Approved-At: Wed, 21 Jan 2026 08:24:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -181,73 +173,331 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add usable_vram field to FbLayout to store the usable VRAM region for
-driver allocations. This is populated after GSP boot with the region
-extracted from GSP's fbRegionInfoParams.
+On Tue, 20 Jan 2026 15:42:42 -0500
+Joel Fernandes <joelagnelf@nvidia.com> wrote:
 
-FbLayout is now a two-phase structure:
-1. new() computes firmware layout from hardware
-2. set_usable_vram() populates usable region from GSP
+> PRAMIN apertures are a crucial mechanism to direct read/write to VRAM.
+> Add support for the same.
+> 
 
-The new usable_vram field represents the actual usable VRAM region
-(~23.7GB on a 24GB GPU GA102 Ampere GPU).
+I went through the code, this seems not designed for multiple users. As
+this is used for writting PTEs for page tables, can you shed some light
+about the plan of how we should handle the concurrency of writting multiple
+page table PTEs, e.g. when two GPU memory mapping in two different GPU
+page tables are procceding concurrently, this could happen when people
+creating vGPUs concurrently. 
 
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- drivers/gpu/nova-core/fb.rs | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+Z.
 
-diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-index c62abcaed547..779447952b19 100644
---- a/drivers/gpu/nova-core/fb.rs
-+++ b/drivers/gpu/nova-core/fb.rs
-@@ -97,6 +97,10 @@ pub(crate) fn unregister(&self, bar: &Bar0) {
- /// Layout of the GPU framebuffer memory.
- ///
- /// Contains ranges of GPU memory reserved for a given purpose during the GSP boot process.
-+///
-+/// This structure is populated in 2 steps:
-+/// 1. [`FbLayout::new()`] computes firmware layout from hardware.
-+/// 2. [`FbLayout::set_usable_vram()`] populates usable region from GSP response.
- #[derive(Debug)]
- pub(crate) struct FbLayout {
-     /// Range of the framebuffer. Starts at `0`.
-@@ -111,10 +115,14 @@ pub(crate) struct FbLayout {
-     pub(crate) elf: Range<u64>,
-     /// WPR2 heap.
-     pub(crate) wpr2_heap: Range<u64>,
--    /// WPR2 region range, starting with an instance of `GspFwWprMeta`.
-+    /// WPR2 region range, starting with an instance of [`GspFwWprMeta`].
-     pub(crate) wpr2: Range<u64>,
-+    /// Non-WPR heap carved before WPR2, used by GSP firmware.
-     pub(crate) heap: Range<u64>,
-     pub(crate) vf_partition_count: u8,
-+    /// Usable VRAM region for driver allocations (from GSP `fbRegionInfoParams`).
-+    /// Initially [`None`], populated after GSP boot with usable region info.
-+    pub(crate) usable_vram: Option<Range<u64>>,
- }
- 
- impl FbLayout {
-@@ -212,6 +220,19 @@ pub(crate) fn new(chipset: Chipset, bar: &Bar0, gsp_fw: &GspFirmware) -> Result<
-             wpr2,
-             heap,
-             vf_partition_count: 0,
-+            usable_vram: None,
-         })
-     }
-+
-+    /// Set the usable VRAM region from GSP response.
-+    ///
-+    /// Called after GSP boot with the first usable region extracted from
-+    /// GSP's `fbRegionInfoParams`. Usable regions are those that:
-+    /// - Are not reserved for firmware internal use.
-+    /// - Are not protected (hardware-enforced access restrictions).
-+    /// - Support compression (can use GPU memory compression for bandwidth).
-+    /// - Support ISO (isochronous memory for display requiring guaranteed bandwidth).
-+    pub(crate) fn set_usable_vram(&mut self, base: u64, size: u64) {
-+        self.usable_vram = Some(base..base.saturating_add(size));
-+    }
- }
--- 
-2.34.1
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> ---
+>  drivers/gpu/nova-core/mm/mod.rs    |   5 +
+>  drivers/gpu/nova-core/mm/pramin.rs | 244 +++++++++++++++++++++++++++++
+>  drivers/gpu/nova-core/nova_core.rs |   1 +
+>  drivers/gpu/nova-core/regs.rs      |   5 +
+>  4 files changed, 255 insertions(+)
+>  create mode 100644 drivers/gpu/nova-core/mm/mod.rs
+>  create mode 100644 drivers/gpu/nova-core/mm/pramin.rs
+> 
+> diff --git a/drivers/gpu/nova-core/mm/mod.rs
+> b/drivers/gpu/nova-core/mm/mod.rs new file mode 100644
+> index 000000000000..7a5dd4220c67
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/mm/mod.rs
+> @@ -0,0 +1,5 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! Memory management subsystems for nova-core.
+> +
+> +pub(crate) mod pramin;
+> diff --git a/drivers/gpu/nova-core/mm/pramin.rs
+> b/drivers/gpu/nova-core/mm/pramin.rs new file mode 100644
+> index 000000000000..6a7ea2dc7d77
+> --- /dev/null
+> +++ b/drivers/gpu/nova-core/mm/pramin.rs
+> @@ -0,0 +1,244 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +//! Direct VRAM access through the PRAMIN aperture.
+> +//!
+> +//! PRAMIN provides a 1MB sliding window into VRAM through BAR0,
+> allowing the CPU to access +//! video memory directly. The [`Window`]
+> type automatically repositions the window when +//! accessing different
+> VRAM regions and restores the original position on drop. This allows
+> +//! to reuse the same window for multiple accesses in the same window.
+> +//! +//! The PRAMIN aperture is a 1MB region at BAR0 + 0x700000 for all
+> GPUs. The window base is +//! controlled by the `NV_PBUS_BAR0_WINDOW`
+> register and must be 64KB aligned. +//!
+> +//! # Examples
+> +//!
+> +//! ## Basic read/write
+> +//!
+> +//! ```no_run
+> +//! use crate::driver::Bar0;
+> +//! use crate::mm::pramin;
+> +//! use kernel::devres::Devres;
+> +//! use kernel::sync::Arc;
+> +//!
+> +//! fn example(devres_bar: Arc<Devres<Bar0>>) -> Result<()> {
+> +//!     let mut pram_win = pramin::Window::new(devres_bar)?;
+> +//!
+> +//!     // Write and read back.
+> +//!     pram_win.try_write32(0x100, 0xDEADBEEF)?;
+> +//!     let val = pram_win.try_read32(0x100)?;
+> +//!     assert_eq!(val, 0xDEADBEEF);
+> +//!
+> +//!     Ok(())
+> +//!     // Original window position restored on drop.
+> +//! }
+> +//! ```
+> +//!
+> +//! ## Auto-repositioning across VRAM regions
+> +//!
+> +//! ```no_run
+> +//! use crate::driver::Bar0;
+> +//! use crate::mm::pramin;
+> +//! use kernel::devres::Devres;
+> +//! use kernel::sync::Arc;
+> +//!
+> +//! fn example(devres_bar: Arc<Devres<Bar0>>) -> Result<()> {
+> +//!     let mut pram_win = pramin::Window::new(devres_bar)?;
+> +//!
+> +//!     // Access first 1MB region.
+> +//!     pram_win.try_write32(0x100, 0x11111111)?;
+> +//!
+> +//!     // Access at 2MB - window auto-repositions.
+> +//!     pram_win.try_write32(0x200000, 0x22222222)?;
+> +//!
+> +//!     // Back to first region - window repositions again.
+> +//!     let val = pram_win.try_read32(0x100)?;
+> +//!     assert_eq!(val, 0x11111111);
+> +//!
+> +//!     Ok(())
+> +//! }
+> +//! ```
+> +
+> +#![allow(unused)]
+> +
+> +use crate::{
+> +    driver::Bar0,
+> +    regs, //
+> +};
+> +
+> +use kernel::bits::genmask_u64;
+> +use kernel::devres::Devres;
+> +use kernel::prelude::*;
+> +use kernel::ptr::{
+> +    Alignable,
+> +    Alignment, //
+> +};
+> +use kernel::sizes::{
+> +    SZ_1M,
+> +    SZ_64K, //
+> +};
+> +use kernel::sync::Arc;
+> +
+> +/// PRAMIN aperture base offset in BAR0.
+> +const PRAMIN_BASE: usize = 0x700000;
+> +
+> +/// PRAMIN aperture size (1MB).
+> +const PRAMIN_SIZE: usize = SZ_1M;
+> +
+> +/// 64KB alignment for window base.
+> +const WINDOW_ALIGN: Alignment = Alignment::new::<SZ_64K>();
+> +
+> +/// Maximum addressable VRAM offset (40-bit address space).
+> +///
+> +/// The `NV_PBUS_BAR0_WINDOW` register has a 24-bit `window_base` field
+> (bits 23:0) that stores +/// bits [39:16] of the target VRAM address.
+> This limits the addressable space to 2^40 bytes. +///
+> +/// CAST: On 64-bit systems, this fits in usize.
+> +const MAX_VRAM_OFFSET: usize = genmask_u64(0..=39) as usize;
+> +
+> +/// Generate a PRAMIN read accessor.
+> +macro_rules! define_pramin_read {
+> +    ($name:ident, $ty:ty) => {
+> +        #[doc = concat!("Read a `", stringify!($ty), "` from VRAM at
+> the given offset.")]
+> +        pub(crate) fn $name(&mut self, vram_offset: usize) ->
+> Result<$ty> {
+> +            // Compute window parameters without bar reference.
+> +            let (bar_offset, new_base) =
+> +                self.compute_window(vram_offset,
+> ::core::mem::size_of::<$ty>())?; +
+> +            // Update window base if needed and perform read.
+> +            let bar = self.bar.try_access().ok_or(ENODEV)?;
+> +            if let Some(base) = new_base {
+> +                Self::write_window_base(&bar, base);
+> +                self.current_base = base;
+> +            }
+> +            bar.$name(bar_offset)
+> +        }
+> +    };
+> +}
+> +
+> +/// Generate a PRAMIN write accessor.
+> +macro_rules! define_pramin_write {
+> +    ($name:ident, $ty:ty) => {
+> +        #[doc = concat!("Write a `", stringify!($ty), "` to VRAM at the
+> given offset.")]
+> +        pub(crate) fn $name(&mut self, vram_offset: usize, value: $ty)
+> -> Result {
+> +            // Compute window parameters without bar reference.
+> +            let (bar_offset, new_base) =
+> +                self.compute_window(vram_offset,
+> ::core::mem::size_of::<$ty>())?; +
+> +            // Update window base if needed and perform write.
+> +            let bar = self.bar.try_access().ok_or(ENODEV)?;
+> +            if let Some(base) = new_base {
+> +                Self::write_window_base(&bar, base);
+> +                self.current_base = base;
+> +            }
+> +            bar.$name(value, bar_offset)
+> +        }
+> +    };
+> +}
+> +
+> +/// PRAMIN window for direct VRAM access.
+> +///
+> +/// The window auto-repositions when accessing VRAM offsets outside the
+> current 1MB range. +/// Original window position is saved on creation
+> and restored on drop. +pub(crate) struct Window {
+> +    bar: Arc<Devres<Bar0>>,
+> +    saved_base: usize,
+> +    current_base: usize,
+> +}
+> +
+> +impl Window {
+> +    /// Create a new PRAMIN window accessor.
+> +    ///
+> +    /// Saves the current window position for restoration on drop.
+> +    pub(crate) fn new(bar: Arc<Devres<Bar0>>) -> Result<Self> {
+> +        let bar_access = bar.try_access().ok_or(ENODEV)?;
+> +        let saved_base = Self::try_read_window_base(&bar_access)?;
+> +
+> +        Ok(Self {
+> +            bar,
+> +            saved_base,
+> +            current_base: saved_base,
+> +        })
+> +    }
+> +
+> +    /// Read the current window base from the BAR0_WINDOW register.
+> +    fn try_read_window_base(bar: &Bar0) -> Result<usize> {
+> +        let reg = regs::NV_PBUS_BAR0_WINDOW::read(bar);
+> +        let base = u64::from(reg.window_base());
+> +        let shifted = base.checked_shl(16).ok_or(EOVERFLOW)?;
+> +        shifted.try_into().map_err(|_| EOVERFLOW)
+> +    }
+> +
+> +    /// Write a new window base to the BAR0_WINDOW register.
+> +    fn write_window_base(bar: &Bar0, base: usize) {
+> +        // CAST:
+> +        // - We have guaranteed that the base is within the addressable
+> range (40-bits).
+> +        // - After >> 16, a 40-bit aligned base becomes 24 bits, which
+> fits in u32.
+> +        regs::NV_PBUS_BAR0_WINDOW::default()
+> +            .set_window_base((base >> 16) as u32)
+> +            .write(bar);
+> +    }
+> +
+> +    /// Compute window parameters for a VRAM access.
+> +    ///
+> +    /// Returns (bar_offset, new_base) where:
+> +    /// - bar_offset: The BAR0 offset to use for the access
+> +    /// - new_base: Some(base) if window needs repositioning, None
+> otherwise
+> +    fn compute_window(
+> +        &self,
+> +        vram_offset: usize,
+> +        access_size: usize,
+> +    ) -> Result<(usize, Option<usize>)> {
+> +        // Validate VRAM offset is within addressable range (40-bit
+> address space).
+> +        let end_offset =
+> vram_offset.checked_add(access_size).ok_or(EINVAL)?;
+> +        if end_offset > MAX_VRAM_OFFSET + 1 {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        // Calculate which 64KB-aligned base we need.
+> +        let needed_base = vram_offset.align_down(WINDOW_ALIGN);
+> +
+> +        // Calculate offset within the window.
+> +        let offset_in_window = vram_offset - needed_base;
+> +
+> +        // Check if access fits in 1MB window from this base.
+> +        if offset_in_window + access_size > PRAMIN_SIZE {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        // Return bar offset and whether window needs repositioning.
+> +        let new_base = if self.current_base != needed_base {
+> +            Some(needed_base)
+> +        } else {
+> +            None
+> +        };
+> +
+> +        Ok((PRAMIN_BASE + offset_in_window, new_base))
+> +    }
+> +
+> +    define_pramin_read!(try_read8, u8);
+> +    define_pramin_read!(try_read16, u16);
+> +    define_pramin_read!(try_read32, u32);
+> +    define_pramin_read!(try_read64, u64);
+> +
+> +    define_pramin_write!(try_write8, u8);
+> +    define_pramin_write!(try_write16, u16);
+> +    define_pramin_write!(try_write32, u32);
+> +    define_pramin_write!(try_write64, u64);
+> +}
+> +
+> +impl Drop for Window {
+> +    fn drop(&mut self) {
+> +        // Restore the original window base if it changed.
+> +        if self.current_base != self.saved_base {
+> +            if let Some(bar) = self.bar.try_access() {
+> +                Self::write_window_base(&bar, self.saved_base);
+> +            }
+> +        }
+> +    }
+> +}
+> +
+> +// SAFETY: `Window` requires `&mut self` for all accessors.
+> +unsafe impl Send for Window {}
+> +
+> +// SAFETY: `Window` requires `&mut self` for all accessors.
+> +unsafe impl Sync for Window {}
+> diff --git a/drivers/gpu/nova-core/nova_core.rs
+> b/drivers/gpu/nova-core/nova_core.rs index c1121e7c64c5..3de00db3279e
+> 100644 --- a/drivers/gpu/nova-core/nova_core.rs
+> +++ b/drivers/gpu/nova-core/nova_core.rs
+> @@ -13,6 +13,7 @@
+>  mod gfw;
+>  mod gpu;
+>  mod gsp;
+> +mod mm;
+>  mod num;
+>  mod regs;
+>  mod sbuffer;
+> diff --git a/drivers/gpu/nova-core/regs.rs
+> b/drivers/gpu/nova-core/regs.rs index 82cc6c0790e5..c8b8fbdcf608 100644
+> --- a/drivers/gpu/nova-core/regs.rs
+> +++ b/drivers/gpu/nova-core/regs.rs
+> @@ -96,6 +96,11 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) ->
+> kernel::fmt::Result { 31:16   frts_err_code as u16;
+>  });
+>  
+> +register!(NV_PBUS_BAR0_WINDOW @ 0x00001700, "BAR0 window control for
+> PRAMIN access" {
+> +    25:24   target as u8, "Target memory (0=VRAM, 1=SYS_MEM_COH,
+> 2=SYS_MEM_NONCOH)";
+> +    23:0    window_base as u32, "Window base address (bits 39:16 of FB
+> addr)"; +});
+> +
+>  // PFB
+>  
+>  // The following two registers together hold the physical system memory
+> address that is used by the
 
