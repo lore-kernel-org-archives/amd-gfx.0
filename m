@@ -4,107 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E3EAC4453D
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:47:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04F8CC4453F
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:47:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C358410E7A3;
-	Wed, 21 Jan 2026 13:47:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A37E10E7A5;
+	Wed, 21 Jan 2026 13:47:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="ogVqmj1l";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="PEODl+IT";
 	dkim-atps=neutral
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
- [209.85.222.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84E4810E1EF
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 13:18:55 +0000 (UTC)
-Received: by mail-qk1-f196.google.com with SMTP id
- af79cd13be357-8c538d17816so846594585a.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 05:18:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1769001534; x=1769606334; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=wNQCHIWEBRMpiFqsZYjt880FRkRpyp1yzlc3O4lUKsM=;
- b=ogVqmj1lFq0VLtfSIM84UcyM5lgYt3S8nd+JxAFD1e2wx+WgMk6zjfXLcYmP0Hzpsn
- RBETwhsPdVCqLlBXyxa1EWR6XdVL9toE9d4pp7hw9e9N17SDuq/sEzKGOU8QgYlvnnKn
- hWeXYIYtZ9ssUyumpjOm+dJ/CWkgKbiyfwU1HSbqkZjVOwr6Xf4MhehwEAnv9teyO4ZF
- WYJKQyspAKWeehNezBh8Z3rYcT55g0O9mp8FJntuqodEOx6nZAC2gh2SkrNjfjCSG4Yb
- C6nqZeNG8kbWA4WPrQY9ynLlOtPGU6oUeAxc7EPKrZAmXzkYZT2+BNla5EK0fT7Vl3pU
- CMvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769001534; x=1769606334;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=wNQCHIWEBRMpiFqsZYjt880FRkRpyp1yzlc3O4lUKsM=;
- b=pKJaE1rPos+FVnd65reSP+QxHDJfK3MxqVlJ7j42Ds4Lw8wr7adj6+u1AwO8TJDsSz
- /I438IZtLVIjbkMAY0vPOCom6/LIznlpIOM9AR7x6fRnze6An2P9kXS5M+uo081tGlZD
- TdLILKt/dQBjuQAtHdme5EtNTAwrU4+SL+vx0nBu2no2w+wkPNr+TRpZbmyOtG9OAlSs
- E3Be8okV3RSX8JBZti4uUnb6N72DB+LF84yPttnbZUbc5exWysUqaRDYXmhzCY0nVCfg
- soTKZC5fNZAxJeddWsvMseBPCD5m6P/pSb5wpwPYap742z2XMulRcP3BZTM3kTTW0SnS
- YeZw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVuxZMXku6sqMKylP85lW7/qgy7ZslTwdHPo3UhHrd/stk6EV3rmUmD+wyO9hqpHWDmztqluu5t@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoqanPFwHA5pmr8+dYdevRwYlRq4Rmjtkq1LyLm8lLyZFWTMdb
- vbxpRFJe2vOw9TsH80sNO+DPL7VW73FMd5Fkeb4up59epomE41+1VlYhorWWWorvL2E=
-X-Gm-Gg: AZuq6aJUhvJPYlTeeiQCXUyWppXDDZTN5wJoV55adXEq8DG4VEzy4pe7gYGzkGAwAY/
- yPXqhrDq59w0A/Ettts6G6yyCPcKaKPoYLoEBAYvAqx1emOyGMQ1wy7Bl4Tv7wi4rTVKKQEYbtB
- CP54Z8ENi8gGb8goYMWESAJkXUAuWIpHRS+81+D9aCwPy9xalMb0mnPUYAg/3hlXFRx3dbgeVD/
- u+K7yoizWnpVG38MpCBVujLl3o6VJl/dJW0qDJ6Tto4RqFdOI9dZXWCxdIay1rpkD45W8VJniFb
- Y2SLcq/BB7q7+ROGVkqb/7raOOgg5QcVHC/w0yknyrd3QHEZlztd54x8O5hThzDfkb5s7UufyA4
- +JShMHrM2V0WPX2mKdEOq7coEhZUG1yq22ndELmKZny4Kac6AZ/Zc70Hb/Sq6UFGd1y8sxhDZE2
- OLqmQLNgR0zOWSuSsxMYmFeaKGd2/yQbL9q9MDTZhficiP0lGeFc/KT3MaOR5eit2s1kk=
-X-Received: by 2002:a05:620a:a819:b0:8c6:aaf3:cb44 with SMTP id
- af79cd13be357-8c6aaf3cd9bmr2247463385a.4.1769001534382; 
- Wed, 21 Jan 2026 05:18:54 -0800 (PST)
-Received: from ziepe.ca
- (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8c6a71ad820sm1209794385a.10.2026.01.21.05.18.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jan 2026 05:18:53 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1viY6m-00000006DUF-3lkE;
- Wed, 21 Jan 2026 09:18:52 -0400
-Date: Wed, 21 Jan 2026 09:18:52 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v3 3/7] dma-buf: Document RDMA non-ODP
- invalidate_mapping() special case
-Message-ID: <20260121131852.GX961572@ziepe.ca>
-References: <20260120-dmabuf-revoke-v3-0-b7e0b07b8214@nvidia.com>
- <20260120-dmabuf-revoke-v3-3-b7e0b07b8214@nvidia.com>
- <4fe42e7e-846c-4aae-8274-3e9a5e7f9a6d@amd.com>
- <20260121091423.GY13201@unreal>
- <7cfe0495-f654-4f9d-8194-fa5717eeafff@amd.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD1A210E77F;
+ Wed, 21 Jan 2026 13:46:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1769003195; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=QrIkvXjY2DTWhmA5EyZ+VZyphcWkLLrdMBwFscvVw6G9Rn313eZZ7Y2smyAUujBR6iU6FxfHjDU4PrMOV+MCpOCk4vsmXUZUqMgwzCK4ifASRwKWY2k5CEYIOUxap59GiOj36pBbr+Ca8lir/KEZobt5zviH07LeP8XtmT2OMNE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1769003195;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=rvJgPMT+HU5WR06OrKvq+eql2T6omfgWB+OE+x/UWsw=; 
+ b=nowNrHCKZoM2GXi37P3HHv6tfqy5pnyrADbEJqbjXJQK6SU2TShVwqaUuREm2Ya23ICjz/J0pIqfjw/8X42utrk/nLzz54isZBn06rPCsifikGVoK5XAVmG4Lay/vYw0inyeC9l8CjMUXfK3XacqMqDOGAZEShupoK1w1LySfBM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769003194; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=rvJgPMT+HU5WR06OrKvq+eql2T6omfgWB+OE+x/UWsw=;
+ b=PEODl+ITwKP6GlpLs9KULhubv61COnr4rsvAnEtSJ9A6w7WazZ1k+f44XwU3VMjb
+ UTLI5L2C3SheqRh0V96GIw7BpH9Y2M5jyucR6zvZOLn7MhKxKr18Iw1BB1pBFTxbC/6
+ Hri6EUJGtqNA5hauWpzVIbDsAjWKuLiokHLgNYWY=
+Received: by mx.zohomail.com with SMTPS id 1769003192738497.97478706047036;
+ Wed, 21 Jan 2026 05:46:32 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Wed, 21 Jan 2026 14:45:31 +0100
+Subject: [PATCH v6 05/21] drm/display: hdmi-state-helper: Act on color
+ format DRM property
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7cfe0495-f654-4f9d-8194-fa5717eeafff@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260121-color-format-v6-5-7b81a771cd0b@collabora.com>
+References: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
+In-Reply-To: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Wed, 21 Jan 2026 13:47:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,14 +89,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 21, 2026 at 10:17:16AM +0100, Christian König wrote:
-> The whole idea is to make invalidate_mappings truly optional.
+With the introduction of the "color format" DRM property, which allows
+userspace to request a specific color format, the HDMI state helper
+should implement this.
 
-But it's not really optional! It's absence means we are ignoring UAF
-security issues when the exporters do their move_notify() and nothing
-happens.
+Implement it by checking whether the property is set and set to
+something other than auto. If so, pass the requested color format, and
+otherwise set RGB.
 
-Given this I don't want to loose the warning log either, the situation
-needs to be reported..
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-Jason
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index a1d16762ac7a..1ea3b9c93aa5 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -649,11 +649,21 @@ hdmi_compute_config(const struct drm_connector *connector,
+ 	unsigned int max_bpc = clamp_t(unsigned int,
+ 				       conn_state->max_bpc,
+ 				       8, connector->max_bpc);
++	enum hdmi_colorspace hdmi_colorspace =
++		drm_color_format_to_hdmi_colorspace(conn_state->color_format);
+ 	int ret;
+ 
+ 	ret = hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc,
+-				      HDMI_COLORSPACE_RGB);
++				      hdmi_colorspace);
+ 	if (ret) {
++		/* If a color format was explicitly requested, don't fall back */
++		if (conn_state->color_format) {
++			drm_dbg_kms(connector->dev,
++				    "Explicitly set color format '%s' doesn't work.\n",
++				    drm_get_color_format_name(conn_state->color_format));
++			return ret;
++		}
++
+ 		if (connector->ycbcr_420_allowed) {
+ 			ret = hdmi_compute_format_bpc(connector, conn_state,
+ 						      mode, max_bpc,
+
+-- 
+2.52.0
+
