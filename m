@@ -4,75 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDE42D111B0
-	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:47:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 507C5CA5FD7
+	for <amd-gfx@archiver.kernel.org>; Wed, 21 Jan 2026 13:47:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29C5110E7A4;
-	Wed, 21 Jan 2026 13:47:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBB8010E7AD;
+	Wed, 21 Jan 2026 13:47:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ITAr1cTn";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DM1Fq1jx";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D19F110E791;
- Wed, 21 Jan 2026 13:46:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1769003186; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=G5uCFp0YQOV+6HqdtLpBQSuVszSxi1HdPRfmU1lYOjm+9q2qabyJO2R45T4/MD3Nt6tRn5TpuCVGmhmjGVmHG4e6Wvxb/wS26d3p0Zms9ZJx5a7rc8Vt6Tk9J683b0b1/gqrsTghlfxW31sAvTrg4atE/blvQsAd2X4TTRq0+FQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1769003186;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=0ckm22GV4N5RkT5M/XROps5bGf+cWWlT/dPSb77qDWQ=; 
- b=k8kWF5oD+ZkzGHqb+jPcOaE2e5TErQFdapbqLqBH2OtyTE6u2L0tcfrvMguo5hkTkv26g9XsdOKJFpiLeKSUhT0EcqFwxHUY7h5SFr/0z3ng2vqUWW6txuhFhAcs3Wl/AUsAGUy8riJ7q3nlKNWUxW6fQCjdjHlNv7YtTA9+ERs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769003186; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=0ckm22GV4N5RkT5M/XROps5bGf+cWWlT/dPSb77qDWQ=;
- b=ITAr1cTn0HbUhRe4BdHCYFDovQDXlDLF/3K8OItEr2NwPFPM+5JmIAIGGAtBfrA/
- 4f085LQV2Q5NkSXgqzeVCrIbtXyUU0ejhdCjR5Vfrx69yKNiU0lTNZK8iaS/2aflXa/
- +OEba+Nz2cy3KDM1/QlbbTwgTjJ4FG0XVJFLgF7s=
-Received: by mx.zohomail.com with SMTPS id 1769003184702668.8609552382727;
- Wed, 21 Jan 2026 05:46:24 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 21 Jan 2026 14:45:30 +0100
-Subject: [PATCH v6 04/21] drm/bridge: Act on the DRM color format property
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010028.outbound.protection.outlook.com [52.101.61.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43CF810E166;
+ Wed, 21 Jan 2026 09:55:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hSh8BgZXfzA1K+hOWPVPtCXknXs2aHe31UwViPGmJNXKMVA0iBjmO21ZfOOKxi1sdmllVXj/UjploiqFJEgt/SluTztictcolIPCCikPzfZmuyvtZO0iEEoBjjJjfXGRJAsk+S4LK9lJcot9j1zuCmd0t7w33ZypxH71/8CNXujBAz7stw8E8JQTcQE3eRwuprRyGBLL15ddpccRJ6rxz1GGLipAk/lHq8ssRxYrGeUXdIPj8rvO+rea9sDUJPpUz9rt5Z4Lbwfm48lmBTyulsuFismEYcJv7Lblmbz3TxuTtWBemB1PVCp2SirIT5TlUqsQ73tYSNa1SZaMI33jJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nfjaO8rLX6OnscGNkcc9LBgeJjOZ4fSgjTrxS/oKuHw=;
+ b=c7xbIKfsvmte5GloY8NOWIA+wypqVUZTVy0Tp+qf/n5Ln07hVKNLvMGnqQuDF/qCL5byt/atmUm1VCRJ8dT/Rh+YIh0bFsRi2W5J8sqka9oXvAJpZxF4BiHtBR6yFlfn+lI1UaI3j1zv6EXNOOgfyyLiP9L13UaIO6Igoib3Kl1z2o5D7BxTSB3AjU9SrAz6qHtLTMCYIekmy4OUbhwygzGpQAuOH7SUrBFPUSFa5IDvVk3v8XDv/Gra/mtzyxN+ccIuTkgt4xYHPlajG53UufJaMrHpCzlHS257OkFscHun07F0nXlj6RBsI74MRT0MQGzpKb/xOVpau0DzHoCZZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=protonmail.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nfjaO8rLX6OnscGNkcc9LBgeJjOZ4fSgjTrxS/oKuHw=;
+ b=DM1Fq1jxvgX2xfmIwtQPWQk0dTp2rckEUhYwVvw+B1YACffrS/nALeU1GcETff5Uyj4TJnKu8ojV9n5UZpzP8opiezAnAvoqFj2lET8fXc5dRb6UGaOuvrkP7FQQ10mE8p+mwMgimlw78oxTDaibXVYtT9iGWQ4Hm0+Ib80Pz6ds30zQLup3cHSWntGvUUw/9NMObQWhajojlKd4ZwpqR4Czky5j7FzmDxWcRhrhrQCgWOFS3xc99h4QzrAzjjDrzUHSDwdTsl7PVmxFNBoNksmh4QSNmPWmZoiy3LgUrLWJN22XtHgtLLx+gMXLPEQ+c59Z8jZDF6dB2y3zr5ULdQ==
+Received: from SJ0PR03CA0288.namprd03.prod.outlook.com (2603:10b6:a03:39e::23)
+ by CH3PR12MB8658.namprd12.prod.outlook.com (2603:10b6:610:175::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Wed, 21 Jan
+ 2026 09:55:01 +0000
+Received: from MWH0EPF000989E7.namprd02.prod.outlook.com
+ (2603:10b6:a03:39e:cafe::62) by SJ0PR03CA0288.outlook.office365.com
+ (2603:10b6:a03:39e::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.9 via Frontend Transport; Wed,
+ 21 Jan 2026 09:54:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
+ smtp.mailfrom=nvidia.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ MWH0EPF000989E7.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9542.4 via Frontend Transport; Wed, 21 Jan 2026 09:55:00 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 21 Jan
+ 2026 01:54:47 -0800
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.20; Wed, 21 Jan 2026 01:54:46 -0800
+Received: from inno-thin-client (10.127.8.10) by mail.nvidia.com
+ (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.20 via Frontend
+ Transport; Wed, 21 Jan 2026 01:54:37 -0800
+Date: Wed, 21 Jan 2026 11:54:36 +0200
+From: Zhi Wang <zhiw@nvidia.com>
+To: Joel Fernandes <joelagnelf@nvidia.com>
+CC: <linux-kernel@vger.kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, "Alex
+ Deucher" <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui
+ <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, Matthew Brost
+ <matthew.brost@intel.com>, Lucas De Marchi <lucas.demarchi@intel.com>, Thomas
+ =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>, Helge Deller
+ <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor
+ <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, Gary Guo
+ <gary@garyguo.net>, =?UTF-8?B?QmrDtnJu?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ "Alistair Popple" <apopple@nvidia.com>, Alexandre Courbot
+ <acourbot@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, Alexey Ivanov
+ <alexeyi@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, Elle Rhumsaa
+ <elle@weathered-steel.dev>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ <joel@joelfernandes.org>, <nouveau@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH RFC v6 13/26] nova-core: mm: Add unified page table
+ entry wrapper enums
+Message-ID: <20260121115436.45e174d3.zhiw@nvidia.com>
+In-Reply-To: <20260120204303.3229303-14-joelagnelf@nvidia.com>
+References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
+ <20260120204303.3229303-14-joelagnelf@nvidia.com>
+Organization: NVIDIA
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260121-color-format-v6-4-7b81a771cd0b@collabora.com>
-References: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
-In-Reply-To: <20260121-color-format-v6-0-7b81a771cd0b@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.14.3
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000989E7:EE_|CH3PR12MB8658:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13692daa-06af-4a4b-a34a-08de58d32486
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?BfFD3JixCOQrWeO3dToJjYMBti1Mba6PdFGRHDccfZwBAGCuvTmfC0B6o6E9?=
+ =?us-ascii?Q?aLr4CRAXDjQWgJKXlzmPqghHsyAqgz/pH20xzV1NVI8K5K2+rWBoqxOcGfd8?=
+ =?us-ascii?Q?BCBLGx/7CA9PEi9cpC39LA7vhkQwVgDl/QgNd4nH27trSuXZkaQ6pNAooNHL?=
+ =?us-ascii?Q?iDbjjfUIWBLxb8nNUBuE6c5rRRBqAVlYhjLYduLjE4hiXIJNqzmb9Y4GBUb3?=
+ =?us-ascii?Q?boEcNwnFXXm3sKU6yUzWgOI+Zhpy+aHjjiqknPc05ATuDgaodQc38JLZR/KM?=
+ =?us-ascii?Q?iGwOpgIUyqjsmhKp8nVvNKsAh9ZxoBSmvn5bxeHsAFu/9b7GFQHf1WiGkcrE?=
+ =?us-ascii?Q?CE996EJAg0khnZfBz1nTQeHrygQIixqIRjfJEPyyngI0fYZkAz+hghsfM5pV?=
+ =?us-ascii?Q?MHvchPd18bJE9LVx91VJPzK+w2z5pnEbgacIiP+YKI4d9S5ckQO1BPVKfAlm?=
+ =?us-ascii?Q?rXlPr0+mZtvGIev263eyoTBEcSmDkjcIANsbEotpA0dDSBXxsk9ecf5zG8ux?=
+ =?us-ascii?Q?+A9B4jnF/SlWWNeebTAKlgbV9wcM3RO3ATXte4nI2DEeMKhlu3/o8eG6gpqa?=
+ =?us-ascii?Q?izvIKyI6sxCrLZsnjeNsxJEUb9utqQmpa8h7jNXEH57o5XCnWccKvR8oZmHQ?=
+ =?us-ascii?Q?lSHuGDVNtOGtB5Lmv9PSJYEtcOGWPyJ6zNWSamm3yt/ASxpmQffQ2SwWc0XI?=
+ =?us-ascii?Q?dZAaLXAfni7Wd+FM1pivKysOMX7i9AXYvg6js8wNlYwzMoxFaxMQVzBoo8nW?=
+ =?us-ascii?Q?ELM8SUTO/50GIh7RnLJ1vo5LdWVF2opqZtoYi2upOJIKBOO9tKpdmhFj6ccA?=
+ =?us-ascii?Q?FLOh/TUEBvYAQzUar+kmaemFgQMTactA5oGsSgwdghnslF2pR8NTaqTTwdVF?=
+ =?us-ascii?Q?H3cqqrmSVh0slWTRQB347oGmmbcWEiZloJikmCrBXhMkHV6y40ZFN+f0iUFC?=
+ =?us-ascii?Q?rgjRZSgEhSb9dLwLf+8hzGKv7LesCJAObidAe5btUSu1IxRpvCx8hBZ9SMbv?=
+ =?us-ascii?Q?LiY8rYmDhAg53DpBgWMlQZyU84RiYHbJT1X9QVxTMYSsTZlViAO/Sf91B3Tz?=
+ =?us-ascii?Q?N+mGleW56le7lvWa6k0lGXfstTsCmgHYYlDSqKhPEG6ctGVyrkzQMZ3aMkWl?=
+ =?us-ascii?Q?WBp6yyYrnOKKqtqvla0mf07ETkxnkm4FouxWqqwbbHLEbxRw7r4WdAMtWU61?=
+ =?us-ascii?Q?Mb5Qqc8FG9dMBZZslyVBmTB4JrCus33ng+lsfu2vFdRcpIC8Pq+S8hN0WE6L?=
+ =?us-ascii?Q?b5+hRkJJYxkHMrcDN25z3Bzu4zeUIYeOLyQd2L0QpJ5vFPPfWiAvVM//eJWl?=
+ =?us-ascii?Q?t0mahh0a9tijJTH1Hsv3gT3poRjdXMMf1yfvaq9k4M5R7FYc4OzLZp3xXVkM?=
+ =?us-ascii?Q?PYU7/H+Of7sC+stbFAV7GVi6I/Gh6fYWeBVFknofB+EF+QsgnHECuiXB1TiP?=
+ =?us-ascii?Q?QsfIfVB8UrXtUCxigTbGikiDpp1GDqVgfPzf3XXavCq0IRmIyV7LNOCn40aj?=
+ =?us-ascii?Q?hJ+ak9vS180fhD7AqIilrgZiNWJpQcFTiloJvMyokORSW+YBsD7ZA+8zLEKL?=
+ =?us-ascii?Q?lMKuECOiDCIV2wVTpzaXFQT7mae04T+J8EwUMQl78TajBOpmGns9Leu1FNdP?=
+ =?us-ascii?Q?Cmkfe+4LCFbW2TkRRz85i7GrrEYVdODR9fjRVpnqWcIG/H05GZV+ZOQZyuvj?=
+ =?us-ascii?Q?tLF6Mg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:216.228.118.233; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc7edge2.nvidia.com; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2026 09:55:00.6781 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13692daa-06af-4a4b-a34a-08de58d32486
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.118.233];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000989E7.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8658
 X-Mailman-Approved-At: Wed, 21 Jan 2026 13:47:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,135 +170,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The new DRM color format property allows userspace to request a specific
-color format on a connector. In turn, this fills the connector state's
-color_format member to switch color formats.
+On Tue, 20 Jan 2026 15:42:50 -0500
+Joel Fernandes <joelagnelf@nvidia.com> wrote:
+> Add unified Pte, Pde, and DualPde wrapper enums that abstract over
+> MMU v2 and v3 page table entry formats. These enums allow the page
+> table walker and VMM to work with both MMU versions.
+> 
 
-Make drm_bridges consider the color_format set in the connector state
-during the atomic bridge check. For bridges that represent HDMI bridges,
-rely on whatever format the HDMI logic set. Reject any output bus
-formats that do not correspond to the requested color format.
+snip
 
-Non-HDMI last bridges with DRM_COLOR_FORMAT_AUTO set will end up
-choosing the first output format that functions to make a whole
-recursive bridge chain format selection succeed.
+> +impl DualPde {
+> +    /// Create a [`DualPde`] from raw 128-bit value (two `u64`s) for
+> the given MMU version.
+> +    pub(crate) fn new(version: MmuVersion, big: u64, small: u64) ->
+> Self {
+> +        match version {
+> +            MmuVersion::V2 => Self::V2(ver2::DualPde::new(big, small)),
+> +            MmuVersion::V3 => Self::V3(ver3::DualPde::new(big, small)),
+> +        }
+> +    }
+> +
+> +    /// Create a [`DualPde`] with only the small page table pointer set.
+> +    pub(crate) fn new_small(version: MmuVersion, table_pfn: Pfn) ->
+> Self {
+> +        match version {
+> +            MmuVersion::V2 =>
+> Self::V2(ver2::DualPde::new_small(table_pfn)),
+> +            MmuVersion::V3 =>
+> Self::V3(ver3::DualPde::new_small(table_pfn)),
+> +        }
+> +    }
+> +
+> +    /// Check if the small page table pointer is valid.
+> +    pub(crate) fn has_small(&self) -> bool {
+> +        match self {
+> +            Self::V2(d) => d.has_small(),
+> +            Self::V3(d) => d.has_small(),
+> +        }
+> +    }
+> +
 
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/drm_bridge.c | 79 +++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 78 insertions(+), 1 deletion(-)
+Should we also have a has_big here as well?
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 6dcf8f6d3ecf..b0dfa03dbb81 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1116,6 +1116,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
- 	return ret;
- }
- 
-+static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_color_format fmt)
-+{
-+	if (fmt == DRM_COLOR_FORMAT_AUTO)
-+		return true;
-+
-+	switch (bus_fmt) {
-+	case MEDIA_BUS_FMT_FIXED:
-+		return true;
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+	case MEDIA_BUS_FMT_RGB121212_1X36:
-+	case MEDIA_BUS_FMT_RGB161616_1X48:
-+		return fmt == DRM_COLOR_FORMAT_RGB444;
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+	case MEDIA_BUS_FMT_YUV12_1X36:
-+	case MEDIA_BUS_FMT_YUV16_1X48:
-+		return fmt == DRM_COLOR_FORMAT_YCBCR444;
-+	case MEDIA_BUS_FMT_UYVY8_1X16:
-+	case MEDIA_BUS_FMT_VYUY8_1X16:
-+	case MEDIA_BUS_FMT_YUYV8_1X16:
-+	case MEDIA_BUS_FMT_YVYU8_1X16:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
-+	case MEDIA_BUS_FMT_YUYV10_1X20:
-+	case MEDIA_BUS_FMT_VYUY10_1X20:
-+	case MEDIA_BUS_FMT_YVYU10_1X20:
-+	case MEDIA_BUS_FMT_UYVY12_1X24:
-+	case MEDIA_BUS_FMT_VYUY12_1X24:
-+	case MEDIA_BUS_FMT_YUYV12_1X24:
-+	case MEDIA_BUS_FMT_YVYU12_1X24:
-+		return fmt == DRM_COLOR_FORMAT_YCBCR422;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
-+	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
-+		return fmt == DRM_COLOR_FORMAT_YCBCR420;
-+	default:
-+		return false;
-+	}
-+}
-+
- /*
-  * This function is called by &drm_atomic_bridge_chain_check() just before
-  * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
-@@ -1159,6 +1200,7 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
- 	struct drm_encoder *encoder = bridge->encoder;
- 	struct drm_bridge_state *last_bridge_state;
- 	unsigned int i, num_out_bus_fmts = 0;
-+	enum drm_color_format fmt;
- 	u32 *out_bus_fmts;
- 	int ret = 0;
- 
-@@ -1200,13 +1242,48 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
- 			out_bus_fmts[0] = MEDIA_BUS_FMT_FIXED;
- 	}
- 
-+	/*
-+	 * On HDMI connectors, use the output format chosen by whatever does the
-+	 * HDMI logic. For everyone else, just trust that the bridge out_bus_fmts
-+	 * are sorted by preference for %DRM_COLOR_FORMAT_AUTO, as
-+	 * bus_format_is_color_fmt() always returns true for AUTO.
-+	 */
-+	if (last_bridge->ops & DRM_BRIDGE_OP_HDMI) {
-+		fmt = drm_color_format_from_hdmi_colorspace(conn_state->hdmi.output_format);
-+		if (fmt < 0) {
-+			ret = fmt;
-+			drm_dbg_kms(last_bridge->dev,
-+				    "Couldn't convert HDMI format to DRM format: %pe\n",
-+				    ERR_PTR(ret));
-+			goto out_free;
-+		}
-+		drm_dbg_kms(last_bridge->dev, "HDMI bridge requests format %s\n",
-+			    drm_get_color_format_name(fmt));
-+	} else {
-+		fmt = conn_state->color_format;
-+		drm_dbg_kms(last_bridge->dev, "Non-HDMI bridge requests format %s\n",
-+			    drm_get_color_format_name(fmt));
-+	}
-+
- 	for (i = 0; i < num_out_bus_fmts; i++) {
-+		if (!bus_format_is_color_fmt(out_bus_fmts[i], fmt)) {
-+			drm_dbg_kms(last_bridge->dev,
-+				    "Skipping bus format 0x%04x as it doesn't match %s\n",
-+				    out_bus_fmts[i], drm_get_color_format_name(fmt));
-+			ret = -ENOTSUPP;
-+			continue;
-+		}
- 		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
- 					       conn_state, out_bus_fmts[i]);
--		if (ret != -ENOTSUPP)
-+		if (ret != -ENOTSUPP) {
-+			drm_dbg_kms(last_bridge->dev,
-+				    "Found bridge chain ending with bus format 0x%04x\n",
-+				    out_bus_fmts[i]);
- 			break;
-+		}
- 	}
- 
-+out_free:
- 	kfree(out_bus_fmts);
- 
- 	return ret;
+Z.
 
--- 
-2.52.0
+> +    /// Get the small page table VRAM address.
+> +    pub(crate) fn small_vram_address(&self) -> VramAddress {
+> +        match self {
+> +            Self::V2(d) => d.small.table_vram_address(),
+> +            Self::V3(d) => d.small.table_vram_address(),
+> +        }
+> +    }
+> +
+> +    /// Get the raw `u64` value of the big PDE.
+> +    pub(crate) fn big_raw_u64(&self) -> u64 {
+> +        match self {
+> +            Self::V2(d) => d.big.raw_u64(),
+> +            Self::V3(d) => d.big.raw_u64(),
+> +        }
+> +    }
+> +
+> +    /// Get the raw `u64` value of the small PDE.
+> +    pub(crate) fn small_raw_u64(&self) -> u64 {
+> +        match self {
+> +            Self::V2(d) => d.small.raw_u64(),
+> +            Self::V3(d) => d.small.raw_u64(),
+> +        }
+> +    }
+> +}
 
