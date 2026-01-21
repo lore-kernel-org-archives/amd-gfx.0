@@ -4,110 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4BCAD625FF
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2EBCD6260D
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 08:36:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCD2E10E919;
-	Thu, 22 Jan 2026 08:36:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1887810E935;
+	Thu, 22 Jan 2026 08:36:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=joelfernandes.org header.i=@joelfernandes.org header.b="va3Wo3uc";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="S5+ZkMcH";
 	dkim-atps=neutral
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15FB210E85B
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 18:13:00 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-8c52e25e644so12749085a.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 21 Jan 2026 10:13:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=joelfernandes.org; s=google; t=1769019179; x=1769623979;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=odBgMeGleRPkwApB129VpN2tHRH7cELn9wuHglowA3c=;
- b=va3Wo3uc4PCH9CBrnqiRI4nd8mCaa1V4xh6Eb1Ixahcv/Y1G/cJskLPUutHYMn+LjN
- D3U9jbUClVAkqVeqTw7xf8y3RS8NPpvKQnmSxRjuzy52kUBb42r6DAyZN8x+1p/gpMAI
- DCGKqE9S/PRZXdxT1TEd6Rrnr1sA6t7PDxkCI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769019179; x=1769623979;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=odBgMeGleRPkwApB129VpN2tHRH7cELn9wuHglowA3c=;
- b=E9vTSqAKaNMFo9BWOMr15yBjzPJibls92teypb1eojuAaJogzsiT2LFM7yvVyjtkov
- 869/+IRTVwJ7BYIIYV1ELMbM9wGUBrpzID6ekqsM07mbGMeARthrq4uNoYhriqN6ww7Q
- P0yNz0ThJaOSRdRoSpz1byoHFtrIPij7MI8ghkuUM55YyLbUVTM3Fb9qkTjc6VeUVN9Y
- W+rutqDtwheVUwmcZ7STN41wwil8qzB+ci1iW/9PfYCHslJHeBr37EqmRgWDFRoXCBXF
- kinMG3O6SfiheCS88Ga/M6Z5vGe1dCbxdmUJM+7Ww5swXVxbSJAvJRxxhaGRwsq8/eiV
- c8Nw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW7xprVij6gYfQ+sgZgtI/uHbfUoEQiYeWc9oLs2TzNlCmLIMmBvWRik66VQUu+IVsG1mU5Nkpu@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzOwDvqfq3qKBqsfIf8SFNWXcf4IHIKVSh5B2CoDSGMFSqrjhe1
- lCRbe5wzajrCc72nqWuV/+U8ea8yeLpcT2o2rKXsD5U8vq+SMn9uqcC6TvRtAb1EoxE=
-X-Gm-Gg: AZuq6aIuoZoy/6/rnbfMLzEhhtGaoIpDxvTBU+wgI8KuVum9qyZsI9Qd1WVaruhfY3O
- mJtcDzqFVh+gmWYklJCD/idRz51Wq/E5JBOEbB/j2iJY66o50eiRac12RG0IpFYaeCbT3KWSkv0
- mVgMxskIybSNtnEPMZTgoynw8i8xVPWoz/QEwhe/4r+Vm0lHepTlLZAIcDAXz9YH5esESceJS5b
- IVJv+4GCvYOoZYittGY1r/wMlNtg8kvbS7ZOMp7pIxqZoBq95dq8e/Ys1izqu/OR42E5D9quhaF
- R0sUqdXhVjsd+ILWAJ1D+kqdtKQRMdJzQVNKEW4RXsAROqWh2cBYauAHRiyk09OzOWmusg9tucq
- kJH5gwft0DyxvDCvO4GaCPs3gAx64MhqBGvMVnHuGVDPPxavnRbn1Xlb2OCUcwCE3iMcETtX0BY
- hLUWC3RDbl9pDpQ5Cg0rCqGhc3xg==
-X-Received: by 2002:a05:620a:2d90:b0:8c6:a790:cd09 with SMTP id
- af79cd13be357-8c6a790cd9cmr1883910285a.40.1769019178697; 
- Wed, 21 Jan 2026 10:12:58 -0800 (PST)
-Received: from [192.168.0.99] ([71.219.3.177])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8c6a71ab288sm1356284885a.6.2026.01.21.10.12.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jan 2026 10:12:58 -0800 (PST)
-Message-ID: <237f94cc-dde6-4d91-b942-4854e62eeebb@joelfernandes.org>
-Date: Wed, 21 Jan 2026 13:12:55 -0500
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9F7910E834;
+ Wed, 21 Jan 2026 14:48:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1769006892; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=GRAq2EuTac6Mq6i0t+LyJMc7NglhbkgdhY9zkk+h8JURXr8zLYMzbtvSxbITyjSkOhrZK4N3eOqNjWhZvTBbd9BvI8VN53b2tDzYrMRYd6NcC1t2pg3P7wNFhD9ToYo8Wx/btaGGKu7Ii5qw+TxV6a40tM57fia4fl6msBkjJVE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1769006892;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=RSXhbmC3n6qv4fmbrHo/VYnmC01w0SpCKpxl71nPUq4=; 
+ b=ccZcs+LpjWcyC0wPrr+pT6obmlIHpIht5naqvc0KJv2wNO8rBiHCHY+hhec7EjJDv2uMJJPlL+aEK+aSIOXUmLtWeeICoxMklEQWEOw58Ks5MDH4N9mz9tjcGKDZVz1RtvfsedgZTdsrlUSkb5BpbOKrf3yrAgyDN7J2937vjKU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769006892; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=RSXhbmC3n6qv4fmbrHo/VYnmC01w0SpCKpxl71nPUq4=;
+ b=S5+ZkMcHjoohd3WfGKo9QzA0/sYp1/VYdj2z98zvmyqDNz9vmNPol7P68IKSExGM
+ NMQ1yvUqnwhrEGG53K+IXzTOFii2rwj7uD+C1SPm/a/LC4Jy3ePBmZMeghMuqCLQg9T
+ Vqe41P8HS0iWS2L8Zlyl6/vH9U2f8QE9vayouOqk=
+Received: by mx.zohomail.com with SMTPS id 1769006890778410.0564390583087;
+ Wed, 21 Jan 2026 06:48:10 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Wed, 21 Jan 2026 15:45:27 +0100
+Subject: [PATCH v7 20/22] drm/tests: edid: Add __maybe_unused attribute to
+ EDID definitions
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v6 01/26] rust: clist: Add support to interface with C
- linked lists
-To: Zhi Wang <zhiw@nvidia.com>, Joel Fernandes <joelagnelf@nvidia.com>
-Cc: linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Andy Ritger <aritger@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- Boqun Feng <boqun.feng@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>
-References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
- <20260120204303.3229303-2-joelagnelf@nvidia.com>
- <20260121092730.3628d290.zhiw@nvidia.com>
-Content-Language: en-US
-From: Joel Fernandes <joel@joelfernandes.org>
-In-Reply-To: <20260121092730.3628d290.zhiw@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260121-color-format-v7-20-ef790dae780c@collabora.com>
+References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
+In-Reply-To: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Thu, 22 Jan 2026 08:36:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -123,45 +89,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+It's normal for a test suite to need an EDID, but not all EDIDs across
+every test. Silence compiler warnings caused by unused definitions by
+using the appropriate attribute.
 
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/tests/drm_kunit_edid.h | 27 ++++++++++++++++++---------
+ 1 file changed, 18 insertions(+), 9 deletions(-)
 
-On 1/21/2026 2:27 AM, Zhi Wang wrote:
-> 
->> +/// Initialize a `list_head` object to point to itself.
->> +///
->> +/// # Safety
->> +///
->> +/// `list` must be a valid pointer to a `list_head` object.
->> +#[inline]
->> +pub unsafe fn init_list_head(list: *mut bindings::list_head) {
->> +    // SAFETY: Caller guarantees `list` is a valid pointer to a
->> `list_head`.
->> +    unsafe {
->> +        (*list).next = list;
->> +        (*list).prev = list;
->> +    }
->> +}
->> +
->
-> Might be better to have a C helper? since INIT_LIST_HEAD() has WRITE_ONCE()
-> for memory ordering. This one seems not equal to it.
+diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.h b/drivers/gpu/drm/tests/drm_kunit_edid.h
+index f4923157f5bf..18bb7043d7e8 100644
+--- a/drivers/gpu/drm/tests/drm_kunit_edid.h
++++ b/drivers/gpu/drm/tests/drm_kunit_edid.h
+@@ -54,7 +54,8 @@
+  *
+  * EDID conformity: PASS
+  */
+-static const unsigned char test_edid_dvi_1080p[] = {
++static const unsigned char __maybe_unused
++test_edid_dvi_1080p[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+ 	0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+@@ -160,7 +161,8 @@ static const unsigned char test_edid_dvi_1080p[] = {
+  *
+  * EDID conformity: FAIL
+  */
+-static const unsigned char test_edid_hdmi_1080p_rgb_max_100mhz[] = {
++static const unsigned char __maybe_unused
++test_edid_hdmi_1080p_rgb_max_100mhz[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+ 	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+@@ -268,7 +270,8 @@ static const unsigned char test_edid_hdmi_1080p_rgb_max_100mhz[] = {
+  *
+  * EDID conformity: PASS
+  */
+-static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz[] = {
++static const unsigned char __maybe_unused
++test_edid_hdmi_1080p_rgb_max_200mhz[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+ 	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+@@ -387,7 +390,8 @@ static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz[] = {
+  *
+  * EDID conformity: PASS
+  */
+-static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz_hdr[] = {
++static const unsigned char __maybe_unused
++test_edid_hdmi_1080p_rgb_max_200mhz_hdr[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+ 	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+@@ -495,7 +499,8 @@ static const unsigned char test_edid_hdmi_1080p_rgb_max_200mhz_hdr[] = {
+  *
+  * EDID conformity: PASS
+  */
+-static const unsigned char test_edid_hdmi_1080p_rgb_max_340mhz[] = {
++static const unsigned char __maybe_unused
++test_edid_hdmi_1080p_rgb_max_340mhz[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+ 	0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+@@ -609,7 +614,8 @@ static const unsigned char test_edid_hdmi_1080p_rgb_max_340mhz[] = {
+  *
+  * EDID conformity: PASS
+  */
+-static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_200mhz[] = {
++static const unsigned char __maybe_unused
++test_edid_hdmi_1080p_rgb_yuv_dc_max_200mhz[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+ 	0x1a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+@@ -723,7 +729,8 @@ static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_200mhz[] = {
+  *
+  * EDID conformity: PASS
+  */
+-static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz[] = {
++static const unsigned char __maybe_unused
++test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x2a, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x21, 0x01, 0x03, 0x81, 0xa0, 0x5a, 0x78,
+ 	0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20,
+@@ -841,7 +848,8 @@ static const unsigned char test_edid_hdmi_1080p_rgb_yuv_dc_max_340mhz[] = {
+  *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
+  * Checksum: 0xca
+  */
+-static const unsigned char test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz[] = {
++static const unsigned char __maybe_unused
++test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0xff, 0x23, 0x01, 0x03, 0x80, 0x60, 0x36, 0x78,
+ 	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
+@@ -955,7 +963,8 @@ static const unsigned char test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz[
+  *   YCbCr 4:2:0 Video Data Block:
+  * Checksum: 0x84
+  */
+-static const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[] = {
++static const unsigned char __maybe_unused
++test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0xff, 0x23, 0x01, 0x03, 0x80, 0x60, 0x36, 0x78,
+ 	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
 
-WRITE_ONCE() is not really about CPU memory ordering though, it is about
-compiler optimizations. On the C side, I think it is needed in case of
-list_for_each_entry_rcu(), to avoid the case of invented stores or store fusing,
-but here we are not doing RCU-based iteration.
-
-Anyway, if we want to future proof that, I am Ok with adding the helper back
-(which I actually initially had but feedback from past review was to just inline
-it into rust).
-
-But I am not sure if we have this issue for the Rust compiler, like we do for C.
-Rust does not allow raw pointers to be concurrently read/written using plain
-accesses, so should be already protected due to the borrow checker and compiler
-itself right?
-
-Adding some interested folks as well to CC for the topic of _ONCE, +Boqun +Paul.
-
---
-Joel Fernandes
+-- 
+2.52.0
 
