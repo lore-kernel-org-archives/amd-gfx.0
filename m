@@ -4,76 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA954D3EE6B
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 15:01:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B124D3EE73
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 15:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47EF210E078;
-	Thu, 22 Jan 2026 15:01:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A63CF10E9CC;
+	Thu, 22 Jan 2026 15:02:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NCwhzXZJ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nz9dM7//";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E4F010E078
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 15:01:27 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-47ee76e8656so14691945e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 07:01:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769094086; x=1769698886; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cvCjR8X0IAE1BREUCOgJ6vVkdqVRr0pGs0xIiR58gY8=;
- b=NCwhzXZJgLGjKZlAwG+U0wLY5NuY8bqZ5uGVlixS986e2dgM6EEudFdkoDwSXOXUDC
- hSHmrr6evou3/sZOB+VSrx168GAkieY3cal1uGqxzVUn6hBnd0UBnDoF1/2Iubyl5DNi
- lVfta4ahmtMYHVjuZKt1mvc/Abwhg4nZhInUzUjF+ZhQSDkVXM6G6NsySkEFTwgye3H2
- M3IWyA+e/MIKrOp7Wj9o8vORpTab0UM3t27mTluhfNtAtSSAlvazcXyLpFKm7RxsYk8P
- bjuGjT/lPwM5Ayo0aM+NrJ/83/F7IkMtWZBN8P9fzr6YYqtAmTIFZOuEjIjT48fC0/Ns
- FsyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769094086; x=1769698886;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=cvCjR8X0IAE1BREUCOgJ6vVkdqVRr0pGs0xIiR58gY8=;
- b=fOx6+3R6E+cz1z+EKwAs9LVJoBfe7JYlEGBGJFLl2Y8zMUcr8IKcvxJKa4rFJUgk1g
- uwg5g0Ulvskn59YpVwyppf3NvW1sI0kR0AIUZhsRZDYY2mdSId/uHQn9mQuKxUCHKs+c
- RhgtzK/WRp/Oug1fMJwQzZ9lbf+ZzxNtPOp62HWIxQyIBTjTutqZ1Lp31uZ7ykC2DJeA
- r82oJMei4lbRC1NykAvMJEJVRBc/sLllePeyEjch0/IrCozDSGsTSRx6h3JualwnDL30
- FNcO0Nz5ceqx8EozGVjo1eDMtmP/2nA0o9UNKmgMNsbL7OVfa0x6TKVvDMAdd+VH/hfM
- CYMw==
-X-Gm-Message-State: AOJu0YxQcL14QsPpfUPSnXwLYGlyA1+L8d2rNEakecOvpTPsRG53LvLG
- 9DiAW+ugwvGfl3xXDqZ80ZbyTmIBvQ4NpRzKAHBknxgNQnKmuMoHzQx8HAbPeQ==
-X-Gm-Gg: AZuq6aLO4O5PgKrbJiDU6DG7Fn2/7cYcyJerLFQ8nCUgpSXWhANtjX9KtXugweJ/xb1
- eOVNgNsP48q6q4PBT7Gy1fUSTKKzALkrfTErE8wetApwy4hV2Rj6OJG44VBwqM+/zr/A9IxS8a4
- rwb3XfBmRnpIX2UAHlDgRBx9nGEIDAdxdQtvNVmpO69Jkn1B0qio/Sylpmk6lVUi6sUuxmFvap5
- OEMl0xmzyzU6cfaYFB8m+oOoFW9OseU4kiT4dZgsE2b4/FSMIDoAta52z/a3MGnAoZk5306fe75
- VEbN615K4z9L4dE6ORc6qmWD6+hSfrxqOKrg6fHg3s9jEVVSkjIDdwOY6oqEav6Afbjqlflr04k
- 1SY2xG0iVs09iBJnJkyPoLKnvTwpkSD/NTFPg5VHFGreiL/LqtLu2csUUhwEbkIhGGMQq+3fUQD
- 9VJKO6gNKN3yPEZEY06LwHluElv/FVEh2gOfDZAb22P5EHr0uW09gbpudH
-X-Received: by 2002:a05:600c:4692:b0:47d:3ead:7439 with SMTP id
- 5b1f17b1804b1-4803f44a19amr125655945e9.37.1769094085863; 
- Thu, 22 Jan 2026 07:01:25 -0800 (PST)
-Received: from timur-hyperion.localnet (5400182B.dsl.pool.telekom.hu.
- [84.0.24.43]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48048b49880sm59781895e9.11.2026.01.22.07.01.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jan 2026 07:01:25 -0800 (PST)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Jon Doron <jond@wiz.io>, stable@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: fix NULL pointer dereference in
- amdgpu_gmc_filter_faults_remove
-Date: Thu, 22 Jan 2026 16:01:24 +0100
-Message-ID: <2808451.vuYhMxLoTh@timur-hyperion>
-In-Reply-To: <20260121182447.2434085-1-alexander.deucher@amd.com>
-References: <20260121182447.2434085-1-alexander.deucher@amd.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33C3110E9CC;
+ Thu, 22 Jan 2026 15:02:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1769094130; x=1800630130;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ALR8GuadTX3So8VLx4Wdi/iae6jkbUBo1vY7iLVx9+g=;
+ b=nz9dM7//MGiuB6ZisDT2cVRGEvJxjaJxZ4LVA9FXqipfV/F3nxvuYnXU
+ QQ56zMHUNu5PL585l8RLiBcx2Oza0Imd2/UHmGmkov9VXqt2sUKli45dY
+ oEYO9p+T0Xv22nWO6/YZZktLJZSj3lPl+aKO1D7oe3gPILmgKGE1Mugdd
+ XIeS3N+4Sl0rJEQJ0gfRvPfWqReXPYjS2BfVn54cseb1w8Jc9CtRegGjA
+ 8VHdZx0FPz785hjN10Msoxc2YmALdi2FK7CHl+wxrvUkM38Sl75PmFEAU
+ ODX22FCLRGi9Zut3eXfB95h7LxKI7zBsHyATT7ZWyseWAbR8m+QVEKNU/ g==;
+X-CSE-ConnectionGUID: kXz8rzn2TmaU1nilN5EWYA==
+X-CSE-MsgGUID: YTkXiBdIRuGWX1nSCo3Azw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11679"; a="69355121"
+X-IronPort-AV: E=Sophos;i="6.21,246,1763452800"; d="scan'208";a="69355121"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2026 07:02:10 -0800
+X-CSE-ConnectionGUID: iZVwGID0TqWjFX1NVtVw5Q==
+X-CSE-MsgGUID: Y2NU/S/RSg6RyIs/5ttuYw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,246,1763452800"; d="scan'208";a="211611258"
+Received: from egrumbac-mobl6.ger.corp.intel.com (HELO [10.245.244.59])
+ ([10.245.244.59])
+ by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2026 07:02:08 -0800
+Message-ID: <db877e44-a548-4a25-971b-d9a7729701a4@intel.com>
+Date: Thu, 22 Jan 2026 15:02:06 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] drm/buddy: Optimize large alignment handling to avoid
+ unnecessary splits
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20251211122319.2054-1-Arunpravin.PaneerSelvam@amd.com>
+ <b2aa28aa-ce9c-4948-9bed-289700f4eb4a@intel.com>
+ <b8640bf9-1c00-47da-a659-ce79a7af67e3@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <b8640bf9-1c00-47da-a659-ce79a7af67e3@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,84 +75,361 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wednesday, January 21, 2026 7:24:47=E2=80=AFPM Central European Standard=
- Time Alex=20
-Deucher wrote:
-> From: Jon Doron <jond@wiz.io>
->=20
-> On APUs such as Raven and Renoir (GC 9.1.0, 9.2.2, 9.3.0), the ih1 and
-> ih2 interrupt ring buffers are not initialized. This is by design, as
-> these secondary IH rings are only available on discrete GPUs. See
-> vega10_ih_sw_init() which explicitly skips ih1/ih2 initialization when
-> AMD_IS_APU is set.
->=20
-> However, amdgpu_gmc_filter_faults_remove() unconditionally uses ih1 to
-> get the timestamp of the last interrupt entry. When retry faults are
-> enabled on APUs (noretry=3D0), this function is called from the SVM page
-> fault recovery path, resulting in a NULL pointer dereference when
-> amdgpu_ih_decode_iv_ts_helper() attempts to access ih->ring[].
->=20
-> The crash manifests as:
->=20
->   BUG: kernel NULL pointer dereference, address: 0000000000000004
->   RIP: 0010:amdgpu_ih_decode_iv_ts_helper+0x22/0x40 [amdgpu]
->   Call Trace:
->    amdgpu_gmc_filter_faults_remove+0x60/0x130 [amdgpu]
->    svm_range_restore_pages+0xae5/0x11c0 [amdgpu]
->    amdgpu_vm_handle_fault+0xc8/0x340 [amdgpu]
->    gmc_v9_0_process_interrupt+0x191/0x220 [amdgpu]
->    amdgpu_irq_dispatch+0xed/0x2c0 [amdgpu]
->    amdgpu_ih_process+0x84/0x100 [amdgpu]
->=20
-> This issue was exposed by commit 1446226d32a4 ("drm/amdgpu: Remove GC HW
-> IP 9.3.0 from noretry=3D1") which changed the default for Renoir APU from
-> noretry=3D1 to noretry=3D0, enabling retry fault handling and thus
-> exercising the buggy code path.
->=20
-> Fix this by adding a check for ih1.ring_size before attempting to use
-> it. Also restore the soft_ih support from commit dd299441654f ("drm/amdgp=
-u:
-> Rework retry fault removal").  This is needed if the hardware doesn't
-> support secondary HW IH rings.
->=20
-> v2: additional updates (Alex)
->=20
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3814
-> Fixes: dd299441654f ("drm/amdgpu: Rework retry fault removal")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jon Doron <jond@wiz.io>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+On 22/01/2026 14:13, Arunpravin Paneer Selvam wrote:
+> 
+> On 09/01/26 22:12, Matthew Auld wrote:
+>> On 11/12/2025 12:23, Arunpravin Paneer Selvam wrote:
+>>> Large alignment requests previously forced the allocator to search by
+>>> alignment order, causing large free blocks to be split even when a
+>>> smaller aligned range existed within them. This patch switches the
+>>> search to prioritize the requested size and uses an augmented RB-tree
+>>> field (subtree_max_alignment) to efficiently locate blocks that satisfy
+>>> both size and alignment. This prevents unnecessary block splitting and
+>>> significantly reduces fragmentation.
+>>>
+>>> A practical example is the VKCTS test
+>>> dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000, which
+>>> allocates 8 KiB buffers with a 256 KiB alignment. Previously, these
+>>> requests caused the allocator to split large blocks despite having
+>>> smaller aligned portions within them that could satisfy the allocation.
+>>> The new design now identifies and allocates from these portions,
+>>> avoiding unnecessary splitting.
+>>>
+>>> Signed-off-by: Arunpravin Paneer Selvam 
+>>> <Arunpravin.PaneerSelvam@amd.com>
+>>> Suggested-by: Christian König <christian.koenig@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/drm_buddy.c | 205 +++++++++++++++++++++++++++++++++---
+>>>   include/drm/drm_buddy.h     |   3 +
+>>>   2 files changed, 191 insertions(+), 17 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
+>>> index f2c92902e4a3..f749814bb270 100644
+>>> --- a/drivers/gpu/drm/drm_buddy.c
+>>> +++ b/drivers/gpu/drm/drm_buddy.c
+>>> @@ -23,6 +23,18 @@ static struct kmem_cache *slab_blocks;
+>>>   #define for_each_free_tree(tree) \
+>>>       for ((tree) = 0; (tree) < DRM_BUDDY_MAX_FREE_TREES; (tree)++)
+>>>   +static unsigned int drm_buddy_min_offset_or_size_order(struct 
+>>> drm_buddy_block *block)
+>>> +{
+>>> +    return min_t(unsigned int,
+>>> +             __ffs(drm_buddy_block_offset(block)),
+>>> +             drm_buddy_block_order(block));
+>>
+>> Didn't quite get this bit. Why do we pick the min between the order 
+>> and "alignment"? Say we have order zero block but is has 256K addr 
+>> alignment this just selects zero? What is the idea here?
+> Sorry for the confusion. I mixed up two concepts and I have sent the 
+> offset alignment only patch. Please have a look.
+>>
+>>> +}
+>>> +
+>>> +RB_DECLARE_CALLBACKS_MAX(static, drm_buddy_augment_cb,
+>>> +             struct drm_buddy_block, rb,
+>>> +             unsigned int, subtree_max_alignment,
+>>> +             drm_buddy_min_offset_or_size_order);
+>>> +
+>>>   static struct drm_buddy_block *drm_block_alloc(struct drm_buddy *mm,
+>>>                              struct drm_buddy_block *parent,
+>>>                              unsigned int order,
+>>> @@ -40,6 +52,9 @@ static struct drm_buddy_block 
+>>> *drm_block_alloc(struct drm_buddy *mm,
+>>>       block->header |= order;
+>>>       block->parent = parent;
+>>>   +    block->subtree_max_alignment =
+>>> +        drm_buddy_min_offset_or_size_order(block);
+>>> +
+>>>       RB_CLEAR_NODE(&block->rb);
+>>>         BUG_ON(block->header & DRM_BUDDY_HEADER_UNUSED);
+>>> @@ -76,26 +91,32 @@ static bool rbtree_is_empty(struct rb_root *root)
+>>>       return RB_EMPTY_ROOT(root);
+>>>   }
+>>>   -static bool drm_buddy_block_offset_less(const struct 
+>>> drm_buddy_block *block,
+>>> -                    const struct drm_buddy_block *node)
+>>> -{
+>>> -    return drm_buddy_block_offset(block) < 
+>>> drm_buddy_block_offset(node);
+>>> -}
+>>> -
+>>> -static bool rbtree_block_offset_less(struct rb_node *block,
+>>> -                     const struct rb_node *node)
+>>> -{
+>>> -    return drm_buddy_block_offset_less(rbtree_get_free_block(block),
+>>> -                       rbtree_get_free_block(node));
+>>> -}
+>>> -
+>>>   static void rbtree_insert(struct drm_buddy *mm,
+>>>                 struct drm_buddy_block *block,
+>>>                 enum drm_buddy_free_tree tree)
+>>>   {
+>>> -    rb_add(&block->rb,
+>>> - &mm->free_trees[tree][drm_buddy_block_order(block)],
+>>> -           rbtree_block_offset_less);
+>>> +    struct rb_node **link, *parent = NULL;
+>>> +    struct drm_buddy_block *node;
+>>> +    struct rb_root *root;
+>>> +    unsigned int order;
+>>> +
+>>> +    order = drm_buddy_block_order(block);
+>>> +
+>>> +    root = &mm->free_trees[tree][order];
+>>> +    link = &root->rb_node;
+>>> +
+>>> +    while (*link) {
+>>> +        parent = *link;
+>>> +        node = rbtree_get_free_block(parent);
+>>> +
+>>> +        if (drm_buddy_block_offset(block) < 
+>>> drm_buddy_block_offset(node))
+>>> +            link = &parent->rb_left;
+>>> +        else
+>>> +            link = &parent->rb_right;
+>>
+>> Is this correct? From the docs it sounds like we are meant to update 
+>> the max alignment for each subtree on the path leading up to the 
+>> insertion? It looks like insert_augmentated will only do it if there 
+>> is something to be rebalanced.
+> AFAIU from the docs, rb_insert_augmented() updates the augmented value 
+> (subtree_max_alignment) for all nodes on the insertion path, not only 
+> when a rotation happens.
 
-Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+Unless I'm looking in the wrong place, the docs for insert_augmented():
 
-Thank you for taking care of this!
+"On insertion, the user must update the augmented information on the 
+path leading to the inserted node, then call rb_link_node() as usual and 
+rb_insert_augmented() instead of the usual rb_insert_color() call. If 
+rb_insert_augmented() rebalances the rbtree, it will callback into a 
+user provided function to update the augmented information on the 
+affected subtrees."
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c index
-> 8e65fec9f534e..243d75917458a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -498,8 +498,13 @@ void amdgpu_gmc_filter_faults_remove(struct
-> amdgpu_device *adev, uint64_t addr,
->=20
->  	if (adev->irq.retry_cam_enabled)
->  		return;
-> +	else if (adev->irq.ih1.ring_size)
-> +		ih =3D &adev->irq.ih1;
-> +	else if (adev->irq.ih_soft.enabled)
-> +		ih =3D &adev->irq.ih_soft;
-> +	else
-> +		return;
->=20
-> -	ih =3D &adev->irq.ih1;
->  	/* Get the WPTR of the last entry in IH ring */
->  	last_wptr =3D amdgpu_ih_get_wptr(adev, ih);
->  	/* Order wptr with ring data. */
+Plus the example code they give for the augmented case also matches 
+this, so pretty sure we need it. See interval_tree_insert [1]. Also if 
+that is indeed true, then perhaps something to add to the kunit to catch 
+this case.
+
+[1] https://docs.kernel.org/core-api/rbtree.html#sample-usage
 
 
-
+>>
+>>> +    }
+>>> +
+>>> +    rb_link_node(&block->rb, parent, link);
+>>> +    rb_insert_augmented(&block->rb, root, &drm_buddy_augment_cb);
+>>>   }
+>>>     static void rbtree_remove(struct drm_buddy *mm,
+>>> @@ -108,7 +129,7 @@ static void rbtree_remove(struct drm_buddy *mm,
+>>>       tree = get_block_tree(block);
+>>>       root = &mm->free_trees[tree][order];
+>>>   -    rb_erase(&block->rb, root);
+>>> +    rb_erase_augmented(&block->rb, root, &drm_buddy_augment_cb);
+>>>       RB_CLEAR_NODE(&block->rb);
+>>>   }
+>>>   @@ -596,6 +617,88 @@ static bool block_incompatible(struct 
+>>> drm_buddy_block *block, unsigned int flags
+>>>       return needs_clear != drm_buddy_block_is_clear(block);
+>>>   }
+>>>   +static bool drm_buddy_subtree_can_satisfy(struct rb_node *node,
+>>> +                      unsigned int alignment)
+>>> +{
+>>> +    struct drm_buddy_block *block;
+>>> +
+>>> +    if (!node)
+>>> +        return false;
+>>> +
+>>> +    block = rbtree_get_free_block(node);
+>>> +    return block->subtree_max_alignment >= alignment;
+>>> +}
+>>> +
+>>> +static struct drm_buddy_block *
+>>> +drm_buddy_find_block_aligned(struct drm_buddy *mm,
+>>> +                 enum drm_buddy_free_tree tree,
+>>> +                 unsigned int order,
+>>> +                 unsigned int tmp,
+>>> +                 unsigned int alignment,
+>>> +                 unsigned long flags)
+>>> +{
+>>> +    struct rb_root *root = &mm->free_trees[tree][tmp];
+>>> +    struct rb_node *rb = root->rb_node;
+>>> +
+>>> +    /* Try to find a block of the requested size that is already 
+>>> aligned */
+>>> +    while (rb) {
+>>> +        struct drm_buddy_block *block = rbtree_get_free_block(rb);
+>>> +        struct rb_node *left_node = rb->rb_left, *right_node = rb- 
+>>> >rb_right;
+>>> +
+>>> +        if (left_node) {
+>>> +            if (drm_buddy_subtree_can_satisfy(left_node, alignment)) {
+>>> +                rb = left_node;
+>>> +                continue;
+>>> +            }
+>>> +        }
+>>> +
+>>> +        if (drm_buddy_block_order(block) >= order &&
+>>> +            __ffs(drm_buddy_block_offset(block)) >= alignment)
+>>> +            return block;
+>>> +
+>>> +        if (right_node) {
+>>> +            if (drm_buddy_subtree_can_satisfy(right_node, alignment)) {
+>>> +                rb = right_node;
+>>> +                continue;
+>>> +            }
+>>> +        }
+>>> +
+>>> +        break;
+>>> +    }
+>>> +
+>>> +    if (tmp < max(order, alignment))
+>>> +        return NULL;
+>>> +
+>>> +    /* If none found, look for a larger block that can satisfy the 
+>>> alignment */
+>>
+>> What is the idea here? IIUC we are looking at some specific order and 
+>> we want some min addr alignment, if the above can't find any subtree 
+>> with suitable max alignment then we should bail and try the next 
+>> order? Why instead do we do the search again with the same alignment 
+>> below?
+> 
+> Same as above, I mixed up two concepts. Please review v1 of offset 
+> aligned allocation patch.
+> 
+> Regards,
+> 
+> Arun.
+> 
+>>
+>>> +    rb = root->rb_node;
+>>> +    while (rb) {
+>>> +        struct drm_buddy_block *block = rbtree_get_free_block(rb);
+>>> +        struct rb_node *left_node = rb->rb_left, *right_node = rb- 
+>>> >rb_right;
+>>> +
+>>> +        if (left_node) {
+>>> +            if (drm_buddy_subtree_can_satisfy(left_node, alignment)) {
+>>> +                rb = left_node;
+>>> +                continue;
+>>> +            }
+>>> +        }
+>>> +
+>>> +        if (drm_buddy_block_order(block) >= max(order, alignment) &&
+>>> +            drm_buddy_min_offset_or_size_order(block) >= alignment)
+>>> +            return block;
+>>> +
+>>> +        if (right_node) {
+>>> +            if (drm_buddy_subtree_can_satisfy(right_node, alignment)) {
+>>> +                rb = right_node;
+>>> +                continue;
+>>> +            }
+>>> +        }
+>>> +
+>>> +        break;
+>>> +    }
+>>> +
+>>> +    return NULL;
+>>> +}
+>>> +
+>>>   static struct drm_buddy_block *
+>>>   __alloc_range_bias(struct drm_buddy *mm,
+>>>              u64 start, u64 end,
+>>> @@ -798,6 +901,69 @@ alloc_from_freetree(struct drm_buddy *mm,
+>>>       return ERR_PTR(err);
+>>>   }
+>>>   +static int drm_buddy_offset_aligned_allocation(struct drm_buddy *mm,
+>>> +                           u64 size,
+>>> +                           u64 min_block_size,
+>>> +                           unsigned long flags,
+>>> +                           struct list_head *blocks)
+>>> +{
+>>> +    struct drm_buddy_block *block = NULL;
+>>> +    unsigned int order, tmp, alignment;
+>>> +    enum drm_buddy_free_tree tree;
+>>> +    unsigned long pages;
+>>> +
+>>> +    alignment = ilog2(min_block_size);
+>>> +    pages = size >> ilog2(mm->chunk_size);
+>>> +    order = fls(pages) - 1;
+>>> +
+>>> +    tree = (flags & DRM_BUDDY_CLEAR_ALLOCATION) ?
+>>> +        DRM_BUDDY_CLEAR_TREE : DRM_BUDDY_DIRTY_TREE;
+>>> +
+>>> +    for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>>> +        block = drm_buddy_find_block_aligned(mm, tree, order,
+>>> +                             tmp, alignment, flags);
+>>> +        if (!block) {
+>>> +            tree = (tree == DRM_BUDDY_CLEAR_TREE) ?
+>>> +                DRM_BUDDY_DIRTY_TREE : DRM_BUDDY_CLEAR_TREE;
+>>> +            block = drm_buddy_find_block_aligned(mm, tree, order,
+>>> +                                 tmp, alignment, flags);
+>>> +        }
+>>> +
+>>> +        if (block)
+>>> +            break;
+>>> +    }
+>>> +
+>>> +    if (!block)
+>>> +        return -ENOSPC;
+>>> +
+>>> +    while (drm_buddy_block_order(block) > order) {
+>>> +        unsigned int child_order = drm_buddy_block_order(block) - 1;
+>>> +        struct drm_buddy_block *left, *right;
+>>> +        int r;
+>>> +
+>>> +        r = split_block(mm, block);
+>>> +        if (r)
+>>> +            return r;
+>>> +
+>>> +        left  = block->left;
+>>> +        right = block->right;
+>>> +
+>>> +        if (child_order >= alignment)
+>>> +            block = right;
+>>> +        else
+>>> +            block = left;
+>>> +    }
+>>> +
+>>> +    mark_allocated(mm, block);
+>>> +    mm->avail -= drm_buddy_block_size(mm, block);
+>>> +    if (drm_buddy_block_is_clear(block))
+>>> +        mm->clear_avail -= drm_buddy_block_size(mm, block);
+>>> +    kmemleak_update_trace(block);
+>>> +    list_add_tail(&block->link, blocks);
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>>   static int __alloc_range(struct drm_buddy *mm,
+>>>                struct list_head *dfs,
+>>>                u64 start, u64 size,
+>>> @@ -1147,6 +1313,11 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
+>>>           min_block_size = size;
+>>>       /* Align size value to min_block_size */
+>>>       } else if (!IS_ALIGNED(size, min_block_size)) {
+>>> +        if (min_block_size > size && is_power_of_2(size))
+>>> +            return drm_buddy_offset_aligned_allocation(mm, size,
+>>> +                                   min_block_size,
+>>> +                                   flags,
+>>> +                                   blocks);
+>>>           size = round_up(size, min_block_size);
+>>>       }
+>>>   diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
+>>> index d7891d08f67a..da6a40fb4763 100644
+>>> --- a/include/drm/drm_buddy.h
+>>> +++ b/include/drm/drm_buddy.h
+>>> @@ -11,6 +11,7 @@
+>>>   #include <linux/slab.h>
+>>>   #include <linux/sched.h>
+>>>   #include <linux/rbtree.h>
+>>> +#include <linux/rbtree_augmented.h>
+>>>     #include <drm/drm_print.h>
+>>>   @@ -60,6 +61,8 @@ struct drm_buddy_block {
+>>>       };
+>>>         struct list_head tmp_link;
+>>> +
+>>> +    unsigned int subtree_max_alignment;
+>>>   };
+>>>     /* Order-zero must be at least SZ_4K */
+>>
 
