@@ -4,65 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1AECD3EE67
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC1EFD3EE69
 	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 13:55:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B41010E9B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6626C10E9B4;
 	Thu, 22 Jan 2026 13:55:06 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC8BB10E0C8;
- Thu, 22 Jan 2026 10:23:12 +0000 (UTC)
-Received: from [10.213.20.167] (unknown [210.73.43.101])
- by APP-03 (Coremail) with SMTP id rQCowABXZ85++nFpwkNDBg--.14326S2;
- Thu, 22 Jan 2026 18:22:56 +0800 (CST)
-Message-ID: <8e0cae73-3ca0-47a8-8ac7-aa8edba3e0f9@iscas.ac.cn>
-Date: Thu, 22 Jan 2026 18:22:54 +0800
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+ by gabe.freedesktop.org (Postfix) with ESMTP id A768B10E968
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 09:38:02 +0000 (UTC)
+Received: from loongson.cn (unknown [113.200.148.30])
+ by gateway (Coremail) with SMTP id _____8Cx68L373FpVXcLAA--.37104S3;
+ Thu, 22 Jan 2026 17:37:59 +0800 (CST)
+Received: from [10.130.40.83] (unknown [113.200.148.30])
+ by front1 (Coremail) with SMTP id qMiowJBx68H173FpKAIrAA--.18788S3;
+ Thu, 22 Jan 2026 17:37:58 +0800 (CST)
+Subject: Re: [RFC PATCH] drm/amdgpu: Avoid unnecessary Call Traces in
+ amdgpu_irq_put()
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: Alan Liu <haoping.liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260115012830.31182-1-yangtiezhu@loongson.cn>
+ <6ac02ffa-5d62-4fc7-9882-6ccf7b44eaf4@amd.com>
+ <0afdb83a-d2db-53d9-3b1b-253e466a5cc3@loongson.cn>
+ <1673a119-838f-455e-88fb-528bbd72e1ea@amd.com>
+ <1a0dab04-cb13-9307-2853-38221193e38e@loongson.cn>
+ <434e6332-2520-4ed7-9dea-8f5118dbb02e@amd.com>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <f7303e86-2f1e-24ae-5c66-c33893896e8f@loongson.cn>
+Date: Thu, 22 Jan 2026 17:37:33 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] PCI/MSI: Check msi_addr_mask in
- msi_verify_entries()
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "Creeley, Brett" <bcreeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Han Gao <gaohan@iscas.ac.cn>,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-riscv@lists.infradead.org,
- sophgo@lists.linux.dev, Thomas Gleixner <tglx@kernel.org>
-References: <20260121233804.GA1221537@bhelgaas>
+In-Reply-To: <434e6332-2520-4ed7-9dea-8f5118dbb02e@amd.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-From: Vivian Wang <wangruikang@iscas.ac.cn>
-In-Reply-To: <20260121233804.GA1221537@bhelgaas>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID: rQCowABXZ85++nFpwkNDBg--.14326S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tFy3GF15Cr48tryxAFy3twb_yoW8CFyxpa
- yDKa1qyrsYk3yUJrsFqw1UXF1jvFZYqayfGrWUK34Y9FnIvFnFyrySka47u3srXF1xGw10
- vF1Yya1UJFs09aDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUvK14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
- 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
- Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
- I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
- 4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kI
- c2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
- WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
- 67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
- IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
- 0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
- VjvjDU0xZFpf9x0pRVVbgUUUUU=
-X-Originating-IP: [210.73.43.101]
-X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: qMiowJBx68H173FpKAIrAA--.18788S3
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxGr4fAFW3Ww15Gw4fuF1rGrX_yoW5Jw15pF
+ n3JF17tr95ur18tr12yr18WFy5tw1UX3WFgr1UJFy0gw1qvr1YqF1UXF10gryDGr4xAF42
+ yr90qayxZF1jqFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+ xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+ 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv
+ 67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
+ AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+ F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw
+ 1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
+ xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
+ 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8cz
+ VUUUUUU==
 X-Mailman-Approved-At: Thu, 22 Jan 2026 13:55:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,54 +74,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 1/22/26 07:38, Bjorn Helgaas wrote:
-> [+cc Thomas, thread at https://lore.kernel.org/r/20260121-pci-msi-addr-mask-v2-0-f42593168989@iscas.ac.cn]
->
-> On Wed, Jan 21, 2026 at 11:49:38AM +0800, Vivian Wang wrote:
->> Instead of a 32-bit/64-bit dichotomy, check the MSI address against
->> msi_addr_mask.
+On 2026/1/19 下午6:45, Christian König wrote:
+> On 1/19/26 09:53, Tiezhu Yang wrote:
+>> On 2026/1/16 下午6:03, Christian König wrote:
+>>> On 1/16/26 02:20, Tiezhu Yang wrote:
+>>>> On 2026/1/15 下午9:47, Christian König wrote:
+>>>>> On 1/15/26 02:28, Tiezhu Yang wrote:
+>>>>>> Currently, there are many Call Traces when booting kernel on LoongArch,
+>>>>>> here are the trimmed kernel log messages:
+>>>>>>
+>>>>>>      amdgpu 0000:07:00.0: amdgpu: hw_init of IP block <gfx_v6_0> failed -110
+>>>>>>      amdgpu 0000:07:00.0: amdgpu: amdgpu_device_ip_init failed
+>>>>>>      amdgpu 0000:07:00.0: amdgpu: Fatal error during GPU init
+>>>>>>      amdgpu 0000:07:00.0: amdgpu: amdgpu: finishing device.
+>>>>>>      ------------[ cut here ]------------
+>>>>>>      WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c:639 at amdgpu_irq_put+0xb0/0x140 [amdgpu], CPU#0: kworker/0:0/9
+>>>>>>      ...
+>>>>>>      Call Trace:
 >>
->> This allows platforms with MSI doorbell above 32-bit address space to
->> work with devices without full 64-bit MSI address support, as long as
->> the doorbell is within addressable range of MSI of the device.
+>> ...
 >>
->> Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
+>>> The warning can basically only be triggered by two conditions:
+>>> 1. A fatal problem while loading the driver and the error handling is not 100% clean.
+>>> 2. A driver coding error.
+>>>
+>>> And we really need to catch all of those, so there is no real rational to limit the warning.
+>>>
+>>> I mean when you run into any of those they should potentially be fixed at some point.
 >>
->> ---
->> v2: No changes
->> ---
->>  drivers/pci/msi/msi.c | 9 ++++++---
->>  1 file changed, 6 insertions(+), 3 deletions(-)
+>> I did the following change and it can fix the problem, given that I am
+>> not familiar with amdgpu driver, could you please check it? If it is OK,
+>> I will send a formal patch later.
 >>
->> diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
->> index 48f5f03d1479..2ecbcd6c436a 100644
->> --- a/drivers/pci/msi/msi.c
->> +++ b/drivers/pci/msi/msi.c
->> @@ -321,14 +321,17 @@ static int msi_setup_msi_desc(struct pci_dev *dev, int nvec,
->>  static int msi_verify_entries(struct pci_dev *dev)
->>  {
->>  	struct msi_desc *entry;
->> +	u64 address;
->>  
->>  	if (dev->msi_addr_mask == DMA_BIT_MASK(64))
->>  		return 0;
->>  
->>  	msi_for_each_desc(entry, &dev->dev, MSI_DESC_ALL) {
->> -		if (entry->msg.address_hi) {
->> -			pci_err(dev, "arch assigned 64-bit MSI address %#x%08x but device only supports 32 bits\n",
->> -				entry->msg.address_hi, entry->msg.address_lo);
->> +		address = (u64)entry->msg.address_hi << 32 |
->> +			  entry->msg.address_lo;
->> +		if (address & ~dev->msi_addr_mask) {
->> +			pci_err(dev, "arch assigned 64-bit MSI address %llx above device MSI address mask %llx\n",
-> Use %#llx so it's clear these addresses are hex.  The previous message
-> did that, not sure why you dropped it.
+>> ----->8-----
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>> index 8112ffc85995..ac19565e7c45 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+>> @@ -138,6 +138,9 @@ void amdgpu_irq_disable_all(struct amdgpu_device *adev)
+>>                          if (!src || !src->funcs->set || !src->num_types)
+>>                                  continue;
+>>
+>> +                       kfree(src->enabled_types);
+>> +                       src->enabled_types = NULL;
+>> +
+> 
+> Mhm, I need to double check that but that looks like not such a bad idea of hand.
 
-Thanks for catching. I misunderstood the purpose of the original message
-formatting.
+Please let me know whether the above change is OK, if yes I will send a
+patch ASAP before the coming merge window.
 
-I will fix this in v3.
-
-Vivian "dramforever" Wang
+Thanks,
+Tiezhu
 
