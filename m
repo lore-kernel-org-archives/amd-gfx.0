@@ -4,76 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48ED9D3EE6B
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 13:55:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B60D8D3EE6A
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 14:03:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8D210E9B6;
-	Thu, 22 Jan 2026 13:55:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FD8110E9B3;
+	Thu, 22 Jan 2026 14:03:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="XQ+af+yj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l5DmuLqw";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E8E710E9AC;
- Thu, 22 Jan 2026 13:00:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1769086792; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=VKqPDXZqQscCYPdjRAFzVjNUl2wWtTJSvTiRTzEYXbg2KRiiyrzw7Fgd5F4aj/GqLRkPG52NFbg+LSpLjs4GAECVbS01LsWvA9Fz1NjwIAPPjcU/3BNCDvAgEzXUnKfZB2evUSGJlSirmL7GTIXm02Roe2I5pcvUy99ppcqfscg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1769086792;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=uaYzvb2XfnnkbyKx6FP5LwKsEl3/GXRkx9jsqA5CXcg=; 
- b=RJCKftJsR+YMsCXvoJUwTAO3XJ8vrGzxjCCYZQmDVjdkydhhqR4Bgvb/ZHdXIutEzxgIJnul+AxHTbyPdvbqJo6hzUNsBlNrvzLsDYiCWTGUDpqGZqeaDwo+5XzzCEUSynNz4SiSmXQzIFLwIW+bzQeySP1wgm4RvmR24fr4xfU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769086792; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=uaYzvb2XfnnkbyKx6FP5LwKsEl3/GXRkx9jsqA5CXcg=;
- b=XQ+af+yjMhxPFVDC94pM4PlfhBu+gM6eH/bwFiy44r2PfvdSy4/Aodursm5Hdrqi
- VZ1oIeM9xzg5jXHXTAll2xKeZgInWMdf2dKrQIFjeVJqLYGJlLr9PJTsgJ/NoOlwVW6
- ezT5oPGKFoHngWSi9Nrm67krvXYabnOVwbijhWko=
-Received: by mx.zohomail.com with SMTPS id 1769086791692511.35700158955376;
- Thu, 22 Jan 2026 04:59:51 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Andy Yan <andyshrk@163.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v7 10/22] drm/rockchip: vop2: Fix YUV444 output
-Date: Thu, 22 Jan 2026 13:59:41 +0100
-Message-ID: <6631107.DvuYhMxLoT@workhorse>
-In-Reply-To: <7ab32c86.7542.19be4d21f69.Coremail.andyshrk@163.com>
-References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
- <20260121-color-format-v7-10-ef790dae780c@collabora.com>
- <7ab32c86.7542.19be4d21f69.Coremail.andyshrk@163.com>
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0204D10E9B3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 14:03:15 +0000 (UTC)
+Received: by mail-dl1-f50.google.com with SMTP id
+ a92af1059eb24-1233ad1b4cdso109276c88.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 06:03:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769090595; cv=none;
+ d=google.com; s=arc-20240605;
+ b=izYwEQPiKLZghRezGuQrcgFZker6yaTfQPsJBYrxV0rSggTi+lQ0lFSt47I4ZLxJO3
+ rQffUXucLzeEZd4ghuYEhTR0FqB9iiMmDY2EJK3JDm1DYwQdMgWRdH25M32sI5cdbbcG
+ cYjuQLRb+vh2MujbtmrjdSdgWSkMqfbl7kgYs4wmSIsqO7yFj9vM1iRn+slbsA9lSv2R
+ mnUC7fw+q2UNPPuii4wewBjGI42gzpvVxUf6WB2rkwsIsAq+IQneI+7DdEh/uYGC0NYh
+ /bNqJAu51gasqAuGs5IJpzfyEnoJ2iFL2zGo6TY49ejoKNeaTuOq7wnqpwCkNNGlYxe1
+ 41Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=AhMnfbmMtexumcfGstE9WPwXp5swseeu0kheQA6f8LM=;
+ fh=ry6FD0qB02FUodvIGUswpFvKtbtlqnZDa2aAJTNVabg=;
+ b=hZWODdV7/x2IKEgy6r1sYPynLiKje8vTD+9PtSge43AcokLFT7X1rAp4S4tJwlcsCn
+ fWfWCKK972NmrRiSEd0mfnO9B3YjzDuRJac4/6Z0Ho+D1t+rdGfepu2CUlPd9WsXNbYW
+ m7fOUwVAmrP4jVJ0zA1+3VkXe8NzE6FDOsRCT4MqAWa42NLTxC7jf8EAejx6Ie9TbjAc
+ bKmXthD5aZjUXMvXd7c1l4K/4zsRv3BcqTFKFyO8sWpa9tgrAouUzwhBM9X7MGrizcNI
+ UaoSOyI4VphVhHl47CaNtaxhT1Jak3A144V0sFMGxsHYU7h5NhHzbWeCgLbWeidbkza9
+ g2oQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769090595; x=1769695395; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AhMnfbmMtexumcfGstE9WPwXp5swseeu0kheQA6f8LM=;
+ b=l5DmuLqwOlwcv1KUy4hSA6bxzVN5rJZ8AHe8vKBOJfWbaFPOJrpX1rhspQUleDVpvi
+ h3EclyWw/aR5iNDOVArg2nBoXOn2s6iM1Fu8kGpvkd90LVlcHaDezeKh8QEwI5XlJG1z
+ DfFwrSgKKoAhPA1siGykqk1AknJBfZJDcG74+MhfWGVfAHExHL+g555r/arEje+c+It3
+ i7tA/gLO/wfGn6akyqYsxgqNLv7xxdMfzizvfVLEqLwwW6a6V3/mFJ1bwAcHjUgAwMMG
+ G7fOzVOJqdk65FzRQ6TSljicytznOFsgwzXiT3UWjlTcqly7rGW8uay61XjAeVv/ZLHL
+ bWkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769090595; x=1769695395;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=AhMnfbmMtexumcfGstE9WPwXp5swseeu0kheQA6f8LM=;
+ b=GvxfVmL0R0CVzlq9Y9tvNFBjeXYddeSwW/KQ2K6D4p1PB08AIYsr7k3YIMgc/ybl+8
+ eBhw0HPqznpbOtEM6apMG9IhqxEtdsD7n5sghu1uQnNniRLZK0lSgIxtcdo8bhPp0nDy
+ CX7jUJrhhXBiIMJy3n4jwuPQCnJR/+jzOG8o/aATaHfPMjOmeN73CMB9eVCkGGsfPi+O
+ ol7Rf3wn1k4KDVOBe4jHKg1fL8Ga0OPeWHW1Eq1qnuyI3pyH1NpTsTQHA8JKYucDVFPv
+ sTIlusJAXA1VAJJXkraOA9TkqS+wANd2d3XD5u4Tj9bx8McGb9GV4T1L2vY8qjfNpJxp
+ Dr6g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWSgWU/K/jquaOkaG64u2Bo1Wvmk/aWHeNIBJacp1Tk3HrwckuZE6Djoe7nWFcHBdk6W89PUHYQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzCKPq90q1B8PdhaSHN53Va6DWYdxA48E7jO62TPo6JsUgpgXvO
+ aM2V4yd9RcGLBFuAN6mQflHso/zv6yFS5l8i6qCfmA93E0dYabYBxaGR/hHXzaJDBWSVl7/let+
+ iK/4lIsWx55XpIpYGJuKt8pawdbm4tFs=
+X-Gm-Gg: AZuq6aIyo22W7r4NmSrtc/F0Lm7BCYS0LsJjOynYYWQiAacB5JZN7fblE2ZwwqdVFYC
+ yCv8nhxHv8iNuF6wP4cJyzrLh5RGvVqe1u+rA2E4xtMGhp8IZ4dCWNlulJ0OKSDcY3hf7+6TFBQ
+ 089M68Mqfhx+OGi9Id6wvhpu/upthFrggjHjW/nRAFzWITvJegbvwESXO3gj0aMUVGmzHjNfn4S
+ +dqLr1sgDieYtCYcOUk2J36P8NKj2mbd/2noIwF+wV9utj0g2IPPD2qN0+35MxFX0OJIvff
+X-Received: by 2002:a05:7022:20f:b0:123:308f:667b with SMTP id
+ a92af1059eb24-12477022bdcmr1443319c88.2.1769090590451; Thu, 22 Jan 2026
+ 06:03:10 -0800 (PST)
 MIME-Version: 1.0
+References: <20260121182447.2434085-1-alexander.deucher@amd.com>
+ <9d5291d6-9e1f-4df4-ad0b-ba7543d8a2af@amd.com>
+In-Reply-To: <9d5291d6-9e1f-4df4-ad0b-ba7543d8a2af@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 22 Jan 2026 09:02:58 -0500
+X-Gm-Features: AZwV_QgbnbE-PDvO7PMK0J_oadLHi-F2m1UgluKl7pG5JAh8w1dvOWfxv41qH0w
+Message-ID: <CADnq5_N3ZKRcXzpheLj81fckJoRkzmWkJ1BYq+VaAcnENs_kPQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix NULL pointer dereference in
+ amdgpu_gmc_filter_faults_remove
+To: "Lazar, Lijo" <lijo.lazar@amd.com>, philip yang <yangp@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Jon Doron <jond@wiz.io>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Mailman-Approved-At: Thu, 22 Jan 2026 13:55:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,142 +104,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, 22 January 2026 09:28:54 Central European Standard Time Andy Y=
-an wrote:
->=20
-> Hello Nicolas=EF=BC=8C
->=20
-> At 2026-01-21 22:45:17, "Nicolas Frattaroli" <nicolas.frattaroli@collabor=
-a.com> wrote:
-> >YUV444 (aka YCbCr444) output isn't working quite right on RK3588. The
-> >resulting image on the display, while identifying itself as YUV444, has
-> >some components swapped, even after adding the necessary DRM formats to
-> >the conversion functions.
+On Thu, Jan 22, 2026 at 12:07=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> w=
+rote:
+>
+>
+>
+> On 21-Jan-26 11:54 PM, Alex Deucher wrote:
+> > From: Jon Doron <jond@wiz.io>
 > >
-> >Judging by downstream, this is because YUV444 also needs an rb swap
-> >performed in the AFBC case.
+> > On APUs such as Raven and Renoir (GC 9.1.0, 9.2.2, 9.3.0), the ih1 and
+> > ih2 interrupt ring buffers are not initialized. This is by design, as
+> > these secondary IH rings are only available on discrete GPUs. See
+> > vega10_ih_sw_init() which explicitly skips ih1/ih2 initialization when
+> > AMD_IS_APU is set.
 > >
-> >Add the DRM formats to the appropriate switch statements, and add a
-> >function for checking whether an rb swap needs to be performed in the
-> >AFBC case.
+> > However, amdgpu_gmc_filter_faults_remove() unconditionally uses ih1 to
+> > get the timestamp of the last interrupt entry. When retry faults are
+> > enabled on APUs (noretry=3D0), this function is called from the SVM pag=
+e
+> > fault recovery path, resulting in a NULL pointer dereference when
+> > amdgpu_ih_decode_iv_ts_helper() attempts to access ih->ring[].
 > >
-> >Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
-> >Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> >---
-> > drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 19 +++++++++++++++++++
-> > 1 file changed, 19 insertions(+)
+> > The crash manifests as:
 > >
-> >diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/=
-drm/rockchip/rockchip_drm_vop2.c
-> >index ec3b4fde10db..469c63dd97d5 100644
-> >--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> >+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> >@@ -176,6 +176,7 @@ static enum vop2_data_format vop2_convert_format(u32=
- format)
-> > 	case DRM_FORMAT_ARGB2101010:
-> > 	case DRM_FORMAT_XBGR2101010:
-> > 	case DRM_FORMAT_ABGR2101010:
-> >+	case DRM_FORMAT_VUY101010:
-> > 		return VOP2_FMT_XRGB101010;
-> > 	case DRM_FORMAT_XRGB8888:
-> > 	case DRM_FORMAT_ARGB8888:
-> >@@ -184,6 +185,7 @@ static enum vop2_data_format vop2_convert_format(u32=
- format)
-> > 		return VOP2_FMT_ARGB8888;
-> > 	case DRM_FORMAT_RGB888:
-> > 	case DRM_FORMAT_BGR888:
-> >+	case DRM_FORMAT_VUY888:
-> > 		return VOP2_FMT_RGB888;
-> > 	case DRM_FORMAT_RGB565:
-> > 	case DRM_FORMAT_BGR565:
-> >@@ -225,6 +227,7 @@ static enum vop2_afbc_format vop2_convert_afbc_forma=
-t(u32 format)
-> > 	case DRM_FORMAT_ARGB2101010:
-> > 	case DRM_FORMAT_XBGR2101010:
-> > 	case DRM_FORMAT_ABGR2101010:
-> >+	case DRM_FORMAT_VUY101010:
-> > 		return VOP2_AFBC_FMT_ARGB2101010;
-> > 	case DRM_FORMAT_XRGB8888:
-> > 	case DRM_FORMAT_ARGB8888:
-> >@@ -233,6 +236,7 @@ static enum vop2_afbc_format vop2_convert_afbc_forma=
-t(u32 format)
-> > 		return VOP2_AFBC_FMT_ARGB8888;
-> > 	case DRM_FORMAT_RGB888:
-> > 	case DRM_FORMAT_BGR888:
-> >+	case DRM_FORMAT_VUY888:
->=20
-> How did you test this format? It seems tools like modetest don=E2=80=99t =
-support testing this pattern.
->=20
-
-Hi Andy,
-
-using the rest of this series, which implements the "color format"
-DRM property, and the corresponding weston MR that makes use of it[1].
-
-I create a ~/.config/weston.ini with the following contents:
-
-    [output]
-    name=3DHDMI-A-1
-    color-format=3Dyuv444
-
-This will make Weston try to set the output format to 10-bit YUV444. To
-limit it to 8-bit, you can add `max-bpc=3D8`. The monitor's EDID needs to
-report YUV444 support, otherwise that Weston version won't let you set
-this property.
-
-Link: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1859 [=
-1]
-
-Kind regards,
-Nicolas Frattaroli
-
->=20
->=20
-> > 		return VOP2_AFBC_FMT_RGB888;
-> > 	case DRM_FORMAT_RGB565:
-> > 	case DRM_FORMAT_BGR565:
-> >@@ -270,6 +274,19 @@ static bool vop2_win_rb_swap(u32 format)
-> > 	}
-> > }
-> >=20
-> >+static bool vop2_afbc_rb_swap(u32 format)
-> >+{
-> >+	switch (format) {
-> >+	case DRM_FORMAT_NV24:
-> >+	case DRM_FORMAT_NV30:
-> >+	case DRM_FORMAT_VUY888:
-> >+	case DRM_FORMAT_VUY101010:
-> >+		return true;
-> >+	default:
-> >+		return false;
-> >+	}
-> >+}
-> >+
-> > static bool vop2_afbc_uv_swap(u32 format)
-> > {
-> > 	switch (format) {
-> >@@ -1291,6 +1308,7 @@ static void vop2_plane_atomic_update(struct drm_pl=
-ane *plane,
-> > 		 /* It's for head stride, each head size is 16 byte */
-> > 		stride =3D ALIGN(stride, block_w) / block_w * 16;
-> >=20
-> >+		rb_swap =3D vop2_afbc_rb_swap(fb->format->format);
-> > 		uv_swap =3D vop2_afbc_uv_swap(fb->format->format);
-> > 		/*
-> > 		 * This is a workaround for crazy IC design, Cluster
-> >@@ -1308,6 +1326,7 @@ static void vop2_plane_atomic_update(struct drm_pl=
-ane *plane,
-> > 			vop2_win_write(win, VOP2_WIN_AFBC_ENABLE, 1);
-> > 		vop2_win_write(win, VOP2_WIN_AFBC_FORMAT, afbc_format);
-> > 		vop2_win_write(win, VOP2_WIN_AFBC_UV_SWAP, uv_swap);
-> >+		vop2_win_write(win, VOP2_WIN_AFBC_RB_SWAP, rb_swap);
-> > 		/*
-> > 		 * On rk3566/8, this bit is auto gating enable,
-> > 		 * but this function is not work well so we need
+> >    BUG: kernel NULL pointer dereference, address: 0000000000000004
+> >    RIP: 0010:amdgpu_ih_decode_iv_ts_helper+0x22/0x40 [amdgpu]
+> >    Call Trace:
+> >     amdgpu_gmc_filter_faults_remove+0x60/0x130 [amdgpu]
+> >     svm_range_restore_pages+0xae5/0x11c0 [amdgpu]
+> >     amdgpu_vm_handle_fault+0xc8/0x340 [amdgpu]
+> >     gmc_v9_0_process_interrupt+0x191/0x220 [amdgpu]
+> >     amdgpu_irq_dispatch+0xed/0x2c0 [amdgpu]
+> >     amdgpu_ih_process+0x84/0x100 [amdgpu]
 > >
->=20
+> > This issue was exposed by commit 1446226d32a4 ("drm/amdgpu: Remove GC H=
+W
+> > IP 9.3.0 from noretry=3D1") which changed the default for Renoir APU fr=
+om
+> > noretry=3D1 to noretry=3D0, enabling retry fault handling and thus
+> > exercising the buggy code path.
+> >
+> > Fix this by adding a check for ih1.ring_size before attempting to use
+> > it. Also restore the soft_ih support from commit dd299441654f ("drm/amd=
+gpu:
+> > Rework retry fault removal").  This is needed if the hardware doesn't
+> > support secondary HW IH rings.
+> >
+> > v2: additional updates (Alex)
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/3814
+> > Fixes: dd299441654f ("drm/amdgpu: Rework retry fault removal")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jon Doron <jond@wiz.io>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 7 ++++++-
+> >   1 file changed, 6 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_gmc.c
+> > index 8e65fec9f534e..243d75917458a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> > @@ -498,8 +498,13 @@ void amdgpu_gmc_filter_faults_remove(struct amdgpu=
+_device *adev, uint64_t addr,
+> >
+> >       if (adev->irq.retry_cam_enabled)
+> >               return;
+> > +     else if (adev->irq.ih1.ring_size)
+> > +             ih =3D &adev->irq.ih1;
+> > +     else if (adev->irq.ih_soft.enabled)
+> > +             ih =3D &adev->irq.ih_soft;
+>
+> Faults are delegated to soft ring when retry_cam is enabled -
+> https://gitlab.freedesktop.org/agd5f/linux/-/blob/amd-staging-drm-next/dr=
+ivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c#L541
+>
+> That matches with the original logic in d299441654f ("drm/amdgpu: Rework
+> retry fault removal").
+>
+> To match exactly with the logic in above commit, I think it should use
+> soft ring only when retry cam is enabled. Presently, it's returning
+> without doing anything.
 
++ Philip
 
+That logic was changed in:
+commit e61801f162ddcf8874c820639483ec4849b0fb0b
+Author: Philip Yang <Philip.Yang@amd.com>
+Date:   Mon Aug 28 14:05:55 2023 -0400
 
+    drm/amdkfd: Don't use sw fault filter if retry cam enabled
 
+    If retry cam enabled, we don't use sw retry fault filter and add fault
+    into sw filter ring, so we shouldn't remove fault from sw filter.
+
+    Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+    Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+    Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+So I retained that logic.
+
+Alex
+
+>
+> Thanks,
+> Lijo
+>
+> > +     else
+> > +             return;
+> >
+> > -     ih =3D &adev->irq.ih1;
+> >       /* Get the WPTR of the last entry in IH ring */
+> >       last_wptr =3D amdgpu_ih_get_wptr(adev, ih);
+> >       /* Order wptr with ring data. */
+>
