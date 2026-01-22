@@ -4,90 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0687D6CFA4
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 20:32:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32C3CD6CFA2
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 20:58:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DAA710EAA8;
-	Thu, 22 Jan 2026 20:32:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 324E210EABE;
+	Thu, 22 Jan 2026 20:58:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hLLECGgv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="du/7N9NH";
 	dkim-atps=neutral
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
- [74.125.82.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E841510EAA8
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 20:32:55 +0000 (UTC)
-Received: by mail-dy1-f182.google.com with SMTP id
- 5a478bee46e88-2b6a868ad45so179203eec.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 12:32:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1769113975; cv=none;
- d=google.com; s=arc-20240605;
- b=CgTYnHLRI77s6AtqS2k0AJJCMge9Fct5i/9KJ/J6kKSlhJi1hwQDZlyyF02H4Z41VY
- 7pSDss8puwAClc9IDqiEAcPcrYibhwztiiV7n1p2bamCYduTdL6reXEEg1/vos/E/hQL
- 0nKtxXDpBq4tZNtsKTTYRcP8iy94LJpdoKmSOa6il8vMXakcMncIiVEoGdOZCbogetCN
- KHeW5KMNw2E+XlRZGAiInNXBL3NQnqcDG5b13WLUTp3MM+fZWqkjMjztB6alGuodHkSA
- wwnzjc+UfmzG84epYCibJhM/5VZ+pxLJalNLAFEavodsv/pus/w3C031RaA8CaMZva52
- 4RSQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=3QlVzDpmI9b/ulUslPpx58ATQ0YoSooaH7WIDYVKU6c=;
- fh=eLETJQUWJWAkOM2sXDzFT8JBP8bLYFHao9rHC9tL2hQ=;
- b=kQ/zjjxdZyLKRqw+CEpJVEPw2DJHqxEiSKps7qbFkM8xv0qgh1sZj951aylvQKXxwF
- ypnA8pGaiFxYI9EW2W4lNcE2J96rY+B+ZbMf026j6gizhIJ7q4AvZTXP/C3QyZNcsYNK
- bNxGZWHkbUh/YT2vcJCqrMhEDdBJpqhk3X8bdaB39a/8YT8v6OOAe/j9yd4jjvLDf3Ub
- 0Lchq8fTGiOkjU+UjbPr9M4FvGjQ8zqR07XtQe3OcMpeXZgQZQFupRV/F3E58o0q7N6n
- k7cnp67fF1iqVSqPM6KTTO55MKk2yojkDtRYM1cgnngOjvHZoJqr6tCeEu2LZa9wtP/G
- pcmQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769113975; x=1769718775; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3QlVzDpmI9b/ulUslPpx58ATQ0YoSooaH7WIDYVKU6c=;
- b=hLLECGgv+hZ663y+QFV7cfEjcLAME8Nh/mRZQ0KpMS/5hhT2Iv8uIV5Zx6tfm6dBn7
- 0txsqv5Sc/CwTA7500PWHMC6Y8C0qw4+fpxmlAh5mxB7WPyJsaAdWwcki0wuqRsPmHWB
- Gywq76otwHh+kRTln9OZI92jxI6/HAsJwpACRus80GPvNxH2qm6gA6Q+xn9gVMpF7o5i
- nx2/yuV6C1T0cDynqMNKE6MVShxjwmPt4UwnYuqWwH4nvwFjKQV6CyekrW+CE43S+55Z
- MzETqx5I/pNMu9cjWQBulpkH8ciZsTpKTHPF7d/8ri3y5JWFw8p8L8a5NYXA1YUFk09p
- Hctg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769113975; x=1769718775;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=3QlVzDpmI9b/ulUslPpx58ATQ0YoSooaH7WIDYVKU6c=;
- b=X4RPB19f9DCDPwjcNeQ91xwJ4/ASIwJaExOA1pVjEQWCy8TQWtWSrNxfYDX3rnZeRc
- zHW0FlQ+KIWeeTVhcvUUkKRJdcOVcn2fC81bqvqjt0VZGvERbw6Bx/Ygt1osj3SCL7Jo
- XABFl0Jyi17v+vS27FtCUxf/1XdtgAVzWEpDaWWM0UKlFYqKF7Crc0zYcXNGVTD8TA3g
- cYXBeIa92PoVXXCSQy7+MdVfxmdbqW5VbAUMymEKpLSN0pANcSOGFTx/Ru0+qKChGyCL
- l3RnbVpDjpOsSj/5dd8gPFSAOUYtpVffDHBEU7+j5Zn/a/pKU5TUhLwZuMJiZj7jsQZi
- NY4Q==
-X-Gm-Message-State: AOJu0Yx6ic9mwnj3Xu2iwFb4BJquR5260xGCZg7nfXPd2JVwtO7NSclR
- OhPNMZeUczrRJkqQpC6oxu+0itCbplrO0WSgHu/53a9HvL9qKvADxknW3G/TfcZ8WJxjboblzai
- ISnzEAnREoxdFi+AgXY7RRJvcTLfckh4=
-X-Gm-Gg: AZuq6aIaHLkMn6tuR/ErFb3t7u2sY8qTZvfB9RAc6mJl6/w5RVCuChyZ1k/3tmeC3vS
- JXDFihrZRMpW3rAwPBbyEI9opTLQI4bNi6TRD2RRLRzl9hylh3HPTGO/OXzxe/LT+bsIST7HwaK
- aWnXTOxvqjWJh6Up6KrtHkcX/OziwaMIRtLg4evJ2dDAwiRkGm1IOLKwD4rN9X7WtmRfVeOwbk+
- eP3DW7HmmrvH1hmIeD4kmBJJVVZaDUVULBTd2mo48Qa4xCKai63ecnKUy5S/Qz+vIqDTFmA
-X-Received: by 2002:a05:7300:572c:b0:2ae:5b8c:324a with SMTP id
- 5a478bee46e88-2b739bce440mr167181eec.4.1769113974806; Thu, 22 Jan 2026
- 12:32:54 -0800 (PST)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011064.outbound.protection.outlook.com
+ [40.93.194.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4490F10EAB7;
+ Thu, 22 Jan 2026 20:58:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SY+Kq9jPpCIkggHebvGXYH7NyF3cRtZ4mPgpQuFAyknq+4zRuSdj/snfIWw5WB91LeNeFUcJdiF/0rmwC7l6IqTOukDMC/vJn6ahDJkdAyrT9dO59fyh0dbJUgRO1+AHPaTIDew7UZosSnpE7uWxAHHNzWxMg1mcB+FOpM6PJ3FqxX4WCY/AZbEwEjwlIX/hE7erGQmkFJxC572fXjAdlCg12bKo+te8IvbSXKRBIzFfnrXNXW4DSgCwjfAmDcs9ETfd5o+4wqKJ6F6m1KnY3jwo3BcLM/x5f0VIYU75007Za5AbY5ZhWJq5aEKS966DAq7VAzpCzXe/ADT4+41F4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mM4ltvfbzrVv1hkSX1FHin3KXDVZYDCpWtWaK5xww7U=;
+ b=EGvNcapEMN/hHMkzSX3hhShCfhwZWKPF/0oN9+iURLr0gNbzIJMReYP02JpjUuHiBzgarbvMA1OGpW22CcqKI8RIpCv3F00E4EZpnfci9nrAUTR0udguhzh+JWjpq6eGPX5+LRq9NE+w9WEDnlkYUFxnFIa0G7gN1v/6HmX+/6fXsCr/vAVAmWXpG9MOPdBRvfe3P53eLJJBZC13rsBZnIEBg+fYjPmXYMhgpcXpOzQqpugZi7I9K3eNNxp5HF9aRjlFbJicdE5lVyUWJMsPuU5tVdh+pVlM9kK0kVI99EEYd5fPhlpRMpVlKUzRn1nYCPIIIJTchG6eWTfTlu9LHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mM4ltvfbzrVv1hkSX1FHin3KXDVZYDCpWtWaK5xww7U=;
+ b=du/7N9NHeaGIyosIlfUVRPdyM+oyqqa+pC5F/KuUzxWpw4VQfsx/wvK8gKGaL/U0DfcayE6xiOKM/uxOodSKGGCN2/JFrqhhIfCsl+lvUaYdH4gCmaR8HZ+Jr2a5NyQGvnnitGkXbuEB5iUYQ6xOyfR14VKT2e7TGkFGAhkuFa4=
+Received: from PH7PR10CA0004.namprd10.prod.outlook.com (2603:10b6:510:23d::22)
+ by SA5PPFB2BF91BC0.namprd12.prod.outlook.com
+ (2603:10b6:80f:fc04::8de) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Thu, 22 Jan
+ 2026 20:58:20 +0000
+Received: from SN1PEPF00036F40.namprd05.prod.outlook.com
+ (2603:10b6:510:23d:cafe::80) by PH7PR10CA0004.outlook.office365.com
+ (2603:10b6:510:23d::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.11 via Frontend Transport; Thu,
+ 22 Jan 2026 20:58:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF00036F40.mail.protection.outlook.com (10.167.248.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.3 via Frontend Transport; Thu, 22 Jan 2026 20:58:19 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Thu, 22 Jan
+ 2026 14:43:15 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 22 Jan
+ 2026 14:43:14 -0600
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Thu, 22 Jan 2026 12:43:14 -0800
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-6.19
+Date: Thu, 22 Jan 2026 15:43:06 -0500
+Message-ID: <20260122204308.946339-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-References: <20260122085738.1542800-1-Jesse.Zhang@amd.com>
- <20260122085738.1542800-9-Jesse.Zhang@amd.com>
-In-Reply-To: <20260122085738.1542800-9-Jesse.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 22 Jan 2026 15:32:43 -0500
-X-Gm-Features: AZwV_QjTg25K3ZpmS2p8gFIlsMHvwit5hnOFpiJWr_zfzS0TGgQ30tNgrma1oQ4
-Message-ID: <CADnq5_MZ_mv=u276x_XG3C962q6EaVSF1Cy4W6bzb+pstHWnbA@mail.gmail.com>
-Subject: Re: [PATCH 9/9] drm/amdgpu: Add queue update IOCTL support
-To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F40:EE_|SA5PPFB2BF91BC0:EE_
+X-MS-Office365-Filtering-Correlation-Id: 412f8b3d-180c-4158-751b-08de59f8f8f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cktWOVlHS0lYZGl1UWx0ejBZcFdGTlhXaEpuSFpQU2lJclVmRHBsQjR1dElh?=
+ =?utf-8?B?UXBGRjVIUDI2dkFTNXRFcFlUYlIydkRRRUxwZ0xvZHV0TE02UjM1a0QvUDRB?=
+ =?utf-8?B?RmkxUjZGTHBENjBjU213OFZxZC9pb2ZqNENvUmxMQkxQYXVNRng5RFRQRXpq?=
+ =?utf-8?B?TGxOaVFNdVdFOHE0dmQ5ZnRWQ1Njakt0VURkenV3eGMvd1BvT0RHK3ZXcmNl?=
+ =?utf-8?B?NWtqdEUxTXRoUTkvOUFRTmpCc1BTRXNsMk9zWlQwTzJqd1JXM0p4NEtxVzdT?=
+ =?utf-8?B?VzdHZktVcjNVN0xHaGM1dXFOV3JOZXB5WkZPazhQbE9DTVRXMTJNN1NpSzQz?=
+ =?utf-8?B?WHIyWFJzMy9hT0pzQnJUM0hhRE5QZnQ3Zk4vMTJYZnJCcERwT2wzVkJ2QWxk?=
+ =?utf-8?B?MUpzY0MvMHdiZkk5akNpZUFrUXZkaXloSzA1WTE5eHJ1b2pjTXhqdnhsSCtZ?=
+ =?utf-8?B?YWZFVFRBM20vVVVBY3d1TG8wSnhsa1RuR2FlOUYrUUE0bkZwRktzdkE0dWdC?=
+ =?utf-8?B?NFd1VmJuTUYyNU9VZ0JLU054TUVic2o0VmVuWUJkVURLcEJyYmQzeUtlaFFI?=
+ =?utf-8?B?bW9uUzhLREdKZVNYKzZDUEJ5RU04RWVXUHlLSVZJdmszbGVIamhWREJLRU16?=
+ =?utf-8?B?QkRBVHhMamkvNE92T1VVc1ZzbmxGZXNXQk9vbm41enF1c0R5TzVLbGhKcFNp?=
+ =?utf-8?B?MVZzbG1paHRkcW9kK2Z4MzJUdi8zL0l5bmVlUlcxNk9teVN2Z3dVN2hGOG15?=
+ =?utf-8?B?NTJsWWd0Ti9QeVdEc2RybW9iaHVLeTVCR3lXSUg3K29PYWs1MnhoazNtQlJt?=
+ =?utf-8?B?cFI5c1FyZENiRUE2aFV4QXh1VGVuMU84dExHVGNrYlJFZ1FqZDV2UUFXUTBy?=
+ =?utf-8?B?cW45bkFHaXNZdDRiUWVJZ2dVajIxRVAxMUZGZkY0aDBMSzBCaFV5Rk9mZjky?=
+ =?utf-8?B?MUx3blk1eEtIcGYvdXM5RWJreEpiZ3Q1cjNoaXZwVGFJSnBFeE1SemFqbmov?=
+ =?utf-8?B?aG94aTR6aW9WeXdQcFp5cWZNQzltdEhXQ1Q2cVk0eVplOE5EbmpueDJxNTRN?=
+ =?utf-8?B?eUtBUHZhUm9rSlJFTVlFRVJqejd5Zmk5c3RSZWxXQ3k2MFVPcUUyNC9MTEx6?=
+ =?utf-8?B?OTV6V1YwN0x6UE1PY0xlenhHRzhuQkZuZGo2TVVyQXBtVHJabzc5QVhTR1Jn?=
+ =?utf-8?B?c3RDU3N2TzlGeHgvV0gxZno2bXlCWDMyUURBdVhpVWZxYTJiMWMxQzN5NnFU?=
+ =?utf-8?B?b2gxN2krNG85bTZ4WDZ1K096bndFYkp6aTVzZzduci9jdFFUYVdTWmUwTm1B?=
+ =?utf-8?B?Q2JZb2NXZ09PTXkvd3RRNksyZVgvTFVxUkFiMkxUZldmWU84aGhlMlRlbU9S?=
+ =?utf-8?B?MXZiSTZlTU1admFrT0ZqbGFhM3lMNXp0ZTkrS3RDNU1FeDFlczFxbzg2MVIx?=
+ =?utf-8?B?bVgxaVVlY203WVFFdU1ua2o3akJVNm5neE5kMEJDWk04a1RhUFJHUzNYMFY2?=
+ =?utf-8?B?amxyRkI1SEFRNWlPWStrTm9XWkVDb3lxdWY3eUppbTd1QklVLzRINlIwRUpY?=
+ =?utf-8?B?bzEvWEE3WG9CTkJNcDVSVDhxcEp6ZGxyNmtmRUhLditnK1VmTkRLZDVDZy9Z?=
+ =?utf-8?B?UGE3ckZZSUNVRHpMc2VBZStVMFhxY3crRUp1WUlpNnlzMlVoMy9KZXFlcG5k?=
+ =?utf-8?B?RWN5SFhqQmFrR3B0T0FLczZ5Ynd1enJ5eWFQQUw0MWUybG9OUjNJL1IyQlll?=
+ =?utf-8?B?RFpla2gvQkVwTHp2bUsyTURSUXRGemt0U2c2c09GdU4yYllqWFFrYXZuekQ3?=
+ =?utf-8?B?ZmhLUk1vTHFuZC9TQzQ2OHgxSkYxeFBiNXZVSjNPS1lBekZ4dDY5SGJCUzVV?=
+ =?utf-8?B?V1Z3Rndzc3VId3hOSFJiaWhCeC9oMitKbjhjdGJyZnBZTWlQdDlZQ1pxL1B3?=
+ =?utf-8?B?cytyRjdIa2QzNXRMbDdRcm9FajNZSy94M0ZuTTNMeTltY3pjMlMvYVlHWGFw?=
+ =?utf-8?B?M0JmMDFrTGJOWFA1eEg5SlQ1RTJQc0xmWVg2Z3FnK0NjRWJVWVQ0OG1VK3Rp?=
+ =?utf-8?B?eVEwKzZGalkyNkhGYmo4aXVLYTUwN3dEQy95ZC9CZVlDc1d5ZUtoMjRIaTFS?=
+ =?utf-8?B?Ym90Sy9hSWFYam51WDhLaGJUSmF1TFNjTmdHdzdjQ25OQVN3b0laZFloc0xV?=
+ =?utf-8?B?OGc9PQ==?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2026 20:58:19.6395 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 412f8b3d-180c-4158-751b-08de59f8f8f9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F40.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFB2BF91BC0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,336 +149,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 22, 2026 at 4:37=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> w=
-rote:
->
-> Add AMDGPU_USERQ_UPDATE_QUEUE IOCTL to support updating user mode
-> queue properties after creation. This allows userspace to modify
-> queue attributes like ring buffer address, ring size, queue
-> priority, and queue percentage dynamically.
->
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   3 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |   1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  | 106 +++++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |   6 ++
->  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c |   1 +
->  include/uapi/drm/amdgpu_drm.h              |  13 +++
->  6 files changed, 122 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 246d74205b48..1679075f679b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -813,6 +813,9 @@ struct amdgpu_mqd_prop {
->         uint32_t cu_mask_count;
->         uint32_t cu_flags;
->         bool is_user_cu_masked;
-> +       uint32_t queue_percentage;
-> +       /* used in gfx9 and gfx12.1 */
-> +       uint32_t pm4_target_xcc;
->  };
->
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 9c425169a4f9..bc6cc1517221 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -3075,6 +3075,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] =3D=
- {
->         DRM_IOCTL_DEF_DRV(AMDGPU_GEM_OP, amdgpu_gem_op_ioctl, DRM_AUTH|DR=
-M_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(AMDGPU_GEM_USERPTR, amdgpu_gem_userptr_ioctl, D=
-RM_AUTH|DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(AMDGPU_USERQ, amdgpu_userq_ioctl, DRM_AUTH|DRM_=
-RENDER_ALLOW),
-> +       DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_UPDATE_QUEUE, amdgpu_update_queue_=
-ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
+Hi Dave, Simona,
 
-I don't think we need a new IOCTL.  Just a new op for AMDGPU_USERQ.
-E.g., AMDGPU_USERQ_OP_MODIFY
+Fixes for 6.19.
 
->         DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SET_CU_MASK, amdgpu_userq_set_cu_m=
-ask_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_SIGNAL, amdgpu_userq_signal_ioctl,=
- DRM_AUTH|DRM_RENDER_ALLOW),
->         DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM=
-_AUTH|DRM_RENDER_ALLOW),
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 4cbf75723c08..922f73b92db3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -34,6 +34,26 @@
->  #include "amdgpu_hmm.h"
->  #include "amdgpu_userq_fence.h"
->
-> +/* Mapping queue priority to pipe priority, indexed by queue priority */
-> +int amdgpu_userq_pipe_priority_map[] =3D {
-> +       AMDGPU_RING_PRIO_0,
-> +       AMDGPU_RING_PRIO_0,
-> +       AMDGPU_RING_PRIO_0,
-> +       AMDGPU_RING_PRIO_0,
-> +       AMDGPU_RING_PRIO_0,
-> +       AMDGPU_RING_PRIO_0,
-> +       AMDGPU_RING_PRIO_0,
-> +       AMDGPU_RING_PRIO_1,
-> +       AMDGPU_RING_PRIO_1,
-> +       AMDGPU_RING_PRIO_1,
-> +       AMDGPU_RING_PRIO_1,
-> +       AMDGPU_RING_PRIO_2,
-> +       AMDGPU_RING_PRIO_2,
-> +       AMDGPU_RING_PRIO_2,
-> +       AMDGPU_RING_PRIO_2,
-> +       AMDGPU_RING_PRIO_2
-> +};
-> +
->  u32 amdgpu_userq_get_supported_ip_mask(struct amdgpu_device *adev)
->  {
->         int i;
-> @@ -907,7 +927,6 @@ static int amdgpu_userq_update_queue(struct amdgpu_us=
-ermode_queue *queue,
->         struct amdgpu_userq_mgr *uq_mgr =3D queue->userq_mgr;
->         struct amdgpu_device *adev =3D uq_mgr->adev;
->         const struct amdgpu_userq_funcs *uq_funcs;
-> -       bool unmap_queue =3D false;
->         int r;
->
->         uq_funcs =3D adev->userq_funcs[queue->queue_type];
-> @@ -923,23 +942,94 @@ static int amdgpu_userq_update_queue(struct amdgpu_=
-usermode_queue *queue,
->                 r =3D amdgpu_userq_unmap_helper(queue);
->                 if (r)
->                         return r;
-> -               unmap_queue =3D true;
->         }
->
->         r =3D uq_funcs->mqd_update(queue, minfo);
-> +       if (r)
-> +               return r;
->
-> -       if (unmap_queue) {
-> -               int map_r =3D amdgpu_userq_map_helper(queue);
-> -               if (map_r)
-> -                       dev_err(adev->dev, "Failed to remap queue %llu af=
-ter update\n",
-> +       /*
-> +        * If the queue is considered active (has valid size, address, an=
-d percentage),
-> +        * we attempt to map it. This effectively starts the queue or res=
-tarts it
-> +        * if it was previously running.
-> +        */
-> +       if (AMDGPU_USERQ_IS_ACTIVE(queue)) {
-> +               r =3D amdgpu_userq_map_helper(queue);
-> +               if (r)
-> +                       drm_file_err(uq_mgr->file, "Failed to remap queue=
- %llu after update\n",
->                                 queue->doorbell_index);
-> -               if (!r)
-> -                       r =3D map_r;
->         }
->
->         return r;
->  }
->
-> +int amdgpu_update_queue_ioctl(struct drm_device *dev, void *data,
-> +                             struct drm_file *filp)
-> +{
-> +       struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-> +       struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;
-> +       struct amdgpu_userq_update_queue_args *args =3D data;
-> +       struct amdgpu_usermode_queue *queue;
-> +       struct amdgpu_mqd_prop *props;
-> +       int r;
-> +
-> +       /*
-> +        * Repurpose queue percentage to accommodate new features:
-> +        * bit 0-7: queue percentage
-> +        * bit 8-15: pm4_target_xcc
-> +        */
+The following changes since commit 24d479d26b25bce5faea3ddd9fa8f3a6c3129ea7:
 
-Just make the target xcc an explicit parameter.
+  Linux 6.19-rc6 (2026-01-18 15:42:45 -0800)
 
-> +       if ((args->queue_percentage & 0xFF) > AMDGPU_USERQ_MAX_QUEUE_PERC=
-ENTAGE) {
-> +               drm_file_err(uq_mgr->file, "Queue percentage must be betw=
-een 0 to AMDGPU_USERQ_MAX_QUEUE_PERCENTAGE\n");
-> +               return -EINVAL;
-> +       }
-> +
-> +       /* Validate priority */
-> +       if (args->queue_priority > AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM) {
-> +               drm_file_err(uq_mgr->file, "Queue priority must be betwee=
-n 0 to KFD_MAX_QUEUE_PRIORITY\n");
-> +               return -EINVAL;
-> +       }
-> +
-> +       /* Validate ring size */
-> +       if (!is_power_of_2(args->ring_size) && (args->ring_size !=3D 0)) =
-{
-> +               drm_file_err(uq_mgr->file, "Ring size must be a power of =
-2 or 0\n");
-> +               return -EINVAL;
-> +       }
-> +
-> +       if (args->ring_size > 0 && args->ring_size < AMDGPU_GPU_PAGE_SIZE=
-) {
-> +               args->ring_size =3D AMDGPU_GPU_PAGE_SIZE;
-> +               drm_file_err(uq_mgr->file, "Size clamped to AMDGPU_GPU_PA=
-GE_SIZE\n");
-> +       }
-> +
-> +       if ((args->ring_base_address) &&
-> +               (!access_ok((const void __user *) args->ring_base_address=
-,
-> +                       sizeof(uint64_t)))) {
-> +               drm_file_err(uq_mgr->file, "Can't access ring base addres=
-s\n");
-> +               return -EFAULT;
-> +       }
-> +
-> +       mutex_lock(&uq_mgr->userq_mutex);
-> +       queue =3D amdgpu_userq_find(uq_mgr, args->queue_id);
-> +       if (!queue) {
-> +               mutex_unlock(&uq_mgr->userq_mutex);
-> +               return -EINVAL;
-> +       }
-> +
-> +       props =3D queue->userq_prop;
-> +       props->queue_size =3D args->ring_size;
-> +       props->hqd_base_gpu_addr =3D args->ring_base_address;
-> +       props->queue_percentage =3D args->queue_percentage & 0xFF;
-> +       /* bit 8-15 are repurposed to be PM4 target XCC */
+are available in the Git repository at:
 
-We should handle this explicitly rather than stashing it in percentage.
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-6.19-2026-01-22
 
-> +       props->pm4_target_xcc =3D (args->queue_percentage >> 8) & 0xFF;
-> +       props->hqd_pipe_priority =3D amdgpu_userq_pipe_priority_map[args-=
->queue_priority];
-> +       props->hqd_queue_priority =3D args->queue_priority;
-> +
-> +       r =3D amdgpu_userq_update_queue(queue, NULL);
-> +
-> +       mutex_unlock(&uq_mgr->userq_mutex);
-> +
-> +       return r;
-> +}
-> +
->  int amdgpu_userq_set_cu_mask_ioctl(struct drm_device *dev, void *data,
->                                      struct drm_file *filp)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.h
-> index 43bf104d2fb8..c8ea81c17c6e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -31,6 +31,9 @@
->  #define to_ev_fence(f) container_of(f, struct amdgpu_eviction_fence, bas=
-e)
->  #define uq_mgr_to_fpriv(u) container_of(u, struct amdgpu_fpriv, userq_mg=
-r)
->  #define work_to_uq_mgr(w, name) container_of(w, struct amdgpu_userq_mgr,=
- name)
-> +#define AMDGPU_USERQ_IS_ACTIVE(q) ((q)->userq_prop->queue_size > 0 &&  \
-> +                           (q)->userq_prop->hqd_base_gpu_addr !=3D 0 && =
- \
-> +                           (q)->userq_prop->queue_percentage > 0)
->
->  enum amdgpu_userq_state {
->         AMDGPU_USERQ_STATE_UNMAPPED =3D 0,
-> @@ -118,6 +121,9 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *=
-data, struct drm_file *filp
->  int amdgpu_userq_set_cu_mask_ioctl(struct drm_device *dev, void *data,
->                                         struct drm_file *filp);
->
-> +int amdgpu_update_queue_ioctl(struct drm_device *dev, void *data,
-> +                             struct drm_file *filp);
-> +
->  int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm=
-_file *file_priv,
->                           struct amdgpu_device *adev);
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
-/amd/amdgpu/mes_userqueue.c
-> index ae221eaa5b82..cfa3cb46a983 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -304,6 +304,7 @@ static int mes_userq_mqd_create(struct amdgpu_usermod=
-e_queue *queue,
->         userq_props->use_doorbell =3D true;
->         userq_props->doorbell_index =3D queue->doorbell_index;
->         userq_props->fence_address =3D queue->fence_drv->gpu_addr;
-> +       userq_props->queue_percentage =3D 100;
->
->         if (queue->queue_type =3D=3D AMDGPU_HW_IP_COMPUTE) {
->                 struct drm_amdgpu_userq_mqd_compute_gfx11 *compute_mqd;
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index 41b6b3cea834..c42328453652 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -59,6 +59,7 @@ extern "C" {
->  #define DRM_AMDGPU_USERQ_WAIT          0x18
->  #define DRM_AMDGPU_GEM_LIST_HANDLES    0x19
->  #define DRM_AMDGPU_USERQ_SET_CU_MASK   0x1a
-> +#define DRM_AMDGPU_USERQ_UPDATE_QUEUE  0x1b
->
->  #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
->  #define DRM_IOCTL_AMDGPU_GEM_MMAP      DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-> @@ -81,6 +82,7 @@ extern "C" {
->  #define DRM_IOCTL_AMDGPU_USERQ_WAIT    DRM_IOWR(DRM_COMMAND_BASE + DRM_A=
-MDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
->  #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DR=
-M_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
->  #define DRM_IOCTL_AMDGPU_USERQ_SET_CU_MASK DRM_IOWR(DRM_COMMAND_BASE + D=
-RM_AMDGPU_USERQ_SET_CU_MASK, struct amdgpu_userq_set_cu_mask_args)
-> +#define DRM_IOCTL_AMDGPU_USERQ_UPDATE_QUEUE DRM_IOWR(DRM_COMMAND_BASE + =
-DRM_AMDGPU_USERQ_UPDATE_QUEUE, struct amdgpu_userq_update_queue_args)
->
->  /**
->   * DOC: memory domains
-> @@ -343,6 +345,7 @@ union drm_amdgpu_ctx {
->  #define AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_HIGH 3 /* admin only */
->  /* for queues that need access to protected content */
->  #define AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE  (1 << 2)
-> +#define AMDGPU_USERQ_MAX_QUEUE_PERCENTAGE      100
->
->  /*
->   * This structure is a container to pass input configuration
-> @@ -440,6 +443,16 @@ struct amdgpu_userq_set_cu_mask_args {
->         __u64 cu_mask_ptr;
->  };
->
-> +
-> +/* IOCTL parameters used to set user queue updates */
-> +struct amdgpu_userq_update_queue_args {
-> +       __u64 ring_base_address;
-> +       __u32 queue_id;
-> +       __u32 ring_size;
+for you to fetch changes up to f377ea0561c9576cdb7e3890bcf6b8168d455464:
 
-Do we actually need to be able to change the ring base address and
-size?  I know KFD can do it, but we should verify if we really need to
-be able to change the ring size at runtime.
+  Revert "drm/amd/display: pause the workload setting in dm" (2026-01-22 12:10:44 -0500)
 
-> +       __u32 queue_percentage;
-> +       __u32 queue_priority;
+----------------------------------------------------------------
+amd-drm-fixes-6.19-2026-01-22:
 
-We should probably also make these available for USERQ create as well.
-I would fold CU mask in as well.
+amdgpu:
+- GC 12 fix
+- Misc error path fixes
+- DC analog fix
+- SMU 6 fixes
+- TLB flush fix
+- DC idle optimization fix
 
-Alex
+amdkfd:
+- GC 11 cooperative launch fix
 
-> +};
-> +
->  /* GFX V11 IP specific MQD parameters */
->  struct drm_amdgpu_userq_mqd_gfx11 {
->         /**
-> --
-> 2.49.0
->
+----------------------------------------------------------------
+Alex Deucher (3):
+      drm/amdgpu: fix error handling in ib_schedule()
+      drm/amdgpu: fix type for wptr in ring backup
+      Revert "drm/amd/display: pause the workload setting in dm"
+
+Jiqian Chen (1):
+      drm/amdgpu: free hw_vm_fence when fail in amdgpu_job_alloc
+
+Jonathan Kim (1):
+      drm/amdkfd: fix gfx11 restrictions on debugging cooperative launch
+
+Likun Gao (1):
+      drm/amdgpu: remove frame cntl for gfx v12
+
+Timur Kristóf (5):
+      drm/amd/display: Only poll analog connectors
+      drm/amd/pm: Fix si_dpm mmCG_THERMAL_INT setting
+      drm/amd/pm: Don't clear SI SMC table when setting power limit
+      drm/amd/pm: Workaround SI powertune issue on Radeon 430 (v2)
+      drm/amdgpu: Fix validating flush_gpu_tlb_pasid()
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c          |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |  6 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c             |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c            |  7 +++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             | 12 ---------
+ drivers/gpu/drm/amd/amdkfd/kfd_debug.h             |  3 +--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 11 --------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 10 +++++--
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c         | 31 +++++++++++-----------
+ 9 files changed, 36 insertions(+), 48 deletions(-)
