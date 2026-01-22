@@ -4,61 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC1EFD3EE69
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 13:55:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48ED9D3EE6B
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 13:55:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6626C10E9B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8D210E9B6;
 	Thu, 22 Jan 2026 13:55:06 +0000 (UTC)
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
- by gabe.freedesktop.org (Postfix) with ESMTP id A768B10E968
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 09:38:02 +0000 (UTC)
-Received: from loongson.cn (unknown [113.200.148.30])
- by gateway (Coremail) with SMTP id _____8Cx68L373FpVXcLAA--.37104S3;
- Thu, 22 Jan 2026 17:37:59 +0800 (CST)
-Received: from [10.130.40.83] (unknown [113.200.148.30])
- by front1 (Coremail) with SMTP id qMiowJBx68H173FpKAIrAA--.18788S3;
- Thu, 22 Jan 2026 17:37:58 +0800 (CST)
-Subject: Re: [RFC PATCH] drm/amdgpu: Avoid unnecessary Call Traces in
- amdgpu_irq_put()
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Alan Liu <haoping.liu@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260115012830.31182-1-yangtiezhu@loongson.cn>
- <6ac02ffa-5d62-4fc7-9882-6ccf7b44eaf4@amd.com>
- <0afdb83a-d2db-53d9-3b1b-253e466a5cc3@loongson.cn>
- <1673a119-838f-455e-88fb-528bbd72e1ea@amd.com>
- <1a0dab04-cb13-9307-2853-38221193e38e@loongson.cn>
- <434e6332-2520-4ed7-9dea-8f5118dbb02e@amd.com>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <f7303e86-2f1e-24ae-5c66-c33893896e8f@loongson.cn>
-Date: Thu, 22 Jan 2026 17:37:33 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="XQ+af+yj";
+	dkim-atps=neutral
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E8E710E9AC;
+ Thu, 22 Jan 2026 13:00:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1769086792; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=VKqPDXZqQscCYPdjRAFzVjNUl2wWtTJSvTiRTzEYXbg2KRiiyrzw7Fgd5F4aj/GqLRkPG52NFbg+LSpLjs4GAECVbS01LsWvA9Fz1NjwIAPPjcU/3BNCDvAgEzXUnKfZB2evUSGJlSirmL7GTIXm02Roe2I5pcvUy99ppcqfscg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1769086792;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=uaYzvb2XfnnkbyKx6FP5LwKsEl3/GXRkx9jsqA5CXcg=; 
+ b=RJCKftJsR+YMsCXvoJUwTAO3XJ8vrGzxjCCYZQmDVjdkydhhqR4Bgvb/ZHdXIutEzxgIJnul+AxHTbyPdvbqJo6hzUNsBlNrvzLsDYiCWTGUDpqGZqeaDwo+5XzzCEUSynNz4SiSmXQzIFLwIW+bzQeySP1wgm4RvmR24fr4xfU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1769086792; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=uaYzvb2XfnnkbyKx6FP5LwKsEl3/GXRkx9jsqA5CXcg=;
+ b=XQ+af+yjMhxPFVDC94pM4PlfhBu+gM6eH/bwFiy44r2PfvdSy4/Aodursm5Hdrqi
+ VZ1oIeM9xzg5jXHXTAll2xKeZgInWMdf2dKrQIFjeVJqLYGJlLr9PJTsgJ/NoOlwVW6
+ ezT5oPGKFoHngWSi9Nrm67krvXYabnOVwbijhWko=
+Received: by mx.zohomail.com with SMTPS id 1769086791692511.35700158955376;
+ Thu, 22 Jan 2026 04:59:51 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Andy Yan <andyshrk@163.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v7 10/22] drm/rockchip: vop2: Fix YUV444 output
+Date: Thu, 22 Jan 2026 13:59:41 +0100
+Message-ID: <6631107.DvuYhMxLoT@workhorse>
+In-Reply-To: <7ab32c86.7542.19be4d21f69.Coremail.andyshrk@163.com>
+References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
+ <20260121-color-format-v7-10-ef790dae780c@collabora.com>
+ <7ab32c86.7542.19be4d21f69.Coremail.andyshrk@163.com>
 MIME-Version: 1.0
-In-Reply-To: <434e6332-2520-4ed7-9dea-8f5118dbb02e@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: qMiowJBx68H173FpKAIrAA--.18788S3
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxGr4fAFW3Ww15Gw4fuF1rGrX_yoW5Jw15pF
- n3JF17tr95ur18tr12yr18WFy5tw1UX3WFgr1UJFy0gw1qvr1YqF1UXF10gryDGr4xAF42
- yr90qayxZF1jqFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
- xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
- 1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv
- 67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07
- AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
- F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw
- 1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
- xVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
- 1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8cz
- VUUUUUU==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Thu, 22 Jan 2026 13:55:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -74,56 +88,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026/1/19 下午6:45, Christian König wrote:
-> On 1/19/26 09:53, Tiezhu Yang wrote:
->> On 2026/1/16 下午6:03, Christian König wrote:
->>> On 1/16/26 02:20, Tiezhu Yang wrote:
->>>> On 2026/1/15 下午9:47, Christian König wrote:
->>>>> On 1/15/26 02:28, Tiezhu Yang wrote:
->>>>>> Currently, there are many Call Traces when booting kernel on LoongArch,
->>>>>> here are the trimmed kernel log messages:
->>>>>>
->>>>>>      amdgpu 0000:07:00.0: amdgpu: hw_init of IP block <gfx_v6_0> failed -110
->>>>>>      amdgpu 0000:07:00.0: amdgpu: amdgpu_device_ip_init failed
->>>>>>      amdgpu 0000:07:00.0: amdgpu: Fatal error during GPU init
->>>>>>      amdgpu 0000:07:00.0: amdgpu: amdgpu: finishing device.
->>>>>>      ------------[ cut here ]------------
->>>>>>      WARNING: drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c:639 at amdgpu_irq_put+0xb0/0x140 [amdgpu], CPU#0: kworker/0:0/9
->>>>>>      ...
->>>>>>      Call Trace:
->>
->> ...
->>
->>> The warning can basically only be triggered by two conditions:
->>> 1. A fatal problem while loading the driver and the error handling is not 100% clean.
->>> 2. A driver coding error.
->>>
->>> And we really need to catch all of those, so there is no real rational to limit the warning.
->>>
->>> I mean when you run into any of those they should potentially be fixed at some point.
->>
->> I did the following change and it can fix the problem, given that I am
->> not familiar with amdgpu driver, could you please check it? If it is OK,
->> I will send a formal patch later.
->>
->> ----->8-----
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->> index 8112ffc85995..ac19565e7c45 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
->> @@ -138,6 +138,9 @@ void amdgpu_irq_disable_all(struct amdgpu_device *adev)
->>                          if (!src || !src->funcs->set || !src->num_types)
->>                                  continue;
->>
->> +                       kfree(src->enabled_types);
->> +                       src->enabled_types = NULL;
->> +
-> 
-> Mhm, I need to double check that but that looks like not such a bad idea of hand.
+On Thursday, 22 January 2026 09:28:54 Central European Standard Time Andy Y=
+an wrote:
+>=20
+> Hello Nicolas=EF=BC=8C
+>=20
+> At 2026-01-21 22:45:17, "Nicolas Frattaroli" <nicolas.frattaroli@collabor=
+a.com> wrote:
+> >YUV444 (aka YCbCr444) output isn't working quite right on RK3588. The
+> >resulting image on the display, while identifying itself as YUV444, has
+> >some components swapped, even after adding the necessary DRM formats to
+> >the conversion functions.
+> >
+> >Judging by downstream, this is because YUV444 also needs an rb swap
+> >performed in the AFBC case.
+> >
+> >Add the DRM formats to the appropriate switch statements, and add a
+> >function for checking whether an rb swap needs to be performed in the
+> >AFBC case.
+> >
+> >Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+> >Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> >---
+> > drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 19 +++++++++++++++++++
+> > 1 file changed, 19 insertions(+)
+> >
+> >diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/=
+drm/rockchip/rockchip_drm_vop2.c
+> >index ec3b4fde10db..469c63dd97d5 100644
+> >--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> >+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> >@@ -176,6 +176,7 @@ static enum vop2_data_format vop2_convert_format(u32=
+ format)
+> > 	case DRM_FORMAT_ARGB2101010:
+> > 	case DRM_FORMAT_XBGR2101010:
+> > 	case DRM_FORMAT_ABGR2101010:
+> >+	case DRM_FORMAT_VUY101010:
+> > 		return VOP2_FMT_XRGB101010;
+> > 	case DRM_FORMAT_XRGB8888:
+> > 	case DRM_FORMAT_ARGB8888:
+> >@@ -184,6 +185,7 @@ static enum vop2_data_format vop2_convert_format(u32=
+ format)
+> > 		return VOP2_FMT_ARGB8888;
+> > 	case DRM_FORMAT_RGB888:
+> > 	case DRM_FORMAT_BGR888:
+> >+	case DRM_FORMAT_VUY888:
+> > 		return VOP2_FMT_RGB888;
+> > 	case DRM_FORMAT_RGB565:
+> > 	case DRM_FORMAT_BGR565:
+> >@@ -225,6 +227,7 @@ static enum vop2_afbc_format vop2_convert_afbc_forma=
+t(u32 format)
+> > 	case DRM_FORMAT_ARGB2101010:
+> > 	case DRM_FORMAT_XBGR2101010:
+> > 	case DRM_FORMAT_ABGR2101010:
+> >+	case DRM_FORMAT_VUY101010:
+> > 		return VOP2_AFBC_FMT_ARGB2101010;
+> > 	case DRM_FORMAT_XRGB8888:
+> > 	case DRM_FORMAT_ARGB8888:
+> >@@ -233,6 +236,7 @@ static enum vop2_afbc_format vop2_convert_afbc_forma=
+t(u32 format)
+> > 		return VOP2_AFBC_FMT_ARGB8888;
+> > 	case DRM_FORMAT_RGB888:
+> > 	case DRM_FORMAT_BGR888:
+> >+	case DRM_FORMAT_VUY888:
+>=20
+> How did you test this format? It seems tools like modetest don=E2=80=99t =
+support testing this pattern.
+>=20
 
-Please let me know whether the above change is OK, if yes I will send a
-patch ASAP before the coming merge window.
+Hi Andy,
 
-Thanks,
-Tiezhu
+using the rest of this series, which implements the "color format"
+DRM property, and the corresponding weston MR that makes use of it[1].
+
+I create a ~/.config/weston.ini with the following contents:
+
+    [output]
+    name=3DHDMI-A-1
+    color-format=3Dyuv444
+
+This will make Weston try to set the output format to 10-bit YUV444. To
+limit it to 8-bit, you can add `max-bpc=3D8`. The monitor's EDID needs to
+report YUV444 support, otherwise that Weston version won't let you set
+this property.
+
+Link: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1859 [=
+1]
+
+Kind regards,
+Nicolas Frattaroli
+
+>=20
+>=20
+> > 		return VOP2_AFBC_FMT_RGB888;
+> > 	case DRM_FORMAT_RGB565:
+> > 	case DRM_FORMAT_BGR565:
+> >@@ -270,6 +274,19 @@ static bool vop2_win_rb_swap(u32 format)
+> > 	}
+> > }
+> >=20
+> >+static bool vop2_afbc_rb_swap(u32 format)
+> >+{
+> >+	switch (format) {
+> >+	case DRM_FORMAT_NV24:
+> >+	case DRM_FORMAT_NV30:
+> >+	case DRM_FORMAT_VUY888:
+> >+	case DRM_FORMAT_VUY101010:
+> >+		return true;
+> >+	default:
+> >+		return false;
+> >+	}
+> >+}
+> >+
+> > static bool vop2_afbc_uv_swap(u32 format)
+> > {
+> > 	switch (format) {
+> >@@ -1291,6 +1308,7 @@ static void vop2_plane_atomic_update(struct drm_pl=
+ane *plane,
+> > 		 /* It's for head stride, each head size is 16 byte */
+> > 		stride =3D ALIGN(stride, block_w) / block_w * 16;
+> >=20
+> >+		rb_swap =3D vop2_afbc_rb_swap(fb->format->format);
+> > 		uv_swap =3D vop2_afbc_uv_swap(fb->format->format);
+> > 		/*
+> > 		 * This is a workaround for crazy IC design, Cluster
+> >@@ -1308,6 +1326,7 @@ static void vop2_plane_atomic_update(struct drm_pl=
+ane *plane,
+> > 			vop2_win_write(win, VOP2_WIN_AFBC_ENABLE, 1);
+> > 		vop2_win_write(win, VOP2_WIN_AFBC_FORMAT, afbc_format);
+> > 		vop2_win_write(win, VOP2_WIN_AFBC_UV_SWAP, uv_swap);
+> >+		vop2_win_write(win, VOP2_WIN_AFBC_RB_SWAP, rb_swap);
+> > 		/*
+> > 		 * On rk3566/8, this bit is auto gating enable,
+> > 		 * but this function is not work well so we need
+> >
+>=20
+
+
+
 
