@@ -4,122 +4,217 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63308C44500
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 06:56:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 731EDC44536
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 07:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEAB710E138;
-	Thu, 22 Jan 2026 06:56:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B9B010E290;
+	Thu, 22 Jan 2026 07:19:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fsLjBSSA";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m8T4qcKN";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010060.outbound.protection.outlook.com [52.101.56.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFC1D88697
- for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 06:56:06 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA4AD10E290;
+ Thu, 22 Jan 2026 07:19:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1769066394; x=1800602394;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=Z4QkvA6YaSEHgRxKpZoqYM/SfzsRr/RZN+7cnihz+mk=;
+ b=m8T4qcKNrfxWkCx6qHehnXsg8YZxf8guVUuS8p80if35tNhEK5+wTY6D
+ rN3DoLCRBfGK4Jpld7yajFd9rguGC1bPUyUsF4kCETITktl2AmPv8cSJE
+ znQZy/u1X80Ti7oSLe/ZEt/g0atIm8DqKBshizR2oc2B89xECsst4NGJd
+ J9sAlmn5qn2ibVkbsMcrqJwqhzDaaJ1zGfegcmKyih15Pw7UQ5wA1Vo/M
+ argOK0ql2z1QYQT7pNOEWU/Wi/m2Jq8KPbPr/38SgvL9pgZgnEW5uvjZH
+ O2+bGb2U3uqM8wInT+6Ic8vpK7YJKbtrAE36T3HLPlmIQNrtSamFR+DEx w==;
+X-CSE-ConnectionGUID: Fj22vepSQWqFLey9RQrjfg==
+X-CSE-MsgGUID: zmkVuLsBQDWz4KpWHuXIOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11678"; a="70218623"
+X-IronPort-AV: E=Sophos;i="6.21,245,1763452800"; d="scan'208";a="70218623"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2026 23:19:53 -0800
+X-CSE-ConnectionGUID: hA7pCq19QASVCx1ifvFYBA==
+X-CSE-MsgGUID: 4FN7r2WrSVKLSM0oDeU4pA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,245,1763452800"; d="scan'208";a="210814141"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2026 23:19:54 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Wed, 21 Jan 2026 23:19:52 -0800
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35 via Frontend Transport; Wed, 21 Jan 2026 23:19:52 -0800
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.29) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Wed, 21 Jan 2026 23:19:51 -0800
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ClQ8wuJ2KIvA4NZzX8zaq9h3/ihEHEfbbwaoUJP72BuUlLg23oKwV4wuQIUh2+RXcxpUTCJ2dZ8ulq4Eb8Vg0m1mILxO2kQzWrJy+WLWEH13TUlnKvTcoP3GWsnKa0HE0RPsu+CcmCfYOlpNfyRmjMSArqnTOfQ5IrmBhnfQy6uwxUykfqV2Vr0CR6wGVqGbBr1jAaQ1qKObYT/cf6YbanxKEgsIp5t9bXzDVBfDZOkStZi0Dexc+YYWvUztRNzhSZFndB58JyZ9TWXq18JO0bU0Svpb6BkgBl1RKwqeMbYHp+nPRwsK6mFbInLFGSE/8tzo9H6tYd1CW/NbKV8meg==
+ b=w6JVxiDpp0blTDAC8M7h8LD6Bxm7DZMQylLc+GaVZyevuE2udlAELr8SSeYqS3suJ0Y1lo7ErqK3y+0WMLsT6yHsqzoS+6jmhMoVR6TdUHgoSqZkghaJmB2+vgjkeBI29lBqcevrRZqxAKDGsbWZfmQ9uvhPT1TtDpOpC9fxtlzyIbB7BiiaWmyBgfjAZ28drQ7ZaC43obDWIZZ8GD9yq4Ls64Tb49lJsCcQ+5CDVA7VWmSsfLFPS7vmC0w7QiWEQdkcbNwZRS/smrlMgYs4yzKuvoXMjiT37FR4ureIY7ZvYqrS8Byo40mk5t909FSHd5CwfTUCR9O/FOCLiQjAwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zjtC4Ib0CMYt5t4LM/naV5lCWa+0wnNHx3N/vegq7I4=;
- b=d556Gs/JhNgSAVdHw6fByux5QYX5/DHhB5Et2I2ydGLE+77eZphxmwofId23IuzYTW8zpWW7ml5dPpbZ9QbTO92xgtx7Z7kCyX2A8LmkkzQzoRT02f1gemC1NmCufmevbr+s1RgFHFqria3qWtW57j+duNNZDVR1XE6z3d/dHMjk3geQcihV9tlR2RnlE0L4JtioT9ZmbSJz+Cg+MofWvCQ7i1gaJ6QXsqx3C6i6OJuTb0f6UBnv+g4jLswHMtcuh0qEgpN2C4dlow15Lh6CpSZkqkbiQabq9x50t32zIWd/S2eIgKD701m1PG0a8kgAJW94//Z2Ye0e1M2ZnoACsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zjtC4Ib0CMYt5t4LM/naV5lCWa+0wnNHx3N/vegq7I4=;
- b=fsLjBSSAQrll1yqZpJjbNsgaksE0w6kg4xsaBICcE90Qt757SWhKJP8UxT3oirgzdwnAeJ7Aru/JPMPG6VR7evY+lZnXBGKQCzeTONRUGov1Hu1ZXu4c8oeKXNjagcnYcgbk8f20/mybxbbVEVxXwfHdPjnW5It9Klthky1gJ/c=
-Received: from BN9PR03CA0136.namprd03.prod.outlook.com (2603:10b6:408:fe::21)
- by SA0PR12MB4398.namprd12.prod.outlook.com (2603:10b6:806:9f::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.11; Thu, 22 Jan
- 2026 06:56:00 +0000
-Received: from BN1PEPF0000467F.namprd03.prod.outlook.com
- (2603:10b6:408:fe:cafe::c6) by BN9PR03CA0136.outlook.office365.com
- (2603:10b6:408:fe::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.11 via Frontend Transport; Thu,
- 22 Jan 2026 06:55:57 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF0000467F.mail.protection.outlook.com (10.167.243.84) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Thu, 22 Jan 2026 06:56:00 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 22 Jan
- 2026 00:55:58 -0600
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <Mangesh.Gadre@amd.com>, <Stanley.Yang@amd.com>
-Subject: [PATCH] drm/amdgpu: Skip vcn poison irq release on VF
-Date: Thu, 22 Jan 2026 12:25:37 +0530
-Message-ID: <20260122065538.1595301-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
-MIME-Version: 1.0
+ bh=Vpp0BjdYaSjPEGTyUrlUM8/7+7yMaOLnIOsUBtvsURo=;
+ b=dflqETHieaLEt/rm2cu9rFWdrEfrpr1q0QS+UmewTCjDzw4VglCuImX9A07dJ7X8HF2jidfd8GB402+Zpz3XU94uCuUyIkBlSU14jWfExHbQFMVMnjOAeopXYoBpCU4Y5mYpjNaVZ7to0Hsd1eIIrnEM8jpCSxi+5QLAY+gRLSecj5RVQCzyFxSAMZreTJ2WAb6qle19WmF1BNZOCVYbPJyn+HSnfQnKON4WCCRB55gXKwA1Ht5h6KkJc9h0dERcM+pOgB/gEEs+AIilXClwcHJbWdIpMT+A+rTA5dslZ1KBe8DRMDcjOvF2lJ8+4T8nUrJYidx5iC7Fyww3wKJkRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by MW4PR11MB6982.namprd11.prod.outlook.com (2603:10b6:303:228::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.10; Thu, 22 Jan
+ 2026 07:19:49 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::9e94:e21f:e11a:332]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::9e94:e21f:e11a:332%7]) with mapi id 15.20.9456.015; Thu, 22 Jan 2026
+ 07:19:49 +0000
+Date: Wed, 21 Jan 2026 23:19:45 -0800
+From: Matthew Brost <matthew.brost@intel.com>
+To: Zi Yan <ziy@nvidia.com>
+CC: Jason Gunthorpe <jgg@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Matthew Wilcox <willy@infradead.org>, Alistair Popple <apopple@nvidia.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Francois Dugast
+ <francois.dugast@intel.com>, <intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, adhavan Srinivasan <maddy@linux.ibm.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Felix Kuehling
+ <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, David Hildenbrand <david@kernel.org>,
+ Oscar Salvador <osalvador@suse.de>, Andrew Morton
+ <akpm@linux-foundation.org>, Leon Romanovsky <leon@kernel.org>, "Lorenzo
+ Stoakes" <lorenzo.stoakes@oracle.com>, "Liam R . Howlett"
+ <Liam.Howlett@oracle.com>, Mike Rapoport <rppt@kernel.org>, "Suren
+ Baghdasaryan" <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ <linuxppc-dev@lists.ozlabs.org>, <kvm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <nouveau@lists.freedesktop.org>, <linux-mm@kvack.org>,
+ <linux-cxl@vger.kernel.org>
+Subject: Re: [PATCH v6 1/5] mm/zone_device: Reinitialize large zone device
+ private folios
+Message-ID: <aXHPkQfwhMHU/oP6@lstrano-desk.jf.intel.com>
+References: <eb94d115-18a6-455b-b020-f18f372e283a@nvidia.com>
+ <aWsdv6dX2RgqajFQ@lstrano-desk.jf.intel.com>
+ <4k72r4n5poss2glrof5fsapczkpcrnpokposeikw5wjvtodbto@wpqsxoxzpvy6>
+ <20260119142019.GG1134360@nvidia.com>
+ <96926697-070C-45DE-AD26-559652625859@nvidia.com>
+ <20260119203551.GQ1134360@nvidia.com>
+ <ef6ef1e2-25f1-4f1b-a8d4-98c0d7b4ad0c@nvidia.com>
+ <EE2956E3-CCEA-4EF9-A1A4-A483245091FC@nvidia.com>
+ <20260120135340.GA1134360@nvidia.com>
+ <F7E3DF24-A37B-40A0-A507-CEF4AB76C44D@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+In-Reply-To: <F7E3DF24-A37B-40A0-A507-CEF4AB76C44D@nvidia.com>
+X-ClientProxiedBy: BYAPR05CA0039.namprd05.prod.outlook.com
+ (2603:10b6:a03:74::16) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000467F:EE_|SA0PR12MB4398:EE_
-X-MS-Office365-Filtering-Correlation-Id: b39c8fee-9394-4641-6ec4-08de59834cfe
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|MW4PR11MB6982:EE_
+X-MS-Office365-Filtering-Correlation-Id: e45038de-e53e-4b57-9ca0-08de5986a0f0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?cYZYZY+oyBNPYt5Z3ZIRV9gsukwfPLu0U0k2FNYQrboLXwG90OWIne///xf/?=
- =?us-ascii?Q?sTJmrc2ifID8m5TmYrkOmHdo/R8FB5VuFCgV6FLqU84E2VjGgLBR68+U2kbK?=
- =?us-ascii?Q?C+NT3Nk2uagKsgWBwMdFhROt3d31SJwiocnxrpngDhpQlHDgEDeyjoJJODH1?=
- =?us-ascii?Q?lETgBTaYOBZYcoG08gLuJ3NRQfnA3XUafrL0VdOhfJYMWmJZrlYodx4Xg3Xl?=
- =?us-ascii?Q?Q7NQz/MCo0rU2/EGlPD+0fOjMuhJVJ2j6TwZjikPdvM1Fi3s6veBpuZXX7TQ?=
- =?us-ascii?Q?oXRowwTBKdIiBw+xvKQmA1n7fZUcUyCP+XezszdYKZtOKOKqKmLgWZ85OApR?=
- =?us-ascii?Q?G2Gy04uxF7EW0NalKESAJsesQjmohW//DxAqVybgiCWEsSeTKNO0YbrxzZha?=
- =?us-ascii?Q?R9ie2pVfXcmgEdq8eyymVxqKTneMxVSr1ASaSmST7Nt8vV6Fdm9KXc3wzBQZ?=
- =?us-ascii?Q?AiZc9P2kr6vWDg2M9iz15i4BTV0Jep7ex6igsUK6T3Mcoe+XTnVTvEuZa3rC?=
- =?us-ascii?Q?PVc/ZGsqS9JssKNCH1NOhveKrEocP5cXXHPAuyhKbNj5urxiWE7LbtsubKuY?=
- =?us-ascii?Q?Utf2SsGmZcrOPvdfgnz0Al1ZMjjjdreSOZ2b/O5GLzQ66NrVTGzBiAdxyQJ2?=
- =?us-ascii?Q?Nixq7TE197RSolS2KeXDBF76VWTwcx/vOF7DkHvkZ64taWJ30XZ+usg6Rfv7?=
- =?us-ascii?Q?CyoI54U8UjiJlUTQ97LLkhBSN2FjNK6zWEy8oEiynGEBKf0XWSzenNpGFaKH?=
- =?us-ascii?Q?eNGbYquy+aXiZLcG1EV1e7+gMeyj09TeK5y4dShJXXyoIUF/HxDDEkmKr9zI?=
- =?us-ascii?Q?TQY2ANrf4TIYBN2XeGSNIATIn4Uj/NN+QxzMl2ctuw3UZtaZRDxHG9pmFuff?=
- =?us-ascii?Q?Oqr5Y2EiocWiZXLO1bi1+r4zyaWNRnOhD4LsgURZwgDzvPtsjihr43UyGe/E?=
- =?us-ascii?Q?dbjz9W5xifceGeVw4cPw/6b8sksUrMIeq9WrqtWIqroc597bI0NTgZbJHVA4?=
- =?us-ascii?Q?RKOv+iGfluPCW6+uHBWunwvUI+WnGgWI3dXLhYkmMq5Lo4ZRsWKoCIAt2OSY?=
- =?us-ascii?Q?3/haJF3QR7eEGjy2r+gW2WPY06rkS37vZ+quA0m6Y8ZVRoi++BBV4RYRUHz+?=
- =?us-ascii?Q?9zs4o/aTvpWmyhVXgq35I4yTX8vY4nEGCbvw/zy3tJSqT8GiBHAVgdxRET/x?=
- =?us-ascii?Q?b92YRc0ddJn8U1dPRxXwYsrYdcyTVkfqgo9Xoxn2WCUqIbEGA6nIhjZzvZYi?=
- =?us-ascii?Q?BMfeI34GSGyHE5WhHjcqpTymVOFys/b17aiwCNU3+IXqumtwu71G9mhz2kxs?=
- =?us-ascii?Q?6bdt6QVMDVLSN6yCcvIK5nE0sIksg8F5557GdOk2MP3NDbBmWBufaiJF3C3g?=
- =?us-ascii?Q?ujhPdk4jnUxOxw/cEzz3cp1CuJJiGWh75g2zVVWTjkOseYtfTKjjjB/JRhUh?=
- =?us-ascii?Q?YDIiBnb5NNzRC5G/Anyo4+zBbc3mv+wJBzkbORPX7PPAXkq1IVbMSrMIoIHz?=
- =?us-ascii?Q?eWyxRfu+GWlBCe6iEF4fPBOyLAE7+9n80h1re/K6UtSkXNU4TCO4o8onpWcH?=
- =?us-ascii?Q?iVrSKtgTg+0rbZMKf076e/oV9tbAN6DB8toAvZVAmxapuvSJfEPGY6C4yCIA?=
- =?us-ascii?Q?tl5e8zCR1PCCpF+x5u6U4dFbzM9ZFEqK6qqFXOIzqnFhmH7E7j9Lv0DyQPrI?=
- =?us-ascii?Q?RsXD7g=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2026 06:56:00.0088 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b39c8fee-9394-4641-6ec4-08de59834cfe
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF0000467F.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4398
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?czB4ZjRQd1M3MUxTMkU4Y28yTWJ6djdHa3VaUXkxV05CL2VaS1ZDNVBwQXlw?=
+ =?utf-8?B?RVRXWmtEYW5kTndza21lM2NRcFdpWExxUVNmWThFTW5WWmNYd25VVGdBRC9w?=
+ =?utf-8?B?RDRCZnZoaHJ1RVErbmgwSVd4OWN6ekZGbmlVdzBWV3VRVlZmbW9lWmtRZlZR?=
+ =?utf-8?B?L3JROE9ieitHMnF3dk9FOFk2b3BKQ3ZuTHMyYVRIYjFUMjN1em5NV2x4SHQr?=
+ =?utf-8?B?QmdRRjdJV2lEK04vOXk5ZHIrd3pnV2lLRVJ2MVRKODFLZ1pVdzJLNE9uL00x?=
+ =?utf-8?B?RFF3TVREaHYwQjViV3lWYjNEU2ZwVTJLWGVldCtoVk5JRngzenp5VkE4ZE5y?=
+ =?utf-8?B?b0pOdXoxRE56MC8yemVZUDBpd0ZzbXB0YmoxZGxNa1pKTk8yd2lZZUFYd3hx?=
+ =?utf-8?B?bmZDTmYxYk04aDVTb0d0MXkzZjBHVWhlNXozQmNlekcvYzhWVlF0Q0RwTVlT?=
+ =?utf-8?B?MXUwY1FoaXNNY3BTUzZiaUcwcDgrTnhpR0pJVnJaVTBqL3p2LzVsQjdwOWNK?=
+ =?utf-8?B?LzNWdHpUcERWZURGZ1pUZW56NUpQOUxCTTNFU0NmUVFTZU1BaWhjbllLZDBv?=
+ =?utf-8?B?Z0hFa2NkZVFVNkd3ZlFzdGduMUFaL0thR3ppdjYvbmtiTGxHUHlkUWhEUXZm?=
+ =?utf-8?B?UUZCOTM3MlJLcTR3RGZjNmVzY3B6K3pSd091akNIZFE4RWtIR0VYdmVzU0oz?=
+ =?utf-8?B?czBoWW84eFdVSmE4UlRYYm5KS0p3bFd5OGpCOGpDKzhZV2N4SGlrVG1scENz?=
+ =?utf-8?B?cVZWYkUxdDZuZExyOVRCc25COUIzVkF0N0o3b3IwN084azhPUXdrWW95QUFV?=
+ =?utf-8?B?S2hScFlaOFdpcTVhWnVjVzN3VGpmdlhzRVBlMjNxcDZDV2hBRkJHSTZlTU5l?=
+ =?utf-8?B?TVZyTkdkbHU4MmJMQkpvL3Z3YlNCbENWUWFOK2k5Qmx6dHg4eDV4UFl3OHhT?=
+ =?utf-8?B?a0NrK2F6SkJSd2gxbTROZVpGTjk5TURxTWZoSk50MWZ3RzhENExxbXhxL3FD?=
+ =?utf-8?B?Ny9GUFZEUU9PWFdZMW9oc3g0UXorcWl5eUFOQWxtMWhHN2xxeER4OTdsUy9R?=
+ =?utf-8?B?SitRVjRMenErODN4SVEzdktjekNJZUNsVE5iWWFsL3JEVlcxcFAveDBpdHh4?=
+ =?utf-8?B?QmkreTlLcDhQc1hGczczeFdTWFUvd2FhMkZFSk8vS1BrdFpDQTlOREpRYlZR?=
+ =?utf-8?B?czFuRyt0eEdremQxMUMyRzUvUFJ1UGpVakQ5MHZIRTNaNHQ1cGxhMGhBakgw?=
+ =?utf-8?B?SHBSR1I5d2haMkRkT29YdU5hZ2h5RzRoeElQbHpMSHUxS0ZHNXVvTHhsd3hX?=
+ =?utf-8?B?eWJwNFUrV0VtejJLMURlcjZ1a25qV08yclRLMGlOczBhWmNjNHhjemtzVGNL?=
+ =?utf-8?B?cUh3M3hUQXl6Rm9acmc2OGkyWVB3a1NiZ1c5K2pjRWRQMXlWczBwczN5V2tT?=
+ =?utf-8?B?MStzNlVLbWZKbXN0SUwrRTVwYlc2MlZKUi9DWHQ3Z3VXSkhZTTdubjVjWGtu?=
+ =?utf-8?B?aExNbHJHVXZTNjAxT3R1Tnh0dzNOdmdkc3RNUk12RmtyTHhlemdDUVJxUXVj?=
+ =?utf-8?B?VzRUM252QzNXbC9WRVo1c2ZRSlZRa0VHdG5PcEg3WjU4WFdSbHVVMHJyYjZ1?=
+ =?utf-8?B?UWhYNU9RZjdXeHJLVnJFa0drckhFWmpwMjRtaDdtRkpkaWZVUmRKODVxNUdN?=
+ =?utf-8?B?ZFptcmFEY0VHTDNWdUNrc0ZuYm9hUTNpY3RzN000dCtLTVAxK3B4RWVkUjZW?=
+ =?utf-8?B?d0RNNFJsWDBxV0J1YjRNSm9xU3lBWGd0Z1ZpTXN1Vldyek5NZG9LVmlOL3gx?=
+ =?utf-8?B?OWcrcENrWVAvYUNKL1dRTWdOTEFKS283WHIrMHE3ZGRhVkFVd1p6Mk14bk5C?=
+ =?utf-8?B?b25EbFZhZE5BZWJLc21URklSMjd3VlU4ZlFVRXdocG94QlVpbzVKTGJxY05v?=
+ =?utf-8?B?bXVFUVlLekRpZ2lDUlluRERheG5GQm9MNlhuY0R4Qlc3YVNudXlhUFVjV3hy?=
+ =?utf-8?B?bndERFZHaHVJSVZOVVhFTCtSNW45dlEyci9sOG5xeWRKRXFWL1YxeGNpeEZx?=
+ =?utf-8?B?ckFFR3lvdzB1clJuNWVnalhVeG50V2JBaVFhVUY2ZjZkV3JJVldwMjF2akI2?=
+ =?utf-8?Q?T1QY=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZjM5cXJubmhQRStXUzNhRk9HRlZ3TmhMMWM4UXNKd3V2V3hmQWZuSk90UU51?=
+ =?utf-8?B?ZUNVMklXSk8yT1VZU3RRYTJaYndjQ2MzbE8vOUlQbUFvVjdoSmdiN25QQ3Y2?=
+ =?utf-8?B?YWFzRE9FWDRXWmg3aDQ5dkZ0d1ZHY3g2Y2tBTXVqTlFmNFhFemhTMnlXN1pt?=
+ =?utf-8?B?eGE2aGtYbFVpRm5LRThrK2hubmNPREVoK2h4WCtpME1wN0ZRVVdkL0NpdzVu?=
+ =?utf-8?B?VjFSeDY2TWdYZnp1Z1htd3NuSzBpSGV4WWtpdm5XdHJrTWVvSEZRSCswQ1pp?=
+ =?utf-8?B?WDNUck9LcVFOT3NuaXRvZDJzNWpWQVRCcXpxRXFBVE9NKzA3dUxzRWZsWDNC?=
+ =?utf-8?B?Zk05VlRMSDZwR2tJVUhCRHdJQjk2c1FuZ3M2RnNCdTAwRCt0dUF2VXdIZUJz?=
+ =?utf-8?B?d2F1UnFabTdmMHVPVWJCQkFaRFRySEJ2a3NoeEU0TnE0eitnN1NqdjdLeEt4?=
+ =?utf-8?B?VjJXUzA3ZlRsTUFtQVp3NEdOc2hIQ3hsSGVyT2xhQ1UrZDVJKzBhbG1CV2Fr?=
+ =?utf-8?B?TWZrbEVmQ2RqQW1DTUw3VXNKQ3lzcmg1TWZESm5rUGdLZFI3bFlETUZDQjhJ?=
+ =?utf-8?B?UDhaS1BBTG55K3RuZEZ2NmhQNWhsT0d5S3M0K3pkNVZQNXR5WjllaHJPZGk1?=
+ =?utf-8?B?NEZsd2N4bnRldThhb0FXZGtnc3c0S1V6dFpWcnY0dndvU2NQTEc4WFNkTm15?=
+ =?utf-8?B?K2dwVFNGZCtobDRzZ081UzdVdE5wLzh0dEsxYnQrRmltZUxwaWVSUzliZHo4?=
+ =?utf-8?B?MUc1TWFjRHdWcjUzNnBYNURWRTRRYVUrTnk1Q1VuTnR3VFByM3lOWE1KR0pK?=
+ =?utf-8?B?MmJxa0NEbytibmlJU0cvTDNMWGxYK1VhUExjVnAxUlU3djVoL2ROZU9tVzlP?=
+ =?utf-8?B?Y1F1WFNjMHpUY1R5aDBCbXhsZFlkWU14MFlBd1JoMnlNV0RrblNlQ3lkc2J6?=
+ =?utf-8?B?a2pjNFkzaEhFWUhIekdML2dTcTJHaWpUT1J0VTBGMHJXVEJ6aGpBbFk1eHpy?=
+ =?utf-8?B?aDZGdjF2TThMUjY4dENwdVNMdU1QZUdxbW0yOERxbXVTUDVPajZRaU5nNjFo?=
+ =?utf-8?B?Nngwd09IWXY1aEF3c3JWRnVzR0JiRWNTVEdqWW82dG9uQUFmV250b1NJTEJK?=
+ =?utf-8?B?WnZTeGY0SUlMMGFEOVNCclByTkxOZ3ozY3lBcmVUdTVUT0VkVnhteEhIdTE3?=
+ =?utf-8?B?NFBBdnFTc09VWGpKOVlWNUxlVGlYaW5ldW85SlUvRkt0MTl0Zyt4ZVFNeTRv?=
+ =?utf-8?B?TGYxK0xqRlRmZ0dtTWlGMHVZeTdsMzhzWWJkeVJ5RUEzWUZXTDN2cTlhTTFQ?=
+ =?utf-8?B?ZVRoOUZ2RTRaaS81Q1ZEaUVNZlNKVHF6QTY5SG9xdTh2ZXIrWWdwbmsvSDA0?=
+ =?utf-8?B?bVpOd3NLUkRJMW41MS9JaTBZYlh0WVU3bWVXZDZYMjkvdVUxam9LMytVQURq?=
+ =?utf-8?B?NGJtVzJINE9vYm9vQWlvTXhJM0U0ejAzdnNHQ0lFWHM4MGZVakFOeWVKQ1d5?=
+ =?utf-8?B?eE9OSFhUZWdueWdCWlRXaTM3RHNLWXp0NnVwTUJpZE9JdGIrVk5yaS9JSDl4?=
+ =?utf-8?B?dkxwQ3N1QWlyR1ZMYzdXbkkrVWppb0JEZFFwaUk5M2haQ2NjU3JqbXhmSmZD?=
+ =?utf-8?B?cEpSMzErWEN1Q1JsM01wUlgwQk4wWlU4RllTU2NaK2IwK3FPVGlMM21DQTk2?=
+ =?utf-8?B?V1NveDVnTm5Zdk5WVUsrQzJwV3VEM0NGeWduTi9MQ0tuMG55Q3BvNHRCWCtu?=
+ =?utf-8?B?K2lFTXlvUFhJUUVsaWJJdVZFM2U0WHB2eDhpNk9KL2luaVJIRUdLeVdScVdX?=
+ =?utf-8?B?eG13b3gzV2lKL3RtN2s1VUpGZzVjZFFvUVVQalhOWmJCd2lKWlVWZDZpQy9p?=
+ =?utf-8?B?NmJmaTRQRlRJemxuM1F5MUhvN0J3MlBBN3F3ZFptZmNLYVVBN3FEenVCVFVJ?=
+ =?utf-8?B?citnSGNVSXA5TDF3aUU1MitCK0NHeGs0VVZ4VzdWNVh4Q3V6VmM4ZmhXRXVm?=
+ =?utf-8?B?K0VVd1gvR3pZbWZkeGJORGwzQ3JMaFh6VTRCa2NKQjNuaTlGTWNyZkg1VmJ3?=
+ =?utf-8?B?SHp3TTQwV2dKTURSZzJIWk9BQlZaY1h2UENPcVN1SzJHZnZuRkZ3KytaWjUy?=
+ =?utf-8?B?V0tJampJd0lQa21IZ1JrZnhiazRCSWRUZDhWeWVrRTJ5SlhrbGVDQU5LTDl3?=
+ =?utf-8?B?eGZRbGNUeXozRnVrUDUvaFJZQUNKR3hzVVhGVk5Ba3VsWDNPRnI4ZDRhT1Rk?=
+ =?utf-8?B?dTQ3WUg5QVZrMllIcGcwSW1wQ25nakxPekFWS0habVoyVmtzM1I0eVRtTzVO?=
+ =?utf-8?B?Q0RVdGJnUVdXTWcrcy8wODZydkFqU3UzYW9XTG0vMUZVdTFFUmxoUT09?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: e45038de-e53e-4b57-9ca0-08de5986a0f0
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2026 07:19:49.5712 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Cc8SrTJ0ZKI/r8/uxaSMVB0s8p9QOzuIsG9Oy3AH3emxPKc896u89OWizXx2KiCvn2hNWomUJo119STW+5Tawg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR11MB6982
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,51 +229,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VF doesn't enable VCN poison irq in VCNv2.5. Skip releasing it and avoid
-call trace during deinitialization.
+On Tue, Jan 20, 2026 at 10:01:18PM -0500, Zi Yan wrote:
+> On 20 Jan 2026, at 8:53, Jason Gunthorpe wrote:
+> 
 
-[   71.913601] [drm] clean up the vf2pf work item
-[   71.915088] ------------[ cut here ]------------
-[   71.915092] WARNING: CPU: 3 PID: 1079 at /tmp/amd.aFkFvSQl/amd/amdgpu/amdgpu_irq.c:641 amdgpu_irq_put+0xc6/0xe0 [amdgpu]
-[   71.915355] Modules linked in: amdgpu(OE-) amddrm_ttm_helper(OE) amdttm(OE) amddrm_buddy(OE) amdxcp(OE) amddrm_exec(OE) amd_sched(OE) amdkcl(OE) drm_suballoc_helper drm_display_helper cec rc_core i2c_algo_bit video wmi binfmt_misc nls_iso8859_1 intel_rapl_msr intel_rapl_common input_leds joydev serio_raw mac_hid qemu_fw_cfg sch_fq_codel dm_multipath scsi_dh_rdac scsi_dh_emc scsi_dh_alua efi_pstore ip_tables x_tables autofs4 btrfs blake2b_generic raid10 raid456 async_raid6_recov async_memcpy async_pq async_xor async_tx xor raid6_pq libcrc32c raid1 raid0 hid_generic crct10dif_pclmul crc32_pclmul polyval_clmulni polyval_generic ghash_clmulni_intel usbhid 8139too sha256_ssse3 sha1_ssse3 hid psmouse bochs i2c_i801 ahci drm_vram_helper libahci i2c_smbus lpc_ich drm_ttm_helper 8139cp mii ttm aesni_intel crypto_simd cryptd
-[   71.915484] CPU: 3 PID: 1079 Comm: rmmod Tainted: G           OE      6.8.0-87-generic #88~22.04.1-Ubuntu
-[   71.915489] Hardware name: Red Hat KVM/RHEL, BIOS 1.16.3-2.el9_5.1 04/01/2014
-[   71.915492] RIP: 0010:amdgpu_irq_put+0xc6/0xe0 [amdgpu]
-[   71.915768] Code: 75 84 b8 ea ff ff ff eb d4 44 89 ea 48 89 de 4c 89 e7 e8 fd fc ff ff 5b 41 5c 41 5d 41 5e 5d 31 d2 31 f6 31 ff e9 55 30 3b c7 <0f> 0b eb d4 b8 fe ff ff ff eb a8 e9 b7 3b 8a 00 66 2e 0f 1f 84 00
-[   71.915771] RSP: 0018:ffffcf0800eafa30 EFLAGS: 00010246
-[   71.915775] RAX: 0000000000000000 RBX: ffff891bda4b0668 RCX: 0000000000000000
-[   71.915777] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-[   71.915779] RBP: ffffcf0800eafa50 R08: 0000000000000000 R09: 0000000000000000
-[   71.915781] R10: 0000000000000000 R11: 0000000000000000 R12: ffff891bda480000
-[   71.915782] R13: 0000000000000000 R14: 0000000000000001 R15: 0000000000000000
-[   71.915792] FS:  000070cff87c4c40(0000) GS:ffff893abfb80000(0000) knlGS:0000000000000000
-[   71.915795] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   71.915797] CR2: 00005fa13073e478 CR3: 000000010d634006 CR4: 0000000000770ef0
-[   71.915800] PKRU: 55555554
-[   71.915802] Call Trace:
-[   71.915805]  <TASK>
-[   71.915809]  vcn_v2_5_hw_fini+0x19e/0x1e0 [amdgpu]
+This whole thread makes my head hurt, as does core MM.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+IMO the TL;DR is:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-index cebee453871c..006a15451197 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
-@@ -521,7 +521,9 @@ static int vcn_v2_5_hw_fini(struct amdgpu_ip_block *ip_block)
- 		     RREG32_SOC15(VCN, i, mmUVD_STATUS)))
- 			vinst->set_pg_state(vinst, AMD_PG_STATE_GATE);
- 
--		if (amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__VCN))
-+		/* VF doesn't enable interrupt operations for RAS */
-+		if (!amdgpu_sriov_vf(adev) &&
-+		    amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__VCN))
- 			amdgpu_irq_put(adev, &vinst->ras_poison_irq, 0);
- 	}
- 
--- 
-2.49.0
+- Why is Intel the only one proving this stuff works? We can debate all
+  day about what should or should not work — but someone else needs to
+  actually prove it.i, rather than type hypotheticals.
 
+- Intel has demonstrated that this works and is still getting blocked.
+
+- This entire thread is about a fixes patch for large device pages.
+  Changing prep_compound_page is completely out of scope for a fixes
+  patch, and honestly so is most of the rest of what’s being proposed.
+
+- At a minimum, you must clear every page’s flags in the loop. So why not
+  conservatively clear anything else a folio might have set before calling
+  an existing core-MM function, ensuring the pages are in a known state?
+  This is a fixes patch.
+
+- Given the current state of the discussion, I don’t think large device
+  pages should be in 6.19. And if so, why didn’t the entire device pages
+  series receive this level of scrutiny earlier? It’s my mistake for not
+  saying “no” until the reallocation at different sizes issue was resolved.
+
+@Andrew. - I'd revert large device pages in 6.19 as it doesn't work and
+we seemly cannot close on this.
+
+Matt
+
+> > On Mon, Jan 19, 2026 at 09:50:16PM -0500, Zi Yan wrote:
+> >>>> I suppose we want some prep_single_page(page) and some reorg to share
+> >>>> code with the other prep function.
+> >>
+> >> This is just an unnecessary need due to lack of knowledge of/do not want
+> >> to investigate core MM page and folio initialization code.
+> >
+> > It will be better to keep this related code together, not spread all
+> > around.
+> 
+> Or clarify what code is for preparing pages, which would go away at memdesc
+> time, and what code is for preparing folios, which would stay.
+> 
+> >
+> >>>> I don't think so. It should do the above job efficiently and iterate
+> >>>> over the page list exactly once.
+> >>
+> >> folio initialization should not iterate over any page list, since folio is
+> >> supposed to be treated as a whole instead of individual pages.
+> >
+> > The tail pages need to have the right data in them or compound_head
+> > won't work.
+> 
+> That is done by set_compound_head() in prep_compound_tail().
+> prep_compound_page() take cares of it. As long as it is called, even if
+> the pages in that compound page have random states before, the compound
+> page should function correctly afterwards.
+> 
+> >
+> >> folio->mapping = NULL;
+> >> folio->memcg_data = 0;
+> >> folio->flags.f &= ~PAGE_FLAGS_CHECK_AT_PREP;
+> >>
+> >> should be enough.
+> >
+> > This seems believable to me for setting up an order 0 page.
+> 
+> It works for any folio, regardless of its order. fields used in second
+> or third subpages are all taken care of by prep_compound_page().
+> 
+> >
+> >> if (order)
+> >> 	folio_set_large_rmappable(folio);
+> >
+> > That one is in zone_device_folio_init()
+> 
+> Yes. And the code location looks right to me.
+> 
+> >
+> > And maybe the naming has got really confused if we have both functions
+> > now :\
+> 
+> Yes. One of the issues is that device private code used to only handles
+> order-0 pages and was converted to use high order folio directly without
+> using high order page (namely compound page) as an intermediate step.
+> This two-step-in-one caused confusion. But the key thing to avoid the
+> confusion is that to form a high order folio, a list of contiguous pages
+> would become a compound page by calling prep_compound_page(), then
+> the compound page becomes a folio by calling folio_set_large_rmappable().
+> 
+> BTW, the code in prep_compound_head() after folio_set_order(folio, order)
+> should belong to folio_set_large_rmappable() and they are causing confusion,
+> since they are only applicable to rmappable large folios. I am going to
+> send a patch to fix it.
+> 
+> 
+> Best Regards,
+> Yan, Zi
