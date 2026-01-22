@@ -4,63 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B124D3EE73
-	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 15:02:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE1DDD3EE74
+	for <amd-gfx@archiver.kernel.org>; Thu, 22 Jan 2026 15:04:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A63CF10E9CC;
-	Thu, 22 Jan 2026 15:02:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 717AC10E06E;
+	Thu, 22 Jan 2026 15:04:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="nz9dM7//";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2Jm4O0IN";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33C3110E9CC;
- Thu, 22 Jan 2026 15:02:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769094130; x=1800630130;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=ALR8GuadTX3So8VLx4Wdi/iae6jkbUBo1vY7iLVx9+g=;
- b=nz9dM7//MGiuB6ZisDT2cVRGEvJxjaJxZ4LVA9FXqipfV/F3nxvuYnXU
- QQ56zMHUNu5PL585l8RLiBcx2Oza0Imd2/UHmGmkov9VXqt2sUKli45dY
- oEYO9p+T0Xv22nWO6/YZZktLJZSj3lPl+aKO1D7oe3gPILmgKGE1Mugdd
- XIeS3N+4Sl0rJEQJ0gfRvPfWqReXPYjS2BfVn54cseb1w8Jc9CtRegGjA
- 8VHdZx0FPz785hjN10Msoxc2YmALdi2FK7CHl+wxrvUkM38Sl75PmFEAU
- ODX22FCLRGi9Zut3eXfB95h7LxKI7zBsHyATT7ZWyseWAbR8m+QVEKNU/ g==;
-X-CSE-ConnectionGUID: kXz8rzn2TmaU1nilN5EWYA==
-X-CSE-MsgGUID: YTkXiBdIRuGWX1nSCo3Azw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11679"; a="69355121"
-X-IronPort-AV: E=Sophos;i="6.21,246,1763452800"; d="scan'208";a="69355121"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2026 07:02:10 -0800
-X-CSE-ConnectionGUID: iZVwGID0TqWjFX1NVtVw5Q==
-X-CSE-MsgGUID: Y2NU/S/RSg6RyIs/5ttuYw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,246,1763452800"; d="scan'208";a="211611258"
-Received: from egrumbac-mobl6.ger.corp.intel.com (HELO [10.245.244.59])
- ([10.245.244.59])
- by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2026 07:02:08 -0800
-Message-ID: <db877e44-a548-4a25-971b-d9a7729701a4@intel.com>
-Date: Thu, 22 Jan 2026 15:02:06 +0000
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010060.outbound.protection.outlook.com
+ [40.93.198.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36DB410E9D5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 22 Jan 2026 15:04:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=U09F8n8+rivpX8AFaRD68L7V4LZ6BB5mEK0RaS25k8zk7hGHHiahvLYV9JAs5UM2Xf/bb2vA/oSykNTmJLXWHfIIvlIu/msQ7Sxl81NAkphDSJCk8tbwa3tjk8SiS+GuvSOa5HLSIUU5lXthln2YvtjWKVPy2+uG8HFm96kJKYuJH9zeDOEQJsiZwqY8+isGcuPDfipT8XOcbejq0cGxQQYCOF8UE6/I9XoqgRn1pyk1xBKphnMfhi29+dbUPEtaxJmou1NnNqvmpXLh9PMjYVxA5IpDDRdV6b5IzM1HEYEOilqa5GEfgSmflV52QC4xcxZlVa0O8RnD8+r/k138pQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X7sA4xHyvijkyyT39a0PSsVHxnTFj5XbmL4QRVqcw3w=;
+ b=SMOUZ/A8pOnyCsMWNftIpM9WTqr4J7DcMKUZa0Pen/B4PUP4lMsQs/qx9v7p5xt/Hz39e2ku8XSSc4phCU5Da5vnAN0zOJgvjyyuBTjlSIy97jx5fNDGWLYAxtJMZDWqWg4gu7gIxHoEBQwuJGMAM+dXe7/ILNo9QdExVpyKi1JMwjWdAJxs+H9aCpW7OvJDE+HId+PVL+hqAoPuD8HuUV2BlPR1pXZMJ5BIX+2xGlzYohCSxLyYzr4EG11893nnvnjFBwO2ZvrI+S5mtDWSd780IKC9XTZmwR5ZIYfMm+x2tuB/eFDAfA4gnh69mGO/nlxnhL/gZZPu6Lx7ywESgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X7sA4xHyvijkyyT39a0PSsVHxnTFj5XbmL4QRVqcw3w=;
+ b=2Jm4O0IN1vLrhiwjK5Q1DoGuTCk5iQGN497bgcbr4oNPfCMj6HiH7EuiQn+lXtcNq3VJPYvQG4UjqCd4FAxnRQDqAXnp1dWtP4YVtb2em9MFdB6ZBzx7iX0WOyyQinxhKWBRSn4+Q2/Z2SMh6sRhHp+anxIVjCICK8OzRtdImxE=
+Received: from BN0PR04CA0029.namprd04.prod.outlook.com (2603:10b6:408:ee::34)
+ by BN3PR12MB9595.namprd12.prod.outlook.com (2603:10b6:408:2cb::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.11; Thu, 22 Jan
+ 2026 15:04:27 +0000
+Received: from BN1PEPF00004680.namprd03.prod.outlook.com
+ (2603:10b6:408:ee:cafe::17) by BN0PR04CA0029.outlook.office365.com
+ (2603:10b6:408:ee::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.11 via Frontend Transport; Thu,
+ 22 Jan 2026 15:04:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN1PEPF00004680.mail.protection.outlook.com (10.167.243.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.3 via Frontend Transport; Thu, 22 Jan 2026 15:04:25 +0000
+Received: from jc-d.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 22 Jan
+ 2026 09:04:24 -0600
+From: Jay Cornwall <jay.cornwall@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Jay Cornwall <jay.cornwall@amd.com>, Lancelot Six <lancelot.six@amd.com>, 
+ Vladimir Indic <vladimir.indic@amd.com>, Shweta Khatri
+ <shweta.khatri@amd.com>
+Subject: [PATCH] drm/amdkfd: gfx12.1 trap handler instruction fixup for VOP3PX
+Date: Thu, 22 Jan 2026 09:04:05 -0600
+Message-ID: <20260122150405.647464-1-jay.cornwall@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] drm/buddy: Optimize large alignment handling to avoid
- unnecessary splits
-To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-References: <20251211122319.2054-1-Arunpravin.PaneerSelvam@amd.com>
- <b2aa28aa-ce9c-4948-9bed-289700f4eb4a@intel.com>
- <b8640bf9-1c00-47da-a659-ce79a7af67e3@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <b8640bf9-1c00-47da-a659-ce79a7af67e3@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004680:EE_|BN3PR12MB9595:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92e76674-a6e8-4e8b-044a-08de59c7884f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?GTm1tfEXQWsJn4VBVZjpH3h3o+wcSpMgJ91t9braLQMV/fBInMn5q1JN/YhG?=
+ =?us-ascii?Q?cAyZOazyIOSMVo+twMazgkaUPuMFcnLkD8vJeKeecOjTYRiNzFJ6qhTvz7QP?=
+ =?us-ascii?Q?PY77eNjiMgVEEDUNwyrRbdnlfePvxua9QvCs/Ko2zOKc67c0GqnOteZXqO5m?=
+ =?us-ascii?Q?8pwwh5xwR47m79UFIFzKZzp3kqde3iCFgB28hA8dbvbdJ2IB3r7TSFbxbmIO?=
+ =?us-ascii?Q?zVOc71LyB/HoMPx9gJIfnImeSqFkR3Y4Vp43MXh4wcYIGIke4AYLfwaceRqq?=
+ =?us-ascii?Q?NNrrZ8RTFiSM81jAI6WGQ43wx421h3xvdiOFYCZ3/MHQRCLxyGlbP8G46Thu?=
+ =?us-ascii?Q?JBme2t0Y8ji0dEws9fklFg2AybdQE5FeXfZpOdmZh6UZn4dZHoCsLI6APHs1?=
+ =?us-ascii?Q?3jLyWJFOrma88cxcdsrFI0ED7sBUZzrLQccqkMzZKm1w6pGIxDLcdMukzu66?=
+ =?us-ascii?Q?h4D1Yx7uP+ER9fMEsSQdhpS29RcmhqmiZVh0D+c3h+FaG72LCH13bD010ia/?=
+ =?us-ascii?Q?tVza0LS16ANZfkv2a6UShjF9aktUbb87+GOdMaM1yod/0APqH4gPKK6nAtPM?=
+ =?us-ascii?Q?P81JNC9D4IcSViRaV/ImlcMABCXoGmkI7dXpNLOc9WwdF7mGOIEUwopp0S4j?=
+ =?us-ascii?Q?v/Xk6fjjg5JmMV3nCrHdq1hFp1UZLKQkh8iSf9eITizhn62/ydh7eE47o5//?=
+ =?us-ascii?Q?QvD7Qs+GlXG5MqKnMmCRKvauzhaUNvZUsjKyOoyl5Fxk4qPyUmO63p/jiBYH?=
+ =?us-ascii?Q?B0RS/T74hZyN84j0R9S1XBjqjQ0FA69W8tZbXaJOJFymUNv97tIWe1nvpvP1?=
+ =?us-ascii?Q?8vM5TH1VUqc7xYcMAcyzF9a82x/V9WXFNbIMlX3OJq9u2tInq0UkwpIYlrmF?=
+ =?us-ascii?Q?KQhSyVzo6KcLTReInsDZ0VXgA+/1CLXmnx2ZXlHlIlps4dVjhEGT2FKeISX0?=
+ =?us-ascii?Q?fkYxGumhAL7pCDbTp2CESWLjy7iBubpxl5WQEdoL02rFrUutvK4nhi8LOvJS?=
+ =?us-ascii?Q?84pfLqdm+KmK2QyA/i8SOtLD0FIp5QHjb0UBPu3pjE4Egnpf/sXK0g9x8UiF?=
+ =?us-ascii?Q?3pq+Qm7d4DiRqxIRgPn3tr3rxi36SF0vBzhB4dIB1KN0tM7ndwBnITyC85G0?=
+ =?us-ascii?Q?XIvRJ6WotIp4VdsNWJUML+yLxEuItFYIu2NQa3kaDmq2e9u28HJKSuo84JHE?=
+ =?us-ascii?Q?s5ge08jq0Y5sJcJGG6n9TAnvrMxHfbmE+FU/uW8n61AP4XFo4FmgU4BcGT83?=
+ =?us-ascii?Q?nAZTIslmptM5KoOvd25DigRg0MZT4y6R1xSJ5DCuqNEaeWSvvPUaKQVIXWMI?=
+ =?us-ascii?Q?DthhRwGzA1RfCKgPzWeP7laANEgkq3WgnbiySNr70DbEEihdE6FB8pkgV5lf?=
+ =?us-ascii?Q?o2jzgCPyojRHIYw9Hu5+muy3rHsHhMRqPLWL8E6ZmdQqP9I0oi0oVjxlJxPG?=
+ =?us-ascii?Q?dpSqp+0aUQgu3oJECXIX+LGWfn76PH91NOCmSsevpTs4fPH371UWPlrDqOkY?=
+ =?us-ascii?Q?cyc+qinK7LXRQ5CTXwbSLZhloYqH+EZWX0/2imnlLqpzh+d+T81QKgA6jji3?=
+ =?us-ascii?Q?KlCGkF0BIKgEEHDc0jIr7xdw22uPOBGl2sAcw0wA4yjs9BE2q+OuJYyqnY6J?=
+ =?us-ascii?Q?oS0kt3bYlqZtmS97Nc8RkoJ6CPfYDi59s65U2Wmanceaya5AbKnOhD8SA/dz?=
+ =?us-ascii?Q?JqvE2w=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2026 15:04:25.2996 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92e76674-a6e8-4e8b-044a-08de59c7884f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004680.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR12MB9595
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,361 +136,355 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 22/01/2026 14:13, Arunpravin Paneer Selvam wrote:
-> 
-> On 09/01/26 22:12, Matthew Auld wrote:
->> On 11/12/2025 12:23, Arunpravin Paneer Selvam wrote:
->>> Large alignment requests previously forced the allocator to search by
->>> alignment order, causing large free blocks to be split even when a
->>> smaller aligned range existed within them. This patch switches the
->>> search to prioritize the requested size and uses an augmented RB-tree
->>> field (subtree_max_alignment) to efficiently locate blocks that satisfy
->>> both size and alignment. This prevents unnecessary block splitting and
->>> significantly reduces fragmentation.
->>>
->>> A practical example is the VKCTS test
->>> dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000, which
->>> allocates 8 KiB buffers with a 256 KiB alignment. Previously, these
->>> requests caused the allocator to split large blocks despite having
->>> smaller aligned portions within them that could satisfy the allocation.
->>> The new design now identifies and allocates from these portions,
->>> avoiding unnecessary splitting.
->>>
->>> Signed-off-by: Arunpravin Paneer Selvam 
->>> <Arunpravin.PaneerSelvam@amd.com>
->>> Suggested-by: Christian König <christian.koenig@amd.com>
->>> ---
->>>   drivers/gpu/drm/drm_buddy.c | 205 +++++++++++++++++++++++++++++++++---
->>>   include/drm/drm_buddy.h     |   3 +
->>>   2 files changed, 191 insertions(+), 17 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/drm_buddy.c b/drivers/gpu/drm/drm_buddy.c
->>> index f2c92902e4a3..f749814bb270 100644
->>> --- a/drivers/gpu/drm/drm_buddy.c
->>> +++ b/drivers/gpu/drm/drm_buddy.c
->>> @@ -23,6 +23,18 @@ static struct kmem_cache *slab_blocks;
->>>   #define for_each_free_tree(tree) \
->>>       for ((tree) = 0; (tree) < DRM_BUDDY_MAX_FREE_TREES; (tree)++)
->>>   +static unsigned int drm_buddy_min_offset_or_size_order(struct 
->>> drm_buddy_block *block)
->>> +{
->>> +    return min_t(unsigned int,
->>> +             __ffs(drm_buddy_block_offset(block)),
->>> +             drm_buddy_block_order(block));
->>
->> Didn't quite get this bit. Why do we pick the min between the order 
->> and "alignment"? Say we have order zero block but is has 256K addr 
->> alignment this just selects zero? What is the idea here?
-> Sorry for the confusion. I mixed up two concepts and I have sent the 
-> offset alignment only patch. Please have a look.
->>
->>> +}
->>> +
->>> +RB_DECLARE_CALLBACKS_MAX(static, drm_buddy_augment_cb,
->>> +             struct drm_buddy_block, rb,
->>> +             unsigned int, subtree_max_alignment,
->>> +             drm_buddy_min_offset_or_size_order);
->>> +
->>>   static struct drm_buddy_block *drm_block_alloc(struct drm_buddy *mm,
->>>                              struct drm_buddy_block *parent,
->>>                              unsigned int order,
->>> @@ -40,6 +52,9 @@ static struct drm_buddy_block 
->>> *drm_block_alloc(struct drm_buddy *mm,
->>>       block->header |= order;
->>>       block->parent = parent;
->>>   +    block->subtree_max_alignment =
->>> +        drm_buddy_min_offset_or_size_order(block);
->>> +
->>>       RB_CLEAR_NODE(&block->rb);
->>>         BUG_ON(block->header & DRM_BUDDY_HEADER_UNUSED);
->>> @@ -76,26 +91,32 @@ static bool rbtree_is_empty(struct rb_root *root)
->>>       return RB_EMPTY_ROOT(root);
->>>   }
->>>   -static bool drm_buddy_block_offset_less(const struct 
->>> drm_buddy_block *block,
->>> -                    const struct drm_buddy_block *node)
->>> -{
->>> -    return drm_buddy_block_offset(block) < 
->>> drm_buddy_block_offset(node);
->>> -}
->>> -
->>> -static bool rbtree_block_offset_less(struct rb_node *block,
->>> -                     const struct rb_node *node)
->>> -{
->>> -    return drm_buddy_block_offset_less(rbtree_get_free_block(block),
->>> -                       rbtree_get_free_block(node));
->>> -}
->>> -
->>>   static void rbtree_insert(struct drm_buddy *mm,
->>>                 struct drm_buddy_block *block,
->>>                 enum drm_buddy_free_tree tree)
->>>   {
->>> -    rb_add(&block->rb,
->>> - &mm->free_trees[tree][drm_buddy_block_order(block)],
->>> -           rbtree_block_offset_less);
->>> +    struct rb_node **link, *parent = NULL;
->>> +    struct drm_buddy_block *node;
->>> +    struct rb_root *root;
->>> +    unsigned int order;
->>> +
->>> +    order = drm_buddy_block_order(block);
->>> +
->>> +    root = &mm->free_trees[tree][order];
->>> +    link = &root->rb_node;
->>> +
->>> +    while (*link) {
->>> +        parent = *link;
->>> +        node = rbtree_get_free_block(parent);
->>> +
->>> +        if (drm_buddy_block_offset(block) < 
->>> drm_buddy_block_offset(node))
->>> +            link = &parent->rb_left;
->>> +        else
->>> +            link = &parent->rb_right;
->>
->> Is this correct? From the docs it sounds like we are meant to update 
->> the max alignment for each subtree on the path leading up to the 
->> insertion? It looks like insert_augmentated will only do it if there 
->> is something to be rebalanced.
-> AFAIU from the docs, rb_insert_augmented() updates the augmented value 
-> (subtree_max_alignment) for all nodes on the insertion path, not only 
-> when a rotation happens.
+A trap may occur in the middle of VOP3PX instruction co-issue.
+The PC would be restored incorrectly if left unmodified.
 
-Unless I'm looking in the wrong place, the docs for insert_augmented():
+Identify this case by examining the instruction opcode and
+rewind the PC 8 bytes if it occurs.
 
-"On insertion, the user must update the augmented information on the 
-path leading to the inserted node, then call rb_link_node() as usual and 
-rb_insert_augmented() instead of the usual rb_insert_color() call. If 
-rb_insert_augmented() rebalances the rbtree, it will callback into a 
-user provided function to update the augmented information on the 
-affected subtrees."
+Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
+Cc: Lancelot Six <lancelot.six@amd.com>
+Cc: Vladimir Indic <vladimir.indic@amd.com>
+Cc: Shweta Khatri <shweta.khatri@amd.com>
+---
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 197 +++++++++---------
+ .../amd/amdkfd/cwsr_trap_handler_gfx12.asm    |  25 ++-
+ 2 files changed, 121 insertions(+), 101 deletions(-)
 
-Plus the example code they give for the augmented case also matches 
-this, so pretty sure we need it. See interval_tree_insert [1]. Also if 
-that is indeed true, then perhaps something to add to the kunit to catch 
-this case.
-
-[1] https://docs.kernel.org/core-api/rbtree.html#sample-usage
-
-
->>
->>> +    }
->>> +
->>> +    rb_link_node(&block->rb, parent, link);
->>> +    rb_insert_augmented(&block->rb, root, &drm_buddy_augment_cb);
->>>   }
->>>     static void rbtree_remove(struct drm_buddy *mm,
->>> @@ -108,7 +129,7 @@ static void rbtree_remove(struct drm_buddy *mm,
->>>       tree = get_block_tree(block);
->>>       root = &mm->free_trees[tree][order];
->>>   -    rb_erase(&block->rb, root);
->>> +    rb_erase_augmented(&block->rb, root, &drm_buddy_augment_cb);
->>>       RB_CLEAR_NODE(&block->rb);
->>>   }
->>>   @@ -596,6 +617,88 @@ static bool block_incompatible(struct 
->>> drm_buddy_block *block, unsigned int flags
->>>       return needs_clear != drm_buddy_block_is_clear(block);
->>>   }
->>>   +static bool drm_buddy_subtree_can_satisfy(struct rb_node *node,
->>> +                      unsigned int alignment)
->>> +{
->>> +    struct drm_buddy_block *block;
->>> +
->>> +    if (!node)
->>> +        return false;
->>> +
->>> +    block = rbtree_get_free_block(node);
->>> +    return block->subtree_max_alignment >= alignment;
->>> +}
->>> +
->>> +static struct drm_buddy_block *
->>> +drm_buddy_find_block_aligned(struct drm_buddy *mm,
->>> +                 enum drm_buddy_free_tree tree,
->>> +                 unsigned int order,
->>> +                 unsigned int tmp,
->>> +                 unsigned int alignment,
->>> +                 unsigned long flags)
->>> +{
->>> +    struct rb_root *root = &mm->free_trees[tree][tmp];
->>> +    struct rb_node *rb = root->rb_node;
->>> +
->>> +    /* Try to find a block of the requested size that is already 
->>> aligned */
->>> +    while (rb) {
->>> +        struct drm_buddy_block *block = rbtree_get_free_block(rb);
->>> +        struct rb_node *left_node = rb->rb_left, *right_node = rb- 
->>> >rb_right;
->>> +
->>> +        if (left_node) {
->>> +            if (drm_buddy_subtree_can_satisfy(left_node, alignment)) {
->>> +                rb = left_node;
->>> +                continue;
->>> +            }
->>> +        }
->>> +
->>> +        if (drm_buddy_block_order(block) >= order &&
->>> +            __ffs(drm_buddy_block_offset(block)) >= alignment)
->>> +            return block;
->>> +
->>> +        if (right_node) {
->>> +            if (drm_buddy_subtree_can_satisfy(right_node, alignment)) {
->>> +                rb = right_node;
->>> +                continue;
->>> +            }
->>> +        }
->>> +
->>> +        break;
->>> +    }
->>> +
->>> +    if (tmp < max(order, alignment))
->>> +        return NULL;
->>> +
->>> +    /* If none found, look for a larger block that can satisfy the 
->>> alignment */
->>
->> What is the idea here? IIUC we are looking at some specific order and 
->> we want some min addr alignment, if the above can't find any subtree 
->> with suitable max alignment then we should bail and try the next 
->> order? Why instead do we do the search again with the same alignment 
->> below?
-> 
-> Same as above, I mixed up two concepts. Please review v1 of offset 
-> aligned allocation patch.
-> 
-> Regards,
-> 
-> Arun.
-> 
->>
->>> +    rb = root->rb_node;
->>> +    while (rb) {
->>> +        struct drm_buddy_block *block = rbtree_get_free_block(rb);
->>> +        struct rb_node *left_node = rb->rb_left, *right_node = rb- 
->>> >rb_right;
->>> +
->>> +        if (left_node) {
->>> +            if (drm_buddy_subtree_can_satisfy(left_node, alignment)) {
->>> +                rb = left_node;
->>> +                continue;
->>> +            }
->>> +        }
->>> +
->>> +        if (drm_buddy_block_order(block) >= max(order, alignment) &&
->>> +            drm_buddy_min_offset_or_size_order(block) >= alignment)
->>> +            return block;
->>> +
->>> +        if (right_node) {
->>> +            if (drm_buddy_subtree_can_satisfy(right_node, alignment)) {
->>> +                rb = right_node;
->>> +                continue;
->>> +            }
->>> +        }
->>> +
->>> +        break;
->>> +    }
->>> +
->>> +    return NULL;
->>> +}
->>> +
->>>   static struct drm_buddy_block *
->>>   __alloc_range_bias(struct drm_buddy *mm,
->>>              u64 start, u64 end,
->>> @@ -798,6 +901,69 @@ alloc_from_freetree(struct drm_buddy *mm,
->>>       return ERR_PTR(err);
->>>   }
->>>   +static int drm_buddy_offset_aligned_allocation(struct drm_buddy *mm,
->>> +                           u64 size,
->>> +                           u64 min_block_size,
->>> +                           unsigned long flags,
->>> +                           struct list_head *blocks)
->>> +{
->>> +    struct drm_buddy_block *block = NULL;
->>> +    unsigned int order, tmp, alignment;
->>> +    enum drm_buddy_free_tree tree;
->>> +    unsigned long pages;
->>> +
->>> +    alignment = ilog2(min_block_size);
->>> +    pages = size >> ilog2(mm->chunk_size);
->>> +    order = fls(pages) - 1;
->>> +
->>> +    tree = (flags & DRM_BUDDY_CLEAR_ALLOCATION) ?
->>> +        DRM_BUDDY_CLEAR_TREE : DRM_BUDDY_DIRTY_TREE;
->>> +
->>> +    for (tmp = order; tmp <= mm->max_order; ++tmp) {
->>> +        block = drm_buddy_find_block_aligned(mm, tree, order,
->>> +                             tmp, alignment, flags);
->>> +        if (!block) {
->>> +            tree = (tree == DRM_BUDDY_CLEAR_TREE) ?
->>> +                DRM_BUDDY_DIRTY_TREE : DRM_BUDDY_CLEAR_TREE;
->>> +            block = drm_buddy_find_block_aligned(mm, tree, order,
->>> +                                 tmp, alignment, flags);
->>> +        }
->>> +
->>> +        if (block)
->>> +            break;
->>> +    }
->>> +
->>> +    if (!block)
->>> +        return -ENOSPC;
->>> +
->>> +    while (drm_buddy_block_order(block) > order) {
->>> +        unsigned int child_order = drm_buddy_block_order(block) - 1;
->>> +        struct drm_buddy_block *left, *right;
->>> +        int r;
->>> +
->>> +        r = split_block(mm, block);
->>> +        if (r)
->>> +            return r;
->>> +
->>> +        left  = block->left;
->>> +        right = block->right;
->>> +
->>> +        if (child_order >= alignment)
->>> +            block = right;
->>> +        else
->>> +            block = left;
->>> +    }
->>> +
->>> +    mark_allocated(mm, block);
->>> +    mm->avail -= drm_buddy_block_size(mm, block);
->>> +    if (drm_buddy_block_is_clear(block))
->>> +        mm->clear_avail -= drm_buddy_block_size(mm, block);
->>> +    kmemleak_update_trace(block);
->>> +    list_add_tail(&block->link, blocks);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>>   static int __alloc_range(struct drm_buddy *mm,
->>>                struct list_head *dfs,
->>>                u64 start, u64 size,
->>> @@ -1147,6 +1313,11 @@ int drm_buddy_alloc_blocks(struct drm_buddy *mm,
->>>           min_block_size = size;
->>>       /* Align size value to min_block_size */
->>>       } else if (!IS_ALIGNED(size, min_block_size)) {
->>> +        if (min_block_size > size && is_power_of_2(size))
->>> +            return drm_buddy_offset_aligned_allocation(mm, size,
->>> +                                   min_block_size,
->>> +                                   flags,
->>> +                                   blocks);
->>>           size = round_up(size, min_block_size);
->>>       }
->>>   diff --git a/include/drm/drm_buddy.h b/include/drm/drm_buddy.h
->>> index d7891d08f67a..da6a40fb4763 100644
->>> --- a/include/drm/drm_buddy.h
->>> +++ b/include/drm/drm_buddy.h
->>> @@ -11,6 +11,7 @@
->>>   #include <linux/slab.h>
->>>   #include <linux/sched.h>
->>>   #include <linux/rbtree.h>
->>> +#include <linux/rbtree_augmented.h>
->>>     #include <drm/drm_print.h>
->>>   @@ -60,6 +61,8 @@ struct drm_buddy_block {
->>>       };
->>>         struct list_head tmp_link;
->>> +
->>> +    unsigned int subtree_max_alignment;
->>>   };
->>>     /* Order-zero must be at least SZ_4K */
->>
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+index 39bdc98b8b6d..54fa76f374c9 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+@@ -4587,14 +4587,14 @@ static const uint32_t cwsr_trap_gfx9_5_0_hex[] = {
+ };
+ 
+ static const uint32_t cwsr_trap_gfx12_1_0_hex[] = {
+-	0xbfa00001, 0xbfa003ac,
++	0xbfa00001, 0xbfa003be,
+ 	0xb0804009, 0xb8f8f804,
+ 	0x9178ff78, 0x00008c00,
+ 	0xb8fbf811, 0x8b6eff78,
+ 	0x00004000, 0xbfa10008,
+ 	0x8b6eff7b, 0x00000080,
+ 	0xbfa20018, 0x8b6ea07b,
+-	0xbfa200d1, 0xbf830010,
++	0xbfa200da, 0xbf830010,
+ 	0xb8fbf811, 0xbfa0fffb,
+ 	0x8b6eff7b, 0x00000bd0,
+ 	0xbfa20010, 0xb8eef812,
+@@ -4605,7 +4605,7 @@ static const uint32_t cwsr_trap_gfx12_1_0_hex[] = {
+ 	0xf0000000, 0xbfa20005,
+ 	0x8b6fff6f, 0x00000200,
+ 	0xbfa20002, 0x8b6ea07b,
+-	0xbfa200bb, 0x9177ff77,
++	0xbfa200c4, 0x9177ff77,
+ 	0x007fc000, 0xb8fa04a1,
+ 	0x847a967a, 0x8c777a77,
+ 	0xb8fa0421, 0x847a957a,
+@@ -4632,43 +4632,46 @@ static const uint32_t cwsr_trap_gfx12_1_0_hex[] = {
+ 	0xbfa00002, 0x806c846c,
+ 	0x826d806d, 0x8b6dff6d,
+ 	0x01ffffff, 0xb8fbf811,
+-	0xbf0d847b, 0xbfa20078,
++	0xbf0d847b, 0xbfa20081,
+ 	0xf4003eb6, 0xf8000000,
+ 	0xbfc70000, 0xf4003bb6,
+ 	0xf8000008, 0x8b76ff7a,
+ 	0x80000000, 0xbfa20027,
+ 	0x9376ff7a, 0x00060019,
+ 	0x81f9a376, 0xbf0b8179,
+-	0xbfa20068, 0x81f9ac76,
+-	0xbf0b8179, 0xbfa20062,
++	0xbfa2006e, 0x81f9ac76,
++	0xbf0b8179, 0xbfa20068,
+ 	0x81f9b776, 0xbf0b8179,
+-	0xbfa2005f, 0x8b76ff7a,
++	0xbfa20065, 0x8b76ff7a,
+ 	0x000001ff, 0xbf06ff76,
+-	0x000000fe, 0xbfa2005d,
++	0x000000fe, 0xbfa20063,
+ 	0xbf06ff76, 0x000000ff,
+-	0xbfa20057, 0xbf06ff76,
+-	0x000000fa, 0xbfa20054,
++	0xbfa2005d, 0xbf06ff76,
++	0x000000fa, 0xbfa2005a,
+ 	0x81f9ff76, 0x000000e9,
+-	0xbf0b8179, 0xbfa20050,
++	0xbf0b8179, 0xbfa20056,
+ 	0x8b76ff7b, 0xffff0000,
+ 	0xbf06ff76, 0xbf860000,
+-	0xbfa10051, 0x9376ff7b,
++	0xbfa1005a, 0x9376ff7b,
+ 	0x0002000e, 0x8b79ff7b,
+ 	0x00003f00, 0x85798679,
+ 	0x8c767976, 0xb9763b01,
+-	0xbfa00049, 0x8b76ff7a,
++	0xbfa00052, 0x8b76ff7a,
+ 	0xfc000000, 0xbf06ff76,
+-	0xd4000000, 0xbfa20013,
++	0xd4000000, 0xbfa20019,
+ 	0xbf06ff76, 0xc8000000,
+-	0xbfa20027, 0x8b76ff7a,
++	0xbfa2002d, 0x8b76ff7a,
+ 	0xff000000, 0xbf06ff76,
+-	0xcf000000, 0xbfa20039,
++	0xcf000000, 0xbfa2003f,
+ 	0x8b79ff7a, 0xffff0000,
++	0xbf06ff79, 0xcc330000,
++	0xbfa2003d, 0xbf06ff79,
++	0xcc880000, 0xbfa2003a,
+ 	0xbf06ff79, 0xcc350000,
+-	0xbfa20037, 0xbf06ff79,
+-	0xcc3a0000, 0xbfa20034,
++	0xbfa2003a, 0xbf06ff79,
++	0xcc3a0000, 0xbfa20037,
+ 	0xbf06ff76, 0xcc000000,
+-	0xbfa10031, 0x8b76ff7b,
++	0xbfa10034, 0x8b76ff7b,
+ 	0x000001ff, 0xbf06ff76,
+ 	0x000000ff, 0xbfa20029,
+ 	0xbf06ff76, 0x000000fa,
+@@ -4691,86 +4694,92 @@ static const uint32_t cwsr_trap_gfx12_1_0_hex[] = {
+ 	0x000001ff, 0xbf06ff76,
+ 	0x000000ff, 0xbfa20003,
+ 	0xbfc70000, 0xbefb006e,
+-	0xbfa0ffad, 0xbfc70000,
+-	0xbefb006f, 0xbfa0ffaa,
+-	0xbfc70000, 0x857a9677,
+-	0xb97a04a1, 0x857a9577,
+-	0xb97a0421, 0x857a8e77,
+-	0xb97a3021, 0x8bfe7e7e,
+-	0x8bea6a6a, 0x85788978,
+-	0xb9783244, 0xbe804a6c,
+-	0xb8faf802, 0xbf0d987a,
+-	0xbfa10001, 0xbfb00000,
+-	0x8b6dff6d, 0x01ffffff,
+-	0xbefa0080, 0xb97a0151,
+-	0x9177ff77, 0x007fc000,
+-	0xb8fa04a1, 0x847a967a,
+-	0x8c777a77, 0xb8fa0421,
+-	0x847a957a, 0x8c777a77,
+-	0xb8fa3021, 0x847a8e7a,
+-	0x8c777a77, 0xb980f821,
+-	0x00000000, 0xbf0d847b,
+-	0xbfa20078, 0xf4003eb6,
+-	0xf8000000, 0xbfc70000,
+-	0xf4003bb6, 0xf8000008,
+-	0x8b76ff7a, 0x80000000,
+-	0xbfa20027, 0x9376ff7a,
+-	0x00060019, 0x81f9a376,
++	0xbfa0ffa7, 0xbfc70000,
++	0xbefb006f, 0xbfa0ffa4,
++	0x80ec886c, 0x82ed806d,
++	0xbfa0fff7, 0xbfc70000,
++	0x857a9677, 0xb97a04a1,
++	0x857a9577, 0xb97a0421,
++	0x857a8e77, 0xb97a3021,
++	0x8bfe7e7e, 0x8bea6a6a,
++	0x85788978, 0xb9783244,
++	0xbe804a6c, 0xb8faf802,
++	0xbf0d987a, 0xbfa10001,
++	0xbfb00000, 0x8b6dff6d,
++	0x01ffffff, 0xbefa0080,
++	0xb97a0151, 0x9177ff77,
++	0x007fc000, 0xb8fa04a1,
++	0x847a967a, 0x8c777a77,
++	0xb8fa0421, 0x847a957a,
++	0x8c777a77, 0xb8fa3021,
++	0x847a8e7a, 0x8c777a77,
++	0xb980f821, 0x00000000,
++	0xbf0d847b, 0xbfa20081,
++	0xf4003eb6, 0xf8000000,
++	0xbfc70000, 0xf4003bb6,
++	0xf8000008, 0x8b76ff7a,
++	0x80000000, 0xbfa20027,
++	0x9376ff7a, 0x00060019,
++	0x81f9a376, 0xbf0b8179,
++	0xbfa2006e, 0x81f9ac76,
+ 	0xbf0b8179, 0xbfa20068,
+-	0x81f9ac76, 0xbf0b8179,
+-	0xbfa20062, 0x81f9b776,
+-	0xbf0b8179, 0xbfa2005f,
+-	0x8b76ff7a, 0x000001ff,
+-	0xbf06ff76, 0x000000fe,
++	0x81f9b776, 0xbf0b8179,
++	0xbfa20065, 0x8b76ff7a,
++	0x000001ff, 0xbf06ff76,
++	0x000000fe, 0xbfa20063,
++	0xbf06ff76, 0x000000ff,
+ 	0xbfa2005d, 0xbf06ff76,
+-	0x000000ff, 0xbfa20057,
++	0x000000fa, 0xbfa2005a,
++	0x81f9ff76, 0x000000e9,
++	0xbf0b8179, 0xbfa20056,
++	0x8b76ff7b, 0xffff0000,
++	0xbf06ff76, 0xbf860000,
++	0xbfa1005a, 0x9376ff7b,
++	0x0002000e, 0x8b79ff7b,
++	0x00003f00, 0x85798679,
++	0x8c767976, 0xb9763b01,
++	0xbfa00052, 0x8b76ff7a,
++	0xfc000000, 0xbf06ff76,
++	0xd4000000, 0xbfa20019,
++	0xbf06ff76, 0xc8000000,
++	0xbfa2002d, 0x8b76ff7a,
++	0xff000000, 0xbf06ff76,
++	0xcf000000, 0xbfa2003f,
++	0x8b79ff7a, 0xffff0000,
++	0xbf06ff79, 0xcc330000,
++	0xbfa2003d, 0xbf06ff79,
++	0xcc880000, 0xbfa2003a,
++	0xbf06ff79, 0xcc350000,
++	0xbfa2003a, 0xbf06ff79,
++	0xcc3a0000, 0xbfa20037,
++	0xbf06ff76, 0xcc000000,
++	0xbfa10034, 0x8b76ff7b,
++	0x000001ff, 0xbf06ff76,
++	0x000000ff, 0xbfa20029,
+ 	0xbf06ff76, 0x000000fa,
+-	0xbfa20054, 0x81f9ff76,
+-	0x000000e9, 0xbf0b8179,
+-	0xbfa20050, 0x8b76ff7b,
+-	0xffff0000, 0xbf06ff76,
+-	0xbf860000, 0xbfa10051,
+-	0x9376ff7b, 0x0002000e,
+-	0x8b79ff7b, 0x00003f00,
+-	0x85798679, 0x8c767976,
+-	0xb9763b01, 0xbfa00049,
+-	0x8b76ff7a, 0xfc000000,
+-	0xbf06ff76, 0xd4000000,
+-	0xbfa20013, 0xbf06ff76,
+-	0xc8000000, 0xbfa20027,
+-	0x8b76ff7a, 0xff000000,
+-	0xbf06ff76, 0xcf000000,
+-	0xbfa20039, 0x8b79ff7a,
+-	0xffff0000, 0xbf06ff79,
+-	0xcc350000, 0xbfa20037,
+-	0xbf06ff79, 0xcc3a0000,
+-	0xbfa20034, 0xbf06ff76,
+-	0xcc000000, 0xbfa10031,
+-	0x8b76ff7b, 0x000001ff,
+-	0xbf06ff76, 0x000000ff,
+-	0xbfa20029, 0xbf06ff76,
+-	0x000000fa, 0xbfa20026,
+-	0x81f6ff76, 0x000000e9,
+-	0xbf0b8176, 0xbfa20022,
+-	0x8b76ff7b, 0x0003fe00,
+-	0xbf06ff76, 0x0001fe00,
+-	0xbfa2001d, 0x8b76ff7b,
+-	0x07fc0000, 0xbf06ff76,
+-	0x03fc0000, 0xbfa20018,
+-	0xbfa00014, 0x9376ff7a,
+-	0x00040016, 0x81f68176,
+-	0xbf0b8176, 0xbfa20012,
+-	0x9376ff7a, 0x00050011,
++	0xbfa20026, 0x81f6ff76,
++	0x000000e9, 0xbf0b8176,
++	0xbfa20022, 0x8b76ff7b,
++	0x0003fe00, 0xbf06ff76,
++	0x0001fe00, 0xbfa2001d,
++	0x8b76ff7b, 0x07fc0000,
++	0xbf06ff76, 0x03fc0000,
++	0xbfa20018, 0xbfa00014,
++	0x9376ff7a, 0x00040016,
+ 	0x81f68176, 0xbf0b8176,
+-	0xbfa2000d, 0x8b76ff7a,
+-	0x000001ff, 0xbf06ff76,
+-	0x000000ff, 0xbfa20008,
+-	0x8b76ff7b, 0x000001ff,
++	0xbfa20012, 0x9376ff7a,
++	0x00050011, 0x81f68176,
++	0xbf0b8176, 0xbfa2000d,
++	0x8b76ff7a, 0x000001ff,
+ 	0xbf06ff76, 0x000000ff,
+-	0xbfa20003, 0xbfc70000,
+-	0xbefb006e, 0xbfa0ffad,
+-	0xbfc70000, 0xbefb006f,
+-	0xbfa0ffaa, 0xbfc70000,
++	0xbfa20008, 0x8b76ff7b,
++	0x000001ff, 0xbf06ff76,
++	0x000000ff, 0xbfa20003,
++	0xbfc70000, 0xbefb006e,
++	0xbfa0ffa7, 0xbfc70000,
++	0xbefb006f, 0xbfa0ffa4,
++	0x80ec886c, 0x82ed806d,
++	0xbfa0fff7, 0xbfc70000,
+ 	0xbeee007e, 0xbeef007f,
+ 	0xbefe0180, 0xbefe4d84,
+ 	0xbf8a0000, 0x8b7aff7f,
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+index c33e7660d8f4..d38ff404277b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
+@@ -37,6 +37,7 @@
+ #define HAVE_CLUSTER_BARRIER (ASIC_FAMILY == CHIP_GC_12_0_3)
+ #define CLUSTER_BARRIER_SERIALIZE_WORKAROUND (ASIC_FAMILY == CHIP_GC_12_0_3)
+ #define RELAXED_SCHEDULING_IN_TRAP (ASIC_FAMILY == CHIP_GFX12)
++#define HAVE_INSTRUCTION_FIXUP (ASIC_FAMILY == CHIP_GC_12_0_3)
+ 
+ #define SINGLE_STEP_MISSED_WORKAROUND 1	//workaround for lost TRAP_AFTER_INST exception when SAVECTX raised
+ #define HAVE_VALU_SGPR_HAZARD (ASIC_FAMILY == CHIP_GFX12)
+@@ -372,9 +373,9 @@ L_TRAP_CASE:
+ L_EXIT_TRAP:
+ 	s_and_b32	ttmp1, ttmp1, ADDRESS_HI32_MASK
+ 
+-#if HAVE_BANKED_VGPRS
++#if HAVE_INSTRUCTION_FIXUP
+ 	s_getreg_b32	s_save_excp_flag_priv, hwreg(HW_REG_WAVE_EXCP_FLAG_PRIV)
+-	fixup_vgpr_bank_selection()
++	fixup_instruction()
+ #endif
+ 
+ #if HAVE_XNACK
+@@ -415,8 +416,8 @@ L_HAVE_VGPRS:
+ 	save_and_clear_xnack_state_priv(s_save_tmp)
+ #endif
+ 
+-#if HAVE_BANKED_VGPRS
+-	fixup_vgpr_bank_selection()
++#if HAVE_INSTRUCTION_FIXUP
++	fixup_instruction()
+ #endif
+ 
+ 	/* inform SPI the readiness and wait for SPI's go signal */
+@@ -1397,8 +1398,8 @@ L_BARRIER_RESTORE_LOOP:
+ L_BARRIER_RESTORE_DONE:
+ end
+ 
+-#if HAVE_BANKED_VGPRS
+-function fixup_vgpr_bank_selection
++#if HAVE_INSTRUCTION_FIXUP
++function fixup_instruction
+ 	// PC read may fault if memory violation has been asserted.
+ 	// In this case no further progress is expected so fixup is not needed.
+ 	s_bitcmp1_b32	s_save_excp_flag_priv, SQ_WAVE_EXCP_FLAG_PRIV_MEM_VIOL_SHIFT
+@@ -1477,8 +1478,13 @@ L_FIXUP_NOT_VOP12C:
+ 	s_cmp_eq_u32	ttmp10, 0xcf000000					// If 31:24 = 0xcf, this is VOPD3
+ 	s_cbranch_scc1	L_FIXUP_THREE_DWORD					// If VOPD3, 3 DWORD inst
+ 	// Not VOP1, VOP2, VOPC, VOP3, VOP3SD, VOPD, or VOPD3.
+-	// Might be in VOP3P, but we must ensure we are not VOP3PX2
++	// Check if we are in the middle of VOP3PX.
+ 	s_and_b32	ttmp13, ttmp14, 0xffff0000				// Bits 31:16
++	s_cmp_eq_u32	ttmp13, 0xcc330000					// If 31:16 = 0xcc33, this is 8 bytes past VOP3PX
++	s_cbranch_scc1	L_FIXUP_VOP3PX_MIDDLE
++	s_cmp_eq_u32	ttmp13, 0xcc880000					// If 31:16 = 0xcc88, this is 8 bytes past VOP3PX
++	s_cbranch_scc1	L_FIXUP_VOP3PX_MIDDLE
++	// Might be in VOP3P, but we must ensure we are not VOP3PX2
+ 	s_cmp_eq_u32	ttmp13, 0xcc350000					// If 31:16 = 0xcc35, this is VOP3PX2
+ 	s_cbranch_scc1	L_FIXUP_DONE						// If VOP3PX2, no fixup needed
+ 	s_cmp_eq_u32	ttmp13, 0xcc3a0000					// If 31:16 = 0xcc3a, this is VOP3PX2
+@@ -1539,6 +1545,11 @@ L_FIXUP_THREE_DWORD:
+ 	s_mov_b32	ttmp15, ttmp3						// Move possible S_SET_VGPR_MSB into ttmp15
+ 	s_branch	L_FIXUP_ONE_DWORD					// Go to common logic that checks if it is S_SET_VGPR_MSB
+ 
++L_FIXUP_VOP3PX_MIDDLE:
++	s_sub_co_u32	ttmp0, ttmp0, 8						// Rewind PC 8 bytes to beginning of instruction
++	s_sub_co_ci_u32	ttmp1, ttmp1, 0
++	s_branch	L_FIXUP_TWO_DWORD					// 2 DWORD inst (2nd half of a 4 DWORD inst)
++
+ L_FIXUP_DONE:
+ 	s_wait_kmcnt	0							// Ensure load of ttmp2 and ttmp3 is done
+ end
+-- 
+2.34.1
 
