@@ -4,121 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE96D7237B
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 12:00:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BB7CD7237F
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 12:27:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0997C10EAC5;
-	Fri, 23 Jan 2026 12:00:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7286889F27;
+	Fri, 23 Jan 2026 12:27:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LwKSM/fS";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lUvLUFUl";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010057.outbound.protection.outlook.com [52.101.201.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3478310E125
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jan 2026 12:00:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LEWOX7MzrkshbnHv454gpG3viVqn0BthuuXl4/ftNeq9TENjP6JBbKhR5R7gOZqCbgAh+W4VNyKPbD+ti+OMBAM/IegIbvBCuQLrqskh9zle6jciG5PLZR82xa0pWmJ/esksi5T+NyJu1FH0k0ZT3Xo7MD1LCrkKlZ8aCubbRVzot4ODlZpEH6k7VCnkjTOCcI15WdBI2PJXMze8J1pe3EYHh0ffLs5z4xhYBXw8yc3MjuRu8enBwPauA2jrQjXrHjrbtYBJTlm6PGVwbyeJ/OUD6DbbdsDjpakqO+uwqJwVNw8fTPcN9j0c2GkXvwVVqQdTzr9OooRJN9OK+r+Pcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fgCOaLKR2m8eqrDjIDcJYZAAWr4FupGnFgFwMe6R9Rg=;
- b=gAbhibp87giz9dho/YLiQfpwgPoX1/N9dswp3YW7/I4HabB/ww9c7PLB1Bti05YLhPwKps4UaLgqwdHH1s3PnZIizhw8bf9Oz/G0aWvWrl7Uug3yubMBvlXbvnOVj4GjBE9GDb9OWtUQexwbzjQV/VGyhMUI/BtS9vZmtP6xUb673q/yhkJjOFz5ppA/gbutf+nKHtyQVy9CwJsnABUMz3PKCoZEtT6bFxa6+LExwzZJ9WnAYECEPf3nba0JCcHzhQjkHWcGdiGVCtpfyejgnPsPjSJWZgBKdbeAoHCwcODrOcXZPAYKoGJzjGQTwqjuOBdXU6bR9RHaO7MCFT6+ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fgCOaLKR2m8eqrDjIDcJYZAAWr4FupGnFgFwMe6R9Rg=;
- b=LwKSM/fSaE++IhmKqTq+8+NhoX379shl7Ud07ZSQjVn59r2DxFEjCjZ/8KLYJ2NzVr7xyfVGdo/92NJBEKOJyCxwLCCliWGpeUILKPPM8rTJ8PqP0pExA/UerCvcmsoNf5iESlaIQMnyL7tp6bCw6xpnRBEbQiH/+n/WP7FGLFg=
-Received: from BN9PR03CA0984.namprd03.prod.outlook.com (2603:10b6:408:109::29)
- by CY3PR12MB9702.namprd12.prod.outlook.com (2603:10b6:930:103::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.11; Fri, 23 Jan
- 2026 11:59:56 +0000
-Received: from BN2PEPF00004FBB.namprd04.prod.outlook.com
- (2603:10b6:408:109:cafe::b5) by BN9PR03CA0984.outlook.office365.com
- (2603:10b6:408:109::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.10 via Frontend Transport; Fri,
- 23 Jan 2026 11:59:56 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBB.mail.protection.outlook.com (10.167.243.181) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Fri, 23 Jan 2026 11:59:55 +0000
-Received: from stanley-test.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 23 Jan
- 2026 05:59:54 -0600
-From: Stanley.Yang <Stanley.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Stanley.Yang <Stanley.Yang@amd.com>
-Subject: [PATCH Review 1/1] drm/amd/ras: statistic xgmi training error count
-Date: Fri, 23 Jan 2026 19:59:31 +0800
-Message-ID: <20260123115931.3857571-1-Stanley.Yang@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D085510E2BA;
+ Fri, 23 Jan 2026 12:27:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1769171222; x=1800707222;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=XA1SjaS2/7tkFIIRzJGUee57bJy4LE6ja09RafCZp9g=;
+ b=lUvLUFUlAZBCEeji6JUCP4bk59HalqL+Or4vLPGS4a+tpgbpAC5JWEHO
+ 0ukw/r9MSsl0a6b2bTGiAORJjwrev4RPQYp/jBZvoBUuxwl3EYGLsuZZ6
+ /FIFTFExLe5aYhEhIedQtGSzfUH8MillninPPMW61PVVP5r31fUpj6xFF
+ RqrwNprbfCmKTfT2zI9YVPzZHDxSNecrPfuv6Q8G1Oym2fLDBmjZzZTpM
+ mV2gRyfYuPVOnzcyer1J9ap059pOCnS2nHafX0Zxh+5d3cOi7/dhl/VvD
+ yc8sHwVunBLvnHxjxK2p6FR6gB51ZX+47uz41P3LCIorB5NwMArbLPnWS A==;
+X-CSE-ConnectionGUID: USWwX9taTkeNJHn4czN6Ug==
+X-CSE-MsgGUID: qqsLboTJQQ6M/47GiM6n0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11679"; a="87841460"
+X-IronPort-AV: E=Sophos;i="6.21,248,1763452800"; d="scan'208";a="87841460"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2026 04:27:02 -0800
+X-CSE-ConnectionGUID: QzrIgEsERtSX4zO+kS9/Uw==
+X-CSE-MsgGUID: W4E3+5+NR4iRaLuDbBSLGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,248,1763452800"; d="scan'208";a="206274996"
+Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
+ by orviesa010.jf.intel.com with ESMTP; 23 Jan 2026 04:26:55 -0800
+Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vjGFY-00000000TwY-3vMe;
+ Fri, 23 Jan 2026 12:26:52 +0000
+Date: Fri, 23 Jan 2026 20:26:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Hamza Mahfooz <someguy@effective-light.com>,
+ dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Hamza Mahfooz <someguy@effective-light.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Ce Sun <cesun102@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] drm/amdgpu: implement page_flip_timeout() support
+Message-ID: <202601232007.NAxTeBna-lkp@intel.com>
+References: <20260123000537.2450496-2-someguy@effective-light.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBB:EE_|CY3PR12MB9702:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35550d9b-46a4-4d0a-c542-08de5a76ec81
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?9IvZTt7gSwxnOfwrpZnaJDrrxcRu7T3COk8oH6Va4FB9GBKGOnBSlQZqHioe?=
- =?us-ascii?Q?D2HnJaQf5Wp/QXv2hLhPhr9F4TYmAfBsA6iVEeDhT+C2nzi/w/V1wy5KmN4i?=
- =?us-ascii?Q?JBHQeoejziUXU7f84qYwe+aU98vP+nrQyEZuuxt+NddPytAj2mx7H6+2yZ7v?=
- =?us-ascii?Q?jNlLWAPqiAHjea0mRiOaAZqRkEb+7T8L33kJHBRlUjeqIssELkXXc7tE8B25?=
- =?us-ascii?Q?g8gYrGYxpj4Yw1MSSnY1LImcgrGQEn4s9Zrj9OOulabzRemZx81byuGT7PAR?=
- =?us-ascii?Q?W7EXYEPWvoVU07T30PPJkK8WVq8+ai93pemmT1EMTVdyMf/PMPXEYwfCxd4C?=
- =?us-ascii?Q?fxsbfCzG6RN5L9voxnMRl8/zUsi3do3E85wxvF5h4Oc+axMkfJUGWwb0OPel?=
- =?us-ascii?Q?tGJ02KoKSelsUR0vQEmOWCESAvb+jm77emTBQJzZBi17HsLx2/TfM9jFjLLa?=
- =?us-ascii?Q?ZUw4HoXH84JOoLt8QenL61tW9Fj4s7qWkuyDk1HIgtLLQS4HjUq57oMlGQJz?=
- =?us-ascii?Q?OoueX5m4/L4C17Z7m0XR+ECfMLBSgbCCI3RoMNOnvzsg+uwV4z0Zmwdqdm8P?=
- =?us-ascii?Q?1vWuzhu9YNwBRAMlpR1xYhWDt6BYrRr18PRFB2w5T6G+9gAZvzsoXuY6OZ3Y?=
- =?us-ascii?Q?hbmJ4+Blxjz4uk6JszjLUG6DjvDNjlZ37XFFeyhpf8ljzpTjccsNd3A6v9IS?=
- =?us-ascii?Q?h33Fv748kUGWnxbTWI4h+Ay8Hn3HYw0U0p6wbVvRAulbYyZIZ1/EOjj7Eeur?=
- =?us-ascii?Q?Wzu0gGIopLg8NTRuOtu6ovLlakosGTbk3u4+3R200aiPFw+UMLp6cGWK7fiD?=
- =?us-ascii?Q?p/wYBZ0836UjWkRsXJDuSLcEIoI/OY8/OcXzpl0UB5lco5chnbwliEE2FS28?=
- =?us-ascii?Q?yUpZYbL6REeAREWWbmhpFubs+TPFMlYIlSfvU2kFinJO6D3zfhpnf82gNJte?=
- =?us-ascii?Q?qem3AMva6zthZa5jElEoYpauCTOQWygGxmL+GyphSUnsxG1xn19b/ZTBvCbX?=
- =?us-ascii?Q?JxamB3ULE+1hwcHcqLx55yANPoEvMOZ68Wfzy84nYqF1SCz5fnpz6fqlY2WO?=
- =?us-ascii?Q?LID5Df23Tvj8J4wUisz2XlLxIPPQr54rIFkMP2QzItLaQhmwXH929dFknHR6?=
- =?us-ascii?Q?xKEniDSyrjC2ZtbwApLITkYghO2jU9EVkF1eNPccSitGA/NZD7y0m0p2wVzv?=
- =?us-ascii?Q?o/Wvjx9c6A/s0k+PR5rV3L4zhOxZ9iEltGUky1vzqT5Nx3U8S3Fnm2BmlZNe?=
- =?us-ascii?Q?ijQLiRKVEtlSRGVsSy2LzX8PuCLEQhHPXDB+namTKubiyXi1Aav11lx8zIuC?=
- =?us-ascii?Q?lEvgZPu0AEvxJym/4ELrMQLqZ8sTn3BYktV+RAFIidXQ4Qlfykk6+BNfyLiG?=
- =?us-ascii?Q?coGi+ygkaZV8/bq4TvDlEk3t9vjPUSdCCMk26/KKB7LCh0ca0FxXgLtKIVaE?=
- =?us-ascii?Q?15FSE9ee0q2O1hyY/YsBlyQDhid1jN9tszQn9CzREk2OmHiOli4sguFppMZC?=
- =?us-ascii?Q?BzdouiP36FeuaKKUHAziHf2b7uKwSuaC93d06Hr5YjyB2dE21h3nYuPfLDqR?=
- =?us-ascii?Q?q3gaKln+RKonARzIANsHo49HtxGkQ6oN2aAsccp6A8TQDc0jgF9zWZNfTG4+?=
- =?us-ascii?Q?r4l51qjMNcVW0+BmW/48ASOYkoOgWpgRsQapAXDGs+Ly71KywT602axVJ+y3?=
- =?us-ascii?Q?2nzYSg=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
- SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 11:59:55.3333 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35550d9b-46a4-4d0a-c542-08de5a76ec81
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBB.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9702
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260123000537.2450496-2-someguy@effective-light.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,27 +87,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Report xgmi training error uncorrectable error count.
+Hi Hamza,
 
-Change-Id: I7f2edf00ed37b5a4f13115ab2f0f914f07fc8519
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
----
- drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+kernel test robot noticed the following build warnings:
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c b/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-index 29df98948703..210fbd8851a6 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-@@ -299,7 +299,7 @@ static int aca_parse_xgmi_bank(struct ras_core_context *ras_core,
- 
- 	count = ACA_REG_MISC0_ERRCNT(bank->regs[ACA_REG_IDX__MISC0]);
- 	if (bank->ecc_type == RAS_ERR_TYPE__UE) {
--		if (ext_error_code != 0 && ext_error_code != 9)
-+		if (ext_error_code != 0 && ext_error_code != 1 && ext_error_code != 9)
- 			count = 0ULL;
- 		ecc->ue_count = count;
- 	} else if (bank->ecc_type == RAS_ERR_TYPE__CE) {
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v6.19-rc6 next-20260122]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Hamza-Mahfooz/drm-amdgpu-implement-page_flip_timeout-support/20260123-085944
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260123000537.2450496-2-someguy%40effective-light.com
+patch subject: [PATCH 2/2] drm/amdgpu: implement page_flip_timeout() support
+config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20260123/202601232007.NAxTeBna-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260123/202601232007.NAxTeBna-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202601232007.NAxTeBna-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:348:2: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
+     348 |         default:
+         |         ^
+   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:348:2: note: insert '__attribute__((fallthrough));' to silence this warning
+     348 |         default:
+         |         ^
+         |         __attribute__((fallthrough)); 
+   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:348:2: note: insert 'break;' to avoid fall-through
+     348 |         default:
+         |         ^
+         |         break; 
+   1 warning generated.
+
+
+vim +348 drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+
+2656e1ce783a90 Eric Huang    2024-06-03  315  
+2656e1ce783a90 Eric Huang    2024-06-03  316  void amdgpu_reset_get_desc(struct amdgpu_reset_context *rst_ctxt, char *buf,
+2656e1ce783a90 Eric Huang    2024-06-03  317  			   size_t len)
+2656e1ce783a90 Eric Huang    2024-06-03  318  {
+2656e1ce783a90 Eric Huang    2024-06-03  319  	if (!buf || !len)
+2656e1ce783a90 Eric Huang    2024-06-03  320  		return;
+2656e1ce783a90 Eric Huang    2024-06-03  321  
+2656e1ce783a90 Eric Huang    2024-06-03  322  	switch (rst_ctxt->src) {
+2656e1ce783a90 Eric Huang    2024-06-03  323  	case AMDGPU_RESET_SRC_JOB:
+2656e1ce783a90 Eric Huang    2024-06-03  324  		if (rst_ctxt->job) {
+7bed1df814cd61 Eric Huang    2024-06-06  325  			snprintf(buf, len, "job hang on ring:%s",
+7bed1df814cd61 Eric Huang    2024-06-06  326  				 rst_ctxt->job->base.sched->name);
+2656e1ce783a90 Eric Huang    2024-06-03  327  		} else {
+2656e1ce783a90 Eric Huang    2024-06-03  328  			strscpy(buf, "job hang", len);
+2656e1ce783a90 Eric Huang    2024-06-03  329  		}
+2656e1ce783a90 Eric Huang    2024-06-03  330  		break;
+2656e1ce783a90 Eric Huang    2024-06-03  331  	case AMDGPU_RESET_SRC_RAS:
+2656e1ce783a90 Eric Huang    2024-06-03  332  		strscpy(buf, "RAS error", len);
+2656e1ce783a90 Eric Huang    2024-06-03  333  		break;
+2656e1ce783a90 Eric Huang    2024-06-03  334  	case AMDGPU_RESET_SRC_MES:
+2656e1ce783a90 Eric Huang    2024-06-03  335  		strscpy(buf, "MES hang", len);
+2656e1ce783a90 Eric Huang    2024-06-03  336  		break;
+2656e1ce783a90 Eric Huang    2024-06-03  337  	case AMDGPU_RESET_SRC_HWS:
+2656e1ce783a90 Eric Huang    2024-06-03  338  		strscpy(buf, "HWS hang", len);
+2656e1ce783a90 Eric Huang    2024-06-03  339  		break;
+2656e1ce783a90 Eric Huang    2024-06-03  340  	case AMDGPU_RESET_SRC_USER:
+2656e1ce783a90 Eric Huang    2024-06-03  341  		strscpy(buf, "user trigger", len);
+2656e1ce783a90 Eric Huang    2024-06-03  342  		break;
+c5da9e9c023893 Alex Deucher  2025-04-16  343  	case AMDGPU_RESET_SRC_USERQ:
+c5da9e9c023893 Alex Deucher  2025-04-16  344  		strscpy(buf, "user queue trigger", len);
+c5da9e9c023893 Alex Deucher  2025-04-16  345  		break;
+7136aabf196b0a Hamza Mahfooz 2026-01-22  346  	case AMDGPU_RESET_SRC_DISPLAY:
+7136aabf196b0a Hamza Mahfooz 2026-01-22  347  		strscpy(buf, "display hang", len);
+2656e1ce783a90 Eric Huang    2024-06-03 @348  	default:
+2656e1ce783a90 Eric Huang    2024-06-03  349  		strscpy(buf, "unknown", len);
+2656e1ce783a90 Eric Huang    2024-06-03  350  	}
+2656e1ce783a90 Eric Huang    2024-06-03  351  }
+a86e0c0e94373a Lijo Lazar    2024-11-15  352  
+
 -- 
-2.25.1
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
