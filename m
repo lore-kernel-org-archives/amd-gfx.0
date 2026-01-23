@@ -4,75 +4,186 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BB7CD7237F
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 12:27:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C247DD74ED3
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 13:38:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7286889F27;
-	Fri, 23 Jan 2026 12:27:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39AC810E2C1;
+	Fri, 23 Jan 2026 13:38:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lUvLUFUl";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="fWAhVIzQ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D085510E2BA;
- Fri, 23 Jan 2026 12:27:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769171222; x=1800707222;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=XA1SjaS2/7tkFIIRzJGUee57bJy4LE6ja09RafCZp9g=;
- b=lUvLUFUlAZBCEeji6JUCP4bk59HalqL+Or4vLPGS4a+tpgbpAC5JWEHO
- 0ukw/r9MSsl0a6b2bTGiAORJjwrev4RPQYp/jBZvoBUuxwl3EYGLsuZZ6
- /FIFTFExLe5aYhEhIedQtGSzfUH8MillninPPMW61PVVP5r31fUpj6xFF
- RqrwNprbfCmKTfT2zI9YVPzZHDxSNecrPfuv6Q8G1Oym2fLDBmjZzZTpM
- mV2gRyfYuPVOnzcyer1J9ap059pOCnS2nHafX0Zxh+5d3cOi7/dhl/VvD
- yc8sHwVunBLvnHxjxK2p6FR6gB51ZX+47uz41P3LCIorB5NwMArbLPnWS A==;
-X-CSE-ConnectionGUID: USWwX9taTkeNJHn4czN6Ug==
-X-CSE-MsgGUID: qqsLboTJQQ6M/47GiM6n0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11679"; a="87841460"
-X-IronPort-AV: E=Sophos;i="6.21,248,1763452800"; d="scan'208";a="87841460"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2026 04:27:02 -0800
-X-CSE-ConnectionGUID: QzrIgEsERtSX4zO+kS9/Uw==
-X-CSE-MsgGUID: W4E3+5+NR4iRaLuDbBSLGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,248,1763452800"; d="scan'208";a="206274996"
-Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
- by orviesa010.jf.intel.com with ESMTP; 23 Jan 2026 04:26:55 -0800
-Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vjGFY-00000000TwY-3vMe;
- Fri, 23 Jan 2026 12:26:52 +0000
-Date: Fri, 23 Jan 2026 20:26:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hamza Mahfooz <someguy@effective-light.com>,
- dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- Hamza Mahfooz <someguy@effective-light.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013052.outbound.protection.outlook.com
+ [40.93.201.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2936E10E27E;
+ Fri, 23 Jan 2026 12:59:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xx63ylS7lhg5ohjAMtJvl/NXi2J9qSli1gayouBXb5IPHIWKmi3A0XssXRHER0Y8Rv2rrBX8QCshQtWBwlLPmKr/VN2vkZ2EQO251k449eU2aZCw5c4K+LqzRTP/FXbdOub+TbBZ8l7n5Yo9fHr8132nTX41RcDZEoERM8LwhHvY/QP8/5gjqiHGXB4zOQBSHorvOwJPo/UpySMg4Qv/WssJ0uET1rVAa0AZhVF5xFn8QlRCYnFIo//vqWrKvGHQzza9Sk/tUFC5/2KG/znaG+RSU7yv2qJJO5zFk23gXV7qPQrFSGqkDxal2SUeSYDNBncKSf5tf2H7nR1zvu/tkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UJHN+IQ5IWfcCuuLhyeXkaHe7zqEMDGwHYL/MdYJbT0=;
+ b=C34VyrzvhQ2cmHbQnI38ZbKhWwutQfYGAnWeRRoVEwvbG63No9Cq1s7Hrix+d4X7NZzojUWo0mf9nuIAjNU7AOPs0iPDAEOrjK1xCVYJS34tmw4nU6l64BhmE0zeRI9EFzQk0aVMmnViuhA6tPW2DPPJBhFj6bALGz9BzPZFnldUA4XW0JrI4UlPsaDDipTHs+G6+6uZmtJJL+fLxgo1L8d26cuzg/j9MpfT+aEuLNHPiS/NJNqKnXxZyc0FWcmm16kpeAHd+0XyFMZ4F6MeMxnEkPCPJwhA9GjfWg7CgkeFENEfOS4KQm9YqCs7TCVo/3Cc0Yb3O8gmIqL0Wm+WPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UJHN+IQ5IWfcCuuLhyeXkaHe7zqEMDGwHYL/MdYJbT0=;
+ b=fWAhVIzQ7C+uG/ZFTXXREPiNiQPB04aSNpDyXao63XZ8tFdiQEnTXqEejnU0J9fyKYeYk9VKfjLIQGVu+In/zs8h8Qd02+eaG8cgOo9EctcfsFeGsqeAIj1OlV3A+ts8h3DDPK7bcNk7QpbeLLxzytDRMcJgcI02wg5RjL5k5L93BmzZne4imIZz8AQxyjNZHuSOH9KCS8Xh8QWumvKJWHMecuOOo7iy5bOzmanXuLAH2NoEBoYti9nWsWiV5eJAAb5dbJEOra9tmKFqqCc5mF6az22MdjgfgDN4pXbiD7yVH+/c2La10alLCcY5xE3G7fal79bUoMEznApMOdpFpw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ PH7PR12MB5832.namprd12.prod.outlook.com (2603:10b6:510:1d7::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9542.11; Fri, 23 Jan 2026 12:59:02 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9542.010; Fri, 23 Jan 2026
+ 12:59:02 +0000
+Date: Fri, 23 Jan 2026 07:59:01 -0500
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: Zhi Wang <zhiw@nvidia.com>
+Cc: linux-kernel@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Sunil Khatri <sunil.khatri@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Ce Sun <cesun102@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Alex Hung <alex.hung@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/amdgpu: implement page_flip_timeout() support
-Message-ID: <202601232007.NAxTeBna-lkp@intel.com>
-References: <20260123000537.2450496-2-someguy@effective-light.com>
+ Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Alistair Popple <apopple@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
+ Alexey Ivanov <alexeyi@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH RFC v6 05/26] nova-core: mm: Add support to use PRAMIN
+ windows to write to VRAM
+In-Reply-To: <20260123121343.396bc4cd.zhiw@nvidia.com>
+References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
+ <20260120204303.3229303-6-joelagnelf@nvidia.com>
+ <20260121100745.2b5a58e5.zhiw@nvidia.com>
+ <e186973c-ce31-405a-8bfa-dc647737a666@nvidia.com>
+ <DS0PR12MB6486717785F6DD14EE1F1C46A397A@DS0PR12MB6486.namprd12.prod.outlook.com>
+ <20260123121343.396bc4cd.zhiw@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: BL6PEPF00013E0D.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:22e:400:0:1001:0:11) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
+Message-ID: <DS0PR12MB648644D902FAD272898AE22AA394A@DS0PR12MB6486.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260123000537.2450496-2-someguy@effective-light.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH7PR12MB5832:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b6556f3-69ec-4fdc-ad67-08de5a7f2e71
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7416014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?S0Y0VVpYZVFHNGlUVE41MUt5eUZKS3ozZ3h2MTBvbW5zVDY1a0xQWUg5T3FK?=
+ =?utf-8?B?Q1hZbmdYT0E2WjRrcEMvSXpjK2M3dC8xU25oKzZZbFZUYjNNYkk1QTdmYTBL?=
+ =?utf-8?B?elFFV1VOb3ZGN1V4dnh4ZmpyOVovbm1GSXExVHRnYUhrbW1HS0FMa0tqeDU0?=
+ =?utf-8?B?cEc2eUpLZ1lYdGZ2c0huUTBVSysrRlZUMHZQUXc3MXdQU2FhS0crR0pER1Ay?=
+ =?utf-8?B?TFY2ZFFMR0tFU0Rta1ZwTDBWemZUMGltUWxTRFFZWmx6N1o3ZU96aEp4dFov?=
+ =?utf-8?B?WXcrNkUvcHBWSFZiNnVBQWJ3RGRrcS9XUkNEVXZPWXJyaC9ZWVA2UVpwNHV0?=
+ =?utf-8?B?bmpVVXNvKyswWUtKd2Z4QWpnUWR1QzNsQUc5Q2xXTXgxaEl6U2F0aERqNFp0?=
+ =?utf-8?B?cnFDVW1sbWFaUHpjS3hELzNRS3E0cFlaK1A1T2ZKWGlrUTExaFhkNHA2c0lJ?=
+ =?utf-8?B?L1RXTUxFSEcyTXQxS0xncDNGUkxldXlETXNwRFdoZ2F2VkxxK1lpUXdMakxa?=
+ =?utf-8?B?cC94bnFCOENKK0pTRUNlTTQ5VTYvQisySUlPNFB4N29ZWjAvYnliSEdYZXNJ?=
+ =?utf-8?B?TU4zdExGMFJ2bnZZbFA5SFZxcjNQSlFhQjR0MFlCREkzK1VBenlpNjkvVnFu?=
+ =?utf-8?B?aml3YnhaWVphNTdOUjhUOFRNczgxRzNvaVBXK2VsLytWWWlsUFZRTXdPZzFl?=
+ =?utf-8?B?aHNKUGovNzRnd05jZHRLc28vbjVhbFdnUUd6bFBZMEVWdWZ4TStQZzZhN2M4?=
+ =?utf-8?B?S1BiMUp0OHBuWlQwTXV3MG53WE4yODRTLzNkMVBSbmJvdEIyQ2NOKzlSN01O?=
+ =?utf-8?B?M0Y0cUFMQUNDb0h5RWN3R2NDeERWdTRMR1dPV3NqdFVIWU5id3ozNVNDcDky?=
+ =?utf-8?B?UW9xQk9XbTZBRkx6K0FYVTRzL3NtMU1YMlFaYityUDFTMitTMHVtbWJxK3U3?=
+ =?utf-8?B?VWV5c2huMWovck1qZ1RISkRYa3NUUktjSG05dUFXcFRqMEZKM3NkNlAyQitV?=
+ =?utf-8?B?UU83Y1ZpVFB5Qnk5a0dkNzkxVXpHY1NvaHZvYVB1dmo4ZndIc3h5MXJkM2xE?=
+ =?utf-8?B?ZkhabHlScXNVZExqRmZwRnVtK01pL3ZpZWd6RUZBNGtxb2NyelovUjVDZXgr?=
+ =?utf-8?B?bmJacktER2QzY2I1cUhqaXo4VHNRdUU3MHlrZkNoNHZ2VXYva2czMi9Xcnd1?=
+ =?utf-8?B?YlhYc3hhZCtrY3NIa1VFSjdiTTVpVytkWUt0aGo2bjg0NURxbzhqYkZFUkF2?=
+ =?utf-8?B?RVFMb3FRUnhlU0VmbWxoZFRUVGdUM1UzREdscnphWExDWUpGVHptc0VhUDQ1?=
+ =?utf-8?B?M3g0VEdIcm1jcWMwVnFOZU9ObDMzMGlZUnBDaG0wWXV0alFlVW1yYjl1b2Yw?=
+ =?utf-8?B?cXVUaWl3ZytmZzhwZlE5M2orYlQwNEw0SzdBOGVCL1J2RlhqZXBMeDVSbk96?=
+ =?utf-8?B?TlJwbXNLdWhMSDZTZFJWNDRyeG1NS3pmd1dhTUtoa2I0WXJRNUR0d2Q2SWdG?=
+ =?utf-8?B?TFVSUzFWSGdvN1dOMHpEakNWUGQ1SlpMMHloMHZUcUhWWGJya2twcUF6L2ho?=
+ =?utf-8?B?Y29nTW1DR3VYeGM2Z2x5cmZIWGhYK25iS0xXZWpkL0VBNlFwWHVBdzJUZFA3?=
+ =?utf-8?B?S2REd0VOUDFkVzZockQwVkVSTWZLOXowYVZTSW84OFI5M1lPazUvb0U4Smgw?=
+ =?utf-8?B?K3UzMy9RMkxBdlM1VUtxa21BN0w2blRFY0l6NjhldE91dTBURjNaOEdqcFdW?=
+ =?utf-8?B?THJFaURwcEc5aG94UW8rSkIzTW0yL3NCNUFmQmdrUEZYK0lBN2NiaE5wZnY4?=
+ =?utf-8?B?Yk0vbTBRclkwNVdwbXZITFM5dmdNT1VidXhlVUd3cys1bDR6VVNVV1YyMmFy?=
+ =?utf-8?B?Lysrd01VcmphRzk5MmJ2clRVWCsrYkpLbjh6TUhFbTdFb0hsZnk5UmhMTUt1?=
+ =?utf-8?B?RU9YUWNwVEFEN0FoNTRFZzduYXk0Q2x5MkFVdkpMQjVHM0ZtSTZGMEpvSlNL?=
+ =?utf-8?B?ODNKdFNEcUc5UW5taUlHZWQ0RFFIb2xhR2Q4NHNFR2F0cXZpRUdjTzk2S1Zu?=
+ =?utf-8?B?dS9ISDRRYkZhTDV2cHMzR0dXdWRiZ0hsWTV3NUVzcTRPaDBNeGczYVAvOGIx?=
+ =?utf-8?Q?Fm20=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eDM1Um54VUtMODY5Ty9SQUo2cmxYVndBbFBndk1rSk4rcm9DeTUvNzd4SDdE?=
+ =?utf-8?B?b3lDZVd3N09jV3d4MmZCZjNBMERkc0FiZHAyWkliZGRkS3JWNzZQVjF6aDhu?=
+ =?utf-8?B?cnpHWFl3L0lXRk9ZcWZXNjBINitVVDFyQURlY0Z0OW9RN0pUUC91QVJDaUl5?=
+ =?utf-8?B?YjVSVjJ2VEh6UTZlaEFhald5cnBBc2lCV1FDYUZ2TDU4OWJta1FEWU1HSXZz?=
+ =?utf-8?B?V3NJbUZ0VXNDdEVuaVhsdDVOcHBkcUROWEZUOVFHYTJJb2Z6RHBZVVdoUlhY?=
+ =?utf-8?B?ZnpvTllYSUFSL01qQ04vZ1FFanBVU2pwaG1XaTI4WEc5RlNwbFRjYVErVHZT?=
+ =?utf-8?B?QzgveFNzaWhxcUFtUjVOWDA5b1hxcUxrMWRROTJ0dVF2VXNDa25KLzlveG5s?=
+ =?utf-8?B?WjFXR0RyV0ZJdUszbk9PTnNjQ1VERVg0MzJSblRpa0ZzODZBbjVpZk5BMlFS?=
+ =?utf-8?B?WFpheFFWMnpMTzdXN0tpUG96QmhJeGFsOXg2QUdZaFdkaklsL1lJTFBoM0Y3?=
+ =?utf-8?B?ZHllWWZQNk1udURMdDlscHFBNmZxdnJSOGh6a2ZEU1NiT3FGbWpIRFhGdnBq?=
+ =?utf-8?B?STRIRmVMSzdnd1FCcXplUmxUT2x5NGFPT1BhUHNuTVFyZktoZGdQUFZLQ3VX?=
+ =?utf-8?B?bXQvUW93V2JTUlJ1T3V4emx0bVZaU3ZoWGdPaEQ5L0owOFN5SmpPUm94MDJH?=
+ =?utf-8?B?NDdkK0YySng5VnJVYit2QjBSaG9hVStqQ2JSK2lwbFUzOGpTMVdldDM4bVpJ?=
+ =?utf-8?B?STcrdzVVK0RLTHFHZHF1MGFmTlRxeDRSSXg3OHFyMmtLdVYxYVc3aVdzL1gw?=
+ =?utf-8?B?Y04wenV2NC9XK2lCNDVqdjdQc3hTbTZaYzZyemtlYlZ0NkU3L3ZReDFCOVp1?=
+ =?utf-8?B?M1pCTm9nbDhRZFlXb1QydmtIMXpmUkUreHVlZFBNVHVJRWhtUjBOU1ZvallS?=
+ =?utf-8?B?QUpiR1Q1OHpFSm1mNXFzVGl5b1ljbElIZTlpemRtZ0J0MU9rcjQrTnV5QnhU?=
+ =?utf-8?B?SDBVME1ybmJGSUJjUG1WWDZPTTVBdHFpZ3J4NzJvVk0zQS9FQ0wzcGdWdXQ2?=
+ =?utf-8?B?bGVWVEFRbVdHVWp1RzY2cjRPWVM3S3pPcnluYjNiQ3JJSlZZSWQzWVNkNmxT?=
+ =?utf-8?B?endzOWNGWis0V2NhM3dWb0p0TlJXWnF1eHhsalVyaUEzNGVBcXJ0bHpEQUh3?=
+ =?utf-8?B?Z0RheUxGTU1oeWpyMm5CRUp1YWN4SXNGTm9laC9WQkI3MnA5Mld1WXFVWmJn?=
+ =?utf-8?B?MDRSN2ZMaDV1V0RqRGw5R0VsUzdxUXVvTmNCZVBFVk5FZFVEZkdIeDJvM1Fp?=
+ =?utf-8?B?dm0zUldtZmpEcWd5Mnh0M0tZMVpMQitFemdzLzI1M01PT1dJYmNFZWVhSVI5?=
+ =?utf-8?B?NWRpZUN6UERXanU2ZnZHaXJwS1psc1hVSlljY0xtcXcrRGhsVWZmTVovaTZx?=
+ =?utf-8?B?RlhJNlpBQ3NodXRFaDJTeUJmMk5sVEVHS041aEFlb1owdlEwdkx6WE92Z092?=
+ =?utf-8?B?K3prc0gzMnZiMURjVDVkcjFxTDE3NE8yZHkxNlNtK2hyYWtmWXJoVlgwTTc0?=
+ =?utf-8?B?RnFHbUFLMlAvbWtMSnlaNklLWHlQYWNIRElnTmdNTHNnYTZUQnhpajU1SXlB?=
+ =?utf-8?B?c2pQUDEvMmdyWmhEVDl1TDNSKzV5MklDWkpzQjEyQ3F4NkU1emRYUFlSUjdL?=
+ =?utf-8?B?NVpSUDIwN1A3Y1dBeXZ0U0tmdVBRdWowczRLb2ZPZ0l3c3JBTnBiM1IwY2xm?=
+ =?utf-8?B?cWZLNHp3V1ROSzJ6eklGdktpQ2FQVWF5STd0aldmWHZoeTBLcUpkMzllKzlj?=
+ =?utf-8?B?OFpKZVUyT1pQbEFnUEdDbGpRUGwyaUtKSnZyUlNaR1UzeTkwMkVPMjBaZWJW?=
+ =?utf-8?B?TXpPMmtFcEJsN0NpQmFaY1R0RHVSM1NwYkROMzBQYkFCbjk0OXp0WGRPN00y?=
+ =?utf-8?B?MmJveWE2VkhPaW5Vcm5rSkNKWVFsc3FNc0ZYdHdpR3JnSHJuUVpybTlQZ3ZS?=
+ =?utf-8?B?dHNWbGF5THFEU0ZCTXQvVS9rSnZPVGlMMlk5Z0t3cjBZQUhDUmhRK0FxdFZO?=
+ =?utf-8?B?MTBmQ1RUUWRSVWZzWnlab2F5ellKZm96cW1DdEl0eTFJZGlLSURMMXdiL2s4?=
+ =?utf-8?B?V2RHM1FhelJIZFg1YjA0U3h1ZlR0bUdUWFRYT0RvQW1xa2JlTnZ2MmNQaHJR?=
+ =?utf-8?B?WlBzSDJuNXJGcERpT1VPeDg1bURvQzFXVXFWcU9PMXRuMElON0tOU0JkRFov?=
+ =?utf-8?B?a0ErQnAxZ2g1SWdjZ3pIU1JDNFRlbVplYUx5RkhOblpmOFMvK3JzaTFERlVI?=
+ =?utf-8?B?MDJVM3MzQ0lJai8ySTN5RzBFMW90UEZYR3R6K0QrYytPL3JFcUlNZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b6556f3-69ec-4fdc-ad67-08de5a7f2e71
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 12:59:02.1970 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zZ6GJ+PtPhaxmaZDJKKtOIDJqdVnr/zQzFTHi8QRzQIZQ4Suk1k18SMn0zJiYdvoIaRTXN9MVMMHYn4nzSpxNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5832
+X-Mailman-Approved-At: Fri, 23 Jan 2026 13:38:32 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,86 +198,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Hamza,
+On Fri, 23 Jan 2026 12:13:43 +0200, Zhi Wang wrote:
+> Thanks so much for the work and the discussion. It is super important
+> efforts for me to move on for the vGPU work. :)
 
-kernel test robot noticed the following build warnings:
+Great!
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v6.19-rc6 next-20260122]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> As we discussed, the concurrency matters most when booting multiple vGPUs.
+> At that time, the concurrency happens at:
+>
+> 1) Allocating GPU memory chunks
+> 2) Reserving GPU channels
+> 3) Mapping GPU memory to BAR1 page table
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Hamza-Mahfooz/drm-amdgpu-implement-page_flip_timeout-support/20260123-085944
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260123000537.2450496-2-someguy%40effective-light.com
-patch subject: [PATCH 2/2] drm/amdgpu: implement page_flip_timeout() support
-config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20260123/202601232007.NAxTeBna-lkp@intel.com/config)
-compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260123/202601232007.NAxTeBna-lkp@intel.com/reproduce)
+Yes all these are already covered from a concurrency PoV by the v6.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202601232007.NAxTeBna-lkp@intel.com/
+> I can see you are thinking of fine-granularity locking scheme, which I
+> think is the right direction to go. I agreed with the above two locks.
 
-All warnings (new ones prefixed by >>):
+Cool!
 
->> drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:348:2: warning: unannotated fall-through between switch labels [-Wimplicit-fallthrough]
-     348 |         default:
-         |         ^
-   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:348:2: note: insert '__attribute__((fallthrough));' to silence this warning
-     348 |         default:
-         |         ^
-         |         __attribute__((fallthrough)); 
-   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:348:2: note: insert 'break;' to avoid fall-through
-     348 |         default:
-         |         ^
-         |         break; 
-   1 warning generated.
+> However for 3), We need to have one there as well beside the above two
+> locks. Have you already had one in the GPU VA allocator?
 
+Currently for mapping Bar pages, you need a mutable reference to BarUser.
+For the future, when we have multiple channels sharing the same va space,
+it will still be protected because the va space allocator (virt_buddy)
+already has internal locking. And for each map_page, it is protected as
+well. So I believe that should also be covered. Thanks for checking.
 
-vim +348 drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+> If yes, the above two locks should be good enough so far. IMO.
 
-2656e1ce783a90 Eric Huang    2024-06-03  315  
-2656e1ce783a90 Eric Huang    2024-06-03  316  void amdgpu_reset_get_desc(struct amdgpu_reset_context *rst_ctxt, char *buf,
-2656e1ce783a90 Eric Huang    2024-06-03  317  			   size_t len)
-2656e1ce783a90 Eric Huang    2024-06-03  318  {
-2656e1ce783a90 Eric Huang    2024-06-03  319  	if (!buf || !len)
-2656e1ce783a90 Eric Huang    2024-06-03  320  		return;
-2656e1ce783a90 Eric Huang    2024-06-03  321  
-2656e1ce783a90 Eric Huang    2024-06-03  322  	switch (rst_ctxt->src) {
-2656e1ce783a90 Eric Huang    2024-06-03  323  	case AMDGPU_RESET_SRC_JOB:
-2656e1ce783a90 Eric Huang    2024-06-03  324  		if (rst_ctxt->job) {
-7bed1df814cd61 Eric Huang    2024-06-06  325  			snprintf(buf, len, "job hang on ring:%s",
-7bed1df814cd61 Eric Huang    2024-06-06  326  				 rst_ctxt->job->base.sched->name);
-2656e1ce783a90 Eric Huang    2024-06-03  327  		} else {
-2656e1ce783a90 Eric Huang    2024-06-03  328  			strscpy(buf, "job hang", len);
-2656e1ce783a90 Eric Huang    2024-06-03  329  		}
-2656e1ce783a90 Eric Huang    2024-06-03  330  		break;
-2656e1ce783a90 Eric Huang    2024-06-03  331  	case AMDGPU_RESET_SRC_RAS:
-2656e1ce783a90 Eric Huang    2024-06-03  332  		strscpy(buf, "RAS error", len);
-2656e1ce783a90 Eric Huang    2024-06-03  333  		break;
-2656e1ce783a90 Eric Huang    2024-06-03  334  	case AMDGPU_RESET_SRC_MES:
-2656e1ce783a90 Eric Huang    2024-06-03  335  		strscpy(buf, "MES hang", len);
-2656e1ce783a90 Eric Huang    2024-06-03  336  		break;
-2656e1ce783a90 Eric Huang    2024-06-03  337  	case AMDGPU_RESET_SRC_HWS:
-2656e1ce783a90 Eric Huang    2024-06-03  338  		strscpy(buf, "HWS hang", len);
-2656e1ce783a90 Eric Huang    2024-06-03  339  		break;
-2656e1ce783a90 Eric Huang    2024-06-03  340  	case AMDGPU_RESET_SRC_USER:
-2656e1ce783a90 Eric Huang    2024-06-03  341  		strscpy(buf, "user trigger", len);
-2656e1ce783a90 Eric Huang    2024-06-03  342  		break;
-c5da9e9c023893 Alex Deucher  2025-04-16  343  	case AMDGPU_RESET_SRC_USERQ:
-c5da9e9c023893 Alex Deucher  2025-04-16  344  		strscpy(buf, "user queue trigger", len);
-c5da9e9c023893 Alex Deucher  2025-04-16  345  		break;
-7136aabf196b0a Hamza Mahfooz 2026-01-22  346  	case AMDGPU_RESET_SRC_DISPLAY:
-7136aabf196b0a Hamza Mahfooz 2026-01-22  347  		strscpy(buf, "display hang", len);
-2656e1ce783a90 Eric Huang    2024-06-03 @348  	default:
-2656e1ce783a90 Eric Huang    2024-06-03  349  		strscpy(buf, "unknown", len);
-2656e1ce783a90 Eric Huang    2024-06-03  350  	}
-2656e1ce783a90 Eric Huang    2024-06-03  351  }
-a86e0c0e94373a Lijo Lazar    2024-11-15  352  
+Ok, thanks for checking.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+--
+Joel Fernandes
