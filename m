@@ -4,180 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 524A0D74EFD
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 16:23:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BE34D6CFA7
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 16:34:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC4310EB5B;
-	Fri, 23 Jan 2026 16:23:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA2E10EB5E;
+	Fri, 23 Jan 2026 16:34:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="g6mPFrpQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WVx79B57";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010016.outbound.protection.outlook.com [52.101.46.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9167410EB58;
- Fri, 23 Jan 2026 16:23:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d8/8EwYXT8E2GxFbvmMxVO0MTjdWQt5rE/K7a/NoIC7DxpeUflhXGsONwp/1no4Bv+c5HQtqiSNiUDYX1i72U3KVDq9MDaea1aRKKJXPjaLmwu6q/gKyLJmegzZZbhUxD68i+x/YkktblvQKVIp5gXwozxqKkTkVx7Sq7n2QdO18vgd/v2ImN4quwctoAf3VJPJIZmuucs/HJPs+QSA+MtY/n3vRAOcs/3RawNSFrCYZ1djQzmH1lyA1JQHTiUuPLGcKUIoX5+6NH31tZ4Mx+M9OZAjCgYz+vGWuaUx3JpTHbuv7PtVFCmhZYLot0UR1sigcFeogQhRt4EkOgPzLRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/pqmRwb00ynmNjg0P+Pp/LuS2Ak3p0fR9UEyDUxqcU8=;
- b=OIbirseRgLlkw/yTea/PJxLOkv5N9NMxNMXX5l7GF19tLTf9pJr2zbObu/j7ZRFrLqEfN9wAYE8FRm1dCMg7Sc9N2Lb0rrhMzBOh6s98wHhtmWon9ywDbBCSFyDluWq3D1vNFVzw3H5E8j2+V7uwMFkc8XbPB6QkwjPAAsUqdQDop5OnMVebSrNRs97BAkOO+m2hp/70a24s1TCQplIPdkDhxBmb9eTSW15A3HqIF0a5mxZod848w4uvY1qJOPlnSj86/PjA6LeJC+rKjlz3CGlqlxHMblcQgm6MvUMUKhUOZAePbryPzCQYj7RtOKJBiBhqYgGfUK7M28KDCl+biA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/pqmRwb00ynmNjg0P+Pp/LuS2Ak3p0fR9UEyDUxqcU8=;
- b=g6mPFrpQdzFbU7Rkh4x+2n4O6LPn5Bv8+xfsCCWaIQv+RpPyWs2m1RsEJW62awF6EFLqTJY2b2FMUtXW5HFE4zbjkJEM5cmsTvOkIENCh0IZAfBDftl5CUI4BtTCF4zcuox7mRMOmPeMn7Q8NSmQ5mIu+mSeSFI49dyY0xwluWs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4402.namprd12.prod.outlook.com (2603:10b6:5:2a5::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.11; Fri, 23 Jan
- 2026 16:23:45 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9542.009; Fri, 23 Jan 2026
- 16:23:44 +0000
-Message-ID: <98b74c7a-44c1-49ba-997b-bbbab60429ba@amd.com>
-Date: Fri, 23 Jan 2026 17:23:34 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/7] vfio: Wait for dma-buf invalidation to complete
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Alex Deucher <alexander.deucher@amd.com>,
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8639D10EB5E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jan 2026 16:34:01 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-42fbc305552so2127200f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jan 2026 08:34:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769186040; x=1769790840; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rb7u39V+EWrAiLj+yjS6kM65VvsRc96IK2z8zgH3Va8=;
+ b=WVx79B57oYDqibMFxRoNDHgquAt5F94277V1//+4Sb2yB+7wMDrxY1EzJkTYMQ1GPj
+ B8p71o9P1h0kllyHPCmHZSz6GDZplUTEceQLw7Z6ms6P0osAuFjjvBMixE9axT01Rs63
+ sVyyVnaLVswcTsHZJAZ2MFjciSutuYG6/sJD9kmQml7w+Oj0kg9sizdU6OqnbDMRrh6v
+ 9mH9ZyEPwvjBX7YWX8ohQJwOBQCCCTOnsQqZsLcdWFMFUlXdpGzI7qdRYevIt6wR/T1C
+ 10td02/cBv6cKDLE9MXI3WM7KlPqNzX1r8IxWq7h6BCaq28eVhp2jw9aewdBsJq7f5oF
+ +97A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769186040; x=1769790840;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=rb7u39V+EWrAiLj+yjS6kM65VvsRc96IK2z8zgH3Va8=;
+ b=n4jXMzp8lMxbuaan9izBptJvlng++s8/EvUrQ4adBQHopZdAunv1fwD/5uwqnEVhrS
+ nVSUWuohi0qj/5+9ufLnzwi8WOhAIjt4cs227h3Mbksr/H4o0KZSbo3JZhItJHqIPiHD
+ IhiH4dMnovuDx0wvYwi1PqEi5m6tIX/B4nKXt5L+mxXInLkIZD+2cBv39XOFd6/kkI+5
+ Ihw54QQh7dlNB1H2DrS0UqkM7oLBYt18YHTQdTgDiCnQcSUt3RiPqSgEa0LZZv7DLXDq
+ hX534vcenx+94uYJ++iZA2/Q2uGMghInnioB1IgZzHT7SLszupekuYvUqKdAOGWLRZNW
+ CrFw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXa5IpTJP1FcWxgo3kh86l0OJ1/AqNEtizM2vlrcmJjmY1XnyLWxWROctSlVlQHkZG04rvEg1Kt@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx0bP5QjZ4t8ArSjD96EeDYLFibz4m/7Gg7uMCSiJHgBA3byGYR
+ syXCboN97syKb+MyDVYR0cGFUSNiO9RuswrD1EDQYvDxwLNYCCjRa6+Y7X5UI1Qj
+X-Gm-Gg: AZuq6aLvRmNP74J7T10EYqCr2ATBafWxmnzIGkJnOdb9YOlSUz68glsul4br+OC5ms2
+ jfxMIftcH8aQrhrDSo5AIbWLU9FClxZJ8sNtNRUq3Jqwrp44ff+348eQogbOm/DMW+tJdj0S0n+
+ uL3e9zblRdnNCW+pj/2ISghai3+bHxElBS3KSXdwQv1Stwu6qSYc9rglKodxINsozlC9Fi0CcRR
+ 5hOJLMpwgO0vbujls3SRO3FBGhgyXzxbhkHe03R5N1SUynxsbXczLrNGDyH/6ano8lNRywWdUjD
+ mv8RqnaGJQnsWTXBUULNGNNevUvSFLAr8BAvWQxEB7BDXJWJ7x4T1qKAoZDZYKR+ozhhy6ej3GO
+ I31FSjclRD1HOctd4NQAMrwRZ6rPKPAhBpPUTlt3nbGu4iWgW9T2C/hf3EJ7TRWVf5FSpFX8LY4
+ CJOL5g74lIGtqoCqxmG9aXbnZvthnf15NdOGV6rXgzd4VtjM/7zs1GoTLicg==
+X-Received: by 2002:a05:600c:1c1f:b0:47e:e5c5:f3a3 with SMTP id
+ 5b1f17b1804b1-4804c9b24e5mr58013925e9.24.1769179492597; 
+ Fri, 23 Jan 2026 06:44:52 -0800 (PST)
+Received: from timur-hyperion.localnet (54001FF2.dsl.pool.telekom.hu.
+ [84.0.31.242]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4804dbb6939sm23700435e9.5.2026.01.23.06.44.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Jan 2026 06:44:52 -0800 (PST)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Hamza Mahfooz <someguy@effective-light.com>,
+ dri-devel@lists.freedesktop.org,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu
- <olvaffe@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Felix Kuehling
- <Felix.Kuehling@amd.com>, Alex Williamson <alex@shazbot.org>,
- Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
-References: <20260120-dmabuf-revoke-v3-0-b7e0b07b8214@nvidia.com>
- <20260120-dmabuf-revoke-v3-6-b7e0b07b8214@nvidia.com>
- <b129f0c1-b61e-4efb-9e25-d8cdadaca1b3@amd.com>
- <20260121133146.GY961572@ziepe.ca>
- <b88b500c-bacc-483d-9d1a-725d4158302a@amd.com>
- <20260121160140.GF961572@ziepe.ca>
- <a1c55bd8-9891-4064-83fe-ac56141e586f@amd.com>
- <20260122234404.GB1589888@ziepe.ca> <20260123141140.GC1589888@ziepe.ca>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260123141140.GC1589888@ziepe.ca>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0377.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <mdaenzer@redhat.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Harry Wentland <harry.wentland@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
+Date: Fri, 23 Jan 2026 15:44:50 +0100
+Message-ID: <2349754.vFx2qVVIhK@timur-hyperion>
+In-Reply-To: <2de6d428-b997-4ba8-8766-a211e5612e72@amd.com>
+References: <20260123000537.2450496-1-someguy@effective-light.com>
+ <2de6d428-b997-4ba8-8766-a211e5612e72@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4402:EE_
-X-MS-Office365-Filtering-Correlation-Id: 02316e61-b866-49db-7405-08de5a9bc778
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bXE0RTgySDhLb0dCNFRydWhLUkxrdisxeVlmWWE1Q0NweEtqc2NpS1dOdTl0?=
- =?utf-8?B?SHNIM2dPVWE3YnFyWHFtcExVeklLeEVXbGc1djhKYVJHMFFhVXZVN2RqcHQ4?=
- =?utf-8?B?d1FvWEZIYTIzZExJU1FBT3NncWN4NjF5SHhsSEtCTnVsVjNLOEFSSmpCaDN3?=
- =?utf-8?B?M0RDVG9VN1JydGVBdHdWSjZiVSt4NmNsTHBxN2pFcTVyU0tDU0VKZWN6OGJO?=
- =?utf-8?B?OUZFRXVSR1pvdDJEQ21CWW1tL1N2Q3NEanVOOUR2ak1Ta2FiL2lheUg4NWRB?=
- =?utf-8?B?aGhZa2tpOFVBTXdvYkZ6bVc4eXNJN0J4N2Mxc1VtVmRFMDdNdGpudm1zNDZT?=
- =?utf-8?B?Z3hydDFucnNrTUdCTTlBZzhYK2VDenhOSFVEVmdRMnc1akhyYnloVzBQTU1F?=
- =?utf-8?B?cXZjdXgya1hQa2UyN3p6enEvUVpvNm0vLzFOOFlySGkxRFNXSWJtemtzbGY5?=
- =?utf-8?B?QXl2R1lXaUd1T3dPMDBVUDNSeE93RGhCSlZvdUdsRGpScEN0M0ZlN1F2dFZQ?=
- =?utf-8?B?dnFqeE1rVkJlaFJYY3ZqYlRNY3lqN3BuSVlKQWw0cTFqYUVhS1lLQ0F5a1FS?=
- =?utf-8?B?RVkvMEZ4WVNSZysrUnhuUFphUWtXQ250K3lNWTJheWh4aVl3VTFRZ2NpSVhr?=
- =?utf-8?B?aXA2aTladHVKM1hRUDlCVnpUelI5NlFFZFlDUzBXd01tMkZuUVJScnZrUDNp?=
- =?utf-8?B?Yzdtcms0TllWem82elNyaW9mL3lIaGlEdVpzanVCZUlIbkt6TjdKS3RpYno1?=
- =?utf-8?B?QU53dk9oNWZ4U1IyNWpzay9YOFUzb0dNV2pnWTh4WGhyRUxwRGtmRnhxOEdi?=
- =?utf-8?B?MGhpcjFmTERRTjNzaWhHOWMzZzJraHRUeGZrM0EzdlhQZlI1c29Ea2xxMXVl?=
- =?utf-8?B?cWx4M3ovS0orSVJMWW4xVXZDZlBnV0RvYitGR0FPOGJlYnRUN3VBbDRKRUEr?=
- =?utf-8?B?cnlxcVlFL1J2bDRpSTBKNDVZMVhEcEdZdU5qQ0p2RWpQWFplc3J3dkNnbVVR?=
- =?utf-8?B?V1dXdHBCejVqZzNKVytlajh6TkdXOXl4bHB6YlpDK2U5ZVI5UGt1L3dnTndZ?=
- =?utf-8?B?RmNVdkJCbmtLVTFSSDQxOXd6cTlSS3BSU1kwVm8rZHZmSkxjR2dIL2hiWE5n?=
- =?utf-8?B?OTdZRHR1Tlc3UTlyRllONUhacnVMQXpwWlBnSXZvK01yQWFValBjM3E4aVZ1?=
- =?utf-8?B?cXVEUkxFUjdQQkRVK2ExTGk1QUUzZkZGRjNkZUNmcG1kUVNEbm9kZ3hqRTBG?=
- =?utf-8?B?RUNVTzZ2OW15ZndNUTJrdnU4R1JDeGpYYTg1SDZEN05PdmZoNnBSclNFZ3pK?=
- =?utf-8?B?TXZOallpK0o0dVA4a2NIVG11L3RJVjBtaHpib0duejN5RHMvTC9DVzZKeVdj?=
- =?utf-8?B?RC93ZFdodFBmeEptMmZZdU9QSkJERThIQVQvYmtqZ0w0Q0tNRVdrV2JhL0o3?=
- =?utf-8?B?U1pmWVZSTzRUMEpldVk1eUdXYXk4UmhIMkVTQ2VhTTlwZm5kY3RSR2NzNHVS?=
- =?utf-8?B?MHJoMHJMNVhRcit4eVJoWlo3NGtSamFuRVpsNGlVT21DdDRNSTl2MUthNXRH?=
- =?utf-8?B?bkd6SVhXSUVjckJLaHM3dTBZWjg1QTlrM3VERzlDT2FZS21aTlhzV3NWTnZw?=
- =?utf-8?B?UytNam16OXcvOWlORXlEcXZaYkRGUGxDdkxYaUpSNVNWMXQrWU43OUgrOU9R?=
- =?utf-8?B?bDNqUllveXl0U09YQ00rN1RiQlJWb1o4Z0VsVk1sVDc5VWJUUDlaS3pCc2lw?=
- =?utf-8?B?NXo2MDYyRlhCY1BtdTd1T2tnOHh1R1U3UmY2d1I0SEFPeEtSbU9QenhESnFK?=
- =?utf-8?B?OXh1NUJwYVZCdzM3Zm00bHNaMEpJdVZBMzM3U3BiTHpoQ1owcUwxRXVFU21y?=
- =?utf-8?B?YzZxY1htckdpLzlnZWNIOEo3SkNmWkVZNjYvSmhmZlFpWUpGeDBadGR5VjFR?=
- =?utf-8?B?VldabUdwUEFJNmoxeEgrdDM4SFhWYWlwQ04vTjNoQ1V0OVBuc3BOdGcvaUFv?=
- =?utf-8?B?Mk5RYTVSem1iMEVka1I2elErZUo5aVlMOXhYamRMbW44OStHbURmajBYb0hy?=
- =?utf-8?B?VnErR0k4ekZFMWVjTHVSeWg3cnB2c3BHeldhWXpHNG9sejAzbFQvcWw3a2NS?=
- =?utf-8?Q?2sc4=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEVKSnJYb0dweEJra2dWa0kxTjViUmk2Sm1OWFFpaGRNMkIzSXExT1VZZ09R?=
- =?utf-8?B?Z0tleTl6Q09kQUdRZGE2OG1NcG54ajNnTFE1Yjc5TEdrSEdsOHI1S3lNQ3d1?=
- =?utf-8?B?aXdQUzBFNmJpZ2NtU3RsYlN6LzlXWnVMRCs0UnVOTStwOVBQeFZGalRYVmla?=
- =?utf-8?B?eXZ5YWpnS3pHeVpMTVE3TVF3NGNaekxNL2xYWC9uSnJVdjc4SDYvSUlwV1lS?=
- =?utf-8?B?bWxNR0xmWGI0VjFrb3RoUmE4ZkNKTFdkQzR0NS9KNWV2TzBRd2VQUkVtUG5F?=
- =?utf-8?B?SVNIV3ZNOXpnL25BU3k1cEhrUUxYc1VSUDRuZjVKZSt6U05Qa2FGQWQyd2NB?=
- =?utf-8?B?OWFtZmtCYzVLMFQrWTVKeG1jZ0E4SlE4OVVoMU1CNktYUitVU3NaQS9reXZO?=
- =?utf-8?B?aWF1TXZaY0J6eGR6NEtrRHFjZFpRRDRrZFhOK0ZQb2N2QUF4NEY4OGI0ai81?=
- =?utf-8?B?U1RGY2dPcFg2b2dIRTNmR0o2SEFaNWc3Tm1MdXNyNk95cG1mZlhuL1BTOFVW?=
- =?utf-8?B?bXZYdmhVWWRtak5NVWNrY1lGalVEVjRoYi9zbmIrZ1E3MVVDaXkraXE4YTN2?=
- =?utf-8?B?K3J6RDVZcDF5RXgyQmM0Z1pHVXU2Y3dPbWtjODZQcEN0QThFT3RjdUJiTklD?=
- =?utf-8?B?S1IyNGxCd2dQMVk1WnIzU3BBYzRLa3hWRXhXclN2WDRXYU5Jd0ozcWhOWERn?=
- =?utf-8?B?UHgxaUlyNzQ5UjNhVk5rY216RU5WNXNpOGVjQVE2RFRaSzZTQUZCZ0JZTFUv?=
- =?utf-8?B?WjJWM1FuYzkya3hwVW8yOWFwZnF2S1RRV01rMExQR3pZL1k5SkxLc0l4dHdD?=
- =?utf-8?B?UXdLSWZCR0NmU3NlZHlkcDhVZUttSlEraldwTm1Td2R4SUdSZmJpVnpEK0VK?=
- =?utf-8?B?MU1mOGtTcmI4VXZCR0tENDk4U21HMWZYN0c1UGFTdFo5dVZaMXR0U0ppUytQ?=
- =?utf-8?B?S1NiTDgzclpjNUJSalV6R3d0WXI0ZGFoK002MEQyMmlSNnZodms2RXJ5cmpr?=
- =?utf-8?B?YW1hSUlRejZBeDVQVDQ2dVFrVlI2ZE5NNENtWlVmMnBmd2NFS0dDa2N4MWNV?=
- =?utf-8?B?WS96K3ZVbi9YRU5tYUpOdjJxK0FOMVpNcXpadXRWMGRsaDZGdjVOYVZQTVRp?=
- =?utf-8?B?c0ZGMmJTckVUM3NUQjMxRXVRUjZadWhza0FxTDJXSHk0MVUxOGFiNVRnZFpu?=
- =?utf-8?B?cElicFZta05nSHJsbjJsMlE3RmdsUlV0NnE2Z2Zia01XU1ZFajk3V1JNSWl5?=
- =?utf-8?B?M3QreHZWd1d4VDFNUUp6S2RkdTU2OXVpeE9xdXcwTDZFY3FDNThrT0YxU0lp?=
- =?utf-8?B?bmhicSsvRGp0WUJVbGgxdnNEY1NWdVdIM1BFcG1JL0ZUY0NKcjFndjdad09l?=
- =?utf-8?B?NEgwSWk4c21YWEVFbGl5YktyaU16L2RLd2dNdFlqeU4wKzFYQjE3RWpSU20r?=
- =?utf-8?B?YWVUK2F2eXdnRVgyRTY5RklQdFhPQlVEZUJwM0o3MndKNkRpNXZERSs3ekJB?=
- =?utf-8?B?eXZNTUVlVFhvb3Z5WHJLeEpFazZ6SXJUTkpqYkdtN1FFYlVDdGpNa1JKM0R0?=
- =?utf-8?B?Wms0WXVPQW03QnBvOWUyN25vZldOaHV0OVFVT1Z1cXZUUFd2S2NhUTdGQlcw?=
- =?utf-8?B?MElkRnBKdHVGeTY2dHN0YmszUW90Y2h2K0szNXlkMzRCUEtWT0dpbHNHcitp?=
- =?utf-8?B?OTU1ZStEak40b1Q1NnRITDRlZi9PRjVudE5tY2x3YzNZYnFrQ2U2aWNXbHdi?=
- =?utf-8?B?ejV0Y0pyWXNkRWNzNGQ5NlJ6ai8ySVlMakxlbDRRZjQ3cXQ5akx2VFFiVmRr?=
- =?utf-8?B?NDhNSlMxQ3VLY2drZWk1Z3grVXA0MUJ4T2hlUW82TGczdWNiL0ZZRDJsNCtx?=
- =?utf-8?B?OVdML1NlbzJramtVbGpDOFQ3OFBodkM3T3dZbTdHZHF0Y0pkL0lEN25ZczZN?=
- =?utf-8?B?amwzWXNkYjRsbm90Q3lUQnloM1V0Q2NYcGJXY3htMXV6OFJuMnJ5K0xBbnFR?=
- =?utf-8?B?NkZja1ZDKytDL3VRaW5QbFl6eVpMZ0V2WlBlYWRvY1F5RWNVdms1N0NvK2JS?=
- =?utf-8?B?WjFVcXVQQy8zV1VsQkh3cUh2ZmswRzZ6cDc1eE5iQ3dOTlM3bUxSMFBFRDBl?=
- =?utf-8?B?V2o4RGM3VWZnbDFOUHVnRGUzWVV6L2s1eE1jTUV5KzhLZkpCb2xWSGJ2OWgw?=
- =?utf-8?B?S1A1SklUdTR2ZUVTd09zSktSOGZFaXROT3A5bzhueUxneTEzQ0VlMUJKNkR6?=
- =?utf-8?B?YXgzVXIwa0YvWFVoTGp4ZzF3TkllRzBtR3prV1RKZlh1RUhYdnVGZXc0OUdR?=
- =?utf-8?Q?0C9jNrWNYf38JmoKvr?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02316e61-b866-49db-7405-08de5a9bc778
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 16:23:44.9129 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iT9Z0CM9DZmqGGYB8REIVsyJ/nWgM/k2vdWyhAS93kdXalKfZVpq98Nh+ODrSejC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4402
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -192,47 +103,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/23/26 15:11, Jason Gunthorpe wrote:
-> On Thu, Jan 22, 2026 at 07:44:04PM -0400, Jason Gunthorpe wrote:
->> On Thu, Jan 22, 2026 at 12:32:03PM +0100, Christian König wrote:
->>>>> What roughly happens is that each DMA-buf mapping through a couple
->>>>> of hoops keeps a reference on the device, so even after a hotplug
->>>>> event the device can only fully go away after all housekeeping
->>>>> structures are destroyed and buffers freed.
->>>>
->>>> A simple reference on the device means nothing for these kinds of
->>>> questions. It does not stop unloading and reloading a driver.
->>>
->>> Well as far as I know it stops the PCIe address space from being re-used.
->>>
->>> So when you do an "echo 1 > remove" and then an re-scan on the
->>> upstream bridge that works, but you get different addresses for your
->>> MMIO BARs!
->>
->> That's pretty a niche scenario.. Most people don't rescan their PCI
->> bus. If you just do rmmod/insmod then it will be re-used, there is no
->> rescan to move the MMIO around on that case.
-> 
-> Ah I just remembered there is another important detail here.
-> 
-> It is illegal to call the DMA API after your driver is unprobed. The
-> kernel can oops. So if a driver is allowing remove() to complete
-> before all the dma_buf_unmaps have been called it is buggy and risks
-> an oops.
-> 
-> https://lore.kernel.org/lkml/8067f204-1380-4d37-8ffd-007fc6f26738@kernel.org/T/#m0c7dda0fb5981240879c5ca489176987d688844c
-> 
-> As calling a dma_buf_unmap() -> dma_unma_sg() after remove() returns
-> is not allowed..
+On Friday, January 23, 2026 2:52:44=E2=80=AFPM Central European Standard Ti=
+me=20
+Christian K=C3=B6nig wrote:
+> On 1/23/26 01:05, Hamza Mahfooz wrote:
+> > There should be a mechanism for drivers to respond to flip_done
+> > time outs.
+>=20
 
-That is not even in the hands of the driver. The DMA-buf framework itself does a module_get() on the exporter.
+I am adding Harry and Mario to this email as they are more familiar with th=
+is.
 
-So as long as a DMA-buf exists you *can't* rmmod the module which provides the exporting driver (expect of course of force unloading).
+> I can only see two reasons why you could run into a timeout:
+>=20
+> 1. A dma_fence never signals.
+> 	How that should be handled is already well documented and doesn't=20
+require
+> any of this.
 
-Revoking the DMA mappings won't change anything on that, the importer needs to stop using the DMA-buf and drop all their references.
+Page flip timeouts have nothing to do with fence timeouts.
+A page flip timeout can occur even when all fences of all job submissions=20
+complete correctly and on time.
 
-Christian.
+>=20
+> 2. A coding error in the vblank or page flip handler leading to waiting
+> forever. In that case calling back into the driver doesn't help either.
 
-> 
-> Jason
+At the moment, a page flip timeout will leave the whole system in a hung st=
+ate=20
+and the driver does not even attempt to recover it in any way, it just stop=
+s=20
+doing anything, which is unacceptable and I'm pretty surprised that it was=
+=20
+left like that for so long.
+
+Note that we have approximately a hundred bug reports open on the drm/amd b=
+ug=20
+tracker about "random" page flip timeouts. It affects a lot of users.
+
+>=20
+> So as far as I can see the whole approach doesn't make any sense at all.
+
+Actually this approach was proposed as a solution at XDC 2025 in Harry's=20
+presentation, "DRM calls driver callback to attempt recovery", see page 9 i=
+n=20
+this slide deck:
+
+https://indico.freedesktop.org/event/10/contributions/431/attachments/
+267/355/2025%20XDC%20Hackfest%20Update%20v1.2.pdf
+
+If you disagree with Harry, please make a counter-proposal.
+
+Thanks,
+Timur
+
+
+
+>=20
+> > Since, as it stands it is possible for the display
+> > to stall indefinitely, necessitating a hard reset. So, introduce
+> > a new crtc callback that is called by
+> > drm_atomic_helper_wait_for_flip_done() to give drivers a shot
+> > at recovering from page flip timeouts.
+> >=20
+> > Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
+> > ---
+> >=20
+> >  drivers/gpu/drm/drm_atomic_helper.c | 6 +++++-
+> >  include/drm/drm_crtc.h              | 9 +++++++++
+> >  2 files changed, 14 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/drm_atomic_helper.c
+> > b/drivers/gpu/drm/drm_atomic_helper.c index 5840e9cc6f66..3a144c324b19
+> > 100644
+> > --- a/drivers/gpu/drm/drm_atomic_helper.c
+> > +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> > @@ -1881,9 +1881,13 @@ void drm_atomic_helper_wait_for_flip_done(struct
+> > drm_device *dev,>=20
+> >  			continue;
+> >  	=09
+> >  		ret =3D wait_for_completion_timeout(&commit->flip_done, 10=20
+* HZ);
+> >=20
+> > -		if (ret =3D=3D 0)
+> > +		if (!ret) {
+> >=20
+> >  			drm_err(dev, "[CRTC:%d:%s] flip_done timed=20
+out\n",
+> >  		=09
+> >  				crtc->base.id, crtc->name);
+> >=20
+> > +
+> > +			if (crtc->funcs->page_flip_timeout)
+> > +				crtc->funcs-
+>page_flip_timeout(crtc);
+> > +		}
+> >=20
+> >  	}
+> >  =09
+> >  	if (state->fake_commit)
+> >=20
+> > diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> > index 66278ffeebd6..45dc5a76e915 100644
+> > --- a/include/drm/drm_crtc.h
+> > +++ b/include/drm/drm_crtc.h
+> > @@ -609,6 +609,15 @@ struct drm_crtc_funcs {
+> >=20
+> >  				uint32_t flags, uint32_t target,
+> >  				struct drm_modeset_acquire_ctx=20
+*ctx);
+> >=20
+> > +	/**
+> > +	 * @page_flip_timeout:
+> > +	 *
+> > +	 * This optional hook is called if &drm_crtc_commit.flip_done times=20
+out,
+> > +	 * and can be used by drivers to attempt to recover from a page=20
+flip
+> > +	 * timeout.
+> > +	 */
+> > +	void (*page_flip_timeout)(struct drm_crtc *crtc);
+> > +
+> >=20
+> >  	/**
+> >  =09
+> >  	 * @set_property:
+> >  	 *
+
+
+
 
