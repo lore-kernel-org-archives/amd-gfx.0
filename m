@@ -4,74 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E6C3D74EE3
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 15:17:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 857ADD74EED
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 15:56:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F04C010E193;
-	Fri, 23 Jan 2026 15:17:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DEA910EB20;
+	Fri, 23 Jan 2026 15:56:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Izm4gGWc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AdT86g10";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79D2110E193;
- Fri, 23 Jan 2026 15:17:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769181430; x=1800717430;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=mtX2wkzTv4QKP702ioxXJbNnRZiOdbyIrUyfJHJ7mGc=;
- b=Izm4gGWcYspwCXG/N5iZWjcI82N53T14k08vRSAElptBzNdkuDBNRWaT
- CxVItNnfzs6s1Ui3WEJM4vtAuxG1RwS7qnwbRGcAXTNwi32TVjqhhT1pL
- uJgGsUIDupPeB+cijVzAqzQICHm6GxW1mn6WixHFTo1/6EKmobENi/j8E
- fxXOGJL8Y26/1ijOW9Iyf6rrqQxlpykt/ocOR8bMBM6s3GXkP3B38i41S
- f7T5pD4BWWJW2Wv2ZbVwt/EDzTRTQFUdaWpp3amacNWUGIeRgAfGEPzc5
- jUiZdxl+vbKRF2NNgABaq8ZswF4scgZ/JNzCX6WRbEfsRdD2H3VvCwHP3 A==;
-X-CSE-ConnectionGUID: dmPaSTiXRhSwRDKQ9GmEFg==
-X-CSE-MsgGUID: opcwrldySq+bSQasg5bzTw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11680"; a="74286599"
-X-IronPort-AV: E=Sophos;i="6.21,248,1763452800"; d="scan'208";a="74286599"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jan 2026 07:17:10 -0800
-X-CSE-ConnectionGUID: Ljx0nGDARAW2z1lxWL7Z3Q==
-X-CSE-MsgGUID: bnfzDrQ/QxmubQOOosbjVg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,248,1763452800"; d="scan'208";a="212047944"
-Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
- by orviesa005.jf.intel.com with ESMTP; 23 Jan 2026 07:17:03 -0800
-Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vjIuD-00000000U70-22rZ;
- Fri, 23 Jan 2026 15:17:01 +0000
-Date: Fri, 23 Jan 2026 23:16:51 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hamza Mahfooz <someguy@effective-light.com>,
- dri-devel@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev, Hamza Mahfooz <someguy@effective-light.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Sunil Khatri <sunil.khatri@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Ce Sun <cesun102@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Alex Hung <alex.hung@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/amdgpu: implement page_flip_timeout() support
-Message-ID: <202601232335.sf6DrrBF-lkp@intel.com>
-References: <20260123000537.2450496-2-someguy@effective-light.com>
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011007.outbound.protection.outlook.com [52.101.62.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B908F10EB1D;
+ Fri, 23 Jan 2026 15:56:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WT7TRzRo/7yrgiEntk/bcV6y/LvU55YSHTFTAeMBm48ySpcExWSSj/jMOi6uso0RhEnAKpKjxuOv7zFgaIaCkGshSVXpZ+WBTAE93ThdaPuhThkuTlRKOzaLTAbonoqALwOAlTgmegdvAZNuw8Yk9OQfEYJqJ9wZkfX6RRbpjGzShSmFb9Azm/76KdRtDuLcsbhR4wDNHauI3nOCmEYURqOkShCUhIKPcXRyBNXrJr/X2DaB8Fhd9lhNJmQbGGozpalg7HYn8qF0DoYqeBlCd9qXVNBGGc31XorG8tm9Lae2I6Zz/Rekz+I5/1O+ESgtW+g0a9+cn3wUkqtwhRMGWA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JT91FRePWksf09yppM6fxVMiQWdRycZwWyBniNXYoLc=;
+ b=VoeKD51X3mkk43p2Cuhu/DXxncJasYjyr1oDoRc5kRxbe3uypC/47w1wa2dNxgIMzJIiEy8c9rs+j/IgpNRN6LLfgaCcH9CfH4LRXM3KSGJUMi0QCxtI9drQmo1lnJV0ijNbEs48BZw8BRPhQS0spaSUIw/ciQjXOr1XcXa3fCAJ3EykJOWeomC/WiZC/2dzbydzljW14MyA1vy6TzXSx2JIcYUK4dhY4TO4ZDNmUNUdhAzn3arL69LpvLV87qlirp8CJrkmaoZsKG8tDmB3wijJSr1e26Vpq6ECwLgk4m7oDSyQM0yTGbku2dNp0Kn11lfpfY0SXmsyKtamfFbltQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JT91FRePWksf09yppM6fxVMiQWdRycZwWyBniNXYoLc=;
+ b=AdT86g106aOT//2wBZC5N4G+rNMn8j8dWMsr4qvdaQ9FWW/5YjtUn4AsXtMNcRC5Mqnq63u72JyQKjKKWSZpfNOL7uend2bAkk+Xv4j3qVnBBds8o+oumI9WQ3B3DGVtp0T1U/RTPurnDAI9UJBR7NghW0wi89eprxgnr5iB2oM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB8268.namprd12.prod.outlook.com (2603:10b6:930:6c::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.11; Fri, 23 Jan
+ 2026 15:56:10 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9542.009; Fri, 23 Jan 2026
+ 15:56:10 +0000
+Message-ID: <6b66d788-951e-4de3-8153-b4949e04e9e0@amd.com>
+Date: Fri, 23 Jan 2026 16:56:05 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 08/10] drm/amdgpu: use larger gart window when possible
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260122170218.3077-1-pierre-eric.pelloux-prayer@amd.com>
+ <20260122170218.3077-9-pierre-eric.pelloux-prayer@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260122170218.3077-9-pierre-eric.pelloux-prayer@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0134.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b9::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260123000537.2450496-2-someguy@effective-light.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8268:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e3c45ed-1ac0-4d3c-f1ec-08de5a97ed2a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VGVSc1ZvZ1V3dm8wSFpySFJwOG0zcExrWFVzQVFBaGlycUtDeXJ6dlBHb2ho?=
+ =?utf-8?B?YUg0L0RqekJLc0JVRjE0OUwyKytuMXNQOUxYTzRHWHk4Z0RZTHFtWE1FR1pB?=
+ =?utf-8?B?a3k4VjczT0pSYXI3cWtDNm8xeFV5dGE0KytHTHJMR2JxOWZlcXYwMzlRck1x?=
+ =?utf-8?B?K0IveWFJSjhJdEJYTHlLMGhuWkdGU2hYeTJwbjhUY0dKL0thQ3o0dXRNOFFH?=
+ =?utf-8?B?YjBiMitOS3dzNjEzOUJmVklGOUZhU1FSMjZ2ZWtXaklsSldYSmJNTyswb0Zr?=
+ =?utf-8?B?UGdaRW1pYTF0Zit2Vk9ZVWI4MGh1U0VNVzhibENSekcxcWFTTDFwZG1QRUpS?=
+ =?utf-8?B?aWJqSnh4WWV0cERsd3hVRXhCckFLNzZMWTVTRENPTUUyNFFuWEFlOUZqUThC?=
+ =?utf-8?B?eDJuVlk4a3FLK0doek5relVOb2J3eHhVZk4ra2o1cUVCZ0NNQlhMVzloKzNq?=
+ =?utf-8?B?VW9uUFpxYVNDd01LUkNCelplOEExT2RZMEtqTFA0OXl4OW5HcmdOZTgvbDIz?=
+ =?utf-8?B?ZjNlc0JkUzdDL0Q3c2oxbm50eEd0TGxQY002ZE85V2ZINTNBWmZLRjNvYTVk?=
+ =?utf-8?B?Z29lZjF3OGYyVklmbHgzMTZuOXpUUDcyRU5HbkYxYXRDa1E4S0xJYWM3QmZm?=
+ =?utf-8?B?UlU4S2U4UXBDMWVHclgyQU1DRG4xdE5INDAxMGlWd0F6SmxxTDZ5WmU3cElT?=
+ =?utf-8?B?bEpEaTdNUTNycDBmV3YwOTdnTWtodTY2d1ZxdGhwMTF6SEQ2b0FBc3BtTDAx?=
+ =?utf-8?B?a05OQ245MWJwSDg4NXRkZlhKcTlwOTMzVHNRNENva1JaUWZFejBSZXJyWVhY?=
+ =?utf-8?B?UXAxaFp6MkFzVzU4bHpKNEI0RTI0bDNiOUpkVHZ4b0RPVTZCbFVFU1JoWHRt?=
+ =?utf-8?B?WnBkd1R2aTVDM2V3enJMZVVrbmNjOXRIMlpaaGxpdVNQdkQ5NnVmSm5oZnNz?=
+ =?utf-8?B?QWJUZVNkYlRiM3Btc0JJaVRYSnhTakRHeVBKS3A1UlF2bVIvbWludFZGcUlu?=
+ =?utf-8?B?K3BVTVRXdHBsNUJPaFNXRWFWUU5odUh1dTZPdnZFazFnWlh6aFZuT2E4eTlO?=
+ =?utf-8?B?NUkyT2VtSlpKcHZPdXp3VERZaklXWHVUdFZ1cm1YQW1sTG5VekQ1clY4eU0r?=
+ =?utf-8?B?ZHBzL2hVOWxPT3d1bVp6QUdLNjQrQ045NzZwMGFIQVVGWlJvVXhDZzduRHVH?=
+ =?utf-8?B?MXVNVmJkQTlEMXQ4WTVkZHRtZW44RkkxTGsxWkM2RC9sa1FmL2Y4L1owcFVq?=
+ =?utf-8?B?ZXFtWFZ6Wk9mUElqcTdJQncrUjdGbGpzbkpNV2xHeERsS3pjcXRuNGRXK2lx?=
+ =?utf-8?B?UWFwcENjcURGWnlnVEdKcTR0TTNGSEl1bE1VOFZlWUJmMEZnZDM4bk9KUWF2?=
+ =?utf-8?B?eElIcG8vSkFibWR3ZitBWTF1cTZRcGJ6cFNLU095ZEJyUWVoY1pNWENWZ0d5?=
+ =?utf-8?B?WFl3V3N5Q0pjdU9Cb0JWUjlVODVJQWRaUFdMSjFIZXVkWWhQaytsbFZnbkFr?=
+ =?utf-8?B?c3BxR0drZ0l6MmdEaXdHalpRdS9BMkxxZGxJcHdNQXdOWXc3VVVVbHZmTkFl?=
+ =?utf-8?B?aTRYREhtWFVIY2R0L3B6VldpYm04bzR5MTNGemwweHFWQlViWVNMaDcyakJ6?=
+ =?utf-8?B?ZDBtenA5WWhjVWJjSzF3aUYxL3dOVnEyYTI5Y2pkSEFteG1KaHRZSEQ5Mis2?=
+ =?utf-8?B?ZjRPbXQ5d3FESFdCbUZiK2ZDMW1iYmU1b1F1WmpOTVF2MUlDeFFRVlY1RGtV?=
+ =?utf-8?B?NWREc09Md0xINHptczRkRGZ5L2wrNGFyR0tTYWVsQXBqMFV4WWNVaVZ6SEhm?=
+ =?utf-8?B?K1VVdkREZmpEU1E3LzNjVEIrWXZxRnE3WmdKZzY5R1VwWFZ1Z095L21Qc00z?=
+ =?utf-8?B?YW1hRlVpekl4aUNHeDFOUjRYbG92c1NuY09SZjVBVi9CN1hsbU9FTXF1UWh2?=
+ =?utf-8?B?V1ArRjdQdGlSekJwc0xTbzBvWFlHOEpyb0NzUkZYVGpYYVNqNEtPK3I4MmF5?=
+ =?utf-8?B?N01Ia3pvMzUxaEVMWEloK25vSkliWktXYUQ4YU1IMC9YR3FTQVZMUWhPYys2?=
+ =?utf-8?B?TXQ1T3MrdUFLRmllN2J6SGx3bmVXMUY2TW90SStPcHZZTC9sYWwrbFJVOFht?=
+ =?utf-8?Q?Nw+0=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?M2hOWTdqZXZ2T0NZQkdSaTBzRzh2cUZITjU0SWpycng0OUYzUXVJaGRsS2Nk?=
+ =?utf-8?B?emNieWhrS2pWTStjU3hpeXhWSFhBaERnVkVBOEJzU1gySjFNREtyQlBXZk9L?=
+ =?utf-8?B?em80cGN1cWJUU0hWRW1aTHJnNGFEbnFnZmwvVVVQYVlGZ2htUk9aSG5YN1dE?=
+ =?utf-8?B?dU5MeGVIVUdpaTFCbDlDRWZXcy84enNpK0ZlTWZxQlBIMmYrNWNUWnVwSGFz?=
+ =?utf-8?B?TWoxdWlIaktVN3BVbjR6dnlLd3JyemFvNkx0cU9ndXBhK1VaOHZVK0NIZjRM?=
+ =?utf-8?B?Rm9uWW04MXVjZHg4TFQyelhiTHJEaElQTjIvMk1OWXFuM3B2dTlaZCs2U05C?=
+ =?utf-8?B?SjJKNjdaY2tPUVZtU3puSlJJWTk4Z0Z5dHROVEltWXlvY3J4NEQzak9NVmpX?=
+ =?utf-8?B?bmI1bTRiNVlkYnB4Y0ljMnN4N0p3ZDR4OXp0ZU1BMmp5MGNKTVllbHBSdzlG?=
+ =?utf-8?B?TmxxdVY3eVd6RUI4ZTNzN2ZWNGxEMHkwQU94Yzl3UytnSDcyVWZYUWplQnlO?=
+ =?utf-8?B?N3RTNWl6TXFURWFjRWlNeDh1R21ZejBxaHVPTmgxWGdxMC9YcVk1WGUzSXh4?=
+ =?utf-8?B?S2Rydk55b3p6cUJvWUlLWmswalpxTkxJeERReEZsNDlwc0JCRmJIejJCSGNB?=
+ =?utf-8?B?OW5Ycml1a0F6WXBDMk1yZTFOTU84NWRKNVphWk5NdENZZ0lDNC9zemYvMVNn?=
+ =?utf-8?B?VHI1TDFTcFFFaWl6VGdpYjZDWmtnUDRPNG43QTZuVktsSExCNW5ZRFlhclpB?=
+ =?utf-8?B?YVV3OWpsQndMekl4REJ1bFBrZ3Y2cmRpL2p4K0I4dGpxcGVZL3VoWDdvdWJN?=
+ =?utf-8?B?dWt2blU5dlNacDVMUEVWemNTaFgzVjJ5MC9adDhlVU56UmMzbzFlTmZPeFdn?=
+ =?utf-8?B?NUphYzh1QUNaUkw5elFzUUQ2c3VORGdmODNLTlhWdmRIVjRsUTAwMXZ0a0x4?=
+ =?utf-8?B?cmJqajZiWm1tN3FlNjd3dFJ2L1JZVittVk8yYnZ0eTVkK3hyV2hVK2xSZkpv?=
+ =?utf-8?B?NFZQaUhmSHdlci9DRWNjblZSNTRXWnhublVoa2hoZGxZck4ydDNBMHB1RkhI?=
+ =?utf-8?B?TW5kbWJ3RCsvQWJad2hGeGxGamY1N1pQcDA3SFo0MGxBRUNkcVovbHc4ck1v?=
+ =?utf-8?B?SW1lQmxFMG8raGhNUDZZWlhsdmI0SlIxWC8zT1poeEhPd0V6dHJoVGZoMkhw?=
+ =?utf-8?B?RjA5VWFYMFRUUjU2RU1YSXBvUFBXRno5SEZvVEhDTzBPNFRQQUNvUlRkbFFx?=
+ =?utf-8?B?ZW5xSWllbTExOTFzVUcyVWUwRi9MWFNwLy9aVWkyZVoxb2VTays0VjdJLzc4?=
+ =?utf-8?B?SnlvZUZUaU9ZdlZyWGxaNDNLT3g2bnUybldmVkgvSFRxaGdTbTFwY1VEL0tF?=
+ =?utf-8?B?YVpFbUVKNXRqaVFIZHhESHNtUk5xaFJsclN3alA5a1ozYkNPRkxPQ09Jcm16?=
+ =?utf-8?B?aFFBaWkva3I5ZENxSWZmNmpFYloraEJCYUFBcWZUbXNWUHRkTDRXdXZ0RDAz?=
+ =?utf-8?B?VHU3Q3VaNWR4SXVxMDA5YUFZaSsxdGZYczJ1MDZORHpoelFkbEVpSGR1Y2Zv?=
+ =?utf-8?B?eFJ6NGM3cU5NOXkwMGx2NEdyeU5iY1RIekk0STVtQ3gra3N6ZE8rQmRSazB2?=
+ =?utf-8?B?SEltckRwdlZDY2NPSUEvZnI3akszS0ZSa3ErUExnZ0tjaXVXaERORzB1UGhX?=
+ =?utf-8?B?SDFpVnNKUEZmTmMxeGtudVptbmVKN1lvWEd4Y2pZdnpaQnNqQkhZbDBOZ21r?=
+ =?utf-8?B?WWtsTkZHU1ZkUWdML3NiamZaUnlhd0F1SmV0ajVvdnNhSlhCbU1BYUdrNjV3?=
+ =?utf-8?B?NkVLSkdVVXNmN2JoblJJNlFEWVZmV1hVMWRLN1FXWC9xZWZFdExQUVU0SWtN?=
+ =?utf-8?B?dmhXdkU2Tk9wdzdEaFJCK3BoRENyWHVvemdaeXdaK0lXRWU2dFk1aEhQcGtH?=
+ =?utf-8?B?L0VDUERKTXlPWEhwQjhneEN0cENkNGdmZWxBUXkrQXA2S090YnVOSXAxVnVw?=
+ =?utf-8?B?ZkJrb2EwbUQ0MFNTeHJuS1czbWswNzdraUlpSnNNaDRIblFaSDhscUJvOVI4?=
+ =?utf-8?B?V1F5Z0V4UjBwMmpaWWlvRWlEbEZUbEkwWkZPWTNBdTUzNWl2U1QrRUxLUE1D?=
+ =?utf-8?B?NWVUVE9ZQzYySlNVUDFwOGg5c0JyQ3d2TWJ6a1h3SFpCNVRJMUdvN1I4N3gz?=
+ =?utf-8?B?RjRyd0RXTFM1THpBd3JzNXdaaDlBZ2MvbjU3M3I0QUVnRzBJYnJvOVpzbEVw?=
+ =?utf-8?B?Z0xtQW1kdlg1MDZoelVYVXloRldtbVQ3UG50K25MNERrZnhnaGNBUmdiSEpZ?=
+ =?utf-8?Q?jNzjPYr7nqLpAwtWUJ?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e3c45ed-1ac0-4d3c-f1ec-08de5a97ed2a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 15:56:10.1436 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /7Qdp0vhkOpq2adC4s6d5ahxfJYFWzd8xJ6K1hb6ovHQAY512lX8+pbuF0htTlN2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8268
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,112 +170,193 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Hamza,
+On 1/22/26 18:02, Pierre-Eric Pelloux-Prayer wrote:
+> Entities' gart windows are contiguous so when copying a buffer
+> and src doesn't need a gart window, its window can be used to
+> extend dst one (and vice versa).
+> 
+> This doubles the gart window size and reduces the number of jobs
+> required.
+> 
+> ---
+> v2: pass adev instead of ring to amdgpu_ttm_needs_gart_window
+> v4:
+> - merge if conditions
+> - always call amdgpu_ttm_needs_gart_window before calling
+>   amdgpu_ttm_map_buffer
+> ---
+> 
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 
-kernel test robot noticed the following build warnings:
+Well I'm still not very keen about all this here.
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v6.19-rc6 next-20260122]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+First of all it adds some complexity without much gain, e.g. the VRAM manager just falls back to 2MiB fragments to often. Arun is working on improving that, but doing that is basically just a hack.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Hamza-Mahfooz/drm-amdgpu-implement-page_flip_timeout-support/20260123-085944
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260123000537.2450496-2-someguy%40effective-light.com
-patch subject: [PATCH 2/2] drm/amdgpu: implement page_flip_timeout() support
-config: i386-buildonly-randconfig-002-20260123 (https://download.01.org/0day-ci/archive/20260123/202601232335.sf6DrrBF-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260123/202601232335.sf6DrrBF-lkp@intel.com/reproduce)
+Then I would really like to deprecate mem->start, it's basically just a leftover from when we still mapped everything into GART. We would need to clean that up first I think.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202601232335.sf6DrrBF-lkp@intel.com/
+Can we postpone this change and land utilizing more SDMA engines first?
 
-All warnings (new ones prefixed by >>):
+Regards,
+Christian.
 
-   In file included from arch/x86/include/asm/page_32.h:18,
-                    from arch/x86/include/asm/page.h:14,
-                    from arch/x86/include/asm/processor.h:20,
-                    from arch/x86/include/asm/timex.h:5,
-                    from include/linux/timex.h:67,
-                    from include/linux/time32.h:13,
-                    from include/linux/time.h:60,
-                    from include/linux/jiffies.h:10,
-                    from include/linux/ktime.h:25,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h:26,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu.h:43,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h:27,
-                    from drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:24:
-   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c: In function 'amdgpu_reset_get_desc':
->> include/linux/string.h:83:9: warning: this statement may fall through [-Wimplicit-fallthrough=]
-      83 |         sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/args.h:25:24: note: in expansion of macro '__strscpy1'
-      25 | #define __CONCAT(a, b) a ## b
-         |                        ^
-   include/linux/args.h:26:27: note: in expansion of macro '__CONCAT'
-      26 | #define CONCATENATE(a, b) __CONCAT(a, b)
-         |                           ^~~~~~~~
-   include/linux/string.h:114:9: note: in expansion of macro 'CONCATENATE'
-     114 |         CONCATENATE(__strscpy, COUNT_ARGS(__VA_ARGS__))(dst, src, __VA_ARGS__)
-         |         ^~~~~~~~~~~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:347:17: note: in expansion of macro 'strscpy'
-     347 |                 strscpy(buf, "display hang", len);
-         |                 ^~~~~~~
-   drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c:348:9: note: here
-     348 |         default:
-         |         ^~~~~~~
---
-   In file included from arch/x86/include/asm/page_32.h:18,
-                    from arch/x86/include/asm/page.h:14,
-                    from arch/x86/include/asm/processor.h:20,
-                    from arch/x86/include/asm/timex.h:5,
-                    from include/linux/timex.h:67,
-                    from include/linux/time32.h:13,
-                    from include/linux/time.h:60,
-                    from include/linux/jiffies.h:10,
-                    from include/linux/ktime.h:25,
-                    from amdgpu_ctx.h:26,
-                    from amdgpu.h:43,
-                    from amdgpu_reset.h:27,
-                    from amdgpu_reset.c:24:
-   amdgpu_reset.c: In function 'amdgpu_reset_get_desc':
->> include/linux/string.h:83:9: warning: this statement may fall through [-Wimplicit-fallthrough=]
-      83 |         sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/args.h:25:24: note: in expansion of macro '__strscpy1'
-      25 | #define __CONCAT(a, b) a ## b
-         |                        ^
-   include/linux/args.h:26:27: note: in expansion of macro '__CONCAT'
-      26 | #define CONCATENATE(a, b) __CONCAT(a, b)
-         |                           ^~~~~~~~
-   include/linux/string.h:114:9: note: in expansion of macro 'CONCATENATE'
-     114 |         CONCATENATE(__strscpy, COUNT_ARGS(__VA_ARGS__))(dst, src, __VA_ARGS__)
-         |         ^~~~~~~~~~~
-   amdgpu_reset.c:347:17: note: in expansion of macro 'strscpy'
-     347 |                 strscpy(buf, "display hang", len);
-         |                 ^~~~~~~
-   amdgpu_reset.c:348:9: note: here
-     348 |         default:
-         |         ^~~~~~~
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 83 +++++++++++++++++--------
+>  1 file changed, 57 insertions(+), 26 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index e149092da8f1..7006c58a6992 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -177,6 +177,21 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, struct amdgpu_ttm_buffer_entit
+>  	return amdgpu_job_submit(job);
+>  }
+>  
+> +static bool amdgpu_ttm_needs_gart_window(struct amdgpu_device *adev,
+> +					 struct ttm_resource *mem,
+> +					 struct amdgpu_res_cursor *mm_cur,
+> +					 bool tmz,
+> +					 uint64_t *addr)
+> +{
+> +	/* Map only what can't be accessed directly */
+> +	if (!tmz && mem->start != AMDGPU_BO_INVALID_OFFSET) {
+> +		*addr = amdgpu_ttm_domain_start(adev, mem->mem_type) +
+> +			mm_cur->start;
+> +		return false;
+> +	}
+> +	return true;
+> +}
+> +
+>  /**
+>   * amdgpu_ttm_map_buffer - Map memory into the GART windows
+>   * @entity: entity to run the window setup job
+> @@ -184,18 +199,22 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, struct amdgpu_ttm_buffer_entit
+>   * @mem: memory object to map
+>   * @mm_cur: range to map
+>   * @window: which GART window to use
+> + * @use_two_windows: if true, use a double window
+>   * @tmz: if we should setup a TMZ enabled mapping
+>   * @size: in number of bytes to map, out number of bytes mapped
+>   * @addr: resulting address inside the MC address space
+>   *
+>   * Setup one of the GART windows to access a specific piece of memory or return
+>   * the physical address for local memory.
+> + * amdgpu_ttm_needs_gart_window() should be used to check if calling this
+> + * function is required.
+>   */
+>  static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>  				 struct ttm_buffer_object *bo,
+>  				 struct ttm_resource *mem,
+>  				 struct amdgpu_res_cursor *mm_cur,
+>  				 unsigned int window,
+> +				 bool use_two_windows,
+>  				 bool tmz, uint64_t *size, uint64_t *addr)
+>  {
+>  	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+> @@ -212,14 +231,6 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>  	if (WARN_ON(mem->mem_type == AMDGPU_PL_PREEMPT))
+>  		return -EINVAL;
+>  
+> -	/* Map only what can't be accessed directly */
+> -	if (!tmz && mem->start != AMDGPU_BO_INVALID_OFFSET) {
+> -		*addr = amdgpu_ttm_domain_start(adev, mem->mem_type) +
+> -			mm_cur->start;
+> -		return 0;
+> -	}
+> -
+> -
+>  	/*
+>  	 * If start begins at an offset inside the page, then adjust the size
+>  	 * and addr accordingly
+> @@ -227,7 +238,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>  	offset = mm_cur->start & ~PAGE_MASK;
+>  
+>  	num_pages = PFN_UP(*size + offset);
+> -	num_pages = min_t(uint32_t, num_pages, AMDGPU_GTT_MAX_TRANSFER_SIZE);
+> +	num_pages = min_t(uint32_t,
+> +		num_pages, AMDGPU_GTT_MAX_TRANSFER_SIZE * (use_two_windows ? 2 : 1));
+>  
+>  	*size = min(*size, (uint64_t)num_pages * PAGE_SIZE - offset);
+>  
+> @@ -299,6 +311,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+>  				      struct dma_resv *resv,
+>  				      struct dma_fence **f)
+>  {
+> +	bool src_needs_gart_window, dst_needs_gart_window;
+>  	struct amdgpu_res_cursor src_mm, dst_mm;
+>  	struct dma_fence *fence = NULL;
+>  	int r = 0;
+> @@ -323,16 +336,29 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+>  		/* Never copy more than 256MiB at once to avoid a timeout */
+>  		cur_size = min3(src_mm.size, dst_mm.size, 256ULL << 20);
+>  
+> -		/* Map src to window 0 and dst to window 1. */
+> -		r = amdgpu_ttm_map_buffer(entity, src->bo, src->mem, &src_mm,
+> -					  0, tmz, &cur_size, &from);
+> -		if (r)
+> -			goto error;
+> +		/* If only one direction needs a gart window to access memory, use both
+> +		 * windows for it.
+> +		 */
+> +		src_needs_gart_window =
+> +			amdgpu_ttm_needs_gart_window(adev, src->mem, &src_mm, tmz, &from);
+> +		dst_needs_gart_window =
+> +			amdgpu_ttm_needs_gart_window(adev, dst->mem, &dst_mm, tmz, &to);
+>  
+> -		r = amdgpu_ttm_map_buffer(entity, dst->bo, dst->mem, &dst_mm,
+> -					  1, tmz, &cur_size, &to);
+> -		if (r)
+> -			goto error;
+> +		if (src_needs_gart_window) {
+> +			r = amdgpu_ttm_map_buffer(entity, src->bo, src->mem, &src_mm,
+> +						  0, !dst_needs_gart_window,
+> +						  tmz, &cur_size, &from);
+> +			if (r)
+> +				goto error;
+> +		}
+> +		if (dst_needs_gart_window) {
+> +			r = amdgpu_ttm_map_buffer(entity, dst->bo, dst->mem, &dst_mm,
+> +						  src_needs_gart_window ? 1 : 0,
+> +						  !src_needs_gart_window,
+> +						  tmz, &cur_size, &to);
+> +			if (r)
+> +				goto error;
+> +		}
+>  
+>  		abo_src = ttm_to_amdgpu_bo(src->bo);
+>  		abo_dst = ttm_to_amdgpu_bo(dst->bo);
+> @@ -2579,10 +2605,12 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
+>  		/* Never clear more than 256MiB at once to avoid timeouts */
+>  		size = min(cursor.size, 256ULL << 20);
+>  
+> -		r = amdgpu_ttm_map_buffer(entity, &bo->tbo, bo->tbo.resource, &cursor,
+> -					  0, false, &size, &addr);
+> -		if (r)
+> -			goto err;
+> +		if (amdgpu_ttm_needs_gart_window(adev, bo->tbo.resource, &cursor, false, &addr)) {
+> +			r = amdgpu_ttm_map_buffer(entity, &bo->tbo, bo->tbo.resource, &cursor,
+> +						  0, false, false, &size, &addr);
+> +			if (r)
+> +				goto err;
+> +		}
+>  
+>  		r = amdgpu_ttm_fill_mem(adev, entity, 0, addr, size, resv,
+>  					&next, true,
+> @@ -2629,10 +2657,13 @@ int amdgpu_fill_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>  		/* Never fill more than 256MiB at once to avoid timeouts */
+>  		cur_size = min(dst.size, 256ULL << 20);
+>  
+> -		r = amdgpu_ttm_map_buffer(entity, &bo->tbo, bo->tbo.resource, &dst,
+> -					  0, false, &cur_size, &to);
+> -		if (r)
+> -			goto error;
+> +		if (amdgpu_ttm_needs_gart_window(adev, bo->tbo.resource, &dst, false, &to)) {
+> +			r = amdgpu_ttm_map_buffer(entity, &bo->tbo, bo->tbo.resource, &dst,
+> +						  0, false, false,
+> +						  &cur_size, &to);
+> +			if (r)
+> +				goto error;
+> +		}
+>  
+>  		r = amdgpu_ttm_fill_mem(adev, entity,
+>  					src_data, to, cur_size, resv,
 
-
-vim +83 include/linux/string.h
-
-e6584c3964f2ff Kees Cook 2023-09-20  74  
-e6584c3964f2ff Kees Cook 2023-09-20  75  /*
-e6584c3964f2ff Kees Cook 2023-09-20  76   * The 2 argument style can only be used when dst is an array with a
-e6584c3964f2ff Kees Cook 2023-09-20  77   * known size.
-e6584c3964f2ff Kees Cook 2023-09-20  78   */
-e6584c3964f2ff Kees Cook 2023-09-20  79  #define __strscpy0(dst, src, ...)	\
-559048d156ff33 Kees Cook 2024-08-05  80  	sized_strscpy(dst, src, sizeof(dst) + __must_be_array(dst) +	\
-559048d156ff33 Kees Cook 2024-08-05  81  				__must_be_cstr(dst) + __must_be_cstr(src))
-559048d156ff33 Kees Cook 2024-08-05  82  #define __strscpy1(dst, src, size)	\
-559048d156ff33 Kees Cook 2024-08-05 @83  	sized_strscpy(dst, src, size + __must_be_cstr(dst) + __must_be_cstr(src))
-e6584c3964f2ff Kees Cook 2023-09-20  84  
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
