@@ -4,124 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BD45D778AE
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 19:15:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FE74D778B0
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 19:41:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B73D810EBB5;
-	Fri, 23 Jan 2026 19:15:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3A8510EBC3;
+	Fri, 23 Jan 2026 19:41:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TRmyA8EF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Oj/+fGK1";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013045.outbound.protection.outlook.com
- [40.107.201.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F29BB10EBB5
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jan 2026 19:15:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AR/N7lXICuq59g2GH5vIdN4jOtZi1vZCzt9e9V9V9u5hQm3wwHDT/wnjDWuFMTWh8hPMJI1QBFFebMGCyOs3EXiNI2iVor3cr/BEEEW49vpcPT0Ilje2Oaa0VuEQ2tpBGAXY6PHrSLu/jGb4TYJhdZVjFWsvR7fKnwuUbq33T/rzTphHu28BYBbLsIBq9QdNkwYA/NK71pFd/eqLbFjW0REN7f+jF0xS3E8SrwjBvELrzoMhTyv5MQ/J+/9uBtb+vaRC2epEZdp+xH70qM9/U1DgHHnOoAmjRGUOA2FyD1Rvz+9hggzV6Qoj2n5NK48m/lGG7tKwF5KwuuyWpVY0ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UPdznd1Gm2kvPeH72rB6zAG6ZlV3wQvgSSxr241RdGk=;
- b=gfLza83YcR7YiBhuXcPwRfOOEtGsE5PIxt9eOxQKTrMD5TBNpo0p58i5RsOUZ+YfS2gsC1pDuu8+1814uH+tbZuZKShrsaXUQnILBfODf4en5y6ZaYdLiN/HA+0ZeHuovptZuEm50r61bJzcm9LyrODZDxwsatHZLulVtfqE/j0RIU1bZgjUD6B8UkItHHrLwr8stS6EQWO67TYHuwsZz0JxdN0KrHbD1UbQTVOvtBRT/fZc02GCtzsOfqYX4egNZaqHHoWge0cZZagRato8hBVQCaLFvIIK4Ix2EoIWnv/9g/9C8E+nXcW9Wr9U1jr0QHt98Zp13pyPLyH7WcA6rg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UPdznd1Gm2kvPeH72rB6zAG6ZlV3wQvgSSxr241RdGk=;
- b=TRmyA8EFDUpgy/8RgIrRwuaMZy+ehOTvPg74xkhofVaQ36XLr2VouAdEsNFfeIFXZ8gPL0dKmCJikI0iAci/GDfo+lwGxEPLkCywQCVcSEmYCoFLFhFVQn0RsiwjJSFumqmMvlMHSW5CUR2DcEy9dElp1WNVJdN9uxIIdFdqSGg=
-Received: from DM6PR08CA0012.namprd08.prod.outlook.com (2603:10b6:5:80::25) by
- LV2PR12MB999074.namprd12.prod.outlook.com (2603:10b6:408:351::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.9; Fri, 23 Jan
- 2026 19:15:09 +0000
-Received: from CH3PEPF00000013.namprd21.prod.outlook.com
- (2603:10b6:5:80:cafe::e4) by DM6PR08CA0012.outlook.office365.com
- (2603:10b6:5:80::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.10 via Frontend Transport; Fri,
- 23 Jan 2026 19:15:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000013.mail.protection.outlook.com (10.167.244.118) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.0 via Frontend Transport; Fri, 23 Jan 2026 19:15:08 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 23 Jan
- 2026 13:15:08 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 23 Jan
- 2026 11:15:07 -0800
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 23 Jan 2026 13:15:07 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu/soc21: fix xclk for APUs
-Date: Fri, 23 Jan 2026 14:15:00 -0500
-Message-ID: <20260123191500.18619-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.52.0
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0D4E10EBC3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jan 2026 19:41:47 +0000 (UTC)
+Received: by mail-dl1-f50.google.com with SMTP id
+ a92af1059eb24-12336c0ae91so302821c88.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jan 2026 11:41:47 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769197307; cv=none;
+ d=google.com; s=arc-20240605;
+ b=L5riGWwu2zZAKOd3CJd4PlwNDAN45hh46iW7idz3luUXC6GE+A7I4SNDa3sDmbW6gE
+ 3RubL5V+yM2Wn4Q9os3Mu0+tfHjYund+XDlf5TrSFOlf5YawCa0AASfh+aeQxofpmXiu
+ I3vS1aF+9kVOYYamm2NdWVzzwBrqqVNkblEimadifN9A7tV5GetfoNXPzUnIlhsRB22t
+ eaHEksm+PEFx3bApVmEKwe+4Fzyv/jpiEx6HhbjTxL4qwXcCgdxbJMBWxAMgTN3Bu8f+
+ 0qxZqMlNf3spHZ6hNkkdNF4DBgC9U1aCPf6LUAkUhHiGe0i2+mCYOh+SgeOOiTRITdZr
+ nCmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=fM4V7Qlttc81MqOWGsEEBwKdyqSfdIs8cEOQqgbpEkU=;
+ fh=AkyE3waVMN3L/X7ODHNAONz/4BJQQqdQKE2F1tK6AfI=;
+ b=ir1VRc/eCnlBRxcnlRZhIGEmh0XQ9yGSNykUsXVphhlEJHILzWqZ0MyjfW5suTwSOZ
+ lZxrBvQfVCS6fGOBGRR7XdlZcOPkKZT9tFvDsDLRmrO/lGr8XZGJJQOs9WAup0gt7bcM
+ 6gMWtCDW4bRqU5JAueSa0G1raWUUwQrRcpR3h/R5k0hMEpe8GX8NSTypZWcfGg+uYQwD
+ yHEpbUEHKs1ufxmiNQmju2kLrvFH4+QBzDQehT7l2LHQSbiMIIWG0vs3UzQiSUbbJQD/
+ 4AuhDMxHXGPJH4gdym+WwKIb41CE+ttWAiJd4j+PUUEABoz+Z+pCXuNFSf2DY6jq9xPE
+ WqLw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769197307; x=1769802107; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fM4V7Qlttc81MqOWGsEEBwKdyqSfdIs8cEOQqgbpEkU=;
+ b=Oj/+fGK1TCPbVlt+k5gx6yxHaYtBO1bgxGFj+12s1ZHa8kNuC5wbeQC3VQcf571O1M
+ kaSpIfgCmVfdh5ohwINbObtCA/7YbozPw4bDdM7qDGUNuMaYaMhdSqoUgp6vV37w/ARc
+ IyDl22dnHT0i//TOh1sFX6rWAnUvDMmjh15vnBF5io9xWxxjODz1p6k04ADIEjXUBQOY
+ IeKZwZNmXPpO1wfWjzOm5wLsoiFJ0JpmZ4lShHnM5kYt97k5g4F3GpvsrZsRsOv3GhJz
+ 1lcH+1dGjwaVrwmxUcOgTGmPJgI8ANrrgE5bKP+igVIIsMKlfZZsMhwW5QWX+n0FaYpc
+ wu2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769197307; x=1769802107;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=fM4V7Qlttc81MqOWGsEEBwKdyqSfdIs8cEOQqgbpEkU=;
+ b=PreZUK6uKrGzmO4USNFDkYCLrMyZkpPFvf5RWfXBA7k9MZEFAHfSKXVCXoDB8YYg9/
+ 9qggwr9Sd289Zh2O4jMsITK6LmC/3JekIKuhGDgAn9/iZoRJleER2p6jflAZsMnd/HmD
+ kwyPDLDkRPgH/9U169AtcCc28X155wN1joSMT6OkxGHaPAlvzV3fXgK/adSRdaW38w5I
+ NfChjASqB2lJf1wqpuDZqOYxKz/VCwkMilvaP+FJkNT8iuF5uxMxaHHsC4bbGhOZ/0ww
+ KC4qcMWhpv2JT8hnnWnF0rLqEmQBroXmxElKFsI68N26tr0UHgAk8p859GyVVIehaoNM
+ BtwQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXm83JIEtcXwaNFMNxpQsJIBI2nFUhokGfH9DklTJt/Skfb1OGznIcpvtOKtzMkh7+hhR9qUFVv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwSmoPtX62NTdmXJUismX1FCcJmoyWSnJ4rI+Ublufahj3dPhms
+ FWI4gg6GTxJfriv2I804+7QTfhKnPUDLES5W/sw+bmnkQJiB/wM/IeCKHuqjwPTYyYWIw4r4+Aa
+ Q3OEpexHNJXtRqBlsj5Tl5BTccP8A9bM=
+X-Gm-Gg: AZuq6aKNG3xZNx9BqScv0x75gAP0nhil+iVOB665kpgSMqQFLYHLcMoQRTVSGsS88mJ
+ EkH4vgCs/VVev0fYepB1kpr13K/cL1TfcHuJVKv6cNzTvvuj7j3mOR2r9iA6pMjmvG88iqQ0KNX
+ 6sQTwZvqZuZKFhynoCuxdwV/aA0aQ0AazmrORgJTRvx5nwSTRY0rgsL53fvPtmNamrxuDJJEK+V
+ cBinlsH8JvSBEHlxEoyndD9S32ea39lfjM0C0LF7NE+EYLGdK+uEjKaLmXAkTRSE1E7okaz
+X-Received: by 2002:a05:7022:301:b0:119:e56a:4fff with SMTP id
+ a92af1059eb24-1247dbffc9amr1029257c88.4.1769197306543; Fri, 23 Jan 2026
+ 11:41:46 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000013:EE_|LV2PR12MB999074:EE_
-X-MS-Office365-Filtering-Correlation-Id: 17c3896c-01f2-4c20-0dce-08de5ab3b8f1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?uAK89X3mWkmJvJxdQxJlJmYEGCo1GuIIeKyUlBGi0NTrgdE18M9s86UFr5xP?=
- =?us-ascii?Q?uNQWfyrODeXu0FWPR5UnwM1rybcVlPFHn8QHb7v8TxJg6N7p1VYtRSziwwUP?=
- =?us-ascii?Q?/+A68MltZb7CBWQRwRVbcZxMyaN6BXmIU2iBOhGG+uHBiWHwK4/zNM0S7mOc?=
- =?us-ascii?Q?WabeiWgFYOoH26YOiV3kPBmtnitx8Q9sNul4aC4vvwqS3FSzhdGu6Ree/77d?=
- =?us-ascii?Q?z6TDBkJAIkbJaGf7SYqWtn4I1GC6JxZGpJW4GdU30MMLfMkq4R/NbqJtH1C6?=
- =?us-ascii?Q?yCb1qSYjIVarS7jJLS7FZ+gBNzC8SkjBgqRlgkU9Bj720Ds87+f3r/oRnZ6H?=
- =?us-ascii?Q?yyscGr2kjO5RwZTOKK7okF6vaPFFefwgokswsxD8AM2cZdGHbmo5b3j0LNSI?=
- =?us-ascii?Q?9ouzF43rZ0FmuOeHEwGo2tpXnwCW7UogXjjXsVtzDmqVx6f62ZXFYRA9rPMd?=
- =?us-ascii?Q?Xu7f9AjNoBV5B8tUhLYpbI8pd4x2Ep1AO4qDsu2lC6klVM4Ca96LjXnLmo7i?=
- =?us-ascii?Q?brSM2PAjXgAXoenb8SOrdAIz9cjjoU5QmPd7SqSecQFU+xQSWCBEK2z2CEyZ?=
- =?us-ascii?Q?apxGXzbd0PdaMhAiNzYVsKvjktzJxmEy5MTXTsKQT1BT7oHD46qPWU0nC/Bf?=
- =?us-ascii?Q?hNC+OjD28qNg0yq7rGG+rzWDzzzmiC9eQo+m3cfTQFwSze0uzgXfJC3sLfB2?=
- =?us-ascii?Q?YfzILAhVCOA4ko85FPgiVyj8MO27mJwI6LU3HjJiPxsHsxAGIoF2+kCIJO6P?=
- =?us-ascii?Q?KWKEwj707cN95NJKlFIrSNba+pq/Z4c1kGnGYXrC685n5FSR18/qphS9eRae?=
- =?us-ascii?Q?TZPc3LzP53KqONT67WOAy1gprK4jJf3Nr2eBGTduI2p3kCGpwSpGV8Xq9zep?=
- =?us-ascii?Q?80t4TuVA9D/GsEqKEUdQ1HwsQ8R81MpVhySvb3JehjnJ2GpDtC4T8+jaCLLk?=
- =?us-ascii?Q?snP1Dao06U67WLku3Rs7a7IZOyrO8ul+V+/IrgdOqEEf9gNjKsCUyyuZh36Y?=
- =?us-ascii?Q?vDmxu59dz30fAK+oV3aTbZ7N0DDKzdpLdMM/bSpGbwiFsOEd50T9wTaIrOm7?=
- =?us-ascii?Q?4hhHKVL3K4GTKpgj8mnjrn1x2+zZjHtEUQqZdntewLnn/Y0nmOEMTi5BP4jH?=
- =?us-ascii?Q?nMTd5w52XqpXqbW1+NUbjmJCW6eDAZDciBbhTlWrl5mq4IoGVWPwSx/7Qqg0?=
- =?us-ascii?Q?lAWBHifWdM6sdhlZ6ArfMV4KJIGWTulqmcw8/sofwOBKimjcDt5l4dBz446W?=
- =?us-ascii?Q?+8PQzRodh9BJZV6k8isZEO03jI5dtodCGYHohSyKfpJKPKXC67EKBpMFeEdV?=
- =?us-ascii?Q?OJ/htZCpbSa48YvGF3PU3demf1Bu96wMYyiBqU+BpBGIp/8WYgzzpTCe4nk6?=
- =?us-ascii?Q?yyfsZUydlkej1NK/ICLI9l9iJm7kYnut1d3PdqTu+9ry5hkn22MylboZE69c?=
- =?us-ascii?Q?ArOwyPxEAWJSuMXtHIzsOoX7KqF+o6lWzRofUrTc4fPB3Xcs7m06P2222l60?=
- =?us-ascii?Q?abqhn/khLR9eYx0VXc1/CrdWr1kMoitLuUw8avpBF/nxgAyKshW+c+bh0zWn?=
- =?us-ascii?Q?FG6KYVcrTCbWVq2D5lzGtcBRdzGdYgEDlryXlNhu?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026)(13003099007);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 19:15:08.1085 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 17c3896c-01f2-4c20-0dce-08de5ab3b8f1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000013.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB999074
+References: <20260123000537.2450496-1-someguy@effective-light.com>
+ <2de6d428-b997-4ba8-8766-a211e5612e72@amd.com>
+ <aXOJRWALUJLcGWqh@hal-station.localdomain>
+In-Reply-To: <aXOJRWALUJLcGWqh@hal-station.localdomain>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 23 Jan 2026 14:41:34 -0500
+X-Gm-Features: AZwV_QgIlpADFNOPq37tQrn2l3FRpM0FiOTKdfkPdEEdOybAHxouyd6R1aMoyPI
+Message-ID: <CADnq5_P0QUmKNHyrs5qBkE+EWh1-i5U0+vNRqvwPwqqQPfNqZw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
+To: Hamza Mahfooz <someguy@effective-light.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, 
+ Kenneth Feng <kenneth.feng@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, 
+ Alex Hung <alex.hung@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, 
+ Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,34 +118,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The reference clock is supposed to be 100Mhz, but it
-appears to actually be slightly lower (99.81Mhz).
+On Fri, Jan 23, 2026 at 9:52=E2=80=AFAM Hamza Mahfooz
+<someguy@effective-light.com> wrote:
+>
+> On Fri, Jan 23, 2026 at 02:52:44PM +0100, Christian K=C3=B6nig wrote:
+> > I can only see two reasons why you could run into a timeout:
+> >
+> > 1. A dma_fence never signals.
+> >       How that should be handled is already well documented and doesn't=
+ require any of this.
+> >
+> > 2. A coding error in the vblank or page flip handler leading to waiting=
+ forever.
+> >       In that case calling back into the driver doesn't help either.
+> >
+> > So as far as I can see the whole approach doesn't make any sense at all=
+.
+>
+> It appears that resetting display firmware is able to put at least a
+> subset of these systems back into a consistent (usable) state. Though, I
+> don't have a reliable way to reproduce the issue that I'm seeing so I
+> can't say for sure what it boils down to.
 
-Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/14451
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/soc21.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+I'm not at all an expert on KMS, but I took a quick look at the in and
+out fences in KMS, and I think I know what might be going on.  The out
+fence is signalled by calling drm_crtc_send_vblank_event() from the
+interrupt handler for the vblank/pageflip interrupt.  If that
+interrupt gets missed somehow, that never gets called and userspace
+will wait forever.  As a safety measure, maybe add a worker thread
+that gets scheduled when the atomic commit happens and then in the
+interrupt handler we cancel the worker.  If the interrupt never
+happens, the worker will eventually run and call
+drm_crtc_send_vblank_event() and get things unstuck.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 2da733b45c21a..d9cc649d81ad4 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -256,7 +256,13 @@ static u32 soc21_get_config_memsize(struct amdgpu_device *adev)
- 
- static u32 soc21_get_xclk(struct amdgpu_device *adev)
- {
--	return adev->clock.spll.reference_freq;
-+	u32 reference_clock = adev->clock.spll.reference_freq;
-+
-+	/* reference clock is actually 99.81 Mhz rather than 100 Mhz */
-+	if ((adev->flags & AMD_IS_APU) && reference_clock == 10000)
-+		return 9981;
-+
-+	return reference_clock;
- }
- 
- 
--- 
-2.52.0
-
+Alex
