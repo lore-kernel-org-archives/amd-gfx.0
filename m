@@ -4,64 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D399D7234A
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 08:20:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FA7DD72347
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 08:20:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 689F010EA67;
-	Fri, 23 Jan 2026 08:20:11 +0000 (UTC)
-Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DEB610E24E;
- Fri, 23 Jan 2026 06:07:45 +0000 (UTC)
-Received: from [127.0.0.2] (unknown [210.73.43.101])
- by APP-05 (Coremail) with SMTP id zQCowACnPBAiEHNp9tMuBg--.1678S5;
- Fri, 23 Jan 2026 14:07:32 +0800 (CST)
-From: Vivian Wang <wangruikang@iscas.ac.cn>
-Date: Fri, 23 Jan 2026 14:07:30 +0800
-Subject: [PATCH v3 3/4] drm/radeon: Raise msi_addr_mask to dma_bits
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0523010EA6B;
+	Fri, 23 Jan 2026 08:20:22 +0000 (UTC)
+Received: from h5.fbrelay.privateemail.com (h5.fbrelay.privateemail.com
+ [162.0.218.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D438E10EBBD;
+ Fri, 23 Jan 2026 00:15:49 +0000 (UTC)
+Received: from MTA-06-4.privateemail.com (mta-06.privateemail.com
+ [198.54.118.213])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by h5.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4dxyrw5cwTz2xB8;
+ Fri, 23 Jan 2026 00:06:24 +0000 (UTC)
+Received: from localhost.localdomain
+ (bras-base-toroon4332w-grc-44-142-112-152-160.dsl.bell.ca [142.112.152.160])
+ by mta-06.privateemail.com (Postfix) with ESMTPA id 4dxyrG4jCnz3hhTB;
+ Thu, 22 Jan 2026 19:05:50 -0500 (EST)
+From: Hamza Mahfooz <someguy@effective-light.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Hamza Mahfooz <someguy@effective-light.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] drm: introduce page_flip_timeout()
+Date: Thu, 22 Jan 2026 19:05:27 -0500
+Message-ID: <20260123000537.2450496-1-someguy@effective-light.com>
+X-Mailer: git-send-email 2.52.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260123-pci-msi-addr-mask-v3-3-9f9baa048524@iscas.ac.cn>
-References: <20260123-pci-msi-addr-mask-v3-0-9f9baa048524@iscas.ac.cn>
-In-Reply-To: <20260123-pci-msi-addr-mask-v3-0-9f9baa048524@iscas.ac.cn>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- "Creeley, Brett" <bcreeley@amd.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>
-Cc: Han Gao <gaohan@iscas.ac.cn>, Vivian Wang <wangruikang@iscas.ac.cn>, 
- Thomas Gleixner <tglx@kernel.org>, linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- linux-riscv@lists.infradead.org, sophgo@lists.linux.dev
-X-Mailer: b4 0.14.3
-X-CM-TRANSID: zQCowACnPBAiEHNp9tMuBg--.1678S5
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF4kGw13JrWxWr48KF4rKrg_yoW8ZF43pF
- 43GFZxtrZIy3WUKay2kay7ZF15Aa18KayrWr4DG39xua45AryUCry3Z3y3J34kXrykXr42
- qr18G3y5uF1FvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUm214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JrWl82xGYIkIc2
- x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
- Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
- A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
- 0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
- IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
- Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
- xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
- JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
- kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
- 6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
- AIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVF
- xhVjvjDU0xZFpf9x0pRVVbgUUUUU=
-X-Originating-IP: [210.73.43.101]
-X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4dxyrw5cwTz2xB8
 X-Mailman-Approved-At: Fri, 23 Jan 2026 08:20:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,58 +65,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The code was originally written using no_64bit_msi, which restricts the
-device to 32-bit MSI addresses.
+There should be a mechanism for drivers to respond to flip_done
+time outs. Since, as it stands it is possible for the display
+to stall indefinitely, necessitating a hard reset. So, introduce
+a new crtc callback that is called by
+drm_atomic_helper_wait_for_flip_done() to give drivers a shot
+at recovering from page flip timeouts.
 
-Since msi_addr_mask is introduced, use DMA_BIT_MASK(dma_bits) instead of
-DMA_BIT_MASK(32) here for msi_addr_mask, describing the restriction more
-precisely and allowing these devices to work on platforms with MSI
-doorbell address above 32-bit space, as long as it is within the
-hardware's addressable space.
-
-Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
-
+Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
 ---
-v3: No changes
----
- drivers/gpu/drm/radeon/radeon_device.c  |  1 +
- drivers/gpu/drm/radeon/radeon_irq_kms.c | 10 ----------
- 2 files changed, 1 insertion(+), 10 deletions(-)
+ drivers/gpu/drm/drm_atomic_helper.c | 6 +++++-
+ include/drm/drm_crtc.h              | 9 +++++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 60afaa8e56b4..5faae0361361 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1374,6 +1374,7 @@ int radeon_device_init(struct radeon_device *rdev,
- 		pr_warn("radeon: No suitable DMA available\n");
- 		return r;
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 5840e9cc6f66..3a144c324b19 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -1881,9 +1881,13 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
+ 			continue;
+ 
+ 		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
+-		if (ret == 0)
++		if (!ret) {
+ 			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
+ 				crtc->base.id, crtc->name);
++
++			if (crtc->funcs->page_flip_timeout)
++				crtc->funcs->page_flip_timeout(crtc);
++		}
  	}
-+	rdev->pdev->msi_addr_mask = DMA_BIT_MASK(dma_bits);
- 	rdev->need_swiotlb = drm_need_swiotlb(dma_bits);
  
- 	/* Registers mapping */
-diff --git a/drivers/gpu/drm/radeon/radeon_irq_kms.c b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-index d550554a6f3f..839d619e5602 100644
---- a/drivers/gpu/drm/radeon/radeon_irq_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_irq_kms.c
-@@ -245,16 +245,6 @@ static bool radeon_msi_ok(struct radeon_device *rdev)
- 	if (rdev->flags & RADEON_IS_AGP)
- 		return false;
+ 	if (state->fake_commit)
+diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+index 66278ffeebd6..45dc5a76e915 100644
+--- a/include/drm/drm_crtc.h
++++ b/include/drm/drm_crtc.h
+@@ -609,6 +609,15 @@ struct drm_crtc_funcs {
+ 				uint32_t flags, uint32_t target,
+ 				struct drm_modeset_acquire_ctx *ctx);
  
--	/*
--	 * Older chips have a HW limitation, they can only generate 40 bits
--	 * of address for "64-bit" MSIs which breaks on some platforms, notably
--	 * IBM POWER servers, so we limit them
--	 */
--	if (rdev->family < CHIP_BONAIRE) {
--		dev_info(rdev->dev, "radeon: MSI limited to 32-bit\n");
--		rdev->pdev->msi_addr_mask = DMA_BIT_MASK(32);
--	}
--
- 	/* force MSI on */
- 	if (radeon_msi == 1)
- 		return true;
-
++	/**
++	 * @page_flip_timeout:
++	 *
++	 * This optional hook is called if &drm_crtc_commit.flip_done times out,
++	 * and can be used by drivers to attempt to recover from a page flip
++	 * timeout.
++	 */
++	void (*page_flip_timeout)(struct drm_crtc *crtc);
++
+ 	/**
+ 	 * @set_property:
+ 	 *
 -- 
 2.52.0
 
