@@ -4,91 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F1A9D72371
-	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 11:20:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8AC2D72372
+	for <amd-gfx@archiver.kernel.org>; Fri, 23 Jan 2026 11:28:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6D5910E2A0;
-	Fri, 23 Jan 2026 11:20:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8677510E2A1;
+	Fri, 23 Jan 2026 11:28:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mWrWApMp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YKB5uazw";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5D3010E2A0
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jan 2026 11:20:37 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-47edffe5540so24241805e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jan 2026 03:20:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769167236; x=1769772036; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+I0tLnCW0GptpxTH+Hd4lO3qhepn+XYRWxHDF8cKq3Y=;
- b=mWrWApMp7RYmxEyHLuOwq1BdpvKOpa3DoCwX6ywU3DlK6UKwFTwfxC5NFCE5mUtPn3
- Kdfwl3SjMNwXrMfOfDC79xE+nAskmbXMmtAptcXz/UTyN3wq1p9gR1ia0ef8fPvJ9gVg
- lh4v95B89YbJlhgXNrvUTyc2ut3OW+JMlWH1e5N96g5kgwdxummCVBQv0ajgxpkb9ScI
- ibegtpXTwdBkK+iKtCnWY9RkzRtUxI6++b9GcHsuc9X10Ln/qqwOmAb3hM/KPmIWXGqJ
- kgsxmgSV/ymlgQ+EHuRwwWtv3YLFDL9PhcVbDTp84MPmrhkVilz5Nj/cbBPcEy6TptTS
- 5vgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769167236; x=1769772036;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=+I0tLnCW0GptpxTH+Hd4lO3qhepn+XYRWxHDF8cKq3Y=;
- b=F8BfYE6whoWjcnYx8oCARPguEY979bM4pwprggwpLdM5hahDJ1gZQ/jG1zb6qO12+v
- tVdPK7a54xKj0B9c6GQbuxLxAzKqoAuMbqt5xmhgX7MN4BJK6mFbKpTHHAq89xSAacN9
- CdyxbtFIU8nm0VUHnNJPMLpeVq8NniIlXzmzn9t5KYh2k4P57Z62VNPrvavbMRv4pPt2
- wD1rcsCMdzEdk/I8rNPwkHTHUAbBbTVFIbhtJJSotTMxAWLLsrNZPKAGPmJW1JzTtMW+
- Vxrbo5FDQPE2a9uF7Es9tgtFx4gdO+0nkAhOclvhB7JG9Kq6PNYpx9b0UL883W3CHNeY
- wM6A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWzxrVGoQNz2OWzergZ9DZJBe0A5Iyho5H4NAF2LzrOwYA6ZMuUVoeCJzhBFLQyINQPjREKXEce@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRYLtrOU256yw59hWubOflh/IJWZXT74nIwNmidpeagO5E/9O1
- DPgcrV40NbLjVIl3uDMGzImpWLeDFfE45H9OTT7m4aQDP4tcK3hSHNN9
-X-Gm-Gg: AZuq6aJIHhviC2Ee273PQ+qazlqVo9WvZzJCfIjhx1Cr49UqWWDjyP7uZE3rx1FKwBe
- dyfEBg9e2+G/wQ/cgG5am1hIaaMaqIS1tgNbdyJgXDSN8NvOJfZaL8qr6t2562U8vfdg0wUdCzo
- tIzws8qjwdcAFY0MNQhFwvY9U60G6KpFpxsf4IkTtHSOl7L+oy+UWCg83VdeBzrNU0PY41SdMqa
- D3A62Au2XlhovrxG1/mKNwwmUNV46+lCA2bfnMi6R8LKNNKqmqPdOratQDDE3kjRg6Vnx608qr1
- b8rJQF8eOaoC0SLTkeiI7Qql+kFHcnoxJtk3BBgoS8IwRUDCaVyzsyanZHujtsoeMXWrGdgUa4I
- Oqevuic0LSS3G+LmvE2UGQF4Qwu9KV4YabE7o0yoU2+oY4QEx92cHOeK7/eYX52nAuYPdyEXxqT
- w5DG0pTiADqt99wOBqS2qtr4+8UJJoZMBfiRsMS5x6FsN53aLjqwSlIpf1qg==
-X-Received: by 2002:a05:600c:40c8:b0:47a:80f8:82ab with SMTP id
- 5b1f17b1804b1-4805067fadcmr16578755e9.24.1769167235975; 
- Fri, 23 Jan 2026 03:20:35 -0800 (PST)
-Received: from timur-hyperion.localnet (54001FF2.dsl.pool.telekom.hu.
- [84.0.31.242]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48047028928sm191404245e9.2.2026.01.23.03.20.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Jan 2026 03:20:32 -0800 (PST)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: dri-devel@lists.freedesktop.org,
- Hamza Mahfooz <someguy@effective-light.com>
-Cc: Hamza Mahfooz <someguy@effective-light.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sunil Khatri <sunil.khatri@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Ce Sun <cesun102@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Alex Hung <alex.hung@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <mdaenzer@redhat.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/amdgpu: implement page_flip_timeout() support
-Date: Fri, 23 Jan 2026 12:20:30 +0100
-Message-ID: <10030872.eNJFYEL58v@timur-hyperion>
-In-Reply-To: <20260123000537.2450496-2-someguy@effective-light.com>
-References: <20260123000537.2450496-1-someguy@effective-light.com>
- <20260123000537.2450496-2-someguy@effective-light.com>
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010069.outbound.protection.outlook.com [52.101.46.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0611F10E2A1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 23 Jan 2026 11:28:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=u+wb/58/eIeGqg6fgOaV2bnf1aFaCgbWObj8vUGAqRYjKLRBZzRsbCfrHBVI/GvY2wNyFw4jMbimmockLY/vhFuWjym5o6xAsFSgOKG44vOSLHyCPyK2uqt4JSk6nMzZVHpKhHS5V5NPLtT02it4j2Kcvcn60fcrdSSBxaWAwJG0hzxWixeg2d4nsb+S4Zh19Jo1TQ3XyRfJfiVwJq/U3ELcGro0fce/nbtUDvmvfZDc6a2Lq4Ld7f/cjpLNuwhoCIrOtQUXmP6MeCDRY56At8y+8NEJQ2qItPsRfDO94hRAqvdb3gTa7a6E9JQ3uUKvyhsnCEyK510EferOpsjmAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QDo64o4Rj3VAQdWXiqMfDBbBHU4+2mQ4TnbyeAk+2UI=;
+ b=Q1BqduKIepj3xAQxGJTPJesTm8VcfEF5cPWmdU9/K4/DD3kV5evSO4y7Z+EblcwPmIN+eIBEdfMBbhfUIH5jAynd5yD4f0vAMxRpV5yiiiTF87UJwqugq7P0k3zHSYiGyQ2nweONDvYuWhndqr26r/acFu9uMA78yFPWUkkG18x6GuH05si7UBxQsrj9WDZKp/KRoNnVYdKDTKcQ8ChGMnWer6n1rGQJbKiLKvJuAdsL/o3ng3bNIXpe//rigZ0oJwIA1hibwPyHecPrBhcCLFARGug4cGRzLTNw4ts0k6ekHwGnni0raWdUI4Cvp0Mm4I1kzsvOWXQL/VSbWVWJSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QDo64o4Rj3VAQdWXiqMfDBbBHU4+2mQ4TnbyeAk+2UI=;
+ b=YKB5uazwHbDESacqTd2w9yqJPbNxia+Qj0fv6Hq5Ei4AnenKijfGnqQ8aZvt5jSN4Ryqnsna4D/jx/b3+r8kAJB2z3QTGjPG+crbrUGB7bEktqeXEzOkr+yXiXupkfeFKS0VoS1lyrybkTf9jiKOpIGcRJjJLStM6b2pDsWkGhc=
+Received: from SA1PR04CA0015.namprd04.prod.outlook.com (2603:10b6:806:2ce::11)
+ by DS4PR12MB9611.namprd12.prod.outlook.com (2603:10b6:8:277::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.12; Fri, 23 Jan
+ 2026 11:27:59 +0000
+Received: from SA2PEPF00001504.namprd04.prod.outlook.com
+ (2603:10b6:806:2ce:cafe::f7) by SA1PR04CA0015.outlook.office365.com
+ (2603:10b6:806:2ce::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.11 via Frontend Transport; Fri,
+ 23 Jan 2026 11:27:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00001504.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.3 via Frontend Transport; Fri, 23 Jan 2026 11:27:59 +0000
+Received: from stanley-test.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 23 Jan
+ 2026 05:27:57 -0600
+From: Stanley.Yang <Stanley.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Stanley.Yang <Stanley.Yang@amd.com>
+Subject: [PATCH Review 1/1] drm/amdgpu: statistic xgmi training error count
+Date: Fri, 23 Jan 2026 19:27:42 +0800
+Message-ID: <20260123112742.3855999-1-Stanley.Yang@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001504:EE_|DS4PR12MB9611:EE_
+X-MS-Office365-Filtering-Correlation-Id: df2b9f94-f024-46fe-0f7f-08de5a72764d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?poarUm3pkj0zMj2MRlyJiBJTtj9W46ByEhQhgRsId7espIUdGckitDZMUunF?=
+ =?us-ascii?Q?USBBTX7brHBQM1ota5uGJlLDgKT5l1yXpOFSn68idPPwAvSzVCBYfyYhnOBI?=
+ =?us-ascii?Q?cBvvlib1mYoYTsSjkIOJjhThW+nfjx5mFbCX67i3cOzco5Noel01MGuqIykP?=
+ =?us-ascii?Q?/rypcIw63/Aqq/i/4bpGZA9+xtstIXDeBwyuqyC04l/uS6fEfcq54eVXdjVb?=
+ =?us-ascii?Q?YCHPbTPVDjEDxETeKyENg6CyvRe8237kxD6rRgNDPqzbz8NYRhTPN/pauclw?=
+ =?us-ascii?Q?hQEl7dMnkQQxN+9jVap8Mvh2zFIBDOZt88ks24u8eRkjYbQtkod3SYG5jtC1?=
+ =?us-ascii?Q?T1R1Y9QaChJbxWGQNo5cUIEUyfAJ1cMUZwUknPUgnwqPEWSgklsdn5az3/Kk?=
+ =?us-ascii?Q?0HfKYQ5kaHTLMLLGFuFfOb6tr/rgynAOxNj8pGWfJdBHwhSOqweMltxFqvDo?=
+ =?us-ascii?Q?KSCtHIBDTf9BYCi29YRy9SGmKH4sph50spLizS+mNauPG983KMlRBt6LzLLg?=
+ =?us-ascii?Q?G8Sy68vP/fqVmf5aYz+dgOSgQhCjL4wE/cDKpaOjoQ55KzBoneekoyNySWBV?=
+ =?us-ascii?Q?BlHED3Cpp3tBSPRiGZp7YIhhPD7aOqn9QcwdDvpPmNyzPvnKl6HGDim36DSz?=
+ =?us-ascii?Q?WgInytGYLaxZPoPCWRTFcuediJmyWD6IOKoElQ5ELu8Crl2V96QzjpWT2SH9?=
+ =?us-ascii?Q?YHl0Z+LFGEZpLxr+hUS5hzRrsokKprLOz9x3l5PWiar8Asohf2QZfvdoS57B?=
+ =?us-ascii?Q?ea3TsI2PBN/uvlgMYHk8OPoqLRJOobZevDSmGQTOEsCsMYnSRkhoFeu2EgH1?=
+ =?us-ascii?Q?ty6fk2G3WESoFaesvb58KLlEDW2eTPfNTyCfBC4GVcJDiqN1D1jX5+4Zd/2a?=
+ =?us-ascii?Q?RbvlRxjD+y6JrLJTGChYnBIhemXma02anTu9nnxMjNIvhq1BL6yZlvm2nsbd?=
+ =?us-ascii?Q?rIiqSnzNp0xcyKejMpaZY+2B+j3WpcF2M4XmiptnUZBJ3kYDNilhpEb9ckAb?=
+ =?us-ascii?Q?YyxStf9Qh6hJUBvWZqXcKDmlcNiC0kLGXg23iPQZJ2tYVipijLEsBBtdqYWA?=
+ =?us-ascii?Q?D354j6ISX1wddLFgXM2Z6zguXOvSFAuaRuR71TgWZIBMTqxxRnAChyvHkM5f?=
+ =?us-ascii?Q?N/lTA1x8iI84q/knMxVAPn1uXPsEEziiXZkv6mufWd9RueaEhxQKKckM/Ir2?=
+ =?us-ascii?Q?DMgvH7SBDkDTmsYZeylE1EkqWLY8hss0Q7DXLRTCyUGz/GTtIUKy3HGTGEts?=
+ =?us-ascii?Q?wnNe2tWdOmiK3p/vmqkF4uE1e9ZVR28pow7nUcnn6ScktyZTZFKDhrmE6bJK?=
+ =?us-ascii?Q?Jc4K721WDTlR6O4q3EOHcf7jbNHALBi5TmKt45+CpDuU8TPn8PNd2/NC8irh?=
+ =?us-ascii?Q?O1E2sRqPTY3uJ2d6g9pA8B7TL5+yrWSuq58crTMztRoBZnm3R8ugl3qh5YBq?=
+ =?us-ascii?Q?RGLhUmzbLNwtXOwbA7O9uUfzffhism1G2PV2i2JNswOwDJOVh9Gn5rgEQDR5?=
+ =?us-ascii?Q?4sZGfnlayvhrO5gXFwyP37bgX26kPEnAmjEJotK1iQgYwvqvgYhldSaehQ8O?=
+ =?us-ascii?Q?TUenvFj0WNVA+5BinaxUOo6LCPR3Lfqu/q/dkx4iY5BAiGszDI76O8jzKe+b?=
+ =?us-ascii?Q?3yHEe2C4mZ7sZLwoFUttcUqQMn/GI3yRKsHlh5eTXYRrpjf6R6SekTSW8f5n?=
+ =?us-ascii?Q?PeE0Sw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 11:27:59.0057 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: df2b9f94-f024-46fe-0f7f-08de5a72764d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001504.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9611
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,104 +133,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Friday, January 23, 2026 1:05:28=E2=80=AFAM Central European Standard Ti=
-me Hamza=20
-Mahfooz wrote:
-> We now have a means to respond to page flip timeouts. So, hook up
-> support for the new page_flip_timeout() callback.
->=20
-> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
-> ---
-> Hi,
->=20
-> I have tested this on 7940HS system and it appears even a MODE2 reset
-> will reset display firmware, so I don't think we need to force a full
-> reset here.
-> ---
+Report xgmi training error uncorrectable error count.
 
-MODE2 reset _is_ a full reset on APUs, it resets everything but just doesn'=
-t=20
-lose the RAM contents. Also note that MODE2 reset is not supported on=20
-dedicated GPUs, so this will likely trigger a full reset for those.
+Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Can you say how you tested this? I'd be happy to test it myself too.
-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c      |  2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h      |  1 +
->  .../drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 18 ++++++++++++++++++
->  3 files changed, 21 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c index
-> 28c4ad62f50e..bd63f0345984 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
-> @@ -343,6 +343,8 @@ void amdgpu_reset_get_desc(struct amdgpu_reset_context
-> *rst_ctxt, char *buf, case AMDGPU_RESET_SRC_USERQ:
->  		strscpy(buf, "user queue trigger", len);
->  		break;
-> +	case AMDGPU_RESET_SRC_DISPLAY:
-> +		strscpy(buf, "display hang", len);
->  	default:
->  		strscpy(buf, "unknown", len);
->  	}
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h index
-> 07b4d37f1db6..53b577062b11 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.h
-> @@ -44,6 +44,7 @@ enum AMDGPU_RESET_SRCS {
->  	AMDGPU_RESET_SRC_HWS,
->  	AMDGPU_RESET_SRC_USER,
->  	AMDGPU_RESET_SRC_USERQ,
-> +	AMDGPU_RESET_SRC_DISPLAY,
->  };
->=20
->  struct amdgpu_reset_context {
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c index
-> 697e232acebf..2233e5b3b6a2 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -28,6 +28,7 @@
->=20
->  #include "dc.h"
->  #include "amdgpu.h"
-> +#include "amdgpu_reset.h"
->  #include "amdgpu_dm_psr.h"
->  #include "amdgpu_dm_replay.h"
->  #include "amdgpu_dm_crtc.h"
-> @@ -578,12 +579,29 @@ amdgpu_dm_atomic_crtc_get_property(struct drm_crtc
-> *crtc, }
->  #endif
->=20
-> +static void amdgpu_dm_crtc_handle_timeout(struct drm_crtc *crtc)
-> +{
-> +	struct amdgpu_device *adev =3D drm_to_adev(crtc->dev);
-> +	struct amdgpu_reset_context reset_context =3D {0};
-> +
-> +	if (amdgpu_device_should_recover_gpu(adev)) {
-> +		memset(&reset_context, 0, sizeof(reset_context));
-> +
-> +		reset_context.method =3D AMD_RESET_METHOD_NONE;
-> +		reset_context.reset_req_dev =3D adev;
-> +		reset_context.src =3D AMDGPU_RESET_SRC_DISPLAY;
-> +
-> +		amdgpu_device_gpu_recover(adev, NULL, &reset_context);
-> +	}
-> +}
-> +
->  /* Implemented only the options currently available for the driver */
->  static const struct drm_crtc_funcs amdgpu_dm_crtc_funcs =3D {
->  	.reset =3D amdgpu_dm_crtc_reset_state,
->  	.destroy =3D amdgpu_dm_crtc_destroy,
->  	.set_config =3D drm_atomic_helper_set_config,
->  	.page_flip =3D drm_atomic_helper_page_flip,
-> +	.page_flip_timeout =3D amdgpu_dm_crtc_handle_timeout,
->  	.atomic_duplicate_state =3D amdgpu_dm_crtc_duplicate_state,
->  	.atomic_destroy_state =3D amdgpu_dm_crtc_destroy_state,
->  	.set_crc_source =3D amdgpu_dm_crtc_set_crc_source,
-
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 95f3611d743b..a220fa6dcd6e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -1199,7 +1199,7 @@ static int xgmi_v6_4_0_aca_bank_parser(struct aca_handle *handle, struct aca_ban
+ 
+ 	switch (type) {
+ 	case ACA_SMU_TYPE_UE:
+-		if (ext_error_code != 0 && ext_error_code != 9)
++		if (ext_error_code != 0 && ext_error_code != 1 && ext_error_code != 9)
+ 			count = 0ULL;
+ 
+ 		bank->aca_err_type = ACA_ERROR_TYPE_UE;
+-- 
+2.25.1
 
