@@ -4,82 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 829D1C88E74
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 769B9C88E72
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA42210E3DE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C927310E3DD;
 	Mon, 26 Jan 2026 08:09:29 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d3BwRItI";
-	dkim-atps=neutral
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A387C10E372
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 18:39:29 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-6580ec94bcdso508129a12.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 10:39:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769366368; x=1769971168; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0A5eHusdWY5bDg+aivWCgCoxrDZwEpdh2mh6IhrC0mc=;
- b=d3BwRItIgQj20j4D3c6i4oD+uFHzyZpHcCdU+XmR12UCqzfQgO+ZbzNxIwPolbw85q
- ZLibgPOXbLgpY42Rd5DXHAwMHx2m0B5b5Znv5DZhqmKhXdxrPSzBpC6nG9q5t6zhVVZx
- Mzsvx120k+8cuJzs9uJ2jtW9UrmAgRTOdJavUpuuXbKo+zmETD5laXKm2TqQ4J3PzB+9
- 7KQltae5BkX2Xenl0gbRKmHFroUWrqft9IhpczTA3KBlwzuxXl4qPCRi4/l0hQcqtaJr
- lk0c7M6AKXU3XhEqoy1tz6pjiEdgDjt+kD/dK/6Zv31aUAebvbRCR1V9NQbMkgJz+8Px
- kzQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769366368; x=1769971168;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=0A5eHusdWY5bDg+aivWCgCoxrDZwEpdh2mh6IhrC0mc=;
- b=EepKyCDRsaNJTen5FT1MjmLbQ4F5pl1jo0/TjP1AKEOPtqwr6GvQgH0/XtBUulRMqz
- 62S5voKh5N+Ehtw7A/YCeWwDAMQwZIB5j3MkaoHJ1Q23g+brsOJkkyP+XCsNyhuHSGX+
- Z7YxpnxFvHYjmpTt4mOATqZsOHmUssAK0STBvphtjhW4DARZhK56BW+DZtnN1eHu5F9m
- rgKsIxEwNDihwNvDHC3nd0lrnhuS187ynTnBTtgrt9Mn9NIUObrQGQLYmqqPbl8obwml
- dyHD9d/MRIdifolSATZzXB0XARl8Q4CY7OiqBztxYjpsk6z+3tiwUyeYGdSCwwPXxof2
- RpvA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXkUkfEWrTfVhzFJAiXN6Iz9nna0Bd4Q6F6lMkimi4JXjlAMo1JcrGW8uGkPGyk7dbnJzm1uzcg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyQBnrjKX9ICj6wskOz+tTYPv2SoOoh/wnW2wz3sjekPdUNnGua
- QnOk4EJDq1gqWzjwzNrdy6C4eRXZiebjeeSWdmKNRbGyxAfySyEEB+pA
-X-Gm-Gg: AZuq6aJ3+gouY/UNMIvvnkfZuz5fevUkVNvk0L02zU8PYqEOSkGWTDvafWUwWgkh40v
- XgS+p3lApabr8bzSaSQux4dmjXcH42k4ZvAkvGXaOJavdVBAZ09c0m/KXzOHGJQJiw6Duda7bOm
- dDIeAmrk1lXVLmvi8wwNDozCULIOuLubtljSEYrIGSwUGfkLdMR3JAbQ6MUroFe6N/7anP8rDvS
- EeFBlvIrV+T0cbBZgUxLn01FMIxOVW4v3n2vV5QUMtlmxP3rxRy2Tt1fGBJ1GavxKWYViBto6SS
- 1roaSFsu9B6rCOfkQrgUvNdMHjaSVeGbCnsvJ6CSu9hsF5IKto619NxoAVgveaXgQ0YSZrqdWxp
- /iwfj1g0st7RvjXzF73y0betHrMEVK+NmdnS8bqpHkdXjedD0PjCTM/R9v89035rLzwWZ1NaSiH
- obpnHGRjskiNoQWWg+GiM2GpIoSvHmgkfbJu/NnH3K+BTpmQkYWJG7aawznE0pwC2A
-X-Received: by 2002:a17:907:787:b0:b8a:f2d7:9942 with SMTP id
- a640c23a62f3a-b8d3fce31cdmr73328966b.3.1769366367942; 
- Sun, 25 Jan 2026 10:39:27 -0800 (PST)
-Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b885b3dad3asm499133766b.12.2026.01.25.10.39.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Jan 2026 10:39:27 -0800 (PST)
-From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: alexander.deucher@amd.com,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
- bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
-Subject: [PATCH v2 08/19] drm/edid: Parse more info from HDMI Forum vsdb
-Date: Sun, 25 Jan 2026 19:39:03 +0100
-Message-ID: <20260125183914.459228-9-tomasz.pakula.oficjalny@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
-References: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
+X-Greylist: delayed 105805 seconds by postgrey-1.36 at gabe;
+ Sat, 24 Jan 2026 19:49:54 UTC
+Received: from MTA-13-4.privateemail.com (mta-13-4.privateemail.com
+ [198.54.127.109])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D8A210E07A;
+ Sat, 24 Jan 2026 19:49:54 +0000 (UTC)
+Received: from mta-13.privateemail.com (localhost [127.0.0.1])
+ by mta-13.privateemail.com (Postfix) with ESMTP id 4dz5405rm3z3hhTT;
+ Sat, 24 Jan 2026 14:49:52 -0500 (EST)
+Received: from hal-station (unknown [204.137.14.92])
+ by mta-13.privateemail.com (Postfix) with ESMTPA;
+ Sat, 24 Jan 2026 14:49:19 -0500 (EST)
+Date: Sat, 24 Jan 2026 14:49:15 -0500
+From: Hamza Mahfooz <someguy@effective-light.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ dri-devel@lists.freedesktop.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
+Message-ID: <aXUiO9EyYgy8dcW8@hal-station>
+References: <20260123000537.2450496-1-someguy@effective-light.com>
+ <2de6d428-b997-4ba8-8766-a211e5612e72@amd.com>
+ <2349754.vFx2qVVIhK@timur-hyperion>
+ <a8b972be-7265-492f-9855-cdec94a0e0dc@amd.com>
+ <aXUQKSJGkz7nzHJ4@hal-station.localdomain>
+ <d327fc1a-0db4-4fcc-aed6-ded53fa28b62@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d327fc1a-0db4-4fcc-aed6-ded53fa28b62@amd.com>
+X-Virus-Scanned: ClamAV using ClamSMTP
 X-Mailman-Approved-At: Mon, 26 Jan 2026 08:09:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,153 +69,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Drivers may need info about gaming features exposed by HDMI sinks. Add
-a central way of storing this information.
+On Sat, Jan 24, 2026 at 12:43:02PM -0600, Mario Limonciello wrote:
+> 
+> 
+> On 1/24/2026 12:32 PM, Hamza Mahfooz wrote:
+> > On Fri, Jan 23, 2026 at 04:30:12PM -0600, Mario Limonciello wrote:
+> > > Hamza - since you seem to have a "workload" that can run overnight and this
+> > > series recovers, can you try what Alex said and do a dc_suspend() and
+> > > dc_resume() for failure?
+> > > 
+> > > Make sure you log a message so you can know it worked.
+> > 
+> > Sure, I'll try something along the lines of:
+> 
+> Generally speaking that looks good, but I'll leave a few comments.
+> 
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> > index 492457c86393..bc7abd00f5f4 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> > @@ -579,11 +579,28 @@ amdgpu_dm_atomic_crtc_get_property(struct drm_crtc *crtc,
+> >   }
+> >   #endif
+> > 
+> > -static void amdgpu_dm_crtc_handle_timeout(struct drm_crtc *crtc)
+> > +static void amdgpu_dm_crtc_handle_timeout(struct drm_crtc *crtc,
+> > +					  struct drm_crtc_commit *commit)
+> >   {
+> >   	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
+> >   	struct amdgpu_reset_context reset_ctx;
+> > +	struct amdgpu_ip_block *ip_block;
+> > 
+> > +	ip_block = amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_DCE);
+> > +	if (!ip_block)
+> > +		goto full_reset;
+> > +
+> > +	ip_block->version->funcs->suspend(ip_block);
+> > +	ip_block->version->funcs->resume(ip_block);
+> 
+> Both of these can fail.  Especially considering the page flip timeout could
+> be a DCN hang, I think you should check return code for both of them
+> sequentially and jump to the full reset condition if either fails.
+> 
+> > +
+> > +	if (drm_crtc_commit_wait(commit)) {
+> > +		drm_err(crtc->dev, "suspend-resume failed!\n");
+> > +		goto full_reset;
+> > +	}
+> > +
+> 
+> At least to prove "this worked" you should log a message "right here" that
+> the reset occurred and you recovered.  That "might not" be in the final
+> version, but I think it's worth having for now.
 
-[How]
-Adds flags and a struct to hold HDMI VRR information. `supported` here
-is an additional property which allows easier parsing in consumers and
-adds a bit of logic used to detect malformed VRRmin/VRRmax values.
+I have included all of the suggestions in my test run, fingers crossed
+that I don't have to wait too long for a repro though.
 
-Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
-Tested-by: Bernhard Berger <bernhard.berger@gmail.com>
----
- drivers/gpu/drm/drm_edid.c  | 41 +++++++++++++++++++++++++++++++-
- include/drm/drm_connector.h | 47 +++++++++++++++++++++++++++++++++++++
- 2 files changed, 87 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index e2e85345aa9a..5bdacd425908 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6149,6 +6149,33 @@ static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
- 	hdmi->y420_dc_modes = dc_mask;
- }
- 
-+static void drm_parse_hdmi_gaming_info(struct drm_hdmi_info *hdmi, const u8 *db)
-+{
-+	struct drm_hdmi_vrr_cap *vrr = &hdmi->vrr_cap;
-+
-+	if (cea_db_payload_len(db) < 8)
-+		return;
-+
-+	hdmi->fapa_start_location = db[8] & DRM_EDID_FAPA_START_LOCATION;
-+	hdmi->allm = db[8] & DRM_EDID_ALLM;
-+	vrr->fva = db[8] & DRM_EDID_FVA;
-+	vrr->cnmvrr = db[8] & DRM_EDID_CNMVRR;
-+	vrr->cinema_vrr = db[8] & DRM_EDID_CINEMA_VRR;
-+	vrr->mdelta = db[8] & DRM_EDID_MDELTA;
-+
-+	if (cea_db_payload_len(db) < 9)
-+		return;
-+
-+	vrr->vrr_min = db[9] & DRM_EDID_VRR_MIN_MASK;
-+	vrr->supported = (vrr->vrr_min > 0 && vrr->vrr_min <= 48);
-+
-+	if (cea_db_payload_len(db) < 10)
-+		return;
-+
-+	vrr->vrr_max = (db[9] & DRM_EDID_VRR_MAX_UPPER_MASK) << 2 | db[10];
-+	vrr->supported &= (vrr->vrr_max == 0 || vrr->vrr_max >= 100);
-+}
-+
- static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
- 			       const u8 *hf_scds)
- {
-@@ -6274,7 +6301,7 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 	}
- 
- 	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
--
-+	drm_parse_hdmi_gaming_info(&connector->display_info.hdmi, hf_scds);
- 	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
- 		drm_parse_dsc_info(hdmi_dsc, hf_scds);
- 		dsc_support = true;
-@@ -6284,6 +6311,18 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
- 		    "[CONNECTOR:%d:%s] HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
- 		    connector->base.id, connector->name,
- 		    max_tmds_clock, str_yes_no(max_frl_rate), str_yes_no(dsc_support));
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] FAPA in blanking: %s, ALLM support: %s, Fast Vactive support: %s\n",
-+		    connector->base.id, connector->name, str_yes_no(hdmi->fapa_start_location),
-+		    str_yes_no(hdmi->allm), str_yes_no(hdmi->vrr_cap.fva));
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] Negative M VRR support: %s, CinemaVRR support: %s, Mdelta: %d\n",
-+		    connector->base.id, connector->name, str_yes_no(hdmi->vrr_cap.cnmvrr),
-+		    str_yes_no(hdmi->vrr_cap.cinema_vrr), hdmi->vrr_cap.mdelta);
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] VRRmin: %u, VRRmax: %u, VRR supported: %s\n",
-+		    connector->base.id, connector->name, hdmi->vrr_cap.vrr_min,
-+		    hdmi->vrr_cap.vrr_max, str_yes_no(hdmi->vrr_cap.supported));
- }
- 
- static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 8f34f4b8183d..dab9d5521f41 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -254,6 +254,44 @@ struct drm_scdc {
- 	struct drm_scrambling scrambling;
- };
- 
-+/**
-+ * struct drm_hdmi_vrr_cap - Information about VRR capabilities of a HDMI sink
-+ *
-+ * Describes the VRR support provided by HDMI 2.1 sink. The information is
-+ * fetched fom additional HFVSDB blocks defined for HDMI 2.1.
-+ */
-+struct drm_hdmi_vrr_cap {
-+	/** @fva: flag for Fast VActive (Quick Frame Transport) support */
-+	bool fva;
-+
-+	/** @mcnmvrr: flag for Negative M VRR support */
-+	bool cnmvrr;
-+
-+	/** @mcinema_vrr: flag for Cinema VRR support */
-+	bool cinema_vrr;
-+
-+	/** @mdelta: flag for limited frame-to-frame compensation support */
-+	bool mdelta;
-+
-+	/**
-+	 * @vrr_min : minimum supported variable refresh rate in Hz.
-+	 * Valid values only inide 1 - 48 range
-+	 */
-+	u16 vrr_min;
-+
-+	/**
-+	 * @vrr_max : maximum supported variable refresh rate in Hz (optional).
-+	 * Valid values are either 0 (max based on video mode) or >= 100
-+	 */
-+	u16 vrr_max;
-+
-+	/**
-+	 * @supported: flag for vrr support based on checking for VRRmin and
-+	 * VRRmax values having correct values.
-+	 */
-+	bool supported;
-+};
-+
- /**
-  * struct drm_hdmi_dsc_cap - DSC capabilities of HDMI sink
-  *
-@@ -330,6 +368,15 @@ struct drm_hdmi_info {
- 	/** @max_lanes: supported by sink */
- 	u8 max_lanes;
- 
-+	/** @fapa_start_location: flag for the FAPA in blanking support */
-+	bool fapa_start_location;
-+
-+	/** @allm: flag for Auto Low Latency Mode support by sink */
-+	bool allm;
-+
-+	/** @vrr_cap: VRR capabilities of the sink */
-+	struct drm_hdmi_vrr_cap vrr_cap;
-+
- 	/** @dsc_cap: DSC capabilities of the sink */
- 	struct drm_hdmi_dsc_cap dsc_cap;
- };
--- 
-2.52.0
-
+> 
+> > +	return;
+> > +
+> > +full_reset:
+> >   	if (amdgpu_device_should_recover_gpu(adev)) {
+> >   		memset(&reset_ctx, 0, sizeof(reset_ctx));
+> > 
+> > diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> > index 7175294ccb57..b38c4ee2fc95 100644
+> > --- a/drivers/gpu/drm/drm_atomic_helper.c
+> > +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> > @@ -1961,7 +1961,7 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
+> >   				crtc->base.id, crtc->name);
+> > 
+> >   			if (crtc->funcs->page_flip_timeout)
+> > -				crtc->funcs->page_flip_timeout(crtc);
+> > +				crtc->funcs->page_flip_timeout(crtc, commit);
+> >   		}
+> >   	}
+> > 
+> > diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> > index 45dc5a76e915..47a34a05f6de 100644
+> > --- a/include/drm/drm_crtc.h
+> > +++ b/include/drm/drm_crtc.h
+> > @@ -616,7 +616,8 @@ struct drm_crtc_funcs {
+> >   	 * and can be used by drivers to attempt to recover from a page flip
+> >   	 * timeout.
+> >   	 */
+> > -	void (*page_flip_timeout)(struct drm_crtc *crtc);
+> > +	void (*page_flip_timeout)(struct drm_crtc *crtc,
+> > +				  struct drm_crtc_commit *commit);
+> > 
+> >   	/**
+> >   	 * @set_property:
+> 
