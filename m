@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 204C1C88E6D
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A825AC88E72
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 967B510E3C9;
-	Mon, 26 Jan 2026 08:09:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BC6010E3C0;
+	Mon, 26 Jan 2026 08:09:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LWZS2rBg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y/F79cVb";
 	dkim-atps=neutral
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2264D10E378
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 18:39:40 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-b8862767cf2so34951166b.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 10:39:40 -0800 (PST)
+Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
+ [209.85.208.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0627310E372
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 18:39:26 +0000 (UTC)
+Received: by mail-ed1-f68.google.com with SMTP id
+ 4fb4d7f45d1cf-64b7a91f9daso544564a12.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 10:39:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769366379; x=1769971179; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1769366365; x=1769971165; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ecPuaGgfpB06f+q+wYbBx7hNGw3dVlBz9Vc5r6vMzJA=;
- b=LWZS2rBgSGjRIk0F6u/ESybPtyJnADL6iJCS5fuin0Ezyq20XlHO0LS2DBcy6sWwWS
- rYxhbqPE7g+PYRf0NUI4h5NFSvI8J3HL7iJQ8KvKkEmC5zUNBrs6acz39iKQjLLKUBuk
- DZR3vc+bcfd94cQZPI+z+CBxk05BN/Y3A3OEsg3vlP9RL5RB8mbq/EBYsDX1DrP9ECIi
- fMjm6NKRnSYhzFpmMZilZ6IxI7mwAMONjIoe7jXWQHeUEPkvY3gaMvNElDSzhC4mrWLF
- lasK8I128S1BDWfymEFn2ltMM4S2j2PPTgv25cotQRpemJqiatKUcn1K+4GeslFjsPtR
- Nn9Q==
+ bh=hmgwWRrt6HOF0PbDVge366fL7Mh7GQU+20kTg/ePqis=;
+ b=Y/F79cVbfOUsbU+QOW6XTZU7ZLHs/McOQGmdac83H1UBHA8HWYVWw0KAG3K6QsYeK5
+ i5AbDe/2qu7aMwWkTmjUvAvZQrxKDfidcJOctBHq4h24vPvH438aaeIvBsvxCheoLWpt
+ H0uihTrx64IStS3xMVfGk1k7HHLaZk7mTmLR8puqIWpYLN7WbUUf0v9wfQJiibuAX4uw
+ KMfFv0hz6HySioB5vuDekMig6PlUEUw/vw96blMfydsONIHB1dF79vBPwaHfN5A93ouu
+ QzSrT/iJ/Gl8HfMEGjPNEPeqgkWoytMSXV08ZF9fiZUWvDXUiHs4Zhi9cwxc0Ev1DVAa
+ ls7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769366379; x=1769971179;
+ d=1e100.net; s=20230601; t=1769366365; x=1769971165;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=ecPuaGgfpB06f+q+wYbBx7hNGw3dVlBz9Vc5r6vMzJA=;
- b=S/PU4xYT81gBYxFaC4qhKCafIyICT7yJWLwpo3H/uPonUJmci5XGJKm/emWkUsZpeY
- 5Rh7ZAuIT8MEYq92sqcF3U1XwPLpmfonlxublfaAaOTfDgy0JmJkKWiFDkl0kt4Nj6X+
- YE/Lprlqm5HHveHBeH2C1xTl0FttMciQ/iIo+Xc1a0kgKrvkgdVTK3iz73LdKOfiFHPw
- BbpKEg3yPoR7w+LNBwGiSpOcpvk+FvRlNmu886UWrmUevAW+9BcD8OPfqCDg8gAmuAyQ
- +5dFC+C5u33YGmaAllZjOO1tIkgJZJgWyCqoSnhlUwPWrpIWdZx8phW0RKGvYZ+PZPJJ
- 46RA==
+ bh=hmgwWRrt6HOF0PbDVge366fL7Mh7GQU+20kTg/ePqis=;
+ b=pTxzW8KDrLpGSjXQnhCYhdwqu3J1GqTmkCydndnE/+mUJ98iZbSBVzwYsD8tsac46/
+ bFXIFNTgoSoxj8f7f9dhYGSxV103pRKLy2vk78aGFwtoch6V/XnDc5clFk54VW6pbrPO
+ ixq0mqqF0XDhZma9vUl+o07Zd4ZAdPJs0cFOIZnB9HWgzmD8YarhHPXwy0rm9pio/gL7
+ 0wnIZ/wHC+RwUkMTLCAlwhFX3FyFR8WPtCR7G8rVNIYAz08dRf6XzkTI573um+heDKNC
+ NwqlIowIkMFFt5GHZCM5seUpE9YN3Z3ekQ1dTd0n4IS2gAKequp0AxJjQhJoKO9lIcff
+ EJnQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXnT999otnAPtCvXkGSNqJlmbtbYv0KAVAOVo4kguC15MvuV+o4ij68evzJnitXTReF51AZ9f0x@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxUDkJdnqycUub5ELsgOc6XdvbnaFAwp+jcn+7opAitHgz5OBIu
- 6hKV/Hfc0o5+ZG3WIqxKuv8CEkN4zyeGN3ZU/HTVu7VXNvqyqqaasqIM
-X-Gm-Gg: AZuq6aKyycFndYJ8AJkcnsaayPSbFD3BrgeLIfK0U6xmBr4o1z43RIsGN3CbvI5SOSf
- EP6TbKaSXkQGGMonK//lMijY67kgHh2Vz6Ti9akGiK6bQHgNY9Y7wyn4SMZJejZW1LS522LQ39c
- 95jSw9iEeHagKr1/5sYoJWAyufJJT0U20tkSi5o9sAO7IC53oWZMx7QmMCfR3674zwRUGr2c1L7
- vAOkcWqQUwMSyOXuvw2bJkxxjvhLPW5czKiy7p8/OCzVa8aESF0LaAtsbYO6CAYi9JvstvpfXKB
- 4nrriwHXu13tvjuImlEIJ2pnkSmD9ck/eR6KCun5DK5IapzYfSGCgvVoVb6dvyj0Ld2zPN2haIR
- KKPvHw1XE3b90UmxS+vZexyKkUUdN9mCXnWjVhJKCFib8lyLuF4JmWUpbuZt6JVJxm8mPqptL40
- isjdowLgVbu4xUINJD9X63lsrH2Y+eQHvauH8bhGTrEBpkZonyk1/ZzXrsfwWBhR5P
-X-Received: by 2002:a17:907:c28:b0:b87:106c:88eb with SMTP id
- a640c23a62f3a-b8d20d64cdcmr80438666b.0.1769366378380; 
- Sun, 25 Jan 2026 10:39:38 -0800 (PST)
+ AJvYcCXkbp44MW/c1Lbp1WVizPHz38gDLWYDjH4dSP7r8sPjhg/a6Di44757C+uRCrTqMvZIILvkUEqq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YymdXxx0FqHXlWZQqu8aO40cIAnfHWz0xuGTufX4JPBcoK2ZNfQ
+ Il0grMlIBSPcBNt8JksLPot196UCPJmPKd3rN9ZRV4ffahBPC5UMw3JY
+X-Gm-Gg: AZuq6aLygZBtRO6Nc35RveGpFgTz42flPgVCBTo49+2h8B9X7z/BQYLxzdAbPwOsKN4
+ dVxJHucgDnThyq240e0Zcv6LZagl5S9Jd5hrYTz6H2KGaaxtPaqaQLxoeH4TiWsCqZb2D1x/hmA
+ Tv/P04zM1jq9lxPhZl8MH/Rl7v3pAcc9WymsrzEMmI7ckudN5b4KSXn8pnyZ09JFpO4y0FmdIYZ
+ TpTPavZOq4hF5+Uonk+675WEhHDq9mPZ1BGhRez0OGzx0745VdOhmeXLDLLuNVNKwtZPlDm7UgA
+ TK3hHOmePVDVCdLKdxHRHVtFnTOwCfnCPVU3eOYBy2JEOwg1TeK6v9s328J7P+uhgj2l0gqvl1P
+ skeHyw9DHKAvsedSQrzCCSHYVIsPnGSNKFgoQdGsFAgseHZFvPAihnwODvStHYULVcw32UEwuVz
+ +2c5T69kDUeygIVp2PBU7S4zrAoII2cMkqFx6x/hX8zgwNRGHgwT9OJuexEj5LKbQVrhRb9uLMk
+ 9E=
+X-Received: by 2002:a17:907:d18:b0:b71:a627:3d9f with SMTP id
+ a640c23a62f3a-b8d20b42346mr96019266b.0.1769366365198; 
+ Sun, 25 Jan 2026 10:39:25 -0800 (PST)
 Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b885b3dad3asm499133766b.12.2026.01.25.10.39.37
+ a640c23a62f3a-b885b3dad3asm499133766b.12.2026.01.25.10.39.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Jan 2026 10:39:38 -0800 (PST)
+ Sun, 25 Jan 2026 10:39:24 -0800 (PST)
 From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
 To: alexander.deucher@amd.com,
 	harry.wentland@amd.com,
@@ -71,10 +72,9 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
  bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
-Subject: [PATCH v2 16/19] drm/amd/display: Add parameter to control ALLM
- behavior
-Date: Sun, 25 Jan 2026 19:39:11 +0100
-Message-ID: <20260125183914.459228-17-tomasz.pakula.oficjalny@gmail.com>
+Subject: [PATCH v2 06/19] drm/amd/display: Add PCON VRR ID check override
+Date: Sun, 25 Jan 2026 19:39:01 +0100
+Message-ID: <20260125183914.459228-7-tomasz.pakula.oficjalny@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
 References: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
@@ -97,194 +97,114 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-Some users prefer to always manually control ALLM/Gaming mode while
-others might want it permanently forced on.
+It's currently very hard to test if a random PCON supports VRR and
+report it's ID.
 
 [How]
-Since there isn't yet an API to control this, expose module paramter
+Adds override as part of dc debug mask. Allows faster testing and
+reporting of VRR-compatible DP->HDMI adapters.
 
 Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 14 ++++++-
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  7 +---
- .../amd/display/modules/inc/mod_info_packet.h |  1 +
- .../display/modules/info_packet/info_packet.c | 42 +++++++++++++++----
- 5 files changed, 52 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c         | 6 +++++-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 8 +++++++-
+ drivers/gpu/drm/amd/display/dc/dc.h                       | 1 +
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h               | 2 +-
+ drivers/gpu/drm/amd/include/amd_shared.h                  | 6 ++++++
+ 5 files changed, 20 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 9c11535c44c6..c9eab44ad5b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -268,6 +268,7 @@ extern int amdgpu_rebar;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 33b76c1850b1..7673143ba651 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2062,6 +2062,9 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	if (amdgpu_dc_debug_mask & DC_SKIP_DETECTION_LT)
+ 		adev->dm.dc->debug.skip_detection_link_training = true;
  
- extern int amdgpu_wbrf;
- extern int amdgpu_user_queue;
-+extern int amdgpu_allm_mode;
- 
- extern uint amdgpu_hdmi_hpd_debounce_delay_ms;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 771c89c84608..3bdbb46e4d69 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -248,6 +248,7 @@ int amdgpu_umsch_mm_fwlog;
- int amdgpu_rebar = -1; /* auto */
- int amdgpu_user_queue = -1;
- uint amdgpu_hdmi_hpd_debounce_delay_ms;
-+int amdgpu_allm_mode = 1;
- 
- DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
- 			"DRM_UT_CORE",
-@@ -1124,7 +1125,7 @@ module_param_named(rebar, amdgpu_rebar, int, 0444);
- MODULE_PARM_DESC(user_queue, "Enable user queues (-1 = auto (default), 0 = disable, 1 = enable, 2 = enable UQs and disable KQs)");
- module_param_named(user_queue, amdgpu_user_queue, int, 0444);
- 
--/*
-+/** */
-  * DOC: hdmi_hpd_debounce_delay_ms (uint)
-  * HDMI HPD disconnect debounce delay in milliseconds.
-  *
-@@ -1134,6 +1135,17 @@ module_param_named(user_queue, amdgpu_user_queue, int, 0444);
- MODULE_PARM_DESC(hdmi_hpd_debounce_delay_ms, "HDMI HPD disconnect debounce delay in milliseconds (0 to disable (by default), 1500 is common)");
- module_param_named(hdmi_hpd_debounce_delay_ms, amdgpu_hdmi_hpd_debounce_delay_ms, uint, 0644);
- 
-+/**
-+ * DOC: allm_mode (int)
-+ * Changes ALLM triggering mode (if sink supports ALLM). Possible values:
-+ *
-+ * -  0 = ALLM disabled
-+ * -  1 = ALLM dynamically triggered based on VRR state / Game Content Type Hint
-+ * -  2 = ALLM forced always on
-+ */
-+MODULE_PARM_DESC(allm_mode, "Changes ALLM trigger mode (0 = disable, 1 = enable (default), 2 = force enable)");
-+module_param_named(allm_mode, amdgpu_allm_mode, int, 0644);
++	if (amdgpu_dc_debug_mask & DC_OVERRIDE_PCON_VRR_ID_CHECK)
++		adev->dm.dc->debug.override_pcon_vrr_id_check = true;
 +
- /* These devices are not supported by amdgpu.
-  * They are supported by the mach64, r128, radeon drivers
-  */
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-index 4a7c9f810e35..b779aac28dfa 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
-@@ -44,6 +44,7 @@
- #include "clk_mgr.h"
- #include "dc_state_priv.h"
- #include "dc_stream_priv.h"
-+#include "modules/inc/mod_info_packet.h"
+ 	adev->dm.dc->debug.visual_confirm = amdgpu_dc_visual_confirm;
  
- #include "virtual/virtual_link_hwss.h"
- #include "link/hwss/link_hwss_dio.h"
-@@ -4503,8 +4504,6 @@ static void set_avi_info_frame(
- 	unsigned int vic = pipe_ctx->stream->timing.vic;
- 	unsigned int rid = pipe_ctx->stream->timing.rid;
- 	unsigned int fr_ind = pipe_ctx->stream->timing.fr_index;
--	enum dc_timing_3d_format format;
--	bool allm;
- 
- 	if (stream->avi_infopacket.valid) {
- 		*info_packet = stream->avi_infopacket;
-@@ -4658,10 +4657,8 @@ static void set_avi_info_frame(
- 	///VIC
- 	if (pipe_ctx->stream->timing.hdmi_vic != 0)
- 		vic = 0;
--	format = stream->timing.timing_3d_format;
--	allm = stream->link->local_sink->edid_caps.allm;
- 	/*todo, add 3DStereo support*/
--	if ((format != TIMING_3D_FORMAT_NONE) || allm) {
-+	if (!is_hdmi_vic_mode(pipe_ctx->stream)) {
- 		// Based on HDMI specs hdmi vic needs to be converted to cea vic when 3D is enabled
- 		switch (pipe_ctx->stream->timing.hdmi_vic) {
- 		case 1:
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-index 306eb7355c25..9ec123ecc7c4 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-@@ -41,6 +41,7 @@ void set_vsc_packet_colorimetry_data(
- 		enum dc_color_space cs,
- 		enum color_transfer_func tf);
- 
-+bool is_hdmi_vic_mode(const struct dc_stream_state *stream);
- void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
- 		struct dc_info_packet *info_packet,
- 		enum dc_color_space cs,
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 0db2db7a197f..7516ab9a7554 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -23,12 +23,13 @@
-  *
-  */
- 
--#include "mod_info_packet.h"
-+#include "amdgpu.h"
- #include "core_types.h"
--#include "dc_types.h"
--#include "mod_shared.h"
--#include "mod_freesync.h"
- #include "dc.h"
-+#include "dc_types.h"
-+#include "mod_freesync.h"
-+#include "mod_info_packet.h"
-+#include "mod_shared.h"
- 
- enum vsc_packet_revision {
- 	vsc_packet_undefined = 0,
-@@ -54,6 +55,12 @@ enum vsc_packet_revision {
- #define HF_VSIF_3D_BIT   0
- #define HF_VSIF_ALLM_BIT 1
- 
-+enum allm_trigger_mode {
-+	ALLM_MODE_DISABLED        = 0,
-+	ALLM_MODE_ENABLED_DYNAMIC = 1,
-+	ALLM_MODE_ENABLED_FORCED  = 2,
-+};
-+
- // VTEM Byte Offset
- #define VTEM_PB0		0
- #define VTEM_PB1		1
-@@ -499,9 +506,30 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ 	/* TODO: Remove after DP2 receiver gets proper support of Cable ID feature */
+@@ -13296,7 +13299,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 	if (amdgpu_dm_connector->dc_link) {
+ 		dpcd_caps = amdgpu_dm_connector->dc_link->dpcd_caps;
+ 		is_pcon = dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER;
+-		pcon_allowed = dm_helpers_is_vrr_pcon_allowed(amdgpu_dm_connector->dc_link);
++		pcon_allowed = dm_helpers_is_vrr_pcon_allowed(
++			amdgpu_dm_connector->dc_link, connector->dev);
  	}
+ 
+ 	/* Some eDP panels only have the refresh rate range info in DisplayID */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 45a91df619d9..cb8a2855ac10 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -1381,7 +1381,7 @@ void dm_helpers_dp_mst_update_branch_bandwidth(
+ 	// TODO
  }
  
--static bool is_hdmi_vic_mode(const struct dc_stream_state *stream)
-+static bool is_hdmi_allm_mode(const struct dc_stream_state *stream)
+-bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link)
++bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link, const struct drm_device *dev)
  {
--	bool allm = stream->link->local_sink->edid_caps.allm;
-+	/* Sink doesn't expose ALLM support in edid */
-+	if (!stream->link->local_sink->edid_caps.allm)
-+		return false;
-+
-+	switch (amdgpu_allm_mode) {
-+	case ALLM_MODE_DISABLED:
-+		return false;
-+
-+	case ALLM_MODE_ENABLED_DYNAMIC:
-+		break;
-+
-+	case ALLM_MODE_ENABLED_FORCED:
+ 	if (link->dpcd_caps.dongle_type != DISPLAY_DONGLE_DP_HDMI_CONVERTER)
+ 		return false;
+@@ -1399,6 +1399,12 @@ bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link)
+ 		return true;
+ 	}
+ 
++	if (link->dc->debug.override_pcon_vrr_id_check) {
++		drm_info(dev, "Overriding VRR PCON check for ID: 0x%06x\n",
++			 link->dpcd_caps.branch_dev_id);
 +		return true;
 +	}
 +
-+	return stream->content_type == DISPLAY_CONTENT_TYPE_GAME ||
-+	       stream->vrr_active_variable;
-+}
+ 	return false;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index ff15e5990ec0..144b5357e6fb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1057,6 +1057,7 @@ struct dc_debug_options {
+ 	bool scl_reset_length10;
+ 	bool hdmi20_disable;
+ 	bool skip_detection_link_training;
++	bool override_pcon_vrr_id_check;
+ 	uint32_t edid_read_retry_times;
+ 	unsigned int force_odm_combine; //bit vector based on otg inst
+ 	unsigned int seamless_boot_odm_combine;
+diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+index e51f1e489129..5e77deb09200 100644
+--- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
++++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+@@ -223,7 +223,7 @@ int dm_helpers_dmub_set_config_sync(struct dc_context *ctx,
+ 
+ enum dc_edid_status dm_helpers_get_sbios_edid(struct dc_link *link, struct dc_edid *edid);
+ 
+-bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link);
++bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link, const struct drm_device *dev);
+ bool dm_helpers_is_fullscreen(struct dc_context *ctx, struct dc_stream_state *stream);
+ bool dm_helpers_is_hdr_on(struct dc_context *ctx, struct dc_stream_state *stream);
+ 
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index ac2d3701e2bd..894e1e738ce0 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -412,6 +412,12 @@ enum DC_DEBUG_MASK {
+ 	 * @DC_SKIP_DETECTION_LT: (0x200000) If set, skip detection link training
+ 	 */
+ 	DC_SKIP_DETECTION_LT = 0x200000,
 +
-+bool is_hdmi_vic_mode(const struct dc_stream_state *stream)
-+{
-+	bool allm = is_hdmi_allm_mode(stream);
- 	bool stereo = stream->view_format != VIEW_3D_FORMAT_NONE;
++	/**
++	 * @DC_OVERRIDE_PCON_VRR_ID_CHECK: (0x400000) If set, always return true if checking for
++	 * PCON VRR compatibility and print it's ID in kernel log.
++	 */
++	DC_OVERRIDE_PCON_VRR_ID_CHECK = 0x400000,
+ };
  
- 	if (stream->timing.hdmi_vic == 0)
-@@ -540,7 +568,7 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
- 
- 		info_packet->valid = false;
- 
--		allm = stream->link->local_sink->edid_caps.allm;
-+		allm = is_hdmi_allm_mode(stream);
- 		format = stream->view_format == VIEW_3D_FORMAT_NONE ?
- 			 TIMING_3D_FORMAT_NONE :
- 			 stream->timing.timing_3d_format;
+ enum amd_dpm_forced_level;
 -- 
 2.52.0
 
