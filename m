@@ -4,66 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFAB3C88E6D
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 829D1C88E74
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A92410E3D7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA42210E3DE;
 	Mon, 26 Jan 2026 08:09:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gULGtUVE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d3BwRItI";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 835FC10E15E
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 16:07:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1769357245;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to; bh=xB97zLe11SZtUlvoaULtcDCkHx3T3uK2AQMcqJMNJHc=;
- b=gULGtUVEVg4D5DI5SEr38nTWHb3GhfRW7OyeemiWmx7r+2PyWeYsoKPq8Nw3D5pmxeFubl
- DJ7KVxb3wknyVgE9l2od+p0ZdztJw+sxxSUl1fAQyRzHo1IoK1DNJ1fCSCrtKvbW6vJpds
- dbHCYhI/dH03qhvMQZmauEkjiVcuxB4=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-683-MV5s2csbO0WMU3OsplZ8Kg-1; Sun,
- 25 Jan 2026 11:07:22 -0500
-X-MC-Unique: MV5s2csbO0WMU3OsplZ8Kg-1
-X-Mimecast-MFC-AGG-ID: MV5s2csbO0WMU3OsplZ8Kg_1769357240
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id EF0C119560B5; Sun, 25 Jan 2026 16:07:19 +0000 (UTC)
-Received: from fedora (unknown [10.45.224.8])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
- id 69D1B30001A7; Sun, 25 Jan 2026 16:07:13 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
- oleg@redhat.com; Sun, 25 Jan 2026 17:07:19 +0100 (CET)
-Date: Sun, 25 Jan 2026 17:07:11 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, Leon Romanovsky <leon@kernel.org>,
- Steven Price <steven.price@arm.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org
-Subject: [PATCH v2 1/7] android/binder: don't abuse current->group_leader
-Message-ID: <aXY_ryGDwdygl1Tv@redhat.com>
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A387C10E372
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 18:39:29 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-6580ec94bcdso508129a12.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 10:39:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769366368; x=1769971168; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=0A5eHusdWY5bDg+aivWCgCoxrDZwEpdh2mh6IhrC0mc=;
+ b=d3BwRItIgQj20j4D3c6i4oD+uFHzyZpHcCdU+XmR12UCqzfQgO+ZbzNxIwPolbw85q
+ ZLibgPOXbLgpY42Rd5DXHAwMHx2m0B5b5Znv5DZhqmKhXdxrPSzBpC6nG9q5t6zhVVZx
+ Mzsvx120k+8cuJzs9uJ2jtW9UrmAgRTOdJavUpuuXbKo+zmETD5laXKm2TqQ4J3PzB+9
+ 7KQltae5BkX2Xenl0gbRKmHFroUWrqft9IhpczTA3KBlwzuxXl4qPCRi4/l0hQcqtaJr
+ lk0c7M6AKXU3XhEqoy1tz6pjiEdgDjt+kD/dK/6Zv31aUAebvbRCR1V9NQbMkgJz+8Px
+ kzQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769366368; x=1769971168;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=0A5eHusdWY5bDg+aivWCgCoxrDZwEpdh2mh6IhrC0mc=;
+ b=EepKyCDRsaNJTen5FT1MjmLbQ4F5pl1jo0/TjP1AKEOPtqwr6GvQgH0/XtBUulRMqz
+ 62S5voKh5N+Ehtw7A/YCeWwDAMQwZIB5j3MkaoHJ1Q23g+brsOJkkyP+XCsNyhuHSGX+
+ Z7YxpnxFvHYjmpTt4mOATqZsOHmUssAK0STBvphtjhW4DARZhK56BW+DZtnN1eHu5F9m
+ rgKsIxEwNDihwNvDHC3nd0lrnhuS187ynTnBTtgrt9Mn9NIUObrQGQLYmqqPbl8obwml
+ dyHD9d/MRIdifolSATZzXB0XARl8Q4CY7OiqBztxYjpsk6z+3tiwUyeYGdSCwwPXxof2
+ RpvA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXkUkfEWrTfVhzFJAiXN6Iz9nna0Bd4Q6F6lMkimi4JXjlAMo1JcrGW8uGkPGyk7dbnJzm1uzcg@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQBnrjKX9ICj6wskOz+tTYPv2SoOoh/wnW2wz3sjekPdUNnGua
+ QnOk4EJDq1gqWzjwzNrdy6C4eRXZiebjeeSWdmKNRbGyxAfySyEEB+pA
+X-Gm-Gg: AZuq6aJ3+gouY/UNMIvvnkfZuz5fevUkVNvk0L02zU8PYqEOSkGWTDvafWUwWgkh40v
+ XgS+p3lApabr8bzSaSQux4dmjXcH42k4ZvAkvGXaOJavdVBAZ09c0m/KXzOHGJQJiw6Duda7bOm
+ dDIeAmrk1lXVLmvi8wwNDozCULIOuLubtljSEYrIGSwUGfkLdMR3JAbQ6MUroFe6N/7anP8rDvS
+ EeFBlvIrV+T0cbBZgUxLn01FMIxOVW4v3n2vV5QUMtlmxP3rxRy2Tt1fGBJ1GavxKWYViBto6SS
+ 1roaSFsu9B6rCOfkQrgUvNdMHjaSVeGbCnsvJ6CSu9hsF5IKto619NxoAVgveaXgQ0YSZrqdWxp
+ /iwfj1g0st7RvjXzF73y0betHrMEVK+NmdnS8bqpHkdXjedD0PjCTM/R9v89035rLzwWZ1NaSiH
+ obpnHGRjskiNoQWWg+GiM2GpIoSvHmgkfbJu/NnH3K+BTpmQkYWJG7aawznE0pwC2A
+X-Received: by 2002:a17:907:787:b0:b8a:f2d7:9942 with SMTP id
+ a640c23a62f3a-b8d3fce31cdmr73328966b.3.1769366367942; 
+ Sun, 25 Jan 2026 10:39:27 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b885b3dad3asm499133766b.12.2026.01.25.10.39.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 25 Jan 2026 10:39:27 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
+ bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
+Subject: [PATCH v2 08/19] drm/edid: Parse more info from HDMI Forum vsdb
+Date: Sun, 25 Jan 2026 19:39:03 +0100
+Message-ID: <20260125183914.459228-9-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aXY_h8i78n6yD9JY@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 26 Jan 2026 08:09:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,64 +95,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cleanup and preparation to simplify the next changes.
+[Why]
+Drivers may need info about gaming features exposed by HDMI sinks. Add
+a central way of storing this information.
 
-- Use current->tgid instead of current->group_leader->pid
+[How]
+Adds flags and a struct to hold HDMI VRR information. `supported` here
+is an additional property which allows easier parsing in consumers and
+adds a bit of logic used to detect malformed VRRmin/VRRmax values.
 
-- Use the value returned by get_task_struct() to initialize proc->tsk
-
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+Tested-by: Bernhard Berger <bernhard.berger@gmail.com>
 ---
- drivers/android/binder.c       | 7 +++----
- drivers/android/binder_alloc.c | 2 +-
- 2 files changed, 4 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_edid.c  | 41 +++++++++++++++++++++++++++++++-
+ include/drm/drm_connector.h | 47 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 87 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-index 535fc881c8da..dea701daabb0 100644
---- a/drivers/android/binder.c
-+++ b/drivers/android/binder.c
-@@ -6046,7 +6046,7 @@ static int binder_open(struct inode *nodp, struct file *filp)
- 	bool existing_pid = false;
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index e2e85345aa9a..5bdacd425908 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6149,6 +6149,33 @@ static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
+ 	hdmi->y420_dc_modes = dc_mask;
+ }
  
- 	binder_debug(BINDER_DEBUG_OPEN_CLOSE, "%s: %d:%d\n", __func__,
--		     current->group_leader->pid, current->pid);
-+		     current->tgid, current->pid);
- 
- 	proc = kzalloc(sizeof(*proc), GFP_KERNEL);
- 	if (proc == NULL)
-@@ -6055,8 +6055,8 @@ static int binder_open(struct inode *nodp, struct file *filp)
- 	dbitmap_init(&proc->dmap);
- 	spin_lock_init(&proc->inner_lock);
- 	spin_lock_init(&proc->outer_lock);
--	get_task_struct(current->group_leader);
--	proc->tsk = current->group_leader;
-+	proc->tsk = get_task_struct(current->group_leader);
-+	proc->pid = current->tgid;
- 	proc->cred = get_cred(filp->f_cred);
- 	INIT_LIST_HEAD(&proc->todo);
- 	init_waitqueue_head(&proc->freeze_wait);
-@@ -6075,7 +6075,6 @@ static int binder_open(struct inode *nodp, struct file *filp)
- 	binder_alloc_init(&proc->alloc);
- 
- 	binder_stats_created(BINDER_STAT_PROC);
--	proc->pid = current->group_leader->pid;
- 	INIT_LIST_HEAD(&proc->delivered_death);
- 	INIT_LIST_HEAD(&proc->delivered_freeze);
- 	INIT_LIST_HEAD(&proc->waiting_threads);
-diff --git a/drivers/android/binder_alloc.c b/drivers/android/binder_alloc.c
-index 979c96b74cad..145ed5f14cdb 100644
---- a/drivers/android/binder_alloc.c
-+++ b/drivers/android/binder_alloc.c
-@@ -1233,7 +1233,7 @@ static struct shrinker *binder_shrinker;
- VISIBLE_IF_KUNIT void __binder_alloc_init(struct binder_alloc *alloc,
- 					  struct list_lru *freelist)
++static void drm_parse_hdmi_gaming_info(struct drm_hdmi_info *hdmi, const u8 *db)
++{
++	struct drm_hdmi_vrr_cap *vrr = &hdmi->vrr_cap;
++
++	if (cea_db_payload_len(db) < 8)
++		return;
++
++	hdmi->fapa_start_location = db[8] & DRM_EDID_FAPA_START_LOCATION;
++	hdmi->allm = db[8] & DRM_EDID_ALLM;
++	vrr->fva = db[8] & DRM_EDID_FVA;
++	vrr->cnmvrr = db[8] & DRM_EDID_CNMVRR;
++	vrr->cinema_vrr = db[8] & DRM_EDID_CINEMA_VRR;
++	vrr->mdelta = db[8] & DRM_EDID_MDELTA;
++
++	if (cea_db_payload_len(db) < 9)
++		return;
++
++	vrr->vrr_min = db[9] & DRM_EDID_VRR_MIN_MASK;
++	vrr->supported = (vrr->vrr_min > 0 && vrr->vrr_min <= 48);
++
++	if (cea_db_payload_len(db) < 10)
++		return;
++
++	vrr->vrr_max = (db[9] & DRM_EDID_VRR_MAX_UPPER_MASK) << 2 | db[10];
++	vrr->supported &= (vrr->vrr_max == 0 || vrr->vrr_max >= 100);
++}
++
+ static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
+ 			       const u8 *hf_scds)
  {
--	alloc->pid = current->group_leader->pid;
-+	alloc->pid = current->tgid;
- 	alloc->mm = current->mm;
- 	mmgrab(alloc->mm);
- 	mutex_init(&alloc->mutex);
+@@ -6274,7 +6301,7 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 	}
+ 
+ 	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
+-
++	drm_parse_hdmi_gaming_info(&connector->display_info.hdmi, hf_scds);
+ 	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
+ 		drm_parse_dsc_info(hdmi_dsc, hf_scds);
+ 		dsc_support = true;
+@@ -6284,6 +6311,18 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 		    "[CONNECTOR:%d:%s] HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
+ 		    connector->base.id, connector->name,
+ 		    max_tmds_clock, str_yes_no(max_frl_rate), str_yes_no(dsc_support));
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] FAPA in blanking: %s, ALLM support: %s, Fast Vactive support: %s\n",
++		    connector->base.id, connector->name, str_yes_no(hdmi->fapa_start_location),
++		    str_yes_no(hdmi->allm), str_yes_no(hdmi->vrr_cap.fva));
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] Negative M VRR support: %s, CinemaVRR support: %s, Mdelta: %d\n",
++		    connector->base.id, connector->name, str_yes_no(hdmi->vrr_cap.cnmvrr),
++		    str_yes_no(hdmi->vrr_cap.cinema_vrr), hdmi->vrr_cap.mdelta);
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] VRRmin: %u, VRRmax: %u, VRR supported: %s\n",
++		    connector->base.id, connector->name, hdmi->vrr_cap.vrr_min,
++		    hdmi->vrr_cap.vrr_max, str_yes_no(hdmi->vrr_cap.supported));
+ }
+ 
+ static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 8f34f4b8183d..dab9d5521f41 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -254,6 +254,44 @@ struct drm_scdc {
+ 	struct drm_scrambling scrambling;
+ };
+ 
++/**
++ * struct drm_hdmi_vrr_cap - Information about VRR capabilities of a HDMI sink
++ *
++ * Describes the VRR support provided by HDMI 2.1 sink. The information is
++ * fetched fom additional HFVSDB blocks defined for HDMI 2.1.
++ */
++struct drm_hdmi_vrr_cap {
++	/** @fva: flag for Fast VActive (Quick Frame Transport) support */
++	bool fva;
++
++	/** @mcnmvrr: flag for Negative M VRR support */
++	bool cnmvrr;
++
++	/** @mcinema_vrr: flag for Cinema VRR support */
++	bool cinema_vrr;
++
++	/** @mdelta: flag for limited frame-to-frame compensation support */
++	bool mdelta;
++
++	/**
++	 * @vrr_min : minimum supported variable refresh rate in Hz.
++	 * Valid values only inide 1 - 48 range
++	 */
++	u16 vrr_min;
++
++	/**
++	 * @vrr_max : maximum supported variable refresh rate in Hz (optional).
++	 * Valid values are either 0 (max based on video mode) or >= 100
++	 */
++	u16 vrr_max;
++
++	/**
++	 * @supported: flag for vrr support based on checking for VRRmin and
++	 * VRRmax values having correct values.
++	 */
++	bool supported;
++};
++
+ /**
+  * struct drm_hdmi_dsc_cap - DSC capabilities of HDMI sink
+  *
+@@ -330,6 +368,15 @@ struct drm_hdmi_info {
+ 	/** @max_lanes: supported by sink */
+ 	u8 max_lanes;
+ 
++	/** @fapa_start_location: flag for the FAPA in blanking support */
++	bool fapa_start_location;
++
++	/** @allm: flag for Auto Low Latency Mode support by sink */
++	bool allm;
++
++	/** @vrr_cap: VRR capabilities of the sink */
++	struct drm_hdmi_vrr_cap vrr_cap;
++
+ 	/** @dsc_cap: DSC capabilities of the sink */
+ 	struct drm_hdmi_dsc_cap dsc_cap;
+ };
 -- 
 2.52.0
 
