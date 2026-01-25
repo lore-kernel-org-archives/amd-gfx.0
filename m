@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DE4BC88E77
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 725F6C88E79
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADF7210E3E3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C907310E3E5;
 	Mon, 26 Jan 2026 08:09:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DuWn2/nL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ib+6uaRR";
 	dkim-atps=neutral
-Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
- [209.85.208.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF08710E372
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 18:39:30 +0000 (UTC)
-Received: by mail-ed1-f67.google.com with SMTP id
- 4fb4d7f45d1cf-6505d1420daso572306a12.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 10:39:30 -0800 (PST)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AF8E10E371
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 18:39:37 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-b86ff9ff9feso61563466b.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 10:39:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769366369; x=1769971169; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1769366376; x=1769971176; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=IRzbLCxrVkWp1Gv9W66KOOv/WVW000APHSi4XKPpJIk=;
- b=DuWn2/nLQ6y8Dulz0uRIFgK6HegIChVagRFKGy0+2L19KbN3V+ndZusPNKXoyVj3J7
- qzlOMspHXNO6c3gFwN1zGB031sXNsIOnYvblnsxyKSPv/yz46/77ap/evtzXa1z7q9bi
- irhXj0kAAv0oX+Ur/X1h6JSkKO5p1E6sHjiCFsXI7CIEQD6ffFtR7HpJ6i7gw/DFkyXf
- Rff7StDBk17/FveDHV/SeZtPoGL17gwq/vvg+K1/A8EK1nfh8xT0jkBYFnON0x7AN3TQ
- oZH9TySJR6tPn6HZM1wIStjWEjkqzhycutCywj9ABol/b0k2VTWLSCwMlvA02KFb/fCt
- 3Qmw==
+ bh=ZSHN2Af/L95S4Os5yYFaV1hvvj2RmaOdeVqj+0nIWBY=;
+ b=ib+6uaRRl/3b/q6WIQGhXS2sR6+UYihW99kbSNrdZ7WMNCYILfZ08xuT+ogDvwUHnb
+ 24Y/erCaoxzAXIcW//5axviBnR4u/ZdPXwXf1O1kIKLqxY9GC3KdMSTHajtyXcJ30/yX
+ 4IQCU5+n5YVzd7t8UmSRftTa1dzHs34Nt5fcPQpQexURLxzQIXrn+SE2GR8JG0IJyVLz
+ cNLmcTQTrhIoepXwRm/jT9vYNqnpIMpWtnxtXw9Pwbjoli8zBH8P4Jy7tZnEJXOmk5jR
+ +bfuYfL22KnC+mMWWSFtn1Y1qOscgQOT3stvi8kqb//GIg2XIX4uHUc41PCzbWWG1iAz
+ M2wg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769366369; x=1769971169;
+ d=1e100.net; s=20230601; t=1769366376; x=1769971176;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=IRzbLCxrVkWp1Gv9W66KOOv/WVW000APHSi4XKPpJIk=;
- b=VueoT98algcN9kVB2beSRzYA0UhYxfdMeJ0jMvbT1o+RPFEiTYEI4o5l2yS4AWxriU
- eUig+fFQt13qFBHlFwZpMTdD3h2r1l5wRqL3LEjCiTpswGibGzfi38MnuV/Di6J9WLHP
- KJj9zAkvNJKVEvmGvXHE07hlrxkqvuPGdFkr8MVXFMoUlUtyC2a7/096+K5HU84gYMZ/
- 4aZ7DE8VFF1MVEtfV/9ply0Vhe2607lSL5luz0yesKGj5a/wTwP+4zo9rrHEvH4Lr/er
- AjmChgHz7KopI4rw5HtGoSVLGXdAngwXcbs+kOTtxjyvZi49CJS4GE8tXAkz6qDFBHgC
- HAyg==
+ bh=ZSHN2Af/L95S4Os5yYFaV1hvvj2RmaOdeVqj+0nIWBY=;
+ b=t344jmo9412lYtqgQXiC9dYVFG9gN7ASjSxSjcgC8bY7+5TUP3vg6mX8MPUFzSNM7A
+ YVGE1ClswEDLsee0zC/RmjmWqy6hT3Fc7WuCgwyDHXfiJyQucDaH/1upkDS/ZQBLnhc+
+ mnpM+s0i52OGG8wPwQ0zfc3wS8cmvuNJSqGM9hhs6g8R9V/zctlxb5fApob2PRSg1MGY
+ j3DCCoLEU72Czj0ILGonlliTBlOmM80noXNBe4wTpDxb+KY9jCnU32YMK95i3349wDU5
+ FKBpTztaZOnlgptrm5EwHIPbRV9mtMbCZlqMjAAu0XQ1hOVtdPbtiflksheiCs5R8r0g
+ 4abg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVBWhD69tOa1u8mE0Kp7C5HKU48hRPfehw9gj6M1yeKVfgOsbNXtpx94zpMRJOZYTwnXuV/2Ae3@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz8su0WjxWB2VlnD6vgoUHnh+aau6TBqT9bn04Z3yYNCCslmOP8
- ChqTatISd03EYidHF4/1u9rE7cKgjovJz1R97LFhbybanWs5WFBn2MY1
-X-Gm-Gg: AZuq6aKQxie9xhlQ8ZCSwP4qgM+Qr5Fjmpci5aKqIaYYpuivmun7sv5OV1gIW32o6nN
- AMsnE93Exul+Zr72EplyBLiPI0Sw1ltEq4BjPJxRydmO5XBiHJGR5WM8Kpk0Tml/DdGiAJy9/vg
- vCc1mVsuUKtqEJ908lkavzZ6onon1RHLPS4LsMhB7EPo6VdrYVHFQrm2E4zxgdzj/9tPMQKJkIP
- EA1yyJ8hq0ZcjeoG75HgOGLAGh2t1l3ZTTx4xxilOxoVvqFqQ637ebTaSgpTP9xSFh5hrLeJ5R1
- GcRj7XsULgpDrWXhZ5Y0vpq3YCL9Vqu8lBEpjDahQNds2e/5gH4YGAI1Q1m2i3iilBFWVY5S9BQ
- xslsUMIvM49jmiRL7Ruamo+SZqZ6jq1EBjBOWx6KeE9yMTK8/fX2W9Lo219CMehQSu4ReJM6/w4
- CIOSQTSYT7nC/wCTwqi7nvsEuon99WkgRrv+XXkDfS7jJbvD1WFpaN+jicWa4LQ7hP
-X-Received: by 2002:a17:907:787:b0:b8a:f2d7:9942 with SMTP id
- a640c23a62f3a-b8d3fce31cdmr73331066b.3.1769366369311; 
- Sun, 25 Jan 2026 10:39:29 -0800 (PST)
+ AJvYcCXm0wS03+pOxd1MuuuSVpAzIJJ1CPGUlhh131GyqA03CLWy9U+H11lWXBtUV0iZ2CNErICWuPJH@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yygqvu3T0KWkRNC8WQeJZpZbv/bPb3aUW4pRS4ofo3Tu0aUt/cU
+ umFy49dbB8B1iY+oHWZj9JHa35p8BJanpcWLT0hizGy+wVHyUhf+THtg
+X-Gm-Gg: AZuq6aJNe3h8eT3UeXYgf7uxltNVhnmbC4BqYbaK8da+jw3H4CdXB5967JBiwx7nWuu
+ uJtZEXyZdFkAJD7qLdV72JiCvyZ159Jk4gplfeFaw9ZlNFwbLBT6JzgVsh+gzQgLGypxewQTAak
+ DAAyKNexc4+nj2bf2iNuzfB3LcrWyzt0krVrvraV2d95xXeZMCUfwDYkcs65/d8M/wUAFyCEUfH
+ MWke6dfG3Me4FgpslZiohbH9+YMAnDgK2i96Vy828Iyi8fUW1lGq5GCTsfrYFIiTKDpBQS9r52O
+ vjBc+4iCDcAUofPEsg94vycBOvKcsWszk3C7/y7n07SO82cXbHvfOd2cDXQPYfN4qYDa1k9a435
+ ou8UQ3Ilb5VaGf4gxvKR70tmxs93DMDIQ9+5A+uJB2e/gSGwiuBWGDzugVovMAs5TU6OGb588Fk
+ bQApNPnvQPBdfRBdbnlfXBmJTup7wlW7I58/49LmIlQQ1N3GJKl5I3S8biQxhNxYG2Ouwbrbb7l
+ ug=
+X-Received: by 2002:a17:906:7955:b0:b87:515e:654a with SMTP id
+ a640c23a62f3a-b8d2e8fb72emr80881766b.2.1769366375441; 
+ Sun, 25 Jan 2026 10:39:35 -0800 (PST)
 Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b885b3dad3asm499133766b.12.2026.01.25.10.39.28
+ a640c23a62f3a-b885b3dad3asm499133766b.12.2026.01.25.10.39.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Jan 2026 10:39:29 -0800 (PST)
+ Sun, 25 Jan 2026 10:39:35 -0800 (PST)
 From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
 To: alexander.deucher@amd.com,
 	harry.wentland@amd.com,
@@ -71,9 +72,9 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
  bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
-Subject: [PATCH v2 09/19] drm/amd/display: Rename PCON adaptive sync types
-Date: Sun, 25 Jan 2026 19:39:04 +0100
-Message-ID: <20260125183914.459228-10-tomasz.pakula.oficjalny@gmail.com>
+Subject: [PATCH v2 14/19] drm/amd/display: Restore ALLM support in HDMI vsif
+Date: Sun, 25 Jan 2026 19:39:09 +0100
+Message-ID: <20260125183914.459228-15-tomasz.pakula.oficjalny@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
 References: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
@@ -96,87 +97,192 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-PCONs support sending out HDMI VRR infopackets on their own and this
-makes this types not specific to FreeSync
+Support for triggering ALLM in modern TVs is missing.
+
+When HDMI vsif was added in 2019:
+commit 3c2381b92cba ("drm/amd/display: add support for VSIP info packet")
+it was improperly handeled as HDMI actually has two separate vsifs. The
+implementation was based on H14b-vsif and ALLM bit was messing it up
+because H14b-vsif doesn't support ALLM. It was later removed in:
+commit 75f77aafe281 ("drm/amd/display: Send H14b-VSIF specified in HDMI")
+
+ALLM is supported by hf-vsif (HDMI Forum) instead.
 
 [How]
-Make the name more generic for the upcoming HDMI VRR over PCON
-implementation
+Add proper logic to construct either h14b-vsif or hf-vsif based on
+required capabilities. Currently, only ALLM from hf-vsif is supported.
+
+Turns out, hf-vsif is almost identical to h14b-vsif, BUT has additional
+two bytes of data after OUI. First byte is static and seems like
+a version supported by leftover define. Second byte consists of 3D and
+ALLM bits.
+
+Implement logic to offset 3D data if building hf-vsif.
 
 Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
-Tested-by: Bernhard Berger <bernhard.berger@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c      |  5 +++--
- .../gpu/drm/amd/display/modules/inc/mod_info_packet.h  | 10 +++++-----
- .../drm/amd/display/modules/info_packet/info_packet.c  |  4 ++--
- 3 files changed, 10 insertions(+), 9 deletions(-)
+ .../display/modules/info_packet/info_packet.c | 112 ++++++++++++------
+ 1 file changed, 73 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 7673143ba651..2f856833806e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9599,7 +9599,8 @@ static void update_freesync_state_on_stream(
- 
- 	aconn = (struct amdgpu_dm_connector *)new_stream->dm_stream_context;
- 
--	if (aconn && (aconn->as_type == FREESYNC_TYPE_PCON_IN_WHITELIST || aconn->vsdb_info.replay_mode)) {
-+	if (aconn && (aconn->as_type == ADAPTIVE_SYNC_TYPE_PCON_ALLOWED ||
-+		      aconn->vsdb_info.replay_mode)) {
- 		pack_sdp_v1_3 = aconn->pack_sdp_v1_3;
- 
- 		if (aconn->vsdb_info.amd_vsdb_version == 1)
-@@ -13341,7 +13342,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 
- 	/* DP -> HDMI PCON */
- 	} else if (pcon_allowed && vsdb_freesync) {
--		amdgpu_dm_connector->as_type = FREESYNC_TYPE_PCON_IN_WHITELIST;
-+		amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_PCON_ALLOWED;
- 		amdgpu_dm_connector->pack_sdp_v1_3 = true;
- 		amdgpu_dm_connector->vsdb_info = vsdb_info;
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-index ddd64b7e4c04..5de8a6918e6a 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-@@ -48,11 +48,11 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
- 		struct dc_info_packet *info_packet);
- 
- enum adaptive_sync_type {
--	ADAPTIVE_SYNC_TYPE_NONE                  = 0,
--	ADAPTIVE_SYNC_TYPE_DP                    = 1,
--	FREESYNC_TYPE_PCON_IN_WHITELIST          = 2,
--	FREESYNC_TYPE_PCON_NOT_IN_WHITELIST      = 3,
--	ADAPTIVE_SYNC_TYPE_EDP                   = 4,
-+	ADAPTIVE_SYNC_TYPE_NONE             = 0,
-+	ADAPTIVE_SYNC_TYPE_DP               = 1,
-+	ADAPTIVE_SYNC_TYPE_PCON_ALLOWED     = 2,
-+	ADAPTIVE_SYNC_TYPE_PCON_NOT_ALLOWED = 3,
-+	ADAPTIVE_SYNC_TYPE_EDP              = 4,
- };
- 
- enum adaptive_sync_sdp_version {
 diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 00473c6284d5..294f56d20062 100644
+index 294f56d20062..1a1ddcdb4362 100644
 --- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
 +++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -590,7 +590,7 @@ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
- 		if (stream != NULL)
- 			mod_build_adaptive_sync_infopacket_v2(stream, param, info_packet);
- 		break;
--	case FREESYNC_TYPE_PCON_IN_WHITELIST:
-+	case ADAPTIVE_SYNC_TYPE_PCON_ALLOWED:
- 	case ADAPTIVE_SYNC_TYPE_EDP:
- 		if (stream && stream->link->replay_settings.config.replay_supported &&
- 			stream->link->replay_settings.config.replay_version == DC_VESA_PANEL_REPLAY)
-@@ -599,7 +599,7 @@ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
- 			mod_build_adaptive_sync_infopacket_v1(info_packet);
- 		break;
- 	case ADAPTIVE_SYNC_TYPE_NONE:
--	case FREESYNC_TYPE_PCON_NOT_IN_WHITELIST:
-+	case ADAPTIVE_SYNC_TYPE_PCON_NOT_ALLOWED:
- 	default:
- 		break;
+@@ -49,7 +49,10 @@ enum vsc_packet_revision {
+ };
+ 
+ #define HDMI_INFOFRAME_TYPE_VENDOR 0x81
+-#define HF_VSIF_VERSION 1
++#define HDMI_INFOFRAME_LENGTH_MASK 0x1F
++#define HF_VSIF_VERSION  1
++#define HF_VSIF_3D_BIT   0
++#define HF_VSIF_ALLM_BIT 1
+ 
+ // VTEM Byte Offset
+ #define VTEM_PB0		0
+@@ -496,9 +499,28 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
  	}
+ }
+ 
++static bool is_hdmi_vic_mode(const struct dc_stream_state *stream)
++{
++	bool allm = stream->link->local_sink->edid_caps.allm;
++	bool stereo = stream->view_format != VIEW_3D_FORMAT_NONE;
++
++	if (stream->timing.hdmi_vic == 0)
++		return false;
++
++	if (stream->timing.h_total < 3840 ||
++	    stream->timing.v_total < 2160)
++		return false;
++
++	if (stereo || allm)
++		return false;
++
++	return true;
++}
++
+ /**
+  *  mod_build_hf_vsif_infopacket - Prepare HDMI Vendor Specific info frame.
+  *                                 Follows HDMI Spec to build up Vendor Specific info frame
++ *                                 Conforms to h14b-vsif or hf-vsif based on the capabilities
+  *
+  *  @stream:      contains data we may need to construct VSIF (i.e. timing_3d_format, etc.)
+  *  @info_packet: output structure where to store VSIF
+@@ -506,63 +528,75 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+ 		struct dc_info_packet *info_packet)
+ {
+-		unsigned int length = 5;
+ 		bool hdmi_vic_mode = false;
++		bool allm = false;
++		bool stereo = false;
+ 		uint8_t checksum = 0;
+-		uint32_t i = 0;
++		uint8_t offset = 0;
++		uint8_t i = 0;
++		uint8_t length = 5;
++		uint32_t oui = HDMI_IEEE_OUI;
+ 		enum dc_timing_3d_format format;
+ 
+ 		info_packet->valid = false;
++
+ 		format = stream->timing.timing_3d_format;
+ 		if (stream->view_format == VIEW_3D_FORMAT_NONE)
+ 			format = TIMING_3D_FORMAT_NONE;
++		stereo = format != TIMING_3D_FORMAT_NONE;
++		hdmi_vic_mode = is_hdmi_vic_mode(stream);
+ 
+-		if (stream->timing.hdmi_vic != 0
+-				&& stream->timing.h_total >= 3840
+-				&& stream->timing.v_total >= 2160
+-				&& format == TIMING_3D_FORMAT_NONE)
+-			hdmi_vic_mode = true;
+-
+-		if ((format == TIMING_3D_FORMAT_NONE) && !hdmi_vic_mode)
++		if (!stereo && !hdmi_vic_mode && !allm)
+ 			return;
+ 
+-		info_packet->sb[1] = 0x03;
+-		info_packet->sb[2] = 0x0C;
+-		info_packet->sb[3] = 0x00;
++		if (allm)
++			oui = HDMI_FORUM_IEEE_OUI;
+ 
+-		if (format != TIMING_3D_FORMAT_NONE)
+-			info_packet->sb[4] = (2 << 5);
++		info_packet->sb[1] = oui & 0xff;
++		info_packet->sb[2] = (oui >> 8) & 0xff;
++		info_packet->sb[3] = (oui >> 16) & 0xff;
+ 
+-		else if (hdmi_vic_mode)
+-			info_packet->sb[4] = (1 << 5);
+-
+-		switch (format) {
+-		case TIMING_3D_FORMAT_HW_FRAME_PACKING:
+-		case TIMING_3D_FORMAT_SW_FRAME_PACKING:
+-			info_packet->sb[5] = (0x0 << 4);
+-			break;
+-
+-		case TIMING_3D_FORMAT_SIDE_BY_SIDE:
+-		case TIMING_3D_FORMAT_SBS_SW_PACKED:
+-			info_packet->sb[5] = (0x8 << 4);
+-			length = 6;
+-			break;
+-
+-		case TIMING_3D_FORMAT_TOP_AND_BOTTOM:
+-		case TIMING_3D_FORMAT_TB_SW_PACKED:
+-			info_packet->sb[5] = (0x6 << 4);
+-			break;
+-
+-		default:
+-			break;
++		if (oui == HDMI_FORUM_IEEE_OUI) {
++			offset = 2;
++			length += 2;
++			info_packet->sb[4] = HF_VSIF_VERSION;
++			info_packet->sb[5] = stereo << HF_VSIF_3D_BIT;
++			info_packet->sb[5] = allm << HF_VSIF_ALLM_BIT;
+ 		}
+ 
+-		if (hdmi_vic_mode)
++		if (stereo) {
++			info_packet->sb[4 + offset] = (2 << 5);
++
++			switch (format) {
++			case TIMING_3D_FORMAT_HW_FRAME_PACKING:
++			case TIMING_3D_FORMAT_SW_FRAME_PACKING:
++				info_packet->sb[5 + offset] = (0x0 << 4);
++				break;
++
++			case TIMING_3D_FORMAT_SIDE_BY_SIDE:
++			case TIMING_3D_FORMAT_SBS_SW_PACKED:
++				info_packet->sb[5 + offset] = (0x8 << 4);
++				++length;
++				break;
++
++			case TIMING_3D_FORMAT_TOP_AND_BOTTOM:
++			case TIMING_3D_FORMAT_TB_SW_PACKED:
++				info_packet->sb[5 + offset] = (0x6 << 4);
++				break;
++
++			default:
++				break;
++			}
++
++		/* Doesn't need the offset as it can't be used with hf-vsif */
++		} else if (hdmi_vic_mode) {
++			info_packet->sb[4] = (1 << 5);
+ 			info_packet->sb[5] = stream->timing.hdmi_vic;
++		}
+ 
+ 		info_packet->hb0 = HDMI_INFOFRAME_TYPE_VENDOR;
+ 		info_packet->hb1 = 0x01;
+-		info_packet->hb2 = (uint8_t) (length);
++		info_packet->hb2 = length & HDMI_INFOFRAME_LENGTH_MASK;
+ 
+ 		checksum += info_packet->hb0;
+ 		checksum += info_packet->hb1;
 -- 
 2.52.0
 
