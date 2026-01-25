@@ -4,66 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92EEFC88E6F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 204C1C88E6D
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1FD710E3CA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 967B510E3C9;
 	Mon, 26 Jan 2026 08:09:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="f2CdZlU3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LWZS2rBg";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE91F10E36A
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 16:07:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1769357278;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to; bh=pehOQwRLVUnKwmfNDz7t+7CRyqZIDgEsusANGj0Uc5c=;
- b=f2CdZlU3m9k9V78eLZpM9AvbXtA9UrxLMfxm+JY0KlkdXJl9tlHl6z7s0vzavmPeBLZin0
- vtWXPCW0jH9hxrIPVm9COzp7F9YJxSRMsB6DQjPS0zDk6UUlCaBCSwdzN5hi8oRO8jTf6Y
- YPTAS27k72Z7ld270E6asQXG+CrlAlc=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-626-EJ_A6oNuP3CBRjhniGKd5Q-1; Sun,
- 25 Jan 2026 11:07:53 -0500
-X-MC-Unique: EJ_A6oNuP3CBRjhniGKd5Q-1
-X-Mimecast-MFC-AGG-ID: EJ_A6oNuP3CBRjhniGKd5Q_1769357271
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id AFD5118003FC; Sun, 25 Jan 2026 16:07:51 +0000 (UTC)
-Received: from fedora (unknown [10.45.224.8])
- by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
- id D1A1B1955F66; Sun, 25 Jan 2026 16:07:45 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
- oleg@redhat.com; Sun, 25 Jan 2026 17:07:51 +0100 (CET)
-Date: Sun, 25 Jan 2026 17:07:44 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, Leon Romanovsky <leon@kernel.org>,
- Steven Price <steven.price@arm.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org
-Subject: [PATCH v2 5/7] drm/pan*: don't abuse current->group_leader
-Message-ID: <aXY_0MrQBZWKbbmA@redhat.com>
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2264D10E378
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 18:39:40 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-b8862767cf2so34951166b.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 10:39:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769366379; x=1769971179; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ecPuaGgfpB06f+q+wYbBx7hNGw3dVlBz9Vc5r6vMzJA=;
+ b=LWZS2rBgSGjRIk0F6u/ESybPtyJnADL6iJCS5fuin0Ezyq20XlHO0LS2DBcy6sWwWS
+ rYxhbqPE7g+PYRf0NUI4h5NFSvI8J3HL7iJQ8KvKkEmC5zUNBrs6acz39iKQjLLKUBuk
+ DZR3vc+bcfd94cQZPI+z+CBxk05BN/Y3A3OEsg3vlP9RL5RB8mbq/EBYsDX1DrP9ECIi
+ fMjm6NKRnSYhzFpmMZilZ6IxI7mwAMONjIoe7jXWQHeUEPkvY3gaMvNElDSzhC4mrWLF
+ lasK8I128S1BDWfymEFn2ltMM4S2j2PPTgv25cotQRpemJqiatKUcn1K+4GeslFjsPtR
+ Nn9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769366379; x=1769971179;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=ecPuaGgfpB06f+q+wYbBx7hNGw3dVlBz9Vc5r6vMzJA=;
+ b=S/PU4xYT81gBYxFaC4qhKCafIyICT7yJWLwpo3H/uPonUJmci5XGJKm/emWkUsZpeY
+ 5Rh7ZAuIT8MEYq92sqcF3U1XwPLpmfonlxublfaAaOTfDgy0JmJkKWiFDkl0kt4Nj6X+
+ YE/Lprlqm5HHveHBeH2C1xTl0FttMciQ/iIo+Xc1a0kgKrvkgdVTK3iz73LdKOfiFHPw
+ BbpKEg3yPoR7w+LNBwGiSpOcpvk+FvRlNmu886UWrmUevAW+9BcD8OPfqCDg8gAmuAyQ
+ +5dFC+C5u33YGmaAllZjOO1tIkgJZJgWyCqoSnhlUwPWrpIWdZx8phW0RKGvYZ+PZPJJ
+ 46RA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXnT999otnAPtCvXkGSNqJlmbtbYv0KAVAOVo4kguC15MvuV+o4ij68evzJnitXTReF51AZ9f0x@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxUDkJdnqycUub5ELsgOc6XdvbnaFAwp+jcn+7opAitHgz5OBIu
+ 6hKV/Hfc0o5+ZG3WIqxKuv8CEkN4zyeGN3ZU/HTVu7VXNvqyqqaasqIM
+X-Gm-Gg: AZuq6aKyycFndYJ8AJkcnsaayPSbFD3BrgeLIfK0U6xmBr4o1z43RIsGN3CbvI5SOSf
+ EP6TbKaSXkQGGMonK//lMijY67kgHh2Vz6Ti9akGiK6bQHgNY9Y7wyn4SMZJejZW1LS522LQ39c
+ 95jSw9iEeHagKr1/5sYoJWAyufJJT0U20tkSi5o9sAO7IC53oWZMx7QmMCfR3674zwRUGr2c1L7
+ vAOkcWqQUwMSyOXuvw2bJkxxjvhLPW5czKiy7p8/OCzVa8aESF0LaAtsbYO6CAYi9JvstvpfXKB
+ 4nrriwHXu13tvjuImlEIJ2pnkSmD9ck/eR6KCun5DK5IapzYfSGCgvVoVb6dvyj0Ld2zPN2haIR
+ KKPvHw1XE3b90UmxS+vZexyKkUUdN9mCXnWjVhJKCFib8lyLuF4JmWUpbuZt6JVJxm8mPqptL40
+ isjdowLgVbu4xUINJD9X63lsrH2Y+eQHvauH8bhGTrEBpkZonyk1/ZzXrsfwWBhR5P
+X-Received: by 2002:a17:907:c28:b0:b87:106c:88eb with SMTP id
+ a640c23a62f3a-b8d20d64cdcmr80438666b.0.1769366378380; 
+ Sun, 25 Jan 2026 10:39:38 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b885b3dad3asm499133766b.12.2026.01.25.10.39.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 25 Jan 2026 10:39:38 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
+ bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
+Subject: [PATCH v2 16/19] drm/amd/display: Add parameter to control ALLM
+ behavior
+Date: Sun, 25 Jan 2026 19:39:11 +0100
+Message-ID: <20260125183914.459228-17-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aXY_h8i78n6yD9JY@redhat.com>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 26 Jan 2026 08:09:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,44 +96,195 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cleanup and preparation to simplify the next changes.
+[Why]
+Some users prefer to always manually control ALLM/Gaming mode while
+others might want it permanently forced on.
 
-Use current->tgid instead of current->group_leader->pid.
+[How]
+Since there isn't yet an API to control this, expose module paramter
 
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-Acked-by: Boris Brezillon <boris.brezillon@collabora.com>
-Acked-by: Steven Price <steven.price@arm.com>
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_gem.c | 2 +-
- drivers/gpu/drm/panthor/panthor_gem.c   | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 14 ++++++-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  7 +---
+ .../amd/display/modules/inc/mod_info_packet.h |  1 +
+ .../display/modules/info_packet/info_packet.c | 42 +++++++++++++++----
+ 5 files changed, 52 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/panfrost/panfrost_gem.c
-index 8041b65c6609..1ff1f2c8b726 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-@@ -17,7 +17,7 @@
- static void panfrost_gem_debugfs_bo_add(struct panfrost_device *pfdev,
- 					struct panfrost_gem_object *bo)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 9c11535c44c6..c9eab44ad5b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -268,6 +268,7 @@ extern int amdgpu_rebar;
+ 
+ extern int amdgpu_wbrf;
+ extern int amdgpu_user_queue;
++extern int amdgpu_allm_mode;
+ 
+ extern uint amdgpu_hdmi_hpd_debounce_delay_ms;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 771c89c84608..3bdbb46e4d69 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -248,6 +248,7 @@ int amdgpu_umsch_mm_fwlog;
+ int amdgpu_rebar = -1; /* auto */
+ int amdgpu_user_queue = -1;
+ uint amdgpu_hdmi_hpd_debounce_delay_ms;
++int amdgpu_allm_mode = 1;
+ 
+ DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
+ 			"DRM_UT_CORE",
+@@ -1124,7 +1125,7 @@ module_param_named(rebar, amdgpu_rebar, int, 0444);
+ MODULE_PARM_DESC(user_queue, "Enable user queues (-1 = auto (default), 0 = disable, 1 = enable, 2 = enable UQs and disable KQs)");
+ module_param_named(user_queue, amdgpu_user_queue, int, 0444);
+ 
+-/*
++/** */
+  * DOC: hdmi_hpd_debounce_delay_ms (uint)
+  * HDMI HPD disconnect debounce delay in milliseconds.
+  *
+@@ -1134,6 +1135,17 @@ module_param_named(user_queue, amdgpu_user_queue, int, 0444);
+ MODULE_PARM_DESC(hdmi_hpd_debounce_delay_ms, "HDMI HPD disconnect debounce delay in milliseconds (0 to disable (by default), 1500 is common)");
+ module_param_named(hdmi_hpd_debounce_delay_ms, amdgpu_hdmi_hpd_debounce_delay_ms, uint, 0644);
+ 
++/**
++ * DOC: allm_mode (int)
++ * Changes ALLM triggering mode (if sink supports ALLM). Possible values:
++ *
++ * -  0 = ALLM disabled
++ * -  1 = ALLM dynamically triggered based on VRR state / Game Content Type Hint
++ * -  2 = ALLM forced always on
++ */
++MODULE_PARM_DESC(allm_mode, "Changes ALLM trigger mode (0 = disable, 1 = enable (default), 2 = force enable)");
++module_param_named(allm_mode, amdgpu_allm_mode, int, 0644);
++
+ /* These devices are not supported by amdgpu.
+  * They are supported by the mach64, r128, radeon drivers
+  */
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 4a7c9f810e35..b779aac28dfa 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -44,6 +44,7 @@
+ #include "clk_mgr.h"
+ #include "dc_state_priv.h"
+ #include "dc_stream_priv.h"
++#include "modules/inc/mod_info_packet.h"
+ 
+ #include "virtual/virtual_link_hwss.h"
+ #include "link/hwss/link_hwss_dio.h"
+@@ -4503,8 +4504,6 @@ static void set_avi_info_frame(
+ 	unsigned int vic = pipe_ctx->stream->timing.vic;
+ 	unsigned int rid = pipe_ctx->stream->timing.rid;
+ 	unsigned int fr_ind = pipe_ctx->stream->timing.fr_index;
+-	enum dc_timing_3d_format format;
+-	bool allm;
+ 
+ 	if (stream->avi_infopacket.valid) {
+ 		*info_packet = stream->avi_infopacket;
+@@ -4658,10 +4657,8 @@ static void set_avi_info_frame(
+ 	///VIC
+ 	if (pipe_ctx->stream->timing.hdmi_vic != 0)
+ 		vic = 0;
+-	format = stream->timing.timing_3d_format;
+-	allm = stream->link->local_sink->edid_caps.allm;
+ 	/*todo, add 3DStereo support*/
+-	if ((format != TIMING_3D_FORMAT_NONE) || allm) {
++	if (!is_hdmi_vic_mode(pipe_ctx->stream)) {
+ 		// Based on HDMI specs hdmi vic needs to be converted to cea vic when 3D is enabled
+ 		switch (pipe_ctx->stream->timing.hdmi_vic) {
+ 		case 1:
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+index 306eb7355c25..9ec123ecc7c4 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+@@ -41,6 +41,7 @@ void set_vsc_packet_colorimetry_data(
+ 		enum dc_color_space cs,
+ 		enum color_transfer_func tf);
+ 
++bool is_hdmi_vic_mode(const struct dc_stream_state *stream);
+ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ 		struct dc_info_packet *info_packet,
+ 		enum dc_color_space cs,
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index 0db2db7a197f..7516ab9a7554 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -23,12 +23,13 @@
+  *
+  */
+ 
+-#include "mod_info_packet.h"
++#include "amdgpu.h"
+ #include "core_types.h"
+-#include "dc_types.h"
+-#include "mod_shared.h"
+-#include "mod_freesync.h"
+ #include "dc.h"
++#include "dc_types.h"
++#include "mod_freesync.h"
++#include "mod_info_packet.h"
++#include "mod_shared.h"
+ 
+ enum vsc_packet_revision {
+ 	vsc_packet_undefined = 0,
+@@ -54,6 +55,12 @@ enum vsc_packet_revision {
+ #define HF_VSIF_3D_BIT   0
+ #define HF_VSIF_ALLM_BIT 1
+ 
++enum allm_trigger_mode {
++	ALLM_MODE_DISABLED        = 0,
++	ALLM_MODE_ENABLED_DYNAMIC = 1,
++	ALLM_MODE_ENABLED_FORCED  = 2,
++};
++
+ // VTEM Byte Offset
+ #define VTEM_PB0		0
+ #define VTEM_PB1		1
+@@ -499,9 +506,30 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ 	}
+ }
+ 
+-static bool is_hdmi_vic_mode(const struct dc_stream_state *stream)
++static bool is_hdmi_allm_mode(const struct dc_stream_state *stream)
  {
--	bo->debugfs.creator.tgid = current->group_leader->pid;
-+	bo->debugfs.creator.tgid = current->tgid;
- 	get_task_comm(bo->debugfs.creator.process_name, current->group_leader);
+-	bool allm = stream->link->local_sink->edid_caps.allm;
++	/* Sink doesn't expose ALLM support in edid */
++	if (!stream->link->local_sink->edid_caps.allm)
++		return false;
++
++	switch (amdgpu_allm_mode) {
++	case ALLM_MODE_DISABLED:
++		return false;
++
++	case ALLM_MODE_ENABLED_DYNAMIC:
++		break;
++
++	case ALLM_MODE_ENABLED_FORCED:
++		return true;
++	}
++
++	return stream->content_type == DISPLAY_CONTENT_TYPE_GAME ||
++	       stream->vrr_active_variable;
++}
++
++bool is_hdmi_vic_mode(const struct dc_stream_state *stream)
++{
++	bool allm = is_hdmi_allm_mode(stream);
+ 	bool stereo = stream->view_format != VIEW_3D_FORMAT_NONE;
  
- 	mutex_lock(&pfdev->debugfs.gems_lock);
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index fbde78db270a..29cc57efc4b9 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -27,7 +27,7 @@ static void panthor_gem_debugfs_bo_add(struct panthor_gem_object *bo)
- 	struct panthor_device *ptdev = container_of(bo->base.base.dev,
- 						    struct panthor_device, base);
+ 	if (stream->timing.hdmi_vic == 0)
+@@ -540,7 +568,7 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
  
--	bo->debugfs.creator.tgid = current->group_leader->pid;
-+	bo->debugfs.creator.tgid = current->tgid;
- 	get_task_comm(bo->debugfs.creator.process_name, current->group_leader);
+ 		info_packet->valid = false;
  
- 	mutex_lock(&ptdev->gems.lock);
+-		allm = stream->link->local_sink->edid_caps.allm;
++		allm = is_hdmi_allm_mode(stream);
+ 		format = stream->view_format == VIEW_3D_FORMAT_NONE ?
+ 			 TIMING_3D_FORMAT_NONE :
+ 			 stream->timing.timing_3d_format;
 -- 
 2.52.0
 
