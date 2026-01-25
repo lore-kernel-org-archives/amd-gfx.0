@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F10E7C88E6D
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81F26C88E71
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 504C910E3D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FC7A10E3D5;
 	Mon, 26 Jan 2026 08:09:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="L4KnWdRu";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="jF84Aftu";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D98F10E15E
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 16:07:36 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60E7D10E36A
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 16:08:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1769357255;
+ s=mimecast20190719; t=1769357286;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to; bh=UzFafadD/xFA5DaIbLPJfWcnaK2KSCnXdhRnlT6y1nw=;
- b=L4KnWdRuO84cHRYVGidZvhns9F1gi+n+VHp4/Fgb80j2F3xW6g84B0nG04QE2kLCYi3iks
- ILcYmh4E7JJCqMknI4YiSOYiZ2oCPp8BuVPE/j198OVXUv9id/MXGESvzimMs7YhGESyv2
- IlnEbr3i58lERx1M+b46qfXQeWy4aEM=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ in-reply-to:in-reply-to; bh=HrD77nnUD5+g3lYcCoxySqlUnDsJXTXJVFnNYlfN8DQ=;
+ b=jF84Aftu8wwia0tbD2eD507gDD3UGo8kvxdAtQktGPlPxcuDk/FtFm3CV4nE3G1ptLfEt+
+ zFHbJ8sm32F7B0KP/SLIoQPuZVEjW0JixxO8uSXPu+YkZUIBdafdNsC/cA+uxUPNcHc3t7
+ GI2l+JniQJdEtNykFetCnenj9HPff0Y=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-544-3eIJo3prPQijK62EceRZWA-1; Sun,
- 25 Jan 2026 11:07:30 -0500
-X-MC-Unique: 3eIJo3prPQijK62EceRZWA-1
-X-Mimecast-MFC-AGG-ID: 3eIJo3prPQijK62EceRZWA_1769357247
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-389-LWAytPJHP9aniaYx8R5iLA-1; Sun,
+ 25 Jan 2026 11:08:01 -0500
+X-MC-Unique: LWAytPJHP9aniaYx8R5iLA-1
+X-Mimecast-MFC-AGG-ID: LWAytPJHP9aniaYx8R5iLA_1769357279
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id CFB261800342; Sun, 25 Jan 2026 16:07:27 +0000 (UTC)
+ by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id ACB5C1955D84; Sun, 25 Jan 2026 16:07:59 +0000 (UTC)
 Received: from fedora (unknown [10.45.224.8])
- by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
- id 0EC9930001A7; Sun, 25 Jan 2026 16:07:21 +0000 (UTC)
+ by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
+ id CE9F51956053; Sun, 25 Jan 2026 16:07:53 +0000 (UTC)
 Received: by fedora (nbSMTP-1.00) for uid 1000
- oleg@redhat.com; Sun, 25 Jan 2026 17:07:27 +0100 (CET)
-Date: Sun, 25 Jan 2026 17:07:20 +0100
+ oleg@redhat.com; Sun, 25 Jan 2026 17:07:59 +0100 (CET)
+Date: Sun, 25 Jan 2026 17:07:52 +0100
 From: Oleg Nesterov <oleg@redhat.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Alice Ryhl <aliceryhl@google.com>,
@@ -57,14 +57,13 @@ Cc: Alice Ryhl <aliceryhl@google.com>,
  Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-rdma@vger.kernel.org, netdev@vger.kernel.org
-Subject: [PATCH v2 2/7] android/binder: use same_thread_group(proc->tsk,
- current) in binder_mmap()
-Message-ID: <aXY_uPYyUg4rwNOg@redhat.com>
+Subject: [PATCH v2 6/7] RDMA/umem: don't abuse current->group_leader
+Message-ID: <aXY_2JIhCeGAYC0r@redhat.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <aXY_h8i78n6yD9JY@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 X-Mailman-Approved-At: Mon, 26 Jan 2026 08:09:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,29 +79,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With or without this change the checked condition can be falsely true
-if proc->tsk execs, but this is fine: binder_alloc_mmap_handler() checks
-vma->vm_mm == alloc->mm.
+Cleanup and preparation to simplify the next changes.
+
+Use current->tgid instead of current->group_leader->pid.
 
 Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Acked-by: Leon Romanovsky <leon@kernel.org>
 ---
- drivers/android/binder.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/infiniband/core/umem_odp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-index dea701daabb0..b3b73303f84d 100644
---- a/drivers/android/binder.c
-+++ b/drivers/android/binder.c
-@@ -6015,7 +6015,7 @@ static int binder_mmap(struct file *filp, struct vm_area_struct *vma)
- {
- 	struct binder_proc *proc = filp->private_data;
+diff --git a/drivers/infiniband/core/umem_odp.c b/drivers/infiniband/core/umem_odp.c
+index 572a91a62a7b..32267258a19c 100644
+--- a/drivers/infiniband/core/umem_odp.c
++++ b/drivers/infiniband/core/umem_odp.c
+@@ -149,7 +149,7 @@ struct ib_umem_odp *ib_umem_odp_alloc_implicit(struct ib_device *device,
+ 	umem->owning_mm = current->mm;
+ 	umem_odp->page_shift = PAGE_SHIFT;
  
--	if (proc->tsk != current->group_leader)
-+	if (!same_thread_group(proc->tsk, current))
- 		return -EINVAL;
+-	umem_odp->tgid = get_task_pid(current->group_leader, PIDTYPE_PID);
++	umem_odp->tgid = get_task_pid(current, PIDTYPE_TGID);
+ 	ib_init_umem_implicit_odp(umem_odp);
+ 	return umem_odp;
+ }
+@@ -258,7 +258,7 @@ struct ib_umem_odp *ib_umem_odp_get(struct ib_device *device,
+ 		umem_odp->page_shift = HPAGE_SHIFT;
+ #endif
  
- 	binder_debug(BINDER_DEBUG_OPEN_CLOSE,
+-	umem_odp->tgid = get_task_pid(current->group_leader, PIDTYPE_PID);
++	umem_odp->tgid = get_task_pid(current, PIDTYPE_TGID);
+ 	ret = ib_init_umem_odp(umem_odp, ops);
+ 	if (ret)
+ 		goto err_put_pid;
 -- 
 2.52.0
 
