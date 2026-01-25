@@ -4,83 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C57BAC88E64
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30555C88E71
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF7B10E3C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC5B10E3DB;
 	Mon, 26 Jan 2026 08:09:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b1QjkTuV";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Zzxs8gHF";
 	dkim-atps=neutral
-Received: from mail-ej1-f67.google.com (mail-ej1-f67.google.com
- [209.85.218.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2B9A10E207
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 18:39:25 +0000 (UTC)
-Received: by mail-ej1-f67.google.com with SMTP id
- a640c23a62f3a-b8859d3e1c3so43983766b.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 10:39:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769366364; x=1769971164; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7MhJNXHQ/ZzkYdK/mC1IYoZJ62H8eejAR4KssW2i5ac=;
- b=b1QjkTuVq8anktK1L6e+VC+lUCF9ZZgqtqSztN9nj7VccC73G0oHOYqGCyPuAP9lEa
- HilZFhtrGSmYmkEZU0TyqPAPGxWnbwla9NJCrjgyF/XTuojGgrlHid9szGGy+IfVGuGG
- ARs4DFrFe8YlW+s2Xav/hJojFtcddNhCil/XWNXVEYEN2Nsc98vIC2R788yx9ewWfSOB
- JGAU6UvCEGinNs20lBJYV5mAUWJzsHKSKMbnKDPuB3kCVJCdQVMJdjGfom1wvS72OAoW
- awhvQj7u3ZnUJ7WQXy+BAcltRVWHgED6tthya2qPehtBRJG3T1P4R6EWcqqHZYJEYGHy
- el1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769366364; x=1769971164;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=7MhJNXHQ/ZzkYdK/mC1IYoZJ62H8eejAR4KssW2i5ac=;
- b=R7SxK0y3M0X6GEsxKnE4JMU9uwPoZFF9SkQ2Cnw0U5GT3o2HDUSyaZODXa7OSbw1a3
- PhEEM2QwJtESYVmmoLrPd5dm8jlj2+lmdgmNKPnZJIqV7ufIcU1zUP4uG9bwDn3mWcye
- isfWDtacU7zmU0bAAVeg5HejF89561m1Metgbk4jv+2HHRwF+mzM1oVBB/C37Qc54rGq
- xDf9P4pat1I61Z7oFjiiXjY5nhOjk+dml54qB9xTc/2mst4+5ifLpfkg5MRQhdrVlqMC
- HHJdFL7Yx/oHIsUa96jJTiKlenxtJUVl+jhXuo3LTtm3W5Dg6cKEFjRPAZqSjA7CXcMj
- nRVg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVPaB4jOKjStUzt/meFM/8djbRtvBt5YTnuI1Ne1HbwQ/Kwq5CLRb0xVWwTFgPPCE2gjtK3SEZ/@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyXCN1mWUXR55iCxOnEjMa4pVt9ggUl2KPN5prWec2C59gBeocL
- nuat3Yi7GuAk8GucoT5H8hyG1exDQgHh90g6uZX6chYDPHEKUNmLVuIz
-X-Gm-Gg: AZuq6aKYc+bHWmTLPzjjs6EDnsXqgXbLeXKuJUDi/h+Fd+jhsmmzzVNaD4td+hrduWB
- m/kuvCteoGbbAHUZtXCyou07dnncD+ltdB7d8KYdwpzVHQDiMyrQBWuyw9xXwM2HZTBP9NqlQnN
- 5IY3We+2LsMczUwSmVpMRp4NuIQuNEv1XFnZ+r0wSIFFPuBEH9gQQOTXlALaSm0TziSzjvKXw04
- A6KhsTRRQOmQwQ2E0H9bMARMRGrAwH9kmYvGr8orNWTKT4z5QU+NMCXtLnSYvwvJ51XqFf3X1h5
- EseDQNjMR67HWeJB/8rOEC1yylIMrfXXc6bYnqrJJpS+9+8Tk5tPsrZAuYdsBrL54iE2rpFhx0b
- 6Hjh08owu1Fig+emseEyhmJ+Cr7vjeU9o92WhXOuL8tcrg6cZHcO+TSywXmVD5U7tUEZ61sOr1w
- w3zcZvbBpJwbz123n22XqcqJvZPGNSWBX4BP/wMrmsctGs8GpAT3YVHJ4mTKcl9nFx
-X-Received: by 2002:a17:907:c28:b0:b87:106c:88eb with SMTP id
- a640c23a62f3a-b8d20d64cdcmr80420966b.0.1769366363818; 
- Sun, 25 Jan 2026 10:39:23 -0800 (PST)
-Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b885b3dad3asm499133766b.12.2026.01.25.10.39.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Jan 2026 10:39:23 -0800 (PST)
-From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: alexander.deucher@amd.com,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
- bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
-Subject: [PATCH v2 05/19] drm/amd/display: Refactor PCON VRR compatibility
- check
-Date: Sun, 25 Jan 2026 19:39:00 +0100
-Message-ID: <20260125183914.459228-6-tomasz.pakula.oficjalny@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
-References: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A659410E06B
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 16:06:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1769357205;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+ bh=6XHVeVhJgsFiFSaz4pxwz0WF8NA7U9e0c68zypE8Q6g=;
+ b=Zzxs8gHFoJgFTimprGxlocrDzFlW2yf8dc9dwzHn0Ql4AirrE/R0mJN4ry7z5NclGRzCye
+ 65TqcmO8XfVDZSYtDXBqVAVBU0ek/iiFz2a43KBrGIEEuepu30W7Mz/M6QnxZ3udLaMttw
+ 7iCJpxh05U6xbfs9Q9lu2mA0A3wxG1w=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-82-IolnCAo-OX6IbJfKHl6ZvQ-1; Sun,
+ 25 Jan 2026 11:06:41 -0500
+X-MC-Unique: IolnCAo-OX6IbJfKHl6ZvQ-1
+X-Mimecast-MFC-AGG-ID: IolnCAo-OX6IbJfKHl6ZvQ_1769357199
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 05828195608D; Sun, 25 Jan 2026 16:06:39 +0000 (UTC)
+Received: from fedora (unknown [10.45.224.8])
+ by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
+ id 1F3C330001A7; Sun, 25 Jan 2026 16:06:32 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+ oleg@redhat.com; Sun, 25 Jan 2026 17:06:38 +0100 (CET)
+Date: Sun, 25 Jan 2026 17:06:31 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Alice Ryhl <aliceryhl@google.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>, Leon Romanovsky <leon@kernel.org>,
+ Steven Price <steven.price@arm.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, netdev@vger.kernel.org
+Subject: [PATCH v2 0/7] don't abuse task_struct.group_leader
+Message-ID: <aXY_h8i78n6yD9JY@redhat.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 X-Mailman-Approved-At: Mon, 26 Jan 2026 08:09:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,159 +78,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-DP->HDMI PCONs prevously entered the DP path
+Andrew, can you take these simple cleanups?
 
-[How]
-Restructure amdgpu_dm_update_freesync_caps() and move
-dm_get_adaptive_sync_support_type() to dm_helpers_is_vrr_pcon_allowed()
-to better reflect what this function does. It never actually gave us any
-other info.
+The patches do not depend on each other, this series just removes
+the usage of ->group_leader when it is "obviously unnecessary".
 
-Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+I am going to move ->group_leader from task_struct to signal_struct
+or at least add the new task_group_leader() helper. So I will send
+more tree-wide changes on top of this series.
+
+Link to V1: https://lore.kernel.org/all/aTV1KYdcDGvjXHos@redhat.com/
+
+V2 doesn't differ, I only added the acks I got (thanks!).
+
+7/7 was not reviewed, but looks really trivial.
+
+Oleg.
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 25 +++++++-----
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 39 ++++++-------------
- drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  2 +-
- 3 files changed, 28 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 68a59275dead..33b76c1850b1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -13259,7 +13259,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	bool freesync_capable = false;
- 	bool valid_vsdb_cea = false;
- 	bool vsdb_freesync = false;
--	enum adaptive_sync_type as_type = ADAPTIVE_SYNC_TYPE_NONE;
-+	bool pcon_allowed = false;
-+	bool is_pcon = false;
- 
- 	if (!connector->state) {
- 		drm_err(adev_to_drm(adev), "%s - Connector has no state", __func__);
-@@ -13287,18 +13288,24 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
- 		goto update;
- 
-+	/* Gather all data */
- 	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
- 	valid_vsdb_cea = parse_amd_vsdb_cea(amdgpu_dm_connector, edid, &vsdb_info) >= 0;
- 	vsdb_freesync = valid_vsdb_cea && vsdb_info.freesync_supported;
--	if (amdgpu_dm_connector->dc_link)
-+
-+	if (amdgpu_dm_connector->dc_link) {
- 		dpcd_caps = amdgpu_dm_connector->dc_link->dpcd_caps;
-+		is_pcon = dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER;
-+		pcon_allowed = dm_helpers_is_vrr_pcon_allowed(amdgpu_dm_connector->dc_link);
-+	}
- 
- 	/* Some eDP panels only have the refresh rate range info in DisplayID */
- 	if (is_monitor_range_invalid(connector))
- 		parse_edid_displayid_vrr(connector, edid);
- 
--	if (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
--	    sink->sink_signal == SIGNAL_TYPE_EDP) {
-+	/* DP & eDP excluding PCONs */
-+	if ((sink->sink_signal == SIGNAL_TYPE_EDP ||
-+	     sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT) && !is_pcon) {
- 		/*
- 		 * Many monitors expose AMD vsdb in CAE even for DP and their
- 		 * monitor ranges do not contain Range Limits Only flag
-@@ -13323,17 +13330,15 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 			amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_EDP;
- 		}
- 
-+	/* HDMI */
- 	} else if (sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A && vsdb_freesync) {
- 		monitor_range_from_vsdb(connector, &vsdb_info);
- 		freesync_capable = copy_range_to_amdgpu_connector(connector);
--	}
- 
--	if (amdgpu_dm_connector->dc_link)
--		as_type = dm_get_adaptive_sync_support_type(amdgpu_dm_connector->dc_link);
--
--	if (as_type == FREESYNC_TYPE_PCON_IN_WHITELIST && vsdb_freesync) {
-+	/* DP -> HDMI PCON */
-+	} else if (pcon_allowed && vsdb_freesync) {
-+		amdgpu_dm_connector->as_type = FREESYNC_TYPE_PCON_IN_WHITELIST;
- 		amdgpu_dm_connector->pack_sdp_v1_3 = true;
--		amdgpu_dm_connector->as_type = as_type;
- 		amdgpu_dm_connector->vsdb_info = vsdb_info;
- 
- 		monitor_range_from_vsdb(connector, &vsdb_info);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 1f41d6540b83..45a91df619d9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -1381,40 +1381,25 @@ void dm_helpers_dp_mst_update_branch_bandwidth(
- 	// TODO
- }
- 
--static bool dm_is_freesync_pcon_whitelist(const uint32_t branch_dev_id)
-+bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link)
- {
--	bool ret_val = false;
-+	if (link->dpcd_caps.dongle_type != DISPLAY_DONGLE_DP_HDMI_CONVERTER)
-+		return false;
- 
--	switch (branch_dev_id) {
-+	if (!link->dpcd_caps.allow_invalid_MSA_timing_param)
-+		return false;
-+
-+	if (!link->dpcd_caps.adaptive_sync_caps.dp_adap_sync_caps.bits.ADAPTIVE_SYNC_SDP_SUPPORT)
-+		return false;
-+
-+	switch (link->dpcd_caps.branch_dev_id) {
- 	case DP_BRANCH_DEVICE_ID_0060AD:
- 	case DP_BRANCH_DEVICE_ID_00E04C:
- 	case DP_BRANCH_DEVICE_ID_90CC24:
--		ret_val = true;
--		break;
--	default:
--		break;
-+		return true;
- 	}
- 
--	return ret_val;
--}
--
--enum adaptive_sync_type dm_get_adaptive_sync_support_type(struct dc_link *link)
--{
--	struct dpcd_caps *dpcd_caps = &link->dpcd_caps;
--	enum adaptive_sync_type as_type = ADAPTIVE_SYNC_TYPE_NONE;
--
--	switch (dpcd_caps->dongle_type) {
--	case DISPLAY_DONGLE_DP_HDMI_CONVERTER:
--		if (dpcd_caps->adaptive_sync_caps.dp_adap_sync_caps.bits.ADAPTIVE_SYNC_SDP_SUPPORT == true &&
--			dpcd_caps->allow_invalid_MSA_timing_param == true &&
--			dm_is_freesync_pcon_whitelist(dpcd_caps->branch_dev_id))
--			as_type = FREESYNC_TYPE_PCON_IN_WHITELIST;
--		break;
--	default:
--		break;
--	}
--
--	return as_type;
-+	return false;
- }
- 
- bool dm_helpers_is_fullscreen(struct dc_context *ctx, struct dc_stream_state *stream)
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-index 7014b8c2c956..e51f1e489129 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-@@ -220,10 +220,10 @@ int dm_helpers_dmub_set_config_sync(struct dc_context *ctx,
- 		const struct dc_link *link,
- 		struct set_config_cmd_payload *payload,
- 		enum set_config_status *operation_result);
--enum adaptive_sync_type dm_get_adaptive_sync_support_type(struct dc_link *link);
- 
- enum dc_edid_status dm_helpers_get_sbios_edid(struct dc_link *link, struct dc_edid *edid);
- 
-+bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link);
- bool dm_helpers_is_fullscreen(struct dc_context *ctx, struct dc_stream_state *stream);
- bool dm_helpers_is_hdr_on(struct dc_context *ctx, struct dc_stream_state *stream);
- 
--- 
-2.52.0
+ drivers/android/binder.c                         |  9 ++++-----
+ drivers/android/binder_alloc.c                   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           |  5 +----
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c         | 10 ----------
+ drivers/gpu/drm/panfrost/panfrost_gem.c          |  2 +-
+ drivers/gpu/drm/panthor/panthor_gem.c            |  2 +-
+ drivers/infiniband/core/umem_odp.c               |  4 ++--
+ net/core/netclassid_cgroup.c                     |  2 +-
+ 9 files changed, 12 insertions(+), 26 deletions(-)
 
