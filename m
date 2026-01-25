@@ -4,69 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69B80C88E6B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2225C88E75
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DAED10E3D6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EACA810E3DA;
 	Mon, 26 Jan 2026 08:09:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="FV0NObKJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I8pgK79v";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 052A210E36A
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 16:07:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1769357271;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:  in-reply-to:in-reply-to; 
- bh=HX7g4ZyLO3QeN4rHwQXwu4GirpPKoFXznz/m5O/wqpg=;
- b=FV0NObKJnN+AoPnAJ2lOx2WgFZSfPpEbnFPbJnWAptrKOgY0FNOOdJDdorHN90+VN3ZqRm
- 2h0WmY0ePGBsu3pi2gHF9Xj7RzS9aeNN0Z14M/g2/pQiI698lmOzGvhTeh6xvhTM9GF7rq
- FigC8ymkDbg5O1blWvD6F2C28HAVtIk=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-433-8vLhMG4tMRe8EuN-kyIaCA-1; Sun,
- 25 Jan 2026 11:07:46 -0500
-X-MC-Unique: 8vLhMG4tMRe8EuN-kyIaCA-1
-X-Mimecast-MFC-AGG-ID: 8vLhMG4tMRe8EuN-kyIaCA_1769357264
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id B313A195608D; Sun, 25 Jan 2026 16:07:43 +0000 (UTC)
-Received: from fedora (unknown [10.45.224.8])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP
- id EDD351800665; Sun, 25 Jan 2026 16:07:37 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
- oleg@redhat.com; Sun, 25 Jan 2026 17:07:43 +0100 (CET)
-Date: Sun, 25 Jan 2026 17:07:36 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Felix Kuehling <felix.kuehling@amd.com>, Leon Romanovsky <leon@kernel.org>,
- Steven Price <steven.price@arm.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, netdev@vger.kernel.org
-Subject: [PATCH v2 4/7] drm/amd: kill the outdated "Only the pthreads
- threading model is supported" checks
-Message-ID: <aXY_yLVHd63UlWtm@redhat.com>
+Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com
+ [209.85.218.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1234510E372
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 18:39:28 +0000 (UTC)
+Received: by mail-ej1-f68.google.com with SMTP id
+ a640c23a62f3a-b86ff9ff9feso61562466b.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 10:39:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769366366; x=1769971166; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=WUEpNBWo+nSLTU4UotiQVijk+9VhpRak/nFSgqx/fMg=;
+ b=I8pgK79vsKu/Pl1qoKDi8mSwoLvW+tIxVpQkgVQiVL/0Ln4JIRn5UkJUXS/SIXY1CY
+ KFacVu1XFqKbCGJLe9JMerEB4YuxyIwiPirkC6jGWEBm8+JGrKTLy7d4gh0ZfmQMbn4G
+ SMEozrqj0Tllets86HTvyHxV2/5Y9pYNY1HNmJBzHQNKkHO3LMBVUZYr5XbjxmIYoqsU
+ 0S0c9mahELFVxNW6FN3sDnygLHxYxPQHSobi15Zc50mDHarz2YdzwHc4T4Kapue9xzYh
+ 36OBDO4l3OWO0/bnOfSE9HfR8bRr3DvGTPt9ioEydXpGGQw4PNR2mib1/Mt7FXXeN/zV
+ I3+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769366366; x=1769971166;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=WUEpNBWo+nSLTU4UotiQVijk+9VhpRak/nFSgqx/fMg=;
+ b=Qw5Pn5qfYBFk7epvXbURU3j4f5sAAoaIz7gpBqcOOXo/4KLizmQXC1RJ666YT++XjV
+ Sq1lhzogjQe4Ouhv5xkF+k5kKkr1vAMmTIiwNthVkB4KKPb9e2Of/ZY0viv7WQudKT+r
+ 3zd/zAVTS3s7Xhr8C0znRzfoATRYygEbZLfZlbKj604prCiE6vYOVKKWwG22QYcSLnpa
+ lRBGhbm2L/o0boCwLDcrk/xbZmLCc5fdb8n1ZRQYckNRKco+u7lx2Pabd9fitjKs2fMw
+ UONBGTCJy5P4Mi5CTW6lBsmVCWCBRBa0eS+9uZKwScNjnXUXqYoqQhWkl8T34qBeqCro
+ dvnw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX7/ZwaZDBhEVmiyCGfT0+WrSTmBiQlbFeUj1w6N9ABGz7quN/wbq1t+Q7qAa5dqqU8Km8yPog8@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxG1ms3iDi9rJYFLzxnBsoSrcajTSCDvU6nB75NkpBzE284AaQ5
+ 0CShqURREoSt5GCDCwbUcaxvGQWcDP4jrMtYkkGY4Zy+gJ3Qgf6f6c/v
+X-Gm-Gg: AZuq6aKETF6N7Z3lEhpfmHHuF0aX2PeZ9ke0Z6+F/kpZqAngJYr70/Qg9VqgMh93ngt
+ +macIAQJzi9vGBIZgAZaevIeLL8AkcLVI1WSbWGJFUohDr6n1nhmo2m3gWnDQBUqYvOJPDkPoL5
+ /h6wuIydc6sz79OlMpJx8xCDXpNSY9mmLJpuhgGixuNwu7aQQLiAOO9w494INUwjj2AYM0EQUvI
+ w69Zuu8Ig2xQRoqKrHkGELGF//uVN+riVe+t6ZvdnxiRJl9RkxQ4Odt8miZHqThXOi6i1EfZiDy
+ LP+TJ3phj0iYfHSbCql5bRf11M3XeJp+SVZMColOCIJZJXzeIVFWF0/iqOiGSTXlXSsxf1Za5hy
+ cr3sYfk4dmnJzl+JCaDx7BYW8Un+81KBl4WIUbW3cP9EmTkG7DfhyNDKzum/MKF7inKTudEy2MW
+ HMyMB3Mw1bjUULaX3PJz0UJGRK6adJJXddO/E57T1lm2zBftzDR183mXb0YTtptGi2
+X-Received: by 2002:a17:907:749:b0:b88:4ff8:12fb with SMTP id
+ a640c23a62f3a-b8d20dbff7amr102048866b.0.1769366366462; 
+ Sun, 25 Jan 2026 10:39:26 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b885b3dad3asm499133766b.12.2026.01.25.10.39.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 25 Jan 2026 10:39:26 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
+ bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
+Subject: [PATCH v2 07/19] drm/amd/display: Add CH7218 PCON ID
+Date: Sun, 25 Jan 2026 19:39:02 +0100
+Message-ID: <20260125183914.459228-8-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aXY_h8i78n6yD9JY@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 X-Mailman-Approved-At: Mon, 26 Jan 2026 08:09:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,62 +95,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Nowaday task->group_leader->mm != task->mm is only possible if
-a) task is not a group leader and b) task->group_leader->mm == NULL
-because task->group_leader has already exited using sys_exit().
+[Why]
+Chrontel CH7218 found in Ugreen DP -> HDMI 2.1 adapter (model 85564)
+works perfectly with VRR after testing. VRR and FreeSync compatibility
+is explicitly advertised as a feature so it's addition is a formality.
 
-I don't think that drm/amd tries to detect/nack this case.
+Support FreeSync info packet passthrough and "generic" HDMI VRR.
 
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Acked-by: Felix Kuehling <felix.kuehling@amd.com>
+[How]
+Add CH7218's ID to dm_helpers_is_vrr_pcon_allowed()
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4773
+
+Signed-off-by: Tomasz PakuÅ‚a <tomasz.pakula.oficjalny@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c   |  3 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 10 ----------
- 2 files changed, 13 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
+ drivers/gpu/drm/amd/display/include/ddc_service_types.h   | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index a0f8ba382b9e..e44f158a11f0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2551,9 +2551,6 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
- 	vm->task_info->task.pid = current->pid;
- 	get_task_comm(vm->task_info->task.comm, current);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index cb8a2855ac10..690558584a0f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -1396,6 +1396,7 @@ bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link, const struct drm
+ 	case DP_BRANCH_DEVICE_ID_0060AD:
+ 	case DP_BRANCH_DEVICE_ID_00E04C:
+ 	case DP_BRANCH_DEVICE_ID_90CC24:
++	case DP_BRANCH_DEVICE_ID_2B02F0:
+ 		return true;
+ 	}
  
--	if (current->group_leader->mm != current->mm)
--		return;
--
- 	vm->task_info->tgid = current->tgid;
- 	get_task_comm(vm->task_info->process_name, current->group_leader);
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index a085faac9fe1..f8ef18a3aa71 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -833,12 +833,6 @@ struct kfd_process *kfd_create_process(struct task_struct *thread)
- 	if (!(thread->mm && mmget_not_zero(thread->mm)))
- 		return ERR_PTR(-EINVAL);
+diff --git a/drivers/gpu/drm/amd/display/include/ddc_service_types.h b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
+index 1c603b12957f..e838f7c1269c 100644
+--- a/drivers/gpu/drm/amd/display/include/ddc_service_types.h
++++ b/drivers/gpu/drm/amd/display/include/ddc_service_types.h
+@@ -36,6 +36,7 @@
+ #define DP_BRANCH_DEVICE_ID_006037 0x006037
+ #define DP_BRANCH_DEVICE_ID_001CF8 0x001CF8
+ #define DP_BRANCH_DEVICE_ID_0060AD 0x0060AD
++#define DP_BRANCH_DEVICE_ID_2B02F0 0x2B02F0 /* Chrontel CH7218 */
+ #define DP_BRANCH_HW_REV_10 0x10
+ #define DP_BRANCH_HW_REV_20 0x20
  
--	/* Only the pthreads threading model is supported. */
--	if (thread->group_leader->mm != thread->mm) {
--		mmput(thread->mm);
--		return ERR_PTR(-EINVAL);
--	}
--
- 	/* If the process just called exec(3), it is possible that the
- 	 * cleanup of the kfd_process (following the release of the mm
- 	 * of the old process image) is still in the cleanup work queue.
-@@ -918,10 +912,6 @@ struct kfd_process *kfd_get_process(const struct task_struct *thread)
- 	if (!thread->mm)
- 		return ERR_PTR(-EINVAL);
- 
--	/* Only the pthreads threading model is supported. */
--	if (thread->group_leader->mm != thread->mm)
--		return ERR_PTR(-EINVAL);
--
- 	process = find_process(thread, false);
- 	if (!process)
- 		return ERR_PTR(-EINVAL);
 -- 
 2.52.0
 
