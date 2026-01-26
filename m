@@ -4,83 +4,168 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D292C88E6D
-	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 08:09:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A74A9CF65CF
+	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 10:15:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E450210E3E2;
-	Mon, 26 Jan 2026 08:09:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4324C10E3E9;
+	Mon, 26 Jan 2026 10:15:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="igEBpoCq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="th67tr5A";
 	dkim-atps=neutral
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5536110E371
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 18:39:41 +0000 (UTC)
-Received: by mail-ej1-f41.google.com with SMTP id
- a640c23a62f3a-b884d4fb7dbso20523966b.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 25 Jan 2026 10:39:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769366380; x=1769971180; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UcnraORJPqzLaNna/Rh/WEL5R0qkbZJXIJKvYu5IS4o=;
- b=igEBpoCqlBu1AdTRhZKLKH3rVHP0qSbWz2pIMyAA0+QYxJJIKx+WsuyC+8h0Xi49YA
- FWS6kn+na6dx19j9EjZ0vrJyqDzYiWOPYskC9XD2XneT682VNy7QWpRV7g4ujqfCiEyi
- dQJo+xs6g4WDbFA/MNaIGYT7ZwJFrapP5ZiUA1A9ePyuzx/Sxgyrhb2h9aoj1fjYh/9O
- 8OCsRAWIe7ixyJULyteDLUEaiS0z/Gsr1YG3nbvVzSTlIFXVrjPm5IR2F+puFr1INOoN
- c24KhOV9BvMkKvLOvLWFRLhAFSaZg9TGgbtSA0wDO99Ox2eM3xgRx2cbiu3rHRwEVlYX
- FmPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769366380; x=1769971180;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=UcnraORJPqzLaNna/Rh/WEL5R0qkbZJXIJKvYu5IS4o=;
- b=XfhjffnkzJgbjU/fP6y6twO5r9y9FF+wFNjLPj+xxlNljfpHE3fYxI5DWg8qMZZfP3
- m3oo1OvFSy2j5I1KvhuUR8J/3bQamrpG7ESrHi4LNTxo96tkrt9gdc6nTLZBLoeiCsin
- TU1uT0nfCYKHoDe3LeQ+dGa2nkIiI/nxad2muC4UOWOOKzmjDJ6/sxH+hIM1GLACWSgG
- 7fbbfxcgoF1VUwbNwyauMHGhhrZ9NqLHF2UJNHh6kKKtv12efNZo0pGYLqlLOCN1e9G6
- v7QtpZvVZu2SmxmB4R1ogW+UmTWacgCt0Ib5cJfCgYFRRb5H/pSbVdogp4+/0mnVqtmB
- 0OeA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXSHnmbo2v4IO/O19PLiCJogD4sPY1br+DyOWFfipz6R7MuVyd+UEDDyUMGr6MDyjbcsL3sun/A@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx7btTuq62VhKwqBOTi07nn1U6GCBjfYxe/37GGb7yyCioFRTg/
- vv8TUmOy/3fRZnaRWN1alF4eimxHNxAQFj236Pf9GaqCDV7jAgzxlrE7
-X-Gm-Gg: AZuq6aKt43XPmGblfIBDVTp7pXD8pjoSaZFhuuEzgkCcsHCafHBPpEwnx4s8CNn3d3T
- Evbz6NSlutfnyqL0dF5/jx21Z9p/zzpef8bxzWuUKYbFxf+tSCqm/upZU6+tP2M5nG76tKzm2Xe
- Lh7tfQPbipzeA30VQfMLYsPeg/+qnI2vW6ZTnDpfSYGnhkjoS0zTlsAcj8y00SmaYNlAfPlWa8f
- fGRVygbKW9qOld3GjNuM/OOkqrXg1PWoSgdiPuuq7O69sffg/lo3DwLOsGK7+GEIvAZFsk+sgfw
- ODuWxcOu0B3VXf3N8szGfyNQZx/mjkqorlgU+/d/UMjNm/Iui9lFfCYLGVaPSeq5OFKKyxrxoGV
- ugWHgFTjzbMvlrO+7xSAFU9hr7s7FIAs1SCemmI2+WxYHE727O7Dun66129HgIK1icYeHbjV20g
- kPWsDT4fYG7W54lFQMgBUt4XBYXWRdDlpZ69eEw4iPRzociRArYj4kluZvkRCWC1ub
-X-Received: by 2002:a17:907:3e1d:b0:b7d:3c0d:96ef with SMTP id
- a640c23a62f3a-b8d4f8369b9mr93097066b.7.1769366379622; 
- Sun, 25 Jan 2026 10:39:39 -0800 (PST)
-Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b885b3dad3asm499133766b.12.2026.01.25.10.39.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 25 Jan 2026 10:39:39 -0800 (PST)
-From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: alexander.deucher@amd.com,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
- bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
-Subject: [PATCH v2 17/19] drm/amd/display: Reintroduce VTEM info frame
-Date: Sun, 25 Jan 2026 19:39:12 +0100
-Message-ID: <20260125183914.459228-18-tomasz.pakula.oficjalny@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
-References: <20260125183914.459228-1-tomasz.pakula.oficjalny@gmail.com>
-MIME-Version: 1.0
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012036.outbound.protection.outlook.com [52.101.53.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0411110E3E9;
+ Mon, 26 Jan 2026 10:15:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IHuSXTvNkBhNf00tpgu6ZIEQTUMnCRifz+qfTcoXuIudr6Ib0V5GjA8UVxDOXRTmWh/aape9EIbgcqpexwSfRImMVrv5OrIQFh6Pn58Vk3G1azpL5W9TFOyNftospf4pqfDQGJMdscCyJJ1vChv95u3EEWSrlHeJeLJlgaKWTFuPoS5GUHrAZOuiB0aV07loiSAbg+6sMGGSAChJYG2tKTatM5eMjIjGz+PHQbmsb8J42j5Fxt4kpnS5XVk/PAeCut4OSNZXZ9oQNuAWevJBJdqPhcbrYCHGvlxOyB/AGsyoBti0BlDiXOM3avdxc9QH01+X7yPuUg6QvS7kTKb50g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jst+muCZWydKCPCCUglqVUAiCm8z3PClzcy3WrPFWeI=;
+ b=sSC5z8Tsw/Sv2ahH7YNxD5vvmvfEdUjDqjHKvOvmAtW4quMKOb3Hwl7pWVAbUcbhKMa5S5FGmuutihR3Ej55Asa7xpJDZihYzNqOz98QG68PSw+z3buA4YFOP6WOAa9pipLfbfyU6CUdU6LQmQYhVh9lRusE4557Siaeu3rezAUkrCZ+d1+wiI/GNRvPzJBjzTIrEltWKATmLtqAJT2JxEZAZwWysqf+HJanVc/698K9IJiTktgQINCBZmonR+2Vn5PmYJJ/egQkw99xg68yO+XhktCfZG/D8PITelY3Gh/FDB5O0PmBmVPHAQNVDMQNpgyBJ7dBv9SbkLSNRx68yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jst+muCZWydKCPCCUglqVUAiCm8z3PClzcy3WrPFWeI=;
+ b=th67tr5A1xm5LC8Ex94q72kwt8FwXwig3zgoKrozpmDRLz+GB8z2QxukyfIcuxi2HI3PqT+vMkbQI86UXb/1zLip2i7rNce1s+IF7Rpf+XIMpXmnXxjjEfUXllrP484oWe16RE6FwKxYQvqwmRk3mDqTezfc/YTPXRlGk8RK+do=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY5PR12MB6154.namprd12.prod.outlook.com (2603:10b6:930:26::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.11; Mon, 26 Jan
+ 2026 10:15:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9542.009; Mon, 26 Jan 2026
+ 10:15:06 +0000
+Message-ID: <fd3f2b16-41e7-4a9b-999d-e137e5abb7df@amd.com>
+Date: Mon, 26 Jan 2026 11:14:50 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Hamza Mahfooz <someguy@effective-light.com>, dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>
+References: <20260123000537.2450496-1-someguy@effective-light.com>
+ <2de6d428-b997-4ba8-8766-a211e5612e72@amd.com>
+ <2349754.vFx2qVVIhK@timur-hyperion>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <2349754.vFx2qVVIhK@timur-hyperion>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 26 Jan 2026 08:09:08 +0000
+X-ClientProxiedBy: FR4P281CA0179.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b7::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6154:EE_
+X-MS-Office365-Filtering-Correlation-Id: aad7e706-03b7-4f93-14ae-08de5cc3c70d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?SmFETjdrQTRqU0pQbE8xNFhqenpLMUR4bERVTzlRUy8rOHlJaVhYaHlUeWJQ?=
+ =?utf-8?B?QlZWS2o4NURvSHFWb08rSC9VVWtBUDhLa0JVMHVESnlCNm8wZzNHVkYxaWUv?=
+ =?utf-8?B?bVRiM2xCVC9xQ3VkWW5KYjFXdWI1M0VhM0pGaTc3clNIc2xaa29veEpTYUpx?=
+ =?utf-8?B?ejFTc29OdEk3MXhXb0lRMUVDMGNFMytMampzR2lTbkxkOVZ6R2s1VGpBaUVC?=
+ =?utf-8?B?S044clJFSXJGbFF5cFk2Yk5YYzQ3aU1OSy93ZUpiMFYvVkJVV0dRVDZrVktl?=
+ =?utf-8?B?YmVpR01TVm1FU3lKTUQxTHlCcTNTd1JjdHN5ZnUzQk9pUEV0Y05PSHBhcWQz?=
+ =?utf-8?B?UFVvREJZbVFJRmFQbGYzd2M4UzFGc1gzeTZxNldwYU95bkdobEU4TktDNWc3?=
+ =?utf-8?B?Q0xkYyt5WXBNLys2d3F3enFYbGg0QThWb1l5YzgrMjk2Ym13a2lVdG5UUkdw?=
+ =?utf-8?B?OEFrNTB4c1ZpeHdEaTl1d1VLalhjaHRvZGJXdlRmWUNGTmxVK1hublR2a01X?=
+ =?utf-8?B?cUdtMmYrTFBBRjY0WWVrWmY0VWg1TG8rcGdMOUhUNTIvalArN1drWjNvR2Iy?=
+ =?utf-8?B?UjJrbjFiUnBFVkFqcXh5d254UG54UUlHRUd4UXE3RlF2NmphaEtkNTFONm5j?=
+ =?utf-8?B?VUg5NUVnbmh4QSt6R1NlM0ZhR0ZEYm5maldkZjlWWXZaWWRVQXhadCt3Slov?=
+ =?utf-8?B?VVFNZ3o4RzdUYUc0b2tOeEpheGRyd2VXN3dwY0hZSWpnejVxaC9DY2RxSmVH?=
+ =?utf-8?B?dTVleldDYzVVS25xTHJuZm5SbVEyek5CWE9OZldsakloUHc5RXhEMnY5L0c1?=
+ =?utf-8?B?YVJ1RlY4akVwMEhGWUFsOG51TVdndGVvUDllWXNtallzVHA4SmJXSEh5VXF0?=
+ =?utf-8?B?MjBKdEZxaDh2ZXFUMDQxTWZ4QWtUTEpzdnF4Wjl6NGtUOXFjaXZ4WXFXbGVV?=
+ =?utf-8?B?U2VoeEIxWkk5aFhIVkZqMXJLTG41REhuejZJYUNGRnMwWHNkYndNeTNJcGxm?=
+ =?utf-8?B?bFMyalduRGNRWlhUcUprbzg3K2hGcm5hOGh0VW1ZUmx1K2FDZXdDaVB3Y1V2?=
+ =?utf-8?B?c3A3R2xLVi9SZENIWjExSnhCaUJxamhUeWJTeDBQS1hYRVRkbWZMeVUvRzZv?=
+ =?utf-8?B?dUtHUVExWk13dkFUWW5oN0FBbE5kZzl2TWFCSDdSclhva3RIUU14amVObFRw?=
+ =?utf-8?B?b29mWldTTUIzeUtJaGR6NFo3Z3VPUnFTbEh6NGtrd2JYNndvWVVuNE83b0c5?=
+ =?utf-8?B?LzZ5U3dwRnk0MzhCNVUyOER1MDd1NmRabnNQakJYL1VyT2xybVdqeXR5OVd2?=
+ =?utf-8?B?RXZ6NE93cGFydWNTU1g3UmU0Wlh3RmZUMmVqanlCQktLc0JWUEFEUXBBUWNh?=
+ =?utf-8?B?Ky9GOWpYRExZU1BFWU9MY3RTTUJlNllEWDVMbW8wUWM2UTMvbElvMjFDUlEr?=
+ =?utf-8?B?SnB2R3NJcXBVVDA3T0FKVHBsOFVlQWNCQnd4WkFySTN5ZlR5RmkvYk9TRmxw?=
+ =?utf-8?B?SU9mQXllcXg3U0IzVUQzcC9aSUZONVl5SjZnQTFEM3BxVVJPenlxbU45Wlhv?=
+ =?utf-8?B?OG82K3ErYUg2L2RsZzdva3BpSFR5N1ArWUdzZzNKNG1ObHFZTmh5SXNJM0VF?=
+ =?utf-8?B?QkFrVHc2b2Z0U3JCRCsrUktDWmQ0VlVFcnhFMGpQQllEN29ycWJNbDYwazJE?=
+ =?utf-8?B?R3FHSTk4bDhJRHBnTEZyMzVlVTBXTW5DL3A2b3AxYlhLTVY3TDBURTdXUE50?=
+ =?utf-8?B?eEhNNmNhZW5Ua3lMOVQ5bkplMmtYdlErVXdLQW8vSVFuZXo4am5NaE1nUTJj?=
+ =?utf-8?B?QS9KUkt6YTVaeGFtOHNhRENkOEpua3Z6VGcrRDlXRlBLZWJ5MGNUMDVKK1hx?=
+ =?utf-8?B?bFY4Z0dKM1N1VU1GM3JPOUY2RUZhOW5DZExNeFdlYkJRSlNFZlVwcldoV2xV?=
+ =?utf-8?B?S1BpeUgyQzAvakFFQk5naFJ3ZHdWNjZOelcxYzBUaGtuWjFSbVB4Zm44dG5u?=
+ =?utf-8?B?dEJGUWlFNUJ3YzhERmRFT0w3WW1wKzJ6SW56Vjdlb3NkRTNmWHB0OWRYcy9C?=
+ =?utf-8?Q?v4Mfim?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dkJqWFJVNnVqc2FiaE1hWWlkOGNaeXJXdlVOL1VxTVhHVmp0WXkwc0ZBdWtV?=
+ =?utf-8?B?TksrQ2Z5VC92d1cvODBYRS84ZWlZN05ZV09QVndBdzNleUN3MGtzMmh4S3kr?=
+ =?utf-8?B?NXFTNkVwMUpXSWZWeW91dUVHOWpSZHFUTDdTUDFXMWs4SjFyOGIzN3ZxaTFa?=
+ =?utf-8?B?aVFpM0xXS0s4Wmk0YXNPMjROREhLUFB1NWtGSjlPWCtpL1FtV0NsZVhsaEdW?=
+ =?utf-8?B?OGZhaGRmcDZwMUlqT2tUTEg1QS9LZHgzZ251bjhtMUdHRjc5STB0UXN4SExM?=
+ =?utf-8?B?TDQxeU9yV1BMZVVYVStPVXF5T0RKeHR5SVBJWHAzOXpNUzA0dGVqYmFobjky?=
+ =?utf-8?B?dkdIVGRTSVg0THE2RktuTStJSGM3NkpRNVJObVR4cFFvV0dGSldVbjJ3c3lw?=
+ =?utf-8?B?OUNSc3p1REI4cnFiY2R0RXZPTUVjWlhscldQYlFFVFBseUg0ZXhpdGx4UkRu?=
+ =?utf-8?B?K0hMSzVCcW5KdEFKalZNeTJzRDREcHNCVFFUTGlSOUlwbDhLdit0MzBva0Z5?=
+ =?utf-8?B?UDhGVzV4L1JNODVNc3RtcU9samVWbDhQenppSjNramZ4R1ZmY2lOcG9mZE00?=
+ =?utf-8?B?eEZ1ckNsWU1QbXp2Z2xESXpheFpDRmZTdWpTNVNhb1Q4TkNCZVYrcHFQc3VC?=
+ =?utf-8?B?Ti9ZZVdKcHFHSGNNMEtZWTYvL0o1MnNRSkp4WlpoY2puRHlKR3ArZFprZGZN?=
+ =?utf-8?B?WWFBS1JEZER4aXIydjh3NzI0cFB4NjVzY3dOcmRFYk9IeU1HMFVXQXkyL1dJ?=
+ =?utf-8?B?QkpYeDY1c0w4TU5WaDc4WFFZK1pIY05WZnBETHY0RmI5amhVZWRTU3JKVUlT?=
+ =?utf-8?B?dzRaUkVXZHo0dTRZdTFWZzlGVlJFRFUyT0V2aWp3clpsa0U4ZWk5ZUVhWldz?=
+ =?utf-8?B?MUt1a1A5RXhzTXpaZ3NDcWppWVFYYzY0RThSdDRtWE1IQ2pKL0kyQ2xDOGMv?=
+ =?utf-8?B?cFp1cmwrZUpWdjRGK2wvZGF3bW5tamNGVVFpb1piVjhlYkRpajhxbGlmdXpq?=
+ =?utf-8?B?cnVkcDB2R2RrRDV0UzRqOEtkSWsrUnJrWTJOTVR2ZHhjeklWNjQ5UVJUSld4?=
+ =?utf-8?B?OFlZcUZPN3VDTmRMMGdBN25WV2RBc2ZCYUZwVHNBUkJuRUdQN1ZkT0dzdGRw?=
+ =?utf-8?B?TG9jeDdHL0N0MzdHTjQ4N2tZK0hDRyt4KzNsUDFOdnVHU3h6L3NCQUo1ajFn?=
+ =?utf-8?B?aVhoTlpsYy9JWHNxSTA0K2c5czNGZkdDY0dMbEZ0YzM5RSs4Rm1xN0c2Sm1I?=
+ =?utf-8?B?T2tWdXhRUGk0TGh2dlUrelNEdWU1Y2dPRVo2cGFRRWRrSzNDeVl5dW5icHdu?=
+ =?utf-8?B?eDdOUkxFbm5XZ0VVbm1aRFhwTnJjTWZ4a2NINThHSGFSbXpDRVM2VzZZdkxV?=
+ =?utf-8?B?SDEzODlNNk9FbytJVFN1SmtzK2dWdDkwY016UitsWVVnSVN2VTRPRmlBYlF1?=
+ =?utf-8?B?aVJZMUI5MUlCbXBCc2d2QXlSaCtmNUQrUnArd3R0Z3hJVEJZcTQ5OVByUTAz?=
+ =?utf-8?B?OTFyNHNlTTVEeE1qN3o2Q28wR0NLQ0lKdEhZWjY0c3JPV3oyWWM3V0RFd0Jx?=
+ =?utf-8?B?WDNKczVmR0hYOS85aTlnaW9pMU1iZFFNNFo1bTVBNEt5aTFRd3k0QVVDUmRO?=
+ =?utf-8?B?dkx5aUVSLzRMa0RzcjdRdHZTNDJpMG5uYzdVemdHZUs1SEtNVHl6RTU0UFVR?=
+ =?utf-8?B?SHBpN1NZWTBoYzVqL0tWVllaaXc1aENKd21UWC81UzMrblpTZ2NVaDAyTUlO?=
+ =?utf-8?B?a29OcWpZdjlwV0FhMFhSSWlFY3BlTWNleThObU1SdnVXeG5ZbkIyMWNXd1cv?=
+ =?utf-8?B?cmdnRFY3N0ZDWmh5ZDl5MGtaWnMwT2s5MnFFd3BDMm9BdzJQcVAvM3dwSzZv?=
+ =?utf-8?B?NUN1S0I4N0JiZDdQNnFDS1hlanI0a2Frcm8rRUJIaEZaSTA1L3pqdm1ZblB4?=
+ =?utf-8?B?bk5pdDZxRXNJdE43OHM1WUhub3E2RFg0YmE2Zy9NZkw5elErVWt4M1dQZnZw?=
+ =?utf-8?B?VnBhcDhpejA5ZmxsWTNuc0N5WXkvMEVTQlk0RTZ6SlBTZWtPWUtYUXJ0L3px?=
+ =?utf-8?B?azhJM29LNUJ2ZVcwVGxReFFEZjJOVWNVL0tGU3RaOGxpMHFscjlkOThyM0FP?=
+ =?utf-8?B?WVZ4cjU2MDlqSkQvbENMcGtROUEyMDZOMlhwbllXUWlFUndRaHJkckQyY3lX?=
+ =?utf-8?B?NFhLallPM21LN0FvaUFWZGI4aHV3OHFXN3didjdBSjBQYXJsRkdITVpMdG5z?=
+ =?utf-8?B?dmFUay9MVnlyVmlrYVJZYUNkVE1UN0Y4aU9KZG1hcWNJSHo1ZXQzVi9sUmJm?=
+ =?utf-8?Q?MZWOuvxuwyJa34UdQY?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aad7e706-03b7-4f93-14ae-08de5cc3c70d
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2026 10:15:06.2847 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2OQspVgaW6+J/weBwQcombRFFDxfjXBptXgtmhLJdBkjsYdVIwI/3ME2E34OrgUx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6154
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,251 +180,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-VTEM info fram building was removed back in: commit a9f54ce3c603
-("drm/amd/display: Refactoring VTEM"), but it's needed to support
-HDMI VRR signalling.
+On 1/23/26 15:44, Timur Kristóf wrote:
+> On Friday, January 23, 2026 2:52:44 PM Central European Standard Time 
+> Christian König wrote:
+>> On 1/23/26 01:05, Hamza Mahfooz wrote:
+>>> There should be a mechanism for drivers to respond to flip_done
+>>> time outs.
+>>
+> 
+> I am adding Harry and Mario to this email as they are more familiar with this.
+> 
+>> I can only see two reasons why you could run into a timeout:
+>>
+>> 1. A dma_fence never signals.
+>> 	How that should be handled is already well documented and doesn't 
+> require
+>> any of this.
+> 
+> Page flip timeouts have nothing to do with fence timeouts.
 
-[How]
-Build completely new and more robust functions to build out the VTEM
-infopacket. Many values are defined but could have added logic in the
-future, that's shy they are not static values but already value + bit
-position in it's byte.
+A page flip can be associated with a dma_fence as well. This is used for example on Android to immediately re-use the BO not scanned out any more.
 
-Reduced blanking detection was previously missing. Use possible hblank
-periods defined for RB1 (from CVT 1.2), RB2 and RB3 (from CVT 2.1).
+That dma_fence has a well defined behavior, especially error handling and that it needs to signal in a finite amount of time even when driver doesn't confirm that the flip has completed.
 
-Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
----
- .../amd/display/modules/inc/mod_info_packet.h |   4 +
- .../display/modules/info_packet/info_packet.c | 178 ++++++++++++------
- 2 files changed, 121 insertions(+), 61 deletions(-)
+The purpose of of the page flip timeout is now to guarantee that this defined behavior is actually fulfilled even when the driver does something bad.
 
-diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-index 9ec123ecc7c4..07e86b16ef77 100644
---- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-+++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
-@@ -50,6 +50,10 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
- void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
- 		struct dc_info_packet *info_packet);
- 
-+void mod_build_vtem_infopacket(const struct dc_stream_state *stream,
-+		const struct mod_vrr_params *vrr,
-+		struct dc_info_packet *infopacket);
-+
- enum adaptive_sync_type {
- 	ADAPTIVE_SYNC_TYPE_NONE             = 0,
- 	ADAPTIVE_SYNC_TYPE_DP               = 1,
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 7516ab9a7554..5e245a053267 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -49,6 +49,7 @@ enum vsc_packet_revision {
- 	vsc_packet_rev7 = 7,
- };
- 
-+#define HDMI_INFOFRAME_TYPE_EMP    0x7F
- #define HDMI_INFOFRAME_TYPE_VENDOR 0x81
- #define HDMI_INFOFRAME_LENGTH_MASK 0x1F
- #define HF_VSIF_VERSION  1
-@@ -61,74 +62,52 @@ enum allm_trigger_mode {
- 	ALLM_MODE_ENABLED_FORCED  = 2,
- };
- 
--// VTEM Byte Offset
--#define VTEM_PB0		0
--#define VTEM_PB1		1
--#define VTEM_PB2		2
--#define VTEM_PB3		3
--#define VTEM_PB4		4
--#define VTEM_PB5		5
--#define VTEM_PB6		6
-+#define VTEM_ORG_ID          1
-+#define VTEM_DATA_SET_TAG    1
-+#define VTEM_DATA_SET_LENGTH 4
- 
--#define VTEM_MD0		7
--#define VTEM_MD1		8
--#define VTEM_MD2		9
--#define VTEM_MD3		10
-+#define VTEM_M_CONST    0
-+#define VTEM_FVA_FACTOR 0
- 
-+#define VTEM_BRR_MASK_UPPER 0x03
-+#define VTEM_BRR_MASK_LOWER 0xFF
- 
--// VTEM Byte Masks
--//PB0
--#define MASK_VTEM_PB0__RESERVED0  0x01
--#define MASK_VTEM_PB0__SYNC       0x02
--#define MASK_VTEM_PB0__VFR        0x04
--#define MASK_VTEM_PB0__AFR        0x08
--#define MASK_VTEM_PB0__DS_TYPE    0x30
--	//0: Periodic pseudo-static EM Data Set
--	//1: Periodic dynamic EM Data Set
--	//2: Unique EM Data Set
--	//3: Reserved
--#define MASK_VTEM_PB0__END        0x40
--#define MASK_VTEM_PB0__NEW        0x80
-+/* VTEM Byte Offset */
-+#define VTEM_PB0 0
-+#define VTEM_PB1 1
-+#define VTEM_PB2 2
-+#define VTEM_PB3 3
-+#define VTEM_PB4 4
-+#define VTEM_PB5 5
-+#define VTEM_PB6 6
- 
--//PB1
--#define MASK_VTEM_PB1__RESERVED1 0xFF
-+#define VTEM_MD0 7
-+#define VTEM_MD1 8
-+#define VTEM_MD2 9
-+#define VTEM_MD3 10
- 
--//PB2
--#define MASK_VTEM_PB2__ORGANIZATION_ID 0xFF
--	//0: This is a Vendor Specific EM Data Set
--	//1: This EM Data Set is defined by This Specification (HDMI 2.1 r102.clean)
--	//2: This EM Data Set is defined by CTA-861-G
--	//3: This EM Data Set is defined by VESA
--//PB3
--#define MASK_VTEM_PB3__DATA_SET_TAG_MSB    0xFF
--//PB4
--#define MASK_VTEM_PB4__DATA_SET_TAG_LSB    0xFF
--//PB5
--#define MASK_VTEM_PB5__DATA_SET_LENGTH_MSB 0xFF
--//PB6
--#define MASK_VTEM_PB6__DATA_SET_LENGTH_LSB 0xFF
-+/* Extended Metadata Packet */
-+/* Header */
-+#define EMP_LAST_BIT  6
-+#define EMP_FIRST_BIT 7
-+/* PB0 */
-+#define EMP_SNC_BIT 1
-+#define EMP_VFR_BIT 2
-+#define EMP_AFR_BIT 3
-+#define EMP_DST_BIT 4
-+#define EMP_END_BIT 6
-+#define EMP_NEW_BIT 7
-+/* PB7 = MD0 */
-+#define VTEM_VRR_BIT     0
-+#define VTEM_M_CONST_BIT 1
-+#define VTEM_FVA_BIT     4
-+/* MD1 Base_Vfront */
-+/* MD2 */
-+#define VTEM_BRR_UPPER_BIT 0
-+#define VTEM_RB_BIT        2
-+/* MD3 BRR Lower */
- 
- 
--
--//PB7-27 (20 bytes):
--//PB7 = MD0
--#define MASK_VTEM_MD0__VRR_EN         0x01
--#define MASK_VTEM_MD0__M_CONST        0x02
--#define MASK_VTEM_MD0__QMS_EN         0x04
--#define MASK_VTEM_MD0__RESERVED2      0x08
--#define MASK_VTEM_MD0__FVA_FACTOR_M1  0xF0
--
--//MD1
--#define MASK_VTEM_MD1__BASE_VFRONT    0xFF
--
--//MD2
--#define MASK_VTEM_MD2__BASE_REFRESH_RATE_98  0x03
--#define MASK_VTEM_MD2__RB                    0x04
--#define MASK_VTEM_MD2__NEXT_TFR              0xF8
--
--//MD3
--#define MASK_VTEM_MD3__BASE_REFRESH_RATE_07  0xFF
--
- enum ColorimetryRGBDP {
- 	ColorimetryRGB_DP_sRGB               = 0,
- 	ColorimetryRGB_DP_AdobeRGB           = 3,
-@@ -639,6 +618,83 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
- 		info_packet->valid = true;
- }
- 
-+static void build_vtem_infopacket_header(struct dc_info_packet *infopacket)
-+{
-+	uint8_t pb0 = 0;
-+
-+	/* might need logic in the future */
-+	pb0 |= 0 << EMP_SNC_BIT;
-+	pb0 |= 1 << EMP_VFR_BIT;
-+	pb0 |= 0 << EMP_AFR_BIT;
-+	pb0 |= 0 << EMP_DST_BIT;
-+	pb0 |= 0 << EMP_END_BIT;
-+	pb0 |= 1 << EMP_NEW_BIT;
-+
-+	infopacket->hb0 = HDMI_INFOFRAME_TYPE_EMP;
-+	infopacket->hb1 = (1 << EMP_FIRST_BIT) | (1 << EMP_LAST_BIT);
-+	infopacket->hb2 = 0; // sequence
-+
-+	infopacket->sb[VTEM_PB0] = pb0;
-+	infopacket->sb[VTEM_PB2] = VTEM_ORG_ID;
-+	infopacket->sb[VTEM_PB4] = VTEM_DATA_SET_TAG;
-+	infopacket->sb[VTEM_PB6] = VTEM_DATA_SET_LENGTH;
-+}
-+
-+static void build_vtem_infopacket_data(const struct dc_stream_state *stream,
-+		const struct mod_vrr_params *vrr,
-+		struct dc_info_packet *infopacket)
-+{
-+	unsigned int hblank = 0;
-+	unsigned int brr = 0;
-+	bool hdmi_vic_mode = false;
-+	bool vrr_active = false;
-+	bool rb = false;
-+
-+	hdmi_vic_mode = is_hdmi_vic_mode(stream);
-+	vrr_active = vrr->state == VRR_STATE_ACTIVE_VARIABLE ||
-+		     vrr->state == VRR_STATE_ACTIVE_FIXED;
-+
-+	infopacket->sb[VTEM_MD0] = VTEM_M_CONST << VTEM_M_CONST_BIT;
-+	infopacket->sb[VTEM_MD0] |= VTEM_FVA_FACTOR << VTEM_FVA_BIT;
-+	infopacket->sb[VTEM_MD0] |= vrr_active << VTEM_VRR_BIT;
-+
-+	infopacket->sb[VTEM_MD1] = 0;
-+	infopacket->sb[VTEM_MD2] = 0;
-+	infopacket->sb[VTEM_MD3] = 0;
-+
-+	if (hdmi_vic_mode || !vrr_active)
-+		return;
-+	/*
-+	 * In accordance with CVT 1.2 and CVT 2.1:
-+	 * Reduced Blanking standard defines a fixed value of
-+	 * 160 for hblank, further reduced to 80 in RB2. RB3 uses
-+	 * fixed hblank of 80 pixels + up to 120 additional pixels
-+	 * in 8-pixel steps.
-+	 */
-+	hblank = stream->timing.h_total - stream->timing.h_addressable;
-+	rb = (hblank >= 80 && hblank <= 200 && hblank % 8 == 0);
-+	brr = mod_freesync_calc_nominal_field_rate(stream) / 1000000;
-+
-+	if (brr > VTEM_BRR_MAX) {
-+		infopacket->valid = false;
-+		return;
-+	}
-+
-+	infopacket->sb[VTEM_MD1] = (uint8_t) stream->timing.v_front_porch;
-+	infopacket->sb[VTEM_MD2] = rb << VTEM_RB_BIT;
-+	infopacket->sb[VTEM_MD2] |= (brr & VTEM_BRR_MASK_UPPER) >> 8;
-+	infopacket->sb[VTEM_MD3] = brr & VTEM_BRR_MASK_LOWER;
-+}
-+
-+void mod_build_vtem_infopacket(const struct dc_stream_state *stream,
-+		const struct mod_vrr_params *vrr,
-+		struct dc_info_packet *infopacket)
-+{
-+	infopacket->valid = true;
-+	build_vtem_infopacket_header(infopacket);
-+	build_vtem_infopacket_data(stream, vrr, infopacket);
-+}
-+
- void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
- 		enum adaptive_sync_type asType,
- 		const struct AS_Df_params *param,
--- 
-2.52.0
+> A page flip timeout can occur even when all fences of all job submissions 
+> complete correctly and on time.
+
+But only when you have a major coding error in the driver. In other words a page flip can only timeout if there is no vblank or hblank signaling any more.
+
+And that in turn means that somebody turned the CRTC off or hot plugged or we missed an (re-occuring) interrupt....
+
+>> 2. A coding error in the vblank or page flip handler leading to waiting>> forever. In that case calling back into the driver doesn't help either.
+> 
+> At the moment, a page flip timeout will leave the whole system in a hung state 
+> and the driver does not even attempt to recover it in any way, it just stops 
+> doing anything
+
+Yeah and that is expected behavior. See there is no way the driver can recover from this on its own.
+
+When this condition happens you can't take locks or allocate memory, otherwise you have the full potential to run into a very low level deadlock.
+
+I'm not an expert for the atomic mode setting stuff but as far as I can see the only reasonable thing you can do is to set an error code on the page flip and return to userspace to signal that a flip has completed but with an error.
+
+> which is unacceptable and I'm pretty surprised that it was 
+> left like that for so long.
+> Note that we have approximately a hundred bug reports open on the drm/amd bug 
+> tracker about "random" page flip timeouts. It affects a lot of users.
+
+Wow that is a boomer, I completely agree that sounds like a serious problem.
+
+>> So as far as I can see the whole approach doesn't make any sense at all.
+> 
+> Actually this approach was proposed as a solution at XDC 2025 in Harry's 
+> presentation, "DRM calls driver callback to attempt recovery", see page 9 in 
+> this slide deck:
+> 
+> https://indico.freedesktop.org/event/10/contributions/431/attachments/
+> 267/355/2025%20XDC%20Hackfest%20Update%20v1.2.pdf
+> 
+> If you disagree with Harry, please make a counter-proposal.
+
+Well I must have missed that detail otherwise I would have objected.
+
+But looking at the slide Harry actually pointed out what immediately came to my mind as well, e.g. that the Compositor needs to issue a full modeset to re-program the CRTC.
+
+We need to get the atomic mode setting experts on this and some suggesting on how to fix the error handling.
+
+Regards,
+Christian.
+
+> 
+> Thanks,
+> Timur
+> 
+> 
+> 
+>>
+>>> Since, as it stands it is possible for the display
+>>> to stall indefinitely, necessitating a hard reset. So, introduce
+>>> a new crtc callback that is called by
+>>> drm_atomic_helper_wait_for_flip_done() to give drivers a shot
+>>> at recovering from page flip timeouts.
+>>>
+>>> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
+>>> ---
+>>>
+>>>  drivers/gpu/drm/drm_atomic_helper.c | 6 +++++-
+>>>  include/drm/drm_crtc.h              | 9 +++++++++
+>>>  2 files changed, 14 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/drm_atomic_helper.c
+>>> b/drivers/gpu/drm/drm_atomic_helper.c index 5840e9cc6f66..3a144c324b19
+>>> 100644
+>>> --- a/drivers/gpu/drm/drm_atomic_helper.c
+>>> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+>>> @@ -1881,9 +1881,13 @@ void drm_atomic_helper_wait_for_flip_done(struct
+>>> drm_device *dev,> 
+>>>  			continue;
+>>>  		
+>>>  		ret = wait_for_completion_timeout(&commit->flip_done, 10 
+> * HZ);
+>>>
+>>> -		if (ret == 0)
+>>> +		if (!ret) {
+>>>
+>>>  			drm_err(dev, "[CRTC:%d:%s] flip_done timed 
+> out\n",
+>>>  			
+>>>  				crtc->base.id, crtc->name);
+>>>
+>>> +
+>>> +			if (crtc->funcs->page_flip_timeout)
+>>> +				crtc->funcs-
+>> page_flip_timeout(crtc);
+>>> +		}
+>>>
+>>>  	}
+>>>  	
+>>>  	if (state->fake_commit)
+>>>
+>>> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+>>> index 66278ffeebd6..45dc5a76e915 100644
+>>> --- a/include/drm/drm_crtc.h
+>>> +++ b/include/drm/drm_crtc.h
+>>> @@ -609,6 +609,15 @@ struct drm_crtc_funcs {
+>>>
+>>>  				uint32_t flags, uint32_t target,
+>>>  				struct drm_modeset_acquire_ctx 
+> *ctx);
+>>>
+>>> +	/**
+>>> +	 * @page_flip_timeout:
+>>> +	 *
+>>> +	 * This optional hook is called if &drm_crtc_commit.flip_done times 
+> out,
+>>> +	 * and can be used by drivers to attempt to recover from a page 
+> flip
+>>> +	 * timeout.
+>>> +	 */
+>>> +	void (*page_flip_timeout)(struct drm_crtc *crtc);
+>>> +
+>>>
+>>>  	/**
+>>>  	
+>>>  	 * @set_property:
+>>>  	 *
+> 
+> 
+> 
+> 
 
