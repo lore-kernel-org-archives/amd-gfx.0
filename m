@@ -4,52 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCF27D13C1B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C53DC88E45
 	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jan 2026 08:19:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C30410E4E8;
-	Tue, 27 Jan 2026 08:19:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4CEE10E4E6;
+	Tue, 27 Jan 2026 08:19:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Gnbh9Loe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EyRuREVb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A16A510E494;
- Mon, 26 Jan 2026 20:50:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B367560129;
- Mon, 26 Jan 2026 20:50:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC155C116C6;
- Mon, 26 Jan 2026 20:50:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
- s=korg; t=1769460649;
- bh=yndic95Dd8m5l7C1UqbBVJQY3dB2qyl3JPw2oSTE5TQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Gnbh9LoeYg4uZkvQPBCJHv7TazOmO+eqozhbasI0b8pDuDPJ/LE4GearjPOnG04NB
- /t1tDK4uOP4xN4ZsPWegJH7KYRjDifFFGDt4laaZ+PpC0Uf05a9w2tV709Z6OH1Ogt
- GvJ4OwYOaLmX6a2pJF4xDjbXynMUAml/PDzkSr5U=
-Date: Mon, 26 Jan 2026 12:50:48 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Boris Brezillon
- <boris.brezillon@collabora.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, Leon
- Romanovsky <leon@kernel.org>, Steven Price <steven.price@arm.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- netdev@vger.kernel.org
-Subject: Re: [PATCH v2 7/7] netclassid: use thread_group_leader(p) in
- update_classid_task()
-Message-Id: <20260126125048.323a281527fb2554c96f40bf@linux-foundation.org>
-In-Reply-To: <aXY_4NSP094-Cf-2@redhat.com>
-References: <aXY_h8i78n6yD9JY@redhat.com>
-	<aXY_4NSP094-Cf-2@redhat.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5500110E135
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jan 2026 20:47:58 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4801d24d91bso51746695e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jan 2026 12:47:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769460477; x=1770065277; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pLh/0068cEe1jqjjDyTpmEQKYSn3p5Mvjg19MdpSAs0=;
+ b=EyRuREVbsl2J4BccLpl7FpNWZVhejTh9Mu8fP7Z+UmIEOfYEyftgN6KD9ojSQfWx6r
+ BaZRbLSJJkKNsFZWCfn2WseQLgPHLdzolTKuWv5xPbb9Lk9CQrU5/Fd16YZKUXVK2z+p
+ 1/SgFsfdpKwsvzXYYeLgA4AcVvUYNMXsGmAW1FFBqor1RFNTui40JKgctV88tBaP/6s7
+ v1Edp8taBg+PTaVrk/NZ8A93u4n78Sbuq9+ETHcOx7iPWsVuanPCdRHMcWfMCRt/T2Pw
+ dqLNuukrVmuDx1PBhyj1Dkr+ZTdRJGgc5/zdz5hwmaLT/pVmm2Um/12PT9GTNqJ6LTun
+ uUuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769460477; x=1770065277;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=pLh/0068cEe1jqjjDyTpmEQKYSn3p5Mvjg19MdpSAs0=;
+ b=qs4TLxZMzIEDUrIT9vWwHd+nN6ONNv2HuNK4RfmBgPOjecSUJFSWxeIHo8NJs5hRLQ
+ DebplIQ3mazDyTowjA0cJdWpDYXSnJRWH0Sm7Sas2gRQqTxKVCo+vOPqRoEjXwccu79T
+ HTz6aJzZjsoMhxakvoQFJdSnltkohKpQ+dHfOtbPkFIl2fL0YsbZCdxktinq9opnvHos
+ Ru5LycGi8ZoyPRFzjvDPcPTYGxFh06m2SY9exHTb+B39vhiqYyl+xuYIWi+nlZ8O6kis
+ WOQ/rFPQHAnqlnACBgKzeKxi5RUNlit4bPtI8ZGg4qusQtvBPZg02mhmr1Q6p3dco7qA
+ VYpg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU+XWeBgRSjCsnKbdajI8Ctvbg8JSGBh4erQ2NCqS0a96w9iU7fFHKY0SDdKYc6u3s6u7sF/a1D@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxx/8QQVVGwlbwT4AunMnXX7BQrryGS5xLlBUBGTVqu9t1T5IWc
+ +Jdx7urQ4M23yPUUsSXRpqYn73EuxkoGbpL5IsSi2edVIYhhDSRrm+kc
+X-Gm-Gg: AZuq6aJu886iBO1yf5HwNyT9yL3/AX/6UhVvMW76WWM6Ts+1y34fTGq3RZ47JTTSxh5
+ iwHbvPNYZis8p+FCmpLIMVpu1cZrS+c9PUoEz5CMsgXi7s6lc9ix+dlR/l3z4x6fyj+F8hNr8yJ
+ rOttnoQh3RaZ3YUHdF8kvkgBIK2oiKu6vl6fXru9x4PpnP1KQnorzERLJ1X1CJZ2a0cyRs1bw0Z
+ AZs4YaR9g/kUSaI0NA3gek2Ryqq8Gsu90rCS2ppxXZ+GIKosGiI4ookzrCXrd9bh8oGUX5ZKaeR
+ qlAMaTXSwt1xBFCzYWp01sHaOvzXtAiUa+AkKSDqPggA9alNP4WWP7E5uTqmBFBMdH9TC2aMmyF
+ n45imP0WkkqyC4G07DfEA/0PSP7FpI/ZZ5RNZJiyLjPNWSRfU6vLDvBPh08PqwZJNF3M3jrApXn
+ 7ikd9UFZtBjkrXZ9syoYQmCX8bVsjf4XV3On1kmg==
+X-Received: by 2002:a05:600c:314f:b0:480:3b4e:41ba with SMTP id
+ 5b1f17b1804b1-4805cf669b2mr78025315e9.18.1769460476713; 
+ Mon, 26 Jan 2026 12:47:56 -0800 (PST)
+Received: from ionutnechita-arz2022.local
+ ([2a02:2f0e:c30b:500:c472:222f:bc60:d893])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48066c42895sm13275975e9.14.2026.01.26.12.47.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Jan 2026 12:47:56 -0800 (PST)
+From: "Ionut Nechita (Sunlight Linux)" <sunlightlinux@gmail.com>
+To: superm1@kernel.org
+Cc: alexander.deucher@amd.com, alexdeucher@gmail.com,
+ amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, ionut_n2001@yahoo.com,
+ linux-kernel@vger.kernel.org, sunlightlinux@gmail.com
+Subject: Re: [PATCH 1/1] drm/amdgpu: Fix TLB flush failures after hibernation
+ resume
+Date: Mon, 26 Jan 2026 22:46:04 +0200
+Message-ID: <20260126204603.18124-2-sunlightlinux@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <ad3e0556-385b-471e-bb1c-43bd043ecf47@kernel.org>
+References: <ad3e0556-385b-471e-bb1c-43bd043ecf47@kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 27 Jan 2026 08:19:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,23 +93,25 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, 25 Jan 2026 17:08:00 +0100 Oleg Nesterov <oleg@redhat.com> wrote:
+Hi Mario,
 
-> Cleanup and preparation to simplify the next changes.
-> 
+Thanks for the additional context about /sys/power/image_size and the
+GitLab issue reference.
 
-"next changes".  This is the final patch?
+My platform configuration appears to be well set up for hibernation:
 
-> --- a/net/core/netclassid_cgroup.c
-> +++ b/net/core/netclassid_cgroup.c
-> @@ -93,7 +93,7 @@ static void update_classid_task(struct task_struct *p, u32 classid)
->  	/* Only update the leader task, when many threads in this task,
->  	 * so it can avoid the useless traversal.
->  	 */
-> -	if (p != p->group_leader)
-> +	if (!thread_group_leader(p))
->  		return;
->  
->  	do {
-> -- 
-> 2.52.0
+  - 30 GB RAM / 30 GB swap available
+  - /sys/power/image_size: ~12 GB (13033648128 bytes)
+  - Not using secure boot
+  - Swap partition is adequately sized for VRAM eviction
+
+Based on the GitLab discussion you referenced, my image_size should be
+sufficient. So the known hibernation limitations shouldn't be blocking
+factors on my system - the TLB flush failure appears to be the main
+remaining issue.
+
+I'll capture stack traces as Alex requested and follow up with the
+debugging information in the next few days.
+
+Thanks,
+Ionut
