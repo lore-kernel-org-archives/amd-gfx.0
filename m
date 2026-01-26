@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D48CD1951B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87A32D1951A
 	for <amd-gfx@archiver.kernel.org>; Mon, 26 Jan 2026 21:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C06D410E4B0;
-	Mon, 26 Jan 2026 21:08:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1093510E4AD;
+	Mon, 26 Jan 2026 21:08:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YilhPoEK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AnU/au5T";
 	dkim-atps=neutral
-Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
- [209.85.221.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F39A10E4AD
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jan 2026 21:08:52 +0000 (UTC)
-Received: by mail-wr1-f65.google.com with SMTP id
- ffacd0b85a97d-42fb2314f52so2873987f8f.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jan 2026 13:08:52 -0800 (PST)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CAEF10E4AE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jan 2026 21:08:54 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id
+ 5b1f17b1804b1-47ee3a63300so56255395e9.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 26 Jan 2026 13:08:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769461731; x=1770066531; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1769461733; x=1770066533; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Jygu6aHsbVWbHUiEmQ5H2V6CbHm+/6rIUR05sU7yXck=;
- b=YilhPoEKvXIq7IaysGufvXENeGQWXR78P+B3pI6PvzYBbBuyJSeUX6MpnqWT7f7MPY
- duPZxv4049PlNFjLA3SrJrW9dWotMGmeqYqVKKvgMuyhzym1a+YKGSFadqOsS1rilX0v
- qyM6P9Y5bFk80OJ37CxQ6w35CH1GkwXD4eOpiXQOOoyJVBPiufmbiM67ahu2o8x3Hlr+
- +0kMUqHdeTzlvpVz8eoFBSwFs8HUuDqJ7DFq4Pp1ueDByRSgXrBZJmkNBq0gzIXIHsWY
- 3o9nhwLExwiFQ6WlM7i5OakbG/3sc1schrTb7eIKgtcStiDudVEVbQ8bCHYM9c9bMBmA
- k9gw==
+ bh=xGVk5HSAaWd+KHRFLr9PKxK8sL277IHKzKekR6pcCps=;
+ b=AnU/au5TwCsGeTz1+tBEUrGI/8Wjv72nqT0axmq1YZRTfIcmZJH+YZINPKOROHhzRF
+ EvlumeHFiU21MpXJSPzl5NZUxGxhsgNOgNf7U7tTjwhvM9JV1lLegy8bt4M3LOzv3UsF
+ dsVtF2HfCd+WC6pv/SYt0PhsK0n/D7Kn9p0MEhFGeMSQASmKFbA7HEq5twyBZkKyxtC6
+ fwZf+7V7NdUtWOc38Lcl5XoXjh1OxYKpMZy06Kjx2l7L8H/aUNo76PRTJg11dDmhPD1D
+ 8MovsG+O+iVP7aa6qDL0ME5Vr79U1qTZ4QtfX/9H88S3GHAB4VWmXLAtwb4bIEPSoTfS
+ djzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769461731; x=1770066531;
+ d=1e100.net; s=20230601; t=1769461733; x=1770066533;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=Jygu6aHsbVWbHUiEmQ5H2V6CbHm+/6rIUR05sU7yXck=;
- b=wyfrN7CcMCzpcY6IKM/njLhSDuQCSrI/jiyVFKnFKxmRkaen+1aYFzJly+JwO1nCkE
- S4vsFXJs20V9bHjdv5WyjfPTZ98bGDwkeer1V97Fk6GMXf2Yoyqe/qlvCU291ovvWADW
- JQltTVGZz49v48CAMGvSEJYEqU5QNdAIQ1DouaO2348sXIKhkinAgVe06dSODZRcYxEc
- 0d4BkondAnSxtoubkIWAYoUqJvNTtXz8mnZ98aEd6423nNDwoja218v7Pp/KvSRFpgzJ
- 0CHwxDlVD/3CApDGZEPJr0VJI+KJhJ20D2jZtmK3yE18F+RIc+TRN/Q7o8U3UwgJojSD
- I+nA==
-X-Gm-Message-State: AOJu0YzE/voKjSOutdKD80ARU1FBwmq4g5YfzYiLFiHY/O0k4phpXBH5
- mJvkKoIMG4sRdbMAVW25zZs4qVlC69V64rwzew6jliU4k78ZJEWUIYdHAZGifW9B
-X-Gm-Gg: AZuq6aJaAu8AxhhIRjVe8++TdYgL/nIEE4S08P6bpvDhPzP8NRrj8YqnyqY+L1E3StE
- siAJ4GYPw9AffAsIbSLB7q3ElsEQr+kyYgi+sWSE+1FFeb6ipLfcstjAtjFADf2d1JkPsv22iT8
- LbcSDnVLORQkwUVirv7c+SJCEMi0vRtiZJDplWx96Mqz5OZd8Ic/+fL/7hy1Gvne+6plVIK7ybe
- iGup6rM1XSG4W9VYZpGg9a4v5KgBAzN/raJkGx/ucOmOOSVZKnkKlCO3s9nwILgl1Bq9T0uD3f3
- Pv7KE2BB3Br384WM+u/sx0vcAdZNgIatoQb0PJ8n6B0cUPCZCifWiAr5pMqlXHPPshc+PMCnB9G
- fNZYW+PMamFjMwP9p+I5LlNB/P1r0PvuVnvxBGzW5J0Kiw8Wc4ynfWaK8aim2E4FK2Kb/Xeca1V
- vmpTfb2y9kHgXG8VqB3hL/b++7qAhkQuTETkilrDlvvJ69rko+j7RF
-X-Received: by 2002:a05:6000:1841:b0:435:9770:9eb8 with SMTP id
- ffacd0b85a97d-435ca149ca1mr9766153f8f.25.1769461730895; 
- Mon, 26 Jan 2026 13:08:50 -0800 (PST)
+ bh=xGVk5HSAaWd+KHRFLr9PKxK8sL277IHKzKekR6pcCps=;
+ b=dUjkUmFuWEMecXyM4LjwtLusd3/xBEp3UsQX8rRyvdHoCruZqRYmqZyh2X0T71AijU
+ PI/P4zBh4LH7DNdPJPGSM4rYXfnjBIjttI901/DAe1g5JKoxF4CLZyC0cmukwfiWISZF
+ uHIhrivAK/Le3IEiYeor/6tSBE+FmZEdiVpYJeZikksoSASRvnMreoRbYdcMb6yIT8t7
+ /WRcI3reQPhmhB35emc64AunvOIdfoCDIv9HzAy5VElF+dLN8uZYYn0GZVhDBJAfBs33
+ e5OzrdSiJL/Uv0ObQpyrpSNdQqcwQx/zQQxMr+L1tSbFhp4yVyeJS7GJB4+4p5VnZzj9
+ gNzQ==
+X-Gm-Message-State: AOJu0Yz6gFa66haaP0motRfLSREbukSIjYyuGbRrZAJI+0RqYuvoHN9q
+ GPaaLLpQf05SUxDjH2R1D7u929S0FuZDjX5H3BM4dJomzabK3+QNBM9eOgvZ7TqP
+X-Gm-Gg: AZuq6aLIjxr/HJlUqAdyWza3tMyfleevCqkKKmyFiFLi33eyQaobUVxqQM749ukRERT
+ 7JDMcThV263DItNwvxy+DcGoeZ8GkDQ/LnqQAdL4n+x0Mei+SGmo7BkxCLt8CdMjCckBxUvAzIV
+ f/3fFE6dO59iDV2XjuZoAMaQ6r3LNO19653ZOWtPLiGNlDDe4SWyxEi2+QxUZQlTuh+ke4RZdR+
+ 5o+QgJD3y40eBSGCX0cPOxoL+/p6kp2Oz8JZqC2B7eTSjaXLiMrzhgOOgFfYGDw24VsCR5+cwjk
+ YanZTXj9Xk9WhUZ02vKr08DgmsWzEHKm2pMvIrPTXB+HxJ0l7sZ0tkuYMaAY3FABaUiNMIM8oaM
+ EuU2GEdgiG4rzew4BI+nA2kDwPNBz4R+xOTY9+30Hd/yqXig4lAQUDIV+ZwKFBUbf0kiLYrgmzb
+ 7RDL3OcXMrsGbP9yC99Lf4suiEjfgt4FX3mT+R1/heegqGjvUBzE4o
+X-Received: by 2002:a05:6000:1846:b0:431:35a:4a7d with SMTP id
+ ffacd0b85a97d-435ca155e76mr9038771f8f.58.1769461732871; 
+ Mon, 26 Jan 2026 13:08:52 -0800 (PST)
 Received: from Timur-Hyperion.home (54001FF2.dsl.pool.telekom.hu.
  [84.0.31.242]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-435b1c24acdsm33940275f8f.13.2026.01.26.13.08.50
+ ffacd0b85a97d-435b1c24acdsm33940275f8f.13.2026.01.26.13.08.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Jan 2026 13:08:50 -0800 (PST)
+ Mon, 26 Jan 2026 13:08:52 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Christian.Koenig@amd.com, Mario Limonciello <mario.limonciello@amd.com>,
@@ -67,9 +67,9 @@ To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Prike Liang <Prike.Liang@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Ray Wu <Ray.Wu@amd.com>, siqueira@igalia.com
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 12/14] drm/amd/display: Use external DP bridge encoders
-Date: Mon, 26 Jan 2026 22:08:35 +0100
-Message-ID: <20260126210837.21885-13-timur.kristof@gmail.com>
+Subject: [PATCH 14/14] drm/amdgpu: Use DC by default on CIK APUs
+Date: Mon, 26 Jan 2026 22:08:37 +0100
+Message-ID: <20260126210837.21885-15-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260126210837.21885-1-timur.kristof@gmail.com>
 References: <20260126210837.21885-1-timur.kristof@gmail.com>
@@ -90,116 +90,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Implement link creation for external DP bridge encoders
-such as NUTMEG and TRAVIS used with CIK APUs such as
-Kaveri for supporting analog and LVDS connections.
-Typically found in CIK APU based laptops or on FM2
-motherboards that have analog connectors.
+Now that DC supports external DP bridge encoders,
+it has reached feature parity with the legacy non-DC display
+driver on CIK APUs: Kaveri, Kabini, Mullins.
 
-When we query connector information from the VBIOS and
-discover a connector using such an encoder, let's find the
-real DisplayPort encoder and use that. Set the connector
-signal type to DP, so the pre-existing DP code paths can
-work with it without refactoring every signal type check
-in the DC code base.
+Use the DC display driver by default on SI dGPUs, unless it is
+explicitly disabled using the amdgpu.dc=0 module parameter.
 
-In the DM, make sure to report correct connector type and
-also to initialize DP specifics such as the AUX channel.
+DC brings proper support for DP/HDMI audio, DP MST, VRR,
+10-bit colors, some HDR features, atomic modesetting, etc.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  9 ++++--
- .../drm/amd/display/dc/link/link_factory.c    | 29 ++++++++++++++++++-
- 2 files changed, 35 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 -----------
+ 1 file changed, 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8b4c45ac3c05..bd76118fab19 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8539,6 +8539,12 @@ static int to_drm_connector_type(enum signal_type st, uint32_t connector_id)
- 		return DRM_MODE_CONNECTOR_VGA;
- 	case SIGNAL_TYPE_DISPLAY_PORT:
- 	case SIGNAL_TYPE_DISPLAY_PORT_MST:
-+		/* External DP bridges have a different connector type. */
-+		if (connector_id == CONNECTOR_ID_VGA)
-+			return DRM_MODE_CONNECTOR_VGA;
-+		else if (connector_id == CONNECTOR_ID_LVDS)
-+			return DRM_MODE_CONNECTOR_LVDS;
-+
- 		return DRM_MODE_CONNECTOR_DisplayPort;
- 	case SIGNAL_TYPE_DVI_DUAL_LINK:
- 	case SIGNAL_TYPE_DVI_SINGLE_LINK:
-@@ -9211,8 +9217,7 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
- 	    connector_type == DRM_MODE_CONNECTOR_HDMIB)
- 		amdgpu_dm_initialize_hdmi_connector(aconnector);
- 
--	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort
--		|| connector_type == DRM_MODE_CONNECTOR_eDP)
-+	if (dc_is_dp_signal(link->connector_signal))
- 		amdgpu_dm_initialize_dp_connector(dm, aconnector, link->link_index);
- 
- out_free:
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-index 5fbcf04c6251..7d9deb8b9c28 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
-@@ -367,6 +367,18 @@ static enum transmitter translate_encoder_to_transmitter(
- 	}
- }
- 
-+static bool encoder_is_external_dp(
-+		struct graphics_object_id encoder)
-+{
-+	switch (encoder.id) {
-+	case ENCODER_ID_EXTERNAL_NUTMEG:
-+	case ENCODER_ID_EXTERNAL_TRAVIS:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- static void link_destruct(struct dc_link *link)
- {
- 	int i;
-@@ -514,6 +526,13 @@ static bool construct_phy(struct dc_link *link,
- 	 * so that we avoid initializing DDC and HPD, etc.
- 	 */
- 	bp_funcs->get_src_obj(bios, link->link_id, 0, &link_encoder);
-+
-+	if (encoder_is_external_dp(link_encoder)) {
-+		/* External DP bridge encoders: find the actual link encoder and use that. */
-+		link->ext_enc_id = link_encoder;
-+		bp_funcs->get_src_obj(bios, link->ext_enc_id, 0, &link_encoder);
-+	}
-+
- 	transmitter_from_encoder = translate_encoder_to_transmitter(link_encoder);
- 	link_analog_engine = find_analog_engine(link, &enc_init_data.analog_encoder);
- 
-@@ -690,6 +709,13 @@ static bool construct_phy(struct dc_link *link,
- 		goto create_fail;
- 	}
- 
-+	/* For external DP bridge encoders:
-+	 * Set the connector signal to DisplayPort so that they can work with
-+	 * the pre-existing code paths for DP without a lot of code churn.
-+	 */
-+	if (link->ext_enc_id.id != ENCODER_ID_UNKNOWN)
-+		link->connector_signal = SIGNAL_TYPE_DISPLAY_PORT;
-+
- 	LINK_INFO("Connector[%d] description: signal: %s\n",
- 		  init_params->connector_index,
- 		  signal_type_to_string(link->connector_signal));
-@@ -734,7 +760,8 @@ static bool construct_phy(struct dc_link *link,
- 						      link->device_tag.dev_id))
- 			continue;
- 		if (link->device_tag.dev_id.device_type == DEVICE_TYPE_CRT &&
--		    link->connector_signal != SIGNAL_TYPE_RGB)
-+		    link->connector_signal != SIGNAL_TYPE_RGB &&
-+		    link->ext_enc_id.id == ENCODER_ID_UNKNOWN)
- 			continue;
- 		if (link->device_tag.dev_id.device_type == DEVICE_TYPE_LCD &&
- 		    link->connector_signal == SIGNAL_TYPE_RGB)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 362ab2b34498..fc4656a23158 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4113,17 +4113,6 @@ bool amdgpu_device_asic_has_dc_support(struct pci_dev *pdev,
+ 	case CHIP_VERDE:
+ 	case CHIP_OLAND:
+ 		return amdgpu_dc != 0 && IS_ENABLED(CONFIG_DRM_AMD_DC_SI);
+-	case CHIP_KAVERI:
+-	case CHIP_KABINI:
+-	case CHIP_MULLINS:
+-		/*
+-		 * We have systems in the wild with these ASICs that require
+-		 * TRAVIS and NUTMEG support which is not supported with DC.
+-		 *
+-		 * Fallback to the non-DC driver here by default so as not to
+-		 * cause regressions.
+-		 */
+-		return amdgpu_dc > 0;
+ 	default:
+ 		return amdgpu_dc != 0;
+ #else
 -- 
 2.52.0
 
