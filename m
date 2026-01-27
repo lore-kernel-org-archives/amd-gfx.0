@@ -4,150 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EE58D25920
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jan 2026 02:44:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2519D25924
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jan 2026 03:11:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14C8E10E13D;
-	Tue, 27 Jan 2026 02:44:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67D6A10E044;
+	Tue, 27 Jan 2026 03:11:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m/qL/t0m";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GWs8XZmp";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010043.outbound.protection.outlook.com [52.101.56.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A60B410E0B8
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 02:44:37 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012062.outbound.protection.outlook.com
+ [40.107.200.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D152C10E044
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 03:11:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=guHqC5AjTaDyr9+EMd9L1etewbnfJDDpBCjbvjq9iZO3XuhzuouvHpsIi+Ukp7yKK+EzEiGdqjGZ2gziOdRevLEpY/lrBntE1TdyvHst+F90D3M11nkkAhjAyJ0PyeC9qjsOKbCwn2Qzy8O6OJJOl7ojPdJ5H2IGexwh5/kvbpDOsOcb+7l+c2rN3AXbdncr6L5poDpjjQfD0/AWK0ZObL1NUi4devQaZ93l2gmJAbYwegrUExfijDPhDjs7/Bb9UrPoJYp7wFvXJBRyweK5NyWGQisvl1hOLa03HeQrkd/ID3L+7R19A5F7lcoXJY0AVZg5EP1Czm8sqQoYaVVQYA==
+ b=rqsmYYeeaVQjmHpFGnGclhCuU/DftSOMU1xDB7SGtsFD7aAGrlAHbPp3w15Vx+r1b1VfB1WEKEJKONiSF21Y9ZqhtVvKePI1yP/LD5gHWI9sqyiTJQYmjjFAaWOC+/HfLVXucGyFFTOMVRa709q+GxRz8snZAVkdfjRuzRrKU1nITAfFZNrXzSIz6XY+09o2ndAUuBboKNGYQTI8+euQGoBVG4zjpa1ZKkRA9jGFkDnJkivXYKfMTgx9hx4Jdt/8YhW4tIeWossJkA4B9CLxnlWWv5nm7y7xZld2VncfiF+kSSTH1F4lhQcKJhZsu7Ja8UPtCrFjhZQR2xscxnffiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4jUnJnxTS5sluSu6m6nPfIf9umIfaW9WphIbaKIXFIc=;
- b=ki39vW9HWLnNJ/xnvhyyTwrNNAxTrGnKUPrXjT6mIoXAH/gV0tAOLAuZW54V8BfJhs5E/jML+EjMgmCNXjfC6YxcpuqDShadZFNsXGuTF8NLyMoMo6cD/zXFPaYEfwvj2v8+xftlKNdqrLCsq4ZtBskNTypqhxAZqPYVVpce8SvyYy8vWZw4lptJjZF43ebc8jxtVPXNjirLhjIfcfYAImd1KK3ZOzKWNSvmFSmybddjPdzf4T6s0a4S77Nwye075Tr0kTbYO3rAV1eEy/juhSDvsYxSvbLrZqeMGEnSPTxMH/mDVrAT5v05jXRZAg9k2FREn+VbIHMx8GhwwG16mw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=ZqEeIrAN/gqTt9PTpMiDjLAuHkoheliUq5QI272Y1aQ=;
+ b=GkC3aPe3qPnKZ+rAJacjdriE7Gk5+nJLmnGLr4BATGeBNZLebV3YejvStNT5o2SlazLbIExxjqDn/AW3J+FDlXH8+H9e4GH4RstlzwKgpqLTS9SXaGODK8bRoS47hrPC8W+iadF6u0FUtqCdzqHd4e1/6/jvepsJJlSTaIXuKcYq4zu2H6liVw61Bxpb5Zp2DjlK6yYmglx1CXKzfrE9F9aUIZ4/vKhmp0Tznj64K+g3Qxr99sld10H6pRZ26+6kyugHBQ0Z569ZwmxdFySs7y+dDYEl3RGaoVEfcFn3yWgmJkJbJMdzcpPmkBYTlsNqp+iWl6CqE/D7QctCoWaPgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4jUnJnxTS5sluSu6m6nPfIf9umIfaW9WphIbaKIXFIc=;
- b=m/qL/t0mCvr9Xb68Ibdg/MgqHGQ5T9gP7U0Gi3EUGNhWtOWT/9SBSxflvsZsJJrUKptdFARjMi1zjmsGrMtQGT7lDDr53AqQcziFTxX8vdUi1TZIP7ws8vHtG3VL28ihvkMcq3lNC3Rxl476oR78tnbyGmLCysTIDdl+DOLbJvw=
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
- by MW3PR12MB4345.namprd12.prod.outlook.com (2603:10b6:303:59::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=ZqEeIrAN/gqTt9PTpMiDjLAuHkoheliUq5QI272Y1aQ=;
+ b=GWs8XZmpAY4NmsOUXbE74qXzXwdFjErDAKsWiPehk+NJYfjLedAhwrVqq5pROdxAdwvKscih0VKCOiZRthtxb8SUJEUiv6vplWpteOnwZjI0PMrsI5N/2oN0lJaRwibuyZ7pxqdo1C1u1QWHbjB3rELJUS6EtnNUTErKr8EhYdw=
+Received: from CH5P222CA0019.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::20)
+ by CH2PR12MB4245.namprd12.prod.outlook.com (2603:10b6:610:af::15)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Tue, 27 Jan
- 2026 02:44:34 +0000
-Received: from PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::716d:8670:35b1:27a9]) by PH7PR12MB8796.namprd12.prod.outlook.com
- ([fe80::716d:8670:35b1:27a9%6]) with mapi id 15.20.9542.010; Tue, 27 Jan 2026
- 02:44:34 +0000
-From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
-To: "Russell, Kent" <Kent.Russell@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Send RMA CPER at bad page loading
-Thread-Topic: [PATCH] drm/amdgpu: Send RMA CPER at bad page loading
-Thread-Index: AQHci7NcWqicV1uOgU2xzIOvuGM2iLVfRk2wgAC2JICAA8S+YIAAzIiAgADDR1A=
-Date: Tue, 27 Jan 2026 02:44:34 +0000
-Message-ID: <PH7PR12MB8796E280CE14214C3EB8BEACB090A@PH7PR12MB8796.namprd12.prod.outlook.com>
-References: <20260122152501.351937-1-kent.russell@amd.com>
- <PH7PR12MB87965382F541A9E18CB67EF9B094A@PH7PR12MB8796.namprd12.prod.outlook.com>
- <BL1PR12MB589834F3ACE3526E2AA118F28594A@BL1PR12MB5898.namprd12.prod.outlook.com>
- <PH7PR12MB87960E8669B7A76762E9C920B093A@PH7PR12MB8796.namprd12.prod.outlook.com>
- <BL1PR12MB589811A52B70DDDC7A9EBDA18593A@BL1PR12MB5898.namprd12.prod.outlook.com>
-In-Reply-To: <BL1PR12MB589811A52B70DDDC7A9EBDA18593A@BL1PR12MB5898.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-01-23T16:58:23.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|MW3PR12MB4345:EE_
-x-ms-office365-filtering-correlation-id: 8cc18094-3ab1-43f2-8a2d-08de5d4e016c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|7053199007|38070700021; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?lPGd85AtpQ11mVzwu9/x28jC42yqa9Fl5MxcRUCzkiU3A6Xhg0O9g8Lfed2j?=
- =?us-ascii?Q?5qB+jhfQia3Zx0DnDap2xyAVcKpiKJoHbry89Ha8E4jKNbJURjSPLj9M99GK?=
- =?us-ascii?Q?XhPxbtt+wp+rg5Ju4Hr3OnWyqOIFmoqZBhlVmbjEIpXEkh5epndunYvvNG3C?=
- =?us-ascii?Q?i1lbiZY2TBYUnECDAfjKPll3LMRm5MsNrZrA6k/PpyZaismsFhDSZ1Ah9ePP?=
- =?us-ascii?Q?w/kkzttRBy5rU82LQo5E2TMv2Vs8H2tJFDRojmdhCA+seylV2O76mH46a+rb?=
- =?us-ascii?Q?PY+/k2atgNZN1yMG3FWSG+JZYEQqsylSgZqLlG2Gkt3pgRGFJycTtPTClF7u?=
- =?us-ascii?Q?afN501euoPvyYf3rwh995wc3/CUFPM1bi271dKv4shl9nolCmW2+y/4JmBgq?=
- =?us-ascii?Q?sRCl5jMuSQOWkQZBn4PGwarmp4CiZlO5Vu0mTw3HDiI+JBXFfnVQtTqEo2vE?=
- =?us-ascii?Q?rsxWgMGyMVTBNuAggJR4oniBVUn/KJdMukHTZRk1ho3WAgdsrkCgP39GhwW6?=
- =?us-ascii?Q?HC6EPOcAGnVs6a7L3H/jMwfrfnjU8hBiyPT4pvplSWWxQSvHHrcMSQ8YWcHK?=
- =?us-ascii?Q?delpT8VgNxSKZejkuPCq15SWCgMPk1JyG4jTti6nFIBtU//C0yUMC+qgMr4W?=
- =?us-ascii?Q?8a4Ixq2lFozLb6kTzySfSkMC74pF3eQhUtZ77ADymfFiPn/KpN1IWMD/wgk+?=
- =?us-ascii?Q?AX9KT6P6vME+J9n/ePlBgGJEpu/OhNwn7PuKaCssNWVqL3huT0Dl7M33t+V1?=
- =?us-ascii?Q?m8Uud3dlQWoslvuwfIicieTFbVfJpfR0l74Ahr1ChFK8EpM+ZYK3UKOab8jO?=
- =?us-ascii?Q?SENLTCkol1hYHN5M4RTCxmqxjTLD5GQzsrKPaNHbfTaQTTTh3+AZX9j4QGco?=
- =?us-ascii?Q?Y9YLqYAxPDVUUTB3yio8yafABLCioqLQ9GsBJLNyGXoHWVC2KhhKcmfSytVX?=
- =?us-ascii?Q?Nwd6ZYEN03TtHqEC8/kCTq0d7vyzOrk7eCsarK2fu2iR4qzPUCmpwvatS2K0?=
- =?us-ascii?Q?almKk0OpfoJdX6+dfH3QeKV5ntPNRyzGH+V2BERaWqgm8KsCOSNEyabSITaa?=
- =?us-ascii?Q?MZuvN8Kn4fz/4JplNBr83EZSwABOhi5ShLLShPGSr5TNwXXwqdLV/FggsPOY?=
- =?us-ascii?Q?5QFIUPh22pJx7UgW2lOBuPIncr557miBqHYtfLHyaRC57DwniX8gfuAF4WCO?=
- =?us-ascii?Q?ADCiDQx9kaVPbS0Oh4Sm6vXbb4FpkfVpiekTc/m8j6xDekR4PQJyWlirGGya?=
- =?us-ascii?Q?pguyx4hiilLVYCB0DssvtWVJuJm6XPHOqnrYTpsOXhl/KKlF66OIe7iU5T3s?=
- =?us-ascii?Q?0Edi2RMTc2LWrzZkBqQRmVyYT/ihwaJOSLi25SdM0uqVIa/DE9NtNxDdcmmA?=
- =?us-ascii?Q?wFXx02zLJKxSv/BnVmg43iT/LmjvYcASYyVMOOkZyeA3mltKtcWWp2RIsbAP?=
- =?us-ascii?Q?cJMYdrqNp7lQDsct82VIqBPnJOlOb0riD57EqYAE96ZRh2sPxKrj9tJAc7iK?=
- =?us-ascii?Q?87X+zgjtg5X5SSELyoh3nic3fW8PxG/TtGi9AXxUf9hwmFg4QsoJnIG82+Uf?=
- =?us-ascii?Q?lISZCx3/spqFy+lwStQqPCVbqat7cbgi4CEbSzFRr2GtnawtN8I8TGPCPeve?=
- =?us-ascii?Q?FVGgdDsLiS9WLxm7F30RTuI=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(7053199007)(38070700021); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Fz3herauD3iOjvgVDv0E4v+ehZO27YrJ0JaQkUXn3u0qGzwE9NgEeRb9thq+?=
- =?us-ascii?Q?b6gl3CB2SmlhbdJkWOEVDCNGHitlXS6LnJ6kVdTxP2vcKMMEa9oYJ91URcy2?=
- =?us-ascii?Q?bEJ9Ku2+U7yUCOoGko4Rp5lqkf+jtzzzJ4mbn1Z/1EvjH5MTVxajpr5CcZ96?=
- =?us-ascii?Q?3dfS1ZoQtWcHwhR2qlACs9bL0tsu/Bo3e33Sj7VBslRcxmMO0/S+vlgJJ5ol?=
- =?us-ascii?Q?OuVDLgTnjavcXPMQcEHMA+abCJ8xoBfwaRho66vAOeLOcwbyG9yrMqFkkJaZ?=
- =?us-ascii?Q?vBhntwhMMWxHAc8PKF0o1J+5ysO8dPLwXWOSzV0tdo9d/MEcCUwCt5IYKgCk?=
- =?us-ascii?Q?QOgxsoN8dBiek1PL6b5F3GH+xevLOMxiCGEt7XlYoFNc3m7wcDUbDgCvFBIB?=
- =?us-ascii?Q?EJACWG1I8NTzU/3bnBjQmbBoIdul53QGaDahS5A5cLxf0K6m3EViMCYmpMrz?=
- =?us-ascii?Q?UJOVx+l2c+TyWIKvV5Jne2/WFtM4hFfXX1TEdyKC4KMCfQEbcVJMBlqPub1c?=
- =?us-ascii?Q?fPir6XFXfT0TwocgLNyE8MCGMQr+Dc0T8C4BZsnd+rNvXrohtcZZB07g8ZtJ?=
- =?us-ascii?Q?ouZNGJhZ1qyLeBfS2uGxNn814XjayKCTREPWKAv2eG+y645Ntkd2qp34RfkO?=
- =?us-ascii?Q?6PXbQbGqZ4zQ++Au1lheP8/GStBNI8e0IFuqvAkXDYjUgheggawyeGERK208?=
- =?us-ascii?Q?d+lmdKIe399CSK3s68uKDDDhyEu8yUP0++f6yEN4/wDvbiAHSfr0bHjuVbAQ?=
- =?us-ascii?Q?BbRpiwt5ggECOBY2zgKAe+3qnpjqzssHZaQg46a+gKG21Ii9RthCVhI34vQT?=
- =?us-ascii?Q?HmWDiXKTRgEllPgMEgAe9aKfJA2S/OygLnof8Y+3z2wI4KYaCvZ+Ltya6YTZ?=
- =?us-ascii?Q?m4jMv5o1BXvS/2VNGtiF5ArahWXWQOr/L5Z7nkhFcQi2cPerQ/N3OxCi6GIG?=
- =?us-ascii?Q?vlOmxe+j6gugg4TwhehAVxeBwvELErqD+XY9xj/yr2FgZ+PgRWX53uT4GPar?=
- =?us-ascii?Q?qDFtYVU6RUHak4WkZUUDmaM+X6696xyoojjuWG4D7kYCV/90DvIuurgNq0kL?=
- =?us-ascii?Q?GkO4z7q+Aa1jHNAOgI6eqiSOWtUos8Xc4rDzupzJ034JcMLVf8Zvxm/ReTAf?=
- =?us-ascii?Q?Bit2nthta6UHZ3wSu5yO2+A0VbcTBE/Fy4o7E/OxXUwxJ0YroBQZvab7mE/r?=
- =?us-ascii?Q?SX2g3Ctgt+HSqTSHS5U9crClpt8K1I+8Ybhsk9xQm6yff7NFg8oZfv5GaRkj?=
- =?us-ascii?Q?etlK5hZoIGz5vKK1lUguxBxog72CZZzB/IemkokNgzUQOygL0h/1z0PDzkmZ?=
- =?us-ascii?Q?HKNxSYBrI1sA4Fczxu6NEoWoEidUgII/tsxL/fBv402Zt1BsOOhyiTk/jsQv?=
- =?us-ascii?Q?WB1ljZhlrewciI0AkkzA2Ew4xNjlc5R+Y9HfnlcUFipDB2xme4yzpKw97v34?=
- =?us-ascii?Q?U96180MsHffc8q51KdwCD/RDlfd1y19JGNyeOZko4JO9tTJhu6KfvwTcYPy9?=
- =?us-ascii?Q?wgqD5eEIk1idaqg7rsZFcSEXHwSvbWX0A+qX0wT+vJHcyjezVHeoDXspTMOq?=
- =?us-ascii?Q?lN4ZBZ5vwEU7HXqDIGNJKzzQ1vQVzQyWOi4pKtxDqr3mfUF3TJv7RnJMEOCe?=
- =?us-ascii?Q?ETAVCzs/sjpn+6G7B5HgYZ03qadkK0duMHsycgVotnQy8QZE9P8P5ocpq7x/?=
- =?us-ascii?Q?j829iq8YaEwPEV9XeTA3oaEtRoUBHdoMT8WhNi5Pir7EaTyX?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2026 03:11:00 +0000
+Received: from CH1PEPF0000A34B.namprd04.prod.outlook.com
+ (2603:10b6:610:1ee:cafe::43) by CH5P222CA0019.outlook.office365.com
+ (2603:10b6:610:1ee::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.16 via Frontend Transport; Tue,
+ 27 Jan 2026 03:11:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000A34B.mail.protection.outlook.com (10.167.244.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.3 via Frontend Transport; Tue, 27 Jan 2026 03:10:59 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 26 Jan
+ 2026 21:10:57 -0600
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <hawking.zhang@amd.com>, <alexander.deucher@amd.com>,
+ <kenneth.feng@amd.com>
+Subject: [PATCH] drm/amd/pm: fix race in power state check before mutex lock
+Date: Tue, 27 Jan 2026 11:10:47 +0800
+Message-ID: <20260127031047.4068526-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34B:EE_|CH2PR12MB4245:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1411d702-4d81-4f0b-1b08-08de5d51b248
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Vod2iorvQXG94y0JJ+e8/9XdD0Bh7xYBYKHLEeQHHCQN03tcihiC1pk2mOIt?=
+ =?us-ascii?Q?zCy/P1Y8ywncgPe9BrGPnKrvV5Sr1LWaIQpbPnpDDa9DOCl/mzzIoClw3lTE?=
+ =?us-ascii?Q?qvlHkYvT/Fz+V+NaKLPSSOPuo0GSFiVETveS/obIL03W285kU9HnX0i0giUc?=
+ =?us-ascii?Q?LwwBUczldjPyTIkOBan5eAsXVGEOU++xYCm0JIKmyHv7dIz1EuBIJ54NFBYH?=
+ =?us-ascii?Q?p0OYR/mQfwzqY+Z2thNORZWs94LhNQtsIvPGLMlEWfYTAnLMvP61PuDhibP9?=
+ =?us-ascii?Q?ia7Wxb9Y6+WB34Un1Y3C7ZmgfYQPBLTDBzbb0aSVZOBpJqC5qyg9eI5MjJkV?=
+ =?us-ascii?Q?RycScFR5DSdYxuWJeKx+I7t2maoPNg4OXh35w+ecsMRRtKzLxJe49Smz/LnO?=
+ =?us-ascii?Q?TA+K5e5dyBQCkrrtmb7Qma8KUuEXzv5FSKItGxrAhIyyVLvAgkwY5ujVW7k/?=
+ =?us-ascii?Q?VAzxdg3GXZy/82Gh30tgYqftoGYCPC5f6l1otFdm8C6S+ZbvVv7P7qYn3Pyc?=
+ =?us-ascii?Q?CJo/yE+jslS+i1aK4NcedcJvCOOzw1t0q9cw0J8QSZE0YuNOMBVbkqLuxGrU?=
+ =?us-ascii?Q?qjhtKvBjJzJJqvlK/iWjJTDUYhClcAHwNnFzN4Sh3bAeDa4oitv6PEJpCfKw?=
+ =?us-ascii?Q?qDasmUkHb6iqfTRI4pFgLj6TbFJUgxA4u3PhP6WagE2sXLneJfToyy0Uwnm0?=
+ =?us-ascii?Q?eGwx1FV3va+kxi/2HJ1wbiHfIXQ+K2SjyDU3/3C7Yf+4t816iOIyGb1d1u+9?=
+ =?us-ascii?Q?m/gS/nUzMOZ9p5cVcnZENvXDzdMV/Ru3aKHJurqP9QiJBYqVtiUDJPrzqOOy?=
+ =?us-ascii?Q?GCUXcP21gNHwHIRBhoEGLg6Fcvrj42JgZmodxg0hM7PQiGgxDvDPn6hf8f+G?=
+ =?us-ascii?Q?OzRPtA9zmd6N5PDF1k0nYxon8UTCG5Mf0RlYmhCdZXmkk3zqCTCVwqtEHHmf?=
+ =?us-ascii?Q?bz3yPX0DvUSGKY5VQYbXSzb138pnnvnAJ0E98xLcK7CIkx+8l3S9IoeMQtna?=
+ =?us-ascii?Q?PmaVFp0fanmyiNXfplFCZu0u53J+UZ2+goJqOu86BQQy4Tqm0ES1oEkCdib5?=
+ =?us-ascii?Q?1C2qSseekmcbKa0vD1HmAHflACE3OLwWo48IMrOoA5Fg0G8gAhl4MVEqOC1Q?=
+ =?us-ascii?Q?qobJqWDsJVXGOjjBxthD5r9x9OuyuIpLiWJ/BLcRLvGgfESoEnuCroww+wY6?=
+ =?us-ascii?Q?b7kYuQIBhXa0HO39uUXdqYJryJp0Bq6papJoqcBY28BBqlz94R7rcGP4cvH0?=
+ =?us-ascii?Q?qKFApi4v5horXaz7tlm5RqaaMhJnLppPN+Q26eB546IuT2pROS7RwcLrGPb9?=
+ =?us-ascii?Q?2hEo0ICXsmYb5k/+kzmLSOpkRjG405Kk8hRMCd/0bGwJfFOtmOXGmqP3T9qs?=
+ =?us-ascii?Q?JB5sgnz4PPsw4qdCly3MrjlQbAmmlhUwWXBxeQSs/dU+7AV7DrPdh1jWPHKc?=
+ =?us-ascii?Q?YCveLZRsQZPM2emgLOhpLbYxDzzrs6YjlMRRIpZEc98p4DEMf1a1vFVJjsBM?=
+ =?us-ascii?Q?r6DufSRXnAgDnJ8lHNviOX9qNyaxp1RgiRMmY6V812DPvNfUzUTTTGC3RwaO?=
+ =?us-ascii?Q?LVK4MhIksHa2za53d45vI0uqAllPMyZKiAA3jXT6ziTMj/6BxCbRW+5LTqF1?=
+ =?us-ascii?Q?pqi2vf5eEdYveZVpLT1Z3zAdjFjvhdZz57lWaYDws1hW/ENG+vwk8N0mWrUo?=
+ =?us-ascii?Q?s3KhUw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8cc18094-3ab1-43f2-8a2d-08de5d4e016c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jan 2026 02:44:34.5318 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /y2gZ8jn1Urha9ez1e/agDb2J9rvjqaan0E/MJa3I505XNiqrD/B5TF2JuY8soZ9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4345
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2026 03:10:59.7446 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1411d702-4d81-4f0b-1b08-08de5d51b248
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A34B.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4245
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,163 +135,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+The power state check in amdgpu_dpm_set_powergating_by_smu() is done
+before acquiring the pm mutex, leading to a race condition where:
+1. Thread A checks state and thinks no change is needed
+2. Thread B acquires mutex and modifies the state
+3. Thread A returns without updating state, causing inconsistency
 
-> -----Original Message-----
-> From: Russell, Kent <Kent.Russell@amd.com>
-> Sent: Monday, January 26, 2026 10:47 PM
-> To: Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-> Subject: RE: [PATCH] drm/amdgpu: Send RMA CPER at bad page loading
->
-> [Public]
->
-> > -----Original Message-----
-> > From: Zhou1, Tao <Tao.Zhou1@amd.com>
-> > Sent: Sunday, January 25, 2026 9:40 PM
-> > To: Russell, Kent <Kent.Russell@amd.com>;
-> > amd-gfx@lists.freedesktop.org
-> > Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-> > Subject: RE: [PATCH] drm/amdgpu: Send RMA CPER at bad page loading
-> >
-> > [Public]
-> >
-> > > -----Original Message-----
-> > > From: Russell, Kent <Kent.Russell@amd.com>
-> > > Sent: Saturday, January 24, 2026 1:02 AM
-> > > To: Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org
-> > > Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-> > > Subject: RE: [PATCH] drm/amdgpu: Send RMA CPER at bad page loading
-> > >
-> > > [Public]
-> > >
-> > > Thanks Tao. This was really just to get some feedback on how to do
-> > > this. And if
-> > there
-> > > were any dependencies. Ideally we want to send out a CPER for the
-> > > situation in
-> > the
-> > > commit message. I can definitely add that as a comment.
-> > >
-> > > For the 2nd part, I am not sure. The big issue is that systems that
-> > > rely on CPERs to know when a GPU is bad will not have a CPER for
-> > > this type of situation until they take a new UE. So we want to alert
-> > > them every time we load more than the threshold. Would in-band also
-> > > benefit from that? Is there a drawback to having
-> > both?
-> > > I figure more alerts is always better when it comes to unhealthy HW.
-> > >
-> > >  Kent
-> > >
-> >
-> > [Tao] Hi Kent, can system bootup successfully in this case? If the
-> > answer is no, I think in-band CPER is unnecessary, otherwise user may
-> > be confused about the inconsistence of in-band and out-of-band cper.
->
-> What we were seeing was that after the patches from you and Gangliang, th=
-e system
-> could initialize amdgpu with a massive number of retirements (previously =
-it couldn't
-> even init). But it took roughly 10 minutes from modprobe to completion on=
- the node I
-> was testing on. For health checks, a 10min init would get the node flagge=
-d for
-> service, then it would need to be triaged by the service team to figure o=
-ut why it took
-> so long. The CPER would help here since that way the node would immediate=
-ly be
-> flagged as RMA, instead of needing to be triaged as to the reason for the=
- slow init.
->
-> Again, I am not a CPER/RAS expert. The hope here is that we can just sign=
-al to
-> OOB that we need to RMA the node, instead of waiting for the next UE to t=
-rigger that.
-> If in-band would benefit from that too, then great. Because right now, al=
-l we see is a
-> slow initialization and then we need to dig into dmesg to figure out why.
->
-> Hopefully that helps explain the unique situation a bit more clearly.
->
->  Kent
+Fix this by moving the mutex lock before the power state check,
+ensuring atomicity of the state check and modification.
 
-[Tao] Hi Kent, thanks for your explanation, I'm fine with or without inband=
- cper. After comment added, the patch is:
+Fixes: 6ee27ee27ba8 ("drm/amd/pm: avoid duplicate powergate/ungate setting")
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
->
-> >
-> > > > -----Original Message-----
-> > > > From: Zhou1, Tao <Tao.Zhou1@amd.com>
-> > > > Sent: Friday, January 23, 2026 1:14 AM
-> > > > To: Russell, Kent <Kent.Russell@amd.com>;
-> > > > amd-gfx@lists.freedesktop.org
-> > > > Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Russell, Kent
-> > > > <Kent.Russell@amd.com>
-> > > > Subject: RE: [PATCH] drm/amdgpu: Send RMA CPER at bad page loading
-> > > >
-> > > > [AMD Official Use Only - AMD Internal Distribution Only]
-> > > >
-> > > > > -----Original Message-----
-> > > > > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf
-> > > > > Of Kent
-> > > > Russell
-> > > > > Sent: Thursday, January 22, 2026 11:25 PM
-> > > > > To: amd-gfx@lists.freedesktop.org
-> > > > > Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Russell, Kent
-> > > > > <Kent.Russell@amd.com>
-> > > > > Subject: [PATCH] drm/amdgpu: Send RMA CPER at bad page loading
-> > > > >
-> > > > > Some older builds weren't sending RMA CPERs when the bad page
-> > > > > threshold was exceeded. Newer builds have resolved this, but
-> > > > > there could be systems out there with bad page numbers higher
-> > > > > than the threshold, that haven't sent out an RMA CPER. To be
-> > > > > thorough and safe, send an RMA CPER when we load the table, if
-> > > > the
-> > > > > threshold is met or exceeded, instead of waiting for the next UE
-> > > > > to trigger the
-> > > > CPER.
-> > > > >
-> > > > > Signed-off-by: Kent Russell <kent.russell@amd.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 4 ++++
-> > > > >  1 file changed, 4 insertions(+)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> > > > > index 64dd7a81bff5..469d04a39d7d 100644
-> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-> > > > > @@ -1712,6 +1712,10 @@ int amdgpu_ras_eeprom_check(struct
-> > > > > amdgpu_ras_eeprom_control *control)
-> > > > >                       dev_warn(adev->dev, "RAS records:%u
-> > > > > exceeds 90%% of threshold:%d",
-> > > > >                                       control->ras_num_bad_pages,
-> > > > >
-> > > > > ras->bad_page_cnt_threshold);
-> > > > > +             if (amdgpu_bad_page_threshold !=3D 0 &&
-> > > > > +                     control->ras_num_bad_pages >=3D ras-
-> > > > > >bad_page_cnt_threshold)
-> > > > > +                     amdgpu_dpm_send_rma_reason(adev);
-> > > > > +
-> > > >
-> > > > [Tao]: 1. Better to add comment to describe this special case;
-> > > >
-> > > > 2. Do we need to trigger in-band cper as well? Like:
-> > > >
-> > > > if (adev->cper.enabled && !amdgpu_uniras_enabled(adev) &&
-> > > >     amdgpu_cper_generate_bp_threshold_record(adev))
-> > > >         dev_warn(adev->dev, "fail to generate bad page threshold
-> > > > cper records\n");
-> > > >
-> > > > >       } else if (hdr->header =3D=3D RAS_TABLE_HDR_BAD &&
-> > > > >                  amdgpu_bad_page_threshold !=3D 0) {
-> > > > >               if (hdr->version >=3D RAS_TABLE_VER_V2_1) {
-> > > > > --
-> > > > > 2.43.0
-> > > >
-> > >
-> >
->
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+index 4214f7314963..feadf604b474 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -80,15 +80,15 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
+ 	enum ip_power_state pwr_state = gate ? POWER_STATE_OFF : POWER_STATE_ON;
+ 	bool is_vcn = block_type == AMD_IP_BLOCK_TYPE_VCN;
+ 
++	mutex_lock(&adev->pm.mutex);
++
+ 	if (atomic_read(&adev->pm.pwr_state[block_type]) == pwr_state &&
+ 			(!is_vcn || adev->vcn.num_vcn_inst == 1)) {
+ 		dev_dbg(adev->dev, "IP block%d already in the target %s state!",
+ 				block_type, gate ? "gate" : "ungate");
+-		return 0;
++		goto out_unlock;
+ 	}
+ 
+-	mutex_lock(&adev->pm.mutex);
+-
+ 	switch (block_type) {
+ 	case AMD_IP_BLOCK_TYPE_UVD:
+ 	case AMD_IP_BLOCK_TYPE_VCE:
+@@ -115,6 +115,7 @@ int amdgpu_dpm_set_powergating_by_smu(struct amdgpu_device *adev,
+ 	if (!ret)
+ 		atomic_set(&adev->pm.pwr_state[block_type], pwr_state);
+ 
++out_unlock:
+ 	mutex_unlock(&adev->pm.mutex);
+ 
+ 	return ret;
+-- 
+2.34.1
 
