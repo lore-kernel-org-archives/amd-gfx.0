@@ -4,85 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A49D9D2FEF9
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jan 2026 22:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2FE5D2FEFA
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jan 2026 22:57:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4586010E5D5;
-	Tue, 27 Jan 2026 22:55:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9089010E5CE;
+	Tue, 27 Jan 2026 22:57:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LSs+OoMZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CPYGo4Qf";
 	dkim-atps=neutral
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACD3610E5D4
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 22:55:49 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-12335a3e1edso199681c88.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 14:55:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1769554549; cv=none;
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87C1610E5CF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 22:57:48 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-2b718524994so26081eec.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 14:57:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769554668; cv=none;
  d=google.com; s=arc-20240605;
- b=DC8nkO5eq8BwVvyJIWOwZEghS5/WFl3jObVtrP99V84bMANjtr7m6ox2eHeE4VQXzM
- Ey4bOP3Q8TDA8w1Cij7TxQ+qLd0ZvZiUIjWCz3shN9NpoiYbNj/d2cUW8Og8limzUtjd
- weW5RAuxiahjAMc4urhOq3fH4wjuh134sRKt+wW+FQaP1N4e4/9msgMMbx3thRkk9lm5
- ds9gZIWNlZ+15rxXGJtu6loLZqol6k3Y0IxfcL2aodNa1lUJDgIoGaBy7IUs7X4Eby1u
- 0bpqBQ31YDjIvqCkcI4xR8FbMYz45aREalqECIoAK1W3eTxe3Ei++mMMDyL2f2HjUmPk
- jsyQ==
+ b=D0PgIN1/qWVpPyRJMTB91EWpOA68AFmmh/AqQ0FFoyJHJaLJowKqNqzpVi60dlJA5t
+ fB6bDckHzPYfPqal0BXF7Q5HmnypeUNbID76ySLoE0elUysCXuj0g367a+xQHxrSEdSH
+ Sn3swhDK56E2ZYpu3yS4kvuRyIKYZmRsscp1OoyVTEDCSvt27exODqmFubl9WehKoja7
+ jdORlgflE6297vqzPIIOEQ871+QM1futgx1NGrxdkK3L2g5/O+2G2fMps9QS2NUECsHr
+ efinXWnh5V4eCzaOyR1FPltyiKpcy+8AfaVqxwn5Ak/v7/K3QYrjKKfDzm0PQWc3BJ/m
+ mF3g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=qyIXQotvbiL/evGABR7+c0tgC1up1zy1PTLkT3MuH7U=;
- fh=IY98SR0cNO93Tj0qH750yd04bAXFkNbDKtBTzSqo1Bw=;
- b=FB/0bk48NvaW1h/gHc+dDh4DnV5XJOscm9FKB0vwyQgFVat69YQaA3oqap3OZ8iCsr
- S8iP6YsF9aO7AEfCZ4hp3+UvS3uQmZAVliTR+uRRqtMUUjiZOtpPjLEOgDkjHRafKyTb
- X9zQmBuggKcy8LBsufI/BmMrgf8mVZdffaCiVUn+sbCMzOvf6KR93/TzJ1UK0GrAuTKc
- oDq+FNcC1/mig34pdPs2pm3sMRE7BmavnbdXWQaQNT+AUFZCfOIAmaO7BUWaHETy8Hz6
- wtMFLv8BsCgsRdFchsEFjNZScL7EXRBXzqAZil4qRyuLdg5bKJ9xCC7QNQ6J5jwuydHJ
- aSEw==; darn=lists.freedesktop.org
+ bh=dastR+txnDmXRBbBVeuAN64jXG1aCHDH1SoB/eaxcuI=;
+ fh=WyFm/+CjlR0xHPlF9H6ggEG52xaMECQG86wsp75243o=;
+ b=LgtVjarhq5n3UM5FHLH+ANdozHeqsdHOvyQMB62uuE3LhrLOdYsx8RhE3rxEcdPqYC
+ DFvV/D5lJ+nPC0HFamk6cmIlxX8f8Jb46k1vHnB3MKjKyZKeO+7REYVGG+7/B9nIFHTO
+ 2ogOdLRa3v/5QpN5vxTocnX1/XXbYXWtd4Obb4giC5ygLqQBznPe8es75c8vd7b4TN3G
+ EuMpZMC0+SstuPoNU2QTQk5KbD3jFNdGSM4cZKSjhREhLMUCEblxSv5dN8tcgSOunE5B
+ rFSQ3r49u9z401BNPi4wbnQTSExTQce7N2k5gYpRw16kiUTiHLHxiQHElg9wKVVSy8J6
+ pBtQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769554549; x=1770159349; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1769554668; x=1770159468; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qyIXQotvbiL/evGABR7+c0tgC1up1zy1PTLkT3MuH7U=;
- b=LSs+OoMZqi/f4AedyhR/9GC4jlfRlrXEBlnWA0A18m2ZWUkr9aw52Hjtf3uTRxlI8X
- QBf2Mhezbk38hsdVE/zhp2fUurmjNtGE2Vfc8cFsMdaDxcOEou5pBvQSi4QFVfXt50nY
- YEzNmTyHejZYiKMNJBcb0QY+a7G2WRU6/fgR1pkz4Ad5fNsGjAELANenJgbutY/ORKp0
- utRqnD/Dw/ss1vaZQyCY8p3cR4NirmMTuC4j3Rr6BbQ2ifRyCYQw5Rp3ZfeQUORYObAl
- N5uG5Q4r2kIpF0/OMBpJ6u1Kjdb67XtUuDba7i5NZ3PWQmQ8Q0TAOjbAXx0hesAyhhng
- +cAw==
+ bh=dastR+txnDmXRBbBVeuAN64jXG1aCHDH1SoB/eaxcuI=;
+ b=CPYGo4QfcML4tFJJnHYsZfBf03gbMOftuH4rXHGM9faG1SNEfRt5jkYIFxi7H1nk7D
+ zzX4VcSafeFhk81TC8RAgZAsqEoJjYtvlp1Yq1uDRNmo65dmneb+nqzZe2NrbNlN7RJ0
+ yuNkiXuFqg9bHJSmKmaqatt/pIMjOdPNXRNTnbPR/P9ugbj1hcoG8ui4Rcg5FWWrjQCZ
+ GTobwUtEKv3jsHQSvkTFPztou2BhTzadunOV4LozNCFyPxigHFVyPVnRyBPrO1QKeL4b
+ v3HwyHpzmUgIrdSOJWfWd9sQKZ2FonB2Wb1Er9rjtG3BN2Q0Y96efGcVJl4yiMlaOTWh
+ 5Esw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769554549; x=1770159349;
+ d=1e100.net; s=20230601; t=1769554668; x=1770159468;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=qyIXQotvbiL/evGABR7+c0tgC1up1zy1PTLkT3MuH7U=;
- b=mwJB3/+lscxKAVPi96v2wHgko+h0bFZn3AVlvvqEqFUvqObhmDiQVLDdmAA/HkbNzG
- aSdw1+qN4pzF9LD7O2L58uvBbvWuL42qZvkyD3d7gkxHeqQrmNulu9WHNXVcrL08C7Bh
- KCOTOzIRrcTPM2PnGqKcSk/AgDQIBS5Jpxi70eG4NQwasJTIA2nsLt5dlnKEsMwRAOUY
- goKceqe30VcNIb8PL4nVD4jInmGqkFcKHItlydlpgvDWLmXP7ZwF/qEauK/83F97zAif
- LTiBdg+GV6BHeenJJS67RI+fz8qh88WXHOInA+NZ2+hrA17JqKsikusx2gScHnHldmzS
- dIVA==
-X-Gm-Message-State: AOJu0Yxm8s46x2ettV6kpPTcXBOKydeajpBqrMj5HKzx+Sh0KJvvau3z
- s6plFi3qNtiOs7cd0lWw8nQtPIcnVbKxgfZRH1uY5qGYTMPm9FEkEs9jkZgIuBTJyXGHMIy/SlO
- 4txz1ScAWGvOedDgWJCtL9ks3/gWC/+wBiA==
-X-Gm-Gg: AZuq6aJUzuWFuPt3neESYVbQ64bRksts+iAZ2K+8dVSL3WWyFauJkdd8RkO6YKbtae9
- NohWHtrm+iSWK9mX0Nsm0bKEMbZTX6ESKsQBOnOxcCWmvzfssQSncRZM5khnsHtYlpuU8rLd5XL
- +QzbVvKah+aA1rfGavb3yDL5b/eXbYaAHP4bwlmNX5wo8Wa+hxcEyaG68L+l32voGpB3RXGpmHj
- dHZe10ynCSL1Di83KSgXeL5X4iaiqVjmlB5YRwWE7dhhTYh3h081Mua3k4PTYvMp7ekrpjs
-X-Received: by 2002:a05:7023:b85:b0:119:e56b:c3f3 with SMTP id
- a92af1059eb24-124a99cf629mr122540c88.3.1769554548914; Tue, 27 Jan 2026
- 14:55:48 -0800 (PST)
+ bh=dastR+txnDmXRBbBVeuAN64jXG1aCHDH1SoB/eaxcuI=;
+ b=hdrtPeJwjQyKRYAedjqYLLPizAa+8Nsz7szfOXdT+9i5KlRYgzL8Y3F06dlwxttTnx
+ 059IX2Pxtpgu8pVj0yHcjAdmSuYapg0rSXMJPxf7G2GUYqywTnlXXha8ABaVtmNleBzY
+ A4JLhvKk+fmc2xItmL0hiJbRWuWZtel0/N6MT2eNAvx3XzORvW2LZGf4K017k0LJFctE
+ 6qBwp5je6zL31rsyy2mu7DzCFhUtesEnhb30NeTajR4bFWv5JKVajDldJTyVpKSBoXhm
+ UmTMPaOjQcLs3E0umBFYmVmc4PtMgMqNjynzzG9msvsruj3HGUh2VM7J6s+neZILzKoG
+ mtpA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUS+34L3UQ6yWHtO8KFWphlY4bWtqQkiy5X7kQ5ispe5PcLPA5rVOz3D6O21DQAFHeDirKyhvme@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxspk2mFY5hTGZEj4kknW3jYp9QcDHOQp+Xlczz++DTnIlc90hk
+ Fb5+MDY2Qod2EAn45fVhNuhQA/CX+3ta3zm7fbCVALw/3lowSMKCmpQ3+GlcP8r0Hr27zfVPtzJ
+ LWDyueobrYSVXbXCLLazst/a6HKYXDOA=
+X-Gm-Gg: AZuq6aIJKWs5LyNHXdcZNWX1wlj2ZpH2HCtxyM7t7OWQ85Eo9PaFjuRwTOJorcC6nx+
+ cdOv8eYw4BQozAWcbU2IjI5LLST01wJFFUMTXmTZRoYWj8ts2O6ZmoMBgrY6E70bohbux65PvBp
+ F1zfEP7w1P4Vj3oDzrIGxMcF3EwNzb3ncTQk/4V7MZmcrSnlRDs2WyfTmaDKc0A4AHstG+fImJ5
+ NrhiawC81Gy8qjxKAuY8zhG/86t0kxfFHiq/5JnYKqNirkI7UZukAXGgk+CCOrzNo34TAmq
+X-Received: by 2002:a05:7023:b02:b0:122:8d:39d8 with SMTP id
+ a92af1059eb24-124a9a0f8afmr118232c88.6.1769554667696; Tue, 27 Jan 2026
+ 14:57:47 -0800 (PST)
 MIME-Version: 1.0
-References: <20260127052733.54360-1-alexander.deucher@amd.com>
-In-Reply-To: <20260127052733.54360-1-alexander.deucher@amd.com>
+References: <20260123000537.2450496-1-someguy@effective-light.com>
+ <2de6d428-b997-4ba8-8766-a211e5612e72@amd.com>
+ <2349754.vFx2qVVIhK@timur-hyperion>
+ <a8b972be-7265-492f-9855-cdec94a0e0dc@amd.com>
+ <aXUQKSJGkz7nzHJ4@hal-station.localdomain>
+ <CADnq5_Ob8yiivco+szanSiXuRwdAu4xHMe=8OQSk+Ufqykgobg@mail.gmail.com>
+ <aXlBx528d11lMJvl@hal-station>
+In-Reply-To: <aXlBx528d11lMJvl@hal-station>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Jan 2026 17:55:37 -0500
-X-Gm-Features: AZwV_Qi3tDmX2_DpDoBkh-HhadxK0Ro54P5LVpxqchvD0uDHBI0IgkO-XH_03RE
-Message-ID: <CADnq5_PDUqV5E_t1k3pnoZVHs3OP87D1PdUnwK4EKvBA-PGv3w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix cond_exec handling in amdgpu_ib_schedule()
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Tue, 27 Jan 2026 17:57:35 -0500
+X-Gm-Features: AZwV_QjN7agKnLyYKe7Smi9fxSFoYzyznSj_J6HKhoMFANGlUSc0gJvc9OHavDM
+Message-ID: <CADnq5_NXd7HYipJTW_riwQDjrZ7S-PW7oFJ=C94_FGAAesV3kA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
+To: Hamza Mahfooz <someguy@effective-light.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ dri-devel@lists.freedesktop.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, 
+ Kenneth Feng <kenneth.feng@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, 
+ Alex Hung <alex.hung@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, 
+ Melissa Wen <mwen@igalia.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -99,54 +124,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+On Tue, Jan 27, 2026 at 5:53=E2=80=AFPM Hamza Mahfooz
+<someguy@effective-light.com> wrote:
+>
+> On Mon, Jan 26, 2026 at 09:20:55AM -0500, Alex Deucher wrote:
+> > I suspect just calling drm_crtc_send_vblank_event() here on the
+> > relevant crtcs would be enough.
+> >
+>
+> Seems like an interesting idea, though I would imagine we would still
+> want to attempt a reset (of some kind) assuming that the subsequent page
+> flip also experiences a timeout.
 
-On Tue, Jan 27, 2026 at 12:37=E2=80=AFAM Alex Deucher <alexander.deucher@am=
-d.com> wrote:
->
-> The EXEC_COUNT field must be > 0.  In the gfx shadow
-> handling we always emit a cond_exec packet after the gfx_shadow
-> packet, but the EXEC_COUNT never gets patched.  This leads
-> to a hang when we try and reset queues on gfx11 APUs.
->
-> Fixes: c68cbbfd54c6 ("drm/amdgpu: cleanup conditional execution")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4789
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ib.c
-> index 72ec455fa932c..44f230d67da24 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -235,7 +235,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsi=
-gned int num_ibs,
->
->         amdgpu_ring_ib_begin(ring);
->
-> -       if (ring->funcs->emit_gfx_shadow)
-> +       if (ring->funcs->emit_gfx_shadow && adev->gfx.cp_gfx_shadow)
->                 amdgpu_ring_emit_gfx_shadow(ring, shadow_va, csa_va, gds_=
-va,
->                                             init_shadow, vmid);
->
-> @@ -291,7 +291,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsi=
-gned int num_ibs,
->                                        fence_flags | AMDGPU_FENCE_FLAG_64=
-BIT);
->         }
->
-> -       if (ring->funcs->emit_gfx_shadow && ring->funcs->init_cond_exec) =
-{
-> +       if (ring->funcs->emit_gfx_shadow && ring->funcs->init_cond_exec &=
-&
-> +           adev->gfx.cp_gfx_shadow) {
->                 amdgpu_ring_emit_gfx_shadow(ring, 0, 0, 0, false, 0);
->                 amdgpu_ring_init_cond_exec(ring, ring->cond_exe_gpu_addr)=
-;
->         }
-> --
-> 2.52.0
->
+Is it actually a timeout or just missed interrupts?  I'm wondering if
+some power feature races with the modeset and causes the interrupt to
+get missed from time to time.
+
+Alex
