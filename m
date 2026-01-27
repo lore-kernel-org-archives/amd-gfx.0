@@ -4,84 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D28FD2FEF4
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jan 2026 22:19:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 018A7D2FEF3
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jan 2026 22:23:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F59310E15A;
-	Tue, 27 Jan 2026 22:19:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF3710E1CC;
+	Tue, 27 Jan 2026 22:23:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SJvsVCBH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YFFaw7E1";
 	dkim-atps=neutral
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
- [74.125.82.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA57710E15A
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 22:19:36 +0000 (UTC)
-Received: by mail-dy1-f171.google.com with SMTP id
- 5a478bee46e88-2b6aa67a792so27411eec.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 14:19:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1769552376; cv=none;
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
+ [74.125.82.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48FAD10E1CC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 22:22:59 +0000 (UTC)
+Received: by mail-dy1-f177.google.com with SMTP id
+ 5a478bee46e88-2b7063004daso428117eec.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 14:22:59 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769552578; cv=none;
  d=google.com; s=arc-20240605;
- b=bYlQKcyd+d4Om2AUMbsTqXxPr9eLlO2fbHKiqOVh6sr/B73YLVTR3qFGRVrZ5VQ9b8
- I1DvGQ6pylucBrMyFv20xq5YH1qWa/+bV4jj7BGwhKIdI8O89LmIE/p1/aCARJkDLvgI
- N/f9F4dIc+SArQBS3mGHUp9yOt3/Pqh31WHnuGQeHxitySViFnqvu23FNWHv1qwD+T7d
- e5CTYwQ9POweTCbku2OywYMKzRqMLhLLGXZfjK86fBsz8wQPRjS1SUcatWDQjf504VWS
- UX1T54ZVX9hgFZnXt2g9K9JXtbJNawGPX/CTIpLkV91rqcY6/ThfBLBtbBUAuS6mhFD+
- NRCw==
+ b=SGMtAdH8aZwiIwrhwt4QA00vm1bQuvZACyssidvKohG+i6anm3dM6YnLpwkT0rEWTE
+ RNdaf3xx8qiMqpXRf2SiGB9tWoxdjezC8GI/uEMqhG+VfwbcZBo6rkC+BuZkfxr6y+yL
+ hnbSHEM0GwRTbCcWq6vknTmi52Cb4Zy66r+CYVru4JSy8CEFjROqmyzFVzcoWsLxJdoL
+ Xl4pT0Qx2s6nVgyow2WDnxwgFru2Ei7Zb4VcR5Lu1ckUUNGjW1Qe3Iea7o6MoQ7rzFxd
+ +CZECBzWFvm/ezP/TseF4cvp8xh5yCO6GPdJbjOIyNhDWk1xeLTe6q4vCfQ/RXZUCD9j
+ V2+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=vQCkEkR3ebBiI6RTdLrN/7RmpkmSuTI04cGav8GcN8Q=;
+ bh=9bBTwMnyyjQCxgT+QrJzOAr4bKe1pkUJYEHEXdtJ3Cc=;
  fh=eLETJQUWJWAkOM2sXDzFT8JBP8bLYFHao9rHC9tL2hQ=;
- b=G7Qk7GUCQNde8+dJFpLB6b/TRlb8OXtZ9On8/DBw6+G77PvealUfRlAEM4Bvv0lrs9
- KoxRKi79J+lWNnNqKQQgVbv//BkZOnUyHIPTB4QjyBWMnpj006SlMRcSg6SU8BRtVX4Y
- TF7mRI4AQc4nzZrfKo89GHFNp/54ZHJ4l0QJ+xzY1OCwsmanNf9lleaTbVRZYtJ89gPQ
- q1PiX/aSZjVSHL3u6A9vXBICv+19VMdlmilVBXZLSTHP81WpshCXkDtGnKV8tsDBGi4d
- nZpnZI2vvkt1Kzmqr0N0cDNoPBiTYlMfpKIycsgSWuYduzUKMkwOmWQWSaXK7Ms8M61X
- haFQ==; darn=lists.freedesktop.org
+ b=ZsH/ghQIn26P299ImQX6SOZpn5NpxaBsVEGRBDlj7E+lEcKSCvyocKzv9tms+uV2cR
+ yfPtyaQLcjjNcDFIvg1VJCe2hPUyig5CjPUIHf+fXmbHKji/PBm1w50FMkjY2XyhquIh
+ zZZIw89AMIBhUUv2ovKCl/nkAZnVFj8rk0kH1povutlLL4UA/k1/KyNfpd5LsvzQydoI
+ 2fkLJ0BHB4ph5Kq9el+K96Lx3LsBXOHs6u8fHwWtPRnmCNJaN6Su2/piXJDnamJKn09a
+ lwIhV7edIyu331YeJPVK9IxKobQpBt53VEq0WJEcmHy5TRtr29F/O/ZzDpNzlH+nFK7D
+ /Stw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769552376; x=1770157176; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1769552578; x=1770157378; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vQCkEkR3ebBiI6RTdLrN/7RmpkmSuTI04cGav8GcN8Q=;
- b=SJvsVCBHTLgzx5IKOKlXTOe24cDbv6uqmuJCY7fr29DaYC+JuQEpOrKCbb1flVyoxY
- pKAfIR6G13PQKx5P/b9UCh4MjdTXZZRex1rG7UNjHBMGxCIYUFqQGr5s7RAhSl8kiid9
- cZ2piJqBINRDgKddacxUBqQbv571WkU2LsbHcOFGmtUo5FJasCrgeEh81m2oFBUbHNig
- mVdBfjCQXRUYgyF5c0+HaiDZ0WJp1vXlqdOhd0Ly10XLasZrItZO6r8ldsVFwK1pL4aO
- CRTsyDxXl/16cj3dvqsRK1WkITgQdv8aIdXZIKTr+5wLUtYMjKhld7TxQPhL9lH9bDol
- fulg==
+ bh=9bBTwMnyyjQCxgT+QrJzOAr4bKe1pkUJYEHEXdtJ3Cc=;
+ b=YFFaw7E1andntcuirAIxP05YZoUFTY3dvL2wW48RZuys5Ficy72THSRzcXkIewbMNR
+ 2ZAGlU8NVFEYmoPKWmCMXyBUZvx2bG25TeiMuzCdXvPJoExK/VpxjIM2agy3rfFJ/lqx
+ ikDKf7wyQItqwCpx7ZDWoEqF5Ww8e0eMiloQXAXK5GHwdoAEOI5vX/eDKtp+vQQt5wqR
+ eRPMbBY8RIA58poVdpw3CUjKpJ+cCxlX004vHp2cEQHCzbhJ34ojp3FUjaoSppx2SRgf
+ QxCcK8aaiJPKQwoPX48gINZ8+XJ7LdL3JPhyZVOvLbabkxOnYEEwF/puRUiUB+eta+Cz
+ afSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769552376; x=1770157176;
+ d=1e100.net; s=20230601; t=1769552578; x=1770157378;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=vQCkEkR3ebBiI6RTdLrN/7RmpkmSuTI04cGav8GcN8Q=;
- b=qeJK0NOquStX4qwZ3ifJLbLJkEKzg71IGCdz3/mzUeo06YvXP5GQyC+mXarqgKLJr1
- xnZC6+PzHsbTIOJzOFEuUuxU3vjUuO2yQ5a0CSlFrtGnS2lsns+22HJL4zKqx0fzgMFS
- 2vL9PQKucvTWZfHoSyubPqX5+85Zgx5MYewsljBJ95CLFHdGtsTocFNGYTUdyt0fg1uR
- nu9FnDezS3c7uPOFwJc0SC35CUBJItb7lJ8TX4IXTNR59aYSxhpua3hZhL9jZIsAZich
- iX4ZTqsjYn+L5Sfe0rvfu/rd8gO3FKJjFAdxDa9xA5oEF9QRj5rRC/LlnAVPtGhVLXl1
- zUsA==
-X-Gm-Message-State: AOJu0YyF/Wg/B28FCu2+KprbcbP0VCN4A3Jyw5786CcYRjqxE5LBEk1h
- 5hG8a9cQQ+Xgvv7tsa+ISAbHCN347jCOM7NjcX9dBKgcSM2iTqqV691fnimBT1lDTk3q9QECfLl
- RfN0XLq87WoZBl3qY4OIfbUYlybeN4rw=
-X-Gm-Gg: AZuq6aLnqmyAXwlnOgIEPCzm3V6xFSMk0XCQJQnW8yjW2bHFjuz4T/NSl983gAK/yrk
- gjRzC/pHtgKBZSIcL4xKTVx9fxwtjH5AYHdC/CL+RDgKRfRCHT5c1s9lXGOTiKHHE3BbUhR0ave
- KnwYf6a1VhgJ7Kp5XlHBt+TxnuB9mIPDW43JEwMnmSP1Q3Oh27I5csq8PYs0vDpdxFN27steZRd
- 78GMW1Mvw4iUy1E+snfvfDWi/QqBtfCGxvMhETUCQgBldil1FNKz1HDRtjGjMDMySVDIszQ
-X-Received: by 2002:a05:7301:9f09:b0:2b7:24a1:865d with SMTP id
- 5a478bee46e88-2b7a1438457mr40742eec.3.1769552375932; Tue, 27 Jan 2026
- 14:19:35 -0800 (PST)
+ bh=9bBTwMnyyjQCxgT+QrJzOAr4bKe1pkUJYEHEXdtJ3Cc=;
+ b=omKI5LUlxkYnnrUcrJ+nLdGoknS9J9/RTMYpzvDzS+01FqjA8NK0bD/Fwc/DmzFMba
+ TiIhoqzEhj04BxUbwfGBGrQZeZlE4J3vrYQvuBMHqlgIGI5fppzB/djd9fbP57uZF80h
+ sg/v8EsjtAxiGukCwzDDiibgp0olaxYbFw5VjXySpw11xcc+6LjCOTvJ5NgwhcLreJXu
+ sNQd+qX617k1ltL16+dJn8XUJCNDFNyWJBv2zmMHSOdtNqs5xwFgOoiB7bmCdLtjQr+P
+ pUWq9liJrOpoFNVgXANhe6LbbjcO6om1rApaOgEAFX+PFAjwBNZFaWkSed0ERHjnZPzN
+ 94yg==
+X-Gm-Message-State: AOJu0YwQDea3/b9aBaqChlIWN34A+IBU2/1HcUubG2NcfkJ+JT77E4hK
+ BtOZPPN9UkYaJpuBqNRSaK1hyjkGAK16ETNhP/8lYaiMliXnL1QiAELGm0uPL8H/gje56rYsSi9
+ KPZx/BWLNxjMb5dCep3u3afCQcRwg1rs=
+X-Gm-Gg: AZuq6aLMR3gkYoRr5VTEPQhqLdbjxN861KhKzTjwMsGYbwjcB8d493sJAD0UL/WoZbo
+ VqsMuYqBH5hxRiGCCeeSgrmg0w8X4GtMPZOoBunzR+EvtmpNWikYBe5M1YewzyrxClc/4nl61xu
+ SzJO1JHsm6AwPFUX7TnN8IekxGbKBPNEZzvq7deN/vrw0N/wGJm9bmgPEct0pN1UEee5tCxLsCh
+ BjRNTMZBuJGaQdQxJa9YEEFGzPKu2kZD/L8T5kiQFtsbIba212EywQG0NeMMcI+yaLtEhUu
+X-Received: by 2002:a05:7301:9bc5:b0:2b7:2bf3:ce06 with SMTP id
+ 5a478bee46e88-2b7a13d087bmr33727eec.3.1769552577933; Tue, 27 Jan 2026
+ 14:22:57 -0800 (PST)
 MIME-Version: 1.0
 References: <20260127071800.2395621-1-Jesse.Zhang@amd.com>
  <20260127071800.2395621-5-Jesse.Zhang@amd.com>
 In-Reply-To: <20260127071800.2395621-5-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Jan 2026 17:19:24 -0500
-X-Gm-Features: AZwV_QgTe3ZRRG9lEzqRHDUYgKmNXwo1F0jFw7lrBOtL9sMGRVO2Eqljb3dnxuE
-Message-ID: <CADnq5_MyvMy2hkG=_nw=+qWE4reD=-apeXSiYT3dr0u0oYXK_w@mail.gmail.com>
+Date: Tue, 27 Jan 2026 17:22:46 -0500
+X-Gm-Features: AZwV_QgQlX2DNr-ClxDYAOhbxoznreIYRknn4g78uvek4zxmE5eAOvjHs2vV_V8
+Message-ID: <CADnq5_PZrnee9js+AoVWwN_q7ZCJ6M=RB+++mq7k=fCdLNTAgQ@mail.gmail.com>
 Subject: Re: [PATCH v3 5/6] drm/amdgpu: add MQD update support for user mode
  compute queues
 To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
@@ -118,10 +118,6 @@ rkloads.
 >
 > Suggested-by: Alex Deucher <alexander.deucher@amd.com>
 > Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-
 > ---
 >  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   3 +
 >  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 167 ++++++++++++++++++++-
@@ -394,6 +390,10 @@ h
 >  #define AMDGPU_USERQ_OP_CREATE 1
 >  #define AMDGPU_USERQ_OP_FREE   2
 > +#define AMDGPU_USERQ_OP_MODIFY 3
+
+This should be in patch 6.  With that moved,
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 >
 >  /* queue priority levels */
 >  /* low < normal low < normal high < high */
