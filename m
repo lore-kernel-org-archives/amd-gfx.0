@@ -4,88 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF11CD2FEF4
-	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jan 2026 22:34:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C2A2D2FEF5
+	for <amd-gfx@archiver.kernel.org>; Tue, 27 Jan 2026 22:55:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A79D10E210;
-	Tue, 27 Jan 2026 22:34:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E43410E5D1;
+	Tue, 27 Jan 2026 22:55:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k+3r/0ig";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VBS857KQ";
 	dkim-atps=neutral
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E812110E210
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 22:34:47 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-124a7216c9cso73758c88.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 14:34:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1769553287; cv=none;
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D524010E5D7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 22:55:21 +0000 (UTC)
+Received: by mail-dl1-f41.google.com with SMTP id
+ a92af1059eb24-124a55b7bfbso18773c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 27 Jan 2026 14:55:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769554521; cv=none;
  d=google.com; s=arc-20240605;
- b=CpdqlBohpHtkQYlQUDmg70ohPvN2rcwD5DqUETyY0FtpbcjHwk19oK5CWdldas96SL
- KjT/xdWTRvWi2q8rLXSGlfZ+LUI3erLJrq/yu3I5gvzEtcgMkOnfOnNnADmnUmA9EBnA
- banegcWsT4gl9IEAhk0V8a9WfOE/+9vITc9TofWEL49laajIW5M/jdrQw7qsPMzZJnUV
- jHZkXgZgjTc94WidwRxk9Yff69ZKI28eF8MrxjeYA08z+ykYLT7DkJjKX3pC6xnwxcku
- ZPwyI+AW6FoKAGnaB8yvogfbTPRSpOK9Ag4iH4VMl8Ms8IswhD2Z6RR1Jkb84MZ7hyNI
- ocWg==
+ b=Y8Khju5/BSMvPLDaH0zgEXT0uDmpuVCsg2CK8GcnMtdywh8FzZfzFmnXgnc6It+Pqs
+ r6JW0LRwOMQhNBNEr4mvCYzC95DMoSoyIoh8FiS9Hf/CqSKgYBKRF1mJFDQmHy+RSQvx
+ luBWJoZtLDaFae989QYVeGzU4s+Kkukaqm4B+SjDRip6EHhLjSnneRPhwC10+fITP6iW
+ qIe/cqs42gsZoAuFlLpjSEdn8+RMp9x//Sgm3MLdONUxaK0S4yi8N5j1PX2/ehP8QNgb
+ 5l/VluwYZGx43Lq0IbBWAgnSUngFNjKM4b8NcwDzj4PR/fJSm/JUrLyZHk5EHBdv+Gez
+ y85A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=3Kn/DpU0lzpZWuQpiOjJvPBSp0c5Adfhthl4yAKmQlo=;
- fh=eLETJQUWJWAkOM2sXDzFT8JBP8bLYFHao9rHC9tL2hQ=;
- b=PxWiKgJvlR7/o3IsEb2kcmGuLHvFN+yJC/0TDFD4gvuLKxLr3FdSxj1xYw6vm8LImi
- Xz/hTfAaqh6WlwGPcZg/eNhLSp6oEmkVLyymBkIOJ6zXag/qeveyqGeTtWYOregzOBJX
- xnMHP/oAxYxGSIA79Mqo/uZoqS1skz4CTcAa79kkt6ph+eoXrVhwJp4nGCt2dNVLzFZW
- qbKx/TlTZ78Xs1Z++pq2XwC2mKwtzw9Z0WIqDHhzDrhojj9l62+fj2AlMpFIQ8juChns
- HsvWTZVW3YzUrHG6vja1Sl4cQmiLmgOG7rBGE1w1oRnJq4PIoIbsnrsP8fYzPXKflg6x
- l0pw==; darn=lists.freedesktop.org
+ bh=/VvX2MAN6SuZMPA6a97goqJuC4zc+gOJNWDk55dUus0=;
+ fh=IY98SR0cNO93Tj0qH750yd04bAXFkNbDKtBTzSqo1Bw=;
+ b=DeVewvFBbYQuL4XU2OrdyDhUX42uxtPPq49JEJB5m8hYHXQO3T5gfI2BjDaGNQjDSc
+ ZQyPivuIAu3WzXgwaV+cAJnU+IT48MMdwFYrNR03uHTx/OcJugweAJTolHnZio4ZCbek
+ GnflkQLRMgEfE+y452ts0Py2U6Dg7AADCMvuoCjRQnIPnYN7uhHiiIcM2X6V5jk+1nR8
+ WRa9p8iah/mdshWyySV9J+FjYMOGEDPTaAYQmJ1JORA6ev3mhfohzKBNyHyyUCNH7VUi
+ HgkeLNCu2ATz5Vgcd04/4YnX4pP5zLU+vkeEGJS7LsJWFHzAsvu8LgqAQJwEV5TsSNT8
+ JzuA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769553287; x=1770158087; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1769554521; x=1770159321; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3Kn/DpU0lzpZWuQpiOjJvPBSp0c5Adfhthl4yAKmQlo=;
- b=k+3r/0igSXZMmU29ivjmSZcg6JjmENiFH/xZXc+NHdEVhel6yBD9MsHdkMF/78v3Bn
- Aca/H9GR9OBGzzaYU28mPpvaYsVZPm7oNeg+SDEkUh5N+yLIHyJ0K/4oO9gf3E0dnId9
- JoRsBKBTlhpZo/kLZLAoWvcuLfXMQq81qHewJWWxQzZ5kvYsXdMgCLXDIqwjjHEohmmG
- KmThT6IyKuoFaXEJliKIya7S1Q2JL4pjpLtUJu1Q5OOyEjiedAfgkWS9DDvpf+jJVLVg
- NNvghO50aOLtQbmrKOwlX94gQwRTgqQSvOGp7KtxvzehxkEFmhFrr378G0x5dzOh50kG
- hgXg==
+ bh=/VvX2MAN6SuZMPA6a97goqJuC4zc+gOJNWDk55dUus0=;
+ b=VBS857KQkWvFdv9DTP/LneNGHlOrNVuoqhHoCmzt7hMkzxnYkM5om0h0AsKgpTZtXU
+ XxdglJj4zt6tM447Ut3N4UlgbokR8bS4IqEEmnEZ3ZpgR5mz/Oc8ktWdosNja4OJs6NM
+ 57OAUxSbPqyj2XmSulsyG8R3IbDJrHwDMcgxn7LDLN8Jj8/Z+tfzcApwctp9xheRaslP
+ NtYrs/99RPVaYsC6Jr3zqY/531YaE9KOXzQqKtVDgNq2K0ycEzzjXsrcvHT/41GDjuCS
+ 9e4Wol+fIZLb97GIpBczzPXyKFZidOC1vFRWlerVTmG8OK10pFPATHU/LjNQcyslPki8
+ QZhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769553287; x=1770158087;
+ d=1e100.net; s=20230601; t=1769554521; x=1770159321;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=3Kn/DpU0lzpZWuQpiOjJvPBSp0c5Adfhthl4yAKmQlo=;
- b=k2xr3Uo7MT5EB/IaP3UbLyuVwOwQg+GBAO5nkXIKYT+5Hvtdhzj3P0By1OBPjaPdfz
- n1CVIOmHcdaMhLxlZwWsMOQ/JptkXctUnhcTAkOMeg2sQb0cppD4qgxQu+7gD/DFhrs5
- uWPjyhEsZq+fj1mIeZ2qPscVzkUIQBJojKkKhFcEICHxFJyFqCN/vkcR8ZUJHt/EJ7DF
- cndoTHr0TA3ZqQ8MIXK58hPktjNfyXPRQd0qFUbWTJwRZpIhnKf+5uCBHCz8JYKWoUAu
- YUJXrehMVJ7/U8DWCCUajkc7LjybexbtFfADw1c0t0oTHtgAKxMYnmJ72jvx35WaDDFM
- 3y3A==
-X-Gm-Message-State: AOJu0Yx3Au4fsicTYIGZ63Nrl+8V0OaR2oK69bg0u4JKAqygPFwx5xWe
- ScTG/zMMAuGbEEPWzlkRoN+MvV7Ix80P7iNLVj5VdSrjytLOfjGF3/+fp4cHBuu/IamGWWu/2sy
- eVGd6IzgUqbKPtfJeUVgcIwKJ74VV8b4=
-X-Gm-Gg: AZuq6aJVTMKolfcbIeYYOqdcWaltbfwlGI0SWBjMebbwhpvtz3zAuC1SPwEvLGlvP3p
- 5h2y+gF+3h/UcpIW85IE0JDCzkZovU89DaYtGDZNzefv+wnpFBJpyJrEN/wdLYAUMF98PoObcZ9
- izp0NWkCEIVvHVbe8XuTirYzQV1QCcbEmtRTBvnbHnxc9ifo9DRn0QfKYT01FZgAZtyMvqexGyW
- 21Csw2pg+12gOwo3SvYX8tceIJSB2s+0d65fsM41VgJS6sr9/8zbfREkcoubCEg7ezoHH3BhXo1
- +5ehRKM=
-X-Received: by 2002:a05:7022:6287:b0:11e:3e9:3e88 with SMTP id
- a92af1059eb24-124a99e2705mr98166c88.6.1769553285834; Tue, 27 Jan 2026
- 14:34:45 -0800 (PST)
+ bh=/VvX2MAN6SuZMPA6a97goqJuC4zc+gOJNWDk55dUus0=;
+ b=spFU5SM4KbmTr/hdyrzbjPGShtcXpD32QF4tevyogRR0mCZmmtCGsBRYtye6WzzBsM
+ COYZGsPksUQ4VyIDtJ7pKIXIPDQnv/r2edm8psMjkMTwdJRGbPfr/tkM+3L1WA9V/KJl
+ rbPY5lQHMcGcIdz56dAcx4+LzQxbM1O7mfexRkyg6qPUFCW304PF/AYUpT89U3DXihjK
+ lE9YhKm+n16CdOjj8sBu4KX8FQSJaIrsl09UNZ7F6VHKXT9Rb3Kg/1icFQeftNy4AJfe
+ wG6wf2o3ohiaB/pYQjXcaLogOE1HnbmYIT0yMXMh0ud0J9l1KlZpzr07H24Yk+Cyuyrk
+ 5tLA==
+X-Gm-Message-State: AOJu0Yx9lCp/PcW6ZqBI/PFssfX9IjN7zIEUaJdIJbJPzHPAdDKD/zt9
+ LHzrwXkinSpldoHYm6iph9EBRTGAfw/n+8qwMvLV6nRSEP1ri2aISnlBE1vHjdiep1QsMLi06DR
+ GlukuHMEC6lc9y+/Ve+K5f5R95twGb2K5gw==
+X-Gm-Gg: AZuq6aLUyZeOQPNfXUCh6lVq00pia8PmgQD0+tJmBqcGWS/USCkdud+mBsOe9EyZ5gs
+ 59UHaV2OrZCxtMo991Dj7krsO57MJtSqIL0HwSXPWdwY2SyzqPNatyrldpyME7vkdNIkexSUoVi
+ Lw2Rebx94BvAcDrJcTH+Lmh/ZGYaRnBXJy0vwA05Sb5YezyedaWme94xgLrzsch/X4iprCG2fih
+ xAJ1geZMkecZicc+sKDLc9f28oSw/+I9UmgjVSuCzcPHnngPSt/DHH3VNWSa7eQaBFTCUuH
+X-Received: by 2002:a05:7023:b85:b0:119:e56b:c3f3 with SMTP id
+ a92af1059eb24-124a99cf629mr122250c88.3.1769554520923; Tue, 27 Jan 2026
+ 14:55:20 -0800 (PST)
 MIME-Version: 1.0
-References: <20260127071800.2395621-1-Jesse.Zhang@amd.com>
- <20260127071800.2395621-6-Jesse.Zhang@amd.com>
-In-Reply-To: <20260127071800.2395621-6-Jesse.Zhang@amd.com>
+References: <20260123191500.18619-1-alexander.deucher@amd.com>
+In-Reply-To: <20260123191500.18619-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 27 Jan 2026 17:34:34 -0500
-X-Gm-Features: AZwV_QjDh1pSVAeyFdaEh6a6tIFdraNpF5IfLOx5rk5OQSZ9wbWXVN_y1I9ua8U
-Message-ID: <CADnq5_P5KmbagUTUOOrbUgfzRcP3aMRi4tChTCcvx_7i=BLsLg@mail.gmail.com>
-Subject: Re: [PATCH v3 6/6] drm/amdgpu: add MODIFY operation for compute queues
-To: "Jesse.Zhang" <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
+Date: Tue, 27 Jan 2026 17:55:09 -0500
+X-Gm-Features: AZwV_QilkdAci-sX1kWe8OBWV6xErqknarGgb66-w4JpIqHB_4HvC1rsv9TjVhE
+Message-ID: <CADnq5_ODe5fCk3BKZdU6z7=VsUCk2aOMh79myfqE3X-VDE97tQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/soc21: fix xclk for APUs
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -102,192 +99,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 27, 2026 at 2:57=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.com> w=
-rote:
+Ping?
+
+On Fri, Jan 23, 2026 at 2:22=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
 >
-> Implement the AMDGPU_USERQ_OP_MODIFY ioctl operation to enable runtime up=
-dates
-> of compute queues.
+> The reference clock is supposed to be 100Mhz, but it
+> appears to actually be slightly lower (99.81Mhz).
 >
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/14451
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 78 +++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  3 +
->  2 files changed, 81 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/soc21.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index 256ceca6d429..eb1e27c27bde 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -837,6 +837,7 @@ static int amdgpu_userq_input_args_validate(struct dr=
-m_device *dev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amd=
+gpu/soc21.c
+> index 2da733b45c21a..d9cc649d81ad4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc21.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
+> @@ -256,7 +256,13 @@ static u32 soc21_get_config_memsize(struct amdgpu_de=
+vice *adev)
 >
->         switch (args->in.op) {
->         case AMDGPU_USERQ_OP_CREATE:
-> +       case AMDGPU_USERQ_OP_MODIFY:
->                 if (args->in.flags & ~(AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PR=
-IORITY_MASK |
->                                        AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SE=
-CURE))
->                         return -EINVAL;
-> @@ -863,10 +864,29 @@ static int amdgpu_userq_input_args_validate(struct =
-drm_device *dev,
->                         drm_file_err(filp, "invalidate userq queue va or =
-size\n");
->                         return -EINVAL;
->                 }
+>  static u32 soc21_get_xclk(struct amdgpu_device *adev)
+>  {
+> -       return adev->clock.spll.reference_freq;
+> +       u32 reference_clock =3D adev->clock.spll.reference_freq;
 > +
-> +               if (!is_power_of_2(args->in.queue_size) && (args->in.queu=
-e_size !=3D 0)) {
-> +                       drm_file_err(filp, "Ring size must be a power of =
-2 or 0\n");
-> +                       return -EINVAL;
-> +               }
-
-Why 0?  Also this should probably be a separate patch as it's more of
-a fix than part of the modify change.
-
+> +       /* reference clock is actually 99.81 Mhz rather than 100 Mhz */
+> +       if ((adev->flags & AMD_IS_APU) && reference_clock =3D=3D 10000)
+> +               return 9981;
 > +
-> +               if (args->in.queue_size > 0 && args->in.queue_size < AMDG=
-PU_GPU_PAGE_SIZE) {
-> +                       args->in.queue_size =3D AMDGPU_GPU_PAGE_SIZE;
-> +                       drm_file_err(filp, "Size clamped to AMDGPU_GPU_PA=
-GE_SIZE\n");
-> +               }
-
-Why not return an error here?  Also this check should probably also be
-part of another fix patch like above.
-
-> +
-> +               if ((args->in.queue_va) &&
-> +                       (!access_ok((const void __user *) args->in.queue_=
-va,
-> +                               sizeof(uint64_t)))) {
-
-This isn't a CPU virtual address, it's a GPU virtual address.  It may
-not be a valid CPU virtual address.
-
-> +                       drm_file_err(filp, "Can't access ring base addres=
-s\n");
-> +                       return -EFAULT;
-> +               }
-> +
->                 if (!args->in.wptr_va || !args->in.rptr_va) {
->                         drm_file_err(filp, "invalidate userq queue rptr o=
-r wptr\n");
->                         return -EINVAL;
->                 }
-> +
->                 break;
->         case AMDGPU_USERQ_OP_FREE:
->                 if (args->in.ip_type ||
-> @@ -901,6 +921,58 @@ bool amdgpu_userq_enabled(struct drm_device *dev)
->         return false;
+> +       return reference_clock;
 >  }
 >
-> +static int amdgpu_modify_queue(struct drm_file *filp, union drm_amdgpu_u=
-serq *args)
-> +{
-> +       struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-> +       struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;
-> +       struct amdgpu_device *adev =3D uq_mgr->adev;
-> +       struct amdgpu_usermode_queue *queue;
-> +       const struct amdgpu_userq_funcs *userq_funcs;
-> +       int r;
-> +
-> +       mutex_lock(&uq_mgr->userq_mutex);
-> +       queue =3D amdgpu_userq_find(uq_mgr, args->in.queue_id);
-> +       if (!queue) {
-> +               mutex_unlock(&uq_mgr->userq_mutex);
-> +               return -EINVAL;
-> +       }
-> +
-> +       if (queue->queue_type !=3D AMDGPU_HW_IP_COMPUTE)
-> +               return -EOPNOTSUPP;
-
-We'll probably want to support this for non-compute queues as well for
-consistency.
-
-Alex
-
-> +
-> +       userq_funcs =3D adev->userq_funcs[queue->queue_type];
-> +
-> +       /*
-> +        * Unmap the queue if it's mapped or preempted to ensure a clean =
-update.
-> +        * If the queue is already unmapped or hung, we skip this step.
-> +        */
-> +       if (queue->state =3D=3D AMDGPU_USERQ_STATE_MAPPED ||
-> +           queue->state =3D=3D AMDGPU_USERQ_STATE_PREEMPTED) {
-> +               r =3D amdgpu_userq_unmap_helper(queue);
-> +               if (r)
-> +                       return r;
-> +       }
-> +
-> +       r =3D userq_funcs->mqd_update(queue, &args->in);
-> +       if (r)
-> +               return r;
-> +       /*
-> +        * If the queue is considered active (has valid size, address, an=
-d percentage),
-> +        * we attempt to map it. This effectively starts the queue or res=
-tarts it
-> +        * if it was previously running.
-> +        */
-> +       if (AMDGPU_USERQ_IS_ACTIVE(queue)) {
-> +               r =3D amdgpu_userq_map_helper(queue);
-> +               if (r)
-> +                       drm_file_err(uq_mgr->file, "Failed to remap queue=
- %llu after update\n",
-> +                               queue->doorbell_index);
-> +       }
-> +
-> +       mutex_unlock(&uq_mgr->userq_mutex);
-> +
-> +       return r;
-> +}
-> +
->  int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
->                        struct drm_file *filp)
->  {
-> @@ -920,6 +992,12 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void =
-*data,
->                         drm_file_err(filp, "Failed to create usermode que=
-ue\n");
->                 break;
 >
-> +
-> +       case AMDGPU_USERQ_OP_MODIFY:
-> +               r =3D amdgpu_modify_queue(filp, args);
-> +               if (r)
-> +                       drm_file_err(filp, "Failed to modify usermode que=
-ue\n");
-> +               break;
->         case AMDGPU_USERQ_OP_FREE:
->                 r =3D amdgpu_userq_destroy(filp, args->in.queue_id);
->                 if (r)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.h
-> index 833468b58603..7cd1ea94e368 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -31,6 +31,9 @@
->  #define to_ev_fence(f) container_of(f, struct amdgpu_eviction_fence, bas=
-e)
->  #define uq_mgr_to_fpriv(u) container_of(u, struct amdgpu_fpriv, userq_mg=
-r)
->  #define work_to_uq_mgr(w, name) container_of(w, struct amdgpu_userq_mgr,=
- name)
-> +#define AMDGPU_USERQ_IS_ACTIVE(q) ((q)->userq_prop->queue_size > 0 &&  \
-> +                           (q)->userq_prop->hqd_base_gpu_addr !=3D 0 && =
- \
-> +                           (q)->userq_prop->queue_percentage > 0)
->
->  enum amdgpu_userq_state {
->         AMDGPU_USERQ_STATE_UNMAPPED =3D 0,
 > --
-> 2.49.0
+> 2.52.0
 >
