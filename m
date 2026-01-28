@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F1BBD35663
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 02:00:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CAC7D35663
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 02:00:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCC0A10E600;
-	Wed, 28 Jan 2026 02:00:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8A6110E601;
+	Wed, 28 Jan 2026 02:00:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V7AnMY+I";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f83jlWFZ";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011049.outbound.protection.outlook.com [52.101.52.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CDEC10E5FF
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 02:00:31 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012037.outbound.protection.outlook.com
+ [40.107.200.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F04210E5FE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 02:00:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y/lJa0EKaOzu7PVW52j8dA5xEJ7IYn3XPVQjjGAhKOkPdHxjEPLIcpj0arprduo/Uuicyfldv3Obqsv6abAQ34vw54XpwUO+7f+8Wf4oObrrq0x87WY2e3Qu/UTbVUs2tAKUtUv4gonhGyWyClmSQ3yHcnLMUX0m3slBwFkBTmBG77213JKyj8wDUUIA0eH1kwwYM8/rSQDNBVp0VIHfTC0U2UTP+CpQ3cjcQ2Q/E7xGPY2InaJEvVJeYOtJ3wYHmB77ekUHrwpg+TvpcJGX6z41KZqR1DYDwePjQegjGdbEDLwrQPU4cuAQV2VtpQW9QOwX8y2JIDNrWCgeO1t8fw==
+ b=NZLS1K6spXTeaw4LaqnbGDN/iM3X+nYBkv9+zmvy5ldMk+TRLy6bkoUcaddQaYhCxqeqCJGK3Si6PWy2uOALbBEQeR/cCqCpE3z8muTexJFVduQK4GcREajXN74p4y/gm+oJd5pIK0c8AIfYo04qmSCPXf/qpGMmwHXtmoWpijinqeFtLLZ66BOn3zgiLkW5gR71piYFQo2TfLtFYTPLQzU0KjIFWPFuhqJvVorCNfxpwjWaMZrUEDhQB7fJ/+pNhSd0bZ+FIp+KMHLc0Ivv8dKYQTFy45IZL3rBV10iyAnEoEP++Pl9J4EzQceNazbYOMbULMKwlfBUV0D5MvaexQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rEXAYyIwX1/rnBkdTw/8Xr5CVIweKAXhxgZcSbgsEsE=;
- b=SKLO7DwCFjMaFPuLXo9gz77AjcyTSB49/QmJE1PAPWknENBaZFbR+n1O955pv0AXZ1YlEr96LGJkT3TMC6OtupAPlEtIM1HuNtK7qkx8ebiOdn700fTcB1JIb44/iHxd6SSxo4CwLqjDxgbdp33ewXB8chN+P3sopzhDi3UNbOLlDW3s/fF7VpgSy+2PIptYajYKFJTYyCyO00MDKoZHJCoFyoXakxnJZ12AeXGMAxMnWhn+HAdJc9190PHeT0RzbmlYCWW8+H2+Ho0VTfGNRskSM6scI8DTYdH3HtIu+TF72ZGaMPVDGXKZKMVCDHpV8AgEHkK9iOpm6YI/G7xFYA==
+ bh=Itnw+LN7tuir5UbQW9sgU9EpsPRNsD0xq/jl2blV16g=;
+ b=oDZUHg4/RK9pyNlE8lLNDrxwdBaNUu+Y8zOHotV9jD7oqXzSpfRR0HaeuhoGM6xaDJgUTD+4GG2Ij10ZKNHPUYQJkZ1fXO4TibUPjo/A8+mY4tW9HOVPBmihxq00fgjztRKcyOF12zBHEZoEboEi+5a8dNc2GcwvyRfgsMXJpy0zufCHV32tYST8o80ibUUovbYdhE4BC8r74UkxsukGlRmzCdBVV6JJ/Y0tZ+ykjLPYXouvDxcFwqX3V1eXt9tZKvdxnCNjgzYVQw3et+4gMATRTk+v7igK16RbcCxn1PefP6ws+yPj/xZq8XEnEljK2m5kQer970SEHVQurF8ITQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rEXAYyIwX1/rnBkdTw/8Xr5CVIweKAXhxgZcSbgsEsE=;
- b=V7AnMY+I6V5zDqBCOTKSzMcpJPo8xMWlhsk4tazOUsCcFFNF88qZWR/r7hc4742Z6JMFptuVh5128jZLe4fvIhYnKfArB7+FZxRAJmfgIK6FvP5MaXmF6m2IuqFd7/Pp7t0fr+uNCU2BIA63yG8Ac+25lfgvgnvdJsm/K2o/6dU=
-Received: from BY5PR03CA0023.namprd03.prod.outlook.com (2603:10b6:a03:1e0::33)
- by SN7PR12MB7370.namprd12.prod.outlook.com (2603:10b6:806:299::11)
+ bh=Itnw+LN7tuir5UbQW9sgU9EpsPRNsD0xq/jl2blV16g=;
+ b=f83jlWFZtF/PGANkgEjBn8DE7AUaRKLUI9VYI/DbexixljKJQNggWZSCexq9LAysbAXhbVEoBIdvghvH72+++myLHQs5IZCheIg1jXpGR2NQdPW2l+lVmElfHL00khKXW3CtCmBXMEXPeIW4AcP4+Vk+pFt6oMQuVn4AnVjaeVo=
+Received: from BLAPR03CA0164.namprd03.prod.outlook.com (2603:10b6:208:32f::20)
+ by LV8PR12MB9360.namprd12.prod.outlook.com (2603:10b6:408:205::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Wed, 28 Jan
- 2026 02:00:25 +0000
-Received: from SJ5PEPF000001ED.namprd05.prod.outlook.com
- (2603:10b6:a03:1e0:cafe::50) by BY5PR03CA0023.outlook.office365.com
- (2603:10b6:a03:1e0::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.16 via Frontend Transport; Wed,
- 28 Jan 2026 02:00:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Wed, 28 Jan
+ 2026 02:00:20 +0000
+Received: from BL02EPF00021F6E.namprd02.prod.outlook.com
+ (2603:10b6:208:32f:cafe::fd) by BLAPR03CA0164.outlook.office365.com
+ (2603:10b6:208:32f::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.7 via Frontend Transport; Wed,
+ 28 Jan 2026 02:00:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001ED.mail.protection.outlook.com (10.167.242.201) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL02EPF00021F6E.mail.protection.outlook.com (10.167.249.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 02:00:25 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 02:00:19 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 27 Jan
- 2026 20:00:16 -0600
+ 2026 20:00:13 -0600
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 27 Jan
- 2026 20:00:16 -0600
+ 2026 20:00:12 -0600
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 27 Jan 2026 20:00:13 -0600
+ Transport; Tue, 27 Jan 2026 20:00:09 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -69,10 +70,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
-Subject: [PATCH 16/21] drm/amd/display: Add CRC 32-bit mode support for DCN3.6+
-Date: Wed, 28 Jan 2026 09:51:41 +0800
-Message-ID: <20260128015538.568712-17-Wayne.Lin@amd.com>
+ <alex.hung@amd.com>, Zheng Austin <Austin.Zheng@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>
+Subject: [PATCH 15/21] drm/amd/display: Match expected data types
+Date: Wed, 28 Jan 2026 09:51:40 +0800
+Message-ID: <20260128015538.568712-16-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260128015538.568712-1-Wayne.Lin@amd.com>
 References: <20260128015538.568712-1-Wayne.Lin@amd.com>
@@ -81,55 +83,55 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001ED:EE_|SN7PR12MB7370:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69e0f3e4-bef8-45e5-7850-08de5e1100b8
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6E:EE_|LV8PR12MB9360:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb9513aa-53fd-41c8-5f0c-08de5e10fd84
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700013|18082099003; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?DVyW2t7uA5D/QzKtKMiqk52G7joOE8fUZ/qRzGxIJ2nbi7ka5ihIOPaCA4wz?=
- =?us-ascii?Q?dbX6UKvZBJfdkCiWjSw+whrVm+keRhmGgrjz/C0Ostx7doDHA+oGxl/jhIB+?=
- =?us-ascii?Q?RyV3oPJrspF9BkfSIeTkOpGBME0sU+7jVeJtluDtvhndUfgvacSh+5kMebtp?=
- =?us-ascii?Q?WIlXHxFVhcWQuAj13pfh7l26NdNACpO7cuJp+ojTD57+MG4Dmsz+nZVM73ZD?=
- =?us-ascii?Q?rNuOF2HMjhp2a0C8UOhSfrQp62DYAVdOdvjUyUZ19nsCJaQ1FAK8FKV3TQCl?=
- =?us-ascii?Q?29Ki1jGrvUxlN8KzREKvqn51C9k1b/G9MMujfhe1m596bNaBopV9MIV6jDvx?=
- =?us-ascii?Q?fLFXCL91kB+dNh/rv6yGoh5EL/pQ5GjDGLy5TdndK1CKmMyguuW9LANVMxFO?=
- =?us-ascii?Q?dLtHjXK1rxVIWwofJtB9Tv58uocmg23pgjIVtbrDjRQN6QA1HjvYCSWI+KKE?=
- =?us-ascii?Q?XKKy4TFnRnBnAsEIAqMzS6yAU9RoKDI4k5gh7iuzvKJ4Sf19e97GSCn7VuhO?=
- =?us-ascii?Q?QDq2V8nOdqEPQgR1fN1wa0oe9+k5A5CI7+Vq/Mm+2bNGnIMm/ShHL3rcrggD?=
- =?us-ascii?Q?PVLSSTTvm5sommwoTlTbHjC4e7qBAMJFUDU/gT0dAPbMEh5G/P4senVZflcH?=
- =?us-ascii?Q?cfVRe/FgmWx+JPPH8ZrJcyAoWJlS3eJ3SMGktoFldM9knsFh0X/ZNysOsiVd?=
- =?us-ascii?Q?Cp2mY+7WPLFzTHBgkxjNC7z8oburmk1QUwSwcTyL3i3xf+3QUaddAMobagnW?=
- =?us-ascii?Q?OLZPG2wolYdYse0p3Jj3txfcsJSWoUOUnXc66nxVeW2FTVQrWy8pe4of9khd?=
- =?us-ascii?Q?B440jPdTSw7/MhUOsgxAkUzCvyEkudv7TIbrhYHd43d+GO+vJHvSxI0IneUR?=
- =?us-ascii?Q?4uhNz+7XtOxt1XYOKQiFYOe+h70GYWQkhYDdLpiSM8XR8Q82kK8JG0msgNTN?=
- =?us-ascii?Q?/9iu9XA7jjvlqI730DHFfXp1N6c3JFYgwL08zrG6mprv3x3TeoNrtbSF7iyK?=
- =?us-ascii?Q?gnyqfKquIBLbJrigR/Jl8Tuehzv8etIxeUVOnged1KiQ0T1knrHDm8MMQMMP?=
- =?us-ascii?Q?pZKCyS3WraiD2vpX+nGieKUsKdMXdhAZNVlqW2H2lXlIUzgNqboT+3rmCkbq?=
- =?us-ascii?Q?14llCnSOAbBzyxQriN25AD85MzfxkVwUq5kXpEwPx2X1//HBhHHs02cEKPhw?=
- =?us-ascii?Q?xShggS2OXa/RHAMrQbAc3IlqN0WXkHGMNhhLi1m0pazWJs4stQ/0q0CmQb/p?=
- =?us-ascii?Q?qRUhdU//ymcVsqZm7QqWQP3/a/Ivg6GslqPltKKJAPCCqTTjeVjXVZuRsAIx?=
- =?us-ascii?Q?J0aHXfw6DOYiJTRA7333VzhWAeVknF9UiuFYH9AIok/Zs1KpqBubpD6R+2Tu?=
- =?us-ascii?Q?b0KSr8B+qESz1BPV+U59cKimPrgywebz6JR1YjWSiF879FWYH2GSkCS2EM0t?=
- =?us-ascii?Q?ehrbivNzJVdG/+r/XD/mjCFDjMsTYxjOypAMX14A1OiISq7+Q8/WCorkFPKm?=
- =?us-ascii?Q?1Zc71PvDqbAine+3uITDELMUurIgPglWctLuiY3mUXj/mLEkCU3fhgAwCVMy?=
- =?us-ascii?Q?SnqTUug5obAaCtZHeEl0lGDvrVqmsWPFcYUSLUibsOfjxCytBdnP7U8lzH07?=
- =?us-ascii?Q?LjTi9VrTVrJ0s7PCqa0pTAB3Szo6SLYoReB/vwnrOtOhGGIdoDkkRzLwiLVh?=
- =?us-ascii?Q?k/BYeA=3D=3D?=
+ ARA:13230040|36860700013|82310400026|376014|30052699003|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?s9Q7H7Xgh8V6F/U4K08GURx3BhE6ntbguK83UMtuZXpcFOB0RRfU8AKRywFh?=
+ =?us-ascii?Q?J4oF6VcpCUyvf8Nl/gZUvqqgB3et9ULd7OTUQPowilHIwfr0Q744LKX0yECN?=
+ =?us-ascii?Q?W2alWex2Yr7lFhbcm2SGUupuRyNkPx+d1+xDE7hKE3DHJyRl99Vx+0UgTIbs?=
+ =?us-ascii?Q?pQDYQw3xd0iKLS4NyJIDuGqt3bg893RTXr+fmBM4r8Qsr1HbYYw+T62Sug6S?=
+ =?us-ascii?Q?bAqBZSuWcrPttUHYdQUWe3I75xXZH1jSVt3/6BbMQI+xPSQ+TZ61polzDjPu?=
+ =?us-ascii?Q?MN/3gspfUtQp/qF96o1Jm3gxzJaasp9DfCUWa9WbClaF0UlLzMRIUXU3RasH?=
+ =?us-ascii?Q?gTMEEo2vpc2IR1bEyKeOv0VdGqpYUSobRrbfrAD+BoJFWOceSOIXHBWsMTN4?=
+ =?us-ascii?Q?6MKg2AiXlPdYAE5St8/RTuLmqH5O20xe8T5ItRyRcIvjYSYFhqqodkLOz0dn?=
+ =?us-ascii?Q?gVHiy84KsaSTrrWp4tD7GbOO/UEHN+TfCpL6CDx/TTZTCRYjrv0FhNJFOwoa?=
+ =?us-ascii?Q?ZrQKnYtINtwR6+UqmoyvjHMAfAi+9UEpmRmMJl/eMbrHWcd/1JL+a6KW03K4?=
+ =?us-ascii?Q?QZx2FvkdGXJ2XB5GovsxL/nhI3KiMvH9QYCPP1iuTNQoYbZZ69r8mzDhRxp3?=
+ =?us-ascii?Q?O16gMFQDTGW1cayNcOfdGFnrIbBM9deo/H9lTui1mBHSjor9YX2G2Y5pa9/Q?=
+ =?us-ascii?Q?libQj3dTYwvWCHXP04UUSq+GipkmPFJYF8uXwaxDuWGuLEAH3Hxg+rWsRNnH?=
+ =?us-ascii?Q?OCLXEgtlV0XdJzh+E2Qig1OtJ2i86VhTMup1bn6pV9Yl9liXP2T0XFBL1e26?=
+ =?us-ascii?Q?I5gBRNW8jauUzVFMCycnCYmyhzZMqMH8U5pjX6qwZdRo5vMQuiXFNqitRh/B?=
+ =?us-ascii?Q?6KLpYuTTIpl5rzZXLPouf2t8eRLQkS2MgYJEVEZrIwV/LQlIBj3NyUsy0bZK?=
+ =?us-ascii?Q?PjiVU/l2TYJx0VjDJibg8DzTZIUV8pPLRLhkYCSFNRC+XgS6Icm01Y4IpFdP?=
+ =?us-ascii?Q?kqE6CrsjWrsbO9aL+5AZibfTOSBFDBHt9tjqigZf/FIdZFQEtMuEKLRRHcVY?=
+ =?us-ascii?Q?w/7bVeA4t1yKPL1spEs8rw/shWMqALpGgAjNZfMXQUe59HXxLkjkv2nTV5Lc?=
+ =?us-ascii?Q?XdJXKMF61GqLuiXDrdZ6LjdHf4//+GPPWxU/LyMpcx3D9Z2ybUYi0+EYvUyB?=
+ =?us-ascii?Q?vHPMVe/vW4mQ9IPuxe4we1kDjgzjW10yZbb2TUhTxBF3qtg6PVOAWmngJa8h?=
+ =?us-ascii?Q?dVx5abT1q9xmju1lk9FcHRKywGuwKL7F4g3aCyrxPrY3vm5bAfJYBAx7RX/g?=
+ =?us-ascii?Q?5uhbkhDWnfuZI68vrTHyfLTdNpE/kwIiHA20/2HHJtCVfJxvxI/UQLNyfX9R?=
+ =?us-ascii?Q?JscoGkOzaUv/xpMgO29f1RNR1w+hWPZ3Wnou9TOieAqNVzr5vKheKlVRyXm7?=
+ =?us-ascii?Q?U1a7D7X8lbUjkYlYoTQJ30QpKq4YseunyZeOLzOpze5kiLskuoNLFClVx9OP?=
+ =?us-ascii?Q?4YdntdeNDmGCSFbBQuD2TFJivaLEjd30IB3zU0+8yFXjf92mChs17Tks6I2F?=
+ =?us-ascii?Q?BUweNi1c2p18TPHwnFw4ehoCMjoCI21NyilB6xMDJagTQ0L1dDdNlfuU9WZj?=
+ =?us-ascii?Q?EiI4DX6qy8Q1rzPjdResIVyRot4ZIMbDaDTMs/lJfuc34RlyJrEzgtGwXvQQ?=
+ =?us-ascii?Q?r/ujag=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013)(18082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(30052699003)(1800799024);
  DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 02:00:25.1954 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69e0f3e4-bef8-45e5-7850-08de5e1100b8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 02:00:19.8642 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb9513aa-53fd-41c8-5f0c-08de5e10fd84
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001ED.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7370
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9360
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,464 +146,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chenyu Chen <chen-yu.chen@amd.com>
+From: Zheng Austin <Austin.Zheng@amd.com>
 
-[Why]
-DCN 3.6+ hardware supports CRC-32 polynomial in addition to the
-legacy CRC-16. Enable 32-bit CRC values per color component for
-improvement of precision in display validation.
+[Why/How]
+Data types should match what is expected.
+Update/cast data accordingly.
 
-[How]
-When userspace sets crc_poly_mode (0=CRC-16, 1=CRC-32) via the debugfs
-interface, the value is stored in dm_irq_params.crc_poly_mode. When CRC
-source configuration triggers amdgpu_dm_crtc_configure_crc_source(),
-crc_poly_mode is retrieved from dm_irq_params and passed to
-dc_stream_configure_crc().
+Also change ASSERT to use DML_ASSERT instead
 
-In the DC layer, dc_stream_configure_crc() sets crc_poly_mode into the
-crc_params structure and passes it to optc35_configure_crc(). If the
-hardware supports the OTG_CRC_POLY_SEL register, the register is
-programmed to select CRC-16 or CRC-32 polynomial.
-
-When reading CRC values, optc35_get_crc() checks whether CRC32 register
-masks are available. If present, it reads 32-bit CRC values from
-OTG_CRC0/1_DATA_R32/G32/B32 registers; otherwise, it falls back
-to reading 16-bit CRC values from legacy OTG_CRC0/1_DATA_RG/B
-registers.
-
-Reviewed-by: ChiaHsuan Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Zheng Austin <Austin.Zheng@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 15 ++-
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 46 +++++++++
- .../display/amdgpu_dm/amdgpu_dm_irq_params.h  |  1 +
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 +-
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |  3 +-
- .../amd/display/dc/inc/hw/timing_generator.h  |  7 ++
- .../amd/display/dc/optc/dcn10/dcn10_optc.h    | 19 +++-
- .../amd/display/dc/optc/dcn35/dcn35_optc.c    | 96 ++++++++++++++++++-
- .../amd/display/dc/optc/dcn35/dcn35_optc.h    | 10 ++
- .../dc/resource/dcn36/dcn36_resource.c        | 12 ++-
- 10 files changed, 203 insertions(+), 10 deletions(-)
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      |  4 +--
+ .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c      | 34 +++++++++----------
+ 2 files changed, 19 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-index 5851f2d55dde..1b03f2bf8d7a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
-@@ -506,6 +506,7 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
- 	struct amdgpu_dm_connector *aconnector = NULL;
- 	bool enable = amdgpu_dm_is_valid_crc_source(source);
- 	int ret = 0;
-+	enum crc_poly_mode crc_poly_mode = CRC_POLY_MODE_16;
- 
- 	/* Configuration will be deferred to stream enable. */
- 	if (!stream_state)
-@@ -528,10 +529,18 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
- 		amdgpu_dm_replay_disable(stream_state);
- 	}
- 
-+	/* CRC polynomial selection only support for DCN3.6+ except DCN4.0.1 */
-+	if ((amdgpu_ip_version(adev, DCE_HWIP, 0) >= IP_VERSION(3, 6, 0)) &&
-+		(amdgpu_ip_version(adev, DCE_HWIP, 0) != IP_VERSION(4, 0, 1))) {
-+		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
-+
-+		crc_poly_mode = acrtc->dm_irq_params.crc_poly_mode;
-+	}
-+
- 	/* Enable or disable CRTC CRC generation */
- 	if (dm_is_crc_source_crtc(source) || source == AMDGPU_DM_PIPE_CRC_SOURCE_NONE) {
- 		if (!dc_stream_configure_crc(stream_state->ctx->dc,
--					     stream_state, NULL, enable, enable, 0, true)) {
-+					     stream_state, NULL, enable, enable, 0, true, crc_poly_mode)) {
- 			ret = -EINVAL;
- 			goto unlock;
- 		}
-@@ -877,7 +886,7 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
- 			else if (adev->dm.secure_display_ctx.op_mode == DISPLAY_CRC_MODE)
- 				/* update ROI via dm*/
- 				dc_stream_configure_crc(stream_state->ctx->dc, stream_state,
--					&crc_window, true, true, i, false);
-+					&crc_window, true, true, i, false, (enum crc_poly_mode)acrtc->dm_irq_params.crc_poly_mode);
- 
- 			reset_crc_frame_count[i] = true;
- 
-@@ -901,7 +910,7 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
- 			else if (adev->dm.secure_display_ctx.op_mode == DISPLAY_CRC_MODE)
- 				/* Avoid ROI window get changed, keep overwriting. */
- 				dc_stream_configure_crc(stream_state->ctx->dc, stream_state,
--						&crc_window, true, true, i, false);
-+						&crc_window, true, true, i, false, (enum crc_poly_mode)acrtc->dm_irq_params.crc_poly_mode);
- 
- 			/* crc ready for psp to read out */
- 			crtc_ctx->crc_info.crc[i].crc_ready = true;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index cfe35442dfcb..d6d43f1bf6d2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -3839,6 +3839,50 @@ static int crc_win_update_get(void *data, u64 *val)
- 
- DEFINE_DEBUGFS_ATTRIBUTE(crc_win_update_fops, crc_win_update_get,
- 			 crc_win_update_set, "%llu\n");
-+
-+/*
-+ * Trigger to set crc polynomial mode
-+ * 0: 16-bit CRC, 1: 32-bit CRC
-+ * only accepts 0 or 1 for supported hwip versions
-+ */
-+static int crc_poly_mode_set(void *data, u64 val)
-+{
-+	struct drm_crtc *crtc = data;
-+	struct amdgpu_crtc *acrtc;
-+	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
-+
-+	if ((amdgpu_ip_version(adev, DCE_HWIP, 0) >= IP_VERSION(3, 6, 0)) &&
-+		(amdgpu_ip_version(adev, DCE_HWIP, 0) != IP_VERSION(4, 0, 1)) &&
-+		(val < 2)) {
-+		acrtc = to_amdgpu_crtc(crtc);
-+		mutex_lock(&adev->dm.dc_lock);
-+		spin_lock_irq(&adev_to_drm(adev)->event_lock);
-+		acrtc->dm_irq_params.crc_poly_mode = val;
-+		spin_unlock_irq(&adev_to_drm(adev)->event_lock);
-+		mutex_unlock(&adev->dm.dc_lock);
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * Get crc polynomial mode (0: 16-bit CRC, 1: 32-bit CRC)
-+ */
-+static int crc_poly_mode_get(void *data, u64 *val)
-+{
-+	struct drm_crtc *crtc = data;
-+	struct drm_device *drm_dev = crtc->dev;
-+	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
-+
-+	spin_lock_irq(&drm_dev->event_lock);
-+	*val = acrtc->dm_irq_params.crc_poly_mode;
-+	spin_unlock_irq(&drm_dev->event_lock);
-+
-+	return 0;
-+}
-+
-+DEFINE_DEBUGFS_ATTRIBUTE(crc_poly_mode_fops, crc_poly_mode_get,
-+			 crc_poly_mode_set, "%llu\n");
- #endif
- void crtc_debugfs_init(struct drm_crtc *crtc)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+index 37699cc9e5c1..ca5ac3c0deb5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
+@@ -7080,7 +7080,7 @@ static void calculate_excess_vactive_bandwidth_required(
+ static double uclk_khz_to_dram_bw_mbps(unsigned long uclk_khz, const struct dml2_dram_params *dram_config, const struct dml2_mcg_dram_bw_to_min_clk_table *dram_bw_table)
  {
-@@ -3858,6 +3902,8 @@ void crtc_debugfs_init(struct drm_crtc *crtc)
- 				   &crc_win_y_end_fops);
- 	debugfs_create_file_unsafe("crc_win_update", 0644, dir, crtc,
- 				   &crc_win_update_fops);
-+	debugfs_create_file_unsafe("crc_poly_mode", 0644, dir, crtc,
-+				   &crc_poly_mode_fops);
- 	dput(dir);
- #endif
- 	debugfs_create_file("amdgpu_current_bpc", 0644, crtc->debugfs_entry,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h
-index 3c9995275cbd..f0c1b0c1faa9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h
-@@ -39,6 +39,7 @@ struct dm_irq_params {
+ 	double bw_mbps = 0;
+-	int i;
++	unsigned int i;
  
- #ifdef CONFIG_DEBUG_FS
- 	enum amdgpu_dm_pipe_crc_source crc_src;
-+	int crc_poly_mode; /* enum crc_poly_mode from timing_generator.h */
- #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
- 	struct crc_window_param window_param[MAX_CRC_WINDOW_NUM];
- 	/* At least one CRC window is activated or not*/
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 441b7e0a3b22..e7d2b861dedd 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -701,6 +701,7 @@ dc_stream_forward_multiple_crc_window(struct dc_stream_state *stream,
-  *              once.
-  * @idx: Capture CRC on which CRC engine instance
-  * @reset: Reset CRC engine before the configuration
-+ * @crc_poly_mode: CRC polynomial mode
-  *
-  * By default, the entire frame is used to calculate the CRC.
-  *
-@@ -709,7 +710,7 @@ dc_stream_forward_multiple_crc_window(struct dc_stream_state *stream,
-  */
- bool dc_stream_configure_crc(struct dc *dc, struct dc_stream_state *stream,
- 			     struct crc_params *crc_window, bool enable, bool continuous,
--			     uint8_t idx, bool reset)
-+			     uint8_t idx, bool reset, enum crc_poly_mode crc_poly_mode)
- {
- 	struct pipe_ctx *pipe;
- 	struct crc_params param;
-@@ -733,6 +734,7 @@ bool dc_stream_configure_crc(struct dc *dc, struct dc_stream_state *stream,
- 	param.windowb_y_start = 0;
- 	param.windowb_x_end = pipe->stream->timing.h_addressable;
- 	param.windowb_y_end = pipe->stream->timing.v_addressable;
-+	param.crc_poly_mode = crc_poly_mode;
+ 	if (!dram_config->alt_clock_bw_conversion)
+ 		bw_mbps = ((double)uclk_khz * dram_config->channel_count * dram_config->channel_width_bytes * dram_config->transactions_per_clock) / 1000.0;
+@@ -7091,7 +7091,7 @@ static double uclk_khz_to_dram_bw_mbps(unsigned long uclk_khz, const struct dml2
+ 				break;
+ 			}
  
- 	if (crc_window) {
- 		param.windowa_x_start = crc_window->windowa_x_start;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-index 719b98d8e8ca..9960494007ff 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-@@ -584,7 +584,8 @@ bool dc_stream_configure_crc(struct dc *dc,
- 			     bool enable,
- 			     bool continuous,
- 			     uint8_t idx,
--			     bool reset);
-+			     bool reset,
-+			     enum crc_poly_mode crc_poly_mode);
+-	ASSERT(bw_mbps > 0);
++	DML_ASSERT(bw_mbps > 0);
  
- bool dc_stream_get_crc(struct dc *dc,
- 		       struct dc_stream_state *stream,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
-index da7bf59c4b9d..671ab1fc7320 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
-@@ -122,6 +122,12 @@ enum timing_synchronization_type {
- 	VBLANK_SYNCHRONIZABLE
- };
- 
-+enum crc_poly_mode {
-+	CRC_POLY_MODE_16,
-+	CRC_POLY_MODE_32,
-+	CRC_POLY_MODE_MAX,
-+};
-+
- struct crc_params {
- 	/* Regions used to calculate CRC*/
- 	uint16_t windowa_x_start;
-@@ -144,6 +150,7 @@ struct crc_params {
- 
- 	uint8_t crc_eng_inst;
- 	bool reset;
-+	enum crc_poly_mode crc_poly_mode;
- };
- 
- struct dcn_otg_state {
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
-index 803bcc25601c..0b3f974f452e 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
-@@ -244,7 +244,13 @@
- 	uint32_t OTG_TRIGB_MANUAL_TRIG; \
- 	uint32_t OTG_UPDATE_LOCK; \
- 	uint32_t OTG_V_TOTAL_INT_STATUS; \
--	uint32_t OTG_VSYNC_NOM_INT_STATUS
-+	uint32_t OTG_VSYNC_NOM_INT_STATUS; \
-+	uint32_t OTG_CRC0_DATA_R32; \
-+	uint32_t OTG_CRC0_DATA_G32; \
-+	uint32_t OTG_CRC0_DATA_B32; \
-+	uint32_t OTG_CRC1_DATA_R32; \
-+	uint32_t OTG_CRC1_DATA_G32; \
-+	uint32_t OTG_CRC1_DATA_B32
- 
- 
- struct dcn_optc_registers {
-@@ -657,6 +663,15 @@ struct dcn_optc_registers {
- 	type OTG_V_COUNT_STOP;\
- 	type OTG_V_COUNT_STOP_TIMER;
- 
-+#define TG_REG_FIELD_LIST_DCN3_6(type) \
-+	type OTG_CRC_POLY_SEL; \
-+	type CRC0_R_CR32; \
-+	type CRC0_G_Y32; \
-+	type CRC0_B_CB32; \
-+	type CRC1_R_CR32; \
-+	type CRC1_G_Y32; \
-+	type CRC1_B_CB32;
-+
- #define TG_REG_FIELD_LIST_DCN401(type) \
- 	type OPTC_SEGMENT_WIDTH_LAST;\
- 	type OTG_PSTATE_KEEPOUT_START;\
-@@ -670,6 +685,7 @@ struct dcn_optc_shift {
- 	TG_REG_FIELD_LIST_DCN2_0(uint8_t)
- 	TG_REG_FIELD_LIST_DCN3_2(uint8_t)
- 	TG_REG_FIELD_LIST_DCN3_5(uint8_t)
-+	TG_REG_FIELD_LIST_DCN3_6(uint8_t)
- 	TG_REG_FIELD_LIST_DCN401(uint8_t)
- };
- 
-@@ -678,6 +694,7 @@ struct dcn_optc_mask {
- 	TG_REG_FIELD_LIST_DCN2_0(uint32_t)
- 	TG_REG_FIELD_LIST_DCN3_2(uint32_t)
- 	TG_REG_FIELD_LIST_DCN3_5(uint32_t)
-+	TG_REG_FIELD_LIST_DCN3_6(uint32_t)
- 	TG_REG_FIELD_LIST_DCN401(uint32_t)
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-index f699e95059f3..0953acbcc6d4 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
-@@ -180,6 +180,96 @@ static void optc35_phantom_crtc_post_enable(struct timing_generator *optc)
- 	REG_WAIT(OTG_CLOCK_CONTROL, OTG_BUSY, 0, 1, 100000);
+ 	return bw_mbps;
  }
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
+index 5c713f2e6eca..9d7741fd0adb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c
+@@ -17,7 +17,7 @@ static double dram_bw_kbps_to_uclk_khz(unsigned long long bandwidth_kbps, const
+ 		uclk_bytes_per_tick = dram_config->channel_count * dram_config->channel_width_bytes * dram_config->transactions_per_clock;
+ 		uclk_khz = (double)bandwidth_kbps / uclk_bytes_per_tick;
+ 	} else {
+-		int i;
++		unsigned int i;
+ 		/* For lpddr5 bytes per tick changes with mpstate, use table to find uclk*/
+ 		for (i = 0; i < dram_bw_table->num_entries; i++)
+ 			if (dram_bw_table->entries[i].pre_derate_dram_bw_kbps >= bandwidth_kbps) {
+@@ -63,17 +63,17 @@ static void calculate_system_active_minimums(struct dml2_dpmm_map_mode_to_soc_dp
+ 	double min_uclk_latency, min_fclk_latency, min_dcfclk_latency;
+ 	const struct dml2_core_mode_support_result *mode_support_result = &in_out->display_cfg->mode_support_result;
  
-+/**
-+ * optc35_get_crc - Capture CRC result per component
-+ *
-+ * @optc: timing_generator instance.
-+ * @idx: index of crc engine to get CRC from
-+ * @r_cr: primary CRC signature for red data.
-+ * @g_y: primary CRC signature for green data.
-+ * @b_cb: primary CRC signature for blue data.
-+ *
-+ * This function reads the CRC signature from the OPTC registers. Notice that
-+ * we have three registers to keep the CRC result per color component (RGB).
-+ *
-+ * For different DCN versions:
-+ * - If CRC32 registers (OTG_CRC0_DATA_R32/G32/B32) are available, read from
-+ *   32-bit CRC registers. DCN 3.6+ supports both CRC-32 and CRC-16 polynomials
-+ *   selectable via OTG_CRC_POLY_SEL.
-+ * - Otherwise, read from legacy 16-bit CRC registers (OTG_CRC0_DATA_RG/B)
-+ *   which only support CRC-16 polynomial.
-+ *
-+ * Returns:
-+ * If CRC is disabled, return false; otherwise, return true, and the CRC
-+ * results in the parameters.
-+ */
-+static bool optc35_get_crc(struct timing_generator *optc, uint8_t idx,
-+		   uint32_t *r_cr, uint32_t *g_y, uint32_t *b_cb)
-+{
-+	uint32_t field = 0;
-+	struct optc *optc1 = DCN10TG_FROM_TG(optc);
-+
-+	REG_GET(OTG_CRC_CNTL, OTG_CRC_EN, &field);
-+
-+	/* Early return if CRC is not enabled for this CRTC */
-+	if (!field)
-+		return false;
-+
-+	if (optc1->tg_mask->CRC0_R_CR32 != 0 && optc1->tg_mask->CRC1_R_CR32 != 0 &&
-+	    optc1->tg_mask->CRC0_G_Y32 != 0 && optc1->tg_mask->CRC1_G_Y32 != 0 &&
-+	    optc1->tg_mask->CRC0_B_CB32 != 0 && optc1->tg_mask->CRC1_B_CB32 != 0) {
-+		switch (idx) {
-+		case 0:
-+			/* OTG_CRC0_DATA_R32/G32/B32 has the CRC32 results */
-+			REG_GET(OTG_CRC0_DATA_R32,
-+				CRC0_R_CR32, r_cr);
-+			REG_GET(OTG_CRC0_DATA_G32,
-+				CRC0_G_Y32, g_y);
-+			REG_GET(OTG_CRC0_DATA_B32,
-+				CRC0_B_CB32, b_cb);
-+			break;
-+		case 1:
-+			/* OTG_CRC1_DATA_R32/G32/B32 has the CRC32 results */
-+			REG_GET(OTG_CRC1_DATA_R32,
-+				CRC1_R_CR32, r_cr);
-+			REG_GET(OTG_CRC1_DATA_G32,
-+				CRC1_G_Y32, g_y);
-+			REG_GET(OTG_CRC1_DATA_B32,
-+				CRC1_B_CB32, b_cb);
-+			break;
-+		default:
-+			return false;
-+		}
-+	} else {
-+		switch (idx) {
-+		case 0:
-+			/* OTG_CRC0_DATA_RG has the CRC16 results for the red and green component */
-+			REG_GET_2(OTG_CRC0_DATA_RG,
-+				CRC0_R_CR, r_cr,
-+				CRC0_G_Y, g_y);
-+
-+			/* OTG_CRC0_DATA_B has the CRC16 results for the blue component */
-+			REG_GET(OTG_CRC0_DATA_B,
-+				CRC0_B_CB, b_cb);
-+			break;
-+		case 1:
-+			/* OTG_CRC1_DATA_RG has the CRC16 results for the red and green component */
-+			REG_GET_2(OTG_CRC1_DATA_RG,
-+				CRC1_R_CR, r_cr,
-+				CRC1_G_Y, g_y);
-+
-+			/* OTG_CRC1_DATA_B has the CRC16 results for the blue component */
-+			REG_GET(OTG_CRC1_DATA_B,
-+				CRC1_B_CB, b_cb);
-+			break;
-+		default:
-+			return false;
-+			}
-+	}
-+
-+	return true;
-+}
-+
- static bool optc35_configure_crc(struct timing_generator *optc,
- 				 const struct crc_params *params)
- {
-@@ -266,6 +356,10 @@ static bool optc35_configure_crc(struct timing_generator *optc,
- 	default:
- 		return false;
- 	}
-+	if (optc1->tg_mask->OTG_CRC_POLY_SEL != 0) {
-+		REG_UPDATE(OTG_CRC_CNTL,
-+				OTG_CRC_POLY_SEL, params->crc_poly_mode);
-+	}
- 	return true;
- }
+-	min_uclk_avg = dram_bw_kbps_to_uclk_khz(mode_support_result->global.active.average_bw_dram_kbps
+-											/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_active_average.dram_derate_percent_pixel / 100),
++	min_uclk_avg = dram_bw_kbps_to_uclk_khz((unsigned long long)(mode_support_result->global.active.average_bw_dram_kbps
++											/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_active_average.dram_derate_percent_pixel / 100)),
+ 							&in_out->soc_bb->clk_table.dram_config, &in_out->min_clk_table->dram_bw_table);
  
-@@ -488,7 +582,7 @@ static const struct timing_generator_funcs dcn35_tg_funcs = {
- 		.is_optc_underflow_occurred = optc1_is_optc_underflow_occurred,
- 		.clear_optc_underflow = optc1_clear_optc_underflow,
- 		.setup_global_swap_lock = NULL,
--		.get_crc = optc1_get_crc,
-+		.get_crc = optc35_get_crc,
- 		.configure_crc = optc35_configure_crc,
- 		.set_dsc_config = optc3_set_dsc_config,
- 		.get_dsc_status = optc2_get_dsc_status,
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h
-index 733a2f149d9a..5c2cb1f27783 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h
-@@ -74,6 +74,16 @@
- 	SF(OTG0_OTG_PIPE_UPDATE_STATUS, OTG_VUPDATE_KEEPOUT_STATUS, mask_sh),\
- 	SF(OTG0_INTERRUPT_DEST, OTG0_IHC_OTG_VERTICAL_INTERRUPT2_DEST, mask_sh)
+ 	if (in_out->display_cfg->display_config.hostvm_enable)
+-		min_uclk_urgent = dram_bw_kbps_to_uclk_khz(mode_support_result->global.active.urgent_bw_dram_kbps
+-										/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_active_urgent.dram_derate_percent_pixel_and_vm / 100),
++		min_uclk_urgent = dram_bw_kbps_to_uclk_khz((unsigned long long)(mode_support_result->global.active.urgent_bw_dram_kbps
++										/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_active_urgent.dram_derate_percent_pixel_and_vm / 100)),
+ 							 &in_out->soc_bb->clk_table.dram_config, &in_out->min_clk_table->dram_bw_table);
+ 	else
+-		min_uclk_urgent = dram_bw_kbps_to_uclk_khz(mode_support_result->global.active.urgent_bw_dram_kbps
+-										/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_active_urgent.dram_derate_percent_pixel / 100),
++		min_uclk_urgent = dram_bw_kbps_to_uclk_khz((unsigned long long)(mode_support_result->global.active.urgent_bw_dram_kbps
++										/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_active_urgent.dram_derate_percent_pixel / 100)),
+ 							 &in_out->soc_bb->clk_table.dram_config, &in_out->min_clk_table->dram_bw_table);
  
-+#define OPTC_COMMON_MASK_SH_LIST_DCN3_6(mask_sh)\
-+	OPTC_COMMON_MASK_SH_LIST_DCN3_5(mask_sh),\
-+	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_POLY_SEL, mask_sh),\
-+	SF(OTG_CRC320_OTG_CRC0_DATA_R32, CRC0_R_CR32, mask_sh),\
-+	SF(OTG_CRC320_OTG_CRC0_DATA_G32, CRC0_G_Y32, mask_sh),\
-+	SF(OTG_CRC320_OTG_CRC0_DATA_B32, CRC0_B_CB32, mask_sh),\
-+	SF(OTG_CRC320_OTG_CRC1_DATA_R32, CRC1_R_CR32, mask_sh),\
-+	SF(OTG_CRC320_OTG_CRC1_DATA_G32, CRC1_G_Y32, mask_sh),\
-+	SF(OTG_CRC320_OTG_CRC1_DATA_B32, CRC1_B_CB32, mask_sh)
-+
- void dcn35_timing_generator_init(struct optc *optc1);
+ 	min_uclk_bw = min_uclk_urgent > min_uclk_avg ? min_uclk_urgent : min_uclk_avg;
+@@ -111,12 +111,12 @@ static void calculate_svp_prefetch_minimums(struct dml2_dpmm_map_mode_to_soc_dpm
+ 	const struct dml2_core_mode_support_result *mode_support_result = &in_out->display_cfg->mode_support_result;
  
- void dcn35_timing_generator_set_fgcg(struct optc *optc1, bool enable);
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-index 6469d5fe2e6d..0ee16926db4e 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
-@@ -460,16 +460,22 @@ static const struct dcn30_mpc_mask mpc_mask = {
- };
+ 	/* assumes DF throttling is enabled */
+-	min_uclk_avg = dram_bw_kbps_to_uclk_khz(mode_support_result->global.svp_prefetch.average_bw_dram_kbps
+-								/ ((double)in_out->soc_bb->qos_parameters.derate_table.dcn_mall_prefetch_average.dram_derate_percent_pixel / 100),
++	min_uclk_avg = dram_bw_kbps_to_uclk_khz((unsigned long long)(mode_support_result->global.svp_prefetch.average_bw_dram_kbps
++								/ ((double)in_out->soc_bb->qos_parameters.derate_table.dcn_mall_prefetch_average.dram_derate_percent_pixel / 100)),
+ 						&in_out->soc_bb->clk_table.dram_config, &in_out->min_clk_table->dram_bw_table);
  
- #define optc_regs_init(id)\
--	OPTC_COMMON_REG_LIST_DCN3_5_RI(id)
-+	OPTC_COMMON_REG_LIST_DCN3_5_RI(id),\
-+	SRI_ARR(OTG_CRC0_DATA_R32, OTG_CRC32, id),\
-+	SRI_ARR(OTG_CRC0_DATA_G32, OTG_CRC32, id),\
-+	SRI_ARR(OTG_CRC0_DATA_B32, OTG_CRC32, id),\
-+	SRI_ARR(OTG_CRC1_DATA_R32, OTG_CRC32, id),\
-+	SRI_ARR(OTG_CRC1_DATA_G32, OTG_CRC32, id),\
-+	SRI_ARR(OTG_CRC1_DATA_B32, OTG_CRC32, id)
+-	min_uclk_urgent = dram_bw_kbps_to_uclk_khz(mode_support_result->global.svp_prefetch.urgent_bw_dram_kbps
+-								/ ((double)in_out->soc_bb->qos_parameters.derate_table.dcn_mall_prefetch_urgent.dram_derate_percent_pixel / 100),
++	min_uclk_urgent = dram_bw_kbps_to_uclk_khz((unsigned long long)(mode_support_result->global.svp_prefetch.urgent_bw_dram_kbps
++								/ ((double)in_out->soc_bb->qos_parameters.derate_table.dcn_mall_prefetch_urgent.dram_derate_percent_pixel / 100)),
+ 						 &in_out->soc_bb->clk_table.dram_config, &in_out->min_clk_table->dram_bw_table);
  
- static struct dcn_optc_registers optc_regs[4];
+ 	min_uclk_bw = min_uclk_urgent > min_uclk_avg ? min_uclk_urgent : min_uclk_avg;
+@@ -144,12 +144,12 @@ static void calculate_svp_prefetch_minimums(struct dml2_dpmm_map_mode_to_soc_dpm
+ 	in_out->programming->min_clocks.dcn4x.svp_prefetch.dcfclk_khz = dml_round_up(min_dcfclk_bw > min_dcfclk_latency ? min_dcfclk_bw : min_dcfclk_latency);
  
- static const struct dcn_optc_shift optc_shift = {
--	OPTC_COMMON_MASK_SH_LIST_DCN3_5(__SHIFT)
-+	OPTC_COMMON_MASK_SH_LIST_DCN3_6(__SHIFT)
- };
+ 	/* assumes DF throttling is disabled */
+-	min_uclk_avg = dram_bw_kbps_to_uclk_khz(mode_support_result->global.svp_prefetch.average_bw_dram_kbps
+-										/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_active_average.dram_derate_percent_pixel / 100),
++	min_uclk_avg = dram_bw_kbps_to_uclk_khz((unsigned long long)(mode_support_result->global.svp_prefetch.average_bw_dram_kbps
++										/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_active_average.dram_derate_percent_pixel / 100)),
+ 								&in_out->soc_bb->clk_table.dram_config, &in_out->min_clk_table->dram_bw_table);
  
- static const struct dcn_optc_mask optc_mask = {
--	OPTC_COMMON_MASK_SH_LIST_DCN3_5(_MASK)
-+	OPTC_COMMON_MASK_SH_LIST_DCN3_6(_MASK)
- };
+-	min_uclk_urgent = dram_bw_kbps_to_uclk_khz(mode_support_result->global.svp_prefetch.urgent_bw_dram_kbps
+-										/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_active_urgent.dram_derate_percent_pixel / 100),
++	min_uclk_urgent = dram_bw_kbps_to_uclk_khz((unsigned long long)(mode_support_result->global.svp_prefetch.urgent_bw_dram_kbps
++										/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_active_urgent.dram_derate_percent_pixel / 100)),
+ 								&in_out->soc_bb->clk_table.dram_config, &in_out->min_clk_table->dram_bw_table);
  
- #define hubp_regs_init(id)\
+ 	min_uclk_bw = min_uclk_urgent > min_uclk_avg ? min_uclk_urgent : min_uclk_avg;
+@@ -185,8 +185,8 @@ static void calculate_idle_minimums(struct dml2_dpmm_map_mode_to_soc_dpm_params_
+ 	double min_uclk_latency, min_fclk_latency, min_dcfclk_latency;
+ 	const struct dml2_core_mode_support_result *mode_support_result = &in_out->display_cfg->mode_support_result;
+ 
+-	min_uclk_avg = dram_bw_kbps_to_uclk_khz(mode_support_result->global.active.average_bw_dram_kbps
+-										/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_idle_average.dram_derate_percent_pixel / 100),
++	min_uclk_avg = dram_bw_kbps_to_uclk_khz((unsigned long long)(mode_support_result->global.active.average_bw_dram_kbps
++										/ ((double)in_out->soc_bb->qos_parameters.derate_table.system_idle_average.dram_derate_percent_pixel / 100)),
+ 								&in_out->soc_bb->clk_table.dram_config, &in_out->min_clk_table->dram_bw_table);
+ 
+ 	min_fclk_avg = (double)mode_support_result->global.active.average_bw_sdp_kbps / in_out->soc_bb->fabric_datapath_to_dcn_data_return_bytes;
 -- 
 2.43.0
 
