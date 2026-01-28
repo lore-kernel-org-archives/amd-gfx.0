@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1DAB0D25B41
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 11:08:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7531BD25B42
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 11:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4FBD10E6A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F72510E699;
 	Wed, 28 Jan 2026 11:08:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TYGsSG+j";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="IuEHsV3X";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7E710E685;
- Wed, 28 Jan 2026 11:08:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F90510E671;
+ Wed, 28 Jan 2026 11:08:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,27 +22,28 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=NaFH3Y022RATKKNl7Y+V+1q98VJmEOTSRrXcvdjorEo=; b=TYGsSG+jHN/vRefcDACAekKY3l
- Jv1Y96ItaT5Mpx5u6HbQ5u7Qun8S+UlWrAdFsLFu5tXFuphR4BEcYsg2C/g3867Ten1uXAgZAWuDx
- LcXZelmwG/thqaIHFZw6YNzMW8T2+M4XteRo0o29yywk1luPIGFSLu9ZkD/ehj2gq/KqrJ+cxIVG2
- NFk4mAUb7lMWXF55f/mCXdflzT6W00QcADecXpyemHUOU+YSRJP1qAL+XrhODDV8fcTRNyn4sFbdG
- OEIKze5oHQlQox+BYfmj+1Teb9h+5fzzf6sG18TCFAWOqpM2nCIs1D/p0xrI96MnW6+co7hdLREou
- 6dQhy0pA==;
+ bh=TxQlN6w5d+5uvnErUFrkQJR6Hk4LHP8wL3QrAKzFvCA=; b=IuEHsV3XKU45trKKS+D7PpQ2JA
+ GVSp+8b3IVDu7RRSfa7Zos0nKc+LeWh4KlRmPatMLzD2o29qO9i37k0wQyJxpWKyVP6kzGEHk/Sak
+ ZVnt+IPum65UaujcRUkOKNW3XJBQLy0EzbW+zCC6MPzNwIgjP5giGTDm4uIGAZWakmbs+JIKwT/XS
+ zIA/Kj0fAISPJLle1uVr71vBIMPL88+d4lwX18gVMJQDjUHTQRfKregIu1n9GymQEJ6yzTP3beeZb
+ lDqAffIwG6FFbAf8KA0rSo7e9ElqzMGqvDGMsueWSjm1sMocIxUST88gk+HxHp8r4ZXDmVJSQQMSD
+ zO7Qt1lQ==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vl3PT-00Aqgl-2u; Wed, 28 Jan 2026 12:08:31 +0100
+ id 1vl3PG-00Aqbo-Ig; Wed, 28 Jan 2026 12:08:18 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, intel-xe@lists.freedesktop.org,
- Matthew Brost <matthew.brost@intel.com>
-Subject: [PATCH v6 30/31] drm/xe: Remove drm_sched_init_args->num_rqs usage
-Date: Wed, 28 Jan 2026 11:08:05 +0000
-Message-ID: <20260128110806.38350-31-tvrtko.ursulin@igalia.com>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH v6 13/31] drm/sched: Favour interactive clients slightly
+Date: Wed, 28 Jan 2026 11:07:48 +0000
+Message-ID: <20260128110806.38350-14-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
 References: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
@@ -63,56 +64,239 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Remove member no longer used by the scheduler core.
+GPUs do not always implement preemption and DRM scheduler definitely
+does not support it at the front end scheduling level. This means
+execution quanta can be quite long and is controlled by userspace,
+consequence of which is picking the "wrong" entity to run can have a
+larger negative effect than it would have with a virtual runtime based CPU
+scheduler.
+
+Another important consideration is that rendering clients often have
+shallow submission queues, meaning they will be entering and exiting the
+scheduler's runnable queue often.
+
+Relevant scenario here is what happens when an entity re-joins the
+runnable queue with other entities already present. One cornerstone of the
+virtual runtime algorithm is to let it re-join at the head and rely on the
+virtual runtime accounting and timeslicing to sort it out.
+
+However, as explained above, this may not work perfectly in the GPU world.
+Entity could always get to overtake the existing entities, or not,
+depending on the submission order and rbtree equal key insertion
+behaviour.
+
+Allow interactive jobs to overtake entities already queued up for the
+limited case when interactive entity is re-joining the queue after
+being idle.
+
+This gives more opportunity for the compositors to have their rendering
+executed before the GPU hogs even if they have been configured with the
+same scheduling priority.
+
+To classify a client as interactive we look at its average job duration
+versus the average for the whole scheduler. We can track this easily by
+plugging into the existing job runtime tracking and applying the
+exponential moving average window on the past submissions. Then, all other
+things being equal, we let the more interactive jobs go first.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Lucas De Marchi <lucas.demarchi@intel.com>
-Cc: "Thomas Hellström" <thomas.hellstrom@linux.intel.com>
-Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: intel-xe@lists.freedesktop.org
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Philipp Stanner <phasta@kernel.org>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 ---
- drivers/gpu/drm/xe/xe_dep_scheduler.c | 1 -
- drivers/gpu/drm/xe/xe_execlist.c      | 1 -
- drivers/gpu/drm/xe/xe_gpu_scheduler.c | 1 -
- 3 files changed, 3 deletions(-)
+ drivers/gpu/drm/scheduler/sched_entity.c   | 13 ++++++++++---
+ drivers/gpu/drm/scheduler/sched_internal.h |  5 ++++-
+ drivers/gpu/drm/scheduler/sched_main.c     |  8 +++++++-
+ drivers/gpu/drm/scheduler/sched_rq.c       | 22 ++++++++++++++++++++--
+ include/drm/gpu_scheduler.h                |  5 +++++
+ 5 files changed, 46 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_dep_scheduler.c b/drivers/gpu/drm/xe/xe_dep_scheduler.c
-index 9bd3bfd2e526..2c7f43e61069 100644
---- a/drivers/gpu/drm/xe/xe_dep_scheduler.c
-+++ b/drivers/gpu/drm/xe/xe_dep_scheduler.c
-@@ -78,7 +78,6 @@ xe_dep_scheduler_create(struct xe_device *xe,
- 	const struct drm_sched_init_args args = {
- 		.ops = &sched_ops,
- 		.submit_wq = submit_wq,
--		.num_rqs = 1,
- 		.credit_limit = job_limit,
- 		.timeout = MAX_SCHEDULE_TIMEOUT,
- 		.name = name,
-diff --git a/drivers/gpu/drm/xe/xe_execlist.c b/drivers/gpu/drm/xe/xe_execlist.c
-index 005a5b2c36fe..94aeab394f88 100644
---- a/drivers/gpu/drm/xe/xe_execlist.c
-+++ b/drivers/gpu/drm/xe/xe_execlist.c
-@@ -337,7 +337,6 @@ static int execlist_exec_queue_init(struct xe_exec_queue *q)
- 	struct drm_gpu_scheduler *sched;
- 	const struct drm_sched_init_args args = {
- 		.ops = &drm_sched_ops,
--		.num_rqs = 1,
- 		.credit_limit = xe_lrc_ring_size() / MAX_JOB_SIZE_BYTES,
- 		.hang_limit = XE_SCHED_HANG_LIMIT,
- 		.timeout = XE_SCHED_JOB_TIMEOUT,
-diff --git a/drivers/gpu/drm/xe/xe_gpu_scheduler.c b/drivers/gpu/drm/xe/xe_gpu_scheduler.c
-index 9c8004d5dd91..67d8ce368486 100644
---- a/drivers/gpu/drm/xe/xe_gpu_scheduler.c
-+++ b/drivers/gpu/drm/xe/xe_gpu_scheduler.c
-@@ -66,7 +66,6 @@ int xe_sched_init(struct xe_gpu_scheduler *sched,
- 	const struct drm_sched_init_args args = {
- 		.ops = ops,
- 		.submit_wq = submit_wq,
--		.num_rqs = 1,
- 		.credit_limit = hw_submission,
- 		.hang_limit = hang_limit,
- 		.timeout = timeout,
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 94438f80b00d..add99c609faf 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -60,6 +60,7 @@ static struct drm_sched_entity_stats *drm_sched_entity_stats_new(void)
+ 
+ 	kref_init(&stats->kref);
+ 	spin_lock_init(&stats->lock);
++	ewma_drm_sched_avgtime_init(&stats->avg_job_us);
+ 
+ 	return stats;
+ }
+@@ -69,19 +70,25 @@ static struct drm_sched_entity_stats *drm_sched_entity_stats_new(void)
+  * @job: Scheduler job to account.
+  *
+  * Accounts the execution time of @job to its respective entity stats object.
++ *
++ * Return: Job's real duration in micro seconds.
+  */
+-void drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
++ktime_t drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job)
+ {
+ 	struct drm_sched_entity_stats *stats = job->entity_stats;
+ 	struct drm_sched_fence *s_fence = job->s_fence;
+-	ktime_t start, end;
++	ktime_t start, end, duration;
+ 
+ 	start = dma_fence_timestamp(&s_fence->scheduled);
+ 	end = dma_fence_timestamp(&s_fence->finished);
++	duration = ktime_sub(end, start);
+ 
+ 	spin_lock(&stats->lock);
+-	stats->runtime = ktime_add(stats->runtime, ktime_sub(end, start));
++	stats->runtime = ktime_add(stats->runtime, duration);
++	ewma_drm_sched_avgtime_add(&stats->avg_job_us, ktime_to_us(duration));
+ 	spin_unlock(&stats->lock);
++
++	return duration;
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
+index a682e0cfbf25..ba5a9d9786e1 100644
+--- a/drivers/gpu/drm/scheduler/sched_internal.h
++++ b/drivers/gpu/drm/scheduler/sched_internal.h
+@@ -14,6 +14,7 @@
+  * @runtime: time entity spent on the GPU.
+  * @prev_runtime: previous @runtime used to get the runtime delta.
+  * @vruntime: virtual runtime as accumulated by the fair algorithm.
++ * @avg_job_us: average job duration.
+  *
+  * Because jobs and entities have decoupled lifetimes, ie. we cannot access the
+  * entity once the job has been de-queued, and we do need know how much GPU time
+@@ -26,6 +27,8 @@ struct drm_sched_entity_stats {
+ 	ktime_t		runtime;
+ 	ktime_t		prev_runtime;
+ 	ktime_t		vruntime;
++
++	struct ewma_drm_sched_avgtime   avg_job_us;
+ };
+ 
+ /* Used to choose between FIFO and RR job-scheduling */
+@@ -146,6 +149,6 @@ drm_sched_entity_stats_put(struct drm_sched_entity_stats *stats)
+ 	kref_put(&stats->kref, drm_sched_entity_stats_release);
+ }
+ 
+-void drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job);
++ktime_t drm_sched_entity_stats_job_add_gpu_time(struct drm_sched_job *job);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 294376bd8d77..840262e06c30 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -1003,7 +1003,12 @@ static void drm_sched_free_job_work(struct work_struct *w)
+ 	struct drm_sched_job *job;
+ 
+ 	while ((job = drm_sched_get_finished_job(sched))) {
+-		drm_sched_entity_stats_job_add_gpu_time(job);
++		ktime_t duration = drm_sched_entity_stats_job_add_gpu_time(job);
++
++		/* Serialized by the worker. */
++		ewma_drm_sched_avgtime_add(&sched->avg_job_us,
++					   ktime_to_us(duration));
++
+ 		sched->ops->free_job(job);
+ 	}
+ 
+@@ -1165,6 +1170,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+ 	atomic_set(&sched->_score, 0);
+ 	atomic64_set(&sched->job_id_count, 0);
+ 	sched->pause_submit = false;
++	ewma_drm_sched_avgtime_init(&sched->avg_job_us);
+ 
+ 	sched->ready = true;
+ 	return 0;
+diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
+index 2fde309d02a6..f8bc60026a73 100644
+--- a/drivers/gpu/drm/scheduler/sched_rq.c
++++ b/drivers/gpu/drm/scheduler/sched_rq.c
+@@ -161,13 +161,21 @@ drm_sched_entity_restore_vruntime(struct drm_sched_entity *entity,
+ 				  enum drm_sched_priority rq_prio)
+ {
+ 	struct drm_sched_entity_stats *stats = entity->stats;
++	struct drm_gpu_scheduler *sched = entity->rq->sched;
+ 	enum drm_sched_priority prio = entity->priority;
++	unsigned long avg_us, sched_avg_us;
+ 	ktime_t vruntime;
+ 
+ 	BUILD_BUG_ON(DRM_SCHED_PRIORITY_NORMAL < DRM_SCHED_PRIORITY_HIGH);
+ 
+ 	spin_lock(&stats->lock);
+ 	vruntime = stats->vruntime;
++	avg_us = ewma_drm_sched_avgtime_read(&stats->avg_job_us);
++	/*
++	 * Unlocked read of the scheduler average is fine since it is just
++	 * heuristics and data type is a natural word size.
++	 */
++	sched_avg_us = ewma_drm_sched_avgtime_read(&sched->avg_job_us);
+ 
+ 	/*
+ 	 * Special handling for entities which were picked from the top of the
+@@ -177,14 +185,24 @@ drm_sched_entity_restore_vruntime(struct drm_sched_entity *entity,
+ 		if (prio > rq_prio) {
+ 			/*
+ 			 * Lower priority should not overtake higher when re-
+-			 * joining at the top of the queue.
++			 * joining at the top of the queue so push it back
++			 * somewhere behind the "middle" of the run-queue,
++			 * proportional to the scheduler and entity average job
++			 * durations.
+ 			 */
+-			vruntime = ns_to_ktime(prio - rq_prio);
++			vruntime = us_to_ktime((1 + avg_us + sched_avg_us) <<
++					       vruntime_shift[prio]);
+ 		} else if (prio < rq_prio) {
+ 			/*
+ 			 * Higher priority can go first.
+ 			 */
+ 			vruntime = -ns_to_ktime(rq_prio - prio);
++		} else {
++			/* Favour entity with shorter jobs (interactivity). */
++			if (avg_us <= sched_avg_us)
++				vruntime = -ns_to_ktime(1);
++			else
++				vruntime = ns_to_ktime(1);
+ 		}
+ 	}
+ 
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index dd514a413156..826de4cbbf2d 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -25,11 +25,14 @@
+ #define _DRM_GPU_SCHEDULER_H_
+ 
+ #include <drm/spsc_queue.h>
++#include <linux/average.h>
+ #include <linux/dma-fence.h>
+ #include <linux/completion.h>
+ #include <linux/xarray.h>
+ #include <linux/workqueue.h>
+ 
++DECLARE_EWMA(drm_sched_avgtime, 6, 4);
++
+ #define MAX_WAIT_SCHED_ENTITY_Q_EMPTY msecs_to_jiffies(1000)
+ 
+ /**
+@@ -582,6 +585,7 @@ struct drm_sched_backend_ops {
+  * @job_id_count: used to assign unique id to the each job.
+  * @submit_wq: workqueue used to queue @work_run_job and @work_free_job
+  * @timeout_wq: workqueue used to queue @work_tdr
++ * @avg_job_us: Average job duration.
+  * @work_run_job: work which calls run_job op of each scheduler.
+  * @work_free_job: work which calls free_job op of each scheduler.
+  * @work_tdr: schedules a delayed call to @drm_sched_job_timedout after the
+@@ -613,6 +617,7 @@ struct drm_gpu_scheduler {
+ 	atomic64_t			job_id_count;
+ 	struct workqueue_struct		*submit_wq;
+ 	struct workqueue_struct		*timeout_wq;
++	struct ewma_drm_sched_avgtime   avg_job_us;
+ 	struct work_struct		work_run_job;
+ 	struct work_struct		work_free_job;
+ 	struct delayed_work		work_tdr;
 -- 
 2.52.0
 
