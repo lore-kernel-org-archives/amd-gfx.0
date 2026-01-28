@@ -4,74 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4BA6D35693
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 10:59:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F7DDD35693
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 11:00:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 475E310E653;
-	Wed, 28 Jan 2026 10:59:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A447110E656;
+	Wed, 28 Jan 2026 11:00:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AqNC9qMM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Hw/lU91X";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010034.outbound.protection.outlook.com
- [52.101.193.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C07B310E653
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 10:59:52 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012032.outbound.protection.outlook.com [52.101.43.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00BC610E654
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 11:00:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CURFMFYPxKx7Tk28N+nEV0qVvmQfiRWe/9O6Jjk7JX+RogGw+LC2Y19B8LWbyD1WGJ+lZCJMDuTjLD/uoH+rnEd1McyY+uJ087w7QPbDsxayCWim815LWNOhEvdQSncvelBgABDi3+gMcbDD1PoVI9kjLOyepQJxbysvFa/nwptv6FdRxjkcNaUY8fr4u/ZxO4eP1KYJ3cYSbu5JS2KVkvWULDoQUu9e/ts2CgvXg4oOB1+RksGDh9lDNiwdMnpgcSdXQvIS8AZN7Bic8V/UdfKkQlbbJ8zc5y2XrogakcQtD2MgWvEM1aMPfBabpbdYkyMix9FYaXnP8RYg/axm5w==
+ b=FqHS392BGBpd/FuflBmw5zNmvpUYHLftANg2Hta+HCuZhPIUf/zZRG/IANUxq62KtvkpUrKVZEsjsRsTdpKkZMvSsl3ymdOyPt7Tw1mHVkcOWTY7h//ICvdMuryRd6HHAzMsBlwX7GtgTLVsLo6YWFCMyurMtt0K1dfBuFBvNfUC6fJNLsf5cNGHs++vFS0jkCAJEi7lNHnmOjbZyfHnbDMR6NqdAXpRY+9+mOP4jOAfUnHiqiN2c9qScsD7L+wxvQ0E94ksiJ68mIMsUXG43fnIaIMfS7+kMEh4HvkV/GpEyakFVyi3sUZHhkN0r+nBOVk8oLfde84AGo3vlu8BrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SjvfU+EegiooSSxqBLvsxIu1EhTynZQp6iV9h8uyxdI=;
- b=w0pMmZ2dOC1NwoWPdrQhAaH6ZQrJmAQMWGjoevXvtYMj5uqtYfhSNnaZhL0Bdu8rIC0cuzbFmIhq0gSJztJYx5Lvc4yP2o9Sk1iUAqmutu5BwJGrA5rHys6GW3i6emHZptJu5hChch6Zf07+cvXP86qF9xEZ6CeZ/rN8z7YwDGezzS9CWHSM/9PwWFVq8LoBWxt7Ue2NQ9GgxrQ6pbHZ7LNKNFXoW+ETZpx8C29AosPa5jEc4ABXPfpAdkSD0acnhmoQg9igngH/mv7PYfcSikvk/tu/54h39k5zunqEU87LaJrFqk/SwMSbtCaS9a+qas6noN2QGKK7K3lNacSeoA==
+ bh=fO908187YWO5W5uICJzXNJwPZ6WupCN4jDjf9WT/UGQ=;
+ b=A57cegf4SQD21ic8QTxKDRASVSLpJky+Ve0h5i7d8fFz+uwrkhSx23Dy+FkR4hqONYcEAq52j7g54uy3Ge+updUIOdz17HbmGMr0YCfnmgvPBpLXH1Iywo8TAT2CG9lzpQCMXxfIHHTe5jeYJD3Mv5Qo4OZzsrQcRGdweuupckLukUoSysi0wN9yPVLU6yTtnaf9H04xWuoikjBxUgMGzUDBkSebwcUj+WLYogsWPARjdQJMaPC0Lz+4ZGfjUYSV4ouJ75m+IYI6p5hBs1NUd6n8xc+VznZ3M4J5hgZ1nyJFCMFm8OIPkAkDy2LtOwkmJUx64svPxLXtzCF+HCqoeg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SjvfU+EegiooSSxqBLvsxIu1EhTynZQp6iV9h8uyxdI=;
- b=AqNC9qMM1PE/wAig58ms1JIfF4RVFg2rXKT2HCKO9rgYi3h/FP3EAlDZpBapKKHWHv9Lu4d9fF+YjRhT5CxOU4uDsEEtezgCNYMgvf0g1M5X2eqFNuQmWH95JRjXUuiE0Ky7z8//nKe4oAu0sf33nPmzf2R7IPotN416wAjJ+5U=
-Received: from BN9PR03CA0987.namprd03.prod.outlook.com (2603:10b6:408:109::32)
- by MN0PR12MB6152.namprd12.prod.outlook.com (2603:10b6:208:3c4::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Wed, 28 Jan
- 2026 10:59:48 +0000
-Received: from BN1PEPF00006000.namprd05.prod.outlook.com
- (2603:10b6:408:109:cafe::d7) by BN9PR03CA0987.outlook.office365.com
- (2603:10b6:408:109::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.7 via Frontend Transport; Wed,
- 28 Jan 2026 10:59:46 +0000
+ bh=fO908187YWO5W5uICJzXNJwPZ6WupCN4jDjf9WT/UGQ=;
+ b=Hw/lU91X2hpOfmPDqx3p0drAjW5XoclG9K2BTw2JXERImH0A638V489SRMKtQ6zbkRuxTtQ5g1nH/WG9Qq4et5O/frh5FbD3BZDLhmjQdioOlnhvR3tN2I3mNqrzH+2VGyGIgerx29ZmpwuovFMkE8XzpDsJO8/9h7rPD2NZ0OU=
+Received: from CH5PR02CA0002.namprd02.prod.outlook.com (2603:10b6:610:1ed::14)
+ by DM4PR12MB6064.namprd12.prod.outlook.com (2603:10b6:8:af::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Wed, 28 Jan
+ 2026 11:00:01 +0000
+Received: from DS2PEPF0000343F.namprd02.prod.outlook.com
+ (2603:10b6:610:1ed:cafe::2c) by CH5PR02CA0002.outlook.office365.com
+ (2603:10b6:610:1ed::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.16 via Frontend Transport; Wed,
+ 28 Jan 2026 11:00:00 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00006000.mail.protection.outlook.com (10.167.243.232) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ DS2PEPF0000343F.mail.protection.outlook.com (10.167.18.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 10:59:48 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 11:00:00 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 28 Jan
- 2026 04:59:48 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 05:00:00 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 28 Jan
- 2026 02:59:47 -0800
+ 2026 04:59:59 -0600
 Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Wed, 28 Jan 2026 02:59:36 -0800
+ via Frontend Transport; Wed, 28 Jan 2026 02:59:48 -0800
 From: Jesse.Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
  Jesse.Zhang <Jesse.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
  Jesse Zhang <jesse.zhang@amd.com>
-Subject: [PATCH v4 5/6] drm/amdgpu: add MQD update support for user mode
- compute queues
-Date: Wed, 28 Jan 2026 18:58:28 +0800
-Message-ID: <20260128105847.2898288-5-Jesse.Zhang@amd.com>
+Subject: [PATCH v4 6/6] drm/amdgpu: add MODIFY operation for compute queues
+Date: Wed, 28 Jan 2026 18:58:29 +0800
+Message-ID: <20260128105847.2898288-6-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20260128105847.2898288-1-Jesse.Zhang@amd.com>
 References: <20260128105847.2898288-1-Jesse.Zhang@amd.com>
@@ -80,55 +78,55 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006000:EE_|MN0PR12MB6152:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5f06bcd2-1ce4-44ed-0a9f-08de5e5c5ac4
+X-MS-TrafficTypeDiagnostic: DS2PEPF0000343F:EE_|DM4PR12MB6064:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6c6d5da9-6287-42d6-49a9-08de5e5c61fe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|376014|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?Bj1ZShrrLK0xu6vJV4UeepFxQ1/J+l3inxWZDZGOXyqm3/WtnnYc+nVHTQzz?=
- =?us-ascii?Q?F9JeM/uCIVT1nyje7l5GTiMuZCNK74KzPB4fprRLWDTh9GAzSKqX2TF3/apw?=
- =?us-ascii?Q?0NB0uTqaAz3lhDM5QmDLK4Zq9eG8RrHE0oDXC4wnfH0Od9/G8iO/YkySLV0t?=
- =?us-ascii?Q?Hc2LT9EJ3w1lcCxLsgH1ZHEykmP1m9mFruZPhLVTUq/LamZRCBe+G86qX/bX?=
- =?us-ascii?Q?clJ0Tpo/GRn+o6PIPg32kU2yOHw10OnrXDzKqz55ir8rZZweo4XkRFPjx630?=
- =?us-ascii?Q?VKTDQUUFznYGPN0KznmPZtoj5JadgmOdNTINE6ZpnrTNn9S+q3TMc53CnXK0?=
- =?us-ascii?Q?7jW8fGjjMQAdgi2UdZgx+UKtwfpl+s9oh+zsn3wSezR8/ywr/IiweNUM9TNN?=
- =?us-ascii?Q?Wf7sTtaUlgPQVLg+VMzqjlAjzLgSBQSfDhj2W+oC5THRC3sWHDM3QJpjtMfO?=
- =?us-ascii?Q?Sts2aCgWAtRTIOSge+HC0NgqyLQviUCfE5Oe0PRv2RBCPLl3R8lMv1jFaUQ6?=
- =?us-ascii?Q?PT/LL6MiimKbfcdpYIoIP/ppycMyLwW6biWWKo+HeWZuQARE3c2lbn5bJdci?=
- =?us-ascii?Q?szVlBwSOKwWt/Mfa6aHrfNPxXMfmJMnez3bufcOITHWU0KxYjZJpjX7tsPIw?=
- =?us-ascii?Q?py62B4HIEiH5BsqW3/FS2NhjddgVzDhQ9iaJxD4k9ywfMe4oXwvw7he+3g2O?=
- =?us-ascii?Q?Z5HNkBFbMuikA/JJgQj4H86unmyfuRmI0ZzYAcf12MGRks5W3wEr3XHOTl5R?=
- =?us-ascii?Q?XiPZoR6tH2aya/sG4BWZZ35TlJpomAJBhj4cbEb6wRNJk4tW5+kkSitomu5b?=
- =?us-ascii?Q?+3/9kAUPsDo60LlOZ6V0SZehucaNorMivI7i4GkAU+w3VawvILRv+TxjAKKm?=
- =?us-ascii?Q?OgNc44kiOOMAgc7Gq6vWo9NRQlUbuSU/u/CxxsL3ZE6urZJedpk8/uycVGQs?=
- =?us-ascii?Q?UCK29ZSNKcuhUuYozyZcd8/lK/mf0L//3Jzf/jSaCvORbcVb+dHMBwnhzbyZ?=
- =?us-ascii?Q?wz4sl52alZLBqA3ElB8+TErbdF5F7wKpQac8zp29SIkoABsdH0+64jWlmBiX?=
- =?us-ascii?Q?iARkYhOmZAoEquM2ovFcoozcI3gzLMOPSIsp5CdqAJOpI5NCmkV2Xs1mS8vW?=
- =?us-ascii?Q?ra/wdMLKWht0kTH10TTrVbdFnjVy5AD6LwrQpCMmyKwLJQbR1/p8GXQbcBih?=
- =?us-ascii?Q?tJPySx4otMpfjq4hdloBSuVXsE7Oej7dLG0t/nvLS2wUz49zDlDAm8mtPEsT?=
- =?us-ascii?Q?Kr4DHEKTAfr5+ly/5mCOI3IZ2iK8SzXb/CRDacnrXZwu/U/IdxwuVEtXjy8v?=
- =?us-ascii?Q?5lv7XWbMis1/z+wxO3kelVxMknIlV7N7JNFKasUowiUQPEzDeyMZB/ofcGXy?=
- =?us-ascii?Q?JqsaGy3kx11sCWvfVaDrhPsNi+6RMN+JcHZ0Sd1I1X+vBzDcCv3whE/un9s9?=
- =?us-ascii?Q?tNc3b7y6PxyktG4YHLBZoM8vto0ptLKLredGPijUts99VGGWB1rxOiMg2SXG?=
- =?us-ascii?Q?ODnA8pgUz9BwNKTJBQiasJO8UhhXidaHyp0Nv2GCDgOOjcCSxkxAt++ZRyE8?=
- =?us-ascii?Q?ta3N+tSmCe6I53MTxBbeH1pf1KsY3RR/8CA1e4JvT4v9+uKkw2gCIsmiVPOL?=
- =?us-ascii?Q?8EeVl6hNxoiyeC4KaVOu1OhnMXgFx+Fsgop+rE5kFGT6Xhu+v52SAPNbWzjf?=
- =?us-ascii?Q?cFK47g=3D=3D?=
+ ARA:13230040|1800799024|36860700013|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?AbfMSRFp/kK27JqqnGWPyTnL5apE0O03BJPas6VJudf2WYusVHUqjWv8qWZ2?=
+ =?us-ascii?Q?ctrHP1W8WUv/144HM61jTpOM1xvQ22JkXORC6H66uwwBUL1gUxKwHXMFV2/D?=
+ =?us-ascii?Q?LO4HWioNS9zscNiENTZQS/Fyec2aV8vIaW4CMcTU8qbk8vZo5CPYrf1PmI5S?=
+ =?us-ascii?Q?82QpJCFKDz/cNLYZ5bD8OARU8Jpzu3VHv5IdhqURM9lY28NOcwe1K/TSuyjj?=
+ =?us-ascii?Q?oV1GZcAD+DtxryytvWCG9OBsrJcarFm5F4RA02gKxbTneBa+RWl8xW+hxk/A?=
+ =?us-ascii?Q?jbukkp9dnnjUg89WqyMBmfbI0w0TNOV5hTG2j/Nnx1WP2qgAt0f3wQd9Vnq9?=
+ =?us-ascii?Q?NyofffJ7DHu/8Ybu4nZJKqvmvp65DJJ3Etn9SsnLnMSgbuGQsF+4XfjLlAs0?=
+ =?us-ascii?Q?hNCo0E+OJIsjX9ebWgRWlN4sm2rAlIBuaCDuEbnkfFSyPaKzstlOehRKJ2g7?=
+ =?us-ascii?Q?T6CCQ1QhemN895m6HPqGeqcU10V+Sx6p7+XRc0LRpW6cILVu1deZv0kjThy8?=
+ =?us-ascii?Q?2zqX/YIC/FatToInl+l9ccqiyvfN2lWQ3APqCeAYIDJdT27aew2qjaRi5DDW?=
+ =?us-ascii?Q?WlDoHst3UW0abAmthiYyz2dcDQ2o2P/6qn45RwRVR+uFMBfTvPmfBhyEX9HD?=
+ =?us-ascii?Q?JrMnkfPqMkNAOuMRnDAaC7c9YLjHZ2plMmeYsr7elM8TzOf/bQTxI0HyN24i?=
+ =?us-ascii?Q?nD8spDRUnnOlU2c00JdrofW+2fXhg5cBO01zU6Owd5i7X94l/cP5KcuidlmN?=
+ =?us-ascii?Q?ilXk+UdpIkE3aOUqXw0qoar9bMVVi+V2J98EvuHWSHfJBSJk5YhGdADjkTtC?=
+ =?us-ascii?Q?Oxe4WheFgKHp+Y5EpPKTmdmAWb77Wr9Wyk2J0dJOfb9J+jvsr0CVKTO/34+q?=
+ =?us-ascii?Q?7KffJd+yphoe3JvCsZrcQsHWCACcFfGA2iekXL8uhvVvQczSgc5c8Mu/VU32?=
+ =?us-ascii?Q?IlMBzWmsQnjLdkIKnF8uMNm9h3gqZMIsKgOdbWYn8JEvDIoLDmwZjio90HsT?=
+ =?us-ascii?Q?7AqEbvh8IooBZzcrFJ7F+aNQ5beListo4M6EPz6L5A+DPQER5IxRVH/fJ0l7?=
+ =?us-ascii?Q?N9QbdKYPGnyNfTcmtcCssoGORe3FkrcOwb/abfY6vS/dSquiXg2azndaJhdo?=
+ =?us-ascii?Q?sCrThFRuWS4HakaS4n5ULvAksRIYxeoo2zFvToyBleuzOqqR+DbmGu5QCIVe?=
+ =?us-ascii?Q?nqnivAwsyFh3j1mlA1ZqU/zTph9ydMibEx8rmXHLAkM5veXSlpuHL50RInbB?=
+ =?us-ascii?Q?vgWj/xY0YsW2w5jRuo2a83x4WSbW88VLRwTFyLcZhOeQXIQSmDc5yW2BVyBc?=
+ =?us-ascii?Q?tkbyWZz8Qjqz3E0slpGqKffdIwOL7zixeNHwVr+95k5lWngDwoe1++Y68Mkx?=
+ =?us-ascii?Q?Zt3XpEg2h191lKLexfmfgCLPGRhPwJF0oVwfNbcVqauzSwUTZs/UUDQcuhIW?=
+ =?us-ascii?Q?nXCEUlkNE5NyjHQnXtFuLn+8aYjRTOSKuu+wddIoqcmWbB+ZMj1M9Kz/VT3Q?=
+ =?us-ascii?Q?Iw0jbmyJtAvd629i+aheBal44gTwjSWW6l6uCY+bNZuK2KbWZO5ylLhkyjLb?=
+ =?us-ascii?Q?M04NWrplxXK4uXH8QIl9zlj8gBpC6Z0+HV/Se6JZXK2mCEhaCf7t3mmfKyPf?=
+ =?us-ascii?Q?l7/lr6JXoCJuQxJVsbfFcDaIrf9sqNONjJYv2qtSUC5c3isytHL2vW59KOl0?=
+ =?us-ascii?Q?TGZ7lg=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 10:59:48.5570 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5f06bcd2-1ce4-44ed-0a9f-08de5e5c5ac4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 11:00:00.6505 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c6d5da9-6287-42d6-49a9-08de5e5c61fe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006000.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF0000343F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6152
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6064
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,296 +141,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The update functionality allows dynamic adjustment of queue properties at runtime,
-enabling better resource management and performance tuning for compute workloads.
+Implement the AMDGPU_USERQ_OP_MODIFY ioctl operation to enable runtime updates
+of compute queues.
 
-v2: Return an error for non-compute queues. (Alex)
-    remove the parameter minfo
+v2: move queue size validate to a separate patch
+    remove the check for AMDGPU_HW_IP_COMPUTE  (Alex)
 
-V3: put the new paramters in drm_amdgpu_userq_mqd_compute_gfx11. (Alex)
-v4: move the define AMDGPU_USERQ_OP_MODIFY to patch 6/6 (Alex)
-    add the props input paramter to amdgpu_userq_set_compute_mqd
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Suggested-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   3 +
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 166 ++++++++++++++++++++-
- include/uapi/drm/amdgpu_drm.h              |  28 ++++
- 3 files changed, 194 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 61 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  3 ++
+ include/uapi/drm/amdgpu_drm.h             |  1 +
+ 3 files changed, 65 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index a8f4f73fa0ce..ad136145316b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -819,6 +819,9 @@ struct amdgpu_mqd_prop {
- 	uint32_t cu_mask_count;
- 	uint32_t cu_flags;
- 	bool is_user_cu_masked;
-+	uint32_t queue_percentage;
-+	/* used in gfx9 and gfx12.1 */
-+	uint32_t pm4_target_xcc;
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 256ceca6d429..3003aba22e1d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -837,6 +837,7 @@ static int amdgpu_userq_input_args_validate(struct drm_device *dev,
  
- struct amdgpu_mqd {
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-index f2309d72bbe6..d5251f2d7613 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-@@ -30,6 +30,26 @@
- #define AMDGPU_USERQ_PROC_CTX_SZ PAGE_SIZE
- #define AMDGPU_USERQ_GANG_CTX_SZ PAGE_SIZE
- 
-+/* Mapping queue priority to pipe priority, indexed by queue priority */
-+int amdgpu_userq_pipe_priority_map[] = {
-+	AMDGPU_RING_PRIO_0,
-+	AMDGPU_RING_PRIO_0,
-+	AMDGPU_RING_PRIO_0,
-+	AMDGPU_RING_PRIO_0,
-+	AMDGPU_RING_PRIO_0,
-+	AMDGPU_RING_PRIO_0,
-+	AMDGPU_RING_PRIO_0,
-+	AMDGPU_RING_PRIO_1,
-+	AMDGPU_RING_PRIO_1,
-+	AMDGPU_RING_PRIO_1,
-+	AMDGPU_RING_PRIO_1,
-+	AMDGPU_RING_PRIO_2,
-+	AMDGPU_RING_PRIO_2,
-+	AMDGPU_RING_PRIO_2,
-+	AMDGPU_RING_PRIO_2,
-+	AMDGPU_RING_PRIO_2
-+};
-+
- static int
- mes_userq_map_gtt_bo_to_gart(struct amdgpu_bo *bo)
- {
-@@ -272,6 +292,105 @@ static int mes_userq_detect_and_reset(struct amdgpu_device *adev,
- 	return r;
+ 	switch (args->in.op) {
+ 	case AMDGPU_USERQ_OP_CREATE:
++	case AMDGPU_USERQ_OP_MODIFY:
+ 		if (args->in.flags & ~(AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_MASK |
+ 				       AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE))
+ 			return -EINVAL;
+@@ -901,6 +902,60 @@ bool amdgpu_userq_enabled(struct drm_device *dev)
+ 	return false;
  }
  
-+/**
-+ * amdgpu_userq_set_compute_mqd - Parse compute MQD and update queue props
-+ * @queue: Target user mode queue
-+ * @props: Queue property structure to be updated
-+ * @args: User queue input arguments
-+ * @uq_mgr: User queue manager (for logging)
-+ *
-+ * This function only parses and validates user input, updating queue props
-+ * (no hardware MQD configuration - that's handled in MES layer)
-+ * Returns: 0 on success, negative error code on failure
-+ */
-+static int amdgpu_userq_set_compute_mqd(struct amdgpu_usermode_queue *queue,
-+					struct amdgpu_mqd_prop *props,
-+					struct drm_amdgpu_userq_mqd_compute_gfx11 * compute_mqd)
++static int amdgpu_modify_queue(struct drm_file *filp, union drm_amdgpu_userq *args)
 +{
-+	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
++	struct amdgpu_fpriv *fpriv = filp->driver_priv;
++	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
 +	struct amdgpu_device *adev = uq_mgr->adev;
-+	const int max_num_cus = 1024;
-+	size_t cu_mask_size;
-+	uint32_t count;
-+	uint32_t *cu_mask = NULL;
-+	int ret = 0;
++	struct amdgpu_usermode_queue *queue;
++	const struct amdgpu_userq_funcs *userq_funcs;
++	int r;
 +
-+	if (!queue || !props || !compute_mqd)
-+		return -EINVAL;
-+
-+	if (compute_mqd->queue_percentage > AMDGPU_USERQ_MAX_QUEUE_PERCENTAGE) {
-+		DRM_ERROR("Queue percentage must be between 0 to AMDGPU_USERQ_MAX_QUEUE_PERCENTAGE.\n");
-+		return -EINVAL;
++	mutex_lock(&uq_mgr->userq_mutex);
++	queue = amdgpu_userq_find(uq_mgr, args->in.queue_id);
++	if (!queue) {
++		drm_file_err(uq_mgr->file, "Queue %u not found\n", args->in.queue_id);
++		r = -EINVAL;
++		goto unlock;
 +	}
 +
-+	/* Validate priority */
-+	if (compute_mqd->hqd_queue_priority > AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM) {
-+		DRM_ERROR("Queue priority must be between 0 to AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM.\n");
-+		return -EINVAL;
++	userq_funcs = adev->userq_funcs[queue->queue_type];
++
++	/*
++	 * Unmap the queue if it's mapped or preempted to ensure a clean update.
++	 * If the queue is already unmapped or hung, we skip this step.
++	 */
++	if (queue->state == AMDGPU_USERQ_STATE_MAPPED ||
++	    queue->state == AMDGPU_USERQ_STATE_PREEMPTED) {
++		r = amdgpu_userq_unmap_helper(queue);
++		if (r) {
++			drm_file_err(uq_mgr->file, "Failed to unmap queue %llu\n",
++					queue->doorbell_index);
++			goto unlock;
++		}
 +	}
 +
-+
-+	/* validate and set CU mask property */
-+	if (compute_mqd->cu_mask_count) {
-+		if (compute_mqd->cu_mask_count % 32 != 0) {
-+			DRM_ERROR("CU mask count must be a multiple of 32.\n");
-+			return -EINVAL;
-+		}
-+		count = compute_mqd->cu_mask_count;
-+
-+		/* Limit CU mask size to prevent excessive memory allocation */
-+		if (count > max_num_cus) {
-+			DRM_ERROR("CU mask cannot be greater than 1024 bits.\n");
-+			count = max_num_cus;
-+			cu_mask_size = sizeof(uint32_t) * (max_num_cus / 32);
-+		} else {
-+			cu_mask_size = sizeof(uint32_t) * (compute_mqd->cu_mask_count / 32);
-+		}
-+
-+		/* Copy CU mask from user space */
-+		cu_mask = memdup_user(u64_to_user_ptr(compute_mqd->cu_mask_ptr), cu_mask_size);
-+		if (IS_ERR(cu_mask)) {
-+			ret = PTR_ERR(cu_mask);
-+			cu_mask = NULL;
-+			goto cleanup;
-+		}
-+
-+		/* Validate pairwise CU mask for WGP-based ASICs */
-+		if (cu_mask && adev->ip_versions[GC_HWIP][0] >= IP_VERSION(10, 0, 0)) {
-+			for (int i = 0; i < count; i += 2) {
-+			       uint32_t cu_pair = (cu_mask[i / 32] >> (i % 32)) & 0x3;
-+			       if (cu_pair && cu_pair != 0x3) {
-+				       DRM_ERROR("CUs must be adjacent pairwise enabled.\n");
-+				       kfree(cu_mask);
-+				       cu_mask = NULL;
-+				       ret = -EINVAL;
-+				       goto cleanup;
-+			       }
-+			}
-+		}
-+
-+		/* Free old CU mask */
-+		if (props->cu_mask) {
-+			kfree(props->cu_mask);
-+			props->cu_mask = NULL;
-+		}
-+
-+		props->cu_mask = cu_mask;
-+		props->cu_mask_count = count;
-+		props->is_user_cu_masked = (cu_mask != NULL);
-+	}
-+
-+	/* Parse HQD priority and other compute properties */
-+	props->queue_percentage = compute_mqd->queue_percentage;
-+	props->pm4_target_xcc = compute_mqd->pm4_target_xcc;
-+	props->hqd_queue_priority = compute_mqd->hqd_queue_priority;
-+	props->hqd_pipe_priority = amdgpu_userq_pipe_priority_map[compute_mqd->hqd_queue_priority];
-+	props->eop_gpu_addr = compute_mqd->eop_va;
-+
-+cleanup:
-+	return ret;
-+}
-+
- static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 				struct drm_amdgpu_userq_in *args_in)
- {
-@@ -325,10 +444,10 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 						   2048);
- 		if (r)
- 			goto free_mqd;
-+		r = amdgpu_userq_set_compute_mqd(queue, userq_props, compute_mqd);
++	r = userq_funcs->mqd_update(queue, &args->in);
++	if (r)
++		goto unlock;
++	/*
++	 * If the queue is considered active (has valid size, address, and percentage),
++	 * we attempt to map it. This effectively starts the queue or restarts it
++	 * if it was previously running.
++	 */
++	if (AMDGPU_USERQ_IS_ACTIVE(queue)) {
++		r = amdgpu_userq_map_helper(queue);
 +		if (r)
-+			goto free_mqd;
- 
--		userq_props->eop_gpu_addr = compute_mqd->eop_va;
--		userq_props->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_NORMAL;
--		userq_props->hqd_queue_priority = AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM;
- 		userq_props->hqd_active = false;
- 		userq_props->tmz_queue =
- 			mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
-@@ -432,11 +551,51 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
- 	return r;
- }
- 
-+static int mes_userq_mqd_update(struct amdgpu_usermode_queue *queue, struct drm_amdgpu_userq_in *args_in)
-+{
-+	int retval = 0;
-+	struct amdgpu_device *adev = queue->userq_mgr->adev;
-+	struct amdgpu_mqd_prop *userq_props = queue->userq_prop;
-+	struct amdgpu_mqd *mqd_hw_default = &adev->mqds[queue->queue_type];
-+	struct drm_amdgpu_userq_mqd_compute_gfx11 *compute_mqd_v11;
-+
-+	if (!queue || !userq_props)
-+		return -EINVAL;
-+
-+	if (queue->queue_type != AMDGPU_HW_IP_COMPUTE)
-+		return -EINVAL;
-+
-+	if (args_in->mqd_size != sizeof(*compute_mqd_v11)) {
-+		DRM_ERROR("Invalid compute IP MQD size\n");
-+		return -EINVAL;
++			drm_file_err(uq_mgr->file, "Failed to remap queue %llu after update\n",
++				queue->doorbell_index);
 +	}
 +
-+	compute_mqd_v11 = memdup_user(u64_to_user_ptr(args_in->mqd), args_in->mqd_size);
-+	if (IS_ERR(compute_mqd_v11)) {
-+		DRM_ERROR("Failed to read user MQD\n");
-+		return -ENOMEM;
-+	}
++unlock:
++	mutex_unlock(&uq_mgr->userq_mutex);
 +
-+	retval = amdgpu_userq_set_compute_mqd(queue, userq_props, compute_mqd_v11);
-+	if (retval)
-+		goto free;
-+
-+	userq_props->queue_size = args_in->queue_size;
-+	userq_props->hqd_base_gpu_addr = args_in->queue_va;
-+
-+	retval = mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_ptr, userq_props);
-+
-+free:
-+	kfree(compute_mqd_v11);
-+	return retval;
++	return r;
 +}
 +
- static void mes_userq_mqd_destroy(struct amdgpu_usermode_queue *queue)
+ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+ 		       struct drm_file *filp)
  {
- 	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
+@@ -920,6 +975,12 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+ 			drm_file_err(filp, "Failed to create usermode queue\n");
+ 		break;
  
- 	amdgpu_userq_destroy_object(uq_mgr, &queue->fw_obj);
-+	kfree(queue->userq_prop->cu_mask);
- 	kfree(queue->userq_prop);
- 	amdgpu_userq_destroy_object(uq_mgr, &queue->mqd);
- }
-@@ -513,6 +672,7 @@ static int mes_userq_restore(struct amdgpu_usermode_queue *queue)
++
++	case AMDGPU_USERQ_OP_MODIFY:
++		r = amdgpu_modify_queue(filp, args);
++		if (r)
++			drm_file_err(filp, "Failed to modify usermode queue\n");
++		break;
+ 	case AMDGPU_USERQ_OP_FREE:
+ 		r = amdgpu_userq_destroy(filp, args->in.queue_id);
+ 		if (r)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 833468b58603..7cd1ea94e368 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -31,6 +31,9 @@
+ #define to_ev_fence(f) container_of(f, struct amdgpu_eviction_fence, base)
+ #define uq_mgr_to_fpriv(u) container_of(u, struct amdgpu_fpriv, userq_mgr)
+ #define work_to_uq_mgr(w, name) container_of(w, struct amdgpu_userq_mgr, name)
++#define AMDGPU_USERQ_IS_ACTIVE(q) ((q)->userq_prop->queue_size > 0 &&  \
++                           (q)->userq_prop->hqd_base_gpu_addr != 0 &&  \
++                           (q)->userq_prop->queue_percentage > 0)
  
- const struct amdgpu_userq_funcs userq_mes_funcs = {
- 	.mqd_create = mes_userq_mqd_create,
-+	.mqd_update = mes_userq_mqd_update,
- 	.mqd_destroy = mes_userq_mqd_destroy,
- 	.unmap = mes_userq_unmap,
- 	.map = mes_userq_map,
+ enum amdgpu_userq_state {
+ 	AMDGPU_USERQ_STATE_UNMAPPED = 0,
 diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index ab2bf47553e1..c52949ea8c1e 100644
+index c52949ea8c1e..aa9b31578c6b 100644
 --- a/include/uapi/drm/amdgpu_drm.h
 +++ b/include/uapi/drm/amdgpu_drm.h
-@@ -341,6 +341,7 @@ union drm_amdgpu_ctx {
- #define AMDGPU_USERQ_CREATE_FLAGS_QUEUE_PRIORITY_HIGH 3 /* admin only */
- /* for queues that need access to protected content */
- #define AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE  (1 << 2)
-+#define AMDGPU_USERQ_MAX_QUEUE_PERCENTAGE	100
+@@ -330,6 +330,7 @@ union drm_amdgpu_ctx {
+ /* user queue IOCTL operations */
+ #define AMDGPU_USERQ_OP_CREATE	1
+ #define AMDGPU_USERQ_OP_FREE	2
++#define AMDGPU_USERQ_OP_MODIFY 3
  
- /*
-  * This structure is a container to pass input configuration
-@@ -460,6 +461,33 @@ struct drm_amdgpu_userq_mqd_compute_gfx11 {
- 	 * to get the size.
- 	 */
- 	__u64   eop_va;
-+       /**
-+        * @cu_mask_ptr: User-space pointer to CU (Compute Unit) mask array
-+        * Points to an array of __u32 values that define which CUs are enabled
-+        * for this queue (0 = disabled, 1 = enabled per bit)
-+        */
-+       __u64 cu_mask_ptr;
-+       /**
-+        * @cu_mask_count: Number of entries in the CU mask array
-+        * Total count of __u32 elements in the cu_mask_ptr array (each element
-+        * represents 32 CUs/WGPs)
-+        */
-+       __u32 cu_mask_count;
-+       /**
-+        * @queue_percentage: Queue resource allocation percentage (0-100)
-+        * Defines the percentage of GPU resources allocated to this queue
-+        */
-+       __u32 queue_percentage;
-+       /**
-+        * @hqd_queue_priority: Hqd Queue priority (0-15)
-+        * Higher values indicate higher scheduling priority for the queue
-+        */
-+       __u32 hqd_queue_priority;
-+       /**
-+        * @pm4_target_xcc: PM4 target XCC identifier (for gfx9/gfx12.1)
-+        * Specifies the target XCC (Cross Compute Complex) for PM4 commands
-+        */
-+       __u32 pm4_target_xcc;
- };
- 
- /* userq signal/wait ioctl */
+ /* queue priority levels */
+ /* low < normal low < normal high < high */
 -- 
 2.49.0
 
