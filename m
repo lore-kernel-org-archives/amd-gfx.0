@@ -4,63 +4,161 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 299A2D25B5C
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 13:21:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A31AD25B5C
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 13:22:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B569810E6DC;
-	Wed, 28 Jan 2026 13:21:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D429210E2BA;
+	Wed, 28 Jan 2026 13:22:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NjkLZO9G";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xIZ0jxhl";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0463210E2BA;
- Wed, 28 Jan 2026 13:21:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769606502; x=1801142502;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=IBtvxcFQH17EFb7APUsEEaA1PasU3giQo88bh1kk8LI=;
- b=NjkLZO9GspLJfyjyO5NT2rQhzX7VNhUwuSpByVG/VETQGcKf92fFTroH
- hIcZeGXN1t3y54rOIYHMrtVaa/IupCXGW4JeTJz0CEX+Zxfn5kiL5tbUe
- b78Lf17aY4E3Da8pydy+vy6ww1KKlHzo25F6L7cRQ7tCbZcCm+3MJmPfB
- FQ/kCo3+5uQXq1cRUy6+iOXmmZrD7ucqkksJQ6VvM0r6ORWMfoXvT+pLv
- 8X4IvyaGn1rp7CEHp3KX73CNrHiv95TNHAlK24xZLUOUjLy9RfXI0lN8V
- bmdAEPwbQsZCy27W/IDx5nL9KXIo/+3tsV8LcmcMc+wRQAN8i1Bx1Yp7m w==;
-X-CSE-ConnectionGUID: uwf9DEhXTaKqf3IJIzI3Dg==
-X-CSE-MsgGUID: EhP3RTplQ7i56Yt1asqJmQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11684"; a="82184141"
-X-IronPort-AV: E=Sophos;i="6.21,258,1763452800"; d="scan'208";a="82184141"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2026 05:21:42 -0800
-X-CSE-ConnectionGUID: UOTjtR7UQHO3E0a1uQjRoQ==
-X-CSE-MsgGUID: f7tU4Gj4QDShAnjUhX6aFg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,258,1763452800"; d="scan'208";a="208280486"
-Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
- by orviesa008.jf.intel.com with ESMTP; 28 Jan 2026 05:21:39 -0800
-Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vl5UG-00000000ZhM-1Cs0;
- Wed, 28 Jan 2026 13:21:36 +0000
-Date: Wed, 28 Jan 2026 21:21:15 +0800
-From: kernel test robot <lkp@intel.com>
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: oe-kbuild-all@lists.linux.dev,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 04/11] amdgpu/vce: use amdgpu_gtt_mgr_alloc_entries
-Message-ID: <202601282153.4kuaeoS5-lkp@intel.com>
-References: <20260126133518.2486-5-pierre-eric.pelloux-prayer@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012027.outbound.protection.outlook.com [52.101.48.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4ED3910E2BA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 13:22:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oiT+/E0QyD2Yr4WXyT/YSJCkRDS/kL2zgRfHBTw4MhpZAkF9Tc3XhjOSclqtQ1KWoPOFLAQHN/NYkm0GkqNoqKCCGUcmrcJ/jK9SIDzfV4lYKT88ou+0gN4l5qvKTepq57tSc1SdqIknX1k/+dCIWtfs12Oh5Vl80BdAyVqrf3sF6gS+ubDQEiSAZGW0Nbhpfhe02E6feFgH9aM9vkvBHf5d22D4xt8LR8DiqNPfmhV9dPj/iOAs3dn90bdMQpGv961QFgsWjh2/6BxdbN+C0bZs6XqN+wSTbUjgG8Sq22XngkYU/wHllA8LZiMsvzgv3ZE7FvTu7p5wcTRY1ffCKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2Q7vxsAvhmMaZS0Lv/BEb2Vtwn27h0oG6Ie3pmZIGBA=;
+ b=s+hEPwhmVju5Icga12oMWdTSc8f/nF2u9zsQnqZmlchrb/B0cowJl5hhHwYE4OkvIh8j0NtkWq69Q3fgzWq1+DD8nDVqTDrnpwuGqKyzV0/iSeSPJQcyGTmfOzP/BXU1cN6zlCQjl9QKNGPDeXzRx76QVsQXdHv8VRwSsA2Igp/WlIZ9+b7qnb7t8h7EE8o8wUOgkEBtAsbtr6mLYfVBqpVJVUrMn4P7/WXdw0hmhtSd40IIiRvzL9tu2AYEeLFS++epE0mgZf3pqUGceUBlZA/GMuPdr2m+Bf7e09Dyk5cC4JUM/jndBIzHDBwIF/atizpiy5YI/tp8TxgWGDzI3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2Q7vxsAvhmMaZS0Lv/BEb2Vtwn27h0oG6Ie3pmZIGBA=;
+ b=xIZ0jxhlonnxF7fZYDVtGcqj3j7GUodZ/da9mx6H1o9p8ZBVM7eWaeYlH2lLawweayEgI6BcfrwCjWkDwEV+ZFo7VimN/4Zf/ilLcLbyWt3wAXwL6czNeTF82C53mcHtApqIVX0Rre0ueKKW5l2cTcgW9usYeLCabMNNzzw3wGE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by DM4PR12MB6469.namprd12.prod.outlook.com (2603:10b6:8:b6::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9542.16; Wed, 28 Jan 2026 13:21:55 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9564.006; Wed, 28 Jan 2026
+ 13:21:55 +0000
+Message-ID: <12f53040-35b4-4add-a245-dca3ddb69a92@amd.com>
+Date: Wed, 28 Jan 2026 18:51:48 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/11] drm/amdgpu: Add ioctl support for cwsr params
+To: Lancelot SIX <Lancelot.Six@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com,
+ Alexander.Deucher@amd.com, Christian.Koenig@amd.com, Jesse.Zhang@amd.com,
+ "Yat Sin, David" <David.YatSin@amd.com>, "Kim, Jonathan"
+ <jonathan.kim@amd.com>
+References: <20260122104118.1682154-1-lijo.lazar@amd.com>
+ <20260122104118.1682154-10-lijo.lazar@amd.com>
+ <CADnq5_M6Mi5SJi_AYKhdmwacxumeTUrRHMrKazQxEM4v=utS7w@mail.gmail.com>
+ <283b02db-3038-4e6c-b577-a9fa02741b1b@amd.com>
+ <bcf37fff-290c-4b17-9207-8a71ae9e5fa3@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <bcf37fff-290c-4b17-9207-8a71ae9e5fa3@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260126133518.2486-5-pierre-eric.pelloux-prayer@amd.com>
+X-ClientProxiedBy: PN4P287CA0121.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:2b2::8) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DM4PR12MB6469:EE_
+X-MS-Office365-Filtering-Correlation-Id: eec9846d-67d6-4777-5e35-08de5e703509
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cDhEUC9wRzR5SXptSWNzbDVaQWVSdmtzZFYrV3J2QzczK2J2ZVN1SEdabzNu?=
+ =?utf-8?B?UXB3NHZYL1ArSkdzaFFQYTlTaXBPNllrS2RicS93bnlyZlluT2wwNlIxWVdz?=
+ =?utf-8?B?NGk1ZkdWM29rb0FLbEVSaHFkbllsYmNBREtHVUQralVUTXl5TGt2RE9xV3g1?=
+ =?utf-8?B?T3p1MW9QbWszUHFDNklkNGhLTjBZb2hYeEtoNEI4TjRsMmROV0Q1Q1ZyS094?=
+ =?utf-8?B?RXBKM3BSTW4zK3N4a0YwVG1zWmRxaTZPWEFXKzNZbHVlc0x1eDh2SGFuSUU3?=
+ =?utf-8?B?Qkt6U0FkVnNncGJZWHl3RVhQNUh3L0NOcWFmbzhQM21SUm9pc0NoQUtROWZo?=
+ =?utf-8?B?TDluVTFxdXBPOXprZGdRakpLN1ZFZFpWa082SUtCa1lya3p6RDVEN0JWNktF?=
+ =?utf-8?B?ZTZ0STZJamRzNXhuWkJkMS94WGswUlV3YlBMVnRNNlZuZnR2SDRLMUI3YWNk?=
+ =?utf-8?B?QkFmbVhoNVF2Z3VwdnRKNm9XR1pmTGRETzJ5aDRkTmpqQ2E3RTRUU3lENVU0?=
+ =?utf-8?B?ZGJsQUtHTHVQYUtNMU54NWQvQWQrakZEdGRpTkRZbnRqSzZSTGMrRzEyb3dD?=
+ =?utf-8?B?bWhJbTB6UXVNQzJHWmZaUm5md2psUVI5a0ZZY29nOWZSV3cwemQ2dFF3bFFF?=
+ =?utf-8?B?U1A2WkZSNDFZWnhxamNnRGRBZUxCSDhyN3lCYkpxWnZIN2U1alNjYnBGRVR3?=
+ =?utf-8?B?RHA5Ujh0YzZsODdwZTZBUFIrczduTzlFMFZhaFpiYjF4aWNWL3ZhcjNXc0NU?=
+ =?utf-8?B?N2tMRFhTZldvOTh1S0lxa1hCbTVMTnkvbmtLUDliN3hvQUloRjhqSzR4U0lM?=
+ =?utf-8?B?eU9ZM1NIUkFyQVVKTFIzNEdncnFORjlmTTNEdEJwdlBqcWNpNlRselZOUlpT?=
+ =?utf-8?B?R09RQy9rTlloUWtPRVZxeXFqVVQ0bWdRTUxwc1VIMVh2ZzM2MXNBZmpmRWIw?=
+ =?utf-8?B?NDc3MzM3YWhxT0ZXZVZzTk9qUE15QnVCa2hXRDdFT0lWc3k0VWwyMEFMRDlU?=
+ =?utf-8?B?QXF3UGQxWWZZWXR1QWtET001TURpQTB6NTc5WkdPK3JNZGxKZFFucGM2K3pT?=
+ =?utf-8?B?S1lhSDVaRnJuOWFCdXZOYTRmZEhPcEk2UHREdzJNdDdEeFRibStIS2NJeUNm?=
+ =?utf-8?B?bk1vcDFnSUc0RW13dzBueElqQ3Jyd1FrdGRjR1NrZnNOdmc3QllmM1BEZW0x?=
+ =?utf-8?B?QldSdDBvUTJ2eEI0YW5Fd3dVakNaaS9ocVVTdk1NSnpVNzBXUDlnUGxUTER2?=
+ =?utf-8?B?UmRZeVJhaXFDVFNZd01tUysvenJHbWQwTGUxOE1kY1djNXJURUxSL1ZGMENR?=
+ =?utf-8?B?QWkxYnQ2cUF3eW5wcHcyc3F5UXllNld2ZHhqcDBjaWN2VE12dVNsMHI4c0pE?=
+ =?utf-8?B?cVNWQ0RMVTBUdk40cHJMQTBhWnlhV3V0eWtFSzQ4bEw2b1RDVExQMDFsbU4y?=
+ =?utf-8?B?b1g3cHU5cDNSS3JiUjlaTm51ZmJPcCt3YjhCZjdQN1JNWHRrVlpOSHVDK24y?=
+ =?utf-8?B?LzN5b0ZZRVRDR2J0V01DUThFcm8xcmgxNnlBYThNaWlocEpmTWFISm1ZWVJZ?=
+ =?utf-8?B?RFRxUXBBcFpqSmVBMU5KK2xGV3ErWEVZcms1bzlwZTZYWmdmTVVWaW1aT1Z0?=
+ =?utf-8?B?RlNZa2o5TkhKWjhCRkZIZ0VsZllCT3FmM1ovd2ZZOTVxYUlhdTZnR0JGQStZ?=
+ =?utf-8?B?U2trV1NhUzhLM3FKTWphVWhOUjFxN1d3ZUpoN0FNenFOZjBRSng3RWpXT1d5?=
+ =?utf-8?B?eVZwZUhuMUk1TXdqaG9MR0UyblBVaGcyMFJqNFJNQnJFRG51ZXAwSmZUMjl2?=
+ =?utf-8?B?dE9jTzRZNEgxVUl2a1lkKytkQ3MwbnM5WUxWaFlxRTZKbDZhRFpaVzY2QWhU?=
+ =?utf-8?B?cUZGaW55S04wV2NQUVZQUjIvaVhMTE9zR3VBWVd1Y2M4VVF1ZVgrNkliM1hm?=
+ =?utf-8?B?b1k1N29tQmNwZHZRWEx2OGlRWi9ZZ2pmZHI3KzEyYWRoQmVDeWZ1cGVTRUZ6?=
+ =?utf-8?B?UzJyNFE0OEtFdU1KM2U2bzl4UThDMjl1dU11K0dlQ0VWUjNnV09rbE5JelV2?=
+ =?utf-8?B?cHg0TGN6c1FHTWZjZGlvU3JVUGZaT1RoMG5zN2k4OW05YVI3ZkE0dFdJbDZS?=
+ =?utf-8?Q?DX1gi+bQkfD/SSoN+F5ZlLYJk?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YldVLzNRUk1GSGRBcFJ3TUZXSDZIK1h4Wk81Y083Z01jMjNBYm5zUzBrUWQz?=
+ =?utf-8?B?OThlR1AzeDVKa3k5VW9kNEhOMHFjK1VuNGh4RDBlWnV3dFJwVUZzT1R0KzJ4?=
+ =?utf-8?B?RlNxWGNxbWRRUDlPVTlaRnJLcUFuaGp0OWdMMUlIenFaTDVlendmdmNYSVpI?=
+ =?utf-8?B?NnV4R2JmZFkxQUM1SkpnaW9ObnMyVWVVM3NiR2RqU0FIcUNHaGMyWmRmTzdu?=
+ =?utf-8?B?UUZiZTFWSkFuWkNsS1JsYXFYcy9oZWxZMWhqTzlDdEJ3Wm5IbCszb2ZqSGxN?=
+ =?utf-8?B?ZU5Ta2RjaXdiZnZPdGFBMEd3NXZzT3FmZzdjMHpzWGFxWW5JdGlnbE1wN2Qz?=
+ =?utf-8?B?V3JBeHlRY2s5dnYxempQZWdtRWJySTBleU5rUDVCQkNzY2tMMDRqdzFKZ2do?=
+ =?utf-8?B?N2RFbzZOS3g0aGlaQVpqR2txampVdUlFRzBsaDBvQ2dJamhDQW5MellkanBP?=
+ =?utf-8?B?SmQ2WW55WHpHSkVnUUFiRFhwS1ZsQXFBN2dwVTdzaE1idVpjVk1VWFRsZDdj?=
+ =?utf-8?B?UEdadXo2dkZHVEZSSXJJMDRpRzh4NW80NWxLNlFpeWhLS1VqWHdXNi80M1Zm?=
+ =?utf-8?B?TlRLaXQvNzQxaStpbzNuU2dBaDcyaElQV0g3T3RSekR5RlNPQ296NTNwSG5B?=
+ =?utf-8?B?WlBaSHN0VzdMbDY0MmVQclpPMlp6eUFXZ05NQWRoS2lTTFN6WHpTeWFLZHBW?=
+ =?utf-8?B?VXZ5eHgwam1YOWp4Z1YvRWIydG9TYmNMU3FsWHFWWnhWK3RNY3N5UFBYeVFG?=
+ =?utf-8?B?Z3JweUtkVjNGWXVWOXJSRHR4M29qNEZ2Yy91ODR3VXZSMmV1cFJTY0pIL2wx?=
+ =?utf-8?B?VjQxZFl3dDRHMXIxKy9GbDBLU3ZJMVRFdUQxbkFtNkRIQ3RIT3pIU3pCYW9w?=
+ =?utf-8?B?VjhVZWQ2NnJGYnpSMENDT3R4SG9Jck1nVks4Zld2OExGc2JGMUdzMDZXNW1i?=
+ =?utf-8?B?MjVZNk5ucGIvT2ZrZE1rbUtFMVhySThnY29RM2V0aXhYTVp3cEhkL1RodXhO?=
+ =?utf-8?B?ampHRlB5bkV5WHNWbG9PVjh0K2JtVms5c1pBK1RFS3ErODBsWTh0d3VFY29x?=
+ =?utf-8?B?VmZCQzVEcFpJemF5TEpBN3hpMjdMUzFNdGxjVGVpMXJwUUNIczRJM0lEOVE2?=
+ =?utf-8?B?SDVaTit6Tk0xeVQ4ajRpalpJYXF2cDRVMER2QnFweWhGWVNkQlIvblJJazZG?=
+ =?utf-8?B?SGNBQlZWTnBDTDZCZFdXMU1NVEJQb0tGMCtMSXJqSHpPbzMxdFdaUFh6YjRM?=
+ =?utf-8?B?c0p3KyszR0QxdzNXQmVZbU5JTld6Rk5oL3UwU1R4dnNPVklySTAxLzE4QkZV?=
+ =?utf-8?B?Rm5NQlh4VFljekxnMDFmOFRvQXFZNm9xY0ttTlVEMFVjU0twWnZhd0JuWC8z?=
+ =?utf-8?B?OFdBTjd6UzlEOWJrVFdZK1ZDSVIyVnRha3lQbGN0YU9hMjlFM1JSSHBCMHli?=
+ =?utf-8?B?OEJhV1ZVL1BXWTZZWXFPNWZwVGt2RmpiVFllTlNUbkVuYVRsTWVKVmYyTUl2?=
+ =?utf-8?B?ZXVrWjZHYWg4cGxlR0RkQVY2SmVUM2Z4eWlJVG1YVFFUaXN4VHl0RURDV1RV?=
+ =?utf-8?B?Mi9ZbFVFaU12bnV1UFlhQmNaTGFLMXhXZm1nV0pwUVVES1VYOWFrV3ZKbE9r?=
+ =?utf-8?B?OS9lcDh3cEdkLzh3SVVXd2F5YkVNSkNFVGNTZGwwanB5R1NGYzIyK1hyV2ha?=
+ =?utf-8?B?WnZkYUdNUmJydUtFL1A1L3NGRzJGQThMbUFsUWlzWW43Z1RyVFgrS3BEZmsr?=
+ =?utf-8?B?THBxWWs0NHNZS2hvRXhudDkrSGZnOThXd3ZNTURDV1dlbFpCcXdGNFdpUnB0?=
+ =?utf-8?B?RkYxbEJFVWFHSkxIZi9HemJRK2NQbGZmbFFMQ3VLOU5zalhSclZKam13RzVu?=
+ =?utf-8?B?YmFWQnJJL3ZZNDVGdzNtZVRrZUg2RnlQTGhQZU1nMEQ0MWhiYXBRQkhaTk5D?=
+ =?utf-8?B?M3ZQdkZKS280NmFyaHFBQmxEZXh3dWZiL2poMmhGYm82RXAwcnNvcGkyNm9r?=
+ =?utf-8?B?b0huV0FnMythNjFjYXcrYmdBbEt4MXhuRTZmNHFtOCtOVlcrMy84ZzJrREZl?=
+ =?utf-8?B?b2lINC9DSnVMTE1DeGRkWEwyUXRuMUdyS1JCb2VoLzBrWlRIWU80MThlaWZS?=
+ =?utf-8?B?cmovNVpjb29pK2RlTy9KWGJzTlF6OXY2VDg4MFRmN0Q2Rkp6UzlzRGVDL0Va?=
+ =?utf-8?B?R3IzRE1Lb1E1WUFiRXpwNm16Z1hHU2Rmc2VqNkdsUWZvU1ZKekNQb1IwYjN6?=
+ =?utf-8?B?cERuVjJNYlBJSk1FVTR5akpZajI5ZWxFc1N5WXlSZXk5WUJmTmhpY2Fkckht?=
+ =?utf-8?B?VFRVNXVxTTNKV3E4eW5NeTRjNnI1TDVRT3NpRWZCZ0VpUlAyVWcvQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eec9846d-67d6-4777-5e35-08de5e703509
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 13:21:55.3490 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kib1Wnk9IofamxANhhBw1SWDP7ZB835CTSYXk5m6LTzT0OEtZak9E/WMq9le2Mih
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6469
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,87 +173,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Pierre-Eric,
-
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on next-20260123]
-[cannot apply to drm-misc/drm-misc-next v6.19-rc7 v6.19-rc6 v6.19-rc5 linus/master v6.19-rc7]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Pierre-Eric-Pelloux-Prayer/drm-amdgpu-remove-gart_window_lock-usage-from-gmc-v12_1/20260126-214013
-base:   next-20260123
-patch link:    https://lore.kernel.org/r/20260126133518.2486-5-pierre-eric.pelloux-prayer%40amd.com
-patch subject: [PATCH v6 04/11] amdgpu/vce: use amdgpu_gtt_mgr_alloc_entries
-config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20260128/202601282153.4kuaeoS5-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260128/202601282153.4kuaeoS5-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202601282153.4kuaeoS5-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/amd/amdgpu/vce_v1_0.c: In function 'vce_v1_0_ensure_vcpu_bo_32bit_addr':
->> drivers/gpu/drm/amd/amdgpu/vce_v1_0.c:533:13: warning: unused variable 'gpu_addr' [-Wunused-variable]
-     533 |         u64 gpu_addr = amdgpu_bo_gpu_offset(adev->vce.vcpu_bo);
-         |             ^~~~~~~~
 
 
-vim +/gpu_addr +533 drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+On 28-Jan-26 5:29 PM, Lancelot SIX wrote:
+> 
+> 
+> On 27/01/2026 05:44, Lazar, Lijo wrote:
+>>
+>>
+>> On 24-Jan-26 2:21 AM, Alex Deucher wrote:
+>>> On Thu, Jan 22, 2026 at 5:52 AM Lijo Lazar <lijo.lazar@amd.com> wrote:
+>>>>
+>>>> Add cwsr parameters to userqueue ioctl. User should pass the GPU 
+>>>> virtual
+>>>> address for save/restore buffer, and size allocated. They are supported
+>>>> only for user compute queues.
+>>>>
+>>>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 13 +++++++++----
+>>>>   include/uapi/drm/amdgpu_drm.h              | 16 ++++++++++++++++
+>>>>   2 files changed, 25 insertions(+), 4 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/ 
+>>>> gpu/drm/amd/amdgpu/mes_userqueue.c
+>>>> index 7ad8297eb0d8..2765317f04df 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+>>>> @@ -343,16 +343,21 @@ static int mes_userq_mqd_create(struct 
+>>>> amdgpu_usermode_queue *queue,
+>>>>
+>>>>                  if (amdgpu_cwsr_is_enabled(adev)) {
+>>>>                          cwsr_params.ctx_save_area_address =
+>>>> -                               userq_props->ctx_save_area_addr;
+>>>> -                       cwsr_params.cwsr_sz = userq_props- 
+>>>> >ctx_save_area_size;
+>>>> -                       cwsr_params.ctl_stack_sz = userq_props- 
+>>>> >ctl_stack_size;
+>>>> -
+>>>> +                               compute_mqd->ctx_save_area_va;
+>>>> +                       cwsr_params.cwsr_sz = compute_mqd- 
+>>>> >ctx_save_area_size;
+>>>> +                       cwsr_params.ctl_stack_sz = compute_mqd- 
+>>>> >ctl_stack_size;
+>>>>                          r = amdgpu_userq_input_cwsr_params_validate(
+>>>>                                  queue, &cwsr_params);
+>>>>                          if (r) {
+>>>>                                  kfree(compute_mqd);
+>>>>                                  goto free_mqd;
+>>>>                          }
+>>>> +                       userq_props->ctx_save_area_addr =
+>>>> +                               compute_mqd->ctx_save_area_va;
+>>>> +                       userq_props->ctx_save_area_size =
+>>>> +                               compute_mqd->ctx_save_area_size;
+>>>> +                       userq_props->ctl_stack_size =
+>>>> +                               compute_mqd->ctl_stack_size;
+>>>>                  }
+>>>>
+>>>>                  kfree(compute_mqd);
+>>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/ 
+>>>> amdgpu_drm.h
+>>>> index c178b8e0bd3f..b7a858365174 100644
+>>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>>> @@ -460,6 +460,22 @@ struct drm_amdgpu_userq_mqd_compute_gfx11 {
+>>>>           * to get the size.
+>>>>           */
+>>>>          __u64   eop_va;
+>>>> +       /**
+>>>> +        * @ctx_save_area_va: Virtual address of the GPU memory for 
+>>>> save/restore buffer.
+>>>> +        * This must be from a separate GPU object, and use 
+>>>> AMDGPU_INFO IOCTL
+>>>> +        * to get the size. This includes control stack, wave 
+>>>> context and debugger memory.
+>>>> +        */
+>>>> +       __u64 ctx_save_area_va;
+>>>> +       /**
+>>>> +        * @ctx_save_area_size:  Total size (in bytes) allocated for 
+>>>> save/restore buffer.
+>>>> +        * Use AMDGPU_INFO IOCTL to get the size.
+>>>> +        */
+>>>> +       __u32 ctx_save_area_size;
+>>>> +       /**
+>>>> +        * @ctl_stack_size: Size (in bytes) of control stack region 
+>>>> in the save/restore buffer.
+>>>> +        * Use AMDGPU_INFO IOCTL to get the size.
+>>>> +        */
+>>>> +       __u32 ctl_stack_size;
+>>>
+>>> Does it matter where the ctl_stack is within the save area?
+>>>
+>>
+>> This is the legacy way. Probably, this can be avoided. Adding David 
+>> and Lancelot.
+>>
+>> Hi David/Lancelot,
+>>
+>> Do you have the background of userspace passing back control stack size?
+>>
+>> https://github.com/torvalds/linux/blob/master/drivers/gpu/drm/amd/ 
+>> amdkfd/kfd_chardev.c#L260
+>>
+>> Can driver assume that context save area takes care of everything and 
+>> assume that user allotted as per the right control stack size?
+>>
+>> Thanks,
+>> Lijo
+> 
+> Hi,
+> 
+> As far as ROCr is concerned, the control stack is just an element that 
+> contributes to the size that need to be allocated for the CWSR area.  I 
+> do not expect ROCr needs to know anything about it if it can query the 
+> driver for the minimum size the CWSR allocation should be.
+> 
+> If userspace processes are interested in accessing the control stack 
+> (like the debugger for example), the way to access it and know its 
+> current size is by reading the CWSR area header maintained by the 
+> driver.  See "struct kfd_context_save_area_header", which contains the 
+> effective size (of valid data).  This struct is at the beginning of the 
+> cwsr area (ctx_save_area_va), and contains everything needed to 
+> effectively decode CWSR.
+> 
+> Does that answer your question?
+> 
 
-d4a640d4b9f34a Timur Krist�f              2025-11-07  516  
-221cadb9c6bc2e Timur Krist�f              2025-11-07  517  /**
-221cadb9c6bc2e Timur Krist�f              2025-11-07  518   * vce_v1_0_ensure_vcpu_bo_32bit_addr() - ensure the VCPU BO has a 32-bit address
-221cadb9c6bc2e Timur Krist�f              2025-11-07  519   *
-221cadb9c6bc2e Timur Krist�f              2025-11-07  520   * @adev: amdgpu_device pointer
-221cadb9c6bc2e Timur Krist�f              2025-11-07  521   *
-221cadb9c6bc2e Timur Krist�f              2025-11-07  522   * Due to various hardware limitations, the VCE1 requires
-221cadb9c6bc2e Timur Krist�f              2025-11-07  523   * the VCPU BO to be in the low 32 bit address range.
-221cadb9c6bc2e Timur Krist�f              2025-11-07  524   * Ensure that the VCPU BO has a 32-bit GPU address,
-221cadb9c6bc2e Timur Krist�f              2025-11-07  525   * or return an error code when that isn't possible.
-221cadb9c6bc2e Timur Krist�f              2025-11-07  526   *
-221cadb9c6bc2e Timur Krist�f              2025-11-07  527   * To accomodate that, we put GART to the LOW address range
-221cadb9c6bc2e Timur Krist�f              2025-11-07  528   * and reserve some GART pages where we map the VCPU BO,
-221cadb9c6bc2e Timur Krist�f              2025-11-07  529   * so that it gets a 32-bit address.
-221cadb9c6bc2e Timur Krist�f              2025-11-07  530   */
-221cadb9c6bc2e Timur Krist�f              2025-11-07  531  static int vce_v1_0_ensure_vcpu_bo_32bit_addr(struct amdgpu_device *adev)
-221cadb9c6bc2e Timur Krist�f              2025-11-07  532  {
-221cadb9c6bc2e Timur Krist�f              2025-11-07 @533  	u64 gpu_addr = amdgpu_bo_gpu_offset(adev->vce.vcpu_bo);
-221cadb9c6bc2e Timur Krist�f              2025-11-07  534  	u64 bo_size = amdgpu_bo_size(adev->vce.vcpu_bo);
-221cadb9c6bc2e Timur Krist�f              2025-11-07  535  	u64 max_vcpu_bo_addr = 0xffffffff - bo_size;
-221cadb9c6bc2e Timur Krist�f              2025-11-07  536  	u64 num_pages = ALIGN(bo_size, AMDGPU_GPU_PAGE_SIZE) / AMDGPU_GPU_PAGE_SIZE;
-221cadb9c6bc2e Timur Krist�f              2025-11-07  537  	u64 pa = amdgpu_gmc_vram_pa(adev, adev->vce.vcpu_bo);
-221cadb9c6bc2e Timur Krist�f              2025-11-07  538  	u64 flags = AMDGPU_PTE_READABLE | AMDGPU_PTE_WRITEABLE | AMDGPU_PTE_VALID;
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  539  	u64 vce_gart_start;
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  540  	int r;
-221cadb9c6bc2e Timur Krist�f              2025-11-07  541  
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  542  	r = amdgpu_gtt_mgr_alloc_entries(&adev->mman.gtt_mgr,
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  543  					 &adev->vce.node, num_pages,
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  544  					 DRM_MM_INSERT_LOW);
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  545  	if (r)
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  546  		return r;
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  547  
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  548  	vce_gart_start = adev->vce.node.start * AMDGPU_GPU_PAGE_SIZE;
-221cadb9c6bc2e Timur Krist�f              2025-11-07  549  
-221cadb9c6bc2e Timur Krist�f              2025-11-07  550  	/* Check if we can map the VCPU BO in GART to a 32-bit address. */
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  551  	if (adev->gmc.gart_start + vce_gart_start > max_vcpu_bo_addr)
-221cadb9c6bc2e Timur Krist�f              2025-11-07  552  		return -EINVAL;
-221cadb9c6bc2e Timur Krist�f              2025-11-07  553  
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  554  	amdgpu_gart_map_vram_range(adev, pa, adev->vce.node.start,
-221cadb9c6bc2e Timur Krist�f              2025-11-07  555  				   num_pages, flags, adev->gart.ptr);
-6e8defc22cdff6 Pierre-Eric Pelloux-Prayer 2026-01-26  556  	adev->vce.gpu_addr = adev->gmc.gart_start + vce_gart_start;
-221cadb9c6bc2e Timur Krist�f              2025-11-07  557  	if (adev->vce.gpu_addr > max_vcpu_bo_addr)
-221cadb9c6bc2e Timur Krist�f              2025-11-07  558  		return -EINVAL;
-221cadb9c6bc2e Timur Krist�f              2025-11-07  559  
-221cadb9c6bc2e Timur Krist�f              2025-11-07  560  	return 0;
-221cadb9c6bc2e Timur Krist�f              2025-11-07  561  }
-221cadb9c6bc2e Timur Krist�f              2025-11-07  562  
+Thanks, that clarifies. Control stack size is expected to be passed to 
+mqd. I think driver can use the size it calculated as long as user has 
+allocated the minimum size required for the whole save area. Will remove 
+this from input parameter.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks for the pointer to save area header. The interface to query the 
+used size is missing.
+
+Thanks,
+Lijo
+
+> Best,
+> Lancelot.
+> 
+> cc Jonathan.
+> 
+>>
+>>> Alex
+>>>
+>>>>   };
+>>>>
+>>>>   /* userq signal/wait ioctl */
+>>>> -- 
+>>>> 2.49.0
+>>>>
+>>
+> 
+
