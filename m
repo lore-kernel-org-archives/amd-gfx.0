@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD6FD35663
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 02:00:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56EB6D35660
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 02:00:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 482B510E5F8;
-	Wed, 28 Jan 2026 02:00:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF07C10E5FA;
+	Wed, 28 Jan 2026 02:00:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YBLo0taL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JOaCPsfX";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011028.outbound.protection.outlook.com
- [40.93.194.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0901B10E5FA
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 02:00:05 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012043.outbound.protection.outlook.com [52.101.48.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79C2010E5FA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 02:00:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ocn9rf6eB5xUV50h764pWTFbGzAUNLuoLuv2SDd+IwsvRbBxHEfT+qFY8WOHQdd58MC6+duCAChyNl2W8jNdZ9ul0r3Gjqj/JOyzqbbxVbZ9dPAxObTCB2/ghZ042RUQ3SaTwMXvlvRwl8xAxVjmzKhzSIInI8hWG1/jc7qih9/bfilSQnR0kAlX1PVRpyNhukyKPgmLHvgg9IjKF6MN+OKUcfmDIm2JrogfoWZ8aPlbRr8gTu1TrWVdEoyQiQF2le/JNtBxPt04JrWle6UEat7O8ZJyiH5mx3xv0PiDhsGDIFB6G2tF7bMUnZmSR964ZNc7X7DUa0nPW+WaXeiMUg==
+ b=oU2pPrCG1cG6iVBYPhPiyYhaLH6H9g7iQgMprOQJq6rZZjDJHQ2fEbIpkMwF8Sm0+Lc/6iY+VTi7q4JMlZym/ljM9MvmzfibGtuRjfpvuriIBKX31DZJQexS2P657v52fwiyBOcM0eGvJgrQov8bLayhQmOiT+l/oNah/C6OAdaGoV9+381zyNU8GQCSr1WxDFc9FeHKRfSIkWzmJXYja8mKsdDsbkw0l77wtt6y+3pp4LbVTpoR3+kq7SYd6gvsjcgKTEsESWO9S22KT9nS12DXBlyu0QL8IRa1hXiCOviC4I91YJnsJWaTS9mhgGtfx/MsFXtuFzVL7mBFNlfxtg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Gj8aaxM11o6GR8hdFhPRO3WKC26bZ17bWIJv1ltLzrM=;
- b=XuQ7E17MqXMfgiCHgcu02B86i6Rg3L+ZaVcwNh8j+o0WxPBZFWaVuBcUNkxvS01TKXDF9USP57wKFmmGHVZD8KbyFgWV3gTKLLBqsBOF4Xr3XHAXcvmVXTqKojl/MRcbjyo8eWd6kHmo/q+g+73hKE0lid1Pb+9CVzEpTJiOJNyKky3AEEvbPtEiJCrDRiy6wwWPpCWkVoIYkIrCNI7kAV0MR5DGQasqf5lqX0sIJGXuw8LXK/X8lBPNjbhIkJkL/yY9g/UVbBWMguXxGw9WscOFSk6Btb81upF5u0b+z022+2YPhNjIUsu6r9gNYXnkJwAgbxolvOc7pggJebuxZQ==
+ bh=1KlmlidvnvMtUGUQJ4AoEaQQD7FTRA4VM73V2Tv1mzk=;
+ b=kI7L+fSZdzDfUELC9aiwrxywN8/ydgu05pCCUY2GR3s2SLwfSpJVt7OavTNsY6oIWgdI6TloYcCvbxUhD9eYfeya6L1ALvtODvq3tdZNHAKsFv7VHtT4d6zTxvGFJFdBEpFqoFYdArf7CcGPk0UKlcgHgrBTMAAurYG2bLU5AkWGHpam+QKK0D42BoooF+OVhA6Qx+2wLK/DmpKKhApvV97kBz5xurc1XJjo1wN6WYZqCjNkywTZwBaOitcvYOs2zo5TQNLJCs+vTxkTCsml87phZ5ZpZH+3oKF0RoZHXhyi/a4MOYsEikfJ0dFs1d/3Gw0IojjQDNgUebKV94VZKA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gj8aaxM11o6GR8hdFhPRO3WKC26bZ17bWIJv1ltLzrM=;
- b=YBLo0taLYZD5EEyAo6QPDa0vVZ/ixLWsKyAor5Cl0seCUm+60zYpUhfXgy2X72rsWZUDO2970KaaGuLVgvAXPJS/a/I1ZswbUfLx6RRV+eCg2W2R8Jwf6mfOU8FJA5OcajADXJLY2WgEJbjLWwQnCAEPk6C8UH9FJRUiWlwJmJA=
-Received: from SJ0PR03CA0083.namprd03.prod.outlook.com (2603:10b6:a03:331::28)
- by CH3PR12MB8545.namprd12.prod.outlook.com (2603:10b6:610:163::8)
+ bh=1KlmlidvnvMtUGUQJ4AoEaQQD7FTRA4VM73V2Tv1mzk=;
+ b=JOaCPsfXL9xggh/KTs1wnoBz1WKoOOuAH33EWoJOjqX8bS34OQ+8Nr6CD0GRYIdTUOj8ncP3AqC1vsy7nAfJn6jIYV844Sn0MYrva5exbEPcQrKtukPoANjHXncUUz+hCuYlpAvVbaiz3nJiWBJGmEHJnMLVkWnXNbCpHHmQaQg=
+Received: from BLAP220CA0019.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::24)
+ by PH7PR12MB6443.namprd12.prod.outlook.com (2603:10b6:510:1f9::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Wed, 28 Jan
- 2026 02:00:00 +0000
-Received: from SJ5PEPF000001E9.namprd05.prod.outlook.com
- (2603:10b6:a03:331:cafe::c0) by SJ0PR03CA0083.outlook.office365.com
- (2603:10b6:a03:331::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.12; Wed, 28 Jan
+ 2026 02:00:08 +0000
+Received: from BL02EPF00021F69.namprd02.prod.outlook.com
+ (2603:10b6:208:32c:cafe::d7) by BLAP220CA0019.outlook.office365.com
+ (2603:10b6:208:32c::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.7 via Frontend Transport; Wed,
- 28 Jan 2026 01:59:59 +0000
+ 28 Jan 2026 02:00:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001E9.mail.protection.outlook.com (10.167.242.197) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL02EPF00021F69.mail.protection.outlook.com (10.167.249.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 01:59:59 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 02:00:07 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 27 Jan
- 2026 19:59:58 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 20:00:06 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 27 Jan
- 2026 17:59:58 -0800
+ 2026 20:00:05 -0600
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 27 Jan 2026 19:59:50 -0600
+ Transport; Tue, 27 Jan 2026 20:00:02 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,11 +69,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Ray Wu <ray.wu@amd.com>
-Subject: [PATCH 11/21] drm/amd/display: Fix IGT ILR link training failure on
- Replay panel
-Date: Wed, 28 Jan 2026 09:51:36 +0800
-Message-ID: <20260128015538.568712-12-Wayne.Lin@amd.com>
+ <alex.hung@amd.com>, Nicholas Carbones <ncarbone@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>
+Subject: [PATCH 13/21] drm/amd/display: Add Gfx Base Case For Linear Tiling
+ Handling
+Date: Wed, 28 Jan 2026 09:51:38 +0800
+Message-ID: <20260128015538.568712-14-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260128015538.568712-1-Wayne.Lin@amd.com>
 References: <20260128015538.568712-1-Wayne.Lin@amd.com>
@@ -83,55 +83,55 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E9:EE_|CH3PR12MB8545:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96e7df78-d9e9-4694-6d93-08de5e10f1b3
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|PH7PR12MB6443:EE_
+X-MS-Office365-Filtering-Correlation-Id: 832852b9-6a85-4128-1275-08de5e10f5f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|82310400026|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?I5tzE50hAfdcbdZTRHExWhd+PKkNPC4x3Xn5mRWPfxQj8p9DkUJaL3lK33qQ?=
- =?us-ascii?Q?t/JmBR/osvW8qGHNF1C82yUOqGiQD0AsVOuglcVWsew0FF92it2+tmPM2Eb0?=
- =?us-ascii?Q?P7k/ErZpZOFw4+Z8+uG5lUMhhzqp2yTn8w56HRo9kFEfuZX/br4C7kxcip8S?=
- =?us-ascii?Q?nPdkiRIK6ktl+gnAOnrHH6Rd8lgaSvsULLQKp8FKYvfBZksffRZQJSKMCh5A?=
- =?us-ascii?Q?IV8npqSLKf/r8K5zXZjTZLlgrmxGi845Ka6LkW1vcWL6M5vN39eVMoSJ19ov?=
- =?us-ascii?Q?ix4qppsmCCsIwDoD+VnurDYwaRPE9DXDFzacbCHa5kVOWbbUw3xXB9qtcP86?=
- =?us-ascii?Q?pLmBuIEcWjyv5Mg1JLvrM1Lg8iBB5exQPbgzfingkzUAlPqA5zWKJWH72LMe?=
- =?us-ascii?Q?1JOfLG4aydidYGri4I+CYbO3vNlpgCLslmRWVdWRfXNbnUVWrqAhOZmEdhx5?=
- =?us-ascii?Q?bv+qE4GUMRLXN0FosZ0Xyv5K9pa5xXXMxyCEOO4dW9pZuZidNDnMExCQ4Xlf?=
- =?us-ascii?Q?y/OKMWUjk5zn9aMpm2gs4yWovf3xM2bTqkjpbsF76mvs6jcKefHQvD0ABsJI?=
- =?us-ascii?Q?3qzktd0fQWZZuN57kWqgXFrEztm7krOZAcIgukbKB789XE+mqiJ9n2yIlVUc?=
- =?us-ascii?Q?J/xOhNieuwzlgfr01xDh1YlT4Xr7RwtsVCYXYtzPEjOLyUBnhEgL+vI1Pjda?=
- =?us-ascii?Q?9WNmOUnSe9iZkl+BDQjuTUN3t4j1TIbd57oOgpFXp3yRmD2E3giLbioAdY8Q?=
- =?us-ascii?Q?3C2cPFX/ejWT6LL2Ttr/kpkApc/yiGtWuu+0B0M6pCQHleCA4ONrbd+zvPqk?=
- =?us-ascii?Q?3r7RAwbf9pv+nYplRamspX3yWngBOzFfcbpNYqup0VcZ/t+h/gkVBPBAWwAk?=
- =?us-ascii?Q?JfQXKOyK4h0DExFeHy6ESb2yRoYYjQimcxNpEKVrLW+htZIljvSDX8jNhAN5?=
- =?us-ascii?Q?zLaktRcS38Ht21XTKuZm2RtCA890obLEksjRDJoHUotKvbetSt/7vLi/dfct?=
- =?us-ascii?Q?DFwhoR5uzBGz5d6wPiZQf0WZ5sT4sP7GDXd83ZI2zzIZGSXvofyrir2MC2l2?=
- =?us-ascii?Q?ywnXcVbLAjYcFFUEWSvgUl2slkmuKn2J1SyOcdyJX3RK3HV0FKYD5+OcJibq?=
- =?us-ascii?Q?WB+JcgNjkAuuQkY2dJHlgjK/lClxX3ns42w63op8n4mM6mXACuMFyZItazTE?=
- =?us-ascii?Q?AbvN+it+zQPznejYHKMuBbBHZnKfJG1L69wdeE8fAqH3RFHLxScFdhcYSDUq?=
- =?us-ascii?Q?OHfS3ozitme44Ogu85G3ZJKZSXzymUpSKQZEQgMadI/ChrY3f4sZcD2Azh67?=
- =?us-ascii?Q?/ZOW5X2msPQGPSZ+EdOvuihkj1KK+m1m0qIch06hHpiQgpfhnt81vGEcPq6N?=
- =?us-ascii?Q?Lp3KiDjue4ztK4rTjvvfVJijSmWqtojxIFCoPymv7DdaDaDKC8khYej8gdX3?=
- =?us-ascii?Q?EqKaFeRH0S2eIaSTevh4TkfvkrJLQicJboa5IsZTJc0wFSZGFzMLhA4NTzZv?=
- =?us-ascii?Q?wbQ+wcyXi5xqZ7JB+rXIP7n0kZRx+/X7IKjrNG9EQUDm8T0+Eowd1wzUMKBK?=
- =?us-ascii?Q?RAHTRB1dlIqmuyaSy7DzxKzTwYU9HHSGBy4JlRo5GglI89SQ2juY2pj4LIg0?=
- =?us-ascii?Q?6++ZdQWgEpRs3ihwOuiGtgUpTvmhfViu9x6kd2zNudQ0PwQonBOBAk6uHNhI?=
- =?us-ascii?Q?Tg45nw=3D=3D?=
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?OkcXtLpvVZqsN4kC7fzJW8GXoWcQJxFPS/Fz8oE/mskJoknG7hLVXJhdItzD?=
+ =?us-ascii?Q?AqbCSB/SUBq3B1stvKOkmL91YuSUL0CORP2GO2a+I9E3beu9iAfUF+5YfOPQ?=
+ =?us-ascii?Q?8JseiWQxA8Ro8hJ+00mJdHTgqBlrd07JqZeytAUMJo2yTs6OvA9wcGmnok9s?=
+ =?us-ascii?Q?VMrjphDlptkzwUN+YIJnUuVS08qKD7ajW2/XmnRle8Zx98dYuUhFvd60UZsV?=
+ =?us-ascii?Q?fDS9Q6Lyx7VQexFtW5qHQMvgVCz7Kiwgn/cw1Yere/5aqLIENjqOvrAeRVUC?=
+ =?us-ascii?Q?BGyioXR+XrL20Amf9XcCYmK5t90e2qugaJ4kIapRad51reYizXXrDmheVgcJ?=
+ =?us-ascii?Q?mz4H/bXRaFEBMgr2PE33MIpFEWCDpR6DCyXoiD7/Ffs7wsioE2sz4qVkE0aA?=
+ =?us-ascii?Q?ntkMthaSWjpvZT0aXoCvjJMIIs4a++W4+GX/0HWaM/Ylow7YFuxhz+mwxz4Y?=
+ =?us-ascii?Q?rjC4cpN4eL7yjpilUj/W2eslCiLQHUl4BRqkdfJGroejA+Jn+uA1+iC7QNSc?=
+ =?us-ascii?Q?F6ryIRvuKdJOfAnn8JxwLvtbBYpheBG9IorVn0diqJhZJ/6pU5H77OHsAlgC?=
+ =?us-ascii?Q?NB12k6SAFZ6C6Y74qeZWBBudURNefB3DGx58kFecZWlcKdg2yu3MTgNriYmx?=
+ =?us-ascii?Q?7VETcr93Y38jQOa6BWAPtywIAotKqOTVd62oyBmgNUAkMDt46p5wQQPuB3ue?=
+ =?us-ascii?Q?KKhXBVaBUVNsiXD29AnwAL2kB5RmzA9jigAVU0NgGoXbelbjXzwXEoloCNqe?=
+ =?us-ascii?Q?+rfMVqSzW9w904PSFmHvFzrTol2TvmH/sAAmfs3R5uiY++3B6YnxUNkH6xG1?=
+ =?us-ascii?Q?lLN+eAwakw7f5zz0SG4uN7BTV8tq1JbHqM3v3U+MAPsNsT9QmInIDeFeEiqe?=
+ =?us-ascii?Q?wh4FwjxeoDPhNRt4r5B6C+s+6KmBTdAg5zmLIY4qOm1D0zd+pGQBggcts5Xa?=
+ =?us-ascii?Q?aUgOpQ2eVpz1nqw7+TpJq8tORIBdA43b5/UArVyDg02bh0XlMKomf2DV65fg?=
+ =?us-ascii?Q?Wcku8USGqKlXlTNdJkpecTjmovoHdiuASDAE5ZO4qQI7MrpsUWdvlYdVODVQ?=
+ =?us-ascii?Q?3HrgC3zd9fnlvsXu79mRQ/3WPcc4J7+DpgCYcxjP8RWKDW6uL2ed4tUYtwze?=
+ =?us-ascii?Q?lhZPDqSZCsp28nPMI80okX3L3Tag0m99pmoiSTYy/yb0EY9TGTRYBKZAaksT?=
+ =?us-ascii?Q?8PQfUMVYK5P2RAXlKgCmSby6M9K5m8huGLFsskEnig4mHakJGthZnGgV6L5z?=
+ =?us-ascii?Q?Cu4EtiCNEW10ax4f9djFWJH+GpWIMviRzWziPKF2cEbvdZj5WmE+Mkl2SrC9?=
+ =?us-ascii?Q?rBiE2D8LWyXJuLUweZrVlw0Py5DQQ+UMhlwhgmGAWYfClxhTPgElfX+M1mOe?=
+ =?us-ascii?Q?BsFequVybp6x1TwCC+/4f3TEM+hSyj8+7jhN+ZMHA52uk1HPN1jaJqz9gsrv?=
+ =?us-ascii?Q?cfiCb6q/Z9nguA/3N97iMWytUbtjMHJ3u7b2/ArsbkpyXfwn6lIPVnWip6ea?=
+ =?us-ascii?Q?TvnVpo+rCEy+QHb4ZW2Yifcasn5lZRNW+uqJq2Wd4HsWSNJoloxlRY+TMYWn?=
+ =?us-ascii?Q?JGOblgD4/2E/ewbECpn55SGtwDxij3J/Uc7loS0Auc6Vnki2u1Pj/ApH+wgQ?=
+ =?us-ascii?Q?pe1Qxh5eaRlAznYAJK3b4uw/jsIb+oWuTI39blC6cNXgp3e8AoQ0EsFcbTtZ?=
+ =?us-ascii?Q?s9/sAA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
  SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 01:59:59.9931 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96e7df78-d9e9-4694-6d93-08de5e10f1b3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 02:00:07.1530 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 832852b9-6a85-4128-1275-08de5e10f5f1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001E9.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F69.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8545
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6443
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,72 +146,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ray Wu <ray.wu@amd.com>
+From: Nicholas Carbones <ncarbone@amd.com>
 
-[Why & How]
-Fix the IGT ilr_link-training-configs test failure
-by directly using the supported link rates from DPCD.
+[Why]
+Post-driver cases always use linear tiling yet there is no dedicated
+Gfx handling for this condition.
 
-Reviewed-by: ChiaHsuan Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
+[How]
+Add DcGfxBase/DalGfxBase to gfx version enums and set tiling to linear
+when it is used. Also, enforce the use of proper tiling format as tiling
+information is used.
+
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Nicholas Carbones <ncarbone@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 21 ++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c          | 1 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c                   | 1 +
+ drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c      | 7 +++++++
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c          | 1 +
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h               | 3 ++-
+ drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c         | 3 +++
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c | 3 +++
+ drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c       | 1 +
+ drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c     | 2 ++
+ drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c     | 2 ++
+ drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c     | 2 ++
+ drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c   | 7 ++++++-
+ .../amd/display/dc/resource/dcn32/dcn32_resource_helpers.c | 3 ++-
+ 13 files changed, 33 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 5fb573214f18..cfe35442dfcb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -46,6 +46,7 @@
- #include "amdgpu_dm_psr.h"
- #endif
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index fcc48994c3e3..333ff8557732 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8033,6 +8033,7 @@ static enum dc_status dm_validate_stream_and_context(struct dc *dc,
+ 	dc_plane_state->plane_size.chroma_size.height  = stream->src.height;
+ 	dc_plane_state->plane_size.chroma_size.width   = stream->src.width;
+ 	dc_plane_state->format = SURFACE_PIXEL_FORMAT_GRPH_ARGB8888;
++	dc_plane_state->tiling_info.gfxversion = DcGfxVersion9;
+ 	dc_plane_state->tiling_info.gfx9.swizzle = DC_SW_UNKNOWN;
+ 	dc_plane_state->rotation = ROTATION_ANGLE_0;
+ 	dc_plane_state->is_tiling_rotated = false;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 4305691ba45e..441b7e0a3b22 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2768,6 +2768,7 @@ static struct surface_update_descriptor get_plane_info_update_type(const struct
+ 		case DcGfxVersion7:
+ 		case DcGfxVersion8:
+ 		case DcGfxVersionUnknown:
++		case DcGfxBase:
+ 		default:
+ 			break;
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index 052d573408c3..a13d9d7dd6c5 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -2065,6 +2065,13 @@ void get_surface_tile_visual_confirm_color(
+ 	while (bottom_pipe_ctx->bottom_pipe != NULL)
+ 		bottom_pipe_ctx = bottom_pipe_ctx->bottom_pipe;
  
-+#define MULTIPLIER_TO_LR 270000
- struct dmub_debugfs_trace_header {
- 	uint32_t entry_count;
- 	uint32_t reserved[3];
-@@ -3507,6 +3508,10 @@ static ssize_t edp_ilr_write(struct file *f, const char __user *buf,
- 	uint8_t param_nums = 0;
- 	long param[2];
- 	bool valid_input = true;
-+	uint8_t supported_link_rates[16] = {0};
-+	uint32_t entry = 0;
-+	uint32_t link_rate_in_khz = 0;
-+	uint8_t dpcd_rev = 0;
- 
- 	if (size == 0)
- 		return -EINVAL;
-@@ -3551,6 +3556,20 @@ static ssize_t edp_ilr_write(struct file *f, const char __user *buf,
- 		return size;
- 	}
- 
-+	if (!dm_helpers_dp_read_dpcd(link->ctx, link, DP_SUPPORTED_LINK_RATES,
-+		supported_link_rates, sizeof(supported_link_rates)))
-+		return -EINVAL;
-+
-+	dpcd_rev = link->dpcd_caps.dpcd_rev.raw;
-+	if (dpcd_rev < DP_DPCD_REV_13 ||
-+		(supported_link_rates[entry + 1] == 0 && supported_link_rates[entry] == 0)) {
-+		return size;
++	if (bottom_pipe_ctx->plane_state->tiling_info.gfxversion == DcGfxBase) {
++		/* LINEAR Surface - set border color to red */
++		color->color_r_cr = color_value;
++		return;
 +	}
 +
-+	entry = param[1] * 2;
-+	link_rate_in_khz = (supported_link_rates[entry + 1] * 0x100 +
-+						supported_link_rates[entry]) * 200;
-+
- 	/* save user force lane_count, link_rate to preferred settings
- 	 * spread spectrum will not be changed
- 	 */
-@@ -3558,7 +3577,7 @@ static ssize_t edp_ilr_write(struct file *f, const char __user *buf,
- 	prefer_link_settings.lane_count = param[0];
- 	prefer_link_settings.use_link_rate_set = true;
- 	prefer_link_settings.link_rate_set = param[1];
--	prefer_link_settings.link_rate = link->dpcd_caps.edp_supported_link_rates[param[1]];
-+	prefer_link_settings.link_rate = link_rate_in_khz / MULTIPLIER_TO_LR;
++	ASSERT(bottom_pipe_ctx->plane_state->tiling_info.gfxversion == DcGfxVersion9);
+ 	switch (bottom_pipe_ctx->plane_state->tiling_info.gfx9.swizzle) {
+ 	case DC_SW_LINEAR:
+ 		/* LINEAR Surface - set border color to red */
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index 848c267ef11e..b4e5a79e9749 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -4434,6 +4434,7 @@ enum dc_status dc_validate_global_state(
  
- 	mutex_lock(&adev->dm.dc_lock);
- 	dc_link_set_preferred_training_settings(dc, &prefer_link_settings,
+ 			if (dc->res_pool->funcs->patch_unknown_plane_state &&
+ 					pipe_ctx->plane_state &&
++					pipe_ctx->plane_state->tiling_info.gfxversion == DcGfxVersion9 &&
+ 					pipe_ctx->plane_state->tiling_info.gfx9.swizzle == DC_SW_UNKNOWN) {
+ 				result = dc->res_pool->funcs->patch_unknown_plane_state(pipe_ctx->plane_state);
+ 				if (result != DC_OK)
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+index cfa569a7bff1..7121629da38e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+@@ -342,7 +342,8 @@ enum swizzle_mode_addr3_values {
+ };
+ 
+ enum dc_gfxversion {
+-	DcGfxVersion7 = 0,
++	DcGfxBase = 0,
++	DcGfxVersion7,
+ 	DcGfxVersion8,
+ 	DcGfxVersion9,
+ 	DcGfxVersion10,
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+index 1c2009e38aa1..5df58fadc862 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+@@ -100,6 +100,7 @@ static enum mi_bits_per_pixel get_mi_bpp(
+ static enum mi_tiling_format get_mi_tiling(
+ 		struct dc_tiling_info *tiling_info)
+ {
++	ASSERT(tiling_info->gfxversion == DcGfxVersion8);
+ 	switch (tiling_info->gfx8.array_mode) {
+ 	case DC_ARRAY_1D_TILED_THIN1:
+ 	case DC_ARRAY_1D_TILED_THICK:
+@@ -433,6 +434,7 @@ static void program_tiling(
+ 	struct dce_mem_input *dce_mi, const struct dc_tiling_info *info)
+ {
+ 	if (dce_mi->masks->GRPH_SW_MODE) { /* GFX9 */
++		ASSERT(info->gfxversion == DcGfxVersion9);
+ 		REG_UPDATE_6(GRPH_CONTROL,
+ 				GRPH_SW_MODE, info->gfx9.swizzle,
+ 				GRPH_NUM_BANKS, log_2(info->gfx9.num_banks),
+@@ -447,6 +449,7 @@ static void program_tiling(
+ 	}
+ 
+ 	if (dce_mi->masks->GRPH_MICRO_TILE_MODE) { /* GFX8 */
++		ASSERT(info->gfxversion == DcGfxVersion8);
+ 		REG_UPDATE_9(GRPH_CONTROL,
+ 				GRPH_NUM_BANKS, info->gfx8.num_banks,
+ 				GRPH_BANK_WIDTH, info->gfx8.bank_width,
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c
+index 2c43c2422638..67cfca3361fb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_mem_input_v.c
+@@ -165,6 +165,8 @@ static void program_tiling(
+ 	const struct dc_tiling_info *info,
+ 	const enum surface_pixel_format pixel_format)
+ {
++	ASSERT(info->gfxversion == DcGfxVersion8);
++
+ 	uint32_t value = 0;
+ 
+ 	set_reg_field_value(value, info->gfx8.num_banks,
+@@ -541,6 +543,7 @@ static const unsigned int *get_dvmm_hw_setting(
+ 	else
+ 		bpp = bpp_8;
+ 
++	ASSERT(tiling_info->gfxversion == DcGfxVersion8);
+ 	switch (tiling_info->gfx8.array_mode) {
+ 	case DC_ARRAY_1D_TILED_THIN1:
+ 	case DC_ARRAY_1D_TILED_THICK:
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+index 74962791302f..71eeee02c0fa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/calcs/dcn_calcs.c
+@@ -1006,6 +1006,7 @@ bool dcn_validate_bandwidth(
+ 
+ 			v->source_pixel_format[input_idx] = tl_pixel_format_to_bw_defs(
+ 					pipe->plane_state->format);
++			ASSERT(pipe->plane_state->tiling_info.gfxversion == DcGfxVersion9);
+ 			v->source_surface_mode[input_idx] = tl_sw_mode_to_bw_defs(
+ 					pipe->plane_state->tiling_info.gfx9.swizzle);
+ 			v->lb_bit_per_pixel[input_idx] = tl_lb_bpp_to_int(pipe->plane_res.scl_data.lb_params.depth);
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c
+index 6378e3fd7249..e697d9bf1b44 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn10/dcn10_hubp.c
+@@ -145,6 +145,8 @@ void hubp1_program_tiling(
+ {
+ 	struct dcn10_hubp *hubp1 = TO_DCN10_HUBP(hubp);
+ 
++	ASSERT(info->gfxversion == DcGfxVersion9);
++
+ 	REG_UPDATE_6(DCSURF_ADDR_CONFIG,
+ 			NUM_PIPES, log_2(info->gfx9.num_pipes),
+ 			NUM_BANKS, log_2(info->gfx9.num_banks),
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c
+index 92288de4cc10..4715e60e812a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn20/dcn20_hubp.c
+@@ -313,6 +313,8 @@ static void hubp2_program_tiling(
+ 	const struct dc_tiling_info *info,
+ 	const enum surface_pixel_format pixel_format)
+ {
++	ASSERT(info->gfxversion == DcGfxVersion9);
++
+ 	REG_UPDATE_3(DCSURF_ADDR_CONFIG,
+ 			NUM_PIPES, log_2(info->gfx9.num_pipes),
+ 			PIPE_INTERLEAVE, info->gfx9.pipe_interleave,
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
+index 0cc6f4558989..207c2f86b7d7 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn30/dcn30_hubp.c
+@@ -321,6 +321,8 @@ void hubp3_program_tiling(
+ 	const struct dc_tiling_info *info,
+ 	const enum surface_pixel_format pixel_format)
+ {
++	ASSERT(info->gfxversion == DcGfxVersion9);
++
+ 	REG_UPDATE_4(DCSURF_ADDR_CONFIG,
+ 		NUM_PIPES, log_2(info->gfx9.num_pipes),
+ 		PIPE_INTERLEAVE, info->gfx9.pipe_interleave,
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
+index c205500290ec..861e940250af 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn401/dcn401_hubp.c
+@@ -589,7 +589,12 @@ void hubp401_program_tiling(
+ 	 *
+ 	 * DIM_TYPE field in DCSURF_TILING for Display is always 1 (2D dimension) which is HW default.
+ 	 */
+-	 REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, info->gfx_addr3.swizzle);
++	 if (info->gfxversion == DcGfxAddr3) {
++		REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, info->gfx_addr3.swizzle);
++	} else {
++		/* linear */
++		REG_UPDATE(DCSURF_TILING_CONFIG, SW_MODE, 0);
++	}
+ }
+ 
+ void hubp401_program_size(
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
+index f5a4e97c40ce..7d99f5d79e6d 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource_helpers.c
+@@ -401,7 +401,8 @@ void dcn32_set_det_allocations(struct dc *dc, struct dc_state *context,
+ 	 */
+ 	if (pipe_cnt == 1) {
+ 		pipes[0].pipe.src.det_size_override = DCN3_2_MAX_DET_SIZE;
+-		if (pipe->plane_state && !disable_unbounded_requesting && pipe->plane_state->tiling_info.gfx9.swizzle != DC_SW_LINEAR) {
++		if (pipe->plane_state && !disable_unbounded_requesting && pipe->plane_state->tiling_info.gfxversion != DcGfxBase &&
++			!(pipe->plane_state->tiling_info.gfxversion == DcGfxVersion9 && pipe->plane_state->tiling_info.gfx9.swizzle == DC_SW_LINEAR)) {
+ 			if (!is_dual_plane(pipe->plane_state->format)) {
+ 				pipes[0].pipe.src.det_size_override = DCN3_2_DEFAULT_DET_SIZE;
+ 				pipes[0].pipe.src.unbounded_req_mode = true;
 -- 
 2.43.0
 
