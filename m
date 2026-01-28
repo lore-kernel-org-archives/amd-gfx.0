@@ -4,106 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F7FED3F07A
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 15:33:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C880D3F08E
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 16:07:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CED2C10E71D;
-	Wed, 28 Jan 2026 15:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7B010E2CB;
+	Wed, 28 Jan 2026 16:07:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="CLXjlhGu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hd+4LLSl";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A722610E71D
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 15:33:48 +0000 (UTC)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 60S9I8Co002736;
- Wed, 28 Jan 2026 15:33:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=6wGQs9M9S5i4YjMoQ
- 22IP51JYg8pDoV/Rvhcsj7cifI=; b=CLXjlhGulzLsJw6oh+GVlF6LMeBr3h2It
- FGuM/Hh209r6WYeme/iDkhfAkSS6GiG6K2QrVjQKDomTK8COU+atG4DmBAA5f052
- /NHRfpHXf3KXPBlzjkXkBxJVu8sgffFfhkYpV6xyvxlsky1rNA8Q5o0if6ozZyRK
- ff1iivbgPRpwmqX5D4/ttU2x2t9Yie3L2I4gvtLVWri5FpdPg7CZ/hwRoqNz8I6Y
- 2WlrdnO5cw4bzY68wtgungR9e77qCONT460AQHm865aykYFijYuziK+jTEMrshV3
- QGiembwYMfzIlMIjbU3pflWZxQPC5r2sapVlvlEkX+dDy9yQSKxZw==
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4bvnr69nm1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 28 Jan 2026 15:33:46 +0000 (GMT)
-Received: from m0360072.ppops.net (m0360072.ppops.net [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 60SFT6Ee010358;
- Wed, 28 Jan 2026 15:33:45 GMT
-Received: from ppma21.wdc07v.mail.ibm.com
- (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4bvnr69nkx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 28 Jan 2026 15:33:45 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 60SBmJTQ019646;
- Wed, 28 Jan 2026 15:33:44 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
- by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4bw9dn5vx7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 28 Jan 2026 15:33:44 +0000
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
- [10.20.54.101])
- by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 60SFXfSQ46137850
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 28 Jan 2026 15:33:41 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3B36920040;
- Wed, 28 Jan 2026 15:33:41 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D714B20043;
- Wed, 28 Jan 2026 15:33:37 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.ibm.com.com (unknown
- [9.124.209.179])
- by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Wed, 28 Jan 2026 15:33:37 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [RFC PATCH v2 5/5] drm/amdkfd: Fix queue preemption/eviction failures
- by aligning control stack size to GPU page size
-Date: Wed, 28 Jan 2026 21:03:06 +0530
-Message-ID: <bdc5c9e33ccafc7995831ef45e1ec1b746ee89b7.1769612973.git.donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1769612973.git.donettom@linux.ibm.com>
-References: <cover.1769612973.git.donettom@linux.ibm.com>
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com
+ [209.85.217.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2457E10E72F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 16:07:02 +0000 (UTC)
+Received: by mail-vs1-f50.google.com with SMTP id
+ ada2fe7eead31-5ed0b8b171eso347137.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 08:07:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769616421; cv=none;
+ d=google.com; s=arc-20240605;
+ b=MAUZ5+ga2aOEfCsjRBQCsosCfQUTwBu4X3unV4Xfwg5Kklg9PihuMZNCVfCZiFwkQD
+ escc3m8thwf29sTSMdLFvDBeu6blf3lYxGeXKcGZDMH/dgMzNOj0dQIxLnTYUyhZk3SR
+ ITBTfJTYaSuPNzlSGZzdT9sMvdlDKiXReTCFD+IuLEJe+4STGCtq5ly1+Hktqg/Xds1k
+ E8ZjUV7lGuZQmo0Xb8i7sAZPr1yalLfvf055F3fJwWtJQBmvlXhaK9fSDvyAXy9SE9oP
+ CifYwKqKxUUPM50ZaABpyKmv3mgTWIQHiwSNmzeVJ8bwJ/qMs9kHt+0x61TAzbuR4YOd
+ 2QbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=OSznLjfIPPwL1Ziygy9uHRPGlube/K5UX48QHb9j58Y=;
+ fh=qh5iMRR6ZLA8GwVi/StNo0D9R4bZUIU2AfPCpn8JcOo=;
+ b=g8NBpDSp51FNi+5o4vAtkLuHOB495WBZX7Kz/E+vSZBMcuODmZWT2k7yMHeqQ2SW5U
+ ljwuODzHjQ6kz45JdqtwEfaj0UgyftHjelioYFlLBC6RONpSSmX+cEFrXYLbZnfkh6Ed
+ cbp5Uvm6RoXCrYvx33Gj8tdVBWsC5ZsL7oTdj86NTTLjcWn0z2U9A0T3BygU7dd7UFm5
+ URotq9fas0QzbnoDc6eV7wVqQm+LNYtwuXQwWIlhTx3lRE15UeglJ8wzsNv27E1uXsPa
+ 1TMUQ5rY6zIbvJzdNZ/b6AC3K1WgtZkMu8xKxbi2BMB9zjIAGPrDijG7V8mIZHeHlvX3
+ gUSg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769616421; x=1770221221; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OSznLjfIPPwL1Ziygy9uHRPGlube/K5UX48QHb9j58Y=;
+ b=Hd+4LLSlIsJ25ZNpWo6BG7undm8MGPrUurm4WVwWTT5CIXuXEIOcjwHdaC9he64b1Y
+ ZQFyNDWfsSbejfQJtCxDqFKT9HFXw+ildsBGa8SqvYkM7q9KsYhYjOe49Ly64aJ17xuV
+ LFXwlag97iE1SeJHgvtWWMe7OTMBz9gWTCZ4xItqoLmLhSW/6WHuca0raqPfLCWAQ0vP
+ mUpBoaWeDkYELROhCpNN2pGwk5mEuw+frlhqukSCxxKrBirhUUXXx9tKmdt3/cfisnmI
+ hSDrmb9ybW7+WQ9J1j7afflj9ziphsb6Lo8HpdhpwCriENt8TsSS96DppV7m4UMnXs/M
+ MC1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769616421; x=1770221221;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=OSznLjfIPPwL1Ziygy9uHRPGlube/K5UX48QHb9j58Y=;
+ b=JYoqKiPyJRpnA6MdYgqqn/fPYuDZ9HLYwFfnQSTem+3nfsAp8HV2RN3HCHMn3qXguz
+ hmp1bapi4uFyan4VwlxQu/FtFAgY5f3LuQgNtIzAXmu0sN9MM3v67hWX1beg1FDwTV1X
+ EBjtQ6SD1gT1xQ6/LpAZSF60RRmdJFLEl2S98QsycMrR6ZWLSop9+qbmZFmwM4VPxb1M
+ Sj7iUcbLoGGmekL8/T6MDMFc2d1WMpO9JFoVbZv6Y29LGCFMHEaJIfWsAMEM9BuovjoH
+ j7Im/BAaPmWKryKyF4qEkmv30dxxnFT1g+n4nrzZOblv66ITKHGNQ8R+zBd3MBSc5Jwr
+ PRHg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVDO/OjBJDZTI6uwpO6epFJ9mOYcy7iGldFwCIbXQR5d1qhI6wHVN44UV66e2vsXxrX6A3NcYUs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzbLBJnfuX7i36RvXL3GCM+kPpoiNyc4R/F3FwaBSrk47Bf6Unm
+ +ucQc3np6VyMO1aZ5xnKOjX9oaWz0T+P9EyKBy3MOUtaiGpsGOER1lydCauxS5sYDuXqEAa+TtB
+ iHDtn3kZbbemgev2+RDWrFWuray9fcTc=
+X-Gm-Gg: AZuq6aLzlRYEUpiuibr/XZznZ3B9Lap+khJpmFpJDeLmllwMCXNCNu/Ysj4xcPmH/TC
+ XlVbMghWXRARjtDDt7Q4qORcB9hhEU7f5QGSk3wVdW2DArihtY3M+8pxvrz5739WrLqn7IRifiU
+ xvYmP54gWvr+2ulZH2MsrbtRlIxIrVp4E20CAgjJte/GZenZFCgT9wov7hbdGnZPY/kylk0vo0O
+ yg4lOhayUU8WFuzM11xQP3UlRyGW3Lo6W5e+ref8hXbMSCHyDHe5mXBZwIEyehpFu/tZw1MN5Ws
+ Y8LOQFA=
+X-Received: by 2002:a05:6102:3746:b0:5d4:927:5e0 with SMTP id
+ ada2fe7eead31-5f8cbc75944mr154708137.7.1769616419359; Wed, 28 Jan 2026
+ 08:06:59 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDEyNiBTYWx0ZWRfXwPOQJ7zuZ1BH
- n6zpeY8qRSNaiW854YnX+H1RR1Nix62RwxudbQzRjpJcDnEq42OL9u16bLNJs60cDvedgbna5xv
- XhctvQKMvd1RlTNzD3OJqFb3LStXHjQ9u0ES0fUDBgkcF5Fm5tG10s8J/2ZKX2jfP2zss+3MRUO
- yGywSXk3rlU/ShRUpZ0jxdcUK8ANU5NwoXAIp5X0vQd/hm2npnS5SUxC3MhkSjAuampk1VanA3o
- 114w6o3nT6UQBuMmPe4zKCkk0eXacpHe1/FQZDJ/22Pv+o2Yv0jd4o4gl8jwe+GRUyDqZ/Rbtv3
- UQmGInOIWz+hWxNRVwyeBjHOYgts1RCtI8Hdp0OdjY/OgVDedn8toCIRJMytIw2DW9iDJRq3E8u
- 2QITH7c4e/LmTmnmCLFJRIG0KBgp93i/L1aguRsssfhH0HKBQ4j8R/rTTtC4KMlGcGjutz0UyBq
- aT9tB5K6WgfZ3+4vETg==
-X-Proofpoint-GUID: zUg6Z6rYHHNeUUbO_KWptIvDSLRpbXSQ
-X-Proofpoint-ORIG-GUID: iqSHynznZokO2OrlvCcr5NymWnfVfxgO
-X-Authority-Analysis: v=2.4 cv=X+Vf6WTe c=1 sm=1 tr=0 ts=697a2c5a cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=vUbySO9Y5rIA:10 a=VkNPw1HP01LnGYTKEx00:22 a=VnNF1IyMAAAA:8
- a=jk7ilJ9Wr8J0gRVkTUsA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-01-28_03,2026-01-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 impostorscore=0 lowpriorityscore=0
- clxscore=1015 spamscore=0 adultscore=0 malwarescore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.19.0-2601150000
- definitions=main-2601280126
+References: <20260122104118.1682154-1-lijo.lazar@amd.com>
+ <20260122104118.1682154-5-lijo.lazar@amd.com>
+ <CADnq5_N4SwVA_RXjPqQVV2ERsnOjCzGKXGfS-2xaHShNxee8=A@mail.gmail.com>
+ <d7e73dbe-fa0d-42ed-8b16-fee352e8b662@amd.com>
+ <CADnq5_P243kbtXDgv0JqgjmB9taA+2uMUbYtR90aVzPU4APXUw@mail.gmail.com>
+ <2c920279-0245-4b66-9604-7333b00b9983@amd.com>
+ <a00342a1-951b-4909-9d5f-48141917a522@amd.com>
+In-Reply-To: <a00342a1-951b-4909-9d5f-48141917a522@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 28 Jan 2026 11:06:47 -0500
+X-Gm-Features: AZwV_QivyZDCUKnJR89Hg1MMMoxnTo-m312PwW_0PfbUYfzLqmPOoG3JY6Ak3aI
+Message-ID: <CADnq5_NaVN4s5_kFRE1xf7ZEZzXb3vA4xNWQUq05qNNONG1ijQ@mail.gmail.com>
+Subject: Re: [PATCH v4 04/11] drm/amdgpu: Add user save area params validation
+To: Lancelot SIX <Lancelot.Six@amd.com>
+Cc: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, Christian.Koenig@amd.com, 
+ Jesse.Zhang@amd.com, "Yat Sin, David" <David.YatSin@amd.com>, 
+ "Kim, Jonathan" <jonathan.kim@amd.com>, "Morichetti,
+ Laurent" <Laurent.Morichetti@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,66 +113,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The control stack size is calculated based on the number of CUs and
-waves, and is then aligned to PAGE_SIZE. When the resulting control
-stack size is aligned to 64 KB, GPU hangs and queue preemption
-failures are observed while running RCCL unit tests on systems with
-more than two GPUs.
+On Wed, Jan 28, 2026 at 7:30=E2=80=AFAM Lancelot SIX <Lancelot.Six@amd.com>=
+ wrote:
+>
+> >>>>> +       /*
+> >>>>> +        * Only control stack and save area size details checked.
+> >>>>> Address validation needs to be
+> >>>>> +        * carried out separately.
+> >>>>> +        */
+> >>>>> +       if (cwsr_params->ctl_stack_sz !=3D
+> >>>>> +           (cwsr_info->xcc_ctl_stack_sz * num_xcc)) {
+> >>>>> +               dev_dbg(adev->dev,
+> >>>>> +                       "queue ctl stack size 0x%x not equal to
+> >>>>> node ctl stack size 0x%x\n",
+> >>>>> +                       cwsr_params->ctl_stack_sz,
+> >>>>> +                       num_xcc * cwsr_info->xcc_ctl_stack_sz);
+> >>>>> +               return -EINVAL;
+> >>>>> +       }
+> >>>>> +
+> >>>>> +       if (cwsr_params->cwsr_sz < (cwsr_info->xcc_cwsr_sz *
+> >>>>> num_xcc)) {
+> >>>>> +               dev_dbg(adev->dev,
+> >>>>> +                       "queue cwsr size 0x%x not equal to node
+> >>>>> cwsr size 0x%x\n",
+> >>>>> +                       cwsr_params->cwsr_sz, num_xcc * cwsr_info-
+> >>>>> >xcc_cwsr_sz);
+> >>>>> +               return -EINVAL;
+> >>>>> +       }
+> >>
+> >> cwsr_params->cwsr_sz has no upper bound check.  Can this cause an
+> >> overflow elsewhere?
+> >>
+> >
+> > We could restrict to a max limit of 2 * cwsr size required. Adding
+> > David/Lancelot as well.
+> >
+> > Thanks,
+> > Lijo
+> >
+>
+> Hi,
+>
+> The CWSR size should allow room for userspace to choose the amount
+> allocated for use by the debugger.  I am not sure what limit would make
+> sense, as I can't really predict what will be needed in the future, but
+> I=E2=80=AFreally don't see how we could need more than the cwsr size (whi=
+ch
+> itself can contain the entire state of what is running on the queue).
+>
 
-amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
-doorbell_id: 80030008
-amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
-amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: 4
-amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
-doorbell_id: 80030008
-amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
-amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
+We can always make it bigger in the future if we need it.  Unbounded
+seems ripe for an overflow somewhere.
 
-This issue is observed on both 4 KB and 64 KB system page-size
-configurations.
+Alex
 
-This patch fixes the issue by aligning the control stack size to
-AMDGPU_GPU_PAGE_SIZE instead of PAGE_SIZE, so the control stack size
-will not be 64 KB on systems with a 64 KB page size and queue
-preemption works correctly.
-
-Additionally, In the current code, wg_data_size is aligned to PAGE_SIZE,
-which can waste memory if the system page size is large. In this patch,
-wg_data_size is aligned to AMDGPU_GPU_PAGE_SIZE. The cwsr_size, calculated
-from wg_data_size and the control stack size, is aligned to PAGE_SIZE.
-
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index 2822c90bd7be..b97f4a51db6e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -444,10 +444,11 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
- 		    min(cu_num * 40, props->array_count / props->simd_arrays_per_engine * 512)
- 		    : cu_num * 32;
- 
--	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props), PAGE_SIZE);
-+	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props),
-+				AMDGPU_GPU_PAGE_SIZE);
- 	ctl_stack_size = wave_num * CNTL_STACK_BYTES_PER_WAVE(gfxv) + 8;
- 	ctl_stack_size = ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
--			       PAGE_SIZE);
-+			       AMDGPU_GPU_PAGE_SIZE);
- 
- 	if ((gfxv / 10000 * 10000) == 100000) {
- 		/* HW design limits control stack size to 0x7000.
-@@ -459,7 +460,7 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
- 
- 	props->ctl_stack_size = ctl_stack_size;
- 	props->debug_memory_size = ALIGN(wave_num * DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
--	props->cwsr_size = ctl_stack_size + wg_data_size;
-+	props->cwsr_size = ALIGN(ctl_stack_size + wg_data_size, PAGE_SIZE);
- 
- 	if (gfxv == 80002)	/* GFX_VERSION_TONGA */
- 		props->eop_buffer_size = 0x8000;
--- 
-2.52.0
-
+> Best,
+> Lancelot.
+>
+> cc Jonathan/Laurent
+>
+> >> Alex
+> >>
+> >>
+> >> Alex
+> >>
+> >>>>> +
+> >>>>> +       return 0;
+> >>>>> +}
+> >>>>> +
+> >>>>>    void amdgpu_cwsr_free(struct amdgpu_device *adev, struct
+> >>>>> amdgpu_vm *vm,
+> >>>>>                         struct amdgpu_cwsr_trap_obj **trap_obj)
+> >>>>>    {
+> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h b/drivers/
+> >>>>> gpu/drm/amd/amdgpu/amdgpu_cwsr.h
+> >>>>> index 3c80d057bbed..96b03a8ed99b 100644
+> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
+> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
+> >>>>> @@ -56,6 +56,13 @@ struct amdgpu_cwsr_info {
+> >>>>>           uint32_t xcc_cwsr_sz;
+> >>>>>    };
+> >>>>>
+> >>>>> +struct amdgpu_cwsr_params {
+> >>>>> +       uint64_t ctx_save_area_address;
+> >>>>> +       /* cwsr size info */
+> >>>>> +       uint32_t ctl_stack_sz;
+> >>>>> +       uint32_t cwsr_sz;
+> >>>>> +};
+> >>>>> +
+> >>>>>    int amdgpu_cwsr_init(struct amdgpu_device *adev);
+> >>>>>    void amdgpu_cwsr_fini(struct amdgpu_device *adev);
+> >>>>>
+> >>>>> @@ -68,4 +75,8 @@ static inline bool amdgpu_cwsr_is_enabled(struct
+> >>>>> amdgpu_device *adev)
+> >>>>>           return adev->cwsr_info !=3D NULL;
+> >>>>>    }
+> >>>>>
+> >>>>> +uint32_t amdgpu_cwsr_size_needed(struct amdgpu_device *adev, int
+> >>>>> num_xcc);
+> >>>>> +int amdgpu_cwsr_validate_params(struct amdgpu_device *adev,
+> >>>>> +                               struct amdgpu_cwsr_params
+> >>>>> *cwsr_params,
+> >>>>> +                               int num_xcc);
+> >>>>>    #endif
+> >>>>> --
+> >>>>> 2.49.0
+> >>>>>
+> >>>
+> >
+>
