@@ -4,61 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDE12D35663
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 02:00:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F1BBD35663
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 02:00:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72D7010E5FD;
-	Wed, 28 Jan 2026 02:00:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCC0A10E600;
+	Wed, 28 Jan 2026 02:00:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hDBKnVPS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="V7AnMY+I";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010028.outbound.protection.outlook.com
- [40.93.198.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE7D510E5FD
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 02:00:25 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011049.outbound.protection.outlook.com [52.101.52.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1CDEC10E5FF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 02:00:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dNdbqgsSj1wgc5bRSn6QgGeiETkjV+RoArpbCJ+wz5T71SNGoE4P/HhRTEDzZWpr8prYQpqj3tWsVE+maffG72ULSfA1h0IPmanJr8C6In+MG0rv3GNcWhBDN3C/lxanhl3vNv0SlJlkfkKV6XyLyo3L1f7HNifaEjeRmT3UTZqCA2JffkuB+RaCuLfHzuYQ/oUc/f6pGuzrB8NQyCDD7Gbv+q9VHllWezYvs12+n6kncL0g0/OnkMsrPlPLbPNocMpAS1pB9rgeb0Bub25PlDi3HEhljIDr9cTxq1/Psjv4dByqi4EffNM8B0s+fUcfZdwAw0rz2s+gV4MvbrDA7w==
+ b=y/lJa0EKaOzu7PVW52j8dA5xEJ7IYn3XPVQjjGAhKOkPdHxjEPLIcpj0arprduo/Uuicyfldv3Obqsv6abAQ34vw54XpwUO+7f+8Wf4oObrrq0x87WY2e3Qu/UTbVUs2tAKUtUv4gonhGyWyClmSQ3yHcnLMUX0m3slBwFkBTmBG77213JKyj8wDUUIA0eH1kwwYM8/rSQDNBVp0VIHfTC0U2UTP+CpQ3cjcQ2Q/E7xGPY2InaJEvVJeYOtJ3wYHmB77ekUHrwpg+TvpcJGX6z41KZqR1DYDwePjQegjGdbEDLwrQPU4cuAQV2VtpQW9QOwX8y2JIDNrWCgeO1t8fw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XzuWy7MDyQDpDIdFpVXB4C9MFfULJCcJ6BJxRR//GDc=;
- b=d7eRjNDT/ifwx02x/AtTbgn+On28EUh3zC5MvviE/P+BW07n3mYlVolHMhgw6N8sjVAEyvevBEeSwmsJ1nSWjAci/P12K14IwXje6UUsU5uTtDE49yBCvJGeIoiIpDVSbQU+YrthiRPZHYcuFJp/UXHLCAv4JwpvG2bclu6COG18y4GNUQ29R1rTiyzfLAGri06FHiz6zacFHcFjAl0ViXAY1k3Nrbp8C+JNiDhVoHZxKEqRkG+yLOruu8Q6ueSNj1HzRLeJyr4fFgi72aliMG/9g5QJIBtzMasy+wNVj6fHoDVg4irSvNFg4k25C/EwkUX43j3Irfa1wdvPbTm7rg==
+ bh=rEXAYyIwX1/rnBkdTw/8Xr5CVIweKAXhxgZcSbgsEsE=;
+ b=SKLO7DwCFjMaFPuLXo9gz77AjcyTSB49/QmJE1PAPWknENBaZFbR+n1O955pv0AXZ1YlEr96LGJkT3TMC6OtupAPlEtIM1HuNtK7qkx8ebiOdn700fTcB1JIb44/iHxd6SSxo4CwLqjDxgbdp33ewXB8chN+P3sopzhDi3UNbOLlDW3s/fF7VpgSy+2PIptYajYKFJTYyCyO00MDKoZHJCoFyoXakxnJZ12AeXGMAxMnWhn+HAdJc9190PHeT0RzbmlYCWW8+H2+Ho0VTfGNRskSM6scI8DTYdH3HtIu+TF72ZGaMPVDGXKZKMVCDHpV8AgEHkK9iOpm6YI/G7xFYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XzuWy7MDyQDpDIdFpVXB4C9MFfULJCcJ6BJxRR//GDc=;
- b=hDBKnVPSJUDggOpqtiMIwWsSGK5jmh27uRF8lyDcd2sMa8UjyJAEEEsj8pa629XbxaIH1NIbJ4wIwVFxY5eYoqDtZrkgt1NHZXhcTn0BaoAYc/rBtkq0Ru6BNNMwD7xGtsG9mKIjbjgLa8DwPYYh6jpklyahr4P+A3lk4MVCOMQ=
-Received: from MN0P221CA0026.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:52a::14)
- by MN0PR12MB6366.namprd12.prod.outlook.com (2603:10b6:208:3c1::19)
+ bh=rEXAYyIwX1/rnBkdTw/8Xr5CVIweKAXhxgZcSbgsEsE=;
+ b=V7AnMY+I6V5zDqBCOTKSzMcpJPo8xMWlhsk4tazOUsCcFFNF88qZWR/r7hc4742Z6JMFptuVh5128jZLe4fvIhYnKfArB7+FZxRAJmfgIK6FvP5MaXmF6m2IuqFd7/Pp7t0fr+uNCU2BIA63yG8Ac+25lfgvgnvdJsm/K2o/6dU=
+Received: from BY5PR03CA0023.namprd03.prod.outlook.com (2603:10b6:a03:1e0::33)
+ by SN7PR12MB7370.namprd12.prod.outlook.com (2603:10b6:806:299::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Wed, 28 Jan
- 2026 02:00:16 +0000
-Received: from BL02EPF00021F6D.namprd02.prod.outlook.com
- (2603:10b6:208:52a:cafe::14) by MN0P221CA0026.outlook.office365.com
- (2603:10b6:208:52a::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.7 via Frontend Transport; Wed,
- 28 Jan 2026 01:59:58 +0000
+ 2026 02:00:25 +0000
+Received: from SJ5PEPF000001ED.namprd05.prod.outlook.com
+ (2603:10b6:a03:1e0:cafe::50) by BY5PR03CA0023.outlook.office365.com
+ (2603:10b6:a03:1e0::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.16 via Frontend Transport; Wed,
+ 28 Jan 2026 02:00:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL02EPF00021F6D.mail.protection.outlook.com (10.167.249.9) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001ED.mail.protection.outlook.com (10.167.242.201) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 02:00:16 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 02:00:25 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 27 Jan
- 2026 20:00:09 -0600
+ 2026 20:00:16 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 27 Jan
+ 2026 20:00:16 -0600
 Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 27 Jan 2026 20:00:06 -0600
+ Transport; Tue, 27 Jan 2026 20:00:13 -0600
 From: Wayne Lin <Wayne.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,12 +69,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Bhuvanachandra Pinninti <bpinnint@amd.com>, Jun Lei
- <Jun.Lei@amd.com>
-Subject: [PATCH 14/21] drm/amd/display: Migrate DIO registers access from
- hwseq to dio component.
-Date: Wed, 28 Jan 2026 09:51:39 +0800
-Message-ID: <20260128015538.568712-15-Wayne.Lin@amd.com>
+ <alex.hung@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>
+Subject: [PATCH 16/21] drm/amd/display: Add CRC 32-bit mode support for DCN3.6+
+Date: Wed, 28 Jan 2026 09:51:41 +0800
+Message-ID: <20260128015538.568712-17-Wayne.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260128015538.568712-1-Wayne.Lin@amd.com>
 References: <20260128015538.568712-1-Wayne.Lin@amd.com>
@@ -80,55 +81,55 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|MN0PR12MB6366:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d164d60-654d-4ab6-9396-08de5e10fb7a
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001ED:EE_|SN7PR12MB7370:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69e0f3e4-bef8-45e5-7850-08de5e1100b8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?zdoU1iY6FZZdwvUAkwWqXPO/xerUQkj21aMKsd0bMpY3ZDWBEuNDQyGvL6tT?=
- =?us-ascii?Q?kJfciOLt4L2rS3ZltLOXTiasVmmEMDiUzxf9ejR0QXjdH+Rg3SVzM78ANlDw?=
- =?us-ascii?Q?IK94gV05ceF/czyJtkdu9z3NN0NyY1UMWKbNoBAmEWFCiuei4bN2AHlCAIXq?=
- =?us-ascii?Q?hZK03JiVdEfAjPJD9UiSBPZz/D8utZY0JmF2JVv89w717drvpBXmbXHP4QQY?=
- =?us-ascii?Q?0n0CRqajc7Gl75q2huuGIFRivR5+qy8ucrjoRMeaO2lcDq2wMZyAq4fv09GN?=
- =?us-ascii?Q?nse80YLrGQ9Qj4x8+cgOWo/FoWu7/BKzFegn/h0YsX/QjySZZQ67IzuoCLSl?=
- =?us-ascii?Q?xG37KbKWyN1HQTJHuLM5Jrqd952rrpcrYgHzFkpSEoCKeKmXUPw+bG/Y8u1E?=
- =?us-ascii?Q?Bid/AI/42aa3WnSOB05TaTpdyqmCH8yt0GmieCuIWcCcbkwf3Kz+ZZoAFc+H?=
- =?us-ascii?Q?vNWby1YoxsQh20ifDMC5oatiTiZQ0z2tlnKkzHwwZDSQf/e8JQzsXJqpDg6r?=
- =?us-ascii?Q?opu5G5dUE4jf2q9wMR7Ibep29L/7IriAKWWy1irSGKGLAQ+vzG7G1NqvOpeu?=
- =?us-ascii?Q?Gjb9kohTHxVXY29rXkWY+2ccqITsgU7IqIvj1iOslTp22OJkB2/WTBrChLno?=
- =?us-ascii?Q?Ep2Gr4i+4E6EribeDMGRpVF4ED5K7sXINmJaSuORLS7LLJeiND2YXl6R2fnE?=
- =?us-ascii?Q?dht7pydmKIKSOrMfLUcpBhxnu8tM3KRbrSJdmG4k1CzbZzVZCSBJRZFz0xh1?=
- =?us-ascii?Q?NWFIR0EqlU14vRW/Rsy/uSyhsXVIXhc0pZeD2T9ZWbN5DN9hlttkaIhpfBiA?=
- =?us-ascii?Q?cSUMXW6Shn0R/9ZcUT7VJDkYHDcSLtX+qGTg0KfAHj6czgqcmVe86IlTRwVJ?=
- =?us-ascii?Q?Mjcw6tZdbEs/JQ6OYkVwe74E/YN/upJYOdugLD86XuhiQRPLg37ujrEwtwf/?=
- =?us-ascii?Q?ua2NMZZdKvfJkl2G/vEPH96PsdogeOZNKCazNdssTL9fMagsVH8H8ISfKDWN?=
- =?us-ascii?Q?RkGvYeAIbOAYPcgPxM8lPASAcT34Uf4oK54C9QYPnojA8EjXupgjwpNE4PI8?=
- =?us-ascii?Q?jbn8L48FbpkFzDR1501vT3TPZ7sZRtCPjNzT5mYp8n/A7/7aIBbPW6CuOW99?=
- =?us-ascii?Q?pSExxtEd7zh8NzfTz1dgxZVZTS50ZW09czz+YeUptNY13KuRIO448kE627IH?=
- =?us-ascii?Q?hwmEt4X+SspsdYEPe4jCQKkbskR7Ytmi+ZnOUrGC1GeqwW26VxjMBvVWd9Ly?=
- =?us-ascii?Q?Ubdqz6q43GQdrlbJVr84uImRz7WOSerVmrsbRee5swoAI0u1NWvSav3vy9DV?=
- =?us-ascii?Q?FDwJbSPgCyy/unJSglOu9DOg7fqDsSEwgNGUjfULDUyYXeyCCHRLK/rEYCgL?=
- =?us-ascii?Q?rME6rJa4DtnpOKe+ht/6TerlC4soSqRP43haVH1ihFdhk74zJVTVdvja0kZh?=
- =?us-ascii?Q?dwiFl+63nC/9pnljQnOqOBWfJOGgDeInaPrOzbeLl4WVgwqF/BX0JSi6wJkx?=
- =?us-ascii?Q?LCvDvWPPWOeGMFggQAx3FuWKPmG6WkmYXW83egqKCv88D3k6MgUFKfwAyqOG?=
- =?us-ascii?Q?lkTyP0G/Py+yJwiX+eWWRrXfq5NwQFbIOrLfoN32Ch3X30P9DcYaI3IUDkYC?=
- =?us-ascii?Q?pqC4rhSi8IBuh+wT/aYjlu0YBFigLeFvh6a7ySanLKBlKoRNeTbEp3iYh5Pn?=
- =?us-ascii?Q?BJU1tQ=3D=3D?=
+ ARA:13230040|376014|82310400026|1800799024|36860700013|18082099003; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?DVyW2t7uA5D/QzKtKMiqk52G7joOE8fUZ/qRzGxIJ2nbi7ka5ihIOPaCA4wz?=
+ =?us-ascii?Q?dbX6UKvZBJfdkCiWjSw+whrVm+keRhmGgrjz/C0Ostx7doDHA+oGxl/jhIB+?=
+ =?us-ascii?Q?RyV3oPJrspF9BkfSIeTkOpGBME0sU+7jVeJtluDtvhndUfgvacSh+5kMebtp?=
+ =?us-ascii?Q?WIlXHxFVhcWQuAj13pfh7l26NdNACpO7cuJp+ojTD57+MG4Dmsz+nZVM73ZD?=
+ =?us-ascii?Q?rNuOF2HMjhp2a0C8UOhSfrQp62DYAVdOdvjUyUZ19nsCJaQ1FAK8FKV3TQCl?=
+ =?us-ascii?Q?29Ki1jGrvUxlN8KzREKvqn51C9k1b/G9MMujfhe1m596bNaBopV9MIV6jDvx?=
+ =?us-ascii?Q?fLFXCL91kB+dNh/rv6yGoh5EL/pQ5GjDGLy5TdndK1CKmMyguuW9LANVMxFO?=
+ =?us-ascii?Q?dLtHjXK1rxVIWwofJtB9Tv58uocmg23pgjIVtbrDjRQN6QA1HjvYCSWI+KKE?=
+ =?us-ascii?Q?XKKy4TFnRnBnAsEIAqMzS6yAU9RoKDI4k5gh7iuzvKJ4Sf19e97GSCn7VuhO?=
+ =?us-ascii?Q?QDq2V8nOdqEPQgR1fN1wa0oe9+k5A5CI7+Vq/Mm+2bNGnIMm/ShHL3rcrggD?=
+ =?us-ascii?Q?PVLSSTTvm5sommwoTlTbHjC4e7qBAMJFUDU/gT0dAPbMEh5G/P4senVZflcH?=
+ =?us-ascii?Q?cfVRe/FgmWx+JPPH8ZrJcyAoWJlS3eJ3SMGktoFldM9knsFh0X/ZNysOsiVd?=
+ =?us-ascii?Q?Cp2mY+7WPLFzTHBgkxjNC7z8oburmk1QUwSwcTyL3i3xf+3QUaddAMobagnW?=
+ =?us-ascii?Q?OLZPG2wolYdYse0p3Jj3txfcsJSWoUOUnXc66nxVeW2FTVQrWy8pe4of9khd?=
+ =?us-ascii?Q?B440jPdTSw7/MhUOsgxAkUzCvyEkudv7TIbrhYHd43d+GO+vJHvSxI0IneUR?=
+ =?us-ascii?Q?4uhNz+7XtOxt1XYOKQiFYOe+h70GYWQkhYDdLpiSM8XR8Q82kK8JG0msgNTN?=
+ =?us-ascii?Q?/9iu9XA7jjvlqI730DHFfXp1N6c3JFYgwL08zrG6mprv3x3TeoNrtbSF7iyK?=
+ =?us-ascii?Q?gnyqfKquIBLbJrigR/Jl8Tuehzv8etIxeUVOnged1KiQ0T1knrHDm8MMQMMP?=
+ =?us-ascii?Q?pZKCyS3WraiD2vpX+nGieKUsKdMXdhAZNVlqW2H2lXlIUzgNqboT+3rmCkbq?=
+ =?us-ascii?Q?14llCnSOAbBzyxQriN25AD85MzfxkVwUq5kXpEwPx2X1//HBhHHs02cEKPhw?=
+ =?us-ascii?Q?xShggS2OXa/RHAMrQbAc3IlqN0WXkHGMNhhLi1m0pazWJs4stQ/0q0CmQb/p?=
+ =?us-ascii?Q?qRUhdU//ymcVsqZm7QqWQP3/a/Ivg6GslqPltKKJAPCCqTTjeVjXVZuRsAIx?=
+ =?us-ascii?Q?J0aHXfw6DOYiJTRA7333VzhWAeVknF9UiuFYH9AIok/Zs1KpqBubpD6R+2Tu?=
+ =?us-ascii?Q?b0KSr8B+qESz1BPV+U59cKimPrgywebz6JR1YjWSiF879FWYH2GSkCS2EM0t?=
+ =?us-ascii?Q?ehrbivNzJVdG/+r/XD/mjCFDjMsTYxjOypAMX14A1OiISq7+Q8/WCorkFPKm?=
+ =?us-ascii?Q?1Zc71PvDqbAine+3uITDELMUurIgPglWctLuiY3mUXj/mLEkCU3fhgAwCVMy?=
+ =?us-ascii?Q?SnqTUug5obAaCtZHeEl0lGDvrVqmsWPFcYUSLUibsOfjxCytBdnP7U8lzH07?=
+ =?us-ascii?Q?LjTi9VrTVrJ0s7PCqa0pTAB3Szo6SLYoReB/vwnrOtOhGGIdoDkkRzLwiLVh?=
+ =?us-ascii?Q?k/BYeA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700013)(18082099003);
+ DIR:OUT; SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 02:00:16.4425 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d164d60-654d-4ab6-9396-08de5e10fb7a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 02:00:25.1954 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69e0f3e4-bef8-45e5-7850-08de5e1100b8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6D.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001ED.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6366
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7370
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,438 +144,464 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhuvanachandra Pinninti <bpinnint@amd.com>
+From: Chenyu Chen <chen-yu.chen@amd.com>
 
-[why]
-Direct DIO registers access in hwseq layer was creating register conflicts.
+[Why]
+DCN 3.6+ hardware supports CRC-32 polynomial in addition to the
+legacy CRC-16. Enable 32-bit CRC values per color component for
+improvement of precision in display validation.
 
-[how]
-Migrated DIO registers from hwseq to dio component.
+[How]
+When userspace sets crc_poly_mode (0=CRC-16, 1=CRC-32) via the debugfs
+interface, the value is stored in dm_irq_params.crc_poly_mode. When CRC
+source configuration triggers amdgpu_dm_crtc_configure_crc_source(),
+crc_poly_mode is retrieved from dm_irq_params and passed to
+dc_stream_configure_crc().
 
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
-Signed-off-by: Bhuvanachandra Pinninti <bpinnint@amd.com>
+In the DC layer, dc_stream_configure_crc() sets crc_poly_mode into the
+crc_params structure and passes it to optc35_configure_crc(). If the
+hardware supports the OTG_CRC_POLY_SEL register, the register is
+programmed to select CRC-16 or CRC-32 polynomial.
+
+When reading CRC values, optc35_get_crc() checks whether CRC32 register
+masks are available. If present, it reads 32-bit CRC values from
+OTG_CRC0/1_DATA_R32/G32/B32 registers; otherwise, it falls back
+to reading 16-bit CRC values from legacy OTG_CRC0/1_DATA_RG/B
+registers.
+
+Reviewed-by: ChiaHsuan Chung <chiahsuan.chung@amd.com>
+Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
 Signed-off-by: Wayne Lin <wayne.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dio/Makefile   |  2 +-
- .../drm/amd/display/dc/dio/dcn10/dcn10_dio.c  | 47 +++++++++++++++++++
- .../drm/amd/display/dc/dio/dcn10/dcn10_dio.h  | 42 +++++++++++++++++
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  4 +-
- .../amd/display/dc/hwss/dcn201/dcn201_hwseq.c |  5 +-
- .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  4 +-
- .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   | 10 ++--
- .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  4 +-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 10 ++--
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  4 +-
- .../gpu/drm/amd/display/dc/inc/core_types.h   |  2 +
- drivers/gpu/drm/amd/display/dc/inc/hw/dio.h   | 22 +++++++++
- .../dc/resource/dcn401/dcn401_resource.c      | 41 ++++++++++++++++
- 13 files changed, 179 insertions(+), 18 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_dio.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_dio.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/inc/hw/dio.h
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 15 ++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 46 +++++++++
+ .../display/amdgpu_dm/amdgpu_dm_irq_params.h  |  1 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 +-
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  3 +-
+ .../amd/display/dc/inc/hw/timing_generator.h  |  7 ++
+ .../amd/display/dc/optc/dcn10/dcn10_optc.h    | 19 +++-
+ .../amd/display/dc/optc/dcn35/dcn35_optc.c    | 96 ++++++++++++++++++-
+ .../amd/display/dc/optc/dcn35/dcn35_optc.h    | 10 ++
+ .../dc/resource/dcn36/dcn36_resource.c        | 12 ++-
+ 10 files changed, 203 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dio/Makefile b/drivers/gpu/drm/amd/display/dc/dio/Makefile
-index 0dfd480976f7..02eec03dc204 100644
---- a/drivers/gpu/drm/amd/display/dc/dio/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/dio/Makefile
-@@ -27,7 +27,7 @@ ifdef CONFIG_DRM_AMD_DC_FP
- ###############################################################################
- # DCN10
- ###############################################################################
--DIO_DCN10 = dcn10_link_encoder.o dcn10_stream_encoder.o
-+DIO_DCN10 = dcn10_link_encoder.o dcn10_stream_encoder.o dcn10_dio.o
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+index 5851f2d55dde..1b03f2bf8d7a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c
+@@ -506,6 +506,7 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
+ 	struct amdgpu_dm_connector *aconnector = NULL;
+ 	bool enable = amdgpu_dm_is_valid_crc_source(source);
+ 	int ret = 0;
++	enum crc_poly_mode crc_poly_mode = CRC_POLY_MODE_16;
  
- AMD_DAL_DIO_DCN10 = $(addprefix $(AMDDALPATH)/dc/dio/dcn10/,$(DIO_DCN10))
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_dio.c b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_dio.c
-new file mode 100644
-index 000000000000..edcf4e67483b
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_dio.c
-@@ -0,0 +1,47 @@
-+// SPDX-License-Identifier: MIT
-+//
-+// Copyright 2025 Advanced Micro Devices, Inc.
-+
-+#include "dc_hw_types.h"
-+#include "dm_services.h"
-+#include "reg_helper.h"
-+#include "dcn10_dio.h"
-+
-+#define CTX \
-+	dio10->base.ctx
-+#define REG(reg)\
-+	dio10->regs->reg
-+
-+#undef FN
-+#define FN(reg_name, field_name) \
-+	dio10->shifts->field_name, dio10->masks->field_name
-+
-+static void dcn10_dio_mem_pwr_ctrl(struct dio *dio, bool enable_i2c_light_sleep)
-+{
-+	struct dcn10_dio *dio10 = TO_DCN10_DIO(dio);
-+
-+	/* power AFMT HDMI memory */
-+	REG_WRITE(DIO_MEM_PWR_CTRL, 0);
-+
-+	if (enable_i2c_light_sleep)
-+		REG_UPDATE(DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, 1);
-+}
-+
-+static const struct dio_funcs dcn10_dio_funcs = {
-+	.mem_pwr_ctrl = dcn10_dio_mem_pwr_ctrl,
-+};
-+
-+void dcn10_dio_construct(
-+	struct dcn10_dio *dio10,
-+	struct dc_context *ctx,
-+	const struct dcn_dio_registers *regs,
-+	const struct dcn_dio_shift *shifts,
-+	const struct dcn_dio_mask *masks)
-+{
-+	dio10->base.ctx = ctx;
-+	dio10->base.funcs = &dcn10_dio_funcs;
-+
-+	dio10->regs = regs;
-+	dio10->shifts = shifts;
-+	dio10->masks = masks;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_dio.h b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_dio.h
-new file mode 100644
-index 000000000000..369c5996326e
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_dio.h
-@@ -0,0 +1,42 @@
-+// SPDX-License-Identifier: MIT
-+//
-+// Copyright 2025 Advanced Micro Devices, Inc.
-+
-+#ifndef __DCN10_DIO_H__
-+#define __DCN10_DIO_H__
-+
-+#include "dio.h"
-+
-+#define TO_DCN10_DIO(dio_base) \
-+	container_of(dio_base, struct dcn10_dio, base)
-+
-+#define DIO_REG_LIST_DCN10()\
-+	SR(DIO_MEM_PWR_CTRL)
-+
-+struct dcn_dio_registers {
-+	uint32_t DIO_MEM_PWR_CTRL;
-+};
-+
-+struct dcn_dio_shift {
-+	uint8_t I2C_LIGHT_SLEEP_FORCE;
-+};
-+
-+struct dcn_dio_mask {
-+	uint32_t I2C_LIGHT_SLEEP_FORCE;
-+};
-+
-+struct dcn10_dio {
-+	struct dio base;
-+	const struct dcn_dio_registers *regs;
-+	const struct dcn_dio_shift *shifts;
-+	const struct dcn_dio_mask *masks;
-+};
-+
-+void dcn10_dio_construct(
-+	struct dcn10_dio *dio10,
-+	struct dc_context *ctx,
-+	const struct dcn_dio_registers *regs,
-+	const struct dcn_dio_shift *shifts,
-+	const struct dcn_dio_mask *masks);
-+
-+#endif /* __DCN10_DIO_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index f89b2f5a9bbd..5243177c1faa 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -50,6 +50,7 @@
- #include "link_hwss.h"
- #include "dpcd_defs.h"
- #include "dsc.h"
-+#include "dio/dcn10/dcn10_dio.h"
- #include "dce/dmub_psr.h"
- #include "dc_dmub_srv.h"
- #include "dce/dmub_hw_lock_mgr.h"
-@@ -1881,7 +1882,8 @@ void dcn10_init_hw(struct dc *dc)
- 
- 	/* power AFMT HDMI memory TODO: may move to dis/en output save power*/
- 	if (!is_optimized_init_done)
--		REG_WRITE(DIO_MEM_PWR_CTRL, 0);
-+		if (dc->res_pool->dio && dc->res_pool->dio->funcs->mem_pwr_ctrl)
-+			dc->res_pool->dio->funcs->mem_pwr_ctrl(dc->res_pool->dio, false);
- 
- 	if (!dc->debug.disable_clock_gate) {
- 		/* enable all DCN clock gating */
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
-index 7cd225a6cf6c..ce18d75fd991 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c
-@@ -40,6 +40,8 @@
- #include "clk_mgr.h"
- #include "reg_helper.h"
- #include "dcn10/dcn10_hubbub.h"
-+#include "dio/dcn10/dcn10_dio.h"
-+
- 
- #define CTX \
- 	hws->ctx
-@@ -360,7 +362,8 @@ void dcn201_init_hw(struct dc *dc)
+ 	/* Configuration will be deferred to stream enable. */
+ 	if (!stream_state)
+@@ -528,10 +529,18 @@ int amdgpu_dm_crtc_configure_crc_source(struct drm_crtc *crtc,
+ 		amdgpu_dm_replay_disable(stream_state);
  	}
  
- 	/* power AFMT HDMI memory TODO: may move to dis/en output save power*/
--	REG_WRITE(DIO_MEM_PWR_CTRL, 0);
-+	if (dc->res_pool->dio && dc->res_pool->dio->funcs->mem_pwr_ctrl)
-+		dc->res_pool->dio->funcs->mem_pwr_ctrl(dc->res_pool->dio, false);
- 
- 	if (!dc->debug.disable_clock_gate) {
- 		/* enable all DCN clock gating */
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-index 3ff15ec9dc17..d58f2cf2615c 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
-@@ -53,6 +53,7 @@
- #include "dcn30/dcn30_resource.h"
- #include "link_service.h"
- #include "dc_state_priv.h"
-+#include "dio/dcn10/dcn10_dio.h"
- 
- #define TO_DCN_DCCG(dccg)\
- 	container_of(dccg, struct dcn_dccg, base)
-@@ -794,7 +795,8 @@ void dcn30_init_hw(struct dc *dc)
- 	}
- 
- 	/* power AFMT HDMI memory TODO: may move to dis/en output save power*/
--	REG_WRITE(DIO_MEM_PWR_CTRL, 0);
-+	if (dc->res_pool->dio && dc->res_pool->dio->funcs->mem_pwr_ctrl)
-+		dc->res_pool->dio->funcs->mem_pwr_ctrl(dc->res_pool->dio, false);
- 
- 	if (!dc->debug.disable_clock_gate) {
- 		/* enable all DCN clock gating */
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-index 91a672a46289..db2f7cbb12ff 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c
-@@ -53,6 +53,7 @@
- #include "dcn30/dcn30_vpg.h"
- #include "dce/dce_i2c_hw.h"
- #include "dce/dmub_abm_lcd.h"
-+#include "dio/dcn10/dcn10_dio.h"
- 
- #define DC_LOGGER_INIT(logger)
- 
-@@ -237,12 +238,9 @@ void dcn31_init_hw(struct dc *dc)
- 			abms[i]->funcs->abm_init(abms[i], backlight, user_level);
- 	}
- 
--	/* power AFMT HDMI memory TODO: may move to dis/en output save power*/
--	REG_WRITE(DIO_MEM_PWR_CTRL, 0);
--
--	// Set i2c to light sleep until engine is setup
--	if (dc->debug.enable_mem_low_power.bits.i2c)
--		REG_UPDATE(DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, 1);
-+	/* Power on DIO memory (AFMT HDMI) and set I2C to light sleep */
-+	if (dc->res_pool->dio && dc->res_pool->dio->funcs->mem_pwr_ctrl)
-+		dc->res_pool->dio->funcs->mem_pwr_ctrl(dc->res_pool->dio, dc->debug.enable_mem_low_power.bits.i2c);
- 
- 	if (hws->funcs.setup_hpo_hw_control)
- 		hws->funcs.setup_hpo_hw_control(hws, false);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-index 3f76fba7dccc..37300e12e645 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
-@@ -52,6 +52,7 @@
- #include "link_service.h"
- #include "../dcn20/dcn20_hwseq.h"
- #include "dc_state_priv.h"
-+#include "dio/dcn10/dcn10_dio.h"
- 
- #define DC_LOGGER_INIT(logger)
- 
-@@ -955,7 +956,8 @@ void dcn32_init_hw(struct dc *dc)
- 	}
- 
- 	/* power AFMT HDMI memory TODO: may move to dis/en output save power*/
--	REG_WRITE(DIO_MEM_PWR_CTRL, 0);
-+	if (dc->res_pool->dio && dc->res_pool->dio->funcs->mem_pwr_ctrl)
-+		dc->res_pool->dio->funcs->mem_pwr_ctrl(dc->res_pool->dio, false);
- 
- 	if (!dc->debug.disable_clock_gate) {
- 		/* enable all DCN clock gating */
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index 1c7263f9ef51..b5a4cefbd35f 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -53,6 +53,7 @@
- #include "dcn30/dcn30_vpg.h"
- #include "dce/dce_i2c_hw.h"
- #include "dsc.h"
-+#include "dio/dcn10/dcn10_dio.h"
- #include "dcn20/dcn20_optc.h"
- #include "dcn30/dcn30_cm_common.h"
- #include "dcn31/dcn31_hwseq.h"
-@@ -272,12 +273,9 @@ void dcn35_init_hw(struct dc *dc)
- 		}
- 	}
- 
--	/* power AFMT HDMI memory TODO: may move to dis/en output save power*/
--	REG_WRITE(DIO_MEM_PWR_CTRL, 0);
--
--	// Set i2c to light sleep until engine is setup
--	if (dc->debug.enable_mem_low_power.bits.i2c)
--		REG_UPDATE(DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, 0);
-+	/* Power on DIO memory (AFMT HDMI) and optionally disable I2C light sleep */
-+	if (dc->res_pool->dio && dc->res_pool->dio->funcs->mem_pwr_ctrl)
-+		dc->res_pool->dio->funcs->mem_pwr_ctrl(dc->res_pool->dio, !dc->debug.enable_mem_low_power.bits.i2c);
- 
- 	if (hws->funcs.setup_hpo_hw_control)
- 		hws->funcs.setup_hpo_hw_control(hws, false);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index 567ed207d7cd..9cda39d0ed95 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -39,6 +39,7 @@
- #include "dc_state_priv.h"
- #include "link_enc_cfg.h"
- #include "../hw_sequencer.h"
-+#include "dio/dcn10/dcn10_dio.h"
- 
- #define DC_LOGGER_INIT(logger)
- 
-@@ -320,7 +321,8 @@ void dcn401_init_hw(struct dc *dc)
- 	}
- 
- 	/* power AFMT HDMI memory TODO: may move to dis/en output save power*/
--	REG_WRITE(DIO_MEM_PWR_CTRL, 0);
-+	if (dc->res_pool->dio && dc->res_pool->dio->funcs->mem_pwr_ctrl)
-+		dc->res_pool->dio->funcs->mem_pwr_ctrl(dc->res_pool->dio, false);
- 
- 	if (!dc->debug.disable_clock_gate) {
- 		/* enable all DCN clock gating */
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-index 61d8ef759aca..43579b0e1482 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
-@@ -35,6 +35,7 @@
- #include "hubp.h"
- #include "mpc.h"
- #include "dwb.h"
-+#include "hw/dio.h"
- #include "mcif_wb.h"
- #include "panel_cntl.h"
- #include "dmub/inc/dmub_cmd.h"
-@@ -250,6 +251,7 @@ struct resource_pool {
- 	struct timing_generator *timing_generators[MAX_PIPES];
- 	struct stream_encoder *stream_enc[MAX_PIPES * 2];
- 	struct hubbub *hubbub;
-+	struct dio *dio;
- 	struct mpc *mpc;
- 	struct pp_smu_funcs *pp_smu;
- 	struct dce_aux *engines[MAX_PIPES];
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dio.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dio.h
-new file mode 100644
-index 000000000000..532bf54cf2c4
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dio.h
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: MIT
-+//
-+// Copyright 2025 Advanced Micro Devices, Inc.
++	/* CRC polynomial selection only support for DCN3.6+ except DCN4.0.1 */
++	if ((amdgpu_ip_version(adev, DCE_HWIP, 0) >= IP_VERSION(3, 6, 0)) &&
++		(amdgpu_ip_version(adev, DCE_HWIP, 0) != IP_VERSION(4, 0, 1))) {
++		struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
 +
-+#ifndef __DC_DIO_H__
-+#define __DC_DIO_H__
-+
-+#include "dc_types.h"
-+
-+struct dc_context;
-+struct dio;
-+
-+struct dio_funcs {
-+	void (*mem_pwr_ctrl)(struct dio *dio, bool enable_i2c_light_sleep);
-+};
-+
-+struct dio {
-+	const struct dio_funcs *funcs;
-+	struct dc_context *ctx;
-+};
-+
-+#endif /* __DC_DIO_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-index 1cdbb65da4a3..df3acf589582 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-@@ -21,6 +21,7 @@
- #include "dcn401/dcn401_hubbub.h"
- #include "dcn401/dcn401_mpc.h"
- #include "dcn401/dcn401_hubp.h"
-+#include "dio/dcn10/dcn10_dio.h"
- #include "irq/dcn401/irq_service_dcn401.h"
- #include "dcn401/dcn401_dpp.h"
- #include "dcn401/dcn401_optc.h"
-@@ -634,6 +635,22 @@ static const struct dcn20_vmid_mask vmid_masks = {
- 		DCN20_VMID_MASK_SH_LIST(_MASK)
- };
- 
-+#define dio_regs_init() \
-+		DIO_REG_LIST_DCN10()
-+
-+static struct dcn_dio_registers dio_regs;
-+
-+#define DIO_MASK_SH_LIST_DCN401(mask_sh)\
-+		HWS_SF(, DIO_MEM_PWR_CTRL, I2C_LIGHT_SLEEP_FORCE, mask_sh)
-+
-+static const struct dcn_dio_shift dio_shift = {
-+		DIO_MASK_SH_LIST_DCN401(__SHIFT)
-+};
-+
-+static const struct dcn_dio_mask dio_mask = {
-+		DIO_MASK_SH_LIST_DCN401(_MASK)
-+};
-+
- static const struct resource_caps res_cap_dcn4_01 = {
- 	.num_timing_generator = 4,
- 	.num_opp = 4,
-@@ -881,6 +898,22 @@ static struct hubbub *dcn401_hubbub_create(struct dc_context *ctx)
- 	return &hubbub2->base;
- }
- 
-+static struct dio *dcn401_dio_create(struct dc_context *ctx)
-+{
-+	struct dcn10_dio *dio10 = kzalloc(sizeof(struct dcn10_dio), GFP_KERNEL);
-+
-+	if (!dio10)
-+		return NULL;
-+
-+#undef REG_STRUCT
-+#define REG_STRUCT dio_regs
-+	dio_regs_init();
-+
-+	dcn10_dio_construct(dio10, ctx, &dio_regs, &dio_shift, &dio_mask);
-+
-+	return &dio10->base;
-+}
-+
- static struct hubp *dcn401_hubp_create(
- 	struct dc_context *ctx,
- 	uint32_t inst)
-@@ -2071,6 +2104,14 @@ static bool dcn401_resource_construct(
- 		goto create_fail;
- 	}
- 
-+	/* DIO */
-+	pool->base.dio = dcn401_dio_create(ctx);
-+	if (pool->base.dio == NULL) {
-+		BREAK_TO_DEBUGGER();
-+		dm_error("DC: failed to create dio!\n");
-+		goto create_fail;
++		crc_poly_mode = acrtc->dm_irq_params.crc_poly_mode;
 +	}
 +
- 	/* HUBPs, DPPs, OPPs, TGs, ABMs */
- 	for (i = 0, j = 0; i < pool->base.res_cap->num_timing_generator; i++) {
+ 	/* Enable or disable CRTC CRC generation */
+ 	if (dm_is_crc_source_crtc(source) || source == AMDGPU_DM_PIPE_CRC_SOURCE_NONE) {
+ 		if (!dc_stream_configure_crc(stream_state->ctx->dc,
+-					     stream_state, NULL, enable, enable, 0, true)) {
++					     stream_state, NULL, enable, enable, 0, true, crc_poly_mode)) {
+ 			ret = -EINVAL;
+ 			goto unlock;
+ 		}
+@@ -877,7 +886,7 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
+ 			else if (adev->dm.secure_display_ctx.op_mode == DISPLAY_CRC_MODE)
+ 				/* update ROI via dm*/
+ 				dc_stream_configure_crc(stream_state->ctx->dc, stream_state,
+-					&crc_window, true, true, i, false);
++					&crc_window, true, true, i, false, (enum crc_poly_mode)acrtc->dm_irq_params.crc_poly_mode);
  
+ 			reset_crc_frame_count[i] = true;
+ 
+@@ -901,7 +910,7 @@ void amdgpu_dm_crtc_handle_crc_window_irq(struct drm_crtc *crtc)
+ 			else if (adev->dm.secure_display_ctx.op_mode == DISPLAY_CRC_MODE)
+ 				/* Avoid ROI window get changed, keep overwriting. */
+ 				dc_stream_configure_crc(stream_state->ctx->dc, stream_state,
+-						&crc_window, true, true, i, false);
++						&crc_window, true, true, i, false, (enum crc_poly_mode)acrtc->dm_irq_params.crc_poly_mode);
+ 
+ 			/* crc ready for psp to read out */
+ 			crtc_ctx->crc_info.crc[i].crc_ready = true;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index cfe35442dfcb..d6d43f1bf6d2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -3839,6 +3839,50 @@ static int crc_win_update_get(void *data, u64 *val)
+ 
+ DEFINE_DEBUGFS_ATTRIBUTE(crc_win_update_fops, crc_win_update_get,
+ 			 crc_win_update_set, "%llu\n");
++
++/*
++ * Trigger to set crc polynomial mode
++ * 0: 16-bit CRC, 1: 32-bit CRC
++ * only accepts 0 or 1 for supported hwip versions
++ */
++static int crc_poly_mode_set(void *data, u64 val)
++{
++	struct drm_crtc *crtc = data;
++	struct amdgpu_crtc *acrtc;
++	struct amdgpu_device *adev = drm_to_adev(crtc->dev);
++
++	if ((amdgpu_ip_version(adev, DCE_HWIP, 0) >= IP_VERSION(3, 6, 0)) &&
++		(amdgpu_ip_version(adev, DCE_HWIP, 0) != IP_VERSION(4, 0, 1)) &&
++		(val < 2)) {
++		acrtc = to_amdgpu_crtc(crtc);
++		mutex_lock(&adev->dm.dc_lock);
++		spin_lock_irq(&adev_to_drm(adev)->event_lock);
++		acrtc->dm_irq_params.crc_poly_mode = val;
++		spin_unlock_irq(&adev_to_drm(adev)->event_lock);
++		mutex_unlock(&adev->dm.dc_lock);
++	}
++
++	return 0;
++}
++
++/*
++ * Get crc polynomial mode (0: 16-bit CRC, 1: 32-bit CRC)
++ */
++static int crc_poly_mode_get(void *data, u64 *val)
++{
++	struct drm_crtc *crtc = data;
++	struct drm_device *drm_dev = crtc->dev;
++	struct amdgpu_crtc *acrtc = to_amdgpu_crtc(crtc);
++
++	spin_lock_irq(&drm_dev->event_lock);
++	*val = acrtc->dm_irq_params.crc_poly_mode;
++	spin_unlock_irq(&drm_dev->event_lock);
++
++	return 0;
++}
++
++DEFINE_DEBUGFS_ATTRIBUTE(crc_poly_mode_fops, crc_poly_mode_get,
++			 crc_poly_mode_set, "%llu\n");
+ #endif
+ void crtc_debugfs_init(struct drm_crtc *crtc)
+ {
+@@ -3858,6 +3902,8 @@ void crtc_debugfs_init(struct drm_crtc *crtc)
+ 				   &crc_win_y_end_fops);
+ 	debugfs_create_file_unsafe("crc_win_update", 0644, dir, crtc,
+ 				   &crc_win_update_fops);
++	debugfs_create_file_unsafe("crc_poly_mode", 0644, dir, crtc,
++				   &crc_poly_mode_fops);
+ 	dput(dir);
+ #endif
+ 	debugfs_create_file("amdgpu_current_bpc", 0644, crtc->debugfs_entry,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h
+index 3c9995275cbd..f0c1b0c1faa9 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq_params.h
+@@ -39,6 +39,7 @@ struct dm_irq_params {
+ 
+ #ifdef CONFIG_DEBUG_FS
+ 	enum amdgpu_dm_pipe_crc_source crc_src;
++	int crc_poly_mode; /* enum crc_poly_mode from timing_generator.h */
+ #ifdef CONFIG_DRM_AMD_SECURE_DISPLAY
+ 	struct crc_window_param window_param[MAX_CRC_WINDOW_NUM];
+ 	/* At least one CRC window is activated or not*/
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 441b7e0a3b22..e7d2b861dedd 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -701,6 +701,7 @@ dc_stream_forward_multiple_crc_window(struct dc_stream_state *stream,
+  *              once.
+  * @idx: Capture CRC on which CRC engine instance
+  * @reset: Reset CRC engine before the configuration
++ * @crc_poly_mode: CRC polynomial mode
+  *
+  * By default, the entire frame is used to calculate the CRC.
+  *
+@@ -709,7 +710,7 @@ dc_stream_forward_multiple_crc_window(struct dc_stream_state *stream,
+  */
+ bool dc_stream_configure_crc(struct dc *dc, struct dc_stream_state *stream,
+ 			     struct crc_params *crc_window, bool enable, bool continuous,
+-			     uint8_t idx, bool reset)
++			     uint8_t idx, bool reset, enum crc_poly_mode crc_poly_mode)
+ {
+ 	struct pipe_ctx *pipe;
+ 	struct crc_params param;
+@@ -733,6 +734,7 @@ bool dc_stream_configure_crc(struct dc *dc, struct dc_stream_state *stream,
+ 	param.windowb_y_start = 0;
+ 	param.windowb_x_end = pipe->stream->timing.h_addressable;
+ 	param.windowb_y_end = pipe->stream->timing.v_addressable;
++	param.crc_poly_mode = crc_poly_mode;
+ 
+ 	if (crc_window) {
+ 		param.windowa_x_start = crc_window->windowa_x_start;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+index 719b98d8e8ca..9960494007ff 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
+@@ -584,7 +584,8 @@ bool dc_stream_configure_crc(struct dc *dc,
+ 			     bool enable,
+ 			     bool continuous,
+ 			     uint8_t idx,
+-			     bool reset);
++			     bool reset,
++			     enum crc_poly_mode crc_poly_mode);
+ 
+ bool dc_stream_get_crc(struct dc *dc,
+ 		       struct dc_stream_state *stream,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
+index da7bf59c4b9d..671ab1fc7320 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
+@@ -122,6 +122,12 @@ enum timing_synchronization_type {
+ 	VBLANK_SYNCHRONIZABLE
+ };
+ 
++enum crc_poly_mode {
++	CRC_POLY_MODE_16,
++	CRC_POLY_MODE_32,
++	CRC_POLY_MODE_MAX,
++};
++
+ struct crc_params {
+ 	/* Regions used to calculate CRC*/
+ 	uint16_t windowa_x_start;
+@@ -144,6 +150,7 @@ struct crc_params {
+ 
+ 	uint8_t crc_eng_inst;
+ 	bool reset;
++	enum crc_poly_mode crc_poly_mode;
+ };
+ 
+ struct dcn_otg_state {
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
+index 803bcc25601c..0b3f974f452e 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn10/dcn10_optc.h
+@@ -244,7 +244,13 @@
+ 	uint32_t OTG_TRIGB_MANUAL_TRIG; \
+ 	uint32_t OTG_UPDATE_LOCK; \
+ 	uint32_t OTG_V_TOTAL_INT_STATUS; \
+-	uint32_t OTG_VSYNC_NOM_INT_STATUS
++	uint32_t OTG_VSYNC_NOM_INT_STATUS; \
++	uint32_t OTG_CRC0_DATA_R32; \
++	uint32_t OTG_CRC0_DATA_G32; \
++	uint32_t OTG_CRC0_DATA_B32; \
++	uint32_t OTG_CRC1_DATA_R32; \
++	uint32_t OTG_CRC1_DATA_G32; \
++	uint32_t OTG_CRC1_DATA_B32
+ 
+ 
+ struct dcn_optc_registers {
+@@ -657,6 +663,15 @@ struct dcn_optc_registers {
+ 	type OTG_V_COUNT_STOP;\
+ 	type OTG_V_COUNT_STOP_TIMER;
+ 
++#define TG_REG_FIELD_LIST_DCN3_6(type) \
++	type OTG_CRC_POLY_SEL; \
++	type CRC0_R_CR32; \
++	type CRC0_G_Y32; \
++	type CRC0_B_CB32; \
++	type CRC1_R_CR32; \
++	type CRC1_G_Y32; \
++	type CRC1_B_CB32;
++
+ #define TG_REG_FIELD_LIST_DCN401(type) \
+ 	type OPTC_SEGMENT_WIDTH_LAST;\
+ 	type OTG_PSTATE_KEEPOUT_START;\
+@@ -670,6 +685,7 @@ struct dcn_optc_shift {
+ 	TG_REG_FIELD_LIST_DCN2_0(uint8_t)
+ 	TG_REG_FIELD_LIST_DCN3_2(uint8_t)
+ 	TG_REG_FIELD_LIST_DCN3_5(uint8_t)
++	TG_REG_FIELD_LIST_DCN3_6(uint8_t)
+ 	TG_REG_FIELD_LIST_DCN401(uint8_t)
+ };
+ 
+@@ -678,6 +694,7 @@ struct dcn_optc_mask {
+ 	TG_REG_FIELD_LIST_DCN2_0(uint32_t)
+ 	TG_REG_FIELD_LIST_DCN3_2(uint32_t)
+ 	TG_REG_FIELD_LIST_DCN3_5(uint32_t)
++	TG_REG_FIELD_LIST_DCN3_6(uint32_t)
+ 	TG_REG_FIELD_LIST_DCN401(uint32_t)
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+index f699e95059f3..0953acbcc6d4 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.c
+@@ -180,6 +180,96 @@ static void optc35_phantom_crtc_post_enable(struct timing_generator *optc)
+ 	REG_WAIT(OTG_CLOCK_CONTROL, OTG_BUSY, 0, 1, 100000);
+ }
+ 
++/**
++ * optc35_get_crc - Capture CRC result per component
++ *
++ * @optc: timing_generator instance.
++ * @idx: index of crc engine to get CRC from
++ * @r_cr: primary CRC signature for red data.
++ * @g_y: primary CRC signature for green data.
++ * @b_cb: primary CRC signature for blue data.
++ *
++ * This function reads the CRC signature from the OPTC registers. Notice that
++ * we have three registers to keep the CRC result per color component (RGB).
++ *
++ * For different DCN versions:
++ * - If CRC32 registers (OTG_CRC0_DATA_R32/G32/B32) are available, read from
++ *   32-bit CRC registers. DCN 3.6+ supports both CRC-32 and CRC-16 polynomials
++ *   selectable via OTG_CRC_POLY_SEL.
++ * - Otherwise, read from legacy 16-bit CRC registers (OTG_CRC0_DATA_RG/B)
++ *   which only support CRC-16 polynomial.
++ *
++ * Returns:
++ * If CRC is disabled, return false; otherwise, return true, and the CRC
++ * results in the parameters.
++ */
++static bool optc35_get_crc(struct timing_generator *optc, uint8_t idx,
++		   uint32_t *r_cr, uint32_t *g_y, uint32_t *b_cb)
++{
++	uint32_t field = 0;
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++
++	REG_GET(OTG_CRC_CNTL, OTG_CRC_EN, &field);
++
++	/* Early return if CRC is not enabled for this CRTC */
++	if (!field)
++		return false;
++
++	if (optc1->tg_mask->CRC0_R_CR32 != 0 && optc1->tg_mask->CRC1_R_CR32 != 0 &&
++	    optc1->tg_mask->CRC0_G_Y32 != 0 && optc1->tg_mask->CRC1_G_Y32 != 0 &&
++	    optc1->tg_mask->CRC0_B_CB32 != 0 && optc1->tg_mask->CRC1_B_CB32 != 0) {
++		switch (idx) {
++		case 0:
++			/* OTG_CRC0_DATA_R32/G32/B32 has the CRC32 results */
++			REG_GET(OTG_CRC0_DATA_R32,
++				CRC0_R_CR32, r_cr);
++			REG_GET(OTG_CRC0_DATA_G32,
++				CRC0_G_Y32, g_y);
++			REG_GET(OTG_CRC0_DATA_B32,
++				CRC0_B_CB32, b_cb);
++			break;
++		case 1:
++			/* OTG_CRC1_DATA_R32/G32/B32 has the CRC32 results */
++			REG_GET(OTG_CRC1_DATA_R32,
++				CRC1_R_CR32, r_cr);
++			REG_GET(OTG_CRC1_DATA_G32,
++				CRC1_G_Y32, g_y);
++			REG_GET(OTG_CRC1_DATA_B32,
++				CRC1_B_CB32, b_cb);
++			break;
++		default:
++			return false;
++		}
++	} else {
++		switch (idx) {
++		case 0:
++			/* OTG_CRC0_DATA_RG has the CRC16 results for the red and green component */
++			REG_GET_2(OTG_CRC0_DATA_RG,
++				CRC0_R_CR, r_cr,
++				CRC0_G_Y, g_y);
++
++			/* OTG_CRC0_DATA_B has the CRC16 results for the blue component */
++			REG_GET(OTG_CRC0_DATA_B,
++				CRC0_B_CB, b_cb);
++			break;
++		case 1:
++			/* OTG_CRC1_DATA_RG has the CRC16 results for the red and green component */
++			REG_GET_2(OTG_CRC1_DATA_RG,
++				CRC1_R_CR, r_cr,
++				CRC1_G_Y, g_y);
++
++			/* OTG_CRC1_DATA_B has the CRC16 results for the blue component */
++			REG_GET(OTG_CRC1_DATA_B,
++				CRC1_B_CB, b_cb);
++			break;
++		default:
++			return false;
++			}
++	}
++
++	return true;
++}
++
+ static bool optc35_configure_crc(struct timing_generator *optc,
+ 				 const struct crc_params *params)
+ {
+@@ -266,6 +356,10 @@ static bool optc35_configure_crc(struct timing_generator *optc,
+ 	default:
+ 		return false;
+ 	}
++	if (optc1->tg_mask->OTG_CRC_POLY_SEL != 0) {
++		REG_UPDATE(OTG_CRC_CNTL,
++				OTG_CRC_POLY_SEL, params->crc_poly_mode);
++	}
+ 	return true;
+ }
+ 
+@@ -488,7 +582,7 @@ static const struct timing_generator_funcs dcn35_tg_funcs = {
+ 		.is_optc_underflow_occurred = optc1_is_optc_underflow_occurred,
+ 		.clear_optc_underflow = optc1_clear_optc_underflow,
+ 		.setup_global_swap_lock = NULL,
+-		.get_crc = optc1_get_crc,
++		.get_crc = optc35_get_crc,
+ 		.configure_crc = optc35_configure_crc,
+ 		.set_dsc_config = optc3_set_dsc_config,
+ 		.get_dsc_status = optc2_get_dsc_status,
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h
+index 733a2f149d9a..5c2cb1f27783 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn35/dcn35_optc.h
+@@ -74,6 +74,16 @@
+ 	SF(OTG0_OTG_PIPE_UPDATE_STATUS, OTG_VUPDATE_KEEPOUT_STATUS, mask_sh),\
+ 	SF(OTG0_INTERRUPT_DEST, OTG0_IHC_OTG_VERTICAL_INTERRUPT2_DEST, mask_sh)
+ 
++#define OPTC_COMMON_MASK_SH_LIST_DCN3_6(mask_sh)\
++	OPTC_COMMON_MASK_SH_LIST_DCN3_5(mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_POLY_SEL, mask_sh),\
++	SF(OTG_CRC320_OTG_CRC0_DATA_R32, CRC0_R_CR32, mask_sh),\
++	SF(OTG_CRC320_OTG_CRC0_DATA_G32, CRC0_G_Y32, mask_sh),\
++	SF(OTG_CRC320_OTG_CRC0_DATA_B32, CRC0_B_CB32, mask_sh),\
++	SF(OTG_CRC320_OTG_CRC1_DATA_R32, CRC1_R_CR32, mask_sh),\
++	SF(OTG_CRC320_OTG_CRC1_DATA_G32, CRC1_G_Y32, mask_sh),\
++	SF(OTG_CRC320_OTG_CRC1_DATA_B32, CRC1_B_CB32, mask_sh)
++
+ void dcn35_timing_generator_init(struct optc *optc1);
+ 
+ void dcn35_timing_generator_set_fgcg(struct optc *optc1, bool enable);
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+index 6469d5fe2e6d..0ee16926db4e 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn36/dcn36_resource.c
+@@ -460,16 +460,22 @@ static const struct dcn30_mpc_mask mpc_mask = {
+ };
+ 
+ #define optc_regs_init(id)\
+-	OPTC_COMMON_REG_LIST_DCN3_5_RI(id)
++	OPTC_COMMON_REG_LIST_DCN3_5_RI(id),\
++	SRI_ARR(OTG_CRC0_DATA_R32, OTG_CRC32, id),\
++	SRI_ARR(OTG_CRC0_DATA_G32, OTG_CRC32, id),\
++	SRI_ARR(OTG_CRC0_DATA_B32, OTG_CRC32, id),\
++	SRI_ARR(OTG_CRC1_DATA_R32, OTG_CRC32, id),\
++	SRI_ARR(OTG_CRC1_DATA_G32, OTG_CRC32, id),\
++	SRI_ARR(OTG_CRC1_DATA_B32, OTG_CRC32, id)
+ 
+ static struct dcn_optc_registers optc_regs[4];
+ 
+ static const struct dcn_optc_shift optc_shift = {
+-	OPTC_COMMON_MASK_SH_LIST_DCN3_5(__SHIFT)
++	OPTC_COMMON_MASK_SH_LIST_DCN3_6(__SHIFT)
+ };
+ 
+ static const struct dcn_optc_mask optc_mask = {
+-	OPTC_COMMON_MASK_SH_LIST_DCN3_5(_MASK)
++	OPTC_COMMON_MASK_SH_LIST_DCN3_6(_MASK)
+ };
+ 
+ #define hubp_regs_init(id)\
 -- 
 2.43.0
 
