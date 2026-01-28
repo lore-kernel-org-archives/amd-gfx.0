@@ -4,16 +4,16 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61025E63C8C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3746D25B40
 	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 11:08:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B3BDB10E67E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFC9410E67F;
 	Wed, 28 Jan 2026 11:08:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Nfze/VEU";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nVLkgQn5";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B629B10E67F;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5A1710E67E;
  Wed, 28 Jan 2026 11:08:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
@@ -22,24 +22,25 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=KfXO1HhvV/I6fbgD2CqMkvHmSRYAO24KIOi2Zmjxm/o=; b=Nfze/VEUq4eeZwZO2LhsQilckG
- 30e1V5E2KG5FJoX/WamBlRnwX9pxjKmXAbWBhSgTDGGlTl0RxgxdAFDKdqqw/4jHUucL0VGdlR1ck
- VJ6WLnci6VVHIZBV+OTLz1VBJc7yFz83FT3K9vBLoP7AQD8stQLoAIgZD+wPPnXqu7si2GB+PlXip
- ncRFUrGhFrjKmfmBMOkggcIVd3KYAZP9P2nTv6Q0mEok42ypTGaR1UoAY2VTs2THawKDwVcI3irQ2
- o9LHghsGwhX5UmahczpM+zuSfg9nkuTkK1yjOAVoY0nySG4qhWo2SGWM89uqm9YysUs4dv+WWES5m
- 4u06qNZA==;
+ bh=FLwHiXv8SCctuxDJR/SEmezkhMEurYLihpAOcnBijec=; b=nVLkgQn50vqKxgZ3n8rEaQDjRu
+ GrKUmLGWTkPkI7FjOKQJg9Bqk8dE6+8YdXpiif+j0SMplUp+raOCVU1c1lc/eJUTGTe+MPWcibfpl
+ QwaHU+kqdW+d/WODpEd/a6hhNSP5jhrbrbeop3cOTdl++N+sJkIiAr3BaNojYO3gl7ZIxnko8/Lu5
+ bstwdno/hdwwZkVLv8o2JW/wHmVj5jQOJ5eAr9hgXj/fnYGO+vn+8B2wyUFWUC2YBMHbOfCn4yUQ6
+ yNsj8qsQQZd1uBsu3V0Fb01ifYggj6izNp/y89xoWzE7+nYgBwKy8Y06qd7AIGZUatgea/K62902N
+ zlEHI1uw==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vl3PO-00Aqeh-0i; Wed, 28 Jan 2026 12:08:26 +0100
+ id 1vl3PN-00AqeM-8m; Wed, 28 Jan 2026 12:08:25 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Qiang Yu <yuq825@gmail.com>, lima@lists.freedesktop.org
-Subject: [PATCH v6 23/31] drm/lima: Remove drm_sched_init_args->num_rqs usage
-Date: Wed, 28 Jan 2026 11:07:58 +0000
-Message-ID: <20260128110806.38350-24-tvrtko.ursulin@igalia.com>
+ Frank Binns <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>
+Subject: [PATCH v6 22/31] drm/imagination: Remove drm_sched_init_args->num_rqs
+ usage
+Date: Wed, 28 Jan 2026 11:07:57 +0000
+Message-ID: <20260128110806.38350-23-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
 References: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
@@ -62,25 +63,26 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Remove member no longer used by the scheduler core.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Qiang Yu <yuq825@gmail.com>
-Cc: lima@lists.freedesktop.org
-Reviewed-by: Qiang Yu <yuq825@gmail.com>
+Cc: Frank Binns <frank.binns@imgtec.com>
+Cc: Matt Coster <matt.coster@imgtec.com>
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Matt Coster <matt.coster@imgtec.com>
 ---
- drivers/gpu/drm/lima/lima_sched.c | 1 -
+ drivers/gpu/drm/imagination/pvr_queue.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
-index 9a1e6b9ecbe5..0a01213c4878 100644
---- a/drivers/gpu/drm/lima/lima_sched.c
-+++ b/drivers/gpu/drm/lima/lima_sched.c
-@@ -521,7 +521,6 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
- 			       lima_sched_timeout_ms : 10000;
- 	const struct drm_sched_init_args args = {
- 		.ops = &lima_sched_ops,
--		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
- 		.credit_limit = 1,
- 		.hang_limit = lima_job_hang_limit,
- 		.timeout = msecs_to_jiffies(timeout),
+diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
+index fc415dd0d7a7..3509bea293bd 100644
+--- a/drivers/gpu/drm/imagination/pvr_queue.c
++++ b/drivers/gpu/drm/imagination/pvr_queue.c
+@@ -1228,7 +1228,6 @@ struct pvr_queue *pvr_queue_create(struct pvr_context *ctx,
+ 	const struct drm_sched_init_args sched_args = {
+ 		.ops = &pvr_queue_sched_ops,
+ 		.submit_wq = pvr_dev->sched_wq,
+-		.num_rqs = 1,
+ 		.credit_limit = 64 * 1024,
+ 		.hang_limit = 1,
+ 		.timeout = msecs_to_jiffies(500),
 -- 
 2.52.0
 
