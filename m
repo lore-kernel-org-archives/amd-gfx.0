@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15040D2FEFF
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 11:08:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B368D2FEFD
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 11:08:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71A4E10E66E;
-	Wed, 28 Jan 2026 11:08:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D410B10E672;
+	Wed, 28 Jan 2026 11:08:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PpOZXYFZ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Oif0cabP";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C603E10E667;
- Wed, 28 Jan 2026 11:08:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1329510E671;
+ Wed, 28 Jan 2026 11:08:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=VIFrbtXEXhcDdRFPm9NwNmBrZ3VVhV2lSFxQrzbTMiQ=; b=PpOZXYFZlOMGeb3c8bjC851fMo
- WSgoqGmcM78ROOxYyv8zTJ4hOwotREA5tgv5X5EySrt6vOPI4tNTBJtPI8tMS13j9ub6ptVShUAEf
- AeP1z1C9bjus1kZeDdZ+gPr8x8DPifyqk5V5+NAiuYi6je0FGdC3TPbIaD6A/Nhfh6Hd2aMNz6iuL
- AXRMyIzw2ZHvpXP+LQnDtXg3kdS5w7BUh5uyTjzNBVUzA/5x4RmcRBy6zNAuYNeP4pPNSGVLbQ5GK
- 8RIFBTiwAJ7bFbyGWOWdbnhVCnHBSNYOrsJhkRS4Vsy+6/LdXy5urd/faIp1WSC9G0pR8RaSru8lA
- 2dsRiPwg==;
+ bh=XBZlC45ouLlujld3T/xSWOmW2mYP/wW12VR0vMmDhxU=; b=Oif0cabPzgQF1hSksH9BmiTE50
+ qBrySHfihplfOZRcFu4kJeXfTOLW3qkWFMjfStpIwbmt6TGW+EtWTZkTi5jPBCoDmLuWvZuIhiAqr
+ 3oUVj7tJQ4Fod9PpTbXPKGaBioLgsGXf6DsaW36KdpBrOiYx2cuiTBg8SNqFRTMfh+tnhprqb+rSQ
+ zN56w2mQDlk8Jci7osn+DmfP6MPhut5xKR0TFdbijBHriexzjiyaQh5AANAzAA1FVrWicmk/NY8wK
+ RM5zATV4sxOu8fDSJ0oiFud9MQf3EW2hyLoMZ2AFk/zv+Hil/EJbhO2H8jKHVz3GJSYIs4st6YNFo
+ g0Qxmo6Q==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vl3PF-00AqbR-2O; Wed, 28 Jan 2026 12:08:17 +0100
+ id 1vl3PH-00Aqc6-AF; Wed, 28 Jan 2026 12:08:19 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -39,10 +39,11 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v6 11/31] drm/sched: Remove idle entity from tree
-Date: Wed, 28 Jan 2026 11:07:46 +0000
-Message-ID: <20260128110806.38350-12-tvrtko.ursulin@igalia.com>
+ Philipp Stanner <phasta@kernel.org>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Subject: [PATCH v6 14/31] drm/sched: Switch default policy to fair
+Date: Wed, 28 Jan 2026 11:07:49 +0000
+Message-ID: <20260128110806.38350-15-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
 References: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
@@ -63,74 +64,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There is no need to keep entities with no jobs in the tree so lets remove
-it once the last job is consumed. This keeps the tree smaller which is
-nicer and more efficient as entities are removed and re-added on every
-popped job.
-
-Apart from that, the upcoming fair scheduling algorithm will rely on the
-tree only containing runnable entities.
+FAIR policy works better than FIFO for all known use cases and either
+matches or gets close to RR. Lets make it a default to improve the user
+experience especially with interactive workloads competing with heavy
+clients.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_rq.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index cf03b38c4eb5..2d1f579d8352 100644
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -19,6 +19,9 @@ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
- static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
- 					    struct drm_sched_rq *rq)
- {
-+	lockdep_assert_held(&entity->lock);
-+	lockdep_assert_held(&rq->lock);
-+
- 	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
- 		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
- 		RB_CLEAR_NODE(&entity->rb_tree_node);
-@@ -155,27 +158,30 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
- void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
- {
- 	struct drm_sched_job *next_job;
-+	struct drm_sched_rq *rq;
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 840262e06c30..82bf0f2bb1ac 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -84,13 +84,13 @@
+ #define CREATE_TRACE_POINTS
+ #include "gpu_scheduler_trace.h"
  
- 	/*
- 	 * Update the entity's location in the min heap according to
- 	 * the timestamp of the next job, if any.
- 	 */
-+	spin_lock(&entity->lock);
-+	rq = entity->rq;
-+	spin_lock(&rq->lock);
- 	next_job = drm_sched_entity_queue_peek(entity);
- 	if (next_job) {
--		struct drm_sched_rq *rq;
- 		ktime_t ts;
- 
--		spin_lock(&entity->lock);
--		rq = entity->rq;
--		spin_lock(&rq->lock);
- 		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
- 			ts = next_job->submit_ts;
- 		else
- 			ts = drm_sched_rq_next_rr_ts(rq, entity);
-+
- 		drm_sched_rq_update_fifo_locked(entity, rq, ts);
--		spin_unlock(&rq->lock);
--		spin_unlock(&entity->lock);
-+	} else {
-+		drm_sched_rq_remove_fifo_locked(entity, rq);
- 	}
-+	spin_unlock(&rq->lock);
-+	spin_unlock(&entity->lock);
- }
+-int drm_sched_policy = DRM_SCHED_POLICY_FIFO;
++int drm_sched_policy = DRM_SCHED_POLICY_FAIR;
  
  /**
+  * DOC: sched_policy (int)
+  * Used to override default entities scheduling policy in a run queue.
+  */
+-MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entities on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " = Round Robin, " __stringify(DRM_SCHED_POLICY_FIFO) " = FIFO (default), " __stringify(DRM_SCHED_POLICY_FAIR) " = Fair.");
++MODULE_PARM_DESC(sched_policy, "Specify the scheduling policy for entities on a run-queue, " __stringify(DRM_SCHED_POLICY_RR) " = Round Robin, " __stringify(DRM_SCHED_POLICY_FIFO) " = FIFO, " __stringify(DRM_SCHED_POLICY_FAIR) " = Fair (default).");
+ module_param_named(sched_policy, drm_sched_policy, int, 0444);
+ 
+ static u32 drm_sched_available_credits(struct drm_gpu_scheduler *sched)
 -- 
 2.52.0
 
