@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B739DD2F006
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 11:08:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15040D2FEFF
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 11:08:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B234710E669;
-	Wed, 28 Jan 2026 11:08:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71A4E10E66E;
+	Wed, 28 Jan 2026 11:08:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ceUPGsv7";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="PpOZXYFZ";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49AD110E660;
- Wed, 28 Jan 2026 11:08:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C603E10E667;
+ Wed, 28 Jan 2026 11:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
@@ -22,16 +22,16 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=O93YQVLZs3o9fk7yWz1RbXgvCQS2LBNJWHeqbO14KCA=; b=ceUPGsv71zhIX7yfdPvIxycPwW
- cib9pCmNytPQwfdKC4560oxhAx7SNWk5/PPX7Wbrm91aUHa5OWpgziERnbW+GiMMf5icHbGVg5Jk/
- 2yry5cgE/tCo8J8XxNmBvxIRElZybX2q0Lya4hCYXMctbJ0oWKydVOqiozJ2ZDGfCDgJ5GdOdfepw
- Tsl4CIGCV+S9hkBvwm1WQ4jjLiXgpdBm/HAh3kWscMOcjjagTqz+IGPElVVq24jUtGlxhfGfZKJh3
- nJ0qc6H1g5zVg00KEtZBe7Wr7/P7RdAB6sVDJtevSips0cKz6w/hKcFBxWlx+An7WSMMbI/Ge1G4F
- 8opqow7Q==;
+ bh=VIFrbtXEXhcDdRFPm9NwNmBrZ3VVhV2lSFxQrzbTMiQ=; b=PpOZXYFZlOMGeb3c8bjC851fMo
+ WSgoqGmcM78ROOxYyv8zTJ4hOwotREA5tgv5X5EySrt6vOPI4tNTBJtPI8tMS13j9ub6ptVShUAEf
+ AeP1z1C9bjus1kZeDdZ+gPr8x8DPifyqk5V5+NAiuYi6je0FGdC3TPbIaD6A/Nhfh6Hd2aMNz6iuL
+ AXRMyIzw2ZHvpXP+LQnDtXg3kdS5w7BUh5uyTjzNBVUzA/5x4RmcRBy6zNAuYNeP4pPNSGVLbQ5GK
+ 8RIFBTiwAJ7bFbyGWOWdbnhVCnHBSNYOrsJhkRS4Vsy+6/LdXy5urd/faIp1WSC9G0pR8RaSru8lA
+ 2dsRiPwg==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vl3PA-00AqaI-HK; Wed, 28 Jan 2026 12:08:12 +0100
+ id 1vl3PF-00AqbR-2O; Wed, 28 Jan 2026 12:08:17 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -40,10 +40,9 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Danilo Krummrich <dakr@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v6 05/31] drm/sched: Move run queue related code into a
- separate file
-Date: Wed, 28 Jan 2026 11:07:40 +0000
-Message-ID: <20260128110806.38350-6-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v6 11/31] drm/sched: Remove idle entity from tree
+Date: Wed, 28 Jan 2026 11:07:46 +0000
+Message-ID: <20260128110806.38350-12-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
 References: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
@@ -64,618 +63,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Lets move all the code dealing with struct drm_sched_rq into a separate
-compilation unit. Advantage being sched_main.c is left with a clearer set
-of responsibilities.
+There is no need to keep entities with no jobs in the tree so lets remove
+it once the last job is consumed. This keeps the tree smaller which is
+nicer and more efficient as entities are removed and re-added on every
+popped job.
+
+Apart from that, the upcoming fair scheduling algorithm will rely on the
+tree only containing runnable entities.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
-Reviewed-by: Matthew Brost <matthew.brost@intel.com> # v1
 ---
-v2:
- * Re-based for moving earlier in the series.
----
- drivers/gpu/drm/scheduler/Makefile         |   2 +-
- drivers/gpu/drm/scheduler/sched_internal.h |  12 +
- drivers/gpu/drm/scheduler/sched_main.c     | 261 +-------------------
- drivers/gpu/drm/scheduler/sched_rq.c       | 262 +++++++++++++++++++++
- 4 files changed, 277 insertions(+), 260 deletions(-)
- create mode 100644 drivers/gpu/drm/scheduler/sched_rq.c
+ drivers/gpu/drm/scheduler/sched_rq.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/scheduler/Makefile b/drivers/gpu/drm/scheduler/Makefile
-index 6e13e4c63e9d..74e75eff6df5 100644
---- a/drivers/gpu/drm/scheduler/Makefile
-+++ b/drivers/gpu/drm/scheduler/Makefile
-@@ -20,7 +20,7 @@
- # OTHER DEALINGS IN THE SOFTWARE.
- #
- #
--gpu-sched-y := sched_main.o sched_fence.o sched_entity.o
-+gpu-sched-y := sched_main.o sched_fence.o sched_entity.o sched_rq.o
- 
- obj-$(CONFIG_DRM_SCHED) += gpu-sched.o
- 
-diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm/scheduler/sched_internal.h
-index 8269c5392a82..aab63a8721d9 100644
---- a/drivers/gpu/drm/scheduler/sched_internal.h
-+++ b/drivers/gpu/drm/scheduler/sched_internal.h
-@@ -10,14 +10,26 @@ extern int drm_sched_policy;
- #define DRM_SCHED_POLICY_RR    0
- #define DRM_SCHED_POLICY_FIFO  1
- 
-+bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
-+			 struct drm_sched_entity *entity);
- void drm_sched_wakeup(struct drm_gpu_scheduler *sched);
- 
-+void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
-+		       struct drm_sched_rq *rq);
-+
- struct drm_gpu_scheduler *
- drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts);
- void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
- 				struct drm_sched_entity *entity);
- void drm_sched_rq_pop_entity(struct drm_sched_entity *entity);
- 
-+struct drm_sched_entity *
-+drm_sched_rq_select_entity_rr(struct drm_gpu_scheduler *sched,
-+			      struct drm_sched_rq *rq);
-+struct drm_sched_entity *
-+drm_sched_rq_select_entity_fifo(struct drm_gpu_scheduler *sched,
-+				struct drm_sched_rq *rq);
-+
- void drm_sched_entity_select_rq(struct drm_sched_entity *entity);
- struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity);
- 
-diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-index a2a43ed27b58..f481016fdea8 100644
---- a/drivers/gpu/drm/scheduler/sched_main.c
-+++ b/drivers/gpu/drm/scheduler/sched_main.c
-@@ -112,8 +112,8 @@ static u32 drm_sched_available_credits(struct drm_gpu_scheduler *sched)
-  * Return true if we can push at least one more job from @entity, false
-  * otherwise.
-  */
--static bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
--				struct drm_sched_entity *entity)
-+bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
-+			 struct drm_sched_entity *entity)
- {
- 	struct drm_sched_job *s_job;
- 
-@@ -133,263 +133,6 @@ static bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
- 	return drm_sched_available_credits(sched) >= s_job->credits;
- }
- 
--static __always_inline bool drm_sched_entity_compare_before(struct rb_node *a,
--							    const struct rb_node *b)
--{
--	struct drm_sched_entity *ent_a =  rb_entry((a), struct drm_sched_entity, rb_tree_node);
--	struct drm_sched_entity *ent_b =  rb_entry((b), struct drm_sched_entity, rb_tree_node);
--
--	return ktime_before(ent_a->oldest_job_waiting, ent_b->oldest_job_waiting);
--}
--
--static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
--					    struct drm_sched_rq *rq)
--{
--	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
--		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
--		RB_CLEAR_NODE(&entity->rb_tree_node);
--	}
--}
--
--static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
--					    struct drm_sched_rq *rq,
--					    ktime_t ts)
--{
--	/*
--	 * Both locks need to be grabbed, one to protect from entity->rq change
--	 * for entity from within concurrent drm_sched_entity_select_rq and the
--	 * other to update the rb tree structure.
--	 */
--	lockdep_assert_held(&entity->lock);
--	lockdep_assert_held(&rq->lock);
--
--	drm_sched_rq_remove_fifo_locked(entity, rq);
--
--	entity->oldest_job_waiting = ts;
--
--	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
--		      drm_sched_entity_compare_before);
--}
--
--/**
-- * drm_sched_rq_init - initialize a given run queue struct
-- *
-- * @sched: scheduler instance to associate with this run queue
-- * @rq: scheduler run queue
-- *
-- * Initializes a scheduler runqueue.
-- */
--static void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
--			      struct drm_sched_rq *rq)
--{
--	spin_lock_init(&rq->lock);
--	INIT_LIST_HEAD(&rq->entities);
--	rq->rb_tree_root = RB_ROOT_CACHED;
--	rq->current_entity = NULL;
--	rq->sched = sched;
--}
--
--/**
-- * drm_sched_rq_add_entity - add an entity
-- * @entity: scheduler entity
-- * @ts: submission timestamp
-- *
-- * Adds a scheduler entity to the run queue.
-- *
-- * Return: DRM scheduler selected to handle this entity or NULL if entity has
-- * been stopped and cannot be submitted to.
-- */
--struct drm_gpu_scheduler *
--drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
--{
--	struct drm_gpu_scheduler *sched;
--	struct drm_sched_rq *rq;
--
--	/* Add the entity to the run queue */
--	spin_lock(&entity->lock);
--	if (entity->stopped) {
--		spin_unlock(&entity->lock);
--
--		DRM_ERROR("Trying to push to a killed entity\n");
--		return NULL;
--	}
--
--	rq = entity->rq;
--	spin_lock(&rq->lock);
--	sched = rq->sched;
--
--	if (list_empty(&entity->list)) {
--		atomic_inc(sched->score);
--		list_add_tail(&entity->list, &rq->entities);
--	}
--
--	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
--		drm_sched_rq_update_fifo_locked(entity, rq, ts);
--
--	spin_unlock(&rq->lock);
--	spin_unlock(&entity->lock);
--
--	return sched;
--}
--
--/**
-- * drm_sched_rq_remove_entity - remove an entity
-- *
-- * @rq: scheduler run queue
-- * @entity: scheduler entity
-- *
-- * Removes a scheduler entity from the run queue.
-- */
--void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
--				struct drm_sched_entity *entity)
--{
--	lockdep_assert_held(&entity->lock);
--
--	if (list_empty(&entity->list))
--		return;
--
--	spin_lock(&rq->lock);
--
--	atomic_dec(rq->sched->score);
--	list_del_init(&entity->list);
--
--	if (rq->current_entity == entity)
--		rq->current_entity = NULL;
--
--	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
--		drm_sched_rq_remove_fifo_locked(entity, rq);
--
--	spin_unlock(&rq->lock);
--}
--
--/**
-- * drm_sched_rq_pop_entity - pops an entity
-- * @entity: scheduler entity
-- *
-- * To be called every time after a job is popped from the entity.
-- */
--void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
--{
--	/*
--	 * Update the entity's location in the min heap according to
--	 * the timestamp of the next job, if any.
--	 */
--	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO) {
--		struct drm_sched_job *next;
--
--		next = drm_sched_entity_queue_peek(entity);
--		if (next) {
--			struct drm_sched_rq *rq;
--
--			spin_lock(&entity->lock);
--			rq = entity->rq;
--			spin_lock(&rq->lock);
--			drm_sched_rq_update_fifo_locked(entity, rq,
--							next->submit_ts);
--			spin_unlock(&rq->lock);
--			spin_unlock(&entity->lock);
--		}
--	}
--}
--
--/**
-- * drm_sched_rq_select_entity_rr - Select an entity which could provide a job to run
-- *
-- * @sched: the gpu scheduler
-- * @rq: scheduler run queue to check.
-- *
-- * Try to find the next ready entity.
-- *
-- * Return an entity if one is found; return an error-pointer (!NULL) if an
-- * entity was ready, but the scheduler had insufficient credits to accommodate
-- * its job; return NULL, if no ready entity was found.
-- */
--static struct drm_sched_entity *
--drm_sched_rq_select_entity_rr(struct drm_gpu_scheduler *sched,
--			      struct drm_sched_rq *rq)
--{
--	struct drm_sched_entity *entity;
--
--	spin_lock(&rq->lock);
--
--	entity = rq->current_entity;
--	if (entity) {
--		list_for_each_entry_continue(entity, &rq->entities, list) {
--			if (drm_sched_entity_is_ready(entity))
--				goto found;
--		}
--	}
--
--	list_for_each_entry(entity, &rq->entities, list) {
--		if (drm_sched_entity_is_ready(entity))
--			goto found;
--
--		if (entity == rq->current_entity)
--			break;
--	}
--
--	spin_unlock(&rq->lock);
--
--	return NULL;
--
--found:
--	if (!drm_sched_can_queue(sched, entity)) {
--		/*
--		 * If scheduler cannot take more jobs signal the caller to not
--		 * consider lower priority queues.
--		 */
--		entity = ERR_PTR(-ENOSPC);
--	} else {
--		rq->current_entity = entity;
--		reinit_completion(&entity->entity_idle);
--	}
--
--	spin_unlock(&rq->lock);
--
--	return entity;
--}
--
--/**
-- * drm_sched_rq_select_entity_fifo - Select an entity which provides a job to run
-- *
-- * @sched: the gpu scheduler
-- * @rq: scheduler run queue to check.
-- *
-- * Find oldest waiting ready entity.
-- *
-- * Return an entity if one is found; return an error-pointer (!NULL) if an
-- * entity was ready, but the scheduler had insufficient credits to accommodate
-- * its job; return NULL, if no ready entity was found.
-- */
--static struct drm_sched_entity *
--drm_sched_rq_select_entity_fifo(struct drm_gpu_scheduler *sched,
--				struct drm_sched_rq *rq)
--{
--	struct rb_node *rb;
--
--	spin_lock(&rq->lock);
--	for (rb = rb_first_cached(&rq->rb_tree_root); rb; rb = rb_next(rb)) {
--		struct drm_sched_entity *entity;
--
--		entity = rb_entry(rb, struct drm_sched_entity, rb_tree_node);
--		if (drm_sched_entity_is_ready(entity)) {
--			/* If we can't queue yet, preserve the current entity in
--			 * terms of fairness.
--			 */
--			if (!drm_sched_can_queue(sched, entity)) {
--				spin_unlock(&rq->lock);
--				return ERR_PTR(-ENOSPC);
--			}
--
--			reinit_completion(&entity->entity_idle);
--			break;
--		}
--	}
--	spin_unlock(&rq->lock);
--
--	return rb ? rb_entry(rb, struct drm_sched_entity, rb_tree_node) : NULL;
--}
--
- /**
-  * drm_sched_run_job_queue - enqueue run-job work
-  * @sched: scheduler instance
 diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-new file mode 100644
-index 000000000000..cfc18fc7a411
---- /dev/null
+index cf03b38c4eb5..2d1f579d8352 100644
+--- a/drivers/gpu/drm/scheduler/sched_rq.c
 +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -0,0 +1,262 @@
-+#include <linux/rbtree.h>
-+
-+#include <drm/drm_print.h>
-+#include <drm/gpu_scheduler.h>
-+
-+#include "sched_internal.h"
-+
-+static __always_inline bool
-+drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
-+{
-+	struct drm_sched_entity *ea =
-+		rb_entry((a), struct drm_sched_entity, rb_tree_node);
-+	struct drm_sched_entity *eb =
-+		rb_entry((b), struct drm_sched_entity, rb_tree_node);
-+
-+	return ktime_before(ea->oldest_job_waiting, eb->oldest_job_waiting);
-+}
-+
-+static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
-+					    struct drm_sched_rq *rq)
-+{
-+	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
-+		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
-+		RB_CLEAR_NODE(&entity->rb_tree_node);
-+	}
-+}
-+
-+static void drm_sched_rq_update_fifo_locked(struct drm_sched_entity *entity,
-+					    struct drm_sched_rq *rq,
-+					    ktime_t ts)
-+{
-+	/*
-+	 * Both locks need to be grabbed, one to protect from entity->rq change
-+	 * for entity from within concurrent drm_sched_entity_select_rq and the
-+	 * other to update the rb tree structure.
-+	 */
+@@ -19,6 +19,9 @@ drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
+ static void drm_sched_rq_remove_fifo_locked(struct drm_sched_entity *entity,
+ 					    struct drm_sched_rq *rq)
+ {
 +	lockdep_assert_held(&entity->lock);
 +	lockdep_assert_held(&rq->lock);
 +
-+	drm_sched_rq_remove_fifo_locked(entity, rq);
-+
-+	entity->oldest_job_waiting = ts;
-+
-+	rb_add_cached(&entity->rb_tree_node, &rq->rb_tree_root,
-+		      drm_sched_entity_compare_before);
-+}
-+
-+/**
-+ * drm_sched_rq_init - initialize a given run queue struct
-+ * @sched: scheduler instance to associate with this run queue
-+ * @rq: scheduler run queue
-+ *
-+ * Initializes a scheduler runqueue.
-+ */
-+void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
-+		       struct drm_sched_rq *rq)
-+{
-+	spin_lock_init(&rq->lock);
-+	INIT_LIST_HEAD(&rq->entities);
-+	rq->rb_tree_root = RB_ROOT_CACHED;
-+	rq->sched = sched;
-+}
-+
-+/**
-+ * drm_sched_rq_add_entity - add an entity
-+ * @entity: scheduler entity
-+ * @ts: submission timestamp
-+ *
-+ * Adds a scheduler entity to the run queue.
-+ *
-+ * Return: DRM scheduler selected to handle this entity or NULL if entity has
-+ * been stopped and cannot be submitted to.
-+ */
-+struct drm_gpu_scheduler *
-+drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
-+{
-+	struct drm_gpu_scheduler *sched;
+ 	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+ 		rb_erase_cached(&entity->rb_tree_node, &rq->rb_tree_root);
+ 		RB_CLEAR_NODE(&entity->rb_tree_node);
+@@ -155,27 +158,30 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
+ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+ {
+ 	struct drm_sched_job *next_job;
 +	struct drm_sched_rq *rq;
-+
-+	/* Add the entity to the run queue */
+ 
+ 	/*
+ 	 * Update the entity's location in the min heap according to
+ 	 * the timestamp of the next job, if any.
+ 	 */
 +	spin_lock(&entity->lock);
-+	if (entity->stopped) {
-+		spin_unlock(&entity->lock);
-+
-+		DRM_ERROR("Trying to push to a killed entity\n");
-+		return NULL;
-+	}
-+
 +	rq = entity->rq;
 +	spin_lock(&rq->lock);
-+	sched = rq->sched;
+ 	next_job = drm_sched_entity_queue_peek(entity);
+ 	if (next_job) {
+-		struct drm_sched_rq *rq;
+ 		ktime_t ts;
+ 
+-		spin_lock(&entity->lock);
+-		rq = entity->rq;
+-		spin_lock(&rq->lock);
+ 		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
+ 			ts = next_job->submit_ts;
+ 		else
+ 			ts = drm_sched_rq_next_rr_ts(rq, entity);
 +
-+	if (list_empty(&entity->list)) {
-+		atomic_inc(sched->score);
-+		list_add_tail(&entity->list, &rq->entities);
-+	}
-+
-+	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
-+		drm_sched_rq_update_fifo_locked(entity, rq, ts);
-+
+ 		drm_sched_rq_update_fifo_locked(entity, rq, ts);
+-		spin_unlock(&rq->lock);
+-		spin_unlock(&entity->lock);
++	} else {
++		drm_sched_rq_remove_fifo_locked(entity, rq);
+ 	}
 +	spin_unlock(&rq->lock);
 +	spin_unlock(&entity->lock);
-+
-+	return sched;
-+}
-+
-+/**
-+ * drm_sched_rq_remove_entity - remove an entity
-+ * @rq: scheduler run queue
-+ * @entity: scheduler entity
-+ *
-+ * Removes a scheduler entity from the run queue.
-+ */
-+void drm_sched_rq_remove_entity(struct drm_sched_rq *rq,
-+				struct drm_sched_entity *entity)
-+{
-+	lockdep_assert_held(&entity->lock);
-+
-+	if (list_empty(&entity->list))
-+		return;
-+
-+	spin_lock(&rq->lock);
-+
-+	atomic_dec(rq->sched->score);
-+	list_del_init(&entity->list);
-+
-+	if (rq->current_entity == entity)
-+		rq->current_entity = NULL;
-+
-+	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
-+		drm_sched_rq_remove_fifo_locked(entity, rq);
-+
-+	spin_unlock(&rq->lock);
-+}
-+
-+/**
-+ * drm_sched_rq_pop_entity - pops an entity
-+ * @entity: scheduler entity
-+ *
-+ * To be called every time after a job is popped from the entity.
-+ */
-+void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
-+{
-+	/*
-+	 * Update the entity's location in the min heap according to
-+	 * the timestamp of the next job, if any.
-+	 */
-+	if (drm_sched_policy == DRM_SCHED_POLICY_FIFO) {
-+		struct drm_sched_job *next;
-+
-+		next = drm_sched_entity_queue_peek(entity);
-+		if (next) {
-+			struct drm_sched_rq *rq;
-+
-+			spin_lock(&entity->lock);
-+			rq = entity->rq;
-+			spin_lock(&rq->lock);
-+			drm_sched_rq_update_fifo_locked(entity, rq,
-+							next->submit_ts);
-+			spin_unlock(&rq->lock);
-+			spin_unlock(&entity->lock);
-+		}
-+	}
-+}
-+
-+/**
-+ * drm_sched_rq_select_entity_rr - Select an entity which could provide a job to run
-+ *
-+ * @sched: the gpu scheduler
-+ * @rq: scheduler run queue to check.
-+ *
-+ * Try to find the next ready entity.
-+ *
-+ * Return an entity if one is found; return an error-pointer (!NULL) if an
-+ * entity was ready, but the scheduler had insufficient credits to accommodate
-+ * its job; return NULL, if no ready entity was found.
-+ */
-+struct drm_sched_entity *
-+drm_sched_rq_select_entity_rr(struct drm_gpu_scheduler *sched,
-+			      struct drm_sched_rq *rq)
-+{
-+	struct drm_sched_entity *entity;
-+
-+	spin_lock(&rq->lock);
-+
-+	entity = rq->current_entity;
-+	if (entity) {
-+		list_for_each_entry_continue(entity, &rq->entities, list) {
-+			if (drm_sched_entity_is_ready(entity))
-+				goto found;
-+		}
-+	}
-+
-+	list_for_each_entry(entity, &rq->entities, list) {
-+		if (drm_sched_entity_is_ready(entity))
-+			goto found;
-+
-+		if (entity == rq->current_entity)
-+			break;
-+	}
-+
-+	spin_unlock(&rq->lock);
-+
-+	return NULL;
-+
-+found:
-+	if (!drm_sched_can_queue(sched, entity)) {
-+		/*
-+		 * If scheduler cannot take more jobs signal the caller to not
-+		 * consider lower priority queues.
-+		 */
-+		entity = ERR_PTR(-ENOSPC);
-+	} else {
-+		rq->current_entity = entity;
-+		reinit_completion(&entity->entity_idle);
-+	}
-+
-+	spin_unlock(&rq->lock);
-+
-+	return entity;
-+}
-+
-+/**
-+ * drm_sched_rq_select_entity_fifo - Select an entity which provides a job to run
-+ *
-+ * @sched: the gpu scheduler
-+ * @rq: scheduler run queue to check.
-+ *
-+ * Find oldest waiting ready entity.
-+ *
-+ * Return an entity if one is found; return an error-pointer (!NULL) if an
-+ * entity was ready, but the scheduler had insufficient credits to accommodate
-+ * its job; return NULL, if no ready entity was found.
-+ */
-+struct drm_sched_entity *
-+drm_sched_rq_select_entity_fifo(struct drm_gpu_scheduler *sched,
-+				struct drm_sched_rq *rq)
-+{
-+	struct rb_node *rb;
-+
-+	spin_lock(&rq->lock);
-+	for (rb = rb_first_cached(&rq->rb_tree_root); rb; rb = rb_next(rb)) {
-+		struct drm_sched_entity *entity;
-+
-+		entity = rb_entry(rb, struct drm_sched_entity, rb_tree_node);
-+		if (drm_sched_entity_is_ready(entity)) {
-+			/* If we can't queue yet, preserve the current entity in
-+			 * terms of fairness.
-+			 */
-+			if (!drm_sched_can_queue(sched, entity)) {
-+				spin_unlock(&rq->lock);
-+				return ERR_PTR(-ENOSPC);
-+			}
-+
-+			reinit_completion(&entity->entity_idle);
-+			break;
-+		}
-+	}
-+	spin_unlock(&rq->lock);
-+
-+	return rb ? rb_entry(rb, struct drm_sched_entity, rb_tree_node) : NULL;
-+}
+ }
+ 
+ /**
 -- 
 2.52.0
 
