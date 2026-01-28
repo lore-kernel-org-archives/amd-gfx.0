@@ -4,156 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8930D3F073
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 14:40:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3E74D3F080
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 15:33:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49E7510E70C;
-	Wed, 28 Jan 2026 14:40:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F77010E2CA;
+	Wed, 28 Jan 2026 15:33:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2ytnGDHY";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="tIl+cZO4";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012006.outbound.protection.outlook.com
- [40.107.200.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AA3510E70C
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 14:40:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QnOD9VXR6gpTKQ5lgQH0xw0yPjF2skd/kxjG1d22SnBi8gOAu8KmBKoRRuhCdyV0WqUcOmvRoikTuNFYzijgzAJahZJWI+FRRvXR2Y9U4hj6qsa27W3hGBlG5KJklihgLfmUQ61i0Xv+NDgNKClmzCQn29pav4mJ36NuCBsrZ6sZwmvDIZeOLAKmAXcNnTx9ZMHKzrfa6Odz5MheZYkaH39+uX0cQSlS+ACs4o806H2hkbEQp2jqLOl9YJMFUqJQSJiThSSQ3b2b2wqSYbJDC/DAdjoWYql0F7W465mOh8x/yqIiW88mfU39v59NvDZVc5gIGQuxCa4pswm1hJe1qQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RQyNkHlCJHmb00apscCtyDrbvzeMtlz4DXrnn+hC7JU=;
- b=hpg8bh4MyagnuS8hT2iqr3jd+dyIXBSA0eRQ8okou6zkuLm7ts9kTnJz7sKzywqP5t7g25xOLJO4xzSLJe/dKdPRrowqZNwq3PRM+ThHsy4iqCZ8mlZB+Ebrzmu/8ihQKRuOms0b7EBVO7P6nXIicP9iO0POHSVQP61ym9iNY2bEOYNAhunCvYRgBD7QZ+npOvrlFFGgKrXMDJbjyCZrV6rAjkcJDXSJrdTdLAuEt3EVSr7aPBJjZZoMjbX6I5iTWkQqjBPerrpjt7mlJeyonxisnuC6Fof1b/8aoBNrv5byPEseLH8QvV7c1bqNR3EYS8PmMPSfC7tfmthFdBanyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RQyNkHlCJHmb00apscCtyDrbvzeMtlz4DXrnn+hC7JU=;
- b=2ytnGDHYXJGy1GjPWFBXoB3QRY0IVMdEGOkQZQmy3Dm4ucRWLimTJ+NRAbIGoP00FqfWraXEyl4nX20uwnGjIuw1ZSKfSX3TaJ8lzy8YBqDP2kpbPkL31lqZNS5ADtn739X3JlD593Ht3QUIkTVZ5/LDDtB+kisAh2VTdi+jDs4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB8142.namprd12.prod.outlook.com (2603:10b6:806:334::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Wed, 28 Jan
- 2026 14:40:14 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::46fb:96f2:7667:7ca5%4]) with mapi id 15.20.9542.009; Wed, 28 Jan 2026
- 14:40:14 +0000
-Message-ID: <4c6c4ca5-62a8-43a0-9511-4c734a63ec76@amd.com>
-Date: Wed, 28 Jan 2026 15:40:09 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: ensure no_hw_access is visible before MMIO
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, Perry Yuan <perry.yuan@amd.com>,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260128062315.2848821-1-perry.yuan@amd.com>
- <5cbdede5-2f37-4960-b8b9-261e7e2e3152@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <5cbdede5-2f37-4960-b8b9-261e7e2e3152@amd.com>
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DCCB10E2CA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 15:33:20 +0000 (UTC)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.2/8.18.1.2) with ESMTP id 60S9ni0O019338;
+ Wed, 28 Jan 2026 15:33:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=pp1; bh=JXHsrrsP7GaWpbEncZU2sSefidcH
+ JXyyRPGxm095sSk=; b=tIl+cZO44up99+cMpSuzqlPKhbGbe4DRvklQxYzzjj2C
+ J/bPBQExPALZErQINDSLlzxT0WkevO0JiRe0q9BPzko8nB8/WZca1slfTYtg6Rsv
+ JAYiAftUim/pfKk9lf46WXYtofDJIGO6hphxjh1aM54pHvd6oviwXGOY5KiLiAQm
+ vhnKYSs6hMoBiHKbWMmWoYMgLmXhO1TVJq0MumUVjMKp868ImewfMLNaMNceNRKX
+ cKVWBoq13bcnZV18dSytgPjsbS7UdTz11FDCaYgI8UiGnnSdvuVONj+ygH+nrpZh
+ wcxqlbeOb8t2Uv2duvCKKcj9VPwXEgABjIElYKVo5w==
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4bvmgg1wep-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Jan 2026 15:33:18 +0000 (GMT)
+Received: from m0353725.ppops.net (m0353725.ppops.net [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.0.8) with ESMTP id 60SFU6x5005466;
+ Wed, 28 Jan 2026 15:33:18 GMT
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4bvmgg1weh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Jan 2026 15:33:18 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 60SB0950006687;
+ Wed, 28 Jan 2026 15:33:17 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4bw8sye0tn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 28 Jan 2026 15:33:17 +0000
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
+ [10.20.54.101])
+ by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 60SFXDwc46137784
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 28 Jan 2026 15:33:13 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 31FC32004B;
+ Wed, 28 Jan 2026 15:33:13 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 35E9D20043;
+ Wed, 28 Jan 2026 15:33:10 +0000 (GMT)
+Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.ibm.com.com (unknown
+ [9.124.209.179])
+ by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Wed, 28 Jan 2026 15:33:09 +0000 (GMT)
+From: Donet Tom <donettom@linux.ibm.com>
+To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
+Subject: [RFC PATCH v2 0/5] drm/amd: Add support for non-4K page size systems – part 2
+Date: Wed, 28 Jan 2026 21:03:01 +0530
+Message-ID: <cover.1769612973.git.donettom@linux.ibm.com>
+X-Mailer: git-send-email 2.52.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0340.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB8142:EE_
-X-MS-Office365-Filtering-Correlation-Id: 15f7835b-3d85-4c26-1dec-08de5e7b25c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?NlFvTVdCeStYTWlUbXk0TFRjSzBRTllENkFYRVNhL2lhOGF4Z0xxVm1DWDhv?=
- =?utf-8?B?aXh4d3VTazNYbDV6WE5saHFVZ3h6ZERpdmY0ektZZEhENmVoVnNCYjVFVHFZ?=
- =?utf-8?B?OVZhSjdGaGtpL3p2NUtDanVwbWF4YXpBUnB1UExpREJVMVhzNDNlenpZUnJT?=
- =?utf-8?B?TzRRZ2RzaEZLais2WHVDSy91ajl1MS9VdlFSVFAzTkYwUFh2OFRzbk9jTE03?=
- =?utf-8?B?ZUtyOWgrWkNDN2twZWZIOU4wYVdmd1VnT3pFRVJKR09BZHo2RTBsNlVoRFhr?=
- =?utf-8?B?aHAvQmRuNHpuSkdGYUp5Q0YzMUVVZ2xaekRTU083QldSOGE5d0V1Y0ljYStY?=
- =?utf-8?B?YnNsQkovc3d0R20xMThzRFBKYlRVaXZ1Y1FKaFZxOEpBd1Z2Mnpnb1kxRWhS?=
- =?utf-8?B?QWk0YWV4dkd0Mjd1a0Zla0RGS2pTMTBjaEo0SkFPZEUrUEtSOVEyV0hOS2xR?=
- =?utf-8?B?WWgvUEwxYlI2VS9UNFQ5bENKbU0zSzdidW1nYnUzUklqYUVRRTVjMFQ3SmJ4?=
- =?utf-8?B?QWhQNFdZS3dDK1RPbjJablZCY3VQZ3hyeEMwaUxPSkZ4VDlsWFA0U09WWTJZ?=
- =?utf-8?B?MVNLdWVmanV5d2NEZGY3QmNrd25JZlZMZHNsbFBtL01ISHpNaktrWDlwQVBL?=
- =?utf-8?B?OG5pTFg4UWcvQk1rQ0p4T0gySE9DTW9KQXN2TVc1aWVoUGMzZFZIS0plSkla?=
- =?utf-8?B?RFV4NXh2WnhLSURhTmZoUVdZQWZETDlQQkljc1ZVTSs3dTBlb0EzVjh2QVY0?=
- =?utf-8?B?aDFBTkdsYk91cGdlSE1mV2JZZTVOaHoyeUNZTSt0Q0U4SlB5dXRWZ0ZWajJi?=
- =?utf-8?B?T0JMZDRINEhBVlpzUGxLQy85UDRDbmJtUTBCZk52MmtKUm5HbSs3bjFiTDcr?=
- =?utf-8?B?T2JMaGZHV1VraGdZRjdBcHhzd2JtV3pFaDJqM2U2Q1k1OFlhVldOcnJ1ME1Q?=
- =?utf-8?B?Nmc3TlR6WXBKeE9Lbis3dVZON2VQdWpGak1tTW4vbXhjVzB5V3FwTjIrOURK?=
- =?utf-8?B?UVVWcUkxVjZiNEZkd1ZxaWM3eE1vOGl4TWZ5UXhaQU9yb3NzN0pMam5acXg0?=
- =?utf-8?B?SDlKSjNncE5odldlYkdSM2QzbUYzS1hHR2tzSS9HWi9nWitXRzVpRHk0dEVp?=
- =?utf-8?B?MmNVaERmWVZXZURHK0Jya3pZN0JvSkoyVG9BcjRHTUk3V0tPeFpqQjljVU5q?=
- =?utf-8?B?MDRrajM2dEUxWUp2T295dThRSUE0VzJiSlErQUt0ZVJLWkgxMlFZc3pVVVhp?=
- =?utf-8?B?UE5ubHc1UUN4UHN3RkNtMThsTVRERHIzM042c3ZqT1R0eittcEJHTkFXeUdi?=
- =?utf-8?B?NXJocTlXZGNaeXlxd1pJMnFsRmd4N2UydlpqVkdRcWNuMFlDK2tzVXllTE1r?=
- =?utf-8?B?RjhwSkhhUWE4YlRwVkZGSlhLcG4wNnU1MEtTdkFkYWJTSEp6Rm5kU1JKcHNT?=
- =?utf-8?B?NjRpdzlLc0pCWVZaVUZ3RUJadFFuVGpoeHFZaHNkenIwRFlPR0Q5eDV2WHZH?=
- =?utf-8?B?TWVqRm5LS1dHRzlxbkZmZ1hBSytQSDJQSEE0Z1BidC9PbDkwM0xDVzNsdm91?=
- =?utf-8?B?cVpEZm5sTENXM3pYR29WSmtxV2dPd0w4SjhsbG12RzVFMCt5eHlTeCswZC91?=
- =?utf-8?B?N3M5Y3JTaWpiL2lkaWNMZFZXRGc4MGtEa1RFS3BLL0drdktuMGxpNzViZUg4?=
- =?utf-8?B?QXlROXpTSExpQWs5Z3pNei9PYkpXUS8vaXNRcG96MysxVlYzRUFzWndFREI0?=
- =?utf-8?B?Mml2bWxDQ25BUTlkMEwybHdmTjV2eENOQWxhZE02cFA5MFA3YXA1Znl5YUhJ?=
- =?utf-8?B?WHNndURIamwyUlJCTHlFd2NoUkFPTjhFYldsSFArQVpNSjJVSWc5MHZqZGdv?=
- =?utf-8?B?L2lRZVdrSFNocm5tcVRjU29HMExPREs0elhSUjRaaG5LVE9HOEsyUkxITUlM?=
- =?utf-8?B?UVQzZy84UUd1ZnRVRjkwVUZjTHo4aHc0U0NrT1RXSFhVcjd2VDNzOVlWejEz?=
- =?utf-8?B?WkxqUkVJZkx5V1pkK2xNdHQ2SXNuV3lnMmFEWUJTK1hZVGh3YmlVakxESC9N?=
- =?utf-8?B?TmhUZ0NESnJkK01XbndJaFZEa0V3Y1duWW9XM1ZsckNYV0NMU1Zzd2szaXAz?=
- =?utf-8?Q?c61o=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QW5SQTA0ZGVZOC9CYTNyTWpYMDBpWFZKbVlpUjJISDRpOGRwbEU1aDQ4Vk4z?=
- =?utf-8?B?QngrNWhYV1pkWnVtVXMrVWtwNllCZzVUbmtDMC8wTlFSUDN1blQwM25pYWVS?=
- =?utf-8?B?eE1OUDVHZElib01jVDkvaFE0U2l1bHd5SzhjYnI5Qm5YU3ZWbE1JRE5pYTY3?=
- =?utf-8?B?MEZvTGFSSHdZalE0N0NCODNMTHZtWWJQb2hSTnQwdHlhQ2N2K0JnUjBnZW80?=
- =?utf-8?B?VFhYZ0ZPNlRaUUsvU1R3eW5IOXl3MmRJSWgzUnhxcGI4Wlg2eVNKeU5ad3po?=
- =?utf-8?B?RmhYc1Nzd0FzR1JkS0JxWHkzdTFoYzFNRktiMkx5Y1h2Qm81L3J3S05rTjV3?=
- =?utf-8?B?UzBIbkFSWXdMUEZpcU9vZHBSUjA5ZnNWbG82VHB0ZHZublNycmNvUGdTajNN?=
- =?utf-8?B?dnpBNFRHV2pWa3RuYU5WcWVoeXA5TUZnSzZ5cnpLNSsrVXpzTytFalZlZml2?=
- =?utf-8?B?TGFuaG5hRStzSzMwVkJxRElRK0I0TFZTbklaYWlYWHNlbTdmQlY0a21WTzBu?=
- =?utf-8?B?Ry9lRVJQYllUSFgvRjFjWXVTcTY5ZGhLbzBtVjlRY3gxcC9rN3VBcHVKVVdv?=
- =?utf-8?B?QkNIaWlsYW5GeEZqZFZCUWtVYnF0SjJ2RGpIS2J2Z1N2c3VKMi9ibi8xK2Vj?=
- =?utf-8?B?T2ZMR1JEOWd2MVVlSzRRTjh4c0hoYXJZVHRtQlBmRkVqSzc1VWErM0x3V1Zw?=
- =?utf-8?B?OWJZQm1sT1c4NWFQYVF4RmlpUjJYTGhSTEJKYjBUZ2xLMk11N09CM1NKdG4y?=
- =?utf-8?B?alMwOXpLbGwyU0pIUWtqM3ZlcS9NQUhKV3JlOTFSRXZpbGdrVTJ4czBIUE9p?=
- =?utf-8?B?T2svdzl4c2gwZnFQVnJUcHNsbkJBSzlGNnFkRXJDQ0hMVm4yVzh4M280emRl?=
- =?utf-8?B?OGMrZnlqODhqV2krZjBYYVZSdUoxK1kwSmNRY2xsZVVlYkdlNkVLNG9ZQWJR?=
- =?utf-8?B?V1pkdXcwaUdiSWpsOCszU2VuQ2RKNm4rVXRnenFZVEZhaThpL0N1bHN4UTdD?=
- =?utf-8?B?V1ZEVHdEcThDQUJydlg3bUVueTV0ZVNjL0lnRWtYdjFKOHR2SHRqYzZtWk9w?=
- =?utf-8?B?ZkFHdy9CdDZMWGEweUpIYkYvMUp2UG5KM3VVVk5ENkY2VlNFOGdGZGNSZGph?=
- =?utf-8?B?cE1EdUk2RjlRdlI4N2pWTGdRalo5R2dGQjNDL0liYWVLTzlXY3R5T09GeTI1?=
- =?utf-8?B?Y0RkUk9lMmlYajhmNWk2ZFVTZDBUMW9zR1lqcVI5Q0hDbXMyZzd6UFliNmgw?=
- =?utf-8?B?NDlzZ09JUXBGRFdHVjltTDhvbzQzeVZ4NXhnSGp1UXJPRVh6K0MvN3RyQUE1?=
- =?utf-8?B?aTBsaDNZSWJyR0d2UzBIclZWSnVVajRGam80cnFHckVsUkVLMlFKek54aXpL?=
- =?utf-8?B?eUFoR2RlSDBWWko1b3FQRmQ1dEpWbTlaeU5CbEtjNVVVNytXc2RIQW1qNFVL?=
- =?utf-8?B?WE05akJnRDNMYm50V1l4aEtxQmdrYkNaOVhGS2d6azl2am9tQmQwN2JwVUVz?=
- =?utf-8?B?NFIxVFhmdFZHTDhqMzAxWE5LS3NERWFjRStZZDZieEFWeEMvOHc4THhINy9i?=
- =?utf-8?B?U1MybE5BU3Z5YlhZS3BvRE4reEtIenZ6aFp5SW9LeGFWZyt3UDFxRlJtN2Jm?=
- =?utf-8?B?YTk0SHB6YWJodU1XUHFBTmFQRWNpS1lmL1hndlpTSVdqUVJtUHRJN09WQkli?=
- =?utf-8?B?V1NRSlVjeGRiakthN3lwS3I3akFtL1lLcnptY2xNcEtKd2M2Z1JaT1llOWl2?=
- =?utf-8?B?YldLVXdUZFBzbmxBeFBQSTZoVmRWdm9UZU5LMzJLV2s0R2doeHlLVUo4enV2?=
- =?utf-8?B?Ukw0dTBZaGRJSFByN2t2ZVNIRzBxVkdhbU5ITlREMWx0NURneWFIZVI2bjhG?=
- =?utf-8?B?T0VNc1BFRzNSQnBrZDhzT2srWDRxK0hSS1NYeklqdVlwSklMZkFaQkJ5YUtw?=
- =?utf-8?B?OEd3Ti9UTzFJNGNjQVpsNjlDVE5GUVh0UG4reGlVUkV5b2dtY0pGc3pmWFdm?=
- =?utf-8?B?RERPejVVZEhtY05MMXJHdTZaaGIrMzVBaWVsVU1VYjk0Z3VpZ1lXYzk0NjdJ?=
- =?utf-8?B?VFVPbzJyeEhoaDI5OU5zdS9CdEpBZU0xK2ppR3NuS3hxQzBmZWdmU01WZlNi?=
- =?utf-8?B?emgrM09KUVNxVG0wTTg4S3gzWlBPUVZyS0lsUTNqM2R3R3UrQ0NIMnF5WXY4?=
- =?utf-8?B?ZFBHUG9HZkl3WTZMRmVDZkYvN1B1TElZYTBpeFlyUW5nQWI0RXR3M0lPVGwv?=
- =?utf-8?B?SXFEcGdpUENSVUI0YXlkbFc4UStGUXM5K3dEYWFSSUlhUDlremxMaGRhT3dv?=
- =?utf-8?Q?EKoEAM87wgVMEf3MuV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 15f7835b-3d85-4c26-1dec-08de5e7b25c1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 14:40:14.3529 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: woKqcQfRbLaBkhJN/AA0pAJg2vqvrXMQUvfAJF3FR0YC43JEVyhIAc5nxbBvgJga
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8142
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=Z4vh3XRA c=1 sm=1 tr=0 ts=697a2c3e cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=vUbySO9Y5rIA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=P-IC7800AAAA:8 a=4uLO6Mwu6PC_-4MHj0cA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-GUID: CJErqmmh64_XGJRgLqt1v6ivhyKGS-nJ
+X-Proofpoint-ORIG-GUID: bdcV5fV5-oTyjdGWVVBGWjXviZXVycCq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDEyNiBTYWx0ZWRfX9HmVGIMwNl0w
+ oPRev1K8/KE1J0BBQKULKrC1uWOGIMug5y4J+/mVoBWn1n/WlCQ7ojk7V6ZXpNyhUDMfuua5Uqn
+ KRG84RAl3SEPovc3tlpep2dCzo0WDMUywmu1netqIKHi+xAgGoKtPKpX7nX9N1Ag/89bcRGL9UV
+ LVnPbqnQrBaXWsiAdn4n7qEMoKW6CDg3k9Q9U/ha721ctXDHKGAm3C8sqpsTCipFEZo1tZjRev7
+ DEIWvw9ubzhNU2bxhetGyVFLvASTJ6H5rA7Eeq4EAX2uvgruPmS5VE7zuWxpkhk0P536kHReaWM
+ Dsagc972p11hsLZy/FbdsguiQuHx+gJRSpQrCDGLSDmZkzNFNLeDXlHyWv8tlC8bvl+7OUatOgn
+ aFc/ehejrRsPLt6LSECCWitbTR38mK6gqqWs6Rt+InI9mmJLBD1X+F7gqXcf/6z0l2HbtGjuqZn
+ qXIBafj1CGZpQQmhDsA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-01-28_03,2026-01-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ adultscore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2601150000 definitions=main-2601280126
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,49 +116,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/28/26 14:57, Lazar, Lijo wrote:
-> On 28-Jan-26 11:53 AM, Perry Yuan wrote:
->> Add a full memory barrier after clearing no_hw_access in
->> amdgpu_device_mode1_reset() so subsequent PCI state restore
->> access cannot observe stale state on other CPUs.
->>
-> 
-> Just want to reiterate that this approach masks the original logical errors within amdgpu.
+This is v2, part-2 of the patch series for enabling non-4K system page
+size support in AMDGPU. v2, part-1 of this series [1] has already
+been picked up for the upcoming release.
 
-Yeah, completely agree. A single smp_mb() is actually forbidden by upstreaming rules.
+This second part addresses additional issues uncovered in AMDGPU when
+running rccl unit tests and rocr-debug-agent tests on Power platform 
+with 64KB system pagesize.
 
-So absolutely clear NAK from my side to this patch here.
+With this series applied, all RCCL unit tests and rocr-debug-agent
+tests pass on systems using a 64KB system page size, across
+multi-GPU configurations, with XNACK both enabled and disabled.
 
-Regards,
-Christian.
+Note: 
+We believe Patch-1 in this series i.e. 
+     drm/amdgpu: Change AMDGPU_VA_RESERVED_TRAP_SIZE to 2 * PAGE_SIZE
+fixes a kernel crash observed when running rocminfo on systems with a
+64KB page size. So if you think, patch-1 looks good, then can it be
+picked up indepdently of the rest of the series?
 
-> 
-> For ex: this is one such which would not have been caught in the first place with shortcuts like these.
-> 
-> 12caf3b76150 drm/amdkfd: Handle GPU reset and drain retry fault race
-> 
-> Thanks,
-> Lijo
-> 
->> Fixes: 91ae0045130b ("drm/amd/pm: Disable MMIO access during SMU Mode 1 reset")
->> Signed-off-by: Perry Yuan <perry.yuan@amd.com>
->> Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index b2deb6a74eb2..e69ab8a923e3 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -5735,6 +5735,9 @@ int amdgpu_device_mode1_reset(struct amdgpu_device *adev)
->>       /* enable mmio access after mode 1 reset completed */
->>       adev->no_hw_access = false;
->>   +    /* ensure no_hw_access is updated before we access hw */
->> +    smp_mb();
->> +
->>       amdgpu_device_load_pci_state(adev->pdev);
->>       ret = amdgpu_psp_wait_for_bootloader(adev);
->>       if (ret)
-> 
+Because then, this patch along with previously picked up part-1 series
+would allow amdgpu driver to work on non-4K pagesize system with at least
+a two gpu configuration.
+
+The questions we had for the rest of this seres are:
+====================================================
+When the control stack size is aligned to 64 KB, queue preemption or
+eviction failures are consistently observed on gfx9, on both 4 KB and
+64 KB system page-size configurations.
+
+The control stack size is calculated based on the number of CUs and
+waves and is then aligned to PAGE_SIZE. On systems with a 64 KB system
+page size, this alignment always results in a 64 KB–aligned control
+stack size, after which queue preemption fails.
+
+1. Is there any hardware-imposed limitation on gfx9 that prevents the
+   control stack size from being 64 KB? For gfx10, explicit hardware
+   limitations on the control stack size are present in the code [2].
+   Is there anything similar for gfx9?
+
+2. What is the correct or recommended control stack size for gfx9?
+   With a 4 KB system page size, the observed control stack size is
+   around 44 KB—can it grow beyond this? If the control stack size is
+   fixed for a given gfx version, are there any concerns with aligning
+   the control stack size to the GPU page size?
+
+Changes so far in this series:
+==============================
+1. AMDGPU_VA_RESERVED_TRAP_SIZE was hard-coded to 8 KB, while
+   KFD_CWSR_TBA_TMA_SIZE is defined as 2 * PAGE_SIZE. This matches on
+   4 KB page-size systems but results in a size mismatch on 64 KB
+   systems, leading to kernel crashes when running rocminfo or RCCL
+   unit tests.
+
+   This patch updates AMDGPU_VA_RESERVED_TRAP_SIZE to 2 * PAGE_SIZE so
+   that the reserved trap area matches the allocation size across all
+   system page sizes. This patch is required to enable minimal support
+   for 64 KB system page sizes.
+
+2. Fix the AMDGPU page fault handler (for XNACK) to pass the
+   corresponding system PFN (instead of the GPU PFN) when restoring
+   SVM range mappings.
+
+3. Update AMDGPU_GTT_MAX_TRANSFER_SIZE to always match the PMD size
+   across all system page sizes.
+
+4. On systems where the CPU page size is larger than the GPU’s 4 KB
+   page size, the MQD and control stack were aligned to the CPU
+   PAGE_SIZE, causing multiple GPU pages to incorrectly inherit the
+   uncached (UC) memory attribute.
+
+   This change aligns both regions to the GPU page size, ensuring that
+   the MQD is mapped as UC and the control stack as Non coherent (NC),
+   restoring the correct behavior.
+
+5. Queue preemption fails when the control stack size is aligned to
+   64 KB. This patch fixes the issue by aligning the control stack size
+   to the GPU page size.
+
+Setup details:
+============
+System details: Power10 LPAR using 64K pagesize.
+AMD GPU:
+Name:                    gfx90a
+Marketing Name:          AMD Instinct MI210
+
+[1] https://lore.kernel.org/all/cover.1765519875.git.donettom@linux.ibm.com/
+[2] https://elixir.bootlin.com/linux/v6.19-rc5/source/drivers/gpu/drm/amd/amdkfd/kfd_queue.c#L457
+
+RFC V1 - https://lore.kernel.org/all/cover.1765519875.git.donettom@linux.ibm.com/
+
+Donet Tom (5):
+  drm/amdgpu: Change AMDGPU_VA_RESERVED_TRAP_SIZE to 2 PAGE_SIZE pages
+  drm/amdgpu: Handle GPU page faults correctly on non-4K page systems
+  drm/amdgpu: Fix AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K page size
+  drm/amd: Fix MQD and control stack alignment for non-4K
+  drm/amdkfd: Fix queue preemption/eviction failures by aligning control
+    stack size to GPU page size
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      | 44 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h      |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 24 ++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  6 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v1_0.c         |  3 +-
+ .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 23 ++++++----
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c        |  7 +--
+ 9 files changed, 80 insertions(+), 33 deletions(-)
+
+-- 
+2.52.0
 
