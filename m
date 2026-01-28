@@ -4,170 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3977D3F067
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 14:06:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F20AD3F06E
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 14:23:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92FC710E6DD;
-	Wed, 28 Jan 2026 14:06:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7F5A10E704;
+	Wed, 28 Jan 2026 14:23:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="hPIWJE9s";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h5BGSeaL";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013051.outbound.protection.outlook.com
- [40.93.201.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5012810E6CF;
- Wed, 28 Jan 2026 12:44:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z+lYGgLsS6XcD4yn2N57SS56NCvanO1z3jGL3oBGUv4GNAW4LZNQIu0UowakPZnDMl8sPJLpL0ZEvISDYZiJSClQ84fBPSJ4Jws7kS0AjEjfz03aIhnBOjJ06unlrVL/oCfKZ8jl1EfwSxFb/5/op/0q8z3/ESatzPHOC1FLhWN3+PCkdT54J5+dwd7xngjAV7HiGyZvdF9I30mH0M6f1yewxXOiS6T3sCMtOwdQuC3hWW08mERqw8RIH0vVYrTYhgkL0JGg2taXJBDu5ehoUJ17PMw3dYFmGdwTWDO93CPis6Pbz9qiEDGmdNnVsb1nTjZsCkOrofs/xKLKZI2F7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s0D0uxLPAApM+DLvGr1aKRFdjBdf4g9N89FDZJFLRLs=;
- b=B1TWZ0USESJCmHJ8r0FPdL8TlU4rVAbneEafeKk8jnMCN/Ud9eYIiI2mTZcZGY37PIjI0Ne0dZrCghtn6uVcCERf1lBTsVUuYI3RvXCxtLYQmgvENAUwu6JRaggk/EEOHESuJj0orEyS9sPYeoOnAvFq1td+msAMDMmpG3P/+uaXHOBzFZlnFEBA6KRo2ezColz/GEKJam3JB/u53eouAAHJiQRz7ar/A8A4NmxZ1667qH8PCMyLAT5EN8FkCI+qa1jo3NPnUePq32d/nMMfXyEviZ76wDEcc8R6TwtpZgp2rp5Sa4Ui5BOJ7NpjqOojpgzMXsV60KgPpfTV+WtMzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s0D0uxLPAApM+DLvGr1aKRFdjBdf4g9N89FDZJFLRLs=;
- b=hPIWJE9sCUuguA4iH6OvQKeoOCDHdXDHZsUtZBnYWHtt6hpjqhDWrgxdkvcSb8peG4HmVAWYBRn2Wwkd9lOSSay6x9Ae0xlZHHxDv8gao9mvwHAm7Til9sCU9gpvAAZLWTj4x7ClVgNcRlmMqPJQgf8HLXbE3gA6QEQluLW/h6/EFGH4Wb30yrjsCb/Ro15XPE5elt2c6eA8nZMqT1RZZQVnshW0/A7cKMr9hbV9DHQg7RcirfM3Zm/xqX29xZh1PfTwgDvI2HT74DpGiCa8GtwRydfNWiBEs8Hy5bZGzxhFqZeGw0422T+b5D3T0Sf5+tJdHz4cgvN8gndyZr6LmA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- IA1PR12MB6601.namprd12.prod.outlook.com (2603:10b6:208:3a3::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Wed, 28 Jan
- 2026 12:44:36 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9542.010; Wed, 28 Jan 2026
- 12:44:36 +0000
-Date: Wed, 28 Jan 2026 07:44:34 -0500
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Joel Fernandes <joelagnelf@nvidia.com>, linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53FF710E706
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 14:23:56 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-b884d5c787bso1271330966b.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 06:23:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769610235; x=1770215035; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QuRBJsDCSrwFtqMVKXPOBvEwtKqngmn1pY31nw2tKng=;
+ b=h5BGSeaLGNpcixdBkJyxSPwLhQh5u+fAs3JIznpczHt/WHYAdcblDKchvLFb8oYXCs
+ rWb/yLwx2tjBkpjzhBRzu+Lou4tUfDI6AW4aQk1C6/SXjF6KXq3wA59TSwUSm49EaokN
+ WGRhbQdBFwWXBxs30w7ehfYfz+raNazCTJStWolrOXV0sAjgRd/U9axCVjfgU0YcmXbW
+ JBTlE3wo0i6utQAYbwNgOoOonVAFugYLMX3WUQil6CQY8ZHsooFj5eUH53IXUrfmAza+
+ NmCgukV7EjEMNfXxC6Bmu0san87mOfJEa3Pb2AL7Da2kUFMeTPg6vqGq+g2oSYa3lCrC
+ CTwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769610235; x=1770215035;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=QuRBJsDCSrwFtqMVKXPOBvEwtKqngmn1pY31nw2tKng=;
+ b=gVdzFbuMfumV1ncy41Ieajzrn1qn3osPV1p7DO3iMxKfh+6nKZwJ3uLp3wtnspg8vE
+ Tk1pVbhg88SXcg0HvI454t1kA/4z3O/rB7fQZkIhB1EipZdJ+NNXaTAC4AshUvKKzy9K
+ 4TbLLwyX47EPy4j8qfsXD0jBlpK09WP8jVXAyBSdXNeDkl4k2u1VlKvw65BAR+6CJWON
+ 8Q/kdflMsAzC9xuFbMaPOsEwByOy2LXzrVShG+oCGYwi5eBCSIOjaP7a+KYAo8f3blG7
+ x0nLfO36Ukp1pGfq0fZZLwkt94fxPoqme8Pv+5rcU16/XkSA/7cS+Iq4ymHnezjKmpXs
+ EMZg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUN7MHeh6lIFoDS3PqtUwevu/IOKICONTbp1MXC/9Er1oLD5txBxhPf3E2vmcSzbJeQa0HYVIOX@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxxG0GCTBWQPQqOAVFUwtDDsteuRGg8tV21M5fXgTjEk3Vx315S
+ Z2hp5ngiWCip41z8bZnIxa7Ntf47yhfw0eUiAlK5cNPQbDpw4Ar9XP9IXMjE/w==
+X-Gm-Gg: AZuq6aKmCmiAOhPrJjFfcIXfXxc7T6mGzSgO79cpETVrtDOuxje0MMwT4Sx9cTEA1Cl
+ F6gx79itdnqx7XcM94erFoJ5+kmcn78TFTOplbofBUV3j+l8zndlYAp1z5ajbaLBJg8oC1A1vUD
+ HJSj1lfPEKE1Ee+jtmlgRpyJVSTd97in/vlSjUOp9dtfqv12fp4hGzcMUT7fU/i6Pe755u1Gt1y
+ Rs2DpoHtJ3yj6tw1x15V2dWklkGgoVtCW14cZijUB9MUFdQFIRjMaudYcaZE284ZLKkNyZMyIGz
+ ZdfjQrR0/hC+ckVqjLQaiIPbNiQW9qSW/1Ig7NRMxgxci/xFZ9xfvN0+05WR5TFwy/H45IVIBT/
+ yE7MkuP+TajTBrFpLJixd8jY2nRfgg7AN2e5sQuDoyhUny1L3ATWBfmn9Wp+JyW9j+cAU3OlVjt
+ StKiXnPqe0UhQr2XxRCKhBCgEFe98MPsWByJgf2m2DLw/ZqjHr+VwZn8Gh36HvCbXhvznYLg==
+X-Received: by 2002:a05:600c:1994:b0:46e:1a5e:211 with SMTP id
+ 5b1f17b1804b1-48069c788c5mr66971155e9.21.1769602974756; 
+ Wed, 28 Jan 2026 04:22:54 -0800 (PST)
+Received: from timur-hyperion.localnet (5401DF8B.dsl.pool.telekom.hu.
+ [84.1.223.139]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48066bfb59asm119139985e9.7.2026.01.28.04.22.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Jan 2026 04:22:54 -0800 (PST)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
+ Hamza Mahfooz <someguy@effective-light.com>, dri-devel@lists.freedesktop.org, 
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Vivi Rodrigo <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Rui Huang <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alice Ryhl <aliceryhl@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH RFC v6 00/26] nova-core: Memory management infrastructure
- (v6)
-Message-ID: <4540DD73-77BA-45F0-B686-32EB96402717@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DG06XUWOJLO5.1ESB8ES6A6081@kernel.org>
-X-ClientProxiedBy: IA4P220CA0008.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:558::6) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <mdaenzer@redhat.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
+Date: Wed, 28 Jan 2026 13:22:53 +0100
+Message-ID: <2770547.lGaqSPkdTl@timur-hyperion>
+In-Reply-To: <a2fe8187-9271-4cbf-8b7e-37ffda0799de@amd.com>
+References: <20260123000537.2450496-1-someguy@effective-light.com>
+ <5173841.OV4Wx5bFTl@timur-max> <a2fe8187-9271-4cbf-8b7e-37ffda0799de@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|IA1PR12MB6601:EE_
-X-MS-Office365-Filtering-Correlation-Id: 687689d8-90ff-4223-8106-08de5e6afe97
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?RWV74g88gNMSyxN3Zr9O2iIdB09EU9FD/mzZHgWwiwV0OJX5r9ku1dJZnnJG?=
- =?us-ascii?Q?e/0Dua5r0XomtFSLfwNfE8YsClfYZdKlMl33vFsmqEWy0m5CoxUKms+GNnyp?=
- =?us-ascii?Q?iVVaYBDg98oo3riYO/lZ6DttPQPDEwBGvwYoVuJvYGjI0q+IfhFfvpCaFAfI?=
- =?us-ascii?Q?d7uHf/R4hApsFhAC2Fm+hz5bPM6OycXmKxN/rIl0v1pAodAElWmn5335Vz6A?=
- =?us-ascii?Q?VL94EJgiY7imXXDwlM72YFlPAzZHJFt4MWlhUt90SFPmopyOGwDlPrPGB7YZ?=
- =?us-ascii?Q?PqAXpu2BMdatENhnpOJ8UmVXkFheZF9h+PaCKdZByq4mz8rB6c7HEU9/Gh0t?=
- =?us-ascii?Q?TPQlVQx/FcWMd3/i60ZQVaCFK+ldX5NM7MH2Wq7O9kuySEzFPW0/ipK0DE4H?=
- =?us-ascii?Q?lg7q1/Iy7xAkDmPs+o5rzOvinykh+YzAf2/xnJyckqTeLBkbrdBhPnFVROv4?=
- =?us-ascii?Q?yQTbBw/Cx45PZADlGqMedz8Ih1d69GJij/P1HTTK4JNdHq1JWT6auWx7nXuX?=
- =?us-ascii?Q?4pQNRAb7UGShZNXwYguzEmHUp4XhWcv/mhOe8Dmh9y8vWUc5ewViMEPVTW5J?=
- =?us-ascii?Q?Dkt+Hm8p16yYInmL+kpId8DBQkvejY8FhTJwWPOSkPI+6nup9vWIl56RB4Di?=
- =?us-ascii?Q?w2PCAVBYc935J7Ic0ErBZ6lOVtQmJWVHbv7xl7W2pCnWKd+D0OhGfv7kjkwk?=
- =?us-ascii?Q?dl7buLpZRyt7aNrWvL+p2nTlobUaMrdlhdkKwhmo0+EBbvE95eAffqzXp17R?=
- =?us-ascii?Q?LlrFtgQmjb4OXFlxRA4p95CcECIycNqrz3OgXbkgbw7p0E4BNWawOXY5s67v?=
- =?us-ascii?Q?l2hbf2OT27XNMpNK1ZqOkip+lq81HoeMO2sAQSETIvOnllaQ8P7GoFzU7IAN?=
- =?us-ascii?Q?B1bPOqi1YJJcOrRoO5HwUlyK9Oz223SCHXpOLR/V1i+l7NS0uy4F2gdUI2xf?=
- =?us-ascii?Q?DkLiKX24dGuF2PKNcuK3tqhqTk3V3rzf5Z/VeWcPaqzCwbo8KqelltxLVBvm?=
- =?us-ascii?Q?n7Fapv3TXtnR0b4fVEc+f3FoxIothhpPxI0GDKz2YgbUFtwgb8wKa24xV1rZ?=
- =?us-ascii?Q?heIQpU9Wo6CoI+ELTUzuwNF5mAT1VctHvJ3MKXFk5WBcaP6Dw/czwYAfecqf?=
- =?us-ascii?Q?sVkK2fAGddsCl3e1LLNaMIBg4Dy/8PF3jqkQjYhQ63VTxLB5mc5x+V3i8/ik?=
- =?us-ascii?Q?cHkTqIcI2f1BlitJDqdOES61IMwGJhK0/DwFwaFQwozN4f6DlR5B0SIPXuIr?=
- =?us-ascii?Q?/ezy5blGa6tsLd6gVyOoqffD/yiLCm+y3CNL+gIT8R8/GydLyFzibAXO9uAj?=
- =?us-ascii?Q?MV1YkxqbhlA/VDJTzGS+zm7vTvboWWPM/3DLwp67ixZ3nf2NcT7pfDFK+VBq?=
- =?us-ascii?Q?VoDSepVuvi5uNS4HbcZSV1mRSAM0jBKlQpbnW6ZYtw51n/SpClijarD2JhJX?=
- =?us-ascii?Q?dsU530OWhVAKHfIJ4RGHSnc69UT8WWMQX3VNOLCPuwNpnKX1fCBr0sfidhox?=
- =?us-ascii?Q?VQ44sVkJaXCn3EJpv7oIMCgQ9WEh0JfEd5N1yZ9c9bYeesP8yj+kCgKwaNde?=
- =?us-ascii?Q?ppYefjVH7g2s7OkzcS0=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(7053199007); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?cYzKhfqtlJRPBrru+1hwTzU0psHZ5AVZZpkGIDmFKfr+wTA33gBa1L06C0OE?=
- =?us-ascii?Q?vLysSBJ/6/d8SSNy278dk0nhMHeds9JjEr0pZ/HC1YQ+eGPA88R5booMXjJi?=
- =?us-ascii?Q?TJ2ndX5UeSMWLD4zofZ64YbobuMlDY2zjgTeveIIA1y+vzZySTORyGb95FEP?=
- =?us-ascii?Q?ej33LnIy9PCYDVf44R0+BR94QYTnaLqeCQMv7SM1HQceu/yz3rMMe+WgZRk3?=
- =?us-ascii?Q?oO9YOpoXARnpEjbHLn7CKRbMdeHqETN2sI4rlw23E13rdRoMjGiU3ZOmy+zc?=
- =?us-ascii?Q?t1Zr2AYnGFOOye/GtHPFGIywF1ZFp8RqH2HneCaSUwS5Z/BL6qbLePZxUSIZ?=
- =?us-ascii?Q?4JbEZ2ZZ0A4NVLzXhxhzKtEJNPBoB0RfNjIpS+O3XUIWOjSJhs2UIg3+iprM?=
- =?us-ascii?Q?h7qcCRCvA86BtbfCc5I5T00ByOzjuqK3MoZyDtABv2zHVxNM/8vfDPIOf2jk?=
- =?us-ascii?Q?g2gxAYnUpNsbGKIBlwtiD0BP0j9fsO5o+VOSioznoaSaTSuYHUgWZ3PE6xA7?=
- =?us-ascii?Q?ZRoWcsfVrP+ey8jNBOXX/9HqKquwZw1ZccfMve44CpmH1ECUL0rxECFJi1x/?=
- =?us-ascii?Q?IMw0kE7Gh2Sn+iKx7vqnocELfNwEl49gui142rNU/UKFoUg4JbEYZ4bbw4Ck?=
- =?us-ascii?Q?eBkrjVmHOy6dZEJmwtJnC5cpRZSLXj0vORoDbpJWEToU8Sakj3f/RzZ5Mkd7?=
- =?us-ascii?Q?0/AoLr2V8+mvl2PRouP8I9FPPsKU+i592x1tr1W2hjeIYkstvUOBZv3Dhot7?=
- =?us-ascii?Q?8nAPHAMPCMjlPDSJKKqcYfrw/oD9w+LhnP0iDZf6ULtgyokiYOjaF4l8zxQS?=
- =?us-ascii?Q?dreP2MJCXUmiPAj+IyVkEETDVMREREehEqoeleDpueh9PGGdBeJ7GcxRLBh7?=
- =?us-ascii?Q?mlHJUfAhZzZYMPcQoIfCPcjFssmS4kANVzAPteUI1ye0UzR1v2O/b/O4RUoe?=
- =?us-ascii?Q?+cMhooLUEL3QDSNWXTns3NLDikv2G1f4jjWFDqzNDub2KThsSk5je5ymzloy?=
- =?us-ascii?Q?44V32YdaAeiEFc8UBKqQaFjGbvRyhb2nU20NHEkhJOsTiniw1/q8a3SqXswt?=
- =?us-ascii?Q?cMUwe/FGIyuqHuigAs3ztJvHfyyAjoIELsBnPtYjoeHbFNGsUl/UsBEya8ai?=
- =?us-ascii?Q?FTdeZaJuxJvyLJaftsM2tYZ2//zbe8GQLrAsu+MEic+MIf8YWXA/EOdaFAhh?=
- =?us-ascii?Q?FfhO89ftDbjyYc0827mIyCGtb4issLqf5s4aiZo7BohaCJunGQVsCBMUc4AX?=
- =?us-ascii?Q?WF4NGSX85kKlSeSnaPkLI2swJz4e7BzI5B7zAGREtXNKDVSwgBJf6FNGsTW5?=
- =?us-ascii?Q?ZPM2nKfph4dmphz+v+5DIE/zDBDSoZoMcCal95+VNuFeqdBgEbPQxxGwJcoR?=
- =?us-ascii?Q?CPCr/uM8ELB9jlD5DcGk0PgZf3IRkSNWf3B+GiotWmTILqjlYWtt+fPBadNH?=
- =?us-ascii?Q?3EPeg8DRGcURzg859wRdRwWYK4vQUz8CGCNuSpAfGVHhmwyERIBQ7iFasIUw?=
- =?us-ascii?Q?A00GcdZ+1cqH7mYVdGRIIq4bouDXYqZMFMlQIS4hOFMBW52mje09fBurAlmf?=
- =?us-ascii?Q?Yv6Lr+s5uoo+FJY4uSbp628QcsjJU2BX5HXIMPtr+DBk3A57KNM1HGj8OjaN?=
- =?us-ascii?Q?jxW/ge9UILotDnHmGdBL6EKFf/x+fW/ISIpaWm9ZLGdbK2ar2AAnmKas/1P2?=
- =?us-ascii?Q?Q/arU3UjD9jBeVxFf8wpizr1QpZF1cO24kjS7pwcktyLJL7lwx9QbKnlgxyo?=
- =?us-ascii?Q?dPjdhD2Rpw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 687689d8-90ff-4223-8106-08de5e6afe97
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 12:44:36.5743 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: T0NATs37xmcxF10iglpEgvn17VPX99f1lUUwfHfVx3hGcHbrPLGNFGI/qr6AQ6FLdkh1rm4b1SUMSgV6wTymlg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6601
-X-Mailman-Approved-At: Wed, 28 Jan 2026 14:06:41 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,80 +102,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Jan 28, 2026, at 6:38 AM, Danilo Krummrich <dakr@kernel.org> wrote:
-> On Tue Jan 20, 2026 at 9:42 PM CET, Joel Fernandes wrote:
->> This series is rebased on drm-rust-kernel/drm-rust-next and provides memory
->> management infrastructure for the nova-core GPU driver. It combines several
->> previous series and provides a foundation for nova GPU memory management
->> including page tables, virtual memory management, and BAR mapping. All these
->> are critical nova-core features.
->
-> Thanks for this work, I will go through the series soon. (Although it would also
-> be nice to have what I mention below addressed first.)
+On Wednesday, January 28, 2026 12:25:31=E2=80=AFPM Central European Standar=
+d Time=20
+Christian K=C3=B6nig wrote:
+> On 1/28/26 10:19, Timur Krist=C3=B3f wrote:
+> > On 2026. janu=C3=A1r 26., h=C3=A9tf=C5=91 14:00:59 k=C3=B6z=C3=A9p-eur=
+=C3=B3pai t=C3=A9li id=C5=91 Christian K=C3=B6nig
+> >=20
+> > wrote:
+> >> On 1/26/26 11:27, Michel D=C3=A4nzer wrote:
+> >>> On 1/26/26 11:14, Christian K=C3=B6nig wrote:
+> >>>> On 1/23/26 15:44, Timur Krist=C3=B3f wrote:
+> >>>>> On Friday, January 23, 2026 2:52:44=E2=80=AFPM Central European Sta=
+ndard Time
+> >>>>>=20
+> >>>>> Christian K=C3=B6nig wrote:
+> >>>>>> So as far as I can see the whole approach doesn't make any sense at
+> >>>>>> all.
+> >>>>>=20
+> >>>>> Actually this approach was proposed as a solution at XDC 2025 in
+> >>>>> Harry's
+> >>>>> presentation, "DRM calls driver callback to attempt recovery", see
+> >>>>> page
+> >>>>> 9 in this slide deck:
+> >>>>>=20
+> >>>>> https://indico.freedesktop.org/event/10/contributions/431/attachmen=
+ts/
+> >>>>> 267/355/2025%20XDC%20Hackfest%20Update%20v1.2.pdf
+> >>>>>=20
+> >>>>> If you disagree with Harry, please make a counter-proposal.
+> >>>>=20
+> >>>> Well I must have missed that detail otherwise I would have objected.
+> >>>>=20
+> >>>> But looking at the slide Harry actually pointed out what immediately
+> >>>> came
+> >>>> to my mind as well, e.g. that the Compositor needs to issue a full
+> >>>> modeset to re-program the CRTC.>
+> >>>=20
+> >>> In principle, the kernel driver has all the information it needs to
+> >>> reprogram the HW by itself. Not sure why the compositor would need to=
+ be
+> >>> actively involved.
+> >>=20
+> >> Well first of all I'm not sure if we can reprogram the HW even if all
+> >> information are available.
+> >>=20
+> >> Please keep in mind that we are in a dma_fence timeout handler here wi=
+th
+> >> the usual rat tail of consequences. So no allocation of memory or taki=
+ng
+> >> locks under which memory is allocated or are part of preparing the page
+> >> flip etc... I'm not so deep in the atomic code, so Alex, Sima and
+> >> probably you as well can answer that much better than I do, but of hand
+> >> it sounds questionable.
+> >>=20
+> >> On the other hand we could of course postpone reprogramming the CRTC i=
+nto
+> >> an async work item, but that might created more problems then it solve=
+s.
+> >>=20
+> >> Then second even if the kernel can do it I'm not sure if it should do =
+it.
+> >>=20
+> >> I mean userspace asked for a quick page flip and not some expensive
+> >> CRTC/PLL reprogramming. Stuff like that usually takes some time and by
+> >> then the frame which should be displayed by the page flip might already
+> >> be stale and it would be better to tell userspace that we couldn't
+> >> display it on time and wait for a new frame to be generated.
+> >=20
+> > I agree with Michel here. It's a kernel bug, it should be solved by the
+> > kernel. I don't like the tendency of pushing userspace to handle kernel
+> > bugs, especially if this is just needed for one vendor's buggy driver.
+> > (No offence.)
+> Well I strongly disagree. The kernel is not here to serve userspace, but =
+to
+> give userspace access to the HW in a generalized manner.
 
-Thanks, I appreciate that.
+Isn't this why kernel mode setting was invented in favour of the mess that =
+we=20
+used to have in the DDX drivers?
 
-> I'm not overly happy with this version history. I understand that you are
-> building things on top of each other, but going back and forth with adding and
-> removing features from a series is confusing and makes it hard to keep track of
-> things.
->
-> (In the worst case it may even result in reviewers skipping over it leaving you
-> with no progress eventually.)
->
-> [...]
->
-> Hence, please separate the features from each other in separate patch series,
-> with their own proper version history and changelog. In order to account for the
-> dependencies, you can just mention them in the cover letter and add a link to
-> the other related patch series, which should be sufficient for people interested
-> in the full picture.
->
-> I think the most clean approach would probably be a split with CList, DRM buddy
-> and Nova MM stuff.
->
-> And just to clarify, in the end I do not care too much about whether it's all in
-> a single series or split up, but going back and forth with combining things that
-> once have been separate and have a separate history doesn't work out well.
+> If this is caused by a HW failure then reporting back to userspace is the
+> most reasonable thing to do.
 
-I understand the concern, and I appreciate you taking the time to explain. Let
-me provide some context on how we ended up here, as it may help clarify the
-situation.
+Nothing wrong with reporting the problem back to userspace. But it isn't wo=
+rth=20
+much, because userspace is extremely unlikely to be able to fix it. How wou=
+ld=20
+userspace fix a missed or broken interrupt, a firmware hang, or buggy=20
+programming of display engine registers?
 
-1. This is a multi-month undertaking with many interdependencies. It is
-   difficult to predict which patches will come to exist, the optimal order, how to split, which series
-   first, or what pieces are missing. This is similar to the evolution of nova
-   itself - complex interdependencies make it hard to predict what will be
-   needed. Rather than waiting months for a perfect plan before posting
-   anything, I chose to iterate publicly.
+Also, even if it were possible, expecting userspace to fix it would just pl=
+ace=20
+extra burden on compositor maintainers, which in turn would put us in a=20
+similar situation where were with GPU recovery before queue reset was=20
+implemented. Only a small handful of compositors can handle it (only one of=
+=20
+the major players and maybe a few smaller ones). That gives all other users=
+ a=20
+bad experience by default.
 
-2. The decision to move GPU buddy out of DRM came later in the process [1].
-   This significantly changed the scope, requiring a much larger patch to
-   handle the buddy infrastructure that everything else depends on.
 
-3. The decision to separate buddy from the CList series came from wanting to
-   make progress on CList independently [2]. That effort alone took almost a
-   month with several rewrites based on feedback from  others.
 
-4. There was some back and forth on whether to post code with users or code
-   that could potentially be used. This influenced the decision to combine
-   things into the same series to demonstrate working functionality.
-
-5. The memory management code only became functional around v3. Page table
-   walking turned out to be tricky, and I did not have a proper user at that
-   time. Eventually I realized BAR1 is a strong use case for page table
-   translation, so I added support for that.
-
-Regarding splitting the series: that makes sense, I will split into CList, GPU
-buddy, and Nova MM as you suggest. You make a fair point about the versioning
-too - labeling new patches (even though most are old) as v6 is confusing. One question: what version
-numbers should each split series use? CList was at v3 before being combined,
-and similar story for GPU buddy and Nova MM. Should I continue from the last
-version number they were posted with, or continue from v6?
-
-[1] https://lore.kernel.org/all/20251124234432.1988476-1-joelagnelf@nvidia.com/
-[2] https://lore.kernel.org/all/20251129213056.4021375-1-joelagnelf@nvidia.com/
-
---
-Joel Fernandes
 
