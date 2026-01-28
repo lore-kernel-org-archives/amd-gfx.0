@@ -4,152 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93F5AD2F00C
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 00:45:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E6BFD35660
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 01:59:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDF9D10E5D8;
-	Wed, 28 Jan 2026 00:45:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEB0C10E5E2;
+	Wed, 28 Jan 2026 01:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KYCUjYSr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="k40BMIfA";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013032.outbound.protection.outlook.com
- [40.93.201.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D56210E5D8
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 00:45:04 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011065.outbound.protection.outlook.com
+ [40.93.194.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9755510E5E2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 01:59:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZAjrHoI1pfQg+m9CrxLfWAFcUTsv6xDkUhHI0kbfndb1IPvQqEc3j+gmbv7FXG26HZRR8xsP43jkSQqTMotNMfehrqPKPGpQuIdPoJZvUAgj1pTykt4QoweP8uNVbKibqcjH5Z44SSJM3X/w7eymt3G5j+NiIy0jPy/SJIJ6N7DQQFoWdiMpjVDkxM42gbdMfXtBMnZGFzMol1ebXpM4NQetETNtPEU34fhSHa5Q5wnTqtQ9Ad46cDgSxDTEvoP/ePT9QOSbfuYtIjliiTj6z/4ddlRPzHiGiXvIDoErXZ7Bn8pEHLCszSudPRQGKIL7EY09SPI9tlt8DniL7x9V8A==
+ b=t1DRm+zi5jeQLRccjtnNRrPEkyvHlWAekJGj8SEKJPBHoL2jLL3dcUZCT6chTTEB4655h4eo7U42gBn2QoXGEt/iwmDBZT97aLQqw86liToSOLLKlk0i6GdKh1YxtFUa8sYkL2w/DsOwXUW0keJAHAx+CUPw/Fkz1jOEZrbvT6AOIIfZoscrZ3J9WrhUW7WSFaPV0iDk4818dEPOkxFHdt68Nhpz6m7bpud8z0pCZcW497tsxwAs/dVPkn6LmRYSYZ+Wgdhzdpy4rBbF7u16dbmUJxOGFNQnofEXHA2E8zhW9XwkSzm1gVNZc4Txtf7ouctg2/HcJ2NzZMo7cyfouA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cSBhQp1UKzN3pTa3djjA0iZdJbMQCvAlM/njMgLm860=;
- b=gULXbm36bqf+79dxw7W8Us13+6oWRGZgghE0oVMQ1UHpMOhbT3gPCFMzQQfVy9sVWSmZLRnOdZMjpT9w6bRIFWGDzgZLSnIgNtiQaoqISeadVNGUZt/rjNS/38r80mkQfTDNUTMILgjSOcc3OpbUOWo88r7oHlguVtQOaCJfZMTjbbIA7sYZ3qD0dIh+rfI7MxT0HOg3Z4YnbGxtAJ7CWgr5Bbv1ZwPr487bbm7bHcshAtA2zQ1w3SHsYq9H7sghaN9P4PHWQ5+AuP2GOWPUNheS1Yofx4Hz7X6ChxPhdheQBMV4qy3xYAWQH3j/lOOIOAO8Sue+XRKVo/WC95o6hg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=2vh0COXFQzcjJWkOXCMSzZY9GvgmOJ72uTYQ79qDxUs=;
+ b=Tc5Rfk6CdBGV4SaNT/IuK8HCTjHj8i/ARnfXb41axc/MCk8zz3ctqAL+z46fjUmtIVF3+6wRUEh5ktMZt88F1tqzjcdOe0A2FNf3JQUGObQkziwnpv3h4w08PdxSFqkVEjhH2buc2uwX07QyMwRU9eey0rFqJ0KmQrV3GOz6dg2luumQiidMnUwMWCIhnQlkZIzHP7qnEJRZqJSdyHGZKUTqLLf/oUT1zCQtLRmf5aczeawDQQN9uK3Zs1bFDZ9kYQd0VGCae0qYvCekUqoFZ2ds1L/BQPohmZA+upMlgbVdJWeKwclBKKYMt4M9FXCq6KqAgQz+EaRW+JZ4+EkLRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cSBhQp1UKzN3pTa3djjA0iZdJbMQCvAlM/njMgLm860=;
- b=KYCUjYSrDNQXx0Hm+i6yzZ1y6D4jp3mhpQJu8I953XE1gAZwoDp7dwLGt+Q7NOkZofwaI+nDHQDXIPX3hUrxhUwRMkfy2F5+pEM9f6suJ23vrmibM2HDOqVWivknwptbAoibvRrwlohh5cHnE3T1NWN/SqgDhC8V4ZZo5pmj7l8=
-Received: from MW6PR12MB8898.namprd12.prod.outlook.com (2603:10b6:303:246::8)
- by MN2PR12MB4335.namprd12.prod.outlook.com (2603:10b6:208:1d4::13)
+ bh=2vh0COXFQzcjJWkOXCMSzZY9GvgmOJ72uTYQ79qDxUs=;
+ b=k40BMIfASZBBsX5bA0WqXNfs6nDkB9Bs13aPhrj8X8oQLLbJ1QaPzrDO+Te5Qk7RQkgE0RYMqxBZ+w8Qt5e+bZsUsbPfFgzyeJhqOzSAWjUkO1VlnYAdmZt7wfaTBTO2/4ruYyDZGSV48B2EHpg2rkdjvoYhepzw+R3b+EOcjNI=
+Received: from SJ0PR03CA0065.namprd03.prod.outlook.com (2603:10b6:a03:331::10)
+ by PH8PR12MB6820.namprd12.prod.outlook.com (2603:10b6:510:1cb::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Wed, 28 Jan
- 2026 00:45:01 +0000
-Received: from MW6PR12MB8898.namprd12.prod.outlook.com
- ([fe80::cdfc:80cc:2903:19b1]) by MW6PR12MB8898.namprd12.prod.outlook.com
- ([fe80::cdfc:80cc:2903:19b1%4]) with mapi id 15.20.9542.010; Wed, 28 Jan 2026
- 00:45:01 +0000
-From: "Yu, Lang" <Lang.Yu@amd.com>
-To: "Joshi, Mukul" <Mukul.Joshi@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Belanger, David" <David.Belanger@amd.com>
-Subject: RE: [PATCH 4/4] drm/amdkfd: Use AMDGPU_MQD_SIZE_ALIGN in gfx11+ kfd
- mqd manager
-Thread-Topic: [PATCH 4/4] drm/amdkfd: Use AMDGPU_MQD_SIZE_ALIGN in gfx11+ kfd
- mqd manager
-Thread-Index: AQHcjq4pADrnHoiPnU+3OzwwVrZHn7VmNP8AgACLYPA=
-Date: Wed, 28 Jan 2026 00:45:01 +0000
-Message-ID: <MW6PR12MB8898B34E5B7DDB33CFC9995EFB91A@MW6PR12MB8898.namprd12.prod.outlook.com>
-References: <20260126102514.273891-1-lang.yu@amd.com>
- <20260126102514.273891-4-lang.yu@amd.com>
- <BL3PR12MB64252E57E572DBBD5387C23DEE90A@BL3PR12MB6425.namprd12.prod.outlook.com>
-In-Reply-To: <BL3PR12MB64252E57E572DBBD5387C23DEE90A@BL3PR12MB6425.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-01-28T00:44:52.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW6PR12MB8898:EE_|MN2PR12MB4335:EE_
-x-ms-office365-filtering-correlation-id: 0250e701-7f85-4432-ff4c-08de5e067835
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?KaO19HdDcT+aTS9vBntSxqxw5Wcrx+HSNlsJ7KyYAUK2kUCLhXGwWvXv0Ug0?=
- =?us-ascii?Q?KqoSmFLxBZtJcwraUmcKvuVcpE9lLsBu6cExCQGINETAMOd+91aUuQoLTbyh?=
- =?us-ascii?Q?L/oCt49u0NImJxUlIExoD9IfJyFO+3oWIV7cCgU8uvaXi+cmmkT5HkK6GguN?=
- =?us-ascii?Q?v/5KN8EPt4r+9sy203tuxl4IZrSDENwCY5Rwox0KER5tshaqBgdPUrLKnOOg?=
- =?us-ascii?Q?w1jqT42Y8JPuyq1hdqClztlqFRdYa5lFFwns8e2tUVFpGZRCViumkP2iKbax?=
- =?us-ascii?Q?cpppRXqcBxBIsdPOCMz6x6mCDK+seKj2bc4SZiwgNItTu3YzlXG8rKZQqBdj?=
- =?us-ascii?Q?OM8lKHHEYC90IQP850oMtzD2UmgjDLyac8BetWoyt5ezA9C+jqwvMQ4OFXDL?=
- =?us-ascii?Q?fJNUz7kYb6zDyWmR2Usd4QHf/k6sB00GGtA+ebz86Xj875pu6eeiXt4ZLxhg?=
- =?us-ascii?Q?zb6NgqQIbxKjPRYZfEA1BrXPrMcWqzjQbJfjtgMHk3CP3daW4s86yAmtGA0T?=
- =?us-ascii?Q?ywtALVU+8AyKX4AeRSH3MX5u53Y+Q3xXCw0f1AuTk3Hsz1aa0WCiYjabJ8f3?=
- =?us-ascii?Q?yqZHAQAZ2IgfnYty29INnJw/Ixulhy9dpGhtZnhdkgIs7wXOO0ENCaZQAka9?=
- =?us-ascii?Q?r3YNJ5V4zItiQXt37bRQ6hyDcLqmyX+22y1Pfe1NoMFNfPI6tA7eLjCmy/TW?=
- =?us-ascii?Q?s5E3TxIKSejvJmogFmErcKJqGTVKM4OVR/SJYmTpx5nEqezLhWy0HtY3pBpM?=
- =?us-ascii?Q?DVPd92vJMrboTApOps/OlUQyPsQMNn6EO5BwGwIxiVhGurzL6jXcEPpNsihi?=
- =?us-ascii?Q?QjLgH5Nhsqvv7ZiSmhTrFL9GNumt/z3KoeaDnlhqUIsJQYWE6xVIsS54Dgwh?=
- =?us-ascii?Q?dD5XP5sAjTeyZp9+8O8cDyuJsIIuEufEAeVT33xM8RCdjHJRtpsfKsQhHuRr?=
- =?us-ascii?Q?heL1hNYDdiNrJ5aVWg+hgutJ+wpvA931+teHOSzk6fXRLkRYdnr4h0QX8pNZ?=
- =?us-ascii?Q?We4xSfSLWeKLrGSx8qwYOsxXlu3pB2lSGmTWAxk+QqQt3WsvWaKr7mEFTKNG?=
- =?us-ascii?Q?LCFi+q+mOPO4h/WrZDOuUFMAZRpvCTcf0cOuCKSjdKeCNuDPZeLd/A6P7P8d?=
- =?us-ascii?Q?rT13CfgGyQ+agLL6zwy2t3gtULleaIpGQz/ovSa7PY7zYo0IqR468Tou3Qd6?=
- =?us-ascii?Q?AOyMRsh+cbv7Ss1X8T3dWcN0oonk+n8GhJyghObvYONfEuyT+zyBcTLZKsw8?=
- =?us-ascii?Q?9tj+idF3Oqcdu4o+FWHcv9SAaV1AFrElPskZbGaNVC03hbS63WvnmIvZMMde?=
- =?us-ascii?Q?m60A+7UqddtkE7H9VLwTBRnaTFlsN47ZQ4zgiw6hw9u30Mc+kkUhUYc24zJ8?=
- =?us-ascii?Q?v3lOcY70lXLXv3n3uDRAh1Xy6yCKTiyob56q8tx5RqqVn/SQFtslzX4naYoV?=
- =?us-ascii?Q?mmPWBIall7RlCH7MdItVy1gygs+pNtt3wGbm+GJ+baiuCUP545PWeU82eqDp?=
- =?us-ascii?Q?WZofVTQaOYtrRtH04iXRk+XbUZHm8NBdR+XFe9ctPC5N3axN4ZKtZGaV2eHx?=
- =?us-ascii?Q?NyKMlAWdNsFoYDYTjjouixKJ69bLQ3uhK9umFc9+EB8QvkELJ7zGiPGKGXPM?=
- =?us-ascii?Q?tWQdjg/B6akmpVvDnztpu7I=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW6PR12MB8898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?c/ko/J2QZwJ10q8zcxfWicVleI7LYOqAhefYhP37N8CbdXbPv9REUPHw5xqJ?=
- =?us-ascii?Q?3OIaRdeCp+OokyU2JuN4grSL9Iww0+B2z4zgLZMmRYi4/MclKE90c1ispO9k?=
- =?us-ascii?Q?kZbjIXzQcHwVT+Msij2a6h0Vg5E6B3h+UNA/oWryyG8LLRnoi+ICwqYSpwLO?=
- =?us-ascii?Q?aDT64E6N8sZqN1JWhj6M6KLNqe/MS+/F9Vv+rlJ0wKNBnTpOwmFc3J7m7cu8?=
- =?us-ascii?Q?YFYCMeetGa/6zNgYwV4T2K8JxpULZXFYMqurGdgmFHqU1NpKcY2UR0/IFJEf?=
- =?us-ascii?Q?XjXwwa0IeRbjnD3fT8k+pwyDfdhbeSopauZTtJSNcU8IeAoBq7IsNqqjAlrL?=
- =?us-ascii?Q?RgpnOl6oh03Diu6rVFHCpWoUl62ZuJeGrmuiVrbAzu38sQ0h0sAQsz+uNmjG?=
- =?us-ascii?Q?CYGlbQ2sHvJxFj9tiasFDoOwMSkADU34hg/uwgPyihYaIXwChu2YsrM40V4w?=
- =?us-ascii?Q?E1ml3SZ/FwS/5oVtuqCKFRF5epI2/Gpd2kXdgEhaRcNDZqA2WPce+f/wAdWZ?=
- =?us-ascii?Q?lXG1nVBgC38epeS2HMWdUw5PEKjcYhVH3dzO5hnDSc6Kh8XAF7TbA3JKBFum?=
- =?us-ascii?Q?XLdKA/fBZ3MWVHdQKmc9zlgmXTSE37490psntDAXc5cv/O+9ptMCF9UyhBlV?=
- =?us-ascii?Q?FHXGgBwZzV/Ra/Xa10Q7Mg0Figbxb192xO7Mg3tTh9SBmBpnVa1keRoBxZOz?=
- =?us-ascii?Q?ZC7yoyiNvx92JBqzEqS2iY7ar07UXnaskeShR3zTBecCzDyktkOQQGG/EHEL?=
- =?us-ascii?Q?uXYPwt9t3Eu3ODihgMpHx4XzvLvItXcxlFn/Y11OVwqDB3e9R4dpxaxXcLaN?=
- =?us-ascii?Q?eYdFikbQY7ieb3VnnCtlQ5az1QT7pH07DqmSJ0ht5yBGcLNydnD8bJ1Z1fzH?=
- =?us-ascii?Q?McJuYdm5OdJflIsLLp7dsFa9ZDwR2QyWgR55hK/0DLhweOmxeSLTJtoyOyNl?=
- =?us-ascii?Q?yG4rfGHV+PQ1+EVKTSmV1Tp/2HGL1J+tEgRpmShhNz85Z+BC7lg8zbVSxjaL?=
- =?us-ascii?Q?168wy2UfxLyznl1X9yse+ojhc6uY4rCp2jG974FNiHDwbzpdiUR4PBkUGnQ3?=
- =?us-ascii?Q?Wou4V1cG/NdqL/vhYCAQ/wA1AFJJk4KRHS0iSc+8MdCWFXJQC+QtIXLH2zqX?=
- =?us-ascii?Q?pMv+B8LaBAv0OL2YUAmZYEVgkE93W6YI7zwtqaFb1XrxUrL8hhLj7sM5XYqn?=
- =?us-ascii?Q?lrF4xBuy8bNSKDhtpn8gl2oUTjrxW25hIZ9PZLy1VP6SuE1uHAGhdD5jq3uR?=
- =?us-ascii?Q?7j61A1gzgu/84BAklmXT+sOZ+9ff97Yj+S6PbyIKCkVqWBVBYeGJv5isiXZT?=
- =?us-ascii?Q?wMJRfHbbovUgff38jTHOPHd4gp2kiFR0JbkR48ffOQeBhwDZhW+JLtBZgcbd?=
- =?us-ascii?Q?otC17AyXik2xM5d1dfps6QzmCeZhV/hNNeDlE67Y/OaLnkOcDrS/luVB+fCI?=
- =?us-ascii?Q?odbeeQvIfoMFjoEg2syPVAqiOV75/zsw3FZcUS81yQFknu8J6l68cOJBfJ5d?=
- =?us-ascii?Q?dBCfcbPSmgjhANY10bimsbzfq/KZF3oooPfd2g4iQZpRoEd+awDAZqUAB9FL?=
- =?us-ascii?Q?8uiDLKWgAjFFvDOaSnBGqlngdRWU39HKlrR8vlohkZ2TyJUgoVLihTSN5+3c?=
- =?us-ascii?Q?InGE3FDG+MOVOlZyKD2EjYeP8HL7UCHiZtVkyKHlaHyf++Id0t8QJ9s5jzYj?=
- =?us-ascii?Q?VLWY6VyJshoLcSvnc/TiRYwy5OZJzL5Y77+f275yqosZ4EJL?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2026 01:59:12 +0000
+Received: from SJ5PEPF000001E9.namprd05.prod.outlook.com
+ (2603:10b6:a03:331:cafe::51) by SJ0PR03CA0065.outlook.office365.com
+ (2603:10b6:a03:331::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.16 via Frontend Transport; Wed,
+ 28 Jan 2026 01:59:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001E9.mail.protection.outlook.com (10.167.242.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 01:59:11 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 27 Jan
+ 2026 19:59:11 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 27 Jan
+ 2026 17:59:10 -0800
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 27 Jan 2026 19:59:02 -0600
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>
+Subject: [PATCH 00/21] DC Patches February 02, 2026
+Date: Wed, 28 Jan 2026 09:51:25 +0800
+Message-ID: <20260128015538.568712-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E9:EE_|PH8PR12MB6820:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1343ef3f-8e7e-4623-b852-08de5e10d4ed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?2D/lJQVz3D6yYi+iGpO3vMezflomAVm2FoFrUNZcWkHGXv8P03K6nMzesQQW?=
+ =?us-ascii?Q?/6JsBMeQB83F0KCcaWBxkTSpZpz88tixk6TeurjNnHE1Ya24dOJiBZyk2+jy?=
+ =?us-ascii?Q?lrR9bCIowkozYBPza5G02cofFYhFn701avlYDZ0BTvTA/Wvud0mbGKEsXWjt?=
+ =?us-ascii?Q?cMYC8aG/6qEoEoGiG6+XC9kvjD/rWBDYoB9GRpPKDtk5rCNQkYUueztAq9tm?=
+ =?us-ascii?Q?dZxcEPiyMUwo8CthiIH0kQvl9L0nWJDqDOsoe9xesh5ARpR6L+/kTkrlUr/1?=
+ =?us-ascii?Q?8AsciFHnBai2bvJ9NS3tjoba7YOPt8j0f9M3r8lWAp2du01Fvphar1ZqGTUC?=
+ =?us-ascii?Q?rd8PX9TGyMPvMqWvHlNRnZFFpIaOeBPgJFjsHjld9lbwlLFNygSyExAftpsP?=
+ =?us-ascii?Q?O5auhPoAGqnM2pxjfFWjHv2w/V4pK45zS4rj8F5rxKqQZmWiED/i/v0szvbx?=
+ =?us-ascii?Q?wgSqbvhCjYHqF8ShSaXBZ0WRm+L8pMmsWqepLbhOwX7HgjCMn1uxq9skuWdB?=
+ =?us-ascii?Q?udyXD0N25oQXXCXb5ZNVgiTyS1A6HtMpIIjG1uAfzUKl9akjylJZMgBV01c6?=
+ =?us-ascii?Q?JZKoGO/Bp51aTguVWF4WCPZhZfrGSBNB8QtSHQG4EXGTEjFTTPRmC7LawVW0?=
+ =?us-ascii?Q?3A/252EinZTkZUXi/5XplzjLqsIzTZ4c8frLuyzgaWnkHVsRV6UcFkQW+ltB?=
+ =?us-ascii?Q?8dggXhcvYqxjJvZ/u3uAWlSmLOpvNh2eqQcRXyHpWkJkY8J/E/yfzckAx8g3?=
+ =?us-ascii?Q?GEgSUe4JwxMuKey6COZfJjWv8JacogYzDJ4kGHKftrBcaL3I52PPoM936kGo?=
+ =?us-ascii?Q?np+msK4rPFcjlOUB5VNyqmQ43xn/YhuX8oHXXhINgKxNTcMzkk1TMJe3hHoE?=
+ =?us-ascii?Q?+F+T85r8pUdla1eMPC9Sr1kcEN9nUtHgAoGQknXI8nJX7q7qhOK11FctJ7IG?=
+ =?us-ascii?Q?x4L7tV63YLHv4+UWexJMWzModBPuy37nGrD4LjS0yrIIz6BVTX2UGam07lH/?=
+ =?us-ascii?Q?c1E/LT6D/Pqc6bK7iIAHz/RRKOToqTt53f+JQdznFlCekfERXkZ3Zd6nxZT7?=
+ =?us-ascii?Q?XHtHP/Y7paUGpj0QAbDliOhVa+XO8bCN0zz/7oz84QQGzCq2NJxj9f3T1hYv?=
+ =?us-ascii?Q?/qMXQCUPeQhX2q0pwRIUcGKCxC0EY11g89D6B6RzGKVktnln/v8AfylwIGLB?=
+ =?us-ascii?Q?NjKyn3lZn5tYa8+al6Ihq7ZPQ+QT7g+OlCodBcsgzCJHak/SWlhh0VoLPi3i?=
+ =?us-ascii?Q?QSB7m7V+a+Ryj3ILnC8wBizFPZzXwRDQGcjYPuyO5w4+Ro6xysVFbP2QKY2C?=
+ =?us-ascii?Q?gXEwAl4Ogios4Y1xxqX/fWmlc2aNKvMYGhztvh/94fcf8k8QfjlX3RQ9WXX9?=
+ =?us-ascii?Q?mDuju46ms2pCuO2+YGorEKfkVFSo/VGc42GxqBUgyRQdihMzDQP4yHdEZWMA?=
+ =?us-ascii?Q?5WdSro5Iqlj8QPsc0yty6nGPW0uKwXRguOwbACN2DONUDPeYRsoJYvu1AI7m?=
+ =?us-ascii?Q?ISqg+yhfhUzvtQhu2cH6bawcpQAEuP2WHfXAdxFHCh5qz6uIOsMNQwkSZt5/?=
+ =?us-ascii?Q?LlyI/5PClhqghwKT0tGx3yhda/4M2NeofFB6fL54lX96O2aYQragQ3EGCmhw?=
+ =?us-ascii?Q?b56RTcKUXeXLM95SRErTe5B6u2x2uldRHg92mW/wvTs6JP2btbaF7ftlpdMd?=
+ =?us-ascii?Q?v91+cw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ SFP:1101; 
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW6PR12MB8898.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0250e701-7f85-4432-ff4c-08de5e067835
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2026 00:45:01.2360 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: F/qzSv3GC8A6N7S78zt207d/DnBK8Ivkedl8wdgqZeoFMqEwMvVK2QusPQnYtCnAAf3C6b0kDJthub/d1Vm1Og==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4335
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 01:59:11.6678 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1343ef3f-8e7e-4623-b852-08de5e10d4ed
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001E9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6820
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,227 +143,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+This DC patchset brings improvements in multiple areas. In summary, we have:
+- Migrate DCCG register access from hwseq to dccg component
+- Add lpddr5 handling to dml2.1
+- Correct external panel replay fsm control
+- Make DCN35 OTG disable w/a reusable
+- Make DSC FGCG a DSC block level function
+- Make some DCN35 DCCG symbols reusable
+- Fix writeback on DCN 3.2+
+- Fix IGT link training failure on Replay panel
+- Fix system resume lag issue
+- Add oem panel config for new features
+- Fix IGT ILR link training failure on Replay panel
+- Fix a NULL pointer dereference in dcn20_hwseq.c
+- Add Gfx Base Case For Linear Tiling Handling
+- Migrate DIO registers access from hwseq to dio component
+- Match expected data types
+- Add CRC 32-bit mode support for DCN3.6+
+- Init DMUB DPIA Only for APU
+- DIO memory leak fix
+- Add Handling for gfxversion DcGfxBase
 
->-----Original Message-----
->From: Joshi, Mukul <Mukul.Joshi@amd.com>
->Sent: Wednesday, January 28, 2026 12:23 AM
->To: Yu, Lang <Lang.Yu@amd.com>; amd-gfx@lists.freedesktop.org
->Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
-><Alexander.Deucher@amd.com>; Belanger, David <David.Belanger@amd.com>
->Subject: RE: [PATCH 4/4] drm/amdkfd: Use AMDGPU_MQD_SIZE_ALIGN in gfx11+
->kfd mqd manager
->
->[AMD Official Use Only - AMD Internal Distribution Only]
->
->> -----Original Message-----
->> From: Yu, Lang <Lang.Yu@amd.com>
->> Sent: Monday, January 26, 2026 5:25 AM
->> To: amd-gfx@lists.freedesktop.org
->> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>; Joshi, Mukul <Mukul.Joshi@amd.com>;
->> Belanger, David <David.Belanger@amd.com>; Yu, Lang <Lang.Yu@amd.com>
->> Subject: [PATCH 4/4] drm/amdkfd: Use AMDGPU_MQD_SIZE_ALIGN in gfx11+
->> kfd mqd manager
->>
->> MES is enabled by default from gfx11+.
->>
->> Signed-off-by: Lang Yu <lang.yu@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c  |  3 ++
->> .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c  | 22 +++-----------
->> .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c  | 10 +++----
->>  .../drm/amd/amdkfd/kfd_mqd_manager_v12_1.c    | 29 ++++---------------
->>  4 files changed, 17 insertions(+), 47 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
->> index ceb6566ff3e1..d88d0de58edd 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c
->> @@ -292,6 +292,9 @@ void kfd_get_hiq_xcc_mqd(struct kfd_node *dev,
->> struct kfd_mem_obj *mqd_mem_obj,  uint64_t kfd_mqd_stride(struct
->> mqd_manager *mm,
->>                       struct queue_properties *q)  {
->> +     if (KFD_GC_VERSION(mm->dev) >=3D IP_VERSION(11, 0, 0))
->> +             return AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size);
->> +
->>       return mm->mqd_size;
->>  }
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
->> index 5c44d0987737..7e5a7ab6d0c0 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
->> @@ -102,20 +102,11 @@ static void set_priority(struct v11_compute_mqd
->> *m, struct queue_properties *q)  static struct kfd_mem_obj
->> *allocate_mqd(struct mqd_manager *mm,
->>               struct queue_properties *q)  {
->> +     u32 mqd_size =3D AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size);
->>       struct kfd_node *node =3D mm->dev;
->>       struct kfd_mem_obj *mqd_mem_obj;
->> -     int size;
->> -
->> -     /*
->> -      * MES write to areas beyond MQD size. So allocate
->> -      * 1 PAGE_SIZE memory for MQD is MES is enabled.
->> -      */
->> -     if (node->kfd->shared_resources.enable_mes)
->> -             size =3D PAGE_SIZE;
->> -     else
->> -             size =3D sizeof(struct v11_compute_mqd);
->>
->> -     if (kfd_gtt_sa_allocate(node, size, &mqd_mem_obj))
->> +     if (kfd_gtt_sa_allocate(node, mqd_size, &mqd_mem_obj))
->>               return NULL;
->>
->>       return mqd_mem_obj;
->> @@ -127,18 +118,13 @@ static void init_mqd(struct mqd_manager *mm,
->> void **mqd,  {
->>       uint64_t addr;
->>       struct v11_compute_mqd *m;
->> -     int size;
->> +     u32 mqd_size =3D AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size);
->>       uint32_t wa_mask =3D q->is_dbg_wa ? 0xffff : 0xffffffff;
->>
->>       m =3D (struct v11_compute_mqd *) mqd_mem_obj->cpu_ptr;
->>       addr =3D mqd_mem_obj->gpu_addr;
->>
->> -     if (mm->dev->kfd->shared_resources.enable_mes)
->> -             size =3D PAGE_SIZE;
->> -     else
->> -             size =3D sizeof(struct v11_compute_mqd);
->> -
->> -     memset(m, 0, size);
->> +     memset(m, 0, mqd_size);
->>
->>       m->header =3D 0xC0310800;
->>       m->compute_pipelinestat_enable =3D 1; diff --git
->> a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
->> index b7ac2dea8775..a51f217329db 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
->> @@ -83,14 +83,11 @@ static void set_priority(struct v12_compute_mqd
->> *m, struct queue_properties *q)  static struct kfd_mem_obj
->> *allocate_mqd(struct mqd_manager *mm,
->>               struct queue_properties *q)  {
->> +     u32 mqd_size =3D AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size);
->>       struct kfd_node *node =3D mm->dev;
->>       struct kfd_mem_obj *mqd_mem_obj;
->>
->> -     /*
->> -      * Allocate one PAGE_SIZE memory for MQD as MES writes to areas
->> beyond
->> -      * struct MQD size.
->> -      */
->> -     if (kfd_gtt_sa_allocate(node, PAGE_SIZE, &mqd_mem_obj))
->> +     if (kfd_gtt_sa_allocate(node, mqd_size, &mqd_mem_obj))
->>               return NULL;
->>
->>       return mqd_mem_obj;
->> @@ -102,11 +99,12 @@ static void init_mqd(struct mqd_manager *mm, void
->> **mqd,  {
->>       uint64_t addr;
->>       struct v12_compute_mqd *m;
->> +     u32 mqd_size =3D AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size);
->>
->>       m =3D (struct v12_compute_mqd *) mqd_mem_obj->cpu_ptr;
->>       addr =3D mqd_mem_obj->gpu_addr;
->>
->> -     memset(m, 0, PAGE_SIZE);
->> +     memset(m, 0, mqd_size);
->>
->>       m->header =3D 0xC0310800;
->>       m->compute_pipelinestat_enable =3D 1; diff --git
->> a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
->> b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
->> index 0b0d802a0917..d0776ba2cc99 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
->> @@ -32,17 +32,6 @@
->>  #include "amdgpu_amdkfd.h"
->>  #include "kfd_device_queue_manager.h"
->>
->> -#define MQD_SIZE     (2 * PAGE_SIZE)
->> -
->> -static uint64_t mqd_stride_v12_1(struct mqd_manager *mm,
->> -                             struct queue_properties *q)
->> -{
->> -     if (q->type =3D=3D KFD_QUEUE_TYPE_COMPUTE)
->> -             return MQD_SIZE;
->> -     else
->> -             return PAGE_SIZE;
->> -}
->> -
->>  static inline struct v12_1_compute_mqd *get_mqd(void *mqd)  {
->>       return (struct v12_1_compute_mqd *)mqd; @@ -148,21 +137,14 @@
->> static void set_priority(struct v12_1_compute_mqd *m, struct
->> queue_properties *q  static struct kfd_mem_obj *allocate_mqd(struct
->> mqd_manager *mm,
->>               struct queue_properties *q)  {
->> +     u32 mqd_size =3D AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size);
->>       struct kfd_node *node =3D mm->dev;
->>       struct kfd_mem_obj *mqd_mem_obj;
->> -     unsigned int size;
->>
->> -     /*
->> -      * Allocate two PAGE_SIZE memory for Compute MQD as MES writes
->> to areas beyond
->> -      * struct MQD size. Size of the Compute MQD is 1 PAGE_SIZE.
->> -      * For SDMA MQD, we allocate 1 Page_size.
->> -      */
->>       if (q->type =3D=3D KFD_QUEUE_TYPE_COMPUTE)
->> -             size =3D MQD_SIZE * NUM_XCC(node->xcc_mask);
->> -     else
->> -             size =3D PAGE_SIZE;
->> +             mqd_size *=3D NUM_XCC(node->xcc_mask);
->>
->
->SDMA MQD allocation is not per XCC in the partition. This wastes a ton of =
-memory for
->SDMA queues.
+---
 
-Look carefully. " if (q->type =3D=3D KFD_QUEUE_TYPE_COMPUTE)" is still ther=
-e.
-Only compute queue will be applied.
+Alex Hung (1):
+  drm/amd/display: Fix writeback on DCN 3.2+
 
-Regards,
-Lang
+Bhuvanachandra Pinninti (3):
+  drm/amd/display: Migrate DCCG register access from hwseq to dccg
+    component.
+  drm/amd/display: Migrate DIO registers access from hwseq to dio
+    component.
+  drm/amd/display: DIO memory leak fix.
 
+Chenyu Chen (1):
+  drm/amd/display: Add CRC 32-bit mode support for DCN3.6+
 
->Regards,
->Mukul
->
->> -     if (kfd_gtt_sa_allocate(node, size, &mqd_mem_obj))
->> +     if (kfd_gtt_sa_allocate(node, mqd_size, &mqd_mem_obj))
->>               return NULL;
->>
->>       return mqd_mem_obj;
->> @@ -174,11 +156,12 @@ static void init_mqd(struct mqd_manager *mm,
->> void **mqd,  {
->>       uint64_t addr;
->>       struct v12_1_compute_mqd *m;
->> +     u32 mqd_size =3D AMDGPU_MQD_SIZE_ALIGN(mm->mqd_size);
->>
->>       m =3D (struct v12_1_compute_mqd *) mqd_mem_obj->cpu_ptr;
->>       addr =3D mqd_mem_obj->gpu_addr;
->>
->> -     memset(m, 0, MQD_SIZE);
->> +     memset(m, 0, mqd_size);
->>
->>       m->header =3D 0xC0310800;
->>       m->compute_pipelinestat_enable =3D 1; @@ -681,7 +664,7 @@ struct
->> mqd_manager *mqd_manager_init_v12_1(enum KFD_MQD_TYPE type,
->>               mqd->is_occupied =3D kfd_is_occupied_cp;
->>               mqd->mqd_size =3D sizeof(struct v12_1_compute_mqd);
->>               mqd->get_wave_state =3D get_wave_state_v12_1;
->> -             mqd->mqd_stride =3D mqd_stride_v12_1;
->> +             mqd->mqd_stride =3D kfd_mqd_stride;
->>  #if defined(CONFIG_DEBUG_FS)
->>               mqd->debugfs_show_mqd =3D debugfs_show_mqd;  #endif
->> --
->> 2.34.1
->
+Dmytro Laktyushkin (1):
+  drm/amd/display: Add lpddr5 handling to dml2.1
+
+Fangzhi Zuo (1):
+  drm/amd/display: Init DMUB DPIA Only for APU
+
+Ian Chen (1):
+  drm/amd/display: Add oem panel config for new features
+
+Nicholas Carbones (2):
+  drm/amd/display: Add Gfx Base Case For Linear Tiling Handling
+  drm/amd/display: Add Handling for gfxversion DcGfxBase
+
+Nicholas Kazlauskas (3):
+  drm/amd/display: Make DCN35 OTG disable w/a reusable
+  drm/amd/display: Make DSC FGCG a DSC block level function
+  drm/amd/display: Make some DCN35 DCCG symbols non-static
+
+Peichen Huang (1):
+  drm/amd/display: External panel replay fsm control
+
+Ray Wu (2):
+  drm/amd/display: Fix IGT link training failure on Replay panel
+  drm/amd/display: Fix IGT ILR link training failure on Replay panel
+
+Taimur Hassan (2):
+  drm/amd/display: [FW Promotion] Release 0.1.45.0
+  drm/amd/display: Promote DC to 3.2.368
+
+Tom Chung (1):
+  drm/amd/display: Fix system resume lag issue
+
+Wenjing Liu (1):
+  drm/amd/display: Fix a NULL pointer dereference in dcn20_hwseq.c
+
+Zheng Austin (1):
+  drm/amd/display: Match expected data types
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 45 ++++++---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c | 15 ++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 70 +++++++++++++-
+ .../display/amdgpu_dm/amdgpu_dm_irq_params.h  |  1 +
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c  |  2 +-
+ .../display/dc/clk_mgr/dcn35/dcn35_clk_mgr.h  |  6 ++
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 24 ++++-
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c |  7 ++
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  1 +
+ drivers/gpu/drm/amd/display/dc/dc.h           |  3 +-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 15 ++-
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |  3 +-
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |  3 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h     | 27 +++++-
+ .../amd/display/dc/dccg/dcn20/dcn20_dccg.c    | 54 ++++++++++-
+ .../amd/display/dc/dccg/dcn20/dcn20_dccg.h    | 18 +++-
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    | 30 ++----
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.h    | 17 ++++
+ .../drm/amd/display/dc/dce/dce_mem_input.c    |  3 +
+ .../display/dc/dce110/dce110_mem_input_v.c    |  3 +
+ drivers/gpu/drm/amd/display/dc/dio/Makefile   |  2 +-
+ .../drm/amd/display/dc/dio/dcn10/dcn10_dio.c  | 47 +++++++++
+ .../drm/amd/display/dc/dio/dcn10/dcn10_dio.h  | 42 ++++++++
+ .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  |  1 +
+ .../dml2_0/dml21/dml21_translation_helper.c   |  3 +
+ .../dml21/inc/dml_top_soc_parameter_types.h   |  3 +
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      | 26 ++++-
+ .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c      | 59 ++++++++----
+ .../src/inc/dml2_internal_shared_types.h      |  1 +
+ drivers/gpu/drm/amd/display/dc/dsc/dsc.h      |  1 +
+ .../amd/display/dc/hubp/dcn10/dcn10_hubp.c    |  2 +
+ .../amd/display/dc/hubp/dcn20/dcn20_hubp.c    |  2 +
+ .../amd/display/dc/hubp/dcn30/dcn30_hubp.c    |  2 +
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |  7 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  9 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   | 30 ++----
+ .../amd/display/dc/hwss/dcn201/dcn201_hwseq.c | 10 +-
+ .../amd/display/dc/hwss/dcn21/dcn21_hwseq.c   |  9 +-
+ .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  9 +-
+ .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   | 15 ++-
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  9 +-
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 13 ++-
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  9 +-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  2 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |  4 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dio.h   | 22 +++++
+ .../amd/display/dc/inc/hw/timing_generator.h  |  7 ++
+ .../dc/link/protocols/link_dp_panel_replay.c  | 52 ++++++++++
+ .../amd/display/dc/optc/dcn10/dcn10_optc.h    | 19 +++-
+ .../amd/display/dc/optc/dcn35/dcn35_optc.c    | 96 ++++++++++++++++++-
+ .../amd/display/dc/optc/dcn35/dcn35_optc.h    | 10 ++
+ .../resource/dcn32/dcn32_resource_helpers.c   |  3 +-
+ .../dc/resource/dcn36/dcn36_resource.c        | 12 ++-
+ .../dc/resource/dcn401/dcn401_resource.c      | 46 +++++++++
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 10 ++
+ 55 files changed, 788 insertions(+), 153 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_dio.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dio/dcn10/dcn10_dio.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/inc/hw/dio.h
+
+-- 
+2.43.0
 
