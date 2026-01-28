@@ -4,101 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C880D3F08E
-	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 16:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FFDAD46BEE
+	for <amd-gfx@archiver.kernel.org>; Wed, 28 Jan 2026 18:50:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7B010E2CB;
-	Wed, 28 Jan 2026 16:07:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7975910E1C9;
+	Wed, 28 Jan 2026 18:50:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hd+4LLSl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kMG7rrgf";
 	dkim-atps=neutral
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com
- [209.85.217.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2457E10E72F
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 16:07:02 +0000 (UTC)
-Received: by mail-vs1-f50.google.com with SMTP id
- ada2fe7eead31-5ed0b8b171eso347137.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 08:07:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1769616421; cv=none;
- d=google.com; s=arc-20240605;
- b=MAUZ5+ga2aOEfCsjRBQCsosCfQUTwBu4X3unV4Xfwg5Kklg9PihuMZNCVfCZiFwkQD
- escc3m8thwf29sTSMdLFvDBeu6blf3lYxGeXKcGZDMH/dgMzNOj0dQIxLnTYUyhZk3SR
- ITBTfJTYaSuPNzlSGZzdT9sMvdlDKiXReTCFD+IuLEJe+4STGCtq5ly1+Hktqg/Xds1k
- E8ZjUV7lGuZQmo0Xb8i7sAZPr1yalLfvf055F3fJwWtJQBmvlXhaK9fSDvyAXy9SE9oP
- CifYwKqKxUUPM50ZaABpyKmv3mgTWIQHiwSNmzeVJ8bwJ/qMs9kHt+0x61TAzbuR4YOd
- 2QbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=OSznLjfIPPwL1Ziygy9uHRPGlube/K5UX48QHb9j58Y=;
- fh=qh5iMRR6ZLA8GwVi/StNo0D9R4bZUIU2AfPCpn8JcOo=;
- b=g8NBpDSp51FNi+5o4vAtkLuHOB495WBZX7Kz/E+vSZBMcuODmZWT2k7yMHeqQ2SW5U
- ljwuODzHjQ6kz45JdqtwEfaj0UgyftHjelioYFlLBC6RONpSSmX+cEFrXYLbZnfkh6Ed
- cbp5Uvm6RoXCrYvx33Gj8tdVBWsC5ZsL7oTdj86NTTLjcWn0z2U9A0T3BygU7dd7UFm5
- URotq9fas0QzbnoDc6eV7wVqQm+LNYtwuXQwWIlhTx3lRE15UeglJ8wzsNv27E1uXsPa
- 1TMUQ5rY6zIbvJzdNZ/b6AC3K1WgtZkMu8xKxbi2BMB9zjIAGPrDijG7V8mIZHeHlvX3
- gUSg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769616421; x=1770221221; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=OSznLjfIPPwL1Ziygy9uHRPGlube/K5UX48QHb9j58Y=;
- b=Hd+4LLSlIsJ25ZNpWo6BG7undm8MGPrUurm4WVwWTT5CIXuXEIOcjwHdaC9he64b1Y
- ZQFyNDWfsSbejfQJtCxDqFKT9HFXw+ildsBGa8SqvYkM7q9KsYhYjOe49Ly64aJ17xuV
- LFXwlag97iE1SeJHgvtWWMe7OTMBz9gWTCZ4xItqoLmLhSW/6WHuca0raqPfLCWAQ0vP
- mUpBoaWeDkYELROhCpNN2pGwk5mEuw+frlhqukSCxxKrBirhUUXXx9tKmdt3/cfisnmI
- hSDrmb9ybW7+WQ9J1j7afflj9ziphsb6Lo8HpdhpwCriENt8TsSS96DppV7m4UMnXs/M
- MC1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769616421; x=1770221221;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=OSznLjfIPPwL1Ziygy9uHRPGlube/K5UX48QHb9j58Y=;
- b=JYoqKiPyJRpnA6MdYgqqn/fPYuDZ9HLYwFfnQSTem+3nfsAp8HV2RN3HCHMn3qXguz
- hmp1bapi4uFyan4VwlxQu/FtFAgY5f3LuQgNtIzAXmu0sN9MM3v67hWX1beg1FDwTV1X
- EBjtQ6SD1gT1xQ6/LpAZSF60RRmdJFLEl2S98QsycMrR6ZWLSop9+qbmZFmwM4VPxb1M
- Sj7iUcbLoGGmekL8/T6MDMFc2d1WMpO9JFoVbZv6Y29LGCFMHEaJIfWsAMEM9BuovjoH
- j7Im/BAaPmWKryKyF4qEkmv30dxxnFT1g+n4nrzZOblv66ITKHGNQ8R+zBd3MBSc5Jwr
- PRHg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVDO/OjBJDZTI6uwpO6epFJ9mOYcy7iGldFwCIbXQR5d1qhI6wHVN44UV66e2vsXxrX6A3NcYUs@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzbLBJnfuX7i36RvXL3GCM+kPpoiNyc4R/F3FwaBSrk47Bf6Unm
- +ucQc3np6VyMO1aZ5xnKOjX9oaWz0T+P9EyKBy3MOUtaiGpsGOER1lydCauxS5sYDuXqEAa+TtB
- iHDtn3kZbbemgev2+RDWrFWuray9fcTc=
-X-Gm-Gg: AZuq6aLzlRYEUpiuibr/XZznZ3B9Lap+khJpmFpJDeLmllwMCXNCNu/Ysj4xcPmH/TC
- XlVbMghWXRARjtDDt7Q4qORcB9hhEU7f5QGSk3wVdW2DArihtY3M+8pxvrz5739WrLqn7IRifiU
- xvYmP54gWvr+2ulZH2MsrbtRlIxIrVp4E20CAgjJte/GZenZFCgT9wov7hbdGnZPY/kylk0vo0O
- yg4lOhayUU8WFuzM11xQP3UlRyGW3Lo6W5e+ref8hXbMSCHyDHe5mXBZwIEyehpFu/tZw1MN5Ws
- Y8LOQFA=
-X-Received: by 2002:a05:6102:3746:b0:5d4:927:5e0 with SMTP id
- ada2fe7eead31-5f8cbc75944mr154708137.7.1769616419359; Wed, 28 Jan 2026
- 08:06:59 -0800 (PST)
-MIME-Version: 1.0
-References: <20260122104118.1682154-1-lijo.lazar@amd.com>
- <20260122104118.1682154-5-lijo.lazar@amd.com>
- <CADnq5_N4SwVA_RXjPqQVV2ERsnOjCzGKXGfS-2xaHShNxee8=A@mail.gmail.com>
- <d7e73dbe-fa0d-42ed-8b16-fee352e8b662@amd.com>
- <CADnq5_P243kbtXDgv0JqgjmB9taA+2uMUbYtR90aVzPU4APXUw@mail.gmail.com>
- <2c920279-0245-4b66-9604-7333b00b9983@amd.com>
- <a00342a1-951b-4909-9d5f-48141917a522@amd.com>
-In-Reply-To: <a00342a1-951b-4909-9d5f-48141917a522@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 28 Jan 2026 11:06:47 -0500
-X-Gm-Features: AZwV_QivyZDCUKnJR89Hg1MMMoxnTo-m312PwW_0PfbUYfzLqmPOoG3JY6Ak3aI
-Message-ID: <CADnq5_NaVN4s5_kFRE1xf7ZEZzXb3vA4xNWQUq05qNNONG1ijQ@mail.gmail.com>
-Subject: Re: [PATCH v4 04/11] drm/amdgpu: Add user save area params validation
-To: Lancelot SIX <Lancelot.Six@amd.com>
-Cc: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org, 
- Hawking.Zhang@amd.com, Alexander.Deucher@amd.com, Christian.Koenig@amd.com, 
- Jesse.Zhang@amd.com, "Yat Sin, David" <David.YatSin@amd.com>, 
- "Kim, Jonathan" <jonathan.kim@amd.com>, "Morichetti,
- Laurent" <Laurent.Morichetti@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010071.outbound.protection.outlook.com
+ [52.101.193.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B40BC10E1C9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 28 Jan 2026 18:50:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NCFcxa81oeU8ew4xrlYWW+vSv2F0K5URT1o52vUTi4w/u35BYr0fWKAQ8kCZzqIPhiWPCuoSkmTk3nAm7hc+BxBj826nvlEFOnVxzZC+OoNK6kQTiQLjLlxrpapESFjMloQFYzVqx05iwRnW/X6YT7yb61JO1DrKLO5jtYg+4RJVLjRdlI6SzT086mX1iJjuPEOGy6iRZyhc7YfvkvcRDRWh8vTC051C7V4cNrp9L5AOLVvJufLvsvRCp9pghKYERdL+ufExNlOBZG3RODm1w4ipkz1SkprQBYv9llTpXaFBbsl1QA2BF4G3m4TIfnJEJ17lFgPQ2l3zp8O+ptvfbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DaMfIeFrC7ey5LOF1zjdN8TfM4QACaDGm0ikjnfVkYA=;
+ b=I7YxLOtMcrhXYa+ik/DfM3iCBQAjwmPTqml2SPt01mbp61Jq1sQEd0l4NYe8fE8tJiwvStaF06AaPMEnYO6aaU7NqUDZxBRGNT+gPHItWGkkRkb4eFjC32rfDDcVLuFjerIQjReJctTYpvnJGByo6LJ9NdfsW7iG5upROpaVaWkkAgV3kiPOANcqQOeRXqEtp6wzS/rSIpo6HXLs24tUxTXVRFKQH/bHdtL7BXmJV0bTDHxAtBbmBV0Ac33MXwdfGHnegUVpjexKv03rk2KgfaOyJLIGzR+EJUgEy1o3bXe4xVgfBtvgoRRKSVFrST2IuOk/uCe8qWLoH2X64uIPZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DaMfIeFrC7ey5LOF1zjdN8TfM4QACaDGm0ikjnfVkYA=;
+ b=kMG7rrgftEy7Tdt67hLXp2E0xH/2EAqr8DnASTQfBA1S0xJREIYxAJxunoCW1ZQXZnBPgAWg1jiE1JEPQbUB3974hPppLFN9NPq3wOMXsEdH6YBkOqJMfP/9j2l+7nNBJ/cZY2KymYKWs9LFIF6l5tri0VAOuaDsiJhlq/nXa4c=
+Received: from DM4PR12MB6445.namprd12.prod.outlook.com (2603:10b6:8:bd::20) by
+ CH3PR12MB9396.namprd12.prod.outlook.com (2603:10b6:610:1d0::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.7; Wed, 28 Jan 2026 18:50:20 +0000
+Received: from DM4PR12MB6445.namprd12.prod.outlook.com
+ ([fe80::234c:8389:afd3:f90a]) by DM4PR12MB6445.namprd12.prod.outlook.com
+ ([fe80::234c:8389:afd3:f90a%3]) with mapi id 15.20.9564.006; Wed, 28 Jan 2026
+ 18:50:20 +0000
+From: "Joshi, Mukul" <Mukul.Joshi@amd.com>
+To: "Yu, Lang" <Lang.Yu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Belanger, David" <David.Belanger@amd.com>
+Subject: RE: [PATCH v2 1/4] drm/amdgpu: Add a helper macro to align mqd size
+Thread-Topic: [PATCH v2 1/4] drm/amdgpu: Add a helper macro to align mqd size
+Thread-Index: AQHcj/zOudxN8OXBmkyjYljlFuNPILVn7UlA
+Date: Wed, 28 Jan 2026 18:50:20 +0000
+Message-ID: <DM4PR12MB644583AEF88F369D3C899E53EE91A@DM4PR12MB6445.namprd12.prod.outlook.com>
+References: <20260128022111.281082-1-lang.yu@amd.com>
+In-Reply-To: <20260128022111.281082-1-lang.yu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-01-28T18:48:02.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB6445:EE_|CH3PR12MB9396:EE_
+x-ms-office365-filtering-correlation-id: f625d2d0-9bc3-44a1-5125-08de5e9e161a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7053199007|38070700021; 
+x-microsoft-antispam-message-info: =?us-ascii?Q?cJ/Dh2ON1pQ8+SLgWg9VD32c7yy8hr4ZTWkpBQd/bUSLlEbGC3qIF96SLqdc?=
+ =?us-ascii?Q?LZpe5z6FZwpr96H1W3+Ca9nXgomb7/2cCXtCuPCgyDait5FwTlI+45dirFh0?=
+ =?us-ascii?Q?1h6ED7NW3lJmG3/L2i6iTyUqXadpbvbs7xY/IVajdpk88qw0abqLEoVLk2dj?=
+ =?us-ascii?Q?bZ/5DO4iaPISlPq6WJD7lEvpSM+deUUMQ7TqChlPyTJ8EdHSp+Rzwb7owSap?=
+ =?us-ascii?Q?kT6f69roxniVxBgfkRfH7wsgbPrlzg44Qsi3iOqP9Amu7osAjiAfKjmBkNPp?=
+ =?us-ascii?Q?iZklRiVWTRtbdvLTRZ5rQ5f/flUZSqaqtp1JIOLp/OxnYckrWGsm+lzpyrSG?=
+ =?us-ascii?Q?BY9S8Am7bOqSmmBLGEGK2jVRm8O7mNJk5Iv22bmKCSt1wjLy9yj3dqjxlBgL?=
+ =?us-ascii?Q?+3hvy+jBTfn3ty+dHqPQe0nnIt+jAP2cGGsMQIVTwj0A6MKDrlLiItXK0aec?=
+ =?us-ascii?Q?qLeiMZOcPBhOqQ9fy7ty6hvWcfildaCoLRvCvWxUvaHSTnQEUVubD/P/aC/p?=
+ =?us-ascii?Q?5MTmExa0+0cMlNAtiYTKM3zoudBOWHQwnbhY1h4WsfdINuQpcdo2borC+oeB?=
+ =?us-ascii?Q?AhA8ts0yqIsiJyZcCUn5k1kl+VATMbZEH/cavdqWSEaCVroa98Ksz7dp9D8P?=
+ =?us-ascii?Q?h1oLd/hQx0bHtIDJqC+bNLGheXM8wu3LYucXb/9GIRs7ZYbjGfGFoYIQp3vA?=
+ =?us-ascii?Q?LWyUXLGY33shPs+8SAQix+/IuwBN/XVUUqFs/MU5EPw9FM7OOv2OcDv++lsJ?=
+ =?us-ascii?Q?8mrLI1AAiNoVu4tABJ55WtiKqL/KSWcYItxCwFEP6E1JPsZ9OM4YELk6+cfN?=
+ =?us-ascii?Q?Q+1USo15LI1croaUEBmdYa+O7B9buYxQhDcFedFmuBya4DvLia3QfpABr/PQ?=
+ =?us-ascii?Q?stHPiFd/B9UJ2BFK9K/ybh6tybH2Mc+h6r3q7Npyue4KvKGlKVUGUOCqa14G?=
+ =?us-ascii?Q?7l1EAoyFAL3UERRoHtGc3pq3qQ3a/hGw55Q1p82A/r9QrlqKbQrmmBL9XGZ8?=
+ =?us-ascii?Q?DES/wkkOLgHE3B6qjJRpoi/CAg0xmQE/xrODjYb7+I1uLe2Sl4KDztMOhj4h?=
+ =?us-ascii?Q?m78AZBBw2cWgBtV8NhTuzlvDbd4SmjkbLQUXjfz3ky7AkQVN1e4ybDfoBZry?=
+ =?us-ascii?Q?pkq0lB6b3hC42MVZw+vZUc6ePWh873UHEoYPZizyaQmLqgoUq44T8zGBZx36?=
+ =?us-ascii?Q?eaATr846XQPPZMgVNRhxz0Nj2Zwhxaa6HHK7y5+ZtPzCz/SaEm0Up3OHLuIh?=
+ =?us-ascii?Q?GsFMRIqb1dKKLF/JhhiYoccS/+XWQu+K6I+PxDOddi4TYkuDmDceBdc7AmbY?=
+ =?us-ascii?Q?gZByZ7e9gpdvWzO9vDlWw5qngEANp02Pwn838NJis1kRGijFvDT1Py+Tbi8/?=
+ =?us-ascii?Q?d+OLbPTI0xQUb9YNX1rYGnEK4iUYPFMANnjg1IXIkxTx9eXh9ukeCf+1TKYf?=
+ =?us-ascii?Q?DJIY/fM6X+L1S5blXzQpkT5Bnio5plKfA+c0euHlCOX5M/egmQ1Nk5jOA3ZD?=
+ =?us-ascii?Q?EZz8cXtTfeesIS7GVz75BJ7/Mljuk9H4wSRNJf5rQYqRMKDZ8/8UHLNaAHxf?=
+ =?us-ascii?Q?mPqL3/AtX835dNM0fmYmFW+72Z4PT4Y3WN2K+K7Y8FHzw1WWMcxqpCb0PVi+?=
+ =?us-ascii?Q?c6Pq+qqlYMp2o6Pj0No4w2E=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB6445.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(38070700021); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?92h6CjGZxRWGdz1ft9nW3PXBp3GaiT7wdbi+q7+BEOTiDSk1TzJb18mR8xkE?=
+ =?us-ascii?Q?R7DiKFDwn/6BUR7+RvAD220UXPf0aIFN7yoNpViYcDez01QPAFSJPGiy8gXs?=
+ =?us-ascii?Q?8Fo0sQhq4Si1PidsTqFUSEu/vttxMFRH/2Q4GyRa66mtm3Up3yLi5JvSV9aO?=
+ =?us-ascii?Q?vcFXiqcNJ4KX1VqkikZcdhzps3f7+Ntl5SEqc5FPH7aInVpgu/CYFxtNUXOj?=
+ =?us-ascii?Q?pVSi5286bB+ezDVqzWTgP7ib5BSX32yBsqMKugXXg7EepwNgTFA35W3H9vDe?=
+ =?us-ascii?Q?z1EyxNNx+Kpg1KDdmeGrkj+Xp1J6S06ejs8bHoCdBtSHZtARk34ecanUzoXC?=
+ =?us-ascii?Q?VnpHIKdX+bYi0rqCMVlQvLlk1MB+9eKreCrqxRt5jj+g/Y1RZX5dXCdDX8OX?=
+ =?us-ascii?Q?m+TtUqaUxUP1I9wecXqRPI7Cj+t61fMoiPNu8vLksd5Zk4bIeCTwg2F8ncMI?=
+ =?us-ascii?Q?HpGJICEdk5+3ZnVTPpY9Mr9CWQpQ4OLm16XjZeBM5LPTPcAI/+3GD2clbYra?=
+ =?us-ascii?Q?R94qTfLKqySM05hw/HRuEqomsHLVzgeCIvKzGHdiP7Qg526iwDCs/xgM1EOT?=
+ =?us-ascii?Q?J4C4X/DziACBvJ/k8PjR5EJlLLrxYhoNUazd6fD9YSQTfN69J5q1E1TGLDZA?=
+ =?us-ascii?Q?WctYdGyX9CT+V1AiyR7tl56EqvhxJnAuD7ZfutbfgV1pxb8ShLKmcDlfjv4y?=
+ =?us-ascii?Q?ien6mH6bUm9a8/J/whtLIwK9NnrCe2xY5fhkfl4GRS+0q9h0SOebqH3IxwEE?=
+ =?us-ascii?Q?PsiAYJYo0bEB7hWvsvkb3C0aQaPIWbY1KLc1MjLklJCCVOxXh3nqMCi5psAE?=
+ =?us-ascii?Q?NQs738XG4z7jndiRXMiEY4hyDq8HMz8T4N+6QwfNjQgIpA3E9Q96ERvEwTcs?=
+ =?us-ascii?Q?qQA9vy9Dk9m9ECVvc5KWzkk+SPJCTxQsXh/A56tNlHa/OfBLuwDpAoALdUZN?=
+ =?us-ascii?Q?sTi6Eup8ZoAdPGThOsQlQHqQ9oi0bKIrHoJC22Frsk4flEtH8XONLVscFLlM?=
+ =?us-ascii?Q?MY7VfupZmd1aE/4WbIrRtwfDxOoV6AozG3goiRrbRLY1KD3eAQDK+NhSK5q/?=
+ =?us-ascii?Q?TGeRX3a43aK99SSX4Fqrs955q8bR9X8nvpo2nakzw/VuBXJq6aw2USUUf44P?=
+ =?us-ascii?Q?ug75ZepNpsl12eJke5PeWTe7u8xXR6S3K3EIgMmlDyAEuyf1gfpdCmpDW6NK?=
+ =?us-ascii?Q?Wu6mfx+6DtkEPoaD24tdEiyPsmUGplbh7DYYgRXntI6GplngOvwdvyOjytVn?=
+ =?us-ascii?Q?EJRuvfcVlHAx6PGZJtzvtvxlZYFfIlRg3VOZ7MA9ztl+HLcnI9sudUolA1f1?=
+ =?us-ascii?Q?/qVTGQrcRuvtBGrf38TUR4TxS5fbJaPlJfNkxQhv8fugAiPEqJJYedcI9Z6x?=
+ =?us-ascii?Q?6IaMk9Yo5nCgjnWpCK/BmBhMZhGyPbvqY3LFN5GzF7ini6CyF1lOC0KAo1cV?=
+ =?us-ascii?Q?JKCvAhTbkcG+2atuupueaNZIrra6+70aIIjiMPFUz7R9RlD5VqXVJ3Rrx8Sv?=
+ =?us-ascii?Q?60J8/tg9oVRAyEWsdkspQ/KWFwGbp/LID0iwynoZQYBZsLhVi5toP5wxNsal?=
+ =?us-ascii?Q?GwrDd0v3YM020BUUtwCWRkzDnru5jGx7+alN++ub26/997uRuimfopYUBNdf?=
+ =?us-ascii?Q?27WgFx0XMKar3hSTmURdHyli/Ix6BMucF4xRz8e4zwme8KXp5tJ5Ezt67cTW?=
+ =?us-ascii?Q?wufHHnIokSLY6U2QHKxR8al85imeowsdZLzVwmYi3tCksHYL?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB6445.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f625d2d0-9bc3-44a1-5125-08de5e9e161a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jan 2026 18:50:20.1327 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6rZHhlbYfvUnwECQn0+nEgXNVOCfFcX8g7t/QBggh9yHOUG2qQMsA1+eKytWk8Q48syoFN1XJf4Z5Pz1XfX3Bw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9396
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,112 +161,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 28, 2026 at 7:30=E2=80=AFAM Lancelot SIX <Lancelot.Six@amd.com>=
- wrote:
->
-> >>>>> +       /*
-> >>>>> +        * Only control stack and save area size details checked.
-> >>>>> Address validation needs to be
-> >>>>> +        * carried out separately.
-> >>>>> +        */
-> >>>>> +       if (cwsr_params->ctl_stack_sz !=3D
-> >>>>> +           (cwsr_info->xcc_ctl_stack_sz * num_xcc)) {
-> >>>>> +               dev_dbg(adev->dev,
-> >>>>> +                       "queue ctl stack size 0x%x not equal to
-> >>>>> node ctl stack size 0x%x\n",
-> >>>>> +                       cwsr_params->ctl_stack_sz,
-> >>>>> +                       num_xcc * cwsr_info->xcc_ctl_stack_sz);
-> >>>>> +               return -EINVAL;
-> >>>>> +       }
-> >>>>> +
-> >>>>> +       if (cwsr_params->cwsr_sz < (cwsr_info->xcc_cwsr_sz *
-> >>>>> num_xcc)) {
-> >>>>> +               dev_dbg(adev->dev,
-> >>>>> +                       "queue cwsr size 0x%x not equal to node
-> >>>>> cwsr size 0x%x\n",
-> >>>>> +                       cwsr_params->cwsr_sz, num_xcc * cwsr_info-
-> >>>>> >xcc_cwsr_sz);
-> >>>>> +               return -EINVAL;
-> >>>>> +       }
-> >>
-> >> cwsr_params->cwsr_sz has no upper bound check.  Can this cause an
-> >> overflow elsewhere?
-> >>
-> >
-> > We could restrict to a max limit of 2 * cwsr size required. Adding
-> > David/Lancelot as well.
-> >
-> > Thanks,
-> > Lijo
-> >
->
-> Hi,
->
-> The CWSR size should allow room for userspace to choose the amount
-> allocated for use by the debugger.  I am not sure what limit would make
-> sense, as I can't really predict what will be needed in the future, but
-> I=E2=80=AFreally don't see how we could need more than the cwsr size (whi=
-ch
-> itself can contain the entire state of what is running on the queue).
->
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-We can always make it bigger in the future if we need it.  Unbounded
-seems ripe for an overflow somewhere.
+Series is :
+Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
 
-Alex
 
-> Best,
-> Lancelot.
+> -----Original Message-----
+> From: Yu, Lang <Lang.Yu@amd.com>
+> Sent: Tuesday, January 27, 2026 9:21 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+> <Alexander.Deucher@amd.com>; Joshi, Mukul <Mukul.Joshi@amd.com>;
+> Belanger, David <David.Belanger@amd.com>; Yu, Lang <Lang.Yu@amd.com>
+> Subject: [PATCH v2 1/4] drm/amdgpu: Add a helper macro to align mqd size
 >
-> cc Jonathan/Laurent
+> MES FW uses address(mqd_addr + sizeof(struct mqd) + 3*sizeof(uint32_t)) a=
+s
+> fence address and writes a 32 bit fence value to this address. Driver nee=
+ds to
+> allocate some extra memory(at least 4 DWs) in addition to sizeof(struct m=
+qd)
+> as mqd memory.
 >
-> >> Alex
-> >>
-> >>
-> >> Alex
-> >>
-> >>>>> +
-> >>>>> +       return 0;
-> >>>>> +}
-> >>>>> +
-> >>>>>    void amdgpu_cwsr_free(struct amdgpu_device *adev, struct
-> >>>>> amdgpu_vm *vm,
-> >>>>>                         struct amdgpu_cwsr_trap_obj **trap_obj)
-> >>>>>    {
-> >>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h b/drivers/
-> >>>>> gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-> >>>>> index 3c80d057bbed..96b03a8ed99b 100644
-> >>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-> >>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-> >>>>> @@ -56,6 +56,13 @@ struct amdgpu_cwsr_info {
-> >>>>>           uint32_t xcc_cwsr_sz;
-> >>>>>    };
-> >>>>>
-> >>>>> +struct amdgpu_cwsr_params {
-> >>>>> +       uint64_t ctx_save_area_address;
-> >>>>> +       /* cwsr size info */
-> >>>>> +       uint32_t ctl_stack_sz;
-> >>>>> +       uint32_t cwsr_sz;
-> >>>>> +};
-> >>>>> +
-> >>>>>    int amdgpu_cwsr_init(struct amdgpu_device *adev);
-> >>>>>    void amdgpu_cwsr_fini(struct amdgpu_device *adev);
-> >>>>>
-> >>>>> @@ -68,4 +75,8 @@ static inline bool amdgpu_cwsr_is_enabled(struct
-> >>>>> amdgpu_device *adev)
-> >>>>>           return adev->cwsr_info !=3D NULL;
-> >>>>>    }
-> >>>>>
-> >>>>> +uint32_t amdgpu_cwsr_size_needed(struct amdgpu_device *adev, int
-> >>>>> num_xcc);
-> >>>>> +int amdgpu_cwsr_validate_params(struct amdgpu_device *adev,
-> >>>>> +                               struct amdgpu_cwsr_params
-> >>>>> *cwsr_params,
-> >>>>> +                               int num_xcc);
-> >>>>>    #endif
-> >>>>> --
-> >>>>> 2.49.0
-> >>>>>
-> >>>
-> >
+> For gfx11/12, sizeof(struct mqd) < PAGE_SIZE, KGD allocates mqd memory
+> with PAGE_SIZE aligned works. For gfx12.1, sizeof(struct mqd) =3D=3D PAGE=
+_SIZE,
+> it doesn't work.
 >
+> KFD mqd manager hardcodes mqd size to PAGE_SIZE/MQD_SIZE across
+> different IP versions to solve this issue.
+>
+> To avoid hardcoding in differnet places and across different IP versions.
+> Let's use AMDGPU_MQD_SIZE_ALIGN instead. It is used in two places.
+>
+> 1. mqd memory alloction
+> 2. mqd stride handling for multi xcc config
+>
+> v2: Use AMDGPU_GPU_PAGE_ALIGN. (Mukul)
+>
+> Signed-off-by: Lang Yu <lang.yu@amd.com>
+> Reviewed-by: David Belanger <david.belanger@amd.com> (v1)
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 9c11535c44c6..8c6edb0f58dd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -1239,6 +1239,14 @@ struct amdgpu_device {
+>       struct amdgpu_kfd_dev           kfd;
+>  };
+>
+> +/*
+> + * MES FW uses address(mqd_addr + sizeof(struct mqd) +
+> +3*sizeof(uint32_t))
+> + * as fence address and writes a 32 bit fence value to this address.
+> + * Driver needs to allocate at least 4 DWs extra memory in addition to
+> + * sizeof(struct mqd). Add 8 DWs and align to AMDGPU_GPU_PAGE_SIZE for
+> safety.
+> + */
+> +#define AMDGPU_MQD_SIZE_ALIGN(mqd_size)
+> +AMDGPU_GPU_PAGE_ALIGN(((mqd_size) + 32))
+> +
+>  static inline uint32_t amdgpu_ip_version(const struct amdgpu_device *ade=
+v,
+>                                        uint8_t ip, uint8_t inst)
+>  {
+> --
+> 2.34.1
+
