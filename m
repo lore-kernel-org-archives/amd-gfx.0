@@ -4,30 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB608D61016
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 12:55:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 613A6D61015
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 12:55:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C859E10E866;
-	Thu, 29 Jan 2026 12:55:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6C5910E865;
+	Thu, 29 Jan 2026 12:55:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=139.com header.i=@139.com header.b="MDHp6KJV";
+	dkim=pass (1024-bit key; unprotected) header.d=139.com header.i=@139.com header.b="S4nqc7Fc";
 	dkim-atps=neutral
-Received: from n169-112.mail.139.com (n169-112.mail.139.com [120.232.169.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7367910E83E;
- Thu, 29 Jan 2026 09:27:10 +0000 (UTC)
+X-Greylist: delayed 553 seconds by postgrey-1.36 at gabe;
+ Thu, 29 Jan 2026 09:22:46 UTC
+Received: from n169-111.mail.139.com (n169-111.mail.139.com [120.232.169.111])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 49B7510E173;
+ Thu, 29 Jan 2026 09:22:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=139.com; s=dkim; l=0;
  h=from:subject:message-id:to:cc:mime-version;
  bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
- b=MDHp6KJVMWP+O9hPvernCxw40sh50SQTtqee9BvqtJK8SU7tf5dfmt6PN0BklnLiP+9CQBsljfxFZ
- OGNWB6ZAO4kiVZC9g8Xz1cGcc+qUFFXfQmvqtkBr0q8ymmyAJ3wW7ZnAQI/xojNiaAG7p0QZF5G9N0
- fLcZnhwIncfCzi/0=
+ b=S4nqc7FcSohhJvalh1BxGGC/0wnK575uL6Bc0d0NThsl96D2a9wU/IwkAwHIzIrhXD+6CC3cE5sGy
+ ljN+eE6z1xWjlK+SVb9tYS5Svjwl2iKIx5NP+OzzhreX0yPGRpawrqezs/nk8POg5bTL9Gr/f3YFiC
+ shlt4EEoO/+vt8vo=
 X-RM-TagInfo: emlType=0                                       
 X-RM-SPAM: 
 X-RM-SPAM-FLAG: 00000000
 Received: from NTT-kernel-dev (unknown[60.247.85.88])
- by rmsmtp-lg-appmail-20-12023 (RichMail) with SMTP id 2ef7697b27e49b7-019de;
- Thu, 29 Jan 2026 17:27:03 +0800 (CST)
-X-RM-TRANSID: 2ef7697b27e49b7-019de
+ by rmsmtp-lg-appmail-16-12015 (RichMail) with SMTP id 2eef697b24b99e2-009f0;
+ Thu, 29 Jan 2026 17:13:32 +0800 (CST)
+X-RM-TRANSID: 2eef697b24b99e2-009f0
 From: Li hongliang <1468888505@139.com>
 To: gregkh@linuxfoundation.org, stable@vger.kernel.org,
  srinivasan.shanmugam@amd.com
@@ -38,10 +40,10 @@ Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
  Zhigang.Luo@amd.com, Hawking.Zhang@amd.com, Jesse.Zhang@amd.com,
  victor.skvortsov@amd.com, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, lin.cao@amd.com, Jingwen.Chen2@amd.com
-Subject: [PATCH 6.1.y] drm/amdgpu: Replace Mutex with Spinlock for RLCG
+Subject: [PATCH 6.6.y] drm/amdgpu: Replace Mutex with Spinlock for RLCG
  register access to avoid Priority Inversion in SRIOV
-Date: Thu, 29 Jan 2026 17:27:02 +0800
-Message-Id: <20260129092702.3671189-1-1468888505@139.com>
+Date: Thu, 29 Jan 2026 17:13:25 +0800
+Message-Id: <20260129091325.3637010-1-1468888505@139.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -167,10 +169,10 @@ Signed-off-by: Li hongliang <1468888505@139.com>
  3 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 38b81ae236cb..535cc74c5880 100644
+index c1b9333d7b78..584f9bcbe294 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3652,7 +3652,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+@@ -3582,7 +3582,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
  	mutex_init(&adev->grbm_idx_mutex);
  	mutex_init(&adev->mn_lock);
  	mutex_init(&adev->virt.vf_errors.lock);
@@ -178,7 +180,7 @@ index 38b81ae236cb..535cc74c5880 100644
  	hash_init(adev->mn_hash);
  	mutex_init(&adev->psp.mutex);
  	mutex_init(&adev->notifier_lock);
-@@ -3674,6 +3673,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+@@ -3604,6 +3603,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
  	spin_lock_init(&adev->se_cac_idx_lock);
  	spin_lock_init(&adev->audio_endpt_idx_lock);
  	spin_lock_init(&adev->mm_stats.lock);
@@ -187,10 +189,10 @@ index 38b81ae236cb..535cc74c5880 100644
  	INIT_LIST_HEAD(&adev->shadow_list);
  	mutex_init(&adev->shadow_list_lock);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index c626ed88e642..d300f7710ebb 100644
+index 5a4b1b625f03..0f4661d1f23b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -965,6 +965,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
+@@ -1007,6 +1007,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
  	void *scratch_reg2;
  	void *scratch_reg3;
  	void *spare_int;
@@ -198,7 +200,7 @@ index c626ed88e642..d300f7710ebb 100644
  
  	if (!adev->gfx.rlc.rlcg_reg_access_supported) {
  		dev_err(adev->dev,
-@@ -978,7 +979,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
+@@ -1028,7 +1029,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
  	scratch_reg2 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg2;
  	scratch_reg3 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg3;
  
@@ -207,7 +209,7 @@ index c626ed88e642..d300f7710ebb 100644
  
  	if (reg_access_ctrl->spare_int)
  		spare_int = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->spare_int;
-@@ -1034,7 +1035,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
+@@ -1086,7 +1087,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
  
  	ret = readl(scratch_reg0);
  
@@ -217,10 +219,10 @@ index c626ed88e642..d300f7710ebb 100644
  	return ret;
  }
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index fc2859726f0a..9267e792c4cf 100644
+index 891713757a8f..bffbb7ef40d2 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -264,7 +264,8 @@ struct amdgpu_virt {
+@@ -267,7 +267,8 @@ struct amdgpu_virt {
  	/* the ucode id to signal the autoload */
  	uint32_t autoload_ucode_id;
  
