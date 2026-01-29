@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0717D358EB
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 09:35:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8922D358EE
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 09:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35B2410E841;
-	Thu, 29 Jan 2026 09:35:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06CA688647;
+	Thu, 29 Jan 2026 09:42:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U0unhF6y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="alhv56tP";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 271E110E841
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 09:35:37 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4806fbc6bf3so7774505e9.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 01:35:37 -0800 (PST)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B89B710E843
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 09:41:58 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-47edd6111b4so7615865e9.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 01:41:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769679335; x=1770284135; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1769679717; x=1770284517; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1+AD9MARHUhTfZR5S46iiGR0fZ10eWiss2y4lAR7bc4=;
- b=U0unhF6yJvV6Q8WFQW3+u7iCLar2MAIzjUHlt193uv0gSqxmXp3PkWP8nXNucHGqSe
- bSBB15rfmSpoNyMaQG/dwKN0y6DwN9wFZ0GBz9A4MjEcL5XybSmy7eF8q49jopsp+otj
- RdIW/qki5XzI0svC1hUeGs9BBUP1TsX64Dr4d+W/AJL6o0iC6WQ0FxaA3/7bESUZEWfM
- HJusHC/ur6sLiIFFQrddn6UYZyV7eHRy8l7M30gnqRlzkAv7DvaIkpQgCusjpA0hQiSv
- gGDU/AGoCLFlqsBSnRKCeFsbQkEZQINA7E1n0NQXxXjwH9esVKChKMDXP8yzQlPuGAmk
- /CIQ==
+ bh=NCrMEk305V4ep1Ljp2+tjNf0DgD09QiSWq/9O+50H9A=;
+ b=alhv56tPM5XAyfvmUTIRaVazP6xdSF1e9qjlhA2OreT8J9Uzzdsq67XrQ04ZbziRpp
+ iQY2Skd2ikax5wQV74ho7LG1dOLUfTcBZBNpJhBn4FPByFUygYpTNNQbh3e9WTrubSCH
+ Slh4DfrSFQVgHLTbSK07k976ftXMRUbL0rsG0pj5K3MosPxiUFWgyY4z0TSG7OxjkIjX
+ WHic6UXEV4Vrr/3U8K9vh51iSrzoqWUGvZMJ6zbGAc9crm+GAxR12xmcbos6I6vawBZZ
+ 53F8Cz6uk/z4we6pn5nmWF3zc0nZocTu8AnanIMBsFol8/eP2/EeQWr4+vyp/4sDV2aK
+ Zfrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769679335; x=1770284135;
+ d=1e100.net; s=20230601; t=1769679717; x=1770284517;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=1+AD9MARHUhTfZR5S46iiGR0fZ10eWiss2y4lAR7bc4=;
- b=LzQGLDl7krR0+JxRghpnl4jwwYrQkU/22MXzAoXo4j2uIy+5RU9OWL/Eqx0QGW5Ty/
- 3euzopVO8chk9YNBUVBeCpLxsn8WUOcREdBzq2iN6lQaZTY3dSzgghUpAdx9BrHZ02gA
- lifloYi8w3K3JL+CB4h9ZqMOuAl+z8pfSGZp8UiTlLXV06S3+SiQfsmkZgI8YR45fsxF
- TDkxOG7c0EP3Wt7iF+5DVkfWRaXZjoidNlP/VFnKNGWpyODJ23JSMCmC5QMnTchGOMKc
- 1qL36fo8f4qL68CJCAqz4UIhSlLcARDN/aq1ByrMr2CkgrJkbUM+ZRMTKTrlzPD8mtPz
- Pk+w==
-X-Gm-Message-State: AOJu0YyNvaGBLcupM7Xma7mVKA5OP9pZg4+cregq680eNrx1JUN1p9ij
- 43JsdmPtnWFFzJ01CDFMF+euvygpFCnasMfLcV0d06UspoELev9reAcgC23yrw==
-X-Gm-Gg: AZuq6aJgO6/fwaC7/IjzeUl5bFrdRLoAEF9fLDZmJysFh6Tykt2pU5x1uqb2d3r1BZz
- +RCVATypEXXe9gwrex02HAJtEKED7b7/6gTtZnY1Pz5nzahJtR6tDgea/h6avuvsDdFWoRzmq0x
- t/zKrp8w8PlTEGXt1fOPG040Ncmb1F3F7yTrM0heJmc6dy9nFdQlHaYAcXzMkG0zspy8DYlTvSB
- pjn8zb1pSOUOAgPkq4jDmvW/TfC0cBKgWMD9UCYdZHBfzIw3OxHs8E5KAbpibV9f/0gEox+9kbP
- uPMG+YxPubeaM8dztuR08L1wfzEMfd2QGcFdFCScjuhzFI4Big2PC+r9r2RqW2hplNNGJrytDiq
- ErTmZjh04uLrR2Eg50mf93vf+y57OmgICTTauHpQ6rybdHuAbLNFMDLG/Wr/2/bdfyx5l7yAR3x
- 9E0BkKQ+oKaMruNVDzwim0WgJwNQ/kFzGrc28knorduma4ORRgo2wYq7MxWQU=
-X-Received: by 2002:a05:600c:4689:b0:46e:4b79:551 with SMTP id
- 5b1f17b1804b1-48069c63339mr116254735e9.31.1769679335506; 
- Thu, 29 Jan 2026 01:35:35 -0800 (PST)
+ bh=NCrMEk305V4ep1Ljp2+tjNf0DgD09QiSWq/9O+50H9A=;
+ b=bRBgc56+8y9WVIn+KZqycArpxewXCGn1lhRqvOus5T97Eq/4s/np8xWvB9cvfHzT3X
+ PPjjRfjbqBTq7BfJKbqFs5ca+YE+i95TyJHcbss3mbMertzKdbT7HWb5zt1Zhhh8BXG1
+ 0w3wYdcFwz+30n7/HybGFyo0S2D4jRsShnQw9rPtW75N5tCGjw4HRLk6uzgfP8wKWSN1
+ w9do9tmI4X9LxxNooJ+tSPVPH6wU24ill/wR9Wg8dVzx9GkQJJChumHuBU57i/lsFi6Y
+ uiAa8w5BeCDrXxz6vJy9HQYwFYO8/P9fYlnoHGblLkRdSArWFju9VC1BXSfr52chwkBJ
+ cefA==
+X-Gm-Message-State: AOJu0YzBMp9NTLC8+gFsatSlQU38QTKOI3bUUG4YTl7tJyB85X0r9c4p
+ AivOqiKp2XjAo/cX5Rr19HWAqDMqa5f4a6v6PRAgXrUPpKt+KIpcsSle/bnotw==
+X-Gm-Gg: AZuq6aIWPxf1i1+vl/aoNDolJhg0TtCFmdzuSAdZ7bIRS4HgZ1vci+9PUHE8LIiEnVv
+ V+fgGktpWcN5T7q8iEzYWpYyI6rI7UV+pPzZOMvhChJqexsyV+wvxVlbr47TkLHKlW47rb/ExUu
+ 50uh+7j29xvvu091jdMu5Kwrl2BA2FMgz9rw4IeXJ17uj/hhy/u1BzdaYCMiyHUBc2mME3cgiBg
+ LcFZbailIy5gHPLqjsOt6XH1GsVQnEnj5JEJedr2ZDyxjSgS5Neci+g4+RMLEqsY0XRcn5qFZyf
+ Mr4wdzsY10a7yl4ZSDMPhNc+N72E1/OCravofFvjxMKNJWuT0dNJwPglGuLQlwWpws1dLVpicHz
+ o9eHzjIefAu+PGwzE5flvEdUawbd3drKtABNB85L4flI7Rdf263HPY20uiQrogofrO3iUNLJek9
+ jEzKCt9wA+IEFseI7k9xMgIFjAwQJTgYWSyx1wTPql+LsEx7pPi8xVjdMw8CU=
+X-Received: by 2002:a05:600c:6094:b0:477:7bca:8b2b with SMTP id
+ 5b1f17b1804b1-48069c1dd79mr93394485e9.15.1769679717169; 
+ Thu, 29 Jan 2026 01:41:57 -0800 (PST)
 Received: from timur-hyperion.localnet (5401DF8B.dsl.pool.telekom.hu.
  [84.1.223.139]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-481a5d9becdsm6836795e9.3.2026.01.29.01.35.34
+ ffacd0b85a97d-435e13235f5sm12617367f8f.29.2026.01.29.01.41.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Jan 2026 01:35:35 -0800 (PST)
+ Thu, 29 Jan 2026 01:41:56 -0800 (PST)
 From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: Alex Deucher <alexander.deucher@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu/gfx11: adjust KGQ reset sequence
-Date: Thu, 29 Jan 2026 10:35:34 +0100
-Message-ID: <2769950.lGaqSPkdTl@timur-hyperion>
-In-Reply-To: <20260129043936.33607-1-alexander.deucher@amd.com>
-References: <20260129043936.33607-1-alexander.deucher@amd.com>
+Subject: Re: [PATCH 1/3] drm/amdgpu/gfx10: fix wptr reset in KGQ init
+Date: Thu, 29 Jan 2026 10:41:55 +0100
+Message-ID: <3572729.LZWGnKmheA@timur-hyperion>
+In-Reply-To: <20260129043446.33377-1-alexander.deucher@amd.com>
+References: <20260129043446.33377-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
@@ -86,53 +86,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, January 29, 2026 5:39:35=E2=80=AFAM Central European Standard =
+On Thursday, January 29, 2026 5:34:44=E2=80=AFAM Central European Standard =
 Time Alex=20
 Deucher wrote:
-> Kernel gfx queues do not need to be reinitialized or
-> remapped after a reset.  This fixes queue reset failures
-> on APUs.
+> wptr is a 64 bit value and we need to update the
+> full value, not just 32 bits. Align with what we
+> already do for KCQs.
 >=20
-> Fixes: b3e9bfd86658 ("drm/amdgpu/gfx11: add ring reset callbacks")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4789
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-The series is:
 Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-(including with Jesse's suggestion if you choose to implement that).
+for the series.
 
-I notice that gfx_v10_0_reset_kgq() also calls gfx_v10_0_kgq_init_queue(),=
-=20
-should that call be removed as well or made conditional?
+I notice that the code base already does this for gfx9, but is rather=20
+inconsistent on gfx6-8. If you think that's useful, I could submit some=20
+patches to do the same on older GPUs. What do you think?
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 12 ------------
->  1 file changed, 12 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c index b5a2d09fc3469..489edf517f9=
-1c
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c index e9254ec3b6417..ef7d91a4437=
+ec
 > 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -6854,18 +6854,6 @@ static int gfx_v11_0_reset_kgq(struct amdgpu_ring
-> *ring, return r;
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -6883,7 +6883,7 @@ static int gfx_v10_0_kgq_init_queue(struct amdgpu_r=
+ing
+> *ring, bool reset) memcpy_toio(mqd, adev->gfx.me.mqd_backup[mqd_idx],
+> sizeof(*mqd)); /* reset the ring */
+>  		ring->wptr =3D 0;
+> -		*ring->wptr_cpu_addr =3D 0;
+> +		atomic64_set((atomic64_t *)ring->wptr_cpu_addr, 0);
+>  		amdgpu_ring_clear_ring(ring);
 >  	}
->=20
-> -	r =3D gfx_v11_0_kgq_init_queue(ring, true);
-> -	if (r) {
-> -		dev_err(adev->dev, "failed to init kgq\n");
-> -		return r;
-> -	}
-> -
-> -	r =3D amdgpu_mes_map_legacy_queue(adev, ring, 0);
-> -	if (r) {
-> -		dev_err(adev->dev, "failed to remap kgq\n");
-> -		return r;
-> -	}
-> -
->  	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
->  }
 
 
 
