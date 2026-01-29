@@ -4,192 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7D25D49C85
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A77BD49C84
 	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 09:22:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6349410E952;
-	Fri, 30 Jan 2026 09:22:58 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="IYaTdwGl";
-	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013029.outbound.protection.outlook.com
- [40.93.196.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C978210E22E;
- Fri, 30 Jan 2026 01:12:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MVgnusi+bz3+LD2S50Ocu0JX/Cbc9WO9hUWSYdc4svMjrMuY3NHiZ3MJAgBb6jQaK/LhQ/f+TRSXL2Ok5EYp0mp3HosZ26LnjAAtRrhersFI8+FMKtaTAXPjZB1wVrHwfaXpyvMTJHi04Zfb0zqiz8pAXIKOCshbBVYwAMpioJ8QkGS/c1IyRGBnZCh7IBUYu24B+GpkukVWh4VU+iMOdZiWj71CT1Kq7v1Hskq1CbFdF4k29+uev941JDoC4kf0XnYl0ZmyW+6u1QtKv2pHxM9ZVRd3w/FliWa5o1qJxIjK96yBpm9gGEiEdY69oR1pVPrVsxqFeT90gi3kfY/Npw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uKebzuWN75PwnUNxOzXq/7hVDk03ExaLISWD/R01asc=;
- b=K5O9AsK1Enl8m4zr06z57v/X6CyCIiUt5U91r+rOg+ggQgM2CjwAxMQl81PQeJBIB8SRKy6LMLGnrueXYspzgrj8TGlb0yQ7SQIk3O9CW0+KR2ZIk7HydMsdMLdMEc9TiPErPl3ozHgryurYzKBWtRmcwuDQOT0Vz9GayVwe22AuT8ASRaAYc878h5HhXe7ybN32c3JY7Qvg4iBLBaVjfJdQjNdcyZcQR1Kum5US4feSdXx5IkDLgHknR+jYyIVHiiuEoKO029lISWmDf2oC31WtrU3qNicx3WnvT/dnVsw5W7c3wHF6FTx7Ik7VWJuFQUNb01OPVeCWBlV5IIL83Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uKebzuWN75PwnUNxOzXq/7hVDk03ExaLISWD/R01asc=;
- b=IYaTdwGlBXFiASmKgv+5M/d+Z0NO2z2XTkQQhgtI3XTOXz5gkTnqKAc06NYkrCbwWIRnlR/ex9wbohFDdP9GGS+BfTwjrhUubE1mIasl1axcBQH3mqNqasZpxjEv5ktmOpYhqcxr5Qz1bVq4T/6Z9rkQoy418qL5V6iv4Ln+LZ0J7819z/xQEWZCaFkvpkCDRU58/sN9y0YbJht5ye3c9y67ZA/U90YeuBAFDvbbvuJb6NFImMwo2wLuhp/ZZfzYlX1OXAk4wI1l40eEu5C95ODJTlyt3bf8Uf4qcwuWYqWyID+ZgR2Cj666Kzxcm85dcbO4YRyk0ECmfoOvUi+CHA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- MW4PR12MB5668.namprd12.prod.outlook.com (2603:10b6:303:16b::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Fri, 30 Jan
- 2026 01:12:12 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%7]) with mapi id 15.20.9564.007; Fri, 30 Jan 2026
- 01:12:12 +0000
-Message-ID: <97af2d85-a905-44d4-951f-e56a40f4312e@nvidia.com>
-Date: Thu, 29 Jan 2026 17:11:49 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v6 05/26] nova-core: mm: Add support to use PRAMIN
- windows to write to VRAM
-To: Joel Fernandes <joelagnelf@nvidia.com>, Danilo Krummrich <dakr@kernel.org>
-Cc: Zhi Wang <zhiw@nvidia.com>, linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id F06E310E94E;
+	Fri, 30 Jan 2026 09:22:57 +0000 (UTC)
+Received: from h5.fbrelay.privateemail.com (h5.fbrelay.privateemail.com
+ [162.0.218.228])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 680FE10E1AA;
+ Thu, 29 Jan 2026 14:05:09 +0000 (UTC)
+Received: from MTA-05-3.privateemail.com (mta-05.privateemail.com
+ [198.54.127.60])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by h5.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4f219v04nZz2y4L;
+ Thu, 29 Jan 2026 14:05:07 +0000 (UTC)
+Received: from hal-station (unknown [23.129.64.159])
+ by mta-05.privateemail.com (Postfix) with ESMTPA id 4f21986cmPz3hhT6;
+ Thu, 29 Jan 2026 09:04:28 -0500 (EST)
+Date: Thu, 29 Jan 2026 09:04:23 -0500
+From: Hamza Mahfooz <someguy@effective-light.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alice Ryhl <aliceryhl@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Andy Ritger <aritger@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
- <20260120204303.3229303-6-joelagnelf@nvidia.com>
- <20260121100745.2b5a58e5.zhiw@nvidia.com>
- <e186973c-ce31-405a-8bfa-dc647737a666@nvidia.com>
- <DS0PR12MB6486717785F6DD14EE1F1C46A397A@DS0PR12MB6486.namprd12.prod.outlook.com>
- <DG07HZN0PL87.X5MKDCVVYIRE@kernel.org>
- <20e04a3e-8d7d-47bc-9299-deadf8b9e992@nvidia.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20e04a3e-8d7d-47bc-9299-deadf8b9e992@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BYAPR08CA0028.namprd08.prod.outlook.com
- (2603:10b6:a03:100::41) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
+Message-ID: <aXto53g2mSNsNmFM@hal-station>
+References: <20260123000537.2450496-1-someguy@effective-light.com>
+ <2719069.vYhyI6sBWr@timur-hyperion>
+ <30f2480d-016f-417e-9ddf-7805e4943e7b@amd.com>
+ <2285353.hkbZ0PkbqX@timur-hyperion>
+ <2f9bc706-02d6-4dec-a56c-53abc5d43f46@amd.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|MW4PR12MB5668:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6814c9f-9f36-4d10-0e83-08de5f9c98fd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eHBzVzBQVWpQd2k5SlJWdzlwTW8zNjhGTTgrVU5nZzRYZWhsMDUybmlZOUhy?=
- =?utf-8?B?REhDMi9sU1YwQkY5YWZ5elRWTW1RMHVVeGtYYTlRNGpHWGJZeWFSd0YzWldM?=
- =?utf-8?B?ZG5iVWxXVUc4T1FoTnd2WEFIV2FwVWxzWGRKZnpFMkJQeDVEQkkyQnlvVzNn?=
- =?utf-8?B?azJXdExlTHZzZzJEeFd2ODBCbnk5RXl1V2N6Ri9SanVURUZZNXJTSXVXUnRV?=
- =?utf-8?B?MWlFRTlHbkNaTzN2RmdCd0VoRERRVlVJTjJMbExaR3ZvNmJyWjRVSEp5OHhC?=
- =?utf-8?B?bk5YNFZxU2hSMGFobXpJb0htTzB5cE1wY1NOVk9jM3ZqMXMyZDYxd0hPMWw5?=
- =?utf-8?B?Q2lPVjVNd1R5RHpFY0F6TkZaQnU3NEJhR2F6Sk8ydnBueE01TTZXRWlSTlVx?=
- =?utf-8?B?T1hzeC82Rk0yTnRreSt3L0pTSnhaOGhXVGxIZVNQS3JjdWZJSWFPWWdpcnBu?=
- =?utf-8?B?dExFZlc0amZsVXdHdE1UbmxXQzg0M09TRS9kaHRoQnNIOTA3bmRXQmlZZlAz?=
- =?utf-8?B?WUtJVVY2RGJsZU5idFhadGsyNjFCb1RVMWlLV1RacVorRDJkd1NadzdaYVpm?=
- =?utf-8?B?cThvcEs0N3pYWkRCVDlwcWpyTlIyTThGd3IzcjNuN1ZPOTgrdlVaVkMrYmlH?=
- =?utf-8?B?S2tJU2pwVnQzLzZxMWphRXBiRXhYYnZjdmw2ZWFFYi94c21pejF0WkVydlJM?=
- =?utf-8?B?QTlWSlVTeU9aZzJId3djODh5bHFRamw2WXQwdXRkNFY3bHZnVDZ0cFd2aWpn?=
- =?utf-8?B?cFcxck1jM1FuL0Y0YS8zcXNDMzIxdzRYOUhHT09YSUhvTFgyemQ3dW9ubmlv?=
- =?utf-8?B?alNzTlZ5Um1LMjNUakZaK3NhbnhQWUY0NUVSdWpUajFRNnNoY0dHZDZlcVAx?=
- =?utf-8?B?SFVRanVKVnVnTFBsVVBjbWVReGxBNFQwdnRiL1hWdmZLUUNWcnZvM1AveThz?=
- =?utf-8?B?WUVxcytrRW1MOEN4ZFQvL2hxS0FTT0Y0dVN1ZzduUlFGREhpZllKZHY0YmZ3?=
- =?utf-8?B?emMxVnplMUw1WURxK2dJL2dTQ2lVZFdoc2xNYmZTakUxOTdsb3VKNEZWNURl?=
- =?utf-8?B?SERFd1UvU2E1SmdTUHNhNlRtbmdiRVVEb0IyOVJCOTIzbmlwUDdiSXBDc1R6?=
- =?utf-8?B?czd1eDhaM1J6Y0pEWXRzRllYRURBUERXamRVQ3o2Tk4vV2ZDM2VVTytqeFNC?=
- =?utf-8?B?WDNucVpvVXBVLzdmNWkwTDBFMjdnTFdHN0VtbFB6QlZ5bWE1Nm95amRGQVlD?=
- =?utf-8?B?eFdwdk1FT1pyeXc3OGZBdFV5OFpneExBWDdRcndKalJSNHZJd1dPajVhaTVZ?=
- =?utf-8?B?NnM4K2FiY0NxaFI4ZmMzbDdoK2FocFRRY2J1TnhoeDdWbG82Vno2NlFMSGNl?=
- =?utf-8?B?SWpUM3pUWG5BbmRKLzhBLytxVnY5dVh6dDl2MERkYkUxU2pGaW5CR3hES2g2?=
- =?utf-8?B?UmdQRExUemZFbVRnTXdEZFlhWXBTcVBGRENWT3d1cW14VjJDc3ZzUmtpSlFp?=
- =?utf-8?B?MU5jSEZIRmdTcE4reEhBV3VWV1g5dGZ2cWlmd2Vhb1dYVXBSd09jZTBUTEht?=
- =?utf-8?B?UXl1MndqWnlkaE5YRExTWE43T2M3OVYyQm93elNncHpnQ0VxdDJmUXFDYUJT?=
- =?utf-8?B?WUFQdnZDRGJZcVRWQ3pzZ1ZhR2JIQnVvRkFYR3Noelo2V1JyNGVrMkxpVU51?=
- =?utf-8?B?a2JHY3l1TnNkSXNMc2ErWEtmVTlKUCtRSkFrV09Ha3UvZUI5QXdWYXBUQkVN?=
- =?utf-8?B?YVlYcFhid3NGT2x6aEZYTDNmMllqcm14dEtEVmdXQXVpN0FDL0VCeU1oMXZt?=
- =?utf-8?B?VUJCMGxxL05mcllWd204L3dmM2p1aVRKS0pOMXM1b1llblhyK3JtZjg0MnJk?=
- =?utf-8?B?UXV1MjM0MGhRS0NZZkNhKzJQdWFBaHhiTkdOWnlqRHdLb2s3aVNoV1FTYllH?=
- =?utf-8?B?ck8zN1dxZ0w3U0g5NWtuWHBhbXNHRm54bFFyOWJaMXZXMW1tTzNjR2RwRmVz?=
- =?utf-8?B?SGNDL1NiaEg3Wit4QkZ6THVnRlN1YU13ZWJVb01ycFk1ZWYvSU5abzMvK3Qv?=
- =?utf-8?B?cXRaM29Kcy92WDRXQWRxM2MrOURVTHRlM3N0VDdveGZKcjZQYTlwKzZxY0ky?=
- =?utf-8?Q?CIco=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXF1ZmNUR0V0UGtKNUJReXdvL2RhNWhuMmlXMTFFemsrcHp3TDJoUWJWZDdX?=
- =?utf-8?B?SE5mZVZtMEpSMlBxYlR1SmxRRjF2WVRwU2hTQ085WUp6TzFUSHV5WTFpVUh0?=
- =?utf-8?B?SlY5blM2NnZGZ2N4cmRiLzJQbSs1T3NNVURtS2NTOFNYTkcrTWFDV3NhczhH?=
- =?utf-8?B?WHp5b0g5SFM5YzkxNWhrWi9xazVFV1EvMUx6N2RUWUZCbVJUMml0ZjlJd1Nj?=
- =?utf-8?B?VytuRHZWM0NRSUg2c0VDTmpNR1F5QWJCbEM1TTVhblhTcHNvbmZSUXQwTmhZ?=
- =?utf-8?B?M0FaUW14M1JvaTB1eDhGV2cvcUlSTkk1THoydURIR3M0ZFU1MW4vVGtQTkd3?=
- =?utf-8?B?Q1oxY3VwdFYxT0ZyeWM0cE1rY25LZi9mRi9VUitMc2xucVhPRzk3WnkyNHYy?=
- =?utf-8?B?NGZUTmE5UWFDSERZc0RqUkM4TEo3ajlvdnFKdGorYTRBYVJ6eWMvalV3SGpY?=
- =?utf-8?B?U2lhZjZRT1oxbW9vbjNLUmhBSWkrRkJyT2NLSGRJV1Z0UmttN3FFOEtlSnMy?=
- =?utf-8?B?bFozbjk4cThpbXMyTUJCZHA0QXo1U0hKdWd4Q3FQWXpGOWNQckxWU3daa3ls?=
- =?utf-8?B?K3hSalQzYlVvcGxhUWZlOFpoQnQ5eHB3VE9ReVJ1T3dMZzg2VGJaQ2dRRGEy?=
- =?utf-8?B?S1hmWklRSlNjcFE3cUZmbnZxWDA0UjNVYk1MZVM5YmhRTnI0a1EyZXBBSllJ?=
- =?utf-8?B?bWhuakdCR2VzREJlK1hkM1lvVDFxNFVFTnphb0xPUVl1Mjg4K09UNjEvMDRl?=
- =?utf-8?B?aTlvS0tiMVpvRW5GS05mekx6d0FlbG5jMm1XZlNNUmZEVUs5dlMvODZyWnFQ?=
- =?utf-8?B?d091YXZ1NW50TTV4QXhETjNYNlhXN3FaTGo5bWg1RkxxOHNtQjA5RUZGeTdW?=
- =?utf-8?B?dzZ0bDkxcnZpaExtOU1rVGJ4RS9xN3oxYUVyNi9pZlhrZW5yaS9zc3pkbCtS?=
- =?utf-8?B?eHU5M0E0VTJ4QldNSG9tVURDc0lxMk4yYTI2RlRPeGJaWHFPMmxpWFBJdGJQ?=
- =?utf-8?B?bGVMdHBXa2lOT3lya01iYmdjUXdXT0xkS1M5bXI4MDM2bURYNUxDVWoxL0RL?=
- =?utf-8?B?eU5oNnRzS2FXMEVIbFFnNXhCSlJrTzBTUGFMclEwWTVlMUZiRVlud1NnVWNL?=
- =?utf-8?B?b0szN2luaWxHdDBBN2VxbkZKZ0VVZ0JiUE0zVlFkM2JseHRPM2l6ZTVHOFM2?=
- =?utf-8?B?QVRBVVh3c3VXc0YrQzhZdHVSYU9xek5HbXY5Si9GT0VENXA5Q3BsbnV0OGFJ?=
- =?utf-8?B?dXNDcVB5QnlaWDJrYTJ1YlJSbHQ5aW1KTldTNUd5ZUpSUlVmTjkvKzgyMlBp?=
- =?utf-8?B?NGVzSXh5YnpYMHo1Wm16Ylpab0NnTlkyamlHeXNMUVh0K0ptTEswcG9lOTRw?=
- =?utf-8?B?QkVTWG45bW8wTmhQTXdyQVM4VnRyQzQ2R3JlMzhYclA3ZmI1Y1NFSVYyUGFV?=
- =?utf-8?B?ektjQTZVT1ZzMG1tSExXUWpUK2NxUENxMGpmWXFTTkRwQnhleTNUdlpqa014?=
- =?utf-8?B?cmJlMXNpakF0d0NqVVpXUDhXeUk3QWltTjJlNXRhczNsZlhqNTAyRjFYUnNt?=
- =?utf-8?B?YUJGR05EYmhRQitBSDNVTmt0bm0rUU9EbytHeEl0T0ZIYzJkZERtTTQwc1h6?=
- =?utf-8?B?VHhnSGx3THJ1NDFkSjFHOWErQ2dXTUQ2eVM4Y1NsYmRNRjdNSFZTWUtKUWtE?=
- =?utf-8?B?dzA4ODk5R3kxemZONWlzNWFOYVZVclAwS2pmT1Y5YUtmL0VKM1JLOEVaV3Zv?=
- =?utf-8?B?clUrOFhSNG95R0lsNVRJcjJITW9jdVB6Sk1JdC9FTGJQYVdpWXZBM0o4UWhS?=
- =?utf-8?B?Zy9xb3dGYVVsWk1CZUpKcUNWREZMaTFpenp2T1hFVnpGSXFpQ0h4NnJ4TUZp?=
- =?utf-8?B?NEV0L0V6bnpZT2NqbWtkK244SDVMQVNqVjNNNWNPUXZTVFlDTGdOWmJzb21W?=
- =?utf-8?B?bXNOY1IvdDNBQmdIVzRDUlcxMU4rWXp4Yk1GM0pCWkRRWnREVVhsMkVkZUpB?=
- =?utf-8?B?M0FLOEhzLzdlQ3gxdXVWZk01cTBKWXRZT2hMR25DQnIvb0ZoYnF1aG11ejQ0?=
- =?utf-8?B?N280WUozVm0vcXg2YkFwZ1ZpdWlVelM3K1IrMHhHNUs3QjNsUTcvVGpiRzZ5?=
- =?utf-8?B?bWFaUzQ5V1g5OFNNTWs2aHpLUjhYN0JXUjVqS2ExV2tCNEN4NTAwcVB3Sk8z?=
- =?utf-8?B?SWIyUnRkd2c3eXFFTXNKVGRhMkdnOEVKZUNvaEdXQkY2KzUzOWVwak1BSnNO?=
- =?utf-8?B?akR6akFteTRYQllCdzNyV01VVmdNRXJ0UDYvNnhHNkZUNTVUT3ZaNEQ2TVVT?=
- =?utf-8?B?bnpNV0RMTnZWeXUyK0VndHhVZURxQkZiWm44eTNLcWJFNyt3TWNRUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6814c9f-9f36-4d10-0e83-08de5f9c98fd
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 01:12:12.1956 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v+O2IonnF1S4/N7lb0k+eznoXV8HR+N4N+etXspGz9COfW7aC74kdwewQC62O/dN0TbCrfIpAZkDMWSrhDOT/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5668
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2f9bc706-02d6-4dec-a56c-53abc5d43f46@amd.com>
+X-Rspamd-Queue-Id: 4f219v04nZz2y4L
 X-Mailman-Approved-At: Fri, 30 Jan 2026 09:22:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -205,27 +71,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/29/26 4:26 PM, Joel Fernandes wrote:
-> Hi, Danilo, all,
+On Thu, Jan 29, 2026 at 01:59:00PM +0100, Christian König wrote:
+> > How do you propose to do that?
 > 
-> Based on the below discussion and research, I came up with some deadlock
-> scenarios that we need to handle in the v6 series of these patches. Please let
-> me know if I missed something below. At the moment, off the top I identified
-> that we are doing GFP_KERNEL memory allocations inside GPU buddy allocator
-> during map/unmap. I will work on solutions for that. Thanks.
+> I need to dig a bit into the DAL/DC code and see how the signaling path actually goes.
 > 
-> All deadlock scenarios
-> ----------------------
-> The gist is, in the DMA fence signaling critical path we cannot acquire
-> resources (locks or memory allocation etc) that are already acquired when a
-> fence is being waited on to be signaled. So we have to careful which resources
-> we acquire, and also we need to be careful which paths in the driver we do any
-> memory allocations under locks that we need in the dma-fence signaling critical
-> path (when doing the virtual memory map/unmap)
+> Going to give that a try tomorrow.
+> 
 
-unmap? Are you seeing any allocations happening during unmap? I don't
-immediately see any, but that sounds surprising.
+For recent ASICs, something along the lines of the following should do
+the trick:
 
-thanks,
--- 
-John Hubbard
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+index dc8d2f52c7d6..fac668c2fcfb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+@@ -510,6 +510,7 @@ struct amdgpu_crtc {
+ 	bool wb_pending;
+ 	bool wb_enabled;
+ 	struct drm_writeback_connector *wb_conn;
++	int pflip_cnt;
+ };
+ 
+ struct amdgpu_encoder_atom_dig {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 740711ac1037..1c3b7fbab1c6 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -427,6 +427,18 @@ static inline bool update_planes_and_stream_adapter(struct dc *dc,
+ 					   stream_update);
+ }
+ 
++static inline bool update_pflip_cnt(struct amdgpu_crtc *acrtc)
++{
++	int cnt = acrtc->pflip_cnt++;
++
++	if (cnt == 300) {
++		acrtc->pflip_cnt = 0;
++		return true;
++	}
++
++	return false;
++}
++
+ /**
+  * dm_pflip_high_irq() - Handle pageflip interrupt
+  * @interrupt_params: ignored
+@@ -454,6 +466,9 @@ static void dm_pflip_high_irq(void *interrupt_params)
+ 		return;
+ 	}
+ 
++	if (update_pflip_cnt(amdgpu_crtc))
++		return;
++
+ 	spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
+ 
+ 	if (amdgpu_crtc->pflip_status != AMDGPU_FLIP_SUBMITTED) {
+@@ -589,6 +604,9 @@ static void dm_vupdate_high_irq(void *interrupt_params)
+ 	acrtc = get_crtc_by_otg_inst(adev, irq_params->irq_src - IRQ_TYPE_VUPDATE);
+ 
+ 	if (acrtc) {
++		if (update_pflip_cnt(acrtc))
++			return;
++
+ 		vrr_active = amdgpu_dm_crtc_vrr_active_irq(acrtc);
+ 		drm_dev = acrtc->base.dev;
+ 		vblank = drm_crtc_vblank_crtc(&acrtc->base);
+@@ -659,6 +677,9 @@ static void dm_crtc_high_irq(void *interrupt_params)
+ 	if (!acrtc)
+ 		return;
+ 
++	if (update_pflip_cnt(acrtc))
++		return;
++
+ 	if (acrtc->wb_conn) {
+ 		spin_lock_irqsave(&acrtc->wb_conn->job_lock, flags);
