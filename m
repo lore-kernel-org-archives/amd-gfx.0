@@ -4,65 +4,192 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEC62D358EF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12C27D358E6
 	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 08:57:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE0BF10E840;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1260310E839;
 	Thu, 29 Jan 2026 08:56:58 +0000 (UTC)
-Received: from cstnet.cn (smtp84.cstnet.cn [159.226.251.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB28C10E79D;
- Thu, 29 Jan 2026 01:56:33 +0000 (UTC)
-Received: from [127.0.0.2] (unknown [210.73.43.101])
- by APP-05 (Coremail) with SMTP id zQCowAAntwpDvnpps5z0Bg--.39391S6;
- Thu, 29 Jan 2026 09:56:20 +0800 (CST)
-From: Vivian Wang <wangruikang@iscas.ac.cn>
-Date: Thu, 29 Jan 2026 09:56:09 +0800
-Subject: [PATCH v4 4/4] ALSA: hda/intel: Raise msi_addr_mask to dma_bits
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="e+V+3TVv";
+	dkim-atps=neutral
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012048.outbound.protection.outlook.com [52.101.43.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0727310E798;
+ Thu, 29 Jan 2026 01:28:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yTJjgiQIHRhWfCvEVT7/ZUnKeIAsjdCskUxyqr4rPiVTMuQ039bOgP9xT+vBSY1XPoTNlyyD7QbWjK08mqtp2Z9s+FdTUxTbpMc1MdvmBl50Ui27RxnGEgdxFCHRHS4PfbArjN4CeXn5Sd3U1/BW+tTLJHBhOMBNQ56o82b5DA/DKWbRUSNPZxRkoWSa3cXr7oUgFXTTgkoVFKTBpLL8xqPFzu/rTp1UPSh5ogMtU0uO9uob2iQ+MmC2I+RJSvpYaWiaRajKKYIp7ypkwICBFzAx13D9ucL0HqlZ5sT0ww5KTr0+ox6DsrHanLiNO/ogAFcwhfvfhIN70j71ooTuWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7M2O6z5wuFJksKJjQ52l15hLCDr9+NWPSfrDDE6ddc4=;
+ b=ApNWOKcyeJ7NvtwlmsxAutnaS5bKH7ldu5tbQyHRWYWmg8Zv/qLCg3bxpwnTkD3Qj1OCWePepw62690p87xgnVPLdXjiHj4+qQhY6U6jFb4J+Hs2qhXTqZQI03Sjl3eVAeeGQZtlr8A1To/6qpSW2dHQBHRyKeHUKyZoFeFNyjgAnmszcORRduJ92HLnwHAdq3J1sQ1U7cVADkcoBJGCslrTLlzCWEq+pQvo68BTMxfK0vNWAL1S2K9ErvJMQPfxDpKCEisRnFYFRqcB5m1Noup1SJRwcDoQF6KrCIaY//bADE6cPVSM18WRFBEeYXL1E7oiX0u/6PTTNEHymoRBnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7M2O6z5wuFJksKJjQ52l15hLCDr9+NWPSfrDDE6ddc4=;
+ b=e+V+3TVvd84Fa1ntGB+prethWrDGzjng6/qsLyKhdYpw7ZrALdmgrDlWGXwR6YEOdL/Ujcsck9FyMMVUBD7Ac7lFuXNT+5THebTTS5fR6nVyPsmsS7fYCuk3qxJq7O71uFOrPBZ9iV9h82xxyN6Zbl6bnh4xffCnfKeChY/RObF30f0Symoj/50qqTaQmfEuxctZxnUbVno9u/vmz7aF0Fx5V1Ir5blH2I9OvzUfL5k8hq7iKMpTf/ife3WhaLoSUI0vMbmcFTsP1joVZFfHGecpkBJ4kTsQao+jjb2/J2b8ewLb2yrd91RjzbQFXu3HlsgLhvHiybgDyJ192abgmg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ SJ1PR12MB6363.namprd12.prod.outlook.com (2603:10b6:a03:453::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.7; Thu, 29 Jan 2026 01:28:40 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9542.010; Thu, 29 Jan 2026
+ 01:28:39 +0000
+Message-ID: <b71cafcc-453a-4c77-afb2-30ee635a56a4@nvidia.com>
+Date: Wed, 28 Jan 2026 20:28:33 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v6 05/26] nova-core: mm: Add support to use PRAMIN
+ windows to write to VRAM
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Zhi Wang <zhiw@nvidia.com>, linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
+ Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
+ <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Alexey Ivanov <alexeyi@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
+ <elle@weathered-steel.dev>, Daniel Almeida <daniel.almeida@collabora.com>,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
+ <20260120204303.3229303-6-joelagnelf@nvidia.com>
+ <20260121100745.2b5a58e5.zhiw@nvidia.com>
+ <e186973c-ce31-405a-8bfa-dc647737a666@nvidia.com>
+ <DS0PR12MB6486717785F6DD14EE1F1C46A397A@DS0PR12MB6486.namprd12.prod.outlook.com>
+ <DG07HZN0PL87.X5MKDCVVYIRE@kernel.org>
+ <c0a3ac65-e2e5-4b62-bc75-49b1599e160f@nvidia.com>
+ <DG0MXC1R8IRS.Y5X6XDUBOGR5@kernel.org>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <DG0MXC1R8IRS.Y5X6XDUBOGR5@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260129-pci-msi-addr-mask-v4-4-70da998f2750@iscas.ac.cn>
-References: <20260129-pci-msi-addr-mask-v4-0-70da998f2750@iscas.ac.cn>
-In-Reply-To: <20260129-pci-msi-addr-mask-v4-0-70da998f2750@iscas.ac.cn>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Brett Creeley <brett.creeley@amd.com>
-Cc: Han Gao <gaohan@iscas.ac.cn>, Vivian Wang <wangruikang@iscas.ac.cn>, 
- Thomas Gleixner <tglx@kernel.org>, linuxppc-dev@lists.ozlabs.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- linux-riscv@lists.infradead.org, sophgo@lists.linux.dev, 
- Takashi Iwai <tiwai@suse.de>
-X-Mailer: b4 0.14.3
-X-CM-TRANSID: zQCowAAntwpDvnpps5z0Bg--.39391S6
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF4kJF1UWFW3Ar1xXr17Awb_yoW8Ar18pa
- 1DWayftF4jqay5Ja1kKa1j9F13CayFkwnxGrWkK3s3Kas0vr10gr9FkryxJayxGF4vgw1Y
- vrWjv3WkWF45Za7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUQI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
- kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
- z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
- 4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr1j
- 6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x
- IIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_
- Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8c
- xan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxkIecxEwVAFwVWkMxAIw28IcxkI7VAKI48J
- MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
- AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
- 0xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8V
- AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
- 14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7sRRG-e5UUUUU==
-X-Originating-IP: [210.73.43.101]
-X-CM-SenderInfo: pzdqw2pxlnt03j6l2u1dvotugofq/
+X-ClientProxiedBy: BL1P222CA0017.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c7::22) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SJ1PR12MB6363:EE_
+X-MS-Office365-Filtering-Correlation-Id: b016db1a-5d51-4580-fc19-08de5ed5bb17
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?N2pVMEQ2TnVNMVBaaXk5TXBQVnNFQXRxQllpN1J6c1hpNHZsQ0c4R1RCdkw2?=
+ =?utf-8?B?R2xmc3BaRlJYbUJUcGxSRW42NVpZb2tZQ1lHSzNjaTdBY0h6UDY0M0tZanBt?=
+ =?utf-8?B?YjFVVXBJRnpCay92RkwySU9tbW9ncG1jWGFIVFFXMmlDNHJheXArVVFHS2Zl?=
+ =?utf-8?B?QTB4eFg3NExqUS9qeWY3VXdhUWxvTWJuVDBsUjRia2N0aml5VUNkWVFkbjh5?=
+ =?utf-8?B?dk9KT0dKLzkyWW5lVURsY0FDWVgrcVkwVENxNGR3a2xURWxydjVjSGdKclpD?=
+ =?utf-8?B?Z3F2a1ZjTEdiTWppRUkySWJ1U3VzN2MxbFNpYTdjUW9rcE0ydDNNSU9jbkZM?=
+ =?utf-8?B?QVdPMWhlQnVWNTJkRE42US9WNDk5V3pQd28xMnJhamlEczFoNk04ODRWZlRK?=
+ =?utf-8?B?R29xTVRJL3JtSjhMZWtvbDhwSld5eG5aVmpzenlCNW9uUmp0MUtWRDV6b055?=
+ =?utf-8?B?My9UVlRVZlVRSk40VUdjd0JOd2lxOTIyb2tHdXE1SkJscWd1elovd2NSWkF1?=
+ =?utf-8?B?ZjBqZ1JnQi9GU3hxUjgzbklYYm8rdmo1Z09wUCtSZ3BDcEljZE1pb3JaNEt4?=
+ =?utf-8?B?M3VhL1M5OGtuT2xUWWFZaHB4RGE4empuUjV1UzVCemh5cDFHMDF1ajhFei9K?=
+ =?utf-8?B?QU8zdlR1d0pEZWN1aVlINkZFNnBHQ1ZwVXdwcjJIS3lRNVNkQ2dPZm1xYlhS?=
+ =?utf-8?B?VmJ3RitzRGJ5Nkw3WEd3SnFOL0JQbWlwakRaRHUrbk1mMWc2aFFQcXZlKzF5?=
+ =?utf-8?B?Z203RVVvRjhvVWplcWd5SWhGWTdzbmJzMml6dkFRTk5vdm9mWG51MTEvQWIz?=
+ =?utf-8?B?RDRxZHpVbE5yT2EwOHFWWk5WbjZueUc2cHNSL2JiWnVNV0IxUDdTaWFhWm1y?=
+ =?utf-8?B?QklxeGFjZG9wRDgyY3VqNjdoZEN6NEhCZjlqc3hpcXA4ems0QzlzUnVjelI2?=
+ =?utf-8?B?VmhmL085d2YrTy9OTENXSDJNWTV5dHJaRm5uNThUdVRidElIc1FwY3RUaDJX?=
+ =?utf-8?B?cWFKTW8wMEorcHVHamxmSXZkRnNrRExjYkIzQVl0UkVRMDFkQnVha05Ec04x?=
+ =?utf-8?B?b3J4Y3RDWjJ4U2V2Z3JVd09uQzZwblFyclBUZmNLNVJmS2s5WUhTSy9kK05a?=
+ =?utf-8?B?WHl1SVZTSFEyYkp5ZEdMQWN3VUpOWkVKNG9vZktFa1FtaFhPZXZ0Ny9CWU1X?=
+ =?utf-8?B?WDR4V1VmZTJEYVRrK2NlWEtUQXBpVVlaMDBrZ29BVnZrVjZ6RSt5ZzIreW8x?=
+ =?utf-8?B?Tm8xUHBUcmtzc3NFNjB6d09mQlRpWXhHZkh0L0VpdHNGQysvM2VtME5UVERC?=
+ =?utf-8?B?VGxqem9oaFJaNVB1V3R3NGhDM0h6ZFRyUVZQb093MHlsYlhRMVRLNnJ3bUhV?=
+ =?utf-8?B?SHo3MTB5bStKSWliZ0grMnBIVHJrSXNEUGZHbFZRQmoyMG1XOHlOcHc3RFov?=
+ =?utf-8?B?cm9raGpnQmJlUzRnYlcvMHhreFJxSVBLZ3gyTEI3eng0MzY1cjhZbUlTNERp?=
+ =?utf-8?B?ak1GelVCckJDVnoxaGNsdzFYSERsK3lTYW10eGR4b1F6dmVWaVBoeEs5aVpB?=
+ =?utf-8?B?SHg5RUlWOFFKV2F3dUY2TXU5akxvK0VDbGFXUi9Yd3ZzeXN3cWlEb3BMYk9I?=
+ =?utf-8?B?RVlMRWR5QncwYm5aUWFrdVhvK1RqaU1DV3RDdEdvZ2ZUV0NwRFg1aklkN3B3?=
+ =?utf-8?B?OFhsdkkxdVdncXRiQUswU2ZOdnJxVUVMenJJcXFtYTBIVk5jQUIzSkExUGtN?=
+ =?utf-8?B?VCtSTlgzWmYzbldOMVkydEFidytTQ3hVa1k1Nm1yK0VNMS9pcUtycGJxckpX?=
+ =?utf-8?B?VmpTUG01cHVPYzZSdjhyc0dhRVhSQ3R5RTdvVUxLMGk2bFRBdml0bllVVytZ?=
+ =?utf-8?B?V09xWkdST0hidjR1Qk16NHBUcWh0Rk1BVmZmVVlPRmV3YWxpSElaeWZXK2tv?=
+ =?utf-8?B?eW50NzR5UWxiSG9PemxhU3lsRVZwR0J4RDQyVFRGYm9NalY2MElrajE2c28y?=
+ =?utf-8?B?THNCTmxBQ25tUElGUkx1dkZUakdqZldWWjNoTFNtajdpWUROdVBmTThQWEgz?=
+ =?utf-8?B?U3NUNjFFK2hybWlSblE5K2RZbEtWQVhNUGVhVFZZcGI0dXBWc0UwMGwvbjFE?=
+ =?utf-8?Q?jE/Q=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?em05UGZLYi8xNWtteHBNeDE2cmticlhUZkM0LzNLcTVzZCtCdzByRGVqbXdJ?=
+ =?utf-8?B?UEtqZGZhZ2tIOFRvUjVscTNWcHdGWWNqYThwZ3BEYWd6eU50MnB1d1pCUjBa?=
+ =?utf-8?B?TDNiUjBva2tjWDZxblhObU9ZeHZNa01OS2J4d1VBeFJueW93L3dYdmtxaGQ0?=
+ =?utf-8?B?QUZudGQ1WDFXZ1VZRFVYYmFNbHFjeE5uOTlvb3cyVC9LVUp1dzVaMW5hOVFQ?=
+ =?utf-8?B?R3dWWmVJbEtFQU5TU0pBcW91OVdsSGsvTHVLNUZEUDRGZWV2TmJsRU5BamZF?=
+ =?utf-8?B?YzJRbjYwV1B0dGJWUUNVNTZZUFJFV0hEdm5NOS84K2kzQnhPR3dJYXRRa1Mx?=
+ =?utf-8?B?TEx0QWdVR1BEZ3ZTcVk4eDJtMVdnVFdNUi9qWHQrZm9kRzBMeWpaRENwMHlr?=
+ =?utf-8?B?WE44VVNqQVpuSlZzNDlNK0tncEtqeXcwNzV0ZFNlS0hGYVdhSlFxbXo2V1R0?=
+ =?utf-8?B?TENMamZYenAvSGZ3em1idGQ5WUlQR1FPdkpaWFlMWUNvN09GVGs5anNWTnZL?=
+ =?utf-8?B?d3E1ZFNnRHEwS1g5WGtYNS9rWUhzVkNZVjFyUlhVVnJtenRvSjNYdUpPNmFJ?=
+ =?utf-8?B?UldDT0JCM0VVUHpUTkpjZGsrbVIwbnpxdHBkT3hpT3p3MStoaTQ5QzV3SDF6?=
+ =?utf-8?B?dVlqVVEzdm5hbUluUzE2ckp3N1UzbU9qRVJTaG9PZGxpYmRNcVhyaG9nRTA4?=
+ =?utf-8?B?M2VBZHdvWnlWMFdmRkZUd21OTWNveWVYb2JPQXFWbjlkNEQ2bkVjZVpSRmtk?=
+ =?utf-8?B?cWpCTzByUm5kKzNoSzdsd2o5MnZXVVhKZlUzTGxTSUlHU2F5S0lKem5VNUNS?=
+ =?utf-8?B?d3gydTlMU21Ba3FlblRXc2Fvdlh5c0FDbGhKTnpXV3ZPdHJ2eHV5aWhJa01Y?=
+ =?utf-8?B?VUhoaU52ZTJ0MkIrNTZsT3ljUEJKYlBXbGVvUDY3Tjh0a3VTREdKTXd3VHBv?=
+ =?utf-8?B?eURuNXg0a2pzOStXUEE2NmhVN0QrR2hQR0hkZ004R0ZJZDM5MjI5OU9NZGVo?=
+ =?utf-8?B?OVBWS2lSREY0MGVhSVloNW04bEViOXZCNGZuTHBWd0RuOWZ0WTlBeTNaakp0?=
+ =?utf-8?B?SHRmd1RoSkt4cGJEWmgzRjl4V25jT044UkdXNmxWOFNKalk3OEQvcWY3UDkx?=
+ =?utf-8?B?UHdSL2d2WVFyc1Q2UjYwcnRVY0EwUEh5SU8zcGI0UjZMTVN6bkt5c0FpMUc1?=
+ =?utf-8?B?Z25XdmJkUFZQN2FOSWZpOGxmZEJ2OWs0RTd3TjNvQWFWeXM2QkJnRUk0UHp6?=
+ =?utf-8?B?MVQrcWRYNmRhck5aZVJsUFhSY0t4UWgwbzJCVGl3MkJmMEl6WkdNR0w5MmVL?=
+ =?utf-8?B?UlQzcGNUZXlwQzFpL1pyYkVnd1RzRVVZRGZKYXIwaEJ4T25yRzFsdXo2bTdr?=
+ =?utf-8?B?NHRMeTlyL0FyaU1TbmQ4NkMwMWV0T2daVWliVllhTG5hVEp1K25VcmpxT2Jh?=
+ =?utf-8?B?NUhaV0VOeXZVNGFHcENpRktESEJUZWFZYTRheEcyTDZhSC9MSmhWYmZhY3JW?=
+ =?utf-8?B?bXBDY0NyUEFMTElIZVkrdEt0Z0dnczFOYlg5Nmpjci9YdmgyZjZzc1UrK3JP?=
+ =?utf-8?B?OTZKakt6OHFoTWlMd0VMMDVwcjlvbk9odnIrU1NPM08yc1RKOFFQQW96UlNR?=
+ =?utf-8?B?b0JIa2NSVWVNVVBwYUZub0grbG16UTJFVVRQRC9qMTdnM0NDUXp0aDR4QUNP?=
+ =?utf-8?B?WEhDNjdnK3pJbFczeHRBUmltS1JvaHlrWmNoNWUzUzBKNUxrcHBDODkrRUE5?=
+ =?utf-8?B?blczN3hOVkNYZ0tlUE9tL1hOMnNkR1VybGlTdCtCRmppWXhLMUhzUGRuM3pT?=
+ =?utf-8?B?dUVreVUrazNNYmZpR3NuOHROOGVwZEhPNGY3TDZ0V2ZONXlCU21VTnhCeHpI?=
+ =?utf-8?B?YzNYTCtMS2d5SmVhMko4UmNMUzZ1Q01kYmRzSWNIRzBtL3BncXRJMWtyT0Fs?=
+ =?utf-8?B?RXlBdDRzS1FLQ28vOTUyVHJZcnNkdEdDaS9mOGJwbnZSeUMvdm1oR0xKMHp4?=
+ =?utf-8?B?bmNXU3pnUXVrZExRTXM1SVJNODhrVGNYeWlSMmptRTRnYmNFRHVIaXNERUsw?=
+ =?utf-8?B?VGtZVWtOd3N1N05Tekx0ME8zN1FKYlNtVlpEV3ZQdXF4QU9CRi84MFEvc3pQ?=
+ =?utf-8?B?R0c4RTBENmp0ZjFlOEFMaDRsandXOVlBVFVDYW44MGVpbzZ1Ly9IZU1PUklI?=
+ =?utf-8?B?K3dUYlF3MVNqbUVSTnZnWUgvdnlQdnRJUmhzSkFYLy9Mb2ZuSDdibDlmOHN2?=
+ =?utf-8?B?Y1Nmek5QYTB1T09SUEFPR3ZzaHVNckR6OVllbjBlV1F1NHNJOE5tVURSdVZu?=
+ =?utf-8?B?Qm5FeWYzaHRmYTlQYUpEYStmK1EwQllWbXU2bEhKSWxFUVJGMTAyZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b016db1a-5d51-4580-fc19-08de5ed5bb17
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2026 01:28:39.6875 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SAgIdP5ET6egW4s+dZ8TxMNvDGXg1V2E7Iy/uVn5DGfdVdv9KiDE5413qWc23hdd1xt9zH0Grwm+NIB6UipL9w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6363
 X-Mailman-Approved-At: Thu, 29 Jan 2026 08:56:55 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,52 +205,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The code was originally written using no_64bit_msi, which restricts the
-device to 32-bit MSI addresses.
+Hi Danilo,
 
-Since msi_addr_mask is introduced, use DMA_BIT_MASK(dma_bits) instead of
-DMA_BIT_MASK(32) here for msi_addr_mask, describing the restriction more
-precisely and allowing these devices to work on platforms with MSI
-doorbell address above the 32-bit limit, as long as it is within the
-hardware's addressable range.
+On 1/28/2026 7:09 PM, Danilo Krummrich wrote:
+> On Wed Jan 28, 2026 at 4:27 PM CET, Joel Fernandes wrote:
+>> I will go over these concerns, just to clarify - do you mean forbidding 
+>> *any* lock or do you mean only forbidding non-atomic locks? I believe we 
+>> can avoid non-atomic locks completely - actually I just wrote a patch 
+>> before I read this email to do just. If we are to forbid any locking at 
+>> all, that might require some careful redesign to handle the above race 
+>> afaics.
+> 
+> It's not about the locks themselves, sleeping locks are fine too.
+Ah, so in your last email when you meant "non-atomic", you mean an allocation
+that cause memory reclamation etc, right? I got confused by "non-atomic" because
+I thought you were referring to acquiring a sleeping lock in a non-atomic
+context (I also work on CPU scheduling/RCU, so the word atomic sometimes means
+different things to me - my fault not yours :P).
 
-Acked-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Vivian Wang <wangruikang@iscas.ac.cn>
----
-v4: Patch message rewording for more consistency
----
- sound/hda/controllers/intel.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+I believe we may have to use "try lock" on a mutex if have to use these in the
+future, in a path that cannot wait (such as a page fault handler), but yes I
+agree with you we can use mutexes for these, with a combination of try_lock +
+bottom half deferrals. additional comment [1].
 
-diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
-index c9542ebdf7e2..a44de2306a2b 100644
---- a/sound/hda/controllers/intel.c
-+++ b/sound/hda/controllers/intel.c
-@@ -1903,11 +1903,6 @@ static int azx_first_init(struct azx *chip)
- 		chip->gts_present = true;
- #endif
- 
--	if (chip->msi && chip->driver_caps & AZX_DCAPS_NO_MSI64) {
--		dev_dbg(card->dev, "Disabling 64bit MSI\n");
--		pci->msi_addr_mask = DMA_BIT_MASK(32);
--	}
--
- 	pci_set_master(pci);
- 
- 	gcap = azx_readw(chip, GCAP);
-@@ -1958,6 +1953,11 @@ static int azx_first_init(struct azx *chip)
- 		dma_set_mask_and_coherent(&pci->dev, DMA_BIT_MASK(32));
- 	dma_set_max_seg_size(&pci->dev, UINT_MAX);
- 
-+	if (chip->msi && chip->driver_caps & AZX_DCAPS_NO_MSI64) {
-+		dev_dbg(card->dev, "Restricting MSI to %u-bit\n", dma_bits);
-+		pci->msi_addr_mask = DMA_BIT_MASK(dma_bits);
-+	}
-+
- 	/* read number of streams from GCAP register instead of using
- 	 * hardcoded value
- 	 */
+Coming to the dma-fence deadlocks you mention, this sounds very similar to my
+experiences with reclaim-deadlocks when I worked on the Ashmem Android driver.
+Deja-vu :-D. The issue there was the memory shrinker would take a lock in the
+ashmem driver during reclaim, which is a disaster if the lock was already held
+and a memory allocation request triggered reclaim. I believe the DMA fence
+usecase is also similar based on your description.
 
--- 
-2.52.0
+It's about
+> holding locks that are held elsewhere when doing memory allocations that can
+> call back into MMU notifiers or the shrinker.
+> 
+> I.e. if in the fence signalling critical path you wait for a mutex that is held
+> elsewhere while allocating memory and the memory allocation calls back into the
+> shrinker, you may end up waiting for your own DMA fence to be signaled, which
+> causes a deadlock.
+
+Got it, I will send the next day or so studying the DMA fence architecture but I
+mostly got the idea now. We need to be careful with reclaim locking as you
+stressed. I will analyze all the requirements to properly address this. I will
+reach out if I have any questions. Thanks for sharing your knowledge in this!
+
+--
+Joel Fernandes
+
+[1]
+I can confirm for completeness, that both Nouveau and OpenRM use mutexes for
+PT/VMM related locking. In interrupt contexts, OpenRM does a "try lock" AFAICS
+on its mutex. This is similar to how Linux kernel mm page fault handling
+acquires mmap_sem (via try-locking).
+The linux kernel does have per-PT spinlocks to handle the "2 paths try to
+install a PDE/PTE race", but I don't think we need that at the moment for our
+usecases as we can keep it simple and rely on the VMM mutex, we can perhaps add
+that in later if needed (or use more finer grained block-level locking), but let
+me know if anyone disagrees with that.
 
