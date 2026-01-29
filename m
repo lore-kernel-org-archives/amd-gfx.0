@@ -4,219 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAAB1D49C80
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 09:22:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A872D49C89
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 09:22:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C652110E983;
-	Fri, 30 Jan 2026 09:22:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 342B910E9A1;
+	Fri, 30 Jan 2026 09:22:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HBYEPU8N";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dUJ4OEDi";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C87B10E8E1;
- Fri, 30 Jan 2026 03:12:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1769742744; x=1801278744;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=JBqJly10XaHNVl40Hfus1NlrAtzO5IdKTnQOpFMXAQU=;
- b=HBYEPU8NVPMbBu5cGLpDz9h77a/H8B2ushAB6to6ZeDi41/NUDZoqJM/
- 3CjGkdCfQbCIMnJnQQ+HDZrJZHIGsKMDE1H5mLiFgV0TnzcB0bSDntQs8
- bfKf7OFKdTb46iOJI4t8zNG4q5DLM5/+togPs+oiY3zWuiTudQVRRCTxK
- xDbJ+unc30aeNgXD/z+3qrxponUdYL0QCQqh3YLTVzHfEVSNznCkJ+yQM
- 5imlPOpSJuFwAVX7/oLP8azF/ggUYaH11PdlmGqVYVGIMXbxLQ8v5TVYc
- cKe3eefZMITvH6DCqYM+IRWU8hMh44YxRYdnmadVSbUg8+5l46HAMCR8v A==;
-X-CSE-ConnectionGUID: Ys74WzwxTca4lyyEUlEV0A==
-X-CSE-MsgGUID: +N9doUPdTpu+nkz4jvLNSg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11686"; a="81307995"
-X-IronPort-AV: E=Sophos;i="6.21,262,1763452800"; d="scan'208";a="81307995"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2026 19:12:20 -0800
-X-CSE-ConnectionGUID: WpaLwd/NTQmEARMz0DIV/A==
-X-CSE-MsgGUID: /UdNa0yGT+OdYPh7yOyXuQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,262,1763452800"; d="scan'208";a="212825576"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa003.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2026 19:12:14 -0800
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35; Thu, 29 Jan 2026 19:12:10 -0800
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35 via Frontend Transport; Thu, 29 Jan 2026 19:12:10 -0800
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.13) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.35; Thu, 29 Jan 2026 19:12:10 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rnQUQL1lsoSbdUG//2PzV4kMRDseUDz2g6daCkUasfKGe/KoOKe8CjBuyym92Y6OCONjf+UGfxgLpDuSB+fQZ0OOI+NR0wRlmPUh0VV9sEJgwPfTguXGJP6ZZClSi4Mz0S1LweQvGgAuT85UgguOHcMt9zcnxwl+hq+jR+Lupn7GUFMMNg7A5jXY2ieXIFmZWrxMqzG6BrU3hhSK3s5URH3DDqqJNEtu37tEuCCEd6Wqd485JToSoqDVU/b66meq7JLsIXePaVHjqewEY0x3FXiDKUSPvKwxJ6aTerdo++PuWorpvu5blLfNNfUMmDyFeFQjW7nohM5t0/JNAt1qKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JBqJly10XaHNVl40Hfus1NlrAtzO5IdKTnQOpFMXAQU=;
- b=xF4peH4dihrKT2+hsffdPbNmWcCDLgBuXEzhPnwv4RkwVkC/t2lyQVCRwAOZOOuknP2R8Jo157m3uDoK566C6p+IR2H/y3XOoYM2jCzMywedKwnwAgFvASP+gYFg9HsCrBwi+uhyPjL6qUtE3zHqofcZAkg+9y6gMNcoDHCpObix6IH+gmG/Ov5jWp9vfjlJqTFgzU7BclZdmgZTewWKovFsMepvneMO1k3a6zqDi0496z8lQUY5g8SBJOIHCl0JB8XW5tvCjUrhcuHQKZSPVbORail0y0PG8ur6Hgc0qyICMR93X1cP1NfNPaqGcyoM23LPb58srScGYZy3S4crqQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from BN9PR11MB5276.namprd11.prod.outlook.com (2603:10b6:408:135::18)
- by LV2PR11MB9537.namprd11.prod.outlook.com (2603:10b6:408:378::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Fri, 30 Jan
- 2026 03:12:03 +0000
-Received: from BN9PR11MB5276.namprd11.prod.outlook.com
- ([fe80::f997:762f:f079:134f]) by BN9PR11MB5276.namprd11.prod.outlook.com
- ([fe80::f997:762f:f079:134f%5]) with mapi id 15.20.9542.010; Fri, 30 Jan 2026
- 03:12:03 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-CC: Leon Romanovsky <leon@kernel.org>, Pranjal Shrivastava <praan@google.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?=
- <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "David
- Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Gerd Hoffmann
- <kraxel@redhat.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, "Lucas De
- Marchi" <lucas.demarchi@intel.com>, =?utf-8?B?VGhvbWFzIEhlbGxzdHLDtm0=?=
- <thomas.hellstrom@linux.intel.com>, "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, 
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin Murphy
- <robin.murphy@arm.com>, Felix Kuehling <Felix.Kuehling@amd.com>, "Alex
- Williamson" <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
- "Kasireddy, Vivek" <vivek.kasireddy@intel.com>, "linux-media@vger.kernel.org"
- <linux-media@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org"
- <linaro-mm-sig@lists.linaro.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "virtualization@lists.linux.dev"
- <virtualization@lists.linux.dev>, "intel-xe@lists.freedesktop.org"
- <intel-xe@lists.freedesktop.org>, "linux-rdma@vger.kernel.org"
- <linux-rdma@vger.kernel.org>, "iommu@lists.linux.dev"
- <iommu@lists.linux.dev>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>
-Subject: RE: [PATCH v5 4/8] vfio: Wait for dma-buf invalidation to complete
-Thread-Topic: [PATCH v5 4/8] vfio: Wait for dma-buf invalidation to complete
-Thread-Index: AQHcjWW44cZHc/LC3Ey07jDLODM/2bVk8PuAgADKdoCAAH2KAIAChYWggACGQ4CAAMxq4A==
-Date: Fri, 30 Jan 2026 03:12:02 +0000
-Message-ID: <BN9PR11MB5276907FC927424043C636E68C9FA@BN9PR11MB5276.namprd11.prod.outlook.com>
-References: <20260124-dmabuf-revoke-v5-0-f98fca917e96@nvidia.com>
- <20260124-dmabuf-revoke-v5-4-f98fca917e96@nvidia.com>
- <aXfUZcSEr9N18o6w@google.com> <20260127085835.GQ13967@unreal>
- <20260127162754.GH1641016@ziepe.ca>
- <BN9PR11MB5276B99D4E8C6496B0C447888C9EA@BN9PR11MB5276.namprd11.prod.outlook.com>
- <20260129145851.GE2307128@ziepe.ca>
-In-Reply-To: <20260129145851.GE2307128@ziepe.ca>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR11MB5276:EE_|LV2PR11MB9537:EE_
-x-ms-office365-filtering-correlation-id: be884d30-1167-48f6-1273-08de5fad5734
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|38070700021; 
-x-microsoft-antispam-message-info: =?utf-8?B?bUJydWN4UEdBN1QrMEI0dDBqcUZ0Um1qTEhPZDBuQ2xFNFZ3QkNBL2VCY1NI?=
- =?utf-8?B?clVMWUxlL203TFhUN3VHV1pvVG5DTkpQY3R1c0pzQ0VsWlN5RVY5UU1mSmow?=
- =?utf-8?B?ZEZRb0FIeW9ZYytCQkhOY1F5d2tkVmpLMVRrSUZqTnNEZEY5WS9oUTJFTDNt?=
- =?utf-8?B?RGlBQ05FaDRHS0g0b2NJQ0d2cEdYT3RTM3M3cFhsM1I1d2pLTUxJbmhyY3Mv?=
- =?utf-8?B?NGd0MG03MjRFNnFHMEZZUjNJVGw3K3YxOUVtMzk0ellGTG0wYnh5TTR2ajVF?=
- =?utf-8?B?OTZYcjZ1M3VhRlpXZjRoaTMyRTRSZjRybXBSZ2RybzF0cldHNFRhb29INFBx?=
- =?utf-8?B?WjFZMnJEQUhiQ1dzL3ZLeS9NeTZ0ek54dk4ycENNWDV4S1JZZ054aFlJdGtP?=
- =?utf-8?B?eTM5ZTNVWTNKaENkN2tMSm81aWxTTWhYZEJmRmF0UUREZDBROGRXNHVyazRY?=
- =?utf-8?B?eFdNdUNpd0lhR3ZUT29hZnVMRHFhUkhMWDB2VmQvcGdVbzdsMFpVTkRtQXJH?=
- =?utf-8?B?MHAxcGNtL3BRbVByV1NhWmVRLzdzQlZzVHVTMG5GNVpPNjhabU8rSzQ0Qm00?=
- =?utf-8?B?bmRJekJhMndNdi9tVXg4OEc2SUpOQndBMVZqVmwxZlJFK1VjRnJCckVTQ1JJ?=
- =?utf-8?B?SHBjZTJZOFFRS3RWOVZ4QlNQMmptaVptQlFWdGZkSlRETUZmcVYvT1RqTXdV?=
- =?utf-8?B?NWkwL3ZjRnpaNkhaYzkyNkZFREJpYXZiWSs5Q1BlMnhzOU1objdOOFhMSXU0?=
- =?utf-8?B?UHRVRWI1b1F5dWkrdUxxYTAxRDJvY2xEZUhvTkx2ZkpJN1U5SjJHcm9WVVJF?=
- =?utf-8?B?WTdFZFBIVDhHa0FVNjZHTlM3YmhVa1ZpSTUwYVlXSnU0d0RiT2FYdU00bkFG?=
- =?utf-8?B?T3ViVENjSGlKcWdGL2xKTmpEOWk2Q0l4c1ArRWt2REhyR21SSHJCNEFlWjRR?=
- =?utf-8?B?blNMQ3J4ZTN5bGJkb2JRMU5SSFpBazZJa3B2bzQvUVY0eXBOdjVMcVZGSGZU?=
- =?utf-8?B?c1ZUaEtuckZIODZmVExSd0hiZ2hVWlNQNGpFdE5WSjB5dEIvaGZESzJXYjhG?=
- =?utf-8?B?NnlyY05hVkJVYXZabTlwWHc2WjhlakQrSERqa2pKd0R0UkovV1ZJRkpDaW9S?=
- =?utf-8?B?WkwyWUxaVjBFRjdaSi9UQ3VlVGRSKzRGUkdndGpwVmVHWXF4ejJ1MVQvamZ6?=
- =?utf-8?B?TER4M0FxcE9sWTlSaUtSUEFJc2ZiM3dCZ21SY0x5V2d3ZU84VHlGWkE3R0FJ?=
- =?utf-8?B?cnJFdlFjYXN0czFVbDg0V2F1YXBhZWR3ajJzdGNiS2JvVHJHQnhycEtIMHBu?=
- =?utf-8?B?OE5qQXplK2ZaQzltTSszaUVNSkgwV2U5QnU3TEp5akxwR2huNTYrV2N1OXZQ?=
- =?utf-8?B?dldXMUVtSXA2cW5pbjNhZDF2cE44SUJlOGRPREI1bWJRQU9xdVZHQzNUOXFI?=
- =?utf-8?B?SVovVW9iWmRRUVF2T3o3RS9qT0FYdmFVWit5ZDBKT3dWY3Q2OExaUWRjZDJM?=
- =?utf-8?B?U2d0Y01iTnordnpiRHNGVUNGN1pvbkwrSmlqcHFwWTRXRGFWNTNUa2dUTUUr?=
- =?utf-8?B?UnZEc0hPalQrem1LMHFmNHVlWFVVaFpyM1Ayd3MyaWJaaDJ6ZHpHanFrSUNm?=
- =?utf-8?B?ZDNhTWxOS01DMlNBNm0yWTJRNXBHL1IxZ1daTzNYNW1QWE01aUp2VTVEQlBL?=
- =?utf-8?B?Umg0WTR5M1U4ZHdzZFBXUWgyTGE5YVUrWVYyTjJKNmNaaVY2M2FmMkNFZjFP?=
- =?utf-8?B?YTROWUQrazUxK0MvZ242aHhkSVJsUWt4MGd3aHloamlkaitQTk9CbzFwbTZa?=
- =?utf-8?B?TVJzWktlbTVmVjM5bzdzWEZ4RHhRTmp0NUJsUlhMUlZabVNQaTNYZVFWQlpV?=
- =?utf-8?B?MisraysybS8xNExWQWtRUlQvTHVabDZYNjdlQkoybVBnaU1sSzkxRHcraUty?=
- =?utf-8?B?dDdKOVR3TEF0aG5qZit0Y3k3Q3JValNsN2xnWnBZTW1ISXpLV1FtUkV4M1Iv?=
- =?utf-8?B?eUgwMHJRUFVGZ2wwZnB5MFZwL0RvRHBKdXJBTmpXMXhBN2VQOFB3dHVFUDhi?=
- =?utf-8?B?b0NKQTBFdVFqMFdSdGR3TGcxUlZ4bkM4L0ZOSU5aN0dJd2l3OFgwSFhTemxH?=
- =?utf-8?B?MGRzNzZGUVRuRXZkZUtYOHdSSUIvdHRUZHE1QUd1blA2S2RDd0pWOU1LSnEv?=
- =?utf-8?Q?YNvIoesUoxvrINfBxyM3Zgg=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR11MB5276.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TjBET202TlpCUnM0MkdpRGNDSFZTWEVDVkdyVzJBNnhxTUJ6T0Q3SEp2aUx1?=
- =?utf-8?B?U0hqYlRCN09CQzgxYk8wdFVwNWVMb0oxTi80RmRWTEhRbDFKMlBWU0loTUZR?=
- =?utf-8?B?VXZFWlRPRWtNdlFPc3M5OWdRUTJDZDdnVGRjZHdOVXNvK0wzNUVWQ2xIL1Iy?=
- =?utf-8?B?elg3RFc0a0RnUXZtNEZWcWdlU3Bia253VzVsQlAzVUQ1cElLL0RWTHRlQnoz?=
- =?utf-8?B?MHhJbUhEdkdZUnEzMFFmNjNkSmsrbmRmZnJXaUIwMlhyRXd6RVRXSEtiYTVq?=
- =?utf-8?B?YitIbTRKMDVBY050emRaTS8reTByY2cyQXpqZnh5cGN5c3d5amkrWmdoYVlE?=
- =?utf-8?B?dTRBREtIUlN4WlM0VkV3cTFDQTJPdE1BRStNL01MREJJMUw2dTZxSXB0VXRm?=
- =?utf-8?B?ZHdNRk4xN2lzdE9Pb29sZWlwbGlucWpJN0FvbUpFVUg0T05rUTlpS0kwa2l6?=
- =?utf-8?B?OWloMDJEOGkvWW80L1RUdnBURzZDMWpGVEE1dGdMZzJYNk8vOHQrNzBUTWZm?=
- =?utf-8?B?NjJkdHpIalNBcTlRenJhd1YwR29iR3VBaUVxcCsyYk8wT0Q0eVFScThMaVRn?=
- =?utf-8?B?eWt6QWtKSS9sQytIWlFNaGJ3bTBPelpnY1NSaThGSmNCNVFuYTZMalZQZmw5?=
- =?utf-8?B?ZE9ZRVlJUm5zdzF0bW1wVys2UWl0WTVSSE5EMmNuaTcxUkRFUWdLVjNXQitk?=
- =?utf-8?B?dFZhbVZGNGJxRm9jaFVjTVEwOURrUWwyeUs3dzlUNFFEVG5lS1BQWDIvUUlO?=
- =?utf-8?B?Z3NNeWQxNy9jK2NMMHJYQ1c5T2R5RkttQlltSHIvM0VsbkRJWWlBU2ZiMTRt?=
- =?utf-8?B?S0NPMnQ4T3lrUDJ0azNudFVaUTNvb2tET0JMZHdjM3FJSzJuVVBtMlRJWWQx?=
- =?utf-8?B?ZWo0RlBWcGFmMVVNeUdlaGhoTkMzQW1oUzNPaE1zVUpXaGRYdUduT1cydWhL?=
- =?utf-8?B?dkdlREU5T0p3a09YSnh3eXM5R1JOUDBtUXdvb2doSldDUkhmT0Z1aDErUzhr?=
- =?utf-8?B?ZDlrelFSRVZQR3dtWXRlSFJJUzVFWm94Z1MyeEJqS05veWl2L25LUFRLSGlH?=
- =?utf-8?B?UStJcEk0UHd2cnlxWkgwM2RwQWV6RWNFT0k5akVPRStJY0VKeDZDL3JHTHNU?=
- =?utf-8?B?aWhPbktuSFNCT2ltRnBZNkZDOU16N1NYamN1Sm1aKzV5WjFiY0J4T1JkRHpI?=
- =?utf-8?B?VTBPVG1wRFBrQWhUMXUxTUFYQzl5RVlLZ0YwT2ZqcU5uNEdpVHpramVuZFVv?=
- =?utf-8?B?Vi9JNDF3Z1JkQWJkWUZRUEQwbTlicS9Tc0pCM2pJZUpRQWtQUVpQVWRxTzFw?=
- =?utf-8?B?TFd1bDJjNXFxTGxPbEpENSsxcmttOGRvMVY2VkVVVCsrQjg3c1NZVkNTdmVM?=
- =?utf-8?B?OVdKNS91OHFTek0ybGtONVEwSzVBTUI2U3Frcy9MRjNlOEZhZjZJbGQ2alVz?=
- =?utf-8?B?a0syNnlpak9oY2lLMEZWRzhlaXhkWXlIQm1nOU93SXV6V1N6TXlZM0NYQ0lo?=
- =?utf-8?B?YjlhaUJ1QTAxMXdKVFlSK08vY2FtMmladlNKR3lmbXRWR2MzWVNrME1VbWQ4?=
- =?utf-8?B?bzNuaU8xRm1lR2ZwZjhwUzBPcytPMFZYQVRPeVA0UEJoZ0JMS2hGaEpYVlpZ?=
- =?utf-8?B?WmVDdFJvSTNtenVOUTRWbnVrbU1mQ21kcHJBbUE1MG94TFZwVEdBdUk2MlZz?=
- =?utf-8?B?RWZ6RnAwQ25SZEl2OEtwQnFhVEowUHZjdENmakE5eG9TMXdkaFhPTUZVb0do?=
- =?utf-8?B?dFB6eElCOXZSbGNCQ1VUNCtpM2dnalRDdngrc29JMWFiZXJnS1UrSitrNjU2?=
- =?utf-8?B?T0pseGRuQmFhSDVkbnEzVEdLVU9PSldYQU1ZcUl1RUhMU2E5RThSRC9wYmlC?=
- =?utf-8?B?ZSthQnR2SnVYTzl3dy81OWhDaVdZNWUvUmk3azNyYk5rWjJsaG9KM2xUVU5L?=
- =?utf-8?B?YXAxV2JoN2RwcFZSNTJ1bjIxMFptUlpyVlZMZ3lPOEpvbTRkL3RJY3BaRWxM?=
- =?utf-8?B?OU5FZGI3OUJlL0NUQmZvUjhoQjU4VFJ2bUxzanZGWU0xaU1wdWpvZmdCeUdm?=
- =?utf-8?B?VjltQ3hLWWJNN0FzQ3NuaDVJTHhvcDVOTkMrVUZjS1UrMUsxZ1JOZFgzS2E0?=
- =?utf-8?B?Njh4VEtCK085QVlMY1kxLzF0RGxZdWxTRFpmUTR1T0pLVk44Y1phU24xNjJG?=
- =?utf-8?B?bWVVenRRbkhIbW1xWEI5eW9HUXBSalRKR2ZzeW1TN1pQcUJQblEzWGUvOHBT?=
- =?utf-8?B?Q1BuaUEvL3J0WGpMMDVKMFhQdEpKVk5pSnErM1NNcitHaUlNeTVlZ3dTQjI5?=
- =?utf-8?B?WHdwZ2wyc1ZZL1VvaDdBb20rUjhnaU1sQWUzQnNaMXpwU2VKaUlvZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
+ [209.85.219.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF0B10E8A8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 16:42:01 +0000 (UTC)
+Received: by mail-qv1-f52.google.com with SMTP id
+ 6a1803df08f44-8887ac841e2so10465166d6.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 08:42:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769704920; cv=none;
+ d=google.com; s=arc-20240605;
+ b=AQWKfnouS3owU2G3Z0pEHVdbN9hwdyjJqlsviChMyB5yiz3FKKDDpRaibsz65oaq9d
+ 7CtCpjAOuMru4AUzoHxUEVR9CY/7xC6XPuOhjHCo2dXpAknrhRLN/yaafC3Lqr4Dl3Ip
+ hEhIkuZ+MHfQyz1H+PbpEtyZE54X+OTIc3k5oZ9CiwDhOkaKEQYFXaPjmVqA/n5AKG3v
+ aoP3F63/yNVd3Z4RY4TQGn9ixZbjpRabqShaNfoeXNr+AHmtH0LOv/ANB1PxkfHwVJiV
+ PmpHqJw2MDnVlGY+YkomqjdWAcFurbkzPk5NeqnShmAX+OzYI9Pe6sjIBTIqwc/JLgej
+ 9d6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=UTUVbcd/Q4jnC5ImuUSFgP8oQOyNCkpI89jF1YQHUqo=;
+ fh=8NodEL50WTGj65LWq/0beDR0rXMpIRoSEwR8NWsyC2w=;
+ b=EiteYQuklm2P92T/n5MRPW3UoOwyLbudmO0SUbpvlIRVMv0esH6m/DJjFl3N3vKJvM
+ Im9cU/r2M4SK4zqvbsWVOqqcCi+sAAgjFXKudmlNPxoIiewtfyWWrE6WP8MbBOzAfjzS
+ u52qH5UwMfnQM/YUDkWIpc2Mw5qfoqD/98l9sZELNZIpA+cDUJnCGLPfLW080yQbEuvA
+ ps1UTJn41rg+VUY11mHzUr6s0G98YT1D14NZLHRTZQYRZoevUqyK5rWEdn0/5AxPUxjH
+ NgJvI4J7Wzbj/xbe0bit2YoN1JoPCHJ6CKsAR863gyD/+vluQtPvFlv43IQI8BIyOerw
+ Efsw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769704920; x=1770309720; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=UTUVbcd/Q4jnC5ImuUSFgP8oQOyNCkpI89jF1YQHUqo=;
+ b=dUJ4OEDi39mLvT/k5aXlWuI7/z4GEiwVKnQ6hJyS1CIBmLrGxW6gBQm5T4ChI+VzV1
+ LpAVYsWpFxlIcMGE3J05E1J98yjHMOsBeCN66vcQvC2VGLukFRufSDCUdY+Nw3aIJCs5
+ B9q8Gp7NefNlpJXsg0Akt6E9vstJT6wckbRmu2+cOizPQKnULqSB4CKYYLJ+8/iNeJWQ
+ wg67CqULymHhAAOMWEL8mcldO78sY/T7VRi9mBHbU2FV8lTPGXt6dyba+37eGW5bE0P8
+ iMFEC7+NYpkUFtBI8ZSqj/75qagdy3XD8CnbYsrMY21R4npPjfALmrNimCbH2Ss2JrcZ
+ FnjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769704920; x=1770309720;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=UTUVbcd/Q4jnC5ImuUSFgP8oQOyNCkpI89jF1YQHUqo=;
+ b=kgbAqZ08CHAHwAqRVbOVBZkxGyiRqSGGr4Tc+WBj4NaOc+DYCHWViQKwE+FJXdZNJy
+ YydJItoI9qCwQ0gh7mMmcY9r5Pj/VrLZtnAEPj3qT2ucbC4UR/Gpzf7jDN0va9WrhPkr
+ c1NEuvXuO8cIHPol7XihQYHVqFanSWJSz/hTzS3jqbWdKzfqbiQdyvSS9TxaelMhTo4m
+ lFY5HoU9PrLfsDtRlk4+pIQv0QCt5qyG1tdlovyEDphuNdzT2gqybW9WXC8NitZI4Oai
+ 7SBfpUMB/AaPLIcP0hitpnxSs3E502sfIbBQRAWEMDlYVMSPtFFKopYD39VPA/t0MFq7
+ 54tQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXG09Jk8rb5r1sxcijmeAjcqMqqslXLnuFkuBIc28goUWWF8Q0/VQuKfOtfVDdCh543s8sigdaT@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxCscQN2kEcGUeMWi5ixUgXueX0QV02NHvbcNZx+EiLl5jEE4Ex
+ 5rnntkk66Dfzy5xUfPc0ORm79Ws4snrti4J9j6Kmt+nSoi1E5yld74WfdrR0FqcFfhO93tzi0PP
+ 776bRC8uXWVL8GIPbhC4wKKjUMlJuW6s=
+X-Gm-Gg: AZuq6aKqwf/UaLoIq2Pc+04mEazzxqBxnatZif3ZVDI0Mj8qk7jnYNP0S4AfY4U/7MF
+ 3oGWcar8DpLuW8lujrhjBL0X/+hQ4k2ZaV0/P9U074DrImopsyrKNojmEY9tLU/0Gw2h9fk6zlZ
+ LmrPcn7SmOnj8VWw7AdDmpV0XZ3w9v2JnSdQj6yuq/7NkKZpSmNdIuhUK91t02ztq7zXDtRxESA
+ fDnaAgy5ZgRHNuE6irlgXJdtt91h1u1mU49pIiwCP5gWAA/uz+DAiVwzPE/RYHWDV5uPXr9
+X-Received: by 2002:a05:6214:765:b0:890:754b:1396 with SMTP id
+ 6a1803df08f44-894cc9472cemr136001506d6.57.1769704920164; Thu, 29 Jan 2026
+ 08:42:00 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR11MB5276.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be884d30-1167-48f6-1273-08de5fad5734
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jan 2026 03:12:02.9184 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lLjfiY9w5/mR9siFG8ZOkGA4Ejl2vNYEY58Y3zpt5P2iieA7qPHnwRhqbmYwBFe2aQSa1ZENHUK7KsaOrPAAxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB9537
-X-OriginatorOrg: intel.com
+References: <CAFqHKTnSUndwTs-cc8SZxST48UBj6_oKf0Bzt_mMSsj6=g-xww@mail.gmail.com>
+ <923ab7ae-0963-472e-995e-760c30978274@amd.com>
+ <31babc28-0e69-46e5-94cd-8856e9ad6550@amd.com>
+In-Reply-To: <31babc28-0e69-46e5-94cd-8856e9ad6550@amd.com>
+From: Derek John Clark <derekjohn.clark@gmail.com>
+Date: Thu, 29 Jan 2026 08:41:48 -0800
+X-Gm-Features: AZwV_QgOegN2_JQ1MaXI7zJ3zc-NfBU0ZhSluXQW6M3h8P4l86-IKVydfZW541U
+Message-ID: <CAFqHKTmeGC_7FiuU73yCUxkXdQ78Q-6NXT43aHOqBjSE4beUog@mail.gmail.com>
+Subject: Re: [PATCH v4 1/2] drm: Introduce drm_crtc_vblank_prepare()
+To: Leo Li <sunpeng.li@amd.com>
+Cc: Harry.Wentland@amd.com, airlied@gmail.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ simona@ffwll.ch, 
+ Mario Limonciello <superm1@kernel.org>, ville.syrjala@linux.intel.com
+Content-Type: multipart/alternative; boundary="0000000000001fae9206498989d4"
 X-Mailman-Approved-At: Fri, 30 Jan 2026 09:22:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -232,21 +106,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PiBGcm9tOiBKYXNvbiBHdW50aG9ycGUgPGpnZ0B6aWVwZS5jYT4NCj4gU2VudDogVGh1cnNkYXks
-IEphbnVhcnkgMjksIDIwMjYgMTA6NTkgUE0NCj4gDQo+IE9uIFRodSwgSmFuIDI5LCAyMDI2IGF0
-IDA3OjA2OjM3QU0gKzAwMDAsIFRpYW4sIEtldmluIHdyb3RlOg0KPiA+IEJlYXIgbWUgaWYgaXQn
-cyBhbiBpZ25vcmFudCBxdWVzdGlvbi4NCj4gPg0KPiA+IFRoZSBjb21taXQgbXNnIG9mIHBhdGNo
-NiBzYXlzIHRoYXQgVkZJTyBkb2Vzbid0IHRvbGVyYXRlIHVuYm91bmRlZA0KPiA+IHdhaXQsIHdo
-aWNoIGlzIHRoZSByZWFzb24gYmVoaW5kIHRoZSAybmQgdGltZW91dCB3YWl0IGhlcmUuDQo+IA0K
-PiBBcyBmYXIgYXMgSSB1bmRlcnN0YW5kIGRtYWJ1ZiBkZXNpZ24gYSBmZW5jZSB3YWl0IHNob3Vs
-ZCBjb21wbGV0ZQ0KPiBldmVudHVhbGx5IHVuZGVyIGtlcm5lbCBjb250cm9sLCBiZWNhdXNlIHRo
-ZXNlIHNsZWVwcyBhcmUNCj4gc3ByaW5rbGVkIGFsbCBhcm91bmQgdGhlIGtlcm5lbCB0b2RheS4N
-Cj4gDQo+IEkgc3VzcGVjdCB0aGF0IGlzIG5vdCBhY3R1YWxseSB0cnVlIGZvciBldmVyeSBIVywg
-cHJvYmFibHkgc29tZXRoaW5nDQo+IGxpa2UgInNoYWRlciBwcm9ncmFtcyBjYW4gcnVuIGZvcmV2
-ZXIgdGVjaG5pY2FsbHkiLg0KPiANCj4gV2UgY2FuIGFyZ3VlIGlmIHRob3NlIGNhc2VzIHNob3Vs
-ZCBub3QgcmVwb3J0IHJldm9jYWJsZSBlaXRoZXIsIGJ1dCBhdA0KPiBsZWFzdCB0aGlzIHdpbGwg
-d29yayAiY29ycmVjdGx5IiBldmVuIGlmIGl0IHRha2VzIGEgaHVnZSBhbW91bnQgb2YNCj4gdGlt
-ZS4NCg0KZ29vZCB0byBrbm93IHRob3NlIGJhY2tncm91bmQuDQoNCj4gDQo+IEkgd291bGRuJ3Qg
-bWluZCBzZWVpbmcgYSBzaG9ydGVyIHRpbWVvdXQgYW5kIHByaW50IG9uIHRoZSBmZW5jZSB0b28N
-Cj4ganVzdCBpbiBjYXNlLg0KPiANCg0KZWl0aGVyIHdheSBpcyBPSy4gSXQncyBub3QgZGlmZmlj
-dWx0IHRvIGZpZ3VyZSBvdXQgYSBsb25nIHdhaXQgYW55d2F5LiDwn5iKDQo=
+--0000000000001fae9206498989d4
+Content-Type: text/plain; charset="UTF-8"
+
+Leo,
+
+Appreciate it, thanks
+
+Cheers,
+Derek
+
+On Thu, Jan 29, 2026, 08:40 Leo Li <sunpeng.li@amd.com> wrote:
+
+>
+>
+> On 2026-01-29 10:15, Leo Li wrote:
+> >
+> >
+> > On 2026-01-28 23:43, Derek John Clark wrote:
+> >>> From: Leo Li <sunpeng.li@amd.com>
+> >>>
+> >>> Some drivers need to perform sleepable operations prior to enabling
+> >>> vblank interrupts. A display hardware spin-up from a low-power state
+> >>> that requires synchronization with the rest of the driver, for example.
+> >>>
+> >>> To support this, introduce a DRM-internal drm_crtc_vblank_prepare()
+> >>> helper that calls back into the driver -- if implemented -- for DRM to
+> >>> do such preparation work before enabling vblank.
+> >>>
+> >>> v3:
+> >>> * Unexport drm_crtc_vblank_prepare() and make it DRM internal
+> >>> * Drop warnings in drm core for vblank_prepare(), drivers can do so in
+> >>>  their implementations
+> >>> * Drop unnecessary crtc null checks
+> >>> * Check for drm_dev_has_vblank()
+> >>> * Rebase on latest drm-misc-next
+> >>>
+> >>> v4:
+> >>> * EXPORT function to fix build error on DRM_KMS_HELPER=m
+> >>>
+> >>> Signed-off-by: Leo Li <sunpeng.li@amd.com>
+> >>
+> >> Hi Leo.
+> >>
+> >> I wanted to know what branch this series applies to. I'm trying to
+> >> troubleshoot a possible vblank issue on the Legion Go 2 and was
+> >> pointed towards this patch series. Unfortunately I can't get it to
+> >> apply cleanly to drm/drm-fixes, drm/drm-next or stable/linux-6.18.y
+> >
+> > Hi Derek,
+> >
+> > This applies to drm-misc-next, here:
+> > https://gitlab.freedesktop.org/drm/misc/kernel/-/tree/drm-misc-next
+> >
+> > Thanks,
+> > Leo
+>
+> FYI, in case you run into the same issue, I had to blacklist my wifi
+> driver:
+> modprobe.blacklist=mt7925e in my kernel cmdline for drm-misc-next to boot.
+>
+> -Leo
+>
+> >
+> >>
+> >>
+> >> From commit 15392f76405ecb953216b437bed76ffa49cefb7b (HEAD,
+> >> drm/drm-next, drm/HEAD):
+> >> $ b4 shazam
+> https://lore.kernel.org/dri-devel/20260127194143.176248-1-sunpeng.li@amd.com/
+> >> Grabbing thread from
+> >>
+> lore.kernel.org/all/20260127194143.176248-1-sunpeng.li@amd.com/t.mbox.gz
+> >> Checking for newer revisions
+> >> Grabbing search results from lore.kernel.org
+> >> Analyzing 2 messages in the thread
+> >> Analyzing 0 code-review messages
+> >> Checking attestation on all messages, may take a moment...
+> >> ---
+> >>   [PATCH v4 1/2] drm: Introduce drm_crtc_vblank_prepare()
+> >>   [PATCH v4 2/2] drm/amd/display: Implement prepare_vblank_enable
+> callback
+> >>   ---
+> >>   NOTE: install dkimpy for DKIM signature verification
+> >> ---
+> >> Total patches: 2
+> >> ---
+> >> Applying: drm: Introduce drm_crtc_vblank_prepare()
+> >> Applying: drm/amd/display: Implement prepare_vblank_enable callback
+> >> Patch failed at 0002 drm/amd/display: Implement prepare_vblank_enable
+> callback
+> >> error: patch failed:
+> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c:277
+> >> error: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c: patch
+> >> does not apply
+> >>
+> >>
+> >> Thanks,
+> >> Derek
+> >
+>
+>
+
+--0000000000001fae9206498989d4
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Leo,=C2=A0<div dir=3D"auto"><br></div><div dir=3D"auto">A=
+ppreciate it, thanks=C2=A0</div><div dir=3D"auto"><br></div><div dir=3D"aut=
+o">Cheers,</div><div dir=3D"auto">Derek</div></div><br><div class=3D"gmail_=
+quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, =
+Jan 29, 2026, 08:40 Leo Li &lt;<a href=3D"mailto:sunpeng.li@amd.com">sunpen=
+g.li@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><br>
+<br>
+On 2026-01-29 10:15, Leo Li wrote:<br>
+&gt; <br>
+&gt; <br>
+&gt; On 2026-01-28 23:43, Derek John Clark wrote:<br>
+&gt;&gt;&gt; From: Leo Li &lt;<a href=3D"mailto:sunpeng.li@amd.com" target=
+=3D"_blank" rel=3D"noreferrer">sunpeng.li@amd.com</a>&gt;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Some drivers need to perform sleepable operations prior to ena=
+bling<br>
+&gt;&gt;&gt; vblank interrupts. A display hardware spin-up from a low-power=
+ state<br>
+&gt;&gt;&gt; that requires synchronization with the rest of the driver, for=
+ example.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; To support this, introduce a DRM-internal drm_crtc_vblank_prep=
+are()<br>
+&gt;&gt;&gt; helper that calls back into the driver -- if implemented -- fo=
+r DRM to<br>
+&gt;&gt;&gt; do such preparation work before enabling vblank.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; v3:<br>
+&gt;&gt;&gt; * Unexport drm_crtc_vblank_prepare() and make it DRM internal<=
+br>
+&gt;&gt;&gt; * Drop warnings in drm core for vblank_prepare(), drivers can =
+do so in<br>
+&gt;&gt;&gt;=C2=A0 their implementations<br>
+&gt;&gt;&gt; * Drop unnecessary crtc null checks<br>
+&gt;&gt;&gt; * Check for drm_dev_has_vblank()<br>
+&gt;&gt;&gt; * Rebase on latest drm-misc-next<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; v4:<br>
+&gt;&gt;&gt; * EXPORT function to fix build error on DRM_KMS_HELPER=3Dm<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Leo Li &lt;<a href=3D"mailto:sunpeng.li@amd.com=
+" target=3D"_blank" rel=3D"noreferrer">sunpeng.li@amd.com</a>&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Hi Leo.<br>
+&gt;&gt;<br>
+&gt;&gt; I wanted to know what branch this series applies to. I&#39;m tryin=
+g to<br>
+&gt;&gt; troubleshoot a possible vblank issue on the Legion Go 2 and was<br=
+>
+&gt;&gt; pointed towards this patch series. Unfortunately I can&#39;t get i=
+t to<br>
+&gt;&gt; apply cleanly to drm/drm-fixes, drm/drm-next or stable/linux-6.18.=
+y<br>
+&gt; <br>
+&gt; Hi Derek,<br>
+&gt; <br>
+&gt; This applies to drm-misc-next, here:<br>
+&gt; <a href=3D"https://gitlab.freedesktop.org/drm/misc/kernel/-/tree/drm-m=
+isc-next" rel=3D"noreferrer noreferrer" target=3D"_blank">https://gitlab.fr=
+eedesktop.org/drm/misc/kernel/-/tree/drm-misc-next</a><br>
+&gt; <br>
+&gt; Thanks,<br>
+&gt; Leo<br>
+<br>
+FYI, in case you run into the same issue, I had to blacklist my wifi driver=
+:<br>
+modprobe.blacklist=3Dmt7925e in my kernel cmdline for drm-misc-next to boot=
+.<br>
+<br>
+-Leo<br>
+<br>
+&gt; <br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; From commit 15392f76405ecb953216b437bed76ffa49cefb7b (HEAD,<br>
+&gt;&gt; drm/drm-next, drm/HEAD):<br>
+&gt;&gt; $ b4 shazam <a href=3D"https://lore.kernel.org/dri-devel/202601271=
+94143.176248-1-sunpeng.li@amd.com/" rel=3D"noreferrer noreferrer" target=3D=
+"_blank">https://lore.kernel.org/dri-devel/20260127194143.176248-1-sunpeng.=
+li@amd.com/</a><br>
+&gt;&gt; Grabbing thread from<br>
+&gt;&gt; <a href=3D"http://lore.kernel.org/all/20260127194143.176248-1-sunp=
+eng.li@amd.com/t.mbox.gz" rel=3D"noreferrer noreferrer" target=3D"_blank">l=
+ore.kernel.org/all/20260127194143.176248-1-sunpeng.li@amd.com/t.mbox.gz</a>=
+<br>
+&gt;&gt; Checking for newer revisions<br>
+&gt;&gt; Grabbing search results from <a href=3D"http://lore.kernel.org" re=
+l=3D"noreferrer noreferrer" target=3D"_blank">lore.kernel.org</a><br>
+&gt;&gt; Analyzing 2 messages in the thread<br>
+&gt;&gt; Analyzing 0 code-review messages<br>
+&gt;&gt; Checking attestation on all messages, may take a moment...<br>
+&gt;&gt; ---<br>
+&gt;&gt;=C2=A0 =C2=A0[PATCH v4 1/2] drm: Introduce drm_crtc_vblank_prepare(=
+)<br>
+&gt;&gt;=C2=A0 =C2=A0[PATCH v4 2/2] drm/amd/display: Implement prepare_vbla=
+nk_enable callback<br>
+&gt;&gt;=C2=A0 =C2=A0---<br>
+&gt;&gt;=C2=A0 =C2=A0NOTE: install dkimpy for DKIM signature verification<b=
+r>
+&gt;&gt; ---<br>
+&gt;&gt; Total patches: 2<br>
+&gt;&gt; ---<br>
+&gt;&gt; Applying: drm: Introduce drm_crtc_vblank_prepare()<br>
+&gt;&gt; Applying: drm/amd/display: Implement prepare_vblank_enable callbac=
+k<br>
+&gt;&gt; Patch failed at 0002 drm/amd/display: Implement prepare_vblank_ena=
+ble callback<br>
+&gt;&gt; error: patch failed: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_=
+dm_crtc.c:277<br>
+&gt;&gt; error: drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c: pat=
+ch<br>
+&gt;&gt; does not apply<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; Thanks,<br>
+&gt;&gt; Derek<br>
+&gt; <br>
+<br>
+</blockquote></div>
+
+--0000000000001fae9206498989d4--
