@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A0EFD61014
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A704CD61013
 	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 12:55:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC82710E868;
-	Thu, 29 Jan 2026 12:55:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2021C10E85F;
+	Thu, 29 Jan 2026 12:55:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="VUzNK6Lc";
+	dkim=pass (1024-bit key; unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="BLIfnR/l";
 	dkim-atps=neutral
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
- [45.254.49.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B7C610E83B;
- Thu, 29 Jan 2026 09:05:49 +0000 (UTC)
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com
+ [45.254.49.198])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEE4F10E73E;
+ Thu, 29 Jan 2026 09:25:38 +0000 (UTC)
 Received: from LAPTOP-N070L597.localdomain (unknown [58.241.16.34])
- by smtp.qiye.163.com (Hmail) with ESMTP id 32699cf23;
- Thu, 29 Jan 2026 17:05:45 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 326a2d473;
+ Thu, 29 Jan 2026 17:25:35 +0800 (GMT+08:00)
 From: Zilin Guan <zilin@seu.edu.cn>
 To: alexander.deucher@amd.com
 Cc: christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- lijo.lazar@amd.com, Hawking.Zhang@amd.com, Prike.Liang@amd.com,
- le.ma@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mario.limonciello@amd.com, pratap.nirujogi@amd.com, alex.hung@amd.com,
+ sakari.ailus@linux.intel.com, lijo.lazar@amd.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  jianhao.xu@seu.edu.cn, Zilin Guan <zilin@seu.edu.cn>
-Subject: [PATCH] drm/amdgpu: Use kvfree instead of kfree in
- amdgpu_gmc_get_nps_memranges()
-Date: Thu, 29 Jan 2026 09:05:42 +0000
-Message-Id: <20260129090542.907623-1-zilin@seu.edu.cn>
+Subject: [PATCH] drm/amdgpu: Fix memory leak in amdgpu_acpi_enumerate_xcc()
+Date: Thu, 29 Jan 2026 09:25:32 +0000
+Message-Id: <20260129092532.921809-1-zilin@seu.edu.cn>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9c0900613803a1kunm465c995a10b97f
+X-HM-Tid: 0a9c0912888703a1kunmfecbb79410cc7f
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWS1ZQUlXWQ8JGhUIEh9ZQVlDQhkdVhkZQ0tJQxoYTE0dS1YeHw5VEwETFhoSFy
+ tZV1koWUFITzdXWS1ZQUlXWQ8JGhUIEh9ZQVlCTEJIVkNDQktDH04aSR4fH1YeHw5VEwETFhoSFy
  QUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0NVSktLVUtZBg
  ++
 DKIM-Signature: a=rsa-sha256;
- b=VUzNK6LcXpSolDCnOVEOm2cgMJ7l996ghpbKUuBVBA1gPAxZGrV5wNnJ7CmqI8w52KDanfuBnqpt9wYlkJQhgfq4QGpAKMrnyQfPlEtyh3aLfmEJxZtKizDALqWcp2LcULayLgDclOv2TCj2/WeXHuwyaiMH+aV8msZLrUPanvk=;
+ b=BLIfnR/lBXjlW/j9BG7yESi1l6jZ8+lND0IcGx318XgpljYJVYLprh9Yg6tSWxxoH4JArxjP35xuFV17HGfR/r6+xUGQ2SRXg7exRYDfJBWsl90KkONilnZcVta/p14MqzNfG4+u3lyHZDpfdJCkvxorXdenxqHz/sACfnXWwrg=;
  s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1; 
- bh=ZmXJ3O1Z7fCSx2JYjXY/DoaySeq3pCLYnyjozwche5c=;
+ bh=CXMwENmzKP+RWsE+LIKSDf98HXtSoCzOeMJnBvytx4w=;
  h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Thu, 29 Jan 2026 12:55:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -59,34 +58,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_discovery_get_nps_info() internally allocates memory for ranges
-using kvcalloc(), which may use vmalloc() for large allocation. Using
-kfree() to release vmalloc memory will lead to a memory corruption.
+In amdgpu_acpi_enumerate_xcc(), if amdgpu_acpi_dev_init() returns -ENOMEM,
+the function returns directly without releasing the allocated xcc_info,
+resulting in a memory leak.
 
-Use kvfree() to safely handle both kmalloc and vmalloc allocations.
+Fix this by ensuring that xcc_info is properly freed in the error paths.
 
 Compile tested only. Issue found using a prototype static analysis tool
 and code review.
 
-Fixes: b194d21b9bcc ("drm/amdgpu: Use NPS ranges from discovery table")
+Fixes: 4d5275ab0b18 ("drm/amdgpu: Add parsing of acpi xcc objects")
 Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 7e623f91f2d7..cb0d1ac148e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -1382,7 +1382,7 @@ int amdgpu_gmc_get_nps_memranges(struct amdgpu_device *adev,
- 	if (!*exp_ranges)
- 		*exp_ranges = range_cnt;
- err:
--	kfree(ranges);
-+	kvfree(ranges);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index d31460a9e958..7c9d8a6d0bfd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -1135,8 +1135,10 @@ static int amdgpu_acpi_enumerate_xcc(void)
+ 		if (!dev_info)
+ 			ret = amdgpu_acpi_dev_init(&dev_info, xcc_info, sbdf);
  
- 	return ret;
- }
+-		if (ret == -ENOMEM)
++		if (ret == -ENOMEM) {
++			kfree(xcc_info);
+ 			return ret;
++		}
+ 
+ 		if (!dev_info) {
+ 			kfree(xcc_info);
 -- 
 2.34.1
 
