@@ -4,74 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3718D49C80
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 09:22:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6FF5D49C84
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 09:22:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0890410E98B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B83A10E98C;
 	Fri, 30 Jan 2026 09:22:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="PP9xP45O";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="fPt2W388";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="pos/8NoQ";
 	dkim-atps=neutral
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
- [209.85.160.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A93C010E169
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 00:17:13 +0000 (UTC)
-Received: by mail-qt1-f179.google.com with SMTP id
- d75a77b69052e-502a407dabaso11224411cf.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 16:17:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1769732232; x=1770337032; darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=JQnCcQDZjp9U0R1Q7JCyNDeekOxxS8phMo1p2crcsis=;
- b=PP9xP45OQLNpYiW6EFi2rAiTdHE26QjeyOoPnpmiUQxIYef+QJuGq5TmjrSEfndzaL
- u57hlcvAHDe8JiS9BSnz+rdZ5/yqRk7BbhUDJvOdBwpq6ijih5NGl0F65a1O+sjKDOAo
- FzMBTZzlrF5NHoYkOCEpew5QE9wFvlSUC2HYk70WEpsMAziHDgR3ZjgtlV+3+2+CnYOj
- Wdpd+/KCKH8VzBZFcPMz87uAJwD3k8TgUq+cfpft2gljOVVD7u8bmaimirV6oNONF2ZH
- U9cpI5AJrRezQ4c2MDXH2ruDfpkdo+N2pu1ksvJ66TCTpaoLwF2d5kV1tdR7unHuO0jL
- wShw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769732232; x=1770337032;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=JQnCcQDZjp9U0R1Q7JCyNDeekOxxS8phMo1p2crcsis=;
- b=t6zGHWUrs6BomdzZliiV3/baC5jufBY27D1YsSZWVv1EFVA1+yKdnwBTxoeifNP2Ak
- LSl35Pa8RjK0KNMDV19IczUNhrJVvzSM2eg6HTpSwhHW/L5YbBNJHmZZHNpU48f9WGB2
- MiGNM/4OzDJBYg7a9P4y9nGDlU7SJVQFcOrMbSwGt++1uJWSPAlCr5bHREnUlXhJ6Mqm
- 4oj8l5m3CIf52WjD9DMcRr5xZ5NHpLwR2gUBNviFr7VkI7oOsSl0fnFZxQY0QmaFIpUV
- OWKpNFE0hNpqIla5nr4LE44B9Tq9FYfIOMAMFnsYQCHx3B7XAKqW918Zk5USBOCJa36g
- WDRw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXrbdCez1AEIVstqbqjk3qsJxWZwfiOqBtoOM7x3pcpBnyaol2ljkrNFeOLHCiggh4cJL8xF1NV@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx/AvRVuV4W17I6LKab0p1vB1qW1fNXvtYBu/c/pg8bmnS/zEVy
- TlDaFY09+enNIIiy03eWrmJurArgp8W7o7EEN7v9p0uvJZwdDnUERr6rLto7UWHNZCM=
-X-Gm-Gg: AZuq6aKPhzRd0doaxwzbkAeU82dneAoMtcjaYGxxWiCnBycyLGmo1A/fZ0IMn2/KZ3+
- 7/chxJqQJJndnO4XPqTjGfa/CZAWmYBst8YSPeuIYWYssstmn3U0AV4i7JAsztOgOxfAbCFQghD
- 7g0tCNuFdjJVrdzuvy4U0YDN7P6xl0Qx2ZFa23IV5QjqbJgXs7eqlq/2YZzn/2HdLODkBKWT7Ea
- mEIaqnH2THl1FWmLpKsGsbYk+6n2Cpp/Np8ba+MJwXVNUVRXr+5DDySh6IEIGqdC1R/4O2GvGIY
- c4pAYOLTYLqyBcl7Sir4KWQZ8Jr5+KbMm7wUYI26jZ6wSQMm0VyUrm8P6hPOKNlk3QJ3lW9B+xh
- 4M85q0m1B2L/vbavBBG2lVG1nHnWaK0+ipIxrzqqVOrkU+xnH8/ygoHK5/eHzZdUw2zpJP6dr9q
- weP2P/9P/k/K9CAWkIklv8aTnOpjfrK/bgyjOG7HrTDwd5pok7uFLYhQVJ84M2fk9a4ir9JEvKM
- mFBkQ==
-X-Received: by 2002:ac8:5781:0:b0:4f3:5f7b:cc1d with SMTP id
- d75a77b69052e-505d21846b4mr19549181cf.34.1769732232444; 
- Thu, 29 Jan 2026 16:17:12 -0800 (PST)
-Received: from ziepe.ca
- (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50337cc19d7sm45008611cf.35.2026.01.29.16.17.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Jan 2026 16:17:11 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1vlcCE-0000000AQZD-13C4;
- Thu, 29 Jan 2026 20:17:10 -0400
-Date: Thu, 29 Jan 2026 20:17:10 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
+X-Greylist: delayed 427 seconds by postgrey-1.36 at gabe;
+ Thu, 29 Jan 2026 21:11:14 UTC
+Received: from fhigh-a4-smtp.messagingengine.com
+ (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9911410E8E9;
+ Thu, 29 Jan 2026 21:11:14 +0000 (UTC)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id C92D214000FC;
+ Thu, 29 Jan 2026 16:04:23 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-01.internal (MEProxy); Thu, 29 Jan 2026 16:04:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1769720663;
+ x=1769807063; bh=vDz61CCGqyTd2ueQYq7Ind9S5sxFgNDCq0qSE3tAvzU=; b=
+ fPt2W388vtRo7ayaKEoqhFs1nFhGLnySqwnRo6OoM/EEZd/fl8ntd/4evCdZC1aI
+ f6/TjJRJ2BpbC2LOH6WQWR52LbYQ1HY3aVm2/vEOPpZwv3dWwOtk51isBBsT2RKx
+ LNvvohjp5uxKSbmqpICRwoShObSm+bg/aVCqYTw4RM6byBHq++20r40LXEt/Vyc1
+ t6CNexdpAoKqr8n1hNmIkLBopi48tUlAlFEzriEB22fppAN5DeB1KHIPQZgpcgSE
+ x5dTm8jF4zM1HXQbh63LT3ZUa7g1vvLXYUUIBAgzMiMgwyRng8Dbmdj5Mwba2nYU
+ L5u8fibgfsKWjpATTDISKA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1769720663; x=
+ 1769807063; bh=vDz61CCGqyTd2ueQYq7Ind9S5sxFgNDCq0qSE3tAvzU=; b=p
+ os/8NoQ6cPF2X2PCWiTS5qhdLSdDy6W//1sP/QPIkuUhISM9SdW2winhh11n92IK
+ AhSgjdQyRnFh1doClqeddUGgei1ZPKj1uUkksibZFHh+q7QzMtdqkRwS818hkpWj
+ M2zrufzlyEsq6E8uRCfvWtlN1ftReS/Ipey7UQKKqQ7ZxRnYL73mwZ64G2q/KBDi
+ 2r4q69QzY+Mk37qsPd53G0l9Okn/wIj2K/StQUos2qWsBEroLcWuStpngJH3vl6c
+ 9Pwm3+Ri19Pv1AefbuK3pg0bZg/A17zQwvw/6n3h/i3i+IjiirKBWCoYkp2KVIq8
+ BomabllBv20xQNMH4zADw==
+X-ME-Sender: <xms:V8t7adYljAD27sU-OoX_zz4fif5AVpRrPitXg9r2Us5heKk0T2BKPQ>
+ <xme:V8t7aWTI4P0hgV5dTW5NTniY7OJGE9HarZNkv_x_doxnjdkWADM7pgKWiFeuKqLCo
+ jsM4XN4xBbz4jwgNeKdROr40GlMY8IipuT3JZtphZ0zyTkacaqo5g>
+X-ME-Received: <xmr:V8t7aUlnr4vVo5Z4KDsEA062hnNDmX7Yu8j0wBWpd8SGL3gBK5XD67zziB4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdduieejvddvucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+ gurhepfffhvfevuffkjghfofggtgfgsehtjeertdertddvnecuhfhrohhmpeetlhgvgicu
+ hghilhhlihgrmhhsohhnuceorghlvgigsehshhgriigsohhtrdhorhhgqeenucggtffrrg
+ htthgvrhhnpedvkeefjeekvdduhfduhfetkedugfduieettedvueekvdehtedvkefgudeg
+ veeuueenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ grlhgvgiesshhhrgiisghothdrohhrghdpnhgspghrtghpthhtohepfeegpdhmohguvgep
+ shhmthhpohhuthdprhgtphhtthhopehlvghonheskhgvrhhnvghlrdhorhhgpdhrtghpth
+ htohepshhumhhithdrshgvmhifrghlsehlihhnrghrohdrohhrghdprhgtphhtthhopegt
+ hhhrihhsthhirghnrdhkohgvnhhighesrghmugdrtghomhdprhgtphhtthhopegrlhgvgi
+ grnhguvghrrdguvghutghhvghrsegrmhgurdgtohhmpdhrtghpthhtoheprghirhhlihgv
+ ugesghhmrghilhdrtghomhdprhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtghhpd
+ hrtghpthhtohepkhhrrgigvghlsehrvgguhhgrthdrtghomhdprhgtphhtthhopegumhhi
+ thhrhidrohhsihhpvghnkhhosegtohhllhgrsghorhgrrdgtohhmpdhrtghpthhtohepgh
+ hurhgthhgvthgrnhhsihhnghhhsegthhhrohhmihhumhdrohhrgh
+X-ME-Proxy: <xmx:V8t7aaLYLymEhWlbSeuIaPww935SeNPDVlZPXlInmQIdXBSdBAcwDg>
+ <xmx:V8t7aYo-5ahqoh-lBEhkgQXbAqDJUCbjG7hXS33mHpSjqoZrgBVudA>
+ <xmx:V8t7ad49AJLRPkYRKjdo-LZ7okMymbdSAv2VWRVBrvFAi0n38v_8UQ>
+ <xmx:V8t7aZZguCwrj-QEN9K87drbl4RRtIgZi6SL_KI98ZeXYNQgWh7Fsg>
+ <xmx:V8t7adw0DThKq4gLvaOf3PhP-CEQkYvUwrSMajwQtP6A6ztnNhBE8DKN>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Jan 2026 16:04:20 -0500 (EST)
+Date: Thu, 29 Jan 2026 14:04:20 -0700
+From: Alex Williamson <alex@shazbot.org>
 To: Leon Romanovsky <leon@kernel.org>
 Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Gerd Hoffmann <kraxel@redhat.com>,
@@ -82,27 +91,25 @@ Cc: Sumit Semwal <sumit.semwal@linaro.org>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
  Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
  Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v5 8/8] iommufd: Add dma_buf_pin()
-Message-ID: <20260130001710.GB2328995@ziepe.ca>
+ Felix Kuehling <Felix.Kuehling@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v5 7/8] vfio: Permit VFIO to work with pinned importers
+Message-ID: <20260129140420.50d323a3@shazbot.org>
+In-Reply-To: <20260124-dmabuf-revoke-v5-7-f98fca917e96@nvidia.com>
 References: <20260124-dmabuf-revoke-v5-0-f98fca917e96@nvidia.com>
- <20260124-dmabuf-revoke-v5-8-f98fca917e96@nvidia.com>
+ <20260124-dmabuf-revoke-v5-7-f98fca917e96@nvidia.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260124-dmabuf-revoke-v5-8-f98fca917e96@nvidia.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Fri, 30 Jan 2026 09:22:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,32 +125,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Jan 24, 2026 at 09:14:20PM +0200, Leon Romanovsky wrote:
+On Sat, 24 Jan 2026 21:14:19 +0200
+Leon Romanovsky <leon@kernel.org> wrote:
+
 > From: Leon Romanovsky <leonro@nvidia.com>
 > 
-> IOMMUFD relies on a private protocol with VFIO, and this always operated
-> in pinned mode.
+> Till now VFIO has rejected pinned importers, largely to avoid being used
+> with the RDMA pinned importer that cannot handle a move_notify() to revoke
+> access.
 > 
-> Now that VFIO can support pinned importers update IOMMUFD to invoke the
-> normal dma-buf flow to request pin.
+> Using dma_buf_attach_revocable() it can tell the difference between pinned
+> importers that support the flow described in dma_buf_invalidate_mappings()
+> and those that don't.
 > 
-> This isn't enough to allow IOMMUFD to work with other exporters, it still
-> needs a way to get the physical address list which is another series.
+> Thus permit compatible pinned importers.
 > 
-> IOMMUFD supports the defined revoke semantics. It immediately stops and
-> fences access to the memory inside it's invalidate_mappings() callback,
-> and it currently doesn't use scatterlists so doesn't call map/unmap at
-> all.
+> This is one of two items IOMMUFD requires to remove its private interface
+> to VFIO's dma-buf.
 > 
-> It is expected that a future revision can synchronously call unmap from
-> the move_notify callback as well.
-> 
-> Acked-by: Christian König <christian.koenig@amd.com>
 > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
 > ---
->  drivers/iommu/iommufd/pages.c | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
+>  drivers/vfio/pci/vfio_pci_dmabuf.c | 15 +++------------
+>  1 file changed, 3 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> index 485515629fe4..3c8dc56e2238 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> @@ -22,16 +22,6 @@ struct vfio_pci_dma_buf {
+>  	u8 revoked : 1;
+>  };
+>  
+> -static int vfio_pci_dma_buf_pin(struct dma_buf_attachment *attachment)
+> -{
+> -	return -EOPNOTSUPP;
+> -}
+> -
+> -static void vfio_pci_dma_buf_unpin(struct dma_buf_attachment *attachment)
+> -{
+> -	/* Do nothing */
+> -}
+> -
+>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>  				   struct dma_buf_attachment *attachment)
+>  {
+> @@ -43,6 +33,9 @@ static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>  	if (priv->revoked)
+>  		return -ENODEV;
+>  
+> +	if (!dma_buf_attach_revocable(attachment))
+> +		return -EOPNOTSUPP;
+> +
+>  	return 0;
+>  }
+>  
+> @@ -107,8 +100,6 @@ static void vfio_pci_dma_buf_release(struct dma_buf *dmabuf)
+>  }
+>  
+>  static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+> -	.pin = vfio_pci_dma_buf_pin,
+> -	.unpin = vfio_pci_dma_buf_unpin,
+>  	.attach = vfio_pci_dma_buf_attach,
+>  	.map_dma_buf = vfio_pci_dma_buf_map,
+>  	.unmap_dma_buf = vfio_pci_dma_buf_unmap,
+> 
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+I'm not sure what the merge plan is for the remaining patches, but I'll
+toss my ack in so that it can all go through Christian's tree if he
+prefers.  Thanks
 
-Jason
+Reviewed-by: Alex Williamson <alex@shazbot.org>
+
