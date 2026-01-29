@@ -4,92 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03E26D61010
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 12:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5EB0D61014
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 12:53:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73D4610E854;
-	Thu, 29 Jan 2026 12:06:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6543610E0F8;
+	Thu, 29 Jan 2026 12:53:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DBKF/koT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S9rUKFIl";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EB8010E853
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 12:06:34 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-4359a302794so647979f8f.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 04:06:34 -0800 (PST)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A154F10E0F8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 12:53:30 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4801bc32725so7083145e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 04:53:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769688393; x=1770293193; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6QTOQktx+T8aTDWlJDPhGlWk3qvhIQsNrxNsbMFHUik=;
- b=DBKF/koT6XPHq1PxPXjLq8IwrY+oyMJzklMVTfF85789ow1o1HrplZ2PXUnE/dvuiN
- CJtAC8ZZXb+JyVcFRXTsewfX0j9dTaIn+YEaIAwHAGNzE6zPRdKfWZNrFuK08u+OQXgp
- 10noOqeJqlJ32c0DWaWqCGZLqE+58nv0RQJmz74x2TSI/Tu8spNkZYuPDjlOE7juHPsz
- 8YOxiGmMW0MQ2TkwAhM9nvYgz+ZBZVT7RbZfaIjgacXfmCHw7MBRXcjIsb4/Xlp8y2AJ
- R2n/rdak+D598HWWcF6idicq8JNHe8Yn9fVu122EnvpmNgRMHkcjWAuKn8nG/4UILAnj
- ftfg==
+ d=gmail.com; s=20230601; t=1769691209; x=1770296009; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=3RRcv5YwOfpvMNimk2KgSoLACazizL3JniAldJ7HA4A=;
+ b=S9rUKFIlHhYwGOBOGNyHqsR0vn4UAJxnUkOE528f+IEjxnh91AarOkaJVP1lb4sson
+ 6Qy8tfbPWRXUg1fUIkODg01CXATtRM84riwt9UXp+cTbVCcaRT/kEO3yoi2MnqJ5DpNX
+ w8/ZI0L1h6vHK+zIVXLdLdOJ7cFkoAd5w2l15+2clriCRW+ArqwghQOiXLF0OwHUPJmu
+ FyZmYPRYrbVHIA97vMdcTYsZIQQZf4gfZNhPJO5DQyYxslDrQnc3Wa4V/f+hSTmpxvIY
+ dAA/vtzOwBvQDtWpk62g9l7wGw1+DEb+7J3FkKCEtBD2/h9dpdYb7T9tat18/M9jooSL
+ /Clg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769688393; x=1770293193;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=6QTOQktx+T8aTDWlJDPhGlWk3qvhIQsNrxNsbMFHUik=;
- b=rnG0WbMesqQUAb2GsKS/Karz7LpNcM8uE7RSMpDbMM98mrAOLpKggLKgFi5v2/iqjk
- LZRc4Qv7XMKxVQo3UmsW/rBVCYaEm+kq1TvX41FJVYj1oHGIc+BVamFC4abCLk9nerQ8
- pZxpXbWZFSfAXzgOrdav/vMPdP6CAYsIeQggVmstfwn8v0GHQ+ctwYNzT4o9R5zq+yVj
- vDDkSNCZetuf7h2sQguRZX6tQeIuymluoQxoDZiFM6jTO7A08hfyjyGOVJ0DMUlJNqHq
- 2D7W51y/xIS10bi87sHwnDR8UpcYxyyqeEp95gRNAMgS39AwXbOIGY6alH4x3JNCj980
- gHFA==
+ d=1e100.net; s=20230601; t=1769691209; x=1770296009;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3RRcv5YwOfpvMNimk2KgSoLACazizL3JniAldJ7HA4A=;
+ b=ixncMvp51/czRb2h/anuFN31npE45+dZwywLdF4WDJUxadvIdvWX12NePmqWEumg6w
+ 5/TbLfHz5qkqAYW9g5BTWzLfvPebDeKtESoHqhUFV3E2bxUZsEteGlToxdIE8pSl+HwT
+ z40VNpbsOs+CSuv74m7aghcLwDUJnvvnSRpDALAKX8HtkOXIkPeKVCgZKW0fZtkQiHhl
+ P+lzyMrBI9PL8eec5hUx/RbYqEYCZS7yMzJukFrPanZdWjve5Al/jSX8fVYVP8CTYKmB
+ 1a/zVWpLm4Fzd/kF4bvBQPwSM2DCWnKwcHYf43EKkGwkfOpVT9Re6D5u12B+4nm+VB1D
+ HAyg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVGrJh3SaAeoqy4RLMiljie/cuLNjaDbkDCvQQ5AKCA52FQXl0Rd10G0AOR7YQvwPTJrxrwUq1g@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywe/Wl0d2Smc7wypSCdiIN/CjcUi08LqLPBn9dJW5HpxYFnRKRB
- dRBviQKqB5lA1GzWoSCF1ZFd1xb05uDtvlo5CaakcW46eMFDySG0USLz
-X-Gm-Gg: AZuq6aJU4GafL4VwdBXToHJBZWJHH76LaJZPx8M0pT64ujU6Lp0POrzET+H+6xTYsdE
- mz4XBc6KlJoDGd1B3PjiI4+hTjvJvFdVqYfXRjpYN9XnXNQuQxVcLhDMPoBsk+kjQQKcmgHJ76K
- ilVKdQ6SetG/lxYqOPGLX1sAY0J18dMyqrbXlLN2TrahtRArU64+drxbLmVuAkObDmJT8Uf4ae2
- pJapUXNQUIJRtVet0n+GHl3msoQYZh9lFAszfWM5q77jsNK/WxdQI7s/80yR2dh2qjduoCo0Iy7
- zZ/vDbWSXYlBQjAS8uvNv+RS/UwKizgDqTSJdQp/IccqR2JY8+fDAOO7wfzVHK8P2BS+Fj/gBaK
- kMx6KdUX78jqJZIgoJO8jsJsWR059dQVWCc18CCrzp+wKEyytTbBjH+T8iJ5ktxgkGVk1OYzeHM
- 9IChoVtoOfXF/aT35evRNmENn37+yiu6AxCgnCS5rkNHUeGWfm7IDx8O4gCog=
-X-Received: by 2002:a05:6000:258a:b0:430:fdc8:8bbd with SMTP id
- ffacd0b85a97d-435dd0b3702mr13425165f8f.41.1769688392626; 
- Thu, 29 Jan 2026 04:06:32 -0800 (PST)
-Received: from timur-hyperion.localnet (5401DF8B.dsl.pool.telekom.hu.
- [84.1.223.139]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-435e131ce93sm13719217f8f.24.2026.01.29.04.06.30
+ AJvYcCVwcExAeRUQMxWGqBtnB0OKmteClCddb8pTJEhsTnhDGB0NVlO6Brmw2ulX7Rqv977GMdoxqHtn@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzvPVspl7A2zunUnFyIu/4tUYjT9H+5fI9p0XmTAbuXduBZoLEv
+ lnoODlkV6z00Qr+8y1QLQO/JXKV802onMsBlQVnX/UylP4jwA2B2/qA3
+X-Gm-Gg: AZuq6aLcYKrori9xJuF6iMbE1kFs7x6dvzeW0hvsuUCNLW6pGJuH8wfn0e8xJFmgnNj
+ W/ZvkDVDeuBVZTMYxxoeSwRBLQX0fMv5liXcoFVAW2cG+gTPBk1ukYpi/JZg5kbAj/5D+Mc6VvB
+ 3rnz1kgCbdjX/4ci8IRjDBD3oOeWkzUZe8UMvPiwHGI4GYrXTG4xDRsae1Lc+VBGuLRWte+W+vR
+ hbuFfgpUVO+gdqDKXxCQoK18WfxUZqXA+E+ce8vFwFVSOl5DcEoXcJRK4Yv8e/6QRtZPF/TPDq6
+ +/pBdHZ/PadNuvQrOSJ7WGxXtBIj6utpGOR57WOSL+zxg19wldYiMPJuNGkKwIKJP7ckmlsPJbi
+ HTMvqjH4NKlFrM4f9I4lNjDRpksvdkYsaWqQGdisUiSRpPgC0/vEywkoD96cEcuh3LtSPUdAxai
+ Hi4iSVJi+TSAbYpptfizTUO6a9pKSOKJ0lxGA=
+X-Received: by 2002:a05:600c:1d16:b0:47a:8088:439c with SMTP id
+ 5b1f17b1804b1-48069c9ec08mr125812765e9.35.1769691208672; 
+ Thu, 29 Jan 2026 04:53:28 -0800 (PST)
+Received: from able.fritz.box ([2a00:e180:1522:e200:97e2:f9c5:ae8b:8e89])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-435e1354114sm15442569f8f.42.2026.01.29.04.53.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Jan 2026 04:06:31 -0800 (PST)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: Alex Deucher <alexdeucher@gmail.com>,
- Hamza Mahfooz <someguy@effective-light.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
-Date: Thu, 29 Jan 2026 13:06:30 +0100
-Message-ID: <2285353.hkbZ0PkbqX@timur-hyperion>
-In-Reply-To: <30f2480d-016f-417e-9ddf-7805e4943e7b@amd.com>
-References: <20260123000537.2450496-1-someguy@effective-light.com>
- <2719069.vYhyI6sBWr@timur-hyperion>
- <30f2480d-016f-417e-9ddf-7805e4943e7b@amd.com>
+ Thu, 29 Jan 2026 04:53:28 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Alexander.Deucher@amd.com, Prike.Liang@amd.com,
+ Yogesh.Mohanmarimuthu@amd.com, SRINIVASAN.SHANMUGAM@amd.com,
+ Sunil.Khatri@amd.com, amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/7] drm/amdgpu: lock both VM and BO in amdgpu_gem_object_open
+Date: Thu, 29 Jan 2026 13:53:21 +0100
+Message-ID: <20260129125327.11786-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,50 +88,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, January 29, 2026 12:38:30=E2=80=AFPM Central European Standard=
- Time=20
-Christian K=C3=B6nig wrote:
-> >=20
-> > However, just like we do with ring timeouts, we also need to be prepared
-> > for the situation where a page flip timeout happens and we should try to
-> > recover from it. And if it isn't recoverable, fall back to GPU reset.
->=20
-> No, that is clearly a bad idea.
+The VM was not locked in the past since we initially only cleared the
+linked list element and not added it to any VM state.
 
-I don't see why it's "clearly" a bad idea. It's not clear to me at all, ple=
-ase=20
-clarify it for me.
+But this has changed quite some time ago, we just never realized this
+problem because the VM state lock was masking it.
 
-> CRTCs are fixed function devices that GPU
-> reset helps here is just pure coincident.
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 19 +++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 22 ++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       | 10 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  2 ++
+ 4 files changed, 42 insertions(+), 11 deletions(-)
 
-Currently, the driver doesn't handle page flip timeouts at all, which means=
-=20
-that if it happens, there is 0% chance of recovering from it.
-
-If the GPU reset improves that chance to non-zero, it's already an=20
-improvement, and already more than what AMD did to address this problem for=
-=20
-the past few years. I just find it incredibly disrespectful towards the=20
-community that AMD proposes a solution that they neglect to implement, then=
-=20
-when somebody from the community steps up to implement it, it's rejected.
-
-> What we can certainly do is to improve the error handling, e.g. that the
-> system doesn't sit there forever after a page flip timeout.
-
-Sure.
-
->=20
-> Let's maybe try a complete different approach. We force a page flip timeo=
-ut,
-> and see if the system can handle that or not.
->=20
-> E.g. every 300 page flip we just fail to signal and see if things still w=
-ork
-> after the timeout.
-
-How do you propose to do that?
-
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 768998c82b43..ec5130497743 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -878,6 +878,7 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 	struct amdgpu_bo *bo[2] = {NULL, NULL};
+ 	struct amdgpu_bo_va *bo_va;
+ 	bool same_hive = false;
++	struct drm_exec exec;
+ 	int i, ret;
+ 
+ 	if (!va) {
+@@ -958,19 +959,25 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 			goto unwind;
+ 		}
+ 
+-		/* Add BO to VM internal data structures */
+-		ret = amdgpu_bo_reserve(bo[i], false);
+-		if (ret) {
+-			pr_debug("Unable to reserve BO during memory attach");
+-			goto unwind;
++		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
++		drm_exec_until_all_locked(&exec) {
++			ret = amdgpu_vm_lock_pd(vm, &exec, 0);
++			drm_exec_retry_on_contention(&exec);
++			if (unlikely(ret))
++				goto unwind;
++			ret = drm_exec_lock_obj(&exec, &bo[i]->tbo.base);
++			drm_exec_retry_on_contention(&exec);
++			if (unlikely(ret))
++				goto unwind;
+ 		}
++
+ 		bo_va = amdgpu_vm_bo_find(vm, bo[i]);
+ 		if (!bo_va)
+ 			bo_va = amdgpu_vm_bo_add(adev, vm, bo[i]);
+ 		else
+ 			++bo_va->ref_count;
+ 		attachment[i]->bo_va = bo_va;
+-		amdgpu_bo_unreserve(bo[i]);
++		drm_exec_fini(&exec);
+ 		if (unlikely(!attachment[i]->bo_va)) {
+ 			ret = -ENOMEM;
+ 			pr_err("Failed to add BO object to VM. ret == %d\n",
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 5f9fa2140f09..5c90de58cc28 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -232,6 +232,7 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 	struct amdgpu_vm *vm = &fpriv->vm;
+ 	struct amdgpu_bo_va *bo_va;
+ 	struct mm_struct *mm;
++	struct drm_exec exec;
+ 	int r;
+ 
+ 	mm = amdgpu_ttm_tt_get_usermm(abo->tbo.ttm);
+@@ -242,9 +243,18 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 	    !amdgpu_vm_is_bo_always_valid(vm, abo))
+ 		return -EPERM;
+ 
+-	r = amdgpu_bo_reserve(abo, false);
+-	if (r)
+-		return r;
++	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
++	drm_exec_until_all_locked(&exec) {
++		r = drm_exec_prepare_obj(&exec, &abo->tbo.base, 1);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto out_unlock;
++
++		r = amdgpu_vm_lock_pd(vm, &exec, 0);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto out_unlock;
++	}
+ 
+ 	amdgpu_vm_bo_update_shared(abo);
+ 	bo_va = amdgpu_vm_bo_find(vm, abo);
+@@ -260,8 +270,7 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 		amdgpu_bo_unreserve(abo);
+ 		return r;
+ 	}
+-
+-	amdgpu_bo_unreserve(abo);
++	drm_exec_fini(&exec);
+ 
+ 	/* Validate and add eviction fence to DMABuf imports with dynamic
+ 	 * attachment in compute VMs. Re-validation will be done by
+@@ -294,7 +303,10 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 		}
+ 	}
+ 	mutex_unlock(&vm->process_info->lock);
++	return r;
+ 
++out_unlock:
++	drm_exec_fini(&exec);
+ 	return r;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 1878e0faa722..f69332eed051 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1445,6 +1445,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ {
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 	struct amdgpu_fpriv *fpriv;
++	struct drm_exec exec;
+ 	int r, pasid;
+ 
+ 	/* Ensure IB tests are run on ring */
+@@ -1484,7 +1485,16 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ 	if (r)
+ 		goto error_pasid;
+ 
++	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
++	drm_exec_until_all_locked(&exec) {
++		r = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 0);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto error_vm;
++	}
++
+ 	fpriv->prt_va = amdgpu_vm_bo_add(adev, &fpriv->vm, NULL);
++	drm_exec_fini(&exec);
+ 	if (!fpriv->prt_va) {
+ 		r = -ENOMEM;
+ 		goto error_vm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 6a2ea200d90c..b4bf1b7c214f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1735,6 +1735,8 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_device *adev,
+ {
+ 	struct amdgpu_bo_va *bo_va;
+ 
++	amdgpu_vm_assert_locked(vm);
++
+ 	bo_va = kzalloc(sizeof(struct amdgpu_bo_va), GFP_KERNEL);
+ 	if (bo_va == NULL) {
+ 		return NULL;
+-- 
+2.43.0
 
