@@ -4,157 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 818EBD358EE
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 10:15:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9109BD61006
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 11:25:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C367710E323;
-	Thu, 29 Jan 2026 10:14:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA3F010E327;
+	Thu, 29 Jan 2026 11:25:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TIcZxlbz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hMV5RgLu";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010055.outbound.protection.outlook.com [52.101.85.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFDC010E848;
- Thu, 29 Jan 2026 10:14:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hZ1HOgAEnOv6jkRQinYHVzF8O0N61OmSx5jTL4ZC0Oo8LwjSfVrqmAA0TTHPTlspPNi75omBBbqI37iFF7RhWuthDlIbeLwHElODUjyubq8wCjdnNXO43k1gpM+8vV5QBjeqaJRSUyUDJoKndV8/DktFCejOOptj/ICXkV1YQCbudEC/zw/qVn00guhR3iM/gLd9kPCWsATOUv4C8ZBtnuQyi9TPrt+S5xuKx8ZbWf2gNJR2Q057/83GpyR35dXu8+sh5FPiM5tkdzlJmbQKa1L5jZjU9T6B5OjB6ksGQhZkMtZt2l5SWYJfzoDx81UOFhic7ufM7qbBZ841puxHNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VmNLqiG36sEDXEGUD8wS5j9U32HQ/Pl0xNb6Y0PD6Fw=;
- b=lus7H7zLqqosSYwnSaM3R64QJC/4pXxLLRQ7CDMPRyiN9fANYsWM8CLN8dskZYuNX69KPN1T7ICmEuTTn3ncEOgoL10fulrXuboOKGjZzG9/E1byB61DuUqVZ4MjK8grR75/glDSYsNkva1clfcW+BSXh50yR1a7eNaTSBfCExOZ934GXtGCI0MeILPBwtoahCaIlTemTGyFOA32R3PRrGqUs4k+DhJU1PquM2vvLr9HV+JKEt1ZNByRD/DhGNtVLyhiVaBB3lN92i9kP1Xeyv1xrwmTBr7tf3qWmUfndnaK5PJA6ZifWDReOwsKI52+hwjdCFStBr5T1G5QsgyFlg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VmNLqiG36sEDXEGUD8wS5j9U32HQ/Pl0xNb6Y0PD6Fw=;
- b=TIcZxlbzZw+ePsdswf7Q8a8NSPjzPvR3u1+uZOYRe7cpwnStYJrlkebEX9VvkRNmrxrzJ/CyOcOHpMue8m24AzjwsrG4YGT0ljSGUCyUnx7g3fltD56XXobCJZXH9lnl58oSOdUmMMFl09JYHlujRM3yl9gKOU4B6dXB8HzDZxY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SA0PR12MB4461.namprd12.prod.outlook.com (2603:10b6:806:9c::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.8; Thu, 29 Jan
- 2026 10:14:56 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9564.006; Thu, 29 Jan 2026
- 10:14:56 +0000
-Message-ID: <4bfe8f26-3ead-4d6f-a85b-da83ad45d57e@amd.com>
-Date: Thu, 29 Jan 2026 15:44:47 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix memory leak in amdgpu_acpi_enumerate_xcc()
-To: Zilin Guan <zilin@seu.edu.cn>, alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- mario.limonciello@amd.com, pratap.nirujogi@amd.com, alex.hung@amd.com,
- sakari.ailus@linux.intel.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, jianhao.xu@seu.edu.cn
-References: <20260129092532.921809-1-zilin@seu.edu.cn>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260129092532.921809-1-zilin@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4PR01CA0071.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26c::16) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1BE510E327
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 11:25:48 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-47d6a1f08bbso3863585e9.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 29 Jan 2026 03:25:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769685947; x=1770290747; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ouo/mg65aOcXSM62YmotwBXBKDEb8Yzi3FDBO7jCaMY=;
+ b=hMV5RgLu5DfVna3ybsrfuHgWttd+JnMg0cB1oagGKfRb4cxPRhYo+GY7fNDcNBfdXA
+ ZluEcM4mReKVX7ysbo+1GjGD7nzcbG120H6bPvVQ/a0dzZYk7hTNvR86jOne6Hg1gqAL
+ TttNhEZkxla7SOTVC/zqz5k/IMDeCRgH/gusgXfgxZ7FxKB0TNLvvlQYQQuZMR4yEWhk
+ x+pkpTXsaluWzD7EYj4zzBkw0EUvcqRhbTTMdbJKrUuVwdNCzZt8kxDwd2P71Fnj9ITy
+ FdHSWx0vdReGD20sM5ixNr7S2VODpkLlf5hXMZd7UXdk3klRaJ2ljrxn75DbEr4Oki3M
+ OXdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769685947; x=1770290747;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Ouo/mg65aOcXSM62YmotwBXBKDEb8Yzi3FDBO7jCaMY=;
+ b=VCM12vSXlO+T2vNkN5w9hfi0Ol1cS6QIq2E6nRFfhdJ8OE5Sy5yJlwDjM1gwYasFwG
+ pacgFXnTTlZhDblqispwXVldgWwFTywiaw57Ih5ACU7ruHXiUgHadqWsUaoc0/nia4wv
+ en6NRcRDdU5PmdmzmgisX5ypiH6aZCYwj9o2uxB6qU3rD+gNRsEXADGpkNCRmX4bRzN+
+ 7X522+0jEF9mSoBqcAjQp8ihui9Ehu9MQ5yBg/NoaUw5xYgB1l/HGsrP0P+BBaU3Xb4p
+ fkYrJaRAeFHIi1rk0pEeJaWQnQMLyE3n93c9QuDBcsgJIYxRNG02Zsu4vzXlLviVLZal
+ f3fw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXEGQ83k7Jyg9TdVeZ91PN44AyZpJyLXT+NHouYz+S4S0tWMYiQ/5q/fNI55z+B0CNgcvHH4kpR@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz3tYzLDeBSadGeZgHLH6cw5QrOAgzRnNsR3htnKYLZRkWxX3Nh
+ z3Mg5GZQXDDyk5oMmZJ/CwxbwIV3YcmN9vTfjO1pnPqvI12WHIO9Fs3p
+X-Gm-Gg: AZuq6aJk8bKYrahO2+b6AyvWyoGN33//3mvDXdo2fmm0l2Vu6BkTYQSzmQ5REyGcE9/
+ 3j3M0IypQWDTcnWHwrl4o4v1w4GiwC6qzJ+dAnVnUqpeR7NDZQLRGyPChqQUt37r97y6PG916bl
+ 3Lym+7SLuWSA9234Xnn9jaF8nKDRAxO1N34OXJOuZtculubPbOhF0WlsMmRBjORyupu1crro3uN
+ MYM5NnACpb7AnkcqmPt7x+1k93q6HVlqjb7TmPvnrXgzt6D5liSPdLuVmVVlykBiOzfWUghpV/p
+ WnN9/VG/rsinpsuBKY2eicOx7TiQ3lFyHcqX2d466GaEouReuRayJvdJOhhmtYisodbT0VyNLit
+ 6WvgzdJN6YLArxr3VX1Eet5n6mT0cHm3m0tyL6R7PrR0e0fGt4nmNljPQ1IXFqeXywFz7cKylXn
+ SvVYMj7OBiY1gX9oxu6l+rRFbFGWUiM6J2DZZQo5eLCObnSQdus25PyBQpgWI=
+X-Received: by 2002:a05:600c:4e8b:b0:480:1b65:b741 with SMTP id
+ 5b1f17b1804b1-48069c4ae9cmr98553855e9.15.1769685946522; 
+ Thu, 29 Jan 2026 03:25:46 -0800 (PST)
+Received: from timur-hyperion.localnet (5401DF8B.dsl.pool.telekom.hu.
+ [84.1.223.139]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4806cddffc0sm151978565e9.5.2026.01.29.03.25.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 29 Jan 2026 03:25:45 -0800 (PST)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Hamza Mahfooz <someguy@effective-light.com>,
+ Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
+Date: Thu, 29 Jan 2026 12:25:44 +0100
+Message-ID: <2719069.vYhyI6sBWr@timur-hyperion>
+In-Reply-To: <6f1239d2-eec3-40b6-aca7-5b278350dd04@mailbox.org>
+References: <20260123000537.2450496-1-someguy@effective-light.com>
+ <ab52825d-8f26-4b52-af5d-4051760b2aa4@mailbox.org>
+ <6f1239d2-eec3-40b6-aca7-5b278350dd04@mailbox.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SA0PR12MB4461:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8dd95c62-b5dc-44bb-5feb-08de5f1f4025
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dkhCQ1R6bVNhQ1NwdTBKMlNUbUNDRzVmTjlXdGVOZUlwWGF4ZlZYcjN5dXpX?=
- =?utf-8?B?cDFxb0VVWFVtZXJiUlE3T2psU3BPWnZWNllwZ3hVN0R3V08rc3BYRUMxRW96?=
- =?utf-8?B?RjFzUC9oRHkxK1JnRWNYU3lMWm1FMTVPOStpRk1HRXZjMVJLczJUWDU5K3A0?=
- =?utf-8?B?TUNTRUxoVzJ6N2tydGg0Z0tQVzZpaWZNOWhYYTVJcVNob1dwRlZ5MW16ency?=
- =?utf-8?B?eFBPa1dmR2d5cWpyUXk4ZVYvN3AwYnQ5eXEzUmtlRkxlUGppUEQ1SWNCaTVt?=
- =?utf-8?B?VDdaT0Y1bzdPNG16aS9GQ29aUnRhZTkvZllNdmtoU2tEOE5RV1hMNDhJVHdE?=
- =?utf-8?B?NkdPTVpxUWZUQVVHeitaRjM3SDV2YytBajhUbEV5ZWJJdGZVZkxXYVhvSnh1?=
- =?utf-8?B?RXd1RnlKNTdsa2QrSkg3T3lBWHU4RkJHRzlyU3NjTm1KY1BtM0JpOFlNQng4?=
- =?utf-8?B?T1Z4aXh5TndaVVI0d1lKbUpoNm0zRGhoWlltWWY5ZXFIeko2MzZ1SjRwSHFD?=
- =?utf-8?B?djIrbU5YV0FHSDNGUXVRQTJhZmdwNzlXbWJHVWsyaDJyZlJHdFQ1cWhlQ0x5?=
- =?utf-8?B?S01MSVdiT0lQYjk5bUZmb0FGeTNaUnZkUUk0QTV1N1JSM2gyc0JCa0VXdUc0?=
- =?utf-8?B?ZFc3ZWp1VnJmeFpZdWszSjNHdzE3YnlWTEpSclhUZUFvMDBaaGlwNWtrbGtm?=
- =?utf-8?B?dXZKNGJxanhnYjVSYnNNTkhhQ2ZLMFpucWdyeUtLTk0yUElnSU10RFBwWi9E?=
- =?utf-8?B?ZXFnelpLeHNjMkNEbVZrNWdDUUZlS3phcE5UMmdVT0hWaERNZGdmU2V1d1Rq?=
- =?utf-8?B?blM5YzNSdlRUeStXSStxS054ZGxEWFhOaUk5MnRGRUkvQnF6eml0c284NUpW?=
- =?utf-8?B?bk1RcTFJS1ZDUXlOYytIajRWUzU3SEpRL3d2ZFNOSllyTXBMWkRrM0VPaHk3?=
- =?utf-8?B?SE1keUQ0TFQrUSszT1c4WHhKK3NFRzAyaDA5RWo1Qy95dTVlSDVsQzdNM3RR?=
- =?utf-8?B?TGJXWXM3UXFJWUF0ZzQxRnRVNDB3MEFWSHRxZmMwbE85NkRnMEZ3M1pVSVE1?=
- =?utf-8?B?eWQzeDV6NGVlbDgrNEFPMWhSSTlwU2tFY3dPZ0NVNFluRjFONTlwTG1QNlhK?=
- =?utf-8?B?aTk3UW5BbitXZVNXT1A2UHl3K2ZDdHI2Qlk5b0JvL0NWTWlRdHkzSzFrT3lV?=
- =?utf-8?B?QUtXVmRINklnSmYxVW0vTXlvb042UDlxY1EvQnUycEJSc2xaTkJDQkdHT2dB?=
- =?utf-8?B?N3Q4aU11OWM0OUpUS1FPUkNPU2JlM0k3cFl4OUh6ckF2TkFGcDViV052VklI?=
- =?utf-8?B?YXJtNmpWamJuNGs0aFNzMGxCLzNyYzdyczYwYUE1dlB1SEZGa1Zoam9CL0JG?=
- =?utf-8?B?L3h3U09hRW05cmdobWtjeEM2ckt6SU5xWjNRUGRLMTAycDRGZ05VVGZrNk9p?=
- =?utf-8?B?NXgxWlNka016ZUNOSi8vMzV5aXpZOWtNQ0Z6dFlZVEk5ZmxjV0c0bWRQSW9H?=
- =?utf-8?B?NUphb3c0V3NoZnlFL0FPU3RhRUg2UUI3ZzViSVJiNDdvS0M2aDd3dlp3VW9H?=
- =?utf-8?B?UWRZTmx4YWdvWVl0cHh0S1dQbzkrS3ZXcDhFcDIxQUJqN1p5L3IyQWV2STZR?=
- =?utf-8?B?VE4wMVM0NEFBYjI2ZjJZQWQwSjhIcHpjL1RwRUYyMmFrVDM3OHNNWStrWU9x?=
- =?utf-8?B?ek9zZzMrLzJaUlV2TnpSZTlzdWo1eThZTlhWdVhzVnlESjlaem55ZWhDLzlx?=
- =?utf-8?B?OWhOeVliTkhobWl4eEh5cTNUamlVVktMMEVoS1dZL2hBQUJVYmM0Z2JWT3ZC?=
- =?utf-8?B?MTdKWFg0cUxtR1hjSTBsUURGc1lmVzVCeDVkbkM1MHl4MVVYZmJJaUJzMmVq?=
- =?utf-8?B?TUJBQU1rc1dVdVVYMS8rNTZ4Zk8vUmhGYkFKZzFocmFGNnBpUnBqTEZwSE9h?=
- =?utf-8?B?UHpwR054WWxYNm9HVml2WCtyZ0NHWVBqWGRLYkR4SnlQU1hqZU5nNWM5SEhW?=
- =?utf-8?B?bGdoclhwRU5wZTVIL1c0c0RJdm4wK0NDQXJZVEY0Rmx6WUhPd3k4Q0E5Uk15?=
- =?utf-8?B?YjNUK1VxTUIzV1NsaHVGWnFWa2JHai82RWFWM091SzdVT1JDZ1NUaUtSQTVF?=
- =?utf-8?Q?l+/4=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OFdVWHFkM2RWb2dZWEdLeGdOcnArWmdncld0QmJQb0dDaHVDd05CYjBFUXBh?=
- =?utf-8?B?c1pMbmFJdE9BNEFUemsvRVV6WVdLa3J4N2FxOEZKR2xhUWNoTmRBMXYxYktH?=
- =?utf-8?B?ZTRiSDQ3V2k2MWJoOHl2bkVCT0JPbjFYN1NGeFUyNlVlQjdYUVRFVTBWaGlh?=
- =?utf-8?B?N2VPclROM3lUeUVvclptWnEvKzI1ejllT0ZSUWQ0UnRZSWV0bDU2Mmh6WDJE?=
- =?utf-8?B?cmgwNkVha1BiOTh2TFpXQzk5bitDUjZRYWk1NVFYenJDU0FXWW13TFU0QTF0?=
- =?utf-8?B?dnZadTdBVTg1VEUzRU1zaHg2SXVoVW1RUXdqTEhvSDg1cnNuUU5ldTN0SGZ2?=
- =?utf-8?B?VGE1MFEvNys5ZzduWEFGOGRZT0JnVUx0ZG9VTFpMbHEwOW13Z2xKY0ZxVm1x?=
- =?utf-8?B?V0xwN2FCR1BsL2t2YXdEbUwxWUlGWldsNnZSR2NJZVpWU2w0TEUvcWtFMlcw?=
- =?utf-8?B?dUtOUEh5d2F0d1J3NTVIb3NubThYSzFIYVZVWkg4cFo3cVpoaUZxSU1mcTVG?=
- =?utf-8?B?YmFOWGNsblpIa2NxZGMyNHp5QVdOeEo2emdPY1h5VnNTZ3VMN0VDUjNkWnhs?=
- =?utf-8?B?RlJTdUVJMno3UFM3aWx1V2xMUHhFdXAvWTc3K0twdmdzRmk5NDc3Mk5vM0VE?=
- =?utf-8?B?eUdwUHFJdldWSThRZDdkMVlubXZTZmV5RGh0ZkFtMnBqNS9kLzZQd3ExaEMr?=
- =?utf-8?B?SlJwK3pkdkNyb0xkcmd2ZzFmdVI3cDR3b0QyMm9BVHE1QzJ4Ykx6dXZRUnh6?=
- =?utf-8?B?bmxjZU9vN1duUlYxdTFqY1lRbGdxSzVvYmVBdE5GQkpsbWxzYkNMQmtOU3No?=
- =?utf-8?B?VnlLRzVWdVpsQ0NlS05FUTlWMXdJRW1oOHJmVDdSMDUvN3NJdHRVR29OcFg4?=
- =?utf-8?B?aFlDRjQxOHU0R0hEanhrdEsxSjZvUDJWNGJOZkZ3OUJwVGt6ZDhwanZNN2Jl?=
- =?utf-8?B?dW8xSlBVRkxvVHhjdkJ2bmtCeldQUUI1blVOZ1BKZkJlMG52MDNoOTFlRFdh?=
- =?utf-8?B?dWlRUzVlcW1lazZ2OUQ2UTdDOTN2dGx3c1lUQTl5L0JkeFZnL1UwbXhBN3Jq?=
- =?utf-8?B?aDBrRHBFekgwSk1pdzM1R2hBNzRnQVN0dU56dU9aWlVrK2p3R1Jmb0hIajhL?=
- =?utf-8?B?WVcrd094alN5NGxOU3Q5VFZRM013OVJ2M3pBSWluYUcyTXhyYU5mMS9PNXNz?=
- =?utf-8?B?UHkvQ29BY25YZFJwNzcvcnhLU0puN0kwc1BIcndXL0UrL2ZXeTF1d0E5VG5P?=
- =?utf-8?B?emFydjJTVUdpdUJ5TmVqcjROSHBoRnVhMVJUWG5sc3RHMzk2S0lsTmVPSDlW?=
- =?utf-8?B?eWdJd08vNGdJdjM3ZHpZOTFWaFhGYXUrMzVOclgvdzB5NFgyYTZ3Z0grVFZz?=
- =?utf-8?B?RlJYaDdyelZxbDVqTE5vNXFON2U4UmhlL1F5aHNkWXA4RnAxSHZZdmtxdUU4?=
- =?utf-8?B?VXBDSWZjeTY5dDgyeU9uK1dRRkxpTGR5MWd5cTNpWEdabzFVQkVUVGJoU1NW?=
- =?utf-8?B?SmFNWDN1UkROOEYxTUJCTjlJaFRXcnlZQzVyUDRiVTdlOGk2c2oybW80Q1R2?=
- =?utf-8?B?V0tyaHFrOU5leXRMakM1U051ay9KdDgrNUQvbXk1ZFI2bHorZTV0TTFhZE9D?=
- =?utf-8?B?N1lDcUlYM0lkQVVNUnErY3ZPYURHTUFmYVIzUURScWpFWW1mSUJHY0I2UnBQ?=
- =?utf-8?B?eTBxNFg1dm1aM2krM2NaaVNzWEt3RVlMU1V1RHdiRzVYbjZ4eE82TUo3ZWtZ?=
- =?utf-8?B?b0pXZy8rKzdmVExPYmJKTW9nUGlEbWI4eVFkTUpsTDgzQzBwZHVXUEloYmdh?=
- =?utf-8?B?OWRPMWlGeUpKd3JFVWtCMTdROE9QcC95UnExVlF5RWc3b0FzWWRPZzYzNDE4?=
- =?utf-8?B?eUVwR0xpRm14L2NpdnFrVTRIdE82TDdSRlNncTFVUnNhalJVdE04OE9TS0xp?=
- =?utf-8?B?Vy8yM1phVzg1UUw4RDlxNktiZkxwbENGLzFwUi9LWnpycExuZ0ZMNWxEMjZL?=
- =?utf-8?B?NGdWalVXRHM3Rm4zVElnNG82Tm4xL1hHNjN2SlRNa3UreFRnWlVHOUhmR1hx?=
- =?utf-8?B?NUpUQnRrV2lxV2tYckZTUXNSYzJ1MVk1cStZZ2k2ZS9Zc2xXYnhaa1RjREFl?=
- =?utf-8?B?RFhhOEoxMGdyOFREUGhJZlM1SURYZWtoayt6aTVxYlRSdk9xNFNUTElHdGc1?=
- =?utf-8?B?YkNLNGRXNk1GRllpMDhTWGZIZzVNRmt3T3h6NXZ1MEdCQng2cmNiRlVudDZ0?=
- =?utf-8?B?MHlldEM2dTV1SVpkcTRFR3AwL0w4azhITVZRMTZWZERaQkRPRnJkNEE2ZjFH?=
- =?utf-8?B?TlVYc0N5R3ZqY3ZKZk5PZ28rUVV5b0hQdWtWMHBtZUNqZTNMciszdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8dd95c62-b5dc-44bb-5feb-08de5f1f4025
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2026 10:14:56.2176 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IXrAiVTvSq3gua1KyBTQKhUHYq+2gCPmtHOdrjPZCphGcyt0e/NXXQXSpUocIyBN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4461
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,45 +104,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Thursday, January 29, 2026 11:06:11=E2=80=AFAM Central European Standard=
+ Time=20
+Michel D=C3=A4nzer wrote:
+> >>>=20
+> >>> Christian, why would the CRTC be turned off?
+> >>=20
+> >> Exactly that's the question we need to answer.
+> >>=20
+> >> But from what you describe the CRTC keeps on, just doesn't send any mo=
+re
+> >> vblank events.>=20
+> > The vblank interrupt source getting accidentally disabled might be one
+> > possible cause though.
+> Another possibility is that test-only commits with the
+> DRM_MODE_ATOMIC_TEST_ONLY flag (which can happen in parallel while the
+> kernel is processing a "real" commit) accidentally have side effects on t=
+he
+> current kernel state, resulting in the "real" commit failing to do
+> something it should. There have been bugs like that in the amdgpu DM code
+> before.
+>=20
+>=20
+> Anyway, this is all speculation. Somebody just needs to dig in and get to
+> the bottom of why the commits aren't getting completed.
 
+Yes, I agree.
 
-On 29-Jan-26 2:55 PM, Zilin Guan wrote:
-> In amdgpu_acpi_enumerate_xcc(), if amdgpu_acpi_dev_init() returns -ENOMEM,
-> the function returns directly without releasing the allocated xcc_info,
-> resulting in a memory leak.
-> 
-> Fix this by ensuring that xcc_info is properly freed in the error paths.
-> 
-> Compile tested only. Issue found using a prototype static analysis tool
-> and code review.
-> 
-> Fixes: 4d5275ab0b18 ("drm/amdgpu: Add parsing of acpi xcc objects")
-> Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+However, just like we do with ring timeouts, we also need to be prepared fo=
+r=20
+the situation where a page flip timeout happens and we should try to recove=
+r=20
+from it. And if it isn't recoverable, fall back to GPU reset.
 
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+I strongly suspect that there are many different issues depending on the=20
+hardware generation and display configuration. There isn't going to be a si=
+lver=20
+bullet to fix all of them, and in case it cannot be fixed, I think a GPU re=
+set=20
+is the right thing to do - it's drastic, but still better than letting the=
+=20
+machine just freeze irrecoverably.
 
-Thanks,
-Lijo
+One example of such a bug was fixed by 6cbe6e072c5d where DC was trying to =
+use=20
+an interrupt that didn't exist on some hardware. This type of bug would be=
+=20
+impossible for userspace to solve in any way, but a GPU reset would have=20
+helped to recover the machine into a usable state.
 
+Another example would be Strix Halo with adaptive sync and/or tearing updat=
+es=20
+enabled, which 100% reproduces a page flip timeout for me. I haven't had ti=
+me=20
+to investigate that one just yet.
 
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> index d31460a9e958..7c9d8a6d0bfd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> @@ -1135,8 +1135,10 @@ static int amdgpu_acpi_enumerate_xcc(void)
->   		if (!dev_info)
->   			ret = amdgpu_acpi_dev_init(&dev_info, xcc_info, sbdf);
->   
-> -		if (ret == -ENOMEM)
-> +		if (ret == -ENOMEM) {
-> +			kfree(xcc_info);
->   			return ret;
-> +		}
->   
->   		if (!dev_info) {
->   			kfree(xcc_info);
+Timur
+
 
