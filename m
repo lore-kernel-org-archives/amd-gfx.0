@@ -4,187 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CE55D49C80
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A502AD49C83
 	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 09:22:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2502110E98A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24A4910E989;
 	Fri, 30 Jan 2026 09:22:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="pfrgcMeF";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="uXXdJzKn";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="VEWQR+tr";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010007.outbound.protection.outlook.com [52.101.85.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50FA010E8E7;
- Fri, 30 Jan 2026 03:39:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L0ofqGLURk+M3wZFrAGXmri8wmilg7Fz+pN+rlk2u6OOepIiNd5VSeOBPddZOUbfqekkk5bBf1sREKFDYdnNCFXAGkBOkbawrshANErObtSbBZk+8280GBUe4slw0+ijbQDqV4fNzEVAbZc51sxjArvirxhTYpGenv4a/whx+yGW7TVkoBGdLNvc7zviUfWlac4E3KzDnN3/95ILvAXQkBQGvKHYg3ggpG41NskOIDVIFgxpaIL9MiGoMTj5agyYguODdkkNJHwQgiHMxiRkzgKatcdxaAtH0TqATaGGf/wtSTohZm4WfLgc8D4fbMVmNxtc5k+jvmuuujvOoKusSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3EguTx79LktGjiopR9RwQZlBTKh0yHVnGyZfJDIdTiA=;
- b=IAvunRM0lm5rbe9RXodGnE/rrWYrz/ZnHDlYsgWkrg+Gn3i9etLwrR1AXqu+T3nHEQJaa7AijM82lVH58az6U66XJaR4gobh2rEW0Idozymcss53AxN02rlLaoW2eOLp4RNOohr8Z0mQDXvkPubCCuSk/tkA/zehLhCLTtP8GnmJCSeQwQ7wMRRc8sJa91SM2hPjx3WTB7SoGCRBNRP7i/uBHqj8YIZ9wX2PLfIIDrKvH1BnqY5YaF93PKs547xH/yAAlMAhNgj9DZ+7y1c8EhBmydx08FagEA3TIrhw3xh7PfCCN8rHTyq5lMlK1wDBb+BOAWHzarEDrADSp3rpxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3EguTx79LktGjiopR9RwQZlBTKh0yHVnGyZfJDIdTiA=;
- b=pfrgcMeFzZN0aVfzG5zHtXjFq8ufwY5512R0cRwRBpdmShqAl5Z2WPpx3i7MKV3UvKlgw8V6FvDY0hzdn0nbuPVPwG73/dN3SD1pkyBjApNIJi8Wa4hDe6GHEU1doEfhVnrry8E35hTJ92dSJ/tjUxB4Ni6wdu31nuHgST/DFY3Vcg+ToIe8vVud9n+qLiTx2nDDWjIexOVyjG72XVWBlneurOd8WhiJdoVdPsPDG1lBFRaJ3suU/w6P/34J758C0SHqJsK6X3xmjxp2bDVZdIK3O9FjvnFH+VmeRZtQwXZ54T4aOnCPo79ZhJgjEDV6qfs67QvyiH5ge9Zv73ma/Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
- DS7PR12MB5862.namprd12.prod.outlook.com (2603:10b6:8:79::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9542.15; Fri, 30 Jan 2026 03:38:59 +0000
-Received: from DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
- ([fe80::8cdd:504c:7d2a:59c8%7]) with mapi id 15.20.9564.007; Fri, 30 Jan 2026
- 03:38:59 +0000
-Message-ID: <c064fbdc-9202-437d-80ff-6134d2a33778@nvidia.com>
-Date: Thu, 29 Jan 2026 19:38:33 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v6 05/26] nova-core: mm: Add support to use PRAMIN
- windows to write to VRAM
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Zhi Wang <zhiw@nvidia.com>,
- linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from fhigh-a4-smtp.messagingengine.com
+ (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3AC10E8EF;
+ Thu, 29 Jan 2026 21:11:14 +0000 (UTC)
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id DFD3E1400182;
+ Thu, 29 Jan 2026 16:04:06 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-03.internal (MEProxy); Thu, 29 Jan 2026 16:04:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1769720646;
+ x=1769807046; bh=rfxL9trrLaaEV4htdtVg7LrHJEuF1NTVmjAkBCaqU44=; b=
+ uXXdJzKnDnKXqOsAXDX1Ulz9zAZCRVuMW2iBfNo6F22pCrJP7TssZnsVX85wHZgi
+ CjAPTuuNzIcBIffg+sc5+7poyeUx9HONBJuFwTxdXA6S0MUIJdFunoAMayCoW3Zl
+ 3RHNBEWp1w0rYVW1UBPxhYLES4nrc/RaJSbX2DDBfhn7tekUy2ue1MRDcug9AMvp
+ rYS/JpigTohauL/NK+8FGl/I3jpkU8J6dnqq0eECiWyZZ23KhMvmh1o9P8M4oZi7
+ cq5EVt1EIdzB0LzqS2DgbrZZEPiaJKQma6G74gZAgiC8huuyCWXuU16AhgQisQs5
+ 36YV+TVHmjf9M5KGKl8/Xw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1769720646; x=
+ 1769807046; bh=rfxL9trrLaaEV4htdtVg7LrHJEuF1NTVmjAkBCaqU44=; b=V
+ EWQR+tr/hjolr8Z4b9ZwfMetAixTfio4tWGaWAL6tvbzWqM4l0boL8V7tMvDO9SB
+ DckSKkOJRQHbFAXeKNCLaCYQtqUIQUPNpatb4KLdtzv6fWgPFvB8+LFkh6CRH9WG
+ nLcxVQWsybr0dVy/cQeoV4VdI7nF7jSI/FbdXY3VU52kpBn/xlcKAs896nlsjTZX
+ oqDoegH3B3FqdbAcrKEcV7hWp69ovcH86Odehr2mB3Qbjq3tSBv/ALR9bUGjo1v6
+ BHXT5NmpvNlzFieif3v76r3gbZj0zuj0j5PaGBxHs8bmgXRjJrQKdlUT5RxrJNpy
+ 1wxejI2154humc49AGJew==
+X-ME-Sender: <xms:Rct7aYs357rtjI1NvUBjnJZIzqYpQ5pvF86tn-SYya6Z5FB3FMm69A>
+ <xme:Rct7aXs0wgsC9SJjq2X3tgwQjaSHfDH0zmu9-ymBz9bstekVmlNNsuqXiZ4mV0jxZ
+ w7Es_YNz9iAOXcKYaU_TKaZVrafkugv_EMUZtxhPff39eo0VNzhqA>
+X-ME-Received: <xmr:Rct7aT35eaZALWJYoiR_CZqmjQCqIGjRZHby9U40msnxiyMVFGgB4Eshmxk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgdduieejvddvucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+ gurhepfffhvfevuffkjghfofggtgfgsehtqhertdertdejnecuhfhrohhmpeetlhgvgicu
+ hghilhhlihgrmhhsohhnuceorghlvgigsehshhgriigsohhtrdhorhhgqeenucggtffrrg
+ htthgvrhhnpeegudevhfejueefveduieeuueeifeettdekveekhffgvdetfeelueehgfdt
+ heffhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ grlhgvgiesshhhrgiisghothdrohhrghdpnhgspghrtghpthhtohepfeehpdhmohguvgep
+ shhmthhpohhuthdprhgtphhtthhopehlvghonheskhgvrhhnvghlrdhorhhgpdhrtghpth
+ htohepkhgvvhhinhdrthhirghnsehinhhtvghlrdgtohhmpdhrtghpthhtohepjhhgghes
+ iihivghpvgdrtggrpdhrtghpthhtohepphhrrggrnhesghhoohhglhgvrdgtohhmpdhrtg
+ hpthhtohepshhumhhithdrshgvmhifrghlsehlihhnrghrohdrohhrghdprhgtphhtthho
+ pegthhhrihhsthhirghnrdhkohgvnhhighesrghmugdrtghomhdprhgtphhtthhopegrlh
+ gvgigrnhguvghrrdguvghutghhvghrsegrmhgurdgtohhmpdhrtghpthhtoheprghirhhl
+ ihgvugesghhmrghilhdrtghomhdprhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtg
+ hh
+X-ME-Proxy: <xmx:Rct7aULzyE4y8BBhF3rdyaujcyzLfNTpE5wkyl1zdMedbzWYseOxSw>
+ <xmx:Rct7ad8mYAbff79eu_rQjj8k4aznx6xrr4gA7oIU8bAKqKYlTz4CXA>
+ <xmx:Rct7aTjSGVf_bD02xJhBm-h3mmSTeYrDnT-VdUguQYYGG7x8DOokYQ>
+ <xmx:Rct7acz74UJJaNHeoVQGCHpVqWwxJG1YKIfmqo-nHxPN542x9btgXw>
+ <xmx:Rst7aWf08CIB6FZukk4C-_5suSJ-3FNwBXWYHyloosGjmPepGYe1DWly>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Jan 2026 16:04:03 -0500 (EST)
+Date: Thu, 29 Jan 2026 14:04:01 -0700
+From: Alex Williamson <alex@shazbot.org>
+To: Leon Romanovsky <leon@kernel.org>
+Cc: "Tian, Kevin" <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Pranjal Shrivastava <praan@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Rui Huang <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alice Ryhl <aliceryhl@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
- Bjorn Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Andy Ritger <aritger@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-References: <97af2d85-a905-44d4-951f-e56a40f4312e@nvidia.com>
- <20260130015901.GA301119@joelbox2>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20260130015901.GA301119@joelbox2>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY5PR17CA0039.namprd17.prod.outlook.com
- (2603:10b6:a03:167::16) To DM3PR12MB9416.namprd12.prod.outlook.com
- (2603:10b6:0:4b::8)
+ Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>,
+ "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Ankit Agrawal <ankita@nvidia.com>, "Kasireddy,
+ Vivek" <vivek.kasireddy@intel.com>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "virtualization@lists.linux.dev" <virtualization@lists.linux.dev>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>,
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>
+Subject: Re: [PATCH v5 4/8] vfio: Wait for dma-buf invalidation to complete
+Message-ID: <20260129140401.52245b63@shazbot.org>
+In-Reply-To: <20260129084156.GC10992@unreal>
+References: <20260124-dmabuf-revoke-v5-0-f98fca917e96@nvidia.com>
+ <20260124-dmabuf-revoke-v5-4-f98fca917e96@nvidia.com>
+ <aXfUZcSEr9N18o6w@google.com> <20260127085835.GQ13967@unreal>
+ <20260127162754.GH1641016@ziepe.ca>
+ <BN9PR11MB5276B99D4E8C6496B0C447888C9EA@BN9PR11MB5276.namprd11.prod.outlook.com>
+ <20260129073331.GB10992@unreal>
+ <BN9PR11MB52766EA91FEB08876DA474888C9EA@BN9PR11MB5276.namprd11.prod.outlook.com>
+ <20260129084156.GC10992@unreal>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|DS7PR12MB5862:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8bd5568c-2b0c-4c31-6499-08de5fb11a6e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZmZNMnhPSmJ0dHdDaHJmZHRxYWpzVEVTeFZNcjNHRFRvekFUNEVlMXVxUUMr?=
- =?utf-8?B?b1o2M0drZW5aVnNOdWQ2WWRsOTNwQjlhTWdvSzJrb1pqdkRWelVienFOdzRM?=
- =?utf-8?B?TzI4U3dDTFJocUlZQWx6SVRIdzdNUGVzS2JPQXNzNHRoL2RzNkwwZ2p4YjhP?=
- =?utf-8?B?S2ZNVDlCY3lyMk50MTRVUmtlSXg0QW04THFTaVVzdlRKNWFhWG5HdzJVdU1m?=
- =?utf-8?B?eCtDZWNTZFpmanlrUm5WQnB5ejBOcHFBRUxrRW1yM1IyeFByQVdwT0ljVUFB?=
- =?utf-8?B?RXlRWkpWMXdWNnhVVzVXTUw1Y0ZtY2wzelN3UjV5TkxoSHpVZVIvZ0VYQm1n?=
- =?utf-8?B?RnJFZml0cnFEMm1SZ1ZPMFZCdFNQaldnZkVWd2NJdlkzUnZ6dnFmeFozVHQ0?=
- =?utf-8?B?SWJ3eCttNVBPdlcvT1E0VlVlMlpPd3l6TzB2S2tIY3VZZndQRzV0R2F4SXU3?=
- =?utf-8?B?UUxDNnZINHpCamU1WnB1amtqRVZ5c2dWd1B1emZKMU8wRm9zN2tvVjU2SC9C?=
- =?utf-8?B?WEcrTXkwcGFNenNQdWhRV3VMN3krOXlLU0VCY3J5WGIvbUx6TWhuM3NhcHc5?=
- =?utf-8?B?dHpiTUxmZWk2N1J2Y3crVWhRa0JkeEloemwzaFN6S3F4ekJBK1FZNTFBc0g4?=
- =?utf-8?B?bFhickV3L244OWZNazZFZXZiQUJYZWJpM1hTdGdmRUVTeWN1MVdpdVlldnZl?=
- =?utf-8?B?WklRUmdqVkhQdUxEUjZlNmZZbzBRS1VhUDBVQXJweDFxb3lqOVhHT09zZTQ4?=
- =?utf-8?B?c3RBd2R0WVRIbGpkeFpjZysrVWJEaGJwb1N4a1hhWEY4RWhVd1JSZnVPd0Jl?=
- =?utf-8?B?Z1NhZzB6T093UmYvWk8rQk84NmFFbG9ySG1ETGhpWlFiemprUU1ZRTZ3Smxq?=
- =?utf-8?B?T3NRK2VDeWZnd1ZuQ0JxUDVKcXhRZHFxSndvNGdZZ0s5cktCbkdOZmJmVDk5?=
- =?utf-8?B?NGJROElDcTBXN0ErNGZrTjVXTyt1NkNNSDN2KzlFdGllQVNKUUZ5b1NoOEo4?=
- =?utf-8?B?Qm9rek1FOE1oODNCaUx6cTJ0RzdNbXd2TGtjTlV6R1dkYzFjYTcvRHdhVmxp?=
- =?utf-8?B?N0t5UlRWcE1zcTE4dzdCSXBpeUtnckdWOTQvSk9PKzd1RjIxSmxoQkZaZ0xJ?=
- =?utf-8?B?bXFFNk5LKzFVRzU3T0dFN0oxdlVuam5hS3YrdEI2Rlh1REszMFJtdWtTOEhm?=
- =?utf-8?B?ai9KMlQ1M09lOWNxTkpKQWFJaGpabVJSMkc1WkQ3cVpEQm11cnE1a3dKOExO?=
- =?utf-8?B?MnVOOHhJTTRaMUVjb3huTk1YT1NXN1YwOFQvMVlBTVp3N1hoUmxrbFEyYm9l?=
- =?utf-8?B?NDFFRkE0SG00U0lrVkkvbVlJUWRSSmRPZDMyTVp6Vmc0QkNMTVBTcC9ta2tN?=
- =?utf-8?B?M3diT0lySDNtV2JnQWN1Z0ZDZDdyd1F3aENGUHVncXdMSUIxWE45TEZhQ3FV?=
- =?utf-8?B?SGdnOUhnOE1NTFZIWlZOL1hCWk5FTnhxdHg0cStYdnNtQWFObzhuY3NJMXFU?=
- =?utf-8?B?c05SZGw0Mk5PVStvaTdjOUNaQ3lkM2UyZXVHRG90ZW04bGFsSVppMjV6clpS?=
- =?utf-8?B?WEpzdVo4V3NIcm1EQUdmR0JiVWtFQ3hoSWFzdG56UHkyZkpnMm8xa09nK0NC?=
- =?utf-8?B?NkVnWktrQUhxMmVMdkFxVnpjdThtR3hXNEFXVDMrWkg4Yi9uZFVTQUxiNUJo?=
- =?utf-8?B?MjQyUWpEUjJTRUJXaFYrOGFmZnRpejRNQjBWZktHVEN5dFBqQ3NhSkl2enRT?=
- =?utf-8?B?U1RWQ1hWUXdicktLd3NHQ2ZEWjg4Q0x1bjV3YnFTS1piYkk1R0VTVHZCQnoz?=
- =?utf-8?B?aHEzakFqWmhaUFlSWDMybFc3cHRnSVBYMVRGL1JxYWJkL1UxQ0d1MUVEbHRC?=
- =?utf-8?B?VnlhMEpVa21HTGJBZ0FaYnNuT3FGSGp6Q0JXaHJmOG1idUpWY2MraWJrdGMv?=
- =?utf-8?B?SExsKy91Q1RQWlljS21nT1MxWXhyMmlTM1pXeXdRcmJUNGhoRGk2Q0E0S2Zl?=
- =?utf-8?B?aGthNVV2bkFYR3VCSHFWUFZaWUpJN2cwK2gyNzRaMlRnYlJOT0lNTld1QjRZ?=
- =?utf-8?B?ejRzb2FWUXJrb3RKbWxwL3VlakJKbDBwK2RHOGZzQnF2ckF5dHFVVnhGcFlN?=
- =?utf-8?Q?b3hk=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eGlkLzJMVUxVZjJPcXV4K24wQ1gvL0xwRHd0cEwyUHBxK25LTkV0bmtrMFZP?=
- =?utf-8?B?ZTYwZGk0MzR3UnRpZzU4TjJSRkJOcmRFWER6T25talRHY3JzQ25ibloweE1M?=
- =?utf-8?B?emk0U3IyYzhZNWs5Ymp4OFE5QVhGZEhKVE1uL2hmYmtlOTB1dmlKclF1bm1K?=
- =?utf-8?B?NEZrR0tTaGZNMUVkekZrYUxraUwycXFSZ3JrZHVTYmR2QmlTQ2pWbHVIMmJm?=
- =?utf-8?B?cU4vL0kveXVtSU9iYURvRE9udm0yU0ZmV1B0NEdQRnZVSmxvWnl0bXd5akNl?=
- =?utf-8?B?eEZydVdKRXQxaW9LMWwrVjNnZmxMc1UyMElGeDNoT3JRZ2xFS3hxZ0UyREpv?=
- =?utf-8?B?LzRBSHBPVml1Z3M3ZitHd2J6dk5FUTFBc0s5UGtXKzh1MVVabWtKZGFRT283?=
- =?utf-8?B?TFNzK3dnVHNmSlU4eHRsMHNDTEFOdXd6QmZDVTR3OURmNTAwNHlKYlVCNjRM?=
- =?utf-8?B?V0Y4bHlPdDg3dnhlUEQ5ZmdPOVo5c0ZudmVTRElrVUxpTE9vUnB6M2NHZHh0?=
- =?utf-8?B?UjNvTENPYzdUNVNYUGdHMnlmWER4UzFhbDZWTVZkU0l0UUYrbVhHTmh6eWFO?=
- =?utf-8?B?TlpGb0F0WjJkQU5vY3JIVVVtZ1VwQ00rTXZaZ1RGakk3aWx6dzhva1hKaGll?=
- =?utf-8?B?eG9nRWxlaWxIQ2JkRUtsb0FEcWJFZ0t0S2UxR2RHK1E2cDlJVk15cFp3c0VB?=
- =?utf-8?B?WDBPaGlOWGZaWloxellqajZERHQ4VmZrWmtXak5yYzNQWDV0UmRQcEttMDdD?=
- =?utf-8?B?dVp4bktBOGFscU42UTd5cTJ1c3dlMEh6NGtRUGg5MjJ6YjRwb3h2Tjc0aVVi?=
- =?utf-8?B?ck9GSVZMWkxBRXlycGdMeXRjZ3RiTjVBbGRzMHdHWHREckh6ZmNySW1VRmV5?=
- =?utf-8?B?RDZyTnBlczBSeXZYbVo5NDM4YXVSTFRKd1VsZDJmOXA1MDVTYzAxVmpOSHNY?=
- =?utf-8?B?RE1hdG5ZVlp4Q1BXVGFpNTlhdVNlUE9CREJOWDBZWnVQeThZUVpKZEhqR0Ny?=
- =?utf-8?B?SGZyMjRqNEcyc0wyM3VrNEZ2Mkw5em1JSXlzNlBYc0xpNXFibkFCaTlyYjBa?=
- =?utf-8?B?TDBBaVhpbGtGR2NXcjM4UDRkRVRZZkdmbTR6REdpdDlSUlVoY2lLMEtCSkJU?=
- =?utf-8?B?Vm0vdlk0RGw5eVUxYzRSTVgrMGJENmtsdjVNUmNuQ3RnWlBnTGQ4UFNrOWdB?=
- =?utf-8?B?ZVcxYXRjaUZkd1FOeGxpTmNjYk1mdnpmRzVEb2N4SEFzUWdaazdYdlFKMzRr?=
- =?utf-8?B?NjU5SUZod1c2NHY2QmlMenp6TEMxUUN5MTh1cFRXWTd6bnNxMUlEa2xqdUJL?=
- =?utf-8?B?NG80Y3ZML1hmbFpmeElCNXd0NlJGTkdSV2xUR0RzSzBLRGVrQ2RJc3R4MTB0?=
- =?utf-8?B?bHYrWUVLWlpLbWg3cytBZ01UWk5NVGplaFh6a0tjZmVaemhpbTQ5MDR3cDVw?=
- =?utf-8?B?bVRWUUY5VXQ0aDZTZHl3NjNtZXRIVTdtYVp2dFFHOFFWVlV3Z05MaFEyUnJ6?=
- =?utf-8?B?WWlROHFxU0c5ZnBFejRveXQxUGV4YmlkVzU5d2FPUTRTVUFvcmpzemRiUEZV?=
- =?utf-8?B?MU1XR0tTK3BOMlF3L1lqSzFZRklNZGlPWmFLWlEzblB2cFFmaFUwamsvNDFi?=
- =?utf-8?B?ZXFNQ090ODFTdEtvOWJxWTFXQVNyRjlGOHlxaWdERHA5YVRFZkdMcUxIVWEz?=
- =?utf-8?B?SFZiOGMzb2trRjNpUEVLR05ob1F4QmcwMXRHTUZ2cFl1anZ2cDNOa1hjaDU5?=
- =?utf-8?B?ZUhKZkRPU0pncUFtM2w0SVh6RnZZME4yS3VzalhQM09rTWR6Uksza1FhbVAy?=
- =?utf-8?B?NDRIWFJMOUtVeTZ0ZWJNZi9UN1hCM3c3TEgxeFp3VGlZeFB6Vi9IaU5lWi90?=
- =?utf-8?B?ckRCeHQ4NjY2YXd1NWtZZjNsYmIrcnJkdS9sUzF5Z1RBTmo4bXI1MkY2MTBT?=
- =?utf-8?B?eS9GMmlScnJPcVdFcVJ2a0RUekE1SlZ2djl2TUJiVG1Ub3ZDK0szbmV5Ukdq?=
- =?utf-8?B?RTJzc3NMeTVZNkJHbDdnM01obmxvOHE5WDlKekJXQVoxWlplV2FRdDlmejU3?=
- =?utf-8?B?Ni9GNkZsM3UyVXBXMXNVNXN4cFhEU1c0ZmxCczFRWGhpcWFIb0s3ZWNSSTht?=
- =?utf-8?B?QlllNXVicnlKNFpiNkNYRXd6WU9sTFVjL1kvdjBmTEFFVHJUVmhDMjhPN2Fi?=
- =?utf-8?B?VnpuNGpRWWtBZ1ZqVk5WNHMya3ZPV3BSc2t6L1BGcWswaVk5TmxjcDB2TFN1?=
- =?utf-8?B?VHF3WHpPWlczOHF3VkxxS0oxdUVDdHl2UnlFaG9XNEV5SzR2NnhMTWJNczNo?=
- =?utf-8?B?VzZtZTRVQWtmbFAvWlZRUHZENHlNaHZ3SEhWOU5keWJTempTRzIyUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8bd5568c-2b0c-4c31-6499-08de5fb11a6e
-X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 03:38:59.2804 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 00yWLPK9WcuAwyvfY1U0Zyoyw/vAOE/Omp8qVelhE9o9Qd7epJq8NvIKwJjYnRQnM/kAVNcS8Sr0e22q79xU0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5862
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 30 Jan 2026 09:22:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -200,42 +137,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/29/26 5:59 PM, Joel Fernandes wrote:
-> On 1/29/26 8:12 PM, John Hubbard wrote:
->> On 1/29/26 4:26 PM, Joel Fernandes wrote:
->>> Based on the below discussion and research, I came up with some deadlock
->>> scenarios that we need to handle in the v6 series of these patches.
->>> [...]
->>> memory allocations under locks that we need in the dma-fence signaling
->>> critical path (when doing the virtual memory map/unmap)
->>
->> unmap? Are you seeing any allocations happening during unmap? I don't
->> immediately see any, but that sounds surprising.
-> 
-> Not allocations but we are acquiring locks during unmap. My understanding
-> is (at least some) unmaps have to also be done in the dma fence signaling
-> critical path (the run stage), but Danilo/you can correct me if I am wrong
-> on that. We cannot avoid all locking but those same locks cannot be held in
-> any other paths which do a memory allocation (as mentioned in one of the
-> deadlock scenarios), that is probably the main thing to check for unmap.
-> 
+On Thu, 29 Jan 2026 10:41:56 +0200
+Leon Romanovsky <leon@kernel.org> wrote:
 
-Right, OK we are on the same page now: no allocations happening on unmap,
-but it can still deadlock, because the driver is typically going to
-use a single lock to protect calls both map and unmap-related calls
-to the buddy allocator.
+> On Thu, Jan 29, 2026 at 08:13:18AM +0000, Tian, Kevin wrote:
+> > > From: Leon Romanovsky <leon@kernel.org>
+> > > Sent: Thursday, January 29, 2026 3:34 PM
+> > >=20
+> > > On Thu, Jan 29, 2026 at 07:06:37AM +0000, Tian, Kevin wrote: =20
+> > > > > From: Jason Gunthorpe <jgg@ziepe.ca>
+> > > > > Sent: Wednesday, January 28, 2026 12:28 AM
+> > > > >
+> > > > > On Tue, Jan 27, 2026 at 10:58:35AM +0200, Leon Romanovsky wrote: =
+=20
+> > > > > > > > @@ -333,7 +359,37 @@ void vfio_pci_dma_buf_move(struct =20
+> > > > > vfio_pci_core_device *vdev, bool revoked) =20
+> > > > > > > >  			dma_resv_lock(priv->dmabuf->resv, NULL);
+> > > > > > > >  			priv->revoked =3D revoked;
+> > > > > > > >  			dma_buf_invalidate_mappings(priv- =20
+> > > >dmabuf); =20
+> > > > > > > > +			dma_resv_wait_timeout(priv->dmabuf->resv,
+> > > > > > > > + =20
+> > > DMA_RESV_USAGE_BOOKKEEP, =20
+> > > > > false, =20
+> > > > > > > > + =20
+> > > MAX_SCHEDULE_TIMEOUT); =20
+> > > > > > > >  			dma_resv_unlock(priv->dmabuf->resv);
+> > > > > > > > +			if (revoked) {
+> > > > > > > > +				kref_put(&priv->kref, =20
+> > > > > vfio_pci_dma_buf_done); =20
+> > > > > > > > +				/* Let's wait till all DMA unmap are =20
+> > > > > completed. */ =20
+> > > > > > > > +				wait =3D wait_for_completion_timeout(
+> > > > > > > > +					&priv->comp, =20
+> > > secs_to_jiffies(1)); =20
+> > > > > > >
+> > > > > > > Is the 1-second constant sufficient for all hardware, or shou=
+ld the
+> > > > > > > invalidate_mappings() contract require the callback to block =
+until
+> > > > > > > speculative reads are strictly fenced? I'm wondering about a =
+case =20
+> > > where =20
+> > > > > > > a device's firmware has a high response latency, perhaps due =
+to =20
+> > > internal =20
+> > > > > > > management tasks like error recovery or thermal and it exceed=
+s the =20
+> > > 1s =20
+> > > > > > > timeout.
+> > > > > > >
+> > > > > > > If the device is in the middle of a large DMA burst and the f=
+irmware is
+> > > > > > > slow to flush the internal pipelines to a fully "quiesced"
+> > > > > > > read-and-discard state, reclaiming the memory at exactly 1.00=
+1 =20
+> > > seconds =20
+> > > > > > > risks triggering platform-level faults..
+> > > > > > >
+> > > > > > > Since the wen explicitly permit these speculative reads until=
+ unmap is
+> > > > > > > complete, relying on a hardcoded timeout in the exporter seem=
+s to
+> > > > > > > introduce a hardware-dependent race condition that could =20
+> > > compromise =20
+> > > > > > > system stability via IOMMU errors or AER faults.
+> > > > > > >
+> > > > > > > Should the importer instead be required to guarantee that all
+> > > > > > > speculative access has ceased before the invalidation call re=
+turns? =20
+> > > > > >
+> > > > > > It is guaranteed by the dma_resv_wait_timeout() call above. Tha=
+t call =20
+> > > > > ensures =20
+> > > > > > that the hardware has completed all pending operations. The 1=
+=E2=80=91second =20
+> > > > > delay is =20
+> > > > > > meant to catch cases where an in-kernel DMA unmap call is missi=
+ng, =20
+> > > which =20
+> > > > > should =20
+> > > > > > not trigger any DMA activity at that point. =20
+> > > > >
+> > > > > Christian may know actual examples, but my general feeling is he =
+was
+> > > > > worrying about drivers that have pushed the DMABUF to visibility =
+on
+> > > > > the GPU and the move notify & fences only shoot down some access.=
+ So
+> > > > > it has to wait until the DMABUF is finally unmapped.
+> > > > >
+> > > > > Pranjal's example should be covered by the driver adding a fence =
+and
+> > > > > then the unbounded fence wait will complete it.
+> > > > > =20
+> > > >
+> > > > Bear me if it's an ignorant question.
+> > > >
+> > > > The commit msg of patch6 says that VFIO doesn't tolerate unbounded
+> > > > wait, which is the reason behind the 2nd timeout wait here. =20
+> > >=20
+> > > It is not accurate. A second timeout is present both in the
+> > > description of patch 6 and in VFIO implementation. The difference is
+> > > that the timeout is enforced within VFIO.
+> > >  =20
+> > > >
+> > > > Then why is "the unbounded fence wait" not a problem in the same
+> > > > code path? the use of MAX_SCHEDULE_TIMEOUT imply a worst-case
+> > > > timeout in hundreds of years... =20
+> > >=20
+> > > "An unbounded fence wait" is a different class of wait. It indicates =
+broken
+> > > hardware that continues to issue DMA transactions even after it has b=
+een
+> > > told to
+> > > stop.
+> > >=20
+> > > The second wait exists to catch software bugs or misuse, where the dm=
+a-buf
+> > > importer has misrepresented its capabilities.
+> > >  =20
+> >=20
+> > Okay I see.
+> >  =20
+> > > >
+> > > > and it'd be helpful to put some words in the code based on what's
+> > > > discussed here. =20
+> > >=20
+> > > We've documented as much as we can in dma_buf_attach_revocable() and
+> > > dma_buf_invalidate_mappings(). Do you have any suggestions on what el=
+se
+> > > should be added here?
+> > >  =20
+> >=20
+> > the selection of 1s? =20
+>=20
+> It is indirectly written in description of WARN_ON(), but let's add
+> more. What about the following?
+>=20
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_p=
+ci_dmabuf.c
+> index 93795ad2e025..948ba75288c6 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> @@ -357,7 +357,13 @@ void vfio_pci_dma_buf_move(struct vfio_pci_core_devi=
+ce *vdev, bool revoked)
+>                         dma_resv_unlock(priv->dmabuf->resv);
+>                         if (revoked) {
+>                                 kref_put(&priv->kref, vfio_pci_dma_buf_do=
+ne);
+> -                               /* Let's wait till all DMA unmap are comp=
+leted. */
+> +                               /*
+> +                                * Let's wait for 1 second till all DMA u=
+nmap
+> +                                * are completed. It is supposed to catch=
+ dma-buf
+> +                                * importers which lied about their suppo=
+rt
+> +                                * of dmabuf revoke. See dma_buf_invalida=
+te_mappings()
+> +                                * for the expected behaviour,
+> +                                */
+>                                 wait =3D wait_for_completion_timeout(
+>                                         &priv->comp, secs_to_jiffies(1));
+>                                 /*
+>=20
+> >=20
+> > then,
+> >=20
+> > Reviewed-by: Kevin Tian <kevin.tian@intel.com> =20
 
-For the deadlock above, I think a good way to break that deadlock is
-to not allow taking that lock in a fence signaling calling path.
-
-So during an unmap, instead of "lock, unmap/free, unlock" it should
-move the item to a deferred-free list, which is processed separately.
-Of course, this is a little complex, because the allocation and reclaim
-has to be aware of such lists if they get large.
-
-
-
-thanks,
--- 
-John Hubbard
-
+Reviewed-by: Alex Williamson <alex@shazbot.org>
