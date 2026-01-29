@@ -4,51 +4,172 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 613A6D61015
-	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 12:55:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6D4ED61014
+	for <amd-gfx@archiver.kernel.org>; Thu, 29 Jan 2026 12:59:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A6C5910E865;
-	Thu, 29 Jan 2026 12:55:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD6210E862;
+	Thu, 29 Jan 2026 12:59:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=139.com header.i=@139.com header.b="S4nqc7Fc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Mgx+mEc1";
 	dkim-atps=neutral
-X-Greylist: delayed 553 seconds by postgrey-1.36 at gabe;
- Thu, 29 Jan 2026 09:22:46 UTC
-Received: from n169-111.mail.139.com (n169-111.mail.139.com [120.232.169.111])
- by gabe.freedesktop.org (Postfix) with ESMTP id 49B7510E173;
- Thu, 29 Jan 2026 09:22:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=139.com; s=dkim; l=0;
- h=from:subject:message-id:to:cc:mime-version;
- bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
- b=S4nqc7FcSohhJvalh1BxGGC/0wnK575uL6Bc0d0NThsl96D2a9wU/IwkAwHIzIrhXD+6CC3cE5sGy
- ljN+eE6z1xWjlK+SVb9tYS5Svjwl2iKIx5NP+OzzhreX0yPGRpawrqezs/nk8POg5bTL9Gr/f3YFiC
- shlt4EEoO/+vt8vo=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM: 
-X-RM-SPAM-FLAG: 00000000
-Received: from NTT-kernel-dev (unknown[60.247.85.88])
- by rmsmtp-lg-appmail-16-12015 (RichMail) with SMTP id 2eef697b24b99e2-009f0;
- Thu, 29 Jan 2026 17:13:32 +0800 (CST)
-X-RM-TRANSID: 2eef697b24b99e2-009f0
-From: Li hongliang <1468888505@139.com>
-To: gregkh@linuxfoundation.org, stable@vger.kernel.org,
- srinivasan.shanmugam@amd.com
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com,
- airlied@gmail.com, daniel@ffwll.ch, sashal@kernel.org,
- mario.limonciello@amd.com, superm1@kernel.org, Jun.Ma2@amd.com,
- Zhigang.Luo@amd.com, Hawking.Zhang@amd.com, Jesse.Zhang@amd.com,
- victor.skvortsov@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, lin.cao@amd.com, Jingwen.Chen2@amd.com
-Subject: [PATCH 6.6.y] drm/amdgpu: Replace Mutex with Spinlock for RLCG
- register access to avoid Priority Inversion in SRIOV
-Date: Thu, 29 Jan 2026 17:13:25 +0800
-Message-Id: <20260129091325.3637010-1-1468888505@139.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012013.outbound.protection.outlook.com [52.101.43.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1138D10E862;
+ Thu, 29 Jan 2026 12:59:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VxpwboVx2FAUZ3sPVdpb7X6FGsXzZCSuGy0k1NOg92enFThYg8rgWaDnSodAnjvfBFVAFX8KMrgKWbd6L3ZXEmFrLvoJTtoPrTJOtoOIBbQn21rfFV0RGGg1+iSkkOBr3IHa/lxf0dMx5/FfoOw/VT6JJiuj1qYYeMnNd+4Euy85StWaabv7vD8b5JYTrF0ox1sexUdhMYOBIyCpFBzw+A8bsmn5h1VzIWK15tI86BDjXMXz2WcM4xfNUs/jZf5wuMw44MiJCZlyN9tzOyu/kv1yuBldowXxcmWw0H+w0cHYySkFfIHSAAy2Mq8CaWq3VumBfsfv2HsqQdH2dmokgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3Trr5meThhwO//guMNi8p2rSpKx0TyjADOLkMEZuBwM=;
+ b=luhvgxf8cU7PITayycT8+z3WBD+iN6ABxc0ZcXxYEsw3D8FGg6oHrPtxCNTSMLrpz/tmZWCaCqbcIFiYU4v56vy7QezbsoaxrEALUM9MlJ58wSTDg0u9UlovshOv2qO23hGhgZhvSkPdm/5QdiX9DL+XMaSAIPsXtPm2bW3E8sNiKXu889Ny028Z6HgubPRu9DF8OFehSJSK/SCVhZnSgowUWLSCaCu3b3Cye0QCiqZpRumXN2hRX3RGEYl3pU3FPi0g5ZoTRrkCK2sqxLcG+oFrwwOPu0DF5NEc+SpjPkHTajAa39F+Vx7uPNuB5TaDN3Vu/o7l4sNaWSEI0/u9Pg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3Trr5meThhwO//guMNi8p2rSpKx0TyjADOLkMEZuBwM=;
+ b=Mgx+mEc1NSfIBA7AQqWz1jd1VA8GkNkYPmRkCN9JdkP4GY6u0wpfCADbr51/1LGxBZewIbAjR2m85JSVSIB7tdnCPJjBm9qleudm6WmGgRleVWqV4W55KfiMYAv1erR6n9GhTUQPQcJwPKisZghfglmRVaCnqNKxmQVFvQn/kBY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by SJ0PR12MB7065.namprd12.prod.outlook.com (2603:10b6:a03:4ae::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.11; Thu, 29 Jan
+ 2026 12:59:09 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68%7]) with mapi id 15.20.9542.010; Thu, 29 Jan 2026
+ 12:59:09 +0000
+Message-ID: <2f9bc706-02d6-4dec-a56c-53abc5d43f46@amd.com>
+Date: Thu, 29 Jan 2026 13:59:00 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Hamza Mahfooz <someguy@effective-light.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260123000537.2450496-1-someguy@effective-light.com>
+ <2719069.vYhyI6sBWr@timur-hyperion>
+ <30f2480d-016f-417e-9ddf-7805e4943e7b@amd.com>
+ <2285353.hkbZ0PkbqX@timur-hyperion>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <2285353.hkbZ0PkbqX@timur-hyperion>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 29 Jan 2026 12:55:40 +0000
+X-ClientProxiedBy: FR4P281CA0092.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cb::13) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|SJ0PR12MB7065:EE_
+X-MS-Office365-Filtering-Correlation-Id: 766cd039-e10a-4b73-1d96-08de5f363129
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?LzVKL2lBOWZ3dlYrc2RMTmZWejZjMDV4YS9uby9YUGFxSFdVSlhlbGFva0Rv?=
+ =?utf-8?B?eElralVTS3kzUmh6SnB0VGY4YXN5QjMwU1ZibUNJaWk0SnFYWWlnUTB4dzV4?=
+ =?utf-8?B?S2FzQnNXeklnNS92QTNWSTl5YzBrMHF3aURMMy9DYmRhZXlkRFluakJQck92?=
+ =?utf-8?B?V0tDTXB0eFZFY2x3bVFFNVdGQmxQd24vODVtczAyRzMwQTR0MXIwNnZOL215?=
+ =?utf-8?B?TmpXV3ZNbThnaEt4OUxqbFRoQ1d2cFAyY2tOMEU2ZVl3dTN4V01iM0c3Sm91?=
+ =?utf-8?B?WjhwV3Jud1pvYXUvUllZZDE0eFQ0NDVOeTQ2bjIrbXRocHNNRmxjay8wenEy?=
+ =?utf-8?B?byt1SGN2a0UrVTRFa1g2dGgyakEzUXU5NU81MGl0bzdhUmduUDJHd1ZzVzJD?=
+ =?utf-8?B?bW1vUFlpSXUvSVhPdmxkaEVXak1QVU1tZHNjWU5DU2VueDUrM2daTnlHYVVX?=
+ =?utf-8?B?WFhoRjV1WkRaWHpYa0dJWWowcW01MnlMS0lkbTRndWtlQ0ZWV1lJemlOWktk?=
+ =?utf-8?B?emxrZnd1WFlyRENianVXL3QxNVhONHUyaUNaRVBKSllUOFE2TXNEdXFod21v?=
+ =?utf-8?B?ZWh0bDlkNGFCVlJNUFJ5OEhqbnJpdC8vRXFrcENlekY0OEY2M3JBVVJrQVBF?=
+ =?utf-8?B?dGV3Z3NXaEZWZStLbVJLejNiSk1LUnk0b0ZMMytpSkVVVGNOVk9ZRThkbk1Z?=
+ =?utf-8?B?Rm5WSFRBN1lWb2FLVDExbU43SlAxK2QwSE13RDNKSmhxcUVVRXFCL3Z4RWZP?=
+ =?utf-8?B?QjZwLzc5bHZhZzdUeFVBaW0vYUNORGl2U2hmVVBsMEl3OFBjbG4venUzMkc4?=
+ =?utf-8?B?ZnBhcHAxdFgyRjM1K3BIK09oSGRTSGpnTTg4MXVDMHpuK3BPU1BPbUlGN09i?=
+ =?utf-8?B?MEdoS08yM1I2SE1Oa3Y1UDhQbkhMSGZoZHk5UmI5cDZGd0M2VTRtZEpLUTNw?=
+ =?utf-8?B?RjN4Y1lxK1dqVkg3VGlNSkhmVTh5Nk1mTFg2ejBZTHkrNmJwemhHeEJjenMv?=
+ =?utf-8?B?SGhuVEgxL2x4NmtaRHM1anBJTGRRdVd0N3U3SXpvRWZORUZZR2R2Y1p1RHpQ?=
+ =?utf-8?B?T0pyT2ZLcUFlN3J6SzQ0UmhYRVBTbEhLV3ROeXk1bXhpSnpVVlFpMS9NWWsz?=
+ =?utf-8?B?R1NNRmcwN1dsVENXdXNUK0dmMEFSSlBvZzhzcnBVVW1pNGtxckJwS09Fd1Yy?=
+ =?utf-8?B?aVpzVlZMSEc4WDliOTZlQTJOTk9aZGpZemdmaVFaR0E4S0p6Y3VSbDJHb0ly?=
+ =?utf-8?B?Zll2ckZCM1lhUmFUczZhbk5PTVFPMTdMUktyMWp5cURYR250RTZiTy8zNWZx?=
+ =?utf-8?B?VHJQQUN3ajlDNlNuL0gweUk0L2IxSkoyNmZ3Z25icjZ1UHF1emJyU3JjY1Yx?=
+ =?utf-8?B?ZDd2VEtlMFFmTVN5WTAxNTdESG9ERXZBZ3BoNWRNeTNnWTBWbGkyM3VhZkVu?=
+ =?utf-8?B?T08vZGNSQmtrbmt3eEFDcE9IOFg5UGVlWHZWYngvSXNZSGQrLy9rNkZDbnJO?=
+ =?utf-8?B?RTZIUGVsc3FxazB3Ynh5VjlnbFpaWnY5b0NYQjRpUERZZTl4bXFDWllqQWtk?=
+ =?utf-8?B?Q05iY0U3eHo2MmNFa293ZUkxZ01SZ1ZacHhGZ0FOSnJSalptQWtseVUwckEr?=
+ =?utf-8?B?S1hUc3pxTkZKNVQvTzRNYlZWSGVXWUZCREt6eEErdEhLM05qSGhjd2lyTUtP?=
+ =?utf-8?B?ZTRoNVlGWjFaZXlKdG9wd0U5VFY2cFFFUjN0eVA4VU51Ny9WK3lyNnVEZTh0?=
+ =?utf-8?B?dmVFUmJadi9tVjQ2NUZQbmUyQnlkVWVUSlJhNG5aRTQ0YlJyR3MzTGJPcHE4?=
+ =?utf-8?B?dEl0VU9NY1BQZXl6bDhVNXNlajNoSDVGUWUvbGFhSEdvZm1BTDcxZFMvTS8v?=
+ =?utf-8?B?NWtjWVFYWi9PSGxZRnBRRG53ZmY4SE5DWUNWRXVSenBQeVJSMVZsNTRpTTl3?=
+ =?utf-8?B?clIrRForTDhrblNGcVN2REZLbWJyU2hrZ1FvWnNVWTB6U2NvMks0VlNZK3Ft?=
+ =?utf-8?B?ZjR0VHRSZHBQUm1adHcvWlY4b2hsclNYZU5oaDZUQjlidXMzV3hBOUhVenhq?=
+ =?utf-8?B?Sml1UGU0V1J4dk5lbDhRb1FsREN2R1VzMEtuaE9hZW9nRDV3MVJ0b0FJT1NW?=
+ =?utf-8?Q?TYHE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB5673.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHFKKzhKM1B2Z3VteWVJTFYyYnczN1FPZWhsMzRhc0FhV0F5K0d4RmRpZlBj?=
+ =?utf-8?B?UWJOMmFkMjhQQUt0OHpyYXhOR2xHRnN6TVM1RmlQdW1oaTdrWWpOY2U3WXg1?=
+ =?utf-8?B?bWtIRXhkL1huR3hveXlRT3hLU1BkR3RjeHZyOXF2SGVWM21GaG1Bc3U0NHhV?=
+ =?utf-8?B?VzA4eVoxNjJFalpoZFI2K0gya2oyK0lPSTh2cnBEancxc2twVXpyck52VTdV?=
+ =?utf-8?B?SGQ5RXk0MXdWdTBiYTcvVHRnZzlKa1Nzd0NMd2xBVTErVGZhL2x6TG5SUnpQ?=
+ =?utf-8?B?dFh0QVpHM1RJQ1lROWp1RmVpb3l0VVd1RmJ4MXk0bTZjeVZKUm9PSGp3bk04?=
+ =?utf-8?B?KzdlMk41MC9DWWQvY2N5UEtEM0RYV2dhTnVJMUtocHlIQTBxS0lPZHRsYUpv?=
+ =?utf-8?B?RWo1d1crMVVSZ3FvSXB6aUJwUWpUcnJ2WXRibnpWK2FqVENiSFd3T0tsMEhS?=
+ =?utf-8?B?VG1Kc3FFRDAxWUcweXU3M0ZYcDlZS0F1U04yWlgxUjJCeUsyNEhmY0RtM29v?=
+ =?utf-8?B?VXpvY3o2QitSbWRJRkkwY015V05zZitNbWdhQm9CSlRtSHB1TDlzeVVCVEl0?=
+ =?utf-8?B?VDlhc2ZQcVUvOXlJRlRrNGdhaGVKbE1kSzRCcUtPL1VlSTB4aFhhdlVRMnVY?=
+ =?utf-8?B?NFlYS1dXQWpST3k0Tk5scGpiVmEwUkV2ekc1TWsvQXRGNlR6RE80bWNiYVAr?=
+ =?utf-8?B?VnAvVUcrVHRISSt3WCsxWDduaUVmS0kwYmRVTFh0WXA5TWVPRUpHNjdYUTFr?=
+ =?utf-8?B?d0R1bWxQamhzKzUvemhhMlNSVXc5MkZSd3BQWkY3SThpOFFFWHhRUmdTa0E1?=
+ =?utf-8?B?OGZYSHIvWU1TdzgrUDF3dUFUSXN6VzFRSE9yVEk4cjdUek9YM1Q4aVhjcjI2?=
+ =?utf-8?B?cXVGOXNjRXR5bEpScmdQRVBYeFpwM2tJZmphQjB6U0RRUHZ3aTh2aUd1WmNP?=
+ =?utf-8?B?YkluMkwzcjRmekVWOU1vZDAyM0lmb3NhaVBlclBVN0Q1NWpxVlRtcGhHMjJw?=
+ =?utf-8?B?ckhpU0JzejF4Q0JiZmlNeHlWMzRKTS9QRk8yWlRQd2xyVEhjeTFrSlR5RUtr?=
+ =?utf-8?B?YmhMZkEvSm5VTncrUXBZYXBsS1ArSFovOW9TdS9Wc1RRd0lPUE5HaUVBdGRJ?=
+ =?utf-8?B?alNzQkIvVDNoVVB1MWpmTmVCTGFkU2VQVWxhQVFEbzMvT25DOGdxamNsT0VB?=
+ =?utf-8?B?YUVoeTI3SGhWam9iUk9JZThtZytoZDA0VGtVbUxrT2NhckgwWWY0VnJTTm1p?=
+ =?utf-8?B?Uys1OVVXT3RGa3hzWHVOUTdjUHpNZm8xeWRKTi9Uem9tTUpVMWpGdEJ3eGV6?=
+ =?utf-8?B?TmVzdXlSb1UyMkpEeCtsbWN4ZTRsbCtuQU9mTm9xL0lOZVZrT012Z0pMblMx?=
+ =?utf-8?B?UFUxRUdSZkFQU0lCWTlXZ0xmYU9KV2kvTHlQWDVrNmNwSFduNG1PbjlHN3l1?=
+ =?utf-8?B?RXFKOFZObGEvRjVWMDljUWdYMzY4NXEyWkpIeUtJVTVhQk1hNEY1NldQS2U2?=
+ =?utf-8?B?WHNFSTBuTG5vRHViQVdlb2V4N3YrRlNXZ05XcTcvak1CNm5tejh0RHpQV1ZE?=
+ =?utf-8?B?VXJzRlkxdGYzT1BQTm0zVTlOUWRxaXY5ZXVXOXkvUGRZTTJpWEUvTXRFNjRj?=
+ =?utf-8?B?bHR6b3IxYmlZOUsyWUYwOThZL2F6QlM4NUphTmFJRWM0UUJXbXRkRjREdUYr?=
+ =?utf-8?B?b1ZTZG9jTFlXbU52Y0tXWW50azFYR1YxMnZleGdMcU1meG9PVkFNU0JqSHZJ?=
+ =?utf-8?B?Ukw0R3RuQjBDNmh2SXVTeklCUGxoSXJMYzBkMEtmS0JDNi85TTBQM3o4WU1o?=
+ =?utf-8?B?L00rN2dNUFp2YjZRUXM4WWJlWmM2ZVBrV2dUR0RIUm1DMVhjU2ljcnZoZWRB?=
+ =?utf-8?B?enFqYTRGUWN1TE5pK3h4RjZ2WTM5YTcyTCtrZ21EU2NVZXc1aWVHdjlXam1U?=
+ =?utf-8?B?Tkc3R2xlelk5UHpJSDhhaVlUdE9jZEcvTCtSZnVJZTBua0FXU0lkUXllL1A3?=
+ =?utf-8?B?QlpwOVIraW1na3JvYWZpQnEzZkU0YytJVEZ0ZjhuN2ozTm1xTEdZeEdEM1pX?=
+ =?utf-8?B?bEdjMzN2QXovYWVqWHZtOWlWSUJBQVhDeVN6QXZEREFGaWF1RUFjR2diRVhG?=
+ =?utf-8?B?MDFEcTZqdk1Zb1R5cmNwRHJlNElvOW1JdDcrdjJtS1M2UFJRMC9wMHdKNktK?=
+ =?utf-8?B?WGtVSmdzbE5LNmEzT2I1bXh3OE9EMHZxUURLNDNQbi9VUDVzS05zdTRMOXUz?=
+ =?utf-8?B?WERqbVZ2L3lKNmJVdjZiWmV4dHBYTk9Odll6Mk9kTEVTSldGUFZTTW5oeFBv?=
+ =?utf-8?Q?ZyBdVmCN01aybF3gDN?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 766cd039-e10a-4b73-1d96-08de5f363129
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2026 12:59:09.4335 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iwMiqIEk2O52gzXADXLkM8yqKTOYZgcj0jveTGhgJ/j+/wsYnCknR4cxrxtRXeKd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7065
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,176 +184,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+On 1/29/26 13:06, Timur Kristóf wrote:
+> On Thursday, January 29, 2026 12:38:30 PM Central European Standard Time 
+> Christian König wrote:
+>>>
+>>> However, just like we do with ring timeouts, we also need to be prepared
+>>> for the situation where a page flip timeout happens and we should try to
+>>> recover from it. And if it isn't recoverable, fall back to GPU reset.
+>>
+>> No, that is clearly a bad idea.
+> 
+> I don't see why it's "clearly" a bad idea. It's not clear to me at all, please 
+> clarify it for me.
 
-[ Upstream commit dc0297f3198bd60108ccbd167ee5d9fa4af31ed0 ]
+The GPU resets are necessary because we allow Turing complete programs to be submitted by userspace and that in turn is then messing up the HW state and we need to reset it to get into a known working state again (e.g. classic reset signal in electronics).
 
-RLCG Register Access is a way for virtual functions to safely access GPU
-registers in a virtualized environment., including TLB flushes and
-register reads. When multiple threads or VFs try to access the same
-registers simultaneously, it can lead to race conditions. By using the
-RLCG interface, the driver can serialize access to the registers. This
-means that only one thread can access the registers at a time,
-preventing conflicts and ensuring that operations are performed
-correctly. Additionally, when a low-priority task holds a mutex that a
-high-priority task needs, ie., If a thread holding a spinlock tries to
-acquire a mutex, it can lead to priority inversion. register access in
-amdgpu_virt_rlcg_reg_rw especially in a fast code path is critical.
+But in this case here when you see a frozen picture on the screen then that means the CRTC is still working, e.g. power is there, clocks are running, hblank, vblank is happening ... this doesn't looks like a HW failure at all.
 
-The call stack shows that the function amdgpu_virt_rlcg_reg_rw is being
-called, which attempts to acquire the mutex. This function is invoked
-from amdgpu_sriov_wreg, which in turn is called from
-gmc_v11_0_flush_gpu_tlb.
+After the input from Michel I'm pretty sure that what we have here is just messed up SW state, e.g. the DC/DM code has no fallback handling and not only misses the HW event but also blocks all further page flip requests from userspace which would resolve the issue.
 
-The [ BUG: Invalid wait context ] indicates that a thread is trying to
-acquire a mutex while it is in a context that does not allow it to sleep
-(like holding a spinlock).
+>> CRTCs are fixed function devices that GPU
+>> reset helps here is just pure coincident.
+> 
+> Currently, the driver doesn't handle page flip timeouts at all, which means 
+> that if it happens, there is 0% chance of recovering from it.
 
-Fixes the below:
+Yeah and I completely agree that this is the absolutely worse thing we can do.
 
-[  253.013423] =============================
-[  253.013434] [ BUG: Invalid wait context ]
-[  253.013446] 6.12.0-amdstaging-drm-next-lol-050225 #14 Tainted: G     U     OE
-[  253.013464] -----------------------------
-[  253.013475] kworker/0:1/10 is trying to lock:
-[  253.013487] ffff9f30542e3cf8 (&adev->virt.rlcg_reg_lock){+.+.}-{3:3}, at: amdgpu_virt_rlcg_reg_rw+0xf6/0x330 [amdgpu]
-[  253.013815] other info that might help us debug this:
-[  253.013827] context-{4:4}
-[  253.013835] 3 locks held by kworker/0:1/10:
-[  253.013847]  #0: ffff9f3040050f58 ((wq_completion)events){+.+.}-{0:0}, at: process_one_work+0x3f5/0x680
-[  253.013877]  #1: ffffb789c008be40 ((work_completion)(&wfc.work)){+.+.}-{0:0}, at: process_one_work+0x1d6/0x680
-[  253.013905]  #2: ffff9f3054281838 (&adev->gmc.invalidate_lock){+.+.}-{2:2}, at: gmc_v11_0_flush_gpu_tlb+0x198/0x4f0 [amdgpu]
-[  253.014154] stack backtrace:
-[  253.014164] CPU: 0 UID: 0 PID: 10 Comm: kworker/0:1 Tainted: G     U     OE      6.12.0-amdstaging-drm-next-lol-050225 #14
-[  253.014189] Tainted: [U]=USER, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-[  253.014203] Hardware name: Microsoft Corporation Virtual Machine/Virtual Machine, BIOS Hyper-V UEFI Release v4.1 11/18/2024
-[  253.014224] Workqueue: events work_for_cpu_fn
-[  253.014241] Call Trace:
-[  253.014250]  <TASK>
-[  253.014260]  dump_stack_lvl+0x9b/0xf0
-[  253.014275]  dump_stack+0x10/0x20
-[  253.014287]  __lock_acquire+0xa47/0x2810
-[  253.014303]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  253.014321]  lock_acquire+0xd1/0x300
-[  253.014333]  ? amdgpu_virt_rlcg_reg_rw+0xf6/0x330 [amdgpu]
-[  253.014562]  ? __lock_acquire+0xa6b/0x2810
-[  253.014578]  __mutex_lock+0x85/0xe20
-[  253.014591]  ? amdgpu_virt_rlcg_reg_rw+0xf6/0x330 [amdgpu]
-[  253.014782]  ? sched_clock_noinstr+0x9/0x10
-[  253.014795]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  253.014808]  ? local_clock_noinstr+0xe/0xc0
-[  253.014822]  ? amdgpu_virt_rlcg_reg_rw+0xf6/0x330 [amdgpu]
-[  253.015012]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  253.015029]  mutex_lock_nested+0x1b/0x30
-[  253.015044]  ? mutex_lock_nested+0x1b/0x30
-[  253.015057]  amdgpu_virt_rlcg_reg_rw+0xf6/0x330 [amdgpu]
-[  253.015249]  amdgpu_sriov_wreg+0xc5/0xd0 [amdgpu]
-[  253.015435]  gmc_v11_0_flush_gpu_tlb+0x44b/0x4f0 [amdgpu]
-[  253.015667]  gfx_v11_0_hw_init+0x499/0x29c0 [amdgpu]
-[  253.015901]  ? __pfx_smu_v13_0_update_pcie_parameters+0x10/0x10 [amdgpu]
-[  253.016159]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  253.016173]  ? smu_hw_init+0x18d/0x300 [amdgpu]
-[  253.016403]  amdgpu_device_init+0x29ad/0x36a0 [amdgpu]
-[  253.016614]  amdgpu_driver_load_kms+0x1a/0xc0 [amdgpu]
-[  253.017057]  amdgpu_pci_probe+0x1c2/0x660 [amdgpu]
-[  253.017493]  local_pci_probe+0x4b/0xb0
-[  253.017746]  work_for_cpu_fn+0x1a/0x30
-[  253.017995]  process_one_work+0x21e/0x680
-[  253.018248]  worker_thread+0x190/0x330
-[  253.018500]  ? __pfx_worker_thread+0x10/0x10
-[  253.018746]  kthread+0xe7/0x120
-[  253.018988]  ? __pfx_kthread+0x10/0x10
-[  253.019231]  ret_from_fork+0x3c/0x60
-[  253.019468]  ? __pfx_kthread+0x10/0x10
-[  253.019701]  ret_from_fork_asm+0x1a/0x30
-[  253.019939]  </TASK>
+> If the GPU reset improves that chance to non-zero, it's already an 
+> improvement, and already more than what AMD did to address this problem for 
+> the past few years. I just find it incredibly disrespectful towards the 
+> community that AMD proposes a solution that they neglect to implement, then 
+> when somebody from the community steps up to implement it, it's rejected.
 
-v2: s/spin_trylock/spin_lock_irqsave to be safe (Christian).
+Well, I've heard about this problem just a few days ago.
 
-Fixes: e864180ee49b ("drm/amdgpu: Add lock around VF RLCG interface")
-Cc: lin cao <lin.cao@amd.com>
-Cc: Jingwen Chen <Jingwen.Chen2@amd.com>
-Cc: Victor Skvortsov <victor.skvortsov@amd.com>
-Cc: Zhigang Luo <zhigang.luo@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[ Minor conflict resolved. ]
-Signed-off-by: Li hongliang <1468888505@139.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 5 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   | 3 ++-
- 3 files changed, 6 insertions(+), 4 deletions(-)
+>> What we can certainly do is to improve the error handling, e.g. that the
+>> system doesn't sit there forever after a page flip timeout.
+> 
+> Sure.
+> 
+>>
+>> Let's maybe try a complete different approach. We force a page flip timeout,
+>> and see if the system can handle that or not.
+>>
+>> E.g. every 300 page flip we just fail to signal and see if things still work
+>> after the timeout.
+> 
+> How do you propose to do that?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c1b9333d7b78..584f9bcbe294 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3582,7 +3582,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	mutex_init(&adev->grbm_idx_mutex);
- 	mutex_init(&adev->mn_lock);
- 	mutex_init(&adev->virt.vf_errors.lock);
--	mutex_init(&adev->virt.rlcg_reg_lock);
- 	hash_init(adev->mn_hash);
- 	mutex_init(&adev->psp.mutex);
- 	mutex_init(&adev->notifier_lock);
-@@ -3604,6 +3603,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	spin_lock_init(&adev->se_cac_idx_lock);
- 	spin_lock_init(&adev->audio_endpt_idx_lock);
- 	spin_lock_init(&adev->mm_stats.lock);
-+	spin_lock_init(&adev->virt.rlcg_reg_lock);
- 
- 	INIT_LIST_HEAD(&adev->shadow_list);
- 	mutex_init(&adev->shadow_list_lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 5a4b1b625f03..0f4661d1f23b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -1007,6 +1007,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
- 	void *scratch_reg2;
- 	void *scratch_reg3;
- 	void *spare_int;
-+	unsigned long flags;
- 
- 	if (!adev->gfx.rlc.rlcg_reg_access_supported) {
- 		dev_err(adev->dev,
-@@ -1028,7 +1029,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
- 	scratch_reg2 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg2;
- 	scratch_reg3 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg3;
- 
--	mutex_lock(&adev->virt.rlcg_reg_lock);
-+	spin_lock_irqsave(&adev->virt.rlcg_reg_lock, flags);
- 
- 	if (reg_access_ctrl->spare_int)
- 		spare_int = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->spare_int;
-@@ -1086,7 +1087,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struct amdgpu_device *adev, u32 offset, u32 v
- 
- 	ret = readl(scratch_reg0);
- 
--	mutex_unlock(&adev->virt.rlcg_reg_lock);
-+	spin_unlock_irqrestore(&adev->virt.rlcg_reg_lock, flags);
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index 891713757a8f..bffbb7ef40d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -267,7 +267,8 @@ struct amdgpu_virt {
- 	/* the ucode id to signal the autoload */
- 	uint32_t autoload_ucode_id;
- 
--	struct mutex rlcg_reg_lock;
-+	/* Spinlock to protect access to the RLCG register interface */
-+	spinlock_t rlcg_reg_lock;
- };
- 
- struct amdgpu_video_codec_info;
--- 
-2.34.1
+I need to dig a bit into the DAL/DC code and see how the signaling path actually goes.
 
+Going to give that a try tomorrow.
 
+Regards,
+Christian.
