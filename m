@@ -4,70 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E75BE6BF17
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 14:15:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C76A2E6BF17
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 14:15:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3703C10E09F;
-	Fri, 30 Jan 2026 14:15:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5578510E162;
+	Fri, 30 Jan 2026 14:15:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Z8deGvD3";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="oRzw9hOm";
 	dkim-atps=neutral
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
- [209.85.219.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6CB910E100
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 13:56:20 +0000 (UTC)
-Received: by mail-qv1-f45.google.com with SMTP id
- 6a1803df08f44-88ffcb14e11so27843266d6.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 05:56:20 -0800 (PST)
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0306310E0B7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 14:01:20 +0000 (UTC)
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-8c07bc2ad13so165018185a.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 06:01:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1769781379; x=1770386179; darn=lists.freedesktop.org; 
+ d=ziepe.ca; s=google; t=1769781679; x=1770386479; darn=lists.freedesktop.org; 
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date:from:to
  :cc:subject:date:message-id:reply-to;
- bh=nHaCd4HrbYw78ScpRIoaj6AeaBJaVtnx8urFDLScj1Y=;
- b=Z8deGvD3MtWtmdYm4TJCnWvkKNM3+syMTy4LW3kivOuC6AARMfvNm9DAkVbu0iM/Xt
- xgKOWKatpqV6Yp6usrQAJnM2nHGu6NKWGJkHXUbAch1qQls/fuo3f+UXLsmZD8Tz4NW7
- FvI5mb45CpOdYnqTZ3T3nGvXeit8Zbo6Z04C/DpTvNbMksjDEnTYLBljgYcpCk3dSWtn
- efjLiLkMULvwmSk+7xUFGArERe/8pTQxFAmRsqC3aCbRAO8SRGR5cs16CLoD3lTbvHN3
- 9Ltr1hVT3ESfFITI9AjPLIMdSS24LsjA5GxOCHa2V7yItDjPsdl5IAb4W5QYoqAosQx8
- ZsJw==
+ bh=RZzJd1rUXnKgbbFoik2J/HwA+Mcwjh2UI/kxMGq+fms=;
+ b=oRzw9hOmDoaqaHWxKFEv+YWA5gxWfzMpvpPlsiUfkjLY78MvTvjld4VE2qZI4POLjK
+ csDdVmtUSRTsrp8SuPRJ5vs+YQTaG8tnvFu5ndA07W7ZUvmBNlPoIsiFiETuwRI5pZAo
+ JfGmAFvRwGSOc+3O1VfchL5ApdKJGX8WrVgzEugybo+sk0+Qqff4QLmtKXMVKSAl6T6m
+ dMaq60hggYWq0cy1psF6yfkfDJmgKt0AjcAOHUyWQJ8WJzEykee2DvDpMFhisnETbUB4
+ 75TRtamprXKD3mcvO/uY9TxeUcKhxuhrSR5mMAaRXg5+M3FbGXe3VKkXaYkYG5v35VUb
+ fyVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769781379; x=1770386179;
+ d=1e100.net; s=20230601; t=1769781679; x=1770386479;
  h=in-reply-to:content-transfer-encoding:content-disposition
  :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=nHaCd4HrbYw78ScpRIoaj6AeaBJaVtnx8urFDLScj1Y=;
- b=jfvDQXndylhXW5Vb3cvOrX7UYb+GcOLIYawvcGNMFxEhEdxA10guQPxJF/n+xV06Kk
- P+J71gRvZyMv4Xh/cEY5xJCjWySeuAACZ9EWZsuMxQticSyEmUla2p6jJ894WZMnUQSS
- 79HvVshdCy5ab3+qyuBa0iRFaHACWns/u1ahuhqIpYXYaV48tVU2kcjqW0r0reOmtHA6
- 685UvpQN7kHhKmItaiTPRKgiKUm575rmPoCx2tJ7qaGuw/E2QgclgeNY/B0FuscV5bdD
- CCPti6w3N9RvVjbzr75C3cNJA2tPD82nP+MQ9VjHvJwdNT4EFXzb7ab+gl/haXbK28kC
- pO8A==
+ bh=RZzJd1rUXnKgbbFoik2J/HwA+Mcwjh2UI/kxMGq+fms=;
+ b=DaryAsrAxqU1zOjeu0wKhueNNr54/PC4XdY8SOkFb6dvV1C7SGRpUZb9DwDeofzTm8
+ sBrL3GQ5VsgIBB6NGwmXRxvXXHzX3nVmmMcQrbznYcexe9patLjKgpe9+mvzA/9fu+gF
+ 7kcW+13FEziCf4ed9lufCS8JJo1UEnWcL/sodTdAEZBOASJEQhRwO0xhz/JZaRD0fDPw
+ O0lB1ZjLOIiPqCcmhdIJQYe1XYFwX70nwCJ4pf+bI1o5eNEYydpoEmY/HkbHU8RAYmNw
+ dzRdg82+hkHtdcRA/VSd0UUoDgjShiBwqXYXvI/A7/u2ZVv2NQcY6gJXr00BMF0xIsD8
+ Vkkg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWovolVUIskjw0Uwbx3Z6TDALACgA3Mh/aVGMLHzUgenR3nUZkMPCpcH98MVmdBp4c0tPTgbdVb@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzYIIojELTIseoAJNPJ7LL4oO/w4iqo5Ad+2dqNxHsnFTdlx/Fn
- pm8nUPDcS6Rjf/TUTH7Zp76T5lR9SeoBtv8xKvHGvMiwg+a2gPKhnlHr7cGPmzRZzHg=
-X-Gm-Gg: AZuq6aItchYc9VH9LNSMFgQ4UXl+3oBIWyg93dBA4YG8ObOh7cSRWHijdvOqpPn9N09
- WsLD+Lt6LAjUZ2B5j3dDSUEwTrwKm9ZgOj0HP7iR1cy7K7UqFSqIXVX/IlqP7IaL0DQ6s6k1o47
- fQv0681ldsOm1MUjcW6/h2zaJtjWVfWYtUcSoEIJksMhsqVzkVBLPy1rrR0pVdpephHonDa4I4b
- IEPYIht9A/3LWfaeBwXs8pLtd1gUubMkRe6KGErsLldDLi6kn+HKokdYOCHsJtRQHo9PXL7GG3n
- Htl3leKES0/vd+qH7CJofCXg8IWGXgcrtnH/6/7S3U7g5j/SJePIn+dE5O8fbvomriKokZtRR6D
- nImcvKjU6gGKTtVk9sund47wMhjJIn94BCdL641gp1Mf6HsBbN8tJ/nltdwLN2m/9S2WmfSQEuJ
- E3yiAQ6tmgnmm9sIvFjuvXzH0w4nnqYvynR7dMO42s2NebGDNUD70qd1TcGCjBmUw5g/2oIKc7i
- XCYdA==
-X-Received: by 2002:a05:6214:2a48:b0:88a:529a:a53a with SMTP id
- 6a1803df08f44-894ea09691emr43666386d6.51.1769781379597; 
- Fri, 30 Jan 2026 05:56:19 -0800 (PST)
+ AJvYcCVgPUC8hI1Icj9s23fhEaODM7GTjj2Od0nTgRzPWGh/iOkTXnuUvZX4zh/DqmgGIKGmqNOBu7Vq@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzRYPwr60jOftwj6Vd0l6d8MJ4+SosolmL9yC4nW71vqPzXz6sA
+ 6yrQkbJoX9XOmyR1UzzjhulUL5YEGz0QkYgOauXtPiuBDWlpGBAcMklDj2K+97oE1uk=
+X-Gm-Gg: AZuq6aJrPQSXqca12PkSxRwPfXogfQE1/8hASLpCCT27GEcuxDNGRqAEQaTgp/wpR5S
+ cUxGx4Ga9sjwQr6TLaeubIuD1fdlZQfgoIvo7Dxxy0ZMoCZiP5WN+BW9zfsMSO95lxUrDJpb4K/
+ KvZS5hCpik+Di6Wd17wekolBAQuJPFsjRybRoYXXMvzxvjAy7aN/KbC+g/5tYSDO9A7HC6ue4mD
+ hQWG3YOgOuAHfkSyoTpD290BnknviBkDNZSZ+tcalBkLGRIgy2amzAmsR4hjHs2DdVK1cOVdzVM
+ +HygIXwUIiQF+CdoFBR1jZ849PuU1XAMIiwj5fR2bntPyXQ+ShF1kEeZKOvn8fO0QTRgfn9mE6a
+ XUpyoU83saiNk1988+6zVcnZshNHprarxU8Hi9cLs5WBS2Gght9nqp7Q4OpWUBBhPsAVQgIIBkN
+ m/1dCokAjt5RcGpri00I05sQBHck6diajoqezt2FolJh28ddR4uesddAtYBnwps2D2++53EsFpa
+ XxJYg==
+X-Received: by 2002:a05:620a:290f:b0:8c3:650d:577e with SMTP id
+ af79cd13be357-8c9eb224827mr368793585a.4.1769781649371; 
+ Fri, 30 Jan 2026 06:00:49 -0800 (PST)
 Received: from ziepe.ca
  (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
  [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-894d376da66sm59670316d6.50.2026.01.30.05.56.19
+ af79cd13be357-8c711b95e4esm700915485a.15.2026.01.30.06.00.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 30 Jan 2026 05:56:19 -0800 (PST)
+ Fri, 30 Jan 2026 06:00:48 -0800 (PST)
 Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1vloyw-0000000AmRb-29H1;
- Fri, 30 Jan 2026 09:56:18 -0400
-Date: Fri, 30 Jan 2026 09:56:18 -0400
+ (envelope-from <jgg@ziepe.ca>) id 1vlp3H-0000000Annc-1AWG;
+ Fri, 30 Jan 2026 10:00:47 -0400
+Date: Fri, 30 Jan 2026 10:00:47 -0400
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Cc: Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
@@ -93,18 +93,16 @@ Cc: Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
  amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
  intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
  iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v5 4/8] vfio: Wait for dma-buf invalidation to complete
-Message-ID: <20260130135618.GC2328995@ziepe.ca>
+Subject: Re: [PATCH v5 6/8] dma-buf: Add dma_buf_attach_revocable()
+Message-ID: <20260130140047.GD2328995@ziepe.ca>
 References: <20260124-dmabuf-revoke-v5-0-f98fca917e96@nvidia.com>
- <20260124-dmabuf-revoke-v5-4-f98fca917e96@nvidia.com>
- <31872c87-5cba-4081-8196-72cc839c6122@amd.com>
- <20260130130131.GO10992@unreal>
- <d25bead8-8372-4791-a741-3371342f4698@amd.com>
+ <20260124-dmabuf-revoke-v5-6-f98fca917e96@nvidia.com>
+ <b4cf1379-d68b-45da-866b-c461d6feb51b@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <d25bead8-8372-4791-a741-3371342f4698@amd.com>
+In-Reply-To: <b4cf1379-d68b-45da-866b-c461d6feb51b@amd.com>
 X-Mailman-Approved-At: Fri, 30 Jan 2026 14:15:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,27 +118,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 30, 2026 at 02:21:08PM +0100, Christian König wrote:
-
-> That would work for me.
+On Fri, Jan 30, 2026 at 09:43:22AM +0100, Christian König wrote:
+> On 1/24/26 20:14, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > Some exporters need a flow to synchronously revoke access to the DMA-buf
+> > by importers. Once revoke is completed the importer is not permitted to
+> > touch the memory otherwise they may get IOMMU faults, AERs, or worse.
 > 
-> Question is if you really want to do it this way? See usually
-> exporters try to avoid blocking such functions.
+> That approach is seriously not going to fly.
+> 
+> You can use the invalidate_mappings approach to trigger the importer
+> to give back the mapping, but when the mapping is really given back
+> is still completely on the importer side.
 
-Yes, it has to be this way, revoke is a synchronous user space
-triggered operation around things like FLR or device close. We can't
-defer it into some background operation like pm.
+Yes, and that is what this is all doing, there is the wait for the
+importer's unmap to happen in the sequence.
 
-> >>>  		}
-> >>>  		fput(priv->dmabuf->file);
-> >>
-> >> This is also extremely questionable. Why doesn't the dmabuf have
-> >> a reference while on the linked list?
+> In other words you can't do the shot down revoke semantics you are
+> trying to establish here.
 
-If we hold a refcount while on the list then the FD can never be
-closed.
+All this is doing is saying if dma_buf_attach_revocable() == true then
+the importer will call unmap within bounded time after
+dma_buf_invalidate_mappings().
 
-There is locking protecting the list so that it is safe and close
-continues to work right.
+That's it. If the importing driver doesn't want to do that then it
+should make dma_buf_attach_revocable()=false.
+
+VFIO/etc only want to interwork with importers that can do this.
 
 Jason
