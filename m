@@ -4,59 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A77BD49C84
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 09:22:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC69BD49C93
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 10:03:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F06E310E94E;
-	Fri, 30 Jan 2026 09:22:57 +0000 (UTC)
-Received: from h5.fbrelay.privateemail.com (h5.fbrelay.privateemail.com
- [162.0.218.228])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 680FE10E1AA;
- Thu, 29 Jan 2026 14:05:09 +0000 (UTC)
-Received: from MTA-05-3.privateemail.com (mta-05.privateemail.com
- [198.54.127.60])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by h5.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4f219v04nZz2y4L;
- Thu, 29 Jan 2026 14:05:07 +0000 (UTC)
-Received: from hal-station (unknown [23.129.64.159])
- by mta-05.privateemail.com (Postfix) with ESMTPA id 4f21986cmPz3hhT6;
- Thu, 29 Jan 2026 09:04:28 -0500 (EST)
-Date: Thu, 29 Jan 2026 09:04:23 -0500
-From: Hamza Mahfooz <someguy@effective-light.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- Alex Deucher <alexdeucher@gmail.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Sunil Khatri <sunil.khatri@amd.com>, Ce Sun <cesun102@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Alex Hung <alex.hung@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] drm: introduce page_flip_timeout()
-Message-ID: <aXto53g2mSNsNmFM@hal-station>
-References: <20260123000537.2450496-1-someguy@effective-light.com>
- <2719069.vYhyI6sBWr@timur-hyperion>
- <30f2480d-016f-417e-9ddf-7805e4943e7b@amd.com>
- <2285353.hkbZ0PkbqX@timur-hyperion>
- <2f9bc706-02d6-4dec-a56c-53abc5d43f46@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56D0B10E967;
+	Fri, 30 Jan 2026 10:03:59 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="RXMp+Oxy";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DCBE10E972
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 10:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=QZ3aEVDsFzfYIL71b2YaNe/32+Zb/AnI2kSsAmyXWu4=; b=RXMp+Oxyud+CdwjGRmmdBVA594
+ CaL3mAfF+zOXkgkmoHRyF+MpYqRnkxZheZ5Z01KCxFVbNegmu0mIVxC05CrlC9QaqAtznsVf04FuT
+ 8kSUeqo5MFXBFqvuwKtNz7P/L8rJFiv/B5wgfpcSrtzjGm1h2W5k9ro9qs3quwNkP32oiS/5ma9pU
+ E2p9UsptfFMZpeda9ABhfnAg9RJ4ej7CnPmGDIoRkNueYWIIr+dZXQYj64fljXouD3W0ut7VcSfuV
+ dlDQeQ6yGlz+6L71JupONpZ7NFRtWIPtbyrwqkfecElwXPieTIdTW2flVgo88kRoiLX2y8yhVl6Pk
+ VIvtXsSQ==;
+Received: from [90.240.106.137] (helo=localhost)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1vllM2-00BhEj-MS; Fri, 30 Jan 2026 11:03:54 +0100
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [RFC 2/2] drm/amdgpu: Only calculate register offset once in SOC15 RLC
+Date: Fri, 30 Jan 2026 10:03:50 +0000
+Message-ID: <20260130100350.2883-3-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260130100350.2883-1-tvrtko.ursulin@igalia.com>
+References: <20260130100350.2883-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2f9bc706-02d6-4dec-a56c-53abc5d43f46@amd.com>
-X-Rspamd-Queue-Id: 4f219v04nZz2y4L
-X-Mailman-Approved-At: Fri, 30 Jan 2026 09:22:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,78 +60,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jan 29, 2026 at 01:59:00PM +0100, Christian König wrote:
-> > How do you propose to do that?
-> 
-> I need to dig a bit into the DAL/DC code and see how the signaling path actually goes.
-> 
-> Going to give that a try tomorrow.
-> 
+We can save some text by only calculating the register offset once
+in a few of the SOC15 RLC register read/write macros.
 
-For recent ASICs, something along the lines of the following should do
-the trick:
+add/remove: 0/0 grow/shrink: 2/65 up/down: 32/-1078 (-1046)
+Total: Before=9079703, After=9078657, chg -0.01%
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index dc8d2f52c7d6..fac668c2fcfb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -510,6 +510,7 @@ struct amdgpu_crtc {
- 	bool wb_pending;
- 	bool wb_enabled;
- 	struct drm_writeback_connector *wb_conn;
-+	int pflip_cnt;
- };
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian KÃ¶nig <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/soc15_common.h | 47 +++++++++++++----------
+ 1 file changed, 27 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15_common.h b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+index b7f928521f39..5ee5867fe794 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15_common.h
++++ b/drivers/gpu/drm/amd/amdgpu/soc15_common.h
+@@ -43,21 +43,25 @@
+ #define __RREG32_SOC15_RLC__(reg, flag, hwip, inst) \
+ 	adev->gfx.rlc.reg_funcs->rreg32(adev, reg, flag, hwip, inst)
  
- struct amdgpu_encoder_atom_dig {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 740711ac1037..1c3b7fbab1c6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -427,6 +427,18 @@ static inline bool update_planes_and_stream_adapter(struct dc *dc,
- 					   stream_update);
- }
+-#define WREG32_FIELD15(ip, idx, reg, field, val)	\
+-	 __WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg,	\
+-				(__RREG32_SOC15_RLC__( \
+-					adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg, \
+-					0, ip##_HWIP, idx) & \
+-				~REG_FIELD_MASK(reg, field)) | (val) << REG_FIELD_SHIFT(reg, field), \
+-			      0, ip##_HWIP, idx)
++#define WREG32_FIELD15(ip, idx, reg_name, field, val) \
++do { \
++	u32 reg__ = adev->reg_offset[ip##_HWIP][idx][mm##reg_name##_BASE_IDX] + mm##reg_name; \
++	u32 val__ = __RREG32_SOC15_RLC__(reg__, 0, ip##_HWIP, idx); \
++\
++	val__ &= ~REG_FIELD_MASK(reg_name, field); \
++	val__ |= (val) << REG_FIELD_SHIFT(reg_name, field); \
++	__WREG32_SOC15_RLC__(reg__, val__, 0, ip##_HWIP, idx); \
++} while (0)
  
-+static inline bool update_pflip_cnt(struct amdgpu_crtc *acrtc)
-+{
-+	int cnt = acrtc->pflip_cnt++;
-+
-+	if (cnt == 300) {
-+		acrtc->pflip_cnt = 0;
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
- /**
-  * dm_pflip_high_irq() - Handle pageflip interrupt
-  * @interrupt_params: ignored
-@@ -454,6 +466,9 @@ static void dm_pflip_high_irq(void *interrupt_params)
- 		return;
- 	}
+-#define WREG32_FIELD15_PREREG(ip, idx, reg_name, field, val)        \
+-	__WREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][reg##reg_name##_BASE_IDX] + reg##reg_name,   \
+-			(__RREG32_SOC15_RLC__( \
+-					adev->reg_offset[ip##_HWIP][idx][reg##reg_name##_BASE_IDX] + reg##reg_name, \
+-					0, ip##_HWIP, idx) & \
+-					~REG_FIELD_MASK(reg_name, field)) | (val) << REG_FIELD_SHIFT(reg_name, field), \
+-			0, ip##_HWIP, idx)
++#define WREG32_FIELD15_PREREG(ip, idx, reg_name, field, val) \
++do { \
++	u32 reg__ = adev->reg_offset[ip##_HWIP][idx][reg##reg_name##_BASE_IDX] + reg##reg_name; \
++	u32 val__ = __RREG32_SOC15_RLC__(reg__, 0, ip##_HWIP, idx); \
++\
++	val__ &= ~REG_FIELD_MASK(reg_name, field); \
++	val__ |= (val) << REG_FIELD_SHIFT(reg_name, field); \
++	__WREG32_SOC15_RLC__(reg__, val__, 0, ip##_HWIP, idx); \
++} while (0)
  
-+	if (update_pflip_cnt(amdgpu_crtc))
-+		return;
-+
- 	spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
+ #define RREG32_SOC15(ip, inst, reg) \
+ 	__RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg, \
+@@ -177,12 +181,15 @@
+ 			WREG32_RLC_EX(prefix, target_reg, value, inst); \
+ 	} while (0)
  
- 	if (amdgpu_crtc->pflip_status != AMDGPU_FLIP_SUBMITTED) {
-@@ -589,6 +604,9 @@ static void dm_vupdate_high_irq(void *interrupt_params)
- 	acrtc = get_crtc_by_otg_inst(adev, irq_params->irq_src - IRQ_TYPE_VUPDATE);
+-#define WREG32_FIELD15_RLC(ip, idx, reg, field, val)   \
+-	__WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg), \
+-			     (__RREG32_SOC15_RLC__(adev->reg_offset[ip##_HWIP][idx][mm##reg##_BASE_IDX] + mm##reg, \
+-						   AMDGPU_REGS_RLC, ip##_HWIP, idx) & \
+-			      ~REG_FIELD_MASK(reg, field)) | (val) << REG_FIELD_SHIFT(reg, field), \
+-			     AMDGPU_REGS_RLC, ip##_HWIP, idx)
++#define WREG32_FIELD15_RLC(ip, idx, reg_name, field, val) \
++do { \
++	u32 reg__ = adev->reg_offset[ip##_HWIP][idx][mm##reg_name##_BASE_IDX] + mm##reg_name; \
++	u32 val__ = __RREG32_SOC15_RLC__(reg__, AMDGPU_REGS_RLC, ip##_HWIP, idx); \
++\
++	val__ &= ~REG_FIELD_MASK(reg_name, field); \
++	val__ |= (val) << REG_FIELD_SHIFT(reg_name, field); \
++	__WREG32_SOC15_RLC__(reg__, val__, AMDGPU_REGS_RLC, ip##_HWIP, idx); \
++} while (0)
  
- 	if (acrtc) {
-+		if (update_pflip_cnt(acrtc))
-+			return;
-+
- 		vrr_active = amdgpu_dm_crtc_vrr_active_irq(acrtc);
- 		drm_dev = acrtc->base.dev;
- 		vblank = drm_crtc_vblank_crtc(&acrtc->base);
-@@ -659,6 +677,9 @@ static void dm_crtc_high_irq(void *interrupt_params)
- 	if (!acrtc)
- 		return;
- 
-+	if (update_pflip_cnt(acrtc))
-+		return;
-+
- 	if (acrtc->wb_conn) {
- 		spin_lock_irqsave(&acrtc->wb_conn->job_lock, flags);
+ #define WREG32_SOC15_OFFSET_RLC(ip, inst, reg, offset, value) \
+ 	__WREG32_SOC15_RLC__((adev->reg_offset[ip##_HWIP][inst][reg##_BASE_IDX] + reg) + offset, value, AMDGPU_REGS_RLC, ip##_HWIP, inst)
+-- 
+2.52.0
+
