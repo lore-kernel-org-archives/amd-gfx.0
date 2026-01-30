@@ -4,86 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEACDE6BF1F
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 15:35:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5916E6BF1E
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 15:49:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43EBA10E0E3;
-	Fri, 30 Jan 2026 15:35:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 821AA10E363;
+	Fri, 30 Jan 2026 15:49:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QFC5EkBn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UsSpC2Cd";
 	dkim-atps=neutral
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4087510E0E3
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 15:35:43 +0000 (UTC)
-Received: by mail-dl1-f54.google.com with SMTP id
- a92af1059eb24-1244bce2c17so43605c88.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 07:35:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1769787342; cv=none;
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
+ [74.125.82.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D59F10E363
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 15:49:34 +0000 (UTC)
+Received: by mail-dy1-f169.google.com with SMTP id
+ 5a478bee46e88-2b71a4fdb86so170339eec.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 07:49:34 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1769788173; cv=none;
  d=google.com; s=arc-20240605;
- b=KipAHRTH4LWCFrGu5oxyqItokzWQ7pwcpCvABftByp0V+UW3aVOVpn+CJ10gGVw0pv
- 5lFGftB8wbfZhxiHjx62WDOpICI0rDCfuL6Kq2tp31b9eIRrE1s8ulo0rK1B7n7C31dL
- s+OU2s0X5tklaQGxcwLjFhuBtleIHkCj00sIUJByljg4IEcDUCOYnnAPVo1jySbvEirv
- t09fwS4skayuOOOrMNTBS0yKgC8TmcNHSMQEDY1NMLN2V79KIEsGwMVvUh01AOqf42HC
- wX+Jm6Cvg3a+R0UIwi6mxIcDf+7eYA9GjBOqHD3GPtXR1yfsacIP2oh+IAKJDxNbRG8q
- 6nEQ==
+ b=jFe7OmQmVoGH/Qqq0LRalUUUUxcoRcOWEKiKueIfxRz6joWnlsbZD5bC6gfmajGYY6
+ Ukz9kr7MtrjI3/RG3tcZW+qVKXBqhRFQzxvKv+RvPnel9+P9PKvWUhYs+s/lWwPC1DLD
+ sSh3fNZTtMDnt8Wfa1bxWeT045SSw4lamb1wgJSK9hLTwp9rxdhnESrZQWMmW5kCiXYY
+ WUIxB2WfgfLqKBrqRNkyHUI0bCOET8dpQor4muGd+cjYjzwYY0SLb8QkOCY5JThq0Fgi
+ xWAJVpSA8usxcGwXNvVlYuiORNGyDyd14Pf7cJ50/sw2W4FZokGMdMoJSNp1X5K6vgbc
+ +frw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=aee1c7/LfegmGXFD+zpVbAYrArpdgNCxbbxY5hZvbkM=;
- fh=apalxpwyR7RiWXbdBftMhuQdUwwwLsjURd1H39azLJE=;
- b=JOdgoAQrrilaCWFtC0hgzCSfYZcZUvJn+kzVSp01enaTY28CZahkLPfi5y+lxfh+A8
- bLP9Vu+lEXK2AZZXr8+EdMLZeEtgVkHJKq9BKxXcNfxxq03SgCzvkzQml6GT0zXejSPK
- kIya8VFDwyiMiVXYf5dEv1WSOLBgc9Gl487JV/ihRAgEkR7VzQA471Dpy6kQAUa/qKAu
- GjN0taNio1VuTmkmEyNHqa+r5K24gw245UPeQTwDLco2T4aNzoFaAvXMDfJdhzX/+X/S
- XUegymMFjTmbgPHiTOIMX3S4Vkj0ws/oVa7I+swKD19DKcCBOdsZB/Ai+9WymK0f6Xjc
- iM1Q==; darn=lists.freedesktop.org
+ bh=6ipAW0zBx9xe8gKRQTwLZ7Kyod8OJ6GpumoVd24pyYM=;
+ fh=ri8rmX3yk8HtxiXES8w1mww4Yee1P0AOIub8n8gW7PA=;
+ b=lW1/4smwJFwYYKgE9uanYmmS+4/yal4mvOJwaRO058Q3In7n+EAvqzQDL3D0JtFIgp
+ jRoGEq1qIIcLwSjojClUlxYYMQ/nO0wJoDtNTkPwvSD47+JLzC+Dn6viCXyTvUeO2MSb
+ Ube/3GUfxOco51XTKSh6dkUodotuVCoFiTkNnT6jHh5cxzTO3anSEuVEtJQrTwJnsA+g
+ 0B6e2D2TTWeKhHc4OGwWLOnsUNygILBRGKI7UBN5vj4KfS7zSrB2fXta8a9yJliHONbp
+ Bh2aLMPF4K2bocgvRRMImh63nCrZ913Iugn+/bVppqlGa555RV8XWuhFwfHNQ0nrGnT5
+ BqGw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769787342; x=1770392142; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1769788173; x=1770392973; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=aee1c7/LfegmGXFD+zpVbAYrArpdgNCxbbxY5hZvbkM=;
- b=QFC5EkBn9i8t7Ak+jUQ5WBH3j48pdSsrTwaE23EtcJnc5MAg0FEdDpvmvw5a9rRsqU
- llu4zjmeNJ7J323gW6lYdgf3YjqD8ol/fQ77guOfcMwXZZX1MBR8kM+rqmzgxelpjX2A
- PFyTHEKNW4ZbuIA6ZsU3J6xijKBohqFujzjU3Aabe9yAotfufjjcu9cG0MNKnUvBedtK
- 92i+7O/8NWsSxH8w55tPccXWXwIMWe/sd2bCsln5oHITBohWZfdlNbBcHeXMuO1cY6Dg
- CrjMZeWT6IrM+bod7mJKwKLsssQFTnVH4gBFFyMTUJAtrbxBG2+6cU7wVCbCNE9du62m
- Wj7Q==
+ bh=6ipAW0zBx9xe8gKRQTwLZ7Kyod8OJ6GpumoVd24pyYM=;
+ b=UsSpC2Cdn+nevFrNJXvHyPZrEh34Zb/i8P7FAdf1bQoLXEz29qOnVOqch/7SkOzYUP
+ XS9v01ZpZ05X+TddHcClYdf3ZcOTiYVpZYPmDUuUDATGoYBv7yX01KjCzLXcUpvAeyWl
+ pynWefo1xJIpaO0fy4pua3PpeY5vnk11tMOUqIddrni1yCn5tKs0JqcN64PeEt95b/rU
+ ovB++OFvOhzagMlbRW5hdgYZn0NEfUReqv+mR4igH9EOL8EYIIuLiJGSlgB/H2J8FGty
+ LhSbMNRYkgzhcfHDXyXaBDT7hSRpqFR4bWHkdR4xWVo8eB2N7ytk4PGd/mJKgazHfVE/
+ H1yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769787342; x=1770392142;
+ d=1e100.net; s=20230601; t=1769788173; x=1770392973;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=aee1c7/LfegmGXFD+zpVbAYrArpdgNCxbbxY5hZvbkM=;
- b=RKQKNTeZKpYjPEDwMjVZWF+PXTRuuYjf9UlzDCCHV37zicKoTjn07OFCd33Qvscp4O
- SKyBOm1yHKkL6fzkF2g8DlPbW329CxJZEsj8St2KVoDj0VHwJpxdPTU4CgKTYxV2D6/t
- jKN5nYT/jYdFmITDJY947Y1kBBwFfy6WHHhTPznAWXzm6gBI6e8VO91DAHYCIDJvTuTH
- 9llY5TRNqJHPIDnymM+lk3E5Zq52YKzjWuXOrspbincJXWoC+L40QKDTxAAxQnHcBryg
- v7OCR9S2yW6tsaJ8LUqT+JaOi5ygctYD+VvC9b/rydA2fow5rnQ9QHgU+11CJCR/a6Jc
- zw2A==
-X-Gm-Message-State: AOJu0Yw9p2Pt6AltnwgskTFA9JOrN7kzulCsDQois7MJKaFO1mQi2Okj
- WSGKrvf6NDxIPFPUXqsugBapt3tSO8BluKpAJGVF+yeCLnIT6XZCMr5Zdi+rOY88f5nfVnjnszy
- DJYo+eNjxdFdv3ZJhoWhd39OmRWgNtm0=
-X-Gm-Gg: AZuq6aLcD6aMjTAyVdXmWIP2Y8Iysbh8AqT39IxSybHdtfVRp2/Q9Yek0fdRCot9vLL
- oX93koD4XAQOPQDXBcrb3laUyVxUuv2SCfbMTfvJ+0DNbo8M3ig9i2CcIvQSMYF+NdzZTAfP01J
- tl/reF4Uzg6qutTQIu4H7hIwQq/8/4RkbS2taw7oPX5ZJoPO/q5X93LaMwDc0fqwje8SPlhqP48
- WDD4tpNZb2XxbFCzu9StmEzqG5ru8Erf+DR9DmbdhvJ8cW/VE6UbC0BaO1jMjKPcEUbyMJl
-X-Received: by 2002:a05:7022:2395:b0:11e:3e9:3e98 with SMTP id
- a92af1059eb24-125c101b534mr802639c88.7.1769787342377; Fri, 30 Jan 2026
- 07:35:42 -0800 (PST)
+ bh=6ipAW0zBx9xe8gKRQTwLZ7Kyod8OJ6GpumoVd24pyYM=;
+ b=aXaUrz56B3d4g1XsplErLOySBImcKAdYyNyaYQDhE6dbtSNE6LbCM+YufztPoNmd8e
+ vo/5oKQct7H4Ny3t+5KGsfhQJpXSlkcF1TDXyktPPuYUNvGNh9w6N4L2LPausVh+Tcs4
+ f/uaWkEPvQOZYHfifXoc+vjj41Debng44PCWorRvpDeL59nLn6YJLJKnLqxUH80z+3kr
+ UOBQ9a1cSsm8KMb6xGQt8aFZ4i3COO63w6GrWQI7XG7IAO8fupL90YAAemMyB7UZaje4
+ USCdqwxOi61sOYkF3r8Bhzp3TDHGhANZESf4jPIuuckCzr+gI4XqiQ6X1jCbAWomRywj
+ Yzgw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX3Jhi3nJ6DGCv91cBqkcWtAWE0YLHS/daQEoO4qqgouiq2aFHptiM8Ur7eahoXilzcaCs9hZIC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzC0Vt2tngXz7Nbp7s2Og8HVaZsDJw6JsY8xmJw/jSvOUGxIz4a
+ LYWB23SBnkxQGdYBtU2KGauBLvP2VXjOHy0knVsKVJcQva63ySNSYMT9+gTCSDzER/JD/hlAq/T
+ Hwf0tFuC2ceSoUefDppr3J64bC4BlNzE=
+X-Gm-Gg: AZuq6aK98jQyLxJ4VBFRpWoUvcYWAS4NRcT/Ng5MY0ENvBXW/b2eMydJNw6ZqK0AAly
+ 9FVRH67xl80Xmo64PUHZ6AatlzlCWUJQJNzQ2UAWsOYdr/N5PN0+aE16qIb6mA1fdhbkxd4HaRS
+ TzN/AborNbot4WMrbKsC5iiIg7FXEE5DPE7w9P68iWvHVaN29xAntZYNaoVv5XqtoKgz2O/oYig
+ U0v++hFcTtIYELwztnSG1iAoO9fImnV8hDVUaFLqUwh3ciwc4jOrtCLM/4/LFjRsua8a1gpCikW
+ cAZdyR0=
+X-Received: by 2002:a05:7300:7b81:b0:2b7:bb5:40b7 with SMTP id
+ 5a478bee46e88-2b7c895e6a3mr722388eec.9.1769788173294; Fri, 30 Jan 2026
+ 07:49:33 -0800 (PST)
 MIME-Version: 1.0
-References: <20260126061921.1886410-1-yifan1.zhang@amd.com>
-In-Reply-To: <20260126061921.1886410-1-yifan1.zhang@amd.com>
+References: <20260126200747.13527-1-alexander.deucher@amd.com>
+ <b977ab80-748b-4eb7-b05c-5856db02acb0@amd.com>
+ <CADnq5_NU4Swq_n12A6HXD+YRRcXahFMYxa4pLHT2-WX33tfgzg@mail.gmail.com>
+ <42191bbf-6f92-4883-8aa9-9e808fae3e8d@amd.com>
+In-Reply-To: <42191bbf-6f92-4883-8aa9-9e808fae3e8d@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 30 Jan 2026 10:35:30 -0500
-X-Gm-Features: AZwV_QhPCp3x5qEp1Kr-sgBR0jbJgprWNn7G4ULHvv30hAjm2_c1UJDF62I3-kA
-Message-ID: <CADnq5_PJ=O+HY1PbP5Yj3iuSrhQLzkooaBmrV4vFsVLcZ4P_Vw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: disable gfxoff in amdgpu_irq_disable_all
-To: Yifan Zhang <yifan1.zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- perry.yuan@amd.com
+Date: Fri, 30 Jan 2026 10:49:21 -0500
+X-Gm-Features: AZwV_QhPNYzOso3v68avrkLcq9LCfbo0pNAdUDNZG4QGbY5R3OebNlnyddMKF80
+Message-ID: <CADnq5_M-CoUDrWs9nOUSUF5yM+Jq2+RY1WS6mYGbWVYmtxgA8w@mail.gmail.com>
+Subject: Re: [PATCH 01/12] drm/amdgpu/gfx9: handle gfxoff in interrupt set
+ functions
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Yifan Zhang <yifan1.zhang@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -100,53 +108,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jan 26, 2026 at 1:37=E2=80=AFAM Yifan Zhang <yifan1.zhang@amd.com> =
-wrote:
+On Fri, Jan 30, 2026 at 10:05=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> w=
+rote:
 >
-> amdgpu_irq_disable_all touchs GC registers, keep GC awake inside
-> the amdgpu_irq_disable_all function. Otherwise IMU may be stuck due
-> to invalid GC regsters access.
+>
+>
+> On 30-Jan-26 8:18 PM, Alex Deucher wrote:
+> > On Tue, Jan 27, 2026 at 12:02=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.co=
+m> wrote:
+> >>
+> >>
+> >>
+> >> On 27-Jan-26 1:37 AM, Alex Deucher wrote:
+> >>> Need to make sure gfxoff is disallowed when we touch GC
+> >>> registers over MMIO.
+> >>>
+> >>
+> >> I think interrupt enable/disable sequence is only supposed to be done
+> >> under ip power/clock ungate sequence like in hw init/resume/suspend
+> >> sequences. The fix probably should be in the higher level sequence whi=
+ch
+> >> doesn't take care of that.
+> >
+> > In that case, Yifan's original patch is probably fine as is.  Someone
+> > should still double check all of the call paths though.
+> >
+>
+> Original one is also not correct. For example, if this is happening
+> after reset re initialization, only that sequence needs to be modified
+> to keep the affected IPs ungated during reinit.
 
-I took a look and there appears to be two cases where things are not
-protected, amdgpu_irq_disable_all() and amdgpu_fence_driver_hw_fini()
-in amdgpu_device_fini_hw().  amdgpu_fence_driver_hw_init() also gets
-called in the unwind paths in suspend failures which look to be
-handled correctly.  In amdgpu_device_fini_hw(),
-amdgpu_fence_driver_hw_fini() gets called after
-amdgpu_irq_disable_all() so the interrupt should already be disabled.
-So patch is:
+It also gets called in amdgpu_device_fini_hw().
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Alex
 
 >
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 ++
->  1 file changed, 2 insertions(+)
+> Thanks,
+> Lijo
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_irq.c
-> index 82bc6d657e5a..85e5399fccad 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-> @@ -162,6 +162,7 @@ void amdgpu_irq_disable_all(struct amdgpu_device *ade=
-v)
->         unsigned int i, j, k;
->         int r;
->
-> +       amdgpu_gfx_off_ctrl(adev, false);
->         spin_lock_irqsave(&adev->irq.lock, irqflags);
->         for (i =3D 0; i < AMDGPU_IRQ_CLIENTID_MAX; ++i) {
->                 if (!adev->irq.client[i].sources)
-> @@ -184,6 +185,7 @@ void amdgpu_irq_disable_all(struct amdgpu_device *ade=
-v)
->                 }
->         }
->         spin_unlock_irqrestore(&adev->irq.lock, irqflags);
-> +       amdgpu_gfx_off_ctrl(adev, true);
->  }
->
->  /**
-> --
-> 2.43.0
+> > Alex
+> >
+> >>
+> >> Thanks,
+> >> Lijo
+> >>
+> >>> Cc: Yifan Zhang <yifan1.zhang@amd.com>
+> >>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> >>> ---
+> >>>    drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 10 ++++++++++
+> >>>    1 file changed, 10 insertions(+)
+> >>>
+> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/=
+amd/amdgpu/gfx_v9_0.c
+> >>> index 36f0300a21bfa..05178ee8e0e3a 100644
+> >>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> >>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> >>> @@ -6056,6 +6056,7 @@ static int gfx_v9_0_set_priv_reg_fault_state(st=
+ruct amdgpu_device *adev,
+> >>>        u32 cp_int_cntl_reg, cp_int_cntl;
+> >>>        int i, j;
+> >>>
+> >>> +     amdgpu_gfx_off_ctrl(adev, false);
+> >>>        switch (state) {
+> >>>        case AMDGPU_IRQ_STATE_DISABLE:
+> >>>        case AMDGPU_IRQ_STATE_ENABLE:
+> >>> @@ -6080,6 +6081,7 @@ static int gfx_v9_0_set_priv_reg_fault_state(st=
+ruct amdgpu_device *adev,
+> >>>        default:
+> >>>                break;
+> >>>        }
+> >>> +     amdgpu_gfx_off_ctrl(adev, true);
+> >>>
+> >>>        return 0;
+> >>>    }
+> >>> @@ -6092,6 +6094,7 @@ static int gfx_v9_0_set_bad_op_fault_state(stru=
+ct amdgpu_device *adev,
+> >>>        u32 cp_int_cntl_reg, cp_int_cntl;
+> >>>        int i, j;
+> >>>
+> >>> +     amdgpu_gfx_off_ctrl(adev, false);
+> >>>        switch (state) {
+> >>>        case AMDGPU_IRQ_STATE_DISABLE:
+> >>>        case AMDGPU_IRQ_STATE_ENABLE:
+> >>> @@ -6116,6 +6119,7 @@ static int gfx_v9_0_set_bad_op_fault_state(stru=
+ct amdgpu_device *adev,
+> >>>        default:
+> >>>                break;
+> >>>        }
+> >>> +     amdgpu_gfx_off_ctrl(adev, true);
+> >>>
+> >>>        return 0;
+> >>>    }
+> >>> @@ -6125,6 +6129,7 @@ static int gfx_v9_0_set_priv_inst_fault_state(s=
+truct amdgpu_device *adev,
+> >>>                                              unsigned type,
+> >>>                                              enum amdgpu_interrupt_st=
+ate state)
+> >>>    {
+> >>> +     amdgpu_gfx_off_ctrl(adev, false);
+> >>>        switch (state) {
+> >>>        case AMDGPU_IRQ_STATE_DISABLE:
+> >>>        case AMDGPU_IRQ_STATE_ENABLE:
+> >>> @@ -6135,6 +6140,7 @@ static int gfx_v9_0_set_priv_inst_fault_state(s=
+truct amdgpu_device *adev,
+> >>>        default:
+> >>>                break;
+> >>>        }
+> >>> +     amdgpu_gfx_off_ctrl(adev, true);
+> >>>
+> >>>        return 0;
+> >>>    }
+> >>> @@ -6152,6 +6158,7 @@ static int gfx_v9_0_set_cp_ecc_error_state(stru=
+ct amdgpu_device *adev,
+> >>>                                              unsigned type,
+> >>>                                              enum amdgpu_interrupt_st=
+ate state)
+> >>>    {
+> >>> +     amdgpu_gfx_off_ctrl(adev, false);
+> >>>        switch (state) {
+> >>>        case AMDGPU_IRQ_STATE_DISABLE:
+> >>>                WREG32_FIELD15(GC, 0, CP_INT_CNTL_RING0,
+> >>> @@ -6173,6 +6180,7 @@ static int gfx_v9_0_set_cp_ecc_error_state(stru=
+ct amdgpu_device *adev,
+> >>>        default:
+> >>>                break;
+> >>>        }
+> >>> +     amdgpu_gfx_off_ctrl(adev, true);
+> >>>
+> >>>        return 0;
+> >>>    }
+> >>> @@ -6183,6 +6191,7 @@ static int gfx_v9_0_set_eop_interrupt_state(str=
+uct amdgpu_device *adev,
+> >>>                                            unsigned type,
+> >>>                                            enum amdgpu_interrupt_stat=
+e state)
+> >>>    {
+> >>> +     amdgpu_gfx_off_ctrl(adev, false);
+> >>>        switch (type) {
+> >>>        case AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP:
+> >>>                gfx_v9_0_set_gfx_eop_interrupt_state(adev, state);
+> >>> @@ -6214,6 +6223,7 @@ static int gfx_v9_0_set_eop_interrupt_state(str=
+uct amdgpu_device *adev,
+> >>>        default:
+> >>>                break;
+> >>>        }
+> >>> +     amdgpu_gfx_off_ctrl(adev, true);
+> >>>        return 0;
+> >>>    }
+> >>>
+> >>
 >
