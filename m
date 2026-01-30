@@ -4,51 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 457D8D73E85
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 00:45:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE830D73EB4
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 02:30:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C13C210E0B1;
-	Fri, 30 Jan 2026 00:45:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BDD210E04F;
+	Fri, 30 Jan 2026 02:30:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="jYmrJt8k";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B5ckqiee";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D89E10E0B1
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 00:45:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=qlzmAonpTsgHIZXE8JbT3+eT3yWwISCLmNRksIUVi3Y=; b=jYmrJt8k6jRH+6+pTibMX0aXeN
- eC5K8hZHadjZ815WpYd/HCHPmNQQnugkkwx7hKmTHreicrRSS7lulXaiNSCDUSVSlYlSFg3Iks/a6
- RSECM44b53K71fFAqrJ8D5NY1Rs8HAPKvquo0+Nu8qewlU5XpgjInxxKQvMwwa/F2utX1G8pOdiPN
- uyKjnxsuy0/nvORLzP/mTsTvNFu4oBt2LHRIMmfsqr6Vf/nMNqBecpDti21nHl6xmcU4UXY0uk6Ui
- 9YNQOHBUy1wji1GzY5OBm5itejMrRemRPV7vjdT7pMcbnicsZ+bN/ke/5uc98ACxCtOQBr1enuGZ7
- AovRy24g==;
-Received: from d198-53-218-11.abhsia.telus.net ([198.53.218.11] helo=atmagalia)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vlcdU-00BXzQ-7I; Fri, 30 Jan 2026 01:45:20 +0100
-Date: Thu, 29 Jan 2026 17:45:14 -0700
-From: Rodrigo Siqueira <siqueira@igalia.com>
-To: Timur =?utf-8?Q?Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Alex Hung <alex.hung@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Mario Limonciello <mario.limonciello@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, harry.wentland@amd.com, 
- Leo Li <sunpeng.li@amd.com>
-Subject: Re: [PATCH] drm/amd/display: Reject cursor plane on DCE when scaled
- differently than primary
-Message-ID: <aXv-e37PeACx549L@atmagalia>
-References: <20260118145741.36198-1-timur.kristof@gmail.com>
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010050.outbound.protection.outlook.com [52.101.201.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E19F10E04F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 02:30:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fi9su8evIAHRwjQUacpng4zpHnAl6cMJGGFS7QLpu1d9kj59F6iBELf9rVK0CS6hV/cimIEQjy+DzmG1BNnZBoSkrJO4S1nMEsXYnNhEXvVfR47apk6lwFtntQYQI06FPjp8flPLPd1qfUHRBs/BdJ6OCaRNHkKfGMBH9TrSWtctQqOTR+W7/LcajOlFUG5MZiS7yDUTaHTy3pJGJ3k1SXT9fl0F8SxOYKxxlKoACL0jO+IGl4LSTdWmXdFZTq8wqIeqRkwlEuXf1Vmk3G8Df4D0RPLTaXu1M3bwfs+cLNQYOutNL6gsODllOa8bNxE78chEKlbWW+HZliGfC5U/mA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4zgcmZT3WZ0utG1xW7rom3SyP7Fd3f5TmUT1rC2CLG4=;
+ b=Bpd+L7jFq4R4A+xEL3FOND4W9JawfISquiAYZwxkI/SgCdDI/RsaNCOjjgS6TDsoLcGnBoaIp1uFVy9JSulXX3YJAToySu9VwISj/gj5YehD7q2G9nZ9VH3VgTUkthp45Kd3Pdflnoj/DbbcgoxqWD5lIic+505bScInITSWkpvIReNH3R7BdSMalFsoMHG3l+QjKVbii015JVAqNbCIdQ/1gtUbC3RFjoDYc+FeM6MoivVMzih/9y6onxkvMWxBPDTCuCv8Yx7sL4r/aSSkvbdlJUPpmm6A+K7lie3BgERegYByjZBxb/P3N9LEGEgGz4HkHcmeL1UqT2/+w88m7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4zgcmZT3WZ0utG1xW7rom3SyP7Fd3f5TmUT1rC2CLG4=;
+ b=B5ckqieeClasyJJW/Zi7klQU/x+q7fSiHRciBjAl3nUPvpAS1TSBm+nvrfb4IKfqlJuylktlkb1MPD5ZqrfLmXyVhZtQDxSDMEFEh7aTqVq5wjT0da10kOEPj39BqZoWtDH2LCtjLoboQeGavMMm56+ZxyqqI0WQH0v7fzWnT3o=
+Received: from SJ0PR05CA0035.namprd05.prod.outlook.com (2603:10b6:a03:33f::10)
+ by SJ2PR12MB9240.namprd12.prod.outlook.com (2603:10b6:a03:563::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Fri, 30 Jan
+ 2026 02:30:16 +0000
+Received: from SJ1PEPF00001CDE.namprd05.prod.outlook.com
+ (2603:10b6:a03:33f:cafe::c5) by SJ0PR05CA0035.outlook.office365.com
+ (2603:10b6:a03:33f::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.7 via Frontend Transport; Fri,
+ 30 Jan 2026 02:30:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDE.mail.protection.outlook.com (10.167.242.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.3 via Frontend Transport; Fri, 30 Jan 2026 02:30:16 +0000
+Received: from gangliang-mlse-vm.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 29 Jan 2026 20:30:12 -0600
+From: Gangliang Xie <ganglxie@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <tao.zhou1@amd.com>, <YiPeng.Chai@amd.com>, <KevinYang.Wang@amd.com>,
+ Gangliang Xie <ganglxie@amd.com>
+Subject: [PATCH 01/14] drm/amd/pm: add pmfw eeprom messages into uniras
+ interface
+Date: Fri, 30 Jan 2026 10:29:37 +0800
+Message-ID: <20260130022950.1160058-1-ganglxie@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260118145741.36198-1-timur.kristof@gmail.com>
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDE:EE_|SJ2PR12MB9240:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2bef074-32a0-4196-eae5-08de5fa78108
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?9WbzvOxp48aBs6ja7Y7VgrWTG8qkRdZh0At1511VggQ+ILwP6FkSC70lrxhg?=
+ =?us-ascii?Q?sI0/3uKDm1KsYHfCfIDSl6ChXD0WdY5MKRn00g0yoUgaHqhJNPfMyq0aXtFw?=
+ =?us-ascii?Q?tAMvs5Z7q1QCY4K8G3pIdRjzbwpatgJjZI3CjUgSQa5DteyFgu2gOkCRxnQ6?=
+ =?us-ascii?Q?MEdsirzbh460rESXCqu2hgtjaN4WqnKQlhFFU2rT9+3JaeR5b3yVuRqZoSb4?=
+ =?us-ascii?Q?AoCEOKQIO9l/4kmlR+ca7RO7BLRggfcJI4WZy309oScB9On8jnuJz4bh7iYH?=
+ =?us-ascii?Q?Pe3miD30Cuv88ramLAx0MNIeFNqKsAsbKUikZNGthmZ5YUhrQN7gXcyyrkCY?=
+ =?us-ascii?Q?1ofDOeyC7jKr5hxY64UoQz0vDvCwUHjc+FOPr/JirfMwOxIH5USYPqk4DnBI?=
+ =?us-ascii?Q?UMepm1ta/YLh3l2pC37Le1eTAvKEgGcPfqls/6rU+frbGl2jTVJMPIZiO/Lt?=
+ =?us-ascii?Q?Tbq98UiqTMUoRdyVDbWJk0t11kFfRL8gTM9GIA3CJDTX7HdByUcZXu5rCjT0?=
+ =?us-ascii?Q?up/GBdejNIXxG/SwTbD5P1/RbMJjV56ja31G2Qfq1Ky2r8rellXMLnWFS2oE?=
+ =?us-ascii?Q?+R7c4yVKZZdkZ4aQrp92BVvZai76TXW+c3tYEkxO6PWcfvWWQ/PyEaJ9lw6W?=
+ =?us-ascii?Q?OnggNI8TOLqUXDZwoQ8MUwe7KpjrcWx9EJHP0MteI5+hB122lGWMCGEMNl+6?=
+ =?us-ascii?Q?PpmRQpKsuYiz0KCtnP84Oax635wZwrs097xLK6ISBGsxKWkXW1WZP94pUKe2?=
+ =?us-ascii?Q?RPqmAb6q2kmYlPuhvBFlfw4BckcJuO4XDOz8cZCf5P5g0XOCfhIBUpS+3RHB?=
+ =?us-ascii?Q?bAkdgWZjoH648lVIHdAEXF+UaLvTuXrVYpVBsV/Dj7q2YS/GLARSghnlPs5C?=
+ =?us-ascii?Q?2c2XzuDW0rnUii6BP5o0DmFyqq/TSNFHzbHIKe9F+AFAKBkC3PbrwpyqGKaU?=
+ =?us-ascii?Q?C2YIyHZyb31VOT5qO8Xg4qdJL+J4GLW+xARUbYbmzc/mMKOK+pzbiZLHmlM6?=
+ =?us-ascii?Q?iC2TAn6sas7GGgrm3Lntt2NmjVNCy+zdusVkJNUoV+PEMIfH72Gfk2mnMbfe?=
+ =?us-ascii?Q?Tno1dRHl6Yfal6RMOhtqzd+sU2mfUEUUCuIci8e7wpcZcP0oJVEq3dsllykT?=
+ =?us-ascii?Q?v4rQ9msIwW6qMgkKKlgzl8fZPGtmErsU59lQcdu4gGMlaX09hKNlShRfkXm/?=
+ =?us-ascii?Q?PJrFPN+meonryBM9+Iy0MvYKcI9FLaMMePMM5DcwMUPQOTmGbTPLEYSK9RXY?=
+ =?us-ascii?Q?U02mhjPd0mI/lybybloEZU8i7OovuTwZe/HxQfOOABcZFGTUqxOsaO0D43RP?=
+ =?us-ascii?Q?mtjw49mN6K/L6xnv303l7OrLYr0sJnS+sYWKRKD6ajyai6sUUMldyV4z8Bby?=
+ =?us-ascii?Q?7mOKuI+P0+lqf6jWU/ybH0nE7+uIPHR2IpR7OlubgzjEvCLbTf+OEgDm7OE+?=
+ =?us-ascii?Q?1S4tdi/YYydjOlKNIGFS5VMnA9cartMCKAmNIYZGFPIBaOParolFwaLiOIK1?=
+ =?us-ascii?Q?oKXkPNxhj9q1NvRHCKzn9Fn0/CLk0290/F+Qn0NCG6uAjCd/8k/Ea6XHsIzZ?=
+ =?us-ascii?Q?l87tRTE2rnK90b9w8MYxdUXCe3I2nC+lEt++ZwfE5P3fsX7/HZ85Wtsn2XoJ?=
+ =?us-ascii?Q?F/Qjuc5nWzSHRJVEE1Li1luZHU6gAYzFrCKM/LyPqoQd3n6dSIO8CgN3Keov?=
+ =?us-ascii?Q?GUgvCg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: nAnNU01lJ7AYHVSmEsJh5BliAFRJtdWItEO6lx2oX0uG5/N5mSeXbkX2sK4I8RYrKULLXrgJAi64RbPp+RY+gcCVMJ4mGa0m1R5GA2XVWF5zyp0KNEVSv576OicuhNVuxHjZF8GitwQH9j3Bpdl8MJogJkA0OOiVZV+qhzcBFrQ4PJJ2peJWtaoXKD3oKhRFtvvJCWkrWxFMt9LkPOZrx1YCPl7/7zehwwUq+9UGZpRJwKWbwd9PdW/zZ+7QM8sBhpmVAbZdWJK/zZTmxGc249IQ2Vtz4+V+jZ4Xbok0cyf32zfAbXtFvHRbav6/On44w9cA9FGoBVKgaEwCD3p986nLM0fFtk/I8zNo+e/N5v/ep1jGqNfrY2K85cALJjIt6Jfikb7amCKFT9M4kStdnNwRY69iwnuS45oNji4vYDzg8p+DtIFiEeGPJCDRElvI
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 02:30:16.0783 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2bef074-32a0-4196-eae5-08de5fa78108
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9240
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,71 +137,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 01/18, Timur Kristóf wrote:
-> Currently DCE doesn't support the overlay cursor, so the
-> dm_crtc_get_cursor_mode() function returns DM_CURSOR_NATIVE_MODE
-> unconditionally. The outcome is that it doesn't check for the
-> conditions that would necessitate the overlay cursor, meaning
-> that it doesn't reject cases where the native cursor mode isn't
-> supported on DCE.
-> 
-> Remove the early return from dm_crtc_get_cursor_mode() for
-> DCE and instead let it perform the necessary checks and
-> return DM_CURSOR_OVERLAY_MODE. Add a later check that rejects
-> when DM_CURSOR_OVERLAY_MODE would be used with DCE.
-> 
-> Fixes: 1b04dcca4fb1 ("drm/amd/display: Introduce overlay cursor mode")
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4600
-> Suggested-by: Leo Li <sunpeng.li@amd.com>
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 655c9fcb078a..3e1ba5521f2b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -12262,10 +12262,9 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
->  
->  	/* Overlay cursor not supported on HW before DCN
->  	 * DCN401 does not have the cursor-on-scaled-plane or cursor-on-yuv-plane restrictions
-> -	 * as previous DCN generations, so enable native mode on DCN401 in addition to DCE
-> +	 * as previous DCN generations, so enable native mode on DCN401
->  	 */
-> -	if (amdgpu_ip_version(adev, DCE_HWIP, 0) == 0 ||
-> -	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 0, 1)) {
-> +	if (amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 0, 1)) {
->  		*cursor_mode = DM_CURSOR_NATIVE_MODE;
->  		return 0;
->  	}
-> @@ -12585,6 +12584,12 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
->  		 * need to be added for DC to not disable a plane by mistake
->  		 */
->  		if (dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE) {
-> +			if (amdgpu_ip_version(adev, DCE_HWIP, 0) == 0) {
-> +				drm_dbg(dev, "Overlay cursor not supported on DCE\n");
-> +				ret = -EINVAL;
-> +				goto fail;
-> +			}
-> +
->  			ret = drm_atomic_add_affected_planes(state, crtc);
->  			if (ret)
->  				goto fail;
-> -- 
-> 2.52.0
->
+add pmfw eeprom related messages into smu_v13_0_6_ras_send_msg
 
-Hi,
+Signed-off-by: Gangliang Xie <ganglxie@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-This change lgtm.
-
-Alex, Dan,
-Could you include this patch in the next week promotion? 
-
-Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
-
-Thanks
-
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+index 57f4069bc827..0fcd6a1c0e92 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+@@ -3499,12 +3499,22 @@ static int smu_v13_0_6_ras_send_msg(struct smu_context *smu, enum smu_message_ty
+ {
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return -EOPNOTSUPP;
++
+ 	switch (msg) {
+ 	case SMU_MSG_QueryValidMcaCount:
+ 	case SMU_MSG_QueryValidMcaCeCount:
+ 	case SMU_MSG_McaBankDumpDW:
+ 	case SMU_MSG_McaBankCeDumpDW:
+ 	case SMU_MSG_ClearMcaOnRead:
++	case SMU_MSG_GetRASTableVersion:
++	case SMU_MSG_GetBadPageCount:
++	case SMU_MSG_GetBadPageMcaAddr:
++	case SMU_MSG_SetTimestamp:
++	case SMU_MSG_GetTimestamp:
++	case SMU_MSG_GetBadPageIpid:
++	case SMU_MSG_EraseRasTable:
+ 		ret = smu_cmn_send_smc_msg_with_param(smu, msg, param, read_arg);
+ 		break;
+ 	default:
 -- 
-Rodrigo Siqueira
+2.34.1
+
