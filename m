@@ -4,132 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 763B6E6BF30
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 18:33:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF0B3E6BF0A
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 18:47:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1502510EA48;
-	Fri, 30 Jan 2026 18:33:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4898610EA4F;
+	Fri, 30 Jan 2026 18:47:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nf7aE//q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fBr9gqbW";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011056.outbound.protection.outlook.com [52.101.52.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF2DE10EA48;
- Fri, 30 Jan 2026 18:33:18 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011031.outbound.protection.outlook.com [52.101.62.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0348510EA4F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 18:47:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Mi6ysRMwvRwEu6cPvqq2kY/VnFJ5AWMv6DcAPJmgA3Vg2lYpneYAR7XkGC7ntzIerDm7fMoGA1H0yMYsvrjyIRSwnaw+Br/Gp8AmFpZ24dSZ1YCPk3qhm1e+CvqIRSrkv6BTq1U50hoq5eQbw5Nb3oCZFM2bzRMwME2FczgN5D0Y1xMXUtr8kLXgHbEQ0d7e7T7ZbUjmMak2GYVSD332mMvau8xZsZc97pCrsNdAZNEaKEUcAYT1kT8+sg5wCaK2ZbJwv5+52tt5JuTn37K4Xv8Fxs+Xm0vmJIPyD+uU9D22oeRLpTf0fLvfnj8sE8jC/oIFfEKjZtBt1SY2eK8cZA==
+ b=El8olf5egw3HFOBDhJYOoCMxiFKnq7WpCCKSZ2BiPVb6ikfMCLlFUM5el2VBcrBN5t3gHQoZZtOMUgnq80AZwZ+E0MtWkjUygHii5vIoK3fuZ1vPYGHaQD0kP1b2k/wFEP1h0XYohyifBmN+dY/82RKytVFb83Q8AxRFF1lYAjstenL7tlLlciS/Uhwg4gn7Em40ldwctlxav2RIrT6hsEh1H7ymQCGtO/KR6TbNX6XQ7eceHH9XEn5rfGEqIkN5tpDw4gm0TO6KvYAZ251wlsjYJe+5lw8FJJpzLM+Qv3XSwWtrqmMzzjmpzxWs6Y0iO7R1MlROC/zsxQ+t9vPDkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wsbvdayWJ9XXavZmhQwX8mstjz5MHkiczaM40IqqUes=;
- b=aXUi5Iiza43hXqjHmtaVlhyXacWH5vdpvueCR3gpNn1ODrBjxD/kgPyVM9QIcmnzK3elfe6YeLbflSRg2v2qGkB7FwOtvPFgPYjQUhxWWhKa1+3l3gTePB6q7d/h1ZKlzaorrd9cgYI/wvefBOdLNT1F+V8I+nLEspiuvaiBcbpdN48fnlO1mgBK38neFp7e5tDMYIHCST8KW8GdZx6/Y1p2XPLpSMSPL5bcTIzY8FLZcBph6lqtkEwL1S/aAYfZO2UayumoFZQRmaF7QvxIAge9N/7LlMv2KxpJdpM9HlU8tifCUh5mYmSEpksgy9/KJff3qStapR4jKAv4aNXcOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=Um5iddXRZDJqLk/nNmoeRnOxsH+5VdaT6t7fxTxqnjs=;
+ b=NEm+5gqTKE51fzYRoH560wu4IX+CIydbPEHaSkbn7mfCzTnlrS/L9ShwRecqFf051+qlnRMgZc2p9/TxTdWaLE2gI3Wy5NqmVMJLcL/QZj0aL1MGIiV89Gd3FexCa5Mgx1mrEF4TlLDX9lCUqRTnjt3CuA0nLKf369FNRhEVNK5Xscqwwmx1R6xC+5udcTt/JwkHXh1RI93KB5PY+Z+ZlGArPtmdbDfIgUPYbkPaNP71CFwhC8NHjhA8XqkkZXq4TIdQGLowXd1OIe9wal+hAyu+OnYIlWofVyucopNncUYxsGxcR72YnMEzTdF/xfhMmujjWEYLgXT4BjikeqL7OA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wsbvdayWJ9XXavZmhQwX8mstjz5MHkiczaM40IqqUes=;
- b=Nf7aE//q9SYwpqA5g1n458PlBs74/fOW9AkX4F1M8pm2asOJlmBXXjKnhVwZ0gNL8DCV6rZRXFSs07a5ayll4JUmcMwePHHvRZ3MwP4Xr44xu0OSva7/L0q1HZjU7vUR+Vdek/sDaE8sXmL8jiG2hdYTPI9iBqipBsRcG6kYGUI=
-Received: from SA0PR11CA0041.namprd11.prod.outlook.com (2603:10b6:806:d0::16)
- by MN0PR12MB5932.namprd12.prod.outlook.com (2603:10b6:208:37f::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.12; Fri, 30 Jan
- 2026 18:33:16 +0000
-Received: from SA2PEPF00003AE9.namprd02.prod.outlook.com
- (2603:10b6:806:d0:cafe::3) by SA0PR11CA0041.outlook.office365.com
- (2603:10b6:806:d0::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.7 via Frontend Transport; Fri,
- 30 Jan 2026 18:33:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003AE9.mail.protection.outlook.com (10.167.248.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Fri, 30 Jan 2026 18:33:15 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 30 Jan
- 2026 12:33:13 -0600
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 30 Jan 2026 12:33:13 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-next-6.20
-Date: Fri, 30 Jan 2026 13:32:57 -0500
-Message-ID: <20260130183257.28879-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.52.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ bh=Um5iddXRZDJqLk/nNmoeRnOxsH+5VdaT6t7fxTxqnjs=;
+ b=fBr9gqbW7xiZ/YDoQ3enrAIm+a6zrBEgmxHoerqtFxkQhOcNGeaKHCn0V8yKJXAQMX+EhI2U2hzcJCI8sBAbaP80A0DaLVvovt64aMDMnGxdCRGIYNMDcUc+k1KcMNlfeCXPAfb8zRUNlroMlKRVpsQo9N/oiU9Cx9Nas+YN0FM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by CH1PPF934D73F2C.namprd12.prod.outlook.com (2603:10b6:61f:fc00::61a) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Fri, 30 Jan
+ 2026 18:47:17 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9564.010; Fri, 30 Jan 2026
+ 18:47:17 +0000
+Message-ID: <9115a1de-57ae-4537-9487-3253de858057@amd.com>
+Date: Fri, 30 Jan 2026 11:47:15 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] drm/amd/display: Handle DCE 6 in dce_clk_mgr.c
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, harry.wentland@amd.com,
+ Leo Li <sunpeng.li@amd.com>
+References: <20260118173150.19790-1-timur.kristof@gmail.com>
+ <20260118173150.19790-5-timur.kristof@gmail.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260118173150.19790-5-timur.kristof@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: MW4PR03CA0344.namprd03.prod.outlook.com
+ (2603:10b6:303:dc::19) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE9:EE_|MN0PR12MB5932:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcff6b18-cca6-4522-5103-08de602e0828
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|CH1PPF934D73F2C:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf65de8a-0d0c-4cdb-5b5f-08de602ffd97
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?bi9TVGNxc3NxcVNhcTBBQkQ5djJWczNiT1c2eFVSN2dtK3BoWk5Yb2pHRk5I?=
- =?utf-8?B?ZVZZTURNVXV2ckFHN3YvMnpqbVkrQjNwUVJrOTlGZWFOWWRUR2psOXpVNEtR?=
- =?utf-8?B?MGkzVGhlTlEzdDZybXVXRDZFWUVMTEpkdnBZZ1BaemprWWpCSGUwTGN3NHRz?=
- =?utf-8?B?ek5iN29nVUNRa2dwZTBNeitObWV2K29BYVA4WC9TT1FWbEJ6WlZFWElwWXJB?=
- =?utf-8?B?Y1l5UkRZdnRQcjlpTlZyenlrNG9Lb0ZnSkZFSmZwM1EvQTVBNTMvc1d3MlZp?=
- =?utf-8?B?aS9LV2oyaWp2bkw4ZU5IWENIbXJidDBEQm9zenN4SWU1a28zY0t6LzluT0hE?=
- =?utf-8?B?bGIvN3NTL1NmOHdxUThFT1NPTEsvM0RyajhYR2JvTEFVYkhTTnJmOEtQRlQy?=
- =?utf-8?B?VE9KOVB1aDY5TkJ6TnBFVXBscS9sNEw5ZHR3bjNxd3B6aDBlUmZVcFRjSWxp?=
- =?utf-8?B?MnYvNk5nTkkweVNkSlJaSk9FNTVnRUQ5Uml4Y1dvQU81SHRMMVZhN01UTHcz?=
- =?utf-8?B?NU4weE43NUpKNktUK3pJK1J3NkVhS0JsdU5OOVdZMVJVU3BGUmcrdWRKQUFB?=
- =?utf-8?B?b0ljbDQ3UUhBU3E5TS91K1ppMkZjOXFGTXA3TEt4MWRpNVo4cDZJL1hieTk2?=
- =?utf-8?B?ZlRqemtKTXNTbUkrYmZJemIrZXFOMXBQeDZuTEppa3Y3N0dBRDIwZk9jUlM4?=
- =?utf-8?B?L0FaVVZ4TDRHeEp1aUpxVFZ2UU9GbVpPL2lKa2wyQmxyaTRqMTdwNzl6NWw3?=
- =?utf-8?B?VFVDREdnVDE4TDBYalo0NXlMeHZrMURJU05zazQ3SWxHUENRSURyZ3lMWUpz?=
- =?utf-8?B?RnQ2VjZtd25BNEJDNUZUSExVUlo1eGNGUkxrY2JQb2xkKytFUU1FMTZuZEpN?=
- =?utf-8?B?T1d4OHhTV2xvZm9qN2d6NVFML05CQ3p0cVVlZ2E5Rm9NV3Y5YlFBc2t5dDVx?=
- =?utf-8?B?aGlTMEhLVGxoeUN5SnZpY0JBeVZmakdRTVFUY1NscWdDOWlJMHRTY0trV3lk?=
- =?utf-8?B?U1ZFbkJkazYyR0RTY2RqUGFYd2xtdHAxMm9lSFdPazdsRGk5WERqNEJqa1Rm?=
- =?utf-8?B?RUJSQzVOV1J0SU9CVVhHV3NpQkF5bVAzVThRaENQSElQSS9SMEFOZnJuY1VM?=
- =?utf-8?B?MEpGNU04NzYzdkxiZmM0YVFtSUtqeWQxNzR2eG9qN3hDVi8xcWhKbkl5WHFq?=
- =?utf-8?B?OVR6QXhLRXZ6Z3o2SGpFcnlUbmUvam9rRjdEV0toWXVVdEFxZ21BeGl3aElm?=
- =?utf-8?B?L0FJbUt0OWNrTjQ1eVhodUdKK3hRejFQaUQ0c3lwVkxzc2ZYVUxBUnl3S1Fm?=
- =?utf-8?B?eG40UGZ4akRMVDBoT1V3Q1BTVUVsQVJOazIxbE5SU2hlNVBnRXFYNjJZTnMw?=
- =?utf-8?B?Nmlxc1B4VXM2V25wYmxTcTRKM1paUzdRRFMvNU9rSkttZ0ROdllqczR5V2Nk?=
- =?utf-8?B?UU5lclpQWkpkSUxEdXNsNVR1UHJBdTJTYmQ2ZkZHdFprSU5qSEMwNGNvUXdu?=
- =?utf-8?B?aDR3SmNQTXcrbHY4cEMzelI0TWtSc1gvSS9sQ3dxVm5ucjNET09lOTJzUmE1?=
- =?utf-8?B?emRyK0VpcjN5eTUwMlBFNzl4bWJuUzRMNTE2L1VCMTlrZGlVOGxjRkc1RFZr?=
- =?utf-8?B?Nk00MFdxdTk2cTdYOVdrZWJMSDA4Y1IwRWs2TW1CaUExSnY0MndXRThoWHB6?=
- =?utf-8?B?ZG1TWXVsRmsyd28zRUhPZ3dDaS9tS1VmL1dBUDZhNWg4T1lsOVVzbC9FUGFD?=
- =?utf-8?B?bDR4Y2x6cjJSS1o3UUYyalM2TFh5UzJSMUdPb2hldHB5NEgrVlRIa2V5K0lF?=
- =?utf-8?B?TUtNKzdzUGxPOU9Vck9UeFFqdDJjUVBYLzF1VWF5d2RKN085aUFOWXRtbVlp?=
- =?utf-8?B?eFNHcDBXUDFFazQ1ZFRqRjd3OW1ST2l2SDRFQ2xaT1lUb0VYUy8wMEFhZ3cw?=
- =?utf-8?B?TnBvVDFuUVB2MmpnZmh2NnZyZWNLd0FwTERlV2pVMXhWQXlueVdFYW96dHVH?=
- =?utf-8?B?MXdQMXpvMk9TcXlRdWJpdU9pcmkwV2lwbk54cjhxckVnWG5YbDBJWmFnYmJI?=
- =?utf-8?B?QTZERUM2bzJpQlBPeHllTUxZczFDWUVuMzE1VTF4SXJCeXZkUWdEK3BaMkJ1?=
- =?utf-8?B?WWJsUHN3YW8wOVRwR2I5L21yT2xCVjhNTkFNTUM3ZW4zQU1CTnJ3KytuSGtK?=
- =?utf-8?B?T1E9PQ==?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?WS9CaG9MU0RUdFJva1RBRndwS2dzNG5haHRWQzhXYTNENnBCQkplTFpaVVUr?=
+ =?utf-8?B?R3BGTXQ5eFhyZGlNMlNZZkJNWGNPRmpudlFIWU05L0ZKcTdteEFaek9oRThX?=
+ =?utf-8?B?R1RIb0RjckRYa00zOXAwY0FYTEVYM05QUFd2QTdRN1RjZytORjUwSGlQelpj?=
+ =?utf-8?B?bDZiNHh2akQ5TFFXRHFpeHRETmw4aWhUR1RFcUpKU29UdklOb0hCc1NnaVgx?=
+ =?utf-8?B?RkhjeWhiTkFOenA3YnNVL25PcnVGWjJWQ2FRZHdySmgwU0h0Qm5lcUt1QkVP?=
+ =?utf-8?B?S0dVemZWNjJUUFhvUUYySkFpZFVGWGltVC9YWFRLc3NQaFYyV1poQXo0VnhZ?=
+ =?utf-8?B?MGM5aEpuNW5DSEltb1dWZjlTMGwwajNuc3FiUmVTQ3FuN1FCTlBCbk5VZmVJ?=
+ =?utf-8?B?MVpPN1U5VkxlSnhTVEM2NmJxUFAxRWFEZmZnYXY2OW5oYUkwUG12NURtTS9Z?=
+ =?utf-8?B?NWhVenJtMzc4ditQQnpSS0pLZDk5TTNtKzNyNWJVZEdLdjhyd0N3eVFUUFJ6?=
+ =?utf-8?B?VVprUXlkSkFWRkFZNXgyUlVpV3ZxeGFuSmpHYjJLVXRSaFptVS82ZXkybzJU?=
+ =?utf-8?B?VDNmYkhyM1crdmVHMTVJUmd1bWtYS2V2YlJyQzhXTS8zNS9NUE1JeWlLN3Z4?=
+ =?utf-8?B?SEZSV05XaWFXQTBWdmgrWXBHNVQxYjNKUHc3M242TmpZUlFJWXRsQkFEZWpl?=
+ =?utf-8?B?WUE1c0lwejd6MzgzSHFtc1RoN01pU2lwR1VIYTM4RWVIWkxBMVNQalZPREwz?=
+ =?utf-8?B?VlVEd2VORGgvdkxlOGxCRGVscEhPUDVjQTdpLzlTNG44dHcwUDIzSW9LM1pO?=
+ =?utf-8?B?QmN5dURYQ3VwRE93cXR0QngxMGVObVY3eDdneWhFVDFYcGk0UCtKTjlaR2Ez?=
+ =?utf-8?B?bFBIN1RFL05HQ3pJcitDajMwQldqMzI0RDdBNGxJRElKRnU1Mm5yQnhOZXJH?=
+ =?utf-8?B?Rk9kZFUyMHdNV2pUK2dFaG5vMjdsckdzaktQTXNnalBWdU5GbFZuc0w4Z0to?=
+ =?utf-8?B?R0ZJaDJiUU5PMHoyalpoa0N6WkRPOWtmdXVZWnVud05EQUpuTjhOc2pyQUI0?=
+ =?utf-8?B?dHJNaFRzb2RUWUQ1QjhUUUhYUHIvQVlzM0JyQXZHaXRlR0M3aTdSb1JLTlda?=
+ =?utf-8?B?RnBXei9zWXBXeWgyc2JqN2o1Ujd2dXpnZHhmQUhiZlNDKzY1NXYwYnRjdmox?=
+ =?utf-8?B?aVZiMFFuWUdsUUNMUmkxcnRRSzhhaFN2dkdUemlBNjR2a1p6V0F6NjhKd1ox?=
+ =?utf-8?B?VWNJVmg0ckZLUlJJM3dlZHRIcVNCTmhJdHBBdzZNVFdGWnNCK253ZGxVcUtS?=
+ =?utf-8?B?TFBqMWVkeUFTZ3BkcldDS2Q2ZC9RR3d0Sm1vUFZZUlp4RitORTN4ejV5aGdQ?=
+ =?utf-8?B?di9OMEVnb0RNWi8zR1FKKy9ONzBtNmlCcXRVNDJmSktFVWRoUUM3ZTYrVWJq?=
+ =?utf-8?B?Y2x3NXRiYjZRQXFCMFYrK0gyYml0V2NYbjBrdzN4R0ZrcVpLWSt3VDlKZjdI?=
+ =?utf-8?B?OUFzWXlpY1llUllkZTZRNk9LZ2kxUG9JYjBLSnJQbnNwN0tFUTZucUloLy9P?=
+ =?utf-8?B?OWNIRU1lMERoeksxZEZtamFIbGNBMDUrWE1DdC9wUEMrRTF6MnhlMUIrRzNJ?=
+ =?utf-8?B?d1U5cjBjcVM4OEhmcFFSMURpYTl5d21sY1YvSW5EVCt5SytITUhiZmVzMkQw?=
+ =?utf-8?B?ZnI1ZXpaeFBXWGVtdW1sbEl1MzRRa3puaDhNa3A5ejYrSExIaUh3Tzk3eVRI?=
+ =?utf-8?B?T0thdWwyTFRVZE4zTklhR0lVV1B2dzN4UmhXMEw1d2FJOHF0S0VuR1FrbWkw?=
+ =?utf-8?B?RkJQeHoxYzMxYWY0MnYvR0IrUFpjOEhMZGVBbTdFcktxSFFQeHJrLzIvWGVk?=
+ =?utf-8?B?cDMvU0VIcWZPV0U0Rm12V3hDZjJmZTRlQXFsNkZEblM2NnVjWnBGckZ2bnJp?=
+ =?utf-8?B?YzZQT3Y5K2thZUFOSENLYW1VQ3NqMzJxTWkyeUw5cHhYeVQxU3A0Z29FZVZM?=
+ =?utf-8?B?T1JqS3pzYWJtVlRBNWxaTzRFaGFJcG5odG9aeG5iWUxGcjJBRWF4ek4rTm0w?=
+ =?utf-8?B?VzFKRE9nM2xGQW9pbUdkclJuVFpqSkZCNlZsZS9EZzlONUVQQ0hCMmExQ2RY?=
+ =?utf-8?Q?wjWU=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: WIWQXrK/jr+/HuVRydYLm9qAddUCIuS5CpAE5eF+NQX5Izd89MJuPqIFys/m0Flmv3gALM/WpfeU+6CH/XPZDcXG7jnXKhCiIymH8RvSu9gnROJ8huS3g0hfgexZ5awquCyTJ71QsDWYg3Uif6QK/XIxSyjdc9H4XDJsv58Ozp1AfGb02Z/ei3cO84SQ4flHF5v8iKWbtGCK6zqt3pwa/x+tetHPT+oxg38n6iBZdkir3AQLCu41weMhaK7pzRZmWXKpwaf6PoJBwf7hbYZO7TzmEWXEu8yApXb50DS327NqP4RMG9tdA3bQBtez+fLcO8LdhHW+RFSftrIB8f5tteTINZYSrtH3rppvUoj+z0vqlRSyT3bMCj3T9bTrtGiNUkovrzb1teXwjvb1xzHx4bt5XrQPTpVdIX+8HrkuM2Lf76lOBJKAcASra337CyQf
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SWFKZkgxY09HTmV4M2pUS1lCaEF6b3ZSbWR4K2oxYWZSM0lrbkdTSkpNVXdX?=
+ =?utf-8?B?c0UzOHpCUzRMV3NLZEhpR290eGRpMjFOUlcxaHdxdWE0RTBtYnBvYlhQNDhK?=
+ =?utf-8?B?RkNjOEpBOVc5REdEZWFYUHBid0ljZ2VGR1RPRVNRRW5KUld2U1UvbEI5K3hX?=
+ =?utf-8?B?NGlEK2cwUC9qS1NrWEVrNk5LcUoyWUs5dDJ2RkQ5UXVuT0toYnRPaWJpRUhE?=
+ =?utf-8?B?TXVVK0hVZUZOK2drb1grUmFXUjdrSndlZG81ZjBUVWZnRHVZc3ZORnl3Z3cw?=
+ =?utf-8?B?L1p1M2pTWnlXcFRIekRUR1M2Ym1qeWVjUTZpckxvZU5weHVVTWIwTkRzWXBY?=
+ =?utf-8?B?QW9yQlgrRnV6RDVGOHMwSnlYeEFTdGtjdGVQdTE5Y2t5WHZPZWxiUDl0bEpC?=
+ =?utf-8?B?V0lQRDRJcVU3OHcvVlNwd0N6N2tNMUpjdEN0WXA1YWdTTVhKQWlRbDQ1SWhS?=
+ =?utf-8?B?blVVYjdMaHc2eHBxanRPOStMY0RmSkd4RDMrMk9hTWRsdXpLc2VROHhZWWZ5?=
+ =?utf-8?B?Y2U0RmhOK3FUQ3c3cUEwVm9TbklWOEVLQ0xzZHZYcEtBU29jczVLU0RweDcx?=
+ =?utf-8?B?THFQQmYyMEhWMlNnL2hmeGZKU3ZCR2JBR2lGQ2NGblBEMTJucnZlRGhXUERz?=
+ =?utf-8?B?VU83bktVeDdMMGFidEFDKyt5emFESW9nblczVktBeWdhSnhzNlRDTjhldTZr?=
+ =?utf-8?B?WWhEUXJnSUJlaDBIS1ByMWdHbEhFelRMdUtwSFhHMWYzQXB4SDFYNkFoMDd0?=
+ =?utf-8?B?M3V0VkNaL2QxMERXU25hQ0dpTWxocFh1OFBENUNLaHdSemRqZ2pLYlMrUTNp?=
+ =?utf-8?B?bld3OGFkOThLa2RqMThobExrQk9ObUJuaDBlSEc0M1JXKy91NURWUWRrb3l6?=
+ =?utf-8?B?RWVuQlRBcmdFaHh1akYxeWJ5RkY1ckhBemxFaU1IY0hBalNDalhGOS9jaTJj?=
+ =?utf-8?B?VVNBZ3hkVXhPaGVCdkpqZCt2bWo1L2xVRG5PMENKa0JuKy80QkhLRC9CNTNw?=
+ =?utf-8?B?Q2Y2TlpvMklLTm9UQ01JUEJucFE5ZGExM012enhJSmJHakNIZW9JSy9wYmdy?=
+ =?utf-8?B?VVZsZlNPNmxwWW5aeFhDemZhUHNlNUozalF1dGk4bjg5WldlYmJNUEMyQVQ0?=
+ =?utf-8?B?L1pwTFZIZzNibytzbDNjVmNUazRQVDJWSmlxeUZvcVYyS0tRbm56clcvRy9k?=
+ =?utf-8?B?Nk1LUjRaRjg5dVU4akFrMzVuZUQwYVhNOUFRaTVuM3N6aFlVaG5jM3hON3M4?=
+ =?utf-8?B?SGdsam84SmNVSU9IMVRrU1RaWUcrajJROXNIdmFrZG1hdEVqYVlZRm5BQlFB?=
+ =?utf-8?B?Y0VpYzRhNlJDaFhvZXA4dnJGTUlVT3hUcGw2UkQrNGNRcHhXb2J5cnJqWjVX?=
+ =?utf-8?B?QnhEVitUbmtqYUNnSUpIVUF3aVlhS0lIcGRmWmZORlo5ZlE4aVFFVndtN2xV?=
+ =?utf-8?B?VThOZWFlTzNOUzVpZFg2Mk5tclJyYlJ3eTUwaGNpVW45REtQaWJ0MlFhUDlP?=
+ =?utf-8?B?VVhFcEtrSm5NTUkyVDM4aDBMK0V5dVA0SUttdFAwWURTV21TRERod1Nta3M0?=
+ =?utf-8?B?SzMrTmVxUjRHTUlIWHZXUE52VW16TVo2MlRGcjZEbXRDL0hzbUpBRFFHZklX?=
+ =?utf-8?B?cG9sRy9YaVFwcm1FSFNoRWJzNDJKR1pJaXBEZk5DOUs0QmJGOTR1ZXRxeXdk?=
+ =?utf-8?B?anFETEFnaU5vTW12dW15TFhmM3FPUktJNWNhRmZuVDE4RVZzQTFVZDNTT3FX?=
+ =?utf-8?B?TEhKQzQ2YWZqSFVPa3RWaDNMcFBlc0szWm9ScjltdUNNNXBkWHhjNUxYQlpm?=
+ =?utf-8?B?dGlCVzZ1V25hNjBJNXBQK0NlOHJPMXZoREFKRXJiZkhZWG1XNTdlL3IvRlJm?=
+ =?utf-8?B?alloNWk3aUJvLzRYVm5KNXFodmFUY0lOZTU2YjhremZHNHZ6Qk5ieGxiSndD?=
+ =?utf-8?B?akJOSExWVFI5aGZvQm1KZHdwSlZrVkM5czRMMm9RYkVQd243bkV0TEpaK3lQ?=
+ =?utf-8?B?T2JJbjJIQlZsZDZIMEhYMTB0cWViYXRyRTJQVk45RUxweHEreGV3WEJKNEJD?=
+ =?utf-8?B?bFdxOWp1MmtZN0hvVmxNRTAyL29vdy9jc0laV2Rpc2lTOG9sczRpYktPcUZt?=
+ =?utf-8?B?dXNkdlphQnBhUjd3UXlLZ0grWmIrTGtDOHA5bHdFa0U0SC85cXc1Yk9ENEMr?=
+ =?utf-8?B?UFREVGY2MVZnM0NoZlV4UEluT0pUOVdCeFY2TUlkM3RuSTNxWUtlWnJJOFFw?=
+ =?utf-8?B?SVlsdUx4ckF4eGdrblZoRlIzRVZmLzJKQ05wcmtSYTJWMG91YVRPS2h0STF5?=
+ =?utf-8?Q?AujZWS3QpgkRD6QGH5?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 18:33:15.4439 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcff6b18-cca6-4522-5103-08de602e0828
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf65de8a-0d0c-4cdb-5b5f-08de602ffd97
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 18:47:17.0438 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE9.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5932
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IA540gJYvzjHzGeV7i5tg88cFlys131mS4moR41dwLElCC6z2nRBC303qadtnS43yStGApei9DGBhqZ7OllUaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF934D73F2C
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,207 +170,351 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
 
-Fixes for 6.20.
 
-The following changes since commit 504f3cead6b04914c53831f9efce902b8d91c009:
+On 1/18/26 10:31, Timur Kristóf wrote:
+> dce60_clk_mgr was basically identical to dce_clk_mgr other than
+> a few minor details. They can be all handled in the same file,
+> reducing duplicated code and easing the maintenance burden for
+> old DCE versions.
+> 
+> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+> ---
+>   .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |  12 +-
+>   .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |  64 ++++++--
+>   .../display/dc/clk_mgr/dce60/dce60_clk_mgr.c  | 142 ------------------
+>   .../display/dc/clk_mgr/dce60/dce60_clk_mgr.h  |  36 -----
+>   4 files changed, 52 insertions(+), 202 deletions(-)
+>   delete mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+>   delete mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.h
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
+> index 15cf13ec5302..9206eb8b0365 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
+> @@ -34,7 +34,6 @@
+>   #include "dce110/dce110_clk_mgr.h"
+>   #include "dce112/dce112_clk_mgr.h"
+>   #include "dce120/dce120_clk_mgr.h"
+> -#include "dce60/dce60_clk_mgr.h"
+>   #include "dcn10/rv1_clk_mgr.h"
+>   #include "dcn10/rv2_clk_mgr.h"
+>   #include "dcn20/dcn20_clk_mgr.h"
+> @@ -150,16 +149,7 @@ struct clk_mgr *dc_clk_mgr_create(struct dc_context *ctx, struct pp_smu_funcs *p
+>   
+>   	switch (asic_id.chip_family) {
+>   #if defined(CONFIG_DRM_AMD_DC_SI)
 
-  Merge tag 'amd-drm-next-6.20-2026-01-23' of https://gitlab.freedesktop.org/agd5f/linux into drm-next (2026-01-27 11:01:52 +1000)
+The macro can be removed since it doesn't do anything anymore.
 
-are available in the Git repository at:
+> -	case FAMILY_SI: {
+> -		struct clk_mgr_internal *clk_mgr = kzalloc(sizeof(*clk_mgr), GFP_KERNEL);
+> -
+> -		if (clk_mgr == NULL) {
+> -			BREAK_TO_DEBUGGER();
+> -			return NULL;
+> -		}
+> -		dce60_clk_mgr_construct(ctx, clk_mgr);
+> -		return &clk_mgr->base;
+> -	}
+> +	case FAMILY_SI:
+>   #endif
+>   	case FAMILY_CI:
+>   	case FAMILY_KV: {
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> index 6131ede2db7a..d02d03c154b3 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
+> @@ -62,6 +62,18 @@ static const struct clk_mgr_mask disp_clk_mask = {
+>   		CLK_COMMON_MASK_SH_LIST_DCE_COMMON_BASE(_MASK)
+>   };
+>   
+> +/* Max clock values for each state indexed by "enum clocks_state": */
+> +static const struct state_dependent_clocks dce60_max_clks_by_state[] = {
+> +/* ClocksStateInvalid - should not be used */
+> +{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
+> +/* ClocksStateUltraLow - not expected to be used for DCE 6.0 */
+> +{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
+> +/* ClocksStateLow */
+> +{ .display_clk_khz = 352000, .pixel_clk_khz = 330000},
+> +/* ClocksStateNominal */
+> +{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 },
+> +/* ClocksStatePerformance */
+> +{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 } };
+>   
+>   /* Max clock values for each state indexed by "enum clocks_state": */
+>   static const struct state_dependent_clocks dce80_max_clks_by_state[] = {
+> @@ -126,8 +138,25 @@ int dce_adjust_dp_ref_freq_for_ss(struct clk_mgr_internal *clk_mgr_dce, int dp_r
+>   	return dp_ref_clk_khz;
+>   }
+>   
+> +static int dce60_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr_base)
+> +{
+> +	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> +	struct dc_context *ctx = clk_mgr_base->ctx;
+> +	int dp_ref_clk_khz = 0;
+> +
+> +	if (ASIC_REV_IS_TAHITI_P(ctx->asic_id.hw_internal_rev))
+> +		dp_ref_clk_khz = ctx->dc_bios->fw_info.default_display_engine_pll_frequency;
+> +	else
+> +		dp_ref_clk_khz = clk_mgr_base->clks.dispclk_khz;
+> +
+> +	return dce_adjust_dp_ref_freq_for_ss(clk_mgr, dp_ref_clk_khz);
+> +}
+> +
+>   int dce_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr_base)
+>   {
+> +	if (clk_mgr_base->ctx->dce_version <= DCE_VERSION_6_4)
+> +		return dce60_get_dp_ref_freq_khz(clk_mgr_base);
+> +
+This should be moved down after variable declarations
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-6.20-2026-01-30
+>   	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+>   	int dprefclk_wdivider;
+>   	int dprefclk_src_sel;
+> @@ -441,27 +470,37 @@ void dce_clk_mgr_construct(
+>   	struct clk_mgr *base = &clk_mgr->base;
+>   	struct dm_pp_static_clock_info static_clk_info = {0};
+>   
+> -	memcpy(clk_mgr->max_clks_by_state,
+> -		dce80_max_clks_by_state,
+> -		sizeof(dce80_max_clks_by_state));
+> +	if (ctx->dce_version <= DCE_VERSION_6_4)
+> +		memcpy(clk_mgr->max_clks_by_state,
+> +			dce60_max_clks_by_state,
+> +			sizeof(dce60_max_clks_by_state));
+> +	else
+> +		memcpy(clk_mgr->max_clks_by_state,
+> +			dce80_max_clks_by_state,
+> +			sizeof(dce80_max_clks_by_state));
+> +
+>   
+>   	base->ctx = ctx;
+>   	base->funcs = &dce_funcs;
+>   
+> -	clk_mgr->regs = &disp_clk_regs;
+> -	clk_mgr->clk_mgr_shift = &disp_clk_shift;
+> -	clk_mgr->clk_mgr_mask = &disp_clk_mask;
+> -	clk_mgr->dfs_bypass_disp_clk = 0;
+> +	if (ctx->dce_version >= DCE_VERSION_8_0) {
+> +		clk_mgr->regs = &disp_clk_regs;
+> +		clk_mgr->clk_mgr_shift = &disp_clk_shift;
+> +		clk_mgr->clk_mgr_mask = &disp_clk_mask;
+> +	}
+>   
+> +	clk_mgr->dfs_bypass_disp_clk = 0;
+>   	clk_mgr->dprefclk_ss_percentage = 0;
+>   	clk_mgr->dprefclk_ss_divider = 1000;
+>   	clk_mgr->ss_on_dprefclk = false;
+>   
+> -	if (dm_pp_get_static_clocks(ctx, &static_clk_info))
+> -		clk_mgr->max_clks_state = static_clk_info.max_clocks_state;
+> -	else
+> -		clk_mgr->max_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
+> -	clk_mgr->cur_min_clks_state = DM_PP_CLOCKS_STATE_INVALID;
+> +	if (ctx->dce_version >= DCE_VERSION_8_0) {
+> +		if (dm_pp_get_static_clocks(ctx, &static_clk_info))
+> +			clk_mgr->max_clks_state = static_clk_info.max_clocks_state;
+> +		else
+> +			clk_mgr->max_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
+> +		clk_mgr->cur_min_clks_state = DM_PP_CLOCKS_STATE_INVALID;
+> +	}
+>   
+>   	base->clks.max_supported_dispclk_khz =
+>   		clk_mgr->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
+> @@ -469,4 +508,3 @@ void dce_clk_mgr_construct(
+>   	dce_clock_read_integrated_info(clk_mgr);
+>   	dce_clock_read_ss_info(clk_mgr);
+>   }
+> -
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> deleted file mode 100644
+> index 1fdf344efe1a..000000000000
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
+> +++ /dev/null
+> @@ -1,142 +0,0 @@
+> -/*
+> - * Copyright 2020 Mauro Rossi <issor.oruam@gmail.com>
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining a
+> - * copy of this software and associated documentation files (the "Software"),
+> - * to deal in the Software without restriction, including without limitation
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice shall be included in
+> - * all copies or substantial portions of the Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> - * OTHER DEALINGS IN THE SOFTWARE.
+> - *
+> - * Authors: AMD
+> - *
+> - */
+> -
+> -
+> -#include "dccg.h"
+> -#include "clk_mgr_internal.h"
+> -#include "dce100/dce_clk_mgr.h"
+> -#include "dce110/dce110_clk_mgr.h"
+> -#include "dce60_clk_mgr.h"
+> -#include "reg_helper.h"
+> -#include "dmcu.h"
+> -#include "core_types.h"
+> -#include "dal_asic_id.h"
+> -
+> -/*
+> - * Currently the register shifts and masks in this file are used for dce60
+> - * which has no DPREFCLK_CNTL register
+> - * TODO: remove this when DENTIST_DISPCLK_CNTL
+> - * is moved to dccg, where it belongs
+> - */
+> -#include "dce/dce_6_0_d.h"
+> -#include "dce/dce_6_0_sh_mask.h"
+> -
+> -/* Max clock values for each state indexed by "enum clocks_state": */
+> -static const struct state_dependent_clocks dce60_max_clks_by_state[] = {
+> -/* ClocksStateInvalid - should not be used */
+> -{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
+> -/* ClocksStateUltraLow - not expected to be used for DCE 6.0 */
+> -{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
+> -/* ClocksStateLow */
+> -{ .display_clk_khz = 352000, .pixel_clk_khz = 330000},
+> -/* ClocksStateNominal */
+> -{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 },
+> -/* ClocksStatePerformance */
+> -{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 } };
+> -
+> -static int dce60_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr_base)
+> -{
+> -	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> -	struct dc_context *ctx = clk_mgr_base->ctx;
+> -	int dp_ref_clk_khz = 0;
+> -
+> -	if (ASIC_REV_IS_TAHITI_P(ctx->asic_id.hw_internal_rev))
+> -		dp_ref_clk_khz = ctx->dc_bios->fw_info.default_display_engine_pll_frequency;
+> -	else
+> -		dp_ref_clk_khz = clk_mgr_base->clks.dispclk_khz;
+> -
+> -	return dce_adjust_dp_ref_freq_for_ss(clk_mgr, dp_ref_clk_khz);
+> -}
+> -
+> -static void dce60_pplib_apply_display_requirements(
+> -	struct dc *dc,
+> -	struct dc_state *context)
+> -{
+> -	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
+> -
+> -	dce110_fill_display_configs(context, pp_display_cfg);
+> -
+> -	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
+> -		dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
+> -}
+> -
+> -static void dce60_update_clocks(struct clk_mgr *clk_mgr_base,
+> -			struct dc_state *context,
+> -			bool safe_to_lower)
+> -{
+> -	struct clk_mgr_internal *clk_mgr_dce = TO_CLK_MGR_INTERNAL(clk_mgr_base);
+> -	struct dm_pp_power_level_change_request level_change_req;
+> -	const int max_disp_clk =
+> -		clk_mgr_dce->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
+> -	int patched_disp_clk = MIN(max_disp_clk, context->bw_ctx.bw.dce.dispclk_khz);
+> -
+> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr_base, context);
+> -	/* get max clock state from PPLIB */
+> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
+> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
+> -		if (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx, &level_change_req))
+> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
+> -	}
+> -
+> -	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr_base->clks.dispclk_khz)) {
+> -		patched_disp_clk = dce_set_clock(clk_mgr_base, patched_disp_clk);
+> -		clk_mgr_base->clks.dispclk_khz = patched_disp_clk;
+> -	}
+> -	dce60_pplib_apply_display_requirements(clk_mgr_base->ctx->dc, context);
+> -}
+> -
+> -
+> -
+> -
+> -
+> -
+> -
+> -
+> -static struct clk_mgr_funcs dce60_funcs = {
+> -	.get_dp_ref_clk_frequency = dce60_get_dp_ref_freq_khz,
+> -	.update_clocks = dce60_update_clocks
+> -};
+> -
+> -void dce60_clk_mgr_construct(
+> -		struct dc_context *ctx,
+> -		struct clk_mgr_internal *clk_mgr)
+> -{
+> -	struct clk_mgr *base = &clk_mgr->base;
+> -
+> -	dce_clk_mgr_construct(ctx, clk_mgr);
+> -
+> -	memcpy(clk_mgr->max_clks_by_state,
+> -		dce60_max_clks_by_state,
+> -		sizeof(dce60_max_clks_by_state));
+> -
+> -	clk_mgr->regs = NULL;
+> -	clk_mgr->clk_mgr_shift = NULL;
+> -	clk_mgr->clk_mgr_mask = NULL;
+> -	clk_mgr->base.funcs = &dce60_funcs;
+> -
+> -	base->clks.max_supported_dispclk_khz =
+> -		clk_mgr->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_khz;
+> -}
+> -
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.h
+> deleted file mode 100644
+> index eca3e5168089..000000000000
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.h
+> +++ /dev/null
+> @@ -1,36 +0,0 @@
+> -/*
+> - * Copyright 2020 Mauro Rossi <issor.oruam@gmail.com>
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaining a
+> - * copy of this software and associated documentation files (the "Software"),
+> - * to deal in the Software without restriction, including without limitation
+> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> - * and/or sell copies of the Software, and to permit persons to whom the
+> - * Software is furnished to do so, subject to the following conditions:
+> - *
+> - * The above copyright notice and this permission notice shall be included in
+> - * all copies or substantial portions of the Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> - * OTHER DEALINGS IN THE SOFTWARE.
+> - *
+> - * Authors: AMD
+> - *
+> - */
+> -
+> -
+> -#ifndef DAL_DC_DCE_DCE60_CLK_MGR_H_
+> -#define DAL_DC_DCE_DCE60_CLK_MGR_H_
+> -
+> -#include "dc.h"
+> -
+> -void dce60_clk_mgr_construct(
+> -		struct dc_context *ctx,
+> -		struct clk_mgr_internal *clk_mgr_dce);
+> -
+> -#endif /* DAL_DC_DCE_DCE60_CLK_MGR_H_ */
 
-for you to fetch changes up to 0a6d6ed694d72b66b0ed7a483d5effa01acd3951:
-
-  drm/amdgpu/gfx12: adjust KGQ reset sequence (2026-01-29 12:27:37 -0500)
-
-----------------------------------------------------------------
-amd-drm-next-6.20-2026-01-30:
-
-amdgpu:
-- Misc cleanups
-- SMU 13 fixes
-- SMU 14 fixes
-- GPUVM fault filter fix
-- USB4 fixes
-- DC FP guard fixes
-- Powergating fix
-- JPEG ring reset fix
-- RAS fixes
-- Xclk fix for soc21 APUs
-- Fix COND_EXEC handling for GC 11
-- UserQ fixes
-- MQD size alignment fixes
-- SMU feature interface cleanup
-- GC 10-12 KGQ init fixes
-- GC 11-12 KGQ reset fixes
-
-amdkfd:
-- Fix device snapshot reporting
-- GC 12.1 trap handler fixes
-- MQD size alignment fixes
-
-----------------------------------------------------------------
-Alex Deucher (7):
-      drm/amdgpu/soc21: fix xclk for APUs
-      drm/amdgpu: Fix cond_exec handling in amdgpu_ib_schedule()
-      drm/amdgpu/gfx10: fix wptr reset in KGQ init
-      drm/amdgpu/gfx11: fix wptr reset in KGQ init
-      drm/amdgpu/gfx12: fix wptr reset in KGQ init
-      drm/amdgpu/gfx11: adjust KGQ reset sequence
-      drm/amdgpu/gfx12: adjust KGQ reset sequence
-
-Aurabindo Pillai (1):
-      drm/amd/display: perform clear update flags for all DCN asics
-
-Bhuvanachandra Pinninti (1):
-      drm/amd/display: Migrate HUBBUB register access from hwseq to hubbub component.
-
-Charlene Liu (2):
-      drm/amd/display: Enable vstateup hook for DCN401 to be reused
-      drm/amd/display: add setup_stereo for dcn4x or later
-
-Jack Chang (1):
-      drm/amd/display: Add FR skipping CTS functions
-
-Jay Cornwall (1):
-      drm/amdkfd: gfx12.1 trap handler instruction fixup for VOP3PX
-
-Jesse.Zhang (2):
-      drm/amdgpu: Fix jpeg ring test order in vcn_v4_0_3
-      drm/amdgpu: validate user queue size constraints
-
-Jinzhou Su (1):
-      drm/amd/pm: Fix null pointer dereference issue
-
-Jon Doron (1):
-      drm/amdgpu: fix NULL pointer dereference in amdgpu_gmc_filter_faults_remove
-
-Jonathan Kim (1):
-      drm/amdkfd: add extended capabilities to device snapshot
-
-Kent Russell (1):
-      drm/amdgpu: Send RMA CPER at bad page loading
-
-Lang Yu (4):
-      drm/amdgpu: Add a helper macro to align mqd size
-      drm/amdgpu: Use AMDGPU_MQD_SIZE_ALIGN in KGD
-      drm/amdkfd: Adjust parameter of allocate_mqd
-      drm/amdkfd: Use AMDGPU_MQD_SIZE_ALIGN in gfx11+ kfd mqd manager
-
-Lijo Lazar (4):
-      drm/amd/pm: Add smu feature bits data struct
-      drm/amd/pm: Add smu feature interface functions
-      drm/amd/pm: Remove unused logic in SMUv14.0.2
-      drm/amd/pm: Initialize allowed feature list
-
-Matthew Stewart (1):
-      drm/amd/display: Fix GFX12 family constant checks
-
-Michael Strauss (1):
-      drm/amd/display: Add debug flag to override min dispclk
-
-Muaaz Nisar (1):
-      drm/amd/display: mouse event trigger to boost RR when idle
-
-Shaoyun Liu (1):
-      drm/amd/include : Update MES v12 API header - SUSPEND
-
-Taimur Hassan (2):
-      drm/amd/display: [FW Promotion] Release 0.1.44.0
-      drm/amd/display: Promote DC to 3.2.367
-
-Tvrtko Ursulin (2):
-      drm/amdgpu/mes: Remove idr leftovers v2
-      drm/amdgpu: Simplify sorting of the bo list
-
-Wayne Lin (2):
-      drm/amd/display: Enable bootcrc on FW side
-      drm/amd/display: Remove unnecessary DC FP guard
-
-Yang Wang (3):
-      drm/amd/pm: fix smu v13 soft clock frequency setting issue
-      drm/amd/pm: fix smu v14 soft clock frequency setting issue
-      drm/amd/pm: fix race in power state check before mutex lock
-
-Zhongwei (1):
-      drm/amd/display: avoid dig reg access timeout on usb4 link training fail
-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   8 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c        |   8 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c            |  18 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c            |   7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c             |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c            |   9 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h            |   3 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |   4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  11 ++
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |   2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c             |  25 +--
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |  25 +--
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c             |  27 ++-
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |   3 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c             |  18 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c             |  18 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c             |  17 +-
- drivers/gpu/drm/amd/amdgpu/soc21.c                 |   8 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c            |   2 +-
- drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h     | 197 +++++++++++----------
- .../gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm |  25 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_debug.c             |   1 +
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |   4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_kernel_queue.c      |   2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.c       |   9 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h       |   6 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c   |   3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   |   3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   |  25 +--
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c   |  13 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c |  32 +---
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    |   3 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    |   3 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   2 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   4 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c           |   2 +-
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |  13 ++
- drivers/gpu/drm/amd/display/dc/dc.h                |   3 +-
- .../drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.c |  18 ++
- .../drm/amd/display/dc/hubbub/dcn10/dcn10_hubbub.h |   4 +
- .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c    |   5 +-
- .../drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h    |   2 +
- .../drm/amd/display/dc/hwss/dcn20/dcn20_hwseq.c    |  16 +-
- .../drm/amd/display/dc/hwss/dcn201/dcn201_hwseq.c  |   1 +
- .../drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c    |   1 +
- .../drm/amd/display/dc/hwss/dcn31/dcn31_hwseq.c    |   1 +
- .../drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c    |   1 +
- .../amd/display/dc/resource/dcn20/dcn20_resource.c |   2 -
- .../amd/display/dc/resource/dcn21/dcn21_resource.c |   2 -
- .../display/dc/resource/dcn401/dcn401_resource.c   |   2 +-
- .../display/dc/resource/dcn401/dcn401_resource.h   |   2 +
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h    |  55 +++++-
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn35.c  |   3 +
- drivers/gpu/drm/amd/display/include/dpcd_defs.h    |   1 +
- drivers/gpu/drm/amd/include/mes_v12_api_def.h      |   6 +-
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |   7 +-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c          |  36 ++--
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      | 175 +++++++++++++++++-
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v13_0.h       |   1 +
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v14_0.h       |   1 +
- drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  |  11 +-
- drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |  92 +++++-----
- .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |  89 +++++-----
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c     |   5 +-
- drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c |  11 +-
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c     |   5 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |  35 ++--
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |  12 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |  80 ++++-----
- drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c     |   5 +-
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |  50 +-----
- drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c     |   4 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c             |   6 +-
- drivers/gpu/drm/amd/pm/swsmu/smu_internal.h        |   2 +-
- include/uapi/linux/kfd_ioctl.h                     |   2 +
- 75 files changed, 743 insertions(+), 576 deletions(-)
