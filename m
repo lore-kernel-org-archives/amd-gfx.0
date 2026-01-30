@@ -4,127 +4,132 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A12BE6BF30
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 17:31:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A4BAE6BF31
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 17:31:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A313A10EA29;
-	Fri, 30 Jan 2026 17:31:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0298010EA2A;
+	Fri, 30 Jan 2026 17:31:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yvDf7ErR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w75uBQ/d";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010017.outbound.protection.outlook.com
- [40.93.198.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23C1A10EA2B
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 17:31:01 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013003.outbound.protection.outlook.com
+ [40.107.201.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F085110EA2A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 17:31:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eJmaGVHqkWnpQFWkKQER+YfD3R3TEwjaXxyPx8U91UD3r8ScEqp01HoYpdUNtM7CIaIBB9MfYVvi1WsMbX/k1PypKFKbTv+BbmgLWTp9W17uw6ww2bglkbEZdSWJ6iuBQMyhw4wjoypRWQwDwLz0Vp1MUGm3NOmD1g0TTQPmhKbn072mHm/j3EYbEnTrUEcTjk/w/NwpRgcq1T+3/GJ1BSDgEnHdGTQ9N8xRVhRwd5I9+LmfYOOjVK3M5BySltC3bWNgw8x+ffC8kTsxNpUGVkxoGTa80YkQ/SJlvH6Ce95spNrUQl4Cis2cCYpEVQaEBp4AVXtaidIKnZd+9gW3mw==
+ b=nziFGHnhwMcniIv/j8qdGWZ8m8TqxHOI914jt16mCiGUxa6R9Et1fmR9HaMFIYh4gBuMdFJTdSDAVqiD9PMlblWMq97Usi+Z4WFs6SvqkVXEDeeGckr/9F1ill+qIBTgsJz6QwlDEz/I6+fkXuHHRs7vndmuM+ibhpvX3LElqMFbs1pgz3NDV162K9By0EE6WvvYENMqwpJ/ncNoCpfyE4yDJ8DW5KWPe8xKz+bF5+ewj5qYrtr75v29uukyFtcb+9O6zlrnscPlAIlIBLXg5HzUINz44WOwLeFh4HIcbP0pG7uza4qifZrcO7mEaC9310pUf3Wr019l5pK7jMWIkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rdlNvRoZE20A//i+I2R52lNv6WknKVhRXwjbMcv6zLI=;
- b=lbSzC7g9+j1kh9uSsJ51AmyQ7zbzdhN1W8q133PCSCfXy75cFHFRULkBlYjcKMJK67sS9wXtNi6g0aSlNZ3PFkiJQpcELXiy8r415K01wUFnj2SzhTIXN9e6xxObTRbp9NSbfC3dzXUNz9eg+Um3y7xbugq+0VbPp6HkXeoIdjvms7SAmEpFH27ux94MW+CNNS4rTqyHUG7i9N60UHL7xLC64m3X3Lrg3dJ0MXJ3hp+Qg+vugG4WXDBtWqorkPa7d9Hxk2siV0xKZbYbTR95X+WRIiWv0urfujhwjyH99MhHy6LNMPevagtL5pnewlQEtgV5a/w9ATHAnzx8FQlw1Q==
+ bh=syP7a0NE4+DKJ71oPChpT5o3cVlbyndXjwSe3qV5IZ8=;
+ b=uC13Ch7NFnvnFB9O54a55urV2FyHG6jb4Jlk3+CpY2R/10qJb4MIOJQAiJXsxrQYC19yGSdHuqlbgNKifI+EuGED9ta0V9sMgDECjMCkhUPFOi8hxnqK/SVVCqJwS9ribmNZG2i0tqtwmxnpSKQ8Gn+h1TlZu/G2JXg8lJNKR0gos9zrAVZf80TgzTfKeHRhwf/BIxQyfVFqN9Oo2cq+ntkydDTPzJPaADR5MYGd5ZtdG6/t0eqyvlIOUciCa+IF4ZJimwePiUiszm2C3ugQdD88ShMURL/hq1+YiSw2aMt0ZnQ27PcTRuKAq4ImRV8oMeBze803EaAGoB0Imb0qyA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rdlNvRoZE20A//i+I2R52lNv6WknKVhRXwjbMcv6zLI=;
- b=yvDf7ErR/L7LNLDoLmx2pwLmPIljhn92Sb+uA0OdtyTXKMvceufp1eK6W5PTweGkXBHBj3Q5JgC/fKlBgAWQkAa7F+z2mVAtxVAfdUnfccMdBA9g18yh6AoD6BpSpNqp+STXJWrLUhno5GuO6mglUJ0t8ZnwyphbyC68RwBm5FQ=
-Received: from BY3PR05CA0050.namprd05.prod.outlook.com (2603:10b6:a03:39b::25)
- by LV8PR12MB9450.namprd12.prod.outlook.com (2603:10b6:408:202::13)
+ bh=syP7a0NE4+DKJ71oPChpT5o3cVlbyndXjwSe3qV5IZ8=;
+ b=w75uBQ/dPqgmb8RPAv2a3vsd//fClGnuSOzici4335iL6tIJB1Muip6wR/wQTZH4WL+srkYbdlR4iELaTxp2qRXyeCq/zoG6A0sRBzgzXfqA9lHL+pQ2NGDqTHuSCj2dtc35FOk3W9Unv7xfqsaAbHBY8u3/VtSEpqwfPxE6DMM=
+Received: from SJ0PR05CA0128.namprd05.prod.outlook.com (2603:10b6:a03:33d::13)
+ by SA1PR12MB6995.namprd12.prod.outlook.com (2603:10b6:806:24e::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Fri, 30 Jan
- 2026 17:30:57 +0000
-Received: from CO1PEPF000075F4.namprd03.prod.outlook.com
- (2603:10b6:a03:39b:cafe::36) by BY3PR05CA0050.outlook.office365.com
- (2603:10b6:a03:39b::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.5 via Frontend Transport; Fri,
- 30 Jan 2026 17:30:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.10; Fri, 30 Jan
+ 2026 17:30:59 +0000
+Received: from SJ1PEPF00002327.namprd03.prod.outlook.com
+ (2603:10b6:a03:33d:cafe::92) by SJ0PR05CA0128.outlook.office365.com
+ (2603:10b6:a03:33d::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.4 via Frontend Transport; Fri,
+ 30 Jan 2026 17:30:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF000075F4.mail.protection.outlook.com (10.167.249.43) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002327.mail.protection.outlook.com (10.167.242.90) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Fri, 30 Jan 2026 17:30:56 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9564.3 via Frontend Transport; Fri, 30 Jan 2026 17:30:55 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 30 Jan
  2026 11:30:55 -0600
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 30 Jan 2026 09:30:55 -0800
+ Transport; Fri, 30 Jan 2026 09:30:54 -0800
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>
 CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 01/12] drm/amdgpu: re-add the bad job to the pending list for
- ring resets
-Date: Fri, 30 Jan 2026 12:30:31 -0500
-Message-ID: <20260130173042.15008-2-alexander.deucher@amd.com>
+Subject: [PATCH 00/12] Improvements for IB handling V8
+Date: Fri, 30 Jan 2026 12:30:30 -0500
+Message-ID: <20260130173042.15008-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260130173042.15008-1-alexander.deucher@amd.com>
-References: <20260130173042.15008-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F4:EE_|LV8PR12MB9450:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c2c51dd-974c-425e-911d-08de602553cc
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002327:EE_|SA1PR12MB6995:EE_
+X-MS-Office365-Filtering-Correlation-Id: 02a7c65a-55ae-4c41-bcaf-08de60255316
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?I7IpNfdAm5SuvMZPVKFHgpxtpVv6G71JuWbZZqDuINycIZqefoQGtQRq+HzB?=
- =?us-ascii?Q?u9i0Na3cFnLnTIUJ53WoT5WF2roqaYr3szsJDtXVGuzPHuh5hoEG6K53yiUo?=
- =?us-ascii?Q?tEiceIxjc55090MTM62VhU8Ydygjxw1TTCLWylwtgwpU/NoyF/SRoDekNzIS?=
- =?us-ascii?Q?7p8PNG+/yoC7FHYXjSvr6896bsVVvgkqyQ1CorZWYLWbU+1ZdVCk4iEJE4DE?=
- =?us-ascii?Q?mr0l0G/F/DeOklD/g/LFkne+ox8eUBpJcuCAqPLxKu9CdKlJrLLrWjSQXbtd?=
- =?us-ascii?Q?PQ+DhiWVCWnfX9rEsuEVBBNK13i7atJMgY0RuV5PRwGWFzlQnSsvLE1SF1qM?=
- =?us-ascii?Q?5+TFMRF2N4QadS2xvMJo+ueme9KXCAhh4hv8F2xUC+fCgwSp4/3yShCdSidj?=
- =?us-ascii?Q?DCs9gICG7feWyQHicboODNgJiUXQwekrzWdkxAMFkkBc8rUKXAj7GJgrp3ug?=
- =?us-ascii?Q?nXOgtmRpgLo7u2Ydavc9NskV6asUybW3dqQBPwur0X3w7HRQe9r7lOwgVyD/?=
- =?us-ascii?Q?R/oxoaRPuwnzztfFGjgD9Xn2OKkWnKIR4N//dejlo63Lu8IRluImkHurmYGb?=
- =?us-ascii?Q?b03/8cSSjbgpFKbGXbLLMG/MQ0cD1asFGzfCNX4GqOQj06ZkSa6UFEBwnd7o?=
- =?us-ascii?Q?1luo+3izxT3C3aRHrYDRR/k8VMLl45lNjayO/SrmtIyOGJKXafDtbvzeZLcI?=
- =?us-ascii?Q?Ht8Bg98Cql6zacr8nECLseRYyqGWYHTMbz7rcVHx2mx/zGCCBI3zrL2c2GzE?=
- =?us-ascii?Q?Jm/kq6Fd4nTfYsKp3Z4QTGErWZmZyW/fuwh3OIZ0v1Em7MLWteMM9ESUgOD+?=
- =?us-ascii?Q?6Wb8Ujg2XJKnP6kPRCC8GcXIER5MWMi92HvG229R2pNKxnvTS4np8P17tdNU?=
- =?us-ascii?Q?BxjMWPeUjH/0EgpJ4VpTlrv3Rco90GNC7RnQkLaUZxhm+XJbkc0tKGRayY0X?=
- =?us-ascii?Q?8aMnb3/SU2H5R1yPaS0oPzCc41WC4Uu6aN832gR/qSrQkRNjKbX5fsHlL/RX?=
- =?us-ascii?Q?1KYalWZNGlQOc6vWMG7a8xsEPzy6c1EjgOcRTgi2gejj7qLjZqqbsd4Ut5uN?=
- =?us-ascii?Q?xTLnNEfZ17vMJAUZss51GosgPCIV01E3Ko7GRYlknqDCEEs3pTHTDqVggz8G?=
- =?us-ascii?Q?4lE6b9cvHQQ7KgtvQvzaCYzCsLKYJDXFEufvmAjlYXnk5czYgwC53m20KTg7?=
- =?us-ascii?Q?wyKE3UkGIMc+w+aErUmAhyBIa/HOQXeLPZVV31k6x+d9Ect/ZglkFBcjKxp5?=
- =?us-ascii?Q?hK8ti5SpceIYjfN3CsOwVVfmX+gRBzeol8jhUFGuB104EXH0X1j8cpsjpDi7?=
- =?us-ascii?Q?7p+XmuoBmf68sFmAI1qagpafa73uQVO9NBRwulbs7zBJGlkKRizsM73nK440?=
- =?us-ascii?Q?a34AtYk0tdOHfdNY3dUPL1fUDHPI+nOFFjd7WAPo9tNRkU9LHJtuY+X7IAS5?=
- =?us-ascii?Q?sLODBT2VAy1F3OlneeNOVZEcHoTvf6aCYiCAoNunHH7XPFKXhyygsvBqLisi?=
- =?us-ascii?Q?/hPF0R1m2XQ8vCtmYsbtnDr76FWxb6GvQa4OGDfi+hemikJ4yuCxXJKz6qW9?=
- =?us-ascii?Q?UsL/Y9WZFe72nujP3W650AFHFfZ9Wf5XasldcWEjFBlsjf28rhxgS/YUQSjR?=
- =?us-ascii?Q?7Y2dwboAUEemIcQPT996pjw2UGW7fdbw0MD42JWjLAEzUK1p+GJkKq++9s0z?=
- =?us-ascii?Q?5GZlfA=3D=3D?=
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MnB1bExiWUp2bURZaTFCaEdzLzFCWGJMc2xGR0xqakZYUGM1aU83YzFDYThW?=
+ =?utf-8?B?ZW93YlI5VW9HUnU2R1k1N1JFMWhHNEVPV0k4ak8vRVFDOS9wajZNNnAzZlph?=
+ =?utf-8?B?b2pJSTYzM0lYWHpXRUFhbS9YdzljbmppM2NEOXNvSWJWUkRDNHphakZwTkhS?=
+ =?utf-8?B?UkxscUVWWGtDdnRNVHY1NkFLd3RuOFJ5cVk0Q1JOMTIxam1IWXNRVnBncDlK?=
+ =?utf-8?B?Q1drYmtLUmxSRUJySXZXNk5OeEZ1UGhCMUpUemQya25yU1BUb1hmWXVtZnVQ?=
+ =?utf-8?B?QVV1SnM2OU5hOHI3dXpLNjRjRDU3M0FhVTNLVzNvNWpqbklqK1ZHUlZ3czhM?=
+ =?utf-8?B?MnRpOEhIbGkzTFRCK3hrelVzdmllR0d1bkEyNGRTYzJrcGlXVElGdkFrOStm?=
+ =?utf-8?B?YUxaSTdEdmNOSUdwMkpPTjJQdk9IUTNEdjhzWjBXeHd3cW12ZVF3eEN6VGFs?=
+ =?utf-8?B?d25sQk9ZdldiTDZsRFlZQXpwamd3ZW9lMUZpOENiaFlLWkRtbVBwNmFpcmF6?=
+ =?utf-8?B?UlorelhpQ2pIZEQ0RXZMOFRoc25QZDBCbVdJbVlHdzNteWZJQ0NkNWtka2t5?=
+ =?utf-8?B?YUxVRHhBeU9RaWtTVGRkQktlR1lPeklKVTVpY2ZNeUw5UWhsejF0TFc4aDdP?=
+ =?utf-8?B?YWhhQWNNbWlleG51SlNPUGtibUZ0ZmVleUQ0S0liOWRUZjhPTUQzbVhWMzNJ?=
+ =?utf-8?B?NVJhS2RKQWlSa0tGS2RlOWhGaVpMSDNjekYwU3JkWXBzOVBUN3MxUDlLRFFK?=
+ =?utf-8?B?cldRUU1KVnhqbS9NYXRIbGxCVU1IL05EZklWZUR4RDE2eHhYQ295QmdubS92?=
+ =?utf-8?B?VFQvQ3VXbm90MXNaUUZlMlJRWUZNYjhrNTBNTEtnZGFUYVBnRGU1Mkw2a1NY?=
+ =?utf-8?B?NUdtK211UFNjME1iMTlxU1pVby9Ka3NqNjZOY21tNFBSbTBScTg2M0NOK3Yr?=
+ =?utf-8?B?ZEdCeXo3VHZUVHhtRVpFb1FlT1hQelpoWnNhaWJkMDNIVlQ5bHh5S3Q2OHMy?=
+ =?utf-8?B?QVNMemFjbFBqbFhacHdTM3JaK3FaV00rRmFlRlhNS3NpSzVHSnJiRjk4MmpR?=
+ =?utf-8?B?V3J5QktiMVg1Vk5qcGRKcnNIR0N0b09ZMHFrSTUvbytnVC94alYxdTZUemcx?=
+ =?utf-8?B?ODZUaWtHaWgrbGpNbXJwaVp0ZVU4ZzBIU3c5WEVwc2ZuM1dPL3VIM3pickw1?=
+ =?utf-8?B?WE9lYS81bHN6OU1WQmF0dHZyOG9zNTA5enpiS1BnOUdhY0ZEeTJsWnljQ3pY?=
+ =?utf-8?B?d0syZFFVTTJMR1dwMlZjRlJlT1N4TDdPODNRUHdRTjBuckpTNXVWVnRXTzJk?=
+ =?utf-8?B?UzRscDFNZnFlbC9hU1MrS01lWXIyN3YyOXM2NVovbzhJSTFjc01xS3pYVWxS?=
+ =?utf-8?B?aE9PNjZxWjF5YzBYWDJmYW5wUkJYSmdZZXh6MldXaEpVKzEyQ2wwUXgxMWVo?=
+ =?utf-8?B?UldtL2JwMTBjNkZWekZTcjBpSVpCWUZ6bEY3cjYvYUM4dkxTbWczeDU4ZGEv?=
+ =?utf-8?B?VUpZVTNNbVgzOUs1NXVnbjhSL0hzMk83U1hlSyt6Nk9HLzRyQVAxRHUzZXMx?=
+ =?utf-8?B?WEdrU2grdjFOMDlKUXN3anZFWXhLMXRMMUpzRE9BdHErczN6TUMyR096M3F4?=
+ =?utf-8?B?cUlDcmhWcFpvdjZocGlnUXBwMXlSMUZLMGpVaVdvK0MwZ2NmaW8veVMxeUdR?=
+ =?utf-8?B?a2VnU3RGaFBhM3NQTUJxaXZKdzVzUFhzZVBnV0FHZE1Lbk5LOXlodmNJaGRR?=
+ =?utf-8?B?T05seW9QTFA1ZE9zQ1JCamhWUFhONlFxUDlHQ0xuZnBFS3k5OENndVpMSk9h?=
+ =?utf-8?B?UUxld0ovcmtLSXNwRU9XSW1iUzdENWgzNXpJcWhYc0pzdE55UzZKcktOR24v?=
+ =?utf-8?B?SnFnblFnbWFqcVZTajJmbU02SmtJOGpOd29ET1hRRFhKNTJDbzRwRjF4WWFr?=
+ =?utf-8?B?WkZTTnhKMVRYaEJUYTZJY2t5QW1rRWVHTFlydTVtbEJoY2tlSWtIclJ3OThm?=
+ =?utf-8?B?eFJGc3dNWmhnc25lU25CNzRmd1FVNDFOMzFxQXl5Y0lpdk9sOVZIem1OVGU3?=
+ =?utf-8?B?RWFLK3J2ckcyRk83c1JUaE13VjJZU3hMVVlTL0t6US9tWVo4VEc0L2I1RUJt?=
+ =?utf-8?B?RUJFNlZNQ2lXYSs2U1EyQUhrclk2MEhFcnJQZkd4YnRDMVc1VE9hSXRreEtU?=
+ =?utf-8?B?MGc9PQ==?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014); DIR:OUT;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ledX4gpg4w4AfcYS+Juywe/JOQvi9lRnpBMnGu+9x1sb/TBsXR2ujmGIlZVPUyqkzY7JZaOLR2nOdJaxgfwf08k53O0UdkweEYQiddUviqAFFIf+iov1Tva1/+5lMhBhaUlyjIE7tS6PxNERejA0P9zM8+y1SvnnV+H8QU4R40CP4cdWJBFpyyMSROIuoPoU5A2IN6Qdr1bfxwsxOZLRDERlpMBjERjlh0xqCWQsSZqx/WdIhMcuQFuTrBZjv0QyuR6T8qWVb3J2OxawQdDRMB2YwWJ4eVA2mwwMC+Kw6ZKw9aKHCAIB9JLbkEsbJjPtD9Vdllo8i8K2lA/bA+GurWHB+UqSB4xivdQu8tZpGLMej1gCOEWdAYpmm0orGhZdQlMe0LTwwEVSm/kC4cvV+PzqX5IMfQdeXLsBvkOSFyYCGD4WunK1SPSxOBgR22uH
+X-MS-Exchange-AntiSpam-MessageData-0: Nd0zp310tWxpqClMusHSwt7LXlL/JUi2rAaUgGd8sDp1il6IEqcb2xbn3FvJUZFmNdmRaJToK94Elyu6hpLrQxkYquB9NSOi4oEsTdkTxdJBqT+yXFVsKcLvsxP8Y2u38rkyrRcQDdCKURYtPJD/Lc8Ap0bhj2RKfP/fpwHHDlwU0/SZhe/6Ohl1HQWHWCgx+/zZuChaoTfXoij+TSh7pqzx/bSihIRXdv6PtXxrEGaAF7RmFOwBlkZblXlt8PeODrKSOWK/rwqSiOtBFUKMlWKfMTf7qExxKxoCBirO0lBxlntSVdTbOP7XDDfvBgbkRu/6d34G3PV9cU7Owsyeav4e0pM//BREuGI6sCG5Hi9+TZy8HIeJ14QXLHivDvlcfycVIUwCu4hfxTQfFZ9Y9TmmNifr9rXfC4/uOI3TXkuKgm6uL5kTPBnzxdxUx/Sc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 17:30:56.8327 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c2c51dd-974c-425e-911d-08de602553cc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 17:30:55.6427 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 02a7c65a-55ae-4c41-bcaf-08de60255316
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075F4.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002327.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9450
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6995
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,80 +144,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Returning DRM_GPU_SCHED_STAT_NO_HANG causes the scheduler
-to add the bad job back the pending list.  We've already
-set the errors on the fence and killed the bad job at this point
-so it's the correct behavior.
+This set contains a number of bug fixes and cleanups for
+IB handling that I worked on over the holidays.  The first
+the three patches from V1 are already reviewed, so I didn't
+include them in V2 or V3.  The first patches from V3 have
+been reviewed so I did not include them either.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  | 9 ++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 4 ----
- 2 files changed, 8 insertions(+), 5 deletions(-)
+Patch 1:
+Fix for ring resets.  In V8, return the proper job status so scheduler
+re-adds the job to the pending list itself.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index aaf5477fcd7ac..2c82d9e8c0be1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -92,6 +92,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	struct drm_wedge_task_info *info = NULL;
- 	struct amdgpu_task_info *ti = NULL;
- 	struct amdgpu_device *adev = ring->adev;
-+	enum drm_gpu_sched_stat status = DRM_GPU_SCHED_STAT_RESET;
- 	int idx, r;
- 
- 	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
-@@ -135,13 +136,19 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	    ring->funcs->reset) {
- 		dev_err(adev->dev, "Starting %s ring reset\n",
- 			s_job->sched->name);
-+		/* Stop the scheduler to prevent anybody else from touching the ring buffer. */
-+		drm_sched_wqueue_stop(&ring->sched);
- 		r = amdgpu_ring_reset(ring, job->vmid, job->hw_fence);
- 		if (!r) {
-+			/* Start the scheduler again */
-+			drm_sched_wqueue_start(&ring->sched);
- 			atomic_inc(&ring->adev->gpu_reset_counter);
- 			dev_err(adev->dev, "Ring %s reset succeeded\n",
- 				ring->sched.name);
- 			drm_dev_wedged_event(adev_to_drm(adev),
- 					     DRM_WEDGE_RECOVERY_NONE, info);
-+			/* This is needed to add the job back to the pending list */
-+			status = DRM_GPU_SCHED_STAT_NO_HANG;
- 			goto exit;
- 		}
- 		dev_err(adev->dev, "Ring %s reset failed\n", ring->sched.name);
-@@ -177,7 +184,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- exit:
- 	amdgpu_vm_put_task_info(ti);
- 	drm_dev_exit(idx);
--	return DRM_GPU_SCHED_STAT_RESET;
-+	return status;
- }
- 
- int amdgpu_job_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index b82357c657237..129ad51386535 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -868,8 +868,6 @@ bool amdgpu_ring_sched_ready(struct amdgpu_ring *ring)
- void amdgpu_ring_reset_helper_begin(struct amdgpu_ring *ring,
- 				    struct amdgpu_fence *guilty_fence)
- {
--	/* Stop the scheduler to prevent anybody else from touching the ring buffer. */
--	drm_sched_wqueue_stop(&ring->sched);
- 	/* back up the non-guilty commands */
- 	amdgpu_ring_backup_unprocessed_commands(ring, guilty_fence);
- }
-@@ -895,8 +893,6 @@ int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
- 			amdgpu_ring_write(ring, ring->ring_backup[i]);
- 		amdgpu_ring_commit(ring);
- 	}
--	/* Start the scheduler again */
--	drm_sched_wqueue_start(&ring->sched);
- 	return 0;
- }
- 
+Patches 2-4:
+Removes the direct submit path for IBs and requires
+that all IB submissions use a job structure.  This
+greatly simplifies the IB submission code. V2 uses
+GFP_ATOMIC when in reset.  V3 sqaushes all of the
+IP changes into one patch.  Not sure there is much
+value breaking this out per IP. V4 uses the pool type
+to determine the alloc flags. No changes in V8.
+
+Patches 5-9:
+Improvements for adapter resets.  Properly add the bad job
+back to the pending list so we can stop calling
+drm_sched_stop/start().  Return the proper error number
+in the CS IOCTL when the context is guilty.  Now that that
+is handled properly we can call drm_sched_increase_karma()
+for ring resets as well.  Properly set the error on the the
+timedout fence for adapter resets.  These changes also resulted
+in a small clean up the the VCN reset helper. In V8, patch
+5 is updated to return the proper job status so the scheduler
+adds the job back to the pending list itself.
+
+Patch 10-12:
+Rework the backup and reemit code for per ring reset so that
+we can safely reemit repeatedly.  This removes the current
+single reemit limit currently in place.  V4 saves and restores the
+fences rather than emitting them directly and also saves
+and reemits the vm flush contents. V5 simplifies and further cleans
+things up. V6 reworks the IB schedule sequence to cleanly split the
+vm fence state from the IB fence state.  This greatly simplifies
+the reemit code as the VM state is no longer intermixed with the
+IB state. V7 adds some minor improvements to the IB bookkeeping
+in the fences.  No changes in V8.
+
+Git tree available as well:
+https://gitlab.freedesktop.org/agd5f/linux/-/commits/ib_improvements8?ref_type=heads
+
+Alex Deucher (12):
+  drm/amdgpu: re-add the bad job to the pending list for ring resets
+  drm/amdgpu/job: use GFP_ATOMIC while in gpu reset
+  drm/amdgpu: switch all IPs to using job for IBs
+  drm/amdgpu: require a job to schedule an IB
+  drm/amdgpu: don't call drm_sched_stop/start() in asic reset
+  drm/amdgpu/cs: return -ETIME for guilty contexts
+  drm/amdgpu: plumb timedout fence through to force completion
+  drm/amdgpu: simplify VCN reset helper
+  drm/amdgpu: Call drm_sched_increase_karma() for ring resets
+  drm/amdgpu: reorder IB schedule sequence
+  drm/amdgpu: add a helper to calculate ring distance
+  drm/amdgpu: rework ring reset backup and reemit v8
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c  |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c      |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c   | 124 ++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c      | 152 +++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  27 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h     |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    |  50 ++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h    |  44 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sa.c      |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c    |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c     |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c     |  52 +++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c      |   7 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vpe.c     |  37 ++---
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c       |  31 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c      |  29 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c      |  29 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c      |  29 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c      |  29 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c       |  24 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c       |  25 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c       | 139 +++++++++---------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c       | 138 +++++++++---------
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_2.c     |  26 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c     |  29 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c      |  38 ++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c      |  38 ++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c      |  38 ++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c    |  38 ++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c      |  37 ++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c      |  36 ++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c      |  36 ++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c      |  36 ++---
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c      |  36 ++---
+ drivers/gpu/drm/amd/amdgpu/si_dma.c         |  29 ++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c     |   2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c     |   2 +-
+ 40 files changed, 725 insertions(+), 697 deletions(-)
+
 -- 
 2.52.0
 
