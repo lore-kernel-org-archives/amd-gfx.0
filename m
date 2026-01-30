@@ -4,156 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2A9BD73EB7
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 05:53:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D41FBD73EBD
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 05:57:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4540010E900;
-	Fri, 30 Jan 2026 05:53:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7925E10E904;
+	Fri, 30 Jan 2026 05:57:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zYZu240S";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EuAqNJJu";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012054.outbound.protection.outlook.com
- [40.93.195.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 59C3310E900
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 05:53:10 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012055.outbound.protection.outlook.com [52.101.53.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4183610E904
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 05:57:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mw/5diHUdRbbEoe0tzMSeegDbrdzmqFj35fcEKc7L8FZo+rxLFNRXriB9ud/igH6vULj0cFaYRdTplG4Axd65fC+3k8265G/lKH1QrKRAngluefNsGIaWwGZGEdi3bIRQK0ovtzoQOTS+9Hmnm0uGj1WQMpdAFAu5mCsVIsMtUJA/mCrm+WmABKRHwvrdQPeG/dtAYph7WPL8nUkB+IIHvjzQ5bnwCxcfI1MUrcSNHhqyE1MTvKcNXZ4IUEWReDKtZxuTTlHaa9mWW43ae/gPHKf3UKu7nKpkXABJt6FVKBalkpHHclNAzZ0qAxv2mCcg8LNOQK20tmH7w9OaaBRug==
+ b=U4/qSPt1lJfNgdZnYDSfpJA/1RGub0rVBePEIYpNPBf4x0M/d1Rbt6LVjGA5h/oUORTY/MyBeO8LetYtZqEnyaqvWfT7rXCpMdwldNCgnkx5xxX9RGW1JM+xVYrCA6gt4cjcc5GB4rtJIWXwa1kcIM5tOh2DIt8zwWVGJmKjF9L2ce7tMeELe/ADKOWAdZKwW6Ts6lBT1kcQErnrpzdXRgpzhcGTkzZl7BFl2HnRm0nYi3thx3Giucw7cs29l+b+UQwG8S6DtivJt4NnJRZnlaKBwhGLvz5/tihNzyjCfb3xEpl1y29R25urXSwvYnDAs/91MWzOBgwqb12fvE+WwQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=H/eadsYC/7WmD39ltQp+2ZT8yCz1+aDEf2iUyPc2en0=;
- b=dS1KlyCJKFMqsqu0Wo1jAbSdq1gXicrbx2g+Aq2E9UBdzfScy+VayObR0SosmHxIiU7h4fg8qTJ8EbMvrgFnnnVbIFdzZcHjJOr0bgg2a0/hTokQ+WQZmrSS/J0xiD7auZuJulQL0IXzeoyHs+BTaSU1ztglZ0sIPnerupPNLo64bjhOIBRgW9AW6t1+EYqH/Rio/fnGmRzyyq8KQmFVKTKwSNs7VekNOIDVgdxUDyPpVmrAR8bc0VvwhO46VcEsj5KxSCUrJmy1vUVXRS4KvQsuCe3IqyABbAtZELvto5MSb9sBj9DPcy+BOZlzx6+qvPHxPaTjw0v4Gvwh98wuug==
+ bh=EsyjqtcTvPMQOZFMiM19LBLgTl3PFF/h9CWs1zXD6is=;
+ b=MEGLxC1EgZC+7WrYo9AAO6ElF6QbAOEEPEU36rJ/0o2rNPoKup5zClusmjgO826/t3Zo1Daa0BSNv/EGCzn9ezxvmN86CL2HeQ9kEv+s7zbW+uHM0+VCorq/MlI0vr+zGSB8hlUPSXwyQ/12nlcq53ncoJz9LzefaiZJRRYB0EHbhgS1aeh5t20ZlgQJFJfbdZsqpmcDvkaqml8vm3Ox32iAwK5HlnPVU3iF6KxgeCSgyhhYbXl9dk3D8XEzC8nR7n/GsX8rG5uyaa4DP4mAPxnk1Bl2iQs7SCccM6xHeMIrC4iUVuoql/PKyafjkmQ2gibHHCqj321Gd3pqUB7NeA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H/eadsYC/7WmD39ltQp+2ZT8yCz1+aDEf2iUyPc2en0=;
- b=zYZu240SJc+qYJK3yJmtrBvlsMb7JjZipzlmI9mAbPXyYAZ6KMPFA+nykLMbJB1JJgWrtXeE8HZMk2wIgko6ye4Qk298cE/Hqb4VGetl9qEpE4GYTSt9tgql/rVNkM2ySPDz0GC5CUnuf6UmE4NTsL6c8wDVKM/iC2bw2LOZQEs=
+ bh=EsyjqtcTvPMQOZFMiM19LBLgTl3PFF/h9CWs1zXD6is=;
+ b=EuAqNJJuN6siUuNrqZH4UNGpqbIAcC4nSyMPDbweZu6ilj7de7XDrbUh9FnkGOdkoeDWgZgIyUNkstDv5fihndRWE4aYuZrj/34ZOA14Yzs6foCKTX8Qm1OQhISQr2buKXVa/uTySXol2pPOyD0x6y1uAY1EDVjQh7A3hsIIekg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by IA0PR12MB8255.namprd12.prod.outlook.com (2603:10b6:208:404::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.11; Fri, 30 Jan
- 2026 05:53:07 +0000
+ by DM6PR12MB4466.namprd12.prod.outlook.com (2603:10b6:5:2ae::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.10; Fri, 30 Jan
+ 2026 05:57:13 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9564.006; Fri, 30 Jan 2026
- 05:53:07 +0000
-Message-ID: <1736c022-9078-4577-b423-503559c49f46@amd.com>
-Date: Fri, 30 Jan 2026 11:23:01 +0530
+ 05:57:13 +0000
+Message-ID: <b055be7b-cb19-4b9b-a3eb-ee79dbbac740@amd.com>
+Date: Fri, 30 Jan 2026 11:27:07 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/14] drm/amd/ras: add append func for pmfw eeprom
+Subject: Re: [PATCH 10/14] drm/amd/ras: add read func for pmfw eeprom
 To: Gangliang Xie <ganglxie@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: tao.zhou1@amd.com, YiPeng.Chai@amd.com, KevinYang.Wang@amd.com
 References: <20260130022950.1160058-1-ganglxie@amd.com>
- <20260130022950.1160058-8-ganglxie@amd.com>
+ <20260130022950.1160058-10-ganglxie@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260130022950.1160058-8-ganglxie@amd.com>
+In-Reply-To: <20260130022950.1160058-10-ganglxie@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN4P287CA0128.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b1::6) To SA0PR12MB7091.namprd12.prod.outlook.com
+X-ClientProxiedBy: MA5P287CA0074.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b3::8) To SA0PR12MB7091.namprd12.prod.outlook.com
  (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|IA0PR12MB8255:EE_
-X-MS-Office365-Filtering-Correlation-Id: 29b79f90-23c2-4b56-6de8-08de5fc3d74a
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DM6PR12MB4466:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3a1f5cb-b486-47f1-505b-08de5fc46a14
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WUErUDJSSzZRWUVxcDJ3Uk9Ka0I5RGhlNWVxdk1xcjdzUURMSnlSK3VHb1ZI?=
- =?utf-8?B?SE14WmMyRzljQXVDNFFOeUN0RXllT0toTm9WdzdYSno4bjJ6YUVPbWJrSzQv?=
- =?utf-8?B?K042TVV3U0lCbVZQUm5SaUlDellXTWpqZlhCOTkxWGFIWUVUZHdNRndSRlFZ?=
- =?utf-8?B?SUh4NE95YVJjRWQrdDczVEJwS0hjQlhZdEZubndzbmdDa3l3Y1c0RmI4dG9S?=
- =?utf-8?B?NllNTGNVbUJjOTNHUnVyM2lsbU5NT3dIc1pHQ204eVRsVnFJellDdEd6WE11?=
- =?utf-8?B?OWE5eUhaeUx1QWJnWEJTNytkMW1YSTM5SDhjeUVoSVdtaUlFNUo5bUFvQjB6?=
- =?utf-8?B?OWxHYjBMc1Q5cTVCME9tdS9mOWV4M0laOGJRTFFyK00rNzhNVjJvL3RtcEcx?=
- =?utf-8?B?ZXVTdG50OUc4anNnTDBjeE9lcmpLcHd4b3BXaXhaUlRpc29tM0Fid1V5NVdH?=
- =?utf-8?B?VytQSW5FbHdtYW8xakRyVXRaTXJnVVhQUEUvNHNCbWdKTTV6dm5EcmNwb1VH?=
- =?utf-8?B?alY2UklPZ21IMlNXUWpwR1hxZEpmSkJvQzN4MzZlbUJ1d2ZxNDZFKzlzdmUz?=
- =?utf-8?B?aG5DZ0YyaUlvTVE3elpLOE9XSjlBbkl2VjZlZEgzc1JJUWZBbUZyQ01ONVV0?=
- =?utf-8?B?MDl5R0pFaVZwaFFzN0hocjU2R2ZmbTRua2hiREJSK3l4WlQyZ2FPQWFPRmxN?=
- =?utf-8?B?N3RqUkcxWTJONG83NUw2T2FRZnZSN2dDb2FwbWRwYUtXdUFSNXVqZDlQSHph?=
- =?utf-8?B?R3NsbE9ENEtzWHRid3lHWU9JS2Fsb05jSVJpWGE0RjZ6Nm8waXJUMnVOZW9q?=
- =?utf-8?B?bVdVWWlzeEpZWExjS0QvL3VYUkdnWnZjRWw4NWk2dWtnMDRKUjIwTE5aQWRW?=
- =?utf-8?B?WUFub3Q3NkVwbmRwczdhQTBhVU5LRmRXUTNzR3JEMU5ZY01sS3dtSU9ZU240?=
- =?utf-8?B?V1dJcStteXFWTHNFTjAvc3JsY0J0OTcyOERDZTgyemIzWGoydllYamIzTjUx?=
- =?utf-8?B?TlVYNWoyRkJwWmhoMVRkUndUYmJlVzlMd0JOVlovRjR4Y2d5MSt4NWFvRnFE?=
- =?utf-8?B?N2V3QlRFMFgxS0xPS05sL1dOL3duWm5obnNzNUU1T09naDU2RXUraFlEWFk4?=
- =?utf-8?B?b1diZTZvSHdFeFlLQ0x4alR5eDNMdjFtODYzNU1Ed1lMbm42MjhWOHNFWStz?=
- =?utf-8?B?THpGaWlNd1poVXFHVzJzdjRreTFaemxrUWxxb3lGdkFrU3NpOEwybGZENElj?=
- =?utf-8?B?elpGbkVmcWh4emhIWkY0UXRpL3UyZVNGeEpKRGJ2aW9hNlZkbXZVWnBXZXEx?=
- =?utf-8?B?aExVZU5qYWtVdGlLZDQ0RmptYWhPd1lGY0JKcTBiUjdMeThoaStYR2l0L3ZH?=
- =?utf-8?B?dFQrTkhmZlhNdDlHRldHNlJYMllMWHdoVGNrYy9sUVBkVU9tNGxQeWJJTWJW?=
- =?utf-8?B?dXMraU5tR3V4MzZHMUlkekM5L2dtYm9hQkljQXc2OFVVZmpnMkExeWlHaTUw?=
- =?utf-8?B?Z2ZpNVRrRU9RbGZlVCs3bnc1b0xLdVZGTHN2VHNOTnZqeDg5YWV2a0lmNTZm?=
- =?utf-8?B?d1MyYkk1VWl0SzZYcFg0TFJ1OGtpdTQ1bGw2bWhnTklwcERGWDNORHdrTktV?=
- =?utf-8?B?NVlqVVQ4bURRcmRMZWFzQmZQYlMvWmdwU1ZIQ1AvNnRXd1hoSGMxUDJGZVdM?=
- =?utf-8?B?dkk5NFFqS2g4Q25RdnFpakZ5cEcvalVhOC80UysxNkY0ajZFOGVCRjczb3Jo?=
- =?utf-8?B?VFhnQTVqT1U0K0VoNmcycGZQZHBOS0JUSkdCMTM0U3FXc3ppYXI0U20vd2tY?=
- =?utf-8?B?a3gxUjdWSm5aOU9xT2dUOXlmNW9tSjFYQmFnTS9EaktqbEtDOHRqWDhERnJP?=
- =?utf-8?B?UUdCRVFyZFV3NXV1aWFHZWlIMlg2REQxTlFZa2VmWllNREpMaXpJZ2FHRVJR?=
- =?utf-8?B?cVJlRXlTd2JhTERTbkJidzNTbUN6SmZhV2pzcUNnOG5NMmR4cEtUWFRMeVJG?=
- =?utf-8?B?QlFXT0JqUWpBL1J3Um50ekV6RjZGVk9rYlUrUWtoR0YxOEZCaGVwZm53Ukcz?=
- =?utf-8?B?QkgyWU5QbnBhM3NCdnFPVjh5ay9pMFJsSU8vYXA5bUJLNWlYVlRkbG5GbkhT?=
- =?utf-8?Q?59tU=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?andLR2FZSERNM3hUQldRVit2V2JkeEgrMGJmYjdVNmFISDZyNFRTMmJRQko2?=
+ =?utf-8?B?Nk0xdjdQV1dHc1MrMVJxSEhJZERyVUZMSWt0dk9WK2NWYTQ5czdaWTFyczFr?=
+ =?utf-8?B?ZVorZmtwZlBUZHROUUxKWmtYS2lETC8vcjVOOEllL3o3Q29xMGpKRU9SMndp?=
+ =?utf-8?B?Rm5ZUllyR2ZBcHJ0ZXRjUkRWbVN0RkdvUFNtQndNenE2YzJnNitBR1lpRGNl?=
+ =?utf-8?B?alg1b1pXcmI5REwybUdBWWxSZmthRlVyK3ZOKzNac1lUMkJjbG0zS2d4Slp4?=
+ =?utf-8?B?UklFSTFpYTlTeGoweDQxNFFHZFpSZ0xDNUNzeTZiNkNyc2NMd0dJUWo0M3Jv?=
+ =?utf-8?B?WWtGekZnMU9UK0tWQ05UWVJJOE1sMWhRZkNmaW1sWHNjTHEvRXlPemxZeWt0?=
+ =?utf-8?B?dng4eUZ3YnRnZ0NwVFB6bzFvL2M1U1hkTXhxYWgybkVYcGV4WGFaSlJvc3ds?=
+ =?utf-8?B?QUNpYXRURERIemNXYXdUMS9NYXllYjBBbmVkeVoybG01d2RIbXBwMnZTY0dq?=
+ =?utf-8?B?YkFvZ2dhMzZSK0lucy83anFyU0wxZjB1eHYrVkdnYnhUQ3R5a0oxd1M3MTUy?=
+ =?utf-8?B?VkNRcWJqY25jOWQ2bFFWN0xRNC9RUkV1NlFic0VINUwrT3c3MVFuTzR4T3Zo?=
+ =?utf-8?B?VUdKZ2tQTzRDZjZNelZsNzM4a29uZTIrb002eEphL1U1eEdlamdIeXRoTlpF?=
+ =?utf-8?B?M2h0dlQxbTU0TStEdi93Tnl0R2dZWmdMNW9IUldUQlBqcEZJUDNuNXBqL2Rj?=
+ =?utf-8?B?TE01UlJnZUpUTWlpU2xET05icUF6UUdMU25oQlRDMUJhVHkyenUxakZvVGNl?=
+ =?utf-8?B?QkhYaGIyV3A4MkxXSStrODhMN3lCd2l2TUVjS2p3M09DSklZbHZvbTM0ZW5w?=
+ =?utf-8?B?TzY5QTJtd2szTDdrdERoRDFSblpaYU9YV0phUmJTc1I5aHlFMEtSNFdwRVNw?=
+ =?utf-8?B?bS9YQlF1V3FmUUZLN1dmM3U3bFRkcDI0ZlZ5TFE1TTdZeW5LNGlkQW9WUE91?=
+ =?utf-8?B?MTBuaWlWZTFjVkpGQWhQdUwwQWJLTGNZT1FCWDV2SHVabEZRcUs0ZFRxZWRU?=
+ =?utf-8?B?bytqYXNDV2lzMnF2eHdGTjA3Ukc1QzJFTVlqV2x1eWhqZDRkbk5DYUFIaXZu?=
+ =?utf-8?B?ODdvck1MRmNzemIveENETnlpbEZZaVNlaVU0N2xEWGNpV0I5Vytna09JNGs2?=
+ =?utf-8?B?ckg1ZGJETG9FbTc2dVBpUFJ4ejU3NGFEMzdhMXpIV1dQLzZRa2VCbG9kRnRC?=
+ =?utf-8?B?d0NKWmxRcnFScS9xdU5hcGl3dy9qYW0zOEkvd2s0VU5uSGFMZTVvRVA2c3g5?=
+ =?utf-8?B?OUxvN3VXN2hJM0FKSi91VjBjeGV1TWc1NHdJRXluV1Y5RHZIUzVHMUNVcHov?=
+ =?utf-8?B?YWIxNkRoSzVKZ1JZNkcrWlR6OU5wMVdsNGhhN2dGeVA0eWkzSktXaWM1ZXcz?=
+ =?utf-8?B?RVJwcDFiMlBZaWQ2a1VSYUNZbHhFVk92MjNZYkJ4V1FiRkhpVzUvL1IzMVAz?=
+ =?utf-8?B?Ymthc3F2akNrcHFUTnpQVmJMUkowOUQ0cVhHSisyQXNvYVNUU2FZWGt2UVRB?=
+ =?utf-8?B?TER6WTBPaytsdVZEM3JXc1p2dEl2NGpBTmdxTkw0dW5uNm4xN2dVRytrSUoy?=
+ =?utf-8?B?SlpBRHJld1VUSDdLTlBqVFpsVEtoaXlKc2hudkU3NVpURlFWWjhxNXk3OW9T?=
+ =?utf-8?B?MGRPcUtlZjNNMFRRdWNiTlhsNTViYkliYVNCRGJYcFVIZ0dYTXdQZm5xYkx3?=
+ =?utf-8?B?ekx5TEFZWHZwNXF3VUE0eEVDT01TK1c5REpwZVhCdUswS0ZQcmN5RjVBU0U3?=
+ =?utf-8?B?Mk96ZjUyOUJCSFJjS0tsWVhpL0t3U29JamNmaXRReS85RXNCS2lwc1dwOVFw?=
+ =?utf-8?B?WHViUnNacElwWnNTelhMRUFKSUlLWEQ5N2FSb2ZoT1NDNjhnZlZkVjQxMlN5?=
+ =?utf-8?B?ZVRnMVN6MEpOL1ZHY3ZWamZSUFE2T1NXTzIvZ2JxOWxaeWNRL2QzNitIRjdS?=
+ =?utf-8?B?c0llTGJ3YXlWZUhDL295S0RPYmNGbWsxNUhwY1NVcm1uMzdyL3RDcXdxbE9y?=
+ =?utf-8?B?VXpQTm9IOWFFRUxMdEZPSkNlQ2JWRXEzOU0rcGlyWFNCTy9yK2dNZ3RlbkhL?=
+ =?utf-8?Q?lKAs=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dU9CMlBtMFVUVkx5MVVueXJ5b3lnNVU3QzVRWGJNK3RpYSswWHByd2xKZzFP?=
- =?utf-8?B?Q0FYT1RvTFkxSWoyTDAyQ29hMjNFMDJURnQvSUIzdGJXRjl0bWN4eno5UzhI?=
- =?utf-8?B?alhtR2M2cFc4b3h0d0FBZlBIQnh0SDIwcVNhMnFrdnozOGNZbHc5VlJTRTF2?=
- =?utf-8?B?eWNKcjIxQ1NKN05pOXVWWFpTVC84Z29vMWRLaVR5dlYyNW5HVXRqSUcyZjdw?=
- =?utf-8?B?amJTcDhoK3BRWFRUb3Q3S1lvRkRFazRTa0dLaDZqd1kyeHhuM2lDWFBxcTBl?=
- =?utf-8?B?OGJBdkNFYzgxUDFSM1I5aGFZeUg4MUlBSUZVS0hNME5IcS9IQnliU3dkQmYy?=
- =?utf-8?B?YUUxTGVxR1BEWTFsSk1LWjdiWWJoT1ZUUC84bFVRWjFnbi9xZUdDUGRLTEw5?=
- =?utf-8?B?RGMxekpIZmRiZE9qS2J6VHFzaGJGODk3NGRsSWFRaWNzdTloeDJWazhPb0du?=
- =?utf-8?B?NXJkUFZ4aXhMNUMxT280VUtYWm13Tk1hY29mQnJLQXpwL3hkVkZOUlg0QWFD?=
- =?utf-8?B?b056NFpPaEJwN2JqaENwTnp3cXJxcHE1YzF5VXJhL2ZmLzNQZ2ZKN203b2l6?=
- =?utf-8?B?UHdmZDZBbFo2M1pOTW0rMTVXTVhSdHdySWd3YWQyVVRWY0NJR3hsRnpRZDVQ?=
- =?utf-8?B?QVNmNUw0aTI5R2NPR0lqQzJYL29RVmpFUXIvOFFxUlkrSkpaNEJLVmZMZFlY?=
- =?utf-8?B?RjVIK2luN2x1OWh6TzlTWmEvT3BJNUo2Ull2MDJ2MEZJeWxFYndnQU1welEy?=
- =?utf-8?B?YUhHbllxYjc2Mjg5QTJCVUpFclVKOGJ2RytXQ28vd0R0UkJyODBxTzFnV01s?=
- =?utf-8?B?eWU5SHh5QUZRTkFyc244L0VBRitRcU9oejlMWGUweW1peTg1ZWJDRmppTXZG?=
- =?utf-8?B?bmxlaXBkdEVrSHQvalowaFd2b0FHQjl2NVRINEFnZGpDdy9qSWRvcDROdEtQ?=
- =?utf-8?B?enBFTmxDR1ZVajVPVW1ncVh3ZEkycTlJZTlaQUJ1SWRCSlpKUHJsRTdUWDNs?=
- =?utf-8?B?bVRKSUFlT05NQW84bFhabnlQL3NxVTJJOVVNbTRLbEFmOW9tWW4zNCswek5Y?=
- =?utf-8?B?ZSs3ZWV6RlZZdSt3U2Fzd2xBU0QzcXZxb0I3KytLdTdWRmdIRklJQy8zbWdn?=
- =?utf-8?B?WXVGMUJMdEVkNVltYmJkdjZERUpuQkVTMzVjWElpTWQybS9DUGtOdHNjcWZS?=
- =?utf-8?B?V21wNTBsRFcxS1hsRHJWaVRQTWJIcDFSODJVZE1VOXhwYW52V3RmWjZUZ0hx?=
- =?utf-8?B?M2YydDhEZS9qOFk0aThTKyt4cGFhVVJxTkxDRHduam5SVThEWmNnb0E1RkVJ?=
- =?utf-8?B?Y2Uwc2pSRjZVUHdLdEJCcm16MWpjTXloUVA1ZFdxc2trRGlQSEVyYllYT200?=
- =?utf-8?B?SXZ6aE9odnZOVVpwNzdZYXJOdDF6ZWh1VUdnVW9oL05wenBHSE9BdkRWcTQ0?=
- =?utf-8?B?RVdqQjdUeHB6UlZ6ZktxclNrd1BmMCt5ejFRRUtjdDU2V3FNOVdUcmN0ZFJ1?=
- =?utf-8?B?bXhqKzFpSjFlc2xtNUFUNGZ3TURhL3BlWXBuZ1VlMFpBWmFGTmFGYnd6NE5v?=
- =?utf-8?B?SStaNU1qRllvdWg2MXFOL1B3aDV2V0hVd0pTZ0psUlR4NWJvZ0crVE9OelQ5?=
- =?utf-8?B?VWNFcWpYblBKNTVYN2QvVzNpSVV6UlgyYlpFL2QzZzdnekhXUXRhQnpxVFNJ?=
- =?utf-8?B?S0NEbys3L1I5UVVybzd6R3prZTBFNllGa2xLNzJjZXYwMlZwOHpXK1NhOGlm?=
- =?utf-8?B?Y1Q3R2o1RUhYVi9lTTl4RUU4SE1ma1BDR1dMeTNWdEMzWUlWdmRzVzlUMW1w?=
- =?utf-8?B?OHRBN2JIOG1XeURaQTZ1NkdBaVFhNk1sT0Z1RVFBblVwUzBKbzAxYVV4d1V1?=
- =?utf-8?B?bGtKRVBOVjkxdzFyTUFWaXV6dVhnQkZLOXY3ZTNGYTRwdnczWWwxc0tZYTY5?=
- =?utf-8?B?emcwcEQ2UFFaRDZrb0hSRGRWT0dzSWdFbTFTeDN1YlU3eU5rT2RHVHJXeURZ?=
- =?utf-8?B?WWZ1dW1Ocm1KZFRvUFJmTGM0c3dVaWFhTE9uMlNTTTQ5NExML1U4NHN0a3Qy?=
- =?utf-8?B?U3hpcG1ndWxFeFc4R0lmc0FEYkk1bllMZkNsRHNlUUdvbnlaTm9oc05CQVpD?=
- =?utf-8?B?QXM2U1pqRFg0YSttWDgxdFRwVGNHVnNpMmI3RGpPa2ZkNXErUHVoNFZHWTJr?=
- =?utf-8?B?L01UY2NjY3lueGpFY2d2VUxCdnJPMVltbkNXZmExSnIzcjg2SlFYbWY4dzdv?=
- =?utf-8?B?ejNEaW1OZ2EwSjhyRUEzSWh4NExDOFEwREZJcnJTenFQWWpYS3pVeHFiMXps?=
- =?utf-8?B?RnJGd1N2aXd4cUNDWnQzK200TzlaWERpZlphUnFDTXIxVk1PdUNGZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d2gvY28xdW5BZ0J0MXdNT1gxVzlWME8vdWhMVEY3OFJiMXQ3Rzd4SHpYdDZr?=
+ =?utf-8?B?YmlGZHFoZUVKUXFWV2F2aXZTZ01OTHR6QTJwMjhOVVVtMjBhanhVL1ppeGgx?=
+ =?utf-8?B?NGl0MUh1enExQTYvck51NEwrMHZONkNmZEFRamJLNlZ6c3lHeXIxbDNQU09X?=
+ =?utf-8?B?VWhnYUdFOTNlTFY3dGhkNXpLWkpRYlpZdllYM3U0RGZvQVZKUzZvVzBBQW9v?=
+ =?utf-8?B?T3UvNlF5K0dXT1lhQkZyOXBnZ1Nxd29DdGtMcGtzcitocW5hSFAyYnN3eTAw?=
+ =?utf-8?B?L1J4TC9zeTkxUzRvNHlRYjRFVkxxaVBZTDRRZnJTL0hMQUkraC9XWWEwQW95?=
+ =?utf-8?B?ekQrUllTNW1zRXdseTMrRFR1TFZKTFcvUXkrenNWTS82Vk0wbXd4VjdBUTQy?=
+ =?utf-8?B?dTBQenJnZVdTcU9jc0wyYjdGOFlTM2FYa0d3SngxaVRxbENzeWRkNk5oOFNw?=
+ =?utf-8?B?algwWExPeGJSajJPYXlneUp6SXdwaTRJS3lpSHdLS21PenRKUFgyZHNwUXAx?=
+ =?utf-8?B?VWIyZUlQSVhLN0NiSXRHMlRqcWc5dGswK2I4Q2g3Z1NhRWZPajA2ck1jTENq?=
+ =?utf-8?B?MmZpSEhzTDJNZDdTQVd2R3gzVnJtNTd4R0grbEZ5bzZ2V3NxL2JVRjAzZE8r?=
+ =?utf-8?B?TmJyaW9uOWNXMXZ4aUFUbW1Deno2aFlFY3VuQkZBZmUvUXY0RGhwWnFwZEo5?=
+ =?utf-8?B?SEJNemhHMmdxUmVTaUdqam1CSGQvVEpGOWtEQUtkM3R3UCtkQ2hjYm14QVFU?=
+ =?utf-8?B?NUl3S0VUNEtqbEVaK0dVKzIrTG9Pd0tFNW02U3dtZm1uS1pMc2M5WkdGMk9W?=
+ =?utf-8?B?MU56YUQrOWhFS1dHRDNWZ0IyNERQQmh0VlV3SFUzT3poOWtsZkcyako0RjJ5?=
+ =?utf-8?B?ZlVkZ3RndFRxRU5ubUdRUFMxN2NWaWRzTGM3U3QxRC9QZ0ltSWs1T3pnQVRG?=
+ =?utf-8?B?VDQ1bUlueXpiWkRLbUMxTjhmL1VUS3k5VStMbUpIM3grV1NIcXF1S0NzVHQ2?=
+ =?utf-8?B?UWxFQVFpL0kxTmxnRHo0SmU0NlBkYXNkSE9BVUhnS3B6K0QwMlo5djRUUEhU?=
+ =?utf-8?B?ck13bmorZi80SEE4c0kyRVN6WldPUzBkWXlMbXN4ejBycGh0cnpSVWU0ZTcr?=
+ =?utf-8?B?UWdLbFBnSnpwc3c0dGNFRGtLeGp0TWZVcXIvUHBLZnRYdTE3ZE91Q2NOZXBn?=
+ =?utf-8?B?WWpFZE5UMWRTTitFbEc3STJua2pZUkg1d2s1L3RJbGNEampYdW5YZlZjSG5u?=
+ =?utf-8?B?ZnB0ZDJGdzBOQ0NUU1huS1Y5TDdYZXk0aW5aRkQrN2pzanRRbVlQd01LNnR6?=
+ =?utf-8?B?QVV2TnhLT0tIU1hQZWRCdzBLRWdjMUdZQ2lKbi9yNnZBRkFickNtTlEyTHVJ?=
+ =?utf-8?B?N25xUWJkbHM5MVliRFpHTDF4RUZLOUFlb1p5MGgzanZCZXJTQ0ZZRktxRVRs?=
+ =?utf-8?B?bCt1N1ptWk1UQlRTS3RHNndOeHlCb2VyK0tVc3pWci96Z2NiT0NYeGNlcGVD?=
+ =?utf-8?B?Yll2VUZqOFdIc3hMUWtBWTBWaTlpRWFqRnUrQThPOVFqNWw3TVduUWVZbTBS?=
+ =?utf-8?B?UUg0cHBtOVFEbWxTa3Z5d3lJQ08vUnVMZDhrU1VxcW5SRTVWRjkxMC9Nb0Rn?=
+ =?utf-8?B?aUNobHVVZmF6eEhoakNUUFJhdmVnZVFxUG5scFd3WkdwdDljbzN5K0lMSnZD?=
+ =?utf-8?B?WjNacy9pVXhybVNxakJreUt6aWQ0N3c3eWtMZDBVejNuZzJacFVCUkkyaXZx?=
+ =?utf-8?B?TlFGVXl5RkV4R3ZLbGZ3cFB2ODc5Y3ZmQ0hGTFZRbVZ2NW93SFBXYmE1T2VY?=
+ =?utf-8?B?THRjTk4vRHI3QlRYTW5Uc3kwZ3dQZHA1WW5ScTIyT3NGdlJKZWYvWGVzUlRJ?=
+ =?utf-8?B?N0xHMWxOdWhVTGRCaURYdTFXMjhvZmVxb3BjN3dBaUxYQ2F3OFFpUVZoem51?=
+ =?utf-8?B?TVV6QjBJbkZEakZOOENBZUd2bTRGWXhFUkVmc0oyRkhpOTAyc2N1UTBzL0tI?=
+ =?utf-8?B?R3NjZTl5amF1TlhKTG1qV3dmM3MxcHhDRVM5ODk2cVlsZmwwOWhNcGFJa2dT?=
+ =?utf-8?B?eStwdm85ZFdaazZGQUZmVzNLMS80SUdZTzR2ZWtoUzZCTlRvKzFZZlM4cjJE?=
+ =?utf-8?B?RmxaRjFzT3Z6MVlvQ0llR1dIZkdjQXVIMVI3Y2FiUVdTaitXQmx3bHVaVWFw?=
+ =?utf-8?B?WXVQVFZhYXNKSVhBRzlFWXZuQnA3TzJuN1FRQWNseG13RTRVenhGYmdqK0dr?=
+ =?utf-8?B?UWhOQmdSZTg0QlBCRGRueGN6a2V4N0xkV3A5eUl4NjlUcm1neWtJTTh0Y1dH?=
+ =?utf-8?B?Y2lGZmYzcS9GWVg4LzI3NlZZT1pGaEJLT0hJaVdQU0k4Wm4wVFV1dz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29b79f90-23c2-4b56-6de8-08de5fc3d74a
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3a1f5cb-b486-47f1-505b-08de5fc46a14
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 05:53:07.2106 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 05:57:13.4815 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qbec9/Jzoz1wpK1BlTV0ZCQSuDXugDS0S4aZdLEFN9ygtnJ4r/x0cXcstcjVrAnw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8255
+X-MS-Exchange-CrossTenant-UserPrincipalName: ylQTSPhWyEMAuawdTeC0j3cx4/yVwNxrT/KSfPynTBU7Aa/ulPEH/Dc69KeN+pxi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4466
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,102 +170,218 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 30-Jan-26 7:59 AM, Gangliang Xie wrote:
-> add append func for pmfw eeprom
+> add read func for pmfw eeprom, and adapt address converting
+> for bad pages loaded from pmfw eeprom
 > 
+> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 > Signed-off-by: Gangliang Xie <ganglxie@amd.com>
 > ---
->   .../gpu/drm/amd/ras/rascore/ras_eeprom_fw.c   | 39 +++++++++++++++++++
->   .../gpu/drm/amd/ras/rascore/ras_eeprom_fw.h   |  2 +
->   drivers/gpu/drm/amd/ras/rascore/ras_umc.c     | 10 +++--
->   3 files changed, 48 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/amd/ras/rascore/ras.h         |  1 +
+>   drivers/gpu/drm/amd/ras/rascore/ras_core.c    |  5 +-
+>   .../gpu/drm/amd/ras/rascore/ras_eeprom_fw.c   | 70 +++++++++++++++++++
+>   .../gpu/drm/amd/ras/rascore/ras_eeprom_fw.h   |  5 ++
+>   drivers/gpu/drm/amd/ras/rascore/ras_umc.c     | 27 +++++--
+>   .../gpu/drm/amd/ras/rascore/ras_umc_v12_0.c   |  2 +-
+>   6 files changed, 101 insertions(+), 9 deletions(-)
 > 
+> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras.h b/drivers/gpu/drm/amd/ras/rascore/ras.h
+> index ae10d853c565..05c7923e8f0f 100644
+> --- a/drivers/gpu/drm/amd/ras/rascore/ras.h
+> +++ b/drivers/gpu/drm/amd/ras/rascore/ras.h
+> @@ -241,6 +241,7 @@ struct ras_bank_ecc {
+>   	uint64_t status;
+>   	uint64_t ipid;
+>   	uint64_t addr;
+> +	uint64_t ts;
+>   };
+>   
+>   struct ras_bank_ecc_node {
+> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+> index 1f2ce3749d43..fe188a5304d9 100644
+> --- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+> +++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+> @@ -239,7 +239,10 @@ static int ras_core_eeprom_recovery(struct ras_core_context *ras_core)
+>   	int count;
+>   	int ret;
+>   
+> -	count = ras_eeprom_get_record_count(ras_core);
+> +	if (ras_fw_eeprom_supported(ras_core))
+> +		count = ras_fw_eeprom_get_record_count(ras_core);
+
+As mentioned in earlier patches, suggestion is to keep just
+
+ras_eeprom_get_record_count.
+
+With ras_eeprom, you may decide the access mechanism and fork to 
+different paths. That looks cleaner and all common variables can be kept 
+inside ras_eeprom itself.
+
+
+> +	else
+> +		count = ras_eeprom_get_record_count(ras_core);
+>   	if (!count)
+>   		return 0;
+>   
 > diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c
-> index 34a4161251b3..580dd7b09d00 100644
+> index 580dd7b09d00..79494ad16ee5 100644
 > --- a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c
 > +++ b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c
-> @@ -220,3 +220,42 @@ bool ras_fw_eeprom_check_safety_watermark(struct ras_core_context *ras_core)
->   
->   	return ret;
+> @@ -259,3 +259,73 @@ int ras_fw_eeprom_append(struct ras_core_context *ras_core,
+>   	mutex_unlock(&control->ras_tbl_mutex);
+>   	return 0;
 >   }
 > +
-> +int ras_fw_eeprom_append(struct ras_core_context *ras_core,
-> +			   struct eeprom_umc_record *record, const u32 num)
+> +int ras_fw_eeprom_read_idx(struct ras_core_context *ras_core,
+> +			 struct eeprom_umc_record *record_umc,
+> +			 struct ras_bank_ecc *ras_ecc,
+> +			 u32 rec_idx, const u32 num)
 > +{
 > +	struct ras_fw_eeprom_control *control = &ras_core->ras_fw_eeprom;
-> +	int threshold_config = control->record_threshold_config;
-> +	int i, bad_page_count;
+> +	int i, ret, end_idx;
+> +	u64 mca, ipid, ts;
+> +
+> +	if (!ras_core->ras_umc.ip_func ||
+> +	    !ras_core->ras_umc.ip_func->mca_ipid_parse)
+> +		return -EOPNOTSUPP;
 > +
 > +	mutex_lock(&control->ras_tbl_mutex);
 > +
+> +	end_idx = rec_idx + num;
+> +	for (i = rec_idx; i < end_idx; i++) {
+> +		ret = ras_fw_get_badpage_mca_addr(ras_core, i, &mca);
+> +		if (ret)
+> +			goto out;
+> +
+> +		ret = ras_fw_get_badpage_ipid(ras_core, i, &ipid);
+> +		if (ret)
+> +			goto out;
+> +
+> +		ret = ras_fw_get_timestamp(ras_core, i, &ts);
+> +		if (ret)
+> +			goto out;
+> +
+> +		if (record_umc) {
+> +			record_umc[i - rec_idx].address = mca;
+> +			/* retired_page (pa) is unused now */
+> +			record_umc[i - rec_idx].retired_row_pfn = 0x1ULL;
+> +			record_umc[i - rec_idx].ts = ts;
+> +			record_umc[i - rec_idx].err_type = RAS_EEPROM_ERR_NON_RECOVERABLE;
+> +
+> +			ras_core->ras_umc.ip_func->mca_ipid_parse(ras_core, ipid,
+> +				(uint32_t *)&(record_umc[i - rec_idx].cu),
+> +				(uint32_t *)&(record_umc[i - rec_idx].mem_channel),
+> +				(uint32_t *)&(record_umc[i - rec_idx].mcumc_id), NULL);
+> +
+> +			/* update bad channel bitmap */
+> +			if ((record_umc[i - rec_idx].mem_channel < BITS_PER_TYPE(control->bad_channel_bitmap)) &&
+> +				!(control->bad_channel_bitmap & (1 << record_umc[i - rec_idx].mem_channel))) {
+> +				control->bad_channel_bitmap |= 1 << record_umc[i - rec_idx].mem_channel;
+> +				control->update_channel_flag = true;
+> +			}
+> +		}
+> +
+> +		if (ras_ecc) {
+> +			ras_ecc[i - rec_idx].addr = mca;
+> +			ras_ecc[i - rec_idx].ipid = ipid;
+> +			ras_ecc[i - rec_idx].ts = ts;
+> +		}
+> +
+> +	}
+> +
+> +out:
+> +	mutex_unlock(&control->ras_tbl_mutex);
+> +	return ret;
+> +}
+> +
+> +uint32_t ras_fw_eeprom_get_record_count(struct ras_core_context *ras_core)
+> +{
+> +	if (!ras_core)
+> +		return 0;
+> +
+> +	return ras_core->ras_fw_eeprom.ras_num_recs;
+> +}
+> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h
+> index b94d3c9703e3..353977a2371e 100644
+> --- a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h
+> +++ b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h
+> @@ -70,5 +70,10 @@ int ras_fw_eeprom_reset_table(struct ras_core_context *ras_core);
+>   bool ras_fw_eeprom_check_safety_watermark(struct ras_core_context *ras_core);
+>   int ras_fw_eeprom_append(struct ras_core_context *ras_core,
+>   			   struct eeprom_umc_record *record, const u32 num);
+> +int ras_fw_eeprom_read_idx(struct ras_core_context *ras_core,
+> +			 struct eeprom_umc_record *record_umc,
+> +			 struct ras_bank_ecc *ras_ecc,
+> +			 u32 rec_idx, const u32 num);
+> +uint32_t ras_fw_eeprom_get_record_count(struct ras_core_context *ras_core);
+>   
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+> index fd427fd59ecf..eb5bb6df18f5 100644
+> --- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+> +++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+> @@ -436,17 +436,27 @@ int ras_umc_load_bad_pages(struct ras_core_context *ras_core)
+>   	uint32_t ras_num_recs;
+>   	int ret;
+>   
+> -	ras_num_recs = ras_eeprom_get_record_count(ras_core);
+> -	/* no bad page record, skip eeprom access */
+> -	if (!ras_num_recs ||
+> -	    ras_core->ras_eeprom.record_threshold_config == DISABLE_RETIRE_PAGE)
+> -		return 0;
+> +	if (ras_fw_eeprom_supported(ras_core)) {
+> +		ras_num_recs = ras_fw_eeprom_get_record_count(ras_core);
+> +		/* no bad page record, skip eeprom access */
+> +		if (!ras_num_recs ||
+> +		    ras_core->ras_fw_eeprom.record_threshold_config == DISABLE_RETIRE_PAGE)
+> +			return 0;
+> +	} else {
+> +		ras_num_recs = ras_eeprom_get_record_count(ras_core);
+> +		if (!ras_num_recs ||
+> +		    ras_core->ras_eeprom.record_threshold_config == DISABLE_RETIRE_PAGE)
 
-Same comment as in earlier patches. All seems to be duplicated just 
-because a mutex is added to specific access control. Instead, all of 
-that can be kept in common eeprom and only access mechanism can be 
-separated.
+This is an example where common variables/logic get repeated.
 
 Thanks,
 Lijo
 
-> +	for (i = 0; i < num; i++) {
-> +		/* update bad channel bitmap */
-> +		if ((record[i].mem_channel < BITS_PER_TYPE(control->bad_channel_bitmap)) &&
-> +			!(control->bad_channel_bitmap & (1 << record[i].mem_channel))) {
-> +			control->bad_channel_bitmap |= 1 << record[i].mem_channel;
-> +			control->update_channel_flag = true;
-> +		}
+> +			return 0;
 > +	}
-> +	control->ras_num_recs += num;
-> +
-> +	bad_page_count = ras_umc_get_badpage_count(ras_core);
-> +
-> +	if (threshold_config != 0 &&
-> +		bad_page_count > control->record_threshold_count) {
-> +		RAS_DEV_WARN(ras_core->dev,
-> +			"Saved bad pages %d reaches threshold value %d\n",
-> +			bad_page_count, control->record_threshold_count);
-> +
-> +		if ((threshold_config != WARN_NONSTOP_OVER_THRESHOLD) &&
-> +			(threshold_config != NONSTOP_OVER_THRESHOLD))
-> +			ras_core->is_rma = true;
-> +
-> +		/* ignore the -ENOTSUPP return value */
-> +		ras_core_event_notify(ras_core, RAS_EVENT_ID__DEVICE_RMA, NULL);
-> +	}
-> +
-> +	mutex_unlock(&control->ras_tbl_mutex);
-> +	return 0;
-> +}
-> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h
-> index b0d3eade4377..b94d3c9703e3 100644
-> --- a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h
-> +++ b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h
-> @@ -68,5 +68,7 @@ int ras_fw_erase_ras_table(struct ras_core_context *ras_core,
->   				   uint32_t *result);
->   int ras_fw_eeprom_reset_table(struct ras_core_context *ras_core);
->   bool ras_fw_eeprom_check_safety_watermark(struct ras_core_context *ras_core);
-> +int ras_fw_eeprom_append(struct ras_core_context *ras_core,
-> +			   struct eeprom_umc_record *record, const u32 num);
 >   
->   #endif
-> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-> index 4dae64c424a2..fd427fd59ecf 100644
-> --- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-> +++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-> @@ -479,9 +479,13 @@ static int ras_umc_save_bad_pages(struct ras_core_context *ras_core)
+>   	bps = kcalloc(ras_num_recs, sizeof(*bps), GFP_KERNEL);
+>   	if (!bps)
+>   		return -ENOMEM;
+>   
+> -	ret = ras_eeprom_read(ras_core, bps, ras_num_recs);
+> +	if (ras_fw_eeprom_supported(ras_core))
+> +		ret = ras_fw_eeprom_read_idx(ras_core, bps, 0, 0, ras_num_recs);
+> +	else
+> +		ret = ras_eeprom_read(ras_core, bps, ras_num_recs);
+>   	if (ret) {
+>   		RAS_DEV_ERR(ras_core->dev, "Failed to load EEPROM table records!");
+>   	} else {
+> @@ -474,7 +484,10 @@ static int ras_umc_save_bad_pages(struct ras_core_context *ras_core)
+>   	if (!data->bps)
+>   		return 0;
+>   
+> -	eeprom_record_num = ras_eeprom_get_record_count(ras_core);
+> +	if (ras_fw_eeprom_supported(ras_core))
+> +		eeprom_record_num = ras_fw_eeprom_get_record_count(ras_core);
+> +	else
+> +		eeprom_record_num = ras_eeprom_get_record_count(ras_core);
+>   	mutex_lock(&ras_umc->umc_lock);
 >   	save_count = data->count - eeprom_record_num;
 >   	/* only new entries are saved */
->   	if (save_count > 0) {
-> -		if (ras_eeprom_append(ras_core,
-> -					   &data->bps[eeprom_record_num],
-> -					   save_count)) {
-> +		if (ras_fw_eeprom_supported(ras_core))
-> +			ret = ras_fw_eeprom_append(ras_core, &data->bps[eeprom_record_num],
-> +					save_count);
-> +		else
-> +			ret = ras_eeprom_append(ras_core, &data->bps[eeprom_record_num],
-> +					save_count);
-> +		if (ret) {
->   			RAS_DEV_ERR(ras_core->dev, "Failed to save EEPROM table data!");
->   			ret = -EIO;
->   			goto exit;
+> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
+> index e2792b239bea..53dc59e4de0c 100644
+> --- a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
+> @@ -413,7 +413,7 @@ static int umc_v12_0_eeprom_record_to_nps_record(struct ras_core_context *ras_co
+>   	uint64_t pa = 0;
+>   	int ret = 0;
+>   
+> -	if (nps == EEPROM_RECORD_UMC_NPS_MODE(record)) {
+> +	if (nps == EEPROM_RECORD_UMC_NPS_MODE(record) && !ras_fw_eeprom_supported(ras_core)) {
+>   		record->cur_nps_retired_row_pfn = EEPROM_RECORD_UMC_ADDR_PFN(record);
+>   	} else {
+>   		ret = convert_eeprom_record_to_nps_addr(ras_core,
 
