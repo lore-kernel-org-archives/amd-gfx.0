@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8ED7D49C7D
-	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 08:42:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D3D6D49C7C
+	for <amd-gfx@archiver.kernel.org>; Fri, 30 Jan 2026 08:42:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 553FF10E973;
-	Fri, 30 Jan 2026 08:42:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98D6110E979;
+	Fri, 30 Jan 2026 08:42:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MK7lOP1Y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UwsmoydF";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013031.outbound.protection.outlook.com
- [40.107.201.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB24B10E973
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 08:42:18 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012003.outbound.protection.outlook.com
+ [40.93.195.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8BC110E978
+ for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 08:42:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tdXWy/ylfn2z1Z4udNJxXOvI1vMwbhq8CskdfI0oi/ElbFBxLm1WoDN9ZRnHakM6nl72zbUWLoKiL03FbNK8giES+z7NngEcnK1uODvZubfID/rYNFYWRpSU2sfm/OnctMq6j25mVEJ2t8eVLgh9iMU1Zgn1FRXbt1BiL05Vt3eOes1yzisjeFzMXifTZXvqdYi0DsPfyGJJIhMafqfohBq0qPPGI1AWPYzGYCHfMrpwWYKap2WX6EDIEYKks7jqcu9W4Wzu2WAFu7fxrpc3gQbeACk2vo8C5dsBnEFqU79QdQmo2HhMo42vv0sNvnGwmHPCZiXMeF1WswjQOD2ETQ==
+ b=MfAWW1fhCznAJklo1eJ/yJjq14hUBRUjq6ECZf93yROGhHR9LyxA5gDE0qc0dBHhNfOFAMdpCnwgdyNwGwdZXlu772VJxSGviCju2FJdZpUwZ/Culum+Y45wuIvyGQgbaqgxZXvrPiOO5KU50OueIRihfyHCVyrw4FF2HjVsLxN106dYeR0NI7XyTUrLHSZE8Mpcx7fbGXPqDCKws896VThhF5d/JnPuZHT4riGiMzZCsnilovdKnrOPiFsmuNtKUH1WmyranfET2QBL6bdFEQDZvtaxrR0p8qd9ubpJ1LnGkXNtVuJJYpzibgNivQV58hqFXOAaReS2oMJ4uRu/0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aebQMl88uPRJxOYl6N98uQwzbK8cOv/4G6ixnU3mQRU=;
- b=ZucjlW6sIC7x3DpG1K5OImhAjNP6xBAcVONY6SI/aaLlTPTV2Ko6Y/zNqrUsCYW1S8kyf0UzMvoZyA5h6C3potTWbbHBFRw4b83kJKJLKvxilrNCQqgDIhx2P9a/0v6b/TsHw6Gsaef0DwBsdpu6roQ7m4goNYStPy79JNfrmyudUvFB+JAi6dGkP1+MegJSK2Xi+SpLAeldYnx5vd7u49Yu0XjGsb+2a7t8+0NQ9V+/0bfstUnhrbNbApK3W92th3TJuZ4UfGvsp/K88OHYkFvcDAReZs3g5fUoxzQWCbppFtH31hsBKLMexi7PlUNOlIU4FEmagVGzQBBxf+nqTg==
+ bh=VgYcAk5xWQHBk/rdhTtAv5pCrBxDvu61xLEu9Z5I6Ns=;
+ b=unLNnqwMyodqzkEo25jJMC0Bo6LgxRypyyJypQhUWmLW5hnnv0fo/p9Jv1Ts2v7K+5fp8Aor6IXTDj0H+6ZyLU293RuQDrF55A5uZviEbGmSiemgy+La+RhdGy7qpvSv2XAnaOJH7VvUP57S9BCevWz9hxiwT2SljlucPa4+SosRkyq/hwGZywfWrNc8SK3zNgm42xUh+z/JwDws/agxmpel1APcquhXb9dXVVCZ2wjR+aSvSopo0dR5jYAL0duFjY6O+TCxxWVJYvXqlJp6cBTtUpk/uYZpCHuJb10F9CB58pFWJJzR37fj9b47vyqBH7PUts99O7UqwK9oE2zIyQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aebQMl88uPRJxOYl6N98uQwzbK8cOv/4G6ixnU3mQRU=;
- b=MK7lOP1YnEMIes07wm5hs5ccNMuBbyYCopdubBRErgv/dpHRDkV2AydrWb5K3Pa6n/lwxnCBa1VAumWcpHRQ4xkjELMQ6Up4m4SBQfz+BEEK2eJ4asxwWH4t9FfEP8IN0sOq3ocKSwshDppWx7cEyNcETUXTUESgBZQ+vne/eV8=
-Received: from BYAPR05CA0042.namprd05.prod.outlook.com (2603:10b6:a03:74::19)
- by SN7PR12MB7853.namprd12.prod.outlook.com (2603:10b6:806:348::22)
+ bh=VgYcAk5xWQHBk/rdhTtAv5pCrBxDvu61xLEu9Z5I6Ns=;
+ b=UwsmoydFopYTo5W7jKJd50z9t5lPatDpa/iv3I+aZ5f2qqxj1hl9uMs9cEDeMBggrHWeyGRKXbZUOCFMyMf+5lmgaeKXDv3P0yevI3OLwB9/XxxjGWjShHSUwNToD4uwvD/xxJd+BI3ra93AgGIqzF2ppuZ37o/7gRX8/7cSkBs=
+Received: from BY5PR17CA0008.namprd17.prod.outlook.com (2603:10b6:a03:1b8::21)
+ by SN7PR12MB6670.namprd12.prod.outlook.com (2603:10b6:806:26e::12)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.7; Fri, 30 Jan
- 2026 08:42:14 +0000
-Received: from SJ1PEPF00002319.namprd03.prod.outlook.com
- (2603:10b6:a03:74:cafe::78) by BYAPR05CA0042.outlook.office365.com
- (2603:10b6:a03:74::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.4 via Frontend Transport; Fri,
- 30 Jan 2026 08:42:15 +0000
+ 2026 08:42:17 +0000
+Received: from SJ1PEPF0000231F.namprd03.prod.outlook.com
+ (2603:10b6:a03:1b8:cafe::a) by BY5PR17CA0008.outlook.office365.com
+ (2603:10b6:a03:1b8::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.11 via Frontend Transport; Fri,
+ 30 Jan 2026 08:42:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,21 +49,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002319.mail.protection.outlook.com (10.167.242.229) with Microsoft
+ SJ1PEPF0000231F.mail.protection.outlook.com (10.167.242.235) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Fri, 30 Jan 2026 08:42:14 +0000
+ 15.20.9564.3 via Frontend Transport; Fri, 30 Jan 2026 08:42:16 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 30 Jan
- 2026 02:42:11 -0600
+ 2026 02:42:14 -0600
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
  <Christian.Koenig@amd.com>, <David.YatSin@amd.com>, <Lancelot.Six@amd.com>,
- <jonathan.kim@amd.com>, <Jesse.Zhang@amd.com>
-Subject: [PATCH v5 04/11] drm/amdgpu: Add user save area params validation
-Date: Fri, 30 Jan 2026 14:07:58 +0530
-Message-ID: <20260130084137.2906792-5-lijo.lazar@amd.com>
+ <jonathan.kim@amd.com>, <Jesse.Zhang@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH v5 05/11] drm/amdgpu: Add cwsr to device init/fini sequence
+Date: Fri, 30 Jan 2026 14:07:59 +0530
+Message-ID: <20260130084137.2906792-6-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20260130084137.2906792-1-lijo.lazar@amd.com>
 References: <20260130084137.2906792-1-lijo.lazar@amd.com>
@@ -75,57 +76,57 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002319:EE_|SN7PR12MB7853:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7011429c-6439-4beb-95b9-08de5fdb77d5
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231F:EE_|SN7PR12MB6670:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1d7b5ef-ce12-4e3a-2a7b-08de5fdb794d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?LVg814YC9fi3N0x8J9cU0KLZ89Othi3xAADw91fWKKfuKshAkC9YEkfoh4HJ?=
- =?us-ascii?Q?dQjLEZJE6nOEq4ZJSuR0lyp1eE6odny8pl4EJkFGQjNkczd60NpNypUFZ5NG?=
- =?us-ascii?Q?WbVG0FxA7mSB60nJDk8e16y4Fv0/cqfspo3w1BaUig8wgvtPmWhc2JKLERYl?=
- =?us-ascii?Q?cL7VF0nBdUAqNpn2vj6wIPdubj5kByeeLLXeddUyeZCMDs6cyl3GuaWZ6ASL?=
- =?us-ascii?Q?u7xV5YkIbUqzXOWu/bd4cNKRxtx2s48wNUqV/iboXdXheXIouc80MWhGtIeC?=
- =?us-ascii?Q?BNzkAn/YNlevKzK6+V4VTESA3I68tTSvbKx5ecP0+D//6tK/0o6fYKN+i515?=
- =?us-ascii?Q?FDIGHMhmG3Q4XiPft4EqeVjSG0DT2sNH9SGfTMOUARzOOYmkpBh4hI8E+YSn?=
- =?us-ascii?Q?vtfUrX8OXEmWrDtJU+PIEeKLvp11LrdHfqkoBGBKy3Ir+6M+Q0zgYBFHB+E/?=
- =?us-ascii?Q?67UrVW6OkcMGwLb/pSxrU7AuJBAmsyDlCWt1RwBSRcckD9n2cWllWXZULYrQ?=
- =?us-ascii?Q?OXW0QKQiQlcmqOOsL/E2SgifvavqBPgmfeobzMgEjtRRx2qMKUwHHUc6JfLt?=
- =?us-ascii?Q?p8KxT3FApTA64UauEZ8pjLXWQEAN5J5U0jCRPN/pDCrljXRSStvFwATdnduk?=
- =?us-ascii?Q?Lg5NhwWxK85uNYhCdrbz4DuCu4MPp+QQjsAM2Nf2dM0Tp20ngAXU3c/mUMyE?=
- =?us-ascii?Q?XaeC//ghU8I5+nZ/O7SnFyhHIuoWf5w9NocOcTV0zJDB52RRGcCPImcb8ki9?=
- =?us-ascii?Q?I2ygF1xhj1ymjaOnj1nep4GXVSW0zlHkgnyDEKrM0l178JYAXUl1/nhO5mEb?=
- =?us-ascii?Q?vSJMUnfdnfHvB21T8KTKiVIim3XWKRdQgecrjOPEZCvzvS0gASKolgPkw2aW?=
- =?us-ascii?Q?2tFvVaQxXiq67sBfZGUduSeulzy9i/2Tamy85o/cdK0hMMsOZk/nyxs9BnPD?=
- =?us-ascii?Q?qVdSIWHSS1xQsjp7/bX1o7Dhr7wY0A87cSS9KCpg4VvzSFnrq/6CXuONOxiF?=
- =?us-ascii?Q?6DL3r1LAR8+V1V3aOsxnxG7ZC/ziguYbzdY+CLuOH2gjUeSs2Lnng7C+EpDx?=
- =?us-ascii?Q?FJrMH4KmBVIxdARbwK0MtC/ki7C/1lAxBB2170MeQb4k6h6nNJNdHMBcpWr0?=
- =?us-ascii?Q?GhUyayHl92jIBQFctsE6wWtiVFgbH3Sk55rleOWVNuXSuFbuulPY9Nwc2w0N?=
- =?us-ascii?Q?bv/5FGQ8zsTLcXofeYEIvGri/eMAowNtPxA/utHU5kkiCBPZi5ewDOT9mdXU?=
- =?us-ascii?Q?6n50Z6Kdu5xFUug3cYEUSNHjEID45PG1LCmuDhkMmHIgq7Ate2+O6rEHEexq?=
- =?us-ascii?Q?fkDQst/LE/U3ArpK0H7qXDzK0nHwqSg3OPKhk0ZP5tm4nm2LLeMZQS1l9BPi?=
- =?us-ascii?Q?ltZXQoA2NidjG+wfnTYsmLnSSqKs5E5tystQNO9H8M9m9jyG8blNgC9hrzBi?=
- =?us-ascii?Q?wRkwiIBEV+HPrf+G54ChvHMpnu5pXyBgK/t4OmYg8IZrmoTQxtpMLmAGxQDU?=
- =?us-ascii?Q?EJgiiivvGVdCO6v5E0Cdh6RsbfLzDh4+AH+t7IAhNCIBVEW7wklpW6RepOvI?=
- =?us-ascii?Q?AM1j5mJUMWR7QPRN4Y4i+lgxOxThE67UcZvlnOtFHnwgtPYZRRsLst43SXzx?=
- =?us-ascii?Q?vAezoLABWs74Hgd942yDDpXxM1eTMnVh/3OElD7043S5uRzwCJs0xfD2/RJa?=
- =?us-ascii?Q?7xmsXw=3D=3D?=
+ ARA:13230040|36860700013|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?IaGnVA9Jp+4o+8YbPld9KF8cYoqnnIsol+c7DY7QFITzthn1rCozXiA76fxc?=
+ =?us-ascii?Q?8NJvCaaRlsLupOv4tJSwFc2fnvpgm8aQ7vi6W0U4vL4MvcDyDBQQjsPoJooB?=
+ =?us-ascii?Q?3szQcQv4raiwunAsjj3ScnZVUleimeNz0Vkt0kPYsKzVXTTwhO77Rg16tggy?=
+ =?us-ascii?Q?ZiVgkc4x/Nyhuo+vJYPqi6znt4Fkg625ag7fUiCiWNHaIN02vtaru0sINcW8?=
+ =?us-ascii?Q?TJBKIhY20oi0m/w+BzUMB8QPfKthe5Jbozg65j4ldFZjh/qoB25khl/4T2yH?=
+ =?us-ascii?Q?C5yYYzCLrCHVZqqnCkYW5RTx+hZ1V/xjPe0uYzXDsEXjNB8CbbAgszzzZYg1?=
+ =?us-ascii?Q?tBrsTq63hJXccSxf6AhbPxMUJvITYBNi8GGpv308FnPUJfm9GhPzOdz5WBrc?=
+ =?us-ascii?Q?0E4MnQjfsSLxcPk3lQSAn6P7AHnFrpblSb57yWQDmxaYpAzQZ6JiDXbqA2d8?=
+ =?us-ascii?Q?gDhVIb2apYuCrMgh8FWvH0exEdw1OsyLdNzLYWSoD3uCtmG8l4wQ3Ut73TsV?=
+ =?us-ascii?Q?Fd9BqRGzDDf6C0aAzfhuPogjLNgqBh+eXgO5YQ05BQosilvPIQpDN8UikHFR?=
+ =?us-ascii?Q?DUARrRMcxepjc+b5o4mJn/r8vkln9Zsyd2d5vj4igGIU3brK+17aAWS1H22Y?=
+ =?us-ascii?Q?Z2ewfA/CyOXo/ybJGoLUYEdNv+FpZg6H6QxUgOwddzvHp0Av9aHxje/Ag90w?=
+ =?us-ascii?Q?DguMMcW4vw5R6gZ0Nup8UdjLd9QYnFzyceaM8N1QFg0wLzilvBJSuCOBojZp?=
+ =?us-ascii?Q?1IEJmJSfJ2gahyDGIR56NjzV8nF2zAIJCeoKaRUvAU5n99PcPiSH56KSGLiw?=
+ =?us-ascii?Q?vip8Sm28vzd13z5Vs59tlaT2Tih6u+WWiqeStzAh3vF64M8cR3Dit5gkJdEW?=
+ =?us-ascii?Q?r8VNEv6BmibOKMoxH2OaT/+AC18jcGBA857UxzPmQtJzBe2DL0yDhQ+zwgL3?=
+ =?us-ascii?Q?zAPbVc/YZP3evcD9ULuuYO+od4BZ+4HLBeqdmLD4q+fkSCECkg0tp9ujL8+q?=
+ =?us-ascii?Q?we8X17Uuyj3D+96lWmRmMYuj7wcJqwHb4gO4XTLKkLBHJN5mPKtOKcbWPyud?=
+ =?us-ascii?Q?TOkZ6IUUKJSB8WJy/VcOYtJkH5sYpB/lre/c2DH6FttuUKFjZyz5nybAQ8ND?=
+ =?us-ascii?Q?7IGeEC1uBkDaas7Yde+R50rhfW2zKOsRffHvy1/ySE1RQbHM3ncisK2TPaPM?=
+ =?us-ascii?Q?Wv3u9O/azYTuHmLZtg79T54oYStsMGE8USWDd50bvMV8ukLH81stHVXSSZrS?=
+ =?us-ascii?Q?dV0pV6lraLhWgrfz4XS7ruLOFVzLXTRYYyXigeqf8eZ/2ESvzOgS3P29FQPN?=
+ =?us-ascii?Q?TdKKH/NdNBFwit4ISmmd1S3QAGleZR0HH++QVFCIVFvyXczYPqXfxVCQEZFD?=
+ =?us-ascii?Q?+GH6VCQr9BIs0b1/ujZ2pWa3RMzOTrkRb82Eoj6XURe3amCGvtx3DT/kyEnj?=
+ =?us-ascii?Q?JaklIAKZmDDcPRiVH7FDohkOA/OtFu57sj4mB0MLOcRAe4sH9031bU5LU2ge?=
+ =?us-ascii?Q?vYo79hsnlkkExvzb9Lp5yBQ/RNQhaV2DFoBZKT++JDdr+ytm6f5n4Y2eYlg1?=
+ =?us-ascii?Q?HCvkqArl7A7uVn/ySgWKJtVUpxDPWCrs0A6gkPzOU5ZUohvKgOSOakLVz8Dl?=
+ =?us-ascii?Q?knzm7s6du2ITqcpVbOoP1xpDvdbRy1Do/iueCrAi+8YlyLQWP0pn1KRPQfDJ?=
+ =?us-ascii?Q?XAL7iA=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(36860700013)(376014)(1800799024)(82310400026); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: zYhPjPJ0D77Cmvf5rC+2QLMqy+icswgn1kJuue5nFfaua1YkjwOvcaX6YupvPcTWaLX9k6fCGlZpHX8lchAdyeMDGca7XK4K1+amHQylRMBntQ3EZcaVimW2jSmySVwrVlbX1IA6rCZuVqLEbjenNv7C/+hOQ2JUYazokccdYOmMIUKaRVCsoBjHLBnll65k3fKbjH/jsXF3cBBy6GKsAsmVf+o5wfEvd5ws+IYMPbtN47CAHXIEMlFJun/agh3ClSsbhpETQTWcvFSg3MaClYd66yB+yQXhyR/kXv72xSBGzXzTSCASPZW1chu0WZ3+yjTZnWbhCj7cfmHPwoT+MnAnHftWZSBfoTV+KMfZYi4+JQfQLfeF0BllIj91fR4mnKhRoV5ZEFx3bUDKl96eEnjkjU6quuTwA0tpsQ5tIQkMrr5BMkqOzLbqDfpMf9bq
+X-MS-Exchange-AntiSpam-MessageData-0: KwdtvzzCFvvp3Kt3YGkWJyy2C9htXrMmu4CKi3V03y6UKylair16Oya/cJAgd8m5uCaNUT4ocizfooAyvRs81SY3H5btG+N9+yNp78NK4jbIP2OHMExWf1blUwt+guEuOehlqAtNop2OoROJ6WxhQbDxjx1RifIqD2VZzytq+NnjyfwMJJCVekZLUmF64Ski0HfIX/EnUPR217QXWuZd8I9rOonCKiPwtRPgjYdeLITwBzPD7N8YKcUy03Y7CmP6oEW8Qr60hLYzbUvDwgxVrX4HPFtJgOJ5CW3nyO4Mw13O2vl1sNUKSuqJjtd8WtRMTkk3EAZwj8yd1xx6o6pmJ4LnYtE7ZcbXllN9BLliOEovoh5ST3Z0Tuv0u1KRWHOva/SNi2552K5AeIEZI8vjhOmTSoYPQghUvcxOKauXC6WEW/deDK6POXTnC0dMRuPd
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 08:42:14.4807 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7011429c-6439-4beb-95b9-08de5fdb77d5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2026 08:42:16.9407 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1d7b5ef-ce12-4e3a-2a7b-08de5fdb794d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002319.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF0000231F.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7853
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6670
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,98 +141,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an interface to validate user provided save area parameters. Address
-validation is not done and expected to be done outside.
+Initialize cwsr handler related info during device initialization.
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c | 39 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h | 10 ++++++
- 2 files changed, 49 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-index 80020fd33ce6..f4907172ebeb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-@@ -64,6 +64,15 @@ static inline bool amdgpu_cwsr_is_supported(struct amdgpu_device *adev)
- 	return true;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 362ab2b34498..d84e513613d7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -78,6 +78,7 @@
+ #include "amdgpu_reset.h"
+ #include "amdgpu_virt.h"
+ #include "amdgpu_dev_coredump.h"
++#include "amdgpu_cwsr.h"
  
-+uint32_t amdgpu_cwsr_size_needed(struct amdgpu_device *adev, int num_xcc)
-+{
-+	if (!amdgpu_cwsr_is_enabled(adev))
-+		return 0;
-+
-+	return num_xcc *
-+	       (adev->cwsr_info->xcc_cwsr_sz + adev->cwsr_info->xcc_dbg_mem_sz);
-+}
-+
- static void amdgpu_cwsr_init_isa_details(struct amdgpu_device *adev,
- 					 struct amdgpu_cwsr_info *cwsr_info)
- {
-@@ -425,6 +434,36 @@ int amdgpu_cwsr_alloc(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 	return r;
- }
+ #include <linux/suspend.h>
+ #include <drm/task_barrier.h>
+@@ -3171,6 +3172,12 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
  
-+int amdgpu_cwsr_validate_params(struct amdgpu_device *adev,
-+				struct amdgpu_cwsr_params *cwsr_params,
-+				int num_xcc)
-+{
-+	uint32_t min_size, max_size;
-+
-+	if (!amdgpu_cwsr_is_enabled(adev))
-+		return -EOPNOTSUPP;
-+
-+	if (!cwsr_params)
-+		return -EINVAL;
-+
-+	min_size = amdgpu_cwsr_size_needed(adev, num_xcc);
-+	max_size = 2 * min_size;
-+	/*
-+	 * Only save area size details checked. Address validation needs to be
-+	 * carried out separately. User is expected to pass a cwsr buffer area
-+	 * with size >= ctl stack size + wg data size + debug memory size
-+	 */
-+	if (cwsr_params->cwsr_sz < min_size ||
-+	    cwsr_params->cwsr_sz > max_size) {
-+		dev_dbg(adev->dev,
-+			"queue cwsr size 0x%x should be within min %u : max %u\n",
-+			cwsr_params->cwsr_sz, min_size, max_size);
-+		return -EINVAL;
+ 	r = amdgpu_cper_init(adev);
+ 
++	if (!r) {
++		r = amdgpu_cwsr_init(adev);
++		if (r == -EOPNOTSUPP)
++			r = 0;
 +	}
 +
-+	return 0;
-+}
-+
- void amdgpu_cwsr_free(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 		      struct amdgpu_cwsr_trap_obj **trap_obj)
+ init_failed:
+ 
+ 	return r;
+@@ -3561,6 +3568,7 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
  {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-index 3c80d057bbed..7f922559e297 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-@@ -56,6 +56,12 @@ struct amdgpu_cwsr_info {
- 	uint32_t xcc_cwsr_sz;
- };
+ 	int i, r;
  
-+struct amdgpu_cwsr_params {
-+	uint64_t ctx_save_area_address;
-+	/* cwsr size info */
-+	uint32_t cwsr_sz;
-+};
-+
- int amdgpu_cwsr_init(struct amdgpu_device *adev);
- void amdgpu_cwsr_fini(struct amdgpu_device *adev);
++	amdgpu_cwsr_fini(adev);
+ 	amdgpu_cper_fini(adev);
  
-@@ -68,4 +74,8 @@ static inline bool amdgpu_cwsr_is_enabled(struct amdgpu_device *adev)
- 	return adev->cwsr_info != NULL;
- }
- 
-+uint32_t amdgpu_cwsr_size_needed(struct amdgpu_device *adev, int num_xcc);
-+int amdgpu_cwsr_validate_params(struct amdgpu_device *adev,
-+				struct amdgpu_cwsr_params *cwsr_params,
-+				int num_xcc);
- #endif
+ 	if (amdgpu_sriov_vf(adev) && adev->virt.ras_init_done)
 -- 
 2.49.0
 
