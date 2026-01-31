@@ -4,124 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34FFBD46C1D
-	for <amd-gfx@archiver.kernel.org>; Sat, 31 Jan 2026 03:01:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BA66D73EBB
+	for <amd-gfx@archiver.kernel.org>; Sat, 31 Jan 2026 05:34:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 671DD10E1D7;
-	Sat, 31 Jan 2026 03:01:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F7FD10E013;
+	Sat, 31 Jan 2026 05:34:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WOeYPAN4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="o13LoX0p";
 	dkim-atps=neutral
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
- [209.85.219.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD0C010E1D7
- for <amd-gfx@lists.freedesktop.org>; Sat, 31 Jan 2026 03:01:11 +0000 (UTC)
-Received: by mail-qv1-f52.google.com with SMTP id
- 6a1803df08f44-89473dca8aaso30754296d6.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 30 Jan 2026 19:01:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1769828470; cv=none;
- d=google.com; s=arc-20240605;
- b=DThvl+XVsWs+puVLGLh0lqueNwHhG4OwajKV8GMUPIfdNFTF3XmOPiWfSbCLHFxora
- YH94Cu4fVVVnd7z2Fd4b0lhzpmjlpIgJ/XeXcgI6v/pu9gz9kBkYfCegnmM1lJp1fUJJ
- JVpaWA2Q+i9r/8Iv0c0fpVsIcNemeRW1HuenEDfB/6lKxWUfOBcd8BGgCUL9zgWY2fln
- CjQJqQBvHDMU/KiB9XOdn9sRoRFsTqrbgH3uZ3tIDrC/LSY2TM/T0eXG3RsCpmkPqTrW
- 3ClvfBeY5FrwX+1DKI5gPOyHAA+U6FMq0XLnlvXKHYQwdJL+fTjFjHm5fGtMw0SfHEtz
- 4Eng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=0dP1zizuvb+YCTfhetz0ht1UJLaJiSW38KjUpELCixc=;
- fh=F1nwix1dg1gKHwUF8PqWrGdFwJFoR4nCy7PAUhr9QH8=;
- b=kAhusnC8WExoNrKRwxeYotaqTr7z/eeIGGP2nCyIK0u726j83bIOKJkZDBumbinJDw
- HY/f7ZvOOdD7iv23Vc69FrVqZk6MLV0EyFp/oIPU5VAP7uwyKdsJJQdW/Tp9t8GNK1G2
- 2nsz4NZdChFC4ApyEdZZDIkxHZPy/iIwKbVgl1vQEAb5kTg64mTv9Ndtn854Qud5/ojr
- spBMA1aXn8p8f4WhZOpACxImUMztu5yYy7a/WDwW7irekMkLiLPYWDcyaziHnG6o5cPi
- I/R6vwXYW8ZDr6Mb8RlDOSynR4vHrAS0uheExMBH7untvn4U0mCCXsnv4c6pNr3Hlney
- 5NUQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769828470; x=1770433270; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=0dP1zizuvb+YCTfhetz0ht1UJLaJiSW38KjUpELCixc=;
- b=WOeYPAN4YP5WeM3wWxdkGE6XdrMugWpXBW6j+zzOaz0BMj1EqTPyR3Rc2vo57O2xSq
- UxUFGG5ecB+xKaQZ25Xry2WuyhvMIDnC3aC1QEysqvbs4bQbCZ3RzKg71kDNCyvDmC5L
- D0u9YFRVx5XpKZMlvq4AmQH9wNfAWIfD+GWxt4Cq8f2PYy8CGqZWXwyBI6NW9puMh4ex
- njYDHfJ8U7Xz7K2hSrCgIRA+k2LULUyQ2te1Kvy9AasHqFBM90jUn/Fr6TqpqBj1F5ij
- rR0xrN7CXHg+sjxwchU2FaGQinkjc+lrwfAyukP7n8ANBFlEkppXZEND0eVF7yDBhyf8
- zkwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769828470; x=1770433270;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=0dP1zizuvb+YCTfhetz0ht1UJLaJiSW38KjUpELCixc=;
- b=lMs2CIXDswG1McTaFBQSozIS0434iUyGdENEI5Wo6SzQvPV9v27Fokni0ZshzRvVEj
- 0i0sIsN6hpx0NMNNd/+Yixs3ueQQrWg6ukh3JEJKcuga1lUCGD2Ixjrs0Su6OhAK7o3P
- 6bCGgP3gQkfRbFpkLzzd6hKnOhUPODkI34MajyyoYk4bDacF5WimwPq9IgIV7EpFVWBr
- lsfI4iuyq1y7Agjq6PcktBfNxKhfcV+jI0grLVehWGKVBmVqrcKpEaZHLt/Eym3alAew
- DvqtDqMMaIAYf4NuQjk6gvG7P8Lr62bboggZPkLQfPJuHw5RYBE1WU4nGqwtsH2MzWO+
- iakw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX0ampVVmMHRS4BCKqcPU6FDibQDPJv7uQ6LvpV+rNBzHS2aqw5qmNlARI6dHwCbIlyei53ROba@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwWS3zuEfh9BtSsFgIlAv2h//vDJNTssYRr7lxiayCp28ZSbaV0
- 5FLXJXn7C+n/7Yo9NNXC1OeNntkSSQ2jiNbEHcdh7Y+WliFb0pHYPUB1j1WygxDkUDyhdkCJZgH
- SpBwPSh1SwaWgyCLoNqhz1MFX8M+kCzo=
-X-Gm-Gg: AZuq6aIvvSaK21blknaF75V/uFzHqIRvzAdyoHxC9e4EWLYsubpLjCAkZ6IR8OpNILM
- vNM6PRHDZrD1Fe7E/OBnTp4kTnUFq7egjJ22ucdxJO9GlyxeeQV57rTGdVDZK5TCTmWg8peOCtd
- EBSaDS9UWKIPhV6ttdLq9cEG0dFlR5IBJ85f1uNnDVuVm3UKiipUgzgO1OJWRViNwQOaz/FrOne
- JL7PlyH1T08B2ArVdb85StlEopItFhhS7+3GyfglbUOk1Yg65HutzWlIli+8eVMtb3I0G4i1Sq0
- cPGyaWyXNw36aGdENoTntz39Z9VTLhJE8r6EFpmLUH47L2+HtXCLIMc=
-X-Received: by 2002:a05:6214:260b:b0:880:51f0:5b93 with SMTP id
- 6a1803df08f44-894e9fe6cbemr81159006d6.18.1769828470148; Fri, 30 Jan 2026
- 19:01:10 -0800 (PST)
-MIME-Version: 1.0
-References: <97af2d85-a905-44d4-951f-e56a40f4312e@nvidia.com>
- <20260130015901.GA301119@joelbox2>
- <c064fbdc-9202-437d-80ff-6134d2a33778@nvidia.com>
- <70d88203-2fe1-4bde-b254-51e8107744eb@nvidia.com>
-In-Reply-To: <70d88203-2fe1-4bde-b254-51e8107744eb@nvidia.com>
-From: Dave Airlie <airlied@gmail.com>
-Date: Sat, 31 Jan 2026 13:00:58 +1000
-X-Gm-Features: AZwV_QikuSqbC3QYogib7-81aPfnOToX57Ol8yNxSKEx4_hXbDFs8a3hQtETIYo
-Message-ID: <CAPM=9twm1x9rH==uoGQLYa8b4feQMz=Ne14WPuhCPy9_H1u5Tw@mail.gmail.com>
-Subject: Re: [PATCH RFC v6 05/26] nova-core: mm: Add support to use PRAMIN
- windows to write to VRAM
-To: Joel Fernandes <joelagnelf@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, Danilo Krummrich <dakr@kernel.org>,
- Zhi Wang <zhiw@nvidia.com>, linux-kernel@vger.kernel.org, 
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38CF710E013;
+ Sat, 31 Jan 2026 05:34:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6445A60008;
+ Sat, 31 Jan 2026 05:34:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8EEAC4CEF1;
+ Sat, 31 Jan 2026 05:34:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1769837672;
+ bh=msfuCI1mY6PBsAwy2WktEJP8SjPAURCVBqQLlK4s1IY=;
+ h=From:To:Cc:Subject:Date:From;
+ b=o13LoX0plOpo0vBJc9mVNoSBiGBPjuXeBgly0DF0Y6Z9fvbMwCRJB1jfjOuteo9w0
+ lCjGeWn3p6XnYBj1WoLQx0fmynI6SKOv7YqDl9BzJuJ1NkrNKYt9s1m3qouZ/1PJmq
+ bALF6cFB9fMEt8ehH4stMaT3mazp09t6JOVZXKZPAlCNNad7J94+S076j8c8CKUqDc
+ ITyG6MY5i3pVd9wBz16yqyH4jGtq5bYnqJNuwE3xGMQkKRkGJ/u77HJaQf03jhm99W
+ nBk4Tr7sOJLDNGqwiGAXmZ7+M4BoVWyEHos8gEt7sqPGrfOY59guoZBeYQ+PXUtlPS
+ vB0NCkW6SG7Ag==
+From: Leon Romanovsky <leon@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Rui Huang <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, 
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>, 
- Gary Guo <gary@garyguo.net>, Bjorn Roy Baron <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, 
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, 
- Andy Ritger <aritger@nvidia.com>, Alexey Ivanov <alexeyi@nvidia.com>, 
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>, 
- Elle Rhumsaa <elle@weathered-steel.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Kevin Tian <kevin.tian@intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: [PATCH v7 0/8] dma-buf: Use revoke mechanism to invalidate shared
+ buffers
+Date: Sat, 31 Jan 2026 07:34:10 +0200
+Message-ID: <20260131-dmabuf-revoke-v7-0-463d956bd527@nvidia.com>
+X-Mailer: git-send-email 2.52.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Change-ID: 20251221-dmabuf-revoke-b90ef16e4236
+X-Mailer: b4 0.15-dev-47773
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,89 +79,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, 31 Jan 2026 at 07:14, Joel Fernandes <joelagnelf@nvidia.com> wrote:
->
->
->
-> On 1/29/2026 10:38 PM, John Hubbard wrote:
-> > On 1/29/26 5:59 PM, Joel Fernandes wrote:
-> >> On 1/29/26 8:12 PM, John Hubbard wrote:
-> >>> On 1/29/26 4:26 PM, Joel Fernandes wrote:
-> >>>> Based on the below discussion and research, I came up with some deadlock
-> >>>> scenarios that we need to handle in the v6 series of these patches.
-> >>>> [...]
-> >>>> memory allocations under locks that we need in the dma-fence signaling
-> >>>> critical path (when doing the virtual memory map/unmap)
-> >>>
-> >>> unmap? Are you seeing any allocations happening during unmap? I don't
-> >>> immediately see any, but that sounds surprising.
-> >>
-> >> Not allocations but we are acquiring locks during unmap. My understanding
-> >> is (at least some) unmaps have to also be done in the dma fence signaling
-> >> critical path (the run stage), but Danilo/you can correct me if I am wrong
-> >> on that. We cannot avoid all locking but those same locks cannot be held in
-> >> any other paths which do a memory allocation (as mentioned in one of the
-> >> deadlock scenarios), that is probably the main thing to check for unmap.
-> >>
-> >
-> > Right, OK we are on the same page now: no allocations happening on unmap,
-> > but it can still deadlock, because the driver is typically going to
-> > use a single lock to protect calls both map and unmap-related calls
-> > to the buddy allocator.
->
-> Yes exactly!
->
-> >
-> > For the deadlock above, I think a good way to break that deadlock is
-> > to not allow taking that lock in a fence signaling calling path.
-> >
-> > So during an unmap, instead of "lock, unmap/free, unlock" it should
-> > move the item to a deferred-free list, which is processed separately.
-> > Of course, this is a little complex, because the allocation and reclaim
-> > has to be aware of such lists if they get large.
-> Yes, also avoiding GFP_KERNEL allocations while holding any of these mm locks
-> (whichever we take during map). The GPU buddy actually does GFP_KERNEL
-> allocations internally which is problematic.
->
-> Some solutions / next steps:
->
-> 1. allocating (VRAM and system memory) outside mm locks just before acquiring them.
->
-> 2. pre-allocating both VRAM and system memory needed, before the DMA fence
-> critical paths (The issue is also to figure out how much memory to pre-allocate
-> for the page table pages based on the VM_BIND request. I think we can analyze
-> the page tables in the submit stage to make an estimate).
->
-> 3. Unfortunately, I am using gpu-buddy when allocating a VA range in the Vmm
-> (called virt_buddy), which itself does GFP_KERNEL memory allocations in the
-> allocate path. I am not sure what do yet about this. ISTR the maple tree also
-> has similar issues.
->
-> 4. Using non-reclaimable memory allocations where pre-allocation or
-> pre-allocated memory pools is not possible (I'd like to avoid this #4 so we
-> don't fail allocations when memory is scarce).
->
-> Will work on these issues for the v7. Thanks,
+Changelog:
+v7:
+ * Fixed messed VFIO patch due to rebase.
+v6: https://patch.msgid.link/20260130-dmabuf-revoke-v6-0-06278f9b7bf0@nvidia.com
+ * Added Reviewed-by tags.
+ * Changed for blocking wait_for_completion() in VFIO
+ * Fixed race between ->attach and move_notify, where priv->revoked is
+   flipped and lock is released.
+v5: https://patch.msgid.link/20260124-dmabuf-revoke-v5-0-f98fca917e96@nvidia.com
+ * Documented the DMA-BUF expectations around DMA unmap.
+ * Added wait support in VFIO for DMA unmap.
+ * Reordered patches.
+ * Improved commit messages to document even more.
+v4: https://lore.kernel.org/all/20260121-dmabuf-revoke-v4-0-d311cbc8633d@nvidia.com
+ * Changed DMA_RESV_USAGE_KERNEL to DMA_RESV_USAGE_BOOKKEEP.
+ * Made .invalidate_mapping() truly optional.
+ * Added patch which renames dma_buf_move_notify() to be
+   dma_buf_invalidate_mappings().
+ * Restored dma_buf_attachment_is_dynamic() function.
+v3: https://lore.kernel.org/all/20260120-dmabuf-revoke-v3-0-b7e0b07b8214@nvidia.com/
+ * Used Jason's wordings for commits and cover letter.
+ * Removed IOMMUFD patch.
+ * Renamed dma_buf_attachment_is_revoke() to be dma_buf_attach_revocable().
+ * Added patch to remove CONFIG_DMABUF_MOVE_NOTIFY.
+ * Added Reviewed-by tags.
+ * Called to dma_resv_wait_timeout() after dma_buf_move_notify() in VFIO.
+ * Added dma_buf_attach_revocable() check to VFIO DMABUF attach function.
+ * Slightly changed commit messages.
+v2: https://patch.msgid.link/20260118-dmabuf-revoke-v2-0-a03bb27c0875@nvidia.com
+ * Changed series to document the revoke semantics instead of
+   implementing it.
+v1: https://patch.msgid.link/20260111-dmabuf-revoke-v1-0-fb4bcc8c259b@nvidia.com
 
-The way this works on nouveau at least (and I haven't yet read the
-nova code in depth).
+-------------------------------------------------------------------------
+This series is based on latest VFIO fix, which will be sent to Linus
+very soon.
 
-Is we have 4 stages of vmm page table mgmt.
+https://lore.kernel.org/all/20260121-vfio-add-pin-v1-1-4e04916b17f1@nvidia.com/
 
-ref - locked with a ref lock - can allocate/free memory - just makes
-sure the page tables exist and are reference counted
-map - locked with a map lock - cannot allocate memory - fill in the
-PTEs in the page table
-unmap - locked with a map lock - cannot allocate memory - removes
-entries in PTEs
-unref - locked with a ref lock - can allocate/free memory - just drops
-references and frees (not sure if it ever merges).
+Thanks
+-------------------------------------------------------------------------
+This series documents a dma-buf “revoke” mechanism: to allow a dma-buf
+exporter to explicitly invalidate (“kill”) a shared buffer after it has
+been distributed to importers, so that further CPU and device access is
+prevented and importers reliably observe failure.
 
-So maps and unmaps can be in fence signalling paths, but unrefs are
-done in free job from a workqueue.
+The change in this series is to properly document and use existing core
+“revoked” state on the dma-buf object and a corresponding exporter-triggered
+revoke operation.
 
-Dave.
->
-> --
-> Joel Fernandes
->
+dma-buf has quietly allowed calling move_notify on pinned dma-bufs, even
+though legacy importers using dma_buf_attach() would simply ignore
+these calls.
+
+The intention was that move_notify() would tell the importer to expedite
+it's unmapping process and once the importer is fully finished with DMA it
+would unmap the dma-buf which finally signals that the importer is no
+longer ever going to touch the memory again. Importers that touch past
+their unmap() call can trigger IOMMU errors, AER and beyond, however
+read-and-discard access between move_notify() and unmap is allowed.
+
+Thus, we can define the exporter's revoke sequence for pinned dma-buf as:
+
+	dma_resv_lock(dmabuf->resv, NULL);
+	// Prevent new mappings from being established
+	priv->revoked = true;
+
+	// Tell all importers to eventually unmap
+	dma_buf_invalidate_mappings(dmabuf);
+
+	// Wait for any inprogress fences on the old mapping
+	dma_resv_wait_timeout(dmabuf->resv,
+			      DMA_RESV_USAGE_BOOKKEEP, false,
+			      MAX_SCHEDULE_TIMEOUT);
+	dma_resv_unlock(dmabuf->resv, NULL);
+
+	// Wait for all importers to complete unmap
+	wait_for_completion(&priv->unmapp_comp);
+
+However, dma-buf also supports importers that don't do anything on
+move_notify(), and will not unmap the buffer in bounded time.
+
+Since such importers would cause the above sequence to hang, a new
+mechanism is needed to detect incompatible importers.
+
+Introduce dma_buf_attach_revocable() which if true indicates the above
+sequence is safe to use and will complete in kernel-only bounded time for
+this attachment.
+
+Unfortunately dma_buf_attach_revocable() is going to fail for the popular
+RDMA pinned importer, which means we cannot introduce it to existing
+places using pinned move_notify() without potentially breaking existing
+userspace flows.
+
+Existing exporters that only trigger this flow for RAS errors should not
+call dma_buf_attach_revocable() and will suffer an unbounded block on the
+final completion, hoping that the userspace will notice the RAS and clean
+things up. Without revoke support on the RDMA pinned importers it doesn't
+seem like any other non-breaking option is currently possible.
+
+For new exporters, like VFIO and RDMA, that have userspace triggered
+revoke events, the unbouned sleep would not be acceptable. They can call
+dma_buf_attach_revocable() and will not work with the RDMA pinned importer
+from day 0, preventing regressions.
+
+In the process add documentation explaining the above details.
+
+Thanks
+
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+---
+Leon Romanovsky (8):
+      dma-buf: Rename .move_notify() callback to a clearer identifier
+      dma-buf: Rename dma_buf_move_notify() to dma_buf_invalidate_mappings()
+      dma-buf: Always build with DMABUF_MOVE_NOTIFY
+      vfio: Wait for dma-buf invalidation to complete
+      dma-buf: Make .invalidate_mapping() truly optional
+      dma-buf: Add dma_buf_attach_revocable()
+      vfio: Permit VFIO to work with pinned importers
+      iommufd: Add dma_buf_pin()
+
+ drivers/dma-buf/Kconfig                     | 12 -----
+ drivers/dma-buf/dma-buf.c                   | 69 ++++++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 14 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  |  2 +-
+ drivers/gpu/drm/amd/amdkfd/Kconfig          |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_prime.c      |  2 +-
+ drivers/gpu/drm/xe/tests/xe_dma_buf.c       |  7 ++-
+ drivers/gpu/drm/xe/xe_bo.c                  |  2 +-
+ drivers/gpu/drm/xe/xe_dma_buf.c             | 14 ++---
+ drivers/infiniband/core/umem_dmabuf.c       | 13 -----
+ drivers/infiniband/hw/mlx5/mr.c             |  2 +-
+ drivers/iommu/iommufd/pages.c               | 11 +++-
+ drivers/iommu/iommufd/selftest.c            |  2 +-
+ drivers/vfio/pci/vfio_pci_dmabuf.c          | 80 ++++++++++++++++++++++-------
+ include/linux/dma-buf.h                     | 17 +++---
+ 15 files changed, 153 insertions(+), 96 deletions(-)
+---
+base-commit: 61ceaf236115f20f4fdd7cf60f883ada1063349a
+change-id: 20251221-dmabuf-revoke-b90ef16e4236
+
+Best regards,
+--  
+Leon Romanovsky <leonro@nvidia.com>
+
