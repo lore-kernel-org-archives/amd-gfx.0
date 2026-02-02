@@ -4,51 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C48DE7DEF1
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 14:54:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB1D9E7DEF2
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 14:58:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF57610E4E5;
-	Mon,  2 Feb 2026 14:54:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F07A10E2C3;
+	Mon,  2 Feb 2026 14:58:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="FcpVfjrH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UGnMOc2O";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C20E610E4E5
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 14:54:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=In-Reply-To:Content-Transfer-Encoding:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=1TTn4/MspmZAAA/zXUjcWd34TKSCDHYIzEJqMrNd3AM=; b=FcpVfjrHKs01hZwqy1b3LEdBj6
- YAYMIWRgKU9+YjXB+v+hgN5QWZj+IWX5mMVQdK0xGVuhQJLPvqc0Rg1xShtxxgsQ6EsticBXGXEKk
- GzEWd2OF/poQAK0WdEGGTbr+hMsiz7ru6EBJYCP6L7n3PncfwJwgv9va6SEwyE4YLCgncGxGnpqvT
- eliw45xMiQZpsJyQ8WptrZYt2c134BpWeAkD7msl0R/xY2lUny2gP2UxWWNxrM3ZuXrp/T342xMHT
- jP9bXNKpgUxUWSrkbFbcFPCK0JP+kNBwymOtPrPNLXGWr2rR1BEyR8hmp3m6+dBcghw8jES6KjniG
- 81jTJaww==;
-Received: from d198-53-218-11.abhsia.telus.net ([198.53.218.11] helo=atmagalia)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vmvJx-00Coo2-QK; Mon, 02 Feb 2026 15:54:34 +0100
-Date: Mon, 2 Feb 2026 07:54:31 -0700
-From: Rodrigo Siqueira <siqueira@igalia.com>
-To: Timur =?utf-8?Q?Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- Alex Hung <alex.hung@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Mario Limonciello <mario.limonciello@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, harry.wentland@amd.com, 
- Leo Li <sunpeng.li@amd.com>
-Subject: Re: [PATCH 2/5] drm/amd/display: Delete unused dce_clk_mgr.c
-Message-ID: <aYC6R5sdjoB1_b3Z@atmagalia>
-References: <20260118173150.19790-1-timur.kristof@gmail.com>
- <20260118173150.19790-3-timur.kristof@gmail.com>
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BAF010E2C3
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 14:58:36 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-2b71e7dab12so231690eec.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 06:58:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770044315; cv=none;
+ d=google.com; s=arc-20240605;
+ b=S2V7YlLxxGLpLJB93+vX7wz0KiTNYOasV9PfF1Idx/mAn3YKrzroYcDfEoVijW672C
+ ujy0SMnMPnNzh7wg+HZDqQKJ+nhAC4wFC9NQ6FJ68JfJh722ItWED1gvoYzP53DAv/8f
+ QWRe1ATe4vQ1I1HinY9VB2145uqtGu5BkeI+y5gAU4BZNp8Lwsp8i33Iy2F3SCosI5XF
+ KEM5z/7YnvvHrwr4OiynSK0t4vUPhZza3Uk6Tzy0ko3DZredW6dAW0DVCfDs+03uqY85
+ yM8nvBeAeU3HiemMv3WtOQEsOrp3RWNXh1yW71ZeIfEd/S4+58Dxxkp9aKawRSbl428I
+ aJpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Y8+k+DGcAe1gDTlJAG9djuDxYhynbUvFBC9pBD/2cLU=;
+ fh=a4+FQPtBJMIN6fxKtLBA7A1K8pzbxR81Fdr0y1V0WQg=;
+ b=aSq3nDAxQYUOowy46PJk6p57XKfXJRP5Yjm/MMtZaEmB8OZJIXJ38EKjab0/wyzsGM
+ oqyGNqzRL5rjPsUmWY7KRmU16jbR5Brj5THmdVc0AzgHFY6rTDNso9fDFJSFwF7YV55F
+ SrLIKL/aF/2AM3xIPuXbKVZw8npoJr1lJU1bw0OLuIgjC0ErDR9Y/WYISz6S9xbKIaZx
+ fwX1okDk1R+Bv66FpW4ob8Efv15WfDbeGMUqsNzR6I2J1YL6fzC6JVet+3auv6TJ2Tm3
+ 4UqGGXz9Hbgt3+cAl1xzoUig4l+t9K6vAGUxZuCV0JQlk3a9oNcbxzV/yrFJs78KVZWF
+ sWOA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770044315; x=1770649115; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Y8+k+DGcAe1gDTlJAG9djuDxYhynbUvFBC9pBD/2cLU=;
+ b=UGnMOc2O+AIxkFJ047jSwAIhSAKtp3x0r4tpr9cOAWKZT2XrjXYkr28UyF1WB12cKf
+ pLfPmUBPHpLMwrz2JD5417yDlY+pU0sOvpX18QmKC8CEuiOSrT6/XPb7vd2Z7hiO76jn
+ IUkEyfufZ4H4nKS0t/oFl8e9NrYE37MBUh3gJNLjukpT9g/hLfNqNhl4LR34Y1F6m+X3
+ KSvP/EDbFqybfzfeAwlcvlQXHcBeb+Sz5hHePpan3I6JcDpHKZ0P8Jit3bnuR0NCkMJW
+ CL+rVxQIqG8bAXjx1yMxhN6lmip5mIDVISohpdlcAfKF4uw+gTUYsyNdvZgluSsQhrBb
+ Ag8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770044315; x=1770649115;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Y8+k+DGcAe1gDTlJAG9djuDxYhynbUvFBC9pBD/2cLU=;
+ b=UBgC7Tor5+/uHdm4RnahtAYUA0Br3jrFxSWL9Az826wchCeNI6WyDURodB5BTR4Sa8
+ VQgeyPmnAamakkXHbosEDbFJadi6SmvvYz5A4xLkRGcMhzz1B+k3rIhyjGztOKcpk3mZ
+ Nd1guxbcjKBi5fHoCvmLkEurJrHtPcXyh1Lb7B3DrIMNfRaUUqIqR4nnHJn9/1xaqctq
+ sDGbttC8MJ+ASAjwJN3tsdr0Gtr+asoF0Z1uC4N18hsUqTp2S0vXGm2pM/7EHz68MVIu
+ LLyHXl62SoGdD4ll3KqWYCRIfWsVF2b0DaW1xp/+atqB7jUJYymPpvNYwt95qLToYTR+
+ nsPg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU6c9xFi0vWx4xFlOkLv3EEwwKxqiZsdgGiF55aJyeq13SN+3VCJL7igjJ5fnui2JSYetGz0wcE@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz2ygVIz33Ag5VF1w2cOCU14AeQYRdKeRjhbPOM4iGliSCKbSov
+ M01VxKFbUiDVCr6btaLh7OrrWE8SWv/EDjv2MNKALimCT2pEKc3Fuvgqo5yxl39mJ53dCoNQpK6
+ sC2h4164CM+2YbU33wwlvmXGJ2cVMg94=
+X-Gm-Gg: AZuq6aIkN9ujgSGHTAidGIafNgysjRO14ptftfCNFpoBwUnl8WDAt6gYaN4wcEhlGY/
+ AvQEsI6aK+KYKjvooF5BCwq2SVWg57mfoC6qJ/V6q8j2wdq7oukt/SIxfDR2fjjjJtXL2Fo4D/u
+ 7bxHe8O5NGaDEITgmpEOiJFVLa+HCewsQVvlg5FFoCeOuTmRYGfn5CMzHV8M95b464STXLTpptS
+ 7J7b46k3lXB83OOHZhLkt/Kgzx760mmfL5f9l8j8gFOP/v6eI2Wtxo6Wf3bTefmo2Dxfvew
+X-Received: by 2002:a05:7022:6b82:b0:11e:3e9:3ea5 with SMTP id
+ a92af1059eb24-125c100a594mr2795816c88.7.1770044315352; Mon, 02 Feb 2026
+ 06:58:35 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260118173150.19790-3-timur.kristof@gmail.com>
+References: <20260129083515.886112-1-zilin@seu.edu.cn>
+ <PH7PR12MB8796F7F06A2F1DEC1FDAD683B09FA@PH7PR12MB8796.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB8796F7F06A2F1DEC1FDAD683B09FA@PH7PR12MB8796.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 2 Feb 2026 09:58:23 -0500
+X-Gm-Features: AZwV_QjdSskZltGpn-Lxc9ZyLeeFo3MJpk3n6GdqUfo_LpdyViGB3DrIoz_5Tm8
+Message-ID: <CADnq5_Oc5bqtnjMyOgZOaSfK8uuNyZnY6MxYxCr6qo0he=cfZQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix memory leak in amdgpu_ras_init()
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+Cc: Zilin Guan <zilin@seu.edu.cn>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "airlied@gmail.com" <airlied@gmail.com>, 
+ "simona@ffwll.ch" <simona@ffwll.ch>, "Zhang, Hawking" <Hawking.Zhang@amd.com>, 
+ "Chai, Thomas" <YiPeng.Chai@amd.com>, "Xie, Patrick" <Gangliang.Xie@amd.com>, 
+ "Yang, Stanley" <Stanley.Yang@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
+ "jianhao.xu@seu.edu.cn" <jianhao.xu@seu.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,1006 +113,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 01/18, Timur Kristóf wrote:
-> This file was not compiled or included anywhere and not
-> modified for years. And it has duplicate function
-> definitions of many functions that are defined in
-> other files.
-> 
-> That leads to a lot of confusion (for both developers
-> and for code editors), eg. when searching for a definition
-> of a function it can end up on one of the functions in
-> this file instead of the real implementations.
-> 
-> I suspect that it was forgotten that this should be
-> deleted after the various clock manager functions were
-> split into hardware generation specific files.
-> Delete it now.
-> 
-> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-> ---
->  .../gpu/drm/amd/display/dc/dce/dce_clk_mgr.c  | 967 ------------------
->  1 file changed, 967 deletions(-)
->  delete mode 100644 drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c
-> deleted file mode 100644
-> index e7acd6eec1fd..000000000000
-> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c
-> +++ /dev/null
-> @@ -1,967 +0,0 @@
-> -/*
-> - * Copyright 2012-16 Advanced Micro Devices, Inc.
-> - *
-> - * Permission is hereby granted, free of charge, to any person obtaining a
-> - * copy of this software and associated documentation files (the "Software"),
-> - * to deal in the Software without restriction, including without limitation
-> - * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-> - * and/or sell copies of the Software, and to permit persons to whom the
-> - * Software is furnished to do so, subject to the following conditions:
-> - *
-> - * The above copyright notice and this permission notice shall be included in
-> - * all copies or substantial portions of the Software.
-> - *
-> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-> - * OTHER DEALINGS IN THE SOFTWARE.
-> - *
-> - * Authors: AMD
-> - *
-> - */
-> -
-> -#include <linux/slab.h>
-> -
-> -#include "dce_clk_mgr.h"
-> -
-> -#include "reg_helper.h"
-> -#include "dmcu.h"
-> -#include "core_types.h"
-> -#include "dal_asic_id.h"
-> -
-> -#define TO_DCE_CLK_MGR(clocks)\
-> -	container_of(clocks, struct dce_clk_mgr, base)
-> -
-> -#define REG(reg) \
-> -	(clk_mgr_dce->regs->reg)
-> -
-> -#undef FN
-> -#define FN(reg_name, field_name) \
-> -	clk_mgr_dce->clk_mgr_shift->field_name, clk_mgr_dce->clk_mgr_mask->field_name
-> -
-> -#define CTX \
-> -	clk_mgr_dce->base.ctx
-> -#define DC_LOGGER \
-> -	clk_mgr->ctx->logger
-> -
-> -/* Max clock values for each state indexed by "enum clocks_state": */
-> -static const struct state_dependent_clocks dce80_max_clks_by_state[] = {
-> -/* ClocksStateInvalid - should not be used */
-> -{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
-> -/* ClocksStateUltraLow - not expected to be used for DCE 8.0 */
-> -{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
-> -/* ClocksStateLow */
-> -{ .display_clk_khz = 352000, .pixel_clk_khz = 330000},
-> -/* ClocksStateNominal */
-> -{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 },
-> -/* ClocksStatePerformance */
-> -{ .display_clk_khz = 600000, .pixel_clk_khz = 400000 } };
-> -
-> -static const struct state_dependent_clocks dce110_max_clks_by_state[] = {
-> -/*ClocksStateInvalid - should not be used*/
-> -{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
-> -/*ClocksStateUltraLow - currently by HW design team not supposed to be used*/
-> -{ .display_clk_khz = 352000, .pixel_clk_khz = 330000 },
-> -/*ClocksStateLow*/
-> -{ .display_clk_khz = 352000, .pixel_clk_khz = 330000 },
-> -/*ClocksStateNominal*/
-> -{ .display_clk_khz = 467000, .pixel_clk_khz = 400000 },
-> -/*ClocksStatePerformance*/
-> -{ .display_clk_khz = 643000, .pixel_clk_khz = 400000 } };
-> -
-> -static const struct state_dependent_clocks dce112_max_clks_by_state[] = {
-> -/*ClocksStateInvalid - should not be used*/
-> -{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
-> -/*ClocksStateUltraLow - currently by HW design team not supposed to be used*/
-> -{ .display_clk_khz = 389189, .pixel_clk_khz = 346672 },
-> -/*ClocksStateLow*/
-> -{ .display_clk_khz = 459000, .pixel_clk_khz = 400000 },
-> -/*ClocksStateNominal*/
-> -{ .display_clk_khz = 667000, .pixel_clk_khz = 600000 },
-> -/*ClocksStatePerformance*/
-> -{ .display_clk_khz = 1132000, .pixel_clk_khz = 600000 } };
-> -
-> -static const struct state_dependent_clocks dce120_max_clks_by_state[] = {
-> -/*ClocksStateInvalid - should not be used*/
-> -{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
-> -/*ClocksStateUltraLow - currently by HW design team not supposed to be used*/
-> -{ .display_clk_khz = 0, .pixel_clk_khz = 0 },
-> -/*ClocksStateLow*/
-> -{ .display_clk_khz = 460000, .pixel_clk_khz = 400000 },
-> -/*ClocksStateNominal*/
-> -{ .display_clk_khz = 670000, .pixel_clk_khz = 600000 },
-> -/*ClocksStatePerformance*/
-> -{ .display_clk_khz = 1133000, .pixel_clk_khz = 600000 } };
-> -
-> -int dentist_get_divider_from_did(int did)
-> -{
-> -	if (did < DENTIST_BASE_DID_1)
-> -		did = DENTIST_BASE_DID_1;
-> -	if (did > DENTIST_MAX_DID)
-> -		did = DENTIST_MAX_DID;
-> -
-> -	if (did < DENTIST_BASE_DID_2) {
-> -		return DENTIST_DIVIDER_RANGE_1_START + DENTIST_DIVIDER_RANGE_1_STEP
-> -							* (did - DENTIST_BASE_DID_1);
-> -	} else if (did < DENTIST_BASE_DID_3) {
-> -		return DENTIST_DIVIDER_RANGE_2_START + DENTIST_DIVIDER_RANGE_2_STEP
-> -							* (did - DENTIST_BASE_DID_2);
-> -	} else if (did < DENTIST_BASE_DID_4) {
-> -		return DENTIST_DIVIDER_RANGE_3_START + DENTIST_DIVIDER_RANGE_3_STEP
-> -							* (did - DENTIST_BASE_DID_3);
-> -	} else {
-> -		return DENTIST_DIVIDER_RANGE_4_START + DENTIST_DIVIDER_RANGE_4_STEP
-> -							* (did - DENTIST_BASE_DID_4);
-> -	}
-> -}
-> -
-> -/* SW will adjust DP REF Clock average value for all purposes
-> - * (DP DTO / DP Audio DTO and DP GTC)
-> - if clock is spread for all cases:
-> - -if SS enabled on DP Ref clock and HW de-spreading enabled with SW
-> - calculations for DS_INCR/DS_MODULO (this is planned to be default case)
-> - -if SS enabled on DP Ref clock and HW de-spreading enabled with HW
-> - calculations (not planned to be used, but average clock should still
-> - be valid)
-> - -if SS enabled on DP Ref clock and HW de-spreading disabled
-> - (should not be case with CIK) then SW should program all rates
-> - generated according to average value (case as with previous ASICs)
-> -  */
-> -static int clk_mgr_adjust_dp_ref_freq_for_ss(struct dce_clk_mgr *clk_mgr_dce, int dp_ref_clk_khz)
-> -{
-> -	if (clk_mgr_dce->ss_on_dprefclk && clk_mgr_dce->dprefclk_ss_divider != 0) {
-> -		struct fixed31_32 ss_percentage = dc_fixpt_div_int(
-> -				dc_fixpt_from_fraction(clk_mgr_dce->dprefclk_ss_percentage,
-> -							clk_mgr_dce->dprefclk_ss_divider), 200);
-> -		struct fixed31_32 adj_dp_ref_clk_khz;
-> -
-> -		ss_percentage = dc_fixpt_sub(dc_fixpt_one, ss_percentage);
-> -		adj_dp_ref_clk_khz = dc_fixpt_mul_int(ss_percentage, dp_ref_clk_khz);
-> -		dp_ref_clk_khz = dc_fixpt_floor(adj_dp_ref_clk_khz);
-> -	}
-> -	return dp_ref_clk_khz;
-> -}
-> -
-> -static int dce_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
-> -	int dprefclk_wdivider;
-> -	int dprefclk_src_sel;
-> -	int dp_ref_clk_khz = 600000;
-> -	int target_div;
-> -
-> -	/* ASSERT DP Reference Clock source is from DFS*/
-> -	REG_GET(DPREFCLK_CNTL, DPREFCLK_SRC_SEL, &dprefclk_src_sel);
-> -	ASSERT(dprefclk_src_sel == 0);
-> -
-> -	/* Read the mmDENTIST_DISPCLK_CNTL to get the currently
-> -	 * programmed DID DENTIST_DPREFCLK_WDIVIDER*/
-> -	REG_GET(DENTIST_DISPCLK_CNTL, DENTIST_DPREFCLK_WDIVIDER, &dprefclk_wdivider);
-> -
-> -	/* Convert DENTIST_DPREFCLK_WDIVIDERto actual divider*/
-> -	target_div = dentist_get_divider_from_did(dprefclk_wdivider);
-> -
-> -	/* Calculate the current DFS clock, in kHz.*/
-> -	dp_ref_clk_khz = (DENTIST_DIVIDER_RANGE_SCALE_FACTOR
-> -		* clk_mgr_dce->dentist_vco_freq_khz) / target_div;
-> -
-> -	return clk_mgr_adjust_dp_ref_freq_for_ss(clk_mgr_dce, dp_ref_clk_khz);
-> -}
-> -
-> -int dce12_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
-> -
-> -	return clk_mgr_adjust_dp_ref_freq_for_ss(clk_mgr_dce, clk_mgr_dce->dprefclk_khz);
-> -}
-> -
-> -/* unit: in_khz before mode set, get pixel clock from context. ASIC register
-> - * may not be programmed yet
-> - */
-> -static uint32_t get_max_pixel_clock_for_all_paths(struct dc_state *context)
-> -{
-> -	uint32_t max_pix_clk = 0;
-> -	int i;
-> -
-> -	for (i = 0; i < MAX_PIPES; i++) {
-> -		struct pipe_ctx *pipe_ctx = &context->res_ctx.pipe_ctx[i];
-> -
-> -		if (pipe_ctx->stream == NULL)
-> -			continue;
-> -
-> -		/* do not check under lay */
-> -		if (pipe_ctx->top_pipe)
-> -			continue;
-> -
-> -		if (pipe_ctx->stream_res.pix_clk_params.requested_pix_clk_100hz / 10 > max_pix_clk)
-> -			max_pix_clk = pipe_ctx->stream_res.pix_clk_params.requested_pix_clk_100hz / 10;
-> -
-> -		/* raise clock state for HBR3/2 if required. Confirmed with HW DCE/DPCS
-> -		 * logic for HBR3 still needs Nominal (0.8V) on VDDC rail
-> -		 */
-> -		if (dc_is_dp_signal(pipe_ctx->stream->signal) &&
-> -				pipe_ctx->stream_res.pix_clk_params.requested_sym_clk > max_pix_clk)
-> -			max_pix_clk = pipe_ctx->stream_res.pix_clk_params.requested_sym_clk;
-> -	}
-> -
-> -	return max_pix_clk;
-> -}
-> -
-> -static enum dm_pp_clocks_state dce_get_required_clocks_state(
-> -	struct clk_mgr *clk_mgr,
-> -	struct dc_state *context)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
-> -	int i;
-> -	enum dm_pp_clocks_state low_req_clk;
-> -	int max_pix_clk = get_max_pixel_clock_for_all_paths(context);
-> -
-> -	/* Iterate from highest supported to lowest valid state, and update
-> -	 * lowest RequiredState with the lowest state that satisfies
-> -	 * all required clocks
-> -	 */
-> -	for (i = clk_mgr_dce->max_clks_state; i >= DM_PP_CLOCKS_STATE_ULTRA_LOW; i--)
-> -		if (context->bw_ctx.bw.dce.dispclk_khz >
-> -				clk_mgr_dce->max_clks_by_state[i].display_clk_khz
-> -			|| max_pix_clk >
-> -				clk_mgr_dce->max_clks_by_state[i].pixel_clk_khz)
-> -			break;
-> -
-> -	low_req_clk = i + 1;
-> -	if (low_req_clk > clk_mgr_dce->max_clks_state) {
-> -		/* set max clock state for high phyclock, invalid on exceeding display clock */
-> -		if (clk_mgr_dce->max_clks_by_state[clk_mgr_dce->max_clks_state].display_clk_khz
-> -				< context->bw_ctx.bw.dce.dispclk_khz)
-> -			low_req_clk = DM_PP_CLOCKS_STATE_INVALID;
-> -		else
-> -			low_req_clk = clk_mgr_dce->max_clks_state;
-> -	}
-> -
-> -	return low_req_clk;
-> -}
-> -
-> -static int dce_set_clock(
-> -	struct clk_mgr *clk_mgr,
-> -	int requested_clk_khz)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
-> -	struct bp_pixel_clock_parameters pxl_clk_params = { 0 };
-> -	struct dc_bios *bp = clk_mgr->ctx->dc_bios;
-> -	int actual_clock = requested_clk_khz;
-> -	struct dmcu *dmcu = clk_mgr_dce->base.ctx->dc->res_pool->dmcu;
-> -
-> -	/* Make sure requested clock isn't lower than minimum threshold*/
-> -	if (requested_clk_khz > 0)
-> -		requested_clk_khz = max(requested_clk_khz,
-> -				clk_mgr_dce->dentist_vco_freq_khz / 64);
-> -
-> -	/* Prepare to program display clock*/
-> -	pxl_clk_params.target_pixel_clock_100hz = requested_clk_khz * 10;
-> -	pxl_clk_params.pll_id = CLOCK_SOURCE_ID_DFS;
-> -
-> -	if (clk_mgr_dce->dfs_bypass_active)
-> -		pxl_clk_params.flags.SET_DISPCLK_DFS_BYPASS = true;
-> -
-> -	bp->funcs->program_display_engine_pll(bp, &pxl_clk_params);
-> -
-> -	if (clk_mgr_dce->dfs_bypass_active) {
-> -		/* Cache the fixed display clock*/
-> -		clk_mgr_dce->dfs_bypass_disp_clk =
-> -			pxl_clk_params.dfs_bypass_display_clock;
-> -		actual_clock = pxl_clk_params.dfs_bypass_display_clock;
-> -	}
-> -
-> -	/* from power down, we need mark the clock state as ClocksStateNominal
-> -	 * from HWReset, so when resume we will call pplib voltage regulator.*/
-> -	if (requested_clk_khz == 0)
-> -		clk_mgr_dce->cur_min_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
-> -
-> -	if (dmcu && dmcu->funcs->is_dmcu_initialized(dmcu))
-> -		dmcu->funcs->set_psr_wait_loop(dmcu, actual_clock / 1000 / 7);
-> -
-> -	return actual_clock;
-> -}
-> -
-> -int dce112_set_clock(struct clk_mgr *clk_mgr, int requested_clk_khz)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
-> -	struct bp_set_dce_clock_parameters dce_clk_params;
-> -	struct dc_bios *bp = clk_mgr->ctx->dc_bios;
-> -	struct dc *core_dc = clk_mgr->ctx->dc;
-> -	struct dmcu *dmcu = core_dc->res_pool->dmcu;
-> -	int actual_clock = requested_clk_khz;
-> -	/* Prepare to program display clock*/
-> -	memset(&dce_clk_params, 0, sizeof(dce_clk_params));
-> -
-> -	/* Make sure requested clock isn't lower than minimum threshold*/
-> -	if (requested_clk_khz > 0)
-> -		requested_clk_khz = max(requested_clk_khz,
-> -				clk_mgr_dce->dentist_vco_freq_khz / 62);
-> -
-> -	dce_clk_params.target_clock_frequency = requested_clk_khz;
-> -	dce_clk_params.pll_id = CLOCK_SOURCE_ID_DFS;
-> -	dce_clk_params.clock_type = DCECLOCK_TYPE_DISPLAY_CLOCK;
-> -
-> -	bp->funcs->set_dce_clock(bp, &dce_clk_params);
-> -	actual_clock = dce_clk_params.target_clock_frequency;
-> -
-> -	/* from power down, we need mark the clock state as ClocksStateNominal
-> -	 * from HWReset, so when resume we will call pplib voltage regulator.*/
-> -	if (requested_clk_khz == 0)
-> -		clk_mgr_dce->cur_min_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
-> -
-> -	/*Program DP ref Clock*/
-> -	/*VBIOS will determine DPREFCLK frequency, so we don't set it*/
-> -	dce_clk_params.target_clock_frequency = 0;
-> -	dce_clk_params.clock_type = DCECLOCK_TYPE_DPREFCLK;
-> -
-> -	if (!((clk_mgr->ctx->asic_id.chip_family == FAMILY_AI) &&
-> -	       ASICREV_IS_VEGA20_P(clk_mgr->ctx->asic_id.hw_internal_rev)))
-> -		dce_clk_params.flags.USE_GENLOCK_AS_SOURCE_FOR_DPREFCLK =
-> -			(dce_clk_params.pll_id ==
-> -					CLOCK_SOURCE_COMBO_DISPLAY_PLL0);
-> -	else
-> -		dce_clk_params.flags.USE_GENLOCK_AS_SOURCE_FOR_DPREFCLK = false;
-> -
-> -	bp->funcs->set_dce_clock(bp, &dce_clk_params);
-> -
-> -	if (!IS_FPGA_MAXIMUS_DC(core_dc->ctx->dce_environment)) {
-> -		if (dmcu && dmcu->funcs->is_dmcu_initialized(dmcu)) {
-> -			if (clk_mgr_dce->dfs_bypass_disp_clk != actual_clock)
-> -				dmcu->funcs->set_psr_wait_loop(dmcu,
-> -						actual_clock / 1000 / 7);
-> -		}
-> -	}
-> -
-> -	clk_mgr_dce->dfs_bypass_disp_clk = actual_clock;
-> -	return actual_clock;
-> -}
-> -
-> -static void dce_clock_read_integrated_info(struct dce_clk_mgr *clk_mgr_dce)
-> -{
-> -	struct dc_debug_options *debug = &clk_mgr_dce->base.ctx->dc->debug;
-> -	struct dc_bios *bp = clk_mgr_dce->base.ctx->dc_bios;
-> -	struct integrated_info info = { { { 0 } } };
-> -	struct dc_firmware_info fw_info = { { 0 } };
-> -	int i;
-> -
-> -	if (bp->integrated_info)
-> -		info = *bp->integrated_info;
-> -
-> -	clk_mgr_dce->dentist_vco_freq_khz = info.dentist_vco_freq;
-> -	if (clk_mgr_dce->dentist_vco_freq_khz == 0) {
-> -		bp->funcs->get_firmware_info(bp, &fw_info);
-> -		clk_mgr_dce->dentist_vco_freq_khz =
-> -			fw_info.smu_gpu_pll_output_freq;
-> -		if (clk_mgr_dce->dentist_vco_freq_khz == 0)
-> -			clk_mgr_dce->dentist_vco_freq_khz = 3600000;
-> -	}
-> -
-> -	/*update the maximum display clock for each power state*/
-> -	for (i = 0; i < NUMBER_OF_DISP_CLK_VOLTAGE; ++i) {
-> -		enum dm_pp_clocks_state clk_state = DM_PP_CLOCKS_STATE_INVALID;
-> -
-> -		switch (i) {
-> -		case 0:
-> -			clk_state = DM_PP_CLOCKS_STATE_ULTRA_LOW;
-> -			break;
-> -
-> -		case 1:
-> -			clk_state = DM_PP_CLOCKS_STATE_LOW;
-> -			break;
-> -
-> -		case 2:
-> -			clk_state = DM_PP_CLOCKS_STATE_NOMINAL;
-> -			break;
-> -
-> -		case 3:
-> -			clk_state = DM_PP_CLOCKS_STATE_PERFORMANCE;
-> -			break;
-> -
-> -		default:
-> -			clk_state = DM_PP_CLOCKS_STATE_INVALID;
-> -			break;
-> -		}
-> -
-> -		/*Do not allow bad VBIOS/SBIOS to override with invalid values,
-> -		 * check for > 100MHz*/
-> -		if (info.disp_clk_voltage[i].max_supported_clk >= 100000)
-> -			clk_mgr_dce->max_clks_by_state[clk_state].display_clk_khz =
-> -				info.disp_clk_voltage[i].max_supported_clk;
-> -	}
-> -
-> -	if (!debug->disable_dfs_bypass && bp->integrated_info)
-> -		if (bp->integrated_info->gpu_cap_info & DFS_BYPASS_ENABLE)
-> -			clk_mgr_dce->dfs_bypass_enabled = true;
-> -}
-> -
-> -void dce_clock_read_ss_info(struct dce_clk_mgr *clk_mgr_dce)
-> -{
-> -	struct dc_bios *bp = clk_mgr_dce->base.ctx->dc_bios;
-> -	int ss_info_num = bp->funcs->get_ss_entry_number(
-> -			bp, AS_SIGNAL_TYPE_GPU_PLL);
-> -
-> -	if (ss_info_num) {
-> -		struct spread_spectrum_info info = { { 0 } };
-> -		enum bp_result result = bp->funcs->get_spread_spectrum_info(
-> -				bp, AS_SIGNAL_TYPE_GPU_PLL, 0, &info);
-> -
-> -		/* Based on VBIOS, VBIOS will keep entry for GPU PLL SS
-> -		 * even if SS not enabled and in that case
-> -		 * SSInfo.spreadSpectrumPercentage !=0 would be sign
-> -		 * that SS is enabled
-> -		 */
-> -		if (result == BP_RESULT_OK &&
-> -				info.spread_spectrum_percentage != 0) {
-> -			clk_mgr_dce->ss_on_dprefclk = true;
-> -			clk_mgr_dce->dprefclk_ss_divider = info.spread_percentage_divider;
-> -
-> -			if (info.type.CENTER_MODE == 0) {
-> -				/* TODO: Currently for DP Reference clock we
-> -				 * need only SS percentage for
-> -				 * downspread */
-> -				clk_mgr_dce->dprefclk_ss_percentage =
-> -						info.spread_spectrum_percentage;
-> -			}
-> -
-> -			return;
-> -		}
-> -
-> -		result = bp->funcs->get_spread_spectrum_info(
-> -				bp, AS_SIGNAL_TYPE_DISPLAY_PORT, 0, &info);
-> -
-> -		/* Based on VBIOS, VBIOS will keep entry for DPREFCLK SS
-> -		 * even if SS not enabled and in that case
-> -		 * SSInfo.spreadSpectrumPercentage !=0 would be sign
-> -		 * that SS is enabled
-> -		 */
-> -		if (result == BP_RESULT_OK &&
-> -				info.spread_spectrum_percentage != 0) {
-> -			clk_mgr_dce->ss_on_dprefclk = true;
-> -			clk_mgr_dce->dprefclk_ss_divider = info.spread_percentage_divider;
-> -
-> -			if (info.type.CENTER_MODE == 0) {
-> -				/* Currently for DP Reference clock we
-> -				 * need only SS percentage for
-> -				 * downspread */
-> -				clk_mgr_dce->dprefclk_ss_percentage =
-> -						info.spread_spectrum_percentage;
-> -			}
-> -			if (clk_mgr_dce->base.ctx->dc->debug.ignore_dpref_ss)
-> -				clk_mgr_dce->dprefclk_ss_percentage = 0;
-> -		}
-> -	}
-> -}
-> -
-> -/**
-> - * dce121_clock_patch_xgmi_ss_info() - Save XGMI spread spectrum info
-> - * @clk_mgr: clock manager base structure
-> - *
-> - * Reads from VBIOS the XGMI spread spectrum info and saves it within
-> - * the dce clock manager. This operation will overwrite the existing dprefclk
-> - * SS values if the vBIOS query succeeds. Otherwise, it does nothing. It also
-> - * sets the ->xgmi_enabled flag.
-> - */
-> -void dce121_clock_patch_xgmi_ss_info(struct clk_mgr *clk_mgr)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
-> -	enum bp_result result;
-> -	struct spread_spectrum_info info = { { 0 } };
-> -	struct dc_bios *bp = clk_mgr_dce->base.ctx->dc_bios;
-> -
-> -	clk_mgr_dce->xgmi_enabled = false;
-> -
-> -	result = bp->funcs->get_spread_spectrum_info(bp, AS_SIGNAL_TYPE_XGMI,
-> -						     0, &info);
-> -	if (result == BP_RESULT_OK && info.spread_spectrum_percentage != 0) {
-> -		clk_mgr_dce->xgmi_enabled = true;
-> -		clk_mgr_dce->ss_on_dprefclk = true;
-> -		clk_mgr_dce->dprefclk_ss_divider =
-> -				info.spread_percentage_divider;
-> -
-> -		if (info.type.CENTER_MODE == 0) {
-> -			/* Currently for DP Reference clock we
-> -			 * need only SS percentage for
-> -			 * downspread */
-> -			clk_mgr_dce->dprefclk_ss_percentage =
-> -					info.spread_spectrum_percentage;
-> -		}
-> -	}
-> -}
-> -
-> -void dce110_fill_display_configs(
-> -	const struct dc_state *context,
-> -	struct dm_pp_display_configuration *pp_display_cfg)
-> -{
-> -	int j;
-> -	int num_cfgs = 0;
-> -
-> -	for (j = 0; j < context->stream_count; j++) {
-> -		int k;
-> -
-> -		const struct dc_stream_state *stream = context->streams[j];
-> -		struct dm_pp_single_disp_config *cfg =
-> -			&pp_display_cfg->disp_configs[num_cfgs];
-> -		const struct pipe_ctx *pipe_ctx = NULL;
-> -
-> -		for (k = 0; k < MAX_PIPES; k++)
-> -			if (stream == context->res_ctx.pipe_ctx[k].stream) {
-> -				pipe_ctx = &context->res_ctx.pipe_ctx[k];
-> -				break;
-> -			}
-> -
-> -		ASSERT(pipe_ctx != NULL);
-> -
-> -		/* only notify active stream */
-> -		if (stream->dpms_off)
-> -			continue;
-> -
-> -		num_cfgs++;
-> -		cfg->signal = pipe_ctx->stream->signal;
-> -		cfg->pipe_idx = pipe_ctx->stream_res.tg->inst;
-> -		cfg->src_height = stream->src.height;
-> -		cfg->src_width = stream->src.width;
-> -		cfg->ddi_channel_mapping =
-> -			stream->link->ddi_channel_mapping.raw;
-> -		cfg->transmitter =
-> -			stream->link->link_enc->transmitter;
-> -		cfg->link_settings.lane_count =
-> -			stream->link->cur_link_settings.lane_count;
-> -		cfg->link_settings.link_rate =
-> -			stream->link->cur_link_settings.link_rate;
-> -		cfg->link_settings.link_spread =
-> -			stream->link->cur_link_settings.link_spread;
-> -		cfg->sym_clock = stream->phy_pix_clk;
-> -		/* Round v_refresh*/
-> -		cfg->v_refresh = stream->timing.pix_clk_100hz * 100;
-> -		cfg->v_refresh /= stream->timing.h_total;
-> -		cfg->v_refresh = (cfg->v_refresh + stream->timing.v_total / 2)
-> -							/ stream->timing.v_total;
-> -	}
-> -
-> -	pp_display_cfg->display_count = num_cfgs;
-> -}
-> -
-> -static uint32_t dce110_get_min_vblank_time_us(const struct dc_state *context)
-> -{
-> -	uint8_t j;
-> -	uint32_t min_vertical_blank_time = -1;
-> -
-> -	for (j = 0; j < context->stream_count; j++) {
-> -		struct dc_stream_state *stream = context->streams[j];
-> -		uint32_t vertical_blank_in_pixels = 0;
-> -		uint32_t vertical_blank_time = 0;
-> -
-> -		vertical_blank_in_pixels = stream->timing.h_total *
-> -			(stream->timing.v_total
-> -			 - stream->timing.v_addressable);
-> -
-> -		vertical_blank_time = vertical_blank_in_pixels
-> -			* 10000 / stream->timing.pix_clk_100hz;
-> -
-> -		if (min_vertical_blank_time > vertical_blank_time)
-> -			min_vertical_blank_time = vertical_blank_time;
-> -	}
-> -
-> -	return min_vertical_blank_time;
-> -}
-> -
-> -static int determine_sclk_from_bounding_box(
-> -		const struct dc *dc,
-> -		int required_sclk)
-> -{
-> -	int i;
-> -
-> -	/*
-> -	 * Some asics do not give us sclk levels, so we just report the actual
-> -	 * required sclk
-> -	 */
-> -	if (dc->sclk_lvls.num_levels == 0)
-> -		return required_sclk;
-> -
-> -	for (i = 0; i < dc->sclk_lvls.num_levels; i++) {
-> -		if (dc->sclk_lvls.clocks_in_khz[i] >= required_sclk)
-> -			return dc->sclk_lvls.clocks_in_khz[i];
-> -	}
-> -	/*
-> -	 * even maximum level could not satisfy requirement, this
-> -	 * is unexpected at this stage, should have been caught at
-> -	 * validation time
-> -	 */
-> -	ASSERT(0);
-> -	return dc->sclk_lvls.clocks_in_khz[dc->sclk_lvls.num_levels - 1];
-> -}
-> -
-> -static void dce_pplib_apply_display_requirements(
-> -	struct dc *dc,
-> -	struct dc_state *context)
-> -{
-> -	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
-> -
-> -	pp_display_cfg->avail_mclk_switch_time_us = dce110_get_min_vblank_time_us(context);
-> -
-> -	dce110_fill_display_configs(context, pp_display_cfg);
-> -
-> -	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
-> -		dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
-> -}
-> -
-> -static void dce11_pplib_apply_display_requirements(
-> -	struct dc *dc,
-> -	struct dc_state *context)
-> -{
-> -	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
-> -
-> -	pp_display_cfg->all_displays_in_sync =
-> -		context->bw_ctx.bw.dce.all_displays_in_sync;
-> -	pp_display_cfg->nb_pstate_switch_disable =
-> -			context->bw_ctx.bw.dce.nbp_state_change_enable == false;
-> -	pp_display_cfg->cpu_cc6_disable =
-> -			context->bw_ctx.bw.dce.cpuc_state_change_enable == false;
-> -	pp_display_cfg->cpu_pstate_disable =
-> -			context->bw_ctx.bw.dce.cpup_state_change_enable == false;
-> -	pp_display_cfg->cpu_pstate_separation_time =
-> -			context->bw_ctx.bw.dce.blackout_recovery_time_us;
-> -
-> -	pp_display_cfg->min_memory_clock_khz = context->bw_ctx.bw.dce.yclk_khz
-> -		/ MEMORY_TYPE_MULTIPLIER_CZ;
-> -
-> -	pp_display_cfg->min_engine_clock_khz = determine_sclk_from_bounding_box(
-> -			dc,
-> -			context->bw_ctx.bw.dce.sclk_khz);
-> -
-> -	/*
-> -	 * As workaround for >4x4K lightup set dcfclock to min_engine_clock value.
-> -	 * This is not required for less than 5 displays,
-> -	 * thus don't request decfclk in dc to avoid impact
-> -	 * on power saving.
-> -	 *
-> -	 */
-> -	pp_display_cfg->min_dcfclock_khz = (context->stream_count > 4) ?
-> -			pp_display_cfg->min_engine_clock_khz : 0;
-> -
-> -	pp_display_cfg->min_engine_clock_deep_sleep_khz
-> -			= context->bw_ctx.bw.dce.sclk_deep_sleep_khz;
-> -
-> -	pp_display_cfg->avail_mclk_switch_time_us =
-> -						dce110_get_min_vblank_time_us(context);
-> -	/* TODO: dce11.2*/
-> -	pp_display_cfg->avail_mclk_switch_time_in_disp_active_us = 0;
-> -
-> -	pp_display_cfg->disp_clk_khz = dc->res_pool->clk_mgr->clks.dispclk_khz;
-> -
-> -	dce110_fill_display_configs(context, pp_display_cfg);
-> -
-> -	/* TODO: is this still applicable?*/
-> -	if (pp_display_cfg->display_count == 1) {
-> -		const struct dc_crtc_timing *timing =
-> -			&context->streams[0]->timing;
-> -
-> -		pp_display_cfg->crtc_index =
-> -			pp_display_cfg->disp_configs[0].pipe_idx;
-> -		pp_display_cfg->line_time_in_us = timing->h_total * 10000 / timing->pix_clk_100hz;
-> -	}
-> -
-> -	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
-> -		dm_pp_apply_display_requirements(dc->ctx, pp_display_cfg);
-> -}
-> -
-> -static void dce_update_clocks(struct clk_mgr *clk_mgr,
-> -			struct dc_state *context,
-> -			bool safe_to_lower)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
-> -	struct dm_pp_power_level_change_request level_change_req;
-> -	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
-> -
-> -	/*TODO: W/A for dal3 linux, investigate why this works */
-> -	if (!clk_mgr_dce->dfs_bypass_active)
-> -		patched_disp_clk = patched_disp_clk * 115 / 100;
-> -
-> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr, context);
-> -	/* get max clock state from PPLIB */
-> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
-> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
-> -		if (dm_pp_apply_power_level_change_request(clk_mgr->ctx, &level_change_req))
-> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
-> -	}
-> -
-> -	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr->clks.dispclk_khz)) {
-> -		patched_disp_clk = dce_set_clock(clk_mgr, patched_disp_clk);
-> -		clk_mgr->clks.dispclk_khz = patched_disp_clk;
-> -	}
-> -	dce_pplib_apply_display_requirements(clk_mgr->ctx->dc, context);
-> -}
-> -
-> -static void dce11_update_clocks(struct clk_mgr *clk_mgr,
-> -			struct dc_state *context,
-> -			bool safe_to_lower)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
-> -	struct dm_pp_power_level_change_request level_change_req;
-> -	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
-> -
-> -	/*TODO: W/A for dal3 linux, investigate why this works */
-> -	if (!clk_mgr_dce->dfs_bypass_active)
-> -		patched_disp_clk = patched_disp_clk * 115 / 100;
-> -
-> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr, context);
-> -	/* get max clock state from PPLIB */
-> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
-> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
-> -		if (dm_pp_apply_power_level_change_request(clk_mgr->ctx, &level_change_req))
-> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
-> -	}
-> -
-> -	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr->clks.dispclk_khz)) {
-> -		context->bw_ctx.bw.dce.dispclk_khz = dce_set_clock(clk_mgr, patched_disp_clk);
-> -		clk_mgr->clks.dispclk_khz = patched_disp_clk;
-> -	}
-> -	dce11_pplib_apply_display_requirements(clk_mgr->ctx->dc, context);
-> -}
-> -
-> -static void dce112_update_clocks(struct clk_mgr *clk_mgr,
-> -			struct dc_state *context,
-> -			bool safe_to_lower)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
-> -	struct dm_pp_power_level_change_request level_change_req;
-> -	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
-> -
-> -	/*TODO: W/A for dal3 linux, investigate why this works */
-> -	if (!clk_mgr_dce->dfs_bypass_active)
-> -		patched_disp_clk = patched_disp_clk * 115 / 100;
-> -
-> -	level_change_req.power_level = dce_get_required_clocks_state(clk_mgr, context);
-> -	/* get max clock state from PPLIB */
-> -	if ((level_change_req.power_level < clk_mgr_dce->cur_min_clks_state && safe_to_lower)
-> -			|| level_change_req.power_level > clk_mgr_dce->cur_min_clks_state) {
-> -		if (dm_pp_apply_power_level_change_request(clk_mgr->ctx, &level_change_req))
-> -			clk_mgr_dce->cur_min_clks_state = level_change_req.power_level;
-> -	}
-> -
-> -	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr->clks.dispclk_khz)) {
-> -		patched_disp_clk = dce112_set_clock(clk_mgr, patched_disp_clk);
-> -		clk_mgr->clks.dispclk_khz = patched_disp_clk;
-> -	}
-> -	dce11_pplib_apply_display_requirements(clk_mgr->ctx->dc, context);
-> -}
-> -
-> -static void dce12_update_clocks(struct clk_mgr *clk_mgr,
-> -			struct dc_state *context,
-> -			bool safe_to_lower)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr);
-> -	struct dm_pp_clock_for_voltage_req clock_voltage_req = {0};
-> -	int max_pix_clk = get_max_pixel_clock_for_all_paths(context);
-> -	int patched_disp_clk = context->bw_ctx.bw.dce.dispclk_khz;
-> -
-> -	/*TODO: W/A for dal3 linux, investigate why this works */
-> -	if (!clk_mgr_dce->dfs_bypass_active)
-> -		patched_disp_clk = patched_disp_clk * 115 / 100;
-> -
-> -	if (should_set_clock(safe_to_lower, patched_disp_clk, clk_mgr->clks.dispclk_khz)) {
-> -		clock_voltage_req.clk_type = DM_PP_CLOCK_TYPE_DISPLAY_CLK;
-> -		/*
-> -		 * When xGMI is enabled, the display clk needs to be adjusted
-> -		 * with the WAFL link's SS percentage.
-> -		 */
-> -		if (clk_mgr_dce->xgmi_enabled)
-> -			patched_disp_clk = clk_mgr_adjust_dp_ref_freq_for_ss(
-> -					clk_mgr_dce, patched_disp_clk);
-> -		clock_voltage_req.clocks_in_khz = patched_disp_clk;
-> -		clk_mgr->clks.dispclk_khz = dce112_set_clock(clk_mgr, patched_disp_clk);
-> -
-> -		dm_pp_apply_clock_for_voltage_request(clk_mgr->ctx, &clock_voltage_req);
-> -	}
-> -
-> -	if (should_set_clock(safe_to_lower, max_pix_clk, clk_mgr->clks.phyclk_khz)) {
-> -		clock_voltage_req.clk_type = DM_PP_CLOCK_TYPE_DISPLAYPHYCLK;
-> -		clock_voltage_req.clocks_in_khz = max_pix_clk;
-> -		clk_mgr->clks.phyclk_khz = max_pix_clk;
-> -
-> -		dm_pp_apply_clock_for_voltage_request(clk_mgr->ctx, &clock_voltage_req);
-> -	}
-> -	dce11_pplib_apply_display_requirements(clk_mgr->ctx->dc, context);
-> -}
-> -
-> -static const struct clk_mgr_funcs dce120_funcs = {
-> -	.get_dp_ref_clk_frequency = dce12_get_dp_ref_freq_khz,
-> -	.update_clocks = dce12_update_clocks
-> -};
-> -
-> -static const struct clk_mgr_funcs dce112_funcs = {
-> -	.get_dp_ref_clk_frequency = dce_get_dp_ref_freq_khz,
-> -	.update_clocks = dce112_update_clocks
-> -};
-> -
-> -static const struct clk_mgr_funcs dce110_funcs = {
-> -	.get_dp_ref_clk_frequency = dce_get_dp_ref_freq_khz,
-> -	.update_clocks = dce11_update_clocks,
-> -};
-> -
-> -static const struct clk_mgr_funcs dce_funcs = {
-> -	.get_dp_ref_clk_frequency = dce_get_dp_ref_freq_khz,
-> -	.update_clocks = dce_update_clocks
-> -};
-> -
-> -static void dce_clk_mgr_construct(
-> -	struct dce_clk_mgr *clk_mgr_dce,
-> -	struct dc_context *ctx,
-> -	const struct clk_mgr_registers *regs,
-> -	const struct clk_mgr_shift *clk_shift,
-> -	const struct clk_mgr_mask *clk_mask)
-> -{
-> -	struct clk_mgr *base = &clk_mgr_dce->base;
-> -	struct dm_pp_static_clock_info static_clk_info = {0};
-> -
-> -	base->ctx = ctx;
-> -	base->funcs = &dce_funcs;
-> -
-> -	clk_mgr_dce->regs = regs;
-> -	clk_mgr_dce->clk_mgr_shift = clk_shift;
-> -	clk_mgr_dce->clk_mgr_mask = clk_mask;
-> -
-> -	clk_mgr_dce->dfs_bypass_disp_clk = 0;
-> -
-> -	clk_mgr_dce->dprefclk_ss_percentage = 0;
-> -	clk_mgr_dce->dprefclk_ss_divider = 1000;
-> -	clk_mgr_dce->ss_on_dprefclk = false;
-> -
-> -
-> -	if (dm_pp_get_static_clocks(ctx, &static_clk_info))
-> -		clk_mgr_dce->max_clks_state = static_clk_info.max_clocks_state;
-> -	else
-> -		clk_mgr_dce->max_clks_state = DM_PP_CLOCKS_STATE_NOMINAL;
-> -	clk_mgr_dce->cur_min_clks_state = DM_PP_CLOCKS_STATE_INVALID;
-> -
-> -	dce_clock_read_integrated_info(clk_mgr_dce);
-> -	dce_clock_read_ss_info(clk_mgr_dce);
-> -}
-> -
-> -struct clk_mgr *dce_clk_mgr_create(
-> -	struct dc_context *ctx,
-> -	const struct clk_mgr_registers *regs,
-> -	const struct clk_mgr_shift *clk_shift,
-> -	const struct clk_mgr_mask *clk_mask)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = kzalloc(sizeof(*clk_mgr_dce), GFP_KERNEL);
-> -
-> -	if (clk_mgr_dce == NULL) {
-> -		BREAK_TO_DEBUGGER();
-> -		return NULL;
-> -	}
-> -
-> -	memcpy(clk_mgr_dce->max_clks_by_state,
-> -		dce80_max_clks_by_state,
-> -		sizeof(dce80_max_clks_by_state));
-> -
-> -	dce_clk_mgr_construct(
-> -		clk_mgr_dce, ctx, regs, clk_shift, clk_mask);
-> -
-> -	return &clk_mgr_dce->base;
-> -}
-> -
-> -struct clk_mgr *dce110_clk_mgr_create(
-> -	struct dc_context *ctx,
-> -	const struct clk_mgr_registers *regs,
-> -	const struct clk_mgr_shift *clk_shift,
-> -	const struct clk_mgr_mask *clk_mask)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = kzalloc(sizeof(*clk_mgr_dce), GFP_KERNEL);
-> -
-> -	if (clk_mgr_dce == NULL) {
-> -		BREAK_TO_DEBUGGER();
-> -		return NULL;
-> -	}
-> -
-> -	memcpy(clk_mgr_dce->max_clks_by_state,
-> -		dce110_max_clks_by_state,
-> -		sizeof(dce110_max_clks_by_state));
-> -
-> -	dce_clk_mgr_construct(
-> -		clk_mgr_dce, ctx, regs, clk_shift, clk_mask);
-> -
-> -	clk_mgr_dce->base.funcs = &dce110_funcs;
-> -
-> -	return &clk_mgr_dce->base;
-> -}
-> -
-> -struct clk_mgr *dce112_clk_mgr_create(
-> -	struct dc_context *ctx,
-> -	const struct clk_mgr_registers *regs,
-> -	const struct clk_mgr_shift *clk_shift,
-> -	const struct clk_mgr_mask *clk_mask)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = kzalloc(sizeof(*clk_mgr_dce), GFP_KERNEL);
-> -
-> -	if (clk_mgr_dce == NULL) {
-> -		BREAK_TO_DEBUGGER();
-> -		return NULL;
-> -	}
-> -
-> -	memcpy(clk_mgr_dce->max_clks_by_state,
-> -		dce112_max_clks_by_state,
-> -		sizeof(dce112_max_clks_by_state));
-> -
-> -	dce_clk_mgr_construct(
-> -		clk_mgr_dce, ctx, regs, clk_shift, clk_mask);
-> -
-> -	clk_mgr_dce->base.funcs = &dce112_funcs;
-> -
-> -	return &clk_mgr_dce->base;
-> -}
-> -
-> -struct clk_mgr *dce120_clk_mgr_create(struct dc_context *ctx)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = kzalloc(sizeof(*clk_mgr_dce), GFP_KERNEL);
-> -
-> -	if (clk_mgr_dce == NULL) {
-> -		BREAK_TO_DEBUGGER();
-> -		return NULL;
-> -	}
-> -
-> -	memcpy(clk_mgr_dce->max_clks_by_state,
-> -		dce120_max_clks_by_state,
-> -		sizeof(dce120_max_clks_by_state));
-> -
-> -	dce_clk_mgr_construct(
-> -		clk_mgr_dce, ctx, NULL, NULL, NULL);
-> -
-> -	clk_mgr_dce->dprefclk_khz = 600000;
-> -	clk_mgr_dce->base.funcs = &dce120_funcs;
-> -
-> -	return &clk_mgr_dce->base;
-> -}
-> -
-> -struct clk_mgr *dce121_clk_mgr_create(struct dc_context *ctx)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = kzalloc(sizeof(*clk_mgr_dce),
-> -						  GFP_KERNEL);
-> -
-> -	if (clk_mgr_dce == NULL) {
-> -		BREAK_TO_DEBUGGER();
-> -		return NULL;
-> -	}
-> -
-> -	memcpy(clk_mgr_dce->max_clks_by_state, dce120_max_clks_by_state,
-> -	       sizeof(dce120_max_clks_by_state));
-> -
-> -	dce_clk_mgr_construct(clk_mgr_dce, ctx, NULL, NULL, NULL);
-> -
-> -	clk_mgr_dce->dprefclk_khz = 625000;
-> -	clk_mgr_dce->base.funcs = &dce120_funcs;
-> -
-> -	return &clk_mgr_dce->base;
-> -}
-> -
-> -void dce_clk_mgr_destroy(struct clk_mgr **clk_mgr)
-> -{
-> -	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(*clk_mgr);
-> -
-> -	kfree(clk_mgr_dce);
-> -	*clk_mgr = NULL;
-> -}
-> -- 
-> 2.52.0
+Applied.  Thanks!
+
+On Thu, Jan 29, 2026 at 10:37=E2=80=AFPM Zhou1, Tao <Tao.Zhou1@amd.com> wro=
+te:
 >
-
-Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com> 
-
--- 
-Rodrigo Siqueira
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+> Thanks for the catch,
+>
+> Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+>
+> > -----Original Message-----
+> > From: Zilin Guan <zilin@seu.edu.cn>
+> > Sent: Thursday, January 29, 2026 4:35 PM
+> > To: Deucher, Alexander <Alexander.Deucher@amd.com>
+> > Cc: Koenig, Christian <Christian.Koenig@amd.com>; airlied@gmail.com;
+> > simona@ffwll.ch; Zhou1, Tao <Tao.Zhou1@amd.com>; Zhang, Hawking
+> > <Hawking.Zhang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; Xie,
+> > Patrick <Gangliang.Xie@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>;
+> > amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
+> > kernel@vger.kernel.org; jianhao.xu@seu.edu.cn; Zilin Guan <zilin@seu.ed=
+u.cn>
+> > Subject: [PATCH] drm/amdgpu: Fix memory leak in amdgpu_ras_init()
+> >
+> > When amdgpu_nbio_ras_sw_init() fails in amdgpu_ras_init(), the function=
+ returns
+> > directly without freeing the allocated con structure, leading to a memo=
+ry leak.
+> >
+> > Fix this by jumping to the release_con label to properly clean up the a=
+llocated
+> > memory before returning the error code.
+> >
+> > Compile tested only. Issue found using a prototype static analysis tool=
+ and code
+> > review.
+> >
+> > Fixes: fdc94d3a8c88 ("drm/amdgpu: Rework pcie_bif ras sw_init")
+> > Signed-off-by: Zilin Guan <zilin@seu.edu.cn>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > index 2a6cf7963dde..8de9f68f7bea 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > @@ -4343,7 +4343,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+> >        * to handle fatal error */
+> >       r =3D amdgpu_nbio_ras_sw_init(adev);
+> >       if (r)
+> > -             return r;
+> > +             goto release_con;
+> >
+> >       if (adev->nbio.ras &&
+> >           adev->nbio.ras->init_ras_controller_interrupt) {
+> > --
+> > 2.34.1
+>
