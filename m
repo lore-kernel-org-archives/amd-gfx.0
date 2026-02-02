@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75D70E7FDD8
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 21:18:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F35A6E7FDD8
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 21:25:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0704C10E3CE;
-	Mon,  2 Feb 2026 21:18:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E94010E45C;
+	Mon,  2 Feb 2026 21:25:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XzNj6VAI";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CVQD8k8s";
 	dkim-atps=neutral
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
- [74.125.82.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C9DA10E3CE
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 21:18:01 +0000 (UTC)
-Received: by mail-dy1-f170.google.com with SMTP id
- 5a478bee46e88-2b71e7dab12so265592eec.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 13:18:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770067081; cv=none;
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA99510E45C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 21:25:55 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-124b07e5fe4so207153c88.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 13:25:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770067555; cv=none;
  d=google.com; s=arc-20240605;
- b=HExHWECtg9Xxm3g9ijF0CEdyTc38Jg9OlkR7ibF9G6Xsayei5ykN5fzJSz0hjGkGwf
- DKWOkAZEX4nd2uULxQAMMJBiXWZ43ofb+5UmtHfrCKMUUtbX9izAboCCsrGaYRe7YlE8
- iemPhE0KTjIz8Yzk+tVjnbtLa136dVdeTf3VLQ6t8nKaetKUi+iTgwAdLQn//Cf0tfqM
- sZLZflRojYS6uRqyvk2+NOCzAAHEG1mfzVo286ObRnJ2cWygeZMoLzJBkehjslpz9mR3
- fV7rakV4DV/zHM2wFFdyWquLtsoWS1xL82qbT6EAo6Bd6fo9MuiqaD6NNZ/f72gh6rcZ
- 0CZg==
+ b=OVoh39NB+gKMX4XNfTSPhHwbpXKVR5d1h+LIB0ix9SFeYmhMReXW8GM9yuQCe6kNnA
+ epCIZ2nRT7253u/mbZ8mt9kgH8Y0l3Amg+IbiYxXFyXb0u9Oo/89yTvaWhid6mAEZcyw
+ BN3T/wdo4IK7SjPP3Hof0mVfg2aCXhepWV0UEAWOdUUIWoINjqA1BaAwohf9yOp9fql2
+ UjCbsEcC+f5VAot//3KRO0HWYNtidbpzZ4JRJxwApinP0333xNhLn/bma84fW6JKNhik
+ LkUbIO9Xd1r2ZjVB/ZFYoey5HgqlyKaBFFphYYTkP78CMvDuHbrk2h165CbsRF2PW0if
+ eaRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=xtxRuCI2Atd8wthE0TWsBYd1InEfj/DBSgh7fR7BZV0=;
- fh=jrj2zacaXiuElwmT/59HCjZUVEPuL3U3OF0ylmi9raM=;
- b=OxbfYq60TEA1R9qbg5uLqRJ7YLiWvbJlqJE3Fbf7gmmjvY34RtAidtlU0uSC3cXu4L
- 4XcpmB1gcYKWNuzxSFiv0xw/Dbd+XPsimyVJzws75isTc8zQJMWX+E+mI3qetL5OaVKk
- Zxd1A/yM7XwMLYymSdT9Y+WJAwonoHs6Q6OlWBPo5k/R1cMjZcW+iy7bNEIYzmn7bTRn
- ZgjR4XSXePc7tSPUt7T+7Mg/ZJc2RPJrmKAg1eufAH+Y+SWq/S9yMVAgbXOGoHPaPSHI
- LWnpP02OpHDyv2/RYJ/GP075qGCqeeHEeWQnu4gOylbK4OgjASbN2FBPcnWHTa/U+O0i
- Kc7g==; darn=lists.freedesktop.org
+ bh=LQFd+zRUPnSyNzkZO7lsbPXA6Il2rqJUAo7MPuJn8X0=;
+ fh=8DZmM85xuvbXmFbHcbzFCeFE+SfOOzQf8BT8uIXhUtY=;
+ b=dwnFflDApvUrV2FmVSlCtjRtOvWtLEIsE6hxAiDewJEIp6Mg+Xery3Q/bk4ZPE0r32
+ sXKenHsPRvKz0+dGf/Sa+Y15SRvJ0VrgXV5sRrT/XHyeiVc9gqBG8FewOc0noTARiIyN
+ 8RTNnN5D9MTYxM016rTSTDZ2usDD/0izVy/QlDmBwkI9bY094/nH78kh//abtjg24+Ni
+ Rl0KZ8qMXyDb2xKR8DZj5FSymuyxg+tbR7IgetvayZs7Rmd9kSoR/5kD6wWQxD0KPFil
+ KdTkyuBjv0CIHYvI6QHmjk22Pkgzc4af5ZpKPjgWkAhh6b7JsABQOXIVFKGYIq4k5++t
+ f8XQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770067081; x=1770671881; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1770067555; x=1770672355; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=xtxRuCI2Atd8wthE0TWsBYd1InEfj/DBSgh7fR7BZV0=;
- b=XzNj6VAIX1K8xlFEI94U22YpQBOfvtorx5g0F/6KBHgUE1bQJVo8WSbrNXxuEy7KzC
- S4NDl1dZs8ZinDvMFXRUMIIZjtfFdlgQlXLaRat4NfGD0e0xPXxK+eDiOGgU4CMZSDOv
- e59tkQRgxBVi6njx/kvNdEFVqyD8K6zUP7H33w0z4gAH7IZUehhMSqHDf3Kp2NDeZQW3
- 8XxhBThl/BSfs7Ta6pA+2Nxf5tvngkP1eHEaq5rzCu/n81RPjgoKIha5EGVVZkobaVOt
- hGCB4vsjHzf1cRweMejHZbVTKfUP1vk2CQwRQ1yFLVHpveacHKZdZ8j3dWjZIXO+nTNk
- SiBw==
+ bh=LQFd+zRUPnSyNzkZO7lsbPXA6Il2rqJUAo7MPuJn8X0=;
+ b=CVQD8k8srYYWcd2J5/oGOKnm2p8Q6GSS5om8++HoyplIbnY6aBQe6+6ftoeRE2jPOo
+ 4e51DtFZGUoeA52oKH/gmOUwJqS33JoQoQmfhTdsEB2M3w8vduruBX9gVRrYZ9T7g+AI
+ DioBX6E+7LIl5rU6GBkuQtrL537ZLoqqifRBvHkphI1MvSv858NymEootqA0KFbtpoAF
+ ZpuDQh2T+diM7Lm6BiuzBDtgIjX7dxr60kNzHlISkiJXVFSk4J+/Ji03udz/7m6mhW7A
+ 2NgDoN+ylnYWhk97xw7tkOo0swLHllxw2/baRHdVpWfA3iXcDlZVERuHumD2Z56Lt/Wl
+ 8TDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770067081; x=1770671881;
+ d=1e100.net; s=20230601; t=1770067555; x=1770672355;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=xtxRuCI2Atd8wthE0TWsBYd1InEfj/DBSgh7fR7BZV0=;
- b=iLV3WOZUoV5A0z4itCKZj2JEbcExzp7ujvv+FPM3TB9o9anB1LwMqHX1UgtSsndqpP
- ccg8qNy9LEW1CsUHGp8a9/rKgmjYe5SK4Zg5FafY0XcnWZDxwwPC7nfz2sNd78BLxdVR
- hJbIwLPNZMxd+Qa8E1ljt203Uz/Eesd71+BnyuNuQZ5deAUlp/kQsUPC6cqaMt03BBMZ
- 05H7FvZoyfqjM6FwPk8dTj+t04I24JJ9kWUZyFNc8L6PjbREryJe6ApqgTlk8HM3X7uk
- lzz+LqN0BhKYte1CFPuPBv2JJebkVTB9/3fb2KpATR0EuDnlrpbSg6gn7vVmlOYv1mM/
- QuNw==
-X-Gm-Message-State: AOJu0YyVfF8lOxSPJFjyVemzOGW6O2LFhXjzGLPftLzNR3CsdtIhAozz
- ZMKaYPixH/1jMJ6QSucFwyjxmFgv+oHjjo8jSEjW1eTLV2EQzKNvCcCWiPzYhPMCWfWwPknqe6H
- T6AxghY2D3CMoCn+zZQERoddO2w4Wysk=
-X-Gm-Gg: AZuq6aK9WfclMmR8efskAB9mSPFvoJ6eVyL7/hDezgUF7EMMuDSUh85FgPSHMR+kuVT
- ek0fMxkyCReYgRKFVfhiA+VPgaCnVLUOpzue7HQumnFY9/cRQCDf0q+lykcPMtB5ZFLtRvcBeTr
- MX+xDyLP5WE2zXg7dSJgWkLIaQWCirkHk+Xl1XhvGaN9xJpmqS6sw31h0E4s7sOToB2oNs6a9lV
- 58puhQdwgseRGusT4bTv9U+bvEmxxhB4FU8NqbRr2TC2vEhSOBx0VjolNJRR9BiqLWQhVwcepi5
- 5GFqHHE=
-X-Received: by 2002:a05:7022:660b:b0:11b:862d:8031 with SMTP id
- a92af1059eb24-125c0f12e0cmr3015760c88.0.1770067080637; Mon, 02 Feb 2026
- 13:18:00 -0800 (PST)
+ bh=LQFd+zRUPnSyNzkZO7lsbPXA6Il2rqJUAo7MPuJn8X0=;
+ b=iO+njpo/r12NcMHUhi2JYaF/+3ZBAE4ldU1AVwS0YML2HQ0U3mG0Bvn0HTIQ4qIK2Q
+ 3ivHOhPyn/4wAAzTm3E6A3Ll05wj+NkoACLYyNbt6la/LJFTFvTsAaEvSBwp3Zbunq3Q
+ /uZIqzwuuena98NxyDjgbxyG6D1Iv4915k/LL9qsweGbie9EJMOKL5O1G25D6HtW8ajJ
+ jYrqektYKRzT65rjnxiZXomiRO/vjaXbDfpxUrdaL2T6YnDQhiz5Hi2KmTRjZtYUwl6F
+ DAqO0o8f5ddoSldfulW0z6Tb6R2FfVmkbkHkX6ENTWR2HutsZUAa3K1WdMqWeMKXRlhl
+ pw7w==
+X-Gm-Message-State: AOJu0Yw8UMg1B7TW/lf8rFD3VirITGr0yBGrbBWD1W64dbAuvS5ylOAX
+ Rih/YCAoOQ9pmUArKGOOwpB1r8+Fs6MKPPPVF6Gzu3wL4O7m0hN1/ZRLVuJta5BL0t+YlFYilnt
+ Q2mHT18XNkBiUq+0+7aH2DpLmyS7rM+E=
+X-Gm-Gg: AZuq6aIfpB12i6U+r/9lkuB9K1YQUrF2x8Jsw5UdwCgMAJ3oS6XpxtOpffM5yEyV9CG
+ nLt6dycRgq8jfVcT7N1OjkjDMIxKpzvJp9N4R3hIh2x5J0/dlL7GQSRcpZQHu4AIgFNVH9LYPCJ
+ Aq313uZS9lYoyODQeEwZpsNO3AuvIpMF5Uuu6CkE783md4F0XUFVyDjcsGr88Xj9rZJwXKDiKtS
+ HFgWcxVsMZdzX3pOFW3Sm9o3GFHYjNq7V+I0mmoC6ti+BTHK+u5OJklOOhmFfPpvmJRjUy26p1h
+ Ya1Fdzw=
+X-Received: by 2002:a05:693c:300c:b0:2b7:24a1:865d with SMTP id
+ 5a478bee46e88-2b7c86502famr3494311eec.3.1770067555015; Mon, 02 Feb 2026
+ 13:25:55 -0800 (PST)
 MIME-Version: 1.0
-References: <20260130084137.2906792-1-lijo.lazar@amd.com>
- <20260130084137.2906792-12-lijo.lazar@amd.com>
-In-Reply-To: <20260130084137.2906792-12-lijo.lazar@amd.com>
+References: <20260202112508.43000-1-timur.kristof@gmail.com>
+In-Reply-To: <20260202112508.43000-1-timur.kristof@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 2 Feb 2026 16:17:49 -0500
-X-Gm-Features: AZwV_QjPmPg1RNTYxa0bt1DO0LrLgg76AQDarIukcf2dRiF0C2wU2GAyxrNn2Bo
-Message-ID: <CADnq5_PkDhF2fvMHbiRKNMsrFBDUSpFGqaQL=T906t=5_buKgw@mail.gmail.com>
-Subject: Re: [PATCH v5 11/11] drm/amdgpu: Add interface to set debug trap flag
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
- Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David.YatSin@amd.com, 
- Lancelot.Six@amd.com, jonathan.kim@amd.com, Jesse.Zhang@amd.com
+Date: Mon, 2 Feb 2026 16:25:43 -0500
+X-Gm-Features: AZwV_QhR1beVi08zaYBlNhp2cLC4Cj7tXOyyGkwVbCB5giXDRK2tRbYY3C_BWX4
+Message-ID: <CADnq5_OKvYO6ibNLmzuK3tW_sEaaCB82FgoLUc+NPb2asuck=w@mail.gmail.com>
+Subject: Re: [PATCH 0/8] drm/amd/display: Fix and cleanup analog encoders
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, harry.wentland@amd.com, 
+ Alex Hung <alex.hung@amd.com>, Ray Wu <Ray.Wu@amd.com>, siqueira@igalia.com, 
+ Mauro Rossi <issor.oruam@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,75 +104,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 30, 2026 at 6:12=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
-te:
+On Mon, Feb 2, 2026 at 7:17=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@gm=
+ail.com> wrote:
 >
-> Add interface to set debugger trap flag in TMA region.
+> Fix a "black screen" issue with analog connector support in DC.
+> The Radeon HD 7790 series seems specifically affected.
+> I recommend backporting the series to 6.19 to avoid regressions.
 >
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> The series also makes the analog connector support more consistent
+> with the rest of the DC code base so it doesn't feel like a hack
+> anymore, ie. it brings analog connectors a bit closer to other
+> connector types.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Series looks good to me.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+I assume Alex Hung or Harry will pull this into the DC promotion testing.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c | 19 ++++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h |  3 +++
->  2 files changed, 21 insertions(+), 1 deletion(-)
+Thanks,
+
+Alex
+
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_cwsr.c
-> index 50bafb84a912..7e5a08b0a1c8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-> @@ -19,7 +19,6 @@
->   * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
->   * OTHER DEALINGS IN THE SOFTWARE.
->   */
-> -
->  #include <drm/drm_exec.h>
+> Timur Krist=C3=B3f (8):
+>   drm/amd/display: Use DCE 6 link encoder for DCE 6 analog connectors
+>   drm/amd/display: Fix disabling fastboot on DCE 6-8
+>   drm/amd/display: Don't call find_analog_engine() twice
+>   drm/amd/display: Turn off DAC in DCE link encoder using VBIOS
+>   drm/amd/display: Initialize DAC in DCE link encoder using VBIOS
+>   drm/amd/display: Set CRTC source for DAC using registers
+>   drm/amd/display: Enable DAC in DCE link encoder
+>   drm/amd/display: Remove unneeded DAC link encoder register
 >
->  #include "amdgpu.h"
-> @@ -609,4 +608,22 @@ int amdgpu_cwsr_ioctl(struct drm_device *dev, void *=
-data, struct drm_file *filp)
->         }
+>  .../drm/amd/display/dc/bios/command_table.c   |  3 +-
+>  .../drm/amd/display/dc/dce/dce_link_encoder.c | 58 ++++++++++++++-----
+>  .../drm/amd/display/dc/dce/dce_link_encoder.h |  8 ++-
+>  .../amd/display/dc/dce/dce_stream_encoder.c   | 23 ++++++--
+>  .../amd/display/dc/dce/dce_stream_encoder.h   | 12 +++-
+>  .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 58 ++++---------------
+>  .../drm/amd/display/dc/hwss/hw_sequencer.h    |  2 +
+>  .../drm/amd/display/dc/inc/hw/link_encoder.h  |  2 +
+>  .../gpu/drm/amd/display/dc/link/link_dpms.c   | 14 ++++-
+>  .../drm/amd/display/dc/link/link_factory.c    |  1 -
+>  .../dc/resource/dce100/dce100_resource.c      |  8 ++-
+>  .../dc/resource/dce60/dce60_resource.c        | 11 ++--
+>  .../dc/resource/dce80/dce80_resource.c        |  8 ++-
+>  13 files changed, 127 insertions(+), 81 deletions(-)
 >
->         return r;
-> +}
-> +
-> +int amdgpu_cwsr_set_trap_debug_flag(struct amdgpu_device *adev,
-> +                                   struct amdgpu_cwsr_trap_obj *cwsr_obj=
-,
-> +                                   bool enabled)
-> +{
-> +       uint64_t *l1tma;
-> +
-> +       if (!amdgpu_cwsr_is_enabled(adev))
-> +               return -EOPNOTSUPP;
-> +
-> +       if (!cwsr_obj)
-> +               return -EINVAL;
-> +
-> +       l1tma =3D (uint64_t *)(cwsr_obj->tma_cpu_addr);
-> +       l1tma[2] =3D enabled;
-> +
-> +       return 0;
->  }
-> \ No newline at end of file
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_cwsr.h
-> index 2cf485111e8f..06036954627e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-> @@ -92,5 +92,8 @@ static inline bool amdgpu_cwsr_has_dbg_wa(struct amdgpu=
-_device *adev)
->
->  int amdgpu_cwsr_ioctl(struct drm_device *dev, void *data,
->                       struct drm_file *filp);
-> +int amdgpu_cwsr_set_trap_debug_flag(struct amdgpu_device *adev,
-> +                                   struct amdgpu_cwsr_trap_obj *cwsr_obj=
-,
-> +                                   bool enabled);
->
->  #endif
 > --
-> 2.49.0
->
+> 2.52.0
