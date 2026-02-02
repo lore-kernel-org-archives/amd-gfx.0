@@ -4,61 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C3CFE7315B
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 11:25:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C258E7315A
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 11:25:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19A6110E43A;
-	Mon,  2 Feb 2026 11:25:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0727F10E2A3;
+	Mon,  2 Feb 2026 11:25:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jrEzdgCz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WensQg59";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9416E10E439
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 11:25:14 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-4806f9e61f9so21674435e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 03:25:14 -0800 (PST)
+Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
+ [209.85.221.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 777E910E43A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 11:25:15 +0000 (UTC)
+Received: by mail-wr1-f68.google.com with SMTP id
+ ffacd0b85a97d-432da746749so2467022f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 03:25:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770031513; x=1770636313; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1770031514; x=1770636314; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=QsQ8uEnSdREJihLyf3tIbQsddBQ4q6EZ+Rc6uVEt5gc=;
- b=jrEzdgCz3LNklpCz9J4HAE+V2jbu8x4mCfiC1jFbOn7HjS33EQqIFHBygzQudaW+wh
- a/FL+nvyggrxct65HIN16KElrxDwcFP550CakUVsUEZYv6GIjrEXxSyeKlNH90ZkoEry
- gOkq2wq/AdDFoFgmdTVlCJVrx4kfEt0WApcflNXEsT8v/xr5a5wlehNMytq33DDXb69v
- AZBzqwAvlEpk+CbfqcHDM1JXT0jnBbwp0RL0BmSlNPZ4GSiRsWasedkahH3jum4M+FlT
- kklpRXZavM/QUxXWFoV//oVyT4yn5Wx8njr4ZqP+xiSzjGidb3Vrgoa4RqVSnWAiAscK
- ZQjw==
+ bh=MffpOnJoLRFLvwbE7DTz0LjPGpBihBOHae6sfuMYEAo=;
+ b=WensQg59VI1EY4PUaGoUCqNSEEb/opNHdFTry1IPvfs84q3+mjLfWGmjzSfSXdZMWN
+ 7eX3fd8f0Yj+yngWEGzlmBFCZiFLentEJD76KfSRGORSF3srHBUH0qZzgIaaH4H6DOFF
+ 1NJfTVBVSUXD/6SjuEIiRt11OpX2okGncf+le3r8NDhjzQat4VU8EVYlIfDbmOOWlm3g
+ UHpXAbSAagK/qau6ooDkje5idABKVHAduFi5p/zE4MRHeg+5wWTCcSJXoahOe8n2iMOc
+ urxVPp94wE0xanA4FYDzG7OUeUMAwIvaO9zyd41/KkkpPjug+/fg/hjG42kV+JGXdvJ9
+ y+Pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770031513; x=1770636313;
+ d=1e100.net; s=20230601; t=1770031514; x=1770636314;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=QsQ8uEnSdREJihLyf3tIbQsddBQ4q6EZ+Rc6uVEt5gc=;
- b=v1hDDiwfNY8Opkf4koleu2Z63WkVu4MJjLml7SMT+LAmkx+Ru4bsAvjusAxcm8jCtv
- tTE83FtLvF48UojT9U6FehFhun+n/UBbBTG3HziqSkRKu8mvmnToJdVOLZ0H2DnWYzmV
- cWqGN+HNTLJAQA9H1EsyZA3ix7V5xeiwLz8o8aJSbGlUwOCBfaBpmYuJFgPdfmmZZjAM
- y4yDQCpFApv2todQY9q6mCpQObeaTua5A4px2Yb2Zl1+6B+B3Z6A1cMKDafdEJvLL+7j
- b9ZC+XogjPyEaLHF/qw2wIMptI+xIsjxZh3BTaB6x+QsLNIDbiXHY0hK/iTiSYMCVwhZ
- t80Q==
-X-Gm-Message-State: AOJu0Ywvf7WCc9ZFPmaM/fadgyIwvwxMen1VB1QpHILMrRpnyz2W+smR
- NxQy8dzBoGpQDDnNaEhOlvJCP0faGOzFe19gkNzICfNAMXK4FbUQ0xuMWzf7jXL0
-X-Gm-Gg: AZuq6aJa3erezKZVNUdfoDilj9wFEZjIa4Dy6E5v3RtJ5AHnWR769oxnwCadqwLyg0K
- ASV2BjGemCm7G27S2PfAEBoBUKX2F86g6GtQsVX3G+RIxHeJZwW3J1peJg0qU7nUQyaBAf8ynXD
- ufQE9fhoylqu+zATXG+V16HK6Txku/Cd5PJocHxT81wNmCwgJjgdBaqqzgHNmaj5yCPN51/2v+V
- EscKxdfy6XDQc2jJEEGl4Nq9u1g2E8RwEVF8KqpnoN7YNygi+6ENbwRbt+5cw2EN1z8HP7IR9Pb
- nnaSBBjNJLDa7UDB5F9HOEVgO49koLoIE0nOWm3V3f0DxqTV9ceTFHSqEi8R0KK4t6hTUJnuqSt
- gleIxZv4Reu9aC8Wd0N1lOrgWvAi3Gu+XBjmvKSH9j7VkurMRfg9BGJnScmPH5nQEjc4ncBXYMq
- 3Ci2lsIi57RoWQ
-X-Received: by 2002:a05:600c:8115:b0:477:b734:8c22 with SMTP id
- 5b1f17b1804b1-482db448774mr127983425e9.8.1770031512909; 
- Mon, 02 Feb 2026 03:25:12 -0800 (PST)
+ bh=MffpOnJoLRFLvwbE7DTz0LjPGpBihBOHae6sfuMYEAo=;
+ b=ifKjaLCBdzz8rvwTd/5Ms5THs/B0QuKZHJ40FyOuhbBm/ctwdgDkBjDm8cRe/4rUJb
+ OSMYmfbuqWTzzE6lt756dYlOlhiMx+1tgQvgXVZ1we/6XGMVgTpKBxItVRdXxbZBATa3
+ BRUctnxjJ/dIcKMIpiYlokCnqpG1vEzny3R7u7jtxaWp531MtiEZLtJY9nQF3g3RjtBB
+ ucLaj9z9kvQ519teQuhcIFI/VLtdtS0oFE93CVce5EDM2ObOomDwmG8bsIRsAmOvpv5E
+ Bc+VhwTPm4XtVm2KdbLZGfqkUJJeWbKBFAyf7hIiXH06ftwJmfRI4yoiaSdAEldUNZbb
+ 13Dg==
+X-Gm-Message-State: AOJu0Yyt/gb22W9THnEOjfd6EEkA3CXAc3CyBhBo/LF5OYAKk/g+cq8r
+ RddNtURyO+i/AaAN5GKDyHs8Mtaa3JaesG/w8Kc9++oEcFDBAlm3Mu0c+ybFt5x50RU=
+X-Gm-Gg: AZuq6aKrEHKoH+CNJrYjEoZ1IFULJ3tTeSdbNTc25y5ySG9mVbrknkszfskscQPWw7K
+ cmfeYLj+JUZ6keM1iCRMJkkoBDEiNIKJGPNv6cvLPZf7K7BcrSvVhDRNtIZHxdJIDsgaTAdNBfM
+ eZFvmIwJe4NFF1h23O9dRrJVjk77Faz8S3FSMRqs+pIqF/h/qsKZM4XA5ZpE4oJS9nzFbZW1tnW
+ j8vUoPPWnWFEN7LiD59kLnRZbNNnEpVWlfPNPr+6wyv4SW3yb1nGkoSMHreBN60YtuLFTtrDV6V
+ gtZ91LmlTmQsEgM8qK+mDhlnMB0thDNffuWXjc74yfLHvezRFIuwbzJAMQN/Q85nPKdDsHPukBU
+ 2dLPWhR6jVfX9T9p89aOYqTqotW5GcVnybKTDJnsOy1VIePfWAqm7zmofBz/GSbdqqy7+AVmbNV
+ d4RPQgimmI543JWlHnAm6KKEY=
+X-Received: by 2002:a05:6000:4285:b0:430:f3ab:56a1 with SMTP id
+ ffacd0b85a97d-435f3abaa14mr17113926f8f.42.1770031513906; 
+ Mon, 02 Feb 2026 03:25:13 -0800 (PST)
 Received: from Timur-Max ([109.137.72.15]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-435e10e46cesm43306225f8f.7.2026.02.02.03.25.12
+ ffacd0b85a97d-435e10e46cesm43306225f8f.7.2026.02.02.03.25.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Feb 2026 03:25:12 -0800 (PST)
+ Mon, 02 Feb 2026 03:25:13 -0800 (PST)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Mario Limonciello <mario.limonciello@amd.com>,
@@ -66,9 +66,9 @@ To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Alex Hung <alex.hung@amd.com>, Ray Wu <Ray.Wu@amd.com>,
  siqueira@igalia.com, Mauro Rossi <issor.oruam@gmail.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 2/8] drm/amd/display: Fix disabling fastboot on DCE 6-8
-Date: Mon,  2 Feb 2026 12:25:02 +0100
-Message-ID: <20260202112508.43000-3-timur.kristof@gmail.com>
+Subject: [PATCH 3/8] drm/amd/display: Don't call find_analog_engine() twice
+Date: Mon,  2 Feb 2026 12:25:03 +0100
+Message-ID: <20260202112508.43000-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260202112508.43000-1-timur.kristof@gmail.com>
 References: <20260202112508.43000-1-timur.kristof@gmail.com>
@@ -89,32 +89,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The fast boot optimization should be enabled when the current
-display controller engine version is DCE 10 or newer.
+The analog engine is already there in the link_analog_engine
+variable and assigned to enc_init_data.analog_engine already.
 
-This was a typo.
-By mistake, it was enabled for older than DCE 10.
+I suspect this was a rebase mistake.
 
-Fixes: 7495962cbceb ("drm/amd/display: Disable fastboot on DCE 6 too")
+Fixes: 740aa093701c ("drm/amd/display: Pass proper DAC encoder ID to VBIOS")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Tested-by: Mauro Rossi <issor.oruam@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/link/link_factory.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 4659e1b489ba..bd3a9f008699 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1965,7 +1965,7 @@ void dce110_enable_accelerated_mode(struct dc *dc, struct dc_state *context)
- 	get_edp_streams(context, edp_streams, &edp_stream_num);
- 
- 	/* Check fastboot support, disable on DCE 6-8 because of blank screens */
--	if (edp_num && edp_stream_num && dc->ctx->dce_version < DCE_VERSION_10_0) {
-+	if (edp_num && edp_stream_num && dc->ctx->dce_version >= DCE_VERSION_10_0) {
- 		for (i = 0; i < edp_num; i++) {
- 			edp_link = edp_links[i];
- 			if (edp_link != edp_streams[0]->link)
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_factory.c b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+index 5fbcf04c6251..847d475ff4a1 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_factory.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_factory.c
+@@ -561,7 +561,6 @@ static bool construct_phy(struct dc_link *link,
+ 	enc_init_data.connector = link->link_id;
+ 	enc_init_data.channel = get_ddc_line(link);
+ 	enc_init_data.transmitter = transmitter_from_encoder;
+-	enc_init_data.analog_engine = find_analog_engine(link, &enc_init_data.analog_encoder);
+ 	enc_init_data.encoder = link_encoder;
+ 	enc_init_data.analog_engine = link_analog_engine;
+ 	enc_init_data.hpd_gpio = link_get_hpd_gpio(link->ctx->dc_bios, link->link_id,
 -- 
 2.52.0
 
