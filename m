@@ -4,88 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB8DCE7DEF2
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 15:24:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7C2AE7DEEE
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 15:29:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 410AA10E4F6;
-	Mon,  2 Feb 2026 15:24:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BB3510E4F2;
+	Mon,  2 Feb 2026 15:29:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XzFpoDw4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f0i/ZGmN";
 	dkim-atps=neutral
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE14410E4F6
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 15:24:47 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-2b8095668ebso120667eec.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 07:24:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770045887; cv=none;
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA98D10E4F2
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 15:29:42 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-2b807f85e10so115556eec.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 07:29:42 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770046182; cv=none;
  d=google.com; s=arc-20240605;
- b=lDXaSH/9D4Fj7K+5CftpEjNbREuO29lOw89cWN9DEvVFlQHv12y2xIk1L1+LS5Kl4H
- Rh8QYwMBRFist6RUGAuQNA6LygnU2jdbe2kEUWo/nygRM73TTac+OsxUd9NsLmujiABZ
- uNMvDrNwR2YXkN2xujEowywr6UnIGUsaan9ObPRUxiXICd24/ZGBSHOk9YzCgMFyZCIz
- hsjxoi6uBMY8bgY+dVcyk5FFo9ScTHVUOe2+kVQtviuqFq34vVxqLEUTduFab6t+ALCI
- ev20U7r+cQewdH+B5zW4l1SJ7d7+0zwsHaHpUIoFZuddBMstZ+SvDmtcrxR6iQusgq7C
- FzRQ==
+ b=NrZ2gz339yCVqnfP4V09yFrveE22g4wY7hbNtr46h6/8E7vDZgLW6wJdd0JykLoQC/
+ lNg6zOGepJq6CtdSg0cvGN/BtvdZBqN24LEyBQnOCHG6Uhel/d8pR3JO/J4lhGiwlk2Q
+ IeqkGFLNqa08bRUCqQbpzI/Hc8uA5bST6BFj8x0ZGA2lPe4QBDM/ZyS2ChFvwj8y4Esk
+ Dtz+u4sC3UcordJDlS+LDjVBM53IHM2nxCs+XrXlpnXf58nY24GEJS/3UgBaD2g9P/1N
+ mcwrCT/05o13kM8I008+Z7O4ZvIjL6lSHcS3b6tFY9eA8MdVwrSh0gnQnNmB14b32MAa
+ 5fsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=P1RXX5pBZr4vOxuQ49vdAedx4SsqZW6cwnAHGDl/pDE=;
- fh=79Gpq17Cf1ukndWqzoxKcCqVnVgPFSguhZ8OvfLdA+0=;
- b=IN8LLo8+U1ljHEFQkytsBRk1Y2SbQoP0uH7Lm8ldmtoDf0NWUJo/UvhtytadMM8415
- orN65/CGaGTG6of4gmHs3WP0++AnK1jpBplkr387DqwRGzK9RYuyNRSYs8tQFhK6erwb
- EPF5492Py0bF15HdK6bYjRDDehBgVtKdYRIzYA0+rH94HqxQn0OJURiYzoX5X3mjlP4Y
- HGhuoBmCG6aOSvjp5/m7Kgvc3+us848YfOAUa9wjKEMySVyLpvrPVW6chsrCbOj2AwHX
- kd8XcCSf9A6bT94g8WF5rSuGQ5pdMJ63kg4G0F2QN/GzbM6ERc3rabk9kn4Gp+o0Tf3N
- Mf7A==; darn=lists.freedesktop.org
+ bh=jIHW5fubiOGjcfj0AG5nGi3RE3BAWrztSPXhX6sFNoE=;
+ fh=Kws6D1YXGISdl/juA+kZWX3DSOp447eOUdBiGoTXfgY=;
+ b=TOaoSOYVQ1TfCFKaRXECCo1h+lo240NtAWMnbawvAR5QALW2B3I51JoNquYW6qOkmj
+ y1JrUeUMNcYkllklRm516PWub/ya4GGX6oWKpnNt+8nD4V3WUSQY8gFY1X3MHJjLO9ZX
+ LcGMD4csx3LZcIizk8Kunhv7CA29iwjHHJHrcyGDGgOIwVTzzWRQPhnvqS2kX4ywl3Ze
+ P3KzsIwjLcL9odHOwvj/bFRApOY4KsOWpRy9aEIL8aW0kE7Fn84lRf6OH0HhiTgAZoRR
+ /To2pPP4/cpmZdKvn14dokOwzPU8ehzMJLgTl5Ae3m3mjNa9yDfDmlzLKzH/F77uNYNt
+ cXdw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770045887; x=1770650687; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1770046182; x=1770650982; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=P1RXX5pBZr4vOxuQ49vdAedx4SsqZW6cwnAHGDl/pDE=;
- b=XzFpoDw4wxPluQOYR2ehlQalhNIsD1XkHa9puR94lXvmo9hPBZ+xJcpgeJ3icpIwqN
- wV2nykhI2NmkrBm/K4V3E24kcDz6NIylhvAQsq6J7AUnIKad9tDYjmhD2Bzrku0RJItd
- W/0YyCLpsWmRdwFK/EUSP1SwypcPs3JPnEpbZle6jUCHIIOuvYEdIJ41/0XNwjVM9TZ7
- lrBIRsWT/PrSJ0tMDjwwq7BXfiakx+0GzjuCLiwTZtggDZunr88bPd31hINBrFmvw3ic
- HAPBoGF4Gd8avmakKV+CW20RIF7zpJ5CkUxyvzx+aykSViBj0VorXGLhhU3H3qgBkWai
- BSRQ==
+ bh=jIHW5fubiOGjcfj0AG5nGi3RE3BAWrztSPXhX6sFNoE=;
+ b=f0i/ZGmNsErtCj3TLBDjyY4Q/t7ifSxJsFl9SF4QUrMXeXRgDT/uLc9/8oW6GnHPsV
+ gheWbL71YpE7Xl0wsl2lBTPrVqDauMit0KqRwZ5Te4RtCBmdV2ZjX72X/lQv0DnPuyig
+ CEz1QAzr81P5jsDI6Lr2QK3/ERiIy81P1KZtNGnIaK9BY93Siu9Z3YQCMakKIZBD0+LZ
+ TSFeezYdzS+TLNbaTHFN80z9LqvHnjeSggd6XKI8infTVes8Eqe3FhlGVTyL+gYE5kXG
+ XLAm7dbnv2ZfzSEHKYLauBEXJHNcvrYwlGtBaeXZ0mrz5vf+Q60BUVdEBSWKD+PQmeTL
+ aRHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770045887; x=1770650687;
+ d=1e100.net; s=20230601; t=1770046182; x=1770650982;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=P1RXX5pBZr4vOxuQ49vdAedx4SsqZW6cwnAHGDl/pDE=;
- b=lppfAK5KNv7SoZ8nLeMYHg813mFKA/s24mSZORmN52KrhgCGbiJpTbPz02MDdpi/oy
- ihCVYIERcrXO114UfcY9uBTw7rmrxfzYoxXRBbwsYvDniBVGFkrfG71Zv3rb/pgr/TBm
- dFzBOmSOqEPJlNW42J12ApfWnhz0VGdnJbS1QGDMF2mLesUv3yeZ0P8spB0FiHUBkVfA
- sa3rQGSS1uAwZffx4dEMx8Nh8wAed9CZjAJ9i3x5tkDmiuYYyY6WA1U15kfIjZdQME46
- 3P6XyeWp+4UHqsPMygAWuZs8/iXM7TcOZb7eM3HEsMCDKftPPDKALKlJpwu+58VDydkv
- 1q2g==
-X-Gm-Message-State: AOJu0YwkjC1ZsVsHDzS5+6cO02YFR7dxt4qXPuJa6X0/BJlkfh2TwsKu
- 1lFbqdK3hI4vuvTjjQl7dN6N5WQrrQQM4jwgoJVc9Of6zPZ5QD2r6kpJmTl6YAqDbSLTeODGA/r
- k7FvYuJGcNGMd53UsjYm1+JmAOHMpHvY=
-X-Gm-Gg: AZuq6aLEl5JI1TT70mxK1iwTITfVcet3fbwvwUr9WvdHe00bqZjS/ET4siFQ8HIUDao
- GTTq/E7DvXZ/9CGvycqg28M+5ZjfjE3KNHYyY72tOIGrHlZz78HKvrvgQ4QVzzKanBFiwn/6jUh
- h4QPXkCCdoJc/M6DM8o0XJk7DancTHLY+csTtn6EOhzsWY4ED+SpmOdC02P3s7CaUaI4z0mivNW
- SJGE4V+vuDceW8EdUXIYcB4/vR7Z5UC/qEyqqB1n2prB6YJHfyUt5cPTolkLIyQWAm5Lzau
-X-Received: by 2002:a05:693c:300c:b0:2b7:2bf3:ce06 with SMTP id
- 5a478bee46e88-2b7c864df5cmr3253946eec.3.1770045887084; Mon, 02 Feb 2026
- 07:24:47 -0800 (PST)
+ bh=jIHW5fubiOGjcfj0AG5nGi3RE3BAWrztSPXhX6sFNoE=;
+ b=h0/T8R9ZS1XhhfZcp5qsgd7BmrO4YtPfDQ2LTESBWSXjRnkf7OcVh7e8UfbtaV6Sdx
+ i9xSKl4j6AOnX7kadORnTBkN6Xnjg1wmqFrrP9SNNN4syc6lmYOljORmPAh9+qMtD6iF
+ bwfGC5O5Ll8+xfnCWv4sGRjjYmuI+wm/bJ+fCUFsNNx9PXr8KoT5wIg0QFjYn2YmNmP+
+ uekVR5tWBXMaYBtcse+75FZAAbgmvrCRXUDbhYf54OxjtXvokazgIbSD1R3IiL0+viQ5
+ BgrkI/IVOkjuO9m0deQiFOhmx1m573K4A0InrZrUUSg4KE6EOiw/iNgkIrkLbxtjbxN+
+ fG6g==
+X-Gm-Message-State: AOJu0YxPiKkqrZhDaJpIbcrMa8g875jepPqBa+N/46vKUlODqbQJvMdQ
+ DFbHJdiCWrl1vAsPvo+WdyXZQPcIBoNKKhvyva1oxOp8NYrjz7LwThXaQMbeilSFvWZt9D/Ttq+
+ cPOmE/BK6wKAKmtZsvVsWxKWdHMBzUic=
+X-Gm-Gg: AZuq6aIBO+IwKhU68oZQuzSi2HmN9MFWShEWfYqP0OZBCmpppCTPi3Jsj2GcOxUckUx
+ keXTiEUHnVMrqD/md2oy1xQxm1O3Ccs6UwMxjFOfCn7LaNV4K23V6BOTYVrVs4vUudspuAf+Ohi
+ 7RGlZGXJLm71y2tzOtfGEqVLvduOOkS6FIMseUG1QeN/wR6xrtuS9w+r8OHPweNMZ597/y4oAf9
+ rgwJHX9gvMmB+KG6COr/+fGTyoJRAURKtVpo9d5K8iTFxETqy7NMd0P7FmDZiRXh/3t3ndh
+X-Received: by 2002:a05:7022:f009:b0:11b:acd7:4e48 with SMTP id
+ a92af1059eb24-125c0f89eabmr3423711c88.2.1770046182194; Mon, 02 Feb 2026
+ 07:29:42 -0800 (PST)
 MIME-Version: 1.0
-References: <20260117095421.12700-1-decce6@proton.me>
- <CADnq5_Nrp6xsEOgs8PVy5cmO3rV9QhdoyBDB6DdTdOtXpmnZ6Q@mail.gmail.com>
- <20260130221743.8667-1-decce6@proton.me>
-In-Reply-To: <20260130221743.8667-1-decce6@proton.me>
+References: <20260202072452.2364233-1-yifan1.zhang@amd.com>
+In-Reply-To: <20260202072452.2364233-1-yifan1.zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 2 Feb 2026 10:24:35 -0500
-X-Gm-Features: AZwV_QhzVpB9PgeWe9ztmZEasDkV5488UywGJSrg9vmlVkgzicT3VLkWFD_ERFY
-Message-ID: <CADnq5_Pgw5pLYh87HgcFcue96mUVwOJLrtXVMtWE9QPLaCuZtQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/[radeon|amdgpu]: Add HAINAN clock adjustment
-To: decce6 <decce6@proton.me>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Mon, 2 Feb 2026 10:29:30 -0500
+X-Gm-Features: AZwV_Qj-IoLR4OgBrV6TQ8eQYo4d_3M1HKSxhbwZSdve6zSoI5gHFjVwhAiSbZc
+Message-ID: <CADnq5_PYTMHUhcwnyhtaU6a+X2TA+9zZZKL-2Mt4cP-SR3bvTw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Protect GPU register accesses in
+ powergated state in some paths
+To: Yifan Zhang <yifan1.zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Lijo.Lazar@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -102,14 +102,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Feb 1, 2026 at 6:12=E2=80=AFAM decce6 <decce6@proton.me> wrote:
+On Mon, Feb 2, 2026 at 3:22=E2=80=AFAM Yifan Zhang <yifan1.zhang@amd.com> w=
+rote:
 >
-> Thank you for the instructions. I can split the patches later. The revisi=
-on is 0x00, is that correct? I did not check the revision seeing the adjust=
-ment for other cards only checked either the device or the revision. Should=
- I change it to apply only when both device and revision match mine?
+> Ungate GPU CG/PG in device_fini_hw and device_halt to protect GPU
+> register accesses, e.g. GC registers are accessed in amdgpu_irq_disable_a=
+ll()
+> and amdgpu_fence_driver_hw_fini().
 >
+> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
+> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
-Yes please match the revision as well.  Thanks!
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index e69ab8a923e3..095730c7ef8f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3506,9 +3506,6 @@ static int amdgpu_device_ip_fini_early(struct amdgp=
+u_device *adev)
+>                 }
+>         }
+>
+> -       amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+> -       amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+> -
+>         amdgpu_amdkfd_suspend(adev, true);
+>         amdgpu_amdkfd_teardown_processes(adev);
+>         amdgpu_userq_suspend(adev);
+> @@ -4904,6 +4901,9 @@ void amdgpu_device_fini_hw(struct amdgpu_device *ad=
+ev)
+>                 amdgpu_virt_fini_data_exchange(adev);
+>         }
+>
+> +       amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+> +       amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+> +
+>         /* disable all interrupts */
+>         amdgpu_irq_disable_all(adev);
+>         if (adev->mode_info.mode_config_initialized) {
+> @@ -7362,6 +7362,9 @@ void amdgpu_device_halt(struct amdgpu_device *adev)
+>         amdgpu_xcp_dev_unplug(adev);
+>         drm_dev_unplug(ddev);
+>
+> +       amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+> +       amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+> +
+>         amdgpu_irq_disable_all(adev);
+>
+>         amdgpu_fence_driver_hw_fini(adev);
+> --
+> 2.43.0
+>
