@@ -4,158 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30795E73158
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 12:34:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB016E7315F
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 12:51:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF41210E4AA;
-	Mon,  2 Feb 2026 12:34:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51F1C10E4B6;
+	Mon,  2 Feb 2026 12:51:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HZt2kCXO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CblnlIhV";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012002.outbound.protection.outlook.com [52.101.43.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAA2A10E4A4
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 12:34:07 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d4toEcYYCnJd5rZRTNBRaYmMY2tJ4ep1ZOw4Jk9gIkaHHhacGlaixCnvO2LCGno7sEnkQXXLmIH7qq2RqABPl3GxxRIVOaXjahJbz4qXNsjhLUTrxCcuAJmRSs1laMzGGkabEAfE7LDYutIFMwaVAo9SlYNvkR19k/MBGHWjfiiLFTWBVm2MV/XIzHLuDLGT5v3ltQzl81vCf8AAwqaIMPYwpiY55JBO2nGOQqKrW5Lwtf9GUoHqhnl270sP1jKxZrgPDmfbX3c9n/nKjTokzhfafZW4qUAiZM3hkKqgqeZ8c4taXHLwePRMWrpdlOslKRloGCZRwZHZZcPT46LX8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CL1x7KGG7iRSX3WWFzZKRwPdqNubKdmb6BilIUsJhXg=;
- b=tVccqEbN/9d60tlvuV8WVEH0EfUcOf6dDk5syj+16LyvN6up5/8swtRpSNiFF6rOmy1GK5Gt17BKP+eeIkqAbCpcSAGr65jn7DTNT0zhfKmR7yxlVZdQOY7XtpKlsO7W3kunYcYIGvVvanPmyCtFq6ptx6GoqfGDQahhTQC+TllNSMImaSbOgagRA2CARA8lca8xWB8PcFeZVHGPiT7birsPcJ5DzJPdM1xxJ5pV95cpqMdp8TEw6CSkpU8gG8xLtMIJhWXQRtaUjMgrjPhF5cBKtu9H5CzishTwcPxOET1j1RJqULKzPoypQhtJDtHTXcRElzqVcsODGPmnlYLkhg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CL1x7KGG7iRSX3WWFzZKRwPdqNubKdmb6BilIUsJhXg=;
- b=HZt2kCXOpa8VSCRco73nW5kiQAK7T2sAWl4z6dG2Tssbm2nEMbOKx6DiLXsAPzswkS9ZCIM+p4fGW4fLyVJ5PgaAE82gRT71jvanecdvJenNoRh+QAblnzGVezY8wiBpKtbdL+u0wV0toOPDTw1/DIZX6YiYwZZ8OLyxN7+dgRs=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB9473.namprd12.prod.outlook.com (2603:10b6:8:252::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Mon, 2 Feb
- 2026 12:34:05 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9564.016; Mon, 2 Feb 2026
- 12:34:03 +0000
-Message-ID: <05c545db-b6e5-4f0b-b62a-f2ef1570c383@amd.com>
-Date: Mon, 2 Feb 2026 13:33:59 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] drm/amdgpu: make amdgpu_user_wait_ioctl more resilent
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Alexander.Deucher@amd.com,
- Prike.Liang@amd.com, Yogesh.Mohanmarimuthu@amd.com,
- SRINIVASAN.SHANMUGAM@amd.com, Sunil.Khatri@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20260129125327.11786-1-christian.koenig@amd.com>
- <20260129125327.11786-7-christian.koenig@amd.com>
- <45e5c024-8d21-4d4d-85dc-66fe31c05421@ursulin.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <45e5c024-8d21-4d4d-85dc-66fe31c05421@ursulin.net>
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 813DF10E4A8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 12:51:52 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-47ee937ecf2so37420865e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 04:51:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770036711; x=1770641511; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:from:to:cc:subject:date:message-id:reply-to;
+ bh=3RRcv5YwOfpvMNimk2KgSoLACazizL3JniAldJ7HA4A=;
+ b=CblnlIhVOfGOfhrSWhNKufN7K6oo6lOuYhkWskJZe9b2f8pQCW5sub8J/+OqxjINx1
+ RGijb+Ntj1ODZTjT802qbsgz0+LU/gIVQEiQP4EW6vbLIeP7Ql0TDqFk8rJG1zQn5CAs
+ 1ofojy7Pb3/vOkmK0T9s9WwR1Pp5rWCPgHsSidH/edmcn/GtEaeZqKc1a8HN78MdkZ2X
+ yG+l54e/2Eqw2wlOC8W46dq8YvQ7QEcq28J1VATO8UpquTjKNWhpgqeIx3I++90LWKog
+ AlGHWJk+pkl09ofNBFgC2GNBwj5GmSYrWK8MmGWxZTYKX4OLTbSOspcAs43QTA7URAM1
+ XBKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770036711; x=1770641511;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3RRcv5YwOfpvMNimk2KgSoLACazizL3JniAldJ7HA4A=;
+ b=AZk08+bcP4HoYIUiGyRk+M4Zy0K9g1PvFbRCCx5fvby+SZRpN2tbhEJJga/I+1R0HA
+ fjDWKHrvWd0OdtfdMvIdqjf80/ViUJBkeuaO7QNlO7JKQe7rK8UQE2kbUqlsTciSE1fY
+ bjmwTNDESB7KntQO0ncsVWBJ51JRe/Nwx7EgxrLMkRdZ4Y0uL+E/zjs7QyYfQFk0vLUI
+ +JYupD6FG/scQEkVb6MKaj29Rg602HIB2D3tyllhBO3BLG1CS90WQnTH4dDJE42bDv1k
+ 86EMdn/jLY5AawgJieD8w6T3J3pM3moTyfcBp2IbqcvV5Oyn2UusWM8thNgmDzHzf6zh
+ rhaw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUcL26PJIqS6W7sYSRKzOag04NctDHDyopxxY1k9yUkeMIZsG+11oJs+elGd7OYN609x9RRBaOK@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzLZIJb+os+Q5Pt9s/gyo/wiryVTIq0DSUyns5YEjTFBFc7e1ab
+ Yg+yfaOAyyUsnV6BCb/dxaq1jAPU19IsGtab4uP+RleS971NZtef4bnE
+X-Gm-Gg: AZuq6aIlY84Ydt4dTBdWs+JztpxwDh/CGRdQ3X7s0Ygfnuvj5YJv62Mi93tjh6+FmvI
+ AzOQ6+ZzecxrYqK2kaNdEKXAh0hOSN84T9FYX+i0yo8NRFyg85nqOJ5h1aPVTa0qoyJ/73zz3Cj
+ nkzEJNYHeMKxjNHSlSfQUro0LI3duM5Kd2CYJ7xNUZd2Uz+CiBSsWl/31Ce1phDid30XmWmT0kB
+ APLNYTPFtusYzxpKbSvkCGfmC32gvd7+MuGVD3jRn9+bXdCMtYfHGpfV3QpMMezvyXaCpn4hVYO
+ xf3lMW6Fh/QHo9hqfZgGs+RwBMBZMhi/r6CRFoQAH3XxUXGDWmF0SkM4qy/jc5miYi8OLClVHuI
+ K4T7DJxLWV64kXTt/l5TnxBTS3jVBS4X+jzwz0O1HjkLRcxQps58VHVQYZk0foSj1ebJ82Snfum
+ O0sJIdy3EeWg67TDP2pGbzdgY=
+X-Received: by 2002:a05:600c:559a:b0:477:9a61:fd06 with SMTP id
+ 5b1f17b1804b1-4808289208cmr149535855e9.8.1770036710753; 
+ Mon, 02 Feb 2026 04:51:50 -0800 (PST)
+Received: from able.fritz.box ([2a00:e180:1570:8200:7824:9bef:268:2d37])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-482da6a042csm126165535e9.0.2026.02.02.04.51.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 02 Feb 2026 04:51:50 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: tursulin@ursulin.net, Alexander.Deucher@amd.com, Prike.Liang@amd.com,
+ Yogesh.Mohanmarimuthu@amd.com, SRINIVASAN.SHANMUGAM@amd.com,
+ Sunil.Khatri@amd.com, amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/9] drm/amdgpu: lock both VM and BO in amdgpu_gem_object_open
+Date: Mon,  2 Feb 2026 13:51:41 +0100
+Message-ID: <20260202125149.2067-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN1PR12CA0010.namprd12.prod.outlook.com
- (2603:10b6:408:e1::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB9473:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0faa1679-19a2-4160-a0f9-08de6257595d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YStKd0tmcFdqWWNVSUtyYUJWMUdMcVlvMnlqWUNsR0FKTUpWRkcyR2NRRWNI?=
- =?utf-8?B?M29WSzJ6OGZaUFR2aGVMenZ3Zk5vRzZNMm04dkhFR0RyclMxcDhkRmU5dG9I?=
- =?utf-8?B?ckxxSHdpZTlUVjZVa2dEcGxRZ01HaEsrM0RvaysyelVST3FpNzJrNFNjcXNq?=
- =?utf-8?B?bk41OHhiUWVITTY5bVdaQzdGbTJKU25HQlBZS0R2Ukw3RUtZZTlaeUN1ZHli?=
- =?utf-8?B?SWdFQTVlUytmbG9zZFpPK1hmR3o1V2EwY08vNFVnYWhXdkRubFpyK20vclho?=
- =?utf-8?B?bGdvWWZGSDFaYVBmZEJ2WDV1dlROK1pnT0NmUzIyWjl0YVdkV3hQa1kzTm5j?=
- =?utf-8?B?VWErZUprakpWVkQ4RjFaMnBWVUdadEwyMm5VUkFVRHgyMks0bEZnK1Z6NVFk?=
- =?utf-8?B?Mmg3aENDMEhyczZtRmg3akFvakt3cWRFSnI2ekFFOGpiRDBTWXhEaTVWZmF1?=
- =?utf-8?B?MTVEYlhMeEZTSUNNeUhzNG1TU285cW5DWFVsZFpIUWV4Qm5uVzhXUUx2M2h5?=
- =?utf-8?B?Ry8zVldIM2p3SFhwS21xUEFQU04rMEF2OFo0VmFaN1NwVTQrQUp3QTFPVjhE?=
- =?utf-8?B?L2w3OFRnZmVxcXJVZzI4QnZTWXNzZlZ4VUZXMk9IencrSks5cUZ6ZlVadnc1?=
- =?utf-8?B?Z2VGOTN1elNGNzlzOCttYjlQZmtsdHorQ0ZFV0t0R2MyVlUyeFFLSDdZZVhZ?=
- =?utf-8?B?YmtQTVBKQ3BnMHhXRklxVWRKc3dMVU1wZkV5LzFYVVlwV3VEVnNlMGZWRmFz?=
- =?utf-8?B?R0JYWEU5VmV2K3JGeDc3Vm1QOXdodmZsak5YNU1oU2N0SllXbWdnbHMvRGxN?=
- =?utf-8?B?QlBncjlvajNrd3c5QktUR1pZek8zbmVoVFdkdVBrR3lpanltcEdCcHEwNGlo?=
- =?utf-8?B?eWtLQnh3K1NMRFVGVUFucjVZcnJyN1NBZHNjU2h4alhQdFpINHcvSGFJb1dw?=
- =?utf-8?B?WmxyS2tkZTlDU3VWblg1VFg3TzdMbFo5QVdLT2ZiRmRnbmt6TllrcVIwMXZk?=
- =?utf-8?B?b1k3OEs3Z1g5aDZuUVhYZjZlb1NROU9DNWJPL3FidXFQeStzbXE5dWNMQkl6?=
- =?utf-8?B?SStyWDkrbDZSaTlkenpFckIrMmdTY1hqMXVrS3VjdUtmSVl5Y3hKY0VUMTlw?=
- =?utf-8?B?VzVkUlFxbFdWQ3A0MG40Sy9RcEtSeUQ5Zm1yVXBDeEpxdGFqVUQ2T2g2clNW?=
- =?utf-8?B?cFFxeDJoTkJwNnozTTZUQmhnZTQ5UWREcGlzajZ6cHY4Slc3dFRPSnNlRGdM?=
- =?utf-8?B?RXkvSURxblNSUTRKb0t4Wk05NUMvb00rN0tkVTR1OHd4bDFEYnd6bXh6VWEz?=
- =?utf-8?B?cytEZHNUNFE1cFBHU09yS0tUeXBCQkVZY015cUVXTWh0WjBHWnFJVEU0SHpy?=
- =?utf-8?B?dzBNQkJtbWlWREhVSDM5aWxkSGxqNkQxZ2ZNSHdlUGxqYTFxU2VZdVRkRHBa?=
- =?utf-8?B?UU5lKzBqOURpdGxWQUVMVVNJZUNBMmtOYW1Zam1HWnhNZWRpcEhMM0NwQmxv?=
- =?utf-8?B?MUhoM2tNaFhyK2x3ZW5WMVdYOU9SdzVDRk5qUGEwdFE5anBObENwMVM5VFIw?=
- =?utf-8?B?NDVodnRFbUg3ekpjTk9abWlwTW5hUjhaOUFGSDRqM0dHam1iMEg3MFRGOWxV?=
- =?utf-8?B?Ly9MTGZnWStNYjBCWXFLbXJEVHVkUGdRVGhFVXFOTVZhOXRQTlNaV1Q5S0JP?=
- =?utf-8?B?blRzQVd3MjJGQnVuQnhLcU1PYjE3TUo5UDlqdkdGOW4xaDI0cmJZM1JWZStl?=
- =?utf-8?B?R3ZEaWFwRDd6MHIvUlZIZXlrYjd3VzhkR3NPSnZ3NnNhajBkSTNUV2JzWmEw?=
- =?utf-8?B?eGxFSDQwekptSTA0V1ExSTQ3UC91SE52a0ZHaU4xMC9SQ2NMY0hzNllTSnJH?=
- =?utf-8?B?S3VLQ09mVjdrMzJVb2I4K05aWE40TnU5dU9pZGFYYm1kZUxkdDJOMU1nSldP?=
- =?utf-8?B?K1VGMG9XOXlzZ2FaK3JwUS9CSkFpaFMrdGlOOUpTTm1BWDd3Zlo3QnBLVUxX?=
- =?utf-8?B?aUYwVEhKZ0Y5UGxHbEVjOUNKcjhmclA3bGNhTnF0WHVSZ01idHlSVUNCajZH?=
- =?utf-8?B?d1N4T1czZWpheTBTZm1wUU1LME9adXNUaCszbVBOWGovam9sYXoyKzkwb3Yr?=
- =?utf-8?Q?//D8=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NVVld0FRTi9QS0c0OHBGVVNGeFg5TDI4U0VzYmVKVGFxWGRrM0cwWHNxU2lI?=
- =?utf-8?B?Q0JpRTVFSXJMbk5OdThoV0JLT25DREdiZ2tHbTU1WXMrQm9xelp3Vm90eEF3?=
- =?utf-8?B?aWZKdktkbU05NnJxdEhqTDNXYnJJRG1aai9iVUhheXZxa2c3cy9OWGl2R2JR?=
- =?utf-8?B?NFQ3eTlSRmcrcHFwT20wd1FrRXRaQUVqZzlaUGtMMjZkTGRqTnZNYkhtVFJF?=
- =?utf-8?B?RG1yMjdCRTJvem51Ty8yeFBnam93dUNtRkw4Uit6U2REK0VIcFBhY254cFBh?=
- =?utf-8?B?RDBXM0pjSGZhY05rYkNVWXNoTkFvWm1JblZHVTRSTEZPb2JrL1ljZDlPRFJz?=
- =?utf-8?B?NUU3QWRmK1gxSzNheHBGUkhXRjRnUHQwckwwZmJ5YklSVUxjUmRucE1GZnBG?=
- =?utf-8?B?Yk94QmVCc1M5SkY4WHpGZm5tWVJDMXRqMHlLdkJCK0IyZ285UUE0aWFlU0gw?=
- =?utf-8?B?Q2UwZUxJNitUU0dibEtmTHlhS1B2TzJoTGZnZVZQeWh2OXg5OW54d1cySmN1?=
- =?utf-8?B?Y1N4aEREVjhOOHdSamtsdHJhTCtDUFJISnZJL00rL0F1MVRmV09ES05jYmJB?=
- =?utf-8?B?b2x5SDg0ZGQwYUZtZXhHMThaU3J5SGlKQTljSFJ4akRuelF0WHlJUnB3ZzA4?=
- =?utf-8?B?QXlXUnZBWjFYOGdTcFV4ZDNKci9mKzJKOXg5anpITHhYT05ZMFArZEZOcWta?=
- =?utf-8?B?WVNqL2Z5NXhTb01qVjhtaENsaittRWlMdmxKd3NDN0RWWkVUbEV4WHpVcHIx?=
- =?utf-8?B?L2w2MGtFaUlyMFNvQnFRZE45OTBGaktJZVNwem9PQ1lzRGErYVhuZ09EZEpp?=
- =?utf-8?B?Vit5V1pvWlNtVncvSkh6S21ENWtNNXEvblhrSVNsS0ZGWCtUMitsNk9iSm10?=
- =?utf-8?B?RWNXMkhzczlsTmIzK3VXeXFsbzdTaDZkcTNBbzR6VlA3V0wySDY5T1BHUk0v?=
- =?utf-8?B?aGJZNFZxZlVEa0gzcVE1bERtdmJEclFpUjc2R1hjVDdQR2gvS2t3N3ZialRI?=
- =?utf-8?B?b1BjRXFjRWtaSUh2aWVkenhnV0plakNGVERjTXIxRDhmcEZ6RVdsdjBkeXlx?=
- =?utf-8?B?UktCb0VNTXljUVlRUzUzd2hjTFk4eW96Y0xoSGlmRUIyOW9MYzVYYzl4V2JM?=
- =?utf-8?B?Qkx6NDNNcnljMlFsOURYM3ZZSVJkd0hjVU5ROG1WVkVtMHhxQ09jRERzdjM4?=
- =?utf-8?B?d2tzZ01iaUNjOFJmQnkxZEdsT2phbWx2ZmtwQUxnSGJ2Zk5zTzlTbGdaVFNP?=
- =?utf-8?B?UEJPdVFTcTNPcXZMNDBXNFFEQnN3eVJEZ21SUGZxenZOTVA4UjJoc0NiWEhM?=
- =?utf-8?B?OUd2WUdyanBXdkRheFFac3lFaWF6WWRVSGptNUZFMEtGVklTa3VldEhwSWNP?=
- =?utf-8?B?Y2FHU08yd096RVBnQnlLWWtIN2xjSGZZNWVCNW5GZjNaMmtoVGlvVC9xZ21r?=
- =?utf-8?B?K1Bxb3ZOYUVtNEdia05Uc1NvRXRyL3A0K1Z3bm5QdnFlaW04SVZJU3dwK21i?=
- =?utf-8?B?TVVKVXJ2UlZPc3hZNWtPZTJwVjFDOTA4cW1QbmVoNjFiQ3JzbGdYMHh5eFlx?=
- =?utf-8?B?Z0QyUDNBNEh2QmhQYnhkVk93MzJTd01DTkV5YUtWTGpOUjJjVnEzNS9OQWUz?=
- =?utf-8?B?Q3UrZkozQ2llUUVzZVRMNk9HdVhQTFJlWnRSbzdrRUw2eWNTWlEzK3NZWWtB?=
- =?utf-8?B?WWVZaVM0T1NBdHJ6L3R0dnFham1QbndDYXJJR3A4d3dFbmY3dHVvRFFBZnNq?=
- =?utf-8?B?anJkbUVUdjRtRlhoR0xlZ2JuVTl0SzdGNWFZUVJJNzFqcTcwbElUR3lDVWxL?=
- =?utf-8?B?RjIvVC9rTlVtdDgxVTlCZi8vSW9VK1VPUFdXbmRyUG5naXQ5ZENnZm1iSkhC?=
- =?utf-8?B?TW9telg1SEhrQUhxL2M0ZWttSlZ6SjMyS2h2MnBrSG5rRTJpOERaNTIxQUh5?=
- =?utf-8?B?YlM5dGNuMEdCSHJIVG1VNFZpUUlQVXNpNkJtbnh0L1FuTitxWGlrcWlmN0Zm?=
- =?utf-8?B?Wjd1emVCQUJrVUtNZnlQdFg5dmpncDRpdVlEQlRPRFUwWVdSbkhQaldGTDNi?=
- =?utf-8?B?Wm15WkxvaDhXNWFBc3NnTmtldXZNd3pabW02SDFTWTFMMk0wYUZFRDZhNUcw?=
- =?utf-8?B?dFJNSG1tUW1UV3RmS2h0RGg3QjZHaHIyZHRuVG5Ydkhna0ViaEg2RCt2aVMr?=
- =?utf-8?B?cWVtNTFuU3YwS2RBV2l1TDFWS3dvZDB5Y1Y0TGtnZ3cxM0xDN29pbW9pZ1VS?=
- =?utf-8?B?bkp2VkxzeEgrSmEvMmh5S21zelJyQUUycWtKZVIyUU95b3p6ODhSKzh3VG1o?=
- =?utf-8?Q?v6r+6C4MQfqNMLRCV8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0faa1679-19a2-4160-a0f9-08de6257595d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2026 12:34:03.7222 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x7jCWgMDvW+qTJK99XwN7Ov6u6/W6VeflUO6jZqNvjBN3KjZjxGVxSR5D0HNv48D
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9473
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,131 +88,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 1/29/26 16:16, Tvrtko Ursulin wrote:
-> 
-> On 29/01/2026 12:53, Christian König wrote:
->> When the memory allocated by userspace isn't sufficient for all the
->> fences then just wait on them instead of returning an error.
-> 
-> Hmm..
-> 
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 52 ++++++++++---------
->>   1 file changed, 28 insertions(+), 24 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> index ee8a5fbbd53b..d059712741fb 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> @@ -734,7 +734,7 @@ amdgpu_userq_wait_count_fences(struct drm_file *filp,
->>               num_fences++;
->>       }
->>   -    wait_info->num_fences = num_fences;
->> +    wait_info->num_fences = min(num_fences, USHRT_MAX);
-> 
-> Oh it is actually a weakness in the uapi with wait_info->num_fences being u16. I did not pick that from the commit message straight away.
+The VM was not locked in the past since we initially only cleared the
+linked list element and not added it to any VM state.
 
-No, that's not a weakness. It just doesn't make sense to return so many addr/value pairs.
+But this has changed quite some time ago, we just never realized this
+problem because the VM state lock was masking it.
 
-> De-dup the array when over the uapi limit, and retry?
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 19 +++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       | 22 ++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       | 10 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  2 ++
+ 4 files changed, 42 insertions(+), 11 deletions(-)
 
-No, giving back addr/value pairs to userspace is just an optimization and not for technical correctness.
-
-We could wait for everything inside the kernel, but that inserts a CPU bubble when submissions from multiple applications depend on each other.
-
-> Is it userq fences or other fences that cause the spill in practice? If the former then the patch adds a kernel wait where there wasn't one before so de-duping more aggressively could maybe limit that path.
-
-This is actually not a practical issue for performance. We just need to make sure that userspace can't abuse the API to kill X/Wayland for example by giving a BO to display with tons of fences on it.
-
-Thanks for the comments,
-Christian.
-
-> 
-> Regards,
-> 
-> Tvrtko
-> 
->>       r = 0;
->>     error_unlock:
->> @@ -743,6 +743,19 @@ amdgpu_userq_wait_count_fences(struct drm_file *filp,
->>       return r;
->>   }
->>   +static int
->> +amdgpu_userq_wait_add_fence(struct drm_amdgpu_userq_wait *wait_info,
->> +                struct dma_fence **fences, unsigned int *num_fences,
->> +                struct dma_fence *fence)
->> +{
->> +    /* As fallback shouldn't userspace allocate enough space */
->> +    if (*num_fences >= wait_info->num_fences)
->> +        return dma_fence_wait(fence, true);
->> +
->> +    fences[(*num_fences)++] = dma_fence_get(fence);
->> +    return 0;
->> +}
->> +
->>   static int
->>   amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
->>                       struct drm_amdgpu_userq_wait *wait_info,
->> @@ -786,12 +799,10 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
->>               goto free_fences;
->>             dma_fence_unwrap_for_each(f, &iter, fence) {
->> -            if (num_fences >= wait_info->num_fences) {
->> -                r = -EINVAL;
->> +            r = amdgpu_userq_wait_add_fence(wait_info, fences,
->> +                            &num_fences, f);
->> +            if (r)
->>                   goto free_fences;
->> -            }
->> -
->> -            fences[num_fences++] = dma_fence_get(f);
->>           }
->>             dma_fence_put(fence);
->> @@ -808,12 +819,11 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
->>           if (r)
->>               goto free_fences;
->>   -        if (num_fences >= wait_info->num_fences) {
->> -            r = -EINVAL;
->> +        r = amdgpu_userq_wait_add_fence(wait_info, fences,
->> +                        &num_fences, f);
->> +        if (r)
->>               goto free_fences;
->> -        }
->>   -        fences[num_fences++] = fence;
->>           dma_fence_put(fence);
->>       }
->>   @@ -844,13 +854,10 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
->>             dma_resv_for_each_fence(&resv_cursor, gobj_read[i]->resv,
->>                       DMA_RESV_USAGE_READ, fence) {
->> -            if (num_fences >= wait_info->num_fences) {
->> -                r = -EINVAL;
->> -                goto error_unlock;
->> -            }
->> -
->> -            fences[num_fences++] = fence;
->> -            dma_fence_get(fence);
->> +            r = amdgpu_userq_wait_add_fence(wait_info, fences,
->> +                            &num_fences, f);
->> +            if (r)
->> +                goto free_fences;
->>           }
->>       }
->>   @@ -861,13 +868,10 @@ amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
->>             dma_resv_for_each_fence(&resv_cursor, gobj_write[i]->resv,
->>                       DMA_RESV_USAGE_WRITE, fence) {
->> -            if (num_fences >= wait_info->num_fences) {
->> -                r = -EINVAL;
->> -                goto error_unlock;
->> -            }
->> -
->> -            fences[num_fences++] = fence;
->> -            dma_fence_get(fence);
->> +            r = amdgpu_userq_wait_add_fence(wait_info, fences,
->> +                            &num_fences, f);
->> +            if (r)
->> +                goto free_fences;
->>           }
->>       }
->>   
-> 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 768998c82b43..ec5130497743 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -878,6 +878,7 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 	struct amdgpu_bo *bo[2] = {NULL, NULL};
+ 	struct amdgpu_bo_va *bo_va;
+ 	bool same_hive = false;
++	struct drm_exec exec;
+ 	int i, ret;
+ 
+ 	if (!va) {
+@@ -958,19 +959,25 @@ static int kfd_mem_attach(struct amdgpu_device *adev, struct kgd_mem *mem,
+ 			goto unwind;
+ 		}
+ 
+-		/* Add BO to VM internal data structures */
+-		ret = amdgpu_bo_reserve(bo[i], false);
+-		if (ret) {
+-			pr_debug("Unable to reserve BO during memory attach");
+-			goto unwind;
++		drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT, 0);
++		drm_exec_until_all_locked(&exec) {
++			ret = amdgpu_vm_lock_pd(vm, &exec, 0);
++			drm_exec_retry_on_contention(&exec);
++			if (unlikely(ret))
++				goto unwind;
++			ret = drm_exec_lock_obj(&exec, &bo[i]->tbo.base);
++			drm_exec_retry_on_contention(&exec);
++			if (unlikely(ret))
++				goto unwind;
+ 		}
++
+ 		bo_va = amdgpu_vm_bo_find(vm, bo[i]);
+ 		if (!bo_va)
+ 			bo_va = amdgpu_vm_bo_add(adev, vm, bo[i]);
+ 		else
+ 			++bo_va->ref_count;
+ 		attachment[i]->bo_va = bo_va;
+-		amdgpu_bo_unreserve(bo[i]);
++		drm_exec_fini(&exec);
+ 		if (unlikely(!attachment[i]->bo_va)) {
+ 			ret = -ENOMEM;
+ 			pr_err("Failed to add BO object to VM. ret == %d\n",
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 5f9fa2140f09..5c90de58cc28 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -232,6 +232,7 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 	struct amdgpu_vm *vm = &fpriv->vm;
+ 	struct amdgpu_bo_va *bo_va;
+ 	struct mm_struct *mm;
++	struct drm_exec exec;
+ 	int r;
+ 
+ 	mm = amdgpu_ttm_tt_get_usermm(abo->tbo.ttm);
+@@ -242,9 +243,18 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 	    !amdgpu_vm_is_bo_always_valid(vm, abo))
+ 		return -EPERM;
+ 
+-	r = amdgpu_bo_reserve(abo, false);
+-	if (r)
+-		return r;
++	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
++	drm_exec_until_all_locked(&exec) {
++		r = drm_exec_prepare_obj(&exec, &abo->tbo.base, 1);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto out_unlock;
++
++		r = amdgpu_vm_lock_pd(vm, &exec, 0);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto out_unlock;
++	}
+ 
+ 	amdgpu_vm_bo_update_shared(abo);
+ 	bo_va = amdgpu_vm_bo_find(vm, abo);
+@@ -260,8 +270,7 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 		amdgpu_bo_unreserve(abo);
+ 		return r;
+ 	}
+-
+-	amdgpu_bo_unreserve(abo);
++	drm_exec_fini(&exec);
+ 
+ 	/* Validate and add eviction fence to DMABuf imports with dynamic
+ 	 * attachment in compute VMs. Re-validation will be done by
+@@ -294,7 +303,10 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 		}
+ 	}
+ 	mutex_unlock(&vm->process_info->lock);
++	return r;
+ 
++out_unlock:
++	drm_exec_fini(&exec);
+ 	return r;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 1878e0faa722..f69332eed051 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1445,6 +1445,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ {
+ 	struct amdgpu_device *adev = drm_to_adev(dev);
+ 	struct amdgpu_fpriv *fpriv;
++	struct drm_exec exec;
+ 	int r, pasid;
+ 
+ 	/* Ensure IB tests are run on ring */
+@@ -1484,7 +1485,16 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ 	if (r)
+ 		goto error_pasid;
+ 
++	drm_exec_init(&exec, DRM_EXEC_IGNORE_DUPLICATES, 0);
++	drm_exec_until_all_locked(&exec) {
++		r = amdgpu_vm_lock_pd(&fpriv->vm, &exec, 0);
++		drm_exec_retry_on_contention(&exec);
++		if (unlikely(r))
++			goto error_vm;
++	}
++
+ 	fpriv->prt_va = amdgpu_vm_bo_add(adev, &fpriv->vm, NULL);
++	drm_exec_fini(&exec);
+ 	if (!fpriv->prt_va) {
+ 		r = -ENOMEM;
+ 		goto error_vm;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 6a2ea200d90c..b4bf1b7c214f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1735,6 +1735,8 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct amdgpu_device *adev,
+ {
+ 	struct amdgpu_bo_va *bo_va;
+ 
++	amdgpu_vm_assert_locked(vm);
++
+ 	bo_va = kzalloc(sizeof(struct amdgpu_bo_va), GFP_KERNEL);
+ 	if (bo_va == NULL) {
+ 		return NULL;
+-- 
+2.43.0
 
