@@ -4,85 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA937E7FDDC
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 21:10:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57A7FE7FDD8
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Feb 2026 21:17:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 377FF10E065;
-	Mon,  2 Feb 2026 21:10:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC4EB10E2E8;
+	Mon,  2 Feb 2026 21:17:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="duwuHiUT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I6TRApKJ";
 	dkim-atps=neutral
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B08310E065
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 21:10:02 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-124a5810e41so120296c88.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 13:10:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770066601; cv=none;
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80D9F10E2E8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Feb 2026 21:17:37 +0000 (UTC)
+Received: by mail-dl1-f47.google.com with SMTP id
+ a92af1059eb24-124a946a340so186831c88.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Feb 2026 13:17:37 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770067057; cv=none;
  d=google.com; s=arc-20240605;
- b=K1jVqRtCtjD0xxSXXGZikle5r0oGc6Mw4QxjMdxxiIrRXB793+aZbXi1lmw8hu42Ua
- PJiOAqhsb0M/lnXmHJJmTdsg2gtPxpAbqgUFbEPSvAZKlDzSkLZ7OKnPnsa3Mkw/tNSQ
- J62XgITnKjd7KXPCPewRqhMkJXrbhvzwQWwVhqvOoPDd711bmwa4ogSff4LLOCgBzDmG
- B+OhhmhuTnZEJvTmiQKnFNi/GxwHs6gEFqX+KRFnBTqvWzqSr58gbZsVL0puO+f7YUnt
- oJshYe9LYz51yUNkZK9Fgu9EH6ACT1bW+6s4LV4MsdFBYsTSGU0wgT7OdoIH0tRKSIJq
- RwYQ==
+ b=i3UiTNYHugOoWwgzusEMfi4oceAjUH0+6Vh6lj6tHNtMnsAgvncLsLHQL0vwtiuMzO
+ SPPjxFEejWTONS7u+jTzfrE+kiDsBgfvwztf4nrH6QkRSFf3qxFUKIilPKMrK/pZ4cA+
+ iwmrK/rt4qXRjmqnQYvTzegwPZIDBfTE5OQ9/L7ECkRRFh7kteWFUNEn8ESf6aInVuG5
+ 3i9mIPFsPTSobKyz4Tle6OWmR0I+YS4bQSeFLIjZP9sUt4NQSNQumKkUQOo63blI06YF
+ 1zCJX8Ap8Injn5NjpnxaAabGVPAnHA9kNBn6gb+hmE8TLKG7CHJZRSWJMLXJk3joLCx8
+ SB/w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=DC+AytD6Y0jY/e+hFgv6dtGPrdpgHD6MSL2d020Y+yg=;
+ bh=0SV5lFQVLfq6lTta1wvkYu3u85qntqubps/Gd8zU+so=;
  fh=jrj2zacaXiuElwmT/59HCjZUVEPuL3U3OF0ylmi9raM=;
- b=a51BfQBhJVJGdyKSMq0GY1fl3gvZpdAKqepwyam6YhltLltQClRGuU6ORjH7Gxo9Tc
- Yh595VfD+2U4GpjexWHjIc7aAQBL4peLWcTZNiBW1l66aYAFa/IZnw+M13ybloJYKm2v
- ggWyFMN6Ma2IEIoH5JphPI8rwejuP2d4tDWBHuJYo18hD6mrPjDwZ7BLW9FBUIsiw1OU
- KK8Wha03sm68HWcUI6q4OsaHoTnd/CPgl8AY+/RmDv0x0/kyprfRl8flpvyee1WL0Ipy
- W6PGaJwU7vCaZKRudf+So1sMt1dZkkLC7tlSRadC170KwBaqsUAT80SXW9rdtRSSZZMd
- DJlw==; darn=lists.freedesktop.org
+ b=kEe/EXZl83P5tiJj600eLmb+f4GmcjDLO5mxvDEb44rqSv5XdDUOY4C4YOd0PCBsay
+ fabbXuHovGa5fmaw2vPhsj8MKAzA2l6UiAPPTIbowefI4Gz5rN3OlxJdkGGyAb5dPGCt
+ nsPTZclZ1iQln6o5+FRkICiuhodpW4KZO5rGcE2G7BPtUIOg43FrK86wZWAVe7HdPDb8
+ IihHuutVWtznbQ/aLhUmoYeZS5kbz79Nsyt4Q6VFJ68fzrKLgm56zCGLLtW3P309EAVH
+ GOzXhVt+xXuWChI4MTjyvEvm3NE5eVc8YwB6PdEX7TEhqN+7YHyuatqQyqlCOcwKDWkS
+ hFuQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770066601; x=1770671401; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1770067057; x=1770671857; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=DC+AytD6Y0jY/e+hFgv6dtGPrdpgHD6MSL2d020Y+yg=;
- b=duwuHiUTNn0eDg38KuY0VuLWIezRJtQCSwkrXLPLX2I3Vj1EJ+kf2iUiB9XhtCNcUu
- OY+0be7ouxeYFpa1mwSxXnu3axVDSo3NdJLypn5kkbSeud1XIkkSV+n3tkKg2/VmsQGv
- kc4jhqY7I6rmIO6s2zS1w60PXIYE/ZqkUwIraLU4RAY5elIINSyyZhsV26F/xMr1GPZC
- gX4B29fBfc1RJVoaAKWUynukE45MmZfYLs1aboSXRKXh+k1/PEjako2ZdU5KQFZbOPQX
- ZQJ6AS5XsKY8g98yUjg3UaVXEt4lYwKEY0aH02e/4s0RewWhsPFFXV+RM9ngU4XvlJgi
- bz9A==
+ bh=0SV5lFQVLfq6lTta1wvkYu3u85qntqubps/Gd8zU+so=;
+ b=I6TRApKJcMkwps0r88HyOj5WKTr4EMbbAg9u3unDTiegUYO6HbrDPEcNFdhjm8xUss
+ A6EhKmFKHP7miGk5Udv2IH1kGi5/iOYcKLfHfL+Ev2DAWgv68iLcCCmUacxva8ihZY/t
+ A8FHYrXmXvUZDyLfqaqu3DSQbnmGtxvrSesuA4vHXPVh+GnUSHcterRX1gbdnMYgTxef
+ 7UNdq0AvYuNYhQfMtSbwfSo+kqZ3PI76MIfO0e3SCeCQ1fl7gfp+GbAWGr9oYhLrZhvY
+ B0nAbfEd1ZEHy95wtw+d07LLsZdE/jCLJswIJeaISd7kmZa91Qvz3hPXsBgmNAIa21Oc
+ d8/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770066601; x=1770671401;
+ d=1e100.net; s=20230601; t=1770067057; x=1770671857;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=DC+AytD6Y0jY/e+hFgv6dtGPrdpgHD6MSL2d020Y+yg=;
- b=AzRAlgqlBWxRhZpuZ2fZpdq4SSEaIT0FfvUQo1z4ioZN3NwKYP0ZpwiNWCgejmLzL9
- 8V5ysjiSR0NldxAOlPC2yVH4fw8Vh2Av5DYUCy9AbMuvwnUN4k4NAnHh9h3HsJfxtZe7
- iFqnoOhdRBO9TQjUDlx9/6Ffjmip2ser4ve712sjyutQzYGa2h8v/vP/5xvxz2F+yHEj
- 1LUxvHMldN8VIUE9vsCyu8giPMDbhCRomHURyJb11MJNWwaSnRkZGpAf5Zw1jaby2omq
- Big6RSSKmfTkOLOuCAx7pdJKs+jldih8vxZjQL9guunogmxdYcCu/jVbPWjcUeFH12AG
- phZA==
-X-Gm-Message-State: AOJu0YxDddLNmOunefiLkUOgexNkJrjuMTShM8edgRV6HUC3EIw9nARA
- gYkBmGBqUSofaJOw6AMF63ZuFgfWvvDXGrrj4cZHSx7TrgrcN24qbbn/JVTJirtNbcFnAi7HZ91
- sI8o+uk2KJHmMwdahzke9eVixMLwceCQ=
-X-Gm-Gg: AZuq6aKiA1Khg3PmZ5Ki2GytrA19Rl/nHokdeDN27pcHMPutRgfDRgMQGwiJniSVL0Q
- 49Vd1QmYEFHJiYx2wGDBjvSvY6MmB/VIKJq1+HLsd9dT8xiPxWLFNxVYPun9OI8DNHPeV+K1EOF
- 67VXDOQl3xBTPQPgi1gLZh9gCHHQZLAdNrpsFO/31c3R/AZcBbowi9lsyGlC7q6Zl8K4WDNY+ms
- 0VYGa5wYlZTMPN3Rn2Q43P54QPYwNp07M6CbnclrlzuqvO945aFl5LXBBO6s2tNsRnWE2o+dh2F
- eCUaMjE=
-X-Received: by 2002:a05:7022:fa07:b0:119:e56b:46b7 with SMTP id
- a92af1059eb24-125c0fa8ff1mr3390823c88.1.1770066601259; Mon, 02 Feb 2026
- 13:10:01 -0800 (PST)
+ bh=0SV5lFQVLfq6lTta1wvkYu3u85qntqubps/Gd8zU+so=;
+ b=WXyDJR8bUlLUUogk5X/sKUL6PUNEPBxP2QJpDW1TtwTb6mdQFwsz8O10/VCDQfcecV
+ VkDBK5pDwr4oYrN9/NLRiPEc6SoZO5RRlqwdlk7coKtDZgoMPbU/KcCCgOPjh2iIdrxr
+ CiaozANTCb088ENWgjcCR0D7p21N4ZIDTq//K24jni/Cm3KzJlDM42L9b0UOS9FQdk9w
+ T7r+s4TaiR8XqM+q25zE1whWx9nk/TlkyqiAf+EJ1xb8GkUkaVzCl/rQVXaUqYEFgnQy
+ 8efINEZYH6Bxn5+N1GGMNzO1VxuslzdHDpFE7pFnb2F1hzirk4NBbFBkFPjQb18Tw2gJ
+ Ynxg==
+X-Gm-Message-State: AOJu0YzWZw+EnmdAx8Qq3EHBbBvFt3M6uZwa49tQZwQGwfsZ8FSBlPez
+ U8fkQVp+fD6l3MUIRVEYy/iJra100QVXQ0EX+jXgESN5kTJf2SgbY+W5MZhqjBFfsozs1luKLUQ
+ CCsDKDTmKXlvhumwbX6kp9/t4nSeLch0=
+X-Gm-Gg: AZuq6aK+jUZitx8/DU4TkW3uWnAyORF3oF+XzPRRntNHE1yUHpRjz27xu/TYtHWscGq
+ Cgtqx64UKWP+U85EmEx2PmFtziIY7pGHlan/0taOQn7f1I9m2ny8osNoLBexVHW6A5oW64zfkz+
+ 97b6N57HTt/3NI69og5QxhmWmthV8xQQgZoBZt9ALs2qmaxgAextNQ3oQ49mZ8nhCXSmmbLHnuG
+ JMiFqsXP3PlJl8966tPOvgzARJ+kzQKtE973m+7Vt9dVUkHBnU17OrkI5blPCIQg9QT6J56
+X-Received: by 2002:a05:7022:ebc5:b0:119:e55a:95a0 with SMTP id
+ a92af1059eb24-125c0f79ed9mr3335378c88.2.1770067056675; Mon, 02 Feb 2026
+ 13:17:36 -0800 (PST)
 MIME-Version: 1.0
 References: <20260130084137.2906792-1-lijo.lazar@amd.com>
- <20260130084137.2906792-5-lijo.lazar@amd.com>
-In-Reply-To: <20260130084137.2906792-5-lijo.lazar@amd.com>
+ <20260130084137.2906792-10-lijo.lazar@amd.com>
+In-Reply-To: <20260130084137.2906792-10-lijo.lazar@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 2 Feb 2026 16:09:49 -0500
-X-Gm-Features: AZwV_QjVwnn2cFLYXxAIchUlO7eTfaFlvEPNNIVOdwrSFqtRFwWRj4_tCdogTeE
-Message-ID: <CADnq5_N9igO2yAtnuRHe82di4xfO5QE-oa3s3cTqumNxO+s3kw@mail.gmail.com>
-Subject: Re: [PATCH v5 04/11] drm/amdgpu: Add user save area params validation
+Date: Mon, 2 Feb 2026 16:17:25 -0500
+X-Gm-Features: AZwV_QhF_mg-NgggkzPwWaMDQNzOx_Thf5Qf0GEtiCm3Pj5nuq8gT_pKC0OHiUw
+Message-ID: <CADnq5_PAMVoC_mo-_jFZPktCrA7yZN8oWm9vcqkRet3h+_qPdA@mail.gmail.com>
+Subject: Re: [PATCH v5 09/11] drm/amdgpu: Add ioctl support for cwsr params
 To: Lijo Lazar <lijo.lazar@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
  Alexander.Deucher@amd.com, Christian.Koenig@amd.com, David.YatSin@amd.com, 
@@ -106,114 +105,82 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Fri, Jan 30, 2026 at 4:22=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
 te:
 >
-> Add an interface to validate user provided save area parameters. Address
-> validation is not done and expected to be done outside.
+> Add cwsr parameters to userqueue ioctl. User should pass the GPU virtual
+> address for save/restore buffer, and size allocated. They are supported
+> only for user compute queues.
 >
 > Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c | 39 ++++++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h | 10 ++++++
->  2 files changed, 49 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 13 ++++++++-----
+>  include/uapi/drm/amdgpu_drm.h              | 11 +++++++++++
+>  2 files changed, 19 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_cwsr.c
-> index 80020fd33ce6..f4907172ebeb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c
-> @@ -64,6 +64,15 @@ static inline bool amdgpu_cwsr_is_supported(struct amd=
-gpu_device *adev)
->         return true;
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm=
+/amd/amdgpu/mes_userqueue.c
+> index 71a323ad1ac6..9d77f72c4773 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> @@ -349,17 +349,20 @@ static int mes_userq_mqd_create(struct amdgpu_userm=
+ode_queue *queue,
+>                         num_xcc =3D amdgpu_xcp_get_num_xcc(adev->xcp_mgr,
+>                                                          fpriv->xcp_id);
+>                         cwsr_params.ctx_save_area_address =3D
+> -                               userq_props->ctx_save_area_addr;
+> -                       cwsr_params.cwsr_sz =3D userq_props->ctx_save_are=
+a_size;
+> -                       userq_props->ctl_stack_size =3D
+> -                               adev->cwsr_info->xcc_ctl_stack_sz * num_x=
+cc;
+> -
+> +                               compute_mqd->ctx_save_area_va;
+> +                       cwsr_params.cwsr_sz =3D compute_mqd->ctx_save_are=
+a_size;
+>                         r =3D amdgpu_userq_input_cwsr_params_validate(
+>                                 queue, &cwsr_params);
+>                         if (r) {
+>                                 kfree(compute_mqd);
+>                                 goto free_mqd;
+>                         }
+> +                       userq_props->ctx_save_area_addr =3D
+> +                               compute_mqd->ctx_save_area_va;
+> +                       userq_props->ctx_save_area_size =3D
+> +                               compute_mqd->ctx_save_area_size;
+> +                       userq_props->ctl_stack_size =3D
+> +                               adev->cwsr_info->xcc_ctl_stack_sz * num_x=
+cc;
+>                 }
 >
-> +uint32_t amdgpu_cwsr_size_needed(struct amdgpu_device *adev, int num_xcc=
-)
-> +{
-> +       if (!amdgpu_cwsr_is_enabled(adev))
-> +               return 0;
-> +
-> +       return num_xcc *
-> +              (adev->cwsr_info->xcc_cwsr_sz + adev->cwsr_info->xcc_dbg_m=
-em_sz);
-> +}
-> +
->  static void amdgpu_cwsr_init_isa_details(struct amdgpu_device *adev,
->                                          struct amdgpu_cwsr_info *cwsr_in=
-fo)
->  {
-> @@ -425,6 +434,36 @@ int amdgpu_cwsr_alloc(struct amdgpu_device *adev, st=
-ruct amdgpu_vm *vm,
->         return r;
->  }
->
-> +int amdgpu_cwsr_validate_params(struct amdgpu_device *adev,
-> +                               struct amdgpu_cwsr_params *cwsr_params,
-> +                               int num_xcc)
-> +{
-> +       uint32_t min_size, max_size;
-> +
-> +       if (!amdgpu_cwsr_is_enabled(adev))
-> +               return -EOPNOTSUPP;
-> +
-> +       if (!cwsr_params)
-> +               return -EINVAL;
-> +
-> +       min_size =3D amdgpu_cwsr_size_needed(adev, num_xcc);
-> +       max_size =3D 2 * min_size;
-> +       /*
-> +        * Only save area size details checked. Address validation needs =
-to be
-> +        * carried out separately. User is expected to pass a cwsr buffer=
- area
-> +        * with size >=3D ctl stack size + wg data size + debug memory si=
-ze
+>                 kfree(compute_mqd);
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
+h
+> index c178b8e0bd3f..41a155fe2c01 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -460,6 +460,17 @@ struct drm_amdgpu_userq_mqd_compute_gfx11 {
+>          * to get the size.
+>          */
+>         __u64   eop_va;
+> +       /**
+> +        * @ctx_save_area_va: Virtual address of the GPU memory for save/=
+restore buffer.
+> +        * This must be from a separate GPU object, and use AMDGPU_INFO I=
+OCTL
+> +        * to get the size. This includes control stack, wave context and=
+ debugger memory.
 > +        */
-> +       if (cwsr_params->cwsr_sz < min_size ||
-> +           cwsr_params->cwsr_sz > max_size) {
-> +               dev_dbg(adev->dev,
-> +                       "queue cwsr size 0x%x should be within min %u : m=
-ax %u\n",
-> +                       cwsr_params->cwsr_sz, min_size, max_size);
-> +               return -EINVAL;
-> +       }
-> +
-> +       return 0;
-> +}
-> +
->  void amdgpu_cwsr_free(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->                       struct amdgpu_cwsr_trap_obj **trap_obj)
->  {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_cwsr.h
-> index 3c80d057bbed..7f922559e297 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h
-> @@ -56,6 +56,12 @@ struct amdgpu_cwsr_info {
->         uint32_t xcc_cwsr_sz;
+> +       __u64 ctx_save_area_va;
+> +       /**
+> +        * @ctx_save_area_size:  Total size (in bytes) allocated for save=
+/restore buffer.
+> +        * Use AMDGPU_INFO IOCTL to get the size.
+> +        */
+> +       __u32 ctx_save_area_size;
 >  };
 >
-> +struct amdgpu_cwsr_params {
-> +       uint64_t ctx_save_area_address;
-> +       /* cwsr size info */
-> +       uint32_t cwsr_sz;
-> +};
-> +
->  int amdgpu_cwsr_init(struct amdgpu_device *adev);
->  void amdgpu_cwsr_fini(struct amdgpu_device *adev);
->
-> @@ -68,4 +74,8 @@ static inline bool amdgpu_cwsr_is_enabled(struct amdgpu=
-_device *adev)
->         return adev->cwsr_info !=3D NULL;
->  }
->
-> +uint32_t amdgpu_cwsr_size_needed(struct amdgpu_device *adev, int num_xcc=
-);
-> +int amdgpu_cwsr_validate_params(struct amdgpu_device *adev,
-> +                               struct amdgpu_cwsr_params *cwsr_params,
-> +                               int num_xcc);
->  #endif
+>  /* userq signal/wait ioctl */
 > --
 > 2.49.0
 >
