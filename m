@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1116AE83EED
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A646E83EE8
 	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 08:10:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AC6410E4D3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8C8510E4D7;
 	Wed,  4 Feb 2026 08:10:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cLJ5HHLf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="X6ktJBvG";
 	dkim-atps=neutral
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E15310E75F
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Feb 2026 18:56:51 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-b8de2b5a122so71331566b.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Feb 2026 10:56:51 -0800 (PST)
+Received: from mail-ej1-f66.google.com (mail-ej1-f66.google.com
+ [209.85.218.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AA1310E75A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Feb 2026 18:56:47 +0000 (UTC)
+Received: by mail-ej1-f66.google.com with SMTP id
+ a640c23a62f3a-b8e0e812c27so59079766b.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Feb 2026 10:56:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770145010; x=1770749810; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1770145006; x=1770749806; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=95VCxPcm8UPz0sIpTAJnRyialODS1BosqnZDH20bJNE=;
- b=cLJ5HHLf+T4zNYMNOnmDalqSduioWQSsZpAerm2LDlVvX7h1ljsouUWgCZJzuHWoqk
- xFyXkEWn/9NYLiqSufTOmSCqX+7dQAvRzo4ZeOVYzNkKCJPazHrrZPPykhvbP2kQ6Uhm
- sQgtID2EBrUj5+khBwNqskTU++CiqR5IVFo8nndea4x6xwG/nadNda225+hpWEQrjWMU
- vFTLLxHNvrFYZS+sAg6pxHisFJ8rYyQixz1LsMEUbWcFabTHfPtk+toonnSdij/s3r9A
- DyBhSc2qOV8Tl8EJXBUjgTlf11NIXz9u0eAe5HWLNBHpYoLhXN+Hn6IXCY3yqDmN9kfq
- k6yw==
+ bh=YveXWB9fxJPi3CW0nlq6uRwljjhlFuvcOGXx+tNrYfY=;
+ b=X6ktJBvGDQm1PdBVjoP6DOyv8V9ESNjGxBqR0Cpw1y+wGN+GWuFkyfVTKjV2I3G5oL
+ VTG+z1yzM4/ZwtZDuTudoP2/SfQejZVjCUA8LcctSReP/i5pVGKHZEVarHa2t9/erWBv
+ JRf+tFGshdTvrcBMB3D5RM0F35ewVLTzFNWukRKBalMHU7Ai5D4K0qths0IsxxHsBeEE
+ pJbJk0ZvjFOnGMjJ78/7NUy0oGNkgR6I4y5g84AwvqsOJ4hYyYI1OzPbLUQFJ/zy6syl
+ hMGY6ggCgt3ZzxeTbC0xGdT7XZJQwukYa3VycepoBmlgf5vAVcbM//xRtlUlVEeWp1iQ
+ cn2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770145010; x=1770749810;
+ d=1e100.net; s=20230601; t=1770145006; x=1770749806;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=95VCxPcm8UPz0sIpTAJnRyialODS1BosqnZDH20bJNE=;
- b=OJ5DgMzrCHek1eH50gXt6PRYyAzzruWaTXSD1jFR/NFtgRXLDOc78KoayGFKDtGG3M
- D97hyKgHh9iTetxRcuuaJC472y571UtUM9WqffsP6nLgUArPsJmgVp5pLQ3noYxsFD40
- PaOSDgY57fC62SswtNRG941JYUwSYQFVz1TxYH6g3Xw40Yym/z/Fvc3w5teN7F+D86y4
- 4A5xpKCjwqhOCThtem7j+kaOTrae8YoZ9Z9/JPea7eI37eW2wgjBsS3ByUh9gev7CcE6
- ht7BHLA+D05NUvNciuDp00anq0Lru7/WhJrQ0/ygmDt+Kc9x+BGJd7a22mB4SxBOsqBU
- ldoQ==
+ bh=YveXWB9fxJPi3CW0nlq6uRwljjhlFuvcOGXx+tNrYfY=;
+ b=wutXhhMROljU+YUJfzxIfQM3RkRXPGf2aJlLo9gcIz93VF1bOHnDOcJoO8LyLOvJsz
+ 7ilO/NdF8SmEMCCIxH4djxBORehvsmWDXtPKcMKvE0xg+hwZOKO/6rz1dKxTzmYjIUda
+ 8kUDGa0XR2XE1hIFTg3yJv4miYiRr0pIpT5dywApbKwyKFscaEX3ZgZiCofQQD/yBkuu
+ IHGqbyCTyk13RJ1sZS9FZt8NxKQNLOaPiyK8HbBoeM+5Pgqe6fvjGGjrIKY0UDR7H4bv
+ lXi1BiHxasFkhIZ/rcXlSpnIxRHQTxPA1ICP4g54Go+/ha2oqeKcR2X5tVyhio0VbBAj
+ 3SCQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV+pzVWnqmcSX9fPinh6doqpQkWsDkWLfeiDWHvXT6CqRRbwntxQJ21zKLeMpNx87vAcEf+PcvK@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyRyhyGDtv3NZuJ3XYK9Ff7vbfdWTP7J5gRmckm10+Qjn6N2b9Y
- m2gwZ/505ow6KNIgCSRngDsFCR1YFPM/Sd9R9RQycEEd8nBvcTXg0tHA
-X-Gm-Gg: AZuq6aKq6K6WgtOYEXu1IQGNVXhGOVI6AcniTHTvfRUW+s3l6ArU2qXfQxBrPmBC5oP
- 6+Nu6GwbolJDrFXZjcEAytroa+uRHclOf5O57+ghbF7YaTNvk6VV0GeYxd4bslBca3mLhrnHtqP
- Id/gNjWpqkFYFAq9oY7F0UfgY4GHLfcumx/PhCFIzzPPQMXiINKIpNzrZVMETSsu0fFF4Eke6uO
- kRz4GpvPVQrCtkrWEP/oGOYyBTnYMnz7qiAlIbMZgzqvGNWzuhGOcZC6ls3yxHa5EehiEH76Ov8
- ue13lR/vcOgbSto092ohsMulnUULl9OdzH8C77CNN0c/wOrNzFHnGuE8VXSXAsII6ms6wGoAoIE
- pq+eU1v7y3rgeN2VxjgvUXizICt05vsEQ0JfO7iRAlywwdfjtXD361cxP0R5l2o2ir13LdcBdTV
- NKtGrWfCkjCEXc4oADgBL7Y/qL1zYRz1MU6gTaX0bHOAsk7S4VC++vqFcKfiFs+Hb4zSXjj3kes
- AQ=
-X-Received: by 2002:a17:907:d78b:b0:b8d:e858:dee5 with SMTP id
- a640c23a62f3a-b8e9f2b2cfbmr22358766b.5.1770145009710; 
- Tue, 03 Feb 2026 10:56:49 -0800 (PST)
+ AJvYcCVZr1/7Q9sloYx6x9ScRJMtte6Vs6nWoqSD4jLI2jhxtGSCpKM8GXF5WkrJ4PWFuQIcxHwBZ81E@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzeSJTlmg184F067Lgg0VSEYHMR4UObsR8ieVkGYIJkfqUp1ADj
+ bPX8+aX47VGlyI7UoH80/m0J382+52uPzJGaqobMJ0Ky078PEE6NiRni
+X-Gm-Gg: AZuq6aKQWF47P2xFUfDa5yCYILwu67MzLqG/KKtyr78xAFAUoHp0JqvqmzB1x3OLw9l
+ 1kzk4X8rsGKXmVSA8Gznaza5MCP4B9maEUDTg0/urmR0KPSBllZTOKmkFgEyrCIaMbrVAzds3Gq
+ G3WDWKCEtPF0Drp8g4oqwb6ptCM6bminGzDol0KbFiyXiTEoAVTWVouPGXEU8nqZqIQ8iDPJL9i
+ pA2qJ1yK/Nt8cqo6aCrQsRDxu6gw1XC/tNl7vP7H2jiP6jR5msgc4bmZ2gWQA2MMratyPnu7btU
+ JzPNEEK1/PvBAEFL2xXac5vuiGA42eKNBA7EXp+mYCvwpPGqktJD5rAglziyRDHgFp6ZQZ9h1Bn
+ VUqMUt5YkmXOcWEklPzWLXR9QT8yt1B2mxI/Gw83FjgKDOrupd0AdC4fNX2yVY1UzQHVN2iDmoR
+ w31S+QTTcbblk7pYuvURrX/7h9czgoyRmYxgJowUHr0nEx6TkUZTO5C0m2Ceg8Qp5d
+X-Received: by 2002:a17:907:3ea8:b0:b71:a627:3d9f with SMTP id
+ a640c23a62f3a-b8e9ec91abamr22683566b.0.1770145005819; 
+ Tue, 03 Feb 2026 10:56:45 -0800 (PST)
 Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8e9fad97a7sm16715766b.0.2026.02.03.10.56.48
+ a640c23a62f3a-b8e9fad97a7sm16715766b.0.2026.02.03.10.56.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Feb 2026 10:56:49 -0800 (PST)
+ Tue, 03 Feb 2026 10:56:45 -0800 (PST)
 From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
 To: alexander.deucher@amd.com,
 	harry.wentland@amd.com,
@@ -73,9 +72,9 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
  bernhard.berger@gmail.com, michel.daenzer@mailbox.org,
  daniel@fooishbar.org, admin@ptr1337.dev
-Subject: [PATCH v3 14/19] drm/amd/display: Restore ALLM support in HDMI vsif
-Date: Tue,  3 Feb 2026 19:56:21 +0100
-Message-ID: <20260203185626.55428-15-tomasz.pakula.oficjalny@gmail.com>
+Subject: [PATCH v3 11/19] drm/amd/display: Support HDMI VRRmax=0
+Date: Tue,  3 Feb 2026 19:56:18 +0100
+Message-ID: <20260203185626.55428-12-tomasz.pakula.oficjalny@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260203185626.55428-1-tomasz.pakula.oficjalny@gmail.com>
 References: <20260203185626.55428-1-tomasz.pakula.oficjalny@gmail.com>
@@ -98,193 +97,86 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-Support for triggering ALLM in modern TVs is missing.
-
-When HDMI vsif was added in 2019:
-commit 3c2381b92cba ("drm/amd/display: add support for VSIP info packet")
-it was improperly handeled as HDMI actually has two separate vsifs. The
-implementation was based on H14b-vsif and ALLM bit was messing it up
-because H14b-vsif doesn't support ALLM. It was later removed in:
-commit 75f77aafe281 ("drm/amd/display: Send H14b-VSIF specified in HDMI")
-
-ALLM is supported by hf-vsif (HDMI Forum) instead.
+VRRmax=0 is a valid value and means that the upper bound is guared by
+the selected video mode.
 
 [How]
-Add proper logic to construct either h14b-vsif or hf-vsif based on
-required capabilities. Currently, only ALLM from hf-vsif is supported.
+In this context, saved vrr max is the max possible refresh rate ever.
+Try getting upper VRR bound from AMD vsdbif it exists or rely on the
+limitations of BRR in VTEM info frames.
 
-Turns out, hf-vsif is almost identical to h14b-vsif, BUT has additional
-two bytes of data after OUI. First byte is static and seems like
-a version supported by leftover define. Second byte consists of 3D and
-ALLM bits.
+I found through testing, that TVs seem to reject VTEM when BRR is set
+to over 1023 Hz. Use this as the last resort VRRmax. 1023 is the max
+value for a 10-bit field as well.
 
-Implement logic to offset 3D data if building hf-vsif.
+v2:
+- Update max BRR value to 1023
 
 Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 ---
- .../display/modules/info_packet/info_packet.c | 113 ++++++++++++------
- 1 file changed, 74 insertions(+), 39 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 23 +++++++++++++++----
+ .../amd/display/modules/inc/mod_info_packet.h |  2 ++
+ 2 files changed, 20 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 294f56d20062..8e110c86bdd4 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -49,7 +49,10 @@ enum vsc_packet_revision {
- };
- 
- #define HDMI_INFOFRAME_TYPE_VENDOR 0x81
--#define HF_VSIF_VERSION 1
-+#define HDMI_INFOFRAME_LENGTH_MASK 0x1F
-+#define HF_VSIF_VERSION  1
-+#define HF_VSIF_3D_BIT   0
-+#define HF_VSIF_ALLM_BIT 1
- 
- // VTEM Byte Offset
- #define VTEM_PB0		0
-@@ -496,9 +499,29 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
- 	}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 6fb23d59fcc9..2200161da71b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -13232,14 +13232,27 @@ static void monitor_range_from_vsdb(struct drm_display_info *display,
  }
  
-+static bool is_hdmi_vic_mode(const struct dc_stream_state *stream)
-+{
-+	if (stream->timing.hdmi_vic == 0)
-+		return false;
-+
-+	if (stream->timing.h_total < 3840 ||
-+	    stream->timing.v_total < 2160)
-+		return false;
-+
-+	/* 3D/ALLM forces HDMI VIC -> CTA VIC translation */
-+	if (stream->view_format != VIEW_3D_FORMAT_NONE)
-+		return false;
-+
-+	if (stream->link->local_sink->edid_caps.allm)
-+		return false;
-+
-+	return true;
-+}
-+
  /**
-  *  mod_build_hf_vsif_infopacket - Prepare HDMI Vendor Specific info frame.
-  *                                 Follows HDMI Spec to build up Vendor Specific info frame
-+ *                                 Conforms to h14b-vsif or hf-vsif based on the capabilities
+- * Get VRR range from HDMI VRR info in EDID.
++ * Get VRR range from HDMI VRR info in EDID. If VRRmax == 0,
++ * try getting upper bound from AMD vsdb.
   *
-  *  @stream:      contains data we may need to construct VSIF (i.e. timing_3d_format, etc.)
-  *  @info_packet: output structure where to store VSIF
-@@ -506,63 +529,75 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
- void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
- 		struct dc_info_packet *info_packet)
+  * @conn: drm_connector with HDMI VRR info
++ * @vsdb: AMD vsdb from CAE
+  */
+-static void monitor_range_from_hdmi(struct drm_display_info *display)
++static void monitor_range_from_hdmi(struct drm_display_info *display,
++				    const struct amdgpu_hdmi_vsdb_info *vsdb)
  {
--		unsigned int length = 5;
- 		bool hdmi_vic_mode = false;
-+		bool allm = false;
-+		bool stereo = false;
- 		uint8_t checksum = 0;
--		uint32_t i = 0;
-+		uint8_t offset = 0;
-+		uint8_t i = 0;
-+		uint8_t length = 5;
-+		uint32_t oui = HDMI_IEEE_OUI;
- 		enum dc_timing_3d_format format;
- 
- 		info_packet->valid = false;
++	u16 vrr_max = display->hdmi.vrr_cap.vrr_max;
 +
- 		format = stream->timing.timing_3d_format;
- 		if (stream->view_format == VIEW_3D_FORMAT_NONE)
- 			format = TIMING_3D_FORMAT_NONE;
-+		stereo = format != TIMING_3D_FORMAT_NONE;
-+		hdmi_vic_mode = is_hdmi_vic_mode(stream);
- 
--		if (stream->timing.hdmi_vic != 0
--				&& stream->timing.h_total >= 3840
--				&& stream->timing.v_total >= 2160
--				&& format == TIMING_3D_FORMAT_NONE)
--			hdmi_vic_mode = true;
--
--		if ((format == TIMING_3D_FORMAT_NONE) && !hdmi_vic_mode)
-+		if (!stereo && !hdmi_vic_mode && !allm)
- 			return;
- 
--		info_packet->sb[1] = 0x03;
--		info_packet->sb[2] = 0x0C;
--		info_packet->sb[3] = 0x00;
-+		if (allm)
-+			oui = HDMI_FORUM_IEEE_OUI;
- 
--		if (format != TIMING_3D_FORMAT_NONE)
--			info_packet->sb[4] = (2 << 5);
-+		info_packet->sb[1] = oui & 0xFF;
-+		info_packet->sb[2] = (oui >> 8) & 0xFF;
-+		info_packet->sb[3] = (oui >> 16) & 0xFF;
- 
--		else if (hdmi_vic_mode)
--			info_packet->sb[4] = (1 << 5);
--
--		switch (format) {
--		case TIMING_3D_FORMAT_HW_FRAME_PACKING:
--		case TIMING_3D_FORMAT_SW_FRAME_PACKING:
--			info_packet->sb[5] = (0x0 << 4);
--			break;
--
--		case TIMING_3D_FORMAT_SIDE_BY_SIDE:
--		case TIMING_3D_FORMAT_SBS_SW_PACKED:
--			info_packet->sb[5] = (0x8 << 4);
--			length = 6;
--			break;
--
--		case TIMING_3D_FORMAT_TOP_AND_BOTTOM:
--		case TIMING_3D_FORMAT_TB_SW_PACKED:
--			info_packet->sb[5] = (0x6 << 4);
--			break;
--
--		default:
--			break;
-+		if (oui == HDMI_FORUM_IEEE_OUI) {
-+			offset = 2;
-+			length += 2;
-+			info_packet->sb[4] = HF_VSIF_VERSION;
-+			info_packet->sb[5] = stereo << HF_VSIF_3D_BIT;
-+			info_packet->sb[5] |= allm << HF_VSIF_ALLM_BIT;
- 		}
- 
--		if (hdmi_vic_mode)
-+		if (stereo) {
-+			info_packet->sb[4 + offset] = (2 << 5);
++	/* Try getting upper vrr bound from AMD vsdb */
++	if (vrr_max == 0)
++		vrr_max = vsdb->max_refresh_rate_hz;
 +
-+			switch (format) {
-+			case TIMING_3D_FORMAT_HW_FRAME_PACKING:
-+			case TIMING_3D_FORMAT_SW_FRAME_PACKING:
-+				info_packet->sb[5 + offset] = (0x0 << 4);
-+				break;
++	/* Use max possible BRR value as a last resort */
++	if (vrr_max == 0)
++		vrr_max = VTEM_BRR_MAX;
 +
-+			case TIMING_3D_FORMAT_SIDE_BY_SIDE:
-+			case TIMING_3D_FORMAT_SBS_SW_PACKED:
-+				info_packet->sb[5 + offset] = (0x8 << 4);
-+				++length;
-+				break;
-+
-+			case TIMING_3D_FORMAT_TOP_AND_BOTTOM:
-+			case TIMING_3D_FORMAT_TB_SW_PACKED:
-+				info_packet->sb[5 + offset] = (0x6 << 4);
-+				break;
-+
-+			default:
-+				break;
-+			}
-+
-+		/* Doesn't need the offset as it can't be used with hf-vsif */
-+		} else if (hdmi_vic_mode) {
-+			info_packet->sb[4] = (1 << 5);
- 			info_packet->sb[5] = stream->timing.hdmi_vic;
-+		}
+ 	display->monitor_range.min_vfreq = display->hdmi.vrr_cap.vrr_min;
+-	display->monitor_range.max_vfreq = display->hdmi.vrr_cap.vrr_max;
++	display->monitor_range.max_vfreq = vrr_max;
+ }
  
- 		info_packet->hb0 = HDMI_INFOFRAME_TYPE_VENDOR;
- 		info_packet->hb1 = 0x01;
--		info_packet->hb2 = (uint8_t) (length);
-+		info_packet->hb2 = length & HDMI_INFOFRAME_LENGTH_MASK;
+ /*
+@@ -13374,8 +13387,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 	/* DP -> HDMI PCON */
+ 	} else if (pcon_allowed) {
+ 		/* Prefer HDMI VRR */
+-		if (hdmi_vrr.supported && hdmi_vrr.vrr_max > 0)
+-			monitor_range_from_hdmi(&connector->display_info);
++		if (hdmi_vrr.supported)
++			monitor_range_from_hdmi(&connector->display_info, &vsdb_info);
+ 		else if (vsdb_info.freesync_supported) {
+ 			amdgpu_dm_connector->vsdb_info = vsdb_info;
+ 			monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+index 5de8a6918e6a..306eb7355c25 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+@@ -33,6 +33,8 @@ struct dc_stream_state;
+ struct dc_info_packet;
+ struct mod_vrr_params;
  
- 		checksum += info_packet->hb0;
- 		checksum += info_packet->hb1;
++#define VTEM_BRR_MAX 1023
++
+ void set_vsc_packet_colorimetry_data(
+ 		const struct dc_stream_state *stream,
+ 		struct dc_info_packet *info_packet,
 -- 
 2.52.0
 
