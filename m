@@ -4,84 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD587E83EEF
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 08:10:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53EBFE83EFB
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 08:10:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6228510E52A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 731D310E53A;
 	Wed,  4 Feb 2026 08:10:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L7GeOq7i";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IKcJ6ec1";
 	dkim-atps=neutral
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD83310E743
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Feb 2026 18:56:36 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-b8719f5a2b5so69360466b.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Feb 2026 10:56:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770144995; x=1770749795; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=3Vvinyd/bDfTMBX7NZU90g5DKWFs8k0OH4aETYAERXs=;
- b=L7GeOq7ifzKP7V7dXBY4CVb5y4lq3gJz3WKjMYEo45vfmJbdzkC7ew1DX4Laq663qi
- HsUJKDpf2uXOg/fEmEnk35EPNhglwyF9LNXZCM3PIq7vmWXMliLYoZ3MoUCAK4d2uY1L
- 4jFh2QZSwF1M2vOCsuZTZT1e9vWDIqf0hxViI2HsKX6SZGe0tQk5Wyhzna3CL49X0rmw
- xH5L8RY5KMoGecg6kEX8GLSvMMbzJFc/JPUKj9yghvTwbUtNuNZWXB1bU36AOYEEioNZ
- Eo8MWPphX6oecnAJPyu6w5l7eG+OqUW0MnrE+2+fjDLRbIk7g0bSupjCjAl1ZI2EhJPz
- 7+eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770144995; x=1770749795;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=3Vvinyd/bDfTMBX7NZU90g5DKWFs8k0OH4aETYAERXs=;
- b=QLY58Drt+09SFq3SAdDKcBjSzODyUHbD4NFqfZrKd8wPnZaS1ePHde9BQJpsWSibra
- SFMHNDydBb5BpM/wRC08im9kv9HXULmyRGyXIUkKTLJ9TQvpAEzzJB/cJWuyd5b303WW
- IvpMXvpmyY0gOWHx0rxXd9tLf7LiXsedqSpvmWkp7xEOYBqDAFLoUwPHEetckKrQENps
- X6seFE+RdzqRNKrxglTItwh1AEOep6UTWn021Gpw/J3aM2ggQN3CeVrRLwyLnnITQfVq
- Fz+39t1T8E9tksdnlxqsiGgMqTYxNpI6ur7Etdip5lZFzFdid8EP1Hftb3y7pdfz3wSY
- 2ILg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVcw9qK/Vw5RDlyJrVZH7FWNjekh6eDmkJxtaHet8/kjzwcsl1sfijNjj//jKvjDertd2k7npfN@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzfKIIE4WU78g57go5RJsdC+VspmSStlJvP3E88kNjBJivVSB2r
- G+M/uWAWAnkJceJ+Kbn1t0NxbH+RhkahXp+JMy3BqEQhwlVFeqngYIXo
-X-Gm-Gg: AZuq6aLibXOEdQoZL9zaM5VjyCrPuUBT6KIRt2+ZFh803ZZ/15Vn+2RFRLi/KmgjvyW
- wk0YZSJgIgoo+Jo+u3BhUpiC3e1KAxfq3qNphesEiNEO5NYD6YN3JdK/1cizfMz47q6/tps61ic
- zmA4AnqsejIK0gkC+qDiJMF4PNK/cE0xqy/PhbXhneavAkLRxn8US/KI1n/fw3C6Gf2+LbWVKU7
- 3+YsQ2XDV8uO/1VqWuvWpJ6UxkFP4tS6Hxpd8LjGZimOMze1TBFhKgvPnVSB3OVRK/L4YZs7+89
- WGJN5RZOnbsYs28NVawv6wLZQEh1IiY7IIsm8do6mxfRR3V9VWPVrlImTlXytdvMDMB46+r5iI7
- SVikBujjCunHZX++xNKHxjwrL6ob5CfT+r2g80OP8OiHmsXv8PQem9mXgxnf3qPrsJMYa7Bjpf4
- fCFxnrKBg8Vac3+LZ5kmwOWlicxIiTdnYEWOIZgN69oqzRzpKt4YIb7BK5X3wti7Kw
-X-Received: by 2002:a17:907:3f08:b0:b8e:7dcb:7f23 with SMTP id
- a640c23a62f3a-b8e9ef22f6amr20457566b.2.1770144995003; 
- Tue, 03 Feb 2026 10:56:35 -0800 (PST)
-Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8e9fad97a7sm16715766b.0.2026.02.03.10.56.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Feb 2026 10:56:34 -0800 (PST)
-From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: alexander.deucher@amd.com,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
- bernhard.berger@gmail.com, michel.daenzer@mailbox.org,
- daniel@fooishbar.org, admin@ptr1337.dev
-Subject: [PATCH v3 04/19] drm/amd/display: Use bigger VRR range if found in
- AMD vsdb
-Date: Tue,  3 Feb 2026 19:56:11 +0100
-Message-ID: <20260203185626.55428-5-tomasz.pakula.oficjalny@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260203185626.55428-1-tomasz.pakula.oficjalny@gmail.com>
-References: <20260203185626.55428-1-tomasz.pakula.oficjalny@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DC0910E6E2;
+ Tue,  3 Feb 2026 15:59:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 55BFF4422C;
+ Tue,  3 Feb 2026 15:59:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB4DFC116D0;
+ Tue,  3 Feb 2026 15:59:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1770134371;
+ bh=RwnFXHCSRr93XQC8pa5aGNUxua6lOjbRFetYWmw4iy4=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:From;
+ b=IKcJ6ec1L+hToUV3KndBq3KUkclYNvMvFdBkXwJU9aYbVvyj4pnC8mFc2vQT9UI47
+ iaENlZTqoMwHTal1g8DRaRZZPCMWkRzp/MFsX7x0QExIXSUCZzRiaqsWS2L5Fee+yd
+ dTqRC0CbM+wCmTaCDErVMHyHpU25H1lmdpe2iWNI=
+Subject: Patch "drm/radeon: delete radeon_fence_process in is_signaled,
+ no deadlock" has been added to the 6.1-stable tree
+To: 1468888505@139.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
+ christian.koenig@amd.com, daniel@ffwll.ch, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, patches@lists.linux.dev, rbmccav@gmail.com
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 03 Feb 2026 16:59:08 +0100
+In-Reply-To: <20260202075855.947632-1-1468888505@139.com>
+Message-ID: <2026020308-sandpit-carbon-ce38@gregkh>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Wed, 04 Feb 2026 08:10:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,56 +58,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Some monitors only expose their full VRR range in AMD vsdb for some
-reason.
 
-[How]
-Compare exposed ranges and use the bigger one.
+This is a note to let you know that I've just added the patch titled
 
-This check could be merged with the previous one but it's better to keep
-them separate to easily convey their meaning.
+    drm/radeon: delete radeon_fence_process in is_signaled, no deadlock
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4177
-Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+to the 6.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     drm-radeon-delete-radeon_fence_process-in-is_signaled-no-deadlock.patch
+and it can be found in the queue-6.1 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From stable+bounces-213031-greg=kroah.com@vger.kernel.org Mon Feb  2 08:59:14 2026
+From: Li hongliang <1468888505@139.com>
+Date: Mon,  2 Feb 2026 15:58:55 +0800
+Subject: drm/radeon: delete radeon_fence_process in is_signaled, no deadlock
+To: gregkh@linuxfoundation.org, stable@vger.kernel.org, rbmccav@gmail.com
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org, alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Message-ID: <20260202075855.947632-1-1468888505@139.com>
+
+From: Robert McClinton <rbmccav@gmail.com>
+
+[ Upstream commit 9eb00b5f5697bd56baa3222c7a1426fa15bacfb5 ]
+
+Delete the attempt to progress the queue when checking if fence is
+signaled. This avoids deadlock.
+
+dma-fence_ops::signaled can be called with the fence lock in unknown
+state. For radeon, the fence lock is also the wait queue lock. This can
+cause a self deadlock when signaled() tries to make forward progress on
+the wait queue. But advancing the queue is unneeded because incorrectly
+returning false from signaled() is perfectly acceptable.
+
+Link: https://github.com/brave/brave-browser/issues/49182
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4641
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Robert McClinton <rbmccav@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 527ba26e50ec2ca2be9c7c82f3ad42998a75d0db)
+Cc: stable@vger.kernel.org
+[ Minor conflict resolved. ]
+Signed-off-by: Li hongliang <1468888505@139.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/gpu/drm/radeon/radeon_fence.c |    8 --------
+ 1 file changed, 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 856007bba4d9..284f5b326c18 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -13242,6 +13242,18 @@ static bool copy_range_to_amdgpu_connector(struct drm_connector *conn)
- 	return is_freesync_capable(range);
+--- a/drivers/gpu/drm/radeon/radeon_fence.c
++++ b/drivers/gpu/drm/radeon/radeon_fence.c
+@@ -362,14 +362,6 @@ static bool radeon_fence_is_signaled(str
+ 		return true;
+ 	}
+ 
+-	if (down_read_trylock(&rdev->exclusive_lock)) {
+-		radeon_fence_process(rdev, ring);
+-		up_read(&rdev->exclusive_lock);
+-
+-		if (atomic64_read(&rdev->fence_drv[ring].last_seq) >= seq) {
+-			return true;
+-		}
+-	}
+ 	return false;
  }
  
-+/*
-+ * Returns true if range from AMD vsdb is bigger
-+ */
-+static bool compare_ranges(struct drm_connector *conn,
-+			   struct amdgpu_hdmi_vsdb_info *vsdb)
-+{
-+	struct drm_monitor_range_info *range = &conn->display_info.monitor_range;
-+
-+	return (vsdb->max_refresh_rate_hz - vsdb->min_refresh_rate_hz) >
-+	       (range->max_vfreq - range->min_vfreq);
-+}
-+
- /**
-  * amdgpu_dm_update_freesync_caps - Update Freesync capabilities
-  *
-@@ -13313,6 +13325,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 		if (is_monitor_range_invalid(connector))
- 			monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
- 
-+		/* Use bigger range if found in AMD vsdb */
-+		if (compare_ranges(connector, &vsdb_info))
-+			monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
-+
- 		if (dpcd_caps.allow_invalid_MSA_timing_param)
- 			freesync_capable = copy_range_to_amdgpu_connector(connector);
- 
--- 
-2.52.0
 
+
+Patches currently in stable-queue which might be from 1468888505@139.com are
+
+queue-6.1/vhost-scsi-fix-handling-of-multiple-calls-to-vhost_scsi_set_endpoint.patch
+queue-6.1/fs-ntfs3-initialize-allocated-memory-before-use.patch
+queue-6.1/drm-radeon-delete-radeon_fence_process-in-is_signaled-no-deadlock.patch
+queue-6.1/ksmbd-fix-race-condition-in-rpc-handle-list-access.patch
+queue-6.1/ksmbd-fix-use-after-free-in-ksmbd_session_rpc_open.patch
+queue-6.1/drm-amdgpu-replace-mutex-with-spinlock-for-rlcg-register-access-to-avoid-priority-inversion-in-sriov.patch
+queue-6.1/sctp-linearize-cloned-gso-packets-in-sctp_rcv.patch
