@@ -4,50 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A313E83EF4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD587E83EEF
 	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 08:10:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 196E410E51A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6228510E52A;
 	Wed,  4 Feb 2026 08:10:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="O+CNqoEH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L7GeOq7i";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0575E10E69D;
- Tue,  3 Feb 2026 14:51:19 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5065460144;
- Tue,  3 Feb 2026 14:51:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D8EC116D0;
- Tue,  3 Feb 2026 14:51:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1770130278;
- bh=WviO4j73a3HX8Sd0E5dpMVhTo4IOyu5lFjJbuLciSmg=;
- h=Subject:To:Cc:From:Date:In-Reply-To:From;
- b=O+CNqoEHh7Oi5g99XSotgx2yFCQdvIpPHilzsP+iwJLTSRJTZkFiRd31/5VXe8O8C
- qt7A27tVxCB6/oF1EGJ1FBqjUy9/zvWvseravhMNTXb6SBYpy1FQk5ev+Kxn87lPDt
- 7zqinql4swcNOEyrgVXS3xBKjyjrLy2Jx1loOPzM=
-Subject: Patch "drm/amdgpu: Replace Mutex with Spinlock for RLCG register
- access to avoid Priority Inversion in SRIOV" has been added to the 6.6-stable
- tree
-To: 1468888505@139.com, Hawking.Zhang@amd.com, Jesse.Zhang@amd.com,
- Jingwen.Chen2@amd.com, Jun.Ma2@amd.com, Xinhui.Pan@amd.com,
- Zhigang.Luo@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, daniel@ffwll.ch,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org, lin.cao@amd.com,
- mario.limonciello@amd.com, patches@lists.linux.dev, sashal@kernel.org,
- srinivasan.shanmugam@amd.com, superm1@kernel.org, victor.skvortsov@amd.com,
- zhigang.luo@amd.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 03 Feb 2026 15:50:38 +0100
-In-Reply-To: <20260129091325.3637010-1-1468888505@139.com>
-Message-ID: <2026020338-fervor-hesitancy-c256@gregkh>
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD83310E743
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Feb 2026 18:56:36 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-b8719f5a2b5so69360466b.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Feb 2026 10:56:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770144995; x=1770749795; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=3Vvinyd/bDfTMBX7NZU90g5DKWFs8k0OH4aETYAERXs=;
+ b=L7GeOq7ifzKP7V7dXBY4CVb5y4lq3gJz3WKjMYEo45vfmJbdzkC7ew1DX4Laq663qi
+ HsUJKDpf2uXOg/fEmEnk35EPNhglwyF9LNXZCM3PIq7vmWXMliLYoZ3MoUCAK4d2uY1L
+ 4jFh2QZSwF1M2vOCsuZTZT1e9vWDIqf0hxViI2HsKX6SZGe0tQk5Wyhzna3CL49X0rmw
+ xH5L8RY5KMoGecg6kEX8GLSvMMbzJFc/JPUKj9yghvTwbUtNuNZWXB1bU36AOYEEioNZ
+ Eo8MWPphX6oecnAJPyu6w5l7eG+OqUW0MnrE+2+fjDLRbIk7g0bSupjCjAl1ZI2EhJPz
+ 7+eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770144995; x=1770749795;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=3Vvinyd/bDfTMBX7NZU90g5DKWFs8k0OH4aETYAERXs=;
+ b=QLY58Drt+09SFq3SAdDKcBjSzODyUHbD4NFqfZrKd8wPnZaS1ePHde9BQJpsWSibra
+ SFMHNDydBb5BpM/wRC08im9kv9HXULmyRGyXIUkKTLJ9TQvpAEzzJB/cJWuyd5b303WW
+ IvpMXvpmyY0gOWHx0rxXd9tLf7LiXsedqSpvmWkp7xEOYBqDAFLoUwPHEetckKrQENps
+ X6seFE+RdzqRNKrxglTItwh1AEOep6UTWn021Gpw/J3aM2ggQN3CeVrRLwyLnnITQfVq
+ Fz+39t1T8E9tksdnlxqsiGgMqTYxNpI6ur7Etdip5lZFzFdid8EP1Hftb3y7pdfz3wSY
+ 2ILg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVcw9qK/Vw5RDlyJrVZH7FWNjekh6eDmkJxtaHet8/kjzwcsl1sfijNjj//jKvjDertd2k7npfN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzfKIIE4WU78g57go5RJsdC+VspmSStlJvP3E88kNjBJivVSB2r
+ G+M/uWAWAnkJceJ+Kbn1t0NxbH+RhkahXp+JMy3BqEQhwlVFeqngYIXo
+X-Gm-Gg: AZuq6aLibXOEdQoZL9zaM5VjyCrPuUBT6KIRt2+ZFh803ZZ/15Vn+2RFRLi/KmgjvyW
+ wk0YZSJgIgoo+Jo+u3BhUpiC3e1KAxfq3qNphesEiNEO5NYD6YN3JdK/1cizfMz47q6/tps61ic
+ zmA4AnqsejIK0gkC+qDiJMF4PNK/cE0xqy/PhbXhneavAkLRxn8US/KI1n/fw3C6Gf2+LbWVKU7
+ 3+YsQ2XDV8uO/1VqWuvWpJ6UxkFP4tS6Hxpd8LjGZimOMze1TBFhKgvPnVSB3OVRK/L4YZs7+89
+ WGJN5RZOnbsYs28NVawv6wLZQEh1IiY7IIsm8do6mxfRR3V9VWPVrlImTlXytdvMDMB46+r5iI7
+ SVikBujjCunHZX++xNKHxjwrL6ob5CfT+r2g80OP8OiHmsXv8PQem9mXgxnf3qPrsJMYa7Bjpf4
+ fCFxnrKBg8Vac3+LZ5kmwOWlicxIiTdnYEWOIZgN69oqzRzpKt4YIb7BK5X3wti7Kw
+X-Received: by 2002:a17:907:3f08:b0:b8e:7dcb:7f23 with SMTP id
+ a640c23a62f3a-b8e9ef22f6amr20457566b.2.1770144995003; 
+ Tue, 03 Feb 2026 10:56:35 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8e9fad97a7sm16715766b.0.2026.02.03.10.56.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Feb 2026 10:56:34 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
+ bernhard.berger@gmail.com, michel.daenzer@mailbox.org,
+ daniel@fooishbar.org, admin@ptr1337.dev
+Subject: [PATCH v3 04/19] drm/amd/display: Use bigger VRR range if found in
+ AMD vsdb
+Date: Tue,  3 Feb 2026 19:56:11 +0100
+Message-ID: <20260203185626.55428-5-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260203185626.55428-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20260203185626.55428-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
 X-Mailman-Approved-At: Wed, 04 Feb 2026 08:10:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,199 +97,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+[Why]
+Some monitors only expose their full VRR range in AMD vsdb for some
+reason.
 
-This is a note to let you know that I've just added the patch titled
+[How]
+Compare exposed ranges and use the bigger one.
 
-    drm/amdgpu: Replace Mutex with Spinlock for RLCG register access to avoid Priority Inversion in SRIOV
+This check could be merged with the previous one but it's better to keep
+them separate to easily convey their meaning.
 
-to the 6.6-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
-
-The filename of the patch is:
-     drm-amdgpu-replace-mutex-with-spinlock-for-rlcg-register-access-to-avoid-priority-inversion-in-sriov.patch
-and it can be found in the queue-6.6 subdirectory.
-
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
-
-
-From 1468888505@139.com Thu Jan 29 10:13:30 2026
-From: Li hongliang <1468888505@139.com>
-Date: Thu, 29 Jan 2026 17:13:25 +0800
-Subject: drm/amdgpu: Replace Mutex with Spinlock for RLCG register access to avoid Priority Inversion in SRIOV
-To: gregkh@linuxfoundation.org, stable@vger.kernel.org, srinivasan.shanmugam@amd.com
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org, alexander.deucher@amd.com, christian.koenig@amd.com, Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch, sashal@kernel.org, mario.limonciello@amd.com, superm1@kernel.org, Jun.Ma2@amd.com, Zhigang.Luo@amd.com, Hawking.Zhang@amd.com, Jesse.Zhang@amd.com, victor.skvortsov@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, lin.cao@amd.com, Jingwen.Chen2@amd.com
-Message-ID: <20260129091325.3637010-1-1468888505@139.com>
-
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-
-[ Upstream commit dc0297f3198bd60108ccbd167ee5d9fa4af31ed0 ]
-
-RLCG Register Access is a way for virtual functions to safely access GPU
-registers in a virtualized environment., including TLB flushes and
-register reads. When multiple threads or VFs try to access the same
-registers simultaneously, it can lead to race conditions. By using the
-RLCG interface, the driver can serialize access to the registers. This
-means that only one thread can access the registers at a time,
-preventing conflicts and ensuring that operations are performed
-correctly. Additionally, when a low-priority task holds a mutex that a
-high-priority task needs, ie., If a thread holding a spinlock tries to
-acquire a mutex, it can lead to priority inversion. register access in
-amdgpu_virt_rlcg_reg_rw especially in a fast code path is critical.
-
-The call stack shows that the function amdgpu_virt_rlcg_reg_rw is being
-called, which attempts to acquire the mutex. This function is invoked
-from amdgpu_sriov_wreg, which in turn is called from
-gmc_v11_0_flush_gpu_tlb.
-
-The [ BUG: Invalid wait context ] indicates that a thread is trying to
-acquire a mutex while it is in a context that does not allow it to sleep
-(like holding a spinlock).
-
-Fixes the below:
-
-[  253.013423] =============================
-[  253.013434] [ BUG: Invalid wait context ]
-[  253.013446] 6.12.0-amdstaging-drm-next-lol-050225 #14 Tainted: G     U     OE
-[  253.013464] -----------------------------
-[  253.013475] kworker/0:1/10 is trying to lock:
-[  253.013487] ffff9f30542e3cf8 (&adev->virt.rlcg_reg_lock){+.+.}-{3:3}, at: amdgpu_virt_rlcg_reg_rw+0xf6/0x330 [amdgpu]
-[  253.013815] other info that might help us debug this:
-[  253.013827] context-{4:4}
-[  253.013835] 3 locks held by kworker/0:1/10:
-[  253.013847]  #0: ffff9f3040050f58 ((wq_completion)events){+.+.}-{0:0}, at: process_one_work+0x3f5/0x680
-[  253.013877]  #1: ffffb789c008be40 ((work_completion)(&wfc.work)){+.+.}-{0:0}, at: process_one_work+0x1d6/0x680
-[  253.013905]  #2: ffff9f3054281838 (&adev->gmc.invalidate_lock){+.+.}-{2:2}, at: gmc_v11_0_flush_gpu_tlb+0x198/0x4f0 [amdgpu]
-[  253.014154] stack backtrace:
-[  253.014164] CPU: 0 UID: 0 PID: 10 Comm: kworker/0:1 Tainted: G     U     OE      6.12.0-amdstaging-drm-next-lol-050225 #14
-[  253.014189] Tainted: [U]=USER, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-[  253.014203] Hardware name: Microsoft Corporation Virtual Machine/Virtual Machine, BIOS Hyper-V UEFI Release v4.1 11/18/2024
-[  253.014224] Workqueue: events work_for_cpu_fn
-[  253.014241] Call Trace:
-[  253.014250]  <TASK>
-[  253.014260]  dump_stack_lvl+0x9b/0xf0
-[  253.014275]  dump_stack+0x10/0x20
-[  253.014287]  __lock_acquire+0xa47/0x2810
-[  253.014303]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  253.014321]  lock_acquire+0xd1/0x300
-[  253.014333]  ? amdgpu_virt_rlcg_reg_rw+0xf6/0x330 [amdgpu]
-[  253.014562]  ? __lock_acquire+0xa6b/0x2810
-[  253.014578]  __mutex_lock+0x85/0xe20
-[  253.014591]  ? amdgpu_virt_rlcg_reg_rw+0xf6/0x330 [amdgpu]
-[  253.014782]  ? sched_clock_noinstr+0x9/0x10
-[  253.014795]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  253.014808]  ? local_clock_noinstr+0xe/0xc0
-[  253.014822]  ? amdgpu_virt_rlcg_reg_rw+0xf6/0x330 [amdgpu]
-[  253.015012]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  253.015029]  mutex_lock_nested+0x1b/0x30
-[  253.015044]  ? mutex_lock_nested+0x1b/0x30
-[  253.015057]  amdgpu_virt_rlcg_reg_rw+0xf6/0x330 [amdgpu]
-[  253.015249]  amdgpu_sriov_wreg+0xc5/0xd0 [amdgpu]
-[  253.015435]  gmc_v11_0_flush_gpu_tlb+0x44b/0x4f0 [amdgpu]
-[  253.015667]  gfx_v11_0_hw_init+0x499/0x29c0 [amdgpu]
-[  253.015901]  ? __pfx_smu_v13_0_update_pcie_parameters+0x10/0x10 [amdgpu]
-[  253.016159]  ? srso_alias_return_thunk+0x5/0xfbef5
-[  253.016173]  ? smu_hw_init+0x18d/0x300 [amdgpu]
-[  253.016403]  amdgpu_device_init+0x29ad/0x36a0 [amdgpu]
-[  253.016614]  amdgpu_driver_load_kms+0x1a/0xc0 [amdgpu]
-[  253.017057]  amdgpu_pci_probe+0x1c2/0x660 [amdgpu]
-[  253.017493]  local_pci_probe+0x4b/0xb0
-[  253.017746]  work_for_cpu_fn+0x1a/0x30
-[  253.017995]  process_one_work+0x21e/0x680
-[  253.018248]  worker_thread+0x190/0x330
-[  253.018500]  ? __pfx_worker_thread+0x10/0x10
-[  253.018746]  kthread+0xe7/0x120
-[  253.018988]  ? __pfx_kthread+0x10/0x10
-[  253.019231]  ret_from_fork+0x3c/0x60
-[  253.019468]  ? __pfx_kthread+0x10/0x10
-[  253.019701]  ret_from_fork_asm+0x1a/0x30
-[  253.019939]  </TASK>
-
-v2: s/spin_trylock/spin_lock_irqsave to be safe (Christian).
-
-Fixes: e864180ee49b ("drm/amdgpu: Add lock around VF RLCG interface")
-Cc: lin cao <lin.cao@amd.com>
-Cc: Jingwen Chen <Jingwen.Chen2@amd.com>
-Cc: Victor Skvortsov <victor.skvortsov@amd.com>
-Cc: Zhigang Luo <zhigang.luo@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[ Minor conflict resolved. ]
-Signed-off-by: Li hongliang <1468888505@139.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4177
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |    2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   |    5 +++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |    3 ++-
- 3 files changed, 6 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3582,7 +3582,6 @@ int amdgpu_device_init(struct amdgpu_dev
- 	mutex_init(&adev->grbm_idx_mutex);
- 	mutex_init(&adev->mn_lock);
- 	mutex_init(&adev->virt.vf_errors.lock);
--	mutex_init(&adev->virt.rlcg_reg_lock);
- 	hash_init(adev->mn_hash);
- 	mutex_init(&adev->psp.mutex);
- 	mutex_init(&adev->notifier_lock);
-@@ -3604,6 +3603,7 @@ int amdgpu_device_init(struct amdgpu_dev
- 	spin_lock_init(&adev->se_cac_idx_lock);
- 	spin_lock_init(&adev->audio_endpt_idx_lock);
- 	spin_lock_init(&adev->mm_stats.lock);
-+	spin_lock_init(&adev->virt.rlcg_reg_lock);
- 
- 	INIT_LIST_HEAD(&adev->shadow_list);
- 	mutex_init(&adev->shadow_list_lock);
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -1007,6 +1007,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struc
- 	void *scratch_reg2;
- 	void *scratch_reg3;
- 	void *spare_int;
-+	unsigned long flags;
- 
- 	if (!adev->gfx.rlc.rlcg_reg_access_supported) {
- 		dev_err(adev->dev,
-@@ -1028,7 +1029,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struc
- 	scratch_reg2 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg2;
- 	scratch_reg3 = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->scratch_reg3;
- 
--	mutex_lock(&adev->virt.rlcg_reg_lock);
-+	spin_lock_irqsave(&adev->virt.rlcg_reg_lock, flags);
- 
- 	if (reg_access_ctrl->spare_int)
- 		spare_int = (void __iomem *)adev->rmmio + 4 * reg_access_ctrl->spare_int;
-@@ -1086,7 +1087,7 @@ static u32 amdgpu_virt_rlcg_reg_rw(struc
- 
- 	ret = readl(scratch_reg0);
- 
--	mutex_unlock(&adev->virt.rlcg_reg_lock);
-+	spin_unlock_irqrestore(&adev->virt.rlcg_reg_lock, flags);
- 
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 856007bba4d9..284f5b326c18 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -13242,6 +13242,18 @@ static bool copy_range_to_amdgpu_connector(struct drm_connector *conn)
+ 	return is_freesync_capable(range);
  }
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -267,7 +267,8 @@ struct amdgpu_virt {
- 	/* the ucode id to signal the autoload */
- 	uint32_t autoload_ucode_id;
  
--	struct mutex rlcg_reg_lock;
-+	/* Spinlock to protect access to the RLCG register interface */
-+	spinlock_t rlcg_reg_lock;
- };
++/*
++ * Returns true if range from AMD vsdb is bigger
++ */
++static bool compare_ranges(struct drm_connector *conn,
++			   struct amdgpu_hdmi_vsdb_info *vsdb)
++{
++	struct drm_monitor_range_info *range = &conn->display_info.monitor_range;
++
++	return (vsdb->max_refresh_rate_hz - vsdb->min_refresh_rate_hz) >
++	       (range->max_vfreq - range->min_vfreq);
++}
++
+ /**
+  * amdgpu_dm_update_freesync_caps - Update Freesync capabilities
+  *
+@@ -13313,6 +13325,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		if (is_monitor_range_invalid(connector))
+ 			monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
  
- struct amdgpu_video_codec_info;
++		/* Use bigger range if found in AMD vsdb */
++		if (compare_ranges(connector, &vsdb_info))
++			monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
++
+ 		if (dpcd_caps.allow_invalid_MSA_timing_param)
+ 			freesync_capable = copy_range_to_amdgpu_connector(connector);
+ 
+-- 
+2.52.0
 
-
-Patches currently in stable-queue which might be from 1468888505@139.com are
-
-queue-6.6/drm-radeon-delete-radeon_fence_process-in-is_signaled-no-deadlock.patch
-queue-6.6/ksmbd-fix-race-condition-in-rpc-handle-list-access.patch
-queue-6.6/wifi-ath11k-add-srng-lock-for-ath11k_hal_srng_-in-monitor-mode.patch
-queue-6.6/drm-amdgpu-replace-mutex-with-spinlock-for-rlcg-register-access-to-avoid-priority-inversion-in-sriov.patch
