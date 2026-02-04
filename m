@@ -4,109 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FC8AE83F1F
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 14:05:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBC93E9D403
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 15:38:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B712110E0D6;
-	Wed,  4 Feb 2026 14:05:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5917010E68E;
+	Wed,  4 Feb 2026 15:38:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Cs2LwwUR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sa6fkb/k";
 	dkim-atps=neutral
-Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
- [209.85.222.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7954410E64E
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Feb 2026 13:56:59 +0000 (UTC)
-Received: by mail-qk1-f196.google.com with SMTP id
- af79cd13be357-8c69ffb226eso934532785a.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Feb 2026 05:56:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1770213418; x=1770818218; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=iRrqXVZVX7Z3YtbKGBkBfsPXFsl6FxGibC0bf/QAItY=;
- b=Cs2LwwURh20GRUGYCEAfO4zQPcoOwwNf9iqYwtmQ/3ZG5J9uKkHGUBhMUL/0/PBXhi
- y/P7dOvWXhwn2fqwEK+1d/J0H1E+pR1dKIaNNLGLN+czJxq97pJ6SGNK2Mq7N4LCa83s
- kNtwN+mihW7gvHI7A91SKIzYWhm6mr4KrFuxMCUm2h/Keqnlh9hPHhCEBNGz+OSj2D1k
- 2wL2oenaZWxaxAUii8MX4L2whiYyxVD/gHid9l/9ndDEI3WdMxlB+nppcjF87mp19lme
- noLWCtM3X/TKGqtIaiUDsfeOCWkZh7u8j+JHS45pEA9Uw8fUW84Sv0IEzSzYma3OlPrg
- P0Eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770213418; x=1770818218;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=iRrqXVZVX7Z3YtbKGBkBfsPXFsl6FxGibC0bf/QAItY=;
- b=xMuAD7HI13eF0mcrIt1tkwgkGQK+HSsu6B4NqWM3L+UP62WLPWNIhc01cjpOAzsJUQ
- MewTJTO9IYJyoEERNhWkg80eDJcRnO6F+oupgoUrdr7kNDlTaxQYL/r/pfNxoZuRRcx4
- azAjCR+ZNGUGQHc/fzfNpPPINLXk+4XyerxikJlRrFTEp6E+Fq+JHy41aWGCk5GGIvT7
- 43LU+eNlUJdai3SZtVsHjr+ol9Pk1KjyF0+k7UTVaORwuYJ74QQyZKrlqnBxe9bIIjS/
- j/zUqSTMHxTDngtgPI6rRQ2KUdretP3Ana5cHWR0HUhpFKIHEKzUB14aYiLca6KvMiRn
- gm5A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXJT96wjs/CWLzsQOv8R6sdxDI5reLLITkc3sy7drXGpdlkVzLQEfslejIWnuSnKXcuND8uKiY6@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YywfcdKs19/K5uPybG2SPB9ac3J7HYa4gAfQQvPJPezQfUm/IvO
- BPtvAXNLXfiJgDyfJuK6g4vMU8Y+7lg46HEm69+vhtFSMseO4+iJ/YUBIFt/PfijcU8=
-X-Gm-Gg: AZuq6aI2LVX516Djf5UT+d3HESnk+Ap8KrqyLJwD9S7f3KMFUMffPRHyE5+rMPNu19F
- BG1NvyNUOstOUCfz31KbsSOtiOWcJV8bSkfzsvObhjSVkf7bdq7Fr5Cnm+/Adg+PDm9Pj2QF7l4
- BHpsgjviYBZj/rQ53ubKRhahPUVWWDppm9BNVZxwqlNjhduDIoQ3/s4F6P7efyppx7EtHIPvZ2f
- rWG9+HP51gcMIA8YNO+Ct2EOwegqhtuP5LAZHvyqLEDF+cx1dqHxmlXtvc3Jxz7C6yX5375XRvz
- bZ6pGJLxhVUpPmMbR1io/k1+fXfgxKKiOGmHQFfYPH3EffNQLl3Qlabq+TbvdjOBIZRcyBScrOB
- yINrTLzSG8cZa5hFxUJ0S1nhJT/egrp3sXQ/m5tjrTUr0rOicEhjBz+Hr6OY9fnPEeYYQ/KcZPB
- LqLl5cvrTwnnB4YSBzRJzuMTDbSYNhk1hQH6Tab+R4AO0UwRcyo3qnoy85ECFt6/smWFQ=
-X-Received: by 2002:a05:620a:3953:b0:8a1:21a6:e045 with SMTP id
- af79cd13be357-8ca2f82b068mr371751685a.19.1770213418187; 
- Wed, 04 Feb 2026 05:56:58 -0800 (PST)
-Received: from ziepe.ca
- (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8ca2fa552f2sm187407785a.11.2026.02.04.05.56.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Feb 2026 05:56:57 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1vndNJ-0000000H1He-18eG;
- Wed, 04 Feb 2026 09:56:57 -0400
-Date: Wed, 4 Feb 2026 09:56:57 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Leon Romanovsky <leon@kernel.org>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v7 0/8] dma-buf: Use revoke mechanism to invalidate
- shared buffers
-Message-ID: <20260204135657.GE2328995@ziepe.ca>
-References: <20260131-dmabuf-revoke-v7-0-463d956bd527@nvidia.com>
- <20260202160425.GO34749@unreal> <20260204081630.GA6771@unreal>
- <20260204-icy-classic-crayfish-68da6d@houat>
- <20260204115212.GG6771@unreal>
- <20260204-clever-butterfly-of-mastery-0cdc19@houat>
- <20260204121354.GH6771@unreal>
- <20260204-bloodhound-of-major-realization-9852ab@houat>
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012070.outbound.protection.outlook.com [52.101.43.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 028A710E68E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Feb 2026 15:38:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kovEvqxAC5UczqnS38fviegismp6TEowBpI7Prk7wQKyilhxcwc5DCSmWs/axUXzfHF5Iw0QMeQzvfkXF95NOqHR55scrGqd8YTbiWm3uXSb+feuIOECrRxxCWqaWlbaMuOHivc/53hGzyi7KGcRZd88/SNm4xwdhhoSg3DgfKIhPPXFgEjmVkxl/qNTL4jtRmj7tQgogvKYbDxSf2GbULbDLj0AJhYSzZ6U4o8dPfU94xl1+45BtryEOPe/qYCo0vyeVrprCiQ2qx1+jq6qqqo1ZEBrtr2GkPQuYlfhxHaj9PFBTnF/4yMEIfhQx4NLtsUnQmla2ftVGEmcZNSQhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4L04LgcRsGsr/GQr/4uhO1NtNmSfx1uDpWPFMSCmwQ4=;
+ b=iZEbURha9ja06u3+Fbao6JZ9f5fnUwfScQ3K6kjxAdV1PXY9Gz88jeui3V/PUBzgoqx8EhCyCz4VJsWHU5A6/oSk+pe4QgvHnlKKzZFZsduDUcrnGjM1+xIbupV6xQklvH9+CwnloGi5aWdH5j6pQ+gOdf56R8xrUCAVSo7uCBOzYcDuDOIcNs5Z9gxt34RbOYj7L9SvU6bx8L4S4puc5aGy1HeCy+59/foX0NRQQUYOM+mFH0GV0jmy2FXCstvbho+MiglvTvieTTpYrvAKLPYaLyFF56T4tc/yQqVgQqNTZm6JNU9Qb6Q7xnECcBvnDGr5pHww4zL6zpMKxV1Fkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4L04LgcRsGsr/GQr/4uhO1NtNmSfx1uDpWPFMSCmwQ4=;
+ b=sa6fkb/kHljwsLREaFQfLD24FFCvLa4PJWCTqQzUC1H729jCJhg5aBWg1A0rvaynGQTIyWXja4PRi+2HatmcTKKdsp+3ngCpE2OyjsBPYwm2gBYbUSecN7KGccDphq1H2OhKBnXKUcpg6wfB5kFeq8OEzzrrBNOfglSiAYAgtCg=
+Received: from MW4P220CA0012.NAMP220.PROD.OUTLOOK.COM (2603:10b6:303:115::17)
+ by LV2PR12MB5725.namprd12.prod.outlook.com (2603:10b6:408:14c::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.12; Wed, 4 Feb
+ 2026 15:38:39 +0000
+Received: from SJ1PEPF00001CDC.namprd05.prod.outlook.com
+ (2603:10b6:303:115:cafe::e9) by MW4P220CA0012.outlook.office365.com
+ (2603:10b6:303:115::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.12 via Frontend Transport; Wed,
+ 4 Feb 2026 15:38:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDC.mail.protection.outlook.com (10.167.242.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9587.10 via Frontend Transport; Wed, 4 Feb 2026 15:38:37 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 4 Feb
+ 2026 09:38:36 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 4 Feb
+ 2026 09:38:36 -0600
+Received: from victor-aws2.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 4 Feb 2026 07:38:35 -0800
+From: Victor Zhao <Victor.Zhao@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Victor Zhao <Victor.Zhao@amd.com>
+Subject: [PATCH] drm/amdgpu: avoid sdma ring reset in sriov
+Date: Wed, 4 Feb 2026 23:38:28 +0800
+Message-ID: <20260204153828.753680-1-Victor.Zhao@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260204-bloodhound-of-major-realization-9852ab@houat>
-X-Mailman-Approved-At: Wed, 04 Feb 2026 14:05:23 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDC:EE_|LV2PR12MB5725:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d7d0a09-af03-40bb-b4c4-08de64037700
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?sJNyQUtQUTwmqBbdSjIpmKn2a3nwB4hleJu8cLoBKmtmTZwH8MCRh5uIRaMf?=
+ =?us-ascii?Q?eiCbJ7unQOYW3zPQK+W6/U4o8Nh068WFVDKsu+qxpMediU7D+8z2bMj0NeCp?=
+ =?us-ascii?Q?CZxRN8h/CYV2miXR84y6rfTG81vEAvXZ1aAjBt8rCZpEWb8/bg7ddTjnBh/Q?=
+ =?us-ascii?Q?AIAf32ewQCJMkEyMS0AhPgEepcG5m3ny4N4rlDg0XOZhKNeMLk/au+PtpKj5?=
+ =?us-ascii?Q?v7ReGN95n/C+9nsWEtWWonAX0iAi8EwWherXpEDtgugJqr+Q1e5p6Aw85T4/?=
+ =?us-ascii?Q?Ru+Jmvke/2Y0Lv1Nc2uEEa+EeP6eAu0saFqaH6AoHYYbDEQzecACTqodqqS7?=
+ =?us-ascii?Q?zTk0Hg40gsbH6v+3vFLSmTZQ3OnlLAzbYg2UhGYyj63xCEJpVLDxsLGOR4q/?=
+ =?us-ascii?Q?J8uNcf0g8tQsmiGFwbewMKdM6CZiSUV53UeHgit1JBSRUenEMeokHySG0I7j?=
+ =?us-ascii?Q?SMDqHYEbl5prYNFEYM+zvUX/1ydID/DA8TJAkmHOChRdc5JkkX5e3xd3468C?=
+ =?us-ascii?Q?dTF5QxMf+D/8+SeRPfFBqAtcizbWsgwW1AmUFSwWbMUFGFItRoI6wJCHIUrm?=
+ =?us-ascii?Q?sp4Z9gw2jPJvkkEcdf3zwk3FGBV1UMz+9m3YVkDQMkF5b/L9UtSBw8iyQzGK?=
+ =?us-ascii?Q?Nfm2u3C37iRM/wAtbHXiRkFlz/oZMAt715MjAZBPFgJ9yuwETjJMqmTUjevE?=
+ =?us-ascii?Q?0+HGMEJGcKtgQrCMhX5sbPhSi7R0bul03Ua8oH2S+kn66Lx2oNKwi157bB7z?=
+ =?us-ascii?Q?IrBqmeovq9HlsEQHv9/lIKjJqb10f9WfhDU7aLC6+9n9H70knjCdVM6z0Oo2?=
+ =?us-ascii?Q?PEVajLsX8Et6hfkWZRNd1eocjZGU+c+Jy+/Tvu3ifnEgawq4TGtIZEvFrRf6?=
+ =?us-ascii?Q?10Z1oI0MnPJpotCwY/C86pzUYZJijMb5oGdvanmIjmbCZ7M+AdDPKvA4/t99?=
+ =?us-ascii?Q?ByWSD8cbGdV7URVTNiXd3jDLeYmO64fmWnm9OYvLqVxWH/zXu+l9j7W/nIzb?=
+ =?us-ascii?Q?kwGSOaIMgmVpBzbDbSw1nBZZbkTLEfRdKuXyYOjA+oHNPQf9NcbF7cm94kNk?=
+ =?us-ascii?Q?LA0cPS8yY738AIU6poX4yvA+QsVzWSZMK2o9F/lcgxPZUqltWpiZSPakl58Y?=
+ =?us-ascii?Q?IPuOhxI9qIHqOkVnRx5XRmwYovaWWTFTzuddlstH6DFE/eQdsU4cY2Ua8MjN?=
+ =?us-ascii?Q?AHS7EFcC/PaRdSVEToOfh6w7AyhzQZ+Tc+m3UNubX7kw+Gb7H4HQnOLYpVNi?=
+ =?us-ascii?Q?qDXpcpAGIQAmp7Dp8/kNou9JI9LCkMGREyXgD2BuKkiAS/6UuyZlhDj1oZt8?=
+ =?us-ascii?Q?2PzaQafdF+IFvQb50o31ACIY2JOMp8C8kWEqEiuqInu6hlgPZBZIJpaneokX?=
+ =?us-ascii?Q?CCBeTFXryGoCLRwFFiQj2r80ik/eCdnbWBo8mQe1NlUOYZFrYzDZx4qn2Kj3?=
+ =?us-ascii?Q?+7Z25SPC8t3HlVBVUe6XHLY6FUbISZJiqmKKXmf3A0z8T07GpvP/0gjZMSgJ?=
+ =?us-ascii?Q?DFlIXUrlg1xx4wSxiAlI+4yWHPPNl662/PAgM9GylxWU9L/A/NVPvOSieYFQ?=
+ =?us-ascii?Q?m83b6kXvu/y10bIHLrRT7oMpaIvUicv+1Zvj2cRHh3Ii53anyiSsZckrwccr?=
+ =?us-ascii?Q?RsKUgf4C19XaBSfYv3Q5U0Z3uDhiIoS9GWvVLee8t+oWsRzpG1vzXQwOuz9V?=
+ =?us-ascii?Q?NZlAPw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: oezVCAUq9XjHB9WBUlzb7cpscyBM0WgZu1MOtRD9HgnVt/ZgfwR+27Bq8z/zAcDMexTWGtm76oNWjjrh8/BggxOUA/jcb0OooQfw1YtpBQfr30gTlGtVUDYHc00y3XS+c0NYuakxgbSpHpDv5GEveeGzJg0P2lxbRyVG0HBAQe6GOL9AP9vJUJ1pZaY0OztiiaESwRHtU4goCc2dKuUXmkCaaERg7sZpYwfSb1dPUvztzE/Ygw/P03i1IVo6ICku+4VAOZNcfW3c6dpDvYcupLBNNkmiHPp7KLIuSacaQbdukc23OMSJ1PYA9ApQPcFRV8YnT6gAQFVHD4Cl12mPsuff5Prd3a/tP0q8xTOa9ad5XkXxh1SuEIxtvqluN2uuP4V8jxHSR7dozhDNFVfDnywX1Y+z0z912nH5Dh4paW+6zKY4PTYsWKCwcEGEYFCJ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2026 15:38:37.6038 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d7d0a09-af03-40bb-b4c4-08de64037700
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5725
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,28 +139,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 04, 2026 at 02:44:42PM +0100, Maxime Ripard wrote:
-> > From what I have seen, subsystems such as netdev, the block layer, and RDMA continue
-> > to accept code that is ready for merging, especially when it has been thoroughly
-> > reviewed by multiple maintainers across different subsystems.
-> 
-> He said it multiple times, but here's one of such examples:
-> 
-> https://lore.kernel.org/all/CA+55aFwdd30eBsnMLB=ncExY0-P=eAsxkn_O6ir10JUyVSYdhA@mail.gmail.com/
+sdma ring reset is not supported in SRIOV. kfd driver does not check
+reset mask, and could queue sdma ring reset during unmap_queues_cpsch.
 
-Woah, nobody is saying to skip linux-next. It is Wednesday, if it
-lands in the public tree today it will be in linux next probably for a
-week before a PR is sent. This is a fairly normal thing for many trees
-in Linux.
+Avoid the ring reset for sriov.
 
-Linus is specifically complaining about people *entirely* skipping
-linux-next.
+Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> So, yeah, we can make exceptions. But you should ask and justify for
-> one, instead of expecting us to pick up a patch submission that was
-> already late.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index 8b8a04138711..321310ba2c08 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -558,6 +558,9 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
+ 	struct amdgpu_ring *gfx_ring = &sdma_instance->ring;
+ 	struct amdgpu_ring *page_ring = &sdma_instance->page;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return -EOPNOTSUPP;
++
+ 	mutex_lock(&sdma_instance->engine_reset_mutex);
+ 
+ 	if (!caller_handles_kernel_queues) {
+-- 
+2.25.1
 
-I think Leon is only pointing out that a hard cut off two weeks before
-the merge window even opens is a DRMism, not a kernel wide convention.
-
-Jason
