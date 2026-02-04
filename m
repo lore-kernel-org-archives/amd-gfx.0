@@ -4,74 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D8EE9D402
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 15:54:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A674E9D402
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 15:54:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA57010E6A5;
-	Wed,  4 Feb 2026 15:54:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 049DE10E6B3;
+	Wed,  4 Feb 2026 15:54:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KxHqbDL3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aXI9MyMt";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 334DC10E0A2;
- Wed,  4 Feb 2026 15:54:33 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E0FEC43BBA;
- Wed,  4 Feb 2026 15:54:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D388C4CEF7;
- Wed,  4 Feb 2026 15:54:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770220472;
- bh=x3icpBvvX8hE/1nJfe0UBQcFgbUp9cP9zJMm3/3XEaY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=KxHqbDL3n7bdE9UzsRk7XQac2TSqjA0spynqxf4kNsCT2S2xc4AJmT2jRbThrk/lj
- zqM8Y7P0LKKrOuokzq9D5RsQtuvhu35s5XQQkaAHUFs5q+CQcSmyT3ut4GWK+o5OPI
- 14SAJHJapBuGFmX7oxUDsIvhZsyGyB0YjlBiOxf6rN98kFtP+S2n4rZWYrcUgLJhmD
- 9NcQ68nt9u8ix1446F6Kxs5wH71sz+4B5rPxsLE9qGk7hd7PqDsnHXpUVk9htPicfP
- k2sqg8t4K+A8/NwJxyjtV+bc2Hucut1sgNP+GAgmZKl6q9A/sBoW/w3snteMjK3fK6
- y1v60E3s628dQ==
-Date: Wed, 4 Feb 2026 17:54:29 +0200
-From: Leon Romanovsky <leon@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Maxime Ripard <mripard@kernel.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Williamson <alex@shazbot.org>, Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v7 0/8] dma-buf: Use revoke mechanism to invalidate
- shared buffers
-Message-ID: <20260204155429.GJ6771@unreal>
-References: <20260131-dmabuf-revoke-v7-0-463d956bd527@nvidia.com>
- <20260202160425.GO34749@unreal> <20260204081630.GA6771@unreal>
- <20260204-icy-classic-crayfish-68da6d@houat>
- <20260204115212.GG6771@unreal>
- <20260204-clever-butterfly-of-mastery-0cdc19@houat>
- <20260204121354.GH6771@unreal>
- <20260204-bloodhound-of-major-realization-9852ab@houat>
- <20260204135657.GE2328995@ziepe.ca>
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8EB210E6D1
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Feb 2026 15:54:36 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-1233e05c77bso463c88.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Feb 2026 07:54:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770220476; cv=none;
+ d=google.com; s=arc-20240605;
+ b=LsRvdLmqpec2Vr679r9lvc5SQfgCqMGSiZBcrqZ2Sej0ambCkyjV7kPU7+xVo1ZGht
+ /7T8LAj6E3CBxGsFTVfKT+QjJ5m2mX9BBNIgpXGWY3PdevUgh9aFMJA1/REMKwOG5XUT
+ defZHUMQnoXzM789UZAUkECqA8SFe3nt+bblWcT+HjiiN3oZ7U0f+xC+GDaFmLo4ySlv
+ hEm81JsB6u0rfw++6bdLjGTXB+GwXiRnN7zc+HwB2aLakRulKVwUEEXM7vh/X9lRikDq
+ uUrYgONf/RXZ5w2t6dJpBf7N4+19AyCZyjDffVNCB2KqfmXfJcn+LqpxCccVDd+Kyg2V
+ /ehg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=7wZRKD3Zjs9SwU7VnIZmrURx9dhpk54rTDBjUvnk1A0=;
+ fh=tXuiJ5MwZ1BL+bjqCEZO/8OA7cP1UmV+EApVUdakX00=;
+ b=MWnrjsTlbPJ7d65hh/XoIPCGN5ucvqMKLc9S/LvSW/RQt552wPU2Y8BrBS33oTrPlY
+ rKUXfph0vbjCzf22iAve2MpgozHqbk1jBtHdHZoTF6p4CgbW/cYCrCk+JwCuueLrqxUn
+ zgwZKJbenIpAzxuxjmS0lUrIMs+Z1hOaorbWMuCBg/+RARDKlgs32LginDXb0rtDMJIG
+ +e2ptpqsxZoxPKFfdfvULw8KynNJM7NN22ABufsP8Hiz2URDP+pOUeUS+zLmLLnBacuW
+ MZ0npTEPdPT0f8zqqLF26qRLHG41AKejsu4xp3IjV4YrMq54TBB/nzxdpZp27OYL663p
+ dzdw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770220476; x=1770825276; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=7wZRKD3Zjs9SwU7VnIZmrURx9dhpk54rTDBjUvnk1A0=;
+ b=aXI9MyMtXlVwmpwz7GmYEctQZkd6L2+IrMHJext45sAGebpFFYslDmtnZQouOueaHk
+ g6Y4rYfToEFqXeKGFeCTOQbfhjvl8Jz88ojm7k6bHJ3paEn70WkRdJr8zCd0O6Lo5sNO
+ qMJVhYyO/Blk9+gjmaH4pj4X46O4SjHo75NXXvca2a46GYLe2ZP7JMtl7EOmQ6UwIgA4
+ yVR7RpFleuprNNalY3Sd0MaF1gOQWviR2pVmHLOswHaAOfp82XsMbPvYpDHYdRDh5xMw
+ wQywGHvTri0EgS/9D1gtd0+yClGRP0Sbq/h9hgwAY1K6X4/c+UrdTAH91ki6Bd1d+i7C
+ MQ+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770220476; x=1770825276;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=7wZRKD3Zjs9SwU7VnIZmrURx9dhpk54rTDBjUvnk1A0=;
+ b=JJBclVmkX/Jv+xXaxT32vNac5occbo39vEYuomfOs9KX8OsQs7EE36LYkq3blyLU1O
+ bTshjVBlBtSuT48/Tv1BHT3+TsEQu4x55NCtZIydYu6fIYYALF7mhURzp4RvfKv2DOxE
+ khPLmY1GAGxwA2gH9ezEiniyczW/kv8eNzDG6QKL17t4mOSobSu4+IbDSya9uMSjWot9
+ X7q1wO0Lr3kmMtD3EwE9R4pmFd0g9D9E5SXVsQw4uxBCoM/PwhW5HX0pb16VqwsneNvY
+ HwEISPDSP/O6iZt3yXdzxxn8H6QfVkwJleHqX+iPzIkMnBYk1ctX7Ejc+ovG8/gapBMW
+ 8uMQ==
+X-Gm-Message-State: AOJu0Yzao1twLkVe8wqUd9dFHqVciQiaV94o/cE3lUVEgAY5vRbP3b1P
+ G/SVfC6TEQTZKTLp9XcmDTIKijffOOcHe5NdWixBnle40ukd0F32QD4BU5riyGLNErue5KaDRyu
+ MEnvizGR/aSwtGUPfXqqsRagHmA0D+BLkzqhi
+X-Gm-Gg: AZuq6aI7R9ZuNDFxdECmmRJtg98PhG4YLab44BYCBGPkPmtYlozC7V8wCsUvMmX9ydQ
+ D2W5L4mKRyrTvnNMKSOnRt4AHKcMrRISJelkZhZxcfR/CFHubESWw0lNQb9MN2nP4VyhiWPSiYi
+ ZfsI9esl4U7yx0+Wkyh3r9Q+AV3cO4UBIzhuQf4VYlT3TeWAp0z/0xdjTnLXfccjWjYUZDxXB8L
+ /FpIoBdzAhi5ImysRie7L+hBqA0pxgWIKmcE1DnDzY2t63h0pujLON72QYoOJnuly2t0uVgwuqe
+ 2rHH+tw=
+X-Received: by 2002:a05:7300:2310:b0:2b7:f25b:91fb with SMTP id
+ 5a478bee46e88-2b83296efbcmr787181eec.5.1770220475776; Wed, 04 Feb 2026
+ 07:54:35 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260204135657.GE2328995@ziepe.ca>
+References: <20260204153828.753680-1-Victor.Zhao@amd.com>
+In-Reply-To: <20260204153828.753680-1-Victor.Zhao@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 4 Feb 2026 10:54:24 -0500
+X-Gm-Features: AZwV_Qi4oREw_2SjuFwQn9UQUB4Mu1EnO0ukvF3NU7pMsmXebc550ItKRLDRnVc
+Message-ID: <CADnq5_MMGUtbCvLavwAbOAhE5TEpnwJaGoxDnE1tqzWYb87Puw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: avoid sdma ring reset in sriov
+To: Victor Zhao <Victor.Zhao@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,45 +100,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 04, 2026 at 09:56:57AM -0400, Jason Gunthorpe wrote:
-> On Wed, Feb 04, 2026 at 02:44:42PM +0100, Maxime Ripard wrote:
-> > > From what I have seen, subsystems such as netdev, the block layer, and RDMA continue
-> > > to accept code that is ready for merging, especially when it has been thoroughly
-> > > reviewed by multiple maintainers across different subsystems.
-> > 
-> > He said it multiple times, but here's one of such examples:
-> > 
-> > https://lore.kernel.org/all/CA+55aFwdd30eBsnMLB=ncExY0-P=eAsxkn_O6ir10JUyVSYdhA@mail.gmail.com/
-> 
-> Woah, nobody is saying to skip linux-next. It is Wednesday, if it
-> lands in the public tree today it will be in linux next probably for a
-> week before a PR is sent. This is a fairly normal thing for many trees
-> in Linux.
-> 
-> Linus is specifically complaining about people *entirely* skipping
-> linux-next.
+On Wed, Feb 4, 2026 at 10:47=E2=80=AFAM Victor Zhao <Victor.Zhao@amd.com> w=
+rote:
+>
+> sdma ring reset is not supported in SRIOV. kfd driver does not check
+> reset mask, and could queue sdma ring reset during unmap_queues_cpsch.
+>
+> Avoid the ring reset for sriov.
+>
+> Signed-off-by: Victor Zhao <Victor.Zhao@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_sdma.c
+> index 8b8a04138711..321310ba2c08 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+> @@ -558,6 +558,9 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *ad=
+ev, uint32_t instance_id,
+>         struct amdgpu_ring *gfx_ring =3D &sdma_instance->ring;
+>         struct amdgpu_ring *page_ring =3D &sdma_instance->page;
+>
+> +       if (amdgpu_sriov_vf(adev))
+> +               return -EOPNOTSUPP;
 
-Yes and yes.
+How about !amdgpu_ring_is_reset_type_supported(ring,
+AMDGPU_RESET_TYPE_PER_QUEUE) instead in case this ever gets enabled on
+SR-IOV?  Either way:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> 
-> > So, yeah, we can make exceptions. But you should ask and justify for
-> > one, instead of expecting us to pick up a patch submission that was
-> > already late.
-> 
-> I think Leon is only pointing out that a hard cut off two weeks before
-> the merge window even opens is a DRMism, not a kernel wide convention.
-
-Correct. I would like to see it in linux-next as soon as possible, and to
-ensure I do not need to constantly rebase the patches because DRM changed
-something in the .move_notify() area.
-
-BTW, the series is in my tree:
-https://git.kernel.org/pub/scm/linux/kernel/git/leon/linux-rdma.git/log/?h=dmabuf-revoke-v7
-and is monitored by the kbuild bot, so this is not a random or untested
-submission.
-
-Thanks
-
-> 
-> Jason
-> 
+> +
+>         mutex_lock(&sdma_instance->engine_reset_mutex);
+>
+>         if (!caller_handles_kernel_queues) {
+> --
+> 2.25.1
+>
