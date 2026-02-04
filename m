@@ -4,48 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D01E7E95374
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 10:16:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33F54E95372
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 10:20:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D95B10E5AE;
-	Wed,  4 Feb 2026 10:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9CC510E14D;
+	Wed,  4 Feb 2026 10:20:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sCzpukCa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vks1pv0p";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011040.outbound.protection.outlook.com [52.101.62.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CEC010E5AE
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Feb 2026 10:16:20 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011052.outbound.protection.outlook.com
+ [40.93.194.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2761410E14D
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Feb 2026 10:20:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZIVv6Z97lykwD5zdOmikj3MBOX4cxdCMou8mai5wy/wcTRWl+UjsUSidqfUmG7BPqJAvFlpJRDivc5HWL02Y2su1qCIjLBT7ujmh8JRiqBldJ5TEbxsdfx/dMdVdjvT8axFbrg/Thu/M4YAA9+To3bhZoWZG2dwaeoLGet5BPAXhmLZEYhZ43tv7hd4DO1hoEzVOMjHCsInXhg4PkBjtLv0TzN6X+T9kROh42j9HivBkcSE+LC9vBjXRzzCtDW9HXpWJ7+subDYFhp9TbtnD5zYX8ZzDvw2AJfqnz7iYEgySlqkS4ulYn/cCLtwpKN/TfYTtQRqd4CVNJuYfiWdTFg==
+ b=iJ4L+sFoqhbdEWimguWq8LIzM6phCjd3JTibI9hi+y9eZX/GD7wHS+NexMLFwQUQrVVtZ2U0lY7ALG6VhMoL4o0DUAH6ASY9F0czFuTFTniT2DfaNF0BlDDCvyzDiZcbsurfl0IoMoBxQUL6WFXSJPHgQHAl79tepsrblqSy7fIzQ4I2VZj2jDcPJ1OQoVJfIaxiLIgg3dJnQHRA59Am3N4YucIVHMTBe/FkrnUQceHKtdZXCQOirbMD0j0BMMpTrpk4C+SDB7/MMjxEkjDibJf9So12XnNYXzJVAFGr2hD4kwAU/CZsyAY8WFnCTBPOblaJKrR5jkFLE/Tnks7Iqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YLfNg/pnQGfXj9u6KY1HXaOTx3rwNStBcQMLb9I067w=;
- b=ILHh7wGME8QNgfKobrHi9xcJ/WD6bhKYuRfK4yiARsVnKZvTB9yHjnkFkA2qJIbB3BuJa2s2G+hemrSSXP19udJGI8TiEy+/xzfzi9ZZnuNKuhB65BpbILAqqp30400fGDTucPAOJ/snysKVe6nAxLxtCBG48DQIEuULxmtY+BwmY6Fmtrt1RDaR50HxutswxB+3bsW5sw8IXq4v921ME+sVu0IOOzE/1RZXyehl5R/+kMyXU2pJ76JW2yNUCyCTyB3bcVM+U2FCraXxr9HhAP5AAPqBdHWRpbV4pESmkzffH8BBx0LLKhUCAtwYzOdwoM3twPPkn8bkrBDsA/dZew==
+ bh=i1HKuHpJxhjFhmZK204/He0Z8lZRf8QzRgh9SJqTraE=;
+ b=wqaMUU0fd4xnqq85bvk8OZdd6q/5YwUWB2wGFTGqOXOE4Iw3fo4MQLteWJXLpSgDxKykWC29yWytqnjtUephw6ndyLAEg83R6D+4DcEcE24CrHxst8N/4Lcni4qTAWg9Pb6ZViTiH2cLqyDlEJ9C1XEHrA7RCCrN4QZRRvJxzxFpMFAqS4w6dDe3NG6YGBsqbI6tGq90pC2WL8zm6stnQAHEUbrA5tCqHwohnvY5ZfOg6giKUK7kN1Z0WfhWF1uWghLWsE7mKoZwH1AWJAKnuPZjsIL+nqbCpMjSzPBQ8z4X2qihwIs5yF+ny0hOqK7+9Jsb5LZKfFC2GwldoQyETw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YLfNg/pnQGfXj9u6KY1HXaOTx3rwNStBcQMLb9I067w=;
- b=sCzpukCa2NabF9yQ7rrUipeGA7eYj42CiajD0ighJ7MaNFMOrl5I5nArWPUPvrEBjc25+X8wRqkLwjhnmB/1eeUEqE3z4AeJtgV9P4pZJFX8+UPIA6TCyz1uRUAZe1MHKFR/+oVEoRwdUgqYT/kK6otlIPUSkTEjve+H87fYWVA=
+ bh=i1HKuHpJxhjFhmZK204/He0Z8lZRf8QzRgh9SJqTraE=;
+ b=vks1pv0pMTo5Qaf1SL2+4pyQospagwSl8KU/9vnppNFnx+dA4A3HcDB8p+6ReLeWelUDumMKOl5fl5pUWUc8ro2Mg9NQXaxbEwj2iTR60J1P8HRKcK3rFIazjbQzgYDe0m4Q7nWoiW+txezykoO3mCxeHAUKd+5KCR0v7wQmMFY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
  by CH3PR12MB8755.namprd12.prod.outlook.com (2603:10b6:610:17e::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Wed, 4 Feb
- 2026 10:16:17 +0000
+ 2026 10:20:47 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9564.016; Wed, 4 Feb 2026
- 10:16:17 +0000
-Message-ID: <d9bf1860-36b8-40cd-a3d4-82a699ef9b60@amd.com>
-Date: Wed, 4 Feb 2026 15:46:11 +0530
+ 10:20:47 +0000
+Message-ID: <6b1528bb-49ed-4363-bcd6-d7eb929b71b5@amd.com>
+Date: Wed, 4 Feb 2026 15:50:40 +0530
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2] drm/amd/pm: Remove redundant and incorrect multi-vf
  check
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
 To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
  "Kamal, Asad" <Asad.Kamal@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
@@ -55,109 +57,109 @@ Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Ma, Le" <Le.Ma@amd.com>,
 References: <20260204082547.3799740-1-asad.kamal@amd.com>
  <13ffc589-243b-41f6-b219-9136fbcaf09d@amd.com>
  <PH7PR12MB59970022C8B598A0111B4F478298A@PH7PR12MB5997.namprd12.prod.outlook.com>
+ <d9bf1860-36b8-40cd-a3d4-82a699ef9b60@amd.com>
 Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <PH7PR12MB59970022C8B598A0111B4F478298A@PH7PR12MB5997.namprd12.prod.outlook.com>
+In-Reply-To: <d9bf1860-36b8-40cd-a3d4-82a699ef9b60@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0009.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:176::13) To SA0PR12MB7091.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0005.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:176::14) To SA0PR12MB7091.namprd12.prod.outlook.com
  (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CH3PR12MB8755:EE_
-X-MS-Office365-Filtering-Correlation-Id: 597e12ff-fbc8-40f1-fbf7-08de63d66f2e
+X-MS-Office365-Filtering-Correlation-Id: 3cef6fbd-66f8-4682-c608-08de63d70ffa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?a0NHNWZjVEd1ZnBoWm1xV09kMkk0KzZ3clBJN1E0em94Qlg3UFJTY01KVnlz?=
- =?utf-8?B?N0pUVDZWWDJhaTFCMDdodFNYQ2VHclpFeDZaRHBUZnJSdkVQS29rQ3VyU0Rv?=
- =?utf-8?B?TysxdFJpVkFpMmNNanZpQ1JzV1Y0bmduRXk3RDZxVHJtbHpFQVFoSkE5RWJR?=
- =?utf-8?B?aUMyQmVvM1Roc2dwQmZPZ3V5NlR6Wm9jSWJCNkFLaDN5T2doSXNIcGYzdm1U?=
- =?utf-8?B?d1VRRU9vRGlyc0ZHbTg4a0FQT1VZb2h3K1JkYXVYU3V6QnczMlR5Ykg3TkZQ?=
- =?utf-8?B?ME9Wb1hKR1ZtTEtJMktCaEJZaTlWZVFkSmZGUWpiUDZaY05nV0RNQkhodGZy?=
- =?utf-8?B?MVBsYVRTV2FoSmRxMEhaUDJOOVdkQnhiMHpCckVLWXFuUTZ6NkFOcTlRUGRW?=
- =?utf-8?B?dUFCL2p3K3dlZDdmTVNSbm5qejRlMDlKRzNCMmxtazl4V1owUGtTZWdHZUg3?=
- =?utf-8?B?UXJicTVzNW9ZbTRMbVVSaHRNRUsyZVNvOXI2MHAzZDJqb2g2TnJ5Mlp3TjN2?=
- =?utf-8?B?VkIwb05TZ0ExTmg3TlJZcW1SeWtsRGxGMVdjNTduRjlVK0F1endlamlKcW9m?=
- =?utf-8?B?dktIRzlwanRMMjRwVnRWQldFUWVLc0xYWEZqdWRaQ3JLSDMxbFNTMDE4Y1FF?=
- =?utf-8?B?TXY4bEh2UDZXbGdUTjBnaEN5d3NtaU83c2luSU9ZcTFMYWR2M1c4enRjcGRq?=
- =?utf-8?B?emliSm1VOGQ5SWIyd0dka29LTTRMNmpqakNJazRmbXpxUkJCSUV1M21aUDhD?=
- =?utf-8?B?UmY2dzgzTG5seUFTUG1qdVdBT2xiOXQwOFAraXZ5cVU5aEhJQzRzTFlic3Ew?=
- =?utf-8?B?bG82dVZNTmhIMVMvY21NSUloRGREOXFOeEEwNzlmMDU3RWY5NVQ5S3JOYUtW?=
- =?utf-8?B?UG5LOExrTEJXSEhORngxa0tmWDB0MS9IZXlEamI5OUhuOTRrdkxYTzl1U3I5?=
- =?utf-8?B?dmpGbnFUcWdRMEhWU01iQjdKOVFrZ2JQek9UL3ZnYVd0VVVHV2dCOGQrZGpR?=
- =?utf-8?B?QnoxOURxM2M2MWIrZEdDRm00bzBjbG0zYU5ubFpzcTdoZE4vUVRmM2l3VFN2?=
- =?utf-8?B?RTFYQVlrVkxkaE1ObGlBbjNlT2hPRmI5SEFDcEp1Y0VXaG5ZRjlGYTE5U3Rh?=
- =?utf-8?B?OURNdVAyakhleVVuMlBHY3JpY01rVGpjK2d4SGJkK09rQlhXUXE3bHpyaDR1?=
- =?utf-8?B?cW55djBaUDJIa2ZnaWZRcmRkRmNzbzhoeVkrWVJHL1FyS2t4b3Buekhkbzdi?=
- =?utf-8?B?RUpZYmJLQk9rWHdKdTJqTElVREVBYklWYW9sSndYZmFTMkJaOFgyZ0ljQStX?=
- =?utf-8?B?OHVrOUoxaVJSNVJoYXRYMFM2WTl2MmNzL1ZidnpXM3lXRlk3b0RCaFcxaHNi?=
- =?utf-8?B?eGZZRTAwZk41WWNHazNhR0V1bTlGc0kzTlprYnFZR002M0VKZFVReHhFVUJ6?=
- =?utf-8?B?RFdRRStlZTRkei93RmtRWHVXM1NHZEVHTnVTbDhELy92Z2ZrVDZnNmZ4VG9J?=
- =?utf-8?B?SUJMbUFMRHVvS3RvN09Scy8ydE5KVFhCakdFT0FoREtMVHp3RjFYOEdxY01I?=
- =?utf-8?B?ZGlvNm9iWU4yL3dQMGhOYmxNSGFjOElDZ0g5SW1PclIwRlNnNndscnpwWU9z?=
- =?utf-8?B?bGcyUCswc2tXeE9TbUh1N3pPc1BaWnVEb0pnS3lMUEVLdCs5aUFURnlYckM2?=
- =?utf-8?B?ZmZlOUlSRWlUbnJyTHMrR1pLM0FIWUJic3dxVFU0enVxTEtwUkpCekJRRTBJ?=
- =?utf-8?B?MUZtaUljRGZBOVovY3ZBMi9yT2MrWFp4YmQ4ZmRrZUVmWWtZZmFsWERLd1U5?=
- =?utf-8?B?YXlONm9Ic2tITyswajlTa0hEelJZYmkwekJVUyt3V3F2OUsrdXJDUnQxclJL?=
- =?utf-8?B?QVZaMXAxYWpiV2NLcVhQaWNRbUwvR24vWWkyMzlTbmRGUGZTdXgzNWc4QWxW?=
- =?utf-8?B?Q1NRWXVPNVB4UnVzM0UzQXJHaFJJWkFMVEFQVmVOU3IzdHF5THNJREpIeXhO?=
- =?utf-8?B?WDJoZmw3UTMvdFdqU0N1S01ETXI0dWJsa3hTRDNYZitLUWttUGhPZEtyaFhY?=
- =?utf-8?B?QkpBVVpxQ05BajFCQ0FJNWVSQXI1OVF0UGNZeUxGaTBDY1B3dEoxR3FjbGhr?=
- =?utf-8?Q?C0Fg=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QUlBUFJzdHJJdzRDQ1JOd2ExZlE2YWI0eVZ3Q3RZRDk5ekQ1YzBMK3JDUGtk?=
+ =?utf-8?B?NFhOZm8zK1pVZVdSbHNXenRpbWQwUUpQNDkxWERHOTVsZTN2NFBqZndiNE5V?=
+ =?utf-8?B?Sm5BVmFLYnZkTGZ5dlcvZ0wvWVVXWDhZMFozclZQcjdEQ2VNWlFsVHB2Vnpu?=
+ =?utf-8?B?TmN5NmE5eU9BZk5UM0k2U2grSWhxR0djU2tVQmJWeUZ2cXFKK0xBTSsveVdB?=
+ =?utf-8?B?aDZzaHpodGhmc2NEQ0dwR29pTE43aTdmUDdaYlZBem5GMVE0WGxuSFV0cHE2?=
+ =?utf-8?B?c1dCRTJJRS9zYThySDhnazBkenJaeU1PdXRIcTRITFVvNFoybVMyOVlmYkNo?=
+ =?utf-8?B?c2thZ2o3aGJUTFBjYW5LOGhkK0V0NElXK2FXL1hQeHFvT3E1UDY0S20zWXRs?=
+ =?utf-8?B?Nm1EVEFhM0VvS0xWWVR0eEd6eWZLL2h0dnlRc1lDa3UrWmZYUHN3SUNTcVNK?=
+ =?utf-8?B?QzlSazV6U01QREowM0FEc1hOVFF6K0QxNHBIS3BvQTgyQm42L1RBd2Fod0NE?=
+ =?utf-8?B?MTNKcTJ5VzVBQXVpSi9xblpCVCtHcnV4V1JKbS9NK3hZZUxrRUNMSDA0OFM1?=
+ =?utf-8?B?Q3N0Q0JZcnAvMzFJZk9INjZQRVhIU0NNU0k4NHNnTE44RmcwK0djcHFEdDhU?=
+ =?utf-8?B?M3pWNXBKS0twb1JaRER3VXB4OHUzb0R3d0NweFBVZElLYVF6MEF3KzB2YlA4?=
+ =?utf-8?B?NU5pWnNEc1NrYmtIdWdxdmJYL0tqK2ZpUTRMb3RUeFlpOG4xbkU5R0M4U09S?=
+ =?utf-8?B?Kzh2dk4xNXNsTnFTYUZtVjMyVDhJOXUxWm5HT1hBb1lOcUdjckJMekEwam5w?=
+ =?utf-8?B?WnFhRWpLenpZUit1L2haRVVIbDQ2clp4SVdlT0I2alVuVmJiN2twUEhDUEpK?=
+ =?utf-8?B?YXFUcllLZDNUblJocGIrRUZoU0RjeG5TOTA4Q2lhZlY5SFdNbzVCTFBFVzhZ?=
+ =?utf-8?B?K0xQdC9mN2tkOVkxN01nbkhjZi9PeUhHaWxSMll5ZGFFb0lyUFVERGE5L3o2?=
+ =?utf-8?B?UGsrUncyMjg1WW9EaHJFL05sR0ZFR2gwU1NVYlhWUmNmWk9CUzdVd3UyVXJG?=
+ =?utf-8?B?TTREM011UmVwTy9mb1RCVnA3NlBSaHJpdUkvcjl5Uno2UXVjVlAyQkkwZWM0?=
+ =?utf-8?B?WEw1WitsT2JCSEtkTmJKd0diOHYvQityN2V1ZWdrdXlmQ0V3cFRyeWZUMTBW?=
+ =?utf-8?B?K0txU0h0RTRhNm05OGhaUFR0YUJSSUNOckRMcURTMTlIMTRpQzJLdzVGS0hz?=
+ =?utf-8?B?STNYRVNRcFlOTjZRZDBFdHhodlFoTzJCbmQ4SzFmL0VqWjhIcTVyTU15ZDV3?=
+ =?utf-8?B?cHM4TnZKdS9CU1djUjM3RGtnaU1XNktYN2sxaDNGbFFXbW5RNGhqZURHbFVN?=
+ =?utf-8?B?dmhtOTBOWnZFcGNCSEs5MkppeWQvSE5BSTFUTmY2dDkwZnRuM21rWk9jb0xL?=
+ =?utf-8?B?RWYrbDQ3b2RrcnNwRzYxV21IbTNDakFJMzF2RW1ubW9yVzRRTElYaU4xVi91?=
+ =?utf-8?B?QmNRK1NTanlXb29zQ082TUI0VzlHaU90ekFhdWpvbXNPQWpnbEVKK1lhdjFV?=
+ =?utf-8?B?Y2lGZEFRQWNnd2hBdWs4TlQrR3A2d0ZPVmFJVVhEdHlVTktvY0l4ZmIzVlZE?=
+ =?utf-8?B?amYyMU04dDRaTFVFdWJFOXdWLzYzM2kzQmlPUGxDc1JRbGNHRzZKQ2l3YnZp?=
+ =?utf-8?B?Yk0wbG16eFlXSTd0Ykt6TTBKWFR0aE9nQVdCS2VLU1NKSHJ2bi9rOXl2MzBC?=
+ =?utf-8?B?ZVBZOWFxbTJkZUt6ekhwREhEWHRpWTVFcVNCTGhwSHNOaGMrMDJzSk1ycXZJ?=
+ =?utf-8?B?YkpZUTA5cmVRMktZS0Z4am5tbVJqRXlaU0R6d3ArdE5QQlhML0xGMXFJVjhI?=
+ =?utf-8?B?eTN0dUN4V0RZMU5EY204NDJxcTBid2VIT0xZZG83VTNvU2ZqMEE4aWovT1ps?=
+ =?utf-8?B?cHh2VUlqSDRabUcyQml6MGNDZ0ljdE82RGxjajQxbWZzM2NaL3p2UmgzMVh4?=
+ =?utf-8?B?WVNQNkx4ZVZGSkNockt4V3Q5ZjlJdjZmeTVyVCtRVXArOE9VeGxOOG9XMEJE?=
+ =?utf-8?B?OHo4LzZNN00yQjByWFdpMkg3TFBSR2lFZTV0UU4yelNwUW80am9VTHM0ZHB3?=
+ =?utf-8?Q?bucQ=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UjRwd21rdXZLbkJOOUF2c3dqaGkxTEF5czZCOWxZUnZ0VmdwbWk1OGpldWgr?=
- =?utf-8?B?b1VsYVlPK0lJbm1vQk5adWlKeUZZTTNjREtnTXlBa1IvOE14L1pDeDgxMFZB?=
- =?utf-8?B?bUxmRnU5UGxRbEdkMlVMMWFhT1cxSXJlUkJ4VHVGTjNROGlZSkJnb01hSnhv?=
- =?utf-8?B?RXRFd3hiV1VzRzVyTDF3dkh4ZXlaQ0lIeHk3em1Zd0Q2d1ZHUFpncnJDVlIz?=
- =?utf-8?B?d0ptWnJlUUUvd3h5NCs5N1dlV0hsbDBuUG5XSjAvRDZqbjFPTUFvdWFML1J1?=
- =?utf-8?B?bWh6RS9YYmJrNHNmNWFuQnFGNEFsQVdLd3YxMHk4TkRMTkdnS2p6UXNFOERX?=
- =?utf-8?B?aEpPVjdHa2srT3RwRmhxeGlQRThGVFE4MTRnZ042bXRQNlB4UmNGNGJNZ0NR?=
- =?utf-8?B?Wk8vMjZUUHp4YnQzYXNXTmc3YnE0Q3Y0OXB5WEpqQi9BVGhqazZ1SEt1RFY2?=
- =?utf-8?B?OUpwVERwSGRBcFV2QSt5SlJiUld6THhXb0tDN0V3cVFYalNaZEtzMjRQNzZk?=
- =?utf-8?B?aDV1V3kxMEdzT0NrS2RCSlFIdHFmTG9nc0NuL0RtK1hFQ1hFa3RxR3k5RllL?=
- =?utf-8?B?cXVGc3B4SXJOSFVabG5DSjdBM2ZHOFhabGlJUVpGTXE4OWh3VXo5WmRvNUxR?=
- =?utf-8?B?UXBjRTBmcCtoaFd5MnM4T1NnSWl4TTBuQW5aRitCV1pXNHRJWm5wMmFmK0dF?=
- =?utf-8?B?dmlTSlBRZXFUMUJELzB3UUkwcnhwVVhpSkNNb0t5a0h1MHNTLzl1MlZBVi85?=
- =?utf-8?B?a2RsV2xMZDhOSExkZHNBRE5MU0hyVkw4R0hvOWhBVVgxck1NVlZoNGsvZDNy?=
- =?utf-8?B?M2VGVFRxSVRlOWVSTkx2aFh1NnBjcFFldXhiZE56bnE0K05zRldNZnQxZ09E?=
- =?utf-8?B?R3dXajBXb2NvSm1jVmUwdFdTRUEvdXoxTjJIRWc4RlJ4SzZkdTExam1SeUhY?=
- =?utf-8?B?ZGUyU1gyZ2xBS1c4MldZYi9NRnYyK3oxVHR2MXBBNDM5RE9ldTBkaUU2THg2?=
- =?utf-8?B?ZnVwa1hFR1l2ZkxzeFcrU1RldytwWVdKOXRMcFlaUitOOEZMOUVoaXgyNXpt?=
- =?utf-8?B?ZXhIbk1UU0RpLzYyNjMwZXJPOHAvdDlrZFNtVCsyUXpHT3lZNW1xZDJrS1ZB?=
- =?utf-8?B?WDNIL0h4a0UxQlQ2d0o3K3pxd3cyTzRpaEpQOG9Wd2xlSlJQckt3MCtjbWF6?=
- =?utf-8?B?Y0dsRG5oSlh2eEROOEJzNHRUTFFSNThVT1FraW9zMFIrNkRPeUZzYi9lVnZk?=
- =?utf-8?B?Wk5RVi9RVWc1cVF1MUpTeGp4Vk81RzlvaXdiTnhTWkNHeEhlOGZCQ2o4aDdi?=
- =?utf-8?B?TGhSNXQ2eUhEZTNjQXZUbXMwaVFBL3hraFJIYWMwdFRpTlQ2UDdPRCt3d0pw?=
- =?utf-8?B?cU9PWW8xU0k4b052NmtTNjJscHpqa0lodkFVZE9wNm1JRlFBeGh4cmNNWDUr?=
- =?utf-8?B?enZFYmxKWEtLWEFiSEdqN3oyWTF3K0Vqc2sxdjhML0p3Y2k0cGxEMnZ4by9L?=
- =?utf-8?B?UkxmQ2J5LytiZHR4eFgzUjlOU0k1cGxjbzNmN2dKWUVxSTRFM3hTMktqVktE?=
- =?utf-8?B?UzRhbEZROVo2WkdCS25USnRzMlg3emgyZkVkeFVVRjR1K2VuWHRwK01nQkV6?=
- =?utf-8?B?RitHaE5NaHIvQWc3VDllZG12b1dwL1loQjBqTy90NWt1OFdvVTF1RlEwcUd1?=
- =?utf-8?B?ZFN2bS9vcytNZDlmQVZxUE9reTBId3hYMWlUaDVPcUlUMXhSd1ZTejhmeWxs?=
- =?utf-8?B?aGQvaFJBdnNzMklvcWNyWXg5L2xUT3JacGhmR1RUdXpac3RuRGE3Z2liM1FE?=
- =?utf-8?B?TWsvNmt0VWQ1ZGExL3NYNkhoSkxQQmsxcDVYOE1CVzAvWC9qNE4zR0RBdzBj?=
- =?utf-8?B?aGdTK2I5dWlLMHo2R1VZM3pYUWpMU1ZwVVgxM21kUWpmMWtPMWs2dWIzTEtk?=
- =?utf-8?B?Zjc4b2xQRXRLTnBXZHk1RVJpcVhmRDVkTmM3RHMvbEUzTTZWZXpHSU5OWWtF?=
- =?utf-8?B?ZHF0ZlpOdHp3QUIyWis1MkN5TFliK2JpTFd2UjRSVDJxWXBBd0ZkL25lR0pa?=
- =?utf-8?B?TjlzZitrU3dXWU5YTEFxZEZMbHNPeHVweTgzb2I5R1BMaS9XTlJvdFVsTDBB?=
- =?utf-8?B?YnJweStGL0NhTHUxMnNEZ3FYMlViS2dsMGl0dnZnNHZranJLSVl3RGUvQ3Ex?=
- =?utf-8?B?UnJKMDBxYVBZd0FsZFBxaVYraXptaFZZZm1IRjRTd1BUeWpKc3Faalhlbloy?=
- =?utf-8?B?OGswaGlhNjc3Tml1SVdmZkNZdDhzclJOazdnOUJGSVdSZTExSmUrZjRlcUJW?=
- =?utf-8?B?M0dJVXU3LzZyN3IycS9nR09aOW9uR25kTFNzZFpiWkJDZXFoMWdlQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aVJKd0s2MEU3eEZBNytiQ3VrRVRtTDZUVEVxUHpmdjhjdjI0a1ZtRzFHMDA1?=
+ =?utf-8?B?VVRuaWt0VWlYOStQTFhTSzRhQi9VaG9QMG1UeG9paGVRaFNOSERuNHB0ak9T?=
+ =?utf-8?B?NlVadStNQWlNUWx6a2lLMWVDd295bXhWYlZFRHNnaVpkcWJ3ZzFxMERaMDJG?=
+ =?utf-8?B?UG85ZXFHNTB4WkY5empTNlUyY1FCdFpDcEY1M1U1WG13NEN2Z2tQL3BNNDc2?=
+ =?utf-8?B?UENETThyei9ka0svam1EVFZ5SXlKemxtMi84UHVEc2lRVXF3d2RHVENkV0xU?=
+ =?utf-8?B?SlFOSG5Wdzd2d1Fqc1oxRDRpVkV6OU14K0dDMEpoNFRJdjFla3hRVnNqVmFI?=
+ =?utf-8?B?alVWWEZRcWtLY3lKaUVFUHp3VlhWclRhZmpOcHRzZnpXWU1YUFFFVmRTT1U0?=
+ =?utf-8?B?VEV4Z29jZHBzOUp0MnBXVUx4TkhKK0xURjc4NUh2UzJnVGU0b3oxNmdzaTc0?=
+ =?utf-8?B?YTExT1ZMSUU3N0thS0VaT1IvOVRLaGdQTUkyTFdLMjJFUWlxdHpPdlFqQmN4?=
+ =?utf-8?B?Vk0vK1ZLZm1SS0xUMkhtVkhaU0tHZDZkMXFrRFBoYzA4ZkVBS1FVcFArWnpH?=
+ =?utf-8?B?U2dnNUFyakRuZGNzM2R3Vzg5NUM2OGlTaEVQNUZCVmYyNWh1cEN4bG9pZzNS?=
+ =?utf-8?B?cHFQOUM0OHJWRmRUMkdsSHIrdGVKdlc0enY2ckFRZkI5NFMzZ3ZRR3gwdXNx?=
+ =?utf-8?B?MmVhWlZpTUN4RHZLOWJyQTJyOHBMbGp1UHVyTVdrbVhZY2dudW8wRElwZ3k5?=
+ =?utf-8?B?UlpQenRTcVpnYkpZbFFDd2lEKy9ueFc3Rzc3Z2VMZVlyMm5yOEJDZWdMNzNR?=
+ =?utf-8?B?cGpIVmZYVWNFdmtIdHJ3cjFqQVJaOXMwdzk1U2N3UlBlU2F3SjBnVGhreUVy?=
+ =?utf-8?B?c01YM3YxNGNFa0d1czAxWHczblBlUWJGbHRGMkhhOFB5UHpZRDI2T3lOOEkx?=
+ =?utf-8?B?NWlab2RRbFo5bWIyVFdQcmNSYlhyTzBpY2Radk5iZzdJS0c5RitPbXcvWWh2?=
+ =?utf-8?B?dnhKOVZPSW9Zbkk4WVFwZVdzd2w4MTN2R3BBUkcwYUdwSmV2M3k3SGFLNnlT?=
+ =?utf-8?B?Rm5zMlNUZENWRUpObEVDbG9FUTk4N083NENQUFNORmlZSkJ4TUNpb1FNbGo2?=
+ =?utf-8?B?T3BCMGg4NEMrbXovZVAzaDFOVnVZZExOZGRDSXRrVmFCb0ZXMVNCTnVtMUFS?=
+ =?utf-8?B?WUJ4b0R1d0d6c3pIWitmRFpFZ3ZFZjNKT3QybCswT0Q3ZjRhR280ZldFUzMz?=
+ =?utf-8?B?M2Y4UmlEU1lMOWhaR3FXVTJnOGplVjNRSWZoaEFrYnUxNDBxZ3psVFFieUNC?=
+ =?utf-8?B?c0RkTzhpY2RyRndZenQvbU82NGpQb0NzVWVVVW1BTVBGWXdnRnRoRTdMbDlu?=
+ =?utf-8?B?VFIrTHZZVFNFc05wRkViRTYrNC83cHhmTWVoUURLNk41OWtacFBlYTRoSXRM?=
+ =?utf-8?B?TnFGeGo5TGtoamU5NEhMK0xCbktPWnZDV2FKU3VWa2Y5UkxjRURydkxZWmpI?=
+ =?utf-8?B?S1dnTko5SWNkUmp6em5tWUJKdWVlQ3Rrb2dnenJKS0dONFhUM0RhV0Z1RjA2?=
+ =?utf-8?B?UDN5ODI1UXJrZGpVZEltZEY4TmJ6Rmo2OWQ3NSsyZWZQUDlUMVFwZ0I1eFRW?=
+ =?utf-8?B?Vjd2cElWU2pQNlNhYk9DMDhsdW0xTFNGbEdSZ3ZONGh2YmVUUFgvcmgzSTgw?=
+ =?utf-8?B?YVdlMEhvTFdGaW45S2lvNHYwcUpOR0lUcW1tRlhPa3k2b2RMeEtUcTNocHN2?=
+ =?utf-8?B?V3N5OHphNUhBUmlUVkVuZkJEWW9xVDVlUnYvUlpoemJjUzNFRkxIQ3V6V2M4?=
+ =?utf-8?B?ZE4wZlFSTDl0OVVodTIvS1RMcWppOXZkaW81VjFSZmdJdC9MOElYY2R5Vmdj?=
+ =?utf-8?B?UWtrbjZBV0J4My9jNTFSWFhtcG5jRG16YzhMWlRzeVhlQmZpVjQ2VTA1bjlv?=
+ =?utf-8?B?d3dWUXZ0ZnJjb05BeXZMY2NQcVdRY3BQSUtra29ESG1wRVRDTmdieVU2WU0v?=
+ =?utf-8?B?bUk5UHZkZWZxR3ZLTENBajN1T2hSTjBqN0w2Vi9JZzJRaHJvR3l0US95OURK?=
+ =?utf-8?B?UUJZZ0JmSGwxVDRnMmYrQ0wwT0tmajgySGlzYTVkTXRrVk9tWnltT1VEK3Rz?=
+ =?utf-8?B?OTBITlRPMlZDN05ZNWJkV0lrQjN1T2h3anRlbUpsWXZ5SjJBc1hBMVJ3TmxV?=
+ =?utf-8?B?bFE5ZkZsVXp1MVNkUnN0YjJxVnh2Tm95djk5MjFQT2J4c0pWd0FCVldSbVhq?=
+ =?utf-8?B?ZExnb0tvK2dhT0RxeHc2d2RweE1ROUdBMCtqNGVTaXNJYk1JWU5peGlXTFNW?=
+ =?utf-8?B?OFJ2SUpHa0R2U01EWU5JVlJ6Tmc0V1BEN0hkU08wcnErWUwxbGl4Zz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 597e12ff-fbc8-40f1-fbf7-08de63d66f2e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3cef6fbd-66f8-4682-c608-08de63d70ffa
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2026 10:16:17.6818 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2026 10:20:47.4169 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mjpqhc3CcdBYLQxf3YVSHnMYqbNkLKMxIeAPjac/sGCL8o4TMT/ogZ863zZgNngp
+X-MS-Exchange-CrossTenant-UserPrincipalName: J5y/uHGfvE13st5S1TtyHW60lch0n0nyfsy96EDx9Br3ZY2VTZi11jvugGpZa6Lf
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8755
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -175,92 +177,112 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 04-Feb-26 3:35 PM, Wang, Yang(Kevin) wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
+On 04-Feb-26 3:46 PM, Lazar, Lijo wrote:
 > 
->> Remove redundant and incorrect multi-vf check for pp clock setting, as
->> the code path will never be taken. Mask check take care of same.
 > 
-> I suspect there might be a misunderstanding of the code logic here. This is not redundant code.
-> Currently, AMDGPU does not support the multi-vf case, so no sysfs node will be created for it.
-> However, in one-vf mode, for security reasons, setting frequency information from the vf side is not allowed.
+> On 04-Feb-26 3:35 PM, Wang, Yang(Kevin) wrote:
+>> [AMD Official Use Only - AMD Internal Distribution Only]
+>>
+>>> Remove redundant and incorrect multi-vf check for pp clock setting, as
+>>> the code path will never be taken. Mask check take care of same.
+>>
+>> I suspect there might be a misunderstanding of the code logic here. 
+>> This is not redundant code.
+>> Currently, AMDGPU does not support the multi-vf case, so no sysfs node 
+>> will be created for it.
+>> However, in one-vf mode, for security reasons, setting frequency 
+>> information from the vf side is not allowed.
+> 
+> /* setting should not be allowed from VF if not in one VF mode */
+> 
+> This comment is not inline to this.
+> 
+> The logic before this change "drm/amd/pm: centralize all pp_dpm_xxx 
+> attribute nodes update cb") also supported set frequency  in 1VF mode.
+> 
+> 
+> -       /* setting should not be allowed from VF if not in one VF mode */
+> -       if (amdgpu_sriov_vf(adev) && (!amdgpu_sriov_is_pp_one_vf(adev) ||
+> -               DEVICE_ATTR_IS(pp_dpm_sclk) ||
+> -               DEVICE_ATTR_IS(pp_dpm_mclk) ||
+> -               DEVICE_ATTR_IS(pp_dpm_socclk) ||
+> -               DEVICE_ATTR_IS(pp_dpm_fclk) ||
+> -               DEVICE_ATTR_IS(pp_dpm_vclk) ||
+> -               DEVICE_ATTR_IS(pp_dpm_vclk1) ||
+> -               DEVICE_ATTR_IS(pp_dpm_dclk) ||
+> -               DEVICE_ATTR_IS(pp_dpm_dclk1))) {
+> -               dev_attr->attr.mode &= ~S_IWUGO;
+> -               dev_attr->store = NULL;
+> 
 
-/* setting should not be allowed from VF if not in one VF mode */
-
-This comment is not inline to this.
-
-The logic before this change "drm/amd/pm: centralize all pp_dpm_xxx 
-attribute nodes update cb") also supported set frequency  in 1VF mode.
-
-
--       /* setting should not be allowed from VF if not in one VF mode */
--       if (amdgpu_sriov_vf(adev) && (!amdgpu_sriov_is_pp_one_vf(adev) ||
--               DEVICE_ATTR_IS(pp_dpm_sclk) ||
--               DEVICE_ATTR_IS(pp_dpm_mclk) ||
--               DEVICE_ATTR_IS(pp_dpm_socclk) ||
--               DEVICE_ATTR_IS(pp_dpm_fclk) ||
--               DEVICE_ATTR_IS(pp_dpm_vclk) ||
--               DEVICE_ATTR_IS(pp_dpm_vclk1) ||
--               DEVICE_ATTR_IS(pp_dpm_dclk) ||
--               DEVICE_ATTR_IS(pp_dpm_dclk1))) {
--               dev_attr->attr.mode &= ~S_IWUGO;
--               dev_attr->store = NULL;
-
+Ignore this. It is "(!amdgpu_sriov_is_pp_one_vf(adev) ||". Set is not 
+allowed for these clocks in VF mode.
 
 Thanks,
 Lijo
 
-> Therefore, the .store interface is removed and the node permissions are configured as read-only.
-> In conclusion, this segment of code serves a clear purpose and is by no means redundant.
-> 
-> Best Regards,
-> Kevin
-> -----Original Message-----
-> From: Lazar, Lijo <Lijo.Lazar@amd.com>
-> Sent: Wednesday, February 4, 2026 5:31 PM
-> To: Kamal, Asad <Asad.Kamal@amd.com>; amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; Zhang, Morris <Shiwu.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-> Subject: Re: [PATCH v2] drm/amd/pm: Remove redundant and incorrect multi-vf check
-> 
-> 
-> 
-> On 04-Feb-26 1:55 PM, Asad Kamal wrote:
->> Remove redundant and incorrect multi-vf check for pp clock setting, as
->> the code path will never be taken. Mask check take care of same.
->>
->> v2: Update patch title, Remove the check (Kevin)
->>
->> Fixes: 166a3c735c95 ("drm/amd/pm: centralize all pp_dpm_xxx attribute
->> nodes update cb")
->>
->> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-> 
-> You may drop any redundant multivf check in other attr_update calls also.
 > 
 > Thanks,
 > Lijo
 > 
->> ---
->>    drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ------
->>    1 file changed, 6 deletions(-)
+>> Therefore, the .store interface is removed and the node permissions 
+>> are configured as read-only.
+>> In conclusion, this segment of code serves a clear purpose and is by 
+>> no means redundant.
 >>
->> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> index 07641c9413d2..81bef5c5aae9 100644
->> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
->> @@ -2057,12 +2057,6 @@ static int pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
->>                break;
->>        }
+>> Best Regards,
+>> Kevin
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Wednesday, February 4, 2026 5:31 PM
+>> To: Kamal, Asad <Asad.Kamal@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Ma, Le <Le.Ma@amd.com>; 
+>> Zhang, Morris <Shiwu.Zhang@amd.com>; Deucher, Alexander 
+>> <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+>> Subject: Re: [PATCH v2] drm/amd/pm: Remove redundant and incorrect 
+>> multi-vf check
 >>
->> -     /* setting should not be allowed from VF if not in one VF mode */
->> -     if (amdgpu_sriov_vf(adev) && amdgpu_sriov_is_pp_one_vf(adev)) {
->> -             dev_attr->attr.mode &= ~S_IWUGO;
->> -             dev_attr->store = NULL;
->> -     }
->> -
->>        return 0;
->>    }
+>>
+>>
+>> On 04-Feb-26 1:55 PM, Asad Kamal wrote:
+>>> Remove redundant and incorrect multi-vf check for pp clock setting, as
+>>> the code path will never be taken. Mask check take care of same.
+>>>
+>>> v2: Update patch title, Remove the check (Kevin)
+>>>
+>>> Fixes: 166a3c735c95 ("drm/amd/pm: centralize all pp_dpm_xxx attribute
+>>> nodes update cb")
+>>>
+>>> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+>>
+>> You may drop any redundant multivf check in other attr_update calls also.
+>>
+>> Thanks,
+>> Lijo
+>>
+>>> ---
+>>>    drivers/gpu/drm/amd/pm/amdgpu_pm.c | 6 ------
+>>>    1 file changed, 6 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>>> b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>>> index 07641c9413d2..81bef5c5aae9 100644
+>>> --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>>> +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+>>> @@ -2057,12 +2057,6 @@ static int 
+>>> pp_dpm_clk_default_attr_update(struct amdgpu_device *adev, struct amd
+>>>                break;
+>>>        }
+>>>
+>>> -     /* setting should not be allowed from VF if not in one VF mode */
+>>> -     if (amdgpu_sriov_vf(adev) && amdgpu_sriov_is_pp_one_vf(adev)) {
+>>> -             dev_attr->attr.mode &= ~S_IWUGO;
+>>> -             dev_attr->store = NULL;
+>>> -     }
+>>> -
+>>>        return 0;
+>>>    }
+>>>
 >>
 > 
 
