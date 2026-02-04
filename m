@@ -4,87 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DD07EA7940
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 19:19:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49EC8EA7940
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Feb 2026 19:21:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFDFE10E371;
-	Wed,  4 Feb 2026 19:19:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFC2210E758;
+	Wed,  4 Feb 2026 19:21:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NC9GzfI8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F5vLh8NW";
 	dkim-atps=neutral
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E600410E371
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Feb 2026 19:19:46 +0000 (UTC)
-Received: by mail-dl1-f41.google.com with SMTP id
- a92af1059eb24-124abf957dcso13740c88.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Feb 2026 11:19:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770232786; cv=none;
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E577D10E758
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Feb 2026 19:21:30 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-2b700c7d3c2so1019eec.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Feb 2026 11:21:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770232890; cv=none;
  d=google.com; s=arc-20240605;
- b=VFTl4tugrbXO93smzpCHs1MXuK0X638fHONfoTfyjoCXBVg2Z9yM7yXkNXMNAamqZP
- 3cgHDhZzSDDVfNMWfiIXVSxoTtRRuPM8T8sInp/AsAWU/V3xJ/hZmhoSX3LFdInlkGKd
- b/3Ji4ZZoC4wp0YVq1kujC4NgL+gKQdID1ICd7pxEJ0vc1BncShg9gFjdYuECO0MuIQv
- n3iOpUwpDRdNstPunx/7hWOoCdovYn4vzjaiFJvybfiohqTiANwC5aJ90YydEPbgM2pu
- madhsKSGA6lfV1I/OReJ4b/T3ZIT0U898Squoue5NYQN6WvJZ/wsEEjkFZvXhfP20dYc
- TWpQ==
+ b=H7YyfH5gSNzqTYBxY5BvGa6hIkdJtpgUW8XnW/Yv4PFy4/MFtM+08NGnrBb0zHrvD3
+ hPiZhQfSpkfxW9lIZwfDOw8qGe0Fxeb/FAKxWbYduL6nfhVST4eG/WThWGC6U+Yl5Ee0
+ pk/Aof1PatZcaveSwzEKOFVyETJjbuCjNop40Akz4Vvc++7IO0fNsnFAY0wKEoQ3yHpQ
+ jl5cji+80Bpk0L7rMryBgtUYqAryOTC2Z9TmOC0ip5LzmNb9GAKfPft6igXrrg0bcNFK
+ DS8orMfntGFugQdS0TgsWhZOs9DPWHgYdqYnbNOLRBUutErgeVbwNMfOl/vbiUxJzKAL
+ Krhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=P1ZsIttKAJ6ifdYTAImzmSYdfvrP7bxC5yqcqnJCmMY=;
- fh=399vfL8Ey9jXNd1D6iTbBl+YA82IGBSmPnK1BVJ0tdQ=;
- b=NzVTHeoKG/kgj36UY0Gd+rkbujuVy6TDB8Oar46GGT2jBhLR89HsMMuNA7oxYjnpfr
- izNJRNW5+SA6hU8zfgkGYoPUYrXV7QZQs6tQA9HfbQ0IZL5Poy/C6wHGGfHXtEcbcxCV
- 6up2QjNptUe8aesdnkOT94vo3QJO+2IN2yT2kXAm9MYfQzf7hQ6lkQqQ5nwmCkGz2oOe
- WW9YQzHHZMEby/1/au5UqedSuR/wR1hTHI9kYhDFsMchpeR6y/vs7pT5kmkl+nLhI2Pn
- PDDsMnHVgaAPRxkV9AGumBF3IGD3SHSZZxGGIbCfUrY+SlETzHr4yehLvzFQXwW7DQ7u
- Y9Qg==; darn=lists.freedesktop.org
+ bh=VRs+6ib+pyZJCRELSvDQF8bopbek7tMEzD2GA9WtclY=;
+ fh=cFVSG9QViS0DAdmrkqn6AOJFRUYWBKioKm2zCjnsYhM=;
+ b=cTiidaO4w8lCryGd5Tt7PtlK4gprIiy47hUrQ3+q11T/8otpLqKr99WrlEh8yhlNm5
+ ZTDGhL3NW/8gF39g7ebx3zwcVDNVozIrcrrPWNJ71pkWYjkPNd9no+uKt97xb4SjtZ+Z
+ 7IChSG6xLEUinkR2DAuV8+tEq4rpSouerK4Z8jJBBKnnrLjFSxF+0gTzAwn8pMRPA23l
+ noiD65qP8kmG/vBHvwYGPzcyCs2VSHnjfL8MUKMvIjMZYZj1xdBBQhmgF9ZlNtOh5y8S
+ fyEHQi66MJC4l/c0g/VUKjh5smgzm/jjuQzZkOFV8lJdVz4IsfCxWf0x4DFTQYrR8W17
+ gCVA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770232786; x=1770837586; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1770232890; x=1770837690; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=P1ZsIttKAJ6ifdYTAImzmSYdfvrP7bxC5yqcqnJCmMY=;
- b=NC9GzfI8t2oaXXMa/PwAtBhfGaKXBo7bB8mlYNT7tp98/pjvSc+h/eH36sKd+baP0t
- pnOeoilG/aTRWoiOmeaIks5GjeLekd5Y7wJRuRb6VP9HnN0ZOI+E1Brq8vzJ4RuOGBsb
- b7SrayIYkRkyoTN2yq+rU8RBw3z1/BxFXiBcoVLrkQKCewkMSDExlOMDlofaP0M0frPS
- BpGiw1RZBz4pEISgWYqQDuCbCLJP3xvU8KSvEekk6OT7yDLFAUlIS0XQIZU+QdIUsX3c
- 1KkYhlF3u+ZPZJM8a7VgLR1D72KTr8zg2Kyl68OiFQp0PcH911nQCSwXQ6B3KO0s1r4V
- lcIA==
+ bh=VRs+6ib+pyZJCRELSvDQF8bopbek7tMEzD2GA9WtclY=;
+ b=F5vLh8NWa2sDlNHlg2ZrMirkkJ2uexWSut6xzJIT2Q6hKVXa2iYGql+V4EpcCDfCwn
+ ZXaScHrtgActf7ReMy97e/umIblsjn1DIXzXGIBYWR9CS9ONFKpQjSQ1Bol8LmiPuW97
+ mZ28WwLH0w9M+DCeHP9+M6FM4DQc9/sYo8c2SxoR3si8g1kZ2HQqvQ8GQrRwY18WdBD6
+ SR1YSd1HvS3+xf+m0oLqjJpxofHsywXWoihXZapyFu2rW3BjD33JCQ+jazHp4KGcw47Y
+ Bh1QW659V3bCrTZi88XY/aaCRp6+YF/9OaqncBf7tJBZWZ/+rfIuhZZj4eJaCFX40dCR
+ TeGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770232786; x=1770837586;
+ d=1e100.net; s=20230601; t=1770232890; x=1770837690;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=P1ZsIttKAJ6ifdYTAImzmSYdfvrP7bxC5yqcqnJCmMY=;
- b=ZEI10aZK2ReB1/9CHcEephwXZ43W65p01qE4JfLcY7xSYSMOd8M2JqhW5XuCUBm2Jl
- DD7P+hdk+qLEa/nKiWyOAnT6UN+ruvVRlE35iuhc07UvnrWQE6bgwmoN4iZg7lYur/CA
- xCQOmvC7TYhwXYcqNBCh/P3oZ/cdl938inh6egwn8YEt51G7M/FTTeYou2Clav/vgLmm
- qL/8bU03qRtH+lFM1flQpgpU0ortIms4aUZ3sd02tjDttwuV8DG1XAbPNInkwLZcWjEq
- yisqsz0avBhkVOkImQ5YSad0fZasGAuvE9yxkExc7xAseW92GVPQ50nYqkTntit6qFJ1
- 2aIw==
+ bh=VRs+6ib+pyZJCRELSvDQF8bopbek7tMEzD2GA9WtclY=;
+ b=reNxu2CfLyjk8KlaHEc4l9z2hDdUblLBepErAUcS5mXA9OSDP27KVMlX+4aZuXY9qO
+ o1bkQ1hHx0EnAVqp5DiqrYzphJKaZXThHqCyf6CdbeaIlvhlKIGaC7VMsde8VfJuQMvo
+ RCwunU7Uzio9bvzKT3jWBgrj684YPNE4A8lvWQ6lX183hp4Cxu2Gz6Gx6I8MkvymSi/j
+ cisS0JUBFXZmBX7B0ScNe5R83mIR+FAAoj+ooJCoJ1uYl9azzPnw0BCgPNLzvpB+Ljb1
+ M9roeVH5ykMXDMXQd+hJSX/DCs1uCpR2+plMgdzCV69ZgDBIQbSPi0B1/6tIzrmYITjA
+ k1KQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUT7Yy9dFsTpTUbkoYcz55anppN0a3HL0xGXBC5mHqH7RqAy7iniK/G64Yvr0R401aBzDzlVy/7@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywk3VhhD6XQ7qdSd9ynKHkBJSM20ktg+Plk8hp6Zo3VkfNfCmtp
- Tvc3TGZ2kGKdQ/yHujooKghftuobv04tDT+k/ghSRB1Wu50cBwzWuGfaA2Ppwj/EUC3ohRESo4n
- 1v5XlP2cX1Fi5PzPJ3I3wkcpHfVRIyrDQkbt3
-X-Gm-Gg: AZuq6aIY4nKHYNV2eNx7nk5eKP29d/cAIRQm4PmfqbZW/xVdBa8S2AC0k/sxDcx2uKw
- /0WGNCmGEumzz3B/flMhofmSz+75AT7bZQURhaL8Fn3tEqhbKaNkO93VrNvfl1PIZK0T17GSVV0
- mn0aAI/ZDEAlnVPsrIy8ya3iZNdFUkY8QFhHDYQbTO9hhbxZrVToWC/V8SRFfiUv3BHe5nHEyJR
- 7EixmGDzYxtCVuVtxvvThYAJkLwXAQmHioDG4XOVCxi7FZSHJnw38AiRTTF305TWch4okreEYMq
- qjhTeXA=
-X-Received: by 2002:a05:7022:606:b0:11b:acd7:4e48 with SMTP id
- a92af1059eb24-126f4781de8mr1014063c88.2.1770232786086; Wed, 04 Feb 2026
- 11:19:46 -0800 (PST)
+ AJvYcCXL7MJPsJhcerl1kV/LW5E5isMJ/k2rckEGlk0QFTzHL50i16bRQracuRUuo3WBB8lgmzmlySAs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxcfkaE3qgw3JnTQ6By18sSBnuIeXGyxkHKbvAQqqK/lknSNsYd
+ WAPaip7TrG2hBxxTdNOMhR9rIlnRmFs7JFaBlCAh3Dt0MBHcSavMSd89ntQ38A6t8DBM0EbYm+B
+ agtCsykx37FKcJRFzAPe/AiAqNMJvuV67SyMA
+X-Gm-Gg: AZuq6aL2Ck9A+KZHMgyc+4PoRkEk/cCdVO/Z4CQcgceutqGl/wD+fJU8E1zfnL75ISD
+ 2oUmRW9/CreHgZreHfz0YqaYpf+rnprj0/sk9HCz8AdTBH1xpv8wpBzMmtiFC6bdT8PBaCxVPnL
+ htCBh01acbf2qpmoGAn6Lfw9BOtTGxoy4Tsc+GZEM+qYjJ5NvcX4QnGFLdYXJwiiyl648jmSMjI
+ F9mqfaR6GZTh5MuW/G/OrW9zVy9aUdlotPBp5USsw4fKDRLyOOm+YSJ/DvoqN5QqIUCrzKu
+X-Received: by 2002:a05:7301:290d:b0:2b0:4a1a:657 with SMTP id
+ 5a478bee46e88-2b8329ad9c4mr830520eec.8.1770232890089; Wed, 04 Feb 2026
+ 11:21:30 -0800 (PST)
 MIME-Version: 1.0
 References: <20260204044338.96093-1-Pratik.Vishwakarma@amd.com>
- <20260204044338.96093-2-Pratik.Vishwakarma@amd.com>
-In-Reply-To: <20260204044338.96093-2-Pratik.Vishwakarma@amd.com>
+ <20260204044338.96093-8-Pratik.Vishwakarma@amd.com>
+In-Reply-To: <20260204044338.96093-8-Pratik.Vishwakarma@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 4 Feb 2026 14:19:34 -0500
-X-Gm-Features: AZwV_Qgn9S33bkZEughClP_9fT-klO-E-ohxElCvvS_OGPVS4wfUAyY1wakkwzI
-Message-ID: <CADnq5_Oke+hDJAgOAwAF6m4-9VgnU-Pkv-jhcQS0MNCwf-Hw1g@mail.gmail.com>
-Subject: Re: [PATCH v2 02/11] drm/amd/swsmu: Add new param regs for SMU15
+Date: Wed, 4 Feb 2026 14:21:18 -0500
+X-Gm-Features: AZwV_QjOFPdFH_o-xc0i6bphB38jMjGb2Y0o8kcESzL4wYXBmbMwNWAQ1GYPuPw
+Message-ID: <CADnq5_NMM+Gc=EVeOShDDmzOZNSgkx06962y=aOSzfSPipvKvg@mail.gmail.com>
+Subject: Re: [PATCH v2 08/11] drm/amd: Drop MALL
 To: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
 Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
@@ -103,56 +103,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 3, 2026 at 11:44=E2=80=AFPM Pratik Vishwakarma
+On Tue, Feb 3, 2026 at 11:52=E2=80=AFPM Pratik Vishwakarma
 <Pratik.Vishwakarma@amd.com> wrote:
 >
-> Some SMU messages have changed to multi reg read/write
-> Initialize during smu_early_init
+> Not supported on SMU 15_0_0
 >
 > Signed-off-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
 
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+>  .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c    | 13 -------------
+>  1 file changed, 13 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c b/drive=
 rs/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-> index c3f22844ba2f..d58b0bc2bf78 100644
+> index 7331c7559454..140e5b8c0489 100644
 > --- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
 > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-> @@ -52,6 +52,12 @@
->  #define mmMP1_SMN_C2PMSG_32                    0x0060
->  #define mmMP1_SMN_C2PMSG_32_BASE_IDX               1
+> @@ -58,19 +58,6 @@
+>  #define mmMP1_SMN_C2PMSG_34                   0x0062
+>  #define mmMP1_SMN_C2PMSG_34_BASE_IDX                  1
 >
-> +#define mmMP1_SMN_C2PMSG_33                   0x0061
-> +#define mmMP1_SMN_C2PMSG_33_BASE_IDX                  1
-> +
-> +#define mmMP1_SMN_C2PMSG_34                   0x0062
-> +#define mmMP1_SMN_C2PMSG_34_BASE_IDX                  1
-> +
->  /* MALLPowerController message arguments (Defines for the Cache mode con=
+> -/* MALLPowerController message arguments (Defines for the Cache mode con=
 trol) */
->  #define SMU_MALL_PMFW_CONTROL 0
->  #define SMU_MALL_DRIVER_CONTROL 1
-> @@ -1347,7 +1353,9 @@ static void smu_v15_0_0_init_msg_ctl(struct smu_con=
-text *smu)
->         ctl->config.msg_reg =3D SOC15_REG_OFFSET(MP1, 0, mmMP1_SMN_C2PMSG=
-_30);
->         ctl->config.resp_reg =3D SOC15_REG_OFFSET(MP1, 0, mmMP1_SMN_C2PMS=
-G_31);
->         ctl->config.arg_regs[0] =3D SOC15_REG_OFFSET(MP1, 0, mmMP1_SMN_C2=
-PMSG_32);
-> -       ctl->config.num_arg_regs =3D 1;
-> +       ctl->config.arg_regs[1] =3D SOC15_REG_OFFSET(MP1, 0, mmMP1_SMN_C2=
-PMSG_33);
-> +       ctl->config.arg_regs[2] =3D SOC15_REG_OFFSET(MP1, 0, mmMP1_SMN_C2=
-PMSG_34);
-> +       ctl->config.num_arg_regs =3D 3;
->         ctl->ops =3D &smu_msg_v1_ops;
->         ctl->default_timeout =3D adev->usec_timeout * 20;
->         ctl->message_map =3D smu_v15_0_0_message_map;
+> -#define SMU_MALL_PMFW_CONTROL 0
+> -#define SMU_MALL_DRIVER_CONTROL 1
+> -
+> -/*
+> - * MALLPowerState message arguments
+> - * (Defines for the Allocate/Release Cache mode if in driver mode)
+> - */
+> -#define SMU_MALL_EXIT_PG 0
+> -#define SMU_MALL_ENTER_PG 1
+> -
+> -#define SMU_MALL_PG_CONFIG_DEFAULT SMU_MALL_PG_CONFIG_DRIVER_CONTROL_ALW=
+AYS_ON
+> -
+>  #define SMU_15_0_UMD_PSTATE_GFXCLK 700
+>  #define SMU_15_0_UMD_PSTATE_SOCCLK 678
+>  #define SMU_15_0_UMD_PSTATE_FCLK 1800
 > --
 > 2.43.0
 >
