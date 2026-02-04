@@ -4,97 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B756EE8B39F
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 14:01:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38D5BE9129A
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 14:01:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2D0E10E8BE;
-	Thu,  5 Feb 2026 14:01:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8F3010E8C1;
+	Thu,  5 Feb 2026 14:01:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="f2U58zjs";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="4E9zDR/3";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="kUnfeGhB";
 	dkim-atps=neutral
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE97610E00C
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Feb 2026 16:23:28 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-59b672f8ec4so46074e87.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 04 Feb 2026 08:23:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770222207; cv=none;
- d=google.com; s=arc-20240605;
- b=Xlf5ol4rtj87M/ncgRjgsB7NqAGY68gehli+ZFiiwSsFvgXY/ZzP99sGklMLSyjTwc
- ZWPQd7m0vv+c2H0RlOL4MJOmeny72nIbtzEUXwffEVn2AtKsjZw2AV9WV70bPeH+9iUT
- XZyPFjQvns/jgq+/nSKl2EVS7jRqjBDkjKD6fyTVMA7U3PZXLVBrA16RIGPTX1ieATYG
- 2wIMdSXphYT1BOJSSfBElLn52Qo0PDSdtHQ2eBFf/3hsmbylAAzS7lVsAXj23kQeMgUG
- IHQtA/9INffHeLNnUfUxp6ZYIlyIqkQHJrYeya5QuN3KNU355vw5O2YFS2r9BO2B198G
- r8LA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Ab2t+mcWFGP06dFB6KRcl1ymh71pJERVjF8n14rySY4=;
- fh=rEwdqP5u5joQQhoJUCClDM20XHPd1SOVeIBnhOeVBjg=;
- b=kajqFo15HBN2VrBWjf8Ye+7CDrPYNVR5NHjcKB7YXYd12fvdZL8CCDIraFxShAE0Tg
- /4BCv29uLW7aQE7KO+gSd4atQ2yR7mwjEdwCiwR9eo53TNpZ39w12NrBScUbNNxa6JIq
- 98bciD5yAcXYUNxnqa+1k9xFqs3psgPS8dDsm2odEI3IOA5Pxnl1GrxPltIQDvVPJ1lb
- Rs1xYsb4zr7jckuugS1OpgY8qnKFpsjNHISPAqtmolI1HSrr0wb0QgvuTcN2Kur7lV1G
- POYkEHosrIPkhVxvtS6XoiDjQEMBsPCcugLQfWXaf+PTPG5sPYxbK7bAO3ZdYf+OeWr8
- 7Xfg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1770222207; x=1770827007; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Ab2t+mcWFGP06dFB6KRcl1ymh71pJERVjF8n14rySY4=;
- b=f2U58zjsvXbhMaP2ah6STt+lhLHCREptigNLrASCAnb4pjpaNyg8boyp7K75MTL+Ti
- egvkNxAXt2cGeFZs5qqj4U6bdceKHv1L+MTMW61Vb/BwMJlj1uOPL+pz/Vq/OhUXJ8uU
- wGnjbghAFD2cR2w5b96eMulWzJTRO4u126MgK285Gj0SqE2V9eAjaTHzV+hDaqf0rthj
- A3jPxitWYkLF+kZccuBjEXjcCDfmty7MuILKzEMJRfhu9cF5iyjyID24Zbr19TAQ29c0
- P9vjy/CPMvE5wUMRFylzjqRSjb4AU1owCS81iluUHcfe7nqrEQDa08eQ+Pm2Sh08WYSu
- X49A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770222207; x=1770827007;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Ab2t+mcWFGP06dFB6KRcl1ymh71pJERVjF8n14rySY4=;
- b=GaL6qgQIsFWNKrKDq0COlBLutSwMqvn2VfmzSXzGmuNFtZNnvqrRRfNHpQMKJZGvJC
- ZaAGC44otgXtpOYGA9PW/Y3TcP88SzhraYUF5VS6TwpoHk9CLCTfZtnNUgI26BG9m6Iq
- Yi0lFDN5+DOioY8H6t5i2SWpNZe524GJ27MBYMgEdyN6NAY3Hs2yIGJL+AsESfEa0ssn
- XGuvPLiDbLkFldOBh5zSK4NvGAGjlKVYCwNPaZlBH51HZyinHx3F3+EUtWQ7Y3/O9uCZ
- GNT6vzZCsVVAq0B5YRd6V8zKa/sOMPNsxxGsxh2U0ARCraS0R/DzcnsxhUkxEE7QQiuO
- 6HNQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUOIKoCBszMGAvwHeDSATd5fONjYQGp8pmkIxe7hCSfZ7spd3NoZhLFQWvrH4CXZEN9q5b268gE@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzi0OYdVqHjECeJxkJPoa/mXddFXmhnuJOYgwFrLcLZiz64nOqr
- 2jvXOJnx3EXsU+O81Kq3fV6MymW5d05oPRoWCxswXeBKxr6U/o+t+5dTxI3fM8FczNsCIhTbsOV
- A/iABWPlpHoownABmGiwsFUY01mp0ScGzPNLKHfVDsw==
-X-Gm-Gg: AZuq6aIDnlYjgpiS1n9vR2ZxhpulrJDd5tj5zbEG3QN//sVHQdvwvEcZIf4jBn7d9oR
- zCIFQdawLrW5laA/o4ohU+k6EM91g9SI3lpTZQqBuhbp4c6dpJXaZtMFaBfS3NZmEBv/oLZBMaC
- PYjoV9+1o03BPeoDlLYyfYLK3aVjCiSn6iVecxfGqTQNkHwDg2znSJiO6WX9SXbnMKzqrYbID55
- uk5zI80GaYS+4ZHkVSrnc+h+qI35oUMe2llYt7wMnKiTeJJxcJIL5bTm1t8feMq4chRl90RviU7
- U8iCTVUTlNglcIGocFbpGpruiP7S
-X-Received: by 2002:a05:6512:2399:b0:59e:3702:cdc2 with SMTP id
- 2adb3069b0e04-59e38bd022bmr1391764e87.0.1770222206822; Wed, 04 Feb 2026
- 08:23:26 -0800 (PST)
+Received: from fhigh-b5-smtp.messagingengine.com
+ (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 416FC10E6E5;
+ Wed,  4 Feb 2026 16:57:06 +0000 (UTC)
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 56E537A00E6;
+ Wed,  4 Feb 2026 11:57:04 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-11.internal (MEProxy); Wed, 04 Feb 2026 11:57:05 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1770224224;
+ x=1770310624; bh=DMO79s1OU3juZ2+ahMo1gfPAr0s4Mn0ZEH9LRYL3vv0=; b=
+ 4E9zDR/3sr/FZ2Suz9hMpeD0Lnw9/HEY8CCWzuPTFUlCRgk/07X0XK4fG5aGG2li
+ 0fatEfbpn9z0k5kHRO4s/aH7Pm+5fLGf9Cu5wSPzt2+oFxUejLwYdnAo8+vTTtX0
+ ppcuN4ypbdJkwOnXruWUQfw/0GT3rbfK3qQN9Mnf08mCo5AQBaBvPSlPSoRMUoTj
+ iOXZEEkeA5xumAOiILKyx2I67bELe3qIddtsmC285w1VcTp+a7ofilThoTsvX+zx
+ pO0/xWe8ljTI1odRRCmkzLFYSCFSpo5gzpclcgcbTGb3ljTcYnxK7Y9V/wpzpMyn
+ zoAKW1DjfBti4jaWXz/GAg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1770224224; x=
+ 1770310624; bh=DMO79s1OU3juZ2+ahMo1gfPAr0s4Mn0ZEH9LRYL3vv0=; b=k
+ UnfeGhB0XVIKkpNpr8r70uuFr+yVF4eXt8iIIRXXxj95qP0Utymcq8DPgYCYAIIU
+ rEZGNuaB9G2Hn8XWUbdjTJ7y+DRD46zwKbYrPKP6U88INPsxVMbH1degOaxJIodR
+ DKEX0B82teBXAIjtNB6G/+CBnk6SMyNskXcPOfYXJ9PCn1LgJrYuY33kwxQBiJSM
+ +bxQJpKCVUNBF6ZzDSvQpb+hCK42zD5zrqVNNoIJeD/wSgKP3zU2ZFszbQlu1ELm
+ Xs7ysqb+/GUvegntZfforGYZ/CMyDHerVQYaW4NKWptMZ1z+aeAET2E/KP/TYGkf
+ KeEnDgEP8FPVgaex9yV8Q==
+X-ME-Sender: <xms:X3qDaUU0AqgtEAaCCzgguyzs4VTVV-B9kuHBFv5L_ryHbFAQ9OwzZw>
+ <xme:X3qDaaencOx4yFHctpjA0hJGKxhuLLru0_1AbJdrHzSTklmYn0UWK3zvzB6INNMEb
+ CDFZESzmQYzf5ASb8dYI7zOBfA7lnegmkzmNWWr00fEDEliSgPN3QI>
+X-ME-Received: <xmr:X3qDadCoS01ZWLJgy9mJqR9Qk8BNz9b7GJi9TFpc7v-Xz0c9ZWRayowlhhQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddukedvleejucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
+ gurhepfffhvfevuffkjghfofggtgfgsehtqhertdertdejnecuhfhrohhmpeetlhgvgicu
+ hghilhhlihgrmhhsohhnuceorghlvgigsehshhgriigsohhtrdhorhhgqeenucggtffrrg
+ htthgvrhhnpeeuvdevudfhleehgfffiefggfevkefhfeffheetfeejffekteeffffgffek
+ ueeuteenucffohhmrghinhepghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivg
+ eptdenucfrrghrrghmpehmrghilhhfrhhomheprghlvgigsehshhgriigsohhtrdhorhhg
+ pdhnsggprhgtphhtthhopeefgedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtoheptg
+ hhrhhishhtihgrnhdrkhhovghnihhgsegrmhgurdgtohhmpdhrtghpthhtoheplhgvohhn
+ sehkvghrnhgvlhdrohhrghdprhgtphhtthhopehsuhhmihhtrdhsvghmfigrlheslhhinh
+ grrhhordhorhhgpdhrtghpthhtoheprghlvgigrghnuggvrhdruggvuhgthhgvrhesrghm
+ ugdrtghomhdprhgtphhtthhopegrihhrlhhivggusehgmhgrihhlrdgtohhmpdhrtghpth
+ htohepshhimhhonhgrsehffhiflhhlrdgthhdprhgtphhtthhopehkrhgrgigvlhesrhgv
+ ughhrghtrdgtohhmpdhrtghpthhtohepughmihhtrhihrdhoshhiphgvnhhkohestgholh
+ hlrggsohhrrgdrtghomhdprhgtphhtthhopehguhhrtghhvghtrghnshhinhhghhestghh
+ rhhomhhiuhhmrdhorhhg
+X-ME-Proxy: <xmx:X3qDaR0JC3aeBgGCL3SOTruPcgJhXN56_tA0WN7RgTXmz9g5vEPb9w>
+ <xmx:X3qDaelkK6umwX2N7Cdn9igho2SY9UaXjO4UA7aD9BS4Prz5hLK1hg>
+ <xmx:X3qDaVHu61HKpx7M9FbvEcxQjBMz7-wYzb44ioDNXWX0Ucq2z4-t9w>
+ <xmx:X3qDaY3TnQgDqkgcBOz_No8JKgaBYtcvxf4UXBj0ym1YuPCsROzXHA>
+ <xmx:YHqDaYePnLUlo7-KxZzLGmru0GCtmPoyKuPCBDWjbJzvd7OHBc1kp6lU>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Feb 2026 11:57:00 -0500 (EST)
+Date: Wed, 4 Feb 2026 09:56:59 -0700
+From: Alex Williamson <alex@shazbot.org>
+To: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Leon Romanovsky <leon@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v7 7/8] vfio: Permit VFIO to work with pinned importers
+Message-ID: <20260204095659.5a983af2@shazbot.org>
+In-Reply-To: <fb9bf53a-7962-451a-bac2-c61eb52c7a0f@amd.com>
+References: <20260131-dmabuf-revoke-v7-0-463d956bd527@nvidia.com>
+ <20260131-dmabuf-revoke-v7-7-463d956bd527@nvidia.com>
+ <fb9bf53a-7962-451a-bac2-c61eb52c7a0f@amd.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <20251224144708.61167-1-marco.crivellari@suse.com>
-In-Reply-To: <20251224144708.61167-1-marco.crivellari@suse.com>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Wed, 4 Feb 2026 17:23:14 +0100
-X-Gm-Features: AZwV_Qj0hbru-qyZsN6yOLCm8UGRjKsemohDZ0bkezg1DSADm8lZKDq2GMAMm2A
-Message-ID: <CAAofZF4fUyBj1pSD5T9TzyoEmnkzRsuhOb1s1m=z7iXM8PHwSw@mail.gmail.com>
-Subject: Re: [PATCH v3 0/4] Replace old wq name and add WQ_PERCPU and
- WQ_UNBOUND to alloc_workqueue users
-To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Christian Konig <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Philip Yang <yangp@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 05 Feb 2026 14:01:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -111,30 +124,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 24, 2025 at 3:47=E2=80=AFPM Marco Crivellari
-<marco.crivellari@suse.com> wrote:
->[ ...]
-> Marco Crivellari (4):
->   drm/amdgpu: replace use of system_unbound_wq with system_dfl_wq
->   drm/amdgpu: replace use of system_wq with system_dfl_wq
->   amd/amdkfd: add WQ_UNBOUND to alloc_workqueue users
->   drm/radeon: add WQ_PERCPU to alloc_workqueue users
->
->  drivers/gpu/drm/amd/amdgpu/aldebaran.c     | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 3 ++-
->  drivers/gpu/drm/radeon/radeon_display.c    | 3 ++-
->  5 files changed, 9 insertions(+), 7 deletions(-)
+On Wed, 4 Feb 2026 17:21:45 +0100
+Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
 
-Gentle ping.
+> On 1/31/26 06:34, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> >=20
+> > Till now VFIO has rejected pinned importers, largely to avoid being used
+> > with the RDMA pinned importer that cannot handle a move_notify() to rev=
+oke
+> > access.
+> >=20
+> > Using dma_buf_attach_revocable() it can tell the difference between pin=
+ned
+> > importers that support the flow described in dma_buf_invalidate_mapping=
+s()
+> > and those that don't.
+> >=20
+> > Thus permit compatible pinned importers.
+> >=20
+> > This is one of two items IOMMUFD requires to remove its private interfa=
+ce
+> > to VFIO's dma-buf.
+> >=20
+> > Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+> > Reviewed-by: Alex Williamson <alex@shazbot.org>
+> > Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/vfio/pci/vfio_pci_dmabuf.c | 15 +++------------
+> >  1 file changed, 3 insertions(+), 12 deletions(-)
+> >=20
+> > diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio=
+_pci_dmabuf.c
+> > index 78d47e260f34..a5fb80e068ee 100644
+> > --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> > @@ -22,16 +22,6 @@ struct vfio_pci_dma_buf {
+> >  	u8 revoked : 1;
+> >  };
+> > =20
+> > -static int vfio_pci_dma_buf_pin(struct dma_buf_attachment *attachment)
+> > -{
+> > -	return -EOPNOTSUPP;
+> > -}
+> > -
+> > -static void vfio_pci_dma_buf_unpin(struct dma_buf_attachment *attachme=
+nt)
+> > -{
+> > -	/* Do nothing */
+> > -}
+> > - =20
+>=20
+> This chunk here doesn't want to apply to drm-misc-next, my educated
+> guess is that the patch adding those lines is missing in that tree.
+>=20
+> How should we handle that? Patches 1-3 have already been pushed to
+> drm-misc-next and I would rather like to push patches 4-6 through
+> that branch as well.
+>=20
+> I can request a backmerge from the drm-misc-next maintainers, but
+> then we clearly don't get that upstream this week.
 
-Thanks!
+Hmm, drm-next already has a backmerge up to v6.19-rc7, the patch here is
+based on a commit merged in rc8.  The tag for that change was based on
+rc6.  It can be found here:
 
+https://github.com/awilliam/linux-vfio.git tags/vfio-v6.19-rc8
 
+As the same tag Linus merged in:
 
---
+1f97d9dcf536 ("Merge tag 'vfio-v6.19-rc8' of https://github.com/awilliam/li=
+nux-vfio")
 
-Marco Crivellari
+drm-misc-next only seems to be based on v6.19-rc1 though, so I don't
+know that any of that helps.  Thanks,
 
-L3 Support Engineer
+Alex
+
+> >  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+> >  				   struct dma_buf_attachment
+> > *attachment) {
+> > @@ -43,6 +33,9 @@ static int vfio_pci_dma_buf_attach(struct dma_buf
+> > *dmabuf, if (priv->revoked)
+> >  		return -ENODEV;
+> > =20
+> > +	if (!dma_buf_attach_revocable(attachment))
+> > +		return -EOPNOTSUPP;
+> > +
+> >  	return 0;
+> >  }
+> > =20
+> > @@ -107,8 +100,6 @@ static void vfio_pci_dma_buf_release(struct
+> > dma_buf *dmabuf) }
+> > =20
+> >  static const struct dma_buf_ops vfio_pci_dmabuf_ops =3D {
+> > -	.pin =3D vfio_pci_dma_buf_pin,
+> > -	.unpin =3D vfio_pci_dma_buf_unpin,
+> >  	.attach =3D vfio_pci_dma_buf_attach,
+> >  	.map_dma_buf =3D vfio_pci_dma_buf_map,
+> >  	.unmap_dma_buf =3D vfio_pci_dma_buf_unmap,
+> >  =20
+>=20
+>=20
+
