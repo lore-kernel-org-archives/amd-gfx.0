@@ -4,156 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29419EC1E86
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 10:10:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9F2BEC1E86
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 10:14:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A73D310E068;
-	Thu,  5 Feb 2026 10:10:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3489A10E836;
+	Thu,  5 Feb 2026 10:14:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="I2+FdB92";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="otK/mxls";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010027.outbound.protection.outlook.com [52.101.201.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CAAA10E068
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Feb 2026 10:10:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lt/Tb5t6WdGvI46Qf2qhuwIdAUEvljNgZeO0+Zc4CsCZA2tBTbc6DvnRuiH47P3zKcBQIhJDcezy+ixiNkre2tLwKX03/6YaPwvNmoYN+flNj9YKSo43bXEb12rjFWGQTcRYUQ+6iBz3a5RUymB1VzhkuLsdy+ovBWln3zxcHXjLQ5XeT3xybPE+X73HeAiIAwz+aXQE6uq1lze7BO7F1RcbIyZYYWx5hdyU2C327HMRvOACvI0bef2XTMn/ZacII8PsNH0FrhPE3ujJOGt+Dj3bY5s9AfoDngl7ltkjlQpylZrU0JRLiowS9xf/CREgvjZVUVHmfhD22BsKYHQ4Ng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FY2yBPWJ/SSa1fnuvJSeQxZ4I0QSye8JRkKFUXUD8Gs=;
- b=jYKt2//Dd6P/FZdYlTi3swFeDLJUREeAJOBUn9qznQvfwdF/Xn+0C5lZGbd7KjxHHUdLKV81uBOTeRiOJHc7ElFUTtGysyIqBWR+NYryGdT6sPbFE9S62JBBLMj3izlgJQ8C0DxHAvD21fN3Vt4gohwcr49dlmV2D7T+45pPlRzC3rD+i3S8BRCabt9wK8APKsTTSV8xHge3NucWtPbgWtSgfC9HIjVTnSWsE8K2HfYz1VWtJIavSnVo8TkQGy8dXzIHUB8SiQcw+/vbZAJ6YD/RONCvN+PMqv0TXOtxmJZxqbmxBFNTasqHTrq8ESO4pHMsyUGfAG25Q8xWZ5CAaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FY2yBPWJ/SSa1fnuvJSeQxZ4I0QSye8JRkKFUXUD8Gs=;
- b=I2+FdB92W3HXgQkYlAgEVIDrNwiurpPyY73BbThd7nRuNniMC7Q/iE5LqjFIBmE0Eoa1Hx8gPFe/mnXCoKYzIetdPHN6PhjlVPHg+yDuOqe31JU6dD6N6EptXOZWk7fXpDC2SsvuQVYdjUan8oaGbD+Xk38qewc13ox8J05/IcM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB9075.namprd12.prod.outlook.com (2603:10b6:510:2f0::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Thu, 5 Feb
- 2026 10:10:02 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9587.013; Thu, 5 Feb 2026
- 10:10:01 +0000
-Message-ID: <3d834539-3796-409a-9126-d8a7b9226aff@amd.com>
-Date: Thu, 5 Feb 2026 11:09:58 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/gem: add drm_gem_objects_lookup_safe() helper
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: Tvrtko Ursulin <tursulin@ursulin.net>, amd-gfx@lists.freedesktop.org
-References: <20260205095957.278704-1-srinivasan.shanmugam@amd.com>
- <20260205095957.278704-3-srinivasan.shanmugam@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260205095957.278704-3-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0075.namprd03.prod.outlook.com
- (2603:10b6:408:fc::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
+ [209.85.221.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F05C410E836
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Feb 2026 10:14:20 +0000 (UTC)
+Received: by mail-wr1-f67.google.com with SMTP id
+ ffacd0b85a97d-43591b55727so672477f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Feb 2026 02:14:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1770286459; x=1770891259; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=qv5KHcfq5S30T0y+CRGFGcHNUvWId5NpRiJLoLwW/Xg=;
+ b=otK/mxlsnLPnOUxF1eYFIPy33tSUTqdOXFtMid29ckOH6+HZStISRx2h8uuS665SNG
+ 5ERa02ppzQ6GDxJ6Wrsig+A8pVXqclnbiuooKB3qqMmTj0lwSme2VCtiHwz6I5/zm1xs
+ Lq+FkCrEgp7pSp2QirqpJZ1557p6eSlwqVhbH48cm5qNeBI6I4PPwZWKJzs7YSN9trvQ
+ HdJ1g38qbQKgS45wfcc9/0pAizCgOcQJ1mQOQekKdySF8bY1wQyjtQD9CkOwXEqYGCHE
+ 4gNPudXrrNIljw2UVNQS5J+Z1xCdiJmqFPGlepX3EFotqwIf3UGRED+wxig0r/EAWnjO
+ LxAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770286459; x=1770891259;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=qv5KHcfq5S30T0y+CRGFGcHNUvWId5NpRiJLoLwW/Xg=;
+ b=bIABos6TZSHXf5ecwBfQHhuCI4WxMOaAgiwwzqw9ln7m2lKXTRZm0MHAgdd4iI26dA
+ FrT/pRiwVdoPrJ0//LGXsJojF92aq6Z7YDgs2LvMmWIlMnpIRygkFbDxihXXCQ8C/Nyn
+ kPWI+5KkaIJJoYhN2FAfh6dbMPTUSiXEvag2kcpI0mxuFBGyMX7Xkjp5A0QC1mcU9Xuv
+ +iHKI8oxmELcMAGAZYHyJqdQUNdubWhF5g1FVQs6ALtT9MpQbk6YvZsr013qPC/1FofL
+ /YLUgvu6wT0aWwJRtpBNYH5lVWlmoeHZthpy8IdoyXyc0992mQMZ+OFDyPE/LxqNVYVB
+ odRw==
+X-Gm-Message-State: AOJu0YzFSQvyS2p2yNoz6j3M8h7mj8dtiOs0rFfCnUFRUopNAUFvNse5
+ iLYiIUfOx+3wdF9m8SyUqMQ3szHMKRtdljgb6hUT877BlwkKUF15DckJDjwxJNDjs3Q=
+X-Gm-Gg: AZuq6aKWI1cPW2iueXJ4Cqcda/EaVbOUaZdljzgYaZ4eECSm9v+RyCTgT8NPSxryJel
+ UKPWGTD12yVqpbXKWWgmz+gYjGn+3MFZ1I3EvxcGNPeOMwf0CkHCJGHmIo86XkDCaZEcP4KOk7a
+ GZanZkfu66gmW+oqoQ61oa2lGKpaRLBetinYv8EYlRl0VIjgZ55+MJrpCPhwlrU776hN7kX1V6r
+ Fq+j6sjLSHsHQv+t+B5pAeIeyfjNAQPxnqJFZZy5ewnDSwibDyTpqYpltgxBPaASp7EHgigjjeV
+ XwF5LBKZ+X1RVVfPFVqcXgrAj2alb17kQmPg6jiw2Gk5HAwBO9PjnKs38WkSVc2IW78cgUEOxZH
+ rNGbIQ5qieoHqcAXWFQLUdrIxm3VSZBYjG38ql2CZe+zfWkDsIzhjLN7zfhp/M6l6lDPbBIkfYb
+ gG2iDtrNbyZVkKF78u7urs6EeMkmfV2ZOY
+X-Received: by 2002:a05:6000:4013:b0:435:9770:9ec8 with SMTP id
+ ffacd0b85a97d-43618056b94mr8962629f8f.32.1770286459436; 
+ Thu, 05 Feb 2026 02:14:19 -0800 (PST)
+Received: from [192.168.0.101] ([90.240.106.137])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43617e38ec5sm13661516f8f.14.2026.02.05.02.14.18
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Feb 2026 02:14:19 -0800 (PST)
+Message-ID: <3ce5fa45-380f-48d8-877a-4d2d5f3d5643@ursulin.net>
+Date: Thu, 5 Feb 2026 10:14:18 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB9075:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7cd9313d-05ce-4e15-a178-08de649eb9b0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eEtuU25qWmhDK3JJa3pCZmZhTmNvVnFUSzhBanJVOTZDVW9VZTZlNS9CVUpF?=
- =?utf-8?B?dmxkMGNpVENpdzZ0c2FFZnVQZGFGRjJoK0kvMUxGZ2hST0thb3BLaERhSUo0?=
- =?utf-8?B?QnBUODZQUUI3aCtFYXhWcWZ1SkowWWJJQzBEVlNkaHRkZ1hsejkxVU5xcHVC?=
- =?utf-8?B?cWVtUWZJQld4NzJBbG1HZTM2OGpsb2prTE9XdVdmbzNha1pLK3hRa05vdGxM?=
- =?utf-8?B?OFIyeXEvYk1mdTltbWFHOGRaSnErQSsycG9XdGV0NVVWc3lwOUNzWW9RbUlK?=
- =?utf-8?B?Qy9YeElpVkZlTkM2VGpRSngxdTVVWnlFNVZkeFc0dzFudVpteGswM1R6Z0RS?=
- =?utf-8?B?NHFwSWdsazhHeklVeTlPcFJxRmorQnRKWWZtWG00Q0tORVBBalBLYTBoZ1pB?=
- =?utf-8?B?SlJybGRjVzdCWHRnblk2UFQ5TnhFcy9nbzdZWW9idWppem9vTlJxUFZONFV1?=
- =?utf-8?B?ZGtqVUZiZHZIaURQaHYxSGxYalJrb3JERFpVYlA1UlZERi9EalZNZE5WcnBi?=
- =?utf-8?B?S3dkbmtxMjRsUTRocVJjWXM3UWord3VKZzVieU5QejdiTGFEbThxZU5ybllT?=
- =?utf-8?B?amdaR0VIZDF0cDk4TFAzbElVN205ZkpsTldWZGJJeThXK0ZFdWRFOUIvYVhK?=
- =?utf-8?B?Qmp0QjVoeG1hSVE1d043RnJhMk1lZ2k4RlEzM2FZS2dOYU9qU1Ezemc1L2xD?=
- =?utf-8?B?RnVnRUp5eUJKaEsrTERaRUJaTTVzRVBqcm9oTEE3OTlCNm9RbjRUNDdFeU1E?=
- =?utf-8?B?SThTN3FVRStjMTdxejFrN1lnRFN0cHd3bGduNWhNMTU5cEF3bEwvRDd1VEhN?=
- =?utf-8?B?ZkxrYnpVUWVaNWFndklMMkkrVjdURElhaTMzMUJwKy96eDRNazBVQWttdndS?=
- =?utf-8?B?R0szY2RwM0FJWllkN2VMMmRzQUZEN0VOb2p4NDZaejlKN05OM3dJSlRUZHNx?=
- =?utf-8?B?VW93VmxpcnUyL2tsRy9WZEFJV25CZXR3c0MyOW85Ym1ZWm9XTlBuYklmZGJW?=
- =?utf-8?B?TllvQmV4RldvU1JtSStqSldPZ09uU3FEUHJ0V0kvbDVhemNxUTdpUmhSQkZz?=
- =?utf-8?B?VFA3K2k2dmZoVFJFVDV1V3laSThwcHJoTEhDZm0vYXo3TXJFcVFXYVhaMVJR?=
- =?utf-8?B?U2ViU013ejBNOFF6clFtRVBOblBpenN0RGl5aDBBS3JxUTUyNHFEdG90Ujlx?=
- =?utf-8?B?WmJLc0U4V3VqMjMwaTVTNVR5aEhkZmQ0Y0FzWmhBYmRLaDJKSmFsRlR5ZS8y?=
- =?utf-8?B?QWZrTC8vbVpPWjdmRDFpbGRTWXY0Q2hjNlRtMXFXSUkyeURLN3Fzb0l5K3lk?=
- =?utf-8?B?ak1NVzgvNHVSNzFleUUwaXJNTEx5NzI4Umh2dkh6VUlpRkZ6T0VHeml3aE1i?=
- =?utf-8?B?am9sYktmZFN4andQa2p3NThLNUdPL3FiZ3hJWGtvRTBRNDh1cFRpckpGUjJw?=
- =?utf-8?B?c1lycUxKV1lpQUR6WXI5RVpLNFNLRkNPcEZweTROMHdJV01SbFBiV21EWW16?=
- =?utf-8?B?ZVk2YlhDOHhyNUFKamEzQmFsVFp5cjRISG10MldBL0Q0SHJsMTJHNU9nRjBu?=
- =?utf-8?B?TlZaV1NwZkxYM0MxaEU1elJLZ1lJb1RQUFRzMGRpL2VFWTdweTJiWXRrOWtZ?=
- =?utf-8?B?ZDE5bGtZQVJsbk1ONjQyRUNUdzlZNWRVVjNTbDNPVEFKaTNXM3FISVNHNWtR?=
- =?utf-8?B?RUd2dHBoeTdpdlBqbW5GZ3BoSEkyVkxkM2hGRi9HOWtRVmJTY0l4WFBlZEM5?=
- =?utf-8?B?Ynh4NGRLVVpCZzBrd2pqSDdaTFl2SEsyYnFCbDVOcU0vN2xBcWhDTmx3anpI?=
- =?utf-8?B?ZUJ3N2dRTFRkZmM2WEQxbGZEN2JmOVFmTVQ0UjI1bFN4ZDdaUGZtOEU4Y1VR?=
- =?utf-8?B?c0dZV0hKdXBsSmxYMnltMHVCVnl5K29KRWJ1L2FNcHZ0RDFpbGZtTytmUitH?=
- =?utf-8?B?eTBZcHRpaTUvQ3YvZEw0UWdXcDRMOGhOMk44MGlEaVpMak41SmtGZ3lkT3Rv?=
- =?utf-8?B?aVA0ZjdEdFJVVkVTc3h6MEowUUJrWTlWcmdaTjYraG9zbGZGZHplMzdFRHVa?=
- =?utf-8?B?aFlnMy9QWnRrZVYrQXlhUyt5MS9kWkJRZjFCeVVveDZCVlR5M2Rjenp2OUVs?=
- =?utf-8?Q?iQlY=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L3JQdlpVMDhXVkVHaW1XNkpNZzdHN3p0SGZIL3VXU0tSYVBUV2lRRG1TK2ph?=
- =?utf-8?B?NHY4Mm1SSlFuckdrQmlyRkN1UHlMNTE2Q1JTc3RpK2dFaW9lSXo2QWVNd3Q1?=
- =?utf-8?B?dFFxcWlKeHRQWk4xSFROeXFwcTZISFNadWJUTUo0bGk2cUk5TTl3VmVXY05F?=
- =?utf-8?B?MmVNRS9oZkVIVElTc21ybEo1anZxelBNdVNKODlIOG1kamYzL0g4eC9Rd3pI?=
- =?utf-8?B?dGF5clhabE93Ym12QWJ2T2hocWxTZnhFZmN5VTd3aHNxVjhOdGV3MkRQYXF3?=
- =?utf-8?B?a0k1Qkw0aUh3eE9vMkVVQjVyaXZSQWxZUUFPK1E0U2xJcHdWTGVvajVnVjFl?=
- =?utf-8?B?aUxVZkZnMUlVN0tKc1NOVWgrWXBQODlTOW42eXJDdGlHRElTMFRqTXI0ZHpx?=
- =?utf-8?B?YUkrZ3RaMGNzWGlpdkhzUnQxSlhtYWJKS1JOTkhTZlRIbVFOT0ZwMjlNcmV4?=
- =?utf-8?B?eW1tMzBLRjJOY1N3WEY2REpuM1BFc0ttSG1xdGRpWWdUTkl3NmViQUdiNHBX?=
- =?utf-8?B?ekdHeERieGlPNlh3TUlLMGFnb2U5cGdZSkdENFVpaWJNbTkyeWJpclU1Skgy?=
- =?utf-8?B?UjlFTldXeFRVMXpMd2tQRmNXZmd2b0Y0WjN6ejZjTnZlY1BXR1NLWDl3ZHR0?=
- =?utf-8?B?Wml3QW9aOXl2OWpRaG5zMkhQMnBhdE5IMTR5VHBVaFp0aFBwRVp4ZkoxYkI0?=
- =?utf-8?B?azhKM1ZzZXgrY3I0MlhQcUxpT0Y5ajBORThwKzYxM0VrNHlMcjh4dlFuRkdK?=
- =?utf-8?B?UmIxNkE5SlRLcENnV1ZjdFU5ekd4TDRBRkJxR3UrZXJXbmNlNmU0NzBXckNx?=
- =?utf-8?B?U2R2UGFvVzI2bHNscFNoTVd0RW5LS2R6QjhYdGRwWmltQXk0aWMzSjM3U09W?=
- =?utf-8?B?Szc4V1dzL0pCeTh2NnBQUDJUMmVSM3NjZGNmV1JJUEpLczFNcVNRTXpoUUt5?=
- =?utf-8?B?NDdDTUhMTDNOWG1lNXRIdy9YQ0d6bXN1a1lGYmc5cUNoUy9oLzdvMm5qY1RO?=
- =?utf-8?B?VkQ0a1lKS3ZxZUtTSjd6RjhlcnRiRnJJajdYeFFHSnVYbE54a1ViVjlSVWRZ?=
- =?utf-8?B?dTdDd3d1anJEOEFnUHNDNkRUdC9NS2M2alNiK3BTdkZNNERwVjRILy9sc3RS?=
- =?utf-8?B?d2hXZVBib09CajhaSnBDVUxqcnZncnpKREZzRVZWckRxQkwzc3pMaUk2dGFL?=
- =?utf-8?B?WWpIeWdxVmlZRkQ4V2dJNnRCbDdPVWZ6TFd3ZEJoaEZxTzh6Rlh2N3ZYWXlG?=
- =?utf-8?B?ZDg5UWsyeU9mUlRzM3hqRzZWK0JZajYzb3RCSDRkeEp2STh5UTU0cDBZZ1JE?=
- =?utf-8?B?V1htUGRqeG1YcytRRk1zYUhXYlJSakJYRUxSUGErYjR6S0szc0VYQ1Rvb2ZQ?=
- =?utf-8?B?ejE2SW1kUVM3ZDZ1RGU3czRjQ1lqQVUzSUpSc29ObTczMkZGbzZyVDFIby9j?=
- =?utf-8?B?eEwvWWhSaUFOMERoTmVSZEszZ003RzdPWWx4Yy9QNHBQVXE5WXN4ank5UHk0?=
- =?utf-8?B?REw2bjl3YTFNMnlZWCtic0tnYWdMSmhRa0ZNQWJiWTczWk1WQVJQb0lMUWJv?=
- =?utf-8?B?TW9GbEdvclhjOCsvb2ZIZ1lBQkdYOHZMSDVwbzNhL0NUdWd3dU1ZcGR2MGFj?=
- =?utf-8?B?Nm1zNXM5a0xNdWYxeG1LWUZWbEtxM1hxS3VlSy82Qzg4eFNpWnhBVFk2SHFn?=
- =?utf-8?B?RWhNUnhRU0YxclZTUFhBeUFwd1prellRc1NmZk82NkRBRUlZb1VvbTVRRnNE?=
- =?utf-8?B?aDdZamR3VkgwTlZFNHZSUmlkSHZrYUlxQXVBWkY5VW82bWN2dytqVWQxNUk1?=
- =?utf-8?B?eXAzT3U2cERmSWJNSHl5UlB0TXdMR0wveEcvOHF2ZzY0N05NZjNMRThRUFZP?=
- =?utf-8?B?V2ZERExCbDlJWVJVbUJyQjdNZEoxQXVNbXYram1ZT1gvOC9GM1k5T1ppaFg2?=
- =?utf-8?B?MllONlhOWDlUUGtYYkF2L3k3RzNwQ2ExeWV4RVJMSTdraXBGRXVjL3JYU2VB?=
- =?utf-8?B?Yk45ZThLcXFLTWZXL0ZNWC9JcHowTElldCtYaWhMZ1Q4cUdBTURvWGVrRUdQ?=
- =?utf-8?B?MjNvaHJWN2FoZERmTFVmRXk3UndyMmFzUFAyYTVYTWxyLzE0Rnd1N2tXaDlV?=
- =?utf-8?B?ZWo4OWxMeW9NTHlvRzd3S0tMSGxwVnYwRmk2Z1hOb0h0RVArcFQ0anNhRUFN?=
- =?utf-8?B?K2NoTUd2VHJwdHAwclpBaEhXT3I4NWFTeEhDMDB6aEtCQTY5S2hqVlZjQnYz?=
- =?utf-8?B?dzJCQ29xc3Z3cC91cm85bFVPRTNsZEtIS0tUaC9sUGw2SEtvR0RRUDNmaXNY?=
- =?utf-8?Q?drb+B4y5NsR9kyfdC/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cd9313d-05ce-4e15-a178-08de649eb9b0
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2026 10:10:01.7802 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N9W5vo5Q3ghAf0I5bcz2TlWun1H4O9dBbCPYD2RRaCi29hvRskLSN0n8rYkRsP/0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9075
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/gem: Document drm_gem_objects_lookup() failure
+ semantics
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20260205095957.278704-1-srinivasan.shanmugam@amd.com>
+ <20260205095957.278704-2-srinivasan.shanmugam@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <20260205095957.278704-2-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,109 +92,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/5/26 10:59, Srinivasan Shanmugam wrote:
-> drm_gem_objects_lookup() may allocate the output array and acquire
-> references on GEM objects before returning an error. This requires
-> callers to handle partial cleanup correctly, which is not obvious and
-> easy to get wrong.
+
+On 05/02/2026 09:59, Srinivasan Shanmugam wrote:
+> drm_gem_objects_lookup() allocates the output array and may acquire
+> references on GEM objects before returning an error. In such cases the
+> array can be partially populated and relies on zero-initialization to
+> indicate which entries are valid.
 > 
-> Introduce drm_gem_objects_lookup_safe(), a wrapper helper that
-> guarantees cleanup on failure. If lookup fails, the helper drops any
-> acquired object references, frees the array, and sets the output pointer
-> to NULL.
+> This behavior is relied upon by existing callers, but is not documented
+> and can be easily misunderstood as automatic cleanup on failure.
 > 
-> This provides a safer alternative for new and fragile call sites without
-> changing the behavior of drm_gem_objects_lookup() or affecting existing
-> callers.
+> Clarify the lifetime and error-handling semantics in the kerneldoc:
+> callers must drop any non-NULL object references and free the array even
+> when the function returns an error.
+> 
+> This is a documentation-only change and does not alter existing
+> behavior.
 > 
 > Cc: Alex Deucher <alexander.deucher@amd.com>
 > Suggested-by: Christian König <christian.koenig@amd.com>
 > Suggested-by: Tvrtko Ursulin <tursulin@ursulin.net>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> Change-Id: I553551dd1e7aadf1b2a477eaf19ce9c80b2ce2ea
+> Change-Id: I2d1bdf3f319d841cb548cedc7b699bab9efeeed9
 > ---
->  drivers/gpu/drm/drm_gem.c | 48 +++++++++++++++++++++++++++++++++++++++
->  include/drm/drm_gem.h     |  2 ++
->  2 files changed, 50 insertions(+)
+>   drivers/gpu/drm/drm_gem.c | 20 ++++++++++++++++----
+>   1 file changed, 16 insertions(+), 4 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 0f8013b9377e..f1d13700a62c 100644
+> index a1a9c828938b..0f8013b9377e 100644
 > --- a/drivers/gpu/drm/drm_gem.c
 > +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -830,6 +830,54 @@ int drm_gem_objects_lookup(struct drm_file *filp, void __user *bo_handles,
->  }
->  EXPORT_SYMBOL(drm_gem_objects_lookup);
->  
-> +/**
-> + * drm_gem_objects_lookup_safe - look up GEM objects from an array of handles with failure cleanup
-> + * @filp: DRM file private data
-> + * @bo_handles: user pointer to array of userspace handles
-> + * @count: size of handle array
-> + * @objs_out: returned pointer to array of drm_gem_object pointers
-> + *
-> + * Wrapper around drm_gem_objects_lookup() that guarantees cleanup on failure.
-> + *
+> @@ -775,10 +775,22 @@ static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
+>    * For a single handle lookup, use drm_gem_object_lookup().
+>    *
+>    * Returns:
+> - * @objs filled in with GEM object pointers. Returned GEM objects need to be
+> - * released with drm_gem_object_put(). -ENOENT is returned on a lookup
+> - * failure. 0 is returned on success.
+> - *
 > + * On success, *@objs_out is set to an allocated array of @count pointers
-> + * containing GEM objects. The caller must drop references with
+> + * containing GEM objects. The caller must drop the references with
 > + * drm_gem_object_put() and free the array with kvfree().
 > + *
-> + * On failure, this helper will drm_gem_object_put() any successfully looked up
-> + * objects, free the array, and set *@objs_out to NULL.
+> + * Error handling and lifetime:
+> + * drm_gem_objects_lookup() may allocate *@objs_out and acquire references on
+> + * some objects before returning an error (e.g. copy_from_user() failure or
+> + * a missing handle part-way through the lookup).
 > + *
-> + * Returns:
-> + * 0 on success or a negative error code on failure.
-> + */
-> +int drm_gem_objects_lookup_safe(struct drm_file *filp, void __user *bo_handles,
-> +				int count, struct drm_gem_object ***objs_out)
-> +{
-> +	struct drm_gem_object **objs;
-> +	int ret, i;
-> +
-> +	/* Ensure callers never see stale pointers on failure. */
-> +	*objs_out = NULL;
-> +
-> +	ret = drm_gem_objects_lookup(filp, bo_handles, count, objs_out);
-> +	if (!ret)
-> +		return 0;
-> +
-> +	objs = *objs_out;
-> +	if (!objs)
-> +		return ret;
-> +
-> +	for (i = 0; i < count; i++) {
-> +		if (objs[i])
-> +			drm_gem_object_put(objs[i]);
-> +	}
-> +
-> +	kvfree(objs);
-> +	*objs_out = NULL;
+> + * In that case *@objs_out may be non-NULL and partially populated. The array
+> + * is allocated zeroed, so unfilled entries are NULL. The caller must:
+> + *   - drm_gem_object_put() any non-NULL entries in *@objs_out, and
+> + *   - kvfree() the array itself.
+> + *
+> + * Callers that want automatic cleanup on failure should use
+> + * drm_gem_objects_lookup_safe().
 
-I see the point with the existing error handling now, but that is clearly really fragile.
+Strictly speaking drm_gem_objects_lookup_safe() does not exist yet so 
+ideally you would add this paragraph in the following patch.
 
-I would clearly prefer that when something unforeseen happens that we drop the GEM reference to the already looked up objects inside the function and also cleanup the objs_out pointer by freeing it and setting it to NULL.
+Otherwise LGTM.
+
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
 Regards,
-Christian.
 
-> +
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(drm_gem_objects_lookup_safe);
-> +
->  /**
->   * drm_gem_object_lookup - look up a GEM object from its handle
->   * @filp: DRM file private date
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 8d48d2af2649..7decce2fdef7 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -561,6 +561,8 @@ void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map);
->  
->  int drm_gem_objects_lookup(struct drm_file *filp, void __user *bo_handles,
->  			   int count, struct drm_gem_object ***objs_out);
-> +int drm_gem_objects_lookup_safe(struct drm_file *filp, void __user *bo_handles,
-> +				int count, struct drm_gem_object ***objs_out);
->  struct drm_gem_object *drm_gem_object_lookup(struct drm_file *filp, u32 handle);
->  long drm_gem_dma_resv_wait(struct drm_file *filep, u32 handle,
->  				    bool wait_all, unsigned long timeout);
+Tvrtko
+
+>    */
+>   int drm_gem_objects_lookup(struct drm_file *filp, void __user *bo_handles,
+>   			   int count, struct drm_gem_object ***objs_out)
 
