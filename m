@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83BB6EC1E89
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 10:00:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49050EC1E8F
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 10:00:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C6110E871;
-	Thu,  5 Feb 2026 10:00:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E21A10E874;
+	Thu,  5 Feb 2026 10:00:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fW3ySjxd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nvKaHr66";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012028.outbound.protection.outlook.com
- [40.93.195.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D2DE510E871
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Feb 2026 10:00:27 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012042.outbound.protection.outlook.com [52.101.53.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A577F10E874
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Feb 2026 10:00:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r8bacWnI3N9YRDkkYGPLbr/u5yfdSe4JauCuez6Ncz6o3j9uyBcdDuhNCr2HIoXcuLeaFAtbSgJAzPosrDW/07UyvgKzQs7/9lsSM0I9kI7jjnGHK/OD6E74SP5jzT5kLRwpCGGsWNfZdogQsJuSBJzYEAwTqNj4patpbXGAehIMcZp+/KP578F0OxVS6YkaIxZzGx+xa1g9JMqJM6PQiUfEMNbWB9Y1cO87loQBpPrt3gG6FCavbEUDJMdI7xzVIEIbx3VZ4AtJ6Y3OtcSh1AZoD7Dk2PFv/E8HajEciY7yLkdepuI6iTo/41kea3nxStX/AfAIXpamSJZwLKyWQw==
+ b=wFAUL9iicfJK+i1q2oFIp1A1lZTHqSqAKuSEIK/2tsNtqRkgbAOpfqsG+9GAo+Ae2VVaelOrjA0riGUDOfNGwENUS8ElGV6xK7sHLfDo6fCTY6Y5VvNuuEx51euxcUtnftENcKXO8tm7tBUzxI68WYklYDDlq8sS0gH3t1oGJarHhxo2zr2Y37oPLyTIxS2mKDetH5k87ZxeJp5RH4aqQ1uc1mArNj6Wwoc1FrlPbSUcaBGLvmbc2Dan/kNcy5sUtQmMDRo6gigwiTlDubHcZo5f+rzsCM0j/Trjr21ObAooz3W54j3yHMGsQ5v+wrkctSj6PCHhILu1vYIyBoETdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tG0PV2IEYuMvIy6aH3fPjsDDwrNVA8zNBz1+yfdCpU4=;
- b=cX4BiDQpA7XZyzqh7rEhghP1B4Y/HoQMLIGimfAE+xHM29CTW4y3y1DhkaGAZ8EKLQjvDQLpbnwled5CspVhyql2Q1trK2hJndM+1tM9nxV/pBa94+j37Ejw3/m53ZVp2Eg094gIFIkgp2nTFbxYTmLLGdsN2yLNK/wfYo3pwW6sOjwA/t1Svmu46ZoDoC/VPnxVP0TXsAZXnd/CuQOR1l7oEOuA1YKIxZ+2MKVdUgwLYvyBcOG4eiNlM0wGDraZBOf5j9iOTpmYCYYKBMsHs6ThnxjDtSmKerc87BK8dncKCAiZjA5NCuUH5loL0KOdoKE7jgNTjfeQLJf6N99MPQ==
+ bh=UNJ1/z+4TiQdLxfyguQAixbohdh0S7eFTBPLkQ+yaec=;
+ b=bEJyt/M+yp3zqxIfbjPpkeIvJxxAjF5ZV96LVVWLBi5J/XhYXKvyk49r3LxbLnXD18Py5LA707xAwm2wjAqEu1EdbDlyQ0Sxd8qrSLywJ5Tm1KLp4mVvXZ+GaufyqpHanRxftacOrAk+ntkh2wRQ+r9gnNqm2ZO6/pAsFXLBkhdwrPvVnZrXa0bW7PnFhYMKn3oQzUNYd2CHu7HaNucJaLpvnJ3NdTgdhiaGhps/z7LC/I8Ih76t2MNKCS4q0uLcgsDwARbCbwmNRxVijGXJcYUzhfEIFd3ahKmnbomPHMjeKJh+bYyTUAIRV0fSEbklRCrs0t5+0ApAd5I7um5eFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=ursulin.net smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tG0PV2IEYuMvIy6aH3fPjsDDwrNVA8zNBz1+yfdCpU4=;
- b=fW3ySjxdwQEhyYr0QilwumNeEaK1bQo96b6f0ULQgk8A4cMBnkj5u8GohBLjnjuLQBYsmJQvXD2Vh68J5l1SUsQCPTIqXAV3ybFgHWRBRk1Jw2dfmeo5siyINA5yiDFl4qTDJcbV05dL3YNEJhUxC9ney+Z65gCg7QwBNz/jwdU=
-Received: from MN0PR02CA0007.namprd02.prod.outlook.com (2603:10b6:208:530::15)
- by LV2PR12MB5919.namprd12.prod.outlook.com (2603:10b6:408:173::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.12; Thu, 5 Feb
- 2026 10:00:22 +0000
-Received: from MN1PEPF0000F0DE.namprd04.prod.outlook.com
- (2603:10b6:208:530:cafe::dc) by MN0PR02CA0007.outlook.office365.com
- (2603:10b6:208:530::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.15 via Frontend Transport; Thu,
- 5 Feb 2026 10:00:18 +0000
+ bh=UNJ1/z+4TiQdLxfyguQAixbohdh0S7eFTBPLkQ+yaec=;
+ b=nvKaHr66aLK+dckK1UspEtXZqYLxyy0khsk/57KnuJPTU6NWImWuctLA0C1UpvsRZWLZlFEYgVP9AOuBc2i3RfLzfyX1SNGP0DJ1OmhnEtpnBNf7uAJXojtQKxyQUUP1Hin0EzoZyMnFYQPAu85lZnzhmCCYwkaULr51DUZN1xM=
+Received: from MN2PR01CA0043.prod.exchangelabs.com (2603:10b6:208:23f::12) by
+ BY5PR12MB4035.namprd12.prod.outlook.com (2603:10b6:a03:206::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.14; Thu, 5 Feb
+ 2026 10:00:25 +0000
+Received: from MN1PEPF0000F0E4.namprd04.prod.outlook.com
+ (2603:10b6:208:23f:cafe::14) by MN2PR01CA0043.outlook.office365.com
+ (2603:10b6:208:23f::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.14 via Frontend Transport; Thu,
+ 5 Feb 2026 10:00:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,22 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000F0DE.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ MN1PEPF0000F0E4.mail.protection.outlook.com (10.167.242.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.10 via Frontend Transport; Thu, 5 Feb 2026 10:00:22 +0000
+ 15.20.9587.10 via Frontend Transport; Thu, 5 Feb 2026 10:00:24 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 5 Feb 2026 04:00:20 -0600
+ 15.2.2562.17; Thu, 5 Feb 2026 04:00:22 -0600
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
 CC: Tvrtko Ursulin <tursulin@ursulin.net>, <amd-gfx@lists.freedesktop.org>,
  Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Subject: [PATCH 1/2] drm/gem: Document drm_gem_objects_lookup() failure
- semantics
-Date: Thu, 5 Feb 2026 15:29:56 +0530
-Message-ID: <20260205095957.278704-2-srinivasan.shanmugam@amd.com>
+Subject: [PATCH 2/2] drm/gem: add drm_gem_objects_lookup_safe() helper
+Date: Thu, 5 Feb 2026 15:29:57 +0530
+Message-ID: <20260205095957.278704-3-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260205095957.278704-1-srinivasan.shanmugam@amd.com>
 References: <20260205095957.278704-1-srinivasan.shanmugam@amd.com>
@@ -76,66 +74,66 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|LV2PR12MB5919:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68086668-562b-46e1-da06-08de649d6069
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E4:EE_|BY5PR12MB4035:EE_
+X-MS-Office365-Filtering-Correlation-Id: c3e75439-9b2b-4d22-d42f-08de649d61ef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dUQxZzM3alo2Tm92bWtLR0djUXBwZTlzejZucS8xcksxMDdGbFhOVW1zb1pK?=
- =?utf-8?B?b2NZQkZIbmlrU3hHQTVGZzBuOVdpY1VaRE90aVRtZ2RPT09vMGpISUhmcVFO?=
- =?utf-8?B?bWUxWkRXN0VuOGV5QmNSNEdDa0ZBZzZTak5ZQ0diMXQzcnFMZTlwSFRNWDBn?=
- =?utf-8?B?Nk5MT082bk5VM1NiOTMwMFB3dEpUK3VQci82Q0hDbUd1dk1yeTdnV1RKMUh0?=
- =?utf-8?B?MHY0ZmgrZ3VuNGljcXlqaTltTmRDRkJCQTdpVG1rUXdZQVRZRzBYTkdvenRX?=
- =?utf-8?B?OGJWREVlY1RmRWlIQnZBYTF3aGhSN1RGVjZ2eVRheWZpaXJJUW9FZ3ExTW1x?=
- =?utf-8?B?ZU1OV2pSL280Rll5bU1CUFUwdWZocHlYMnhoeHh5dkg1ZXZyQ2l1L3FwVmpH?=
- =?utf-8?B?VDdNc0pKcTdtR2JNT28xYjhsUlhyRnZZeXB2a1pYbWxZRGVKOUpURXFHeGVQ?=
- =?utf-8?B?amdMeUk1alN2Q00xNGw4cDloZDVzOENSa1J2RWJxdVBCQ0JpeVVlTUVrbE5X?=
- =?utf-8?B?WkZnN256NGdlRFdvNlBVV0pUWUdmVVZMMTZ6cEx2YXV1eHFwUUVvdXB0eVZR?=
- =?utf-8?B?dDM5b0ZKaVJGR3cwUDRHSzJuLzF4dDN1NWtyUU5tY1ZGQVFNTnZWeC9pZzV4?=
- =?utf-8?B?Zzd3bHFhakZyeHcrTXFadUh4dlpYZU9RdnFQdUJaRDhkditVUVB6ODhZT1ZP?=
- =?utf-8?B?NFRBM2g5ek1vVHk4Q0w0Q1Rpc2NrSHhoQmNIWXc3d3hlaUxlQmlLOVhzZG5K?=
- =?utf-8?B?VVBXcS9tMzlHblozSGJmQUtpdUpySGRjODhnTnBIVkpmTTV5UFpzb3dxMWha?=
- =?utf-8?B?dnEvYXh1blVGeHpIZ280dVVEZFhNNy92OTRjakpWN3NFTXVyMGhGeWVRaFVi?=
- =?utf-8?B?azQ4NVhYbURlTnowZ2tsZGZNeXRLR0lpSlgyS3lKanBPenk5eGV3QklUckc3?=
- =?utf-8?B?cFJRUkNlcVZMa0prZ2crT0dKM3FHUnZnZnVrVFZsR0txNTJRb0xxMjkzNVB6?=
- =?utf-8?B?bUxHTVk2VnI1alBqdE43TnhGNDFGWkh4ME5xR0VQMHUvWDkyQmZTYmFwTlor?=
- =?utf-8?B?RVJPWmY5cjFobkgrT3N0Yi9XOEdwbkZjN3BjNGdlM0xiUDJrZ1lESVBPMHpm?=
- =?utf-8?B?Y0dEbWhFZS9FamxkSVM3VEhtMVF0R0RqRW8wYnVWS0RMMWttbGhjQU1lenZo?=
- =?utf-8?B?MEs0eUh6RVNQaUZqd1Y1S1Y2S2R6SDNhY2E1cFVrOFovV0hsN0xYNjQxMWlh?=
- =?utf-8?B?Mi93c0ozVlhMdXBKM1lTL0lsN1dvOXJ1TVJ6ejZqdjJaa0gwVEFyZHNTNVE5?=
- =?utf-8?B?UWptNTdzQk9aYXNGOFVCZ3FZZXdJci8wZmhPYnd6UXlReUhwNWJtZnR6d1pN?=
- =?utf-8?B?ZVRwSm9IekMxRnZ4OFgvT05Fcm9iL0x4LzdNSW8ydU5xZGs1TFVBRnNBY1o0?=
- =?utf-8?B?UHFHM3ZqbG1vWWxuSGR2V3BLMTVKcy9RbEIyTWNkbVlQSTZ4dkszU2YrUjVo?=
- =?utf-8?B?TExPbVBPQy9yY3AzVWJ5UVdvVUpCeEVLTExad2hSOEpheHlXQzVVVjhLL2pl?=
- =?utf-8?B?alkxSURyRzBmR2hhN1h4TWpSSzlvbUxQMDczbXZLWktVVURnODhzSEVBbmhY?=
- =?utf-8?B?SGlkZEZHRDdMdEt3c1V4M1BMWW1BRnlLenpBMFRTUTJuMm9sWXZFWDRYaFdV?=
- =?utf-8?B?TWx6MGZwc0FueWcwWElnZnRFWWVPbVBqOEdhdkdhdW1WTnpEcEt2TmxXbTdi?=
- =?utf-8?B?Slpsbnl3Sys5ekZqSEpxYlhZOEIzTEZ2VkM0S0JVZ3BucERNY1JQQWZLRnZ6?=
- =?utf-8?B?VE9LVzRFSlZhTllHaWllNGZTOFNVdWlsOVk3MHovaFM3RUJGclV6VFQvbFlU?=
- =?utf-8?B?V1o2dU93ajE0TElCTG1pdnYwR3V4ZUo1YVpwUzNOS0RHRGxnWENnQUtZUkZG?=
- =?utf-8?B?c1F5aXlKSVRrcFNkUGFUN29DK0VHdHlPeWZLZDhPdDd2anJyaFBWYTFsMitw?=
- =?utf-8?B?TElRUW05VXdOOXlENitxVytraDBpMk9NTkNLMlZZa21Wd2FHVUYzdHk5UzJm?=
- =?utf-8?B?L0ppbzZjNVdXRnRPam9DNXBOckNuSjVLU3VTK0paYzJlcGp6cVA5NUMzTkFq?=
- =?utf-8?B?RVJzSk9JTk5EL1lySGlzTjZlczAxVWRmV01OMlJGTENlbkYyVS9PVEI2WnQ0?=
- =?utf-8?B?MHZsQVI3dTBhOVJESm5RTDBDb1ltVVpIeXhISCt6SGFObXp6K3VKNkF4UFdh?=
- =?utf-8?B?UUpTenNlUUZaWGR3b085OUtHeHV3PT0=?=
+ ARA:13230040|1800799024|36860700013|82310400026|376014|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?dmJjZGRYV2FjTkVVbWhDT3FDV1NGSEFlZnBDU2syS3F2bEZxdFQ4dVE4cTZX?=
+ =?utf-8?B?NVpCMDZENU5hS3NIL1NZcGhrUTlRejhTbHlndUtOazVSMm9lTmhQMnZIM0g0?=
+ =?utf-8?B?NkRXd0NZNmFieFBVZStZZEhsRVJKY1h3bE8yT1BjWFBpbk84Wk1nQVhBRFNv?=
+ =?utf-8?B?Rnh4a05XV1k3dVhYaUhadFloTlNQa2JmUXV3bkR5clArZ2p4U1VtSWkzZjVt?=
+ =?utf-8?B?QktvK25Nb0FPVEFXczBnSWZVMUd1UFQxVWlXdWpTWmc1ZEQxT1FSUEtwMmFC?=
+ =?utf-8?B?cDNmcnFkbnE2RVVBSlVPdUtKbU5JZHFkQ1lpRUVTc3JtR1NnU0tWOS84dGhB?=
+ =?utf-8?B?eXg4blZJN05BM0xlcEdxRS9zMGV5WXJiY0dwV1VpMEpCbmZuK0JESS93UUJw?=
+ =?utf-8?B?TG83WVFXWXJTai9tQzJzeE15LzJ4YmxaZkFzeFdsVWRvZTU3YWJ4bktmU0FV?=
+ =?utf-8?B?YVpMSE1zdUMrYTFTb1dIVVlRV2xxNDU3VStoOU5Ea0hJbExHTlZqYTJpUkVE?=
+ =?utf-8?B?UkRaSmNFaUZTZVJzeEIwdFA2aFFFbVpDbmJRQ3NsV3A4eUZtamkzUzRJTUFz?=
+ =?utf-8?B?SHl2b0N1Ukp3Y3RkdUFGa0tqZTU3VzRLTXhMYUEwVkZGZTdxNWJsdEhkQnVD?=
+ =?utf-8?B?TEIrb0lES2JQZlozTkFHUnBFUEorNHAwWGNBZ0lVbmxpUm5QVTUxRUJ3R0pN?=
+ =?utf-8?B?S1p6RjNSNSswZmRuV3krS1RMV2t1dHpnaE4xU29SVlk2Nk5JckJwd0pDTXBy?=
+ =?utf-8?B?UVdkTlpXTGc3Y3FHR3JnWWxwWldFdzhicTJaY1JyYTJYU0U3djJCZnozUWRK?=
+ =?utf-8?B?b2ZsTlFRbHFJNHIvQ1JreUNBYVpSVkRRcFFFdE1EOGJPZDRqWFZjODRCUjRU?=
+ =?utf-8?B?dFMzdU53TmxnY1c1aTE1REhISTA5eUMyNk9ubVNicllKSytEZ3R2WnA0S2RY?=
+ =?utf-8?B?cTVKdjhPY2piWkJHZU1MTmV1OVZuak5Ccm9Sb0lTSVJPMEtxb2lsbVdnSWVq?=
+ =?utf-8?B?aXJ3WnVXTWMySzQ2MUJpcUFqR2xobFFORDRBZWZvVTl4Q2I1RUxWNjRxb09P?=
+ =?utf-8?B?Z0Rlay9rOFRHVS9qeTEwY09jWWI1cjhVRCt1anVOUlhRQzdEOGMvWjNSTkVq?=
+ =?utf-8?B?VHFDL045UHU2aTVPQ2lKVUNLTWdvNTNHczRuaFR1VFM1cjZGaVNxK0hmRXpY?=
+ =?utf-8?B?LzYwV2FmSUY0Vm1tOUkybUU5SjIwU3RsT2EwZlk3RlBFbldsV2hON0lxK1RU?=
+ =?utf-8?B?L1UrWndaNE9GVjQyWCt3dC8yMkxOcVF5OGorMVh0MEJqazdOMzRlODcyOVVF?=
+ =?utf-8?B?M1JCOUJIWUZjWENpamg0eEZubmNkc3pVNlZBM3V3R1ZVZmkreGxLVDZjRTJp?=
+ =?utf-8?B?MDVTdXFVOHFPejl6NUZ2Q08yRVFPOXNzTnNua3R0NDJYUU8rNVBxLzI5ZzJD?=
+ =?utf-8?B?NE1NZnlUckxZeElSSVpwRE00elVyazhWd05sVlZZZG1TOWU0QmxVRWNocTJ4?=
+ =?utf-8?B?b1Y4Q2hob0ZnREdvS3piajRXN3pCeXpYaGlYVDFuTGpGL0ZFUWxGaWczNTFT?=
+ =?utf-8?B?R0ZMVVpqeHdudGlqQndTVWlVeUlHeTV3SlkzWjgxTHZxRmlWT3lrdm9PTnpK?=
+ =?utf-8?B?WEN0M1hrZWw4MUNJOGdscys5c0pyLzFoM0FRQWdvRFRibENuOWxqeTB1N0s4?=
+ =?utf-8?B?cW90cUdOcjhVM1N3TTZBRU1BaWhGOGtZYXZ5Z3B3YjU2Q0lPenN4czM0aFNR?=
+ =?utf-8?B?TDlRSUF1OUlKR3RHbm1PekpNdVliTU5LOXJGbk1CSTRaSkxEaVp6MFVxVi94?=
+ =?utf-8?B?Ym9Ic2FrWlhseWJ1U2N1VEhkNDVFTVdrQmg3emJDQWVLbTRmQzNvQUt2UDd3?=
+ =?utf-8?B?N2NHd01tVlNkLzdjR1VEZFJUSWpRT1FuVEgzZHB2WlBjOTdvb0lFelBtbnRW?=
+ =?utf-8?B?TkY5V1dKektoOUtqTnNNVHFFWExOWVhBOWhIT0t1TXVEaEFseFg0dlJnRnZr?=
+ =?utf-8?B?RDg5MVppd2JxUG4wZ3IwMjdNYnhUQjMySkQyQ2tWVE1Kd0ZWT2dDSTFMUzU4?=
+ =?utf-8?B?NkpIZGlwd2RXUlI0S1BsdEZqakJKRld5NmgvMWUreDJEMGpPeTdycnRMT01O?=
+ =?utf-8?B?ZnVuZVRoWUxxSGNXaUs0clVNR3Jibi9CWG9MK0tQZmFyRFhad0FGN3pMMXdi?=
+ =?utf-8?B?R3h1TENDTGczZFJBM3lOc1NuK2JnSXBKY2N6bE4vSURXczVqT1JHeXhsZ0dl?=
+ =?utf-8?B?c1QzYlRlbHNPT3FvVkd0M09wUHpRPT0=?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026)(7053199007);
+ SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014)(7053199007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Xl4Ry5MBl5zjt46kYLbpIvsOsDtjSbpr6CQJxPrwUKzVsDO/Ib6qGFjfUPvZ43uInf7pau0lyWMSQIywXJfCNhKUx3xd73kimEcvlZhd11LbA+NEIgdDMbBz3r5Gm/FowC2Cl8bFe+qGKogJGl3++JfRKTtzeNEg8U7iI2hTwo0UgsvudUNiSMiUeawwc0Vg2y46TXUg9KkERyhlfHglvTdFtJI7yKjVSr34p0KP2VqHKP2VX2iIuaWHJKXMRxTi2mYf0p/tJTYsc444owyjZQv0IzPOMsqU/6yek+4HO2TkCIr9m42egT1wtuc1J+2qWQMGXajvTq1yyk0g6c343d9vzESQusuyyETGATESCeI0+FJr08sPnAxO6HRR00Cz93mQhCWZdfXDHmsZSK+/NPOApN0oBzZqjvhCFxyw/tMlQp6yA6DWK3cB4XsLnDky
+X-MS-Exchange-AntiSpam-MessageData-0: XLiHFW7881FNnxRo8zf+KIqM9ant7E/iosl3GJ3TOnIvRDG86NqLuZbavr13FxBeoUbOMf1cxLxjoAUFmNsljjfIRrRr9B+nUbGHzoi3h52/M6soesynFWgCOLxV5D6h/1kK1Fels/IaOwGKxgw7HQ9l8doVKq7h4gvRFLaHIEd/zU94fiqlItJJq+N50+vKVo0V/bTyU5kEhM0CI9KDvWJqBRL5R9BW3/RAeIP8qUSX38kqQkk0C9Tzo7NLLbL8LjiUfXiF7xwE9okTtgR/o6jY7fEqrDOPkH0MHoKiP1wc+9/0QRehVTFLfdCO5X41kKTy4HGOm70nzNEDikxDWQujpEJNJ7ysCmB4IZ+lPxnhKrRKCQimbZjGmi6VMQm/e39VdC1FmlUzSTmERgmBb3I0j9T7EPRoEclBRB/yO3YQRqgK380yS6FhhtoqqGXU
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2026 10:00:22.3022 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68086668-562b-46e1-da06-08de649d6069
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2026 10:00:24.8588 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3e75439-9b2b-4d22-d42f-08de649d61ef
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DE.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0E4.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5919
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4035
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,61 +148,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_gem_objects_lookup() allocates the output array and may acquire
-references on GEM objects before returning an error. In such cases the
-array can be partially populated and relies on zero-initialization to
-indicate which entries are valid.
+drm_gem_objects_lookup() may allocate the output array and acquire
+references on GEM objects before returning an error. This requires
+callers to handle partial cleanup correctly, which is not obvious and
+easy to get wrong.
 
-This behavior is relied upon by existing callers, but is not documented
-and can be easily misunderstood as automatic cleanup on failure.
+Introduce drm_gem_objects_lookup_safe(), a wrapper helper that
+guarantees cleanup on failure. If lookup fails, the helper drops any
+acquired object references, frees the array, and sets the output pointer
+to NULL.
 
-Clarify the lifetime and error-handling semantics in the kerneldoc:
-callers must drop any non-NULL object references and free the array even
-when the function returns an error.
-
-This is a documentation-only change and does not alter existing
-behavior.
+This provides a safer alternative for new and fragile call sites without
+changing the behavior of drm_gem_objects_lookup() or affecting existing
+callers.
 
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Suggested-by: Christian König <christian.koenig@amd.com>
 Suggested-by: Tvrtko Ursulin <tursulin@ursulin.net>
 Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Change-Id: I2d1bdf3f319d841cb548cedc7b699bab9efeeed9
+Change-Id: I553551dd1e7aadf1b2a477eaf19ce9c80b2ce2ea
 ---
- drivers/gpu/drm/drm_gem.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_gem.c | 48 +++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_gem.h     |  2 ++
+ 2 files changed, 50 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index a1a9c828938b..0f8013b9377e 100644
+index 0f8013b9377e..f1d13700a62c 100644
 --- a/drivers/gpu/drm/drm_gem.c
 +++ b/drivers/gpu/drm/drm_gem.c
-@@ -775,10 +775,22 @@ static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
-  * For a single handle lookup, use drm_gem_object_lookup().
-  *
-  * Returns:
-- * @objs filled in with GEM object pointers. Returned GEM objects need to be
-- * released with drm_gem_object_put(). -ENOENT is returned on a lookup
-- * failure. 0 is returned on success.
-- *
+@@ -830,6 +830,54 @@ int drm_gem_objects_lookup(struct drm_file *filp, void __user *bo_handles,
+ }
+ EXPORT_SYMBOL(drm_gem_objects_lookup);
+ 
++/**
++ * drm_gem_objects_lookup_safe - look up GEM objects from an array of handles with failure cleanup
++ * @filp: DRM file private data
++ * @bo_handles: user pointer to array of userspace handles
++ * @count: size of handle array
++ * @objs_out: returned pointer to array of drm_gem_object pointers
++ *
++ * Wrapper around drm_gem_objects_lookup() that guarantees cleanup on failure.
++ *
 + * On success, *@objs_out is set to an allocated array of @count pointers
-+ * containing GEM objects. The caller must drop the references with
++ * containing GEM objects. The caller must drop references with
 + * drm_gem_object_put() and free the array with kvfree().
 + *
-+ * Error handling and lifetime:
-+ * drm_gem_objects_lookup() may allocate *@objs_out and acquire references on
-+ * some objects before returning an error (e.g. copy_from_user() failure or
-+ * a missing handle part-way through the lookup).
++ * On failure, this helper will drm_gem_object_put() any successfully looked up
++ * objects, free the array, and set *@objs_out to NULL.
 + *
-+ * In that case *@objs_out may be non-NULL and partially populated. The array
-+ * is allocated zeroed, so unfilled entries are NULL. The caller must:
-+ *   - drm_gem_object_put() any non-NULL entries in *@objs_out, and
-+ *   - kvfree() the array itself.
-+ *
-+ * Callers that want automatic cleanup on failure should use
-+ * drm_gem_objects_lookup_safe().
-  */
++ * Returns:
++ * 0 on success or a negative error code on failure.
++ */
++int drm_gem_objects_lookup_safe(struct drm_file *filp, void __user *bo_handles,
++				int count, struct drm_gem_object ***objs_out)
++{
++	struct drm_gem_object **objs;
++	int ret, i;
++
++	/* Ensure callers never see stale pointers on failure. */
++	*objs_out = NULL;
++
++	ret = drm_gem_objects_lookup(filp, bo_handles, count, objs_out);
++	if (!ret)
++		return 0;
++
++	objs = *objs_out;
++	if (!objs)
++		return ret;
++
++	for (i = 0; i < count; i++) {
++		if (objs[i])
++			drm_gem_object_put(objs[i]);
++	}
++
++	kvfree(objs);
++	*objs_out = NULL;
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(drm_gem_objects_lookup_safe);
++
+ /**
+  * drm_gem_object_lookup - look up a GEM object from its handle
+  * @filp: DRM file private date
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 8d48d2af2649..7decce2fdef7 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -561,6 +561,8 @@ void drm_gem_vunmap(struct drm_gem_object *obj, struct iosys_map *map);
+ 
  int drm_gem_objects_lookup(struct drm_file *filp, void __user *bo_handles,
- 			   int count, struct drm_gem_object ***objs_out)
+ 			   int count, struct drm_gem_object ***objs_out);
++int drm_gem_objects_lookup_safe(struct drm_file *filp, void __user *bo_handles,
++				int count, struct drm_gem_object ***objs_out);
+ struct drm_gem_object *drm_gem_object_lookup(struct drm_file *filp, u32 handle);
+ long drm_gem_dma_resv_wait(struct drm_file *filep, u32 handle,
+ 				    bool wait_all, unsigned long timeout);
 -- 
 2.34.1
 
