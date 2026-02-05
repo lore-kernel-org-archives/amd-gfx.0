@@ -4,113 +4,188 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0888EE83F05
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 14:01:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47C2DE91265
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 14:01:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09D6610E8B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E9E310E8BC;
 	Thu,  5 Feb 2026 14:01:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="mi9xMhj7";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="sGJeihXB";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="FghBsdpX";
 	dkim-atps=neutral
-Received: from fhigh-b4-smtp.messagingengine.com
- (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE17510E100;
- Wed,  4 Feb 2026 14:56:44 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfhigh.stl.internal (Postfix) with ESMTP id 39ADB7A00DC;
- Wed,  4 Feb 2026 09:49:59 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-02.internal (MEProxy); Wed, 04 Feb 2026 09:50:00 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1770216599;
- x=1770302999; bh=QL9sSVQuHUyiqNNTJS1cRzIO660sEsNkmSlJpdQIa7o=; b=
- mi9xMhj7D7QVZHhZAiU9VKOtKQC8hfwKHEV1GYiUwJ/vKTw3MKybuvhpvocGWH8O
- ewf0IHP5WCIsCdkETSsxiawgbu8U8Ln3q8u5A6j0l1WpPHcVZqXUbf78d98CdUiM
- /IKqdJz2j5iWqpqDqhm4lV0r1z2yblKVWo/XKIIS48JRCN8WvWKd+9fo9YVCQRcl
- WDBefUZrDuUCw4YCvCRys6oeir7MzfGqsiCrzNNF+z9gUQxDdikdIgcVqQLVJJGA
- 29vYJ4VhBWB9dOxWuTZALTQDzZMBUS6lPHTNaNL/TY+JA3Wi7AAhU2HH5Ycma9h2
- iZvPLo9ASafd4U5gTrgqJQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1770216599; x=
- 1770302999; bh=QL9sSVQuHUyiqNNTJS1cRzIO660sEsNkmSlJpdQIa7o=; b=s
- GJeihXBk9DA4kr+BL+nNsg7zc5GMkdRCLjYJKk36zDGPac6Z7Moje8C4Gg96noVB
- fvzNyywNxA9I6qSs/ISvmhNult3u6YFp5A+Ak5O5WFOj4z5O9gjC6f0ph7vq3j/H
- nrd5wyg5KgPCM2bedm+0RVSCzt+R5z1nbbRxnE8jo4m4UXA748X6ZC52nPekwl5d
- hfOar7dY1pgUQWdNag+q5umeAcQEi9mIvXbo7DTN57R2xk3ZFNUvUKrf8rZmaJFl
- o6VAuTQcOkiTEpUlqQGmdX6f9sk7qvvXtn85KmfukgAViHuF50rkeqyEfQtmXkEf
- wB2zeq2JfVG/hI+46N9Kg==
-X-ME-Sender: <xms:llyDaZJmYGMjYnUmYVdxhVEDlr_O47dRinUwU0f6dKEXQvoB64o4vA>
- <xme:llyDaXBAuXkvQLS0ogkdqBg_K1u8VpwbUoDJ8l2mawpsOazzq99eL5AEeW9c2GuAR
- S2c8GrwPKH-y-GC8HJG7cPQrzEmN_18FnYzPmuwtGjwyLKlTtfp>
-X-ME-Received: <xmr:llyDaWVMxdX5QgxRsgefK1RHbav935eSzrLU1oHeIiUeob1gUxBD-IIfYUc>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddukedvjedvucetufdoteggodetrf
- dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
- rghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujf
- gurhepfffhvfevuffkjghfofggtgfgsehtqhertdertdejnecuhfhrohhmpeetlhgvgicu
- hghilhhlihgrmhhsohhnuceorghlvgigsehshhgriigsohhtrdhorhhgqeenucggtffrrg
- htthgvrhhnpeegudevhfejueefveduieeuueeifeettdekveekhffgvdetfeelueehgfdt
- heffhfenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- grlhgvgiesshhhrgiisghothdrohhrghdpnhgspghrtghpthhtohepfeegpdhmohguvgep
- shhmthhpohhuthdprhgtphhtthhopehlvghonheskhgvrhhnvghlrdhorhhgpdhrtghpth
- htoheptghhrhhishhtihgrnhdrkhhovghnihhgsegrmhgurdgtohhmpdhrtghpthhtohep
- shhumhhithdrshgvmhifrghlsehlihhnrghrohdrohhrghdprhgtphhtthhopegrlhgvgi
- grnhguvghrrdguvghutghhvghrsegrmhgurdgtohhmpdhrtghpthhtoheprghirhhlihgv
- ugesghhmrghilhdrtghomhdprhgtphhtthhopehsihhmohhnrgesfhhffihllhdrtghhpd
- hrtghpthhtohepkhhrrgigvghlsehrvgguhhgrthdrtghomhdprhgtphhtthhopegumhhi
- thhrhidrohhsihhpvghnkhhosegtohhllhgrsghorhgrrdgtohhmpdhrtghpthhtohepgh
- hurhgthhgvthgrnhhsihhnghhhsegthhhrohhmihhumhdrohhrgh
-X-ME-Proxy: <xmx:llyDaY6NKd7bDMPwzDMtrcrglA0Q7txOe9i2cEfBbUnJh4H99P3BMA>
- <xmx:llyDaQZPU4E4Fm9axqtBaX-WLMNA4ScJrvmFQpdDiyZJd9HNbYKoEA>
- <xmx:llyDaaqq_FW_PxGHRUdmctm9S2ljoFVq-NcIFh50bdZjLOoV2jrdcA>
- <xmx:llyDaXL7AZ2xV6n4J6obLGjlreHCThd-WQGNqX770JaImsW7wESD1Q>
- <xmx:l1yDaYhCjTqzR9iSEa4wxIeg-VejF46Npe8P2GPeeU0DmGS4kQ10LlGd>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Feb 2026 09:49:56 -0500 (EST)
-Date: Wed, 4 Feb 2026 07:49:55 -0700
-From: Alex Williamson <alex@shazbot.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010046.outbound.protection.outlook.com [52.101.85.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C85C10E0DD;
+ Thu,  5 Feb 2026 01:01:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DBLfv/6uygDQz1gPwrQTGOyxWUDn/6QxL3Uqs9Itv41UtvzIbpplk6d37wfULygU102U5I/Glv/KXBXSn2i+QbJHOt3KR7tD/wBkAbgENHeNTTVYkx8zCcDuzFK0sKJVBABeCiLVebimgdCbp1fWCssskZ3VnhgHOL8fla6w9BDLNDvsIoGkuML2vtlFGqqu7oibr/CUW5VpaxcG7oiy17/Vucq1ec/Fo5bFPgtwchv0i28PYAnsEPJXc6Bdjf2wfMMUQQH+rVlIwjsGKoAq+L5WNrmJf4SgnUMiA6Cv3F8njok/wcm6PAVSJG5cv9H+9zxJxQgNAvtBkx7dBfaBIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b/eAPA9hixaxhMxX43P4kqNE2UmKff4Xh7Po98+osGY=;
+ b=c062usohnsgQ/Ymu62WIl7mkEuXaa/VwRzOgLjtJ034+1In1LH3Ef/faQi2fQjcH9hGjMduJAyIUBuqQdxsRgaq3XphBvA4K6oStctXTDqHZDWv7lqXMrbHIc9qqohRmUhxOZF/M2AEOiMBnUhlqDCS1Jt1WfCuF7MV5nH7BOJWT4qU54eL4i7e/yb0UheU+IQaYzER3n7FQAYzp5DcsSOqndxD1daHOlQ/V/v/vPT1fWn33bXtHvjXhbrdPfWc2RpZ3IRTeztBudILa1szTaMI7zOUlUouvyNrd+fyrsno42hKng5EzmsdftisCyJ6pHq0FlNuFi9IRQdxxzJL4dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b/eAPA9hixaxhMxX43P4kqNE2UmKff4Xh7Po98+osGY=;
+ b=FghBsdpXBgbif9qFgAAUQdWVGN3gmZLNxEMrGM6PjeHjMZb5s3OKRNMzbJeNnVT5B/yzBrrF6aiIMBOXI6dlbL+U3egGuE/cBUFtqcE+Pw8xpIGbLUfoMZ0hgtUoGgTvPaNwm4m0/CkKV0NbH1J5qFypBbFFIhtDBA1l6CjTJOahqqTKXenJAfTv94UDzC6UkdG1bzkB1Z7hhG3AKWDKUVOM3lrjDN6bEbXMb9Mr03mOKub7OvtjcJn1pxF5QyWGmZlv1oXLtFjhetPDqdpAeRhy0Q0SIdLtLc8lOimXSO1er6tXQ+Qv6dgUbaFEGpH6SwPU8JpgFRMYJj5AYAp6ig==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ PH8PR12MB6891.namprd12.prod.outlook.com (2603:10b6:510:1cb::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Thu, 5 Feb
+ 2026 01:00:55 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9587.010; Thu, 5 Feb 2026
+ 01:00:55 +0000
+Message-ID: <ace23f5a-f4cb-44d6-a0d6-f3b72440394f@nvidia.com>
+Date: Wed, 4 Feb 2026 20:00:50 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v6 03/26] rust: gpu: Add GPU buddy allocator bindings
+To: Dave Airlie <airlied@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
- Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- virtualization@lists.linux.dev, intel-xe@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v7 0/8] dma-buf: Use revoke mechanism to invalidate
- shared buffers
-Message-ID: <20260204074955.394a42e1@shazbot.org>
-In-Reply-To: <20260204114751.GF6771@unreal>
-References: <20260131-dmabuf-revoke-v7-0-463d956bd527@nvidia.com>
- <20260202160425.GO34749@unreal> <20260204081630.GA6771@unreal>
- <6d5c392b-596b-4341-9992-aa4b26001804@amd.com>
- <20260204114751.GF6771@unreal>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
-MIME-Version: 1.0
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
+ Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ Alexey Ivanov <alexeyi@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
+ <elle@weathered-steel.dev>, Daniel Almeida <daniel.almeida@collabora.com>,
+ joel@joelfernandes.org, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org
+References: <20260120204303.3229303-1-joelagnelf@nvidia.com>
+ <20260120204303.3229303-4-joelagnelf@nvidia.com>
+ <CAPM=9tyL_Cq3+qWc4A41p7eqnNDLS1APUEeUbaQyJ46YDkipVw@mail.gmail.com>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <CAPM=9tyL_Cq3+qWc4A41p7eqnNDLS1APUEeUbaQyJ46YDkipVw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0361.namprd13.prod.outlook.com
+ (2603:10b6:208:2c0::6) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH8PR12MB6891:EE_
+X-MS-Office365-Filtering-Correlation-Id: a823e5ec-9257-4d89-9482-08de645203e7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q1J3VXNzZWNOeHdPQU9IZGYyUkZFVGFJRzVDa0lSbnBiN0N1cDBZWnFFaVhs?=
+ =?utf-8?B?aUp3aS9xTC9lUjFsdTFJeERIRlBpS3RlQmJhMFlnalBvRWpTNUxkUWo2MlBB?=
+ =?utf-8?B?YVNvM1M2NUNpRUkzejZla2krOCtqWnd6ZXFzaEdyYnZoUHJCZUp1cHVPMzV1?=
+ =?utf-8?B?RlV2WStDbDJodEtRMHFTdkdpckxsMVI0eVo4cHBoNVpwcVNsZHEvVlRjQTVJ?=
+ =?utf-8?B?bEZnZEV2UTYvRnBmSGhNckhTZE52NG1lWjhxWGhaZks4SnhheU55MThBTU5U?=
+ =?utf-8?B?czFxK0VxOEdtMk93SUVJcG1iSkVZbGlIczZWK2xIR2hZNGxTbW54N1lUZDha?=
+ =?utf-8?B?aTZRTXJUQzRrSVM1eHYzYzFHNnpFSWVUdUZWSGdHRkJ1UTV3VWNzK2IwNDVU?=
+ =?utf-8?B?emZTdjl5SmRxUFBvdTJWY2NaYjFXM0RVUGZMSWJiMEdxeDVFcWF5Y1gvOEhW?=
+ =?utf-8?B?WUpoWWthM2NzUE9vSjFIaDFzcmVkZHROY1NrYkxCbG9BKzFZTkphcVE1K1VL?=
+ =?utf-8?B?YmVqak83WUR2aDFJcWxVZjA0RXhzcXFRZXRCcnZ5VHFCRHFxcEFyMXExRFkw?=
+ =?utf-8?B?YUxOR0h6QmdlcmNWYUJUbkxHTXhqanhUMHA5MmNabmdESEJyZDZNSGVVazln?=
+ =?utf-8?B?Qi9WYnNhL2NZR092VC9XT0ROV2hzSERWekhMblo5TFY3V05Kb0xMQm80ZFln?=
+ =?utf-8?B?SW5IY216RE5JbGJIUDhEMGRkeFcyOHlBci9YQ202bmZaMUdJVHFkRnp1ejQ5?=
+ =?utf-8?B?THJoU3JvSHJqWFgxUkFnSDBqSHF3WjVaT3M4d1UrcDRnMlQvTUlZOVhRVHNL?=
+ =?utf-8?B?aTJTQ0NVcUVYd0RQZkdSdlB5ODRmL2ptYkxjdWxjbVBLR3V4UlUyVGxyZ1pL?=
+ =?utf-8?B?VVlBWm9saGhWQUhNUlo0NWMxOTRmQ1hTUzc5WnRrVis5TmxFWXBTSjdTV3lD?=
+ =?utf-8?B?T1oxUWhYeXdiUFdYR09lTkJXdTV2V3hxRDUwMGRvaG9YQ1BKVXlSbDZpM3Vk?=
+ =?utf-8?B?OEhBaTBISzZZNFBoN2g4d1d0T1VPSUtHeWZWTlc2ME93aTluUnhvL3FiMXg3?=
+ =?utf-8?B?SWw4MDV3K0JEV1l0YXQ2L3dzN0gyN09rQkU5T2ZxVEpvYzAxemFZQUcrM3R1?=
+ =?utf-8?B?MWtCa1RjdEI0MlBudEdoYWYxWE80Qk15RGtMU3YxWjNoMDhFQ3NESVJqOEgv?=
+ =?utf-8?B?clJsbFlSaFZDako2c2JrUXVDYnpsaWZKTFQzZXRyRjdIcWdodEh6cGg0K0xn?=
+ =?utf-8?B?OVZURklKZXZHeUFVTlBmL1VGVy9PeUFyWDdpYjVuTXNTdUhaYjlHSWhKRUdC?=
+ =?utf-8?B?Uml5UnlhV1ZNV3dEWUVwTlpLSU14R2hPczlLaDdub0RlanJEK1NEMFVtWmJC?=
+ =?utf-8?B?a1pTdFRma3FaeERnYk5UcTNBak1kVDJTcVd3WDJGL0JtR0FjQ1hBWlV5MHh6?=
+ =?utf-8?B?aW1wS1haWENqVlJ6ckVXeDYwSlg1NnJUc1JiZXltS25FQzk2ZDRVV1BVc3pC?=
+ =?utf-8?B?UlBmc1BzNHFvdW0yaGlPUFN3ZlIzQjNqUHBzQThESFV2QUFCUWxVbHdpRmI3?=
+ =?utf-8?B?Z1Bjd25VbEtoMHlaRXRWY1lta01XaGhaNlYxWURUYzV2R2pTbGVlOHlOcGFN?=
+ =?utf-8?B?OFlpTmlpemRxS0JRV2hmRE10N2NZZlh5aDlSQnloTHluOTlNQkRMaWJjVEo0?=
+ =?utf-8?B?Y0xzK3JrNmNpbzlBZmwzeEp1MWp5R1hZM0FHckp3eDV3VDYvemFzRU9Fcm5y?=
+ =?utf-8?B?ZzllRVpXN3ZrM0tTWVlqbE5sbFRWSk5aVVY5VHZiTkxaOCtHZW50dEIxbmtO?=
+ =?utf-8?B?RTk0b2tFdGM5VndCNjZGZytidU5pNUZ6dXhkTjB0TFpVZ1VNa2V2TjJCQ1lZ?=
+ =?utf-8?B?cHFHcG9XSDFyRWhRcFlkdEl4VGRaZWQ0U2o1MkErbDJZZDhVUjUrQXFyWXE3?=
+ =?utf-8?B?OENYVXlhdVFleFlPcWF1OHdZTXZKWkZoVGNTMmF0RjVWU05LYlBRalpoN2Np?=
+ =?utf-8?B?TklVMUdud2I2MHdZRThsQUFHQWlscDBPaGJwaXN4TjJjL1RkQVJoZVlWMlRm?=
+ =?utf-8?B?RVJBWnRpWlE0ZGVROWtxbkkxMi9HVTlaRXVFN1pTZFlCSGlJUFFHN2wxSDZI?=
+ =?utf-8?Q?hrUc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVRUVHFFQXU5Z2NwbWRsb2hadmw3a3BxdldkWC9ML2xvQXBKbVJ2dXoxYmRo?=
+ =?utf-8?B?bVZDalJhaTV1Q2htcVFQWXlTMEVRSUZxby9GbTBCWk9kWXQ1QWFUVGMzaDFl?=
+ =?utf-8?B?L0d5QmQ3Z2lZQlFRSCtaZ3oxTlg4czV2MzZsNEtoUkhTbzFGTUJTSGtIUXlI?=
+ =?utf-8?B?V04vbnF6QjJaUGdYUjNkc0EwOTRXYjdzQWlibE5GcGRQcSs5QjdpbEs2ZUJM?=
+ =?utf-8?B?dDNCQ2xUNEVOUkRablg3dmNsRzYrWkEwY3hiTlUzemszZFpuYVBGeDBaTWRB?=
+ =?utf-8?B?QUJEZUFPWXM1UFl4clBUWUtuZ2xXamlkd0hSY3p2RDdFVXUwWGdQclpsQ2pY?=
+ =?utf-8?B?Y0cxWWl2U1pEdDdFcjlwQkVXYW8wU3AyT25GY3FYdGR6bVpzbE82OFNxZXl2?=
+ =?utf-8?B?SEF5SnR0TVFsajJ2aG1QZkZUbUxrbXNZVGJ2emNiUFRmMmtlVkJpSTNodlFL?=
+ =?utf-8?B?TDNnTkIwVFp0RVJnWWc2aG5td1MrNlFqR2kyejZ0aFlyOFlVYnROdlVJam44?=
+ =?utf-8?B?d1pKZEc3em5yTmZVVEFnNmdNc0JaNGxTY3JyakdoV3cyMUM3UzhQSjRSU21X?=
+ =?utf-8?B?TS9DZTh3Q1FhalFQemdCYTlPUDBJUUVCOFozbHJQSEZSSVNtRnZrZUlsTytC?=
+ =?utf-8?B?U3dJMmdscXpTVXc3UkJhd0dBU2Z5dGJuZm4vTXFodWJyT2ZuOHRYTVhHSlRh?=
+ =?utf-8?B?RmpLOWxLU2VuN1JvUU1tSXRDNGtsa0V4c05RSlZPbHJZaXlYL1NvajFpcGJX?=
+ =?utf-8?B?TjRYOXUvZ21qMmcySGhwczZKUjhJdVl3alY0dkdtbitWWkR4UFE5YnhHR1N2?=
+ =?utf-8?B?MStTN2NVR08ra25DY3J3Q05yN3VFMm11NmxORWwwZm40SEp0dEl6b1pVV1RG?=
+ =?utf-8?B?dDV6YXM0Tmp4M2duZGtWSDIvQ1NHMzR0KzdGZkRRWVFJMlB0SjRBRVhYOTRV?=
+ =?utf-8?B?ZUFtKzZRc3U4aGJueG0rUC9XVndPTUhnYjh4VDhKMkFoL1hVYmJXSS9LMTlo?=
+ =?utf-8?B?enNxamJsRHA2TVRyY3dvWDJMbCtiNXljT0thWUw3S0dVK2xtNWxnQ2xQZGor?=
+ =?utf-8?B?Wk5URTRhMyt2TGNYUXpvaUhhcTBwVkRFTHA2cEtGVzNXd013MGRQTFo4Y1ha?=
+ =?utf-8?B?RUdFamo2SEltZGJlUkgvWlFKTHd4aEc1cDg0T2NxKytXQVhvbmxJR2tvTHJk?=
+ =?utf-8?B?K1VBTm9xc3JPS0U3RjAxK3lQOHlDR2FwNEVkWHE0REZqQW9xTlh5ay8wZHhT?=
+ =?utf-8?B?cVNSMm8rWVYwZnJqdU5YK3JkRGxVdkJQajhPRk4vckhVT0F5cEF3RVhHWWFD?=
+ =?utf-8?B?cnkrMTF5enJVRThoVktjZmZPcnR5Qnc3V2R4YUdMZExxTCtHY2pRSU1sdXRu?=
+ =?utf-8?B?U0N5VkdFZ1B2MU9EV3RheWRXZEpza09sTHBCZUFCV2NYNm9zWmFmcmxxYmYy?=
+ =?utf-8?B?Qk52ZjNsSUJ4NW1kOHUvaG9KclZzUXhqNDE4SkNjV0o0czFBbTJtM3Myc05y?=
+ =?utf-8?B?cThyczlCaGNESXQyZGpqSytkS0R6RUg1L0RROUR6aEt0N3Q1a2JMQzJPcE1p?=
+ =?utf-8?B?c3Q2S1pCK0gzMGtSME5HWXN1aHJvdnd4R2NOR0toamVsT2UyVFN4Sit2ckd1?=
+ =?utf-8?B?S2hWK0QvTUYvUmpCaEdJd0dCY1BqQ1hUSDN6TTE5UjFidStzWFVjb1EycmdZ?=
+ =?utf-8?B?a09PbXNZTzhjRG11aVB6LzBvSW9TeVBrT1Z3bjdoTmtiUU5SZTRVcVdKbWRT?=
+ =?utf-8?B?RnNlMGlraDcyK3o3R25pY0lnMUFxbExVckVyNG5DOWI4a2xhZG9IbkxrelQ2?=
+ =?utf-8?B?aXN4VFBUNGswcm1tSklpaDBpWkhkc2ZvZ2FueHBTVTUrcytVSGpRbDZhLzRz?=
+ =?utf-8?B?NGlUaVh3Yjh4Y2xTL1hzbUxRK1VFOWltQ0hRNnFVSVFDV3lmYXk0MGRhMXg3?=
+ =?utf-8?B?ZFphMVZFWmNZT0dWWlNHMmZhVm5BZXg5UFZ6bVd6anEwSzV0dlZvd0xuc2FJ?=
+ =?utf-8?B?KzRFM3pLTkxsSksvQ0N5aXR6ek1yMThHaEtnQjVydS9TbVRFdm9aRU1oMHZk?=
+ =?utf-8?B?TTBTZGFNeWk0L25NMGtaeUtKZFQyVGd2V0xjK0JNdjNBSlJqbmVHMEg4VUh6?=
+ =?utf-8?B?bnd2RjJ1ankveE9zTlE5WGNuM2g5K2VhVDlUUGxCMEpHR0xGOTVGRmJrd0ls?=
+ =?utf-8?B?a2JJQVVIODN6QW9DanQ5cXNXN1BIZjh6MitJL0Z4bDlFQXRSMEU5YUZLc2d0?=
+ =?utf-8?B?eUtXTVhDcUhSdEVsb3JqRW1qWDhaNGdCRUwwNTQ4blk5dGNRTHNMSVhyN0Fq?=
+ =?utf-8?B?Sm9ZN2lvZ25KK3I2Y3lEbDJOOFF2bDh0aXRCZHp2aUw3dWEwTWdlQT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a823e5ec-9257-4d89-9482-08de645203e7
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2026 01:00:55.1304 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Tn+qnZgY+rWeNetBXBtj/ec3XR4FSLp5YkRgXI2QU5zbktXK1IhIU5fR1s/tSWwp9QlyjOWzgplndRynPVG2/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6891
 X-Mailman-Approved-At: Thu, 05 Feb 2026 14:01:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,73 +201,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 4 Feb 2026 13:47:51 +0200
-Leon Romanovsky <leon@kernel.org> wrote:
 
-> On Wed, Feb 04, 2026 at 09:54:13AM +0100, Christian K=C3=B6nig wrote:
-> > On 2/4/26 09:16, Leon Romanovsky wrote: =20
-> > > On Mon, Feb 02, 2026 at 06:04:25PM +0200, Leon Romanovsky wrote: =20
-> > >> On Sat, Jan 31, 2026 at 07:34:10AM +0200, Leon Romanovsky wrote: =20
-> > >>> Changelog:
-> > >>> v7: =20
-> > >>
-> > >> <...>
-> > >> =20
-> > >>> Leon Romanovsky (8):
-> > >>>       dma-buf: Rename .move_notify() callback to a clearer identifi=
-er
-> > >>>       dma-buf: Rename dma_buf_move_notify() to dma_buf_invalidate_m=
-appings()
-> > >>>       dma-buf: Always build with DMABUF_MOVE_NOTIFY
-> > >>>       vfio: Wait for dma-buf invalidation to complete
-> > >>>       dma-buf: Make .invalidate_mapping() truly optional
-> > >>>       dma-buf: Add dma_buf_attach_revocable()
-> > >>>       vfio: Permit VFIO to work with pinned importers
-> > >>>       iommufd: Add dma_buf_pin()
-> > >>>
-> > >>>  drivers/dma-buf/Kconfig                     | 12 -----
-> > >>>  drivers/dma-buf/dma-buf.c                   | 69 +++++++++++++++++=
-+++-----
-> > >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 14 ++---
-> > >>>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  |  2 +-
-> > >>>  drivers/gpu/drm/amd/amdkfd/Kconfig          |  2 +-
-> > >>>  drivers/gpu/drm/virtio/virtgpu_prime.c      |  2 +-
-> > >>>  drivers/gpu/drm/xe/tests/xe_dma_buf.c       |  7 ++-
-> > >>>  drivers/gpu/drm/xe/xe_bo.c                  |  2 +-
-> > >>>  drivers/gpu/drm/xe/xe_dma_buf.c             | 14 ++---
-> > >>>  drivers/infiniband/core/umem_dmabuf.c       | 13 -----
-> > >>>  drivers/infiniband/hw/mlx5/mr.c             |  2 +-
-> > >>>  drivers/iommu/iommufd/pages.c               | 11 +++-
-> > >>>  drivers/iommu/iommufd/selftest.c            |  2 +-
-> > >>>  drivers/vfio/pci/vfio_pci_dmabuf.c          | 80 +++++++++++++++++=
-+++++-------
-> > >>>  include/linux/dma-buf.h                     | 17 +++---
-> > >>>  15 files changed, 153 insertions(+), 96 deletions(-) =20
-> > >>
-> > >> Christian,
-> > >>
-> > >> Given the ongoing discussion around patch v5, I'm a bit unclear on t=
-he
-> > >> current state. Is the series ready for merging, or do you need me to
-> > >> rework anything further? =20
-> > >=20
-> > > Christian,
-> > >=20
-> > > Let's not miss the merge window for work that is already ready. =20
-> >=20
-> > Mhm, sounds like AMDs mail servers never send my last mail out.
-> >=20
-> > As far as I can see all patches have an reviewed-by, I also gave an rb =
-on patch #6 (should that mail never got out as well). The discussion on pat=
-ch v5 is just orthogonal I think, the handling was there even completely be=
-fore this patch set.
-> >=20
-> > For upstreaming as long as the VFIO and infiniband folks don't object I=
- would like to take that through the drm-misc branch (like every other DMA-=
-buf change). =20
->=20
-> Infiniband folks don't object :).
 
-No objection from vfio, I added one last R-b.  Thanks,
+On 2/3/2026 10:55 PM, Dave Airlie wrote:
+>> +///
+>> +/// These flags control the allocation behavior of the buddy allocator.
+>> +#[derive(Clone, Copy, Default, PartialEq, Eq)]
+>> +pub struct BuddyFlags(usize);
+>> +
+>> +impl BuddyFlags {
+>> +    /// Range-based allocation from start to end addresses.
+>> +    pub const RANGE_ALLOCATION: usize = bindings::GPU_BUDDY_RANGE_ALLOCATION;
+>> +
+>> +    /// Allocate from top of address space downward.
+>> +    pub const TOPDOWN_ALLOCATION: usize = bindings::GPU_BUDDY_TOPDOWN_ALLOCATION;
+>> +
+>> +    /// Allocate physically contiguous blocks.
+>> +    pub const CONTIGUOUS_ALLOCATION: usize = bindings::GPU_BUDDY_CONTIGUOUS_ALLOCATION;
+>> +
+>> +    /// Request allocation from the cleared (zeroed) memory. The zero'ing is not
+>> +    /// done by the allocator, but by the caller before freeing old blocks.
+>> +    pub const CLEAR_ALLOCATION: usize = bindings::GPU_BUDDY_CLEAR_ALLOCATION;
+>> +
+>> +    /// Disable trimming of partially used blocks.
+>> +    pub const TRIM_DISABLE: usize = bindings::GPU_BUDDY_TRIM_DISABLE;
+>> +
+>> +    /// Mark blocks as cleared (zeroed) when freeing. When set during free,
+>> +    /// indicates that the caller has already zeroed the memory.
+>> +    pub const CLEARED: usize = bindings::GPU_BUDDY_CLEARED;
+>> +
+>> +    /// Create [`BuddyFlags`] from a raw value with validation.
+>> +    ///
+>> +    /// Use `|` operator to combine flags if needed, before calling this method.
+>> +    pub fn try_new(flags: usize) -> Result<Self> {
+>> +        // Flags must not exceed u32::MAX to satisfy the GPU buddy allocator C API.
+>> +        if flags > u32::MAX as usize {
+>> +            return Err(EINVAL);
+>> +        }
+>> +
+>> +        // `TOPDOWN_ALLOCATION` only works without `RANGE_ALLOCATION`. When both are
+>> +        // set, `TOPDOWN_ALLOCATION` is silently ignored by the allocator. Reject this.
+>> +        if (flags & Self::RANGE_ALLOCATION) != 0 && (flags & Self::TOPDOWN_ALLOCATION) != 0 {
+>> +            return Err(EINVAL);
+>> +        }
+>> +
+>> +        Ok(Self(flags))
+>> +    }
+>> +
+>> +    /// Get raw value of the flags.
+>> +    pub(crate) fn as_raw(self) -> usize {
+>> +        self.0
+>> +    }
+>> +}
+>> +
+>> +/// Parameters for creating a GPU buddy allocator.
+>> +#[derive(Clone, Copy)]
+>> +pub struct GpuBuddyParams {
+>> +    /// Base offset in bytes where the managed memory region starts.
+>> +    /// Allocations will be offset by this value.
+>> +    pub base_offset_bytes: u64,
+>> +    /// Total physical memory size managed by the allocator in bytes.
+>> +    pub physical_memory_size_bytes: u64,
+>> +    /// Minimum allocation unit / chunk size in bytes, must be >= 4KB.
+>> +    pub chunk_size_bytes: u64,
+>> +}
+>> +
+>> +/// Parameters for allocating blocks from a GPU buddy allocator.
+>> +#[derive(Clone, Copy)]
+>> +pub struct GpuBuddyAllocParams {
+>> +    /// Start of allocation range in bytes. Use 0 for beginning.
+>> +    pub start_range_address: u64,
+>> +    /// End of allocation range in bytes. Use 0 for entire range.
+>> +    pub end_range_address: u64,
+>> +    /// Total size to allocate in bytes.
+>> +    pub size_bytes: u64,
+>> +    /// Minimum block size for fragmented allocations in bytes.
+>> +    pub min_block_size_bytes: u64,
+>> +    /// Buddy allocator behavior flags.
+>> +    pub buddy_flags: BuddyFlags,
+>> +}
+>> +
+> 
+> (not a full review)
+> 
+> Any reason these two need Clone, Copy? I'm not seeing a use case for
+> that, maybe we should pass them as non-mutable references, but I don't
+> think there is any point in passing them by value ever.
+Yes, one reason I did that is because the doctests reuse the same params. But I
+could also just pass by reference as you suggest. It might remove some mem
+copies in the doctests. I will make this change then, thanks!
 
-Alex
+--
+Joel Fernandes
+
