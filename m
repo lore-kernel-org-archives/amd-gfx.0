@@ -4,136 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED0A6EC1EA5
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 12:13:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA71CEC1EAC
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Feb 2026 12:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66A4510E883;
-	Thu,  5 Feb 2026 12:13:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4901A10E785;
+	Thu,  5 Feb 2026 12:19:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1QJioE6Z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i8xsIjDR";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013046.outbound.protection.outlook.com
- [40.107.201.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC2E010E883
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Feb 2026 12:13:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZOTm2ehTYSRssFR6F6Lx66Umv22anqJvQRpgZMSFLPzF1x5YTcneiXLR5prr5AYTpaD+vf033FTmUXs3ghcT8mkAP5tr5qygEPti/n0xQiDzqW1+e1aj8x6R2AHiqSl87eexb/+q5YFEwOHfvIchnNN8lZnjqn6XVIsPIPR2382kGZmCDjggQKdWMQW41VAF+sH68hxHOnnVh0758RSIkM6m9D+BhzdjGaeOO5b8YYa+BnA1FWH+dh5FjPktn7tlyfpIAr3p2M8e1v8RH8jxytyPCSKQi8TvZKfZ91tGD20vJ+dCQuBR6rAXMbPy+YwtsQQhyTJUlAZCpDAHkyX+5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2UwJ/98L2Wx8spPbsl1AVPzSQSUYMLyvq9q5S4gMB7c=;
- b=s/jiWNCGF5rqDakfqv+6eV4xO7UbLRnVO2W+55WI3qeCj9FbFEU7jiGSYqfN+PSwLmlL1EpRidFJvqzld22AfoQjI/Ky8gsC2g3jfXVJ2Kbbv9DzTUXiOOfvdsuG7NJ6+3VT88in8iHyFqBCNGr4Z70zRJ0VpCLuiy9238m/EvemgqRLP6pP8IzeWKfW/fYOJiW74IY/Znq5kDO0ZbzTHFC89ldKELfOu0JBvkUF7bd6TmoBnwAP/tY8ydYxv8YWRvLXuOvAGMtrEIS4dvkQqADKsLb/zrrRlJywZ2bX8AFeJ6yuprVS/qFXyBTRrMgmRCgjuJCovBQZ0+UZUKaiCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ursulin.net smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2UwJ/98L2Wx8spPbsl1AVPzSQSUYMLyvq9q5S4gMB7c=;
- b=1QJioE6Zt62iIyF6hYRTAqKWNzEyy5L2Vs2dCQ/4Hi26td8LlsONyIIKngFP0lWx8iZ94gfDlaAiNzk0vucJAefICpVjIDHFqD47wgbSw/f3vFrqbSnbN/dLRAxuUNNljHdRoyJciGY7HCAFO5VvlKoP85XdhRvA2YO4JQxynkY=
-Received: from MN2PR20CA0047.namprd20.prod.outlook.com (2603:10b6:208:235::16)
- by PH0PR12MB8006.namprd12.prod.outlook.com (2603:10b6:510:28d::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.15; Thu, 5 Feb
- 2026 12:13:24 +0000
-Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
- (2603:10b6:208:235:cafe::7) by MN2PR20CA0047.outlook.office365.com
- (2603:10b6:208:235::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.14 via Frontend Transport; Thu,
- 5 Feb 2026 12:13:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.10 via Frontend Transport; Thu, 5 Feb 2026 12:13:23 +0000
-Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 5 Feb 2026 06:13:21 -0600
-From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>
-CC: Tvrtko Ursulin <tursulin@ursulin.net>, <amd-gfx@lists.freedesktop.org>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v2] drm/gem: Make drm_gem_objects_lookup() self-cleaning on
- failure
-Date: Thu, 5 Feb 2026 17:43:07 +0530
-Message-ID: <20260205121307.285864-1-srinivasan.shanmugam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38DD510E045;
+ Thu,  5 Feb 2026 12:19:51 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 12B6660128;
+ Thu,  5 Feb 2026 12:19:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24EA5C16AAE;
+ Thu,  5 Feb 2026 12:19:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1770293989;
+ bh=jDVAIy0un6bKwi7cwnpyXpEFdjN35m4ddNYoOutYhhg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=i8xsIjDRjR/7Rs5Naa0Zy2HxOGqc5prWf5cwXS/H3radpAqh/avw9U+IxguyWKA8y
+ huFln+oJd1vu7ldLn6LNYkQ6RJxjWsoJ5eS3hT0tMYh4dmMUdxahfCEdqFj5VXkqpT
+ 9ddi8EzI4CBmF7r3/HIXROK8jlpHjEAdgQe9URyey+9Vwp7WQHQV8s4nvLC46FZ6a2
+ c9HMUyfFhI1lUXLb8Xb4BXpe77RU5uB+OQv6MQF6rYrWjvvFziYpPIuIRa15haC6F5
+ k9QrwVZPhPwCYG1uDdQYVzTA2Sbfz33PJKtJRXrvJXZ7pvFO9um7Ecx+7L4LAFSQPe
+ OpIywz7bjpfXA==
+Date: Thu, 5 Feb 2026 14:19:45 +0200
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Alex Williamson <alex@shazbot.org>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>,
+ Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v7 7/8] vfio: Permit VFIO to work with pinned importers
+Message-ID: <20260205121945.GC12824@unreal>
+References: <20260131-dmabuf-revoke-v7-0-463d956bd527@nvidia.com>
+ <20260131-dmabuf-revoke-v7-7-463d956bd527@nvidia.com>
+ <fb9bf53a-7962-451a-bac2-c61eb52c7a0f@amd.com>
+ <20260204095659.5a983af2@shazbot.org>
+ <ac33ad1a-330c-4ab5-bb98-4a4dedccf0da@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|PH0PR12MB8006:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c0ad87e-8dc5-4b15-cec8-08de64aff5c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|36860700013|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?dlNoK3hDbStuZkxYZVg2YlpMbnhrQThjYk5uM2NxMVZVSStkajY0cFhSMjNk?=
- =?utf-8?B?L1NUQnN2UVB5VU9CSTczUG5MV2RCSXJJSDAxOVFLVDFkVWtVd2dFYkVYc3JT?=
- =?utf-8?B?bjNLbmtQbmNiZWllWHZFYWJaOHpDaFltejUreTVid2tqRW5CYmRNbUI4QWF6?=
- =?utf-8?B?MjQzMEVrMkQ5Q29RQmYvbDdGSGVVei81N0lTL0lLTHBURVRhNDV3MzhiSlBS?=
- =?utf-8?B?S1l2alpRaDhkUXppNE15RlRzQ0E1aExZZUdkWWM5ejZCR1hqajlGS2pBOXhO?=
- =?utf-8?B?TXdJVmZwdUxKNlBQcU9BbGhSM0VLVm9MamdNUlhKRWdRZ1F5VVM4R2hHbCty?=
- =?utf-8?B?UkxscU1vb1NrMGZxQ1RKVDgrbEMyV2NkMGNzUGVsWlAzbmdkODV6dURDdEJY?=
- =?utf-8?B?ZldJUFFQVG1PS1E3czBBdDUvK3MwSTcwR2p0dklwMlJmZG9wRHdzUnRheWk1?=
- =?utf-8?B?N1g0azVKZVFncmJNOWs5ZTNvaUYrSVdVVmc4R2pJQSt0cmQzeTdFbGI0aHg0?=
- =?utf-8?B?eHpZOUw5elNmbUJJbm81cnJVQmlDZEVQc1dmMm9nUFA2TFVELzJlNllnUExu?=
- =?utf-8?B?elovL3pmd2N0Ym96aVc4RWRSdCs4b1gwcUNkbXZIN3lOZkxvT3NNS2Vua1lt?=
- =?utf-8?B?RzdTaDBoWDRGSHZ6WjNIUTdzQUhxWnRPZ2RQc2hvT1pGdWtucllSaUdBdHE1?=
- =?utf-8?B?S3BQTFBTTzFwYnMvd0NFS3BaY2Zsc1hobXJmSTdsUGJ6Wm1YNVpyeGRmUnJj?=
- =?utf-8?B?aVd6MjlEalU4TTQxMGVSRUlIelE1L2dUeWtmU2lTOTBxYkRsWDIvNGN2bjhh?=
- =?utf-8?B?TjQ5bjEwZjNwR2VuV0ZYWlNPUlZibVlIeXV2MVBYVk1SZlI3bXlYUzJlZ0Ex?=
- =?utf-8?B?MHpSWTg5QWNTNzNtVnE2ZTd2Zk9UekVaU3JYUG5ZSEhsZmovWTc5b3pNWENk?=
- =?utf-8?B?ZE1sWFEyT0dTdXVUbGpkcVNYNjlValJZc1lhNUczOE83RjFSbWJiRmVtT25i?=
- =?utf-8?B?bTR2UFMwb1g2a0tPTkdKdWJoMnpmLzRnazAwWFQrZ1Z4K1pEQVRwKytmdi9Z?=
- =?utf-8?B?Q29CWHhEbmdhTExGcms1bFE5Yk94YlUzSnRkSjZxcG9IU0d3b0ZSZy9mbTA5?=
- =?utf-8?B?NlVueC8wYk1hU3U2UnByYzM0Y2NIYVduT3g5YjlPUHViTHhibDNmbFhFa2c5?=
- =?utf-8?B?aFp2MEQrNmhsU01nQjdYRmc4RVNJQUk5cFZEUnB1czltOU02MHhOMUV5VGpU?=
- =?utf-8?B?SGNyTUFIWklMdzRObDR1QTBHN0VNOTVjaHord1FPMG1nTUdYeDdIL3ZUR0M2?=
- =?utf-8?B?djZmUFZhTkg1dVkxalFzRzlZRW9BSzdvSy82cm9keHc0bW5HSXpMOXh2emZr?=
- =?utf-8?B?WHVEMWdaSUZ2aFg5Z0tCS3F6NkZJVHJ5ZUVZZ2tnanVWMllyZHBnaWVHTS9O?=
- =?utf-8?B?R0dVamtwOC9TRGRpd0VQSm5LZTdBN2NhTFN0MkoxV05RQTA3aDMyMCszZnhq?=
- =?utf-8?B?dmVoU2NFSG1OTTdHYjhnRXRZbFBubXNsMEV1aGVZUFdEN09RdGlFVCt6VFpE?=
- =?utf-8?B?aTEvL1FtQzhJK2xQckszeXBxYjRnUzZxYmEyMWhrQzJSRTh5Z0dNWGtOa3RY?=
- =?utf-8?B?S1orVWVFK2UxS3Q5WWtOMEcyRVRFbmFFQlNTWTFFd3hORFNKZmdvakJlOVUw?=
- =?utf-8?B?VS9CblpJWS9McjQrM0pRNzNhZG5OMERjR3hZKzBPeXU4dHFVcms2bkFYN3BT?=
- =?utf-8?B?SC9EK21aczFqYU9ibXJEYm53UXdLNkduQlZrQnZ2Q2pQQ0pXY0RxU0c3RUNI?=
- =?utf-8?B?bUlxWS9PU3ZJcUZlSjJ4dm1JWld1SXNGWDdtYXQwekppeGRmeDFuRFQrcWpz?=
- =?utf-8?B?b1h2MHhGdnBod2R0U3VHUlo2NURBZnpUVVVybTQxc1FodlhGd0s5am5zOU8y?=
- =?utf-8?B?RE5heVBkMS9yMWFRcGpnWmlYQ1hDaE9rbFptbXBlZU5zY2N5dHNjMUUvUGRV?=
- =?utf-8?B?eUVRTXdxc1RpdnByeHZrYStRVkN0c3NTaWR4Q1V0dFdtVzhOcW0zVmtyckpv?=
- =?utf-8?B?N3cvMkJlNjhncUNpL1VidVd6c3RQYUxkRmZYbHBoN3dqUjdKNlF6RGttaU5D?=
- =?utf-8?B?U3kzSkE5VmZldVJjTmJraVNtYWZoTElLYVdGUmhQSndDazFpRnpEazlwcnBY?=
- =?utf-8?B?SkpscGtCUEVNQmlBMkdjdHpTOXA1K1M4NXZwWm0wc3FlTWs4TjZaS1QrWmFD?=
- =?utf-8?B?Q3d2QmREMGtmeDc4MHRQSFZUbUtRPT0=?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(36860700013)(7053199007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: lPRjRrDjJfUif2zp0ZAQReGYFGBt9DC6Kk1IaAcTStMG3ht1VCL9T/hjg59J7wkkxqL4ZO03D/+OII7ykXZLzPlcjBzohXEAAgRTa3Ngow9T6t0pGDcJh+1PVB54zM1o3OFJ8y+KRk+KPdIsIDP6k4EqKVJ/UjQOkJxxidNN0d16hnsKsgS+qHfce3s697o2/7KqcaL3d8VbVJkWea0QxsWKrsa0hb4ML9j9NA0YWoFPnc8zU2iFLKOfwiLWK9NCHHbzCKNbnwjplf0evo//u/ItaUEGYl3xJYFUxTZapM+Xm1Z6VeuaRT2buOSg/wSIRXK+MvntfbOs/DxFzQcGfjinIHEDutLFFrVTnda4hKtYcxypGkmNb0VpmPtsa1bfK6+WoxLwaMc6LCgxxFle4rlQObg206uP2yKbdHSgkvQPDwjTLvtOhrAlpI1FjG0r
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2026 12:13:23.8128 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c0ad87e-8dc5-4b15-cec8-08de64aff5c4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DF.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8006
+In-Reply-To: <ac33ad1a-330c-4ab5-bb98-4a4dedccf0da@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,100 +83,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm_gem_objects_lookup() can allocate the output array and take
-references on GEM objects before it fails.
+On Thu, Feb 05, 2026 at 10:43:08AM +0100, Christian König wrote:
+> On 2/4/26 17:56, Alex Williamson wrote:
+> ...
+> >>
+> >> This chunk here doesn't want to apply to drm-misc-next, my educated
+> >> guess is that the patch adding those lines is missing in that tree.
+> >>
+> >> How should we handle that? Patches 1-3 have already been pushed to
+> >> drm-misc-next and I would rather like to push patches 4-6 through
+> >> that branch as well.
+> >>
+> >> I can request a backmerge from the drm-misc-next maintainers, but
+> >> then we clearly don't get that upstream this week.
+> > 
+> > Hmm, drm-next already has a backmerge up to v6.19-rc7, the patch here is
+> > based on a commit merged in rc8.  The tag for that change was based on
+> > rc6.  It can be found here:
+> > 
+> > https://github.com/awilliam/linux-vfio.git tags/vfio-v6.19-rc8
+> > 
+> > As the same tag Linus merged in:
+> > 
+> > 1f97d9dcf536 ("Merge tag 'vfio-v6.19-rc8' of https://github.com/awilliam/linux-vfio")
+> > 
+> > drm-misc-next only seems to be based on v6.19-rc1 though, so I don't
+> > know that any of that helps.  Thanks,
+> 
+> Thanks Alex, that was indeed helpful.
+> 
+> Simona, Jani and Lucas can we do a backmerge of 6.19-rc8 into drm-misc-next or does that completely breaks the flow?
+> 
+> If it's not possible immediately then I will do the merge next week or so when the final 6.19 is out and everything merged back into the drm-misc trees.
 
-If an error happens part-way through, callers previously had to clean up
-partially created results themselves. This relied on subtle and
-undocumented behavior and was easy to get wrong.
+Christian,
 
-Make drm_gem_objects_lookup() clean up on failure. The function now
-drops any references it already took, frees the array, and sets
-*objs_out to NULL before returning an error.
+You don't need any backmerge, SHA-1 version of vfio-v6.19-rc8 tag is the
+same as in Linus's tree, so the flow is:
 
-On success, behavior is unchanged. Existing callers remain correct and
-their error cleanup paths simply do nothing when *objs_out is NULL.
+➜  kernel git:(wip/leon-for-next) git remote update drm-misc
+Fetching drm-misc
+remote: Enumerating objects: 32768, done.
+remote: Counting objects: 100% (21620/21620), done.
+remote: Compressing objects: 100% (4620/4620), done.
+remote: Total 18154 (delta 14789), reused 16751 (delta 13519), pack-reused 0
+Receiving objects: 100% (18154/18154), 4.33 MiB | 4.30 MiB/s, done.
+Resolving deltas: 100% (14789/14789), completed with 1564 local objects.
+From https://anongit.freedesktop.org/git/drm/drm-misc
+ * [new branch]                drm-misc-fixes                                           -> drm-misc/drm-misc-fixes
+ * [new branch]                drm-misc-next                                            -> drm-misc/drm-misc-next
+...
+➜  kernel git:(wip/leon-for-next) git checkout -b drm-misc-next drm-misc/drm-misc-next
+Switched to a new branch 'drm-misc-next'
+HEAD is now at 2bcbc706dfa0 dma-buf: add dma_fence_was_initialized function v2
+➜  kernel git:(drm-misc-next) git merge vfio-v6.19-rc8 
+Auto-merging drivers/vfio/pci/vfio_pci_dmabuf.c
+Merge made by the 'ort' strategy.
+ drivers/vfio/pci/vfio_pci_dmabuf.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+➜  kernel git:(drm-misc-next) git l -2
+f6e4419050ce (HEAD -> drm-misc-next) Merge tag 'vfio-v6.19-rc8' into drm-misc-next
+2bcbc706dfa0 (drm-misc/drm-misc-next, drm-misc/HEAD) dma-buf: add dma_fence_was_initialized function v2
 
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Suggested-by: Christian König <christian.koenig@amd.com>
-Suggested-by: Tvrtko Ursulin <tursulin@ursulin.net>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
----
- drivers/gpu/drm/drm_gem.c | 33 ++++++++++++++++++++++-----------
- 1 file changed, 22 insertions(+), 11 deletions(-)
+And after that you can apply rest of dma-buf patches.
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index a1a9c828938b..862c9b2b9c0c 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -775,19 +775,21 @@ static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
-  * For a single handle lookup, use drm_gem_object_lookup().
-  *
-  * Returns:
-- * @objs filled in with GEM object pointers. Returned GEM objects need to be
-- * released with drm_gem_object_put(). -ENOENT is returned on a lookup
-- * failure. 0 is returned on success.
-+ * On success, *@objs_out is set to an allocated array of @count pointers
-+ * containing GEM objects. The caller must drop the references with
-+ * drm_gem_object_put() and free the array with kvfree().
-  *
-+ * On failure, *@objs_out is set to NULL and no further action is required.
-  */
- int drm_gem_objects_lookup(struct drm_file *filp, void __user *bo_handles,
- 			   int count, struct drm_gem_object ***objs_out)
- {
- 	struct drm_device *dev = filp->minor->dev;
- 	struct drm_gem_object **objs;
--	u32 *handles;
--	int ret;
-+	u32 *handles = NULL;
-+	int ret, i;
- 
-+	*objs_out = NULL;
- 	if (!count)
- 		return 0;
- 
-@@ -796,25 +798,34 @@ int drm_gem_objects_lookup(struct drm_file *filp, void __user *bo_handles,
- 	if (!objs)
- 		return -ENOMEM;
- 
--	*objs_out = objs;
--
- 	handles = kvmalloc_array(count, sizeof(u32), GFP_KERNEL);
- 	if (!handles) {
- 		ret = -ENOMEM;
--		goto out;
-+		goto err_put_free;
- 	}
- 
- 	if (copy_from_user(handles, bo_handles, count * sizeof(u32))) {
- 		ret = -EFAULT;
- 		drm_dbg_core(dev, "Failed to copy in GEM handles\n");
--		goto out;
-+		goto err_put_free;
- 	}
- 
- 	ret = objects_lookup(filp, handles, count, objs);
--out:
-+	if (ret)
-+		goto err_put_free;
-+
- 	kvfree(handles);
--	return ret;
-+	*objs_out = objs;
-+	return 0;
-+
-+err_put_free:
-+	kvfree(handles);
-+
-+	for (i = 0; i < count; i++)
-+		drm_gem_object_put(objs[i]);
- 
-+	kvfree(objs);
-+	return ret;
- }
- EXPORT_SYMBOL(drm_gem_objects_lookup);
- 
--- 
-2.34.1
+Thanks
 
+> 
+> Leon the flow of patches through the DRM subsystem is documented here: https://drm.pages.freedesktop.org/maintainer-tools/repositories/drm-misc.html#merge-timeline
+> 
+> Thanks,
+> Christian.
+> 
+> > 
+> > Alex
