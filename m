@@ -4,129 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74DA8EE20A6
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 14:23:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D35DEE20AB
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 14:23:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48F8A10E7DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 182BB10E7D7;
 	Fri,  6 Feb 2026 14:23:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="ch7LSuH/";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Gb0wZeMu";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9BED10E00C;
- Thu,  5 Feb 2026 19:25:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1770319536; x=1770924336; i=natalie.vock@gmx.de;
- bh=beF5a/uSDQzIZnYTXkD3T6gtUU2c+LZC8+g7B4Wadfs=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=ch7LSuH/9tJR+i/PKJ33WcfWxTCT6oisUI6UQa0aoyEDQkxNWujXeC1z6b8aVYhN
- Ag/lrGU3YjtK5kd0nmGWQdr76VDcAR3skLI+RqCGzpAAblTuOO5W5/QsEwmQ5OitH
- DiAARi+85O1sBMaOLXXLTkpakRaaozuM+QuhOpnc9NFl8j7/34Rrrf7sSKO15zujm
- aY2nVrC2nOOEH3BGg3I5EEgYXdeMUivsMZkEqIT7wNIWmr+cSjdNwvixG9Puyci2v
- 2n5c+b0GHrF+T2hiTeVkb1S/BoU0DOoIaQefHn9VXgPu4jqP4uAJxNWvqhTHKCUrI
- HaHnqQjrgJpdtgJEVQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from [192.168.178.3] ([88.133.252.134]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MOzSu-1wB76x2aOC-00UKYa; Thu, 05
- Feb 2026 20:25:36 +0100
-Message-ID: <4c5c0981-fa21-4d8c-b5ed-45ebaf4d713f@gmx.de>
-Date: Thu, 5 Feb 2026 20:25:31 +0100
+Received: from mail-qv1-f68.google.com (mail-qv1-f68.google.com
+ [209.85.219.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6622410E8F4
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Feb 2026 14:58:47 +0000 (UTC)
+Received: by mail-qv1-f68.google.com with SMTP id
+ 6a1803df08f44-89461ccc46eso22871286d6.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Feb 2026 06:58:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ziepe.ca; s=google; t=1770303526; x=1770908326; darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=6paZ1/dfF6ZJkTrV436UqQ3Veg/Kl0esrhdcHdeVKCQ=;
+ b=Gb0wZeMuhvGggNJtvOLX5qNFM8HEZ4zEgS71O8+VEXArvd623WtcKh7W/r9Hcbc3gQ
+ ablGTnr1XXk9YcMOmUvfRk4V8T3++hsbs2dn+1mOAPxI2Qib9KsNA/RAi/rCpOAHKbfp
+ /4lPBir3uIeZ3/VFyh/SEv0eWQ8+mLZWZibIO4HvCPPc61nMMvFhaQVfhcNRZ0kBq0Xg
+ fHnP2Wqq6I6qLhEOfAAfak3zu/V5IiB6DWrt0tOc6qZnmwGpUnaD3EVfkOKLqzVZxEJL
+ YrHmsEd53RRqUpazI90S+vrFMRPY9GcCZfwBve6npUFxQnsJVVi/3sRS2E53vcxmeiOR
+ 3cPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770303526; x=1770908326;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6paZ1/dfF6ZJkTrV436UqQ3Veg/Kl0esrhdcHdeVKCQ=;
+ b=mLj0qNOz4DQly/36Bd2NNY8RZ/sUmvYWBw9YSgihC+IeJWGzq5SKBqQ+5lMT5mk8J/
+ rP6bH+jUrTn3sL9dRA/rdg1ze/uVLNEXYitFZfPKBGPK3wBpLu9dk+SCqxhBxHf7IXOa
+ YvqkB0fo6TheT5gdCf5fHYk3/9i9Srvuh5qf4VUvuPkVeEzC9Pi9Vp3BWJD8n9qR7zVB
+ 32jxaexRdoawcBpC05pnHAiQql86/sL/bleNXKdERvAF+1iTf6JVlWSXkLkLtV3GeP8E
+ Xnol9rYzZJ7zwuX18dxcJptI+FDQbV+z1njTl4cU83l8Xv82Lny76HgBYsfAoE2E8H/i
+ Vuiw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWX1KjzjAQkQqRkoen3Nt5pzMrxYviticBUEjPR5woZjo5X9tIfSmMvxwUL20p+iQqjnUnNZymw@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwLLx7pkOUXXMKzZsQGE9DZVggNdVLy/OwgT3ZFBktOi+CT+BG6
+ ZfjnxO7N8vlEnz5hWkA9CBnAbYpl6CS4MLa9YqkwiufgE1Ap4BlNTOPRDZA8mFISCi8=
+X-Gm-Gg: AZuq6aKkmRVuaUNvw/sj9XbChYiw9tdKphcOOeCB23DrfguXIrfg9xh9Ti9k6OZVHGu
+ XGaDh62F5zzzis4i2mV3lt+iVp74DdNL4ufIAdtbcRBx3iFevT3T3XhJLNGhWbAYsiBj5f8yIkd
+ KNEjpKNStorHwpalyBG994X3XfKf4aOgEEQ3/o+9DT99UlS0AzZZkFVBApcrz5wxcbhdDfotsnq
+ WJcYXtO3q+iWEuPvDsTStFrESVs7FB4p1KuH++eQK044q/haNM3St0yMK/O/GzKGH0FyqIezpTD
+ VNraECrR4x2gFdo2YcN9TiNdgQRJd5GauIIuht5ndQvzFmA4bIDNsxy4JktqoTA/nHvaoGWcBj4
+ QaEW9BkR+BIAUGWpAPiKp9IGoaWzqlbLIl1AOIHYkgYmXhEPJaFsyaaV8GFV18WgvF10BzwGF1V
+ M0eyl7vx3ikHxccTP7NKioBC+lrCrnY7tWIleug9w2PyUjriEQjHs/f/46ti/w8Qb1EEE=
+X-Received: by 2002:ad4:5bc1:0:b0:894:6d0b:502 with SMTP id
+ 6a1803df08f44-895221eff32mr95805386d6.59.1770303526139; 
+ Thu, 05 Feb 2026 06:58:46 -0800 (PST)
+Received: from ziepe.ca
+ (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-89521bffb41sm43278866d6.4.2026.02.05.06.58.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Feb 2026 06:58:45 -0800 (PST)
+Received: from jgg by wakko with local (Exim 4.97)
+ (envelope-from <jgg@ziepe.ca>) id 1vo0of-00000000zky-02N9;
+ Thu, 05 Feb 2026 10:58:45 -0400
+Date: Thu, 5 Feb 2026 10:58:44 -0400
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Alex Williamson <alex@shazbot.org>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Leon Romanovsky <leon@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
+ intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, kvm@vger.kernel.org
+Subject: Re: [PATCH v7 7/8] vfio: Permit VFIO to work with pinned importers
+Message-ID: <20260205145844.GM2328995@ziepe.ca>
+References: <20260131-dmabuf-revoke-v7-0-463d956bd527@nvidia.com>
+ <20260131-dmabuf-revoke-v7-7-463d956bd527@nvidia.com>
+ <fb9bf53a-7962-451a-bac2-c61eb52c7a0f@amd.com>
+ <20260204095659.5a983af2@shazbot.org>
+ <ac33ad1a-330c-4ab5-bb98-4a4dedccf0da@amd.com>
+ <20260205121945.GC12824@unreal> <20260205142111.GK2328995@ziepe.ca>
+ <f27ad57b-d935-4ffa-a65c-9f6b5d9a1f9a@amd.com>
+ <1b7ee5ad-6dde-415a-8e06-93daddc9bcef@app.fastmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Accelerator/GPU top
-To: Alex Deucher <alexdeucher@gmail.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- David Francis <David.Francis@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
-References: <CADnq5_MTX8CifP25UvE5kdMbCYxgK+A+KGdd-_Ef1m4VYv+WRQ@mail.gmail.com>
-Content-Language: en-US
-From: Natalie Vock <natalie.vock@gmx.de>
-In-Reply-To: <CADnq5_MTX8CifP25UvE5kdMbCYxgK+A+KGdd-_Ef1m4VYv+WRQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:8nmm5WmwzVEBHXphmHk1bSf6rWJut5B350cT322b32Up6bjOmDG
- z/Y7mNuwTsJjY2CjVSs9teOINEKPU4rD8yac9ahDMTVzVZx+8wKuex1um/LLckYxOV9TCfv
- 9AgMhSfi8wqbYMcCJ7kcsverTufeKfoaZ/LOafAj2+6fErwI2C9wAec5VNCVHS/sHMBHHaL
- nku8RK3W7rYMZ1o95vV1Q==
-UI-OutboundReport: notjunk:1;M01:P0:qCsd5KN+Eys=;UrIwE6xlGYekESZh/VFjmD4SBmg
- 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
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1b7ee5ad-6dde-415a-8e06-93daddc9bcef@app.fastmail.com>
 X-Mailman-Approved-At: Fri, 06 Feb 2026 14:22:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -142,32 +121,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/5/26 19:58, Alex Deucher wrote:
-> Has anyone given any thought on how to support something like top for
-> accelerators or GPUs?
+On Thu, Feb 05, 2026 at 07:41:11AM -0700, Alex Williamson wrote:
+> >> From https://anongit.freedesktop.org/git/drm/drm-misc
+> >>  * branch                          drm-misc-next -> FETCH_HEAD
+> >> 
+> >> $ git show FETCH_HEAD
+> >> commit 779ec12c85c9e4547519e3903a371a3b26a289de
+> >> Author: Alexander Konyukhov <Alexander.Konyukhov@kaspersky.com>
+> >> Date:   Tue Feb 3 16:48:46 2026 +0300
+> >> 
+> >>     drm/komeda: fix integer overflow in AFBC framebuffer size check
+> >> 
+> >> $ git merge-base  FETCH_HEAD 61ceaf236115f20f4fdd7cf60f883ada1063349a
+> >> 24d479d26b25bce5faea3ddd9fa8f3a6c3129ea7
+> >> $ git describe --contains 24d479d26b25bce5faea3ddd9fa8f3a6c3129ea7
+> >> v6.19-rc6^0
+> >> 
+> >> $ git log --oneline 61ceaf236115f20f4fdd7cf60f883ada1063349a ^FETCH_HEAD
+> >> 61ceaf236115f2 vfio: Prevent from pinned DMABUF importers to attach to VFIO DMABUF
+> >> 
+> >> Just pull Alex's tree, the drm-misc-next tree already has v6.19-rc6,
+> >> so all they will see is one extra patch from Alex in your PR.
+> >> 
+> >> No need to backmerge, this is normal git stuff and there won't be
+> >> conflicts when they merge a later Linus tag.
+> >
+> > Correct, but that would merge the same patch through two different 
+> > trees. That is usually a pretty big no-go.
+> 
+> Applying the patch through two different trees is a no-go, but
+> merging the same commit from a shared branch or tag is very common
+> and acceptable.  It's the same commit after all, there is no
+> conflict, no duplicate commit.  When the trees are merged, the
+> commit will exist once in the log.  Thanks,
 
-top for accelerators/GPUs kind of exists already, see [1] or [2].
-Clearly, this problem has some kind of solution (looking through the=20
-code, it seems like they check every fd if it has a DRM fdinfo file=20
-associated (which is indeed not particularly efficient)).
++1
 
-Maybe it's worth asking the authors of the respective tools for their=20
-opinions here?
+This is how shared branches work. There is no issue here.
 
-Natalie
-
-[1] https://github.com/Umio-Yasuno/amdgpu_top
-[2] https://github.com/Syllo/nvtop
-> We have fdinfo, but using fdinfo requires extra
-> privileges (CAP_SYS_PTRACE) and there is not a particularly efficient
-> way to even discover what processes are using the GPU.  There is the
-> clients list in debugfs, but that is also admin only.  Tools like ps
-> and top use /proc/<pid>/stat and statm.  Do you think there would be
-> an appetite for something like /proc/<pid>/drm/stat, statm, etc.?
-> This would duplicate much of what is in fdinfo, but would be available
-> to regular users.
->=20
-> Thanks,
->=20
-> Alex
-
+Jason
