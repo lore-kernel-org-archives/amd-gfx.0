@@ -4,191 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41FDEE78D44
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30AF5E78D40
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:41:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D259110E341;
-	Mon,  9 Feb 2026 08:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C416A10E360;
+	Mon,  9 Feb 2026 08:41:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="A7Qf5P5K";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="guwUpLJL";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010065.outbound.protection.outlook.com [52.101.85.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 729F610E8FE;
- Fri,  6 Feb 2026 20:44:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wzOx0o8qZQGQLezNBkeHqM2DOah9kFq3HfZ1oc+Tb4wuuqX/ZrEH3Norj8gVM7SfuP8zT2uFgOVUu60AmF/roF+r4WmVAWP0bLI1NnoGyCovCyzrbASsJzWW0pXcrf+tlgbcocWegjR2Zy7CTi75vTzqk09Qf6jqMXeEiwZ3a6QMQoE0fj/kAuNXMwVaE0M8culpB+msJigKKMQCJISmmlyRAXxZik4sd/xSIafa9c5mDpHssDEokTs1WzUghPfzokRaX4Q6mQNF4nQmQ7ei52z6xjvr+/TFaMJNlrb9jjLtotUKz31LzU3rd06GMEzsryqiG2+T9C7Z0KcwTbbaJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hxqDGU/8AbMWDOOOnzAweceBYH99N9ErE+zvzwnza6M=;
- b=cXknFGI/gs890Hc4umg69Upbw0HcF74QuVu02SMveBhJxUehrPRPirRhx5FBQE4arVI+SVSdBlGRGHGXTHu3n5dOLMkQnnGeTyFupWLCA1lypLjag1HDLCQ/k2VaWpH6USRHGhcC4noGW5BjxveafVDe10YgOX/SjFmkNGHyCtpzxyZwrbnykKdlTKo/WOtbNev/6gCxLnXEeoII0Ybnk2Yv8OyBlExXE0unHmOYOCIL/jmKU+XTHGHDv7LAC7Jlb/w408gYCmiiNjmu57DhMy/bKjEqjbXjuzwYcN+NwVpKX/buTWLpdyL9mWxkcfr+2yy8ijHaGdXT65jtwkNM/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hxqDGU/8AbMWDOOOnzAweceBYH99N9ErE+zvzwnza6M=;
- b=A7Qf5P5Ky/huwOU2RMdsoAF1/UhLsFXI8jvB6jcq1TtTZeiXH/gq0/oH4Hl/uu7cc7BZJTKdVy9S3vtvpviUVw6BsQO9N1haA0vH5Rq9+KoZY2lYRJi/dz5adQGmTAziwgfVCc3+Hkr5dzF5/aoNDiRHPMGiTGV7mQmhbEIqRKBsPVJj3EzGgBkWmCAj57t5uXpeRvFTgWL6zYNT3X1bHvce8TaLN2/E9OGHtINPdPpMpKwHyx2BkHPFGARoItt10o702TgJw4KRtg27U12pNeQrCvHfTMs6BacELi6p4oAD2L8+dDw5cmz1l5dzRjTtrw4srxt5ha40cNGVCoq7eQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- PH7PR12MB6441.namprd12.prod.outlook.com (2603:10b6:510:1fb::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.13; Fri, 6 Feb
- 2026 20:44:20 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9587.013; Fri, 6 Feb 2026
- 20:44:20 +0000
-Message-ID: <c9ed5fec-90fe-458d-844f-8fe78d1cd79c@nvidia.com>
-Date: Fri, 6 Feb 2026 15:44:15 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH -next v7 1/2] rust: clist: Add support to interface with C
- linked lists
-To: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alice Ryhl <aliceryhl@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>, joel@joelfernandes.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-References: <20260206004110.1914814-1-joelagnelf@nvidia.com>
- <20260206004110.1914814-2-joelagnelf@nvidia.com>
- <DG7ZF1UT98RQ.3F42J3ULGV2OC@garyguo.net>
- <DG800TDA6OXQ.275PMMS19F1EX@kernel.org>
- <77ac3274-a962-469d-a2f6-6ccc0670988a@nvidia.com>
- <DG80FV3VTT6P.2ZP18EM8605GT@garyguo.net>
- <DG81PJ9QD8FC.2NF6VEKDD3F2Q@kernel.org>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <DG81PJ9QD8FC.2NF6VEKDD3F2Q@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR13CA0019.namprd13.prod.outlook.com
- (2603:10b6:208:160::32) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2469E10E915
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Feb 2026 20:53:11 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-b8845a47e39so40850766b.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Feb 2026 12:53:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770411189; x=1771015989; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=8nCuBzBCWXvAq1q08nO5/bP5KSwKUp+J/Q3o6/S7644=;
+ b=guwUpLJLoPC5cTXaTRN5mOPKIl6vmjAoWmR8AFev3RtZO9shC12S6PK5V9JV5gmEsa
+ o6aiKKmb7bbamNWkLK5yquq64Vlf4tCGi0DJshON9c/Qjxq6Ty1iE1nMeHww/SHUDGKB
+ Bq63luMrZ8xROiwOtzuokTmqxzqt0TwXvoEAuSmz7WknNPKyV4jIU/vBxATGdeZg/2NO
+ fKwGwWi5DJVr3zscbp3rdTWfcNae4yjY3JQV++sReZT8rg6IymZ1EZJ3RSL80jLix+uM
+ +J2NNPnDndFW/iiSMz+u6s+3Vbnd0ZPVuZbzwlud5YmlR3dHyqZEvD7xnliE0iKCK81U
+ pMUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770411189; x=1771015989;
+ h=mime-version:user-agent:content-transfer-encoding
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=8nCuBzBCWXvAq1q08nO5/bP5KSwKUp+J/Q3o6/S7644=;
+ b=XFoGh8kh3wL04wltxQfOJU6H1GWEZ5eY+iTuwenDCjC9NEqWzuhamF3GJgISqinhD6
+ TEnr91M93na1Lh7eF5DC9u4z7Fkb0QeVHX9CdjeJ/OK0GtiOih7MEr6avgQvGweQbAkv
+ cZJNrpsriWEy997kKPd2fVQd5cidf9mq4WzvImRRfBqMG9uqS/dggC0N/fyEXOvclYuc
+ Md2HC2PrTjB2GYRfdJN6/NF9Ga2XRFq+bTch/vqoy81ejWzTHEtDBznOh1WUrAqH8zHR
+ wbno3Y5Cl9xdrGyVJ+w8uPkT8BE5LQR4g2NBO2WgmiKfbg1VOXH65EdNQBD8w03yQZXs
+ qSCw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVqvNhYzLlCngy/Ciiy9O7eLB6p/z3UG8mgkMj04EPC8G//bfWU5RgtbS6uOiZmjjqMHzt9gU9N@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzRPIl1+x7mga6vKF8LHyBAA9WQMTpqFlvPniTZnJu3nJIflrc0
+ keLGcdGlLF/iBs2B9LxfDNDvju85gTIdkKnYzqHmFe7IJ4AcIQDSc4iz
+X-Gm-Gg: AZuq6aKbLrDgURIep5YKDdTfAEezuSNEiBnNhUA+Nqa1y/88DnVhmiL+YqCDN3U1g5f
+ wsLHbakMtaIfEGKs+Ems6I+/G0Ep4wGCX76r5cRaezLrwh7k8KLm7plogllsNhHextTuIU14sAV
+ cGgQBoCmf67tgZ4DQvLcymcI/l1a5t4Ysb1EyNqDwJlYEtHGkzG57H0oVandW3fbjRL2Fxf4Shj
+ xbdQ0PGGkCmlU1M4pE/H9Oh+QIVRE4ezVSQNvQSmCWRMg5pMId8O2rkyDge89pe7mjYnb8PuRKC
+ Dmkny7Yex+1TxC1mFMO9PePYZuHLCGnPQwInnwosudin3GtJHchutpJuEav+pb+FublgI/DGpNn
+ rDnuapHMCznh0ZQG8uSEBwKUsl3NKVuQz70lvCr3QaGH6PI57wlJvPTz6rGvjT4OlGiA9ocLmWO
+ hEYtm7Y8X9op7FYc4OkMDTvQy99MNlHPexvoLDZ061UbgVbQKGOLKdHWPPAdCw21sU674etPM=
+X-Received: by 2002:a17:906:f5a1:b0:b8a:f5a1:32f0 with SMTP id
+ a640c23a62f3a-b8edf4eac8bmr130916166b.3.1770411189198; 
+ Fri, 06 Feb 2026 12:53:09 -0800 (PST)
+Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
+ [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8eda748254sm109746166b.5.2026.02.06.12.52.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Feb 2026 12:52:59 -0800 (PST)
+Message-ID: <79264ab170e48e1372b3b847d75f4635dcc57aa6.camel@gmail.com>
+Subject: Re: [PATCH v3 16/19] drm/amd/display: Add parameter to control ALLM
+ behavior
+From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, alexander.deucher@amd.com, 
+ sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
+ siqueira@igalia.com, 	dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
+ bernhard.berger@gmail.com, 	michel.daenzer@mailbox.org,
+ daniel@fooishbar.org, admin@ptr1337.dev
+Date: Fri, 06 Feb 2026 21:52:57 +0100
+In-Reply-To: <f19af3c6-f865-4758-8c50-aba40ec1cf68@amd.com>
+References: <20260203185626.55428-1-tomasz.pakula.oficjalny@gmail.com>
+ <20260203185626.55428-17-tomasz.pakula.oficjalny@gmail.com>
+ <f19af3c6-f865-4758-8c50-aba40ec1cf68@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH7PR12MB6441:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b2a8bb4-1214-4835-7c4d-08de65c080bd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?V0p0MVcrcm82bTFxMWJkSlhZb0NrbTR2a1FKTVpCSy9IOWRuMVdlZDdyeHRL?=
- =?utf-8?B?bDZ1Q1NHZEJ1d1YveXJBRDhqdlRpNG9pOURjbmMwK0ErSUFFaDN2TUFJVVdJ?=
- =?utf-8?B?Zm4xeU1KTE54SEY3Z2E3ODNSRGVHbDRZSVVlaGd0dEV6Tlg1UTcvTjJJUVBR?=
- =?utf-8?B?elZlMGEyc2JRbklRQldoK0MzM25MVmFtSHlmRTU1ckNHcU9YYjE5cTdMMU44?=
- =?utf-8?B?cldVNVEwcHJHWU5WTm1VaVF0anEyQ05JTzBDLzU2d3JRWVZ3THhQeU4zVU1S?=
- =?utf-8?B?bmhoWDdFQVhNaXFyblQrSTNXZEZKVTFVWnR1blQ2TnJsRmVWbWJLZnZRQ3RB?=
- =?utf-8?B?SGNFQzgyYk4veVFUbklrTmx4alRrbis0V0hqb0VoVVEybXhaNnZIUHMxTXRa?=
- =?utf-8?B?MUtsTkRrYW1HLzdmQ0Z2SFF2OXIrMVFac1lMUUVvTEJHd3dQdUl1MlNPV2ZE?=
- =?utf-8?B?SjFrZHZQQ0M4OXJsc0YxM2M3eklvR05kZUk0VVZ6dUJCZkJaZ2NJclB3Z2Jx?=
- =?utf-8?B?bnJlejZFdGF2ZzlyYjlYYkE0a241UmdUNnd5ZmhrWVdkYUxFQjFTWk5lUzNi?=
- =?utf-8?B?eTJVQW1hTXFEZUZPMHBhbDFoVVpBUTVmY2l3N3FsTEZTMWhzWngrSkMwUVha?=
- =?utf-8?B?TC9TSityck1qMXQ5cW5yWjFTTDFDZW9WREw2cFhRYVNzZXhwZzI0aHVyekdF?=
- =?utf-8?B?TDNiTWZYaWZ4Qll6dUhzdzc3NklSVmxoWm1IMWNOOUxzM2FTOXd3U2szMnYv?=
- =?utf-8?B?WWlYKzl4MDdoTUNmaW00eDY4RjJNSTFLSVgzRVBmR1ZlNjVJWmViRlExZklr?=
- =?utf-8?B?eFIvZDlVNE5UYlFMOW9Mcno1dHVBNVdiQ0F3ei9ibGkydFZ3bFdCdURhWTJp?=
- =?utf-8?B?M3RFdTEvVWJZdlpTNnFNY2cyYzJoU0c4dzN6UkZSMlBHRkNyWWRNVmJteTJq?=
- =?utf-8?B?VFEwdkphZnRBOEVTck9mU0ZFSWs5K2J2Qm5vczlQcElrVFZndld3K2tDcWFV?=
- =?utf-8?B?aTNaR1hkNkM2UTA0WEJxRUVyUzZMNUF3V1ZSN2tpY0lyMmlDd2VPZnA3NGhW?=
- =?utf-8?B?N0RST3R4MkxOcXB4a3djUk5qUVI1V3ora0ZCWlpQai9PdDZlS2plcFlIWGpC?=
- =?utf-8?B?VzdkMXpoUkFBMDNpQlg3b3VGMUVHWlExNHRvRE9QMzVvMUM2SGR5QWpkWks5?=
- =?utf-8?B?SjAxbjJUSk5rQkhyWTZUd2E3NS9KUW1jbGdpOFNncWxyZGo1dzcyME85TnJs?=
- =?utf-8?B?aStsaFp3QTJKSXdSTk1XOStPTzFYbFRiUVlDVy9ZRkZjNjQ3eU1FUGdqcWww?=
- =?utf-8?B?cmdDcE5nNmFhM2p5MHJwN3dmbzUzcVUybFhMMlV5a2pJMVZsYUdrYTJXY0NG?=
- =?utf-8?B?aGFjQk0wYWdQRlpBRjczbHlXYnJTL1BMRkhLOTFMWnNuUmtvNmhyakoyL1Uv?=
- =?utf-8?B?Q055a3k3OXZFb1BKSUtHOXBwbVlZajBnUmptcW0rTHd3UHY0WnlqTWVwZlJN?=
- =?utf-8?B?TDBzWTg4WTc1cWtFdmVVSUFKYlZXRjNYRk1KanBLTjI2Qjd1RStUZWl5RHlL?=
- =?utf-8?B?dE84UmdnS1JtNytYL0QvS2tZUm16VU56K1VpNkIrRUxkcmZTWWMzenJlQXFl?=
- =?utf-8?B?U01zMDNIOGNKQ2NuOTcyNG0rVmdZTjR0Q000eWV2ZUloMnJ6T3JGZW53eDdn?=
- =?utf-8?B?a0hjeTBGMjAzdlY2c0hwR1BDblNhL1Z2Y21pMXJ2cU9uOVE4a01ZSWR1L1NE?=
- =?utf-8?B?cWFEdmR0blphQm5uSzRqZGNGZnpGanErSXhsVmpjZmpuWFBudzhnb21EWDZz?=
- =?utf-8?B?Nm9QRVpKRDVkOGljS3BTZFo3TVltdEE4dmJ6dHRnQXRIcVN4RytEMmN2Z2t6?=
- =?utf-8?B?VnMyTFBFVlZWNWtwbzcvUTJHbkJJbkpaMkdXVGtqb3hBbitJK1VNYnZlNE44?=
- =?utf-8?B?bVBaa2lJSUN5S1ZTUTBGV1JiZEZvdXBWR2dpMWNFaTJXUTA3YTAwMDY5bEhp?=
- =?utf-8?B?Sk1YOVlZN1lEMXBLa2I0cHFnSVMwWXpjQW1XOStCYVZyTE95Y2FwT2ZKb1lW?=
- =?utf-8?B?eXFodHRlakptM2twLytDeHF5SUZKQ3hhai9ZSXZ6MmlLY0NRaTdkOGVUYXJw?=
- =?utf-8?Q?VxrE=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDU2TS9wdS9JYTMrTEZtZzB2cmt1VERoMmNFYlBacFVmZExoU1BoWGp6V3Vp?=
- =?utf-8?B?WXpNMjFxWENFSHZjZkJNcnB4cGM2eHRLaUJvN1gvTnhtTFhmb1VSNkVmYWZV?=
- =?utf-8?B?OWplL0FQUE5WQVFZZXVKczBpVi84OHExOUhuOEErU0RCS0FIeUFKZU5vSjFV?=
- =?utf-8?B?WklLb2taczc1N0R0TkR1N0JubUd0TWFSRUs3UTV2ekFtQkVOVWNLaU13SmI5?=
- =?utf-8?B?aWZsekl5VEI1TCszdjNvaE1PdEV3V0lPY0VwTHhpK3JJQmJnMjFxWWNOZUtZ?=
- =?utf-8?B?N2dmNStHTXNReUdkc0ZtUnpFS25haEFIdDVEWGFCL2RCNmQ0eHpuNGErNXVT?=
- =?utf-8?B?OTg1UFg5SFhmSTdPVVlzc0RDNlduRG40TkhQTjBaMDVqUUE3TCsrR3lNWnJ0?=
- =?utf-8?B?dkVoVjR0WjJOR09WMHA2a0tvamVqRWtFMDMzQVk3MTcyVUhCNTRBRGJaUGtH?=
- =?utf-8?B?OHNIMnFkQzdpck5oNXhFdHJJeTl4K3VkYlh6RmZvOEVZaS9BblcvTlBnbkxr?=
- =?utf-8?B?SHNZdjg0QnN5empYTGs0RXgrSlV2eHYxbW5uNjJJQk1sTHRjbFpnVTNtdXl3?=
- =?utf-8?B?K250cGp4NFBRRDZ2SWIxYWZkTGZXVzJuMmE2b1liZzI1S2dxdmt3SVkwRUpm?=
- =?utf-8?B?VHlwTmZXdHNBMjBobWhoMWVQcUxOZFg4eWY2Uy9sRkkwQjUwVnFWM3BSQ1Ja?=
- =?utf-8?B?RlowaDRlallKTm1HblVHeU5aeDlSamlqRklzYWhKWVV2ZVJLUlBUcmNlOU9G?=
- =?utf-8?B?cDQ0enFDQXlTa3hHMFNvVVlIcUdqblVpaG9CL2VTeFM0ZVNQbXMzS09KQlRU?=
- =?utf-8?B?UW43dkkvRWJWOE5yV1krb28rbmdIZEJLRUx3QU5xYjZrNjIzbFVMQ21LOEQr?=
- =?utf-8?B?VXpKRks3YVg5eUVrVHpVc2xyYzBMK04vZE5GQ2Jwcy85eUQ4d3FyaFhSM3RU?=
- =?utf-8?B?SGpWVUM3dzdhRlVGZWkyN0hWcWU5UXRnam5WcEs4a3J1a0duckpMcy91OUZv?=
- =?utf-8?B?K3hTRHZWeTIvTndDRk9kTEtTMUxaekFtMGRodE9OZzk2R09EZUNFOWNwVllJ?=
- =?utf-8?B?L3NmSXZuTzVKcjFHU2IxOFF6cVFFMU4ramJDSVhBQ1R2a3VBbXdUMXRnY1RQ?=
- =?utf-8?B?S1RVQnJXSTVDWUNObytIT0w4VW5KL2dLUDU2b3ZtUnYzRlJ2RFJJUXdBU3Zm?=
- =?utf-8?B?eTkzaUVuMFRYVGtqU0paSUVjTUw1Q2VEQ3VFcXRXMng2a00zeUlyOENBNC93?=
- =?utf-8?B?TW5kT3dLcE45SWxWeHBKaGsrbkVpOEEvZldUOWg4Yzl1aDBGTDhGUkNBeDVk?=
- =?utf-8?B?NEVxS2xGdWYxd2lTRzUrOTJaV2JXM2tKM2xFRWN0N2dYVHFEMU84NG42SlMr?=
- =?utf-8?B?aVFuRWVYL25VQzhJWGpBRXRhV05HTzVHVUJBOTQzbFhXQVBsZDRnT05sckts?=
- =?utf-8?B?YzU2ekFCR1ZMdUZBdlVHck5Na081ZW10S0cyV1kvaFZLNXJoakkrYno0dnhR?=
- =?utf-8?B?R3I4U3l1cjQ1NElMVGxMZ3Rlbk40VGxUUktIQ0dPOUpDZ1VQRjd0YUFOc1Aw?=
- =?utf-8?B?SlVOak1FZ2VaelZFbUZCem1VMXJWaUc2N0VIUjFXWUFZaXBHQ3FKdXJYNW1x?=
- =?utf-8?B?Ny9qZTE0eThFK05qWHJ4RDBOSG5nRkNBR3ZuaExwcm5RMzU0TzEycTZhMUxm?=
- =?utf-8?B?WERpUlVUVTVYK0FHaVJpNW14NSsvc0ZJbkk2Q3E1ZnU3V29nTjJ5dkM5ZmNO?=
- =?utf-8?B?cE9ocnloOCswb0NQZmhpbUtVS3A0ajc0ZUFtNnlkamEycm9qV09MN1BONjA4?=
- =?utf-8?B?ZmdDaWM0T2xtRnM2NnBTVHZVYkFZNG9yVjZWWnl5TktxcVIwRGtyYXhYV05p?=
- =?utf-8?B?MWU2eXFZWW1BOTI3akxqV0Z5b3NxTkhSdDBJNy9HQ20zeHdzNnVySERtWS9I?=
- =?utf-8?B?eE1GaHBDV1JzUnRaN0YycldRSzNESlU3K1NVTWczTUJZU00wYS9yV3EzMlph?=
- =?utf-8?B?TFh0eWk1UExlZXJ0bmpPaWltYnNzMWdMY2Z5YkRZNlB2TnpyTGwrRUlSc3Vi?=
- =?utf-8?B?bGpSYlBjeWpXdUZHdzBESWgvWnVya2JqaUNCanFBbEdrTXJkdmkzYW9nbXJV?=
- =?utf-8?B?QVlBOWNXVVVNVnRkb1NpWk9jYWxScXF1amdYZkVLMy9XSE9QcmY0OW5PblFm?=
- =?utf-8?B?d283SDRaNngyUWtOMTJCejlqcGJ2WDhubjRROEJkYi85U1dtL1pjN3dOTndU?=
- =?utf-8?B?Vnd6NWhQZnJXOVJBbDZvc3RoSUF1OEhveSs3b3pNL3ZaNEJNK2pDbG5RV3hO?=
- =?utf-8?B?bTlKU3dDTTZTYmVBUkRSVjUxVDF3TWZtSUhZTXkrb2NQVmswYUI5Zz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b2a8bb4-1214-4835-7c4d-08de65c080bd
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 20:44:20.2907 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AbqQ74xccs77Nvtj71xEJSuip4Bkx0UDHsReoDTNZE8Kygk1tL+PRqp0wSdPIWLZfJyxs+7mJhAlYiBN6s+FhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6441
 X-Mailman-Approved-At: Mon, 09 Feb 2026 08:41:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -204,60 +99,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Fri, 2026-02-06 at 13:52 -0500, Harry Wentland wrote:
+> On 2026-02-03 13:56, Tomasz Paku=C5=82a wrote:
+> > [Why]
+> > Some users prefer to always manually control ALLM/Gaming mode while
+> > others might want it permanently forced on.
+> >=20
+> > [How]
+> > Since there isn't yet an API to control this, expose module parameter
+> >=20
+> > Changes in v3:
+> > - Include a fix for possible NULL pointer dereference by Peter
+> >=20
+> > Closes: https://github.com/CachyOS/linux-cachyos/issues/680
+> >=20
+> > Co-developed-by: Peter Jung <admin@ptr1337.dev>
+> > Signed-off-by: Peter Jung <admin@ptr1337.dev>
+> > Signed-off-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  1 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 14 +++++-
+> >  .../gpu/drm/amd/display/dc/core/dc_resource.c |  7 +--
+> >  .../amd/display/modules/inc/mod_info_packet.h |  1 +
+> >  .../display/modules/info_packet/info_packet.c | 46 ++++++++++++++++---
+> >  5 files changed, 56 insertions(+), 13 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu.h
+> > index 447e734c362b..312aa32064d5 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> > @@ -268,6 +268,7 @@ extern int amdgpu_rebar;
+> > =20
+> >  extern int amdgpu_wbrf;
+> >  extern int amdgpu_user_queue;
+> > +extern uint amdgpu_allm_mode;
+> > =20
+> >  extern uint amdgpu_hdmi_hpd_debounce_delay_ms;
+> > =20
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_drv.c
+> > index d6d0a6e34c6b..4b038c8bbf9f 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -248,6 +248,7 @@ int amdgpu_umsch_mm_fwlog;
+> >  int amdgpu_rebar =3D -1; /* auto */
+> >  int amdgpu_user_queue =3D -1;
+> >  uint amdgpu_hdmi_hpd_debounce_delay_ms;
+> > +uint amdgpu_allm_mode =3D 1;
+> > =20
+> >  DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS=
+, 0,
+> >  			"DRM_UT_CORE",
+> > @@ -1124,7 +1125,7 @@ module_param_named(rebar, amdgpu_rebar, int, 0444=
+);
+> >  MODULE_PARM_DESC(user_queue, "Enable user queues (-1 =3D auto (default=
+), 0 =3D disable, 1 =3D enable, 2 =3D enable UQs and disable KQs)");
+> >  module_param_named(user_queue, amdgpu_user_queue, int, 0444);
+> > =20
+> > -/*
+> > +/**
+> >   * DOC: hdmi_hpd_debounce_delay_ms (uint)
+> >   * HDMI HPD disconnect debounce delay in milliseconds.
+> >   *
+> > @@ -1134,6 +1135,17 @@ module_param_named(user_queue, amdgpu_user_queue=
+, int, 0444);
+> >  MODULE_PARM_DESC(hdmi_hpd_debounce_delay_ms, "HDMI HPD disconnect debo=
+unce delay in milliseconds (0 to disable (by default), 1500 is common)");
+> >  module_param_named(hdmi_hpd_debounce_delay_ms, amdgpu_hdmi_hpd_debounc=
+e_delay_ms, uint, 0644);
+> > =20
+> > +/**
+> > + * DOC: allm_mode (int)
+> > + * Changes ALLM triggering mode (if sink supports ALLM). Possible valu=
+es:
+> > + *
+> > + * - 0 =3D ALLM disabled
+> > + * - 1 =3D ALLM dynamically triggered based on VRR state / Game Conten=
+t Type Hint
+> > + * - 2 =3D ALLM forced always on
+> > + */
+> > +MODULE_PARM_DESC(allm_mode, "Changes ALLM trigger mode (0 =3D disable,=
+ 1 =3D enable (default), 2 =3D force enable)");
+> > +module_param_named(allm_mode, amdgpu_allm_mode, uint, 0644);
+> > +
+> >  /* These devices are not supported by amdgpu.
+> >   * They are supported by the mach64, r128, radeon drivers
+> >   */
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/driver=
+s/gpu/drm/amd/display/dc/core/dc_resource.c
+> > index 4a7c9f810e35..b779aac28dfa 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> > @@ -44,6 +44,7 @@
+> >  #include "clk_mgr.h"
+> >  #include "dc_state_priv.h"
+> >  #include "dc_stream_priv.h"
+> > +#include "modules/inc/mod_info_packet.h"
+>=20
+> Architecturally DC can't have a dependency on modules.
+> Is there a different way we can handle this?
+>=20
+> Could we do the determination in amdgpu_dm (with help of
+> the module) and then set a flag on the stream?
+>=20
+> Harry
 
+Sure. I don't have any opinion on how it should be done. I think I only
+did this like that because I wanted it to be easily changeable at
+runtime, but the value of having this RW is next to none.
 
-On 2/6/2026 12:13 PM, Danilo Krummrich wrote:
-> On Fri Feb 6, 2026 at 5:13 PM CET, Gary Guo wrote:
->> On Fri Feb 6, 2026 at 4:05 PM GMT, Joel Fernandes wrote:
->>>
->>>
->>> On 2/6/2026 10:53 AM, Danilo Krummrich wrote:
->>>> On Fri Feb 6, 2026 at 4:25 PM CET, Gary Guo wrote:
->>>>> On Fri Feb 6, 2026 at 12:41 AM GMT, Joel Fernandes wrote:
->>>>>> diff --git a/drivers/gpu/Kconfig b/drivers/gpu/Kconfig
->>>>>> index 22dd29cd50b5..2c3dec070645 100644
->>>>>> --- a/drivers/gpu/Kconfig
->>>>>> +++ b/drivers/gpu/Kconfig
->>>>>> @@ -1,7 +1,14 @@
->>>>>>  # SPDX-License-Identifier: GPL-2.0
->>>>>>  
->>>>>> +config RUST_CLIST
->>>>>> +	bool
->>>>>> +	depends on RUST
->>>>>> +	help
->>>>>> +	  Rust abstraction for interfacing with C linked lists.
->>>>>
->>>>> I am not sure if we need extra config entry. This is fully generic so shouldn't
->>>>> generate any code unless there is an user.
->>>>
->>>> I also don't think we need a Kconfig for this.
->>>>
->>>> In any case, it shouln't be in drivers/gpu/Kconfig.
->>>
->>> Fair point, I believe I was having trouble compiling this into the kernel crate
->>> without warnings (I believe if !GPU_BUDDY). I'll try to drop it and see if we
->>> can get rid of it.
->>
->> If you run into dead code warnings, I think it is fine to just
->>
->>     #[allow(dead_code, reason = "all users might be cfg-ed out")]
->>
->> the overhead of just let rustc type-checking this module isn't worth the extra
->> Kconfig plumbing, I think.
-> 
-> You mean because there are pub(crate) in clist.rs? I don't think the Kconfig
-> would help with that, nothing prevents people from enabling RUST_CLIST, but none
-> of the users.
-
-I think he means add the alloc annotation to suppress deadcode warnings and get
-rid of the Kconfig?
-
-> Besides that, once we have the new build system, the users of CList are likely
-> in other crates anyways, so I think we should just change things to pub.
-
-I agree with both approaches. Perhaps changing to pub is better to avoid churn
-in the future when other crates use it.
-
--- 
-Joel Fernandes
-
+>=20
+> > =20
+> >  #include "virtual/virtual_link_hwss.h"
+> >  #include "link/hwss/link_hwss_dio.h"
+> > @@ -4503,8 +4504,6 @@ static void set_avi_info_frame(
+> >  	unsigned int vic =3D pipe_ctx->stream->timing.vic;
+> >  	unsigned int rid =3D pipe_ctx->stream->timing.rid;
+> >  	unsigned int fr_ind =3D pipe_ctx->stream->timing.fr_index;
+> > -	enum dc_timing_3d_format format;
+> > -	bool allm;
+> > =20
+> >  	if (stream->avi_infopacket.valid) {
+> >  		*info_packet =3D stream->avi_infopacket;
+> > @@ -4658,10 +4657,8 @@ static void set_avi_info_frame(
+> >  	///VIC
+> >  	if (pipe_ctx->stream->timing.hdmi_vic !=3D 0)
+> >  		vic =3D 0;
+> > -	format =3D stream->timing.timing_3d_format;
+> > -	allm =3D stream->link->local_sink->edid_caps.allm;
+> >  	/*todo, add 3DStereo support*/
+> > -	if ((format !=3D TIMING_3D_FORMAT_NONE) || allm) {
+> > +	if (!is_hdmi_vic_mode(pipe_ctx->stream)) {
+> >  		// Based on HDMI specs hdmi vic needs to be converted to cea vic whe=
+n 3D is enabled
+> >  		switch (pipe_ctx->stream->timing.hdmi_vic) {
+> >  		case 1:
+> > diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h =
+b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+> > index 306eb7355c25..9ec123ecc7c4 100644
+> > --- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+> > +++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+> > @@ -41,6 +41,7 @@ void set_vsc_packet_colorimetry_data(
+> >  		enum dc_color_space cs,
+> >  		enum color_transfer_func tf);
+> > =20
+> > +bool is_hdmi_vic_mode(const struct dc_stream_state *stream);
+> >  void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+> >  		struct dc_info_packet *info_packet,
+> >  		enum dc_color_space cs,
+> > diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packe=
+t.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+> > index 53e488fdb4ea..829cce9455db 100644
+> > --- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+> > +++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+> > @@ -23,12 +23,13 @@
+> >   *
+> >   */
+> > =20
+> > -#include "mod_info_packet.h"
+> > +#include "amdgpu.h"
+> >  #include "core_types.h"
+> > -#include "dc_types.h"
+> > -#include "mod_shared.h"
+> > -#include "mod_freesync.h"
+> >  #include "dc.h"
+> > +#include "dc_types.h"
+> > +#include "mod_freesync.h"
+> > +#include "mod_info_packet.h"
+> > +#include "mod_shared.h"
+> > =20
+> >  enum vsc_packet_revision {
+> >  	vsc_packet_undefined =3D 0,
+> > @@ -54,6 +55,12 @@ enum vsc_packet_revision {
+> >  #define HF_VSIF_3D_BIT   0
+> >  #define HF_VSIF_ALLM_BIT 1
+> > =20
+> > +enum allm_trigger_mode {
+> > +	ALLM_MODE_DISABLED        =3D 0,
+> > +	ALLM_MODE_ENABLED_DYNAMIC =3D 1,
+> > +	ALLM_MODE_ENABLED_FORCED  =3D 2,
+> > +};
+> > +
+> >  // VTEM Byte Offset
+> >  #define VTEM_PB0		0
+> >  #define VTEM_PB1		1
+> > @@ -499,7 +506,32 @@ void mod_build_vsc_infopacket(const struct dc_stre=
+am_state *stream,
+> >  	}
+> >  }
+> > =20
+> > -static bool is_hdmi_vic_mode(const struct dc_stream_state *stream)
+> > +static bool is_hdmi_allm_mode(const struct dc_stream_state *stream)
+> > +{
+> > +	/* No local sink */
+> > +	if (!stream->link->local_sink)
+> > +		return false;
+> > +
+> > +	/* Sink doesn't expose ALLM support in edid */
+> > +	if (!stream->link->local_sink->edid_caps.allm)
+> > +		return false;
+> > +
+> > +	switch (amdgpu_allm_mode) {
+> > +	case ALLM_MODE_DISABLED:
+> > +		return false;
+> > +
+> > +	case ALLM_MODE_ENABLED_DYNAMIC:
+> > +		break;
+> > +
+> > +	case ALLM_MODE_ENABLED_FORCED:
+> > +		return true;
+> > +	}
+> > +
+> > +	return stream->content_type =3D=3D DISPLAY_CONTENT_TYPE_GAME ||
+> > +	       stream->vrr_active_variable;
+> > +}
+> > +
+> > +bool is_hdmi_vic_mode(const struct dc_stream_state *stream)
+> >  {
+> >  	if (stream->timing.hdmi_vic =3D=3D 0)
+> >  		return false;
+> > @@ -512,7 +544,7 @@ static bool is_hdmi_vic_mode(const struct dc_stream=
+_state *stream)
+> >  	if (stream->view_format !=3D VIEW_3D_FORMAT_NONE)
+> >  		return false;
+> > =20
+> > -	if (stream->link->local_sink->edid_caps.allm)
+> > +	if (is_hdmi_allm_mode(stream))
+> >  		return false;
+> > =20
+> >  	return true;
+> > @@ -541,7 +573,7 @@ void mod_build_hf_vsif_infopacket(const struct dc_s=
+tream_state *stream,
+> > =20
+> >  		info_packet->valid =3D false;
+> > =20
+> > -		allm =3D stream->link->local_sink->edid_caps.allm;
+> > +		allm =3D is_hdmi_allm_mode(stream);
+> >  		format =3D stream->view_format =3D=3D VIEW_3D_FORMAT_NONE ?
+> >  			 TIMING_3D_FORMAT_NONE :
+> >  			 stream->timing.timing_3d_format;
