@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1027EE20A4
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 14:05:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC9E3EE20A4
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 14:08:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4482610E7AF;
-	Fri,  6 Feb 2026 14:05:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C02910E7C0;
+	Fri,  6 Feb 2026 14:08:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IauM6qxA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m4RMr14q";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD0610E7AE;
- Fri,  6 Feb 2026 14:05:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7621210E7B8;
+ Fri,  6 Feb 2026 14:08:50 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C4FEA6001A;
- Fri,  6 Feb 2026 14:05:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEEE2C116C6;
- Fri,  6 Feb 2026 14:05:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 59BB960122;
+ Fri,  6 Feb 2026 14:08:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831ACC19421;
+ Fri,  6 Feb 2026 14:08:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770386711;
- bh=TaPvEsWxvpYYOThGeX1+fx1sD+0RPf/kwBUPBJTjDY4=;
+ s=k20201202; t=1770386929;
+ bh=+lIi82NYDZHy3722msFtnCnh1tdb9jn2hqegryuZsv4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=IauM6qxASUz/Fo2EiCWex3fCTVey671ArIsYwK+3iWyqrXjBxzIIu0605avahH/xr
- bSczKKlSeMkMSaXRdtdNAm4UwaNkQISaJ4zChYTk8plrSLGlCORmAIB3y7aPZDe4W3
- OMLxLp8FrcOjYrrUT+1D4xG/ZcuP8aTy+c8DrQT5CEluNQJ8y+by7nO9V4JKFd8kDf
- gUyBwVFXjeV1lcwrd19xHwLadFcEVKvrpaQx8sJ5EyzqWQJtC6tjjnUlX2y38QsmVO
- NavvJ2C/rmXxkBKX2/nuo7Rir0p9ae99WqUXRqq6JjEHoeddDS8lKaqWyY5NfewNXW
- EeLaCc7mQMLFw==
-Date: Fri, 6 Feb 2026 15:05:08 +0100
+ b=m4RMr14qRzstPqItXkr/5OrxYDpSQG71tOjhHOic63cYTk2SvrNErOgO5dHJfp3e+
+ w7mK5YUkXGNJsdh25Qt6kj+8LUHS80HPi0P5lONF4st4Nco+/Sofu1DKJuGM4rIyVK
+ ++miMRAzAaKZ+aYUde9ZK/SSUFkNgF7GDYMJGbJidLXVGRq/X/9SvV68gm3Mm1OolL
+ UQxfwaFyVy1yBltxH4sPXnnMsuuaLmfTlQtUHylW1jIt+1zqA6J+LKbJolNgvTMPSR
+ kCEyA7JrZKZFYDLSIcn+HvgY63cZPo4nIIpoFQ/M8EaON7rZbm/BPoEFaso2y0rDs2
+ OB1otDCYh9zwQ==
+Date: Fri, 6 Feb 2026 15:08:46 +0100
 From: Maxime Ripard <mripard@kernel.org>
 To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -58,18 +58,17 @@ Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  linux-kernel@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, 
- Andri Yngvason <andri@yngvason.is>, Werner Sembach <wse@tuxedocomputers.com>, 
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v7 02/22] drm: Add new general DRM property "color format"
-Message-ID: <20260206-deft-provocative-perch-6ca9bf@houat>
+ linux-doc@vger.kernel.org, Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v7 03/22] drm: Add enum conversions between
+ DRM_COLOR_FORMAT and HDMI_COLORSPACE
+Message-ID: <20260206-angelic-crimson-bug-aaab40@houat>
 References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
- <20260121-color-format-v7-2-ef790dae780c@collabora.com>
+ <20260121-color-format-v7-3-ef790dae780c@collabora.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="tlakrgvje6y2sbf2"
+ protocol="application/pgp-signature"; boundary="7kyo6gozxaybulie"
 Content-Disposition: inline
-In-Reply-To: <20260121-color-format-v7-2-ef790dae780c@collabora.com>
+In-Reply-To: <20260121-color-format-v7-3-ef790dae780c@collabora.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,55 +84,112 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
---tlakrgvje6y2sbf2
+--7kyo6gozxaybulie
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v7 02/22] drm: Add new general DRM property "color format"
+Subject: Re: [PATCH v7 03/22] drm: Add enum conversions between
+ DRM_COLOR_FORMAT and HDMI_COLORSPACE
 MIME-Version: 1.0
 
-Hi,
-
-On Wed, Jan 21, 2026 at 03:45:09PM +0100, Nicolas Frattaroli wrote:
+On Wed, Jan 21, 2026 at 03:45:10PM +0100, Nicolas Frattaroli wrote:
+> While the two enums have similar values, they're not identical, and
+> HDMI's enum is defined as per the HDMI standard.
+>=20
+> Add a simple conversion function from DRM to HDMI. Unexpected inputs
+> aren't handled in any clever way, DRM_COLOR_FORMAT_AUTO and any other
+> value that doesn't cleanly map to HDMI just gets returned as
+> HDMI_COLORSPACE_RGB.
+>=20
+> Add a second conversion function that gets a DRM_COLOR_FORMAT from an
+> HDMI_COLORSPACE as well. In this case, reserved HDMI values that can't
+> be converted will result in an -EINVAL return value.
+>=20
+> Co-developed-by: Marius Vlad <marius.vlad@collabora.com>
+> Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  include/drm/drm_connector.h | 54 +++++++++++++++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 54 insertions(+)
+>=20
 > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 7eaec37ae1c7..b5604dca728a 100644
+> index b5604dca728a..ffeb42f3b4a3 100644
 > --- a/include/drm/drm_connector.h
 > +++ b/include/drm/drm_connector.h
-> @@ -556,6 +556,16 @@ enum drm_colorspace {
->  	DRM_MODE_COLORIMETRY_COUNT
->  };
+> @@ -2612,6 +2612,60 @@ int drm_connector_attach_color_format_property(str=
+uct drm_connector *connector);
 > =20
-> +enum drm_color_format {
-> +	DRM_COLOR_FORMAT_AUTO			=3D 0,
-> +	DRM_COLOR_FORMAT_RGB444			=3D BIT(0),
-> +	DRM_COLOR_FORMAT_YCBCR444		=3D BIT(1),
-> +	DRM_COLOR_FORMAT_YCBCR422		=3D BIT(2),
-> +	DRM_COLOR_FORMAT_YCBCR420		=3D BIT(3),
-> +};
-> +
-> +#define DRM_COLOR_FORMAT_COUNT 5
-> +
+>  const char *drm_get_color_format_name(enum drm_color_format color_fmt);
+> =20
+> +/**
+> + * drm_color_format_to_hdmi_colorspace - convert DRM color format to HDMI
+> + * @fmt: the &enum drm_color_format to convert
+> + *
+> + * Convert a given &enum drm_color_format to an equivalent
+> + * &enum hdmi_colorspace. For non-representable values and
+> + * %DRM_COLOR_FORMAT_AUTO, the value %HDMI_COLORSPACE_RGB is returned.
+> + *
+> + * Returns: the corresponding &enum hdmi_colorspace value
+> + */
+> +static inline enum hdmi_colorspace __pure
+> +drm_color_format_to_hdmi_colorspace(enum drm_color_format fmt)
+> +{
+> +	switch (fmt) {
+> +	default:
+> +	case DRM_COLOR_FORMAT_AUTO:
+> +	case DRM_COLOR_FORMAT_RGB444:
+> +		return HDMI_COLORSPACE_RGB;
 
-I don't really see a reason to expose an enum, with a bunch of values
-that are all mutually exclusive, as a bitmask. It's pretty inconsistent
-with most (all?) the other similar properties we have.
+I don't think that's correct. What auto ends up as totally depends on
+the atomic state it comes with.
 
-I appreciate you did that to avoid fixing up every driver using those
-values, but then maybe we don't have to? We could create a userspace
-facing enum, and convert to DRM_COLOR_FORMAT internally.
+At the very least, you should output a warning there, because that case
+should never happen.
+
+> +	case DRM_COLOR_FORMAT_YCBCR444:
+> +		return HDMI_COLORSPACE_YUV444;
+> +	case DRM_COLOR_FORMAT_YCBCR422:
+> +		return HDMI_COLORSPACE_YUV422;
+> +	case DRM_COLOR_FORMAT_YCBCR420:
+> +		return HDMI_COLORSPACE_YUV420;
+> +	}
+> +}
+> +
+> +/**
+> + * drm_color_format_from_hdmi_colorspace - convert HDMI color format to =
+DRM
+> + * @fmt: the &enum hdmi_colorspace to convert
+> + *
+> + * Convert a given &enum hdmi_colorspace to an equivalent
+> + * &enum drm_color_format. For non-representable values,
+> + * %-EINVAL is returned.
+> + *
+> + * Returns: the corresponding &enum drm_color_format value, or %-EINVAL
+> + */
+> +static inline enum drm_color_format __pure
+> +drm_color_format_from_hdmi_colorspace(enum hdmi_colorspace fmt)
+> +{
+> +	switch (fmt) {
+> +	default:
+> +		return -EINVAL;
+
+Wait, what?
+
+-EINVAL is not a valid value for your enum.
 
 Maxime
 
---tlakrgvje6y2sbf2
+--7kyo6gozxaybulie
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaYX1EAAKCRAnX84Zoj2+
-dm20AYC5qAkdhJdQsWaSZelEFrrJKVRqs5zBtYWPBOAMRObg77mefUoSO3ktgK9d
-TYXfpzUBgPXlGrYnILXs7XVYlFu//eO6ufmogZ3qIYuVKGT1yKooE8WKx/MfpzM3
-iY+f6mFzuA==
-=GGG7
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaYX17QAKCRAnX84Zoj2+
+dhqKAX9uCw/1iLG+7nCh7iWCwrhqxfm0JVwIRRQh/zjRf8Wet9GKZ9b66ZGwYC8M
+tXJZuowBgKH3e2XNrltRlENhX1pPWeDhYlezTP12g5E34y5OGMYep2YcNBUO0/Ck
+6YOwGJvwTQ==
+=PPqS
 -----END PGP SIGNATURE-----
 
---tlakrgvje6y2sbf2--
+--7kyo6gozxaybulie--
