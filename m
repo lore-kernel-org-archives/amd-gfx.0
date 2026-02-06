@@ -4,151 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D900E9129F
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 04:01:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9089EB28C1
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 05:16:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D33810E2C4;
-	Fri,  6 Feb 2026 04:01:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69BF310E329;
+	Fri,  6 Feb 2026 05:16:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wDSBK/eu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dIz0/Gug";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013067.outbound.protection.outlook.com
- [40.93.196.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 690E210E29E;
- Fri,  6 Feb 2026 04:01:52 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012001.outbound.protection.outlook.com [52.101.48.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 330F810E329
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Feb 2026 05:16:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Nt+7fl9HGGMPmDRf7/FdsD4zZ1kyAtLVBgBV9MvA3nv80qp6i1CMLTDFGe1p4noOLCedd64plEfq6vknCwu5GEpX5Wb4ss+b40kwPaMZj8Yhe2Kz7fY3hlvt7vjFcLAYPx4IjYVpcOmERye1HewY0zkRe6kejTMiEVEDpGPVdLwYW2QViKafHLtcuQRBTqVJD7K+q70STvMXkHUMsRyxbZ9O5bxYzS7mUcRAGe35prdnfwfYhwlzxvgyoUM24kuNYaJPG4I1x9Niphm8oOQJ5eXB2b1wB5RpqdLiOzbzPhKyfpHenjsiopGxslqYJyugGWrnj4wd4WvQ4riKcK/bFA==
+ b=nrlK6fHi1nxNpJuf+UI0UdrSMBm5soirSa3AVv3SFcxgs1EIb2B2uvgqEWJWCwV+2kqxjkvf+Pt1oIhFgBCfzuik9QDINGLC25w54mGv3APZ7e9ja6zwtiY4RKO1SJFmlx6EREXFyANeKZjt00bBxPWeWSVU9I0h3rcTDUU/DcKXIznBtC6W8c8FgzHVZEIw12NVr6cQndT7xtuackQVCj5QTq1149O3nmGKOoKzHY/0o1d1TeD2rldtAs7asApiCTTnGdfQn7abzca05QL+prVvIyoH90hdWU8TRjSoMf0Vc75rISHQmnLZP8LaqXBrWNx+n6AOjPH7/hqvhvXwTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r4WaEoMxGKTlP/obeqgVOcqOYKfq3BhfWa6SHBQ07u8=;
- b=MABo4BB5rQJ5HAlwayFDo6uEGSuo/hxcOcwE2gkS8cgXp8g0SNGl1aJFnR0VZkv0b8PYc7z+2g9NRiBci9bgjsaCkTHYqN2VAr1znFyp7h0645Jpuwl6LPQLEh9TGESqnIwcSycvqHTcuNS9oH2ILu9joay0LNSQEonC9SaqXasXlN0K+qGO7affc3RDau1EzEGoG8ZOjD8ReBvoCQePLqopXaKwPekp6zxYQL+xffnTVy/amzRMd5iMjTnZfp1UVxNbZKzpFzzXvNAKppqrHa1MZ4DYy7kQdatmAYU+aSd2PQsl+B5y0jZkHYclhQnRqvjuKFzzedjGwwh2FhAJLg==
+ bh=eBKaWBzDQoWgqi7Ek8PcMZLBP5WjGFN4APTakkFaPaQ=;
+ b=otCM3CBZl9cFvaO+2EvhebiqoX1Mzfan0vLCiCUnkJCC1DnNSFMhDYU4lWzskQDnMawLzV+rhrhbw/tDb3zGJDYcYcq+9PxQVx2UGAlgdQ6Vxn3odlGhckwcbJq8XncAXrklm1dTZ+KO24qewkogmbmgxzwNMGAqj9rk/JCCFy82O9lFlpbF2vVRPUIDVS/KMxm2fZtqgOmIlsYLPIXP0OE3kIep8BEdHwRQJIM9180CxgyiWcSW4YRQJW7yNFPihL5buzJ6naJBRACz+XLnCvFHDPTtX66m6pym5LFVgLBrBJMR/Za7Kq0ofNrm69/sNI7eI0Qa24eNyX+VBj3a0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r4WaEoMxGKTlP/obeqgVOcqOYKfq3BhfWa6SHBQ07u8=;
- b=wDSBK/euWLlXco3CIMP3sPHr43YpMSzq0c0Ha0/HkpEePu17VIsbyLdgnlBelorN0F4bbvU4CMNgM5a8K84iSQArcMlMsHnbO8zoJLr3SVxVlxBGDPumGkYlAkIf2Vfim8xLFnnta8Lw1P6AqnFclbtzmULjhbrQxKX89goXoGg=
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com (2603:10b6:610:d7::13)
- by DS7PR12MB6237.namprd12.prod.outlook.com (2603:10b6:8:97::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.13; Fri, 6 Feb
- 2026 04:01:48 +0000
-Received: from CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::c1d5:bb14:abc3:7fd1]) by CH0PR12MB5284.namprd12.prod.outlook.com
- ([fe80::c1d5:bb14:abc3:7fd1%3]) with mapi id 15.20.9587.013; Fri, 6 Feb 2026
- 04:01:48 +0000
-From: "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-To: "Prosyak, Vitaly" <Vitaly.Prosyak@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-CC: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH] drm/amd/display: guard NULL manual-trigger callback in
- cursor programming
-Thread-Topic: [PATCH] drm/amd/display: guard NULL manual-trigger callback in
- cursor programming
-Thread-Index: AQHclwdt6/rB8ysVwE6CNF2nMTijN7V1DF9t
-Date: Fri, 6 Feb 2026 04:01:48 +0000
-Message-ID: <CH0PR12MB52844942C4F366C072C6B8A48B66A@CH0PR12MB5284.namprd12.prod.outlook.com>
-References: <20260206012447.105684-1-vitaly.prosyak@amd.com>
-In-Reply-To: <20260206012447.105684-1-vitaly.prosyak@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-02-06T04:01:47.558Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=1;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged; 
-authentication-results: dkim=none (message not signed)
+ bh=eBKaWBzDQoWgqi7Ek8PcMZLBP5WjGFN4APTakkFaPaQ=;
+ b=dIz0/Gugt1uCDujE2wduvd2FGElcZ23NCKqYs2wFWaGWVeoGUV5x5GorBNciCG42YPuSVgJG/IvjsTYRElNs6MPk6ByxfnnxFxZyv9iVLTHBLmr/2Xy17fHXIqR8O87z1qhyD7WBjgKgrFy+/qnIbrdIbwe5tGKq6qsdRHTd0Qg=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CH0PR12MB5284:EE_|DS7PR12MB6237:EE_
-x-ms-office365-filtering-correlation-id: ba25ba79-45eb-4d72-b0e4-08de65347363
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|8096899003|7053199007|38070700021; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?ZTn7OQ4XQPEnpsqyri3MRMhKexHcnqO6x1T+iJXs3+8h66zh0mA8qKJ28QdD?=
- =?us-ascii?Q?hRlG3Ok9xQPn4slvDqhloYYS9YG9mIXrz71C7ueQs6+kBsOIBesVpnCrrIxd?=
- =?us-ascii?Q?yCR97uJ8M7wF+AMZShD8dFxlx/HyDOE0VIGaJAbHeSGiltszKRS3CWa614cC?=
- =?us-ascii?Q?rT+tPUrxI2m5dw6ME0U+xLGvvjBdMAdws0seZAC50m3P6yfbl+r0tlFqH6Wd?=
- =?us-ascii?Q?s30OheT5WOO4rE0eSmaH4K1IlOhzwA/bP5ARvuDaAnz4JMGUFvWzkqqI+qd7?=
- =?us-ascii?Q?CY019SQ82KzZxW39xNbLQkwBYsXmkS0/Tr1e8+2J4H2gwoXQV8afnLXMi05t?=
- =?us-ascii?Q?XhiMMi0mwsZ+EYEQc9NxZIjWN7pK0xs2B/CoERPduyvzANAwFgHhPCTad8s3?=
- =?us-ascii?Q?T5V5zO4LRXJYTtEED5s+r/gix7Vjcku0ufZgTF7Q51fbYYAaRLx8pm4RTStR?=
- =?us-ascii?Q?D44obyBUl+8p+KcWqj6On+c2Rre/6LFQkX/5c/eNChrzctJX72GHNwRaTU91?=
- =?us-ascii?Q?H7gI0Ky8jd/8e0oZ3bJXlOgxbKPISnduYd6+qpH06KuUnQqmTAKpL55T9zcF?=
- =?us-ascii?Q?rEyDSycSCKWN+kDuVHY+FRh4u/FFLaZ2smf0iQuCphtPabPNpUyTyvkFfxQO?=
- =?us-ascii?Q?liSez7zBxWy20Le13rTp9tUMrtMB3g4ajeIk5cguslrjaJPEIGdM0GXi6KVy?=
- =?us-ascii?Q?cV1DBCh88tRKfEM+u7ctgm+eSoI9NvsdnnzaxaTL8vB25HYqWmk/8tU+53Gr?=
- =?us-ascii?Q?gi/fzX4B68NAIGNcCq7pOpe5PqApmdUYGvdsQQklZwim/JIDJWRLqdg2JKzE?=
- =?us-ascii?Q?QMZUlz5u9Z4eKNlyHUcxpETNxNWrLPrvJ3QKnlDHkIgWtvLyfwxvBzrAsSgn?=
- =?us-ascii?Q?CEvA95iNF53UcPCtJY7rKjyGqBfaXOFeYJxLKK4abCZTkEXrHpmQR5ZBBMJO?=
- =?us-ascii?Q?k5C9QeqT0UuNoiks8r8ADI7mkAjGK3gPYHfmzdQ5l8PEaT6FeY/YsPHDKQ+Z?=
- =?us-ascii?Q?ylHzE/SPhsAccBKfa9yFtl4QNSZjhk9DGLVxuqOvs3Wiuetjj1PbptQDw67u?=
- =?us-ascii?Q?cLIGT0EBRCkKVXdzP5dYXKOsoM3Hp2APzAlkXQHYK8BEEvPs+1zctTFbjJQ7?=
- =?us-ascii?Q?ZgbDUxVXWu9gD6vkRXJJCG6kMHFMgCNQ0LSrvN66YroUR+7S5DznC7AkYS0r?=
- =?us-ascii?Q?GR79KNXSvkVsnErB7ow7owoIXpkC9Yl5RIebZPZ8inirxUoFI+nZWKMiCX1v?=
- =?us-ascii?Q?w4FpJm6UCmDKyj0ty7ATWYwd+Ui1D2iS5LyQAV3sRiq5rvsDiLJ3b7XmEFcS?=
- =?us-ascii?Q?P29FuQ9zb9gYGfXTpGqTo9USjwdG23dM2LcO1RKYD/GUEqHf8IdBgEQ/ThA5?=
- =?us-ascii?Q?UtpFFmIWJX0R+K+cVnTqeDpsPrQAYfPUq6faNW2hU8+nQ7URgEvJl/eSiBaF?=
- =?us-ascii?Q?HpG7GZrrPRb80toPlnycqqDAd1j8INqncXhfXEObwGHtmFTMWvkygNz+LZZH?=
- =?us-ascii?Q?jKIomHQFgSeQmxDgqq/ou8ZiOiLw4hfrh07ntcf5V2vDVOr6wxNl/3ZhXWq7?=
- =?us-ascii?Q?uQ/pvbKpEpf7Sl9K+0K2mJLnGtMCdPIYDZ2PlByhK+1A8s5cyMfanoiQ41d/?=
- =?us-ascii?Q?eUeXe0jXp5RXMWOF3aZHdN0=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH0PR12MB5284.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(8096899003)(7053199007)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?KbrYhUwN5xc8EO8ZHQsZe7SmLCPNn0uKgv72yQO+4fu6BvHhDOB5+WkLWWIm?=
- =?us-ascii?Q?p5yeo9nPqto/oW7mdc1ukBbk/QbEKThf4DzJ2Jyg1B/Oimh4BMLyGwpkW8z5?=
- =?us-ascii?Q?3PY5AeQMKi9YGRT8ejYvDs43FdCf7c6uwWjQpQIn0LiC+Wlg5Z5l0oKeciRU?=
- =?us-ascii?Q?lGHk49ZNH+FnpCzAXubZO9xah6l7TYKYtGFIEh/rOAyduMIhU0Hajcivi1DW?=
- =?us-ascii?Q?6ERa5yz7Ir0wR4utYv/uBAS0XMhg2rmoAeWwyV5pG9OgSG7UQy8WYFqCv77Y?=
- =?us-ascii?Q?qZkqYGBoeDioaZQiRmisCE1upX2QzOATaFOeOabgob1ULs7VH2pW73LasHSa?=
- =?us-ascii?Q?JBPoxDautJ6efOIIkuzqjYA7uyD6jypB8QoM1ct7dZL2cHr2WOvtsdgD8ya3?=
- =?us-ascii?Q?Zmyh0fsmmxalZqjZBPc4cAnVF+lmIjELzwbTZaLl34CfrTiljHErhoxZ1zrO?=
- =?us-ascii?Q?5ymRyjGt2xlCT6GExIb2am2P4Ev2DUYpdrtCw9dsICCvbsmHn6yV2gT0yREJ?=
- =?us-ascii?Q?vOppPI+hvHnX5I3ZAfS8I6IibE8NSCRCd2K5chvxwfjvck3juFCkviYGIaqL?=
- =?us-ascii?Q?78sMPOUcawDQKXmRqyC8YFpow/dOIejneJ8CImtkqYTNdQoG/qDc4cKRLpls?=
- =?us-ascii?Q?eE3V5mcskax517+vQCrYqzQRxiTbIBIyUdpIiWeqfxX+HCIN7uljN7zOjGvk?=
- =?us-ascii?Q?/ylDUIEjAU3x4lU2exJt6hfqQRHsVj6ooKFKWF6ZT01rQ1ZBpz/ZU20K+EEq?=
- =?us-ascii?Q?4yEjDm7JpbiW3zaUxHqtMBY8kYhoWNWeTsWWJfqN4q+0GytbH6PeXpLAkUWL?=
- =?us-ascii?Q?zoEdEcEJTXT1XF/y2gx98FlyTw5d38nCEYXPJAYHxEBmapMrWnvxMZhOLFDY?=
- =?us-ascii?Q?9jW9uLLAlGGpjBVp7XAFtpz/YttpnnywCTD2W+efwLG6yRtCDMUhlpbXyqup?=
- =?us-ascii?Q?fHTobrvNqKyfAw7mzba5WG9il73mUwhWNmjNTw4mlBjiOYXszPK2HpPSRIp4?=
- =?us-ascii?Q?2Cp4Fz6uEskfEniyZrlqNtMs/BD53X6A9oVKvKUDPPyQ11t5cpkDF+6qGeSa?=
- =?us-ascii?Q?6ZbcJwuVXeeNfhuImYuZCyYH/aK5KUjLQYni3ej7gj8WfdOmKUSnfY8lz4Zj?=
- =?us-ascii?Q?CHoDpRiGugMPDqh24ai0+7izYAQ5maD2jGohl2f1cJ/mit/LRwRRo7b0CSEn?=
- =?us-ascii?Q?MbuwW2Osc4L0fyC7hlbVGagV48k9qksAbu9rC4WGXJzuRH0fxX3/uee6Lwv9?=
- =?us-ascii?Q?SfJhmNvssvtDwmn1AdPQ2qSOSRjJK1XNME+Kf0gRM5OHvSgOhECD0Th8YUj6?=
- =?us-ascii?Q?7eeaXShfotDKg/KrhTGrGT7HT3ENgBA4NDFUZ4dvMZQ9Ex66hDMkBvaXl3MG?=
- =?us-ascii?Q?3h8m+TA1Xg89OhBJemRTHlWjFRHEYurccnmNGrPIfFcNUd6DteOnoCRdFHlz?=
- =?us-ascii?Q?qDWq8CYy1SeZRTx5UW3BFtDzz04ivzxOTLS+MMYaqb+2VOet3QSFHn1s4oue?=
- =?us-ascii?Q?gQLRDUpceefsYJCmvdsFWcfaKcV9VrFSbxbi8LjG5XAMf+MQrslMwjkYfhrl?=
- =?us-ascii?Q?biLHfLw4lrS8tkOe241oa+pB66hkx9uLrkRorNwUFrVJRJK4/0kb4MY6gVfa?=
- =?us-ascii?Q?qjlKlB17EcjgfohMhIYA9AuvC7NZK03CUx2sO5EbSmpx0WWincj8hp8ufy7f?=
- =?us-ascii?Q?DAdtApV9mftK1o7YXsSOxA4szx2umIdRk3lS6haXu55TDkzH?=
-Content-Type: multipart/alternative;
- boundary="_000_CH0PR12MB52844942C4F366C072C6B8A48B66ACH0PR12MB5284namp_"
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
+ by PH0PR12MB7837.namprd12.prod.outlook.com (2603:10b6:510:282::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.15; Fri, 6 Feb
+ 2026 05:16:52 +0000
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819%5]) with mapi id 15.20.9587.013; Fri, 6 Feb 2026
+ 05:16:52 +0000
+Message-ID: <5f7c6f94-1e84-47a7-8acb-13ba2c678669@amd.com>
+Date: Fri, 6 Feb 2026 10:46:47 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 22/22] drm/amdgpu: add amdgpu_ptl.h for PTL format and
+ command definitions
+To: Perry Yuan <perry.yuan@amd.com>, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org
+Cc: yifan1.zhang@amd.com
+References: <20260205065130.654921-1-perry.yuan@amd.com>
+ <20260205065130.654921-22-perry.yuan@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260205065130.654921-22-perry.yuan@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0170.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1af::7) To SJ0PR12MB7082.namprd12.prod.outlook.com
+ (2603:10b6:a03:4ae::12)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7082:EE_|PH0PR12MB7837:EE_
+X-MS-Office365-Filtering-Correlation-Id: b38cbd15-4082-44f2-1f45-08de653eefe1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?RVdMU1Jma3E3ZlBwL2hNLy9FMmhndGlpeHZrdEkxNUU0WndlR1AxZ1BvM2Nk?=
+ =?utf-8?B?QmFXUkxzR29zWDdoUlg2cHd2a0JYTUlZZWVSRjRwT0c1ZUxMKzA2cWxQNXpC?=
+ =?utf-8?B?bmhSNHlXNU5tOGJOTmkydjNOcFVhbmMzcVJNWTNVSkl1QStmMC9xemNod3Fn?=
+ =?utf-8?B?S1NCYUswTzNrS2xQcUlLeXQ0VU9JZ2NTOTFjNUFIa1kwdzk2aENKRmdQV1Zp?=
+ =?utf-8?B?NWxCQnhYZ1RnRFE5NEh3NUt2Tnk2djlMYU9tY0JrVnY1bmttRC9FdUw5MlRP?=
+ =?utf-8?B?U3BXRTdxMHN4ZnVoQjZqZWVXYmFPZ2wzc01CZHo3d0xkRUdibjdlOTlZWGha?=
+ =?utf-8?B?SGkzcXByRUV5YkRmb3dyZGtrZ1hjdUFSR2I0SXhVd0xOaVdxUnVWZUswQUYr?=
+ =?utf-8?B?ZnZNSHNmWmZPU3RUdk5Za3hleDcwUW9heDNtczhTS04ySk9ac055ZEVmR0wz?=
+ =?utf-8?B?N2d5QVdPcDZyZjR4TzREOWt0eWJUUFpoS3RkY0pUaFQzQkhES2t1dDFwcHZK?=
+ =?utf-8?B?V0gxM2pmcE03ZVhDOTNoNjBrbkJKdFU1d2syMkVKUkJXZ01sbnRjKzlGMkV1?=
+ =?utf-8?B?ZE5aZWRXVWw0NFJzTFhWRU9tOVV4NFoxUkhHaFpLWEZCcFU2TE1CeFVkVU53?=
+ =?utf-8?B?TndsSzZzSVJMRDkwQ05tNDVmT3VtOVBaQU9UVW03UWhZWGdkcDFaSmJzTUYz?=
+ =?utf-8?B?U1drSVF2TTVUS0MvMmxxM0Zkc1dZeU92NG1jNnBBVW5pRTJxRnNEWUREa25Z?=
+ =?utf-8?B?Mk9nNHRCdHBPZkttam1lcmtydFk3ZFVOR0J5T0g2cFMxV3dLU2YycGNRU1JF?=
+ =?utf-8?B?TmZtWXZKSDk2REhZbXErU2tYQjJBSzkwaGtWb1UvdklNTGozQnh6Y2F2ZzA5?=
+ =?utf-8?B?azViL0NxYW5BVGlhMFJNNUVmUkRTMEIyMmNDVnJMZ0N4TU80LzFSOWJkdHB4?=
+ =?utf-8?B?c1pYNS9vMGxmUTVhNFQvUXFPdXBRQ3JWVVdOVno1S3lBS09LSFVoQ0RUYjdV?=
+ =?utf-8?B?VHlTTE4xd1RJNHF5WXFKRWhrZXlSU3puMmY2dDRiWVIxRG1CemF2T0RKY3lV?=
+ =?utf-8?B?cGVqWnZuK3hzbmJ0M0ZqU0RDUWdPa05vdUNlakk2T2lnU2xKOGhJRkE1cSsx?=
+ =?utf-8?B?M25tdmt4aW1xZGtxaVp2aHp0WlJ5Rkl2OGhrbCt5UzUzMmpXSlhaaHJ5ajIz?=
+ =?utf-8?B?aFh0NVNtVkxlVnErVE9pNlZLQ2JoeU5iZGI2Z2RWNHVtTDUvVXBjZDhYNkFK?=
+ =?utf-8?B?MHowSVZEeGpmMzRER3kvbzZDcEhuMlV0TjNISWdUdXRIVktNbnF0TG1aa3RU?=
+ =?utf-8?B?RllMck1VbjA0UTB2Skg5YVVSZ0h2YzI5NmZia05YWkRqcXV5VXg2N3FhcjlU?=
+ =?utf-8?B?NnQzWGFjZVpkM1JkZHE5YVY2aHhCbUhoa3pvUk9LSmNzcDVRYXFIaEFpRzIw?=
+ =?utf-8?B?VnBORHQ2a2EyU285S2p6ek9GdXRBMFlaZFdrVnp4M3JYdGgvRGZ0WWdaQXJW?=
+ =?utf-8?B?N1IyeEtTa0puTjZTL0dvQlhSQUlZNnJBTWpocDFwSDFXYUVJbElmcHpnYVBV?=
+ =?utf-8?B?dVNrNGxJdWY0OHNoREFZaGtadTEwWUlCTmcrVTlkN1BoaGV5bzBvMWF3aHpr?=
+ =?utf-8?B?MXNyZ1FVajdnbHNUaXN5WWJQc3JKLzIyeUEzWEwzODZnRE5JNm8wWGRheHYz?=
+ =?utf-8?B?VFNxSTM1OVJINGtqVW8yelllczIzTHdvRHZXQ0NtZTR2UVYwVVBEaXVMQmY4?=
+ =?utf-8?B?VDRzdjNkWjRwaVpJUkJIWUU0N0lWbFV5YlJVRHErc0pLYU9oVnJlbWRDSWJt?=
+ =?utf-8?B?WmRzazYra2dLZE1sWXVGdmtaMU9uV3NLSENlL1AzS3dZcUpQSmhBMUhWbnBO?=
+ =?utf-8?B?bGIvZk9jc0RuVzRrOUx2UGRyVmh6TWp5akFSVDZUN3ZVT0RWV3RRUFhpS1Zl?=
+ =?utf-8?B?blpVMjc2ejRnSnJtUkFEalRRZFpWa3BLc09RY3UwSCt5N2Jvd0ZqdEJwak14?=
+ =?utf-8?B?bFkyQ2hCYlRJRVp5VlVQTmo4V05DOE5pVGxzNnFONXRwWXFJdllPdml0SElS?=
+ =?utf-8?B?bEN2VnM0SkxHL2x4UUtMOHhJbG1MZWd5aDlRQk1ZN1ZVMUdWYWhtZWxUczha?=
+ =?utf-8?Q?gGNA=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U3BHbC9JZE1wSTR2MVRjNFZEQ3RuOXUzVEpmV3dCZjFXNmVaR2laOTI1a0w0?=
+ =?utf-8?B?bE5QM3ppblJmd0NMeEVkSEJ3WXJXQTVOWHZLWVNtL2xRNmRsU1h2eGt6d3Qr?=
+ =?utf-8?B?MUMrM01qN0paUU5DOW5FSU9rUm1nL09RNVdsckVTS0FJblI1b09RM0dzbVJO?=
+ =?utf-8?B?QzRGQzk2UC9qV0NuK1V0RnpWdmxkK0ZYSDZOc25LOWxRTXdCdEpDZVY4NDZQ?=
+ =?utf-8?B?bjJ3NllDRkVTaEI5Q2pGSWJ2REM1bzduMUJFZGFUOFpOUXRSZG52ZEFLTG9Z?=
+ =?utf-8?B?QTdtR1B6TmQwQ0xOWk5WWmwvZlQySEFOdm9UcnlUTmJRRllpVmlLQmRQYVI3?=
+ =?utf-8?B?ampVeTJyaG5CYjBDVEdUMDFhWFE4dUZZb2h0Zk1LRW16bkt4ZG1mejE3SGhv?=
+ =?utf-8?B?UjNjL0EzQ2RJTGFxY0Qwd3Z3aXcxb00zZWtKUkhsL3hhOXlOTzMybmtxYmR3?=
+ =?utf-8?B?endJKzlkL3NITDF6N3RJV1VTZTBORk9CWlhGSS8wTTgzUU1GNG9xUnNnazRv?=
+ =?utf-8?B?ejNIQ1V2TEtiWDA2QXk1R1UvMng0WUkrTHhrK3BwNXRBZ1hLYnRtRXF5QUt6?=
+ =?utf-8?B?RWx5Z1JjNXp6SDRPVEtSeXRrdy9vcnRVWXRDMTAyYXE4OWJ3ZkFXMnhYM1U2?=
+ =?utf-8?B?d2hVL2Q5U1VtbjMvdlZNS3RMMXBEMDR6YzhDUXRmOW5vM2JEL293NCtXMWZN?=
+ =?utf-8?B?S2xXMHEvOW1WbFBQL1BKYW45M091SHFySy91U2JndzVFZHE4Um9WMWY1V2tS?=
+ =?utf-8?B?UERHb0pHY29IcysrOVVpckVzaTlWRTdKbHdjOG82Vk5ERUlSQXBLOHpKa1NR?=
+ =?utf-8?B?TldBYlU5NitDRVVOd3dyVkw4amNJUXd0ck1tUlNyNUx4VlNNenRSVklvSWwz?=
+ =?utf-8?B?WUdhUWR0OTJDMjdRYjFUVm1XcDEza2NlZjJIZm1ORFNnRUhFY3JDbHJTTmZv?=
+ =?utf-8?B?M2MwNk85V1RCRm8wSzdCRzJId2RndGRzeGlwczdEeUJkaWRSV3EwY014Q2Rs?=
+ =?utf-8?B?ZW1CRjZyK2M1TWFqcFNkbkRzZ0JIc05NY1Jadm1pVkZXOXVmVUNOSmFlRjcv?=
+ =?utf-8?B?bWI4QTJiTkNLclVTci9RU0k3RnJTYkVPWUZ6QjlUSzM2MElvUzJKaU9pbGZW?=
+ =?utf-8?B?L2JXZDlGN00rdlZLQ3BZVFNNU09lbGxEQzNmWXVSbi91NnZQcHBYZnFBRXhv?=
+ =?utf-8?B?a3orYWQzendCeE1tWTNCK0RJekVlTUpCYS8zOC9XRjdxa2VZUTI2d1FpWU92?=
+ =?utf-8?B?dTJNeFhhSjlsdzdYaitqbkY1NGZ2RkNPM2tzOTVtZGF2QzE1ekVTbklzRHZW?=
+ =?utf-8?B?bWNzMTI2UExCVE9rbHZXWFNTTXBmL1RyTGNHWjdCR3dLeXFrZ2FobGl6YWR0?=
+ =?utf-8?B?Uy95ZjkxbXppRjhCSkRTcFJtSFdjZEFLbEJrQ3pBZ2pUcUtkSUExUjVyTExP?=
+ =?utf-8?B?czZJMDJuNnZkYmNid3hxbm11RmVEWk5EM01FQW4vTGtYVmlqRFF0OVppaWFN?=
+ =?utf-8?B?REJPUUxBODFFNWIrVVdpVjZmUzltZkNCVlI5RVlPVzk2OS9zcHdzYkd1VFhV?=
+ =?utf-8?B?YkdHZHU3SkJOM1hvMGxhMHpsMVhtL24zbno2ZUpHa2lCTzB1Z1NqbVhmdHp3?=
+ =?utf-8?B?eGRVeDV6c2NLanZEenhRdmpveVdhSmhPM2VVNkg4SFVvdTZNK2FEbFJzNTRn?=
+ =?utf-8?B?UXl1dmxwSHNlaFEvNnFCYXRHaXVMSkR1ME1lQksvQjBEMzB1UTREK0s2ZmUy?=
+ =?utf-8?B?ZUowREFkZWtjYWNpNnVpbnhKRTVTSUNBd002L1loWVlHMGtvUFN3aEp0Nmsr?=
+ =?utf-8?B?K3NSNktHQ2xWdFd0REY1RUJQUXhBb0lMWmZDSTA4eWhSaXFqRUc2TVhRaDBL?=
+ =?utf-8?B?aDNYdWd5eGwvRE4rbU0zelpqUGdpRUJGdGRMQXJiaURZZGFPR1pMSEluV2lz?=
+ =?utf-8?B?L1ppbHFpalZNWnJmcEFHVUZYZWxqd1VFdlovQmg3Z0luQ1c4UXdHM3o0SnpS?=
+ =?utf-8?B?Qm9CZFIxbjE2ZHgzVWRhKzd1SW9PMmlpOFY5UWpuUmZpVzdRdURjZzh5b0VJ?=
+ =?utf-8?B?enJhRjZpWWdvV0s5a2RtRm5HTHlwNzdhaTBrNjR5OExuSEJ4OXFEUEFLaC8x?=
+ =?utf-8?B?dXdBVVg0VGx3anVFeFFiZG1WVmcvRkVDWEQvWG5Xd3RYR3ZWUVhYRm1zSWY1?=
+ =?utf-8?B?c2x5cVV0Rlc5UHpCdTFyOG9yTWFWR29VbmdhWDRoaGZvaGp6K0EwZHh6dXkv?=
+ =?utf-8?B?eU9RRnFOcW9LRGlzeVR0b3RzTGNkRXVCbkhOUXF5UlhSc3Z2cFQ4R1FuSDBW?=
+ =?utf-8?B?S3pEL0dPR01seDBiRmdzYjlSVGZ4S1NSZ25lZWEwc2M2b0VIZ0U1Zz09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b38cbd15-4082-44f2-1f45-08de653eefe1
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5284.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba25ba79-45eb-4d72-b0e4-08de65347363
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Feb 2026 04:01:48.1321 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 49dgk4X1ilAuoWRinm4h0t9Wz00LyOoabpYOI0KH8NdceoLpoNriHtWf2zNLHdTaC4ZFUSxHHSAOvAabDRmxcQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6237
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 05:16:52.3912 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2+QActqscbeM3xHd33P7vBPLEajKtdYzSPWAdWwz3zQjkaoambE1UEplXu9tQIjF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7837
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,512 +169,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CH0PR12MB52844942C4F366C072C6B8A48B66ACH0PR12MB5284namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
-Reviewed-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-
---
-
-Regards,
-Jay
-________________________________
-From: vitaly.prosyak@amd.com <vitaly.prosyak@amd.com>
-Sent: Thursday, February 5, 2026 8:24 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-deve=
-l@lists.freedesktop.org <dri-devel@lists.freedesktop.org>; Deucher, Alexand=
-er <Alexander.Deucher@amd.com>
-Cc: Prosyak, Vitaly <Vitaly.Prosyak@amd.com>; Pillai, Aurabindo <Aurabindo.=
-Pillai@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
-Subject: [PATCH] drm/amd/display: guard NULL manual-trigger callback in cur=
-sor programming
-
-From: Vitaly Prosyak <vitaly.prosyak@amd.com>
-
-KASAN reports a NULL instruction fetch (RIP=3D0x0) from
-dc_stream_program_cursor_position():
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:0x0
-  Call Trace:
-    dc_stream_program_cursor_position+0x344/0x920 [amdgpu]
-    amdgpu_dm_atomic_commit_tail+...
-
-[  +1.041013] BUG: kernel NULL pointer dereference, address: 00000000000000=
-00
-[  +0.000027] #PF: supervisor instruction fetch in kernel mode
-[  +0.000013] #PF: error_code(0x0010) - not-present page
-[  +0.000012] PGD 0 P4D 0
-[  +0.000017] Oops: Oops: 0010 [#1] SMP KASAN NOPTI
-[  +0.000017] CPU: 0 UID: 0 PID: 10 Comm: kworker/0:1 Tainted: G           =
- E       6.18.0+ #3 PREEMPT(voluntary)
-[  +0.000023] Tainted: [E]=3DUNSIGNED_MODULE
-[  +0.000010] Hardware name: ASUS System Product Name/ROG STRIX B550-F GAMI=
-NG (WI-FI), BIOS 1401 12/03/2020
-[  +0.000016] Workqueue: events drm_mode_rmfb_work_fn
-[  +0.000022] RIP: 0010:0x0
-[  +0.000017] Code: Unable to access opcode bytes at 0xffffffffffffffd6.
-[  +0.000015] RSP: 0018:ffffc9000017f4c8 EFLAGS: 00010246
-[  +0.000016] RAX: 0000000000000000 RBX: ffff88810afdda80 RCX: 1ffff1104570=
-00d1
-[  +0.000014] RDX: 1ffffffff87b75bd RSI: 0000000000000000 RDI: ffff88810afd=
-da80
-[  +0.000014] RBP: ffffc9000017f538 R08: 0000000000000000 R09: ffff88822b80=
-0690
-[  +0.000013] R10: 0000000000000000 R11: 0000000000000000 R12: ffffffffc3db=
-ac20
-[  +0.000014] R13: 0000000000000000 R14: ffff88811ab80000 R15: dffffc000000=
-0000
-[  +0.000014] FS:  0000000000000000(0000) GS:ffff888434599000(0000) knlGS:0=
-000000000000000
-[  +0.000015] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[  +0.000013] CR2: ffffffffffffffd6 CR3: 000000010ee88000 CR4: 000000000035=
-0ef0
-[  +0.000014] Call Trace:
-[  +0.000010]  <TASK>
-[  +0.000010]  dc_stream_program_cursor_position+0x344/0x920 [amdgpu]
-[  +0.001086]  ? __pfx_mutex_lock+0x10/0x10
-[  +0.000015]  ? unwind_next_frame+0x18b/0xa70
-[  +0.000019]  amdgpu_dm_atomic_commit_tail+0x1124/0xfa20 [amdgpu]
-[  +0.001040]  ? ret_from_fork_asm+0x1a/0x30
-[  +0.000018]  ? filter_irq_stacks+0x90/0xa0
-[  +0.000022]  ? __pfx_amdgpu_dm_atomic_commit_tail+0x10/0x10 [amdgpu]
-[  +0.001058]  ? kasan_save_track+0x18/0x70
-[  +0.000015]  ? kasan_save_alloc_info+0x37/0x60
-[  +0.000015]  ? __kasan_kmalloc+0xc3/0xd0
-[  +0.000013]  ? __kmalloc_cache_noprof+0x1aa/0x600
-[  +0.000016]  ? drm_atomic_helper_setup_commit+0x788/0x1450
-[  +0.000017]  ? drm_atomic_helper_commit+0x7e/0x290
-[  +0.000014]  ? drm_atomic_commit+0x205/0x2e0
-[  +0.000015]  ? process_one_work+0x629/0xf80
-[  +0.000016]  ? worker_thread+0x87f/0x1570
-[  +0.000020]  ? srso_return_thunk+0x5/0x5f
-[  +0.000014]  ? __kasan_check_write+0x14/0x30
-[  +0.000014]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? _raw_spin_lock_irq+0x8a/0xf0
-[  +0.000015]  ? __pfx__raw_spin_lock_irq+0x10/0x10
-[  +0.000016]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? __kasan_check_write+0x14/0x30
-[  +0.000014]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? __wait_for_common+0x204/0x460
-[  +0.000015]  ? sched_clock_noinstr+0x9/0x10
-[  +0.000014]  ? __pfx_schedule_timeout+0x10/0x10
-[  +0.000014]  ? local_clock_noinstr+0xe/0xd0
-[  +0.000015]  ? __pfx___wait_for_common+0x10/0x10
-[  +0.000014]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? __wait_for_common+0x204/0x460
-[  +0.000014]  ? __pfx_schedule_timeout+0x10/0x10
-[  +0.000015]  ? __kasan_kmalloc+0xc3/0xd0
-[  +0.000015]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? wait_for_completion_timeout+0x1d/0x30
-[  +0.000015]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? drm_crtc_commit_wait+0x32/0x180
-[  +0.000015]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? drm_atomic_helper_wait_for_dependencies+0x46a/0x800
-[  +0.000019]  commit_tail+0x231/0x510
-[  +0.000017]  drm_atomic_helper_commit+0x219/0x290
-[  +0.000015]  ? __pfx_drm_atomic_helper_commit+0x10/0x10
-[  +0.000016]  drm_atomic_commit+0x205/0x2e0
-[  +0.000014]  ? __pfx_drm_atomic_commit+0x10/0x10
-[  +0.000013]  ? __pfx_drm_connector_free+0x10/0x10
-[  +0.000014]  ? __pfx___drm_printfn_info+0x10/0x10
-[  +0.000017]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? drm_atomic_set_crtc_for_connector+0x49e/0x660
-[  +0.000015]  ? drm_atomic_set_fb_for_plane+0x155/0x290
-[  +0.000015]  drm_framebuffer_remove+0xa9b/0x1240
-[  +0.000014]  ? finish_task_switch.isra.0+0x15a/0x840
-[  +0.000015]  ? __switch_to+0x385/0xda0
-[  +0.000015]  ? srso_safe_ret+0x1/0x20
-[  +0.000013]  ? __pfx_drm_framebuffer_remove+0x10/0x10
-[  +0.000016]  ? kasan_print_address_stack_frame+0x221/0x280
-[  +0.000015]  drm_mode_rmfb_work_fn+0x14b/0x240
-[  +0.000015]  process_one_work+0x629/0xf80
-[  +0.000012]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? __kasan_check_write+0x14/0x30
-[  +0.000019]  worker_thread+0x87f/0x1570
-[  +0.000013]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  +0.000014]  ? __pfx_try_to_wake_up+0x10/0x10
-[  +0.000017]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? kasan_print_address_stack_frame+0x227/0x280
-[  +0.000017]  ? __pfx_worker_thread+0x10/0x10
-[  +0.000014]  kthread+0x396/0x830
-[  +0.000013]  ? __pfx__raw_spin_lock_irq+0x10/0x10
-[  +0.000015]  ? __pfx_kthread+0x10/0x10
-[  +0.000012]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? __kasan_check_write+0x14/0x30
-[  +0.000014]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? recalc_sigpending+0x180/0x210
-[  +0.000015]  ? srso_return_thunk+0x5/0x5f
-[  +0.000013]  ? __pfx_kthread+0x10/0x10
-[  +0.000014]  ret_from_fork+0x31c/0x3e0
-[  +0.000014]  ? __pfx_kthread+0x10/0x10
-[  +0.000013]  ret_from_fork_asm+0x1a/0x30
-[  +0.000019]  </TASK>
-[  +0.000010] Modules linked in: rfcomm(E) cmac(E) algif_hash(E) algif_skci=
-pher(E) af_alg(E) snd_seq_dummy(E) snd_hrtimer(E) qrtr(E) xt_MASQUERADE(E) =
-nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) xt_mark(E) xt=
-_tcpudp(E) nft_compat(E) nf_tables(E) x_tables(E) bnep(E) snd_hda_codec_alc=
-882(E) snd_hda_codec_atihdmi(E) snd_hda_codec_realtek_lib(E) snd_hda_codec_=
-hdmi(E) snd_hda_codec_generic(E) iwlmvm(E) snd_hda_intel(E) binfmt_misc(E) =
-snd_hda_codec(E) snd_hda_core(E) mac80211(E) snd_intel_dspcfg(E) snd_intel_=
-sdw_acpi(E) snd_hwdep(E) snd_pcm(E) libarc4(E) snd_seq_midi(E) snd_seq_midi=
-_event(E) snd_rawmidi(E) amd_atl(E) intel_rapl_msr(E) snd_seq(E) intel_rapl=
-_common(E) iwlwifi(E) jc42(E) snd_seq_device(E) btusb(E) snd_timer(E) btmtk=
-(E) btrtl(E) edac_mce_amd(E) eeepc_wmi(E) polyval_clmulni(E) btbcm(E) ghash=
-_clmulni_intel(E) asus_wmi(E) ee1004(E) platform_profile(E) btintel(E) snd(=
-E) nls_iso8859_1(E) aesni_intel(E) soundcore(E) i2c_piix4(E) cfg80211(E) sp=
-arse_keymap(E) wmi_bmof(E) bluetooth(E) k10temp(E) rapl(E)
-[  +0.000300]  i2c_smbus(E) ccp(E) joydev(E) input_leds(E) gpio_amdpt(E) ma=
-c_hid(E) sch_fq_codel(E) msr(E) parport_pc(E) ppdev(E) lp(E) parport(E) efi=
-_pstore(E) nfnetlink(E) dmi_sysfs(E) autofs4(E) cdc_ether(E) usbnet(E) amdg=
-pu(E) amdxcp(E) hid_generic(E) i2c_algo_bit(E) drm_ttm_helper(E) ttm(E) drm=
-_exec(E) drm_panel_backlight_quirks(E) gpu_sched(E) drm_suballoc_helper(E) =
-video(E) drm_buddy(E) usbhid(E) drm_display_helper(E) r8152(E) hid(E) mii(E=
-) cec(E) ahci(E) rc_core(E) igc(E) libahci(E) wmi(E)
-[  +0.000294] CR2: 0000000000000000
-[  +0.000013] ---[ end trace 0000000000000000 ]---
-
-The crash happens when we unconditionally call into the timing generator
-manual trigger hook:
-
-  pipe_ctx->stream_res.tg->funcs->program_manual_trigger(...)
-
-On some configurations the timing generator (tg), its funcs table, or the
-program_manual_trigger callback can be NULL. Guard all of these before
-calling the hook. If the first pipe matching the stream cannot trigger,
-keep scanning to find another matching pipe with a valid hook.
-
-Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Cc: Alexander Deucher <alexander.deucher@amd.com>
-Cc: Christian Koenig  <christian.koenig@amd.com>
-
-Suggested-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/=
-drm/amd/display/dc/core/dc_stream.c
-index f59020f1a722..ecd08580937d 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -522,8 +522,10 @@ bool dc_stream_program_cursor_position(
-                         struct pipe_ctx *pipe_ctx =3D &dc->current_state->=
-res_ctx.pipe_ctx[i];
-
-                         /* trigger event on first pipe with current stream=
- */
--                       if (stream =3D=3D pipe_ctx->stream) {
--                               pipe_ctx->stream_res.tg->funcs->program_man=
-ual_trigger(pipe_ctx->stream_res.tg);
-+                       if (stream =3D=3D pipe_ctx->stream &&
-+                               pipe_ctx->stream_res.tg->funcs->program_man=
-ual_trigger) {
-+                               pipe_ctx->stream_res.tg->funcs->program_man=
-ual_trigger(
-+                                       pipe_ctx->stream_res.tg);
-                                 break;
-                         }
-                 }
---
-2.52.0
 
 
---_000_CH0PR12MB52844942C4F366C072C6B8A48B66ACH0PR12MB5284namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On 05-Feb-26 12:21 PM, Perry Yuan wrote:
+> Collect amdgpu_ptl_fmt in one header so both GFX, KFD and PSP drivers
+> can share them without duplication.
+> 
+> Signed-off-by: Perry Yuan <perry.yuan@amd.com>
+> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+> Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       | 23 +------
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  1 +
+>   drivers/gpu/drm/amd/include/amdgpu_ptl.h      | 60 +++++++++++++++++++
+>   .../gpu/drm/amd/include/kgd_kfd_interface.h   |  1 +
+>   include/uapi/linux/kfd_ioctl.h                | 11 ----
+>   6 files changed, 65 insertions(+), 33 deletions(-)
+>   create mode 100644 drivers/gpu/drm/amd/include/amdgpu_ptl.h
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> index cdbab7f8cee8..4fee011c2e26 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> @@ -38,6 +38,8 @@
+>   #include "amdgpu_vm.h"
+>   #include "amdgpu_xcp.h"
+>   #include "kfd_topology.h"
+> +#include "amdgpu_ptl.h"
+> +
+>   extern uint64_t amdgpu_amdkfd_total_mem_size;
+>   
+>   enum TLB_FLUSH_TYPE {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> index c6a896003596..562f731bf16c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> @@ -32,6 +32,7 @@
+>   #include "ta_rap_if.h"
+>   #include "ta_secureDisplay_if.h"
+>   #include <linux/bitops.h>
+> +#include "amdgpu_ptl.h"
+>   
+>   #define PSP_FENCE_BUFFER_SIZE	0x1000
+>   #define PSP_CMD_BUFFER_SIZE	0x1000
+> @@ -64,7 +65,6 @@
+>   #define MBOX_TOS_RESP_MASK (GFX_CMD_RESPONSE_MASK | GFX_CMD_STATUS_MASK)
+>   
+>   extern const struct attribute_group amdgpu_flash_attr_group;
+> -extern const struct attribute_group amdgpu_ptl_attr_group;
+>   
+>   enum psp_shared_mem_size {
+>   	PSP_ASD_SHARED_MEM_SIZE				= 0x0,
+> @@ -385,24 +385,6 @@ struct psp_ptl_perf_req {
+>   	uint32_t pref_format2;
+>   };
+>   
+> -enum amdgpu_ptl_disable_source {
+> -	AMDGPU_PTL_DISABLE_SYSFS = 0,
+> -	AMDGPU_PTL_DISABLE_PROFILER,
+> -	AMDGPU_PTL_DISABLE_MAX,
+> -};
+> -
+> -struct amdgpu_ptl {
+> -	enum amdgpu_ptl_fmt		fmt1;
+> -	enum amdgpu_ptl_fmt		fmt2;
+> -	bool				enabled;
+> -	bool				hw_supported;
+> -	bool				permanently_disabled;
+> -	/* PTL disable reference counting */
+> -	atomic_t			disable_ref;
+> -	struct mutex			mutex;
+> -	DECLARE_BITMAP(disable_bitmap, AMDGPU_PTL_DISABLE_MAX);
+> -};
+> -
+>   struct psp_context {
+>   	struct amdgpu_device		*adev;
+>   	struct psp_ring			km_ring;
+> @@ -679,7 +661,4 @@ int amdgpu_psp_get_fw_type(struct amdgpu_firmware_info *ucode,
+>   
+>   int amdgpu_ptl_perf_monitor_ctrl(struct amdgpu_device *adev, u32 req_code,
+>   			       u32 *ptl_state, u32 *fmt1, u32 *fmt2);
+> -int amdgpu_ptl_sysfs_init(struct amdgpu_device *adev);
+> -void amdgpu_ptl_sysfs_fini(struct amdgpu_device *adev);
+> -
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index f375dffcbdf6..eacb2ab25a6f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -44,6 +44,7 @@
+>   #include "kfd_smi_events.h"
+>   #include "amdgpu_dma_buf.h"
+>   #include "kfd_debug.h"
+> +#include "amdgpu_ptl.h"
+>   
+>   static long kfd_ioctl(struct file *, unsigned int, unsigned long);
+>   static int kfd_open(struct inode *, struct file *);
+> diff --git a/drivers/gpu/drm/amd/include/amdgpu_ptl.h b/drivers/gpu/drm/amd/include/amdgpu_ptl.h
+> new file mode 100644
+> index 000000000000..19eb8f6a765c
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/include/amdgpu_ptl.h
+> @@ -0,0 +1,60 @@
+> +/*
+> + * Copyright 2026 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a
+> + * copy of this software and associated documentation files (the "Software"),
+> + * to deal in the Software without restriction, including without limitation
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + */
+> +
+> +#ifndef __AMDGPU_PTL_H__
+> +#define __AMDGPU_PTL_H__
+> +
+> +enum amdgpu_ptl_fmt {
+> +        AMDGPU_PTL_FMT_I8   = 0,
+> +        AMDGPU_PTL_FMT_F16  = 1,
+> +        AMDGPU_PTL_FMT_BF16 = 2,
+> +        AMDGPU_PTL_FMT_F32  = 3,
+> +        AMDGPU_PTL_FMT_F64  = 4,
+> +        AMDGPU_PTL_FMT_F8   = 5,
+> +        AMDGPU_PTL_FMT_VECTOR  = 6,
+> +        AMDGPU_PTL_FMT_INVALID = 7,
+> +};
+> +
+> +enum amdgpu_ptl_disable_source {
+> +	AMDGPU_PTL_DISABLE_SYSFS = 0,
+> +	AMDGPU_PTL_DISABLE_PROFILER,
+> +	AMDGPU_PTL_DISABLE_MAX,
+> +};
+> +
+> +struct amdgpu_ptl {
+> +	enum amdgpu_ptl_fmt		fmt1;
+> +	enum amdgpu_ptl_fmt		fmt2;
+> +	bool				enabled;
+> +	bool				hw_supported;
+> +	bool				permanently_disabled;
+> +	/* PTL disable reference counting */
+> +	atomic_t			disable_ref;
+> +	struct mutex			mutex;
+> +	DECLARE_BITMAP(disable_bitmap, AMDGPU_PTL_DISABLE_MAX);
+> +};
+> +
+> +int amdgpu_ptl_sysfs_init(struct amdgpu_device *adev);
+> +void amdgpu_ptl_sysfs_fini(struct amdgpu_device *adev);
+> +
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 128, 0)=
-; margin-left: 5pt; font-size: 10pt;">
-[Public]</div>
-<br>
-</div>
-Reviewed-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;</div>
-<div class=3D"elementToProof" id=3D"Signature">
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
---</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);" class=3D"elementToProof">
-Jay<br>
-</div>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> vitaly.prosyak@amd.co=
-m &lt;vitaly.prosyak@amd.com&gt;<br>
-<b>Sent:</b> Thursday, February 5, 2026 8:24 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.org&gt=
-;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> Prosyak, Vitaly &lt;Vitaly.Prosyak@amd.com&gt;; Pillai, Aurabind=
-o &lt;Aurabindo.Pillai@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@=
-amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/display: guard NULL manual-trigger callback=
- in cursor programming</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Vitaly Prosyak &lt;vitaly.prosyak@amd.com&gt=
-;<br>
-<br>
-KASAN reports a NULL instruction fetch (RIP=3D0x0) from<br>
-dc_stream_program_cursor_position():<br>
-<br>
-&nbsp; BUG: kernel NULL pointer dereference, address: 0000000000000000<br>
-&nbsp; RIP: 0010:0x0<br>
-&nbsp; Call Trace:<br>
-&nbsp;&nbsp;&nbsp; dc_stream_program_cursor_position+0x344/0x920 [amdgpu]<b=
-r>
-&nbsp;&nbsp;&nbsp; amdgpu_dm_atomic_commit_tail+...<br>
-<br>
-[&nbsp; +1.041013] BUG: kernel NULL pointer dereference, address: 000000000=
-0000000<br>
-[&nbsp; +0.000027] #PF: supervisor instruction fetch in kernel mode<br>
-[&nbsp; +0.000013] #PF: error_code(0x0010) - not-present page<br>
-[&nbsp; +0.000012] PGD 0 P4D 0<br>
-[&nbsp; +0.000017] Oops: Oops: 0010 [#1] SMP KASAN NOPTI<br>
-[&nbsp; +0.000017] CPU: 0 UID: 0 PID: 10 Comm: kworker/0:1 Tainted: G&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; E&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; 6.18.0+ #3 PREEMPT(voluntary)<br>
-[&nbsp; +0.000023] Tainted: [E]=3DUNSIGNED_MODULE<br>
-[&nbsp; +0.000010] Hardware name: ASUS System Product Name/ROG STRIX B550-F=
- GAMING (WI-FI), BIOS 1401 12/03/2020<br>
-[&nbsp; +0.000016] Workqueue: events drm_mode_rmfb_work_fn<br>
-[&nbsp; +0.000022] RIP: 0010:0x0<br>
-[&nbsp; +0.000017] Code: Unable to access opcode bytes at 0xffffffffffffffd=
-6.<br>
-[&nbsp; +0.000015] RSP: 0018:ffffc9000017f4c8 EFLAGS: 00010246<br>
-[&nbsp; +0.000016] RAX: 0000000000000000 RBX: ffff88810afdda80 RCX: 1ffff11=
-0457000d1<br>
-[&nbsp; +0.000014] RDX: 1ffffffff87b75bd RSI: 0000000000000000 RDI: ffff888=
-10afdda80<br>
-[&nbsp; +0.000014] RBP: ffffc9000017f538 R08: 0000000000000000 R09: ffff888=
-22b800690<br>
-[&nbsp; +0.000013] R10: 0000000000000000 R11: 0000000000000000 R12: fffffff=
-fc3dbac20<br>
-[&nbsp; +0.000014] R13: 0000000000000000 R14: ffff88811ab80000 R15: dffffc0=
-000000000<br>
-[&nbsp; +0.000014] FS:&nbsp; 0000000000000000(0000) GS:ffff888434599000(000=
-0) knlGS:0000000000000000<br>
-[&nbsp; +0.000015] CS:&nbsp; 0010 DS: 0000 ES: 0000 CR0: 0000000080050033<b=
-r>
-[&nbsp; +0.000013] CR2: ffffffffffffffd6 CR3: 000000010ee88000 CR4: 0000000=
-000350ef0<br>
-[&nbsp; +0.000014] Call Trace:<br>
-[&nbsp; +0.000010]&nbsp; &lt;TASK&gt;<br>
-[&nbsp; +0.000010]&nbsp; dc_stream_program_cursor_position+0x344/0x920 [amd=
-gpu]<br>
-[&nbsp; +0.001086]&nbsp; ? __pfx_mutex_lock+0x10/0x10<br>
-[&nbsp; +0.000015]&nbsp; ? unwind_next_frame+0x18b/0xa70<br>
-[&nbsp; +0.000019]&nbsp; amdgpu_dm_atomic_commit_tail+0x1124/0xfa20 [amdgpu=
-]<br>
-[&nbsp; +0.001040]&nbsp; ? ret_from_fork_asm+0x1a/0x30<br>
-[&nbsp; +0.000018]&nbsp; ? filter_irq_stacks+0x90/0xa0<br>
-[&nbsp; +0.000022]&nbsp; ? __pfx_amdgpu_dm_atomic_commit_tail+0x10/0x10 [am=
-dgpu]<br>
-[&nbsp; +0.001058]&nbsp; ? kasan_save_track+0x18/0x70<br>
-[&nbsp; +0.000015]&nbsp; ? kasan_save_alloc_info+0x37/0x60<br>
-[&nbsp; +0.000015]&nbsp; ? __kasan_kmalloc+0xc3/0xd0<br>
-[&nbsp; +0.000013]&nbsp; ? __kmalloc_cache_noprof+0x1aa/0x600<br>
-[&nbsp; +0.000016]&nbsp; ? drm_atomic_helper_setup_commit+0x788/0x1450<br>
-[&nbsp; +0.000017]&nbsp; ? drm_atomic_helper_commit+0x7e/0x290<br>
-[&nbsp; +0.000014]&nbsp; ? drm_atomic_commit+0x205/0x2e0<br>
-[&nbsp; +0.000015]&nbsp; ? process_one_work+0x629/0xf80<br>
-[&nbsp; +0.000016]&nbsp; ? worker_thread+0x87f/0x1570<br>
-[&nbsp; +0.000020]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000014]&nbsp; ? __kasan_check_write+0x14/0x30<br>
-[&nbsp; +0.000014]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? _raw_spin_lock_irq+0x8a/0xf0<br>
-[&nbsp; +0.000015]&nbsp; ? __pfx__raw_spin_lock_irq+0x10/0x10<br>
-[&nbsp; +0.000016]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? __kasan_check_write+0x14/0x30<br>
-[&nbsp; +0.000014]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? __wait_for_common+0x204/0x460<br>
-[&nbsp; +0.000015]&nbsp; ? sched_clock_noinstr+0x9/0x10<br>
-[&nbsp; +0.000014]&nbsp; ? __pfx_schedule_timeout+0x10/0x10<br>
-[&nbsp; +0.000014]&nbsp; ? local_clock_noinstr+0xe/0xd0<br>
-[&nbsp; +0.000015]&nbsp; ? __pfx___wait_for_common+0x10/0x10<br>
-[&nbsp; +0.000014]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? __wait_for_common+0x204/0x460<br>
-[&nbsp; +0.000014]&nbsp; ? __pfx_schedule_timeout+0x10/0x10<br>
-[&nbsp; +0.000015]&nbsp; ? __kasan_kmalloc+0xc3/0xd0<br>
-[&nbsp; +0.000015]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? wait_for_completion_timeout+0x1d/0x30<br>
-[&nbsp; +0.000015]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? drm_crtc_commit_wait+0x32/0x180<br>
-[&nbsp; +0.000015]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? drm_atomic_helper_wait_for_dependencies+0x46a/0x=
-800<br>
-[&nbsp; +0.000019]&nbsp; commit_tail+0x231/0x510<br>
-[&nbsp; +0.000017]&nbsp; drm_atomic_helper_commit+0x219/0x290<br>
-[&nbsp; +0.000015]&nbsp; ? __pfx_drm_atomic_helper_commit+0x10/0x10<br>
-[&nbsp; +0.000016]&nbsp; drm_atomic_commit+0x205/0x2e0<br>
-[&nbsp; +0.000014]&nbsp; ? __pfx_drm_atomic_commit+0x10/0x10<br>
-[&nbsp; +0.000013]&nbsp; ? __pfx_drm_connector_free+0x10/0x10<br>
-[&nbsp; +0.000014]&nbsp; ? __pfx___drm_printfn_info+0x10/0x10<br>
-[&nbsp; +0.000017]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? drm_atomic_set_crtc_for_connector+0x49e/0x660<br=
->
-[&nbsp; +0.000015]&nbsp; ? drm_atomic_set_fb_for_plane+0x155/0x290<br>
-[&nbsp; +0.000015]&nbsp; drm_framebuffer_remove+0xa9b/0x1240<br>
-[&nbsp; +0.000014]&nbsp; ? finish_task_switch.isra.0+0x15a/0x840<br>
-[&nbsp; +0.000015]&nbsp; ? __switch_to+0x385/0xda0<br>
-[&nbsp; +0.000015]&nbsp; ? srso_safe_ret+0x1/0x20<br>
-[&nbsp; +0.000013]&nbsp; ? __pfx_drm_framebuffer_remove+0x10/0x10<br>
-[&nbsp; +0.000016]&nbsp; ? kasan_print_address_stack_frame+0x221/0x280<br>
-[&nbsp; +0.000015]&nbsp; drm_mode_rmfb_work_fn+0x14b/0x240<br>
-[&nbsp; +0.000015]&nbsp; process_one_work+0x629/0xf80<br>
-[&nbsp; +0.000012]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? __kasan_check_write+0x14/0x30<br>
-[&nbsp; +0.000019]&nbsp; worker_thread+0x87f/0x1570<br>
-[&nbsp; +0.000013]&nbsp; ? __pfx__raw_spin_lock_irqsave+0x10/0x10<br>
-[&nbsp; +0.000014]&nbsp; ? __pfx_try_to_wake_up+0x10/0x10<br>
-[&nbsp; +0.000017]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? kasan_print_address_stack_frame+0x227/0x280<br>
-[&nbsp; +0.000017]&nbsp; ? __pfx_worker_thread+0x10/0x10<br>
-[&nbsp; +0.000014]&nbsp; kthread+0x396/0x830<br>
-[&nbsp; +0.000013]&nbsp; ? __pfx__raw_spin_lock_irq+0x10/0x10<br>
-[&nbsp; +0.000015]&nbsp; ? __pfx_kthread+0x10/0x10<br>
-[&nbsp; +0.000012]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? __kasan_check_write+0x14/0x30<br>
-[&nbsp; +0.000014]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? recalc_sigpending+0x180/0x210<br>
-[&nbsp; +0.000015]&nbsp; ? srso_return_thunk+0x5/0x5f<br>
-[&nbsp; +0.000013]&nbsp; ? __pfx_kthread+0x10/0x10<br>
-[&nbsp; +0.000014]&nbsp; ret_from_fork+0x31c/0x3e0<br>
-[&nbsp; +0.000014]&nbsp; ? __pfx_kthread+0x10/0x10<br>
-[&nbsp; +0.000013]&nbsp; ret_from_fork_asm+0x1a/0x30<br>
-[&nbsp; +0.000019]&nbsp; &lt;/TASK&gt;<br>
-[&nbsp; +0.000010] Modules linked in: rfcomm(E) cmac(E) algif_hash(E) algif=
-_skcipher(E) af_alg(E) snd_seq_dummy(E) snd_hrtimer(E) qrtr(E) xt_MASQUERAD=
-E(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) xt_mark(=
-E) xt_tcpudp(E) nft_compat(E) nf_tables(E)
- x_tables(E) bnep(E) snd_hda_codec_alc882(E) snd_hda_codec_atihdmi(E) snd_h=
-da_codec_realtek_lib(E) snd_hda_codec_hdmi(E) snd_hda_codec_generic(E) iwlm=
-vm(E) snd_hda_intel(E) binfmt_misc(E) snd_hda_codec(E) snd_hda_core(E) mac8=
-0211(E) snd_intel_dspcfg(E) snd_intel_sdw_acpi(E)
- snd_hwdep(E) snd_pcm(E) libarc4(E) snd_seq_midi(E) snd_seq_midi_event(E) s=
-nd_rawmidi(E) amd_atl(E) intel_rapl_msr(E) snd_seq(E) intel_rapl_common(E) =
-iwlwifi(E) jc42(E) snd_seq_device(E) btusb(E) snd_timer(E) btmtk(E) btrtl(E=
-) edac_mce_amd(E) eeepc_wmi(E) polyval_clmulni(E)
- btbcm(E) ghash_clmulni_intel(E) asus_wmi(E) ee1004(E) platform_profile(E) =
-btintel(E) snd(E) nls_iso8859_1(E) aesni_intel(E) soundcore(E) i2c_piix4(E)=
- cfg80211(E) sparse_keymap(E) wmi_bmof(E) bluetooth(E) k10temp(E) rapl(E)<b=
-r>
-[&nbsp; +0.000300]&nbsp; i2c_smbus(E) ccp(E) joydev(E) input_leds(E) gpio_a=
-mdpt(E) mac_hid(E) sch_fq_codel(E) msr(E) parport_pc(E) ppdev(E) lp(E) parp=
-ort(E) efi_pstore(E) nfnetlink(E) dmi_sysfs(E) autofs4(E) cdc_ether(E) usbn=
-et(E) amdgpu(E) amdxcp(E) hid_generic(E) i2c_algo_bit(E)
- drm_ttm_helper(E) ttm(E) drm_exec(E) drm_panel_backlight_quirks(E) gpu_sch=
-ed(E) drm_suballoc_helper(E) video(E) drm_buddy(E) usbhid(E) drm_display_he=
-lper(E) r8152(E) hid(E) mii(E) cec(E) ahci(E) rc_core(E) igc(E) libahci(E) =
-wmi(E)<br>
-[&nbsp; +0.000294] CR2: 0000000000000000<br>
-[&nbsp; +0.000013] ---[ end trace 0000000000000000 ]---<br>
-<br>
-The crash happens when we unconditionally call into the timing generator<br=
->
-manual trigger hook:<br>
-<br>
-&nbsp; pipe_ctx-&gt;stream_res.tg-&gt;funcs-&gt;program_manual_trigger(...)=
-<br>
-<br>
-On some configurations the timing generator (tg), its funcs table, or the<b=
-r>
-program_manual_trigger callback can be NULL. Guard all of these before<br>
-calling the hook. If the first pipe matching the stream cannot trigger,<br>
-keep scanning to find another matching pipe with a valid hook.<br>
-<br>
-Cc: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
-Cc: Alexander Deucher &lt;alexander.deucher@amd.com&gt;<br>
-Cc: Christian Koenig&nbsp; &lt;christian.koenig@amd.com&gt;<br>
-<br>
-Suggested-by: Aurabindo Pillai &lt;aurabindo.pillai@amd.com&gt;<br>
-Signed-off-by: Vitaly Prosyak &lt;vitaly.prosyak@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 6 ++++--<br>
-&nbsp;1 file changed, 4 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/=
-drm/amd/display/dc/core/dc_stream.c<br>
-index f59020f1a722..ecd08580937d 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c<br>
-@@ -522,8 +522,10 @@ bool dc_stream_program_cursor_position(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struc=
-t pipe_ctx *pipe_ctx =3D &amp;dc-&gt;current_state-&gt;res_ctx.pipe_ctx[i];=
-<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* tr=
-igger event on first pipe with current stream */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (stream =3D=
-=3D pipe_ctx-&gt;stream) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pipe_ctx-&gt;stream_res.tg-&gt;funcs-&gt;pr=
-ogram_manual_trigger(pipe_ctx-&gt;stream_res.tg);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (stream =3D=
-=3D pipe_ctx-&gt;stream &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pipe_ctx-&gt;stream_res.tg-&gt;funcs-&gt;pr=
-ogram_manual_trigger) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pipe_ctx-&gt;stream_res.tg-&gt;funcs-&gt;pr=
-ogram_manual_trigger(<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; pipe_ctx-&gt;stream_res.tg);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
--- <br>
-2.52.0<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
+Please move amdgpu_ptl_perf_monitor_ctrl decalartion also to this file.
 
---_000_CH0PR12MB52844942C4F366C072C6B8A48B66ACH0PR12MB5284namp_--
+Thanks,
+Lijo
+
+> +extern const struct attribute_group amdgpu_ptl_attr_group;
+> +
+> +#endif /* __AMDGPU_PTL_H__ */
+> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> index 295ce9364362..44e225e097d0 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> @@ -33,6 +33,7 @@
+>   #include <linux/dma-fence.h>
+>   #include "amdgpu_irq.h"
+>   #include "amdgpu_gfx.h"
+> +#include "amdgpu_ptl.h"
+>   
+>   struct pci_dev;
+>   struct amdgpu_device;
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+> index 905acff01700..32550e581673 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -1558,17 +1558,6 @@ struct kfd_ioctl_dbg_trap_args {
+>   	};
+>   };
+>   
+> -enum amdgpu_ptl_fmt {
+> -	AMDGPU_PTL_FMT_I8   = 0,
+> -	AMDGPU_PTL_FMT_F16  = 1,
+> -	AMDGPU_PTL_FMT_BF16 = 2,
+> -	AMDGPU_PTL_FMT_F32  = 3,
+> -	AMDGPU_PTL_FMT_F64  = 4,
+> -	AMDGPU_PTL_FMT_F8   = 5,
+> -	AMDGPU_PTL_FMT_VECTOR  = 6,
+> -	AMDGPU_PTL_FMT_INVALID = 7,
+> -};
+> -
+>   #define KFD_IOC_PROFILER_VERSION_NUM 1
+>   enum kfd_profiler_ops {
+>   	KFD_IOC_PROFILER_PMC = 0,
+
