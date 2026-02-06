@@ -4,80 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 302D1EB28F1
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 08:50:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB90AEB28F4
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 08:53:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1B2810E5BE;
-	Fri,  6 Feb 2026 08:50:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 580B110E5D0;
+	Fri,  6 Feb 2026 08:53:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="nZvzWU0m";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HgKhnyeW";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CF8910E5D0
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Feb 2026 08:50:06 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4801d7c72a5so3855115e9.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Feb 2026 00:50:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1770367805; x=1770972605; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=tHlK973Ey81Wj/d00/lSW5LjxdZrZHEalvUFfxeAv8E=;
- b=nZvzWU0m+cunfpnyndDilNrZjg7vLQWKnC9OmyKy0w0jx82Stlkji8c57rcYN6ssbX
- k/+hlEOYuOUqovJ8bjRp6s08QObuNk4aM3CrjMEMy/aqeTaxB+mNS5umviuUBuo1g5wg
- vIRt0VgIuXnhCVBg7AynTRry9pqC8m9vZSLwuURCWL8hiQU3UQf09LMoWBGc32x/BD3p
- Mc6zDKZIEGYR0JqWfE6+CO4qoL9ZZpr2Y86sWo5ea8EnCWAxtx7fcMhvtR0YW6IX482b
- o/2j3mH0Xapt7qN67Tz/jDufbgcmXKo8fE1fLJO755ghn5xDLIWP6sQNApXizFxf+1Vy
- Ws7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770367805; x=1770972605;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=tHlK973Ey81Wj/d00/lSW5LjxdZrZHEalvUFfxeAv8E=;
- b=GwWJF860cxGWCrjv8srPs1dzgHDvoPZmeF1JtnPC4SdcExU9bJMBvwt8prYH1MMCYW
- jsZ+VsDF0/doGzoEVPUh+fq68mMq/WjX8zTuKgcDARNb6FgqKvWd0uLY6C18DrzwkNth
- HtdFFyuqB50pKjAeRPaI7wIlJCHzagVcBOD+Xm73kRHlhfr941p2PiV1NC0mykboVb6k
- VOm+RB8WrN6H74VUREWWTqvZA8CsPRmDFNyg6qXQo3uN9w1h6J+CbzAXrrCP71GKCPdk
- nheHV91Gzx8NIO2FsXsoqwC1b0C8YwKInRvxan8UXWyfJsiY/kfnSuVgQEMzdTeV/Zxc
- exNQ==
-X-Gm-Message-State: AOJu0YzJL4j3Af/wPNud0RA8pDpHYLybq2drkhpjtiIOztCkLuV5ptxc
- 8GgPf+r3X7OC595z49Ta4YSuPzkHVifZuWoXzzl4t0Kscfv0y9LjoN0pTym+Sx4thOA=
-X-Gm-Gg: AZuq6aIMFEzzbDn62HNBYb3IbQqEes8LJDfFlii3Pr3uscnc7Ml+snGeLo0ZG4xKPYf
- +hJ44DQk2Mr4kvodV0+vtn+8uRkgdcgYd/UDJYRBUizlYPo/KqE3+4nQR9YA9DgZPj7uCDBB3Ai
- reczpgRFHQA7Lg3lEzZlFhEhBnLEs23cSc5Ny03BJziaw2UNp36v+sJ68rwjCMwkzP2DmS+kAqN
- AHvphI7p6+bSbJu+ukQ6XESMtyHMJzpCnoOD40XpfOooGCyZifUyfx1Xfhh0TX0vCmthhTAZ48f
- yI2Vrj3Pps3rQbBhWuJUmlDEg1yJRlW+7Eh8B9EYk4t3qvSGMlg7r9hZjWwk09IGr09uOKfb0//
- RRYxbkz+PuH57Zb8qOS0WFljagNFIBmna5ZXzayDMnAa5n4Ug3ZELEYwhJeBb0EFpeN6xNII6Pu
- y20IcgBu1kUu2DnarLmUOk+0WbebvvTAtkS98RRBY2xIxx
-X-Received: by 2002:a05:600c:3e12:b0:476:d494:41d2 with SMTP id
- 5b1f17b1804b1-4832021d67dmr22837885e9.29.1770367804831; 
- Fri, 06 Feb 2026 00:50:04 -0800 (PST)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483179dbdcfsm144385355e9.0.2026.02.06.00.50.04
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Feb 2026 00:50:04 -0800 (PST)
-Message-ID: <8bf7b705-bfcd-4e8e-b9d1-2bb82268d490@ursulin.net>
-Date: Fri, 6 Feb 2026 08:50:03 +0000
-MIME-Version: 1.0
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012063.outbound.protection.outlook.com [40.107.209.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24D2A10E5DE
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Feb 2026 08:53:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZZFbsi1Qbm97Vqin2qy2k1B0WLpq+yfiSLWgtG4UAb/+0TGlwGSmVf+W3d1FDa5slJb/8/1preKBV+iB4xmxDgnYC/phuF++DNUoZr+L9pdCZ77IQdFZSQTR6NMFs0Vsyhg1F8EGp1AQiOjHtc4mrrycwW+jokg/iwTbqfdLUAax33RLJ5upTyCUcNf4cLj82xFmburRgCPp/P6L/SGGGUPcMPFm1UfSmQd6J+VSz3BWqJOgos3yS4qY1YwQnqCBL1SMvthLJ/Lnu8TqHQJU7gwzY3ZHBnL9WNQp5vV8jtOsdh9mDkcjNlnBhDoNXksJRxg+RXoxkL80kyzmPTFoAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f32p37pxFwz8ABdBwLRyAiO155lbttZokmR8hNrRr7U=;
+ b=muoUkAFGnr1FIk80KGF/jh8te0qFE5AO4/76xjdzmL3E3M+SWeEIRG2G7oZykbfIMAT6iKSDS3WU4DZm9NtN3nkWXAbDiFAwB/b7eYhQcHJbLLwo1hQAAgnI2oNu/u0LGR8aimzySV+vNNKvbTB7+zGnf9HHIMUakes9pztZm7s4Yioe1NNnX3dHUYm2tetMuQfUzSBagc3xHAM1E2AzAC8rEe4Rxgt6yjJi7D7+52Wd9vpgWpnKU/RVBmjcgNSWeNQOSM0oFITgNNzhhUNk1cJAkHDPJ1kYxt2ndKtXs9YtQSePwtkpAjIuhNAeN1wudCb14Is2+85ufDaVs5523A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f32p37pxFwz8ABdBwLRyAiO155lbttZokmR8hNrRr7U=;
+ b=HgKhnyeW+p+AY+0aGePVT3+UWHmuyced65wMN2fTs9Q3kLmBkmoOuS3j/OP5dGnjEyGC4gy6RSS5fFFkgRJ+benh27F3/D5crFOB9wy/oZmYaxAjC8qRWJfRs7wbGTUfkPnIhu8WN82RCHbyQiYhrtGqC2HfCJI6WkuuVldzyBI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by SA1PR12MB8699.namprd12.prod.outlook.com (2603:10b6:806:389::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.15; Fri, 6 Feb
+ 2026 08:53:45 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9587.013; Fri, 6 Feb 2026
+ 08:53:45 +0000
+Message-ID: <082f567c-6594-4204-ace8-4951558a4c02@amd.com>
+Date: Fri, 6 Feb 2026 14:23:38 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] drm/gem: Make drm_gem_objects_lookup() self-cleaning
- on failure v5
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <20260205154215.1460845-1-srinivasan.shanmugam@amd.com>
- <321402ae-bb5f-44e5-b7ac-a775c5cf0ab4@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <321402ae-bb5f-44e5-b7ac-a775c5cf0ab4@amd.com>
+Subject: Re: [PATCH v2] drm/amd/pm: Add acc counter & fw timestamp to xcp
+ metrics
+To: Asad Kamal <asad.kamal@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: hawking.zhang@amd.com, le.ma@amd.com, shiwu.zhang@amd.com,
+ alexander.deucher@amd.com, kevinyang.wang@amd.com
+References: <20260206083128.4134355-1-asad.kamal@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260206083128.4134355-1-asad.kamal@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PR01CA0105.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9b::9) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SA1PR12MB8699:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6121beb3-fc18-4562-478c-08de655d3c58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YmZHWjR0c0F1cUdBWVBZSDFhbU9QRTJ1dVkrMERBK2ZmVURzd09LaEZTcTcr?=
+ =?utf-8?B?aTFvUGVIejgwb2hyTDkwa3NBbnZrZXF0Q1JxTHhvcUFwalB6REVJUVRUQ3ZP?=
+ =?utf-8?B?VHM1eUlITWZ0YjB2ZlNhK09qZ3VXTXhxU2Y4SDJNeGdGRkNzcENWN3p0em1N?=
+ =?utf-8?B?L0tYMnVYa2I2SXp4L1UrcWFPV1V5djhObjNIdDlqUlVYZyt4dXVUZFY2cEN3?=
+ =?utf-8?B?T1ovNDhWNmFTOGc2clBNR2FTYUVmdHNTQmFZNWlZaTkxcUg3QW16VkEwR0NS?=
+ =?utf-8?B?ZGYyanJpejdkV1dLZ0MyL0swK0hTWmVuaUlLdm1hNEpkZkdaTWZRcEFRaWhL?=
+ =?utf-8?B?WmVLOUc2ei93N3V2dG1TUlRLKzNKbzNRNW1CTHJURGF0YTVVbzFETmFQV2d4?=
+ =?utf-8?B?L2tHOTkyZkl6VnNYSkVGNFFma3Jwam9yNDIyeG01VUUxVUhmaWh3V0dwY3Vi?=
+ =?utf-8?B?Q0ZUTmRXV0ZIOWczNFRrdEU3d1ZrQldyVGlwMU81TE91T2FkMGRubjB6NGFN?=
+ =?utf-8?B?clpnRlY1ZFBiUldzdWJpYURkK1J5ODFaSHUzRElBbVhJT3hIUDR3UldmUGVj?=
+ =?utf-8?B?Mm5YKzZOWGxtNHozTDV3Q2w2OUplN2F2ckN6NnFmR01TMW1HR1gyUXhCTnFG?=
+ =?utf-8?B?WTBjdzFhZUw2TDdybTk1TXo5OW1tblp4OWhPZGV3RmloQlBvRW5NZE1XVk9X?=
+ =?utf-8?B?ZEF1b2Y0RDB2WnBEVUlkVVAyUnV3N0NVZnFMcjhQV0p1N2p0bFQvZE5kbE53?=
+ =?utf-8?B?eFFDTUp5MjFrLzA1bWd6S3VUWWkrOXJjRHhwL1BNT0ppdzVML2VPR0tyaXkr?=
+ =?utf-8?B?Y0FVZmNxTzF3VGl3djd1cjJBL2t2clh3d2Nzc3RzUitIaU1adzlpMFM0N1Rl?=
+ =?utf-8?B?bG1wbkdtdGNQNEU5MkRvVUFxNE1tcFRHL3RBa1ppU25TSm4xU1ZvSGxlM05l?=
+ =?utf-8?B?a1lOdEVJNzZoU3dNS3UwQmNQWGlmQ1UwT0hyOWU3ZzJTcG5yZTlWMWl0cXh4?=
+ =?utf-8?B?eU9pYnNRZFh0MTh2a3JhRXk5L2dHdENWdTl2TXFCcEcwMitzcDJnNnZOOUJy?=
+ =?utf-8?B?K3gvUmFtTGlGVjNQRkRPLy8xVWkwUUF3K1VZTTk5R0N4QnhTY3lxU3JZSFpy?=
+ =?utf-8?B?eVNTUElVUTRKK0k5R3BIQXg2eHBnNTBnaWNyYTdobktNVXc2bFJYRk1qQmxN?=
+ =?utf-8?B?YWd6R3ZuL1R4c0ZvSkRCT29LcVAvMWZ4OUM4anFJWlUvWnFMMnk0dDU0ajFS?=
+ =?utf-8?B?NStveHkwTTJzRE9nQjFGZER5N0VNTEhiWWo5b3oxdlhFZVVFQUJia3VFMlpY?=
+ =?utf-8?B?Y1NiWWpGT1lJdEtXTU4yU2RqU0s2dDgzcS9TeWlvczIyNmR5TTZWYXFNNit5?=
+ =?utf-8?B?Z2Qrd3hrK0kyMDdUNnJDWlNHekthelFPTnNwd2N2cFYyeW9TNWJJNzc0UHBX?=
+ =?utf-8?B?Szg3eU51TTN0b1BRZHVmOHlkaFlOMGk2R3R4L1QvQkQyaDAySUxtQm1FVGIr?=
+ =?utf-8?B?YndXQkd2YVlyY0RkUkZJZEFxR3lMbGV6T3FIelArUk1DZ01ReEJlZlRBTjhU?=
+ =?utf-8?B?eHlMTHY2TUFrY2dwcUxDQWZocFVDUUF6M1JhNWh3TEpFZWxUSEFFNWIvdGcy?=
+ =?utf-8?B?YzZBWHFWOS9KYnNjVzlFU3JKamVHUHNOUkhsNFoydjZKNnhydS9UcEZOQThw?=
+ =?utf-8?B?VHpIbmRseEhtUXFOOU9vaXNNc1NMakxxb2tVdU9ta3djalJBSVhicTAxY1Ir?=
+ =?utf-8?B?bDZnVWJyNjM4NHcwNTZIZDc3ek9LWkV0T2F3Skt5dGdWK01KZzVyRk1EZExE?=
+ =?utf-8?B?UWxPNlJkbnIxb2pRTGFMQW1Dczc4c25tL2kySE9aTzdTZHRBVVhOTVVIdFhh?=
+ =?utf-8?B?dlJrdU5hYzZWOFkwS29WSU50MXluQlA0VmpPUytvSzJNY2czRmJVSGovK2Nl?=
+ =?utf-8?B?ZzEwUjN4V0hWTzljZlJGQzZZQnZocms1c1E1MkE4aitmaHJoSVluK3A4Y0dI?=
+ =?utf-8?B?YVhxdlFPR25ZeDZ4MW9Xc09IRjRjRG56SVNSTVJQZllmT21WcVBXK1E5SGJS?=
+ =?utf-8?B?NkdxOHZrbzZGKzRUdG16YXl1N2xoVnpNNzB3QVdINkY2WU5uWVd2Vi9xU216?=
+ =?utf-8?Q?v3Jc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?amZmeHJuZjFUcSs4L012bWtTUEkxOHlWdGIzNUxWWU80MHY4VkVUMnFuaVZF?=
+ =?utf-8?B?d25DcXVEMzlVUDd5NTJScDcrbGN4VWkvaUM1N2pzbEdreXZTMng0aTJBelhS?=
+ =?utf-8?B?NlY4RWxZNm5RVlk5WjVYWDBhdmdDaWdYVjhma3pwNjIvVkFEalU4ZlR3RHEz?=
+ =?utf-8?B?L1J6VTBZUStzaEk3d3ZqOG51empIMFlscmhtd1UyQ1FKd3EydVdtZ0RGaUhw?=
+ =?utf-8?B?dGVRQVowYXJ2M3ZXY1lkSkRBQStQVkI4bk5LaC8yUWdid1VJaDZsNy9JZkJZ?=
+ =?utf-8?B?ZmFwNXI0cmhITjllSEc5VmdvTW9sOFkycmVWS3JCdWxmaHl5aThZOTJzaXda?=
+ =?utf-8?B?VGR6R3FKRzgyYnZCdEVaODQ2WlhDajF3K2J6VGl5QnhmM2hYbXZXbWw0Uy96?=
+ =?utf-8?B?Vmt4enZWZWVyK0pSWVZ4OThCTXRyT2Y0d0d0bDlOY2FHQlNlNG1mZUwvaFBD?=
+ =?utf-8?B?eTFNK0tOaU40dGdGL1FDb1dSUUc1Sy9EQjVKMllFSEFJdnhDS29LdnNaeGVo?=
+ =?utf-8?B?N1Vzam0zVlBONjArWDM1QXNzQlVTTlp0WnExeVdIbDE0clhQZExXRzJaQVlv?=
+ =?utf-8?B?dndxc1QxVGRISGJ2bTM1MEVHcURIMWtqYTQ4VHB6LzBsQnpHTVYycElNeWMz?=
+ =?utf-8?B?L2Z4c1RSRWp1bG1JTG1Oa29Ca2kzM0VFYm5OTlZmVm5WSUVaRW1jNHNSZmto?=
+ =?utf-8?B?THBlVG9qODFQR2V1NW5NVWpaejJTdTlMbFJRcmpQV3Uvc2Q4RURRUWp4ck5F?=
+ =?utf-8?B?dTlsdm9HVmViUzFPTTI1Z2xTTzhEZkdnUUd0Q1djblhYN2VFTll0NHJPRkNr?=
+ =?utf-8?B?T2pKYTg1VUFqbUFyMkcvT3RXTzNSL2cySEtmaXRXem5uc0hhZjBIK0hLa3Va?=
+ =?utf-8?B?Q0lmKzNLVERnMUlvckMrNmhhV3UzYXlNTjNxdXBiVDAvdXhFV09oR2xVbEZh?=
+ =?utf-8?B?OHZvL3BUMXpybG9sVWJaalBMb05QbnpNYXlPMzllTEZLZXBrUlhNbHkyUmVw?=
+ =?utf-8?B?QnNiZ3NvK3FFczR4UlFSUGdjTmhvbTZxeS9OdWtuT1N5clJZTzd5cDNmaGtv?=
+ =?utf-8?B?dmpyQ0Qwbm9ZSU8vaW5PdHJNcWJkZzh3UE41bGxVSU1GSDVOU0UyYlR6dE1B?=
+ =?utf-8?B?Q3hyaVMzc1BNTk1nUk01amkvcW04RysvSWFvWE94Q2gwejJwTkVvOWJtWjFJ?=
+ =?utf-8?B?aDlJVlc4T0R2NXRxbFJodjlpUjVLWnJEaE9VSmU1OW1SM1RwbnkyN0JxVlU0?=
+ =?utf-8?B?ZkcyN01udmlUejdHTG5DUG1QbE8vN29jbnY3YVVoSUp2a0ZQb2ZJVjl1VGpS?=
+ =?utf-8?B?b0wvQ1ZYRktIS2hEdEJYakI5cGdsaVpkRXp5cUY1WThDcHd1ZG5VU3kwWnN1?=
+ =?utf-8?B?bXlLeEMrWllkNjc4azhwUjI3Vzh3SFkxdng1RklyeXBwUDNJaS9sUHVNWGNK?=
+ =?utf-8?B?a2NENXdySCtOSEUwOEhGL3BleVBZQXVOZGxrZUQzbndVSis4NTVBa05UU3dT?=
+ =?utf-8?B?bU5aYkdVcWFwMlhpOTFJemhiazJvZzhSSUowT25FSno5MFEzR0psRXdtTXZI?=
+ =?utf-8?B?NWtDNXc5dWxnazJoRVRtWWU3cXpxUHdJQ2tpZ0gycnA4NHhIRkU0Ty92UVlX?=
+ =?utf-8?B?MnExWVVRMlMwaENVWE53b3RPZ1RPOEQ1UEhwa2x5angvVi9aYXNMc2hjbmJ1?=
+ =?utf-8?B?VWhtZmxIWXM0dFdhQkZKWFRKZ3NEcVNVLy9ZV2ttTHBjdzQyU2tibVlBZGxQ?=
+ =?utf-8?B?WG9jR1o5cFhoTmg3MHc3czVsK2J5OFYrN0MzNjNMRENJTjNVNnBkMUpLczQ4?=
+ =?utf-8?B?dnBWdUN4OEZxY0tuV2lRQkxzaG4wRlNUMXB2L3hLcTJxQ0pFcGFCV2tuQ3dO?=
+ =?utf-8?B?dDdaSFZoSnhWVGpOYnhCM1pmaGljTkt0S1o0bHZHTUl3NEE4WldjakV1dzkr?=
+ =?utf-8?B?dWlSVGozdWFDYXFBRzBTZGpuSXhnekRlTDFJV0cyUkVWTDlQMENzTTVscFcx?=
+ =?utf-8?B?N2JQQVV0bVFVbW9jNzhlZFYrc0d2NWdRdjRZS3grS2VEcXRvcDhNN210OUUz?=
+ =?utf-8?B?aXpqanlhNHkyTjZtZFExZTVUdkFGS1ZEWGtkbTViSXdTbVdIQU9kUzJmMjJa?=
+ =?utf-8?B?NTZwUWdLN3dBb3RDT2t4TERuWEJ4bTJxSmRXME9BQk91QU9kaWNEUDdUa0RN?=
+ =?utf-8?B?dUVCYjI0cnRoVlNtZ1hBZUY1dVh4eWt1amowcXV4UUR6S2hwU2NER2VxVjMw?=
+ =?utf-8?B?WGNMWjVzUUkwM1Rod2RJdmdGdE5oOVVJQlFROFF4RnhVakdDV1B6WXJBbXFl?=
+ =?utf-8?B?WE5kUlVtRW10a3Zyck1ocWxnN0xxSVJIbmMxdTV2VlZ5MFViazFuUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6121beb3-fc18-4562-478c-08de655d3c58
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 08:53:45.5560 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: is6Dnirimiwlo9bpxgMUOj/IfLYlp/SpUQFQ58gGegg4gHFORHzqRzjkmN/ylCM6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8699
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,148 +169,68 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 06/02/2026 08:09, Christian König wrote:
-> On 2/5/26 16:42, Srinivasan Shanmugam wrote:
->> drm_gem_objects_lookup() can allocate the output array and take
->> references on GEM objects before it fails.
->>
->> If an error happens part-way through, callers previously had to clean up
->> partially created results themselves. This relied on subtle and
->> undocumented behavior and was easy to get wrong.
->>
->> Make drm_gem_objects_lookup() clean up on failure. The function now
->> drops any references it already took, frees the array, and sets
->> *objs_out to NULL before returning an error.
->>
->> On success, behavior is unchanged. Existing callers remain correct and
->> their error cleanup paths simply do nothing when *objs_out is NULL.
->>
->> v3: Move partial-lookup cleanup into objects_lookup(), perform reference
->> dropping outside the lock, and remove reliance on __GFP_ZERO or implicit
->> NULL handling. (Christian)
->>
->> v4: Use goto-style error handling in objects_lookup(), drop partial
->> references outside the lock, and simplify drm_gem_objects_lookup()
->> cleanup by routing failures through err_free_handles as suggested.
->> (Christian)
->>
->> v5: Rebase on drm-misc-next, drop the ret local variable. (Christian)
->>
->> Cc: Alex Deucher <alexander.deucher@amd.com>
->> Suggested-by: Christian König <christian.koenig@amd.com>
->> Suggested-by: Tvrtko Ursulin <tursulin@ursulin.net>
->> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> 
-> One little nit pick below, apart from that:
-> 
-> Reviewed-by: Christian König <christian.koenig@amd.com>
 
-Same opinion on the nit pick as Christian and with that the rest LGTM:
+On 06-Feb-26 2:01 PM, Asad Kamal wrote:
+> Add accumulation counter and firmware timestamp to partition metrics for
+> smu_v13_0_6 & smu_v13_0_12
+> 
+> v2: Use U64 for accumulation counter (Lijo)
+> 
+> Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 
-Regards,
+Thanks,
+Lijo
 
-Tvrtko
-
+> ---
+>   drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 3 +++
+>   drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 2 ++
+>   drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h  | 6 +++++-
+>   3 files changed, 10 insertions(+), 1 deletion(-)
 > 
->> ---
->>   drivers/gpu/drm/drm_gem.c | 45 +++++++++++++++++++++++++++------------
->>   1 file changed, 31 insertions(+), 14 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
->> index 7ff6b7bbeb73..5895ae09c27d 100644
->> --- a/drivers/gpu/drm/drm_gem.c
->> +++ b/drivers/gpu/drm/drm_gem.c
->> @@ -783,7 +783,7 @@ EXPORT_SYMBOL(drm_gem_put_pages);
->>   static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
->>   			  struct drm_gem_object **objs)
->>   {
->> -	int i, ret = 0;
->> +	int i;
->>   	struct drm_gem_object *obj;
->>   
->>   	spin_lock(&filp->table_lock);
->> @@ -791,16 +791,23 @@ static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
->>   	for (i = 0; i < count; i++) {
->>   		/* Check if we currently have a reference on the object */
->>   		obj = idr_find(&filp->object_idr, handle[i]);
->> -		if (!obj) {
->> -			ret = -ENOENT;
->> -			break;
->> -		}
->> +		if (!obj)
->> +			goto err;
->> +
->>   		drm_gem_object_get(obj);
->>   		objs[i] = obj;
->>   	}
->> +
->>   	spin_unlock(&filp->table_lock);
->> +	return 0;
->>   
->> -	return ret;
->> +err:
->> +	spin_unlock(&filp->table_lock);
->> +
->> +	while (i--)
->> +		drm_gem_object_put(objs[i]);
->> +
->> +	return -ENOENT;
->>   }
->>   
->>   /**
->> @@ -825,27 +832,37 @@ int drm_gem_objects_lookup(struct drm_file *filp, void __user *bo_handles,
->>   			   int count, struct drm_gem_object ***objs_out)
->>   {
->>   	struct drm_gem_object **objs;
->> -	u32 *handles;
->> +	u32 *handles = NULL;
-> 
-> I might be missing something but setting handles to NULL looks superfluous to me and we now have static checkers warning about superfluous initialization.
-> 
-> Regards,
-> Christian.
-> 
->>   	int ret;
->>   
->> +	*objs_out = NULL;
->> +
->>   	if (!count)
->>   		return 0;
->>   
->> -	objs = kvmalloc_array(count, sizeof(struct drm_gem_object *),
->> -			     GFP_KERNEL | __GFP_ZERO);
->> +	objs = kvmalloc_array(count, sizeof(*objs), GFP_KERNEL);
->>   	if (!objs)
->>   		return -ENOMEM;
->>   
->> -	*objs_out = objs;
->> -
->>   	handles = vmemdup_array_user(bo_handles, count, sizeof(u32));
->> -	if (IS_ERR(handles))
->> -		return PTR_ERR(handles);
->> +	if (IS_ERR(handles)) {
->> +		ret = PTR_ERR(handles);
->> +		goto err_free_objs;
->> +	}
->>   
->>   	ret = objects_lookup(filp, handles, count, objs);
->> +	if (ret)
->> +		goto err_free_handles;
->> +
->>   	kvfree(handles);
->> -	return ret;
->> +	*objs_out = objs;
->> +	return 0;
->>   
->> +err_free_handles:
->> +	kvfree(handles);
->> +err_free_objs:
->> +	kvfree(objs);
->> +	return ret;
->>   }
->>   EXPORT_SYMBOL(drm_gem_objects_lookup);
->>   
-> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+> index 3d60d3c1e585..f2a6ecb64c03 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+> @@ -823,6 +823,9 @@ ssize_t smu_v13_0_12_get_xcp_metrics(struct smu_context *smu, struct amdgpu_xcp
+>   		idx++;
+>   	}
+>   
+> +	xcp_metrics->accumulation_counter = metrics->AccumulationCounter;
+> +	xcp_metrics->firmware_timestamp = metrics->Timestamp;
+> +
+>   	return sizeof(*xcp_metrics);
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> index 3a9210083ce3..07592e285cf5 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
+> @@ -2668,6 +2668,8 @@ static ssize_t smu_v13_0_6_get_xcp_metrics(struct smu_context *smu, int xcp_id,
+>   			idx++;
+>   		}
+>   	}
+> +	xcp_metrics->accumulation_counter = GET_METRIC_FIELD(AccumulationCounter, version);
+> +	xcp_metrics->firmware_timestamp = GET_METRIC_FIELD(Timestamp, version);
+>   
+>   	return sizeof(*xcp_metrics);
+>   }
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+> index 0588a5aa952d..07d4cb6562b0 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+> @@ -259,7 +259,11 @@ void smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table,
+>   		  SMU_13_0_6_MAX_XCC);                                         \
+>   	SMU_ARRAY(SMU_MATTR(GFX_BELOW_HOST_LIMIT_TOTAL_ACC), SMU_MUNIT(NONE),  \
+>   		  SMU_MTYPE(U64), gfx_below_host_limit_total_acc,              \
+> -		  SMU_13_0_6_MAX_XCC);
+> +		  SMU_13_0_6_MAX_XCC);					       \
+> +	SMU_SCALAR(SMU_MATTR(ACCUMULATION_COUNTER), SMU_MUNIT(NONE),           \
+> +		   SMU_MTYPE(U64), accumulation_counter);                      \
+> +	SMU_SCALAR(SMU_MATTR(FIRMWARE_TIMESTAMP), SMU_MUNIT(TIME_2),           \
+> +		   SMU_MTYPE(U64), firmware_timestamp);
+>   
+>   DECLARE_SMU_METRICS_CLASS(smu_v13_0_6_partition_metrics,
+>   			  SMU_13_0_6_PARTITION_METRICS_FIELDS);
 
