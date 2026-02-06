@@ -4,89 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 320ABEE6B4D
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 19:58:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03DE5EE6B60
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 21:30:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAD9010E8B3;
-	Fri,  6 Feb 2026 19:58:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69E5110E13A;
+	Fri,  6 Feb 2026 21:30:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fPDH5uPq";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="PgOuGqgD";
 	dkim-atps=neutral
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBD4E10E1EB
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Feb 2026 19:58:20 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-1233c155a42so3316685c88.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 06 Feb 2026 11:58:20 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1770407900; cv=none;
- d=google.com; s=arc-20240605;
- b=FvCuaIr2X3Htn++a1cHNAnGwrAo9/uDa8xEeKl2miHPU/7/ifQKumtFFBYMjOjg9vI
- Zy135n9DL84XxqW/fIQxQjNPqOHMk/jYxgV9o1dQtJBNsyPG0DixfAjxM9fJH2Fji+2S
- pDztNSbscoJ6jU6M2z/GGWycE2/SoFKClnhqYxtVNfihiuebUMG1RXxPbVlZnQAGTKPy
- grwviu3iDhOg7LDPeTAn2dLlcl3Ek5YeF/MFNRdVla8X+1Ka/gOjhOIitNBAEFTirFYk
- 10bmppAO9b+RkSHgKohLe8nc3UThO0+ztdWqCpHJBWD3XGEel/3pbhToX3NVYsO1QmxN
- 31Rg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=GRm7HNfTA4ant2yIYhCAG8o23gsjvSTOyf18mlTBqqw=;
- fh=H0NwC/PB80XYkvBORvm6GdjIq2L+M8tqwQmasiVwPAU=;
- b=GKN59FAB3iZpzi0wsHKgozBtRT/UEByTfhmwz0YS+r32USr/ApYOMIABhOp2aZrbZA
- PIlTD2JzYf7HHn+fPS4YAt6sT+tWRzomeUW8ENJUzZRZ81brOuKWQ3gq5lhUr0SUpTgG
- i1CIjt7uST91ABvtZsrQQF/r5hW4Wv41y4JnL8sbGIQD/30ifMtiPC7NLoucIM5CZwbV
- kJZ1iCgnU3rkgnpNeIRX2c4jZM4GJ7TGOJLgxQ4qiNv8sDTNP4dxhDiyYBVY9vBt+Auz
- ocX8iprNQcgdKqdbGIZ3yi5mpevVkmLv7jEccOTr5LANun5BQ86HULuSCLeng5MPDN9r
- HkNg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770407900; x=1771012700; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=GRm7HNfTA4ant2yIYhCAG8o23gsjvSTOyf18mlTBqqw=;
- b=fPDH5uPqwAxSmrXYr/74fbJvRWDRuaWNH4ntA0RwaI6NGSc/GfhRsJHBcE5EknCpjZ
- b2ERv56y1TDJrtEyrVJShn5dE+kcdxMqLiAINjcLYgn8T7vdyg+Fdog2HVJqyoiLnm59
- XSAasL2ICwE4QMJiKHX9af9HW5Zz9qWN/ExROfSkWyvWxu4MXypq63QrWnlday+/pOtz
- E7otOCcSNar2GCmlzTfMlOCML9UBfnZNCejjIph5JpHdUvGdwL25Tk11zKow2c+bekAF
- uJGHndWWEUc40+666PeIkQ2DGHMaOEUvHphEpk5KvbPEoYPTSIe2zy5+f/gt97MapGh8
- xXjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770407900; x=1771012700;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GRm7HNfTA4ant2yIYhCAG8o23gsjvSTOyf18mlTBqqw=;
- b=U3sSUqtx9zZKJOy4CU67CMamk1BkmjOJ+zdw2ZaWQm/NFyLpITA4GxhumT5J3tkrvj
- BMkZeB9XR0nNPRaW1K6ix+63+jWfi5DcxgGf96iPuc2TYcnVX2DJ8G4FKg9h3OfhfP9f
- 6cy0XDdGji4XjQf/eMzj5lXHz7KBiJkX/aFKmnyqRxjuidUXaTOu+O+8d2ec5GAadYKJ
- Y4Ci9lVGS+DSKbPEPU7WpzgaQKGmkPBaBkeT6Tzk6hDh/gVK4/91Lq0uNJSLWFxd5bMv
- Lp2MogrP7VUF/K24v+kJNCJx/ZSbCsWyB0aKe/dyRsMPxLThGA7mPGK1Hx9Bo3jbjpSF
- hpFg==
-X-Gm-Message-State: AOJu0YwTOUgKfBPmI/MXvhG3gfDdcnrP0/UryyMFd4q+H4PHa8IoICFm
- z7OAKiuGOcRRkfUgaUaAK7MTcsM9vpbBlvSTjOnyW2MtI/QGLRdUiycBjesutM1KcNasd7aTNAR
- 48lYVJ5UP2Lde4z19VjDtctPuDJBuDfQ=
-X-Gm-Gg: AZuq6aJHZQeBF4mjWa4+oBqgm7x8+pnv6+/ZRHV0+B9GXkV9qEU9kRKtDlsyYZ8RoYj
- /ghPahnHNqGxohiXS1cFZ8/GfHOep5CIgf5RTiIMReo4EVoTOY8g3+EUFNgN22vcgkmSexrTJfq
- zDG/9LzdFqA7pCkcfIn6ZZai0rNyZV0SLR0QZLxHH/+DqCQmU38kux/CAWcv2W9w5kcPxpWbA1x
- CyTu09pXa1wjTnQ8b3E9dagu/HGRa0/k2siugsPv6ms1DQzXq+xuo4X1W06451Ll/rfNlIsbapM
- +IbNGCSw2wUZoPezhIwWu5G78FHTyw==
-X-Received: by 2002:a05:7022:69a:b0:119:e56b:9899 with SMTP id
- a92af1059eb24-12703f0a668mr1468969c88.0.1770407899815; Fri, 06 Feb 2026
- 11:58:19 -0800 (PST)
-MIME-Version: 1.0
-References: <20260206012447.105684-1-vitaly.prosyak@amd.com>
-In-Reply-To: <20260206012447.105684-1-vitaly.prosyak@amd.com>
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Fri, 6 Feb 2026 20:57:43 +0100
-X-Gm-Features: AZwV_QhLMdFhSXx3RckTz1j0D67WiUHBqy1sixFOW1ooDJ3FyA1L5WvRL6T6864
-Message-ID: <CAEsyxyjvV9LX_S_OhFTSp-kkyAjxYC2Yurz5kwAA=bA9YG=dpQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: guard NULL manual-trigger callback in
- cursor programming
-To: vitaly.prosyak@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- alexander.deucher@amd.com, Aurabindo Pillai <aurabindo.pillai@amd.com>, 
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: multipart/alternative; boundary="000000000000f9e399064a2d3501"
+X-Greylist: delayed 491 seconds by postgrey-1.36 at gabe;
+ Fri, 06 Feb 2026 21:30:35 UTC
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
+ [136.143.188.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F04E810E13A;
+ Fri,  6 Feb 2026 21:30:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1770413432; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=TkGT/rcpJE5Vm/RPC/OLo0/DqSafIQP4dRJ9DS5V9ztK6Ke3kRltQ9h4WbEj57/jfaJLtvCMwnIh6yWLQnTLqDq48jerNv6XpjWF8X5j97XVpzK18xlVRoDnSTTu4fuy2JeuB3KoZ9Jr22UoO/dl//sTGhvEt0MSiVFamYw0wkY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1770413432;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=dHk/uf5/R0o1Pb5W9VHPvuhr+RUwzmWTYbA59LNhJ9M=; 
+ b=L6YzZ4DJDJPYpSP3wIFwYXu65xdUaNah/57hxFQLAxsKteOXGvzUi2ZgeyUSNPkqsRX5PCNEeD0pA1KNmjXk/uIjTznAWfAcsE6x4AC4GK7YyMpd37JDrNLheEQ9Kb5ODTN63I2H+AkFaDlr/VMeIiBVHKX+ERmLTM+fLtJjDA8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1770413432; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
+ bh=dHk/uf5/R0o1Pb5W9VHPvuhr+RUwzmWTYbA59LNhJ9M=;
+ b=PgOuGqgDm2r+bre0v+IcQ1LH7g7YFthyDqz3hqjJrYgXp9ck0UIVNlgNR+4ogr8B
+ zu3HbqxQq8nl4tD3M6w2uHxQnQ/DbcuSufmz8XsD8pxovUabdXl98yfhOsYX48rwuYk
+ LwfLOpDCV3saDkZIIa+RtC+Uut/J+35pmJ8yGMJg=
+Received: by mx.zohomail.com with SMTPS id 1770413430954879.3535008602513;
+ Fri, 6 Feb 2026 13:30:30 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH -next v7 1/2] rust: clist: Add support to interface with C
+ linked lists
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <DG820GM5YHJS.11E92OR824CWM@kernel.org>
+Date: Fri, 6 Feb 2026 18:30:07 -0300
+Cc: Gary Guo <gary@garyguo.net>, Joel Fernandes <joelagnelf@nvidia.com>,
+ linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?utf-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, joel@joelfernandes.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <31AAAF36-093A-46CF-AEEA-709CB1DE1E81@collabora.com>
+References: <20260206004110.1914814-1-joelagnelf@nvidia.com>
+ <20260206004110.1914814-2-joelagnelf@nvidia.com>
+ <DG7ZF1UT98RQ.3F42J3ULGV2OC@garyguo.net>
+ <DG800TDA6OXQ.275PMMS19F1EX@kernel.org>
+ <77ac3274-a962-469d-a2f6-6ccc0670988a@nvidia.com>
+ <DG80FV3VTT6P.2ZP18EM8605GT@garyguo.net>
+ <DG81PJ9QD8FC.2NF6VEKDD3F2Q@kernel.org>
+ <DG81V8NG5RC7.38EYLHQZXKTTO@garyguo.net>
+ <DG820GM5YHJS.11E92OR824CWM@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,450 +107,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000f9e399064a2d3501
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Successfully tested on Polaris 11 / DCE 11.2.
 
-Reviewed-and-tested-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+> On 6 Feb 2026, at 14:27, Danilo Krummrich <dakr@kernel.org> wrote:
+>=20
+> On Fri Feb 6, 2026 at 6:20 PM CET, Gary Guo wrote:
+>> I asked for this to be changed to `pub(crate)` because I think this =
+isn't
+>> something that should be used by drivers.
+>>=20
+>> As you said, tt might be tricky to enforce that with new build system =
+when
+>> subsystems are inside different crates. But until then I think it's =
+better to
+>> limit visibility.
+>=20
+> It should *usually* not be used by drivers, but there are exceptions. =
+For
+> instance, it is perfectly valid to be used by Rust drivers that =
+interact with C
+> drivers.
 
-On Fri, Feb 6, 2026 at 2:32=E2=80=AFAM <vitaly.prosyak@amd.com> wrote:
+I agree with what Danilo said here.
 
-> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
->
-> KASAN reports a NULL instruction fetch (RIP=3D0x0) from
-> dc_stream_program_cursor_position():
->
->   BUG: kernel NULL pointer dereference, address: 0000000000000000
->   RIP: 0010:0x0
->   Call Trace:
->     dc_stream_program_cursor_position+0x344/0x920 [amdgpu]
->     amdgpu_dm_atomic_commit_tail+...
->
-> [  +1.041013] BUG: kernel NULL pointer dereference, address:
-> 0000000000000000
-> [  +0.000027] #PF: supervisor instruction fetch in kernel mode
-> [  +0.000013] #PF: error_code(0x0010) - not-present page
-> [  +0.000012] PGD 0 P4D 0
-> [  +0.000017] Oops: Oops: 0010 [#1] SMP KASAN NOPTI
-> [  +0.000017] CPU: 0 UID: 0 PID: 10 Comm: kworker/0:1 Tainted: G
->   E       6.18.0+ #3 PREEMPT(voluntary)
-> [  +0.000023] Tainted: [E]=3DUNSIGNED_MODULE
-> [  +0.000010] Hardware name: ASUS System Product Name/ROG STRIX B550-F
-> GAMING (WI-FI), BIOS 1401 12/03/2020
-> [  +0.000016] Workqueue: events drm_mode_rmfb_work_fn
-> [  +0.000022] RIP: 0010:0x0
-> [  +0.000017] Code: Unable to access opcode bytes at 0xffffffffffffffd6.
-> [  +0.000015] RSP: 0018:ffffc9000017f4c8 EFLAGS: 00010246
-> [  +0.000016] RAX: 0000000000000000 RBX: ffff88810afdda80 RCX:
-> 1ffff110457000d1
-> [  +0.000014] RDX: 1ffffffff87b75bd RSI: 0000000000000000 RDI:
-> ffff88810afdda80
-> [  +0.000014] RBP: ffffc9000017f538 R08: 0000000000000000 R09:
-> ffff88822b800690
-> [  +0.000013] R10: 0000000000000000 R11: 0000000000000000 R12:
-> ffffffffc3dbac20
-> [  +0.000014] R13: 0000000000000000 R14: ffff88811ab80000 R15:
-> dffffc0000000000
-> [  +0.000014] FS:  0000000000000000(0000) GS:ffff888434599000(0000)
-> knlGS:0000000000000000
-> [  +0.000015] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [  +0.000013] CR2: ffffffffffffffd6 CR3: 000000010ee88000 CR4:
-> 0000000000350ef0
-> [  +0.000014] Call Trace:
-> [  +0.000010]  <TASK>
-> [  +0.000010]  dc_stream_program_cursor_position+0x344/0x920 [amdgpu]
-> [  +0.001086]  ? __pfx_mutex_lock+0x10/0x10
-> [  +0.000015]  ? unwind_next_frame+0x18b/0xa70
-> [  +0.000019]  amdgpu_dm_atomic_commit_tail+0x1124/0xfa20 [amdgpu]
-> [  +0.001040]  ? ret_from_fork_asm+0x1a/0x30
-> [  +0.000018]  ? filter_irq_stacks+0x90/0xa0
-> [  +0.000022]  ? __pfx_amdgpu_dm_atomic_commit_tail+0x10/0x10 [amdgpu]
-> [  +0.001058]  ? kasan_save_track+0x18/0x70
-> [  +0.000015]  ? kasan_save_alloc_info+0x37/0x60
-> [  +0.000015]  ? __kasan_kmalloc+0xc3/0xd0
-> [  +0.000013]  ? __kmalloc_cache_noprof+0x1aa/0x600
-> [  +0.000016]  ? drm_atomic_helper_setup_commit+0x788/0x1450
-> [  +0.000017]  ? drm_atomic_helper_commit+0x7e/0x290
-> [  +0.000014]  ? drm_atomic_commit+0x205/0x2e0
-> [  +0.000015]  ? process_one_work+0x629/0xf80
-> [  +0.000016]  ? worker_thread+0x87f/0x1570
-> [  +0.000020]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000014]  ? __kasan_check_write+0x14/0x30
-> [  +0.000014]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? _raw_spin_lock_irq+0x8a/0xf0
-> [  +0.000015]  ? __pfx__raw_spin_lock_irq+0x10/0x10
-> [  +0.000016]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? __kasan_check_write+0x14/0x30
-> [  +0.000014]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? __wait_for_common+0x204/0x460
-> [  +0.000015]  ? sched_clock_noinstr+0x9/0x10
-> [  +0.000014]  ? __pfx_schedule_timeout+0x10/0x10
-> [  +0.000014]  ? local_clock_noinstr+0xe/0xd0
-> [  +0.000015]  ? __pfx___wait_for_common+0x10/0x10
-> [  +0.000014]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? __wait_for_common+0x204/0x460
-> [  +0.000014]  ? __pfx_schedule_timeout+0x10/0x10
-> [  +0.000015]  ? __kasan_kmalloc+0xc3/0xd0
-> [  +0.000015]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? wait_for_completion_timeout+0x1d/0x30
-> [  +0.000015]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? drm_crtc_commit_wait+0x32/0x180
-> [  +0.000015]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? drm_atomic_helper_wait_for_dependencies+0x46a/0x800
-> [  +0.000019]  commit_tail+0x231/0x510
-> [  +0.000017]  drm_atomic_helper_commit+0x219/0x290
-> [  +0.000015]  ? __pfx_drm_atomic_helper_commit+0x10/0x10
-> [  +0.000016]  drm_atomic_commit+0x205/0x2e0
-> [  +0.000014]  ? __pfx_drm_atomic_commit+0x10/0x10
-> [  +0.000013]  ? __pfx_drm_connector_free+0x10/0x10
-> [  +0.000014]  ? __pfx___drm_printfn_info+0x10/0x10
-> [  +0.000017]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? drm_atomic_set_crtc_for_connector+0x49e/0x660
-> [  +0.000015]  ? drm_atomic_set_fb_for_plane+0x155/0x290
-> [  +0.000015]  drm_framebuffer_remove+0xa9b/0x1240
-> [  +0.000014]  ? finish_task_switch.isra.0+0x15a/0x840
-> [  +0.000015]  ? __switch_to+0x385/0xda0
-> [  +0.000015]  ? srso_safe_ret+0x1/0x20
-> [  +0.000013]  ? __pfx_drm_framebuffer_remove+0x10/0x10
-> [  +0.000016]  ? kasan_print_address_stack_frame+0x221/0x280
-> [  +0.000015]  drm_mode_rmfb_work_fn+0x14b/0x240
-> [  +0.000015]  process_one_work+0x629/0xf80
-> [  +0.000012]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? __kasan_check_write+0x14/0x30
-> [  +0.000019]  worker_thread+0x87f/0x1570
-> [  +0.000013]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-> [  +0.000014]  ? __pfx_try_to_wake_up+0x10/0x10
-> [  +0.000017]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? kasan_print_address_stack_frame+0x227/0x280
-> [  +0.000017]  ? __pfx_worker_thread+0x10/0x10
-> [  +0.000014]  kthread+0x396/0x830
-> [  +0.000013]  ? __pfx__raw_spin_lock_irq+0x10/0x10
-> [  +0.000015]  ? __pfx_kthread+0x10/0x10
-> [  +0.000012]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? __kasan_check_write+0x14/0x30
-> [  +0.000014]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? recalc_sigpending+0x180/0x210
-> [  +0.000015]  ? srso_return_thunk+0x5/0x5f
-> [  +0.000013]  ? __pfx_kthread+0x10/0x10
-> [  +0.000014]  ret_from_fork+0x31c/0x3e0
-> [  +0.000014]  ? __pfx_kthread+0x10/0x10
-> [  +0.000013]  ret_from_fork_asm+0x1a/0x30
-> [  +0.000019]  </TASK>
-> [  +0.000010] Modules linked in: rfcomm(E) cmac(E) algif_hash(E)
-> algif_skcipher(E) af_alg(E) snd_seq_dummy(E) snd_hrtimer(E) qrtr(E)
-> xt_MASQUERADE(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E)
-> nf_defrag_ipv4(E) xt_mark(E) xt_tcpudp(E) nft_compat(E) nf_tables(E)
-> x_tables(E) bnep(E) snd_hda_codec_alc882(E) snd_hda_codec_atihdmi(E)
-> snd_hda_codec_realtek_lib(E) snd_hda_codec_hdmi(E) snd_hda_codec_generic(=
-E)
-> iwlmvm(E) snd_hda_intel(E) binfmt_misc(E) snd_hda_codec(E) snd_hda_core(E=
-)
-> mac80211(E) snd_intel_dspcfg(E) snd_intel_sdw_acpi(E) snd_hwdep(E)
-> snd_pcm(E) libarc4(E) snd_seq_midi(E) snd_seq_midi_event(E) snd_rawmidi(E=
-)
-> amd_atl(E) intel_rapl_msr(E) snd_seq(E) intel_rapl_common(E) iwlwifi(E)
-> jc42(E) snd_seq_device(E) btusb(E) snd_timer(E) btmtk(E) btrtl(E)
-> edac_mce_amd(E) eeepc_wmi(E) polyval_clmulni(E) btbcm(E)
-> ghash_clmulni_intel(E) asus_wmi(E) ee1004(E) platform_profile(E) btintel(=
-E)
-> snd(E) nls_iso8859_1(E) aesni_intel(E) soundcore(E) i2c_piix4(E)
-> cfg80211(E) sparse_keymap(E) wmi_bmof(E) bluetooth(E) k10temp(E) rapl(E)
-> [  +0.000300]  i2c_smbus(E) ccp(E) joydev(E) input_leds(E) gpio_amdpt(E)
-> mac_hid(E) sch_fq_codel(E) msr(E) parport_pc(E) ppdev(E) lp(E) parport(E)
-> efi_pstore(E) nfnetlink(E) dmi_sysfs(E) autofs4(E) cdc_ether(E) usbnet(E)
-> amdgpu(E) amdxcp(E) hid_generic(E) i2c_algo_bit(E) drm_ttm_helper(E) ttm(=
-E)
-> drm_exec(E) drm_panel_backlight_quirks(E) gpu_sched(E)
-> drm_suballoc_helper(E) video(E) drm_buddy(E) usbhid(E)
-> drm_display_helper(E) r8152(E) hid(E) mii(E) cec(E) ahci(E) rc_core(E)
-> igc(E) libahci(E) wmi(E)
-> [  +0.000294] CR2: 0000000000000000
-> [  +0.000013] ---[ end trace 0000000000000000 ]---
->
-> The crash happens when we unconditionally call into the timing generator
-> manual trigger hook:
->
->   pipe_ctx->stream_res.tg->funcs->program_manual_trigger(...)
->
-> On some configurations the timing generator (tg), its funcs table, or the
-> program_manual_trigger callback can be NULL. Guard all of these before
-> calling the hook. If the first pipe matching the stream cannot trigger,
-> keep scanning to find another matching pipe with a valid hook.
->
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: Alexander Deucher <alexander.deucher@amd.com>
-> Cc: Christian Koenig  <christian.koenig@amd.com>
->
-> Suggested-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> index f59020f1a722..ecd08580937d 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> @@ -522,8 +522,10 @@ bool dc_stream_program_cursor_position(
->                         struct pipe_ctx *pipe_ctx =3D
-> &dc->current_state->res_ctx.pipe_ctx[i];
->
->                         /* trigger event on first pipe with current strea=
-m
-> */
-> -                       if (stream =3D=3D pipe_ctx->stream) {
-> -
->  pipe_ctx->stream_res.tg->funcs->program_manual_trigger(pipe_ctx->
-> stream_res.tg);
-> +                       if (stream =3D=3D pipe_ctx->stream &&
-> +
->  pipe_ctx->stream_res.tg->funcs->program_manual_trigger) {
-> +
->  pipe_ctx->stream_res.tg->funcs->program_manual_trigger(
-> +                                       pipe_ctx->stream_res.tg);
->                                 break;
->                         }
->                 }
-> --
-> 2.52.0
->
->
+I don=E2=80=99t see a reason to forbid drivers from using this. If the =
+reason is
+the unsafe bits, then isn=E2=80=99t it the same pattern used by =
+impl_has_work!()
+anyways? i.e.: a macro that implements an unsafe trait so long as the =
+driver
+gives it the right Work field. Seems equivalent in spirit to the =
+clist_create macro
+introduced by this patch.
 
---000000000000f9e399064a2d3501
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+=E2=80=94 Daniel
 
-<div dir=3D"ltr"><div>Successfully tested on Polaris 11 / DCE 11.2.</div><d=
-iv><br></div><div>Reviewed-and-tested-by: Mario Kleiner &lt;<a href=3D"mail=
-to:mario.kleiner.de@gmail.com">mario.kleiner.de@gmail.com</a>&gt;</div></di=
-v><br><div class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" cla=
-ss=3D"gmail_attr">On Fri, Feb 6, 2026 at 2:32=E2=80=AFAM &lt;<a href=3D"mai=
-lto:vitaly.prosyak@amd.com">vitaly.prosyak@amd.com</a>&gt; wrote:<br></div>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">From: Vitaly Prosyak &lt;=
-<a href=3D"mailto:vitaly.prosyak@amd.com" target=3D"_blank">vitaly.prosyak@=
-amd.com</a>&gt;<br>
-<br>
-KASAN reports a NULL instruction fetch (RIP=3D0x0) from<br>
-dc_stream_program_cursor_position():<br>
-<br>
-=C2=A0 BUG: kernel NULL pointer dereference, address: 0000000000000000<br>
-=C2=A0 RIP: 0010:0x0<br>
-=C2=A0 Call Trace:<br>
-=C2=A0 =C2=A0 dc_stream_program_cursor_position+0x344/0x920 [amdgpu]<br>
-=C2=A0 =C2=A0 amdgpu_dm_atomic_commit_tail+...<br>
-<br>
-[=C2=A0 +1.041013] BUG: kernel NULL pointer dereference, address: 000000000=
-0000000<br>
-[=C2=A0 +0.000027] #PF: supervisor instruction fetch in kernel mode<br>
-[=C2=A0 +0.000013] #PF: error_code(0x0010) - not-present page<br>
-[=C2=A0 +0.000012] PGD 0 P4D 0<br>
-[=C2=A0 +0.000017] Oops: Oops: 0010 [#1] SMP KASAN NOPTI<br>
-[=C2=A0 +0.000017] CPU: 0 UID: 0 PID: 10 Comm: kworker/0:1 Tainted: G=C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 E=C2=A0 =C2=A0 =C2=A0 =C2=A06.18.0+ #3 =
-PREEMPT(voluntary)<br>
-[=C2=A0 +0.000023] Tainted: [E]=3DUNSIGNED_MODULE<br>
-[=C2=A0 +0.000010] Hardware name: ASUS System Product Name/ROG STRIX B550-F=
- GAMING (WI-FI), BIOS 1401 12/03/2020<br>
-[=C2=A0 +0.000016] Workqueue: events drm_mode_rmfb_work_fn<br>
-[=C2=A0 +0.000022] RIP: 0010:0x0<br>
-[=C2=A0 +0.000017] Code: Unable to access opcode bytes at 0xffffffffffffffd=
-6.<br>
-[=C2=A0 +0.000015] RSP: 0018:ffffc9000017f4c8 EFLAGS: 00010246<br>
-[=C2=A0 +0.000016] RAX: 0000000000000000 RBX: ffff88810afdda80 RCX: 1ffff11=
-0457000d1<br>
-[=C2=A0 +0.000014] RDX: 1ffffffff87b75bd RSI: 0000000000000000 RDI: ffff888=
-10afdda80<br>
-[=C2=A0 +0.000014] RBP: ffffc9000017f538 R08: 0000000000000000 R09: ffff888=
-22b800690<br>
-[=C2=A0 +0.000013] R10: 0000000000000000 R11: 0000000000000000 R12: fffffff=
-fc3dbac20<br>
-[=C2=A0 +0.000014] R13: 0000000000000000 R14: ffff88811ab80000 R15: dffffc0=
-000000000<br>
-[=C2=A0 +0.000014] FS:=C2=A0 0000000000000000(0000) GS:ffff888434599000(000=
-0) knlGS:0000000000000000<br>
-[=C2=A0 +0.000015] CS:=C2=A0 0010 DS: 0000 ES: 0000 CR0: 0000000080050033<b=
-r>
-[=C2=A0 +0.000013] CR2: ffffffffffffffd6 CR3: 000000010ee88000 CR4: 0000000=
-000350ef0<br>
-[=C2=A0 +0.000014] Call Trace:<br>
-[=C2=A0 +0.000010]=C2=A0 &lt;TASK&gt;<br>
-[=C2=A0 +0.000010]=C2=A0 dc_stream_program_cursor_position+0x344/0x920 [amd=
-gpu]<br>
-[=C2=A0 +0.001086]=C2=A0 ? __pfx_mutex_lock+0x10/0x10<br>
-[=C2=A0 +0.000015]=C2=A0 ? unwind_next_frame+0x18b/0xa70<br>
-[=C2=A0 +0.000019]=C2=A0 amdgpu_dm_atomic_commit_tail+0x1124/0xfa20 [amdgpu=
-]<br>
-[=C2=A0 +0.001040]=C2=A0 ? ret_from_fork_asm+0x1a/0x30<br>
-[=C2=A0 +0.000018]=C2=A0 ? filter_irq_stacks+0x90/0xa0<br>
-[=C2=A0 +0.000022]=C2=A0 ? __pfx_amdgpu_dm_atomic_commit_tail+0x10/0x10 [am=
-dgpu]<br>
-[=C2=A0 +0.001058]=C2=A0 ? kasan_save_track+0x18/0x70<br>
-[=C2=A0 +0.000015]=C2=A0 ? kasan_save_alloc_info+0x37/0x60<br>
-[=C2=A0 +0.000015]=C2=A0 ? __kasan_kmalloc+0xc3/0xd0<br>
-[=C2=A0 +0.000013]=C2=A0 ? __kmalloc_cache_noprof+0x1aa/0x600<br>
-[=C2=A0 +0.000016]=C2=A0 ? drm_atomic_helper_setup_commit+0x788/0x1450<br>
-[=C2=A0 +0.000017]=C2=A0 ? drm_atomic_helper_commit+0x7e/0x290<br>
-[=C2=A0 +0.000014]=C2=A0 ? drm_atomic_commit+0x205/0x2e0<br>
-[=C2=A0 +0.000015]=C2=A0 ? process_one_work+0x629/0xf80<br>
-[=C2=A0 +0.000016]=C2=A0 ? worker_thread+0x87f/0x1570<br>
-[=C2=A0 +0.000020]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000014]=C2=A0 ? __kasan_check_write+0x14/0x30<br>
-[=C2=A0 +0.000014]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? _raw_spin_lock_irq+0x8a/0xf0<br>
-[=C2=A0 +0.000015]=C2=A0 ? __pfx__raw_spin_lock_irq+0x10/0x10<br>
-[=C2=A0 +0.000016]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? __kasan_check_write+0x14/0x30<br>
-[=C2=A0 +0.000014]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? __wait_for_common+0x204/0x460<br>
-[=C2=A0 +0.000015]=C2=A0 ? sched_clock_noinstr+0x9/0x10<br>
-[=C2=A0 +0.000014]=C2=A0 ? __pfx_schedule_timeout+0x10/0x10<br>
-[=C2=A0 +0.000014]=C2=A0 ? local_clock_noinstr+0xe/0xd0<br>
-[=C2=A0 +0.000015]=C2=A0 ? __pfx___wait_for_common+0x10/0x10<br>
-[=C2=A0 +0.000014]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? __wait_for_common+0x204/0x460<br>
-[=C2=A0 +0.000014]=C2=A0 ? __pfx_schedule_timeout+0x10/0x10<br>
-[=C2=A0 +0.000015]=C2=A0 ? __kasan_kmalloc+0xc3/0xd0<br>
-[=C2=A0 +0.000015]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? wait_for_completion_timeout+0x1d/0x30<br>
-[=C2=A0 +0.000015]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? drm_crtc_commit_wait+0x32/0x180<br>
-[=C2=A0 +0.000015]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? drm_atomic_helper_wait_for_dependencies+0x46a/0x=
-800<br>
-[=C2=A0 +0.000019]=C2=A0 commit_tail+0x231/0x510<br>
-[=C2=A0 +0.000017]=C2=A0 drm_atomic_helper_commit+0x219/0x290<br>
-[=C2=A0 +0.000015]=C2=A0 ? __pfx_drm_atomic_helper_commit+0x10/0x10<br>
-[=C2=A0 +0.000016]=C2=A0 drm_atomic_commit+0x205/0x2e0<br>
-[=C2=A0 +0.000014]=C2=A0 ? __pfx_drm_atomic_commit+0x10/0x10<br>
-[=C2=A0 +0.000013]=C2=A0 ? __pfx_drm_connector_free+0x10/0x10<br>
-[=C2=A0 +0.000014]=C2=A0 ? __pfx___drm_printfn_info+0x10/0x10<br>
-[=C2=A0 +0.000017]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? drm_atomic_set_crtc_for_connector+0x49e/0x660<br=
->
-[=C2=A0 +0.000015]=C2=A0 ? drm_atomic_set_fb_for_plane+0x155/0x290<br>
-[=C2=A0 +0.000015]=C2=A0 drm_framebuffer_remove+0xa9b/0x1240<br>
-[=C2=A0 +0.000014]=C2=A0 ? finish_task_switch.isra.0+0x15a/0x840<br>
-[=C2=A0 +0.000015]=C2=A0 ? __switch_to+0x385/0xda0<br>
-[=C2=A0 +0.000015]=C2=A0 ? srso_safe_ret+0x1/0x20<br>
-[=C2=A0 +0.000013]=C2=A0 ? __pfx_drm_framebuffer_remove+0x10/0x10<br>
-[=C2=A0 +0.000016]=C2=A0 ? kasan_print_address_stack_frame+0x221/0x280<br>
-[=C2=A0 +0.000015]=C2=A0 drm_mode_rmfb_work_fn+0x14b/0x240<br>
-[=C2=A0 +0.000015]=C2=A0 process_one_work+0x629/0xf80<br>
-[=C2=A0 +0.000012]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? __kasan_check_write+0x14/0x30<br>
-[=C2=A0 +0.000019]=C2=A0 worker_thread+0x87f/0x1570<br>
-[=C2=A0 +0.000013]=C2=A0 ? __pfx__raw_spin_lock_irqsave+0x10/0x10<br>
-[=C2=A0 +0.000014]=C2=A0 ? __pfx_try_to_wake_up+0x10/0x10<br>
-[=C2=A0 +0.000017]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? kasan_print_address_stack_frame+0x227/0x280<br>
-[=C2=A0 +0.000017]=C2=A0 ? __pfx_worker_thread+0x10/0x10<br>
-[=C2=A0 +0.000014]=C2=A0 kthread+0x396/0x830<br>
-[=C2=A0 +0.000013]=C2=A0 ? __pfx__raw_spin_lock_irq+0x10/0x10<br>
-[=C2=A0 +0.000015]=C2=A0 ? __pfx_kthread+0x10/0x10<br>
-[=C2=A0 +0.000012]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? __kasan_check_write+0x14/0x30<br>
-[=C2=A0 +0.000014]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? recalc_sigpending+0x180/0x210<br>
-[=C2=A0 +0.000015]=C2=A0 ? srso_return_thunk+0x5/0x5f<br>
-[=C2=A0 +0.000013]=C2=A0 ? __pfx_kthread+0x10/0x10<br>
-[=C2=A0 +0.000014]=C2=A0 ret_from_fork+0x31c/0x3e0<br>
-[=C2=A0 +0.000014]=C2=A0 ? __pfx_kthread+0x10/0x10<br>
-[=C2=A0 +0.000013]=C2=A0 ret_from_fork_asm+0x1a/0x30<br>
-[=C2=A0 +0.000019]=C2=A0 &lt;/TASK&gt;<br>
-[=C2=A0 +0.000010] Modules linked in: rfcomm(E) cmac(E) algif_hash(E) algif=
-_skcipher(E) af_alg(E) snd_seq_dummy(E) snd_hrtimer(E) qrtr(E) xt_MASQUERAD=
-E(E) nf_nat(E) nf_conntrack(E) nf_defrag_ipv6(E) nf_defrag_ipv4(E) xt_mark(=
-E) xt_tcpudp(E) nft_compat(E) nf_tables(E) x_tables(E) bnep(E) snd_hda_code=
-c_alc882(E) snd_hda_codec_atihdmi(E) snd_hda_codec_realtek_lib(E) snd_hda_c=
-odec_hdmi(E) snd_hda_codec_generic(E) iwlmvm(E) snd_hda_intel(E) binfmt_mis=
-c(E) snd_hda_codec(E) snd_hda_core(E) mac80211(E) snd_intel_dspcfg(E) snd_i=
-ntel_sdw_acpi(E) snd_hwdep(E) snd_pcm(E) libarc4(E) snd_seq_midi(E) snd_seq=
-_midi_event(E) snd_rawmidi(E) amd_atl(E) intel_rapl_msr(E) snd_seq(E) intel=
-_rapl_common(E) iwlwifi(E) jc42(E) snd_seq_device(E) btusb(E) snd_timer(E) =
-btmtk(E) btrtl(E) edac_mce_amd(E) eeepc_wmi(E) polyval_clmulni(E) btbcm(E) =
-ghash_clmulni_intel(E) asus_wmi(E) ee1004(E) platform_profile(E) btintel(E)=
- snd(E) nls_iso8859_1(E) aesni_intel(E) soundcore(E) i2c_piix4(E) cfg80211(=
-E) sparse_keymap(E) wmi_bmof(E) bluetooth(E) k10temp(E) rapl(E)<br>
-[=C2=A0 +0.000300]=C2=A0 i2c_smbus(E) ccp(E) joydev(E) input_leds(E) gpio_a=
-mdpt(E) mac_hid(E) sch_fq_codel(E) msr(E) parport_pc(E) ppdev(E) lp(E) parp=
-ort(E) efi_pstore(E) nfnetlink(E) dmi_sysfs(E) autofs4(E) cdc_ether(E) usbn=
-et(E) amdgpu(E) amdxcp(E) hid_generic(E) i2c_algo_bit(E) drm_ttm_helper(E) =
-ttm(E) drm_exec(E) drm_panel_backlight_quirks(E) gpu_sched(E) drm_suballoc_=
-helper(E) video(E) drm_buddy(E) usbhid(E) drm_display_helper(E) r8152(E) hi=
-d(E) mii(E) cec(E) ahci(E) rc_core(E) igc(E) libahci(E) wmi(E)<br>
-[=C2=A0 +0.000294] CR2: 0000000000000000<br>
-[=C2=A0 +0.000013] ---[ end trace 0000000000000000 ]---<br>
-<br>
-The crash happens when we unconditionally call into the timing generator<br=
->
-manual trigger hook:<br>
-<br>
-=C2=A0 pipe_ctx-&gt;stream_res.tg-&gt;funcs-&gt;program_manual_trigger(...)=
-<br>
-<br>
-On some configurations the timing generator (tg), its funcs table, or the<b=
-r>
-program_manual_trigger callback can be NULL. Guard all of these before<br>
-calling the hook. If the first pipe matching the stream cannot trigger,<br>
-keep scanning to find another matching pipe with a valid hook.<br>
-<br>
-Cc: Aurabindo Pillai &lt;<a href=3D"mailto:aurabindo.pillai@amd.com" target=
-=3D"_blank">aurabindo.pillai@amd.com</a>&gt;<br>
-Cc: Alexander Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com" targ=
-et=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
-Cc: Christian Koenig=C2=A0 &lt;<a href=3D"mailto:christian.koenig@amd.com" =
-target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
-<br>
-Suggested-by: Aurabindo Pillai &lt;<a href=3D"mailto:aurabindo.pillai@amd.c=
-om" target=3D"_blank">aurabindo.pillai@amd.com</a>&gt;<br>
-Signed-off-by: Vitaly Prosyak &lt;<a href=3D"mailto:vitaly.prosyak@amd.com"=
- target=3D"_blank">vitaly.prosyak@amd.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 6 ++++--<br>
-=C2=A01 file changed, 4 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/=
-drm/amd/display/dc/core/dc_stream.c<br>
-index f59020f1a722..ecd08580937d 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c<br>
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c<br>
-@@ -522,8 +522,10 @@ bool dc_stream_program_cursor_position(<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 struct pipe_ctx *pipe_ctx =3D &amp;dc-&gt;current_state-&gt;res_=
-ctx.pipe_ctx[i];<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 /* trigger event on first pipe with current stream */<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0if (stream =3D=3D pipe_ctx-&gt;stream) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pipe_ctx-&gt;stream_res.tg-&gt;funcs-=
-&gt;program_manual_trigger(pipe_ctx-&gt;<a href=3D"http://stream_res.tg" re=
-l=3D"noreferrer" target=3D"_blank">stream_res.tg</a>);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0if (stream =3D=3D pipe_ctx-&gt;stream &amp;&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pipe_ctx-&gt;stream_res.tg-&gt;funcs-=
-&gt;program_manual_trigger) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pipe_ctx-&gt;stream_res.tg-&gt;funcs-=
-&gt;program_manual_trigger(<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pipe_ctx-=
-&gt;<a href=3D"http://stream_res.tg" rel=3D"noreferrer" target=3D"_blank">s=
-tream_res.tg</a>);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
--- <br>
-2.52.0<br>
-<br>
-</blockquote></div>
-
---000000000000f9e399064a2d3501--
