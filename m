@@ -4,49 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 842DCE78D4B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E77BEE78D4C
 	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:41:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96A0610E352;
-	Mon,  9 Feb 2026 08:41:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E4CD10E3A3;
+	Mon,  9 Feb 2026 08:41:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="Cxf+zPwR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mXLvoL6A";
 	dkim-atps=neutral
-Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
- [109.224.244.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74A6510E02B
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Feb 2026 16:13:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1770567183; x=1770826383;
- bh=OmwWr9q9ti2A7wNbYibF1nwp+q5Fh+4P2leIJfwVAqY=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=Cxf+zPwRa3FtbCiyP8+hO7FMMZjsOQTY7jZPaob8IUJzO9L6HNNoV/A8P5q1WUyUW
- RjZ6JREdvfUw4KFYsDbUCwjBswJ9WxRPqCuuB++Ssiig8+wS9b3vpHEvw0h2bfjIJX
- pE4xn1HhP82dDXwCULWBsdZZUEpVqtdo6HtYPgyCtwgRymwhgpp17Njhpfw2L7VFlu
- RXpyfkNohHvOXoB+sPwcSxVlFx7ow2JWcEhChXUM9pTjOg9QXwQUpbsS/6UDKUm3Gj
- eoOuJrbPcUnRAXyJa/pV/G3E7q4gS6tT5XPiVNnknr2jmoVyvkayHUu8TeOAEcY5KF
- 0p52p1x/q5nyg==
-Date: Sun, 08 Feb 2026 16:12:57 +0000
-To: =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-From: Umio-Yasuno - coelacanth_dream <coelacanth_dream@protonmail.com>
-Cc: Natalie Vock <natalie.vock@gmx.de>, Alex Deucher <alexdeucher@gmail.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- David Francis <David.Francis@amd.com>, maxime.schmitt91@gmail.com
-Subject: Re: Accelerator/GPU top
-Message-ID: <OjQ_uKCrG7FykSRAFuh9-Y2HxOhwxRhMUCgUktpBBBbz5RW7xvCBdS2zkPnOIYOXluvpq0O_zZ-ecpyGWHvtDCoIDk6GtxfgpTy3epLjZKE=@protonmail.com>
-In-Reply-To: <3be1ec57-d078-40f3-8eb6-d25496fb7297@amd.com>
-References: <CADnq5_MTX8CifP25UvE5kdMbCYxgK+A+KGdd-_Ef1m4VYv+WRQ@mail.gmail.com>
- <4c5c0981-fa21-4d8c-b5ed-45ebaf4d713f@gmx.de>
- <3be1ec57-d078-40f3-8eb6-d25496fb7297@amd.com>
-Feedback-ID: 19510729:user:proton
-X-Pm-Message-ID: cebc5f99d90db41b10b6ef04f21103fd147bfe87
-MIME-Version: 1.0
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6EFA10E8C6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Feb 2026 18:55:08 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4806fbc6bf3so11884845e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Feb 2026 10:55:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770404107; x=1771008907; darn=lists.freedesktop.org;
+ h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+ :from:content-transfer-encoding:from:to:cc:subject:date:message-id
+ :reply-to; bh=IYA5f+pziUiONlslby8EJFpkAX1gO6llOpk96yLwpKw=;
+ b=mXLvoL6AJKnTxGLED/O3O0+7th5dmGqzjy0ZM77yg1lcMBmkSv7YBIToR0t3fbc386
+ HFrUP9Qui4+zAldfFhmtY5YezQIZSudZRGpIDgeVevMbj4qhpP3B1Sq6AAMd/VC1zPUw
+ G2tGUeVER26zafRmJSH+vS9eUmi845hi2ZQa62KjGg8RRqC15ETmrqXcYXUaoHU+lKh/
+ IL5clm3OjEQam8SNZqVmkONAcouWLdUgEAUzI9IhJ23bPoCkyUEcSM/aElOXWBk+5oyC
+ NZ8wkub2/jHgERlv8rRXSOlFi100jKjyxzbyxIQ8K/kfgkX6w9RY8ru5WjDVODR/xvC7
+ FeiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770404107; x=1771008907;
+ h=to:in-reply-to:cc:references:message-id:date:subject:mime-version
+ :from:content-transfer-encoding:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=IYA5f+pziUiONlslby8EJFpkAX1gO6llOpk96yLwpKw=;
+ b=k3sUW6lRu5ykIfc+VfB0129rcYOLKSZbC2a+rIiRc478UDn3JwQ7Vkpmxpq9YYpmf0
+ 1H3VYDcEbZ4aFLMA82BQsB5UXGeEJkvHhRfD3WwhvxJIbz9H3Y//R70qSfsifYdMoH3M
+ bi9PwLBHkEzlSAer6NHy+1mSQzzWLgBKZc25kifrDoYe0yzfyiO4fGJ4J3XNkhZTPr7F
+ XwlBaLIpHVddmvlzwgeZF4r4hAt03UveXkgq+2yVbZiuZBK65gYl5bjHHwLi4Ii5Tjzk
+ lb9bii0qshAuBznFbGSo6Ekw1wyeRNYNH5NWeuXLDWbT61IL6wr3hrPwOAWftk0T/D9o
+ URqw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVfBbzRLXW1DtKX5C3MhXwnO4kwo++4/40DS3GUAFEC7zaWALNW4SqevrnABPD08d20dZNumDIN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx2yf9gro6Dmvsv/Um0dqgRdzKpKzzhS53J3IptmZKIu7VPIpN0
+ oT7O8oKOiklyalvZxtRsg6F+FW4N0g97vqDXXoXMIB1uRkXkHK1kSmt4
+X-Gm-Gg: AZuq6aJ07gCWgg7ShpT1xkNA6VW8PlHKAl78Yquel3RwER0jxyqkmMBPCoYeajr2I71
+ 1IXmUEhNgfOz9eSCff3ftIahxPpS3Nh9RlCEs0lWLcunTCSGi1O0yaKMpP9T4HHS0Z5/u3gSjJL
+ PzkRDorD8pvrKjkiHy9FrZKqMqSeQm8S2CykTwHwiPr+WVcOuRhenKPhgcxbusPeaoVpXpkZSzf
+ PLap3hXu1rMkbcTRO0eB3mu1kc7Vv8lqYCDRKif+tiw6jYXPDafXVhw1+rXylaKO+FG/TuZUEJM
+ WtOuCqVZO/QD1ye32tTGLTbWjZOy3vWwttWfCGw45bil8OO8aGECzDrr68tC7fgvNMZEcuWliup
+ Wwr7/KgJBYCCXAlomYV/AHYkCjvOZfsXbTSzNjbQDc92qTSy+a3NgzM6ki0c4nas0tXAHjqFy2s
+ 150KbC1EHeG04tmFFHw+qvzeFe0npYmD54TdLotVq+xMBB4/Xd1Q==
+X-Received: by 2002:a05:600c:4590:b0:47e:e20e:bbb2 with SMTP id
+ 5b1f17b1804b1-483201dc5c5mr54617565e9.7.1770404107101; 
+ Fri, 06 Feb 2026 10:55:07 -0800 (PST)
+Received: from smtpclient.apple ([2a01:cb10:3a0:bf00:5dc6:926:30ec:c0e0])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-436296b2d43sm7594818f8f.8.2026.02.06.10.55.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 06 Feb 2026 10:55:06 -0800 (PST)
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+From: Maxime Schmitt <maxime.schmitt91@gmail.com>
+Mime-Version: 1.0 (1.0)
+Subject: Re: Accelerator/GPU top
+Date: Fri, 6 Feb 2026 19:54:48 +0100
+Message-Id: <0E8D538D-678A-4899-A44C-297A9F520103@gmail.com>
+References: <3be1ec57-d078-40f3-8eb6-d25496fb7297@amd.com>
+Cc: Vock Natalie <natalie.vock@gmx.de>, Deucher Alex <alexdeucher@gmail.com>,
+ list DRI developers Maling <dri-devel@lists.freedesktop.org>,
+ Airlie Dave <airlied@gmail.com>, Vetter Simona <simona@ffwll.ch>,
+ list amd-gfx <amd-gfx@lists.freedesktop.org>,
+ David Francis <David.Francis@amd.com>, coelacanth_dream@protonmail.com
+In-Reply-To: <3be1ec57-d078-40f3-8eb6-d25496fb7297@amd.com>
+To: =?utf-8?Q?K=C3=B6nig_Christian?= <christian.koenig@amd.com>
+X-Mailer: iPhone Mail (23C71)
 X-Mailman-Approved-At: Mon, 09 Feb 2026 08:41:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,74 +94,66 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Hello,
 
-Regarding the proposed interface for gathering GPU driver statistics, I wou=
-ld like to provide feedback based on the following points:
+Indeed it=E2=80=99s not efficient but that=E2=80=99s the only exposed way we=
+ have to retrieve the information at this point (for drm drivers exposing me=
+trics through fdinfo).
+It doesn=E2=80=99t require any extra privileges if one is only interested in=
+ the user owned processes (which is most use cases as far as I know).
 
-=E2=80=8B1.
-Providing per-process GPU information through an interface other than /proc=
- would significantly improve the developer experience for Flatpak-based app=
-lications and tools. Since Flatpak containers have a restricted view of the=
- host's /proc, it is currently very difficult for sandboxed monitoring tool=
-s to gather cross-process GPU metrics.
+I think that there was a discussion at some years ago from Intel on the kern=
+el mailing list to expose the process list using drm.=20
+Maybe having a way to query which processes (and file descriptor) use drm an=
+d then only going through the relevant fdinfo files would alleviate most of t=
+he inefficiencies (modulo privilege problems for other user processes).
 
-=E2=80=8B2.
-The current reliance on /proc/<pid>/{fd,fdinfo} requires root privileges to=
- access info for other users' processes. This is a major hurdle for non-roo=
-t users when attempting to detect system-critical issues, such as VRAM leak=
-s in a compositor.=20
+Also I haven=E2=80=99t implemented use cases where the GPU doesn=E2=80=99t u=
+se DRM, e.g., AMD CDNA that is going through rocm (I don=E2=80=99t have acce=
+ss to a card to test it).
+I also noticed some instances, where the driver doesn=E2=80=99t report any u=
+sage, although it=E2=80=99s actually using the encode/decode engine through V=
+A-API with a DRM handle.
 
-=E2=80=8B3.
-While ROCm/amdkfd currently provides per-process VRAM usage, it lacks an in=
-terface to report the utilization of hardware engines such as Compute or SD=
-MA. It would be highly beneficial if the new interface could address this g=
-ap, ensuring that hardware IP utilization is consistently trackable across =
-both KFD and DRM nodes.
-=E2=80=8B
-=E2=80=8BNote: I've used Gemini to help structure my thoughts and refine th=
-e English in this mail.
+Cheers,
+Maxime
 
-Best regards,
-Umio Yasuno
-
->
->
-> On 2/5/26 20:25, Natalie Vock wrote:
->
-> > On 2/5/26 19:58, Alex Deucher wrote:
-> >
-> > > Has anyone given any thought on how to support something like top for
-> > > accelerators or GPUs?
-> >
-> > top for accelerators/GPUs kind of exists already, see [1] or [2].
-> > Clearly, this problem has some kind of solution (looking through the co=
-de, it seems like they check every fd if it has a DRM fdinfo file associate=
-d (which is indeed not particularly efficient)).
-> >
-> > Maybe it's worth asking the authors of the respective tools for their o=
-pinions here?
->
->
+> On 6 Feb 2026, at 14:38, Christian K=C3=B6nig <christian.koenig@amd.com> w=
+rote:
+>=20
+> =EF=BB=BFOn 2/5/26 20:25, Natalie Vock wrote:
+>>> On 2/5/26 19:58, Alex Deucher wrote:
+>>> Has anyone given any thought on how to support something like top for
+>>> accelerators or GPUs?
+>>=20
+>> top for accelerators/GPUs kind of exists already, see [1] or [2].
+>> Clearly, this problem has some kind of solution (looking through the code=
+, it seems like they check every fd if it has a DRM fdinfo file associated (=
+which is indeed not particularly efficient)).
+>>=20
+>> Maybe it's worth asking the authors of the respective tools for their opi=
+nions here?
+>=20
 > That is a really good point. Adding Maxime Schmitt and Umio Yasuno on CC.
->
+>=20
 > Let's hope I've picked the correct mail addresses.
->
+>=20
 > Christian.
->
-> > Natalie
-> >
-> > [1] https://github.com/Umio-Yasuno/amdgpu_top
-> > [2] https://github.com/Syllo/nvtop
-> >
-> > > We have fdinfo, but using fdinfo requires extra
-> > > privileges (CAP_SYS_PTRACE) and there is not a particularly efficient
-> > > way to even discover what processes are using the GPU. There is the
-> > > clients list in debugfs, but that is also admin only. Tools like ps
-> > > and top use /proc/<pid>/stat and statm. Do you think there would be
-> > > an appetite for something like /proc/<pid>/drm/stat, statm, etc.?
-> > > This would duplicate much of what is in fdinfo, but would be availabl=
-e
-> > > to regular users.
-> > >
-> > > Thanks,
-> > >
-> > > Alex
+>=20
+>>=20
+>> Natalie
+>>=20
+>> [1] https://github.com/Umio-Yasuno/amdgpu_top
+>> [2] https://github.com/Syllo/nvtop
+>>> We have fdinfo, but using fdinfo requires extra
+>>> privileges (CAP_SYS_PTRACE) and there is not a particularly efficient
+>>> way to even discover what processes are using the GPU.  There is the
+>>> clients list in debugfs, but that is also admin only.  Tools like ps
+>>> and top use /proc/<pid>/stat and statm.  Do you think there would be
+>>> an appetite for something like /proc/<pid>/drm/stat, statm, etc.?
+>>> This would duplicate much of what is in fdinfo, but would be available
+>>> to regular users.
+>>>=20
+>>> Thanks,
+>>>=20
+>>> Alex
+>>=20
+>=20
