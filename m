@@ -4,77 +4,191 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EA85E78D4D
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:41:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41FDEE78D44
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:41:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C325410E3B5;
-	Mon,  9 Feb 2026 08:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D259110E341;
+	Mon,  9 Feb 2026 08:41:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="JOoHFpCT";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="A7Qf5P5K";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3150A10E1E7;
- Sat,  7 Feb 2026 19:55:38 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1770494126; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=n4LRiWNq2inbtnEDaGm8SCKsvD4xJsBno1k9RblkDTlSnrmM7T5RomJRKcVz7qlnSyX+XB5gcCiOls661iJUhymLCiIjeN72IK/cD66LT++uSRvt9TF4QxH2bTShBFlnNUYSuGKLCa1LHBFEWql+mGQ8ywTO1YKteUSuM+lfRgM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1770494126;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=NZHbWmG7r3R1HZrqlrB+rsVe8cKm23D2EhBP2uD85pY=; 
- b=m9DHWb9oRABg90RbzT9vh6KvuTKLtEXAdJ57eFkpEklx/nIh1x+etiXzb+qCMEqcWHdvpY5UutZsocwDmANMP8/hjzV1lnd4fUDmlh1VFL4IxUxOPu+KaP97H1aAchVLYfIIro5mWnhNNTodSQSkR2pbpqhpKdc7sWY5fiurS3c=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1770494125; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=NZHbWmG7r3R1HZrqlrB+rsVe8cKm23D2EhBP2uD85pY=;
- b=JOoHFpCTlEuC9nka6aLZlVjLCh9/KJnx6zCh6/QAWYNhunIRZvOINl/ALSVN9LX8
- Px9UDqdcYooOf10d9+OcQv3Ac0mmJYq8fUQjNfcW3fqlPzY0dnoNDyWXSuIfPoagt6z
- YUOgoVGCDfpKWU/mEhmm0pCRW2EXcTPuo8RGvxxs=
-Received: by mx.zohomail.com with SMTPS id 177049412353238.2831936561422;
- Sat, 7 Feb 2026 11:55:23 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010065.outbound.protection.outlook.com [52.101.85.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 729F610E8FE;
+ Fri,  6 Feb 2026 20:44:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wzOx0o8qZQGQLezNBkeHqM2DOah9kFq3HfZ1oc+Tb4wuuqX/ZrEH3Norj8gVM7SfuP8zT2uFgOVUu60AmF/roF+r4WmVAWP0bLI1NnoGyCovCyzrbASsJzWW0pXcrf+tlgbcocWegjR2Zy7CTi75vTzqk09Qf6jqMXeEiwZ3a6QMQoE0fj/kAuNXMwVaE0M8culpB+msJigKKMQCJISmmlyRAXxZik4sd/xSIafa9c5mDpHssDEokTs1WzUghPfzokRaX4Q6mQNF4nQmQ7ei52z6xjvr+/TFaMJNlrb9jjLtotUKz31LzU3rd06GMEzsryqiG2+T9C7Z0KcwTbbaJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hxqDGU/8AbMWDOOOnzAweceBYH99N9ErE+zvzwnza6M=;
+ b=cXknFGI/gs890Hc4umg69Upbw0HcF74QuVu02SMveBhJxUehrPRPirRhx5FBQE4arVI+SVSdBlGRGHGXTHu3n5dOLMkQnnGeTyFupWLCA1lypLjag1HDLCQ/k2VaWpH6USRHGhcC4noGW5BjxveafVDe10YgOX/SjFmkNGHyCtpzxyZwrbnykKdlTKo/WOtbNev/6gCxLnXEeoII0Ybnk2Yv8OyBlExXE0unHmOYOCIL/jmKU+XTHGHDv7LAC7Jlb/w408gYCmiiNjmu57DhMy/bKjEqjbXjuzwYcN+NwVpKX/buTWLpdyL9mWxkcfr+2yy8ijHaGdXT65jtwkNM/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hxqDGU/8AbMWDOOOnzAweceBYH99N9ErE+zvzwnza6M=;
+ b=A7Qf5P5Ky/huwOU2RMdsoAF1/UhLsFXI8jvB6jcq1TtTZeiXH/gq0/oH4Hl/uu7cc7BZJTKdVy9S3vtvpviUVw6BsQO9N1haA0vH5Rq9+KoZY2lYRJi/dz5adQGmTAziwgfVCc3+Hkr5dzF5/aoNDiRHPMGiTGV7mQmhbEIqRKBsPVJj3EzGgBkWmCAj57t5uXpeRvFTgWL6zYNT3X1bHvce8TaLN2/E9OGHtINPdPpMpKwHyx2BkHPFGARoItt10o702TgJw4KRtg27U12pNeQrCvHfTMs6BacELi6p4oAD2L8+dDw5cmz1l5dzRjTtrw4srxt5ha40cNGVCoq7eQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ PH7PR12MB6441.namprd12.prod.outlook.com (2603:10b6:510:1fb::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.13; Fri, 6 Feb
+ 2026 20:44:20 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9587.013; Fri, 6 Feb 2026
+ 20:44:20 +0000
+Message-ID: <c9ed5fec-90fe-458d-844f-8fe78d1cd79c@nvidia.com>
+Date: Fri, 6 Feb 2026 15:44:15 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH -next v7 1/2] rust: clist: Add support to interface with C
+ linked lists
+To: Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>
+Cc: linux-kernel@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
- Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v7 03/22] drm: Add enum conversions between
- DRM_COLOR_FORMAT and HDMI_COLORSPACE
-Date: Sat, 07 Feb 2026 20:55:16 +0100
-Message-ID: <2028270.PYKUYFuaPT@workhorse>
-In-Reply-To: <20260206-angelic-crimson-bug-aaab40@houat>
-References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
- <20260121-color-format-v7-3-ef790dae780c@collabora.com>
- <20260206-angelic-crimson-bug-aaab40@houat>
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
+ Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>,
+ Daniel Almeida <daniel.almeida@collabora.com>, joel@joelfernandes.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+References: <20260206004110.1914814-1-joelagnelf@nvidia.com>
+ <20260206004110.1914814-2-joelagnelf@nvidia.com>
+ <DG7ZF1UT98RQ.3F42J3ULGV2OC@garyguo.net>
+ <DG800TDA6OXQ.275PMMS19F1EX@kernel.org>
+ <77ac3274-a962-469d-a2f6-6ccc0670988a@nvidia.com>
+ <DG80FV3VTT6P.2ZP18EM8605GT@garyguo.net>
+ <DG81PJ9QD8FC.2NF6VEKDD3F2Q@kernel.org>
+Content-Language: en-US
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <DG81PJ9QD8FC.2NF6VEKDD3F2Q@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR13CA0019.namprd13.prod.outlook.com
+ (2603:10b6:208:160::32) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH7PR12MB6441:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b2a8bb4-1214-4835-7c4d-08de65c080bd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?V0p0MVcrcm82bTFxMWJkSlhZb0NrbTR2a1FKTVpCSy9IOWRuMVdlZDdyeHRL?=
+ =?utf-8?B?bDZ1Q1NHZEJ1d1YveXJBRDhqdlRpNG9pOURjbmMwK0ErSUFFaDN2TUFJVVdJ?=
+ =?utf-8?B?Zm4xeU1KTE54SEY3Z2E3ODNSRGVHbDRZSVVlaGd0dEV6Tlg1UTcvTjJJUVBR?=
+ =?utf-8?B?elZlMGEyc2JRbklRQldoK0MzM25MVmFtSHlmRTU1ckNHcU9YYjE5cTdMMU44?=
+ =?utf-8?B?cldVNVEwcHJHWU5WTm1VaVF0anEyQ05JTzBDLzU2d3JRWVZ3THhQeU4zVU1S?=
+ =?utf-8?B?bmhoWDdFQVhNaXFyblQrSTNXZEZKVTFVWnR1blQ2TnJsRmVWbWJLZnZRQ3RB?=
+ =?utf-8?B?SGNFQzgyYk4veVFUbklrTmx4alRrbis0V0hqb0VoVVEybXhaNnZIUHMxTXRa?=
+ =?utf-8?B?MUtsTkRrYW1HLzdmQ0Z2SFF2OXIrMVFac1lMUUVvTEJHd3dQdUl1MlNPV2ZE?=
+ =?utf-8?B?SjFrZHZQQ0M4OXJsc0YxM2M3eklvR05kZUk0VVZ6dUJCZkJaZ2NJclB3Z2Jx?=
+ =?utf-8?B?bnJlejZFdGF2ZzlyYjlYYkE0a241UmdUNnd5ZmhrWVdkYUxFQjFTWk5lUzNi?=
+ =?utf-8?B?eTJVQW1hTXFEZUZPMHBhbDFoVVpBUTVmY2l3N3FsTEZTMWhzWngrSkMwUVha?=
+ =?utf-8?B?TC9TSityck1qMXQ5cW5yWjFTTDFDZW9WREw2cFhRYVNzZXhwZzI0aHVyekdF?=
+ =?utf-8?B?TDNiTWZYaWZ4Qll6dUhzdzc3NklSVmxoWm1IMWNOOUxzM2FTOXd3U2szMnYv?=
+ =?utf-8?B?WWlYKzl4MDdoTUNmaW00eDY4RjJNSTFLSVgzRVBmR1ZlNjVJWmViRlExZklr?=
+ =?utf-8?B?eFIvZDlVNE5UYlFMOW9Mcno1dHVBNVdiQ0F3ei9ibGkydFZ3bFdCdURhWTJp?=
+ =?utf-8?B?M3RFdTEvVWJZdlpTNnFNY2cyYzJoU0c4dzN6UkZSMlBHRkNyWWRNVmJteTJq?=
+ =?utf-8?B?VFEwdkphZnRBOEVTck9mU0ZFSWs5K2J2Qm5vczlQcElrVFZndld3K2tDcWFV?=
+ =?utf-8?B?aTNaR1hkNkM2UTA0WEJxRUVyUzZMNUF3V1ZSN2tpY0lyMmlDd2VPZnA3NGhW?=
+ =?utf-8?B?N0RST3R4MkxOcXB4a3djUk5qUVI1V3ora0ZCWlpQai9PdDZlS2plcFlIWGpC?=
+ =?utf-8?B?VzdkMXpoUkFBMDNpQlg3b3VGMUVHWlExNHRvRE9QMzVvMUM2SGR5QWpkWks5?=
+ =?utf-8?B?SjAxbjJUSk5rQkhyWTZUd2E3NS9KUW1jbGdpOFNncWxyZGo1dzcyME85TnJs?=
+ =?utf-8?B?aStsaFp3QTJKSXdSTk1XOStPTzFYbFRiUVlDVy9ZRkZjNjQ3eU1FUGdqcWww?=
+ =?utf-8?B?cmdDcE5nNmFhM2p5MHJwN3dmbzUzcVUybFhMMlV5a2pJMVZsYUdrYTJXY0NG?=
+ =?utf-8?B?aGFjQk0wYWdQRlpBRjczbHlXYnJTL1BMRkhLOTFMWnNuUmtvNmhyakoyL1Uv?=
+ =?utf-8?B?Q055a3k3OXZFb1BKSUtHOXBwbVlZajBnUmptcW0rTHd3UHY0WnlqTWVwZlJN?=
+ =?utf-8?B?TDBzWTg4WTc1cWtFdmVVSUFKYlZXRjNYRk1KanBLTjI2Qjd1RStUZWl5RHlL?=
+ =?utf-8?B?dE84UmdnS1JtNytYL0QvS2tZUm16VU56K1VpNkIrRUxkcmZTWWMzenJlQXFl?=
+ =?utf-8?B?U01zMDNIOGNKQ2NuOTcyNG0rVmdZTjR0Q000eWV2ZUloMnJ6T3JGZW53eDdn?=
+ =?utf-8?B?a0hjeTBGMjAzdlY2c0hwR1BDblNhL1Z2Y21pMXJ2cU9uOVE4a01ZSWR1L1NE?=
+ =?utf-8?B?cWFEdmR0blphQm5uSzRqZGNGZnpGanErSXhsVmpjZmpuWFBudzhnb21EWDZz?=
+ =?utf-8?B?Nm9QRVpKRDVkOGljS3BTZFo3TVltdEE4dmJ6dHRnQXRIcVN4RytEMmN2Z2t6?=
+ =?utf-8?B?VnMyTFBFVlZWNWtwbzcvUTJHbkJJbkpaMkdXVGtqb3hBbitJK1VNYnZlNE44?=
+ =?utf-8?B?bVBaa2lJSUN5S1ZTUTBGV1JiZEZvdXBWR2dpMWNFaTJXUTA3YTAwMDY5bEhp?=
+ =?utf-8?B?Sk1YOVlZN1lEMXBLa2I0cHFnSVMwWXpjQW1XOStCYVZyTE95Y2FwT2ZKb1lW?=
+ =?utf-8?B?eXFodHRlakptM2twLytDeHF5SUZKQ3hhai9ZSXZ6MmlLY0NRaTdkOGVUYXJw?=
+ =?utf-8?Q?VxrE=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDU2TS9wdS9JYTMrTEZtZzB2cmt1VERoMmNFYlBacFVmZExoU1BoWGp6V3Vp?=
+ =?utf-8?B?WXpNMjFxWENFSHZjZkJNcnB4cGM2eHRLaUJvN1gvTnhtTFhmb1VSNkVmYWZV?=
+ =?utf-8?B?OWplL0FQUE5WQVFZZXVKczBpVi84OHExOUhuOEErU0RCS0FIeUFKZU5vSjFV?=
+ =?utf-8?B?WklLb2taczc1N0R0TkR1N0JubUd0TWFSRUs3UTV2ekFtQkVOVWNLaU13SmI5?=
+ =?utf-8?B?aWZsekl5VEI1TCszdjNvaE1PdEV3V0lPY0VwTHhpK3JJQmJnMjFxWWNOZUtZ?=
+ =?utf-8?B?N2dmNStHTXNReUdkc0ZtUnpFS25haEFIdDVEWGFCL2RCNmQ0eHpuNGErNXVT?=
+ =?utf-8?B?OTg1UFg5SFhmSTdPVVlzc0RDNlduRG40TkhQTjBaMDVqUUE3TCsrR3lNWnJ0?=
+ =?utf-8?B?dkVoVjR0WjJOR09WMHA2a0tvamVqRWtFMDMzQVk3MTcyVUhCNTRBRGJaUGtH?=
+ =?utf-8?B?OHNIMnFkQzdpck5oNXhFdHJJeTl4K3VkYlh6RmZvOEVZaS9BblcvTlBnbkxr?=
+ =?utf-8?B?SHNZdjg0QnN5empYTGs0RXgrSlV2eHYxbW5uNjJJQk1sTHRjbFpnVTNtdXl3?=
+ =?utf-8?B?K250cGp4NFBRRDZ2SWIxYWZkTGZXVzJuMmE2b1liZzI1S2dxdmt3SVkwRUpm?=
+ =?utf-8?B?VHlwTmZXdHNBMjBobWhoMWVQcUxOZFg4eWY2Uy9sRkkwQjUwVnFWM3BSQ1Ja?=
+ =?utf-8?B?RlowaDRlallKTm1HblVHeU5aeDlSamlqRklzYWhKWVV2ZVJLUlBUcmNlOU9G?=
+ =?utf-8?B?cDQ0enFDQXlTa3hHMFNvVVlIcUdqblVpaG9CL2VTeFM0ZVNQbXMzS09KQlRU?=
+ =?utf-8?B?UW43dkkvRWJWOE5yV1krb28rbmdIZEJLRUx3QU5xYjZrNjIzbFVMQ21LOEQr?=
+ =?utf-8?B?VXpKRks3YVg5eUVrVHpVc2xyYzBMK04vZE5GQ2Jwcy85eUQ4d3FyaFhSM3RU?=
+ =?utf-8?B?SGpWVUM3dzdhRlVGZWkyN0hWcWU5UXRnam5WcEs4a3J1a0duckpMcy91OUZv?=
+ =?utf-8?B?K3hTRHZWeTIvTndDRk9kTEtTMUxaekFtMGRodE9OZzk2R09EZUNFOWNwVllJ?=
+ =?utf-8?B?L3NmSXZuTzVKcjFHU2IxOFF6cVFFMU4ramJDSVhBQ1R2a3VBbXdUMXRnY1RQ?=
+ =?utf-8?B?S1RVQnJXSTVDWUNObytIT0w4VW5KL2dLUDU2b3ZtUnYzRlJ2RFJJUXdBU3Zm?=
+ =?utf-8?B?eTkzaUVuMFRYVGtqU0paSUVjTUw1Q2VEQ3VFcXRXMng2a00zeUlyOENBNC93?=
+ =?utf-8?B?TW5kT3dLcE45SWxWeHBKaGsrbkVpOEEvZldUOWg4Yzl1aDBGTDhGUkNBeDVk?=
+ =?utf-8?B?NEVxS2xGdWYxd2lTRzUrOTJaV2JXM2tKM2xFRWN0N2dYVHFEMU84NG42SlMr?=
+ =?utf-8?B?aVFuRWVYL25VQzhJWGpBRXRhV05HTzVHVUJBOTQzbFhXQVBsZDRnT05sckts?=
+ =?utf-8?B?YzU2ekFCR1ZMdUZBdlVHck5Na081ZW10S0cyV1kvaFZLNXJoakkrYno0dnhR?=
+ =?utf-8?B?R3I4U3l1cjQ1NElMVGxMZ3Rlbk40VGxUUktIQ0dPOUpDZ1VQRjd0YUFOc1Aw?=
+ =?utf-8?B?SlVOak1FZ2VaelZFbUZCem1VMXJWaUc2N0VIUjFXWUFZaXBHQ3FKdXJYNW1x?=
+ =?utf-8?B?Ny9qZTE0eThFK05qWHJ4RDBOSG5nRkNBR3ZuaExwcm5RMzU0TzEycTZhMUxm?=
+ =?utf-8?B?WERpUlVUVTVYK0FHaVJpNW14NSsvc0ZJbkk2Q3E1ZnU3V29nTjJ5dkM5ZmNO?=
+ =?utf-8?B?cE9ocnloOCswb0NQZmhpbUtVS3A0ajc0ZUFtNnlkamEycm9qV09MN1BONjA4?=
+ =?utf-8?B?ZmdDaWM0T2xtRnM2NnBTVHZVYkFZNG9yVjZWWnl5TktxcVIwRGtyYXhYV05p?=
+ =?utf-8?B?MWU2eXFZWW1BOTI3akxqV0Z5b3NxTkhSdDBJNy9HQ20zeHdzNnVySERtWS9I?=
+ =?utf-8?B?eE1GaHBDV1JzUnRaN0YycldRSzNESlU3K1NVTWczTUJZU00wYS9yV3EzMlph?=
+ =?utf-8?B?TFh0eWk1UExlZXJ0bmpPaWltYnNzMWdMY2Z5YkRZNlB2TnpyTGwrRUlSc3Vi?=
+ =?utf-8?B?bGpSYlBjeWpXdUZHdzBESWgvWnVya2JqaUNCanFBbEdrTXJkdmkzYW9nbXJV?=
+ =?utf-8?B?QVlBOWNXVVVNVnRkb1NpWk9jYWxScXF1amdYZkVLMy9XSE9QcmY0OW5PblFm?=
+ =?utf-8?B?d283SDRaNngyUWtOMTJCejlqcGJ2WDhubjRROEJkYi85U1dtL1pjN3dOTndU?=
+ =?utf-8?B?Vnd6NWhQZnJXOVJBbDZvc3RoSUF1OEhveSs3b3pNL3ZaNEJNK2pDbG5RV3hO?=
+ =?utf-8?B?bTlKU3dDTTZTYmVBUkRSVjUxVDF3TWZtSUhZTXkrb2NQVmswYUI5Zz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b2a8bb4-1214-4835-7c4d-08de65c080bd
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 20:44:20.2907 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AbqQ74xccs77Nvtj71xEJSuip4Bkx0UDHsReoDTNZE8Kygk1tL+PRqp0wSdPIWLZfJyxs+7mJhAlYiBN6s+FhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6441
 X-Mailman-Approved-At: Mon, 09 Feb 2026 08:41:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,125 +204,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Friday, 6 February 2026 15:08:46 Central European Standard Time Maxime Ripard wrote:
-> On Wed, Jan 21, 2026 at 03:45:10PM +0100, Nicolas Frattaroli wrote:
-> > While the two enums have similar values, they're not identical, and
-> > HDMI's enum is defined as per the HDMI standard.
-> > 
-> > Add a simple conversion function from DRM to HDMI. Unexpected inputs
-> > aren't handled in any clever way, DRM_COLOR_FORMAT_AUTO and any other
-> > value that doesn't cleanly map to HDMI just gets returned as
-> > HDMI_COLORSPACE_RGB.
-> > 
-> > Add a second conversion function that gets a DRM_COLOR_FORMAT from an
-> > HDMI_COLORSPACE as well. In this case, reserved HDMI values that can't
-> > be converted will result in an -EINVAL return value.
-> > 
-> > Co-developed-by: Marius Vlad <marius.vlad@collabora.com>
-> > Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> >  include/drm/drm_connector.h | 54 +++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 54 insertions(+)
-> > 
-> > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> > index b5604dca728a..ffeb42f3b4a3 100644
-> > --- a/include/drm/drm_connector.h
-> > +++ b/include/drm/drm_connector.h
-> > @@ -2612,6 +2612,60 @@ int drm_connector_attach_color_format_property(struct drm_connector *connector);
-> >  
-> >  const char *drm_get_color_format_name(enum drm_color_format color_fmt);
-> >  
-> > +/**
-> > + * drm_color_format_to_hdmi_colorspace - convert DRM color format to HDMI
-> > + * @fmt: the &enum drm_color_format to convert
-> > + *
-> > + * Convert a given &enum drm_color_format to an equivalent
-> > + * &enum hdmi_colorspace. For non-representable values and
-> > + * %DRM_COLOR_FORMAT_AUTO, the value %HDMI_COLORSPACE_RGB is returned.
-> > + *
-> > + * Returns: the corresponding &enum hdmi_colorspace value
-> > + */
-> > +static inline enum hdmi_colorspace __pure
-> > +drm_color_format_to_hdmi_colorspace(enum drm_color_format fmt)
-> > +{
-> > +	switch (fmt) {
-> > +	default:
-> > +	case DRM_COLOR_FORMAT_AUTO:
-> > +	case DRM_COLOR_FORMAT_RGB444:
-> > +		return HDMI_COLORSPACE_RGB;
+
+
+On 2/6/2026 12:13 PM, Danilo Krummrich wrote:
+> On Fri Feb 6, 2026 at 5:13 PM CET, Gary Guo wrote:
+>> On Fri Feb 6, 2026 at 4:05 PM GMT, Joel Fernandes wrote:
+>>>
+>>>
+>>> On 2/6/2026 10:53 AM, Danilo Krummrich wrote:
+>>>> On Fri Feb 6, 2026 at 4:25 PM CET, Gary Guo wrote:
+>>>>> On Fri Feb 6, 2026 at 12:41 AM GMT, Joel Fernandes wrote:
+>>>>>> diff --git a/drivers/gpu/Kconfig b/drivers/gpu/Kconfig
+>>>>>> index 22dd29cd50b5..2c3dec070645 100644
+>>>>>> --- a/drivers/gpu/Kconfig
+>>>>>> +++ b/drivers/gpu/Kconfig
+>>>>>> @@ -1,7 +1,14 @@
+>>>>>>  # SPDX-License-Identifier: GPL-2.0
+>>>>>>  
+>>>>>> +config RUST_CLIST
+>>>>>> +	bool
+>>>>>> +	depends on RUST
+>>>>>> +	help
+>>>>>> +	  Rust abstraction for interfacing with C linked lists.
+>>>>>
+>>>>> I am not sure if we need extra config entry. This is fully generic so shouldn't
+>>>>> generate any code unless there is an user.
+>>>>
+>>>> I also don't think we need a Kconfig for this.
+>>>>
+>>>> In any case, it shouln't be in drivers/gpu/Kconfig.
+>>>
+>>> Fair point, I believe I was having trouble compiling this into the kernel crate
+>>> without warnings (I believe if !GPU_BUDDY). I'll try to drop it and see if we
+>>> can get rid of it.
+>>
+>> If you run into dead code warnings, I think it is fine to just
+>>
+>>     #[allow(dead_code, reason = "all users might be cfg-ed out")]
+>>
+>> the overhead of just let rustc type-checking this module isn't worth the extra
+>> Kconfig plumbing, I think.
 > 
-> I don't think that's correct. What auto ends up as totally depends on
-> the atomic state it comes with.
-> 
-> At the very least, you should output a warning there, because that case
-> should never happen.
+> You mean because there are pub(crate) in clist.rs? I don't think the Kconfig
+> would help with that, nothing prevents people from enabling RUST_CLIST, but none
+> of the users.
 
-Yeah, my hope was to keep this function __pure so that the compiler
-has maximum freedom to do whatever. With a WARN, it's got side-effects
-now, and we're no longer pure. With a status return value and an output
-parameter, it's no longer pure either, because the output parameter is
-not local memory.
+I think he means add the alloc annotation to suppress deadcode warnings and get
+rid of the Kconfig?
 
-The limiting factor here is that as I understand correctly, I can't
-really extend the hdmi_colorspace enum, as it's basically 1:1 from
-the standard. Doing this would be the ideal solution, because we'd
-keep the function pure and without surprise conversions happening.
+> Besides that, once we have the new build system, the users of CList are likely
+> in other crates anyways, so I think we should just change things to pub.
 
-Looking at hdmi_colorspace_get_name in drivers/video/hdmi.c, it returns
-"Invalid" for any value not in the enum itself. Would it be allowable
-to tack an HDMI_COLORSPACE_INVALID at the end of the enum with perhaps
-a negative value, or is there a different approach you'd prefer?
+I agree with both approaches. Perhaps changing to pub is better to avoid churn
+in the future when other crates use it.
 
-I agree that the AUTO-to-RGB conversion shouldn't happen here, that's
-a recipe for things implicitly relying on this behaviour, which isn't
-great. (And I think I even do this in "hdmi-state-helper: Act on color
-format DRM property", where thinking about it again I agree this isn't
-super obvious and should be done explicitly instead.)
-
-> > +	case DRM_COLOR_FORMAT_YCBCR444:
-> > +		return HDMI_COLORSPACE_YUV444;
-> > +	case DRM_COLOR_FORMAT_YCBCR422:
-> > +		return HDMI_COLORSPACE_YUV422;
-> > +	case DRM_COLOR_FORMAT_YCBCR420:
-> > +		return HDMI_COLORSPACE_YUV420;
-> > +	}
-> > +}
-> > +
-> > +/**
-> > + * drm_color_format_from_hdmi_colorspace - convert HDMI color format to DRM
-> > + * @fmt: the &enum hdmi_colorspace to convert
-> > + *
-> > + * Convert a given &enum hdmi_colorspace to an equivalent
-> > + * &enum drm_color_format. For non-representable values,
-> > + * %-EINVAL is returned.
-> > + *
-> > + * Returns: the corresponding &enum drm_color_format value, or %-EINVAL
-> > + */
-> > +static inline enum drm_color_format __pure
-> > +drm_color_format_from_hdmi_colorspace(enum hdmi_colorspace fmt)
-> > +{
-> > +	switch (fmt) {
-> > +	default:
-> > +		return -EINVAL;
-> 
-> Wait, what?
-> 
-> -EINVAL is not a valid value for your enum.
-
-Not the only part of the kernel where we rely on the int-ness of
-enums, but your complaint has been noted :) I guess this means
-this approach won't fly for the opposite direction. Thankfully,
-in this direction, we can extend the drm_color_format enum to
-have an error value.
-
-Kind regards,
-Nicolas Frattaroli
-
-> 
-> Maxime
-> 
-
-
-
+-- 
+Joel Fernandes
 
