@@ -4,106 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2E9EE20AD
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 14:23:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE730EE20A6
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 14:23:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B7A010E7CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 773E210E7E2;
 	Fri,  6 Feb 2026 14:23:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="T82y2l+g";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="ER8p4j0P";
 	dkim-atps=neutral
-Received: from mail-qv1-f65.google.com (mail-qv1-f65.google.com
- [209.85.219.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A8A610E8E5
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Feb 2026 14:21:14 +0000 (UTC)
-Received: by mail-qv1-f65.google.com with SMTP id
- 6a1803df08f44-88fca7bce90so11618666d6.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Feb 2026 06:21:14 -0800 (PST)
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7107410E74F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Feb 2026 13:39:25 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id
+ 5b1f17b1804b1-47ee2715254so13633775e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Feb 2026 05:39:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1770301273; x=1770906073; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=MSUoQMJoCCNydU2DcwMWqdKRWnt0MqAVvIGN6ESmMGo=;
- b=T82y2l+gvgvflNe+Ykv+sIOMay/sO8Q2rFK8m/HCNE9dJZ/derfurWcpf8hRxRbpT3
- 655hJEFUhTmBijclKOd6OJdPCtg1Yf9VzTMvpOb7HeJpH5Dvu5UP8r4zhIJZfs5B0rWG
- Z0WHLO0jQ2NQuqBscSKVlj3VUBrx0JSCZMyiS9hh6bT1oLtHqNctjEDV2xwlMJYRcNNN
- vVJ89ZccVFE6A+GE2+JFWg3LEeeD/kMUQUiF9zT2toKPNnw03RHF30r62sxxS5t0rS1/
- 3SlNJIT3G0WqBtk7cca50Y61ey7EHayMa6gLR6/wmUbOE2cV8vqPmM4hQTaHrRIm0gxa
- euEg==
+ d=linaro.org; s=google; t=1770385164; x=1770989964; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=BuQje3pA3puYqE5cqm2DgR3QniDFMdzkaAWaIa9THpo=;
+ b=ER8p4j0P3QTem91Fdquhgcr8qLVaoFqoEaaLg92yeZOMtv/NOXJOL9DOQc/GtjRusa
+ 5v0rASlYPy1LV4ERLdEGnKA0FJn+R8ySmiV0BZ1qalUKyosacqP5R01QuvRHyCC+YesA
+ gpqtYhIV+bYWsLl17dxkbd7SgkaPaAmdh9p0vKMHD36AxLWP1j9JJq4TYVv0bk9NId0o
+ Kg3LR2albUEsGLT1pOAhwDhU/lzeST17ecA3efT3s9PD2NM1o8NymriCUOdkqBpEqiut
+ Vd2dBQplzknjodkJr/F366fUrJfb6Z15/eciS503EhIh8IfYITpKgrC7QxsFMs6z1mcp
+ 5I7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770301273; x=1770906073;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=MSUoQMJoCCNydU2DcwMWqdKRWnt0MqAVvIGN6ESmMGo=;
- b=Pt5bsU4NC3tSGk3bu0fJDAkCpA7s1ca/9jpzYYffcXYKNxCjoiZQuxN/smanIpF+Qo
- 2bs5lwt0IqTBUA3cjLqTJQnhERiuBBdICfijTuEPMS0sZKor4PnJwKLAVOC10sv8b8UA
- rEG8BI51ATE0tZfHlXE2Y7ONZg1H0n6tioEhfyF+VD3QxUdHNV/WHdmX29coknLIES55
- T8v6NyengmMUD3UJ1JCY65kA/wKCq3q5w0PQ5WiES/dgZf4SBOgc7sKzOXRMI4b3qwVk
- yUig+058JW9Ykk+fG1z0gyNTQNxGtPDe1ZHbzhSFhbrd22JgIUOjpyF8PVrOrBQmnfTS
- ij7w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUkcIYRhTSphElv5bVS6vWDTx5fa6ILjbuy+7ivWrY9m2WTrVwb4tYd0vlObHpsQCLLRA8mF2zQ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwTu9kwZe51SHPlgNTUxbxLsBR6H5em9qD0xVNCenop3nuRd7Wo
- LOaSG6BytD3+jFo3WK8wdSE8GAJWiLgKotMduGDcAac9u+I7w07az8Y+IUi/MrxhTbE=
-X-Gm-Gg: AZuq6aLu0pE4fcsFYvuov1BlGJFTNEOXfMugfXZJw3bWxk+lW14WDUTHSBQycM+swWG
- pcs86P+oASOlifEr5rH6DDvLAVmQBbg9N9fSKW8nfh+j3kT3RPOKqXUt2rsEoQgH/x5nBT42Db0
- iN5P5+sWZMSkoqd7Lj2MYP+yqHR8XHB4LJ5Uk3T5YntQ6maY+IY+VE86g2nGyYz8IgK1Yp05Hk6
- xhjC8VQ9NC4FPZI3EeN3JZ5IHVOYVRXwMXe+26WQEoMQkptQ/P/pNuHcR82wOxBl4xY0y1QRYe/
- 24VDo5jNB2GYAqZyswpbWunkjT3BMfNEPl28XHJbW1IG8Q80L4Me3sxqFBu79W7lrhQjiFz3t8Y
- PPDuvUxCsLKxioUgeuywd2aYwgTqJkGjUQKgvitLNauuRbP3hnCn6x2J983y86VrsyW+mcCBxTn
- HT6jCT7D4iC1PkXO4gkEen7CdbrmcAPwmwtzw7CWauiyVRZ44ayZfyblge4Ps8PdjErRs=
-X-Received: by 2002:ad4:5cc6:0:b0:88f:ca72:6ae8 with SMTP id
- 6a1803df08f44-89522189787mr84672066d6.45.1770301272999; 
- Thu, 05 Feb 2026 06:21:12 -0800 (PST)
-Received: from ziepe.ca
- (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-89521bff53esm42252276d6.8.2026.02.05.06.21.12
+ d=1e100.net; s=20230601; t=1770385164; x=1770989964;
+ h=in-reply-to:content-disposition:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=BuQje3pA3puYqE5cqm2DgR3QniDFMdzkaAWaIa9THpo=;
+ b=OAiseS+jBZdTzSAg+Kj3JnXrP8KDKspYK59g84DSsDs2qA9vAKBoW0Dr7K0Ef+YVGZ
+ 5MTV/T0nLJ1C6cyUzRRmMNAzrxXFj3GuDGlOecW9CRsmYMM2PJTZqKqH1fVTyugtVs5Q
+ pZWuqu2v1qWOR86aMAkJ05zzAQuMmhZCcc7qSfOcDlvhXrCv15eZx4kb15qp+ZJOPZSQ
+ l3sLTYtGRbVymAC57BSMfqCHNjzMEQuc7jlq/A+IjoMz7yWpWa3aPc2/acFoQ683fUZH
+ lNyrBRw1vlSH1ALDUNDfELzaSF7YXMZHMglzOn5nboOxcjJfWRy0ogpGRLlWTCknNU8d
+ NLTA==
+X-Gm-Message-State: AOJu0YwMFiQ5vqpxbc3RW4JzY5ei9Gvke2+3c82P8UjuM52Efiz0di6L
+ tTFiSVzIxBi4HvrExrqZAqnE2sU9O8x89WifqaZv7TppNFW+wec1dzx8BI4OgX1JZDE=
+X-Gm-Gg: AZuq6aI71UpG1eQWkYbu270HfHA2cHF3orfR/xsNez0GXOqqhEf1yqJx5pHP/PbydHb
+ iE/T4WTBckvjbuQs0d3pM9+uTEDLaSPEfs8MvJJgEEV+zdl3wdsbQ+bzsPH0tCX7hXZ5LS2yigE
+ c6nFtzAZS9i2c8kz+Stj43cJARtEDa6T29YNRfvFWFAvN5WfDDvwzXHWG2d02Y/TxWCw5GT9Lgk
+ /m83SJmhh5neI/tR4sK8BBNPtH7h6n2QNChAD88xyGkhVXR2tmdGvUfuMKqMOd++8bOYpho4yV6
+ QhVqSiGz++CGK9X1W7D1xnrLgst0Aqzh1hfW2FAgEUb2+nUEf2r38xOqn2SBl24Qu0lFZHfytol
+ l27FyAREN4DkbatbgJgxqG5/uE2QWzJACEU0cATtcOTwm3rXOy/en9ef0Xhg4GCRcH9pKTN89oN
+ IO5jM68U23HRXlIso9
+X-Received: by 2002:a05:600c:8719:b0:482:eec4:76d with SMTP id
+ 5b1f17b1804b1-4832021b461mr45585285e9.17.1770385163857; 
+ Fri, 06 Feb 2026 05:39:23 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-483206b8bbbsm81414275e9.3.2026.02.06.05.39.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Feb 2026 06:21:12 -0800 (PST)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1vo0EJ-00000000kPY-3gpa;
- Thu, 05 Feb 2026 10:21:11 -0400
-Date: Thu, 5 Feb 2026 10:21:11 -0400
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Alex Williamson <alex@shazbot.org>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- David Airlie <airlied@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Ankit Agrawal <ankita@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux.dev,
- intel-xe@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org
-Subject: Re: [PATCH v7 7/8] vfio: Permit VFIO to work with pinned importers
-Message-ID: <20260205142111.GK2328995@ziepe.ca>
-References: <20260131-dmabuf-revoke-v7-0-463d956bd527@nvidia.com>
- <20260131-dmabuf-revoke-v7-7-463d956bd527@nvidia.com>
- <fb9bf53a-7962-451a-bac2-c61eb52c7a0f@amd.com>
- <20260204095659.5a983af2@shazbot.org>
- <ac33ad1a-330c-4ab5-bb98-4a4dedccf0da@amd.com>
- <20260205121945.GC12824@unreal>
+ Fri, 06 Feb 2026 05:39:23 -0800 (PST)
+Date: Fri, 6 Feb 2026 16:39:20 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>
+Subject: [bug report] drm/amd/display: add DC changes for DCN351
+Message-ID: <aYXvCFo5X2l73tyZ@stanley.mountain>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260205121945.GC12824@unreal>
+In-Reply-To: <caa37f28-a2e8-4e0a-a9ce-a365ce805e4b@stanley.mountain>
 X-Mailman-Approved-At: Fri, 06 Feb 2026 14:22:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,34 +85,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 05, 2026 at 02:19:45PM +0200, Leon Romanovsky wrote:
-> You don't need any backmerge, SHA-1 version of vfio-v6.19-rc8 tag is the
-> same as in Linus's tree, so the flow is:
+[ Smatch checking is paused while we raise funding.  #SadFace
+  https://lore.kernel.org/all/aTaiGSbWZ9DJaGo7@stanley.mountain/ -dan ]
 
-I'm confused what is the problem here?
+Hello Hamza Mahfooz,
 
-From https://anongit.freedesktop.org/git/drm/drm-misc
- * branch                          drm-misc-next -> FETCH_HEAD
+Commit 2728e9c7c842 ("drm/amd/display: add DC changes for DCN351")
+from Feb 23, 2024 (linux-next), leads to the following Smatch static
+checker warning:
 
-$ git show FETCH_HEAD
-commit 779ec12c85c9e4547519e3903a371a3b26a289de
-Author: Alexander Konyukhov <Alexander.Konyukhov@kaspersky.com>
-Date:   Tue Feb 3 16:48:46 2026 +0300
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn351/dcn351_resource.c:1284 dcn35_stream_encoder_create() index hardmax out of bounds 'stream_enc_regs[eng_id]' size=5 max='5' rl='s32min-5'
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn36/dcn36_resource.c:1285 dcn35_stream_encoder_create() index hardmax out of bounds 'stream_enc_regs[eng_id]' size=5 max='5' rl='s32min-5'
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn321/dcn321_resource.c:1222 dcn321_stream_encoder_create() index hardmax out of bounds 'stream_enc_regs[eng_id]' size=5 max='5' rl='s32min-5'
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn315/dcn315_resource.c:1252 dcn315_stream_encoder_create() index hardmax out of bounds 'stream_enc_regs[eng_id]' size=5 max='5' rl='s32min-5'
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn35/dcn35_resource.c:1304 dcn35_stream_encoder_create() index hardmax out of bounds 'stream_enc_regs[eng_id]' size=5 max='5' rl='s32min-5'
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn32/dcn32_resource.c:1241 dcn32_stream_encoder_create() index hardmax out of bounds 'stream_enc_regs[eng_id]' size=5 max='5' rl='s32min-5'
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn316/dcn316_resource.c:1245 dcn316_stream_encoder_create() index hardmax out of bounds 'stream_enc_regs[eng_id]' size=5 max='5' rl='s32min-5'
 
-    drm/komeda: fix integer overflow in AFBC framebuffer size check
+drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn351/dcn351_resource.c
+    1246 static struct stream_encoder *dcn35_stream_encoder_create(
+    1247         enum engine_id eng_id,
+    1248         struct dc_context *ctx)
+    1249 {
+    1250         struct dcn10_stream_encoder *enc1;
+    1251         struct vpg *vpg;
+    1252         struct afmt *afmt;
+    1253         int vpg_inst;
+    1254         int afmt_inst;
+    1255 
+    1256         /* Mapping of VPG, AFMT, DME register blocks to DIO block instance */
+    1257         if (eng_id <= ENGINE_ID_DIGF) {
 
-$ git merge-base  FETCH_HEAD 61ceaf236115f20f4fdd7cf60f883ada1063349a
-24d479d26b25bce5faea3ddd9fa8f3a6c3129ea7
-$ git describe --contains 24d479d26b25bce5faea3ddd9fa8f3a6c3129ea7
-v6.19-rc6^0
+ENGINE_ID_DIGF is 5.  should <= be <?
 
-$ git log --oneline 61ceaf236115f20f4fdd7cf60f883ada1063349a ^FETCH_HEAD
-61ceaf236115f2 vfio: Prevent from pinned DMABUF importers to attach to VFIO DMABUF
+Unrelated but, ugh, why is Smatch saying that "eng_id" can be negative?
+end_id is type signed long, but there are checks in the caller which
+prevent it from being negative.
 
-Just pull Alex's tree, the drm-misc-next tree already has v6.19-rc6,
-so all they will see is one extra patch from Alex in your PR.
+    1258                 vpg_inst = eng_id;
+    1259                 afmt_inst = eng_id;
+    1260         } else
+    1261                 return NULL;
+    1262 
+    1263         enc1 = kzalloc(sizeof(struct dcn10_stream_encoder), GFP_KERNEL);
+    1264         vpg = dcn31_vpg_create(ctx, vpg_inst);
+    1265         afmt = dcn31_afmt_create(ctx, afmt_inst);
+    1266 
+    1267         if (!enc1 || !vpg || !afmt) {
+    1268                 kfree(enc1);
+    1269                 kfree(vpg);
+    1270                 kfree(afmt);
+    1271                 return NULL;
+    1272         }
+    1273 
+    1274 #undef REG_STRUCT
+    1275 #define REG_STRUCT stream_enc_regs
+    1276         stream_enc_regs_init(0),
+    1277         stream_enc_regs_init(1),
+    1278         stream_enc_regs_init(2),
+    1279         stream_enc_regs_init(3),
+    1280         stream_enc_regs_init(4);
+    1281 
+    1282         dcn35_dio_stream_encoder_construct(enc1, ctx, ctx->dc_bios,
+    1283                                         eng_id, vpg, afmt,
+--> 1284                                         &stream_enc_regs[eng_id],
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^
+This stream_enc_regs[] array has 5 elements so we are one element
+beyond the end of the array.
 
-No need to backmerge, this is normal git stuff and there won't be
-conflicts when they merge a later Linus tag.
+    1285                                         &se_shift, &se_mask);
+    1286 
+    1287         return &enc1->base;
+    1288 }
 
-Jason
+regards,
+dan carpenter
