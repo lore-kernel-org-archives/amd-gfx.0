@@ -4,75 +4,187 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD8D6E78D48
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:41:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A1BE78D49
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5C3210E345;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A726010E353;
 	Mon,  9 Feb 2026 08:41:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="evBJTQV4";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="IeT0sdZ4";
 	dkim-atps=neutral
-Received: from sender4-pp-g125.zoho.com (sender4-pp-g125.zoho.com
- [136.143.188.125])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DABC10E2B1;
- Sat,  7 Feb 2026 19:31:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1770492691; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=RdYdF7c/7RKURWe83WyERwWuC0yeeolV/HdBzGsCxqcpxL0mkFACmfTt3/4NpZ3OPDinHq6e5n7zbReS59t8n4L15hQO7U4nS8Fn2tTltElnkncw44fcngP1AzCyfoM7c8XaQUiSPZqkbCiCu1DktWNekdpxcACDCAt59MRy8aI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1770492691;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=BWnnE4c8SQWwH+plB/G8amDEzU/xZKpBUTD5dL9L0SU=; 
- b=Re6ehi0jHhfhcXeU5/Wcel1vSM/nbf3eUn4zLT2HuBpR8KwW09QN7DLyDHZbf6ijMUCiRxsF+PCikeRSy3usv/g319xt3au/Kl8FUvyYtHLKZtOGDNMFRu2qD7kpUxw8NRT2SKuuUMvUnFdxsfzPvDT5EKE3EJPl0JkSQmFBjik=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1770492691; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=BWnnE4c8SQWwH+plB/G8amDEzU/xZKpBUTD5dL9L0SU=;
- b=evBJTQV48BJoXeW9eksUfGNDL8f9WrQ191uHnGjm27R4bEhAOi3K2P49kQH5poEp
- yBkUs87eqn4KX7O6Iw+RewkgV9Vptiu/GBndvntL5vn5lDe9fPnEXqpBgml8bLsfbTW
- 4iwQ1sonD2B0Akv+l6dv8Hf85aL9HNlIGFgwCxX0=
-Received: by mx.zohomail.com with SMTPS id 1770492689402527.0990853831929;
- Sat, 7 Feb 2026 11:31:29 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Andy Yan <andyshrk@163.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v7 10/22] drm/rockchip: vop2: Fix YUV444 output
-Date: Sat, 07 Feb 2026 20:31:21 +0100
-Message-ID: <1945994.tdWV9SEqCh@workhorse>
-In-Reply-To: <4c9ce287.fbb.19be87814b8.Coremail.andyshrk@163.com>
-References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
- <6631107.DvuYhMxLoT@workhorse>
- <4c9ce287.fbb.19be87814b8.Coremail.andyshrk@163.com>
-MIME-Version: 1.0
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021139.outbound.protection.outlook.com [52.101.100.139])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C750A10E903;
+ Fri,  6 Feb 2026 20:51:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kugdDm1GBI8r8WhU6q8TaGkA49wto2RKvG4BhmyISxLzXHsH4ksIN93kN8WaihveG9jYx9OCyVyRBVo1TTNpZybaQiXsmdvQCE94JOiLkRbWavzwArxN+4fIyz7nq9LB68qpJL5mhaQAgrnw6nE9Jo5pP9KG55p1Lk5BZzNHMEhzAAgIUZiI1956AjygrmUmIfQ367YrtUaFw1Ob71jspyKupegFr94nOZDSEt6d+GObvkWb9hBnwoPprsSzBxLUA9Z+PymsXKqSaXIXpJiqC/ImFYT6I3xKuSOM/WXKqt2ANAv/NSu7HblSfBkfkEaYKX3VQ+fwnz94V3fp4nQpUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CtXFXCQGYqyzQyHYKsjz5cDU5PIrAy1frCq2HdplxIg=;
+ b=opC5sh0rfrX7H8CejLiJWYTJpUs59SJKn8OhtRsmDlfx3ZbSguS76rKtyGWspAC5C7wjCyED8EtJddqM2iDGKC80ZuQHSwJbZcJ4bxw3fieq/19yF9dT/U1eRmgMPZwjSiX+qz5sWQXTPNY9EmMllA+x+6M6qhEg8v0yAM9RfeBuFIG5IqiA/dktOG0uOZm+XtYd5SuSypVekRuRXO9KmtkxG36stf5pcct5Cg11Cg7e1HtrvPIetfLXqWSUjsDG3j3qwDI8WeTzFy3/J0Dwvk0XjIc7g/jGWCVChzD0GDd13zSK94lrPgVNQg4NLwTiiEIGGSzPnvzh1hdC0TGhFA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CtXFXCQGYqyzQyHYKsjz5cDU5PIrAy1frCq2HdplxIg=;
+ b=IeT0sdZ4hI/R8y688Ta15O86IV7O17r1wy5poGBIzHuh5u+MYJlW1xqlO9tcdw1Jx/ss3A+Uqig3T+3wLNC/g0ys1zJoTuU7GCTUauk4rilW+yb/ymgpuN8tIQhUwzDz83+5t/XYcONQGcRrSVZj02X9P/eZVUlW6SGkuhoJz4U=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO0P265MB3321.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:187::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.15; Fri, 6 Feb
+ 2026 20:51:16 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%5]) with mapi id 15.20.9564.016; Fri, 6 Feb 2026
+ 20:51:15 +0000
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 06 Feb 2026 20:51:15 +0000
+Message-Id: <DG86CJXCM7DB.1A4F4JTMSS9ZZ@garyguo.net>
+Cc: <linux-kernel@vger.kernel.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Helge Deller" <deller@gmx.de>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer"
+ <epeer@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Andrea
+ Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp Stanner"
+ <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>,
+ <joel@joelfernandes.org>, <nouveau@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH -next v7 1/2] rust: clist: Add support to interface with
+ C linked lists
+From: "Gary Guo" <gary@garyguo.net>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>
+X-Mailer: aerc 0.21.0
+References: <20260206004110.1914814-1-joelagnelf@nvidia.com>
+ <20260206004110.1914814-2-joelagnelf@nvidia.com>
+ <73B64D35-6574-4776-962D-865465C40226@collabora.com>
+ <8dde5b79-29d6-4840-be9a-31bc4af27cf9@nvidia.com>
+In-Reply-To: <8dde5b79-29d6-4840-be9a-31bc4af27cf9@nvidia.com>
+X-ClientProxiedBy: LO4P265CA0254.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:37c::18) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB3321:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7cf02bf-c7ed-414a-1bd4-08de65c17874
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?QXN2d3U3d050YVJqYXV3Y2lSa0RoVHJvWWVxbnZYYW1oY3VNTitkNCtqczQ0?=
+ =?utf-8?B?SlN2bGRoNDVCZDBaQ2UxUzdCZ2lIQzIzSEFiWmNobWx4RlJJSnBNeDVVNm81?=
+ =?utf-8?B?bFVrZXJjZWpiZ094eHNIck80Z081RWV2L3ZxNi9NTzFxdEF4OGx3MFNCOUdC?=
+ =?utf-8?B?MTQ4Y3YzSllCN2U4cENsdy90bUVjbnVMZkVvUlNPejNlclJCd0RDNm1nTFJT?=
+ =?utf-8?B?VzVONXdQY0s0L2RjYUkwNDdDeDJJVnFXdmdYa2g4Tm41eG1GN2Mxa29xTE1S?=
+ =?utf-8?B?bWQ4YSsvcWkxMVg0Z0U2VXZnRkc1Ynh0VFUzajNXTFVtSWxjS3V5MVl4VXNy?=
+ =?utf-8?B?WlJBWGEyZGJ6bC9SbUxGa04xbUVuWE1hZXdLUW1IeGVGRFhSVFA3M2s0Z1Zr?=
+ =?utf-8?B?cWxsL0I3eXhBTEIrR1l4V3dnajhoL1ZERnVVQVRkTkhXbzJpY2FIM2FpeWxD?=
+ =?utf-8?B?ZXpFZVZRQXZKWEkyUHNSdUFaWEk4eEFucUpCLzdvWW5uQzQ4ckE1bjFtVHQ3?=
+ =?utf-8?B?QStITGlXMlJLcXpFVVFKVUJLRlpGd0xlbXV6S2JWcGg4N1ZMSzFnTkpIcUlG?=
+ =?utf-8?B?S1ZwS2pCYTExR0xXL3pZcnd3a3RzaUk3Y0FOMjVaK0Q2VENHaW9qQVFzR1g3?=
+ =?utf-8?B?TlJZdFpSNC9CcXFCekJzS1kzbVJMNjVHOHh1aVR4QUlYdnBsRm5BaXNvT08w?=
+ =?utf-8?B?cWxiQ1VJa2huNTBQSDV3ekRyd20vRmdEaSsrZ0VwclREOTMwazMyODdJa3Fh?=
+ =?utf-8?B?cUovL204Yk9IY0JFKzV1T1pHUnNXUzQwN1VreVFxUEcvRE4wUEt2c2Fqc1ly?=
+ =?utf-8?B?UmFlTDJMQ1hiNXhZbGQyT0JGaEM2alg2ZWcxSU9VVFExa1QzQnRjRHZLc0JV?=
+ =?utf-8?B?L3plbDJoQjZHbE9hb1crTWMybHpaSWxLOWVGNUpzakNrSUxZTkFhRTArR0Jj?=
+ =?utf-8?B?V0paMWQzZlNTR0dWckVRaHJaR1l5cWZNbDg0WmJOUW8wZkV5UUdoa0xlVHhl?=
+ =?utf-8?B?dFAwVzJyeVZNTERWRWlYZ0pMa09YcHV3clNCRENzZWRRKys3d2xucFhSSThw?=
+ =?utf-8?B?ZVFyd2NYZXIvNU1mRlUydlI5ZGRVcUg1T0NaeW1LTG1nZlF1QzI4NjN1OG11?=
+ =?utf-8?B?Y0gzMHFmMVY0Z29RODYzS09QR2tKSlJMWjBOemd6dHZrWGdOaW16QVRHVlNK?=
+ =?utf-8?B?RXdwY0NrZWZpTjA2VDd4NytsWTNVSjJ4aThCMmE1ZjgwelFOUTlQY3R1MVFp?=
+ =?utf-8?B?R0xsTkdxaXZ0TE1LdWxlTlBWMldtOFRqL2c4TXZzamgxbjBtL3J6UER6VUds?=
+ =?utf-8?B?akl2YTV5Z1VXUU5ZYnArUzFJT01VZXh0NXc0dzlad3ZOVXFVYVBnT3pOSkww?=
+ =?utf-8?B?U0tveUVMUWRHaUJDaGtvVFJPM3hBN3lVeFJ5OURoRDg1eWRHNE5TQ20zYmdj?=
+ =?utf-8?B?OWxWY1JqamRnOEMxWS9yMkdKaS9sU0cyNTZsbDVpcUF1L1BKOTNmbjV0dUp3?=
+ =?utf-8?B?YUkvSUxHQngyUXdNaHo5U2xRR0U4NUZpaHRaZjVBODVRZmloS3c5VmI2Tk5D?=
+ =?utf-8?B?RGdDNmpRMkdwWUYxQ1VlY2VYMy9xM1EzMnJPZVI1MFlVRlBiT21TMkNHUGxG?=
+ =?utf-8?B?QXliblpXZE80RHFTbWIrcDI0elBuakhEekJXeFF6Z2FKQ1pUZTNXY250alZw?=
+ =?utf-8?B?RXRCTThsaGRCRU1XY2diV3BoUzl6WUJHZHJmZGFJSUZlZEpqMENkYnl3eGpJ?=
+ =?utf-8?B?cmd4UmhGYTltNGFyVDJXZ29pckpXaWpEendnQ3BBdnRVZlYvQ3J0ckZaVE14?=
+ =?utf-8?B?UzFkS24xM01CTW92bFJ5c2tKNTQ4c1hYQVB5RFJ0VVk2RkRiSjg3YXI3MHBO?=
+ =?utf-8?B?ODgwam1uK3g0eExHallQN0VRekdxV25ZODhMSitxWDRVR253eloza1Nhcytr?=
+ =?utf-8?B?bmVuaTU5VUViYWRLSExRTlZXKzZMQ1BlWE5Zdm5DUDBHaGYvRmNVNjIxbzZP?=
+ =?utf-8?B?WFYrOUliejd5ZzFrOHl5aWNFV1FxU3FiUXpEVFovaXV5QzdUQTQvV1c3RmhP?=
+ =?utf-8?B?a1ovK1dyVnFzTk12dzkxdHhEQlFtd0oxeDMvdXc1clBBbFJLbHFXM2RYTjZZ?=
+ =?utf-8?Q?MLJI=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016); DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFY1enVBT0JsVGExZ3ZIWmRtRFJrTVJCK0pER2V2N0ExcFVYeldHaU1QN3Ew?=
+ =?utf-8?B?TGhvdjM1TUY4Tk1lZ2ZLV1RWeGluNjZUMnVWSG9GSXMzMGlOdU9NaGI3c1FF?=
+ =?utf-8?B?T0JwTi9nQnR2REFhekhXcHQrMERWd0QvMFNha1FaeEMyZjhyc1JvYTlhNlln?=
+ =?utf-8?B?Ti9nVWpKWFNkQnhKblBNNjJ2ZFl4eklpSFh6L2tSemozWWtHZk1sWDNrbGVB?=
+ =?utf-8?B?aHp0TG9oWWRiRjZKaFRIc2lONHJnTTV2SXRKZ2swcmcvWjdKZEVIV2lXNHBp?=
+ =?utf-8?B?cWxpUUQ0WkwxbDl0SCtYZlBTbzM3U0IrMktwK0EwWFIrTHBxaXFGNjYzVWVX?=
+ =?utf-8?B?dHFlbEdkVFlsNlFsejVCZit3NHVsaytndzd3d1EzYmhLR0pNaDI1ZWo2QjdM?=
+ =?utf-8?B?Qnl6UjZtRko2a2YyRG0rZnJLcmRkZzlGaThEV1ZqMEFtZHcxaDE0MmIwOTND?=
+ =?utf-8?B?cHlmTXRxeDI1VzdsVWhSeDF4cXRJaXdUd0xHV1hyWSs3M1dGUkY2aGJvRWJu?=
+ =?utf-8?B?dGF5bmxEL2Q4Uy9ISmZQUS95SEZiV2ZVZnNGdU9HV2lTMENpZXFjL3c1K2Rn?=
+ =?utf-8?B?U1ZUd1krL3dZcXlybE5ET2RSSlVqaXF4ajE0RFZndlNHREFUajNEMi9veEt3?=
+ =?utf-8?B?dktnRXpDSHA3OHMvdGlrbGExZHRJTmJ3blI4RnIwUW4rRDFEMjVtL252bGtl?=
+ =?utf-8?B?M2lTUVFVN0VuZE5lNjNjUkg2UUtmS0F3WjNTd3prQ29UY01vanVQZHQ0Vmpi?=
+ =?utf-8?B?TDNaK2wraHhPaUdwd3MzTXh4bzVROXgzTVFyOXJlaGwwdkE0UkoxWkZkamRK?=
+ =?utf-8?B?TXlSY0h6R3dreGhVdVlhYzdyLzZGMTVtbkR0UEZhM1VNU01FN1E1REFaZ3F5?=
+ =?utf-8?B?VmNOVlZoMjdkM2Q2Q2pidUVDQUMvN0k3T05mN3hIeXhmRzJ6TnBVdkEyTXla?=
+ =?utf-8?B?WnNpNXcxOGRtY2dBODBGQlJteUs1REI5dGErZ1A3S1FvU09OS290ek90QW41?=
+ =?utf-8?B?L1Bpb0Vhdlk1YnhHeGJjbFExM0J5bko1SjJyb3lxZlBFYU9lSG94Wkdoc01m?=
+ =?utf-8?B?N0o4MVFGRFhKc2pUWk9nNEQ0Skh4R2I5Y0JsaWR5VUx6VGsrbm40UkNaT29l?=
+ =?utf-8?B?aTEzTVIxd0NmcmsvV1ZvUG9KVVpISk0vMVZmSHBESTBhT1phcVhlbU1WWGVM?=
+ =?utf-8?B?WW12UDJiSnFXaERMeWV4Tk9OUjhzdnhuelBaZGFPWFNvMERDTWpsRjlvOWMv?=
+ =?utf-8?B?ek5yOHdZODJLQ2lKZVFKN0NQbmM0Zk00c21UaWNqY2tKTzIyNGhsbHhzSTk1?=
+ =?utf-8?B?b0UzRFpWME5WWDhVSjBpVWNnbGMyNWdwQWJqRXIyNUpiaWZMUWFBekV2eU93?=
+ =?utf-8?B?SDgrNDB6VGMrY3VsQWtkOWxWZEF3TzZQb05iQTJrZnAwY3pnVTd1UHlpZnl0?=
+ =?utf-8?B?Tk9KN0lQbGEwVVJQRW1MNGRuZ0c0WU1uRjA2cU1iSFNSei9kZ1ViZjlDLy9Y?=
+ =?utf-8?B?VHY5WDNOa2QrMXphalE5ZzU5ck5TVmlEU3VqaGt3K21GVHBqVUIrM2ltRGVV?=
+ =?utf-8?B?NGlBamxEN1ZGREl2c3YrQXNDb3VSOElUbnBTeXZkQnNhdjZPLzhKMk5kNW5B?=
+ =?utf-8?B?L0dhc1VLZjY0cXU5Q29acE9UVjVjM1NmRXZ0TVZxemt0Z3Y4UWZrV2ErMFY3?=
+ =?utf-8?B?VitaYmZnYkl2R0FNUGZRSVdQekZKZDhXTHJ5Qkl3RHh0V21tbEpCUE51MnZ4?=
+ =?utf-8?B?TzdBN3k4K28vNEhqNHd0TlZQbkY2eGt5TkZmWjE4M003d2x4WUZSaEN0V0Ez?=
+ =?utf-8?B?M01JTzNTSHNUV0RVYk9RNGQ3Z0NaY3NCMTcxSmNqdGNuL29OVjhITDc0cWRH?=
+ =?utf-8?B?ZGNMMWprY09PWHVscmpTSkxuREcxbUhXY1BncDFnTUR1VXdtSnJnNFZBeTc3?=
+ =?utf-8?B?Q3NVd2g1ZWhzTnpXZ3hVOGpNMUJRcjNkb2dhWUFMaUVsNm53eXphK3ZTVytZ?=
+ =?utf-8?B?N0VaZmM2L09jVXd4d0NzZTArWnNsQURqZFljMGZaOHZvOUhpdkVTQm1FNk9v?=
+ =?utf-8?B?ZXVJck5JeSt5UEVGUm02Ui9sbXVxZi9tV0haNFViaWVhbFBBcEJZQU5KeHAz?=
+ =?utf-8?B?WHRzTitOVWY5akczdG5FNjJiVVptM1hVRTRrOWQ2WHFxK3FOZHY2bURwZDVl?=
+ =?utf-8?B?U3M2Q09UOTJFczhYbkFjN1RJNG9nWFM1cWZDWlM2Z2dWTzdGRENqV0p2aVov?=
+ =?utf-8?B?TDJlVE5QdFRFcDRTb3RaV0l6dkRxeThZU1AzejY0VlV0RzY0eUp2Vnh3eVNq?=
+ =?utf-8?Q?j27IkE2udVoR7jxZv0?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7cf02bf-c7ed-414a-1bd4-08de65c17874
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 20:51:15.9078 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jkMdDd7Uef+4WUboQ+dY75H2u8bju+vJGdph6N08S3h+g7dcROxei3PsFMTDDivkQPSnDOfJAwj+CUCmlHlWbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3321
 X-Mailman-Approved-At: Mon, 09 Feb 2026 08:41:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,192 +200,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Andy,
+On Fri Feb 6, 2026 at 8:46 PM GMT, Joel Fernandes wrote:
+> On 2/6/2026 12:49 PM, Daniel Almeida wrote:
+>>> +#[repr(transparent)]
+>>> +pub(crate) struct CList<T, const OFFSET: usize>(CListHead, PhantomData=
+<T>);
+>>> +
+>>> +impl<T, const OFFSET: usize> CList<T, OFFSET> {
+>>> +    /// Create a typed [`CList`] reference from a raw sentinel `list_h=
+ead` pointer.
+>>> +    ///
+>>> +    /// # Safety
+>>> +    ///
+>>> +    /// - `ptr` must be a valid pointer to an allocated and initialize=
+d `list_head` structure
+>>> +    ///   representing a list sentinel.
+>>> +    /// - `ptr` must remain valid and unmodified for the lifetime `'a`=
+.
+>>> +    /// - The list must contain items where the `list_head` field is a=
+t byte offset `OFFSET`.
+>>> +    /// - `T` must be `#[repr(transparent)]` over the C struct.
+>>> +    #[inline]
+>>> +    pub(crate) unsafe fn from_raw<'a>(ptr: *mut bindings::list_head) -=
+> &'a Self {
+>>> +        // SAFETY:
+>>> +        // - [`CList`] has same layout as [`CListHead`] due to repr(tr=
+ansparent).
+>>> +        // - Caller guarantees `ptr` is a valid, sentinel `list_head` =
+object.
+>>> +        unsafe { &*ptr.cast() }
+>>> +    }
+>>> +
+>>> +    /// Check if the list is empty.
+>>> +    #[inline]
+>>> +    #[expect(dead_code)]
+>>> +    pub(crate) fn is_empty(&self) -> bool {
+>>
+>> Why can=E2=80=99t this be pub?
+>
+> I believe this was suggested by Gary. See the other thread where we are
+> discussing it (with Gary and Danilo) and let us discuss there.
 
-On Friday, 23 January 2026 02:29:02 Central European Standard Time Andy Yan=
- wrote:
->=20
-> Hello Nicolas,
->=20
-> =E5=9C=A8 2026-01-22 20:59:41=EF=BC=8C"Nicolas Frattaroli" <nicolas.fratt=
-aroli@collabora.com> =E5=86=99=E9=81=93=EF=BC=9A
-> >On Thursday, 22 January 2026 09:28:54 Central European Standard Time And=
-y Yan wrote:
-> >>=20
-> >> Hello Nicolas=EF=BC=8C
-> >>=20
-> >> At 2026-01-21 22:45:17, "Nicolas Frattaroli" <nicolas.frattaroli@colla=
-bora.com> wrote:
-> >> >YUV444 (aka YCbCr444) output isn't working quite right on RK3588. The
-> >> >resulting image on the display, while identifying itself as YUV444, h=
-as
-> >> >some components swapped, even after adding the necessary DRM formats =
-to
-> >> >the conversion functions.
-> >> >
-> >> >Judging by downstream, this is because YUV444 also needs an rb swap
-> >> >performed in the AFBC case.
-> >> >
-> >> >Add the DRM formats to the appropriate switch statements, and add a
-> >> >function for checking whether an rb swap needs to be performed in the
-> >> >AFBC case.
-> >> >
-> >> >Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
-> >> >Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> >> >---
-> >> > drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 19 +++++++++++++++++++
-> >> > 1 file changed, 19 insertions(+)
-> >> >
-> >> >diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/g=
-pu/drm/rockchip/rockchip_drm_vop2.c
-> >> >index ec3b4fde10db..469c63dd97d5 100644
-> >> >--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> >> >+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> >> >@@ -176,6 +176,7 @@ static enum vop2_data_format vop2_convert_format(=
-u32 format)
-> >> > 	case DRM_FORMAT_ARGB2101010:
-> >> > 	case DRM_FORMAT_XBGR2101010:
-> >> > 	case DRM_FORMAT_ABGR2101010:
-> >> >+	case DRM_FORMAT_VUY101010:
-> >> > 		return VOP2_FMT_XRGB101010;
-> >> > 	case DRM_FORMAT_XRGB8888:
-> >> > 	case DRM_FORMAT_ARGB8888:
-> >> >@@ -184,6 +185,7 @@ static enum vop2_data_format vop2_convert_format(=
-u32 format)
-> >> > 		return VOP2_FMT_ARGB8888;
-> >> > 	case DRM_FORMAT_RGB888:
-> >> > 	case DRM_FORMAT_BGR888:
-> >> >+	case DRM_FORMAT_VUY888:
-> >> > 		return VOP2_FMT_RGB888;
-> >> > 	case DRM_FORMAT_RGB565:
-> >> > 	case DRM_FORMAT_BGR565:
-> >> >@@ -225,6 +227,7 @@ static enum vop2_afbc_format vop2_convert_afbc_fo=
-rmat(u32 format)
-> >> > 	case DRM_FORMAT_ARGB2101010:
-> >> > 	case DRM_FORMAT_XBGR2101010:
-> >> > 	case DRM_FORMAT_ABGR2101010:
-> >> >+	case DRM_FORMAT_VUY101010:
-> >> > 		return VOP2_AFBC_FMT_ARGB2101010;
-> >> > 	case DRM_FORMAT_XRGB8888:
-> >> > 	case DRM_FORMAT_ARGB8888:
-> >> >@@ -233,6 +236,7 @@ static enum vop2_afbc_format vop2_convert_afbc_fo=
-rmat(u32 format)
-> >> > 		return VOP2_AFBC_FMT_ARGB8888;
-> >> > 	case DRM_FORMAT_RGB888:
-> >> > 	case DRM_FORMAT_BGR888:
-> >> >+	case DRM_FORMAT_VUY888:
-> >>=20
-> >> How did you test this format? It seems tools like modetest don=E2=80=
-=99t support testing this pattern.
-> >>=20
-> >
-> >Hi Andy,
-> >
-> >using the rest of this series, which implements the "color format"
-> >DRM property, and the corresponding weston MR that makes use of it[1].
-> >
-> >I create a ~/.config/weston.ini with the following contents:
-> >
-> >    [output]
-> >    name=3DHDMI-A-1
-> >    color-format=3Dyuv444
-> >
-> >This will make Weston try to set the output format to 10-bit YUV444. To
-> >limit it to 8-bit, you can add `max-bpc=3D8`. The monitor's EDID needs to
-> >report YUV444 support, otherwise that Weston version won't let you set
-> >this property.
-> >
->=20
->=20
-> This looks a bit strange. Your commit message and the Weston configuratio=
-n here both target the output format,=20
-> but the patch modifies the functions vop2_convert_format and vop2_convert=
-_afbc_format, which are responsible for
-> converting the data formats of planes/framebuffers (fb)=E2=80=94these hav=
-e nothing to do with the output format.
+I suggested the module to be `pub(crate)`. For the individual item it is no=
+t
+necessary if the module itself already have limited visibility.
 
-Yep, I've now re-tested this in various ways and this commit doesn't do
-what I thought it did. I think when I authored it, this was still doing
-BCSH based conversion and may have depended on this at some stage. Also
-possible that I didn't do a clean test run of solely these changes to
-come to my conclusions.
-
-YUV444 primary planes aren't supported by RK3588 at all from what I gather,
-so I have no clue where I ran into this and how this fixed it.
-
-Testing on RK3576 without this, and also playing around with gbm-format,
-I also don't ever get into the situation where this is needed for correct
-output; it seems like EGLConfig always only exposes RGBA formats anyway,
-so Panfrost may still lack YUV format support for the buffers.
-
-I'll drop this patch on the next revision, but I'll keep the changes in
-mind if an atomic modesetting test workload that sets YUV plane formats
-ever comes to be.
-
-Thanks for the reviews!
-
-Kind regards,
-Nicolas Frattaroli
-
->=20
->=20
-> >Link: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/185=
-9 [1]
-> >
-> >Kind regards,
-> >Nicolas Frattaroli
-> >
-> >>=20
-> >>=20
-> >> > 		return VOP2_AFBC_FMT_RGB888;
-> >> > 	case DRM_FORMAT_RGB565:
-> >> > 	case DRM_FORMAT_BGR565:
-> >> >@@ -270,6 +274,19 @@ static bool vop2_win_rb_swap(u32 format)
-> >> > 	}
-> >> > }
-> >> >=20
-> >> >+static bool vop2_afbc_rb_swap(u32 format)
-> >> >+{
-> >> >+	switch (format) {
-> >> >+	case DRM_FORMAT_NV24:
-> >> >+	case DRM_FORMAT_NV30:
-> >> >+	case DRM_FORMAT_VUY888:
-> >> >+	case DRM_FORMAT_VUY101010:
-> >> >+		return true;
-> >> >+	default:
-> >> >+		return false;
-> >> >+	}
-> >> >+}
-> >> >+
-> >> > static bool vop2_afbc_uv_swap(u32 format)
-> >> > {
-> >> > 	switch (format) {
-> >> >@@ -1291,6 +1308,7 @@ static void vop2_plane_atomic_update(struct drm=
-_plane *plane,
-> >> > 		 /* It's for head stride, each head size is 16 byte */
-> >> > 		stride =3D ALIGN(stride, block_w) / block_w * 16;
-> >> >=20
-> >> >+		rb_swap =3D vop2_afbc_rb_swap(fb->format->format);
-> >> > 		uv_swap =3D vop2_afbc_uv_swap(fb->format->format);
-> >> > 		/*
-> >> > 		 * This is a workaround for crazy IC design, Cluster
-> >> >@@ -1308,6 +1326,7 @@ static void vop2_plane_atomic_update(struct drm=
-_plane *plane,
-> >> > 			vop2_win_write(win, VOP2_WIN_AFBC_ENABLE, 1);
-> >> > 		vop2_win_write(win, VOP2_WIN_AFBC_FORMAT, afbc_format);
-> >> > 		vop2_win_write(win, VOP2_WIN_AFBC_UV_SWAP, uv_swap);
-> >> >+		vop2_win_write(win, VOP2_WIN_AFBC_RB_SWAP, rb_swap);
-> >> > 		/*
-> >> > 		 * On rk3566/8, this bit is auto gating enable,
-> >> > 		 * but this function is not work well so we need
-> >> >
-> >>=20
-> >
-> >
-> >
-> >
->=20
-
-
-
-
+Best,
+Gary
