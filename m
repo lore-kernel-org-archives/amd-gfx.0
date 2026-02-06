@@ -4,86 +4,164 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1612EE6B46
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 17:50:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46C35EE6B48
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Feb 2026 18:22:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A97310E89E;
-	Fri,  6 Feb 2026 17:50:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBC7489364;
+	Fri,  6 Feb 2026 18:22:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="P383PlC4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IflS4GCe";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63EB910E87E;
- Fri,  6 Feb 2026 17:50:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1770400196; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PPFnk9iC0mi3ySuY65jHVOGkas7xITXj5j0TXC0WiZe14RObD31SAlRLtAJbCX5+SDHnu95VLqcr0MnUf8RxLxqb/f/+yqjHrjOmvLgOMZdM5LJKkCO8lK/bO81RpWuMJ2LL3ceHcS2zIULICr+DDhrxcC/knoSsNc9xyln3PbY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1770400196;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=GfLekabmRXth4qz2KuW77WOFt1A3/2EOeqveH8O/zPI=; 
- b=X52iPeXjW31MEhtP2sjrzPIEiSCveSpPSVGTFVhM542ful56k9ZP2WdUPAU6ghOSlT5PkdYTdFdYHq/rPU+Xo3uHREgiW4cftiGXQjsjgR9dXDtgZVmGnM9oUO2VPcALoR3hiCKOr/DQCWLL3YJekQdeBvQPgFQbzDRLjrm0KI0=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1770400196; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:References:To:To:Reply-To;
- bh=GfLekabmRXth4qz2KuW77WOFt1A3/2EOeqveH8O/zPI=;
- b=P383PlC4Gb2f3Xh4s0Y1ksbPZF8sEE6c9DqvdpAAO0SUMqyWaQaUNHQSfW6W7Y4H
- CTxaBhGa2FD0+I/4q5Ie6LPL3ffsrBKdEppBACVCIDrJAFYNSlamHMof2L+E6WCdv+Q
- 85qo27im2I9qZfFfZnuoFWWAT6qF02o0WVYEwGfA=
-Received: by mx.zohomail.com with SMTPS id 1770400193868370.7925643447186;
- Fri, 6 Feb 2026 09:49:53 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH -next v7 1/2] rust: clist: Add support to interface with C
- linked lists
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260206004110.1914814-2-joelagnelf@nvidia.com>
-Date: Fri, 6 Feb 2026 14:49:31 -0300
-Cc: linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?utf-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, joel@joelfernandes.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <73B64D35-6574-4776-962D-865465C40226@collabora.com>
-References: <20260206004110.1914814-1-joelagnelf@nvidia.com>
- <20260206004110.1914814-2-joelagnelf@nvidia.com>
-To: Joel Fernandes <joelagnelf@nvidia.com>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012036.outbound.protection.outlook.com [52.101.53.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC2F389364;
+ Fri,  6 Feb 2026 18:22:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oFgjphStn8Tf2HLvr1BSgpBYjhYKQPPetd9yQW/LgrX1vM9gtD4p4LW2pzdXWciAEHQzb54X8ENmAgOhxv7B6EIUlnQpRODedPJwpkYcyn7vP1g7u4y0XCIHlNyUm1sTm/TDamjAR/JyAjgq3ORDPua7+RlqxTdrOIC0UyURmtaBCZEXuxhjWuejqaol+HeFq55YqqsnO3JZST9n/zrQHH+qnJI5jZlWGYr+RLgJUvx7F/6e+8f9zbY2q00CVfjiYpZFld9Vv/3C8iI52cSsP+kZgHWnYueFGYHzkXrMDRnORCm2U2VEE3QvEMkhBqG+LKAi1nvIzCklVOWhSLxbdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fxkeo5UyQqUO3kOZTC7miXHK8pGi90N71S4iZUuC6bs=;
+ b=uVy7Y/UpFFhaewAEOac3ek2VGtKy8Boboc7UuZlnvypXq6+ZLMbvyQHbXqe76Y4Uy/EECZIwj1Hcij5Nb6eCETydYONwyZueVvPJ8dHMYEtflX0HvuetEiQRUPgD7d68kFXdZ3Sf4ShVDi8/8TTp+lNrm919sixB6EvYtyxs5SoTNGqhaSeFTm9yz0gZ3Pgdm63UrJ+4dkBO5jGfzN1KX+5W3yd82oXC/ZoYOeNLmTuERsxlgzPhZa/GrB2ASeFCmjO+tkccfJ+7xMukS0FtttQBMyiPVzbNScyA7BM9ZhwZokeKKUvlYPI58OHxhl7T93NnaipsHhnehetngt60lg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fxkeo5UyQqUO3kOZTC7miXHK8pGi90N71S4iZUuC6bs=;
+ b=IflS4GCenT2+v9+aldeugyJyYMMy7myiKmv0sLFoCQLAJVMZDMMWGV5qQIEmlynuArmRnHaGCv57ZkV2Nq3/twPAEgxSPBIaJab5ZuUYgQ7KzE7VulWbi6/8cJWj+uz49ELQOP3dURdQJOWPWihOwO67FFcHXf2EXlQCYUdBGd8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com (2603:10b6:208:312::8)
+ by PH7PR12MB5784.namprd12.prod.outlook.com (2603:10b6:510:1d3::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.14; Fri, 6 Feb
+ 2026 18:22:29 +0000
+Received: from BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe]) by BL1PR12MB5126.namprd12.prod.outlook.com
+ ([fe80::c3e7:1bc5:2b91:1cfe%4]) with mapi id 15.20.9587.013; Fri, 6 Feb 2026
+ 18:22:29 +0000
+Message-ID: <0d0cd4fb-0bce-4c11-bc70-2e232993ee73@amd.com>
+Date: Fri, 6 Feb 2026 13:22:22 -0500
+User-Agent: Mozilla Thunderbird
+From: Harry Wentland <harry.wentland@amd.com>
+Subject: Re: [PATCH v3 02/19] drm/amd/display: Refactor
+ amdgpu_dm_update_freesync_caps()
+To: =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
+ alexander.deucher@amd.com, sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ siqueira@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org,
+ admin@ptr1337.dev
+References: <20260203185626.55428-1-tomasz.pakula.oficjalny@gmail.com>
+ <20260203185626.55428-3-tomasz.pakula.oficjalny@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20260203185626.55428-3-tomasz.pakula.oficjalny@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YQBPR01CA0067.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:2::39) To BL1PR12MB5126.namprd12.prod.outlook.com
+ (2603:10b6:208:312::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5126:EE_|PH7PR12MB5784:EE_
+X-MS-Office365-Filtering-Correlation-Id: 23a0d510-398a-4bb8-65fe-08de65acaf9a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YWJ3eE83QUhiQVMzeE9NeUZGWTFYSk85RlYyamZSVjBMVER5UVVWK3drYXhy?=
+ =?utf-8?B?emRFc1p2UmwxczdtZ3RnZEE1aVFRcVJxV1N0eG5VVllyK2I1by9mcDQybVo2?=
+ =?utf-8?B?MjQ0YkwvTGtpSEdvaTJaUVp0L1VyWG1hVlZPZkIvL29TZ3VoTHc0d2tSWVRM?=
+ =?utf-8?B?bUxlb3dnRXprdG1pSGJjVWlNQjFMUXJlRHd0cVpRdjlBL25NYmlXMUZaWGxn?=
+ =?utf-8?B?a0dWa2MwY0o0OGRKbjZWWFZ1L1dta3FSRmw5MGNuSTBGRURmTndwOHNXd0Jl?=
+ =?utf-8?B?RkpLek0weTN5YmhzMDUxaEJub01TQkRrVXZicUdqOHpxZWxPTXpTREJjYkNK?=
+ =?utf-8?B?WXpvWlFuRXF6U2dscGxtS2U4Y3JkQlRSSTVVVWMzRDdMREord1FIazBXZFpR?=
+ =?utf-8?B?d29Jalo0OVRHK1UxM2NZMGdzOG8rQ3hEQVg5T3k0ZGs4Z21TM0RQVUdtSW5T?=
+ =?utf-8?B?VnFnUjhxNkpSaHh1K25ldzFnR2VSZUR2bWJLZzhrYnBPaTUwVGI2TkkvNnhY?=
+ =?utf-8?B?b3VIWU1vT01hV0JGbUlPZTQ3NXhCUEcvcm82RVpFUHV5K0RReFJPR25LVExo?=
+ =?utf-8?B?Nng4Z2hvak1IVmFKVXlueW9rU0t5WStEeVRCNGwyMy9LcG1vaWd5cjFLQ0po?=
+ =?utf-8?B?RUFZUjVva2oyNGhiclowZTZQSFlOQ01KdlNXY2g1bGJaWVdTcWtqY1B3UjNy?=
+ =?utf-8?B?cFBKdGMycENrMURTV0VDTDNCQnhtMnQrNENpWko4SU5HMHc4RGJ0N1QzM2g0?=
+ =?utf-8?B?bHI0dXY0T09JQ0JWQlpKU0k3OWo0TGJKMS9pWmxQaCtyd2NUTEVPM0EweGVX?=
+ =?utf-8?B?bk4veVhNc3B2S3lVbGkzQTdLT0cyamd2SEZrMnJLSUdBbjJXa293bUhNdllD?=
+ =?utf-8?B?UGFVRE9xTEpySzJaQTBpZlhoRC9Tc0QvSmpTMHB5eFJmcUltcTZhSERpditP?=
+ =?utf-8?B?Q2xHTFlva1J4QXhWYjlGcE8yQldNUzNSUlFJS29JWk4yQ1lqb0F1T2VpN044?=
+ =?utf-8?B?d2ZBV3pYemdwa0QweVk5ZGx1SEhabExvSThoeE5OYnNjay92d0M1SUxydmdJ?=
+ =?utf-8?B?ckFlTzU0Skd1WjVKSElOT294OVY5T1IyRHJZZEc3MjRJNTFvT3RMVEtPUUVz?=
+ =?utf-8?B?dUk5WXNqWlJKTEVpblBid3Zvb25EUzhrTVdqK25hQ0xkZU5HSW5tOHIvOXdv?=
+ =?utf-8?B?SnpuWWtGNTRxQ0hNTUxPMkhPSU9UbDJxeDBaSHl0U1RML2pBRE0vYXNrUUly?=
+ =?utf-8?B?c0dsNzNwM3gzTTVwT1hKNjljUzNUSjlhNm45SmRNYkF6Z3R3bmpFamMwY2FI?=
+ =?utf-8?B?L0p4Ty9LRG5MUUhpMGlQSmxpS1hQVTQ2V3JxalIxQXR1TWRZcVpxbCtNSWpT?=
+ =?utf-8?B?LzJvaG5USm5JcTAvTUQ0VFEwZHJ4dUc1WTVDTS96aHpLNkZFSWxLTDFjNVJi?=
+ =?utf-8?B?TTJmbnhTSUt1MklaMnlza25TSkh6RjdaYnJRM1g5NUcwajNaVFRqSUlEbXpy?=
+ =?utf-8?B?bkJQMWVBdGRLWHVDSnA1aHFwY0Z4d2I4Nktnb1hQVUpUWDBWRHJxa00yQ21a?=
+ =?utf-8?B?U3IzcUZ2Y3VTYi9hT094dTZpdldvVk56SERydlN5a2ZOUkZnL0J6Y2tpdHNo?=
+ =?utf-8?B?eTdXTzVvQVl6SndlM0c4TGFxSkJLWitQeCs0bFVHcThpYkJJNENPN0FjdXBY?=
+ =?utf-8?B?alY3L2JmTjAyRkhnYkhvOWdid2JrNnk0Y0RMWTE4dUNna0FqaFE0YXlGVzNB?=
+ =?utf-8?B?aDFaSm9hWkV2STduQVZ5cGJRTmQ2VWJUL3REaFN3RmtJdlpHU0FuMDVDYlI3?=
+ =?utf-8?B?QTZkR3FCNnV3a0R3ZUthYkI3WDh1TTlCbDNqdkNPVEZIWEFSSWYrYm1kSjYv?=
+ =?utf-8?B?bDE3b29Iblg3OTZkeFY1VVNZQzhVMUl6TTFJanh6QmdGVWtzL09zVS9oZ3lI?=
+ =?utf-8?B?Ky9uckpEZkVENm9Hb09BdVdYdkQ0aTVCVmpIcTIyU0ttcG93RDNRYWI4UlVy?=
+ =?utf-8?B?cFRIYUEyWWY1R2h1bUpXak5jU2d0QXM2Y1NML0tqaU5KSEsyYlZWaDEyTmpN?=
+ =?utf-8?B?Wi9rb296ZlJycHJqNEhkOHZocVhhc3IzUzBROFpZR1dDdEhhc1ZtZFNva2V5?=
+ =?utf-8?Q?1ahA=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5126.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cmhaZFF5SEdvZkxIcStxazVPYzg1N3ErSllUOGxzRWZURHprNmpPV0s4dEkv?=
+ =?utf-8?B?S0M1eUw3Yk41L0JtbzFDZkkzcXlEcnVtRjJESjYwcHE3S21sM0FzaHJMQ2lE?=
+ =?utf-8?B?aGVhWmhjcWRqOGRFMTJEUkh5S2ZNWW9IK3NpVFZnb2hwQzFwU1hPQmNwU2Zr?=
+ =?utf-8?B?RnR0dGw3Qy9PeU43MGdJdmJwZ2FnKzdoRHVLV1VhN3BYV0tnN24rM0prdXlt?=
+ =?utf-8?B?ZDVRaXFPb1Vta0dwNUhyd2YxRDBxQWxhRm1pR3NXVkZCcXp5U2trQVcwYkZL?=
+ =?utf-8?B?U1NINlpCT3Azd01ZNk90VFl4NUZrSUZLMnVKYmRpSWRDWXFRZGFnN2xCT1o5?=
+ =?utf-8?B?MnN3anRyM2FsanhYZWkyKzRnWE95ZTZ4TVJyemRsQmVqeHlXMzFQMFQvVC84?=
+ =?utf-8?B?VmF1ZzUwbUxKMjdwcm10YXp3SURXKzdGSFFmR2lQV3laczNZejhWRW9vVGRZ?=
+ =?utf-8?B?QUE4L3Z6ZWNhV2VFTXNUV2RoWGlCaXo4aXdIYVJNUzVkcjhDOGlVZGZUaEpi?=
+ =?utf-8?B?bjRWcGhLOWRqVkd0YnJIRFJCblkyMzBTZ2NaL2NaTHMwT0JDTVJ5am92dy95?=
+ =?utf-8?B?YkhTeW0rU0Jpd2FQWlhVUlZwQWthVUZWZ0lLM0MvSHRDQ0szdWNkVGw4cWt4?=
+ =?utf-8?B?SC82VCtiNG5mWnE1OGJyY2JZOFZjV0VTaG82RG1pRkZ0QXdUdHhjK3k3T3o0?=
+ =?utf-8?B?RGdoaXBqOFJJNEZoV05OTGo4OENjMDlEVnB5YzI3Y3lOVEpEQXpkNVJCNVpE?=
+ =?utf-8?B?S1lwTGkyWGV6d2lhdVk2T3kxMFIwOWpxRHduTUJ4WFc1cldoUTJENm54enpY?=
+ =?utf-8?B?VlphNkt3L05zQUx1RGliTVQ1UmpBcnBUdWxFM2lwekQwcVIvZnNQcHJqTDFW?=
+ =?utf-8?B?TldCNENsQUZaOHVac1FtMGY2M3pvaUxYclZjckliWEZ0YUZzUVd0d3FwOGhV?=
+ =?utf-8?B?MDluMlZibk5JZjdPQituWnVaR0tURHVxYmd3TUtjL041UVRzdmpqajJiU2Nl?=
+ =?utf-8?B?SGZXbE4yQWxJb3pxbHA2M2ZQUEdYaHFWa1YxWDU5TS9ibFRZNFpLQitjMVk5?=
+ =?utf-8?B?UkhUdGNGRGJvalpVWG1ZOXNFOWhpNHE5Q2VCaEtqYlNXTUpONHBOUm03N2hv?=
+ =?utf-8?B?UHluQzVGcXVVL0xXNUsvMlA2OFZYOXlyMmh2aGlKbjIyNkNJQjFRRkEwbGFW?=
+ =?utf-8?B?Rjd2bTZTSnBCRnZQQnpOVjhsSXNJbTJ2WFVDanM1RG5vOVQyNmJXckJ0NWND?=
+ =?utf-8?B?Z3pNN2JPdEhtaUV5K3djNWFibXVHRVIxRUZYSXU0cU5tcEljdVBsWWVmV09k?=
+ =?utf-8?B?NEhJN2RsWG5XSWpKMmp4dlRBSmhCTy9LWkxNOE9wdC9ReE1ITnpSR1RualFu?=
+ =?utf-8?B?YXhsMkRQWkcxcGI2VVYxUFhwYXNHeXl0dzFwSEhkRlVzVEZEMUxaKzY5UW5N?=
+ =?utf-8?B?VHZNNS94KzN6K0dBM2ZIeUhjeDVVMUw1Q21XTk01V3VtV01XbzRpNmJ1WXRp?=
+ =?utf-8?B?ZjNPbVZIdlNJTEJoaTJ0bHRhdDhnVDdPTk1XQ2J0SDNNeU9qS3ZleDVPa3JH?=
+ =?utf-8?B?a3o0TEt1N0RoY3dCTERHM0x0bW5hS3hBU2FjWlhGbStUZ0FUeXpPa1c4eWFj?=
+ =?utf-8?B?VlNCZlJPUVd5ZEdsUjV5cW53aXVqMGVCRFJoU0ZIb1d2VWVwY25Mc1JGUHJu?=
+ =?utf-8?B?VTVQZVR5dWR3WFF2NEJzTHlmSWtKcnZicXRlblZjeXZ6MzN0R3ZsT2FzRFl3?=
+ =?utf-8?B?QmMwZWdhdEVpdVcvNzVlN2RYMkJGN2hqd3VBNWZvVlo3T2RMYm9wVld2U3VC?=
+ =?utf-8?B?eEgvOCtuSS95M01vUmpjVk5naW1lYnpBQWRiWktEMjBsQXlyT3QvbWszRlFp?=
+ =?utf-8?B?ZjNoNWx5RVNrOEZFbjk3SnRXdGdUUGZ0dzVnb2NUbGo3VWhlV2FsOWpHd29k?=
+ =?utf-8?B?bTlKRmVhMElKbjdsTGhBN2tRVnNhODd5WitmcXJzeWtUbTBBNC83Tnl4Z0xG?=
+ =?utf-8?B?VHcyc242bWZtWnk2SmR3TzZSL1B4c2J1YVNIKzRTQXl0Y0gzY3Nkd3VjRmk2?=
+ =?utf-8?B?amF3eDlwbjI2TTVubHMwYWlOWFE5eU5kdnhRUm9ZM0tzTytBSHFpOTlNMXMr?=
+ =?utf-8?B?SEU5NnJmem1EUmhDbytQWVV6UVNlTEtuQUpjY3RibEdJYWpjNzZyNERWRktB?=
+ =?utf-8?B?RDdKdzNYeTJ6bWpWQUFLSFpxYTlJZlBmWWZrZzhrYkNtb2dwNDZQTWhYUG5i?=
+ =?utf-8?B?WC9hdG9IbjE5a1RIVWRPdHROTUFTVEpybkxGSWorZ05KV1VmNFcwME05NSs2?=
+ =?utf-8?B?NkhGZEZhREVQT29GNklkeWlhVUtWSWEyb0pnR1poSXdqNytFdjhtUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23a0d510-398a-4bb8-65fe-08de65acaf9a
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5126.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 18:22:28.9581 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VoLt1TwxuxIHjwMd2g5M8krSFdqZ9EpI/Mipl4jRGvQKj2S+jC4mJ3LmiP4z3TKyXCdHuEZDp9EyxDb7N8T76Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5784
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,506 +176,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Joel,
 
-> On 5 Feb 2026, at 21:41, Joel Fernandes <joelagnelf@nvidia.com> wrote:
->=20
-> Add a new module `clist` for working with C's doubly circular linked
-> lists. Provide low-level iteration over list nodes.
->=20
-> Typed iteration over actual items is provided with a `clist_create`
-> macro to assist in creation of the `CList` type.
->=20
-> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+
+On 2026-02-03 13:56, Tomasz Pakuła wrote:
+> [Why]
+> This function started to get very messy and hard to follow.
+> 
+> [How]
+> Eject some functionality to separate functions and simplify greatly.
+> 
+> Changes in v3:
+> - Less struct traversal in helper functions
+> 
+> Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 > ---
-> MAINTAINERS            |   7 +
-> drivers/gpu/Kconfig    |   7 +
-> rust/helpers/helpers.c |   1 +
-> rust/helpers/list.c    |  21 +++
-> rust/kernel/clist.rs   | 315 +++++++++++++++++++++++++++++++++++++++++
-> rust/kernel/lib.rs     |   2 +
-> 6 files changed, 353 insertions(+)
-> create mode 100644 rust/helpers/list.c
-> create mode 100644 rust/kernel/clist.rs
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 900fc00b73e6..310bb479260c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23204,6 +23204,13 @@ S: Maintained
-> T: git https://github.com/Rust-for-Linux/linux.git rust-analyzer-next
-> F: scripts/generate_rust_analyzer.py
->=20
-> +RUST TO C LIST INTERFACES
-> +M: Joel Fernandes <joelagnelf@nvidia.com>
-> +M: Alexandre Courbot <acourbot@nvidia.com>
-> +L: rust-for-linux@vger.kernel.org
-> +S: Maintained
-> +F: rust/kernel/clist.rs
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 123 +++++++++++-------
+>  1 file changed, 73 insertions(+), 50 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 29e4a047b455..2c5877ed5f32 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -13119,8 +13119,8 @@ static void parse_edid_displayid_vrr(struct drm_connector *connector,
+>  	}
+>  }
+>  
+> -static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+> -			  const struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
+> +static int parse_amd_vsdb_did(struct amdgpu_dm_connector *aconnector,
+> +			      const struct edid *edid, struct amdgpu_hdmi_vsdb_info *vsdb_info)
+>  {
+>  	u8 *edid_ext = NULL;
+>  	int i;
+> @@ -13172,13 +13172,13 @@ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+>  	return false;
+>  }
+>  
+> -static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+> -			       const struct edid *edid,
+> -			       struct amdgpu_hdmi_vsdb_info *vsdb_info)
+> +static int parse_amd_vsdb_cea(struct amdgpu_dm_connector *aconnector,
+> +			      const struct edid *edid,
+> +			      struct amdgpu_hdmi_vsdb_info *vsdb_info)
+>  {
+> +	struct amdgpu_hdmi_vsdb_info vsdb_local = {0};
+>  	u8 *edid_ext = NULL;
+>  	int i;
+> -	bool valid_vsdb_found = false;
+>  
+>  	/*----- drm_find_cea_extension() -----*/
+>  	/* No EDID or EDID extensions */
+> @@ -13199,9 +13199,47 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+>  	if (edid_ext[0] != CEA_EXT)
+>  		return -ENODEV;
+>  
+> -	valid_vsdb_found = parse_edid_cea(aconnector, edid_ext, EDID_LENGTH, vsdb_info);
+> +	if (!parse_edid_cea(aconnector, edid_ext, EDID_LENGTH, &vsdb_local))
+> +		return -ENODEV;
+>  
+> -	return valid_vsdb_found ? i : -ENODEV;
+> +	*vsdb_info = vsdb_local;
+> +	return i;
+> +}
 > +
-> RXRPC SOCKETS (AF_RXRPC)
-> M: David Howells <dhowells@redhat.com>
-> M: Marc Dionne <marc.dionne@auristor.com>
-> diff --git a/drivers/gpu/Kconfig b/drivers/gpu/Kconfig
-> index 22dd29cd50b5..2c3dec070645 100644
-> --- a/drivers/gpu/Kconfig
-> +++ b/drivers/gpu/Kconfig
-> @@ -1,7 +1,14 @@
-> # SPDX-License-Identifier: GPL-2.0
->=20
-> +config RUST_CLIST
-> + bool
-> + depends on RUST
-> + help
-> +  Rust abstraction for interfacing with C linked lists.
-> +
-> config GPU_BUDDY
-> bool
-> + select RUST_CLIST if RUST
-> help
->  A page based buddy allocator for GPU memory.
->=20
-> diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-> index a3c42e51f00a..724fcb8240ac 100644
-> --- a/rust/helpers/helpers.c
-> +++ b/rust/helpers/helpers.c
-> @@ -35,6 +35,7 @@
-> #include "io.c"
-> #include "jump_label.c"
-> #include "kunit.c"
-> +#include "list.c"
-> #include "maple_tree.c"
-> #include "mm.c"
-> #include "mutex.c"
-> diff --git a/rust/helpers/list.c b/rust/helpers/list.c
-> new file mode 100644
-> index 000000000000..3390b154fa36
-> --- /dev/null
-> +++ b/rust/helpers/list.c
-> @@ -0,0 +1,21 @@
-> +// SPDX-License-Identifier: GPL-2.0
+> +static bool is_monitor_range_invalid(const struct drm_connector *conn)
+> +{
+> +	return conn->display_info.monitor_range.min_vfreq == 0 ||
+> +	       conn->display_info.monitor_range.max_vfreq == 0;
+> +}
 > +
 > +/*
-> + * Helpers for C Circular doubly linked list implementation.
+> + * Returns true if (max_vfreq - min_vfreq) > 10
 > + */
-> +
-> +#include <linux/list.h>
-> +
-> +#ifndef __rust_helper
-> +#define __rust_helper
-> +#endif
-> +
-> +__rust_helper void rust_helper_INIT_LIST_HEAD(struct list_head *list)
+> +static bool is_freesync_capable(const struct drm_monitor_range_info *range)
 > +{
-> + INIT_LIST_HEAD(list);
+> +	return (range->max_vfreq - range->min_vfreq) > 10;
 > +}
 > +
-> +__rust_helper void rust_helper_list_add_tail(struct list_head *new, =
-struct list_head *head)
+> +static void monitor_range_from_vsdb(struct drm_display_info *display,
+> +				    const struct amdgpu_hdmi_vsdb_info *vsdb)
 > +{
-> + list_add_tail(new, head);
-> +}
-> diff --git a/rust/kernel/clist.rs b/rust/kernel/clist.rs
-> new file mode 100644
-> index 000000000000..1f6d4db13c1d
-> --- /dev/null
-> +++ b/rust/kernel/clist.rs
-> @@ -0,0 +1,315 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! A C doubly circular intrusive linked list interface for rust =
-code.
-> +//!
-> +//! # Examples
-> +//!
-> +//! ```
-> +//! use kernel::{
-> +//!     bindings,
-> +//!     clist_create,
-> +//!     types::Opaque, //
-> +//! };
-> +//! # // Create test list with values (0, 10, 20) - normally done by =
-C code but it is
-> +//! # // emulated here for doctests using the C bindings.
-> +//! # use core::mem::MaybeUninit;
-> +//! #
-> +//! # /// C struct with embedded `list_head` (typically will be =
-allocated by C code).
-> +//! # #[repr(C)]
-> +//! # pub(crate) struct SampleItemC {
-> +//! #     pub value: i32,
-> +//! #     pub link: bindings::list_head,
-> +//! # }
-> +//! #
-> +//! # let mut head =3D MaybeUninit::<bindings::list_head>::uninit();
-> +//! #
-> +//! # let head =3D head.as_mut_ptr();
-> +//! # // SAFETY: head and all the items are test objects allocated in =
-this scope.
-> +//! # unsafe { bindings::INIT_LIST_HEAD(head) };
-> +//! #
-> +//! # let mut items =3D [
-> +//! #     MaybeUninit::<SampleItemC>::uninit(),
-> +//! #     MaybeUninit::<SampleItemC>::uninit(),
-> +//! #     MaybeUninit::<SampleItemC>::uninit(),
-> +//! # ];
-> +//! #
-> +//! # for (i, item) in items.iter_mut().enumerate() {
-> +//! #     let ptr =3D item.as_mut_ptr();
-> +//! #     // SAFETY: pointers are to allocated test objects with a =
-list_head field.
-> +//! #     unsafe {
-> +//! #         (*ptr).value =3D i as i32 * 10;
-> +//! #         // addr_of_mut!() computes address of link directly as =
-link is uninitialized.
-> +//! #         =
-bindings::INIT_LIST_HEAD(core::ptr::addr_of_mut!((*ptr).link));
-
-Shoudn=E2=80=99t this be &raw mut?
-
-> +//! #         bindings::list_add_tail(&mut (*ptr).link, head);
-> +//! #     }
-> +//! # }
-> +//!
-> +//! // Rust wrapper for the C struct.
-> +//! // The list item struct in this example is defined in C code as:
-> +//! //   struct SampleItemC {
-> +//! //       int value;
-> +//! //       struct list_head link;
-> +//! //   };
-> +//! //
-> +//! #[repr(transparent)]
-> +//! pub(crate) struct Item(Opaque<SampleItemC>);
-> +//!
-> +//! impl Item {
-> +//!     pub(crate) fn value(&self) -> i32 {
-> +//!         // SAFETY: [`Item`] has same layout as [`SampleItemC`].
-> +//!         unsafe { (*self.0.get()).value }
-> +//!     }
-> +//! }
-> +//!
-> +//! // Create typed [`CList`] from sentinel head.
-> +//! // SAFETY: head is valid, items are [`SampleItemC`] with embedded =
-`link` field.
-> +//! let list =3D unsafe { clist_create!(head, Item, SampleItemC, =
-link) };
-> +//!
-> +//! // Iterate directly over typed items.
-> +//! let mut found_0 =3D false;
-> +//! let mut found_10 =3D false;
-> +//! let mut found_20 =3D false;
-> +//!
-> +//! for item in list.iter() {
-> +//!     let val =3D item.value();
-> +//!     if val =3D=3D 0 { found_0 =3D true; }
-> +//!     if val =3D=3D 10 { found_10 =3D true; }
-> +//!     if val =3D=3D 20 { found_20 =3D true; }
-> +//! }
-> +//!
-> +//! assert!(found_0 && found_10 && found_20);
-> +//! ```
-> +
-> +use core::{
-> +    iter::FusedIterator,
-> +    marker::PhantomData, //
-> +};
-> +
-> +use crate::{
-> +    bindings,
-> +    types::Opaque, //
-> +};
-> +
-> +use pin_init::PinInit;
-> +
-> +/// Wraps a `list_head` object for use in intrusive linked lists.
-> +///
-> +/// # Invariants
-> +///
-> +/// - [`CListHead`] represents an allocated and valid `list_head` =
-structure.
-> +/// - Once a [`CListHead`] is created in Rust, it will not be =
-modified by non-Rust code.
-
-> +/// - All `list_head` for individual items are not modified for the =
-lifetime of [`CListHead`].
-
-Can you expand on the two points above?
-
-> +#[repr(transparent)]
-> +pub(crate) struct CListHead(Opaque<bindings::list_head>);
-> +
-> +impl CListHead {
-> +    /// Create a `&CListHead` reference from a raw `list_head` =
-pointer.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// - `ptr` must be a valid pointer to an allocated and =
-initialized `list_head` structure.
-> +    /// - `ptr` must remain valid and unmodified for the lifetime =
-`'a`.
-> +    #[inline]
-> +    pub(crate) unsafe fn from_raw<'a>(ptr: *mut bindings::list_head) =
--> &'a Self {
-> +        // SAFETY:
-> +        // - [`CListHead`] has same layout as `list_head`.
-> +        // - `ptr` is valid and unmodified for 'a.
-> +        unsafe { &*ptr.cast() }
-> +    }
-> +
-> +    /// Get the raw `list_head` pointer.
-> +    #[inline]
-> +    pub(crate) fn as_raw(&self) -> *mut bindings::list_head {
-> +        self.0.get()
-> +    }
-> +
-> +    /// Get the next [`CListHead`] in the list.
-> +    #[inline]
-> +    pub(crate) fn next(&self) -> &Self {
-> +        let raw =3D self.as_raw();
-> +        // SAFETY:
-> +        // - `self.as_raw()` is valid per type invariants.
-> +        // - The `next` pointer is guaranteed to be non-NULL.
-> +        unsafe { Self::from_raw((*raw).next) }
-> +    }
-> +
-> +    /// Check if this node is linked in a list (not isolated).
-> +    #[inline]
-> +    pub(crate) fn is_linked(&self) -> bool {
-> +        let raw =3D self.as_raw();
-> +        // SAFETY: self.as_raw() is valid per type invariants.
-> +        unsafe { (*raw).next !=3D raw && (*raw).prev !=3D raw }
-
-I wonder if this is duplicating some C helper?
-
-> +    }
-> +
-> +    /// Pin-initializer that initializes the list head.
-> +    pub(crate) fn new() -> impl PinInit<Self> {
-> +        // SAFETY: `INIT_LIST_HEAD` initializes `slot` to a valid =
-empty list.
-> +        unsafe {
-> +            pin_init::pin_init_from_closure(move |slot: *mut Self| {
-> +                bindings::INIT_LIST_HEAD(slot.cast());
-> +                Ok(())
-> +            })
-> +        }
-> +    }
+> +	display->monitor_range.min_vfreq = vsdb->min_refresh_rate_hz;
+> +	display->monitor_range.max_vfreq = vsdb->max_refresh_rate_hz;
 > +}
 > +
-> +// SAFETY: [`CListHead`] can be sent to any thread.
-> +unsafe impl Send for CListHead {}
+> +/*
+> + * Returns true if connector is capable of freesync
+> + * Optionally, can fetch the range from AMD vsdb
+> + */
+> +static bool copy_range_to_amdgpu_connector(struct drm_connector *conn)
+> +{
+> +	struct amdgpu_dm_connector *aconn = to_amdgpu_dm_connector(conn);
+> +	struct drm_monitor_range_info *range = &conn->display_info.monitor_range;
 > +
-> +// SAFETY: [`CListHead`] can be shared among threads as it is not =
-modified
-> +// by non-Rust code per type invariants.
-> +unsafe impl Sync for CListHead {}
+> +	aconn->min_vfreq = range->min_vfreq;
+> +	aconn->max_vfreq = range->max_vfreq;
 > +
-> +impl PartialEq for CListHead {
-> +    fn eq(&self, other: &Self) -> bool {
-> +        core::ptr::eq(self, other)
-> +    }
-> +}
-> +
-> +impl Eq for CListHead {}
-> +
-> +/// Low-level iterator over `list_head` nodes.
-> +///
-> +/// An iterator used to iterate over a C intrusive linked list =
-(`list_head`). Caller has to
-> +/// perform conversion of returned [`CListHead`] to an item (using =
-`container_of` macro or similar).
-> +///
-> +/// # Invariants
-> +///
-> +/// [`CListHeadIter`] is iterating over an allocated, initialized and =
-valid list.
-> +struct CListHeadIter<'a> {
-> +    /// Current position in the list.
-> +    current: &'a CListHead,
-> +    /// The sentinel head (used to detect end of iteration).
-> +    sentinel: &'a CListHead,
-> +}
-> +
-> +impl<'a> Iterator for CListHeadIter<'a> {
-> +    type Item =3D &'a CListHead;
-> +
-> +    #[inline]
-> +    fn next(&mut self) -> Option<Self::Item> {
-> +        // Check if we've reached the sentinel (end of list).
-> +        if core::ptr::eq(self.current, self.sentinel) {
-> +            return None;
-> +        }
+> +	return is_freesync_capable(range);
+>  }
+>  
+>  /**
+> @@ -13218,13 +13256,14 @@ static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+>  void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+>  				    const struct drm_edid *drm_edid)
+>  {
+> -	int i = 0;
+>  	struct amdgpu_dm_connector *amdgpu_dm_connector =
+>  			to_amdgpu_dm_connector(connector);
+>  	struct dm_connector_state *dm_con_state = NULL;
+>  	struct dc_sink *sink;
+>  	struct amdgpu_device *adev = drm_to_adev(connector->dev);
+>  	struct amdgpu_hdmi_vsdb_info vsdb_info = {0};
+> +	struct amdgpu_hdmi_vsdb_info vsdb_did = {0};
+> +	struct dpcd_caps dpcd_caps = {0};
+>  	const struct edid *edid;
+>  	bool freesync_capable = false;
+>  	enum adaptive_sync_type as_type = ADAPTIVE_SYNC_TYPE_NONE;
+> @@ -13256,62 +13295,46 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+>  		goto update;
+>  
+>  	edid = drm_edid_raw(drm_edid); // FIXME: Get rid of drm_edid_raw()
+> +	parse_amd_vsdb_cea(amdgpu_dm_connector, edid, &vsdb_info);
 
-I was under the impression that CListHeads implemented PartialEq/Eq?
+This change says it's a refactor, which in my book should
+never include a (subtle) functional change. But we're now
+calling this function for all sink_signal types, whereas
+before it was only called for HDMI_TYPE_A.
 
 > +
-> +        let item =3D self.current;
-> +        self.current =3D item.next();
-> +        Some(item)
-> +    }
-> +}
-> +
-> +impl<'a> FusedIterator for CListHeadIter<'a> {}
-> +
-> +/// A typed C linked list with a sentinel head.
-> +///
-> +/// A sentinel head represents the entire linked list and can be used =
-for
-> +/// iteration over items of type `T`, it is not associated with a =
-specific item.
-> +///
-> +/// The const generic `OFFSET` specifies the byte offset of the =
-`list_head` field within
-> +/// the struct that `T` wraps.
-> +///
-> +/// # Invariants
-> +///
-> +/// - The [`CListHead`] is an allocated and valid sentinel C =
-`list_head` structure.
-> +/// - `OFFSET` is the byte offset of the `list_head` field within the =
-struct that `T` wraps.
-> +/// - All the list's `list_head` nodes are allocated and have valid =
-next/prev pointers.
-> +#[repr(transparent)]
-> +pub(crate) struct CList<T, const OFFSET: usize>(CListHead, =
-PhantomData<T>);
-> +
-> +impl<T, const OFFSET: usize> CList<T, OFFSET> {
-> +    /// Create a typed [`CList`] reference from a raw sentinel =
-`list_head` pointer.
-> +    ///
-> +    /// # Safety
-> +    ///
-> +    /// - `ptr` must be a valid pointer to an allocated and =
-initialized `list_head` structure
-> +    ///   representing a list sentinel.
-> +    /// - `ptr` must remain valid and unmodified for the lifetime =
-`'a`.
-> +    /// - The list must contain items where the `list_head` field is =
-at byte offset `OFFSET`.
-> +    /// - `T` must be `#[repr(transparent)]` over the C struct.
-> +    #[inline]
-> +    pub(crate) unsafe fn from_raw<'a>(ptr: *mut bindings::list_head) =
--> &'a Self {
-> +        // SAFETY:
-> +        // - [`CList`] has same layout as [`CListHead`] due to =
-repr(transparent).
-> +        // - Caller guarantees `ptr` is a valid, sentinel `list_head` =
-object.
-> +        unsafe { &*ptr.cast() }
-> +    }
-> +
-> +    /// Check if the list is empty.
-> +    #[inline]
-> +    #[expect(dead_code)]
-> +    pub(crate) fn is_empty(&self) -> bool {
+> +	if (amdgpu_dm_connector->dc_link)
+> +		dpcd_caps = amdgpu_dm_connector->dc_link->dpcd_caps;
+>  
+>  	/* Some eDP panels only have the refresh rate range info in DisplayID */
+> -	if ((connector->display_info.monitor_range.min_vfreq == 0 ||
+> -	     connector->display_info.monitor_range.max_vfreq == 0))
+> +	if (is_monitor_range_invalid(connector))
+>  		parse_edid_displayid_vrr(connector, edid);
+>  
+> -	if (edid && (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
+> -		     sink->sink_signal == SIGNAL_TYPE_EDP)) {
+> -		if (amdgpu_dm_connector->dc_link &&
+> -		    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_param) {
+> -			amdgpu_dm_connector->min_vfreq = connector->display_info.monitor_range.min_vfreq;
+> -			amdgpu_dm_connector->max_vfreq = connector->display_info.monitor_range.max_vfreq;
+> -			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
+> -				freesync_capable = true;
+> -		}
+> +	if (sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT ||
+> +	    sink->sink_signal == SIGNAL_TYPE_EDP) {
+>  
+> -		parse_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+> +		if (dpcd_caps.allow_invalid_MSA_timing_param)
+> +			freesync_capable = copy_range_to_amdgpu_connector(connector);
+>  
+> -		if (vsdb_info.replay_mode) {
+> -			amdgpu_dm_connector->vsdb_info.replay_mode = vsdb_info.replay_mode;
+> -			amdgpu_dm_connector->vsdb_info.amd_vsdb_version = vsdb_info.amd_vsdb_version;
+> +		/* eDP */
+> +		if (edid)
 
-Why can=E2=80=99t this be pub?
+Same here, I'm not entirely sure whether moving the edid
+check down here won't have a subtle behavior change.
 
-> +        !self.0.is_linked()
-> +    }
+I'd like to be either convinced that these things cannot
+change behavior, or I'd like to see this broken out into
+two patches, (1) a true refactor patch, without possible
+behavior changes, and (2) another patch that might affect
+behavior.
+
+Overall I'm in favor of the changes and thank you for
+cleaning this up. I'm just worried about subtle bugs.
+
+Harry
+
+> +			parse_amd_vsdb_did(amdgpu_dm_connector, edid, &vsdb_did);
 > +
-> +    /// Create an iterator over typed items.
-> +    #[inline]
-> +    pub(crate) fn iter(&self) -> CListIter<'_, T, OFFSET> {
-> +        let head =3D &self.0;
-> +        CListIter {
-> +            head_iter: CListHeadIter {
-> +                current: head.next(),
-> +                sentinel: head,
-> +            },
-> +            _phantom: PhantomData,
-> +        }
-> +    }
-> +}
-> +
-> +/// High-level iterator over typed list items.
-> +pub(crate) struct CListIter<'a, T, const OFFSET: usize> {
-> +    head_iter: CListHeadIter<'a>,
-> +    _phantom: PhantomData<&'a T>,
-> +}
-> +
-> +impl<'a, T, const OFFSET: usize> Iterator for CListIter<'a, T, =
-OFFSET> {
-> +    type Item =3D &'a T;
-> +
-> +    fn next(&mut self) -> Option<Self::Item> {
-> +        let head =3D self.head_iter.next()?;
-> +
-> +        // Convert to item using OFFSET.
-> +        // SAFETY: `item_ptr` calculation from `OFFSET` (calculated =
-using offset_of!)
-> +        // is valid per invariants.
-> +        Some(unsafe { &*head.as_raw().byte_sub(OFFSET).cast::<T>() })
-> +    }
-> +}
-> +
-> +impl<'a, T, const OFFSET: usize> FusedIterator for CListIter<'a, T, =
-OFFSET> {}
-> +
-> +/// Create a C doubly-circular linked list interface `CList` from a =
-raw `list_head` pointer.
-> +///
-> +/// This macro creates a `CList<T, OFFSET>` that can iterate over =
-items of type `$rust_type`
-> +/// linked via the `$field` field in the underlying C struct =
-`$c_type`.
-> +///
-> +/// # Arguments
-> +///
-> +/// - `$head`: Raw pointer to the sentinel `list_head` object (`*mut =
-bindings::list_head`).
-> +/// - `$rust_type`: Each item's rust wrapper type.
-> +/// - `$c_type`: Each item's C struct type that contains the embedded =
-`list_head`.
-> +/// - `$field`: The name of the `list_head` field within the C =
-struct.
-> +///
-> +/// # Safety
-> +///
-> +/// This is an unsafe macro. The caller must ensure:
-> +///
-> +/// - `$head` is a valid, initialized sentinel `list_head` pointing =
-to a list that remains
-> +///   unmodified for the lifetime of the rust `CList`.
-> +/// - The list contains items of type `$c_type` linked via an =
-embedded `$field`.
-> +/// - `$rust_type` is `#[repr(transparent)]` over `$c_type` or has =
-compatible layout.
-> +///
-> +/// # Examples
-> +///
-> +/// Refer to the examples in this module's documentation.
-> +#[macro_export]
-> +macro_rules! clist_create {
-> +    ($head:expr, $rust_type:ty, $c_type:ty, $($field:tt).+) =3D> {{
-> +        // Compile-time check that field path is a list_head.
-> +        let _: fn(*const $c_type) -> *const =
-$crate::bindings::list_head =3D
-> +            |p| &raw const (*p).$($field).+;
-> +
-> +        // Calculate offset and create `CList`.
-> +        const OFFSET: usize =3D ::core::mem::offset_of!($c_type, =
-$($field).+);
-> +        $crate::clist::CList::<$rust_type, OFFSET>::from_raw($head)
-> +    }};
-> +}
-> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-> index 3da92f18f4ee..8439c30f40b5 100644
-> --- a/rust/kernel/lib.rs
-> +++ b/rust/kernel/lib.rs
-> @@ -75,6 +75,8 @@
-> pub mod bug;
-> #[doc(hidden)]
-> pub mod build_assert;
-> +#[cfg(CONFIG_RUST_CLIST)]
-> +pub(crate) mod clist;
-> pub mod clk;
-> #[cfg(CONFIG_CONFIGFS_FS)]
-> pub mod configfs;
-> --=20
-> 2.34.1
->=20
->=20
+> +		if (vsdb_did.replay_mode) {
+> +			amdgpu_dm_connector->vsdb_info.replay_mode = vsdb_did.replay_mode;
+> +			amdgpu_dm_connector->vsdb_info.amd_vsdb_version = vsdb_did.amd_vsdb_version;
+>  			amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_EDP;
+>  		}
+>  
+> -	} else if (drm_edid && sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+> -		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+> -		if (i >= 0 && vsdb_info.freesync_supported) {
+> -			amdgpu_dm_connector->min_vfreq = vsdb_info.min_refresh_rate_hz;
+> -			amdgpu_dm_connector->max_vfreq = vsdb_info.max_refresh_rate_hz;
+> -			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
+> -				freesync_capable = true;
+> -
+> -			connector->display_info.monitor_range.min_vfreq = vsdb_info.min_refresh_rate_hz;
+> -			connector->display_info.monitor_range.max_vfreq = vsdb_info.max_refresh_rate_hz;
+> -		}
+> +	} else if (sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A && vsdb_info.freesync_supported) {
+> +		monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
+> +		freesync_capable = copy_range_to_amdgpu_connector(connector);
+>  	}
+>  
+>  	if (amdgpu_dm_connector->dc_link)
+>  		as_type = dm_get_adaptive_sync_support_type(amdgpu_dm_connector->dc_link);
+>  
+> -	if (as_type == FREESYNC_TYPE_PCON_IN_WHITELIST) {
+> -		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+> -		if (i >= 0 && vsdb_info.freesync_supported && vsdb_info.amd_vsdb_version > 0) {
+> +	if (as_type == FREESYNC_TYPE_PCON_IN_WHITELIST && vsdb_info.freesync_supported) {
+> +		amdgpu_dm_connector->pack_sdp_v1_3 = true;
+> +		amdgpu_dm_connector->as_type = as_type;
+> +		amdgpu_dm_connector->vsdb_info = vsdb_info;
+>  
+> -			amdgpu_dm_connector->pack_sdp_v1_3 = true;
+> -			amdgpu_dm_connector->as_type = as_type;
+> -			amdgpu_dm_connector->vsdb_info = vsdb_info;
+> -
+> -			amdgpu_dm_connector->min_vfreq = vsdb_info.min_refresh_rate_hz;
+> -			amdgpu_dm_connector->max_vfreq = vsdb_info.max_refresh_rate_hz;
+> -			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq > 10)
+> -				freesync_capable = true;
+> -
+> -			connector->display_info.monitor_range.min_vfreq = vsdb_info.min_refresh_rate_hz;
+> -			connector->display_info.monitor_range.max_vfreq = vsdb_info.max_refresh_rate_hz;
+> -		}
+> +		monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
+> +		freesync_capable = copy_range_to_amdgpu_connector(connector);
+>  	}
+>  
+>  update:
+
 
