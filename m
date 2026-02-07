@@ -4,190 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE133E78D45
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:41:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD8D6E78D48
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:41:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28ED910E340;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5C3210E345;
 	Mon,  9 Feb 2026 08:41:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="MIVt3OuO";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="evBJTQV4";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012053.outbound.protection.outlook.com
- [40.107.200.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E28C10E918;
- Fri,  6 Feb 2026 21:26:52 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Yp8dVxtCHh2qW8vh6kj0fckOxDxoEgN3Rq34vIjwbJ4a7qCLFkk/2e1b6LIl2OuIvEnlj0lZ12/v7tVSwPJBTgghB0Yw743xweOZxxGqEhsluTF3/V3qQUDAwh1ddVlFRG+Xu4mblG/pfK1VFoOEoJ/1ruRcThzjnVbgOX2Osp2EdkvQ2CHAZR6N6VNFSfZZtCVQW/X+suOZpXqLuPiLMvGLgX5O9raPfWI3X9a77hk7LQsx2PpbUld+KVVGxzxIGkLj2yg4UcbFnh6kbBkmAgq+yXjyh/fv/eYHGRzgTZrlthWrGsyLyIZfxJxBXnwRlLdvFHVb9Wki+0+z/wCAOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nQlOFZ1lOnjsWio7lFuxaXpDB9hUyNZyxVjMTXEVl30=;
- b=KnsreE+05QT3gry0rW/Uh4RdQlFyRjLaRFNepOd+I71lWpnYHu9LuutXDHM6MNL/ku4ZYAotVOtzAuboxbVA88C7FLOC2MjG2q/dYW4tJNv+gkTpjOtR6/ieUTjg09J7Czzdbnryf4T53wsegrobg86gt1lY8GUxmMHRQ8GQT/ZqyvW0Bg5DsTCPZbdGeWMlG1w75W+ke6PwL7FN1pmCUdWlz/lg+70SvZfo1xKC9/VFuOBYjJuTYuRvZsGILX8BlRViiAImBqunSRcMgoDx3I92E4HZqsIscoEQC7ZR+JNeVX9NMDRkrjcBBVL+UMb6LoPgL5qGzDDkKm+CEz/qMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nQlOFZ1lOnjsWio7lFuxaXpDB9hUyNZyxVjMTXEVl30=;
- b=MIVt3OuOomnt4gDPWLubHSKUuu0+Mr/XVA/1dXcMMTK7OAEChMAXRrqgcYPvqF3HLyJfMVh+4O61qxXwpSlNjWPw3KtWfvMZQEwpNKXSVtn1RbUKrHQEY+RNsfeXuCO28T0dv/e9Vy6+19aFiLKlbDD0FRzbSWB1vri4ZDDVSEwC2Ss3oMfGG4jpe6+IN82+KfvQTpzaocMvD3HmVmWjL0sdxDlSB6v1QiUY8CoXTQEzKz0bn7dpHozU61V7mVReXvjpYJPy70IfupqqOU4aDJ1Wd4Z7HALc3cYBAhg2v7ky0+/Ng9KWnw/C0h4i/1Wc3kVBe8s+JwvFu2XfV2/tRQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- DS0PR12MB7826.namprd12.prod.outlook.com (2603:10b6:8:148::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.15; Fri, 6 Feb 2026 21:26:44 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9587.013; Fri, 6 Feb 2026
- 21:26:43 +0000
-Message-ID: <983b7db3-b0e6-45d6-866e-f001b64abde1@nvidia.com>
-Date: Fri, 6 Feb 2026 16:26:40 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH -next v7 1/2] rust: clist: Add support to interface with C
- linked lists
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: linux-kernel@vger.kernel.org,
+Received: from sender4-pp-g125.zoho.com (sender4-pp-g125.zoho.com
+ [136.143.188.125])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DABC10E2B1;
+ Sat,  7 Feb 2026 19:31:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1770492691; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=RdYdF7c/7RKURWe83WyERwWuC0yeeolV/HdBzGsCxqcpxL0mkFACmfTt3/4NpZ3OPDinHq6e5n7zbReS59t8n4L15hQO7U4nS8Fn2tTltElnkncw44fcngP1AzCyfoM7c8XaQUiSPZqkbCiCu1DktWNekdpxcACDCAt59MRy8aI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1770492691;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=BWnnE4c8SQWwH+plB/G8amDEzU/xZKpBUTD5dL9L0SU=; 
+ b=Re6ehi0jHhfhcXeU5/Wcel1vSM/nbf3eUn4zLT2HuBpR8KwW09QN7DLyDHZbf6ijMUCiRxsF+PCikeRSy3usv/g319xt3au/Kl8FUvyYtHLKZtOGDNMFRu2qD7kpUxw8NRT2SKuuUMvUnFdxsfzPvDT5EKE3EJPl0JkSQmFBjik=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1770492691; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=BWnnE4c8SQWwH+plB/G8amDEzU/xZKpBUTD5dL9L0SU=;
+ b=evBJTQV48BJoXeW9eksUfGNDL8f9WrQ191uHnGjm27R4bEhAOi3K2P49kQH5poEp
+ yBkUs87eqn4KX7O6Iw+RewkgV9Vptiu/GBndvntL5vn5lDe9fPnEXqpBgml8bLsfbTW
+ 4iwQ1sonD2B0Akv+l6dv8Hf85aL9HNlIGFgwCxX0=
+Received: by mx.zohomail.com with SMTPS id 1770492689402527.0990853831929;
+ Sat, 7 Feb 2026 11:31:29 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Andy Yan <andyshrk@163.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, joel@joelfernandes.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
-References: <20260206004110.1914814-1-joelagnelf@nvidia.com>
- <20260206004110.1914814-2-joelagnelf@nvidia.com>
- <73B64D35-6574-4776-962D-865465C40226@collabora.com>
- <7ed85eca-2a5e-4e8f-8356-e7fbbf7d3a8f@nvidia.com>
- <E846F3BB-DE64-4E6B-ACA3-00F965038478@collabora.com>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <E846F3BB-DE64-4E6B-ACA3-00F965038478@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR03CA0019.namprd03.prod.outlook.com
- (2603:10b6:208:23a::24) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v7 10/22] drm/rockchip: vop2: Fix YUV444 output
+Date: Sat, 07 Feb 2026 20:31:21 +0100
+Message-ID: <1945994.tdWV9SEqCh@workhorse>
+In-Reply-To: <4c9ce287.fbb.19be87814b8.Coremail.andyshrk@163.com>
+References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
+ <6631107.DvuYhMxLoT@workhorse>
+ <4c9ce287.fbb.19be87814b8.Coremail.andyshrk@163.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|DS0PR12MB7826:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87363117-eeaa-46e1-1e95-08de65c66cba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|366016|376014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?eklQckJ0Z0RzNndBZUh0anZ6OWV1TGdJa1hKZEdsVytYRHBIc0pPTWpHaFpK?=
- =?utf-8?B?blRxQWtVQzFwKzJQNjlrK3RUNlpXakIrVkhET3o2b0N4WmZ0OFk1T1l2ZWhY?=
- =?utf-8?B?elRRL0JSUkN6Mkc3M3Vqc3Z1SHBtb1Z2a1NRL1JIeCtTZiszcXRvZWhHQ2Jn?=
- =?utf-8?B?T01DeUtWT1pUOFpUTDFtNjZMVDB5dFNhWG1rWEdkNmZJYjJoby9YQ21pNUNB?=
- =?utf-8?B?UGNOZ0F3K2FpbktFUzRLejhiTE96MTVIZGFCei9HRXA4Q2k1TlNhbEF3UHc3?=
- =?utf-8?B?YW9Oci9CbVhYS2d3M2NJMEhJOXFYNlhoZDFwbTBZVjhCYVUzdDN3djAxalZy?=
- =?utf-8?B?ME1VODBJUXoxRTA0cDFaT0NlUmdkOEw4clovT0FqZ0dKdklBMlpNZVU1VkZW?=
- =?utf-8?B?azVtTmtMTE5xVnNJMHdFQ09mcnVURE5OV1o3T29YRndRV2xCclpDbHdkbWN5?=
- =?utf-8?B?eWJtODk1MFlObllCdGUvdE1rMThaQ0pTREx2RWNzbkZGd0VnUE5mNUZUbHh6?=
- =?utf-8?B?YmJGNFFmOXFzLzFTMTZVazZlREJVY25HVkZvQnJ6dzBwRTVOL2lTSXhOVldN?=
- =?utf-8?B?TllQTGx6UlJYdkEreGNMY2ovR1dDZTF5UUJWVHhwbkgyV081V2taZDBqeFNS?=
- =?utf-8?B?U2hLYzdvZVROVjNiUnhVMytqR0dkd2k0KzRJSEpSVnduMyt6QkhxeFBWZmxJ?=
- =?utf-8?B?NVVJT1Y4TDBUVjZ6b2ZZdHBpdHg2QU9JbWxpdURmcnZEQk5TTm9PRWVxcHlJ?=
- =?utf-8?B?eVVWbDQxNE13U3YyYzNUOGtyd3Q0SDNJU2RVNjlYckJhUTA5ZW5SODE1SXEx?=
- =?utf-8?B?UUhpbjNXaXpnWkQ2RHJxR0tBMGNHWlEyQnJjdC9vNGFnNlJMbTFxbmxtWUR2?=
- =?utf-8?B?TVQ1SnphblNKMW9EWUhFVXkyRHVUb0s4MDVaWTRqeEZpSUpDM0lYamV6Q09p?=
- =?utf-8?B?T3U3bVpyY2NUbzJCZ3oxZW5OSlltZ2QyaVJxdHMzRTN1ZkpWVWxNT2xVSExt?=
- =?utf-8?B?NFRWemxabVVwY0NPSC9GN1lrUzlDN0NNZVZRK0R3cWp2OTRtQXlyanpjZXBp?=
- =?utf-8?B?ZDJyVjhSOGR0TUpYSUJRdCtLbzhGQnkxaEdGTkRya01nWEYzbXFLUlZmWmZx?=
- =?utf-8?B?RThzYngvNjc1ZUI2aXJQTFpab0xNTEZTSEY1aThaMkc5ekNoeGxZYm5RQm9M?=
- =?utf-8?B?ZWJLeHphZjcvNDFaZVpBV01aLzdDTi9ldzFaK0l3dTlhbnl6RUY0emtjNjFI?=
- =?utf-8?B?K2NNd3lETnozaGI2VTNDYWREcy8yaTl3NlByY1kxaktKSUN0VjNUK1BMQ1Vw?=
- =?utf-8?B?eFdpeE5hdkEraFRMYnB2VDVlbXZ6SU1vTDlhMzJKL0ZYUWZsQitXOG4vbGQ2?=
- =?utf-8?B?VXNoM1A4QlZNN1JIZUpnR1RyVEc0cTdzNG95TUZ3bXQ4Q0RjTzVuRS9FMnI4?=
- =?utf-8?B?TGJaeEhLcGFBWFBoakdKWFRJRnZDY2JNc2ZTTDRHT2ZsRFFDQWtkM3RZQ3Fh?=
- =?utf-8?B?TjBxaG5DckM0VmI4bVpvdGx0M1FQSTNsa21rT0JwK3JzSVBaTzNsQ3FzN0Nl?=
- =?utf-8?B?dkdmOEVJcHBEQnBreWNoZDNFajVvTDNobjNEOGNPZlpQU0J2NFg0NDNBWWNP?=
- =?utf-8?B?cnBoMVlGMGVDcDZUMkFGTmJVNGVGWlJkVEJBY0JGbDdFMFFKMGJrTnZmYkg3?=
- =?utf-8?B?QlJCcWdSeHd5dGRrTlF5YmJYU1h0eFNBN21GTnljWDdXejY1YjJhZUovZUxC?=
- =?utf-8?B?dll4Z0ZMS0oxREo4bE91Snd6RHBXRTUzRjFoWGVhdk9hMXNjQ3Qrb1J4bHJV?=
- =?utf-8?B?WGZUcVdBRnRyNDdkeGJmUm8zM2VRVjUzUGNKUEswcHZPeURyMWpYekpUYVRV?=
- =?utf-8?B?NlBTcnBmZ1hmZHhzVzJNQTRVUFcrNSttWURNNDNnQ0ZSa1JQRXJrU2wwS3Za?=
- =?utf-8?B?d0w0RUhzSHN4c1o1bVpMQmtjbTN3U3FwSStSaC80UTZ4bzErS0FuQjUzZGV0?=
- =?utf-8?B?Rzd3eXVLeFg3MnJaWnk5UnVkSFhZcGtocFRqakRjTG1oWTgwazhMOEJSdjhT?=
- =?utf-8?B?cEFnSFhUM0s1ZGR6T3J5c1Bmd0pWb1JVTUkvL2FrNFA5dks5aEpNM0ZiemZZ?=
- =?utf-8?Q?gVgg=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(366016)(376014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RVhwb1hseXVHVThjMUN2TWlpYjVTem5lL0s2YkZkcUhJWHBLWnMwYzZxZzA2?=
- =?utf-8?B?MTRucm5YNyt1RWZFYzc3Q29PYncxYnErMTRwMytMb0l0dURxZ1ppQ2JBc0Ey?=
- =?utf-8?B?UjRlZGtQdklxOFJaMkNSR2wvSE9heDJDWUtwdEF4RmE3M3pobEFqMW0xQWE5?=
- =?utf-8?B?dWpCQURtbGFabU0zTVV6cnZpUEgvNlBmU3dDZ0M0TjllcnkyS2VndU50WWlu?=
- =?utf-8?B?WGdyYTQzclpBbXQ5MWNIT0xMQ0o4U2FIYVE5azZBbXdjYkdSc0ltWmhkTUdH?=
- =?utf-8?B?ZnAwbmQzbHNnSzA3OUtSMHlicUxpY0NXdUVTV3FsV25JYUdKeVUxa2tJWm85?=
- =?utf-8?B?d3FXNE5LUWoxQXN4ZzAwaC9TZ0pzdldKcGh3SldHcURFYjNIKytWTloycWRk?=
- =?utf-8?B?VW1UejdFdnc5TzhTSmUxdTN6RkpTTEsyakI4dHdteEF3a3VBem1RWm5sTE9r?=
- =?utf-8?B?VEhFSkl3cXYxZ0pkblhjc1puS2E4VXZHL1lGOFp2NXdPYjMzUHpCUlpPb2s2?=
- =?utf-8?B?TEhOUnNiRzlHRjlTRWFVR21VY1dORHdBdmdLbkxOQkVIR3dFUEFrSXZPak5I?=
- =?utf-8?B?akNCUk44eWhvNTlJL3ViT0hPWmZreGJQeHoydXNadEJGL05XVWdpQ01heWk1?=
- =?utf-8?B?MmU5a3g3RndSd3F4RTFBbWJpcGZlU3ZwOXM4NGZnbW1DTmZwWkpQYSs4bXlC?=
- =?utf-8?B?VXAza2szMC9LTkY3RzRqWWhNQU80b0FHMDNyRGhKYWdiSWM4THRnTFMvSDdY?=
- =?utf-8?B?dlRLZHAzM2VlY05Na2RLR1c5QWdWWGQ3N01aVGRYVk5wTHB0VjE4Ty9oTEJw?=
- =?utf-8?B?YkZ0Z2FuZVlPMGtpVzdIc0RoM25ZTkhVR0JqeHZPejdabGQyMW9EVU1ubS9a?=
- =?utf-8?B?SVdOSXBjU1NVWmYvMjBsbXZURm1JNk9OQTFBVVNLVjBUZkdYUlNsQVpOUTZU?=
- =?utf-8?B?VloyRHdYTm1KdXA4ci9ZUVU1U1c0YnBxSlZ2RDdiM09oKzNZd2F1VzVONU9Y?=
- =?utf-8?B?S2p6ZXBjckExOWp2T01yQXZ5VmxkYXRGcVlDcHFaRlJRRW52K1JId21OOFE0?=
- =?utf-8?B?U2tXSFVPTUlaZWxRSCtlRFdhVFY5SmxoUDRNQTFRQ0lNbTlkdUtiZlVEa3Nq?=
- =?utf-8?B?dVBSaXJUSm9Gdmt4alg2ODJIV0NHSTBaTWZmZndOemNhckVWSlFVblEvYmNs?=
- =?utf-8?B?MEduYUNUYm03L1lDVXg4U0xSZUxOREVCSUlCa0JRZEE2TThzQjIydHZIdkI5?=
- =?utf-8?B?NlNUTVNydVprY29rYjZoVlFmdU9laklURnpMczF2TjJCT0pUUzE3YlpQT1VW?=
- =?utf-8?B?aEU0Ulk1MDZHTFI3RERYaWt1aGVha2dOdVpSbFVNTndZNGZjTE5MNytteTlG?=
- =?utf-8?B?WWJVdUJvMjdESkRaT0xSeFQrUFl2Sm9LYVRIRm95YUpCTFJRK0RBWVlSL0g1?=
- =?utf-8?B?STVwL1psYVRvYVkyNEpwTnZKV0lOVHRmd1NheG1mSVNpKzUxV24xVGJQUmUy?=
- =?utf-8?B?Q2tkOWxXbnJGN1pDb0FyVURNcWFPdC9VS3lGcXI4ZG9SK09sVTY1bWpVTHRs?=
- =?utf-8?B?NjQxNHhKK3RrdnV2RnF4dW9iK1pTQ3FuUXhQdVNTN2FGUjVvNzEzcU5CYi9X?=
- =?utf-8?B?SjV5SFdPTk40RG9NYi81UmlrLzNlOXlSNTlkM2RYZFpYYlZXaEFqU1hid0tp?=
- =?utf-8?B?WERKdTNtZStVOFVVRmxmKzBIRmRZVzFoR2lPcmg3NXBaN2tvV3ZaQWJFS0FX?=
- =?utf-8?B?NFl4blkvT1lXWkJxQmdDTnE4eWNFOTAyZkpjSTZjaHZtMW5SN2VtbjlZaWNY?=
- =?utf-8?B?YXZjMWgrM3lrM1BzVGdaREViN1RZY1FUVTBFNnFyckZ1SGk5TVV5Sk1iaGx6?=
- =?utf-8?B?Wk11N2JpWFl0ZnNJK2ZxODk1WjdnVEtza0U2Q3pmdzR5UmZCck5GNys0cFdT?=
- =?utf-8?B?OExaZ2xDWTVIWnRodncvV0owb2pDVCtpNk05Y2grWEUxSGplalkrYnRWdXZ3?=
- =?utf-8?B?RzMvUDl1ZndWUFBxYkcvbjJLb05HTVAwN0tzdzdscHF1OEtxbjdBS3ZVdld6?=
- =?utf-8?B?WWgxa3RiY3V0Q2FFdUFXWUFkejJyOTBybEZRb1Y4SlRoU01Kb0g4bGhpbjBh?=
- =?utf-8?B?UTJvckdueW1CRUw3ek9TOE5rUnl0OXdsTW5RQzZWWlRyL3k5WHNVWndidUc2?=
- =?utf-8?B?VW5hMnE5K21QdFdlU3NLTUp5bUZJYWVWbmlWWmhyNlhPZWRqNjBKMDJCS0d6?=
- =?utf-8?B?MmxtUWdvVVk3MXBvMDRZMFh3VHU1MDhrYjAzTXZiLzZHSXRMQk1mVGxiZ2Zl?=
- =?utf-8?B?ZXU2QlA2OGp0dkEwM0U3V3JJU2hxT1dkL3lJdGpHZGtENEgrMWoxQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87363117-eeaa-46e1-1e95-08de65c66cba
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2026 21:26:43.7053 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RXdr/0nSATeWuoOob73pFvJfGqmzo6ld8aSBB4okPPhwYWWpCPPt/bOK8Y/i3vcCV1wsg5ztXLEQw7K7DSQYog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7826
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Mon, 09 Feb 2026 08:41:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -203,60 +88,192 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Andy,
+
+On Friday, 23 January 2026 02:29:02 Central European Standard Time Andy Yan=
+ wrote:
+>=20
+> Hello Nicolas,
+>=20
+> =E5=9C=A8 2026-01-22 20:59:41=EF=BC=8C"Nicolas Frattaroli" <nicolas.fratt=
+aroli@collabora.com> =E5=86=99=E9=81=93=EF=BC=9A
+> >On Thursday, 22 January 2026 09:28:54 Central European Standard Time And=
+y Yan wrote:
+> >>=20
+> >> Hello Nicolas=EF=BC=8C
+> >>=20
+> >> At 2026-01-21 22:45:17, "Nicolas Frattaroli" <nicolas.frattaroli@colla=
+bora.com> wrote:
+> >> >YUV444 (aka YCbCr444) output isn't working quite right on RK3588. The
+> >> >resulting image on the display, while identifying itself as YUV444, h=
+as
+> >> >some components swapped, even after adding the necessary DRM formats =
+to
+> >> >the conversion functions.
+> >> >
+> >> >Judging by downstream, this is because YUV444 also needs an rb swap
+> >> >performed in the AFBC case.
+> >> >
+> >> >Add the DRM formats to the appropriate switch statements, and add a
+> >> >function for checking whether an rb swap needs to be performed in the
+> >> >AFBC case.
+> >> >
+> >> >Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
+> >> >Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> >> >---
+> >> > drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 19 +++++++++++++++++++
+> >> > 1 file changed, 19 insertions(+)
+> >> >
+> >> >diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/g=
+pu/drm/rockchip/rockchip_drm_vop2.c
+> >> >index ec3b4fde10db..469c63dd97d5 100644
+> >> >--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> >> >+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+> >> >@@ -176,6 +176,7 @@ static enum vop2_data_format vop2_convert_format(=
+u32 format)
+> >> > 	case DRM_FORMAT_ARGB2101010:
+> >> > 	case DRM_FORMAT_XBGR2101010:
+> >> > 	case DRM_FORMAT_ABGR2101010:
+> >> >+	case DRM_FORMAT_VUY101010:
+> >> > 		return VOP2_FMT_XRGB101010;
+> >> > 	case DRM_FORMAT_XRGB8888:
+> >> > 	case DRM_FORMAT_ARGB8888:
+> >> >@@ -184,6 +185,7 @@ static enum vop2_data_format vop2_convert_format(=
+u32 format)
+> >> > 		return VOP2_FMT_ARGB8888;
+> >> > 	case DRM_FORMAT_RGB888:
+> >> > 	case DRM_FORMAT_BGR888:
+> >> >+	case DRM_FORMAT_VUY888:
+> >> > 		return VOP2_FMT_RGB888;
+> >> > 	case DRM_FORMAT_RGB565:
+> >> > 	case DRM_FORMAT_BGR565:
+> >> >@@ -225,6 +227,7 @@ static enum vop2_afbc_format vop2_convert_afbc_fo=
+rmat(u32 format)
+> >> > 	case DRM_FORMAT_ARGB2101010:
+> >> > 	case DRM_FORMAT_XBGR2101010:
+> >> > 	case DRM_FORMAT_ABGR2101010:
+> >> >+	case DRM_FORMAT_VUY101010:
+> >> > 		return VOP2_AFBC_FMT_ARGB2101010;
+> >> > 	case DRM_FORMAT_XRGB8888:
+> >> > 	case DRM_FORMAT_ARGB8888:
+> >> >@@ -233,6 +236,7 @@ static enum vop2_afbc_format vop2_convert_afbc_fo=
+rmat(u32 format)
+> >> > 		return VOP2_AFBC_FMT_ARGB8888;
+> >> > 	case DRM_FORMAT_RGB888:
+> >> > 	case DRM_FORMAT_BGR888:
+> >> >+	case DRM_FORMAT_VUY888:
+> >>=20
+> >> How did you test this format? It seems tools like modetest don=E2=80=
+=99t support testing this pattern.
+> >>=20
+> >
+> >Hi Andy,
+> >
+> >using the rest of this series, which implements the "color format"
+> >DRM property, and the corresponding weston MR that makes use of it[1].
+> >
+> >I create a ~/.config/weston.ini with the following contents:
+> >
+> >    [output]
+> >    name=3DHDMI-A-1
+> >    color-format=3Dyuv444
+> >
+> >This will make Weston try to set the output format to 10-bit YUV444. To
+> >limit it to 8-bit, you can add `max-bpc=3D8`. The monitor's EDID needs to
+> >report YUV444 support, otherwise that Weston version won't let you set
+> >this property.
+> >
+>=20
+>=20
+> This looks a bit strange. Your commit message and the Weston configuratio=
+n here both target the output format,=20
+> but the patch modifies the functions vop2_convert_format and vop2_convert=
+_afbc_format, which are responsible for
+> converting the data formats of planes/framebuffers (fb)=E2=80=94these hav=
+e nothing to do with the output format.
+
+Yep, I've now re-tested this in various ways and this commit doesn't do
+what I thought it did. I think when I authored it, this was still doing
+BCSH based conversion and may have depended on this at some stage. Also
+possible that I didn't do a clean test run of solely these changes to
+come to my conclusions.
+
+YUV444 primary planes aren't supported by RK3588 at all from what I gather,
+so I have no clue where I ran into this and how this fixed it.
+
+Testing on RK3576 without this, and also playing around with gbm-format,
+I also don't ever get into the situation where this is needed for correct
+output; it seems like EGLConfig always only exposes RGBA formats anyway,
+so Panfrost may still lack YUV format support for the buffers.
+
+I'll drop this patch on the next revision, but I'll keep the changes in
+mind if an atomic modesetting test workload that sets YUV plane formats
+ever comes to be.
+
+Thanks for the reviews!
+
+Kind regards,
+Nicolas Frattaroli
+
+>=20
+>=20
+> >Link: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/185=
+9 [1]
+> >
+> >Kind regards,
+> >Nicolas Frattaroli
+> >
+> >>=20
+> >>=20
+> >> > 		return VOP2_AFBC_FMT_RGB888;
+> >> > 	case DRM_FORMAT_RGB565:
+> >> > 	case DRM_FORMAT_BGR565:
+> >> >@@ -270,6 +274,19 @@ static bool vop2_win_rb_swap(u32 format)
+> >> > 	}
+> >> > }
+> >> >=20
+> >> >+static bool vop2_afbc_rb_swap(u32 format)
+> >> >+{
+> >> >+	switch (format) {
+> >> >+	case DRM_FORMAT_NV24:
+> >> >+	case DRM_FORMAT_NV30:
+> >> >+	case DRM_FORMAT_VUY888:
+> >> >+	case DRM_FORMAT_VUY101010:
+> >> >+		return true;
+> >> >+	default:
+> >> >+		return false;
+> >> >+	}
+> >> >+}
+> >> >+
+> >> > static bool vop2_afbc_uv_swap(u32 format)
+> >> > {
+> >> > 	switch (format) {
+> >> >@@ -1291,6 +1308,7 @@ static void vop2_plane_atomic_update(struct drm=
+_plane *plane,
+> >> > 		 /* It's for head stride, each head size is 16 byte */
+> >> > 		stride =3D ALIGN(stride, block_w) / block_w * 16;
+> >> >=20
+> >> >+		rb_swap =3D vop2_afbc_rb_swap(fb->format->format);
+> >> > 		uv_swap =3D vop2_afbc_uv_swap(fb->format->format);
+> >> > 		/*
+> >> > 		 * This is a workaround for crazy IC design, Cluster
+> >> >@@ -1308,6 +1326,7 @@ static void vop2_plane_atomic_update(struct drm=
+_plane *plane,
+> >> > 			vop2_win_write(win, VOP2_WIN_AFBC_ENABLE, 1);
+> >> > 		vop2_win_write(win, VOP2_WIN_AFBC_FORMAT, afbc_format);
+> >> > 		vop2_win_write(win, VOP2_WIN_AFBC_UV_SWAP, uv_swap);
+> >> >+		vop2_win_write(win, VOP2_WIN_AFBC_RB_SWAP, rb_swap);
+> >> > 		/*
+> >> > 		 * On rk3566/8, this bit is auto gating enable,
+> >> > 		 * but this function is not work well so we need
+> >> >
+> >>=20
+> >
+> >
+> >
+> >
+>=20
 
 
-On 2/6/2026 4:21 PM, Daniel Almeida wrote:
-> 
-> 
->> On 6 Feb 2026, at 17:51, Joel Fernandes <joelagnelf@nvidia.com> wrote:
->>
->> Hi Daniel,
->> Hope you do not mind me replying piecemeal as I can reply more quickly. Thank
->> you for all the comments.
->>
->> On 2/6/2026 12:49 PM, Daniel Almeida wrote:
->>>> +use crate::{
->>>> +    bindings,
->>>> +    types::Opaque, //
->>>> +};
->>>> +
->>>> +use pin_init::PinInit;
->>>> +
->>>> +/// Wraps a `list_head` object for use in intrusive linked lists.
->>>> +///
->>>> +/// # Invariants
->>>> +///
->>>> +/// - [`CListHead`] represents an allocated and valid `list_head` structure.
->>>> +/// - Once a [`CListHead`] is created in Rust, it will not be modified by non-Rust code.
->>>> +/// - All `list_head` for individual items are not modified for the lifetime of [`CListHead`].
->>>
->>> Can you expand on the two points above?
->>
->> This is basically saying that a C `list_head` that is wrapped by a `CListHead`
->> is read-only for the lifetime of `ClistHead`. modifying the pointers anymore.
->> That is the invariant.
->>
->> Or did I miss something?
->>
->> -- 
->> Joel Fernandes
->>
->>
-> 
-> 
-> Yeah, but my point being: is there a reason why the underlying list has to
-> remain read-only? Is this a safety requirement or an invariant that is established
-> by the code above?
-I'm not fully sure if it's an invariant or a safety requirement, but anyone
-creating a C list head on the rust side must guarantee that it is not modified.
-Since rust has no visibility on the C side, I believe it is a Rust invariant
-here that the existence of CListHead assumes that the list cannot be modified
-once Rust has access over it.  That is up to the creator (user) of the CListHead
-to guarantee. In the DRM buddy case, once the list is allocated and accessible
-from Rust, C code will not modify it while the Rust object exists.
 
-Does that make sense, or is there a better way to document this?
-
---
-Joel Fernandes
 
