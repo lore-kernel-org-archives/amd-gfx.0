@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F300CEF06EA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C32BEF06E3
 	for <amd-gfx@archiver.kernel.org>; Sun,  8 Feb 2026 16:43:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 808CE10E308;
-	Sun,  8 Feb 2026 16:43:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF2AD10E309;
+	Sun,  8 Feb 2026 16:43:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LgRc0zfp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oaRK3tNH";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012062.outbound.protection.outlook.com
- [40.107.200.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC51310E301
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011063.outbound.protection.outlook.com [40.107.208.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 149FE10E301
  for <amd-gfx@lists.freedesktop.org>; Sun,  8 Feb 2026 16:43:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iIkAyF7rDcYsqY60LczUEmEuukubznWyGNZVjZ+lH7ldjUjsJqdpDS2mBEnykKzrvHkx+UObWNI9K2f25AP3qB7aV5n7FlB8YBPXNM+Kj0nUrq1J6SOD7DXh1ZEAkrg0R5KqiR+Fsh8dWb+1ebQ492oa8RtThC2Fj2QWuAqYu6RL852l5qu9ARGAKlujQi73SG7q/RDYAwRqU2WTL7C/mTjRIZhyY2rj74FagpXsUdNW/yBSK0yLxMfRsaThaZevKakfhBfQYr+kZHpprAKF/D6ybAfQYvxgvUzW1LZHDWtzeLsUyUTIvQm6mC1noNGLvQ1Yk5q4Xn1Ea4cbXBMYNw==
+ b=QBxHROTXsPDfNDiPWttrZNu9W6ouui/hIiHI//BA3VM4ojJ7LMtjbZ1KVmmWURQS+Jsrr5438+zCi7DzlkuTkgqpF0qTB0MJ5qkCNhlDP3kmoAmiR9GqF7txAWznfQiTg72d0xAggP0ouzLw891OQ9thTg7bkuu8jccNRqOS8XA8CpSwYhlcu8GO2EpOXN5AhKjp00O3HxMcphioN6RCBoiEbGM7CGatB5U2gfX4ks8YThIJY3Bv7MRXaPP0S1tzaQ8nL/zZ2lHjfOCDq8eLTp9ZWBWJTnNmMpe7UUvrtI9iDrxbQv/4D7vzAvSWLPcKQgxL8wRuOTmgQu7qmYfPvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+jA3Ju7JY1OjkSIdDSUIi2V+6cLXpydnYMIz8wLrjTk=;
- b=gXPlFVcJoWQvnKi/MQZ3Td6GMq10TC/982zKGf6RStw1FUbm1WtR2qMpSZNWHU2BIBIjfwag7dPnA8a7kx1DggOGuHTwsfUwX4fstMuGAnouCkQ58ZCQPIo+cIPQ20bBj69lMZQVy4PEv/XYBiehSoQuB5NAEPMl1IEIoh6DnKpwAaqNZs/g5s7dixPU1ntpdYwUcka5aksVuqHqwrpbqFui5VblPWI9yNgBUT8zsWYArlfVi+m6XPQnYMGpXCLGw4rDUQMELpORJ+CG0oJ9incgUh843A6lRxtxnVlqeyn/8oK6PUGIrx+oFXcPXBdpTD5VAYnUKes7SiX2ITTr9Q==
+ bh=opwTjYUo5W1D8SNDNABD05ltjOTjC+p8gXYNLDjFze4=;
+ b=mP9nR3NcJGKQaOs/pEWc4dT4E9DtcUnAx5uLNbdY9s1rRa/WS2QayMG5afK6HdCBhenAqQ2pRyevZemHl8HXw7Djd4nlY9pR7DQ7yGsYvZmorqsDPvqoVBo1bKTiWknkTS+G1CI855CkCJuMtvYHI+mFghj6xpyhrRl0+AHPqvzZ1TyEJZOmciYd0s+AxSbf/HKo5+cg3QQbbcrZA7C8wJu5aqhrJ8jOPSz8Rw7Z/DdTHpNQkK7ikjYT9hLgIL82w4eAiLkqCHtnPCrU8G+eJunSL/FtUR6xS9w0TkqN/CWEFU4joO0ZrZsL3uDjC2JI4qPw66TuSF2kajXCTYZtBA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+jA3Ju7JY1OjkSIdDSUIi2V+6cLXpydnYMIz8wLrjTk=;
- b=LgRc0zfppEyfVaYOTQ8t413aHDLx0GqKR5xPA/RYYmtJAPGJTuLDLFdnvUnVhfcdJRo9vMPNlQgCrdKusDV47503xzVxx7SSCHEeCN8OqIVnNIwUGX8TKD4PYbddjMuqDyeK32BCTKuoeQCemCP84f38mG/0bEDhdkX7zgz7dkY=
-Received: from SJ0PR05CA0171.namprd05.prod.outlook.com (2603:10b6:a03:339::26)
- by DS0PR12MB7874.namprd12.prod.outlook.com (2603:10b6:8:141::11) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=opwTjYUo5W1D8SNDNABD05ltjOTjC+p8gXYNLDjFze4=;
+ b=oaRK3tNHynwXcrnkw/IYbxd6h/Ojo1KAGp0Z0r+nsWUlZ4FUwhWc4IdtFelSbqELHLD0Vs88eTJ9ctd67ie3/AuVaIa2Hnh8YiXUb8bQLNvRCBdbDy8QDEiQGZpgUTG94j3NSXwVSh+lctCOpn5SBh0DVih7zFnZi0+n8HReknM=
+Received: from SJ0PR05CA0152.namprd05.prod.outlook.com (2603:10b6:a03:339::7)
+ by PH7PR12MB9224.namprd12.prod.outlook.com (2603:10b6:510:2e7::8)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Sun, 8 Feb
- 2026 16:43:45 +0000
+ 2026 16:43:44 +0000
 Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
- (2603:10b6:a03:339:cafe::f3) by SJ0PR05CA0171.outlook.office365.com
- (2603:10b6:a03:339::26) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:339:cafe::56) by SJ0PR05CA0152.outlook.office365.com
+ (2603:10b6:a03:339::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.5 via Frontend Transport; Sun, 8
  Feb 2026 16:43:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -55,14 +54,13 @@ Received: from satlexmb07.amd.com (165.204.84.17) by
 Received: from pyuan-Chachani-VN.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Sun, 8 Feb 2026 10:43:43 -0600
+ 15.2.2562.17; Sun, 8 Feb 2026 10:43:41 -0600
 From: Perry Yuan <perry.yuan@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>
 CC: <Yifan1.Zhang@amd.com>
-Subject: [PATCH v2 08/13] drm/amdkfd: Add PTL control IOCTL Option and unify
- refcount logic
-Date: Mon, 9 Feb 2026 00:42:07 +0800
-Message-ID: <34cfa8a1dd439c0ece64416c17bd5b07715bddcf.1770568163.git.perry.yuan@amd.com>
+Subject: [PATCH v2 07/13] drm/amdgpu: add sysfs for Peak Tops Limiter (PTL)
+Date: Mon, 9 Feb 2026 00:42:06 +0800
+Message-ID: <8bf82bd34dd89f5c179f0334cdb738053d7373c5.1770568163.git.perry.yuan@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1770568163.git.perry.yuan@amd.com>
 References: <cover.1770568163.git.perry.yuan@amd.com>
@@ -74,57 +72,56 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|DS0PR12MB7874:EE_
-X-MS-Office365-Filtering-Correlation-Id: e35519de-d534-478a-c44b-08de67313991
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|PH7PR12MB9224:EE_
+X-MS-Office365-Filtering-Correlation-Id: eee4352a-7fed-455e-9c73-08de6731392e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?JhAHp1eQHS2GfDf2L6GJ/R6LqfXLE/hs5Q4FTuPWduvVHZsFX+JC0plnDyZM?=
- =?us-ascii?Q?aqS40t84vczu0iMy6fPSLqkRPvuwfyf+a63hIQaEUolDcw9jNoLqRSQE47IX?=
- =?us-ascii?Q?mfdqGuW7tFChbjT1OsWD4+2J1TOnDAKRvy//JrvW5kX9VxZ94I8hTKDLK2sP?=
- =?us-ascii?Q?rybStcKA1JNgmUJImuMRI8SukE+TBB92i2ksG4XXkhzF5W9IsR8IGtbrrfrX?=
- =?us-ascii?Q?sSyAdMT3WwDuBjq5DyC+RbDK3c4EhkE1HRbv3Df1/3E5b7EF2GVSKGrKXU+v?=
- =?us-ascii?Q?xkAc6qpq+9i/HLTxmr8M5SGw7E9jg/YlhtZrMp8zYiwiTWMaOi9F/I/br3LH?=
- =?us-ascii?Q?GPNd2UvJynISZTT1kCF0NcwPGCVUA85++1HV1KR+NRc1UwXzWN6PP13QkcAA?=
- =?us-ascii?Q?1LpXx2XROgNwZdoK8sJhRZ3k/qYz09V7A0rGGB+/TLY3vbPUGfq2t/F/e24f?=
- =?us-ascii?Q?UYGtt1irH/6HZop8CAv9LaMFiRjBRWSaV/4N+Y2iLsfZEG/Qlm2EEAgLCpKe?=
- =?us-ascii?Q?wJSHngDx5sluqHiporfYwDOQ2+n9joaVmhONjHlDEOT0FL5k9pZjdZ8Nbcqe?=
- =?us-ascii?Q?4+ztuBG2yq2djczfCaV686tP7JE9PEbDt4OOKF/er/tR118GO18kw+x74qdq?=
- =?us-ascii?Q?Rb5aAOhnAJZjAvkIwpthrm6wDo9eDkA4pBqpX+2IbkUg2MRhLzFARBU9lZtK?=
- =?us-ascii?Q?Hqeh7iieUkmn29so9/79k5NDThmxcLeESfgvUV0DYv5E7qMUaVst2RGq5qAv?=
- =?us-ascii?Q?LRNGj9QfyWWwkKe7JH8GHbxOf6caidbT5GjMEfTJSTHtOWGgz4cQCfo8cpc+?=
- =?us-ascii?Q?mL6yIki0n5Q94Xp5GmPtPuIQl+dHwMKEML0DjzVWREWdHXD+2phXhFuQ54EF?=
- =?us-ascii?Q?nnnfVT/J237Rohr5xkPJFAqnwJI2u0QCektMCxUoj2DZPYELp1KeH8IEGJc8?=
- =?us-ascii?Q?2hjsPJIB6kQvwcCk+FyOHsiGOZhFe/8pnUqLqQutfY+a3JQplkC8HdX8w4T3?=
- =?us-ascii?Q?jrmvrcvOlNF+v5K0oOMvDBQ7sWP0BG9GL6tYaghKMbgEetki46ovEmV5PV2x?=
- =?us-ascii?Q?KqJPHk4qCZ3MKZ/vmVrWD1FqSboTMNRvObFlCiJU/GV4lw63efzdKmxWAk46?=
- =?us-ascii?Q?7e9FEX7t6jAO7O+qV4DAnVxAiX0XYGEPSu1/ETZ4RMu6q2ivK6icwktb6wTt?=
- =?us-ascii?Q?IjQDP8zBPMfs7aSsmhlKfyDy167cOuRIZortluap3BiHQspgG/HmIxdCZXJD?=
- =?us-ascii?Q?OPL0zTU+kTuEHw+7buHS5RRlNgosTQ2my0a+e+97zcdFAx1VLfwA+LbjRDMC?=
- =?us-ascii?Q?1gV1gYEUnHdovROV/ftP7+pjs9du5ehZfwkOo9qQjK1m2erSVqrX5IMz+4eX?=
- =?us-ascii?Q?eBNU79j2pgOjnggMLrWU2PeL3B88WumNGZxm8nXs1wlMJvOHZFr9bApOinlf?=
- =?us-ascii?Q?Ifzvj4RZsnXcZH534tzPjPWwl4KKDWXYaeMk5WU9P3xCuoY9gyiD0vN9EWff?=
- =?us-ascii?Q?7i6MWGLK556fp+vGr6spODuOBTcx8RqOHqoc5OSbREgrWDjvQe5oGkNJ/7eV?=
- =?us-ascii?Q?dxG/L11j9O3I2Gc/UQ3ZmARxzRtUeUkJrgmK2G6yqCWtRH3v2K9fShxWXlg4?=
- =?us-ascii?Q?o2eB0ILmmW+cxG6cgxQu9/3cI7uvQKiGJa1IbNgS3Q54TvfgnvL9NxSZQASV?=
- =?us-ascii?Q?cuBlSQ=3D=3D?=
+ ARA:13230040|36860700013|82310400026|1800799024|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?E4h+EHx5klGKVETsvGRQC0x1/Z0J12iNAdYK4dKUSG6NEW+YGSbu/2FUSHaV?=
+ =?us-ascii?Q?O3SCa1DvpQM7DTr5rmkMiJxu1RiHXUYjWaQJuBL8Xo5igL0beifWZwT5hUIU?=
+ =?us-ascii?Q?AjWQphDPAbdfRXVPDxvllT1LbwtquO7dvcVGXRTNs6/waUxzP/l9dcUp7lMb?=
+ =?us-ascii?Q?8dFFFwG0QxM47KA1iQZqvk6MnpAO20lNRBBduHUkBrEngLLVK3QVnpqq1L4s?=
+ =?us-ascii?Q?xqALrdyP5WjPkAu2Ui5dehdHiYs7I3AU0cxVNAwDja3j60IJm0Bgxn0Ak5fp?=
+ =?us-ascii?Q?GW2hqMkvQ9vyo3q3xwMkc+yYmaLOue2GNaP5XpxPv8sPSEsN4b4e1W0oak87?=
+ =?us-ascii?Q?iE29T+tD6lf4XpJemsewiGh8X3sNHqdScrWTIAhWJ4Iw/RwCEHu7kC8N8jOJ?=
+ =?us-ascii?Q?e7ViUwoUy3TBfyKpHvcG/55JoQuxNdVnGYgrj3j6Wl4dMc9IrHG5GlUCKZwW?=
+ =?us-ascii?Q?9zaUrrWX9OP7SvG/zyMxv7MtxshGnSZPktuj8qn+cmM3Pt3UtlXvk/6wBbjK?=
+ =?us-ascii?Q?rh6kHJKjX10KzeGtdLbVqDgjG9OMstzlbKPF3IuzYXWgI7b1R9bgVpoegrUA?=
+ =?us-ascii?Q?UYzVdWjQP8QDfKcQYHte7hE9sWOsjrPvDzqmf8ytOvoV/Slwzeg7Q8klApBB?=
+ =?us-ascii?Q?mC5Eois6azmgjTtcldGO2yjlYXdJLXJYfkfY8wCTYxx6WMzMfVV7FoKFrBze?=
+ =?us-ascii?Q?Lm4ABtleiFINppDmdj6osCl+ch7sy2eUHirXGDsRmhuJtC3Xg9Y+L6d2CRM0?=
+ =?us-ascii?Q?UEPVd/o4hc8EgeCXk1b5UFa8g9ZFbnUenWHLvxvZdYyegzH5Kf29qvdU/co6?=
+ =?us-ascii?Q?pKpRSzZcQhb2A9YycQCs9GHrfMW1o1zVPCQ3c/pzxBD5KdK7Twxfb966x93c?=
+ =?us-ascii?Q?3Ub4hexNLnJN/QJTRRv5KV5v9uTBfnlqIyiM9WhZehs6wCSp2M71GJXxhDsU?=
+ =?us-ascii?Q?nQbakN3+0rTNIWr8HDqESxjF2IH77VjF44MxdT0xCJg2wMn+xaGuc9nVOSJa?=
+ =?us-ascii?Q?QMzFT1ReWHQbZCReENqAWOcDbM9SLXFlPB9ihk4MJW/luNdLTsAmOc/MmKLL?=
+ =?us-ascii?Q?BPm4k27IkVSGnqpRLfjkdVOhoaYoebtzhuQKJL9SyyZCT//D1V0UaSQgIIuh?=
+ =?us-ascii?Q?X9tuwI2DWPR5htbLv6++HNso/og30iG5jykcxSexFTjhbZM2JWrInbF+ujfH?=
+ =?us-ascii?Q?71KCkTzYYDJuKxBRNZ/zF+dFr3lBmILZoZe0qkxh0XlVQk75x0yzQZXqsaUI?=
+ =?us-ascii?Q?F4dxS2I1o+Hq635NY+Aqq2ogRz74H3exk2R/CqT0lLBYeBkOj93xTqu4w7W0?=
+ =?us-ascii?Q?nofvu+nUNCvplOGN8pcrH/+/VxX+kxBlzZUqxUe8PpeD67moLA7aFnk8baOl?=
+ =?us-ascii?Q?9VHxt+n4Q5BuT+IurGRWS+yeq+Koj4WLAT/f4jowNPul8kDjIAR0UXtX7i/e?=
+ =?us-ascii?Q?TSUhHugzaI4dSul5FqhWCKeyeLT2aRV+B1JAq6BgHkraTG6IjoxBVEzsKNMc?=
+ =?us-ascii?Q?HPF8dXhlJxBoL8vp+wEgxMpLwxQSqHRoFWeRxZSLcB4tEoui6SOYTo/sf5z3?=
+ =?us-ascii?Q?J0hIoYewntNJhaWjPH4QYeE/VXbukfGzBdpR5HYVqik2tFjfnhl+fbsEwgLB?=
+ =?us-ascii?Q?FoKsgd5f1ICjepkqyHgrYMQpNhYkZmPTl6oQ1CYZ3fLe?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(1800799024)(376014); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: uz7vqoC3ghdk2gq//8RZ7+aLqrYoTbWb+6Iy5DBV29KsSGcpzV91HEyJtD2J74okimboqcFjOV+IDyU6k5gUma45qG6dGwxM8xeFVFAugKvLcIKnktp3IdXY1i7TnHDT64KNeEbLj/xJ9YLvK1hzG5LxrLFgJrfUfnyeBiu/fojs+hRsYca81bkC9xt9emRYee1UcDbR0Y0lFGeGhzPa5XihJdlkxiBA44jNmn6r6g5KdKaiukZa8uXhTkBTycvrm10yKpVvjRj0a1FOr0U8tqd4eXFWp8KBVSJVJDqa5L3W8Erl9CPw5nnKZErCNOSVMNxjlZDSYTWiEAUPIMFrsDTarcDv9h0CW9rnDmAH0Raf6uVLYNZhzDiHCNF2KJGsWXib9ww0Lh63+pVeItm8KYzEVejbvIRoVOWd7jYAZ47R4MJTwvwRg0i8h0ohuGuw
+X-MS-Exchange-AntiSpam-MessageData-0: LITSS1nHVy1wlRCPjKGypZAKNj02P1E1b6qnhrEEMRtiXMiZDeGA9bc72pwGQ4jaFGZfmF8H/5WEyXTDkgJRiMiDnCIYKpLC1gsUCSiqtbDFmwKMHu96TbyO8FfVGrAFjh/W9EApX5c87XiHKOKuJFvzfR9ZQtC9bkvHpUkMwoiNJ1/h404dl59nvo6J1vKyruM90n+J/JKGCTAFrYRUAWUflyzYhEbk9gmzArTqgAunZ3pZThqvCLGURx2CaezmIIoD5bkpPh7VWVvjruSF/whYC1PNDBV+63osRmCCXt94crxiML2rKM9RA6xkTuE8Ze1AK42m0J01hgVv0l4Pyb6JRSPpeG0Uncj5Aq+vlI9kwhPPoADvGZ69Q3+ts6yV5rmPUchPGBoMXCfseLXWiha90pfbD62zWCZSRT8nlT8Ll1RLMn9HynjrcezAWjhv
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2026 16:43:44.8781 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e35519de-d534-478a-c44b-08de67313991
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2026 16:43:44.2273 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eee4352a-7fed-455e-9c73-08de6731392e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A672F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7874
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9224
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,252 +136,294 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Introduce a new IOCTL option to allow userspace explicit control over
-the Peak Tops Limiter (PTL) state for profiling
+Add per-GPU sysfs files under /sys/class/drm/cardX/device/ptl to
+control the Peak Tops Limiter (PTL) feature. Exposes ptl_enable
+(enable/disable PTL), ptl_format (set/query preferred formats),
+and ptl_supported_formats (list supported formats)
 
-Link: https://github.com/ROCm/rocm-systems/tree/develop/projects/rocprofiler-sdk
+Example usage
+-------------
+Query PTL status:
+    `cat /sys/class/drm/card1/device/ptl/ptl_enable`
+
+Enable PTL:
+    `sudo bash -c "echo 1 > /sys/class/drm/card1/device/ptl/ptl_enable"`
+
+Disable PTL:
+    `sudo bash -c "echo 0 > /sys/class/drm/card1/device/ptl/ptl_enable"`
+
+Set PTL preferred formats:
+    `sudo bash -c "echo I8,F32 > /sys/class/drm/card1/device/ptl/ptl_format"`
+
+Query supported formats:
+    `cat /sys/class/drm/card1/device/ptl/ptl_supported_formats`
+
+v3 changes:
+ * move N/A to previous format in format show(Alex)
+ * fix format check for format store(Alex)
+ * drop the ptl declarations into amdgpu_ptl.h(Alex)
+
+v2 changes:
+ * add usage commands in commit info (Alex)
+ * move amdgpu_ptl_fmt into kgd_kfd_interface.h (Alex)
+
 Signed-off-by: Perry Yuan <perry.yuan@amd.com>
 Reviewed-by: Yifan Zhang <yifan1.zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c  |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 102 +++++++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |   9 ++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c |   4 +
- drivers/gpu/drm/amd/include/amdgpu_ptl.h |   2 +
- include/uapi/linux/kfd_ioctl.h           |   7 ++
- 6 files changed, 126 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c    | 191 +++++++++++++++++++++
+ drivers/gpu/drm/amd/include/amdgpu_ptl.h   |   4 +
+ 3 files changed, 197 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index aa9307d88fde..4e04eba9879a 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -2396,6 +2396,8 @@ static int gfx_v9_4_3_perf_monitor_ptl_init(struct amdgpu_device *adev, bool ena
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index a07fe386d275..da7585d1c6e7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4337,6 +4337,7 @@ static int amdgpu_device_sys_interface_init(struct amdgpu_device *adev)
+ 	amdgpu_reg_state_sysfs_init(adev);
+ 	amdgpu_xcp_sysfs_init(adev);
+ 	amdgpu_uma_sysfs_init(adev);
++	amdgpu_ptl_sysfs_init(adev);
  
- 	ptl->hw_supported = true;
- 
-+	atomic_set(&ptl->disable_ref, 0);
-+
- 	return 0;
+ 	return r;
  }
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 9c37e8248540..9a23621542fa 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1765,6 +1765,104 @@ static int kfd_ioctl_svm(struct file *filep, struct kfd_process *p, void *data)
+@@ -4353,6 +4354,7 @@ static void amdgpu_device_sys_interface_fini(struct amdgpu_device *adev)
+ 	amdgpu_reg_state_sysfs_fini(adev);
+ 	amdgpu_xcp_sysfs_fini(adev);
+ 	amdgpu_uma_sysfs_fini(adev);
++	amdgpu_ptl_sysfs_fini(adev);
  }
- #endif
- 
-+static int kfd_ptl_control(struct kfd_process_device *pdd, bool enable)
-+{
-+	struct amdgpu_device *adev = pdd->dev->adev;
-+	struct amdgpu_ptl *ptl = &adev->psp.ptl;
-+	enum amdgpu_ptl_fmt pref_format1 = ptl->fmt1;
-+	enum amdgpu_ptl_fmt pref_format2 = ptl->fmt2;
-+	uint32_t ptl_state = enable ? 1 : 0;
-+	int ret;
-+
-+	if (!ptl->hw_supported)
-+		return -EOPNOTSUPP;
-+
-+	if (!pdd->dev->kfd2kgd || !pdd->dev->kfd2kgd->ptl_ctrl)
-+		return -EOPNOTSUPP;
-+
-+	ret = pdd->dev->kfd2kgd->ptl_ctrl(adev, PSP_PTL_PERF_MON_SET,
-+					  &ptl_state,
-+					  &pref_format1,
-+					  &pref_format2);
-+	return ret;
-+}
-+
-+int kfd_ptl_disable_request(struct kfd_process_device *pdd,
-+		struct kfd_process *p)
-+{
-+	struct amdgpu_device *adev = pdd->dev->adev;
-+	struct amdgpu_ptl *ptl = &adev->psp.ptl;
-+	int ret = 0;
-+
-+	mutex_lock(&ptl->mutex);
-+
-+	if (pdd->ptl_disable_req)
-+		goto out;
-+
-+	if (atomic_inc_return(&ptl->disable_ref) == 1) {
-+		ret = kfd_ptl_control(pdd, false);
-+		if (ret) {
-+			atomic_dec(&ptl->disable_ref);
-+			dev_warn(pdd->dev->adev->dev,
-+					"failed to disable PTL\n");
-+			goto out;
-+		}
-+	}
-+	pdd->ptl_disable_req = true;
-+
-+out:
-+	mutex_unlock(&ptl->mutex);
-+	return ret;
-+}
-+
-+int kfd_ptl_disable_release(struct kfd_process_device *pdd,
-+		struct kfd_process *p)
-+{
-+	struct amdgpu_device *adev = pdd->dev->adev;
-+	struct amdgpu_ptl *ptl = &adev->psp.ptl;
-+	int ret = 0;
-+
-+	mutex_lock(&ptl->mutex);
-+
-+	if (!pdd->ptl_disable_req)
-+		goto out;
-+
-+	if (atomic_dec_return(&ptl->disable_ref) == 0) {
-+		ret = kfd_ptl_control(pdd, true);
-+		if (ret) {
-+			atomic_inc(&ptl->disable_ref);
-+			dev_warn(adev->dev, "Failed to enable PTL on release: %d\n", ret);
-+			goto out;
-+		}
-+	}
-+	pdd->ptl_disable_req = false;
-+
-+out:
-+	mutex_unlock(&ptl->mutex);
-+	return ret;
-+}
-+
-+static int kfd_profiler_ptl_control(struct kfd_process *p,
-+		struct kfd_ioctl_ptl_control *args)
-+{
-+	struct kfd_process_device *pdd;
-+	int ret;
-+
-+	mutex_lock(&p->mutex);
-+	pdd = kfd_process_device_data_by_id(p, args->gpu_id);
-+	mutex_unlock(&p->mutex);
-+
-+	if (!pdd || !pdd->dev || !pdd->dev->kfd)
-+		return -EINVAL;
-+
-+	if (args->enable == 0)
-+		ret = kfd_ptl_disable_request(pdd, p);
-+	else
-+		ret = kfd_ptl_disable_release(pdd, p);
-+
-+	return ret;
-+}
-+
- static int criu_checkpoint_process(struct kfd_process *p,
- 			     uint8_t __user *user_priv_data,
- 			     uint64_t *priv_offset)
-@@ -3230,6 +3328,7 @@ static inline uint32_t profile_lock_device(struct kfd_process *p,
- 		if (!kfd->profiler_process) {
- 			kfd->profiler_process = p;
- 			status = 0;
-+			kfd_ptl_disable_request(pdd, p);
- 		} else if (kfd->profiler_process == p) {
- 			status = -EALREADY;
- 		} else {
-@@ -3238,6 +3337,7 @@ static inline uint32_t profile_lock_device(struct kfd_process *p,
- 	} else if (op == 0 && kfd->profiler_process == p) {
- 		kfd->profiler_process = NULL;
- 		status = 0;
-+		kfd_ptl_disable_release(pdd, p);
- 	}
- 	mutex_unlock(&kfd->profiler_lock);
- 
-@@ -3280,6 +3380,8 @@ static int kfd_ioctl_profiler(struct file *filep, struct kfd_process *p, void *d
- 		return 0;
- 	case KFD_IOC_PROFILER_PMC:
- 		return kfd_profiler_pmc(p, &args->pmc);
-+	case KFD_IOC_PROFILER_PTL_CONTROL:
-+		return kfd_profiler_ptl_control(p, &args->ptl);
- 	}
- 	return -EINVAL;
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 8983065645fa..48347065b9cd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -872,6 +872,8 @@ struct kfd_process_device {
- 	bool has_reset_queue;
- 
- 	u32 pasid;
-+	/* Indicates this process has requested PTL stay disabled */
-+	bool ptl_disable_req;
- };
- 
- #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
-@@ -1607,6 +1609,13 @@ static inline bool kfd_is_first_node(struct kfd_node *node)
- 	return (node == node->kfd->nodes[0]);
- }
- 
-+/* PTL support */
-+int kfd_ptl_control(struct kfd_process_device *pdd, bool enable);
-+int kfd_ptl_disable_request(struct kfd_process_device *pdd,
-+		struct kfd_process *p);
-+int kfd_ptl_disable_release(struct kfd_process_device *pdd,
-+		struct kfd_process *p);
-+
- /* Debugfs */
- #if defined(CONFIG_DEBUG_FS)
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index deca19b478d0..882080dc4925 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1132,6 +1132,10 @@ static void kfd_process_destroy_pdds(struct kfd_process *p)
- 		pr_debug("Releasing pdd (topology id %d, for pid %d)\n",
- 			pdd->dev->id, p->lead_thread->pid);
- 		kfd_process_profiler_release(p, pdd);
-+
-+		if (pdd->ptl_disable_req)
-+			kfd_ptl_disable_release(pdd, p);
-+
- 		kfd_process_device_destroy_cwsr_dgpu(pdd);
- 		kfd_process_device_destroy_ib_mem(pdd);
- 
-diff --git a/drivers/gpu/drm/amd/include/amdgpu_ptl.h b/drivers/gpu/drm/amd/include/amdgpu_ptl.h
-index e5ea1084bb09..f944ab45d1ea 100644
---- a/drivers/gpu/drm/amd/include/amdgpu_ptl.h
-+++ b/drivers/gpu/drm/amd/include/amdgpu_ptl.h
-@@ -39,6 +39,8 @@ struct amdgpu_ptl {
- 	enum amdgpu_ptl_fmt		fmt2;
- 	bool				enabled;
- 	bool				hw_supported;
-+	/* PTL disable reference counting */
-+	atomic_t			disable_ref;
- 	struct mutex			mutex;
- };
- 
-diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index a8b2a18d07cf..da93daa3283c 100644
---- a/include/uapi/linux/kfd_ioctl.h
-+++ b/include/uapi/linux/kfd_ioctl.h
-@@ -1562,6 +1562,7 @@ struct kfd_ioctl_dbg_trap_args {
- enum kfd_profiler_ops {
- 	KFD_IOC_PROFILER_PMC = 0,
- 	KFD_IOC_PROFILER_VERSION = 2,
-+	KFD_IOC_PROFILER_PTL_CONTROL = 3,
- };
  
  /**
-@@ -1573,10 +1574,16 @@ struct kfd_ioctl_pmc_settings {
- 	__u32 perfcount_enable;   /* Force Perfcount Enable for queues on GPU */
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 19b81f515374..a1481ad465a4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -52,6 +52,15 @@ static int psp_load_smu_fw(struct psp_context *psp);
+ static int psp_rap_terminate(struct psp_context *psp);
+ static int psp_securedisplay_terminate(struct psp_context *psp);
  
-+struct kfd_ioctl_ptl_control {
-+	__u32 gpu_id; /* user_gpu_id */
-+	__u32 enable; /* set 1 to enable PTL, set 0 to disable PTL */
++static const char * const amdgpu_ptl_fmt_str[] = {
++	[AMDGPU_PTL_FMT_I8]      = "I8",
++	[AMDGPU_PTL_FMT_F16]     = "F16",
++	[AMDGPU_PTL_FMT_BF16]    = "BF16",
++	[AMDGPU_PTL_FMT_F32]     = "F32",
++	[AMDGPU_PTL_FMT_F64]     = "F64",
++	[AMDGPU_PTL_FMT_INVALID] = "INVALID",
 +};
 +
- struct kfd_ioctl_profiler_args {
- 	__u32 op;						/* kfd_profiler_op */
- 	union {
- 		struct kfd_ioctl_pmc_settings  pmc;
-+		struct kfd_ioctl_ptl_control   ptl;
- 		__u32 version;				/* KFD_IOC_PROFILER_VERSION_NUM */
- 	};
- };
+ static int psp_ring_init(struct psp_context *psp,
+ 			 enum psp_ring_type ring_type)
+ {
+@@ -1307,6 +1316,163 @@ int amdgpu_ptl_perf_monitor_ctrl(struct amdgpu_device *adev, u32 req_code,
+ 
+ 	return psp_ptl_invoke(psp, req_code, ptl_state, &ptl_fmt1, &ptl_fmt2);
+ }
++
++static enum amdgpu_ptl_fmt str_to_ptl_fmt(const char *str)
++{
++	int i;
++
++	for (i = 0; i < AMDGPU_PTL_FMT_INVALID; ++i) {
++		if (!strcmp(str, amdgpu_ptl_fmt_str[i]))
++			return (enum amdgpu_ptl_fmt)i;
++	}
++
++	return AMDGPU_PTL_FMT_INVALID;
++}
++
++static ssize_t ptl_supported_formats_show(struct device *dev,
++		struct device_attribute *attr, char *buf)
++{
++	ssize_t len = 0;
++
++	for (int i = 0; i < AMDGPU_PTL_FMT_INVALID; ++i) {
++		len += sysfs_emit_at(buf, len, "%s%s",
++				amdgpu_ptl_fmt_str[i],
++				(i < AMDGPU_PTL_FMT_INVALID - 1) ? "," : "\n");
++	}
++
++	return len;
++}
++
++static ssize_t ptl_enable_store(struct device *dev,
++		struct device_attribute *attr,
++		const char *buf, size_t count)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	struct amdgpu_ptl *ptl = &adev->psp.ptl;
++	uint32_t ptl_state, fmt1, fmt2;
++	int ret;
++	bool enable;
++
++	mutex_lock(&ptl->mutex);
++	if (sysfs_streq(buf, "enabled") || sysfs_streq(buf, "1")) {
++		enable = true;
++	} else if (sysfs_streq(buf, "disabled") || sysfs_streq(buf, "0")) {
++		enable = false;
++	} else {
++		mutex_unlock(&ptl->mutex);
++		return -EINVAL;
++	}
++
++	fmt1 = ptl->fmt1;
++	fmt2 = ptl->fmt2;
++	ptl_state = enable ? 1 : 0;
++
++	ret = amdgpu_ptl_perf_monitor_ctrl(adev, PSP_PTL_PERF_MON_SET, &ptl_state, &fmt1, &fmt2);
++	if (ret) {
++		dev_err(adev->dev, "Failed to set PTL err = %d\n", ret);
++		mutex_unlock(&ptl->mutex);
++		return ret;
++	}
++
++	mutex_unlock(&ptl->mutex);
++	return count;
++}
++
++static ssize_t ptl_enable_show(struct device *dev, struct device_attribute *attr, char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	struct amdgpu_ptl *ptl = &adev->psp.ptl;
++
++	return sysfs_emit(buf, "%s\n", ptl->enabled ? "enabled" : "disabled");
++}
++
++static ssize_t ptl_format_store(struct device *dev,
++		struct device_attribute *attr,
++		const char *buf, size_t count)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	char fmt1_str[8], fmt2_str[8];
++	enum amdgpu_ptl_fmt fmt1_enum, fmt2_enum;
++	struct amdgpu_ptl *ptl = &adev->psp.ptl;
++	uint32_t ptl_state, fmt1, fmt2;
++	int ret;
++
++	/* Only allow format update when PTL is enabled */
++	if (!ptl->enabled)
++		return -EPERM;
++
++	mutex_lock(&ptl->mutex);
++	/* Parse input, expecting "FMT1,FMT2" */
++	if (sscanf(buf, "%7[^,],%7s", fmt1_str, fmt2_str) != 2) {
++		mutex_unlock(&ptl->mutex);
++		return -EINVAL;
++	}
++
++	fmt1_enum = str_to_ptl_fmt(fmt1_str);
++	fmt2_enum = str_to_ptl_fmt(fmt2_str);
++
++	if (fmt1_enum >= AMDGPU_PTL_FMT_INVALID ||
++			fmt2_enum >= AMDGPU_PTL_FMT_INVALID ||
++			fmt1_enum == fmt2_enum) {
++		mutex_unlock(&ptl->mutex);
++		return -EINVAL;
++	}
++
++	ptl_state = ptl->enabled;
++	fmt1 = fmt1_enum;
++	fmt2 = fmt2_enum;
++	ret = amdgpu_ptl_perf_monitor_ctrl(adev, PSP_PTL_PERF_MON_SET, &ptl_state, &fmt1, &fmt2);
++	if (ret) {
++		dev_err(adev->dev, "Failed to update PTL err = %d\n", ret);
++		mutex_unlock(&ptl->mutex);
++		return ret;
++	}
++	mutex_unlock(&ptl->mutex);
++
++	return count;
++}
++
++static ssize_t ptl_format_show(struct device *dev, struct device_attribute *attr, char *buf)
++{
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++	struct psp_context *psp = &adev->psp;
++
++	return sysfs_emit(buf, "%s,%s\n",
++			amdgpu_ptl_fmt_str[psp->ptl.fmt1],
++			amdgpu_ptl_fmt_str[psp->ptl.fmt2]);
++}
++
++static umode_t amdgpu_ptl_is_visible(struct kobject *kobj, struct attribute *attr, int idx)
++{
++	struct device *dev = kobj_to_dev(kobj);
++	struct drm_device *ddev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(ddev);
++
++	/* Only show PTL sysfs files if PTL hardware is supported */
++	if (!adev->psp.ptl.hw_supported)
++		return 0;
++
++	return attr->mode;
++}
++
++int amdgpu_ptl_sysfs_init(struct amdgpu_device *adev)
++{
++	if (!adev->psp.ptl.hw_supported)
++		return 0;
++
++	return sysfs_create_group(&adev->dev->kobj, &amdgpu_ptl_attr_group);
++}
++
++void amdgpu_ptl_sysfs_fini(struct amdgpu_device *adev)
++{
++	if (!adev->psp.ptl.hw_supported)
++		return;
++
++	sysfs_remove_group(&adev->dev->kobj, &amdgpu_ptl_attr_group);
+ }
+ 
+ int psp_spatial_partition(struct psp_context *psp, int mode)
+@@ -4303,6 +4469,31 @@ void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size
+ static DEVICE_ATTR(usbc_pd_fw, 0644,
+ 		   psp_usbc_pd_fw_sysfs_read,
+ 		   psp_usbc_pd_fw_sysfs_write);
++/**
++ * DOC: PTL sysfs attributes
++ * These sysfs files under /sys/class/drm/cardX/device/ptl allow users to enable or disable
++ * the Peak Tops Limiter (PTL), configure preferred PTL data formats, and query supported
++ * formats for each GPU.
++ */
++static DEVICE_ATTR(ptl_enable, 0644,
++			ptl_enable_show, ptl_enable_store);
++static DEVICE_ATTR(ptl_format, 0644,
++			ptl_format_show, ptl_format_store);
++static DEVICE_ATTR(ptl_supported_formats, 0444,
++			ptl_supported_formats_show, NULL);
++
++static struct attribute *ptl_attrs[] = {
++	&dev_attr_ptl_enable.attr,
++	&dev_attr_ptl_format.attr,
++	&dev_attr_ptl_supported_formats.attr,
++	NULL,
++};
++
++const struct attribute_group amdgpu_ptl_attr_group = {
++	.name = "ptl",
++	.attrs = ptl_attrs,
++	.is_visible = amdgpu_ptl_is_visible,
++};
+ 
+ int is_psp_fw_valid(struct psp_bin_desc bin)
+ {
+diff --git a/drivers/gpu/drm/amd/include/amdgpu_ptl.h b/drivers/gpu/drm/amd/include/amdgpu_ptl.h
+index 12c9e0b4645a..e5ea1084bb09 100644
+--- a/drivers/gpu/drm/amd/include/amdgpu_ptl.h
++++ b/drivers/gpu/drm/amd/include/amdgpu_ptl.h
+@@ -45,4 +45,8 @@ struct amdgpu_ptl {
+ int amdgpu_ptl_perf_monitor_ctrl(struct amdgpu_device *adev, u32 req_code,
+ 		u32 *ptl_state, u32 *fmt1, u32 *fmt2);
+ 
++int amdgpu_ptl_sysfs_init(struct amdgpu_device *adev);
++void amdgpu_ptl_sysfs_fini(struct amdgpu_device *adev);
++
++extern const struct attribute_group amdgpu_ptl_attr_group;
+ #endif /* __AMDGPU_PTL_H__ */
 -- 
 2.34.1
 
