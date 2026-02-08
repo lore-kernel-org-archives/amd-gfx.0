@@ -4,94 +4,169 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FBE2EE0AE8
-	for <amd-gfx@archiver.kernel.org>; Sat,  7 Feb 2026 20:37:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4869BEF06E3
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Feb 2026 03:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E04010E1C9;
-	Sat,  7 Feb 2026 20:37:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD22410E13C;
+	Sun,  8 Feb 2026 03:17:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ThEfjcd9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2r2YBrS/";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0EA810E1C9;
- Sat,  7 Feb 2026 20:37:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=cKrScF4a28cP5lsIVMLNsUl91oT7jCHdkbXGzgDf+4E=; b=ThEfjcd9SM+sshBYF/imnjPgzr
- 8R2KjZ6jF6ORVH0x4Na8CTHEE23CX6huPIlvjxTlucbsaTd/B+iIr4JYNw42XFmNGIb3fxR26YP+X
- KeapWuwqLmSLNJXWvr32EzDpB+RgKMAU8SiLm2umOIupHMe5LWl+vaGTyc7biK3k3rIqxmd6UbFlW
- Oxdq3OQSH0HPaa3LL/RdOLHUoCjwt0/8IAJQM/Mq50Qcw1MT/+30Krr4UkNCR/uhyp6wMWYk+eKd2
- WYQBd8pDUhglMiCZsy2FZ+6znZODLGkcvDkarv2R6m0khnK6rxCM66wrn8IRao2Ew3fe4MLM/UhIG
- lwYuMB1A==;
-Received: from [187.36.210.68] (helo=[192.168.1.103])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vop3l-00FNqd-Pn; Sat, 07 Feb 2026 21:37:42 +0100
-Message-ID: <5b92cb85-5f82-4eef-ba4e-ca7e3a4fb791@igalia.com>
-Date: Sat, 7 Feb 2026 17:37:31 -0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 15/15] drm/atomic: Remove state argument to
- drm_atomic_private_obj_init
-To: Maxime Ripard <mripard@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- amd-gfx@lists.freedesktop.org, linux-mips@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>
-References: <20260128-drm-private-obj-reset-v4-0-90891fa3d3b0@redhat.com>
- <20260128-drm-private-obj-reset-v4-15-90891fa3d3b0@redhat.com>
-From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011045.outbound.protection.outlook.com [52.101.52.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD90C10E13C
+ for <amd-gfx@lists.freedesktop.org>; Sun,  8 Feb 2026 03:17:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kn86zorA6JghrPy2VqW+mCH0t1vLHpBDbLo9u2fQdv7z00l1lfZlTEgAnxpYmTwKthysrB32w4U7ICMyQL5FtInCwbpjAg4J6QpVeBbd3oPvfF3D3bcSmgz19/AIbgJdioiZZbq4elA7V84YBq+F3AZKCap/f6+7D7EHN+ieV/HcP75wdlGqvshbuDER95BjgLdTZ9YG/74VWfuoRUSwMspPnaJSvaUMA+7oI3I8y2bYP6F6SgivtM32cB/OlEcfnMFJhI7mOdTwZvaq8y54Z0E9HTXGP8MkBHtONE6AJcefNCaU1l1DO+wYucHmDuhc0ktoEhPQXm3vLADYjtqSMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MehctPPvxMWso/UNTBDExKy+YbZ2EORZNKv00912H6Q=;
+ b=l6cXQHLr7VOx950GhgdLUt1NO/fkRuiS1wm2TgDv+FaswIJxMYDSNUZfNwGLOcklkHn8hPN6kwXGqJnI8VuvhutT9NBcv+Uh2dkXoJPdSrte/yHp3y13puMqf+uN1Oya+Qgxs3C6MfkE/XVcOyJXP332QTomsiyaM1pmbxNkZUBVsTtIaxaq3R9R2d3AfL1A4BZS4scu+C9gD3zFGZgXPy1cB6hE8QeptEqsbul8dIEZ9Rpug8hspDhcwZRD+jOIkXK7eK+0C+bWqTJPI5/fRNhIVBVkLlr0qPavoEfcvgiZcAgeaoVeQWkYZyjfYkgiDFd80/qq1RDimwEyMZdwRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MehctPPvxMWso/UNTBDExKy+YbZ2EORZNKv00912H6Q=;
+ b=2r2YBrS/AuT0PQCkKBgyGj0i29Dx0/04j2XY31+1OnCBooUXiVOgynm020yDatlJpJEL/tN+a5DQdGVhF3Fx3ZMPgs2h5ntfljeF9ML0YKJ7xm+1gwbk2RPm4xb7He+ndtPwtStJNaUbSA+E7fKYGslrm4SqMj5zqw/dGhWQBCQ=
+Received: from CYYPR12MB8655.namprd12.prod.outlook.com (2603:10b6:930:c4::19)
+ by IA1PR12MB8360.namprd12.prod.outlook.com (2603:10b6:208:3d8::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Sun, 8 Feb
+ 2026 03:17:00 +0000
+Received: from CYYPR12MB8655.namprd12.prod.outlook.com
+ ([fe80::c32c:f300:e4d3:ae19]) by CYYPR12MB8655.namprd12.prod.outlook.com
+ ([fe80::c32c:f300:e4d3:ae19%6]) with mapi id 15.20.9587.013; Sun, 8 Feb 2026
+ 03:16:59 +0000
+From: "Yuan, Perry" <Perry.Yuan@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Yifan" <Yifan1.Zhang@amd.com>
+Subject: RE: [PATCH 07/22] Documentation/amdgpu: Add documentation for Peak
+ Tops Limiter (PTL) sysfs interface
+Thread-Topic: [PATCH 07/22] Documentation/amdgpu: Add documentation for Peak
+ Tops Limiter (PTL) sysfs interface
+Thread-Index: AQHclmvoVEdGbvLdWEGwrBmVZlfyz7V0omMAgAOCmsA=
+Date: Sun, 8 Feb 2026 03:16:59 +0000
+Message-ID: <CYYPR12MB8655C9D60BD760C1CC1124F49C64A@CYYPR12MB8655.namprd12.prod.outlook.com>
+References: <20260205065130.654921-1-perry.yuan@amd.com>
+ <20260205065130.654921-7-perry.yuan@amd.com>
+ <CADnq5_M59RNnzco4mSL90mfxKp++Z82ZyLBt17LtUKVkdxNEbQ@mail.gmail.com>
+In-Reply-To: <CADnq5_M59RNnzco4mSL90mfxKp++Z82ZyLBt17LtUKVkdxNEbQ@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-Autocrypt: addr=mcanal@igalia.com; keydata=
- xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
- /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
- gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
- SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
- G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
- AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
- dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
- P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
- O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
- GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
- 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
- FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
- TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
- Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
- 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
- LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
- T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
- wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
- zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
- it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
- Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
- uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
- raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
-In-Reply-To: <20260128-drm-private-obj-reset-v4-15-90891fa3d3b0@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-02-08T03:13:37.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CYYPR12MB8655:EE_|IA1PR12MB8360:EE_
+x-ms-office365-filtering-correlation-id: c65ed4f2-7188-4b04-dda8-08de66c085ae
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0; ARA:13230040|366016|1800799024|376014|38070700021;
+x-microsoft-antispam-message-info: =?utf-8?B?UFNZdnpBbDBZUnZFL0hUOTlDNU1wdVk0bEwzRmtPcDk0MUtVcE8xTDh4NTV0?=
+ =?utf-8?B?YWZiOTFJRUZpMDFEb2pwMnRTN3lWaHc4T3Ayc1pBckRWalFtQ1JjTGQ0RW0x?=
+ =?utf-8?B?T3Ricm5wekR6cmtCdnVWR05RbzY3WEJyTmlUemw2UGhhWVVQNk1nazhySVJq?=
+ =?utf-8?B?V0dNUjhpb3RBTlFPeVlKN09ybEU5UkxPZ3dVSzJkcER1NjUzZDVoQ3BFVmRH?=
+ =?utf-8?B?aGpyUHNVZmt2TlVlejJKeXpJZHdXcEpLVGZObEhNMkZ6cFhuRlVjK1dFSFBt?=
+ =?utf-8?B?bWdDbUF3V3huNEp4Qmk5TkZmcWZkUE5iQi9rZkZhOEU3V2EzaVNqZi9LcmVT?=
+ =?utf-8?B?dHBUVjM4SmFsdUhLYWhpUVZpZkpFN012WG5xbkI0bTdjWEtrVmhiWVJRWTV2?=
+ =?utf-8?B?eUtBS1ZYMGNCMnlONmdLdlhUaWNJTnYzckhlSUhZQUJSWTRiemkrNllmZDlU?=
+ =?utf-8?B?ZEkrdGVDVHBuVVI2VWdKWG9zWU1pa1Z3WGVLT0RBajhRWXMraUhveWowWXly?=
+ =?utf-8?B?a2dlT1lzdUpFNytaUTBDd1BVdVdrUHlhTmtOaHhNSUV6UlMyN0tMTG52c3Az?=
+ =?utf-8?B?MDhnTEs2SkwvVCt3dXdVd1VGTlhnU216eE9tTTcvMjdVRGJ1WXMrWm54Q0hr?=
+ =?utf-8?B?amZObk5ldVVBT0dQQTRTQWZTNkRjUVFlZU1SUytTMjBvY3pDeUpXS2g0eEtt?=
+ =?utf-8?B?LzJaeXg0M2xLTlJZTy93RmtmdTNGRjRqbGZyYUtYbXhHOEZ2YTNLbk1zRjZv?=
+ =?utf-8?B?Q0VLbWxIZE5oZjJMWjFZQi9iZlFnSWtqcG5ZQ3h5NUwzZWVUdHhuYk1nUS9p?=
+ =?utf-8?B?cmY2UDE5Q1NsYlVxUzlFbSsxbyttc2NTbGJyUzh0cGZNNVpoQ3BpWXM5blZu?=
+ =?utf-8?B?am02ZjdqMVNMTEhCdGVaZTFzOWZ5VWF0cVpONExkNHoyc1NrSHQ1ODRKV3Fa?=
+ =?utf-8?B?d0Nud3loUVc0UUhHbUU5TlorMEtvRXRlUEFKQjBHTWZBeXhDUU41L3oySElF?=
+ =?utf-8?B?UVRwVlBqRlovSmNrempKa1FaeFlHODZBNzRtNXFQQW1DMzV6TVpmd3AxTHBH?=
+ =?utf-8?B?VGVBZmhRUHVCWWFjS1I4aFRSY0JtM0c3RXNMS1JGSVQrZEM5NHN1Sm85WFhQ?=
+ =?utf-8?B?cyt6d3pWR3JncVhaazZuK3ZXRnlVV0tMWGh6RTNQNWpOVm5kOVVQejFlbnNy?=
+ =?utf-8?B?UW44dEdaSWlZem14bkNiOFExL1JQRTY4dDNpVDZLakk1dkRYS0VyUktnZzA5?=
+ =?utf-8?B?RU9BSjZaYnFJcnVBWk9BdU53ZDBBdUY5Wk82b2ZEeWVwbFdZdVhYVVlMRm1I?=
+ =?utf-8?B?bUhyeG4zUkJaMnFHb1ZKamNibnlYOXZadzkveDJaSzRpSy93dWJCNWZJWHV1?=
+ =?utf-8?B?TmxjaTlFWHEreDlhZXZnRUxCbTIyUmwxNGdiYjJOT1YyVTIrQkl0UkZjNHdV?=
+ =?utf-8?B?SmRRUmQrelE3cGdjaXBrbGRla0Vpd2tGalZWTy9qT21iZ1BKNjFxU2hYaE5u?=
+ =?utf-8?B?RVhhQ2ZjSmFrSE00dGp4cmczQW5lREdzd0JmSjJHaC9ZRndMcXJPZnc4SElQ?=
+ =?utf-8?B?YUVnNTVWMm5tdkREZnRBMm12WFhpVU9LQVFGeVJ0U3g4N1QxMHdWZUY1QWg2?=
+ =?utf-8?B?dGpORnZ6ZEZsaXJxamswOXFvc09CZEF4QlVKdDRCNUIrelJQNzc0R1hpNjlL?=
+ =?utf-8?B?dnVZTEIybmIrSUptcnVjWC9EajhFQWR4bTlqUVBrd1pyVkFoVVJXeW1WZlFm?=
+ =?utf-8?B?Q0wzd2xZdEJLTVlqQXJDTFhCUzB4T3JoYjluVEVZVXplNUd1OGNOWi9SUmgy?=
+ =?utf-8?B?T0tSWHJwR2JZVnJzU2xnenphSmVYdTVoOENUV1QvSFpnTDQ3QklmOFkxeHh3?=
+ =?utf-8?B?Wk5rYnQyQkJLSDhtS3pPak15dmg2MnR2OHpkUVp3WDBMWTJDRjBMMS9WNm4r?=
+ =?utf-8?B?aG8zOU1ldnV1S3ZSamlnT2NaSVI5T2wzeGNaeUxVcnNkT2RPbUV6KzBNY0lO?=
+ =?utf-8?B?SUlHU1lEMGpEOHNmYy9lYld1NHRlOUExdkVTSkpyTGxlMHpKaGhnNlM3UWtY?=
+ =?utf-8?B?K0JhMm5SaTg4eHBPY2ZmTGxnVVBhSjg2cS9jZFoxNVFvdUlqUHJOZ2x6ajFH?=
+ =?utf-8?B?cEdYN0x6M2pvZGMxNFJjSVhWeGpBNWNxcHhpcVhoZkVYRmM2VC81OGNxemp6?=
+ =?utf-8?Q?i8g4SlT1ve5o/xxVhWjLY2k=3D?=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CYYPR12MB8655.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700021); DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?NnVOTkg2a1J3V1lRa3dXOHFiWG01eEtReW5yeEtMTVV4cC9sTHJRc21ab1ZK?=
+ =?utf-8?B?OFNoVUpkOVB3bkx3SFprS1cweDZqRmx3R3hXYURKQVphSTlKYkFVdm5sM0hj?=
+ =?utf-8?B?elBoYlM0S1JGOGZ6dWVQYkxBajM3ZFRMUW1haEdDaHJZSWZhRWlnZ3dRZ1Rw?=
+ =?utf-8?B?emJJNHg4Yy83WHVubG1KWnUxdEFFRG5yazR5Z3ZnY3Jpa3ExczhYSDN5T1hL?=
+ =?utf-8?B?L0NrN2ZDYmJranQ1STRnN3NYcTBZRExHdXJ4Z01NKzR6MWdPVUFsN3ZEVWM0?=
+ =?utf-8?B?a2hBWTlONzROV2lUZWc0OWNScmc2RkJ3SHRPL1poREJCNlhZRlhWanJwbUhS?=
+ =?utf-8?B?Z0twNlJ0bVB6N2dETHFQRVk5ZEdscHpqV2p6aTRKR0U5ZlI2ZmRaSXdDdWRw?=
+ =?utf-8?B?YjBwd0FxeWNETEY5WWZyUTY2amVQRkVadmtqQ0pQNlVORjJmTkE1b2lnc0xP?=
+ =?utf-8?B?cWI1T254WU9scGkrZXdhVTJsc3hjcDN4NVRtKzZwMFhaanhJSUp1QW1OMk1i?=
+ =?utf-8?B?Y0lobExDMnhvMUdLU0l3MFN6YXBBamdSWU55d2R0eXVYOXRjZWN0N21DYzJS?=
+ =?utf-8?B?QmZZdTg5U0cxV3ZpUDhRSUNjbVMyYm1UcFBRZGRyOWdueGZMc1h1Zm1Ydk9W?=
+ =?utf-8?B?ZkJQdmxCY3UyVklIbldQT1lBclloYmM2ZWlGeFRGdE9SNlVEaDdDbXUyVUht?=
+ =?utf-8?B?d0lrOEM1NXFEOGp6a05pa1ZkK00rN1lGRzdrUDBCMlIzYTA3QWNkQkFUTzdr?=
+ =?utf-8?B?bDNBTjJsSkNCYzk0aTJkMUIwSFlPdmh2QWhOYkU1b3NkVjBNeDVSeU50TnE4?=
+ =?utf-8?B?NVNXclRlSGFLTURJT0lQVGY0elJVc0U3NmFCSUtmR0h3cjBaYjZsVnZDRjJj?=
+ =?utf-8?B?d0x2bndrckNDcmR2akV2MTJHMVZwbFF4VENuY2drWjZPcUUyT2EzVTVQdzd3?=
+ =?utf-8?B?Zk0rdGRhVFFYSFUwVjRnUjJPZEx4Q2NuZmV3UlYrSS9BVk10NXBiVEJaWVpC?=
+ =?utf-8?B?RFEvdTgxVHREWEtRcm8vNWJDK29jYzVUaXlGek5DTUpTbFlEb2lGNmVnSXpI?=
+ =?utf-8?B?Mk9xUDB6d2JWTUVYb3pDcTFtdjV5L0NBQVkxQlNMSURNMHVXWkZiQnBmYXJu?=
+ =?utf-8?B?MjIrRDZrSEJYUFlQVVZqcTRTLytsYnFvN2FwRkV2K05wdkUzRFRqS29pSkRu?=
+ =?utf-8?B?aHI2U1Y4K3c2U2cwNGFlY0lqOU1sa24zQWFKSmJLL3A3cE4vSUxBQUJubE04?=
+ =?utf-8?B?WVV2ZEl1eFN0QVRqVlR2TGZJNmhYRlgvWTEvQlBISkk4V0hWNmkyOXU3MkxP?=
+ =?utf-8?B?STEwbmVZUkduREthZGRiZ2FKS2JJOHJSNmcxQ1RZRW8yWm1DQ1FSRHNWOUpU?=
+ =?utf-8?B?OHJzZDR3cDBjRHJCYU92TFFYSjlnZldKdFR1VjNaeTJ4Y2pKTTFaaE9keUlR?=
+ =?utf-8?B?cE5RUmVHOXp0U3poWlFkcnBhTDRsdG9SbzlGSm5ldmRpQ0lyM0tEd3MzRUZj?=
+ =?utf-8?B?S01hUVRDWW1PTytRQXh3THhXZkozTnRMZkpRYklOZGNCejk1eEg5MXNXOTMy?=
+ =?utf-8?B?Y3V2TGhLWEV1Z2xvYng5U2M0eEFSaTI5R1gxZjFPTE1ZbnRpdVFKekZVMWRD?=
+ =?utf-8?B?SEx3Ykp3R1hzL1hHS01tdGYrVjc4Und0OVQvUkFkcEVQUm04d09sRlQ4S2Yr?=
+ =?utf-8?B?VVhGdlpheXIyS3BtbFpNRW9KWVdXOXN1NnlkWVRibGZKb1YxUHR6OE14QmtX?=
+ =?utf-8?B?YVh4c2JXaTN4RFI2UUZpU3hIMXBOT0lpTVJ0SFlzNW9tT2lZVEZlZHFheHV2?=
+ =?utf-8?B?aC9rTUJ6clJQSGQ5YTlJUmNlejMrdnFPL0FmdUpCUzY5Zk9kWjZFQnBHSUta?=
+ =?utf-8?B?WXU1S3JJcHMwSXpxZHNyVjh1UzNKNFpwdVQyYkljcUxQbGtUZzZSY25hV0pD?=
+ =?utf-8?B?TjUzdFF3d3NHSDdaM3Rmb21XRko0RWoyMDJCUUhMczFRc0lKQ1ZFNGtTVDYr?=
+ =?utf-8?B?bG5EZ2xnbFE0L3YwOC9XSGhMNSsxSDlEazdtWDBpRk5MVkhsTllLZzZLem9Q?=
+ =?utf-8?B?ZklmbzJWdzh2UmxFTms5VHZlYVY4bG9oNjd3Ukg2Q25WY3VmdmhlcCs0clo5?=
+ =?utf-8?B?cGlEWldOV1BvdzhDbzFLbzRJK1Y3cERiK1dubVJ3cWZkRVV6UHJYWitBWFpP?=
+ =?utf-8?B?UUtwd0NIdWUrRm9IZGN6MTZCNnp4TXRXNWtjbTVzS3FyNDNzTlBXRGc4SDMv?=
+ =?utf-8?B?RlQvTWZLd1dnN3hXUkFtdncvSDQzS1lTYkMvRjdBK3lHZEJEbDBQb2tmeVd1?=
+ =?utf-8?Q?tm9tGGtPOb0v2hb+PI?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CYYPR12MB8655.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c65ed4f2-7188-4b04-dda8-08de66c085ae
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Feb 2026 03:16:59.5306 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: svZT2vRO82nNps3bWB4ZLxhOrpHNFa9ebWwbPdHviottepFsEoFw1zO2kBcyb82y7Wz3inkVuAV5jyVrC4c/7g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8360
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,458 +181,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Maxime,
-
-On 28/01/26 09:43, Maxime Ripard wrote:
-> Now that all drm_private_objs users have been converted to use
-> atomic_create_state instead of the old ad-hoc initialization, we can
-> remove the state parameter from drm_private_obj_init and the fallback
-> code.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-For vc4:
-
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
-
-Best regards,
-- Maíra
-
-> ---
-> 
-> To: Liviu Dudau <liviu.dudau@arm.com>
-> To: Andrzej Hajda <andrzej.hajda@intel.com>
-> To: Neil Armstrong <neil.armstrong@linaro.org>
-> To: Robert Foss <rfoss@kernel.org>
-> To: Paul Cercueil <paul@crapouillou.net>
-> To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> To: Thierry Reding <thierry.reding@gmail.com>
-> To: Mikko Perttunen <mperttunen@nvidia.com>
-> To: Jonathan Hunter <jonathanh@nvidia.com>
-> To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Cc: Rodrigo Siqueira <siqueira@igalia.com>
-> Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-> Cc: Jonas Karlman <jonas@kwiboo.se>
-> Cc: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Cc: Abhinav Kumar <abhinav.kumar@linux.dev>
-> Cc: Jessica Zhang <jessica.zhang@oss.qualcomm.com>
-> Cc: Sean Paul <sean@poorly.run>
-> Cc: Marijn Suijten <marijn.suijten@somainline.org>
-> Cc: "Maíra Canal" <mcanal@igalia.com>
-> Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-> Cc: amd-gfx@lists.freedesktop.org
-> Cc: linux-mips@vger.kernel.org
-> Cc: linux-arm-msm@vger.kernel.org
-> Cc: freedreno@lists.freedesktop.org
-> Cc: linux-tegra@vger.kernel.org
-> ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  1 -
->   .../drm/arm/display/komeda/komeda_private_obj.c    | 16 ++++++++--------
->   drivers/gpu/drm/display/drm_dp_mst_topology.c      |  1 -
->   drivers/gpu/drm/display/drm_dp_tunnel.c            |  2 +-
->   drivers/gpu/drm/drm_atomic.c                       | 22 +++++-----------------
->   drivers/gpu/drm/drm_bridge.c                       |  1 -
->   drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  2 +-
->   drivers/gpu/drm/ingenic/ingenic-ipu.c              |  2 +-
->   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  1 -
->   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  1 -
->   drivers/gpu/drm/omapdrm/omap_drv.c                 |  2 +-
->   drivers/gpu/drm/tegra/hub.c                        |  2 +-
->   drivers/gpu/drm/vc4/vc4_kms.c                      |  4 +---
->   include/drm/drm_atomic.h                           |  1 -
->   14 files changed, 19 insertions(+), 39 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index a97e1bf1bfdc6384a6ac83f907878807bb3b62a0..cff3d00a367728449b4a4de4cc9f3c9036e3924f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4932,11 +4932,10 @@ static int amdgpu_dm_mode_config_init(struct amdgpu_device *adev)
->   	/* indicates support for immediate flip */
->   	adev_to_drm(adev)->mode_config.async_page_flip = true;
->   
->   	drm_atomic_private_obj_init(adev_to_drm(adev),
->   				    &adev->dm.atomic_obj,
-> -				    NULL,
->   				    &dm_atomic_state_funcs);
->   
->   	r = amdgpu_display_modeset_create_props(adev);
->   	if (r)
->   		return r;
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c b/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-> index 4994b69c6595637ea832b97629b052e3aea97ee7..6270e5c525db221267b1215a27653ace578eeb0a 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_private_obj.c
-> @@ -63,11 +63,11 @@ static const struct drm_private_state_funcs komeda_layer_obj_funcs = {
->   };
->   
->   static int komeda_layer_obj_add(struct komeda_kms_dev *kms,
->   				struct komeda_layer *layer)
->   {
-> -	drm_atomic_private_obj_init(&kms->base, &layer->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &layer->base.obj,
->   				    &komeda_layer_obj_funcs);
->   	return 0;
->   }
->   
->   static struct drm_private_state *
-> @@ -116,11 +116,11 @@ static const struct drm_private_state_funcs komeda_scaler_obj_funcs = {
->   
->   static int komeda_scaler_obj_add(struct komeda_kms_dev *kms,
->   				 struct komeda_scaler *scaler)
->   {
->   	drm_atomic_private_obj_init(&kms->base,
-> -				    &scaler->base.obj, NULL,
-> +				    &scaler->base.obj,
->   				    &komeda_scaler_obj_funcs);
->   	return 0;
->   }
->   
->   static struct drm_private_state *
-> @@ -168,11 +168,11 @@ static const struct drm_private_state_funcs komeda_compiz_obj_funcs = {
->   };
->   
->   static int komeda_compiz_obj_add(struct komeda_kms_dev *kms,
->   				 struct komeda_compiz *compiz)
->   {
-> -	drm_atomic_private_obj_init(&kms->base, &compiz->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &compiz->base.obj,
->   				    &komeda_compiz_obj_funcs);
->   
->   	return 0;
->   }
->   
-> @@ -222,11 +222,11 @@ static const struct drm_private_state_funcs komeda_splitter_obj_funcs = {
->   
->   static int komeda_splitter_obj_add(struct komeda_kms_dev *kms,
->   				   struct komeda_splitter *splitter)
->   {
->   	drm_atomic_private_obj_init(&kms->base,
-> -				    &splitter->base.obj, NULL,
-> +				    &splitter->base.obj,
->   				    &komeda_splitter_obj_funcs);
->   
->   	return 0;
->   }
->   
-> @@ -275,11 +275,11 @@ static const struct drm_private_state_funcs komeda_merger_obj_funcs = {
->   
->   static int komeda_merger_obj_add(struct komeda_kms_dev *kms,
->   				 struct komeda_merger *merger)
->   {
->   	drm_atomic_private_obj_init(&kms->base,
-> -				    &merger->base.obj, NULL,
-> +				    &merger->base.obj,
->   				    &komeda_merger_obj_funcs);
->   
->   	return 0;
->   }
->   
-> @@ -328,11 +328,11 @@ static const struct drm_private_state_funcs komeda_improc_obj_funcs = {
->   };
->   
->   static int komeda_improc_obj_add(struct komeda_kms_dev *kms,
->   				 struct komeda_improc *improc)
->   {
-> -	drm_atomic_private_obj_init(&kms->base, &improc->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &improc->base.obj,
->   				    &komeda_improc_obj_funcs);
->   
->   	return 0;
->   }
->   
-> @@ -381,11 +381,11 @@ static const struct drm_private_state_funcs komeda_timing_ctrlr_obj_funcs = {
->   };
->   
->   static int komeda_timing_ctrlr_obj_add(struct komeda_kms_dev *kms,
->   				       struct komeda_timing_ctrlr *ctrlr)
->   {
-> -	drm_atomic_private_obj_init(&kms->base, &ctrlr->base.obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &ctrlr->base.obj,
->   				    &komeda_timing_ctrlr_obj_funcs);
->   
->   	return 0;
->   }
->   
-> @@ -435,11 +435,11 @@ static const struct drm_private_state_funcs komeda_pipeline_obj_funcs = {
->   };
->   
->   static int komeda_pipeline_obj_add(struct komeda_kms_dev *kms,
->   				   struct komeda_pipeline *pipe)
->   {
-> -	drm_atomic_private_obj_init(&kms->base, &pipe->obj, NULL,
-> +	drm_atomic_private_obj_init(&kms->base, &pipe->obj,
->   				    &komeda_pipeline_obj_funcs);
->   
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> index 1ab0233a2a18f784d8c43e61b94e40a06bd4baf6..7e0e5b90df7251beed6985e16d1c3270ddfb3f37 100644
-> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-> @@ -5763,11 +5763,10 @@ int drm_dp_mst_topology_mgr_init(struct drm_dp_mst_topology_mgr *mgr,
->   	mgr->max_dpcd_transaction_bytes = max_dpcd_transaction_bytes;
->   	mgr->max_payloads = max_payloads;
->   	mgr->conn_base_id = conn_base_id;
->   
->   	drm_atomic_private_obj_init(dev, &mgr->base,
-> -				    NULL,
->   				    &drm_dp_mst_topology_state_funcs);
->   
->   	return 0;
->   }
->   EXPORT_SYMBOL(drm_dp_mst_topology_mgr_init);
-> diff --git a/drivers/gpu/drm/display/drm_dp_tunnel.c b/drivers/gpu/drm/display/drm_dp_tunnel.c
-> index 2abd714efd19f27697770813b38194e384be87ce..241498cef7de497afdf2837f750113743c001240 100644
-> --- a/drivers/gpu/drm/display/drm_dp_tunnel.c
-> +++ b/drivers/gpu/drm/display/drm_dp_tunnel.c
-> @@ -1598,11 +1598,11 @@ static bool init_group(struct drm_dp_tunnel_mgr *mgr, struct drm_dp_tunnel_group
->   {
->   	group->mgr = mgr;
->   	group->available_bw = -1;
->   	INIT_LIST_HEAD(&group->tunnels);
->   
-> -	drm_atomic_private_obj_init(mgr->dev, &group->base, NULL,
-> +	drm_atomic_private_obj_init(mgr->dev, &group->base,
->   				    &tunnel_group_funcs);
->   
->   	return true;
->   }
->   
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index e3029c8f02e5a3698781117bcc80eff98407cf16..243579fa1c756cd2eda660ad658cb49d67106584 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -919,11 +919,10 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
->   
->   /**
->    * drm_atomic_private_obj_init - initialize private object
->    * @dev: DRM device this object will be attached to
->    * @obj: private object
-> - * @state: initial private object state
->    * @funcs: pointer to the struct of function pointers that identify the object
->    * type
->    *
->    * Initialize the private object, which can be embedded into any
->    * driver private object that needs its own atomic state.
-> @@ -931,37 +930,26 @@ static void drm_atomic_plane_print_state(struct drm_printer *p,
->    * RETURNS:
->    * Zero on success, error code on failure
->    */
->   int drm_atomic_private_obj_init(struct drm_device *dev,
->   				struct drm_private_obj *obj,
-> -				struct drm_private_state *state,
->   				const struct drm_private_state_funcs *funcs)
->   {
-> +	struct drm_private_state *state;
->   	memset(obj, 0, sizeof(*obj));
->   
->   	drm_modeset_lock_init(&obj->lock);
->   
->   	obj->dev = dev;
->   	obj->funcs = funcs;
->   	list_add_tail(&obj->head, &dev->mode_config.privobj_list);
->   
-> -	/*
-> -	 * Not all users of drm_atomic_private_obj_init have been
-> -	 * converted to using &drm_private_obj_funcs.atomic_create_state yet.
-> -	 * For the time being, let's only call reset if the passed state is
-> -	 * NULL. Otherwise, we will fallback to the previous behaviour.
-> -	 */
-> -	if (!state) {
-> -		state = obj->funcs->atomic_create_state(obj);
-> -		if (IS_ERR(state))
-> -			return PTR_ERR(state);
-> +	state = obj->funcs->atomic_create_state(obj);
-> +	if (IS_ERR(state))
-> +		return PTR_ERR(state);
->   
-> -		obj->state = state;
-> -	} else {
-> -		obj->state = state;
-> -		state->obj = obj;
-> -	}
-> +	obj->state = state;
->   
->   	return 0;
->   }
->   EXPORT_SYMBOL(drm_atomic_private_obj_init);
->   
-> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-> index 94864e05619d1678ea6c0571e889f951e17d8d16..648d94da26b11e51ba4eca506ac99786838c81f7 100644
-> --- a/drivers/gpu/drm/drm_bridge.c
-> +++ b/drivers/gpu/drm/drm_bridge.c
-> @@ -551,11 +551,10 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
->   			goto err_reset_bridge;
->   	}
->   
->   	if (drm_bridge_is_atomic(bridge))
->   		drm_atomic_private_obj_init(bridge->dev, &bridge->base,
-> -					    NULL,
->   					    &drm_bridge_priv_state_funcs);
->   
->   	return 0;
->   
->   err_reset_bridge:
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> index 862691991ed2770d30342bf531e828e34bd7080a..e6b003c16e63609180881b1d3b0c7acbd5218ada 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
-> @@ -1399,11 +1399,11 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
->   	if (ret) {
->   		dev_err(dev, "Unable to register clock notifier\n");
->   		goto err_devclk_disable;
->   	}
->   
-> -	drm_atomic_private_obj_init(drm, &priv->private_obj, NULL,
-> +	drm_atomic_private_obj_init(drm, &priv->private_obj,
->   				    &ingenic_drm_private_state_funcs);
->   
->   	ret = drmm_add_action_or_reset(drm, ingenic_drm_atomic_private_obj_fini,
->   				       &priv->private_obj);
->   	if (ret)
-> diff --git a/drivers/gpu/drm/ingenic/ingenic-ipu.c b/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> index 253a1ce30997308547b61339468d52e6875785d3..635ef2b1efa57556f32fded612f0ff1068e23e8c 100644
-> --- a/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> +++ b/drivers/gpu/drm/ingenic/ingenic-ipu.c
-> @@ -899,11 +899,11 @@ static int ingenic_ipu_bind(struct device *dev, struct device *master, void *d)
->   	if (err) {
->   		dev_err(dev, "Unable to prepare clock\n");
->   		return err;
->   	}
->   
-> -	drm_atomic_private_obj_init(drm, &ipu->private_obj, NULL,
-> +	drm_atomic_private_obj_init(drm, &ipu->private_obj,
->   				    &ingenic_ipu_private_state_funcs);
->   
->   	return 0;
->   }
->   
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> index e33995a9522d2a9e8d0627069f7b5f44902278de..e52fd6b79c614a67d910e404efc24be014ec8f5e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c
-> @@ -1159,11 +1159,10 @@ static int dpu_kms_hw_init(struct msm_kms *kms)
->   
->   	dev->mode_config.cursor_width = 512;
->   	dev->mode_config.cursor_height = 512;
->   
->   	drm_atomic_private_obj_init(dpu_kms->dev, &dpu_kms->global_state,
-> -				    NULL,
->   				    &dpu_kms_global_state_funcs);
->   
->   	atomic_set(&dpu_kms->bandwidth_ref, 0);
->   
->   	rc = pm_runtime_resume_and_get(&dpu_kms->pdev->dev);
-> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> index 1fc9671590762b800bdeb6cd440b1ae6ee634679..c41bb03e5b96a162340b886d32656dfe4b0d1a99 100644
-> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
-> @@ -715,11 +715,10 @@ static int mdp5_init(struct platform_device *pdev, struct drm_device *dev)
->   	int ret;
->   
->   	mdp5_kms->dev = dev;
->   
->   	drm_atomic_private_obj_init(mdp5_kms->dev, &mdp5_kms->glob_state,
-> -				    NULL,
->   				    &mdp5_global_state_funcs);
->   
->   	/* we need to set a default rate before enabling.  Set a safe
->   	 * rate first, then figure out hw revision, and then set a
->   	 * more optimal rate:
-> diff --git a/drivers/gpu/drm/omapdrm/omap_drv.c b/drivers/gpu/drm/omapdrm/omap_drv.c
-> index febee3fea01dd40faec7d631279b1393a17822ba..27de798026365f710b78306a7ec2a72ddff20828 100644
-> --- a/drivers/gpu/drm/omapdrm/omap_drv.c
-> +++ b/drivers/gpu/drm/omapdrm/omap_drv.c
-> @@ -297,11 +297,11 @@ static const struct drm_private_state_funcs omap_global_state_funcs = {
->   
->   static int omap_global_obj_init(struct drm_device *dev)
->   {
->   	struct omap_drm_private *priv = dev->dev_private;
->   
-> -	drm_atomic_private_obj_init(dev, &priv->glob_obj, NULL,
-> +	drm_atomic_private_obj_init(dev, &priv->glob_obj,
->   				    &omap_global_state_funcs);
->   	return 0;
->   }
->   
->   static void omap_global_obj_fini(struct omap_drm_private *priv)
-> diff --git a/drivers/gpu/drm/tegra/hub.c b/drivers/gpu/drm/tegra/hub.c
-> index e8cc4382532fffaea99020755ad78d3252613c26..5c7fd36aaadc405b9dae0acb1e8b4f12f12c84bd 100644
-> --- a/drivers/gpu/drm/tegra/hub.c
-> +++ b/drivers/gpu/drm/tegra/hub.c
-> @@ -955,11 +955,11 @@ static int tegra_display_hub_init(struct host1x_client *client)
->   {
->   	struct tegra_display_hub *hub = to_tegra_display_hub(client);
->   	struct drm_device *drm = dev_get_drvdata(client->host);
->   	struct tegra_drm *tegra = drm->dev_private;
->   
-> -	drm_atomic_private_obj_init(drm, &hub->base, NULL,
-> +	drm_atomic_private_obj_init(drm, &hub->base,
->   				    &tegra_display_hub_state_funcs);
->   
->   	tegra->hub = hub;
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/vc4/vc4_kms.c b/drivers/gpu/drm/vc4/vc4_kms.c
-> index f82c7ea1d74eeaa075296533a1ffe3561f197748..8f60e9e98380984a0de7c9243c5ba703316d0c13 100644
-> --- a/drivers/gpu/drm/vc4/vc4_kms.c
-> +++ b/drivers/gpu/drm/vc4/vc4_kms.c
-> @@ -114,11 +114,11 @@ static void vc4_ctm_obj_fini(struct drm_device *dev, void *unused)
->   
->   static int vc4_ctm_obj_init(struct vc4_dev *vc4)
->   {
->   	drm_modeset_lock_init(&vc4->ctm_state_lock);
->   
-> -	drm_atomic_private_obj_init(&vc4->base, &vc4->ctm_manager, NULL,
-> +	drm_atomic_private_obj_init(&vc4->base, &vc4->ctm_manager,
->   				    &vc4_ctm_state_funcs);
->   
->   	return drmm_add_action_or_reset(&vc4->base, vc4_ctm_obj_fini, NULL);
->   }
->   
-> @@ -755,11 +755,10 @@ static void vc4_load_tracker_obj_fini(struct drm_device *dev, void *unused)
->   }
->   
->   static int vc4_load_tracker_obj_init(struct vc4_dev *vc4)
->   {
->   	drm_atomic_private_obj_init(&vc4->base, &vc4->load_tracker,
-> -				    NULL,
->   				    &vc4_load_tracker_state_funcs);
->   
->   	return drmm_add_action_or_reset(&vc4->base, vc4_load_tracker_obj_fini, NULL);
->   }
->   
-> @@ -847,11 +846,10 @@ static void vc4_hvs_channels_obj_fini(struct drm_device *dev, void *unused)
->   }
->   
->   static int vc4_hvs_channels_obj_init(struct vc4_dev *vc4)
->   {
->   	drm_atomic_private_obj_init(&vc4->base, &vc4->hvs_channels,
-> -				    NULL,
->   				    &vc4_hvs_state_funcs);
->   
->   	return drmm_add_action_or_reset(&vc4->base, vc4_hvs_channels_obj_fini, NULL);
->   }
->   
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 0b1b32bcd2bda1b92299fd369ba7c23b1c2d3dfa..f03cd199aee73fa8e15b2d9e16a53d134fc7de7d 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -736,11 +736,10 @@ struct drm_connector_state * __must_check
->   drm_atomic_get_connector_state(struct drm_atomic_state *state,
->   			       struct drm_connector *connector);
->   
->   int drm_atomic_private_obj_init(struct drm_device *dev,
->   				struct drm_private_obj *obj,
-> -				struct drm_private_state *state,
->   				const struct drm_private_state_funcs *funcs);
->   void drm_atomic_private_obj_fini(struct drm_private_obj *obj);
->   
->   struct drm_private_state * __must_check
->   drm_atomic_get_private_obj_state(struct drm_atomic_state *state,
-> 
-
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KIEhpIEFsZXgsDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQWxl
+eCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+DQo+IFNlbnQ6IEZyaWRheSwgRmVicnVh
+cnkgNiwgMjAyNiA1OjM3IEFNDQo+IFRvOiBZdWFuLCBQZXJyeSA8UGVycnkuWXVhbkBhbWQuY29t
+Pg0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsg
+YW1kLQ0KPiBnZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBaaGFuZywgWWlmYW4gPFlpZmFuMS5a
+aGFuZ0BhbWQuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDA3LzIyXSBEb2N1bWVudGF0aW9u
+L2FtZGdwdTogQWRkIGRvY3VtZW50YXRpb24gZm9yIFBlYWsNCj4gVG9wcyBMaW1pdGVyIChQVEwp
+IHN5c2ZzIGludGVyZmFjZQ0KPg0KPiBPbiBUaHUsIEZlYiA1LCAyMDI2IGF0IDExOjU34oCvQU0g
+UGVycnkgWXVhbiA8cGVycnkueXVhbkBhbWQuY29tPiB3cm90ZToNCj4gPg0KPiA+IFRoZSBQVEwg
+KFBlYWsgVG9wcyBMaW1pdGVyKSBmZWF0dXJlIGV4cG9zZXMgcGVyLUdQVSBzeXNmcyBmaWxlcyB1
+bmRlcg0KPiA+IC9zeXMvY2xhc3MvZHJtL2NhcmRYL2RldmljZS9wdGwvIHRvIGFsbG93IHVzZXJz
+IHRvIGVuYWJsZSBvciBkaXNhYmxlDQo+ID4gUFRMLCBjb25maWd1cmUgcHJlZmVycmVkIGRhdGEg
+Zm9ybWF0cywgYW5kIHF1ZXJ5IHN1cHBvcnRlZCBmb3JtYXRzLg0KPiA+IFRoZSB1c2FnZSBvZiB0
+aGVzZSBzeXNmcyBmaWxlcyBpcyBub3QgYWx3YXlzIG9idmlvdXMsIHNvIGFkZA0KPiA+IGRvY3Vt
+ZW50YXRpb24gdG8gZGVzY3JpYmUgdGhlaXIgcHVycG9zZSBhbmQgcHJvdmlkZSBjb25jcmV0ZSB1
+c2FnZSBleGFtcGxlcy4NCj4gPg0KPiA+IFYzIGNoYW5nZXM6DQo+ID4gICogZm9ybWF0IHNob3cg
+d2lsbCBkaXNwbGF5IHByZWZlcnJlZCBmb3JtYXRzIGluc3RlYWQgb2YgTi9BIChBbGV4KQ0KPiA+
+DQo+ID4gU2lnbmVkLW9mZi1ieTogUGVycnkgWXVhbiA8cGVycnkueXVhbkBhbWQuY29tPg0KPiA+
+IFN1Z2dlc3RlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0K
+PiA+IFJldmlld2VkLWJ5OiBZaWZhbiBaaGFuZyA8eWlmYW4xLnpoYW5nQGFtZC5jb20+DQo+ID4g
+LS0tDQo+ID4gIERvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS9pbmRleC5yc3QgfCAgMSArDQo+ID4g
+IERvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS9wdGwucnN0ICAgfCA5NA0KPiArKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysNCj4gPiAgMiBmaWxlcyBjaGFuZ2VkLCA5NSBpbnNlcnRpb25zKCsp
+DQo+ID4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2dwdS9hbWRncHUvcHRsLnJz
+dA0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS9pbmRleC5y
+c3QNCj4gPiBiL0RvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS9pbmRleC5yc3QNCj4gPiBpbmRleCA4
+NzMyMDg0MTg2YTQuLmIyYWIxODIyMzZlZiAxMDA2NDQNCj4gPiAtLS0gYS9Eb2N1bWVudGF0aW9u
+L2dwdS9hbWRncHUvaW5kZXgucnN0DQo+ID4gKysrIGIvRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1
+L2luZGV4LnJzdA0KPiA+IEBAIC0yMywzICsyMyw0IEBAIE5leHQgKEdDTiksIFJhZGVvbiBETkEg
+KFJETkEpLCBhbmQgQ29tcHV0ZSBETkENCj4gKENETkEpIGFyY2hpdGVjdHVyZXMuDQo+ID4gICAg
+IGRlYnVnZnMNCj4gPiAgICAgcHJvY2Vzcy1pc29sYXRpb24NCj4gPiAgICAgYW1kZ3B1LWdsb3Nz
+YXJ5DQo+ID4gKyAgIHB0bA0KPiA+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2dwdS9hbWRn
+cHUvcHRsLnJzdA0KPiA+IGIvRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1L3B0bC5yc3QNCj4gPiBu
+ZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiA+IGluZGV4IDAwMDAwMDAwMDAwMC4uYzdmMTZkZWE3OTU0
+DQo+ID4gLS0tIC9kZXYvbnVsbA0KPiA+ICsrKyBiL0RvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS9w
+dGwucnN0DQo+ID4gQEAgLTAsMCArMSw5NCBAQA0KPiA+ICs9PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT0NCj4gPiArUGVhayBUb3BzIExpbWl0ZXIgKFBUTCkgc3lzZnMgSW50
+ZXJmYWNlDQo+ID4gKz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQ0KPiA+
+ICsNCj4gPiArT3ZlcnZpZXcNCj4gPiArLS0tLS0tLS0NCj4gPiArVGhlIFBlYWsgVG9wcyBMaW1p
+dGVyIChQVEwpIHN5c2ZzIGludGVyZmFjZSBlbmFibGVzIHVzZXJzIHRvIGNvbnRyb2wNCj4gPiAr
+YW5kIGNvbmZpZ3VyZSB0aGUgUFRMIGZlYXR1cmUgZm9yIGVhY2ggR1BVIGluZGl2aWR1YWxseS4g
+IEFsbA0KPiA+ICtQVEwtcmVsYXRlZCBzeXNmcyBmaWxlcyBhcmUgbG9jYXRlZCB1bmRlcg0KPiA+
+ICtgL3N5cy9jbGFzcy9kcm0vY2FyZFgvZGV2aWNlL3B0bC9gLCB3aGVyZSBgWGAgaXMgdGhlIEdQ
+VSBpbmRleC4NCj4gPiArVGhyb3VnaCB0aGVzZSBmaWxlcywgdXNlcnMgY2FuIGVuYWJsZSBvciBk
+aXNhYmxlIFBUTCwgc2V0IHByZWZlcnJlZCBkYXRhDQo+IGZvcm1hdHMsIGFuZCBxdWVyeSBzdXBw
+b3J0ZWQgZm9ybWF0cyBmb3IgZWFjaCBHUFUuDQo+ID4gKw0KPiA+ICtQVEwgc3lzZnMgZmlsZXMN
+Cj4gPiArLS0tLS0tLS0tLS0tLS0tLQ0KPiA+ICtUaGUgZm9sbG93aW5nIGZpbGVzIGFyZSBhdmFp
+bGFibGUgdW5kZXIgYC9zeXMvY2xhc3MvZHJtL2NhcmRYL2RldmljZS9wdGwvYDoNCj4gPiArDQo+
+ID4gKy0gYHB0bF9lbmFibGVgDQo+ID4gKy0gYHB0bF9mb3JtYXRgDQo+ID4gKy0gYHB0bF9zdXBw
+b3J0ZWRfZm9ybWF0c2ANCj4gPiArDQo+ID4gK1BUTCBFbmFibGUvRGlzYWJsZQ0KPiA+ICstLS0t
+LS0tLS0tLS0tLS0tLS0NCj4gPiArRmlsZTogYHB0bF9lbmFibGVgDQo+ID4gK1R5cGU6IFJlYWQv
+V3JpdGUgKHJ3KQ0KPiA+ICsNCj4gPiArUmVhZDogUmV0dXJucyB0aGUgY3VycmVudCBQVEwgc3Rh
+dHVzIGFzIGEgc3RyaW5nOiBgZW5hYmxlZGAgaWYgUFRMIGlzDQo+ID4gK2FjdGl2ZSwgb3IgYGRp
+c2FibGVkYCBpZiBpbmFjdGl2ZS4NCj4gPiArDQo+ID4gK1dyaXRlOg0KPiA+ICsNCj4gPiArLSBX
+cml0ZSBgMWAgb3IgYGVuYWJsZWRgIHRvIGVuYWJsZSBQVEwNCj4gPiArLSBXcml0ZSBgMGAgb3Ig
+YGRpc2FibGVkYCB0byBkaXNhYmxlIFBUTA0KPg0KPiBJZGVhbGx5IGBlbmFibGVgIG9yIGBkaXNh
+YmxlYCwgSS5lLiwgZHJvcCB0aGUgImQiLg0KPg0KPiBBbGV4DQoNCkNvdWxkIHdlIHJldGFpbiB0
+aGUgY3VycmVudCAnZW5hYmxlZCcgYW5kICdkaXNhYmxlZCcgc3RhdGVzPyAgV2hpbGUgdGhleSBt
+YXkgbm90IGJlIGlkZWFsLCBjaGFuZ2luZyB0aGVtIHdvdWxkIGJyZWFrIGNvbXBhdGliaWxpdHkg
+d2l0aCB0aGUgYW1kLXNtaSB0b29sIHRoYXQgYWxyZWFkeSBoYXMgYmVlbiByZWxlYXNlZCB0byB1
+c2VyLg0KDQoNClRoYW5rcy4NClBlcnJ5Lg0KDQo+DQo+ID4gKw0KPiA+ICtFeGFtcGxlczo6DQo+
+ID4gKw0KPiA+ICsgICAgIyBRdWVyeSBQVEwgc3RhdHVzDQo+ID4gKyAgICBjYXQgL3N5cy9jbGFz
+cy9kcm0vY2FyZDEvZGV2aWNlL3B0bC9wdGxfZW5hYmxlDQo+ID4gKyAgICAjIE91dHB1dDogZW5h
+YmxlZA0KPiA+ICsNCj4gPiArICAgICMgRW5hYmxlIFBUTA0KPiA+ICsgICAgc3VkbyBiYXNoIC1j
+ICJlY2hvIDEgPiAvc3lzL2NsYXNzL2RybS9jYXJkMS9kZXZpY2UvcHRsL3B0bF9lbmFibGUiDQo+
+ID4gKw0KPiA+ICsgICAgIyBEaXNhYmxlIFBUTA0KPiA+ICsgICAgc3VkbyBiYXNoIC1jICJlY2hv
+IDAgPiAvc3lzL2NsYXNzL2RybS9jYXJkMS9kZXZpY2UvcHRsL3B0bF9lbmFibGUiDQo+ID4gKw0K
+PiA+ICtQVEwgRm9ybWF0IChQcmVmZXJyZWQgRGF0YSBGb3JtYXRzKQ0KPiA+ICstLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiA+ICtGaWxlOiBgcHRsX2Zvcm1hdGANCj4gPiAr
+VHlwZTogUmVhZC9Xcml0ZSAocncpDQo+ID4gKw0KPiA+ICtSZWFkOiBSZXR1cm5zIHRoZSB0d28g
+cHJlZmVycmVkIGZvcm1hdHMsIGUuZy4gYEk4LEYzMmAuDQo+ID4gKw0KPiA+ICtXcml0ZTogQWNj
+ZXB0cyB0d28gZm9ybWF0cyBzZXBhcmF0ZWQgYnkgYSBjb21tYSwgZS5nLiBgSTgsRjMyYC4NCj4g
+PiArDQo+ID4gKy0gQm90aCBmb3JtYXRzIG11c3QgYmUgc3VwcG9ydGVkIGFuZCBkaWZmZXJlbnQu
+DQo+ID4gKy0gSWYgYW4gaW52YWxpZCBmb3JtYXQgaXMgcHJvdmlkZWQgKG5vdCBzdXBwb3J0ZWQs
+IG9yIGJvdGggZm9ybWF0cw0KPiA+ICthcmUgdGhlDQo+ID4gKyAgc2FtZSksIHRoZSBkcml2ZXIg
+d2lsbCByZXR1cm4gIndyaXRlIGVycm9yOiBJbnZhbGlkIGFyZ3VtZW50Ii4NCj4gPiArDQo+ID4g
+K0V4YW1wbGVzOjoNCj4gPiArDQo+ID4gKyAgICAjIFF1ZXJ5IFBUTCBmb3JtYXRzDQo+ID4gKyAg
+ICBjYXQgL3N5cy9jbGFzcy9kcm0vY2FyZDEvZGV2aWNlL3B0bC9wdGxfZm9ybWF0DQo+ID4gKyAg
+ICAjIE91dHB1dDogSTgsRjMyDQo+ID4gKw0KPiA+ICsgICAgIyBTZXQgUFRMIGZvcm1hdHMNCj4g
+PiArICAgIHN1ZG8gYmFzaCAtYyAiZWNobyBJOCxGMzIgPiAvc3lzL2NsYXNzL2RybS9jYXJkMS9k
+ZXZpY2UvcHRsL3B0bF9mb3JtYXQiDQo+ID4gKw0KPiA+ICtTdXBwb3J0ZWQgRm9ybWF0cw0KPiA+
+ICstLS0tLS0tLS0tLS0tLS0tLQ0KPiA+ICtGaWxlOiBgcHRsX3N1cHBvcnRlZF9mb3JtYXRzYA0K
+PiA+ICtUeXBlOiBSZWFkLW9ubHkgKHIpDQo+ID4gKw0KPiA+ICtSZWFkOiBSZXR1cm5zIGEgY29t
+bWEtc2VwYXJhdGVkIGxpc3Qgb2Ygc3VwcG9ydGVkIGZvcm1hdHMsIGUuZy4NCj4gPiArYEk4LEYx
+NixCRjE2LEYzMixGNjRgLg0KPiA+ICsNCj4gPiArRXhhbXBsZTo6DQo+ID4gKw0KPiA+ICsgICAg
+IyBDaGVjayBzdXBwb3J0ZWQgZm9ybWF0cw0KPiA+ICsgICAgY2F0IC9zeXMvY2xhc3MvZHJtL2Nh
+cmQxL2RldmljZS9wdGwvcHRsX3N1cHBvcnRlZF9mb3JtYXRzDQo+ID4gKyAgICAjIE91dHB1dDog
+STgsRjE2LEJGMTYsRjMyLEY2NA0KPiA+ICsNCj4gPiArQmVoYXZpb3JhbCBOb3Rlcw0KPiA+ICst
+LS0tLS0tLS0tLS0tLS0tDQo+ID4gKy0gUFRMIGZvcm1hdHMgY2FuIG9ubHkgYmUgc2V0IHdoZW4g
+UFRMIGlzIGVuYWJsZWQuDQo+ID4gKy0gSWYgUFRMIGlzIGRpc2FibGVkLCBgcHRsX2Zvcm1hdGAg
+cmV0dXJucyBgTi9BYC4NCj4gPiArLSBPbmx5IHR3byBmb3JtYXRzIGNhbiBiZSBzZXQgYXQgYSB0
+aW1lLCBhbmQgdGhleSBtdXN0IGJlIGZyb20gdGhlIHN1cHBvcnRlZCBzZXQNCj4gYW5kIGRpZmZl
+cmVudC4uDQo+ID4gKy0gQWxsIGNvbW1hbmRzIHN1cHBvcnQgcGVyLUdQVSB0YXJnZXRpbmcuDQo+
+ID4gKy0gUm9vdCBwZXJtaXNzaW9uIGlzIHJlcXVpcmVkIHRvIGVuYWJsZS9kaXNhYmxlIFBUTCBv
+ciBjaGFuZ2UgZm9ybWF0cy4NCj4gPiArLSBJZiB0aGUgaGFyZHdhcmUgZG9lcyBub3Qgc3VwcG9y
+dCBQVEwsIHRoZSBQVEwgc3lzZnMgZGlyZWN0b3J5IHdpbGwNCj4gPiArbm90DQo+ID4gKyAgYmUg
+Y3JlYXRlZC4NCj4gPiArDQo+ID4gK0ltcGxlbWVudGF0aW9uDQo+ID4gKy0tLS0tLS0tLS0tLS0t
+DQo+ID4gK1RoZSBQVEwgc3lzZnMgbm9kZXMgYXJlIGltcGxlbWVudGVkIGluDQo+IGBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmNgLg0KPiA+IC0tDQo+ID4gMi4zNC4xDQo+
+ID4NCg==
