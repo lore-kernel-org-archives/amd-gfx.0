@@ -4,76 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7935DE94615
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 22:11:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B389E94617
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 22:38:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 158BB10E485;
-	Mon,  9 Feb 2026 22:11:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02DB310E05B;
+	Mon,  9 Feb 2026 22:38:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e4PDM93O";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q24/9OCb";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C37310E485
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Feb 2026 22:11:52 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-482f454be5bso50177915e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Feb 2026 14:11:52 -0800 (PST)
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37E9410E05B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Feb 2026 22:38:33 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-124b07e5fe4so347436c88.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Feb 2026 14:38:33 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770676712; cv=none;
+ d=google.com; s=arc-20240605;
+ b=XFJoBdeE9s7pNHKptN4TRVWXi0bC1v+M80+Bk7H0vDOuAt02saE7Ezkdbz5D3xzuSm
+ g0mlO/7wvY6XxjK7ixdJradvrSUfEmUmjKcVIuEwciapmpvrMPtvEmcUONmZnPWKipbJ
+ JT4+ExZ0slKf/I/MZ75K3C9aEoPAAjCuZWsUU4D9pD8ydSwHowxtV9v0VUvT1yS+ZJTx
+ d1Jd+L1gytnBbzv0Xn+LQkRsxbxZlBsxv4q609eKbRAeM2nqSWXxhY6QVoEQjuweaXIl
+ 2xb9WQODuny3Jh4Cdq/J9syrODqdk8nm9Wz2hkuJssTbenLVMn72eFEJYxQqGnYJrxkm
+ jJQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=cfqpb0EiK0NbVGZ/NXV45to4g6ynuuAOCUrrfWIy2w8=;
+ fh=hxQk/uZpkXs5H9xvSBgSM9HoyHLdZh6wDCcQc548gy4=;
+ b=ebNx3Nbe1YDD3muJELwBp+vlkXTL2IiN8x/Hyhi5f3SqkyxZ6yvwVjHqVN6yTL3kGV
+ fYdjL9JSEPef9G92GyC0uI2fWfdYGirDy4djIDBznvLqJ81ttaobWHyMrLS+E5BqYv06
+ 6bNeOykkghmYVrMZBU2W0Jc/DkxBWRE/EfrBmTM9MdgviaEmXxu+bbJyJpxYgk98Jmk8
+ t5An95lzJVAjEJdJSuvSSWkZYfUZSxk+IM6bXa7WK81hCBye6LLnsSMQOSjAKWgnPUGb
+ 9Bgs3yNqnIYpQ3bBM8P8SyQFNYKmdS50iA/lLlgQ+e5TrE1cc5V5qk5uK86mGj05ERqU
+ ftCQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770675111; x=1771279911; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=4I9fREdne0NN3epoOUO+X++5woIMrln6VeUOryULEhE=;
- b=e4PDM93OvT17fhof2owTNZiIyo/FKs1NwlI1wlIge7f+FE7FQU2SgujrFcrVGiYQnE
- dv0H49OFsI2mt7BOXBaECN6+UiPQRhxdb0gbhCAdgx1VwEHVCe/K/zuiay50nrmW38nF
- 0s/tZ66g03tlU0nISBsDK6DFNKZs32GQysVveRi2c7tC4wo5/WSjIPH7KsLGyKY0qc0p
- R2eocV4KVG6OhczoejkPd9ilKrzJrh40lqmZ9n8VToyCh8hYXm2ygB5akCZfIeI93giy
- ZxU3S6wUg4Ku6Jy43pQ9fPmvkd9trt0E/RE5bvRRAd5+Sawgpzyeb1+nR/qGj4MzAdhR
- nz7g==
+ d=gmail.com; s=20230601; t=1770676712; x=1771281512; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cfqpb0EiK0NbVGZ/NXV45to4g6ynuuAOCUrrfWIy2w8=;
+ b=Q24/9OCbB3OXQeN7IDTDKB0oi4WiJGCmsAJnYqVQDVOS73xD4Jy4k0l/eI9XvUWhOr
+ j3E33Dma8CvrKs2K08dhivY8JGSUgmuaAkVQwtFoQuW4Mi/Oi2zp6r1W5LWEuFWmvPRs
+ edgvqeBqeTnDH73KA6tMxlvp23ys2NtVSoNvkucuqalU+cOM+IqM0rRdVZq7qHPT6y2d
+ 32br4w60UZtNeNuYq9UVhi9kCZbzmBLikHfos1mIkBHFc5wfkhkvC+cmF5MWcBtCHXJa
+ 0MVuYJc7zLsq1lNMTHCE0GnUWWloYFH7XVEjTfEE3SN7EqTMUnrt2A9+Y5+mKVTN124p
+ 21UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770675111; x=1771279911;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=4I9fREdne0NN3epoOUO+X++5woIMrln6VeUOryULEhE=;
- b=aERxj+WLLmalOwof9ueR2vo8udIMLCWv6m6aguRdMMrF8eTXwA+e4ZOpZRKSw8l/XT
- ni+I5QWM6vdd1rKIyE2Q3lIiil/hITycuwjQR6bRk5vnzadQvkLKMFbgp8l5EVTv4EBm
- fNr8p9znB9JLmUeNcbj4+yF0AuIOK+SmAzjxXotKPb8lPwUgFY77Ux7lpJU3VsiNzEjl
- z9eVLv1z+lmgdhANek36M5Cv+HeS7h3QsImFITLM1vZIRD9ppADUlQYn8V+8k/XRCakM
- fbQ2GNcAGk/4476ykbuw4kR0TS6KGboReztYZBKJgEDdQ2QwLyNBoI2maFBb0Q/9u62V
- Jpsw==
-X-Gm-Message-State: AOJu0Yze4VNg3mH6YknotRBetK30Y+iwmk6I6/ewGQZ7dIq3h8/z4PoP
- 5Cmt1tS49Muj7+2IpYVf53sUJ+QH9XD+Vqx/dNoHxoI+AgsQuSAZ33jhNZ6JPA==
-X-Gm-Gg: AZuq6aIJzJrJvFkfNtV959jNftRYRE3oFJYsNRen+eY4V/e8ZGsQvuV1rVCw1uymptp
- o9BqC+q8yK8N3B0q7v8KkCxgj75+Dzu5EK595W56GaFwS2Js8ebqQyt37kGwrqs7ST/Oz03XeXR
- LjdMKB8qSn9W8AjgMlb7GYCAx/jL5Kr2dEnAkMCH2O98mz5KP8bzCIS1koZNpeghlMkb+zEuRMQ
- 2e/fE143C3yy8CQfXxFRWjWgE4qOXikBplp3Cp7PnFJ5tMrDILYRg03gQ9CH3HyHWJQMXAD9V8h
- Mt+zg7erg0aGzp1AiN6fLKds8lXoHMFP5H75MNiWmpfF6BHJhNa9zeWVHZQEmNDcL8sOBhchEKo
- ev2rabe3U+Pldm8EdyKNBaMSreuiWLrxUm9EiAo2TwrDZ23h/xQ2nwWf36BD3PO1klVyPdvpfUq
- PMoon57FJJUH8eoRymOPD3v+DdK2KkdJtNBFWnbltPHk8MU292vccrZSdGiklr
-X-Received: by 2002:a05:600c:3f12:b0:477:9890:9ab8 with SMTP id
- 5b1f17b1804b1-483502291f5mr2555685e9.3.1770675110562; 
- Mon, 09 Feb 2026 14:11:50 -0800 (PST)
-Received: from timur-hyperion.localnet (5E1BC3D9.dsl.pool.telekom.hu.
- [94.27.195.217]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4834d5d8ebfsm28862545e9.2.2026.02.09.14.11.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Feb 2026 14:11:50 -0800 (PST)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- Mario Limonciello <mario.limonciello@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, harry.wentland@amd.com,
- Leo Li <sunpeng.li@amd.com>, Alex Hung <alex.hung@amd.com>
-Subject: Re: [PATCH 4/5] drm/amd/display: Handle DCE 6 in dce_clk_mgr.c
-Date: Mon, 09 Feb 2026 23:11:49 +0100
-Message-ID: <2869796.vuYhMxLoTh@timur-hyperion>
-In-Reply-To: <a6038bb6-d180-49e2-b063-6a0135f13648@amd.com>
-References: <20260118173150.19790-1-timur.kristof@gmail.com>
- <20260118173150.19790-5-timur.kristof@gmail.com>
- <a6038bb6-d180-49e2-b063-6a0135f13648@amd.com>
+ d=1e100.net; s=20230601; t=1770676712; x=1771281512;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=cfqpb0EiK0NbVGZ/NXV45to4g6ynuuAOCUrrfWIy2w8=;
+ b=hPbJISr5EtqUJIs5NEK91+GkhNqVqoCWWO+AsHYfLKgNMQZj7yl3jdf7nt4PNtI6/Q
+ PFgAzQrJn+5tLGfMZwNfI/P3ejl+6BqAlUCoqmNFHVGWHCmfVa4N5UzVhKvZbmqnXom3
+ tq8NbxyP/Wuk1n0+l9uDk8mfEC1yDEqg0y2P8FuX6PyDo8r8r53kmO7M/cEoSNJOQlKq
+ Zn0Veb+I6QIS3qpbDkOPAJVXEH0q0xB9fuNrbeBWnNWDM7QO6tu7WQgAldCMiuWQUI4K
+ skIM+SfSc74p6GUFRLTTSSFe4NbThQbq7FP9JOUN9Xq0Vlavh3I0HPRxD7n/+t19cVAb
+ YD3A==
+X-Gm-Message-State: AOJu0YxfK+iMzJVppT4Aed8xyh5KsBqmfMg879Hx94GVe1zIckgNcdY2
+ m7e37ask9bkF8IhqdHC5ykwBX5fSTZur69zF0IvdaOdccLd1eDielZUZUuUklws/TTKjr/TSF8C
+ iRMosgja9/VGb9u8RZv2nJosxbejDREw=
+X-Gm-Gg: AZuq6aKzqZsxgM10elXDI1Pvq8ZQotIRgN2F9GREBYLG/3hDcKYg4fF/YiImtyFlmNT
+ RaB1zUEYf965vW6YkUkTdUcUsDln5dU7Jvj7ISjNoE8fP71mMmparmoe+Cp4oGxgDAjjpWnigFc
+ +wzxyCrLfMb+ejKlA/47np52yc6hqXQ32RfJeCh4qUo6smCPCrgm4USy75ycdgVlE4hq+VxQB5C
+ /0pA4fwVeh+1RF0cnzUXv5BoMvzV+QGHdsUEJZQjojYX7cRbpfWILhmAQvAwS/T3eTc6AEU
+X-Received: by 2002:a05:7022:f8e:b0:124:9e46:830e with SMTP id
+ a92af1059eb24-12703f83cebmr3454314c88.1.1770676712330; Mon, 09 Feb 2026
+ 14:38:32 -0800 (PST)
 MIME-Version: 1.0
+References: <20260209212702.561630-1-siwei.he@amd.com>
+In-Reply-To: <20260209212702.561630-1-siwei.he@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 9 Feb 2026 17:38:21 -0500
+X-Gm-Features: AZwV_QjZbH-c6bDU7USet4WMkq-6OVZg5BL0li3yoi13fC1wsyQiqXu10svfrPE
+Message-ID: <CADnq5_NTrngTOkfxu908qcxZj2yRGLT=Lg=Gy4wi=g-HWgSyfg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Fix APU to use GTT, not VRAM for MQD
+To: Siwei He <siwei.he@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, felix.kuehling@amd.com, 
+ harish.kasiviswanathan@amd.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,465 +100,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, February 9, 2026 6:21:38=E2=80=AFPM Central European Standard Ti=
-me Alex=20
-Hung wrote:
-> Hi Timur,
->=20
-> I just found this patch won't build unless that CONFIG_DRM_AMD_DC_SI is
-> not set, or with the following change to Makefile. Can you check?
+On Mon, Feb 9, 2026 at 5:17=E2=80=AFPM Siwei He <siwei.he@amd.com> wrote:
+>
+> Add a check in mqd_on_vram. If the device prefers GTT, it returns false
+>
+> Signed-off-by: Siwei He <siwei.he@amd.com>
 
-Hi Alex,
+Fixes: d4a814f400d4 ("drm/amdkfd: Move gfx9.4.3 and gfx 9.5 MQD to HBM")
 
-I didn't see any problem when I submitted the patch, but it's possible that=
- I=20
-overlooked something. I will fix it in the second version.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Thanks,
-Timur
-
->=20
-> diff --git drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> index 60021671b386..57d492b90986 100644
-> --- drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> +++ drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> @@ -30,17 +30,6 @@ AMD_DAL_CLK_MGR =3D $(addprefix
-> $(AMDDALPATH)/dc/clk_mgr/,$(CLK_MGR))
->   AMD_DISPLAY_FILES +=3D $(AMD_DAL_CLK_MGR)
->=20
->=20
-> -ifdef CONFIG_DRM_AMD_DC_SI
-> -########################################################################=
-###
-> #### -# DCE 60
-> -########################################################################=
-###
-> #### -CLK_MGR_DCE60 =3D dce60_clk_mgr.o
-> -
-> -AMD_DAL_CLK_MGR_DCE60 =3D $(addprefix
-> $(AMDDALPATH)/dc/clk_mgr/dce60/,$(CLK_MGR_DCE60))
-> -
-> -AMD_DISPLAY_FILES +=3D $(AMD_DAL_CLK_MGR_DCE60)
-> -endif
-> -
-> =20
-> #########################################################################=
-##
-> #### # DCE 100 and DCE8x
-> =20
-> #########################################################################=
-##
-> ####
-> On 1/18/26 10:31, Timur Krist=C3=B3f wrote:
-> > dce60_clk_mgr was basically identical to dce_clk_mgr other than
-> > a few minor details. They can be all handled in the same file,
-> > reducing duplicated code and easing the maintenance burden for
-> > old DCE versions.
-> >=20
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> >=20
-> >   .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |  12 +-
-> >   .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |  64 ++++++--
-> >   .../display/dc/clk_mgr/dce60/dce60_clk_mgr.c  | 142 ------------------
-> >   .../display/dc/clk_mgr/dce60/dce60_clk_mgr.h  |  36 -----
-> >   4 files changed, 52 insertions(+), 202 deletions(-)
-> >   delete mode 100644
-> >   drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c delete
-> >   mode 100644
-> >   drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.h>=20
-> > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> > b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c index
-> > 15cf13ec5302..9206eb8b0365 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> > @@ -34,7 +34,6 @@
-> >=20
-> >   #include "dce110/dce110_clk_mgr.h"
-> >   #include "dce112/dce112_clk_mgr.h"
-> >   #include "dce120/dce120_clk_mgr.h"
-> >=20
-> > -#include "dce60/dce60_clk_mgr.h"
-> >=20
-> >   #include "dcn10/rv1_clk_mgr.h"
-> >   #include "dcn10/rv2_clk_mgr.h"
-> >   #include "dcn20/dcn20_clk_mgr.h"
-> >=20
-> > @@ -150,16 +149,7 @@ struct clk_mgr *dc_clk_mgr_create(struct dc_context
-> > *ctx, struct pp_smu_funcs *p>=20
-> >   	switch (asic_id.chip_family) {
-> >  =20
-> >   #if defined(CONFIG_DRM_AMD_DC_SI)
-> >=20
-> > -	case FAMILY_SI: {
-> > -		struct clk_mgr_internal *clk_mgr =3D=20
-kzalloc(sizeof(*clk_mgr),
-> > GFP_KERNEL); -
-> > -		if (clk_mgr =3D=3D NULL) {
-> > -			BREAK_TO_DEBUGGER();
-> > -			return NULL;
-> > -		}
-> > -		dce60_clk_mgr_construct(ctx, clk_mgr);
-> > -		return &clk_mgr->base;
-> > -	}
-> >=20
-> > +	case FAMILY_SI:
-> >   #endif
-> >  =20
-> >   	case FAMILY_CI:
-> >   	case FAMILY_KV: {
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> > b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c index
-> > 6131ede2db7a..d02d03c154b3 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-> > @@ -62,6 +62,18 @@ static const struct clk_mgr_mask disp_clk_mask =3D {
-> >=20
-> >   		CLK_COMMON_MASK_SH_LIST_DCE_COMMON_BASE(_MASK)
-> >  =20
-> >   };
-> >=20
-> > +/* Max clock values for each state indexed by "enum clocks_state": */
-> > +static const struct state_dependent_clocks dce60_max_clks_by_state[] =
-=3D {
-> > +/* ClocksStateInvalid - should not be used */
-> > +{ .display_clk_khz =3D 0, .pixel_clk_khz =3D 0 },
-> > +/* ClocksStateUltraLow - not expected to be used for DCE 6.0 */
-> > +{ .display_clk_khz =3D 0, .pixel_clk_khz =3D 0 },
-> > +/* ClocksStateLow */
-> > +{ .display_clk_khz =3D 352000, .pixel_clk_khz =3D 330000},
-> > +/* ClocksStateNominal */
-> > +{ .display_clk_khz =3D 600000, .pixel_clk_khz =3D 400000 },
-> > +/* ClocksStatePerformance */
-> > +{ .display_clk_khz =3D 600000, .pixel_clk_khz =3D 400000 } };
-> >=20
-> >   /* Max clock values for each state indexed by "enum clocks_state": */
-> >   static const struct state_dependent_clocks dce80_max_clks_by_state[] =
-=3D {
-> >=20
-> > @@ -126,8 +138,25 @@ int dce_adjust_dp_ref_freq_for_ss(struct
-> > clk_mgr_internal *clk_mgr_dce, int dp_r>=20
-> >   	return dp_ref_clk_khz;
-> >  =20
-> >   }
-> >=20
-> > +static int dce60_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr_base)
-> > +{
-> > +	struct clk_mgr_internal *clk_mgr =3D=20
-TO_CLK_MGR_INTERNAL(clk_mgr_base);
-> > +	struct dc_context *ctx =3D clk_mgr_base->ctx;
-> > +	int dp_ref_clk_khz =3D 0;
-> > +
-> > +	if (ASIC_REV_IS_TAHITI_P(ctx->asic_id.hw_internal_rev))
-> > +		dp_ref_clk_khz =3D
-> > ctx->dc_bios->fw_info.default_display_engine_pll_frequency; +	else
-> > +		dp_ref_clk_khz =3D clk_mgr_base->clks.dispclk_khz;
-> > +
-> > +	return dce_adjust_dp_ref_freq_for_ss(clk_mgr, dp_ref_clk_khz);
-> > +}
-> > +
-> >=20
-> >   int dce_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr_base)
-> >   {
-> >=20
-> > +	if (clk_mgr_base->ctx->dce_version <=3D DCE_VERSION_6_4)
-> > +		return dce60_get_dp_ref_freq_khz(clk_mgr_base);
-> > +
-> >=20
-> >   	struct clk_mgr_internal *clk_mgr =3D=20
-TO_CLK_MGR_INTERNAL(clk_mgr_base);
-> >   	int dprefclk_wdivider;
-> >   	int dprefclk_src_sel;
-> >=20
-> > @@ -441,27 +470,37 @@ void dce_clk_mgr_construct(
-> >=20
-> >   	struct clk_mgr *base =3D &clk_mgr->base;
-> >   	struct dm_pp_static_clock_info static_clk_info =3D {0};
-> >=20
-> > -	memcpy(clk_mgr->max_clks_by_state,
-> > -		dce80_max_clks_by_state,
-> > -		sizeof(dce80_max_clks_by_state));
-> > +	if (ctx->dce_version <=3D DCE_VERSION_6_4)
-> > +		memcpy(clk_mgr->max_clks_by_state,
-> > +			dce60_max_clks_by_state,
-> > +			sizeof(dce60_max_clks_by_state));
-> > +	else
-> > +		memcpy(clk_mgr->max_clks_by_state,
-> > +			dce80_max_clks_by_state,
-> > +			sizeof(dce80_max_clks_by_state));
-> > +
-> >=20
-> >   	base->ctx =3D ctx;
-> >   	base->funcs =3D &dce_funcs;
-> >=20
-> > -	clk_mgr->regs =3D &disp_clk_regs;
-> > -	clk_mgr->clk_mgr_shift =3D &disp_clk_shift;
-> > -	clk_mgr->clk_mgr_mask =3D &disp_clk_mask;
-> > -	clk_mgr->dfs_bypass_disp_clk =3D 0;
-> > +	if (ctx->dce_version >=3D DCE_VERSION_8_0) {
-> > +		clk_mgr->regs =3D &disp_clk_regs;
-> > +		clk_mgr->clk_mgr_shift =3D &disp_clk_shift;
-> > +		clk_mgr->clk_mgr_mask =3D &disp_clk_mask;
-> > +	}
-> >=20
-> > +	clk_mgr->dfs_bypass_disp_clk =3D 0;
-> >=20
-> >   	clk_mgr->dprefclk_ss_percentage =3D 0;
-> >   	clk_mgr->dprefclk_ss_divider =3D 1000;
-> >   	clk_mgr->ss_on_dprefclk =3D false;
-> >=20
-> > -	if (dm_pp_get_static_clocks(ctx, &static_clk_info))
-> > -		clk_mgr->max_clks_state =3D=20
-static_clk_info.max_clocks_state;
-> > -	else
-> > -		clk_mgr->max_clks_state =3D DM_PP_CLOCKS_STATE_NOMINAL;
-> > -	clk_mgr->cur_min_clks_state =3D DM_PP_CLOCKS_STATE_INVALID;
-> > +	if (ctx->dce_version >=3D DCE_VERSION_8_0) {
-> > +		if (dm_pp_get_static_clocks(ctx, &static_clk_info))
-> > +			clk_mgr->max_clks_state =3D=20
-static_clk_info.max_clocks_state;
-> > +		else
-> > +			clk_mgr->max_clks_state =3D=20
-DM_PP_CLOCKS_STATE_NOMINAL;
-> > +		clk_mgr->cur_min_clks_state =3D=20
-DM_PP_CLOCKS_STATE_INVALID;
-> > +	}
-> >=20
-> >   	base->clks.max_supported_dispclk_khz =3D
-> >   =09
-> >   		clk_mgr-
->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk
-> >   		_khz;
-> >=20
-> > @@ -469,4 +508,3 @@ void dce_clk_mgr_construct(
-> >=20
-> >   	dce_clock_read_integrated_info(clk_mgr);
-> >   	dce_clock_read_ss_info(clk_mgr);
-> >  =20
-> >   }
-> >=20
-> > -
-> > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr=
-=2Ec
-> > b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c deleted
-> > file mode 100644
-> > index 1fdf344efe1a..000000000000
-> > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.c
-> > +++ /dev/null
-> > @@ -1,142 +0,0 @@
-> > -/*
-> > - * Copyright 2020 Mauro Rossi <issor.oruam@gmail.com>
-> > - *
-> > - * Permission is hereby granted, free of charge, to any person obtaini=
-ng
-> > a
-> > - * copy of this software and associated documentation files (the
-> > "Software"), - * to deal in the Software without restriction, including
-> > without limitation - * the rights to use, copy, modify, merge, publish,
-> > distribute, sublicense, - * and/or sell copies of the Software, and to
-> > permit persons to whom the - * Software is furnished to do so, subject =
-to
-> > the following conditions: - *
-> > - * The above copyright notice and this permission notice shall be
-> > included in - * all copies or substantial portions of the Software.
-> > - *
-> > - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> > EXPRESS OR - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> > MERCHANTABILITY, - * FITNESS FOR A PARTICULAR PURPOSE AND
-> > NONINFRINGEMENT.  IN NO EVENT SHALL - * THE COPYRIGHT HOLDER(S) OR
-> > AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR - * OTHER LIABILITY,
-> > WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, - * ARISING FROM,
-> > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR - * OTHER
-> > DEALINGS IN THE SOFTWARE.
-> > - *
-> > - * Authors: AMD
-> > - *
-> > - */
-> > -
-> > -
-> > -#include "dccg.h"
-> > -#include "clk_mgr_internal.h"
-> > -#include "dce100/dce_clk_mgr.h"
-> > -#include "dce110/dce110_clk_mgr.h"
-> > -#include "dce60_clk_mgr.h"
-> > -#include "reg_helper.h"
-> > -#include "dmcu.h"
-> > -#include "core_types.h"
-> > -#include "dal_asic_id.h"
-> > -
-> > -/*
-> > - * Currently the register shifts and masks in this file are used for
-> > dce60
-> > - * which has no DPREFCLK_CNTL register
-> > - * TODO: remove this when DENTIST_DISPCLK_CNTL
-> > - * is moved to dccg, where it belongs
-> > - */
-> > -#include "dce/dce_6_0_d.h"
-> > -#include "dce/dce_6_0_sh_mask.h"
-> > -
-> > -/* Max clock values for each state indexed by "enum clocks_state": */
-> > -static const struct state_dependent_clocks dce60_max_clks_by_state[] =
-=3D {
-> > -/* ClocksStateInvalid - should not be used */
-> > -{ .display_clk_khz =3D 0, .pixel_clk_khz =3D 0 },
-> > -/* ClocksStateUltraLow - not expected to be used for DCE 6.0 */
-> > -{ .display_clk_khz =3D 0, .pixel_clk_khz =3D 0 },
-> > -/* ClocksStateLow */
-> > -{ .display_clk_khz =3D 352000, .pixel_clk_khz =3D 330000},
-> > -/* ClocksStateNominal */
-> > -{ .display_clk_khz =3D 600000, .pixel_clk_khz =3D 400000 },
-> > -/* ClocksStatePerformance */
-> > -{ .display_clk_khz =3D 600000, .pixel_clk_khz =3D 400000 } };
-> > -
-> > -static int dce60_get_dp_ref_freq_khz(struct clk_mgr *clk_mgr_base)
-> > -{
-> > -	struct clk_mgr_internal *clk_mgr =3D=20
-TO_CLK_MGR_INTERNAL(clk_mgr_base);
-> > -	struct dc_context *ctx =3D clk_mgr_base->ctx;
-> > -	int dp_ref_clk_khz =3D 0;
-> > -
-> > -	if (ASIC_REV_IS_TAHITI_P(ctx->asic_id.hw_internal_rev))
-> > -		dp_ref_clk_khz =3D
-> > ctx->dc_bios->fw_info.default_display_engine_pll_frequency; -	else
-> > -		dp_ref_clk_khz =3D clk_mgr_base->clks.dispclk_khz;
-> > -
-> > -	return dce_adjust_dp_ref_freq_for_ss(clk_mgr, dp_ref_clk_khz);
-> > -}
-> > -
-> > -static void dce60_pplib_apply_display_requirements(
-> > -	struct dc *dc,
-> > -	struct dc_state *context)
-> > -{
-> > -	struct dm_pp_display_configuration *pp_display_cfg =3D
-> > &context->pp_display_cfg; -
-> > -	dce110_fill_display_configs(context, pp_display_cfg);
-> > -
-> > -	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg,
-> > sizeof(*pp_display_cfg)) !=3D  0)
-> > -		dm_pp_apply_display_requirements(dc->ctx,=20
-pp_display_cfg);
-> > -}
-> > -
-> > -static void dce60_update_clocks(struct clk_mgr *clk_mgr_base,
-> > -			struct dc_state *context,
-> > -			bool safe_to_lower)
-> > -{
-> > -	struct clk_mgr_internal *clk_mgr_dce =3D
-> > TO_CLK_MGR_INTERNAL(clk_mgr_base);
-> > -	struct dm_pp_power_level_change_request level_change_req;
-> > -	const int max_disp_clk =3D
-> > -		clk_mgr_dce-
->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_
-> > clk_khz; -	int patched_disp_clk =3D MIN(max_disp_clk,
-> > context->bw_ctx.bw.dce.dispclk_khz); -
-> > -	level_change_req.power_level =3D
-> > dce_get_required_clocks_state(clk_mgr_base, context); -	/* get max=20
-clock
-> > state from PPLIB */
-> > -	if ((level_change_req.power_level < clk_mgr_dce-
->cur_min_clks_state &&
-> > safe_to_lower) -			||=20
-level_change_req.power_level >
-> > clk_mgr_dce->cur_min_clks_state) { -		if
-> > (dm_pp_apply_power_level_change_request(clk_mgr_base->ctx,
-> > &level_change_req)) -			clk_mgr_dce-
->cur_min_clks_state =3D
-> > level_change_req.power_level; -	}
-> > -
-> > -	if (should_set_clock(safe_to_lower, patched_disp_clk,
-> > clk_mgr_base->clks.dispclk_khz)) { -		patched_disp_clk =3D
-> > dce_set_clock(clk_mgr_base, patched_disp_clk);
-> > -		clk_mgr_base->clks.dispclk_khz =3D patched_disp_clk;
-> > -	}
-> > -	dce60_pplib_apply_display_requirements(clk_mgr_base->ctx->dc,=20
-context);
-> > -}
-> > -
-> > -
-> > -
-> > -
-> > -
-> > -
-> > -
-> > -
-> > -static struct clk_mgr_funcs dce60_funcs =3D {
-> > -	.get_dp_ref_clk_frequency =3D dce60_get_dp_ref_freq_khz,
-> > -	.update_clocks =3D dce60_update_clocks
-> > -};
-> > -
-> > -void dce60_clk_mgr_construct(
-> > -		struct dc_context *ctx,
-> > -		struct clk_mgr_internal *clk_mgr)
-> > -{
-> > -	struct clk_mgr *base =3D &clk_mgr->base;
-> > -
-> > -	dce_clk_mgr_construct(ctx, clk_mgr);
-> > -
-> > -	memcpy(clk_mgr->max_clks_by_state,
-> > -		dce60_max_clks_by_state,
-> > -		sizeof(dce60_max_clks_by_state));
-> > -
-> > -	clk_mgr->regs =3D NULL;
-> > -	clk_mgr->clk_mgr_shift =3D NULL;
-> > -	clk_mgr->clk_mgr_mask =3D NULL;
-> > -	clk_mgr->base.funcs =3D &dce60_funcs;
-> > -
-> > -	base->clks.max_supported_dispclk_khz =3D
-> > -		clk_mgr-
->max_clks_by_state[DM_PP_CLOCKS_STATE_PERFORMANCE].display_clk_
-> > khz; -}
-> > -
-> > diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr=
-=2Eh
-> > b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.h deleted
-> > file mode 100644
-> > index eca3e5168089..000000000000
-> > --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce60/dce60_clk_mgr.h
-> > +++ /dev/null
-> > @@ -1,36 +0,0 @@
-> > -/*
-> > - * Copyright 2020 Mauro Rossi <issor.oruam@gmail.com>
-> > - *
-> > - * Permission is hereby granted, free of charge, to any person obtaini=
-ng
-> > a
-> > - * copy of this software and associated documentation files (the
-> > "Software"), - * to deal in the Software without restriction, including
-> > without limitation - * the rights to use, copy, modify, merge, publish,
-> > distribute, sublicense, - * and/or sell copies of the Software, and to
-> > permit persons to whom the - * Software is furnished to do so, subject =
-to
-> > the following conditions: - *
-> > - * The above copyright notice and this permission notice shall be
-> > included in - * all copies or substantial portions of the Software.
-> > - *
-> > - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> > EXPRESS OR - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> > MERCHANTABILITY, - * FITNESS FOR A PARTICULAR PURPOSE AND
-> > NONINFRINGEMENT.  IN NO EVENT SHALL - * THE COPYRIGHT HOLDER(S) OR
-> > AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR - * OTHER LIABILITY,
-> > WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, - * ARISING FROM,
-> > OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR - * OTHER
-> > DEALINGS IN THE SOFTWARE.
-> > - *
-> > - * Authors: AMD
-> > - *
-> > - */
-> > -
-> > -
-> > -#ifndef DAL_DC_DCE_DCE60_CLK_MGR_H_
-> > -#define DAL_DC_DCE_DCE60_CLK_MGR_H_
-> > -
-> > -#include "dc.h"
-> > -
-> > -void dce60_clk_mgr_construct(
-> > -		struct dc_context *ctx,
-> > -		struct clk_mgr_internal *clk_mgr_dce);
-> > -
-> > -#endif /* DAL_DC_DCE_DCE60_CLK_MGR_H_ */
-
-
-
-
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> index d4659a438be5..80e428f70725 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> @@ -111,6 +111,9 @@ static void set_priority(struct v9_mqd *m, struct que=
+ue_properties *q)
+>
+>  static bool mqd_on_vram(struct amdgpu_device *adev)
+>  {
+> +       if (adev->gmc.apu_prefer_gtt)
+> +               return false;
+> +
+>         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+>         case IP_VERSION(9, 4, 3):
+>         case IP_VERSION(9, 5, 0):
+> --
+> 2.43.0
+>
