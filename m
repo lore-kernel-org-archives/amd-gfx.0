@@ -4,62 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B904E7E0DA
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 19:26:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 331C3E94605
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 20:51:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D961410E466;
-	Mon,  9 Feb 2026 19:26:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B17E810E373;
+	Mon,  9 Feb 2026 20:51:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X4KFy3R+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gy+uJKE3";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DA9010E466;
- Mon,  9 Feb 2026 19:26:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770665219; x=1802201219;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=u487StG2GkN0jFcCuAfnRE4AJ4Omr2RTUEADo9vRhTo=;
- b=X4KFy3R+o1fzlhe04Fn4OEBNbFoLaMpVFyakMMTy651aRjS0e0aYTv8V
- 3SbQBt4j5iSYf7kuk0VnbcPlw3diyvM4ieitSuMiMUdwpkVIdkUU+K+t8
- m+UImCdpYYeau3Ienz1Ht+QpLB0mzN3rNzUsogud8+VbZGuePbau3OGUx
- /1dl6QOjC+RWqyTavVAu+YrBI5OCSR3HVP6NX1UIGncZmvD0DJctYmyUc
- OpIDrCLbV1SQWIO2oV38CQWl0KMJuLiP5TCYk+0XQF7T/c4Cnfp2OuStf
- Hxuzr5E7MtWWIJ5ToJl5NUB3WJMm1wR0eFuRFxRXzWx2Wy/Fc8qaoyKds w==;
-X-CSE-ConnectionGUID: b2C2WOmlRjGv/vERMRgAZA==
-X-CSE-MsgGUID: NHkB9ZuXRfiGuLKZRJVDaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11696"; a="74389443"
-X-IronPort-AV: E=Sophos;i="6.21,282,1763452800"; d="scan'208";a="74389443"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2026 11:26:58 -0800
-X-CSE-ConnectionGUID: yC2B4H2NQca1m6PELUSkRg==
-X-CSE-MsgGUID: rtFXkfUMSm6Vr0SGhABuSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,282,1763452800"; d="scan'208";a="211267318"
-Received: from igk-lkp-server01.igk.intel.com (HELO e5404a91d123)
- ([10.211.93.152])
- by fmviesa010.fm.intel.com with ESMTP; 09 Feb 2026 11:26:56 -0800
-Received: from kbuild by e5404a91d123 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vpWuL-000000000Lt-3rhQ;
- Mon, 09 Feb 2026 19:26:53 +0000
-Date: Mon, 9 Feb 2026 20:26:10 +0100
-From: kernel test robot <lkp@intel.com>
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- matthew.auld@intel.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev, alexander.deucher@amd.com,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Subject: Re: [PATCH v3 2/2] drm/buddy: Add KUnit test for offset-aligned
- allocations
-Message-ID: <202602092035.vOm98J4x-lkp@intel.com>
-References: <20260209083051.13376-2-Arunpravin.PaneerSelvam@amd.com>
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011012.outbound.protection.outlook.com [52.101.62.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA43110E373
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Feb 2026 20:51:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LEMEkmZV1dmKpJOEhNeBnlvDaXHS3oY8b8fhSw7VIe6SqTPyDIBX7kLIxS/pPMiyIfDIW0fzO//u7fgJK/zVmgUmp6yBkiUauj5TO6iKb2hO+kCKDMH4ylNQPnxh773AJnp+NIJs8aOt6Mok9xv58rLG5mybtSNjhN0iSfPEvO67xIDl2Ekg3sP+N83lVtq72DrEaCH4fEdbBG2VcfBxYM0PArtSJkD7dmyg6LaKfBIJNNiXY4dUPumaNJuTbTDLeOkqJ0uqm2J4GNTdV21qJcU1XS1dcGpwj69fYUMhKAQZMKLEqmPXibvvR+5rFaw35zfDuvgNq9Hobyw6ql5lHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tn5rXWLY4K5KwKHfYod4tLTKaPHS8xC41+eS/XoK6d8=;
+ b=GLTHXMPiyExgcgaPspLyXnbF43pzb6odpMIx9zLytai11azu8gAtl6pP11T9HJcyh9o/XX9/ETiQHlQXCQprIeP98bdz5pTBpB3tSEX6axmgwWenzC1wrofntanMNMD5i9i6GYagKlCqngBg3cxTg9HCnp90tlbW/yHiXfUkFauZQB0nxnJaYdg8qox7Y3omaLnUMU8TjrPovYkGuDRYZ6kPEft4HZtp9nSFO3iR7vE/4tZiQhAUTj8r35LfhPGVTjqVYpm24aSekJESGbmCu6YUpWwzr5Dru1aFf469tMPrwD44sRS1l9sS+Xk9/VS33cD5zqoUA+bUoNfvmPVTGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tn5rXWLY4K5KwKHfYod4tLTKaPHS8xC41+eS/XoK6d8=;
+ b=gy+uJKE3gQwLoHDIh58CtCkL2ZgJ1ZK7DcNZgP4ZcX3nySAOQ//3bSRn/j3Edv9dDHqswmo5piembbN3psAvbvi3sA+ypzZnDM2I9kNl/VNMJkIQiEDoE17YR1bYzahYc7zqrbVM2LRqKDfTSEV34jnbTqWJc1AQQioGs4gVXQQ=
+Received: from SJ0PR05CA0065.namprd05.prod.outlook.com (2603:10b6:a03:332::10)
+ by CH0PR12MB8464.namprd12.prod.outlook.com (2603:10b6:610:184::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Mon, 9 Feb
+ 2026 20:51:35 +0000
+Received: from SJ1PEPF00001CE4.namprd03.prod.outlook.com
+ (2603:10b6:a03:332:cafe::45) by SJ0PR05CA0065.outlook.office365.com
+ (2603:10b6:a03:332::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.5 via Frontend Transport; Mon, 9
+ Feb 2026 20:51:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE4.mail.protection.outlook.com (10.167.242.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9587.10 via Frontend Transport; Mon, 9 Feb 2026 20:51:34 +0000
+Received: from sclement-ThinkStation-P8.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Mon, 9 Feb 2026 14:51:31 -0600
+From: Sunday Clement <Sunday.Clement@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harish.Kasiviswanathan@amd.com>, <Kent.Russell@amd.com>,
+ <Felix.Kuehling@amd.com>, Sunday Clement <Sunday.Clement@amd.com>
+Subject: [PATCH] drm/amdkfd: Remove dead kernel queue cleanup code
+Date: Mon, 9 Feb 2026 15:51:12 -0500
+Message-ID: <20260209205112.674894-1-Sunday.Clement@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260209083051.13376-2-Arunpravin.PaneerSelvam@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE4:EE_|CH0PR12MB8464:EE_
+X-MS-Office365-Filtering-Correlation-Id: 688822a6-fc6d-4c6d-c1a2-08de681d02ff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?+hxy6s4wcxrxw9p+4NnlnM2q+FFr7m9FT1/TdnQl6xjeulnP+VRTmXdlEmVs?=
+ =?us-ascii?Q?kVrMs2OkabzZHOJPMtoOj/MuRAwLuYzxpE8JrSbyJYcR2yHjL+eiru1TUECh?=
+ =?us-ascii?Q?RUQzVaVQIrHizPOCTkYjZxcmkkBNx7Fq+loCLzI2kjR5PauoLrMuBXevsSyF?=
+ =?us-ascii?Q?ckla4mttdvZbzoDSRTmVA+OUw5l99N8VvvWZmAoySZod8EqPoFkFOerJCmVa?=
+ =?us-ascii?Q?dgov5ZoQUBLWZvi6mRlay40/SDuDT/bRoU23zrfO4cSgeLEFVOWcjL7mDx1V?=
+ =?us-ascii?Q?XGKY0yzTGYRzZVSLGdzuqjxO0JNXgvQrQFqMK0jmkYRUBe9sPauvC6Lv+7TM?=
+ =?us-ascii?Q?RQZIL0uYnOzo8MOBCb441JIqeJk1ZOFUa6msYxOS1fsrcqmlT3J/Tf1p35dO?=
+ =?us-ascii?Q?w1Cx9TAnZQtCkkoERsu9YPkdWKZMeJcg6LpzCFsZw0yJXPOO0fkCR/dM2M00?=
+ =?us-ascii?Q?grCgDAD6O9TEfrSf2eUXOfU5Q+lfTY2AAhbsfu8byRGUls/EhKWTROa4KjR3?=
+ =?us-ascii?Q?VugKnRRiK9TVxRnA7tMJDAv1LGXgdxB4hJS9Vg8JsIYjLSS2Sr7JjMICZ6Mm?=
+ =?us-ascii?Q?87HTlFcWjHBoN3QshA5wbOSQ6B11E833GGnil+lIBLCH7+lrUz8RBcg8+MGp?=
+ =?us-ascii?Q?GDegdbKnJD4LcrMxISCkiByci2m/G+erw04XS0mZRgnx50xqDD7H90OvP9dH?=
+ =?us-ascii?Q?5wgtQNrZUHTpUvmvTcyNPPHEdlJfLlSrkKSY7pTyghTnr9serzXTtOHa8J13?=
+ =?us-ascii?Q?o49tepyXMxbg3/IMml6EUrmGt4v8FHaT2vR5vmcscJ59zDfpB9M0qZe9tf8A?=
+ =?us-ascii?Q?hNLjgs+yemhWoWn/e4asSjwLp4Gh4ShWFK4T6xpcrOJbSpR4awntlAg768Gz?=
+ =?us-ascii?Q?xLr8KyuGRK6iDKEEtQ3j56Umizk5ChA6ztavdwWmBFj1sxNhUT0Dt/VjVuDb?=
+ =?us-ascii?Q?UZ6wNS85e+q3l5BEXmSFkTQmy6fa/GgJsr18bv4Dj/3ByQHiYCzUoJK7WU0w?=
+ =?us-ascii?Q?PaEwHMpu5mxD6aMdP6+qyPxt+w1Pck9UoxrWa5c4+6UJzdNT5jgbS5nZj71M?=
+ =?us-ascii?Q?BdEv1+7GJ7yw1kFWBhXqu0u9EDFUipCyi/UeMkXlbVCNcKz8PxlPssftfCZC?=
+ =?us-ascii?Q?2n6MtjafDzRpS9ASbJjKfst+ci8canvasdf8gS84IUSDQxBVH0Rg8SXVZqQ4?=
+ =?us-ascii?Q?IPkg2cvIYbeVsWqVf+VAvKq4Z+6bkq71SUagYdSb/v8ih0rryQxu5KLOEaH+?=
+ =?us-ascii?Q?uV2YpLcojLPEAvrWIZ+ivfQOsbU0edWOaiqCzyvBjqU85XLtLvaiekRu9fRG?=
+ =?us-ascii?Q?jTMoyYTXKlX/lm0lxYXvuPWG8eaCjEJXMPOX9+HPiD/31/alfpRxL9o61cK/?=
+ =?us-ascii?Q?DfU82JwEpdbc+MB6cBjRfl/UR93MAYXf2zxki6xiL33mvgEOKLhESce9p6y7?=
+ =?us-ascii?Q?4sjcjLEbFx51h5eR66p+uhIE4TRgkSUUl97lG/gi1HtVi/R1vlaBUubsywiQ?=
+ =?us-ascii?Q?tjTjcG1+DdyHlm9a91X0E9UETZ7gyMdq3tLt+V6usVB97E7eGp9t6F5njCK2?=
+ =?us-ascii?Q?pXhKlfLTC0YNlczeJv9gM5kZzf6rjORWAFsMX+dk2jMGeVpMt0/B7fBJBDj8?=
+ =?us-ascii?Q?uJq6+yFN/EZhlwVUVVBQiCewDUEx1mS9h3QUd3U1G/UVTDQP3OxsHIjzHviH?=
+ =?us-ascii?Q?zfmuFw=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: qU8vlvDXMte7mlFmARB2S8Y0vtYFD9Lw2K5XrHucZGAr3m+CCPlHBtVGyYRwQY29Twtg8LpSjAv7FG2i7SMVj2JxuWPuDhc6S5ym/KEaIHQR9pHguDSK3ZPmPt10K04ilDd1DC4FX11aoGzRPW5ejj3CqlXfUqPIRFb/vh3tzm70VLwd4UjwW7f3/ZqEOJjdATwYBPHcv49SQgEHW/mslIk0mgQk2EZaKS7fEw/syJLq0PY0jDja0NSbbVFNaDosesjDPuhcgK3vCYDXtx+K1mPS+ntOM/HiblVQdW688XGZTUv6ikwKenkAtNyEfGXGPvCvN5hXh72+yQ2DJR7Y/xtidHtq9COY56qbuovbr50yaJwkLdcZquorms03+DJNWyL1mL1izQyZuJKAwszhkN1SsQRHlswioDrClEUmRXSlBnTg4n+wPIClznLPnrsX
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 20:51:34.5504 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 688822a6-fc6d-4c6d-c1a2-08de681d02ff
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8464
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,139 +136,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Arunpravin,
+Remove leftover kernel queue (kq) cleanup code from pqm_create_queue()
+that has been dead since DIQ creation was removed from this function.
+local variable kq was initialized to NULL but never actually used in the
+function.
 
-kernel test robot noticed the following build errors:
+Signed-off-by: Sunday Clement <Sunday.Clement@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-[auto build test ERROR on 9d757669b2b22cd224c334924f798393ffca537c]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Arunpravin-Paneer-Selvam/drm-buddy-Add-KUnit-test-for-offset-aligned-allocations/20260209-163512
-base:   9d757669b2b22cd224c334924f798393ffca537c
-patch link:    https://lore.kernel.org/r/20260209083051.13376-2-Arunpravin.PaneerSelvam%40amd.com
-patch subject: [PATCH v3 2/2] drm/buddy: Add KUnit test for offset-aligned allocations
-config: x86_64-rhel-9.4-kunit (https://download.01.org/0day-ci/archive/20260209/202602092035.vOm98J4x-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260209/202602092035.vOm98J4x-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202602092035.vOm98J4x-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/gpu/tests/gpu_buddy_test.c: In function 'gpu_test_buddy_subtree_offset_alignment_stress':
->> drivers/gpu/tests/gpu_buddy_test.c:46:49: error: macro "KUNIT_ASSERT_FALSE" passed 3 arguments, but takes just 2
-      46 |                            "buddy_init failed\n");
-         |                                                 ^
-   In file included from drivers/gpu/tests/gpu_buddy_test.c:7:
-   include/kunit/test.h:1390:9: note: macro "KUNIT_ASSERT_FALSE" defined here
-    1390 | #define KUNIT_ASSERT_FALSE(test, condition) \
-         |         ^~~~~~~~~~~~~~~~~~
->> drivers/gpu/tests/gpu_buddy_test.c:45:9: error: 'KUNIT_ASSERT_FALSE' undeclared (first use in this function); did you mean 'KUNIT_ASSERTION'?
-      45 |         KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, SZ_4K),
-         |         ^~~~~~~~~~~~~~~~~~
-         |         KUNIT_ASSERTION
-   drivers/gpu/tests/gpu_buddy_test.c:45:9: note: each undeclared identifier is reported only once for each function it appears in
-
-
-vim +/KUNIT_ASSERT_FALSE +46 drivers/gpu/tests/gpu_buddy_test.c
-
-    23	
-    24	static void gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
-    25	{
-    26		struct gpu_buddy_block *block;
-    27		struct rb_node *node = NULL;
-    28		const u64 mm_size = SZ_2M;
-    29		const u64 alignments[] = {
-    30			SZ_1M,
-    31			SZ_512K,
-    32			SZ_256K,
-    33			SZ_128K,
-    34			SZ_64K,
-    35			SZ_32K,
-    36			SZ_16K,
-    37			SZ_8K,
-    38		};
-    39	
-    40		struct list_head allocated[ARRAY_SIZE(alignments)];
-    41		unsigned int i, order, max_subtree_align = 0;
-    42		struct gpu_buddy mm;
-    43		int ret, tree;
-    44	
-  > 45		KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, SZ_4K),
-  > 46				   "buddy_init failed\n");
-    47	
-    48		for (i = 0; i < ARRAY_SIZE(allocated); i++)
-    49			INIT_LIST_HEAD(&allocated[i]);
-    50	
-    51		/*
-    52		 * Exercise subtree_max_alignment tracking by allocating blocks with descending
-    53		 * alignment constraints and freeing them in reverse order. This verifies that
-    54		 * free-tree augmentation correctly propagates the maximum offset alignment
-    55		 * present in each subtree at every stage.
-    56		 */
-    57	
-    58		for (i = 0; i < ARRAY_SIZE(alignments); i++) {
-    59			struct gpu_buddy_block *root = NULL;
-    60			unsigned int expected;
-    61			u64 align;
-    62	
-    63			align = alignments[i];
-    64			expected = ilog2(align) - 1;
-    65	
-    66			for (;;) {
-    67				ret = gpu_buddy_alloc_blocks(&mm,
-    68							     0, mm_size,
-    69							     SZ_4K, align,
-    70							     &allocated[i],
-    71							     0);
-    72				if (ret)
-    73					break;
-    74	
-    75				block = list_last_entry(&allocated[i],
-    76							struct gpu_buddy_block,
-    77							link);
-    78				KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(block) & (align - 1), 0ULL);
-    79			}
-    80	
-    81			for (order = mm.max_order + 1; order-- > 0 && !root; ) {
-    82				for (tree = 0; tree < 2; tree++) {
-    83					node = mm.free_trees[tree][order].rb_node;
-    84					if (node) {
-    85						root = container_of(node,
-    86								    struct gpu_buddy_block,
-    87								    rb);
-    88						break;
-    89					}
-    90				}
-    91			}
-    92	
-    93			KUNIT_ASSERT_NOT_NULL(test, root);
-    94			KUNIT_EXPECT_EQ(test, root->subtree_max_alignment, expected);
-    95		}
-    96	
-    97		for (i = ARRAY_SIZE(alignments); i-- > 0; ) {
-    98			gpu_buddy_free_list(&mm, &allocated[i], 0);
-    99	
-   100			for (order = 0; order <= mm.max_order; order++) {
-   101				for (tree = 0; tree < 2; tree++) {
-   102					node = mm.free_trees[tree][order].rb_node;
-   103					if (!node)
-   104						continue;
-   105	
-   106					block = container_of(node, struct gpu_buddy_block, rb);
-   107					max_subtree_align = max(max_subtree_align, block->subtree_max_alignment);
-   108				}
-   109			}
-   110	
-   111			KUNIT_EXPECT_GE(test, max_subtree_align, ilog2(alignments[i]));
-   112		}
-   113	
-   114		gpu_buddy_fini(&mm);
-   115	}
-   116	
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 449be58e884c..6d47ef5069b4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -319,7 +319,6 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 	struct kfd_process_device *pdd;
+ 	struct queue *q;
+ 	struct process_queue_node *pqn;
+-	struct kernel_queue *kq;
+ 	enum kfd_queue_type type = properties->type;
+ 	unsigned int max_queues = 127; /* HWS limit */
+ 
+@@ -333,7 +332,6 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 		max_queues = 255;
+ 
+ 	q = NULL;
+-	kq = NULL;
+ 
+ 	pdd = kfd_get_process_device_data(dev, pqm->process);
+ 	if (!pdd) {
+@@ -477,8 +475,6 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 
+ err_create_queue:
+ 	uninit_queue(q);
+-	if (kq)
+-		kernel_queue_uninit(kq);
+ 	kfree(pqn);
+ err_allocate_pqn:
+ 	/* check if queues list is empty unregister process from device */
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.43.0
+
