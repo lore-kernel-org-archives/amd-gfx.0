@@ -4,125 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90C44E94607
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 21:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F907E94615
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 22:10:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3101B10E376;
-	Mon,  9 Feb 2026 21:27:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6462C10E378;
+	Mon,  9 Feb 2026 22:10:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EXkLctlj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KJhfrPWf";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012012.outbound.protection.outlook.com
- [40.93.195.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB6CD10E376
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Feb 2026 21:27:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NCzKbSKMzmzhZu5KZY7MNVFFIkpoA2LhHB3UvZrFz+1qXf+HktPLAMfiKyhnd98mYs6Q19GL2TPftrdG9Gu/QfLbMBxSCZxyWVMNb6KA1XW6miOOSWEMRRWBR+y5gRHZrlOhk3FEIx6ZKDnYB1CFqSQwTGCUnml5qlv/hoOfxGWuF/A64jmKaGn+ZNcWMxwC7Cw8lFkb4G9ZQBX90jU4KbuVZtZMX+pvok+k59CuRHVIV4bFRQhjnQGlVke9FNgppnioElWeKaLsNOmSPri7cr+R5PIF6bjgImakkbXbjFN1Uk/a+4r6t1no7eat5x/liIg5clTZuu9E2KT7hyRTRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=upbfkJibc1X+UXHk5QqSppLwdMi8z/bLegUr1xOhpME=;
- b=cJYDQmwrZMhlwNsNT6qObIZ8+BstEt0LH+SWbI+l3otCyeXw+U8XWtDAxzX8sUZL60O/eALlJr24ccX03Gq7ObgO2iZPWfNQSw3wAiUAam/UCfnkdx8TmrqyxWmVG0Bg1pDZ/seaYCRyjcwjEVjAozXy+6pysktV+vyMVK/mZXfdE3hGbF+TMX7ckgSr5u/mBQp30RiFTpRgg2hVNptBsqOIjKG0tzC4FO+CfMWdDof9l0V9UnfVjyDhN8LZPS4CxI/DRWnKzWW0FtUc/GXzG63Q54D94bG0NDFaifcoenSUwEh21S/42cSmM23VUqG2Tt6OGIxzXhx+UVrjiXoaDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
- is 165.204.84.17)
- smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=upbfkJibc1X+UXHk5QqSppLwdMi8z/bLegUr1xOhpME=;
- b=EXkLctlj/N9bCEVzPliRe4CdDGHd2HnAnwizNGeuQoSnCMvK9iBrcrVMfAThgCWeE5SDFDfdLOAmhLz0f5X08IaEMJ6gQpj26lsYmUeUWRHSAZ/bJdpBViJP38XaEKwv0HEHnhzoZo/b61YbhlyqEfTRQsNhFrs2e0jkrTftljQ=
-Received: from MN2PR18CA0023.namprd18.prod.outlook.com (2603:10b6:208:23c::28)
- by BY5PR12MB4034.namprd12.prod.outlook.com (2603:10b6:a03:205::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Mon, 9 Feb
- 2026 21:27:36 +0000
-Received: from BL6PEPF0001AB58.namprd02.prod.outlook.com
- (2603:10b6:208:23c:cafe::d9) by MN2PR18CA0023.outlook.office365.com
- (2603:10b6:208:23c::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.19 via Frontend Transport; Mon,
- 9 Feb 2026 21:27:35 +0000
-X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
- 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=temperror action=none header.from=amd.com;
-Received-SPF: TempError (protection.outlook.com: error in processing during
- lookup of amd.com: DNS Timeout)
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB58.mail.protection.outlook.com (10.167.241.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.10 via Frontend Transport; Mon, 9 Feb 2026 21:27:35 +0000
-Received: from siweihe2-Desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 9 Feb
- 2026 15:27:32 -0600
-From: Siwei He <siwei.he@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <felix.kuehling@amd.com>, <harish.kasiviswanathan@amd.com>, Siwei He
- <siwei.he@amd.com>
-Subject: [PATCH] drm/amdkfd: Fix APU to use GTT, not VRAM for MQD
-Date: Mon, 9 Feb 2026 16:27:02 -0500
-Message-ID: <20260209212702.561630-1-siwei.he@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96C7210E378
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Feb 2026 22:10:43 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-43284ed32a0so3366542f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 09 Feb 2026 14:10:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770675042; x=1771279842; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=F/vjRwFAaVe2K7jHSLCI92bN2otMBpCwz/MkKTO99GM=;
+ b=KJhfrPWfvnu2g02XG+/KMzrwMdHKmg8Slqk9s2jg0/a67OBVden8IAGYqIaCOAfmTS
+ dr3iUOYrjM8u5aw+ON63cLstkVS+AKcagF45rQUCoGyELtLBdZSG8LYqRIImthB+1BGb
+ FzDu+SoNOixP+aJbO7dhZNOTW1tuTzHA7ZtdBVXDmaAo9Gh7J9/ooZwSPeI+9M7nK6Qy
+ cGsc/H4lhpXaAu/th3gr5PEXKu6gnXy4J0ZlHAt1tiDMYeJ3xwMRKrgXuu2zmKrFGwtj
+ LTrE0PIu0rAN48LKk9lpSpe2rU92IXI3YIlCq++vBOlbu+QlksyRMZc5oEOaMiNmKD7f
+ nLBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770675042; x=1771279842;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=F/vjRwFAaVe2K7jHSLCI92bN2otMBpCwz/MkKTO99GM=;
+ b=G9tn/Lp+/uAF8aMF2rswdlm/6/heUP23eIsZLw2ZDGzmw0HxAGQziRealDeyUvlAxw
+ zqiWB9ztTRGNgTJdo6sdIjy8iCooYHbUfp4RRe0xeHwpMqIuNqyQjNlRok/GLFYNLiDw
+ /t4tEP5zF1epMl6xwfL4BNovHJ5Y7q0ysEMEFbtXMXt9PNiedGuK2bPZMA8QGu9vzNrV
+ jRgnq9JV/pIX9oXlJg/8NEg44QOMt37SVzjJ4huo5bIM3/zDsGqNByiUBjFXIM2z61Ns
+ IRHIvB0vs8RedklU7kIGVh/famK9/CbXRyNtHzMBLo1oGuCaIyGwtUhrolqRxFIoWwbR
+ JEeA==
+X-Gm-Message-State: AOJu0YxG78cmtAemLOwUn5YbxsVyvBAhmshENf5IOwrVkG71YwvsRXQj
+ SZW3sbg0gJb/4k5o/VtXDlAW9WEysdAa0EdBlfh9813/b5h2xGL6x5U9
+X-Gm-Gg: AZuq6aI9AUAgaUzo/iXvp+2pX+R2zfGoZjWSfumvvJODRvDQ5SMxYiA1r8CmRnbKl9e
+ UOzhriIQ1MOVOVPQBXBNqaztG1vng8SLU6dZavlVFXkm8zLLr2A42pVoZk7mNRMj2J6q770s9gl
+ zibrjXBxlrQS5W94z0JYCyqRVUSuUzOWN1V0zOtn+H0fms0Z+BRVv1hx7Evgq4VpMircsTDthwV
+ Qb2S0eA4rx4sYgAeUUSgCmL5ZCEzMCxxuxj/ZwlxYo0BNVmXi5z7rwxrIkh8vKmR47RyV+zCTdx
+ eCoKFX7e/Iy09HcTky+63PV0Jmq6oE8DobY1Lo4zvorGy0R4qxKlk1wjNzItQWjJVmfyBQL2+f8
+ Rs76dwmdbEDgZzM7GRWnHUD1jhvpTSj6yO/dkhjvBJq9qlwDoxeRCsfpfJkN7/HJqRbvmFN+MBa
+ R2i81N2aoJzSwNC22hJYzeESQiO6tBII23NnifD6rOMArO33Nps9QeHXgcg6wDyrJ7m7eY+og=
+X-Received: by 2002:a5d:5c84:0:b0:437:719d:a740 with SMTP id
+ ffacd0b85a97d-4377a59e618mr152239f8f.49.1770675041885; 
+ Mon, 09 Feb 2026 14:10:41 -0800 (PST)
+Received: from timur-hyperion.localnet (5E1BC3D9.dsl.pool.telekom.hu.
+ [94.27.195.217]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43637e31a01sm20559378f8f.27.2026.02.09.14.10.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Feb 2026 14:10:41 -0800 (PST)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Rodrigo Siqueira <siqueira@igalia.com>,
+ "ChiaHsuan Chung (Tom)" <ChiaHsuan.Chung@amd.com>,
+ Daniel Wheeler <daniel.wheeler@amd.com>, Alex Hung <alex.hung@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
+ Christian.Koenig@amd.com, Mario Limonciello <mario.limonciello@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, Prike Liang <Prike.Liang@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Ray Wu <Ray.Wu@amd.com>
+Subject: Re: [PATCH 00/14] drm/amd/display: Add support for external DP bridge
+ encoders in DC
+Date: Mon, 09 Feb 2026 23:10:40 +0100
+Message-ID: <4945608.vXUDI8C0e8@timur-hyperion>
+In-Reply-To: <b98dca3d-15b3-4202-94eb-cd4063ec12a5@amd.com>
+References: <20260126210837.21885-1-timur.kristof@gmail.com>
+ <aYn9dPS0R5lh7hQO@atmagalia>
+ <b98dca3d-15b3-4202-94eb-cd4063ec12a5@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB58:EE_|BY5PR12MB4034:EE_
-X-MS-Office365-Filtering-Correlation-Id: c2724f20-641e-4d06-d541-08de68220ad0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hieEwMHjllLird9BhaWkIZo2pxgtRFrwHewFimiORvm3gWuU8Dl9PW90FHbJ?=
- =?us-ascii?Q?6MaVW0oECgbNeDnL8RQCtVlUd9h8eemmVKhogV0KQVOQvBP6LxOtg6cZmAi/?=
- =?us-ascii?Q?Mtaaed5UrmgO4FPkmzDNhHx9ZFwlZ8ACitQVS5HbodUfHAYonZdWTS8liMcr?=
- =?us-ascii?Q?EvqGBTxIjQB3/NgkfOkTiUchxCwKOpMmIQtVMrsqZK+UQHRnQ0EpeWWkyfTm?=
- =?us-ascii?Q?oJN/hc+9neoNwnpVFBUbqoLIbtz6qBBlAp+Nkcf2Jb1cUKSyVSG9osWp63HF?=
- =?us-ascii?Q?sQ10Idyu+9AElB3KdMY9JyWwN+Ube1bc2u+R+4oWFOrQeRDdSU7gMcX7qwjr?=
- =?us-ascii?Q?qOnF21J769cmJQqZQoou7HFsMQ6x4qp+cBHO0gP3JKV0V6EHjIk0gYBNMfj3?=
- =?us-ascii?Q?blgFTlBNDpGFi+kexbDAKvCO41cMQiX5xVNSE4G2w4gski6EyMnxqSa9HJdr?=
- =?us-ascii?Q?nfFGBBik4a9IP/mECIUtLl0vOVViTNbXO1Bf0U4lo1vFQMGP03UNpDQz0u1E?=
- =?us-ascii?Q?OvQ6L+iu344L/V6W+sXQS7EhyPJP5d/CBxV6BuMtc5lTyCwEknrdo09lRgBm?=
- =?us-ascii?Q?wp6p/Mgu3zKWklvd/muKapitCxypDOKuJvnMlXcGjaBYmeinWBW+xwVzBSg4?=
- =?us-ascii?Q?sAYXpGWU6Lv2AEUUD1yevM1Mgo06bmGr0rvkInSFzpKXrvtb1jrycYAJkPWO?=
- =?us-ascii?Q?95a9bEvieiz+IinH85U7o4jHZauhr7wfafXlXuAQlRMuUaAYXw4Y/6SZlge1?=
- =?us-ascii?Q?a4F9riuDRi9cNhto5UnhPrvcB9Vi/D2pq30r29/ZtptuQANALBwI/kU3gRk1?=
- =?us-ascii?Q?2qOoXNXggusdNW5pJ0BRKN2KPPQ+hou5/kZ9y1N9EdvMhYwKnFcYyTsPp9uf?=
- =?us-ascii?Q?ZxfkLQVtILqeV94UefvNcmbCSWqnensaw4OWDD+cGBMR15eYTStV6Y33MXwm?=
- =?us-ascii?Q?bik6qpYtJ9sjxr6KDEpyo8CesfucMD3jKjdMcqi+8/yoZn1de3c4K6cBPrO+?=
- =?us-ascii?Q?qUMTovzJHgdrACsrVgoatB4lpN2DipcxFsipzp26dSYs80weC7v7jW6f6t3J?=
- =?us-ascii?Q?Y8Txn+Q7Vzj1p7jyHrrfVkg6UJqnud3r2Ml0/ZWu9IWikj1TlLoOF+TVNZzI?=
- =?us-ascii?Q?1YZ8h2diUrH5zOKUX9AoqR9EUEKgRb/WRPVf7kHmggQE5AYAFpctyvHSD8wI?=
- =?us-ascii?Q?XLhlnB/rUZZW+lPBCRqtjwXP0X8e0OsrBUVb/2FUEkfli73iiHK83n/rMr+P?=
- =?us-ascii?Q?YNy3oMdVCBmyF/ldn6g8VexAOOH2wVYvE650rZ0K4MXWVjRTv9LmLN6uKbIc?=
- =?us-ascii?Q?KtOhfFB+gjyPeE2K5lrPRe1qkoIEEZnuKRvFMzBa3a2gkpAgIqMAuycTp0Ai?=
- =?us-ascii?Q?SOjFO6DM344aRT3Anj32u7HHpYRHds8EKMgVKntuXNweEKyQCjZNJVuuiM+C?=
- =?us-ascii?Q?sER9isNjbO6p2ne9mcG4s0vmYv+RGHU0GimwBL1kbWkIxSsulMitjYOcYPje?=
- =?us-ascii?Q?p8rq4XVePSlrtzq0uMxskfpDuFx6jrRbZ6m1ql3KNi5WM+QbtxYpQsiYHBSQ?=
- =?us-ascii?Q?7i+ubCA/TtUmiZQ+tFdtVfVzz2UwTmmo2d9yARS40ENnWvKNAPJmFcRCWoJd?=
- =?us-ascii?Q?K0+/pExi4H8L8wNJj/nJfz1Gm+/+KtG/NmYO8dLAVCvJJ6bwyniHoESQCIFH?=
- =?us-ascii?Q?OB001g=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +d+YvPQoE13g0foFemjr6EhZYVXvHxbpR9x+n0KZZLvVbs7ID0MCibinVRWQst347b/ejgVfrf00DLodvwzDcU3UZ/n0p+GeuJRf7NqFJUtdahIf+mog25jhWMVMuO7PxgDAVlS4sVMDqNd1cATsYfV9C8Ty8w4XxKBxTFosqA7NvrdYqtDsqbMsaMyfw91ronnQaAanpQzuWrBTgVOOF3UgZbUlt3OB7Nc1xicfZAFSD4yJyP8cc+NYu6G6++MZVMI8oJPygEn2ili5YD4+dF+mg4cRRJXIKPsPPe5ePAnwUdQXSJWbcEz4T3heMy74gJa2lw03BRWWLnok5N4hTMerJS3yUtmBZSroo+sVnUq7UzhvtvzmeK4+RuTITPTWZLcCv/2aEZATjTt3vAf5SRYHVqabCnndT/tpPYi7GMyNwcd+UmabA7TZ4TwKcq2b
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 21:27:35.2358 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2724f20-641e-4d06-d541-08de68220ad0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB58.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4034
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,27 +93,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a check in mqd_on_vram. If the device prefers GTT, it returns false
+On Monday, February 9, 2026 7:12:23=E2=80=AFPM Central European Standard Ti=
+me Alex=20
+Hung wrote:
+> On 2/9/26 08:35, Rodrigo Siqueira wrote:
+> >=20
+> > Hi Alex, Dan, Tom,
+> >=20
+> > This series is the last to enable amdgpu as the default for all GFX7
+> > GPUs. In this sense, could you include this series in the weekly
+> > promotion to check whether everything looks ok from a feature
+> > perspective?
+>=20
+> This series was included in promotion test in previous week and no
+> issues were found. However, it breaks CI tests and we will figure out
+> what the causes are.
+>=20
 
-Signed-off-by: Siwei He <siwei.he@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 +++
- 1 file changed, 3 insertions(+)
+Hi,
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index d4659a438be5..80e428f70725 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -111,6 +111,9 @@ static void set_priority(struct v9_mqd *m, struct queue_properties *q)
- 
- static bool mqd_on_vram(struct amdgpu_device *adev)
- {
-+	if (adev->gmc.apu_prefer_gtt)
-+		return false;
-+
- 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
- 	case IP_VERSION(9, 4, 3):
- 	case IP_VERSION(9, 5, 0):
--- 
-2.43.0
+Can you say which tests are broken, and on which GPUs?
+And which patch of the series is responsible?
+
+Thanks,
+Timur
+
+
+
+
 
