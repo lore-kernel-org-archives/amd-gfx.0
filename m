@@ -4,157 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E20DDE7E0AF
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 10:05:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0DECE7E0BB
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 10:16:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F4FE10E3C4;
-	Mon,  9 Feb 2026 10:05:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40CE288F78;
+	Mon,  9 Feb 2026 10:16:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U+yL9aD5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zwUgUmAW";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012001.outbound.protection.outlook.com [52.101.43.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B39C10E3BA
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Feb 2026 10:05:49 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011046.outbound.protection.outlook.com [52.101.62.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E31488F78;
+ Mon,  9 Feb 2026 10:16:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dak7gqDggKBGZhDliKeUWcTbHc/DFMUhTOVRK1Hzt64zW5gefGSB37YG46XWIlEeY0+RKYPEBMnTqBIk9KTljSkaI9VD88B7e5I9nyrGxjGO2/AZu4lGbnblK7W1lLgW9gBPk0D3a1QylnJNzAX6KjrkAy1o3i2nrKhWPttgExUom2N6acQB1sjY1genuqDwG/ryuKHK5+7xmY90aRFrD2ydlMRsrWiD0e+bbpH0UUarNHArdbC9NTzV46jSFZward7fulwNRyyzPG3io8k6qxC+QHNij/vTyEQSAyGTgTfnK7A4WrNxGxCdup/CUoZNyrFAUz28HL+aaUQswHwNlw==
+ b=L2XKsA571p1vF2TdQrz1qjSVu2lCWk1MFT/mrd7wT5QehZhB6N70TQCo1uESJGxIG2vk3mD7F8Z/Uk0+t7T5EfDtYFJ3jIip3kYn5T6jdoxe/8v6rCKqZbbhAGUYWXYfotwYE59jMXPvKiraY89lKNz5ytra3EZ0u65EVzWreU0ApC4xSsarvm7BL8Fat9Np4xGPEvi0rzsbRDwqAwtxw6AVcxgBqU7HNdFUMrzGmjXCtSL56RJnOCLJy4FeeioRPHog3dRIz9y4yD4M16cmA1yeIl5Q84WlsSF/OgWNoAJw/on9rBzw/LbzDUT1yYSzQRPKR5EqR1kI+BzUZO3q5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7+RkRVTafyPcmPCpqSOlzDLDIrgsKG0FtDNN5w6YA44=;
- b=GH7g2U8QkVGijv+gm24eZLKaq+Xu9K79EbdDi+EXEA6h0QRxyIjNOAWwldwiGLVHA6IFveam2W17dS3RmGz6R7pbAGVsSeatZxdRj66ss93i6tupiGpFPPbT378pHnCH6rz1nN1EFUISsNVjgI4P4TZEY2qgmDjyYKsw9joXsQ1yS8MEPD1lh+niQOdcdfuerGLhja2O4h7O6SWsNJKSebO3mmzCZmNNlEkFRjrb2ubAs4sHPTXX1yx3XKccz5+RBzQBaQqfhT09p5ULEzvXWT0mChXa8c4YgMRxmBBcVmYHUvT2W67f6q4b3t9/qqFfLGGiYivbc8Ymzf2FxTrlUA==
+ bh=qPjVqKQ0shifQuVTUoVsZHKoUNX7xnlbsvp/5ocIx4g=;
+ b=Lv2ee53vbgRRaVCHd1IVkZuNRYYiE221Oa4SkeiQr1kurLb7Hh29XAVEBwoWyYmhZ+rPpcfbHvV8dkBy5byEWj9IKWgj1ELDUIo6DCgTypewGWkWYn4RlYpJIxvucCdlDfn4QM2qzgwu+uKIOUSLVlc/2eTSQclVYFq6+Iw/scamfAVsdFmLedScOTIPfQEcPWoaR+Fc8FR9vP2OShl9I3AHQQU1pbOQxbJF4jEJGLD+UomClIJ/AxJdF5x4i5Si3ieHxnXjDfYJS+KJ0m9MQeWdZEjKMbF0nGVtDZb98shOOy3y0Uh5652CHj0Fny5jzigYajWtS2WZedhyihvldw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7+RkRVTafyPcmPCpqSOlzDLDIrgsKG0FtDNN5w6YA44=;
- b=U+yL9aD5n/r3DjoCLWhpFEIKQNuxHLCgyBEvYd0zLKWLzV4ZY2tZ9QigS1rkHlHyJILf7OsSIUnRZ2F89TGfHkU8uAd02KjsRq/SBqZuS9Op6aUO/T6ysQPaOtlBBs9kDaN1QhZsqWCYHWsw/aQ2x8+rF/tmmW1r6IJY9y2uuk8=
+ bh=qPjVqKQ0shifQuVTUoVsZHKoUNX7xnlbsvp/5ocIx4g=;
+ b=zwUgUmAWIdJAu+Jph8JXxec5PkAeN3RxY3MAM4HOn9ghckPiCKRHFkC9Y6g3+H3icyLc16Zc7aHBhiASTpN+gJRat6gkN9BA5hdeaU1VKO2zLU76IoB0DZ3HXKRxRIHbUwcpAa6U9xJdaEkev01SSZW5FLuz0EHo8iEqavGCOX0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY8PR12MB7633.namprd12.prod.outlook.com (2603:10b6:930:9c::19)
+ by SJ0PR12MB5636.namprd12.prod.outlook.com (2603:10b6:a03:42b::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Mon, 9 Feb
- 2026 10:05:45 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Mon, 9 Feb
+ 2026 10:16:10 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
- 10:05:45 +0000
-Message-ID: <0332f527-e3e7-47f8-a635-6165d05364e2@amd.com>
-Date: Mon, 9 Feb 2026 11:05:42 +0100
+ 10:16:09 +0000
+Message-ID: <f296a928-1ef6-4201-9326-eab43da79a84@amd.com>
+Date: Mon, 9 Feb 2026 11:16:05 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Don't propagate errors from amdgpu_vm_flush()
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260208062713.1500367-1-srinivasan.shanmugam@amd.com>
- <65a74779-bcf9-4d19-a1b7-ca0b148dfbda@amd.com>
- <IA0PR12MB8208C4A6ED62884D4AC130EF9065A@IA0PR12MB8208.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v3 0/8] drm/amdkfd: Add batch userptr allocation support
+To: Honglei Huang <honghuan@amd.com>, Felix.Kuehling@amd.com,
+ alexander.deucher@amd.com, Philip.Yang@amd.com, Ray.Huang@amd.com
+Cc: dmitry.osipenko@collabora.com, Xinhui.Pan@amd.com, airlied@gmail.com,
+ daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, akpm@linux-foundation.org
+References: <20260206062557.3718801-1-honglei1.huang@amd.com>
+ <da75eadd-865e-41fe-a86b-ed9d9aa45e5a@amd.com>
+ <8ba8e4f2-89f2-4968-a291-e36e6fc8ab9b@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <IA0PR12MB8208C4A6ED62884D4AC130EF9065A@IA0PR12MB8208.namprd12.prod.outlook.com>
+In-Reply-To: <8ba8e4f2-89f2-4968-a291-e36e6fc8ab9b@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0449.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c6::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0033.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::20) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB7633:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6122f070-a24e-4c42-aeca-08de67c2ca9b
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB5636:EE_
+X-MS-Office365-Filtering-Correlation-Id: d300c7fd-6598-4221-d82d-08de67c43ebc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OVFrNUtTWEc0d1IrWkEzdWE1V2RrS1piRlIwbnhTT3g4d2J0OXFMc2tGTGR3?=
- =?utf-8?B?eFdIY0pKVC9HdlVLQ0JTcFlUNGV3a1JJMlc5dzBLczZVa0xmN2RIYTZKbU9y?=
- =?utf-8?B?QlNtbWFiQkR2UXJVSFRXZWlzd0lpcnRGbERvejdIS28rWThDNTF4NW9pZmxU?=
- =?utf-8?B?RmlMZFY1b0VoZ3lDSEVPT2dKR2VMSTRXZjhTL2tYUlUrWDhLWUNpQU04RDE4?=
- =?utf-8?B?QzVjMDByYmVKcFppUnFXdVZWYTZDS2lsMldSeHEvaEF5RWZOeXlkaXF3UFky?=
- =?utf-8?B?S1Rrbm1raGh6WWorUUlndWdTTHJmS3JDZEVqM1lKa2lSV0k4bldsd0FxUUo1?=
- =?utf-8?B?cmluU1U2NjRmaC9NendKakNiZitMR083ZVdQUTkyK1ExMVROeWlzUVFUZGdW?=
- =?utf-8?B?aDdTWkp3ZE5QNnZBVS9FQkMwY1BYMnRyY2lQM3I0eTFvZHVUZW8vKzNBeFBN?=
- =?utf-8?B?TTN5V05DN1E2S0lRQlhhTmgraytpdkVsVHhBVGh1UVlJdFhzT1FEUHJlTmZG?=
- =?utf-8?B?Rmw4alNqN1Y1SHprTFd0cU9iWEZuNHRCMktBVTJtQ0pPQUZ0RVZ0OTliUjl2?=
- =?utf-8?B?TWFzZ29wU1o4WElKQ1RzVU9QVzJRMzVmdkpudjhEREJlS0l1WEhta0xUUHZp?=
- =?utf-8?B?bHRSVFlzQUpWVHh6bUdJSTh3cFpWSEo1Z2JXa25leEdUN1VPN2tIaFE3NjU3?=
- =?utf-8?B?RGswYWk4b1oyNFF5K09RWENyNEFqNWNHczhSS0JKV2tEZFpXb0FlQ3dkUkZy?=
- =?utf-8?B?dWlmcW1mYklZYW51dXBXL253ZHdLdG85cE9od0ZGS3ZZUVFUbzlUN0dxZ3Jv?=
- =?utf-8?B?N2hkVmdzNUY0VXhNNHpJOE9Wbkd4MEV6Z1ovckNjbFhUK2Q3S0lzckI0MDRT?=
- =?utf-8?B?ajg4bFJPcUZDUkZFTHNHakVHZWtJMGErblA1RkRVb2p2R3hjcTF6allkS1Fp?=
- =?utf-8?B?NVYvSWN2WGRkVzJ5WnozSmVuc2cxY01ZbHZKQW8wUk9LZ1hqTVYzL1lDNFZZ?=
- =?utf-8?B?ek9aNHU3Wk5ZbXFZdjlLOVozVXYzTVFxZ2Y1ZnI5N0VMUjhka0J0a012UGZR?=
- =?utf-8?B?WmxibnBxdXFTZFdmNGgrWjFXeUtsNzFObHYzSnlwdzNoeFgvMllZUXlyZjVP?=
- =?utf-8?B?cmRlRXVIcys2U2FjS25IOXZUc0JwVTVNOHMvS1JnYy9kaHFaSWgydXBFUW1G?=
- =?utf-8?B?N0c1TzRPdE5IUVZFNk9xNDRNME94QXl0LzA3eUNKZmNjMWlBUHoxelV4Wk1i?=
- =?utf-8?B?dEtacmFZakdnWkJvNHl5L2VEUEdDMGhSTStjbWZsNCtHellxdDNnZXZ4bnM4?=
- =?utf-8?B?YnVuNGZETGgzbTB1VE5ReHVWdXpwMGJ5QzNsNy9aR1pCRjlPcjN3NEdvbUpS?=
- =?utf-8?B?bGtMQTB4NC9ac1JHS1JySmV0NnpHb1dmQm1CbjZuZ3JQYnNrZ0ZYays0TUg4?=
- =?utf-8?B?ZVBVOGdrNWNNNVBZVHNIdHgrd0JrUVlxVklDSmlzdkg0bzIzNWs2L2g1M0w0?=
- =?utf-8?B?MjdlV1RuSFlmWGJTNlpqYk1tcDNvYzdGZG0yeFdWL0FWcVlmTnYzdGFjZm5i?=
- =?utf-8?B?dnpwSS8xaG1wcXpidW0rUy9rL1p3M2gyb3BrVEJmcE5xc0ZUbzFFbTJ1WnN6?=
- =?utf-8?B?ZjdPQjdPR2JNYW84ZXpqWFYyeEJjaG9LYjVpNDZUSkxONW1TbEg3ejM4Unh1?=
- =?utf-8?B?cW1kMzI1a28wVmVYZHQvcGNaRERwZVZ0ajZ6aXlDTUVpL2V3WDJoWEhUY0ZI?=
- =?utf-8?B?ZVd3Smd1NUFHamN0d3cvVDRLYlA1bDJNQ2FkL2cxM3g4K0ZhMDJPejNQOWhJ?=
- =?utf-8?B?RktTN1JQSTJGZzhaN1IwdlJKd25wV3h3eHduQTFPYm56ZWNFVE1FZ0tyR3dB?=
- =?utf-8?B?dzBlNUswckR5NjFtVlI2TDN4M2VZWVhyWGFjQ2drT1RRSGNhV1M1Q2x2dU45?=
- =?utf-8?B?VjlEZ0t0TTI3TlFqY3FlK2NnczVhSUpXdmt6VENsd0ZJWExiREg2U0F2MXdR?=
- =?utf-8?B?cFhhSUVrYUIxNFd5RVZhSE5NbjBRWjN3VzZaMnFMU1JPRjh6UTU0VXBoeTlv?=
- =?utf-8?B?RkdHYnhVZ1JLeUF3c3JmdW41bkRMclpndlhONGQ1NlM0Q3dYektPRjlwUllU?=
- =?utf-8?Q?Y+Gc=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?ajF1UVozV2xnaFNlUDFPVXZtTDhJbURkeDJTL2tnNlprbjgyY1ZtM3RhV1ln?=
+ =?utf-8?B?YURJckFudXBVTDlLSE1wREFMV0RxWi9UY25OL0dDZDFLdGE2aXJwTWFlT01D?=
+ =?utf-8?B?TFR0L0xXa21nbGg5dTkzQmU4VFNSU3cxTVgvaDVWYjluMWVhOTB4K1ZyTFpl?=
+ =?utf-8?B?amREQUdaL2xBcnN6MEUwNXQ5VUVWb0V4WktPS0JGc0Mvb0xVaDhiTERNdlY0?=
+ =?utf-8?B?UFVUNkp6UU9TYzNSaTBZaEJpaTd6U3oyZ3VTNURNMUxSejhER0xhVW05b3Ns?=
+ =?utf-8?B?VC9Kd3R4MTlpclZNeWNtZ1pnRnd1NG9yRGVyWk1IYkM1bDhoSm42N05IT05m?=
+ =?utf-8?B?eVNIckpKWGhybjlwcUt1RDRMZjRxUmEwUiswR0g3Z1NvVHNMVENqeUIxNm92?=
+ =?utf-8?B?Um1HeUdvbjlJWUZPakZKYlhaWXl5enJzbExyekxxeFhHa3Q2S2J6L1dmTlIx?=
+ =?utf-8?B?OU05bVUzYkV0eVBqb0xNWTJ6Z01kNnAyVFVHQS9ZMWozUFcxSytXRkRDL3RU?=
+ =?utf-8?B?MWEveVVQNStiUVk5RHM2SVhpeEdteVdSQnFWN1prbUNIcWcrbnE5U3NvcW9D?=
+ =?utf-8?B?MkxDUnFvek1EM0NKaDBDV3FBQWZSTjhYV0prZ1lLa0ZqckJYbGExMHFJM2tT?=
+ =?utf-8?B?TTlhWlhZNlZqd2Mzd2N1T0FFVjl6bzZwYzhBYzUwZzZaa2FyUjhMakFwUGVt?=
+ =?utf-8?B?NkNJN1lEd05FWVFNUHdRZzZKdkpqeUVDbERBTEJBMFFVdS9wd3ZDTDRTZ3dy?=
+ =?utf-8?B?bzJkRXFVK1UzSmorNFpMOXNkbDlTbTJEMis1TVg0UG1oZWhSVEpmMGZCZjFB?=
+ =?utf-8?B?b3U4SGVyTWhUZFZqdlE4cTh1NXN3dE5LTnZMQ1pIRkRaTlkzZlltYUZTOHVm?=
+ =?utf-8?B?TUJ4OGFXclI1SU9ObjA0S0dlU3JPYmhqQVhGWGFsVXFSbnM0ZVlndnFoc3Ax?=
+ =?utf-8?B?V0NHUlNLWFhhV295b2EwYkFrc2liU09tM0FJRHlBdFk4QS9ZNTVsb255U2tx?=
+ =?utf-8?B?NmYxaVRtNG40VWMzZGNGd294QmpVVXM0OWFTaFl5M1FOZVQ5OEYzZWp1UVIz?=
+ =?utf-8?B?YWdPVk4xQlhtZjk2YkpXZUN5OERjSzhvQXUvZnB5WWhpZWxNaHRLOERYTFN3?=
+ =?utf-8?B?c2JaN1g4WkZ0TGRHM3N2VjBtaVhXSzdGMFhQQ0Z0WFVXZ0MyTG5RL2RrYk1z?=
+ =?utf-8?B?N25OK3dPVzB3blAyR1FvMVN5MUxZM202MmlNYkpmNHlxeC83Qk00VWJNdnh1?=
+ =?utf-8?B?am0zUDBGUHptQ2JENVpDS2ZCbjR1eE1HKzdUMjZ6MjhKcHh2bklnMmNhMnVv?=
+ =?utf-8?B?SCtTQUl6Rzk3ZzEyM2NYOEppK2lZdFFwaHJwNFdNd3pqRTZhNTgvNG5nbTBZ?=
+ =?utf-8?B?NUVqNWFFbkdpeExidXBoUGJ3RWxoQzk3L3Nud1RVY085Q1Z1MFg2eHlEZHVW?=
+ =?utf-8?B?OTNkQW9xcFc5REFQZFU1UnY5aFBPYTlKTUtINVRGVXZpZ1NCbU9sTnBRdFYv?=
+ =?utf-8?B?OXcxVkRrRW9QclZ6YjlsZklmSWdCdEpPYTZXbFcyZzk5K293SU5PbndNRGdB?=
+ =?utf-8?B?d09NVEFZNnZOU1d5NlVSSDRvK2U3bnkvSHJwWWQ1QlJXQ09YcUNPdSsyVUk1?=
+ =?utf-8?B?T1hCbGdINThGOGlBcW16OFJxZTVWMFlkek5xeEpQMWM4ekRnRTIzZ0p4UFlv?=
+ =?utf-8?B?Y294ei9sOFVqSis1QTFLY0gycWk2K0drM3V1UjlPZHRXT3hkY2hMdjZzQjJk?=
+ =?utf-8?B?T1kwN0xXMUgvVlM1cEtEVWtTQjc0Q1RyS21GQXlDWjVTOEE5ejFYWnpadEJn?=
+ =?utf-8?B?UmpTL3pJNTFoYk1rSngyUXR2STR2NnF1bGhiaVZIMkVsMDlRRWFvTWlpN0hM?=
+ =?utf-8?B?RHd5VmtsNU4zZGdDQXZLVU9rTm5XaWJhWU9lcHp6dUhhblc5SjhDLzdveXRw?=
+ =?utf-8?B?Wll1Z1hPbHBISmMwVWRPVS9EQzB5YWNBK3piVVZYMnY0UElSNThPMFc3cjZp?=
+ =?utf-8?B?bkxjVHdFSFEvdmdENDNnZjZGVlQ5QlUweFlWNHNFSWYyZHZyNzNLcTl5czh3?=
+ =?utf-8?B?ampBOWhpYU1aR241Q0lmVVFGdFRuZlJseUpja2xOQXNYb0UvRWZEWkFNajlY?=
+ =?utf-8?Q?gVBU=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7053199007); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R1hOSFdBcnE4ZHhMclMxMnlxV3I5TWQzMmxOSXFvVGo3M1RBMVNoSENsTDhw?=
- =?utf-8?B?SVBSaUNqNXdlUlhDdEhMZVlUSHJFaHU5eC9QR3RpOHZvTmdaN3dUUFNPa2h5?=
- =?utf-8?B?M3dVNkR5N3lqeDArdk5xckliczd1YzB3TWVoRHlaUHIybkUwL3RQMTA5dWVO?=
- =?utf-8?B?MGV5L2cvR3M0L29iejNQMVM4U1dUSHY5c2ZOaGVnM2t0UFo4ODNMRC9XOG53?=
- =?utf-8?B?MTVhTXYzRkFGMWprWWY2bEd2cHJqcnJ3UFhCRU1LSllOZzBBcHhJZ2ZPZGtq?=
- =?utf-8?B?UzNVeXhHMWFQM1VBMjVMejlpUGJuck04U1ZRcHZ1R0E0NW1FMWRWODJpTmFr?=
- =?utf-8?B?QndrRzNhK2ZBM0FqRGZxNUdQbUdhdkZVMTB2V250SHg1dWRVVy9td1NDMG9I?=
- =?utf-8?B?eWtDaHBPbEpkcHQ0bCtSb1RtS2VSd3V0NUc3L0FEK0N0dTVqRDdnOWI3U0I3?=
- =?utf-8?B?RmdQSjJmU1dVTU9yaUxRdXlPdm5IalNCSTJscjZSeHU2aDZWR0E2ZmZNZytt?=
- =?utf-8?B?SGJKaWN3QTRTM1ltZnBKeEtLMjhLR3VrbnpjZlJVMElQb3BkS1dmZjZSS0VB?=
- =?utf-8?B?T2dCSGp1eUgrQ2lvQ2M2aFA0ditPUXpqelp1SG9QRU9XWHZZbDVxbjdFRC8v?=
- =?utf-8?B?QmpjbHA5UUowdGgvZWI1VXh0dkJTcDVjSUpZaGJadWtxRkh3cXhyak41Mi9C?=
- =?utf-8?B?NTQram56dStpcHJuZmFIRElZaFY2NnVFYVBEd2FRVE1aQzZFOE03YzhGVlNr?=
- =?utf-8?B?R012cWR3VGdiZHVvdDBJRkh4c2NuSG10NXcwblZmUk9FaThMaWx4Ri9WMVBy?=
- =?utf-8?B?WWp3cGk3RitFZ1gwRHBETkg3K0FSSGNtby8wMU9FTDZwZUtJejFvVndDalk1?=
- =?utf-8?B?VE5IdXpTeEp1YTc1bUM3R3RvaU1jMDVmK011TnN0NmxJUkltS2ZnVHZwbEpu?=
- =?utf-8?B?SEI0dXhvMjRwNHBBQmFjOVU0dCtxUm5sak9hQ01OVGZONjdyMWkzQ282VCt4?=
- =?utf-8?B?VGxQeU5TTFZ0ZmVhYW5pbmxhSzNpcHZhMXpWWDFwOU5STHQyRDlQVjVkYkJF?=
- =?utf-8?B?cXVZc0NaTEtYZERSdTArdFJIeFlUTlNJR0hseSt3bmVWVVcxd05ScXh0UWhK?=
- =?utf-8?B?cVI5RTBSMHJ0cmdWMGtrV2pFcEZRSnliZUphaHRjZitZYVZoYmZjeCtPV3Mz?=
- =?utf-8?B?eXBUbk1seEVFU3pEUTVVMldFSFlYb1d5c1NZamVnN09Wa2tRNlprWXYzcXNO?=
- =?utf-8?B?TkhscFNBTW5ZZU9BdVYyM0hZYWt1RFFiUEYxTk1nOFhPek9nbTRUYzBmczdm?=
- =?utf-8?B?VFZRU3JRanM2aWQ0NTU4WTltcGJEeHZoR2RnUms0aXQ0RitHamgxSFBoRExS?=
- =?utf-8?B?RG5jbVZYeE1aaTVxZFVTTmdPRkIvSmYzSEhRZnpVWkdvTk8zQXlncGNVaW43?=
- =?utf-8?B?NTRBejArZDhxMXU2N25zT1d0NU11RmhWRjhlMUk2VHBXdWhWNWo1WTdNdjhr?=
- =?utf-8?B?Ym9CQ0IzbHk5MDN2d0phSEhpdjdJaWEyQXA3VHo0V0VpTTJIMUJzSmhMYmpM?=
- =?utf-8?B?Nm0rSlIvbm9qNVB5eFZKMW84MHA4a2tjN0c1akhmY1ptUllBR00zeURNamY3?=
- =?utf-8?B?YndmK0wzanQwVHEwY1FCOWUwTk9tRVdFREZEWlFiVTRIYUZOTEVyMTRkVWND?=
- =?utf-8?B?cVlnOXVwcmZ5V0p5cXcxd3piUDJpbkd3Z1FvemU5YzYzRE5tV3IwYld0L1E2?=
- =?utf-8?B?a0tjeWs0MnZTRTlNSnpkOHNOeFl0TVVwV0hmNTBwZDlNQUU1L3N3d1dza2gr?=
- =?utf-8?B?dk9KWS84YXhMWTZNVjgySDFRcngzQ2trTVJLZS83ZTE2KzBCRXZNYlRncXBT?=
- =?utf-8?B?U0hzMmNiTXVDaUx1cTNvd256L0dyRkNseHBCeitwZ21Tc1dBWS9zbk1Lb29L?=
- =?utf-8?B?WTV3NHY2UWg2UHFTZjYwNy9OQnNVUHNhQmhHOFdHSXc2NXZ0d2F2ZGlpMHpj?=
- =?utf-8?B?NE5kdG9RUlh1THF5QTNwc3p0eFU2bE16U09JK2pjSDdCZ1R6MWI1Y3FTL3lO?=
- =?utf-8?B?OTU0YWZ5cGY0ZE95b1VuZEh6eWR5VS9pZFBubjgxdzNQUHlCSGlNcC9XMDcw?=
- =?utf-8?B?Vjdwd2g2K2hlVnptNUI4VVk1OUp3dHo0N21ESDFKcVgza0pGTnNuUW9ZQ24v?=
- =?utf-8?B?ZllWUFk4NnZ1a0c5d1ZSMHFzd3BVY3lmMW1kUHZjNzFCbG5zT2ZiNW5XRWsy?=
- =?utf-8?B?VzVwN0IyN0J2eS9NcFIvTjgzTk5TNG5rdG80WnI1ZVZ5ZDV5OGZTY0Y4Zy9p?=
- =?utf-8?Q?vX/iomHVkjVlaHx6MJ?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dktYVUpmNjU3L1NpNFZqMHkrUkJRMjBCVG5oVlBMRzdINDVCcWdNTGpiRXdR?=
+ =?utf-8?B?NjN6cXV6b1liaVc0TzMvOXpReE14d2llZTJJT21TZUdYZnlESlc4QWdzcHVB?=
+ =?utf-8?B?ZTQ0Wm9WTzZOTUVlZ2tPZlM5Y1pHNHNZSll2TzNiVG5ZMDFQaFV0Z2pzcTBn?=
+ =?utf-8?B?YWxyM0xabTBrRnQwc2hwMzh3S3JRMkRqQ2RNY2x6aGVrWTFkVVFnK3Z1Z3k1?=
+ =?utf-8?B?K1RxTWVOVUZEVmlqUmN3WlR2enhYaUxCdjhFbkl1WExpK2Nzejk3eDF5d29w?=
+ =?utf-8?B?Z2lKaEQzTzZzRkRsZVJjQ3VmdFNIeHhveFVKYlNOWklQRVh5QnpXaVZZeGNE?=
+ =?utf-8?B?WHlDQnJaMTF1aVhseFNyazYvUUJoaDQxVEhDSzVlWGpNRlh4UkIwbkkzNVlX?=
+ =?utf-8?B?SnEvelY4Y1o4SHhYamVqTVBiMWUxTDFwQXF3UWZ0ZkhnYVU1QWZVMXNyU3FP?=
+ =?utf-8?B?TmdwYTFMeTZhampVZTNla2U4Q3dnREYxekVyV294T1RKS0JPaVE2anVObmVk?=
+ =?utf-8?B?bDdHQ0tTTkgwbXhjT01iR3FsQ2NJQ2x0TDlKcks4MmRtQm9GNkFQaWFyMTJL?=
+ =?utf-8?B?bHJTbk9makRHQm13QUVLeGpjYVdhNGtVaFRyeCtuamNLRnFwSzdUMG9rOEQ1?=
+ =?utf-8?B?OFNtazhVSXlKTWFRaHVMYnBtbDJlNWpDYjVnaUk2RGZmazdoU1c1dktWcmxn?=
+ =?utf-8?B?V3oyTDZMbWk1Uys5bTJHMk1IRkZCZTJLZFdoQVVFYTN0bTlDSmdsZ3MxbkdL?=
+ =?utf-8?B?MDFUWFFkQlJvTTJxaFEwY1hiNlBvby92ZWx2U1ZZTEJURC9wZFk3SFc1c1Vv?=
+ =?utf-8?B?QytKOFhVTW1iMTVKM3ZLMzNTWlRsV2pwUng1b1M5Q0tkbjFnMkdlSzNWWisv?=
+ =?utf-8?B?VGkyb20yVlpBUm9uUE5QSDdLVS93K05ZUkJ0T09ZOXZsaVBHeFcyK2NNaXB0?=
+ =?utf-8?B?UFJBSVlNcFI4eXNNUmlybUk5aVJNSFF5RUtBK0cyMEV2bDlmRWFLQlI3bCtP?=
+ =?utf-8?B?aEZDa1c3NzYxbDhRdWxLYS94U0s1Q2Qwb1Ayck43bGxyN2ZPNUxCVEU5OElo?=
+ =?utf-8?B?L0V1clNaT0VVejd6WU0wNEp2MzZVTER0ZmhwSkdaZmhLSHNXcEExOWNZSzVw?=
+ =?utf-8?B?bjVNLy9WeHZvZ1J4Yy83bG9zQzcxR0QwZHNVZEpnT3E0SGFaOGErdUVSQTRI?=
+ =?utf-8?B?WFpuZnpnM21URlRHS3ZNa21UNXNIL3hza0pzNjRoaEFBejRMMjZiVU5Nd1VC?=
+ =?utf-8?B?dG1wVTc5VUtvamdoTUhFZUtYQ0N1QmcvcVpRWmNBY1gyOXN1RVlVanV1OXRr?=
+ =?utf-8?B?OW5pOEpXNnN3THJlSFV2K3VabnZtRVo2b0czSG1GY3JQbU9QMFg2aDBHZUJL?=
+ =?utf-8?B?MEZhaDdCL3ZoaXhIU2V5ejdTTmppT2FTdDYxSFR3a3ZQa1ZhaUFSa21vT1E1?=
+ =?utf-8?B?NktMRDZtWk1RaHg2b0NLcDdCR2JPT0xHQnd6dWtwRWk5YStOcE1LUklqZ2Iv?=
+ =?utf-8?B?eGxlSFNiRm52QWlaM1kzaGtrMEdZcTBNNDQ0OVBlT29UYTRydU5UY0NVTWdG?=
+ =?utf-8?B?d2xtNTNPWW44RVQ4ZnE0bG53NGxhK2phWTErUWtIR2xrd3J0VUkxVENlRTFS?=
+ =?utf-8?B?VkN6ZlRycnFCS0I2cDA4RjBYeFB5cjkzVTBaZzA3alBDeTJreUg3bHRKQjRU?=
+ =?utf-8?B?K2pheXU5T0t2T2ZCam9yd2wvWG1tMVh3KzdabzhFM2JvbmoyWHlwUmgzcCty?=
+ =?utf-8?B?ZjBHdW4vR0xoZXIxVUpiaFpwYmVjK3ZVRWwrVFREL0FlRGI4am1vdTVBQmlQ?=
+ =?utf-8?B?bi9PVUNHSkpsM1AwR2ZrTjBPTElpaXBxR0ZiRzE4L1R0bTNHeEd3ckZlQkJk?=
+ =?utf-8?B?R2ZtN0tObzhBcmxKTWdLSCsvUTBlT3JZWnVrN3dlWi9LdVBZZTdJeHVwWi9U?=
+ =?utf-8?B?OGs4ZG5VVzFyZDQ5MXVqTnQ1Nld0bkh1WStQQnppb01FZnE3TGZNQk9GeWIz?=
+ =?utf-8?B?TW9LWWxseEZLVXBTVHAwU0NvL2x0UUpMZlh4d3hlRWN2VEdGdTJZblRYbUM1?=
+ =?utf-8?B?RlVsZ2h1SmlyMDgvdFV2M0poWTc5NksrR0IraXcxd3B0T2czR24xN01DZ0po?=
+ =?utf-8?B?ZTdBOXVhZlljbXNFN09OVWxoZnE4Njg5Und0MlUxWjhCQlo1ZEZVTWFzZnpP?=
+ =?utf-8?B?bFFISGJ3SEEzZVcxUHBEc01HYWJ4aXRkOWdXUWlCVUpid1J2MVg0eXM2L2xC?=
+ =?utf-8?B?QVl6UUEzbE12QUJKc0tJUzdVWTVGejZ4RGRYckhqcVFUQnRGYTk0WG5oNktM?=
+ =?utf-8?Q?+GyUF8kIa9Yb3ndVJ1?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6122f070-a24e-4c42-aeca-08de67c2ca9b
+X-MS-Exchange-CrossTenant-Network-Message-Id: d300c7fd-6598-4221-d82d-08de67c43ebc
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 10:05:45.6127 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 10:16:09.8595 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7wjfpFuYGbCOrXuaT1a5CHAWeHOPAYglEombQGsB+Ol3+Miphfc14Hw8BABcAiPz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7633
+X-MS-Exchange-CrossTenant-UserPrincipalName: ANN+EkA+eCkKH0aAoZ9CJRThW32tXoxPeRSyWVGGcbCu8Ph5vnH4zk13enxRZtMx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5636
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -169,56 +172,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/9/26 10:51, SHANMUGAM, SRINIVASAN wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
+On 2/9/26 07:14, Honglei Huang wrote:
 > 
->> -----Original Message-----
->> From: Koenig, Christian <Christian.Koenig@amd.com>
->> Sent: Monday, February 9, 2026 3:11 PM
->> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
->> Deucher, Alexander <Alexander.Deucher@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH] drm/amdgpu: Don't propagate errors from
->> amdgpu_vm_flush()
->>
->> On 2/8/26 07:27, Srinivasan Shanmugam wrote:
->>> amdgpu_vm_flush() only returns an error when amdgpu_fence_emit() fails.
->>
->> You need to take a step further amdgpu_fence_emit() can't fail either.
->>
->> The fallback wait inside that function blocks forever until the fence signals and that
->> should never happen in the job submission path in the first place.
+> I've reworked the implementation in v4. The fix is actually inspired
+> by the DRM GPU SVM framework (drivers/gpu/drm/drm_gpusvm.c).
 > 
-> Thanks Christian, understood.
-> 
-> For amdgpu_fence_emit(), I will not add any recovery logic.
+> DRM GPU SVM uses wide notifiers (recommended 512M or larger) to track
+> multiple user virtual address ranges under a single mmu_interval_notifier,
+> and these ranges can be non-contiguous which is essentially the same
+> problem that batch userptr needs to solve: one BO backed by multiple
+> non-contiguous CPU VA ranges sharing one notifier.
 
-IIRC we only used the recovery logic for direct submission for low level benchmark testing.
+That still doesn't solve the sequencing problem.
 
-I think we completely dropped that, but I'm not 100% sure.
+As far as I can see you can't use hmm_range_fault with this approach or it would just not be very valuable.
 
-For now potentially just remove the error handling here:
-
-                        r = dma_fence_wait(old, false);
-                        dma_fence_put(old);
-                        if (r)
-                                return r;
-
-Background is that dma_fence_wait() can only return an error if the second parameter is true.
-
-In the long term we could move this waiting completely out of the emit function, but that is clearly something separate.
+So how should that work with your patch set?
 
 Regards,
-christian.
+Christian.
 
-> I will keep only a WARN_ON_ONCE() and return early if it ever triggers.
 > 
-> Please let me know if this approach is OK, and if you would like this as a follow-up patch.
+> The wide notifier is created in drm_gpusvm_notifier_alloc:
+>   notifier->itree.start = ALIGN_DOWN(fault_addr, gpusvm->notifier_size);
+>   notifier->itree.last = ALIGN(fault_addr + 1, gpusvm->notifier_size) - 1;
+> The Xe driver passes
+>   xe_modparam.svm_notifier_size * SZ_1M in xe_svm_init
+> as the notifier_size, so one notifier can cover many of MB of VA space
+> containing multiple non-contiguous ranges.
+> 
+> And DRM GPU SVM solves the per-range validity problem with flag-based
+> validation instead of seq-based validation in:
+>   - drm_gpusvm_pages_valid() checks
+>       flags.has_dma_mapping
+>     not notifier_seq. The comment explicitly states:
+>       "This is akin to a notifier seqno check in the HMM documentation
+>        but due to wider notifiers (i.e., notifiers which span multiple
+>        ranges) this function is required for finer grained checking"
+>   - __drm_gpusvm_unmap_pages() clears
+>       flags.has_dma_mapping = false  under notifier_lock
+>   - drm_gpusvm_get_pages() sets
+>       flags.has_dma_mapping = true  under notifier_lock
+> I adopted the same approach.
+> 
+> DRM GPU SVM:
+>   drm_gpusvm_notifier_invalidate()
+>     down_write(&gpusvm->notifier_lock);
+>     mmu_interval_set_seq(mni, cur_seq);
+>     gpusvm->ops->invalidate()
+>       -> xe_svm_invalidate()
+>          drm_gpusvm_for_each_range()
+>            -> __drm_gpusvm_unmap_pages()
+>               WRITE_ONCE(flags.has_dma_mapping = false);  // clear flag
+>     up_write(&gpusvm->notifier_lock);
+> 
+> KFD batch userptr:
+>   amdgpu_amdkfd_evict_userptr_batch()
+>     mutex_lock(&process_info->notifier_lock);
+>     mmu_interval_set_seq(mni, cur_seq);
+>     discard_invalid_ranges()
+>       interval_tree_iter_first/next()
+>         range_info->valid = false;          // clear flag
+>     mutex_unlock(&process_info->notifier_lock);
+> 
+> Both implementations:
+>   - Acquire notifier_lock FIRST, before any flag changes
+>   - Call mmu_interval_set_seq() under the lock
+>   - Use interval tree to find affected ranges within the wide notifier
+>   - Mark per-range flag as invalid/valid under the lock
+> 
+> The page fault path and final validation path also follow the same
+> pattern as DRM GPU SVM: fault outside the lock, set/check per-range
+> flag under the lock.
 > 
 > Regards,
-> Srini
+> Honglei
 > 
+> 
+> On 2026/2/6 21:56, Christian König wrote:
+>> On 2/6/26 07:25, Honglei Huang wrote:
+>>> From: Honglei Huang <honghuan@amd.com>
+>>>
+>>> Hi all,
+>>>
+>>> This is v3 of the patch series to support allocating multiple non-contiguous
+>>> CPU virtual address ranges that map to a single contiguous GPU virtual address.
+>>>
+>>> v3:
+>>> 1. No new ioctl: Reuses existing AMDKFD_IOC_ALLOC_MEMORY_OF_GPU
+>>>     - Adds only one flag: KFD_IOC_ALLOC_MEM_FLAGS_USERPTR_BATCH
+>>
+>> That is most likely not the best approach, but Felix or Philip need to comment here since I don't know such IOCTLs well either.
+>>
+>>>     - When flag is set, mmap_offset field points to range array
+>>>     - Minimal API surface change
+>>
+>> Why range of VA space for each entry?
+>>
+>>> 2. Improved MMU notifier handling:
+>>>     - Single mmu_interval_notifier covering the VA span [va_min, va_max]
+>>>     - Interval tree for efficient lookup of affected ranges during invalidation
+>>>     - Avoids per-range notifier overhead mentioned in v2 review
+>>
+>> That won't work unless you also modify hmm_range_fault() to take multiple VA addresses (or ranges) at the same time.
+>>
+>> The problem is that we must rely on hmm_range.notifier_seq to detect changes to the page tables in question, but that in turn works only if you have one hmm_range structure and not multiple.
+>>
+>> What might work is doing an XOR or CRC over all hmm_range.notifier_seq you have, but that is a bit flaky.
 >>
 >> Regards,
 >> Christian.
+>>
+>>>
+>>> 3. Better code organization: Split into 8 focused patches for easier review
+>>>
+>>> v2:
+>>>     - Each CPU VA range gets its own mmu_interval_notifier for invalidation
+>>>     - All ranges validated together and mapped to contiguous GPU VA
+>>>     - Single kgd_mem object with array of user_range_info structures
+>>>     - Unified eviction/restore path for all ranges in a batch
+>>>
+>>> Current Implementation Approach
+>>> ===============================
+>>>
+>>> This series implements a practical solution within existing kernel constraints:
+>>>
+>>> 1. Single MMU notifier for VA span: Register one notifier covering the
+>>>     entire range from lowest to highest address in the batch
+>>>
+>>> 2. Interval tree filtering: Use interval tree to efficiently identify
+>>>     which specific ranges are affected during invalidation callbacks,
+>>>     avoiding unnecessary processing for unrelated address changes
+>>>
+>>> 3. Unified eviction/restore: All ranges in a batch share eviction and
+>>>     restore paths, maintaining consistency with existing userptr handling
+>>>
+>>> Patch Series Overview
+>>> =====================
+>>>
+>>> Patch 1/8: Add userptr batch allocation UAPI structures
+>>>      - KFD_IOC_ALLOC_MEM_FLAGS_USERPTR_BATCH flag
+>>>      - kfd_ioctl_userptr_range and kfd_ioctl_userptr_ranges_data structures
+>>>
+>>> Patch 2/8: Add user_range_info infrastructure to kgd_mem
+>>>      - user_range_info structure for per-range tracking
+>>>      - Fields for batch allocation in kgd_mem
+>>>
+>>> Patch 3/8: Implement interval tree for userptr ranges
+>>>      - Interval tree for efficient range lookup during invalidation
+>>>      - mark_invalid_ranges() function
+>>>
+>>> Patch 4/8: Add batch MMU notifier support
+>>>      - Single notifier for entire VA span
+>>>      - Invalidation callback using interval tree filtering
+>>>
+>>> Patch 5/8: Implement batch userptr page management
+>>>      - get_user_pages_batch() and set_user_pages_batch()
+>>>      - Per-range page array management
+>>>
+>>> Patch 6/8: Add batch allocation function and export API
+>>>      - init_user_pages_batch() main initialization
+>>>      - amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu_batch() entry point
+>>>
+>>> Patch 7/8: Unify userptr cleanup and update paths
+>>>      - Shared eviction/restore handling for batch allocations
+>>>      - Integration with existing userptr validation flows
+>>>
+>>> Patch 8/8: Wire up batch allocation in ioctl handler
+>>>      - Input validation and range array parsing
+>>>      - Integration with existing alloc_memory_of_gpu path
+>>>
+>>> Testing
+>>> =======
+>>>
+>>> - Multiple scattered malloc() allocations (2-4000+ ranges)
+>>> - Various allocation sizes (4KB to 1G+ per range)
+>>> - Memory pressure scenarios and eviction/restore cycles
+>>> - OpenCL CTS and HIP catch tests in KVM guest environment
+>>> - AI workloads: Stable Diffusion, ComfyUI in virtualized environments
+>>> - Small LLM inference (3B-7B models)
+>>> - Benchmark score: 160,000 - 190,000 (80%-95% of bare metal)
+>>> - Performance improvement: 2x-2.4x faster than userspace approach
+>>>
+>>> Thank you for your review and feedback.
+>>>
+>>> Best regards,
+>>> Honglei Huang
+>>>
+>>> Honglei Huang (8):
+>>>    drm/amdkfd: Add userptr batch allocation UAPI structures
+>>>    drm/amdkfd: Add user_range_info infrastructure to kgd_mem
+>>>    drm/amdkfd: Implement interval tree for userptr ranges
+>>>    drm/amdkfd: Add batch MMU notifier support
+>>>    drm/amdkfd: Implement batch userptr page management
+>>>    drm/amdkfd: Add batch allocation function and export API
+>>>    drm/amdkfd: Unify userptr cleanup and update paths
+>>>    drm/amdkfd: Wire up batch allocation in ioctl handler
+>>>
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  23 +
+>>>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 539 +++++++++++++++++-
+>>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 128 ++++-
+>>>   include/uapi/linux/kfd_ioctl.h                |  31 +-
+>>>   4 files changed, 697 insertions(+), 24 deletions(-)
+>>>
+>>
+> 
 
