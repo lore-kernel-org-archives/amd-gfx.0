@@ -4,62 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95152E94607
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 21:21:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90C44E94607
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 21:27:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E513410E468;
-	Mon,  9 Feb 2026 21:21:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3101B10E376;
+	Mon,  9 Feb 2026 21:27:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EHIHbUpk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EXkLctlj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B4A010E380;
- Mon,  9 Feb 2026 21:21:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770672062; x=1802208062;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=Tl0X3h0YbIbrMYP/4PSqqKr9YSUO3iCbUFP9QAlD560=;
- b=EHIHbUpkELesNW0XQHtGAGBpgTXtoPVCW6ErcgmBUlFYol8S4GPPkyRm
- 2CsTcD/PwBIJ/vyAPZvkI3AS90UKtfnDxClNWCxQ+unvd6Licrx1z6YrV
- 0i2WpkBv6jbY6Z4sBcaYCZktDsV6XVCTiH8XWsZdBEN/Npy8qADnVPxPv
- LWbhwbI6npcF5VLU2Tn5ACMO/yU18YcjuSek4vIj1QMGruwgIHxXBWE02
- E5vWIneKG0Xt1PTaFP0t59s/2GlnlEq9pqVszyd3AlECO0zoRFPVTr8eM
- oUIeC3pCVdkRq09tOurp34fKpQJcaxSHPaJWwCSrwZ4DKzKckVwwMru8y A==;
-X-CSE-ConnectionGUID: QvLPGNb5S3Og5RsbxHzJDg==
-X-CSE-MsgGUID: gxHYbrXiT2qGwnGUICVdwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11696"; a="71004177"
-X-IronPort-AV: E=Sophos;i="6.21,282,1763452800"; d="scan'208";a="71004177"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Feb 2026 13:21:02 -0800
-X-CSE-ConnectionGUID: qiJVag5sQhC/4fsrAuP8CQ==
-X-CSE-MsgGUID: 2EiX+7RgRAOpeh1o1+No/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,282,1763452800"; d="scan'208";a="211714482"
-Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
- by orviesa008.jf.intel.com with ESMTP; 09 Feb 2026 13:21:00 -0800
-Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vpYgj-00000000oKy-07Cx;
- Mon, 09 Feb 2026 21:20:57 +0000
-Date: Tue, 10 Feb 2026 05:20:41 +0800
-From: kernel test robot <lkp@intel.com>
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- matthew.auld@intel.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- alexander.deucher@amd.com,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Subject: Re: [PATCH v3 2/2] drm/buddy: Add KUnit test for offset-aligned
- allocations
-Message-ID: <202602100509.jUETbEEY-lkp@intel.com>
-References: <20260209083051.13376-2-Arunpravin.PaneerSelvam@amd.com>
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012012.outbound.protection.outlook.com
+ [40.93.195.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB6CD10E376
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Feb 2026 21:27:41 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NCzKbSKMzmzhZu5KZY7MNVFFIkpoA2LhHB3UvZrFz+1qXf+HktPLAMfiKyhnd98mYs6Q19GL2TPftrdG9Gu/QfLbMBxSCZxyWVMNb6KA1XW6miOOSWEMRRWBR+y5gRHZrlOhk3FEIx6ZKDnYB1CFqSQwTGCUnml5qlv/hoOfxGWuF/A64jmKaGn+ZNcWMxwC7Cw8lFkb4G9ZQBX90jU4KbuVZtZMX+pvok+k59CuRHVIV4bFRQhjnQGlVke9FNgppnioElWeKaLsNOmSPri7cr+R5PIF6bjgImakkbXbjFN1Uk/a+4r6t1no7eat5x/liIg5clTZuu9E2KT7hyRTRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=upbfkJibc1X+UXHk5QqSppLwdMi8z/bLegUr1xOhpME=;
+ b=cJYDQmwrZMhlwNsNT6qObIZ8+BstEt0LH+SWbI+l3otCyeXw+U8XWtDAxzX8sUZL60O/eALlJr24ccX03Gq7ObgO2iZPWfNQSw3wAiUAam/UCfnkdx8TmrqyxWmVG0Bg1pDZ/seaYCRyjcwjEVjAozXy+6pysktV+vyMVK/mZXfdE3hGbF+TMX7ckgSr5u/mBQp30RiFTpRgg2hVNptBsqOIjKG0tzC4FO+CfMWdDof9l0V9UnfVjyDhN8LZPS4CxI/DRWnKzWW0FtUc/GXzG63Q54D94bG0NDFaifcoenSUwEh21S/42cSmM23VUqG2Tt6OGIxzXhx+UVrjiXoaDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=temperror (sender ip
+ is 165.204.84.17)
+ smtp.rcpttodomain=lists.freedesktop.org
+ smtp.mailfrom=amd.com; dmarc=temperror action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=upbfkJibc1X+UXHk5QqSppLwdMi8z/bLegUr1xOhpME=;
+ b=EXkLctlj/N9bCEVzPliRe4CdDGHd2HnAnwizNGeuQoSnCMvK9iBrcrVMfAThgCWeE5SDFDfdLOAmhLz0f5X08IaEMJ6gQpj26lsYmUeUWRHSAZ/bJdpBViJP38XaEKwv0HEHnhzoZo/b61YbhlyqEfTRQsNhFrs2e0jkrTftljQ=
+Received: from MN2PR18CA0023.namprd18.prod.outlook.com (2603:10b6:208:23c::28)
+ by BY5PR12MB4034.namprd12.prod.outlook.com (2603:10b6:a03:205::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Mon, 9 Feb
+ 2026 21:27:36 +0000
+Received: from BL6PEPF0001AB58.namprd02.prod.outlook.com
+ (2603:10b6:208:23c:cafe::d9) by MN2PR18CA0023.outlook.office365.com
+ (2603:10b6:208:23c::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.19 via Frontend Transport; Mon,
+ 9 Feb 2026 21:27:35 +0000
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=temperror action=none header.from=amd.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of amd.com: DNS Timeout)
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB58.mail.protection.outlook.com (10.167.241.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9587.10 via Frontend Transport; Mon, 9 Feb 2026 21:27:35 +0000
+Received: from siweihe2-Desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 9 Feb
+ 2026 15:27:32 -0600
+From: Siwei He <siwei.he@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <felix.kuehling@amd.com>, <harish.kasiviswanathan@amd.com>, Siwei He
+ <siwei.he@amd.com>
+Subject: [PATCH] drm/amdkfd: Fix APU to use GTT, not VRAM for MQD
+Date: Mon, 9 Feb 2026 16:27:02 -0500
+Message-ID: <20260209212702.561630-1-siwei.he@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260209083051.13376-2-Arunpravin.PaneerSelvam@amd.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB58:EE_|BY5PR12MB4034:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2724f20-641e-4d06-d541-08de68220ad0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?hieEwMHjllLird9BhaWkIZo2pxgtRFrwHewFimiORvm3gWuU8Dl9PW90FHbJ?=
+ =?us-ascii?Q?6MaVW0oECgbNeDnL8RQCtVlUd9h8eemmVKhogV0KQVOQvBP6LxOtg6cZmAi/?=
+ =?us-ascii?Q?Mtaaed5UrmgO4FPkmzDNhHx9ZFwlZ8ACitQVS5HbodUfHAYonZdWTS8liMcr?=
+ =?us-ascii?Q?EvqGBTxIjQB3/NgkfOkTiUchxCwKOpMmIQtVMrsqZK+UQHRnQ0EpeWWkyfTm?=
+ =?us-ascii?Q?oJN/hc+9neoNwnpVFBUbqoLIbtz6qBBlAp+Nkcf2Jb1cUKSyVSG9osWp63HF?=
+ =?us-ascii?Q?sQ10Idyu+9AElB3KdMY9JyWwN+Ube1bc2u+R+4oWFOrQeRDdSU7gMcX7qwjr?=
+ =?us-ascii?Q?qOnF21J769cmJQqZQoou7HFsMQ6x4qp+cBHO0gP3JKV0V6EHjIk0gYBNMfj3?=
+ =?us-ascii?Q?blgFTlBNDpGFi+kexbDAKvCO41cMQiX5xVNSE4G2w4gski6EyMnxqSa9HJdr?=
+ =?us-ascii?Q?nfFGBBik4a9IP/mECIUtLl0vOVViTNbXO1Bf0U4lo1vFQMGP03UNpDQz0u1E?=
+ =?us-ascii?Q?OvQ6L+iu344L/V6W+sXQS7EhyPJP5d/CBxV6BuMtc5lTyCwEknrdo09lRgBm?=
+ =?us-ascii?Q?wp6p/Mgu3zKWklvd/muKapitCxypDOKuJvnMlXcGjaBYmeinWBW+xwVzBSg4?=
+ =?us-ascii?Q?sAYXpGWU6Lv2AEUUD1yevM1Mgo06bmGr0rvkInSFzpKXrvtb1jrycYAJkPWO?=
+ =?us-ascii?Q?95a9bEvieiz+IinH85U7o4jHZauhr7wfafXlXuAQlRMuUaAYXw4Y/6SZlge1?=
+ =?us-ascii?Q?a4F9riuDRi9cNhto5UnhPrvcB9Vi/D2pq30r29/ZtptuQANALBwI/kU3gRk1?=
+ =?us-ascii?Q?2qOoXNXggusdNW5pJ0BRKN2KPPQ+hou5/kZ9y1N9EdvMhYwKnFcYyTsPp9uf?=
+ =?us-ascii?Q?ZxfkLQVtILqeV94UefvNcmbCSWqnensaw4OWDD+cGBMR15eYTStV6Y33MXwm?=
+ =?us-ascii?Q?bik6qpYtJ9sjxr6KDEpyo8CesfucMD3jKjdMcqi+8/yoZn1de3c4K6cBPrO+?=
+ =?us-ascii?Q?qUMTovzJHgdrACsrVgoatB4lpN2DipcxFsipzp26dSYs80weC7v7jW6f6t3J?=
+ =?us-ascii?Q?Y8Txn+Q7Vzj1p7jyHrrfVkg6UJqnud3r2Ml0/ZWu9IWikj1TlLoOF+TVNZzI?=
+ =?us-ascii?Q?1YZ8h2diUrH5zOKUX9AoqR9EUEKgRb/WRPVf7kHmggQE5AYAFpctyvHSD8wI?=
+ =?us-ascii?Q?XLhlnB/rUZZW+lPBCRqtjwXP0X8e0OsrBUVb/2FUEkfli73iiHK83n/rMr+P?=
+ =?us-ascii?Q?YNy3oMdVCBmyF/ldn6g8VexAOOH2wVYvE650rZ0K4MXWVjRTv9LmLN6uKbIc?=
+ =?us-ascii?Q?KtOhfFB+gjyPeE2K5lrPRe1qkoIEEZnuKRvFMzBa3a2gkpAgIqMAuycTp0Ai?=
+ =?us-ascii?Q?SOjFO6DM344aRT3Anj32u7HHpYRHds8EKMgVKntuXNweEKyQCjZNJVuuiM+C?=
+ =?us-ascii?Q?sER9isNjbO6p2ne9mcG4s0vmYv+RGHU0GimwBL1kbWkIxSsulMitjYOcYPje?=
+ =?us-ascii?Q?p8rq4XVePSlrtzq0uMxskfpDuFx6jrRbZ6m1ql3KNi5WM+QbtxYpQsiYHBSQ?=
+ =?us-ascii?Q?7i+ubCA/TtUmiZQ+tFdtVfVzz2UwTmmo2d9yARS40ENnWvKNAPJmFcRCWoJd?=
+ =?us-ascii?Q?K0+/pExi4H8L8wNJj/nJfz1Gm+/+KtG/NmYO8dLAVCvJJ6bwyniHoESQCIFH?=
+ =?us-ascii?Q?OB001g=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: +d+YvPQoE13g0foFemjr6EhZYVXvHxbpR9x+n0KZZLvVbs7ID0MCibinVRWQst347b/ejgVfrf00DLodvwzDcU3UZ/n0p+GeuJRf7NqFJUtdahIf+mog25jhWMVMuO7PxgDAVlS4sVMDqNd1cATsYfV9C8Ty8w4XxKBxTFosqA7NvrdYqtDsqbMsaMyfw91ronnQaAanpQzuWrBTgVOOF3UgZbUlt3OB7Nc1xicfZAFSD4yJyP8cc+NYu6G6++MZVMI8oJPygEn2ili5YD4+dF+mg4cRRJXIKPsPPe5ePAnwUdQXSJWbcEz4T3heMy74gJa2lw03BRWWLnok5N4hTMerJS3yUtmBZSroo+sVnUq7UzhvtvzmeK4+RuTITPTWZLcCv/2aEZATjTt3vAf5SRYHVqabCnndT/tpPYi7GMyNwcd+UmabA7TZ4TwKcq2b
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 21:27:35.2358 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2724f20-641e-4d06-d541-08de68220ad0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB58.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4034
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,143 +137,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Arunpravin,
+Add a check in mqd_on_vram. If the device prefers GTT, it returns false
 
-kernel test robot noticed the following build warnings:
+Signed-off-by: Siwei He <siwei.he@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-[auto build test WARNING on 9d757669b2b22cd224c334924f798393ffca537c]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Arunpravin-Paneer-Selvam/drm-buddy-Add-KUnit-test-for-offset-aligned-allocations/20260209-163512
-base:   9d757669b2b22cd224c334924f798393ffca537c
-patch link:    https://lore.kernel.org/r/20260209083051.13376-2-Arunpravin.PaneerSelvam%40amd.com
-patch subject: [PATCH v3 2/2] drm/buddy: Add KUnit test for offset-aligned allocations
-config: riscv-allyesconfig (https://download.01.org/0day-ci/archive/20260210/202602100509.jUETbEEY-lkp@intel.com/config)
-compiler: clang version 16.0.6 (https://github.com/llvm/llvm-project 7cbf1a2591520c2491aa35339f227775f4d3adf6)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260210/202602100509.jUETbEEY-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202602100509.jUETbEEY-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   drivers/gpu/tests/gpu_buddy_test.c:46:7: error: too many arguments provided to function-like macro invocation
-                              "buddy_init failed\n");
-                              ^
-   include/kunit/test.h:1390:9: note: macro 'KUNIT_ASSERT_FALSE' defined here
-   #define KUNIT_ASSERT_FALSE(test, condition) \
-           ^
-   drivers/gpu/tests/gpu_buddy_test.c:45:2: error: use of undeclared identifier 'KUNIT_ASSERT_FALSE'; did you mean 'KUNIT_ASSERTION'?
-           KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, SZ_4K),
-           ^~~~~~~~~~~~~~~~~~
-           KUNIT_ASSERTION
-   include/kunit/assert.h:27:2: note: 'KUNIT_ASSERTION' declared here
-           KUNIT_ASSERTION,
-           ^
->> drivers/gpu/tests/gpu_buddy_test.c:45:2: warning: expression result unused [-Wunused-value]
-           KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, SZ_4K),
-           ^~~~~~~~~~~~~~~~~~
-   1 warning and 2 errors generated.
-
-
-vim +45 drivers/gpu/tests/gpu_buddy_test.c
-
-    23	
-    24	static void gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
-    25	{
-    26		struct gpu_buddy_block *block;
-    27		struct rb_node *node = NULL;
-    28		const u64 mm_size = SZ_2M;
-    29		const u64 alignments[] = {
-    30			SZ_1M,
-    31			SZ_512K,
-    32			SZ_256K,
-    33			SZ_128K,
-    34			SZ_64K,
-    35			SZ_32K,
-    36			SZ_16K,
-    37			SZ_8K,
-    38		};
-    39	
-    40		struct list_head allocated[ARRAY_SIZE(alignments)];
-    41		unsigned int i, order, max_subtree_align = 0;
-    42		struct gpu_buddy mm;
-    43		int ret, tree;
-    44	
-  > 45		KUNIT_ASSERT_FALSE(test, gpu_buddy_init(&mm, mm_size, SZ_4K),
-    46				   "buddy_init failed\n");
-    47	
-    48		for (i = 0; i < ARRAY_SIZE(allocated); i++)
-    49			INIT_LIST_HEAD(&allocated[i]);
-    50	
-    51		/*
-    52		 * Exercise subtree_max_alignment tracking by allocating blocks with descending
-    53		 * alignment constraints and freeing them in reverse order. This verifies that
-    54		 * free-tree augmentation correctly propagates the maximum offset alignment
-    55		 * present in each subtree at every stage.
-    56		 */
-    57	
-    58		for (i = 0; i < ARRAY_SIZE(alignments); i++) {
-    59			struct gpu_buddy_block *root = NULL;
-    60			unsigned int expected;
-    61			u64 align;
-    62	
-    63			align = alignments[i];
-    64			expected = ilog2(align) - 1;
-    65	
-    66			for (;;) {
-    67				ret = gpu_buddy_alloc_blocks(&mm,
-    68							     0, mm_size,
-    69							     SZ_4K, align,
-    70							     &allocated[i],
-    71							     0);
-    72				if (ret)
-    73					break;
-    74	
-    75				block = list_last_entry(&allocated[i],
-    76							struct gpu_buddy_block,
-    77							link);
-    78				KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(block) & (align - 1), 0ULL);
-    79			}
-    80	
-    81			for (order = mm.max_order + 1; order-- > 0 && !root; ) {
-    82				for (tree = 0; tree < 2; tree++) {
-    83					node = mm.free_trees[tree][order].rb_node;
-    84					if (node) {
-    85						root = container_of(node,
-    86								    struct gpu_buddy_block,
-    87								    rb);
-    88						break;
-    89					}
-    90				}
-    91			}
-    92	
-    93			KUNIT_ASSERT_NOT_NULL(test, root);
-    94			KUNIT_EXPECT_EQ(test, root->subtree_max_alignment, expected);
-    95		}
-    96	
-    97		for (i = ARRAY_SIZE(alignments); i-- > 0; ) {
-    98			gpu_buddy_free_list(&mm, &allocated[i], 0);
-    99	
-   100			for (order = 0; order <= mm.max_order; order++) {
-   101				for (tree = 0; tree < 2; tree++) {
-   102					node = mm.free_trees[tree][order].rb_node;
-   103					if (!node)
-   104						continue;
-   105	
-   106					block = container_of(node, struct gpu_buddy_block, rb);
-   107					max_subtree_align = max(max_subtree_align, block->subtree_max_alignment);
-   108				}
-   109			}
-   110	
-   111			KUNIT_EXPECT_GE(test, max_subtree_align, ilog2(alignments[i]));
-   112		}
-   113	
-   114		gpu_buddy_fini(&mm);
-   115	}
-   116	
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index d4659a438be5..80e428f70725 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -111,6 +111,9 @@ static void set_priority(struct v9_mqd *m, struct queue_properties *q)
+ 
+ static bool mqd_on_vram(struct amdgpu_device *adev)
+ {
++	if (adev->gmc.apu_prefer_gtt)
++		return false;
++
+ 	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+ 	case IP_VERSION(9, 4, 3):
+ 	case IP_VERSION(9, 5, 0):
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.43.0
+
