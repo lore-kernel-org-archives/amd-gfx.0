@@ -4,164 +4,163 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6C9BE81BC2
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 13:27:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9142EE81BCE
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 14:07:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C3B910E29D;
-	Mon,  9 Feb 2026 13:27:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE92010E400;
+	Mon,  9 Feb 2026 14:07:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WhPJibks";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r3+5QSL6";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010017.outbound.protection.outlook.com [52.101.56.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA2AC10E29D;
- Mon,  9 Feb 2026 13:27:43 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012015.outbound.protection.outlook.com [52.101.53.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F353110E3F8;
+ Mon,  9 Feb 2026 14:07:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y36wQ10wOnHFze3mRVQiDxd/FQhRaQNFlZ9tUSAE8GQEaGnHJECcgiLZSVg6ll6MnBFf/L+/jaWCYWjegejq+hQu+AIZOD3h4VBisbD515PFr1ImqcO6U7TXygX18wy1rjIBLu8kEhPqhPYkhGFdqRVKN8TJK78Vm0Auynibc9gJuq9boh78ISiOBc8n0wMme2tW9qNG/EWPgK3Vt9EAZHgY2GrccfkPe6NSb3rtKQ0G362z1E9ChA76MZjZVa9DJw082FzdEXQSbd+jekM/+lC82AqgH8s8cE2QMJ3Idu3V0CWusUCBimWkqu9jZhDF60+O635EX3iUdTsZaEw+bQ==
+ b=ShF9QWOVT3q1Z8wg6ZfE9+pt9Z1iljgBBJCOyIrm9MXDDlPa2suBaeA4tED4ldOH/JN36BIwRUlO1g/cemzNsvhCeNXLKg+MrcBH8iINlHQj2pz+HssJGMNqLK2STylxY4R73xnqCe9i27Ytz1NJrq6oygbFQLhneJlIxnjsilylVtpRQKe/egzi8b48rim6PqmLIQG7EQnSkKBI39Zq6dFrUE4XN0hvNNSZT9+17rS59NhaNJY8AOH/tUqJQqJDKFpfITgrnnpUHRYT7J2zgDPyre5zisqME7sFCMRLwE1Qrgs+zY220yCXyarhi73oUQ5rUKLP/yO31WOX5E8Q/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=plb7mMXhJIHuIhXWsbn4FTfGCPsHFm/TayRUcT4tjJM=;
- b=K+k3ML9qbLcC1/dJ0Z6PK/ykIhPz6seHz+k1tNNjpnlmdzGhvDVAOJZsU6bwt86iZECcA+sGGGj+1XAsOPLEDZZhPMhSSNQeg4C2q8tDJOhYDzHri4G8xIu7pXe82UMDaTBqYxu+o8pvVskMwaKfAL/OC5PZkvuLQU81bxnzdgLEder8j1mpMi+N1NStMpbMkLTxymEWBmTebLEixtPJk8dpOZ79pLh5ga7lm5liAgRuBTIEuK123rbZWc0l2Ty8ojzh0DrUne74du+1CcV4WJjq56SIYEegwnRD9Mzu+U9JkFwsqzKrikvoCBBZiiPVk/z20bbeeW4sWguu7rrsDA==
+ bh=pQ0Y2ooEaudJ5kYogO2wQNt4aaYAQEcuH/LU2je12bY=;
+ b=Wcku1M7ylWkrXrJCbWsNiMoEEMl061d+p7AKgLLNVdBomVW0ui9H08oiaZWRuwM6Gd7xwr37JXCCPpQ0qhDnQWKa9F/CaHwTlXcAl7tWhlP2zC2jvu9jlI6eRbGNqYx79Ia5hsJlMuTLZF7U+sXgZCzA6udt3VRoO+TbqwJqDF6s6hyZUfnrx8heokAikCi/0J3hqa5pUn6CgXNqRgjOy2+M+AFg4I7lWOiY4XH1kWW7aO5ZePgt/Ahnel85dJ+dh6jihZ8BcW7xyMFSu4XXMwUd5Kg+suo6b38pabgI54s6mWOvAFH5cZTJkwCWkG1iAIN7aExE7aPpJ11GyJD6hw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=plb7mMXhJIHuIhXWsbn4FTfGCPsHFm/TayRUcT4tjJM=;
- b=WhPJibksxAZDWVEXaSf+reTdObkeNzh+/LIYqFAFEjpZPtW/CEoTMQJ6p5NkGAfOmZIvqy2Pr8u1L7yAzm8NQ1cO+p3asc2J7x9zFhL3PUIWXfhc99mcxdW6aWnRr7N/iYWs68iu9byaufd508Qb2lbZqUqjez2nrIC6l2s5XL0=
+ bh=pQ0Y2ooEaudJ5kYogO2wQNt4aaYAQEcuH/LU2je12bY=;
+ b=r3+5QSL6fEi0sZn6KoQubmLelT6g55c8Yr2se8J701GhDycpBMPVXlIPQV7ntfONJkKHw1VeA2U1Qe/KoDgF3SMyPbPR8vLGoHqXqspRi7SKTBZlL66I3VjpGwk2Hac4S7WwSJn7rDcnXhQOT0NDOVm2DT4r7GLpwzECzML7/o0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH2PR12MB4054.namprd12.prod.outlook.com (2603:10b6:610:a6::18)
+ by CH3PR12MB9455.namprd12.prod.outlook.com (2603:10b6:610:1c1::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Mon, 9 Feb
- 2026 13:27:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Mon, 9 Feb
+ 2026 14:07:35 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
- 13:27:40 +0000
-Message-ID: <a31082ab-e0f9-45ea-9a8d-cfdef39fc507@amd.com>
-Date: Mon, 9 Feb 2026 14:27:35 +0100
+ 14:07:35 +0000
+Message-ID: <e93e823f-8a26-42b2-9a10-50f1afd8dbe9@amd.com>
+Date: Mon, 9 Feb 2026 15:07:30 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/8] drm/amdkfd: Add batch userptr allocation support
-To: Honglei Huang <honghuan@amd.com>
-Cc: Felix.Kuehling@amd.com, Philip.Yang@amd.com, Ray.Huang@amd.com,
- alexander.deucher@amd.com, dmitry.osipenko@collabora.com,
- Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, akpm@linux-foundation.org
-References: <20260206062557.3718801-1-honglei1.huang@amd.com>
- <da75eadd-865e-41fe-a86b-ed9d9aa45e5a@amd.com>
- <8ba8e4f2-89f2-4968-a291-e36e6fc8ab9b@amd.com>
- <f296a928-1ef6-4201-9326-eab43da79a84@amd.com>
- <38264429-a256-4c2f-bcfd-8a021d9603b2@amd.com>
- <451400e6-bbe0-4186-bae6-1bf64181c378@amd.com>
- <0eaf1785-0f84-45e5-b960-c995c1b1cf1e@amd.com>
+Subject: Re: [PATCH] dma-fence: Fix sparse warnings due __rcu annotations
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Rob Clark <robdclark@gmail.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Gustavo Padovan
+ <gustavo@padovan.org>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ kernel test robot <lkp@intel.com>
+References: <20250616155952.24259-1-tvrtko.ursulin@igalia.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <0eaf1785-0f84-45e5-b960-c995c1b1cf1e@amd.com>
+In-Reply-To: <20250616155952.24259-1-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0172.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0293.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e7::6) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB4054:EE_
-X-MS-Office365-Filtering-Correlation-Id: 175a2e13-6729-48d2-414b-08de67deff89
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB9455:EE_
+X-MS-Office365-Filtering-Correlation-Id: a3138567-db65-4543-f113-08de67e492ef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0; ARA:13230040|1800799024|376014|366016|14052099004;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OXhKTWswczBXc01zZXRKR3JhREVoSVVGYUxmZDFRNTBWbi9YZmp4ZGFwNGpK?=
- =?utf-8?B?WmFUdjNnSWVacnhyT29vQ0EzTENaYnVOMVEzWWUwSEt2NjNvZHJHaUZtdkdx?=
- =?utf-8?B?NVY0bFMvTyt5VFlVNVdZYm5POG5TSXp5ZWF2aTFoUmhsTk1ld2szU1gzZm1z?=
- =?utf-8?B?Mk9LTkFhY0I2QU53RDVlNHBRWDNKM1JvdnVLcmNZcFVXQjVWV0JYZzdUcE9E?=
- =?utf-8?B?aE5RQ2E0UU8xbEZPbXZ3OG53d0FRUXVXUDJ6bjRZWExsZ05NME02Q244cEFz?=
- =?utf-8?B?SUlzQzQvamZ0MXQrWHNwelhzeitFMHE4U3VHbVhMakRIZTF3bGY2RnBHQ0NI?=
- =?utf-8?B?c2VBZWllYUhESTNJSGRLUUE5SXU1NTlyN1FZMzdLQ0c4QkhldGZpa1Y5aEo5?=
- =?utf-8?B?RWZZMDNGTmhPQ3VNbkRDMzkzS0lEM0U5UWpjWVRFYkdBVmFibGd0RGZwUTBU?=
- =?utf-8?B?M3N5a1MwWGJ2ZXJTUjdYTW1nUjBlWnFMczV6c3ZudU5qL0t5RG56a1BqZzFN?=
- =?utf-8?B?Q3o5TGRsN242cFU5bWYzMjErbnU0NEIwYlJzbmcrTUpWbWlvT1hxczFLWGxa?=
- =?utf-8?B?aUZhemMvNWx1Tm5GU0x6M0owZmltY1hISlVVYnBWNGV4QW1ldzBsMHpuU21J?=
- =?utf-8?B?dkdGM3A2LytnTnhOM2M5NkZJRmlkL2lmdnNqeTFuZzhIUHdueGNVMGs1QWwz?=
- =?utf-8?B?cmpGNyswbHN1ZGllNHZyQzZXaWZiRERvMXRIMVZ5NkJ2UHZrazFIbXJKRmFV?=
- =?utf-8?B?cHNFbmxuY3lObzhOVlhkOTlEQXdhTndhd0JkN1JTV0FPWFd6ZlhHa2tqdlRk?=
- =?utf-8?B?cDhCc0YyOTMwVFQ5aisweFJrOURYd2FMdm4weHVQdzQxbnl1WXR1MHBlMUs4?=
- =?utf-8?B?aFBOc1ZkcGFxSGliYkY5bkMyMWdZdG5DbW5YdHJyUlhKVFYvenFpcWVPclFM?=
- =?utf-8?B?c04wbm5GY0VDQ3daTTN2ZkhIeDFhU1pHMG1iZTFaL1o0VUtPcm9PQThRVVdo?=
- =?utf-8?B?R2EwcCtoMDIrRldiMTNuS1lKbFFsZWhhN09Jd1VCTmpTK0NTOVpiUXR6ZmJR?=
- =?utf-8?B?cnZXM0RVdDMvRHY2N3VpOTc0WWFKTEpwRU5vNGdhOHMvQjc3cDRpUDJqckVJ?=
- =?utf-8?B?UVFTd1B2aHRLMUpUeG9OSHJTdVZNelpmdE1qRU51cFZBME5xNnByWDFva0ZX?=
- =?utf-8?B?eE5SdllwYjdOcjVacVVzNVM3cVFWbXdUUGFFVnZUdzUrN09RK1d1MGJhVnBY?=
- =?utf-8?B?Wi9ZZ2xIZGVTQ29IUUpJWGFGRnJFamhqZUFRaXJmL3lvSWVvTE9wWnNJWXpo?=
- =?utf-8?B?Ull2YVk2RUJSUm5nSFA0UmdOM21TZmtOd3VVT3JVYXIvVEpscmJsSlJqV2x5?=
- =?utf-8?B?ZkxyVmpvNm5YalNkaDBUR3MxR25MeWt6d2QwUzF4QzVGZ0RxL2VxeUlxN2FS?=
- =?utf-8?B?aHl0ZkJUY3BFTDhZVjQ3TmxyMVBkVFI1UXhxUi9sM0dFLytKZ1hGTlNzaDg1?=
- =?utf-8?B?djlsbjRVQzQ1ampXcmYraFl3SnhvMHRDNWxGQnd2NkVReHVZRDJnQWtBZWZi?=
- =?utf-8?B?K2J6TmtneFFLaEFiNWRCdGVDT3dLT1VKVUZOZ3BoV0ZXMEV2T012VVlrY0ZE?=
- =?utf-8?B?WURJdDZ2L2RadnpzQlJaUEEwMWNEUCtGenNUTEw4MUdPZHFTTjBtY0FEaHh5?=
- =?utf-8?B?VTNkSWU2TGlkT0ErMHVZYVR3TlJUTi9UbVpsdms5S00xTXF2Wmx4alhMUnhn?=
- =?utf-8?B?UXhtVjlFakdtU0gyNjhNREUwNmpOWGRYU0tnWjhjOTE5RjFETDlQeFpWdXBy?=
- =?utf-8?B?SHBqcmtEbVpmVFRmeTg2RHdWNzJoaEExMFV5K1dzUmRxY1doSWNHbDBuaDJI?=
- =?utf-8?B?bTgzYXNDK1FCckVnekhSeDJTdXkrdisyZzFNanNJTzFDcDRLaVhRNWVSb0h3?=
- =?utf-8?B?NVNzdW43empxSUlQMkhjcHg0RFhsMnhrQU1yZzc0ajVGemFWOFY0MWFtTzd3?=
- =?utf-8?B?Y2ZCY3Vhckw2MkgzNml1aG1hMTh2QVU2cTRXNEFEci9sOFJYMERUa0pGVy9U?=
- =?utf-8?B?bmdhMlNNQnY2bUJGYmg4Z2drdmtsSEJjWXRNMlVTQXhoTFlYekE3TldkQ1ll?=
- =?utf-8?Q?S3wE=3D?=
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?emJPdFBWZ3VKTHFFUngzWWRxdWhjQ2oyanR2czFCSm5jcUVFaWtZY1NhU1Ft?=
+ =?utf-8?B?bjYwM2x6OVBDZWRmbFltV014NXR1aFlkZG1yY0xabW1LczAyZFRBK2Nzd04x?=
+ =?utf-8?B?d1o2eGlaOGd2cGVNdFU4SVlRbWliTnUxWjUya1pFdFE2TDFnNVNrM05sZ0Zp?=
+ =?utf-8?B?blA1WTNHOEgrNWpGMWRoOTM4RUtaNDVuMFpsditEZmJlRzArYU5zSHZ2T3pB?=
+ =?utf-8?B?M3hxeWM2K0tUZkdRNGtGT2hXdXc3N3VnVXVwaGJZVkF4T0lVa3ZDWlBmTVI0?=
+ =?utf-8?B?UDcwWmtGaGZBM1lyTnFJbE5YdlpnVkRGUHBTVXVlSGs2dFZ6Z1psUkVPeE95?=
+ =?utf-8?B?bHByZDh5NnJEVkVDZFZMV0E1YTgxbEZJS1lzTlBmamdhZHJ6QVJkcy9mNFRa?=
+ =?utf-8?B?Tmh6THpnQTQrK1Voekt2Smd1WFJ2RzVER21qT1hINUJuc20rN1V1SGZmazVo?=
+ =?utf-8?B?bVpXSVZaL0dJOFl1dUJCR2ljY09iVm5wK2FkNnFyeFgydnRpRXFQTjhiV2FO?=
+ =?utf-8?B?NkF2Q3B4MHlTeXdnVXVibWM0b0ZNdyt6M0FWYjl1ZDJYV2tQWDZXSy9Md25t?=
+ =?utf-8?B?Smg4dng2NmFpZEI0R01LbWZLUEk1cFgvYUFNbEVTL3cyZ1VCbFVpK3FLQlo4?=
+ =?utf-8?B?b25HdkNKYWg0cE8vYzdVVnlrd0ZwZ3Q4Q21sSW1VbkZIcFBQb2c1TWJyR0oz?=
+ =?utf-8?B?S2pEaXJTSVZhK25IeEVFYTZXejF0bmVWeGVOZ2dkcll0c25TdjNpS0dBN1d1?=
+ =?utf-8?B?V1VEbWRiUGVFS0FsYWllR2VWS2Qyd002SUR5ODMrd1NPZDNtN2l5VXdMalZJ?=
+ =?utf-8?B?RytsTUh3c29seWhJbjRWSjFORlNYUmZJd2xuZ3UrVVpaVlVYTGlqSnJ3cTNX?=
+ =?utf-8?B?M0JrNW5DQjJnb25tMUNNaS8vOXVBd05FR3grakJVb1piUWthWWxLU2RISndq?=
+ =?utf-8?B?TUxxYXVWSUVFREl4YmVRd0IwdTdHYkNrMFFzV28vNWd1Y1VvQ2N4SVlpYm1x?=
+ =?utf-8?B?WGh3SXFQdXRaNjFNSktLUkNrZmZ1ZVdBWmZNcXNlNTlpUDF5NCtkK25laVVE?=
+ =?utf-8?B?cEtKL1YybW1wQjU0aXM1cGEvcUErQmh1UGpLMUMydTJ2TXdJWjdrUm5LTXRa?=
+ =?utf-8?B?Z2QwZG91NGhOZktSQ0cyMzNWeTJKaExVMHlCM2x3LzB0STZLQldteHYvb09s?=
+ =?utf-8?B?bjFJUzNmNTVYS2F5MVQzMmt4MTkzMlpORWFGVWdJL1AyaUJFRWRpUVNuZlZR?=
+ =?utf-8?B?RktRR1dlOFdGM3pvQldkNmlvRURIS09mUmFxczVkRWpEQS9hN21ld0hmUFg2?=
+ =?utf-8?B?L00vM2h6SGM1TkFiZjlEdVlLT0Y2MitIdmt1NWd1Y2NiZmJxUEozdjVqenZ2?=
+ =?utf-8?B?NVdXVXZjWml3ZFFHMEtRbjdsRkhHU3UvRkg4d1l2TElJclFaNXhRbGkyTUxF?=
+ =?utf-8?B?dDRFMkh1VTl4UlZ1QTBqdjdKSzFUNVNhZk1MNXZ6U2NHZmxHU3g0MEVUR205?=
+ =?utf-8?B?ZjdYR0FEcjZ0K2RmV0NTM29TaXBPVkcyWmRqZC9DMHpDTHQ1RmdnNEQwZnN6?=
+ =?utf-8?B?RHFreWgyMzI5WUpxNmFQOHljdXhuN3RJUDFxMnJjL1FVS0tYZDJJcS8zZzlO?=
+ =?utf-8?B?amh5MC90Wi80SDhPa2xiZzBZS2xXcUZob0YrN0t3VUxHV3EzcWJJRTg0cTRp?=
+ =?utf-8?B?aUNQNnFFRTdGUGVPL1VrTDBiZjNvbDB3S3FVNldFU3BRMTJGcGdTL1dnZUo3?=
+ =?utf-8?B?WCtBcjVZdmxsekNnNWozdWFYcnN1MGtuZ050aEU0Wmw2TDFOUWtGTHFRanhC?=
+ =?utf-8?B?RW5vZm5zZWc0dlREYTBZY0NmbkZMWW12QjBzMWV0bnJOZzFhajNZcmZDeDZE?=
+ =?utf-8?B?ZFVhdUk1YmYxSThsTnppa05mbk5iLzdsZGI4NTl1YnV3ZWhBbFF3TjExOExC?=
+ =?utf-8?B?N1cxRjFrMk9sUy9kK09OdWovcVdidis4VHd6MHpyWE1MVzJ2eDY1UFAyejVz?=
+ =?utf-8?B?dTl2R1BtOXlCTUhaZXBxMjFGSzY5K2xDMlJhTkVjL3ZHUlJ2eXh4ZmpqTytT?=
+ =?utf-8?B?UlkxcHNsaXBvbkUzdEs5S1hpRVErRllsWFI5R1UxR0VseXY5YnZHQmZXZ2Rk?=
+ =?utf-8?Q?IzYg=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(14052099004); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(7053199007); DIR:OUT;
+ SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UmhpUVJFWWdMQ3JYVGM3LzArc1RkemZDaHIzaVRqZExnOVY3UWFnMlJsR1VO?=
- =?utf-8?B?dHoyMWs4WmtMT2VtckdGTkVRNVROaEpXOVFVcVFjaHo3RW1YRGpJb0dweFRp?=
- =?utf-8?B?OTJzU3lNcVdvSWJOcEZtOVpmVGZKS1hRU3BsMDRFc1YxMmlBMkIvSkNWdmdP?=
- =?utf-8?B?RHJQcDhPTVhMRXV1NUd3dExRV1JaUlk5VllwSDVtTXZDdHNUU3N5SGQzWSs5?=
- =?utf-8?B?ckZLZjBUK3ZpNUNvbHpCSlp0NlBYcHAzMFB6Q0dYczZmWDJQemZvNENVcG5a?=
- =?utf-8?B?WWc2aGlUV2dUMHFYR0EvU0xIVGhPbjdESEh2eVNuZXYxeWIvVDBBQzkzRndm?=
- =?utf-8?B?OUF5UzZyaTc4MWlTK1Z4ZDJKd0JtdmhZdUk4US8rYVFwZHdqbjJrV2FDUmNa?=
- =?utf-8?B?eDVMV3BnREx4aU9DVEtWb1pQamluR2g2VllwSmlIaXNyWVVkVHVtdkFUMXBK?=
- =?utf-8?B?dXEwY1FMTGdrK2k0cGlVZm5LL213emJ3b2ZJVVR1RUc5a1Y2RFl1MjgvOUsx?=
- =?utf-8?B?dlp4WCtnM2UrSkwzZlUwaEQyR0l0bkRPU3p4ZjRNM1dRdEdKazJaVzMxUGR1?=
- =?utf-8?B?YjFzek5xcEdJOHpGZnZzSlFSbVZ3Qk5DNkUvSTRiY3pxVU4zNEs3SG5uYnls?=
- =?utf-8?B?V0FaUnlYZFJRL0toTExGMWdUeDRBNWJQWnExLzhRdDBPczlvWDZtM0tkY015?=
- =?utf-8?B?RGMwbWxVekpNTEpOSjRPMGtwYnVQcmpDS1JiYWQ2cmVXVGsvY29SdUNnVDNh?=
- =?utf-8?B?cm5FYllBNkRFYjZSV3o2OXZ0ZGhWRW95Z1BQT0JMM3BEcDVwZlNQRWV4bmZR?=
- =?utf-8?B?UEc3MC84NUhPWEY4OWU0YmtzWU5kTmZRb0NtUGJHcXFqR1hJek54T2g0RzY5?=
- =?utf-8?B?anc3K1E3TDNkdGplWkdxV3hRTVpjK0dwM2hmSUJIMVoyL1N1OVdMaEtXTjJF?=
- =?utf-8?B?MWZ0MHpMa2Nkcmdac0J1cXRHMXZkTkhGZEZ4ZThlOUVaMXl1Nkp2NEpqMzEr?=
- =?utf-8?B?bEhLK3hjbnV6RVllcHRDcHhvWlUrK25WYyt0dEI3VmtDcWQ4MUg0QWVIUngw?=
- =?utf-8?B?bHNjbmFWYko5WjdEand4WWE0Y2RhZHl6QURXYVl4NmZobVloMDZqNTdGL2hu?=
- =?utf-8?B?U1hGREhxNEdBM091cmhGazdzZCt1UHM5TDMxdHBQQTd4VHJkL2psbmRDZjlJ?=
- =?utf-8?B?VysrREdXTjhOWGtCaWtyUDlKN0hjUWdCRk5iNG41QWJiS2pERWQ0cEZZbGlE?=
- =?utf-8?B?clFIcjVMcE4vZk5URVZRNWFKU1ZQaGFrRTdUeTAxUGp1OUlNVGQwbFAzU1Zv?=
- =?utf-8?B?RlZJOVU2Rm1yRFZlKzgwQSt6YUN0L213RXp1dVB6Z20wbGY3ellhN01wNzda?=
- =?utf-8?B?cE5hdlRJazRTNjZhQUJaT0VxdFJYRmxSMEUrTld3WmhiT2hVRndwei9HM2tZ?=
- =?utf-8?B?Uk05YnJoSzJsdnZocUpHL3lWNG1LM0dWUHpDMlAvY1RaczNFbGRuL3h0aito?=
- =?utf-8?B?aHBQZnB1cUN5OTJPdFlORzNNQUtuQjdXdjd0M2IzaGVZbEdiV2d5cmtTWjlT?=
- =?utf-8?B?Y0hRN0NUMDhFVWNraTdsQUNHcmlJUlpLcG1mRldtaVplN282SWozT0JXbDVq?=
- =?utf-8?B?M3lqT2tMSHlEeDRjUnVzZkJaSVl1aGZQRzRHSlNkV2tzRDZnODQzdjFDaUF5?=
- =?utf-8?B?dGcxcStnR0J0blpsZDBNZk1uTmZXYy9uNExLVSsxU2xCcGJjRTZ0Z0pBeFlP?=
- =?utf-8?B?UjI5UFBpSXdKdmJncHV1ckRscDJhWXAvSVpaeitWUFZNbVI2TVZJTVVhUlJX?=
- =?utf-8?B?M0xOdGFtNDBRWWJvcXIvMWFUaWc3bzFsZVJQY0JYV2RZeGJ3QzdtbjJ6UldU?=
- =?utf-8?B?NVhjdTBOUVB1MmtiTHBpcUdRcGRCNEc3amFRZVdCK1pIaEQxZlRYbVRlMlhQ?=
- =?utf-8?B?THdJa2RCTldhNlRYallibG1hVDdRQVpQUkpneDNrclVOV1E4M21kZW5wWnVS?=
- =?utf-8?B?V09jR0xPNTREdnpkS0JzdWhTcGJOYlVTTHdPbTZWOEV0UGk4WEhWTTkvREVw?=
- =?utf-8?B?aU1qQzg1Zk5aQVE3SVM3R3NsRWdqQ2VEQTNZWkFlYm9zbG1PMXN5bEpHZVh1?=
- =?utf-8?B?SVp4WSttOGRCQi8yQ3A4QUc1dks1N3ROU2REZjlDejJtNFZ6UmZBaXRSdDZz?=
- =?utf-8?B?b0ZlbDJpY1pZUHFFUXl5VXVqWVppZjdLbG1kLzhZT2xrVjU1OGdCSVhvRUhW?=
- =?utf-8?B?RU9VRWdrZVR0RTRHb1djLzgvZDZUaWdPZk9vOHVvSWx3Zkx6QTZ4NHpsL0JE?=
- =?utf-8?Q?obk3gdZYlwW3PsEcZI?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a3h2Z0ZQNmNMK2xiQlJoNGp5S20vUmluK0Y1b1ZFV0VVRGZ5c3J3ajkxNVlV?=
+ =?utf-8?B?dWl1elJ0Y3NzejBDelpRQnQ4MXJzV01qOE5yeU93bk5XdjdFeEJZNVhZaGhI?=
+ =?utf-8?B?V2NHQk9qYnU0bGYwMHlrT0dPMkpmRDlsVHB2Z1ZYa2VObTZPSlpXVFpTRjRw?=
+ =?utf-8?B?SUdOM3NHNkNpVlhWYnQ5ZEs4RWhVclVDMEM0RTdMUjVKM2Rhd1M5OXRUVS9Q?=
+ =?utf-8?B?Rk9QNWtLeEtkMlZjdHNleGp5SS91QjBiVkU5MzBHckd0ZDR6bDY0TXY0bEk2?=
+ =?utf-8?B?Um5oSFo2Q3oxOXNmaDNjeTVJOFl3VEJ6UWJ6TWFxcTk2YXhMVXZqWk5HbXZW?=
+ =?utf-8?B?SkNCOWV3WHIwSVVvbk1IOGpUc2NVMlF2encyTWx5QVVtc3crS0RZY1lMdnVZ?=
+ =?utf-8?B?ODNwSWkzL2ZTVnNKWkNCUy80Yll3cWdoYS9CY2JxTjl6K25iZTJrOXhSZVBM?=
+ =?utf-8?B?ZU5mN3d0c1JxczhqWGI3aHMxcGVLTlY5aFpGeDNvTTJRUk9jclhsZllLSElo?=
+ =?utf-8?B?UE1wMkJheW9CbklZdnZ5WnRuK3p5NjlZSlNWZDZCVE55bFQ1TXNiUS9nQmJX?=
+ =?utf-8?B?TFNNVjI1MXd1Kzk0SXdPN3UxUTIwMWtPR1V1ZCtmejRqM3oxT2tpNjBPNFAy?=
+ =?utf-8?B?M2RsWURQL09rd0cwMG9sTStoUUtyMjl4ek1LVm96L3IvOUxXbXV6N0d1MTRh?=
+ =?utf-8?B?K3ZsNDNPSytaRG1EZFdmdjh1c1A5dFVsSy9mWmw3eWhHRVpUa0F4SWNJQ2Iz?=
+ =?utf-8?B?SlNmazlERG1rdVEwUXF3dnlwUklPejNja3pLNEM3NEl2Y2hqbm9Nemp3eS9M?=
+ =?utf-8?B?U0lNUHZZRzlzckF3enlUMlI3eFVUdVp2UmtiUG80RG4vSDB4ZGJsKy9aWUxv?=
+ =?utf-8?B?YjQyNHJLUWx2ZGtKVkI5TEFtRm9QUzZMckQvTXllM0ZtOVBvTXdOWEdUZ1pz?=
+ =?utf-8?B?cmZxeC96OTFVSG15M1lpaHI2ODdpS05XN0cvVmhaNzVzckhMSHJZRlpBeUFy?=
+ =?utf-8?B?WXcraGsvdkFaNXF2QzhwOHJvTXhSVDRyNzNwNzJwU3U5a1NOSVhMZk1pM0pp?=
+ =?utf-8?B?WkU0WHZLNDZNR2FHb1h5djE3REg3Mys4bUw1SS9vOURIWVp6dUtyQlYwQ3N5?=
+ =?utf-8?B?M3VpQ0Y0NGVhVktRRVJwcTh5NzR4TFFtd2F5UzVTTkprMEs1YzExdTU2c0g4?=
+ =?utf-8?B?WmhnZ0tLVVpuUEJTU2xyNWs0dWkrMmxIdkViek9EeUlNRGZobCtjN1lDajRK?=
+ =?utf-8?B?NlhPN3JyQkJYMXpSL1ZsR2Z1c0lyaW1WUHhMTGpNWFRBOE5Ib3hLSXhUY2RT?=
+ =?utf-8?B?Ny9vVjh2d09ybmw4eUd0cWcvdHZYeHR0dFQrZjVXZ0VJYTZudDVmMHRjOXp2?=
+ =?utf-8?B?NjQweG9ONTQvNGxJc3ZtSXlrQ0xLV2dwYkVTVWVLWU4yQ1g5dmVOWExTbFlv?=
+ =?utf-8?B?Rm5Ec0o0aXJtMGVOcDdQR1o0aTlocFNodmhvZTgwQkxVVGZrRERSWndNdXYx?=
+ =?utf-8?B?UVRhclQ0dGZINEhYZFpnSk9kbkRPUFFQSWVxZENuT0Z0cFdHZFJPQXFIYnVI?=
+ =?utf-8?B?Um5sWlpOMUpYV09LWVVFSDdUdytMTlVwbmk1R0FOczhNOWFvV3VZVmljdnQ4?=
+ =?utf-8?B?d1JQTlFMREhvbDZTYkxNOXFzYmdZYlhrZTVqcWcreVlNa2Z1blowNkVIcHM0?=
+ =?utf-8?B?MWxZZXU2ak1MMzdBVlgxaWZmZDF2TUNBMFpQVURlc2JUaTl1UTJDOGhOeGJS?=
+ =?utf-8?B?ZmJrK2ROV2grbnZkcE1DUHorSXdyYUdJTUhLYUpLMkNHb3Jha2V2ZFMvNXpW?=
+ =?utf-8?B?RkJHaE9qZ216azRrT1NjL2QzU0ZpbzE5QThDNkFraXFsWldxbDd4RFluMFU4?=
+ =?utf-8?B?WW1OemlaWGloeTlQRXQ0TVJzdzhyc09lZnQvSFhROHR1TWdNMnVBcUlUd2V6?=
+ =?utf-8?B?a0VNMlYrKzhlYWpXNCtacUg3Y3JqdjJoUDZOVVZ2bDkwZFNnWGdXS0NtSHlV?=
+ =?utf-8?B?VHdVYStvUmt4aXB3Q2psckNiMXhIYWx3VWEycXcxenJIVWdnUnp2U0xFSTFD?=
+ =?utf-8?B?T1lUQzVpZnhEUHpCTThuMVJiV1M5cFlMN2RlU24vbU9GTTBpOWpSSVhPMVFI?=
+ =?utf-8?B?amd0cVAxbmk3eEdpcDhtNS9Ra0g1YmxVNSsvbXNnT0pYSmg5WEVDYzA1ZUFC?=
+ =?utf-8?B?UkFZUytHbVVBS0U0TmFDUzBpMFUrdk1CUnVaTzdEUWo0Y2o1L0lsWVhrYm51?=
+ =?utf-8?B?aFMxT3hVRS9RNktoekp1d0thS1FjdmJLd1NWZG9DZmhLU2oyL1B0c0dwanBS?=
+ =?utf-8?Q?JLHkapIeM95G6pdEH0?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 175a2e13-6729-48d2-414b-08de67deff89
+X-MS-Exchange-CrossTenant-Network-Message-Id: a3138567-db65-4543-f113-08de67e492ef
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 13:27:40.3050 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 14:07:35.1940 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oaq04YPCYsbVvR1iHJZE0UtKv54sc+/GVPTrPWBcCOZMtZtp/zDNSKjeGBE9b0xt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4054
+X-MS-Exchange-CrossTenant-UserPrincipalName: l0R0dk47G5cLodvBiToWchzC5E2BxOZfIjjBRaXLuMdSoVHKFiP6B2jnNPGXyxra
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9455
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,291 +175,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/9/26 14:11, Honglei Huang wrote:
+On 6/16/25 17:59, Tvrtko Ursulin wrote:
+> __rcu annotations on the return types from dma_fence_driver_name() and
+> dma_fence_timeline_name() cause sparse to complain because both the
+> constant signaled strings, and the strings return by the dma_fence_ops are
+> not __rcu annotated.
 > 
-> So the drm svm is also a NAK?
+> For a simple fix it is easiest to cast them with __rcu added and undo the
+> smarts from the tracpoints side of things. There is no functional change
+> since the rest is left in place. Later we can consider changing the
+> dma_fence_ops return types too, and handle all the individual drivers
+> which define them.
 > 
-> These codes have passed local testing, opencl and rocr， I also provided a detailed code path and analysis.
-> You only said the conclusion without providing any reasons or evidence. Your statement has no justifiable reasons and is difficult to convince
-> so far.
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Fixes: 506aa8b02a8d ("dma-fence: Add safe access helpers and document the rules")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202506162214.1eA69hLe-lkp@intel.com/
+> Cc: Christian König <christian.koenig@amd.com>
 
-That sounds like you don't understand what the issue here is, I will try to explain this once more on pseudo-code. 
+Sorry for the delayed reply, completed missed this one.
 
-Page tables are updated without holding a lock, so when you want to grab physical addresses from the then you need to use an opportunistically retry based approach to make sure that the data you got is still valid.
+Patch is reviewed and pushed to drm-misc-next. It eventually will be backported to stable kernels because of the fixes tag, but since this is not a functional bug I didn't added a CC:stable tag.
 
-In other words something like this here is needed:
-
-retry:
-	hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
-	hmm_range.hmm_pfns = kvmalloc_array(npages, ...);
-...
-	while (true) {
-		mmap_read_lock(mm);
-		err = hmm_range_fault(&hmm_range);
-		mmap_read_unlock(mm);
-
-		if (err == -EBUSY) {
-			if (time_after(jiffies, timeout))
-				break;
-
-			hmm_range.notifier_seq =
-				mmu_interval_read_begin(notifier);
-			continue;
-		}
-		break;
-	}
-...
-	for (i = 0, j = 0; i < npages; ++j) {
-...
-		dma_map_page(...)
-...
-	grab_notifier_lock();
-	if (mmu_interval_read_retry(notifier, hmm_range.notifier_seq))
-		goto retry;
-	restart_queues();
-	drop_notifier_lock();
-...
-
-Now hmm_range.notifier_seq indicates if your DMA addresses are still valid or not after you grabbed the notifier lock.
-
-The problem is that hmm_range works only on a single range/sequence combination, so when you do multiple calls to hmm_range_fault() for scattered VA is can easily be that one call invalidates the ranges of another call.
-
-So as long as you only have a few hundred hmm_ranges for your userptrs that kind of works, but it doesn't scale up into the thousands of different VA addresses you get for scattered handling.
-
-That's why hmm_range_fault needs to be modified to handle an array of VA addresses instead of just a A..B range.
-
-Regards,
+Thanks,
 Christian.
 
-
+> ---
+>  drivers/dma-buf/dma-fence.c      |  8 ++++----
+>  include/trace/events/dma_fence.h | 35 +++++---------------------------
+>  2 files changed, 9 insertions(+), 34 deletions(-)
 > 
-> On 2026/2/9 20:59, Christian König wrote:
->> On 2/9/26 13:52, Honglei Huang wrote:
->>> DRM GPU SVM does use hmm_range_fault(), see drm_gpusvm_get_pages()
->>
->> I'm not sure what you are talking about, drm_gpusvm_get_pages() only supports a single range as well and not scatter gather of VA addresses.
->>
->> As far as I can see that doesn't help the slightest.
->>
->>> My implementation follows the same pattern. The detailed comparison
->>> of invalidation path was provided in the second half of my previous mail.
->>
->> Yeah and as I said that is not very valuable because it doesn't solves the sequence problem.
->>
->> As far as I can see the approach you try here is a clear NAK from my side.
->>
->> Regards,
->> Christian.
->>
->>>
->>> On 2026/2/9 18:16, Christian König wrote:
->>>> On 2/9/26 07:14, Honglei Huang wrote:
->>>>>
->>>>> I've reworked the implementation in v4. The fix is actually inspired
->>>>> by the DRM GPU SVM framework (drivers/gpu/drm/drm_gpusvm.c).
->>>>>
->>>>> DRM GPU SVM uses wide notifiers (recommended 512M or larger) to track
->>>>> multiple user virtual address ranges under a single mmu_interval_notifier,
->>>>> and these ranges can be non-contiguous which is essentially the same
->>>>> problem that batch userptr needs to solve: one BO backed by multiple
->>>>> non-contiguous CPU VA ranges sharing one notifier.
->>>>
->>>> That still doesn't solve the sequencing problem.
->>>>
->>>> As far as I can see you can't use hmm_range_fault with this approach or it would just not be very valuable.
->>>>
->>>> So how should that work with your patch set?
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>
->>>>> The wide notifier is created in drm_gpusvm_notifier_alloc:
->>>>>     notifier->itree.start = ALIGN_DOWN(fault_addr, gpusvm->notifier_size);
->>>>>     notifier->itree.last = ALIGN(fault_addr + 1, gpusvm->notifier_size) - 1;
->>>>> The Xe driver passes
->>>>>     xe_modparam.svm_notifier_size * SZ_1M in xe_svm_init
->>>>> as the notifier_size, so one notifier can cover many of MB of VA space
->>>>> containing multiple non-contiguous ranges.
->>>>>
->>>>> And DRM GPU SVM solves the per-range validity problem with flag-based
->>>>> validation instead of seq-based validation in:
->>>>>     - drm_gpusvm_pages_valid() checks
->>>>>         flags.has_dma_mapping
->>>>>       not notifier_seq. The comment explicitly states:
->>>>>         "This is akin to a notifier seqno check in the HMM documentation
->>>>>          but due to wider notifiers (i.e., notifiers which span multiple
->>>>>          ranges) this function is required for finer grained checking"
->>>>>     - __drm_gpusvm_unmap_pages() clears
->>>>>         flags.has_dma_mapping = false  under notifier_lock
->>>>>     - drm_gpusvm_get_pages() sets
->>>>>         flags.has_dma_mapping = true  under notifier_lock
->>>>> I adopted the same approach.
->>>>>
->>>>> DRM GPU SVM:
->>>>>     drm_gpusvm_notifier_invalidate()
->>>>>       down_write(&gpusvm->notifier_lock);
->>>>>       mmu_interval_set_seq(mni, cur_seq);
->>>>>       gpusvm->ops->invalidate()
->>>>>         -> xe_svm_invalidate()
->>>>>            drm_gpusvm_for_each_range()
->>>>>              -> __drm_gpusvm_unmap_pages()
->>>>>                 WRITE_ONCE(flags.has_dma_mapping = false);  // clear flag
->>>>>       up_write(&gpusvm->notifier_lock);
->>>>>
->>>>> KFD batch userptr:
->>>>>     amdgpu_amdkfd_evict_userptr_batch()
->>>>>       mutex_lock(&process_info->notifier_lock);
->>>>>       mmu_interval_set_seq(mni, cur_seq);
->>>>>       discard_invalid_ranges()
->>>>>         interval_tree_iter_first/next()
->>>>>           range_info->valid = false;          // clear flag
->>>>>       mutex_unlock(&process_info->notifier_lock);
->>>>>
->>>>> Both implementations:
->>>>>     - Acquire notifier_lock FIRST, before any flag changes
->>>>>     - Call mmu_interval_set_seq() under the lock
->>>>>     - Use interval tree to find affected ranges within the wide notifier
->>>>>     - Mark per-range flag as invalid/valid under the lock
->>>>>
->>>>> The page fault path and final validation path also follow the same
->>>>> pattern as DRM GPU SVM: fault outside the lock, set/check per-range
->>>>> flag under the lock.
->>>>>
->>>>> Regards,
->>>>> Honglei
->>>>>
->>>>>
->>>>> On 2026/2/6 21:56, Christian König wrote:
->>>>>> On 2/6/26 07:25, Honglei Huang wrote:
->>>>>>> From: Honglei Huang <honghuan@amd.com>
->>>>>>>
->>>>>>> Hi all,
->>>>>>>
->>>>>>> This is v3 of the patch series to support allocating multiple non-contiguous
->>>>>>> CPU virtual address ranges that map to a single contiguous GPU virtual address.
->>>>>>>
->>>>>>> v3:
->>>>>>> 1. No new ioctl: Reuses existing AMDKFD_IOC_ALLOC_MEMORY_OF_GPU
->>>>>>>       - Adds only one flag: KFD_IOC_ALLOC_MEM_FLAGS_USERPTR_BATCH
->>>>>>
->>>>>> That is most likely not the best approach, but Felix or Philip need to comment here since I don't know such IOCTLs well either.
->>>>>>
->>>>>>>       - When flag is set, mmap_offset field points to range array
->>>>>>>       - Minimal API surface change
->>>>>>
->>>>>> Why range of VA space for each entry?
->>>>>>
->>>>>>> 2. Improved MMU notifier handling:
->>>>>>>       - Single mmu_interval_notifier covering the VA span [va_min, va_max]
->>>>>>>       - Interval tree for efficient lookup of affected ranges during invalidation
->>>>>>>       - Avoids per-range notifier overhead mentioned in v2 review
->>>>>>
->>>>>> That won't work unless you also modify hmm_range_fault() to take multiple VA addresses (or ranges) at the same time.
->>>>>>
->>>>>> The problem is that we must rely on hmm_range.notifier_seq to detect changes to the page tables in question, but that in turn works only if you have one hmm_range structure and not multiple.
->>>>>>
->>>>>> What might work is doing an XOR or CRC over all hmm_range.notifier_seq you have, but that is a bit flaky.
->>>>>>
->>>>>> Regards,
->>>>>> Christian.
->>>>>>
->>>>>>>
->>>>>>> 3. Better code organization: Split into 8 focused patches for easier review
->>>>>>>
->>>>>>> v2:
->>>>>>>       - Each CPU VA range gets its own mmu_interval_notifier for invalidation
->>>>>>>       - All ranges validated together and mapped to contiguous GPU VA
->>>>>>>       - Single kgd_mem object with array of user_range_info structures
->>>>>>>       - Unified eviction/restore path for all ranges in a batch
->>>>>>>
->>>>>>> Current Implementation Approach
->>>>>>> ===============================
->>>>>>>
->>>>>>> This series implements a practical solution within existing kernel constraints:
->>>>>>>
->>>>>>> 1. Single MMU notifier for VA span: Register one notifier covering the
->>>>>>>       entire range from lowest to highest address in the batch
->>>>>>>
->>>>>>> 2. Interval tree filtering: Use interval tree to efficiently identify
->>>>>>>       which specific ranges are affected during invalidation callbacks,
->>>>>>>       avoiding unnecessary processing for unrelated address changes
->>>>>>>
->>>>>>> 3. Unified eviction/restore: All ranges in a batch share eviction and
->>>>>>>       restore paths, maintaining consistency with existing userptr handling
->>>>>>>
->>>>>>> Patch Series Overview
->>>>>>> =====================
->>>>>>>
->>>>>>> Patch 1/8: Add userptr batch allocation UAPI structures
->>>>>>>        - KFD_IOC_ALLOC_MEM_FLAGS_USERPTR_BATCH flag
->>>>>>>        - kfd_ioctl_userptr_range and kfd_ioctl_userptr_ranges_data structures
->>>>>>>
->>>>>>> Patch 2/8: Add user_range_info infrastructure to kgd_mem
->>>>>>>        - user_range_info structure for per-range tracking
->>>>>>>        - Fields for batch allocation in kgd_mem
->>>>>>>
->>>>>>> Patch 3/8: Implement interval tree for userptr ranges
->>>>>>>        - Interval tree for efficient range lookup during invalidation
->>>>>>>        - mark_invalid_ranges() function
->>>>>>>
->>>>>>> Patch 4/8: Add batch MMU notifier support
->>>>>>>        - Single notifier for entire VA span
->>>>>>>        - Invalidation callback using interval tree filtering
->>>>>>>
->>>>>>> Patch 5/8: Implement batch userptr page management
->>>>>>>        - get_user_pages_batch() and set_user_pages_batch()
->>>>>>>        - Per-range page array management
->>>>>>>
->>>>>>> Patch 6/8: Add batch allocation function and export API
->>>>>>>        - init_user_pages_batch() main initialization
->>>>>>>        - amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu_batch() entry point
->>>>>>>
->>>>>>> Patch 7/8: Unify userptr cleanup and update paths
->>>>>>>        - Shared eviction/restore handling for batch allocations
->>>>>>>        - Integration with existing userptr validation flows
->>>>>>>
->>>>>>> Patch 8/8: Wire up batch allocation in ioctl handler
->>>>>>>        - Input validation and range array parsing
->>>>>>>        - Integration with existing alloc_memory_of_gpu path
->>>>>>>
->>>>>>> Testing
->>>>>>> =======
->>>>>>>
->>>>>>> - Multiple scattered malloc() allocations (2-4000+ ranges)
->>>>>>> - Various allocation sizes (4KB to 1G+ per range)
->>>>>>> - Memory pressure scenarios and eviction/restore cycles
->>>>>>> - OpenCL CTS and HIP catch tests in KVM guest environment
->>>>>>> - AI workloads: Stable Diffusion, ComfyUI in virtualized environments
->>>>>>> - Small LLM inference (3B-7B models)
->>>>>>> - Benchmark score: 160,000 - 190,000 (80%-95% of bare metal)
->>>>>>> - Performance improvement: 2x-2.4x faster than userspace approach
->>>>>>>
->>>>>>> Thank you for your review and feedback.
->>>>>>>
->>>>>>> Best regards,
->>>>>>> Honglei Huang
->>>>>>>
->>>>>>> Honglei Huang (8):
->>>>>>>      drm/amdkfd: Add userptr batch allocation UAPI structures
->>>>>>>      drm/amdkfd: Add user_range_info infrastructure to kgd_mem
->>>>>>>      drm/amdkfd: Implement interval tree for userptr ranges
->>>>>>>      drm/amdkfd: Add batch MMU notifier support
->>>>>>>      drm/amdkfd: Implement batch userptr page management
->>>>>>>      drm/amdkfd: Add batch allocation function and export API
->>>>>>>      drm/amdkfd: Unify userptr cleanup and update paths
->>>>>>>      drm/amdkfd: Wire up batch allocation in ioctl handler
->>>>>>>
->>>>>>>     drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  23 +
->>>>>>>     .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 539 +++++++++++++++++-
->>>>>>>     drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 128 ++++-
->>>>>>>     include/uapi/linux/kfd_ioctl.h                |  31 +-
->>>>>>>     4 files changed, 697 insertions(+), 24 deletions(-)
->>>>>>>
->>>>>>
->>>>>
->>>>
->>>
->>
-> 
+> diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> index 3f78c56b58dc..da60d4e68b89 100644
+> --- a/drivers/dma-buf/dma-fence.c
+> +++ b/drivers/dma-buf/dma-fence.c
+> @@ -1109,9 +1109,9 @@ const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
+>  			 "RCU protection is required for safe access to returned string");
+>  
+>  	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+> -		return fence->ops->get_driver_name(fence);
+> +		return (const char __rcu *)fence->ops->get_driver_name(fence);
+>  	else
+> -		return "detached-driver";
+> +		return (const char __rcu *)"detached-driver";
+>  }
+>  EXPORT_SYMBOL(dma_fence_driver_name);
+>  
+> @@ -1141,8 +1141,8 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
+>  			 "RCU protection is required for safe access to returned string");
+>  
+>  	if (!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags))
+> -		return fence->ops->get_driver_name(fence);
+> +		return (const char __rcu *)fence->ops->get_driver_name(fence);
+>  	else
+> -		return "signaled-timeline";
+> +		return (const char __rcu *)"signaled-timeline";
+>  }
+>  EXPORT_SYMBOL(dma_fence_timeline_name);
+> diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
+> index 4814a65b68dc..3abba45c0601 100644
+> --- a/include/trace/events/dma_fence.h
+> +++ b/include/trace/events/dma_fence.h
+> @@ -9,37 +9,12 @@
+>  
+>  struct dma_fence;
+>  
+> -DECLARE_EVENT_CLASS(dma_fence,
+> -
+> -	TP_PROTO(struct dma_fence *fence),
+> -
+> -	TP_ARGS(fence),
+> -
+> -	TP_STRUCT__entry(
+> -		__string(driver, dma_fence_driver_name(fence))
+> -		__string(timeline, dma_fence_timeline_name(fence))
+> -		__field(unsigned int, context)
+> -		__field(unsigned int, seqno)
+> -	),
+> -
+> -	TP_fast_assign(
+> -		__assign_str(driver);
+> -		__assign_str(timeline);
+> -		__entry->context = fence->context;
+> -		__entry->seqno = fence->seqno;
+> -	),
+> -
+> -	TP_printk("driver=%s timeline=%s context=%u seqno=%u",
+> -		  __get_str(driver), __get_str(timeline), __entry->context,
+> -		  __entry->seqno)
+> -);
+> -
+>  /*
+>   * Safe only for call sites which are guaranteed to not race with fence
+>   * signaling,holding the fence->lock and having checked for not signaled, or the
+>   * signaling path itself.
+>   */
+> -DECLARE_EVENT_CLASS(dma_fence_unsignaled,
+> +DECLARE_EVENT_CLASS(dma_fence,
+>  
+>  	TP_PROTO(struct dma_fence *fence),
+>  
+> @@ -64,14 +39,14 @@ DECLARE_EVENT_CLASS(dma_fence_unsignaled,
+>  		  __entry->seqno)
+>  );
+>  
+> -DEFINE_EVENT(dma_fence_unsignaled, dma_fence_emit,
+> +DEFINE_EVENT(dma_fence, dma_fence_emit,
+>  
+>  	TP_PROTO(struct dma_fence *fence),
+>  
+>  	TP_ARGS(fence)
+>  );
+>  
+> -DEFINE_EVENT(dma_fence_unsignaled, dma_fence_init,
+> +DEFINE_EVENT(dma_fence, dma_fence_init,
+>  
+>  	TP_PROTO(struct dma_fence *fence),
+>  
+> @@ -85,14 +60,14 @@ DEFINE_EVENT(dma_fence, dma_fence_destroy,
+>  	TP_ARGS(fence)
+>  );
+>  
+> -DEFINE_EVENT(dma_fence_unsignaled, dma_fence_enable_signal,
+> +DEFINE_EVENT(dma_fence, dma_fence_enable_signal,
+>  
+>  	TP_PROTO(struct dma_fence *fence),
+>  
+>  	TP_ARGS(fence)
+>  );
+>  
+> -DEFINE_EVENT(dma_fence_unsignaled, dma_fence_signaled,
+> +DEFINE_EVENT(dma_fence, dma_fence_signaled,
+>  
+>  	TP_PROTO(struct dma_fence *fence),
+>  
 
