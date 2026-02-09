@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B8C2EA3F21
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6E12EA3F22
 	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 08:20:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E93C10E4F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57FE710E4E9;
 	Tue, 10 Feb 2026 08:20:30 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="TSqGC3j2";
-	dkim-atps=neutral
-Received: from mail-106110.protonmail.ch (mail-106110.protonmail.ch
- [79.135.106.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6698210E385
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Feb 2026 07:34:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1770708366; x=1770967566;
- bh=DUEQxGnzVTqsxG7XY59PJwUJytlx+BuBDvfcVat/qiU=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=TSqGC3j2KMAK2Rkhf1h0cUIVQfIolKGcUwoWDCkbjKcCCrOxtocwI1HMqExBEtP6r
- mN21CSzCq0TIBeQnyjJGP1Y+TW/ovBiJCfqI4ZZlOsyjikcX25v5nxUT/Ccy1qxS+L
- kDZcOXJbxu7WSb7CF1KqI4rh88//cKCQZXxPtvrC0XkeGEglXweXLhNc91ddNYgJyS
- TTUinOQxajVvJ4bKIbdUF9hiHGKBSsK2QvwVCjkhk0guSCDn6pZYNJezPw6Fp0niLV
- r1xCduWxErY4Mdjze/u11/qCkorE4i3Wh8anC6cFdC6xxpEqjaTJxKK4BNQsyQOnjI
- /ZrlG6wlNQdYQ==
-Date: Tue, 10 Feb 2026 07:26:00 +0000
-To: amd-gfx@lists.freedesktop.org
-From: decce6 <decce6@proton.me>
-Cc: decce6 <decce6@proton.me>, Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+Received: from MTA-06-4.privateemail.com (mta-06-4.privateemail.com
+ [198.54.122.146])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC48810E48D;
+ Mon,  9 Feb 2026 23:04:54 +0000 (UTC)
+Received: from hal-station (unknown [23.129.64.210])
+ by mta-06.privateemail.com (Postfix) with ESMTPA id 4f90d107YPz3hhTF;
+ Mon,  9 Feb 2026 18:04:20 -0500 (EST)
+Date: Mon, 9 Feb 2026 18:04:15 -0500
+From: Hamza Mahfooz <someguy@effective-light.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ Xaver Hugl <xaver.hugl@kde.org>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/radeon: Add HAINAN clock adjustment
-Message-ID: <20260210072524.15119-1-decce6@proton.me>
-Feedback-ID: 132957244:user:proton
-X-Pm-Message-ID: 58cf92cb1645be630600c2e92405036104c3d8c1
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Ivan Lipski <ivan.lipski@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <mdaenzer@redhat.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] drm: introduce KMS recovery mechanism
+Message-ID: <aYpn74JYNIR5Kr-9@hal-station>
+References: <20260206235846.1019172-1-someguy@effective-light.com>
+ <2ac2dc2f-552c-4084-872b-179a1e489156@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2ac2dc2f-552c-4084-872b-179a1e489156@amd.com>
 X-Mailman-Approved-At: Tue, 10 Feb 2026 08:20:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,34 +58,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch limits the clock speeds of the AMD Radeon R5 M420 GPU from
-850/1000MHz (core/memory) to 800/950 MHz, making it work stably. This
-patch is for radeon.
+On Mon, Feb 09, 2026 at 10:35:05AM +0100, Christian König wrote:
+> > +	/**
+> > +	 * @page_flip_timeout:
+> > +	 *
+> > +	 * This optional hook is called if &drm_crtc_commit.flip_done times out,
+> > +	 * and can be used by drivers to attempt to recover from a page flip
+> > +	 * timeout.
+> > +	 */
+> > +	void (*page_flip_timeout)(struct drm_crtc *crtc);
+> 
+> As far as I can see a callback is clearly not the right approach.
+> 
+> The drm_atomic_helper_wait_for_flip_done() helper is called by the driver, isn't it?
+> 
+> So what we need is just to give an error code back to the driver.
+> 
 
-Signed-off-by: decce6 <decce6@proton.me>
----
- drivers/gpu/drm/radeon/si_dpm.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dp=
-m.c
-index 9deb91970d4d..f12227145ef0 100644
---- a/drivers/gpu/drm/radeon/si_dpm.c
-+++ b/drivers/gpu/drm/radeon/si_dpm.c
-@@ -2925,6 +2925,11 @@ static void si_apply_state_adjust_rules(struct radeo=
-n_device *rdev,
- =09=09=09max_sclk =3D 60000;
- =09=09=09max_mclk =3D 80000;
- =09=09}
-+=09=09if ((rdev->pdev->device =3D=3D 0x666f) &&
-+=09=09    (rdev->pdev->revision =3D=3D 0x00)) {
-+=09=09=09max_sclk =3D 80000;
-+=09=09=09max_mclk =3D 95000;
-+=09=09}
- =09} else if (rdev->family =3D=3D CHIP_OLAND) {
- =09=09if ((rdev->pdev->revision =3D=3D 0xC7) ||
- =09=09    (rdev->pdev->revision =3D=3D 0x80) ||
---=20
-2.43.0
-
-
+I guess we could just have the function return -ETIMEOUT, but then
+drivers wouldn't know which crtc is timing out and AFAIK drivers aren't
+supposed to touch `drm_crtc_commit`s so they don't really have a
+sanctioned means to figure that out on their own.
