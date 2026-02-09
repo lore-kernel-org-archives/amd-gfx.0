@@ -4,160 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70AA0E7E0BC
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 17:30:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0673E7E0BC
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 17:37:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0412A10E180;
-	Mon,  9 Feb 2026 17:30:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84DDD10E43D;
+	Mon,  9 Feb 2026 17:37:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oH5AKGWE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tF0kDTDw";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012021.outbound.protection.outlook.com [52.101.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC3F610E180
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Feb 2026 17:30:03 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010056.outbound.protection.outlook.com
+ [40.93.198.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C261510E43D;
+ Mon,  9 Feb 2026 17:37:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PhJdBrKVP7QeD+Dk42m7Q+mug/gB/B8JdcCppIhzAphb7kKoHuXBypmWFkbZ2bSd/9N2cOYvxonsoN26ChsjLbzr8MZ1+f3muW6xVlmordLIAP1YEewFf+iIxBc6HodWGcV7s/a3/VClwX1ZXwqyTTUDRKEhPZgCDcxhc+zTGthqjhUtvQ0sr1mxF/nUZ8rlaNNkW9vGfvOMulUiVNIEYHNDlXXZw3obHlbhqbEzMCw46DQtcpoqyJZthn5sbiIDX6Ri0s0DW+Af5BgGtkB+xyKXg2fyudkMF073Z9MzVoJz488xp/TtsJjS8r9/JT138OT7bVMA3iZXavux+6d0nQ==
+ b=oB/OVJT1Dh51woqGlO4YBYbQeHVvVbLbETzmlhG7AeFwAWDo34fH6/ytoAt47zt2/EVmNFh6/Y2TiZrk+WXgsjCDIngoGh3U+lPdpKd1tIJ2YAgYyAtsWUEusT3UyLL5itC6znwVNj28eFNQipXhAw7X4ZRd5AczIe7ZgRnD+E8apIH/hgi+1lHDUSg2fpACP5B4gknUkQds3+kqUcHzV7buMSwowgibLoouX9yI+bKBZfbmrOLpZn1qrNWr/2Dga4iEUFyvc3YjE2I4mMLg1KmOwkcZSd4gidirmNcCXESNxrF8Ab6PdjM/znJb5VlYGINBs5I0zHNHq2aZfin/7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i6/gmhedbF/Q7Y8thhf4FohQ8wgXmkxL8xlutB10dBc=;
- b=kJPwH3l6ain6j5K0rmU46AsoqG6BYRuhjxMRlrDm7nDGBmjPnBs4Mq3JJ08e4LzcoQzkeQZulPXCDzQCq1dzMx65Zkx4HmjjZpJqp+mbv6q+qsTtDfr5Mh4TOBmsQw3YJ2cM8IEZJF9EpogtkCOm8Za4GwBzvBiALPJ71RjerhpfCRFCTtG9GMRBgnWB4ilBLyla/dhU97M0DmGKHPlFL5fiRmpnesaveDjo/Lsgh+duAINGFpj2e/hHLScrr6L/UQrqYZa+klMGpzWGiF6IWyHxeiqEAJh2wJjL9qZLLCdM6+kvGdGQxYoLMwwqVE7Vx3SDWeQOFkZt98bQHOtNNg==
+ bh=gTWEU3qcO4JOvT5dVLqytyyRZF0nHPeQDX88H0WsjvM=;
+ b=lAeE0FKxFtotxUl9SJfdTx5IahbCILS6U/wMJhcY3qD9++pU/ONqaOLqdSNycC51Y41xgPqZg1+7eOp7XoZOzpwm26gswDWAWhPYL3EvoctHtKzTHSjnuxDP7y+OpV4fz3+VnSkeZRvn+DFMKVLVO1ysije4n0Bh6rO3fIlpKCrKZj0iZ+YcN5yW8Hw010Vu9s4nyeL+mKM0ipV8qdKfeOOo5v8b2+vVAsLgsqk7naF19gg0W3MiIN1AHvuTl2mHusapcLDOj9JnH/sVUUmUHE534FWY2ykbw5S9wTo2Dr92BHURI+Pf4mTeH/kIkNYGZAX7K9cCfc47/JiAw209RA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i6/gmhedbF/Q7Y8thhf4FohQ8wgXmkxL8xlutB10dBc=;
- b=oH5AKGWET4GRNv6pl9ZoUeCK0gySBdmwRzXjb7MXDXbpmndPYsfCkrQdP36K2nXNVXy3u2e8I73mHAVGH2Zk8K5GUx+AUTUw45hnQP5miYgFAQBrcyDjXApPutDIZia6ABYv/BbGmwl71sCtxdpyl/Fh0A8LN87SZDycvWB6xdc=
+ bh=gTWEU3qcO4JOvT5dVLqytyyRZF0nHPeQDX88H0WsjvM=;
+ b=tF0kDTDwG8LSV9u0ObWO5PA3avUHs2N+3MukwuE73ErOhsk/v55ZkKCUuOp5hpa6QRK0nPOrXMe5cREQk4vzZNQNTeWh1fTXxHxT+9dUXn0V9cES8bzPAlg3uxfBq6rAmenezg6KO7CjB0n4x8XqGrtTP1hci8Ew9W5ox0VdVp8=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by BL3PR12MB6546.namprd12.prod.outlook.com (2603:10b6:208:38d::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.16; Mon, 9 Feb
- 2026 17:30:00 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
- 17:30:00 +0000
-Message-ID: <e2c52360-996a-4f22-b6a3-efe503c8e47e@amd.com>
-Date: Mon, 9 Feb 2026 10:29:58 -0700
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA1PR12MB6041.namprd12.prod.outlook.com (2603:10b6:208:3d7::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Mon, 9 Feb
+ 2026 17:37:41 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
+ 17:37:41 +0000
+Message-ID: <a57d14cc-75c4-42d5-8ee8-be6e2640186b@amd.com>
+Date: Mon, 9 Feb 2026 18:37:34 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Reject cursor plane on DCE when scaled
- differently than primary
-To: Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Dan Wheeler <daniel.wheeler@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- Mario Limonciello <mario.limonciello@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, harry.wentland@amd.com,
- Leo Li <sunpeng.li@amd.com>
-References: <20260118145741.36198-1-timur.kristof@gmail.com>
- <aXv-e37PeACx549L@atmagalia>
+Subject: Re: [PATCH v3 0/8] drm/amdkfd: Add batch userptr allocation support
+To: Honglei Huang <honghuan@amd.com>
+Cc: Felix.Kuehling@amd.com, Philip.Yang@amd.com, Ray.Huang@amd.com,
+ alexander.deucher@amd.com, dmitry.osipenko@collabora.com,
+ Xinhui.Pan@amd.com, airlied@gmail.com, daniel@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, akpm@linux-foundation.org
+References: <20260206062557.3718801-1-honglei1.huang@amd.com>
+ <da75eadd-865e-41fe-a86b-ed9d9aa45e5a@amd.com>
+ <8ba8e4f2-89f2-4968-a291-e36e6fc8ab9b@amd.com>
+ <f296a928-1ef6-4201-9326-eab43da79a84@amd.com>
+ <38264429-a256-4c2f-bcfd-8a021d9603b2@amd.com>
+ <451400e6-bbe0-4186-bae6-1bf64181c378@amd.com>
+ <0eaf1785-0f84-45e5-b960-c995c1b1cf1e@amd.com>
+ <a31082ab-e0f9-45ea-9a8d-cfdef39fc507@amd.com>
+ <648e06d1-b854-466f-bf13-0c36ee2c36a1@amd.com>
+ <9c7ab1b2-1a78-43d7-b4a7-5bc561158380@amd.com>
+ <410040f0-d7eb-4a35-9e4b-54a3517a5cfe@amd.com>
+ <bb62077f-38a5-4d1f-9a8d-f63e35ae1f10@amd.com>
+ <cffdd191-2fdd-4b5d-abf2-4cf77b96b681@amd.com>
 Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <aXv-e37PeACx549L@atmagalia>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <cffdd191-2fdd-4b5d-abf2-4cf77b96b681@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MW4P223CA0003.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:303:80::8) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+X-ClientProxiedBy: FR4P281CA0306.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f6::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|BL3PR12MB6546:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ddf1be6-4b8f-4a75-8b66-08de6800da43
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB6041:EE_
+X-MS-Office365-Filtering-Correlation-Id: 42dace76-15e2-4c41-9e38-08de6801ec9e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZVpENGtkbDFFSU9UaGwyOXYvTWdzTE5ReUlxMytJdFc1dVZpaDFBZDMySTJ5?=
- =?utf-8?B?THI2c3hhdzUxbyt3VUIvTXFlQ01tKzkwMnBQQUhkZ3NiUmhEK1V0eVJRZWRC?=
- =?utf-8?B?VGJEQVZCN0xqMS96azMrSTBGSVQ0NzBtYVlaMVZwUGx1dEM1aVZUNEgyUUR6?=
- =?utf-8?B?cFE1VWovNWJkME5OQWt4M2FoNVlsd2g3dGJJQlY5UWpQdUNRRkU1MGdZUWtP?=
- =?utf-8?B?cGtnUEUrb050bzA3ck1oSWMxZUlKQitybWt3K21NZS83c0JYQS9oUHJzRjRZ?=
- =?utf-8?B?a3dvNnlaSGVZOXNsMmx3UkNwYzQyRkt2S094UW1DWEJpZUY1OWN4RTYyNVZC?=
- =?utf-8?B?UjhadE9OVDdZcnJxWWxoOHVYWEtUZWttUzhIWlNyNG82cDFWZUZydFg2cTlV?=
- =?utf-8?B?LzlzRXdvSkVKeml5SEEwejFzWmhBRUQ5QUorRXpxVVYxYTBXenNROEFldEdR?=
- =?utf-8?B?d2VNVWp2Zng3MXcva3pEcHpvdWg1WnJreE53QU4xZjVkamdOU05ZRWRYUUxr?=
- =?utf-8?B?azFTR0RDM2d5eDlwUVVaNzQ4R1hBREtpYVFBMTFaSkttbFBZakpCSjZxMUZj?=
- =?utf-8?B?aDFHbHZIZTNhbEtOaUIyeVVrY3AyL0t0UEZBcjJ1eHkyM1BEckUvZlA3dmxv?=
- =?utf-8?B?M0Z3U21nVkhKS2E3bExoR0RQdXdRL3VnK0FmYXhJQVhKeG9ZZGVuUEF6V29Y?=
- =?utf-8?B?amFYeU1Jb3dxeVlvakN0bHNQTTJkai8xSWljcU9qTHFmWDBaRjNHM0FmM1Zs?=
- =?utf-8?B?YklCQ0pBckVXMENoZFYzU0JCN2N1T3M0SGJDOHdZNGJtVzRuQ2owQkR2Nms0?=
- =?utf-8?B?RkorYnRNMXFwVnpRTXVtMmFUUGUyZXdiTy9IMU42VnI4andxS0hKb2VyeWYx?=
- =?utf-8?B?dFFlVy81ZTJKdmtURlRkTUxhM2dxZjVrMmt6MjFYYmwxQStVZTZJY2JraXEx?=
- =?utf-8?B?dnBmY3B2TTdnYjUyVVRGZGlQa0IxRXBMRzlBR0oxZElYNGNCbkFLWlU2ency?=
- =?utf-8?B?eFlGcmo5TjY0UmFvMjI4NnhmeU4vREZKQ2F3WmVIeE5qa05YdDVxMFNsN0h4?=
- =?utf-8?B?WDdpem5obkZkakl6c1gybDQyT3RrMm9iQlQyTXpjQUN5NUkzSUVOVy9NT2Rm?=
- =?utf-8?B?dnArNmMzcDB4dEt0WG10RjIyOHZJYkYvZG55N3RYc0hVRmZUbzA1OHExdTg0?=
- =?utf-8?B?dzFzSGs5dlZlUHBWZzN6Ty9ZOUMxTUR5UjBoN0tlcEdKSVN3VlZOVjBwWHhq?=
- =?utf-8?B?RjcvQU1SRFRrbFhNVjlVRnlMUjgzWDd0Qlp2UEp3Sk90Y0FpaVl6V1V5R0dy?=
- =?utf-8?B?ZWk0RzJnNWZtdUFZeFpoZFZad3h6SkJMQ1cwNklxVzNsVzVuYlBxTEN4UDdl?=
- =?utf-8?B?UjZ0R3NYczBMLzZhZXUwYWViSG1yZDl0MWsvQitjR1g2MzVyYnRNTWJ4bjZF?=
- =?utf-8?B?S0JWR3NRdDRFZ1RQbXRlMzVuNXd1N0IwZlUxWnhDeVNoWUtJWGZPOVdhaDV6?=
- =?utf-8?B?azFBUmNxcDZpUk0rVEJZdEVMWm5NVk8wQUQ1REhIWXhVV3FRbnFldzVvSjNz?=
- =?utf-8?B?ZVgvR3duTk5EczRzZjVpZFFQRlcxVlB4VFJiMnczcmZmUE9nK3l1WW9wbzM4?=
- =?utf-8?B?UDJscDIzNGF6ZE1UYmFPRGxWaXJ3L3VOWDNxRnFkWXYyYkl1TW9mbjJ0NmF6?=
- =?utf-8?B?Ylc5ZHBma0tnbTNNR2NGTCtNY2UvcTlLQi9IU2g4eG9uTkZRckUzMEdUN21q?=
- =?utf-8?B?d01CWjZCdEFqOWJDU0FHZk1qYUsxeTBycHlNd0IxZkNWT2ZhZ3VwUGZpMks5?=
- =?utf-8?B?SzFraXVLVVMvUWx2MWNWOGVYWEExS2k5WHNHaGZBRWF3ZzV4WkdZUU9vaTFV?=
- =?utf-8?B?ZnhET2s0dDFqOW43NXRyS2Q2MTJQRThqbkZ6dGhFY3FOWDZXU0JRMVFyY0Vr?=
- =?utf-8?B?Wm1OSlVxdVMrdGY3c2x5bzgyVXVlRTY1TzNmM25mMmp3bzF4dWpvUGRHVkVs?=
- =?utf-8?B?SUc4cFpTTmV1LzJGcXNON3kyTUF2ZVhkdFZWU2h2WElJZzBUL2JWUUloUklN?=
- =?utf-8?Q?AmJCw9?=
+X-Microsoft-Antispam: BCL:0; ARA:13230040|1800799024|376014|366016|14052099004;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Vy9lTzlpV2VZdHArSG5sMVFHbzUrdmtDVjI0SmhudnB1QVBFR0RFaHZLM3VG?=
+ =?utf-8?B?K2U1SlNUcHhXeDBWWnB4OTU2eDJkeDVqbFpLMjBmTEZqNGFxTjhWaElDZXRX?=
+ =?utf-8?B?bTVQc2o0RDVjajIwYU1acU5uUDQrSnBzTWRvcEE3QlJndWs5OFdieUVWUHlC?=
+ =?utf-8?B?MzN5ZUc4RjlDaEZ0ZFhUbWx6dWU5OTUxcHlId0RsRkRnYXRzcDVMb2pUT04v?=
+ =?utf-8?B?aG1EK0tJR3pBaTZiU0xiNFlWZGlyRndkdjNvZ0dKcEZLNmlRRmJlb0RyNWlX?=
+ =?utf-8?B?enQwQ3B1dlI1WVo4RVBqajF0OHVlaDRnQXNzbW9CQ280RkFMYzROcXFTVmhU?=
+ =?utf-8?B?c2ZFY2ExWGw3M1hKZjNwd0pKblhJUHhQQjlzUW9DTDFhdDlSUjIycy9iQ2hn?=
+ =?utf-8?B?RzhTSHRYM2tKRUo2QUF0ekVreEFrNWhSOHpBYzVFdEZmUWpUQi9TdTMvY3dS?=
+ =?utf-8?B?dHJINEJaZ2drOXVzTE5odkRFZXNMTGxsK0VNZVN1K0I2OXBLRVZ1ZzhOMGcr?=
+ =?utf-8?B?b2k4bDhzZXpkaFZTY2hmNVphYW5sOWNkT3cydDBFTnBIWTFHdW5hdzZpQjk5?=
+ =?utf-8?B?RWFKR0ZJWWgzMkpWbXdjTnZkRGljSWpBT0dzMmc5aWd3R1ZQbnpFVE5Xam9m?=
+ =?utf-8?B?eDFWbFEvV2gveWxUZllUaUNRV0NYTW9VbGZ1a0NHWUc4cjJhbmhKN0R6QUFJ?=
+ =?utf-8?B?S2NWNkM1RFpERzFDUFluT0FmYnVma1RVNHZYTHVWSHpUN3EyanNBRDhoUnlU?=
+ =?utf-8?B?c3hTOHNwNGdsbWkyUVNPUWJpcmE0RkV4dG9kRVBSa0tXWmdxcS9ma2FlUncw?=
+ =?utf-8?B?TFlvUnNoajFhUkx2dXVkbVlENWdrTGpNQ2VFU2xJVjQ4eWlVcDRERXFnQnc3?=
+ =?utf-8?B?eUtnWHBOYkFFYjlFZU5FczlITkVTV3hobWl5ZkZRNnhvL3FnYWRtaDhicXJR?=
+ =?utf-8?B?YVo5aXlkSlc1U080bitUcFBpbVpmMkZKdHRTdUYrZVBWbEZNZ040NWYrUE5r?=
+ =?utf-8?B?d1VZbVl4VE9KcU5vNkFWbEhiN0ZQR1dFcTdJWWFsczN3dEVuQklwNkdQZXJV?=
+ =?utf-8?B?aGVzTXdCcmV0Z2hmZGZZckVCL1Rqdi81cWg4d2k1V3NpOTFHN0txdGxnangz?=
+ =?utf-8?B?aVhFSlJWazJrQTN6TEQwcmpuSGNjcTJ5RENUbGJuT3ZCaXBpTXJmTVkzYXA3?=
+ =?utf-8?B?ZzIvaUpWUmN0WTlmK2Mzd2Njem9OUkhGQnQ4bi85anc4UmpxYWpJT2E5Mm9j?=
+ =?utf-8?B?N0poSEN4TElZV0FDcFhuT2FXUkRTMWl2emlOMytHZTRocGJsdzJsem1YUlpu?=
+ =?utf-8?B?WUlnZmRTL2JsOUNvNHdsRUlEZTRFeWtuZmxNQkIvT2hPSmJRYURwTENDcHFP?=
+ =?utf-8?B?WVNIaDRaWjNQVW9ObkRyaXNpaXJOTC9hM0p1THd6akNsWTJDYVJteFBqMnVZ?=
+ =?utf-8?B?blFLbFlsNSt2UlRYWlVnSDFFeXE5Y0o3SlYzVWpHeDZkcjdPeU1ibnlVeGhF?=
+ =?utf-8?B?amZnZnM1QW8yN24yRi8rY0FPTFpTd3ZTL1BvU251R1ZSVGxrRVBnN2dHSGZC?=
+ =?utf-8?B?QktPUGV5MjZScGk3bG9sMGh1WjhUeTRlSFNMaUwyTng5eEgzdk9aMkF4Mmsy?=
+ =?utf-8?B?NTBlemw4QVNZWHl1OE1taXl6NU5Dc2txSFB3NXAzZ1JPMTJxcHhSSnBjbnho?=
+ =?utf-8?B?bXprbS91aysvRmtZN2VNU0VvdXlxa0dQcmp2U1hiR2lsLzk2elJkVFRLZlVa?=
+ =?utf-8?B?MHBXY0N3MERFcFFyVWhlMUNYNFhPSUFQLy8zZUJsR3R6VWJMaERBam0ydjRS?=
+ =?utf-8?B?Y3pEN1V4OTc2ZDUrYitWV1AwNWc1czVVaUNoUWxpUksyWDFJa3VYQjhzYW1S?=
+ =?utf-8?B?TlpkMElwY1BYbkVGNC9UdXBOUnJoWHVuUGxDeDNKRjZCMHUzRnhtNFBYbVFz?=
+ =?utf-8?B?RGNhY25WeUswS0ZyeVNxNHc3eXBaQitNdXlEMW5KWk1oM3d4VndyNmY0ZjZS?=
+ =?utf-8?B?MWl2elBEWSsvaFZzNk96L3RQaXFpNnppbUZHSDloQ2dCWUVVMDR1azhJd3F6?=
+ =?utf-8?B?TXNQQTBCT1FoaGdUL05jb2tGMGFDNFZySjJyYU5wUVc1ZlZnd0V3aTM5Z2pM?=
+ =?utf-8?Q?M6H4=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(14052099004); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVc0UVNCeHplSGlvbWdQWS9LQnYvVEI1VFZKOE5ZTGZZNkEzVG9WdFRTc0FW?=
- =?utf-8?B?MlE5QlQ1bVJoZ0pVdHp2T29hQXBYUGF5TWVVcDRRbzBYbkxCTTl6VWdENlNp?=
- =?utf-8?B?OGcwTDZqZWM5Y096ckIwRHgvTEU0RE5HMkZ1RVUxSU85VWxDMFpiVTZOdGg5?=
- =?utf-8?B?dnUxUWEyL3FuY2NJZitQd01rZGJlTURzMDBoQ0xlcWF0ZHA2RUFKSnZwaWhU?=
- =?utf-8?B?RFNPbkFWb2JST1h6cWdSZHNYazBIQUNGalAxMXd3RmlBMzRST1lsQ3FjTk96?=
- =?utf-8?B?aUpDckJiWENwMUZIUkkxbTJLWHFwUUxiL3E2dFYwY1c1VlV3ZVh0NHhFRERs?=
- =?utf-8?B?S0VEUm84VWRzNmhpUXQ2QUNFY0l1bi9WblBaUktDN3hmbU95K29UR3Q1Qkhp?=
- =?utf-8?B?ZlF3ZVdlN3h2VHpsV3Y4cnBHYWxxYzhGdDVGQlp0UDlaVlBrUWdMZy9wVWdP?=
- =?utf-8?B?VDdHMEVZcGFQRWFNby9LSHVzWHgyR0VrbkIwVkU1aGNUWGMwdUFWcE5uWkpx?=
- =?utf-8?B?SFpDSTlxaWVEY2pvVEtHaWcyaXNWd1l6ay9PdW5NYTR5TElNOUlZMk5JQyt3?=
- =?utf-8?B?WElTNzJWczYzd2NoMHkyRDBiRkMzTGFra1hwYVEzVlVJOHA5bk1GZDYrdDVk?=
- =?utf-8?B?ZUo4OWlXVG5VbnNKQ3YzSTB1VUpDY3NBWmJvSmpUdmZrWngrdS9yZVphZkdG?=
- =?utf-8?B?YnRrMDBsb3JjZW1aMWhnVEFZSFQ1bTRTazJvY2d6c3Jna3NVNFR6UTVoMGRq?=
- =?utf-8?B?WUt6eTdTdkhEeC9DR2c2MkpnK2t6RVZiOFRxOTkvMzdYT01rTzFsRHpsdGMy?=
- =?utf-8?B?SFIvb2ZUaXNhTklvK3pOWHJUZGFQQWRvaE8vL0h1aWFtWnpUOUFRbDlpTUlr?=
- =?utf-8?B?VlVNVHlQa3pqS3dwd1Q3d2JrQlhJdllsNlpOczhQTnNYVzZ4KzVQNFN2cjVI?=
- =?utf-8?B?ZWdhbVNsNG4rRmlJUTZIWUdKODg5dDc1UDdHYzQxV3MyT09ROXVmNXpKdkFH?=
- =?utf-8?B?cE4xS2p4Vnk0UmpRSkJYelIxZ2Q2R2RKM3JRTEUvandDQnh2ZGFERjJsNGsr?=
- =?utf-8?B?Zng4RCtyUVhwMm5SVDkxWlBndlFmclhBeGV0YjZyaEo3bHpEcGtMWm9RZkJR?=
- =?utf-8?B?cmJING5TOGJQa2wvZWRGK3I3dzRDRkVwQS9ZRy9JcC8vRC93SFFocFYvUmxS?=
- =?utf-8?B?dWhnL0ZtSFNLVnpONklITW1UU1Y2V2t4Z2JpaUlDa1lqU0xCVzhnekdVOUZp?=
- =?utf-8?B?R0lGbWNmeklTMmxaU2JsUDlUWDZSVWc3SDlOcHk5QUwrVHVkY2t2eER6ajZm?=
- =?utf-8?B?UlliS1B0MzZHUTNON2JPQU15QjJMSm5KelJlWnk0WnNZZ2poTEtJV1Y2czA5?=
- =?utf-8?B?VkNUWk56djQvaWtNeUlqZytVUllPbzQ0L3FoRHFZSmpPclhmYSttaTgrZlhx?=
- =?utf-8?B?bmI3NlVpcHkvYUdlc0NaT01BSE9xN3AzYk94Zlg4R0c3SUtTRyswN1MvWWJv?=
- =?utf-8?B?dlZkQktzMDEwSXRtYzc2aURHdEtlazE0UzJyQTVOL2x5Tm1PSlMydWVmSVBt?=
- =?utf-8?B?V1Rzdjkra1FpNXppUXF2dG90cS9hUktySVF2ck41QkhzRkdWZnZ3K0wvWnJL?=
- =?utf-8?B?MXQzNFBOOFlzSEpKL0FSZi9HZXBzNHlLZ3lEZWZ5YTFNazNHUHpzWjFPUHVz?=
- =?utf-8?B?UkNndnFraURWTzAvU0k0MThzYTRhZWh3Nmh6RVZGSzV2S1E3eHh6d1hJNFcz?=
- =?utf-8?B?NlF4ZWFnL25GNitkVmh3ZmxadHJLWXl0b2x4VjNuRHpTbkNLQVVIMC8xL3pD?=
- =?utf-8?B?OXpVa1dsL25raWd3TUU0VVU4cUJYakM5NHJhV0VDMFhpYlRaSnQrNklsbnQy?=
- =?utf-8?B?QXhqZC94a3JVbmYzSjloVDA2NU5VSElYaFYxOVB3dlhmRHhiL0UzRTNkdUQw?=
- =?utf-8?B?RVlFdFVHUDR2anZ6OHNYb3g4STNVanJFUDVKTkJDS3pUbkliV0FyMm9PRkQz?=
- =?utf-8?B?OUx1ZjZPQWIzWUFSKzlkbjNVdVUzcFJTczNEUFpqaWNOL293a1dZQVpNRy9U?=
- =?utf-8?B?bzV1aStOUXdWd1BaaEx6SVV1cHMwL1JWRWVuelc0U3E2ajFJRFI0cnJxRGhx?=
- =?utf-8?B?Y01zOEpiQVhmMitOQ3RLc3dMT2xkc09ZYnNobVRrRDYveFVVeHdBZ0pWT1p4?=
- =?utf-8?B?ZW5UdC9jNXBNeUdJWUxSb1BYeVB5QWQ2Mk9GSU1nemZ3NlljUjJRZWNmZXRD?=
- =?utf-8?B?R0l2dmZZWHE1TnBRbXJRV0RlRnFCYyswbzZtbkZPbjErRFovOGZmT3Ricmxi?=
- =?utf-8?Q?h7RG5AvpcDw/vkOZli?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TVI0TVh3OExLRGNFUGJHMjI1V3BENFBwWUZ0alJvNFlDQk1MV05OSVFHMnVp?=
+ =?utf-8?B?ejA3YzdxeGlSdUF5VXFUVTNTWlVtSGM5REUwNzZKSWRYTTZiWGVBWW9Pd3hH?=
+ =?utf-8?B?eGpWcjBySVdsL1VMMFR3UytwbEE1WEtxT1hhRThHeno0M0dkMXpEeG04UmdJ?=
+ =?utf-8?B?aFlVOUNyczgwYktMNzdtakM3WitVNFZkKzd0dlZTUDBqKzF2R3llUkNTWTkx?=
+ =?utf-8?B?dFpsTXlrUzVoS0ZjbDF2TnRqZ1hDQzNpSTNOTHdnUlc4akVFcGh4MXgza3Bh?=
+ =?utf-8?B?RFI0a3lVMnpyWmtaai9oVEpGNW1IZFdRM2txUEFXQndxTGZWaE9mZDNXMSsy?=
+ =?utf-8?B?dzZtdHdxeWpxcm93czJEMDBxOGFTRURKS1c2MWhZcGlROHJvMHlCZlZXSFBt?=
+ =?utf-8?B?QTBuZGNnMHB0ckcvRmVSRW9SZjZncU0wdUNsZ09ZRXBiQ0I3dllCeG9pUW1q?=
+ =?utf-8?B?dGlHbVRtbm5mMDRCeXZTRHhUdjR1WmRRUjZBR0lhcGhaRzJkcXNUUy9BYmdS?=
+ =?utf-8?B?ZzFWTkFjZW0yMXdYMkdBbUNBaGZrYUJwOE5CY1BiWnZsc2lFRmc0Q1hpUUUy?=
+ =?utf-8?B?Y2taZVFyMHFHN0hrTnMyaXYzZkJqSGJMS3FwREtNNlFyd1oydzI1dHJpaW5P?=
+ =?utf-8?B?QlBnMHg0SkNjSngxVG5vVmY5SE1yZFRQUFNtMEJUeThqcmVOZzBpYytkOGVM?=
+ =?utf-8?B?N0RkK0FwSG9xTDZ4cHo0TmVNckpTYmVjK2ZzYk9LTndyQ1E4SHh0aEUwbTdj?=
+ =?utf-8?B?YU1iQTA2NFJXUXY1RFlLSitXNUdlVlRZSlpHbXliQlhhUmlyLzZBbzFVUjJP?=
+ =?utf-8?B?ZzhDSU54MXpoM1RnM21jVFNOQlRtUERKbTVtS210U0t6UnYwSVJXNUZuNml3?=
+ =?utf-8?B?RnprVk1iUEpCZXVTaUtCYVBVa2dxTHpJb2tCNkNoWVNOQzNEOXBjWXc0cGE0?=
+ =?utf-8?B?WXJ6VU5GRC9tdGwzREdlK25RVXRGTExuU3ZUUnpTTXpEY1BxR2paS0VEbHRD?=
+ =?utf-8?B?R3Jkb25yS2N1bUJZYnZUbERRYWVHbFlJV2JUTnZiOGZNYW10Q0RDMTRRTldY?=
+ =?utf-8?B?YnJ4c3dUVmtrODdXM2hvb0swUDNtUmppMkVOemZyUEcvbFB6V2hVNUxmTk1k?=
+ =?utf-8?B?WnFNb0JzRThKaVRSTnhOSlI0SytCYVlVUFkxckNOYVJwMW1HQStXdUhqLzQ5?=
+ =?utf-8?B?NC9mU25LS3drdTM2WHduQThBejNpekdlM2V0bHBOaUNZR2JFM1duVUZZWDR1?=
+ =?utf-8?B?MkNEcHd6eXY5YmVsWVludlhQZkJQcTJFZnl4Z3VsYzAvb0JQcDdMWWlZckMr?=
+ =?utf-8?B?Q3ZYeDk5Q1RHWlVLVStyb2lub205UXJXbjNneTJVVXFJV3I3emZUbFhaZC9O?=
+ =?utf-8?B?cm5hTGxLbXBzdmJ5ZWFPK1Y2L1NBZXo1cWhBMXB1aHlCZE1uK3d3Y0pUYXR3?=
+ =?utf-8?B?N3dwV3NFYWdaWUFrZnJORVlmOEhRLzhNcmw1V1ZsOXY5SGdUWEJSN2tiQ3o4?=
+ =?utf-8?B?NzJnM2ZLN0dNa0l2UlJueWR5MEVrbHExcDlZaHdNdFZWanJVK3dVandqV1Zq?=
+ =?utf-8?B?WC9kMEtHR3pIc0cxN1BvS0s4TWIwODBKVHYyT0ZHbjRUckdnWVUzck9qNk9K?=
+ =?utf-8?B?TEdmcXUySWhrRm1VVFMwaG85R3hQREliMzREL1EyZ1R0UjRMenNpQ0xMWUNo?=
+ =?utf-8?B?MHRGUlU4NXpyQkIzV0FXanFBSTY3dk5Oa2ViYlpLSmVJWndYWVhCcVN6ckFz?=
+ =?utf-8?B?Y2o1VnM4TG1EVTVCWS9rNmpnVHhYOTk5K3RwUHhaR0tsSWQyd0RxZTJQbUdv?=
+ =?utf-8?B?cUhBeXFqTHpmY1RHOHdTc1lKSGZscGkvU2NLNDhZb0owSHZNNmNrU3Awelhy?=
+ =?utf-8?B?OE9jckJmVldoOVlGakZsc2Qyd0VtSkpoNlJqMkxxUVBESmdkZS9icFVaYjVG?=
+ =?utf-8?B?b3VVZ2hYSm9ZdVJ6ZWtLekdiaE41T1BiYWR1OUFnK2s3TnQrN1BBQ3NzcFY0?=
+ =?utf-8?B?NlpsV284eHhjVUY4RnVEcFlDSkdDNDMzdnNMNzZvUFBYbzI1VmpFM2NGaTBs?=
+ =?utf-8?B?VUwvUDRvaDJhTm9GNWsxL0dnTjN5QmVZYzRFNnlabzd1K0p2Q3BRU2lvU0I3?=
+ =?utf-8?B?cjRrOWYwQnJoeHhsUWZ5OFo2R3lOZjNKaGlHMWxTUkk5TlpvSHk4MDVwQXFK?=
+ =?utf-8?B?VytMZW1yOENkeGhjZGFxcFRENWovVTNYYVNNdjZNbDNSQnNheXZpU0pXMlpD?=
+ =?utf-8?B?WGg4YmFBUnVwMWhQdk5ENGpNNnpyWU9veFhUL0ZWdG8wVkM3RnBHN2JmVGZ6?=
+ =?utf-8?Q?W5UiRQcAcGG0k5vALn?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ddf1be6-4b8f-4a75-8b66-08de6800da43
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42dace76-15e2-4c41-9e38-08de6801ec9e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 17:30:00.6070 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 17:37:40.9822 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: suKqAKhz0zEiOrGKahpanUa3ZfESVRYZ2Gqabj+fVR6Mf741+KOMkjOmQ+HqEDuxFvmhZQYUBmtwpsrms4MUUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6546
+X-MS-Exchange-CrossTenant-UserPrincipalName: WH+WANBrXOQdJH7YZ/v6iWzLF5jtKkkmeRXai4lsldiO/PDp5zzhWHbaOnEFuHiV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6041
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -172,74 +183,504 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 2/9/26 16:46, Honglei Huang wrote:
+> Agreed with you that with many ranges, the probability of
+> cross-invalidation during sequential hmm_range_fault() calls
+> increases, and in a extreme scenario this could lead to excessive
+> retries. I had been focused on proving correctness and missed the
+> scalability.
+> 
+> I propose the further plan:
+> 
+> Will add a retry limit similar to what DRM GPU SVM does with
+> DRM_GPUSVM_MAX_RETRIES. This bounds the worst case.
+> This maybe ok to make the current batch userptr usable.
 
+Rather make that a wall clock timeout.
 
-On 1/29/26 17:45, Rodrigo Siqueira wrote:
-> On 01/18, Timur Kristóf wrote:
->> Currently DCE doesn't support the overlay cursor, so the
->> dm_crtc_get_cursor_mode() function returns DM_CURSOR_NATIVE_MODE
->> unconditionally. The outcome is that it doesn't check for the
->> conditions that would necessitate the overlay cursor, meaning
->> that it doesn't reject cases where the native cursor mode isn't
->> supported on DCE.
+You will also need a limitation on the amount of memory mapped though this, my educated guess is that something around 4MiB (1024 userptrs) should be the limit.
+
+> And I agree that teaching walk_page_range() to handle
+> non-contiguous VA sets in a single walk would be the proper
+> long-term solution. That work would benefit not only KFD batch
+> userptr. Will keep digging out the better solution.
+
+We already had issues with applications which unknowlingly of the overhead tried to use userptrs for all memory allocations.
+
+If I'm not completely mistaken we also have a limit of roughly 256MiB you can map through this without running into massive problems on the graphics side.
+
+So that will clearly not work in even in the short term.
+
+Regards,
+Christian.
+
+> 
+> Regards,
+> Honglei
+> 
+> On 2026/2/9 23:07, Christian König wrote:
+>> On 2/9/26 15:44, Honglei Huang wrote:
+>>> you said that DRM GPU SVM has the same pattern, but argued
+>>> that it is not designed for "batch userptr". However, this distinction
+>>> has no technical significance. The core problem is "multiple ranges
+>>> under one wide notifier doing per-range hmm_range_fault". Whether
+>>> these ranges are dynamically created by GPU page faults or
+>>> batch-specified via ioctl, the concurrency safety mechanism is
+>>> same.
+>>>
+>>> You said "each hmm_range_fault() can invalidate the other ranges
+>>> while faulting them in". Yes, this can happen but this is precisely
+>>> the scenario that mem->invalid catches:
+>>>
+>>>    1. hmm_range_fault(A) succeeds
+>>>    2. hmm_range_fault(B) triggers reclaim → A's pages swapped out
+>>>       → MMU notifier callback:
+>>>         mutex_lock(notifier_lock)
+>>>           range_A->valid = false
+>>>           mem->invalid++
+>>>         mutex_unlock(notifier_lock)
+>>>    3. hmm_range_fault(B) completes
+>>>    4. Commit phase:
+>>>         mutex_lock(notifier_lock)
+>>>           mem->invalid != saved_invalid
+>>>           → return -EAGAIN, retry entire batch
+>>>         mutex_unlock(notifier_lock)
+>>>
+>>>   invalid pages are never committed.
 >>
->> Remove the early return from dm_crtc_get_cursor_mode() for
->> DCE and instead let it perform the necessary checks and
->> return DM_CURSOR_OVERLAY_MODE. Add a later check that rejects
->> when DM_CURSOR_OVERLAY_MODE would be used with DCE.
+>> Once more that is not the problem. I completely agree that this is all correctly handled.
 >>
->> Fixes: 1b04dcca4fb1 ("drm/amd/display: Introduce overlay cursor mode")
->> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4600
->> Suggested-by: Leo Li <sunpeng.li@amd.com>
->> Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
->> ---
->>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 11 ++++++++---
->>   1 file changed, 8 insertions(+), 3 deletions(-)
+>> The problem is that the more hmm_ranges you get the more likely it is that getting another pfn invalidates a pfn you previously acquired.
 >>
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index 655c9fcb078a..3e1ba5521f2b 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -12262,10 +12262,9 @@ static int dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
->>   
->>   	/* Overlay cursor not supported on HW before DCN
->>   	 * DCN401 does not have the cursor-on-scaled-plane or cursor-on-yuv-plane restrictions
->> -	 * as previous DCN generations, so enable native mode on DCN401 in addition to DCE
->> +	 * as previous DCN generations, so enable native mode on DCN401
->>   	 */
->> -	if (amdgpu_ip_version(adev, DCE_HWIP, 0) == 0 ||
->> -	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 0, 1)) {
->> +	if (amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 0, 1)) {
->>   		*cursor_mode = DM_CURSOR_NATIVE_MODE;
->>   		return 0;
->>   	}
->> @@ -12585,6 +12584,12 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
->>   		 * need to be added for DC to not disable a plane by mistake
->>   		 */
->>   		if (dm_new_crtc_state->cursor_mode == DM_CURSOR_OVERLAY_MODE) {
->> +			if (amdgpu_ip_version(adev, DCE_HWIP, 0) == 0) {
->> +				drm_dbg(dev, "Overlay cursor not supported on DCE\n");
->> +				ret = -EINVAL;
->> +				goto fail;
->> +			}
->> +
->>   			ret = drm_atomic_add_affected_planes(state, crtc);
->>   			if (ret)
->>   				goto fail;
->> -- 
->> 2.52.0
+>> So this can end up in an endless loop, and that's why the GPUSVM code also has a timeout on the retry.
 >>
-> 
-> Hi,
-> 
-> This change lgtm.
-> 
-> Alex, Dan,
-> Could you include this patch in the next week promotion?
-> 
-> Reviewed-by: Rodrigo Siqueira <siqueira@igalia.com>
-> 
-> Thanks
+>>
+>> What you need to figure out is how to teach hmm_range_fault() and the underlying walk_page_range() how to skip entries which you are not interested in.
+>>
+>> Just a trivial example, assuming you have the following VAs you want your userptr to be filled in with: 3, 1, 5, 8, 7, 2
+>>
+>> To handle this case you need to build a data structure which tells you what is the smalest, largest and where each VA in the middle comes in. So you need something like: 1->1, 2->5, 3->0, 5->2, 7->4, 8->3
+>>
+>> Then you would call walk_page_range(mm, 1, 8, ops, data), the pud walk decides if it needs to go into pmd or eventually fault, the pmd walk decides if ptes needs to be filled in etc...
+>>
+>> The final pte handler then fills in the pfns linearly for the addresses you need.
+>>
+>> And yeah I perfectly know that this is horrible complicated, but as far as I can see everything else will just not scale.
+>>
+>> Creating hundreds of separate userptrs only scales up to a few megabyte and then falls apart.
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Regards,
+>>> Honglei
+>>>
+>>>
+>>> On 2026/2/9 22:25, Christian König wrote:
+>>>> On 2/9/26 15:16, Honglei Huang wrote:
+>>>>> The case you described: one hmm_range_fault() invalidating another's
+>>>>> seq under the same notifier, is already handled in the implementation.
+>>>>>
+>>>>>    example: suppose ranges A, B, C share one notifier:
+>>>>>
+>>>>>     1. hmm_range_fault(A) succeeds, seq_A recorded
+>>>>>     2. External invalidation occurs, triggers callback:
+>>>>>        mutex_lock(notifier_lock)
+>>>>>          → mmu_interval_set_seq()
+>>>>>          → range_A->valid = false
+>>>>>          → mem->invalid++
+>>>>>        mutex_unlock(notifier_lock)
+>>>>>     3. hmm_range_fault(B) succeeds
+>>>>>     4. Commit phase:
+>>>>>        mutex_lock(notifier_lock)
+>>>>>          → check mem->invalid != saved_invalid
+>>>>>          → return -EAGAIN, retry the entire batch
+>>>>>        mutex_unlock(notifier_lock)
+>>>>>
+>>>>> All concurrent invalidations are caught by the mem->invalid counter.
+>>>>> Additionally, amdgpu_ttm_tt_get_user_pages_done() in confirm_valid_user_pages_locked
+>>>>> performs a per-range mmu_interval_read_retry() as a final safety check.
+>>>>>
+>>>>> DRM GPU SVM uses the same approach: drm_gpusvm_get_pages() also calls
+>>>>> hmm_range_fault() per-range independently there is no array version
+>>>>> of hmm_range_fault in DRM GPU SVM either. If you consider this approach
+>>>>> unworkable, then DRM GPU SVM would be unworkable too, yet it has been
+>>>>> accepted upstream.
+>>>>>
+>>>>> The number of batch ranges is controllable. And even if it
+>>>>> scales to thousands, DRM GPU SVM faces exactly the same situation:
+>>>>> it does not need an array version of hmm_range_fault either, which
+>>>>> shows this is a correctness question, not a performance one. For
+>>>>> correctness, I believe DRM GPU SVM already demonstrates the approach
+>>>>> is ok.
+>>>>
+>>>> Well yes, GPU SVM would have exactly the same problems. But that also doesn't have a create bulk userptr interface.
+>>>>
+>>>> The implementation is simply not made for this use case, and as far as I know no current upstream implementation is.
+>>>>
+>>>>> For performance, I have tested with thousands of ranges present:
+>>>>> performance reaches 80%~95% of the native driver, and all OpenCL
+>>>>> and ROCr test suites pass with no correctness issues.
+>>>>
+>>>> Testing can only falsify a system and not verify it.
+>>>>
+>>>>> Here is how DRM GPU SVM handles correctness with multiple ranges
+>>>>> under one wide notifier doing per-range hmm_range_fault:
+>>>>>
+>>>>>     Invalidation: drm_gpusvm_notifier_invalidate()
+>>>>>       - Acquires notifier_lock
+>>>>>       - Calls mmu_interval_set_seq()
+>>>>>       - Iterates affected ranges via driver callback (xe_svm_invalidate)
+>>>>>       - Clears has_dma_mapping = false for each affected range (under lock)
+>>>>>       - Releases notifier_lock
+>>>>>
+>>>>>     Fault: drm_gpusvm_get_pages()  (called per-range independently)
+>>>>>       - mmu_interval_read_begin() to get seq
+>>>>>       - hmm_range_fault() outside lock
+>>>>>       - Acquires notifier_lock
+>>>>>       - mmu_interval_read_retry() → if stale, release lock and retry
+>>>>>       - DMA map pages + set has_dma_mapping = true (under lock)
+>>>>>       - Releases notifier_lock
+>>>>>
+>>>>>     Validation: drm_gpusvm_pages_valid()
+>>>>>       - Checks has_dma_mapping flag (under lock), NOT seq
+>>>>>
+>>>>> If invalidation occurs between two per-range faults, the flag is
+>>>>> cleared under lock, and either mmu_interval_read_retry catches it
+>>>>> in the current fault, or drm_gpusvm_pages_valid() catches it at
+>>>>> validation time. No stale pages are ever committed.
+>>>>>
+>>>>> KFD batch userptr uses the same three-step pattern:
+>>>>>
+>>>>>     Invalidation: amdgpu_amdkfd_evict_userptr_batch()
+>>>>>       - Acquires notifier_lock
+>>>>>       - Calls mmu_interval_set_seq()
+>>>>>       - Iterates affected ranges via interval_tree
+>>>>>       - Sets range->valid = false for each affected range (under lock)
+>>>>>       - Increments mem->invalid (under lock)
+>>>>>       - Releases notifier_lock
+>>>>>
+>>>>>     Fault: update_invalid_user_pages()
+>>>>>       - Per-range hmm_range_fault() outside lock
+>>>>
+>>>> And here the idea falls apart. Each hmm_range_fault() can invalidate the other ranges while faulting them in.
+>>>>
+>>>> That is not fundamentally solveable, but by moving the handling further into hmm_range_fault it makes it much less likely that something goes wrong.
+>>>>
+>>>> So once more as long as this still uses this hacky approach I will clearly reject this implementation.
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>       - Acquires notifier_lock
+>>>>>       - Checks mem->invalid != saved_invalid → if changed, -EAGAIN retry
+>>>>>       - Sets range->valid = true for faulted ranges (under lock)
+>>>>>       - Releases notifier_lock
+>>>>>
+>>>>>     Validation: valid_user_pages_batch()
+>>>>>       - Checks range->valid flag
+>>>>>       - Calls amdgpu_ttm_tt_get_user_pages_done() (mmu_interval_read_retry)
+>>>>>
+>>>>> The logic is equivalent as far as I can see.
+>>>>>
+>>>>> Regards,
+>>>>> Honglei
+>>>>>
+>>>>>
+>>>>>
+>>>>> On 2026/2/9 21:27, Christian König wrote:
+>>>>>> On 2/9/26 14:11, Honglei Huang wrote:
+>>>>>>>
+>>>>>>> So the drm svm is also a NAK?
+>>>>>>>
+>>>>>>> These codes have passed local testing, opencl and rocr， I also provided a detailed code path and analysis.
+>>>>>>> You only said the conclusion without providing any reasons or evidence. Your statement has no justifiable reasons and is difficult to convince
+>>>>>>> so far.
+>>>>>>
+>>>>>> That sounds like you don't understand what the issue here is, I will try to explain this once more on pseudo-code.
+>>>>>>
+>>>>>> Page tables are updated without holding a lock, so when you want to grab physical addresses from the then you need to use an opportunistically retry based approach to make sure that the data you got is still valid.
+>>>>>>
+>>>>>> In other words something like this here is needed:
+>>>>>>
+>>>>>> retry:
+>>>>>>       hmm_range.notifier_seq = mmu_interval_read_begin(notifier);
+>>>>>>       hmm_range.hmm_pfns = kvmalloc_array(npages, ...);
+>>>>>> ...
+>>>>>>       while (true) {
+>>>>>>           mmap_read_lock(mm);
+>>>>>>           err = hmm_range_fault(&hmm_range);
+>>>>>>           mmap_read_unlock(mm);
+>>>>>>
+>>>>>>           if (err == -EBUSY) {
+>>>>>>               if (time_after(jiffies, timeout))
+>>>>>>                   break;
+>>>>>>
+>>>>>>               hmm_range.notifier_seq =
+>>>>>>                   mmu_interval_read_begin(notifier);
+>>>>>>               continue;
+>>>>>>           }
+>>>>>>           break;
+>>>>>>       }
+>>>>>> ...
+>>>>>>       for (i = 0, j = 0; i < npages; ++j) {
+>>>>>> ...
+>>>>>>           dma_map_page(...)
+>>>>>> ...
+>>>>>>       grab_notifier_lock();
+>>>>>>       if (mmu_interval_read_retry(notifier, hmm_range.notifier_seq))
+>>>>>>           goto retry;
+>>>>>>       restart_queues();
+>>>>>>       drop_notifier_lock();
+>>>>>> ...
+>>>>>>
+>>>>>> Now hmm_range.notifier_seq indicates if your DMA addresses are still valid or not after you grabbed the notifier lock.
+>>>>>>
+>>>>>> The problem is that hmm_range works only on a single range/sequence combination, so when you do multiple calls to hmm_range_fault() for scattered VA is can easily be that one call invalidates the ranges of another call.
+>>>>>>
+>>>>>> So as long as you only have a few hundred hmm_ranges for your userptrs that kind of works, but it doesn't scale up into the thousands of different VA addresses you get for scattered handling.
+>>>>>>
+>>>>>> That's why hmm_range_fault needs to be modified to handle an array of VA addresses instead of just a A..B range.
+>>>>>>
+>>>>>> Regards,
+>>>>>> Christian.
+>>>>>>
+>>>>>>
+>>>>>>>
+>>>>>>> On 2026/2/9 20:59, Christian König wrote:
+>>>>>>>> On 2/9/26 13:52, Honglei Huang wrote:
+>>>>>>>>> DRM GPU SVM does use hmm_range_fault(), see drm_gpusvm_get_pages()
+>>>>>>>>
+>>>>>>>> I'm not sure what you are talking about, drm_gpusvm_get_pages() only supports a single range as well and not scatter gather of VA addresses.
+>>>>>>>>
+>>>>>>>> As far as I can see that doesn't help the slightest.
+>>>>>>>>
+>>>>>>>>> My implementation follows the same pattern. The detailed comparison
+>>>>>>>>> of invalidation path was provided in the second half of my previous mail.
+>>>>>>>>
+>>>>>>>> Yeah and as I said that is not very valuable because it doesn't solves the sequence problem.
+>>>>>>>>
+>>>>>>>> As far as I can see the approach you try here is a clear NAK from my side.
+>>>>>>>>
+>>>>>>>> Regards,
+>>>>>>>> Christian.
+>>>>>>>>
+>>>>>>>>>
+>>>>>>>>> On 2026/2/9 18:16, Christian König wrote:
+>>>>>>>>>> On 2/9/26 07:14, Honglei Huang wrote:
+>>>>>>>>>>>
+>>>>>>>>>>> I've reworked the implementation in v4. The fix is actually inspired
+>>>>>>>>>>> by the DRM GPU SVM framework (drivers/gpu/drm/drm_gpusvm.c).
+>>>>>>>>>>>
+>>>>>>>>>>> DRM GPU SVM uses wide notifiers (recommended 512M or larger) to track
+>>>>>>>>>>> multiple user virtual address ranges under a single mmu_interval_notifier,
+>>>>>>>>>>> and these ranges can be non-contiguous which is essentially the same
+>>>>>>>>>>> problem that batch userptr needs to solve: one BO backed by multiple
+>>>>>>>>>>> non-contiguous CPU VA ranges sharing one notifier.
+>>>>>>>>>>
+>>>>>>>>>> That still doesn't solve the sequencing problem.
+>>>>>>>>>>
+>>>>>>>>>> As far as I can see you can't use hmm_range_fault with this approach or it would just not be very valuable.
+>>>>>>>>>>
+>>>>>>>>>> So how should that work with your patch set?
+>>>>>>>>>>
+>>>>>>>>>> Regards,
+>>>>>>>>>> Christian.
+>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>> The wide notifier is created in drm_gpusvm_notifier_alloc:
+>>>>>>>>>>>        notifier->itree.start = ALIGN_DOWN(fault_addr, gpusvm->notifier_size);
+>>>>>>>>>>>        notifier->itree.last = ALIGN(fault_addr + 1, gpusvm->notifier_size) - 1;
+>>>>>>>>>>> The Xe driver passes
+>>>>>>>>>>>        xe_modparam.svm_notifier_size * SZ_1M in xe_svm_init
+>>>>>>>>>>> as the notifier_size, so one notifier can cover many of MB of VA space
+>>>>>>>>>>> containing multiple non-contiguous ranges.
+>>>>>>>>>>>
+>>>>>>>>>>> And DRM GPU SVM solves the per-range validity problem with flag-based
+>>>>>>>>>>> validation instead of seq-based validation in:
+>>>>>>>>>>>        - drm_gpusvm_pages_valid() checks
+>>>>>>>>>>>            flags.has_dma_mapping
+>>>>>>>>>>>          not notifier_seq. The comment explicitly states:
+>>>>>>>>>>>            "This is akin to a notifier seqno check in the HMM documentation
+>>>>>>>>>>>             but due to wider notifiers (i.e., notifiers which span multiple
+>>>>>>>>>>>             ranges) this function is required for finer grained checking"
+>>>>>>>>>>>        - __drm_gpusvm_unmap_pages() clears
+>>>>>>>>>>>            flags.has_dma_mapping = false  under notifier_lock
+>>>>>>>>>>>        - drm_gpusvm_get_pages() sets
+>>>>>>>>>>>            flags.has_dma_mapping = true  under notifier_lock
+>>>>>>>>>>> I adopted the same approach.
+>>>>>>>>>>>
+>>>>>>>>>>> DRM GPU SVM:
+>>>>>>>>>>>        drm_gpusvm_notifier_invalidate()
+>>>>>>>>>>>          down_write(&gpusvm->notifier_lock);
+>>>>>>>>>>>          mmu_interval_set_seq(mni, cur_seq);
+>>>>>>>>>>>          gpusvm->ops->invalidate()
+>>>>>>>>>>>            -> xe_svm_invalidate()
+>>>>>>>>>>>               drm_gpusvm_for_each_range()
+>>>>>>>>>>>                 -> __drm_gpusvm_unmap_pages()
+>>>>>>>>>>>                    WRITE_ONCE(flags.has_dma_mapping = false);  // clear flag
+>>>>>>>>>>>          up_write(&gpusvm->notifier_lock);
+>>>>>>>>>>>
+>>>>>>>>>>> KFD batch userptr:
+>>>>>>>>>>>        amdgpu_amdkfd_evict_userptr_batch()
+>>>>>>>>>>>          mutex_lock(&process_info->notifier_lock);
+>>>>>>>>>>>          mmu_interval_set_seq(mni, cur_seq);
+>>>>>>>>>>>          discard_invalid_ranges()
+>>>>>>>>>>>            interval_tree_iter_first/next()
+>>>>>>>>>>>              range_info->valid = false;          // clear flag
+>>>>>>>>>>>          mutex_unlock(&process_info->notifier_lock);
+>>>>>>>>>>>
+>>>>>>>>>>> Both implementations:
+>>>>>>>>>>>        - Acquire notifier_lock FIRST, before any flag changes
+>>>>>>>>>>>        - Call mmu_interval_set_seq() under the lock
+>>>>>>>>>>>        - Use interval tree to find affected ranges within the wide notifier
+>>>>>>>>>>>        - Mark per-range flag as invalid/valid under the lock
+>>>>>>>>>>>
+>>>>>>>>>>> The page fault path and final validation path also follow the same
+>>>>>>>>>>> pattern as DRM GPU SVM: fault outside the lock, set/check per-range
+>>>>>>>>>>> flag under the lock.
+>>>>>>>>>>>
+>>>>>>>>>>> Regards,
+>>>>>>>>>>> Honglei
+>>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>> On 2026/2/6 21:56, Christian König wrote:
+>>>>>>>>>>>> On 2/6/26 07:25, Honglei Huang wrote:
+>>>>>>>>>>>>> From: Honglei Huang <honghuan@amd.com>
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Hi all,
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> This is v3 of the patch series to support allocating multiple non-contiguous
+>>>>>>>>>>>>> CPU virtual address ranges that map to a single contiguous GPU virtual address.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> v3:
+>>>>>>>>>>>>> 1. No new ioctl: Reuses existing AMDKFD_IOC_ALLOC_MEMORY_OF_GPU
+>>>>>>>>>>>>>          - Adds only one flag: KFD_IOC_ALLOC_MEM_FLAGS_USERPTR_BATCH
+>>>>>>>>>>>>
+>>>>>>>>>>>> That is most likely not the best approach, but Felix or Philip need to comment here since I don't know such IOCTLs well either.
+>>>>>>>>>>>>
+>>>>>>>>>>>>>          - When flag is set, mmap_offset field points to range array
+>>>>>>>>>>>>>          - Minimal API surface change
+>>>>>>>>>>>>
+>>>>>>>>>>>> Why range of VA space for each entry?
+>>>>>>>>>>>>
+>>>>>>>>>>>>> 2. Improved MMU notifier handling:
+>>>>>>>>>>>>>          - Single mmu_interval_notifier covering the VA span [va_min, va_max]
+>>>>>>>>>>>>>          - Interval tree for efficient lookup of affected ranges during invalidation
+>>>>>>>>>>>>>          - Avoids per-range notifier overhead mentioned in v2 review
+>>>>>>>>>>>>
+>>>>>>>>>>>> That won't work unless you also modify hmm_range_fault() to take multiple VA addresses (or ranges) at the same time.
+>>>>>>>>>>>>
+>>>>>>>>>>>> The problem is that we must rely on hmm_range.notifier_seq to detect changes to the page tables in question, but that in turn works only if you have one hmm_range structure and not multiple.
+>>>>>>>>>>>>
+>>>>>>>>>>>> What might work is doing an XOR or CRC over all hmm_range.notifier_seq you have, but that is a bit flaky.
+>>>>>>>>>>>>
+>>>>>>>>>>>> Regards,
+>>>>>>>>>>>> Christian.
+>>>>>>>>>>>>
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> 3. Better code organization: Split into 8 focused patches for easier review
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> v2:
+>>>>>>>>>>>>>          - Each CPU VA range gets its own mmu_interval_notifier for invalidation
+>>>>>>>>>>>>>          - All ranges validated together and mapped to contiguous GPU VA
+>>>>>>>>>>>>>          - Single kgd_mem object with array of user_range_info structures
+>>>>>>>>>>>>>          - Unified eviction/restore path for all ranges in a batch
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Current Implementation Approach
+>>>>>>>>>>>>> ===============================
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> This series implements a practical solution within existing kernel constraints:
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> 1. Single MMU notifier for VA span: Register one notifier covering the
+>>>>>>>>>>>>>          entire range from lowest to highest address in the batch
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> 2. Interval tree filtering: Use interval tree to efficiently identify
+>>>>>>>>>>>>>          which specific ranges are affected during invalidation callbacks,
+>>>>>>>>>>>>>          avoiding unnecessary processing for unrelated address changes
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> 3. Unified eviction/restore: All ranges in a batch share eviction and
+>>>>>>>>>>>>>          restore paths, maintaining consistency with existing userptr handling
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Patch Series Overview
+>>>>>>>>>>>>> =====================
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Patch 1/8: Add userptr batch allocation UAPI structures
+>>>>>>>>>>>>>           - KFD_IOC_ALLOC_MEM_FLAGS_USERPTR_BATCH flag
+>>>>>>>>>>>>>           - kfd_ioctl_userptr_range and kfd_ioctl_userptr_ranges_data structures
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Patch 2/8: Add user_range_info infrastructure to kgd_mem
+>>>>>>>>>>>>>           - user_range_info structure for per-range tracking
+>>>>>>>>>>>>>           - Fields for batch allocation in kgd_mem
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Patch 3/8: Implement interval tree for userptr ranges
+>>>>>>>>>>>>>           - Interval tree for efficient range lookup during invalidation
+>>>>>>>>>>>>>           - mark_invalid_ranges() function
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Patch 4/8: Add batch MMU notifier support
+>>>>>>>>>>>>>           - Single notifier for entire VA span
+>>>>>>>>>>>>>           - Invalidation callback using interval tree filtering
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Patch 5/8: Implement batch userptr page management
+>>>>>>>>>>>>>           - get_user_pages_batch() and set_user_pages_batch()
+>>>>>>>>>>>>>           - Per-range page array management
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Patch 6/8: Add batch allocation function and export API
+>>>>>>>>>>>>>           - init_user_pages_batch() main initialization
+>>>>>>>>>>>>>           - amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu_batch() entry point
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Patch 7/8: Unify userptr cleanup and update paths
+>>>>>>>>>>>>>           - Shared eviction/restore handling for batch allocations
+>>>>>>>>>>>>>           - Integration with existing userptr validation flows
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Patch 8/8: Wire up batch allocation in ioctl handler
+>>>>>>>>>>>>>           - Input validation and range array parsing
+>>>>>>>>>>>>>           - Integration with existing alloc_memory_of_gpu path
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Testing
+>>>>>>>>>>>>> =======
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> - Multiple scattered malloc() allocations (2-4000+ ranges)
+>>>>>>>>>>>>> - Various allocation sizes (4KB to 1G+ per range)
+>>>>>>>>>>>>> - Memory pressure scenarios and eviction/restore cycles
+>>>>>>>>>>>>> - OpenCL CTS and HIP catch tests in KVM guest environment
+>>>>>>>>>>>>> - AI workloads: Stable Diffusion, ComfyUI in virtualized environments
+>>>>>>>>>>>>> - Small LLM inference (3B-7B models)
+>>>>>>>>>>>>> - Benchmark score: 160,000 - 190,000 (80%-95% of bare metal)
+>>>>>>>>>>>>> - Performance improvement: 2x-2.4x faster than userspace approach
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Thank you for your review and feedback.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Best regards,
+>>>>>>>>>>>>> Honglei Huang
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Honglei Huang (8):
+>>>>>>>>>>>>>         drm/amdkfd: Add userptr batch allocation UAPI structures
+>>>>>>>>>>>>>         drm/amdkfd: Add user_range_info infrastructure to kgd_mem
+>>>>>>>>>>>>>         drm/amdkfd: Implement interval tree for userptr ranges
+>>>>>>>>>>>>>         drm/amdkfd: Add batch MMU notifier support
+>>>>>>>>>>>>>         drm/amdkfd: Implement batch userptr page management
+>>>>>>>>>>>>>         drm/amdkfd: Add batch allocation function and export API
+>>>>>>>>>>>>>         drm/amdkfd: Unify userptr cleanup and update paths
+>>>>>>>>>>>>>         drm/amdkfd: Wire up batch allocation in ioctl handler
+>>>>>>>>>>>>>
+>>>>>>>>>>>>>        drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  23 +
+>>>>>>>>>>>>>        .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 539 +++++++++++++++++-
+>>>>>>>>>>>>>        drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      | 128 ++++-
+>>>>>>>>>>>>>        include/uapi/linux/kfd_ioctl.h                |  31 +-
+>>>>>>>>>>>>>        4 files changed, 697 insertions(+), 24 deletions(-)
+>>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>
+>>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>
+>>>>>>
+>>>>>
+>>>>
+>>>
+>>
 > 
 
-This was tested in promotion test and no issues were found.
