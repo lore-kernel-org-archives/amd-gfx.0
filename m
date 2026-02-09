@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 481ECEF0715
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 06:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 949B9EF070F
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 06:11:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AD7A10E254;
-	Mon,  9 Feb 2026 06:11:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 316D210E25B;
+	Mon,  9 Feb 2026 06:11:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="13/Hc8eD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2AHTpkod";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011008.outbound.protection.outlook.com [52.101.52.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34ABA10E254;
- Mon,  9 Feb 2026 06:11:19 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013017.outbound.protection.outlook.com
+ [40.107.201.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6BA810E28D;
+ Mon,  9 Feb 2026 06:11:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VwV0L1CA8jgiIv/TdzRlg+j1dd647F/f15nXG6URN9sorn1OKUUFHXwVv+MYitA67bqWWpFkrEwp/+P3MArMMaHigNwG0i+IHZV6Tf5+pn5c49GMoaEW2oC6pC/Me326u+ZvAK2EKOFo+usKRO672m1yfIE57+H/3zr1WHCX+8wN3zxS4wdRTMY3rRyTjnauXUQK0Xtic8UZz2+MhBNcaEHZN3Danq4TUh4dG02LAz9u1a0P+04kKbHnLMOCJyPJ/BOKQoUkjqtBtRizbByiC7v7AUc1fYmOB4BnyQTfLuCnTmqUqHjpaOrP/7he8uiibltrlOXo3w14vL8nxYJpIg==
+ b=nGbRB3/eomDnXvPCNDKvcV9L2F/61BoVdWdHW0ynXRUW4rF4B+G2fhFvw45EQTwugSZqPtEvE+hmJWXBhRV1Mogb7A+u8VR9hapwqapANYv0qfx91ilPWxQ5dqPkWZgE316bjfWQT1N+2o+VhK9kVwgUci9EsJ821peYdsJYy/9Q348etys1/XDcIEybyyKoqlq3apEQOggGxfSUcvnClHv1879xX3r2I7nYpJu0pDhjFx3E6sHsvX1Hzcrl7bOshi8WNd7H6W4hZ+tsFXwvBX+zWeVza0o1fRYmBjNtcfFHAgiTUojPl+xpvpUR/rCFsHBEz6utulkU783ekI2Lqw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DuNX2/bfUoi4BGUO3MtdvWGsFfEgw11uVJsz6wEavKE=;
- b=BSQHSH9cu0/XsL7Gbs++eAhegMt8u05x4V8Uzy/cG3aS+BeRlb2RDvde8F3Jff7MeKMuDvXQ6ReDFpGG/e6C+Er/KTXgoacgYcPekghXibXqUHGEUG2CWPv37k+a4tQvjNR0j7bxBboyIr2bUeCwxjfmgr7a5zOYcUQd9Vagg6zP5c78fvUqFjCWgcSgu5m/ezvy62/2MlNdDbxM5hGhMX+ES8JFbu56JNdKrVYmwc+bXBuI95qyNVgadnQgh/ezKI/P6+mnoLxamr17q95OsITwyfyT5ELGgyiu6L5rOOnIhIfmzN5j9A8gBVKYI/Z8XiATnvkfbDEMP+y61xZF+g==
+ bh=fat2crwgVVMpS8nDqnqoL80q3yRb7P+5WeN+syyubH0=;
+ b=Ln8ZjgrZEzxYnSirP9o2R3Jscig5FLvVx+45jA9B8af6vnpvAyeqywHcXA32G5WSwxz9YrvxYxcYG9i5EshZY7SBvad/sQPU3fL/1TytlbJbjfbiezkXXVgCuZeJxR/gRjInw4mAcp5coUiMRIUON56CQQ8vN4j2Q0W+R6TZbX5eJPHyQZiR2XflfABuWDmoagtftkJCadlVQtzQp+QvDVi0YGe7siDE4LMPsoDTD0/UyxAg+VJ+FB/Vt+emWaax+SxaQdE2Ytjjyfkt9dHeqOEE/vA6gXIz4xj1fZ/yLTEOAbcQPQO4iNnOZ/s0xZ6fn6W7HbCmURa+fY9HN2f7Vg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=collabora.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DuNX2/bfUoi4BGUO3MtdvWGsFfEgw11uVJsz6wEavKE=;
- b=13/Hc8eDia/XN7J8+rxAq9RDCb6RtMui3sVERT/ZUlODMEIUgmaUKu0emQJl47UDHPDpqKUONv45G7CStp7N3bfjtG0ERyrcnr87FL4rnTt86Epxfuzw0da3mekM7/EqOLXxWXXQP+Ku3WVdQ8ShhGJTY8Mhy3u+CAf1HlVMOpQ=
-Received: from SN6PR2101CA0020.namprd21.prod.outlook.com
- (2603:10b6:805:106::30) by PH7PR12MB7308.namprd12.prod.outlook.com
- (2603:10b6:510:20c::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Mon, 9 Feb
- 2026 06:11:13 +0000
-Received: from SN1PEPF000397AF.namprd05.prod.outlook.com
- (2603:10b6:805:106:cafe::32) by SN6PR2101CA0020.outlook.office365.com
- (2603:10b6:805:106::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.4 via Frontend Transport; Mon, 9
- Feb 2026 06:11:13 +0000
+ bh=fat2crwgVVMpS8nDqnqoL80q3yRb7P+5WeN+syyubH0=;
+ b=2AHTpkodr83qYDKH0VeU+usZ2cfVqTS1WYcpnbTZA67HRASNV2qdYu25cOie6EdOV6kDtr5zsYzroto+fLtQYY5Fn3qTcReRG5Mpb4/utccyH4uFNp373mO9Mvv7VTeMmD9ktiFyWZNxyB9E4lXMjn6EaWtP4kE+bIFKT/0vUlo=
+Received: from PH8PR05CA0001.namprd05.prod.outlook.com (2603:10b6:510:2cc::22)
+ by CY1PR12MB9627.namprd12.prod.outlook.com (2603:10b6:930:104::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.13; Mon, 9 Feb
+ 2026 06:11:20 +0000
+Received: from SN1PEPF000397B1.namprd05.prod.outlook.com
+ (2603:10b6:510:2cc:cafe::76) by PH8PR05CA0001.outlook.office365.com
+ (2603:10b6:510:2cc::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.7 via Frontend Transport; Mon, 9
+ Feb 2026 06:11:18 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397AF.mail.protection.outlook.com (10.167.248.53) with Microsoft
+ SN1PEPF000397B1.mail.protection.outlook.com (10.167.248.55) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.10 via Frontend Transport; Mon, 9 Feb 2026 06:11:13 +0000
+ 15.20.9587.10 via Frontend Transport; Mon, 9 Feb 2026 06:11:20 +0000
 Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 9 Feb
- 2026 00:11:09 -0600
+ 2026 00:11:16 -0600
 From: Honglei Huang <honglei1.huang@amd.com>
 To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
  <christian.koenig@amd.com>, <Philip.Yang@amd.com>, <Ray.Huang@amd.com>
@@ -62,9 +63,9 @@ CC: <dmitry.osipenko@collabora.com>, <airlied@gmail.com>, <daniel@ffwll.ch>,
  <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
  <akpm@linux-foundation.org>, <honghuan@amd.com>
-Subject: [PATCH v4 3/8] drm/amdkfd: Implement interval tree for userptr ranges
-Date: Mon, 9 Feb 2026 14:10:42 +0800
-Message-ID: <20260209061047.3881808-4-honglei1.huang@amd.com>
+Subject: [PATCH v4 5/8] drm/amdkfd: Implement batch userptr page management
+Date: Mon, 9 Feb 2026 14:10:44 +0800
+Message-ID: <20260209061047.3881808-6-honglei1.huang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260209061047.3881808-1-honglei1.huang@amd.com>
 References: <20260209061047.3881808-1-honglei1.huang@amd.com>
@@ -76,57 +77,57 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397AF:EE_|PH7PR12MB7308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97a79a6d-39fd-4799-44b0-08de67a206ec
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B1:EE_|CY1PR12MB9627:EE_
+X-MS-Office365-Filtering-Correlation-Id: 147ab57b-0b3a-409a-c15a-08de67a20b26
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?NG0TYTIH1vnPR8g0Ul4vQkCQGb6ZshGFh9wHQbOr+UWAVJTwh9pw+vwnMeLy?=
- =?us-ascii?Q?S7qD8c21ssqJMVMkYjaoP3rbn0ogJIviCVyHu+IPJ7HTrft1AcsvDUek2fid?=
- =?us-ascii?Q?5h1Nz5eeDhbEsnS/2cM/nilZcKL7But516iZJiQPN4ka51lImZeGJgOJWWhz?=
- =?us-ascii?Q?NaKu2j3bCNlyTjFrXZ5+CxeUwu7+a99Pet6I4I26T8dTAkhVo8g1fr7BcG7j?=
- =?us-ascii?Q?Yh6PiGfvtrwS9p+yvXjH024rMq47rAZpdBSAmyK/EhqJAFrqUV97WgMHyxsP?=
- =?us-ascii?Q?8syg+TYnryqTW0Hoq2Aet9cRZkMSpKjzritiwKIp7V6Jt8Fk77C/wa6xLKER?=
- =?us-ascii?Q?JSoqqB5etjdJ1IuDdalA+7Wa6jJO3Z/B5JxLLSahWcRN4nrJ6/slV8v+c2Wz?=
- =?us-ascii?Q?CpEG914cvYwnESKA302ZrVANRAP7RDCLZWOW81wUlmLhVYZglM8S9GRKMBlz?=
- =?us-ascii?Q?iYBH7vZdRBzw5XrX1shfT/xG89nmVx52uTIH0hc77xsqg1SaTU4cl0+egWLU?=
- =?us-ascii?Q?FIfdTOKCeScnDm4ZgQADDKQxg51iOf0iDSuHcBDlBDOBXiHNJruKsTTzbXZ7?=
- =?us-ascii?Q?pS9cIUVQr1G6W5DVw6RHXfA7ZcdpOKEGhVYm/6XUivtmFwTuqjmZJOE8osEB?=
- =?us-ascii?Q?nh7RXiyp3pUJWwrEwxMIxgFaPNHxHYFkKfOVgcZDuvso0hQFIWBN+shE2TaS?=
- =?us-ascii?Q?wJdsWEz678o3ek3nKGSUYVfovZFD1EeLzhcMrOFnhTp7m5hCf/RzNpacF9ok?=
- =?us-ascii?Q?G5PJwtBra8llETtvQgsuojgG0ElMANUL9Qk9yRIqMtycLXyIvR2rGhGA8bUy?=
- =?us-ascii?Q?rduT1J0+xSm/nnZbNRhkc2N9AMGfsMGyHjysAJDVI0LwhMfm7aV6b3rWzgkW?=
- =?us-ascii?Q?RrldaZpaNniI2JaevbdEmVX25CmCzd/jmQ+ekhnpvA7fgDIPah5FjZhczT3o?=
- =?us-ascii?Q?uDN5OJnkk53lStse5JfslDiDRE7r76ZieUezut22cN9PbAjDkszCwLy+Ewk4?=
- =?us-ascii?Q?3mod0CFiZlOWxSEryfako4n8fifEfntwNnJ5GIH5WVpaJYw3AlVhgXMMVmP6?=
- =?us-ascii?Q?OeZhiaaEwpBbcyRxcdzEM6cwoixgrmqcA1SlHGl9+c9dWwzUdcWYnPCSx/jS?=
- =?us-ascii?Q?GgARtS6oyDDKGAouSE7/gMjXwxOrXPO0Z8gIQs51OZ1WKk0avRc55xihsjwd?=
- =?us-ascii?Q?bWqGrsg0qMQC67eAcZx11Enqyxdx92yrERT0SQO13VY/6H3+ai3MRsBoPUqB?=
- =?us-ascii?Q?iP8YWp/dfyBOCeGbwyYOJ+eoH2roDlyNxC9+c/2ftHGJdqpy4coIlecqH4UD?=
- =?us-ascii?Q?R1wPXHhmEtfkRyE8Jjwe9XEiiBgV/fcu+hBLZA7UFskSEwAXB4PuX8E5U5FW?=
- =?us-ascii?Q?12+/iFPbIsV5iqeVE2KxPgNIkpai9P8E8GCVwZ+32YC1Eoh2gabqm6edrfBF?=
- =?us-ascii?Q?wx5IL55/43JpgafDgdhX8BR5oqeHWi0GwOravybIJTS1TLvDKOHOChg+7HIa?=
- =?us-ascii?Q?AU7ssdOcwA49tL2Qo2j8w+UEOKwFglq0k/vjeK0m0FKAEfeyWceDrBsfisbo?=
- =?us-ascii?Q?4/O1Fdn21JXjJQx63uWLio3L8dd6v+34FNjAbSIEMHIEGTqBYQRw1OjeGI43?=
- =?us-ascii?Q?cBiQc2LO/RfLP4OBcSiq9LpLFU5lQ/POA67MnXogtb6Z9gperoTgMRm6Nan1?=
- =?us-ascii?Q?JZ1raw=3D=3D?=
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?9QJfp4DXzpYBgl2PjqjmoFwZjnfX88UIvEQRcUxK9wEeKT/raC02Icp4lVyp?=
+ =?us-ascii?Q?1iJhgr6N/2C6rUZEf5CDn7f4PTfGLebP/5xYGW2tr9jzbYJif0oNAXF53ktR?=
+ =?us-ascii?Q?MWDmNPpuaY6PLRrn7sCHwR4ZLH8tbYMsYqNT8OK4CfAUdxDVf0s2hDG5ILXY?=
+ =?us-ascii?Q?bd2r/PDpB3mCN2yb/PXpA6I9brCylc89gMswwJ8Aa24PwwOKoNnbLv2GHh8V?=
+ =?us-ascii?Q?H679aF8GyRND2SHk7ch3ijopJ5zxBjICBcLFBY0ZaEqfgLmA4iA/r4YQ0hZa?=
+ =?us-ascii?Q?eXobs8bZj0B5ZlbakZsU9fVFvw2JCRTaFNc7wPjZDdU69VRavwmdnZIU8xVc?=
+ =?us-ascii?Q?ubjqX8gcyBvfOJsGibhwuvYFxWxkYxos4fF1DJILyZp5TetoF4RL8wzh6GNF?=
+ =?us-ascii?Q?x4CQb24ZrMc9GF3Ea9oKL4jCY+o/GtBG9lsJd+sB1ZnlVXrEXfO7wYE+9zdO?=
+ =?us-ascii?Q?RbmCSOkCRIf+jxPRq9boquYyCUHzHbOjI6VPYHJ/BPFPjFbWEYI7cWK9v255?=
+ =?us-ascii?Q?8zQtej0n/nVwgArAAVuUBjc/1aWVJiLt+r98Q0f+9WxmaQXet2SSO/LbqUSU?=
+ =?us-ascii?Q?Z7KCJcZhWjmULbqpicgraTKHI92oVqKxrj0xxZaG/TgFDSUHWlXdzoCcfMko?=
+ =?us-ascii?Q?Ha9iQ1b0Tz4KlcOET2u3/UmzfZNWzmzKo4GciJ5A05QVEg9zn2mMld6xsDUu?=
+ =?us-ascii?Q?D/djVLIjuQv6fYZlVB44wRcLgO8i/ynMqtoOJqqvB0RQe09GX6qScJF5NbtT?=
+ =?us-ascii?Q?MlBsm+q4XmIUcjoTX+7lOIYXAHUbU7lPMJ5lUfkpZ9iB7k5B2Nbx3ZWZmnpd?=
+ =?us-ascii?Q?yXiHCG8KGuu/e/+kfIbanTGu69gum8AKnDjzNtBucCDnLTxIw13MriOP1+JY?=
+ =?us-ascii?Q?TLlYPdbjX/8I9L7Q7Piv65W7q7iWkBsDG/Q0XH+A2iGs7Qr7iTMieBxWeUqW?=
+ =?us-ascii?Q?XXhqYSu3Cs4zaebqLUNMWy3k7LcGg6lTjo/0vvrdMGQWClillTZL/Bj+I8Ga?=
+ =?us-ascii?Q?utIYbZBPUHEz0B41ogaVNA+7zOXxdZ+lLDTIE3Epi1pp3heW7+47zW7QAbcj?=
+ =?us-ascii?Q?G1R+K+4Z2s4EMggrTjdopVDL9kt7MHatp6Uka4pmRqBd+DrXrVCP70Endf4b?=
+ =?us-ascii?Q?rrmWerDpLUErVJv4sjtgPL2huNoN+6UWxFuIx7lJ8WCvvwZat1aLgZ9wRLEB?=
+ =?us-ascii?Q?7DFZYtpwKNE0RHW4jEJpLHkHnR1MHl6egmj3XVLChYPl8Bda3dGJTG3uQs2S?=
+ =?us-ascii?Q?qYwTPHLAWqOnqhoZIJau/vmXDW3tNXqSPsGLYZzjPihLZp/VSX6I09IgMbFt?=
+ =?us-ascii?Q?xo9PzYDzWOmBU5t/fC/O6DBKnkNT//EWal2BlhO5bcG+6aqoP9qOIHVA8qKM?=
+ =?us-ascii?Q?OilOEJjvvGqDhBk2h3/HK4FQTXwaXi8UkFz5YFqwdWKDdxsUQTIU9wxa/qxr?=
+ =?us-ascii?Q?Q6Q8CJxmOkrkMz3rXjbvXe+IVDj0IEFDHughigF6ITwG2n7qvaTjPQtZ2DsO?=
+ =?us-ascii?Q?JAjn4se021nJyYFTP6IfXf0qHucK5wW3NMmsJyf8c8qjlkJQjbQXvU0ZMdgE?=
+ =?us-ascii?Q?AdmM8BatcRU5Bs1mAJdssO948oSRM8PJFV6Rs+4skzVgt5Hl7fA2oJxgKRBI?=
+ =?us-ascii?Q?di5Rl9mDA3e/d6pCXDDdp79/PZFc6YCng7ze2awEq8e8RBqsEHS8/9ZGxMH6?=
+ =?us-ascii?Q?ul5+tQ=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: LjCRTNxd1KGugFIiaawG2fAe9yPEOlGQhZ3t+fDLhC9O1A7xhRJOXABcivH36oPLNqhzu7+F0v2ep7rApOIxY+omh1cUw9EPVxhAAzh7q8UJOtT909qUMpVPi1eDbBMvbz4HsjAVOvz7UMDLeWzjWQM8bdwxTQYVuOT+D4gHqBfjwsuh7gv0Z8wm4rYeSIpjEkD71FAjDMmgSWniL2ktAReODATKlNsUx1vX+8I9OEO7Go1Xwa2pVifikC9/NUvKwib4LEyK2n3FNHVnst5OYB+uwHhxrN5dHi3IzN6wPNmtYdFEW9Q3ipqq/yA5K1j0nA1yvZrByEGa+JwmVXIXZHJh9aGYxnlyEBo1IU2u2TOveD9aJcNwqxc2CuAuzwnmHXepD8/6SwE9FuJ0eWaxz0b3ISOKh+wvFHTYP6FrqSQLosCd0Su33ydoHse9hh9f
+X-MS-Exchange-AntiSpam-MessageData-0: HxWErg1lo40DW1SIfbajB3YeuzEyYYlNMLrk6lGYhb/uHKkj/kWVpk1Tc+yu9D5yFVHrWMjPL+0HZsxcCmaPGvJsG3yehruDOQKKYUaLcgTJqSDZNHiBkxO+fAX/i1DSQVMbAlQIvkYIBMiXttEdptPgMNGeHNy38z8GxjxNB8IO52IonB89qp1RAlSOovENfhefjnnvxwO9Al4i6Rx7s/CDkZkQiv9FZmQoMVZ9+7F0ZgLhLUNSo1Sqb6JJIVDHMjdpquWm/TdYzsrAoRJh14n6uHf2Kn/7lTaPm5IAFjo3h6nQ62PCnzw7RdYssYWs+lTKn2V4Y4KDqq2LTbnc/U/WWX3qtzTeNnnzpkOxklAPiD50RlYjte6b7WMMPOZ6lQ9YH5q78olISQdkGwFFLnBe/TOJSXdJrxJ6wPYsOxI9xkZ7z2HSwbqKwFn5V+nB
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 06:11:13.1207 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97a79a6d-39fd-4799-44b0-08de67a206ec
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 06:11:20.2243 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 147ab57b-0b3a-409a-c15a-08de67a20b26
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397AF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B1.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7308
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9627
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,53 +144,69 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Honglei Huang <honghuan@amd.com>
 
-Add interval tree support for efficient lookup of affected userptr
-ranges during MMU notifier callbacks.
+Add core page management functions for batch userptr allocations.
 
-add:
-- Include linux/interval_tree.h
-- discard_invalid_ranges() function that uses interval tree to
-  identify and mark ranges affected by a given invalidation event
+This adds:
+- get_user_pages_batch_locked(): gets user pages for batch
+- set_user_pages_batch(): populates TTM page array from multiple
+  HMM ranges
 
 Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 21 +++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 45 +++++++++++++++++++
+ 1 file changed, 45 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index a32b46355..6fe4ed22c 100644
+index a22a99b8d..5f10a4514 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -25,6 +25,7 @@
- #include <linux/pagemap.h>
- #include <linux/sched/mm.h>
- #include <linux/sched/task.h>
-+#include <linux/interval_tree.h>
- #include <drm/ttm/ttm_tt.h>
+@@ -1202,6 +1202,51 @@ static const struct mmu_interval_notifier_ops amdgpu_amdkfd_hsa_batch_ops = {
+ 	.invalidate = amdgpu_amdkfd_invalidate_userptr_batch,
+ };
  
- #include <drm/drm_exec.h>
-@@ -1122,6 +1123,26 @@ static int init_user_pages(struct kgd_mem *mem, uint64_t user_addr,
- 	return ret;
- }
- 
-+static bool discard_invalid_ranges(struct kgd_mem *mem,
-+				unsigned long inv_start, unsigned long inv_end)
++static int get_user_pages_batch_locked(struct mm_struct *mm,
++					 struct kgd_mem *mem,
++					 struct user_range_info *range,
++					 struct hmm_range **range_hmm,
++					 bool readonly)
 +{
-+	struct interval_tree_node *node;
-+	struct user_range_info *range_info;
-+	bool any_invalid = false;
++	struct vm_area_struct *vma;
++	int r;
 +
-+	for (node = interval_tree_iter_first(&mem->user_ranges_itree, inv_start, inv_end - 1);
-+		 node;
-+		 node = interval_tree_iter_next(node, inv_start, inv_end - 1)) {
-+		range_info = container_of(node, struct user_range_info, it_node);
++	*range_hmm = NULL;
 +
-+		range_info->valid = false;
-+		any_invalid = true;
-+		pr_debug("Range [0x%llx-0x%llx) marked invalid\n",
-+			 range_info->start, range_info->start + range_info->size);
++	vma = vma_lookup(mm, range->start);
++	if (unlikely(!vma))
++		return -EFAULT;
++
++	r = amdgpu_hmm_range_get_pages(&mem->batch_notifier, range->start,
++				       range->size >> PAGE_SHIFT, readonly,
++				       NULL, range_hmm);
++	return r;
++}
++
++static int set_user_pages_batch(struct ttm_tt *ttm,
++				struct user_range_info *ranges,
++				uint32_t nranges)
++{
++	uint32_t i, j, k = 0, range_npfns;
++
++	for (i = 0; i < nranges; ++i) {
++		if (!ranges[i].range || !ranges[i].range->hmm_pfns)
++			return -EINVAL;
++
++		range_npfns = (ranges[i].range->end - ranges[i].range->start) >>
++			      PAGE_SHIFT;
++
++		if (k + range_npfns > ttm->num_pages)
++			return -EOVERFLOW;
++
++		for (j = 0; j < range_npfns; ++j)
++			ttm->pages[k++] =
++				hmm_pfn_to_page(ranges[i].range->hmm_pfns[j]);
 +	}
-+	return any_invalid;
++
++	return 0;
 +}
 +
  /* Reserving a BO and its page table BOs must happen atomically to
