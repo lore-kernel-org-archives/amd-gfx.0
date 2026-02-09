@@ -4,78 +4,169 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E2D9E78D45
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 08:41:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4093E7E0AF
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 09:35:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B669210E35E;
-	Mon,  9 Feb 2026 08:41:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4769610E35B;
+	Mon,  9 Feb 2026 09:35:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=u-northwestern-edu.20230601.gappssmtp.com header.i=@u-northwestern-edu.20230601.gappssmtp.com header.b="I8guTTB/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1H/aszRQ";
 	dkim-atps=neutral
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A697510E038
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Feb 2026 00:02:58 +0000 (UTC)
-Received: by mail-qk1-f182.google.com with SMTP id
- af79cd13be357-8c7146b0854so353873485a.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 07 Feb 2026 16:02:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=u-northwestern-edu.20230601.gappssmtp.com; s=20230601; t=1770508977;
- x=1771113777; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=/ixKYwI8fU81gZ+QKkq1WjH9E+1EyNt8hakHtj7h1q4=;
- b=I8guTTB/pfz2/bUtNifKS+rcaVywzGRtYzYN5Mk4YqIAeGZjbg4ZYfcIB4Fl8iZmwN
- 5Kr8tAAiul/pEzIp9mVTDLVJqWDmnBk6V39aelx8V5rRSYSj/5VjgMYpBuCbyPUK4BIB
- UfcOnKzPjr+83FyzytXn0I1bfF2JmuqbrtfdTP6P6b8sg4OHac+/JXr8gyYP1GTTvOwe
- T3VCxm+46zN3XC1ZGufekA28zx5jQnX3XefCCwfhcjfMdRhdv6AXRvdOG2QTgLTTScVz
- 5WVfDsVPbuditIY6l55/s0s7PPmpoqIPUig2+t0EtU434EaMVhtSsw++Zgd9P1+z0/Zs
- O3SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770508977; x=1771113777;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=/ixKYwI8fU81gZ+QKkq1WjH9E+1EyNt8hakHtj7h1q4=;
- b=sPbDP6Du6n9AvPRl4l0PvFGNhYiPW+8F/93tfEccqYgtTvptCZk+IbMH3WDfjPcwYW
- BjvAorANCKK2DZTNJIAbS1IzJk1qZ/PNvVUl+QjNWMhrgRZ9v3S0r+eNZGi0rPc+8Lx8
- ZdAI6TX8Wrt8KBNzQYnRNVJB3FOJQpsrFrVFe9++D071ZOEDqNDXHS0k7GgI3InlrR0w
- rQxc7Ey+DbrR/m5/YCrXMy0AAna8FjgywSol4UcQCHoYlJMO97DA/l/dLe1rdrH/IfTd
- uQL3MjeYZqDiP5/HRL4d99zvxU2XAKCz50UsB8cPtBPRhOghBk5ejo6EQ4GrfE/CX1SC
- mCHw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWPUCK2wbgQ6nLp/sL2d9Vv+IlI+coJ6u4OM3YEmepaOAXnlUxsODmF/funUrdkgL8QX5LUK7BW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAQ47+5nG5FASbuKUzUfxNNOeV+eelcI/Vb+5xIAz4g9eVmcds
- IPmwuvW7sMPDcy3pBlhZxXMH97gcqzxB7t5TCwJExgmRAlVgLpx6QLq3Oxiklo1q+Hs=
-X-Gm-Gg: AZuq6aIppIPRIEwLqz2+0o9CTgQR+DFisLsHDxBLy/RWMOZ2Z1IpuTUZ+XwhFR48twN
- sZIXULdAMfaQ/WGc/Pd4UxVhPH4tXGjZWwcPNs3VYBVZjaGal/yKs780jKTf2hdcSuVUhOqCZxk
- zTR+RRUBhgAf+dBeOQIrRFO/T0IP+nBtBuLHl2sUjcJEx3Yfg6XmVM0Rz7mf8YHJmp2/L+HthdS
- 9jxhQGwdN9wtkAXxreH9jZT6jPNCtaEOPPxczltxo3S6xDcQ4xWvnVfzcwkbsoSBuUKEkk6YcfU
- MwvnpIjBDc+oLXApUSND0eNwyLMefRoW/fD8GoBLnvEyAam/bmVoW37LO7+N67zKtho2Zf3UCXY
- WzZfIliGSVqQWeRhktEjBSUAeRytHOVatkqU7R3a9zPv3eMexmpQDOedeSsl2oOrz6lxyruWACh
- OPZQvh61pvRbH8Z0cZjDdd0urYlEOKIUj3jMS4xfnHSj4HnPEzuzJz7K14O750jXQvNDaeyxSJy
- 1Y6fxkfBWSPudjO4NEakpEWLZyrafk=
-X-Received: by 2002:a05:620a:4485:b0:8c6:a5bb:f464 with SMTP id
- af79cd13be357-8caf17e3e69mr972256985a.66.1770508977586; 
- Sat, 07 Feb 2026 16:02:57 -0800 (PST)
-Received: from security.cs.northwestern.edu (security.cs.northwestern.edu.
- [165.124.184.136]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-89546b09f77sm30968746d6.31.2026.02.07.16.02.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 07 Feb 2026 16:02:57 -0800 (PST)
-From: Ziyi Guo <n7l8m4@u.northwestern.edu>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Ziyi Guo <n7l8m4@u.northwestern.edu>
-Subject: [PATCH] drm/amdgpu: check num_entries in GEM_OP GET_MAPPING_INFO
-Date: Sun,  8 Feb 2026 00:02:55 +0000
-Message-Id: <20260208000255.4073363-1-n7l8m4@u.northwestern.edu>
-X-Mailer: git-send-email 2.34.1
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011030.outbound.protection.outlook.com [52.101.62.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0C310E3A2;
+ Mon,  9 Feb 2026 09:35:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=M+LhBYByavouW3vcVgqFHFq4fqqSxQiH0QcyJfuXM93CPranpiKyvLqIuFJf0S8ZCjjwmR2LmFOE391GPrqQDJKj9QgCsX5ine6BVFMCKxJY100w6hYZ9l1JOFJm804X/hMA76SFNo0lJv9EHpNMe3oLUV/HAjyqx5bd+Mna46Vb1WBKlgn78sJ9oj4L6KbcfIhxOg4NZRW22KqiHXLjoAztwNv4sQiwS4w81igONEQkUGVqQFUgMdH6Hl1spnYvfxsRsIuKaWzWHALVL8NcfnIT1UhjCcpg5X6EmFAPmYZbVxmGNNyUsEBT2CjOw5hcveItHSbD5AO0/uY9nAq3ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KXYzchKcYHoWC80s66UwrcUs/cRkakRpxUdafRTHwrI=;
+ b=pLiepJz/VllOuSR3qy6X7T/wq2whIFW1hWKnLJf6qcgp7tCdx1cx2OTwmiPYVR9lBTjkT8Zm0ILKznuvMcY5GLdhDQLAkiL2HENZZ8fJFy1ZfVdk3qRWXaHmd+EE11xQRIg3PhWkBrDhiMPwf0b3S0kzvF3QXn3w5GaO0qKKgwHx3/c9DZ8JvdL7jZDugJRLU7gReykoNj61Ao79STGDblGRCiwV3aArXIX1yjTJQUGCwQIKi8LnN+zV0h/uR9LW9g+wurik23WmGsjLtkwoSIauy63rIdyA9bHGK7y08aNZ6V4Vj4oNI+kuZQhVP7Lh9T8KxJkwFaJ8/C8M8uiwKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KXYzchKcYHoWC80s66UwrcUs/cRkakRpxUdafRTHwrI=;
+ b=1H/aszRQ0iSvKBGEKY1+qwwPu4v84GEzpxVtjngNa56ND57GeQ0ASzzBg9L76ZTI7pMgQVqS9WM/tTfKx2pWk0HA1pxJjZ4nTC9w9k0Jcj7lLvBEJKAE/vu88VqK2WkhG52tGy+jzOR85c7VcbAJUNhcaM2lGv+ExiJv7KzL51Y=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH2PR12MB4296.namprd12.prod.outlook.com (2603:10b6:610:af::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Mon, 9 Feb
+ 2026 09:35:12 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
+ 09:35:11 +0000
+Message-ID: <2ac2dc2f-552c-4084-872b-179a1e489156@amd.com>
+Date: Mon, 9 Feb 2026 10:35:05 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] drm: introduce KMS recovery mechanism
+To: Hamza Mahfooz <someguy@effective-light.com>,
+ dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Xaver Hugl <xaver.hugl@kde.org>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Ivan Lipski <ivan.lipski@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Tom Chung <chiahsuan.chung@amd.com>,
+ Melissa Wen <mwen@igalia.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?=
+ <mdaenzer@redhat.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260206235846.1019172-1-someguy@effective-light.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260206235846.1019172-1-someguy@effective-light.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0115.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 09 Feb 2026 08:41:30 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB4296:EE_
+X-MS-Office365-Filtering-Correlation-Id: 45392e7c-6895-48fe-7f9f-08de67be858e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|1800799024|7053199007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q3lHdkh1elI1L3hUSlFrcHFhT3I5R2tCeGpVOEtvZ3ViQys1NWdjaGZ4Yi9i?=
+ =?utf-8?B?b0JOSXYyaitkeCtUcFNWeTRSbjdWcUNZOXp0MjUzNG5UODBpMGZqaTlXWHNQ?=
+ =?utf-8?B?aVFxTTNuL1FubmJFdHlFaXBuMUpZVTRKNFZQdC9mUlRDK2RXNzVQZXRNaXJK?=
+ =?utf-8?B?WFhBWEEralp2dTk4OXRRd0ljN2NLbm9DUTZzRStHR2FUMUZCZW5ScUkvMC9h?=
+ =?utf-8?B?WG9taVVGTE5NUUF6U1k3eDBsZ25yeDBYUlhDbjJ3REZmTTFrQjZ1ZzgzWXFv?=
+ =?utf-8?B?M2ZXVW5sUjBRaTUwK2VOZkM0ZjRxOW5XYjlrcHc3VTd1Q0xoRTMrRDlvalFi?=
+ =?utf-8?B?SUNqZkozNlBCNFI0OVBDU0JuWkt0T2JBYldjRSs2bU44ditlaDViNFNWdkph?=
+ =?utf-8?B?UWRJRkhzWnVQdmVkenpNTWJoeGxWaElDS0JVZlhoVWJoVGR3djJHK1RuMGpx?=
+ =?utf-8?B?eTM1d2k1WmJCRVNsU2Frd3g4VEJjc1A1M2kzN1Z5KzJ4MzlYdlpiUUVMWkdP?=
+ =?utf-8?B?aFRZRHhxZkNoOFVtSFpVOFdOTHI1dzJhY3NiVW1MSkZRSUo5N1ljUTlQdVZP?=
+ =?utf-8?B?N0VpakgvY0lzLytnSHk3SG9qclJJaTEwNmUrVzNXRUNPY0d0U29zOG9CRGV4?=
+ =?utf-8?B?WERlNnN2V2w0Sm9RbkFVc2NlU051bHkybjdwZGl6K2hsaEhOQjU5NS8wUU1W?=
+ =?utf-8?B?RnlLTWhpK3lBZndlWW1FRCsvUUFPSkM0MEVpNXU2WnErLy95S0U1N2NMRldB?=
+ =?utf-8?B?V1hKYmhmOHdMR0pBWTY4WjZuelljS2xHZmFyYWZEVmQwenpjN0M5L2cyVUo5?=
+ =?utf-8?B?bmNINDl4clFiaFQ5UTFFUGZ1eTUwaWpwM2lJUmp1VXM1aWdMeGhGMVhRNVg4?=
+ =?utf-8?B?eTZIMStvWnVUM2lFK2YxeXNmVVZHTzE4MnFMaVFqb0JCRmVzOERwM3NRYVU4?=
+ =?utf-8?B?TXA4c3VwTjYzdXpmU0oyamNqWDBoMDRQNFIxVlRkSWRZV1pZa09ZRnZNd2c2?=
+ =?utf-8?B?WkVhUTZYQVdnVElJUlJPamoyMjVlMlpvSCtYZk9JSXlpTUs3NjNLNXR1RGZz?=
+ =?utf-8?B?WkYxd0Rad0xvTWlSbTFGdGxRajNWVjIvcytZaTEwRHBvbTBTVndGajdrNWJC?=
+ =?utf-8?B?a29IbnpaNC9CNDVnQmozZFRuMFlKeE94RStqUDJHWVZRL2V0NUo5Z29BOGJu?=
+ =?utf-8?B?WURCQkVrWjM0Y2s0ZHFtNWdySEJ6YUNNMnUrRDE0c0tnVDUvWnBKTFdKWjk4?=
+ =?utf-8?B?eDNPYlpxcWJ0WEE2djI1Y0ovOGlkMWJVVUU0RW1xb0p1OFpyem9udlJtRlEy?=
+ =?utf-8?B?THZqQkxBRzlHT2ZQNm82dkZSeDdhcGtHU1pkZnphVlhsdVNYWlFMdlFGWmpW?=
+ =?utf-8?B?U2pnUWJ2UGJ3OUEwUEMzMzY4U2pZRm9odjNIbVJYbVdGZ1BCTldvT3psOVFT?=
+ =?utf-8?B?MGZGWHFaRDVUTmQvOWsrKzBBblJlbE1nMmR1RXRNOXcreGlDZkZEcXowVDZO?=
+ =?utf-8?B?Z1l4YWFEaDV4UDN2bWMzaWN2YkhvUzFaREV3YWFFUTVGQmUrU1NueE1leWt1?=
+ =?utf-8?B?UjYyU3ZtOGQ1VW1FWmxNYi82dVlYYkV3QnNJTDFOM0kwRU9QYm5lMWlraGRo?=
+ =?utf-8?B?TUxjaEIzTjMzY2dLSTVVN3orSWRSS1JFd3FQa3o4WEJub0ZveXRGbWkySUxS?=
+ =?utf-8?B?RTRCRGtBbzJoOFZwTVVPVzF3ZW8xb2xvdWsvMHVZMzhEZmFneUowS2ZXbERQ?=
+ =?utf-8?B?aTZOTDRzclZoNVorUldXdDloT2dFNjhNcnpnS1ZabG9Uam42M09WNjdJb24r?=
+ =?utf-8?B?QXpza1NOMmdiWHRNejAvWTFSZEdUQWsxdDFZYjR0WjVodC9mRTd0anY1ZzVh?=
+ =?utf-8?B?M1NJWlROZHJjaXV3NW9ybEtnVVlkOHVWblR0SldyaEZIaC8zK1FtTGhZeHBY?=
+ =?utf-8?B?NkxwMTJaWFV1ZHU5aDZhaTNvNks4OXNRdGRmZUt6VGJNTU8zcG83OUY1V0ZG?=
+ =?utf-8?B?SVJTYitLRGlldndsamMzblZtSmhzRG5nWWFTNktsWEN4UlRZZjkzUkpFLyt1?=
+ =?utf-8?B?V1h0TlBTSWVVRlQydG81cyttS3lGRVhKdWVpejNCeHkwT1hSamNJRjQ1dE5m?=
+ =?utf-8?Q?n/J4=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(7053199007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVJVdzVRaGRlUjhHLzlFTytpemxuajlEZDVadnhMb3ZsZkJDVG44aTJEMFNR?=
+ =?utf-8?B?aEN3TjZOWEJyMCtZaTRsNW5tTkFNYWhmMFNXUXU4d2xGL2xPOE84M05OTGtk?=
+ =?utf-8?B?N1hJTEpKdkMxdG81dk1kaGExYkFrTFZGRFRKaE1mV1Rub1F0TXVwQVZib0dE?=
+ =?utf-8?B?dXlmS3hMdXowRXhCU0xXMCtKVUNZeVVwcGYwcThvVm9YbUhKWTN0VlNDMzQ1?=
+ =?utf-8?B?U051cnJtaFhQcWk2dXRubDhpYld0N2ozVEw0aHRENTNSYlA1aU1VM2xaTmVH?=
+ =?utf-8?B?QmU3Z2hkOXFHSnJBVXdXeWpNR1p6NGtWTFBCTTd0akFxRHB2KzZlQjVNMXZ2?=
+ =?utf-8?B?elhtcXQyVi9lcFFEWTB2UVJ2QkY1Yjk4dHdyVmNyYzY1MldKSlN0VjJsbHBR?=
+ =?utf-8?B?R1RhODRSUUcxMVJUeUxRZ01aS2IwVmJUeG5ucGo0VXRRZDk2cmltbTBrMndn?=
+ =?utf-8?B?ZksxUmlBRUNYTU1HaDhGSjVhbHhnTHFPdEN1YkxsbitETGRvTFd1eENBOU5z?=
+ =?utf-8?B?M1R4ZnFPTzNXYytsMDVnalRpUHZTTjNtSXJvcm1ycUh2bXlsd3Q5djJJdFJM?=
+ =?utf-8?B?N3Q5d2xtTUp0TEx0Uk9YYitIeHg2dkRoTHh1R2I5TVFIbW1HV0JGUGRHV0hZ?=
+ =?utf-8?B?NTVyQ3Q2Y3NIdlBETlg2aVN5L2FXRGkrbzUra0tyMjZucU9BeGhXWERKMjB2?=
+ =?utf-8?B?Z1EyNDd2TWFpUU43U2VpSEhvNmY1elNUYzhrMERQakNpeUVxL1YxbGVCVnZk?=
+ =?utf-8?B?UDRIZ1pDdm9MYXJFVTdXTXRZWmo1SHJxck1BNjArVVV1dG1sMkJIZDBScks5?=
+ =?utf-8?B?WU84aHRjUVZPK0VPcGloaTBjUnRhRlE0ZlJxQUxNaTBKWE5BTmJ4WVhFdmxR?=
+ =?utf-8?B?NHY1WEd2WG9PY3BJYUlmQ3REb2o3Q3crMklrVFJHRnJmdld5cE0yNHlLSGF1?=
+ =?utf-8?B?ZDk1T01vR21xdytkc2pZVkptajhMdGN3TFdsSUVVMWYzU2tqc3o4Nmc2NFBw?=
+ =?utf-8?B?dHJzMGlRZ09GcENQTzUyVEoxRlhhcmdNa0tSSTgvd3VtcktldTJpMk1FbTln?=
+ =?utf-8?B?SFFlWHZ5QTdVTEgvN2dCdGR5d0gyeDRIajFLZDVGdUJQVVY5dXlFWGw5T1ZN?=
+ =?utf-8?B?YUo4VjFyU25ENXg1K2hNMFVVSlJ3SDc4MVhkVEM1WkNxMzFaT1ZOZGJCNk03?=
+ =?utf-8?B?WWNKOWpRNS93TFhGUCtUTVVnc2djVmFNTTB0UHFuUURVSnEvV1ZPekhldkl5?=
+ =?utf-8?B?Z01uZ0RjZy9rQlVOeGhRWEtBODdpcEtqT1grTXoycGQxOGsvVS9MbEhOVVlB?=
+ =?utf-8?B?MWdEbjBuNlB2ZExBRnhLV0ZFU3FDUjRJa1pPd3NRZDBLYktzYVJHb3lUMXk1?=
+ =?utf-8?B?Z2d3U0lvWmR1TGZPUmprR2dCRHRZOFo0bDdGaVJac1phK3lTUzE3UndWZFdx?=
+ =?utf-8?B?M2FJdG5lSCtCNVJNZFZoczdyYWtEd2N2UHVkbkRxakV2YVVzRkRuR0p4RmY1?=
+ =?utf-8?B?NzBYam1TbXBscjd6N0tGTXhnQzJzYXgwM3BSOW03WUlwY2lzY0tYbFJCQWpj?=
+ =?utf-8?B?MlQ2UlpscERqMCtvZ3pQTEl0Y2U1VTM3NzJBNHBjem00SEtPTHNvbHZHUnA0?=
+ =?utf-8?B?V0JmN0w5RUd3MWZ4OWhUTUlqRjV6bklXVVJYK0h0RUdyODNYZHVMWjZ3bFFP?=
+ =?utf-8?B?UGg3bXRBWUhKb01SeFZxZjBlb1R5SEtuUGhJZFdVUThTUG1pd1FOSHE4UlFw?=
+ =?utf-8?B?SEJXZFhZUE13SkNGUzdwZmFidXdNR3dPTnJBaEVRNDNZWUxsZ2NSQytYVlpp?=
+ =?utf-8?B?SjNXaHlxVWxiMlcwdjYzN3pRejg3M05mNVlWZFFocGlTbzRiOFJFMEYrSXBC?=
+ =?utf-8?B?UFNTUXl3bmhiazV3RktnNmJEeFdqelpmVlNNSVVrWUlQMHhjTHBsMjMvMzNJ?=
+ =?utf-8?B?bldjOHlORzloSzQzRUs1eTlaeGJFY2Y1T0tBQ2FYellQVEZZZ2NOZUs2Rnhl?=
+ =?utf-8?B?WnpQVjlPR2dPRU9Ec001OWl2dTEyMUsyL3BqRkFZTWxLSnphdCt6MFBweVJx?=
+ =?utf-8?B?VEUwV0RYQ0JqMm5zelRUdkdiSGM5ZGJ4VjhZV3hSSXBvdXFaWU9ZVHI2bzFG?=
+ =?utf-8?B?VWxHbnVBa1pSelFHcktVTlV5YUJiNjV6RkpZUE9hTzdqM3p3QmRsRnU3VVBJ?=
+ =?utf-8?B?M2pQdHlxWHBCRnE4N0VEa0gzbGhNWjBIYVR0c1B1dmFRbWVTd25CRkN6bUVv?=
+ =?utf-8?B?c1hKSk9oUXp6alBpQmVFVTMrckpuOEZ2MEQrTVpKblhNWk5OVFBySUdiMDhw?=
+ =?utf-8?Q?Zk7saK8pdVOkNLh5Si?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45392e7c-6895-48fe-7f9f-08de67be858e
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2026 09:35:11.8464 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gOYQC4PknymUhM0hTgWCgImb27GroipLpI2x28PSCfCVZ95xya9szBGVWUtHcLha
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4296
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,39 +181,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-kvcalloc(args->num_entries, sizeof(*vm_entries), GFP_KERNEL) at
-amdgpu_gem.c:1050 uses the user-supplied num_entries directly without
-any upper bounds check. Since num_entries is a __u32 and
-sizeof(drm_amdgpu_gem_vm_entry) is 32 bytes, a large num_entries
-produces an allocation exceeding INT_MAX, triggering
-WARNING in __kvmalloc_node_noprof(), causing a kernel WARNING,
-TAINT_WARN, and panic on CONFIG_PANIC_ON_WARN=y systems.
+On 2/7/26 00:58, Hamza Mahfooz wrote:
+> There should be a mechanism for drivers to respond to flip_done
+> timeouts. Since, as it stands it is possible for the display to stall
+> indefinitely, necessitating a hard reset. So, introduce a new mechanism
+> that tries various methods of recovery with increasing aggression, in
+> the following order:
+> 
+> 1. Force a full modeset (have the compositor reprogram the state from
+>    scratch).
+> 3. As a last resort, have the driver attempt a vendor specific reset
+>    (assuming it provides an implementation to
+>    drm_crtc_funcs.page_flip_timeout()).
+> 
+> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
+> ---
+> v2: new to the series
+> ---
+>  drivers/gpu/drm/drm_atomic_helper.c | 36 ++++++++++++++++++++++++++---
+>  include/drm/drm_crtc.h              |  9 ++++++++
+>  include/drm/drm_device.h            | 24 +++++++++++++++++++
+>  3 files changed, 66 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index 5840e9cc6f66..f46d68418e32 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -42,6 +42,7 @@
+>  #include <drm/drm_gem_atomic_helper.h>
+>  #include <drm/drm_panic.h>
+>  #include <drm/drm_print.h>
+> +#include <drm/drm_probe_helper.h>
+>  #include <drm/drm_self_refresh_helper.h>
+>  #include <drm/drm_vblank.h>
+>  #include <drm/drm_writeback.h>
+> @@ -1881,11 +1882,40 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
+>  			continue;
+>  
+>  		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
+> -		if (ret == 0)
+> -			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
+> -				crtc->base.id, crtc->name);
+> +		if (!ret) {
+> +			switch (dev->reset_phase) {
+> +			case DRM_KMS_RESET_NONE:
+> +				drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
+> +					crtc->base.id, crtc->name);
+> +				dev->reset_phase = DRM_KMS_RESET_FORCE_MODESET;
+> +				drm_kms_helper_hotplug_event(dev);
+> +				break;
+> +			case DRM_KMS_RESET_FORCE_MODESET:
+> +				drm_err(dev, "[CRTC:%d:%s] force full modeset failed\n",
+> +					crtc->base.id, crtc->name);
+> +				dev->reset_phase = DRM_KMS_RESET_VENDOR;
+> +				if (crtc->funcs->page_flip_timeout)
+> +					crtc->funcs->page_flip_timeout(crtc);
+> +				break;
+> +			case DRM_KMS_RESET_VENDOR:
+> +				drm_err(dev, "[CRTC:%d:%s] KMS recovery failed!\n",
+> +					crtc->base.id, crtc->name);
+> +				dev->reset_phase = DRM_KMS_RESET_GIVE_UP;
+> +				break;
+> +			default:
+> +				break;
+> +			}
+> +
+> +			goto exit;
+> +		}
+> +	}
+> +
+> +	if (dev->reset_phase) {
+> +		drm_info(dev, "KMS recovery succeeded!\n");
+> +		dev->reset_phase = DRM_KMS_RESET_NONE;
+>  	}
+>  
+> +exit:
+>  	if (state->fake_commit)
+>  		complete_all(&state->fake_commit->flip_done);
+>  }
+> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> index 66278ffeebd6..45dc5a76e915 100644
+> --- a/include/drm/drm_crtc.h
+> +++ b/include/drm/drm_crtc.h
+> @@ -609,6 +609,15 @@ struct drm_crtc_funcs {
+>  				uint32_t flags, uint32_t target,
+>  				struct drm_modeset_acquire_ctx *ctx);
+>  
+> +	/**
+> +	 * @page_flip_timeout:
+> +	 *
+> +	 * This optional hook is called if &drm_crtc_commit.flip_done times out,
+> +	 * and can be used by drivers to attempt to recover from a page flip
+> +	 * timeout.
+> +	 */
+> +	void (*page_flip_timeout)(struct drm_crtc *crtc);
 
-Add a size bounds check before we invoke the kvzalloc() to
-reject oversized num_entries early with -EINVAL.
+As far as I can see a callback is clearly not the right approach.
 
-Fixes: 4d82724f7f2b ("drm/amdgpu: Add mapping info option for GEM_OP ioctl")
-Signed-off-by: Ziyi Guo <n7l8m4@u.northwestern.edu>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 5 +++++
- 1 file changed, 5 insertions(+)
+The drm_atomic_helper_wait_for_flip_done() helper is called by the driver, isn't it?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index 3e38c5db2987..ef5d8bd216b2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -1047,6 +1047,11 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev, void *data,
- 		 * If that number is larger than the size of the array, the ioctl must
- 		 * be retried.
- 		 */
-+		if (args->num_entries > INT_MAX / sizeof(*vm_entries)) {
-+			r = -EINVAL;
-+			goto out_exec;
-+		}
-+
- 		vm_entries = kvcalloc(args->num_entries, sizeof(*vm_entries), GFP_KERNEL);
- 		if (!vm_entries)
- 			return -ENOMEM;
--- 
-2.34.1
+So what we need is just to give an error code back to the driver.
+
+Regards,
+Christian.
+
+> +
+>  	/**
+>  	 * @set_property:
+>  	 *
+> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+> index bc78fb77cc27..1244d7527e7b 100644
+> --- a/include/drm/drm_device.h
+> +++ b/include/drm/drm_device.h
+> @@ -66,6 +66,23 @@ enum switch_power_state {
+>  	DRM_SWITCH_POWER_DYNAMIC_OFF = 3,
+>  };
+>  
+> +/**
+> + * enum drm_kms_reset_phase - reset phase of drm device
+> + */
+> +enum drm_kms_reset_phase {
+> +	/** @DRM_KMS_RESET_NONE: Not currently attempting recovery */
+> +	DRM_KMS_RESET_NONE,
+> +
+> +	/** @DRM_KMS_RESET_FORCE_MODESET: Force a full modeset */
+> +	DRM_KMS_RESET_FORCE_MODESET,
+> +
+> +	/** @DRM_KMS_RESET_VENDOR: Attempt a vendor reset */
+> +	DRM_KMS_RESET_VENDOR,
+> +
+> +	/** @DRM_KMS_RESET_GIVE_UP: All recovery methods failed */
+> +	DRM_KMS_RESET_GIVE_UP,
+> +};
+> +
+>  /**
+>   * struct drm_device - DRM device structure
+>   *
+> @@ -375,6 +392,13 @@ struct drm_device {
+>  	 * Root directory for debugfs files.
+>  	 */
+>  	struct dentry *debugfs_root;
+> +
+> +	/**
+> +	 * @reset_phase:
+> +	 *
+> +	 * Reset phase that the device is in.
+> +	 */
+> +	enum drm_kms_reset_phase reset_phase;
+>  };
+>  
+>  void drm_dev_set_dma_dev(struct drm_device *dev, struct device *dma_dev);
 
