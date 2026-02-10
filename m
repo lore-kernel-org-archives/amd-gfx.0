@@ -4,149 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1260E94625
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Feb 2026 23:34:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E64B4E94626
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 02:29:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EEE310E077;
-	Mon,  9 Feb 2026 23:34:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5717D10E49E;
+	Tue, 10 Feb 2026 02:29:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="G7eaP1GO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3W0K3IDH";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011016.outbound.protection.outlook.com [52.101.52.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5B3510E493
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Feb 2026 23:34:11 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010035.outbound.protection.outlook.com [52.101.85.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5E1B10E13B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Feb 2026 02:29:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BpCUgizHmhoeju3ZEI3I0XwGdMS5tG1iki+gQz/c/Gn9a04phTQ5IOi1NTtJixKduGm/idgWtkpuIttKa52XWZMcPh8YbfF/o0PTZj8BVKZO2DrycwzTFixdqxTZHwUnSfIhiJhiLSy3JIW8olwpSxePhdCUP/OxjWc/qupEqCdE3TOwGtecxrSLepLk6Bybpb/I3UD5SoURFofk/3GfT9mZtOh8Hr1O/rkqd0+CnpX1RC+XiQhV5KbFIBGNjF4ZA4xOm348l9hkGOH1GzoY1zFNIyHWJV1gl13LnPOTRYdhbj4HlMNADm2BkWxqPs+Rcyg/OgQ5p/3TuqgOttIuOA==
+ b=gxpGIymnKdeleIo1QlVWrvx3QlDn+qTiHhPbEr7qKw3Crxyykz8Ifah+8Lo9K/9gEwtXGzoHClZSiUYekaic8mqMHPtrc7mqdI0rjsZpnBrUUvrIw50hEYUKu2/ays9s35V+QU2HZIb/SFD2jC6YonlrwbKKZHootfWDbBiFSJTjqd0Cd/EgHPdM92WhVdF1KAbt22oknLRkvhiMAh4/D8otVfQgS8RzEzcJzKwDV0L8w1qpm94qmilFwRi5gISatlKRJuBf7teJOBJtwUgvqmLd+npZeC/IEOcrvvYf4bCDINLidri1x/2faMlk6X7XuC7dB2gcJfVMAatOHDHqhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2hrUGKgmS/Q9E8EUxVmZjPJNB7T2apb9jIB0Q50kvh0=;
- b=cOWy8Xfi55MT5ELYNYS7MISN5Ei4c2WZ6wL99uTOsxH16l5iwkKjmy8HL6ARWuc2qXqBouMokqHaYGDgioFR0RVado28i8fIpm1fSHCLgwH6K5uaP+BoWAOcToi0t9TK280oTEzThcaBAbvo+oeI1SM/QNRPQQxpwoudLAgt/+DkaOyJtf7gbzeGprE+R1L2eRa3R/WrB2nAqv5okYHxjVGz7JcPE2D0XXLG0AujmLZxDLOMpVUYZByTenZse/OG/SDF6MBEVLI8c3so9DpvMUx4XPZF0zoQpFW1BO9Z0pyBUlsUhqG1J93ps+OK45jTgdmNVgSXymCCX75rYWPZTg==
+ bh=cirGLSftU/0njuweMW9oXT8GHEHivGPIyDpAapFxR8A=;
+ b=x/+tuXr5nLqj9bF7m3WkVdHg6OaJg1EjLM1jR17RQCj7gD0Qv9aKQLPVPRBmwz5e4PJoyV2Bl+g0ubHUbnHZ+mJU6PC+qLy4kuUe1i3x5x390zvV8dCOEAwO9bJcTiz3lq+gu8YUJEgPNDUbDSL0SBZEJSm2g3EsKvfjxTECWyKN/AnrwmU3gWDIx9GtQNVbDPX37NMEB2LIys8IrC/ck++bHSjIZ+HA1ZYJEeME0iNmONUdvVpnN+nJ7/1bZcOH0vgfhCfnT5G+dKfoVUMUtd7jwSBaEiOLaoiiLfl/fYpdDT0TtmreLoVeXAkCM+Bm/egBClwKLjev/iNy+3qpnQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2hrUGKgmS/Q9E8EUxVmZjPJNB7T2apb9jIB0Q50kvh0=;
- b=G7eaP1GOUVefOhXErd2DwXb3EtNI7q9SqLsnxkrpXIk5wI5NFtbSUG+q9JQ7mu1VYRRd8EDzRZivO064N2iERRNpyAPx/jk3OfPRswXwmnpOM60TnpIlAvpCFYoPX8EjyoP/DRvrHq7ou/PwoEIBPTS5SQnByDXsK35cvUB8M6E=
-Received: from CY8PR12MB8193.namprd12.prod.outlook.com (2603:10b6:930:71::22)
- by DS2PR12MB9798.namprd12.prod.outlook.com (2603:10b6:8:2b9::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.17; Mon, 9 Feb
- 2026 23:34:08 +0000
-Received: from CY8PR12MB8193.namprd12.prod.outlook.com
- ([fe80::43e3:7eec:f4e2:b0e7]) by CY8PR12MB8193.namprd12.prod.outlook.com
- ([fe80::43e3:7eec:f4e2:b0e7%6]) with mapi id 15.20.9587.017; Mon, 9 Feb 2026
- 23:34:08 +0000
-From: "Li, Roman" <Roman.Li@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Hung, Alex"
- <Alex.Hung@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Dan
- Carpenter <dan.carpenter@linaro.org>, "Wentland, Harry"
- <Harry.Wentland@amd.com>, Mario Limonciello <superm1@kernel.org>, "Chung,
- ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>
-Subject: RE: [PATCH] drm/amd/display: Fix out-of-bounds stream encoder index
-Thread-Topic: [PATCH] drm/amd/display: Fix out-of-bounds stream encoder index
-Thread-Index: AQHcl3wGx7ojTgB8yUKlb5bVa4B/67V7AioQ
-Date: Mon, 9 Feb 2026 23:34:08 +0000
-Message-ID: <CY8PR12MB8193570B0F1446F4E65B346E8965A@CY8PR12MB8193.namprd12.prod.outlook.com>
-References: <20260206151923.1479783-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260206151923.1479783-1-srinivasan.shanmugam@amd.com>
+ bh=cirGLSftU/0njuweMW9oXT8GHEHivGPIyDpAapFxR8A=;
+ b=3W0K3IDHc9nWUW05iLCDOTCUJXqzjlkId47NfOQMIbRntAVUVQcJD8FxggZqZ1d6VHIQPdp0a8QVcxbumiLLRfv9LApFFujuESobqfVirFAox5AmQ286FFzDMY7xL09kr12LstQHdQdREPkkHLxYNDyBUhdC+QsPdYvuBfZz8PQ=
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22)
+ by SJ5PPF1394451C7.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::98b) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Tue, 10 Feb
+ 2026 02:29:04 +0000
+Received: from PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::716d:8670:35b1:27a9]) by PH7PR12MB8796.namprd12.prod.outlook.com
+ ([fe80::716d:8670:35b1:27a9%6]) with mapi id 15.20.9587.017; Tue, 10 Feb 2026
+ 02:29:04 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Xie, Patrick" <Gangliang.Xie@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: return when ras table checksum is error
+Thread-Topic: [PATCH] drm/amdgpu: return when ras table checksum is error
+Thread-Index: AQHcmaeA5Ktyw5ToBkudNn7t1XISeLV7NrRQ
+Date: Tue, 10 Feb 2026 02:29:04 +0000
+Message-ID: <PH7PR12MB8796CC48A723479B767F63D6B062A@PH7PR12MB8796.namprd12.prod.outlook.com>
+References: <20260209093543.1341791-1-ganglxie@amd.com>
+In-Reply-To: <20260209093543.1341791-1-ganglxie@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-02-09T23:05:41.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-02-10T02:28:56.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB8193:EE_|DS2PR12MB9798:EE_
-x-ms-office365-filtering-correlation-id: 25f9f35e-7a71-4b90-8c44-08de6833b8cc
+x-ms-traffictypediagnostic: PH7PR12MB8796:EE_|SJ5PPF1394451C7:EE_
+x-ms-office365-filtering-correlation-id: 0ba46b56-1b85-4103-e396-08de684c28f2
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
  ARA:13230040|376014|1800799024|366016|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?whuP8jdR1NYRKEH8e0suYovMuvDxS3pjk/02mCBSFChybaBg8UGalct00F5F?=
- =?us-ascii?Q?Csgj6kk45kB43GMvhJTPAlXZ7igfTUPxu8Uu2CnMlHpzW8tCzDTjx/mXgtKr?=
- =?us-ascii?Q?pkXxfsaCHfbLSfIVWLghmsIH8uKEIvgpDEmMlrga/WryuIxzpfFsuSLLPy7x?=
- =?us-ascii?Q?nqwna3OYJDuGUTq6N3SUulkFkLDBLUuw1mr2mHjI5upxxeOXdJOhATVvwBE0?=
- =?us-ascii?Q?naZCdCIDTAowH6xkzXW/zde++Q5e2g7Tkw4d2aqd3lLKHzJCSwNuoCS6N729?=
- =?us-ascii?Q?frqeheDCKmOpmuvcthWEA61xeXtYmOvjF0iLe4KqekKDLpy5u/Uu+KQikt7U?=
- =?us-ascii?Q?LOypzVpaUqQTcbcKw1eR8FW3lFCDtC1h4o9JRH/OSe+qWg1blM/j0XTvj8l0?=
- =?us-ascii?Q?7EENGWLAZydlBgByjatklz3x+QKmE5MFlixLh35Yol1e+JH101EwBgbOKxoh?=
- =?us-ascii?Q?KtY7yRsOMtDX4JaO7XtojXRv0kSvSrUpdep3P+ge25EPTOaUUGsc8T4Au+1I?=
- =?us-ascii?Q?NwJEm4z5C558aJW53LATKNQkNEXGBWyyPexY5tBCOv/60ECmyS+q1TwuTUol?=
- =?us-ascii?Q?Rcpb/uJlH6Yxk5PhTm9+my6qc65Exv03ltajw425YeHN6Rc+XGAe7Q3jovyp?=
- =?us-ascii?Q?193erbOpv5EOYO3KCxwz3BYUmFi+8L4qDnIsB8d8ylhkRsdcNIaUDftlbE1x?=
- =?us-ascii?Q?bhWy4qGXD1EXgjuzPA8YfrdgihLWLRs0FSWzzSXZPw+3y5tmq6v56EBnmJrb?=
- =?us-ascii?Q?su5rqnJ23vINyQlz/9BVUYxYU0vqTiH0BIcNHGDzOk0NOT3u1jorfVQ96HE9?=
- =?us-ascii?Q?H6adeRh2Ir9hHXrsw+k5UxCDabpmovn8qDonouQ4qtAU/r133/ZwymdeWnB1?=
- =?us-ascii?Q?AhnWdecV8CEZWNRhUDhH8Zhdk/fd5Tdi7xv9TTxnBMQ/Yxuv80I9W9LiMHyV?=
- =?us-ascii?Q?DlIEqta+DGiIGdCTPc4jOt+gUMsI5jCkwWVCMvJX/ZaI5281hfSc07OBsMuV?=
- =?us-ascii?Q?b+BTnC8Ihu6QjqwjvZyx2dqQSSsKVZ09Rumpzb8LqoBToh69aKPLrtZ/BNzK?=
- =?us-ascii?Q?+pR6kwiDNouoVWw4fEmaZpQwLehOB/VMXU11WUkiLseHRzhWAImNhA+iS9fX?=
- =?us-ascii?Q?Bum3bE7boez9lcVeho2L2CAalQ3U8CoaqaENCmtT2WZS0WKEB8VmM0LsAxhZ?=
- =?us-ascii?Q?SfLyhFBIIRzZUesGynNbWO5ryuukAzgHVXsGYsMQhy/TBACu2DX+HidEtuFi?=
- =?us-ascii?Q?rsuVdpvhava1kCwdLM9DNQD/zdz3e6x7Qbhf6sW28oW2KFLgOCfF30nuBJJ2?=
- =?us-ascii?Q?h5Vo40sgfVHR1VYJmZhYYT5nd2B8PJStbJ6Qn86ITp2IutGCsfxxkKd8hSbC?=
- =?us-ascii?Q?TJCLA8EX45Myt5yWSCkzoGv876tVjKdCND2Kq7iao7aWnS75Ot1YgYKqG1Q4?=
- =?us-ascii?Q?doT7bY0yJwr5GKkh7DkCxm86GyE8fP1YL6MrXUHhHyicJa89neRftC3z25gs?=
- =?us-ascii?Q?94eYTfoBNL2Tfh7DUNNaQeqU61cD8dgA5tfk2mWDixn2DPJSQbxfzjT0RcOi?=
- =?us-ascii?Q?iKtx8KBtXlwE2Q1srtBFuojPWwpH+KJXJFwXJit/nkROZQ1vAJ8SXm7SfYtS?=
- =?us-ascii?Q?sXY/8ba81kvVsL0iXqC6FFM=3D?=
+x-microsoft-antispam-message-info: =?us-ascii?Q?P+wqjDaEdISytGQp/3Q2rDUCWkBS8S3OIRV/EYaKf13twaMUlwX+WfESku8M?=
+ =?us-ascii?Q?5zbAo6j3y8XEd9c/EBPwarZS2t8mO/WSK/R0GNNn6XzxieiqrfFlN55eaQSI?=
+ =?us-ascii?Q?NrtK9Twzru/ZHEA1bQQpbpWXiEy5ZX1/TtsW6DP7R5efZj8isUsf1I0NIjOa?=
+ =?us-ascii?Q?8xj9WxV85ooUq2/o2VTKapyiZ5eDDusjm2p05jWlTa/2E/oOdJy+dClApFyt?=
+ =?us-ascii?Q?cChuK4aZXbPhztCYeAZ7FI/nJ/hI8dnyxnsJtWUXh9mfdV8sPZzGwohot/7r?=
+ =?us-ascii?Q?JtLlON4SmaNQk/hB0o7PVoLiWHOlPe3NKUiaSDRrGMDpbPWQFHaLzxv1kxq4?=
+ =?us-ascii?Q?CeDyFFqq+X4P2efYcnzZeN4v4prhd9Cla7lpNB6nxdy4lrNNdPzh8NAPlZSq?=
+ =?us-ascii?Q?dre8cBkPiKxDih8hhDXZ6Mgf/a5d11rGwDVVWvpl5GJ769DfpR+pS45wfeyx?=
+ =?us-ascii?Q?BXlxZZ/p4aU5y2qOx+MY4PxsG/UYZ2mnCjfgXvx2967Fen0OWhVRR2bHsjUE?=
+ =?us-ascii?Q?kZQU+AHY+L3u67rFqztOU5KilQJNVjitA2YixEONOBFRC0cldlhPXSNljlhc?=
+ =?us-ascii?Q?rpp3RncMmKz3vmVLkvC9VJDYOhfmuiS1p7wirOe4XKqVRpBGun/HN0BmmWuP?=
+ =?us-ascii?Q?OWoTVvOl0AH9u9A0NuJ/rU9zDbLOefKaQAIod96q+5i7/Tv664RYCwLeD8AO?=
+ =?us-ascii?Q?hPPvKYEfw64PJPusdLmWWy7KuXi5ilLJSyUVaJ0HHE44S09x3oucLzH1Ly49?=
+ =?us-ascii?Q?rJpfndjrTSaWUQfY9DmbPKvNe4befLd4IPABkMyLzfOIM2Nh8dIjKgwd2nJB?=
+ =?us-ascii?Q?Z8VpvRRxwoaTDYYQK3acQHAAJwDKuGbd6AHrMPbFulf8UpcSJCYy8XUagNdx?=
+ =?us-ascii?Q?mfP/BCuxeBUmmha//9vEYjdneweTm2Vrirn4MpWQxfXhbT3Kp11arViIJpKy?=
+ =?us-ascii?Q?ybhc9+8+DtEVEIfJg97UcywCgBrgcW1W6n2AQEGb2aHf7T/gLlHYbYydoY7d?=
+ =?us-ascii?Q?PGrnKt9u9ZI2Yo/wapjhxW8T8us10LNxD3ronORAkuISH3KNagwUVP0qNdQM?=
+ =?us-ascii?Q?/8J5Mq97y1zjEUvfId+NFinWldxK0aivjlPEeUntThx+Zi6FIacapeS4FySp?=
+ =?us-ascii?Q?lANHCKvsmpsW8OtrFYJwnOKY+FuSvUxqw0jZOdWKHUnI734HFNm01ER1Qu49?=
+ =?us-ascii?Q?txwN0qdyuCuqlhxCNP08OWCtNH6IUABMrPzmNK4vOweFmdChmqovs0TlU6O4?=
+ =?us-ascii?Q?Mivb1EXZv96DRdJ6KoTewJnBSUUNG3WSBIkOzd7lHDHNnJMz9Aijj6e3n9Yh?=
+ =?us-ascii?Q?06TW0j804IPh4A//mOH0UBg4tJyRt3TaVVzuR99+wYfV4QU7MQIwmG75qeD4?=
+ =?us-ascii?Q?I/kl7niTcy2fvvivMWJz08FAjgC+8BXvAxGefBv2JMN7cUahNXOVNRgHxmfl?=
+ =?us-ascii?Q?ExKIG8FPpCbYuMuYjpvLsXgA5Bcd9IagtYUwDWLHrdF4PQeUlYlXytWjXJCl?=
+ =?us-ascii?Q?f4AhfPEL+fJS1EW1uAlACp4aEvZsz1jcnpNeZZWODFsJ5Z1nCJHx6iMGjVaB?=
+ =?us-ascii?Q?2mXWaNVEe5mXX9Ya7p3LXjZJUcHmIiaGH5XPLhbLiKvYnN0E8prHeXAKlpPn?=
+ =?us-ascii?Q?TF9CqiiTBCN7hV55mhGfHkE=3D?=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB8193.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB8796.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(7053199007); DIR:OUT;
  SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?7fZiY4CZlzt4OYBDEqcb6WPEg3WEo7Fjnzvx7Y1TZh6q8kjHw2Hm3f1c4h7w?=
- =?us-ascii?Q?EhZsI6XF7qKGU9ciXuoGznB4AH4f0UZKXYFAyXjve/G+Vp0vq+Yrnv+d7+Hc?=
- =?us-ascii?Q?ctZsOiyG/IVaxLlUZHpvKTTWFcS0KQho5kVnPPn9/ls/x7KQMae5682S7v0x?=
- =?us-ascii?Q?1dcTTeFQsEO7HYT/kCfGfMQVOQUQsO4ndLwCJHFqe8wmAWxlUUnSAcMj+JUr?=
- =?us-ascii?Q?l1wU1iJ3wvOBxhnhkO0fktTHvCyZW4zpweUm9ram46tdCdjacqrC1e5Y/Xs/?=
- =?us-ascii?Q?+FM+r7KfXX4h3h3eSF7p7S2KK3zo2FErPtHlwo+CmWzf5xndKd1fveQhEzum?=
- =?us-ascii?Q?zFmUmULpGfbeeGYsyKDR5V4YwOnkXYThgKwGgaZe2L2uDxLqXjxG+UorXA2H?=
- =?us-ascii?Q?XCebMcmJFxhAS7Ubspgb1dq7TxvJZ6VRCxu3ektN447ufqOpZ7G/7AHhN7Vm?=
- =?us-ascii?Q?mm2h+f41AWLMhcy3nHedzHCo/E4sAsSWlmp+z6fc7GcwlEomPLY0hhXMvjyU?=
- =?us-ascii?Q?MOtG/kYgwm0xrmHf09Gd+Q8mZwOoLGIAPeFw41qdINByoNuVUM0fzCjhihVL?=
- =?us-ascii?Q?VhC3KrVrERw0mX93qRunAsSo++YYgnNSDagq4R7n3sxSL7rC3yU61tElD9FI?=
- =?us-ascii?Q?172fn4mBoh8GdhRfmRn1gWKG1dExwPR44jV0cAx7HQ3djNcPqqwtswRI4gsn?=
- =?us-ascii?Q?JTtGeUT2IaWBZ8SPc2DNu9u98p9tbCpY5yA/2CetLjn6oBlbGhlh2qJXIz0m?=
- =?us-ascii?Q?+VUYzox5auDaX8SiW3Vus9p5pgZNHFAtEVKEOPjBBA+I412qdwO2+tOzyr8T?=
- =?us-ascii?Q?7tbZl2InBFs/VY2Mp8dgK3anbAc0jQ1LxcMyY1LV7o5QdDGFSvgtNyF+oTt9?=
- =?us-ascii?Q?EjZ8cNTpgdwTFb7Pl+OZ370DdcubYEp7KINNq8cDMU8itlnQK7t/1ynXTj4J?=
- =?us-ascii?Q?knaHYH8w/+znmP971rDxGaFPHlSLF9cMQCgS8Z/0ajV0naun16mVR8BIDdk7?=
- =?us-ascii?Q?yKohh4Wpr/7RNQUaCpGGAGVWteXX6b1kioz3vhj+27isLR/M2JQ0HYTd/BT4?=
- =?us-ascii?Q?jV2ipxvMR5IfIbLdqOyb16ew9ZyxA/FolT9HHfvFGKKggQst80gHbUC8zd/g?=
- =?us-ascii?Q?RmoOZCemJODGlYi26G+aiG0m00YL2yQGh88wcB/pR7iLtCB3DtWGOhBta+99?=
- =?us-ascii?Q?ENPeVwJX1ftte1goU8Q/Lzo15xVJ1EJarj+AASf2uMGG379ax4K8OJ5XqoyT?=
- =?us-ascii?Q?IbXKn+WIOEDo4Zf/9uVyzCyK/SwSrQw/naIwk66zhWhf5aE3P2YV+ro7NbMB?=
- =?us-ascii?Q?F3CQPowhehPDQBIK6HINq4RRfSuVzhtUzEa+YEUTVUHbMyj/4bA/lKoZESEA?=
- =?us-ascii?Q?XA183clgQda0WOwNK/HKJMMMJ774eyj7nbLkOz8fs9rslDNMQxSBXo1ZEJ/6?=
- =?us-ascii?Q?UNUZWjBbjI1sLabwJMPt2/fxMYbnQxFm4Rc8M1XpdK3qdX+mdqLfWz8ol7BU?=
- =?us-ascii?Q?AJb7kbQgk14C9mHMpC2MRFZ4wrvReB8CiM3akc5sArJa1af5d3kp6DAA0lqV?=
- =?us-ascii?Q?avd6qRhHl9uFXjkpnwwZVdLncqITYJCBIPGBVsnEim/PDHLPERLYtSl8+wNY?=
- =?us-ascii?Q?Co88dimSPNZVZHRSyHkTYmrHtQHvmzx6D0RNXp2hG6vpvWfaMIKvOnjADFKO?=
- =?us-ascii?Q?Xw3Q7+qZ4D0ss0WlsdO6i1rTN75xkQIGy6ozqZS9vTs2tr6W?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tv1/YPIwiF5ckrLc6npfUNye3TipnrBNLJNJMSr3yuk3ZEwgiHyqWEQkkcti?=
+ =?us-ascii?Q?zeT//Grq+rcaWsebLyOArSlBwHn0e+KmlYx2AzqLa+s0C/Gq8LPIJiRkiabj?=
+ =?us-ascii?Q?n3r6ejfCuXYz7z1sAnup91lFv05whDIjoYaFI4SQLEFV3g679NWcWuNU4wDU?=
+ =?us-ascii?Q?umhJtsMZV77wdsjRxS4VQJjjfH0kbfD7jAlzkWl6UmAgumsrFM/1tpjhQv4B?=
+ =?us-ascii?Q?zA4pkPRiA+GvWzzyEkQwvwovSEkFPsGdXefO6eJcWCs0CsERAfb355EQRLs0?=
+ =?us-ascii?Q?mQR+kIQ2F3h02HWgyf9s9IgcMtzX7Diu7XSqGgMD/JWhPtzSKfFOcn61tF58?=
+ =?us-ascii?Q?YkxxEu6dwyoVRkypTzJDhxMWBveqEHhQmBI7/mslRSq+RmA7EXoIVbe/R+vy?=
+ =?us-ascii?Q?00vZu2p16kgMx+6pzL2kjjROzPoLqi+lj7KYjfcf+C2d3/YS1lxvpI7Z5Pn3?=
+ =?us-ascii?Q?r8HMd0AqRHrfRPqsZmMFgzB7DfvGpAU09+A57lfAZOtvO6cgjy8KgaiSxzPl?=
+ =?us-ascii?Q?srNQGSPnvOD3sL5tI2SSOtwuzdiJF75VxBnb+AxI5vuw8mBhFQvGH7OANzOb?=
+ =?us-ascii?Q?o4Hzdn0EpKEbwsQmugu5FdXymni/gl3JDDBOMWUXPS4aCW9GrRhzlvbLgrPa?=
+ =?us-ascii?Q?refnrS9N/34VAFnWRaGdSRd1W0xx3/JU5phjySzRi1BzrYgXFMyDzYqqUiwL?=
+ =?us-ascii?Q?XGFtyQe6AEks0SZRR7HvjoVgqps+JBVuuHsNc6hTpM38vJtBOEwooEGGg/95?=
+ =?us-ascii?Q?5W9YuKeH5x9f++UUzbK93VSjAR7eyTsUu1c8oPjk8sue/QSNALD++0MCBdVN?=
+ =?us-ascii?Q?JqV5vI8KEgs7GgEqWxYn9rk+jEuIUjz7aWe3lNSxaaFh78qqsZZPp7VCMqXi?=
+ =?us-ascii?Q?dGb42cbn+tYwBMGxeHLaTXyawhhQdOe4th52ZUJzaXAd7ROOAInRnQ1jVpSK?=
+ =?us-ascii?Q?1pxX/MFRuk7cjuZPEdNMhwhn9EfbpWQnj7hJQfZ3J7EQn7Uc3lRgv90479qN?=
+ =?us-ascii?Q?cdTIAaYk9wBobnUjmXaOGPBOtqL33hztG233MFXlkGrTgV77DBgZjSlpl4ev?=
+ =?us-ascii?Q?bkgFVr0o11FpR9S5fqP6P4W80eoqkZAnksk6H/MaH37TP9Oe6KpMKkCR8Uu9?=
+ =?us-ascii?Q?cp1sEVd5RpykUSNuevOsNBySHFrtzoj7wsUaFuqwQfCx3Sl+aO9EUDc58zMa?=
+ =?us-ascii?Q?oG2HPyKV+Io91pNDf3n9aWOfbCsfSOLhywX9bcd9mvzCj6CtGtBiIjBvQ4t+?=
+ =?us-ascii?Q?t+bmX7l4kmuxemwVIf75WpoYCPUFQItximW5siC1C0a4973qN1O1DBDwjPfm?=
+ =?us-ascii?Q?nnZ9aEhQgsX82NhwVRN5n6J25jK6jqw6Tm8HYSNzyM/dazyXPXl/OLC+9BEa?=
+ =?us-ascii?Q?mqxPXw7P+Z2lavQbRu6zVw+vH8rEIc55U/ZeM9r9Fsw6QBojZcaSDJDTHUQW?=
+ =?us-ascii?Q?mdERVxHmEQm6TqZvlYa0o0iGr2yCxVR1M/jIpfLtIbOzY+5RcizhY8nCt5i0?=
+ =?us-ascii?Q?7ba9cY9linw9OX5UVCyz4A4JI8a0DTF4PdC9SArZcGCV2uRQVRcBGwCJAhq1?=
+ =?us-ascii?Q?LLQMHVGhQDelikv8vDpvyNVLkhPlsITdOX4AT4Vfg1UgcRT316yu6IQyx/ZX?=
+ =?us-ascii?Q?ZdJKQn4mr1ARC9twfjSTYqUATCrsbdCyVHMp8DEpON5l/LKR/bmgBO6h8wog?=
+ =?us-ascii?Q?1NnSWqUOeyaGBb6tk29lAlLfY1zeSRM76xiYuMTlowm8+vvj?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8193.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25f9f35e-7a71-4b90-8c44-08de6833b8cc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Feb 2026 23:34:08.5118 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB8796.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ba46b56-1b85-4103-e396-08de684c28f2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2026 02:29:04.6664 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rAj/CMCocCDqLpgQ7SJfctKggqSEU6Fphb3S3oWG1llR9KxSiR27dxfY6pC5gyji
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9798
+X-MS-Exchange-CrossTenant-userprincipalname: tmdoBpjVC/9GCE7gu7pWopmjA75nczfdr0g7Q4dYL/M698+n0GbuNg9ocE7snGFK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF1394451C7
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,253 +158,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 
 > -----Original Message-----
-> From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-> Sent: Friday, February 6, 2026 10:19 AM
-> To: Hung, Alex <Alex.Hung@amd.com>; Pillai, Aurabindo
-> <Aurabindo.Pillai@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN
-> <SRINIVASAN.SHANMUGAM@amd.com>; Dan Carpenter
-> <dan.carpenter@linaro.org>; Wentland, Harry <Harry.Wentland@amd.com>; Mar=
-io
-> Limonciello <superm1@kernel.org>; Chung, ChiaHsuan (Tom)
-> <ChiaHsuan.Chung@amd.com>; Li, Roman <Roman.Li@amd.com>
-> Subject: [PATCH] drm/amd/display: Fix out-of-bounds stream encoder index
+> From: Xie, Patrick <Gangliang.Xie@amd.com>
+> Sent: Monday, February 9, 2026 5:36 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>; Xie, Patrick <Gangliang.Xie@amd.com>
+> Subject: [PATCH] drm/amdgpu: return when ras table checksum is error
 >
-> eng_id can be negative and that stream_enc_regs[] can be indexed out of b=
-ounds.
+> end the function flow when ras table checksum is error
 >
-> eng_id is used directly as an index into stream_enc_regs[], which has onl=
-y 5
-> entries. When eng_id is 5 (ENGINE_ID_DIGF) or negative, this can access
-> memory past the end of the array.
->
-> Add a bounds check using ARRAY_SIZE() before using eng_id as an index.
-> The unsigned cast also rejects negative values.
->
-> This avoids out-of-bounds access.
->
-> Fixes the below smatch error:
-> dcn*_resource.c: stream_encoder_create() may index stream_enc_regs[eng_id=
-]
-> out of bounds (size 5).
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/resource/dcn351/dcn351_resource.=
-c
->     1246 static struct stream_encoder *dcn35_stream_encoder_create(
->     1247         enum engine_id eng_id,
->     1248         struct dc_context *ctx)
->     1249 {
->       ...
->
->     1255
->     1256         /* Mapping of VPG, AFMT, DME register blocks to DIO bloc=
-k instance
-> */
->     1257         if (eng_id <=3D ENGINE_ID_DIGF) {
->
-> ENGINE_ID_DIGF is 5.  should <=3D be <?
->
-> Unrelated but, ugh, why is Smatch saying that "eng_id" can be negative?
-> end_id is type signed long, but there are checks in the caller which prev=
-ent it from
-> being negative.
->
->     1258                 vpg_inst =3D eng_id;
->     1259                 afmt_inst =3D eng_id;
->     1260         } else
->     1261                 return NULL;
->     1262
->
->       ...
->
->     1281
->     1282         dcn35_dio_stream_encoder_construct(enc1, ctx, ctx->dc_bi=
-os,
->     1283                                         eng_id, vpg, afmt,
-> --> 1284                                         &stream_enc_regs[eng_id]=
-,
->                                                   ^^^^^^^^^^^^^^^^^^^^^^^=
- This stream_enc_regs[]
-> array has 5 elements so we are one element beyond the end of the array.
->
->       ...
->
->     1287         return &enc1->base;
->     1288 }
->
-> Fixes: 2728e9c7c842 ("drm/amd/display: add DC changes for DCN351")
-> Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Mario Limonciello <superm1@kernel.org>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: ChiaHsuan Chung <chiahsuan.chung@amd.com>
-> Cc: Roman Li <roman.li@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> Signed-off-by: Gangliang Xie <ganglxie@amd.com>
 > ---
->  .../drm/amd/display/dc/resource/dcn315/dcn315_resource.c  | 8 ++++----
-> .../drm/amd/display/dc/resource/dcn316/dcn316_resource.c  | 8 ++++----
->  .../drm/amd/display/dc/resource/dcn32/dcn32_resource.c    | 8 ++++----
->  .../drm/amd/display/dc/resource/dcn321/dcn321_resource.c  | 8 ++++----
->  .../drm/amd/display/dc/resource/dcn35/dcn35_resource.c    | 8 ++++----
->  .../drm/amd/display/dc/resource/dcn351/dcn351_resource.c  | 8 ++++----
->  6 files changed, 24 insertions(+), 24 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resour=
-ce.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-> index 4e962f522f1b..d8c1f1911c37 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn315/dcn315_resource.c
-> @@ -1230,12 +1230,12 @@ static struct stream_encoder
-> *dcn315_stream_encoder_create(
->       /*PHYB is wired off in HW, allow front end to remapping, otherwise =
-needs
-> more changes*/
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> index 2c5d7f87e593..6fba9d5b29ea 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+> @@ -1701,10 +1701,12 @@ int amdgpu_ras_eeprom_check(struct
+> amdgpu_ras_eeprom_control *control)
+>               }
 >
->       /* Mapping of VPG, AFMT, DME register blocks to DIO block instance =
-*/
-> -     if (eng_id <=3D ENGINE_ID_DIGF) {
-> -             vpg_inst =3D eng_id;
-> -             afmt_inst =3D eng_id;
-> -     } else
-> +     if ((unsigned int)eng_id >=3D ARRAY_SIZE(stream_enc_regs))
-
-Could you replace the unsigned cast with an explicit bounds check, i.e.
-if (eng_id < 0 || eng_id >=3D ARRAY_SIZE(stream_enc_regs)) return NULL;
-It would be clearer about what values are being rejected.
-
->               return NULL;
+>               res =3D __verify_ras_table_checksum(control);
+> -             if (res)
+> +             if (res) {
+>                       dev_err(adev->dev,
+>                               "RAS table incorrect checksum or error:%d\n=
+",
+>                               res);
+> +                     return -EINVAL;
+> +             }
 >
-> +     vpg_inst =3D eng_id;
-> +     afmt_inst =3D eng_id;
-> +
->       enc1 =3D kzalloc(sizeof(struct dcn10_stream_encoder), GFP_KERNEL);
->       vpg =3D dcn31_vpg_create(ctx, vpg_inst);
->       afmt =3D dcn31_afmt_create(ctx, afmt_inst); diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> index 5a95dd54cb42..732f7bfb9103 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn316/dcn316_resource.c
-> @@ -1223,12 +1223,12 @@ static struct stream_encoder
-> *dcn316_stream_encoder_create(
->       int afmt_inst;
->
->       /* Mapping of VPG, AFMT, DME register blocks to DIO block instance =
-*/
-> -     if (eng_id <=3D ENGINE_ID_DIGF) {
-> -             vpg_inst =3D eng_id;
-> -             afmt_inst =3D eng_id;
-> -     } else
-> +     if ((unsigned int)eng_id >=3D ARRAY_SIZE(stream_enc_regs))
->               return NULL;
->
-> +     vpg_inst =3D eng_id;
-> +     afmt_inst =3D eng_id;
-> +
->       enc1 =3D kzalloc(sizeof(struct dcn10_stream_encoder), GFP_KERNEL);
->       vpg =3D dcn31_vpg_create(ctx, vpg_inst);
->       afmt =3D dcn31_afmt_create(ctx, afmt_inst); diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> index b276fec3e479..9c4a31c0224b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
-> @@ -1211,12 +1211,12 @@ static struct stream_encoder
-> *dcn32_stream_encoder_create(
->       int afmt_inst;
->
->       /* Mapping of VPG, AFMT, DME register blocks to DIO block instance =
-*/
-> -     if (eng_id <=3D ENGINE_ID_DIGF) {
-> -             vpg_inst =3D eng_id;
-> -             afmt_inst =3D eng_id;
-> -     } else
-> +     if ((unsigned int)eng_id >=3D ARRAY_SIZE(stream_enc_regs))
->               return NULL;
->
-> +     vpg_inst =3D eng_id;
-> +     afmt_inst =3D eng_id;
-> +
->       enc1 =3D kzalloc(sizeof(struct dcn10_stream_encoder), GFP_KERNEL);
->       vpg =3D dcn32_vpg_create(ctx, vpg_inst);
->       afmt =3D dcn32_afmt_create(ctx, afmt_inst); diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> index 3466ca34c93f..3e760a9a8812 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn321/dcn321_resource.c
-> @@ -1192,12 +1192,12 @@ static struct stream_encoder
-> *dcn321_stream_encoder_create(
->       int afmt_inst;
->
->       /* Mapping of VPG, AFMT, DME register blocks to DIO block instance =
-*/
-> -     if (eng_id <=3D ENGINE_ID_DIGF) {
-> -             vpg_inst =3D eng_id;
-> -             afmt_inst =3D eng_id;
-> -     } else
-> +     if ((unsigned int)eng_id >=3D ARRAY_SIZE(stream_enc_regs))
->               return NULL;
->
-> +     vpg_inst =3D eng_id;
-> +     afmt_inst =3D eng_id;
-> +
->       enc1 =3D kzalloc(sizeof(struct dcn10_stream_encoder), GFP_KERNEL);
->       vpg =3D dcn321_vpg_create(ctx, vpg_inst);
->       afmt =3D dcn321_afmt_create(ctx, afmt_inst); diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> index 45454a097264..09ed0d5e50bc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn35/dcn35_resource.c
-> @@ -1274,12 +1274,12 @@ static struct stream_encoder
-> *dcn35_stream_encoder_create(
->       int afmt_inst;
->
->       /* Mapping of VPG, AFMT, DME register blocks to DIO block instance =
-*/
-> -     if (eng_id <=3D ENGINE_ID_DIGF) {
-> -             vpg_inst =3D eng_id;
-> -             afmt_inst =3D eng_id;
-> -     } else
-> +     if ((unsigned int)eng_id >=3D ARRAY_SIZE(stream_enc_regs))
->               return NULL;
->
-> +     vpg_inst =3D eng_id;
-> +     afmt_inst =3D eng_id;
-> +
->       enc1 =3D kzalloc(sizeof(struct dcn10_stream_encoder), GFP_KERNEL);
->       vpg =3D dcn31_vpg_create(ctx, vpg_inst);
->       afmt =3D dcn31_afmt_create(ctx, afmt_inst); diff --git
-> a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> index e3c587165807..39ec7d5e6803 100644
-> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn351/dcn351_resource.c
-> @@ -1254,12 +1254,12 @@ static struct stream_encoder
-> *dcn35_stream_encoder_create(
->       int afmt_inst;
->
->       /* Mapping of VPG, AFMT, DME register blocks to DIO block instance =
-*/
-> -     if (eng_id <=3D ENGINE_ID_DIGF) {
-> -             vpg_inst =3D eng_id;
-> -             afmt_inst =3D eng_id;
-> -     } else
-> +     if ((unsigned int)eng_id >=3D ARRAY_SIZE(stream_enc_regs))
->               return NULL;
->
-> +     vpg_inst =3D eng_id;
-> +     afmt_inst =3D eng_id;
-> +
->       enc1 =3D kzalloc(sizeof(struct dcn10_stream_encoder), GFP_KERNEL);
->       vpg =3D dcn31_vpg_create(ctx, vpg_inst);
->       afmt =3D dcn31_afmt_create(ctx, afmt_inst);
+>               /* Warn if we are at 90% of the threshold or above
+>                */
 > --
 > 2.34.1
 
