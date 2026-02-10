@@ -4,73 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF940EB26EA
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 17:24:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46FE5EB2701
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 19:17:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54B2310E22A;
-	Tue, 10 Feb 2026 17:24:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D06A210E079;
+	Tue, 10 Feb 2026 19:17:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ng5pmDJN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="W/8Auz55";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18C2310E22A;
- Tue, 10 Feb 2026 17:24:50 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4E13160141;
- Tue, 10 Feb 2026 17:24:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70CDBC19424;
- Tue, 10 Feb 2026 17:24:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770744289;
- bh=AybflH6vCiFt0c5IgI0vjl85jJ21G95boT+74nEtcOk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ng5pmDJNkBc2/oSRx4pOQZtMwfVdnyLJCAe+kx5tWyYItYLMZQhdYN1JE+R3ufDCh
- Sg3MPeIvUefZiasC4ZD9NZ69q61KWUj9jJc70gTsT44q7Q7e4ruOwJ9x+J4guA4lYn
- 72mmOFfmlEJ0RoX0lX6wRJTTZMjmjgf1RWmc5JylLOP3m0B0ER3uqzfdJ0LU6yYr89
- 1my9GNZBbWW+nOuxJ33JuBoa0ELUcTqbIRdBPIMnuLKZOhptweV4AQdHhfv2b3RHOk
- fjvj7G/GuPv4VuzsnknEAcq+Hdt4sUa+ypgV+QzMPvpmipP+okDxfu9/sBzc27vkWV
- hV0aZRNUVvh5A==
-Date: Tue, 10 Feb 2026 18:24:46 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- kernel@collabora.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org, Marius Vlad <marius.vlad@collabora.com>
-Subject: Re: [PATCH v7 03/22] drm: Add enum conversions between
- DRM_COLOR_FORMAT and HDMI_COLORSPACE
-Message-ID: <20260210-prophetic-elk-of-superiority-b0ab03@houat>
-References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
- <20260121-color-format-v7-3-ef790dae780c@collabora.com>
- <20260206-angelic-crimson-bug-aaab40@houat>
- <2028270.PYKUYFuaPT@workhorse>
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3F7510E04E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Feb 2026 19:17:28 +0000 (UTC)
+Received: by mail-dl1-f52.google.com with SMTP id
+ a92af1059eb24-1244bce2c17so407772c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Feb 2026 11:17:28 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770751048; cv=none;
+ d=google.com; s=arc-20240605;
+ b=e5iygVLYS5xO7meVAZARfG4yz2pEr6iKITkVee+UFHOTpPfm2dHX+fxJr1Lcb6kg+7
+ aQUrKygedFPbrdOy3XRWQ7d7fC3SqcHV97448dbGgi6NWPWwYMY2R1G5PAilIkP7pJY4
+ NV175rMv2bnh3IGEPSLT89rFcO+PCTe/doZROXyzrwpNaN4QqNlJND/Ht8P06LTR+YUv
+ Fla+cvlm9gUVVVHQ+hgAV4H85/Qjzhj82Ee1uH9YrnGqseFrTP18bQ/aVZ6iwtVQIe0Q
+ 0bZ5tZkjFhUlNY7LyFnyjvmMUhg6jUZIN5iRTkkEWSyju/+PurV2kv6HHAZiFEzfA8G5
+ vqtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=qkTmjGRqOjouXcxynJDTcMNXeIorXeHUOIvClnb8AXo=;
+ fh=CP46xrtiIUQhW3ksM8BPYEOz0KEUGa+uFIdbNdG8mVU=;
+ b=Y3vl+2HqJUeeUsfx9SJtcPHxmwxSMPHucbEmpnZNyUU0mUFi7c6pa9ZWGBhCAIeAyh
+ Xxaz5BbT3ptT25y0f/vb7QQNx0YjgQKfMBaG8XYOlVtSCoqBremkIjOvyLhXbTFeoENu
+ VjazsiwL9XZ+IiCYilWNSS1X+IwzEZkXn6Ev0fT8fzrItqCNLHWyTHO202eF/b2sGCu8
+ M7ZgjPI5zhZhCS7DuoqJcDet5U7k+ndXAxpnnzJ6FWiVSoGZUPZdVcKfYdYi4MtbiLv8
+ EfvA+QpmHm+ZbejW1rjb89aS25fNZI/L4hRaE8Dpx8u1BH2d7abCxFof02/R4pPI4mfZ
+ 9iMg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770751048; x=1771355848; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=qkTmjGRqOjouXcxynJDTcMNXeIorXeHUOIvClnb8AXo=;
+ b=W/8Auz55yKCaoz4FOl5ook2fi+A52GXtt/gTaZh4hnOC349C4hEG9ybNBSYMOrkTpK
+ cZS0xWx5L57dfOUDLFYm4eHb1W7AdooVPVpmsj18YTzaci5a+ocZ7rMfb83O77V6fWQT
+ 8F05YEARiLy3wCRZLqSzjhqFcmSWr28brYcHmm54Q5PIZEXtdugKoIMc2G/sQzeeEd0U
+ UwcS8sGEXSdyjLl6HaCOCSJtpbB/rDQ5jbNrLG26lCeFN/NVxWLPGuiB3MZQ1dkRysh2
+ EgnMPuBIQggpA16GirJ75UTCzIilbSYGBaLB6FVGyJnEhUJdWosVUYmPsoT0nUFJmDhT
+ NTZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770751048; x=1771355848;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=qkTmjGRqOjouXcxynJDTcMNXeIorXeHUOIvClnb8AXo=;
+ b=Taf2nIT2b49W77bXZrI8UumsSvlL8Trcr+A7XFIfwzeoNBG7NccaGwXxkER/8e8yVb
+ USK4BXFiPiPRjQFwjQd/McXyLkw2Hw4Hyc85KrROTpN8FWf0OxEjeIvNJf22NnL6Uko1
+ qB+auBOrmvQ6hpjWxldfup3ekREWTDiYLWFHZt3WzyH486IErB/adwFXSCnLwRpMK1Ta
+ VwEZVYAHUaCfCzeio/8wb5vVeL9zCn3Sl/NIyny2/4Uof2OAuWKUd2UGhZQM3mrfxy4Q
+ rxyjeNrhAJ0Gqs4sxsHjvO66LqHlpZAnM9HjdcnVm5atC9sX6G7q1uc9k5zKRT/3WiJV
+ 9mDA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXaELjf9/evSFNAPLxsuMrph659a0BWIY9Co4aaRV0LNe65Om0FiuNzKtrKbbmDoUjDy3QESKkM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzbq5rzj1kWM66iqwGpgnNWCjqqd/zbABvQ/E+dw9GgkW0Cj/e5
+ /zyGSpS2zGMt0WWr8gXC7t4ur4Iejz34FFvU79stePkw+LL/9W03BNMiV2N6zQ4J82wEMn7b0Vx
+ qAzRninb7STmL6XDjVlXU1FeUmKOSI3I=
+X-Gm-Gg: AZuq6aLGYxtEwQT3jEW1z7ylxmSU0XHodpD3WAV1kETEt9U2cz676K32jFROpNh7SXS
+ CqsmmduUQBwLE6ekEMb4FgYug40FMIXM7vzz9jGg/2HdNIhnkK+rHaWnVnmk9UTD+jU7oOXsrQX
+ 8IBTLfA+Y14lwbWeqRNRVaw9SUO2p59uaUUk9ex4GLihKwAKEZz4ShYxtszNYByf1dXdM92QDlJ
+ 7ho8Po71DhMzmT8poodYyPVT1oqaepGK3zzphFji1qpSJX4i6rKsGXRLKPyLrkBryTYjUtlx3DL
+ 0G+hnVMf
+X-Received: by 2002:a05:7022:a92:b0:11e:3e9:3e98 with SMTP id
+ a92af1059eb24-1272494f67dmr620116c88.7.1770751047940; Tue, 10 Feb 2026
+ 11:17:27 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="3gcl4wmc7phuuk27"
-Content-Disposition: inline
-In-Reply-To: <2028270.PYKUYFuaPT@workhorse>
+References: <20260203185626.55428-1-tomasz.pakula.oficjalny@gmail.com>
+ <20260203185626.55428-17-tomasz.pakula.oficjalny@gmail.com>
+ <f19af3c6-f865-4758-8c50-aba40ec1cf68@amd.com>
+ <79264ab170e48e1372b3b847d75f4635dcc57aa6.camel@gmail.com>
+ <CADnq5_PhcNPU=4s1P30OqbWY7qPD3dHmjEtoz4_Md41u=xaxFw@mail.gmail.com>
+ <1002281ca27d58a47a47fb655a88637e49776706.camel@gmail.com>
+In-Reply-To: <1002281ca27d58a47a47fb655a88637e49776706.camel@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 10 Feb 2026 14:17:15 -0500
+X-Gm-Features: AZwV_QgJB6v1nKXY2CnqRwBQYAE-sHXcGFH7dydSUxWcivhgCfgEW1B0ZDDvrLE
+Message-ID: <CADnq5_Nrni6_Y7BCn9GH-aF2A1iOjgbr4Ebouf76Qogtb_v3zQ@mail.gmail.com>
+Subject: Re: [PATCH v3 16/19] drm/amd/display: Add parameter to control ALLM
+ behavior
+To: =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, alexander.deucher@amd.com,
+ sunpeng.li@amd.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com, 
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, bernhard.berger@gmail.com, 
+ michel.daenzer@mailbox.org, daniel@fooishbar.org, admin@ptr1337.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,122 +114,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Feb 10, 2026 at 1:44=E2=80=AFPM Tomasz Paku=C5=82a
+<tomasz.pakula.oficjalny@gmail.com> wrote:
+>
+> On Fri, 2026-02-06 at 17:04 -0500, Alex Deucher wrote:
+> >
+> > Also, maybe a per connector kms property would be preferable.  Then
+> > you could change it per display.
+> >
+> > Alex
+>
+> I've dealt with all Harry's comments but wanted to make sure I
+> understand properly. Do you mean, that the two settings should be a
+> connector property like VRR_ENABLED? I understand the intent and I think
+> in some time, it would be best to have these exposed in compositor
+> settings but how would a user control this until then?
+>
+> Would it suffice to fire IOCTLs from a third-party tool like LACT where
+> support for this could be added in a short time?
+>
+> I made it a module property in the first place, because I thought such
+> settings are pretty set-and-forget and module properties are just easy
+> to set :)
+>
+> Still, I think the defaults are sane. If I have to spend some more time
+> to get the connector properties working, I could send the patches with
+> the module properties ripped out for now.
 
---3gcl4wmc7phuuk27
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v7 03/22] drm: Add enum conversions between
- DRM_COLOR_FORMAT and HDMI_COLORSPACE
-MIME-Version: 1.0
+My understanding is that these are something the compositor would like
+to manage.  I'd like to avoid adding module parameters if we can help
+it because they usually cause more trouble than they help due to
+unforeseen interactions with other features or "conventional wisdom"
+blindly followed which leads to a bad user experience.
 
-Hi,
-
-On Sat, Feb 07, 2026 at 08:55:16PM +0100, Nicolas Frattaroli wrote:
-> On Friday, 6 February 2026 15:08:46 Central European Standard Time Maxime=
- Ripard wrote:
-> > On Wed, Jan 21, 2026 at 03:45:10PM +0100, Nicolas Frattaroli wrote:
-> > > While the two enums have similar values, they're not identical, and
-> > > HDMI's enum is defined as per the HDMI standard.
-> > >=20
-> > > Add a simple conversion function from DRM to HDMI. Unexpected inputs
-> > > aren't handled in any clever way, DRM_COLOR_FORMAT_AUTO and any other
-> > > value that doesn't cleanly map to HDMI just gets returned as
-> > > HDMI_COLORSPACE_RGB.
-> > >=20
-> > > Add a second conversion function that gets a DRM_COLOR_FORMAT from an
-> > > HDMI_COLORSPACE as well. In this case, reserved HDMI values that can't
-> > > be converted will result in an -EINVAL return value.
-> > >=20
-> > > Co-developed-by: Marius Vlad <marius.vlad@collabora.com>
-> > > Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
-> > > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > > ---
-> > >  include/drm/drm_connector.h | 54 +++++++++++++++++++++++++++++++++++=
-++++++++++
-> > >  1 file changed, 54 insertions(+)
-> > >=20
-> > > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> > > index b5604dca728a..ffeb42f3b4a3 100644
-> > > --- a/include/drm/drm_connector.h
-> > > +++ b/include/drm/drm_connector.h
-> > > @@ -2612,6 +2612,60 @@ int drm_connector_attach_color_format_property=
-(struct drm_connector *connector);
-> > > =20
-> > >  const char *drm_get_color_format_name(enum drm_color_format color_fm=
-t);
-> > > =20
-> > > +/**
-> > > + * drm_color_format_to_hdmi_colorspace - convert DRM color format to=
- HDMI
-> > > + * @fmt: the &enum drm_color_format to convert
-> > > + *
-> > > + * Convert a given &enum drm_color_format to an equivalent
-> > > + * &enum hdmi_colorspace. For non-representable values and
-> > > + * %DRM_COLOR_FORMAT_AUTO, the value %HDMI_COLORSPACE_RGB is returne=
-d.
-> > > + *
-> > > + * Returns: the corresponding &enum hdmi_colorspace value
-> > > + */
-> > > +static inline enum hdmi_colorspace __pure
-> > > +drm_color_format_to_hdmi_colorspace(enum drm_color_format fmt)
-> > > +{
-> > > +	switch (fmt) {
-> > > +	default:
-> > > +	case DRM_COLOR_FORMAT_AUTO:
-> > > +	case DRM_COLOR_FORMAT_RGB444:
-> > > +		return HDMI_COLORSPACE_RGB;
-> >=20
-> > I don't think that's correct. What auto ends up as totally depends on
-> > the atomic state it comes with.
-> >=20
-> > At the very least, you should output a warning there, because that case
-> > should never happen.
->=20
-> Yeah, my hope was to keep this function __pure so that the compiler
-> has maximum freedom to do whatever. With a WARN, it's got side-effects
-> now, and we're no longer pure. With a status return value and an output
-> parameter, it's no longer pure either, because the output parameter is
-> not local memory.
->=20
-> The limiting factor here is that as I understand correctly, I can't
-> really extend the hdmi_colorspace enum, as it's basically 1:1 from
-> the standard. Doing this would be the ideal solution, because we'd
-> keep the function pure and without surprise conversions happening.
-
-I feel like this kind of loops back into the other two reviews I did:
-you paint yourself into a corner by having auto in the enum, and by
-passing it directly to that function.
-
-If, instead, you don't allow auto in the drm_color_format enum, and
-resolve auto in the hdmi_compute_config function instead of passing it
-directly, then we don't have to deal with it here.
-
-> Looking at hdmi_colorspace_get_name in drivers/video/hdmi.c, it returns
-> "Invalid" for any value not in the enum itself. Would it be allowable
-> to tack an HDMI_COLORSPACE_INVALID at the end of the enum with perhaps
-> a negative value, or is there a different approach you'd prefer?
-
-And again, if we only ever have to deal with RGB, YUV420, 444 or 422,
-then we always have valid values for HDMI_COLORSPACE.
-
-Plus, the hdmi_colorspace enum matches what the hdmi spec defines, so we
-can't really extend it, and most importantly, hdmi_colorspace_get_name()
-is only ever used for debugging / logging purposes, it's never in the
-"functional" path.
-
-Maxime
-
---3gcl4wmc7phuuk27
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaYtp3QAKCRAnX84Zoj2+
-dpXQAX9YW7+dFFercH/6Ci5pTtOduK0WFGtCE+czBS0MekL3hIR8Qk0XOe/wCQ0N
-lSl/1g0BfiBZVN1+rZWOQ89eweN9INWHQO3r4Uh4l9OvZzduZolxq+5q62yTdhYG
-QVZ10CHXHA==
-=jFA7
------END PGP SIGNATURE-----
-
---3gcl4wmc7phuuk27--
+Alex
