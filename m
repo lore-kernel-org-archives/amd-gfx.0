@@ -4,151 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 963D4EA8128
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 15:15:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEBF5EA8128
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 15:16:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0887A10E5B7;
-	Tue, 10 Feb 2026 15:15:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8361B10E5AF;
+	Tue, 10 Feb 2026 15:16:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YxqgmD/p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="efUpWhmr";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011062.outbound.protection.outlook.com [52.101.62.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E106D10E5B4
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Feb 2026 15:15:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OsDa+nEGYevO6wuJiYJijnzgPpNcHXtKXmWLJ6hB0lJxYRN6407Mzqn2ITENFtx9AkCmClFym1cNxLz+fDbZBSVIVhRILfWSvtevC/yWHfdk9GC69hgP9TzFKfEQUIOxFFjr117MrfbYmWlFZ+H583rY6hQsf6atIK8ZEJCkh3SzLdc9B3hg13Ayxelb+Ap8BMHpVq7zkP0903TY7+Es+rzAct06zcOqx30Gux3h6qgM2U2z+jRh9f79YhoASkE7NrGNCpX4QgLZM/LUMG1QVyadeD7xFgUNvVY9t/JqCEJrJTLlQsdGMRm9CkufW+wk79YLqzRGk+BLmE+8Rcc8sA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DLXe/I3Ewf0+gbF7oh4MPt4Rm3XJSJeUoMp5VZg/vy4=;
- b=lK76wYSdaDq7EB1eh+Qf+55Xqs2tkfLDdMNfilWUTLhQSnv/g5T9hCoqPfHfT3EY0pDj+qaUM5aPjUfinAqkkUTCTyJJefOerNI32gw66n946cT0hDkf74Puf2HT57km2uRhmCHHSDISNI1V6c8VAu5Qj9rrlbKBa6wgPMgMSfattj/ziomYbsZr84vAIjW4N8Ovq3qCeAfeR8YQ+Aj9W9g83axyineBqYPP+PZc6b6iGGMOpw3d5qaP5fWa1VqNEKx478WXlWtyFDxi8W/FKUrhq/+Om2fhocVv5TKk91Fg4A4k1LPR93nZxRpO4C/1lk5AATgSeniOqxxfFuV5wA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DLXe/I3Ewf0+gbF7oh4MPt4Rm3XJSJeUoMp5VZg/vy4=;
- b=YxqgmD/pD3kZfll/dmriBhgccgT6XHQGUbm5c+atDul9WAvim8KAmFs8xAKGjmAAswLFOCdeHu6ct1Z1272i/oDRzaXufiFIR96HyoeczND+F+/M/rL1ZsphIGLPIt0feDe+W/epcCQ1jMKOWBi8ZpW1SNDYZUkCP7f9V8lQamA=
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com (2603:10b6:8:9d::11) by
- PH0PR12MB999114.namprd12.prod.outlook.com (2603:10b6:510:390::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Tue, 10 Feb
- 2026 15:15:34 +0000
-Received: from DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::6f14:4646:fb11:829]) by DS7PR12MB6071.namprd12.prod.outlook.com
- ([fe80::6f14:4646:fb11:829%3]) with mapi id 15.20.9587.017; Tue, 10 Feb 2026
- 15:15:34 +0000
-From: "Kamal, Asad" <Asad.Kamal@amd.com>
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Skvortsov, Victor" <Victor.Skvortsov@amd.com>,
- "Aitken, Will" <Will.Aitken@amd.com>, "Louis, Simon" <Simon.Louis@amd.com>,
- "Louis, Simon" <Simon.Louis@amd.com>, "Louis, Simon" <Simon.Louis@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu: Add xgmi link status for VFs
-Thread-Topic: [PATCH 2/2] drm/amdgpu: Add xgmi link status for VFs
-Thread-Index: AQHcl3BfQqTnbCgBuUCEYWgMb1tZWLV8EUxg
-Date: Tue, 10 Feb 2026 15:15:34 +0000
-Message-ID: <DS7PR12MB60713745E67C07183B094FB18E62A@DS7PR12MB6071.namprd12.prod.outlook.com>
-References: <20260206135539.3843805-1-lijo.lazar@amd.com>
- <20260206135539.3843805-2-lijo.lazar@amd.com>
-In-Reply-To: <20260206135539.3843805-2-lijo.lazar@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-02-10T15:15:27.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6071:EE_|PH0PR12MB999114:EE_
-x-ms-office365-filtering-correlation-id: 6fe6980c-9ad5-4e93-3ad6-08de68b73cce
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?Pp1giIIDwgvSsFvSEVRihMotlz1+fJukz6MzV0VqzRwOU3Av7CPu9cUityDN?=
- =?us-ascii?Q?wvpFZ2rzudTrRJs96fwzgUKLhQjwYbZEfl/76QDemT0Ukof51RJNh2FqJjBG?=
- =?us-ascii?Q?H92Vf2f8byah8IXtJLAAUko+GcQCkJ4ih1QAtZGwSx5cngWAgmhBjnmkL/KF?=
- =?us-ascii?Q?5aubemWFguNzfm62OMaMp0CfMN1w5bzEHmgUODpCpQQAile+9UIkgwCxwg5x?=
- =?us-ascii?Q?45mrcsaR9d2Z1gygVWk006SymSIYh0qjkjqZVifV49HagwfuSFOAwD9Z85cf?=
- =?us-ascii?Q?Z43TRJItXrIuwd8/WH3g4zQUimND+Np/GGKM9Y8tUON2FvIF5ln5TRSRV9Mx?=
- =?us-ascii?Q?9by4rKToNqXGCLLQnSWecrvmRkaBKgHNXx7XP1qPvNXmp1pgfvSqk5hc2VjK?=
- =?us-ascii?Q?og/DAzMZnsth7CR3flM/jkME4rKbMjtcTHii0On6E4HNYHtX+oE4FA9+TOjz?=
- =?us-ascii?Q?CysMM+KwFyu7WZbpuaGbnIMJavPlX+T1RN0gTafKDJfo0xMB17eN4ak1aks4?=
- =?us-ascii?Q?dpT1AFXjTiUDQvoQGo5b0OhVKTlvzlsRN50SvXtcAK8ZlJ39T2MgnPqMetPa?=
- =?us-ascii?Q?mNhNS9MbdL+gqshcszqY+Iq0O6TAmm1RNt2weh2rWuR03tIyGfiuRpx0dvPJ?=
- =?us-ascii?Q?qsS9unpAEgg02093iUTXJw358turHdeUnl9LeWxB07pNrBSe3KKqijvXJB/k?=
- =?us-ascii?Q?YV7KNFAA17D9K+eJUPB04K3psHkAioPZ3cYoz/ZQnOX5c6DgWXjaPf88tH4S?=
- =?us-ascii?Q?DyoMBEXIhbfMkS3QeTnLe4TleudNNP6qS1H7yJfEY/5N41m8Q15lVRZnG9n5?=
- =?us-ascii?Q?T0GnkqsUL0p5NeFG+VZTdQxP2oFpgz6p6u8aPCORYn8FG/NXTFzOfAglqkUJ?=
- =?us-ascii?Q?OzZFz+qVX/BX5hC2/+0KeQzThGTGPszDPCSJ8HyMrJFmNbphYEk8LyKPfnyk?=
- =?us-ascii?Q?4yYT2zXYu522V80FvNc84H/lDN9daZpccLxP5hYj8PjSPwYIykIPxdNHfnQJ?=
- =?us-ascii?Q?Mv+Wja4e7XbdRF2q69RV7WOo9mXkd3bFpGmt117805DuxGXux49I/2wLaYog?=
- =?us-ascii?Q?q+jIA4Lmb7MwZ9fR+bU3jeHbJyINJYl2+gQyMJwg63ekMICR86Cd2uTDU9QM?=
- =?us-ascii?Q?3Sye7VcKo3f/4kyFrjeJ/urDtz8nPizeHB7sknsk7Wti54y3bix/pzhfwfMC?=
- =?us-ascii?Q?CLf0E34OgcT2dR6qnM/mgpO2hswJMrQXywxNUNrWrXDJMql2Xsd5mffzwa3S?=
- =?us-ascii?Q?eUuDM4yB/7XWToT75cuGzd31jfYtFDKKHwNWl2vKGZN3dybAJq+HxAjt8Fkf?=
- =?us-ascii?Q?WhD1/RUw/stnwYZEkcvvtr8+lqF6h975gzgI4bvpW4oG7YP/0uUy5zXvMj99?=
- =?us-ascii?Q?AdRuBsy1Lg0OtKQ3sc7HET4cL03gvdXQwPwfOsKaYWzJQjGUsedvBrZ8lB3M?=
- =?us-ascii?Q?96mOUwCEH376p1PG/o33M/3TLpZAUm57At9hHHiMCo76NxA8DtljvD1AnEFe?=
- =?us-ascii?Q?oiVHFDasuMVwRfNXDUMUNTFyAeHg4kcscPeLrcsWv48cZNoS0Bioljc0Tdwo?=
- =?us-ascii?Q?QUATsO68CdZqhR4UtxWHuzieXv7rQm5N1seESy1B2gd9WIbrueI3NV3BFW3i?=
- =?us-ascii?Q?1PYpjX/ogHmJT/3VatL8DWo=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6071.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YSt90YUbjOaavbh0koSEr74XLhy1H2XbOaAwo0lqLmXN1nxXyEdfK2KRSU5I?=
- =?us-ascii?Q?DR85znfqwZ/B6/lBacLhtr4cVluGfYJ17X8ejFjpNt5mL/gz6HKvUYL+J3jB?=
- =?us-ascii?Q?ar4Rvt2FCz+SKp0z0ZpmgR8z54L3IzFrjiKqN1kVFXaApR8A6np3nKK9ZLKd?=
- =?us-ascii?Q?jWkyvC3AIG0PQvcA5hodFLBlxcReZjG2LCZl6CGCiyjskNRrCVUqDP6CqLPT?=
- =?us-ascii?Q?NIs/Ln+EejzMI4bNYZ+xvnUa9CfZ8wiyHng16sqGBLEsFhGPB46uxxv9vCNK?=
- =?us-ascii?Q?yC/s729K0tsOZRYQJ+fCbGQIr6eoJyAZywNmWNSlmswKA6EgUBxvNAA1UJRf?=
- =?us-ascii?Q?gP1Z/bJ/mM1P/b7S+18UaiEFSXIaIKOFdnURehD/+/fak3Rn57XHHAwo0zoM?=
- =?us-ascii?Q?ri7J6nv/+7FqG3GT1v+Os85Se6NUHfuN1cJoLrrb6YN4XDUAUcn4h/qW6/J0?=
- =?us-ascii?Q?H5jaQGyE8vYYZaxggF02mLOcbBxZ8u7xPXwU/q+WTati44nSD2PVzfhaqrTt?=
- =?us-ascii?Q?7aJzyqz808Co7CegJoikje9QKZor4b4DxJDLslWBlbNLqTv96i8s/m8i6rea?=
- =?us-ascii?Q?zgch+eCs7JuGQF0/br4f5vif0sdbXitqsTiz5R2jnRH85NJ2N1qYtUwJAjRt?=
- =?us-ascii?Q?ozkBJ3qQDRwLiZnz9gGJDGnhmChO/iM12WrtP7pJM50+SZSFjmidPpypWgJm?=
- =?us-ascii?Q?GNCscFLCW/gSl+w3n2n+BjYUFkoZ7vLmZ48c+3wHaFpEF7tru5/e4R35FwN2?=
- =?us-ascii?Q?Lou5eq2Ukob1rC0RYK0nxpnAJMD0IMyegKFw+f1GFzslt5z6l2rcZXMyYIT5?=
- =?us-ascii?Q?9+LpvN97Q6llqmKDVP9FgEMEtSsT1x8NO5IrLq9x8MMxN/ASEb4V1yPgszet?=
- =?us-ascii?Q?KeLKDYuNS3u5TMcs1PhUniSBfyTBCC6Mzn+n0S1hwGfFS0u/5s9/3qPYTeV8?=
- =?us-ascii?Q?ee14uYMNQOcyNph9aQOEeQo6PVW83gCvj+3OqyRpbpmHND+VLq9zedlZo3oi?=
- =?us-ascii?Q?3g6s9hA5MaFL5WZspwqz9+4eMHsrzATdj3LFsDRPJXCB8AMW4DcUyFd047J9?=
- =?us-ascii?Q?x+2zclOhZngxTD+Bqosf7xftQjdHjIHlZ/ptCKK30gcRYSDWQ0eblQxxahV2?=
- =?us-ascii?Q?aYDEiH2mIbub1QXJk0FcRel9NK+cdNUQCcep1GlTFfiKSRb9TVqH6cnRDxSf?=
- =?us-ascii?Q?K9agSESFTcpRcyuVbsNwfO7Srtt9rLsEuVK5J2rQFSbgcrkiYuLK8UYiHu5R?=
- =?us-ascii?Q?c/F2CVZAewZt6hhTRMVWM/civ/M8c+9COOuBgjg+e0GFqnumlzVahI78yUiu?=
- =?us-ascii?Q?FdGwTSkVKG2ZuiSIsagVhB9dW8bym5JF6tgeLZ9PdlwMk7Pz9RhXvbp7zlZS?=
- =?us-ascii?Q?XonIsMPXWd1AYauvleAFnI71SbfBnLIanJ2sdtMbdA0BDBhvl8s9lhzPtTln?=
- =?us-ascii?Q?RKRRILC2vuUNeygGpeMlvHfKi3Qsz3x4Nt2fdtZs+rAs42gGP9Fmb6q6UF7J?=
- =?us-ascii?Q?VDA1iKG/7ieBWiW6RPEZw+zu54e9Co0pRs7eoNbpOCTjuBZ6rmfAf+ctQD5q?=
- =?us-ascii?Q?8Mzm9pUDqz0jZZY7A1PjAVCyBJuAUSZlEmGvBQmx0fIASkeZPQh2PXEGrSSm?=
- =?us-ascii?Q?YHFZEi5Py8V8pGlubFo/VijPtk2ZqmXH3JJIPvky1kos3kbAM8qoCKptP46Q?=
- =?us-ascii?Q?v8LRMKRtKPOxnn1kG7kkByuUZe6Iyc3WI7fFvTFQCwSaTk+u?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0799D10E5AF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Feb 2026 15:16:31 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-2b867142b07so181657eec.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Feb 2026 07:16:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770736590; cv=none;
+ d=google.com; s=arc-20240605;
+ b=aSF1y7SwfPJQg0Vwqofp6XX+8FUz6hIFPL1jdna+hGzV00JtnwyC+fDVuabyFKNLnt
+ w/tLEutg9Ogg3uc8ckTfNbW86E5PG5J+nFtrpvlK7rv1OvY3H54NsQSFodo8jXW3Qr8d
+ CkdjjK2ljCk+exzpqWsLVvJIeGjgRW2giR5RjCPa0/jJSbnX0DNE6gJ/JDkGtqzoIvNE
+ OLUJRSxJC4eQtwkYoV6y15ztgtGPPjIy36OejiYWuoFsQWJaTCYHDak1IpMGOZfTFL4I
+ E7aPPNyzCx/aouWtrkpjks2surZlr6psY6Pd8GcNXEBLf1ku4bUgR/OYkdKwRvUh96uw
+ umEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Ab6xZ3HL0nBQbG5L8JdmPVjm5AkPtkl0W+OBgSKhjW4=;
+ fh=hxQk/uZpkXs5H9xvSBgSM9HoyHLdZh6wDCcQc548gy4=;
+ b=GJT8rsNwBREUCa5Th8yd5f5bzIdYEKcE7gJQSiX+VpLkSl9sczJ6easa0bc7OT4GEB
+ 3eO7sKbyb1zg2aYRPQx5stIoa4hchLitzku9S4MmuGOyF0gIUCEBDlhRa4m0deyz0zMU
+ RU9bVJ0sfKxci45pizX+dg/MLwcsCfzbvuK0N70lZEIsB0PTqwVKliY/YqRM86AimD4p
+ l3/bKxUFzwbTHTXdcxuCuEvR04Hmvg3T7Z9f2Smwnk/SioDxWn2JKsHV9MQDo8Ta40iq
+ JrA64Q2OyYpKz8/XBMkef9lP9mNxRgBwvajY3abH4uNqGRXPkDxmLt6HmboxPhzlfsgZ
+ zDqg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770736590; x=1771341390; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Ab6xZ3HL0nBQbG5L8JdmPVjm5AkPtkl0W+OBgSKhjW4=;
+ b=efUpWhmrktlx4EI27BdJN5/61KrSUNgznR8k1njE6yRKNQBBjElBwO4/TfQzxbZeDe
+ gAYxBfvfn6vmQPKr8eV9Vis3Yz3y5nv/wLY2JB0Q1wekV4mIlewdFYLStJQ4PdtVOESx
+ 8qiTyOH9mw/Xpi5sa1RnbmBcnVxHnckPWQ6PN6UtS7FR6bO5xNGAS/MIdc+YMxZvoKXa
+ /9Zz3tCTsoDrpib9+b3Q4Y9rhyD1ARuOS+6mEUe9MadDQQWO6IetGlpg6OJN7nC/6A51
+ TQ3AKABsJxF3AWp2QEOWFBmwc37Yc3VS3Bvf3NbkaoI2Giue6XZ64RVRKt/EHToFdhU+
+ eaqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770736590; x=1771341390;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=Ab6xZ3HL0nBQbG5L8JdmPVjm5AkPtkl0W+OBgSKhjW4=;
+ b=SRwe9Uu2HTg0AKsiOEhVzIru7bbytIHr3Ste+7k6u6Qpz4tJw6fT/6Mzbp1RiW7R2E
+ 8PwRW0EcLc3m0yPFKKlVfvrZ6JdASlyAnW02iseBaGy5Dn0+5KmKDTPeI90s3UHdskSi
+ 5ldZnfleHK0rvwMSq6YaUdiGV2EYgls1pyfuptBwwZh8tXIHOlS4DViyj5yODxr/oG50
+ fK5cp1TwntWktMWz+gZ40shcaYEcVqY2/H0Rn0IfCwEI3vED55GXwqGOIH4wDQQJ4ooS
+ BZDhd3m1VIFeCz+4gLUQGQ9j5B6qYZv7oKKOzIIbvn1a+PL0lI8i4EMkTKat5SvqAuTq
+ k4DQ==
+X-Gm-Message-State: AOJu0YwX9asCAEoULWdwjWoyFX0ZDx/bsmogIGA0v3DF+jpdV2raAvxO
+ JQhtKVlnaA2yClSK5qLg9azA3zHbkkMNe1oy2qqMDYBKlCHYx7iXFxsv8JfOl2oi7rc9DzHGoQn
+ hHgw2CjNpr92xcLC6mOLkNteu28qIS/w=
+X-Gm-Gg: AZuq6aIPbdGTfGg8JcrbKThNt1kFGnmrRJxGPn5arnDm46wBdgQ9+rMZO1nHDRudtrX
+ 4sxX2FYMhkt6ULDaZGB+1JGaZlTwkFFgfBVr1DMIQ/8s85VKlBVD+jgxPqIvhuB0YRZQ3pPdmHx
+ dNUzx1POXqO+qN7mVO3E84ZXPzhD+2Lkv7F/XnW5FjSSOzDe+wxMfWeT0xPYoTB5+FdgP8Kml6X
+ VjEWWcxgB9oVi0DlH77CRCazhIVCyRsA7V2XM/9XPgPzgcvx+H7OoW4dsc3qrSJxQX5SOW/NO8g
+ +GqxCTVTUdGvgSM2gcs=
+X-Received: by 2002:a05:7022:91e:b0:127:1186:8139 with SMTP id
+ a92af1059eb24-127249571fbmr454361c88.7.1770736590023; Tue, 10 Feb 2026
+ 07:16:30 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6071.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fe6980c-9ad5-4e93-3ad6-08de68b73cce
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2026 15:15:34.1546 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Ol5deDVzMqJp38fQvdyTd69TX2d60G4p6+wlxQIEBBPU2rJv78DPWFKpXi4u66qD1S3mCjc9rRoBLzVrmHViUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999114
+References: <20260210144531.817154-1-siwei.he@amd.com>
+In-Reply-To: <20260210144531.817154-1-siwei.he@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 10 Feb 2026 10:16:17 -0500
+X-Gm-Features: AZwV_QhosvlnfLOryhCkBYLWVwx5Pze6EsRzp3U-EkADVKi7-I0y_9dRq6ss1Mg
+Message-ID: <CADnq5_OQ4pGSP8zdr5pE=gkFz2NiteTMu41OpuLt2NuDJb7NyA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Fix APU to use GTT, not VRAM for MQD
+To: Siwei He <siwei.he@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, felix.kuehling@amd.com, 
+ harish.kasiviswanathan@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,65 +102,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+On Tue, Feb 10, 2026 at 10:02=E2=80=AFAM Siwei He <siwei.he@amd.com> wrote:
+>
+> Fixes: d4a814f400d4 ("drm/amdkfd: Move gfx9.4.3 and gfx 9.5 MQD to HBM")
 
-Reviewed-by: Asad Kamal <asad.kamal@amd.com>
+Move the fixes below the patch description.  With that fixed:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Thanks & Regards
-Asad
-
------Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
-Sent: Friday, February 6, 2026 7:26 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
-eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>; Skvortsov, Victor <Victo=
-r.Skvortsov@amd.com>; Aitken, Will <Will.Aitken@amd.com>; Louis, Simon <Sim=
-on.Louis@amd.com>; Louis, Simon <Simon.Louis@amd.com>; Louis, Simon <Simon.=
-Louis@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Add xgmi link status for VFs
-
-From: Simon Louis <silouis@amd.com>
-
-Xgmi link status is unavailable in guest. This patch returns AMDGPU_XGMI_LI=
-NK_NA for VFs.
-
-Signed-off-by: Simon Louis <simon.louis@amd.com>
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c       | 3 +++
- drivers/gpu/drm/amd/include/kgd_pp_interface.h | 2 ++
- 2 files changed, 5 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.c
-index 0ca6fa40a87c..08731d4be177 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -347,6 +347,9 @@ int amdgpu_get_xgmi_link_status(struct amdgpu_device *a=
-dev, int global_link_num)  {
-        u32 xgmi_state_reg_val;
-
-+       if (amdgpu_sriov_vf(adev))
-+               return AMDGPU_XGMI_LINK_NA;
-+
-        if (adev->gmc.xgmi.num_physical_nodes <=3D 1)
-                return -EINVAL;
-
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
-rm/amd/include/kgd_pp_interface.h
-index 6683ffd6aa68..bdf8e6ff556c 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -1832,6 +1832,8 @@ struct amdgpu_partition_metrics_v1_1 {  enum amdgpu_x=
-gmi_link_status {
-        AMDGPU_XGMI_LINK_INACTIVE =3D 0,
-        AMDGPU_XGMI_LINK_ACTIVE =3D 1,
-+       /* Status not available */
-+       AMDGPU_XGMI_LINK_NA =3D 2,
- };
-
- #endif
---
-2.49.0
-
+> Add a check in mqd_on_vram. If the device prefers GTT, it returns false
+>
+> Signed-off-by: Siwei He <siwei.he@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> index d4659a438be5..a987e732e31a 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> @@ -111,6 +111,9 @@ static void set_priority(struct v9_mqd *m, struct que=
+ue_properties *q)
+>
+>  static bool mqd_on_vram(struct amdgpu_device *adev)
+>  {
+> +       if (adev->apu_prefer_gtt)
+> +               return false;
+> +
+>         switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+>         case IP_VERSION(9, 4, 3):
+>         case IP_VERSION(9, 5, 0):
+> --
+> 2.43.0
+>
