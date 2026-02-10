@@ -4,62 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F05AAE94619
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 10:53:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7970BEA8102
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 11:55:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07F4A10E392;
-	Tue, 10 Feb 2026 10:53:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9139310E56A;
+	Tue, 10 Feb 2026 11:55:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="IxsQ2HhL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sxy6aCvE";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00DE310E1A8;
- Tue, 10 Feb 2026 10:53:01 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4f9JLf40JYz9vBm;
- Tue, 10 Feb 2026 11:52:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1770720778;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=tZJZX1xptoicBpamW57A4g313Qr/N87SByQGrF6aG/s=;
- b=IxsQ2HhLqIAuixDnoXfVqnm3VPaiuYk1JUXBAaaSxm2etsFgILjBdCTKhZ3mhfDjFFiDTP
- fco6u2z9Js6XPm6h+4dYCoVTyafGpGKiqCnY4iloRqMCWmGbLBlBIAH8gNzxeM2zX/3EU0
- 5Hzt8mdZlMIyhn3oyEM+3hqC8LzmSr2MUyJ2hy3Ix2PRBAqZ+nAzT1g1Q8/QjT6HlHQx+S
- g7pNHmDtAMtSVBvJq9z97VSFgJV2GJjrs61bGIZD/cf71lnH5/kpRT4POetv+tB1/kj0VT
- HKda4pYuL58hHTjZt0ZGyWrxf3wd70QA+jq88Bl/1gqHaJWXAXgWk0nnaLkr3A==
-Message-ID: <cf92dc7a-032c-47b5-9db2-7d8a76a31ac1@mailbox.org>
-Date: Tue, 10 Feb 2026 11:52:48 +0100
-MIME-Version: 1.0
-Subject: Re: [PATCH V13 49/51] drm/amd/display: Disable CRTC degamma when
- color pipeline is enabled
-To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
- leo.liu@amd.com, ville.syrjala@linux.intel.com,
- pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
- jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
- agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
- xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
- uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
- quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
- sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
- louis.chauvet@bootlin.com, mcanal@igalia.com, nfraprado@collabora.com,
- arthurgrillo@riseup.net
-References: <20251115000237.3561250-1-alex.hung@amd.com>
- <20251115000237.3561250-50-alex.hung@amd.com>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <20251115000237.3561250-50-alex.hung@amd.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AB6510E562;
+ Tue, 10 Feb 2026 11:55:13 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id E131144390;
+ Tue, 10 Feb 2026 11:55:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED62EC116C6;
+ Tue, 10 Feb 2026 11:55:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1770724512;
+ bh=YHEMObMfKBsNNt+IT3C08BQUnMajYKrlxt36jnYTOM0=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
+ b=Sxy6aCvEEWcX6KtHkVp86DsMNpHLyi8vxUEzWWv5iEbbJQMUCCLpdLhZIydCwildX
+ 7qnplmrrcs0wFBVPQu9lGnb2/Ignd1wgEPIn4qAhM5g1oLSrOwhNxBf6aT6TTU7x+z
+ Tp/js3mNnpH1gxO0pS9Gm3YneMYNJXqA8KJzwMGuI4RHhxxB114BVx/RhSy5L84rZl
+ BK3A7CP6H9z6jzPCn1MZQg50WLDBKQVinrDnkSXXc+gv93wJgo5zb82EnPNv/5q47m
+ rILSI5X2da1963xNdLQeBl2Y4ZW6PANjF0ScCGGfAO9krr86Xnw7BBK6kyiT3pHJFs
+ fKSLbeiscHScg==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: aeea10228f702849291
-X-MBO-RS-META: ou4cgaznj5txazpd5o673fwedfqjfhot
+Date: Tue, 10 Feb 2026 12:55:01 +0100
+Message-Id: <DGB9G697GSWO.3VBFGU5MKFPMR@kernel.org>
+Subject: Re: [PATCH -next v8 2/3] rust: gpu: Add GPU buddy allocator bindings
+Cc: <linux-kernel@vger.kernel.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Helge Deller" <deller@gmx.de>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor" <alex.gaynor@gmail.com>,
+ "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
+ Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer"
+ <epeer@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Andrea
+ Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp Stanner"
+ <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, <joel@joelfernandes.org>,
+ <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+ <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260209214246.2783990-1-joelagnelf@nvidia.com>
+ <20260209214246.2783990-3-joelagnelf@nvidia.com>
+In-Reply-To: <20260209214246.2783990-3-joelagnelf@nvidia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,32 +83,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 11/15/25 01:02, Alex Hung wrote:
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> index 38f9ea313dcb..697e232acebf 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -736,7 +736,7 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
->  {
->  	struct amdgpu_crtc *acrtc = NULL;
->  	struct drm_plane *cursor_plane;
-> -	bool is_dcn;
-> +	bool has_degamma;
->  	int res = -ENOMEM;
->  
->  	cursor_plane = kzalloc(sizeof(*cursor_plane), GFP_KERNEL);
-> +	if (plane->color_pipeline_property)
-> +		has_degamma = false;
+On Mon Feb 9, 2026 at 10:42 PM CET, Joel Fernandes wrote:
 
-AFAICT this doesn't create the DEGAMMA properties at all for CRTCs where the primary plane has the COLOR_PIPELINE property, right?
+[...]
 
-That's unfortunate, since it means existing user space which uses the DEGAMMA properties can no longer work. I'd suggest something like this instead:
+> +//! params.size_bytes =3D SZ_8M as u64;
 
-* DEGAMMA properties are created even if the primary plane has the COLOR_PIPELINE property.
-* User space can use either the DEGAMMA properties or the COLOR_PIPELINE property. An atomic commit which attempts to enable both is rejected.
+It looks there are ~30 occurences of `as u64` in this example code, which s=
+eems
+quite inconvinient for drivers.
 
+In nova-core I proposed to have FromSafeCast / IntoSafeCast for usize, u32 =
+and
+u64, which would help here as well, once factored out.
 
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+But even this seems pretty annoying. I wonder if we should just have separa=
+te
+64-bit size constants, as they'd be pretty useful in other places as well, =
+e.g.
+GPUVM.
+
+> +/// Inner structure holding the actual buddy allocator.
+> +///
+> +/// # Synchronization
+> +///
+> +/// The C `gpu_buddy` API requires synchronization (see `include/linux/g=
+pu_buddy.h`).
+> +/// The internal [`GpuBuddyGuard`] ensures that the lock is held for all
+> +/// allocator and free operations, preventing races between concurrent a=
+llocations
+> +/// and the freeing that occurs when [`AllocatedBlocks`] is dropped.
+> +///
+> +/// # Invariants
+> +///
+> +/// The inner [`Opaque`] contains a valid, initialized buddy allocator.
+> +#[pin_data(PinnedDrop)]
+> +struct GpuBuddyInner {
+> +    #[pin]
+> +    inner: Opaque<bindings::gpu_buddy>,
+> +    #[pin]
+> +    lock: Mutex<()>,
+
+Why don't we have the mutex around the Opaque<bindings::gpu_buddy>? It's th=
+e
+only field the mutex does protect.
+
+Is it because mutex does not take an impl PinInit? If so, we should add a
+comment with a proper TODO.
+
+> +    /// Base offset for all allocations (does not change after init).
+> +    base_offset: u64,
+> +    /// Cached chunk size (does not change after init).
+> +    chunk_size: u64,
+> +    /// Cached total size (does not change after init).
+> +    size: u64,
+> +}
+> +
+> +impl GpuBuddyInner {
+> +    /// Create a pin-initializer for the buddy allocator.
+> +    fn new(params: &GpuBuddyParams) -> impl PinInit<Self, Error> {
+
+I think we can just pass them by value, they shouldn't be needed anymore af=
+ter
+the GpuBuddy instance has been constructed.
+
+> +        let base_offset =3D params.base_offset_bytes;
+> +        let size =3D params.physical_memory_size_bytes;
+> +        let chunk_size =3D params.chunk_size_bytes;
+> +
+> +        try_pin_init!(Self {
+> +            inner <- Opaque::try_ffi_init(|ptr| {
+> +                // SAFETY: ptr points to valid uninitialized memory from=
+ the pin-init
+> +                // infrastructure. gpu_buddy_init will initialize the st=
+ructure.
+> +                to_result(unsafe { bindings::gpu_buddy_init(ptr, size, c=
+hunk_size) })
+> +            }),
+> +            lock <- new_mutex!(()),
+> +            base_offset: base_offset,
+> +            chunk_size: chunk_size,
+> +            size: size,
+> +        })
+> +    }
+
+<snip>
+
+> +/// GPU buddy allocator instance.
+> +///
+> +/// This structure wraps the C `gpu_buddy` allocator using reference cou=
+nting.
+> +/// The allocator is automatically cleaned up when all references are dr=
+opped.
+> +///
+> +/// # Invariants
+> +///
+> +/// The inner [`Arc`] points to a valid, initialized GPU buddy allocator=
+.
+> +pub struct GpuBuddy(Arc<GpuBuddyInner>);
+> +
+> +impl GpuBuddy {
+> +    /// Create a new buddy allocator.
+> +    ///
+> +    /// Creates a buddy allocator that manages a contiguous address spac=
+e of the given
+> +    /// size, with the specified minimum allocation unit (chunk_size mus=
+t be at least 4KB).
+> +    pub fn new(params: &GpuBuddyParams) -> Result<Self> {
+
+Same here, we should be able to take this by value.
+
+> +        Ok(Self(Arc::pin_init(
+> +            GpuBuddyInner::new(params),
+> +            GFP_KERNEL,
+> +        )?))
+> +    }
+
+<snip>
+
+> +    /// Allocate blocks from the buddy allocator.
+> +    ///
+> +    /// Returns an [`Arc<AllocatedBlocks>`] structure that owns the allo=
+cated blocks
+> +    /// and automatically frees them when all references are dropped.
+> +    ///
+> +    /// Takes `&self` instead of `&mut self` because the internal [`Mute=
+x`] provides
+> +    /// synchronization - no external `&mut` exclusivity needed.
+> +    pub fn alloc_blocks(&self, params: &GpuBuddyAllocParams) -> Result<A=
+rc<AllocatedBlocks>> {
+
+Why do we force a reference count here? I think we should just return
+impl PinInit<AllocatedBlocks, Error> and let the driver decide where to
+initialize the object, no?
+
+I.e. what if the driver wants to store additional data in a driver private
+structure? Then we'd need two allocations otherwise and another reference c=
+ount
+in the worst case.
+
+> +        let buddy_arc =3D Arc::clone(&self.0);
+> +
+> +        // Create pin-initializer that initializes list and allocates bl=
+ocks.
+> +        let init =3D try_pin_init!(AllocatedBlocks {
+> +            buddy: Arc::clone(&buddy_arc),
+> +            list <- CListHead::new(),
+> +            flags: params.buddy_flags,
+> +            _: {
+> +                // Lock while allocating to serialize with concurrent fr=
+ees.
+> +                let guard =3D buddy.lock();
+> +
+> +                // SAFETY: `guard` provides exclusive access to the budd=
+y allocator.
+> +                to_result(unsafe {
+> +                    bindings::gpu_buddy_alloc_blocks(
+> +                        guard.as_raw(),
+> +                        params.start_range_address,
+> +                        params.end_range_address,
+> +                        params.size_bytes,
+> +                        params.min_block_size_bytes,
+> +                        list.as_raw(),
+> +                        params.buddy_flags.as_raw(),
+> +                    )
+> +                })?
+> +            }
+> +        });
+> +
+> +        Arc::pin_init(init, GFP_KERNEL)
+> +    }
+> +}
