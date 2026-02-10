@@ -4,71 +4,135 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7970BEA8102
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 11:55:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B985CEA811B
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 13:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9139310E56A;
-	Tue, 10 Feb 2026 11:55:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43AEC10E1C6;
+	Tue, 10 Feb 2026 13:54:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sxy6aCvE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jJm8Te2B";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AB6510E562;
- Tue, 10 Feb 2026 11:55:13 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E131144390;
- Tue, 10 Feb 2026 11:55:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED62EC116C6;
- Tue, 10 Feb 2026 11:55:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770724512;
- bh=YHEMObMfKBsNNt+IT3C08BQUnMajYKrlxt36jnYTOM0=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To:From;
- b=Sxy6aCvEEWcX6KtHkVp86DsMNpHLyi8vxUEzWWv5iEbbJQMUCCLpdLhZIydCwildX
- 7qnplmrrcs0wFBVPQu9lGnb2/Ignd1wgEPIn4qAhM5g1oLSrOwhNxBf6aT6TTU7x+z
- Tp/js3mNnpH1gxO0pS9Gm3YneMYNJXqA8KJzwMGuI4RHhxxB114BVx/RhSy5L84rZl
- BK3A7CP6H9z6jzPCn1MZQg50WLDBKQVinrDnkSXXc+gv93wJgo5zb82EnPNv/5q47m
- rILSI5X2da1963xNdLQeBl2Y4ZW6PANjF0ScCGGfAO9krr86Xnw7BBK6kyiT3pHJFs
- fKSLbeiscHScg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Feb 2026 12:55:01 +0100
-Message-Id: <DGB9G697GSWO.3VBFGU5MKFPMR@kernel.org>
-Subject: Re: [PATCH -next v8 2/3] rust: gpu: Add GPU buddy allocator bindings
-Cc: <linux-kernel@vger.kernel.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet"
- <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
- "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
- <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Helge Deller" <deller@gmx.de>, "Alice Ryhl" <aliceryhl@google.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor" <alex.gaynor@gmail.com>,
- "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
- Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer"
- <epeer@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Andrea
- Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp Stanner"
- <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, <joel@joelfernandes.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>
-To: "Joel Fernandes" <joelagnelf@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260209214246.2783990-1-joelagnelf@nvidia.com>
- <20260209214246.2783990-3-joelagnelf@nvidia.com>
-In-Reply-To: <20260209214246.2783990-3-joelagnelf@nvidia.com>
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010015.outbound.protection.outlook.com
+ [40.93.198.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3306E88F94
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Feb 2026 13:54:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YsnLS7PZ0VSwlv1MvHooAGb1CMEkyFbvNFIQzaOBHIZHsjTJRBkEU4k+KGdJejCTatghokp0wI+YkM2eV9AMlqdDwELs4ZKI2uMC9OQK++zpzGvRjcxRd66DFB7X0ZM5gWWRV20utwG71Lrd7cmPWunQ+Mn6jyXVD631QgA1qpUYG0MbU7wZG8v5wBnt4r8eOS3f9myfVTRz4HuXcP63kZjZOS0AUgHShEQiZSQm5NJE/PmOkbZF8kW+96WlOFdtmC21A3HTVrBf1G4/uMnmu5C2ubwWTeJNQmj4U8J0k0+UuWabABWChoyvogKJdhYvWrT+UKhzlB/NOgY4PWEUMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9LwdmliM/EUJVs5PN2Ug3fg4y+mYqSI3V1mcJnZ88/s=;
+ b=FhMsqpwUiHYVnz0HigINQAi7hoZearxPubTCDVzcSlrTj7AHYstcz8RmXYwCn7pKHo45MrjlZM4UmA/bCmQDeIti3H83OtRw8PPtrogoCzvdxCM/EvWw8rRCie/e1HHIOPv08Vv85efobMVt0x3kUOxSnosQaDA8qRZkAE9q4K0iM/JxXgTkfbLbv6tYjEe2MhykoOG4+kUHMPeFCXgzvA7c5AkbpqrUMVwxeHI6jounmFuk6LWZiUw3H9JDqIj3Opx7fKuFQRBqcGl4exJ3ZF4Lp31FDfn9mZTzYm8hCu1QW8w8VOn4mz2tZZwDp56mKmp3xS4f1NVLmw9k8jzCqQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9LwdmliM/EUJVs5PN2Ug3fg4y+mYqSI3V1mcJnZ88/s=;
+ b=jJm8Te2BA01Md3UEfAxYQpveSRvPvC0xGWNKSstwxMJ/l5KCkm7u7IAFRkKAfkLDAmQZtoyBhOL4ZDZJ4gskQkh5ZbmGy0fzCjfpXjAtynqD8eKtPX0lmGOdof+Yjundhf4AE1ex5jQ4KOUhc8F1W4IP4qTP2wZyXHCwaC7pWA8=
+Received: from CH0PR04CA0109.namprd04.prod.outlook.com (2603:10b6:610:75::24)
+ by IA1PR12MB7517.namprd12.prod.outlook.com (2603:10b6:208:41a::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.15; Tue, 10 Feb
+ 2026 13:54:21 +0000
+Received: from DS3PEPF0000C381.namprd04.prod.outlook.com
+ (2603:10b6:610:75:cafe::bf) by CH0PR04CA0109.outlook.office365.com
+ (2603:10b6:610:75::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.19 via Frontend Transport; Tue,
+ 10 Feb 2026 13:54:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF0000C381.mail.protection.outlook.com (10.167.23.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9611.8 via Frontend Transport; Tue, 10 Feb 2026 13:54:20 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 10 Feb
+ 2026 07:54:20 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 10 Feb
+ 2026 07:54:19 -0600
+Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 10 Feb 2026 07:54:11 -0600
+From: Ray Wu <ray.wu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 00/18] DC Patches Feburary 16, 2026
+Date: Tue, 10 Feb 2026 21:49:53 +0800
+Message-ID: <20260210135353.848421-1-ray.wu@amd.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: ray.wu@amd.com does not designate
+ permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C381:EE_|IA1PR12MB7517:EE_
+X-MS-Office365-Filtering-Correlation-Id: 98b58dbf-503c-45fb-2ef1-08de68abe402
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?AV5qnB6Q8vnyN72tf7zQP1OWwrR3ce+uCGSxIS1wLmjh8EkuXHbdHuH4KvH+?=
+ =?us-ascii?Q?cjyphNUrtQdBRulLeSz+Tk8NHSkHC+7cRDNBDOWORlvFDbpeslh4p6re57hR?=
+ =?us-ascii?Q?aA5eSYtwlDGhCOZcryB95MrByOSoXqMrtTlwqxeQ1mAj5sIU0p6vpCAobc4u?=
+ =?us-ascii?Q?VALsVAiYF6CbKCziXyvSC/mF3AOKpGryrYY6YxJSXjldOtOBFi+AW2UCZqAl?=
+ =?us-ascii?Q?cs0HmwYu6daSOEgmUPyrAavftavCq/jI1VgxQ+/tjR9c/Ybo3n+Qj1w4gaPw?=
+ =?us-ascii?Q?qeccM6hLv2ALBIn2auK5wJYg0vKlL3nhhqpq4VgygVXkqgc1l0nj4IXYY2dF?=
+ =?us-ascii?Q?eStdPcp4gFKbLvIOWyUnQTq+sKsplx+F8eUoJHKI9siOpJPH4c1izCJ9tq+F?=
+ =?us-ascii?Q?FX2Tpv5JDEXiYa5BP7aun2XZVaC/0vVMA/HcWQY3eurKo7U1hh2JGHrvI5GX?=
+ =?us-ascii?Q?9OSchpoRu+o1HKhUA3SUA1H2NlA8l6oDVO+ANOvPkQndzh6R68D9NW4uCQ68?=
+ =?us-ascii?Q?wVzy/8666lj58BZXY9lAiH3SQK7lb2a+08GSH79Z3VJSNfR3dFhJi5o09eE3?=
+ =?us-ascii?Q?Xby86YdwodJdqxKeVfD6rdqQPg+qV1vHGtBzaUNTc0laEwMChq6NJhkKa0dm?=
+ =?us-ascii?Q?WxBiIfft93RC2hXnpQAyXoDO7sXAN/Vggz8PHlS/1OQ6aEgAa5LNQOZMs3uS?=
+ =?us-ascii?Q?PQ1gPSqL4xdtQmZPziIeeWwkLRCthN2Mz0X7wW2w9Kuq3mOeCnF0/TviBGFN?=
+ =?us-ascii?Q?H2pL5hswFipEAapIQdT9C2BfcR7qhnUhfg/ZlD/uN2vgG1LMRukZ6B+bX+rI?=
+ =?us-ascii?Q?Ubbft8y4MYsGjaOkZUfVR0oZraVHNH7XVwzts9r7pPhZR1bD76bnDfFUp+xp?=
+ =?us-ascii?Q?H8LQO65H6zYcpKpUH11En682EOvU2HLxrFm/uUUv4UIijczy5c2uswJvk99k?=
+ =?us-ascii?Q?Bz2dQwW0vSzRR9rI2IlaRDPlEWZ+rh9VjrxLK2gG+A9p/JkXhDBxxmx8jCcT?=
+ =?us-ascii?Q?rEdhBrAEuNwWUZJ8R+VJgJ+DLYSeAFTNRUvHLAhTAEbUl5TbEi1RJL3SNFfZ?=
+ =?us-ascii?Q?rrT5Y/TtKP2MivNZBlOy7KMFqjWk56k+MLvmizNC3w+le9TPac8ng/xEaaFe?=
+ =?us-ascii?Q?wCKwwkuV7L0dyOcRb2kUKq8jVAIqrqwL/B+uB3Fna4COOXaUfma+5PZJ1MCP?=
+ =?us-ascii?Q?V8mSXjRRDE1P27STjN8F5xn5jdxSzzqou8//A3j1d++BRSYhvwQd5Jydbqli?=
+ =?us-ascii?Q?+qnrlG0+Dr4pVg8Dyq6AIRyVAPHsfzMR840x07omQbeIQym499v+qny9RU6v?=
+ =?us-ascii?Q?m00XT2ggEkzo8vNbgIDZTAJQs+qtsxdqpu7UTXkdr70eosNAJq9TbzatbP/O?=
+ =?us-ascii?Q?Z/LblgQerKb3f90NTN2wXoqL4wkcDMy0g/WxSir/Gs7Fafc1rw7Q4g26jfTM?=
+ =?us-ascii?Q?jr5o6vE3GLFi3xgTqrTIxnLiPUV9XBK6d2xN2lsE7D40gVonR6xPDggGrbX7?=
+ =?us-ascii?Q?gWgjFkVoEAXBVpHHGEi7Zv64by00YSWpmuC1hvCSgpLgaCWQon+zPBUhgaHZ?=
+ =?us-ascii?Q?XMrSeqEZzufgRqSK+FWuh4uiMltV4dUtecYIRSeGu8RenyI1D2TOcQK3RngE?=
+ =?us-ascii?Q?hMPuwe9ZoAOzThABL9PN1p8OWLfDyukzBPd5LHFrreOfy0Lh54m/Beq5YD2n?=
+ =?us-ascii?Q?NGuvSg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 5s5IOJ88eztCz02xbY3+u+A/gnEca1AzPvClqbDYMFYKewy7vQq6jvk3o/TszyznRhKmEiCgIUzIa072LaK+YSUyN4FS1gDjvnPCH/DmjHmeD7Td6CJQ9Z5stxKqUTxY1X0uzdpmoinnl4vXfSmdg0HZtdBbA1vz4EcpoH+trPdLEyiB2VrD94ynQuQeFGUbjiDQQMKXdOsbve8YIaBkvSfAeotbPbhODtOy2f9J9XQkZOAOOCwut1lLFzcR+48fZ//e4iC5zq7bKZG0tNxOjzmIwI/JnIrtDWfEIS2mYbd3TmZmoHTSNizwven1q5gX65gng5oyIX1wbBpN5yixKyPCprboNn0h5g6Xb7AlNuzvB3M0lABjK2yrtDmcqV4fhFQvvuzx5eXfR/eXpLwRixkfsAGIVFBhLaWmI9Kseuyvlv4fWoaRO696EDeTWkGo
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2026 13:54:20.6554 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98b58dbf-503c-45fb-2ef1-08de68abe402
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C381.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7517
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,174 +147,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon Feb 9, 2026 at 10:42 PM CET, Joel Fernandes wrote:
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-[...]
+- Add static keyword for sharpness tables.
+- Refactor fams2 calculations.
+- Add gpuvm and hvm params to dml21.
+- Expose functions of other dcn use.
+- Extend inbox0 HW lock support to DCN35.
+- Disable SR feature on eDP1 by default.
+- Implement ramless idle mouse trigger.
+- Migrate DCCG register access from hwseq to dccg component.
+- Skip eDP detection when no sink.
+- Refactor and fix link_dpms
+- Correct logic check error for fastboot.
+- Check return of shaper curve to HW format.
+- Remove conditional for shaper 3DLUT power-on.
 
-> +//! params.size_bytes =3D SZ_8M as u64;
+Cc: Dan Wheeler <daniel.wheeler@amd.com> 
 
-It looks there are ~30 occurences of `as u64` in this example code, which s=
-eems
-quite inconvinient for drivers.
 
-In nova-core I proposed to have FromSafeCast / IntoSafeCast for usize, u32 =
-and
-u64, which would help here as well, once factored out.
+Alex Hung (2):
+  drm/amd/display: Check return of shaper curve to HW format
+  drm/amd/display: Remove conditional for shaper 3DLUT power-on
 
-But even this seems pretty annoying. I wonder if we should just have separa=
-te
-64-bit size constants, as they'd be pretty useful in other places as well, =
-e.g.
-GPUVM.
+Bhuvanachandra Pinninti (1):
+  drm/amd/display: Migrate DCCG registers access from hwseq to dccg
+    component.
 
-> +/// Inner structure holding the actual buddy allocator.
-> +///
-> +/// # Synchronization
-> +///
-> +/// The C `gpu_buddy` API requires synchronization (see `include/linux/g=
-pu_buddy.h`).
-> +/// The internal [`GpuBuddyGuard`] ensures that the lock is held for all
-> +/// allocator and free operations, preventing races between concurrent a=
-llocations
-> +/// and the freeing that occurs when [`AllocatedBlocks`] is dropped.
-> +///
-> +/// # Invariants
-> +///
-> +/// The inner [`Opaque`] contains a valid, initialized buddy allocator.
-> +#[pin_data(PinnedDrop)]
-> +struct GpuBuddyInner {
-> +    #[pin]
-> +    inner: Opaque<bindings::gpu_buddy>,
-> +    #[pin]
-> +    lock: Mutex<()>,
+Charlene Liu (2):
+  drm/amd/display: Disable SR feature on eDP1 by default
+  drm/amd/display: Correct logic check error for fastboot
 
-Why don't we have the mutex around the Opaque<bindings::gpu_buddy>? It's th=
-e
-only field the mutex does protect.
+Dillon Varone (1):
+  drm/amd/display: Refactor fams2 calculations
 
-Is it because mutex does not take an impl PinInit? If so, we should add a
-comment with a proper TODO.
+Dmytro Laktyushkin (2):
+  drm/amd/display: Add gpuvm and hvm params to dml21
+  drm/amd/display: Expose functions of other dcn use
 
-> +    /// Base offset for all allocations (does not change after init).
-> +    base_offset: u64,
-> +    /// Cached chunk size (does not change after init).
-> +    chunk_size: u64,
-> +    /// Cached total size (does not change after init).
-> +    size: u64,
-> +}
-> +
-> +impl GpuBuddyInner {
-> +    /// Create a pin-initializer for the buddy allocator.
-> +    fn new(params: &GpuBuddyParams) -> impl PinInit<Self, Error> {
+Dominik Kaszewski (2):
+  drm/amd/display: Refactor and fix link_dpms I2C
+  drm/amd/display: Refactor and fix link_dpms info
 
-I think we can just pass them by value, they shouldn't be needed anymore af=
-ter
-the GpuBuddy instance has been constructed.
+Muaaz Nisar (1):
+  drm/amd/display: Implementing ramless idle mouse trigger
 
-> +        let base_offset =3D params.base_offset_bytes;
-> +        let size =3D params.physical_memory_size_bytes;
-> +        let chunk_size =3D params.chunk_size_bytes;
-> +
-> +        try_pin_init!(Self {
-> +            inner <- Opaque::try_ffi_init(|ptr| {
-> +                // SAFETY: ptr points to valid uninitialized memory from=
- the pin-init
-> +                // infrastructure. gpu_buddy_init will initialize the st=
-ructure.
-> +                to_result(unsafe { bindings::gpu_buddy_init(ptr, size, c=
-hunk_size) })
-> +            }),
-> +            lock <- new_mutex!(()),
-> +            base_offset: base_offset,
-> +            chunk_size: chunk_size,
-> +            size: size,
-> +        })
-> +    }
+Nicholas Carbones (3):
+  Revert "drm/amd/display: Add Handling for gfxversion DcGfxBase"
+  Revert "drm/amd/display: Correct hubp GfxVersion verification"
+  Revert "drm/amd/display: Add Gfx Base Case For Linear Tiling Handling"
 
-<snip>
+Saidireddy Yenugu (1):
+  drm/amd/display: Skip eDP detection when no sink
 
-> +/// GPU buddy allocator instance.
-> +///
-> +/// This structure wraps the C `gpu_buddy` allocator using reference cou=
-nting.
-> +/// The allocator is automatically cleaned up when all references are dr=
-opped.
-> +///
-> +/// # Invariants
-> +///
-> +/// The inner [`Arc`] points to a valid, initialized GPU buddy allocator=
-.
-> +pub struct GpuBuddy(Arc<GpuBuddyInner>);
-> +
-> +impl GpuBuddy {
-> +    /// Create a new buddy allocator.
-> +    ///
-> +    /// Creates a buddy allocator that manages a contiguous address spac=
-e of the given
-> +    /// size, with the specified minimum allocation unit (chunk_size mus=
-t be at least 4KB).
-> +    pub fn new(params: &GpuBuddyParams) -> Result<Self> {
+Samson Tam (1):
+  drm/amd/display: Add static keyword for sharpness tables
 
-Same here, we should be able to take this by value.
+Taimur Hassan (1):
+  drm/amd/display: Promote DC to 3.2.370
 
-> +        Ok(Self(Arc::pin_init(
-> +            GpuBuddyInner::new(params),
-> +            GFP_KERNEL,
-> +        )?))
-> +    }
+Webb Chen (1):
+  drm/amd/display: Extend inbox0 HW lock support to DCN35
 
-<snip>
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  12 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c |   8 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |   5 +-
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c |   7 -
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |   1 -
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |  15 +
+ drivers/gpu/drm/amd/display/dc/dc.h           |   3 +-
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   3 +-
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |   9 +
+ .../amd/display/dc/dccg/dcn20/dcn20_dccg.c    |  54 +-
+ .../amd/display/dc/dccg/dcn20/dcn20_dccg.h    |  14 +-
+ .../amd/display/dc/dccg/dcn201/dcn201_dccg.c  |   7 +-
+ .../amd/display/dc/dccg/dcn21/dcn21_dccg.c    |   6 +-
+ .../amd/display/dc/dccg/dcn30/dcn30_dccg.c    |   6 +-
+ .../amd/display/dc/dccg/dcn301/dcn301_dccg.c  |   6 +-
+ .../amd/display/dc/dccg/dcn31/dcn31_dccg.c    |   5 +
+ .../amd/display/dc/dccg/dcn314/dcn314_dccg.c  |   7 +-
+ .../amd/display/dc/dccg/dcn32/dcn32_dccg.c    |   5 +
+ .../amd/display/dc/dccg/dcn35/dcn35_dccg.c    |  11 +-
+ .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |  17 +-
+ .../drm/amd/display/dc/dce/dce_mem_input.c    |   3 -
+ .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.c |   5 +
+ .../display/dc/dce110/dce110_mem_input_v.c    |   3 -
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |   2 +-
+ .../drm/amd/display/dc/dml/calcs/dcn_calcs.c  |   1 -
+ .../dml2_0/dml21/dml21_translation_helper.c   |  11 +-
+ .../amd/display/dc/dml2_0/dml21/dml21_utils.c | 205 +++---
+ .../amd/display/dc/dml2_0/dml21/dml21_utils.h |   1 +
+ .../dml21/inc/dml_top_soc_parameter_types.h   |   2 +
+ .../drm/amd/display/dc/dml2_0/dml2_wrapper.h  |   1 +
+ .../display/dc/hubbub/dcn401/dcn401_hubbub.c  |  10 +-
+ .../display/dc/hubbub/dcn401/dcn401_hubbub.h  |  10 +
+ .../amd/display/dc/hubp/dcn10/dcn10_hubp.c    |  33 +-
+ .../amd/display/dc/hubp/dcn20/dcn20_hubp.c    |  26 +-
+ .../amd/display/dc/hubp/dcn30/dcn30_hubp.c    |  26 +-
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |   7 +-
+ .../amd/display/dc/hwss/dce110/dce110_hwseq.c |   4 +-
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |   5 +-
+ .../amd/display/dc/hwss/dcn20/dcn20_hwseq.c   |  29 +-
+ .../amd/display/dc/hwss/dcn201/dcn201_hwseq.c |   5 +-
+ .../amd/display/dc/hwss/dcn21/dcn21_hwseq.c   |   9 +-
+ .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |   5 +-
+ .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |   5 +-
+ .../amd/display/dc/hwss/dcn32/dcn32_hwseq.c   |  11 +-
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  48 +-
+ .../amd/display/dc/hwss/dcn35/dcn35_hwseq.h   |   4 +
+ .../amd/display/dc/hwss/dcn35/dcn35_init.c    |   2 +
+ .../amd/display/dc/hwss/dcn351/dcn351_init.c  |   2 +
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |   5 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h  |   4 +
+ .../drm/amd/display/dc/link/link_detection.c  |   2 +-
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   | 640 +++++++-----------
+ .../drm/amd/display/dc/mpc/dcn32/dcn32_mpc.c  |   3 +-
+ .../amd/display/dc/optc/dcn35/dcn35_optc.c    |   6 +-
+ .../amd/display/dc/optc/dcn35/dcn35_optc.h    |   9 +
+ .../resource/dcn32/dcn32_resource_helpers.c   |   3 +-
+ .../display/dc/sspl/dc_spl_isharp_filters.c   |   4 +-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   3 +-
+ 59 files changed, 698 insertions(+), 663 deletions(-)
 
-> +    /// Allocate blocks from the buddy allocator.
-> +    ///
-> +    /// Returns an [`Arc<AllocatedBlocks>`] structure that owns the allo=
-cated blocks
-> +    /// and automatically frees them when all references are dropped.
-> +    ///
-> +    /// Takes `&self` instead of `&mut self` because the internal [`Mute=
-x`] provides
-> +    /// synchronization - no external `&mut` exclusivity needed.
-> +    pub fn alloc_blocks(&self, params: &GpuBuddyAllocParams) -> Result<A=
-rc<AllocatedBlocks>> {
+-- 
+2.43.0
 
-Why do we force a reference count here? I think we should just return
-impl PinInit<AllocatedBlocks, Error> and let the driver decide where to
-initialize the object, no?
-
-I.e. what if the driver wants to store additional data in a driver private
-structure? Then we'd need two allocations otherwise and another reference c=
-ount
-in the worst case.
-
-> +        let buddy_arc =3D Arc::clone(&self.0);
-> +
-> +        // Create pin-initializer that initializes list and allocates bl=
-ocks.
-> +        let init =3D try_pin_init!(AllocatedBlocks {
-> +            buddy: Arc::clone(&buddy_arc),
-> +            list <- CListHead::new(),
-> +            flags: params.buddy_flags,
-> +            _: {
-> +                // Lock while allocating to serialize with concurrent fr=
-ees.
-> +                let guard =3D buddy.lock();
-> +
-> +                // SAFETY: `guard` provides exclusive access to the budd=
-y allocator.
-> +                to_result(unsafe {
-> +                    bindings::gpu_buddy_alloc_blocks(
-> +                        guard.as_raw(),
-> +                        params.start_range_address,
-> +                        params.end_range_address,
-> +                        params.size_bytes,
-> +                        params.min_block_size_bytes,
-> +                        list.as_raw(),
-> +                        params.buddy_flags.as_raw(),
-> +                    )
-> +                })?
-> +            }
-> +        });
-> +
-> +        Arc::pin_init(init, GFP_KERNEL)
-> +    }
-> +}
