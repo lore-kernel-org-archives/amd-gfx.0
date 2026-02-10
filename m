@@ -4,72 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B09AEA3F39
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 10:10:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F05AAE94619
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Feb 2026 10:53:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D47D10E53F;
-	Tue, 10 Feb 2026 10:10:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07F4A10E392;
+	Tue, 10 Feb 2026 10:53:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KjaZ5ktO";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="IxsQ2HhL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15CFB10E53C;
- Tue, 10 Feb 2026 10:10:18 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 79A5160137;
- Tue, 10 Feb 2026 10:10:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304D5C116C6;
- Tue, 10 Feb 2026 10:10:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770718217;
- bh=Y1eJ+A7bQ+DjJKh+pu4y7cwRQw19sr4V6ovNvsHmjOE=;
- h=Date:From:Subject:Cc:To:References:In-Reply-To:From;
- b=KjaZ5ktO2RwcnVfgIKvTFccsUCApAJjPUj4D8e0ZO3b/KLUWqSj0RGU0HG8GMGMBY
- /ca+RG3h60JHjlJnxuB/WE1vdfh2hG+sip0oKbsljKs7Y1kANUE/VXUNJ/j44c53gz
- EQYNofR+tf0/melgx6bEoZ2lBVdRZbX0Tewo9DNVHrwitaRRpZO4yRMIbsHqPT0/Do
- +Zh0a0G7FJfcZeN9ZeFCiYAzzuFKjPeSW2KDjstvQ06C13LjKiZomFwgWOb1lLjoTP
- WF0IBAEwIqOKfYua4Pmmk3M+MBi2AmUfFW9dsSgYecM4uLFTuUxaDnyfmp6iru3MSI
- +pQkxwj3FuECg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00DE310E1A8;
+ Tue, 10 Feb 2026 10:53:01 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4f9JLf40JYz9vBm;
+ Tue, 10 Feb 2026 11:52:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1770720778;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=tZJZX1xptoicBpamW57A4g313Qr/N87SByQGrF6aG/s=;
+ b=IxsQ2HhLqIAuixDnoXfVqnm3VPaiuYk1JUXBAaaSxm2etsFgILjBdCTKhZ3mhfDjFFiDTP
+ fco6u2z9Js6XPm6h+4dYCoVTyafGpGKiqCnY4iloRqMCWmGbLBlBIAH8gNzxeM2zX/3EU0
+ 5Hzt8mdZlMIyhn3oyEM+3hqC8LzmSr2MUyJ2hy3Ix2PRBAqZ+nAzT1g1Q8/QjT6HlHQx+S
+ g7pNHmDtAMtSVBvJq9z97VSFgJV2GJjrs61bGIZD/cf71lnH5/kpRT4POetv+tB1/kj0VT
+ HKda4pYuL58hHTjZt0ZGyWrxf3wd70QA+jq88Bl/1gqHaJWXAXgWk0nnaLkr3A==
+Message-ID: <cf92dc7a-032c-47b5-9db2-7d8a76a31ac1@mailbox.org>
+Date: Tue, 10 Feb 2026 11:52:48 +0100
+MIME-Version: 1.0
+Subject: Re: [PATCH V13 49/51] drm/amd/display: Disable CRTC degamma when
+ color pipeline is enabled
+To: Alex Hung <alex.hung@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ leo.liu@amd.com, ville.syrjala@linux.intel.com,
+ pekka.paalanen@collabora.com, contact@emersion.fr, mwen@igalia.com,
+ jadahl@redhat.com, sebastian.wick@redhat.com, shashank.sharma@amd.com,
+ agoins@nvidia.com, joshua@froggi.es, mdaenzer@redhat.com, aleixpol@kde.org,
+ xaver.hugl@gmail.com, victoria@system76.com, daniel@ffwll.ch,
+ uma.shankar@intel.com, quic_naseer@quicinc.com, quic_cbraga@quicinc.com,
+ quic_abhinavk@quicinc.com, marcan@marcan.st, Liviu.Dudau@arm.com,
+ sashamcintosh@google.com, chaitanya.kumar.borah@intel.com,
+ louis.chauvet@bootlin.com, mcanal@igalia.com, nfraprado@collabora.com,
+ arthurgrillo@riseup.net
+References: <20251115000237.3561250-1-alex.hung@amd.com>
+ <20251115000237.3561250-50-alex.hung@amd.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <20251115000237.3561250-50-alex.hung@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Tue, 10 Feb 2026 11:10:06 +0100
-Message-Id: <DGB77U0C946C.3F9PUVN5XX912@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH -next v8 3/3] nova-core: mm: Select GPU_BUDDY for VRAM
- allocation
-Cc: <linux-kernel@vger.kernel.org>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet"
- <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
- "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
- <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Helge Deller" <deller@gmx.de>, "Alice Ryhl" <aliceryhl@google.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor" <alex.gaynor@gmail.com>,
- "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair
- Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer"
- <epeer@nvidia.com>, "Alexandre Courbot" <acourbot@nvidia.com>, "Andrea
- Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>, "Philipp Stanner"
- <phasta@kernel.org>, "Elle Rhumsaa" <elle@weathered-steel.dev>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, <joel@joelfernandes.org>,
- <nouveau@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <rust-for-linux@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <linux-fbdev@vger.kernel.org>
-To: "Joel Fernandes" <joelagnelf@nvidia.com>
-References: <20260209214246.2783990-1-joelagnelf@nvidia.com>
- <20260209214246.2783990-4-joelagnelf@nvidia.com>
-In-Reply-To: <20260209214246.2783990-4-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: aeea10228f702849291
+X-MBO-RS-META: ou4cgaznj5txazpd5o673fwedfqjfhot
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,19 +74,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon Feb 9, 2026 at 10:42 PM CET, Joel Fernandes wrote:
-> diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconfi=
-g
-> index 527920f9c4d3..c129764daa23 100644
-> --- a/drivers/gpu/nova-core/Kconfig
-> +++ b/drivers/gpu/nova-core/Kconfig
-> @@ -3,6 +3,7 @@ config NOVA_CORE
->  	depends on 64BIT
->  	depends on PCI
->  	depends on RUST
-> +	select GPU_BUDDY
->  	select RUST_FW_LOADER_ABSTRACTIONS
->  	select AUXILIARY_BUS
->  	default n
+On 11/15/25 01:02, Alex Hung wrote:
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> index 38f9ea313dcb..697e232acebf 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> @@ -736,7 +736,7 @@ int amdgpu_dm_crtc_init(struct amdgpu_display_manager *dm,
+>  {
+>  	struct amdgpu_crtc *acrtc = NULL;
+>  	struct drm_plane *cursor_plane;
+> -	bool is_dcn;
+> +	bool has_degamma;
+>  	int res = -ENOMEM;
+>  
+>  	cursor_plane = kzalloc(sizeof(*cursor_plane), GFP_KERNEL);
+> +	if (plane->color_pipeline_property)
+> +		has_degamma = false;
 
-NIT: Let's get the 'select' list ordered. :)
+AFAICT this doesn't create the DEGAMMA properties at all for CRTCs where the primary plane has the COLOR_PIPELINE property, right?
+
+That's unfortunate, since it means existing user space which uses the DEGAMMA properties can no longer work. I'd suggest something like this instead:
+
+* DEGAMMA properties are created even if the primary plane has the COLOR_PIPELINE property.
+* User space can use either the DEGAMMA properties or the COLOR_PIPELINE property. An atomic commit which attempts to enable both is rejected.
+
+
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
