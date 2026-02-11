@@ -4,187 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A01BEE3683
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C978EE3682
 	for <amd-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 13:39:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80EC110E73E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91BFB10E746;
 	Thu, 12 Feb 2026 13:39:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="YJBuM2nV";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="YQqrxTW8";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011035.outbound.protection.outlook.com [52.101.62.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2244310E06E;
- Wed, 11 Feb 2026 17:31:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lkaWXBMs91LRKeX0kh8zj7ys/Pq7NKpRN0fMMBjbNy47hCJPQsvuIA9LZ1caPcDlk0gqvC50SSVacHTNnZF3TOTcgPBA758OpJfzjHqTgw5OGHY2Lfj8Fwk5lUOSNEZgXXXZ/hKND9HEtxQsHbY2+cnrnzlxVPxrzLD/hsAUr5lYkwU96IP0O565Lp2HBdpvtDKYochhNf37v3kNlZOiuRa62DtP5lBubRfdmVK22ienW64NEbJ9BdeRTvSnKj49j/VxAk81z67TfpvwxLlN/hiHCjrXLswGd/4J24E4wgDSrckrDVmIZp0NNPKRJWX972y7Jr8JWNmpDOffRNdvfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VcAdl4WMt5bvAy8bC9tV9sNdNSiBPbZLlYn75QcI95Q=;
- b=KAOceFGbx44GaVNzoys6aFn6Q+4t4v/7eEHPL+kQwmkB74hP3bmG/Guo6MP+Uf8jpjUQ7KOn6LE1vY3qVvC5mB+CEIu0TGF/Q7eb4SiLw6Jm92ViipEvRyrYXRMG5Pov71tWMQe8PwmSYxhikwbqX8rOSEVTigBUnsrG00Aikl2novijBSeStkQWocmCRO4jMmQhNRmLvprDEw052DInU84HtnVmdrPpuxmeiwkD65Vm4bbcFiHnuFYVpSmn1Cuvp6828yt8fMGHv6TWrosuf74Gq/rypKWOEtmXFzT0ZaxbUnDY4NTOx6Vo0Jav+RqtT6LcXwBgZb7bqqAx8K/tDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VcAdl4WMt5bvAy8bC9tV9sNdNSiBPbZLlYn75QcI95Q=;
- b=YJBuM2nVnSLtGZOcCUZwgWBT+nGUjrHhpzy9ocTrvV9reS3eRKTu76X03f1tX5HnQtPLHqN7Nv6DGcH5dlMiPB9eyOBySSBtQa1cNMDgM6jnTrfzrPnMgfPQt6yj22EsfZWWD/7XORFHoVF/BQwMRxaKIQwvHG8IbNYtvrp7B+087k8bfcWKCp7gwzLZoQlC7jQyflIcD0i85mGGik4xF6X+2+n6RU6NDyACAqKAFOh2o+1b/LMff23jKdUOe++4ZXxNB8ep6rP6dORHUnJeYGjI70RtwgWW5ujwU96/7KRCrXeaI92AmDYpvl5jHO8xOTvApWS6U/mBkvY2/l1B8A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- SA3PR12MB9180.namprd12.prod.outlook.com (2603:10b6:806:39b::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Wed, 11 Feb
- 2026 17:30:54 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9611.008; Wed, 11 Feb 2026
- 17:30:53 +0000
-Message-ID: <79a18ee5-4746-4b4d-84ab-88f0d4010523@nvidia.com>
-Date: Wed, 11 Feb 2026 12:30:49 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH -next v9 0/3] rust: Add CList and GPU buddy allocator
- bindings
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0914810E62C;
+ Wed, 11 Feb 2026 17:10:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1770829830; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=GR7lKyC+ozaWg05oGsrqz0Z7rDS9ZIOYDtgmfUS9yF8SGsv5hLRBebSLLDot9wWTiPzrScyHd1uc1cH6tCAqkEaDLVlhG/9q//xhGaCZM5na149IiIrTOSzqQdfzSK0uZAQjX1MaL0OC2MNTBjUnA2K5ISt7h8ZObYSjndqEqQ0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1770829830;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=0Dl0Z2RybvDxucJFvyk0rYh+K+gwu9CR8COPAfPaa6E=; 
+ b=NKYhL+OqEH99ViXECN4WyH9CMsuK1vCMRqR2WtwAdscA0R8g5M0y0c2e3RfqDb9jUC5IZaPlkG/OstQPMWZNl7RkNL1pI8qGhYOURVBChPmks2lej2W0Mt6+0hrkM+6nVTD4V5Is57RwzMY7Vx0JTTOawjmXP0WHC61ax4qiFQk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1770829830; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=0Dl0Z2RybvDxucJFvyk0rYh+K+gwu9CR8COPAfPaa6E=;
+ b=YQqrxTW8kGhGYrH+a120mKUsZ4yMJMBXI1KYvdR3zSb+MvINyxPnAaGAThZTRNtV
+ XNtcgjNA6v8n4VOAUn7uY/ttvmgO3lGGIh1q9ZIZGdAsVHJuwFL7uzAIPH0SqdU3PgO
+ x6yJHpRLXjsytia4XH7HYMs7925RGM+XxwbVKn0A=
+Received: by mx.zohomail.com with SMTPS id 1770829827913685.3686734865292;
+ Wed, 11 Feb 2026 09:10:27 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alice Ryhl <aliceryhl@google.com>,
- Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Alistair Popple <apopple@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- David Airlie <airlied@gmail.com>, Edwin Peer <epeer@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- joel@joelfernandes.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org
-References: <20260210233204.790524-1-joelagnelf@nvidia.com>
- <DGC0RDIBDEYB.195QJ6S6GF9WL@kernel.org>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <DGC0RDIBDEYB.195QJ6S6GF9WL@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR11CA0029.namprd11.prod.outlook.com
- (2603:10b6:208:23b::34) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, kernel@collabora.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ Marius Vlad <marius.vlad@collabora.com>
+Subject: Re: [PATCH v7 03/22] drm: Add enum conversions between
+ DRM_COLOR_FORMAT and HDMI_COLORSPACE
+Date: Wed, 11 Feb 2026 18:10:18 +0100
+Message-ID: <4732908.LvFx2qVVIh@workhorse>
+In-Reply-To: <20260210-prophetic-elk-of-superiority-b0ab03@houat>
+References: <20260121-color-format-v7-0-ef790dae780c@collabora.com>
+ <2028270.PYKUYFuaPT@workhorse>
+ <20260210-prophetic-elk-of-superiority-b0ab03@houat>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SA3PR12MB9180:EE_
-X-MS-Office365-Filtering-Correlation-Id: d9eef77b-075d-473d-e7c9-08de69934e64
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?SkF2Rlg0T3pZWkZjL0FDaFVReFhBMjNRbFg0bzFKb0FMSC95cUIzcUlhbWo0?=
- =?utf-8?B?NXppQzJoOEhXV2pMNktDOGhGSHgrdlZBOXVlc1lHTVowL05oQzdxNGhvYWw4?=
- =?utf-8?B?d0gybU8zNU1VU0pHZ1h0Q2dGUGRXb2o5YnhyRmd2Y0l3L3J6WXhHOXgvZ2tZ?=
- =?utf-8?B?K3d5QThSbGxkT2pRNU5LK0ZiRE9BYnJLRGtHRFZRUXhWUWJ2QXA5SEt0VDJN?=
- =?utf-8?B?N1pxaHlYQ3E2WUZYRnJPYkk3ekRYL0xDK3hIMW5jUTlkeUEwMlhhSUI0cUVZ?=
- =?utf-8?B?bVcwazJITzZqREhSbHNGZ0FXeG9MM0dlNklSUkRMLzY2ejgwNFVTOEowYjg3?=
- =?utf-8?B?NWp2c2JVaU1WblN4aWhDZUNBYzBCR1ZwZ1FlWlhyUG16RHJlT3VyMEZkQ08y?=
- =?utf-8?B?ZlAreVlJb1BYK0tKbjdaQ3kyc2VCMlJRMWtBS2VJRm4yeERRcmdybWdsYTUw?=
- =?utf-8?B?RHpQekNjMVFVcW9aY0ZWc0xmSmMxYzBVeExBNkoxNnh4N3o5MXBCMkZQWnhy?=
- =?utf-8?B?blZhUE56OU9DR0R0N2hoU2lpT2R5dFNuTDVTeG5NWTN0NlU3SzNNRVh5N092?=
- =?utf-8?B?TG9KemFjS1BpWk5wVzhPS0VwOWJpOEtRVGYvTmlzSkVBWlJGTTBBU2pFM3Z0?=
- =?utf-8?B?a1dJSHlqWTliTVpkVlJjL2t1TXlwUDR4TE5CRHdwUnBMcUJ4ekJhMVJDMDA2?=
- =?utf-8?B?aUdlM1VFREhnVlpqOW5qY3RBMURqdUtkbmQ4TFo1QWJabm43SFN3TG5KUk5x?=
- =?utf-8?B?akRpV1Qzd3BZTVJzZ29CVWs3d081d0xwV09UdXJxSkM1QWtleHhEdVFrQnVl?=
- =?utf-8?B?ckxoZVJWdkorMmptUVhjR3ZaU1VRQTM4RkcrL2lvZ3NIaUI4TXNyK1UxUGJq?=
- =?utf-8?B?ODRLSlFnZVNaSnlOc281a1pnVTNmK25HNnMxbTdVa09DbHkrbk1hZi9NY2p6?=
- =?utf-8?B?SlVWUWxqY29VcndockY5Q2VIVGo1S3djUVlZd0JCc2VnbmNvNnpxRVEzSlA3?=
- =?utf-8?B?anZRUTFOTGY0UmxDaUl0K0FFbkZlV1lyR20zT1o1Rm1sVUdOR05zL1NYcFlW?=
- =?utf-8?B?dVlBanE1YWlaVUsyYkZ4cXdmSm91WGs3N0d5N3hoYjZEWTh3TGMzOVpXM0x5?=
- =?utf-8?B?cGtaNlV1NURBSC9jT29uRDFGbkQ2bC8vc0tDZlVRZ1IyM1N1eVNkU1l5cGp2?=
- =?utf-8?B?ZGxrUlJicWRSaEptTzJhZkp6WG9HUXlXYlVoV2RKZFVFTFdKblM5TzVRVkpB?=
- =?utf-8?B?OEtCMlJMbWoxczFlb0QweGk3M3NqdktpMTlUclIyVGRPVzVZSnlRcWdiMTRH?=
- =?utf-8?B?ZkVLbGF3K1NTQyt6UTdNTXdoaHVhbDRFK0trN0dLNDRtQ2FJSkR6Q3ZCaGt4?=
- =?utf-8?B?RG9rd2VEWEJTZ0p0K3VTREFKL0RNZ20zclp2c3dqcUhBOThmRG9vdTI4OTdu?=
- =?utf-8?B?MnJNNDYxY3c2akR3c0V1bmJWNmRCVnB0S0FnVkJDU2x5YzlxaW9hWXI4Mlph?=
- =?utf-8?B?OXczYVFUK2dxTkJSSWZhUmdxRVZsU05ocGxnM1BDYlc4Q24veUg1Z3NhVTIw?=
- =?utf-8?B?eUNzbnNzNnRKaHJIbnhVdFNqb3g0Y2JrbzUwbHNjYTNkZ01vRFBoeWkwUjUx?=
- =?utf-8?B?R2VvRStWSmhySkhtaEhFTi9tb1UyOUFDOTErSDZkNGRCQm1OOWp3YmpJdktU?=
- =?utf-8?B?d1cwcDBNaGcrMDVSRndGaTREM0swMk9jOFB6eERYbFlvckVnbjRmOFdpS0Rv?=
- =?utf-8?B?VTB0bVFOM0pZK0ZXMjIyWkNkaGpCdmE3b2pvUEg0Q2hZYkQ2VnFOMUN4dGlp?=
- =?utf-8?B?QlNXTU5zYW9sTllzVXZQWmVtSnlHT3Z1YkJMbkZnZWwvWkV3WU1wNGJyYkdK?=
- =?utf-8?B?alcwNU5QTTBONCsxUjFIZzRacU1ZemZveHJKeGlDS29lb1Q0RUNoUEl2eFJB?=
- =?utf-8?B?NXBnWHFGNmNmMzU2Y2xPOW03M01GYlpKckNHS1ZlczNrcVlqZ2M0OFJ6b1Zq?=
- =?utf-8?B?QUE0T1RFT3ByN2tKV3FQOE5LbFpxeUNLeWRsRkJZNGNHdHlIdUxSWmZsYkg3?=
- =?utf-8?B?RitmSXhaN3hMb24vMUNvVnFHVkc4N2JpbGVjSmJOTmZRSFE5THRuWnhUM1d2?=
- =?utf-8?Q?c0c8=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WHVIbmpXV0FETlVjTExTRGxpWFFXaC8wM1VDTytnTEY4MmNKQVQvL2dXWFd0?=
- =?utf-8?B?Z2k3SGVDTllQUzhJaUdZOHBUazBVY3ZOM3Zoa1FHSXdaN3UyUitBWDJ3ZzhE?=
- =?utf-8?B?cGd4UFRqeWpwU1BHUTdnTzBvWVArZFNla3Z3My9GcndYSkxudmtlMTFvQ3h1?=
- =?utf-8?B?RkJnSG1mOVdjcUcyU0VOZDFPOTlBc1E1NG8xRHdhTFpwUDFXNHhNVmxmdTlr?=
- =?utf-8?B?VTdpVmxFZEgwdlR4dXI3dGR6RU91MndxMWJQdzB3OG5hRThRSUYvQXJ2S05M?=
- =?utf-8?B?VmxjMDBzVzdZR2dTZS9ua1BBMC9iTFpibUdSQnlIVS9EblFhdDFabkxuZVB6?=
- =?utf-8?B?cWdyQ2dScmZFY1h6TGs0ajBncXR6NmVGTXo1d0x3bGVTU3BPRXhrYVE0VE1X?=
- =?utf-8?B?eXZRMGhjcUdGOEMzQTBvVUQrYWhMQjBJaVh6WGxjbGlGd01MalV6WjIrM2gx?=
- =?utf-8?B?RjBYR2g3RXF5Y2RFU3dZekhVTitCQ3pldXVyN2UvenNZMkJYbkoxbklOd1JT?=
- =?utf-8?B?Yk5acGxVb2RaUWRVZVpiT1p0M05sSzFQaFZUOG5Rb0pHWkYwZC9BL1BjRHVa?=
- =?utf-8?B?a2JkZDltTFVhOWI1RFh6OU1qYXlIa2JXNUFKd01TcmJ1ZFd2OGxOd3VaSHlO?=
- =?utf-8?B?MjBzemJIWC9MNGZCVjBzNVd4TThXekw0cFk5YTYybW00TkpoOXczRFVpY1pU?=
- =?utf-8?B?Rk9sZ3hvQTB2cVZ4emRvTWlmYUNOa25QU2UyQlhraHdOOEIybmJRRzc4alRI?=
- =?utf-8?B?SXVHNWp3S3JuTWYzUEt3U1FrYzZlNERLakRUUzVLQVBSamMya3VmSWZnYXRl?=
- =?utf-8?B?eTdEN0QzSG5sU2lZS3ZCRmJDeCtVQTdYR0sxUDFaOUhlOVRZNzY3UzhXOG00?=
- =?utf-8?B?K2NMekV4YklwOUZ1MkNNWGhOWENNMXJvV0J4ZmE2VHk2VmVHRG9TbnQ4TjE5?=
- =?utf-8?B?bkFOdGtMV2c1Y2NEM1FpSW9YZWQvcWdUOWMxeDY5V3VpQktmU1RLQThXZ0RX?=
- =?utf-8?B?QTdoc3ZNalQ4bDRSYllLeTVEamZJYTh2MFF6SkZvSHp6aDJwdHg3bE1PaWlG?=
- =?utf-8?B?UlVRU1Y0SFowdDBjbmhySXdUZU9PY3RiMGpFLzY0MEcrZ0JHRDAwL0V3UmdZ?=
- =?utf-8?B?ZnlqTGR3NUxaV2FGMWV1MFh2eW9hdXlHTXU3Rk05cFQyb3I3Q0hyR0o5NVBK?=
- =?utf-8?B?UUl6ak1OQ0pxdjhHaU5ZN1JHSmtUMEtQZkNkVkgxbnpFWjJHaDZxV2xsY1dw?=
- =?utf-8?B?TWdRb3JMd3pGc2F5VGk5ajZWQ0lQQkE3eVo3VHFPei81VHBpbFRSMGpoYWww?=
- =?utf-8?B?dmhJM2kzWTgrekpsTE9WWHdROTVIS0ZjZ2Rla3JGNjdXWFVsS2VoUXdLcmh5?=
- =?utf-8?B?aG9qS3ZuNWFmcW8wbitPVWI2U25OVnhNd1RuN2ZMcWxwc2hhcWVveVpUaTFT?=
- =?utf-8?B?NnpaOFZkbGNnVHpIVG5lR1VlcGpDMi9BWkl5K1Vxa3lkbWh1ZzIveVFkVkkw?=
- =?utf-8?B?TWg0a1BlVFE5dUIwamRBUmEwQ3VwTGYxK3J0Q0FEQVpNRHFBTG9FTHY3TWtL?=
- =?utf-8?B?bkRtWkxPYUxhdDV2N2xXdlQ0MmFyMkh4REE1dWNyRGpZdG5QNTdDVjIxWExh?=
- =?utf-8?B?TFhKQUY1RTd3aTB1MERTdXIwN1Z4KzVRaXoxeDZTQVJLQUdoVm8xSWpXRzY5?=
- =?utf-8?B?cG82U29hVW5YYVhSajVXVllBSXVpZm9JV01uUktIckszNlc2eEZpSFg0MXVq?=
- =?utf-8?B?MUxQLzU0YXNQK2pha0tpYVhjcnBiTDZHaDZoVFZWK3JmU0FJc2t0RWI4ZGRu?=
- =?utf-8?B?ajc2RVRNS0NwR2tyeldTeUNEOXJGRTJ4b3pxMjlEaXNBWmFqOGc0MEVzdG94?=
- =?utf-8?B?b0lHSjJ0VytNR1dDMWNZcXVTa01PcGY2eWx4NmIrSlR3T1MzMTZWT2g3NFhP?=
- =?utf-8?B?ZlpZUVdCbCthOEthZEhmVk94eXRDKzZXY05mSE1nRDN0cmxZWTJJM2FiWlUz?=
- =?utf-8?B?N1NwK1B4ZlNzUGZVaHdiUnl2d0tSQnhHSDgvcUhBSS9vRmZLS1dLU1Y3VXpW?=
- =?utf-8?B?Y3BpZmtBMEQyUUpkM0pzbFh5dGd6b0NteGhtaFB3OGF6ZklZUzZvM3IxQ0Nl?=
- =?utf-8?B?VkZrYVUrODE3dTYrbk9SeDFaZTg2M2VRYy9UOUNvbTFoVU9QUUlqSTI4STNC?=
- =?utf-8?B?b1JNNVc3eE84WWNNRWo1YUEyazlHQzZNOVZCcmRWRnFqa0VZSEpDTDNFMEwr?=
- =?utf-8?B?QzM5VTZnNFVWMGkvZytMVnhFb2lGSVFiVzRDOHJjYW1PRGh4UUtzRVBzMVky?=
- =?utf-8?B?MFZhUXEvU3RDMitFQVRIRFZjNjFIVWQ3TlJhZHZjaEF4bnVMNG1lUT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d9eef77b-075d-473d-e7c9-08de69934e64
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2026 17:30:53.1189 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: u/0qpuW+Z6ZIFbjwuR8kLuuOCW7vKISmhaJqWdO5o9ApWvFTjwc+tSh+7lyFUSVywAPOeJsCNY1y9RhSkYeCGA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9180
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Thu, 12 Feb 2026 13:39:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -200,18 +90,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 2/11/2026 4:19 AM, Danilo Krummrich wrote:
-> On Wed Feb 11, 2026 at 12:32 AM CET, Joel Fernandes wrote:
->> Link to v8: https://lore.kernel.org/all/20260209214246.2783990-1-joelagnelf@nvidia.com/
->> Link to v7: https://lore.kernel.org/all/20260206004110.1914814-1-joelagnelf@nvidia.com/
+On Tuesday, 10 February 2026 18:24:46 Central European Standard Time Maxime Ripard wrote:
+> Hi,
 > 
-> I already asked about this in [1], can you please add a changlog to your series?
+> On Sat, Feb 07, 2026 at 08:55:16PM +0100, Nicolas Frattaroli wrote:
+> > On Friday, 6 February 2026 15:08:46 Central European Standard Time Maxime Ripard wrote:
+> > > On Wed, Jan 21, 2026 at 03:45:10PM +0100, Nicolas Frattaroli wrote:
+> > > > While the two enums have similar values, they're not identical, and
+> > > > HDMI's enum is defined as per the HDMI standard.
+> > > > 
+> > > > Add a simple conversion function from DRM to HDMI. Unexpected inputs
+> > > > aren't handled in any clever way, DRM_COLOR_FORMAT_AUTO and any other
+> > > > value that doesn't cleanly map to HDMI just gets returned as
+> > > > HDMI_COLORSPACE_RGB.
+> > > > 
+> > > > Add a second conversion function that gets a DRM_COLOR_FORMAT from an
+> > > > HDMI_COLORSPACE as well. In this case, reserved HDMI values that can't
+> > > > be converted will result in an -EINVAL return value.
+> > > > 
+> > > > Co-developed-by: Marius Vlad <marius.vlad@collabora.com>
+> > > > Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
+> > > > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > > > ---
+> > > >  include/drm/drm_connector.h | 54 +++++++++++++++++++++++++++++++++++++++++++++
+> > > >  1 file changed, 54 insertions(+)
+> > > > 
+> > > > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> > > > index b5604dca728a..ffeb42f3b4a3 100644
+> > > > --- a/include/drm/drm_connector.h
+> > > > +++ b/include/drm/drm_connector.h
+> > > > @@ -2612,6 +2612,60 @@ int drm_connector_attach_color_format_property(struct drm_connector *connector);
+> > > >  
+> > > >  const char *drm_get_color_format_name(enum drm_color_format color_fmt);
+> > > >  
+> > > > +/**
+> > > > + * drm_color_format_to_hdmi_colorspace - convert DRM color format to HDMI
+> > > > + * @fmt: the &enum drm_color_format to convert
+> > > > + *
+> > > > + * Convert a given &enum drm_color_format to an equivalent
+> > > > + * &enum hdmi_colorspace. For non-representable values and
+> > > > + * %DRM_COLOR_FORMAT_AUTO, the value %HDMI_COLORSPACE_RGB is returned.
+> > > > + *
+> > > > + * Returns: the corresponding &enum hdmi_colorspace value
+> > > > + */
+> > > > +static inline enum hdmi_colorspace __pure
+> > > > +drm_color_format_to_hdmi_colorspace(enum drm_color_format fmt)
+> > > > +{
+> > > > +	switch (fmt) {
+> > > > +	default:
+> > > > +	case DRM_COLOR_FORMAT_AUTO:
+> > > > +	case DRM_COLOR_FORMAT_RGB444:
+> > > > +		return HDMI_COLORSPACE_RGB;
+> > > 
+> > > I don't think that's correct. What auto ends up as totally depends on
+> > > the atomic state it comes with.
+> > > 
+> > > At the very least, you should output a warning there, because that case
+> > > should never happen.
+> > 
+> > Yeah, my hope was to keep this function __pure so that the compiler
+> > has maximum freedom to do whatever. With a WARN, it's got side-effects
+> > now, and we're no longer pure. With a status return value and an output
+> > parameter, it's no longer pure either, because the output parameter is
+> > not local memory.
+> > 
+> > The limiting factor here is that as I understand correctly, I can't
+> > really extend the hdmi_colorspace enum, as it's basically 1:1 from
+> > the standard. Doing this would be the ideal solution, because we'd
+> > keep the function pure and without surprise conversions happening.
+> 
+> I feel like this kind of loops back into the other two reviews I did:
+> you paint yourself into a corner by having auto in the enum, and by
+> passing it directly to that function.
+> 
+> If, instead, you don't allow auto in the drm_color_format enum, and
+> resolve auto in the hdmi_compute_config function instead of passing it
+> directly, then we don't have to deal with it here.
 
-Sure, I will do that. My bad. (I did include good cover-letters in earlier
-series, but missed on this one). Thanks for pointing it out.
+You're right. Though that means I need to figure out how I'll handle
+the conversion from enum to bitfield for !HDMI cases. I guess for DP,
+I can do this in drm_dp_helper or something. I don't know if i915 or
+amdgpu call into that at all though, but it's as good of a time as any
+to start doing so now if not. Just also learned about the existence of
+`enum dp_pixelformat`, which imho has the best naming out of all of
+these enums. (I hope "HDMI Colorspace" to describe pixel formats is
+straight from the standard because if it's something we in the kernel
+came up with then I will put renaming it on my list of long-term
+kernel tasks to get around to some day.)
 
---
-Joel Fernandes
+And yes I will add the necessary KUnit tests for the DP helper side of
+things as well. :)
+
+Nothing registers the property for DSI so we should be good on that front
+for now.
+
+Thanks for the reviews.
+
+Kind regards,
+Nicolas Frattaroli
+
+> > Looking at hdmi_colorspace_get_name in drivers/video/hdmi.c, it returns
+> > "Invalid" for any value not in the enum itself. Would it be allowable
+> > to tack an HDMI_COLORSPACE_INVALID at the end of the enum with perhaps
+> > a negative value, or is there a different approach you'd prefer?
+> 
+> And again, if we only ever have to deal with RGB, YUV420, 444 or 422,
+> then we always have valid values for HDMI_COLORSPACE.
+> 
+> Plus, the hdmi_colorspace enum matches what the hdmi spec defines, so we
+> can't really extend it, and most importantly, hdmi_colorspace_get_name()
+> is only ever used for debugging / logging purposes, it's never in the
+> "functional" path.
+> 
+> Maxime
+> 
+
+
+
 
