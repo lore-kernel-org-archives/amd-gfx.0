@@ -4,49 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25403E9E308
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Feb 2026 14:07:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E133E9E311
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Feb 2026 14:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B318D10E5D0;
-	Wed, 11 Feb 2026 14:07:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1397810E61C;
+	Wed, 11 Feb 2026 14:18:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ubuntu.com header.i=@ubuntu.com header.b="CyZ8c7wQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hrHsy6JG";
 	dkim-atps=neutral
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3C9510E5D0
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Feb 2026 14:07:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: To: From: Subject: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1770818858;
- bh=Ove3152/rOAawcpxeWCOveBkHcNtgUY9GmlkSgVIbr8=;
- b=CyZ8c7wQg1fTUD/p3Znz960QmSi9ZYDC9uGmzQB582nkwESmsVZRF+vsgmhppS6jzF5sDa97Q
- p1mRT/nn9uBaUvRfgObfjBWW4mLgK7/giP13QH86DCK3aDukwnUArDwUnzWDiZ26jSZJyebt2cV
- njeuk5YEpFLzzN6Uj6KOpDoJBvmAxI3Aj8vNVHuQgkktvOqNVHOM+4mLQHKvvx2y86okOgjEE14
- JMcn7feBYGCqEINcfn7Hd5329P7/xQaJUULeN/XBp5Vu/OKVYBS3l9ERod0eZteH45UD4AbupTY
- 7e8kR8OulRUZ1vbXxq9MYyfGXDhsfTUbDGYmupqB67VQ==
-X-Forward-Email-ID: 698c8d282138e558edd7a81c
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.6.3
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Mime-Version: 1.0
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 474EF10E5FC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Feb 2026 14:18:10 +0000 (UTC)
+Received: by mail-dl1-f46.google.com with SMTP id
+ a92af1059eb24-124b07e5fe4so533892c88.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Feb 2026 06:18:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770819489; cv=none;
+ d=google.com; s=arc-20240605;
+ b=e3OcctM+tDZkz4mPyLiYvyE6U9imBGrSOXI/Q6QuUGUT5LYTiWU81s1dUGFsm38Z4M
+ NMoQKZQ/h50PPr3Fp8sjpFmVsc4/JmN3ZYIjjapX3NM18OLhCHTLtERPLm/mbBkqUXYX
+ EQhM7aAdO37tVxXXL+mjzX66GCfmzCOHi3mhT9JUKyakK5hgpBLMT6QbLOpO+B1uWeY0
+ xH47DeGqdKosTj33Lttat6O0wLduMpxwcjRq0kUiZS3JiieEl3HeTpoEp1yl8f11dYAn
+ Fe2D9Tz03C81YoAQSV7yPpuFsjQNZVtooNhDJpi6dJs2QI87KRKc9xEQK184svkcjFMw
+ iIqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=goBWqa/XBAUCU/USU+7vOgmq/PVsWb+UivWg7c+q+G4=;
+ fh=kP4WtfpaYcPfg9D2ckp31Oj2ioAgBoIFusaUjo7vWmU=;
+ b=QE6tgMWT38U3tusO229MLqqHbAswFaIFu+h/Ld7WX4bhyyJIC5d9XZNxo7QN/tgG0Q
+ XdUACSV8cNcbfIum2PncqoYMktJguCZXkCeStkZV4ylwjx/Si9SweJYPFVnrCC6ozPIU
+ iqhgpxPy2dPVpkMPChiw0J2yrNPF/fkEevbwcF0UEzmwYASWqFKEcQpGdhwTAkEVicrX
+ kUyxXlLknzGy9fUiVciIx32ilPU7COrvZbUnm93GI+4AX/Hpj/j9/Rse/EiJIynvlwjm
+ UYXB6L7bfyUi5B0JuQ4bbGFztAiZhGmwKpLVFwqePUJRfFAF9QcadGkMLwvpmPGXQbEN
+ 6AXw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770819489; x=1771424289; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=goBWqa/XBAUCU/USU+7vOgmq/PVsWb+UivWg7c+q+G4=;
+ b=hrHsy6JG9sD4opKHYeBuVzFRfpYvjneZeYNSUTbwTrZPCCuKha2yB2/JDlkJsibr0T
+ DhcJoXlCiNc5xpzUSFr8Ru7I+ezkW39scB/34NPAqEh+S/1dOE3O5/koyVgxv3nYd23m
+ vDirWj947IIqJurB/VAxsrMvjEhjSYs7pvG87oNC7sSQFh497v559AWiYlIiaueKZHUx
+ 0fw31+QUrSerBMUpUaSMItJI7fEyVqhkMyPgjZppeiYGSyTMIdiAk8B7wSpKopdsUZgD
+ Cl0QKlIJlryVBlkrvrRhodH2Y49mcZPTM4tx57T9seQYkcbKTwGu7OHnEt9bXWghNxMN
+ ld/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770819489; x=1771424289;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=goBWqa/XBAUCU/USU+7vOgmq/PVsWb+UivWg7c+q+G4=;
+ b=WBKp8+rSWHdNQFFSdHnyeHaQx3yZ03738uzZRampQDD37yXds2C96X2A91m1b5KT2+
+ uF67EWi5n2zPZy7gT6p2426MObWuoHvHuqdT3fxRaRmaO0HJZdGjfRjlh/V1AUfSlNMA
+ Hj79KlLvX0cTJhCdcdqeTb0q6/bb/fqWnHY1UfuabLWet8LQjcZSi9EdAhY9rM/VgUiT
+ wjPgHJ3RvSvhA18B7YYichXbGZOebzbgGLOb/Zm89fIPiIuZu0lbUasF+er7Ri3yU/kz
+ RJvJQ4HV5RczpZlzmhXpduj5VVh7oqlU8oELywbWryloqNkFThlKyED1mf1fJDMrqZHV
+ iWRA==
+X-Gm-Message-State: AOJu0YyZ9Vp3V4cc0lesG9snxNNxI2WnpRBkwBrNDEbwtgr6d1MA1HkS
+ Xij9k5OCNQI1eeIxfOumarCirjHdxw0IWHD3HeaQAtvPciSk7g/vuwm/44Qtd6cm3BpLOKSFPp2
+ KfxUS140RVaCpocp3yXDhw2gT2ABKG4M=
+X-Gm-Gg: AZuq6aJlJIRqdg32N4hpHHsUDojCPvFlYnwGHk/2nqBbQpyEj1TooeNFdEB3kJ2p/Fw
+ 9Nk2TEoVbI761Zw4wqXwl0o1GS2a2OQXnxko8SEysCgvNJVtvmDQqkPEgAUE46s4qWhLMlz22Y5
+ tHj5l7LVcn3t50S99PdWecMfhcja0rxJjduDSQx36I2B51UOdji6w8v2A0GjaoUxInhbZzkkM+j
+ R7VTiinIwQyKKhvAt3JLGi+0osc8Sd/W50ycgnGazwMKJQ25KrYRXHGDeG6a1Li1SYsnwlc+iWb
+ MwxrNM6D30yZrt5SW8Y=
+X-Received: by 2002:a05:7022:ec11:b0:123:308f:667b with SMTP id
+ a92af1059eb24-1272a7728cdmr416122c88.2.1770819489253; Wed, 11 Feb 2026
+ 06:18:09 -0800 (PST)
+MIME-Version: 1.0
+References: <20260210072309.14911-1-decce6@proton.me>
+In-Reply-To: <20260210072309.14911-1-decce6@proton.me>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 11 Feb 2026 09:17:57 -0500
+X-Gm-Features: AZwV_QiPLTEeETb9o-odEKXS3UkM5PUZZ_yDmvKK0LDZ2SxwLbh-oK6gcsMssh0
+Message-ID: <CADnq5_MRvfNk83C6fd_gFTN8Sv8hgi56vJgEENajxpmQo3xd9Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add HAINAN clock adjustment
+To: decce6 <decce6@proton.me>
+Cc: amd-gfx@lists.freedesktop.org, Kenneth Feng <kenneth.feng@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ Lijo Lazar <lijo.lazar@amd.com>,
+ Alexandre Demers <alexandre.f.demers@gmail.com>, 
+ "chr[]" <chris@rudorff.com>, Sunil Khatri <sunil.khatri@amd.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Wed, 11 Feb 2026 09:07:32 -0500
-Message-Id: <DGC6W6ISK6DK.2B9VCFCGAJ2TH@ubuntu.com>
-Subject: Re: [PATCH] amdgpu_connector: use struct drm_edid instead of struct
- edid
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Joshua Peisach" <jpeisach@ubuntu.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>
-X-Mailer: aerc 0.21.0
-References: <20260207200550.42315-1-jpeisach@ubuntu.com>
-In-Reply-To: <20260207200550.42315-1-jpeisach@ubuntu.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,229 +108,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat Feb 7, 2026 at 3:04 PM EST, Joshua Peisach wrote:
-> Some amdgpu code is still using deprecated edid functions. Switch to
-> the newer functions and update the amdgpu_connector struct's edid type
-> to the drm_edid type.
->
-> At the same time, use the raw EDID when we need to for speaker
-> allocations and for determining if the input is digital.
->
-> Signed-off-by: Joshua Peisach <jpeisach@ubuntu.com>
+Applied both patches.  Thanks!
 
-I think this patch actually has the wrong naming convention: should I
-resubmit and say drm/amdgpu/connectors to be more clear?
+Alex
 
+On Tue, Feb 10, 2026 at 3:20=E2=80=AFAM decce6 <decce6@proton.me> wrote:
+>
+> This patch limits the clock speeds of the AMD Radeon R5 M420 GPU from
+> 850/1000MHz (core/memory) to 800/950 MHz, making it work stably. This
+> patch is for amdgpu.
+>
+> Signed-off-by: decce6 <decce6@proton.me>
 > ---
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 32 +++++++++----------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  4 +--
->  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  4 +--
->  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  4 +--
->  5 files changed, 23 insertions(+), 23 deletions(-)
+>  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 5 +++++
+>  1 file changed, 5 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_connectors.c
-> index d3e312bda..ab83b3a87 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> @@ -246,10 +246,10 @@ amdgpu_connector_find_encoder(struct drm_connector =
-*connector,
->  	return NULL;
->  }
-> =20
-> -static struct edid *
-> +static const struct drm_edid *
->  amdgpu_connector_get_hardcoded_edid(struct amdgpu_device *adev)
->  {
-> -	return drm_edid_duplicate(drm_edid_raw(adev->mode_info.bios_hardcoded_e=
-did));
-> +	return drm_edid_dup(adev->mode_info.bios_hardcoded_edid);
->  }
-> =20
->  static void amdgpu_connector_get_edid(struct drm_connector *connector)
-> @@ -268,8 +268,8 @@ static void amdgpu_connector_get_edid(struct drm_conn=
-ector *connector)
->  	if ((amdgpu_connector_encoder_get_dp_bridge_encoder_id(connector) !=3D
->  	     ENCODER_OBJECT_ID_NONE) &&
->  	    amdgpu_connector->ddc_bus->has_aux) {
-> -		amdgpu_connector->edid =3D drm_get_edid(connector,
-> -						      &amdgpu_connector->ddc_bus->aux.ddc);
-> +		amdgpu_connector->edid =3D drm_edid_read_ddc(connector,
-> +							  &amdgpu_connector->ddc_bus->aux.ddc);
->  	} else if ((connector->connector_type =3D=3D DRM_MODE_CONNECTOR_Display=
-Port) ||
->  		   (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP)) {
->  		struct amdgpu_connector_atom_dig *dig =3D amdgpu_connector->con_priv;
-> @@ -277,14 +277,14 @@ static void amdgpu_connector_get_edid(struct drm_co=
-nnector *connector)
->  		if ((dig->dp_sink_type =3D=3D CONNECTOR_OBJECT_ID_DISPLAYPORT ||
->  		     dig->dp_sink_type =3D=3D CONNECTOR_OBJECT_ID_eDP) &&
->  		    amdgpu_connector->ddc_bus->has_aux)
-> -			amdgpu_connector->edid =3D drm_get_edid(connector,
-> -							      &amdgpu_connector->ddc_bus->aux.ddc);
-> +			amdgpu_connector->edid =3D drm_edid_read_ddc(connector,
-> +								  &amdgpu_connector->ddc_bus->aux.ddc);
->  		else if (amdgpu_connector->ddc_bus)
-> -			amdgpu_connector->edid =3D drm_get_edid(connector,
-> -							      &amdgpu_connector->ddc_bus->adapter);
-> +			amdgpu_connector->edid =3D drm_edid_read_ddc(connector,
-> +								  &amdgpu_connector->ddc_bus->adapter);
->  	} else if (amdgpu_connector->ddc_bus) {
-> -		amdgpu_connector->edid =3D drm_get_edid(connector,
-> -						      &amdgpu_connector->ddc_bus->adapter);
-> +		amdgpu_connector->edid =3D drm_edid_read_ddc(connector,
-> +							  &amdgpu_connector->ddc_bus->adapter);
->  	}
-> =20
->  	if (!amdgpu_connector->edid) {
-> @@ -292,7 +292,7 @@ static void amdgpu_connector_get_edid(struct drm_conn=
-ector *connector)
->  		if (((connector->connector_type =3D=3D DRM_MODE_CONNECTOR_LVDS) ||
->  		     (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP))) {
->  			amdgpu_connector->edid =3D amdgpu_connector_get_hardcoded_edid(adev);
-> -			drm_connector_update_edid_property(connector, amdgpu_connector->edid)=
-;
-> +			drm_edid_connector_update(connector, amdgpu_connector->edid);
->  		}
->  	}
->  }
-> @@ -311,11 +311,11 @@ static int amdgpu_connector_ddc_get_modes(struct dr=
-m_connector *connector)
->  	int ret;
-> =20
->  	if (amdgpu_connector->edid) {
-> -		drm_connector_update_edid_property(connector, amdgpu_connector->edid);
-> -		ret =3D drm_add_edid_modes(connector, amdgpu_connector->edid);
-> +		drm_edid_connector_update(connector, amdgpu_connector->edid);
-> +		ret =3D drm_edid_connector_add_modes(connector);
->  		return ret;
->  	}
-> -	drm_connector_update_edid_property(connector, NULL);
-> +	drm_edid_connector_update(connector, NULL);
->  	return 0;
->  }
-> =20
-> @@ -883,7 +883,7 @@ amdgpu_connector_vga_detect(struct drm_connector *con=
-nector, bool force)
->  			ret =3D connector_status_connected;
->  		} else {
->  			amdgpu_connector->use_digital =3D
-> -				!!(amdgpu_connector->edid->input & DRM_EDID_INPUT_DIGITAL);
-> +				drm_edid_is_digital(amdgpu_connector->edid);
-> =20
->  			/* some oems have boards with separate digital and analog connectors
->  			 * with a shared ddc line (often vga + hdmi)
-> @@ -1063,7 +1063,7 @@ amdgpu_connector_dvi_detect(struct drm_connector *c=
-onnector, bool force)
->  			broken_edid =3D true; /* defer use_digital to later */
->  		} else {
->  			amdgpu_connector->use_digital =3D
-> -				!!(amdgpu_connector->edid->input & DRM_EDID_INPUT_DIGITAL);
-> +				drm_edid_is_digital(amdgpu_connector->edid);
-> =20
->  			/* some oems have boards with separate digital and analog connectors
->  			 * with a shared ddc line (often vga + hdmi)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_mode.h
-> index dc8d2f52c..c4e025581 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -624,7 +624,7 @@ struct amdgpu_connector {
->  	bool use_digital;
->  	/* we need to mind the EDID between detect
->  	   and get modes due to analog/digital/tvencoder */
-> -	struct edid *edid;
-> +	const struct drm_edid *edid;
->  	void *con_priv;
->  	bool dac_load_detect;
->  	bool detected_by_load; /* if the connection status was determined by lo=
-ad */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd=
-/amdgpu/dce_v10_0.c
-> index 61302204e..3346494c3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-> @@ -1298,7 +1298,7 @@ static void dce_v10_0_audio_write_speaker_allocatio=
-n(struct drm_encoder *encoder
->  		return;
->  	}
-> =20
-> -	sad_count =3D drm_edid_to_speaker_allocation(amdgpu_connector->edid, &s=
-adb);
-> +	sad_count =3D drm_edid_to_speaker_allocation(drm_edid_raw(amdgpu_connec=
-tor->edid), &sadb);
->  	if (sad_count < 0) {
->  		DRM_ERROR("Couldn't read Speaker Allocation Data Block: %d\n", sad_cou=
-nt);
->  		sad_count =3D 0;
-> @@ -1368,7 +1368,7 @@ static void dce_v10_0_audio_write_sad_regs(struct d=
-rm_encoder *encoder)
->  		return;
->  	}
-> =20
-> -	sad_count =3D drm_edid_to_sad(amdgpu_connector->edid, &sads);
-> +	sad_count =3D drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sa=
-ds);
->  	if (sad_count < 0)
->  		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
->  	if (sad_count <=3D 0)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v6_0.c
-> index 8f4b4c2e3..508cfe6a8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-> @@ -1265,7 +1265,7 @@ static void dce_v6_0_audio_write_speaker_allocation=
-(struct drm_encoder *encoder)
->  		return;
->  	}
-> =20
-> -	sad_count =3D drm_edid_to_speaker_allocation(amdgpu_connector->edid, &s=
-adb);
-> +	sad_count =3D drm_edid_to_speaker_allocation(drm_edid_raw(amdgpu_connec=
-tor->edid), &sadb);
->  	if (sad_count < 0) {
->  		DRM_ERROR("Couldn't read Speaker Allocation Data Block: %d\n", sad_cou=
-nt);
->  		sad_count =3D 0;
-> @@ -1346,7 +1346,7 @@ static void dce_v6_0_audio_write_sad_regs(struct dr=
-m_encoder *encoder)
->  		return;
->  	}
-> =20
-> -	sad_count =3D drm_edid_to_sad(amdgpu_connector->edid, &sads);
-> +	sad_count =3D drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sa=
-ds);
->  	if (sad_count < 0)
->  		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
->  	if (sad_count <=3D 0)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/=
-amdgpu/dce_v8_0.c
-> index 9d1853c41..3a6a22926 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-> @@ -1271,7 +1271,7 @@ static void dce_v8_0_audio_write_speaker_allocation=
-(struct drm_encoder *encoder)
->  		return;
->  	}
-> =20
-> -	sad_count =3D drm_edid_to_speaker_allocation(amdgpu_connector->edid, &s=
-adb);
-> +	sad_count =3D drm_edid_to_speaker_allocation(drm_edid_raw(amdgpu_connec=
-tor->edid), &sadb);
->  	if (sad_count < 0) {
->  		DRM_ERROR("Couldn't read Speaker Allocation Data Block: %d\n", sad_cou=
-nt);
->  		sad_count =3D 0;
-> @@ -1339,7 +1339,7 @@ static void dce_v8_0_audio_write_sad_regs(struct dr=
-m_encoder *encoder)
->  		return;
->  	}
-> =20
-> -	sad_count =3D drm_edid_to_sad(amdgpu_connector->edid, &sads);
-> +	sad_count =3D drm_edid_to_sad(drm_edid_raw(amdgpu_connector->edid), &sa=
-ds);
->  	if (sad_count < 0)
->  		DRM_ERROR("Couldn't read SADs: %d\n", sad_count);
->  	if (sad_count <=3D 0)
-
+> diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm=
+/amd/pm/legacy-dpm/si_dpm.c
+> index 1f539cc65f41..b5d895537477 100644
+> --- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+> @@ -3468,6 +3468,11 @@ static void si_apply_state_adjust_rules(struct amd=
+gpu_device *adev,
+>                         max_sclk =3D 60000;
+>                         max_mclk =3D 80000;
+>                 }
+> +               if ((adev->pdev->device =3D=3D 0x666f) &&
+> +                   (adev->pdev->revision =3D=3D 0x00)) {
+> +                       max_sclk =3D 80000;
+> +                       max_mclk =3D 95000;
+> +               }
+>         } else if (adev->asic_type =3D=3D CHIP_OLAND) {
+>                 if ((adev->pdev->revision =3D=3D 0xC7) ||
+>                     (adev->pdev->revision =3D=3D 0x80) ||
+> --
+> 2.43.0
+>
+>
