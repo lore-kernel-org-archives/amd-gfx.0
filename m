@@ -4,54 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 581D6EB48F0
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 09:56:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12D3FEB48F0
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 10:20:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE75610E1AC;
-	Thu, 12 Feb 2026 09:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5592A10E1AD;
+	Thu, 12 Feb 2026 10:20:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nWWr6peE";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="eryi6RMZ";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 823C810E71E;
- Thu, 12 Feb 2026 09:56:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=4r0axd0p9XoEl01VZ9/+DTiAeYB+VWDSn46gotmm7z8=; b=nWWr6peEIhBI1uqfmMMBfW6bMS
- gFnz5tGiqA+8i7y8aB5GEb9C8zbQgvINBDKESIyBCAXs9Hr+2UnP9cG96gRHS6E6OugwMP3gvwgXE
- AVnXAEjxfOGGrgNkIh9ISwuJb/5CmLeMogylIntoh1dn/0yX1vcGjagwG9MnJXMQIuHr4GYzAKTIp
- oPUkyNDH7nT4aSodChixhJ+LJ2lCQDIBsLc+bOPRIa7OYu5n8QceFDwZZfDdu9qnzIBNu+yUfXw4C
- otks9nCv3bHoluOk5p3WCxk0NWW6ypUjlNCni8U69gdhovo+b0K6Vk3mpsCP5uREldRC2UjLyelRQ
- Xol8NrOg==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vqTQX-00HT9m-U0; Thu, 12 Feb 2026 10:56:01 +0100
-Message-ID: <12fc3ede-d9af-4d32-8ea4-822a9b93627d@igalia.com>
-Date: Thu, 12 Feb 2026 09:56:00 +0000
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6F4410E1AD;
+ Thu, 12 Feb 2026 10:20:27 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4fBWX75kgzz9tJR;
+ Thu, 12 Feb 2026 11:20:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1770891623;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=EvlNh4whGfRORlPs4ksfhA1L1r7Z2CtEieq3IwPk7Ic=;
+ b=eryi6RMZAVZx/Z17Dv6jBLpnlhuJU3F9ucktibIq+euPBYgSLh8TuFcbZ4eRgl13sMCIlQ
+ iKKo4ak83Q6OGd6uCiMWIb/CbjTpKT80JLRo8pjAqHC37LvlraPDDIWFzd3Xu4+CfwpInG
+ 1+68sJZGuSo+4brEnA7yBTd7XEhjQxDhLjZFX0NZz9LKBQ/frtSUbyX8Q3TqbLT4woT6uu
+ EyE5dcCCzVRf6cort2/YCIGMsysKjgOeBjzI6YyXq+GQg4awpcbwdGsZdxA/HMAKSQxPN/
+ TAVcmOiFXJuYaf7UbBAcS6nFUyrxHms029oeKj5QOW+oqMfU1Q5LIk1lzAop7A==
+Message-ID: <5c5363a4-a337-40b0-9ee5-11fbe6fd3edf@mailbox.org>
+Date: Thu, 12 Feb 2026 11:20:20 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/31] Fair(er) DRM scheduler
-To: phasta@kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>,
- Leo Liu <Leo.Liu@amd.com>, Lucas Stach <l.stach@pengutronix.de>,
- Matthew Brost <matthew.brost@intel.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-References: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
- <7fcca1f49427e0279a740b6c1b9bb072eabc2c35.camel@mailbox.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <7fcca1f49427e0279a740b6c1b9bb072eabc2c35.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH] drm/amd/display: add module param to disable immediate
+ vblank off
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Michele Palazzi <sysdadmin@m1k.cloud>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
+ mario.limonciello@amd.com, Rodrigo.Siqueira@igalia.com, alex.hung@amd.com,
+ aurabindo.pillai@amd.com
+References: <20260211074529.131290-1-sysdadmin@m1k.cloud>
+ <2026021146-mockup-pushup-5f47@gregkh>
+ <7a1fa826-cddc-4f8d-ae45-afe6ddecd6e0@amd.com>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: en-CA
+In-Reply-To: <7a1fa826-cddc-4f8d-ae45-afe6ddecd6e0@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: f2fbebcb4843a3059bf
+X-MBO-RS-META: o8njixjm3uzjgjrjbgatzthy79dzzp5g
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,45 +69,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 11/02/2026 11:08, Philipp Stanner wrote:
-> On Wed, 2026-01-28 at 11:07 +0000, Tvrtko Ursulin wrote:
->> ** NOTE:
->>     First three patches have been already reviewed and are conceptualy
->>     independent. But as the code conflicts, I am including them while waiting for
->>     them to be merged via amd-next, and until they percolate back to drm-tip, in
->>     order to avoid having to maintain two separate patch series.
+On 2/11/26 11:07, Christian König wrote:
+> Dropping stable, putting Grep on BCC.
 > 
+> On 2/11/26 10:19, Greg KH wrote:
+>> On Wed, Feb 11, 2026 at 08:45:29AM +0100, Michele Palazzi wrote:
+>>> Add amdgpu.no_vblank_immediate parameter to optionally disable the
+>>> immediate vblank disable path on DCN35+ non-PSR CRTCs. When set to 1,
+>>> a 2-frame offdelay is used instead, matching the behavior used for
+>>> older hardware and DGPUs.
+>>
+>> Please no more module parameters, this is not the 1990's with only one
+>> one device in the system.  Please fix this the proper way.
 > 
-> So your intention with this v6 is just to get more reviews? What is the
-> purpose?
+> I just wanted to write the same.
 > 
-> And since the plan is supposedly that the drm_sched maintainers take
-> it, when will they know that it's ready now?
+> We can of course implement something in DAL/DC, but clearly not behind a module parameter.
 > 
-> Can we agree on delaying a v7 until all lights are green?
+> Or is there any other negative consequence except for that the display blanking is delayed by ~40ms?
 
-I am waiting on Christian to merge the first three patches via amd-next. 
-That is pending for a month now and in the meantime I did not want to 
-send this series and have someone tell me it does not apply. If by a 
-miracle someone actually went to try and give it a spin.
+It doesn't affect display blanking, only how long the vblank interrupt stays enabled. (If it stays enabled unnecessarily, that might waste some energy)
 
-For the moment I don't think this is a problem for this series since 
-there are so many more patches still pending to review. And based on the 
-past experience you will not be merging it any time soon. As there are 
-no design conflicts between the two, the review can progress just fine 
-ignoring the first three patches.
 
-> For the future, I think the more canonical (and less confusing) way to
-> handle situations like this is not to include foreign patches into a
-> single-topic patch series, but to hint in the cover letter at the
-> situation and provide links: "Series is blocked by [1], [2]".
-
-Again, like that it wouldn't build and no one would be able to test it. 
-For now just skip the first three and focus on the rest and hopefully by 
-v7 I will be able to drop those.
-
-Regards,
-
-Tvrtko
-
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
