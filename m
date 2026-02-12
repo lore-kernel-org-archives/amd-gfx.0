@@ -4,72 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ADD0EE3682
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 13:41:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64876EE3683
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 14:00:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B2BD10E74A;
-	Thu, 12 Feb 2026 13:41:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB70A10E755;
+	Thu, 12 Feb 2026 14:00:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="PMp6uoZ6";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="iR3VBRTO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g+qzBR5z";
 	dkim-atps=neutral
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 852A010E716;
- Thu, 12 Feb 2026 10:04:40 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4fBW9y5WYPz9tVR;
- Thu, 12 Feb 2026 11:04:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1770890678; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1AFre+AQoW4GTxlb3pSXIvTb4t8qqbMYJPAfw1gHBVE=;
- b=PMp6uoZ6g/YW2ndbafEmmDWh1e0LeIuVF0MHmBwWJlqG1sqPsWdSFKIB2h67eFsLZ+LTqP
- vH8WmNhewktIc3wIbv2mKLMj3uXAKaMhN4Xij6+tIG1J5XsPEYDycMq+IyhABTdHltQFb/
- UcBGnJoFwHUqRT39sZV+ekAIzIQoq/hdxOFRJ4fov8Gq4lxl96HnSPP4nBEy3s8osAnRBc
- ZqY2LDX4vcIUw4g2sd32R3BuHe9iY1G8f077ZpwsB0HerGAH2Sx1BzQMLMPgv18JeowQb5
- jTm2NxMphW331vGG5kV61rrjPBN/1PuIBh5tag43+G/ldUUqBHDwm4WdHsMKzA==
-Message-ID: <5069c964d408622285c718c447d64c8493bc2e80.camel@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1770890676; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=1AFre+AQoW4GTxlb3pSXIvTb4t8qqbMYJPAfw1gHBVE=;
- b=iR3VBRTOiBVZZSmKUl+LmhtSFsSOthtK4Tytz+FwHwqApEZPXWI4Jfp0NLqbcR/d+t+HTY
- bufW6MPrmeBQEwMHcytqtfO+dc8S0FjMUSkXuf2oEx1GFUKM5GQcVS5QMLbSaZvtpseHqc
- xo9+gazY/BnOCgCCI8klKJtuh64u+AW6zsM4YyQkF9R4fKAa2xCD15otmTlQDQaG7iqzBM
- ulnAnQPcWj/0+r5RKFHpy6cUJVPpLK5pM/z42uEdJA6hjT1RKF+pU3m4TXW04bUM6T0/wn
- AVSOU6NnnWCFP8n2jBbtVWuY7Ouq/yT9KcsssIyFAjfed1stGydW021RXUrAAw==
-Subject: Re: [PATCH v6 00/31] Fair(er) DRM scheduler
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Leo Liu
- <Leo.Liu@amd.com>, Lucas Stach <l.stach@pengutronix.de>, Matthew Brost
- <matthew.brost@intel.com>, Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Michel =?ISO-8859-1?Q?D=E4nzer?=
- <michel.daenzer@mailbox.org>
-Date: Thu, 12 Feb 2026 11:04:31 +0100
-In-Reply-To: <12fc3ede-d9af-4d32-8ea4-822a9b93627d@igalia.com>
-References: <20260128110806.38350-1-tvrtko.ursulin@igalia.com>
- <7fcca1f49427e0279a740b6c1b9bb072eabc2c35.camel@mailbox.org>
- <12fc3ede-d9af-4d32-8ea4-822a9b93627d@igalia.com>
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
+ [74.125.82.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 098AE10E265
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 14:00:51 +0000 (UTC)
+Received: by mail-dy1-f172.google.com with SMTP id
+ 5a478bee46e88-2b867142b07so417569eec.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 06:00:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770904850; cv=none;
+ d=google.com; s=arc-20240605;
+ b=lkFOJ1J2awChEFFTGA/ALBO23fYZ6Z0NzqPksi5d5dgLCUKmQ4K1tDk9wgfbV8Tk2X
+ z8iIdzkNG9+YT9X3aDJ/5H8kHPukRpviUH7dazq4EqbjhNWh0JTZIwehgnWP+idEp3Pw
+ VBPro+FmVYjNXn1L+qm5ZqbUrL/74bQPRsE8zlr2yyTY5IkX6m/u3YvfI0DHcb727+4G
+ gaKOXeI1Mz+UdvRG2rpv9cQofQmioouhawSb3WGui13QSSlwpLIRLCxhRhvq7GCeOPeh
+ t6KPCHSJrzGbGPjI+Grm6S6t7Boodf4UXiHzRFGHW5FE7CEhRGE/MpY46VngsOSkJJ1d
+ RxjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=fRD8b3Y4XGRJDt9CHD6XWFMWas6viZy2+SITWIUk/LI=;
+ fh=xW0goFURhPNh7XoxTlKZk0Z9esJZrJevxmhZ98Dan/A=;
+ b=M1aNsGscj3i5TfF+KxDZeDHNVshcp82LDfRj9RtxFhJ4OULKGfKd+0bqPAYzSXFer6
+ nC7jxoHu+8XWEOPiEFEwjG5+UTJYJcVaufDf22yQQPAclB08E73aBZEmnGi9cj+DMpHa
+ H7Ck7g5sDvCoAPbdLdpDocfBADmAvPn4ieEkvj9iQ7u7L9xByQ0EIM1G5FIg1z1FnAVS
+ HBmS6yghKMIQxzdp7Kur8chbjDes0wnr2eW8Pou6hRJBkzzH4e2lTcTtpG2iqTmF6VG6
+ +0hUYnozzUHtGvcGEaqNRCt4FiyyXatNrOAWlxeM7QZLoch103sptI8pvsjKv6+o9Aev
+ e2NA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770904850; x=1771509650; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=fRD8b3Y4XGRJDt9CHD6XWFMWas6viZy2+SITWIUk/LI=;
+ b=g+qzBR5zQZm+drNAuPo6POGXhLDGG5LnwHSZF91mk2JrQdFxZI9xQHb0lApBBgOeRC
+ CftFjQQ9Vtay/fPh0RF6S1KTGWHLqlbt8ezWcAMUyhV3HD6QQwo6UouVNJnX6+9GUDsf
+ 819vyg8eFpqdClUGG+LgERBneWmXGa10G+IRYrT+Bp8myBpwNOCEzlU2thxnBSqm4swO
+ Oe3qHBewqr9xe+sE1KpEkfc+weBUD5KDQCXP9CwhAFCI0eQtqomKmCjwsbGWi+SBfABN
+ d86AW1h0Yd0GpyGHC9YCAa0A17MEVjf3AWP6rM+NuMEyVQ3NJYMN0CUcR1SPxvntJCPf
+ KXgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770904850; x=1771509650;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=fRD8b3Y4XGRJDt9CHD6XWFMWas6viZy2+SITWIUk/LI=;
+ b=BPnzXAQBHReaGNsSlRfd7Qc5gntOR5UjKsK3MgFrAF1b0rCMFQl+riYHbDzL6p9g/r
+ zxyojv5H6DYJ3BgAXS6cZcZJbiyxfoQSKZ+MRoG1/HksyNzpeHwDatkvVQJn/8nx0wBV
+ yRP2XcPBBgr37zugtEuUiAGlEH+o+7X4XbY55T6qBR9xKNeAbntSn+gjsz7faqKD9VPP
+ 3MJMyHlA1WZ33wdyD0RxbF2D2tO/h2t9hXfbRJy1qdZYbjI7wEm4Mx4C05gvP4R2oEvw
+ gyXOl+TFTPAGRk1ybKSm2IqQ/AxhDYYXjpnfxRjVPvNMp6BZ55y7q5sSPB04G/mWA+wb
+ C/wA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWkidleTWc6tBCe4KrEsKcxXYiqKelimCGfIX8u7N6aG6YNZwqM7RZ/Y5rfKGuaIqjRRWIXFXv+@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8xfoAgZ2s8vKFTrbNTK57MzW+UeW69CL0f28Mgjc4OxAo4HSf
+ 0NE5HZAe6X9sWvEuroVLzJPtP08B0T7huj9NgHnbla9PUBNNobsbPQvrz0tAUOK8/qcysIahHOu
+ H/6IhNciW+ynHYh2gmk7s++Za74Qw9BY=
+X-Gm-Gg: AZuq6aLQlK5PegnKXz2X2zBDNSlWqjeE8CbeQ4domNWfq5oe/KkIU9JVGtvKV69BxAK
+ 8M9HmDmbqkkpmsDOQsuDlqIKqFxORmdZm8alVp4OSx5BMuXZteNEb0RfH5Cd8XqU2F1V9rhLv18
+ xAEoksLuwS4c0Psqi9tHvwn5Cze94hiaAf+kv0gQlrD7yzpKsXXcgmMtAlJkL3FEAjZmxmhdsVn
+ GTrQ4xjVlsiUd1rPcz23Ar/EYDAyJCUshTLu4ZbikseaatdKthQxtzqioObJpteAjPeGRvmtJiw
+ 2649UWrG
+X-Received: by 2002:a05:7022:4397:b0:11b:98e8:624e with SMTP id
+ a92af1059eb24-1272f77680fmr608119c88.4.1770904849917; Thu, 12 Feb 2026
+ 06:00:49 -0800 (PST)
+MIME-Version: 1.0
+References: <20260122151110.3072843-1-James.Zhu@amd.com>
+ <CADnq5_P1DcMS7qPfUOSAvdZKBtSoojk-n_H6QO7NenZzht6=gA@mail.gmail.com>
+ <1e830669-0647-4508-bcab-a407eb46aeda@amd.com>
+In-Reply-To: <1e830669-0647-4508-bcab-a407eb46aeda@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 12 Feb 2026 09:00:38 -0500
+X-Gm-Features: AZwV_Qiapmxqb6V5vj6uT40hGEsrV0hTe2eguBkdhWQGXyl8TlOCUsy5GKcKSRk
+Message-ID: <CADnq5_NtbthAuWjb5aK1AgybxnrSg_xbcJbxPF1BwtiCD3mqyg@mail.gmail.com>
+Subject: Re: [PATCH v2] amdgpu: Add amdgpu profiler IOCTL functions
+To: James Zhu <jamesz@amd.com>
+Cc: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org, 
+ alexander.deucher@amd.com, david.belanger@amd.com, chris.freehill@amd.com, 
+ harish.kasiviswanathan@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MBO-RS-ID: a2897b8507150d29d18
-X-MBO-RS-META: 3k8xdaneq55s1rsmkthjjeg81odkzk78
-X-Mailman-Approved-At: Thu, 12 Feb 2026 13:41:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,71 +104,210 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2026-02-12 at 09:56 +0000, Tvrtko Ursulin wrote:
->=20
-> On 11/02/2026 11:08, Philipp Stanner wrote:
-> > On Wed, 2026-01-28 at 11:07 +0000, Tvrtko Ursulin wrote:
-> > > ** NOTE:
-> > > =C2=A0=C2=A0=C2=A0 First three patches have been already reviewed and=
- are conceptualy
-> > > =C2=A0=C2=A0=C2=A0 independent. But as the code conflicts, I am inclu=
-ding them while waiting for
-> > > =C2=A0=C2=A0=C2=A0 them to be merged via amd-next, and until they per=
-colate back to drm-tip, in
-> > > =C2=A0=C2=A0=C2=A0 order to avoid having to maintain two separate pat=
-ch series.
-> >=20
-> >=20
-> > So your intention with this v6 is just to get more reviews? What is the
-> > purpose?
-> >=20
-> > And since the plan is supposedly that the drm_sched maintainers take
-> > it, when will they know that it's ready now?
-> >=20
-> > Can we agree on delaying a v7 until all lights are green?
->=20
-> I am waiting on Christian to merge the first three patches via amd-next.=
-=20
-> That is pending for a month now and in the meantime I did not want to
-> send this series and have someone tell me it does not apply. If by a=20
-> miracle someone actually went to try and give it a spin.
+On Wed, Feb 11, 2026 at 11:45=E2=80=AFAM James Zhu <jamesz@amd.com> wrote:
+>
+> Hi Alex,
+>
+> Thanks! Answer in line.
+>
+> Best Regards!
+>
+> James Zhu
+>
+> On 2026-02-11 10:26, Alex Deucher wrote:
+> > On Thu, Jan 22, 2026 at 10:22=E2=80=AFAM James Zhu <James.Zhu@amd.com> =
+wrote:
+> >> to support PMC, PCSampling, SPM etc.
+> >>
+> >> Signed-off-by: James Zhu <James.Zhu@amd.com>
+> >> ---
+> >>   amdgpu/amdgpu.h          |  8 +++++++
+> >>   amdgpu/amdgpu_profiler.c | 46 ++++++++++++++++++++++++++++++++++++++=
+++
+> >>   amdgpu/meson.build       |  2 +-
+> >>   include/drm/amdgpu_drm.h | 19 +++++++++++++++++
+> >>   4 files changed, 74 insertions(+), 1 deletion(-)
+> >>   create mode 100644 amdgpu/amdgpu_profiler.c
+> >>
+> >> diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
+> >> index 39b61539..87eec030 100644
+> >> --- a/amdgpu/amdgpu.h
+> >> +++ b/amdgpu/amdgpu.h
+> >> @@ -2072,6 +2072,14 @@ int amdgpu_userq_signal(amdgpu_device_handle de=
+v,
+> >>   int amdgpu_userq_wait(amdgpu_device_handle dev,
+> >>                        struct drm_amdgpu_userq_wait *wait_data);
+> >>
+> >> +/**
+> >> + * Acquire profiler version
+> >> + * \param   dev               - \c [in]     device handle
+> >> + *
+> >> + * \return  0 on success otherwise POSIX Error code
+> >> + */
+> >> +int amdgpu_profiler_version(amdgpu_device_handle dev);
+> >> +
+> >>   #ifdef __cplusplus
+> >>   }
+> >>   #endif
+> >> diff --git a/amdgpu/amdgpu_profiler.c b/amdgpu/amdgpu_profiler.c
+> >> new file mode 100644
+> >> index 00000000..8d4dffe4
+> >> --- /dev/null
+> >> +++ b/amdgpu/amdgpu_profiler.c
+> >> @@ -0,0 +1,46 @@
+> >> +/*
+> >> + * Copyright 2026 Advanced Micro Devices, Inc.
+> >> + *
+> >> + * Permission is hereby granted, free of charge, to any person obtain=
+ing a
+> >> + * copy of this software and associated documentation files (the "Sof=
+tware"),
+> >> + * to deal in the Software without restriction, including without lim=
+itation
+> >> + * the rights to use, copy, modify, merge, publish, distribute, subli=
+cense,
+> >> + * and/or sell copies of the Software, and to permit persons to whom =
+the
+> >> + * Software is furnished to do so, subject to the following condition=
+s:
+> >> + *
+> >> + * The above copyright notice and this permission notice shall be inc=
+luded in
+> >> + * all copies or substantial portions of the Software.
+> >> + *
+> >> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EX=
+PRESS OR
+> >> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTAB=
+ILITY,
+> >> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT=
+ SHALL
+> >> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMA=
+GES OR
+> >> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWI=
+SE,
+> >> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE=
+ OR
+> >> + * OTHER DEALINGS IN THE SOFTWARE.
+> >> + *
+> >> + */
+> >> +
+> >> +#include <string.h>
+> >> +#include <errno.h>
+> >> +#include "xf86drm.h"
+> >> +#include "amdgpu_drm.h"
+> >> +#include "amdgpu_internal.h"
+> >> +
+> >> +drm_public int
+> >> +amdgpu_profiler_version(amdgpu_device_handle dev)
+> >> +{
+> >> +       int ret;
+> >> +       struct drm_amdgpu_profiler_args user_arg;
+> >> +
+> >> +       if (!dev)
+> >> +               return -EINVAL;
+> >> +
+> >> +       memset(&user_arg, 0, sizeof(user_arg));
+> >> +       user_arg.op =3D AMDGPU_PROFILER_VERSION;
+> >> +
+> >> +       ret =3D drmCommandWriteRead(dev->fd, DRM_AMDGPU_PROFILER,
+> >> +                                 &user_arg, sizeof(user_arg));
+> >> +
+> >> +       return ret;
+> >> +}
+> >> diff --git a/amdgpu/meson.build b/amdgpu/meson.build
+> >> index 3962d32c..d781f2e9 100644
+> >> --- a/amdgpu/meson.build
+> >> +++ b/amdgpu/meson.build
+> >> @@ -27,7 +27,7 @@ libdrm_amdgpu =3D library(
+> >>       files(
+> >>         'amdgpu_asic_id.c', 'amdgpu_bo.c', 'amdgpu_cs.c', 'amdgpu_devi=
+ce.c',
+> >>         'amdgpu_gpu_info.c', 'amdgpu_vamgr.c', 'amdgpu_vm.c', 'handle_=
+table.c',
+> >> -      'amdgpu_userq.c',
+> >> +      'amdgpu_userq.c', 'amdgpu_profiler.c',
+> >>       ),
+> >>       config_file,
+> >>     ],
+> >> diff --git a/include/drm/amdgpu_drm.h b/include/drm/amdgpu_drm.h
+> >> index 947bf261..107d2b69 100644
+> >> --- a/include/drm/amdgpu_drm.h
+> >> +++ b/include/drm/amdgpu_drm.h
+> >> @@ -57,6 +57,7 @@ extern "C" {
+> >>   #define DRM_AMDGPU_USERQ               0x16
+> >>   #define DRM_AMDGPU_USERQ_SIGNAL                0x17
+> >>   #define DRM_AMDGPU_USERQ_WAIT          0x18
+> >> +#define DRM_AMDGPU_PROFILER                    0x20
+> >>
+> >>   #define DRM_IOCTL_AMDGPU_GEM_CREATE    DRM_IOWR(DRM_COMMAND_BASE + D=
+RM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
+> >>   #define DRM_IOCTL_AMDGPU_GEM_MMAP      DRM_IOWR(DRM_COMMAND_BASE + D=
+RM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
+> >> @@ -77,6 +78,7 @@ extern "C" {
+> >>   #define DRM_IOCTL_AMDGPU_USERQ         DRM_IOWR(DRM_COMMAND_BASE + D=
+RM_AMDGPU_USERQ, union drm_amdgpu_userq)
+> >>   #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL  DRM_IOWR(DRM_COMMAND_BASE + D=
+RM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+> >>   #define DRM_IOCTL_AMDGPU_USERQ_WAIT    DRM_IOWR(DRM_COMMAND_BASE + D=
+RM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+> >> +#define DRM_IOCTL_AMDGPU_PROFILER      DRM_IOWR(DRM_COMMAND_BASE + DR=
+M_AMDGPU_PROFILER, struct drm_amdgpu_profiler_args)
+> >>
+> >>   /**
+> >>    * DOC: memory domains
+> >> @@ -1616,6 +1618,23 @@ struct drm_amdgpu_info_gpuvm_fault {
+> >>   #define AMDGPU_FAMILY_GC_11_5_0                        150 /* GC 11.=
+5.0 */
+> >>   #define AMDGPU_FAMILY_GC_12_0_0                        152 /* GC 12.=
+0.0 */
+> >>
+> >> +/*
+> >> + * Supported Profiler Operations
+> >> + */
+> >> +enum drm_amdgpu_profiler_ops {
+> >> +       AMDGPU_PROFILER_VERSION =3D 0,
+> >> +};
+> >> +
+> >> +struct drm_amdgpu_profiler_args {
+> >> +       __u32 op;                        /* amdgpu_profiler_op */
+> >> +       union {
+> >> +           __u32 version;               /* AMDGPU_PROFILER_VERSION_NU=
+M
+> >> +                                         * lower 16 bit: minor
+> >> +                                         * higher 16 bit: major
+> >> +                                         */
+> >> +       };
+> >> +};
+> > I think this seems fine.  I think we'd need to see what the other
+> > opcodes would look like.  What is the version query used for?  Can you
+> > provide an example of how the profiler would use this interface for
+> > actually profiling a job?
+>
+> [JZ] Profiler team requests this to track some profiler internal changes =
+to
+>
+> conduct profiler version control.
+>
+> The op will include PMC, PC Sampling and SPM so far.
 
-Then praised be the Lord, because this miracle has happened and I was
-about to pull this series onto my machines and give it some more
-testing and last reviewish look-throughs. That's why I asked about
-applicability. Since we basically agree to get it in :)
+That makes sense, but I don't think there is much to review here until
+we know what those interfaces will look like.  Also note that even if
+the kernel driver supports a newer interface, it needs to continue to
+support older interface versions for backwards compatibility.
 
-> For the moment I don't think this is a problem for this series since=20
-> there are so many more patches still pending to review. And based on the=
-=20
-> past experience you will not be merging it any time soon. As there are=
-=20
-> no design conflicts between the two, the review can progress just fine=
-=20
-> ignoring the first three patches.
->=20
-> > For the future, I think the more canonical (and less confusing) way to
-> > handle situations like this is not to include foreign patches into a
-> > single-topic patch series, but to hint in the cover letter at the
-> > situation and provide links: "Series is blocked by [1], [2]".
->=20
-> Again, like that it wouldn't build and no one would be able to test it.=
-=20
-> For now just skip the first three and focus on the rest and hopefully by=
-=20
-> v7 I will be able to drop those.
+Alex
 
-I'd say postpone v7 until the merge conflicts are resolved. Maybe ping
-a few of the driver maintainers. I'll also look through it one more
-time.
-
-Then hopefully v7 will be mergeable.
-(and please no unavoidable changes like merging or adding patches for
-v7, except for addressing review feedback)
-
-
-P.
+>
+> >
+> > Alex
+> >
+> >> +
+> >>   #if defined(__cplusplus)
+> >>   }
+> >>   #endif
+> >> --
+> >> 2.34.1
+> >>
