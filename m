@@ -4,125 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A752DEEA84C
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 19:43:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0A26EEA865
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 22:13:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4724C10E1B4;
-	Thu, 12 Feb 2026 19:43:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 305A810E20C;
+	Thu, 12 Feb 2026 22:13:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TD/Yqhkz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c/28XcNg";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013029.outbound.protection.outlook.com
- [40.93.201.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0590210E1B4
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 19:43:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y9jDPutJg+nzth/wHFkZlhMER2r6aOif+3b5hjSOKk+z5z6GmHGfb8R49IwpI1Bw+brqbMEBqSRyzTy+P3i1AYcvPpyW6hT8RLCwxHryMgpM4Pa7oETJLxrQzBfPSWvMR6VyrdWpb7d0cnoUKgs4yuXyDopdbk+yI/SV/CMBVGMCNTWSsgQjwy59TmDtNqBouexpuGlhsLqwaAAg1C1oZ0gygFs7Ur0tqE+MQdQHlZu+wErX8vCZhlQjT8sDgB7Ot36zX6Ts8yYQgZa0+bnDE+Y/bmOkm9LZB/YQe0icN3AYq2/nctFWGtbxrLvKOL5pKJccM1/XGjqyy887OJmWuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9lzO1mRobqiLntYnDRGRav2h0WeVhAahHMPPzYJA7XA=;
- b=PwgyiWYxliaT6yamRHvAEh7ikood+KuJVKlfXw6+vUjvYXF/OsVrH8hoCUWEufcYnQQP+pI85TC6rgDFKDGNHQ00/9h9X700WllJ/qkDak2s9EkZ8lDyb6PgRGiEwyjerKxz0M6S14mOATkoKy2btzjmJMlstFJLlSmoBqo5ni4dT3adAA8QqpzHjftRRithbjdknQ/wJ0X+lb6rgASflsuYLUzJi3d8b7E1VlZkNDuCJo5/pBGWNBUflx4/GoHM0fnH5BwDwMUaZa3zfTMl8y+WZ3Z3uzUC+ar8l/RDSlWgeZpT5mIM8CtlnVwIOaAXY50AInLOdspxzUYNsp6Zpg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9lzO1mRobqiLntYnDRGRav2h0WeVhAahHMPPzYJA7XA=;
- b=TD/Yqhkz9xBFNqPEcbAzxETYU+EwasSdFedgnPJxVH9iMzGwmsp86OGVWLC0eP7c/+6QORFT5ItO0651goCwsE4Kw8XOy+LuiN6ZMIvtCPs3KkF4C3KSrO7rWGV6sY3+XIk0g5mbVWP78Es2GYs0JTkBgZuv2sVVj51O/A7Rw04=
-Received: from CH0PR03CA0109.namprd03.prod.outlook.com (2603:10b6:610:cd::24)
- by MN2PR12MB4093.namprd12.prod.outlook.com (2603:10b6:208:198::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.11; Thu, 12 Feb
- 2026 19:43:11 +0000
-Received: from CH2PEPF00000143.namprd02.prod.outlook.com
- (2603:10b6:610:cd:cafe::19) by CH0PR03CA0109.outlook.office365.com
- (2603:10b6:610:cd::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.11 via Frontend
- Transport; Thu, 12 Feb 2026 19:43:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF00000143.mail.protection.outlook.com (10.167.244.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9611.8 via Frontend Transport; Thu, 12 Feb 2026 19:43:10 +0000
-Received: from amartin-dev-ubuntu.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 12 Feb 2026 13:43:10 -0600
-From: Andrew Martin <andrew.martin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <jay.cornwall@amd.com>, <joseph.greathouse@amd.com>,
- <felix.kuehling@amd.com>, Andrew Martin <andrew.martin@amd.com>
-Subject: [PATCH v2] drm/amdkfd: Disable MQD queue priority
-Date: Thu, 12 Feb 2026 14:42:56 -0500
-Message-ID: <20260212194256.33118-1-andrew.martin@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18F7C10E20C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 22:13:23 +0000 (UTC)
+Received: by mail-dl1-f41.google.com with SMTP id
+ a92af1059eb24-1244bce2c17so27937c88.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 14:13:23 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1770934402; cv=none;
+ d=google.com; s=arc-20240605;
+ b=WxfvPYxAMHvsPS+NbpoM0Rc9aShvs3VJGRSItUxXwW/jWf7FIkOSIHHhMF1o3zS5KB
+ 1/GTqoA51DDIRN/2lWW3F67i872AllRSKAdYe6hZKL4iXL//24ANu8JzmOgLeJl1tYdG
+ WtDilw9s5pyvqOC3BqQLmDvBSVDDP6UPIhAGl1WcG1I2G4f9qT16Bmm6nFj63vZuHJED
+ LODG36fkBFGV3eEZlHBguS8mwV9JYH2pngrFWexMxHQjR0cLOyHgth9LWDdmoygyRrrH
+ pxO9ipp0OBpR2CCVIFADX9S+3ZeridfpbhHkBkY24y3h6edEsQQymHt91AV89TQotk+f
+ vUiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=i2XOFxD7C1wDiHie/2gI5jhuP0uc2GZRwvg4bAKIS+E=;
+ fh=/8r8BWErwTrUMlX9EAOQL8FE74/nDT+nIXg2uv9QIHc=;
+ b=S8UUf9i+hIDxWrjh5NHEHLOLUloqjUJMUQgWzCzSEo3Kr0dskodXG5+HKBHu5wWXNK
+ a0i+/cq+lg1TEdEz172ncTskgt0mLzPL59mLaDp7N8RJoF5YgvEEG1lzVHj0tGdL9s4G
+ GVdf6qrKze6SNQ02PYqaj8OpxJfiCaEt1YSHcHIQYV28e+VVoABRhUHzg0xgPJSoj2EQ
+ vb/l8I0c2WN+iW3n3ri5FoZGqcEwM1IAGRjzoPsnB1LfcdWPfuuqBpadxRZsETl1e+cT
+ JymPrIzkAObz96VdBvjtzc1yoaEyLCoyNvYhbiyPHRrQC93D90Hn0mA4W4H0ahh5EKnW
+ aliQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770934402; x=1771539202; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=i2XOFxD7C1wDiHie/2gI5jhuP0uc2GZRwvg4bAKIS+E=;
+ b=c/28XcNgvQg6soMTLVcJUPR2O1NoQp+OGb+OZC30/DXsyihIVmu4HUmvqCl9M8SgPp
+ OgPGxb9dLduq/C1/4ivtvLhY6Ou933vx+5rnWLfJxOjxSzL72W7HcmBGoRq/IM5XiyZ6
+ 3RTHDloDLM1fBlE1ILK7C4w2jCJvZ7LGjTDq7L73P8ZedZlfsmvi9n2cLmJmNqur/eCc
+ tHGzg4qJ3S7NehYVxG/rASJNXLT91w9b5Npt8PM4j8eOg/6Htdtej4Z6Xcbi95uDAydD
+ wLtv28L4Y6Wc/WFsWXMpsoVVtJYpoNMjcRx4zq486b/qVUDYsWtLmmdAJzr9qXCoKB7e
+ 7N8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770934402; x=1771539202;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=i2XOFxD7C1wDiHie/2gI5jhuP0uc2GZRwvg4bAKIS+E=;
+ b=LxX1ouMscddtLZFp8FUmi6TZYqaOj4gU9rtMrblNzp8as1rYIFTucz0j9rYDW784vN
+ WOwCnJIMBSLumMafgSAfxYDbv3jQo8rStc09uJMpsdXNC8cESMemjrwfH2/GTFuIAeGQ
+ qwtQKhdWgnnZ8S3Sxi/w0Zs94osUT553sE7V0sFYJd1G0ZW4M5sGmPeYC4+hhjojSNWb
+ 0aFbuIacB9BxmcPeCcHbprJMSEX5JSz9PXpQolvx0gImZ9AQ0CNt0lgqaTPoCtntdyqb
+ GvWrmHv1H5jXG89zRrd59clPHvuCgF1g5V4GYrg7HviglgLh6D7HZ3UT8oW4wKjyndTl
+ cNyw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUk7Kh+9dmsKLA+eA/lGWSbaCkEsls1p/QP8qhnaXKGbaw8d1NrkDY7/cm1+7jlfYA7kGEgEL6o@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzQSpSlWQUlV7w95RdWhyNuVGoizZIJXJaDtDuLHfsU5cVn9as2
+ Ap43FUQlHJAKQUSI/iJWvjUJ9LbJ9B8FN/ltdezlU8nIvlcul0eS9aUtJkPXxbfgtHlbwR+16Um
+ BvsXXJZyUomKo6I/AvAJJp0m1sNQOOHA=
+X-Gm-Gg: AZuq6aIYaf55YkC7P6vzT9VZWuk/FldCzLdee1bTAMRJs3nL7DpQODkCiyhFhDPyF1Y
+ ENUSgBjZDqVWZO2hNqA2MwuYnu8TRRlXjAiUcJTJ4Uv/QxU7mC3AzCGS23A/tV1ztYstuY/hAjh
+ 6mdU3ZjxsypRT0Cgp3H6b5/qlUGwu4fJYPA0p1W+P2VXeLC3BaweCc4SNWJazI5Y9+a9btNCG8l
+ pW/Ln0y+XT5faOrib6oIQYu+OQ+rDNeNBivnKWYkqE+VYI0+7W9zNZctHxEX8h2ZX8zeUIDgB+o
+ zAfL7kbN
+X-Received: by 2002:a05:7022:6b98:b0:123:308f:667b with SMTP id
+ a92af1059eb24-12739793cc8mr139216c88.2.1770934402255; Thu, 12 Feb 2026
+ 14:13:22 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000143:EE_|MN2PR12MB4093:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c1a2ba1-03da-4344-0d71-08de6a6ef443
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?7RPgVG1vVh4V5dYHQrBMfpVeYvGNLn1K5kcjQMZFkyfpc6QJfm53BC605ebB?=
- =?us-ascii?Q?jnuGKbOkFSh+Dzzhi0QhxtI276k8b4yUhiIie4WUHUaHB+k7lhp6R/hvlqxo?=
- =?us-ascii?Q?y+TIsasWyZf1LrfT+ceJ7P13t6TeLd6Xz5z1sSWp96Jve3i9w932nyEAchL6?=
- =?us-ascii?Q?5DLTJhN0PYSeq/4hcM+pXvPf6gH1q0L6wGEMrFfRn/sd0vqdtob/QeskyAsH?=
- =?us-ascii?Q?Z4rofbjKecCfp2t6zup5XqhhdzsRWb1BrK3N1tMkwmz6Pd3aETwRUptT8ows?=
- =?us-ascii?Q?g34UEyS3EAbyLfvYETlLzp8451NrhXCb+tfaexeYiTTfBUbyN3FBAHY+UJxC?=
- =?us-ascii?Q?WN0PGjosxhBVNnPMFGsHxovU74jwsZnCgdWuTjAGBSGrvvZi1llDfPHI+jNS?=
- =?us-ascii?Q?j4DdkduuY0gl8J0dWIr5vJryQUVHUhut811ZhX84MvwAlKXjWom87Tf48WXt?=
- =?us-ascii?Q?U7hUA+X+cF/cPYE3stEgqMLApSE7MYY38GPl0+L5rc0lyDta8Pek53v+HU81?=
- =?us-ascii?Q?UNOoDqMgVobRYOH3XUdMP16dunytc8uwpXGKZZStz7x4X1BoPp5Ot8IFnzzR?=
- =?us-ascii?Q?yq4sLUQLfpo0anzkIohxAfCdyoRDijF8KO7toXmcfVVxG8JMvLnz2K6f6ttu?=
- =?us-ascii?Q?lUHUMopr4Wq934x3VTHQZrY9ryb4ayr+Q4bABLqgcGcUv/1LoHUTZQ+SgeWN?=
- =?us-ascii?Q?BSBvienG8jMyvMbkiyuLIV3KrkxsDIfJCSLarpHW/PHwOJnlRcbFs/6Fvmp6?=
- =?us-ascii?Q?r53ql7/LP2VWVmoQiO2uM19i76NUYCphyYVD7D0lsGHk9tfmd+vfheJwNAe2?=
- =?us-ascii?Q?+Yc844GZTDK6OitE1o8nlcNEXkjsXdnfK7c7frTbOFJpY82oRq5ijl7rDpw0?=
- =?us-ascii?Q?Ynb9/v1nRhlPp8qBBujXvZYdHrPIzU8/uxi+Laj6RgFKAtikHJpcX4EyCQuj?=
- =?us-ascii?Q?CCFJLUWNncOzXjmGjVo6SE3vgMmiJ50HeDUsgqg9p/Vm7QHiX+RAhm+RjY0+?=
- =?us-ascii?Q?H/v03M+kGxaMYJTmgQcnczYAR6YG7hOOQPLbMBlwdnzZQu3HvEwduzV7lIw8?=
- =?us-ascii?Q?nCsL2fUeQaPuc6poiN6BNd3F1qGATtBqUkixDrG4a7KFAr3OqVGv86nybTsn?=
- =?us-ascii?Q?WbEY7b2lC6NBco1XPEVkQUhEYnVp5HNvEFLAB6zOiCMwKRP2c7DciAnNt9B5?=
- =?us-ascii?Q?D6ScF6nK9F6GOwhJyypQibhOxbocHG+ADjr/4qdXwkl+XBoEjvqgM9sMz/AL?=
- =?us-ascii?Q?eyK6oWxjm4dDHQ+uUAnr7+dYTCw7LUizuzuHh3BRNnjFgo525Zuo0L/QCPYv?=
- =?us-ascii?Q?0ZdVRntsEA1oCxiEWq7bMeMDy2xyV8V5/hWRPKk8k7jYH4BisdHj4rNpfVAa?=
- =?us-ascii?Q?dNZkjUF7L4bfQgNFr9LCSrnuyrSaL/1NyVLJ/sCa4Cqp2GMLqMVvgDdFsB5J?=
- =?us-ascii?Q?9SG3Un/NKTZ0lsOxWsgLlYFfARE+SMHfHEsd6CEa8LZJuw3hdQKBLHdcphkM?=
- =?us-ascii?Q?UY0dokGpUIMkue9HtrGdUbAv8dWrA8UAMZCXCI1DnqKT0TTqVblggBMniQyr?=
- =?us-ascii?Q?KUo5R/i3bMRE6ebTrL9exB/tycwHyX9z4FDJeYYiRGDAraYwOkuU+ygXFlkr?=
- =?us-ascii?Q?+hmPfRvmUjzKnTD95uvRu0w/4iePJLDIJCqS7e7SqE7d+5sKQ6Z+6tNJovrM?=
- =?us-ascii?Q?QU2Z0A=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: BPJueSSquMCRXq7OCzAOmtQ68tS6xbHEH1Tnsw4PENQca/ElZi59VlloMc5dbbhHkkgN/0CZQM5BIeastHNpAjnsDKrbcWCGH2b6m7GHDfhWC3dTz9ym4id3kH4bMhXjntwZ4mJtrLRrp7nXAvZ9+tsO58dKgFyNG1cFE6cL5Vh6zES/wAGE3pfzoMpE5Whrsw2YlmQuzGgRcrpE32ueBwF7q9UApXL9rm+OqxHlfY4huanAfBq0KuslgOoe+sfAS3pyuswvlHBl/87jZljWv1Ctf6S9hetzU2N1CxbjDFej02vhoBh7g8wStMWHpO5BGYv3tbEZQugXo9JIGiK2/6EOuBccRuMGguo/Zi7OLmOHCvBsN9r5V+0Qq+EzCIStSzcdWT5tQP2fVPmfMaHhJ1muvzq/XTUBrL162opDKTHecOgX+aYFlJANL52QXOEe
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2026 19:43:10.9635 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c1a2ba1-03da-4344-0d71-08de6a6ef443
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000143.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4093
+References: <20260205162846.106865-1-Alysa.Liu@amd.com>
+ <SJ2PR12MB8650F18EDC866027298677818C60A@SJ2PR12MB8650.namprd12.prod.outlook.com>
+ <DM6PR12MB440105A544332F3281D7013EE360A@DM6PR12MB4401.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB440105A544332F3281D7013EE360A@DM6PR12MB4401.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 12 Feb 2026 17:13:10 -0500
+X-Gm-Features: AZwV_Qg0Fxq9Gcb2r9gMeoJkXHamDfb6XtmTDIwVM3grITliFbKwDxadSJ7l760
+Message-ID: <CADnq5_O1XTsw9uKWbaj+LMr6K1ON9hvzd+geHF6pr_+EMJdvWQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix use-after-free race in VM acquire
+To: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>
+Cc: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>, "Liu,
+ Alysa" <Alysa.Liu@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,112 +107,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This solves a priority inversion issue, caused by the language
-runtime making high-priority queues wait for activity on
-lower-priority queues.
+On Thu, Feb 12, 2026 at 2:32=E2=80=AFPM Chen, Xiaogang <Xiaogang.Chen@amd.c=
+om> wrote:
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+>
+> Let parent/child process share same vm will cause multiple issues. There =
+is no use case or need for that. It should be prevented at uses space, not =
+work around at this specific place in driver.
+>
 
-Signed-off-by: Andrew Martin <andrew.martin@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c   | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c   | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    | 2 +-
- 7 files changed, 7 insertions(+), 7 deletions(-)
+I agree that userspace shouldn't to stupid things, but if it does, the
+kernel needs to gracefully handle it.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-index 90ac3a30e81d..76483d91af98 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
-@@ -70,7 +70,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
- static void set_priority(struct cik_mqd *m, struct queue_properties *q)
- {
- 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
--	m->cp_hqd_queue_priority = q->priority;
-+	/* m->cp_hqd_queue_priority = q->priority; */
- }
- 
- static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-index 97055f808d4a..0186b3de67c0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-@@ -70,7 +70,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
- static void set_priority(struct v10_compute_mqd *m, struct queue_properties *q)
- {
- 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
--	m->cp_hqd_queue_priority = q->priority;
-+	/* m->cp_hqd_queue_priority = q->priority; */
- }
- 
- static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-index 7e5a7ab6d0c0..c9e397366782 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
-@@ -96,7 +96,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
- static void set_priority(struct v11_compute_mqd *m, struct queue_properties *q)
- {
- 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
--	m->cp_hqd_queue_priority = q->priority;
-+	/* m->cp_hqd_queue_priority = q->priority; */
- }
- 
- static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-index a51f217329db..3bbc2648f51d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-@@ -77,7 +77,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
- static void set_priority(struct v12_compute_mqd *m, struct queue_properties *q)
- {
- 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
--	m->cp_hqd_queue_priority = q->priority;
-+	/* m->cp_hqd_queue_priority = q->priority; */
- }
- 
- static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-index d0776ba2cc99..0d6b601962eb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-@@ -131,7 +131,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
- static void set_priority(struct v12_1_compute_mqd *m, struct queue_properties *q)
- {
- 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
--	m->cp_hqd_queue_priority = q->priority;
-+	/* m->cp_hqd_queue_priority = q->priority; */
- }
- 
- static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-index dcf4bbfa641b..bc4ceba35908 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-@@ -106,7 +106,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
- static void set_priority(struct v9_mqd *m, struct queue_properties *q)
- {
- 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
--	m->cp_hqd_queue_priority = q->priority;
-+	/* m->cp_hqd_queue_priority = q->priority; */
- }
- 
- static bool mqd_on_vram(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-index 09483f0862d4..e63ef6442b35 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
-@@ -73,7 +73,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
- static void set_priority(struct vi_mqd *m, struct queue_properties *q)
- {
- 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
--	m->cp_hqd_queue_priority = q->priority;
-+	/* m->cp_hqd_queue_priority = q->priority; */
- }
- 
- static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
--- 
-2.43.0
+Alex
 
+>
+>
+> Regards
+>
+> Xiaogang
+>
+>
+>
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Kasivi=
+swanathan, Harish
+> Sent: Thursday, February 12, 2026 12:31 PM
+> To: Liu, Alysa <Alysa.Liu@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: Re: [PATCH] drm/amdgpu: Fix use-after-free race in VM acquire
+>
+>
+>
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>
+>
+>
+> Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+>
+> ________________________________
+>
+> From: Liu, Alysa <Alysa.Liu@amd.com>
+> Sent: Thursday, February 5, 2026 11:28 AM
+> To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Kasiviswanathan, Hari=
+sh <Harish.Kasiviswanathan@amd.com>; Liu, Alysa <Alysa.Liu@amd.com>
+> Subject: [PATCH] drm/amdgpu: Fix use-after-free race in VM acquire
+>
+>
+>
+> Replace non-atomic vm->process_info assignment with cmpxchg()
+> to prevent race when parent/child processes sharing a drm_file
+> both try to acquire the same VM after fork().
+>
+> Signed-off-by: Alysa.Liu@amd.com <Alysa.Liu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 00ea69baa126..f7b2358a0303 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1432,7 +1432,10 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void =
+**process_info,
+>                  *process_info =3D info;
+>          }
+>
+> -       vm->process_info =3D *process_info;
+> +       if (cmpxchg(&vm->process_info, NULL, *process_info) !=3D NULL) {
+> +               ret =3D -EINVAL;
+> +               goto already_acquired;
+> +       }
+>
+>          /* Validate page directory and attach eviction fence */
+>          ret =3D amdgpu_bo_reserve(vm->root.bo, true);
+> @@ -1472,6 +1475,7 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void *=
+*process_info,
+>          amdgpu_bo_unreserve(vm->root.bo);
+>  reserve_pd_fail:
+>          vm->process_info =3D NULL;
+> +already_acquired:
+>          if (info) {
+>                  dma_fence_put(&info->eviction_fence->base);
+>                  *process_info =3D NULL;
+> --
+> 2.34.1
