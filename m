@@ -4,149 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D40DEEA845
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 19:22:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A752DEEA84C
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Feb 2026 19:43:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D46F410E12C;
-	Thu, 12 Feb 2026 19:22:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4724C10E1B4;
+	Thu, 12 Feb 2026 19:43:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lMmt7arx";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TD/Yqhkz";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011026.outbound.protection.outlook.com [40.107.208.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19AEE10E12C
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 19:22:20 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013029.outbound.protection.outlook.com
+ [40.93.201.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0590210E1B4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Feb 2026 19:43:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pu7DLDEv0KMzZjvBjTrpulIsNXM841odLE7/jFCHHAkPZpLB7+1M5FatM1MySfJ34VSpjT14OK6XewiepLvF0h73GihUiaGWG4wQ9fC5E6Q8LWTdyuG7UJTQJIdeizCsbbyri+5W4I2TYd9T/AyuwKe1hrIoYEJqXrMSIdnRn33Q53Uhz9gGcPI6UihoCMZi7OEd6+wjUK5mHn7T0iVFeKT/yaf67ObiWpf7bpXWQf70xHqUHYFnw9X8R6dbtoTq/Y+gEsscJ96o15qYLXxymN3q8l2XkrHDj/Wt7vczcFKIcf02/TpYlr9Zhb5D4F8dWSyZ3mtRpfJJrwlzTRGwmw==
+ b=y9jDPutJg+nzth/wHFkZlhMER2r6aOif+3b5hjSOKk+z5z6GmHGfb8R49IwpI1Bw+brqbMEBqSRyzTy+P3i1AYcvPpyW6hT8RLCwxHryMgpM4Pa7oETJLxrQzBfPSWvMR6VyrdWpb7d0cnoUKgs4yuXyDopdbk+yI/SV/CMBVGMCNTWSsgQjwy59TmDtNqBouexpuGlhsLqwaAAg1C1oZ0gygFs7Ur0tqE+MQdQHlZu+wErX8vCZhlQjT8sDgB7Ot36zX6Ts8yYQgZa0+bnDE+Y/bmOkm9LZB/YQe0icN3AYq2/nctFWGtbxrLvKOL5pKJccM1/XGjqyy887OJmWuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iQGhZtezPPjJZ3mtVnVkJHTSeBI7R7dJgA0HMnXkCXM=;
- b=PuYvMrBJOs3MyAZVgIlCArpGcNZwoWOzY0tHTtzo97/0IrzSuoMLnrLNBKz3aXjoJCCxs96KikprS/hvvWcwKNv32t/92lCuPV0ZISmEy+FHgb0zNig3Rs34OMlZFG4ajGz6y70y08ln/dkRcEycKugi4mZi25ese1ri1P2qeBNle7056Nc7sm8RSxcSwZWgypuRBYyTrg87LW0yP3XrVlGpIOhFqDg1ZFFyXPZ911grNSl+FgZXFvR545CQXaQEBdQqcgKFajuxAd1hQzdolEHNsliG1YrFbVK4BSv99Q5LbzlqoLXymQj36mgACOInUXZmkUL9RYZXxpxQwrYjLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=9lzO1mRobqiLntYnDRGRav2h0WeVhAahHMPPzYJA7XA=;
+ b=PwgyiWYxliaT6yamRHvAEh7ikood+KuJVKlfXw6+vUjvYXF/OsVrH8hoCUWEufcYnQQP+pI85TC6rgDFKDGNHQ00/9h9X700WllJ/qkDak2s9EkZ8lDyb6PgRGiEwyjerKxz0M6S14mOATkoKy2btzjmJMlstFJLlSmoBqo5ni4dT3adAA8QqpzHjftRRithbjdknQ/wJ0X+lb6rgASflsuYLUzJi3d8b7E1VlZkNDuCJo5/pBGWNBUflx4/GoHM0fnH5BwDwMUaZa3zfTMl8y+WZ3Z3uzUC+ar8l/RDSlWgeZpT5mIM8CtlnVwIOaAXY50AInLOdspxzUYNsp6Zpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iQGhZtezPPjJZ3mtVnVkJHTSeBI7R7dJgA0HMnXkCXM=;
- b=lMmt7arx7ZC3J1HqG+l7Za1Upf/2LeDi6Svv5fV+Ra60lZsoTUpzSuZ7MZlhoACQH5gk8tPkzA2GaGYnSEB3EI6kUgG/HauJliS0uzC8CKOOgurXLmODW4uOnkKd54d65ijnHl3Zd+tODDZRL3nXL13BGPsDjHuKC34km+59ZAY=
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by DM6PR12MB4314.namprd12.prod.outlook.com (2603:10b6:5:211::22) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=9lzO1mRobqiLntYnDRGRav2h0WeVhAahHMPPzYJA7XA=;
+ b=TD/Yqhkz9xBFNqPEcbAzxETYU+EwasSdFedgnPJxVH9iMzGwmsp86OGVWLC0eP7c/+6QORFT5ItO0651goCwsE4Kw8XOy+LuiN6ZMIvtCPs3KkF4C3KSrO7rWGV6sY3+XIk0g5mbVWP78Es2GYs0JTkBgZuv2sVVj51O/A7Rw04=
+Received: from CH0PR03CA0109.namprd03.prod.outlook.com (2603:10b6:610:cd::24)
+ by MN2PR12MB4093.namprd12.prod.outlook.com (2603:10b6:208:198::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.11; Thu, 12 Feb
- 2026 19:22:16 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::795e:4056:1c5f:6b33]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::795e:4056:1c5f:6b33%4]) with mapi id 15.20.9611.008; Thu, 12 Feb 2026
- 19:22:16 +0000
-From: "Chen, Xiaogang" <Xiaogang.Chen@amd.com>
-To: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>, "Liu, Alysa"
- <Alysa.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Fix use-after-free race in VM acquire
-Thread-Topic: [PATCH] drm/amdgpu: Fix use-after-free race in VM acquire
-Thread-Index: AQHclrylqwMk3gP20UqfDRlmvaWGk7V/bhGAgAAKJVA=
-Date: Thu, 12 Feb 2026 19:22:16 +0000
-Message-ID: <DM6PR12MB440105A544332F3281D7013EE360A@DM6PR12MB4401.namprd12.prod.outlook.com>
-References: <20260205162846.106865-1-Alysa.Liu@amd.com>
- <SJ2PR12MB8650F18EDC866027298677818C60A@SJ2PR12MB8650.namprd12.prod.outlook.com>
-In-Reply-To: <SJ2PR12MB8650F18EDC866027298677818C60A@SJ2PR12MB8650.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-02-12T18:31:15.7920000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB4401:EE_|DM6PR12MB4314:EE_
-x-ms-office365-filtering-correlation-id: 49d665d3-77ec-4879-a57c-08de6a6c0886
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7053199007|8096899003|38070700021; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?7EafRNCEdx1o8QF6xjTAXRW8m0DtsW/0AFHE2qLmxe7N3LmHNSTH1BbiJxMm?=
- =?us-ascii?Q?MJ7gO7kMC20ZPKuaZsHbNhH1NSTzkUKOvbY7j53G0g+xzHby00HhIFNZGhVZ?=
- =?us-ascii?Q?ZVBpurMX83DVXwvCnzUQnhgdgZynGxMz80Ag5/E9T7u3egaYPwaG+RSG6aty?=
- =?us-ascii?Q?6Dd0Em+Yevaklmi/tBkb2TwAJvzOfaHkEuGzAwfQoluXh7oPq7FE7L9pOwzL?=
- =?us-ascii?Q?vWMqso5Vqt3RwQSg+7uPSh9orpclnjHL5n3Vr9f3XwCkGlMPFuK72GxC5xyi?=
- =?us-ascii?Q?eaBUbI42fOXyDmpXczsXqdydnvmNTcAGXUuZdioWUBc4qsOemtyAo7X4xSyS?=
- =?us-ascii?Q?v2Fg2+JcgZIDJq+6qj+M0ttKecvyFlVUCzUYBWvChhiNu5ajgav3Mju8FmvO?=
- =?us-ascii?Q?JJK9djxu0ewXBiWirR3sD23La001rCMUarfAddeLA9TWp0sigjNxnNREIOL4?=
- =?us-ascii?Q?zn2C/zjAQ7RA0DNZYQBMcd0Y42t7GdUk5adJ+rGeAjbAOIvOqeDjrN9eQnoM?=
- =?us-ascii?Q?ktaXefg+uLKSd+oTFpOZrOvsDkfsHofX3otN6AuYMRNrMo5pqJAC+qzR6sFK?=
- =?us-ascii?Q?7D7zoX9PT5xCa2RQjSw9Y9vO2AQwMYS16WKzEf7FT3J3d/DredwtmGW+pD4o?=
- =?us-ascii?Q?Jbn0GVluNCybCgrlaWAwpcb1yFAoW0HMqY+19kC8dJZrvmRd5dwbc8xPdLJz?=
- =?us-ascii?Q?Cp2aIQwCAHTNxcbbKzHcnkNvdPl0AMiXADAYLsyHXdKETPA5rqLpOzVKok3+?=
- =?us-ascii?Q?PxKoot182hIFKjV+yEos8Pl0MpYy7yA92IFPBI7d7RdNKtRKmy2iE+gYjKBs?=
- =?us-ascii?Q?JvXbScVsQeg5RVUSNV1i48XTq6r6vW0ZeSk+hWI855kWhuW4nY4Z5Qu0vOeV?=
- =?us-ascii?Q?i7WBOIZvJVothaRW1ydzpdVaUAz6suoeTiiQOgUwXj4smfxZLNFxS1Aeq7vM?=
- =?us-ascii?Q?t/SMSsfyvWZr3+C1TpQo3jJUWG9ZLO1GPcKE9/3F4FWnfITdnui0vMCgVQs5?=
- =?us-ascii?Q?LrTv0s7lKZSSbYEzPsYfROlkjXcFp4IhKrk79wir7AQlj1lTUVVE11cxueAi?=
- =?us-ascii?Q?Zk6QEwWKkNt1MUBl+aCAq+uCcMezj173ikNgh4qngshRwieDNGY2nV9wccHh?=
- =?us-ascii?Q?7OBYy5tZVifoHW8RS8Cu+7JNqoh+eCfg63iuY53RwKeaUSRuePXvN9+dM0X6?=
- =?us-ascii?Q?MJBv3eZOJoCnjc3X4wtNXAw/B7eqk/u/4WKK+KRNeeaIqIE6OKpqo5lRPY+e?=
- =?us-ascii?Q?tROkyIpvGWfXffqiLNgTA+eouRcb24cf9lhAnkFmCRORS07Xnk0DpfOh6Y0O?=
- =?us-ascii?Q?bCBp8nNLQX9LdfZ0wX9C8gGjXj5IT3MpZ6v+jOJZLk49X65v1f60T7XCzWhJ?=
- =?us-ascii?Q?sDCJmJCSN28XWBTiOV114+/6DM9SlnvdNGlMKd0ragX8Dx2zhB0XaDsQFq9Q?=
- =?us-ascii?Q?lRUxaNE2W3R78cz6TymvZVndPxldYi3ktNbENLsPZhqC7OYWk6zbjamKO9k9?=
- =?us-ascii?Q?wW3lE6CZelJ9McxC0X+zboIKm19a89aOGanwWFRX9loOuQyNB2qbl+ynzte9?=
- =?us-ascii?Q?V7fkP51Gp9WpMi2oIvjUlQJnoVDxEiW2FRCYPfCmU9ZaPx6koX1AWFgVn7jV?=
- =?us-ascii?Q?y6Lt+wECp+uaJLWSQ1ExHB0=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7053199007)(8096899003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Hav5xVBXFb2BxZooRaCzM1fWV009jKLR9nm04JiAHGy71m3vR2foyiamcoGt?=
- =?us-ascii?Q?QaEEReRks+60tu9pos8o+aZBh363d9iaFksr9gZMP6IvXiSk01dgolAOsp3K?=
- =?us-ascii?Q?ub9QoBYhZhpWuIfUrvIaori3MBsj5IWklMG05fzNNo7E3hwOKbf52xeOsmog?=
- =?us-ascii?Q?HdG4d8ymK1UO6dVX3IG52kiTJ07+kNOx/4j4X43IP/rK+5pkqKSBp55xYAiZ?=
- =?us-ascii?Q?3ALYIgwuenFqt1Z290tejEC831cb3tQrIvIB1D5hU8slUbsyK3yzyP9Hffur?=
- =?us-ascii?Q?rJXGeyO4Js0xzxtuBziLdZxxMIzA3JpLUffr5KzWztfTG7o4dTrYI6ZJbOAP?=
- =?us-ascii?Q?1u5iYSKkMWzNlm3aY5cJ9vlSvhZMKIeSbQqS46hUN1bYbzxqxGTyBB4xrL5h?=
- =?us-ascii?Q?yqRAppztmuC6nAdlqKqy1oWie8O1NIa5HAvt+9ZuAgDzPkvuMnupmKqFxxkw?=
- =?us-ascii?Q?IZOyj9OUd4IgGI7NTpr0q0R8T2nUDw5ki5bRdafOtJu6/2H54OwEgDpIjw1R?=
- =?us-ascii?Q?6ua3IFooSz4aGotRYsdmk3iNqGb8wHP72GMFqlhn2ZSyjHCBpPkxMbXdPhm+?=
- =?us-ascii?Q?IcpRT7b/4qxsuhef6h9rAJ1tVGpvCL/upho+/si7Kcipn+n5XCqGPfKU9GBT?=
- =?us-ascii?Q?Z9AWteaITMCapxgZYpNeHTh8ms7+jt+ChGt61veBBdqeWdhQ5BANDTGUY4Qr?=
- =?us-ascii?Q?pEjrIkAsfSEFk4vq76QBQiQw6+ebMdqJnUCaCLOWQjFZnyNVnKYO8/SMgTxy?=
- =?us-ascii?Q?RlRDSiF6ckP70qp/yh2ld3NpFy5narSNZH8niyEzVoMPxPY73KIE9OLVnJOE?=
- =?us-ascii?Q?NCQzUbd19H1e4lNjTvhzzqYQDcDgLZj3Bx3yLZYpZQCAWiC+AiWW8clxgU2l?=
- =?us-ascii?Q?/9XrL9NkPpeL+KmmI9GPDgCz4aVqazHyJo3hAtnrSjWxyWyugSY0pk2vafZL?=
- =?us-ascii?Q?/Vas9GUzqdeGeMvz2EJNofPP5JSQkm9zmbCooYAlmO6BSIy+oOc/qasZnoUQ?=
- =?us-ascii?Q?p7H1ISlZk3NgFmBrOFyDQb9ImuN6jB04CIXh2g1pMsALLL1ZrNbueYvQeWqC?=
- =?us-ascii?Q?DV3MRJjzhYqSWQpPXNCCnDJN+6A/Ru/z8wvFElMi1uLhkF5hCD1ABAcUeRUR?=
- =?us-ascii?Q?AqB4eO8Dgs3ZtUuD585cEvFlRoIJA+x8bdDkcWFtFj4a+50lfQW1SyNP1P2a?=
- =?us-ascii?Q?0drsiBOOVEBESurypWi16+OWxrpg0aWw3DjpCuW2WMOFq5v4UJcF/P0a1EtY?=
- =?us-ascii?Q?dasnXEE/E3YtjkfYfmootKZFZ9+jNqd696XZJtWSEnWWAlCUnzK2Udf9h1D5?=
- =?us-ascii?Q?e4nYmv2GWyOR/Q0gaARQKTu8fxOXnZ0H9p/EoNz2ltvzrGCuhEeqFeuDtsbB?=
- =?us-ascii?Q?42r5RCC+MwUx0FG5b0B2PtJj3omNJA4ZA13kg8+mWO8j0sOXDl5HYS0zA57J?=
- =?us-ascii?Q?sC4ciuvI8+fWm3TJOo5HrNHP9M38B5dxk7DDbjk6uRXJMe0HncrkHM+Hgziq?=
- =?us-ascii?Q?dR0GohJjWCdE0Xe8fzOKen4mFefvnFgslVB9R2VDt+xoeY2JGLahKUbEDBg6?=
- =?us-ascii?Q?gq7dv4/ZRet9YB3jwv8csBOAeaRH/izrjGWvvlxodpWHNYDF4DUylfAcstra?=
- =?us-ascii?Q?8BBEsrN4ekSog2p0tnhrrPXvfdhgioB2vGoqqDCiYHVpl2iZtWqOITSPr1fp?=
- =?us-ascii?Q?ipk0AJvOWBf6Fh0Wy+OPVyjfWvU=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB440105A544332F3281D7013EE360ADM6PR12MB4401namp_"
+ 2026 19:43:11 +0000
+Received: from CH2PEPF00000143.namprd02.prod.outlook.com
+ (2603:10b6:610:cd:cafe::19) by CH0PR03CA0109.outlook.office365.com
+ (2603:10b6:610:cd::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.11 via Frontend
+ Transport; Thu, 12 Feb 2026 19:43:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF00000143.mail.protection.outlook.com (10.167.244.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9611.8 via Frontend Transport; Thu, 12 Feb 2026 19:43:10 +0000
+Received: from amartin-dev-ubuntu.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 12 Feb 2026 13:43:10 -0600
+From: Andrew Martin <andrew.martin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <jay.cornwall@amd.com>, <joseph.greathouse@amd.com>,
+ <felix.kuehling@amd.com>, Andrew Martin <andrew.martin@amd.com>
+Subject: [PATCH v2] drm/amdkfd: Disable MQD queue priority
+Date: Thu, 12 Feb 2026 14:42:56 -0500
+Message-ID: <20260212194256.33118-1-andrew.martin@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000143:EE_|MN2PR12MB4093:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c1a2ba1-03da-4344-0d71-08de6a6ef443
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|82310400026|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?7RPgVG1vVh4V5dYHQrBMfpVeYvGNLn1K5kcjQMZFkyfpc6QJfm53BC605ebB?=
+ =?us-ascii?Q?jnuGKbOkFSh+Dzzhi0QhxtI276k8b4yUhiIie4WUHUaHB+k7lhp6R/hvlqxo?=
+ =?us-ascii?Q?y+TIsasWyZf1LrfT+ceJ7P13t6TeLd6Xz5z1sSWp96Jve3i9w932nyEAchL6?=
+ =?us-ascii?Q?5DLTJhN0PYSeq/4hcM+pXvPf6gH1q0L6wGEMrFfRn/sd0vqdtob/QeskyAsH?=
+ =?us-ascii?Q?Z4rofbjKecCfp2t6zup5XqhhdzsRWb1BrK3N1tMkwmz6Pd3aETwRUptT8ows?=
+ =?us-ascii?Q?g34UEyS3EAbyLfvYETlLzp8451NrhXCb+tfaexeYiTTfBUbyN3FBAHY+UJxC?=
+ =?us-ascii?Q?WN0PGjosxhBVNnPMFGsHxovU74jwsZnCgdWuTjAGBSGrvvZi1llDfPHI+jNS?=
+ =?us-ascii?Q?j4DdkduuY0gl8J0dWIr5vJryQUVHUhut811ZhX84MvwAlKXjWom87Tf48WXt?=
+ =?us-ascii?Q?U7hUA+X+cF/cPYE3stEgqMLApSE7MYY38GPl0+L5rc0lyDta8Pek53v+HU81?=
+ =?us-ascii?Q?UNOoDqMgVobRYOH3XUdMP16dunytc8uwpXGKZZStz7x4X1BoPp5Ot8IFnzzR?=
+ =?us-ascii?Q?yq4sLUQLfpo0anzkIohxAfCdyoRDijF8KO7toXmcfVVxG8JMvLnz2K6f6ttu?=
+ =?us-ascii?Q?lUHUMopr4Wq934x3VTHQZrY9ryb4ayr+Q4bABLqgcGcUv/1LoHUTZQ+SgeWN?=
+ =?us-ascii?Q?BSBvienG8jMyvMbkiyuLIV3KrkxsDIfJCSLarpHW/PHwOJnlRcbFs/6Fvmp6?=
+ =?us-ascii?Q?r53ql7/LP2VWVmoQiO2uM19i76NUYCphyYVD7D0lsGHk9tfmd+vfheJwNAe2?=
+ =?us-ascii?Q?+Yc844GZTDK6OitE1o8nlcNEXkjsXdnfK7c7frTbOFJpY82oRq5ijl7rDpw0?=
+ =?us-ascii?Q?Ynb9/v1nRhlPp8qBBujXvZYdHrPIzU8/uxi+Laj6RgFKAtikHJpcX4EyCQuj?=
+ =?us-ascii?Q?CCFJLUWNncOzXjmGjVo6SE3vgMmiJ50HeDUsgqg9p/Vm7QHiX+RAhm+RjY0+?=
+ =?us-ascii?Q?H/v03M+kGxaMYJTmgQcnczYAR6YG7hOOQPLbMBlwdnzZQu3HvEwduzV7lIw8?=
+ =?us-ascii?Q?nCsL2fUeQaPuc6poiN6BNd3F1qGATtBqUkixDrG4a7KFAr3OqVGv86nybTsn?=
+ =?us-ascii?Q?WbEY7b2lC6NBco1XPEVkQUhEYnVp5HNvEFLAB6zOiCMwKRP2c7DciAnNt9B5?=
+ =?us-ascii?Q?D6ScF6nK9F6GOwhJyypQibhOxbocHG+ADjr/4qdXwkl+XBoEjvqgM9sMz/AL?=
+ =?us-ascii?Q?eyK6oWxjm4dDHQ+uUAnr7+dYTCw7LUizuzuHh3BRNnjFgo525Zuo0L/QCPYv?=
+ =?us-ascii?Q?0ZdVRntsEA1oCxiEWq7bMeMDy2xyV8V5/hWRPKk8k7jYH4BisdHj4rNpfVAa?=
+ =?us-ascii?Q?dNZkjUF7L4bfQgNFr9LCSrnuyrSaL/1NyVLJ/sCa4Cqp2GMLqMVvgDdFsB5J?=
+ =?us-ascii?Q?9SG3Un/NKTZ0lsOxWsgLlYFfARE+SMHfHEsd6CEa8LZJuw3hdQKBLHdcphkM?=
+ =?us-ascii?Q?UY0dokGpUIMkue9HtrGdUbAv8dWrA8UAMZCXCI1DnqKT0TTqVblggBMniQyr?=
+ =?us-ascii?Q?KUo5R/i3bMRE6ebTrL9exB/tycwHyX9z4FDJeYYiRGDAraYwOkuU+ygXFlkr?=
+ =?us-ascii?Q?+hmPfRvmUjzKnTD95uvRu0w/4iePJLDIJCqS7e7SqE7d+5sKQ6Z+6tNJovrM?=
+ =?us-ascii?Q?QU2Z0A=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: BPJueSSquMCRXq7OCzAOmtQ68tS6xbHEH1Tnsw4PENQca/ElZi59VlloMc5dbbhHkkgN/0CZQM5BIeastHNpAjnsDKrbcWCGH2b6m7GHDfhWC3dTz9ym4id3kH4bMhXjntwZ4mJtrLRrp7nXAvZ9+tsO58dKgFyNG1cFE6cL5Vh6zES/wAGE3pfzoMpE5Whrsw2YlmQuzGgRcrpE32ueBwF7q9UApXL9rm+OqxHlfY4huanAfBq0KuslgOoe+sfAS3pyuswvlHBl/87jZljWv1Ctf6S9hetzU2N1CxbjDFej02vhoBh7g8wStMWHpO5BGYv3tbEZQugXo9JIGiK2/6EOuBccRuMGguo/Zi7OLmOHCvBsN9r5V+0Qq+EzCIStSzcdWT5tQP2fVPmfMaHhJ1muvzq/XTUBrL162opDKTHecOgX+aYFlJANL52QXOEe
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4401.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49d665d3-77ec-4879-a57c-08de6a6c0886
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Feb 2026 19:22:16.4771 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dREf464+UC8H4Rdq/CZAWc5a7XQeejXoSeztaAoivChyuoB/8/HTP3bF09wp9gHu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4314
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2026 19:43:10.9635 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c1a2ba1-03da-4344-0d71-08de6a6ef443
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000143.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4093
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,267 +137,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB440105A544332F3281D7013EE360ADM6PR12MB4401namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+This solves a priority inversion issue, caused by the language
+runtime making high-priority queues wait for activity on
+lower-priority queues.
 
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Let parent/child process share same vm will cause multiple issues. There is=
- no use case or need for that. It should be prevented at uses space, not wo=
-rk around at this specific place in driver.
-
-Regards
-Xiaogang
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Kasivisw=
-anathan, Harish
-Sent: Thursday, February 12, 2026 12:31 PM
-To: Liu, Alysa <Alysa.Liu@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix use-after-free race in VM acquire
-
-[AMD Official Use Only - AMD Internal Distribution Only]
-
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com<mailto:=
-Harish.Kasiviswanathan@amd.com>>
-________________________________
-From: Liu, Alysa <Alysa.Liu@amd.com<mailto:Alysa.Liu@amd.com>>
-Sent: Thursday, February 5, 2026 11:28 AM
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
-amd.com>>; Kasiviswanathan, Harish <Harish.Kasiviswanathan@amd.com<mailto:H=
-arish.Kasiviswanathan@amd.com>>; Liu, Alysa <Alysa.Liu@amd.com<mailto:Alysa=
-.Liu@amd.com>>
-Subject: [PATCH] drm/amdgpu: Fix use-after-free race in VM acquire
-
-Replace non-atomic vm->process_info assignment with cmpxchg()
-to prevent race when parent/child processes sharing a drm_file
-both try to acquire the same VM after fork().
-
-Signed-off-by: Alysa.Liu@amd.com<mailto:Alysa.Liu@amd.com> <Alysa.Liu@amd.c=
-om<mailto:Alysa.Liu@amd.com>>
+Signed-off-by: Andrew Martin <andrew.martin@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c   | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c   | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c   | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c   | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c    | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c    | 2 +-
+ 7 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 00ea69baa126..f7b2358a0303 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1432,7 +1432,10 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **=
-process_info,
-                 *process_info =3D info;
-         }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+index 90ac3a30e81d..76483d91af98 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_cik.c
+@@ -70,7 +70,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ static void set_priority(struct cik_mqd *m, struct queue_properties *q)
+ {
+ 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
+-	m->cp_hqd_queue_priority = q->priority;
++	/* m->cp_hqd_queue_priority = q->priority; */
+ }
+ 
+ static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+index 97055f808d4a..0186b3de67c0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+@@ -70,7 +70,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ static void set_priority(struct v10_compute_mqd *m, struct queue_properties *q)
+ {
+ 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
+-	m->cp_hqd_queue_priority = q->priority;
++	/* m->cp_hqd_queue_priority = q->priority; */
+ }
+ 
+ static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+index 7e5a7ab6d0c0..c9e397366782 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v11.c
+@@ -96,7 +96,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ static void set_priority(struct v11_compute_mqd *m, struct queue_properties *q)
+ {
+ 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
+-	m->cp_hqd_queue_priority = q->priority;
++	/* m->cp_hqd_queue_priority = q->priority; */
+ }
+ 
+ static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+index a51f217329db..3bbc2648f51d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
+@@ -77,7 +77,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ static void set_priority(struct v12_compute_mqd *m, struct queue_properties *q)
+ {
+ 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
+-	m->cp_hqd_queue_priority = q->priority;
++	/* m->cp_hqd_queue_priority = q->priority; */
+ }
+ 
+ static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
+index d0776ba2cc99..0d6b601962eb 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
+@@ -131,7 +131,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ static void set_priority(struct v12_1_compute_mqd *m, struct queue_properties *q)
+ {
+ 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
+-	m->cp_hqd_queue_priority = q->priority;
++	/* m->cp_hqd_queue_priority = q->priority; */
+ }
+ 
+ static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index dcf4bbfa641b..bc4ceba35908 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -106,7 +106,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ static void set_priority(struct v9_mqd *m, struct queue_properties *q)
+ {
+ 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
+-	m->cp_hqd_queue_priority = q->priority;
++	/* m->cp_hqd_queue_priority = q->priority; */
+ }
+ 
+ static bool mqd_on_vram(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index 09483f0862d4..e63ef6442b35 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -73,7 +73,7 @@ static void update_cu_mask(struct mqd_manager *mm, void *mqd,
+ static void set_priority(struct vi_mqd *m, struct queue_properties *q)
+ {
+ 	m->cp_hqd_pipe_priority = pipe_priority_map[q->priority];
+-	m->cp_hqd_queue_priority = q->priority;
++	/* m->cp_hqd_queue_priority = q->priority; */
+ }
+ 
+ static struct kfd_mem_obj *allocate_mqd(struct mqd_manager *mm,
+-- 
+2.43.0
 
--       vm->process_info =3D *process_info;
-+       if (cmpxchg(&vm->process_info, NULL, *process_info) !=3D NULL) {
-+               ret =3D -EINVAL;
-+               goto already_acquired;
-+       }
-
-         /* Validate page directory and attach eviction fence */
-         ret =3D amdgpu_bo_reserve(vm->root.bo, true);
-@@ -1472,6 +1475,7 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **p=
-rocess_info,
-         amdgpu_bo_unreserve(vm->root.bo);
- reserve_pd_fail:
-         vm->process_info =3D NULL;
-+already_acquired:
-         if (info) {
-                 dma_fence_put(&info->eviction_fence->base);
-                 *process_info =3D NULL;
---
-2.34.1
-
---_000_DM6PR12MB440105A544332F3281D7013EE360ADM6PR12MB4401namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Aptos;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#467886;
-	text-decoration:underline;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Arial",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-</head>
-<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[AMD Official Use Only - AMD Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">Let parent/child process share same vm will cause mul=
-tiple issues. There is no use case or need for that. It should be prevented=
- at uses space, not work around at this specific
- place in driver.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">Regards<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">Xiaogang<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> amd-gfx &lt;amd-gfx-bounces@li=
-sts.freedesktop.org&gt;
-<b>On Behalf Of </b>Kasiviswanathan, Harish<br>
-<b>Sent:</b> Thursday, February 12, 2026 12:31 PM<br>
-<b>To:</b> Liu, Alysa &lt;Alysa.Liu@amd.com&gt;; amd-gfx@lists.freedesktop.=
-org<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Fix use-after-free race in VM acqui=
-re<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"margin-left:5.0pt">
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:blue">[AMD Official Use Only - AMD Internal Di=
-stribution Only]<o:p></o:p></span></p>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;color:black">Reviewe=
-d-by: Harish Kasiviswanathan &lt;<a href=3D"mailto:Harish.Kasiviswanathan@a=
-md.com">Harish.Kasiviswanathan@amd.com</a>&gt;<o:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Liu, A=
-lysa &lt;<a href=3D"mailto:Alysa.Liu@amd.com">Alysa.Liu@amd.com</a>&gt;<br>
-<b>Sent:</b> Thursday, February 5, 2026 11:28 AM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
-reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
--gfx@lists.freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
-om">Alexander.Deucher@amd.com</a>&gt;; Kasiviswanathan, Harish &lt;<a href=
-=3D"mailto:Harish.Kasiviswanathan@amd.com">Harish.Kasiviswanathan@amd.com</=
-a>&gt;; Liu, Alysa &lt;<a href=3D"mailto:Alysa.Liu@amd.com">Alysa.Liu@amd.c=
-om</a>&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Fix use-after-free race in VM acquire</=
-span> <o:p>
-</o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
-ize:11.0pt">Replace non-atomic vm-&gt;process_info assignment with cmpxchg(=
-)<br>
-to prevent race when parent/child processes sharing a drm_file<br>
-both try to acquire the same VM after fork().<br>
-<br>
-Signed-off-by: <a href=3D"mailto:Alysa.Liu@amd.com">Alysa.Liu@amd.com</a> &=
-lt;<a href=3D"mailto:Alysa.Liu@amd.com">Alysa.Liu@amd.com</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 6 +++++-<br>
-&nbsp;1 file changed, 5 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-index 00ea69baa126..f7b2358a0303 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-@@ -1432,7 +1432,10 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **=
-process_info,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *process_info =3D info;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;process_info =3D *process_info=
-;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (cmpxchg(&amp;vm-&gt;process_info,=
- NULL, *process_info) !=3D NULL) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D -EINVAL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; goto already_acquired;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Validate page directory=
- and attach eviction fence */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_reserve(=
-vm-&gt;root.bo, true);<br>
-@@ -1472,6 +1475,7 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **p=
-rocess_info,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(vm-&gt=
-;root.bo);<br>
-&nbsp;reserve_pd_fail:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;process_info =3D NU=
-LL;<br>
-+already_acquired:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (info) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dma_fence_put(&amp;info-&gt;eviction_fence-&gt;base);=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *process_info =3D NULL;<br>
--- <br>
-2.34.1<o:p></o:p></span></p>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB440105A544332F3281D7013EE360ADM6PR12MB4401namp_--
