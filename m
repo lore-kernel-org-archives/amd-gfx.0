@@ -4,169 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2B91EEA86E
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Feb 2026 00:18:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EB57EEA853
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Feb 2026 00:22:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71E4110E20A;
-	Fri, 13 Feb 2026 00:18:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3107610E6CC;
+	Fri, 13 Feb 2026 00:22:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wagXv8KB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CYBxThJe";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012054.outbound.protection.outlook.com [40.107.209.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A638810E0BC;
- Fri, 13 Feb 2026 00:18:28 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012026.outbound.protection.outlook.com
+ [40.107.200.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B49F810E6CC
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Feb 2026 00:22:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mhyM5FAF5Mr5h87Jc894qBxEYUp94QeXtAvR34ZTBhHuWyyThlUnHEdVZ3W8/ZnSadIMqhk13NmuA7omQI04w1jeOtJBN01tUowHMlIrqQXh+D7eb+zIC/Z3bD5L67H4Cz/KGPTZIKMY3NdCr2MxN8rvdKjYp3K/kP2geAyNBnIDq6+wIuOcF2sW3CYrgqXseWlwiAyz48FwaRQDXhk6GFwISLojIIt4Uz69ElDEvXltFtelSykUf+lqSJrm9CI1ZYi9s+RE1ZoOblMwJyYMokkYyCAs1zebiLy/rJKVG8BxfZ+9ImqBB2uI8v2Ve4amFaBSI2DhE6BO9HyCYToxww==
+ b=t4ZYdS0R4jRzH51TgYSgzxYJslr3gMHIgDQvDOT0TcmABSHZHh5AsSmCD8sx2S3L7IBeZUf5H6lSZ3tNCcqiI46Zf7lFETOEEETV51A9vsKE/thvU6hQnNPhI0ysabgltQk76cSZvN+Yophr9mP8xhC1DoZaIz8Kp4e5CVdFWo/R4Cd2Twri+m0tqu9u5hkd7xpn9xXZXnALl7/+M8jF9VZ65RoYs1wQFKiJ0Dc2InIv0TWTdF/wWXbDHJ9xIbguMoTkxt1916XKYsMr7g/6yGM02+UZCFe7TOaAjZaYzawyIa591rKy8bwnlTTWewofcpagT8M3RjmurQWQEGp1DA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=izgU/k1oRwoXMJXoNYxezQiihyS+t90EqGRjURNaTM4=;
- b=FeUS5LasT11JuqCClM4W9E9NiplPmNHDXVh+nwnBmZeQ9hwbpof+xapq937mOL+NSBnU/mbjuAY9nNyjjCl7H5Bmm2xLTawdv+0uP//SaCkZKKGyWL9/b1UzoRly1NNmkMLZ557rrhT6IssJ/x7HSLGV1CwlMM6tqQD5EhRS77UpJtt9PrXMlAk+msCqbpPhF4NOT+nZ1yCnMq/feEPKPv4F7dtsahxUX4d3uMyii+SRYi5BI76D3tBadct+LgN6Q1hFYZ9Fu59e3Yq/XANheLu0StaJ+1dZYfRi0efEO0sWoWe+OzTk5iwbQ33xA7LkJU/P9dZ8n4/7ClSNqEyrPw==
+ bh=M1NqYAbqI3zZaBj0lDlj+tLP9ytfhAOtJKBKAuUm2I4=;
+ b=AMoGemOl/QPjuQppjwtB1LUpUsOxkQBdkOwKCbdvSOjkXG9DfaAsp+2pSap+nMr27b9Z1N00VhYgqB6Q4EsQXg8Vakl6MCMZMfi4W/WboZzhlchMM9wl8y+m7DDLEc8z0aoTss6XPEPgiCzlpEb+5uuiN7QkChksfOzhqSqpzoW4s+IZJGweLIR1bB8xzeQyTaKVVG3HjP1q4SqOfp/m3zNpIMfbeCxr3W79jUE5OOmNKZ+pBYTSLyC0B8nzTYsNJ5svA9vqiUaYteuMw+DXkxzfAj8DDy40K7PcZdDZjL6YSOyn0btYoG+DNPrVr4HC8l9LsJNz+2xPslw8hOtjRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=izgU/k1oRwoXMJXoNYxezQiihyS+t90EqGRjURNaTM4=;
- b=wagXv8KBDar9XS2a3CmdyDMue0RUswd/nFaJLXdLQGD97eUTmN6r/NhxR0guG+ReUS6BuI7u25+nGF1b60Ijp/guN/Jo/Hu9mm4adE44Se3XqtKE1GTPC3L17fQjqUax1SdUxzL3gd+HIQE/QaZcaPSQp1+hA5fyFXLhnELCmvo=
+ bh=M1NqYAbqI3zZaBj0lDlj+tLP9ytfhAOtJKBKAuUm2I4=;
+ b=CYBxThJe06GeJZ2NIMu6PiLhfeNXs+OOV+ZktCIx23YoEQk3qInEWJioTReowI9aukcm8XEcGGxStbuGnciA9daE21UyYthqsZpXn11kTuG/HqTh1gzY6dKkOQDJxwojzA9KXP99+V8jOkQ2E/uMbkZMmbKgz5ZPmQbMKbhescc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com (2603:10b6:208:3cb::10)
- by PH8PR12MB7229.namprd12.prod.outlook.com (2603:10b6:510:227::20)
+ by MN2PR12MB4095.namprd12.prod.outlook.com (2603:10b6:208:1d1::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Fri, 13 Feb
- 2026 00:18:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.12; Fri, 13 Feb
+ 2026 00:22:55 +0000
 Received: from MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::94eb:4bdb:4466:27ce]) by MN0PR12MB6101.namprd12.prod.outlook.com
  ([fe80::94eb:4bdb:4466:27ce%4]) with mapi id 15.20.9611.012; Fri, 13 Feb 2026
- 00:18:24 +0000
-Message-ID: <2e359cd9-0192-44d0-886f-7f93a8b0a4fa@amd.com>
-Date: Thu, 12 Feb 2026 18:18:17 -0600
+ 00:22:55 +0000
+Message-ID: <654369dd-e5b5-45f6-b8ef-82b1bfe72141@amd.com>
+Date: Thu, 12 Feb 2026 18:22:50 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm: introduce KMS recovery mechanism
-To: Hamza Mahfooz <someguy@effective-light.com>,
- dri-devel@lists.freedesktop.org
-Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260212230905.688006-1-someguy@effective-light.com>
+Subject: Re: [RFC] amdkfd: Add GPU family name property to KFD topology
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Stella.Laurenzo@amd.com,
+ Slobodan.Josic@amd.com, Filip.Jankovic@amd.com
+References: <20260211221336.1443070-1-mario.limonciello@amd.com>
+ <CADnq5_Ok927jfPuPw0OUg97Q2pa2uymQfeWFVrvuBfiMDCGXpA@mail.gmail.com>
 Content-Language: en-US
 From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260212230905.688006-1-someguy@effective-light.com>
+In-Reply-To: <CADnq5_Ok927jfPuPw0OUg97Q2pa2uymQfeWFVrvuBfiMDCGXpA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR05CA0143.namprd05.prod.outlook.com
- (2603:10b6:a03:33d::28) To MN0PR12MB6101.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BYAPR05CA0051.namprd05.prod.outlook.com
+ (2603:10b6:a03:74::28) To MN0PR12MB6101.namprd12.prod.outlook.com
  (2603:10b6:208:3cb::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|PH8PR12MB7229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38e9e1e1-1118-490f-d189-08de6a9566e4
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6101:EE_|MN2PR12MB4095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 954b0ffa-e734-45ff-cbbd-08de6a96082c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|7053199007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TGFwek1XYTRoY3p3SDdjNjI5RGlIdEt4QWV2cmo4ZmIvTHc3ZzhEZDdEUXRQ?=
- =?utf-8?B?NHh6dkZpQVlkN3NkVzJNZVJPc0g5SEl6c3V6d0tSNHpPVDlSeFBud3pGbkhI?=
- =?utf-8?B?aFpQUW96TVU4Z2krYjJYRk9OTmpWekJCRnQxMnJ1U25ENmp0SUo4VDBkV1du?=
- =?utf-8?B?czk1dFl5QU1aZDFSTjdYayt0MmxadENrejdvbklOL3luWHhUL0E5Vmh4dzI0?=
- =?utf-8?B?NTZSRDcwVGpiL0ZSaEJVdUR5OUN0TCtWYkZwOEF2amxTZGVvK1FDTmRDdmpm?=
- =?utf-8?B?TzhUUk5ZOER0M1JpS1puOVdTTDd1NHdzcE5xL2hqOU5HelFIL0NRZlkzNnlD?=
- =?utf-8?B?UXVMczY0bys4VEhhcGl6Rm1kdExSeTk5QzF3WStYTVFQOTFsVStySG1hL2pw?=
- =?utf-8?B?NXN0YWlOVkJXYUx5SkN3dFRrVm9WbmFEeUNvSTJhRzVqa3UrTW0yUWJNS2dU?=
- =?utf-8?B?K0lNTEV3bENSNFQxZUQ3YXZVRk9tUlh0d2JzSTVqL2RQdmtzOVZDeEkzWmpD?=
- =?utf-8?B?TUlUNHdTRG1OM2w2MjluVjhaL2RZM2FBSWdYUlUxUDl3eVFxdi9jSTBncnlp?=
- =?utf-8?B?VEFkN2lKT25BTHI0eVgzaEI1Z0wzb29VYnJFMm5tbVVVOVlDczhDeDNsZkVO?=
- =?utf-8?B?aWFRUWk5SHh6dVJKUVZyU1I4NmVVOFRZdVBuUDFkY2lJRzNjZHp3SGxqcVRM?=
- =?utf-8?B?ZzhvTkRFVHhoRjRaNWUwOFJHd2tjLzl6Nk5QRWFPYUUwc25FZkdTN0xONHRJ?=
- =?utf-8?B?aE53eVUwbzUzZ1RwVVdXaE5PZ3lQMG1tSHU0SnR2N2FLclQ5NFZSSmltTnZC?=
- =?utf-8?B?OTFEa1hnZjJLcUJiTmdQbWZneVQ3Zm01ampCMmJIcnRMMFRKTjhzaTkrckRl?=
- =?utf-8?B?K09HTzg2eVJ3ZXdIWnF4em5ac3RHd1h6Q3ZvS2ZLdGU1bXNzazd0aGlOeFhM?=
- =?utf-8?B?cjA0U0QxZ3pEV24zelVzNFFPdGZ6YW9PWXF3YUZGZWNiS001MGlZUlZMeXEv?=
- =?utf-8?B?TXNTTUNhaUZ3bWdsNzFhMTJEeHhZNGh3R1pKV1VFcXFYYy8xK0JHUEZOMTht?=
- =?utf-8?B?ai9mZzJQdE1UVUxqc09XdERCRTNlT2NtNFFieEJzNE9Rb1c2QzZ0NkZxbEh2?=
- =?utf-8?B?RFIzdXRicCs2ekp1SmpjVHNGUUxvbXhFSE5uQnpZU1E0eXg2amVrYmlKYTVj?=
- =?utf-8?B?OEEvaVkzdTU4eWRoZDNLcDAxbGNqdDA4ZzFMVFlKM3Q1TWVCYWVxSlJSSVNF?=
- =?utf-8?B?QnNuOG50SFVFai9ab1JmWm5xMmJYckIxMi9EMXBwVnRLdVdicWVaSnpmd0RH?=
- =?utf-8?B?bWV4MVdZVWg5MXFsN0ZkZUJLYjRFS0hrZTYyRS8ybW9IZDQwZlhJT1ZvUlBN?=
- =?utf-8?B?RXlOMEdtMHhrb0htNnhRZHJMT2hvNk96N2lSN09JTVdod2ZsU05McXNpc25y?=
- =?utf-8?B?OUlON25KdWxmdjRPM25RajJzOEV3bnZzYWhhWTBCdm14bHBSbm5JTGFnblRl?=
- =?utf-8?B?RmhlajNxR2ZucTdwR1NCcWRzMWhFdWlDYUFmU05IWUg5V2k5dzZDQ2dnNTlx?=
- =?utf-8?B?NmNxK0kxYWZteERkV05pd0tBVktsSS9kMHdPdTZFRGptbWVoOWprR2RyWTNY?=
- =?utf-8?B?MWRMTHFTS2luUjEzd1UxaVFzaXdLbkJSNjFBMjR6N1MvdDV1WDd4ZXV6dHMz?=
- =?utf-8?B?cnVtZGRJZjc4VHU3NlROSXZ5b1ZNRmY3SVh6bTBEMHZwSXNUQXZxV1NrMWcw?=
- =?utf-8?B?cXBSbGVyRWMvR1ExZExuWG1PdHhJeUswLzlQZzBWSzUwV1doS0xCSEQwaVFn?=
- =?utf-8?B?NDltZEw3YUN3Z2VlY3htbXdTbzVLZmRkUG5zUUl5dG9rRmczbWQwNFp3dVdr?=
- =?utf-8?B?NVgzUFdyc2MxZERleWNtek9SKzlpbHNLMUxmc042TFo0K1pRK3M4bmtaWlJh?=
- =?utf-8?B?MmtXa1pTWlNiMWZ4WGhkTkUwcllGUGcvVG1hcTd0US9OSEZ0VHJlemRsNzVj?=
- =?utf-8?B?OTBCZmtWVG9VRHBwaUNJNU9UR0crb2tkUkxkWm1zcFhwQ1FTNGxOSzg1NDlE?=
- =?utf-8?B?V0J2UGljVno0ajRIdkN1aW11TVpHQ0hHcGVMemVpRUQ3QmlMU3NDZWYzMEly?=
- =?utf-8?Q?O2Ew=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UzEraXVjQnh3dUlMbkpqTTBDNW51SUx4U3lTS1orbllsNXVHRXdJTEpHN0ZP?=
+ =?utf-8?B?MUNkcWdtL1Fsc2Ewa2dOTXdNQmFJU2hQSktLOVFhYVZISDRoamNOMmYyL1Mw?=
+ =?utf-8?B?N1hnOGpIbFFuTGVyc0tjYTdzRjlHallEUXhsY3B2S3NPOHlUK3RseWNLRTJi?=
+ =?utf-8?B?dzJWQXREaVBGd1dCb1VnNWNjaHB4UDc3cjB6bEoyMU4xOWFwbjVtdmg2Snpu?=
+ =?utf-8?B?bFNxOFNsdDJkVGNKTE45anRRWDdNNEZWT1pHWXc0QzU0Q2p5ckE4WHN0ejMw?=
+ =?utf-8?B?S1I5Y05GWHhiNy9BN3hDUUVFZTBIQkR1SEhrYlJLZ2FjcnBGRVNNaGhuYTJ2?=
+ =?utf-8?B?bURRUXRycUwrYmFQU0NYYjZ2SEM4czZXRkUwV1VMczdxOG9LaE9iRXFBS2VZ?=
+ =?utf-8?B?bkdXNWRJa0UvcnZ2TkdZMzdZTmgvMzVpNDd5K0ZPb2hrUy9WSGhmK0o0V3BJ?=
+ =?utf-8?B?bHhJRktMWFYvRi8xVmQ5U05OSkg3dnJCOFhTTTZSczlzOFJEc0xNbGtHQnBL?=
+ =?utf-8?B?L3RDUHp6MGhYUUcxWE9haXpDdDQrSXV1OUVsSm8wbG1DMEZQTDBRQVE1enRu?=
+ =?utf-8?B?V2pzYTJnRlhHOFBhR05LZ1JhNFcvNGlKdnk5MUFNMW5jS1hTNEZVUXZMN0VW?=
+ =?utf-8?B?QVBjSkQzZW1IOC96bURTS3lTRnV6bFg2NXU2cFJxdmMxcnpDbTVkb3lWanJN?=
+ =?utf-8?B?SWJGN0UxWFYyek4xVEVTbVgxblhFOGlNWHEya0tVU1lEUDFMRFVWaUcwNkFY?=
+ =?utf-8?B?Ny9BdXQ3V3hKdlkxK1F3WmZFa1JuR3hiYXc5aStFNzdPOWtWeURyQm1ML2lj?=
+ =?utf-8?B?RXE5UTRKY2Z0NFJjY0tqZ2d1ekpKYUt6MlpwM25DdHIrd0c4THI0SUdOQ21a?=
+ =?utf-8?B?Z0FMUEFGMGFueXlyV09lTzVjMVJHMHdFRGt4SVNlaHI5R1FXc1NLd2FwTHl6?=
+ =?utf-8?B?RHZiakdYM2NyS215bG5uM1BVMFExc0Q3dk9yVkRNbTNTWFVzU3gyQjRiWURS?=
+ =?utf-8?B?TEl4ZllDQ01SZkNCTUM5akVSY0JKbnd5MlNoSkZCS2NMYUtYWDl2WGpKWEh2?=
+ =?utf-8?B?eld2cWpSamV1R2FzYXFCaWtnbmx0NEdOZ2NNcnV5bUlpaFFWbUVwUVlGS1Vl?=
+ =?utf-8?B?MERoL1FJRzgvMGVGaHc0aFRONDRLazlZZEV0WEo0dmZ3ZUJpTjlvZFdta1Bj?=
+ =?utf-8?B?QmFMclF0TDB4QzkzbnNzbnhxeVVsNmZPS1hlMUIzSm03ZTN1V09qQzNZQXdZ?=
+ =?utf-8?B?Vis1WHVpcEM4WTFMMlBhRy9mbHc3Um4zQUlaWVRiKzRaOUg1K0pjc1JTbHRZ?=
+ =?utf-8?B?V2ZKdEVFM3llOWVZQjMwZ0FnWVArSnZMZmJrNXg2TGZ4M0lNZC9STXdOUjJ6?=
+ =?utf-8?B?MXBlSmhrRkh0V0FRR0hOSVJxUkRHb2hucy84RFd4aXZ1dmZjM25oeFlZWmcr?=
+ =?utf-8?B?bUUzMk82eVJWamVJeWdGeWpObVhwYmF4SXR0UW56RzN1OWpNSkd5VHA4OHFQ?=
+ =?utf-8?B?RTQxaXJycFpMc0RGTzFscUx6N0RiMmhtZ3pmVGVUNzQvUXVSODlZVlhZWmdt?=
+ =?utf-8?B?em5CS2VVeTViY2VaV3J1M1hYL2VKR00rV2MwMzBUcVZBUVc5TjZlUFo0b3Jy?=
+ =?utf-8?B?VnhONGRjd2RBVW1HWGdmNEVJRmpKampFeEFPaGl1Q2lLWU4xdVJBT3k2emRS?=
+ =?utf-8?B?ZDQ5Mm10ZEh2cnN6NVA4b1QvM2dHMGYwZUxGZWNxemlqNnZEV0VNem00RlpG?=
+ =?utf-8?B?Qk1IZXh2dEEvV05UTkNyYzNEdHgvVVA5L05LR25KbHJuaXE4RHpSK2ZTc3Ew?=
+ =?utf-8?B?Nldtb20xVk04ei9jVnNMckFaVHlyR0I1NGM4UndLWWlxckpUQlV0MW5SVlR3?=
+ =?utf-8?B?Qk15TlpRMkpqcEVpd1Y3aWJTVFJlTEgvdVMwSzg2TXJlZmxiaGZjRnhuN0M4?=
+ =?utf-8?B?bkJ1WmZlakJpanh6WmZHUFFhTG51RjRZRk9CeVlYREl5N003VWV0c3NJMTkr?=
+ =?utf-8?B?TzA0U1EvS0tjOG5RZTh6dWE2Yy84UkhmdE1SN3hNUmJmT2VzZjVZSnR6T1JM?=
+ =?utf-8?B?VHdlRkRTcnFMVURPNnJZNmxjZklLMGhlODAxSWxYcGM1V1VuUjZ6VU9KaU9R?=
+ =?utf-8?Q?Spp8=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MN0PR12MB6101.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(7053199007); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NUVjeWtLWDNhK0ZxdUNMVUs5bURLTGdLTFhWTVFIeDczTVV4MG9nWjRZMzh6?=
- =?utf-8?B?dW82ajNpbXNLUldOL3BSN015RTBBRHJwZDVaSVJnMTFQKzkrYXlVd1pGMURx?=
- =?utf-8?B?MjV3NXVsa3hYcGsram5LYmZYL1hzVU9EZW91QlFHem1ReENxVUcrYjhPMTE3?=
- =?utf-8?B?OFZ0dlVBNVowUkxUbCtnT3BGWjRhZVkxeU9sdEVkOUZ0SVI4emt5TGNNMWcr?=
- =?utf-8?B?V0VkMzRMQXJxUnV1TDgzdExzR3pNT1UyL0lLdFdmSm1ybU54WjR1NXZXZHEw?=
- =?utf-8?B?dmNMbG9YMDdIR0ljbGVOYkJZRFFCZjk2RjdYeEU2YzNrK29ldEZiUmQrUG1h?=
- =?utf-8?B?eU9JZElyeng2VXlrN2NYaVhGQkNXVDMrVVJvalRmQUhQb2p0WnB5eXlGMHFQ?=
- =?utf-8?B?VGJXdzIwczZnQ1dlaXp1STdKeHhEMTlOVDNHRlFZS3d4RmpWcXp0ZlNhRm8v?=
- =?utf-8?B?Wld4ZHZDOVpiRytIOHFPcnVOK1M1cVc0UzRzR3JWSEVjMUtaaFlXRVNtWk9x?=
- =?utf-8?B?NDdqTzlQWldGblpmTENJc2h5NnQ0Y1lxSTdsNW9VcmowS2ltNFZTOWhxWUpP?=
- =?utf-8?B?TWdENFZFdzZ0R3RELzJhWWNZa2s2cVpjOUlwRkM1a2U3NnJjNG9BNWYvMDBB?=
- =?utf-8?B?NDcvc0ovTkxSc014Mi8vYmdEVmUxYXRNU0VhaGNOZVUwbU4vNUtyUDRhY3Qz?=
- =?utf-8?B?alJFdjJmdldyZytLVzRsSHUycThFeXJqZ2paRWovNThFZTd1NHRVWDVGeWFN?=
- =?utf-8?B?aEFpYVZRNWxHWU51cFVxdmtCZ1RSUlNEbXhJNkRtZUJqdHRnVXd2K2ZuWmdj?=
- =?utf-8?B?ZnI0K2RqZEptNWF5Y3hGY3JLbGtETXhKMkxBb0VScms4OG5uMzVMZUZaRWdF?=
- =?utf-8?B?MXprRGkxVVAvZmt2V0JnalVvbjQ0Wmx0QzdVaWw1WHVPbGxkSlNJV3NMYWd3?=
- =?utf-8?B?Tks4NzdFVEhrNlZFUG1JNlhYU3poQUlHWG4wbFNhSlFxSkJWQWEveEdXeW9a?=
- =?utf-8?B?WE55SUhJSnFlUEJZbjZTbWpmc2ViN1VIKzdTQk9GMC9DYWhDSUNsS0NuVnBl?=
- =?utf-8?B?YlQ2bEQ5SzByeVM5MXdXdFArUTNSUzNzSUE4SGpGcFhpVXFIZHhjRTcwYkZs?=
- =?utf-8?B?ZEIzMDhCS3BuVHA4azhDOXhNYnV1NHh1dlBmVzFHRkRYUm9VNS9jeVFkZTV4?=
- =?utf-8?B?N1ltVkZvU0dncjIyRFFUR1ExNmlvZ0ZQQTMrOEEybFoyTlRZMWFiZWViSlNV?=
- =?utf-8?B?NURCR2NETlZQTDlNUE1lbUJBMDJzQXp3RjZKOWxHTnUvVllqZFNXQlpPbFJG?=
- =?utf-8?B?UENHTDlSd216TE96S1N5bWlaOWlkM2QzYy9ZL2FkNDhWNEZybHhxNzVON254?=
- =?utf-8?B?SmRhVHUrV1E5V3kvMG0yNlQzSURoVzhQR3h2QnRHOTdrVmNJcVRhSDBxU2VN?=
- =?utf-8?B?aUZodzVWRlZUZXlkWmVpc0pFMWd0Z3F4QmxzbjJOTE1JRXB1Sk1VZ0lBNFFN?=
- =?utf-8?B?eDV3bFBBVlFFUm5mTzJjaHdzSEM3bkpDWDhYemZMN2l5Snd0aFU0Sml0ZWNt?=
- =?utf-8?B?enJwRnlzSGx1NkFoV0JYNXpCWXJuSEg3WU05QWVtWkFJUFp3WUFLa3VlcGIz?=
- =?utf-8?B?TlVOUkVNZEQ4NzIra2NrZVVybHhGbkdtY2xwdVBnenZGd2NscFVhcUsxZHM1?=
- =?utf-8?B?R2RDdHdRYXB4WlNHYVIzRnU0MTRMSWtQa2lYZ2tnMjJlRUgzNUNaOW1JQ0Jh?=
- =?utf-8?B?WGF1bmFFUkdOdDR6blMxR2tZZ3BZOGVZMVZvSGZkZVJYQXJjSGJCZzJ1OGxm?=
- =?utf-8?B?dzhRcmNSK0pLNUk1WWFDdVFvSkRLWnBEVEZtV3RBck0xdS8zY0N2KzF1am5y?=
- =?utf-8?B?dlZJRFgydytmUnk2S3J2SVFDdnQwbjFpdGRSWU4vSmM5UW5PemNka0tZYk92?=
- =?utf-8?B?VUNmTUI1bzUvdXpRdlRTeXkyYXFHTjBPNk9lVzRRZ3JOUTkzQm1lU0tPT2pQ?=
- =?utf-8?B?eTc2VEQrSXdkcGNISWtwendqNWtaSTUwb1dDTGVPNjhjWEN0d2ZERUZUbkdj?=
- =?utf-8?B?RzN2ZEJqbWFSRDdNVHVTL29xQTNtbGw5NGV1ZXN0eFFuV3M4QjBReUdqaTVK?=
- =?utf-8?B?dGd4RlQwaVQ5YjhXd0syMWl1VWZNUTBnWGRua1FVZ25NSGk0ekk5UlM1MUZW?=
- =?utf-8?B?OUJtSUtBVkRQbFpLei9hdlVOVjZGaVpIK3I4K01ybEsyNFNvYXBXTHoxNjBT?=
- =?utf-8?B?YUNUWXJtRDJYcDlZbGdLWVFONXRzdFJOcDJCdTQwa2FBVmVmYUR6TXVPQkU5?=
- =?utf-8?B?cXdrblhpemFCUGV3RUFENGZDSy9PRnBETGVpYUNqdFV1WjllMmtaQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2cxUjZYdkt4bjJTRG1RL2VVWWhqYXd4U1J2NU5xMlcxQUgrR09aTm54ZjBH?=
+ =?utf-8?B?T1Bvbk91bWpkZVJ5aVJ5N1YxN3d6UGJic1FHWDQ5Zm1CaGFWd1QxR0VzWlFJ?=
+ =?utf-8?B?SnZxU28xVU5jcURvTEJYOHdQcW5KSWJSWm15TFV6M0ZJb3dZdllFTjNsWlpj?=
+ =?utf-8?B?RWFDVml5ZjhqRUdCbUJGREJJNlFqVjRNSEgzZ1lOQlQ0c0JPbnFkbDA2cDIy?=
+ =?utf-8?B?Wi9qaHFpTDBKR1k2ZVpTNHgyQm4xOGZkTmMzV2QxdW0vaFJ3L0doaDg3WHNV?=
+ =?utf-8?B?cHY0VHFQcEZsMlNhQSthMmlscTZxdmxKOHdhQ1B2aDJjcEpJR1ZhZHp3ay9w?=
+ =?utf-8?B?QzlQSFY3dnQ0YldlT0ozVGJSWE5laWtCUHVVZlZqQ3dJUG5QcitQRUdPN2k5?=
+ =?utf-8?B?d3NYblJCNDBPSFdKQVV3aDZ1M2tTdGtpZEkyZVFEVXc1dVZzZVdISVIvQ0g1?=
+ =?utf-8?B?VnNmS2VVdGtpdmZweWVxYkJtT0ZoNWY3cTl5YkJEemFUTlpQYjhlSGRIZEl4?=
+ =?utf-8?B?YnJ4Vm1CMlFsQjlrdW5GSUhNMlljdnRuZWFvb0RxdU1sQnUvMHlrWTY1VWIr?=
+ =?utf-8?B?Tkx3K2FwZjJBYk1iU3pwbDREZlFmTk9KY0p0WjFZZnhEN3VGZUE4eUwwcnpK?=
+ =?utf-8?B?bjhweXE1OG44aFMwTStVS1ppSk1RdHZJSE8yWkxvMkVuOG9FWWFXZkRIUysx?=
+ =?utf-8?B?Vm5rRWtrUEYybFFWYldueWk4TTdpaENPcWJzV05UcWFvb1g2RXJ3YmVYeTNH?=
+ =?utf-8?B?TnhVa0NLSWtla0JKWlZoZTVEY2pJZTdZa3FOblJWcGMvRm9nZkV6TVRUaWR1?=
+ =?utf-8?B?bTRZd1BCMWJzbkVoSFROdXl0dTl2ZmlaU2MrcGN2OGZNbit2elBtcTFTZTNP?=
+ =?utf-8?B?N2dpaFdxcEV2ZDF6T05QWGxKbVUzak16Uk1jazhWZ2NleTJIYmlYTGNrQmdM?=
+ =?utf-8?B?Z2VsRGVWb1dWMHRleFlHK29Kb1JXWTlENlhYbzVNeWw4SStXN29ueWlxZVdm?=
+ =?utf-8?B?Z0RTbTM4N1JsTnJWQUhybjlic29YZ2RJU3BGb09pdUZ5WFVMQkpJRzRENWhx?=
+ =?utf-8?B?OWZrMzlVbkEwd0I5T0FTWkRFaGtVTEFtQjVEQU5RYU0vc1N3a0xQa1JONkRT?=
+ =?utf-8?B?WUd2YmlPZXFnZ2FCUzNOb2JrWUY1Y0M4REpUczA5bTZ1Y2oyUmxvUXZUY0pq?=
+ =?utf-8?B?VFQ5WUdaTzhLeTRoZmdFUzVBbEk1L1pWUW9ST3JiM0xyODFFajBJc0FxR3Jk?=
+ =?utf-8?B?Tk9pdlRHelRKOTVKRHVIcEhkOW13d1k3V1FEZ3RRQ1UyTncxaFBNd25LdlBx?=
+ =?utf-8?B?Yjh4VlhSenVoNnBnRzNGS1paV1lZaWF1UkZWMk9zR3hyc2JPM3hzTnNabGlU?=
+ =?utf-8?B?VUFrTitYK0lUdEhjT0FYQldDSVFXcmh1TU9yUC91QWJrZVV6c08vd3hSOERV?=
+ =?utf-8?B?U2daRmhKVkxqQTJyQ3RGb1VlSEN5SkZVajhWdTNHeUp4U2RHUDdrUWxnTitj?=
+ =?utf-8?B?M2NSdnR6SDhrNVZXQkxIR2V4NmNUYnVNSENHaDVTY2o4TDFJSGNzSTRwdTJ3?=
+ =?utf-8?B?eUdqRmpxcFJrSXRrL1N1K1IwbHFnTkRZNEwwVm05aGVKZHJRV005enNnQzF6?=
+ =?utf-8?B?OFJpSEZzbWd1bzZYUGxoMmE3UzlmOW16aVNXd05IRGlGUmNDMUJVK1c4VjZM?=
+ =?utf-8?B?UUlUbFFPOUZwd1BZWU9sYW94SmY2NmJBbkVFdFIyUXo5emZ5TGk2VEFGTlFk?=
+ =?utf-8?B?Q1dFdTVndVh6N3FNVndCRENwcURnTGxiUVl0TzQ0cWVNNkZpdmF5Y2tHZkhv?=
+ =?utf-8?B?a1hrcCs3QmVwOU5MZkFlNDAxdlBJWDJLSjZFTFNrcUhpdS92azhvTlczWEww?=
+ =?utf-8?B?VXFNcGlKMGtMMXlkY2FzdHBBOGxzUkFtd1RWeHBGb2p6a3REdm5pUXlQL3hL?=
+ =?utf-8?B?U09WZ0x1ZS9TdGRyMjJhUHdhOXFxWGgzdkM2VE9oZWw3Y2NRZFR3VlhyUVFG?=
+ =?utf-8?B?RzlVdURjRWdyc0x0SDZMSzh2SXd0T2d2TFloU3NJTzZXV1FEbmpqSlhldGhy?=
+ =?utf-8?B?bmVqZm9oWkdUbXBVV054T2lCMTl6ZDl3WXJSVVdZSGprOG0vMFMvYzJlc0hY?=
+ =?utf-8?B?bWw2TmNQaVI0SDhqNGlaVFE1SnBKUmdBQW1iMG1QYVRxczZlTmdLRmxZUHJk?=
+ =?utf-8?B?NklDcDhueTBVV2h0R2hnQi9nOEpHVWVlRUpLM3IrTWxaVVpmZkdneU9iRG5x?=
+ =?utf-8?B?and6alNUalNTY29tMEMwUHI4T241RFhxRU5QT0tadHI1WnB4d29scDNWZlZ3?=
+ =?utf-8?B?VFZORjd6a1FEdzB0UmhibCtyOEtBNXJFREFkbGFselAwTk0rVjJaQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38e9e1e1-1118-490f-d189-08de6a9566e4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 954b0ffa-e734-45ff-cbbd-08de6a96082c
 X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6101.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2026 00:18:24.4136 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2026 00:22:54.9531 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hwdAaLflmAnR/8qQ7SYGYpcyZETLyIqhlc64PD2BG0E1jIo120aLFQq/2YqJhcj5MKhvS+fKbC+G3nCxN+UpFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7229
+X-MS-Exchange-CrossTenant-UserPrincipalName: IX0p5fiQs5DxnA+WGos9gFrTB23347kY7EOF9oNId7ls6Roobz494GV/wesiZAv4OJCu8TMJTDhj2rsJ/7+m3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4095
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -183,171 +171,130 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 2/12/2026 5:08 PM, Hamza Mahfooz wrote:
-> There should be a mechanism for drivers to respond to flip_done
-> timeouts. Since, as it stands it is possible for the display to stall
-> indefinitely, necessitating a hard reset. So, introduce a new mechanism
-> that tries various methods of recovery with increasing aggression, in
-> the following order:
+On 2/11/2026 4:25 PM, Alex Deucher wrote:
+> On Wed, Feb 11, 2026 at 5:14 PM Mario Limonciello
+> <mario.limonciello@amd.com> wrote:
+>>
+>> Add a new 'gpu_family' property to the KFD topology sysfs interface that
+>> exposes the GPU family name in ROCm TheRock format (e.g., gfx110X, gfx90X).
+>>
+>> The property is algorithmically derived from gfx_target_version, which
+>> encodes the version as MMMNNRR (major.minor.revision). The family name
+>> follows the pattern "gfx{major}{minor}X", making it easy for users and
+>> tools to identify which ROCm compiler target to use.
+>>
+>> The property only appears for GFX9 and newer GPUs, as older generations
+>> predate TheRock targets. Unknown or unsupported GPUs will not display
+>> the property.
+>>
+>> Example usage:
+>>    $ cat /sys/class/kfd/kfd/topology/nodes/1/properties | grep gpu_family
+>>    gpu_family gfx115X
 > 
-> 1. Force a full modeset (have the compositor reprogram the state from
->     scratch).
-> 2. As a last resort, have the driver attempt a vendor specific reset
->     (which they can do by reading the return value of
->     drm_atomic_helper_wait_for_flip_done()).
-
-Since you were able to (relatively) reliably reproduce a problem in 
-amdgpu, how far in your iterative flow did you get?  Did you manage to 
-need the vendor specific handling?  And presumably that helped?
-
+> I would call this isa_version or isa_family.  gfx_target_version is
+> the ISA version of a chip (i.e., the compiler target).  It's not the
+> same as the GC IP version or the chip family.  That should help
+> differentiate it and avoid confusion.
 > 
-> Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
-> ---
-> v2: new to the series
-> v3: get rid of page_flip_timeout() and have
->      drm_atomic_helper_wait_for_flip_done() return a error.
-> ---
->   drivers/gpu/drm/drm_atomic_helper.c | 45 +++++++++++++++++++++++++----
->   include/drm/drm_atomic_helper.h     |  4 +--
->   include/drm/drm_device.h            | 24 +++++++++++++++
->   3 files changed, 66 insertions(+), 7 deletions(-)
+> Alex
 > 
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index 5840e9cc6f66..6ae1234b9e20 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -42,6 +42,7 @@
->   #include <drm/drm_gem_atomic_helper.h>
->   #include <drm/drm_panic.h>
->   #include <drm/drm_print.h>
-> +#include <drm/drm_probe_helper.h>
->   #include <drm/drm_self_refresh_helper.h>
->   #include <drm/drm_vblank.h>
->   #include <drm/drm_writeback.h>
-> @@ -1864,11 +1865,15 @@ EXPORT_SYMBOL(drm_atomic_helper_wait_for_vblanks);
->    *
->    * This requires that drivers use the nonblocking commit tracking support
->    * initialized using drm_atomic_helper_setup_commit().
-> + *
-> + * Returns:
-> + * -ETIMEDOUT to indicate that drivers can attempt a vendor reset, 0 otherwise.
->    */
-> -void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
-> -					  struct drm_atomic_state *state)
-> +int drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
-> +					 struct drm_atomic_state *state)
->   {
->   	struct drm_crtc *crtc;
-> +	int ret = 0;
->   	int i;
->   
->   	for (i = 0; i < dev->mode_config.num_crtc; i++) {
-> @@ -1881,13 +1886,43 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
->   			continue;
->   
->   		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
-> -		if (ret == 0)
-> -			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
-> -				crtc->base.id, crtc->name);
-> +		if (!ret) {
-> +			switch (dev->reset_phase) {
-> +			case DRM_KMS_RESET_NONE:
-> +				drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
-> +					crtc->base.id, crtc->name);
-> +				dev->reset_phase = DRM_KMS_RESET_FORCE_MODESET;
-> +				drm_kms_helper_hotplug_event(dev);
-> +				break;
 
-Since you're iterating multiple CRTCs if you manage to recover from one
-with this call shouldn't you keep iterating the rest?
+Thanks, I guess of those options I would say based on how things are 
+named in TheRock isa_family feels more logical.
 
-> +			case DRM_KMS_RESET_FORCE_MODESET:
-> +				drm_err(dev, "[CRTC:%d:%s] force full modeset failed\n",
-> +					crtc->base.id, crtc->name);
-> +				dev->reset_phase = DRM_KMS_RESET_VENDOR;
-> +				ret = -ETIMEDOUT;
-> +				break;
-> +			case DRM_KMS_RESET_VENDOR:
-> +				drm_err(dev, "[CRTC:%d:%s] KMS recovery failed!\n",
-> +					crtc->base.id, crtc->name);
-> +				dev->reset_phase = DRM_KMS_RESET_GIVE_UP;
-> +				break;
-> +			default:
-> +				break;
-> +			}
-> +
-> +			goto exit;
-> +		}
-> +	}
-> +
-> +	if (dev->reset_phase) {
-> +		drm_info(dev, "KMS recovery succeeded!\n");
-> +		dev->reset_phase = DRM_KMS_RESET_NONE;
->   	}
->   
-> +exit:
->   	if (state->fake_commit)
->   		complete_all(&state->fake_commit->flip_done);
-> +
-> +	return ret;
->   }
->   EXPORT_SYMBOL(drm_atomic_helper_wait_for_flip_done);
->   
-> diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
-> index 53382fe93537..298c8dff3993 100644
-> --- a/include/drm/drm_atomic_helper.h
-> +++ b/include/drm/drm_atomic_helper.h
-> @@ -79,8 +79,8 @@ int drm_atomic_helper_wait_for_fences(struct drm_device *dev,
->   void drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
->   					struct drm_atomic_state *old_state);
->   
-> -void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
-> -					  struct drm_atomic_state *old_state);
-> +int drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
-> +					 struct drm_atomic_state *old_state);
->   
->   void
->   drm_atomic_helper_update_legacy_modeset_state(struct drm_device *dev,
-> diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
-> index bc78fb77cc27..1244d7527e7b 100644
-> --- a/include/drm/drm_device.h
-> +++ b/include/drm/drm_device.h
-> @@ -66,6 +66,23 @@ enum switch_power_state {
->   	DRM_SWITCH_POWER_DYNAMIC_OFF = 3,
->   };
->   
-> +/**
-> + * enum drm_kms_reset_phase - reset phase of drm device
-> + */
-> +enum drm_kms_reset_phase {
-> +	/** @DRM_KMS_RESET_NONE: Not currently attempting recovery */
-> +	DRM_KMS_RESET_NONE,
-> +
-> +	/** @DRM_KMS_RESET_FORCE_MODESET: Force a full modeset */
-> +	DRM_KMS_RESET_FORCE_MODESET,
-> +
-> +	/** @DRM_KMS_RESET_VENDOR: Attempt a vendor reset */
-> +	DRM_KMS_RESET_VENDOR,
-> +
-> +	/** @DRM_KMS_RESET_GIVE_UP: All recovery methods failed */
-> +	DRM_KMS_RESET_GIVE_UP,
-> +};
-> +
->   /**
->    * struct drm_device - DRM device structure
->    *
-> @@ -375,6 +392,13 @@ struct drm_device {
->   	 * Root directory for debugfs files.
->   	 */
->   	struct dentry *debugfs_root;
-> +
-> +	/**
-> +	 * @reset_phase:
-> +	 *
-> +	 * Reset phase that the device is in.
-> +	 */
-> +	enum drm_kms_reset_phase reset_phase;
->   };
->   
->   void drm_dev_set_dma_dev(struct drm_device *dev, struct device *dma_dev);
+But now I'm not sure if directionally this property will really be 
+useful or not.  I noticed that the apt packages and wheels aren't 
+actually split
+up this way anymore.
+
+>>
+>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>> ---
+>> The idea is that this can help a user figure out which wheels they need
+>> for their hardware.
+>>
+>> Cc: Stella.Laurenzo@amd.com
+>> Cc: Slobodan.Josic@amd.com
+>> Cc: Filip.Jankovic@amd.com
+>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 37 +++++++++++++++++++++++
+>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |  1 +
+>>   2 files changed, 38 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> index 08c63b4cc9a5f..ab029d87eb9ea 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+>> @@ -471,6 +471,9 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
+>>                                dev->node_props.max_slots_scratch_cu);
+>>          sysfs_show_32bit_prop(buffer, offs, "gfx_target_version",
+>>                                dev->node_props.gfx_target_version);
+>> +       if (dev->node_props.gpu_family[0])
+>> +               sysfs_show_gen_prop(buffer, offs, "gpu_family %s\n",
+>> +                                   dev->node_props.gpu_family);
+>>          sysfs_show_32bit_prop(buffer, offs, "vendor_id",
+>>                                dev->node_props.vendor_id);
+>>          sysfs_show_32bit_prop(buffer, offs, "device_id",
+>> @@ -2048,6 +2051,37 @@ static void kfd_topology_set_capabilities(struct kfd_topology_device *dev)
+>>          kfd_topology_set_dbg_firmware_support(dev);
+>>   }
+>>
+>> +/**
+>> + * kfd_get_gpu_family_name - Get GPU family name from gfx_target_version
+>> + * @gfx_target_version: Numeric GPU target version
+>> + * @family_name: Output buffer for family name
+>> + * @size: Size of output buffer
+>> + *
+>> + * Converts gfx_target_version to TheRock family format (e.g., "gfx110X").
+>> + * The gfx_target_version encodes version as MMMNNRR where:
+>> + *   MMM = major version
+>> + *   NN  = minor version
+>> + *   RR  = revision
+>> + * Family format is "gfx{major}{minor}X", e.g., 110501 (11.5.01) -> "gfx115X"
+>> + * If the version is not recognized, family_name is set to empty string.
+>> + */
+>> +static void kfd_get_gpu_family_name(uint32_t gfx_target_version,
+>> +                                   char *family_name, size_t size)
+>> +{
+>> +       int major, minor;
+>> +
+>> +       /* Only support TheRock GPU families (GFX9 and newer) */
+>> +       if (gfx_target_version < 90000) {
+>> +               family_name[0] = '\0';
+>> +               return;
+>> +       }
+>> +
+>> +       major = gfx_target_version / 10000;
+>> +       minor = (gfx_target_version / 100) % 100;
+>> +
+>> +       snprintf(family_name, size, "gfx%d%dX", major, minor);
+>> +}
+>> +
+>>   int kfd_topology_add_device(struct kfd_node *gpu)
+>>   {
+>>          uint32_t gpu_id;
+>> @@ -2105,6 +2139,9 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+>>
+>>          dev->node_props.gfx_target_version =
+>>                                  gpu->kfd->device_info.gfx_target_version;
+>> +       kfd_get_gpu_family_name(dev->node_props.gfx_target_version,
+>> +                               dev->node_props.gpu_family,
+>> +                               sizeof(dev->node_props.gpu_family));
+>>          dev->node_props.vendor_id = gpu->adev->pdev->vendor;
+>>          dev->node_props.device_id = gpu->adev->pdev->device;
+>>          dev->node_props.capability |=
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>> index 3de8ec0043bb4..8e52dd59b53dd 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+>> @@ -81,6 +81,7 @@ struct kfd_node_properties {
+>>          uint32_t eop_buffer_size;
+>>          uint32_t debug_memory_size;
+>>          char name[KFD_TOPOLOGY_PUBLIC_NAME_SIZE];
+>> +       char gpu_family[8];  /* GPU family name in TheRock format (e.g., gfx110X) */
+>>   };
+>>
+>>   struct kfd_mem_properties {
+>> --
+>> 2.53.0
+>>
 
