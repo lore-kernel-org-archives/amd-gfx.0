@@ -4,51 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B71CBEF99EB
-	for <amd-gfx@archiver.kernel.org>; Sat, 14 Feb 2026 01:05:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63458EF48C4
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Feb 2026 14:03:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54DF610E856;
-	Sat, 14 Feb 2026 01:05:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC5E110E025;
+	Sat, 14 Feb 2026 14:03:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DH1vhD4+";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="sLN3Je3O";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D4F10E856
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Feb 2026 01:05:43 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C7C8960054;
- Sat, 14 Feb 2026 01:05:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA47AC16AAE;
- Sat, 14 Feb 2026 01:05:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1771031142;
- bh=W53QJEJAmrPalFrMxaKV2Qv8HFHkH2FBkXh51NWtAwQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DH1vhD4+OGqnFhMVWC1NsWWnjWlpZp8wrTXKhSjMnb4qyIo7OoAaqf1NHHe845V3B
- GxK5g2zva9qGBsNRLBxhKWscJzJVbVJieIQrr0ZcQGYy+aeoZVSpb8LqcXxfkBdbxm
- q/ahjJZ4/+KpCrLnAqhwIGUtfUk80GieUxAkZxMmcDGuwSSndm23uDTJ3jA6PD4PpJ
- 24uu1qRFQesl1BBNPc2jnp2/m1352xZFJ7lzzWNSZs/8dyd5VmFDh3Z4/5BeNwfrri
- MdRi3Xx/kA3lDgUvjndgv2JnddKYaCLGacDa7+NOtP6i0km51vN1zLh96RdCf3oB8a
- pdzj7Xsqqdd7A==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Philip Yang <Philip.Yang@amd.com>,
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH AUTOSEL 6.19-6.12] drm/amdkfd: Handle GPU reset and drain
- retry fault race
-Date: Fri, 13 Feb 2026 19:59:20 -0500
-Message-ID: <20260214010245.3671907-80-sashal@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260214010245.3671907-1-sashal@kernel.org>
-References: <20260214010245.3671907-1-sashal@kernel.org>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E67310E025;
+ Sat, 14 Feb 2026 14:03:00 +0000 (UTC)
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4fCrN01M4Fz9tMM;
+ Sat, 14 Feb 2026 15:02:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1771077776;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=Bu4Kh8+07Aj0vR82KnHjswgtePhrB3Pqq1DSTBdM7dU=;
+ b=sLN3Je3OkMeRHLM/EmdLKp3Gs7xpZRrsAP/WHGqopZ44SGxP4Js14SVXWtqrxZxNp50cLD
+ 5wXfzZrB+Ce0wJ/OJcmOuh9hO9VgxpazOzvYtgNDuAmVJGuBNInEUsVWk1x9gW89XEZbyM
+ G8vAke2XwM6Xa/KPDqMLeTJFGt+JcaXT+91FfGlIcQYcO6C4XYlOqrM29W7dTapmOMn1mB
+ +EBS6P4r1aCB9rffv3lAtJj5i+T1cKVLa4JpvvYhDfgJhRphmvoc3ST8CF/rYDJp28OJw6
+ CV8GdZkqKFGEellt+iPv1Q/eIldP7D/i7wDUOuD0pkRB0/zARGMMqt/piOyT7g==
+Message-ID: <85319290-4027-4eb8-95d1-9009d23f2294@mailbox.org>
+Date: Sat, 14 Feb 2026 15:02:49 +0100
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.19
+Subject: Re: [PATCH v3 1/2] drm: introduce KMS recovery mechanism
+To: Hamza Mahfooz <someguy@effective-light.com>,
+ Mario Limonciello <mario.limonciello@amd.com>
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260212230905.688006-1-someguy@effective-light.com>
+ <2e359cd9-0192-44d0-886f-7f93a8b0a4fa@amd.com> <aY99D-yXVydpMdwy@hal-station>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: de-CH-frami, en-CA
+In-Reply-To: <aY99D-yXVydpMdwy@hal-station>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 982611f9b9d2b368ea8
+X-MBO-RS-META: txbjk3j3ngpffmqrwtmk5n4bowfz4ce4
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,226 +74,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+On 2/13/26 20:35, Hamza Mahfooz wrote:
+> On Thu, Feb 12, 2026 at 06:18:17PM -0600, Mario Limonciello wrote:
+> 
+>>> @@ -1881,13 +1886,43 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
+>>>   			continue;
+>>>   		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
+>>> -		if (ret == 0)
+>>> -			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
+>>> -				crtc->base.id, crtc->name);
+>>> +		if (!ret) {
+>>> +			switch (dev->reset_phase) {
+>>> +			case DRM_KMS_RESET_NONE:
+>>> +				drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
+>>> +					crtc->base.id, crtc->name);
+>>> +				dev->reset_phase = DRM_KMS_RESET_FORCE_MODESET;
+>>> +				drm_kms_helper_hotplug_event(dev);
+>>> +				break;
+>>
+>> Since you're iterating multiple CRTCs if you manage to recover from one
+>> with this call shouldn't you keep iterating the rest?
+> 
+> Most measures that the can be implemented at the kernel level (including
+> forcing a full modeset), can't save the the current commit.
 
-[ Upstream commit 5b57c3c3f22336e8fd5edb7f0fef3c7823f8eac1 ]
+Why couldn't a full modeset?
 
-Only check and drain IH1 ring if CAM is not enabled.
 
-If GPU is under reset, don't access IH to drain retry fault.
+> So, in all likelihood we will just end up waiting an extra 10 seconds per CRTC
+> (assuming they haven't completed already, unrelated to the forced
+> modeset).
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
+In principle it's possible to do (the equivalent of) a modeset with the current state for all CRTCs, no need to do it separately per CRTC.
 
-LLM Generated explanations, may be completely bogus:
 
-Now I have all the information needed for a thorough analysis. Let me
-compile my findings.
-
----
-
-## Detailed Analysis
-
-### 1. Commit Message Analysis
-
-**Subject:** "drm/amdkfd: Handle GPU reset and drain retry fault race"
-
-The commit addresses a **race condition** between GPU reset and the
-drain retry fault mechanism. The message describes two specific fixes:
-
-1. "Only check and drain IH1 ring if CAM is not enabled" - a correctness
-   fix for interrupt handler ring selection logic
-2. "If GPU is under reset, don't access IH to drain retry fault" -
-   protecting against hardware access during GPU reset
-
-Both are bug fix descriptions, not feature additions.
-
-### 2. Code Change Analysis
-
-The patch makes two distinct changes in `kfd_svm.c`:
-
-#### Change A: `svm_range_drain_retry_fault()` - GPU reset protection
-
-**Before (current code):**
-
-```2337:2364:drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-static void svm_range_drain_retry_fault(struct svm_range_list *svms)
-{
-        // ... iterates over GPUs ...
-                amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
-                                pdd->dev->adev->irq.retry_cam_enabled ?
-                                &pdd->dev->adev->irq.ih :
-                                &pdd->dev->adev->irq.ih1);
-                // ... no reset protection ...
-}
-```
-
-**After (patched code):** Adds
-`down_read_trylock(&pdd->dev->adev->reset_domain->sem)` before accessing
-the IH hardware and `up_read(...)` after. If the trylock fails (GPU is
-resetting), it `continue`s to the next GPU.
-
-**Why this matters:** `svm_range_drain_retry_fault()` calls
-`amdgpu_ih_wait_on_checkpoint_process_ts()` which calls
-`amdgpu_ih_get_wptr()`. Looking at `vega20_ih_get_wptr()`, it does
-`RREG32_NO_KIQ(ih_regs->ih_rb_wptr)` - a **direct hardware register
-read**. During GPU reset (`amdgpu_device_lock_reset_domain` takes a
-write lock on `reset_domain->sem`), the hardware is being torn down and
-reinitialized. Accessing registers during this window can cause:
-- **System hangs** (MMIO reads to offline hardware can hang the CPU bus)
-- **Garbage data reads** leading to incorrect behavior
-- **Kernel crashes** if the driver acts on invalid data
-
-This is the **exact same pattern** used throughout the amdgpu driver -
-there are **20+ existing call sites** that use
-`down_read_trylock(&adev->reset_domain->sem)` to protect hardware
-access. The fix follows an established, well-tested pattern.
-
-#### Change B: `svm_range_unmap_from_cpu()` - CAM-aware IH1 check
-
-**Before:**
-```c
-if (adev->irq.ih1.ring_size) {
-```
-
-**After:**
-```c
-if (!adev->irq.retry_cam_enabled && adev->irq.ih1.ring_size) {
-```
-
-The comment already says "Check and drain ih1 ring if cam not available"
-but the code was missing the `!retry_cam_enabled` check. When CAM
-(Content Addressable Memory) is enabled for retry filtering, retry
-faults go through the primary IH ring (`ih`), not `ih1`. Checking `ih1`
-when CAM is enabled is incorrect because:
-- The timestamp from `ih1` would be stale/irrelevant
-- It could cause the code to `continue` early (bypassing the `ih_soft`
-  check below) with an incorrect `checkpoint_ts`
-- This leads to retry faults being incorrectly dropped or not dropped
-  when they should be
-
-This same logic (`if (adev->irq.retry_cam_enabled) return;` before `ih1`
-access) already exists in `amdgpu_gmc_filter_faults_remove()`,
-confirming that the fix aligns with the intended design.
-
-### 3. Bug Classification
-
-- **Change A:** Race condition fix - accessing hardware registers
-  without reset domain protection. This is a **system hang / crash**
-  bug.
-- **Change B:** Logic bug - checking the wrong interrupt handler ring
-  when CAM is enabled, leading to incorrect retry fault handling
-  (potential data corruption or stale page mappings).
-
-### 4. Scope and Risk Assessment
-
-- **Lines changed:** ~10 lines of actual logic (plus 1 include)
-- **Files changed:** 1 file (`kfd_svm.c`)
-- **Complexity:** Low - follows a well-established pattern (20+ examples
-  in the codebase)
-- **Risk of regression:** Very low
-  - The `down_read_trylock` pattern is used everywhere in amdgpu and is
-    proven safe
-  - If trylock fails, we simply skip draining for that GPU (graceful
-    degradation)
-  - The CAM check aligns with existing logic in
-    `amdgpu_gmc_filter_faults_remove()`
-
-### 5. User Impact
-
-- **Affected users:** Anyone using AMD GPUs with KFD
-  (compute/ROCm/OpenCL workloads) who experiences GPU resets
-- **Severity:** HIGH - GPU reset + drain retry fault = potential system
-  hang when register access hangs the CPU
-- **Without fix:** If a GPU reset happens concurrently with
-  `svm_range_list_fini()` (process exit), the system could hang trying
-  to read hardware registers from an offline GPU
-
-### 6. Dependencies
-
-- Requires `amdgpu_reset.h` (available since v6.1)
-- Requires `reset_domain->sem` infrastructure (available since v6.1)
-- Requires `retry_cam_enabled` field (available since the CAM commit in
-  6.6)
-- The `svm_range_drain_retry_fault()` function in its current form (with
-  the `retry_cam_enabled` ternary) was introduced in 6.12 (commit
-  `6ef29715ac06`)
-- This patch applies cleanly only to trees with `6ef29715ac06` and
-  `96316211eb5c4` (both in 6.12+)
-
-### 7. Stability Indicators
-
-- **Reviewed-by:** Harish Kasiviswanathan (AMD kernel engineer)
-- **Author:** Philip Yang (AMD KFD maintainer, regularly contributes SVM
-  retry fault fixes)
-- **Signed-off-by:** Alex Deucher (AMD GPU subsystem maintainer)
-- Pattern is well-established in the driver (20+ existing similar uses)
-
-### Conclusion
-
-This commit fixes two real bugs:
-
-1. A **race condition** between GPU reset and IH ring access that can
-   cause **system hangs** - this is the critical fix
-2. A **logic error** in IH ring selection when CAM is enabled that
-   causes incorrect retry fault handling
-
-The fix is small (10 lines of logic), follows an extremely well-
-established pattern in the amdgpu driver (20+ existing call sites use
-the same `down_read_trylock` on `reset_domain->sem`), has been reviewed
-by an AMD engineer, was authored by the KFD SVM subsystem expert, and
-addresses a real crash/hang scenario. The risk of regression is minimal.
-
-The fix applies to kernels 6.12+ where `6ef29715ac06` ("drm/amdkfd:
-Change kfd/svm page fault drain handling") exists.
-
-**YES**
-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 79ea138897fcf..a10cf8650c92b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -33,6 +33,7 @@
- #include "amdgpu_hmm.h"
- #include "amdgpu.h"
- #include "amdgpu_xgmi.h"
-+#include "amdgpu_reset.h"
- #include "kfd_priv.h"
- #include "kfd_svm.h"
- #include "kfd_migrate.h"
-@@ -2349,6 +2350,9 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
- 
- 		pr_debug("drain retry fault gpu %d svms %p\n", i, svms);
- 
-+		if (!down_read_trylock(&pdd->dev->adev->reset_domain->sem))
-+			continue;
-+
- 		amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
- 				pdd->dev->adev->irq.retry_cam_enabled ?
- 				&pdd->dev->adev->irq.ih :
-@@ -2358,6 +2362,7 @@ static void svm_range_drain_retry_fault(struct svm_range_list *svms)
- 			amdgpu_ih_wait_on_checkpoint_process_ts(pdd->dev->adev,
- 				&pdd->dev->adev->irq.ih_soft);
- 
-+		up_read(&pdd->dev->adev->reset_domain->sem);
- 
- 		pr_debug("drain retry fault gpu %d svms 0x%p done\n", i, svms);
- 	}
-@@ -2541,7 +2546,7 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
- 		adev = pdd->dev->adev;
- 
- 		/* Check and drain ih1 ring if cam not available */
--		if (adev->irq.ih1.ring_size) {
-+		if (!adev->irq.retry_cam_enabled && adev->irq.ih1.ring_size) {
- 			ih = &adev->irq.ih1;
- 			checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
- 			if (ih->rptr != checkpoint_wptr) {
 -- 
-2.51.0
-
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
