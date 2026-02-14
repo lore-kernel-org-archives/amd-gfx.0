@@ -4,62 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63458EF48C4
-	for <amd-gfx@archiver.kernel.org>; Sat, 14 Feb 2026 14:03:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A35C6EDF15A
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Feb 2026 14:56:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC5E110E025;
-	Sat, 14 Feb 2026 14:03:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E988A10E023;
+	Sat, 14 Feb 2026 14:56:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="sLN3Je3O";
+	dkim=pass (2048-bit key; unprotected) header.d=taiker.tw header.i=@taiker.tw header.b="S74lepr+";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="uYFskcuY";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E67310E025;
- Sat, 14 Feb 2026 14:03:00 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4fCrN01M4Fz9tMM;
- Sat, 14 Feb 2026 15:02:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1771077776;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Bu4Kh8+07Aj0vR82KnHjswgtePhrB3Pqq1DSTBdM7dU=;
- b=sLN3Je3OkMeRHLM/EmdLKp3Gs7xpZRrsAP/WHGqopZ44SGxP4Js14SVXWtqrxZxNp50cLD
- 5wXfzZrB+Ce0wJ/OJcmOuh9hO9VgxpazOzvYtgNDuAmVJGuBNInEUsVWk1x9gW89XEZbyM
- G8vAke2XwM6Xa/KPDqMLeTJFGt+JcaXT+91FfGlIcQYcO6C4XYlOqrM29W7dTapmOMn1mB
- +EBS6P4r1aCB9rffv3lAtJj5i+T1cKVLa4JpvvYhDfgJhRphmvoc3ST8CF/rYDJp28OJw6
- CV8GdZkqKFGEellt+iPv1Q/eIldP7D/i7wDUOuD0pkRB0/zARGMMqt/piOyT7g==
-Message-ID: <85319290-4027-4eb8-95d1-9009d23f2294@mailbox.org>
-Date: Sat, 14 Feb 2026 15:02:49 +0100
+X-Greylist: delayed 333 seconds by postgrey-1.36 at gabe;
+ Sat, 14 Feb 2026 06:31:39 UTC
+Received: from fout-b6-smtp.messagingengine.com
+ (fout-b6-smtp.messagingengine.com [202.12.124.149])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7ED210E07F
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Feb 2026 06:31:39 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfout.stl.internal (Postfix) with ESMTP id 18F301D000C0;
+ Sat, 14 Feb 2026 01:26:06 -0500 (EST)
+Received: from phl-imap-01 ([10.202.2.91])
+ by phl-compute-06.internal (MEProxy); Sat, 14 Feb 2026 01:26:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=taiker.tw; h=cc
+ :content-transfer-encoding:content-type:content-type:date:date
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1771050365;
+ x=1771136765; bh=AnKLOq2A1HgB3E3epreKfkT+aBknjm7zcITanDgQDeE=; b=
+ S74lepr+kCn8fApO4UQezHhYyUFryU1tqbkjMph65jLm+lt1okaFw4wBewlb1tJn
+ m21dM1p3aSPjP7Ta+qkQ0mAz5H7jgqCaxVe980NIChmewJE1VZIy+pq/5n2nKNAi
+ hIQzfulK1yJFVefSd75XDvOmzlVRDkmWryhPrgFdFcS95sqohyl33PGlDnSxKCJh
+ r9423Mi0MSBl3hV1EKSnCl9J7OAiFkv00Wp0sYcvdje0YMd7dWNNMgx59Xsy2kKp
+ dv41TuHw2rjM6UsxrPB/Q0ESdv2AultFjEjfyP9jRiv6nLQAJeFk8arTu9VrSl93
+ s9kIGCFHG84qJSvN9BQ+mw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm3; t=1771050365; x=1771136765; bh=A
+ nKLOq2A1HgB3E3epreKfkT+aBknjm7zcITanDgQDeE=; b=uYFskcuYxJRyFDu+p
+ MjEWHyrCSp9c9+Gy+lz123fW1pYtu1jln2xrKwr9mgnFcbztSTO+vuP1F+lQelAu
+ kz8W4F3x9FmWXtEoxxqZJkGBLd/1qoF7JqrCsOg8O8g3yIIDKI7BkhNU9bvV/GDv
+ HpDAEvZihmxUEvAbAOAHrqpC7rYUdP7QgpPaJvTJo8gRdEhl6qBsG6ylkv1iH0MB
+ bl6hKcFZ2RXMuadmkzFB4XQ+xvIkdVmn86uOdOHYtkQBUgHYVTzsTtGVBdH10MAx
+ L9Ry57PYeyIFASiryb3NAur7VSLaorwU1oJZ5zsCzpxWUcLR+yW9AB85ESdFaC+D
+ 1X1+w==
+X-ME-Sender: <xms:fRWQaehhLS6QphSclAZ0OylNTsw4tx8dXY4hSSqn0mZntNYesJ3DAA>
+ <xme:fRWQaZ3zt7wRRVdrVAnFDNcwnjbNTyHqmSlOZtHSCxfItEC8A-4vdFNovOVxVLcGq
+ c2SSN7HOdizuMX4djurb-74h6CsGAIDbtRKPuEB65wW32txA0_NfWTz>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvuddtgeduucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucenucfjughrpefoggffhffvkfgjfhfutgfgsehtjeertd
+ ertddtnecuhfhrohhmpedfvehhihgvnhcuvedrhgdrfdcuoehiugholhgvrghtsehtrghi
+ khgvrhdrthifqeenucggtffrrghtthgvrhhnpeehudeifeehkedvjeffuddtudeigeehgf
+ euteeuueetuddvkeelgfeuieeuueeiueenucffohhmrghinhepfhhrvggvuggvshhkthho
+ phdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhroh
+ hmpehiugholhgvrghtsehtrghikhgvrhdrthifpdhnsggprhgtphhtthhopedvpdhmohgu
+ vgepshhmthhpohhuthdprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvg
+ guvghskhhtohhprdhorhhgpdhrtghpthhtohepughonhhosggrnhesrhhishgvuhhprdhn
+ vght
+X-ME-Proxy: <xmx:fRWQaRMTtGxpFyx2l1nsSk81oEyrkSqxL4hsUiRiNRdmT3cTcwf2XQ>
+ <xmx:fRWQaR56LUmFLgUty3CgVfmVI0lkMqLboWb3XzkP8zTfYSX5juJVNg>
+ <xmx:fRWQaX1wgoVPyW1bAvd7uLekfUS7hpmj1LW1Vp0aFxxFstZDVM-V_g>
+ <xmx:fRWQaaYebsAUIodAq7J2N44MohT5Mi5YGp7QhNmTbkPEMOkJvajPAA>
+ <xmx:fRWQafZBHdq7fJE_yyn2uFbcOrVPNB1-i9dqYggTPzApvVZDmGlNQmws>
+Feedback-ID: i43e14637:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id E3FB218C0067; Sat, 14 Feb 2026 01:26:04 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Subject: Re: [PATCH v3 1/2] drm: introduce KMS recovery mechanism
-To: Hamza Mahfooz <someguy@effective-light.com>,
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260212230905.688006-1-someguy@effective-light.com>
- <2e359cd9-0192-44d0-886f-7f93a8b0a4fa@amd.com> <aY99D-yXVydpMdwy@hal-station>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: de-CH-frami, en-CA
-In-Reply-To: <aY99D-yXVydpMdwy@hal-station>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 982611f9b9d2b368ea8
-X-MBO-RS-META: txbjk3j3ngpffmqrwtmk5n4bowfz4ce4
+X-ThreadId: AcFLrndxv6o-
+Date: Sat, 14 Feb 2026 14:25:44 +0800
+From: "Chien C.W." <idoleat@taiker.tw>
+To: donoban <donoban@riseup.net>, amd-gfx@lists.freedesktop.org
+Message-Id: <6b91f8a5-9455-4eb7-98ed-a0f5d64fe05c@app.fastmail.com>
+In-Reply-To: <aYHIsX28jR1TNTAs@b1c030cc0be7>
+References: <aYHIsX28jR1TNTAs@b1c030cc0be7>
+Subject: Re: amdgpu GTT memory leak
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Sat, 14 Feb 2026 14:56:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,40 +97,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/13/26 20:35, Hamza Mahfooz wrote:
-> On Thu, Feb 12, 2026 at 06:18:17PM -0600, Mario Limonciello wrote:
-> 
->>> @@ -1881,13 +1886,43 @@ void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
->>>   			continue;
->>>   		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
->>> -		if (ret == 0)
->>> -			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
->>> -				crtc->base.id, crtc->name);
->>> +		if (!ret) {
->>> +			switch (dev->reset_phase) {
->>> +			case DRM_KMS_RESET_NONE:
->>> +				drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
->>> +					crtc->base.id, crtc->name);
->>> +				dev->reset_phase = DRM_KMS_RESET_FORCE_MODESET;
->>> +				drm_kms_helper_hotplug_event(dev);
->>> +				break;
->>
->> Since you're iterating multiple CRTCs if you manage to recover from one
->> with this call shouldn't you keep iterating the rest?
-> 
-> Most measures that the can be implemented at the kernel level (including
-> forcing a full modeset), can't save the the current commit.
+On Tue, Feb 3, 2026, at 6:47 PM, donoban wrote:
+> Hi,
+>
+> I have an AMD Radeon 780M Graphics running AlpineLinux on a Thinkpad 
+> T14 G3 and I noticed a memory leak related to GTT and amdgpu. In few
+> days is easy to reach gb's of GTT usage while any process reporting
+> tool shows no extreme memory usage of any process.
+>
+> Looking at 'dmesg' I see many messages like:
+>
+> amdgpu: VM memory stats for proc alacritty(32519) task 
+> alacritty:cs0(32514) is non-zero when fini
+<thread name>:cs0 is a thread in mesa doing command submission. Did you
+still observe same issue when using latest mesa?
+Also, I think it's better to move issue triaging to freedesktop gitlab:
+https://gitlab.freedesktop.org/drm/amd/-/issues
+for more eye balls and better tracking.
 
-Why couldn't a full modeset?
+>
+> So I ended reaching this mail list. Could you help me to debug this and
+> maybe found some fix or workaround?
+>
+> Regards!
 
+Thanks,
+idoleat
 
-> So, in all likelihood we will just end up waiting an extra 10 seconds per CRTC
-> (assuming they haven't completed already, unrelated to the forced
-> modeset).
-
-In principle it's possible to do (the equivalent of) a modeset with the current state for all CRTCs, no need to do it separately per CRTC.
-
-
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
