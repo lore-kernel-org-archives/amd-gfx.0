@@ -4,90 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D030BE63F19
-	for <amd-gfx@archiver.kernel.org>; Sun, 15 Feb 2026 21:41:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEFE0E63F12
+	for <amd-gfx@archiver.kernel.org>; Sun, 15 Feb 2026 21:49:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4865210E0BF;
-	Sun, 15 Feb 2026 21:41:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 468C810E09D;
+	Sun, 15 Feb 2026 21:49:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20230601.gappssmtp.com header.i=@fireburn-co-uk.20230601.gappssmtp.com header.b="mz4ReBhn";
+	dkim=pass (2048-bit key; unprotected) header.d=fireburn-co-uk.20230601.gappssmtp.com header.i=@fireburn-co-uk.20230601.gappssmtp.com header.b="YkkqCQvJ";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5670410E0BF
- for <amd-gfx@lists.freedesktop.org>; Sun, 15 Feb 2026 21:41:58 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-35640ad94d3so1717991a91.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 15 Feb 2026 13:41:58 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771191718; cv=none;
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01A7A10E09D
+ for <amd-gfx@lists.freedesktop.org>; Sun, 15 Feb 2026 21:49:14 +0000 (UTC)
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-c6541e35fc0so1684985a12.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 15 Feb 2026 13:49:14 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771192154; cv=none;
  d=google.com; s=arc-20240605;
- b=kVB71yjQV7HrgyRIzKU4TYKjdl1IBAj9midtW4j7x+KybdviAKVSyxBHQPvSAEmeEr
- 5lyXdX6LEksRr9I2iGxtriVD8tohzcRJ2CPrTA8oMhc4+SIs6rLV2n6Thv3C1OdDrSaR
- FaWsjC1qGwrskvC0+oujCYQK5aixrliAgByQbD6JesAPwsG1O6xY6SNlkZKC0OhUKMDb
- kNkoTN/7HW4UetBy4Z1zyGegnfBnLr3IO/fNKEKc2D4NdDtDpza4rHnpNOrgfHE3o/+L
- HBHFqwx7Kr+kiHe/TFdz99OQNtOdmImWJiPKpa3m6ElfhXl+JntfBty2YjlA/tYVVPJO
- wOLw==
+ b=T6cpE4uws2AY/0P9d5zPVU5HaExt5pWggUCGQTC0NAOBASFL2g/l7ZblGPVjIeXven
+ 4I63oc2cLbAOtQo/l/+mvW9UNGpQieflQeStWry7WWMocsvFz94hCQJ9jOsM3xQj+6Pr
+ b92qvExZ+I+1Js1gGELgHwS/cB2syTXAmqTucyi9s3mfVJom7gCo8QmaU20zM/aJe+hj
+ AuGme6/eb5XTvTwRby1WOqNYW1DMqMDAVu9NoNynC+6pijPUSoPMHs2jc9pA4H+NtnV0
+ 025aej+tDWNub5Ifh9WoJolM3cTSk1wgBAR4ouRySv462I7ipTU9RqadjaMcfks9+84P
+ ueuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=z6gHn9xTRvoqMLXeeNappP/GD0Prs9lCkeN8rGeseyQ=;
- fh=sGR6ctiGo9K36LmaShtS+n2Tm0mXbfzgh3KXzVgk+X4=;
- b=Axwl3Nm7afQbX+hGTuzZXWr3HtBpmVmVwrYfa6AFYQkDumek70XgpGTWe+LvoEqaA6
- U3qRJU/dt6NqJKPRK3gsuvkDdtJ7HtCqv+VKDlkB7lD383HtKn1LZoQwRMd6Rc6Qf3Cl
- DDzhaCchzhHlG7PlEO2aYwAHtOdg91mznVxZ9RNMkB1AZAfr8Lg4nYvTOlxjyPEbAnRj
- 9OJkZj6qWc+5Dh7vP5cg8yFCESnVMQn2yMFQk46vOyTHVmaIgO69EU9c2IlO7VqcMI/Z
- HI47EBO+MfA8ohJ/BfTKgWWoMEj66L0hX09ZLIOy6ssp7eZj0p57tiB5naNvRNSV/SjB
- q6IA==; darn=lists.freedesktop.org
+ bh=b34+x64vmv5NA7Iy00A0CQPvMGn1TdPL+7JrMAwEM0U=;
+ fh=0d+3eJ6JzrsDX2ES3/d0aHIgfxYcTPkBThY2c300OOc=;
+ b=YP0d8UAyzZKJuewuy57p2j21Ulo/3H0G1FNvkUSaHjESnYTFvsFgSDXwZX3mbUtZJc
+ uU5tsWPZlBHJqlmDuuZFWajkAN8zgBoiXeocNI9Zm9iLY+OaEbZF6XLWPWOKhjWun0OZ
+ Ife3aJv480GMousKuhBQy6VQKHKRYehT4bGi1rt2sbtFzugQzOHZe81yms1Pa+zgp5ZN
+ 7HyrpICG7hmuQuc4inDk5gxZZbhE2SAtrLVo5EPAK9VkVm0v8S0AWidYBHL+okzXfVsF
+ q7wrOuXkEvIY//cs2o70v4q+3hpaDoT8rGwYPcXDkNdtjmrHqKPcOiMrFYulNvejNF8q
+ qW2Q==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=fireburn-co-uk.20230601.gappssmtp.com; s=20230601; t=1771191718; x=1771796518;
+ d=fireburn-co-uk.20230601.gappssmtp.com; s=20230601; t=1771192154; x=1771796954;
  darn=lists.freedesktop.org; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=z6gHn9xTRvoqMLXeeNappP/GD0Prs9lCkeN8rGeseyQ=;
- b=mz4ReBhn5GygGtdaKSSn6CsQjyseensKglxjaDLroT917Axe2k5c//ZUQ/N85Vvo7k
- ewhe5OiqzgYGhp+v8RAygBA/g/OA5gjsFB6HlvtqhmcBTRsyASVdIYwOemB1VAi21m/x
- tNinuIo2E1DuX+QOPxlfIOaM1EUAhuX5WY1LgWNZL4zvUWM1jls2GSa8lulKouYmr5U4
- NIK5VuxVFQd1aky8eoAcFU/h3D5JYwZdxEsH6K0DQQq2zIcmmQrinKSvmWBEZf/wM1yh
- Y9Xyhoba9TW1qJp842hh35pXiIRrzFfKyYTG3bzrTd9oywR53YZGBwvWACiwuepwfePD
- ieAA==
+ bh=b34+x64vmv5NA7Iy00A0CQPvMGn1TdPL+7JrMAwEM0U=;
+ b=YkkqCQvJaz9RvO4yPc0iAAQCQARpIyGtFxUhGtpzMbFgsB5X4uKdRyt82LoupChLlc
+ oH13L9ntBmtRI//sIPnq+9V+hLu9r0Vg+jxxzHPf/4gUXMrRspAUrtpV4C4Q/bgVbEV2
+ BfHTP29GSoBygN7iZMoW/qqwzB6QkiQhfFKJIT54w2hkCpdpKxfM5R4bn+hUAatqMAO/
+ 53mkilf8opXlB+mHgmVVzNAkhnBsdgv8Vv1SqNPAkHaBXBg7pD92saq1fgM2I3xK2Yq5
+ gUvWpt9Nk5dLSPwNKxjteAR5MxKRjf8RPfoEgTB8SPjNpt4KVg6lACfnCyetEdNL+1Gd
+ RawA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771191718; x=1771796518;
+ d=1e100.net; s=20230601; t=1771192154; x=1771796954;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=z6gHn9xTRvoqMLXeeNappP/GD0Prs9lCkeN8rGeseyQ=;
- b=XHjJhGp1FmH9pIK2jHXe3vFdWs6YF4wmcQ12/fjTLE5rPI8Tg40IMKgJR7hEILhUYr
- +DB/hltrQkDJHbQsSh3IaARK32/Hgu/SevQE/46CTVrG0hSdtZlD9FY9cMopMKiW1rgh
- hHDlkJvQpL6/3j0RStRnkl3VpUsdaGH9SwVbwfFVJzhWRwq0d1PUqbTAJShm6XEoMS7v
- Ao1GVL9bIfoktDijl7+gBEH/nWjXqVjCgbL8s6Sf/a5DVqcYvF/VzhZPxgdqIUVDTBCv
- NXyd5pJto9TatDn/O0PxEcNuYwLYbq6u553t6JTkKaHtfuioKH1x5EQ7qPbsRrSsyN4S
- uFZQ==
+ bh=b34+x64vmv5NA7Iy00A0CQPvMGn1TdPL+7JrMAwEM0U=;
+ b=Jl5d7kD5wrtnRsY1gesH3dAfLUMYX2VSp7nYgYOUCXjSEinNGSzJ8ngVAd3b/z0ybb
+ sfV5Ma1ON6K4pSN/bEjPg+W+IxssEDF0bIfW8/HYr6IKU2vC0RNBsEWhBs20lzogQSF+
+ KWL/MO0MLGyhXphyFTi8IzhI8KOoab/yvzNTuAHQuwNbgoZdrtFqj+zfk1Rz+sGVoB/q
+ kcp56KVHv5aYyFTzGd5CN1PBWdzT7ruHEPwYhhqN9rnnII76ik1JaD39PrUaaC9VfW+N
+ jQkUj7yLPNe6dCAoCbumqY1KCqZvpKXoNZNdFmA4Aar79KudgMqFVA8EgyQFsmZDeU6w
+ nRjA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUgr1D3P9ixP2gHfaHJPGyOIjWxX4BblNCCj2KjWYm3drjDyppQ1M74+fct0RkGyuR8PCO7cCK5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzNvAdoQi6W6i4nccw9WNDvML/CSglAt+Jg2BrNHjhMKs3tdBxY
- L++L+W3/XQwX1La31YSbJYqAYKCLTUCYSEEmmPEqSBMBWQGRHnGir9LKhvvD3ZQlEB3/8hftS7h
- 16G6Ad1PwwCO/P4laqSLtJIqfE6NTIUWb6vyUQjlPILJTMXHI2sXc3g==
-X-Gm-Gg: AZuq6aJx36AyBwfSrZvY/fLXaEIi0HDqUxLoZ00ZIk1DDmwdcEzQTbEVSW7WvlIgwuA
- DVN/a5Adv1S86LEJ/dmSl96kJVktZLB30JWj+Ngbrt9m7Ra3xZYtQHSL8mv/jVYfXvRiea4rlBT
- pveSORlPUHM/sebjphIAahT+z+B04YMgzEAvWwDOhl7+NBwxrallt8a8QhmrJJV0tUXHY77DaE6
- MstInBrNq3fM9fO8f2vOStrxGdS4bZ1eZmUy0/6vcof/1CP4zvv2BrpsY7PoyRAos0eLCpjaNRO
- /35iVGoK7ru5JewX7176UV0JJq+mMszCgaAxPwEl8Q==
-X-Received: by 2002:a17:90b:5625:b0:34c:9cf7:60a0 with SMTP id
- 98e67ed59e1d1-356aaa76380mr7650147a91.5.1771191717564; Sun, 15 Feb 2026
- 13:41:57 -0800 (PST)
+ AJvYcCVtVUwet8htAvb5oWyefH8bdllQ7l8FKxPaBGYG4pEsv2+WKPjptN0tKw9bNliswkIRf7LpODLh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxE+v0C8beDIkDDuW5WcnoRmBP+uaq/4QcJpIBAVORCvvJFd+AM
+ WI90iDIV8xim71gxbg38iV0pxKW7ad5NYN1s5o1/xLIokfE1VnC+xO2GH03Fs6AiIOTElA4rAiG
+ WkC0bIEbRm4PTf4nysbqisFP3irgKyh5ApHW3ZG86
+X-Gm-Gg: AZuq6aI5SiiDgaMQybBLpVhcu3HcWwfK0wcveVtqLd6xu88Yg5N/zWxSsZylEjqe9lX
+ mhjPqgr/4NbgEOsSJ6/Bqv9mEFtWHCd3uY7APY6l2jkSKfy2wG+IePi4zY5C4qpydGkiQH8QCDy
+ OVFkmbZTy4k/aQWpzMJjgHmBUlhT+dYHCFCnfa6/Uacd9xWKi3TrTbXNtTHfpqxzUQKtUrfpeKo
+ LD2Mic0BDhDyjNPlCYR3NrUBsBCfGij2p1+WVuFOtPZveRf0uoLvv31eze/95Y5XbrUTqAn6Lqk
+ AKdUm/2okbJrifWw6Pfnvj0pibEWwd4y7ajOJ0Dn2g==
+X-Received: by 2002:a17:90b:350e:b0:354:c600:1a1 with SMTP id
+ 98e67ed59e1d1-356aad3c9ddmr9047028a91.19.1771192154353; Sun, 15 Feb 2026
+ 13:49:14 -0800 (PST)
 MIME-Version: 1.0
 References: <20250925130322.1633-1-christian.koenig@amd.com>
-In-Reply-To: <20250925130322.1633-1-christian.koenig@amd.com>
+ <CAHbf0-E0DgnchE_7KqmBt9sewiN2nUPjRPBwMgR_xphQQ9JRGA@mail.gmail.com>
+In-Reply-To: <CAHbf0-E0DgnchE_7KqmBt9sewiN2nUPjRPBwMgR_xphQQ9JRGA@mail.gmail.com>
 From: Mike Lothian <mike@fireburn.co.uk>
-Date: Sun, 15 Feb 2026 21:41:46 +0000
-X-Gm-Features: AaiRm53dpe0vXTf2P6ymUTKh1JR1sQh-Yl-bpZ9s3XmXlIR6m3CBVAoOW-ALXNc
-Message-ID: <CAHbf0-E0DgnchE_7KqmBt9sewiN2nUPjRPBwMgR_xphQQ9JRGA@mail.gmail.com>
+Date: Sun, 15 Feb 2026 21:49:03 +0000
+X-Gm-Features: AaiRm53acPM8RD-Deq0NcGIxw7TYXJ7PXtyrEkuIWghu9jJyYFoHjukxpba6Ak4
+Message-ID: <CAHbf0-EajXV4Fwg-ZL3L4ZsvrTUBXULTptwa4Zz+veLqq1y_3g@mail.gmail.com>
 Subject: Re: [PATCH] drm/amdgpu: reduce queue timeout to 2 seconds
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
 Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="00000000000027a0c3064ae3b5c9"
+Content-Type: multipart/alternative; boundary="000000000000307e36064ae3cf4a"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,395 +103,413 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000027a0c3064ae3b5c9
+--000000000000307e36064ae3cf4a
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 25 Sept 2025 at 14:03, Christian K=C3=B6nig <
-ckoenig.leichtzumerken@gmail.com> wrote:
+On Sun, 15 Feb 2026 at 21:41, Mike Lothian <mike@fireburn.co.uk> wrote:
 
-> There has been multiple complains that 10 seconds are usually to long.
 >
-> The original requirement for longer timeout came from compute tests on
-> AMDVLK, since that is no longer a topic reduce the timeout back to 2
-> seconds for all queues.
 >
-> While at it also remove any special handling for compute queues under
-> SRIOV or pass through.
+> On Thu, 25 Sept 2025 at 14:03, Christian K=C3=B6nig <
+> ckoenig.leichtzumerken@gmail.com> wrote:
 >
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 85 ++++++++++------------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 21 ++----
->  2 files changed, 48 insertions(+), 58 deletions(-)
+>> There has been multiple complains that 10 seconds are usually to long.
+>>
+>> The original requirement for longer timeout came from compute tests on
+>> AMDVLK, since that is no longer a topic reduce the timeout back to 2
+>> seconds for all queues.
+>>
+>> While at it also remove any special handling for compute queues under
+>> SRIOV or pass through.
+>>
+>> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 85 ++++++++++------------
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 21 ++----
+>>  2 files changed, 48 insertions(+), 58 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> index a77000c2e0bb..ceb3c616292c 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>> @@ -4278,58 +4278,53 @@ static int
+>> amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+>>         long timeout;
+>>         int ret =3D 0;
+>>
+>> -       /*
+>> -        * By default timeout for jobs is 10 sec
+>> -        */
+>> -       adev->compute_timeout =3D adev->gfx_timeout =3D
+>> msecs_to_jiffies(10000);
+>> -       adev->sdma_timeout =3D adev->video_timeout =3D adev->gfx_timeout=
+;
+>> +       /* By default timeout for all queues is 2 sec */
+>> +       adev->gfx_timeout =3D adev->compute_timeout =3D adev->sdma_timeo=
+ut =3D
+>> +               adev->video_timeout =3D msecs_to_jiffies(2000);
+>>
+>> -       if (strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+>> -               while ((timeout_setting =3D strsep(&input, ",")) &&
+>> -                               strnlen(timeout_setting,
+>> AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+>> -                       ret =3D kstrtol(timeout_setting, 0, &timeout);
+>> -                       if (ret)
+>> -                               return ret;
+>> +       if (!strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
+>> +               return 0;
+>>
+>> -                       if (timeout =3D=3D 0) {
+>> -                               index++;
+>> -                               continue;
+>> -                       } else if (timeout < 0) {
+>> -                               timeout =3D MAX_SCHEDULE_TIMEOUT;
+>> -                               dev_warn(adev->dev, "lockup timeout
+>> disabled");
+>> -                               add_taint(TAINT_SOFTLOCKUP,
+>> LOCKDEP_STILL_OK);
+>> -                       } else {
+>> -                               timeout =3D msecs_to_jiffies(timeout);
+>> -                       }
+>> +       while ((timeout_setting =3D strsep(&input, ",")) &&
+>> +              strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)=
+)
+>> {
+>> +               ret =3D kstrtol(timeout_setting, 0, &timeout);
+>> +               if (ret)
+>> +                       return ret;
+>>
+>> -                       switch (index++) {
+>> -                       case 0:
+>> -                               adev->gfx_timeout =3D timeout;
+>> -                               break;
+>> -                       case 1:
+>> -                               adev->compute_timeout =3D timeout;
+>> -                               break;
+>> -                       case 2:
+>> -                               adev->sdma_timeout =3D timeout;
+>> -                               break;
+>> -                       case 3:
+>> -                               adev->video_timeout =3D timeout;
+>> -                               break;
+>> -                       default:
+>> -                               break;
+>> -                       }
+>> +               if (timeout =3D=3D 0) {
+>> +                       index++;
+>> +                       continue;
+>> +               } else if (timeout < 0) {
+>> +                       timeout =3D MAX_SCHEDULE_TIMEOUT;
+>> +                       dev_warn(adev->dev, "lockup timeout disabled");
+>> +                       add_taint(TAINT_SOFTLOCKUP, LOCKDEP_STILL_OK);
+>> +               } else {
+>> +                       timeout =3D msecs_to_jiffies(timeout);
+>>                 }
+>> -               /*
+>> -                * There is only one value specified and
+>> -                * it should apply to all non-compute jobs.
+>> -                */
+>> -               if (index =3D=3D 1) {
+>> -                       adev->sdma_timeout =3D adev->video_timeout =3D
+>> adev->gfx_timeout;
+>> -                       if (amdgpu_sriov_vf(adev) ||
+>> amdgpu_passthrough(adev))
+>> -                               adev->compute_timeout =3D adev->gfx_time=
+out;
+>> +
+>> +               switch (index++) {
+>> +               case 0:
+>> +                       adev->gfx_timeout =3D timeout;
+>> +                       break;
+>> +               case 1:
+>> +                       adev->compute_timeout =3D timeout;
+>> +                       break;
+>> +               case 2:
+>> +                       adev->sdma_timeout =3D timeout;
+>> +                       break;
+>> +               case 3:
+>> +                       adev->video_timeout =3D timeout;
+>> +                       break;
+>> +               default:
+>> +                       break;
+>>                 }
+>>         }
+>>
+>> +       /* When only one value specified apply it to all queues. */
+>> +       if (index =3D=3D 1)
+>> +               adev->gfx_timeout =3D adev->compute_timeout =3D
+>> adev->sdma_timeout =3D
+>> +                       adev->video_timeout =3D timeout;
+>> +
+>>         return ret;
+>>  }
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> index ece251cbe8c3..fe45dd1d979e 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>> @@ -353,22 +353,17 @@ module_param_named(svm_default_granularity,
+>> amdgpu_svm_default_granularity, uint
+>>   * DOC: lockup_timeout (string)
+>>   * Set GPU scheduler timeout value in ms.
+>>   *
+>> - * The format can be [Non-Compute] or [GFX,Compute,SDMA,Video]. That is
+>> there can be one or
+>> - * multiple values specified. 0 and negative values are invalidated.
+>> They will be adjusted
+>> - * to the default timeout.
+>> + * The format can be [single value] for setting all timeouts at once or
+>> + * [GFX,Compute,SDMA,Video] to set individual timeouts.
+>> + * Negative values mean infinity.
+>>   *
+>> - * - With one value specified, the setting will apply to all non-comput=
+e
+>> jobs.
+>> - * - With multiple values specified, the first one will be for GFX.
+>> - *   The second one is for Compute. The third and fourth ones are
+>> - *   for SDMA and Video.
+>> - *
+>> - * By default(with no lockup_timeout settings), the timeout for all job=
+s
+>> is 10000.
+>> + * By default(with no lockup_timeout settings), the timeout for all
+>> queues is 2000.
+>>   */
+>>  MODULE_PARM_DESC(lockup_timeout,
+>> -                "GPU lockup timeout in ms (default: 10000 for all jobs.=
+ "
+>> -                "0: keep default value. negative: infinity timeout),
+>> format: for bare metal [Non-Compute] or [GFX,Compute,SDMA,Video]; "
+>> -                "for passthrough or sriov [all jobs] or
+>> [GFX,Compute,SDMA,Video].");
+>> -module_param_string(lockup_timeout, amdgpu_lockup_timeout,
+>> sizeof(amdgpu_lockup_timeout), 0444);
+>> +                "GPU lockup timeout in ms (default: 2000 for all queues=
+.
+>> "
+>> +                "0: keep default value. negative: infinity timeout),
+>> format: [single value for all] or [GFX,Compute,SDMA,Video].");
+>> +module_param_string(lockup_timeout, amdgpu_lockup_timeout,
+>> +                   sizeof(amdgpu_lockup_timeout), 0444);
+>>
+>>  /**
+>>   * DOC: dpm (int)
+>> --
+>> 2.43.0
+>>
+>> Hi
+>
+> This patch is causing issues with running:
+>
+>   ~/GravityMark_1.89_linux $ DRI_PRIME=3D1 ./run_fullscreen_vk_rt.sh
+>
+> M:      0 us: ../data.zip: 313 files
+> M:  15.19 ms: Temporal antialiasing
+> M:  15.21 ms: Fullscreen mode
+> M:  15.22 ms: Render Statistics
+> M:  20.77 ms: Build Date: Jun 20 2025
+> M:  20.80 ms: Build Info: version=3D20250429; linux; x64; release; vk=3D1=
+;
+> gl=3D45; gles=3D32; cu=3D1; fusion
+> M:  20.81 ms: Build Version: 1.89
+> M:  48.06 ms: Name: ASUSTeK COMPUTER INC. G513QY ROG Strix G513QY_G513QY
+> M:  48.09 ms: System: 'Gentoo Linux'
+> M:  48.10 ms: Kernel: Linux 6.19.0-rc7-drm+ x86_64
+> M:  48.11 ms: Memory: 62.19 GB
+> M:  48.13 ms: Uptime: 19.00 s
+> M:  48.15 ms: CPU: AMD Ryzen 9 5900HX with Radeon Graphics
+> M:  48.17 ms: GPU 0: [AMD/ATI] Navi 22 [Radeon RX 6700/6700 XT/6750 XT /
+> 6800M/6850M XT] (rev c3)
+> M:  48.18 ms: Device: VEN_1002&DEV_73DF&SUBSYS_16C21043
+> M:  48.19 ms: Memory: 11.98 GB
+> M:  48.21 ms: GPU 1: [AMD/ATI] Cezanne [Radeon Vega Series / Radeon Vega
+> Mobile Series] (rev c4)
+> M:  48.22 ms: Device: VEN_1002&DEV_1638&SUBSYS_16C21043
+> M:  48.23 ms: Memory: 512.00 MB
+> M:  48.53 ms: Desktop: 2560x1440 1.0
+> M:  48.55 ms: Screen 0: 2560x1440 0 0 eDP-1
+> M:  48.57 ms: Set fullscreen mode on 0 screen
+> M:  51.48 ms: Creating 2560x1440 Vulkan Window
+> M: 147.88 ms: Render Size: 2560x1440
+> M: 149.22 ms: Using Fetch Mode
+> M: 233.88 ms: Device: AMD Radeon RX 6800M (RADV NAVI22)
+> M: 233.95 ms: Vendor: AMD
+> M: 233.96 ms: Version: 26.0.99
+> M: 233.97 ms: DeviceID: 0x73df
+> M: 234.35 ms: Group Memory: 64.00 KB
+> M: 234.36 ms: Video Memory: 11.98 GB
+> M: 234.37 ms: Max Uniform Size: 4.00 GB
+> M: 234.38 ms: Max Storage Size: 4.00 GB
+> M: 234.38 ms: Creating SceneManager
+> M: 416.06 ms: Creating RenderManager
+> M: 547.17 ms: Ray Tracing Mode
+> M: 547.20 ms: Creating Scene
+> M:   1.481 s: Creating 200,000 Asteroids
+> M:   1.600 s: Updating Scene
+> M:   1.751 s: GravityMark 1.89 Vulkan RT is Ready in 1.7 s
+> M:   1.751 s: Starting 2560x1440 Vulkan RT Benchmark
+> M:   1.751 s: Count: 1
+> M:   1.752 s: Resizing 2560x1440 frame
+> M:   1.753 s: Build buffer 44.74 MB
+> radv/amdgpu: The CS has been cancelled because the context is lost. This
+> context is guilty of a hard recovery.
+> E:   4.151 s: VK::error(): device lost
+> E:   4.152 s: VKContext::Frame::submit(): can't submit command buffer
+> E:   4.152 s: VKContext::submit(): can't submit frame
+> E:   4.152 s: VKWindow::present(): can't submit context
+> E:   4.152 s: GravityMark::render(): can't present window
+> E:   9.347 s: VK::error(): device lost
+> E:   9.347 s: VKContext::Frame::wait(): can't wait for fence
+> E:   9.347 s: VKContext::finish(): can't wait frame
+> E:   9.347 s: VK::error(): device lost
+> E:   9.347 s: VKContext::Frame::wait(): can't wait for fence
+> E:   9.347 s: VKContext::finish(): can't wait frame
+> E:   9.347 s: VK::error(): device lost
+> E:   9.347 s: VKContext::Frame::wait(): can't wait for fence
+> E:   9.347 s: VKContext::finish(): can't wait frame
+> E:   9.347 s: VKWindow::finish(): can't finish context
+> M:   9.347 s: Clearing Scene
+> E:   9.575 s: VK::error(): device lost
+> E:   9.575 s: VKContext::Frame::wait(): can't wait for fence
+> E:   9.575 s: VKContext::finish(): can't wait frame
+> M:   9.575 s: Restore fullscreen mode on 0 screen
+> E:   9.583 s: VK::error(): device lost
+> E:   9.583 s: VKContext::Frame::wait(): can't wait for fence
+> E:   9.583 s: VKContext::finish(): can't wait frame
+> E:   9.583 s: VK::error(): device lost
+> E:   9.583 s: VKContext::Frame::wait(): can't wait for fence
+> E:   9.583 s: VKContext::finish(): can't wait frame
+>
+>
+> It's only the full screen and RT that seem to have issues
+>
+> Dmesg:
+>
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: [drm] PCIE GART of 512M
+> enabled (table at 0x00000082FEB00000).
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> PSP is resuming...
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> reserve 0xa00000 from 0x82fd000000 for PSP TMR
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> RAS: optional ras ta ucode is not available
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> SECUREDISPLAY: optional securedisplay ta ucode is not available
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> SMU is resuming...
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> smu driver if version =3D 0x0000000e, smu fw if version =3D 0x00000012, s=
+mu fw
+> program =3D 0, version =3D 0x00413f00 (65.63.0)
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> SMU driver if version not matched
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> Setting new power limit is not supported!
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> SMU is resumed successfully!
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> kiq ring mec 2 pipe 1 q 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> [drm] DMUB hardware initialized: version=3D0x02020021
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: [drm]
+> Cannot find any crtc or sizes
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring gfx_0.0.0 uses VM inv eng 0 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring gfx_0.1.0 uses VM inv eng 1 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring comp_1.0.0 uses VM inv eng 4 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring comp_1.1.0 uses VM inv eng 5 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring comp_1.2.0 uses VM inv eng 6 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring comp_1.3.0 uses VM inv eng 7 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring comp_1.0.1 uses VM inv eng 8 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring comp_1.1.1 uses VM inv eng 9 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring comp_1.2.1 uses VM inv eng 10 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring comp_1.3.1 uses VM inv eng 11 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring kiq_0.2.1.0 uses VM inv eng 12 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring sdma0 uses VM inv eng 13 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring sdma1 uses VM inv eng 14 on hub 0
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring vcn_dec_0 uses VM inv eng 0 on hub 8
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring vcn_enc_0.0 uses VM inv eng 1 on hub 8
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring vcn_enc_0.1 uses VM inv eng 4 on hub 8
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring jpeg_dec uses VM inv eng 5 on hub 8
+> Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: [drm]
+> Cannot find any crtc or sizes
+> Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> Dumping IP State
+> Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> Dumping IP State Completed
+> Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> [drm] AMDGPU device coredump file has been created
+> Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> [drm] Check your /sys/class/drm/card0/device/devcoredump/data
+> Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> ring gfx_0.0.0 timeout, signaled seq=3D99, emitted seq=3D100
+> Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+>  Process GravityMark.x64 pid 1794 thread GravityMark.x64 pid 1794
+> Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> Starting gfx_0.0.0 ring reset
+> Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
+> Ring gfx_0.0.0 reset succeeded
+> Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: [drm]
+> device wedged, but recovered through reset
+>
+> I got things working with this patch:
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index a77000c2e0bb..ceb3c616292c 100644
+> index c7f44422939f..5a3f02a26192 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4278,58 +4278,53 @@ static int
+> @@ -4206,7 +4206,7 @@ static int
 > amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
->         long timeout;
->         int ret =3D 0;
 >
-> -       /*
-> -        * By default timeout for jobs is 10 sec
-> -        */
-> -       adev->compute_timeout =3D adev->gfx_timeout =3D
-> msecs_to_jiffies(10000);
-> -       adev->sdma_timeout =3D adev->video_timeout =3D adev->gfx_timeout;
-> +       /* By default timeout for all queues is 2 sec */
-> +       adev->gfx_timeout =3D adev->compute_timeout =3D adev->sdma_timeou=
-t =3D
-> +               adev->video_timeout =3D msecs_to_jiffies(2000);
+>        /* By default timeout for all queues is 2 sec */
+>        adev->gfx_timeout =3D adev->compute_timeout =3D adev->sdma_timeout=
+ =3D
+> -               adev->video_timeout =3D msecs_to_jiffies(2000);
+> +               adev->video_timeout =3D msecs_to_jiffies(5000);
 >
-> -       if (strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
-> -               while ((timeout_setting =3D strsep(&input, ",")) &&
-> -                               strnlen(timeout_setting,
-> AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
-> -                       ret =3D kstrtol(timeout_setting, 0, &timeout);
-> -                       if (ret)
-> -                               return ret;
-> +       if (!strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
-> +               return 0;
+>        if (!strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
+>                return 0;
 >
-> -                       if (timeout =3D=3D 0) {
-> -                               index++;
-> -                               continue;
-> -                       } else if (timeout < 0) {
-> -                               timeout =3D MAX_SCHEDULE_TIMEOUT;
-> -                               dev_warn(adev->dev, "lockup timeout
-> disabled");
-> -                               add_taint(TAINT_SOFTLOCKUP,
-> LOCKDEP_STILL_OK);
-> -                       } else {
-> -                               timeout =3D msecs_to_jiffies(timeout);
-> -                       }
-> +       while ((timeout_setting =3D strsep(&input, ",")) &&
-> +              strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))=
- {
-> +               ret =3D kstrtol(timeout_setting, 0, &timeout);
-> +               if (ret)
-> +                       return ret;
 >
-> -                       switch (index++) {
-> -                       case 0:
-> -                               adev->gfx_timeout =3D timeout;
-> -                               break;
-> -                       case 1:
-> -                               adev->compute_timeout =3D timeout;
-> -                               break;
-> -                       case 2:
-> -                               adev->sdma_timeout =3D timeout;
-> -                               break;
-> -                       case 3:
-> -                               adev->video_timeout =3D timeout;
-> -                               break;
-> -                       default:
-> -                               break;
-> -                       }
-> +               if (timeout =3D=3D 0) {
-> +                       index++;
-> +                       continue;
-> +               } else if (timeout < 0) {
-> +                       timeout =3D MAX_SCHEDULE_TIMEOUT;
-> +                       dev_warn(adev->dev, "lockup timeout disabled");
-> +                       add_taint(TAINT_SOFTLOCKUP, LOCKDEP_STILL_OK);
-> +               } else {
-> +                       timeout =3D msecs_to_jiffies(timeout);
->                 }
-> -               /*
-> -                * There is only one value specified and
-> -                * it should apply to all non-compute jobs.
-> -                */
-> -               if (index =3D=3D 1) {
-> -                       adev->sdma_timeout =3D adev->video_timeout =3D
-> adev->gfx_timeout;
-> -                       if (amdgpu_sriov_vf(adev) ||
-> amdgpu_passthrough(adev))
-> -                               adev->compute_timeout =3D adev->gfx_timeo=
-ut;
-> +
-> +               switch (index++) {
-> +               case 0:
-> +                       adev->gfx_timeout =3D timeout;
-> +                       break;
-> +               case 1:
-> +                       adev->compute_timeout =3D timeout;
-> +                       break;
-> +               case 2:
-> +                       adev->sdma_timeout =3D timeout;
-> +                       break;
-> +               case 3:
-> +                       adev->video_timeout =3D timeout;
-> +                       break;
-> +               default:
-> +                       break;
->                 }
->         }
->
-> +       /* When only one value specified apply it to all queues. */
-> +       if (index =3D=3D 1)
-> +               adev->gfx_timeout =3D adev->compute_timeout =3D
-> adev->sdma_timeout =3D
-> +                       adev->video_timeout =3D timeout;
-> +
->         return ret;
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> index ece251cbe8c3..fe45dd1d979e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -353,22 +353,17 @@ module_param_named(svm_default_granularity,
-> amdgpu_svm_default_granularity, uint
->   * DOC: lockup_timeout (string)
->   * Set GPU scheduler timeout value in ms.
->   *
-> - * The format can be [Non-Compute] or [GFX,Compute,SDMA,Video]. That is
-> there can be one or
-> - * multiple values specified. 0 and negative values are invalidated. The=
-y
-> will be adjusted
-> - * to the default timeout.
-> + * The format can be [single value] for setting all timeouts at once or
-> + * [GFX,Compute,SDMA,Video] to set individual timeouts.
-> + * Negative values mean infinity.
->   *
-> - * - With one value specified, the setting will apply to all non-compute
-> jobs.
-> - * - With multiple values specified, the first one will be for GFX.
-> - *   The second one is for Compute. The third and fourth ones are
-> - *   for SDMA and Video.
-> - *
-> - * By default(with no lockup_timeout settings), the timeout for all jobs
-> is 10000.
-> + * By default(with no lockup_timeout settings), the timeout for all
-> queues is 2000.
->   */
->  MODULE_PARM_DESC(lockup_timeout,
-> -                "GPU lockup timeout in ms (default: 10000 for all jobs. =
-"
-> -                "0: keep default value. negative: infinity timeout),
-> format: for bare metal [Non-Compute] or [GFX,Compute,SDMA,Video]; "
-> -                "for passthrough or sriov [all jobs] or
-> [GFX,Compute,SDMA,Video].");
-> -module_param_string(lockup_timeout, amdgpu_lockup_timeout,
-> sizeof(amdgpu_lockup_timeout), 0444);
-> +                "GPU lockup timeout in ms (default: 2000 for all queues.=
- "
-> +                "0: keep default value. negative: infinity timeout),
-> format: [single value for all] or [GFX,Compute,SDMA,Video].");
-> +module_param_string(lockup_timeout, amdgpu_lockup_timeout,
-> +                   sizeof(amdgpu_lockup_timeout), 0444);
->
->  /**
->   * DOC: dpm (int)
-> --
-> 2.43.0
->
-> Hi
+Also 3000 works too
 
-This patch is causing issues with running:
-
-  ~/GravityMark_1.89_linux $ DRI_PRIME=3D1 ./run_fullscreen_vk_rt.sh
-
-M:      0 us: ../data.zip: 313 files
-M:  15.19 ms: Temporal antialiasing
-M:  15.21 ms: Fullscreen mode
-M:  15.22 ms: Render Statistics
-M:  20.77 ms: Build Date: Jun 20 2025
-M:  20.80 ms: Build Info: version=3D20250429; linux; x64; release; vk=3D1;
-gl=3D45; gles=3D32; cu=3D1; fusion
-M:  20.81 ms: Build Version: 1.89
-M:  48.06 ms: Name: ASUSTeK COMPUTER INC. G513QY ROG Strix G513QY_G513QY
-M:  48.09 ms: System: 'Gentoo Linux'
-M:  48.10 ms: Kernel: Linux 6.19.0-rc7-drm+ x86_64
-M:  48.11 ms: Memory: 62.19 GB
-M:  48.13 ms: Uptime: 19.00 s
-M:  48.15 ms: CPU: AMD Ryzen 9 5900HX with Radeon Graphics
-M:  48.17 ms: GPU 0: [AMD/ATI] Navi 22 [Radeon RX 6700/6700 XT/6750 XT /
-6800M/6850M XT] (rev c3)
-M:  48.18 ms: Device: VEN_1002&DEV_73DF&SUBSYS_16C21043
-M:  48.19 ms: Memory: 11.98 GB
-M:  48.21 ms: GPU 1: [AMD/ATI] Cezanne [Radeon Vega Series / Radeon Vega
-Mobile Series] (rev c4)
-M:  48.22 ms: Device: VEN_1002&DEV_1638&SUBSYS_16C21043
-M:  48.23 ms: Memory: 512.00 MB
-M:  48.53 ms: Desktop: 2560x1440 1.0
-M:  48.55 ms: Screen 0: 2560x1440 0 0 eDP-1
-M:  48.57 ms: Set fullscreen mode on 0 screen
-M:  51.48 ms: Creating 2560x1440 Vulkan Window
-M: 147.88 ms: Render Size: 2560x1440
-M: 149.22 ms: Using Fetch Mode
-M: 233.88 ms: Device: AMD Radeon RX 6800M (RADV NAVI22)
-M: 233.95 ms: Vendor: AMD
-M: 233.96 ms: Version: 26.0.99
-M: 233.97 ms: DeviceID: 0x73df
-M: 234.35 ms: Group Memory: 64.00 KB
-M: 234.36 ms: Video Memory: 11.98 GB
-M: 234.37 ms: Max Uniform Size: 4.00 GB
-M: 234.38 ms: Max Storage Size: 4.00 GB
-M: 234.38 ms: Creating SceneManager
-M: 416.06 ms: Creating RenderManager
-M: 547.17 ms: Ray Tracing Mode
-M: 547.20 ms: Creating Scene
-M:   1.481 s: Creating 200,000 Asteroids
-M:   1.600 s: Updating Scene
-M:   1.751 s: GravityMark 1.89 Vulkan RT is Ready in 1.7 s
-M:   1.751 s: Starting 2560x1440 Vulkan RT Benchmark
-M:   1.751 s: Count: 1
-M:   1.752 s: Resizing 2560x1440 frame
-M:   1.753 s: Build buffer 44.74 MB
-radv/amdgpu: The CS has been cancelled because the context is lost. This
-context is guilty of a hard recovery.
-E:   4.151 s: VK::error(): device lost
-E:   4.152 s: VKContext::Frame::submit(): can't submit command buffer
-E:   4.152 s: VKContext::submit(): can't submit frame
-E:   4.152 s: VKWindow::present(): can't submit context
-E:   4.152 s: GravityMark::render(): can't present window
-E:   9.347 s: VK::error(): device lost
-E:   9.347 s: VKContext::Frame::wait(): can't wait for fence
-E:   9.347 s: VKContext::finish(): can't wait frame
-E:   9.347 s: VK::error(): device lost
-E:   9.347 s: VKContext::Frame::wait(): can't wait for fence
-E:   9.347 s: VKContext::finish(): can't wait frame
-E:   9.347 s: VK::error(): device lost
-E:   9.347 s: VKContext::Frame::wait(): can't wait for fence
-E:   9.347 s: VKContext::finish(): can't wait frame
-E:   9.347 s: VKWindow::finish(): can't finish context
-M:   9.347 s: Clearing Scene
-E:   9.575 s: VK::error(): device lost
-E:   9.575 s: VKContext::Frame::wait(): can't wait for fence
-E:   9.575 s: VKContext::finish(): can't wait frame
-M:   9.575 s: Restore fullscreen mode on 0 screen
-E:   9.583 s: VK::error(): device lost
-E:   9.583 s: VKContext::Frame::wait(): can't wait for fence
-E:   9.583 s: VKContext::finish(): can't wait frame
-E:   9.583 s: VK::error(): device lost
-E:   9.583 s: VKContext::Frame::wait(): can't wait for fence
-E:   9.583 s: VKContext::finish(): can't wait frame
-
-
-It's only the full screen and RT that seem to have issues
-
-Dmesg:
-
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: [drm] PCIE GART of 512M
-enabled (table at 0x00000082FEB00000).
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-PSP is resuming...
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-reserve 0xa00000 from 0x82fd000000 for PSP TMR
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-RAS: optional ras ta ucode is not available
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-SECUREDISPLAY: optional securedisplay ta ucode is not available
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-SMU is resuming...
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-smu driver if version =3D 0x0000000e, smu fw if version =3D 0x00000012, smu=
- fw
-program =3D 0, version =3D 0x00413f00 (65.63.0)
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-SMU driver if version not matched
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-Setting new power limit is not supported!
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-SMU is resumed successfully!
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-kiq ring mec 2 pipe 1 q 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-[drm] DMUB hardware initialized: version=3D0x02020021
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: [drm]
-Cannot find any crtc or sizes
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring gfx_0.0.0 uses VM inv eng 0 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring gfx_0.1.0 uses VM inv eng 1 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring comp_1.0.0 uses VM inv eng 4 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring comp_1.1.0 uses VM inv eng 5 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring comp_1.2.0 uses VM inv eng 6 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring comp_1.3.0 uses VM inv eng 7 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring comp_1.0.1 uses VM inv eng 8 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring comp_1.1.1 uses VM inv eng 9 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring comp_1.2.1 uses VM inv eng 10 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring comp_1.3.1 uses VM inv eng 11 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring kiq_0.2.1.0 uses VM inv eng 12 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring sdma0 uses VM inv eng 13 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring sdma1 uses VM inv eng 14 on hub 0
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring vcn_dec_0 uses VM inv eng 0 on hub 8
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring vcn_enc_0.0 uses VM inv eng 1 on hub 8
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring vcn_enc_0.1 uses VM inv eng 4 on hub 8
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring jpeg_dec uses VM inv eng 5 on hub 8
-Feb 15 21:16:13 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: [drm]
-Cannot find any crtc or sizes
-Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-Dumping IP State
-Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-Dumping IP State Completed
-Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-[drm] AMDGPU device coredump file has been created
-Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-[drm] Check your /sys/class/drm/card0/device/devcoredump/data
-Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-ring gfx_0.0.0 timeout, signaled seq=3D99, emitted seq=3D100
-Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
- Process GravityMark.x64 pid 1794 thread GravityMark.x64 pid 1794
-Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-Starting gfx_0.0.0 ring reset
-Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: amdgpu:
-Ring gfx_0.0.0 reset succeeded
-Feb 15 21:16:17 axion.fireburn.co.uk kernel: amdgpu 0000:03:00.0: [drm]
-device wedged, but recovered through reset
-
-I got things working with this patch:
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index c7f44422939f..5a3f02a26192 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4206,7 +4206,7 @@ static int
-amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
-
-       /* By default timeout for all queues is 2 sec */
-       adev->gfx_timeout =3D adev->compute_timeout =3D adev->sdma_timeout =
-=3D
--               adev->video_timeout =3D msecs_to_jiffies(2000);
-+               adev->video_timeout =3D msecs_to_jiffies(5000);
-
-       if (!strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
-               return 0;
-
---00000000000027a0c3064ae3b5c9
+--000000000000307e36064ae3cf4a
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, 25 Sept 2025=
- at 14:03, Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerke=
-n@gmail.com" target=3D"_blank">ckoenig.leichtzumerken@gmail.com</a>&gt; wro=
-te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">There has be=
-en multiple complains that 10 seconds are usually to long.<br>
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote g=
+mail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Sun, 15 Feb =
+2026 at 21:41, Mike Lothian &lt;<a href=3D"mailto:mike@fireburn.co.uk">mike=
+@fireburn.co.uk</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" s=
+tyle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pad=
+ding-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><br></div=
+><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Th=
+u, 25 Sept 2025 at 14:03, Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoeni=
+g.leichtzumerken@gmail.com" target=3D"_blank">ckoenig.leichtzumerken@gmail.=
+com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x">There has been multiple complains that 10 seconds are usually to long.<b=
+r>
 <br>
 The original requirement for longer timeout came from compute tests on<br>
 AMDVLK, since that is no longer a topic reduce the timeout back to 2<br>
@@ -1130,10 +1149,8 @@ b(0,0,0)">=C2=A0</span><br><span style=3D"color:rgb(0,0,0)"> =C2=A0=C2=A0=
 LENGTH))</span><span style=3D"color:rgb(0,0,0)">
 </span><br><span style=3D"color:rgb(0,0,0)"> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0return 0;</span=
-><br><span style=3D"color:rgb(0,0,0)">
-</span><br></span><span style=3D"font-family:monospace"><span style=3D"colo=
-r:rgb(0,0,0)">
-</span><br></span></div></div>
-</div>
+><br></span><span style=3D"font-family:monospace"><br></span></div></div></=
+div></blockquote><div><br></div><div>Also 3000 works too=C2=A0</div></div><=
+/div>
 
---00000000000027a0c3064ae3b5c9--
+--000000000000307e36064ae3cf4a--
