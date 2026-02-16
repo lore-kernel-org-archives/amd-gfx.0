@@ -4,76 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D79DFE6815B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17DA9E68159
 	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D5C410E4A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 635BF10E49C;
 	Tue, 17 Feb 2026 08:05:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="eErv4N2x";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nnb/lfy+";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1704510E37D;
- Mon, 16 Feb 2026 13:03:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1771247007; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=BoQ7frQ/lbCOQ3R53OiYoa/p+9XQx0KVcOhi/2KL2a2mPzt3Y671r+xJTuehKTkIwBMMme/8DihfINW6od64kG8D5+qA7kHgRfvogVyNpFLeHQOGnbgQIYOV2VUsE/TmqQh80/mTcaThmJ8pVZOivp+cMTyzaBio/ez0nV66AfI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1771247007;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=sZmW2NPYujZEBxA8nnT64f1BC+nomHSZxQc73mGD0fw=; 
- b=aXmqc40ua9Ors80bNLCAY3oi39reMyuEhDzdH6ol4d0E7dFKhHXBU/o8afoU/+LxjBIuXh/DfyJeVi0Fi3tLLtYkGZB+o4hRBaYN87VJqZD/spp1S8IyTbF9o+CWQ0TnvW32EPsEDrq7dHkNWGc41RIvpzYqmxpceBWhAjHDFTs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771247007; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=sZmW2NPYujZEBxA8nnT64f1BC+nomHSZxQc73mGD0fw=;
- b=eErv4N2xk29bwRxGTGpjH+9ZvC4/aMiOfLzu2fWPB2T6GPmV36yMB1RFg/uydPPn
- n2RiqrpssY5khZTU1dL1kKaz3X9AvJS4wNEgWUy1mlosPgJOOJAXlrI2U4cB0Xy4SJN
- OnMdqio+HCApxB5VzCP6J2+OjohTE4spj5aeVVis=
-Received: by mx.zohomail.com with SMTPS id 17712470061111.3434452027062207;
- Mon, 16 Feb 2026 05:03:26 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 16 Feb 2026 14:01:29 +0100
-Subject: [PATCH v8 15/20] drm/rockchip: dw_hdmi_qp: Set supported_formats
- platdata
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A0CD10E3CD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 16:45:47 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-b8de2b5a122so59443966b.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 08:45:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1771260346; x=1771865146; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=a6BfGiUOVQc89YPAV055hurM0Ll6ocTXT/P7sPP0SvQ=;
+ b=nnb/lfy+WteVYLAHreqrB5sx20h/bTBUpJvNqrEgo0rihV75OwZJBv6eH4qVF404W1
+ LHyRrYMC3DbBHEHwYp5Bf9F6bQW2RoiagtXJrmTddKkv6a88h/IxGoHTWdOBogj5QZNd
+ p/nBDr4navmFvY/VTskDCLTC9xHz5OUM4KtRlz1LUG0HUOdWodsCJ5iRD9rtj6S28hfu
+ Cwu0JCHlq8lH6e29RjsLf4GBPBGuuV8Ea/iZlDloerL53c/2XPh9ZLPW1cvtKYIboiKs
+ iN/h1E4V159YP7P+mXhcsD4pbwiXHQ2m2w6LK4or4jdSHKSV3sikb36GimIvgUjYS7ah
+ WQIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771260346; x=1771865146;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=a6BfGiUOVQc89YPAV055hurM0Ll6ocTXT/P7sPP0SvQ=;
+ b=JXBZv6U6Usu6DxieP64lOHAAOg0iZ11bKSTZEeAMKGtd/isAuAlWIspbxvE855XwpX
+ cec0KShJScPnuKhsmwDMA9MjqNpsRmLFnwgBAN6pGsFNvAnuEr/9dmV0XwyiQmhZiFf4
+ //9JHKbGSGLaota0NXC5tYfV7A8xNaBucBIH2kU0YBYRkHp1wQAoUPqMx6HiG4J0pAfW
+ VZBgN3JfWLtLBN07cQWlK7DSP2/NPgOivzTO71R5w/Zl9oSDzybM+WmDAYKZM/XAYGgg
+ 8K4jwi0EIRKw3TX5Nud9IBQosxA8eO9yMIEnP4eWInYMZXk1755LxocCl7lXeuVsBz7q
+ SjHQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW2TNNLbxNxGOxidDoH9cZRC3rXDQ6qekkowO3UQIKfjahA+175bxysuDUkMH5RLVnR8yN171EF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyvj9AXh99MvEcfuoSabwEhIrSoAeWoLa6KsAAzo7WiUsOmEGsF
+ NM8hfmADUlyxKLO8RnLU9HJ9c9YRX6IomuBil1qH/eh5vDyf+NpmwCSN
+X-Gm-Gg: AZuq6aIaEyvVovybLKslL5YN4WfYRFpO4kvTI3S/t3U4X2YJXfJDaKooydg5SuURCNU
+ yjY4hod89JCCFx70QckBqOAX/djXMJWLABJHQByyvmPGIO74ufVnz1dpXYbd/5Y5aBYehaHXAHu
+ 6pJC88u0DmDO3f2nXRxwVsS4LmnNvGHJaGASVccVZWxubwYt8QSSQdDf0DiWPuQ4LcEOVGF3R3B
+ Xka8Xf5uKRoIiNypN5YpuMo0Yw9W+BMPB7hRHncX8WsdLuyPYWMMycWUp7k752y7mv5WxRFgGpi
+ K3yJgb94XRK5ukWoVguaZh1zAPF0TauxgIRSznuoIPj2z1NoHwDpwQboSXdMUID4SXQaLmfBypd
+ WvOJrsuIIr66N0suh17eMBjaqPVjxi19Ttn3d+Ja7phCWZeVtsrb0BrcnEM/uKAqAnYxi2yH3Ki
+ KAr6X7GQbnxa2VMYnQP/zpSy///Y7Msenop0pysqeFkakPuWBd7JfL0r7zB1KKNpmdeqGehW28Z
+ 5dB
+X-Received: by 2002:a17:907:7b91:b0:b76:2667:7736 with SMTP id
+ a640c23a62f3a-b8face24653mr356210866b.4.1771260345811; 
+ Mon, 16 Feb 2026 08:45:45 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8fc735d185sm264683866b.14.2026.02.16.08.45.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Feb 2026 08:45:45 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
+ bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
+Subject: [PATCH v4 20/27] drm/amd/display: Reintroduce VTEM info frame
+Date: Mon, 16 Feb 2026 17:45:09 +0100
+Message-ID: <20260216164516.36803-21-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260216-color-format-v8-15-5722ce175dd5@collabora.com>
-References: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
-In-Reply-To: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 Feb 2026 08:05:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,37 +96,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With the introduction of the supported_formats member in the
-dw-hdmi-qp platform data struct, drivers that have access to this
-information should now set it.
+[Why]
+VTEM info fram building was removed back in: commit a9f54ce3c603
+("drm/amd/display: Refactoring VTEM"), but it's needed to support
+HDMI VRR signalling.
 
-Set it in the rockchip dw_hdmi_qp glue driver.
+[How]
+Build completely new and more robust functions to build out the VTEM
+infopacket. Many values are defined but could have added logic in the
+future, that's shy they are not static values but already value + bit
+position in it's byte.
 
-This allows this information to be passed down to the dw-hdmi-qp core,
-which sets it in the bridge it creates, and consequently will allow the
-common HDMI bridge code to act on it.
+Reduced blanking detection was previously missing. Use possible hblank
+periods defined for RB1 (from CVT 1.2), RB2 and RB3 (from CVT 2.1).
 
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../amd/display/modules/inc/mod_info_packet.h |   4 +
+ .../display/modules/info_packet/info_packet.c | 167 ++++++++++++------
+ 2 files changed, 119 insertions(+), 52 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index e2fa1aa53394..de03d74d36a3 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -601,6 +601,10 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	plat_data.phy_data = hdmi;
- 	plat_data.max_bpc = 10;
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+index 306eb7355c25..027113ec147d 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+@@ -49,6 +49,10 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+ 		struct dc_info_packet *info_packet);
  
-+	plat_data.supported_formats = BIT(HDMI_COLORSPACE_RGB) |
-+				      BIT(HDMI_COLORSPACE_YUV444) |
-+				      BIT(HDMI_COLORSPACE_YUV422);
++void mod_build_vtem_infopacket(const struct dc_stream_state *stream,
++		const struct mod_vrr_params *vrr,
++		struct dc_info_packet *infopacket);
 +
- 	encoder = &hdmi->encoder.encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
+ enum adaptive_sync_type {
+ 	ADAPTIVE_SYNC_TYPE_NONE             = 0,
+ 	ADAPTIVE_SYNC_TYPE_DP               = 1,
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index 53e488fdb4ea..96c84f70ed44 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -48,6 +48,7 @@ enum vsc_packet_revision {
+ 	vsc_packet_rev7 = 7,
+ };
  
-
++#define HDMI_INFOFRAME_TYPE_EMP    0x7F
+ #define HDMI_INFOFRAME_TYPE_VENDOR 0x81
+ #define HDMI_INFOFRAME_LENGTH_MASK 0x1F
+ #define HF_VSIF_VERSION  1
+@@ -63,65 +64,52 @@ enum vsc_packet_revision {
+ #define VTEM_PB5		5
+ #define VTEM_PB6		6
+ 
+-#define VTEM_MD0		7
+-#define VTEM_MD1		8
+-#define VTEM_MD2		9
+-#define VTEM_MD3		10
++#define VTEM_ORG_ID          1
++#define VTEM_DATA_SET_TAG    1
++#define VTEM_DATA_SET_LENGTH 4
+ 
++#define VTEM_M_CONST    0
++#define VTEM_FVA_FACTOR 0
+ 
+-// VTEM Byte Masks
+-//PB0
+-#define MASK_VTEM_PB0__RESERVED0  0x01
+-#define MASK_VTEM_PB0__SYNC       0x02
+-#define MASK_VTEM_PB0__VFR        0x04
+-#define MASK_VTEM_PB0__AFR        0x08
+-#define MASK_VTEM_PB0__DS_TYPE    0x30
+-	//0: Periodic pseudo-static EM Data Set
+-	//1: Periodic dynamic EM Data Set
+-	//2: Unique EM Data Set
+-	//3: Reserved
+-#define MASK_VTEM_PB0__END        0x40
+-#define MASK_VTEM_PB0__NEW        0x80
++#define VTEM_BRR_MASK_UPPER 0x03
++#define VTEM_BRR_MASK_LOWER 0xFF
+ 
+-//PB1
+-#define MASK_VTEM_PB1__RESERVED1 0xFF
++/* VTEM Byte Offset */
++#define VTEM_PB0 0
++#define VTEM_PB1 1
++#define VTEM_PB2 2
++#define VTEM_PB3 3
++#define VTEM_PB4 4
++#define VTEM_PB5 5
++#define VTEM_PB6 6
+ 
+-//PB2
+-#define MASK_VTEM_PB2__ORGANIZATION_ID 0xFF
+-	//0: This is a Vendor Specific EM Data Set
+-	//1: This EM Data Set is defined by This Specification (HDMI 2.1 r102.clean)
+-	//2: This EM Data Set is defined by CTA-861-G
+-	//3: This EM Data Set is defined by VESA
+-//PB3
+-#define MASK_VTEM_PB3__DATA_SET_TAG_MSB    0xFF
+-//PB4
+-#define MASK_VTEM_PB4__DATA_SET_TAG_LSB    0xFF
+-//PB5
+-#define MASK_VTEM_PB5__DATA_SET_LENGTH_MSB 0xFF
+-//PB6
+-#define MASK_VTEM_PB6__DATA_SET_LENGTH_LSB 0xFF
++#define VTEM_MD0 7
++#define VTEM_MD1 8
++#define VTEM_MD2 9
++#define VTEM_MD3 10
+ 
++/* Extended Metadata Packet */
++/* Header */
++#define EMP_LAST_BIT  6
++#define EMP_FIRST_BIT 7
++/* PB0 */
++#define EMP_SNC_BIT 1
++#define EMP_VFR_BIT 2
++#define EMP_AFR_BIT 3
++#define EMP_DST_BIT 4
++#define EMP_END_BIT 6
++#define EMP_NEW_BIT 7
++/* PB7 = MD0 */
++#define VTEM_VRR_BIT     0
++#define VTEM_M_CONST_BIT 1
++#define VTEM_FVA_BIT     4
++/* MD1 Base_Vfront */
++/* MD2 */
++#define VTEM_BRR_UPPER_BIT 0
++#define VTEM_RB_BIT        2
++/* MD3 BRR Lower */
+ 
+ 
+-//PB7-27 (20 bytes):
+-//PB7 = MD0
+-#define MASK_VTEM_MD0__VRR_EN         0x01
+-#define MASK_VTEM_MD0__M_CONST        0x02
+-#define MASK_VTEM_MD0__QMS_EN         0x04
+-#define MASK_VTEM_MD0__RESERVED2      0x08
+-#define MASK_VTEM_MD0__FVA_FACTOR_M1  0xF0
+-
+-//MD1
+-#define MASK_VTEM_MD1__BASE_VFRONT    0xFF
+-
+-//MD2
+-#define MASK_VTEM_MD2__BASE_REFRESH_RATE_98  0x03
+-#define MASK_VTEM_MD2__RB                    0x04
+-#define MASK_VTEM_MD2__NEXT_TFR              0xF8
+-
+-//MD3
+-#define MASK_VTEM_MD3__BASE_REFRESH_RATE_07  0xFF
+-
+ enum ColorimetryRGBDP {
+ 	ColorimetryRGB_DP_sRGB               = 0,
+ 	ColorimetryRGB_DP_AdobeRGB           = 3,
+@@ -612,6 +600,81 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+ 		info_packet->valid = true;
+ }
+ 
++static void build_vtem_infopacket_header(struct dc_info_packet *infopacket)
++{
++	uint8_t pb0 = 0;
++
++	/* might need logic in the future */
++	pb0 |= 0 << EMP_SNC_BIT;
++	pb0 |= 1 << EMP_VFR_BIT;
++	pb0 |= 0 << EMP_AFR_BIT;
++	pb0 |= 0 << EMP_DST_BIT;
++	pb0 |= 0 << EMP_END_BIT;
++	pb0 |= 1 << EMP_NEW_BIT;
++
++	infopacket->hb0 = HDMI_INFOFRAME_TYPE_EMP;
++	infopacket->hb1 = (1 << EMP_FIRST_BIT) | (1 << EMP_LAST_BIT);
++	infopacket->hb2 = 0; // sequence
++
++	infopacket->sb[VTEM_PB0] = pb0;
++	infopacket->sb[VTEM_PB2] = VTEM_ORG_ID;
++	infopacket->sb[VTEM_PB4] = VTEM_DATA_SET_TAG;
++	infopacket->sb[VTEM_PB6] = VTEM_DATA_SET_LENGTH;
++}
++
++static void build_vtem_infopacket_data(const struct dc_stream_state *stream,
++		const struct mod_vrr_params *vrr,
++		struct dc_info_packet *infopacket)
++{
++	unsigned int hblank = 0;
++	unsigned int brr = 0;
++	bool vrr_active = false;
++	bool rb = false;
++
++	vrr_active = vrr->state == VRR_STATE_ACTIVE_VARIABLE ||
++		     vrr->state == VRR_STATE_ACTIVE_FIXED;
++
++	infopacket->sb[VTEM_MD0] = VTEM_M_CONST << VTEM_M_CONST_BIT;
++	infopacket->sb[VTEM_MD0] |= VTEM_FVA_FACTOR << VTEM_FVA_BIT;
++	infopacket->sb[VTEM_MD0] |= vrr_active << VTEM_VRR_BIT;
++
++	infopacket->sb[VTEM_MD1] = 0;
++	infopacket->sb[VTEM_MD2] = 0;
++	infopacket->sb[VTEM_MD3] = 0;
++
++	if (!vrr_active || is_hdmi_vic_mode(stream))
++		return;
++	/*
++	 * In accordance with CVT 1.2 and CVT 2.1:
++	 * Reduced Blanking standard defines a fixed value of
++	 * 160 for hblank, further reduced to 80 in RB2. RB3 uses
++	 * fixed hblank of 80 pixels + up to 120 additional pixels
++	 * in 8-pixel steps.
++	 */
++	hblank = stream->timing.h_total - stream->timing.h_addressable;
++	rb = (hblank >= 80 && hblank <= 200 && hblank % 8 == 0);
++	brr = div_u64(mod_freesync_calc_nominal_field_rate(stream), 1000000);
++
++	if (brr > VTEM_BRR_MAX) {
++		infopacket->valid = false;
++		return;
++	}
++
++	infopacket->sb[VTEM_MD1] = (uint8_t) stream->timing.v_front_porch;
++	infopacket->sb[VTEM_MD2] = rb << VTEM_RB_BIT;
++	infopacket->sb[VTEM_MD2] |= (brr >> 8) & VTEM_BRR_MASK_UPPER;
++	infopacket->sb[VTEM_MD3] = brr & VTEM_BRR_MASK_LOWER;
++}
++
++void mod_build_vtem_infopacket(const struct dc_stream_state *stream,
++		const struct mod_vrr_params *vrr,
++		struct dc_info_packet *infopacket)
++{
++	infopacket->valid = true;
++	build_vtem_infopacket_header(infopacket);
++	build_vtem_infopacket_data(stream, vrr, infopacket);
++}
++
+ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
+ 		enum adaptive_sync_type asType,
+ 		const struct AS_Df_params *param,
 -- 
 2.53.0
 
