@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B5BEF5877
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AFD4E63F2C
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3712B10E471;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 253C410E470;
 	Tue, 17 Feb 2026 08:05:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="gaxXP8Xn";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="QnHSAO8p";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5C6110E19E;
- Mon, 16 Feb 2026 13:02:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1771246929; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB92410E394;
+ Mon, 16 Feb 2026 13:03:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1771246993; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=T06pjv0CfT4bVh0U3NXZON3T33KH29hxdIqPPYlzEV5CapQDNdriu+sxh+RX7VG4VUqkGoAkNxk2FlxXk8ARqf7JFoSrnb0qPxB/1kCQy4J7rMiqyDLsVqOjzANcLi8Yht8ZVCQmcrtls4eUAvy4sYLtZyOWG6wvUGcZZxkuzao=
+ b=mAWObq6MZgJ36ToIxOtOeHBGuQQEqoD/NhcJjCl+LdP+3iQIhFFi6DlL20ObQZt13rEVtWlpKsnBlLANhf1H7hmp/iVTRYGkfoH2ocQCj7UxVB6HoAObCDbWNljZEVU0MbVf8dkNNwr0XDn0s99R64tnBGUxVHhhp9iPTAW+wcU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1771246929;
+ s=zohoarc; t=1771246993;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Ps/3KHfahzE4CA312vsVuNcKxzi74v58TBa5PtaiWoo=; 
- b=WwZ83nOP+RxoAqjXsNj7A0Duic26PCxZoymUq17CsIlU3bXylgyLbrTqUStqrldK7FfG0vjCug/k0EsOK3ORDwLQDW5WLBLuppktWpbwnMoOUR0UoVHC7b3CqiijDPNTFJJtGWJH1ZAWBtcWepAxsB9z6QQyaAf9c+87QaUzfQw=
+ bh=L4TB1VZvZtMLKUs37afR6aj+cqotV2KSEgyNjdp9AC0=; 
+ b=LxwFXJfQGhhTEl8Dc4cCNKnSUb6INmQLT6fxjKpRhOdbegbtvEyL9yKaZKtSnBSIqtBq7XXAsodHllL3RhX/1ktCSfXT5OPC6C3Ij7wx+9pcuqWXsMyzB1eJB+CDLPsAGrqGDgKtCVG5FmPC8xuISw0VoHJneuhxMp6MYwR8ruE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771246929; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771246993; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=Ps/3KHfahzE4CA312vsVuNcKxzi74v58TBa5PtaiWoo=;
- b=gaxXP8XnBCk4o6tA7GWn/+ooa2ZFozNFTn+6S5YEsbywsF5vMdfjKB1PgsWrj3Ar
- VPrf0bMWie/UZYZWmuC+OVdwATgz1OQ7d241K1S8LRwYHQRpTPZUxjenc3Dwn6UHyyu
- Voasj9EAGNAV7NSFhu+aswo56LGLpFyVVQMBUlmo=
-Received: by mx.zohomail.com with SMTPS id 1771246928485527.7495564542533;
- Mon, 16 Feb 2026 05:02:08 -0800 (PST)
+ bh=L4TB1VZvZtMLKUs37afR6aj+cqotV2KSEgyNjdp9AC0=;
+ b=QnHSAO8pYsKzoV16mt7Uwwf3HpGMSnzo2lnx6b9y8KVo/+sXO8AW/9pItxSZjbFs
+ QfUTGzJLwZSeahb6h4/eiPD0XaQ/FiSJBUfTvkSOF2YR0Xs648o5jF+m/XB9UvkDyh+
+ AHWSP50/BeuQD1OlXwhkTizk4usUX07cu/af1seY=
+Received: by mx.zohomail.com with SMTPS id 177124699234966.93187605725814;
+ Mon, 16 Feb 2026 05:03:12 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 16 Feb 2026 14:01:18 +0100
-Subject: [PATCH v8 04/20] drm/bridge: Act on the DRM color format property
+Date: Mon, 16 Feb 2026 14:01:27 +0100
+Subject: [PATCH v8 13/20] drm/bridge: dw-hdmi-qp: Implement
+ atomic_get_output_bus_fmts
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260216-color-format-v8-4-5722ce175dd5@collabora.com>
+Message-Id: <20260216-color-format-v8-13-5722ce175dd5@collabora.com>
 References: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
 In-Reply-To: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -88,133 +89,225 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The new DRM color format property allows userspace to request a specific
-color format on a connector. In turn, this fills the connector state's
-color_format member to switch color formats.
+The atomic_get_output_bus_fmts callback is used by the DRM bridge layer
+to recursively select a suitable output format in a bridge chain.
 
-Make drm_bridges consider the color_format set in the connector state
-during the atomic bridge check. For bridges that represent HDMI bridges,
-rely on whatever format the HDMI logic set. Reject any output bus
-formats that do not correspond to the requested color format.
+As a bridge that outputs to HDMI, dw-hdmi-qp will have its output
+formats determined by which formats the platform-specific integration of
+the hardware supports, and the chosen HDMI output bit depth.
 
-Non-HDMI last bridges with DRM_COLOR_FORMAT_ENUM_AUTO set will end up
-choosing the first output format that functions to make a whole
-recursive bridge chain format selection succeed.
+Implement this callback. The returned u32* buffer is supposed to be
+freed by the caller of this callback, as specified by the callback's
+documentation.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_bridge.c | 78 +++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 77 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 178 +++++++++++++++++++++++++++
+ 1 file changed, 178 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 94864e05619d..36a5158f0554 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1117,6 +1117,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
- 	return ret;
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index d649a1cf07f5..4c00218e5fd7 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -11,6 +11,7 @@
+ #include <linux/export.h>
+ #include <linux/i2c.h>
+ #include <linux/irq.h>
++#include <linux/media-bus-format.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+@@ -749,6 +750,182 @@ static struct i2c_adapter *dw_hdmi_qp_i2c_adapter(struct dw_hdmi_qp *hdmi)
+ 	return adap;
  }
  
-+static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_color_format_enum fmt)
++static int dw_hdmi_qp_config_avi_infoframe(struct dw_hdmi_qp *hdmi,
++					   const u8 *buffer, size_t len)
 +{
-+	if (fmt == DRM_COLOR_FORMAT_ENUM_AUTO)
-+		return true;
++	u32 val, i, j;
 +
-+	switch (bus_fmt) {
-+	case MEDIA_BUS_FMT_FIXED:
-+		return true;
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+	case MEDIA_BUS_FMT_RGB121212_1X36:
-+	case MEDIA_BUS_FMT_RGB161616_1X48:
-+		return fmt == DRM_COLOR_FORMAT_ENUM_RGB444;
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+	case MEDIA_BUS_FMT_YUV12_1X36:
-+	case MEDIA_BUS_FMT_YUV16_1X48:
-+		return fmt == DRM_COLOR_FORMAT_ENUM_YCBCR444;
-+	case MEDIA_BUS_FMT_UYVY8_1X16:
-+	case MEDIA_BUS_FMT_VYUY8_1X16:
-+	case MEDIA_BUS_FMT_YUYV8_1X16:
-+	case MEDIA_BUS_FMT_YVYU8_1X16:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
-+	case MEDIA_BUS_FMT_YUYV10_1X20:
-+	case MEDIA_BUS_FMT_VYUY10_1X20:
-+	case MEDIA_BUS_FMT_YVYU10_1X20:
-+	case MEDIA_BUS_FMT_UYVY12_1X24:
-+	case MEDIA_BUS_FMT_VYUY12_1X24:
-+	case MEDIA_BUS_FMT_YUYV12_1X24:
-+	case MEDIA_BUS_FMT_YVYU12_1X24:
-+		return fmt == DRM_COLOR_FORMAT_ENUM_YCBCR422;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
-+	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
-+		return fmt == DRM_COLOR_FORMAT_ENUM_YCBCR420;
-+	default:
-+		return false;
++	if (len != HDMI_INFOFRAME_SIZE(AVI)) {
++		dev_err(hdmi->dev, "failed to configure avi infoframe\n");
++		return -EINVAL;
 +	}
++
++	/*
++	 * DW HDMI QP IP uses a different byte format from standard AVI info
++	 * frames, though generally the bits are in the correct bytes.
++	 */
++	val = buffer[1] << 8 | buffer[2] << 16;
++	dw_hdmi_qp_write(hdmi, val, PKT_AVI_CONTENTS0);
++
++	for (i = 0; i < 4; i++) {
++		for (j = 0; j < 4; j++) {
++			if (i * 4 + j >= 14)
++				break;
++			if (!j)
++				val = buffer[i * 4 + j + 3];
++			val |= buffer[i * 4 + j + 3] << (8 * j);
++		}
++
++		dw_hdmi_qp_write(hdmi, val, PKT_AVI_CONTENTS1 + i * 4);
++	}
++
++	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_AVI_FIELDRATE, PKTSCHED_PKT_CONFIG1);
++
++	dw_hdmi_qp_mod(hdmi, PKTSCHED_AVI_TX_EN | PKTSCHED_GCP_TX_EN,
++		       PKTSCHED_AVI_TX_EN | PKTSCHED_GCP_TX_EN, PKTSCHED_PKT_EN);
++
++	return 0;
 +}
 +
- /*
-  * This function is called by &drm_atomic_bridge_chain_check() just before
-  * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
-@@ -1160,6 +1201,7 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
- 	struct drm_encoder *encoder = bridge->encoder;
- 	struct drm_bridge_state *last_bridge_state;
- 	unsigned int i, num_out_bus_fmts = 0;
-+	enum drm_color_format_enum fmt;
- 	u32 *out_bus_fmts;
- 	int ret = 0;
- 
-@@ -1201,13 +1243,47 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
- 			out_bus_fmts[0] = MEDIA_BUS_FMT_FIXED;
- 	}
- 
-+	/*
-+	 * On HDMI connectors, use the output format chosen by whatever does the
-+	 * HDMI logic. For everyone else, just trust that the bridge out_bus_fmts
-+	 * are sorted by preference for %DRM_COLOR_FORMAT_AUTO, as
-+	 * bus_format_is_color_fmt() always returns true for AUTO.
-+	 */
-+	if (last_bridge->ops & DRM_BRIDGE_OP_HDMI) {
-+		fmt = drm_color_format_enum_from_hdmi_colorspace(conn_state->hdmi.output_format);
-+		if (fmt == DRM_COLOR_FORMAT_ENUM_INVALID) {
-+			ret = -EINVAL;
-+			drm_dbg_kms(last_bridge->dev,
-+				    "Couldn't convert HDMI format to DRM format\n");
-+			goto out_free;
-+		}
-+		drm_dbg_kms(last_bridge->dev, "HDMI bridge requests format %s\n",
-+			    drm_get_color_format_name(fmt));
-+	} else {
-+		fmt = conn_state->color_format;
-+		drm_dbg_kms(last_bridge->dev, "Non-HDMI bridge requests format %s\n",
-+			    drm_get_color_format_name(fmt));
++static int dw_hdmi_qp_config_drm_infoframe(struct dw_hdmi_qp *hdmi,
++					   const u8 *buffer, size_t len)
++{
++	u32 val, i;
++
++	if (len != HDMI_INFOFRAME_SIZE(DRM)) {
++		dev_err(hdmi->dev, "failed to configure drm infoframe\n");
++		return -EINVAL;
 +	}
 +
- 	for (i = 0; i < num_out_bus_fmts; i++) {
-+		if (!bus_format_is_color_fmt(out_bus_fmts[i], fmt)) {
-+			drm_dbg_kms(last_bridge->dev,
-+				    "Skipping bus format 0x%04x as it doesn't match %s\n",
-+				    out_bus_fmts[i], drm_get_color_format_name(fmt));
-+			ret = -ENOTSUPP;
-+			continue;
-+		}
- 		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
- 					       conn_state, out_bus_fmts[i]);
--		if (ret != -ENOTSUPP)
-+		if (ret != -ENOTSUPP) {
-+			drm_dbg_kms(last_bridge->dev,
-+				    "Found bridge chain ending with bus format 0x%04x\n",
-+				    out_bus_fmts[i]);
- 			break;
-+		}
- 	}
++	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_DRMI_TX_EN, PKTSCHED_PKT_EN);
++
++	val = buffer[1] << 8 | buffer[2] << 16;
++	dw_hdmi_qp_write(hdmi, val, PKT_DRMI_CONTENTS0);
++
++	for (i = 0; i <= buffer[2]; i++) {
++		if (i % 4 == 0)
++			val = buffer[3 + i];
++		val |= buffer[3 + i] << ((i % 4) * 8);
++
++		if ((i % 4 == 3) || i == buffer[2])
++			dw_hdmi_qp_write(hdmi, val,
++					 PKT_DRMI_CONTENTS1 + ((i / 4) * 4));
++	}
++
++	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_DRMI_FIELDRATE, PKTSCHED_PKT_CONFIG1);
++	dw_hdmi_qp_mod(hdmi, PKTSCHED_DRMI_TX_EN, PKTSCHED_DRMI_TX_EN,
++		       PKTSCHED_PKT_EN);
++
++	return 0;
++}
++
++/*
++ * Static values documented in the TRM
++ * Different values are only used for debug purposes
++ */
++#define DW_HDMI_QP_AUDIO_INFOFRAME_HB1	0x1
++#define DW_HDMI_QP_AUDIO_INFOFRAME_HB2	0xa
++
++static int dw_hdmi_qp_config_audio_infoframe(struct dw_hdmi_qp *hdmi,
++					     const u8 *buffer, size_t len)
++{
++	/*
++	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
++	 * AUDI_CONTENTS1: { PB3, PB2, PB1, PB0 }
++	 * AUDI_CONTENTS2: { PB7, PB6, PB5, PB4 }
++	 *
++	 * PB0: CheckSum
++	 * PB1: | CT3    | CT2  | CT1  | CT0  | F13  | CC2 | CC1 | CC0 |
++	 * PB2: | F27    | F26  | F25  | SF2  | SF1  | SF0 | SS1 | SS0 |
++	 * PB3: | F37    | F36  | F35  | F34  | F33  | F32 | F31 | F30 |
++	 * PB4: | CA7    | CA6  | CA5  | CA4  | CA3  | CA2 | CA1 | CA0 |
++	 * PB5: | DM_INH | LSV3 | LSV2 | LSV1 | LSV0 | F52 | F51 | F50 |
++	 * PB6~PB10: Reserved
++	 *
++	 * AUDI_CONTENTS0 default value defined by HDMI specification,
++	 * and shall only be changed for debug purposes.
++	 */
++	u32 header_bytes = (DW_HDMI_QP_AUDIO_INFOFRAME_HB1 << 8) |
++			  (DW_HDMI_QP_AUDIO_INFOFRAME_HB2 << 16);
++
++	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS0, &header_bytes, 1);
++	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS1, &buffer[3], 1);
++	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS2, &buffer[4], 1);
++
++	/* Enable ACR, AUDI, AMD */
++	dw_hdmi_qp_mod(hdmi,
++		       PKTSCHED_ACR_TX_EN | PKTSCHED_AUDI_TX_EN | PKTSCHED_AMD_TX_EN,
++		       PKTSCHED_ACR_TX_EN | PKTSCHED_AUDI_TX_EN | PKTSCHED_AMD_TX_EN,
++		       PKTSCHED_PKT_EN);
++
++	/* Enable AUDS */
++	dw_hdmi_qp_mod(hdmi, PKTSCHED_AUDS_TX_EN, PKTSCHED_AUDS_TX_EN, PKTSCHED_PKT_EN);
++
++	return 0;
++}
++
++static u32*
++dw_hdmi_qp_bridge_get_output_bus_fmts(struct drm_bridge *bridge,
++				      struct drm_bridge_state *bridge_state,
++				      struct drm_crtc_state *crtc_state,
++				      struct drm_connector_state *conn_state,
++				      unsigned int *num_output_fmts)
++{
++	unsigned int num_fmts = 0;
++	u32 *out_fmts;
++
++	/*
++	 * bridge->supported_formats is a bit field of the HDMI_COLORSPACE_* enums.
++	 * These enums are defined by the HDMI standard, and currently top out at
++	 * 7. Consequently, BIT(7) is the highest bit that will be set here, unless
++	 * the standard runs out of reserved pixel formats. Therefore, hweight8()
++	 * will give an accurate count of how many bus formats we'll output.
++	 */
++	out_fmts = kmalloc_array(hweight8(bridge->supported_formats), sizeof(u32),
++				 GFP_KERNEL);
++	if (!out_fmts) {
++		*num_output_fmts = 0;
++		return NULL;
++	}
++
++	switch (conn_state->hdmi.output_bpc) {
++	case 12:
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_RGB))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB121212_1X36;
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV12_1X36;
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV422))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY12_1X24;
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV420))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY12_0_5X36;
++		break;
++	case 10:
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_RGB))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB101010_1X30;
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV10_1X30;
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV422))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY10_1X20;
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV420))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY10_0_5X30;
++		break;
++	default:
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_RGB))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB888_1X24;
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV8_1X24;
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV422))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY8_1X16;
++		if (bridge->supported_formats & BIT(HDMI_COLORSPACE_YUV420))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY8_0_5X24;
++		break;
++	}
++
++	*num_output_fmts = num_fmts;
++
++	return out_fmts;
++}
++
+ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 					    struct drm_atomic_state *state)
+ {
+@@ -1192,6 +1369,7 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
+ #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
  
-+out_free:
- 	kfree(out_bus_fmts);
- 
- 	return ret;
+ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
++	.atomic_get_output_bus_fmts = dw_hdmi_qp_bridge_get_output_bus_fmts,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_reset = drm_atomic_helper_bridge_reset,
 
 -- 
 2.53.0
