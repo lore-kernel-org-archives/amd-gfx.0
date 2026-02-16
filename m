@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A519CE81A3A
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Feb 2026 15:50:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BA8BE81A3A
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Feb 2026 15:50:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2762C10E091;
-	Mon, 16 Feb 2026 15:50:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 353E510E3A0;
+	Mon, 16 Feb 2026 15:50:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PWZln9Df";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kyDxpIfc";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011011.outbound.protection.outlook.com [40.107.208.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66BC310E091
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 15:50:06 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011003.outbound.protection.outlook.com [52.101.62.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1F1210E3A0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 15:50:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uGfLgB5MtwLxJuQPovrLYwaiV4DqX8Jrg5GaX8RrukJPi62GOMqw+QfdiRzV5J/mk72bbEYpFe6yAhRifVM/B6HeM5KmxLjY4GjekcaEc9OCFErhHuVG1jvowa5aR3LaOop7pqDRax6JcW752ksgFhWh5XSXq9bGBvdT0ix1KsfMFFDocxZ2fCcllzTd80N9XSbtpVb6OrsXHVa3Y0gQTtIZKGS677HntVTYoNNBByeB1S7D8TeaSTSUppctLeZB0aodl+hoxtjrxKCerXpEOFHQWXf0ji/AQs1Sodg/DYIcrqxJF4iLIcF5l5X2fKnjzHbBoLghMOlVthj6Kgy5ng==
+ b=jg2U3Y/HcTaiZTZk2FO+yZT891xypJnt06aWmBWeIbaD/jc1omrOsm6SFGHLZPGuPxiNw/shIHjzt7O9dam/Kb2T0AMDErbcAuUfdzYsza376MjpVUVmCAVohhskjdJyDbpF1XOiqU6pJADRcBKKO2TH/zrWesxXgOHyvE5oVvjAZVot0nHcDiJSy/+kTN3Wy6WEu5KcRNUV0jCO1aR4MtjIQJ5L1sjmnkxNYzE2IpnObXtJGBxcUIyGS8yUB/fELhKHK8/t0qXQ+BC6+1IrI7Jf/rlmbm6gB3KoNr1vd8LiwKzRGy8O5qTToh7lmy8m1m4cTrg3tAFn7mzi6FvGVw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p/GapyyNQBSpBZ1B0mlistJZjUoYwPKUKIBfFqs7QSE=;
- b=h75TCiV/1AOg5LgYs2TlPXSDcP3bLNYm8OeoI0eKTPpUTkVWAfvCqjuioI73V73NUWvDE2/ygsBNQ/eFOYRye8ztrKpj+67YsZLBM9jrBTuo/N2xfmxTtCtHTq5q64wxl2w/JD4LGTMNMK7zSTBeGLgakoNhl/IoJt4Fb9a/Jpdtvuq/ggquss1d8TzoYEFp1gNE3/JYyKM07SQdvPkTmSvvlczsu/pFhgc4l2T1ycIOfSaEtdezlHkRT2+oGjL3CQVmK6wSpBER/v+YuP8ucQkGOJ6sR2Kb+moHDghFaSHZ94yXEZV3DfZVZMpz77pcBTIqVzA9nFucwUUcN1siAQ==
+ bh=XDExWVnTrePbCIZFaIZnbeJhFgbEhP9I6G0l6lQVOAc=;
+ b=IwmCFtPUePQUra1ZNPG3xnrtoE1N27kcM98yLs81QIyUqPKaxUrPnJpYhYtft3qCD1WuuCcz+2m8Gp0rpVW2+cLqqGYcoOO5X3ULDnUkp/Ydo9ZFjuzwK9+EkX8fIsEUOjhT8dQTAwZb9hBql7OX4VCxGpeKQeywGP8PBkwGiT3Yt3YXT6XfZLGq2ZSXNrR0jT2X4mpvbuyxW+iIRktCH9qDwGIlIgQFymS1o0hNmgEi+cyisLegwjNcJEU/JUJt5jKJ9gA5Ao5QoLDz9oH5u4dsLEvin4bJ6KrZVIUMB7sa91mq2h8yWt5oWFsBkcA/05RGHe41y6NEY1X2dgyg4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p/GapyyNQBSpBZ1B0mlistJZjUoYwPKUKIBfFqs7QSE=;
- b=PWZln9DftY6vUKTiczk+vfHtMFVWsy1TRuMCzHleeUUgnLhXcFbdW8SVIV77Er4KlEFp5kKgVfJuqCn2rvhcPudDTtG2B5SxMMfxTmkA8BQFUwaVTG2XZ+ky6wVso79LUS3Rstljm7zNy39vEwB6CIg5tE9GRzOzHKcuVSd9TiM=
-Received: from BYAPR07CA0099.namprd07.prod.outlook.com (2603:10b6:a03:12b::40)
- by SA5PPF6407DD448.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8ce) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.13; Mon, 16 Feb
- 2026 15:50:01 +0000
+ bh=XDExWVnTrePbCIZFaIZnbeJhFgbEhP9I6G0l6lQVOAc=;
+ b=kyDxpIfcAW42qF1mOdYJJWVZNj3Fs17/k4JyBPbJT3J9FmcUVJoG7DgZxNIqc5aW0/1d77Kawzu3fhmbLWovYbHQvbpAlaVrCi+BIeAutUHIW7Bw3yf1XcILRhHnQ71V/prftpretxTTHMWm8NhyByHWVscfc1qIzfp6iy8H7sY=
+Received: from BYAPR07CA0092.namprd07.prod.outlook.com (2603:10b6:a03:12b::33)
+ by IA0PR12MB8716.namprd12.prod.outlook.com (2603:10b6:208:485::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.16; Mon, 16 Feb
+ 2026 15:50:08 +0000
 Received: from SJ5PEPF000001CD.namprd05.prod.outlook.com
- (2603:10b6:a03:12b:cafe::27) by BYAPR07CA0099.outlook.office365.com
- (2603:10b6:a03:12b::40) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:12b:cafe::b2) by BYAPR07CA0092.outlook.office365.com
+ (2603:10b6:a03:12b::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.16 via Frontend Transport; Mon,
- 16 Feb 2026 15:49:54 +0000
+ 16 Feb 2026 15:50:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,21 +50,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ5PEPF000001CD.mail.protection.outlook.com (10.167.242.42) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.12 via Frontend Transport; Mon, 16 Feb 2026 15:50:01 +0000
+ 15.20.9632.12 via Frontend Transport; Mon, 16 Feb 2026 15:50:07 +0000
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 16 Feb 2026 09:49:59 -0600
+ 15.2.2562.17; Mon, 16 Feb 2026 09:50:01 -0600
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
 CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>
-Subject: [PATCH v2 0/8] drm/amdgpu: Render-node eventfd subscription
- infrastructure (toward KFD/KGD event unification)
-Date: Mon, 16 Feb 2026 21:19:35 +0530
-Message-ID: <20260216154943.1582412-1-srinivasan.shanmugam@amd.com>
+ <srinivasan.shanmugam@amd.com>, Harish Kasiviswanathan
+ <Harish.Kasiviswanathan@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH v2 1/8] drm/amdgpu/uapi: Add EVENTFD bind/unbind ioctls for
+ render node
+Date: Mon, 16 Feb 2026 21:19:36 +0530
+Message-ID: <20260216154943.1582412-2-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260216154943.1582412-1-srinivasan.shanmugam@amd.com>
+References: <20260216154943.1582412-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -73,66 +76,66 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|SA5PPF6407DD448:EE_
-X-MS-Office365-Filtering-Correlation-Id: 077ac105-49f8-4326-8423-08de6d730b85
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|IA0PR12MB8716:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75aa2b27-ba33-4b77-2581-08de6d730f0f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?WUwwQ0xmbDBOVmhIWWRTckxmMzhjZVZNSmtlSVZEcFAzMkREckVoSUZsZE5B?=
- =?utf-8?B?UlBxdWp5MTFCSWk5cExhbWk2Z0tkSW5xdEZ3R3dnSkpCNVc2WmsrM0Y5N1Iw?=
- =?utf-8?B?Zzh6VjFmNnpwYlg3emFnTjAwT01sOUtTaEpEMG9OeStmUDdCL3NKLzBoUWs0?=
- =?utf-8?B?SjFkajhtZG1YL25WZ0JBQXVlOStteXFyNGZwZ01vNFViVkFxOFZLaEhJWVhG?=
- =?utf-8?B?d3k0UmRpYm1udC92d29URWNrQVpFL2wyUXJZMWQyK3RjUmpHR3ZrUVBCVDJk?=
- =?utf-8?B?VHRuSXFlMHdzZkVSYU5hVS9aN21uQkJaSmJEeW9laEMrRDl4RWhMZ0tCTWZh?=
- =?utf-8?B?Yk8yK05vSXlQU1FUc2FXblFIcUdENnRhZC9heWMzWHhMWFNiY3dMS2pwWEhx?=
- =?utf-8?B?MDBYbmJ6SE9malJkeUZISzJ1S1BJWnZTbnp2ZkRmUmVZNDFnTFY3QXB2bG8z?=
- =?utf-8?B?ZlhiRnhWdzlmdkkrdEd6d291VUczWTA1dU9PaFFVRnJkVnh0cWZIdWFyUHZM?=
- =?utf-8?B?TUZ6YzlVS3JzM2x4aHlKRlU1UExmU3kxeFBXeDlFRjBpUG9OVXB5UDhDYjZ1?=
- =?utf-8?B?Yld0MVJhUXFvd2xiRnBCZ0xaZVVPY0ZZcUpVMHdsS0pSQ2VHeFplaEJ0a1Nv?=
- =?utf-8?B?dytWcUwyaGJpZ0trZDlGdDZzLzlHS3hnNGVQR2tjQU1FZTBQZUhJU1lYOE93?=
- =?utf-8?B?Q1pvaDVNYmhHNGxsOUxlb2RvSHd5NU9PVEYzZ3pYdFBmand2bERTUm1nODZB?=
- =?utf-8?B?RGNMOWlIcmJaQ01yVmJ1VXFhL29QMUpZOUl1Q1pDVWhROW9kQ2EvYXljQlN2?=
- =?utf-8?B?VDNpUW41YldPOFFrbWY2ellqeG1UOUxHSEZEaFdGTldDa2ZRVU9OYkY0MFRF?=
- =?utf-8?B?dEw0TWVJelRMdURoNHpOVDc4c2xzcUpsd3dvRmZMRU9WeGRsTEwyWlpNK1d6?=
- =?utf-8?B?TXNWcXpkbVdDQ3kyU3ZteTdVWVJXNHp4ZkxrVWdKZ1E2TExjMVEyUDV4b21E?=
- =?utf-8?B?aHZJdUhydVJ6dTZaSFQzNzdBZVBZYTk4V3BMelFaTytiL3g2UUVQRk9lYjgy?=
- =?utf-8?B?MGJHUTFqekhhWSsweW40MzE2OURPWmxXVHA2VlkxZjBOcGV2K3B2RmtvNjRm?=
- =?utf-8?B?RGU4Nm1Jd0lwbUlQUXZUeWw4SzNUMVlNb0pFRmlLTHBVYWo4UUcvaGlNOWxo?=
- =?utf-8?B?dEI3dUdWcWNVU1pDdGc0bmRIdVQreTNHamFMbVhRZHU0bFRvUWoxOEEvLzZP?=
- =?utf-8?B?enB5SUxIWGF1dENhcTFDblhkSG5TZ1U3RzlKWHJ5RnVPWnFzdUZodVNUYWtY?=
- =?utf-8?B?ZTM4SkJYUzFoZDZTdmIzaHVuZzNXaU5WS3FOV2FsVHhNOTJUaGNwYm5uanhM?=
- =?utf-8?B?WWd3OFVBeERRdzZiK3gvRm9xQ1E1TEg0WUd0Q0RIeDJYbHhWc082eVkvQ20y?=
- =?utf-8?B?cS9KV0RZa2JKdFpFdE5lcWhsZ0ROVUNOR3k0MmQ5elRYR3hacDloTFlBNFdB?=
- =?utf-8?B?SVRoakdVM29VbmNsUnFIcmg1b3VEN1hPZHdWSzZjSjZhbzRpUXI3Y3VQblpP?=
- =?utf-8?B?RCtBazNsOWgzMHpDOXVoWHl5UWkxRnc0OVN5UWlieXk0WWR3M2picTE1NjRC?=
- =?utf-8?B?aDZoVXpvYnQvNlh5RE8rU3hnbmU3UmRKcUFITHZxRU9vb0phK2o1NVcrNTNx?=
- =?utf-8?B?YVFKanpCSGFQZzU0UEtrNFRkOWIyclE2aEtzSUp6cEpoRm15Ulh4R3Y1c01Q?=
- =?utf-8?B?T2dJUVl6NXIyZTExOVorMFRnNFluZzhYSmYrRjNzUVVEZWNNaUdqdGxkcVRC?=
- =?utf-8?B?VS9RWkc3cUN5ZEZMTUNyMGJqVy96bHpQWGVLLzJlMzF4bzYvalRtZm03VHFi?=
- =?utf-8?B?NXc1Wm9KMlFRRkptVWpzTk9rMzFEU2I2UmRvN2V4cHBwYkZEVUsvQnM5R3lH?=
- =?utf-8?B?bStSQUh0L25UdFZvb0k4djFEMHgzSkw2ZHVaRkxibi9GNWFzN2dXWWZ2UUtB?=
- =?utf-8?B?TkdudUkvU3YxbGF4d3RWcm40L0FTbjI5anF4a1FJMWpuOGZseWZEVGZMc1JJ?=
- =?utf-8?B?VW9XOE5zR0ZFT3lmRllsZUFZbjRaeVNMbElXUnl0S0h1QUxveFFtYUpZa3pm?=
- =?utf-8?B?TGZxWHpVbEJVR0JHTU1WNDJmOEVjU3hPanNsU1IzOXJhNzlTUzNFUVJqcGl0?=
- =?utf-8?B?eUdwN2hUb0VtTUR2aWlVQUdCU0VwUmpaVnVOSFUyMWE0R003RXVKT2FIcTBM?=
- =?utf-8?B?RHNJTmtvV1VqS1VuT0xZTTB5ZlJBPT0=?=
+ ARA:13230040|1800799024|82310400026|376014|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?cU1DNzdLYnVidm5FeWtZU2dHbU1KSTVBMUlpa2twZGt1MS9USmlSTXUzaW9a?=
+ =?utf-8?B?NGdoY1ZjQ29GY3FETUloTGtRUDZEdDhqcVBPMTVncHg3STMxUkpqMXV5bEJY?=
+ =?utf-8?B?UGFoRHF1eldhWUVLMWl0bTNhd0xMbGoxRk1HTUg5OFI4ZnBreDAyQzJGbTV0?=
+ =?utf-8?B?Wk5VRmQ0ZkFPcUtxajUzdXNna3FMS0R1aDgzbitzWU0yRnRUNGRxcFR6bmhK?=
+ =?utf-8?B?dUdtaG92T0l2VGU1WFAzOTR1U1hBNTZtT1RkcXhTT3NqbllST050VjY3RVl6?=
+ =?utf-8?B?YzJkaGZPMU9jRk80M2F5Q3BTbzdJM3ltTDZjZkRVYU5rcnQvVXdkWndxUWFL?=
+ =?utf-8?B?TWxydC9mdnYzeVFvNEkzNXFEd1FTRUZGa1Rta1VibUZSaitTN3dzKzd4R0pt?=
+ =?utf-8?B?Vy9CblVxNGd4NitjWTlPYktQUzhYU0NXeEpLT1BSUk13ZmRVS1gydS9EL2FC?=
+ =?utf-8?B?T28wS3JOQTFrSzdmR0ZqRUo4LzloU3hHak1jc0JaL3NLeTBaYkJNZkl1SUU1?=
+ =?utf-8?B?cXR2Zk1NNldrK0x3V3Awd2JGMDdyTUdHa3p2YVpucHJneUlVa3I4cjk1R0hY?=
+ =?utf-8?B?czJiTmJRNE9hZHArOGNWRE5tcWQ0SHJ6b21Id3N4Qkgzclc2Q1VHNjVnM2hI?=
+ =?utf-8?B?aEVpYm80a2orSktEbXczRC9tUU1iMDJVVG1heCt6Y1hCanpYck44eUhkY1Q0?=
+ =?utf-8?B?RCswOWRTOUhnbElMY0o2WDdrS3BKRkdWNDFESzI4V01FMjFGNzlTV1dDY0pP?=
+ =?utf-8?B?Ri85b2ZELzc1R0crZGxnMXhxb2JybTcwbDhWbVZ3c2xhMndMMlNOb0dXNEJC?=
+ =?utf-8?B?MzdOMFpKMkwyZ21iUGRFMWVMN2hqZXdiMXVQQmxxcjdaNHVOei96OE4wZUpq?=
+ =?utf-8?B?UmtoRXNpR0dVeG0xQVpidUNmN256dlpBNjJ0ZEhncDBzcVh2UytrN2VBOUcy?=
+ =?utf-8?B?UlJ6TlFuMTdoUDNhdkJMeHR5VDMzSkJUbjFCSU5OSGdhclF0WlhuVHVZZyto?=
+ =?utf-8?B?THpMVE1ybzdpZzU3dnMrVTJLb1BUcUVrT1premRxNzZmWkJTUDVqT1NVUC9C?=
+ =?utf-8?B?U2lpM1RkcmtuL09KMUloY3N1Uk9pOVJ6ZDZiMlNnNFVtVGhRYTRWUktrS1NG?=
+ =?utf-8?B?NVRmN1oxNDY4ZHVtVzM5OWVSNnFzc2lRQjBBeGJkNE9PZ1lKUWlucHIwdzJz?=
+ =?utf-8?B?Zy9pY0pDZ3ArRWpZMDNXUXpWZkkzai9pclNKaTdyT0QwbkFCcHdQR0dIYm5L?=
+ =?utf-8?B?bHlNaHptaFBvdEdHQlcyYmswRG9KMGMreUFvWjBBUGdWNDVZWDVwekRkK2pK?=
+ =?utf-8?B?M0dNV2JWbVZkakxXeVBzQWhYNDR4Nzk2cDVSaWk5ZTU5dnIxcDBLZ2l2K0U3?=
+ =?utf-8?B?VDgyWjB5NDM5d2lGUDZUanpIaTFUM01RZkFySWRYTFVYR3ZmVC8yTVdhU2py?=
+ =?utf-8?B?OHhRR3ViWldVeEx2VGRmMHdUZFRqNnQzVzlmZG1Fb0cwY2FwR01KUkxYZ3hK?=
+ =?utf-8?B?N2hqd2QxUDhzMlNrd3AvWVJpV2pPUGk1NU5rWEhaRGk5UHBRd29XQmdPUlRB?=
+ =?utf-8?B?RFZwRlpxNVlMSHBjcXhVWlFDZEZSSTV6M2M3czd3OGlYK2kzaHQwbzhud3l2?=
+ =?utf-8?B?RU1PYmFnNVJIVEY3MTFra3NNeEVJbGs4d2NwRDlRUzhKbzBHWXFNcEdFeFhI?=
+ =?utf-8?B?OHJ5dFJJdGk4RXF3bEF4NC96N01DMTlRZzE0N2VYSXNDUVVmT3ptM1BZWXJG?=
+ =?utf-8?B?bkg2R0wvZEVOU2ZQTS9lcCtTSVkyMWhJMXBTNHpCRDlEaS8zaTJzTEJhK1hN?=
+ =?utf-8?B?MFU3RkpDU081VTFXVi8wNTZpL3V6TUJlSlc5SmFEMitpdU5xRjdSOXZHRmZ6?=
+ =?utf-8?B?a1FuREtNUGdVTXlVR1FqOVQzd2I0Q0dPa0N4aER4SmFrYTBiK3F3NjVIN05S?=
+ =?utf-8?B?dk1ZWCtBemFRT0wzaDFvcWRjdFV0Y2cxSUxSSGVrUllCcWlYcU5pbkNOdnpK?=
+ =?utf-8?B?NlNBZ2xCSWg5dHQzbUdxekp3a3RZaUlGQ3EyeUZwKzExY0U3MnBETzBGTWxr?=
+ =?utf-8?B?KzVNd082RG9ZMWNOUFVkbEpJL0JtOFhZZFhsTE9VbFBWZGljemFBakx0OHZk?=
+ =?utf-8?B?cHc1TnJsYlJLUUJVWG9PNlIrZHBxaTQrZUZYb3REdm1vL2xNRWpySnJuUHl0?=
+ =?utf-8?B?dnVmU1ZHUWNKY1JMVUxweGdCK3NjUmxvZHIzNmh6Y05UUGI4YU03ZWQ1R1Q1?=
+ =?utf-8?B?eERMVUhxdkhTdnlmakZoNU1nU3pRPT0=?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(376014); DIR:OUT;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700013); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: A31w3lViVb8d9mGGFaQViPa2/k1RWDwtuAatVwaktQY7pcPL/clASFTJ/CKrKw/YzlyS25r6pfWM7kijqvXbgAypXq7fauCV1r/2ydmY35Ft/GLxUlFy+Gb7K+G+u43fsWEyTAHHZjC4e6brZxqsx1HgSgkgpDKcezNJl9OC1y4NoE6gGZohkVBbG6RIp1XdP0zIfQRN8yPVrG32FgDtydVYB8boKHwitPPhidWOBEREfI+LQZ6ZMIelYgtg/Fq/wSTvhArxWM5LRLFWTmz06VbWv07HIMekbZqjfR4i6PhnIkOAYBzdeMyZCaX6QUumY9NRde2eKwCi9hvuXOJSlV+lb9gecybUpRTTKIdxRNcWu35uB7G+q/i9CsL+WAyvioJ4fJpBaOYIau2lkLe2IAeiTwo//O3hylQzrxV7edI/tWsqXzFDHU9ZH7SPctbo
+X-MS-Exchange-AntiSpam-MessageData-0: 82iz8jX49YU1bnHqt8/Ji694/CIIydwYl+jGv/NnTC7E0EH56Yd909e6emt4Rj/4RSQH7Kap9hQ4fTOe0VQhlLxOwOH269zHIVScyixxAuX6RwGD/4uhV+s03iyInxcoDMbXq1zhZ2EPnT1eNiJSMK2CnD7S84yIXlna4tj7ZvtE7COV5K/Y4YZ1Q3aO/4BTFrpXKNnir5VDS48hp6dwdrRHYzXuUwxpAK+FrtWNqJgzge+f/MFPXzcUwScfdK9z+bAkh8YWvT4xH7SsGkr35Zjv1ffsuwW02NgepRH15dX3xHmuRvjRrEqvYqWmlGulVzXrYHRRYI1IfO7lWpRZaO3cTLLTPDQZds1qAYHIyLyqBWeVQe82Mvy+/JU4cusN/hVNLn8pMo4gtDuCcNrkNXA1l9eiSVx16K7QlPrYTMmkc4A+y0Q4w8TMevH/blNp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2026 15:50:01.3811 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 077ac105-49f8-4326-8423-08de6d730b85
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2026 15:50:07.3767 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75aa2b27-ba33-4b77-2581-08de6d730f0f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CD.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF6407DD448
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8716
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,74 +150,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Introduce two new UAPI ioctls to allow userspace to bind and unbind
+an eventfd to a userspace-defined event_id on the render node.
 
-v2:
-Added PASID→fpriv registry and KFD→render-node eventfd bridge patches.
-Series builds cleanly and is compilation-tested.
+    DRM_AMDGPU_EVENTFD_BIND
+    DRM_AMDGPU_EVENTFD_UNBIND
 
-v1:
-This series introduces a render-node based eventfd subscription
-mechanism in amdgpu. It allows userspace to bind an eventfd to a
-userspace-defined event_id on a per-drm_file basis and receive
-interrupt-driven notifications via poll/epoll.
+The bind ioctl associates an eventfd file descriptor with an event_id
+within the context of a drm_file (i.e., per-process / per-PASID).
+When a matching interrupt or driver event occurs, the kernel can
+signal the corresponding eventfd, allowing userspace to use poll/epoll
+for event notification.
 
-The goal is to move KFD-style event signaling semantics into the DRM
-render node path as a step toward KFD/KGD event unification. Today,
-HSA-style events are managed in /dev/kfd. This series enables similar
-functionality directly via /dev/dri/renderD*, reducing duplication
-and moving toward a single kernel event model.
+The unbind ioctl removes the association.
 
-The series consists of:
+Cc: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Change-Id: I02faa7404c10c40d74c9aa2d4a367c226b8b23fd
+---
+ include/uapi/drm/amdgpu_drm.h | 35 ++++++++++++++++++++++++++++++++++-
+ 1 file changed, 34 insertions(+), 1 deletion(-)
 
-  1) UAPI additions for EVENTFD bind/unbind ioctls.
-  2) Per-drm_file eventfd registry stored in amdgpu_fpriv.
-  3) IRQ-safe signaling helper using RCU + lockless xa_load().
-  4) Minimal producer wiring on GFX11 MES EOP IRQ path.
-  
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 33e8738ce91f..4b367352bebb 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -39,6 +39,8 @@ extern "C" {
+ #endif
  
-High-level design
------------------
-
-- Binding is per drm_file (per-process / per-PASID).
-- Each event_id maps to a struct amdgpu_eventfd_entry containing
-  an eventfd_ctx.
-- Bind replaces existing mappings.
-- Unbind removes mappings.
-- IRQ path uses:
-      rcu_read_lock()
-      xa_load()
-      eventfd_signal()
-  guaranteeing lockless, IRQ-safe behavior.
-- Teardown uses call_rcu() + synchronize_rcu() to ensure safe lifetime.
-
-The MES EOP wiring is intentionally minimal and uses a fixed
-event_id as a proof-of-concept producer.
-
-Srinivasan Shanmugam (8):
-  drm/amdgpu/uapi: Add EVENTFD bind/unbind ioctls for render node
-  drm/amdgpu: Add per-drm_file eventfd registry for render node
-  drm/amdgpu: Add IRQ-safe eventfd signal helper
-  drm/amdgpu/gfx11: Wire MES EOP IRQ to render-node eventfd
-  drm/amdgpu: Add PASID->fpriv registry for KFD->render eventfd bridge
-  drm/amdgpu: Register/unregister fpriv in PASID registry on
-    open/postclose
-  drm/amdgpu: Add amdgpu_eventfd_notify(pasid,event_id,count)
-  drm/amdkfd: Notify render-node eventfd subscribers for KFD events
-
- drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  25 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   3 +
- .../gpu/drm/amd/amdgpu/amdgpu_eventfd_pasid.c | 141 ++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       | 150 +++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |   2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |   5 +
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |   4 +
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  14 ++
- drivers/gpu/drm/amd/amdkfd/kfd_events.c       |  76 ++++++++-
- include/uapi/drm/amdgpu_drm.h                 |  35 +++-
- 11 files changed, 447 insertions(+), 11 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd_pasid.c
-
+ #define DRM_AMDGPU_GEM_CREATE		0x00
++#define DRM_AMDGPU_EVENTFD_BIND		0x1A   /* render-node eventfd bind */
++#define DRM_AMDGPU_EVENTFD_UNBIND	0x1B   /* render-node eventfd unbind */
+ #define DRM_AMDGPU_GEM_MMAP		0x01
+ #define DRM_AMDGPU_CTX			0x02
+ #define DRM_AMDGPU_BO_LIST		0x03
+@@ -79,7 +81,12 @@ extern "C" {
+ #define DRM_IOCTL_AMDGPU_USERQ_SIGNAL	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_SIGNAL, struct drm_amdgpu_userq_signal)
+ #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
+ #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
+-
++#define DRM_IOCTL_AMDGPU_EVENTFD_BIND \
++	DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_EVENTFD_BIND, \
++		struct drm_amdgpu_eventfd_bind)
++#define DRM_IOCTL_AMDGPU_EVENTFD_UNBIND \
++	DRM_IOW(DRM_COMMAND_BASE + DRM_AMDGPU_EVENTFD_UNBIND, \
++		struct drm_amdgpu_eventfd_unbind)
+ /**
+  * DOC: memory domains
+  *
+@@ -204,6 +211,32 @@ union drm_amdgpu_gem_create {
+ 	struct drm_amdgpu_gem_create_out	out;
+ };
+ 
++/**
++ * struct drm_amdgpu_eventfd_bind - bind an eventfd to an event_id
++ * @event_id: userspace-defined event id (e.g., HSA signal event id)
++ * @eventfd:  userspace eventfd file descriptor to signal
++ * @flags:    reserved for future use, must be 0
++ *
++ * Semantics:
++ *  - bind is per drm_file (per process / per PASID context)
++ *  - multiple GPUs: userspace repeats bind on each render node
++ */
++struct drm_amdgpu_eventfd_bind {
++	__u32 event_id;
++	__s32 eventfd;
++	__u32 flags;
++};
++
++/**
++ * struct drm_amdgpu_eventfd_unbind - unbind an eventfd from an event_id
++ * @event_id: event id to unbind
++ * @flags:    reserved for future use, must be 0
++ */
++struct drm_amdgpu_eventfd_unbind {
++	__u32 event_id;
++	__u32 flags;
++};
++
+ /** Opcode to create new residency list.  */
+ #define AMDGPU_BO_LIST_OP_CREATE	0
+ /** Opcode to destroy previously created residency list */
 -- 
 2.34.1
 
