@@ -4,84 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0054E68143
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A61BE68145
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A190510E478;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAE2010E47D;
 	Tue, 17 Feb 2026 08:05:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AYhaPGOi";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="SLYyzIpp";
 	dkim-atps=neutral
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8410E10E0EA
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 16:45:22 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-b8f947ea8easo25676666b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 08:45:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771260321; x=1771865121; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=W7wlOYuiBDSWiVWpYqNMTtfR05pQbGrwxiWFvefDzRE=;
- b=AYhaPGOisM/Eg7iu2henil1lOXQHDFYovU5GRv4sccQ93AOLa7Zx9Raj88aqMR2i2q
- LRM47EmvN2EI1YDHFVawp/eIT2i28iVMDtsDBWWM4/TLCJDR7YsWi2wTcauXtiFQCmei
- fnNDmOoim6EQLKH40E7PeaM4XYY2mRhz1PBP14GVTXkRwSjNo1zxBfeVh3C86Y3ylXqk
- ZGP2GVtBCJRY3NgXwVSMZ9n6k1IB2J+dBJOuo+T65Uq3OtQH/tF3AsaJmpBG5+D41AAW
- 5wb1KdCdk/5W45ZEc1DgnJx51Dam0TlK/PghcqJn1xSZagpXfXsYlzurvNDWj8CVkDsE
- tprw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771260321; x=1771865121;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=W7wlOYuiBDSWiVWpYqNMTtfR05pQbGrwxiWFvefDzRE=;
- b=UZGqvGBUeENdhSY8z1mkSDma71V0IgjT6Jusq+eJ8QFtNSJRIFgVpo//Rmu5OVqVlC
- X3j/oziEIjiwc5UpQUfVd05ViTSPPYbOIfSW6hXElIdhvPZp3/htJVTrS5PPEiDueona
- UCDc8WxJLMwoseR9cfMuqoOz33bo/stV4qRpojqIpRqJplZRRVYaWaaKEcc5vvdrN1MQ
- ebWXxMrpfuDqURf1zr7EjtK4Nxhd1UGE4nTXcyJGdF+bv8xkw2/9UqV8L2uy+0dpgpYV
- nyn8xoFdew76u9cgmc58G3ttm5V4vSJ3Pp5XizT9ky+ifuXz9NEKJJWIg7c7O90XBgn0
- zqeQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVkRC5hiw5vmQynblELzE8zrzHypTGYhfCDZ8GFl+YdCnPKxugoKIL3gba8gop8BVbw3BKI3zpf@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwMd7lDl5GhjMPb5DT73IaYcIQa3o4qMOjjHk+gr2DAQy6YUfiP
- EDxRWuVBlQ6f5s0T6s3JCgUD4EumXrkQFIzOorn4Rkhgb5uO2Gj8IbJJ
-X-Gm-Gg: AZuq6aIAKl/e6KBpJvJsvMVsc3oyo463hMLJdh4O+kK6LZI/8XeuAq3XDDneO2LCgo2
- koDYrlNOAR+1GmWFE6mPpB31WBm7/lMCmEEoqfjJMfX3DguqW8/NOtNxikI0EC9Uvlv/sP2zaxQ
- Jxes6nJhnCSmwnATr5F/PPVIfsl0BHt5GcXRGeNnp5yM7lh2u27mu8+2tH22ABglqPrVOIXYWot
- bTI1XWIuC+mn1Av9ynYYAf825f076CfWZO+88Birl2jdy7xKXuov+zD7lWqz1K8aLVuf5GS+/U1
- IlN9iR/EBqWsrnu9tzROLNvf88zSpFnM8q0jZZVxb+ro+TkE6SaP8vZVu1MolwD1kCrIJPjs2Mu
- tP+bABL0YhKKX+r1Q5vgecN2whI58RWMwAkYD9VTK7IzzU6L6sgHxLzZ7reF/tGLSyDZeTVbsp7
- D5LJK4fYnRtUXrZKVsViSzQrQDjG6DABw1gRw98dxMcjxrbiHOdBzJcw4zpokgeK9PPMrSUjaoH
- nqBscQIz/qWTbI=
-X-Received: by 2002:a17:906:6a24:b0:b87:3c3a:cb7e with SMTP id
- a640c23a62f3a-b8face00ea5mr368539266b.6.1771260320644; 
- Mon, 16 Feb 2026 08:45:20 -0800 (PST)
-Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8fc735d185sm264683866b.14.2026.02.16.08.45.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Feb 2026 08:45:20 -0800 (PST)
-From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: alexander.deucher@amd.com,
-	harry.wentland@amd.com,
-	sunpeng.li@amd.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
- bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
-Subject: [PATCH v4 01/27] drm/amd/display: Return if DisplayID not found in
- parse_amd_vsdb()
-Date: Mon, 16 Feb 2026 17:44:50 +0100
-Message-ID: <20260216164516.36803-2-tomasz.pakula.oficjalny@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
-References: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C085B10E379;
+ Mon, 16 Feb 2026 13:02:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1771246937; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=SjwFdSxGKe/Yd9BHGQsS2tFZh8sCy5jdJJfJk+Ceppp7nHriZgrhek6XQ4sm3y2GywsLm3xI9LrxjmT84T+EG6S6Dhd7Bvt1yyHF+LUNcuJLSxoOffoVLOVQ41TuWfdAgZ5XdI+guGlf0NQjaGyHV+sdFhTew01rYxgLBj4zTFY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1771246937;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=XJQUiMBk6drlEqyVcvn5t6omt1siA1VhQ5FW6igxkp4=; 
+ b=eVKZtrJF96IBY16fn+j3BvwdMnISN+2fju8tz43AAaPku9jYvp5E2z7c9me9YbwdEvdCzkTIaHi/ahzx6u6isF43V10hyRu3dFiAsvmoubfvHFj9WQkbAa562qd7Y4bjmuSw+UVzPPPjQvNaX5iTIlCK/AnPF+XLY4TeqZFrl0k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771246937; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=XJQUiMBk6drlEqyVcvn5t6omt1siA1VhQ5FW6igxkp4=;
+ b=SLYyzIpp/sDAePPdKa/wbGGQOZM9CfSx/pvjyQIgBSoN8Pxl3DqRdNaqJGUV/DNK
+ Oihkj9X3YL8u24M5muBRHoLG6BheY3XHc86QPiVrI1DSNt6F0SwvOfLALVXVqmeX+Zq
+ zZhN/9nItYLeiK66SX9pkaNyNMjk9eC6Qa2EgHFw=
+Received: by mx.zohomail.com with SMTPS id 1771246935363351.37459512313205;
+ Mon, 16 Feb 2026 05:02:15 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Mon, 16 Feb 2026 14:01:19 +0100
+Subject: [PATCH v8 05/20] drm/display: hdmi-state-helper: Act on color
+ format DRM property
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260216-color-format-v8-5-5722ce175dd5@collabora.com>
+References: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
+In-Reply-To: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Tue, 17 Feb 2026 08:05:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,34 +89,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-The function would continue to try to parse EDID even if DisplayID
-extension block wasn't found. Sometimes it got lucky and found AMD vsdb
-in CEA extension block which made debugging harder.
+With the introduction of the "color format" DRM property, which allows
+userspace to request a specific color format, the HDMI state helper
+should implement this.
 
-[How]
-Add a return if DisplayID extension block wasn't found
+Implement it by translating the requested drm_color_format_enum to an
+hdmi_colorspace enum value. Auto is translated to RGB, and a fallback to
+YUV420 is only performed if the original color format was auto.
 
-Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 28 +++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 12bebdfd7fdc..2d770ed98871 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -13162,6 +13162,9 @@ static int parse_amd_vsdb(struct amdgpu_dm_connector *aconnector,
- 			break;
- 	}
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index a1d16762ac7a..3ba752200984 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -649,10 +649,34 @@ hdmi_compute_config(const struct drm_connector *connector,
+ 	unsigned int max_bpc = clamp_t(unsigned int,
+ 				       conn_state->max_bpc,
+ 				       8, connector->max_bpc);
++	enum hdmi_colorspace fmt;
+ 	int ret;
  
-+	if (i == edid->extensions)
-+		return false;
+-	ret = hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc,
+-				      HDMI_COLORSPACE_RGB);
++	switch (conn_state->color_format) {
++	case DRM_COLOR_FORMAT_ENUM_AUTO:
++	case DRM_COLOR_FORMAT_ENUM_RGB444:
++		fmt = HDMI_COLORSPACE_RGB;
++		break;
++	case DRM_COLOR_FORMAT_ENUM_YCBCR444:
++		fmt = HDMI_COLORSPACE_YUV444;
++		break;
++	case DRM_COLOR_FORMAT_ENUM_YCBCR422:
++		fmt = HDMI_COLORSPACE_YUV422;
++		break;
++	case DRM_COLOR_FORMAT_ENUM_YCBCR420:
++		fmt = HDMI_COLORSPACE_YUV420;
++		break;
++	default:
++		drm_dbg_kms(connector->dev, "HDMI does not support color format '%s'.\n",
++			    drm_get_color_format_name(conn_state->color_format));
++		return -EINVAL;
++	}
 +
- 	total_ext_block_len = EDID_LENGTH * edid->extensions;
- 	while (j < total_ext_block_len - sizeof(struct amd_vsdb_block)) {
- 		struct amd_vsdb_block *amd_vsdb = (struct amd_vsdb_block *)&edid_ext[j];
++	ret = hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc, fmt);
++
++	if (conn_state->color_format != DRM_COLOR_FORMAT_ENUM_AUTO)
++		return ret;
++
+ 	if (ret) {
+ 		if (connector->ycbcr_420_allowed) {
+ 			ret = hdmi_compute_format_bpc(connector, conn_state,
+
 -- 
 2.53.0
 
