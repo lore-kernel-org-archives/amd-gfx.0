@@ -4,76 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91C3CE63F29
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5422EE63F2C
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 163AB10E461;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D6F510E462;
 	Tue, 17 Feb 2026 08:05:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="OzL7AXPv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HhZU/Y2R";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 551B810E38D;
- Mon, 16 Feb 2026 13:03:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1771247001; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Ju4u/R9VFHvRc4eFYAJ940nCfQai7uTtLse9wAmk7atHiaPy+ID9zQcuAPOGdJhbx3up2bKtzNZX7DaYmkNCzWDjwjSKikFnSMIGDFrs5kNTJQyakliFWUZNKIgiOdi4jH7fmMG+oZYMhj68G744QX6hNemig4LSa99PQqbvzyA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1771247001;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=aAKo1twm4zvOU57OmqnMmeCHmOgUWQwHKdY/derPNZ0=; 
- b=eu/KPwydHyYdKSnpS7L3A2RnsyC5Gk0nZ0+rAVbfCltzh6DXMMFMe8kcGrm9dN3EYvTfJUy/2TUXISpxaU+kFIoPCDZ9/pw6eC0KsRYZLiQa2p2G51CYOst5Xzx5jYDGKa0NEiabTMXy6jKiCjzLMuh0scXq6UHAR6A8Gw3KTYI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771247001; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=aAKo1twm4zvOU57OmqnMmeCHmOgUWQwHKdY/derPNZ0=;
- b=OzL7AXPvNUoDGRUQZxdxi8/vIDs3Zd3rYVpoRUwXa2y+riED8BUmJu9rJ33U3qOS
- zbSRPvDUPmpBxVxENAfoNdKNydYPmAZCbszSNnuUjRdpSGra2THzTixGLP0IW2tw8cI
- gSDsskGdn3TDuo3vRzgFY2/3eGTHjqPIzYTV3kYU=
-Received: by mx.zohomail.com with SMTPS id 1771246999224749.212783556211;
- Mon, 16 Feb 2026 05:03:19 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 16 Feb 2026 14:01:28 +0100
-Subject: [PATCH v8 14/20] drm/rockchip: dw_hdmi_qp: Implement "color
- format" DRM property
+Received: from mail-ej1-f67.google.com (mail-ej1-f67.google.com
+ [209.85.218.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFBE910E3CD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 16:45:48 +0000 (UTC)
+Received: by mail-ej1-f67.google.com with SMTP id
+ a640c23a62f3a-b8f8324d2eeso40830366b.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 08:45:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1771260347; x=1771865147; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=61QqaYqAJ4tBG5OXB271IehCG1TZaMd4977PuSXDslQ=;
+ b=HhZU/Y2RaAFYxgumqRTaIbehPgO8Y45251ow7V9TmvcxwbpKQxJr/R8HvlKo3QwCDj
+ qd89euCVsAbE2AsoNFQQCBUjdWU/id4DnPJQHB/DOSf5WUhkoeEKWisvpUfN/rIUcANq
+ cIydtzCyYrS3o+HlK4hqeJwdRvW7V9Zn5d6DnbAFEqSkDbOFdD0MN20puuIkS3xrr/4Q
+ VCWHYfAdEmLCLClPgLlTpPTwxMNq4duZCZx7XVE5ApCIjQeM5rC3oJCaP6/zqy4EKeFr
+ A3ff8ve8hTIeepz50nuHV3IsHZYy26Kki//gONLlaY4nSSH5BVHtQk6cSXtq1AFxPTUp
+ sKPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771260347; x=1771865147;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=61QqaYqAJ4tBG5OXB271IehCG1TZaMd4977PuSXDslQ=;
+ b=E3Ie31xPHdylCqa+BZnXwOSQi9gkgSXZ79ftVATyp5WTjcxVAWk3aWKm6dCkU8zn55
+ pqUDua+L6lT/aawu9wYR16jaYl4zbtOPDkN8ET8sEzfaf0fE18BXaUc9LQ7b3nuBqTtY
+ 5u/TbNKlS+r/B+/VciCmWcVyRxyQ3YiiDL8b+g2kl9m5ek/d0qk08tqx7kt/+rgHbTo7
+ 3BoIEoDTSAFd809vebNPvJ3YyAJbDmknqH7c57nE2sWyI0SNvKqdFEn1eAbeolmhgFYY
+ 6x41pKpfKKEtezo/JIo9dgyF0lGmMtM4m/0wCDTjeUgPK5m/HzkgCTY9DyrN9ZJxgm6J
+ 9lsw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWoDSSn921gjDXHfujQiu8E+tvPkYzoTp7v8DsGfQY5i259iqqemN0pIplnbPpzHUD9WLEeuM9g@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwnsXAUL9qWYeg0S7c3Kf1S5EN1+xYnJXMdUMyoqzYZwUvQwSmT
+ yztyBCrK+v964wj5O2pyvB5KX1CKGvlg+UvNIo8ayzSzrfOsvQmB5LdV
+X-Gm-Gg: AZuq6aJOXRw9unx1/AVb4mIitAMu08uxJrEEbdg1S0D+RPZT1ZEcOW8jeQWx80To08a
+ qqiGk0EvLB5o/9GOzcsNxanhEBnhP/RNFKPkEXJ8yGG22hPus2ZbccUB20ea9W5ZAK6azp4hQM6
+ j109dYTDmRvfyAOyYqzNahzOP+eKUq543ntzXqIhiRZmx8w/+qcvwHFIWYCXLxLKnX4h0V9sjFP
+ 4xQA0DZCUagpDgCoShSE3HvIZQj1/DYYz9IJUOODMYBk8fmckko6p4Inf+ixgxNhxF8mgMp+Aeb
+ Zkfyz27qtRXJTgPqHNta3f4Ek9TnpME2BnGMxttXADHQMvTFoTUfjS+jfXmVCujOXF0IQXncT85
+ 9UGcyDLPv4hpDHNbRhr0x1/kdzfg6ok19sTCtmw0dTkJqY+IoBIINVrqmyJS11Z17oSSso+/pns
+ V5KOo0N/aJgj68LsNfkU7k8vBoU3dIITMoqNHWQAAT5iXvWNhtvDKYaCXdP/3GixrDaiFGKsT9c
+ vZw
+X-Received: by 2002:a17:907:3e88:b0:b73:59b0:34c6 with SMTP id
+ a640c23a62f3a-b8face510e0mr348090166b.4.1771260347159; 
+ Mon, 16 Feb 2026 08:45:47 -0800 (PST)
+Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-b8fc735d185sm264683866b.14.2026.02.16.08.45.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Feb 2026 08:45:46 -0800 (PST)
+From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
+ bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
+Subject: [PATCH v4 21/27] drm/amd/display: Enable HDMI VRR
+Date: Mon, 16 Feb 2026 17:45:10 +0100
+Message-ID: <20260216164516.36803-22-tomasz.pakula.oficjalny@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
+References: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260216-color-format-v8-14-5722ce175dd5@collabora.com>
-References: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
-In-Reply-To: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 17 Feb 2026 08:05:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,224 +96,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Switch between requested color formats by setting the right bus formats,
-configuring the VO GRF registers, and setting the right output mode.
+[Why]
+We'd like to expose VRR functionality to end user if HDMI sink is
+advertising it's support.
 
-To do this, the encoder's atomic_check queries the bus format of the
-first bridge, which was determined by the bridge chain recursive format
-selection. Pick the input format if it's !FIXED, otherwise, pick the
-output format.
+[How]
+VTEM info frame is used to signal HDMI sink that VRR is active.
+Use VTEM info packet as vrr_infopacket
 
-The previously unused GRF register color format defines are redone as
-well. Both RK3588 and RK3576 use the same defines; it didn't look like
-this as there was a typo in the previously (unused) definition.
-
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 107 ++++++++++++++++++++++---
- 1 file changed, 98 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 15 ++++++++++++---
+ .../drm/amd/display/modules/freesync/freesync.c   |  4 ++++
+ .../drm/amd/display/modules/inc/mod_info_packet.h |  1 +
+ .../amd/display/modules/info_packet/info_packet.c |  1 +
+ 4 files changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 1a09bcc96c3e..e2fa1aa53394 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -11,6 +11,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/hw_bitfield.h>
- #include <linux/mfd/syscon.h>
-+#include <linux/media-bus-format.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/phy/phy.h>
-@@ -43,10 +44,6 @@
- #define RK3576_8BPC			0x0
- #define RK3576_10BPC			0x6
- #define RK3576_COLOR_FORMAT_MASK	GENMASK(7, 4)
--#define RK3576_RGB			0x9
--#define RK3576_YUV422			0x1
--#define RK3576_YUV444			0x2
--#define RK3576_YUV420			0x3
- #define RK3576_CECIN_MASK		BIT(3)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 288437ada2a5..6a2806cc800a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9629,7 +9629,10 @@ static void update_freesync_state_on_stream(
  
- #define RK3576_VO0_GRF_SOC_CON14	0x0038
-@@ -74,8 +71,6 @@
- #define RK3588_8BPC			0x0
- #define RK3588_10BPC			0x6
- #define RK3588_COLOR_FORMAT_MASK	GENMASK(3, 0)
--#define RK3588_RGB			0x0
--#define RK3588_YUV420			0x3
- #define RK3588_SCLIN_MASK		BIT(9)
- #define RK3588_SDAIN_MASK		BIT(10)
- #define RK3588_MODE_MASK		BIT(11)
-@@ -87,6 +82,11 @@
- #define HOTPLUG_DEBOUNCE_MS		150
- #define MAX_HDMI_PORT_NUM		2
+ 	aconn = (struct amdgpu_dm_connector *)new_stream->dm_stream_context;
  
-+#define RK_COLOR_FMT_RGB		0x0
-+#define RK_COLOR_FMT_YUV422		0x1
-+#define RK_COLOR_FMT_YUV444		0x2
-+#define RK_COLOR_FMT_YUV420		0x3
+-	if (aconn && (aconn->as_type == ADAPTIVE_SYNC_TYPE_PCON_ALLOWED ||
++	if (aconn && aconn->as_type == ADAPTIVE_SYNC_TYPE_HDMI)
++		packet_type = PACKET_TYPE_VTEM;
 +
- struct rockchip_hdmi_qp {
- 	struct device *dev;
- 	struct regmap *regmap;
-@@ -115,6 +115,33 @@ static struct rockchip_hdmi_qp *to_rockchip_hdmi_qp(struct drm_encoder *encoder)
- 	return container_of(rkencoder, struct rockchip_hdmi_qp, encoder);
- }
++	else if (aconn && (aconn->as_type == ADAPTIVE_SYNC_TYPE_PCON_ALLOWED ||
+ 		      aconn->vsdb_info.replay_mode)) {
+ 		pack_sdp_v1_3 = aconn->pack_sdp_v1_3;
  
-+/**
-+ * dw_hdmi_qp_rockchip_bus_fmt_to_reg - converts a bus format to a GRF reg value
-+ * @bus_fmt: One of the MEDIA_BUS_FMT_s allowed by this driver's atomic_check
-+ *
-+ * Returns: an unshifted value to be written to the COLOR_FORMAT GRF register
-+ * on success, or %-EINVAL if the bus format is not supported.
-+ */
-+static int __pure dw_hdmi_qp_rockchip_bus_fmt_to_reg(u32 bus_fmt)
-+{
-+	switch (bus_fmt) {
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+		return RK_COLOR_FMT_RGB;
-+	case MEDIA_BUS_FMT_UYVY8_1X16:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
-+		return RK_COLOR_FMT_YUV422;
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+		return RK_COLOR_FMT_YUV444;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+		return RK_COLOR_FMT_YUV420;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static void dw_hdmi_qp_rockchip_encoder_enable(struct drm_encoder *encoder)
- {
- 	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
-@@ -130,29 +157,83 @@ static void dw_hdmi_qp_rockchip_encoder_enable(struct drm_encoder *encoder)
- 		hdmi->ctrl_ops->enc_init(hdmi, to_rockchip_crtc_state(crtc->state));
- }
+@@ -13419,8 +13422,14 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		}
  
-+/**
-+ * dw_hdmi_qp_rockchip_get_vop_format - get the bus format VOP should output
-+ * @encoder: pointer to a &struct drm_encoder
-+ * @conn_state: pointer to the current atomic &struct drm_connector_state
-+ *
-+ * Determines which bus format the Rockchip video processor should output as
-+ * to feed into the bridge chain.
-+ *
-+ * Returns a MEDIA_BUS_FMT_* on success, or %0 on error.
-+ */
-+static u32 dw_hdmi_qp_rockchip_get_vop_format(struct drm_encoder *encoder,
-+					      struct drm_connector_state *conn_state)
-+{
-+	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
-+	struct drm_bridge_state *bstate;
+ 	/* HDMI */
+-	} else if (sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A && vsdb_info.freesync_supported) {
+-		monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
++	} else if (sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
++		/* Prefer HDMI VRR */
++		if (hdmi_vrr.supported) {
++			amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_HDMI;
++			monitor_range_from_hdmi(&connector->display_info, &vsdb_info);
++		} else if (vsdb_info.freesync_supported)
++			monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
 +
-+	bridge = drm_bridge_chain_get_first_bridge(encoder);
-+	if (!bridge)
-+		return 0;
-+
-+	bstate = drm_atomic_get_bridge_state(conn_state->state, bridge);
-+	if (!bstate)
-+		return 0;
-+
-+	if (bstate->input_bus_cfg.format != MEDIA_BUS_FMT_FIXED)
-+		return bstate->input_bus_cfg.format;
-+
-+	return bstate->output_bus_cfg.format;
-+}
-+
- static int
- dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 					 struct drm_crtc_state *crtc_state,
- 					 struct drm_connector_state *conn_state)
- {
--	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
- 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
-+	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
- 	union phy_configure_opts phy_cfg = {};
-+	u32 ingest_fmt;
- 	int ret;
+ 		freesync_capable = copy_range_to_amdgpu_connector(connector);
  
-+	ingest_fmt = dw_hdmi_qp_rockchip_get_vop_format(encoder, conn_state);
-+	if (!ingest_fmt)
-+		return -EINVAL;
-+
- 	if (hdmi->tmds_char_rate == conn_state->hdmi.tmds_char_rate &&
--	    s->output_bpc == conn_state->hdmi.output_bpc)
-+	    s->output_bpc == conn_state->hdmi.output_bpc &&
-+	    s->bus_format == ingest_fmt)
- 		return 0;
+ 	/* DP -> HDMI PCON */
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+index 1aae46d703ba..db197cf048e1 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -27,6 +27,7 @@
+ #include "dc.h"
+ #include "mod_freesync.h"
+ #include "core_types.h"
++#include "mod_info_packet.h"
  
-+	switch (ingest_fmt) {
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
+ #define MOD_FREESYNC_MAX_CONCURRENT_STREAMS  32
+ 
+@@ -955,6 +956,9 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+ 		return;
+ 
+ 	switch (packet_type) {
++	case PACKET_TYPE_VTEM:
++		mod_build_vtem_infopacket(stream, vrr, infopacket);
 +		break;
-+	case MEDIA_BUS_FMT_UYVY8_1X16:
-+		s->output_mode = ROCKCHIP_OUT_MODE_YUV422;
-+		break;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+		s->output_mode = ROCKCHIP_OUT_MODE_YUV420;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
- 	phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
- 	phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
+ 	case PACKET_TYPE_FS_V3:
+ 		build_vrr_infopacket_v3(stream->signal, vrr, app_tf, infopacket, stream->freesync_on_desktop);
+ 		break;
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+index 027113ec147d..03d37b6f1cd0 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+@@ -59,6 +59,7 @@ enum adaptive_sync_type {
+ 	ADAPTIVE_SYNC_TYPE_PCON_ALLOWED     = 2,
+ 	ADAPTIVE_SYNC_TYPE_PCON_NOT_ALLOWED = 3,
+ 	ADAPTIVE_SYNC_TYPE_EDP              = 4,
++	ADAPTIVE_SYNC_TYPE_HDMI             = 5,
+ };
  
- 	ret = phy_configure(hdmi->phy, &phy_cfg);
- 	if (!ret) {
- 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
--		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
- 		s->output_type = DRM_MODE_CONNECTOR_HDMIA;
- 		s->output_bpc = conn_state->hdmi.output_bpc;
-+		s->bus_format = ingest_fmt;
- 	} else {
- 		dev_err(hdmi->dev, "Failed to configure phy: %d\n", ret);
+ enum adaptive_sync_sdp_version {
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index 96c84f70ed44..7106b409ae54 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -699,6 +699,7 @@ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
+ 		break;
+ 	case ADAPTIVE_SYNC_TYPE_NONE:
+ 	case ADAPTIVE_SYNC_TYPE_PCON_NOT_ALLOWED:
++	case ADAPTIVE_SYNC_TYPE_HDMI:
+ 	default:
+ 		break;
  	}
-@@ -382,6 +463,7 @@ static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
- static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
- 				       struct rockchip_crtc_state *state)
- {
-+	int color = dw_hdmi_qp_rockchip_bus_fmt_to_reg(state->bus_format);
- 	u32 val;
- 
- 	if (state->output_bpc == 10)
-@@ -389,12 +471,16 @@ static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
- 	else
- 		val = FIELD_PREP_WM16(RK3576_COLOR_DEPTH_MASK, RK3576_8BPC);
- 
-+	if (likely(color >= 0))
-+		val |= FIELD_PREP_WM16(RK3576_COLOR_FORMAT_MASK, color);
-+
- 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON8, val);
- }
- 
- static void dw_hdmi_qp_rk3588_enc_init(struct rockchip_hdmi_qp *hdmi,
- 				       struct rockchip_crtc_state *state)
- {
-+	int color = dw_hdmi_qp_rockchip_bus_fmt_to_reg(state->bus_format);
- 	u32 val;
- 
- 	if (state->output_bpc == 10)
-@@ -402,6 +488,9 @@ static void dw_hdmi_qp_rk3588_enc_init(struct rockchip_hdmi_qp *hdmi,
- 	else
- 		val = FIELD_PREP_WM16(RK3588_COLOR_DEPTH_MASK, RK3588_8BPC);
- 
-+	if (likely(color >= 0))
-+		val |= FIELD_PREP_WM16(RK3588_COLOR_FORMAT_MASK, color);
-+
- 	regmap_write(hdmi->vo_regmap,
- 		     hdmi->port_id ? RK3588_GRF_VO1_CON6 : RK3588_GRF_VO1_CON3,
- 		     val);
-
 -- 
 2.53.0
 
