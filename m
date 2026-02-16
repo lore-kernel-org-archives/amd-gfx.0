@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84CFDE68152
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DB30E6814A
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B069310E48C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F37D10E481;
 	Tue, 17 Feb 2026 08:05:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f4uw/QRr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eGnceHBP";
 	dkim-atps=neutral
-Received: from mail-ej1-f65.google.com (mail-ej1-f65.google.com
- [209.85.218.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC02F10E3C0
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 16:45:32 +0000 (UTC)
-Received: by mail-ej1-f65.google.com with SMTP id
- a640c23a62f3a-b8fa033d805so46891866b.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 08:45:32 -0800 (PST)
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
+ [209.85.208.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BB7310E031
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 16:45:21 +0000 (UTC)
+Received: by mail-ed1-f66.google.com with SMTP id
+ 4fb4d7f45d1cf-65c1d6c2459so156820a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 08:45:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771260331; x=1771865131; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qpQ8hMace7VylP1UXnY5VctYMrzTpDvAnEUQfsbXrTg=;
- b=f4uw/QRrMHwZitEaxratw2eu5cQr0pvcJyeNfkYE/zzFoqHLlGU/fXRBIt6tnSqHGE
- re0szvzlj5IsNiBPakKl9lN/nRUVAB+KiN0rSTm75B2q92jMlayUxaiulvO1aHSk2xZ6
- Qsk4X89k6GZByasHSHRvr/HHqpAVx+RFCn9NjjsdDM/qRkuHfpKYAD2lPWfeZZuF2GnE
- JjoknB6G21i4Q8zuXZCcOC/UVjUj8S7l4crIUIDbdZnEz9Wvpmm3uDtz81pMoNhT/g8m
- v1mGkUp1vqMQiqusRfUAkkCrA8Fm1QsCxjOZR7czmYP0y03zgrkKb9WY0cNSFCWMS4Ip
- nyIw==
+ d=gmail.com; s=20230601; t=1771260319; x=1771865119; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=FeupTXTwdb4tJl288OLcqGCilrBaEcjQA2YfoIrg6hE=;
+ b=eGnceHBPE0sbca00+YVHWMT93HFhytEd9atYuibXDGX/7hM2yqwLCAc08JiN9P+03X
+ +2isstM+JPQQ+RrciVmYnjStMVxi7kZGkw9l6l4qS7PFsP+Zd/CS1rDh2Cjrx+qfzXBQ
+ P+Y+xWwM/iErWytxZ8Yw6nFBDB/1dL8egmW3OZ3eplDzKrj2RF5sgc+JGIooB/mMlJFo
+ /Wl+xHGoDLxFPpTQrNXvLWL4PtnfHU+/yMTphd5Kpg0K/2fSiwPxCpj/00RJmAlpzidh
+ PhpqUAGt5l2EFsNebBma6cYCLl46hXZyc0Hl8dHorAlqwTV7S7VDpjPt30RlkHiU+QSU
+ lnZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771260331; x=1771865131;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=qpQ8hMace7VylP1UXnY5VctYMrzTpDvAnEUQfsbXrTg=;
- b=mpRfR57aZiMe58BsCwqaOmZBdcdvSYQEZGH92QIvb/S5q8OPL7h7O3BuUIyAmETOVT
- XoBsHnYeIBnJxo47QoTQGzRqEYEj6hW6vLLhFthMug7SawmHhUUhUlZaeA21o7pENq6w
- y2B6sxjjuOU3wCo+nJSgrSrSp7qhbaWZpHeWebLhl7sJKxYUE46no5hPSDQ8WDpQP1WI
- dNkclI7eC89cJ27ZV39ltpj+R2ul3S32Rr8SHYyBXQCkhTXCyippu8ZzwPOEfETVGXNK
- ofDr75XLk2YlYvQXd7fODwN7HOOUe11PU1R9a17kX55/LX6ZYULpfWK5nGDYTfb99iCD
- 7+Ag==
+ d=1e100.net; s=20230601; t=1771260319; x=1771865119;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=FeupTXTwdb4tJl288OLcqGCilrBaEcjQA2YfoIrg6hE=;
+ b=UuRVnhwX6qQUJhxwhGmrFFS98PxSj359MnP0pQT3TeTKLwRt26JeXgjFlClHd5aoQK
+ J82S4ra8HAHRXUEa6O5BCa8gGVXATgp9AtapawtoP7PTV6GG9vsL3Gqx/m1N1s/BOVYk
+ 5nKhTA3GXUOkk8bkWkPyEGIqQ7B4rWpHrhaItIepBSA77MwAewx+oxAtU7vfdpF7LjIb
+ kWiDDE5vQ7suZMUdDjUgF5xcL3r1VbWAUpJRUqXjjwQAK9zneiaBL1yMpEXW3ShOVkVX
+ TJu8XQx8kZhT/LVSul0S/opIIci6ctmfEAMOMJ05dzVLVWHzU+suEmsHwp61BsAvQt5k
+ en0A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVegkZlcDmJ3WXiy4pNdAjuJmTu7jHB5K3X9NyTCKM7haJqp85JIGHs3dRdEvhT72ehQyilA38r@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw2ka9hCV+N6d1geltHHTaJ99jCwg5PTxvgYbvPXSC7HYRxBDAt
- Msfftb9OJegXhLqXtq22FlP8TS/p5j9+hGhbGHZWyini7EZ6LBz4TLiK
-X-Gm-Gg: AZuq6aI2CGEaIgENfspMYHkr81B/B7crJlJ27MRN9pgn7fMsnAI2zvbLbvfWN+WRgxC
- UgllKXxamxijTjkKEE2sUudQ94v9EyI0KsJlYIppi8EJUGEkzt+nuuyewqAinh1ywsvGL7LJzUD
- wseCV/Ai3xbdXxWvsSm24hmXDi2wnvTYiJSKtiny1pCe2TNKuO41Cx6hX+wXRNPNtkdOnibdDgZ
- eI7XGsdv+oIGpRr6f3zqUYgp6ISDJm5PTQGnhyu7FZVLjFAP/Ja+L5xTnrEPCVYtblrTt1sbsrm
- HsnrhG0wtnh5j1CSZmrh47nAJmZgkGJvnjweVovVAyIvTD5UrwB0NOGrISABZZVKiWZ6N1YbMYg
- tF26ZXJeH6uFZcBKuLQImikLfD48ewSqBrXOQYWUrmrgsGLNQPRmwRY0EblepAzXeuk6zKP7tjp
- dakA0+5WQXUEl8G8H1H7ux0QaVAcae6KmTAMPDswpcpqhLbt6EboBhDwR8St9T9osjgk9CEpmXT
- E7A
-X-Received: by 2002:a17:907:3e88:b0:b73:59b0:34c6 with SMTP id
- a640c23a62f3a-b8face510e0mr348070666b.4.1771260331308; 
- Mon, 16 Feb 2026 08:45:31 -0800 (PST)
+ AJvYcCU6/6l1DYOLGKTWEC60I4Vq+3u8BE/gTyrv6KMtcWd97KEVsej9Z6ZMXPtoz7n92EtmsEAlcWCf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwzFTeEzTtKkDrVn/GGYwgE8fSKMr5zXOJuXZcQkdsQw0bvfRjQ
+ gspBjXnVgFeTlAFq9XfVlzIAX1SSC/vECcn3M8HlFLE4oiM86MlhniAR
+X-Gm-Gg: AZuq6aKJmycmmnBvQR94uyIDh4WgTC7LMeVTyQVmRHNEW7VMoHuxQz2+rQQ/vVuYghD
+ AwvWP05h8X85AmyRuoSqas6e0915EFOWM/Al7T/MM3P5sA7TiFaPuPJ+WkFxSq3YYrCDZYyJ3ws
+ DqpD+s+s/IHngXdc4aUDM8ia2jIHCSCQb04amBIw0GnnTvWEq69Nji77bSwYn0tSioI35s0FnTX
+ 5+NNBXQaZTH6daH2lcW26lCNQhTnrDI0o/mei3NmeGYCznb2d6W1ey9eZvomTLXxhK4HwL7Ayo9
+ SCIIaZRbkZk9vkCbeU9f+7eJbSyrwaGrg8j5DcM4j+pt4euwY4PThea4iP/dozVjHJc5WdsarBR
+ YN93pG0qa6Grd6vReWSgqC/mYkhP6lkFyGLxa1hnNRxBLKMRmYwqiWAP+AlkdcUVA5Wde0teQoS
+ KYBnKTx54+HpSCfXbnkfsc4dGh70y7Cjmut1cm9MGzMEerlA316KzT+eetTF0euDaE8/xWOxYli
+ xMg
+X-Received: by 2002:a17:907:980a:b0:b8a:f5a1:32f0 with SMTP id
+ a640c23a62f3a-b8facdbba00mr390066266b.3.1771260319241; 
+ Mon, 16 Feb 2026 08:45:19 -0800 (PST)
 Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8fc735d185sm264683866b.14.2026.02.16.08.45.30
+ a640c23a62f3a-b8fc735d185sm264683866b.14.2026.02.16.08.45.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Feb 2026 08:45:31 -0800 (PST)
+ Mon, 16 Feb 2026 08:45:18 -0800 (PST)
 From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
 To: alexander.deucher@amd.com,
 	harry.wentland@amd.com,
@@ -72,13 +71,10 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
  bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
-Subject: [PATCH v4 09/27] drm/amd/display: Refactor PCON VRR compatibility
- check
-Date: Mon, 16 Feb 2026 17:44:58 +0100
-Message-ID: <20260216164516.36803-10-tomasz.pakula.oficjalny@gmail.com>
+Subject: [PATCH v4 00/27] drm/amd: VRR fixes, HDMI Gaming Features
+Date: Mon, 16 Feb 2026 17:44:49 +0100
+Message-ID: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
-References: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -97,135 +93,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-DP->HDMI PCONs prevously entered the DP path
+This patch series tackles a few things:
+- Fixes VRR not detected if monitor uses GTF flag for ranges
+  instead of Range Limits Only
+- Detects if AMD vsdb carries a wider VRR range and uses it instead
+- DP->HDMI PCON changes which includes a module property to override
+  PCON ID check
+- Parses HDMI gaming features in generic drm
+- Reintroduces proper HF-VSIF and VTEM info packets
+- Adds support for Auto Low Latency Mode
+- Adds support for HDMI VRR
 
-[How]
-Restructure amdgpu_dm_update_freesync_caps() and move
-dm_get_adaptive_sync_support_type() to dm_helpers_is_vrr_pcon_allowed()
-to better reflect what this function does. It never actually gave us any
-other info.
+Built on top of amd-staging-drm-next
 
-Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 11 ++----
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 39 ++++++-------------
- drivers/gpu/drm/amd/display/dc/dm_helpers.h   |  2 +-
- 3 files changed, 17 insertions(+), 35 deletions(-)
+VRR range fixes are simple and fix VRR support for many monitors. They
+close about 5 issues on the amdgpu issue tracker.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 2f31fe7265d9..2603da69d772 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -13321,8 +13321,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	struct dpcd_caps dpcd_caps = {0};
- 	const struct edid *edid;
- 	bool freesync_capable = false;
-+	bool pcon_allowed = false;
- 	bool is_pcon = false;
--	enum adaptive_sync_type as_type = ADAPTIVE_SYNC_TYPE_NONE;
- 
- 	if (!connector->state) {
- 		drm_err(adev_to_drm(adev), "%s - Connector has no state", __func__);
-@@ -13357,6 +13357,7 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (amdgpu_dm_connector->dc_link) {
- 		dpcd_caps = amdgpu_dm_connector->dc_link->dpcd_caps;
- 		is_pcon = dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER;
-+		pcon_allowed = dm_helpers_is_vrr_pcon_allowed(amdgpu_dm_connector->dc_link);
- 	}
- 
- 	/* DP & eDP excluding PCONs */
-@@ -13390,15 +13391,11 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	} else if (sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A && vsdb_info.freesync_supported) {
- 		monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
- 		freesync_capable = copy_range_to_amdgpu_connector(connector);
--	}
--
--	if (amdgpu_dm_connector->dc_link && is_pcon)
--		as_type = dm_get_adaptive_sync_support_type(amdgpu_dm_connector->dc_link);
- 
- 	/* DP -> HDMI PCON */
--	if (as_type == FREESYNC_TYPE_PCON_IN_WHITELIST && vsdb_info.freesync_supported) {
-+	} else if (pcon_allowed && vsdb_info.freesync_supported) {
-+		amdgpu_dm_connector->as_type = FREESYNC_TYPE_PCON_IN_WHITELIST;
- 		amdgpu_dm_connector->pack_sdp_v1_3 = true;
--		amdgpu_dm_connector->as_type = as_type;
- 		amdgpu_dm_connector->vsdb_info = vsdb_info;
- 
- 		parse_amd_vsdb_cea(amdgpu_dm_connector, edid, &vsdb_info);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 1f41d6540b83..45a91df619d9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -1381,40 +1381,25 @@ void dm_helpers_dp_mst_update_branch_bandwidth(
- 	// TODO
- }
- 
--static bool dm_is_freesync_pcon_whitelist(const uint32_t branch_dev_id)
-+bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link)
- {
--	bool ret_val = false;
-+	if (link->dpcd_caps.dongle_type != DISPLAY_DONGLE_DP_HDMI_CONVERTER)
-+		return false;
- 
--	switch (branch_dev_id) {
-+	if (!link->dpcd_caps.allow_invalid_MSA_timing_param)
-+		return false;
-+
-+	if (!link->dpcd_caps.adaptive_sync_caps.dp_adap_sync_caps.bits.ADAPTIVE_SYNC_SDP_SUPPORT)
-+		return false;
-+
-+	switch (link->dpcd_caps.branch_dev_id) {
- 	case DP_BRANCH_DEVICE_ID_0060AD:
- 	case DP_BRANCH_DEVICE_ID_00E04C:
- 	case DP_BRANCH_DEVICE_ID_90CC24:
--		ret_val = true;
--		break;
--	default:
--		break;
-+		return true;
- 	}
- 
--	return ret_val;
--}
--
--enum adaptive_sync_type dm_get_adaptive_sync_support_type(struct dc_link *link)
--{
--	struct dpcd_caps *dpcd_caps = &link->dpcd_caps;
--	enum adaptive_sync_type as_type = ADAPTIVE_SYNC_TYPE_NONE;
--
--	switch (dpcd_caps->dongle_type) {
--	case DISPLAY_DONGLE_DP_HDMI_CONVERTER:
--		if (dpcd_caps->adaptive_sync_caps.dp_adap_sync_caps.bits.ADAPTIVE_SYNC_SDP_SUPPORT == true &&
--			dpcd_caps->allow_invalid_MSA_timing_param == true &&
--			dm_is_freesync_pcon_whitelist(dpcd_caps->branch_dev_id))
--			as_type = FREESYNC_TYPE_PCON_IN_WHITELIST;
--		break;
--	default:
--		break;
--	}
--
--	return as_type;
-+	return false;
- }
- 
- bool dm_helpers_is_fullscreen(struct dc_context *ctx, struct dc_stream_state *stream)
-diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-index 7014b8c2c956..e51f1e489129 100644
---- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-+++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
-@@ -220,10 +220,10 @@ int dm_helpers_dmub_set_config_sync(struct dc_context *ctx,
- 		const struct dc_link *link,
- 		struct set_config_cmd_payload *payload,
- 		enum set_config_status *operation_result);
--enum adaptive_sync_type dm_get_adaptive_sync_support_type(struct dc_link *link);
- 
- enum dc_edid_status dm_helpers_get_sbios_edid(struct dc_link *link, struct dc_edid *edid);
- 
-+bool dm_helpers_is_vrr_pcon_allowed(const struct dc_link *link);
- bool dm_helpers_is_fullscreen(struct dc_context *ctx, struct dc_stream_state *stream);
- bool dm_helpers_is_hdr_on(struct dc_context *ctx, struct dc_stream_state *stream);
- 
+Adaptive Sync over PCON is only available as FreeSync over HDMI. TVs which
+do not support FreeSync, do not have working VRR with DP -> HDMI 2.1
+adapters even though adapters will take care of HDMI VRR info packets.
+
+I myself validated these changes with my Samsung S95B + Bernhard validated
+on LG C4 + FreeSync-less Sony Bravia 8. I used Alienware AW3423DWF that
+only has HDMI 2.0 to check that FreeSync still triggers properly for
+"older" hardware,
+
+For missing VRRmax or VRRmax == 0, the upper boundary is the currently
+selected video mode refresh rate. I wasn't sure how best to implement it
+but ended up on a great solution. We first check if maybe there is a VRR
+range in AMD vsdb. If not, rely on limitation of base refresh rate in
+VTEM vsif.
+
+More history on previous shape of HF-VSIF and VTEM in their respective
+patches but the info packets were previously included in the driver code.
+HF-VSIF was improperly handled and VTEM doesn't seem to have been plumbed
+as it had no use before. I recoded these and this code should be much
+easier to understand and maintain.
+
+ALLM support uses the info from EDID to determine if ALLM is supported by
+sink and if that's the case, always signals for ALLM to be enabled. In PC
+use, be it for gaming, desktop use, work etc. we always want the lowest
+latency and less processing + possibly higher available refresh rates when
+gaming mode is turned on.
+
+HDMI VRR support relies on sending VTEM info packet in place of FreeSync
+info packets. Though VTEM has it's own place in the info packet pipeline,
+I didn't touch it as it already replaces FreeSync info packets. If there's
+a need to change this, please let me know for v2.
+
+Both features were tested and work just like they were intended to. Gaming
+mode is automatically triggered and HDMI VRR is used in place of FreeSync
+(if available). This HDMI VRR preference actually fixes VRR-induced
+flickering on many TVs (S95B in my case) with somehow subpar
+FreeSync implementation.
+
+I still think it's better to not force users to search for solutions
+manually especially since it seems like DP and eDP don't save info about
+FreeSync version and completely rely on basic VRR support.
+This would then be mirrored.
+
+There's still an issue with some TVs behaving like a mode change is
+happening when VRR is triggered and I'd like to maybe tackle this too. When
+using HDMI through PCON, VRR is always active, like it's in
+VRR_STATE_ACTIVE_FIXED mode. This makes my TV much nicer to use and
+replication this behavior would be worthwhile IMO.
+
+Everything in this patch series has been based on already public
+code/knowledge or trying things out until they work/break.
+
+This patch series supersedes previous patches/series:
+https://lore.kernel.org/amd-gfx/20251209231107.1968472-1-tomasz.pakula.oficjalny@gmail.com/
+https://lore.kernel.org/amd-gfx/20260113214104.146856-1-tomasz.pakula.oficjalny@gmail.com/
+https://lore.kernel.org/amd-gfx/20260113183540.86266-1-tomasz.pakula.oficjalny@gmail.com/
+
+Changes in v2:
+- Updated BRR max value to 1023 after testing one by one. This should've
+  been obvious since 1023 is the max value for a 10-bit field
+- Fixed some comments, to silence "not a kernel doc" warning
+- Considered ALLM comments from Michel Dänzer, Daniel Stone and
+  Jani Nikula. ALLM is now triggered if either VRR is active or Content
+  Type Hint is set to "Game". Content type hint is already supported by
+  amdgpu and fully plumbed.
+- Added module parameter for controlling ALLM trigger behavior. Now it can
+  be configured to never trigger ALLM, trigger with VRR/Game (default) or
+  be always forced on.
+- Added HDMI VRR desktop mode module parameter, which is on by default.
+  This mimics how FreeSync is handeled on Windows and this fixes a lot of
+  issues with unwanted screen blanking and glitches around entering/exiting
+  VRR mode.
+- Moved hdmi vic mode check to one central function to avoid checking for
+  3D and ALLM in different places which could sometimes break the logic for
+  translating HDMI VIC modes into CTA vic modes (when such translation 
+  is needed).
+  
+Changes in v3:
+- Fixed wonky English
+- Less struct traversal in helper functions
+- Fixed possible NULL pointer dereference while checking if ALLM support is
+  indicated in edid_caps of local_sink
+- Fixed ALLM bit assignment overriding 3D bit data in HF-VSIF
+- Fixed assignment of the upper 2 bits of BRR in VTEM
+
+Changes in v4:
+- Removed amdgpu module settings for vrr and allm
+- Introduced passive_vrr properties to drm_crtc and drm_connector
+- Introduced ALLM properites to drm_connector
+- Implemented said properties in amdgpu for HDMI connectors
+- Updated the range extending logic
+- Rebased on current amd-staging-drm-next
+
+I'd really love to figure out how to enable drivers to override property
+defaults for crtc/connector. Ideally, ALLM would default to dynamic mode, 
+but attaching with said value doesn't matter as it will be set back to 0
+after connector reset.
+
+Range extending logic better explained in the comment/commit but turns out,
+some manufacturers modify the lower VRR bound in Monitor Ranges due to
+issues found just before release but the range wasn't updated in vsdb.
+Using VRR with the extended lower limit caused blanking and other issues.
+
+The reworked range extending logic will only extend the lower range, if
+the VRR min found in Monitor Ranges disables LFC (vrr_min > vrr_max / 2).
+
+The report and findings can be found here:
+https://github.com/CachyOS/distribution/issues/329
+
+Passive VRR is enabled by default for connectors that support it. It's
+not super useful for DisplayPort so amdgpu only attaches it and uses it
+for HDMI connectors. It hooks up to the already established
+freesync_on_desktop logic which wasn't used at all, at least in the public
+code.
+
+Tomasz Pakuła (27):
+  drm/amd/display: Return if DisplayID not found in parse_amd_vsdb()
+  drm/amd/display: Refactor amdgpu_dm_update_freesync_caps()
+  drm/amd/display: Remove redundant edid checks
+  drm/amd/display: Move DisplayID vrr parsing
+  drm/amd/display: Always try to parse AMD vsdb
+  drm/amd/display: Check for VRR range in CEA AMD vsdb
+  drm/amd/display: Use bigger VRR range if found in AMD vsdb
+  drm/amd/display: Separate DP/eDP and PCON paths completely
+  drm/amd/display: Refactor PCON VRR compatibility check
+  drm/amd/display: Add PCON VRR ID check override
+  drm/amd/display: Add CH7218 PCON ID
+  drm/edid: Parse more info from HDMI Forum vsdb
+  drm/amd/display: Rename PCON adaptive sync types
+  drm/amd/display: Enable HDMI VRR over PCON
+  drm/amd/display: Support HDMI VRRmax=0
+  drm/amd/display: Build HDMI vsif in correct slot
+  drm/amd/display: Save HDMI gaming info to edid caps
+  drm/amd/display: Restore ALLM support in HDMI vsif
+  drm/amd/display: Trigger ALLM if it's available
+  drm/amd/display: Reintroduce VTEM info frame
+  drm/amd/display: Enable HDMI VRR
+  drm/amd/display: freesync_on_desktop support for HDMI VRR
+  drm: Add passive_vrr_disabled property to crtc
+  drm: Add passive_vrr_capable property to connector
+  drm: Add ALLM properties to connector
+  drm/amd/display: Use passive_vrr properties in amdgpu
+  drm/amd/display: Use ALLM properties in amdgpu
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 299 ++++++++++++++----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   4 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  49 ++-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |   3 +
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |   2 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |   1 +
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |   2 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |   7 +-
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |   2 +-
+ .../amd/display/include/ddc_service_types.h   |   1 +
+ .../amd/display/modules/freesync/freesync.c   |   4 +
+ .../amd/display/modules/inc/mod_info_packet.h |  17 +-
+ .../display/modules/info_packet/info_packet.c | 298 +++++++++++------
+ drivers/gpu/drm/amd/include/amd_shared.h      |   6 +
+ drivers/gpu/drm/drm_atomic_uapi.c             |   8 +
+ drivers/gpu/drm/drm_connector.c               | 188 +++++++++++
+ drivers/gpu/drm/drm_crtc.c                    |   2 +
+ drivers/gpu/drm/drm_edid.c                    |  41 ++-
+ drivers/gpu/drm/drm_mode_config.c             |   6 +
+ include/drm/drm_connector.h                   |  99 ++++++
+ include/drm/drm_crtc.h                        |   9 +
+ include/drm/drm_mode_config.h                 |   6 +
+ 22 files changed, 864 insertions(+), 190 deletions(-)
+
 -- 
 2.53.0
 
