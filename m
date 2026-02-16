@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66210E7BDA2
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34E20E63F29
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 08:05:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5291A10E464;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F2510E463;
 	Tue, 17 Feb 2026 08:05:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DWRvg1+J";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T5vzutyf";
 	dkim-atps=neutral
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
- [209.85.208.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1120210E3CD
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 16:45:46 +0000 (UTC)
-Received: by mail-ed1-f48.google.com with SMTP id
- 4fb4d7f45d1cf-65a360bb9f4so612473a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 08:45:45 -0800 (PST)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D8B310E3BD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 16:45:30 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-b8fa033d805so46890566b.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 08:45:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771260344; x=1771865144; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1771260329; x=1771865129; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TM/8v34pas6+agtqG0yBbCtyfKtfnXSHfIXKjiQpv5A=;
- b=DWRvg1+J87lMjpzFlROuynMyfQrM4HL4RNyxayztuphQPtqGCfIKgHyQnLv4fgZ32J
- htRpMVqKFCTK30POxww0gFsNxw3bKE0O8lmdQQ6zKnNc2ODmzXwJUCM7Jl3Iy2HguNSk
- 6qV3m/A7P3rw5GlPTO/mA0b3goWZDxAtEOvyuUME783iqWO2zKP2NnqsvzcGtEnh4icR
- 8+0Q8HRg2ZdLXTwnzjgLT8M3lGQEGv2JkBt3AzmtiXNds//+jUl7F+YOlx3KhToM3qUK
- ZBbeTe190RlSz5s1gRaP9n2XuNVh+mySB3rkvgAd9Ijlqq53TI0+YBOdbGrc3rAYkjo3
- B0Eg==
+ bh=cytjPGPVyEqSdYgwIyq0GlV8NbwaC2+24peBJ4/9eGA=;
+ b=T5vzutyf0Nxd1fRKKdLpmLHriKPghHHaQPvXiy3gbWjh02r+y8hD1rK9wCEv0CXhyW
+ K0AIuq7zRciHvtbPkSPEDe25uV9uYxE6hUzyor+wQqGoXD0JE9irn+IGub+oDsfzxnwq
+ WCiAlArJdaJVFDzIwL8YNQhDZB16DkDeHDkUOqunXKhMegIQMuIyElnAaTL6ym4ZOzcQ
+ yZZ2VseXOKnruWTO0Rd58SXZq1bOMOzzmw/6taDYE+yvFPM7zkVaE49SXkex0pbKTQDW
+ 63JLyOBKd4/P1fDiRj0vDmYNkbXUc8eY5H0UdV3zNyl8iPggQoiBMmSY5CZAcnkTlZxt
+ XrwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771260344; x=1771865144;
+ d=1e100.net; s=20230601; t=1771260329; x=1771865129;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=TM/8v34pas6+agtqG0yBbCtyfKtfnXSHfIXKjiQpv5A=;
- b=NEXUBJHAUvu/xoY9Co3iNN3awnQfsjG0hkt4N5KxvUgh0/+kLm2n9Wk8n8CTWpeACY
- iO4Tp8svJ7ATbaHxI7t6rFjgY1LcqJE0S3uW/RIZbQR1jSAUmfiiu8w4NmOYwGvcMNJN
- 1VWKDBWkNArCjZTYYHJ1v7k+3e9C/XOWAvUUMxX+Qy/bxrmuexI/ULRHBsqkLcqKREX5
- /gsyKnIZ+WGuu48rUWerdTZD77Hmtr/3hVNYxUtRwQTZcsD3vDB1u8ArW1U81UT/dmQ8
- TAZvirp7mMPP0MHlPm5kvYcYe9uz4b7ivU4uuzjbhG0G+Pb/OSwz1Jdn0D+5nbDuMyiM
- G6oQ==
+ bh=cytjPGPVyEqSdYgwIyq0GlV8NbwaC2+24peBJ4/9eGA=;
+ b=j9Z+hhiQvJv6dw8Hxi57YdIA71cJbmGGTGqrWw8hb4iqr0BnSjIPl6upxieNfYJgye
+ zK/acfWjs6nfhiz8gzXfwxl0aR8exvGaeHm9gC45PBpgt+NaUgmXFsJc/cOwoe0O00++
+ sjoskvgax496cD39+OlwsVEEgm1IUuwzvSUN0FCDrZspaHtz0JgceeDts05uYJOZVDhE
+ 2in960SIDOI/BDj03EtS3G+J5dIpSjzZTshrE3soHdOkF8TraKZ6VgoRUmf1tYkqACiD
+ cIk9BBMenguGXSVav9ewuQQBZ/P+enDQmcM8W2SoA4IGLrB9DxultNKA63mwGIUwbqFb
+ XBEA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUP0eCQ0bvnvyOYyMswYHChukcGb1DpF/qEsrOmq1D3zcUeKMSaui0iCSOcTUCvAsGQVZ4lcbof@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1l1a/HDIQP1Cwr8QNP1HY2TiCEiVm0qnHTNVsntxZYYtJA7WE
- 6S68CVYAyMgfSUux2BYucrkZMmezqGY0suSOXcqEZ/7rJ9i30z8ASaJL
-X-Gm-Gg: AZuq6aIYCQ8TzVrXqiA9Sntvqun1QcGspcE+q3XxKljcHt8uPq2N2K3hrWCe5YYsLs1
- se/kdd2iWVsmmYgXJHouhFR1SiyFMIy9ermsUjET5M9GSvG2BJ0x6SeYqROuBNDsDphIySS9esm
- Kw4iIeeOlX/KTFBD39mu5vb9I+Q+H4jjZQ2o/D551ydS+Y6qTqnobckH4YvlqVOiniBfFTlfoUH
- 5oiLMBfMQmGRKnGgBgkKBMNLa9u0/5IZUhkMqRRHTenyygmA6xpESsPvvOwl9GfCNe5k9p/Z/O3
- abP5FJG1N8R2elxaIWg1ecjqJn42funtHnU1WZNX4G7aRHOms2W1dWJNl7ToGaZnj50J3mIde2l
- mRr615CS6JmJkC8pxR87CsLyVD9m5rolk0t/iE3vNunVjyUva9dWkiQajn9YBfor8xDNng9PVKb
- jfLaoKUaI/5aOb5+UQTHPYpG6QNrvG8TqCn8pyYr7X7J4ClAzR2t/N/nusbWk4nhvMlgaE5EWMJ
- bN7
-X-Received: by 2002:a17:906:c108:b0:b8e:9ac2:9e0d with SMTP id
- a640c23a62f3a-b8face3fd6fmr326209466b.8.1771260344450; 
- Mon, 16 Feb 2026 08:45:44 -0800 (PST)
+ AJvYcCURAupvvbU6k980vsR62GrsIzqFlnpHNJ/bvJKudbrCHQYHSU081AtxpTBRlG9fafHxxi3EAihv@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy0MTcVVKmAlYXshjd4EClyJp7LgmDoqMBLS9BRY0wL2E0ipevs
+ JMYIdN2xTCg2GZip7A2w7Cy921KsQpD8BkoWYEruAICc3vleJNJFfbug
+X-Gm-Gg: AZuq6aJ853fOpcOvhFC2WBQdYCNHlXNXCOt7mEKkyr8TycekngTYh3oyjmh2XImKkjb
+ WZmaZswaQv8TjgfX+Yv8MsdYnWU9/Wuz0WiK8AB7wm91W+YMhhy2nmRQw3zXHTQ+0dW1bqBAwLX
+ d/nsP6h7Ra8jaTqdyJP0TuMC4VCLrLK6GYsLFHQ4a8+t6o7dh4zgSahUrXsg8KKaFutsaxsSVrp
+ 2VfDfuH7RfOObudPfum8WLvYxABMzED8Dv0n/d8jMgRYgWwRyByhEudDg+jlAPjTE3dVsGwLxMV
+ c0tDcL3zDN2f22xkRYMYNsK8RUEvs8WuN7Cc/HKyKdnJ+diZ61U7/kggJnO6+PmpYZebgPWNgBZ
+ w8653kkU7C/aOBW4ZBPsIL4oXvVeZCum/oos78Rlaz5jNqDUmys7epmEi/5AEX9OhNc+38+jc8G
+ b/TLMqZ4/23tNZIM06GOC7TO36CXLCJjOlgj7nHtco1xrb/e6GeY1BJWKHZdH5pk6b91xbzs1Pj
+ uZx
+X-Received: by 2002:a17:907:7f90:b0:b8a:f2d7:9942 with SMTP id
+ a640c23a62f3a-b8face51f34mr359995366b.3.1771260328825; 
+ Mon, 16 Feb 2026 08:45:28 -0800 (PST)
 Received: from laptok.lan (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-b8fc735d185sm264683866b.14.2026.02.16.08.45.43
+ a640c23a62f3a-b8fc735d185sm264683866b.14.2026.02.16.08.45.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Feb 2026 08:45:44 -0800 (PST)
+ Mon, 16 Feb 2026 08:45:28 -0800 (PST)
 From: =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
 To: alexander.deucher@amd.com,
 	harry.wentland@amd.com,
@@ -72,9 +72,10 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, tomasz.pakula.oficjalny@gmail.com,
  bernhard.berger@gmail.com, michel.daenzer@mailbox.org, daniel@fooishbar.org
-Subject: [PATCH v4 19/27] drm/amd/display: Trigger ALLM if it's available
-Date: Mon, 16 Feb 2026 17:45:08 +0100
-Message-ID: <20260216164516.36803-20-tomasz.pakula.oficjalny@gmail.com>
+Subject: [PATCH v4 07/27] drm/amd/display: Use bigger VRR range if found in
+ AMD vsdb
+Date: Mon, 16 Feb 2026 17:44:56 +0100
+Message-ID: <20260216164516.36803-8-tomasz.pakula.oficjalny@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
 References: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
@@ -97,39 +98,67 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [Why]
-ALLM automatically puts TVs into low latency modes (gaming modes) which
-we basically always want for PC use, be it gaming, or using precise
-inputs like mice and keyboards.
+Some monitors only expose their full VRR range in AMD vsdb for some
+reason.
 
 [How]
-Read the ALLM info from HDMI caps and use it to determine if ALLM should
-be indicated in HDMI Forum vsif. Additionally, make sure VIC modes are
-translated in case of ALLM active as VIC cannot be used in conjunction
-with hf-vsif. I learned this the hard way...
+Compare exposed ranges and use the bigger one.
+Only adjust lower limit if it doesn't support LFC
 
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4177
 Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 ---
- .../gpu/drm/amd/display/modules/info_packet/info_packet.c  | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 +++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 8e110c86bdd4..53e488fdb4ea 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -541,9 +541,10 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b3bf5e0c19a5..f36059bb0324 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -13269,6 +13269,34 @@ static bool copy_range_to_amdgpu_connector(struct drm_connector *conn)
+ 	return is_freesync_capable(range);
+ }
  
- 		info_packet->valid = false;
++static void extend_range_from_vsdb(struct drm_display_info *display,
++				   const struct amdgpu_hdmi_vsdb_info *vsdb)
++{
++	u16 vrr_min = display->monitor_range.min_vfreq;
++	u16 vrr_max = display->monitor_range.max_vfreq;
++
++	/* Always extend upper limit */
++	if (vsdb->max_refresh_rate_hz > vrr_max)
++		vrr_max = vsdb->max_refresh_rate_hz;
++
++	/*
++	 * Only extend lower limit if current one disables LFC.
++
++	 * During widespread testing, we found that some manufacturers probably
++	 * had issues with their monitors' lower VRR boundaries and adjusted
++	 * them up (Gigabyte X34GS with official range 48 - 180, AMD vsdb 48 -
++	 * 180 yet Monitor Ranges 55 - 180). After setting the lower boundary
++	 * from AMD vsdb, such monitors start having blanking issues.
++	 *
++	 * Work around that by not touching VRR min if it still supports LFC.
++	 */
++	if (vsdb->min_refresh_rate_hz < vrr_min && (vrr_min * 2 >= vrr_max))
++		vrr_min = vsdb->min_refresh_rate_hz;
++
++	display->monitor_range.min_vfreq = vrr_min;
++	display->monitor_range.max_vfreq = vrr_max;
++}
++
+ /**
+  * amdgpu_dm_update_freesync_caps - Update Freesync capabilities
+  *
+@@ -13339,6 +13367,9 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		if (is_monitor_range_invalid(connector))
+ 			monitor_range_from_vsdb(&connector->display_info, &vsdb_info);
  
--		format = stream->timing.timing_3d_format;
--		if (stream->view_format == VIEW_3D_FORMAT_NONE)
--			format = TIMING_3D_FORMAT_NONE;
-+		allm = stream->link->local_sink->edid_caps.allm;
-+		format = stream->view_format == VIEW_3D_FORMAT_NONE ?
-+			 TIMING_3D_FORMAT_NONE :
-+			 stream->timing.timing_3d_format;
- 		stereo = format != TIMING_3D_FORMAT_NONE;
- 		hdmi_vic_mode = is_hdmi_vic_mode(stream);
++		/* Try extending range if found in AMD vsdb */
++		extend_range_from_vsdb(&connector->display_info, &vsdb_info);
++
+ 		if (dpcd_caps.allow_invalid_MSA_timing_param)
+ 			freesync_capable = copy_range_to_amdgpu_connector(connector);
  
 -- 
 2.53.0
