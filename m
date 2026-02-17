@@ -4,36 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22EF8E9A03B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C353FE9A04C
 	for <amd-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 08:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E83610E57F;
-	Wed, 18 Feb 2026 08:09:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A846110E586;
+	Wed, 18 Feb 2026 08:09:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=m1k.cloud header.i=@m1k.cloud header.b="MCtzpZQe";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GLwGwah7";
 	dkim-atps=neutral
-Received: from mail.m1k.cloud (mail.m1k.cloud [195.231.66.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 710D710E200
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Feb 2026 19:17:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=m1k.cloud; s=mail;
- t=1771355833; bh=MmRvqvg7/kbJMQDHUKLb3b55sX1rPDH91P90bjLwuNE=;
- h=From:To:Cc:Subject;
- b=MCtzpZQe0DOe2+M1A3YTTbl6Qw+ayugD47GpKwwBFYUB4pVxIWivfyeolhlK/OoRL
- 58h+d8XdHMO0WHHneUeYJpArxZeBk4fc0csVdy9b+AA9sa0ykReNhEtylBsd+c/GT0
- pC3GXxvKqUmF8ZWd5PMv8bTvpS7vlALPXJDJvbkHXU2eRYSlDXTikpqrxDk3bz58v5
- HWD0p3RZ/rK4Zc6zxEC0Z4UjngekSkIcfcr6HTYmqJB+aQTaBkrgUSshrcB7ULost+
- FKxeELkvQsymCyqv7GjU3JnbD6JJ4FwXKbNr3p2/5T97i0riwZx5yQhwB+co44eXbT
- 5rytLKLlVq7Nw==
-From: Michele Palazzi <sysdadmin@m1k.cloud>
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, rodrigo.siqueira@amd.com, sunpeng.li@amd.com,
- alexander.deucher@amd.com, christian.koenig@amd.com,
- Michele Palazzi <sysdadmin@m1k.cloud>
-Subject: [PATCH 1/1] drm/amd/display: complete cursor vblank events immediately
-Date: Tue, 17 Feb 2026 20:16:32 +0100
-Message-ID: <20260217191632.1243826-1-sysdadmin@m1k.cloud>
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
+ [209.85.208.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 735DF10E515
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Feb 2026 16:41:04 +0000 (UTC)
+Received: by mail-ed1-f66.google.com with SMTP id
+ 4fb4d7f45d1cf-65a1faf828bso529765a12.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Feb 2026 08:41:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1771346463; x=1771951263; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=r/mWn0NTZppbdGJFnI/ErDwdANkgeIegPSZLoS1BE5U=;
+ b=GLwGwah7+Erw7DnT1m6GR6nWA6GBTdGM9QFQxLSXpZHKqk9JY2tE7+fGjf0b1O0w0Q
+ g08V4MkTajgiIE/LfWSnRx2oxbSygplypC5DmAnbQXJRP7+rkCDABbvgzMWZ6bPbbBc/
+ FVUYJt/DVisbFlElXtlJA5bHocUZvNEn6wO600Z57se7foFO6OOIIRxCT/L4rEsGbmJe
+ tugU0LHMobOL9fEPSRzzCmYe0obrXW7bMoULRwYEt3SbBZNjDudrSWoHJXkvYPGIXGOP
+ jnFB5djkzw27u+HkAhfAgWRNyvZuZ4GnFj6H9dI66pfF6VBCc3L+m8vnvzJFzl+vHQWX
+ PXLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771346463; x=1771951263;
+ h=mime-version:user-agent:content-transfer-encoding
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=r/mWn0NTZppbdGJFnI/ErDwdANkgeIegPSZLoS1BE5U=;
+ b=fzbeEEQ7V/tNn35F/Wcfw5wm+GY0IjpCVPBOnm5nyQ0rd8r5RWQPosDMPCg+cj8Y6Q
+ 6YwJ31r7FWaT0Rc9fAWD4plaiIQoUCQ13Go961CBoo092TwbOm240DvkCQDmZDhQskzA
+ fUtGrcvhNGoW9xuPh/ce2NyJ7bmbWN7HIiMO0rsiOncNm7kOEt9urty+gJsBdaOMEkmb
+ l7BNC5GpwYcprcl0/7ym5/NayHiXcov6PYwt50Il6pFAxzDzWr6CDap2/WCzHAopGP29
+ 0hKPzrkQU+qOzRKiexXN6pbDbNCZp1oSBE15v26M5vXw9gXPeVFkctpdh5LFd3bm0KNr
+ s8UQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW1yvpxwuIon25WaUrY+seBJ+SmZUnNWw0FG/1J231fsJWaND5zuVY18RzWj8Xs9U49IYop5pCd@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzoQsJE/moFVWa/TXK5a9+SH6vvwxSjsMdSYiiUahDlokvx7r71
+ 905IEYS1IsAYKYhUKfGHtGbQbFtYUOVrJc1l7/npXDnRUgc+SeR8+l5F
+X-Gm-Gg: AZuq6aL/Z4hRZ1IJOhSrNZDu4nnIhBLZ+/Sr7nqXgN+357OoSiLJ+L7n3k8kD/txGyq
+ X6QaffGQCCzo9+tLJwwiXIHaACxChiIYiHJFEG+W9b9loO48ma+My2vOMHFTH/4Srgtyrdb+335
+ PKzDeYC5uoZYJiGJfOkmE3qnQ+12bsVcczGaq2sMI0QzU0wUfZDE0f1OjZ9bha/1D1pqJSu64lP
+ n/verBW+RUiJ1F/mDRdBdw6erbTT32eCOcXSr+JHulD6rDr41pk628nertLXsIlMtmW+C7T9ONs
+ uYRhF+4u2Rjby7nOUXRJYICd25UMFMMB4o2L2UbE1RFvqpdLI4r/rxIoxBnT//T36aT2EKwM2Y7
+ NOwHXhk1o3Lgb/AeStZ+MoOLKQLUvErag2tSGe7grZ7PG3ieuwuFKu+BvkOPkD0iU5bWJpdsi6y
+ qfsZ6uZs+onX6bPCqyKIxfq5csoMoQEH7Z4eq7p9duOKQ0xq6/GfnyROUsHp+Xi3IHMfF1AhH4a
+ Xp9USDJwyo=
+X-Received: by 2002:a05:6402:5244:b0:65b:a76d:6ff6 with SMTP id
+ 4fb4d7f45d1cf-65bad140f57mr4283834a12.3.1771346462611; 
+ Tue, 17 Feb 2026 08:41:02 -0800 (PST)
+Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
+ [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-65bad3f1294sm2511183a12.26.2026.02.17.08.41.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Feb 2026 08:41:02 -0800 (PST)
+Message-ID: <8006baea7c35850de3a39f155b7aa004c4896495.camel@gmail.com>
+Subject: Re: [PATCH v4 23/27] drm: Add passive_vrr_disabled property to crtc
+From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: Michel =?ISO-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>, 
+ alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
+ siqueira@igalia.com, 	dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
+ bernhard.berger@gmail.com, daniel@fooishbar.org
+Date: Tue, 17 Feb 2026 17:41:00 +0100
+In-Reply-To: <c6a852ae-4edf-4336-9f2a-448c296cc045@mailbox.org>
+References: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
+ <20260216164516.36803-24-tomasz.pakula.oficjalny@gmail.com>
+ <c6a852ae-4edf-4336-9f2a-448c296cc045@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 18 Feb 2026 08:09:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -49,184 +98,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Intermittent flip_done timeouts have been observed on AMD GPUs
-since kernel 6.12.
+On Tue, 2026-02-17 at 09:21 +0100, Michel D=C3=A4nzer wrote:
+> On 2/16/26 17:45, Tomasz Paku=C5=82a wrote:
+> > Many TVs and other HDMI sinks suffer from blanking and possibly other
+> > glitches when VRR is toggled. With VRR present on such sinks and
+> > vrr_on_desktop enabled, they behave like the signal is always variable,
+> > even in fixed refresh rate situations. DisplayPort and eDP enforce
+> > seamless VRR transitions but HDMI unfortunately doesn't.
+> >=20
+> > Keep VRR toggled if it's supported and not explicitly disabled. It can
+> > be used for any VRR sinks, but this is mainly targeted for HDMI.
+> >=20
+> > Functionally, for an end user, this is the same as normal, fixed refres=
+h
+> > rate mode. The only difference is that sink is kept in VRR state which
+> > enables seamless transitions into/out of variable refresh rate.
+> >=20
+> > Basically, the driver shouldn't change it's behavior around VRR_ENABLED
+> > set to false, jut keep sending info packets/frames with VRR/FreeSync/
+> > G-Sync/HDMI VRR active.
+> >=20
+> > Enabled by default for sinks that claim it's support
+>=20
+> Having a negation term like "disabled" in the property name can be confus=
+ing (as it involves double negation when the property value is 0) and is be=
+tter avoided.
+>=20
 
-Analysis with bpftrace reveals that amdgpu_dm_crtc_handle_vblank() can
-incorrectly consume events meant for plane flips during cursor-only
-updates. This happens because cursor commits defer event delivery to
-the vblank handler, which checks (pflip_status != SUBMITTED). Since
-AMDGPU_FLIP_NONE also matches this, cursor events can "steal" the
-event slot for subsequent plane flips, leading to timeouts.
+I understand that and felt a little cheaty by doing this but I couldn't
+for the life of my figure out how to make it so a driver could override
+this by default, before the compositor will set this. Would a "set"
+function work, just like for "capable" properties?
+=20
+I 100% believe this "Passive VRR" for HDMI should be the default and
+helps massively but I'm not even that convinced if this must be user
+configurable. Alex asked to make it a property, but In the end, it's not
+something thsdat can be controlled on other OSes. I still believe that
+users should be able to change this somehow, but if amdgpu module
+setting wasn't a good fit, I don't know what is.
 
-The potential for a race was present since commit 473683a03495
-("drm/amd/display: Create a file dedicated for CRTC"), then
-commit 58a261bfc967 ("drm/amd/display: use a more lax vblank enable
-policy for older ASICs") made it happen by reducing vblank
-off-delay and making disables happen much more frequently
-between commits.
-
-Fix this by sending cursor-only vblank events immediately in
-amdgpu_dm_commit_planes(). Since cursor updates are committed to
-hardware immediately, deferring the event is unnecessary and
-creates race windows for event stealing or starvation if vblank
-is disabled before the handler runs.
-
-Tested on DCN 2.1, 3.2, and 3.5.
-
-Fixes: 58a261bfc967 ("drm/amd/display: use a more lax vblank enable policy for older ASICs")
-Signed-off-by: Michele Palazzi <sysdadmin@m1k.cloud>
----
-I've been chasing intermittent flip_done timeouts on AMD GPUs (7900 GRE first, 9070 XT now)
-since kernel 6.12. The hang occurs during normal desktop usage but is much easier to
-trigger under specific conditions involving cursor movements and plane updates.
-
-Partially tracked in https://gitlab.freedesktop.org/drm/amd/-/issues/3787
-
-Hardware: Ryzen 7 7800X3D, Radeon RX 9070 XT
-Dual DP monitors, 2560x1440, 144Hz
-Desktop: KDE Plasma Wayland
-
-The hang was initially observed while using Cisco Webex
-(XDG_SESSION_TYPE=x11 /opt/Webex/bin/CiscoCollabHost %U), start a meeting
-and screen share a window running Omnissa Horizon client. Then move the cursor
-around between the two monitors and the shared window.
-Under these conditions the hang usually occurs within a few hours.
-
-Enabling drm.debug masks the issue entirely, the overhead
-changes timing enough to close the race window.
-So i added debug printks to amdgpu_dm.c and used a small bpftrace script to log the
-pageflip lifecycle with per-thread tracking to debug.
-
-bpftrace script:
-
-  config = { missing_probes = "warn" }
-  BEGIN { printf("=== flip_done tracer started ===\n"); }
-  kprobe:drm_crtc_vblank_on_config       { printf("%lu drm_crtc_vblank_on_config\n", nsecs/1000000); }
-  kprobe:drm_vblank_disable_and_save     { printf("%lu drm_vblank_disable_and_save\n", nsecs/1000000); }
-  kprobe:dm_pflip_high_irq               { printf("%lu dm_pflip_high_irq\n", nsecs/1000000); }
-  kprobe:drm_crtc_send_vblank_event      { printf("%lu drm_crtc_send_vblank_event\n", nsecs/1000000); }
-  kprobe:drm_vblank_put                  { printf("%lu drm_vblank_put\n", nsecs/1000000); }
-  kprobe:drm_atomic_helper_commit_hw_done { printf("%lu drm_atomic_helper_commit_hw_done\n", nsecs/1000000); }
-  kprobe:manage_dm_interrupts            { printf("%lu manage_dm_interrupts\n", nsecs/1000000); }
-  kprobe:drm_atomic_helper_wait_for_flip_done {
-      @wait_start[tid] = nsecs;
-      printf("%lu drm_atomic_helper_wait_for_flip_done ENTER [tid=%d]\n", nsecs/1000000, tid);
-  }
-  kretprobe:drm_atomic_helper_wait_for_flip_done {
-      $start = @wait_start[tid];
-      $ms = $start > 0 ? (nsecs - $start) / 1000000 : 0;
-      if ($ms > 100) {
-          printf("%lu drm_atomic_helper_wait_for_flip_done TIMEOUT waited %lums [tid=%d]\n",
-                 nsecs/1000000, $ms, tid);
-      } else {
-          printf("%lu drm_atomic_helper_wait_for_flip_done EXIT %lums [tid=%d]\n",
-                 nsecs/1000000, $ms, tid);
-      }
-      delete(@wait_start[tid]);
-  }
-  interval:s:60 { printf("%lu HEARTBEAT\n", nsecs/1000000); }
-  END { printf("=== stopped ===\n"); clear(@wait_start); }
-
-The timeout was captured at 17:35:41 CET. The trace timestamps
-match dmesg exactly (9942110ms = dmesg 9942.110s).
-
-dmesg output from the timeout:
-
-  [ 9942.110360] [FLIP_DEBUG] wait_for_flip_done took 10329ms!
-  [ 9942.110380] [FLIP_DEBUG]  crtc:0 pflip_status=0 event=00000000a0636a23
-                  vbl_enabled=1 vbl_refcount=1 vbl_count=1428659
-                  disable_immediate=0 active_planes=1
-
-pflip_status=0 (AMDGPU_FLIP_NONE) but event is still non-NULL. The flip was never completed
-but the status was already reset to NONE. vblank was enabled, refcount was held, so vblank
-IRQs were firing throughout the wait.
-
-The bpftrace captured the exact sequence leading up to the hang. Here's the critical
-timeline at ~17:35:31 (9931771), about 10 seconds before the timeout fired:
-
-  9931755 drm_atomic_helper_commit_hw_done
-  9931755 drm_atomic_helper_wait_for_flip_done ENTER [tid=35929]
-  9931756 dm_pflip_high_irq                           <- normal plane flip, last good one
-  9931756 drm_crtc_send_vblank_event
-  9931756 drm_vblank_put
-  9931756 drm_atomic_helper_wait_for_flip_done EXIT 1ms [tid=35929]
-  9931771 drm_vblank_disable_and_save                 <- vblank timer fires
-  9931771 drm_crtc_send_vblank_event                  <- event sent WITHOUT dm_pflip_high_irq
-  9931771 drm_vblank_put
-  9931771 drm_atomic_helper_commit_hw_done
-  9931771 drm_atomic_helper_wait_for_flip_done ENTER [tid=35929]
-  9931771 drm_atomic_helper_wait_for_flip_done EXIT 0ms [tid=35929]  <- instant, already done
-  9931773 drm_atomic_helper_commit_hw_done
-  9931773 drm_atomic_helper_wait_for_flip_done ENTER [tid=36929]     <- new commit
-  9931777 dm_pflip_high_irq                           <- pflip fires, completes the wrong one
-  9931777 drm_crtc_send_vblank_event
-  9931777 drm_vblank_put
-  9931777 drm_atomic_helper_wait_for_flip_done EXIT 3ms [tid=36929]
-  9931781 drm_atomic_helper_commit_hw_done
-  9931781 drm_atomic_helper_wait_for_flip_done ENTER [tid=36929]     <- THIS ONE HANGS
-  ... 10328ms of silence ...
-  9942110 drm_atomic_helper_wait_for_flip_done TIMEOUT waited 10328ms [tid=36929]
-
-The drm_crtc_send_vblank_event at 9931771 fires without dm_pflip_high_irq. This is
-amdgpu_dm_crtc_handle_vblank() sending a cursor-only event. The problem is that the
-cursor-only commit path in amdgpu_dm_commit_planes() stores the event in acrtc->event
-and defers delivery to the vblank handler. This creates two race conditions:
-
-- The vblank handler checks (pflip_status != SUBMITTED) which also
-  matches NONE, so it can consume events meant for plane flips. The subsequent
-  dm_pflip_high_irq finds no event, and the next commit hangs.
-
-- If vblank is disabled by the off-delay timer before the handler
-  runs, the PENDING cursor event is never delivered and the commit hangs.
-
-The fix is to send cursor-only events immediately via drm_crtc_send_vblank_event()
-in amdgpu_dm_commit_planes() instead of deferring to the vblank handler. The cursor
-update is already committed to hardware at this point, so immediate delivery is correct.
-This eliminates both race conditions by removing cursor events from the deferred
-delivery path entirely:
-
-- Plane flips: SUBMITTED -> dm_pflip_high_irq delivers (unchanged)
-- Cursor updates: sent immediately in commit_planes (no deferral, no races)
-
-From git history the check in amdgpu_dm_crtc_handle_vblank() has been like this since
-473683a03495 ("drm/amd/display: Create a file dedicated for CRTC", 2022)
-which moved this code from amdgpu_dm.c, but it was practically impossible to trigger
-because the default drm_vblank_offdelay was 5000ms.
-Commit 58a261bfc967("drm/amd/display: use a more lax vblank enable policy for older ASICs") in 6.12
-changed all ASICs to use drm_crtc_vblank_on_config() with a computed off-delay
-of roughly 2 frames (~14ms at 144Hz).
-This made drm_vblank_disable_and_save fire hundreds of times more often, turning
-a theoretical race into reality. The bpftrace log is full of drm_vblank_disable_and_save
-events interleaved with the commit sequence.
-
-This fix was tested on DCN 2.1 (4700U), DCN 3.2 (7600M XT), and DCN 3.5 (9070 XT).
-Under high-frequency glxgears + cursor jiggling test the patch successfully intercepted
-the race thousands of times without a single timeout.
-Also running this on the main system without issues.
-
-This instead https://lists.freedesktop.org/archives/amd-gfx/2026-February/138636.html was
-my previously rushed attempt to do something about this that is no longer needed.
-
-Patch applies cleanly on top of tag v6.19.
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a8a59126b2d2..35987ce80c71 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -10168,8 +10168,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 	} else if (cursor_update && acrtc_state->active_planes > 0) {
- 		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
- 		if (acrtc_attach->base.state->event) {
--			drm_crtc_vblank_get(pcrtc);
--			acrtc_attach->event = acrtc_attach->base.state->event;
-+			drm_crtc_send_vblank_event(pcrtc, acrtc_attach->base.state->event);
- 			acrtc_attach->base.state->event = NULL;
- 		}
- 		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
--- 
-2.53.0
-
+In the end, I can just yeet all this completely and hardcode
+freesync_on_desktop =3D true for HDMI like it's done in the windows
+driver.
