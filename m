@@ -4,88 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C4EDE909CF
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 16:20:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3C3EE909CF
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 16:21:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCD1E10E50A;
-	Tue, 17 Feb 2026 16:20:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72B1D10E50B;
+	Tue, 17 Feb 2026 16:21:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VaVSSD7b";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b0FfDJ30";
 	dkim-atps=neutral
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E705C10E50A
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Feb 2026 16:20:52 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-124b07e5fe4so254994c88.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Feb 2026 08:20:52 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771345252; cv=none;
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C7D10E50E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Feb 2026 16:21:36 +0000 (UTC)
+Received: by mail-dl1-f47.google.com with SMTP id
+ a92af1059eb24-1275750cfadso35938c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Feb 2026 08:21:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771345296; cv=none;
  d=google.com; s=arc-20240605;
- b=Aq82p8tcCTrKtq+n0wUYoH3FWS89AMkoAKsL4SXhyorsZ8gwg1Kfy4zP1LYcEDwq5t
- GAdy+EP+2QfZA8wXTAOy6Bi6Ci08q+sJCKZQl8BFM18PwqEvjVT/XGUUZ8Y0pAh0ZUYn
- fQvsK205FW1Qr88P1ETfikN2phI3rBhX6KcDgELbEysC1wFiYgZxMJpPul4Zw0URsh6y
- KTTNLt6EbJWlZJgD2U91Mq2Bvh7f6Xn26R2xbHVCm1+X2XRIMrmifekYxIv8SjN4/pSU
- i4vU57insCfeitwX7oWtnR+GCgKTErbu4HbL6X4rErw+PSDD5R4WOtrRZoqcm2Kt1Xrm
- L+AA==
+ b=L1r0mF5zqZ0xQX+YUFfHZd51csPGaEzSp9cbh0V8A0DmyBMGH82gOQWi5hJ9PcG4G1
+ J7XQMKS38UuSjJ8FnWweVcxVx5GIbGJ9HzAvDwrEIk6AqQ9+HGpcoNa+ZohvdLPr3ssT
+ Ct/ULpfjVKhhvnAEX9uJf/Du6tU6j2wkNL6BkzUyrz0GNytVpk4iBhcmKw5vG8nUBUGq
+ b1N5ziHoHcP8E3JeRSkeJuCt8fZ2P4bUIVhzAX2MQ3j72eQkTuNibhXcGmXzwV5pnKvk
+ 9tZ1nY4mzQPX7JJjNZFG9Hg4M88NKPAcbqo+rDSxvIRqnmvETRGHH+v0rUg9zi9n6kv2
+ rfLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=9i55LZieGKs05yWNPk9MKUvqSoDlPgmRzyXhZLZD6vQ=;
- fh=W/t5VKYshKuIcQw5JFKDY9O+VIhdeHtkBGUkXPswkMU=;
- b=Ysu/kqf6OL6PaA2pUkH8kN2jRCdSxsanmOikUjjKnWpfbOVlo2sM+WYdqu1h3NC9fo
- nz73uyynbs6YDjj4Tq1SBny7faMB2OfCccjgVk3qbhf7hUaHc5cY7XjcKw20ueveYfV7
- b4bUZ5nRIjmZsYwpDnvH8eVzi774wOkUZa4xu2Le25c3rHIQRiiHvDx32mIBceLvQneo
- sgrlhLCQebNjeBT37bTjDdFCZ4nG5mTgQGcLnMGw6mnvZV4XpAVBZ6gy6gFPATAHreYZ
- SmPgKjpZI/jqyWxx+aXutYN8BO3veEJ5b4Kd7XOITEOsM+0DZm8aAqOsBK77G9JFMcL3
- kJIA==; darn=lists.freedesktop.org
+ bh=5OjLMNpEhGZOhH95nEM9Q612OzOTY/1NripapqhTwW8=;
+ fh=urzI87u1YYNEF/EfWkJOigkPKEHze3jtz8WcTjGuDbE=;
+ b=Qgpd1jofpcJdlvrBrKeXEsx7ofS68e2U/hOL7YdPpdC1Dd+dzVN1eiKiDlDO69Jszc
+ DI4ra4aMx/6AVR4kPxiY0VD23Lp6o4mD+lG+Ay3UO9qEuVSkZByutM+xSlYgwJTFNu4m
+ wzJfzGEF9V+sgu6fWeh/VsrsGxuGX8kDc+pnPYRXurKoSnCfhoTcNKGld7msJK+i7oeF
+ hHZ0krTLOACYi+WfTNlM2mXVqAr/2nC45KV94zRN4YG/C4lYUsthGTAF01El6G7xcsAm
+ SHcsXrUEzmGirqPVyh2LH0pNG3I9bbH6Z7ZoRPiuisx0CypxKKtoNYCfuvJ1Krqd/P+d
+ phLA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771345252; x=1771950052; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1771345296; x=1771950096; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9i55LZieGKs05yWNPk9MKUvqSoDlPgmRzyXhZLZD6vQ=;
- b=VaVSSD7b+EpWvlK9NAPPW4SjrPb5s2Z/+Tw6+zOGwYgfA7eHl5zoHkhDM9eyqQTAm5
- vhrUh/G+jaG5BXnx81MOCP5C0TdHFu3uxx2OP9aXaIqho6ZdoVhCfFCc4jIFZyJcBdlg
- 5ZWG/nw66vy7xF2sOkQ7Ew+dWiv8pljkRbbL7KtZYF+UHL6HA6YwaDutwP/bjy0JvtB3
- OyjOxznmxn05QHY0nNuqRBJ2uA1iikwV2GkdsY3WExiRhmDzm6JKVE8z3PuYVDT45OhY
- uUp7DkexzPQOsolH5ibPtgZZYe0h7cVwR2VKX59sDVt5hlQNpg77rUz4xPsjKG85Z7+2
- Rusw==
+ bh=5OjLMNpEhGZOhH95nEM9Q612OzOTY/1NripapqhTwW8=;
+ b=b0FfDJ30pCzvZwQQCGtIzsLGrCqIFsNrUgjsq2ehyOxMuzfF3wEn/wrtdDX+BGlRSu
+ MfEbDmJiVwOM9HNlsyt9Sfd7hSwYtgNJrHuiKTjgvgvGbDskW/K1dnRyxjib451u6RrD
+ qPvarLMRr+Cvy9ix50Y7mpplZBtIBZupOx30DsYU7hpsOQ4/xPSQkfpLZi5BbbJq97RW
+ 5RHoB64wmVaCrXjWjqiW2Jpq85/htuG7NPOwCjTW+SW1PXhsSVnId4F3moOPMq4Pgejp
+ QGufmG/qkTtkQsY9IfOWUvZCg6BZcgpZkQi1JZgWZQwPU9d7i3pF7cOdcU27bNbqCRld
+ nVOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771345252; x=1771950052;
+ d=1e100.net; s=20230601; t=1771345296; x=1771950096;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=9i55LZieGKs05yWNPk9MKUvqSoDlPgmRzyXhZLZD6vQ=;
- b=fXHkPwcAykNT48/JcCjxsNsXpx2KTwjd3AX4sJB4hnzBxxltSyUNVj6b7RMxu2j7pc
- lyyVX/3HIl9V2+WJLiqFisiRU8L4ebTskdtoNCeTILjVy9nN5PdkPHDqI5Aa/I7kCfeb
- SE4on99oUgPYTy3hB3rF+iErVhoUgjtFWDjSqckFEC+833qo6NSwTePIPnPmdZc9hgJ5
- 87fNvR9L5UMCnrmlin4EtZO0u+xajUICBmURn+/c8S7XMvM29t5hhMDwcMiwYYvn5ly3
- llRzA5Jd2X11e/DsFKctGdHCNMGt3jSunt/PzxHqHessIkRnx6w5srpGbJEMQpvWMiLF
- fpww==
+ bh=5OjLMNpEhGZOhH95nEM9Q612OzOTY/1NripapqhTwW8=;
+ b=LhCllbCR60hY5bk3MpymKnr5A8t5twxmQtHVVZAhk6y2S5HNgG25OvnNtxPjdJB4Na
+ sME8ZCpEXmm3riOdQu2uah/ew5Zf0hLOSsisQ0izvb5wOAbPveEEdgZhZ/5UFYhP5B/v
+ pU+ZhKG2WxkkKU5Dnu2qpw+2lK1wO/BwNlwsrYJH1Jd1yURMDgJrSnmT8BJYNC10NL02
+ KnGsqbfGdDe33uQ3eVyaXZtb3qksikGpAg/uCIxVo4kfz/lT/Pc8bCYmUIqV0JCsDgJB
+ hxhYr+olckdct9Nbx53F2WGkH7QmQy1FXCcIpE9ZELCwRXo9zQlSTw7kooae7hwauHfM
+ 49rw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVMRWrLQ3p7tClQLlVFG43pVC3NaTkwEjtUtZQbJ1cD8lCxVXUz4EOtqgjQSV9yMv9vbHI5A4fN@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyC9hD800ld22QzIq+GJYaRf178If6rsMbHOulMWUA91Haj/olw
- 4XxWuCCkggY3XsIMzKOHOewwGC9q1rlZz24LIGMndrvPO6mJtNuGwzR0Fehc3bgSEKPBUFEIBVR
- kIx1R1IzFo5QbWcqcb93Y82VKnCJGrtY=
-X-Gm-Gg: AZuq6aLrtX4zxAVmoAZKbUgylgVmmA/WduRbwXGa2O51VfQ13mY7Fka8ekBGJ9BFWgh
- Evd/i4c1ufrnyo/u9XoiC51SzXVDpeXZ0Fm8YmjfRKlYWY46xNUsbc5cGf1rTVP91tzYi2E0p2j
- U4YBsposcS6i5MQslsJuPhImem1elegGyr0kRjKwXEuRvS7XQgZAq+RSJMBg3rPgEa1+346brbG
- roXJFPdxJYZQSSFRCCzHngM/CXFQCDlG1GeMloWisM+eGETdSXj2RAHgQnMxiJeNqQDCl9K+3/J
- A3xpO5FMNKtSSBLKzCDoE4YHJJM99162EtgqGbYSf+EfFktAWVCx5gFUfoxna/R9vjILWGhDSYY
- L4tME
-X-Received: by 2002:a05:7022:3f09:b0:124:94b6:2a1f with SMTP id
- a92af1059eb24-127398118b9mr2362895c88.3.1771345252051; Tue, 17 Feb 2026
- 08:20:52 -0800 (PST)
+ AJvYcCXWroBaPoUKb7uOmJ9b23LX1M5K8gh2Ww0XL6qSH+2GQ/huCqIJ6k6bGGK7ZSimPzDKnOvZ5t40@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxT+jfGl1FNYFLtmXfPd/BaD8yP2yrzrq20e7DklxhhLRebA8al
+ Ebpvms86EZ4bB+jlTsFqgaMwjoGWLR0xjk800CPDSOGBWHpxIePjrLbcVj9W7AUQkQwzMXVZs9w
+ j3GhHF4jDuYsiEKniUz8U6SodkT0dOhE=
+X-Gm-Gg: AZuq6aIYNRoxSLZgi87BLCp0r3vjFFuLTsyaoRCULg24GemrGKeCOH9vm1XV/EEb4+o
+ eIqPhNgjMxm+rsn+2IOV9cLVrmQi+1Pro4ZJcDIdhkckqY9bZfrwQws6ZWFa+THWjeELTxpBH4m
+ rKAWyqTkoBNeLvsalcqtSSvyA41lT97U7C6jDB9UgLICYbjVFvKlvVT/Sz5wuZpvjWTimGzpQpu
+ DtrQmSi9kKBOxRBzGzJ/uTSHg0ZD+EEBU8VBOWS/egz512mZbl4bcnGhZ4nhpBwl2ME1kCYr892
+ 2kjmbCewgp78Q+dnDsOg2+E17+V+pPez6MS/YYf5cEM+JY+I9ILSCdHZ59C3TER/8uiWYQ==
+X-Received: by 2002:a05:7022:6b98:b0:123:308f:667b with SMTP id
+ a92af1059eb24-12739793cc8mr4162045c88.2.1771345295795; Tue, 17 Feb 2026
+ 08:21:35 -0800 (PST)
 MIME-Version: 1.0
 References: <20260211102657.4180-1-pierre-eric.pelloux-prayer@amd.com>
- <20260211102657.4180-6-pierre-eric.pelloux-prayer@amd.com>
-In-Reply-To: <20260211102657.4180-6-pierre-eric.pelloux-prayer@amd.com>
+ <20260211102657.4180-4-pierre-eric.pelloux-prayer@amd.com>
+In-Reply-To: <20260211102657.4180-4-pierre-eric.pelloux-prayer@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 17 Feb 2026 11:20:40 -0500
-X-Gm-Features: AaiRm50d9cmG136ZAb4BP8CYmpO7L52Et3tMmtNHutM6CWuRv-FRvnuQyTDqA0U
-Message-ID: <CADnq5_Ndh2zaQ5VcoA1jNjAohkurqofd5_TweCfX+iaKz9h+vA@mail.gmail.com>
-Subject: Re: [PATCH v1 6/6] drm/amdgpu: dump job ibs in the devcoredump
+Date: Tue, 17 Feb 2026 11:21:23 -0500
+X-Gm-Features: AaiRm50OCgHm5iw9B2jU8EV7pEsKwcUfBQT0WA1EEpOMEpk41fegxP0li_OlOuc
+Message-ID: <CADnq5_OS1k3EdY73hw+68nHC2Qg8KcjX9bLYZKp-R6df1vLUow@mail.gmail.com>
+Subject: Re: [PATCH v1 4/6] drm/amdgpu: extract amdgpu_vm_lock_by_pasid from
+ amdgpu_vm_handle_fault
 To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -108,162 +108,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 11, 2026 at 6:07=E2=80=AFAM Pierre-Eric Pelloux-Prayer
+On Wed, Feb 11, 2026 at 5:37=E2=80=AFAM Pierre-Eric Pelloux-Prayer
 <pierre-eric.pelloux-prayer@amd.com> wrote:
 >
-> Now that we have a worker thread, we can try to access the
-> IBs of the job. The process is:
-> * get the VM from the PASID
-> * get the BO from its VA and the VM
-> * map the BO for CPU access
-> * copy everything, then add it to the dump
-> Each step can fail so we have to be cautious.
-> These operations can be slow so when amdgpu_devcoredump_format
-> is called only to determine the size of the buffer we skip all
-> of them and assume they will succeed.
+> This is tricky to implement right and we're going to need
+> it from the devcoredump.
 >
 > Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd=
 .com>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 84 ++++++++++++++++++-
->  1 file changed, 83 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 84 +++++++++++++++++---------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  3 +
+>  2 files changed, 57 insertions(+), 30 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> index d0af8a294abf..d576518c212d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> @@ -200,12 +200,20 @@ static void amdgpu_devcoredump_fw_info(struct amdgp=
-u_device *adev,
->  static ssize_t
->  amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_core=
-dump_info *coredump)
->  {
-> +       struct amdgpu_device *adev =3D coredump->adev;
->         struct drm_printer p;
->         struct drm_print_iterator iter;
->         struct amdgpu_vm_fault_info *fault_info;
-> +       struct amdgpu_bo_va_mapping *mapping;
->         struct amdgpu_ip_block *ip_block;
-> +       struct amdgpu_res_cursor cursor;
-> +       struct amdgpu_bo *abo, *root;
-> +       uint64_t va_start, offset;
->         struct amdgpu_ring *ring;
-> -       int ver, i, j;
-> +       struct amdgpu_vm *vm;
-> +       u32 *ib_content;
-> +       uint8_t *kptr;
-> +       int ver, i, j, r;
->         u32 ring_idx, off;
->
->         iter.data =3D buffer;
-> @@ -323,6 +331,80 @@ amdgpu_devcoredump_format(char *buffer, size_t count=
-, struct amdgpu_coredump_inf
->         else if (coredump->reset_vram_lost)
->                 drm_printf(&p, "VRAM is lost due to GPU reset!\n");
->
-> +       if (coredump->num_ibs) {
-> +               if (buffer)
-> +                       vm =3D amdgpu_vm_lock_by_pasid(adev, &root, cored=
-ump->pasid);
-> +               else
-> +                       vm =3D NULL;
-
-Is there any point in doing the loop if the vm is NULL?
-
-> +
-> +               for (int i =3D 0; i < coredump->num_ibs && (!buffer || vm=
-); i++) {
-> +                       ib_content =3D kvmalloc_array(coredump->ibs[i].ib=
-_size_dw, 4,
-> +                                                   GFP_KERNEL);
-
-Shouldn't this be GFP_NOWAIT?
-
-Alex
-
-> +                       if (!ib_content)
-> +                               continue;
-> +
-> +                       if (!vm)
-> +                               goto output_ib_content;
-> +
-> +                       va_start =3D coredump->ibs[i].gpu_addr & AMDGPU_G=
-MC_HOLE_MASK;
-> +                       mapping =3D amdgpu_vm_bo_lookup_mapping(vm, va_st=
-art / AMDGPU_GPU_PAGE_SIZE);
-> +                       if (!mapping)
-> +                               goto free_ib_content;
-> +
-> +                       offset =3D va_start - (mapping->start * AMDGPU_GP=
-U_PAGE_SIZE);
-> +                       abo =3D amdgpu_bo_ref(mapping->bo_va->base.bo);
-> +                       r =3D amdgpu_bo_reserve(abo, false);
-> +                       if (r)
-> +                               goto free_ib_content;
-> +
-> +                       if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)=
- {
-> +                               off =3D 0;
-> +
-> +                               if (abo->tbo.resource->mem_type !=3D TTM_=
-PL_VRAM)
-> +                                       goto unreserve_abo;
-> +
-> +                               amdgpu_res_first(abo->tbo.resource, offse=
-t,
-> +                                                coredump->ibs[i].ib_size=
-_dw * 4,
-> +                                                &cursor);
-> +                               while (cursor.remaining) {
-> +                                       amdgpu_device_mm_access(adev, cur=
-sor.start / 4,
-> +                                                               &ib_conte=
-nt[off], cursor.size / 4,
-> +                                                               false);
-> +                                       off +=3D cursor.size;
-> +                                       amdgpu_res_next(&cursor, cursor.s=
-ize);
-> +                               }
-> +                       } else {
-> +                               r =3D ttm_bo_kmap(&abo->tbo, 0,
-> +                                               PFN_UP(abo->tbo.base.size=
-),
-> +                                               &abo->kmap);
-> +                               if (r)
-> +                                       goto unreserve_abo;
-> +
-> +                               kptr =3D amdgpu_bo_kptr(abo);
-> +                               kptr +=3D offset;
-> +                               memcpy(ib_content, kptr,
-> +                                      coredump->ibs[i].ib_size_dw * 4);
-> +
-> +                               amdgpu_bo_kunmap(abo);
-> +                       }
-> +
-> +output_ib_content:
-> +                       drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
-> +                                  i, coredump->ibs[i].gpu_addr, coredump=
-->ibs[i].ib_size_dw);
-> +                       for (int j =3D 0; j < coredump->ibs[i].ib_size_dw=
-; j++)
-> +                               drm_printf(&p, "0x%08x\n", ib_content[j])=
-;
-> +unreserve_abo:
-> +                       if (vm)
-> +                               amdgpu_bo_unreserve(abo);
-> +free_ib_content:
-> +                       kfree(ib_content);
-> +               }
-> +               if (vm) {
-> +                       amdgpu_bo_unreserve(root);
-> +                       amdgpu_bo_unref(&root);
-> +               }
-> +       }
-> +
->         return count - iter.remain;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 807f8bcc7de5..6a5b3e148554 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2930,6 +2930,50 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void *=
+data, struct drm_file *filp)
+>         return 0;
 >  }
 >
+> +/**
+> + * amdgpu_vm_lock_by_pasid - return an amdgpu_vm and its root bo from a =
+pasid, if possible.
+> + * @adev: amdgpu device pointer
+> + * @root: root BO of the VM
+> + * @pasid: PASID of the VM
+> + * The caller needs to unreserve and unref the root bo on success.
+> + */
+> +struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+> +                                         struct amdgpu_bo **root, u32 pa=
+sid)
+> +{
+> +       unsigned long irqflags;
+> +       struct amdgpu_vm *vm;
+> +       int r;
+> +
+> +       xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+> +       vm =3D xa_load(&adev->vm_manager.pasids, pasid);
+> +       *root =3D vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
+> +       xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+> +
+> +       if (!*root)
+> +               return NULL;
+> +
+> +       r =3D amdgpu_bo_reserve(*root, true);
+> +       if (r)
+> +               goto error_unref;
+> +
+> +       /* Double check that the VM still exists */
+> +       xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+> +       vm =3D xa_load(&adev->vm_manager.pasids, pasid);
+> +       if (vm && vm->root.bo !=3D *root)
+> +               vm =3D NULL;
+> +       xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+> +       if (!vm)
+> +               goto error_unlock;
+> +
+> +       return vm;
+> +error_unlock:
+> +       amdgpu_bo_unreserve(*root);
+> +
+> +error_unref:
+> +       amdgpu_bo_unref(root);
+> +       return NULL;
+> +}
+> +
+>  /**
+>   * amdgpu_vm_handle_fault - graceful handling of VM faults.
+>   * @adev: amdgpu device pointer
+> @@ -2945,50 +2989,31 @@ int amdgpu_vm_ioctl(struct drm_device *dev, void =
+*data, struct drm_file *filp)
+>   * shouldn't be reported any more.
+>   */
+>  bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
+> -                           u32 vmid, u32 node_id, uint64_t addr, uint64_=
+t ts,
+> -                           bool write_fault)
+> +                           u32 vmid, u32 node_id, uint64_t addr,
+> +                           uint64_t ts, bool write_fault)
+>  {
+>         bool is_compute_context =3D false;
+>         struct amdgpu_bo *root;
+> -       unsigned long irqflags;
+>         uint64_t value, flags;
+>         struct amdgpu_vm *vm;
+>         int r;
+>
+> -       xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+> -       vm =3D xa_load(&adev->vm_manager.pasids, pasid);
+> -       if (vm) {
+> -               root =3D amdgpu_bo_ref(vm->root.bo);
+> -               is_compute_context =3D vm->is_compute_context;
+> -       } else {
+> -               root =3D NULL;
+> -       }
+> -       xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+> -
+> -       if (!root)
+> +       vm =3D amdgpu_vm_lock_by_pasid(adev, &root, pasid);
+> +       if (!vm)
+>                 return false;
+>
+> +       is_compute_context =3D vm->is_compute_context;
+> +
+>         addr /=3D AMDGPU_GPU_PAGE_SIZE;
+>
+> -       if (is_compute_context && !svm_range_restore_pages(adev, pasid, v=
+mid,
+> -           node_id, addr, ts, write_fault)) {
+> +       if (is_compute_context &&
+> +               !svm_range_restore_pages(adev, pasid, vmid, node_id, addr=
+,
+> +                                       ts, write_fault)) {
+> +               amdgpu_bo_unreserve(root);
+>                 amdgpu_bo_unref(&root);
+>                 return true;
+>         }
+>
+> -       r =3D amdgpu_bo_reserve(root, true);
+> -       if (r)
+> -               goto error_unref;
+> -
+> -       /* Double check that the VM still exists */
+> -       xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+> -       vm =3D xa_load(&adev->vm_manager.pasids, pasid);
+> -       if (vm && vm->root.bo !=3D root)
+> -               vm =3D NULL;
+> -       xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
+> -       if (!vm)
+> -               goto error_unlock;
+> -
+>         flags =3D AMDGPU_PTE_VALID | AMDGPU_PTE_SNOOPED |
+>                 AMDGPU_PTE_SYSTEM;
+>
+> @@ -3027,7 +3052,6 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *a=
+dev, u32 pasid,
+>         if (r < 0)
+>                 dev_err(adev->dev, "Can't handle page fault (%d)\n", r);
+>
+> -error_unref:
+>         amdgpu_bo_unref(&root);
+>
+>         return false;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.h
+> index 139642eacdd0..2051eda55c99 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -589,6 +589,9 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *ade=
+v, u32 pasid,
+>                             u32 vmid, u32 node_id, uint64_t addr, uint64_=
+t ts,
+>                             bool write_fault);
+>
+> +struct amdgpu_vm *amdgpu_vm_lock_by_pasid(struct amdgpu_device *adev,
+> +                                         struct amdgpu_bo **root, u32 pa=
+sid);
+> +
+>  void amdgpu_vm_set_task_info(struct amdgpu_vm *vm);
+>
+>  void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
 > --
 > 2.43.0
 >
