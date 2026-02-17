@@ -4,129 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEB9CE83838
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Feb 2026 21:14:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83FD9E83857
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Feb 2026 06:04:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF5E10E3ED;
-	Mon, 16 Feb 2026 21:14:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10F0410E443;
+	Tue, 17 Feb 2026 06:04:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vrW8K3xc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="olND4wS3";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010006.outbound.protection.outlook.com [52.101.46.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7186110E0E6
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Feb 2026 21:13:58 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013029.outbound.protection.outlook.com
+ [40.107.201.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2AB210E441;
+ Tue, 17 Feb 2026 06:04:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EsSlZugkAbOaqZ2DOYJJ0iK9oso6ayRlksgmLbdu1wXoFyCEI2E7ZP7PQqDEppjLtImCrUdeOej8GFe3cKKHe6z5z/DA89RRS1WVIEPLg6Fa3WGqw44XBCm345hYsk/MeP4aMN8avSiMFY2p0ppkvvSkcIpnGTMYRREFceNh4Uk5d6Dm+mY79ortaltduEwGHXkWE0t7IZZSZHnx6Ra4g+SOH4Cx1oFhk/uTJ/bmc6wyG1eg9Y4mrC8zDOWi8csmaKKw6JlHP/jR8tsGjWUpZeYKR2mJcgs7QK760Zj4YlrdHblrOjjOvIwv6Gc5xv0AjpPd3Gm4QRqb7sXMsOb3sQ==
+ b=S28HDNUK0uuO06BWs4j7ikhROi2LJEFrbeXEbZP9BBscRIXbfkDBBv4H80DVHMS7vtAGdGsuA5vCF2VKkNCP3Zb5eqT2ArgfQY5HwTX4MalFLnAgGXE5QfvU3wQe7+dew8c6OKry7wZqRXIwFRvZeR195nmxHM21HlkJKMyGxBZx4WppvBR+YdruJb0jOD51XiLgd4V0+N700KHIdsDGgOy6UOP/cfUrTKliyCdcs07w8jJkbQdFNpvHZGaWFYCIHYCG7YQyBqgT7s4fZ7BMyKHngQBtDMEwVlvGAt1bFbVQYUvFgZRCe1dn6hGOzFeVB4iBXwKUeJTXyg9oWIgZbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XZttnHCE41ExKo5fgoc4Nho7U+IzKEDIpFuREE/+CUc=;
- b=XfdneTlAryqQr4KbhJ1jKKXNjRf4YjmvnCz3T0c8FdYCboY6hO2J3CDPmd51u7afGagmTg4ibBgY7zFP5iw7mnJ3sEKtStZtk9absEH5F44qpCU1d0O+1NHztYc1BxOV3A3osigttOlFZ+tkmsuxOQuD8rxdEBF9Cw1Z7r95aTLWLCxLOIDY9bLWTbsyyCtq0Bx9RzuZgegLetnOf09r/ODIuuSb563zh1af/yQQTyk136uJkJXiuZcHO3sYXXEsxKraOppZ4CHanitCZyvhpoKfF0esGwGjQN+vnMpOR7S4GajRSnUGH8cLZIh4hvLDo7WJW5QbB/jXAoKEirSXCw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=8vQcYLi73fTfc6807FNxPiP0wkNaroLQM+qvDl528XQ=;
+ b=mw+t04+6VHkmw1CD4sBXP5/9bsrrRP+4k7G5wESxPOH8MZd8DmB/pJsNi2Ti64cS2+yjK4Ah+eO8BTtfCG3ZRbWUZNIS6yU7WDAIlRTCmS/b1qfTgUh5OaFcYij02d92AAwW20/zI5MWcECe4cUQZQddIeJpSs2oXRr7Ewtvu1et1AAy9g2NsGCSrdzc30/SMUK+//aPRe57Th5/XbCFQOwH4XFWQnCmtz1eaE53c8/hdKjH/D4Eo3L5CLEFA7y0FF0Q6Yy1wWQNYaTqkGDipC7/ctijmXma2edzWxNIlkPqAd+dksIcK+5yXP2tVEbOwXVXAzy9xYIhZANsNvglMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XZttnHCE41ExKo5fgoc4Nho7U+IzKEDIpFuREE/+CUc=;
- b=vrW8K3xcRtST3SY8ZJizgvspmoR98nSsQz5+ljQS1uOXUO5Hv8JxRlWAy1DxYQkdIMxtTLBaWVT4l7FFCJqEr2Pii8W/R6leca5n6HCfLe4bvX2NKEId3cyZdCxoN116Zto2eK98YulJNmalk9mOl0XIuBtCV2p1zAwmd9B7YI8=
-Received: from BN0PR04CA0072.namprd04.prod.outlook.com (2603:10b6:408:ea::17)
- by DS7PR12MB9044.namprd12.prod.outlook.com (2603:10b6:8:e3::22) with
+ bh=8vQcYLi73fTfc6807FNxPiP0wkNaroLQM+qvDl528XQ=;
+ b=olND4wS3Eolr2S3hxGY/R557vxfTpgX4CLHQWBr9IMoW0qf+Avv7xUqyqOtoVWa6fYApDxO2euLUnWcOiYdHCXE5+b009jiE05ownBLe8NLf6llT89xzwNNmQG00KKySTP/bywo/GFifXIDftTR3LoUrjfkPkTXq5dKdD7ezZAY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com (2603:10b6:510:222::12)
+ by DM4PR12MB5865.namprd12.prod.outlook.com (2603:10b6:8:64::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.16; Mon, 16 Feb
- 2026 21:13:50 +0000
-Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
- (2603:10b6:408:ea:cafe::da) by BN0PR04CA0072.outlook.office365.com
- (2603:10b6:408:ea::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.16 via Frontend Transport; Mon,
- 16 Feb 2026 21:13:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9654.0 via Frontend Transport; Mon, 16 Feb 2026 21:13:49 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Feb
- 2026 15:13:49 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 16 Feb
- 2026 15:13:49 -0600
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 16 Feb 2026 15:13:48 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>
-CC: Alex Deucher <alexander.deucher@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
-Subject: [PATCH 1/8] drm/amdgpu: rework ring reset backup and reemit v9
-Date: Mon, 16 Feb 2026 16:13:33 -0500
-Message-ID: <20260216211340.16364-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260216211340.16364-1-alexander.deucher@amd.com>
-References: <20260216211340.16364-1-alexander.deucher@amd.com>
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9611.16; Tue, 17 Feb
+ 2026 06:03:55 +0000
+Received: from PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::8434:dc50:a68d:7bdd]) by PH8PR12MB7301.namprd12.prod.outlook.com
+ ([fe80::8434:dc50:a68d:7bdd%4]) with mapi id 15.20.9611.013; Tue, 17 Feb 2026
+ 06:03:54 +0000
+Message-ID: <08987287-ce6a-452f-a1aa-080562afe7bd@amd.com>
+Date: Tue, 17 Feb 2026 11:33:48 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] drm/buddy: Improve offset-aligned allocation
+ handling
+To: Matthew Auld <matthew.auld@intel.com>, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20260209083051.13376-1-Arunpravin.PaneerSelvam@amd.com>
+ <ce9833ef-8cfa-4b1a-b4d5-eda0158cb19d@intel.com>
+Content-Language: en-US
+From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
+In-Reply-To: <ce9833ef-8cfa-4b1a-b4d5-eda0158cb19d@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: MA5P287CA0083.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1d8::15) To PH8PR12MB7301.namprd12.prod.outlook.com
+ (2603:10b6:510:222::12)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|DS7PR12MB9044:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58d2bd9e-80ab-4b3f-e3da-08de6da047b2
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7301:EE_|DM4PR12MB5865:EE_
+X-MS-Office365-Filtering-Correlation-Id: dca3520b-655f-43dc-34d1-08de6dea5481
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?yHErAVqZR/UF4G7cFyvx0YVU40N/M+h5hkai7CoN6Eo/tPAQVCZLvXHsZdbc?=
- =?us-ascii?Q?XvUhwwBOFI0G1wJDy6tOexvpumVy4LzdtFwehdcGRi0IAyOiJWN0sLBeyL9+?=
- =?us-ascii?Q?ReYGc/7Xpkkc0g9tm3ZU68+8Qsu6fEWcbCWnNH54I8Dhdhqh/55UwW1Uk/oV?=
- =?us-ascii?Q?sgB9CMUGN7un6Wn6P3mfXXs5inJrkhie4+jheXXHV1Q4CA+c8J8aMeY7sCCb?=
- =?us-ascii?Q?QLFK9HJjKBAKXrtneNC2xl6JXdpsSJAVYtAgdIpoLWkGb8SfE8oxzXSCfa3n?=
- =?us-ascii?Q?fmc43bsZz6pl/N+QRFfGpLpS4EfI4W/QMsbykcgnapFTA4i0KAkllfTXeQnu?=
- =?us-ascii?Q?m7DPSJTexeUWKZFMLjHk4zS78s0fm2ZDBC3c3GJdM6UzHb2rFw3jxLQYt9+1?=
- =?us-ascii?Q?T28w3SUPTHwKUPvjfxzPk0gdgT6B7UKzWyd3RnCrgHz7HcmsDRPI/yVoSdnd?=
- =?us-ascii?Q?EOTzYz2xtUB48K9KM7PNh8eQGRyzipqz3hDMca+TxbVUbcieYEAs0qa/kRDk?=
- =?us-ascii?Q?fxsTrqTgf42nZI8aHdz9aIEqUFryGZBzCoBtwczqWtKNDNJTy9O9VdX5TjLA?=
- =?us-ascii?Q?kFBJq107bqxZ9937nKZR2ydWOMc//RAt0WBD8NtHZbw4PZjP06UN3wEJlJKi?=
- =?us-ascii?Q?OqCSpl8nWBEX86ER3f8sU54LR/QfrBG0vzah2XLnVoAm8q4+O7d+i0Sk1XZo?=
- =?us-ascii?Q?nXDMn7BpKtlGmLb5gGnm7aj/tx6Fp/thf43siIv3F6GUymLHJLnWqrWzeLtW?=
- =?us-ascii?Q?fvJnaqO2sx++18lFcYeDax1q4ILwWjSC6VZfwCeSD5tQl4hxZdOAqrkdpgD3?=
- =?us-ascii?Q?1UbnEVwTx4sRZkqcH9bRRAH02eonfAsptukeARHPWVM6+vLeXwht1rPqstUu?=
- =?us-ascii?Q?mb8LYD0q6bqabwo4DlKaTfBCPMHPYSXHUTLkc4XD08xm77UrXhUTGEEOJRAO?=
- =?us-ascii?Q?vzaL/xX47+ITsxyLmTIIK4EJLcbE324ZBAJG73RLgUGFrYm0I2+2VG0Ce3MS?=
- =?us-ascii?Q?lgzjLFigQgHF61z4dCIY0T6O+/oQAVU7LFkWGH+txL/cibeaUYE4GEdXrF8o?=
- =?us-ascii?Q?R7hG7GwVlsRqt/k2LX4lX35DuiZL5lZc72fyDMOPUO0nSZM7eiUEO1nkeWTq?=
- =?us-ascii?Q?CkwwnU6qjVP6UCzJnOsAC7mQDvqH4Qdld8djQKtMcHvS5ifM1AxBHgCib45k?=
- =?us-ascii?Q?rcDiI42fh9ZLNtNIyn61t306dqRNhE8j8ZT+ZXUpVb39NyeESIGrKijqzXBR?=
- =?us-ascii?Q?KP860qDpzGoJocLtleTMz/AE8CiXwK/iMY1Yw4E3RbbT0tKTAASo99FooZ80?=
- =?us-ascii?Q?AiHFhFtszvo4l6NceklXV5Hvjh468AHCphSjHSbu1i5IvV2zg08xSnAg4JgE?=
- =?us-ascii?Q?Z2dezMonW10dya8Hw96UHYIuSfgwnpOeXXQoAv3Ej1nMYbxIpEUHHZOLTrDi?=
- =?us-ascii?Q?iGGFsDVMHnzDFOAnuhlDWOOoowYFLIOp9DesDc64KzFxDi4zHAJ6v2SAQ6EU?=
- =?us-ascii?Q?m6jd0oksahhIX+lBJk561nO1H3rnRdJzxpq4e83SU9VRFQmd1MukXXs4QKJC?=
- =?us-ascii?Q?5j+Rx22r6giLJTpGxxMuEA7Yxgxs2bOOCQ63xikDIOGrlCG2i09C5fWZ8Z1L?=
- =?us-ascii?Q?IZCiPq6An5/j0SnlEdoydVM1rw/FYbr44Kf7GI3UVDTbnIDB2HdNT/rVq379?=
- =?us-ascii?Q?8nJOBQ=3D=3D?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
+X-Microsoft-Antispam: BCL:0; ARA:13230040|1800799024|376014|366016|19052099003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VnUwSWoxaFVVZTRTZHlvWG5lL3BWTVhuSlI3c3BOaDMxZnVCQStlWVpnQjND?=
+ =?utf-8?B?b0dCaml4bk5NdE4veGNOR29qOFFpSHFYYVRPYVdkN1JGVXRsZmNSd2FSUzZT?=
+ =?utf-8?B?ZEdFUHZSa21wMkVzV2lUMWVZYmQ2Vkt0OGZYY0IxYWZ6U3JOaUpEZVhhcVp3?=
+ =?utf-8?B?ajQxTlp0UFNJQVV4YVIwZy9yZWFnUG5hMFNrQmozbEtycUdnVkkzWnBwYUQ1?=
+ =?utf-8?B?aml2bk9yditMYTltb3dNbTJzRW5kc2sya0JFdTd5SDB5elJEeFE2ZklxbENH?=
+ =?utf-8?B?MzlEZVVQRmlkZmxlWU43dWdZb3Z0OHdXT2c0MTM2TUZHblJ4RW4zUVB5U2ph?=
+ =?utf-8?B?OW01NkRVSW8xTzAwQjE1emg5VXBWQlFneTk5L3ZMMDVRbHlzOWpRSXBnWXJW?=
+ =?utf-8?B?ck1iNlZ5MVRzbk4vaFZvTjJNQzJKY25ZdGo0MHY5Z3pRa2FiZzQzR1EzcmdC?=
+ =?utf-8?B?Uit5RDBiT09WTEpDWlJxMGFtTFNoZWVXQkpBL1luSDlSdzN3MG1Fcy9lYUU2?=
+ =?utf-8?B?a21qVEREaDM2ejdlZHZHVWt2R241em9XOXY0UmY3NkNja0VRZWN4YW9QM1ox?=
+ =?utf-8?B?S3MxMnZSWUJPNXcybytNMUR6Z0dUd0J1OE80R0FqQzlDdU9mSUZoeS9sZjlI?=
+ =?utf-8?B?Z1ZmeHZuVWl4RXlLN1hIVXJUQUlHYzZXTC9qSUJRVkFVZE5CU0J4eEhMeXhz?=
+ =?utf-8?B?dmsrdmJTN1M3U0ZzRFJ0ZUZoYzltRS9pdEhVY2Y5ZGc2YTZERHRLd2JtSEl2?=
+ =?utf-8?B?UVd6OHd2di9iVm1aVzZOZzYvNmgzUGZJcVRxQTVDQVFkTTdZeHJLQ3ppVkYw?=
+ =?utf-8?B?L2xpMzhnTklIWW40QW5VTU5keTh1RFlVNURaV2lkVitENUtxeUF4Vi9NbWFq?=
+ =?utf-8?B?RE9CblBaTStYNUxMcnJNcTlCYmdRNVNPbHN6b1gxVllDdGUzbWFBdzdKb0NN?=
+ =?utf-8?B?Vlg5eXpFK09QcjFjdzIybUxFdUJGSTdCaXZ4cUQ4aDBoWFhiSDlWMmdSK0I0?=
+ =?utf-8?B?V3RDV2JFaXVlSjNOSktTbWNjQXVNWnM5RXRYTEZ5b09qcFc4MitzaEM5VWdQ?=
+ =?utf-8?B?NjdrVHpEZ0szYmE1UXp4R1pnR0hiem1IbFRIYlNHMzlxQitGdVVKYjcxMXlN?=
+ =?utf-8?B?STBwdFVSMVVST3M3MUtsTUc1clZNRHlFY1hwV20wbTJleUFQVlJjN29nS054?=
+ =?utf-8?B?VlAyYWc0VUJYYmFwdWJxaTYyTkM0aGtLbHpWWng4by9KWUp5dE1QN09VRFJF?=
+ =?utf-8?B?U2gweUxrZG5kYzZYYUlpUHI3V0ZuQzhMRzN0Q2R5YXprRVNNSkRkSjVTL1VJ?=
+ =?utf-8?B?TVpQT0R6THUvUDdqT05CUlZDdE1YWno2ZHRmNDNhZ0pUdlc2alVldzNTemNY?=
+ =?utf-8?B?SU9zeU9Bd0N0REE5NDhMYmRDaG5Sd2FhRVFzbG1paDNGZXpVOHNiTE1DazNI?=
+ =?utf-8?B?bUp5cjlibUhSNEY1Q1Z4TnhBT1ZXaURoTDBNRTJvbEVHZ1B1V3dOYmpSMGN4?=
+ =?utf-8?B?a3Y2QnBPRTJQOGcxMTgya2N6QjgvN3l2blhVS25PL3BZY251NTZXR241aTky?=
+ =?utf-8?B?ZDlJOC9XVmdUQkdaK3ZuT1pwSWFieDY3QnkyQjRDT2tCNng0MUtkSStHTTZL?=
+ =?utf-8?B?Z1ExeER5WVJsUjNNc1pCc3l5WmtwMHRaYW1OeURUS3lyZ28vL0xQbDhWd0dv?=
+ =?utf-8?B?Y2NvcDBxN3JjT3hQY1NWaTMzdWo0SktzU25GZjQ0YmZsajMya2JMelBFbFEr?=
+ =?utf-8?B?cUFRbEtVRExVYmNNZTN4ZkMxNVc3VEQvUWxUZlNZZldjaGJHWFg5T2xjUHNL?=
+ =?utf-8?B?Yk1Nc1M1dG9tS2YwR1B6b2l6cnJZcFFPTUxqTFNGZkdqZXdtV2gzSTl4SkRX?=
+ =?utf-8?B?Mm5zUWdGOXdyeldJWFFVVmN2bUxuOGd2QU5ubUlwQXVtSzlXZmM2aXVGR1JY?=
+ =?utf-8?B?V3B3Y08rUnFldzFrUHdseGpvdGk1emZOOXN6K1N3MCtJUlE2MlE3RHJKOExX?=
+ =?utf-8?B?bmxyMFFhaTV1REplN09XZE5VWGtTNGFrclBaNVhRc2hqMlozK2kvbE91bzlL?=
+ =?utf-8?B?Y1UwcHFtcVhVdEpGam12eUpJRVlqTjJaNVN2dkVtcnBmaWNwQUp3azBtTXQ5?=
+ =?utf-8?Q?z69U=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH8PR12MB7301.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(19052099003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: QsDxZi/7MPULRUSd+Xtl2ZLfA+5BSWBfjRZUNE9Fa2/7oaAdnqgcrtJEgVYewor3f5nLc52Oc2KiMqwQZR4w1gfZfdWiA6CqhcVIFVss4k3D/498DX7p38XcPgdgayQDUFecPRhFXg1SUKA4JqJ2SJ2oAKufxFibFMjnVljkUMiF+FgfS/MLVoZPVHSJBDFd28wzkZNwUkyKosK58kQNNQMth0MosMEbpGEBat9/2sR0Mtx2hhLGEPJYDupK1uVdX5KemTihEqRfzVZz5Baefj/NEAH1HXlJUZA2Yoj61aI6gkxP7c0aC3OjeoMKPj62mBfueFYNBdLKeFV5rA5W6OGyKCnOVwZN/IjmzwPyH2eqScRvFstXrpUV+H+5PssaBLTIup/vCqXujl1m73ThqdhYHMYCPFomLg0H9ccuiUtF89MDBsP0EfpbzXOG204e
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WTRRcU16TXpKcUNISmdTWjhqNnVQYTA5UnNtQTF2SkhiVVcxbUJ4R2o5RERR?=
+ =?utf-8?B?dEljMUhlWG43UC8yUFdtM2dMdUkvWHphK005TDRRQ2Q5TXR5TWdxMlFGU1dq?=
+ =?utf-8?B?bE5yZ0ZkL3lJbG55VVU2SWlsTzR5bnRVaU1CcSsvNnhaeFBmK1NDa2xKTWh6?=
+ =?utf-8?B?SkVJSGRnbFI2a2J2WGNrUUErS0xjbEFJWUJ4dlloWlVDa0JwWjZPenh0ODZK?=
+ =?utf-8?B?TFEzcEg2aFl4QnVsUE1MS0psbUhlZFc4eG4xRWlIOGtYRzI2YmRhOTZZRUNq?=
+ =?utf-8?B?UXk0RlluWnlBbDAwam1HMStCSkpXS1NmM2FQc1BpY0ZYZWc2VTMyaGxLNDJk?=
+ =?utf-8?B?bDVHUGlDV1NUV2hSMFRQYktzWHZKL0pUcHdyTzVSWGZON3RIeUtsVkxHWklS?=
+ =?utf-8?B?aHE4U3dvN2wxbjdNckh4L01LZnNMTHRIWnhmZTNFRFZpY2Z6aFlvWUE1VG1F?=
+ =?utf-8?B?UmkwRXZ1UyszeEMxK3p2ZmwvWE10SXRrT1NyT1haRjlUWjhtaE5NR0loeVNX?=
+ =?utf-8?B?K3RMSDNCaEpQRmZ4OFJ0cU1hWGc4ZjlBTTRGc1JtalE4NzhUekRRS244Ykcy?=
+ =?utf-8?B?c1oxT3Q2MW9Tc21DdXNSeUw4YXFKUXk2N0poNDhzV0RZdkdVOVlaQzRTbU02?=
+ =?utf-8?B?eDBMMWg5ZTNMN0s1aWpVeU5Ob2c5NTRZV2pLdWo3bTRUTHU4eDBtTk9ERTV5?=
+ =?utf-8?B?b2t3S2Ztb0U1bk9SOFRtUFVtZWlBOFlnUVUzNWU4SnVlTzFvV2J3Sno2OWJk?=
+ =?utf-8?B?VHZYNDB2QXV1QWlTVW9EUGM0QUZwWTRnUENkaTMvOTFrSk1hOXN1cGtXUzJh?=
+ =?utf-8?B?U1ZmN2g2RmRxblZJZ2NsOE15VXdhSVd3eGQyRFJja0JpMm5yR0JUeDVqNTJa?=
+ =?utf-8?B?bkpGQ2ZMcXc4dllFVlVzT0NURmx4eWNGNWNIME1wNHE4YzBHSjBCeG1ySXNa?=
+ =?utf-8?B?THFZVnJyZnh2R0ZvNFdSZnJUM0plc1huWkhLbmp5VTc4aGF0RlI3YjRhQzZB?=
+ =?utf-8?B?Yy9FSmFKTlFvYnFNZEdXZ0xDa0Q3NEdpbXRMeVpPVzNsWi9NSjdZK0R6N3p1?=
+ =?utf-8?B?WjVHYUQ2ZlYrZG9KQUpYckdWWWd4WldacnJ0UEhhL3hTZVlKS2IrZU0xOW9m?=
+ =?utf-8?B?dS8vc0tWd3ZVTGRTRVVyR3N4TnpLZEw5dWdQNnY1TlZwM2NXdkV2ajZITzNI?=
+ =?utf-8?B?dXlPaDRYVWllZFFoZElscTZ6eFYyNlBqSm80L2dFMDFBWVBOc1NOcEpGNy85?=
+ =?utf-8?B?aks2VEs4OEtJb25SVFlCbDJWTXdlQkJYVFhkN2NnMDFPbjhvTmFncnowWC9N?=
+ =?utf-8?B?aWgyMjBFOFFneVZnV3o2NlB5MTRRcDZFakd0NXNFWlpkMW9tVkRkZndYK0pt?=
+ =?utf-8?B?ZE1JdE9aRisva1M2VzBVbC9xVDRCVUJrcDNWbG96U1d6bWdzYmg3MnNoaDhO?=
+ =?utf-8?B?TUFYbUNpem5XYmxaWVhOd0lYc21HUW9jTVpWSHlZVEt6b1Y5NlYzeFhuNHZG?=
+ =?utf-8?B?UVlsSm5oT1J6V1ZNanBnS3dwMjlnMlU2WGJpRlNQZHIvQ09PMmFQb3BKdVpX?=
+ =?utf-8?B?blB5cnVaYmxVQklmanBBdGh5Y0N0eDRleTY1QTk5aGdnWUl5Y1NSVEdOQ0Qz?=
+ =?utf-8?B?bjByTWhwSDFvQUduRm9MQmlJV2pCQ2hhRkxPQ3ZWc0kvMFd3eUs1OCt1eDVN?=
+ =?utf-8?B?a1YrZS9aTFBkQW1lT09LOTkrdUJXMmRnUDhGWU1JWmwxMVh5U2FXL3RsSk1S?=
+ =?utf-8?B?UlNadUttUkh0SjNndk5GdTduWU9vbmJONEJmOC90K01lajM1bG1DRlhpUllO?=
+ =?utf-8?B?QzVtcFJBSW5nLzA1TzhHNVFSalNMWHBRRld6U3VuUGhuTzJDdWo4R1ZsNmx4?=
+ =?utf-8?B?dUdCbTVqVEk3Q3F5L3hSRXYxSUYxUEV1MVZyRmhHaUYvcEJiOUExU3VGMkdC?=
+ =?utf-8?B?WHp3bWNFTnBPWmZGbXNLTk5iVUVGZkcxaEI4K1ZmMTJYZGN3OGNkRVdnWEhV?=
+ =?utf-8?B?S1lxREZiTkZaMkFtRlljb29kaHZCb243Z2Z4VmR6SHRaVEpSSUhld005NE5v?=
+ =?utf-8?B?Y2c2dFZOQzRiU3RoNlhDOUMxMkFUQ3RhM1BKZ2xWTGlEQkNsUWxQM3dPWDRq?=
+ =?utf-8?B?S05CNllaOWtjOTdDcGkzaXVXL3B3YU1oY0FQRFVyTG1IU05RMnVWOEZoME1U?=
+ =?utf-8?B?dWZkaHdtanJ4cDNMNjUrKzJrc0lwUnFVVjY0eW9lcTN5MlFTeE1wM2syUVE3?=
+ =?utf-8?B?MWtpYUo4WDRsdmxWaWJ5OVdmbWFGV3VYbVhYeDNQMm96SHRCZEFvNnpDa1RN?=
+ =?utf-8?B?bzc4VVpqTllqRERibUdKeUNBVHhRNUlqOXMwOUswbTdjSHdCVU93dz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2026 21:13:49.7850 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58d2bd9e-80ab-4b3f-e3da-08de6da047b2
+X-MS-Exchange-CrossTenant-Network-Message-Id: dca3520b-655f-43dc-34d1-08de6dea5481
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7301.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2026 06:03:54.6470 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06C.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9044
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ouBwjcTBQKxpmWX6SNcmdiJeDlT20VWSdidY6++/tW/U6kqrGir1q7LONG3la2zzO9r9GFJut+dVc09puy2POg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5865
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,424 +171,495 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Store the start wptr and ib size in the IB fence. On queue
-reset, save the ring contents of all IBs.
+Hi Matthew,
 
-For reemit, reemit the entire IB state for non-guilty contexts.
-For guilty contexts, replace the IB submission with nops, but reemit
-the rest.  Split the reemit per fence and when we reemit, update the
-wptr with the new values from reemit.  This allows us to reemit jobs
-repeatedly as the wptrs get properly updated each time.
+On 2/10/2026 9:56 PM, Matthew Auld wrote:
+> On 09/02/2026 08:30, Arunpravin Paneer Selvam wrote:
+>> Large alignment requests previously forced the buddy allocator to 
+>> search by
+>> alignment order, which often caused higher-order free blocks to be 
+>> split even
+>> when a suitably aligned smaller region already existed within them. 
+>> This led
+>> to excessive fragmentation, especially for workloads requesting small 
+>> sizes
+>> with large alignment constraints.
+>>
+>> This change prioritizes the requested allocation size during the 
+>> search and
+>> uses an augmented RB-tree field (subtree_max_alignment) to 
+>> efficiently locate
+>> free blocks that satisfy both size and offset-alignment requirements. 
+>> As a
+>> result, the allocator can directly select an aligned sub-region without
+>> splitting larger blocks unnecessarily.
+>>
+>> A practical example is the VKCTS test
+>> dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000, which 
+>> repeatedly
+>> allocates 8 KiB buffers with a 256 KiB alignment. Previously, such 
+>> allocations
+>> caused large blocks to be split aggressively, despite smaller aligned 
+>> regions
+>> being sufficient. With this change, those aligned regions are reused 
+>> directly,
+>> significantly reducing fragmentation.
+>>
+>> This improvement is visible in the amdgpu VRAM buddy allocator state
+>> (/sys/kernel/debug/dri/1/amdgpu_vram_mm). After the change, 
+>> higher-order blocks
+>> are preserved and the number of low-order fragments is substantially 
+>> reduced.
+>>
+>> Before:
+>>    order- 5 free: 1936 MiB, blocks: 15490
+>>    order- 4 free:  967 MiB, blocks: 15486
+>>    order- 3 free:  483 MiB, blocks: 15485
+>>    order- 2 free:  241 MiB, blocks: 15486
+>>    order- 1 free:  241 MiB, blocks: 30948
+>>
+>> After:
+>>    order- 5 free:  493 MiB, blocks:  3941
+>>    order- 4 free:  246 MiB, blocks:  3943
+>>    order- 3 free:  123 MiB, blocks:  4101
+>>    order- 2 free:   61 MiB, blocks:  4101
+>>    order- 1 free:   61 MiB, blocks:  8018
+>>
+>> By avoiding unnecessary splits, this change improves allocator 
+>> efficiency and
+>> helps maintain larger contiguous free regions under heavy offset-aligned
+>> allocation workloads.
+>>
+>> v2:(Matthew)
+>>    - Update augmented information along the path to the inserted node.
+>>
+>> v3:
+>>    - Move the patch to gpu/buddy.c file.
+>>
+>> Signed-off-by: Arunpravin Paneer Selvam 
+>> <Arunpravin.PaneerSelvam@amd.com>
+>> Suggested-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>   drivers/gpu/buddy.c       | 271 +++++++++++++++++++++++++++++++-------
+>>   include/linux/gpu_buddy.h |   2 +
+>>   2 files changed, 228 insertions(+), 45 deletions(-)
+>>
+>> diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+>> index 603c59a2013a..3a25eed050ba 100644
+>> --- a/drivers/gpu/buddy.c
+>> +++ b/drivers/gpu/buddy.c
+>> @@ -14,6 +14,16 @@
+>>     static struct kmem_cache *slab_blocks;
+>>   +static unsigned int gpu_buddy_block_offset_alignment(struct 
+>> gpu_buddy_block *block)
+>> +{
+>> +    return __ffs(gpu_buddy_block_offset(block));
+>
+> __ffs() will be undefined for offset zero it seems, so might blow up 
+> in some strange way. I guess just return the max possible alignment 
+> here if offset is zero? Also are we meant to use __ffs64() here?
+Yes, I had the same concern about __ffs() being undefined when the 
+offset is zero. My initial thought was to derive the maximum possible 
+alignment from the allocator size using ilog2(mm->size) and return that 
+value for the zero-offset case.
 
-v2: further simplify the logic
-v3: reemit vm state, not just vm fence
-v4: just nop the IB and possibly the VM portion of the submission
-v5: simplify the vm fence check
-v6: split the vm and ib fences
-v7: fix commit message
-v8: use wptr rather than count_dw to calculate offsets
-v9: fix missing documenation update spotted by the kernel test robot
+But, RB_DECLARE_CALLBACKS_MAX() requires the compute callback 
+(gpu_buddy_block_offset_alignment()) to accept only a single struct 
+gpu_buddy_block * argument. It does not provide a mechanism to pass 
+additional context such as the associated struct gpu_buddy *mm. As a 
+result, deriving the alignment from allocator state (e.g., via 
+ilog2(mm->size)) is not directly feasible within this callback. When I 
+tested the zero-offset case locally, __ffs() returned 64, which 
+effectively corresponds to the maximum alignment for a u64 offset. Based 
+on that observation, I initially left the __ffs() call unchanged for the 
+zero case as well.
 
-Reviewed-by: Jesse Zhang <jesse.zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 99 +++++++++--------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c    | 26 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c  | 46 +++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h  | 20 ++---
- 4 files changed, 74 insertions(+), 117 deletions(-)
+One possible alternative would be to store a pointer to struct gpu_buddy 
+inside each gpu_buddy_block.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-index 07568516c5066..d209591e3710a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
-@@ -89,16 +89,6 @@ static u32 amdgpu_fence_read(struct amdgpu_ring *ring)
- 	return seq;
- }
- 
--static void amdgpu_fence_save_fence_wptr_start(struct amdgpu_fence *af)
--{
--	af->fence_wptr_start = af->ring->wptr;
--}
--
--static void amdgpu_fence_save_fence_wptr_end(struct amdgpu_fence *af)
--{
--	af->fence_wptr_end = af->ring->wptr;
--}
--
- /**
-  * amdgpu_fence_emit - emit a fence on the requested ring
-  *
-@@ -124,11 +114,9 @@ void amdgpu_fence_emit(struct amdgpu_ring *ring, struct amdgpu_fence *af,
- 		       &ring->fence_drv.lock,
- 		       adev->fence_context + ring->idx, seq);
- 
--	amdgpu_fence_save_fence_wptr_start(af);
- 	amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
- 			       seq, flags | AMDGPU_FENCE_FLAG_INT);
--	amdgpu_fence_save_fence_wptr_end(af);
--	amdgpu_fence_save_wptr(af);
-+
- 	pm_runtime_get_noresume(adev_to_drm(adev)->dev);
- 	ptr = &ring->fence_drv.fences[seq & ring->fence_drv.num_fences_mask];
- 	if (unlikely(rcu_dereference_protected(*ptr, 1))) {
-@@ -240,7 +228,6 @@ bool amdgpu_fence_process(struct amdgpu_ring *ring)
- 
- 	do {
- 		struct dma_fence *fence, **ptr;
--		struct amdgpu_fence *am_fence;
- 
- 		++last_seq;
- 		last_seq &= drv->num_fences_mask;
-@@ -253,12 +240,6 @@ bool amdgpu_fence_process(struct amdgpu_ring *ring)
- 		if (!fence)
- 			continue;
- 
--		/* Save the wptr in the fence driver so we know what the last processed
--		 * wptr was.  This is required for re-emitting the ring state for
--		 * queues that are reset but are not guilty and thus have no guilty fence.
--		 */
--		am_fence = container_of(fence, struct amdgpu_fence, base);
--		drv->signalled_wptr = am_fence->wptr;
- 		dma_fence_signal(fence);
- 		dma_fence_put(fence);
- 		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-@@ -707,25 +688,29 @@ void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring)
-  */
- 
- /**
-- * amdgpu_fence_driver_update_timedout_fence_state - Update fence state and set errors
-+ * amdgpu_ring_set_fence_errors_and_reemit - Set dma_fence errors and reemit
-  *
-- * @af: fence of the ring to update
-+ * @ring: the ring to operate on
-+ * @guilty_fence: fence of the ring to update
-  *
-  */
--void amdgpu_fence_driver_update_timedout_fence_state(struct amdgpu_fence *af)
-+void amdgpu_ring_set_fence_errors_and_reemit(struct amdgpu_ring *ring,
-+					     struct amdgpu_fence *guilty_fence)
- {
- 	struct dma_fence *unprocessed;
- 	struct dma_fence __rcu **ptr;
- 	struct amdgpu_fence *fence;
--	struct amdgpu_ring *ring = af->ring;
- 	unsigned long flags;
- 	u32 seq, last_seq;
--	bool reemitted = false;
-+	unsigned int i;
-+	bool is_guilty_fence;
-+	bool is_guilty_context;
- 
- 	last_seq = amdgpu_fence_read(ring) & ring->fence_drv.num_fences_mask;
- 	seq = ring->fence_drv.sync_seq & ring->fence_drv.num_fences_mask;
- 
--	/* mark all fences from the guilty context with an error */
-+	ring->reemit = true;
-+	amdgpu_ring_alloc(ring, ring->ring_backup_entries_to_copy);
- 	spin_lock_irqsave(&ring->fence_drv.lock, flags);
- 	do {
- 		last_seq++;
-@@ -737,39 +722,45 @@ void amdgpu_fence_driver_update_timedout_fence_state(struct amdgpu_fence *af)
- 
- 		if (unprocessed && !dma_fence_is_signaled_locked(unprocessed)) {
- 			fence = container_of(unprocessed, struct amdgpu_fence, base);
-+			is_guilty_fence = fence == guilty_fence;
-+			is_guilty_context = fence->context == guilty_fence->context;
- 
--			if (fence->reemitted > 1)
--				reemitted = true;
--			else if (fence == af)
-+			/* mark all fences from the guilty context with an error */
-+			if (is_guilty_fence)
- 				dma_fence_set_error(&fence->base, -ETIME);
--			else if (fence->context == af->context)
-+			else if (is_guilty_context)
- 				dma_fence_set_error(&fence->base, -ECANCELED);
-+
-+			/* reemit the packet stream and update wptrs */
-+			fence->ib_wptr = ring->wptr;
-+			for (i = 0; i < fence->ib_dw_size; i++) {
-+				/* Skip the IB(s) for the guilty context. */
-+				if (is_guilty_context &&
-+				    i >= fence->skip_ib_dw_start_offset &&
-+				    i < fence->skip_ib_dw_end_offset)
-+					amdgpu_ring_write(ring, ring->funcs->nop);
-+				else
-+					amdgpu_ring_write(ring,
-+							  ring->ring_backup[fence->backup_idx + i]);
-+			}
- 		}
- 		rcu_read_unlock();
- 	} while (last_seq != seq);
- 	spin_unlock_irqrestore(&ring->fence_drv.lock, flags);
--
--	if (reemitted) {
--		/* if we've already reemitted once then just cancel everything */
--		amdgpu_fence_driver_force_completion(af->ring);
--		af->ring->ring_backup_entries_to_copy = 0;
--	}
--}
--
--void amdgpu_fence_save_wptr(struct amdgpu_fence *af)
--{
--	af->wptr = af->ring->wptr;
-+	amdgpu_ring_commit(ring);
-+	ring->reemit = false;
- }
- 
- static void amdgpu_ring_backup_unprocessed_command(struct amdgpu_ring *ring,
--						   u64 start_wptr, u64 end_wptr)
-+						   struct amdgpu_fence *af)
- {
--	unsigned int first_idx = start_wptr & ring->buf_mask;
--	unsigned int last_idx = end_wptr & ring->buf_mask;
-+	unsigned int first_idx = af->ib_wptr & ring->buf_mask;
-+	unsigned int dw_size = af->ib_dw_size;
- 	unsigned int i;
- 
-+	af->backup_idx = ring->ring_backup_entries_to_copy;
- 	/* Backup the contents of the ring buffer. */
--	for (i = first_idx; i != last_idx; ++i, i &= ring->buf_mask)
-+	for (i = first_idx; dw_size > 0; ++i, i &= ring->buf_mask, --dw_size)
- 		ring->ring_backup[ring->ring_backup_entries_to_copy++] = ring->ring[i];
- }
- 
-@@ -779,12 +770,10 @@ void amdgpu_ring_backup_unprocessed_commands(struct amdgpu_ring *ring,
- 	struct dma_fence *unprocessed;
- 	struct dma_fence __rcu **ptr;
- 	struct amdgpu_fence *fence;
--	u64 wptr;
- 	u32 seq, last_seq;
- 
- 	last_seq = amdgpu_fence_read(ring) & ring->fence_drv.num_fences_mask;
- 	seq = ring->fence_drv.sync_seq & ring->fence_drv.num_fences_mask;
--	wptr = ring->fence_drv.signalled_wptr;
- 	ring->ring_backup_entries_to_copy = 0;
- 
- 	do {
-@@ -798,21 +787,7 @@ void amdgpu_ring_backup_unprocessed_commands(struct amdgpu_ring *ring,
- 		if (unprocessed && !dma_fence_is_signaled(unprocessed)) {
- 			fence = container_of(unprocessed, struct amdgpu_fence, base);
- 
--			/* save everything if the ring is not guilty, otherwise
--			 * just save the content from other contexts.
--			 */
--			if (!fence->reemitted &&
--			    (!guilty_fence || (fence->context != guilty_fence->context))) {
--				amdgpu_ring_backup_unprocessed_command(ring, wptr,
--								       fence->wptr);
--			} else if (!fence->reemitted) {
--				/* always save the fence */
--				amdgpu_ring_backup_unprocessed_command(ring,
--								       fence->fence_wptr_start,
--								       fence->fence_wptr_end);
--			}
--			wptr = fence->wptr;
--			fence->reemitted++;
-+			amdgpu_ring_backup_unprocessed_command(ring, fence);
- 		}
- 		rcu_read_unlock();
- 	} while (last_seq != seq);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-index eb92c96d290b6..f1ed4a436f5b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-@@ -129,6 +129,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 	struct amdgpu_ib *ib = &ibs[0];
- 	struct dma_fence *tmp = NULL;
- 	struct amdgpu_fence *af;
-+	struct amdgpu_fence *vm_af;
- 	bool need_ctx_switch;
- 	struct amdgpu_vm *vm;
- 	uint64_t fence_ctx;
-@@ -215,9 +216,17 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 		dma_fence_put(tmp);
- 	}
- 
--	if (job)
-+	if (job) {
-+		vm_af = job->hw_vm_fence;
-+		/* VM sequence */
-+		vm_af->ib_wptr = ring->wptr;
- 		amdgpu_vm_flush(ring, job, need_pipe_sync);
-+		vm_af->ib_dw_size =
-+			amdgpu_ring_get_dw_distance(ring, vm_af->ib_wptr, ring->wptr);
-+	}
- 
-+	/* IB sequence */
-+	af->ib_wptr = ring->wptr;
- 	amdgpu_ring_ib_begin(ring);
- 
- 	if (ring->funcs->insert_start)
-@@ -238,6 +247,9 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 		cond_exec = amdgpu_ring_init_cond_exec(ring,
- 						       ring->cond_exe_gpu_addr);
- 
-+	/* Skip the IB for guilty contexts */
-+	af->skip_ib_dw_start_offset =
-+		amdgpu_ring_get_dw_distance(ring, af->ib_wptr, ring->wptr);
- 	amdgpu_device_flush_hdp(adev, ring);
- 
- 	if (need_ctx_switch)
-@@ -276,6 +288,9 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 		amdgpu_ring_emit_frame_cntl(ring, false, secure);
- 
- 	amdgpu_device_invalidate_hdp(adev, ring);
-+	/* Skip the IB for guilty contexts */
-+	af->skip_ib_dw_end_offset =
-+		amdgpu_ring_get_dw_distance(ring, af->ib_wptr, ring->wptr);
- 
- 	if (ib->flags & AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE)
- 		fence_flags |= AMDGPU_FENCE_FLAG_TC_WB_ONLY;
-@@ -312,13 +327,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
- 		ring->funcs->emit_wave_limit(ring, false);
- 
- 	amdgpu_ring_ib_end(ring);
--	/* Save the wptr associated with this fence.
--	 * This must be last for resets to work properly
--	 * as we need to save the wptr associated with this
--	 * fence so we know what rings contents to backup
--	 * after we reset the queue.
--	 */
--	amdgpu_fence_save_wptr(af);
-+
-+	af->ib_dw_size = amdgpu_ring_get_dw_distance(ring, af->ib_wptr, ring->wptr);
- 
- 	amdgpu_ring_commit(ring);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 129ad51386535..83750ab4e81b5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -90,10 +90,13 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
- 	ndw = (ndw + ring->funcs->align_mask) & ~ring->funcs->align_mask;
- 
- 	/* Make sure we aren't trying to allocate more space
--	 * than the maximum for one submission
-+	 * than the maximum for one submission.  Skip for reemit
-+	 * since we may be reemitting several submissions.
- 	 */
--	if (WARN_ON_ONCE(ndw > ring->max_dw))
--		return -ENOMEM;
-+	if (!ring->reemit) {
-+		if (WARN_ON_ONCE(ndw > ring->max_dw))
-+			return -ENOMEM;
-+	}
- 
- 	ring->count_dw = ndw;
- 	ring->wptr_old = ring->wptr;
-@@ -104,29 +107,6 @@ int amdgpu_ring_alloc(struct amdgpu_ring *ring, unsigned int ndw)
- 	return 0;
- }
- 
--/**
-- * amdgpu_ring_alloc_reemit - allocate space on the ring buffer for reemit
-- *
-- * @ring: amdgpu_ring structure holding ring information
-- * @ndw: number of dwords to allocate in the ring buffer
-- *
-- * Allocate @ndw dwords in the ring buffer (all asics).
-- * doesn't check the max_dw limit as we may be reemitting
-- * several submissions.
-- */
--static void amdgpu_ring_alloc_reemit(struct amdgpu_ring *ring, unsigned int ndw)
--{
--	/* Align requested size with padding so unlock_commit can
--	 * pad safely */
--	ndw = (ndw + ring->funcs->align_mask) & ~ring->funcs->align_mask;
--
--	ring->count_dw = ndw;
--	ring->wptr_old = ring->wptr;
--
--	if (ring->funcs->begin_use)
--		ring->funcs->begin_use(ring);
--}
--
- /**
-  * amdgpu_ring_insert_nop - insert NOP packets
-  *
-@@ -875,7 +855,6 @@ void amdgpu_ring_reset_helper_begin(struct amdgpu_ring *ring,
- int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
- 				 struct amdgpu_fence *guilty_fence)
- {
--	unsigned int i;
- 	int r;
- 
- 	/* verify that the ring is functional */
-@@ -883,16 +862,9 @@ int amdgpu_ring_reset_helper_end(struct amdgpu_ring *ring,
- 	if (r)
- 		return r;
- 
--	/* set an error on all fences from the context */
--	if (guilty_fence)
--		amdgpu_fence_driver_update_timedout_fence_state(guilty_fence);
--	/* Re-emit the non-guilty commands */
--	if (ring->ring_backup_entries_to_copy) {
--		amdgpu_ring_alloc_reemit(ring, ring->ring_backup_entries_to_copy);
--		for (i = 0; i < ring->ring_backup_entries_to_copy; i++)
--			amdgpu_ring_write(ring, ring->ring_backup[i]);
--		amdgpu_ring_commit(ring);
--	}
-+	/* set an error on all fences from the context and reemit */
-+	amdgpu_ring_set_fence_errors_and_reemit(ring, guilty_fence);
-+
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 5a82db0888f0a..ce5af137ee400 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -121,7 +121,6 @@ struct amdgpu_fence_driver {
- 	/* sync_seq is protected by ring emission lock */
- 	uint32_t			sync_seq;
- 	atomic_t			last_seq;
--	u64				signalled_wptr;
- 	bool				initialized;
- 	struct amdgpu_irq_src		*irq_src;
- 	unsigned			irq_type;
-@@ -146,23 +145,23 @@ struct amdgpu_fence {
- 	struct amdgpu_ring		*ring;
- 	ktime_t				start_timestamp;
- 
--	/* wptr for the total submission for resets */
--	u64				wptr;
-+	/* location and size of the IB */
-+	u64				ib_wptr;
-+	unsigned int			ib_dw_size;
-+	unsigned int			skip_ib_dw_start_offset;
-+	unsigned int			skip_ib_dw_end_offset;
- 	/* fence context for resets */
- 	u64				context;
--	/* has this fence been reemitted */
--	unsigned int			reemitted;
--	/* wptr for the fence for the submission */
--	u64				fence_wptr_start;
--	u64				fence_wptr_end;
-+	/* idx for ring backups */
-+	unsigned int			backup_idx;
- };
- 
- extern const struct drm_sched_backend_ops amdgpu_sched_ops;
- 
- void amdgpu_fence_driver_set_error(struct amdgpu_ring *ring, int error);
- void amdgpu_fence_driver_force_completion(struct amdgpu_ring *ring);
--void amdgpu_fence_driver_update_timedout_fence_state(struct amdgpu_fence *af);
--void amdgpu_fence_save_wptr(struct amdgpu_fence *af);
-+void amdgpu_ring_set_fence_errors_and_reemit(struct amdgpu_ring *ring,
-+					     struct amdgpu_fence *guilty_fence);
- 
- int amdgpu_fence_driver_init_ring(struct amdgpu_ring *ring);
- int amdgpu_fence_driver_start_ring(struct amdgpu_ring *ring,
-@@ -313,6 +312,7 @@ struct amdgpu_ring {
- 	/* backups for resets */
- 	uint32_t		*ring_backup;
- 	unsigned int		ring_backup_entries_to_copy;
-+	bool			reemit;
- 	unsigned		rptr_offs;
- 	u64			rptr_gpu_addr;
- 	u32			*rptr_cpu_addr;
--- 
-2.53.0
+All other review comments have been addressed, and I will send a v4 once 
+this point is clarified.
+
+Regards,
+Arun.
+>
+>> +}
+>> +
+>> +RB_DECLARE_CALLBACKS_MAX(static, gpu_buddy_augment_cb,
+>> +             struct gpu_buddy_block, rb,
+>> +             unsigned int, subtree_max_alignment,
+>> +             gpu_buddy_block_offset_alignment);
+>> +
+>>   static struct gpu_buddy_block *gpu_block_alloc(struct gpu_buddy *mm,
+>>                              struct gpu_buddy_block *parent,
+>>                              unsigned int order,
+>> @@ -31,6 +41,9 @@ static struct gpu_buddy_block 
+>> *gpu_block_alloc(struct gpu_buddy *mm,
+>>       block->header |= order;
+>>       block->parent = parent;
+>>   +    block->subtree_max_alignment =
+>> +        gpu_buddy_block_offset_alignment(block);
+>> +
+>>       RB_CLEAR_NODE(&block->rb);
+>>         BUG_ON(block->header & GPU_BUDDY_HEADER_UNUSED);
+>> @@ -67,26 +80,42 @@ static bool rbtree_is_empty(struct rb_root *root)
+>>       return RB_EMPTY_ROOT(root);
+>>   }
+>>   -static bool gpu_buddy_block_offset_less(const struct 
+>> gpu_buddy_block *block,
+>> -                    const struct gpu_buddy_block *node)
+>> -{
+>> -    return gpu_buddy_block_offset(block) < 
+>> gpu_buddy_block_offset(node);
+>> -}
+>> -
+>> -static bool rbtree_block_offset_less(struct rb_node *block,
+>> -                     const struct rb_node *node)
+>> -{
+>> -    return gpu_buddy_block_offset_less(rbtree_get_free_block(block),
+>> -                       rbtree_get_free_block(node));
+>> -}
+>> -
+>>   static void rbtree_insert(struct gpu_buddy *mm,
+>>                 struct gpu_buddy_block *block,
+>>                 enum gpu_buddy_free_tree tree)
+>>   {
+>> -    rb_add(&block->rb,
+>> - &mm->free_trees[tree][gpu_buddy_block_order(block)],
+>> -           rbtree_block_offset_less);
+>> +    struct rb_node **link, *parent = NULL;
+>> +    unsigned int block_alignment, order;
+>> +    struct gpu_buddy_block *node;
+>> +    struct rb_root *root;
+>> +
+>> +    order = gpu_buddy_block_order(block);
+>> +    block_alignment = gpu_buddy_block_offset_alignment(block);
+>> +
+>> +    root = &mm->free_trees[tree][order];
+>> +    link = &root->rb_node;
+>> +
+>> +    while (*link) {
+>> +        parent = *link;
+>> +        node = rbtree_get_free_block(parent);
+>> +        /*
+>> +         * Manual augmentation update during insertion traversal. 
+>> Required
+>> +         * because rb_insert_augmented() only calls rotate callback 
+>> during
+>> +         * rotations. This ensures all ancestors on the insertion 
+>> path have
+>> +         * correct subtree_max_alignment values.
+>> +         */
+>> +        if (node->subtree_max_alignment < block_alignment)
+>> +            node->subtree_max_alignment = block_alignment;
+>> +
+>> +        if (gpu_buddy_block_offset(block) < 
+>> gpu_buddy_block_offset(node))
+>> +            link = &parent->rb_left;
+>> +        else
+>> +            link = &parent->rb_right;
+>> +    }
+>> +
+>> +    block->subtree_max_alignment = block_alignment;
+>> +    rb_link_node(&block->rb, parent, link);
+>> +    rb_insert_augmented(&block->rb, root, &gpu_buddy_augment_cb);
+>>   }
+>>     static void rbtree_remove(struct gpu_buddy *mm,
+>> @@ -99,7 +128,7 @@ static void rbtree_remove(struct gpu_buddy *mm,
+>>       tree = get_block_tree(block);
+>>       root = &mm->free_trees[tree][order];
+>>   -    rb_erase(&block->rb, root);
+>> +    rb_erase_augmented(&block->rb, root, &gpu_buddy_augment_cb);
+>>       RB_CLEAR_NODE(&block->rb);
+>>   }
+>>   @@ -790,6 +819,132 @@ alloc_from_freetree(struct gpu_buddy *mm,
+>>       return ERR_PTR(err);
+>>   }
+>>   +static bool
+>> +gpu_buddy_can_offset_align(u64 size, u64 min_block_size)
+>> +{
+>> +    return size < min_block_size && is_power_of_2(size);
+>> +}
+>> +
+>> +static bool gpu_buddy_subtree_can_satisfy(struct rb_node *node,
+>> +                      unsigned int alignment)
+>> +{
+>> +    struct gpu_buddy_block *block;
+>> +
+>> +    if (!node)
+>> +        return false;
+>
+> All callers seem to handle null case already, so could potentially 
+> drop this?
+>
+>> +
+>> +    block = rbtree_get_free_block(node);
+>> +    return block->subtree_max_alignment >= alignment;
+>> +}
+>> +
+>> +static struct gpu_buddy_block *
+>> +gpu_buddy_find_block_aligned(struct gpu_buddy *mm,
+>> +                 enum gpu_buddy_free_tree tree,
+>> +                 unsigned int order,
+>> +                 unsigned int tmp,
+>> +                 unsigned int alignment,
+>> +                 unsigned long flags)
+>> +{
+>> +    struct rb_root *root = &mm->free_trees[tree][tmp];
+>> +    struct rb_node *rb = root->rb_node;
+>> +
+>> +    while (rb) {
+>> +        struct gpu_buddy_block *block = rbtree_get_free_block(rb);
+>> +        struct rb_node *left_node = rb->rb_left, *right_node = 
+>> rb->rb_right;
+>> +
+>> +        if (right_node) {
+>> +            if (gpu_buddy_subtree_can_satisfy(right_node, alignment)) {
+>> +                rb = right_node;
+>> +                continue;
+>> +            }
+>> +        }
+>> +
+>> +        if (gpu_buddy_block_order(block) >= order &&
+>
+> Is this not always true? With that we can drop order, or better yet 
+> s/tmp/order/ ?
+>
+>> + __ffs(gpu_buddy_block_offset(block)) >= alignment)
+>
+> Same here with undefined offset zero case. I guess also use the helper.
+>
+>> +            return block;
+>> +
+>> +        if (left_node) {
+>> +            if (gpu_buddy_subtree_can_satisfy(left_node, alignment)) {
+>> +                rb = left_node;
+>> +                continue;
+>> +            }
+>> +        }
+>> +
+>> +        break;
+>> +    }
+>> +
+>> +    return NULL;
+>> +}
+>> +
+>> +static struct gpu_buddy_block *
+>> +gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
+>> +                    u64 size,
+>> +                    u64 min_block_size,
+>> +                    unsigned long flags)
+>> +{
+>> +    struct gpu_buddy_block *block = NULL;
+>> +    unsigned int order, tmp, alignment;
+>> +    struct gpu_buddy_block *buddy;
+>> +    enum gpu_buddy_free_tree tree;
+>> +    unsigned long pages;
+>> +    int err;
+>> +
+>> +    alignment = ilog2(min_block_size);
+>> +    pages = size >> ilog2(mm->chunk_size);
+>> +    order = fls(pages) - 1;
+>> +
+>> +    tree = (flags & GPU_BUDDY_CLEAR_ALLOCATION) ?
+>> +        GPU_BUDDY_CLEAR_TREE : GPU_BUDDY_DIRTY_TREE;
+>> +
+>> +    for (tmp = order; tmp <= mm->max_order; ++tmp) {
+>> +        block = gpu_buddy_find_block_aligned(mm, tree, order,
+>> +                             tmp, alignment, flags);
+>> +        if (!block) {
+>> +            tree = (tree == GPU_BUDDY_CLEAR_TREE) ?
+>> +                GPU_BUDDY_DIRTY_TREE : GPU_BUDDY_CLEAR_TREE;
+>> +            block = gpu_buddy_find_block_aligned(mm, tree, order,
+>> +                                 tmp, alignment, flags);
+>> +        }
+>> +
+>> +        if (block)
+>> +            break;
+>> +    }
+>> +
+>> +    if (!block)
+>> +        return ERR_PTR(-ENOSPC);
+>> +
+>> +    while (gpu_buddy_block_order(block) > order) {
+>> +        struct gpu_buddy_block *left, *right;
+>> +
+>> +        err = split_block(mm, block);
+>> +        if (unlikely(err))
+>> +            goto err_undo;
+>> +
+>> +        left  = block->left;
+>> +        right = block->right;
+>> +
+>> +        if (__ffs(gpu_buddy_block_offset(right)) >= alignment)
+>
+> Might be better to use the helper for this?
+>
+>> +            block = right;
+>> +        else
+>> +            block = left;
+>> +    }
+>> +
+>> +    return block;
+>> +
+>> +err_undo:
+>> +    /*
+>> +     * We really don't want to leave around a bunch of split blocks, 
+>> since
+>> +     * bigger is better, so make sure we merge everything back 
+>> before we
+>> +     * free the allocated blocks.
+>> +     */
+>> +    buddy = __get_buddy(block);
+>> +    if (buddy &&
+>> +        (gpu_buddy_block_is_free(block) &&
+>> +         gpu_buddy_block_is_free(buddy)))
+>> +        __gpu_buddy_free(mm, block, false);
+>> +    return ERR_PTR(err);
+>> +}
+>> +
+>>   static int __alloc_range(struct gpu_buddy *mm,
+>>                struct list_head *dfs,
+>>                u64 start, u64 size,
+>> @@ -1059,6 +1214,7 @@ EXPORT_SYMBOL(gpu_buddy_block_trim);
+>>   static struct gpu_buddy_block *
+>>   __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>>                u64 start, u64 end,
+>> +             u64 size, u64 min_block_size,
+>>                unsigned int order,
+>>                unsigned long flags)
+>>   {
+>> @@ -1066,6 +1222,11 @@ __gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>>           /* Allocate traversing within the range */
+>>           return  __gpu_buddy_alloc_range_bias(mm, start, end,
+>>                                order, flags);
+>> +    else if (size < min_block_size)
+>> +        /* Allocate from an offset-aligned region without size 
+>> rounding */
+>> +        return gpu_buddy_offset_aligned_allocation(mm, size,
+>> +                               min_block_size,
+>> +                               flags);
+>>       else
+>>           /* Allocate from freetree */
+>>           return alloc_from_freetree(mm, order, flags);
+>> @@ -1137,8 +1298,11 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+>>       if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
+>>           size = roundup_pow_of_two(size);
+>>           min_block_size = size;
+>> -    /* Align size value to min_block_size */
+>> -    } else if (!IS_ALIGNED(size, min_block_size)) {
+>> +        /*
+>> +         * Normalize the requested size to min_block_size for 
+>> regular allocations.
+>> +         * Offset-aligned allocations intentionally skip size rounding.
+>> +         */
+>> +    } else if (!gpu_buddy_can_offset_align(size, min_block_size)) {
+>>           size = round_up(size, min_block_size);
+>>       }
+>>   @@ -1158,43 +1322,60 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy 
+>> *mm,
+>>       do {
+>>           order = min(order, (unsigned int)fls(pages) - 1);
+>>           BUG_ON(order > mm->max_order);
+>> -        BUG_ON(order < min_order);
+>> +        /*
+>> +         * Regular allocations must not allocate blocks smaller than 
+>> min_block_size.
+>> +         * Offset-aligned allocations deliberately bypass this 
+>> constraint.
+>> +         */
+>> +        BUG_ON(size >= min_block_size && order < min_order);
+>>             do {
+>> +            unsigned int fallback_order;
+>> +
+>>               block = __gpu_buddy_alloc_blocks(mm, start,
+>>                                end,
+>> +                             size,
+>> +                             min_block_size,
+>>                                order,
+>>                                flags);
+>>               if (!IS_ERR(block))
+>>                   break;
+>>   -            if (order-- == min_order) {
+>> -                /* Try allocation through force merge method */
+>> -                if (mm->clear_avail &&
+>> -                    !__force_merge(mm, start, end, min_order)) {
+>> -                    block = __gpu_buddy_alloc_blocks(mm, start,
+>> -                                     end,
+>> -                                     min_order,
+>> -                                     flags);
+>> -                    if (!IS_ERR(block)) {
+>> -                        order = min_order;
+>> -                        break;
+>> -                    }
+>> -                }
+>> +            if (size < min_block_size) {
+>> +                fallback_order = order;
+>> +            } else if (order == min_order) {
+>> +                fallback_order = min_order;
+>> +            } else {
+>> +                order--;
+>> +                continue;
+>> +            }
+>>   -                /*
+>> -                 * Try contiguous block allocation through
+>> -                 * try harder method.
+>> -                 */
+>> -                if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
+>> -                    !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+>> -                    return __alloc_contig_try_harder(mm,
+>> -                                     original_size,
+>> -                                     original_min_size,
+>> -                                     blocks);
+>> -                err = -ENOSPC;
+>> -                goto err_free;
+>> +            /* Try allocation through force merge method */
+>> +            if (mm->clear_avail &&
+>> +                !__force_merge(mm, start, end, fallback_order)) {
+>> +                block = __gpu_buddy_alloc_blocks(mm, start,
+>> +                                 end,
+>> +                                 size,
+>> +                                 min_block_size,
+>> +                                 fallback_order,
+>> +                                 flags);
+>> +                if (!IS_ERR(block)) {
+>> +                    order = fallback_order;
+>> +                    break;
+>> +                }
+>>               }
+>> +
+>> +            /*
+>> +             * Try contiguous block allocation through
+>> +             * try harder method.
+>> +             */
+>> +            if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION &&
+>> +                !(flags & GPU_BUDDY_RANGE_ALLOCATION))
+>> +                return __alloc_contig_try_harder(mm,
+>> +                                 original_size,
+>> +                                 original_min_size,
+>> +                                 blocks);
+>> +            err = -ENOSPC;
+>> +            goto err_free;
+>>           } while (1);
+>>             mark_allocated(mm, block);
+>> diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
+>> index 07ac65db6d2e..7ad817c69ec6 100644
+>> --- a/include/linux/gpu_buddy.h
+>> +++ b/include/linux/gpu_buddy.h
+>> @@ -11,6 +11,7 @@
+>>   #include <linux/slab.h>
+>>   #include <linux/sched.h>
+>>   #include <linux/rbtree.h>
+>> +#include <linux/rbtree_augmented.h>
+>>     #define GPU_BUDDY_RANGE_ALLOCATION        BIT(0)
+>>   #define GPU_BUDDY_TOPDOWN_ALLOCATION        BIT(1)
+>> @@ -58,6 +59,7 @@ struct gpu_buddy_block {
+>>       };
+>>         struct list_head tmp_link;
+>> +    unsigned int subtree_max_alignment;
+>>   };
+>>     /* Order-zero must be at least SZ_4K */
+>>
+>> base-commit: 9d757669b2b22cd224c334924f798393ffca537c
+>
 
