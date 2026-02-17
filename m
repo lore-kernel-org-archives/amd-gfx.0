@@ -4,33 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E94E9A04A
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 08:09:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22EF8E9A03B
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 08:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6324310E57D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E83610E57F;
 	Wed, 18 Feb 2026 08:09:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=m1k.cloud header.i=@m1k.cloud header.b="H1siHJCN";
+	dkim=pass (2048-bit key; unprotected) header.d=m1k.cloud header.i=@m1k.cloud header.b="MCtzpZQe";
 	dkim-atps=neutral
 Received: from mail.m1k.cloud (mail.m1k.cloud [195.231.66.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F32110E2BB
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 00:31:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 710D710E200
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Feb 2026 19:17:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=m1k.cloud; s=mail;
- t=1771374678; bh=MmRvqvg7/kbJMQDHUKLb3b55sX1rPDH91P90bjLwuNE=;
+ t=1771355833; bh=MmRvqvg7/kbJMQDHUKLb3b55sX1rPDH91P90bjLwuNE=;
  h=From:To:Cc:Subject;
- b=H1siHJCNkhe7/qWMudJcaeQ2dZVYiGeKa07F+o+q12Gw6bMLcgEKUGtpVgsUPeLdB
- UPyY/qDMHheWq4SiLtTbNUGOtu/D6B3JB9cIYxuZJ3A0JMamfjX+8IdbayM3H4ileB
- PvaBTNXCzn+3mmzBcLNKd6uclS+OFXzYvWsKtVP5vEAAO/O5V29gWcLtzX7bJ+F65k
- vCN/IxcmkG5M5tgabbVZ2rKKzIp0Tv+hKHj/H/24L5nZEm89ITiQ6hOPNHAlaRXt/p
- 87Qw8uU1zduRFZB2BT3ZZEqNUkYxnZ6ebpRCrxPTIE4dPdJCi89SkIt/QG1ripuzOh
- wUlSV35L2metg==
+ b=MCtzpZQe0DOe2+M1A3YTTbl6Qw+ayugD47GpKwwBFYUB4pVxIWivfyeolhlK/OoRL
+ 58h+d8XdHMO0WHHneUeYJpArxZeBk4fc0csVdy9b+AA9sa0ykReNhEtylBsd+c/GT0
+ pC3GXxvKqUmF8ZWd5PMv8bTvpS7vlALPXJDJvbkHXU2eRYSlDXTikpqrxDk3bz58v5
+ HWD0p3RZ/rK4Zc6zxEC0Z4UjngekSkIcfcr6HTYmqJB+aQTaBkrgUSshrcB7ULost+
+ FKxeELkvQsymCyqv7GjU3JnbD6JJ4FwXKbNr3p2/5T97i0riwZx5yQhwB+co44eXbT
+ 5rytLKLlVq7Nw==
 From: Michele Palazzi <sysdadmin@m1k.cloud>
 To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- sunpeng.li@amd.com, Michele Palazzi <sysdadmin@m1k.cloud>
+Cc: harry.wentland@amd.com, rodrigo.siqueira@amd.com, sunpeng.li@amd.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com,
+ Michele Palazzi <sysdadmin@m1k.cloud>
 Subject: [PATCH 1/1] drm/amd/display: complete cursor vblank events immediately
-Date: Wed, 18 Feb 2026 01:31:04 +0100
-Message-ID: <20260218003104.1256473-1-sysdadmin@m1k.cloud>
+Date: Tue, 17 Feb 2026 20:16:32 +0100
+Message-ID: <20260217191632.1243826-1-sysdadmin@m1k.cloud>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 18 Feb 2026 08:09:39 +0000
