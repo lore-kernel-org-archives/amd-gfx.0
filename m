@@ -4,90 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9FEFE9A02C
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 13:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06EC2E9A02C
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 15:37:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F63010E5BA;
-	Wed, 18 Feb 2026 13:43:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 807B210E5D9;
+	Wed, 18 Feb 2026 15:37:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kghikySw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lV9JZlFL";
 	dkim-atps=neutral
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com
- [74.125.82.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13AB110E5BA
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 13:43:53 +0000 (UTC)
-Received: by mail-dy1-f179.google.com with SMTP id
- 5a478bee46e88-2bd5658b901so1989eec.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 05:43:53 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771422232; cv=none;
- d=google.com; s=arc-20240605;
- b=RDwukh3Hd6r0pxXF2Ibm5fSmBkI16hPWVJ0z4oMEDDOXaWTxZjCJpzqs9oVh3bEEDX
- gK253+qcGNkTOoEc9eHXaD+cGXzhVcCAe3pg5u7MhyPN7vYFuWS3k56os41fH2vNxI2l
- zvCuZcZc/6DQD3l0zceXIZwQyIGT3nn/xmWfJWgIOKfe1joX7rn2ENfMQqnuewVALcew
- d4GnmrRW3HjPhWMzt0m2oLIUKcJdnyjQW0Dpwkyznjs7mRWwWTjzHxwot9q1QgGcGLlv
- dZBqnAqmBho9zwH/OGVQA/4irAFGrl2Jr6XMmW9b6X17dlvM4tL2B8LW8WCp1Y4B4kbj
- p3sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ZsTOq2yjOZ10TqAAZzbF+iH5liO+jEK8mhwciq3eeMk=;
- fh=sN9lHjfQgBY6fORl+AnBCHZUFbjxtDik1bv+B/xT3Eg=;
- b=LWO3vNJmjDxfVhU2k+016lZqH/vclh2x/1NPGhSVqqTroaOdQMFZzQVhvMEEtS8jwC
- tq1LwnOETv3aDJLm7uKI6sCF9pEktGIcAhP+OWsMhFsNJFMjcHG+gn6hwympuDM4aExd
- vk5f11Ttwaa0DF+O3PH9dwVR70hIszQoiLMFXA+QSL7xqlMDOhf8ByZCdRGrnjEYL4EO
- AZ2ale4CTnorpfHBRWQwpvj6mT6PiGNP/8PEH63MvdiQ0WB5+Gsp/hk89MePIGNt6ciz
- Zho9XLE/JicIyEbZZmp85lsB1M8s5skP/IQY/h5gItdAua16XNScpbR6ubewFlxLiLRD
- a1sg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD5B510E5D9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 15:37:55 +0000 (UTC)
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-824a6f2d816so2625016b3a.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 07:37:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771422232; x=1772027032; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ZsTOq2yjOZ10TqAAZzbF+iH5liO+jEK8mhwciq3eeMk=;
- b=kghikySw4y7M09TZ1L3r2izRAV2WeVtDZBKZpXbLi7WdfbA41hFjfkNvZtISw/jO3s
- 8IjOBNEGA2vub2v84bJFJNUaRp/uwUk/ohgJErn9KDkjDYsjgnavHDnrBHjVqIeIyn2Y
- ZHuR6tWQkL3HBV7joEy5TgrNHCyxnTXABxp4wFzwr+5DNSdUDL+loonB1GBb4Ys0E7od
- 4xQqE23KRlyTYDa4iz/sBVuRNNaTgC1xa5lbeWGACGRlv//jNcyhAzMglT85T0AWtqZY
- W3t8AvDUAvUCyBkFBZlGHdBiJPmzb2mSFVcjsXwGgm+aJhZOEtBJ+doEmybWdPCn5Z/X
- qWhQ==
+ d=gmail.com; s=20230601; t=1771429075; x=1772033875; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=VaAniGLhMxwLFTX0Y2etfOX2Em4BjeJ+Ttkj11LkOEQ=;
+ b=lV9JZlFLGu9P6d4VYWch3Onu5f+XTH53cRbOxhjghqa5H43GAG1fSsXISzbfBMVJwr
+ jDwRoMY3cytQbGizJTvLLDbQgmZWGtMANnQD2L/WFIVtHLWodtEt1M/ovPT2z1wU+6g2
+ M+bRnNFKxQXeY8fX9oolt+wodiskH6XsfePL5i8EeKUGuPraMNlTVytuUZXuUwX0ds1T
+ KGbIZLsvVZZm7eaB3TtVwBErj+ta22vICa/y02MRY60Vj3wmTCVWydawlnRfmDJR/CM6
+ JN4/ffCC5DBVPrn9uF1A+23DITm/GRZDDKu1gL83OyMyYJjRmosmChCpwRBaiWHylGqb
+ EyFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771422232; x=1772027032;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ZsTOq2yjOZ10TqAAZzbF+iH5liO+jEK8mhwciq3eeMk=;
- b=oPeCodEVHk66Ur4mn1GMM2ie0nJFHnKDd9Ob/637OANTOoMST0xq3R6ZfHUh4WeiWt
- aPUiLtV07bCMGgLcyfgTtWrLv/G3d1VAeHV4c857twMNh4ftLMPy2tRGrgqQhVmhCcJ/
- wU6BKbGObsbUlCNyza6YOyAq3CqoTzz/w0cKEmIHKyRGVQ2lo7XymCyaRYJOltfu9kxh
- Uq86Iw/O9CGs5Zwn4eD8yHa0YvEIeuQIkjutX2JyWInugkIIGVJ9PMHHQ4MyvfTxb92E
- 1QJoIplxdRGH8tfebR6gM8QC4T6seDmP2A3BKahqABjQQlWZHcSESiBeY+ed84+Mt4ln
- p0QA==
-X-Gm-Message-State: AOJu0YxErDwMKF6o57Nnx33U1rK3pmLAo6XAG11WqaaGz9kmHF20z5Cs
- 75Kz2e+4GhLAkkSXz87mQ9FLt6PNebKrCXHMu50fwbu0gx2OjBP3j0GYJhNxWPVV8ZQpBkm3qYq
- 6kq9qs/SWVxwQ8QBNx3twxr8Z9bRXLOU=
-X-Gm-Gg: AZuq6aJBseVXN90MWU7wZG6/et9A3iXUAMn5g91j2GUtGHFzwh+KOnqelkciuT7KAS3
- C9GSAPJ3U6uxgOebiSBGkKn42zdDDNIKUMT7KXFvNPUg7rxIQ8UZ43gtGMaHPPZTOFCCxo8YKPs
- mAKoZ3NFDQZ/tND9suQpvp/kP2oinDa6RwtOwpWAD13r+izgyQF21AOj4YVE5zB1hzQwulFSCso
- hn0VCX0+ASXh66LpTWoIHTI51185rUVZoW0utrWnN7m0tnKVY37oQAF8ftzsyXh1mmqRKZxLMYu
- Zo1INEDm8Ss1CEwnz6OogYBpqaybBKdOTkF0xTZrno/eP/CM/IXRkiSS3zRcPe5Z8BIzng==
-X-Received: by 2002:a05:693c:2c93:b0:2ab:ca55:89cb with SMTP id
- 5a478bee46e88-2baba0ae6b2mr3950854eec.6.1771422232130; Wed, 18 Feb 2026
- 05:43:52 -0800 (PST)
+ d=1e100.net; s=20230601; t=1771429075; x=1772033875;
+ h=content-transfer-encoding:mime-version:message-id:references
+ :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=VaAniGLhMxwLFTX0Y2etfOX2Em4BjeJ+Ttkj11LkOEQ=;
+ b=KPbPUZQjQIgamD7sKTpClbK+1UkRa8m32wl6XuPYD0yGifVlin49TtXOcDdaiiwaqc
+ ACoUWiVRzI11WIkWH6/v9nO4tJg4rm4315QvdXdgPFbz4/jCghG6mnd2g1ijfpjZP9cq
+ d/69FFIKaRkLS0M2+/EHMtZ0znWv5MoaXxy8QNnuUcj1emNaaY5SCss1T+QC/eOBoI0X
+ +rh6+viR/tyQz1yYi81VRAWkCjJlf0Q8ja5H57z+VBPviumvDVJ3TP9SlmDu/4AYXdJo
+ DJzZEN+Lb3ug+bkmRLP0pWr68fth/pwH40y04yvSKi5e8Hnz7FIwIkO7hVY6t73t/wgq
+ eQww==
+X-Gm-Message-State: AOJu0Yy2Y8V/ivTCqiaYcJF2LiqGe6mnK/BdJusD3FZYLEbRHEE8gY9w
+ JhQS5o/ck/zGyPU04HdvEcWa7nBSqnRZqsbV5ymE2z04MMiEQOnnbcuXm8dHHw==
+X-Gm-Gg: AZuq6aJjg7EXoe/jORkG8I0tn7pFzQSNWmeJyPyNK0CqOBsYex8inahs6Lw8pC2A85G
+ J3FHoA3bGVEs+yOSIuNADVm3pY6VwEeEdPClIPsjma1TVak0uNEMxBC6UI/DT3tr4R7QKCYcR2C
+ cl3P4ytUxOP0lIVQ/dml3ljTSOCTnlhpplgLMv1MqoPpwQmQkt913JQOncTS/Zbwoy/T8y66lXN
+ zMtxGsNQAuyGKGKMjZ65u8ukqsvCPFhxfH7UHtldHLgcHCnfQCFFZkcpFasB0fNAswMp8GUDj11
+ Lr6P2lg47+AotElZaMsj5ZTwc4f3VKFrUN/d/imN/tytQkbWRx6pAWOISpvaeco8lhe5Detmq57
+ d5ZhULheur/a+0IdmXvq7n8jsRreDYJCTtTe5vVxNc9VDiks6KufSu/haRQafPvNATdXTXxueUQ
+ EfK+rKyNy19/ETrAXqcYDIEsRntTXGmXuRwpI=
+X-Received: by 2002:a05:6a00:6c9c:b0:824:3bd9:aac6 with SMTP id
+ d2e1a72fcca58-825274c549cmr2027488b3a.16.1771429075074; 
+ Wed, 18 Feb 2026 07:37:55 -0800 (PST)
+Received: from ehlo.thunderbird.net ([101.0.63.217])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-824c6b6a3f8sm16880308b3a.36.2026.02.18.07.37.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 18 Feb 2026 07:37:54 -0800 (PST)
+Date: Wed, 18 Feb 2026 21:07:50 +0530
+From: Saleemkhan <saleemkhan083@gmail.com>
+To: amd-gfx@lists.freedesktop.org, "David (Ming Qiang) Wu" <David.Wu3@amd.com>,
+ Christian.Koenig@amd.com, alexander.deucher@amd.com, leo.liu@amd.com
+CC: leo.liu@amd.com, Boyuan.Zhang@amd.com, David.Wu3@amd.com
+Subject: Re: [PATCH 00/14] user queue support for VCN 4.0.5
+User-Agent: Thunderbird for Android
+In-Reply-To: <20260210214729.80964-1-David.Wu3@amd.com>
+References: <20260210214729.80964-1-David.Wu3@amd.com>
+Message-ID: <4C922F99-7140-47A7-967E-D01DEF0D9ECD@gmail.com>
 MIME-Version: 1.0
-References: <20260218113832.1312089-1-lijo.lazar@amd.com>
-In-Reply-To: <20260218113832.1312089-1-lijo.lazar@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 18 Feb 2026 08:43:40 -0500
-X-Gm-Features: AaiRm52c4L8gFZsw-w3dSGkMKD2WRgFEySLFPHxwtqGM3zCSI3fyIV3O4GKinUE
-Message-ID: <CADnq5_Mnguf99uqP165PK7_HQ9VB+dBU7oA5z0QxJddKps5URA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Print full vbios info
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
- Alexander.Deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/alternative;
+ boundary=----Q92SF5P0KVKI0SYGJ165GX8G4X14NI
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,86 +88,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 18, 2026 at 6:49=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
-te:
->
-> Add build number, version and date to the existing part number print.
->
-> Example:
->
-> [drm] ATOM BIOS: 113-PN000108-103, build: 00159017, ver: 022.040.003.043.=
-000001, 2025/07/27
->
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+------Q92SF5P0KVKI0SYGJ165GX8G4X14NI
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Hi David, Leo,
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/atom.c | 28 ++++++++++++++++++++++++++--
->  1 file changed, 26 insertions(+), 2 deletions(-)
+
+Thank you for the UMSCH patches=2E
+
+Are the  UMSCH and=C2=A0 vcn firmware are upstreamed ?
+I want to try this on Strix=2E
+
+
+Regards,
+
+Saleem
+
+
+
+On 11 February 2026 3:17:15 am IST, "David (Ming Qiang) Wu" <David=2EWu3@a=
+md=2Ecom> wrote:
+>add user queue support for VCN 4=2E0=2E5
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdg=
-pu/atom.c
-> index 371ee82a8912..cc5b6ea7f6d8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atom.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-> @@ -1462,8 +1462,6 @@ static void atom_get_vbios_pn(struct atom_context *=
-ctx)
+>David (Ming Qiang) Wu (10):
+>  amdgpu: add global aggregated doorbell bo
+>  drm/amdgpu: add AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL
+>  drm/amdgpu/userq: add doorbell size for VCN and VPE
+>  drm/amdgpu: use amdgpu_user_queue instead of amdgpu_umsch_mm
+>  amdgpu/umsch: Add VCN IP init to umsch driver
+>  drm/amdgpu/userq: change mes_userq_create_wptr_mapping() to be common
+>  drm/amdgpu/userq: rework on amdgpu_userq_create_wptr_mapping
+>  drm/amdgpu/umsch: user queue support for vcn
+>  drm/amdgpu: add AMDGPU_INFO_DOORBELL
+>  drm/amdgpu/umsch: userq suspend and resume context
 >
->                 ctx->vbios_pn[count] =3D 0;
->         }
-> -
-> -       drm_info(ctx->card->dev, "ATOM BIOS: %s\n", ctx->vbios_pn);
->  }
+>Saleemkhan Jamadar (4):
+>  amdgpu/umsch: Update UMSCH interface and mqd structure
+>  drm/amdgpu/vcn: changes when kernel queue is disabled
+>  drm/amdgpu/vcn: handle interrupt received from fw
+>  drm/amdgpu/vcn: handle the suspend context interrupt
 >
->  static void atom_get_vbios_version(struct atom_context *ctx)
-> @@ -1520,6 +1518,30 @@ static void atom_get_vbios_build(struct atom_conte=
-xt *ctx)
->                 strscpy(ctx->build_num, str, len);
->  }
+> drivers/gpu/drm/amd/amdgpu/amdgpu=2Eh           |   4 +-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs=2Ec   |   2 +-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery=2Ec |   2 +-
+> =2E=2E=2E/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr=2Ec  |  16 +
+> drivers/gpu/drm/amd/amdgpu/amdgpu_drv=2Ec       |  10 -
+> drivers/gpu/drm/amd/amdgpu/amdgpu_gem=2Ec       |   2 +
+> drivers/gpu/drm/amd/amdgpu/amdgpu_kms=2Ec       |  18 ++
+> drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm=2Ec  | 300 +++++++++++++++++-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm=2Eh  |  43 ++-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Ec     |  69 +++-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Eh     |   4 +
+> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn=2Eh       |   4 +
+> drivers/gpu/drm/amd/amdgpu/mes_userqueue=2Ec    |  90 +-----
+> drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0=2Ec    |  75 ++++-
+> drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5=2Ec       | 122 +++++--
+> =2E=2E=2E/amd/include/ivsrcid/vcn/irqsrcs_vcn_4_0=2Eh |  10 +
+> =2E=2E=2E/drm/amd/include/umsch_mm_4_0_api_def=2Eh    |  12 +-
+> include/uapi/drm/amdgpu_drm=2Eh                 |  14 +
+> 18 files changed, 646 insertions(+), 151 deletions(-)
 >
-> +static inline void atom_print_vbios_info(struct atom_context *ctx)
-> +{
-> +       char vbios_info[256];
-> +       int off =3D 0;
-> +
-> +       if (ctx->vbios_pn[0])
-> +               off +=3D scnprintf(vbios_info + off, sizeof(vbios_info) -=
- off,
-> +                                "%s", ctx->vbios_pn);
-> +       if (ctx->build_num[0])
-> +               off +=3D scnprintf(vbios_info + off, sizeof(vbios_info) -=
- off,
-> +                                "%sbuild: %s", off ? ", " : "",
-> +                                ctx->build_num);
-> +       if (ctx->vbios_ver_str[0])
-> +               off +=3D scnprintf(vbios_info + off, sizeof(vbios_info) -=
- off,
-> +                                "%sver: %s", off ? ", " : "",
-> +                                ctx->vbios_ver_str);
-> +       if (ctx->date[0])
-> +               off +=3D scnprintf(vbios_info + off, sizeof(vbios_info) -=
- off,
-> +                                "%s%.10s", off ? ", " : "",
-> +                                ctx->date);
-> +       if (off)
-> +               drm_info(ctx->card->dev, "ATOM BIOS: %s\n", vbios_info);
-> +}
-> +
->  struct atom_context *amdgpu_atom_parse(struct card_info *card, void *bio=
-s)
->  {
->         int base;
-> @@ -1582,6 +1604,8 @@ struct atom_context *amdgpu_atom_parse(struct card_=
-info *card, void *bios)
->         atom_get_vbios_version(ctx);
->         atom_get_vbios_build(ctx);
+>--=20
+>2=2E43=2E0
 >
-> +       atom_print_vbios_info(ctx);
-> +
->         return ctx;
->  }
->
-> --
-> 2.49.0
->
+
+--
+Saleem
+------Q92SF5P0KVKI0SYGJ165GX8G4X14NI
+Content-Type: text/html;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body><div dir=3D"auto">Hi David, Leo,<br><br><br>Thank =
+you for the UMSCH patches=2E<br><br>Are the=C2=A0 UMSCH and=C2=A0 vcn firmw=
+are are upstreamed ?<br>I want to try this on Strix=2E<br><br><br>Regards,<=
+br><br>Saleem<br><br></div><br><br><div class=3D"gmail_quote"><div dir=3D"a=
+uto">On 11 February 2026 3:17:15 am IST, "David (Ming Qiang) Wu" &lt;David=
+=2EWu3@amd=2Ecom&gt; wrote:</div><blockquote class=3D"gmail_quote" style=3D=
+"margin: 0pt 0pt 0pt 0=2E8ex; border-left: 1px solid rgb(204, 204, 204); pa=
+dding-left: 1ex;">
+<pre class=3D"k9mail"><div dir=3D"auto">add user queue support for VCN 4=
+=2E0=2E5<br><br>David (Ming Qiang) Wu (10):<br>  amdgpu: add global aggrega=
+ted doorbell bo<br>  drm/amdgpu: add AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL<=
+br>  drm/amdgpu/userq: add doorbell size for VCN and VPE<br>  drm/amdgpu: u=
+se amdgpu_user_queue instead of amdgpu_umsch_mm<br>  amdgpu/umsch: Add VCN =
+IP init to umsch driver<br>  drm/amdgpu/userq: change mes_userq_create_wptr=
+_mapping() to be common<br>  drm/amdgpu/userq: rework on amdgpu_userq_creat=
+e_wptr_mapping<br>  drm/amdgpu/umsch: user queue support for vcn<br>  drm/a=
+mdgpu: add AMDGPU_INFO_DOORBELL<br>  drm/amdgpu/umsch: userq suspend and re=
+sume context<br><br>Saleemkhan Jamadar (4):<br>  amdgpu/umsch: Update UMSCH=
+ interface and mqd structure<br>  drm/amdgpu/vcn: changes when kernel queue=
+ is disabled<br>  drm/amdgpu/vcn: handle interrupt received from fw<br>  dr=
+m/amdgpu/vcn: handle the suspend context interrupt<br><br> drivers/gpu/drm/=
+amd/amdgpu/amdgpu=2Eh           |   4 +-<br> drivers/gpu/drm/amd/amdgpu/amd=
+gpu_debugfs=2Ec   |   2 +-<br> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery=
+=2Ec |   2 +-<br> =2E=2E=2E/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr=2Ec  |  =
+16 +<br> drivers/gpu/drm/amd/amdgpu/amdgpu_drv=2Ec       |  10 -<br> driver=
+s/gpu/drm/amd/amdgpu/amdgpu_gem=2Ec       |   2 +<br> drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_kms=2Ec       |  18 ++<br> drivers/gpu/drm/amd/amdgpu/amdgpu_u=
+msch_mm=2Ec  | 300 +++++++++++++++++-<br> drivers/gpu/drm/amd/amdgpu/amdgpu=
+_umsch_mm=2Eh  |  43 ++-<br> drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Ec   =
+  |  69 +++-<br> drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Eh     |   4 +<br=
+> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn=2Eh       |   4 +<br> drivers/gpu/d=
+rm/amd/amdgpu/mes_userqueue=2Ec    |  90 +-----<br> drivers/gpu/drm/amd/amd=
+gpu/umsch_mm_v4_0=2Ec    |  75 ++++-<br> drivers/gpu/drm/amd/amdgpu/vcn_v4_=
+0_5=2Ec       | 122 +++++--<br> =2E=2E=2E/amd/include/ivsrcid/vcn/irqsrcs_v=
+cn_4_0=2Eh |  10 +<br> =2E=2E=2E/drm/amd/include/umsch_mm_4_0_api_def=2Eh  =
+  |  12 +-<br> include/uapi/drm/amdgpu_drm=2Eh                 |  14 +<br> =
+18 files changed, 646 insertions(+), 151 deletions(-)<br><br></div></pre></=
+blockquote></div><div dir=3D"auto">--<br>Saleem</div></body></html>
+------Q92SF5P0KVKI0SYGJ165GX8G4X14NI--
