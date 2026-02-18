@@ -4,198 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2DE8EE9A051
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Feb 2026 10:59:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB099E9A048
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Feb 2026 10:59:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5694C10E6B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4FEBD10E6AD;
 	Thu, 19 Feb 2026 10:59:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="N5up36Xy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EHC1YEt1";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012014.outbound.protection.outlook.com [52.101.43.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C846D10E61B;
- Wed, 18 Feb 2026 20:59:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yWP4QneLQwATYX0z6ks1E6ePBj51QDaMr5GUXamc/wGo+ZTJuIDjtkn8/P57htU1KQXtDyFJ5ZbXI5EZ62k8Wg0bYM5WpwM2L4GpX45xJuTENYdGA8hDl8ghGPek0LIjYA5diaZHUsVGv93hDNfqXnJEthXIpv0+ZM+jpy6N6Ht0pWhPepNBIXNXBGwZWqChMPEjlETBtNLiRwr+/5QKQcazcI6YXPAoE9y5yzjqWVs80e3eNCKfjf6gYYRex7ezpWypMK2wlgI8O60H3Pn7iyIPEkgTGQFY8DifkNmeIflRYkHmXZ1Hl4vcE+cNv2jGAfnqMLOeNgkgn6uOWpLQug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tYgsoYQyhBG2hCC3MQWegrjwSyjupOyn+HPDCIAAUa8=;
- b=okdUcYbVqdQ3Am1ojnJNH/17yXzkHsqwZhtNqnDX/bEnlxJ2v5MPvBkaXWIiqhAfP7Zz2HALWFpbPgeg/3VTBKaWbjP9dkXQHfXg8cb1BmmT9Z4D2HRr1CMNGAhOu5J+cx3SgtD1+v3hqZsf/OY9atn3OMAPTJM9oISdQmK+66xZCC2jnt39q04o31ykuP0sfA2IJfVSODlK3r7qOi5wES+KgBUGaW840adb0dfVEpxnwzv53rTuIZ1chjReggRYNJdMKD2/dPF0tpzdDy32wi65ymDOYC66nWUV6cBHQPpdTWubzgk5TIEaiQKiKqkX9Kf1COnElNlzHcYgEuIQ4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tYgsoYQyhBG2hCC3MQWegrjwSyjupOyn+HPDCIAAUa8=;
- b=N5up36XySmyhIxhcUQhRvgQ7GjHctRGdLezK9Wtb9vjRx1B/op1bTndN8YVQUQXL86hnep8U2R3XgmhEYOTy67SMHaV4/2b9ZRRe6FYwuJeribH8K/sR5Zp1gCN4WnIvl44xP7jmuhf+8MCzpnwSJjO+Thgo899DRgKwa/6MZajjID/mGQjk1FwdgQBxTkLVKGDKQUcSGWAnK9L1SQR478MWMOJ3ijAhL6V4STZK+Jz8ptU4P/FofW8aDGdYpntDwU3g1zo4x18ZmSWzIKFRMgju/bIJw+LLn3Pi9I/zG2lmNRovfgYBxOqaA0sSVVGFSaz98c450eQ2Yt2dIRGYiQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- IA1PR12MB7517.namprd12.prod.outlook.com (2603:10b6:208:41a::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.15; Wed, 18 Feb
- 2026 20:59:53 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9632.010; Wed, 18 Feb 2026
- 20:59:53 +0000
-Message-ID: <e7b74497-7cfb-4b8c-a73c-afa2acbc7b6e@nvidia.com>
-Date: Wed, 18 Feb 2026 15:59:49 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 0/8] Preparatory patches for nova-core memory
- management
-To: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>
-Cc: Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Edwin Peer <epeer@nvidia.com>,
- Alexandre Courbot <acourbot@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>,
- Daniel Almeida <daniel.almeida@collabora.com>, joel@joelfernandes.org,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- Joel Fernandes <joelagnelf@nvidia.com>
-References: <20260218205507.689429-1-joelagnelf@nvidia.com>
-Content-Language: en-US
-From: Joel Fernandes <joelagnelf@nvidia.com>
-In-Reply-To: <20260218205507.689429-1-joelagnelf@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BL1P223CA0008.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:208:2c4::13) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A60910E5A4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 11:04:26 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-48334ee0aeaso41700585e9.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 03:04:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1771412664; x=1772017464; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:mime-version
+ :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=wGTNJ210AsARI4ZD14nsycGl1kgt7uuJ79e/H8Vr1rM=;
+ b=EHC1YEt1iH/2L/nRuDUM6Q1vDCYWb3e3IajeAaGUYllWi7L5Tcwi/CVvLASTJBgrKF
+ dtZIRRmerabwXDON3t3thQB6r/jenyZhHVbQQiO1H6QqtchobsNADoEPXJVyARfo1EII
+ t6xTRToQJoPeq5OKNfpj5Nl0TgAObvQqDo6CkuJaw5HuPD8QEsraLCCRJprHX3PFhtSL
+ Q/X1QR3Dl11chhwnySzImFdALOtDHPyfQ2Lo8eifX/rSovAs67RS4ZiXB1JYjN9IwJ6k
+ 0ffIPNBzatLUicdcG5CWJFdccUUs7fijZvZKG12baMhKQQqwh/6rZD34jo/SsRCsiVsS
+ HuEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771412664; x=1772017464;
+ h=content-transfer-encoding:content-disposition:mime-version
+ :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=wGTNJ210AsARI4ZD14nsycGl1kgt7uuJ79e/H8Vr1rM=;
+ b=FZ2mMEpxmh1UZTCmwxsyb2UNMZo0dlM+koIH6sKW7+30E60ksatACPJ+xT7y+hGsa1
+ IaJsTMu+tTiLV+s1T+CfpH0DDkS0Wk1prsBM+iXzK6OHSwZim61Hj2I5BBziFQ17KDls
+ NNgT6LyJQWg3s0RppQlV6B9mETRBQorP5usYvOcLU3qkxEJhdP4q8E1BTH1de7Cx3i9B
+ cJLMI3EvD6nQMKNk5WIxdatpqlSr1+cU9LAEJIkXsuQAmWdFXCHzkBj3Y8NRmTRYVfOl
+ cAnVG1/qNZTf/y0qX56Wa1+7tK+KkBqM6KXiZB5P9+ib9kG7fQ1iv2lFzOFcuggA4Kfm
+ scZg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXOC8FEQ+s+byTdqCHaKWgoVlLHrqKW+DAOxG9K6BYmii5O/lfhlojAw6m7nZmhiFW7Pr8/czi3@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwfK2l4kXGlGp1Uu1jpzxbShtxvTwRw1M06lWf4M+WZEYnURm5+
+ 7Zi5+zSMrXW5lbl30/yeqV6oXKpcJZDScTCHsd3QL+xp9QUFqVZ3sZFs
+X-Gm-Gg: AZuq6aLuqraoBgcCpVPCJuv40qyOg1iul0GO+5dz7Bj4J7dJr8SZlWOG3eMud3ubfqK
+ Xqcnml7l3OmE3jl8/upugheuKkd8xdSdoKj7YjAvHBL1fW26PQrURon7QHRHhNSp7yftXQjq3Le
+ Ubcw7aomBZSJBnlzskR4sVy2FXQBQvAhOotbKViXOutphxs9vXZfcLCmgSD414ZgKAFtnXCXSVs
+ 8ez7j2+je6SJGR+vzXtqdD9mM+R9ISLNYkNbqPDGC4Eu1tBDSy5BD5MmN/ZDWSCaUzG5yYS1wVX
+ 4br+LxhOVViIp4tHfO3PwDnweBxA3VzwqqJpAGi0EzhnYSAdcVVc0ov1h0UeCa3oyc/Y54yR7XX
+ jG6SIOUUhkSYwhs7KZmxYK/X5yv8/AoxFOB8nHy+K+m4kKNkAAvBL8plnRMUCsA+lEdX6LGm0yg
+ MINA8xruATCdI10bK1Uw/W4h79yHOwDBq4t8zSmsYsfpiyVA==
+X-Received: by 2002:a05:600c:8011:b0:483:7980:4687 with SMTP id
+ 5b1f17b1804b1-48398ad6e2bmr24556715e9.17.1771412664161; 
+ Wed, 18 Feb 2026 03:04:24 -0800 (PST)
+Received: from debian.local ([2a0a:ef40:e94:5d01:a218:5589:9f9c:4f52])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4835dd0deeasm539209745e9.12.2026.02.18.03.04.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Feb 2026 03:04:23 -0800 (PST)
+Date: Wed, 18 Feb 2026 11:04:22 +0000
+From: Chris Bainbridge <chris.bainbridge@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: kvm@vger.kernel.org, x86@kernel.org, linux-pm@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, pbonzini@redhat.com,
+ seanjc@google.com, tglx@linutronix.de
+Subject: [BUG] Oops following "Invalid wait context" in pvclock_gtod_notify
+Message-ID: <aZWctruDVn8aMZBG@debian.local>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|IA1PR12MB7517:EE_
-X-MS-Office365-Filtering-Correlation-Id: c3b285b5-6d1c-4e0a-f897-08de6f30a9bb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|376014|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?d2FmZHkzMXJrd2pra0RUVk44R1JTVklrQkFWd0VkWnpMTDZBaklKV0JaTXRt?=
- =?utf-8?B?WDNBODRXUzI3bGdkQnFWVlpVNHR4V3MzeHBPaU9UNFM4RllvL3l1dmNxQlp5?=
- =?utf-8?B?RVd1NHZUaDZzaTlHUjZGRnZmTk5EU3NhaUhxNFNaY1lpZC9adTlQR2RsNFdX?=
- =?utf-8?B?ZTBlSVpYRHRUa2dHU2RjTHZsVlJiZWovaGhpRGpySHlqWlZVMWg0YStZSFdB?=
- =?utf-8?B?a0l1dkVjay80OXBRR2ZOUHZ0RWErUTcvV0F3UCtpcGlZOElxcTg0TFRSRlBV?=
- =?utf-8?B?TThqQ1JFVWZlOTYyWGNWQmZpWGkzbDFhNm5qdUNmb29OQ3NiZzhqT1RoOWxr?=
- =?utf-8?B?OGZ0SWJQdUFYT2lZN1ZYd0sxZVVtUzAxbzdiT2RYaVdreFVkQ0c0dk1GQlpj?=
- =?utf-8?B?YVRETldzU0ZwOG11RDBNVnpKRnhGNkJwSDcva24xbE03N2g2bkhmcGVlYzEx?=
- =?utf-8?B?RDFOaFROV08rcklXT2VleWVRQVZRQzJ3VXQ4WEhWZnZ6VEJCalg2UE1YdTVW?=
- =?utf-8?B?VlNFeSsyMDBtVEJIVFJpbUx4T2U0d00wTEV4SlE3NDJYaGUwRmloVGNzTHZE?=
- =?utf-8?B?ckZuaEhzYzNYcW9ERG4vbC9YOTREeHFPNGI0WStKTElpb3YyUktZcjNhdlox?=
- =?utf-8?B?VTNEeTFTTVE0WjYwTktvNlE2Ui9aR3lXOG51K3hBdGxQcm11QVNnbzE1aW9E?=
- =?utf-8?B?bjlNME9ISXVJdTArMzg4ajJIZlo2TFZMUWFYSDg0REp2OVZRNGtZWHVyTU4w?=
- =?utf-8?B?WWd5Z1JlbnB4dklaNDJTZVdmcUF6Ykl5cmtzRlNVNENBdEVZUlEwQ1JWcHU1?=
- =?utf-8?B?T3ZpN3ZORTRQYis4WjBRUmQvazR0ZkdWZ1YyVFpndkVQdG1tSDRKOC9CM21J?=
- =?utf-8?B?SXV3L0djSzhZWEdoZzh6Z1hIam05V1h5UXJ5dHUrblZvdWZEM3lVQ0hMR3gy?=
- =?utf-8?B?UVVUdWhpbGRHUEhKdnB5Z0xPS0FFeG9kU0I2OWNxM09DaEhUdnVXazRoampi?=
- =?utf-8?B?ZlVVb1R4cEdLREk4RWZMT29VWk9YKzA1MVNoZXQwNjM4R3pnZ1dDNExHdE9K?=
- =?utf-8?B?dysyNnhuTkl2KzBIbGhqeWxlbHdyNVdsclpZUitaeDJIWjRjNitFTEFMTkJa?=
- =?utf-8?B?WUlYcmRBQWJpeFEvRG1IVTNGVDZBMERsMDBReEVHZzNjRys3OUJGb25LUFlz?=
- =?utf-8?B?ZTN3Z0l1TGFySER5YVU2SXRjc2svYlQzRzRZZ0JlUEFHYm0zMytneFJuZHR2?=
- =?utf-8?B?OE1ibmNnZXlSQUJuUno3V0hnVXVaMGhZcjRIOEJobjI4N29wcjZhN2MxYU4z?=
- =?utf-8?B?QzRmRkZndkVvY2lIeU1GR0F6UXQ5RHk2ZTBxanY4UDZ3WU1rQzJ2ei9RVmNl?=
- =?utf-8?B?OFBDV3FpSjVGelQ3dmV2MCtBWlYwWTd1eVV3L1lxRTREck82LzFoVlNXQnQw?=
- =?utf-8?B?SE9TR2NPSmZwM0NrY09XNjFCYndlZzk0WFFoOTQrcGt6NWpYUnhnVlhLWi95?=
- =?utf-8?B?K0RsRmpRcVMzY3BZTVpVMU96Q0p0SHlvaURwTXVUdmx0dUpYajdvUXE1ZFQv?=
- =?utf-8?B?cWN6RlBxclhxb2pUWUdEdjF0NUNaOXcwbk1tWVZQWFhBK0tEZ0l4ZE9ocXkv?=
- =?utf-8?B?YkVwdnFvWjJqYWRyaEZTRHBJb0diWjYvbVNZMHlaYitkam1tZlBOMW15V0g2?=
- =?utf-8?B?UzhpYW9KVHZjWitxYXI5TytMcnhuYVZQcU5VUjdSOHQ1dWF1VFJlaXhTOU1W?=
- =?utf-8?B?WGEvcFdLMXNtdzM0QzhmOWQ2MHhWYkJwMDZ0elVpWFRMRVBOTXV2SlRKaGFR?=
- =?utf-8?B?d1hGcjZ2UVk2VTlzWjZPb1BUMFBpRVNDNGtqKy8rQTZxSXRFZzRWWWFBWWhR?=
- =?utf-8?B?eWFwNEFyWk1tR2toR3EwL1c3TGdXWHdvMlRhc2Q2bHJoWFBjcmxlaHJVZWI0?=
- =?utf-8?B?UmwvY0dLUFlCakdmZlVGeFJ4WmNoL3Q0NzE1MnBHODFJdTZVaHR0ZlVNTkdr?=
- =?utf-8?B?eVkzcmVMcWlpTmw4WWd3V1orNnBmVmswbGQrbGErVldUUERyMFEzK0xYZnNU?=
- =?utf-8?B?dVBXUGU1TjlWdXRteVI1WHp6WU12OG1hMmZUWHhUNjBxRkhIUnZNYXhrQWt3?=
- =?utf-8?B?L2JjWGV3S2tiS2xnVHh1eDB0VDJDS2FCby9sQkVNVzk2dmxFT0hJSFlaRTB4?=
- =?utf-8?B?K2c9PQ==?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014)(921020); DIR:OUT; SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WjdBQWxaR2kzUFV0STQybVN1SGIwd3lsK1l0UVVKN0IwTHpZRDgwLzVpVEpo?=
- =?utf-8?B?RUtFY3BRMldOMXQ5TEVBOXZuQjc3c1Jsbm9NM3NCYmNhalQwOU1oRGxhUnUy?=
- =?utf-8?B?SWI3YVhWR3kyUmdtSE5kVm80a3AxWXpxdGx5TTl0NStQYTdlSFhvYk5KUmZa?=
- =?utf-8?B?dFA1YXJ3TENOMWFpRkhzSDJ2ekJyTDBsQzlMMXdCakM1RGVoT1R2alJrcmlt?=
- =?utf-8?B?WEdDdW5BakhTZU9MQmYvYXhmUXJsZEF3V1dST3J2ekd2aTlTNGVzOEQ2bDFW?=
- =?utf-8?B?RS9uRVhZemRlbWxmZTVLa3ZBZnR1RWhyRkt2WTJWaE1xbG9BUUhyUVZQNzNm?=
- =?utf-8?B?SWtzRkFQRTNHUCsxa2Faa2ZlcXV3ZDk1bHhOWDVNUVZFdTBXWmhpRG9ad293?=
- =?utf-8?B?RzZ0QnI2ZEphQ0k4L2xIYjVNazU1VEYxaXFycGhTWElEcVVtbng4TVk3OVlI?=
- =?utf-8?B?ajhGOXRVcmZqTVBvdHAyYXJzb2ZCQ0J4OXVueW1KVm1xaldPdHR1T1cwbjdF?=
- =?utf-8?B?cHhZSWxlTU9VREFXQURwcHpoY29DY2RjQ3dOaXRxUkY4bGM3U0U2eDZCSWNG?=
- =?utf-8?B?TDdWOFlqblgyMG81MnozbHhKOFpLcTg4UXN6cUVwSDdqckhtZnhNQkFPcFVS?=
- =?utf-8?B?M285MHlsNHVhMnlNeFo4VkduOXk1RG5iSkYrL09LeUVDays0VGpJMG9jbElJ?=
- =?utf-8?B?ZFNIOXd1cUtzQ1pVNnI1QWJXQU55Q0lmcTdSQXEvdlJKb0hvNjhHVE5Gc1VT?=
- =?utf-8?B?STR4R2pVVzA1QjczcjBBVUJVekNKR2wvaFVmQm5oV1VwS0hKWkpYQ0lkWjhV?=
- =?utf-8?B?dkZQRmducUVmeTdBbE9OM2xDUFpZQkNyL0lnbS8rdXEzb080M3RpRWRtcnJs?=
- =?utf-8?B?R3YwVW1sdkltNUdqNWtNejdNWDEwK1ZqR2hMa25JT1NhUWdNSDZKZ1YrVEJw?=
- =?utf-8?B?ejVuQTk4T2orV3pZaGpFYVBOZTV3enA2TEdsVVMyT3haNjZhK2tyTDZSc3hU?=
- =?utf-8?B?STJkeGxQZ3ZBZDl3YmFHS3g0OVhvaGpicHk2ejN6aXp6bEUyclF6OHFub055?=
- =?utf-8?B?ME94dkFWeGxQQWZQQzU5UytiazE0aWZTcUplTEFzWlhLYWdIRDVrYm44OFhU?=
- =?utf-8?B?VXFVK2dhcllZT3R5eUhIODdWenl2Q29KakpjSzNWNkRnWWtMNFNnU2RCNnJU?=
- =?utf-8?B?V2QxanRjSlZhYXVnMEhWNERVMUhERVpnckVZZVBnUkFIZnRLaFFBUFF0TmdW?=
- =?utf-8?B?T0psKzFLREZTVDNMaHVJeVdkdTBhNXp5UUFmeEhucFJVVUpqbkRSV3pXQVZV?=
- =?utf-8?B?V21WSFpGQ2VWUG1IS09lTklaVm9hUEt3K29ld0k5OHdOVndFbEM5bXZrUjJV?=
- =?utf-8?B?Y1YwVHVnVVk3VW91ZnQ2OVIzcjBvYS8vaDJqRUk4eDJVYXE0NTFzTnoxbEE2?=
- =?utf-8?B?ZU8zZXE3QnozNVd3dEVWdi9kSWVmUkEvOGllbUljeVJXV3NqcGNndko2endR?=
- =?utf-8?B?eEtldDZLZmt2Y25hdlFXQlpLMGRvY0QwMnBYRzRJS2lGUHdmOTZLRmt1SGwx?=
- =?utf-8?B?N2hxZ2FNRHhVYTl0TWg4V1hIWWF0UlJpOTArVmhPenAxN002U1VTblQzM21M?=
- =?utf-8?B?QUpiWFVJM0d5aVFESmV6aS93ZmI1Z2hMZ1ZmSVRqVmttNFBLR0VURDZKMG5P?=
- =?utf-8?B?ZnJkNXdmWEFqcDBjUWxhMFRYSi9MNFl6SUlSQkdBNndRTy9MeGo0TnFxeWlV?=
- =?utf-8?B?aWx4Qnd1Y2ZUS2dyTjBYU3lSaFRtR3Z1RzVRaUl6NmhGb2pGVHBXSGl4SzBX?=
- =?utf-8?B?Q2JPSEJNc0M0ZFNkajUybTJVODRENitTWHhMTU9CdkFveHI2QVV3V3Arek0r?=
- =?utf-8?B?RllLYXZsSHpoRlhqSWZaRXZxRy9zL1RZeW1hdXYrNEptZmcvM0xHa0VmRGFQ?=
- =?utf-8?B?U1RCWXVyMGNwTnV3eHByTUl1T3RyZ3NHc2dwN3pUUVZHdnJ2OFp3Qm12dytn?=
- =?utf-8?B?d0hyRVBCenBlV1RILy9CaTZEOVhQZ2pVV2JzM2x3dzUzSWVleGg1Q05YSWtZ?=
- =?utf-8?B?dFQyUkJDUnJYNE1US0ZldlFick1LUFNyQzZWYTJQZlhVdTkybWZ6MzlVQnJH?=
- =?utf-8?B?a1BuelV6Sm53UVhOS0t4dkkxNXZLc3dqZCt3RjZKV0hLQlI2Snp5Z3ZkNmRS?=
- =?utf-8?B?N3JqSFdVTUxkandsRTR4azZmZ2pzTzBpVS9hT1pId0U1OVZHMFNxTGJoZmRz?=
- =?utf-8?B?N3B1bC82UjRnR3FaSGtWT0lNMFBySmZPWVF5ODRlRjBMUi9ML1EvUXY5NGxK?=
- =?utf-8?B?QUprWDRnQ3RJTTR4NnQrKy81M0FUUU9STXNOWDlmRCsyREpmVmMwdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c3b285b5-6d1c-4e0a-f897-08de6f30a9bb
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2026 20:59:53.1777 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t5ZmQqLZ71C479WYFThQN+eGDTqUb5a8hc2cpELOxoVonv0TDNCOTye5rOmIPV0DRgomHPHodwRmTp6NEUeOvA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7517
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 19 Feb 2026 10:59:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -211,110 +89,420 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-My CC list missed a lot of folks, sorry about that. Adding more CC's to this
-email to make people aware of the posting. Thankfully it got posted to the
-archives so for those on rust-for-linux, dri-devel and nouveau lore lists, they
-would get it.
+Hi,
 
-Thanks,
+I just saw the following crash shortly after resume on AMD HP Pavilion
+Aero Laptop 13. The laptop resumed, I typed 2 characters, and it hung.
 
---
-Joel Fernandes
+The issue appears to be a recursive Oops:
 
-On 2/18/2026 3:54 PM, Joel Fernandes wrote:
-> These are initial preparatory patches needed for nova-core memory management
-> support. The series moves the DRM buddy allocator one level up so it can be
-> shared across GPU subsystems, adds Rust FFI and clist bindings, and creates
-> Rust GPU buddy allocator bindings.
-> 
-> The clist/ffi patches are ready, reviewed by Gary and Danilo. Miguel, can you
-> pull those via the rust tree?
-> 
-> The non-Rust DRM buddy related patches are already being pulled into upstream
-> by Dave Airlie but I have included them here as they are needed for the rest of
-> the patches (thanks to Dave for reworking them so they applied).
-> 
-> I will post the nova-core memory management patches as a separate follow-up
-> series just after this one.
-> 
-> The git tree with all these patches can be found at:
-> git://git.kernel.org/pub/scm/linux/kernel/git/jfern/linux.git (tag: nova/mm)
-> 
-> Joel Fernandes (7):
->   gpu: Move DRM buddy allocator one level up (part one)
->   gpu: Move DRM buddy allocator one level up (part two)
->   rust: ffi: Convert pub use to pub mod and create ffi module
->   rust: clist: Add support to interface with C linked lists
->   rust: gpu: Add GPU buddy allocator bindings
->   nova-core: mm: Select GPU_BUDDY for VRAM allocation
->   nova-core: Kconfig: Sort select statements alphabetically
-> 
-> Koen Koning (1):
->   gpu: Fix uninitialized buddy for built-in drivers
-> 
->  Documentation/gpu/drm-mm.rst                  |   10 +-
->  MAINTAINERS                                   |   15 +-
->  drivers/gpu/Kconfig                           |   13 +
->  drivers/gpu/Makefile                          |    3 +-
->  drivers/gpu/buddy.c                           | 1322 +++++++++++++++++
->  drivers/gpu/drm/Kconfig                       |    5 +-
->  drivers/gpu/drm/Kconfig.debug                 |    1 -
->  drivers/gpu/drm/Makefile                      |    1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |    2 +-
->  .../gpu/drm/amd/amdgpu/amdgpu_res_cursor.h    |   12 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c  |   79 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h  |   20 +-
->  drivers/gpu/drm/drm_buddy.c                   | 1277 +---------------
->  drivers/gpu/drm/i915/gem/i915_gem_ttm.c       |    2 +-
->  drivers/gpu/drm/i915/i915_scatterlist.c       |   10 +-
->  drivers/gpu/drm/i915/i915_ttm_buddy_manager.c |   55 +-
->  drivers/gpu/drm/i915/i915_ttm_buddy_manager.h |    4 +-
->  .../drm/i915/selftests/intel_memory_region.c  |   20 +-
->  drivers/gpu/drm/tests/Makefile                |    1 -
->  drivers/gpu/drm/tests/drm_exec_test.c         |    2 -
->  drivers/gpu/drm/tests/drm_mm_test.c           |    2 -
->  .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |    4 +-
->  drivers/gpu/drm/ttm/tests/ttm_mock_manager.c  |   18 +-
->  drivers/gpu/drm/ttm/tests/ttm_mock_manager.h  |    4 +-
->  drivers/gpu/drm/xe/xe_res_cursor.h            |   34 +-
->  drivers/gpu/drm/xe/xe_svm.c                   |   12 +-
->  drivers/gpu/drm/xe/xe_ttm_vram_mgr.c          |   71 +-
->  drivers/gpu/drm/xe/xe_ttm_vram_mgr_types.h    |    4 +-
->  drivers/gpu/nova-core/Kconfig                 |    3 +-
->  drivers/gpu/tests/Makefile                    |    4 +
->  .../gpu_buddy_test.c}                         |  416 +++---
->  .../lib/drm_random.c => tests/gpu_random.c}   |   18 +-
->  .../lib/drm_random.h => tests/gpu_random.h}   |   18 +-
->  drivers/video/Kconfig                         |    1 +
->  include/drm/drm_buddy.h                       |  163 +-
->  include/linux/gpu_buddy.h                     |  177 +++
->  rust/bindings/bindings_helper.h               |   11 +
->  rust/helpers/gpu.c                            |   23 +
->  rust/helpers/helpers.c                        |    2 +
->  rust/helpers/list.c                           |   17 +
->  rust/kernel/ffi/clist.rs                      |  327 ++++
->  rust/kernel/ffi/mod.rs                        |    9 +
->  rust/kernel/gpu/buddy.rs                      |  537 +++++++
->  rust/kernel/gpu/mod.rs                        |    5 +
->  rust/kernel/lib.rs                            |    5 +-
->  45 files changed, 2893 insertions(+), 1846 deletions(-)
->  create mode 100644 drivers/gpu/Kconfig
->  create mode 100644 drivers/gpu/buddy.c
->  create mode 100644 drivers/gpu/tests/Makefile
->  rename drivers/gpu/{drm/tests/drm_buddy_test.c => tests/gpu_buddy_test.c} (67%)
->  rename drivers/gpu/{drm/lib/drm_random.c => tests/gpu_random.c} (59%)
->  rename drivers/gpu/{drm/lib/drm_random.h => tests/gpu_random.h} (53%)
->  create mode 100644 include/linux/gpu_buddy.h
->  create mode 100644 rust/helpers/gpu.c
->  create mode 100644 rust/helpers/list.c
->  create mode 100644 rust/kernel/ffi/clist.rs
->  create mode 100644 rust/kernel/ffi/mod.rs
->  create mode 100644 rust/kernel/gpu/buddy.rs
->  create mode 100644 rust/kernel/gpu/mod.rs
-> 
-> Cc: Nikola Djukic <ndjukic@nvidia.com>
-> base-commit: 2961f841b025fb234860bac26dfb7fa7cb0fb122
+Lockdep first detects an Invalid wait context in pvclock_gtod_notify
+during a timer interrupt update.
 
--- 
-Joel Fernandes
+While printk attempts to report this locking violation, a General
+Protection Fault occurs in lib/vsprintf.c:string due to what KASAN
+identifies as a wild-memory-access (non-canonical address
+0xe000123080000000).
 
+It appears that the pointer to the lock name passed to printk is
+corrupted or pointing to uninitialized memory during the resume
+sequence.
+
+I haven't seen this particular issue before in several years of using
+this laptop, so I suspect it may be an intermittent regression.
+
+Kernel Version: 6.19.0-09985-gaaeb3769f82e (Tainted: [Not tainted])
+Hardware: HP Pavilion Aero Laptop 13-be0xxx (AMD Ryzen)
+
+
+<6>[207132.447702] ACPI: EC: interrupt blocked
+<6>[240547.393406] ACPI: EC: interrupt unblocked
+<6>[240547.528470] amdgpu 0000:03:00.0: [drm] PCIE GART of 1024M enabled.
+<6>[240547.528481] amdgpu 0000:03:00.0: [drm] PTB located at 0x000000F41FC0=
+0000
+<6>[240547.528545] amdgpu 0000:03:00.0: SMU is resuming...
+<6>[240547.528930] amdgpu 0000:03:00.0: dpm has been disabled
+<6>[240547.530414] amdgpu 0000:03:00.0: SMU is resumed successfully!
+<6>[240547.607233] nvme nvme0: 8/0/0 default/read/poll queues
+<6>[240547.638821] [drm] DM_MST: Differing MST start on aconnector: 0000000=
+0f24b38f1 [id: 116]
+<6>[240547.640280] amdgpu 0000:03:00.0: ring gfx uses VM inv eng 0 on hub 0
+<6>[240547.640285] amdgpu 0000:03:00.0: ring comp_1.0.0 uses VM inv eng 1 o=
+n hub 0
+<6>[240547.640287] amdgpu 0000:03:00.0: ring comp_1.1.0 uses VM inv eng 4 o=
+n hub 0
+<6>[240547.640289] amdgpu 0000:03:00.0: ring comp_1.2.0 uses VM inv eng 5 o=
+n hub 0
+<6>[240547.640291] amdgpu 0000:03:00.0: ring comp_1.3.0 uses VM inv eng 6 o=
+n hub 0
+<6>[240547.640293] amdgpu 0000:03:00.0: ring comp_1.0.1 uses VM inv eng 7 o=
+n hub 0
+<6>[240547.640295] amdgpu 0000:03:00.0: ring comp_1.1.1 uses VM inv eng 8 o=
+n hub 0
+<6>[240547.640298] amdgpu 0000:03:00.0: ring comp_1.2.1 uses VM inv eng 9 o=
+n hub 0
+<6>[240547.640300] amdgpu 0000:03:00.0: ring comp_1.3.1 uses VM inv eng 10 =
+on hub 0
+<6>[240547.640302] amdgpu 0000:03:00.0: ring kiq_0.2.1.0 uses VM inv eng 11=
+ on hub 0
+<6>[240547.640304] amdgpu 0000:03:00.0: ring sdma0 uses VM inv eng 0 on hub=
+ 8
+<6>[240547.640306] amdgpu 0000:03:00.0: ring vcn_dec uses VM inv eng 1 on h=
+ub 8
+<6>[240547.640308] amdgpu 0000:03:00.0: ring vcn_enc0 uses VM inv eng 4 on =
+hub 8
+Panic#2 Part7
+<6>[240547.640310] amdgpu 0000:03:00.0: ring vcn_enc1 uses VM inv eng 5 on =
+hub 8
+<6>[240547.640312] amdgpu 0000:03:00.0: ring jpeg_dec uses VM inv eng 6 on =
+hub 8
+<6>[240547.777611] usb 1-1.3.2.4: reset high-speed USB device number 36 usi=
+ng xhci_hcd
+<6>[240548.168643] OOM killer enabled.
+<6>[240548.168648] Restarting tasks: Starting
+<6>[240548.170996] Restarting tasks: Done
+<6>[240548.171015] efivarfs: resyncing variable state
+<6>[240548.183456] efivarfs: finished resyncing variable state
+<5>[240548.183523] random: crng reseeded on system resumption
+<6>[240548.319075] PM: suspend exit
+<6>[240549.054362] iwlwifi 0000:01:00.0: WFPM_UMAC_PD_NOTIFICATION: 0x20
+<6>[240549.054440] iwlwifi 0000:01:00.0: WFPM_LMAC2_PD_NOTIFICATION: 0x1f
+<6>[240549.054511] iwlwifi 0000:01:00.0: WFPM_AUTH_KEY_0: 0x90
+<6>[240549.054578] iwlwifi 0000:01:00.0: CNVI_SCU_SEQ_DATA_DW9: 0x0
+<6>[240552.869040] wlp1s0: authenticate with d6:92:5e:eb:ee:15 (local addre=
+ss=3Dc8:15:4e:63:1d:e8)
+<6>[240552.870295] wlp1s0: send auth to d6:92:5e:eb:ee:15 (try 1/3)
+<6>[240552.934184] wlp1s0: authenticate with d6:92:5e:eb:ee:15 (local addre=
+ss=3Dc8:15:4e:63:1d:e8)
+<6>[240552.934199] wlp1s0: send auth to d6:92:5e:eb:ee:15 (try 1/3)
+<6>[240552.939205] wlp1s0: authenticated
+<6>[240552.940960] wlp1s0: associate with d6:92:5e:eb:ee:15 (try 1/3)
+<6>[240552.949911] wlp1s0: RX AssocResp from d6:92:5e:eb:ee:15 (capab=3D0x1=
+011 status=3D0 aid=3D10)
+<6>[240552.965155] wlp1s0: associated
+<7>[240553.020321] wlp1s0: Limiting TX power to 23 (23 - 0) dBm as advertis=
+ed by d6:92:5e:eb:ee:15
+<4>[240561.824922]
+<4>[240561.824933] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+<4>[240561.824936] [ BUG: Invalid wait context ]
+Oops#1 Part5
+<4>[240561.824939] 6.19.0-09985-gaaeb3769f82e #414 Not tainted
+<4>[240561.824943] -----------------------------
+<4>[240561.824945] swapper/14/0 is trying to lock:
+<4>[240561.824948] ffffffffc5512948 (
+<4>[240561.824962] Oops: general protection fault, probably for non-canonic=
+al address 0xe000123080000000: 0000 [#1] SMP KASAN
+<1>[240561.824968] KASAN: maybe wild-memory-access in range [0x0000b1840000=
+0000-0x0000b18400000007]
+<4>[240561.824974] CPU: 14 UID: 0 PID: 0 Comm: swapper/14 Not tainted 6.19.=
+0-09985-gaaeb3769f82e #414 PREEMPT(lazy)
+<4>[240561.824979] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/8916=
+, BIOS F.17 12/18/2024
+<4>[240561.824982] RIP: 0010:string (lib/vsprintf.c:655 lib/vsprintf.c:737)
+<4>[240561.824989] Code: c0 0f 85 6a 02 00 00 44 88 2b 48 83 c3 01 83 c6 01=
+ 4c 39 fd 74 2e 48 89 ef 48 83 c5 01 48 89 f8 48 89 fa 48 c1 e8 03 83 e2 07=
+ <0f> b6 04 08 38 d0 7f 08 84 c0 0f 85 11 02 00 00 44 0f b6 6d ff 45
+All code
+=3D=3D=3D=3D=3D=3D=3D=3D
+   0:	c0 0f 85             	rorb   $0x85,(%rdi)
+   3:	6a 02                	push   $0x2
+   5:	00 00                	add    %al,(%rax)
+   7:	44 88 2b             	mov    %r13b,(%rbx)
+   a:	48 83 c3 01          	add    $0x1,%rbx
+   e:	83 c6 01             	add    $0x1,%esi
+  11:	4c 39 fd             	cmp    %r15,%rbp
+  14:	74 2e                	je     0x44
+  16:	48 89 ef             	mov    %rbp,%rdi
+  19:	48 83 c5 01          	add    $0x1,%rbp
+  1d:	48 89 f8             	mov    %rdi,%rax
+  20:	48 89 fa             	mov    %rdi,%rdx
+  23:	48 c1 e8 03          	shr    $0x3,%rax
+  27:	83 e2 07             	and    $0x7,%edx
+  2a:*	0f b6 04 08          	movzbl (%rax,%rcx,1),%eax		<-- trapping instru=
+ction
+  2e:	38 d0                	cmp    %dl,%al
+  30:	7f 08                	jg     0x3a
+  32:	84 c0                	test   %al,%al
+  34:	0f 85 11 02 00 00    	jne    0x24b
+  3a:	44 0f b6 6d ff       	movzbl -0x1(%rbp),%r13d
+  3f:	45                   	rex.RB
+
+Code starting with the faulting instruction
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+   0:	0f b6 04 08          	movzbl (%rax,%rcx,1),%eax
+   4:	38 d0                	cmp    %dl,%al
+   6:	7f 08                	jg     0x10
+   8:	84 c0                	test   %al,%al
+   a:	0f 85 11 02 00 00    	jne    0x221
+  10:	44 0f b6 6d ff       	movzbl -0x1(%rbp),%r13d
+  15:	45                   	rex.RB
+<4>[240561.824994] RSP: 0018:ffffc90000628360 EFLAGS: 00010046
+<4>[240561.824998] RAX: 0000163080000000 RBX: ffffc9000062865a RCX: dffffc0=
+000000000
+<4>[240561.825001] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000b18=
+400000000
+<4>[240561.825004] RBP: 0000b18400000001 R08: ffffffffffff0a00 R09: ffffc90=
+000628618
+<4>[240561.825007] R10: 0000000000000405 R11: 0000000000000000 R12: ffffc90=
+000628660
+<4>[240561.825009] R13: 0000000000000405 R14: 1ffff920000c506f R15: 0000b18=
+4ffffffff
+<4>[240561.825012] FS:  0000000000000000(0000) GS:ffff88840118b000(0000) kn=
+lGS:0000000000000000
+<4>[240561.825015] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[240561.825018] CR2: 00007f45967ea000 CR3: 0000000330491000 CR4: 0000000=
+000750ef0
+<4>[240561.825021] PKRU: 55555554
+Oops#1 Part4
+<4>[240561.825024] Call Trace:
+<4>[240561.825027]  <IRQ>
+<4>[240561.825031]  ? _prb_read_valid (kernel/printk/printk_ringbuffer.c:22=
+03 (discriminator 1))
+<4>[240561.825036]  ? ip6_addr_string_sa (lib/vsprintf.c:733)
+<4>[240561.825042]  ? prb_next_reserve_seq (kernel/printk/printk_ringbuffer=
+=2Ec:2166)
+<4>[240561.825046]  vsnprintf (lib/vsprintf.c:2887)
+<4>[240561.825053]  ? pointer (lib/vsprintf.c:2865)
+<4>[240561.825057]  ? prb_final_commit (kernel/printk/printk_ringbuffer.c:2=
+241)
+<4>[240561.825061]  ? prb_read_valid (kernel/printk/printk_ringbuffer.c:224=
+1)
+<4>[240561.825065]  vprintk_store (kernel/printk/printk.c:2307 (discriminat=
+or 1))
+<4>[240561.825072]  ? printk_sprint (kernel/printk/printk.c:2272)
+<4>[240561.825075]  ? desc_read (./arch/x86/include/asm/atomic64_64.h:20 ./=
+include/linux/atomic/atomic-arch-fallback.h:2629 ./include/linux/atomic/ato=
+mic-long.h:79 ./include/linux/atomic/atomic-instrumented.h:3224 kernel/prin=
+tk/printk_ringbuffer.c:552)
+<4>[240561.825080]  ? desc_read_finalized_seq (kernel/printk/printk_ringbuf=
+fer.c:1938)
+<4>[240561.825084]  ? desc_read (./arch/x86/include/asm/atomic64_64.h:20 ./=
+include/linux/atomic/atomic-arch-fallback.h:2629 ./include/linux/atomic/ato=
+mic-long.h:79 ./include/linux/atomic/atomic-instrumented.h:3224 kernel/prin=
+tk/printk_ringbuffer.c:552)
+<4>[240561.825088]  ? panic_on_this_cpu (./arch/x86/include/asm/atomic.h:23=
+ ./include/linux/atomic/atomic-arch-fallback.h:457 ./include/linux/atomic/a=
+tomic-instrumented.h:33 kernel/panic.c:488)
+<4>[240561.825093]  ? _prb_read_valid (kernel/printk/printk_ringbuffer.c:22=
+03 (discriminator 1))
+<4>[240561.825096]  ? rcu_is_watching (./include/linux/context_tracking.h:1=
+28 (discriminator 1) kernel/rcu/tree.c:752 (discriminator 1))
+<4>[240561.825102]  vprintk_emit (kernel/printk/printk.c:2457)
+<4>[240561.825107]  ? wake_up_klogd_work_func (kernel/printk/printk.c:2426)
+<4>[240561.825112]  ? do_raw_spin_unlock (./arch/x86/include/asm/atomic.h:2=
+3 ./include/linux/atomic/atomic-arch-fallback.h:457 ./include/linux/atomic/=
+atomic-instrumented.h:33 ./include/asm-generic/qspinlock.h:57 kernel/lockin=
+g/spinlock_debug.c:101 kernel/locking/spinlock_debug.c:141)
+<4>[240561.825117]  ? _raw_spin_unlock_irqrestore (./include/linux/spinlock=
+_api_smp.h:179 (discriminator 3) kernel/locking/spinlock.c:194 (discriminat=
+or 3))
+<4>[240561.825123]  _printk (kernel/printk/printk.c:2499)
+<4>[240561.825128]  ? __em_nl_get_pd_table.cold (kernel/printk/printk.c:249=
+9)
+<4>[240561.825134]  ? console_unlock (kernel/printk/printk.c:3392 (discrimi=
+nator 1) kernel/printk/printk.c:3413 (discriminator 1))
+<4>[240561.825139]  __print_lock_name.cold (kernel/locking/lockdep.c:728)
+<4>[240561.825153]  print_lock_name (kernel/locking/lockdep.c:745)
+<4>[240561.825158]  print_lock.cold (kernel/locking/lockdep.c:783)
+<4>[240561.825162]  __lock_acquire (kernel/locking/lockdep.c:4822 kernel/lo=
+cking/lockdep.c:4902 kernel/locking/lockdep.c:5187)
+<4>[240561.825170]  lock_acquire (kernel/locking/lockdep.c:470 kernel/locki=
+ng/lockdep.c:5870 kernel/locking/lockdep.c:5825)
+<4>[240561.825174]  ? notifier_call_chain (kernel/notifier.c:87)
+<4>[240561.825181] pvclock_gtod_notify (./include/linux/seqlock.h:432 ./inc=
+lude/linux/seqlock.h:479 ./include/linux/seqlock.h:504 arch/x86/kvm/x86.c:2=
+370 arch/x86/kvm/x86.c:9967) kvm
+<4>[240561.825254]  ? notifier_call_chain (kernel/notifier.c:87)
+<4>[240561.825258]  notifier_call_chain (kernel/notifier.c:87)
+<4>[240561.825263]  timekeeping_update_from_shadow.constprop.0 (kernel/time=
+/timekeeping.c:736)
+Oops#1 Part3
+<4>[240561.825268]  __timekeeping_advance.constprop.0 (kernel/time/timekeep=
+ing.c:2379)
+<4>[240561.825272]  ? __rwlock_init (kernel/locking/spinlock_debug.c:114)
+<4>[240561.825276]  ? do_settimeofday64 (kernel/time/timekeeping.c:2321)
+<4>[240561.825280]  ? lock_release (kernel/locking/lockdep.c:470 (discrimin=
+ator 4) kernel/locking/lockdep.c:5891 (discriminator 4) kernel/locking/lock=
+dep.c:5875 (discriminator 4))
+<4>[240561.825285]  update_wall_time (kernel/time/timekeeping.c:2385 kernel=
+/time/timekeeping.c:2395)
+<4>[240561.825290]  tick_nohz_handler (kernel/time/tick-sched.c:253 kernel/=
+time/tick-sched.c:312)
+<4>[240561.825294]  ? tick_do_update_jiffies64 (kernel/time/tick-sched.c:30=
+7)
+<4>[240561.825298]  ? __hrtimer_run_queues (./arch/x86/include/asm/jump_lab=
+el.h:37 ./include/trace/events/timer.h:259 kernel/time/hrtimer.c:1782 kerne=
+l/time/hrtimer.c:1849)
+<4>[240561.825302]  ? lock_release (kernel/locking/lockdep.c:470 (discrimin=
+ator 4) kernel/locking/lockdep.c:5891 (discriminator 4) kernel/locking/lock=
+dep.c:5875 (discriminator 4))
+<4>[240561.825306]  ? tick_do_update_jiffies64 (kernel/time/tick-sched.c:30=
+7)
+<4>[240561.825310]  __hrtimer_run_queues (kernel/time/hrtimer.c:1785 kernel=
+/time/hrtimer.c:1849)
+<4>[240561.825315]  ? hrtimer_reprogram (kernel/time/hrtimer.c:1819)
+<4>[240561.825319]  ? ktime_get_update_offsets_now (kernel/time/timekeeping=
+=2Ec:381 kernel/time/timekeeping.c:404 kernel/time/timekeeping.c:2573)
+<4>[240561.825325]  hrtimer_interrupt (kernel/time/hrtimer.c:1914)
+<4>[240561.825329]  ? lock_release (kernel/locking/lockdep.c:470 (discrimin=
+ator 4) kernel/locking/lockdep.c:5891 (discriminator 4) kernel/locking/lock=
+dep.c:5875 (discriminator 4))
+<4>[240561.825334]  ? tick_nohz_stop_idle (./include/linux/seqlock.h:453 ./=
+include/linux/seqlock.h:525 kernel/time/tick-sched.c:771)
+<4>[240561.825338]  __sysvec_apic_timer_interrupt (./arch/x86/include/asm/j=
+ump_label.h:37 ./arch/x86/include/asm/trace/irq_vectors.h:40 arch/x86/kerne=
+l/apic/apic.c:1063)
+<4>[240561.825343]  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.=
+c:1056 (discriminator 35) arch/x86/kernel/apic/apic.c:1056 (discriminator 3=
+5))
+<4>[240561.825348]  </IRQ>
+<4>[240561.825350]  <TASK>
+<4>[240561.825353]  asm_sysvec_apic_timer_interrupt (./arch/x86/include/asm=
+/idtentry.h:569)
+<4>[240561.825357] RIP: 0010:cpuidle_enter_state (drivers/cpuidle/cpuidle.c=
+:294)
+<4>[240561.825361] Code: 73 04 bf ff ff ff ff 49 89 c6 e8 80 85 6b ff 31 ff=
+ e8 f9 da cb fd 45 84 ff 0f 85 a3 01 00 00 e8 cb 33 fd fd fb 0f 1f 44 00 00=
+ <45> 85 ed 0f 88 6e 01 00 00 4d 63 fd 49 83 ff 0a 0f 83 c5 02 00 00
+All code
+=3D=3D=3D=3D=3D=3D=3D=3D
+   0:	73 04                	jae    0x6
+   2:	bf ff ff ff ff       	mov    $0xffffffff,%edi
+   7:	49 89 c6             	mov    %rax,%r14
+   a:	e8 80 85 6b ff       	call   0xffffffffff6b858f
+   f:	31 ff                	xor    %edi,%edi
+  11:	e8 f9 da cb fd       	call   0xfffffffffdcbdb0f
+  16:	45 84 ff             	test   %r15b,%r15b
+  19:	0f 85 a3 01 00 00    	jne    0x1c2
+  1f:	e8 cb 33 fd fd       	call   0xfffffffffdfd33ef
+  24:	fb                   	sti
+  25:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  2a:*	45 85 ed             	test   %r13d,%r13d		<-- trapping instruction
+  2d:	0f 88 6e 01 00 00    	js     0x1a1
+  33:	4d 63 fd             	movslq %r13d,%r15
+  36:	49 83 ff 0a          	cmp    $0xa,%r15
+  3a:	0f 83 c5 02 00 00    	jae    0x305
+
+Code starting with the faulting instruction
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+   0:	45 85 ed             	test   %r13d,%r13d
+   3:	0f 88 6e 01 00 00    	js     0x177
+   9:	4d 63 fd             	movslq %r13d,%r15
+   c:	49 83 ff 0a          	cmp    $0xa,%r15
+  10:	0f 83 c5 02 00 00    	jae    0x2db
+<4>[240561.825364] RSP: 0018:ffffc9000032fd80 EFLAGS: 00000206
+<4>[240561.825367] RAX: 0000000029e5cd35 RBX: ffff888122255000 RCX: 0000000=
+000000000
+<4>[240561.825370] RDX: 0000000000000000 RSI: ffffffff8b234809 RDI: fffffff=
+f8acb7b40
+<4>[240561.825373] RBP: ffffffff8bd34de0 R08: 0000000000000001 R09: 0000000=
+000000000
+Oops#1 Part2
+<4>[240561.825375] R10: 0000000000000001 R11: 0000000000000000 R12: 0000000=
+000000002
+<4>[240561.825378] R13: 0000000000000002 R14: 0000daca2a1ea9c7 R15: 0000000=
+000000000
+<4>[240561.825384]  ? mark_tsc_async_resets (arch/x86/kernel/tsc_sync.c:52)
+<4>[240561.825388]  cpuidle_enter (drivers/cpuidle/cpuidle.c:393 (discrimin=
+ator 2))
+<4>[240561.825393]  do_idle (kernel/sched/idle.c:241 kernel/sched/idle.c:33=
+2)
+<4>[240561.825398]  ? arch_cpu_idle_exit+0x30/0x30
+<4>[240561.825402]  ? do_idle (./arch/x86/include/asm/bitops.h:202 ./arch/x=
+86/include/asm/bitops.h:232 ./include/asm-generic/bitops/instrumented-non-a=
+tomic.h:142 ./include/linux/thread_info.h:133 ./include/linux/sched.h:2063 =
+=2E/include/linux/livepatch.h:186 kernel/sched/idle.c:362)
+<4>[240561.825407]  cpu_startup_entry (kernel/sched/idle.c:429)
+<4>[240561.825411]  start_secondary (arch/x86/kernel/smpboot.c:200 (discrim=
+inator 10) arch/x86/kernel/smpboot.c:280 (discriminator 10))
+<4>[240561.825415]  ? set_cpu_sibling_map (arch/x86/kernel/smpboot.c:230)
+<4>[240561.825419]  common_startup_64 (arch/x86/kernel/head_64.S:419)
+<4>[240561.825427]  </TASK>
+<4>[240561.825429] Modules linked in: snd_seq_dummy snd_hrtimer snd_seq xt_=
+conntrack nft_chain_nat xt_MASQUERADE nf_nat nf_conntrack_netlink nf_conntr=
+ack nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user xfrm_algo xt_addrtype nft_compa=
+t x_tables nf_tables br_netfilter bridge stp llc ccm overlay qrtr rfcomm cm=
+ac algif_hash algif_skcipher af_alg bnep binfmt_misc ext4 mbcache jbd2 nls_=
+ascii nls_cp437 vfat fat snd_hda_codec_generic snd_acp3x_pdm_dma snd_soc_dm=
+ic snd_acp3x_rn intel_rapl_msr snd_soc_core snd_compress amd_atl snd_hda_co=
+dec_hdmi iwlmvm intel_rapl_common mac80211 libarc4 snd_pci_acp6x btusb btrt=
+l snd_hda_intel kvm_amd uvcvideo videobuf2_vmalloc snd_hda_codec snd_usb_au=
+dio videobuf2_memops btintel kvm snd_pci_acp5x uvc snd_usbmidi_lib snd_inte=
+l_dspcfg btbcm irqbypass videobuf2_v4l2 snd_hwdep iwlwifi snd_rawmidi btmtk=
+ videodev snd_rn_pci_acp3x snd_hda_core snd_seq_device videobuf2_common rap=
+l bluetooth snd_acp_config cfg80211 mc snd_pcm snd_soc_acpi ecdh_generic pc=
+spkr wmi_bmof ecc sg ee1004 snd_timer k10temp snd_pci_acp3x snd
+Oops#1 Part1
+<4>[240561.825538]  ac battery ccp rfkill soundcore joydev button amd_pmc a=
+cpi_tad evdev msr parport_pc ppdev lp parport nvme_fabrics fuse efi_pstore =
+configfs nfnetlink efivarfs autofs4 btrfs xor libblake2b raid6_pq dm_crypt =
+dm_mod r8153_ecm sd_mod cdc_ether usbnet hid_microsoft ff_memless hid_cmedi=
+a uas r8152 mii usb_storage libphy scsi_mod mdio_bus usbhid scsi_common amd=
+gpu drm_client_lib i2c_algo_bit drm_ttm_helper ttm drm_exec drm_suballoc_he=
+lper drm_buddy drm_panel_backlight_quirks gpu_sched amdxcp hid_multitouch d=
+rm_display_helper hid_generic ucsi_acpi video typec_ucsi drm_kms_helper sp5=
+100_tco xhci_pci watchdog i2c_hid_acpi roles cec xhci_hcd ghash_clmulni_int=
+el nvme i2c_piix4 i2c_hid amd_sfh typec serio_raw rc_core thunderbolt usbco=
+re i2c_smbus hid crc16 nvme_core fan usb_common wmi drm aesni_intel
+<4>[240561.825632] ---[ end trace 0000000000000000 ]---
+<4>[240562.127793] RIP: 0010:string (lib/vsprintf.c:655 lib/vsprintf.c:737)
+<4>[240562.127799] Code: c0 0f 85 6a 02 00 00 44 88 2b 48 83 c3 01 83 c6 01=
+ 4c 39 fd 74 2e 48 89 ef 48 83 c5 01 48 89 f8 48 89 fa 48 c1 e8 03 83 e2 07=
+ <0f> b6 04 08 38 d0 7f 08 84 c0 0f 85 11 02 00 00 44 0f b6 6d ff 45
+All code
+=3D=3D=3D=3D=3D=3D=3D=3D
+   0:	c0 0f 85             	rorb   $0x85,(%rdi)
+   3:	6a 02                	push   $0x2
+   5:	00 00                	add    %al,(%rax)
+   7:	44 88 2b             	mov    %r13b,(%rbx)
+   a:	48 83 c3 01          	add    $0x1,%rbx
+   e:	83 c6 01             	add    $0x1,%esi
+  11:	4c 39 fd             	cmp    %r15,%rbp
+  14:	74 2e                	je     0x44
+  16:	48 89 ef             	mov    %rbp,%rdi
+  19:	48 83 c5 01          	add    $0x1,%rbp
+  1d:	48 89 f8             	mov    %rdi,%rax
+  20:	48 89 fa             	mov    %rdi,%rdx
+  23:	48 c1 e8 03          	shr    $0x3,%rax
+  27:	83 e2 07             	and    $0x7,%edx
+  2a:*	0f b6 04 08          	movzbl (%rax,%rcx,1),%eax		<-- trapping instru=
+ction
+  2e:	38 d0                	cmp    %dl,%al
+  30:	7f 08                	jg     0x3a
+  32:	84 c0                	test   %al,%al
+  34:	0f 85 11 02 00 00    	jne    0x24b
+  3a:	44 0f b6 6d ff       	movzbl -0x1(%rbp),%r13d
+  3f:	45                   	rex.RB
+
+Code starting with the faulting instruction
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+   0:	0f b6 04 08          	movzbl (%rax,%rcx,1),%eax
+   4:	38 d0                	cmp    %dl,%al
+   6:	7f 08                	jg     0x10
+   8:	84 c0                	test   %al,%al
+   a:	0f 85 11 02 00 00    	jne    0x221
+  10:	44 0f b6 6d ff       	movzbl -0x1(%rbp),%r13d
+  15:	45                   	rex.RB
+<4>[240562.127803] RSP: 0018:ffffc90000628360 EFLAGS: 00010046
+<4>[240562.127808] RAX: 0000163080000000 RBX: ffffc9000062865a RCX: dffffc0=
+000000000
+<4>[240562.127812] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000b18=
+400000000
+<4>[240562.127815] RBP: 0000b18400000001 R08: ffffffffffff0a00 R09: ffffc90=
+000628618
+<4>[240562.127818] R10: 0000000000000405 R11: 0000000000000000 R12: ffffc90=
+000628660
+<4>[240562.127821] R13: 0000000000000405 R14: 1ffff920000c506f R15: 0000b18=
+4ffffffff
+<4>[240562.127825] FS:  0000000000000000(0000) GS:ffff88840118b000(0000) kn=
+lGS:0000000000000000
+<4>[240562.127828] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[240562.127832] CR2: 00007f45967ea000 CR3: 0000000330491000 CR4: 0000000=
+000750ef0
+<4>[240562.127835] PKRU: 55555554
+<0>[240562.127839] Kernel panic - not syncing: Fatal exception in interrupt
+<0>[240563.374597] Shutting down cpus with NMI
