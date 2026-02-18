@@ -4,76 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06EC2E9A02C
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 15:37:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFBD3E9A02C
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 16:12:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 807B210E5D9;
-	Wed, 18 Feb 2026 15:37:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2997F10E5DF;
+	Wed, 18 Feb 2026 16:12:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lV9JZlFL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4CltdjdG";
 	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD5B510E5D9
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 15:37:55 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-824a6f2d816so2625016b3a.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 07:37:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771429075; x=1772033875; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=VaAniGLhMxwLFTX0Y2etfOX2Em4BjeJ+Ttkj11LkOEQ=;
- b=lV9JZlFLGu9P6d4VYWch3Onu5f+XTH53cRbOxhjghqa5H43GAG1fSsXISzbfBMVJwr
- jDwRoMY3cytQbGizJTvLLDbQgmZWGtMANnQD2L/WFIVtHLWodtEt1M/ovPT2z1wU+6g2
- M+bRnNFKxQXeY8fX9oolt+wodiskH6XsfePL5i8EeKUGuPraMNlTVytuUZXuUwX0ds1T
- KGbIZLsvVZZm7eaB3TtVwBErj+ta22vICa/y02MRY60Vj3wmTCVWydawlnRfmDJR/CM6
- JN4/ffCC5DBVPrn9uF1A+23DITm/GRZDDKu1gL83OyMyYJjRmosmChCpwRBaiWHylGqb
- EyFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771429075; x=1772033875;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=VaAniGLhMxwLFTX0Y2etfOX2Em4BjeJ+Ttkj11LkOEQ=;
- b=KPbPUZQjQIgamD7sKTpClbK+1UkRa8m32wl6XuPYD0yGifVlin49TtXOcDdaiiwaqc
- ACoUWiVRzI11WIkWH6/v9nO4tJg4rm4315QvdXdgPFbz4/jCghG6mnd2g1ijfpjZP9cq
- d/69FFIKaRkLS0M2+/EHMtZ0znWv5MoaXxy8QNnuUcj1emNaaY5SCss1T+QC/eOBoI0X
- +rh6+viR/tyQz1yYi81VRAWkCjJlf0Q8ja5H57z+VBPviumvDVJ3TP9SlmDu/4AYXdJo
- DJzZEN+Lb3ug+bkmRLP0pWr68fth/pwH40y04yvSKi5e8Hnz7FIwIkO7hVY6t73t/wgq
- eQww==
-X-Gm-Message-State: AOJu0Yy2Y8V/ivTCqiaYcJF2LiqGe6mnK/BdJusD3FZYLEbRHEE8gY9w
- JhQS5o/ck/zGyPU04HdvEcWa7nBSqnRZqsbV5ymE2z04MMiEQOnnbcuXm8dHHw==
-X-Gm-Gg: AZuq6aJjg7EXoe/jORkG8I0tn7pFzQSNWmeJyPyNK0CqOBsYex8inahs6Lw8pC2A85G
- J3FHoA3bGVEs+yOSIuNADVm3pY6VwEeEdPClIPsjma1TVak0uNEMxBC6UI/DT3tr4R7QKCYcR2C
- cl3P4ytUxOP0lIVQ/dml3ljTSOCTnlhpplgLMv1MqoPpwQmQkt913JQOncTS/Zbwoy/T8y66lXN
- zMtxGsNQAuyGKGKMjZ65u8ukqsvCPFhxfH7UHtldHLgcHCnfQCFFZkcpFasB0fNAswMp8GUDj11
- Lr6P2lg47+AotElZaMsj5ZTwc4f3VKFrUN/d/imN/tytQkbWRx6pAWOISpvaeco8lhe5Detmq57
- d5ZhULheur/a+0IdmXvq7n8jsRreDYJCTtTe5vVxNc9VDiks6KufSu/haRQafPvNATdXTXxueUQ
- EfK+rKyNy19/ETrAXqcYDIEsRntTXGmXuRwpI=
-X-Received: by 2002:a05:6a00:6c9c:b0:824:3bd9:aac6 with SMTP id
- d2e1a72fcca58-825274c549cmr2027488b3a.16.1771429075074; 
- Wed, 18 Feb 2026 07:37:55 -0800 (PST)
-Received: from ehlo.thunderbird.net ([101.0.63.217])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-824c6b6a3f8sm16880308b3a.36.2026.02.18.07.37.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Feb 2026 07:37:54 -0800 (PST)
-Date: Wed, 18 Feb 2026 21:07:50 +0530
-From: Saleemkhan <saleemkhan083@gmail.com>
-To: amd-gfx@lists.freedesktop.org, "David (Ming Qiang) Wu" <David.Wu3@amd.com>,
- Christian.Koenig@amd.com, alexander.deucher@amd.com, leo.liu@amd.com
-CC: leo.liu@amd.com, Boyuan.Zhang@amd.com, David.Wu3@amd.com
-Subject: Re: [PATCH 00/14] user queue support for VCN 4.0.5
-User-Agent: Thunderbird for Android
-In-Reply-To: <20260210214729.80964-1-David.Wu3@amd.com>
-References: <20260210214729.80964-1-David.Wu3@amd.com>
-Message-ID: <4C922F99-7140-47A7-967E-D01DEF0D9ECD@gmail.com>
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013002.outbound.protection.outlook.com
+ [40.93.201.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3764810E5DF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 16:11:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HrHUu1pMdvuPxQSbZL4KfQ65uUgUUpjKTuFuUwGcKKt03m+NbNTwjmuGOpQ5cL6Iw8C8IK5QHme+J9w9w2EMSO0ZltFY0E0mvtG3xXqE0wi6adqnD4obiLTDkhjyS+vLRYw6hrYQ3aXmEj2EiRQQhDJZ7vus0LSgDyXDlg7ACpXCgtUPU9AK1zKsUPz0tTym8JYeyidS0jqjiWq207Dvl/v8ASM6m1DOLdEgJ4DtjmVC35vaOg+0qmGJk0NLw3TMxuhO2NngyjgI4qkGKUhqZmThHQmQpevsOZ3w5d775sar8sjRh3kF3P+ExDIii6m3l8nLZ7/wM/zqiOVsKrHnrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MR7k/wUbp4r6RSOx9wY+Lh7OiofqRysmRgJfcBHWiQs=;
+ b=EeApeROZbG/W/jMopubxI6SGBW6GPo0pFa4cvRmG+7gGZW7Uugr54gAhKKRvoci1XmX+K1ybqEXexS5w8w4MCaRjtg6redVA9K0llMEIoLSBCcLsiLVCHLRLDYTVcn97NchWT1uSIGLClhgYmawlFnP7afQ4f6SQrAuxN+qxOTZAtJZV7zeuHOT/IwfneoCMIlxsDcgk/i5dW4foUdus64x/IvJgXGtg4wZqdd/T0r5MOZn3bTZMKotMDtF6a/bPx2ld653+emZobnI3ALRbyL994lovt67yLdAOQsMm+se5bugnx4UVoBtW1OAlYAP2IxAsS068lyOFkIuSorrfcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MR7k/wUbp4r6RSOx9wY+Lh7OiofqRysmRgJfcBHWiQs=;
+ b=4CltdjdGydnS32omwnSaq7bK2cnsK2K8eDe6ylruDSGrLVa3fzpCcTQJVbkoIODK2mb44gyXmCqPZyW4+ROO9mFXiNS0oQw+AeLop6N7tSVx4NbTQhEKYOOiLiwrukm3psBErtrIJsdc56vFzpsIe/o64lzOHgaBT/k5836fJwE=
+Received: from BL1PR13CA0006.namprd13.prod.outlook.com (2603:10b6:208:256::11)
+ by SJ0PR12MB8166.namprd12.prod.outlook.com (2603:10b6:a03:4e2::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.13; Wed, 18 Feb
+ 2026 16:11:51 +0000
+Received: from BL02EPF00021F6E.namprd02.prod.outlook.com
+ (2603:10b6:208:256:cafe::d3) by BL1PR13CA0006.outlook.office365.com
+ (2603:10b6:208:256::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.14 via Frontend Transport; Wed,
+ 18 Feb 2026 16:11:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF00021F6E.mail.protection.outlook.com (10.167.249.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9632.12 via Frontend Transport; Wed, 18 Feb 2026 16:11:49 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 18 Feb
+ 2026 10:11:48 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 18 Feb
+ 2026 10:11:48 -0600
+Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 18 Feb 2026 10:11:48 -0600
+From: <Roman.Li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Pratik Vishwakarma
+ <Pratik.Vishwakarma@amd.com>, Tim Huang <Tim.Huang@amd.com>, Roman Li
+ <Roman.Li@amd.com>
+Subject: [PATCH] drm/amdgpu/discovery: Enable DM for DCN42
+Date: Wed, 18 Feb 2026 11:11:35 -0500
+Message-ID: <20260218161135.803653-1-Roman.Li@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary=----Q92SF5P0KVKI0SYGJ165GX8G4X14NI
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6E:EE_|SJ0PR12MB8166:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5ba3d62b-e6e9-4064-f5d2-08de6f086c24
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?gkycT+0omLMGMCSLJjCwdNJqBSIKKm/tjBNGZwyiWTM2edUTifjpcLaVCwBJ?=
+ =?us-ascii?Q?bwp8McVtIuHZDtTsXAFW/EvqshPiShGcmfOIoRKLapCthdpHXaXseHNOtUly?=
+ =?us-ascii?Q?hxJVIChLPTxfZjVgHxESLtg1aM3im9Ft1PW4F/Azydvzjxr+bx5d5niH6+24?=
+ =?us-ascii?Q?ZFQB2KljOjYkzrsk9/vDCbsguhWNv50cU2btuDNGsu+37IKlZ27m2Tf2ATkl?=
+ =?us-ascii?Q?7U7qXhTCjGn4GWijN/Mf5vGRzbGE3NOgvk0g7F/ni75s7Usl9M7KwE1B9PuA?=
+ =?us-ascii?Q?wktlqH5n/bMWvq+iiq8mQaKbCkOkaiJwdI3hJsJhV79eCvJzf1S1VTtRrehX?=
+ =?us-ascii?Q?K5iDQlsIfXfZdAO0QCA6Xo6IG1A8SX2BQD/b+TvoMFEX4Fr0a/XebQwpGiUt?=
+ =?us-ascii?Q?IRNkPklDwlYKg+xdaC4q8WQ9P5EIhSbwEydYmzAZs94wUGzZC+fztogNjtsK?=
+ =?us-ascii?Q?skGJilcbs2N6o6NbQ9l9XWMteLMgBWOcbniXzhtW4oYeUT5eE5rH9oQAbr6a?=
+ =?us-ascii?Q?ZAa+sLl6E+y+IbJ1vaYqUZgSXPenkuzLyM9Quey0vJjBeyVb5hBNE0vPCw2q?=
+ =?us-ascii?Q?gqtL7k31JBAz5yCKEsG3akL8GEN8V21TdRx/ee1nwsXKIPslExtq5JRgGuTc?=
+ =?us-ascii?Q?G0IAZN4TxDy/LaE0m6+xXV1rORBIMBuBK+oj29oTfO/Y8d7dlGANHeA9ikXc?=
+ =?us-ascii?Q?KF53VN0opq+PuYYDV09lpxEWOQ/6R6P5wVnehdhckNi7DFUaaSg60KHSawJY?=
+ =?us-ascii?Q?Xp7vA7rHEY+yO/ky2RQySsCJ7k9IzpeorqjIGMxiXXvBtWKrRcMVYWw7EbqR?=
+ =?us-ascii?Q?rbUaAvv3OS+jhTgo41xrUK+FzQrSn0rMvUEFVQfSXtBoFURdCAUOvK72JzET?=
+ =?us-ascii?Q?CwazU4GitEzoQIkgNYGuDsayw4dPunKjHE/RFMTs1FBi+bEc4oD2OdjG34YI?=
+ =?us-ascii?Q?xwl2ZiCDw/gx+80U2QXxe1JRqkPyyM7xc6+Aviv/XXwam0Z+01oPxyhi+ZRd?=
+ =?us-ascii?Q?y1rE3LpnpfEHGr6eUkONgzeGSamKBa8a6T0Lbe7GulfG9xEue0bQdykZO13w?=
+ =?us-ascii?Q?l+d7Ae5szg7VfxeAyt0NQUNh2+bW9ZRq4xM1hOCtWldxIB4xImxXyad8Mj6Z?=
+ =?us-ascii?Q?88yg7sd6MrKpUw993cimtfzOHdpf+Xlzi1H5Nork1AVMSe/e/cT7wPvQ4Pfo?=
+ =?us-ascii?Q?1h3aSsMc780HmIu+lkUQWv1oIj39BQIUX9cco/JXluE1pF/PxJabRACi0Qhi?=
+ =?us-ascii?Q?rzvOCEIfJ8sV3a1BKKSDWPZQbwHT0pYTQvO8sSLShvkO7M4tIIE2ewqlGeME?=
+ =?us-ascii?Q?4msD0ReA2WO67HyGwco0jWzNxep/f73v3a0lzGq10tygjm94q38Qk5WsolxK?=
+ =?us-ascii?Q?nOU0nCAM4xDhbE4YMwnMHhayeHTR8NIvhGGowdKHKckZE8Z0XU6ODvZ6A4W+?=
+ =?us-ascii?Q?1jwz92BwE66z6Lz/wKizwpIE95pvOVwd87fbKVzQpaNq+Cor0elXwqHiRDoO?=
+ =?us-ascii?Q?uAzx8W08DMP0+NyTz/RJhUVyhi9M/11x+NyMmvBZgOSI0NI7gKiGJ7RHmMdi?=
+ =?us-ascii?Q?G6cCuKVUki3K4ksVXHDdW4wJk8cgMn0DCzpDRY0zxdGdz7c4G8oYClyatSGL?=
+ =?us-ascii?Q?L9z1i08riw7zvbV1svZ6yRGScuhPHgYiK2SwcnQP3LaBjOIYmhtipLfmeLbA?=
+ =?us-ascii?Q?/xLAOQ=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: nqJ1yydeWTv2dQ43R48F1/T7ytd2Tz8McDkdIlH83FhDpUQXW6GPZ2qrOjdc1OOt5TjrSxt6zyYwZawoIEGwUAbupy+F3BG5Ow21vcZRyWeszro71yX5FOU1mTD9wENrCXiipkMcqlybRjx2aw+BId2WsPXUYxaYn76xmnoojq3miNc4NE31Xxwsh8Y4vcLJJIMOtnQ//cLycKGDnOXKBUwk3FECWiEGeaFmnlEIu//uPUyt2XnCkp54Hs1YnsphPNE62Mpvo6dqcf4PY5UVmkpRhYv1ROdfbPt8de3bmuuxxcjpuI3xY9dPWglELxpQTX0ctL6NZKx1LhaduX2TXoWNbddVcvj2mwm7xb/zy7XMt8cpZAnbQG/aXPrt6qGtXVm5j0hMN6Tj5N0gKYm0H/ehaNsu4MtUwFpS4/crXvbFBKRebL98xFVwB1GL/dFH
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2026 16:11:49.7539 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ba3d62b-e6e9-4064-f5d2-08de6f086c24
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB8166
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,115 +142,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-------Q92SF5P0KVKI0SYGJ165GX8G4X14NI
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+From: Roman Li <Roman.Li@amd.com>
 
-Hi David, Leo,
+Add DM ipblock for 4.2.0 DCE_HWIP
 
+Signed-off-by: Roman Li <Roman.Li@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thank you for the UMSCH patches=2E
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index fc8c1f36be58..2f032a7d8e82 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -2301,6 +2301,7 @@ static int amdgpu_discovery_set_display_ip_blocks(struct amdgpu_device *adev)
+ 		case IP_VERSION(3, 5, 1):
+ 		case IP_VERSION(3, 6, 0):
+ 		case IP_VERSION(4, 1, 0):
++		case IP_VERSION(4, 2, 0):
+ 			/* TODO: Fix IP version. DC code expects version 4.0.1 */
+ 			if (adev->ip_versions[DCE_HWIP][0] == IP_VERSION(4, 1, 0))
+ 				adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 0, 1);
+-- 
+2.34.1
 
-Are the  UMSCH and=C2=A0 vcn firmware are upstreamed ?
-I want to try this on Strix=2E
-
-
-Regards,
-
-Saleem
-
-
-
-On 11 February 2026 3:17:15 am IST, "David (Ming Qiang) Wu" <David=2EWu3@a=
-md=2Ecom> wrote:
->add user queue support for VCN 4=2E0=2E5
->
->David (Ming Qiang) Wu (10):
->  amdgpu: add global aggregated doorbell bo
->  drm/amdgpu: add AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL
->  drm/amdgpu/userq: add doorbell size for VCN and VPE
->  drm/amdgpu: use amdgpu_user_queue instead of amdgpu_umsch_mm
->  amdgpu/umsch: Add VCN IP init to umsch driver
->  drm/amdgpu/userq: change mes_userq_create_wptr_mapping() to be common
->  drm/amdgpu/userq: rework on amdgpu_userq_create_wptr_mapping
->  drm/amdgpu/umsch: user queue support for vcn
->  drm/amdgpu: add AMDGPU_INFO_DOORBELL
->  drm/amdgpu/umsch: userq suspend and resume context
->
->Saleemkhan Jamadar (4):
->  amdgpu/umsch: Update UMSCH interface and mqd structure
->  drm/amdgpu/vcn: changes when kernel queue is disabled
->  drm/amdgpu/vcn: handle interrupt received from fw
->  drm/amdgpu/vcn: handle the suspend context interrupt
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu=2Eh           |   4 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs=2Ec   |   2 +-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery=2Ec |   2 +-
-> =2E=2E=2E/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr=2Ec  |  16 +
-> drivers/gpu/drm/amd/amdgpu/amdgpu_drv=2Ec       |  10 -
-> drivers/gpu/drm/amd/amdgpu/amdgpu_gem=2Ec       |   2 +
-> drivers/gpu/drm/amd/amdgpu/amdgpu_kms=2Ec       |  18 ++
-> drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm=2Ec  | 300 +++++++++++++++++-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm=2Eh  |  43 ++-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Ec     |  69 +++-
-> drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Eh     |   4 +
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn=2Eh       |   4 +
-> drivers/gpu/drm/amd/amdgpu/mes_userqueue=2Ec    |  90 +-----
-> drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0=2Ec    |  75 ++++-
-> drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5=2Ec       | 122 +++++--
-> =2E=2E=2E/amd/include/ivsrcid/vcn/irqsrcs_vcn_4_0=2Eh |  10 +
-> =2E=2E=2E/drm/amd/include/umsch_mm_4_0_api_def=2Eh    |  12 +-
-> include/uapi/drm/amdgpu_drm=2Eh                 |  14 +
-> 18 files changed, 646 insertions(+), 151 deletions(-)
->
->--=20
->2=2E43=2E0
->
-
---
-Saleem
-------Q92SF5P0KVKI0SYGJ165GX8G4X14NI
-Content-Type: text/html;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<html><head></head><body><div dir=3D"auto">Hi David, Leo,<br><br><br>Thank =
-you for the UMSCH patches=2E<br><br>Are the=C2=A0 UMSCH and=C2=A0 vcn firmw=
-are are upstreamed ?<br>I want to try this on Strix=2E<br><br><br>Regards,<=
-br><br>Saleem<br><br></div><br><br><div class=3D"gmail_quote"><div dir=3D"a=
-uto">On 11 February 2026 3:17:15 am IST, "David (Ming Qiang) Wu" &lt;David=
-=2EWu3@amd=2Ecom&gt; wrote:</div><blockquote class=3D"gmail_quote" style=3D=
-"margin: 0pt 0pt 0pt 0=2E8ex; border-left: 1px solid rgb(204, 204, 204); pa=
-dding-left: 1ex;">
-<pre class=3D"k9mail"><div dir=3D"auto">add user queue support for VCN 4=
-=2E0=2E5<br><br>David (Ming Qiang) Wu (10):<br>  amdgpu: add global aggrega=
-ted doorbell bo<br>  drm/amdgpu: add AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL<=
-br>  drm/amdgpu/userq: add doorbell size for VCN and VPE<br>  drm/amdgpu: u=
-se amdgpu_user_queue instead of amdgpu_umsch_mm<br>  amdgpu/umsch: Add VCN =
-IP init to umsch driver<br>  drm/amdgpu/userq: change mes_userq_create_wptr=
-_mapping() to be common<br>  drm/amdgpu/userq: rework on amdgpu_userq_creat=
-e_wptr_mapping<br>  drm/amdgpu/umsch: user queue support for vcn<br>  drm/a=
-mdgpu: add AMDGPU_INFO_DOORBELL<br>  drm/amdgpu/umsch: userq suspend and re=
-sume context<br><br>Saleemkhan Jamadar (4):<br>  amdgpu/umsch: Update UMSCH=
- interface and mqd structure<br>  drm/amdgpu/vcn: changes when kernel queue=
- is disabled<br>  drm/amdgpu/vcn: handle interrupt received from fw<br>  dr=
-m/amdgpu/vcn: handle the suspend context interrupt<br><br> drivers/gpu/drm/=
-amd/amdgpu/amdgpu=2Eh           |   4 +-<br> drivers/gpu/drm/amd/amdgpu/amd=
-gpu_debugfs=2Ec   |   2 +-<br> drivers/gpu/drm/amd/amdgpu/amdgpu_discovery=
-=2Ec |   2 +-<br> =2E=2E=2E/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr=2Ec  |  =
-16 +<br> drivers/gpu/drm/amd/amdgpu/amdgpu_drv=2Ec       |  10 -<br> driver=
-s/gpu/drm/amd/amdgpu/amdgpu_gem=2Ec       |   2 +<br> drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_kms=2Ec       |  18 ++<br> drivers/gpu/drm/amd/amdgpu/amdgpu_u=
-msch_mm=2Ec  | 300 +++++++++++++++++-<br> drivers/gpu/drm/amd/amdgpu/amdgpu=
-_umsch_mm=2Eh  |  43 ++-<br> drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Ec   =
-  |  69 +++-<br> drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Eh     |   4 +<br=
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vcn=2Eh       |   4 +<br> drivers/gpu/d=
-rm/amd/amdgpu/mes_userqueue=2Ec    |  90 +-----<br> drivers/gpu/drm/amd/amd=
-gpu/umsch_mm_v4_0=2Ec    |  75 ++++-<br> drivers/gpu/drm/amd/amdgpu/vcn_v4_=
-0_5=2Ec       | 122 +++++--<br> =2E=2E=2E/amd/include/ivsrcid/vcn/irqsrcs_v=
-cn_4_0=2Eh |  10 +<br> =2E=2E=2E/drm/amd/include/umsch_mm_4_0_api_def=2Eh  =
-  |  12 +-<br> include/uapi/drm/amdgpu_drm=2Eh                 |  14 +<br> =
-18 files changed, 646 insertions(+), 151 deletions(-)<br><br></div></pre></=
-blockquote></div><div dir=3D"auto">--<br>Saleem</div></body></html>
-------Q92SF5P0KVKI0SYGJ165GX8G4X14NI--
