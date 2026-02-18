@@ -4,81 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A1C7E9A02C
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 23:59:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66480E9A03B
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Feb 2026 10:59:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9671110E1CB;
-	Wed, 18 Feb 2026 23:59:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD01710E134;
+	Thu, 19 Feb 2026 10:59:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jAnjfras";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="o8O2w4Bd";
 	dkim-atps=neutral
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B8C210E1CB
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 23:59:08 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-824b32875e7so161712b3a.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 15:59:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771459147; x=1772063947; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:user-agent:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to;
- bh=SuY5rCkQpmLiVJarlI6v0DGvJZbgFaNKx1Tojg8PoOE=;
- b=jAnjfrash+6iLu4POF0BHJOtyPoR7lBD4/VWvGXYzHN21kGzukAFijN/7sfFiM7jW5
- sKVqzGr9xgjJDTKgvhiV7lOyOxECq3lnCylaRmf0oK+iLoqWAcu3PMS9jHOgdHKt/K5Q
- 02MhBu5wVv9frvlRgJKmf9VnnsrzgD35ES4EhF8fVBatpOxi/EITjNRRuGvGW/tN/lz4
- sltcxPvaMNKDP6FYEK+SQqUkCUWZVcnGtfftEyOEna7v8hupqf+MyrsgTEhpZmm8jZMx
- eFcoeCqNCTdFqAGbZa10zYwlUZHl2yiWQhHJFleXNx7JfSCS+WkxRt9vCF4C+ZTQ3gqw
- enBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771459147; x=1772063947;
- h=content-transfer-encoding:mime-version:message-id:references
- :in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SuY5rCkQpmLiVJarlI6v0DGvJZbgFaNKx1Tojg8PoOE=;
- b=JzMBEPrEEwPZZJUpJ2yfhC1YlUxy3bciXmQVq+GHRdNzgQtjdUXrOSifN7ZgVNzN1p
- jFdJ+mXCqcCLBexxR984OeXnd5mFeWLebGqd6HENg33+xFVrjY4H8WDJNxY06vMv+SbU
- +SYvc7UDYJnkIV9l5+EiAPKn88Eobs+L9ioDIhW0u6nVqoMTZSR8p7cFrSR5eBWRU2CB
- w0FzIV5Sb3iWgfes3taHcWIpk49GwnkP4SCwJmyR9r8ddn59u1x0jPTS967D6OHpPKFR
- InMk6NsP0rMGUYLroxql11EimrQfmY+KylQ91HE8NwSjHh9ny6XR0lh99+94Yv7KC+NO
- Po/Q==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXAE2bseS9ntVp1q3timxYup76Ggcgpxu0ftpR7rTo7HjgRSSjtn8MeiF0sfOYYpoLV6v1HqISi@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJbiB10vKsOoZN5CBavO40f6isFpu3quM53CRSD+ccKKfmAlQ1
- MSQ9k7MqV0/M7JpCskUxj0yB1B9SQK1jNsjZLBW8EjfxRHShnTPH1Odd
-X-Gm-Gg: AZuq6aLoxW21eKAZIMkSk+KSLzedxb6btEp/sj05T65nDk8yiNYvPUBA4bSFoEjpd+z
- Fdphjy993leXbkuQscRYAjLynYQva5huraxDgMLwVxW6JVBI2MFxfv7wOmlK00yW6PXLKqCOpCd
- MoObBaijHVT1hGlJ2ipB2cN932k6V0UJZ4cT0iRkeVYfDPgWueF1OlJ/KU5l/MNcgeyjUCYhTg7
- QTKPNWoCm2/BByJsOiyKSejch7FtVjUk3Aw04b+dEg6R91SKtS4n7LfgzeK0qyVevBZG6d9qAPQ
- jrLhA8xmDaKH42slYN4luZu1nww8Vb54FOJXSJz04CPFDgsb1BChPcFlqttjX2WcSzz3/r2QZf/
- C+EUk8dZQRXx04LBmyTQbJHzlOQvi994S5mGaA439q8vvf/Sb9/lCvHEM4NvCd/aMhRSR2JzBsQ
- GxLI/S0UBPz6h9AMhT6XthI5YOl2UymcCNmWQ=
-X-Received: by 2002:a05:6a00:a20e:b0:824:9451:c1e1 with SMTP id
- d2e1a72fcca58-825275ee977mr3029570b3a.58.1771459147456; 
- Wed, 18 Feb 2026 15:59:07 -0800 (PST)
-Received: from ehlo.thunderbird.net ([101.0.63.217])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-824c6b69f2asm17777396b3a.37.2026.02.18.15.59.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 18 Feb 2026 15:59:07 -0800 (PST)
-Date: Thu, 19 Feb 2026 05:29:02 +0530
-From: Saleemkhan <saleemkhan083@gmail.com>
-To: "Wu, David" <davidwu2@amd.com>, amd-gfx@lists.freedesktop.org,
- "David (Ming Qiang) Wu" <David.Wu3@amd.com>, Christian.Koenig@amd.com,
- alexander.deucher@amd.com, leo.liu@amd.com
-CC: Boyuan.Zhang@amd.com
-Subject: Re: [PATCH 00/14] user queue support for VCN 4.0.5
-User-Agent: Thunderbird for Android
-In-Reply-To: <8f4d596c-1888-47b9-a922-d48bb1adfb71@amd.com>
-References: <20260210214729.80964-1-David.Wu3@amd.com>
- <4C922F99-7140-47A7-967E-D01DEF0D9ECD@gmail.com>
- <8f4d596c-1888-47b9-a922-d48bb1adfb71@amd.com>
-Message-ID: <E4D35216-7325-4FBC-9270-27BC61BF2F49@gmail.com>
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012059.outbound.protection.outlook.com
+ [40.107.200.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99D3D10E637;
+ Wed, 18 Feb 2026 21:21:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aYzj2BC6Zir2HwVFuodg2sskapA3WmL8acoIX9zEmHvEbc3wVkfgTpfXbsr9ixDtv78JdNQSC0Cu+lcnB2t6unPZW1HHNzBfdTfgjICrdUMmq5U1bBcganCLeHIn+4zHfAqBXyC4SkLESQr0UXsuQNdFBQ0W/kD0zp0E3/cHSFHzVeny2W3Q+gCeSx8n/bnXZFw4Sn8jGlArx7ofa5NwmWGmJH8K+XIJLoOFw9jWOHvwHDaeiCC/AIbl363m+yy+Mx0OtBGFq4Eet+fhh+IdQt1tfVZgbSzbEv7D7/xUWG5JAXG5kUk9wEkky6NdcEF6ZBQPRD9O0BhxvMV3b9KEcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q9w3sq+e9q4uNIMFDdk1gJj2+ScZsyWxkYVau7dy/TA=;
+ b=KMagsKOLfFPbzgx964SQu4wiIvXU9wswbfHAru6UNtCOhgMH5uiPdy5EXhfV6zW05/Lx4MboZExT+FqGUbsWDzURUU39S9bSVx6o7hJavn9l/zdMEV1+E/orGJaUbhkZUwF2yiygOY3DAxNeAI6dIdkJb5UZ+XB3ximZ0rFQ93KJANrKSchz5zo2eMLFhvC/bI4//rTRinKTZ0leHoq6c8DF5UfMOzV7Bsy1ZJ6iY6aY6R0BZkl7toF+AQk/rtLbvk9FlbxtHixCw/UMadKVet9e/0Z0JhoLAMvL5q6FTOXaylRNqwfIqqjSg5oYffgaVk+4mGRakfEYCj9WIg39JA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q9w3sq+e9q4uNIMFDdk1gJj2+ScZsyWxkYVau7dy/TA=;
+ b=o8O2w4BdHb8TNFpRNwBHHu8PKTez24erAIZyUZyDA+E6cZxoCBQCAs8nRfS0XRJpaXCf0nwJVVCIn1pT1Kl6lF/w/sjFOaR3fEDYhaiMRzrZoYnRiq0sPTV1YjTrKgzgiGM6x9Q1qIcokj+D3znhSc3VQ/ZRL6zjCG1JnJyAGymR0mI3QQg5AfQF4ssd7FwMarCTg+cDI+/u7wr6iEobmSM6Pm7VCwBJz1xmTSzdAmNEQ2IaFVbCnDm5oOV7XTj3/nSoyIWVP87lAioNgT1Z3DG9zzpQcfbqkPmF6OsBXqFOzmsxOIsRkHJz4Ijt1yOBce2DmMftFjLeAWs5c4TaLA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ PH0PR12MB999111.namprd12.prod.outlook.com (2603:10b6:510:38d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.14; Wed, 18 Feb
+ 2026 21:21:26 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9632.010; Wed, 18 Feb 2026
+ 21:21:26 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ Joel Fernandes <joelagnelf@nvidia.com>, Nikola Djukic <ndjukic@nvidia.com>
+Subject: [PATCH v7 13/23] nova-core: mm: Add Virtual Memory Manager
+Date: Wed, 18 Feb 2026 16:20:10 -0500
+Message-Id: <20260218212020.800836-14-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260218212020.800836-1-joelagnelf@nvidia.com>
+References: <20260218212020.800836-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BN9PR03CA0448.namprd03.prod.outlook.com
+ (2603:10b6:408:113::33) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary=----K1EBRF8RQ8HAZ67WC048O1KL26W395
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH0PR12MB999111:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44fb9631-0317-4ddb-8865-08de6f33ac77
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?6RrPiPSlpbb+y3B0DMIJamo3uFFhBkYXS0wM2VbOZipq+UvW6Nm9D6lLoPHl?=
+ =?us-ascii?Q?sVpLPhzvKxdpf1ucZqeFdbaCsbthTuJv6OZsGKjuvdZjnOhpsej12eVmh1/0?=
+ =?us-ascii?Q?fbqytXCwFYi1GdeENhxYodICChN+Yt9g5BlBIGjqhp7ntK6rx1l15Dl1sIcj?=
+ =?us-ascii?Q?QL5L2hFKOIabGVbNvk5jK1R0REbF7fm0BVC0AeqFmymQ3iJkCIcgtXJQxpoj?=
+ =?us-ascii?Q?mdv/lJTk6hh4lceJebBNS9vJyBNs0aDmUDDq4WRdiQS6xt2X8oEv3pBTYypL?=
+ =?us-ascii?Q?avoCAp9C8OdmRWkugam9y7URHiycELegU2YUqFlasUJmESbUEvuyOnrdkqNp?=
+ =?us-ascii?Q?4BfQ9ggwynpYN+Y9QN8TLNioqrd2At/k/oxqKNgDRvIErjCegqoFrGOTD1wb?=
+ =?us-ascii?Q?wCOGyOGecPfr5rsnfGIQp0pqmVNSnZ5M+ytRfpXZekv4oV15TI7KBQyNlAWZ?=
+ =?us-ascii?Q?ZxqQzDzU2ePv3Uhsk6Wwz7vy7u9J/Acvp6cM99ESsFY5ZlZHUNYh07+Gza9z?=
+ =?us-ascii?Q?FC/ptXHS31GWHn6oxn0iZaqBVKrMfH0KLnvTpOsSC6k+75jCqJZUNdEXrQvZ?=
+ =?us-ascii?Q?AEbk/8QAQd55CO0RZ3JsN1+2HdcWs5hLM+d5Rgt1moIXBZIuP8TXaH6D6/gL?=
+ =?us-ascii?Q?UXCGrLXAVSlFhHZeNlhYPlgkPZwvsuLAWZDoM16U5Bo/BaludpRju4fUVVeK?=
+ =?us-ascii?Q?EhU7c5qu3KRPCPiKJzDJjffMzgfjAOiUo5ayMmwueuafMrcz+yVWbOwJNw4d?=
+ =?us-ascii?Q?ql5iK+J7DQbFRn+HpB0KCtZB+NiUKlcOJGotwJyQOzmHHLtoxsToFQdIWCyw?=
+ =?us-ascii?Q?5pSoGxbzslWjEEmunZVWxWmuDw0Bql8ygP0zKwKUB04oaojAnkgX//W8R+3x?=
+ =?us-ascii?Q?74qF5GUJb5KBFf0db9uuZHdyOTzZgPfMopBXhiy4WJJ1qAaFsRR6YDQRHvRi?=
+ =?us-ascii?Q?TUfKmUJ7VVdUuARTHe/Hr/vRm/3p1tXjBllbO3gMrqEXUjEGC4W/W1wxh2CY?=
+ =?us-ascii?Q?62HI8JFcjlvrFn5Ho+iOoxhSXQfcasEk41f8wBMTgIKOwyc0y1hJCBiAikI7?=
+ =?us-ascii?Q?2h56ucv3jzZu+Zr385NPMWHMQV5q2UM83MmGEq7wM2YbL9gPwX2M35sl9fp4?=
+ =?us-ascii?Q?sdJ3mF5mR/0NFsZyIe6bNjEaBWzt98MQN6SsLnLD6nwrM0L+ZAGXft/ilZrS?=
+ =?us-ascii?Q?hfDStXJBOeeEppL+/2A3gYiMWsfUP5rAPWyrNfwag/1rb/kTLstyCUfQL5GM?=
+ =?us-ascii?Q?oKJQM59ecXWvl3GsRJzWFUJlpN2wJY691wX3rlHAaIFNTLerdH40+csvDF+7?=
+ =?us-ascii?Q?XA/X4USsfc/5BfXYUQQca3UuP2dzJi8Xjs0PYJyQ7BbgNbB0jL0rTiVOgIAl?=
+ =?us-ascii?Q?YGeGrZdTr5z9+YtbVN/7A6Tx3Jes8Ffme1UlQizUALBQaIF8TjbVy5bEIMiJ?=
+ =?us-ascii?Q?OwuXneI3EYrNqTRV4ESkBE7xXbpdtzySgGyBhZVPx939KL+/RMv6v8bTjAEQ?=
+ =?us-ascii?Q?GwpiMqigSiHENeKtAe3VzDAJtLFyx3rh/oh4VZUHPrQz+6X4Mww29C04zFNJ?=
+ =?us-ascii?Q?1SAKFR06FCMXmWw2fBU=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?rWxXr1q9VXTFVqMjU2rHTtDhsUKVd1H/C9Upr/9rmJa+qvUjEXPFcMuh3sZG?=
+ =?us-ascii?Q?KGUVFrb9Wb1q5hkkI8o3EpdtbmZ9DpW0TrdoIMbNtGH3Si92aHusRwnvETES?=
+ =?us-ascii?Q?kLrGr65dRTYDkeBqibLVOx9cNtvWdaJQdLFXdsGrMiu97a20JJ5rkhMJvMg4?=
+ =?us-ascii?Q?Mbg12wxvuGQ9iV98SXsub3UvMqxHqiwM45OXo+7+09ygR7XEmKPj2vhS7o8v?=
+ =?us-ascii?Q?297RyXwiwGVpsucECkXXuhmnLuxVfoPoGoOihHOcWTvvAkw/6LNP6zTzbCGS?=
+ =?us-ascii?Q?qHPvctEL9PfN/UOGNUOD/KpcIVemscG4Jw49TZjAO5eeWJidvzR6e7QxUGAx?=
+ =?us-ascii?Q?Y899XbKCwYrLaUaff3bQ/ZulBickBiXqZxEHD9xVtbvjwHbIVfur/lQDJnzZ?=
+ =?us-ascii?Q?9jfxVRZrikl4z/W5L9RrGdMy4aRlAJqAqnrUUqRcWmi4G3TtihpB1jR2kH3L?=
+ =?us-ascii?Q?8q3+luui7GQ9nBsHkvchFnISyzGCiLouxDn9vzTGwBi9EvUaImr+/vr5olZZ?=
+ =?us-ascii?Q?z4ca6KL9cC4P7j5pyqeBCdOKZW9GXzDvmKctCMCH2NfJshq6btjBsu2nVMJF?=
+ =?us-ascii?Q?u+3A1tcpc3TAnXbsFK7ZFFtFL7jok9S/zm/QM2SuhI8YXCG0hrN5mp0qm6To?=
+ =?us-ascii?Q?NyZ1y26VHs0By8J/ieylPkSXaxMoD+UjWrMcGfsvj2C98E3NPtxalewdgl20?=
+ =?us-ascii?Q?G1/kPhnLsuEfKNd4NTZMfuCmEHGPOCBEsLYXOWOEoOzQfVTZllLgh567AIeZ?=
+ =?us-ascii?Q?muCE0R+1TnBUAg+qTkUWdhi+T8I9LAR8rosN449hjIfk9hbNhFG9hcv163RM?=
+ =?us-ascii?Q?JNFmA6DJ/1DBgtqlQygAg456rE2hPTTy7SXHx2U4rMp1E8MPx8wfjHti35CW?=
+ =?us-ascii?Q?ceM6X58DcNKjB9zDhaD76vdjO7qAzNykqmemQp0KY2o0LiopF+/RSSp0kkDx?=
+ =?us-ascii?Q?oOI679ywMIt9qytLTd4hCYe3w8xWdtcswWwRw96Whnlt5gCoaNo2Bz6YwcKZ?=
+ =?us-ascii?Q?ftBzxImPFTi6vS+bqm1UJipMKDoT0/LVObExg8xI1z679hNOvmA9wv082ZYj?=
+ =?us-ascii?Q?XliuashGjMaE5Cg9vy7Byl1NVHQSl/cQeOmNQ4Gbt7kwhEzvIZGDOd6HM2qn?=
+ =?us-ascii?Q?l1koWA5S5N+FPuTunE8L6kGG5ubOrdJuSOOIX9n+Kb8x+MnlnDZ241M5AMKC?=
+ =?us-ascii?Q?jfrGT/XAV3NmNvnS1q/C0ZDhiUiLXHEvzc1DiYcr51E63lX8etu+htHyUJ4y?=
+ =?us-ascii?Q?hx0ENF3Z7+HCyB4N6xr5VKgyTezWaaFVu13OaLJ2shoF+X/X1GC1YP3I7Pil?=
+ =?us-ascii?Q?C4pR4y/+WpoqA1w21eFVfvnoXiOIhK3Zw90lr+khlgW00tfCBE8vtCJ0p2bF?=
+ =?us-ascii?Q?Zurj5a+Vignm/SEJoH+Z0HNRKkAm1e38QTtV+MOYO/6oDH5BP+nn07Ws3Q/4?=
+ =?us-ascii?Q?wlmiIP+yhFxsfHWXUPRp9FGwLUQmwc11mLyHWM981is+aAOGvflq79SQlCu2?=
+ =?us-ascii?Q?+6qFmhyAkZE1DCwGPXEZxybiCNaJRqHLx9f0wJ9W7tgDzKdCYcrmWbZ/rFRG?=
+ =?us-ascii?Q?XX0P+XwDAJeZgnPsEr0POPfU2zD2CWUak8sSqo6ptSYV+zF/4eJD/jy61tIl?=
+ =?us-ascii?Q?uAvJBhRX2agF8jsOOpclf2IoLjQKQucQUbgu718HFciUbyGC5/HQXAfgapcb?=
+ =?us-ascii?Q?jjlaprsxYo1+2/CYyy889Myz3B3fWmE1hK8m0l7P2W6W/oG2AdwuiSmdlY89?=
+ =?us-ascii?Q?w5BrvP654g=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44fb9631-0317-4ddb-8865-08de6f33ac77
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2026 21:21:26.2747 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /HGE2GBNe89BPxiHKjY6QsGxWeIz8JiqDm4suYDu9YHCwXqbsGGUJOjv5E5g/m79ru9ujRTsPMy/K5BmuBlFaQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999111
+X-Mailman-Approved-At: Thu, 19 Feb 2026 10:59:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,188 +183,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-------K1EBRF8RQ8HAZ67WC048O1KL26W395
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Add the Virtual Memory Manager (VMM) infrastructure for GPU address
+space management. Each Vmm instance manages a single address space
+identified by its Page Directory Base (PDB) address, used for Channel,
+BAR1 and BAR2 mappings.
 
-Pls share the firmwares I would like to try them with current patches=2E
+Mapping APIs and virtual address range tracking are added in later
+commits.
 
-Regards,
-Saleem
+Cc: Nikola Djukic <ndjukic@nvidia.com>
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+---
+ drivers/gpu/nova-core/mm/mod.rs |  1 +
+ drivers/gpu/nova-core/mm/vmm.rs | 63 +++++++++++++++++++++++++++++++++
+ 2 files changed, 64 insertions(+)
+ create mode 100644 drivers/gpu/nova-core/mm/vmm.rs
 
+diff --git a/drivers/gpu/nova-core/mm/mod.rs b/drivers/gpu/nova-core/mm/mod.rs
+index 471f8eb0635c..922479accba6 100644
+--- a/drivers/gpu/nova-core/mm/mod.rs
++++ b/drivers/gpu/nova-core/mm/mod.rs
+@@ -7,6 +7,7 @@
+ pub(crate) mod pagetable;
+ pub(crate) mod pramin;
+ pub(crate) mod tlb;
++pub(crate) mod vmm;
+ 
+ use kernel::{
+     devres::Devres,
+diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
+new file mode 100644
+index 000000000000..eaee707181b5
+--- /dev/null
++++ b/drivers/gpu/nova-core/mm/vmm.rs
+@@ -0,0 +1,63 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Virtual Memory Manager for NVIDIA GPU page table management.
++//!
++//! The [`Vmm`] provides high-level page mapping and unmapping operations for GPU
++//! virtual address spaces (Channels, BAR1, BAR2). It wraps the page table walker
++//! and handles TLB flushing after modifications.
++
++#![allow(dead_code)]
++
++use kernel::{
++    gpu::buddy::AllocatedBlocks,
++    prelude::*, //
++};
++
++use crate::mm::{
++    pagetable::{
++        walk::{PtWalk, WalkResult},
++        MmuVersion, //
++    },
++    GpuMm,
++    Pfn,
++    Vfn,
++    VramAddress, //
++};
++
++/// Virtual Memory Manager for a GPU address space.
++///
++/// Each [`Vmm`] instance manages a single address space identified by its Page
++/// Directory Base (`PDB`) address. The [`Vmm`] is used for Channel, BAR1 and
++/// BAR2 mappings.
++pub(crate) struct Vmm {
++    pub(crate) pdb_addr: VramAddress,
++    pub(crate) mmu_version: MmuVersion,
++    /// Page table allocations required for mappings.
++    page_table_allocs: KVec<Pin<KBox<AllocatedBlocks>>>,
++}
++
++impl Vmm {
++    /// Create a new [`Vmm`] for the given Page Directory Base address.
++    pub(crate) fn new(pdb_addr: VramAddress, mmu_version: MmuVersion) -> Result<Self> {
++        // Only MMU v2 is supported for now.
++        if mmu_version != MmuVersion::V2 {
++            return Err(ENOTSUPP);
++        }
++
++        Ok(Self {
++            pdb_addr,
++            mmu_version,
++            page_table_allocs: KVec::new(),
++        })
++    }
++
++    /// Read the PFN for a mapped VFN if one is mapped.
++    pub(crate) fn read_mapping(&self, mm: &GpuMm, vfn: Vfn) -> Result<Option<Pfn>> {
++        let walker = PtWalk::new(self.pdb_addr, self.mmu_version);
++
++        match walker.walk_to_pte_lookup(mm, vfn)? {
++            WalkResult::Mapped { pfn, .. } => Ok(Some(pfn)),
++            WalkResult::Unmapped { .. } | WalkResult::PageTableMissing => Ok(None),
++        }
++    }
++}
+-- 
+2.34.1
 
-On 18 February 2026 11:43:10 pm IST, "Wu, David" <davidwu2@amd=2Ecom> wrot=
-e:
->On 2/18/2026 10:37 AM, Saleemkhan wrote:
->> Hi David, Leo,
->>=20
->>=20
->> Thank you for the UMSCH patches=2E
->>=20
->> Are the=C2=A0 UMSCH and=C2=A0 vcn firmware are upstreamed ?
->> I want to try this on Strix=2E
->>=20
->not yet - we are working on it for kernel first=2E A few patches here nee=
-d to be reviewed/acked, then cherry-picking one patch which is in another b=
-ranch as dependency=2E I have firmwares used for testing and branches for m=
-esa and libdrm to support the kernel features, but not ready for upstreamin=
-g=2E
->
->David
->>=20
->> Regards,
->>=20
->> Saleem
->>=20
->>=20
->>=20
->> On 11 February 2026 3:17:15 am IST, "David (Ming Qiang) Wu" <David=2EWu=
-3@amd=2Ecom> wrote:
->>=20
->>     add user queue support for VCN 4=2E0=2E5 David (Ming Qiang) Wu (10)=
-:
->>     amdgpu: add global aggregated doorbell bo drm/amdgpu: add
->>     AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL drm/amdgpu/userq: add
->>     doorbell size for VCN and VPE drm/amdgpu: use amdgpu_user_queue
->>     instead of amdgpu_umsch_mm amdgpu/umsch: Add VCN IP init to umsch
->>     driver drm/amdgpu/userq: change mes_userq_create_wptr_mapping() to
->>     be common drm/amdgpu/userq: rework on
->>     amdgpu_userq_create_wptr_mapping drm/amdgpu/umsch: user queue
->>     support for vcn drm/amdgpu: add AMDGPU_INFO_DOORBELL
->>     drm/amdgpu/umsch: userq suspend and resume context Saleemkhan
->>     Jamadar (4): amdgpu/umsch: Update UMSCH interface and mqd
->>     structure drm/amdgpu/vcn: changes when kernel queue is disabled
->>     drm/amdgpu/vcn: handle interrupt received from fw drm/amdgpu/vcn:
->>     handle the suspend context interrupt
->>     drivers/gpu/drm/amd/amdgpu/amdgpu=2Eh | 4 +-
->>     drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs=2Ec | 2 +-
->>     drivers/gpu/drm/amd/amdgpu/amdgpu_discovery=2Ec | 2 +-
->>     =2E=2E=2E/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr=2Ec | 16 +
->>     drivers/gpu/drm/amd/amdgpu/amdgpu_drv=2Ec | 10 -
->>     drivers/gpu/drm/amd/amdgpu/amdgpu_gem=2Ec | 2 +
->>     drivers/gpu/drm/amd/amdgpu/amdgpu_kms=2Ec | 18 ++
->>     drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm=2Ec | 300
->>     +++++++++++++++++- drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm=2Eh |
->>     43 ++- drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Ec | 69 +++-
->>     drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Eh | 4 +
->>     drivers/gpu/drm/amd/amdgpu/amdgpu_vcn=2Eh | 4 +
->>     drivers/gpu/drm/amd/amdgpu/mes_userqueue=2Ec | 90 +-----
->>     drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0=2Ec | 75 ++++-
->>     drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5=2Ec | 122 +++++--
->>     =2E=2E=2E/amd/include/ivsrcid/vcn/irqsrcs_vcn_4_0=2Eh | 10 +
->>     =2E=2E=2E/drm/amd/include/umsch_mm_4_0_api_def=2Eh | 12 +-
->>     include/uapi/drm/amdgpu_drm=2Eh | 14 + 18 files changed, 646
->>     insertions(+), 151 deletions(-)
->>=20
->> --
->> Saleem
-
---
-Saleem
-------K1EBRF8RQ8HAZ67WC048O1KL26W395
-Content-Type: text/html;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<!doctype html><html><head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8">
-  </head>
-  <body><div dir=3D"auto">Pls share the firmwares I would like to try them=
- with current patches=2E<br><br>Regards,<br>Saleem<br></div><br><br><div cl=
-ass=3D"gmail_quote"><div dir=3D"auto">On 18 February 2026 11:43:10 pm IST, =
-"Wu, David" &lt;davidwu2@amd=2Ecom&gt; wrote:</div><blockquote class=3D"gma=
-il_quote" style=3D"margin: 0pt 0pt 0pt 0=2E8ex; border-left: 1px solid rgb(=
-204, 204, 204); padding-left: 1ex;">
-
-    <div class=3D"moz-cite-prefix">On 2/18/2026 10:37 AM, Saleemkhan
-      wrote:<br>
-    </div>
-    <blockquote type=3D"cite" cite=3D"mid:4C922F99-7140-47A7-967E-D01DEF0D=
-9ECD@gmail=2Ecom">
-     =20
-      <div dir=3D"auto">Hi David, Leo,<br>
-        <br>
-        <br>
-        Thank you for the UMSCH patches=2E<br>
-        <br>
-        Are the&nbsp; UMSCH and&nbsp; vcn firmware are upstreamed ?<br>
-        I want to try this on Strix=2E<br>
-        <br>
-      </div>
-    </blockquote>
-    not yet - we are working on it for kernel first=2E A few patches here
-    need to be reviewed/acked, then cherry-picking one patch which is in
-    another branch as dependency=2E I have firmwares used for testing and
-    branches for mesa and libdrm to support the kernel features, but not
-    ready for upstreaming=2E<br>
-    <br>
-    David&nbsp;
-    <blockquote type=3D"cite" cite=3D"mid:4C922F99-7140-47A7-967E-D01DEF0D=
-9ECD@gmail=2Ecom">
-      <div dir=3D"auto"><br>
-        Regards,<br>
-        <br>
-        Saleem<br>
-        <br>
-      </div>
-      <br>
-      <br>
-      <div class=3D"gmail_quote">
-        <div dir=3D"auto">On 11 February 2026 3:17:15 am IST, "David (Ming
-          Qiang) Wu" <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Dav=
-id=2EWu3@amd=2Ecom">&lt;David=2EWu3@amd=2Ecom&gt;</a> wrote:</div>
-        <blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0pt 0pt 0=
-=2E8ex; border-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
-          <pre class=3D"k9mail"><div dir=3D"auto">add user queue support f=
-or VCN 4=2E0=2E5
-
-David (Ming Qiang) Wu (10):
-  amdgpu: add global aggregated doorbell bo
-  drm/amdgpu: add AMDGPU_GEM_GLOBAL_AGGREGATED_DOORBELL
-  drm/amdgpu/userq: add doorbell size for VCN and VPE
-  drm/amdgpu: use amdgpu_user_queue instead of amdgpu_umsch_mm
-  amdgpu/umsch: Add VCN IP init to umsch driver
-  drm/amdgpu/userq: change mes_userq_create_wptr_mapping() to be common
-  drm/amdgpu/userq: rework on amdgpu_userq_create_wptr_mapping
-  drm/amdgpu/umsch: user queue support for vcn
-  drm/amdgpu: add AMDGPU_INFO_DOORBELL
-  drm/amdgpu/umsch: userq suspend and resume context
-
-Saleemkhan Jamadar (4):
-  amdgpu/umsch: Update UMSCH interface and mqd structure
-  drm/amdgpu/vcn: changes when kernel queue is disabled
-  drm/amdgpu/vcn: handle interrupt received from fw
-  drm/amdgpu/vcn: handle the suspend context interrupt
-
- drivers/gpu/drm/amd/amdgpu/amdgpu=2Eh           |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs=2Ec   |   2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery=2Ec |   2 +-
- =2E=2E=2E/gpu/drm/amd/amdgpu/amdgpu_doorbell_mgr=2Ec  |  16 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv=2Ec       |  10 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem=2Ec       |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms=2Ec       |  18 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm=2Ec  | 300 +++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_umsch_mm=2Eh  |  43 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Ec     |  69 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq=2Eh     |   4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn=2Eh       |   4 +
- drivers/gpu/drm/amd/amdgpu/mes_userqueue=2Ec    |  90 +-----
- drivers/gpu/drm/amd/amdgpu/umsch_mm_v4_0=2Ec    |  75 ++++-
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5=2Ec       | 122 +++++--
- =2E=2E=2E/amd/include/ivsrcid/vcn/irqsrcs_vcn_4_0=2Eh |  10 +
- =2E=2E=2E/drm/amd/include/umsch_mm_4_0_api_def=2Eh    |  12 +-
- include/uapi/drm/amdgpu_drm=2Eh                 |  14 +
- 18 files changed, 646 insertions(+), 151 deletions(-)
-
-</div></pre>
-        </blockquote>
-      </div>
-      <div dir=3D"auto">--<br>
-        Saleem</div>
-    </blockquote>
-    <br>
-  </blockquote></div><div dir=3D"auto">--<br>Saleem</div></body>
-</html>
-
-------K1EBRF8RQ8HAZ67WC048O1KL26W395--
