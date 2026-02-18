@@ -4,86 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C353FE9A04C
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 08:09:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FA81E9A03E
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Feb 2026 09:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A846110E586;
-	Wed, 18 Feb 2026 08:09:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 180A689336;
+	Wed, 18 Feb 2026 09:22:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GLwGwah7";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="MzRJ/ezY";
 	dkim-atps=neutral
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 735DF10E515
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Feb 2026 16:41:04 +0000 (UTC)
-Received: by mail-ed1-f66.google.com with SMTP id
- 4fb4d7f45d1cf-65a1faf828bso529765a12.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Feb 2026 08:41:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771346463; x=1771951263; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=r/mWn0NTZppbdGJFnI/ErDwdANkgeIegPSZLoS1BE5U=;
- b=GLwGwah7+Erw7DnT1m6GR6nWA6GBTdGM9QFQxLSXpZHKqk9JY2tE7+fGjf0b1O0w0Q
- g08V4MkTajgiIE/LfWSnRx2oxbSygplypC5DmAnbQXJRP7+rkCDABbvgzMWZ6bPbbBc/
- FVUYJt/DVisbFlElXtlJA5bHocUZvNEn6wO600Z57se7foFO6OOIIRxCT/L4rEsGbmJe
- tugU0LHMobOL9fEPSRzzCmYe0obrXW7bMoULRwYEt3SbBZNjDudrSWoHJXkvYPGIXGOP
- jnFB5djkzw27u+HkAhfAgWRNyvZuZ4GnFj6H9dI66pfF6VBCc3L+m8vnvzJFzl+vHQWX
- PXLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771346463; x=1771951263;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=r/mWn0NTZppbdGJFnI/ErDwdANkgeIegPSZLoS1BE5U=;
- b=fzbeEEQ7V/tNn35F/Wcfw5wm+GY0IjpCVPBOnm5nyQ0rd8r5RWQPosDMPCg+cj8Y6Q
- 6YwJ31r7FWaT0Rc9fAWD4plaiIQoUCQ13Go961CBoo092TwbOm240DvkCQDmZDhQskzA
- fUtGrcvhNGoW9xuPh/ce2NyJ7bmbWN7HIiMO0rsiOncNm7kOEt9urty+gJsBdaOMEkmb
- l7BNC5GpwYcprcl0/7ym5/NayHiXcov6PYwt50Il6pFAxzDzWr6CDap2/WCzHAopGP29
- 0hKPzrkQU+qOzRKiexXN6pbDbNCZp1oSBE15v26M5vXw9gXPeVFkctpdh5LFd3bm0KNr
- s8UQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCW1yvpxwuIon25WaUrY+seBJ+SmZUnNWw0FG/1J231fsJWaND5zuVY18RzWj8Xs9U49IYop5pCd@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoQsJE/moFVWa/TXK5a9+SH6vvwxSjsMdSYiiUahDlokvx7r71
- 905IEYS1IsAYKYhUKfGHtGbQbFtYUOVrJc1l7/npXDnRUgc+SeR8+l5F
-X-Gm-Gg: AZuq6aL/Z4hRZ1IJOhSrNZDu4nnIhBLZ+/Sr7nqXgN+357OoSiLJ+L7n3k8kD/txGyq
- X6QaffGQCCzo9+tLJwwiXIHaACxChiIYiHJFEG+W9b9loO48ma+My2vOMHFTH/4Srgtyrdb+335
- PKzDeYC5uoZYJiGJfOkmE3qnQ+12bsVcczGaq2sMI0QzU0wUfZDE0f1OjZ9bha/1D1pqJSu64lP
- n/verBW+RUiJ1F/mDRdBdw6erbTT32eCOcXSr+JHulD6rDr41pk628nertLXsIlMtmW+C7T9ONs
- uYRhF+4u2Rjby7nOUXRJYICd25UMFMMB4o2L2UbE1RFvqpdLI4r/rxIoxBnT//T36aT2EKwM2Y7
- NOwHXhk1o3Lgb/AeStZ+MoOLKQLUvErag2tSGe7grZ7PG3ieuwuFKu+BvkOPkD0iU5bWJpdsi6y
- qfsZ6uZs+onX6bPCqyKIxfq5csoMoQEH7Z4eq7p9duOKQ0xq6/GfnyROUsHp+Xi3IHMfF1AhH4a
- Xp9USDJwyo=
-X-Received: by 2002:a05:6402:5244:b0:65b:a76d:6ff6 with SMTP id
- 4fb4d7f45d1cf-65bad140f57mr4283834a12.3.1771346462611; 
- Tue, 17 Feb 2026 08:41:02 -0800 (PST)
-Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
- [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-65bad3f1294sm2511183a12.26.2026.02.17.08.41.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Feb 2026 08:41:02 -0800 (PST)
-Message-ID: <8006baea7c35850de3a39f155b7aa004c4896495.camel@gmail.com>
-Subject: Re: [PATCH v4 23/27] drm: Add passive_vrr_disabled property to crtc
-From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: Michel =?ISO-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>, 
- alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
- siqueira@igalia.com, 	dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
- bernhard.berger@gmail.com, daniel@fooishbar.org
-Date: Tue, 17 Feb 2026 17:41:00 +0100
-In-Reply-To: <c6a852ae-4edf-4336-9f2a-448c296cc045@mailbox.org>
-References: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
- <20260216164516.36803-24-tomasz.pakula.oficjalny@gmail.com>
- <c6a852ae-4edf-4336-9f2a-448c296cc045@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C5CA89336;
+ Wed, 18 Feb 2026 09:22:15 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4fG9yC63cFz9sv3;
+ Wed, 18 Feb 2026 10:22:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1771406531;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=f1WlGRyLmEQi81e8JtaRgJcHapL8yJgp0TPQOTPJE2E=;
+ b=MzRJ/ezYcFxH7cYkRsxxmT7JxR3zh+wELr4edUCrFyw1JgNu18oTNsbx5D2tpAhVJkL6lk
+ 9pzjvMZeFgoOIidunxF3K2wGFo3R9SlXcOmEnlp2EM4xld9UUHADB34J2K1LtEsEB+qFKv
+ 1YZ1v0exaCplP+x6TusFIvpg7/48efz+Nu8ly54TccFBvA+j9TPBqyYyRnCZwUQUhxezVe
+ JUfEJHomsJPFMahVPm9TAzgM5QLaWvLED3Kuyi95Vm6hhJUjG4WP3lKtmOPS+BfC5YWJtR
+ lG7QrhgC3RUy9Oibl+3BGYc9quAJtnU2c6tKgvi5Jm/oU8rh/mTAafPacvJcJQ==
+Message-ID: <8588dcbc-621e-43db-9d69-32398f75d9e6@mailbox.org>
+Date: Wed, 18 Feb 2026 10:22:04 +0100
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 18 Feb 2026 08:09:39 +0000
+Subject: Re: [PATCH v3 1/2] drm: introduce KMS recovery mechanism
+To: Hamza Mahfooz <someguy@effective-light.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260212230905.688006-1-someguy@effective-light.com>
+ <2e359cd9-0192-44d0-886f-7f93a8b0a4fa@amd.com> <aY99D-yXVydpMdwy@hal-station>
+ <85319290-4027-4eb8-95d1-9009d23f2294@mailbox.org>
+ <aZD0W7V_6--2yqNK@hal-station>
+ <7f4a86ad-d642-444c-a576-17ff9caaa934@mailbox.org>
+ <aZULq2bDnZpdXvIg@hal-station>
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+Content-Language: de-CH-frami, en-CA
+In-Reply-To: <aZULq2bDnZpdXvIg@hal-station>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 5bec9753da37bff3d12
+X-MBO-RS-META: 3qi5dkauuahme9n17zfjc9xfp75ypc5j
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,45 +79,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-02-17 at 09:21 +0100, Michel D=C3=A4nzer wrote:
-> On 2/16/26 17:45, Tomasz Paku=C5=82a wrote:
-> > Many TVs and other HDMI sinks suffer from blanking and possibly other
-> > glitches when VRR is toggled. With VRR present on such sinks and
-> > vrr_on_desktop enabled, they behave like the signal is always variable,
-> > even in fixed refresh rate situations. DisplayPort and eDP enforce
-> > seamless VRR transitions but HDMI unfortunately doesn't.
-> >=20
-> > Keep VRR toggled if it's supported and not explicitly disabled. It can
-> > be used for any VRR sinks, but this is mainly targeted for HDMI.
-> >=20
-> > Functionally, for an end user, this is the same as normal, fixed refres=
-h
-> > rate mode. The only difference is that sink is kept in VRR state which
-> > enables seamless transitions into/out of variable refresh rate.
-> >=20
-> > Basically, the driver shouldn't change it's behavior around VRR_ENABLED
-> > set to false, jut keep sending info packets/frames with VRR/FreeSync/
-> > G-Sync/HDMI VRR active.
-> >=20
-> > Enabled by default for sinks that claim it's support
->=20
-> Having a negation term like "disabled" in the property name can be confus=
-ing (as it involves double negation when the property value is 0) and is be=
-tter avoided.
->=20
+On 2/18/26 01:45, Hamza Mahfooz wrote:
+> On Mon, Feb 16, 2026 at 10:28:13AM +0100, Michel Dänzer wrote:
+>> On 2/14/26 23:16, Hamza Mahfooz wrote:
+>>> On Sat, Feb 14, 2026 at 03:02:49PM +0100, Michel Dänzer wrote:
+>>>> Why couldn't a full modeset?
+>>>
+>>> As far as I see it the only reasons why we should be timing out is
+>>> either an interrupt went missing (perhaps due to a race condition in
+>>> driver code) or hung hardware. In either case, the interrupt associated
+>>> with the page flip for the current commit is long gone.
+>>
+>> That's a matter of bookkeeping, the interrupt isn't required to keep track of the commit and complete it.
+> 
+> Oh, if you're talking about sending out a "fake"
+> drm_crtc_send_vblank_event(), I had considered that. Though,
+> drivers that have hardware vblank counters take ownership of the
+> relevant `struct drm_pending_vblank_event` [1] pretty early on.
+> So, there wouldn't be a way to ensure that they send that out
+> and that would mean we never get a chance to force a full modeset.
 
-I understand that and felt a little cheaty by doing this but I couldn't
-for the life of my figure out how to make it so a driver could override
-this by default, before the compositor will set this. Would a "set"
-function work, just like for "capable" properties?
-=20
-I 100% believe this "Passive VRR" for HDMI should be the default and
-helps massively but I'm not even that convinced if this must be user
-configurable. Alex asked to make it a property, but In the end, it's not
-something thsdat can be controlled on other OSes. I still believe that
-users should be able to change this somehow, but if amdgpu module
-setting wasn't a good fit, I don't know what is.
+"never get a chance" why? The driver can do a full modeset and then send out the event(s) with the current vblank sequence number(s) and timestamp(s) at that time.
 
-In the end, I can just yeet all this completely and hardcode
-freesync_on_desktop =3D true for HDMI like it's done in the windows
-driver.
+
+>>>> In principle it's possible to do (the equivalent of) a modeset with the current state for all CRTCs, no need to do it separately per CRTC.
+>>>
+>>> AFAIK that is what the uevent is already doing (unless I'm mistaken).
+>>
+>> This is about just doing a full modeset, which isn't something user space can do in response to a wedged event.
+> 
+> I was referring to what compositors are doing in response to
+> `drm_kms_helper_hotplug_event()`. Perhaps, the enum constants should be
+> renamed, since the forced modeset is actually sent when the current
+> reset phase is DRM_KMS_RESET_NONE (the phase is updated before sending
+> out the event though).
+
+Ah, you're talking about the drm_kms_helper_hotplug_event call in drm_atomic_helper_wait_for_flip_done (I thought "uevent" referred to drm_dev_wedged_event in patch 2).
+
+I don't know about other compositors, but I don't think mutter will do a modeset in response to a hotplug event if no KMS state changed (because some monitors can generate spurious hotplug events).
+
+(Just one more reason why kicking the full modeset can down to user space is questionable)
+
+
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
