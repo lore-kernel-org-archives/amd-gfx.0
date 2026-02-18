@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18CDBE9A054
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Feb 2026 11:00:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22A39E9A04C
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Feb 2026 11:00:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24ACC10E6B7;
-	Thu, 19 Feb 2026 11:00:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B503510E6E0;
+	Thu, 19 Feb 2026 11:00:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VdTyDfEV";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="bYORAKuk";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011025.outbound.protection.outlook.com
- [40.93.194.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD2BD10E632;
- Wed, 18 Feb 2026 21:21:18 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013069.outbound.protection.outlook.com
+ [40.93.196.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F81F10E658;
+ Wed, 18 Feb 2026 21:21:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UoCQVsKhUVfC4rv5g3YOyoVkQUZbNPWQpukonYSSSujntPF9kybE/1jOa9byS5fcVR3juSnKaew5KUKI+Vus1dcT8umLugaW+tcEvVqR4Q9m5S5ExSaRqpHpTdMBNi2h04KJK2YZFHurDOuX+MxGsoz21Pad6TAOQaL7054faue/1s2CtdmoMsO61TPT7NmSqpUiW6pPpdC2uLPFIi8HbTfc93dAwrJOIDB0Nfl4YGc9fbPfQpgKI3PSfq2hj023DXRrg7inEWXTraA+oHUyiwS0eMbLst2GadQ8xsbcwIGtvyCpYfk5Ac/LVMMqzoCmpLh+p1E4p/0dpokhh6mpig==
+ b=HQ9R1AqPfGFz2FZveAkYp6IX0geO5l9hfIfNNJLWhmtWNkUx/1VphLdMMVsokchOdG7ST57XnxMWGKzLmWiDih7Whz6glaRP34T2cytRLnsJaYKsAwvUcRxizZ4KqLY14RIlDwsVFqK6UVO0WmU828xuKQrVX7eODlW0Ur7oXYnk8Yp0JVmRTttLfhd1i30BraCVBNeb9rahvFulIFbEu5e6KkRLtHUnoqpcEoQ+fwVP9HuZAOl9TQtvZxaeZaYvHzhMFgZGCqtubDprwQnZ5ozEKAICPabU98h5r6kPoFxYeKX0Y+bY/MBW4UyvpQKhO2WBEaqUgLm+VOZgkS/7WQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y8PKs/VTWb4R67ByrAa+G7hk7mxsNxy5JfbbbtaYKUw=;
- b=HXYdc3nzV1YrPCi6c0I1rhQKQWQMnfbP3r4kzDSQy8s2tg3TvZgnPdOH5SkpNS/zXAnT6kYSjkfK34ocEuSFbnsO8zcgieu+B4nSwERC8HlVFnoIGYHQ9ZAvuu7idWlgDkoxJ8IQbSlRJ65bPwR0dS0bknch8Hzh713FMYi/5GYUifFotXBDSaPcuKcNpA8qEm6rjSMTdRk3RHCLL7ADEjdKTmzghqb+lzfoy2t+zXXlZXg0MjoXrtGPyWqJIUzV12qvEATTnpjqmDw9FiWm7H+BeLTbL1511NvluMTJ932YP1mQMfgpDrgdTP7ZyRStTUuRJchSlB0/XJ440OpjAw==
+ bh=MorntlvmBNvZvd7EY4OZ6Xqbpuv2TxYxtWGLHOSQlDY=;
+ b=ASOzEtyrDX2/L8LPOqQxiKnoO2AEr9fH/1pHq38MvNlMw+byDmoaFYXN0IHdHWcDOtWiqzIGHO/bHl/85A27T43wt2BoMs+pKw18YWlZUSIjKjMgylZkL9gGXO4BokRfuKt6DluhJqZ9AiQPlKY6ISSzkxazBkknUAYoufb2VST6wWAe3/u6XYfPonwL0I8Uq5k2aiItrzdOes/8PfYWhrAu6lEuLv4TszuFdnG0I41RHp5li8lGynGlVV2WkIu8rdmz2NVfcOFQS+CTx8sarQuyQlzFk+PqR2KESxhVV2vCr31bg8tZiBD8VTJ/8ls+4wWgjhWDNjVqiWnQwaD8zQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y8PKs/VTWb4R67ByrAa+G7hk7mxsNxy5JfbbbtaYKUw=;
- b=VdTyDfEVV/C1SJ/YZvJrfhBLTzHkybVQQKkrbdDLxR+zoKEJ8S2A3L4Zzs2ztI0iqH801nhNlj6h6iugWhRX4Bth6PT+S5dRO1Ki4wpIFxzHft/2LDPjzOMjb2WehPoOIJstRE4VXHAfKEmfBgg7+HDzZusxjwP2qrloTFAZlks+k0EodCc5D9ySN4aHXO1bFfnttK4d3yYWpKpJSwgB4WmADCcr61gVQ2UtX+ttnlg73mYM3iU+LgFGdBMwxf3JtoZ4k4470PB/ZLe+XZx4V1ZfOE+9LumlEAIYjBqay1Gjmje+IjjjekR0zFkhUfLEaKw9LD+NlOYC7ZgL2Ovwgw==
+ bh=MorntlvmBNvZvd7EY4OZ6Xqbpuv2TxYxtWGLHOSQlDY=;
+ b=bYORAKukV7C1lPDzSBmneJPzIKyIOSKN/G/Ddifh35md6kJoMipyE3BCB0heBp4eTYK87Itjt4bs3xmZZ5V0cqBQ6wr6NHrBidaWrv6/zqQtJQbyEtKAYhKKkD7rekBbGycUpAjILmmgfMsQdDTnbVv8LgiRgUsQjGWVA/AYURVEHGJRsRJTYFMSC63H+fCCBJwWL2ZpSGE3hfokIeRS5vDDcDg0oXxbR8pMME0Y6dAmX0g2ywTDJhetL/M/BNmD+3/815wbXhso/zZW2VbjaHx2z9OVx9Kno9/J66XU9Pj4KC3vaPgMM96wxJAkrlwy4vCwOelBSaa5BXAxza4j7Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
  PH0PR12MB999111.namprd12.prod.outlook.com (2603:10b6:510:38d::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.14; Wed, 18 Feb
- 2026 21:21:13 +0000
+ 2026 21:21:29 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9632.010; Wed, 18 Feb 2026
- 21:21:13 +0000
+ 21:21:29 +0000
 From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -79,95 +79,94 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
  Joel Fernandes <joelagnelf@nvidia.com>, Nikola Djukic <ndjukic@nvidia.com>
-Subject: [PATCH v7 06/23] nova-core: mm: Add common types for all page table
- formats
-Date: Wed, 18 Feb 2026 16:20:03 -0500
-Message-Id: <20260218212020.800836-7-joelagnelf@nvidia.com>
+Subject: [PATCH v7 15/23] nova-core: mm: Add multi-page mapping API to VMM
+Date: Wed, 18 Feb 2026 16:20:12 -0500
+Message-Id: <20260218212020.800836-16-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260218212020.800836-1-joelagnelf@nvidia.com>
 References: <20260218212020.800836-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BL1PR13CA0403.namprd13.prod.outlook.com
- (2603:10b6:208:2c2::18) To DS0PR12MB6486.namprd12.prod.outlook.com
+X-ClientProxiedBy: BN9PR03CA0119.namprd03.prod.outlook.com
+ (2603:10b6:408:fd::34) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH0PR12MB999111:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3da3e9eb-e166-4138-213f-08de6f33a50a
+X-MS-Office365-Filtering-Correlation-Id: 8603d7a5-da0d-497e-c7e8-08de6f33ae85
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?W+VfS8Lf+1dR+lckmjNysKvUlJKZx5nexquhkwHI4JX1TFAonSGPDz6zshMA?=
- =?us-ascii?Q?n/T2WC/vJWEPgrB3udCQL76eRU0jFHE0AoFB2vEDehm94qQgFsljX7VcpbE7?=
- =?us-ascii?Q?0ocr2V874/XSYcSWtqQ8N9PmLmQKTKWA8jhI36o1f49gyEgQngt+usM7QBou?=
- =?us-ascii?Q?OOLB9rLfZA6b+h7mcS4vR+qVAm7JOp9wy7Ex9OwBzI1R3GM+5UPdv5SmTP0+?=
- =?us-ascii?Q?BOuQNIP79/L/XszagpDBzdw970cmA/alcLO+4jUdGJdE9IeDm6sZAe457La6?=
- =?us-ascii?Q?i7yF2AOlkYnqH8oS2CuJnm+g1AivTgfP7N9pFOIkt7qAErS6P4C8OW1ZkYt0?=
- =?us-ascii?Q?58l8H7+aDRev9s5KfOHPMEhM60Pgth8+aFsjkjEz8kaxL6pK0GRt6t+QG+HF?=
- =?us-ascii?Q?UQKhNkAmDpE4IKgGdYxFHMLyhlOJm/zYhKnNXTHejWL/SEyMY8cr8hfZwCo8?=
- =?us-ascii?Q?7HCY0Ojfflr3wka/zP5Cq1WQ/Pjdo+1wrecvruWGQBAdmBQW04dgoPvbpEUh?=
- =?us-ascii?Q?LBVe2vOmULDHSRH1RhQOA2wYo2cz36vt2vZMW1ilcOU0f4fjQjTwosEUyPiX?=
- =?us-ascii?Q?JKFRc5Wn9Nc8XdekfIBYXaaS9hYtBFUGpGolni8QGcIayPn6pdz//1cMIxLa?=
- =?us-ascii?Q?MHcso1TFXmUFfEDR3cIT/6sZXYwFJPevFhwHm+pj/XM2nmDtEAWwTn6zpZsb?=
- =?us-ascii?Q?jaf7da2v4KwxCbAyaxTVlbRziiDnpETP3LetQiNwbcxyBwLKHsnZF0HTGci9?=
- =?us-ascii?Q?0V04qX/SNA4P/8KdHP1uRQ09XJBD3dBgloadjqSDi0t1FjLYwx8bKsaVGEIj?=
- =?us-ascii?Q?8a4Ap6oyFTVeFR1zGOVZrxtNUgCn48JPMoTaTpOwpIfz7e6gjZZsf3+o9rVQ?=
- =?us-ascii?Q?LrpWXHsu6Sw3TFLAgTWIvbkUPcVjkNMAaHFX8QXDsEZANqApzQgJti4I/a9y?=
- =?us-ascii?Q?IHmit11W0V1DxRksMqsxkXVOtseFUwMiDD8k39iAdWrLkMH8S/1qIUyTF55W?=
- =?us-ascii?Q?PCxdV1WOGjw35f1+uV+eFhbP1NQKbyFFWHeodpXP7EKiSVe1auGVna1DcJTg?=
- =?us-ascii?Q?CD3bIXZwW+rNIHF6croGOcdYfrHNNqec8CFwbRejSFmkM5eI+Lxr8rq9d1k/?=
- =?us-ascii?Q?75w3K+0QJ75+lQhDg+AxO1r/hUuyH2pAFjMWkor/6awgrmUu4u+4kjREOXeY?=
- =?us-ascii?Q?VtLtiya7KQg1lZ90msWzt9LHZnyxE9yKA4sr1f++n3yIM6a9EUbL+B+sbEmc?=
- =?us-ascii?Q?fzgoAVZ3JkYyQWC9zs061PbwvmaS+wYFhHf1CSDXlZDWjwLB9xYIxGwYr0tO?=
- =?us-ascii?Q?f63gRzwbbnkgQlkmZd3kZn63z3tlPp7fve9k4CdFkNQ/ecRHXWOqRi7gEsdm?=
- =?us-ascii?Q?Tf6Wpknmq2qsdfmD9jh5cllke8xsauiLX19TPbDD2v6LDSOCUkyLh01SgTFS?=
- =?us-ascii?Q?wmO7axUT+3tCaVZbQzn571bfbU8hVXS2NbvK4XzxQVEl80NxfdolUD66V0Vl?=
- =?us-ascii?Q?tfHrT+KiqLeQNhv7ZuOz3oQh/viPiOLVIl6de0CzzDB2FavGeNOJ9HbPNhKC?=
- =?us-ascii?Q?IMooBJofWqWOQaRj6O8=3D?=
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?VAbM8QhY+m743NB5pDIK6ianabnuwBas4DOvrxxwJ6GRF7CMMZ4mto1yHODf?=
+ =?us-ascii?Q?P3cyMHYfZALY+7Noo3IPrkSQpSTKxxK7GntpmLZQlyrHZlRxPnTs2ZWjU5Ng?=
+ =?us-ascii?Q?7TxqWN2SQWaPV4tFX5hGHtCUtEV+di0SgJbM5z1wg8KWqCnf2teXbVFwu+LG?=
+ =?us-ascii?Q?9BLWqAhgHYPPFmkAe3wGom3WmDMJ3cPFgxRxBUuMN6IiG3RfPNdhlB5A7P8K?=
+ =?us-ascii?Q?DqvMY+bIVBdLjdkvOyHR4DG3cMAbClJb7WgauKjasbcDiCpcFqxjKFgsnuwL?=
+ =?us-ascii?Q?vvq/GaglK0CcqjFwDPa177xJapHpWUeotJE0szBG8fJDBFQuzdITHHj4ix6M?=
+ =?us-ascii?Q?MvVIndecS/EoBCA14K8IhmMJcmvEBlx78uF8gnI8RdPY68oXuE2A9dd+N2Zd?=
+ =?us-ascii?Q?JihuvXH+Jxjry/HbAVuvrLhexB7QrRzeNn48Ayn75q4wMV3yIXYmfE5xj1jw?=
+ =?us-ascii?Q?g5cfF5+S1AFiAVwtj+Zpu7Hrvb0OOahywgT54eX6dTmzN851UQSfRN6kQEdg?=
+ =?us-ascii?Q?2KBZVMmVOTIDzSSAdbJfh6Sglbf2Dg5+ALtz++WgvmaJd8K4K3dJf5L+pohQ?=
+ =?us-ascii?Q?/ZHw/FpsObh1QKzeX6c1nK3yrnhZ9YooclksIUSZU0T1F2WtZEql8pCe84Jq?=
+ =?us-ascii?Q?sJRfx8v2iI/iOS33QRyjiuyCaYzgbVgyyBa9EWCn6vgbFTBDHnXUoYyP2ycI?=
+ =?us-ascii?Q?K9GUq8e23X4mRP+cRXNHaiyn5jYkWjNweiBgoq2A6ABv9/ZItCNFL4HhPYiY?=
+ =?us-ascii?Q?8WvCdYTGKUcbOfsgPpIO6cEQPRk6Av4rXhIDo8DcTOB2/2K94nsndfN6Jrbu?=
+ =?us-ascii?Q?HzsgiNqtprQMR1VWlXdXHxsXsSxwD+NMAGImZ0v0KFHgGzhOoD8Zyg7apy4H?=
+ =?us-ascii?Q?fO6+hVeNYCdeVIEN1utlRePEAS+4kmInSf3L3NhaAzVgcstPCkXQitek/tQa?=
+ =?us-ascii?Q?9+MzrmabcNtU1+5a5xNLYpvjKicJSqLXOGs9VwaPrExUxP2r8WDrq3gWUNNX?=
+ =?us-ascii?Q?7D35w5f/azBPISLlx2mgmM7bAgVF0ayCDMs27d5GK6gnycLmg+XI317nvmpm?=
+ =?us-ascii?Q?jImuyxZHNeY/0QCGfWryDW3V1AGPMLO4UaUdDLnMffWdmXeKC+h/ibbL5Y3j?=
+ =?us-ascii?Q?wrLBb9ESXXIljK5g38UAdZnxSZZ6DPccHN7S610ENi0U5xQ2p5utfq1xxdcq?=
+ =?us-ascii?Q?6K8MPammpaF8qib5CpPkuN2CVfVH+DzSOjFY1+MAEMnCxEaK8L0hrCPh412T?=
+ =?us-ascii?Q?YScsY1Ofx6UzG9iRP9ABwCSopDN4dPS49fjg7M33h5sZsUQSldEEcXtSXmJg?=
+ =?us-ascii?Q?IoVyvnWOm0oDflhg0jbJMY2uXNcJ+kCft2tcNFUQkPINS23KXk5zBUoYtWKz?=
+ =?us-ascii?Q?vlLC8c08lgsPNxxxkoOhXHdq/c/iUsEJijvU61fQmyTp6aUTaI4MgPSNA9ku?=
+ =?us-ascii?Q?eBR+LB0zZ0SgDo+l7CplJRnj3SFf5+Y/ZPQQT45qQBzJ1sLLJ+yuu96216th?=
+ =?us-ascii?Q?jJWDVwxuMummvQs2gaXH7QlPOTHkFvBcNmKUxTgwM293ybmJX9WKNwi9mL3a?=
+ =?us-ascii?Q?gQBsX0+Kj01frRvHTRk=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(376014)(7416014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8D084RshYQ97OFITRefsrJd6QohvOQVdkb7jjnZOdTOareqDUsaJQQ63qEyA?=
- =?us-ascii?Q?dK6p/GcXmM1MdpVUwSyrrT5xvgEAIRuAmO3HsH61+sbx37RS+1+vZY3V0klG?=
- =?us-ascii?Q?PYoC0Ya2Yk5+jr3/N1GuQ2wOgXkMR6Bh5NIqMPe6oSl+FcL0TUve1t9QBBaw?=
- =?us-ascii?Q?UclHYpCpbjPWkc/ehutf2LRHhjnkTr3pOYsudHlwhfTRoKl01+Mkm85n3vMX?=
- =?us-ascii?Q?Kxs5j4MYLc/YpDbkNbhjtXY46S8jmUf8jkGRrjNS5HqAUoizc8WX8+U1tmBZ?=
- =?us-ascii?Q?IuhagFJ30BrnnBnq63dN/44DsuuDccWWUlKVrlAMSZJkMpJraVBuowu8mvqq?=
- =?us-ascii?Q?tdHa+/wymyVgkcLOKXG7nACPfPrMGlVY81ITFpoODKuPTF8zJ4hXrySzVyxh?=
- =?us-ascii?Q?JiJmToTjtqP3jOpCzjLcKA8YPFNtzxuZZcDislp6rEp4bqQlW0qn7DXTXk58?=
- =?us-ascii?Q?AlKIlYVwdQwz1W3AwYjd+QIisdELoyANjrvBGrYowvqeYTIAYvQf4RQ3nK/e?=
- =?us-ascii?Q?ZNWI+noyt243OCC1KGXhO35cR2cl9QpJ7zEnPHJLksDCAdR0xU20itHNtPLR?=
- =?us-ascii?Q?3AKzt7nkepqIlwmctXSDjaxlOUVFnjtY3RrNSP4n7lSTRXHk65ykfRdmqpHU?=
- =?us-ascii?Q?E4LgpQ4OqgUZhh9nT0C4qhUZtvmKT9RTLQDxTOBQMJjCCjdTeN+hd+GgSsKX?=
- =?us-ascii?Q?ZXTmkcib2nIbC82qjw1+IxEdwQJYCAQDiAOpRcrYf3ZvhcH6wCm+6CbPWA0F?=
- =?us-ascii?Q?IrDcpCZ009n7UKzvLnWGFUM1FUUEAtUOvXjZcxmlXd52yb2+vKvar1eXqprD?=
- =?us-ascii?Q?BIaMPZ8IGGvjcUcS+fTDxspfuWgfHF722Z25gRSHwk43foJfeiczSrobWDIq?=
- =?us-ascii?Q?OibM7toI4XpGt5EEgv/ZjUdBb1Wc5ml0e2r3OHKriJeXKHcZebId0c67VfBJ?=
- =?us-ascii?Q?FXNk8fFb95QnS7aypwKvLm1n2I0AYM9qk1lzFf7oBfmhsGGb4DJZIg9Jfyna?=
- =?us-ascii?Q?zWlswy2obx3Rnh8l/0oIS5lNDTKGeKGrxvyHUpfDxQEL24JQqm9yxIGRM0XA?=
- =?us-ascii?Q?HWI7uywFRB2kyP75uZeeCANMpysulls5UEZs+G9gEFpJZnP48JhHZZuTowBT?=
- =?us-ascii?Q?4ARpoSg7cX7U64t3/2CaVbIQukYV+poc9u4i3C7L3dXpFR12YcgsGsIboJ67?=
- =?us-ascii?Q?IBC9BGReYVKviXtOygDbIB8I56E3zpdaLdL2eW1LmV0iBcq5+/izIh5pS/bS?=
- =?us-ascii?Q?VodRTDd/8fsAMz4C6q8qLUcLDYjzuertuvU7EROTzfFtG/ajiFyVic8E9ZqS?=
- =?us-ascii?Q?8q3spxlbTfvWgBfqZyT7XIowvr+tV6G5cLNyDxiS0o8o/eItljkQAzJq1Gyf?=
- =?us-ascii?Q?HzJZ1rBRFK5FpUwVcm5gROBYDFZK646RVx5HFr3cUClEm4I94rI1LxZl7WoF?=
- =?us-ascii?Q?H2M0oWT8FlUCg/j0IGH4KQ4SGtSaPH9aWABVWxu2WZxN8OtHPWQeJ9GARC5k?=
- =?us-ascii?Q?uCDxRp2rKddpF7mEl01+v9PWZHozKb349SWMVxg9RaZMcjyfp6YOweu55NGp?=
- =?us-ascii?Q?D51zkcr3pCl43KROvh41OGauyU2cEx5C5MP9qg8y+tNYt+s66cvKirfWG27N?=
- =?us-ascii?Q?x6dYJ2EuXt9sAjjkn7CrN//YY9R2EPzq0eqTCxDgIk6tIwqEpTeiiALEqHr6?=
- =?us-ascii?Q?aUIdSD8m0upf3Om2oQI5uiJewXnrnM4vFG3hpUmg5Pkvz04amvi3xCGCTTIF?=
- =?us-ascii?Q?FZ56BdOU2Q=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?nVVPWXbYvti43vXNIPyoQ3F6lLDf+66+APASPkCkOejY7yHsv/q4HRIxj3kl?=
+ =?us-ascii?Q?NUUQadfjHBQTUYX/7Dg0s7cTpjXDQF4cSf7oxQkOl8/A8+9zolnB/CEIjRcZ?=
+ =?us-ascii?Q?6xSvSHotiHuu3l5WzeWV59kXzUs9iipzwzu0tmRavEaMRiJUV1Wpgbn6TfVL?=
+ =?us-ascii?Q?xRtaaX0VKS0+mHwPOLMFdXn1aRld2csap+EzdLdluUwpMQSAhORDsQOc0ewM?=
+ =?us-ascii?Q?CMTk2TGrvHZRXTrIDYn53kx19SMhkmDW3g0bwqRCQD9RIViUrDxxYfEYEJl5?=
+ =?us-ascii?Q?cGRUQdsWDyvsYrhbH7qVC0xk4mpyFScOTiVlIIp8975c72ntugR01JgeV7gO?=
+ =?us-ascii?Q?b73EGrPHoWu8uje5RKKtl32Qzj7t3YUkX3PGA0D8rY0/DKqRQ1Vq5vKeJ9bh?=
+ =?us-ascii?Q?gMOvSlhXWoTBGolBrCd37qpqPib0cQ5SGmVh0oKHuKNPlzmQvLx3Zl8UeiG5?=
+ =?us-ascii?Q?mdeO3fm0a9d/7CipUBJPttmLXUfbACKgfCZuqRHS+oAIkgr4RGbG0uUtkrP+?=
+ =?us-ascii?Q?0YsFV7EO+3yqGRTnPdynt2EKDBg6gnUTVqL4cPecoMdR6NYpm8aq/a37WW9B?=
+ =?us-ascii?Q?3XNwCHs2400+UdkkucRFSYuTGKEtVej+AxOcosKgigh97fs6fIDiUMkQvLSJ?=
+ =?us-ascii?Q?PR2civZqQLAy1XnvLy+DhsxgpJS6tFkJJwqPRk5o6RE9Y7b4y3gsIhaKvDDM?=
+ =?us-ascii?Q?Oh2HgqeemwRWhZUB7Rzj7DeM+ohrUKS5zqY60cmu/fPKmfRgEu+6BSFTkPCh?=
+ =?us-ascii?Q?ay8+ZQkWw3fABt0BWNQS0NDOfBb9Cly5Hb6IcpcF6me9Dm1n5JxN6B1pInRB?=
+ =?us-ascii?Q?742TuEoRXM4YBCrJLTMtt17xJSmi8jrMslf/fOufUzpoRsJjWcBPdw/pKMS2?=
+ =?us-ascii?Q?7Xm4Twoyu1TAbKRlqM7uYmJC7iv8lf/yfJY10YVYcLCMBrp3JH24gugAMXPX?=
+ =?us-ascii?Q?eCwfLs9frRa/n1cYg6gxX4RbVJM4TKIDAtYxy4Mz1k2V96ehx5hA9hfV0gX7?=
+ =?us-ascii?Q?sIlqEKF3gdEfDP2X6yaxawOwMW9p0FQtgaJJLpH8epuzVgusXPsi4O3qjlpr?=
+ =?us-ascii?Q?OU4HS/hkSvTyg08fsmIVBsCoTihhsVOo0zV5dBHdaPoRGiRCqtijotBTpF4t?=
+ =?us-ascii?Q?Sb3sitzj8eO8nRMVy1zyPEZhqHFypkVlqc3CkdrWLUGW+CGRmJD+0NQJBlhP?=
+ =?us-ascii?Q?fc0+TyMmGJulZWOYrQjXQmbBep5Sh43oXxfci0bMNgznbWCqlLKfJaFnuZCq?=
+ =?us-ascii?Q?tiGJi2Ab05GHKRRbG2CLF73p7PQwxGUVLlkJVrIwSFGYmS1SxaiIlTMW8nhS?=
+ =?us-ascii?Q?FdRp9VdJvYBYG+dVaDeNao7aBHrL5XZsgK+TeQ6C//mlOkG3k1AcQlRXdwif?=
+ =?us-ascii?Q?OnDFjuQ9rG6m/0WBwLvY/ce9lzbg6F+J+MIMt7eqlbkBuRuP6vVGKVdbb8tx?=
+ =?us-ascii?Q?hsPaALiJsW8MTWTuWTGD13EXIRvBWIywcsJSmnLMLSry24RyDGu4ZiyGbw5u?=
+ =?us-ascii?Q?JImhaxFb+jUpFw/uGDt7TYzHjYF0j3n30L2ph7m7cdy6XdFXTOfV3uxuZn//?=
+ =?us-ascii?Q?mljDtPgUTitq4Vr0uK6GMpXBGEOC9WPMtujV7k+jLSl4ZhhQT4xbkckZYcqY?=
+ =?us-ascii?Q?wLJ8lZQf6wz3yXqYU1kA/5ys86rzJoAKSsK0uPqbpfftUegJ7yU4CrR3MRmE?=
+ =?us-ascii?Q?Nlbvn6UyXhbXraWWf0Jg6JC1O4RXlF3MOAyZ9LCtYyvc4C2rkLZtNgvealgz?=
+ =?us-ascii?Q?3rr+pdDhdQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3da3e9eb-e166-4138-213f-08de6f33a50a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8603d7a5-da0d-497e-c7e8-08de6f33ae85
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2026 21:21:13.7442 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2026 21:21:29.7208 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mrvjgklqYD9/c7zQ4IWhA7M6WsdNn1KWPRVx/LBxplUhXTQTgi4m8JCKLN4SSeCm1NJw35Q4aMKH2WCQxkgIZg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: le028PspiDZRWDXoLjWvde41tl0SaEbhswmaZVuqyMnaZK8sbypgNEOcfcHVqvGZ5K3T8y3+BTCE7XL/QO7p+Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999111
 X-Mailman-Approved-At: Thu, 19 Feb 2026 10:59:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -184,184 +183,400 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add common page table types shared between MMU v2 and v3. These types
-are hardware-agnostic and used by both MMU versions.
+Add the page table mapping and unmapping API to the Virtual Memory
+Manager, implementing a two-phase prepare/execute model suitable for
+use both inside and outside the DMA fence signalling critical path.
 
 Cc: Nikola Djukic <ndjukic@nvidia.com>
 Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
- drivers/gpu/nova-core/mm/mod.rs           |   1 +
- drivers/gpu/nova-core/mm/pagetable/mod.rs | 149 ++++++++++++++++++++++
- 2 files changed, 150 insertions(+)
- create mode 100644 drivers/gpu/nova-core/mm/pagetable/mod.rs
+ drivers/gpu/nova-core/mm/vmm.rs | 347 +++++++++++++++++++++++++++++++-
+ 1 file changed, 345 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/mm/mod.rs b/drivers/gpu/nova-core/mm/mod.rs
-index 04d9baa7220e..c88b7b7b6975 100644
---- a/drivers/gpu/nova-core/mm/mod.rs
-+++ b/drivers/gpu/nova-core/mm/mod.rs
-@@ -4,6 +4,7 @@
+diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
+index 9e57916017ed..af3daccbf958 100644
+--- a/drivers/gpu/nova-core/mm/vmm.rs
++++ b/drivers/gpu/nova-core/mm/vmm.rs
+@@ -17,15 +17,25 @@
+         GpuBuddyParams, //
+     },
+     prelude::*,
++    rbtree::{RBTree, RBTreeNode},
+     sizes::SZ_4K, //
+ };
  
- #![expect(dead_code)]
++use core::cell::Cell;
+ use core::ops::Range;
  
-+pub(crate) mod pagetable;
- pub(crate) mod pramin;
- 
- use kernel::sizes::SZ_4K;
-diff --git a/drivers/gpu/nova-core/mm/pagetable/mod.rs b/drivers/gpu/nova-core/mm/pagetable/mod.rs
-new file mode 100644
-index 000000000000..aea06e5da4ff
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/pagetable/mod.rs
-@@ -0,0 +1,149 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! Common page table types shared between MMU v2 and v3.
-+//!
-+//! This module provides foundational types used by both MMU versions:
-+//! - Page table level hierarchy
-+//! - Memory aperture types for PDEs and PTEs
-+
-+#![expect(dead_code)]
-+
-+use crate::gpu::Architecture;
-+
-+/// MMU version enumeration.
-+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-+pub(crate) enum MmuVersion {
-+    /// MMU v2 for Turing/Ampere/Ada.
-+    V2,
-+    /// MMU v3 for Hopper and later.
-+    V3,
+ use crate::mm::{
+     pagetable::{
+-        walk::{PtWalk, WalkResult},
+-        MmuVersion, //
++        walk::{
++            PtWalk,
++            WalkPdeResult,
++            WalkResult, //
++        },
++        DualPde,
++        MmuVersion,
++        PageTableLevel,
++        Pde,
++        Pte, //
+     },
+     GpuMm,
+     Pfn,
+@@ -46,6 +56,74 @@ pub(crate) struct Vmm {
+     page_table_allocs: KVec<Pin<KBox<AllocatedBlocks>>>,
+     /// Buddy allocator for virtual address range tracking.
+     virt_buddy: GpuBuddy,
++    /// Prepared PT pages pending PDE installation, keyed by `install_addr`.
++    ///
++    /// Populated by `Vmm` mapping prepare phase and drained in the execute phase.
++    /// Shared by all pending maps in the `Vmm`, thus preventing races where 2
++    /// maps might be trying to install the same page table/directory entry pointer.
++    pt_pages: RBTree<VramAddress, PreparedPtPage>,
 +}
 +
-+impl From<Architecture> for MmuVersion {
-+    fn from(arch: Architecture) -> Self {
-+        match arch {
-+            Architecture::Turing | Architecture::Ampere | Architecture::Ada => Self::V2,
-+            // In the future, uncomment:
-+            // _ => Self::V3,
-+        }
-+    }
-+}
-+
-+/// Page Table Level hierarchy for MMU v2/v3.
-+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-+pub(crate) enum PageTableLevel {
-+    /// Level 0 - Page Directory Base (root).
-+    Pdb,
-+    /// Level 1 - Intermediate page directory.
-+    L1,
-+    /// Level 2 - Intermediate page directory.
-+    L2,
-+    /// Level 3 - Intermediate page directory or dual PDE (version-dependent).
-+    L3,
-+    /// Level 4 - PTE level for v2, intermediate page directory for v3.
-+    L4,
-+    /// Level 5 - PTE level used for MMU v3 only.
-+    L5,
-+}
-+
-+impl PageTableLevel {
-+    /// Number of entries per page table (512 for 4KB pages).
-+    pub(crate) const ENTRIES_PER_TABLE: usize = 512;
-+
-+    /// Get the next level in the hierarchy.
-+    pub(crate) const fn next(&self) -> Option<PageTableLevel> {
-+        match self {
-+            Self::Pdb => Some(Self::L1),
-+            Self::L1 => Some(Self::L2),
-+            Self::L2 => Some(Self::L3),
-+            Self::L3 => Some(Self::L4),
-+            Self::L4 => Some(Self::L5),
-+            Self::L5 => None,
-+        }
-+    }
-+
-+    /// Convert level to index.
-+    pub(crate) const fn as_index(&self) -> u64 {
-+        match self {
-+            Self::Pdb => 0,
-+            Self::L1 => 1,
-+            Self::L2 => 2,
-+            Self::L3 => 3,
-+            Self::L4 => 4,
-+            Self::L5 => 5,
-+        }
-+    }
-+}
-+
-+/// Memory aperture for Page Table Entries (`PTE`s).
++/// A pre-allocated and zeroed page table page.
 +///
-+/// Determines which memory region the `PTE` points to.
-+#[repr(u8)]
-+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
-+pub(crate) enum AperturePte {
-+    /// Local video memory (VRAM).
-+    #[default]
-+    VideoMemory = 0,
-+    /// Peer GPU's video memory.
-+    PeerMemory = 1,
-+    /// System memory with cache coherence.
-+    SystemCoherent = 2,
-+    /// System memory without cache coherence.
-+    SystemNonCoherent = 3,
++/// Created during the mapping prepare phase and consumed during the mapping execute phase.
++/// Stored in an [`RBTree`] keyed by the PDE slot address (`install_addr`).
++struct PreparedPtPage {
++    /// The allocated and zeroed page table page.
++    alloc: Pin<KBox<AllocatedBlocks>>,
++    /// Page table level -- needed to determine if this PT page is for a dual PDE.
++    level: PageTableLevel,
 +}
 +
-+// TODO[FPRI]: Replace with `#[derive(FromPrimitive)]` when available.
-+impl From<u8> for AperturePte {
-+    fn from(val: u8) -> Self {
-+        match val {
-+            0 => Self::VideoMemory,
-+            1 => Self::PeerMemory,
-+            2 => Self::SystemCoherent,
-+            3 => Self::SystemNonCoherent,
-+            _ => Self::VideoMemory,
-+        }
-+    }
-+}
-+
-+// TODO[FPRI]: Replace with `#[derive(ToPrimitive)]` when available.
-+impl From<AperturePte> for u8 {
-+    fn from(val: AperturePte) -> Self {
-+        val as u8
-+    }
-+}
-+
-+/// Memory aperture for Page Directory Entries (`PDE`s).
++/// Multi-page prepared mapping -- VA range allocated, ready for execute.
 +///
-+/// Note: For `PDE`s, `Invalid` (0) means the entry is not valid.
-+#[repr(u8)]
-+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
-+pub(crate) enum AperturePde {
-+    /// Invalid/unused entry.
-+    #[default]
-+    Invalid = 0,
-+    /// Page table is in video memory.
-+    VideoMemory = 1,
-+    /// Page table is in system memory with coherence.
-+    SystemCoherent = 2,
-+    /// Page table is in system memory without coherence.
-+    SystemNonCoherent = 3,
++/// Produced by [`Vmm::prepare_map()`], consumed by [`Vmm::execute_map()`].
++/// The struct owns the VA space allocation between prepare and execute phases.
++pub(crate) struct PreparedMapping {
++    vfn_start: Vfn,
++    num_pages: usize,
++    vfn_alloc: Pin<KBox<AllocatedBlocks>>,
 +}
 +
-+// TODO[FPRI]: Replace with `#[derive(FromPrimitive)]` when available.
-+impl From<u8> for AperturePde {
-+    fn from(val: u8) -> Self {
-+        match val {
-+            1 => Self::VideoMemory,
-+            2 => Self::SystemCoherent,
-+            3 => Self::SystemNonCoherent,
-+            _ => Self::Invalid,
++/// Result of a mapping operation -- tracks the active mapped range.
++///
++/// Returned by [`Vmm::execute_map()`] and [`Vmm::map_pages()`].
++/// Owns the VA allocation; the VA range is freed when this is dropped.
++/// Callers must call [`Vmm::unmap_pages()`] before dropping to invalidate
++/// PTEs (dropping only frees the VA range, not the PTE entries).
++pub(crate) struct MappedRange {
++    pub(crate) vfn_start: Vfn,
++    pub(crate) num_pages: usize,
++    /// VA allocation -- freed when [`MappedRange`] is dropped.
++    _vfn_alloc: Pin<KBox<AllocatedBlocks>>,
++    /// Logs a warning if dropped without unmapping.
++    _drop_guard: MustUnmapGuard,
++}
++
++/// Guard that logs a warning once if a [`MappedRange`] is dropped without
++/// calling [`Vmm::unmap_pages()`].
++struct MustUnmapGuard {
++    armed: Cell<bool>,
++}
++
++impl MustUnmapGuard {
++    const fn new() -> Self {
++        Self {
++            armed: Cell::new(true),
 +        }
 +    }
-+}
 +
-+// TODO[FPRI]: Replace with `#[derive(ToPrimitive)]` when available.
-+impl From<AperturePde> for u8 {
-+    fn from(val: AperturePde) -> Self {
-+        val as u8
++    fn disarm(&self) {
++        self.armed.set(false);
 +    }
 +}
++
++impl Drop for MustUnmapGuard {
++    fn drop(&mut self) {
++        if self.armed.get() {
++            kernel::pr_warn_once!("MappedRange dropped without calling unmap_pages()\n");
++        }
++    }
+ }
+ 
+ impl Vmm {
+@@ -72,6 +150,7 @@ pub(crate) fn new(
+             mmu_version,
+             page_table_allocs: KVec::new(),
+             virt_buddy,
++            pt_pages: RBTree::new(),
+         })
+     }
+ 
+@@ -127,4 +206,268 @@ pub(crate) fn read_mapping(&self, mm: &GpuMm, vfn: Vfn) -> Result<Option<Pfn>> {
+             WalkResult::Unmapped { .. } | WalkResult::PageTableMissing => Ok(None),
+         }
+     }
++
++    /// Allocate and zero a physical page table page for a specific PDE slot.
++    /// Called during the map prepare phase.
++    fn alloc_and_zero_page_table(
++        &mut self,
++        mm: &GpuMm,
++        level: PageTableLevel,
++    ) -> Result<PreparedPtPage> {
++        let params = GpuBuddyAllocParams {
++            start_range_address: 0,
++            end_range_address: 0,
++            size_bytes: SZ_4K as u64,
++            min_block_size_bytes: SZ_4K as u64,
++            buddy_flags: BuddyFlags::try_new(0)?,
++        };
++        let blocks = KBox::pin_init(mm.buddy().alloc_blocks(&params), GFP_KERNEL)?;
++
++        // Get page's VRAM address from the allocation.
++        let page_vram = VramAddress::new(blocks.iter().next().ok_or(ENOMEM)?.offset());
++
++        // Zero via PRAMIN.
++        let mut window = mm.pramin().window()?;
++        let base = page_vram.raw();
++        for off in (0..PAGE_SIZE).step_by(8) {
++            window.try_write64(base + off, 0)?;
++        }
++
++        Ok(PreparedPtPage {
++            alloc: blocks,
++            level,
++        })
++    }
++
++    /// Ensure all intermediate page table pages are prepared for a [`Vfn`]. Just
++    /// finds out which PDE pages are missing, allocates pages for them, and defers
++    /// installation to the execute phase.
++    ///
++    /// PRAMIN is released before each allocation and re-acquired after. Memory
++    /// allocations outside of holding this lock to prevent deadlocks with fence signalling
++    /// critical path.
++    fn ensure_pte_path(&mut self, mm: &GpuMm, vfn: Vfn) -> Result {
++        let walker = PtWalk::new(self.pdb_addr, self.mmu_version);
++        let max_iter = 2 * self.mmu_version.pde_level_count();
++
++        // Keep looping until all PDE levels are resolved.
++        for _ in 0..max_iter {
++            let mut window = mm.pramin().window()?;
++
++            // Walk PDE levels. The closure checks self.pt_pages for prepared-but-uninstalled
++            // pages, letting the walker continue through them as if they were installed in HW.
++            // The walker keeps calling the closure to get these "prepared but not installed" pages.
++            let result = walker.walk_pde_levels(&mut window, vfn, |install_addr| {
++                self.pt_pages
++                    .get(&install_addr)
++                    .and_then(|p| Some(VramAddress::new(p.alloc.iter().next()?.offset())))
++            })?;
++
++            match result {
++                WalkPdeResult::Complete { .. } => {
++                    // All PDE levels resolved.
++                    return Ok(());
++                }
++                WalkPdeResult::Missing {
++                    install_addr,
++                    level,
++                } => {
++                    // Drop PRAMIN before allocation.
++                    drop(window);
++                    let page = self.alloc_and_zero_page_table(mm, level)?;
++                    let node = RBTreeNode::new(install_addr, page, GFP_KERNEL)?;
++                    let old = self.pt_pages.insert(node);
++                    if old.is_some() {
++                        kernel::pr_warn_once!(
++                            "VMM: duplicate install_addr in pt_pages (internal consistency error)\n"
++                        );
++                        return Err(EIO);
++                    }
++                    // Loop: re-acquire PRAMIN and re-walk from root.
++                }
++            }
++        }
++
++        Err(EIO)
++    }
++
++    /// Prepare resources for mapping `num_pages` pages.
++    ///
++    /// Allocates a contiguous VA range, then walks the hierarchy per-VFN to prepare pages
++    /// for all missing PDEs. Returns a [`PreparedMapping`] with the VA allocation.
++    ///
++    /// If `va_range` is not `None`, the VA range is constrained to the given range. Safe
++    /// to call outside the fence signalling critical path.
++    pub(crate) fn prepare_map(
++        &mut self,
++        mm: &GpuMm,
++        num_pages: usize,
++        va_range: Option<Range<u64>>,
++    ) -> Result<PreparedMapping> {
++        if num_pages == 0 {
++            return Err(EINVAL);
++        }
++
++        // Pre-reserve so execute_map() can use push_within_capacity (no alloc in
++        // fence signalling critical path).
++        // Upper bound on page table pages needed for the full tree (PTE pages + PDE
++        // pages at all levels).
++        let pt_upper_bound = self.mmu_version.pt_pages_upper_bound(num_pages);
++        self.page_table_allocs.reserve(pt_upper_bound, GFP_KERNEL)?;
++
++        // Allocate contiguous VA range.
++        let (vfn_start, vfn_alloc) = self.alloc_vfn_range(num_pages, va_range)?;
++
++        // Walk the hierarchy per-VFN to prepare pages for all missing PDEs.
++        for i in 0..num_pages {
++            let vfn = Vfn::new(vfn_start.raw() + i as u64);
++            self.ensure_pte_path(mm, vfn)?;
++        }
++
++        Ok(PreparedMapping {
++            vfn_start,
++            num_pages,
++            vfn_alloc,
++        })
++    }
++
++    /// Execute a prepared multi-page mapping.
++    ///
++    /// Drain prepared PT pages and install PDEs followed by single TLB flush.
++    pub(crate) fn execute_map(
++        &mut self,
++        mm: &GpuMm,
++        prepared: PreparedMapping,
++        pfns: &[Pfn],
++        writable: bool,
++    ) -> Result<MappedRange> {
++        if pfns.len() != prepared.num_pages {
++            return Err(EINVAL);
++        }
++
++        let PreparedMapping {
++            vfn_start,
++            num_pages,
++            vfn_alloc,
++        } = prepared;
++
++        let walker = PtWalk::new(self.pdb_addr, self.mmu_version);
++        let mut window = mm.pramin().window()?;
++
++        // First, drain self.pt_pages, install all pending PDEs.
++        let mut cursor = self.pt_pages.cursor_front_mut();
++        while let Some(c) = cursor {
++            let (next, node) = c.remove_current();
++            let (install_addr, page) = node.to_key_value();
++            let page_vram = VramAddress::new(page.alloc.iter().next().ok_or(ENOMEM)?.offset());
++
++            if page.level == self.mmu_version.dual_pde_level() {
++                let new_dpde = DualPde::new_small(self.mmu_version, Pfn::from(page_vram));
++                new_dpde.write(&mut window, install_addr)?;
++            } else {
++                let new_pde = Pde::new_vram(self.mmu_version, Pfn::from(page_vram));
++                new_pde.write(&mut window, install_addr)?;
++            }
++
++            // Track the allocated pages in the `Vmm`.
++            self.page_table_allocs
++                .push_within_capacity(page.alloc)
++                .map_err(|_| ENOMEM)?;
++
++            cursor = next;
++        }
++
++        // Next, write PTEs (all PDEs now installed in HW).
++        for (i, &pfn) in pfns.iter().enumerate() {
++            let vfn = Vfn::new(vfn_start.raw() + i as u64);
++            let result = walker.walk_to_pte_lookup_with_window(&mut window, vfn)?;
++
++            match result {
++                WalkResult::Unmapped { pte_addr } | WalkResult::Mapped { pte_addr, .. } => {
++                    let pte = Pte::new_vram(self.mmu_version, pfn, writable);
++                    pte.write(&mut window, pte_addr)?;
++                }
++                WalkResult::PageTableMissing => {
++                    kernel::pr_warn_once!("VMM: page table missing for VFN {vfn:?}\n");
++                    return Err(EIO);
++                }
++            }
++        }
++
++        drop(window);
++
++        // Finally, flush the TLB.
++        mm.tlb().flush(self.pdb_addr)?;
++
++        Ok(MappedRange {
++            vfn_start,
++            num_pages,
++            _vfn_alloc: vfn_alloc,
++            _drop_guard: MustUnmapGuard::new(),
++        })
++    }
++
++    /// Map pages doing prepare and execute in the same call.
++    ///
++    /// This is a convenience wrapper for callers outside the fence signalling critical
++    /// path (e.g., BAR mappings). For DRM usecases, [`Vmm::prepare_map()`] and
++    /// [`Vmm::execute_map()`] will be called separately.
++    pub(crate) fn map_pages(
++        &mut self,
++        mm: &GpuMm,
++        pfns: &[Pfn],
++        va_range: Option<Range<u64>>,
++        writable: bool,
++    ) -> Result<MappedRange> {
++        if pfns.is_empty() {
++            return Err(EINVAL);
++        }
++
++        // Check if provided VA range is sufficient (if provided).
++        if let Some(ref range) = va_range {
++            let required = pfns.len().checked_mul(PAGE_SIZE).ok_or(EOVERFLOW)? as u64;
++            let available = range.end.checked_sub(range.start).ok_or(EINVAL)?;
++            if available < required {
++                return Err(EINVAL);
++            }
++        }
++
++        let prepared = self.prepare_map(mm, pfns.len(), va_range)?;
++        self.execute_map(mm, prepared, pfns, writable)
++    }
++
++    /// Unmap all pages in a [`MappedRange`] with a single TLB flush.
++    ///
++    /// Takes the range by value (consumes it), then invalidates PTEs for the range,
++    /// flushes the TLB, then drops the range (freeing the VA). PRAMIN lock is held.
++    pub(crate) fn unmap_pages(&mut self, mm: &GpuMm, range: MappedRange) -> Result {
++        let walker = PtWalk::new(self.pdb_addr, self.mmu_version);
++        let invalid_pte = Pte::invalid(self.mmu_version);
++
++        let mut window = mm.pramin().window()?;
++        for i in 0..range.num_pages {
++            let vfn = Vfn::new(range.vfn_start.raw() + i as u64);
++            let result = walker.walk_to_pte_lookup_with_window(&mut window, vfn)?;
++
++            match result {
++                WalkResult::Mapped { pte_addr, .. } | WalkResult::Unmapped { pte_addr } => {
++                    invalid_pte.write(&mut window, pte_addr)?;
++                }
++                WalkResult::PageTableMissing => {
++                    continue;
++                }
++            }
++        }
++        drop(window);
++
++        mm.tlb().flush(self.pdb_addr)?;
++
++        // TODO: Internal page table pages (PDE, PTE pages) are still kept around.
++        // This is by design as repeated maps/unmaps will be fast. As a future TODO,
++        // we can add a reclaimer here to reclaim if VRAM is short. For now, the PT
++        // pages are dropped once the `Vmm` is dropped.
++
++        range._drop_guard.disarm(); // Unmap complete, Ok to drop MappedRange.
++        Ok(())
++    }
+ }
 -- 
 2.34.1
 
