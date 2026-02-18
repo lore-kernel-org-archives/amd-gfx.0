@@ -4,76 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB099E9A048
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Feb 2026 10:59:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B6DE9A03B
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Feb 2026 10:59:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FEBD10E6AD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A00310E695;
 	Thu, 19 Feb 2026 10:59:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EHC1YEt1";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aD2ZwA9M";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A60910E5A4
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 11:04:26 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-48334ee0aeaso41700585e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Feb 2026 03:04:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771412664; x=1772017464; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-disposition:mime-version
- :message-id:subject:cc:to:from:date:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wGTNJ210AsARI4ZD14nsycGl1kgt7uuJ79e/H8Vr1rM=;
- b=EHC1YEt1iH/2L/nRuDUM6Q1vDCYWb3e3IajeAaGUYllWi7L5Tcwi/CVvLASTJBgrKF
- dtZIRRmerabwXDON3t3thQB6r/jenyZhHVbQQiO1H6QqtchobsNADoEPXJVyARfo1EII
- t6xTRToQJoPeq5OKNfpj5Nl0TgAObvQqDo6CkuJaw5HuPD8QEsraLCCRJprHX3PFhtSL
- Q/X1QR3Dl11chhwnySzImFdALOtDHPyfQ2Lo8eifX/rSovAs67RS4ZiXB1JYjN9IwJ6k
- 0ffIPNBzatLUicdcG5CWJFdccUUs7fijZvZKG12baMhKQQqwh/6rZD34jo/SsRCsiVsS
- HuEw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771412664; x=1772017464;
- h=content-transfer-encoding:content-disposition:mime-version
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=wGTNJ210AsARI4ZD14nsycGl1kgt7uuJ79e/H8Vr1rM=;
- b=FZ2mMEpxmh1UZTCmwxsyb2UNMZo0dlM+koIH6sKW7+30E60ksatACPJ+xT7y+hGsa1
- IaJsTMu+tTiLV+s1T+CfpH0DDkS0Wk1prsBM+iXzK6OHSwZim61Hj2I5BBziFQ17KDls
- NNgT6LyJQWg3s0RppQlV6B9mETRBQorP5usYvOcLU3qkxEJhdP4q8E1BTH1de7Cx3i9B
- cJLMI3EvD6nQMKNk5WIxdatpqlSr1+cU9LAEJIkXsuQAmWdFXCHzkBj3Y8NRmTRYVfOl
- cAnVG1/qNZTf/y0qX56Wa1+7tK+KkBqM6KXiZB5P9+ib9kG7fQ1iv2lFzOFcuggA4Kfm
- scZg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXOC8FEQ+s+byTdqCHaKWgoVlLHrqKW+DAOxG9K6BYmii5O/lfhlojAw6m7nZmhiFW7Pr8/czi3@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwfK2l4kXGlGp1Uu1jpzxbShtxvTwRw1M06lWf4M+WZEYnURm5+
- 7Zi5+zSMrXW5lbl30/yeqV6oXKpcJZDScTCHsd3QL+xp9QUFqVZ3sZFs
-X-Gm-Gg: AZuq6aLuqraoBgcCpVPCJuv40qyOg1iul0GO+5dz7Bj4J7dJr8SZlWOG3eMud3ubfqK
- Xqcnml7l3OmE3jl8/upugheuKkd8xdSdoKj7YjAvHBL1fW26PQrURon7QHRHhNSp7yftXQjq3Le
- Ubcw7aomBZSJBnlzskR4sVy2FXQBQvAhOotbKViXOutphxs9vXZfcLCmgSD414ZgKAFtnXCXSVs
- 8ez7j2+je6SJGR+vzXtqdD9mM+R9ISLNYkNbqPDGC4Eu1tBDSy5BD5MmN/ZDWSCaUzG5yYS1wVX
- 4br+LxhOVViIp4tHfO3PwDnweBxA3VzwqqJpAGi0EzhnYSAdcVVc0ov1h0UeCa3oyc/Y54yR7XX
- jG6SIOUUhkSYwhs7KZmxYK/X5yv8/AoxFOB8nHy+K+m4kKNkAAvBL8plnRMUCsA+lEdX6LGm0yg
- MINA8xruATCdI10bK1Uw/W4h79yHOwDBq4t8zSmsYsfpiyVA==
-X-Received: by 2002:a05:600c:8011:b0:483:7980:4687 with SMTP id
- 5b1f17b1804b1-48398ad6e2bmr24556715e9.17.1771412664161; 
- Wed, 18 Feb 2026 03:04:24 -0800 (PST)
-Received: from debian.local ([2a0a:ef40:e94:5d01:a218:5589:9f9c:4f52])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4835dd0deeasm539209745e9.12.2026.02.18.03.04.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Feb 2026 03:04:23 -0800 (PST)
-Date: Wed, 18 Feb 2026 11:04:22 +0000
-From: Chris Bainbridge <chris.bainbridge@gmail.com>
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012064.outbound.protection.outlook.com
+ [40.107.200.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7D0710E62D;
+ Wed, 18 Feb 2026 21:21:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Pg7Bhg7vX7Ri16uJ6u1AetkB+qd+PZ06wVTR1wz6X7yyqDRxKLoRac4YmjBteFKa/i/zN3dJAqUObPooiT1XyLkyGK5hXCic+fJjnmIb1HYRyJwmzyEzDTTTZAWvvY1yhk8VP3AHBO2DdqM+fRQ1+MACbmpg8azNjwnRIYFMbwsLdpqwllHsBSpYS+ENfHiGRTu9GOezqpeeSrbL8UW8TNnNSFDDv22vaY+v1tIDTD16Czr1HRinXxmTEJdmTLtmzUQD/Y/53e5rChli5ybUs0ezjz58Hlswn4riEDFynBYakVoqIIPPrWHc9vk4zd3YyktkGyOriy86HyFxNNrCGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sT4ommh7tLlwmlDD6wuE0I49nGauntTXBhDhqIqn2F0=;
+ b=ZjEVr2uT0T4aS4Ue0wzg6SE8zPqpspoZCscQdgHKcOzRPeFTVALQHdxECLjFbjngd9fVKMIa9+jL2TVpnaarKsX8i/Szxf0IUP4rXcvJ6IrPREY9c8bE9yCZK9y2VDKStd/XGLVQSASXvlHQsAmEwK+znAuCeVLMSGAxxN1L/AQfLLYwBOnqwIRL72PN0w7HGSr7x7xW1uRLTnUBmwpEfRNXWx/wRp00qoiO/H800BglFeSsb2H675s64cpp1CfrIpVY3dswrGbbvEbuQPP0O6X/q83iRERYMLfzqdI1w6Kl9QL7sBC6CQMc8qAnoqehOWbA+fZG66/1hPoOJRTlDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sT4ommh7tLlwmlDD6wuE0I49nGauntTXBhDhqIqn2F0=;
+ b=aD2ZwA9MKTauIs41MCrTnCayFHArXEWTe5I4qW108Wal7bPkncNGtRbf4dcZYUPiZcPll7HR9HvGkt+xKdwdr3XQm+Q/DHL3fpTT0WWDeQ42NQwJfU2RWZB4/NchrqYCCigOHEl4IiWuUBp/XjTAfRCRtfwGNb63Zv7Mxb060VvIN1pyR+5WQvoiW3NH6lZe1ZqLDYB8lnREBLxL2eWYAutTOM3gcCkjtd+MvMJXaLkOVcozKkwfD4wLSt9sgMI30RPdHUjw1nsloJt8Ml3SgZkVUQ/R8zzT1SUwm9sD0NAJIrGuzG/Xjjpog+8CAGWqq7/NvvnbB/QjvvHPDGPseg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ PH0PR12MB999111.namprd12.prod.outlook.com (2603:10b6:510:38d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.14; Wed, 18 Feb
+ 2026 21:21:05 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9632.010; Wed, 18 Feb 2026
+ 21:21:05 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
-Cc: kvm@vger.kernel.org, x86@kernel.org, linux-pm@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, pbonzini@redhat.com,
- seanjc@google.com, tglx@linutronix.de
-Subject: [BUG] Oops following "Invalid wait context" in pvclock_gtod_notify
-Message-ID: <aZWctruDVn8aMZBG@debian.local>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Boqun Feng <boqun.feng@gmail.com>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ Joel Fernandes <joelagnelf@nvidia.com>, Nikola Djukic <ndjukic@nvidia.com>
+Subject: [PATCH v7 01/23] nova-core: mm: Add support to use PRAMIN windows to
+ write to VRAM
+Date: Wed, 18 Feb 2026 16:19:58 -0500
+Message-Id: <20260218212020.800836-2-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260218212020.800836-1-joelagnelf@nvidia.com>
+References: <20260218212020.800836-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MN2PR14CA0004.namprd14.prod.outlook.com
+ (2603:10b6:208:23e::9) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH0PR12MB999111:EE_
+X-MS-Office365-Filtering-Correlation-Id: e635460a-cb47-4980-5e78-08de6f339fa0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?weDSbQAWPeIW5agECpvHVmfKBgQNtA1pCkhOFC7M6ogvV1MINRNnX2Smyu6I?=
+ =?us-ascii?Q?A+DQMyeYD22EfOIxZMvwAv9f9wCAg7iWrn+C653bKaLVBZF57yHQDZyYNq8X?=
+ =?us-ascii?Q?TOwKdLFjAnSwrxW/9lfa/kYQylhgCS95sSxC82eTBCdvOc/ojXL132VfHYS7?=
+ =?us-ascii?Q?NfcMlijRVJ7aE6dvAsfW3u461fpdXndvd5tSraqAllkJ9pggtyrcVq4FMtlQ?=
+ =?us-ascii?Q?8d1767Sz+8frJeLWOiS/kBM4fCeQhaLFLEu2vVk6C0oIosLTjPj2JMZN+rjr?=
+ =?us-ascii?Q?DvREmOrmNf0TlVAlCCNZBc6QhnbVtrbePHeH+4A546v4R2tk82WZvl45IDwv?=
+ =?us-ascii?Q?Devqa8t0NXoWVbPu78wTIgWSulSxRux/ymOxsxtQ1kmo6CnZ884kmY4ER+SA?=
+ =?us-ascii?Q?1D1ml5vfvYvK5mXh5lvbTwPKxxuGQqtaqGLpPv7GhnalDRVmOPpMMRtR4Yby?=
+ =?us-ascii?Q?k1sx/bbwS6q7TewHKCqXa1wzRgFnBttvqX2fEqZVD3Y19JRjkXR3N19kX1EK?=
+ =?us-ascii?Q?k/13idDWjGdRiUn/QnYNB5nAEGlc5EJVgjVxwSVWfbxCC/yvshvH5c1Q3l7v?=
+ =?us-ascii?Q?HZQ9eMlpUJvzrH10zxaXtleULuVHPnERQVrotIFnImEVFVeipUSMbznLYY4l?=
+ =?us-ascii?Q?9JeBDG/Z6YjVRYIt+WU4TeWVzrfHVWHOfe/MFtAp4E8w+x96RoY/3OQqaHQw?=
+ =?us-ascii?Q?3FbkopbX9UwZAM+lzlxCx0zdFuSn0kr5rrUbcVlUNkkRMOT6QFJbJq7A7r+7?=
+ =?us-ascii?Q?7r3NjYM5+i5gV82QAlq1IpCks/DP2OdIITINuZZo01W1iu7jLsHUkJscDlA1?=
+ =?us-ascii?Q?46GGRC5t2S6tGRMhuy98VnodoB0xZq3eRZZtUO3z7MlyE7PHlR6xrwtMeudf?=
+ =?us-ascii?Q?SBT0O1SV4vhuuvXByLNh6FDG1tK2ur+9dSmhqEp6n4A7721vkMTLTzrlTGwQ?=
+ =?us-ascii?Q?8DKioTQ3o92MQvGwZ9jRfEn9r4Fhr6sJNPuQmp3Fx5bF+rfpOcJW2p5IaZ5Y?=
+ =?us-ascii?Q?QHtRW3dOj4wEwk/KfEX6UipKfRZZNDb/LH2cQMjEEdqA1jShkuckk2+/D49n?=
+ =?us-ascii?Q?xOArNyiXmbyYkqFDh+Ucz4sMlm9BSgs3HY9oznNrTaq6e7AN6RfPkun0pEqD?=
+ =?us-ascii?Q?fxarCeLikozTZ+krz4ft29g+8gCDTTq3ztQdSYpfZq+2k7GMmxLpbE8BL3A4?=
+ =?us-ascii?Q?WdWK9MR5/Hlbn5d3JWRKTkI8xMAFsUwr/CxBl8yocxuyH6lz0zDywS4X5xaE?=
+ =?us-ascii?Q?Alnn5Uu711VYhs+LRN4neJq01YSirp5sHFMJ8mA58tjBzUEKNA9QvfJ3QbpY?=
+ =?us-ascii?Q?1kfGnbqVBUW+wk29DRp0mw7LyMeeBin09QB2i9VBttGKR0tfOi3vs47GH07/?=
+ =?us-ascii?Q?6avMr3YnBjQLBNFonoPyr7zeeq0gg1NQuPrhZyQRdX2nMEB5geWfu1DoPCPt?=
+ =?us-ascii?Q?D0fhtCRFOf4+44g5E7zcLRW60ql8B314+5Py2BCyR9JlXOPLBIG7vRjfVExw?=
+ =?us-ascii?Q?TDVHh5nwHj7ExK0NsShUyCa76PpdPxc3LOoxl1QtaIdUVVJ9SHp0a6jP/kpa?=
+ =?us-ascii?Q?4OvX+Ka9ZnRFWpeP0u0=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?G4SFl4jD3ex+PSB43V6VoaPjJ1TI7janDFlKMLjPQcrsp0rptnRKmQA1hZn7?=
+ =?us-ascii?Q?xtYcr+OcsfofzSvch8mJLIqnR6xndLfgx6HvcqsrUsfMpjU1Ra7z4+1VWYMH?=
+ =?us-ascii?Q?xtruypliJJWS8yXITu9i+u2TfjJc4OagmRj5mmOi5RO/S/JWCHOnc8Fq0WQs?=
+ =?us-ascii?Q?eH862eJEvbsjopMaJf5/zIHdjUACbXkqu0p/HFKnYZ2Y+D0wk7XlDb2G2E0a?=
+ =?us-ascii?Q?9qAl9zzlTknwelqRFDBY4L7PDl8InaHurB56lZVlYMgIgZsztvD/PpITQyxI?=
+ =?us-ascii?Q?6vf3eOdUmIHBQjaEDJmJWZ5YANKjbWR5u0C45nBtuBwv+eO4eHBQGkiE/LGR?=
+ =?us-ascii?Q?TL/2vcp0jJ72PAnNccpar2Gk5oHqBs3zpRx8yTPPAmylAZVzM5A1rj1ex0IE?=
+ =?us-ascii?Q?TSEkpc937i0/Uf3EQbB7xbE/sNrL+0YwhFpQurs/ZfTGkD3OqVnoh2BqSJU/?=
+ =?us-ascii?Q?sBJDhqjc/IMIIKCLzXc7/WsOzQ7iPq19jdCv+vErdVxQ5P9f2Y5ED6z/IPop?=
+ =?us-ascii?Q?NBCsMJQwwoDfg2cpIG5RZK1nMswGvXjbCujewwv+VRUGWNDF3nBOkBsm8S3e?=
+ =?us-ascii?Q?4C/Dk8MX6UI0giYF7OS1KVEB/j33+pQM7dO/GRKfzTf/1wGEEUERWHve5RGh?=
+ =?us-ascii?Q?d68/B3/i/z4HHLExVjr3W5jrKqX8zCO6lytcE8Ef78hXCioBYguTVQuupuPl?=
+ =?us-ascii?Q?tRyt5nph97K4VosJycHb9qm2NEn772egGGvO7ZJ3/IGFeVlgw0sqlqjRzuoY?=
+ =?us-ascii?Q?bDrvA7pFBAqOg7BbxXm0CV6ueWPT9Oy30w7n37m17D8R1pxlonLi8M357gKB?=
+ =?us-ascii?Q?aMG4pE9+7ddn3RLIizuhlrqvytDp9knKbuesw9r3JclatAcwgdC1Lyzae6Y2?=
+ =?us-ascii?Q?Y4PvbnXoSvpMvF6bDY3rxPyev1HRleY7O7mKXVcp5Xu5+hN/UHrUOz7mfpGj?=
+ =?us-ascii?Q?CXwxgiJktqgURicW4mMklLVzUpboOhnxLIMsE8EgwZNpmRCdR2BoxFOcxz/F?=
+ =?us-ascii?Q?ApqEq+ETqXCX0KEvuFIj2k3h5bcPaRC8y/E8FpSRsxMopVbBexrQkuxaqoQ8?=
+ =?us-ascii?Q?IuKcA+RRVnQdYwasmdO+PRFdx5574NGRl+76PZTK4dsz+LoBxg+85YBZOUBg?=
+ =?us-ascii?Q?t6gV4vq911io0dculIY/6Ebw/fa16CtFmstyFyVyflYkyfJ7Q6JLOyFEFbJ4?=
+ =?us-ascii?Q?1QqX1nxK6JYdhbNvhPeP4WZhaInPr6btUyPGU8SMdc0W2FK3xqvy79h8m73I?=
+ =?us-ascii?Q?S6case9dgDr75uZXO2paNg2a64AZBNLVO0x1dcCoKzZW4fUrvJHqMTq3SNt9?=
+ =?us-ascii?Q?KLjoF2q5VMxempjf+ZcuOz6rBcCZraeXPcUwguSJH74ueNSbZx16jf6P7MrE?=
+ =?us-ascii?Q?Bm78zSPvpp6mkfdXbhTrizRq25mY1ROyHkCDIjGN4rt9qeqBJk/f7w2H9gme?=
+ =?us-ascii?Q?L9ebefSpTtmjj7OxgNfNxlype+gyn4dTA46c6xf+Hzn1R1i4YrEFRa9mqQqB?=
+ =?us-ascii?Q?QtSFrzr+hbqaHt0YMG6oOq84y9W2WI4fCyjHloLW4Cgts5L6LIeTUPc00Xxt?=
+ =?us-ascii?Q?6uplriEtRzFxnovuMHOgiSgAOZ3Qxtwo4hGecR+h2f4zXUtgfszA7yQQRo0Z?=
+ =?us-ascii?Q?d/lYiDO4Ze/GyZBDZlrRr+GeOt4/edKpZy0HIr35ZO4aBtPPKO1jyLoj+XcY?=
+ =?us-ascii?Q?LWeB4ICucxHO938bhBj4Ux+PepKPYHZaoUqtuhefSRewReJH+vxU6Kd3+lvO?=
+ =?us-ascii?Q?LkJApQqjog=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e635460a-cb47-4980-5e78-08de6f339fa0
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Feb 2026 21:21:05.0642 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uF7fKoVibZ0CiaK6fzYdNpTDlGXl8D+HiPrFNwwoaxy5Fn25V0J8xFyY2FTqGq6GhN0HneLn4qWSVJNcCJbqcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999111
 X-Mailman-Approved-At: Thu, 19 Feb 2026 10:59:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -89,420 +184,358 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+PRAMIN apertures are a crucial mechanism to direct read/write to VRAM.
+Add support for the same.
 
-I just saw the following crash shortly after resume on AMD HP Pavilion
-Aero Laptop 13. The laptop resumed, I typed 2 characters, and it hung.
+Cc: Nikola Djukic <ndjukic@nvidia.com>
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+---
+ drivers/gpu/nova-core/mm/mod.rs    |   5 +
+ drivers/gpu/nova-core/mm/pramin.rs | 293 +++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/nova_core.rs |   1 +
+ drivers/gpu/nova-core/regs.rs      |   5 +
+ 4 files changed, 304 insertions(+)
+ create mode 100644 drivers/gpu/nova-core/mm/mod.rs
+ create mode 100644 drivers/gpu/nova-core/mm/pramin.rs
 
-The issue appears to be a recursive Oops:
+diff --git a/drivers/gpu/nova-core/mm/mod.rs b/drivers/gpu/nova-core/mm/mod.rs
+new file mode 100644
+index 000000000000..7a5dd4220c67
+--- /dev/null
++++ b/drivers/gpu/nova-core/mm/mod.rs
+@@ -0,0 +1,5 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Memory management subsystems for nova-core.
++
++pub(crate) mod pramin;
+diff --git a/drivers/gpu/nova-core/mm/pramin.rs b/drivers/gpu/nova-core/mm/pramin.rs
+new file mode 100644
+index 000000000000..77916f5b231e
+--- /dev/null
++++ b/drivers/gpu/nova-core/mm/pramin.rs
+@@ -0,0 +1,293 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Direct VRAM access through the PRAMIN aperture.
++//!
++//! PRAMIN provides a 1MB sliding window into VRAM through BAR0, allowing the CPU to access
++//! video memory directly. Access is managed through a two-level API:
++//!
++//! - [`Pramin`]: The parent object that owns the BAR0 reference and synchronization lock.
++//! - [`PraminWindow`]: A guard object that holds exclusive PRAMIN access for its lifetime.
++//!
++//! The PRAMIN aperture is a 1MB region at BAR0 + 0x700000 for all GPUs. The window base is
++//! controlled by the `NV_PBUS_BAR0_WINDOW` register and must be 64KB aligned.
++//!
++//! # Examples
++//!
++//! ## Basic read/write
++//!
++//! ```no_run
++//! use crate::driver::Bar0;
++//! use crate::mm::pramin;
++//! use kernel::devres::Devres;
++//! use kernel::prelude::*;
++//! use kernel::sync::Arc;
++//!
++//! fn example(devres_bar: Arc<Devres<Bar0>>) -> Result<()> {
++//!     let pramin = Arc::pin_init(pramin::Pramin::new(devres_bar)?, GFP_KERNEL)?;
++//!     let mut window = pramin.window()?;
++//!
++//!     // Write and read back.
++//!     window.try_write32(0x100, 0xDEADBEEF)?;
++//!     let val = window.try_read32(0x100)?;
++//!     assert_eq!(val, 0xDEADBEEF);
++//!
++//!     Ok(())
++//!     // Original window position restored on drop.
++//! }
++//! ```
++//!
++//! ## Auto-repositioning across VRAM regions
++//!
++//! ```no_run
++//! use crate::driver::Bar0;
++//! use crate::mm::pramin;
++//! use kernel::devres::Devres;
++//! use kernel::prelude::*;
++//! use kernel::sync::Arc;
++//!
++//! fn example(devres_bar: Arc<Devres<Bar0>>) -> Result<()> {
++//!     let pramin = Arc::pin_init(pramin::Pramin::new(devres_bar)?, GFP_KERNEL)?;
++//!     let mut window = pramin.window()?;
++//!
++//!     // Access first 1MB region.
++//!     window.try_write32(0x100, 0x11111111)?;
++//!
++//!     // Access at 2MB - window auto-repositions.
++//!     window.try_write32(0x200000, 0x22222222)?;
++//!
++//!     // Back to first region - window repositions again.
++//!     let val = window.try_read32(0x100)?;
++//!     assert_eq!(val, 0x11111111);
++//!
++//!     Ok(())
++//! }
++//! ```
++
++#![allow(unused)]
++
++use crate::{
++    driver::Bar0,
++    regs, //
++};
++
++use kernel::bits::genmask_u64;
++use kernel::devres::Devres;
++use kernel::io::Io;
++use kernel::new_mutex;
++use kernel::prelude::*;
++use kernel::ptr::{
++    Alignable,
++    Alignment, //
++};
++use kernel::sizes::{
++    SZ_1M,
++    SZ_64K, //
++};
++use kernel::sync::{
++    lock::mutex::MutexGuard,
++    Arc,
++    Mutex, //
++};
++
++/// PRAMIN aperture base offset in BAR0.
++const PRAMIN_BASE: usize = 0x700000;
++
++/// PRAMIN aperture size (1MB).
++const PRAMIN_SIZE: usize = SZ_1M;
++
++/// 64KB alignment for window base.
++const WINDOW_ALIGN: Alignment = Alignment::new::<SZ_64K>();
++
++/// Maximum addressable VRAM offset (40-bit address space).
++///
++/// The `NV_PBUS_BAR0_WINDOW` register has a 24-bit `window_base` field (bits 23:0) that stores
++/// bits [39:16] of the target VRAM address. This limits the addressable space to 2^40 bytes.
++///
++/// CAST: On 64-bit systems, this fits in usize.
++const MAX_VRAM_OFFSET: usize = genmask_u64(0..=39) as usize;
++
++/// Generate a PRAMIN read accessor.
++macro_rules! define_pramin_read {
++    ($name:ident, $ty:ty) => {
++        #[doc = concat!("Read a `", stringify!($ty), "` from VRAM at the given offset.")]
++        pub(crate) fn $name(&mut self, vram_offset: usize) -> Result<$ty> {
++            // Compute window parameters without bar reference.
++            let (bar_offset, new_base) =
++                self.compute_window(vram_offset, ::core::mem::size_of::<$ty>())?;
++
++            // Update window base if needed and perform read.
++            let bar = self.bar.try_access().ok_or(ENODEV)?;
++            if let Some(base) = new_base {
++                Self::write_window_base(&bar, base);
++                self.state.current_base = base;
++            }
++            bar.$name(bar_offset)
++        }
++    };
++}
++
++/// Generate a PRAMIN write accessor.
++macro_rules! define_pramin_write {
++    ($name:ident, $ty:ty) => {
++        #[doc = concat!("Write a `", stringify!($ty), "` to VRAM at the given offset.")]
++        pub(crate) fn $name(&mut self, vram_offset: usize, value: $ty) -> Result {
++            // Compute window parameters without bar reference.
++            let (bar_offset, new_base) =
++                self.compute_window(vram_offset, ::core::mem::size_of::<$ty>())?;
++
++            // Update window base if needed and perform write.
++            let bar = self.bar.try_access().ok_or(ENODEV)?;
++            if let Some(base) = new_base {
++                Self::write_window_base(&bar, base);
++                self.state.current_base = base;
++            }
++            bar.$name(value, bar_offset)
++        }
++    };
++}
++
++/// PRAMIN state protected by mutex.
++struct PraminState {
++    current_base: usize,
++}
++
++/// PRAMIN aperture manager.
++///
++/// Call [`Pramin::window()`] to acquire exclusive PRAMIN access.
++#[pin_data]
++pub(crate) struct Pramin {
++    bar: Arc<Devres<Bar0>>,
++    /// PRAMIN aperture state, protected by a mutex.
++    ///
++    /// # Safety
++    ///
++    /// This lock is acquired during the DMA fence signalling critical path.
++    /// It must NEVER be held across any reclaimable CPU memory / allocations
++    /// (`GFP_KERNEL`), because the memory reclaim path can call
++    /// `dma_fence_wait()`, which would deadlock with this lock held.
++    #[pin]
++    state: Mutex<PraminState>,
++}
++
++impl Pramin {
++    /// Create a pin-initializer for PRAMIN.
++    pub(crate) fn new(bar: Arc<Devres<Bar0>>) -> Result<impl PinInit<Self>> {
++        let bar_access = bar.try_access().ok_or(ENODEV)?;
++        let current_base = Self::try_read_window_base(&bar_access)?;
++
++        Ok(pin_init!(Self {
++            bar,
++            state <- new_mutex!(PraminState { current_base }, "pramin_state"),
++        }))
++    }
++
++    /// Acquire exclusive PRAMIN access.
++    ///
++    /// Returns a [`PraminWindow`] guard that provides VRAM read/write accessors.
++    /// The [`PraminWindow`] is exclusive and only one can exist at a time.
++    pub(crate) fn window(&self) -> Result<PraminWindow<'_>> {
++        let state = self.state.lock();
++        let saved_base = state.current_base;
++        Ok(PraminWindow {
++            bar: self.bar.clone(),
++            state,
++            saved_base,
++        })
++    }
++
++    /// Read the current window base from the BAR0_WINDOW register.
++    fn try_read_window_base(bar: &Bar0) -> Result<usize> {
++        let reg = regs::NV_PBUS_BAR0_WINDOW::read(bar);
++        let base = u64::from(reg.window_base());
++        let shifted = base.checked_shl(16).ok_or(EOVERFLOW)?;
++        shifted.try_into().map_err(|_| EOVERFLOW)
++    }
++}
++
++/// PRAMIN window guard for direct VRAM access.
++///
++/// This guard holds exclusive access to the PRAMIN aperture. The window auto-repositions
++/// when accessing VRAM offsets outside the current 1MB range. Original window position
++/// is saved on creation and restored on drop.
++///
++/// Only one [`PraminWindow`] can exist at a time per [`Pramin`] instance (enforced by the
++/// internal `MutexGuard`).
++pub(crate) struct PraminWindow<'a> {
++    bar: Arc<Devres<Bar0>>,
++    state: MutexGuard<'a, PraminState>,
++    saved_base: usize,
++}
++
++impl PraminWindow<'_> {
++    /// Write a new window base to the BAR0_WINDOW register.
++    fn write_window_base(bar: &Bar0, base: usize) {
++        // CAST:
++        // - We have guaranteed that the base is within the addressable range (40-bits).
++        // - After >> 16, a 40-bit aligned base becomes 24 bits, which fits in u32.
++        regs::NV_PBUS_BAR0_WINDOW::default()
++            .set_window_base((base >> 16) as u32)
++            .write(bar);
++    }
++
++    /// Compute window parameters for a VRAM access.
++    ///
++    /// Returns (`bar_offset`, `new_base`) where:
++    /// - `bar_offset`: The BAR0 offset to use for the access.
++    /// - `new_base`: `Some(base)` if window needs repositioning, `None` otherwise.
++    fn compute_window(
++        &self,
++        vram_offset: usize,
++        access_size: usize,
++    ) -> Result<(usize, Option<usize>)> {
++        // Validate VRAM offset is within addressable range (40-bit address space).
++        let end_offset = vram_offset.checked_add(access_size).ok_or(EINVAL)?;
++        if end_offset > MAX_VRAM_OFFSET + 1 {
++            return Err(EINVAL);
++        }
++
++        // Calculate which 64KB-aligned base we need.
++        let needed_base = vram_offset.align_down(WINDOW_ALIGN);
++
++        // Calculate offset within the window.
++        let offset_in_window = vram_offset - needed_base;
++
++        // Check if access fits in 1MB window from this base.
++        if offset_in_window + access_size > PRAMIN_SIZE {
++            return Err(EINVAL);
++        }
++
++        // Return bar offset and whether window needs repositioning.
++        let new_base = if self.state.current_base != needed_base {
++            Some(needed_base)
++        } else {
++            None
++        };
++
++        Ok((PRAMIN_BASE + offset_in_window, new_base))
++    }
++
++    define_pramin_read!(try_read8, u8);
++    define_pramin_read!(try_read16, u16);
++    define_pramin_read!(try_read32, u32);
++    define_pramin_read!(try_read64, u64);
++
++    define_pramin_write!(try_write8, u8);
++    define_pramin_write!(try_write16, u16);
++    define_pramin_write!(try_write32, u32);
++    define_pramin_write!(try_write64, u64);
++}
++
++impl Drop for PraminWindow<'_> {
++    fn drop(&mut self) {
++        // Restore the original window base if it changed.
++        if self.state.current_base != self.saved_base {
++            if let Some(bar) = self.bar.try_access() {
++                Self::write_window_base(&bar, self.saved_base);
++
++                // Update state to reflect the restored base.
++                self.state.current_base = self.saved_base;
++            }
++        }
++        // MutexGuard drops automatically, releasing the lock.
++    }
++}
+diff --git a/drivers/gpu/nova-core/nova_core.rs b/drivers/gpu/nova-core/nova_core.rs
+index c1121e7c64c5..3de00db3279e 100644
+--- a/drivers/gpu/nova-core/nova_core.rs
++++ b/drivers/gpu/nova-core/nova_core.rs
+@@ -13,6 +13,7 @@
+ mod gfw;
+ mod gpu;
+ mod gsp;
++mod mm;
+ mod num;
+ mod regs;
+ mod sbuffer;
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index ea0d32f5396c..d0982e346f74 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -102,6 +102,11 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+     31:16   frts_err_code as u16;
+ });
+ 
++register!(NV_PBUS_BAR0_WINDOW @ 0x00001700, "BAR0 window control for PRAMIN access" {
++    25:24   target as u8, "Target memory (0=VRAM, 1=SYS_MEM_COH, 2=SYS_MEM_NONCOH)";
++    23:0    window_base as u32, "Window base address (bits 39:16 of FB addr)";
++});
++
+ // PFB
+ 
+ // The following two registers together hold the physical system memory address that is used by the
+-- 
+2.34.1
 
-Lockdep first detects an Invalid wait context in pvclock_gtod_notify
-during a timer interrupt update.
-
-While printk attempts to report this locking violation, a General
-Protection Fault occurs in lib/vsprintf.c:string due to what KASAN
-identifies as a wild-memory-access (non-canonical address
-0xe000123080000000).
-
-It appears that the pointer to the lock name passed to printk is
-corrupted or pointing to uninitialized memory during the resume
-sequence.
-
-I haven't seen this particular issue before in several years of using
-this laptop, so I suspect it may be an intermittent regression.
-
-Kernel Version: 6.19.0-09985-gaaeb3769f82e (Tainted: [Not tainted])
-Hardware: HP Pavilion Aero Laptop 13-be0xxx (AMD Ryzen)
-
-
-<6>[207132.447702] ACPI: EC: interrupt blocked
-<6>[240547.393406] ACPI: EC: interrupt unblocked
-<6>[240547.528470] amdgpu 0000:03:00.0: [drm] PCIE GART of 1024M enabled.
-<6>[240547.528481] amdgpu 0000:03:00.0: [drm] PTB located at 0x000000F41FC0=
-0000
-<6>[240547.528545] amdgpu 0000:03:00.0: SMU is resuming...
-<6>[240547.528930] amdgpu 0000:03:00.0: dpm has been disabled
-<6>[240547.530414] amdgpu 0000:03:00.0: SMU is resumed successfully!
-<6>[240547.607233] nvme nvme0: 8/0/0 default/read/poll queues
-<6>[240547.638821] [drm] DM_MST: Differing MST start on aconnector: 0000000=
-0f24b38f1 [id: 116]
-<6>[240547.640280] amdgpu 0000:03:00.0: ring gfx uses VM inv eng 0 on hub 0
-<6>[240547.640285] amdgpu 0000:03:00.0: ring comp_1.0.0 uses VM inv eng 1 o=
-n hub 0
-<6>[240547.640287] amdgpu 0000:03:00.0: ring comp_1.1.0 uses VM inv eng 4 o=
-n hub 0
-<6>[240547.640289] amdgpu 0000:03:00.0: ring comp_1.2.0 uses VM inv eng 5 o=
-n hub 0
-<6>[240547.640291] amdgpu 0000:03:00.0: ring comp_1.3.0 uses VM inv eng 6 o=
-n hub 0
-<6>[240547.640293] amdgpu 0000:03:00.0: ring comp_1.0.1 uses VM inv eng 7 o=
-n hub 0
-<6>[240547.640295] amdgpu 0000:03:00.0: ring comp_1.1.1 uses VM inv eng 8 o=
-n hub 0
-<6>[240547.640298] amdgpu 0000:03:00.0: ring comp_1.2.1 uses VM inv eng 9 o=
-n hub 0
-<6>[240547.640300] amdgpu 0000:03:00.0: ring comp_1.3.1 uses VM inv eng 10 =
-on hub 0
-<6>[240547.640302] amdgpu 0000:03:00.0: ring kiq_0.2.1.0 uses VM inv eng 11=
- on hub 0
-<6>[240547.640304] amdgpu 0000:03:00.0: ring sdma0 uses VM inv eng 0 on hub=
- 8
-<6>[240547.640306] amdgpu 0000:03:00.0: ring vcn_dec uses VM inv eng 1 on h=
-ub 8
-<6>[240547.640308] amdgpu 0000:03:00.0: ring vcn_enc0 uses VM inv eng 4 on =
-hub 8
-Panic#2 Part7
-<6>[240547.640310] amdgpu 0000:03:00.0: ring vcn_enc1 uses VM inv eng 5 on =
-hub 8
-<6>[240547.640312] amdgpu 0000:03:00.0: ring jpeg_dec uses VM inv eng 6 on =
-hub 8
-<6>[240547.777611] usb 1-1.3.2.4: reset high-speed USB device number 36 usi=
-ng xhci_hcd
-<6>[240548.168643] OOM killer enabled.
-<6>[240548.168648] Restarting tasks: Starting
-<6>[240548.170996] Restarting tasks: Done
-<6>[240548.171015] efivarfs: resyncing variable state
-<6>[240548.183456] efivarfs: finished resyncing variable state
-<5>[240548.183523] random: crng reseeded on system resumption
-<6>[240548.319075] PM: suspend exit
-<6>[240549.054362] iwlwifi 0000:01:00.0: WFPM_UMAC_PD_NOTIFICATION: 0x20
-<6>[240549.054440] iwlwifi 0000:01:00.0: WFPM_LMAC2_PD_NOTIFICATION: 0x1f
-<6>[240549.054511] iwlwifi 0000:01:00.0: WFPM_AUTH_KEY_0: 0x90
-<6>[240549.054578] iwlwifi 0000:01:00.0: CNVI_SCU_SEQ_DATA_DW9: 0x0
-<6>[240552.869040] wlp1s0: authenticate with d6:92:5e:eb:ee:15 (local addre=
-ss=3Dc8:15:4e:63:1d:e8)
-<6>[240552.870295] wlp1s0: send auth to d6:92:5e:eb:ee:15 (try 1/3)
-<6>[240552.934184] wlp1s0: authenticate with d6:92:5e:eb:ee:15 (local addre=
-ss=3Dc8:15:4e:63:1d:e8)
-<6>[240552.934199] wlp1s0: send auth to d6:92:5e:eb:ee:15 (try 1/3)
-<6>[240552.939205] wlp1s0: authenticated
-<6>[240552.940960] wlp1s0: associate with d6:92:5e:eb:ee:15 (try 1/3)
-<6>[240552.949911] wlp1s0: RX AssocResp from d6:92:5e:eb:ee:15 (capab=3D0x1=
-011 status=3D0 aid=3D10)
-<6>[240552.965155] wlp1s0: associated
-<7>[240553.020321] wlp1s0: Limiting TX power to 23 (23 - 0) dBm as advertis=
-ed by d6:92:5e:eb:ee:15
-<4>[240561.824922]
-<4>[240561.824933] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-<4>[240561.824936] [ BUG: Invalid wait context ]
-Oops#1 Part5
-<4>[240561.824939] 6.19.0-09985-gaaeb3769f82e #414 Not tainted
-<4>[240561.824943] -----------------------------
-<4>[240561.824945] swapper/14/0 is trying to lock:
-<4>[240561.824948] ffffffffc5512948 (
-<4>[240561.824962] Oops: general protection fault, probably for non-canonic=
-al address 0xe000123080000000: 0000 [#1] SMP KASAN
-<1>[240561.824968] KASAN: maybe wild-memory-access in range [0x0000b1840000=
-0000-0x0000b18400000007]
-<4>[240561.824974] CPU: 14 UID: 0 PID: 0 Comm: swapper/14 Not tainted 6.19.=
-0-09985-gaaeb3769f82e #414 PREEMPT(lazy)
-<4>[240561.824979] Hardware name: HP HP Pavilion Aero Laptop 13-be0xxx/8916=
-, BIOS F.17 12/18/2024
-<4>[240561.824982] RIP: 0010:string (lib/vsprintf.c:655 lib/vsprintf.c:737)
-<4>[240561.824989] Code: c0 0f 85 6a 02 00 00 44 88 2b 48 83 c3 01 83 c6 01=
- 4c 39 fd 74 2e 48 89 ef 48 83 c5 01 48 89 f8 48 89 fa 48 c1 e8 03 83 e2 07=
- <0f> b6 04 08 38 d0 7f 08 84 c0 0f 85 11 02 00 00 44 0f b6 6d ff 45
-All code
-=3D=3D=3D=3D=3D=3D=3D=3D
-   0:	c0 0f 85             	rorb   $0x85,(%rdi)
-   3:	6a 02                	push   $0x2
-   5:	00 00                	add    %al,(%rax)
-   7:	44 88 2b             	mov    %r13b,(%rbx)
-   a:	48 83 c3 01          	add    $0x1,%rbx
-   e:	83 c6 01             	add    $0x1,%esi
-  11:	4c 39 fd             	cmp    %r15,%rbp
-  14:	74 2e                	je     0x44
-  16:	48 89 ef             	mov    %rbp,%rdi
-  19:	48 83 c5 01          	add    $0x1,%rbp
-  1d:	48 89 f8             	mov    %rdi,%rax
-  20:	48 89 fa             	mov    %rdi,%rdx
-  23:	48 c1 e8 03          	shr    $0x3,%rax
-  27:	83 e2 07             	and    $0x7,%edx
-  2a:*	0f b6 04 08          	movzbl (%rax,%rcx,1),%eax		<-- trapping instru=
-ction
-  2e:	38 d0                	cmp    %dl,%al
-  30:	7f 08                	jg     0x3a
-  32:	84 c0                	test   %al,%al
-  34:	0f 85 11 02 00 00    	jne    0x24b
-  3a:	44 0f b6 6d ff       	movzbl -0x1(%rbp),%r13d
-  3f:	45                   	rex.RB
-
-Code starting with the faulting instruction
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-   0:	0f b6 04 08          	movzbl (%rax,%rcx,1),%eax
-   4:	38 d0                	cmp    %dl,%al
-   6:	7f 08                	jg     0x10
-   8:	84 c0                	test   %al,%al
-   a:	0f 85 11 02 00 00    	jne    0x221
-  10:	44 0f b6 6d ff       	movzbl -0x1(%rbp),%r13d
-  15:	45                   	rex.RB
-<4>[240561.824994] RSP: 0018:ffffc90000628360 EFLAGS: 00010046
-<4>[240561.824998] RAX: 0000163080000000 RBX: ffffc9000062865a RCX: dffffc0=
-000000000
-<4>[240561.825001] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000b18=
-400000000
-<4>[240561.825004] RBP: 0000b18400000001 R08: ffffffffffff0a00 R09: ffffc90=
-000628618
-<4>[240561.825007] R10: 0000000000000405 R11: 0000000000000000 R12: ffffc90=
-000628660
-<4>[240561.825009] R13: 0000000000000405 R14: 1ffff920000c506f R15: 0000b18=
-4ffffffff
-<4>[240561.825012] FS:  0000000000000000(0000) GS:ffff88840118b000(0000) kn=
-lGS:0000000000000000
-<4>[240561.825015] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-<4>[240561.825018] CR2: 00007f45967ea000 CR3: 0000000330491000 CR4: 0000000=
-000750ef0
-<4>[240561.825021] PKRU: 55555554
-Oops#1 Part4
-<4>[240561.825024] Call Trace:
-<4>[240561.825027]  <IRQ>
-<4>[240561.825031]  ? _prb_read_valid (kernel/printk/printk_ringbuffer.c:22=
-03 (discriminator 1))
-<4>[240561.825036]  ? ip6_addr_string_sa (lib/vsprintf.c:733)
-<4>[240561.825042]  ? prb_next_reserve_seq (kernel/printk/printk_ringbuffer=
-=2Ec:2166)
-<4>[240561.825046]  vsnprintf (lib/vsprintf.c:2887)
-<4>[240561.825053]  ? pointer (lib/vsprintf.c:2865)
-<4>[240561.825057]  ? prb_final_commit (kernel/printk/printk_ringbuffer.c:2=
-241)
-<4>[240561.825061]  ? prb_read_valid (kernel/printk/printk_ringbuffer.c:224=
-1)
-<4>[240561.825065]  vprintk_store (kernel/printk/printk.c:2307 (discriminat=
-or 1))
-<4>[240561.825072]  ? printk_sprint (kernel/printk/printk.c:2272)
-<4>[240561.825075]  ? desc_read (./arch/x86/include/asm/atomic64_64.h:20 ./=
-include/linux/atomic/atomic-arch-fallback.h:2629 ./include/linux/atomic/ato=
-mic-long.h:79 ./include/linux/atomic/atomic-instrumented.h:3224 kernel/prin=
-tk/printk_ringbuffer.c:552)
-<4>[240561.825080]  ? desc_read_finalized_seq (kernel/printk/printk_ringbuf=
-fer.c:1938)
-<4>[240561.825084]  ? desc_read (./arch/x86/include/asm/atomic64_64.h:20 ./=
-include/linux/atomic/atomic-arch-fallback.h:2629 ./include/linux/atomic/ato=
-mic-long.h:79 ./include/linux/atomic/atomic-instrumented.h:3224 kernel/prin=
-tk/printk_ringbuffer.c:552)
-<4>[240561.825088]  ? panic_on_this_cpu (./arch/x86/include/asm/atomic.h:23=
- ./include/linux/atomic/atomic-arch-fallback.h:457 ./include/linux/atomic/a=
-tomic-instrumented.h:33 kernel/panic.c:488)
-<4>[240561.825093]  ? _prb_read_valid (kernel/printk/printk_ringbuffer.c:22=
-03 (discriminator 1))
-<4>[240561.825096]  ? rcu_is_watching (./include/linux/context_tracking.h:1=
-28 (discriminator 1) kernel/rcu/tree.c:752 (discriminator 1))
-<4>[240561.825102]  vprintk_emit (kernel/printk/printk.c:2457)
-<4>[240561.825107]  ? wake_up_klogd_work_func (kernel/printk/printk.c:2426)
-<4>[240561.825112]  ? do_raw_spin_unlock (./arch/x86/include/asm/atomic.h:2=
-3 ./include/linux/atomic/atomic-arch-fallback.h:457 ./include/linux/atomic/=
-atomic-instrumented.h:33 ./include/asm-generic/qspinlock.h:57 kernel/lockin=
-g/spinlock_debug.c:101 kernel/locking/spinlock_debug.c:141)
-<4>[240561.825117]  ? _raw_spin_unlock_irqrestore (./include/linux/spinlock=
-_api_smp.h:179 (discriminator 3) kernel/locking/spinlock.c:194 (discriminat=
-or 3))
-<4>[240561.825123]  _printk (kernel/printk/printk.c:2499)
-<4>[240561.825128]  ? __em_nl_get_pd_table.cold (kernel/printk/printk.c:249=
-9)
-<4>[240561.825134]  ? console_unlock (kernel/printk/printk.c:3392 (discrimi=
-nator 1) kernel/printk/printk.c:3413 (discriminator 1))
-<4>[240561.825139]  __print_lock_name.cold (kernel/locking/lockdep.c:728)
-<4>[240561.825153]  print_lock_name (kernel/locking/lockdep.c:745)
-<4>[240561.825158]  print_lock.cold (kernel/locking/lockdep.c:783)
-<4>[240561.825162]  __lock_acquire (kernel/locking/lockdep.c:4822 kernel/lo=
-cking/lockdep.c:4902 kernel/locking/lockdep.c:5187)
-<4>[240561.825170]  lock_acquire (kernel/locking/lockdep.c:470 kernel/locki=
-ng/lockdep.c:5870 kernel/locking/lockdep.c:5825)
-<4>[240561.825174]  ? notifier_call_chain (kernel/notifier.c:87)
-<4>[240561.825181] pvclock_gtod_notify (./include/linux/seqlock.h:432 ./inc=
-lude/linux/seqlock.h:479 ./include/linux/seqlock.h:504 arch/x86/kvm/x86.c:2=
-370 arch/x86/kvm/x86.c:9967) kvm
-<4>[240561.825254]  ? notifier_call_chain (kernel/notifier.c:87)
-<4>[240561.825258]  notifier_call_chain (kernel/notifier.c:87)
-<4>[240561.825263]  timekeeping_update_from_shadow.constprop.0 (kernel/time=
-/timekeeping.c:736)
-Oops#1 Part3
-<4>[240561.825268]  __timekeeping_advance.constprop.0 (kernel/time/timekeep=
-ing.c:2379)
-<4>[240561.825272]  ? __rwlock_init (kernel/locking/spinlock_debug.c:114)
-<4>[240561.825276]  ? do_settimeofday64 (kernel/time/timekeeping.c:2321)
-<4>[240561.825280]  ? lock_release (kernel/locking/lockdep.c:470 (discrimin=
-ator 4) kernel/locking/lockdep.c:5891 (discriminator 4) kernel/locking/lock=
-dep.c:5875 (discriminator 4))
-<4>[240561.825285]  update_wall_time (kernel/time/timekeeping.c:2385 kernel=
-/time/timekeeping.c:2395)
-<4>[240561.825290]  tick_nohz_handler (kernel/time/tick-sched.c:253 kernel/=
-time/tick-sched.c:312)
-<4>[240561.825294]  ? tick_do_update_jiffies64 (kernel/time/tick-sched.c:30=
-7)
-<4>[240561.825298]  ? __hrtimer_run_queues (./arch/x86/include/asm/jump_lab=
-el.h:37 ./include/trace/events/timer.h:259 kernel/time/hrtimer.c:1782 kerne=
-l/time/hrtimer.c:1849)
-<4>[240561.825302]  ? lock_release (kernel/locking/lockdep.c:470 (discrimin=
-ator 4) kernel/locking/lockdep.c:5891 (discriminator 4) kernel/locking/lock=
-dep.c:5875 (discriminator 4))
-<4>[240561.825306]  ? tick_do_update_jiffies64 (kernel/time/tick-sched.c:30=
-7)
-<4>[240561.825310]  __hrtimer_run_queues (kernel/time/hrtimer.c:1785 kernel=
-/time/hrtimer.c:1849)
-<4>[240561.825315]  ? hrtimer_reprogram (kernel/time/hrtimer.c:1819)
-<4>[240561.825319]  ? ktime_get_update_offsets_now (kernel/time/timekeeping=
-=2Ec:381 kernel/time/timekeeping.c:404 kernel/time/timekeeping.c:2573)
-<4>[240561.825325]  hrtimer_interrupt (kernel/time/hrtimer.c:1914)
-<4>[240561.825329]  ? lock_release (kernel/locking/lockdep.c:470 (discrimin=
-ator 4) kernel/locking/lockdep.c:5891 (discriminator 4) kernel/locking/lock=
-dep.c:5875 (discriminator 4))
-<4>[240561.825334]  ? tick_nohz_stop_idle (./include/linux/seqlock.h:453 ./=
-include/linux/seqlock.h:525 kernel/time/tick-sched.c:771)
-<4>[240561.825338]  __sysvec_apic_timer_interrupt (./arch/x86/include/asm/j=
-ump_label.h:37 ./arch/x86/include/asm/trace/irq_vectors.h:40 arch/x86/kerne=
-l/apic/apic.c:1063)
-<4>[240561.825343]  sysvec_apic_timer_interrupt (arch/x86/kernel/apic/apic.=
-c:1056 (discriminator 35) arch/x86/kernel/apic/apic.c:1056 (discriminator 3=
-5))
-<4>[240561.825348]  </IRQ>
-<4>[240561.825350]  <TASK>
-<4>[240561.825353]  asm_sysvec_apic_timer_interrupt (./arch/x86/include/asm=
-/idtentry.h:569)
-<4>[240561.825357] RIP: 0010:cpuidle_enter_state (drivers/cpuidle/cpuidle.c=
-:294)
-<4>[240561.825361] Code: 73 04 bf ff ff ff ff 49 89 c6 e8 80 85 6b ff 31 ff=
- e8 f9 da cb fd 45 84 ff 0f 85 a3 01 00 00 e8 cb 33 fd fd fb 0f 1f 44 00 00=
- <45> 85 ed 0f 88 6e 01 00 00 4d 63 fd 49 83 ff 0a 0f 83 c5 02 00 00
-All code
-=3D=3D=3D=3D=3D=3D=3D=3D
-   0:	73 04                	jae    0x6
-   2:	bf ff ff ff ff       	mov    $0xffffffff,%edi
-   7:	49 89 c6             	mov    %rax,%r14
-   a:	e8 80 85 6b ff       	call   0xffffffffff6b858f
-   f:	31 ff                	xor    %edi,%edi
-  11:	e8 f9 da cb fd       	call   0xfffffffffdcbdb0f
-  16:	45 84 ff             	test   %r15b,%r15b
-  19:	0f 85 a3 01 00 00    	jne    0x1c2
-  1f:	e8 cb 33 fd fd       	call   0xfffffffffdfd33ef
-  24:	fb                   	sti
-  25:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
-  2a:*	45 85 ed             	test   %r13d,%r13d		<-- trapping instruction
-  2d:	0f 88 6e 01 00 00    	js     0x1a1
-  33:	4d 63 fd             	movslq %r13d,%r15
-  36:	49 83 ff 0a          	cmp    $0xa,%r15
-  3a:	0f 83 c5 02 00 00    	jae    0x305
-
-Code starting with the faulting instruction
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-   0:	45 85 ed             	test   %r13d,%r13d
-   3:	0f 88 6e 01 00 00    	js     0x177
-   9:	4d 63 fd             	movslq %r13d,%r15
-   c:	49 83 ff 0a          	cmp    $0xa,%r15
-  10:	0f 83 c5 02 00 00    	jae    0x2db
-<4>[240561.825364] RSP: 0018:ffffc9000032fd80 EFLAGS: 00000206
-<4>[240561.825367] RAX: 0000000029e5cd35 RBX: ffff888122255000 RCX: 0000000=
-000000000
-<4>[240561.825370] RDX: 0000000000000000 RSI: ffffffff8b234809 RDI: fffffff=
-f8acb7b40
-<4>[240561.825373] RBP: ffffffff8bd34de0 R08: 0000000000000001 R09: 0000000=
-000000000
-Oops#1 Part2
-<4>[240561.825375] R10: 0000000000000001 R11: 0000000000000000 R12: 0000000=
-000000002
-<4>[240561.825378] R13: 0000000000000002 R14: 0000daca2a1ea9c7 R15: 0000000=
-000000000
-<4>[240561.825384]  ? mark_tsc_async_resets (arch/x86/kernel/tsc_sync.c:52)
-<4>[240561.825388]  cpuidle_enter (drivers/cpuidle/cpuidle.c:393 (discrimin=
-ator 2))
-<4>[240561.825393]  do_idle (kernel/sched/idle.c:241 kernel/sched/idle.c:33=
-2)
-<4>[240561.825398]  ? arch_cpu_idle_exit+0x30/0x30
-<4>[240561.825402]  ? do_idle (./arch/x86/include/asm/bitops.h:202 ./arch/x=
-86/include/asm/bitops.h:232 ./include/asm-generic/bitops/instrumented-non-a=
-tomic.h:142 ./include/linux/thread_info.h:133 ./include/linux/sched.h:2063 =
-=2E/include/linux/livepatch.h:186 kernel/sched/idle.c:362)
-<4>[240561.825407]  cpu_startup_entry (kernel/sched/idle.c:429)
-<4>[240561.825411]  start_secondary (arch/x86/kernel/smpboot.c:200 (discrim=
-inator 10) arch/x86/kernel/smpboot.c:280 (discriminator 10))
-<4>[240561.825415]  ? set_cpu_sibling_map (arch/x86/kernel/smpboot.c:230)
-<4>[240561.825419]  common_startup_64 (arch/x86/kernel/head_64.S:419)
-<4>[240561.825427]  </TASK>
-<4>[240561.825429] Modules linked in: snd_seq_dummy snd_hrtimer snd_seq xt_=
-conntrack nft_chain_nat xt_MASQUERADE nf_nat nf_conntrack_netlink nf_conntr=
-ack nf_defrag_ipv6 nf_defrag_ipv4 xfrm_user xfrm_algo xt_addrtype nft_compa=
-t x_tables nf_tables br_netfilter bridge stp llc ccm overlay qrtr rfcomm cm=
-ac algif_hash algif_skcipher af_alg bnep binfmt_misc ext4 mbcache jbd2 nls_=
-ascii nls_cp437 vfat fat snd_hda_codec_generic snd_acp3x_pdm_dma snd_soc_dm=
-ic snd_acp3x_rn intel_rapl_msr snd_soc_core snd_compress amd_atl snd_hda_co=
-dec_hdmi iwlmvm intel_rapl_common mac80211 libarc4 snd_pci_acp6x btusb btrt=
-l snd_hda_intel kvm_amd uvcvideo videobuf2_vmalloc snd_hda_codec snd_usb_au=
-dio videobuf2_memops btintel kvm snd_pci_acp5x uvc snd_usbmidi_lib snd_inte=
-l_dspcfg btbcm irqbypass videobuf2_v4l2 snd_hwdep iwlwifi snd_rawmidi btmtk=
- videodev snd_rn_pci_acp3x snd_hda_core snd_seq_device videobuf2_common rap=
-l bluetooth snd_acp_config cfg80211 mc snd_pcm snd_soc_acpi ecdh_generic pc=
-spkr wmi_bmof ecc sg ee1004 snd_timer k10temp snd_pci_acp3x snd
-Oops#1 Part1
-<4>[240561.825538]  ac battery ccp rfkill soundcore joydev button amd_pmc a=
-cpi_tad evdev msr parport_pc ppdev lp parport nvme_fabrics fuse efi_pstore =
-configfs nfnetlink efivarfs autofs4 btrfs xor libblake2b raid6_pq dm_crypt =
-dm_mod r8153_ecm sd_mod cdc_ether usbnet hid_microsoft ff_memless hid_cmedi=
-a uas r8152 mii usb_storage libphy scsi_mod mdio_bus usbhid scsi_common amd=
-gpu drm_client_lib i2c_algo_bit drm_ttm_helper ttm drm_exec drm_suballoc_he=
-lper drm_buddy drm_panel_backlight_quirks gpu_sched amdxcp hid_multitouch d=
-rm_display_helper hid_generic ucsi_acpi video typec_ucsi drm_kms_helper sp5=
-100_tco xhci_pci watchdog i2c_hid_acpi roles cec xhci_hcd ghash_clmulni_int=
-el nvme i2c_piix4 i2c_hid amd_sfh typec serio_raw rc_core thunderbolt usbco=
-re i2c_smbus hid crc16 nvme_core fan usb_common wmi drm aesni_intel
-<4>[240561.825632] ---[ end trace 0000000000000000 ]---
-<4>[240562.127793] RIP: 0010:string (lib/vsprintf.c:655 lib/vsprintf.c:737)
-<4>[240562.127799] Code: c0 0f 85 6a 02 00 00 44 88 2b 48 83 c3 01 83 c6 01=
- 4c 39 fd 74 2e 48 89 ef 48 83 c5 01 48 89 f8 48 89 fa 48 c1 e8 03 83 e2 07=
- <0f> b6 04 08 38 d0 7f 08 84 c0 0f 85 11 02 00 00 44 0f b6 6d ff 45
-All code
-=3D=3D=3D=3D=3D=3D=3D=3D
-   0:	c0 0f 85             	rorb   $0x85,(%rdi)
-   3:	6a 02                	push   $0x2
-   5:	00 00                	add    %al,(%rax)
-   7:	44 88 2b             	mov    %r13b,(%rbx)
-   a:	48 83 c3 01          	add    $0x1,%rbx
-   e:	83 c6 01             	add    $0x1,%esi
-  11:	4c 39 fd             	cmp    %r15,%rbp
-  14:	74 2e                	je     0x44
-  16:	48 89 ef             	mov    %rbp,%rdi
-  19:	48 83 c5 01          	add    $0x1,%rbp
-  1d:	48 89 f8             	mov    %rdi,%rax
-  20:	48 89 fa             	mov    %rdi,%rdx
-  23:	48 c1 e8 03          	shr    $0x3,%rax
-  27:	83 e2 07             	and    $0x7,%edx
-  2a:*	0f b6 04 08          	movzbl (%rax,%rcx,1),%eax		<-- trapping instru=
-ction
-  2e:	38 d0                	cmp    %dl,%al
-  30:	7f 08                	jg     0x3a
-  32:	84 c0                	test   %al,%al
-  34:	0f 85 11 02 00 00    	jne    0x24b
-  3a:	44 0f b6 6d ff       	movzbl -0x1(%rbp),%r13d
-  3f:	45                   	rex.RB
-
-Code starting with the faulting instruction
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-   0:	0f b6 04 08          	movzbl (%rax,%rcx,1),%eax
-   4:	38 d0                	cmp    %dl,%al
-   6:	7f 08                	jg     0x10
-   8:	84 c0                	test   %al,%al
-   a:	0f 85 11 02 00 00    	jne    0x221
-  10:	44 0f b6 6d ff       	movzbl -0x1(%rbp),%r13d
-  15:	45                   	rex.RB
-<4>[240562.127803] RSP: 0018:ffffc90000628360 EFLAGS: 00010046
-<4>[240562.127808] RAX: 0000163080000000 RBX: ffffc9000062865a RCX: dffffc0=
-000000000
-<4>[240562.127812] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000b18=
-400000000
-<4>[240562.127815] RBP: 0000b18400000001 R08: ffffffffffff0a00 R09: ffffc90=
-000628618
-<4>[240562.127818] R10: 0000000000000405 R11: 0000000000000000 R12: ffffc90=
-000628660
-<4>[240562.127821] R13: 0000000000000405 R14: 1ffff920000c506f R15: 0000b18=
-4ffffffff
-<4>[240562.127825] FS:  0000000000000000(0000) GS:ffff88840118b000(0000) kn=
-lGS:0000000000000000
-<4>[240562.127828] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-<4>[240562.127832] CR2: 00007f45967ea000 CR3: 0000000330491000 CR4: 0000000=
-000750ef0
-<4>[240562.127835] PKRU: 55555554
-<0>[240562.127839] Kernel panic - not syncing: Fatal exception in interrupt
-<0>[240563.374597] Shutting down cpus with NMI
