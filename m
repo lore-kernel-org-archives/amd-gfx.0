@@ -4,56 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5F4EE9A048
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Feb 2026 13:59:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7343E9A048
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Feb 2026 14:31:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E9E410E6E5;
-	Thu, 19 Feb 2026 13:59:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76F8D10E025;
+	Thu, 19 Feb 2026 14:31:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="hmeef2k3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KuHkuO6Y";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E131810E6DB
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Feb 2026 13:59:35 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org
- [IPv6:2001:67c:2050:b231:465::202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4fGw3m3NWtz9tnx;
- Thu, 19 Feb 2026 14:59:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1771509572;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=BAWAsIy76rFl74iU7cMO/1VOtM6d5T/dneYxMpLeLPc=;
- b=hmeef2k3VjgRzOAdcYbMseRLYigmfUnEHxcOOTOf1fLrVxW+sL+bkMRUyBtSpL8KcibfKx
- kCzZr/E/Qaj0W4m5YAASjGZ+RLxuMAr35L6/sk1++BceOO+uPUrsTwpJ/mLmkIrd9a4KLR
- 6MF0HA42u12nc4YA8VdvsQr38zuNgvia8F2j9Q4A/7uleQ5lddFVybPzDF5F1Q4ww6NI4D
- ZECfTMGuABuSGeRdcxyOvqX2gehqnBc8tv70KVm7AoUzc8F8q/Uq3ECbvcZtdce1fs6mqk
- K0odvtOd8NpaPYyAJgGzc/ULZG8qfgw1LQNm/p91i6c48L1BxaVyMPoQnoK0Fw==
-Message-ID: <43954b65-db3c-4f6b-837f-e025ac84788f@mailbox.org>
-Date: Thu, 19 Feb 2026 14:59:29 +0100
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010031.outbound.protection.outlook.com
+ [52.101.193.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A5FC10E025
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Feb 2026 14:31:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UZ3KAm+OQKlsMf9n75Ef6q+OJnzrkqU7HGHAx1k6ZPQ5M8UNY8iDTawkCchw4QLjOMEhI88RBgtwXzV2vS99ET4MDkYZIl7ZLRsQ9vRNjIX0A1PmEa3CyEBfUdL+rGQ3161tKuA8FmvAcucQKMyPmlDF22KGDYOJt1KszLwNTz3VTUOVB+X/x+W8H7QdbmjlpNixUGi67xWqRXoJvuHso0i9nfL7hPtU5Uo/QdBWp856GrUcCPoNsQ+Re2YYQlkDRZq0+TxcN35QWtyC9Z3qg5txYwhPD0VQb5OXLDMxzhYefcWVVzre9rvk+nzz4RCxeQeS7iqRGGJKQuuPOe1ToQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BaDFDKHROKMQziYE/D6he5we3bRMr8OI8sJtCDeAF7s=;
+ b=DJd0WdJuI0aE9hbjFvmS1i3rtoMpW39atFmOpoKyhbaGCWum2xHBKQllObx6wL+JeQtawZo9LBMeQ0a0f4eVx8ifjfSZ4v7zMtnV9IoftfC2aSkoMnEZ5zR9VkpOwrXejEl6hcqg/BGupElzI61ddsTMF4JOKrCDA2jLZFPpYBoBAj0ldCJCOSAqPod1h/huQvfeFdNf52Urp3EhcBubnAk2Ma/CQE/5Qni4Qffu0FCQC9bFw4ikfm7UYL+9v6hwaWqL5EVekN7dtNEFVIn9t2yKCyJoKjI22ywz9rkrptGLxtl6hOyDwzneEc66EOnKRhcwcSm3WMT+Oo7qqHquRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BaDFDKHROKMQziYE/D6he5we3bRMr8OI8sJtCDeAF7s=;
+ b=KuHkuO6YHDEKF+ZrhsdzufJN0jd7G/BhiUnvchrTX4mxjCRPsMp4r4gUxiJ14hUdWTfQOH/jSpJqu2+UIATJO6P7TcgW+DXgPPqy7MtqrqE6T2Ks+LE26ANklY5JkFwb+UjkuIkhvZd4GB8HtoG76Wh8qeEB5OYC2AzTandY1SU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by CH2PR12MB4056.namprd12.prod.outlook.com (2603:10b6:610:a5::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.16; Thu, 19 Feb
+ 2026 14:31:19 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9632.015; Thu, 19 Feb 2026
+ 14:31:19 +0000
+Message-ID: <3f1c28cb-9f3f-448d-8812-d0a53ee5f28a@amd.com>
+Date: Thu, 19 Feb 2026 07:31:17 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Add atomfirmware cap for DP++ Type2
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, Nevenko Stupar <nevenko.stupar@amd.com>
+References: <20260218205611.2539493-1-aurabindo.pillai@amd.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260218205611.2539493-1-aurabindo.pillai@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW3PR06CA0023.namprd06.prod.outlook.com
+ (2603:10b6:303:2a::28) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-Subject: Re: [PATCH 1/1] drm/amd/display: complete cursor vblank events
- immediately
-To: Michele Palazzi <sysdadmin@m1k.cloud>
-Cc: harry.wentland@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
- sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260218003104.1256473-1-sysdadmin@m1k.cloud>
- <02cb98e2-5666-45ca-be15-93c93f517238@mailbox.org>
- <44af0f28-8731-4c54-8bf6-0e844eb14b14@m1k.cloud>
- <d2d820a1-0320-4047-8837-2fed0186f4cf@mailbox.org>
- <001df5d5-4602-47f6-9d04-5c94f83d40d0@m1k.cloud>
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-Content-Language: en-CA
-In-Reply-To: <001df5d5-4602-47f6-9d04-5c94f83d40d0@m1k.cloud>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: c5b26eacc40a5490b49
-X-MBO-RS-META: maxmthesnnc7jg4q94a9n7686xuxjfsk
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|CH2PR12MB4056:EE_
+X-MS-Office365-Filtering-Correlation-Id: edcf1554-aea7-494e-f064-08de6fc38c26
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UzZ5Zks4M2pxRDhKdGhRSm9iRVVaLzUyM1NUSHdOODdQNmJHWVRzakk4M1kw?=
+ =?utf-8?B?UHJ5eFpkMmNFQkdDME00Y0JaY1M2NXVFcW55NTl4SHN5TVRNQlBFU25xc2Zp?=
+ =?utf-8?B?NW1NTk04eDFYMGlOTmxwQzBNNFJndnF5TnZkbW83MS9ETHAyVEp3ZGF6cUxG?=
+ =?utf-8?B?YjE3eUpkMXdEbWV1MDBmbUc1d2lPb29aQ1IvUEtQVzZ2emx4TG5PeDFhYnpj?=
+ =?utf-8?B?VVFhaVJteVJ3MzJLaDZsSkRKSE9ZeW5mbDhGSHB2TXJGQndhT0x3MDRnT0NL?=
+ =?utf-8?B?dVFLQlBWQ2ZheWdIWHdSR2c4WWpZeW1UT25VWkNNK3V4SkFZSFBWTEROWWFZ?=
+ =?utf-8?B?YXFvckozWE1aU000cDRjZWw0OHJ0eVVET0VGejk0WWdZRW5pakljZitrVXdl?=
+ =?utf-8?B?M0V6b3JhaXlDZVpQSWdUVG4yTmtwOXlsNWhFRVhNQjRURnEyU01oSHNoZXZt?=
+ =?utf-8?B?RjNabU9Uc1Q2ZStGcHBRTFFWeEM1dzZ6SHlmSFZiOWdDTEg1bTBUSUY5ZmtR?=
+ =?utf-8?B?V3JRMDlCM292UWs3SmlUTWFabktZbFk3S3Mzd3VBZnZ6MmhrMHY2TVN3WHdX?=
+ =?utf-8?B?Qk52d1pna2xrcFBxS3RMK3Z4VmZPcEt5R2llY2QvbFZJRUUrVXF2RmFzR09l?=
+ =?utf-8?B?V212b2tqQUU4Yjg3QlBJcFpYTXNLYU90S3NqT2tLVkx3WTJUSC9nNTIxRmdx?=
+ =?utf-8?B?NVh3VGVid1ZzUFFpQS81Qytka3MrWFVtTklYZE5xNW9nQmJzbWVBU2FmWVlj?=
+ =?utf-8?B?YmJiQ2VTdVRhY0FBZWxHR3dHNythSFpwd2trTW90SlpYcjJlK2ZreERKSENp?=
+ =?utf-8?B?MHF6VENySlhNUHg4ejJFdFZjWDk1TSt0SFRmYzdOSkpRS3JydFNJY2NqWThz?=
+ =?utf-8?B?K1dZaXJCcjM2NTMrSTdmODhnZmdIMTMzQmNOK29rWHBXMjNYaEhHMUUxeGRP?=
+ =?utf-8?B?MFcxN3g4MW10dVdjQ0ZGUVNLR3ZCbjJmR01aS1R3NENMU0NzbGZReU90dXJx?=
+ =?utf-8?B?alRGU3JRZFVDRUgraFNYOENmU0JIQXN4QnpYWXFSWFpIV1oxYk9JNGZjRlBz?=
+ =?utf-8?B?VlNYYThIeU1oclJhaWtITUMrOEtDdTdlaisyZlJjYnI0VTRPamtET3A4YkRu?=
+ =?utf-8?B?UW1ML3NXSzRwNTd4ZFg0N2RHTXBiNi9SQlovQk1HUVlZQXBGY1o3QzczZ3F5?=
+ =?utf-8?B?eW1ZaDNTVW5ZWCs5dDhjcjkvTjVIcG0vZS9ka0tvdTFJeE5yQnplRy9WeUQr?=
+ =?utf-8?B?aFY0bHRyTkdTRTV2Z2pUQXltcllDTjJaNzJKYTFXZmRIZGdRR0ZvVzQ2Yyta?=
+ =?utf-8?B?UVRuQVBSYWVDU1NaQTA3Z1g5dnkxS2UxTHFIRndXaGt1ZkFBdnlJMXRYRXhi?=
+ =?utf-8?B?M0VLbnZ2ZzRLM3dxM2hvb1NjMDM3RXQwRTZEUjhCK2tsVnl4WURxcy9BS3BH?=
+ =?utf-8?B?QTJlNEVOZTVKUDcwZGx2YTVzbnpBR1JIaFBLY1RFbUM4dXlVMlMyejhLUkQ1?=
+ =?utf-8?B?TnJvRmk1ZHNJekEzWVlteFZ1RlV4UjF5UE92bjZBallSNzcxbHJIOEVLbVRT?=
+ =?utf-8?B?TWw2Qkx1VTE5NnU5aU9pelFEUzBlMFVlSjZSVkZLUlFDZ1R2YnhDMUFXeVM2?=
+ =?utf-8?B?RTQ2cmNsQVhBOTZNd3U4NndxK3AzaWVJSFBUdzdCMEU2L3BKWmhySmdTRy8y?=
+ =?utf-8?B?UEVrTWVjcjRJaGtVbkRzQXJMWm1aMDY5aHRXU2RYR2lEU1B2QndoZk83SkhM?=
+ =?utf-8?B?ckNhV3AwdkZMSVBTSlcyZTVlYmhFeUdNaFd4RTMvRTExVHZtOU96VGhOUVFB?=
+ =?utf-8?B?TTJnclpsSzFkbmRUd3FLdk0wTnVBVitJdE1maDl2KzV6SlUwTWxSazFGdGZ6?=
+ =?utf-8?B?SjcyTkNmaWsyOVNxb3NyVlR4R0NPN0pqRURjeE10QmtpVWpFSldyWTRSZmhF?=
+ =?utf-8?B?OUJBendDN1dvUCtuQ24xNGVYMEVPSTEvRm1STFIxb2U1Yy9XY1kyVEwvMENP?=
+ =?utf-8?B?YmtlM2dvN0hibHFjN0Fra21RMzRLZCs4blZ5UkVRb3pwRzJ4R3BDTTkwdURu?=
+ =?utf-8?B?VERpeFJwM2NYYkJLTkZ4SFd2NVJmR3BLVFZaOVVXOGhMMlNtZGVHdk5ML1Rm?=
+ =?utf-8?Q?p2fc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QW4xOGpucUxFSFRyOHBSeTlYR1JaRFlPbjVaRzBlSEhDWm54NEdvWUxpcVNw?=
+ =?utf-8?B?YmNsYVJyUzJEWVJ3d3lTRTZHdGFMeGhQRGtXejRpSlN3V0JTb0ZpeHB0dmMr?=
+ =?utf-8?B?VGpRV1dNdnk2YXpKVzRKc3dUMVo1dm9qMCtVOUJ1dVJkS3VPdDgxZ0xrZHRQ?=
+ =?utf-8?B?QklvVmx3QitHOFJ6a05QM3dhTXBoVWNtdk5raHN3QU5oWkVSTjYySWNlTDUz?=
+ =?utf-8?B?aDV3cmlYdWs5T2tuN2lXajJGZVVTQW1ramIxVm5pdFBBQ0c3NzMydFU3TmpV?=
+ =?utf-8?B?b3dVNUV3ZnBNUzd6clBWdWx6S3c2d3RSWjQ4RGNYR2hUQ1h0eVMvUW9YbzI0?=
+ =?utf-8?B?eHJWL09mVUdKdzRJOWtENHFFNm5CQ1JBa0FiSEhJWDc0cUsyNHdNZXJlK01O?=
+ =?utf-8?B?TUN4OXlwSXMveGJUODAwQlFMMmYvN21yWndLQnd0bVNtL1d1cW9oblljbWJ4?=
+ =?utf-8?B?bHJ0WXZYUDJ3NEVSNnVLZkd6ZmdSZ05UTVcyVm9iWVhrVDd3dkdyUERLMmxJ?=
+ =?utf-8?B?dmg2c29KNEhXa2JYMTVlWXFZamVkTXc0aVFGMlV0YUNBU0hOQ2JjMUI5MVh4?=
+ =?utf-8?B?bjRrR1FTVlFMSjAybys4RGp0NUNHUDhFNmd4TFRFUE5sTW5xcXVwR2JZVjBx?=
+ =?utf-8?B?eFMyM0Fya0VNTHduMEQvL1FGUDRQaTNvN0IvR0hYN1lkcG9LVnpvWXg2R1Fr?=
+ =?utf-8?B?bEdkdUc0M0Vsc0ttc0grVmwzR01ZNGxvUWtKd1g5em1FRnEyektWNmgvK0h3?=
+ =?utf-8?B?RFFMQjg3TjBTam1TZEM4VVpLSkRuMEh2Qko4aU44MEx1WHlwVFVhNmg3OU5j?=
+ =?utf-8?B?M1c4RExyNm1HZEZGZGZoNmhvbFlOMWthTDhlNURweEhHbGJxN2hDT2lJYTRq?=
+ =?utf-8?B?a1dRM1V0d0E4TURFM0RPaGtpTHVNdVREa1BtZ2ttK3BGVjh2ZXhlMyt0K1hL?=
+ =?utf-8?B?SmpMNzBwQ3oyNzNTVC9GeG5DV3pTRmgvbDBGU3FlaHNGZllUcHhaeHkzMnlk?=
+ =?utf-8?B?a09pRm1EWXJ2UjVUWXFzT1ZXRzFtUXpBdzA0MWNKOWdzeStsYkxPZVpVL0NQ?=
+ =?utf-8?B?b3VxV3AvQWJqU2NJM3ZRRExpNEZjZFRLdGp2bkxMNi9hREVOTnMydlZXMllE?=
+ =?utf-8?B?TTFOTXVheFFiUGZvb1lpRm9ScTBDRmoyUjg3YkRFc1RmU05kVkg4aEY5dDcy?=
+ =?utf-8?B?ZnlLUGNYYkNEWFJYRjU5aUhqNWVKZ2FUUk1OaHpUbXV1S01zWi9SSnZEajFW?=
+ =?utf-8?B?b2JjVnZnT3RjK09RVlM5bWVDSGRGdjc3b216TDZkVFBqUy9ZeHZTb0YrL083?=
+ =?utf-8?B?SUJHa29pTm1nRnM1RFNyc08xWU9XMkZIV3Y2RXdzeXlWeHJOMS9BQ3dwRTFP?=
+ =?utf-8?B?OWYzZWY5alpjUUdFeFJ4eUFmZUlrUnRHQ1k5ZnRCU3U3dG0wMkVUVGd1VW9m?=
+ =?utf-8?B?RlZFM1NEMVlTSVc5bEpoaGNXSDE1YU5RaUNFbitsU2hIMHJFTDhsZkh6V2dG?=
+ =?utf-8?B?dGdvTnFlUHJJcStFS2c3Y0U1bG1BODBTWHRIcmluQTdHeWVSb0Nzbnpobmhq?=
+ =?utf-8?B?NWFMNTlGQ0dFWGVaU2hwbnJpYXgxM2p5ZnFObTJFV0t0TlU2cnlpRkdhODdL?=
+ =?utf-8?B?aDc3Tk9OWTJLV04zM2xhdzI1d0syczk4RUxBT0NyZXdETG9HbmRIdHBkaEEv?=
+ =?utf-8?B?TjR0eGZOancvTUdvcUI3alEvT29YdmtIdDY3YlV6MHNYdGFaSDU5SjVqb0Ir?=
+ =?utf-8?B?a3JzL1h6cjNHNXIvQVgxTU5uWU5NWTBlM2FQUXNrdG5ObXhxeE1sQ1ZVdnpi?=
+ =?utf-8?B?dU1PbjhjZG9QNW83SC9YRTI2SWhiZWJ6SURNSmZQeXo3ZDlXRlJPeS9kQ3Fp?=
+ =?utf-8?B?RE5FazB0dHo1R3JzbVhmRkRha3FsSElqRHFhNlZEdVRjMmYwYWFhcFhYZWZY?=
+ =?utf-8?B?SFNwNkpUbWxZTmJMRW0wU0RVQ3c5cHJhUFpnNktPNFd4dEozcnN4VXhBWUZK?=
+ =?utf-8?B?MEdpenF2Z2VVODlKU3daN2RsS2VtVityaU4zQXR2WU41b2NBNDdmcFVUaWR6?=
+ =?utf-8?B?d0hQTkk4RFZybUI3UUpoM3J1QU1QL2g0YldHVXJJSFdiY0pGa1Q4MWdlL0RR?=
+ =?utf-8?B?WGQ0cFArY24yYnp3SVUwRWN0ei9jQjJGa2NkUWpTdUdBY2ZjYUJVU1VBbmx1?=
+ =?utf-8?B?eUpTd3AxNEZYcCsvelpQNVpCTHB2bTNkeEV3NWdGazlacXpJNTFFUGNtUUlO?=
+ =?utf-8?B?U0kyV1Q1S1FLUDdIYmhyTVN5UlVNQUZIdFd6Z2U3UjZtVXJHWEQ5WU9Vclgx?=
+ =?utf-8?Q?BkEV6+wRAuBvNiQ1Wc?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: edcf1554-aea7-494e-f064-08de6fc38c26
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2026 14:31:19.6382 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: j0gbMt2iAW/AxpxQ4wny7/BJrV+Qw7THWoSJ8OpBwKEnQQtNe62w4CjD+O0E5o8p85kFEPIqAxzsQR0vGRxj0w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4056
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,61 +167,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/19/26 14:08, Michele Palazzi wrote:
-> On 2/19/26 12:09, Michel Dänzer wrote:
->> On 2/18/26 11:09, Michele Palazzi wrote:
->>> On 2/18/26 10:41, Michel Dänzer wrote:
->>>> On 2/18/26 01:31, Michele Palazzi wrote:
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> index a8a59126b2d2..35987ce80c71 100644
->>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->>>>> @@ -10168,8 +10168,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->>>>>        } else if (cursor_update && acrtc_state->active_planes > 0) {
->>>>>            spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
->>>>>            if (acrtc_attach->base.state->event) {
->>>>> -            drm_crtc_vblank_get(pcrtc);
->>>>> -            acrtc_attach->event = acrtc_attach->base.state->event;
->>>>> +            drm_crtc_send_vblank_event(pcrtc, acrtc_attach->base.state->event);
->>>>
->>>> Can this code run before start of vblank? If yes, the event would have the wrong sequence number and timestamp.
->>>
->>> Yes, but the original code path had the same problem.
->>
->> Are you sure?
->>
->> I'd expect the original code to send the event only when an interrupt fires during vblank, at which point the values are correct.
+Acked-by: Alex Hung <alex.hung@amd.com>
+
+On 2/18/26 13:56, Aurabindo Pillai wrote:
+> Add ATOM_CONNECTOR_CAP_DP_PLUS_PLUS_TYPE2_ONLY in atom connector caps definitions.
 > 
-> Actually you are indeed right, this approach potentially produces slightly anticipated cursor events, not noticeable but wrong nonetheless.
-
-"not noticeable" by what? It might be noticeable e.g. for mutter's KMS thread deadline timer.
-
-
->>> Would drm_crtc_arm_vblank_event() be more appropriate here? The concern is that it reintroduces the starvation race if the vblank off-delay fires before the interrupt.
->>
->> Not sure that could happen, some of the issues discussed in the comment above drm_crtc_arm_vblank_event might apply though.
+> Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Nevenko Stupar <nevenko.stupar@amd.com>
+> ---
+>   drivers/gpu/drm/amd/include/atomfirmware.h | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> If i understand correctly, using drm_crtc_arm_vblank_event() we would still be having incorrect sequence, although delayed this time,
+> diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
+> index 3d083010e734..18f9642a42ee 100644
+> --- a/drivers/gpu/drm/amd/include/atomfirmware.h
+> +++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+> @@ -879,6 +879,7 @@ enum atom_connector_caps_def
+>   {
+>     ATOM_CONNECTOR_CAP_INTERNAL_DISPLAY         = 0x01,        //a cap bit to indicate that this non-embedded display connector is an internal display
+>     ATOM_CONNECTOR_CAP_INTERNAL_DISPLAY_BL      = 0x02,        //a cap bit to indicate that this internal display requires BL control from GPU, refers to lcd_info for BL PWM freq
+> +  ATOM_CONNECTOR_CAP_DP_PLUS_PLUS_TYPE2_ONLY  = 0x10,        //a cap bit that indicates connector with DP_PLUS_PLUS_TYPE2_ONLY
+>   };
+>   
+>   struct atom_disp_connector_caps_record
 
-Not if used correctly, though per the comment above the function, there are various potential races as well.
-
-> We could maybe add a dedicated flag to amdgpu_dm_crtc_handle_vblank() instead, but it's something i already tried before submitting this and it produced the second race condition, so that alone is not enough.
-> 
-> If there is a suggested approach i am willing to explore it
-
-Can't the issue be solved by fixing the pflip_status handling in the vblank handler?
-I guess that might also hit the second race condition:
-
-> - If vblank is disabled by the off-delay timer before the handler
->   runs, the PENDING cursor event is never delivered and the commit hangs.
-
-That sounds like the drm_crtc_vblank_get/put handling might be incorrect in amdgpu_dm.
-
-In a nutshell, the vblank interrupt is kept enabled as long as there have been more 
-drm_crtc_vblank_get calls than _put ones for the CRTC. I.e. amdgpu_dm needs to call the former under circumstances where it needs the interrupt to be on, and the latter only once it's no longer needed for those circumstances (in this case when sending the event).
-
-
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
