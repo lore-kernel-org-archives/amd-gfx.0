@@ -4,51 +4,182 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 605C1C53200
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0196AC55169
 	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:45:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 069DD10E807;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F59810E80B;
 	Fri, 20 Feb 2026 08:45:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="nNetMoIg";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BYmcJQ0j";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B00B310E792;
- Fri, 20 Feb 2026 06:52:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
- To:From:Sender:Reply-To:Content-ID:Content-Description;
- bh=qLQ1xDm2Cr0RYEZeyd9Zi3xB484+HFF151CIFZ79Xz8=; b=nNetMoIgjx5EI6v02f+mTWaTHW
- MHlwnvnn7+beFcFXNlRGLn845EmUJFNu4KDxRj5YFLy7TEk11rrdM4yNM1XS8Cfp3z+uX76l6P+W9
- Gzb0urCyjimbehKZ0BUQU41THDmKiVkJZDKlHL+HDsho+bXo/CD6kYDANjhj5AQBP62b5tIXxEifa
- 061zyIiB7mZpyuiSecJJ8MePEIu0Wj9pnziOdaoVBBsRiMvPndNiqm1zOQE8rjCAbqHPvKLM39Rww
- 0YP0LCtL60gwzaWY7zw3+WXFfEm8szJUYbuA7BwRnoCvq6qFemZwy4m/SGhDjEaF5yKvwO+ko/SKe
- YsC5y5BQ==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1vtKMx-0000000DKX2-0P3d; Fri, 20 Feb 2026 06:52:07 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: dri-devel@lists.freedesktop.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 3/3] drm/amd/display: dmub_cmd.h: add missing kernel-doc for
- enums
-Date: Thu, 19 Feb 2026 22:51:55 -0800
-Message-ID: <20260220065205.1036179-3-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260220065205.1036179-1-rdunlap@infradead.org>
-References: <20260220065205.1036179-1-rdunlap@infradead.org>
-MIME-Version: 1.0
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010007.outbound.protection.outlook.com [52.101.201.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2C5710E118;
+ Thu, 19 Feb 2026 15:20:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MvFoyWnDTnSP6JYbRbjJhviR3tVbSjXO78waqHHpgQqi2EqNLTDKVWuU8EiHkfhV/VznChjANlpJd4+SPFORrhFFKBpAH+wU0/czVfLhgswVmC3WXqHCyFO78vbYlWyEhof8nYqmCCCYMwZ221lXbU7cwKum4JMHcenY8FW3xl0ze4wOK5nF3cwcJbrIpblOK6ykiGLD+2bnNUgSTMtr6WViVvsHIjvXljD4MPyggmBC1YJ+Y1rRI19j8chLGTH/yU0TwPcP5khrOAmp4B6aSq1yp1AJe5+w3oRDcYB9pbTOqMUtB9LTk9zE5pTz0EOqpKuFMrAhw8nGkCvtdQfyew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=duHoQkQhvzo8SiVzZC6QSt9/wAnm+S32wPqEqpdq5fI=;
+ b=fjmI08CFuJkOLaov65joCYJv441Fab1ogVAsDAA261kCIKwt+W+OgHyhjRXP770hirZaBN6RyHN1px7D5Y4xVDyry7kHYNwoeh3/TjHTDphzwPb9EhTLHWjFjMq7vcarKA7+r6AuPlWmhtiWu5Aipqy9xTxn5lVSUtT+2YF2X2KtNAI1k3Lz9MMUKgK02vexkDdk6R4hH3GWkwpm4gOxdX/xH3r8qHJvlsX36LJOB6bk9bu2SGKuoVtCdKequdcYgc7mmeitjNkOdsF3LKEAwau2qV54Bxb0kJG51NO/NKlmQUl0UrEaT4KJLhvYNNzVx9+IXjha8u7Xhuc7ZDKjJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=duHoQkQhvzo8SiVzZC6QSt9/wAnm+S32wPqEqpdq5fI=;
+ b=BYmcJQ0jNHz6riHqhvxFLF2AAWMaXcMHj7+bEKoT4XtwMqI7W6CfX0TzCVURNBYubUhSkt1pZWtGC2ZrLpxSFlK5kvAX3GBo83txoGPSfuIp1I5hK/HMh3FwtD1eqI9imfZL2kcEQ9fNRsSzpVrnuvw8PmC2ErSCigSz//GTrGkGhA+S8iCToaCBWKXurFBz+IlS7rY+G8IMKJ1XG65S2TCK+W1Z8ADQFqSnHdRy+36eTGSpchgqYLbRb7G7Wog16Ynk1qIeVv6QxFHyINCr6AcdVAuVNEfZzpjbkcbzSdxT28ktPjypxhK1Lv4j1OfPg9bKVgwP9i5Vhqyq41vLgg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN2PR12MB3997.namprd12.prod.outlook.com (2603:10b6:208:161::11)
+ by DS7PR12MB6070.namprd12.prod.outlook.com (2603:10b6:8:9e::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.15; Thu, 19 Feb
+ 2026 15:20:14 +0000
+Received: from MN2PR12MB3997.namprd12.prod.outlook.com
+ ([fe80::73c6:e479:9b75:b2cf]) by MN2PR12MB3997.namprd12.prod.outlook.com
+ ([fe80::73c6:e479:9b75:b2cf%3]) with mapi id 15.20.9632.010; Thu, 19 Feb 2026
+ 15:20:14 +0000
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Fri, 20 Feb 2026 00:20:06 +0900
+Message-Id: <DGJ1G3D32OMK.30HANB1W46XVL@nvidia.com>
+Subject: Re: [PATCH v7 00/23] nova-core: Add memory management support
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
+Cc: <linux-kernel@vger.kernel.org>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet" <corbet@lwn.net>,
+ "Alex Deucher" <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Helge Deller" <deller@gmx.de>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Alice Ryhl" <aliceryhl@google.com>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Alistair Popple" <apopple@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>,
+ "Zhi Wang" <zhiw@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, "Elle
+ Rhumsaa" <elle@weathered-steel.dev>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
+ <joel@joelfernandes.org>, <nouveau@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+References: <20260218212020.800836-1-joelagnelf@nvidia.com>
+In-Reply-To: <20260218212020.800836-1-joelagnelf@nvidia.com>
+X-ClientProxiedBy: TY4P286CA0140.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:37f::7) To MN2PR12MB3997.namprd12.prod.outlook.com
+ (2603:10b6:208:161::11)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3997:EE_|DS7PR12MB6070:EE_
+X-MS-Office365-Filtering-Correlation-Id: acb3903f-b278-458b-d955-08de6fca611b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|7416014|10070799003|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VERyMmZSdGN6MXF2U1FQc04zdU55TXdKOVYvZkwremFZRlZhSWpneVp0N2lN?=
+ =?utf-8?B?bW53TnJwemxzNHk2Z3FYTVpzZXRoRlhJdnhvbnhsZkRtU29OYkVOUFVZanFK?=
+ =?utf-8?B?UFJ5ZGw2Uk94aUVURS96cVVTUHNvZkp2c25QUVBPTVdzY2cvQlBub1Rnb3Ju?=
+ =?utf-8?B?NDlvcmhXVEYzcjJJN1Q4UzdVdy94UlZsdVVzZXU0TGJnNWkvVXdad0thdXZS?=
+ =?utf-8?B?VnVZa0NnTC9TN3lveEg2NnhmVWhOaXc4NkwwL3g4dlM1ME4zZytCcTNyK01N?=
+ =?utf-8?B?VElLS3lwWjZGZU5mVmlhNUgrdjdNWGNSVmJCQUVSeVJHQ0ZURVBqcDJad3FO?=
+ =?utf-8?B?REJZQlZsblFjcGRRcUZxSkFqRjB2S2s0TjVvcmxGOU0wTnhoVE5ETVlVSnRR?=
+ =?utf-8?B?RVVtbnBzVXprTDdyTXYwSW84MGN1MFBpSy8yYzlpNFR5Z0Z3RnNJc091MWNI?=
+ =?utf-8?B?VXJwL00xWHdybHY0b2NPTnNDM1dXNE9SWndsVWFvY0M4NEJZNXNzQUR1YjVs?=
+ =?utf-8?B?ckhHNFIzcDFpZGl5MEs2UWZYUTZhb085S1R5NVM0cWpYZS9CK0VEZDZJU3h6?=
+ =?utf-8?B?Z0tnemZDeHV4MksrVTZ4TVBWV2xkWkZJS3hzOVRZRmV5b3YvYUlaSlE2d2FE?=
+ =?utf-8?B?a1pIaGlCSE82bmoxeUFKNlhDNHdxc281U05pMEVvS3BLM3V1bVJzZU9qdS83?=
+ =?utf-8?B?N1RCVzlSV1pDMEF4WENxbmorcmZFQXpsbHpZaDZZdDl2VkpaVmQ4ZWVFY2V5?=
+ =?utf-8?B?MkZSa2xOSlYvK0Y0OWVZU2NWdm1sMzJwVlRydEdwSTBDMzlPTmhaTlV4QXVx?=
+ =?utf-8?B?bkNkYjZFb0oreGgxeG1ESWhFVUhTTkF0azNqMzVQV1RVV3BRZmhrU0VRUFFz?=
+ =?utf-8?B?WnZ6T0twckdmdlBOOFZ1QXJuNVhDd1RUMCszeGs5WU1OVXEvbTYvVkVvVFUy?=
+ =?utf-8?B?TVdWcm56cElJMlhNNFJySTVpRVphd3Q0MVBzdzA4ZERxdEZncSt0MkM4UlEy?=
+ =?utf-8?B?Q1hjSWRSVGtTSXN3TXdXKzNjSy8zUktBTnNiZUIreWtQdk1pWU9BTStSaWRH?=
+ =?utf-8?B?RWZJbHNHS2tJeVF3YTJHSFJ0SUhIVHJwb1RuUWlIeXAwS2VYVGNWb0h3MHlz?=
+ =?utf-8?B?NE90Q1JkOGxSMHJTRmNuSTBJcm5Mc1QyWUpRNUtxcXlSaytzRFVkQ2xwNDhw?=
+ =?utf-8?B?cjdiUUF5THJLbDZvaWFjalcvemFRY3dwc1Z0NjQ1Q282WWtBc2w1cGl2WGtO?=
+ =?utf-8?B?OFhEY3R0RmorVXBMZ0lGb3BEbjBtVEw3ZFNMM0N3V21DMHNQMWtzek1Ed081?=
+ =?utf-8?B?NzlIOGtDUTFlK1poMjF4KzBHeEV5UEttNGRBem1PTWVuUkVqZm5KbUhUQW8w?=
+ =?utf-8?B?TG9tR3F1dXJxMm9nOUtyc0wraGN1U2tMSysvNFhWalV5YWFtcW5sWFlrRFhO?=
+ =?utf-8?B?MG80UEVSVG5qazM4QTJraS9YUTN6ZlVsTEVTOEpDMGQwMGh0NDhlcHFJamo0?=
+ =?utf-8?B?bHFGcjcxZXp5RDBEa0wwb3A1UnlXZWdqVWI2dnZBTHVSM3RoVHdlcTBJL3F0?=
+ =?utf-8?B?YVZSdVBSeWJFOHNyK2poRTBYSUQxeVBtWTlPS28xRnRzSlBGNVEvWG5Na3JT?=
+ =?utf-8?B?eElqRndHbzI3czdsbVQ0VHRmZDBDdE1NQURYUzZSQzhrMzRVRzNRNzBubkNx?=
+ =?utf-8?B?YUlvT0pkTDN5TDREZXlmNXZLWmNjcmpmaDFFS1ZNWU5rYk8yTWQ1TnVQQ3Fx?=
+ =?utf-8?B?NjZiSnNBVEc3NkNyWVNFYklNbnNIMjdMbjgwdmduNlpUWEpybzByV25qd2tL?=
+ =?utf-8?B?VXJyYXRpNW1HcDdqcXZiVHlJbjFXd0w0RE53UHlzT25iZEhuRXprNVpXRXJw?=
+ =?utf-8?B?WCtFWXFLQStQQjR0VTJrbWwzVUVuYTVydlVwcGI2b3gzRVBQTUNTZ0JneWho?=
+ =?utf-8?B?RlFzb1E3R3laSHZSZVE4eVdaWHc3aCtkVEtLS2R3WVFyK2hmM25JZW1VcFhn?=
+ =?utf-8?B?dWVSOHhJWUNES1pkOURDd0pjc3YvKzduMUhPL0Foa0k1WlQ5SC9oU2V5UDhi?=
+ =?utf-8?B?MHd2akhrc1ZLWlJrbGpTWjJmNjFxc2dQWjhWT3VFaWlpbzJKbGN0Mko5aHht?=
+ =?utf-8?Q?Osvg=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3997.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(7416014)(10070799003)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WEF0SmxZUlRaMVI3MHdwUXlxaVJwUEtSU3ZicHBVRVRqQzBERVNmSUszaW94?=
+ =?utf-8?B?SEhEVTJZRnV1OUhSUjFkcC9oS21yUWpSdUhDTHU2d0Y1SU5zeTB1WDBxNDlr?=
+ =?utf-8?B?NjlSeU9WczExOHRqM1E4R2IxZWRNQTNkdzkwMDBwVHlMQnpJZkRQeTg2NEx3?=
+ =?utf-8?B?K3VIdTFNSlhNK25xYS90MGJ2NWl4c1UxeUhKaEl3bC93aTZDc2lCcU5kSVpD?=
+ =?utf-8?B?WVZZazFmUG80TWVpME1yMlVEcjJ1ZHcrS3lnQTdPVWZJVnorYXdteXl2TG9S?=
+ =?utf-8?B?RTd4MkR3Mm5YTlJWcmRVaERQeGlHWEtrK2p5L1haa1Y0QmZiYS9xbEs1cUVK?=
+ =?utf-8?B?UU9HL0dKUlV0ejQzTTd5WGE3Kzg1blVoSEZweXdmNERNVTM2bGdXcHoxWEtK?=
+ =?utf-8?B?ZVhTZUZCTTFUWGJZcURLcVFPT0tUSmRzU3dlODBtSFgyTTcyejNMV1FnSEpk?=
+ =?utf-8?B?K04yU0Rla0cxVXhvdDZCUkljQUVsWDZVVFpMYkxsSEdyTlMyRDlmM3JVcHRW?=
+ =?utf-8?B?OFhDck9tbDBkci9oQTlPMTZ6Nm5uWkFlbktRTzdQZXRtK1Vib3hLeFdwWENR?=
+ =?utf-8?B?aFpNVEdsdWpySU5rWjlud2ladUd6MmZYU3R6YkJ0OVJaYy8xMXlCU25TdGZx?=
+ =?utf-8?B?R1VlWEpVMFkrdkduMEJJbVloamh3eUZnMld0STZpTzVSdzhldG0vZlg4cnU3?=
+ =?utf-8?B?Qmkya01NV2E0L1ZXaHEyTFZTRXVscHYwV3RnbDV3ZXJIZFpxYTA2NWovM24r?=
+ =?utf-8?B?ZHdDd21FWkdBbU11SHpPaHRBcjFobFJWOXZQdHltZ003d0Iwc3RNdkJpUys3?=
+ =?utf-8?B?ZG0zcDlzQWQwWVo0bFNIdVVqY3l0R2p0bE1BK00yTTJrWDVIdjJyWmJnRk1i?=
+ =?utf-8?B?eEZPQWFHaS9zTjlwalVuNzlTaE8zcWJJQUkxVGlGUnhsN3k2TEUyRWhpRjcx?=
+ =?utf-8?B?VUZxLzNpOU5nNG9FYkQwOGFEQ1Robno5bUsxeFN0c2hhSTBSQS95QWJsTGI2?=
+ =?utf-8?B?emxHbnFENXkvbEs2N0x2Y2hXZ0p4UHFKWUsrakFPWUJkZ24yWlNzdUFSRGwx?=
+ =?utf-8?B?YnNBS2dvVU1hYXBOdHZyZUpxSU1CSGRvMFQ2NGMxNmZTU1Jubyt0eS9lS0oy?=
+ =?utf-8?B?RU9wZWJ6bUVCVU5IdG8xRjBUVlBadTJXajhoOU9TVFVvR2FmWnZoMnFpWGxL?=
+ =?utf-8?B?ek84TFNkRGN4QTZUYTFMaW1QenZtOFU5cG9CY3hFR1Y0SGdobW9DSXkzM2wz?=
+ =?utf-8?B?Y1prdXhXWGk5TXh6UVgyaDBXQWNZRkMvL1BpWU1kVk5ENk1uNXRuNVhjMUtJ?=
+ =?utf-8?B?N29Ya0hxQjd4NzltanZhbzBDMFJyS1J6QVV5WDZ2QU1RNldhTVFLekJrMkh2?=
+ =?utf-8?B?cEg5WUNNNFdOVzBhSVkxTlQwM3VRTTJKcFIwTFNUUGxMd2c2Zkl2YzhjWGVi?=
+ =?utf-8?B?MVVFZmJPUk01SlJ1S0ZDT0NaTmY4QXFuWm04NXdRYXR2T014eDFHRXI0UEFv?=
+ =?utf-8?B?U2c2eSs0ZGVFMC9Mb1ljM0lSWDU5TC95cXNsdk5pYWFmRkdDV0VFcEthaDU5?=
+ =?utf-8?B?OG01VUQ1czIxRjlUQWNGMW40N2pWRmpYTG5GK05UUkovTUMyaFJiNW43VmxB?=
+ =?utf-8?B?RThvV09LU1dYT1hEVmJOL3hheW9raWRHeHI4WTZMaUxSaHBpekU3WVZabDND?=
+ =?utf-8?B?TlVSdGFZLzlkc2lLSXNnNHFjS2UrUkJPOWVKYk1PVTlGYlVIMnVFMk14Situ?=
+ =?utf-8?B?bmZIc3Bqc0c4bVI2anJlemcxcFRuUmttRk1YQ01admVDMi9zakYzQWRtY1Fm?=
+ =?utf-8?B?dkxjaUpvUlVEMS9hdTRPbEVnRW5hSnRlV1ZSbUdqK3cyUmFGOWJGK1VCYkVo?=
+ =?utf-8?B?aXRRYzBNOFVsdFhpbnNyNFdFVU9TSXhGNWxHaUgycFJXOVZVYTZnZTRGc1l3?=
+ =?utf-8?B?RjNlUmlzOERwbTJxOVJ2M0dHUEFmSEVXRW00QWxmT3ZjTEErd1hDZlgzcEN1?=
+ =?utf-8?B?NGhRRmNVVXRHQ1duZXozZUEydmRlZ3RFQkZuVG5hMWRsUG4zdjRqTVNNZ09F?=
+ =?utf-8?B?cnBObUhZK3dGNVVoVGpYczFQdGptNTE5YkZMWlJCS3k5a0tvQWRHMEJ0U3c0?=
+ =?utf-8?B?TFpzYUlFZ1c2R1c5S0J2Qm9hYjNwUEMzNHNTSDUva0Q2cGxOYkROcWlMd2tk?=
+ =?utf-8?B?NDZRYnlNci9RODQ5RmVVRkYwZ3hwOGZGR09URWR0aUx6ZTFodlNHRXlKWnIx?=
+ =?utf-8?B?RU9hVFRvOVpIZ21tcUJjeEdMTmtaRk1pR3FjQ2F5czc2bm5lQk1ib0tiaytk?=
+ =?utf-8?B?WElQZ2FvcVZaUFVUZXVXOFBFRmpuUmNCRERac1RoNTBUZ3pUd0phSFoxM3kz?=
+ =?utf-8?Q?ZaNbhqs7QqxCtqQsH+4EXYxZwdNs7QPkO7qerrsMBoIEf?=
+X-MS-Exchange-AntiSpam-MessageData-1: DfogXNjvG+Ra+A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acb3903f-b278-458b-d955-08de6fca611b
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3997.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Feb 2026 15:20:13.8993 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QulEVz8iu0wTHNwDUIrsBfUomsDAygyZnshmNQIOb4Bvv25oSr1NS0FregZOiCR4yqSXQbzO/uOO5GNlRHqLCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6070
 X-Mailman-Approved-At: Fri, 20 Feb 2026 08:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,436 +195,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For enums that have a kernel-doc ("/**") comment block, add or correct
-their kernel-doc to eliminate all kernel-doc enum warnings.
+Hi Joel,
 
-Some of these needed "struct" changed to "enum" in the kernel-doc header.
-For a few of them, I changed the "/**" comment to a plain "/*"
-comment since there was no kernel-doc content there.
+On Thu Feb 19, 2026 at 6:19 AM JST, Joel Fernandes wrote:
+> This series adds support for nova-core memory management, including VRAM
+> allocation, PRAMIN, VMM, page table walking, and BAR 1 read/writes.
+> These are critical for channel management, vGPU, and all memory
+> management uses.
+>
+> These patches depend on the following preparatory patches:
+> https://lore.kernel.org/all/20260218205507.689429-1-joelagnelf@nvidia.com=
+/T/#t
+>
+> All patches (including the preparatory patches from the other series) can
+> be found at:
+> git://git.kernel.org/pub/scm/linux/kernel/git/jfern/linux.git (branch nov=
+a/mm or tag: nova-mm-v7-20260218)
+>
+> Earlier series of these patches:
+> https://lore.kernel.org/linux-fbdev/DG0MRL6T7ACW.25G3GLJMP7PN1@kernel.org=
+/T/#t
+> https://lore.kernel.org/linux-fbdev/20260210233204.790524-1-joelagnelf@nv=
+idia.com/
+>
+> Joel Fernandes (23):
+>   nova-core: mm: Add support to use PRAMIN windows to write to VRAM
+>   docs: gpu: nova-core: Document the PRAMIN aperture mechanism
+>   nova-core: Add BAR1 aperture type and size constant
+>   nova-core: gsp: Add BAR1 PDE base accessors
+>   nova-core: mm: Add common memory management types
+>   nova-core: mm: Add common types for all page table formats
+>   nova-core: mm: Add MMU v2 page table types
+>   nova-core: mm: Add MMU v3 page table types
+>   nova-core: mm: Add unified page table entry wrapper enums
+>   nova-core: mm: Add TLB flush support
+>   nova-core: mm: Add GpuMm centralized memory manager
+>   nova-core: mm: Add page table walker for MMU v2/v3
+>   nova-core: mm: Add Virtual Memory Manager
+>   nova-core: mm: Add virtual address range tracking to VMM
+>   nova-core: mm: Add multi-page mapping API to VMM
+>   nova-core: mm: Add BAR1 user interface
+>   nova-core: gsp: Return GspStaticInfo and FbLayout from boot()
+>   nova-core: mm: Add BAR1 memory management self-tests
+>   nova-core: mm: Add PRAMIN aperture self-tests
+>   nova-core: gsp: Extract usable FB region from GSP
+>   nova-core: fb: Add usable_vram field to FbLayout
+>   nova-core: mm: Use usable VRAM region for buddy allocator
+>   nova-core: mm: Add BarUser to struct Gpu and create at boot
 
-Example:
+Nice series, a few overall remarks before I dive deeper into each patch:
 
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2673 Enum value 'FAMS2_ALLOW_DELAY_CHECK_NONE' not described in enum 'dmub_fams2_allow_delay_check_mode'
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2673 Enum value 'FAMS2_ALLOW_DELAY_CHECK_FROM_START' not described in enum 'dmub_fams2_allow_delay_check_mode'
-Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2673 Enum value 'FAMS2_ALLOW_DELAY_CHECK_FROM_PREPARE' not described in enum 'dmub_fams2_allow_delay_check_mode'
+- Use `gpu: nova-core:` (not just `nova-core:`) as the patch prefix.
+- There were a few clippy warnings/rustfmt diffs when I built it.
+- There are build failures introduced in patches 11 and 18 - basically
+  the series doesn't build from 11 until the last patch.
+- This patchset is using the `module/mod.rs` pattern instead of
+  `module.rs` for new modules. The latter is the preferred norm IIUC.
 
-All .o files are the same with or without this patch.
+The end result of the series looks coherent, but the ordering of patches
+makes it more tedious to review than it needs to be. We start with
+PRAMIN, then add some BAR1 types that are not used until 10+ patches
+later, switch to getting the framebuffer size from the GSP, add tests,
+go back to GSP, etc. It is difficult to follow all these intertwined
+topics (even though they eventually converge) and to know which of the
+previous patches are relevant to the current one.
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
+But there is a clear path, and after moving patches around (with only
+very trivial conflicts) I got the following ordering which is more
+logical IMHO:
 
- drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h |  160 +++++++++-----
- 1 file changed, 110 insertions(+), 50 deletions(-)
+Phase 1: GSP plumbing
+- nova-core: gsp: Return GspStaticInfo and FbLayout from boot()
+- nova-core: gsp: Extract usable FB region from GSP
+- nova-core: fb: Add usable_vram field to FbLayout
 
---- linux-next-20260218.orig/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ linux-next-20260218/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -1007,15 +1007,30 @@ union dmub_fw_boot_status {
-  * enum dmub_fw_boot_status_bit - Enum bit definitions for SCRATCH0.
-  */
- enum dmub_fw_boot_status_bit {
--	DMUB_FW_BOOT_STATUS_BIT_DAL_FIRMWARE = (1 << 0), /**< 1 if DAL FW */
--	DMUB_FW_BOOT_STATUS_BIT_MAILBOX_READY = (1 << 1), /**< 1 if mailbox ready */
--	DMUB_FW_BOOT_STATUS_BIT_OPTIMIZED_INIT_DONE = (1 << 2), /**< 1 if init done */
--	DMUB_FW_BOOT_STATUS_BIT_RESTORE_REQUIRED = (1 << 3), /**< 1 if driver should call restore */
--	DMUB_FW_BOOT_STATUS_BIT_DEFERRED_LOADED = (1 << 4), /**< 1 if VBIOS data is deferred programmed */
--	DMUB_FW_BOOT_STATUS_BIT_FAMS_ENABLED = (1 << 5), /**< 1 if FAMS is enabled*/
--	DMUB_FW_BOOT_STATUS_BIT_DETECTION_REQUIRED = (1 << 6), /**< 1 if detection need to be triggered by driver*/
--	DMUB_FW_BOOT_STATUS_BIT_HW_POWER_INIT_DONE = (1 << 7), /**< 1 if hw power init is completed */
--	DMUB_FW_BOOT_STATUS_BIT_ONO_REGIONS_ENABLED = (1 << 8), /**< 1 if ONO regions are enabled */
-+	/** @DMUB_FW_BOOT_STATUS_BIT_DAL_FIRMWARE: 1 if DAL FW */
-+	DMUB_FW_BOOT_STATUS_BIT_DAL_FIRMWARE = (1 << 0),
-+	/** @DMUB_FW_BOOT_STATUS_BIT_MAILBOX_READY: 1 if mailbox ready */
-+	DMUB_FW_BOOT_STATUS_BIT_MAILBOX_READY = (1 << 1),
-+	/** @DMUB_FW_BOOT_STATUS_BIT_OPTIMIZED_INIT_DONE: 1 if init done */
-+	DMUB_FW_BOOT_STATUS_BIT_OPTIMIZED_INIT_DONE = (1 << 2),
-+	/** @DMUB_FW_BOOT_STATUS_BIT_RESTORE_REQUIRED: 1 if driver should call restore */
-+	DMUB_FW_BOOT_STATUS_BIT_RESTORE_REQUIRED = (1 << 3),
-+	/**
-+	 * @DMUB_FW_BOOT_STATUS_BIT_DEFERRED_LOADED: 1 if VBIOS data is
-+	 * deferred programmed
-+	 */
-+	DMUB_FW_BOOT_STATUS_BIT_DEFERRED_LOADED = (1 << 4),
-+	/** @DMUB_FW_BOOT_STATUS_BIT_FAMS_ENABLED: 1 if FAMS is enabled */
-+	DMUB_FW_BOOT_STATUS_BIT_FAMS_ENABLED = (1 << 5),
-+	/**
-+	 * @DMUB_FW_BOOT_STATUS_BIT_DETECTION_REQUIRED: 1 if detection needs
-+	 * to be triggered by driver
-+	 */
-+	DMUB_FW_BOOT_STATUS_BIT_DETECTION_REQUIRED = (1 << 6),
-+	/** @DMUB_FW_BOOT_STATUS_BIT_HW_POWER_INIT_DONE: 1 if hw power init is completed */
-+	DMUB_FW_BOOT_STATUS_BIT_HW_POWER_INIT_DONE = (1 << 7),
-+	/** @DMUB_FW_BOOT_STATUS_BIT_ONO_REGIONS_ENABLED: if ONO regions are enabled */
-+	DMUB_FW_BOOT_STATUS_BIT_ONO_REGIONS_ENABLED = (1 << 8),
- };
- 
- /* Register bit definition for SCRATCH5 */
-@@ -1079,18 +1094,22 @@ enum dmub_ips_comand_type {
-  */
- enum dmub_cursor_offload_comand_type {
- 	/**
-+	 * @DMUB_CMD__CURSOR_OFFLOAD_INIT:
- 	 * Initializes the cursor offload feature.
- 	 */
- 	DMUB_CMD__CURSOR_OFFLOAD_INIT = 0,
- 	/**
--	 * Enables cursor offloading for a stream and updates the timing parameters.
-+	 * @DMUB_CMD__CURSOR_OFFLOAD_STREAM_ENABLE: Enables cursor offloading
-+	 * for a stream and updates the timing parameters.
- 	 */
- 	DMUB_CMD__CURSOR_OFFLOAD_STREAM_ENABLE = 1,
- 	/**
-+	 * @DMUB_CMD__CURSOR_OFFLOAD_STREAM_DISABLE:
- 	 * Disables cursor offloading for a given stream.
- 	 */
- 	DMUB_CMD__CURSOR_OFFLOAD_STREAM_DISABLE = 2,
- 	/**
-+	 * @DMUB_CMD__CURSOR_OFFLOAD_STREAM_PROGRAM:
- 	 * Programs the latest data for a given stream.
- 	 */
- 	DMUB_CMD__CURSOR_OFFLOAD_STREAM_PROGRAM = 3,
-@@ -1156,7 +1175,7 @@ enum dmub_fw_boot_options_bit {
-  * [Header (256 Bytes)][Feature 1 (256 Bytes)][Feature 2 (256 Bytes)]...
-  */
- 
--/**
-+/*
-  * enum dmub_shared_state_feature_id - List of shared state features.
-  */
- enum dmub_shared_state_feature_id {
-@@ -1262,14 +1281,14 @@ struct dmub_shared_state_cursor_offload_
- }; /* 248-bytes, fixed */
- 
- /**
-- * enum dmub_shared_state_feature_common - Generic payload.
-+ * struct dmub_shared_state_feature_common - Generic payload.
-  */
- struct dmub_shared_state_feature_common {
- 	uint32_t padding[62];
- }; /* 248-bytes, fixed */
- 
- /**
-- * enum dmub_shared_state_feature_header - Feature description.
-+ * struct dmub_shared_state_feature_header - Feature description.
-  */
- struct dmub_shared_state_feature_header {
- 	uint16_t id; /**< Feature ID */
-@@ -1909,30 +1928,36 @@ enum dmub_cmd_type {
-  */
- enum dmub_out_cmd_type {
- 	/**
--	 * Invalid outbox command, ignored.
-+	 * @DMUB_OUT_CMD__NULL: Invalid outbox command, ignored.
- 	 */
- 	DMUB_OUT_CMD__NULL = 0,
- 	/**
-+	 * @DMUB_OUT_CMD__DP_AUX_REPLY:
- 	 * Command type used for DP AUX Reply data notification
- 	 */
- 	DMUB_OUT_CMD__DP_AUX_REPLY = 1,
- 	/**
-+	 * @DMUB_OUT_CMD__DP_HPD_NOTIFY:
- 	 * Command type used for DP HPD event notification
- 	 */
- 	DMUB_OUT_CMD__DP_HPD_NOTIFY = 2,
- 	/**
-+	 * @DMUB_OUT_CMD__SET_CONFIG_REPLY:
- 	 * Command type used for SET_CONFIG Reply notification
- 	 */
- 	DMUB_OUT_CMD__SET_CONFIG_REPLY = 3,
- 	/**
-+	 * @DMUB_OUT_CMD__DPIA_NOTIFICATION:
- 	 * Command type used for USB4 DPIA notification
- 	 */
- 	DMUB_OUT_CMD__DPIA_NOTIFICATION = 5,
- 	/**
-+	 * @DMUB_OUT_CMD__HPD_SENSE_NOTIFY:
- 	 * Command type used for HPD redetect notification
- 	 */
- 	DMUB_OUT_CMD__HPD_SENSE_NOTIFY = 6,
- 	/**
-+	 * @DMUB_OUT_CMD__FUSED_IO:
- 	 * Command type used for Fused IO notification
- 	 */
- 	DMUB_OUT_CMD__FUSED_IO = 7,
-@@ -2124,19 +2149,19 @@ struct dmub_rb_cmd_PLAT_54186_wa {
-  */
- enum dmub_cmd_mall_type {
- 	/**
--	 * Allows display refresh from MALL.
-+	 * @DMUB_CMD__MALL_ACTION_ALLOW: Allows display refresh from MALL.
- 	 */
- 	DMUB_CMD__MALL_ACTION_ALLOW = 0,
- 	/**
--	 * Disallows display refresh from MALL.
-+	 * @DMUB_CMD__MALL_ACTION_DISALLOW: Disallows display refresh from MALL.
- 	 */
- 	DMUB_CMD__MALL_ACTION_DISALLOW = 1,
- 	/**
--	 * Cursor copy for MALL.
-+	 * @DMUB_CMD__MALL_ACTION_COPY_CURSOR: Cursor copy for MALL.
- 	 */
- 	DMUB_CMD__MALL_ACTION_COPY_CURSOR = 2,
- 	/**
--	 * Controls DF requests.
-+	 * @DMUB_CMD__MALL_ACTION_NO_DF_REQ: Controls DF requests.
- 	 */
- 	DMUB_CMD__MALL_ACTION_NO_DF_REQ = 3,
- };
-@@ -2165,18 +2190,21 @@ struct dmub_rb_cmd_mall {
-  */
- enum dmub_cmd_cab_type {
- 	/**
-+	 * @DMUB_CMD__CAB_NO_IDLE_OPTIMIZATION:
- 	 * No idle optimizations (i.e. no CAB)
- 	 */
- 	DMUB_CMD__CAB_NO_IDLE_OPTIMIZATION = 0,
- 	/**
--	 * No DCN requests for memory
-+	 * @DMUB_CMD__CAB_NO_DCN_REQ: No DCN requests for memory
- 	 */
- 	DMUB_CMD__CAB_NO_DCN_REQ = 1,
- 	/**
-+	 * @DMUB_CMD__CAB_DCN_SS_FIT_IN_CAB:
- 	 * Fit surfaces in CAB (i.e. CAB enable)
- 	 */
- 	DMUB_CMD__CAB_DCN_SS_FIT_IN_CAB = 2,
- 	/**
-+	 * @DMUB_CMD__CAB_DCN_SS_NOT_FIT_IN_CAB:
- 	 * Do not fit surfaces in CAB (i.e. no CAB)
- 	 */
- 	DMUB_CMD__CAB_DCN_SS_NOT_FIT_IN_CAB = 3,
-@@ -2191,7 +2219,7 @@ struct dmub_rb_cmd_cab_for_ss {
- 	uint8_t debug_bits;     /* debug bits */
- };
- 
--/**
-+/*
-  * Enum for indicating which MCLK switch mode per pipe
-  */
- enum mclk_switch_mode {
-@@ -2665,11 +2693,18 @@ struct dmub_fams2_stream_static_state_v1
-  * p-state request to allow latency
-  */
- enum dmub_fams2_allow_delay_check_mode {
--	/* No check for request to allow delay */
-+	/**
-+	 * @FAMS2_ALLOW_DELAY_CHECK_NONE: No check for request to allow delay
-+	 */
- 	FAMS2_ALLOW_DELAY_CHECK_NONE = 0,
--	/* Check for request to allow delay */
-+	/**
-+	 * @FAMS2_ALLOW_DELAY_CHECK_FROM_START: Check for request to allow delay
-+	 */
- 	FAMS2_ALLOW_DELAY_CHECK_FROM_START = 1,
--	/* Check for prepare to allow delay */
-+	/**
-+	 * @FAMS2_ALLOW_DELAY_CHECK_FROM_PREPARE:
-+	 * Check for prepare to allow delay
-+	 */
- 	FAMS2_ALLOW_DELAY_CHECK_FROM_PREPARE = 2,
- };
- 
-@@ -2741,27 +2776,28 @@ struct dmub_rb_cmd_ib {
-  */
- enum dmub_cmd_idle_opt_type {
- 	/**
--	 * DCN hardware restore.
-+	 * @DMUB_CMD__IDLE_OPT_DCN_RESTORE: DCN hardware restore.
- 	 */
- 	DMUB_CMD__IDLE_OPT_DCN_RESTORE = 0,
- 
- 	/**
--	 * DCN hardware save.
-+	 * @DMUB_CMD__IDLE_OPT_DCN_SAVE_INIT: DCN hardware save.
- 	 */
- 	DMUB_CMD__IDLE_OPT_DCN_SAVE_INIT = 1,
- 
- 	/**
--	 * DCN hardware notify idle.
-+	 * @DMUB_CMD__IDLE_OPT_DCN_NOTIFY_IDLE: DCN hardware notify idle.
- 	 */
- 	DMUB_CMD__IDLE_OPT_DCN_NOTIFY_IDLE = 2,
- 
- 	/**
-+	 * @DMUB_CMD__IDLE_OPT_SET_DC_POWER_STATE:
- 	 * DCN hardware notify power state.
- 	 */
- 	DMUB_CMD__IDLE_OPT_SET_DC_POWER_STATE = 3,
- 
- 	/**
--	 * DCN notify to release HW.
-+	 * @DMUB_CMD__IDLE_OPT_RELEASE_HW: DCN notify to release HW.
- 	 */
- 	 DMUB_CMD__IDLE_OPT_RELEASE_HW = 4,
- };
-@@ -2790,7 +2826,7 @@ struct dmub_rb_cmd_idle_opt_dcn_notify_i
- 	struct dmub_dcn_notify_idle_cntl_data cntl_data;
- };
- 
--/**
-+/*
-  * enum dmub_idle_opt_dc_power_state - DC power states.
-  */
- enum dmub_idle_opt_dc_power_state {
-@@ -2832,7 +2868,7 @@ struct dmub_clocks {
-  */
- enum dmub_cmd_clk_mgr_type {
- 	/**
--	 * Notify DMCUB of clock update.
-+	 * @DMUB_CMD__CLK_MGR_NOTIFY_CLOCKS: Notify DMCUB of clock update.
- 	 */
- 	DMUB_CMD__CLK_MGR_NOTIFY_CLOCKS = 0,
- };
-@@ -3077,21 +3113,40 @@ struct dmub_rb_cmd_dpphy_init {
-  * 4 AUX request command bits are shifted to high nibble.
-  */
- enum dp_aux_request_action {
--	/** I2C-over-AUX write request */
-+	/**
-+	 * @DP_AUX_REQ_ACTION_I2C_WRITE: I2C-over-AUX write request
-+	 */
- 	DP_AUX_REQ_ACTION_I2C_WRITE		= 0x00,
--	/** I2C-over-AUX read request */
-+	/**
-+	 * @DP_AUX_REQ_ACTION_I2C_READ: I2C-over-AUX read request
-+	 */
- 	DP_AUX_REQ_ACTION_I2C_READ		= 0x10,
--	/** I2C-over-AUX write status request */
-+	/**
-+	 * @DP_AUX_REQ_ACTION_I2C_STATUS_REQ: I2C-over-AUX write status request
-+	 */
- 	DP_AUX_REQ_ACTION_I2C_STATUS_REQ	= 0x20,
--	/** I2C-over-AUX write request with MOT=1 */
-+	/**
-+	 * @DP_AUX_REQ_ACTION_I2C_WRITE_MOT:
-+	 * I2C-over-AUX write request with MOT=1
-+	 */
- 	DP_AUX_REQ_ACTION_I2C_WRITE_MOT		= 0x40,
--	/** I2C-over-AUX read request with MOT=1 */
-+	/**
-+	 * @DP_AUX_REQ_ACTION_I2C_READ_MOT:
-+	 * I2C-over-AUX read request with MOT=1
-+	 */
- 	DP_AUX_REQ_ACTION_I2C_READ_MOT		= 0x50,
--	/** I2C-over-AUX write status request with MOT=1 */
-+	/**
-+	 * @DP_AUX_REQ_ACTION_I2C_STATUS_REQ_MOT:
-+	 * I2C-over-AUX write status request with MOT=1
-+	 */
- 	DP_AUX_REQ_ACTION_I2C_STATUS_REQ_MOT	= 0x60,
--	/** Native AUX write request */
-+	/**
-+	 * @DP_AUX_REQ_ACTION_DPCD_WRITE: Native AUX write request
-+	 */
- 	DP_AUX_REQ_ACTION_DPCD_WRITE		= 0x80,
--	/** Native AUX read request */
-+	/**
-+	 * @DP_AUX_REQ_ACTION_DPCD_READ: Native AUX read request
-+	 */
- 	DP_AUX_REQ_ACTION_DPCD_READ		= 0x90
- };
- 
-@@ -3099,21 +3154,21 @@ enum dp_aux_request_action {
-  * enum aux_return_code_type - DP AUX process return code listing.
-  */
- enum aux_return_code_type {
--	/** AUX process succeeded */
-+	/** @AUX_RET_SUCCESS: AUX process succeeded */
- 	AUX_RET_SUCCESS = 0,
--	/** AUX process failed with unknown reason */
-+	/** @AUX_RET_ERROR_UNKNOWN: AUX process failed with unknown reason */
- 	AUX_RET_ERROR_UNKNOWN,
--	/** AUX process completed with invalid reply */
-+	/** @AUX_RET_ERROR_INVALID_REPLY: AUX process completed with invalid reply */
- 	AUX_RET_ERROR_INVALID_REPLY,
--	/** AUX process timed out */
-+	/** @AUX_RET_ERROR_TIMEOUT: AUX process timed out */
- 	AUX_RET_ERROR_TIMEOUT,
--	/** HPD was low during AUX process */
-+	/** @AUX_RET_ERROR_HPD_DISCON: HPD was low during AUX process */
- 	AUX_RET_ERROR_HPD_DISCON,
--	/** Failed to acquire AUX engine */
-+	/** @AUX_RET_ERROR_ENGINE_ACQUIRE: Failed to acquire AUX engine */
- 	AUX_RET_ERROR_ENGINE_ACQUIRE,
--	/** AUX request not supported */
-+	/** @AUX_RET_ERROR_INVALID_OPERATION: AUX request not supported */
- 	AUX_RET_ERROR_INVALID_OPERATION,
--	/** AUX process not available */
-+	/** @AUX_RET_ERROR_PROTOCOL_ERROR: AUX process not available */
- 	AUX_RET_ERROR_PROTOCOL_ERROR,
- };
- 
-@@ -3121,9 +3176,9 @@ enum aux_return_code_type {
-  * enum aux_channel_type - DP AUX channel type listing.
-  */
- enum aux_channel_type {
--	/** AUX thru Legacy DP AUX */
-+	/** @AUX_CHANNEL_LEGACY_DDC: AUX thru Legacy DP AUX */
- 	AUX_CHANNEL_LEGACY_DDC,
--	/** AUX thru DPIA DP tunneling */
-+	/** @AUX_CHANNEL_DPIA: AUX thru DPIA DP tunneling */
- 	AUX_CHANNEL_DPIA
- };
- 
-@@ -3608,7 +3663,7 @@ enum phy_link_rate {
- 	 */
- };
- 
--/**
-+/*
-  * enum dmub_phy_fsm_state - PHY FSM states.
-  * PHY FSM state to transit to during PSR enable/disable.
-  */
-@@ -5825,10 +5880,11 @@ struct dmub_rb_cmd_abm_query_caps {
-  */
- enum dmub_abm_ace_curve_type {
- 	/**
--	 * ACE curve as defined by the SW layer.
-+	 * @ABM_ACE_CURVE_TYPE__SW: ACE curve as defined by the SW layer.
- 	 */
- 	ABM_ACE_CURVE_TYPE__SW = 0,
- 	/**
-+	 * @ABM_ACE_CURVE_TYPE__SW_IF:
- 	 * ACE curve as defined by the SW to HW translation interface layer.
- 	 */
- 	ABM_ACE_CURVE_TYPE__SW_IF = 1,
-@@ -5839,10 +5895,11 @@ enum dmub_abm_ace_curve_type {
-  */
- enum dmub_abm_histogram_type {
- 	/**
--	 * ACE curve as defined by the SW layer.
-+	 * @ABM_HISTOGRAM_TYPE__SW: ACE curve as defined by the SW layer.
- 	 */
- 	ABM_HISTOGRAM_TYPE__SW = 0,
- 	/**
-+	 * @ABM_HISTOGRAM_TYPE__SW_IF:
- 	 * ACE curve as defined by the SW to HW translation interface layer.
- 	 */
- 	ABM_HISTOGRAM_TYPE__SW_IF = 1,
-@@ -6048,14 +6105,17 @@ struct dmub_rb_cmd_get_visual_confirm_co
-  */
- enum dmub_cmd_panel_cntl_type {
- 	/**
-+	 * @DMUB_CMD__PANEL_CNTL_HW_INIT:
- 	 * Initializes embedded panel hardware blocks.
- 	 */
- 	DMUB_CMD__PANEL_CNTL_HW_INIT = 0,
- 	/**
-+	 * @DMUB_CMD__PANEL_CNTL_QUERY_BACKLIGHT_INFO:
- 	 * Queries backlight info for the embedded panel.
- 	 */
- 	DMUB_CMD__PANEL_CNTL_QUERY_BACKLIGHT_INFO = 1,
- 	/**
-+	 * @DMUB_CMD__PANEL_DEBUG_PWM_FREQ:
- 	 * Sets the PWM Freq as per user's requirement.
- 	 */
- 	DMUB_CMD__PANEL_DEBUG_PWM_FREQ = 2,
+These constitute a logical change by themselves, by getting more
+information from the GSP to know how much VRAM we have. You could even
+display the result as a dev_info of dev_dbg to remove the only remaining
+`dead_code`.
+
+Phase 2: PRAMIN support
+- nova-core: mm: Add support to use PRAMIN windows to write to VRAM
+- docs: gpu: nova-core: Document the PRAMIN aperture mechanism
+
+PRAMIN is needed by everything that follows.
+
+Phase 3: GpuMm
+- nova-core: mm: Add common memory management types
+- nova-core: mm: Add TLB flush support
+- nova-core: mm: Add GpuMm centralized memory manager
+- nova-core: mm: Use usable VRAM region for buddy allocator
+
+The common memory management types patch and TLB give us all we need to
+introduce GpuMm, which makes it more accessible that after going through
+all the page table types which it doesn't depend on. This culminates
+with using the result of phase 1, which also allows you to get rid of
+the temporary 1MB window hack if you rearrange the code a bit.
+
+Phase 4: page tables / VMM
+- nova-core: mm: Add common types for all page table formats
+- nova-core: mm: Add MMU v2 page table types
+- nova-core: mm: Add MMU v3 page table types
+- nova-core: mm: Add unified page table entry wrapper enums
+- nova-core: mm: Add page table walker for MMU v2/v3
+- nova-core: mm: Add Virtual Memory Manager
+- nova-core: mm: Add virtual address range tracking to VMM
+- nova-core: mm: Add multi-page mapping API to VMM
+
+The main course, required for BAR1 - these follow the original order.
+
+Phase 5: BAR1
+- nova-core: Add BAR1 aperture type and size constant
+- nova-core: gsp: Add BAR1 PDE base accessors
+- nova-core: mm: Add BAR1 user interface
+- nova-core: mm: Add BarUser to struct Gpu and create at boot
+
+All the BAR1 stuff now happens in one place. There is certainly room for
+merging a few patches to avoid introducing dead code and eliminating
+just after.
+
+Phase 6: tests
+- nova-core: mm: Add PRAMIN aperture self-tests
+- nova-core: mm: Add BAR1 memory management self-tests
+
+I have done this reordering locally and it seems to build fine.
+
+I'll do a patch-by-patch review following this order, but I wanted to
+share it first for other reviewers of this revision as it makes the
+series more accessible IMHO.
