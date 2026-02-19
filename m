@@ -4,67 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DCD7C54FCC
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:42:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE181C53200
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:45:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A878210E7FD;
-	Fri, 20 Feb 2026 08:42:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B36310E7E2;
+	Fri, 20 Feb 2026 08:45:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="czbTCmZ+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fateQn91";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C13BB10E7FC;
- Fri, 20 Feb 2026 08:42:38 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4fHNzb1xgcz9tLw;
- Fri, 20 Feb 2026 09:42:35 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1771576955;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=g83C4/nIOxPzfLeHkhnI9mKu3fxHDhlKgc9uEJ+5WJw=;
- b=czbTCmZ+HPvmKCusJSUC/Ju58YpG3A0RR07ukIo1RCpD2wVNYBIcOwbO4q1UTU/UZVf8YP
- gDXIaUYpX0T6RGdImLtiWoMU2i5bjwJH9PD7Fdd+O9swaDMiCoc9cbIeSJQZQCJwZAAySX
- jOa5pMTOk4n4k+Mfr9KpBDsq+n19zOV5mjKhq+FLlO2+A9IuJ1lnEDPO+mATPf4ojQGMzo
- r9MG/por5c+/nle8bI9c262lmPubGAYQvcYiNoKR7Z+PnibFEuC+XB3f5q2q0YVwIjj6g6
- jsKjGKoI4yElEFhIt7EHEuRt8ez3h5lYXaaGO0+Zy5Ph415KcXUSXu3P+K1Erw==
-Message-ID: <dab8d21b-1d28-48c6-87bf-f2060e2d2f1e@mailbox.org>
-Date: Fri, 20 Feb 2026 09:42:28 +0100
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
+ [209.85.167.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6995D10E75F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Feb 2026 22:33:15 +0000 (UTC)
+Received: by mail-lf1-f51.google.com with SMTP id
+ 2adb3069b0e04-59e4993e00aso1720769e87.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Feb 2026 14:33:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771540393; cv=none;
+ d=google.com; s=arc-20240605;
+ b=D6UZ+f6dmOGTZpqhu7qKmsOCTWz1UZyEmBeP55KLwlmZv7F9w4fyQ/ONJNFJOM+wlq
+ K1cylD9bhnQK9cpokYBOWgkByeCQRxCRFE8BuGVJBGSUC37Rcqg5edz5b22NVrASSc6B
+ dGBV/4pBmix/zCl9d3LnMiy1l9ecrdillPygHQh0nuVLOOvm68OD6yj4KjrZuJdB6ONt
+ aN4kkIYLyKXIZzoVhIcrN3VmbZa96OWJuVRd/1aExRqMlOXPq/pWKK7j6Ptx5fT+dNOh
+ BvJkmYruHAkadRdy++cyKo3Hj6/VCpFizJvQ/IRSVJXUVZ5Vj/H2Mc2y/dzyQknroj5y
+ ut9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=0c86jRAYAOOniszwr225rxzBQAZQQwvb90WTwPNyTgs=;
+ fh=FZOwDXhIVsOMx67BDW0hn+e94OrtwNlu+M1PgBIm6Lo=;
+ b=h1TPvss8tZupchHVQHA4czmacVepdGuPnh4kohqAK56dgFUz2+c9KCOR87qUFgBSUQ
+ wf0U9k9oW0l2p3gEdTC5/Rldfw5B/w5lA22I+9mzCXfdAh7lmPcpMDPWMln9HNdpe3mI
+ K7igl5wIWWVb8XZ+6TfrYrYjvgM8FvOj8RTF71l9zqqV+GFqfOolkn+ZYvqZcKtf6j7+
+ LzyOdEcA1JF+3+dCuld6qvV2px3uTJ+W+I79QIGFTUw+VaexeDRhjaTZvqAXa/SGftMS
+ E1l5Iikv4uPpY5uBq2bZC32njI5C3knepdpHnOkJRAkxOVf1y6xou2uWT+yOI8BJEHIM
+ dskA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1771540393; x=1772145193; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=0c86jRAYAOOniszwr225rxzBQAZQQwvb90WTwPNyTgs=;
+ b=fateQn91chOHA1r0zB95seIPnmhGRABm8/XTI80X9C0c7yM4pt7Uf60yB78wW7ImDz
+ H0Vz7RLz9zMY9BNPdf/hxjESw77C4Xqdxj55ES96YS0oQK7KZslAbfibCakODdpx1z/m
+ RsE4nE3mTn0PWmZV56cH1jZWf14TG66ISiWgwXEC+h0ONTBj3fkTjrREbQAchi5pfCyE
+ 3pl1WOH1ZBpKgaS32PbKeDqI0mrb0/Ax8c500ewpRHpvuH4TYjKL9p/VXVAW2P129x2P
+ 07nWLtCXWzRCu7Ozv3SANbiP6HxhvNyhzj5794+IRuT6CU+nX0BVw3MmRILTp1ush5aD
+ 6qPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771540393; x=1772145193;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=0c86jRAYAOOniszwr225rxzBQAZQQwvb90WTwPNyTgs=;
+ b=W/dLZPQnMhduxeB7pBd/P8gZUscbgMuaA6ht6+0lbudOA2ICO3RmziCVgtOhn58EM4
+ RrpUQcklaUmt1muHnocFbi11fSgRIsLonOnOrEUd481Jk08AEOOALGdPiq2xN5+TEJfd
+ gDxt+ARLRL592F0hM1V7lTv547oMEZjt1gkV9ioH2m1QMZhqf9B1b/zhDXBV/3qEAAtv
+ GRQA3H88frNs4ilt2xFB7A2ykt/TW/kr273I6b9Qsy0PxPYDwJwpAPV5nDQH5gySrzZc
+ YwpEBAistCCnaj0claeVXJTdGnSY9n1GglXrX6bCBgVgWuSKzKX2Do5RFPzWb97pPihs
+ aKqQ==
+X-Gm-Message-State: AOJu0Yy8KKQ+z8gYdpkA8J0JGx+x7tTWb1ANTH55QHCTEF5LliqChtLC
+ d0HS2DJSnfzTzS9DY7sGiuA7allPXwKGmDEQBwUHvamUyh9zlOo8LsaGIuLJA1NsOWjepGFJ/6l
+ TXYJ2umQvXa0Bpe4MTBtlPxUyqeSRQxB5VUBfkHoqlgc=
+X-Gm-Gg: AZuq6aJ93/amRdZMN4eZjd/KmhF5o/6bNQv7aCNN4iAi5ClNCtwYOzDfrZ2bW7XH/Z0
+ RTUHTygHiFWMy+P0I8b8j/DVaHY6x1kBEhqtvnkHnSP17kqLELipaTGEu1GpV4mj/fYAMdKNp5G
+ DQS/DGpZkIoQ+x0lwF76yBprzkdBBtaazFeccylayT2obD7lOF9L7TMvGPLus+5elT6YyIn/h/3
+ scp2+wqio+77NinIxhoI1cCn6e0MiwTWMMMFb+R91i408ytuEED9BC4qKuaz54CiXqsvLorz7/7
+ MS1cfrml+Su475Xa2w==
+X-Received: by 2002:a05:6512:23a4:b0:59d:f47c:100d with SMTP id
+ 2adb3069b0e04-59f83bbad74mr2430338e87.24.1771540393099; Thu, 19 Feb 2026
+ 14:33:13 -0800 (PST)
 MIME-Version: 1.0
-Subject: Re: [PATCH v3 1/2] drm: introduce KMS recovery mechanism
-From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-To: Hamza Mahfooz <someguy@effective-light.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Hung <alex.hung@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Ivan Lipski <ivan.lipski@amd.com>, =?UTF-8?Q?Timur_Krist=C3=B3f?=
- <timur.kristof@gmail.com>, Dominik Kaszewski <dominik.kaszewski@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260212230905.688006-1-someguy@effective-light.com>
- <2e359cd9-0192-44d0-886f-7f93a8b0a4fa@amd.com> <aY99D-yXVydpMdwy@hal-station>
- <85319290-4027-4eb8-95d1-9009d23f2294@mailbox.org>
- <aZD0W7V_6--2yqNK@hal-station>
- <7f4a86ad-d642-444c-a576-17ff9caaa934@mailbox.org>
- <aZULq2bDnZpdXvIg@hal-station>
- <8588dcbc-621e-43db-9d69-32398f75d9e6@mailbox.org>
-Content-Language: de-CH-frami, en-CA
-In-Reply-To: <8588dcbc-621e-43db-9d69-32398f75d9e6@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 3622ad96cd3a711f12c
-X-MBO-RS-META: gpdipzkqupcje8wq8z5w5ub47n6h8ij3
+From: John The Cooling Fan <ivan8215145640@gmail.com>
+Date: Fri, 20 Feb 2026 01:33:01 +0300
+X-Gm-Features: AaiRm51jvRuCF3Uzbemg_3Ogc0GaotIPeGjtPgaNcd2hy_qmzlM99LaySlt9CPA
+Message-ID: <CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com>
+Subject: [REGRESSION] VRR not detected on a DisplayPort monitor using an AMD
+ GPU
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, regressions@lists.linux.dev, 
+ mwen@igalia.com, mario.limonciello@amd.com, alex.hung@amd.com, 
+ daniel.wheeler@amd.com, rodrigo.siqueira@amd.com, alexander.deucher@amd.com, 
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com, 
+ huangalex409@gmail.com
+Content-Type: multipart/mixed; boundary="000000000000d620f9064b34e329"
+X-Mailman-Approved-At: Fri, 20 Feb 2026 08:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,31 +101,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/18/26 10:22, Michel Dänzer wrote:
-> On 2/18/26 01:45, Hamza Mahfooz wrote:
->> On Mon, Feb 16, 2026 at 10:28:13AM +0100, Michel Dänzer wrote:
->>> On 2/14/26 23:16, Hamza Mahfooz wrote:
->>>> On Sat, Feb 14, 2026 at 03:02:49PM +0100, Michel Dänzer wrote:
->>>>
->>>>> In principle it's possible to do (the equivalent of) a modeset with the current state for all CRTCs, no need to do it separately per CRTC.
->>>>
->>>> AFAIK that is what the uevent is already doing (unless I'm mistaken).
->>>
->>> This is about just doing a full modeset, which isn't something user space can do in response to a wedged event.
->>
->> I was referring to what compositors are doing in response to
->> `drm_kms_helper_hotplug_event()`. Perhaps, the enum constants should be
->> renamed, since the forced modeset is actually sent when the current
->> reset phase is DRM_KMS_RESET_NONE (the phase is updated before sending
->> out the event though).
-> 
-> Ah, you're talking about the drm_kms_helper_hotplug_event call in drm_atomic_helper_wait_for_flip_done (I thought "uevent" referred to drm_dev_wedged_event in patch 2).
-> 
-> I don't know about other compositors, but I don't think mutter will do a modeset in response to a hotplug event if no KMS state changed (because some monitors can generate spurious hotplug events).
+--000000000000d620f9064b34e329
+Content-Type: text/plain; charset="UTF-8"
 
-FWIW, if it really turns out impossible for the kernel to do a modeset itself (which I remain unconvinced of), one way to require a modeset from user space is to set the "link-status" connector property to "Bad".
+Noticed a regression with VRR after updating the kernel. My main
+monitor's VRR stopped being recognized, I was no longer able to enable
+it in my desktop environment settings and
+/sys/kernel/debug/dri/0/DP-1/vrr_range showed a range of 0 to 0. I did
+a bisect on the linux kernel git tree, and found that the commit
+introducing this issue is 0159f88a99c9f5722dbe52ac42faf3446f371dea.
 
+The monitor is connected via DisplayPort, no converters as far as I
+know. The GPU in use is AMD Radeon RX 6700XT. There is another
+monitor, connected over HDMI and it has VRR working in all the
+versions I've tested. Attached the DisplayPort monitor's edid copied
+from sysfs.
 
--- 
-Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
-https://redhat.com             \               Libre software enthusiast
+#regzbot introduced: 0159f88a99c9f5722dbe52ac42faf3446f371dea
+
+--000000000000d620f9064b34e329
+Content-Type: application/octet-stream; name="main-edid.bin"
+Content-Disposition: attachment; filename="main-edid.bin"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mlu0pn6z0>
+X-Attachment-Id: f_mlu0pn6z0
+
+AP///////wBNZxMnAAAAABkhAQS1PCF4Ol3QqFNHqyEFUFSvzwBxT4GAgQCBwKnAlQCzAAEBal4A
+oKCgKVAwIDUAYVwhAAAaAAAA/QAwS9/fKAEKICAgICAgAAAA/wAwMDAwMDAwMDAwMDAKAAAA/ABE
+RVhQIERRMjdOMgogAXcCAzTxSwECAwQEDhMAABAAIwmHB4MBAABlAwwAEABtGgAAAgEwSwAAAAAA
+AGfYXcQBeMAAAjqAGHE4LUBYLEUAYVwhAAAaNnYAoKCgKVAwIDoAuoghAAAeg0iAGHE4LUBYLEUA
+DyghAAB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAGA==
+--000000000000d620f9064b34e329--
