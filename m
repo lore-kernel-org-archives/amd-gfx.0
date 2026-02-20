@@ -4,82 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D52CC55169
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF193C5516D
 	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:45:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1D6310E805;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60B3F10E7FB;
 	Fri, 20 Feb 2026 08:45:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bYvCcn0L";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="0QJYLlDf";
 	dkim-atps=neutral
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EECED10E6D9
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 02:38:48 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-59de2d1fc2cso1687239e87.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Feb 2026 18:38:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771555127; x=1772159927; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=jrBPGa+g6iGltkbEuqyM0Qz1UaWayuNiGgTjd3xrtnk=;
- b=bYvCcn0LJPQFV5WwYYXHn9aUbfbuNrEAGpSi5XaIioXqEFNRY0MIFQl87ZvpUv02Q9
- tR1+CzYoGoCMh9PewuZha7SuLNiieAk6ejIbNCPzO932HqPNXwWAgv9oanVHRB69oI0n
- +ztC+PqLI/neUxZCIXpmuOysfdh4rVs8OWwiOyFJJkgCVgpiwTcNy8dfPDqM8HBxoWy/
- A6cVuFLp2bYqOwZPxmV9pfPb/0bRuOOurg1RISp8yJFdOXM3FyJoqbfDWfMH48LpL6Iv
- UY/DTFcp23wq98j2wFxMa79+Nj39jo3xMyWSWw6jusFXrXHcQQgE1qwtvJjAEAi7u76o
- JF0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771555127; x=1772159927;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=jrBPGa+g6iGltkbEuqyM0Qz1UaWayuNiGgTjd3xrtnk=;
- b=Cp7asZznya+1oLO6KuTtl0X0L/mhwJstnIEY2YwFSYS1YBLN8cmJn6jfubPLj9U4YY
- DlTggBEK+tnnl9JJ7dNw3OdDy+pr8ich6HDONYbSgLfP0j6WdIK14mKaY04xWEW56RSi
- ZromLrqqjWSHxNmXUQKJTdPWWYT2eC938BrDBPtI8qe7SgSdW3Vg7hoUPcruDOLE6WrJ
- 0DW7NVM86+OndGActv638V3c4YfSU0fDWOaWdmddIC6nJeM+3WbJHtMEPb9tceTaoXV+
- y3IXXydtqYhI5lhLPYVN1/ozlAGH2CHNfni/0yz2oGX8aixd/OHXK73DEY/wmDWatIuw
- Ac6A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVXIuL/5WJqdgz1rssvJTH08UJhu4rybO++MbDp++YrYcXDgpgWwKKjcpEW5r1QpAx0blCFSaEf@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwMbJYIl/wWCG5aFmg0Z8RB9cUFSPYmkuELJdkcq0oZayYRox0a
- H12tpMzPjf3yyyJH7TVnn//dJJJIACxRhTqmd3ng523jVHxIV/zMcHY=
-X-Gm-Gg: AZuq6aIhDd6Iny1GVDjzCIevoNXzf/bFvu1z8WQ1lBBcnn49CFKH2Y2figwmWajCLGh
- Q6BAenzEKNusn067p/2BDrHqjcI/qUAqSjSxNg3bQexAKE8eVHmuuEwToimAOgHXZNX0H+mMJk7
- JrEbQDi6JYNw7rfdjkOSfIaTxbwW/hHrsFMXQTYX7HWoSSPK/W9Ob0gA8caIkUOZO/0yDdWxNjs
- C7OwGwURnusj99ZKSQ/Z/PkzI3X65MK3OF6c5uyxRjhPt71zNtoN9W1iyFZecJK9KHWLurLYYEx
- fZ9qOKgjS1Ba/zCniiClbesCNRdlVHcU4J/QycQP0z6TmdCoPQKprCPw8lg89/COlaHv/IzORxO
- mY0VOWK8NHfAZ+R1RkQF8zR2Ou+9NmUn36ka2b72la4ZpUiM9HG2FYh46O0u0czK72sf3KMHGxm
- kGNe5jv7w=
-X-Received: by 2002:a05:6512:2301:b0:59f:9091:9023 with SMTP id
- 2adb3069b0e04-59f90919031mr681369e87.16.1771555126743; 
- Thu, 19 Feb 2026 18:38:46 -0800 (PST)
-Received: from localhost ([2a0e:e6c0:20d0:4f00::1d])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59e5f56369dsm5759705e87.2.2026.02.19.18.38.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Feb 2026 18:38:45 -0800 (PST)
-Content-Type: multipart/mixed;
- boundary=1e5e143dab6d4627418243148766468191d5d89468e53e5132f562e28a0e
-Mime-Version: 1.0
-Date: Fri, 20 Feb 2026 05:38:45 +0300
-Message-Id: <DGJFVPAQJA15.378GMU7XZXLU@gmail.com>
-Cc: <dri-devel@lists.freedesktop.org>, <regressions@lists.linux.dev>,
- <mwen@igalia.com>, <mario.limonciello@amd.com>, <alex.hung@amd.com>,
- <daniel.wheeler@amd.com>, <rodrigo.siqueira@amd.com>,
- <alexander.deucher@amd.com>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <christian.koenig@amd.com>, <huangalex409@gmail.com>
-Subject: Re: [REGRESSION] VRR not detected on a DisplayPort monitor using an
- AMD GPU
-From: "Ivan Sergeev" <ivan8215145640@gmail.com>
-To: "Mario Limonciello" <superm1@kernel.org>, "John The Cooling Fan"
- <ivan8215145640@gmail.com>, <amd-gfx@lists.freedesktop.org>
-X-Mailer: aerc 0.21.0
-References: <CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com>
- <090d89a2-4f80-44ef-827c-6462d8948493@kernel.org>
-In-Reply-To: <090d89a2-4f80-44ef-827c-6462d8948493@kernel.org>
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3A2710E794;
+ Fri, 20 Feb 2026 06:52:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+ To:From:Sender:Reply-To:Content-ID:Content-Description;
+ bh=dx1dnktvppkCGIBwbwkibz4i01EUu+vVFw3OIkmFqZ0=; b=0QJYLlDfMjIzaz+IK6FCwJ3WX0
+ iNRnqZoKTmfVCPwAXiM6iBhBSN9O3eXVHTJNtX5jnguo8vGuQw5NGTeB1+WCr5GK6zGah0iA/x3T7
+ 2uVX3sH5dGzU4DJwxFz+QLlutfOsLkC+nnDg69hci/XODOKcbFXwRidSg2nCKMdXASriahwb/0iaM
+ iL3cqfAABzDRhpE4z/a38+RAups0mZYqKt2+Z0fEezIqr04RxUO4wS+VF45O6FJAoJuIuvNfLhOaq
+ LO76KBh23dRhvd//Eiu45pMuf0Q3SRJmcUjJyLBW2PQp9dRAQjMz4TUAgQ82YMJLbhArKo9tQYwGf
+ BtSJa5uQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1vtKMw-0000000DKX2-38tI; Fri, 20 Feb 2026 06:52:06 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: dri-devel@lists.freedesktop.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 2/3] drm/amd/display: dmub_cmd.h: correct all kernel-doc
+ prototype warnings
+Date: Thu, 19 Feb 2026 22:51:54 -0800
+Message-ID: <20260220065205.1036179-2-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260220065205.1036179-1-rdunlap@infradead.org>
+References: <20260220065205.1036179-1-rdunlap@infradead.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 20 Feb 2026 08:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,125 +64,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---1e5e143dab6d4627418243148766468191d5d89468e53e5132f562e28a0e
-Content-Type: multipart/alternative;
- boundary=2031d44b5890b85b4d1e1481ab05bf3dbf5f26518ad6b49c7f809f3abc4c
+Correct all typedef, struct, and union prototype warnings in
+dmub_cmd.h by using the matching names or "typedef" keyword:
 
---2031d44b5890b85b4d1e1481ab05bf3dbf5f26518ad6b49c7f809f3abc4c
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: inline
-Content-Type: text/plain; charset=UTF-8
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:961 cannot understand function prototype: 'typedef uint32_t dmub_trace_code_t;'
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:1183 expecting prototype for union dmub_shared_state_ips_fw. Prototype was for union dmub_shared_state_ips_fw_signals instead
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:1203 expecting prototype for union dmub_shared_state_ips_signals. Prototype was for union dmub_shared_state_ips_driver_signals instead
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:1253 expecting prototype for struct dmub_shared_state_cursor_offload_v1. Prototype was for struct dmub_shared_state_cursor_offload_stream_v1 instead
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2001 expecting prototype for struct dmub_cmd_read_modify_write_sequence. Prototype was for struct dmub_rb_cmd_read_modify_write instead
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2191 expecting prototype for struct dmub_rb_cmd_cab. Prototype was for struct dmub_rb_cmd_cab_for_ss instead
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2875 expecting prototype for struct dmub_cmd_set_pixel_clock_data. Prototype was for struct dmub_rb_cmd_set_pixel_clock instead
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:3398 expecting prototype for union dpia_notify_data_type. Prototype was for union dpia_notification_data instead
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:3447 expecting prototype for struct dmub_rb_cmd_hpd_sense_notify. Prototype was for struct dmub_rb_cmd_hpd_sense_notify_data instead
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:6267 expecting prototype for struct dmub_cmd_cable_id_input. Prototype was for struct dmub_cmd_cable_id_output instead
 
-On Fri Feb 20, 2026 at 5:26 AM MSK, Mario Limonciello wrote:
->
-> Can you please share your bisect log?  There was a regression from that=
-=20
-> commit but it was already fixed a long time back.
->
-> commit 7f2b5237e313 ("drm/amd/display: restore invalid MSA timing check=
-=20
-> for freesync")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
 
-Here's my bisect log. I've done the bisect using the v6.12.68 tag as
-good and v6.18.8 tag as bad. I'll check the mentioned commit.
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h |   20 +++++++-------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
---2031d44b5890b85b4d1e1481ab05bf3dbf5f26518ad6b49c7f809f3abc4c--
-
---1e5e143dab6d4627418243148766468191d5d89468e53e5132f562e28a0e
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename=vrr-issue-bisect-deepened.log
-Content-Type: text/x-log; charset=utf-8; name=vrr-issue-bisect-deepened.log
-
-Z2l0IGJpc2VjdCBzdGFydAojIHN0YXR1czogd2FpdGluZyBmb3IgYm90aCBnb29kIGFuZCBiYWQg
-Y29tbWl0cwojIGdvb2Q6IFs5MGVjZjdkOWRhYTJkMDE2N2UyMGIyZTlmNmY1MmUwMWY0N2I4MTQ3
-XSBMaW51eCA2LjEyLjY4CmdpdCBiaXNlY3QgZ29vZCA5MGVjZjdkOWRhYTJkMDE2N2UyMGIyZTlm
-NmY1MmUwMWY0N2I4MTQ3CiMgYmFkOiBbMjUxYWViMGYyZjU3MGRiNTI5MGQwZGMyZjhlYmY4NzI0
-N2IwMGI4NV0gTGludXggNi4xMy42CmdpdCBiaXNlY3QgYmFkIDI1MWFlYjBmMmY1NzBkYjUyOTBk
-MGRjMmY4ZWJmODcyNDdiMDBiODUKIyBnb29kOiBbYWRjMjE4Njc2ZWVmMjU1NzU0NjkyMzQ3MDlj
-MmQ4NzE4NWNhMjIzYV0gTGludXggNi4xMgpnaXQgYmlzZWN0IGdvb2QgYWRjMjE4Njc2ZWVmMjU1
-NzU0NjkyMzQ3MDljMmQ4NzE4NWNhMjIzYQojIGJhZDogWzVjNzE3MjlhYjkyYzdlNzEwZDQ4ZWQ5
-MzA0M2EyZDFlMzVjYzhkM2NdIG5ldDogcGNzOiB4cGNzOiBmaXggRFdfVlJfTUlJX0RJR19DVFJM
-MV8yRzVfRU4gYml0IGJlaW5nIHNldCBmb3IgMUcgU0dNSUkgdy9vIGluYmFuZApnaXQgYmlzZWN0
-IGJhZCA1YzcxNzI5YWI5MmM3ZTcxMGQ0OGVkOTMwNDNhMmQxZTM1Y2M4ZDNjCiMgYmFkOiBbNDgw
-MDU3NWQ4YzBiMmYzNTRhYjA1YWIxYzQ3NDllNDVlMjEzYmY3M10gTWVyZ2UgdGFnICd4ZnMtZml4
-ZXMtNi4xMy1yYzMnIG9mIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vZnMveGZzL3hmcy1s
-aW51eApnaXQgYmlzZWN0IGJhZCA0ODAwNTc1ZDhjMGIyZjM1NGFiMDVhYjFjNDc0OWU0NWUyMTNi
-ZjczCiMgYmFkOiBbODk2ZDg5NDZkYTk3MzMyZDRkYzgwZmExOTM3ZDhkZDZiMWMzNWFkNF0gTWVy
-Z2UgdGFnICduZXQtNi4xMy1yYzInIG9mIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGlu
-dXgva2VybmVsL2dpdC9uZXRkZXYvbmV0CmdpdCBiaXNlY3QgYmFkIDg5NmQ4OTQ2ZGE5NzMzMmQ0
-ZGM4MGZhMTkzN2Q4ZGQ2YjFjMzVhZDQKIyBiYWQ6IFszMWYxYjU1ZDVkN2U1MzFjZDgyNzQxOWU1
-ZDcxYzE5ZjI0ZGUxNjFjXSBuZXQgOm1hbmEgOlJlcXVlc3QgYSBWMiByZXNwb25zZSB2ZXJzaW9u
-IGZvciBNQU5BX1FVRVJZX0dGX1NUQVQKZ2l0IGJpc2VjdCBiYWQgMzFmMWI1NWQ1ZDdlNTMxY2Q4
-Mjc0MTllNWQ3MWMxOWYyNGRlMTYxYwojIGdvb2Q6IFtkMTUyNGQwNDBiMTJlNWJlZTFlZTFkMDRj
-ZTUwMTIyYTFlYTM1MjU4XSBNZXJnZSBicmFuY2ggJ25ldC1maXgtc29tZS1jYWxsZXJzLW9mLWNv
-cHlfZnJvbV9zb2NrcHRyJwpnaXQgYmlzZWN0IGdvb2QgZDE1MjRkMDQwYjEyZTViZWUxZWUxZDA0
-Y2U1MDEyMmExZWEzNTI1OAojIGJhZDogWzUxZWUwNzVkNjk4YmIzZThkZjgyODdhYzgwNDQ3YTE4
-YzcyM2RkNWFdIE1lcmdlIHRhZyAnbGludXgtY2FuLWZpeGVzLWZvci02LjEzLTIwMjQxMjAyJyBv
-ZiBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvbWtsL2xpbnV4
-LWNhbgpnaXQgYmlzZWN0IGJhZCA1MWVlMDc1ZDY5OGJiM2U4ZGY4Mjg3YWM4MDQ0N2ExOGM3MjNk
-ZDVhCiMgYmFkOiBbZjFjZDU2NWNlNTc3NjA5MjNkNWUwZmJkOWU5OTE0YjQxNWMwNjIwYV0gTWVy
-Z2UgYnJhbmNoICdlbmV0Yy1tcXByaW8tZml4ZXMnIFdlaSBGYW5nIHNheXVzOgpnaXQgYmlzZWN0
-IGJhZCBmMWNkNTY1Y2U1Nzc2MDkyM2Q1ZTBmYmQ5ZTk5MTRiNDE1YzA2MjBhCiMgZ29vZDogWzA0
-ZjVjYjQ4OTk1ZDUxZGVlZDBhZjcxYWFiYTFiODY5OTUxMTMxM2ZdIERvY3VtZW50YXRpb246IHRs
-c19vZmZsb2FkOiBmaXggdHlwb3MgYW5kIGdyYW1tYXIKZ2l0IGJpc2VjdCBnb29kIDA0ZjVjYjQ4
-OTk1ZDUxZGVlZDBhZjcxYWFiYTFiODY5OTUxMTMxM2YKIyBiYWQ6IFtkODNlYzRhZmQyMDlhMDYx
-OWIzMmI4NjdmNDVjODQ1ZDRkZGRjMmViXSBNZXJnZSB0YWcgJ3JlZ3VsYXRvci1maXgtdjYuMTMt
-bWVyZ2Utd2luZG93JyBvZiBnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5l
-bC9naXQvYnJvb25pZS9yZWd1bGF0b3IKZ2l0IGJpc2VjdCBiYWQgZDgzZWM0YWZkMjA5YTA2MTli
-MzJiODY3ZjQ1Yzg0NWQ0ZGRkYzJlYgojIGdvb2Q6IFs1MjYyYmNiYjQxZDUyNmY5NDRhOTFhNmE2
-Yzg4ZGZiNmZiYTM4ODliXSBkdC1iaW5kaW5nczogcmVndWxhdG9yOiBxY29tLWxhYmliYi1yZWd1
-bGF0b3I6IGRvY3VtZW50IHRoZSBwbWk4OTUwIGxhYmliYiByZWd1bGF0b3IKZ2l0IGJpc2VjdCBn
-b29kIDUyNjJiY2JiNDFkNTI2Zjk0NGE5MWE2YTZjODhkZmI2ZmJhMzg4OWIKIyBnb29kOiBbMzUx
-ZjJiZmU2MzYyYzY2M2Y0NWY1YzYxMTFmMTQzNjVjZmQwOTRhYl0gcmVndWxhdG9yOiBjb3JlOiBJ
-Z25vcmUgdW5zZXQgbWF4X3VBIGNvbnN0cmFpbnRzIGluIGN1cnJlbnQgbGltaXQgY2hlY2sKZ2l0
-IGJpc2VjdCBnb29kIDM1MWYyYmZlNjM2MmM2NjNmNDVmNWM2MTExZjE0MzY1Y2ZkMDk0YWIKIyBi
-YWQ6IFs0NDhlY2Q1NzcxZTI1NTYyOWJlZjBmYjE2YzliNzhjNGJiZDdiZDU2XSBNZXJnZSB0YWcg
-J2Zvci12Ni4xMycgb2YgZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwv
-Z2l0L3NyZS9saW51eC1wb3dlci1zdXBwbHkKZ2l0IGJpc2VjdCBiYWQgNDQ4ZWNkNTc3MWUyNTU2
-MjliZWYwZmIxNmM5Yjc4YzRiYmQ3YmQ1NgojIGdvb2Q6IFtmY2M3OWUxNzE0ZThjMmI4ZTIxNmRj
-MzE0OTgxMmVkZDM3ODg0ZWVmXSBNZXJnZSB0YWcgJ25ldC1uZXh0LTYuMTMnIG9mIGdpdDovL2dp
-dC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC9uZXRkZXYvbmV0LW5leHQKZ2l0
-IGJpc2VjdCBnb29kIGZjYzc5ZTE3MTRlOGMyYjhlMjE2ZGMzMTQ5ODEyZWRkMzc4ODRlZWYKIyBi
-YWQ6IFs2ZjliYWE5YjkyYzJlNGUyOGUzODVmYTU4MWYwNTExNjIxZGIzZjlhXSBNZXJnZSB0YWcg
-J3BtLTYuMTMtcmMxLTInIG9mIGdpdDovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2Vy
-bmVsL2dpdC9yYWZhZWwvbGludXgtcG0KZ2l0IGJpc2VjdCBiYWQgNmY5YmFhOWI5MmMyZTRlMjhl
-Mzg1ZmE1ODFmMDUxMTYyMWRiM2Y5YQojIGJhZDogWzI4ZWI3NWUxNzhkMzg5ZDMyNWYxNjY2ZTQy
-MmJjMTNiYmJiOTgwNGNdIE1lcmdlIHRhZyAnZHJtLW5leHQtMjAyNC0xMS0yMScgb2YgaHR0cHM6
-Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9rZXJuZWwKZ2l0IGJpc2VjdCBiYWQgMjhlYjc1
-ZTE3OGQzODlkMzI1ZjE2NjZlNDIyYmMxM2JiYmI5ODA0YwojIGJhZDogWzliZWQ0OTRjZDYyN2Nl
-Y2FiMTExNGNlMDQxNmM5ZGRiM2FkNjYwNjRdIE1lcmdlIHRhZyAnbWVkaWF0ZWstZHJtLW5leHQt
-Ni4xMycgb2YgaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQv
-Y2h1bmt1YW5nLmh1L2xpbnV4IGludG8gZHJtLW5leHQKZ2l0IGJpc2VjdCBiYWQgOWJlZDQ5NGNk
-NjI3Y2VjYWIxMTE0Y2UwNDE2YzlkZGIzYWQ2NjA2NAojIGdvb2Q6IFtjOWZmMTRkMDMzOWE3ODM4
-YjcxZDlmMTk2YmQ0MjQ0ZWViNmUyODA4XSBNZXJnZSB0YWcgJ2RybS1pbnRlbC1ndC1uZXh0LTIw
-MjQtMTAtMjMnIG9mIGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9kcm0vaTkxNS9rZXJu
-ZWwgaW50byBkcm0tbmV4dApnaXQgYmlzZWN0IGdvb2QgYzlmZjE0ZDAzMzlhNzgzOGI3MWQ5ZjE5
-NmJkNDI0NGVlYjZlMjgwOAojIGJhZDogWzMwMTk0YjcxNmJkOGZmNjIxNWI0YTQ5YTA4OGVkZThk
-ZTFhMzZkMTVdIGRybS9hbWQvZGlzcGxheTogdXBkYXRlIGZ1bGxzY3JlZW4gc3RhdHVzIHRvIFNQ
-TApnaXQgYmlzZWN0IGJhZCAzMDE5NGI3MTZiZDhmZjYyMTViNGE0OWEwODhlZGU4ZGUxYTM2ZDE1
-CiMgZ29vZDogWzE4NDU3NTJiMmY2YThhY2QxNzk0OWM4M2U0MWM1YWJhNGJkNGUyYmJdIGRybS9h
-bWRncHU6IEZpeCBzcGVsbGluZyBtaXN0YWtlICJpbml0aWFsaXp0aW9uIiAtPiAiaW5pdGlhbGl6
-YXRpb24iCmdpdCBiaXNlY3QgZ29vZCAxODQ1NzUyYjJmNmE4YWNkMTc5NDljODNlNDFjNWFiYTRi
-ZDRlMmJiCiMgYmFkOiBbZjgzZmMzYWJkNTljMzRmY2M5ZjU2MWRiNzVlMzViYjAxYzA3ODg1YV0g
-ZHJtL2FtZGdwdTogb3B0aW1pemUgZm4gZ2Z4X3YxMl9yaW5nX2luc2VydF9ub3AKZ2l0IGJpc2Vj
-dCBiYWQgZjgzZmMzYWJkNTljMzRmY2M5ZjU2MWRiNzVlMzViYjAxYzA3ODg1YQojIGdvb2Q6IFs4
-MmUyY2NhYTQ2ODExMzU2ZjFkYWFhYzIxMjdkYTc5ZWNkMjQ0MmQ0XSBkcm0vYW1kL2Rpc3BsYXk6
-IDMuMi4zMDQKZ2l0IGJpc2VjdCBnb29kIDgyZTJjY2FhNDY4MTEzNTZmMWRhYWFjMjEyN2RhNzll
-Y2QyNDQyZDQKIyBiYWQ6IFswNGJkYmE0NjU0MmM5NTNlMjZmM2JhNGFjODRkZDY1ZmJiNGU3Mzgy
-XSBkcm0vYW1kZ3B1OiBVc2UgZHJtX3ByaW50X21lbW9yeV9zdGF0cyBoZWxwZXIgZnJvbSBmZGlu
-Zm8KZ2l0IGJpc2VjdCBiYWQgMDRiZGJhNDY1NDJjOTUzZTI2ZjNiYTRhYzg0ZGQ2NWZiYjRlNzM4
-MgojIGJhZDogWzJmZTc5NTA4ZDljMzkzYmI5OTMxYjAwMzdjNWVjYWVlMDlhOGRjMzldIGRybS9h
-bWQvZGlzcGxheTogZml4IGhpYmVybmF0ZSBlbnRyeSBmb3IgRENOMzUrCmdpdCBiaXNlY3QgYmFk
-IDJmZTc5NTA4ZDljMzkzYmI5OTMxYjAwMzdjNWVjYWVlMDlhOGRjMzkKIyBnb29kOiBbOWYyOTNj
-NDU0NGY3NGE0MjgyNzVlNmZiZjliMmI2MjU4N2NlZDdmMF0gZHJtL2FtZC9kaXNwbGF5OiBzd2l0
-Y2ggdG8gc2V0dGluZyBwaHlzaWNhbCBhZGRyZXNzIGRpcmVjdGx5CmdpdCBiaXNlY3QgZ29vZCA5
-ZjI5M2M0NTQ0Zjc0YTQyODI3NWU2ZmJmOWIyYjYyNTg3Y2VkN2YwCiMgYmFkOiBbMDE1OWY4OGE5
-OWM5ZjU3MjJkYmU1MmFjNDJmYWYzNDQ2ZjM3MWRlYV0gZHJtL2FtZC9kaXNwbGF5OiByZW1vdmUg
-cmVkdW5kYW50IGZyZWVzeW5jIHBhcnNlciBmb3IgRFAKZ2l0IGJpc2VjdCBiYWQgMDE1OWY4OGE5
-OWM5ZjU3MjJkYmU1MmFjNDJmYWYzNDQ2ZjM3MWRlYQojIGdvb2Q6IFthYmI5MWM1NDVhNTFmZWI5
-ZWE4NzE1OTNkZDgxOWM0MjY0NGYyNWFkXSBkcm0vYW1kL2Rpc3BsYXk6IGFsd2F5cyBjYWxsIGNv
-bm5lY3Rvcl91cGRhdGUgd2hlbiBwYXJzaW5nIGZyZWVzeW5jX2NhcHMKZ2l0IGJpc2VjdCBnb29k
-IGFiYjkxYzU0NWE1MWZlYjllYTg3MTU5M2RkODE5YzQyNjQ0ZjI1YWQKIyBmaXJzdCBiYWQgY29t
-bWl0OiBbMDE1OWY4OGE5OWM5ZjU3MjJkYmU1MmFjNDJmYWYzNDQ2ZjM3MWRlYV0gZHJtL2FtZC9k
-aXNwbGF5OiByZW1vdmUgcmVkdW5kYW50IGZyZWVzeW5jIHBhcnNlciBmb3IgRFAK
---1e5e143dab6d4627418243148766468191d5d89468e53e5132f562e28a0e--
+--- linux-next-20260218.orig/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ linux-next-20260218/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -957,7 +957,7 @@ union dmub_fw_meta {
+ //==============================================================================
+ #if !defined(TENSILICA) && !defined(DMUB_TRACE_ENTRY_DEFINED)
+ /**
+- * dmub_trace_code_t - firmware trace code, 32-bits
++ * typedef dmub_trace_code_t - firmware trace code, 32-bits
+  */
+ typedef uint32_t dmub_trace_code_t;
+ 
+@@ -1169,7 +1169,7 @@ enum dmub_shared_state_feature_id {
+ };
+ 
+ /**
+- * struct dmub_shared_state_ips_fw - Firmware signals for IPS.
++ * struct dmub_shared_state_ips_fw_signals - Firmware signals for IPS.
+  */
+ union dmub_shared_state_ips_fw_signals {
+ 	struct {
+@@ -1184,7 +1184,7 @@ union dmub_shared_state_ips_fw_signals {
+ };
+ 
+ /**
+- * struct dmub_shared_state_ips_signals - Firmware signals for IPS.
++ * struct dmub_shared_state_ips_driver_signals - Firmware signals for IPS.
+  */
+ union dmub_shared_state_ips_driver_signals {
+ 	struct {
+@@ -1246,7 +1246,7 @@ struct dmub_shared_state_ips_driver {
+ }; /* 248-bytes, fixed */
+ 
+ /**
+- * struct dmub_shared_state_cursor_offload_v1 - Header metadata for cursor offload.
++ * struct dmub_shared_state_cursor_offload_stream_v1 - Header metadata for cursor offload.
+  */
+ struct dmub_shared_state_cursor_offload_stream_v1 {
+ 	uint32_t last_write_idx; /**< Last write index */
+@@ -1991,7 +1991,7 @@ struct dmub_cmd_read_modify_write_sequen
+ #define DMUB_READ_MODIFY_WRITE_SEQ__MAX 5
+ 
+ /**
+- * struct dmub_cmd_read_modify_write_sequence - Read modify write command.
++ * struct dmub_rb_cmd_read_modify_write - Read modify write command.
+  */
+ struct dmub_rb_cmd_read_modify_write {
+ 	struct dmub_cmd_header header;  /**< command header */
+@@ -2183,7 +2183,7 @@ enum dmub_cmd_cab_type {
+ };
+ 
+ /**
+- * struct dmub_rb_cmd_cab - CAB command data.
++ * struct dmub_rb_cmd_cab_for_ss - CAB command data.
+  */
+ struct dmub_rb_cmd_cab_for_ss {
+ 	struct dmub_cmd_header header;
+@@ -2868,7 +2868,7 @@ struct dmub_cmd_set_pixel_clock_data {
+ };
+ 
+ /**
+- * struct dmub_cmd_set_pixel_clock_data - Set pixel clock command.
++ * struct dmub_rb_cmd_set_pixel_clock - Set pixel clock command.
+  */
+ struct dmub_rb_cmd_set_pixel_clock {
+ 	struct dmub_cmd_header header; /**< header */
+@@ -3384,7 +3384,7 @@ struct dpia_bw_allocation_notify_data {
+ };
+ 
+ /**
+- * union dpia_notify_data_type - DPIA Notification in Outbox command
++ * union dpia_notification_data - DPIA Notification in Outbox command
+  */
+ union dpia_notification_data {
+ 	/**
+@@ -3440,7 +3440,7 @@ struct dmub_rb_cmd_query_hpd_state {
+ };
+ 
+ /**
+- * struct dmub_rb_cmd_hpd_sense_notify - HPD sense notification data.
++ * struct dmub_rb_cmd_hpd_sense_notify_data - HPD sense notification data.
+  */
+ struct dmub_rb_cmd_hpd_sense_notify_data {
+ 	uint32_t old_hpd_sense_mask; /**< Old HPD sense mask */
+@@ -6258,7 +6258,7 @@ struct dmub_cmd_cable_id_input {
+ };
+ 
+ /**
+- * struct dmub_cmd_cable_id_input - Defines the output of DMUB_CMD_GET_USBC_CABLE_ID command.
++ * struct dmub_cmd_cable_id_output - Defines the output of DMUB_CMD_GET_USBC_CABLE_ID command.
+  */
+ struct dmub_cmd_cable_id_output {
+ 	uint8_t UHBR10_20_CAPABILITY	:2; /**< b'01 for UHBR10 support, b'10 for both UHBR10 and UHBR20 support */
