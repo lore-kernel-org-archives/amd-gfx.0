@@ -4,88 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE181C53200
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:45:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20643C54FCC
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:45:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B36310E7E2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A62F310E7F1;
 	Fri, 20 Feb 2026 08:45:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fateQn91";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OiC7UKsS";
 	dkim-atps=neutral
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6995D10E75F
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Feb 2026 22:33:15 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-59e4993e00aso1720769e87.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Feb 2026 14:33:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771540393; cv=none;
- d=google.com; s=arc-20240605;
- b=D6UZ+f6dmOGTZpqhu7qKmsOCTWz1UZyEmBeP55KLwlmZv7F9w4fyQ/ONJNFJOM+wlq
- K1cylD9bhnQK9cpokYBOWgkByeCQRxCRFE8BuGVJBGSUC37Rcqg5edz5b22NVrASSc6B
- dGBV/4pBmix/zCl9d3LnMiy1l9ecrdillPygHQh0nuVLOOvm68OD6yj4KjrZuJdB6ONt
- aN4kkIYLyKXIZzoVhIcrN3VmbZa96OWJuVRd/1aExRqMlOXPq/pWKK7j6Ptx5fT+dNOh
- BvJkmYruHAkadRdy++cyKo3Hj6/VCpFizJvQ/IRSVJXUVZ5Vj/H2Mc2y/dzyQknroj5y
- ut9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=0c86jRAYAOOniszwr225rxzBQAZQQwvb90WTwPNyTgs=;
- fh=FZOwDXhIVsOMx67BDW0hn+e94OrtwNlu+M1PgBIm6Lo=;
- b=h1TPvss8tZupchHVQHA4czmacVepdGuPnh4kohqAK56dgFUz2+c9KCOR87qUFgBSUQ
- wf0U9k9oW0l2p3gEdTC5/Rldfw5B/w5lA22I+9mzCXfdAh7lmPcpMDPWMln9HNdpe3mI
- K7igl5wIWWVb8XZ+6TfrYrYjvgM8FvOj8RTF71l9zqqV+GFqfOolkn+ZYvqZcKtf6j7+
- LzyOdEcA1JF+3+dCuld6qvV2px3uTJ+W+I79QIGFTUw+VaexeDRhjaTZvqAXa/SGftMS
- E1l5Iikv4uPpY5uBq2bZC32njI5C3knepdpHnOkJRAkxOVf1y6xou2uWT+yOI8BJEHIM
- dskA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8711510E775
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 03:02:04 +0000 (UTC)
+Received: by mail-lj1-f172.google.com with SMTP id
+ 38308e7fff4ca-385c2f88618so14258671fa.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Feb 2026 19:02:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771540393; x=1772145193; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=0c86jRAYAOOniszwr225rxzBQAZQQwvb90WTwPNyTgs=;
- b=fateQn91chOHA1r0zB95seIPnmhGRABm8/XTI80X9C0c7yM4pt7Uf60yB78wW7ImDz
- H0Vz7RLz9zMY9BNPdf/hxjESw77C4Xqdxj55ES96YS0oQK7KZslAbfibCakODdpx1z/m
- RsE4nE3mTn0PWmZV56cH1jZWf14TG66ISiWgwXEC+h0ONTBj3fkTjrREbQAchi5pfCyE
- 3pl1WOH1ZBpKgaS32PbKeDqI0mrb0/Ax8c500ewpRHpvuH4TYjKL9p/VXVAW2P129x2P
- 07nWLtCXWzRCu7Ozv3SANbiP6HxhvNyhzj5794+IRuT6CU+nX0BVw3MmRILTp1ush5aD
- 6qPw==
+ d=gmail.com; s=20230601; t=1771556523; x=1772161323; darn=lists.freedesktop.org;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=hqp1jrv3QaroxdeHoV4ufkhY65ckcSlQNQnG63MUVbI=;
+ b=OiC7UKsSkapzl4ETdNF16mGOA+vS/uSOuqdfGV+thQ4bRH9Fqdd+IS+OoKiUa/UBlr
+ 20ZKMwADnqNyCWXkeYrh/M0rIiYlqap1AawAMyoEu4B0eoOS7njRGSne75E5iwBfiHLN
+ 9JmfKRaDHmdyXRER/d3sKPUccFoSxkL5TGWrPO0qUQiRc8hlkoxPoiCCm9iA1YDWrgcC
+ y8Q4vKKxs6SdkEhNGEOc14r6x4w7ImI00ffPjDri6xClYW0YtzK3b7w+L6FwdrZEhiqM
+ JmTtrcSw5gVO1ARcdJEBIJ37mqcYlr4wxNjb1Woli6jSw6umHmXDfLFQxNJWWZWJDf5D
+ SR4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771540393; x=1772145193;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=0c86jRAYAOOniszwr225rxzBQAZQQwvb90WTwPNyTgs=;
- b=W/dLZPQnMhduxeB7pBd/P8gZUscbgMuaA6ht6+0lbudOA2ICO3RmziCVgtOhn58EM4
- RrpUQcklaUmt1muHnocFbi11fSgRIsLonOnOrEUd481Jk08AEOOALGdPiq2xN5+TEJfd
- gDxt+ARLRL592F0hM1V7lTv547oMEZjt1gkV9ioH2m1QMZhqf9B1b/zhDXBV/3qEAAtv
- GRQA3H88frNs4ilt2xFB7A2ykt/TW/kr273I6b9Qsy0PxPYDwJwpAPV5nDQH5gySrzZc
- YwpEBAistCCnaj0claeVXJTdGnSY9n1GglXrX6bCBgVgWuSKzKX2Do5RFPzWb97pPihs
- aKqQ==
-X-Gm-Message-State: AOJu0Yy8KKQ+z8gYdpkA8J0JGx+x7tTWb1ANTH55QHCTEF5LliqChtLC
- d0HS2DJSnfzTzS9DY7sGiuA7allPXwKGmDEQBwUHvamUyh9zlOo8LsaGIuLJA1NsOWjepGFJ/6l
- TXYJ2umQvXa0Bpe4MTBtlPxUyqeSRQxB5VUBfkHoqlgc=
-X-Gm-Gg: AZuq6aJ93/amRdZMN4eZjd/KmhF5o/6bNQv7aCNN4iAi5ClNCtwYOzDfrZ2bW7XH/Z0
- RTUHTygHiFWMy+P0I8b8j/DVaHY6x1kBEhqtvnkHnSP17kqLELipaTGEu1GpV4mj/fYAMdKNp5G
- DQS/DGpZkIoQ+x0lwF76yBprzkdBBtaazFeccylayT2obD7lOF9L7TMvGPLus+5elT6YyIn/h/3
- scp2+wqio+77NinIxhoI1cCn6e0MiwTWMMMFb+R91i408ytuEED9BC4qKuaz54CiXqsvLorz7/7
- MS1cfrml+Su475Xa2w==
-X-Received: by 2002:a05:6512:23a4:b0:59d:f47c:100d with SMTP id
- 2adb3069b0e04-59f83bbad74mr2430338e87.24.1771540393099; Thu, 19 Feb 2026
- 14:33:13 -0800 (PST)
-MIME-Version: 1.0
-From: John The Cooling Fan <ivan8215145640@gmail.com>
-Date: Fri, 20 Feb 2026 01:33:01 +0300
-X-Gm-Features: AaiRm51jvRuCF3Uzbemg_3Ogc0GaotIPeGjtPgaNcd2hy_qmzlM99LaySlt9CPA
-Message-ID: <CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com>
-Subject: [REGRESSION] VRR not detected on a DisplayPort monitor using an AMD
- GPU
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, regressions@lists.linux.dev, 
- mwen@igalia.com, mario.limonciello@amd.com, alex.hung@amd.com, 
- daniel.wheeler@amd.com, rodrigo.siqueira@amd.com, alexander.deucher@amd.com, 
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com, 
- huangalex409@gmail.com
-Content-Type: multipart/mixed; boundary="000000000000d620f9064b34e329"
+ d=1e100.net; s=20230601; t=1771556523; x=1772161323;
+ h=in-reply-to:references:to:from:subject:cc:message-id:date
+ :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hqp1jrv3QaroxdeHoV4ufkhY65ckcSlQNQnG63MUVbI=;
+ b=bsj+6aHN3nnnYinhgzjXELkMCtlb3+L7Xd6w5/dfYpcVh8XB1hcSMjlD9K0I1YdY6t
+ GeQ/zLcxeIb1n+TzylXCCimgcxVXUfm9a1qyMX0jW1IdJOhoHH2+IwZbvNZB/B5Ta5P4
+ 5CIYuG4yuvWQbIIYq1FBq5s2HkhBaZ5igHwQYPBLyCK8IABpPxe6OCNI2a15xEwrqV0R
+ Qx94/q3YENHia1LbXGWjRYgcS3/0dPxu1uSlneAmmb59JgASxUqlc+hoaozoaL+8Ed3i
+ gkVeqnXynYo+XoN1hix03+HhyHWNp/Vfdm3tgYAgfdslz73+9j6phRkAFDo8DhaRUSPS
+ F/8A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCW03sYN/Irzfm74a+Iwt6Pf9iLSMqbldTx8LohQzGZV6J8iTeDHMJA78otyBKlelFmIPk8JcCGn@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzNAcm6+aeU9v/AOaEWS8MFi+oslQXNHjsokVPogROnxCFKR/qw
+ Hmij8LAJf4uXyzZ8dQMDJ+4Ph3F6XyfotED125w9o9EcuslTk7lFy0I=
+X-Gm-Gg: AZuq6aKMBbECjH1kxdKdTrV3meLw0KRBtQO6HlAcX5MrugJL1I7UwpYNuBN/2+VGb+x
+ bN75yt4AnHe5le7mEJvN9PmcjcYl4fxjFINSKxCfhV+BFtEAhWPKkNFXWV+9X9ML4OM9uJMAgPZ
+ /+XfP8s3/u5pxrQChb3RCoB+5+jlWfGEyPaxIRVw1ycvuywcnKbfFW0U2Y2PZpXO7lmdIFHHonX
+ irBme9qFDS7Buc7f5HOY6kUfkyX2hpyvZFhF2JFuduWIlNbzIVEFj8AakjYOyHLwrFxdbHU8/NF
+ nxdM4rhkSU5YjnWUI5WemxjQMTAboOuistZKjnagRFd6CSCSbGb3Cr6gkit4B0YuJK9u733Scfg
+ Dxr0JxgMhCdEvJ74h44CoVgKNq7TQ+7sO/PQgcbpqD7FSSoX8IVbsV6I8JNPLTPiPmknrOuQYOm
+ wCxmsGe+w=
+X-Received: by 2002:a05:651c:1504:b0:386:e936:71dd with SMTP id
+ 38308e7fff4ca-38846e37a02mr23095861fa.41.1771556522541; 
+ Thu, 19 Feb 2026 19:02:02 -0800 (PST)
+Received: from localhost ([2a0e:e6c0:20d0:4f00::1d])
+ by smtp.gmail.com with ESMTPSA id
+ 38308e7fff4ca-387069259c1sm52664811fa.41.2026.02.19.19.02.01
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 19 Feb 2026 19:02:02 -0800 (PST)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 20 Feb 2026 06:02:01 +0300
+Message-Id: <DGJGDIRQWDG7.XHHKF6UQP0HG@gmail.com>
+Cc: <dri-devel@lists.freedesktop.org>, <regressions@lists.linux.dev>,
+ <mwen@igalia.com>, <mario.limonciello@amd.com>, <alex.hung@amd.com>,
+ <daniel.wheeler@amd.com>, <rodrigo.siqueira@amd.com>,
+ <alexander.deucher@amd.com>, <harry.wentland@amd.com>,
+ <sunpeng.li@amd.com>, <christian.koenig@amd.com>, <huangalex409@gmail.com>
+Subject: Re: [REGRESSION] VRR not detected on a DisplayPort monitor using an
+ AMD GPU
+From: "Ivan Sergeev" <ivan8215145640@gmail.com>
+To: "Ivan Sergeev" <ivan8215145640@gmail.com>, "Mario Limonciello"
+ <superm1@kernel.org>, <amd-gfx@lists.freedesktop.org>
+X-Mailer: aerc 0.21.0
+References: <CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com>
+ <090d89a2-4f80-44ef-827c-6462d8948493@kernel.org>
+ <DGJFVPAQJA15.378GMU7XZXLU@gmail.com>
+In-Reply-To: <DGJFVPAQJA15.378GMU7XZXLU@gmail.com>
 X-Mailman-Approved-At: Fri, 20 Feb 2026 08:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,34 +97,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000d620f9064b34e329
-Content-Type: text/plain; charset="UTF-8"
+On Fri Feb 20, 2026 at 5:38 AM MSK, Ivan Sergeev wrote:
+>
+> I've done the bisect using the v6.12.68 tag as good and v6.18.8 tag as ba=
+d
 
-Noticed a regression with VRR after updating the kernel. My main
-monitor's VRR stopped being recognized, I was no longer able to enable
-it in my desktop environment settings and
-/sys/kernel/debug/dri/0/DP-1/vrr_range showed a range of 0 to 0. I did
-a bisect on the linux kernel git tree, and found that the commit
-introducing this issue is 0159f88a99c9f5722dbe52ac42faf3446f371dea.
-
-The monitor is connected via DisplayPort, no converters as far as I
-know. The GPU in use is AMD Radeon RX 6700XT. There is another
-monitor, connected over HDMI and it has VRR working in all the
-versions I've tested. Attached the DisplayPort monitor's edid copied
-from sysfs.
-
-#regzbot introduced: 0159f88a99c9f5722dbe52ac42faf3446f371dea
-
---000000000000d620f9064b34e329
-Content-Type: application/octet-stream; name="main-edid.bin"
-Content-Disposition: attachment; filename="main-edid.bin"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mlu0pn6z0>
-X-Attachment-Id: f_mlu0pn6z0
-
-AP///////wBNZxMnAAAAABkhAQS1PCF4Ol3QqFNHqyEFUFSvzwBxT4GAgQCBwKnAlQCzAAEBal4A
-oKCgKVAwIDUAYVwhAAAaAAAA/QAwS9/fKAEKICAgICAgAAAA/wAwMDAwMDAwMDAwMDAKAAAA/ABE
-RVhQIERRMjdOMgogAXcCAzTxSwECAwQEDhMAABAAIwmHB4MBAABlAwwAEABtGgAAAgEwSwAAAAAA
-AGfYXcQBeMAAAjqAGHE4LUBYLEUAYVwhAAAaNnYAoKCgKVAwIDoAuoghAAAeg0iAGHE4LUBYLEUA
-DyghAAB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAGA==
---000000000000d620f9064b34e329--
+Sorry, those are not the tags I've used for the bisect. Before doing a
+bisect in git I first checked versions from 6.18 to 6.13, and could
+reproduce the issue in all of them, so after that I went for the git
+bisect between 6.12.68 and 6.13.6.
