@@ -4,31 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D62C55162
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:28:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5DCEC53200
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:28:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3460710E799;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44CF410E79A;
 	Fri, 20 Feb 2026 08:28:51 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E56DC10E79A
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E563810E799
  for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 08:28:49 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 61K8SiLK2192376; Fri, 20 Feb 2026 13:58:44 +0530
+ 61K8Sipf2192365; Fri, 20 Feb 2026 13:58:44 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 61K8SiPl2192375;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 61K8Si0P2192364;
  Fri, 20 Feb 2026 13:58:44 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 2/2] drm/amdgpu: add upper bound check on user inputs in
- signal/wait ioctl
-Date: Fri, 20 Feb 2026 13:58:40 +0530
-Message-Id: <20260220082840.2192325-2-sunil.khatri@amd.com>
+Subject: [PATCH v1 1/2] drm/amdgpu: update memdup_user with memdup_array_user
+Date: Fri, 20 Feb 2026 13:58:39 +0530
+Message-Id: <20260220082840.2192325-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260220082840.2192325-1-sunil.khatri@amd.com>
-References: <20260220082840.2192325-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,122 +42,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are various input arguments set by user in the signal/wait
-ioctl which could be a huge value eventually leading to a OOM
-condition and system crash and could be exploited.
-
-So check these input value against AMDGPU_USERQ_MAX_HANDLES
-which is big enough value and also to avoid out of memory
-condition.
+memdup_user could return invalid memory allocation if
+there is an integer overflow. Using memdup_array_user
+make sure we validate the size requirements upfront
+and return with an error.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 37 +++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 32 +++++++++----------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index a6eb703b62c4..b9810313c5ab 100644
+index 212056d4ddf0..a6eb703b62c4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -35,6 +35,8 @@
- static const struct dma_fence_ops amdgpu_userq_fence_ops;
- static struct kmem_cache *amdgpu_userq_fence_slab;
- 
-+#define AMDGPU_USERQ_MAX_HANDLES	(1U << 16)
-+
- int amdgpu_userq_fence_slab_init(void)
- {
- 	amdgpu_userq_fence_slab = kmem_cache_create("amdgpu_userq_fence",
-@@ -480,6 +482,9 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+@@ -480,8 +480,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
  		return -ENOTSUPP;
  
  	num_syncobj_handles = args->num_syncobj_handles;
-+	if (num_syncobj_handles > AMDGPU_USERQ_MAX_HANDLES)
-+		return -EINVAL;
-+
- 	syncobj_handles = memdup_array_user(u64_to_user_ptr(args->syncobj_handles),
- 					    num_syncobj_handles, sizeof(u32));
+-	syncobj_handles = memdup_user(u64_to_user_ptr(args->syncobj_handles),
+-				      size_mul(sizeof(u32), num_syncobj_handles));
++	syncobj_handles = memdup_array_user(u64_to_user_ptr(args->syncobj_handles),
++					    num_syncobj_handles, sizeof(u32));
  	if (IS_ERR(syncobj_handles))
-@@ -501,6 +506,11 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 		return PTR_ERR(syncobj_handles);
+ 
+@@ -501,8 +501,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
  	}
  
  	num_read_bo_handles = args->num_bo_read_handles;
-+	if (num_read_bo_handles > AMDGPU_USERQ_MAX_HANDLES) {
-+		r = -EINVAL;
-+		goto free_syncobj;
-+	}
-+
- 	bo_handles_read = memdup_array_user(u64_to_user_ptr(args->bo_read_handles),
- 					    num_read_bo_handles, sizeof(u32));
+-	bo_handles_read = memdup_user(u64_to_user_ptr(args->bo_read_handles),
+-				      sizeof(u32) * num_read_bo_handles);
++	bo_handles_read = memdup_array_user(u64_to_user_ptr(args->bo_read_handles),
++					    num_read_bo_handles, sizeof(u32));
  	if (IS_ERR(bo_handles_read)) {
-@@ -524,6 +534,11 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 		r = PTR_ERR(bo_handles_read);
+ 		goto free_syncobj;
+@@ -524,8 +524,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
  	}
  
  	num_write_bo_handles = args->num_bo_write_handles;
-+	if (num_write_bo_handles > AMDGPU_USERQ_MAX_HANDLES) {
-+		r = -EINVAL;
-+		goto put_gobj_read;
-+	}
-+
- 	bo_handles_write = memdup_array_user(u64_to_user_ptr(args->bo_write_handles),
- 					     num_write_bo_handles, sizeof(u32));
+-	bo_handles_write = memdup_user(u64_to_user_ptr(args->bo_write_handles),
+-				       sizeof(u32) * num_write_bo_handles);
++	bo_handles_write = memdup_array_user(u64_to_user_ptr(args->bo_write_handles),
++					     num_write_bo_handles, sizeof(u32));
  	if (IS_ERR(bo_handles_write)) {
-@@ -666,12 +681,20 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 		r = PTR_ERR(bo_handles_write);
+ 		goto put_gobj_read;
+@@ -666,37 +666,37 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
  		return -ENOTSUPP;
  
  	num_read_bo_handles = wait_info->num_bo_read_handles;
-+	if (num_read_bo_handles > AMDGPU_USERQ_MAX_HANDLES)
-+		return -EINVAL;
-+
- 	bo_handles_read = memdup_array_user(u64_to_user_ptr(wait_info->bo_read_handles),
- 					    num_read_bo_handles, sizeof(u32));
+-	bo_handles_read = memdup_user(u64_to_user_ptr(wait_info->bo_read_handles),
+-				      size_mul(sizeof(u32), num_read_bo_handles));
++	bo_handles_read = memdup_array_user(u64_to_user_ptr(wait_info->bo_read_handles),
++					    num_read_bo_handles, sizeof(u32));
  	if (IS_ERR(bo_handles_read))
  		return PTR_ERR(bo_handles_read);
  
  	num_write_bo_handles = wait_info->num_bo_write_handles;
-+	if (num_write_bo_handles > AMDGPU_USERQ_MAX_HANDLES) {
-+		r = -EINVAL;
-+		goto free_bo_handles_read;
-+	}
-+
- 	bo_handles_write = memdup_array_user(u64_to_user_ptr(wait_info->bo_write_handles),
- 					     num_write_bo_handles, sizeof(u32));
+-	bo_handles_write = memdup_user(u64_to_user_ptr(wait_info->bo_write_handles),
+-				       size_mul(sizeof(u32), num_write_bo_handles));
++	bo_handles_write = memdup_array_user(u64_to_user_ptr(wait_info->bo_write_handles),
++					     num_write_bo_handles, sizeof(u32));
  	if (IS_ERR(bo_handles_write)) {
-@@ -680,6 +703,11 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 		r = PTR_ERR(bo_handles_write);
+ 		goto free_bo_handles_read;
  	}
  
  	num_syncobj = wait_info->num_syncobj_handles;
-+	if (num_syncobj > AMDGPU_USERQ_MAX_HANDLES) {
-+		r = -EINVAL;
-+		goto free_bo_handles_write;
-+	}
-+
- 	syncobj_handles = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_handles),
- 					    num_syncobj, sizeof(u32));
+-	syncobj_handles = memdup_user(u64_to_user_ptr(wait_info->syncobj_handles),
+-				      size_mul(sizeof(u32), num_syncobj));
++	syncobj_handles = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_handles),
++					    num_syncobj, sizeof(u32));
  	if (IS_ERR(syncobj_handles)) {
-@@ -688,6 +716,10 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 		r = PTR_ERR(syncobj_handles);
+ 		goto free_bo_handles_write;
  	}
  
  	num_points = wait_info->num_syncobj_timeline_handles;
-+	if (num_points > AMDGPU_USERQ_MAX_HANDLES) {
-+		r = -EINVAL;
-+		goto free_syncobj_handles;
-+	}
- 	timeline_handles = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
- 					     num_points, sizeof(u32));
+-	timeline_handles = memdup_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
+-				       sizeof(u32) * num_points);
++	timeline_handles = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
++					     num_points, sizeof(u32));
  	if (IS_ERR(timeline_handles)) {
-@@ -750,6 +782,11 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
- 		}
+ 		r = PTR_ERR(timeline_handles);
+ 		goto free_syncobj_handles;
  	}
  
-+	if (wait_info->num_fences > AMDGPU_USERQ_MAX_HANDLES) {
-+		r = -EINVAL;
-+		goto exec_fini;
-+	}
-+
- 	if (!wait_info->num_fences) {
- 		if (num_points) {
- 			struct dma_fence_unwrap iter;
+-	timeline_points = memdup_user(u64_to_user_ptr(wait_info->syncobj_timeline_points),
+-				      sizeof(u32) * num_points);
++	timeline_points = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_timeline_points),
++					    num_points, sizeof(u32));
+ 	if (IS_ERR(timeline_points)) {
+ 		r = PTR_ERR(timeline_points);
+ 		goto free_timeline_handles;
 -- 
 2.34.1
 
