@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AADF7C5AE49
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 19:23:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A8F5C561E6
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 19:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 440D310E82D;
-	Fri, 20 Feb 2026 19:23:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9332B10E835;
+	Fri, 20 Feb 2026 19:23:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M6fOAnsZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nvAJ9l+Z";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012033.outbound.protection.outlook.com
- [40.93.195.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 526E510E82D
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010014.outbound.protection.outlook.com
+ [40.93.198.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8CCD310E831
  for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 19:23:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QSMqA/+62QBKJooVgCLDApv9MJGCNd5O1sjl7wx46nfmFXbaWkZKVH9YW35cjQSYgRArYKjLCfWp3MS/1kfg0bSr9k4nYOsQBi5U8+6u1irHe32Bk6aGF9qJxFitukMPPyrhXGgG4GsBzx7aWX2sMeqGlSv7QcneXMVoRRh+LueTJ4XcbOIiUrI2bHU5igFrYL+aAXpi9x724y0nYhxdr0AxrGHDCiXIFzSVwhp5QPH3+oG+yjhcL4YJ9bmz20fRIdKeVhSa6jn5Ge0ufNv+YsMTZ0RpOuItp7cVjkZxmS2xcb3mKMflBZZCKTt/z2kDOWLfyfyUwMqXbV+U+HxJ/w==
+ b=CQa1fQowywXu0EO+wLkObvn6tnaAxo5RsxrW2OYoPOX5lXHn3Lr07zhW+g7ilzJt8Uuc5a3ktD/CjeE6IfPOdDQNvwf2QkR8mxu3JP5T6ZZLSEx9OBzyiutesAJZSF6+C6MX14b05TXYT+0MRXyXIjgf4tGGYF7HLfMFhYIJrPurW0ZnxlgiDSjcQx+HjZOTr30U+ti5U1lktsT5DXugFlTFjuoOeV3rKybRGbKBllTC6w3ZZfVg8S9Zmrol+Ks85tadR+BlKVfa9COkQR/9l+Lg85/XDKPN0JlprngEKrigcSMDWqB2EnSkFwfMhiKGxP8iCqnReuqrlLu2ulcY2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Lv972v+YX5KLkh7RUFS2sOC4Z+o9sEtRix9CnDdcl4g=;
- b=tmJIMSg2KZ6GcGr072/pIW+pvzmw4Yr65LXybnYemt9DfDcVEx/PeMHHTMZPyJbV+ya78FjZseAlAm9SL2i6VZ7qlLp/wrttjpAdKQTOYtT3iie5j+FyOUpkGelv5Wu31foasp8uydFPhfEjCP9kAFQUaNFDK1y3quDdhWqHCh0JlavkY27K8H9e9TGPhyXy13Ks8KMNFKKnBjwQQLYUtXFDbHhv7eaxkevZcUmrb6lCHpi9ZeHzgP96Tk29p9MpUlTsALopI6Lf7/Z1Yf4+Z4o/4zs/YmiKsLxELrjAPCwJDFM05vKGYRkiMs9AcUpsjiPg2E04Z7WlYNyypB9XHQ==
+ bh=cfCiHOn/2Zvow6V6TpkEEhe6f3ht6mzJwYtc8/ez5yw=;
+ b=gIa5b1ju4cnOs64wpblAp05UKdGZ8nl8B9UslIgRcPbUx7v93W3XTguo4zKuxSu0F3ur7fIeUFze2JH1AywjPtPnJmjgguIPfRaUFDDskTz/CkcipndYO0PxlLkRmWYya9d0TQ+xLugE3M4DiUoeC7wa0eCT9F0PVQVG0VXJ5NPyssyS52Uv4UfrQqOaeIzAgPsOsG2/enYLPKoQf/KLMdn59kP0PzKNMIcKS02avUJgHmIlM/fIF6zFspIalsrmZs25M0M2EROEKDJDwgrT/ghcL5+A+eiRa7mC5a/XG3E/WBdmaeA2RrxWAgbTGeDeKONwwmMujZVQ/8LFwF6xAA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Lv972v+YX5KLkh7RUFS2sOC4Z+o9sEtRix9CnDdcl4g=;
- b=M6fOAnsZL+LZX2jxXTCcwoApJDSwDYBdcpvzWaGqc0/4MnYM/tuiI9Tx7E/MGYCsVjBQgOl76A1Uxo5o4f1V4Z8joXNRGKJLLXGju1znHacBUbrBIQFseT9LVMeLXVFI0LVUY4DIatWUa1S7hNT+FTJ7uS+311/D08CgU7F8Rg0=
-Received: from PH1PEPF00013302.namprd07.prod.outlook.com (2603:10b6:518:1::11)
- by DS7PR12MB6213.namprd12.prod.outlook.com (2603:10b6:8:97::13) with
+ bh=cfCiHOn/2Zvow6V6TpkEEhe6f3ht6mzJwYtc8/ez5yw=;
+ b=nvAJ9l+ZJ/uNXeXPkNRcTVFzqJGvTeUmIsUGcTQSJW9tSOybVWsnUFRmT+4Bba2WxRmrLvp5k63LnPXpymGijOY+7iXUiuwcnRsi3At69DTjcSS81J7WH2Aw65YcdwGSMYvGR3iizrIBROUuIYZVC5pWeajXcbCoDOAxcm4BlTw=
+Received: from PH8P221CA0014.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:2d8::32)
+ by DS0PR12MB8765.namprd12.prod.outlook.com (2603:10b6:8:14e::6) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.16; Fri, 20 Feb
- 2026 19:23:07 +0000
-Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
- (2a01:111:f403:f910::2) by PH1PEPF00013302.outlook.office365.com
- (2603:1036:903:47::9) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 19:23:09 +0000
+Received: from CY4PEPF0000EE3A.namprd03.prod.outlook.com
+ (2603:10b6:510:2d8:cafe::8f) by PH8P221CA0014.outlook.office365.com
+ (2603:10b6:510:2d8::32) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.16 via Frontend Transport; Fri,
- 20 Feb 2026 19:23:07 +0000
+ 20 Feb 2026 19:23:09 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,20 +49,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.17) with Microsoft
+ CY4PEPF0000EE3A.mail.protection.outlook.com (10.167.242.12) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.12 via Frontend Transport; Fri, 20 Feb 2026 19:23:07 +0000
+ 15.20.9632.12 via Frontend Transport; Fri, 20 Feb 2026 19:23:09 +0000
 Received: from work-495456.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 20 Feb
- 2026 13:22:54 -0600
+ 2026 13:22:56 -0600
 From: James Zhu <James.Zhu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>
 CC: <Bing.Ma@amd.com>, <jamesz@amd.com>
-Subject: [PATCH 11/17] drm/amdgpu: add profiler/spm operation
- AMDGPU_SPM_OP_SET_DEST_BUF
-Date: Fri, 20 Feb 2026 14:22:30 -0500
-Message-ID: <20260220192236.3121556-11-James.Zhu@amd.com>
+Subject: [PATCH 14/17] drm/amdgpu: workaround for spm ring buffer overflow
+Date: Fri, 20 Feb 2026 14:22:33 -0500
+Message-ID: <20260220192236.3121556-14-James.Zhu@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260220192236.3121556-1-James.Zhu@amd.com>
 References: <20260220192236.3121556-1-James.Zhu@amd.com>
@@ -74,57 +73,57 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|DS7PR12MB6213:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ca39679-276d-4488-0e0e-08de70b57a12
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3A:EE_|DS0PR12MB8765:EE_
+X-MS-Office365-Filtering-Correlation-Id: 176a39c9-4225-4f54-ee64-08de70b57b29
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?L6w9Uc4wWsDonhUzTv+dlrL1sMCc8YYep3+hS4bjhslcryGhCd3Fcg/qUi7h?=
- =?us-ascii?Q?V11G5n/Q/LxHGsrqb6tAq60AM6CZvqsLmWADwx1DP9515DQ6FkM7/LcbCoJZ?=
- =?us-ascii?Q?KJ8ZFRanjch3uQ6p/Ns5BU5HqhTiOmlNULrT5ka2RMQMH/GW2q+tVysrnA12?=
- =?us-ascii?Q?kYB4m4noBq7p8GvlVz4S+NxZGuv48+ffBHblzm32wa2KoNCIjQmoj/GQkcEo?=
- =?us-ascii?Q?vuT6/U+jcib25EXlv8Zbn9ayjAc2OyA9hwoOt5qM8707ED9b+IrdlAa6hnn6?=
- =?us-ascii?Q?cwFcWayDclhffIOWpDjSuhS1OhLKzwRUSasp1v9yO10FCb4CtZKtGxVRbJJk?=
- =?us-ascii?Q?bIxPkT7oYvs1q5619w/9Aj0kv+KwYK0EEyopRE8gmtTY96wGRNwKe6tBjAnI?=
- =?us-ascii?Q?dpGBTMVy2pvRiIjbOTaiUtCRrxvUjPcknd4gIpgwpSCj82Hsb+qGpRDXFKPq?=
- =?us-ascii?Q?2dhb+inpEFo9vhAfqUX383aFn5Y/oWzWCJnxOm2ffRlpke9Z4JuXx7TxMo14?=
- =?us-ascii?Q?7xrsozbzYFfEoLH9gfEBc8S7j/TMoYrBCiv8zRHhsjYQWUh4R+V6oJpGsYWp?=
- =?us-ascii?Q?gx2mP35FdF3unoS/2CM8u8sF+wX/Bk0xbTky9HQNj1AlHyikBUy51i6UeKom?=
- =?us-ascii?Q?LeNudbl78n9cCeIKx7PPbutWGffhNGpp+OCifOJ41VTj8RMXFbNVzqM7q3PK?=
- =?us-ascii?Q?eWDbQKoa1uyU21AXABP7mzkNCSNmSoTsVQdHdPH1tydr0dS9uI1Dx77EZ7Af?=
- =?us-ascii?Q?gTM48pp5xorsW8c/2wjIEl5agrEX6xDkdcWGA8pcY6YOY2MA9dcZ2BIbaVKQ?=
- =?us-ascii?Q?9ChYF/JXIDvAxCe6qwnEMWdiHDW1/OeAMk6XnHW+/S6EsKb/Yllk26aXlA3n?=
- =?us-ascii?Q?BvqkK5j4B2XDwh9yMhA7R4re5eNkqYbS6BKmibfyJMN23WT1yOaeJMeCsryc?=
- =?us-ascii?Q?iYcGb2AOxiujEA3Ii2izCbHrbc6pASA2cB5s/VHTyrluxbjsTBSoowf0b20O?=
- =?us-ascii?Q?hl6Hy49uoGlPWrOhKAC+siUmIMK9z5zCdqr7tMFclssEmjSvfLcjdVo0BiYT?=
- =?us-ascii?Q?IEiwED0B1BUfW8o3uHQP5dIzsdf9Jk9h54OBAJ8z3dv48jlBRXY2z5714//B?=
- =?us-ascii?Q?L2EfmkK6GW0XhHn7HV67asbbFYZ9fBIoEFV566k99DmK/l6kMlfzP1JEqSD0?=
- =?us-ascii?Q?qRBC7krI1hcQtEXkOpqXQ2p8m+TJ9q4BYt+FPQu7YQdyOw4nAWBueXxW0JXf?=
- =?us-ascii?Q?J7vteiTUr94IbJ8rUpfcbNa2pxGRGHIZF3b4KH2rYQ9vwhlfREI0ww+4zO35?=
- =?us-ascii?Q?/LOtCOtu76iNuo/Jdp0jGmbEgsj/FrBrg0IsOEhZdmaHrXEYFu55XZ3QFvBa?=
- =?us-ascii?Q?LLczf6IMsrXMN8ZtJcIH3EUNRXlzsKS6TzG9dqqh5r24V7cE8zv11dN8RxhT?=
- =?us-ascii?Q?Q4GHgtb0stA5ZcbVhFmECioBYuY6IbHrALWNJUXCrpQrmg6hQN7wFp+E1pMS?=
- =?us-ascii?Q?U3puxHOmOwJv+urUbAeJM6Bo3rNpVBZpwBjQRE6w5JeaKoDgaGZ3up10nVP7?=
- =?us-ascii?Q?RTn84WztBNBnZZkoFHAOk1QaRSFiZGYENJuxeos0Ou13rEGLaH4ijaod1EmN?=
- =?us-ascii?Q?omwX1GkAMcxCbrjBlH9ZJL/TbF/aR4tpnP4OKFOkCGXY8PrNGMauv9Co6Qwc?=
- =?us-ascii?Q?ZMXsWA=3D=3D?=
+ ARA:13230040|82310400026|1800799024|36860700013|376014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ttNqPxGrUd6YutNfuJQPdbgdJGSygUD2S3pielIFka5kbvsSnp6Ubwz6PK6v?=
+ =?us-ascii?Q?OGrOSA/54hufU4qHToFAkcavvzbQqEljXGd0YOMmNAiCe/aoSz91KdsZmwU8?=
+ =?us-ascii?Q?w9XPU8xAdpf31uF46zzEMYnFx9QVT4qjVmYOPR1oyLRJSSHJipQvdsmmUf52?=
+ =?us-ascii?Q?M3aQOcmvjljQB++jhwVdDGVmVjDEYjmuFUGNBzDcku82LlGYy1ZX8juWzTse?=
+ =?us-ascii?Q?2mx4t+cE6U7nAvS94ahWq84fZT7qQHthlWIst4FU90y9QM3dcaetKRpR1m8L?=
+ =?us-ascii?Q?fZNzjwCyKOBqLYanmERip2TsOdYbxFpqTPZdr66yg7lasyEVVNAnvzU3mt27?=
+ =?us-ascii?Q?M94kpLFCEhZZXWuKa1QmkAFjdJizHETcEfgtIuEht9xkLFIXATSG02yBdyFk?=
+ =?us-ascii?Q?rfpxdteFwFpmhMZhh7GAwmqYTrPtV36rFr1qIBhXmyMIKrxeYbRk/V6TRZup?=
+ =?us-ascii?Q?k4e6m9erZdn78vwyWC+ZXSAfwr0ypsebqieay+MRvaS+UV2zyMeCZ7+1AN/q?=
+ =?us-ascii?Q?MpOov+v8Zpbf3ZrK4oFQy1+53VdC/IFP6Mg700NwCw0sbpEG4PDzhrG0UjyA?=
+ =?us-ascii?Q?ODCLxU8GfnLACM97YenfEyU0NNPYeoAcOdRvhUq5/9C+bypFN1tGeolaMbVJ?=
+ =?us-ascii?Q?kXSQvEQRV1dgaQee/zAwgODAwPwZad7iS8t3erU/YiWx86Hq3nXcHxWgGBkZ?=
+ =?us-ascii?Q?n4rWwxA4iaXa8WvXuhil+NRW+8v2eIZ2sE6gGRruODF3/CB7gG1s9A1sP5dY?=
+ =?us-ascii?Q?75Weg1WaQkPw09eZnKyVe7ecf23GBaGZil/XHIihTBZT/267gEgT8ifW6KEF?=
+ =?us-ascii?Q?s3uMX3MvQ5MCKI3GSAyHR1SIt8W3n27eVAU8hNTOt48+Q5bzotsW2e1wSgKf?=
+ =?us-ascii?Q?iexUBmXljbR0yyCA3QqE/sl0clXAMbflmWkrxqFuthhWZdrLg8KPoKsBoL7x?=
+ =?us-ascii?Q?oQnq5YIvjWBxyFLR3/XG6L+Yfj/TSbjE3ZCqGRbSC8lWHpwsHv7LcPamV7RW?=
+ =?us-ascii?Q?6Uhf3IH3TuuPP20vr/CZZ8WH0Azr7FXGahpIdR4O41lQDFAxGt2bxJZBXYqW?=
+ =?us-ascii?Q?fPWt13X6yEi6GZSYYiyFm9BDgsEjVdYvGpxEdGV6vzk9iyLandFV/1AHvsY+?=
+ =?us-ascii?Q?ATNzagrc9/+YPtzjFPfyUHYnmSw8zjwrDLuoLEBnl+S6POI0HvxdReXKm48J?=
+ =?us-ascii?Q?ojt7IX7x0CXPgilrMNNGsRVlA/uAKpEC7rg8jWDDJEn18ubPicgPUbApvSs+?=
+ =?us-ascii?Q?6vSmIWZdVOixQU1zfXfVgsuFQIpSWqLCr4zlptfWVTtHKrqO3WXl3Mj2c5cr?=
+ =?us-ascii?Q?NsA1h5k2V8UR0DLHaS2Xo159QFxFgJbeV0cnLgcKyzQeXempT4z/ZDwmHssd?=
+ =?us-ascii?Q?7UAGGvmGMdmlsopsqL9jfdT/kSotgb8Kk08boTOxIQO31IFL9al7lp5D36ue?=
+ =?us-ascii?Q?LX5rDPPhfTi+Eg8CJ5tmdwfPrFw+mcy6I1bTyLHHlIT51DeHkOSavpHKFvtO?=
+ =?us-ascii?Q?rc3hvA9SYfobfkGSQWeICUvGELqzZybZxs0ZeI29H6a3+dP+4CyCZveIeerY?=
+ =?us-ascii?Q?+5BtmBKJRUMKziFdS1lLMdGKyi2sk6v1s/bGJ8ql0PZWz277j2G4oNTuMwer?=
+ =?us-ascii?Q?gC8a2X1N6llfx3YBbIw3k2wrby/lO9yPHWi3nrGqCNikBiaxtSgOK6MlBGrf?=
+ =?us-ascii?Q?d/jU5A=3D=3D?=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(1800799024)(36860700013)(376014); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: xdJ9l2cB0GOGFpGWw409XXB4X+hAwCpVcRlLok8X2Xq2BW/U7WKfIUOmO2/hE2ucldjttG1CjRRYlPPuFb9EuAqgw71CHgdDpXxj2NmmPambZmj4K1SLSiTqW1nHYhKMAuz2hghY4ECtqtjCam2/pggXA6XDZZZA9pxWGBZja5LdQSvDIllsHePsEt81sAjlQsvieBQEsRkvvqsZMusPTdRNMPCUygY3Q/4ofWn6DTSB39SPWo0FeFQ/QGpI+sgCgjXsQDob8MSFU90Pe/TXE90eHg/tiWPtut+XGu9xXcvxVpu4wBjSBjzMro62MTrFgToqgf0TocwZReT47pnrA2muDf5f0zgLuWfkLK5BGL6Oof706hmelYIk01pMGdj4A5uIMANLShDewNKnRTGpTB0C/oFsH16Gw39fVyHZYVfCyTAPsKDZjOpVyJjH7nsJ
+X-MS-Exchange-AntiSpam-MessageData-0: DkzM5UpfVe3cxbpv/GlVW0Pa3Xy+4eovWGz0wVV+/298ltaRq1SQLy3dq8+ItcBMsJgzroL7WBTcPLJJ/SUCuV7oMGnmicWN6UA8tmlmQ6ln2FA34xxlRYxkg9FpKxbnGzeAt7jtrusSY/jc15QV2ttWCN92/QpkG5Fvfj/XEt0RsiDO6uhW1zwH3nPLUYTldxZnP3Jc9Su7VTef2lvyOW0Qde005v+iU8FgVLznnyx1PW9MHNd38nhgVyP6jDqGpXoigHc5Pgfwmni35ZDPtkR+p5AoIS2u5D0+SHG5s6mfJCrWvfNGkl0dflRJCIyNtraKV9F90DcXiJqrwYuSpwZdqJKS2o9GYD8gT2cASACksDQ2y4527ul2fVTqLI+gsapoLjKnP9Q4MsMwVGKDz2INBUqQ4g1necVpeM0lRrB8+EbVXUIYwnnAadhes/ut
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2026 19:23:07.1715 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ca39679-276d-4488-0e0e-08de70b57a12
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2026 19:23:09.0059 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 176a39c9-4225-4f54-ee64-08de70b57b29
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3A.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6213
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8765
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,307 +138,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-to provide user buffer for SPM collecting data, start a work queue
-and SPM HW to dump data, wait for buffer filled, and wake up to
-return data back to user.
+reserve space to avoid page fault and data loss.`
 
 Signed-off-by: James Zhu <James.Zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c | 223 +++++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h |   1 +
- 2 files changed, 223 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c | 41 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h |  2 ++
+ 2 files changed, 43 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
-index 1ac3668c9744..4b2c7f7b494b 100644
+index 7acbd966cd3e..f09c237cc8f7 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.c
-@@ -29,15 +29,35 @@
-  * 0.1 - Initial revision
-  */
+@@ -60,9 +60,24 @@ struct amdgpu_spm_cntr {
+ 	bool  are_users_buf_filled;
+ };
  
-+#define AMDGPU_SPM_MAJOR_VERSION	0
-+#define AMDGPU_SPM_MINOR_VERSION	1
++/* used to detect SPM overflow */
++#define SPM_OVERFLOW_MAGIC        0xBEEFABCDDEADABCD
 +
-+struct spm_user_buf {
-+	uint64_t __user *user_addr;
-+	u32 ubufsize;
-+};
-+
- struct amdgpu_spm_base {
-+	struct spm_user_buf ubuf;
- 	u64    gpu_addr;
- 	u32    ring_size;
-+	u32    ring_rptr;
-+	u32    size_copied;
-+	u32    has_data_loss;
- 	u32    *cpu_addr;
- 	void   *spm_obj;
-+	bool   has_user_buf;
-+	bool   is_user_buf_filled;
-+	bool   is_spm_started;
- };
-+
- struct amdgpu_spm_cntr {
- 	struct amdgpu_spm_base spm[MAX_XCP];
-+	int spm_use_cnt;
- 	struct mutex spm_worker_mutex;
-+	wait_queue_head_t spm_buf_wq;
-+	u32   have_users_buf_cnt;
-+	bool  are_users_buf_filled;
- };
  static int amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, struct drm_file *filp);
  static void _amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, int inst, struct drm_file *filp);
-@@ -133,12 +153,16 @@ static int amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, struct drm_file *f
- 		ret = _amdgpu_spm_acquire(spm_mgr, inst, filp);
- 		if (ret)
- 			goto acquire_spm_failure;
-+		spm_mgr->spm_cntr->spm_use_cnt++;
+ 
++static void amdgpu_spm_preset(struct amdgpu_spm_base *spm, u32 size)
++{
++	uint64_t *overflow_ptr, *overflow_end_ptr;
++
++	overflow_ptr = (uint64_t *)((uint64_t)spm->cpu_addr
++				+ spm->ring_size + 0x20);
++	overflow_end_ptr = overflow_ptr + (size >> 3);
++	/* SPM data filling is 0x20 alignment */
++	for ( ;  overflow_ptr < overflow_end_ptr; overflow_ptr += 4)
++		*overflow_ptr = SPM_OVERFLOW_MAGIC;
++}
++
+ static int amdgpu_spm_data_copy(struct amdgpu_spm_mgr *spm_mgr, u32 size_to_copy, int inst)
+ {
+ 	struct amdgpu_spm_base *spm = &(spm_mgr->spm_cntr->spm[inst]);
+@@ -141,6 +156,22 @@ static int amdgpu_spm_read_ring_buffer(struct amdgpu_spm_mgr *spm_mgr, int inst)
+ 		size_to_copy = ring_wptr - spm->ring_rptr;
+ 		ret = amdgpu_spm_data_copy(spm_mgr, size_to_copy, inst);
+ 	} else {
++		uint64_t *ring_start, *ring_end;
++
++		ring_start = (uint64_t *)((uint64_t)spm->cpu_addr + 0x20);
++		ring_end = ring_start + (spm->ring_size >> 3);
++		for ( ; overflow_size < spm_mgr->spm_overflow_reserved; overflow_size += 0x20) {
++			uint64_t *overflow_ptr = ring_end + (overflow_size >> 3);
++
++			if (*overflow_ptr == SPM_OVERFLOW_MAGIC)
++				break;
++		}
++		if (overflow_size)
++			dev_dbg(adev->dev,
++				"SPM ring buffer overflow size 0x%x", overflow_size);
++		/* move overflow counters into ring buffer to avoid data loss */
++		memcpy(ring_start, ring_end, overflow_size);
++
+ 		size_to_copy = spm->ring_size - spm->ring_rptr;
+ 		ret = amdgpu_spm_data_copy(spm_mgr, size_to_copy, inst);
+ 
+@@ -159,6 +190,7 @@ static int amdgpu_spm_read_ring_buffer(struct amdgpu_spm_mgr *spm_mgr, int inst)
  	}
  
-+	spm_mgr->spm_cntr->have_users_buf_cnt = 0;
- 	mutex_init(&spm_mgr->spm_cntr->spm_worker_mutex);
- 
-+	init_waitqueue_head(&spm_mgr->spm_cntr->spm_buf_wq);
- 	INIT_WORK(&spm_mgr->spm_work, amdgpu_spm_work);
- 
-+	spin_lock_init(&spm_mgr->spm_irq_lock);
- 	spm_mgr->file = filp;
- 
- 	goto out;
-@@ -166,6 +190,196 @@ static int amdgpu_spm_release(struct amdgpu_spm_mgr *spm_mgr, struct drm_file *f
- 	return 0;
+ exit:
++	amdgpu_spm_preset(spm, overflow_size);
+ 	amdgpu_rlc_spm_set_rdptr(adev, inst, spm->ring_rptr);
+ 	return ret;
  }
+@@ -198,6 +230,12 @@ static void amdgpu_spm_work(struct work_struct *work)
  
-+static int spm_update_dest_info(struct amdgpu_spm_mgr *spm_mgr,
-+				int inst, struct drm_amdgpu_spm_args *user_spm_data,
-+				struct drm_amdgpu_spm_args *user_spm_ptr)
-+{
-+	struct amdgpu_spm_base *spm = &(spm_mgr->spm_cntr->spm[inst]);
-+	int ret = 0;
-+
-+	mutex_lock(&spm_mgr->spm_cntr->spm_worker_mutex);
-+	if (spm->has_user_buf) {
-+		struct drm_amdgpu_spm_buffer_header spm_header;
-+		uint64_t __user *user_address;
-+
-+		user_spm_ptr->bytes_copied += spm->size_copied;
-+		user_spm_ptr->has_data_loss += spm->has_data_loss;
-+
-+		memset(&spm_header, 0, sizeof(spm_header));
-+		user_address = (uint64_t *)((uint64_t)spm->ubuf.user_addr - sizeof(spm_header));
-+		spm_header.version = AMDGPU_SPM_MAJOR_VERSION << 24 |
-+					AMDGPU_SPM_MINOR_VERSION;
-+		spm_header.bytes_copied = spm->size_copied;
-+		spm_header.has_data_loss = spm->has_data_loss;
-+		spm->has_user_buf = false;
-+		spm_mgr->spm_cntr->have_users_buf_cnt--;
-+
-+		ret = copy_to_user(user_address, &spm_header, sizeof(spm_header));
-+		if (ret) {
-+			ret = -EFAULT;
-+			goto out;
-+		}
-+	}
-+	if (user_spm_data->dest_buf) {
-+		spm->ubuf.user_addr = (uint64_t *)user_spm_data->dest_buf;
-+		spm->ubuf.ubufsize = user_spm_data->buf_size;
-+		/* reserve space for drm_amdgpu_spm_buffer_header */
-+		spm->ubuf.user_addr = (uint64_t *)((uint64_t)spm->ubuf.user_addr +
-+					sizeof(struct drm_amdgpu_spm_buffer_header));
-+		spm->ubuf.ubufsize -= sizeof(struct drm_amdgpu_spm_buffer_header);
-+		spm->has_data_loss = false;
-+		spm->size_copied = 0;
-+		spm->is_user_buf_filled = false;
-+		spm->has_user_buf = true;
-+		spm_mgr->spm_cntr->are_users_buf_filled = false;
-+		spm_mgr->spm_cntr->have_users_buf_cnt++;
-+	}
-+out:
-+	mutex_unlock(&spm_mgr->spm_cntr->spm_worker_mutex);
-+	return ret;
-+}
-+
-+static int spm_wait_for_fill_awake(struct amdgpu_spm_cntr *spm_cntr,
-+			struct drm_amdgpu_spm_args *user_spm_data)
-+{
-+	int ret = 0;
-+
-+	long timeout = msecs_to_jiffies(user_spm_data->timeout);
-+	long start_jiffies = jiffies;
-+
-+	ret = wait_event_interruptible_timeout(spm_cntr->spm_buf_wq,
-+				 (READ_ONCE(spm_cntr->are_users_buf_filled) == true),
-+				 timeout);
-+
-+	switch (ret) {
-+	case -ERESTARTSYS:
-+		/* Subtract elapsed time from timeout so we wait that much
-+		 * less when the call gets restarted.
-+		 */
-+		timeout -= (jiffies - start_jiffies);
-+		if (timeout <= 0) {
-+			ret = -ETIME;
-+			timeout = 0;
-+			pr_debug("[%s] interrupted by signal\n", __func__);
-+		}
-+		break;
-+
-+	case 0:
-+	default:
-+		timeout = ret;
-+		ret = 0;
-+		break;
-+	}
-+	user_spm_data->timeout = jiffies_to_msecs(timeout);
-+
-+	return ret;
-+}
-+
-+static int amdgpu_set_dest_buffer(struct amdgpu_spm_mgr *spm_mgr, void __user *data)
-+{
+ static void amdgpu_spm_init_device(struct amdgpu_spm_mgr *spm_mgr)
+ {
 +	struct amdgpu_device *adev = mgr_to_adev(spm_mgr, spm_mgr);
-+	struct drm_amdgpu_spm_args user_spm_data, *user_spm_ptr;
-+	struct amdgpu_spm_cntr *spm_cntr;
-+	bool need_schedule = false;
-+	unsigned long flags;
-+	u32 ubufsize;
-+	int ret = 0;
-+	int inst;
 +
-+	dev_dbg(adev->dev, "SPM start to set new destination buffer.");
-+	mutex_lock(&(to_prof_xcp_mgr(spm_mgr, spm_mgr)->mutex));
-+	spm_cntr = spm_mgr->spm_cntr;
-+	if (spm_cntr == NULL) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
++	/* pre-gfx11 spm has a hardware bug to cause overflow */
++	if (adev->ip_versions[GC_HWIP][0] < IP_VERSION(11, 0, 1))
++		spm_mgr->spm_overflow_reserved = 0x400;
 +
-+	user_spm_ptr = (struct drm_amdgpu_spm_args *) data;
-+	ubufsize = user_spm_ptr->buf_size / spm_cntr->spm_use_cnt;
-+	ubufsize = rounddown(ubufsize, 32);
-+
-+	if (ubufsize  <= sizeof(struct drm_amdgpu_spm_buffer_header)) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	memcpy(&user_spm_data, user_spm_ptr, sizeof(user_spm_data));
-+	user_spm_data.buf_size = ubufsize;
-+
-+	if (user_spm_data.timeout && spm_cntr->have_users_buf_cnt &&
-+	    !READ_ONCE(spm_cntr->are_users_buf_filled)) {
-+		dev_dbg(adev->dev, "SPM waiting for fill awake, timeout = %d ms.",
-+				user_spm_data.timeout);
-+		ret = spm_wait_for_fill_awake(spm_cntr, &user_spm_data);
-+		if (ret == -ETIME) {
-+			/* Copy (partial) data to user buffer after a timeout */
-+			schedule_work(&spm_mgr->spm_work);
-+			flush_work(&spm_mgr->spm_work);
-+			/* This is not an error */
-+			ret = 0;
-+		} else if (ret) {
-+			/* handle other errors normally, including -ERESTARTSYS */
-+			goto out;
-+		}
-+	} else if (!user_spm_data.timeout && spm_cntr->have_users_buf_cnt) {
-+		/* Copy (partial) data to user buffer */
-+		schedule_work(&spm_mgr->spm_work);
-+		flush_work(&spm_mgr->spm_work);
-+	}
-+
-+	user_spm_ptr->bytes_copied = 0;
-+	user_spm_ptr->has_data_loss = 0;
-+	for_each_inst(inst, AMDGPU_XCC_MASK(adev)) {
-+		struct amdgpu_spm_base *spm = &(spm_cntr->spm[inst]);
-+
-+		if (spm->has_user_buf || user_spm_data.dest_buf) {
-+			/* Get info about filled space in previous output buffer.
-+			 * Setup new dest buf if provided.
-+			 */
-+			ret = spm_update_dest_info(spm_mgr, inst, &user_spm_data, user_spm_ptr);
-+			if (ret)
-+				goto out;
-+		}
-+
-+		if (user_spm_data.dest_buf) {
-+			/* Start SPM if necessary*/
-+			if (spm->is_spm_started == false) {
-+				amdgpu_rlc_spm_cntl(adev, inst, 1);
-+				spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
-+				spm->is_spm_started = true;
-+				/* amdgpu_rlc_spm_cntl() will reset SPM and
-+				 * wptr will become 0, adjust rptr accordingly.
-+				 */
-+				spm->ring_rptr = 0;
-+				spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
-+			} else {
-+				/* If SPM was already started, there may already
-+				 * be data in the ring-buffer that needs to be read.
-+				 */
-+				need_schedule = true;
-+			}
-+			user_spm_data.dest_buf += ubufsize;
-+		} else {
-+			amdgpu_rlc_spm_cntl(adev, inst, 0);
-+			spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
-+			spm->is_spm_started = false;
-+			/* amdgpu_rlc_spm_cntl() will reset SPM and wptr will become 0.
-+			 * Adjust rptr accordingly
-+			 */
-+			spm->ring_rptr = 0;
-+			spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
-+		}
-+	}
-+
-+out:
-+	mutex_unlock(&(to_prof_xcp_mgr(spm_mgr, spm_mgr)->mutex));
-+	if (need_schedule)
-+		schedule_work(&spm_mgr->spm_work);
-+
-+	dev_dbg(adev->dev, "SPM finish to set new destination buffer, ret = %d.", ret);
-+	return ret;
-+}
-+
- int amdgpu_spm_ioctl(struct drm_device *dev, void __user *data,
- 		       struct drm_file *filp)
- {
-@@ -180,6 +394,9 @@ int amdgpu_spm_ioctl(struct drm_device *dev, void __user *data,
- 	case AMDGPU_SPM_OP_ACQUIRE:
- 		return  amdgpu_spm_acquire(spm_mgr, filp);
- 
-+	case AMDGPU_SPM_OP_SET_DEST_BUF:
-+		return  amdgpu_set_dest_buffer(spm_mgr, data);
-+
- 	default:
- 		dev_err(adev->dev, "Invalid option: %i\n", args->op);
- 		return -EINVAL;
-@@ -203,6 +420,7 @@ void amdgpu_spm_mgr_fini(struct amdgpu_spm_mgr *spm_mgr)
- void amdgpu_spm_interrupt(struct amdgpu_device *adev, int xcc_id)
- {
- 	uint8_t  xcp_id;
-+	unsigned long flags;
- 	struct amdgpu_spm_mgr *spm_mgr;
- 
- 	xcp_id = adev->xcp_mgr ?
-@@ -215,5 +433,8 @@ void amdgpu_spm_interrupt(struct amdgpu_device *adev, int xcc_id)
- 		return;
- 	}
- 
--	/* TODO */
-+	spin_lock_irqsave(&spm_mgr->spm_irq_lock, flags);
-+	if (spm_mgr->spm_cntr && spm_mgr->spm_cntr->spm[xcc_id].is_spm_started)
-+		schedule_work(&spm_mgr->spm_work);
-+	spin_unlock_irqrestore(&spm_mgr->spm_irq_lock, flags);
+ 	spm_mgr->spm_cntr = NULL;
  }
+ 
+@@ -224,6 +262,8 @@ static int _amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, int inst, struct
+ 	if (ret)
+ 		goto out;
+ 
++	/* reserve space to fix spm overflow */
++	spm->ring_size -= spm_mgr->spm_overflow_reserved;
+ 	ret = amdgpu_rlc_spm_acquire(adev, inst, drm_priv_to_vm(filp),
+ 			spm->gpu_addr, spm->ring_size);
+ 
+@@ -236,6 +276,7 @@ static int _amdgpu_spm_acquire(struct amdgpu_spm_mgr *spm_mgr, int inst, struct
+ 	if (ret)
+ 		goto rlc_spm_acquire_failure;
+ 
++	amdgpu_spm_preset(spm, spm_mgr->spm_overflow_reserved);
+ 	goto out;
+ 
+ rlc_spm_acquire_failure:
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
-index ee4f03e2f6cf..075ad7eaad01 100644
+index 075ad7eaad01..f3d812fa4e2b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_spm.h
-@@ -31,6 +31,7 @@ struct amdgpu_spm_mgr {
- 	/* spm data */
+@@ -32,6 +32,8 @@ struct amdgpu_spm_mgr {
  	struct amdgpu_spm_cntr *spm_cntr;
  	struct work_struct spm_work;
-+	spinlock_t spm_irq_lock;
+ 	spinlock_t spm_irq_lock;
++	/* reserve space to fix spm overflow */
++	u32    spm_overflow_reserved;
  };
  
  int amdgpu_spm_ioctl(struct drm_device *dev, void __user *data,
