@@ -4,84 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E00AC54FCC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 605C1C53200
 	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:45:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16A2910E808;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 069DD10E807;
 	Fri, 20 Feb 2026 08:45:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BwNaf1eQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="nNetMoIg";
 	dkim-atps=neutral
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
- [209.85.167.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0438710E34B
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 02:55:31 +0000 (UTC)
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-59e6b7b11ebso1915729e87.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Feb 2026 18:55:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771556130; x=1772160930; darn=lists.freedesktop.org;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=O1wlu+Egy8kX5COPwj3XJx/HFDM+oi/MNIFa11uC12I=;
- b=BwNaf1eQJKsaXJ3JWd/smP4Cviiqmyjtzx1njvw92q6qDpPz8lulQcF+x7MwmYYmom
- lHQeQsxXHyYLDHJahmF6xMITdYyM1xpVveqbAaqV77MMkCpMmNNqaiuWkEPv9yssYK+M
- XS6oawbNBbPRmjWsmj0XLX+cwCILiklIQrwcUD+4Mb1R00jWK9zYImFIUJcj3WeS3Y4c
- 58ypcQ5HhnYC5VprNVXPXa2WA3tMcR87YY9AHQ7I83OJMFvR1QF3KBOIR1zhAwN1fo2F
- HyA4Zg6em0+ehHXR3ai9Zh7nXkBiKtGx+SZGRFUdEQignaiqQrxsAkKbL//ldgmRFOAj
- /hPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771556130; x=1772160930;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=O1wlu+Egy8kX5COPwj3XJx/HFDM+oi/MNIFa11uC12I=;
- b=tJ6b9uHQobu/yHHPubR+bNBrhN26AL+W5EY4LTylrvss+cCau9e9jEKwvrauI5mfWs
- aqoiLYIPbKDpPLki4b/awUbrC3e3JwGcy4O0OnptOjJq+/utM6NdIxVVaaSdRuwGDeTP
- U978z1htKYThZp5ZE2QWwF3dUakUqlblmtx4zK7Yh+BqNK2LXuHJzrX9UeW/wl9/0vyI
- jMRuVsZE2HxNt+ieoFYg97614iDEulS+UdqZ2FhKNWBkGAmhitzhb3c5YeURrFNT39YV
- j1Dm6a6U47MfGuKET6hhWSKxvcHh2Xbw4Wnx9LVewz5WNZLJQksSBHMTtzQlkjLagyXU
- Co2A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWSOmxCsQj4la2t9DVsSdG9uMBMBlbUhaUD+JXThQoVS4I4TcjsKTXbCBYjBU1NSVgXFzl1667h@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoNY5Jd5vLkiFjdVT+Pvy70irJnTCZU9wtY0Lw3pcjmP7t1CG4
- DgYr/ipc3qM+n/XmwzFAkwYHVhoI0ChH4f3Y+89fVQ28A6Bivtp8x18=
-X-Gm-Gg: AZuq6aK8QOxxGHqCX18iE8AyuzbxNeyBAiGP0xBGKJS3DZfOMaJDkRZtyAbunTOlfuo
- FmlPeUswo4nRp6I5mgPsNT08/GUzyYh95FH+j18gZxLdgsDJb/AZ7pK64ycfBCbmv51KSVIrJXS
- K9gSpdtVHY8ZEe51jVF7nSgWu6aV+uAomZdn8d1TLX0TZiSNqcZkAwKbhljZZzJ97Vgvo+onB/y
- 86U1w8b4NNvGbDJ4utVY5uzQafoutU6UC2BFbWj6+Kdu/5BeIcneXEaE6xTxyQOXaxof6hGzREG
- vfHe/PJUyo3d/OraC1LuMJ2kYdrgfpWWYdXQIWUBieWrpzECDtErz/+e/YdsFD942p6ArXSHRY5
- NibpzjJ2/4JmWsWTH02siQaf7MLOEYLAo/B1UtHKx8ZLRin/ggyJB7pKU9VDa94V6h6n1m0ZEi9
- ML7PunvIA=
-X-Received: by 2002:a05:6512:3b9c:b0:59e:ccca:87f2 with SMTP id
- 2adb3069b0e04-59f6d37ec2amr6050451e87.39.1771556130186; 
- Thu, 19 Feb 2026 18:55:30 -0800 (PST)
-Received: from localhost ([2a0e:e6c0:20d0:4f00::1d])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-59e5f5b21f7sm5679427e87.78.2026.02.19.18.55.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Feb 2026 18:55:29 -0800 (PST)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B00B310E792;
+ Fri, 20 Feb 2026 06:52:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:
+ To:From:Sender:Reply-To:Content-ID:Content-Description;
+ bh=qLQ1xDm2Cr0RYEZeyd9Zi3xB484+HFF151CIFZ79Xz8=; b=nNetMoIgjx5EI6v02f+mTWaTHW
+ MHlwnvnn7+beFcFXNlRGLn845EmUJFNu4KDxRj5YFLy7TEk11rrdM4yNM1XS8Cfp3z+uX76l6P+W9
+ Gzb0urCyjimbehKZ0BUQU41THDmKiVkJZDKlHL+HDsho+bXo/CD6kYDANjhj5AQBP62b5tIXxEifa
+ 061zyIiB7mZpyuiSecJJ8MePEIu0Wj9pnziOdaoVBBsRiMvPndNiqm1zOQE8rjCAbqHPvKLM39Rww
+ 0YP0LCtL60gwzaWY7zw3+WXFfEm8szJUYbuA7BwRnoCvq6qFemZwy4m/SGhDjEaF5yKvwO+ko/SKe
+ YsC5y5BQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
+ id 1vtKMx-0000000DKX2-0P3d; Fri, 20 Feb 2026 06:52:07 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: dri-devel@lists.freedesktop.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH 3/3] drm/amd/display: dmub_cmd.h: add missing kernel-doc for
+ enums
+Date: Thu, 19 Feb 2026 22:51:55 -0800
+Message-ID: <20260220065205.1036179-3-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260220065205.1036179-1-rdunlap@infradead.org>
+References: <20260220065205.1036179-1-rdunlap@infradead.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 20 Feb 2026 05:55:29 +0300
-Message-Id: <DGJG8IIRDS5E.297UI3P1W2PWC@gmail.com>
-From: "Ivan Sergeev" <ivan8215145640@gmail.com>
-To: "Ivan Sergeev" <ivan8215145640@gmail.com>, "Mario Limonciello"
- <superm1@kernel.org>, <amd-gfx@lists.freedesktop.org>
-Cc: <dri-devel@lists.freedesktop.org>, <regressions@lists.linux.dev>,
- <mwen@igalia.com>, <mario.limonciello@amd.com>, <alex.hung@amd.com>,
- <daniel.wheeler@amd.com>, <rodrigo.siqueira@amd.com>,
- <alexander.deucher@amd.com>, <harry.wentland@amd.com>,
- <sunpeng.li@amd.com>, <christian.koenig@amd.com>, <huangalex409@gmail.com>
-Subject: Re: [REGRESSION] VRR not detected on a DisplayPort monitor using an
- AMD GPU
-X-Mailer: aerc 0.21.0
-References: <CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com>
- <090d89a2-4f80-44ef-827c-6462d8948493@kernel.org>
- <DGJFVPAQJA15.378GMU7XZXLU@gmail.com>
-In-Reply-To: <DGJFVPAQJA15.378GMU7XZXLU@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 20 Feb 2026 08:45:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,4 +64,436 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Checked commit 7f2b5237e313, it still has the issue
+For enums that have a kernel-doc ("/**") comment block, add or correct
+their kernel-doc to eliminate all kernel-doc enum warnings.
+
+Some of these needed "struct" changed to "enum" in the kernel-doc header.
+For a few of them, I changed the "/**" comment to a plain "/*"
+comment since there was no kernel-doc content there.
+
+Example:
+
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2673 Enum value 'FAMS2_ALLOW_DELAY_CHECK_NONE' not described in enum 'dmub_fams2_allow_delay_check_mode'
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2673 Enum value 'FAMS2_ALLOW_DELAY_CHECK_FROM_START' not described in enum 'dmub_fams2_allow_delay_check_mode'
+Warning: drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h:2673 Enum value 'FAMS2_ALLOW_DELAY_CHECK_FROM_PREPARE' not described in enum 'dmub_fams2_allow_delay_check_mode'
+
+All .o files are the same with or without this patch.
+
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h |  160 +++++++++-----
+ 1 file changed, 110 insertions(+), 50 deletions(-)
+
+--- linux-next-20260218.orig/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ linux-next-20260218/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -1007,15 +1007,30 @@ union dmub_fw_boot_status {
+  * enum dmub_fw_boot_status_bit - Enum bit definitions for SCRATCH0.
+  */
+ enum dmub_fw_boot_status_bit {
+-	DMUB_FW_BOOT_STATUS_BIT_DAL_FIRMWARE = (1 << 0), /**< 1 if DAL FW */
+-	DMUB_FW_BOOT_STATUS_BIT_MAILBOX_READY = (1 << 1), /**< 1 if mailbox ready */
+-	DMUB_FW_BOOT_STATUS_BIT_OPTIMIZED_INIT_DONE = (1 << 2), /**< 1 if init done */
+-	DMUB_FW_BOOT_STATUS_BIT_RESTORE_REQUIRED = (1 << 3), /**< 1 if driver should call restore */
+-	DMUB_FW_BOOT_STATUS_BIT_DEFERRED_LOADED = (1 << 4), /**< 1 if VBIOS data is deferred programmed */
+-	DMUB_FW_BOOT_STATUS_BIT_FAMS_ENABLED = (1 << 5), /**< 1 if FAMS is enabled*/
+-	DMUB_FW_BOOT_STATUS_BIT_DETECTION_REQUIRED = (1 << 6), /**< 1 if detection need to be triggered by driver*/
+-	DMUB_FW_BOOT_STATUS_BIT_HW_POWER_INIT_DONE = (1 << 7), /**< 1 if hw power init is completed */
+-	DMUB_FW_BOOT_STATUS_BIT_ONO_REGIONS_ENABLED = (1 << 8), /**< 1 if ONO regions are enabled */
++	/** @DMUB_FW_BOOT_STATUS_BIT_DAL_FIRMWARE: 1 if DAL FW */
++	DMUB_FW_BOOT_STATUS_BIT_DAL_FIRMWARE = (1 << 0),
++	/** @DMUB_FW_BOOT_STATUS_BIT_MAILBOX_READY: 1 if mailbox ready */
++	DMUB_FW_BOOT_STATUS_BIT_MAILBOX_READY = (1 << 1),
++	/** @DMUB_FW_BOOT_STATUS_BIT_OPTIMIZED_INIT_DONE: 1 if init done */
++	DMUB_FW_BOOT_STATUS_BIT_OPTIMIZED_INIT_DONE = (1 << 2),
++	/** @DMUB_FW_BOOT_STATUS_BIT_RESTORE_REQUIRED: 1 if driver should call restore */
++	DMUB_FW_BOOT_STATUS_BIT_RESTORE_REQUIRED = (1 << 3),
++	/**
++	 * @DMUB_FW_BOOT_STATUS_BIT_DEFERRED_LOADED: 1 if VBIOS data is
++	 * deferred programmed
++	 */
++	DMUB_FW_BOOT_STATUS_BIT_DEFERRED_LOADED = (1 << 4),
++	/** @DMUB_FW_BOOT_STATUS_BIT_FAMS_ENABLED: 1 if FAMS is enabled */
++	DMUB_FW_BOOT_STATUS_BIT_FAMS_ENABLED = (1 << 5),
++	/**
++	 * @DMUB_FW_BOOT_STATUS_BIT_DETECTION_REQUIRED: 1 if detection needs
++	 * to be triggered by driver
++	 */
++	DMUB_FW_BOOT_STATUS_BIT_DETECTION_REQUIRED = (1 << 6),
++	/** @DMUB_FW_BOOT_STATUS_BIT_HW_POWER_INIT_DONE: 1 if hw power init is completed */
++	DMUB_FW_BOOT_STATUS_BIT_HW_POWER_INIT_DONE = (1 << 7),
++	/** @DMUB_FW_BOOT_STATUS_BIT_ONO_REGIONS_ENABLED: if ONO regions are enabled */
++	DMUB_FW_BOOT_STATUS_BIT_ONO_REGIONS_ENABLED = (1 << 8),
+ };
+ 
+ /* Register bit definition for SCRATCH5 */
+@@ -1079,18 +1094,22 @@ enum dmub_ips_comand_type {
+  */
+ enum dmub_cursor_offload_comand_type {
+ 	/**
++	 * @DMUB_CMD__CURSOR_OFFLOAD_INIT:
+ 	 * Initializes the cursor offload feature.
+ 	 */
+ 	DMUB_CMD__CURSOR_OFFLOAD_INIT = 0,
+ 	/**
+-	 * Enables cursor offloading for a stream and updates the timing parameters.
++	 * @DMUB_CMD__CURSOR_OFFLOAD_STREAM_ENABLE: Enables cursor offloading
++	 * for a stream and updates the timing parameters.
+ 	 */
+ 	DMUB_CMD__CURSOR_OFFLOAD_STREAM_ENABLE = 1,
+ 	/**
++	 * @DMUB_CMD__CURSOR_OFFLOAD_STREAM_DISABLE:
+ 	 * Disables cursor offloading for a given stream.
+ 	 */
+ 	DMUB_CMD__CURSOR_OFFLOAD_STREAM_DISABLE = 2,
+ 	/**
++	 * @DMUB_CMD__CURSOR_OFFLOAD_STREAM_PROGRAM:
+ 	 * Programs the latest data for a given stream.
+ 	 */
+ 	DMUB_CMD__CURSOR_OFFLOAD_STREAM_PROGRAM = 3,
+@@ -1156,7 +1175,7 @@ enum dmub_fw_boot_options_bit {
+  * [Header (256 Bytes)][Feature 1 (256 Bytes)][Feature 2 (256 Bytes)]...
+  */
+ 
+-/**
++/*
+  * enum dmub_shared_state_feature_id - List of shared state features.
+  */
+ enum dmub_shared_state_feature_id {
+@@ -1262,14 +1281,14 @@ struct dmub_shared_state_cursor_offload_
+ }; /* 248-bytes, fixed */
+ 
+ /**
+- * enum dmub_shared_state_feature_common - Generic payload.
++ * struct dmub_shared_state_feature_common - Generic payload.
+  */
+ struct dmub_shared_state_feature_common {
+ 	uint32_t padding[62];
+ }; /* 248-bytes, fixed */
+ 
+ /**
+- * enum dmub_shared_state_feature_header - Feature description.
++ * struct dmub_shared_state_feature_header - Feature description.
+  */
+ struct dmub_shared_state_feature_header {
+ 	uint16_t id; /**< Feature ID */
+@@ -1909,30 +1928,36 @@ enum dmub_cmd_type {
+  */
+ enum dmub_out_cmd_type {
+ 	/**
+-	 * Invalid outbox command, ignored.
++	 * @DMUB_OUT_CMD__NULL: Invalid outbox command, ignored.
+ 	 */
+ 	DMUB_OUT_CMD__NULL = 0,
+ 	/**
++	 * @DMUB_OUT_CMD__DP_AUX_REPLY:
+ 	 * Command type used for DP AUX Reply data notification
+ 	 */
+ 	DMUB_OUT_CMD__DP_AUX_REPLY = 1,
+ 	/**
++	 * @DMUB_OUT_CMD__DP_HPD_NOTIFY:
+ 	 * Command type used for DP HPD event notification
+ 	 */
+ 	DMUB_OUT_CMD__DP_HPD_NOTIFY = 2,
+ 	/**
++	 * @DMUB_OUT_CMD__SET_CONFIG_REPLY:
+ 	 * Command type used for SET_CONFIG Reply notification
+ 	 */
+ 	DMUB_OUT_CMD__SET_CONFIG_REPLY = 3,
+ 	/**
++	 * @DMUB_OUT_CMD__DPIA_NOTIFICATION:
+ 	 * Command type used for USB4 DPIA notification
+ 	 */
+ 	DMUB_OUT_CMD__DPIA_NOTIFICATION = 5,
+ 	/**
++	 * @DMUB_OUT_CMD__HPD_SENSE_NOTIFY:
+ 	 * Command type used for HPD redetect notification
+ 	 */
+ 	DMUB_OUT_CMD__HPD_SENSE_NOTIFY = 6,
+ 	/**
++	 * @DMUB_OUT_CMD__FUSED_IO:
+ 	 * Command type used for Fused IO notification
+ 	 */
+ 	DMUB_OUT_CMD__FUSED_IO = 7,
+@@ -2124,19 +2149,19 @@ struct dmub_rb_cmd_PLAT_54186_wa {
+  */
+ enum dmub_cmd_mall_type {
+ 	/**
+-	 * Allows display refresh from MALL.
++	 * @DMUB_CMD__MALL_ACTION_ALLOW: Allows display refresh from MALL.
+ 	 */
+ 	DMUB_CMD__MALL_ACTION_ALLOW = 0,
+ 	/**
+-	 * Disallows display refresh from MALL.
++	 * @DMUB_CMD__MALL_ACTION_DISALLOW: Disallows display refresh from MALL.
+ 	 */
+ 	DMUB_CMD__MALL_ACTION_DISALLOW = 1,
+ 	/**
+-	 * Cursor copy for MALL.
++	 * @DMUB_CMD__MALL_ACTION_COPY_CURSOR: Cursor copy for MALL.
+ 	 */
+ 	DMUB_CMD__MALL_ACTION_COPY_CURSOR = 2,
+ 	/**
+-	 * Controls DF requests.
++	 * @DMUB_CMD__MALL_ACTION_NO_DF_REQ: Controls DF requests.
+ 	 */
+ 	DMUB_CMD__MALL_ACTION_NO_DF_REQ = 3,
+ };
+@@ -2165,18 +2190,21 @@ struct dmub_rb_cmd_mall {
+  */
+ enum dmub_cmd_cab_type {
+ 	/**
++	 * @DMUB_CMD__CAB_NO_IDLE_OPTIMIZATION:
+ 	 * No idle optimizations (i.e. no CAB)
+ 	 */
+ 	DMUB_CMD__CAB_NO_IDLE_OPTIMIZATION = 0,
+ 	/**
+-	 * No DCN requests for memory
++	 * @DMUB_CMD__CAB_NO_DCN_REQ: No DCN requests for memory
+ 	 */
+ 	DMUB_CMD__CAB_NO_DCN_REQ = 1,
+ 	/**
++	 * @DMUB_CMD__CAB_DCN_SS_FIT_IN_CAB:
+ 	 * Fit surfaces in CAB (i.e. CAB enable)
+ 	 */
+ 	DMUB_CMD__CAB_DCN_SS_FIT_IN_CAB = 2,
+ 	/**
++	 * @DMUB_CMD__CAB_DCN_SS_NOT_FIT_IN_CAB:
+ 	 * Do not fit surfaces in CAB (i.e. no CAB)
+ 	 */
+ 	DMUB_CMD__CAB_DCN_SS_NOT_FIT_IN_CAB = 3,
+@@ -2191,7 +2219,7 @@ struct dmub_rb_cmd_cab_for_ss {
+ 	uint8_t debug_bits;     /* debug bits */
+ };
+ 
+-/**
++/*
+  * Enum for indicating which MCLK switch mode per pipe
+  */
+ enum mclk_switch_mode {
+@@ -2665,11 +2693,18 @@ struct dmub_fams2_stream_static_state_v1
+  * p-state request to allow latency
+  */
+ enum dmub_fams2_allow_delay_check_mode {
+-	/* No check for request to allow delay */
++	/**
++	 * @FAMS2_ALLOW_DELAY_CHECK_NONE: No check for request to allow delay
++	 */
+ 	FAMS2_ALLOW_DELAY_CHECK_NONE = 0,
+-	/* Check for request to allow delay */
++	/**
++	 * @FAMS2_ALLOW_DELAY_CHECK_FROM_START: Check for request to allow delay
++	 */
+ 	FAMS2_ALLOW_DELAY_CHECK_FROM_START = 1,
+-	/* Check for prepare to allow delay */
++	/**
++	 * @FAMS2_ALLOW_DELAY_CHECK_FROM_PREPARE:
++	 * Check for prepare to allow delay
++	 */
+ 	FAMS2_ALLOW_DELAY_CHECK_FROM_PREPARE = 2,
+ };
+ 
+@@ -2741,27 +2776,28 @@ struct dmub_rb_cmd_ib {
+  */
+ enum dmub_cmd_idle_opt_type {
+ 	/**
+-	 * DCN hardware restore.
++	 * @DMUB_CMD__IDLE_OPT_DCN_RESTORE: DCN hardware restore.
+ 	 */
+ 	DMUB_CMD__IDLE_OPT_DCN_RESTORE = 0,
+ 
+ 	/**
+-	 * DCN hardware save.
++	 * @DMUB_CMD__IDLE_OPT_DCN_SAVE_INIT: DCN hardware save.
+ 	 */
+ 	DMUB_CMD__IDLE_OPT_DCN_SAVE_INIT = 1,
+ 
+ 	/**
+-	 * DCN hardware notify idle.
++	 * @DMUB_CMD__IDLE_OPT_DCN_NOTIFY_IDLE: DCN hardware notify idle.
+ 	 */
+ 	DMUB_CMD__IDLE_OPT_DCN_NOTIFY_IDLE = 2,
+ 
+ 	/**
++	 * @DMUB_CMD__IDLE_OPT_SET_DC_POWER_STATE:
+ 	 * DCN hardware notify power state.
+ 	 */
+ 	DMUB_CMD__IDLE_OPT_SET_DC_POWER_STATE = 3,
+ 
+ 	/**
+-	 * DCN notify to release HW.
++	 * @DMUB_CMD__IDLE_OPT_RELEASE_HW: DCN notify to release HW.
+ 	 */
+ 	 DMUB_CMD__IDLE_OPT_RELEASE_HW = 4,
+ };
+@@ -2790,7 +2826,7 @@ struct dmub_rb_cmd_idle_opt_dcn_notify_i
+ 	struct dmub_dcn_notify_idle_cntl_data cntl_data;
+ };
+ 
+-/**
++/*
+  * enum dmub_idle_opt_dc_power_state - DC power states.
+  */
+ enum dmub_idle_opt_dc_power_state {
+@@ -2832,7 +2868,7 @@ struct dmub_clocks {
+  */
+ enum dmub_cmd_clk_mgr_type {
+ 	/**
+-	 * Notify DMCUB of clock update.
++	 * @DMUB_CMD__CLK_MGR_NOTIFY_CLOCKS: Notify DMCUB of clock update.
+ 	 */
+ 	DMUB_CMD__CLK_MGR_NOTIFY_CLOCKS = 0,
+ };
+@@ -3077,21 +3113,40 @@ struct dmub_rb_cmd_dpphy_init {
+  * 4 AUX request command bits are shifted to high nibble.
+  */
+ enum dp_aux_request_action {
+-	/** I2C-over-AUX write request */
++	/**
++	 * @DP_AUX_REQ_ACTION_I2C_WRITE: I2C-over-AUX write request
++	 */
+ 	DP_AUX_REQ_ACTION_I2C_WRITE		= 0x00,
+-	/** I2C-over-AUX read request */
++	/**
++	 * @DP_AUX_REQ_ACTION_I2C_READ: I2C-over-AUX read request
++	 */
+ 	DP_AUX_REQ_ACTION_I2C_READ		= 0x10,
+-	/** I2C-over-AUX write status request */
++	/**
++	 * @DP_AUX_REQ_ACTION_I2C_STATUS_REQ: I2C-over-AUX write status request
++	 */
+ 	DP_AUX_REQ_ACTION_I2C_STATUS_REQ	= 0x20,
+-	/** I2C-over-AUX write request with MOT=1 */
++	/**
++	 * @DP_AUX_REQ_ACTION_I2C_WRITE_MOT:
++	 * I2C-over-AUX write request with MOT=1
++	 */
+ 	DP_AUX_REQ_ACTION_I2C_WRITE_MOT		= 0x40,
+-	/** I2C-over-AUX read request with MOT=1 */
++	/**
++	 * @DP_AUX_REQ_ACTION_I2C_READ_MOT:
++	 * I2C-over-AUX read request with MOT=1
++	 */
+ 	DP_AUX_REQ_ACTION_I2C_READ_MOT		= 0x50,
+-	/** I2C-over-AUX write status request with MOT=1 */
++	/**
++	 * @DP_AUX_REQ_ACTION_I2C_STATUS_REQ_MOT:
++	 * I2C-over-AUX write status request with MOT=1
++	 */
+ 	DP_AUX_REQ_ACTION_I2C_STATUS_REQ_MOT	= 0x60,
+-	/** Native AUX write request */
++	/**
++	 * @DP_AUX_REQ_ACTION_DPCD_WRITE: Native AUX write request
++	 */
+ 	DP_AUX_REQ_ACTION_DPCD_WRITE		= 0x80,
+-	/** Native AUX read request */
++	/**
++	 * @DP_AUX_REQ_ACTION_DPCD_READ: Native AUX read request
++	 */
+ 	DP_AUX_REQ_ACTION_DPCD_READ		= 0x90
+ };
+ 
+@@ -3099,21 +3154,21 @@ enum dp_aux_request_action {
+  * enum aux_return_code_type - DP AUX process return code listing.
+  */
+ enum aux_return_code_type {
+-	/** AUX process succeeded */
++	/** @AUX_RET_SUCCESS: AUX process succeeded */
+ 	AUX_RET_SUCCESS = 0,
+-	/** AUX process failed with unknown reason */
++	/** @AUX_RET_ERROR_UNKNOWN: AUX process failed with unknown reason */
+ 	AUX_RET_ERROR_UNKNOWN,
+-	/** AUX process completed with invalid reply */
++	/** @AUX_RET_ERROR_INVALID_REPLY: AUX process completed with invalid reply */
+ 	AUX_RET_ERROR_INVALID_REPLY,
+-	/** AUX process timed out */
++	/** @AUX_RET_ERROR_TIMEOUT: AUX process timed out */
+ 	AUX_RET_ERROR_TIMEOUT,
+-	/** HPD was low during AUX process */
++	/** @AUX_RET_ERROR_HPD_DISCON: HPD was low during AUX process */
+ 	AUX_RET_ERROR_HPD_DISCON,
+-	/** Failed to acquire AUX engine */
++	/** @AUX_RET_ERROR_ENGINE_ACQUIRE: Failed to acquire AUX engine */
+ 	AUX_RET_ERROR_ENGINE_ACQUIRE,
+-	/** AUX request not supported */
++	/** @AUX_RET_ERROR_INVALID_OPERATION: AUX request not supported */
+ 	AUX_RET_ERROR_INVALID_OPERATION,
+-	/** AUX process not available */
++	/** @AUX_RET_ERROR_PROTOCOL_ERROR: AUX process not available */
+ 	AUX_RET_ERROR_PROTOCOL_ERROR,
+ };
+ 
+@@ -3121,9 +3176,9 @@ enum aux_return_code_type {
+  * enum aux_channel_type - DP AUX channel type listing.
+  */
+ enum aux_channel_type {
+-	/** AUX thru Legacy DP AUX */
++	/** @AUX_CHANNEL_LEGACY_DDC: AUX thru Legacy DP AUX */
+ 	AUX_CHANNEL_LEGACY_DDC,
+-	/** AUX thru DPIA DP tunneling */
++	/** @AUX_CHANNEL_DPIA: AUX thru DPIA DP tunneling */
+ 	AUX_CHANNEL_DPIA
+ };
+ 
+@@ -3608,7 +3663,7 @@ enum phy_link_rate {
+ 	 */
+ };
+ 
+-/**
++/*
+  * enum dmub_phy_fsm_state - PHY FSM states.
+  * PHY FSM state to transit to during PSR enable/disable.
+  */
+@@ -5825,10 +5880,11 @@ struct dmub_rb_cmd_abm_query_caps {
+  */
+ enum dmub_abm_ace_curve_type {
+ 	/**
+-	 * ACE curve as defined by the SW layer.
++	 * @ABM_ACE_CURVE_TYPE__SW: ACE curve as defined by the SW layer.
+ 	 */
+ 	ABM_ACE_CURVE_TYPE__SW = 0,
+ 	/**
++	 * @ABM_ACE_CURVE_TYPE__SW_IF:
+ 	 * ACE curve as defined by the SW to HW translation interface layer.
+ 	 */
+ 	ABM_ACE_CURVE_TYPE__SW_IF = 1,
+@@ -5839,10 +5895,11 @@ enum dmub_abm_ace_curve_type {
+  */
+ enum dmub_abm_histogram_type {
+ 	/**
+-	 * ACE curve as defined by the SW layer.
++	 * @ABM_HISTOGRAM_TYPE__SW: ACE curve as defined by the SW layer.
+ 	 */
+ 	ABM_HISTOGRAM_TYPE__SW = 0,
+ 	/**
++	 * @ABM_HISTOGRAM_TYPE__SW_IF:
+ 	 * ACE curve as defined by the SW to HW translation interface layer.
+ 	 */
+ 	ABM_HISTOGRAM_TYPE__SW_IF = 1,
+@@ -6048,14 +6105,17 @@ struct dmub_rb_cmd_get_visual_confirm_co
+  */
+ enum dmub_cmd_panel_cntl_type {
+ 	/**
++	 * @DMUB_CMD__PANEL_CNTL_HW_INIT:
+ 	 * Initializes embedded panel hardware blocks.
+ 	 */
+ 	DMUB_CMD__PANEL_CNTL_HW_INIT = 0,
+ 	/**
++	 * @DMUB_CMD__PANEL_CNTL_QUERY_BACKLIGHT_INFO:
+ 	 * Queries backlight info for the embedded panel.
+ 	 */
+ 	DMUB_CMD__PANEL_CNTL_QUERY_BACKLIGHT_INFO = 1,
+ 	/**
++	 * @DMUB_CMD__PANEL_DEBUG_PWM_FREQ:
+ 	 * Sets the PWM Freq as per user's requirement.
+ 	 */
+ 	DMUB_CMD__PANEL_DEBUG_PWM_FREQ = 2,
