@@ -4,52 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D9A7C531FC
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 03:14:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB8E4C531F8
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 04:10:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB7D388130;
-	Fri, 20 Feb 2026 03:14:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5955510E779;
+	Fri, 20 Feb 2026 04:10:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VpBNfBQK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bAm4gV2c";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC45910E771;
- Fri, 20 Feb 2026 03:14:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACD7910E779;
+ Fri, 20 Feb 2026 04:10:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E11DC60054;
- Fri, 20 Feb 2026 03:14:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25C18C4CEF7;
- Fri, 20 Feb 2026 03:14:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D92A961856;
+ Fri, 20 Feb 2026 04:10:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A05E8C2BC9E;
+ Fri, 20 Feb 2026 04:10:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1771557248;
- bh=IVN7r0xifPkdyJXi/FO57cCcO7FR6lu7aoviGEL/TIU=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=VpBNfBQKAQHyHko8NqxvqnEC46v6jYRrZ/qHUzqjgYvFiANO7oipkHFjHYM/o5SOS
- 6FLKeUTEGUZLJqlwnoNer2FNAYZ9CSBi6HfBp6LPhYkABJALwFVy+BHCJdqFhHt3yX
- whh9PdXTTsUQhHBnDZpKHyfEi1A8tOHFX7AGuw/Wk8kc2cOCSB/FjhDKaysfYE2Vmt
- UmtL6X6y/s13xee7y19AC1aNFxQLblg/ttFBli9JtpmMPBLzgfaB3Oiju+TUSdX+S9
- Yz72ypRl+GS1QdUChjrsq5czaSNEAuXlEm10W37iTHjj/zl9hYJK77+jOkV9iA7/Er
- 2qlgOnYFO6WyA==
-Message-ID: <c70fe261-7fb0-4af5-b755-f02b193c8c5f@kernel.org>
-Date: Thu, 19 Feb 2026 21:14:05 -0600
+ s=k20201202; t=1771560632;
+ bh=72mBwftCl+P66JkWk2D3tPM6F5W5fqiLlxhFDPCaeZk=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=bAm4gV2cKvjN5GuYeDqOqnWaOQJnwWiubm5cPxzG0b1Sls51+3jb0M5jPJ1+SGZTp
+ BNMGuKF+rHUZyZkSemcZ7VP/pg7JHj2ZcfuVFKpEER40qLLDnHc+EVOwAimnPx17DQ
+ /jDJhzaTZP/JOxp36YKfDTewflsvr8lV3YbUHfUAOw4uyWsvqfoKgWsWEaQXJWPeS0
+ 7yQWORIx1F33RSW37fCo4RiS84fyL5mrOB1bDmofqalUb0Xx4bXIumnN+Z2lzvlWAZ
+ 8a+Io+IXkFA3DZOs/NEEJxN4KV44owP83FsMWAyt+2OmNLolEZfWlAR2gjA0OmJimN
+ kkoQWYIwgr7TQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 3FD913809A88; Fri, 20 Feb 2026 04:10:42 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] VRR not detected on a DisplayPort monitor using an
- AMD GPU
-To: Ivan Sergeev <ivan8215145640@gmail.com>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, regressions@lists.linux.dev,
- mwen@igalia.com, mario.limonciello@amd.com, alex.hung@amd.com,
- daniel.wheeler@amd.com, rodrigo.siqueira@amd.com, alexander.deucher@amd.com,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- huangalex409@gmail.com
-References: <CAKx_Wg7_HBxuq5W4T_AmoFYJGQpa6TAS_Fx9SUzyy1itPmj5Bw@mail.gmail.com>
- <090d89a2-4f80-44ef-827c-6462d8948493@kernel.org>
- <DGJFVPAQJA15.378GMU7XZXLU@gmail.com> <DGJGDIRQWDG7.XHHKF6UQP0HG@gmail.com>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <DGJGDIRQWDG7.XHHKF6UQP0HG@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v4 0/4] PCI/MSI: Generalize no_64bit_msi into msi_addr_mask
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: <177156064078.189817.10457864568127488431.git-patchwork-notify@kernel.org>
+Date: Fri, 20 Feb 2026 04:10:40 +0000
+References: <20260129-pci-msi-addr-mask-v4-0-70da998f2750@iscas.ac.cn>
+In-Reply-To: <20260129-pci-msi-addr-mask-v4-0-70da998f2750@iscas.ac.cn>
+To: Vivian Wang <wangruikang@iscas.ac.cn>
+Cc: linux-riscv@lists.infradead.org, maddy@linux.ibm.com, mpe@ellerman.id.au, 
+ npiggin@gmail.com, chleroy@kernel.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, bhelgaas@google.com, perex@perex.cz,
+ tiwai@suse.com, brett.creeley@amd.com, gaohan@iscas.ac.cn, tglx@kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-sound@vger.kernel.org, sophgo@lists.linux.dev, tiwai@suse.de
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,22 +67,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hello:
 
+This series was applied to riscv/linux.git (fixes)
+by Thomas Gleixner <tglx@kernel.org>:
 
-On 2/19/26 9:02 PM, Ivan Sergeev wrote:
-> On Fri Feb 20, 2026 at 5:38 AM MSK, Ivan Sergeev wrote:
->>
->> I've done the bisect using the v6.12.68 tag as good and v6.18.8 tag as bad
+On Thu, 29 Jan 2026 09:56:05 +0800 you wrote:
+> The Sophgo SG2042 is a cursed machine in more ways than one.
 > 
-> Sorry, those are not the tags I've used for the bisect. Before doing a
-> bisect in git I first checked versions from 6.18 to 6.13, and could
-> reproduce the issue in all of them, so after that I went for the git
-> bisect between 6.12.68 and 6.13.6.
+> The one way relevant to this patch series is that its PCIe controller
+> has neither INTx nor a low-address MSI doorbell wired up. Instead, the
+> only usable MSI doorbell is a SoC one at 0x7030010300, which is above
+> the 32-bit limit.
+> 
+> [...]
 
-I'm wondering if you actually have a second regression manifesting 
-similarly.
+Here is the summary with links:
+  - [v4,1/4] PCI/MSI: Conservatively generalize no_64bit_msi into msi_addr_mask
+    https://git.kernel.org/riscv/c/386ced19e9a3
+  - [v4,2/4] PCI/MSI: Check msi_addr_mask in msi_verify_entries()
+    https://git.kernel.org/riscv/c/52f0d862f595
+  - [v4,3/4] drm/radeon: Raise msi_addr_mask to dma_bits
+    https://git.kernel.org/riscv/c/617562bbe12d
+  - [v4,4/4] ALSA: hda/intel: Raise msi_addr_mask to dma_bits
+    https://git.kernel.org/riscv/c/cb9b6f9d2be6
 
-Can you check out at your bad commit and apply just 7f2b5237e313 at the 
-bad commit?  Confirm that fixes it.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-If it does, then redo your bisect applying 7f2b5237e313 where applicable.
+
