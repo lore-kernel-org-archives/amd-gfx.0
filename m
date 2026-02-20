@@ -4,55 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB8E4C531F8
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 04:10:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D62C55162
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 08:28:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5955510E779;
-	Fri, 20 Feb 2026 04:10:35 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bAm4gV2c";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACD7910E779;
- Fri, 20 Feb 2026 04:10:33 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D92A961856;
- Fri, 20 Feb 2026 04:10:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A05E8C2BC9E;
- Fri, 20 Feb 2026 04:10:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1771560632;
- bh=72mBwftCl+P66JkWk2D3tPM6F5W5fqiLlxhFDPCaeZk=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=bAm4gV2cKvjN5GuYeDqOqnWaOQJnwWiubm5cPxzG0b1Sls51+3jb0M5jPJ1+SGZTp
- BNMGuKF+rHUZyZkSemcZ7VP/pg7JHj2ZcfuVFKpEER40qLLDnHc+EVOwAimnPx17DQ
- /jDJhzaTZP/JOxp36YKfDTewflsvr8lV3YbUHfUAOw4uyWsvqfoKgWsWEaQXJWPeS0
- 7yQWORIx1F33RSW37fCo4RiS84fyL5mrOB1bDmofqalUb0Xx4bXIumnN+Z2lzvlWAZ
- 8a+Io+IXkFA3DZOs/NEEJxN4KV44owP83FsMWAyt+2OmNLolEZfWlAR2gjA0OmJimN
- kkoQWYIwgr7TQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 3FD913809A88; Fri, 20 Feb 2026 04:10:42 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3460710E799;
+	Fri, 20 Feb 2026 08:28:51 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E56DC10E79A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 08:28:49 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 61K8SiLK2192376; Fri, 20 Feb 2026 13:58:44 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 61K8SiPl2192375;
+ Fri, 20 Feb 2026 13:58:44 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH v1 2/2] drm/amdgpu: add upper bound check on user inputs in
+ signal/wait ioctl
+Date: Fri, 20 Feb 2026 13:58:40 +0530
+Message-Id: <20260220082840.2192325-2-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260220082840.2192325-1-sunil.khatri@amd.com>
+References: <20260220082840.2192325-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v4 0/4] PCI/MSI: Generalize no_64bit_msi into msi_addr_mask
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: <177156064078.189817.10457864568127488431.git-patchwork-notify@kernel.org>
-Date: Fri, 20 Feb 2026 04:10:40 +0000
-References: <20260129-pci-msi-addr-mask-v4-0-70da998f2750@iscas.ac.cn>
-In-Reply-To: <20260129-pci-msi-addr-mask-v4-0-70da998f2750@iscas.ac.cn>
-To: Vivian Wang <wangruikang@iscas.ac.cn>
-Cc: linux-riscv@lists.infradead.org, maddy@linux.ibm.com, mpe@ellerman.id.au, 
- npiggin@gmail.com, chleroy@kernel.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, bhelgaas@google.com, perex@perex.cz,
- tiwai@suse.com, brett.creeley@amd.com, gaohan@iscas.ac.cn, tglx@kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-sound@vger.kernel.org, sophgo@lists.linux.dev, tiwai@suse.de
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,34 +45,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello:
+There are various input arguments set by user in the signal/wait
+ioctl which could be a huge value eventually leading to a OOM
+condition and system crash and could be exploited.
 
-This series was applied to riscv/linux.git (fixes)
-by Thomas Gleixner <tglx@kernel.org>:
+So check these input value against AMDGPU_USERQ_MAX_HANDLES
+which is big enough value and also to avoid out of memory
+condition.
 
-On Thu, 29 Jan 2026 09:56:05 +0800 you wrote:
-> The Sophgo SG2042 is a cursed machine in more ways than one.
-> 
-> The one way relevant to this patch series is that its PCIe controller
-> has neither INTx nor a low-address MSI doorbell wired up. Instead, the
-> only usable MSI doorbell is a SoC one at 0x7030010300, which is above
-> the 32-bit limit.
-> 
-> [...]
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 37 +++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-Here is the summary with links:
-  - [v4,1/4] PCI/MSI: Conservatively generalize no_64bit_msi into msi_addr_mask
-    https://git.kernel.org/riscv/c/386ced19e9a3
-  - [v4,2/4] PCI/MSI: Check msi_addr_mask in msi_verify_entries()
-    https://git.kernel.org/riscv/c/52f0d862f595
-  - [v4,3/4] drm/radeon: Raise msi_addr_mask to dma_bits
-    https://git.kernel.org/riscv/c/617562bbe12d
-  - [v4,4/4] ALSA: hda/intel: Raise msi_addr_mask to dma_bits
-    https://git.kernel.org/riscv/c/cb9b6f9d2be6
-
-You are awesome, thank you!
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index a6eb703b62c4..b9810313c5ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -35,6 +35,8 @@
+ static const struct dma_fence_ops amdgpu_userq_fence_ops;
+ static struct kmem_cache *amdgpu_userq_fence_slab;
+ 
++#define AMDGPU_USERQ_MAX_HANDLES	(1U << 16)
++
+ int amdgpu_userq_fence_slab_init(void)
+ {
+ 	amdgpu_userq_fence_slab = kmem_cache_create("amdgpu_userq_fence",
+@@ -480,6 +482,9 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 		return -ENOTSUPP;
+ 
+ 	num_syncobj_handles = args->num_syncobj_handles;
++	if (num_syncobj_handles > AMDGPU_USERQ_MAX_HANDLES)
++		return -EINVAL;
++
+ 	syncobj_handles = memdup_array_user(u64_to_user_ptr(args->syncobj_handles),
+ 					    num_syncobj_handles, sizeof(u32));
+ 	if (IS_ERR(syncobj_handles))
+@@ -501,6 +506,11 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 	}
+ 
+ 	num_read_bo_handles = args->num_bo_read_handles;
++	if (num_read_bo_handles > AMDGPU_USERQ_MAX_HANDLES) {
++		r = -EINVAL;
++		goto free_syncobj;
++	}
++
+ 	bo_handles_read = memdup_array_user(u64_to_user_ptr(args->bo_read_handles),
+ 					    num_read_bo_handles, sizeof(u32));
+ 	if (IS_ERR(bo_handles_read)) {
+@@ -524,6 +534,11 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 	}
+ 
+ 	num_write_bo_handles = args->num_bo_write_handles;
++	if (num_write_bo_handles > AMDGPU_USERQ_MAX_HANDLES) {
++		r = -EINVAL;
++		goto put_gobj_read;
++	}
++
+ 	bo_handles_write = memdup_array_user(u64_to_user_ptr(args->bo_write_handles),
+ 					     num_write_bo_handles, sizeof(u32));
+ 	if (IS_ERR(bo_handles_write)) {
+@@ -666,12 +681,20 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 		return -ENOTSUPP;
+ 
+ 	num_read_bo_handles = wait_info->num_bo_read_handles;
++	if (num_read_bo_handles > AMDGPU_USERQ_MAX_HANDLES)
++		return -EINVAL;
++
+ 	bo_handles_read = memdup_array_user(u64_to_user_ptr(wait_info->bo_read_handles),
+ 					    num_read_bo_handles, sizeof(u32));
+ 	if (IS_ERR(bo_handles_read))
+ 		return PTR_ERR(bo_handles_read);
+ 
+ 	num_write_bo_handles = wait_info->num_bo_write_handles;
++	if (num_write_bo_handles > AMDGPU_USERQ_MAX_HANDLES) {
++		r = -EINVAL;
++		goto free_bo_handles_read;
++	}
++
+ 	bo_handles_write = memdup_array_user(u64_to_user_ptr(wait_info->bo_write_handles),
+ 					     num_write_bo_handles, sizeof(u32));
+ 	if (IS_ERR(bo_handles_write)) {
+@@ -680,6 +703,11 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 	}
+ 
+ 	num_syncobj = wait_info->num_syncobj_handles;
++	if (num_syncobj > AMDGPU_USERQ_MAX_HANDLES) {
++		r = -EINVAL;
++		goto free_bo_handles_write;
++	}
++
+ 	syncobj_handles = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_handles),
+ 					    num_syncobj, sizeof(u32));
+ 	if (IS_ERR(syncobj_handles)) {
+@@ -688,6 +716,10 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 	}
+ 
+ 	num_points = wait_info->num_syncobj_timeline_handles;
++	if (num_points > AMDGPU_USERQ_MAX_HANDLES) {
++		r = -EINVAL;
++		goto free_syncobj_handles;
++	}
+ 	timeline_handles = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
+ 					     num_points, sizeof(u32));
+ 	if (IS_ERR(timeline_handles)) {
+@@ -750,6 +782,11 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 		}
+ 	}
+ 
++	if (wait_info->num_fences > AMDGPU_USERQ_MAX_HANDLES) {
++		r = -EINVAL;
++		goto exec_fini;
++	}
++
+ 	if (!wait_info->num_fences) {
+ 		if (num_points) {
+ 			struct dma_fence_unwrap iter;
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.34.1
 
