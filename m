@@ -4,155 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5439FC5AE49
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 19:51:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65D38C5AE49
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 20:31:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA0BE10E837;
-	Fri, 20 Feb 2026 19:51:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE3D210E22B;
+	Fri, 20 Feb 2026 20:31:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PRfSNDGc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n+e16o+f";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012042.outbound.protection.outlook.com
- [40.107.200.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D8BB10E84A
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 19:51:55 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010060.outbound.protection.outlook.com [52.101.85.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19C9F10E22B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 20:31:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jn1dvdOg7dS2rjGYNYjC5HOR1fzmGR8WmA6XYgJe1PuhtH5Xf/q+KIaIYdVRbcC6D/CVZcIXIpBr0Tgb9e9c1v8xmNH0xOgLgaMVhctfyQOHGxEWo2Gh341YoXmelgXzOL0gkN0zP59VfjCZ5TVzthD4GDpTnBqt2vKLc8CAftTQjiZC5GRTx+3Y8NWjQOnOKjrIXcTNdsg1qfu1xDL3Lr4iyHkas+oE1Q292nPpLkldLy+s0usI+YUwFxcBZmK7hzziF7Wf3lWhG4OgKOSU6achsKO9pE84DQ4iPzRP5XOHC2kWL+Xd/SwWpHaAtyJQ1hlq+DcUnT7J92SWzpWUgA==
+ b=fJFDT1P9r1GJ5USKfjOaV/rPWOYTSMzYKpJTusZaI/vZc7nd0YZEhbI5+v1BGoXvcWd9Ll64EKYzIL1eXcNHIzSenxAX+i6aj9m3DyGBXoXYwnb/sSwgdqHnJuDBWGvqcLJ0Mb23D5Q3IMVrbBt5AIdODR4bbzQgp9ck/HKxf+6ZE4LqvEVNllCL53yFxiCd1ND+/ta91580faNw00MpgTGMiWBWOqvMduRfmHW/am3009nV/RqIskEkT21Uh9EiOZDfbcXMCslwU93qQjL2k7Zv84xu1UL6BzCNT97AqfGzJC94NAzahZ+LxHKmeSUPOMsQ7T20/Giid9lKpxoohg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JcctTczCtV2hSvkglrQC7hYyjpj9jPR7gOGx2ldoS2Y=;
- b=Byipo2poK+nl5KL96qQ9Sap4UWlcQnCMVUDtG8AjHKmB+z3SuSpzSaSpf1QfLPTTToiVotIHl+NGCSByWts3droZp9rmVLxIXHQrgK1IzwNVVC0GzG15NpIodp60QKvXSrytv+SCdzLu1eQqkdbHUrfnle2vaW1WtQZAcXqdlHkQH60wMj0UunsvYAAY+78DHIo3NjSyJ3hrnANDxbzGcVky79Q7XRkvtt+lK2eg1HHQGYYtRvVi9ALgvGaxMurRI4JwCKkJuVp5LkSn7ytJQMma+J/mH8kjFclNpN/NKZNYYLcd98qqPpVtlReWtPhmHRRdeC79n2vi59tc7mcDhw==
+ bh=ueHJx2NKGrWvtAQBPhBjqF8IpOofj1Ox2v4ll83blVw=;
+ b=W37PhWFPODyo8hWFPC0iLRciI2swhpgK0FnUOqGa/FVeUJZ+MXkR157fsSdxe8FyyC1IzHoKi71Rrmfr4indHc/HGN4X7p6VGO+mz0IiDEezBk3iHMaUG0qCEqqg+96kTQ3Lbzjr3NFBNSiUiMvLFbeDmsMx65e8HroL2O0UfQzOkv5Iv7G2TYpkkp7ZhwZbe3H+33gyMP+bIP391Q8EG+seFArinC/JP6Ebryo9dLi8KB6xRdTbuGe4rFJF91AApJ6bZK9hl2aPta35KHi8AyNSkodaVpOyIvg7zeJRjEG9AV9j0sMvRFQuT+8uX6PYQuYJ7ufXBv861mzpcb2n3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JcctTczCtV2hSvkglrQC7hYyjpj9jPR7gOGx2ldoS2Y=;
- b=PRfSNDGcux534gfmp/VPyqJ85z3pFDiVY53klR8coA7imMGdn9YumZP4VtX4xaeGklCUiTae4JEpkXULzHdiEWT+X+axDPr34lPUF5NWcf+hgfTVuOT+mRpBbeNLZRQQQJ2p0yftBSpJItnvdeScjkuGLHXb6XfL4UqRg/F4B4E=
+ bh=ueHJx2NKGrWvtAQBPhBjqF8IpOofj1Ox2v4ll83blVw=;
+ b=n+e16o+fpBp+5rvH6lRlsn94/ZSTrkZiNe80s9S909RhD/8s49gfBJXwrlGpzLgto/V5cS6tT56svA96tEIfD3JZUHaOGfyb28pYtN2bDJ5LjNXMYm/GdEuq7uzwtKZDwjHllC6H9QLRkZtUgVx04axROI2WfHmH/SKV85hsuBo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by CH1PR12MB9621.namprd12.prod.outlook.com (2603:10b6:610:2b2::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.16; Fri, 20 Feb
- 2026 19:51:48 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81%6]) with mapi id 15.20.9632.015; Fri, 20 Feb 2026
- 19:51:48 +0000
+Received: from PH7PR12MB6420.namprd12.prod.outlook.com (2603:10b6:510:1fc::18)
+ by PH8PR12MB6770.namprd12.prod.outlook.com (2603:10b6:510:1c5::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.14; Fri, 20 Feb
+ 2026 20:31:01 +0000
+Received: from PH7PR12MB6420.namprd12.prod.outlook.com
+ ([fe80::3129:67e7:f119:5593]) by PH7PR12MB6420.namprd12.prod.outlook.com
+ ([fe80::3129:67e7:f119:5593%5]) with mapi id 15.20.9632.015; Fri, 20 Feb 2026
+ 20:31:01 +0000
 Content-Type: multipart/alternative;
- boundary="------------NiYXwYhRyLjikKTFT10jtegk"
-Message-ID: <840ac8de-f27f-438c-ad45-bcd0c76dccfe@amd.com>
-Date: Fri, 20 Feb 2026 14:51:46 -0500
+ boundary="------------r0v3Id2y6bC2qK25McPIUrpX"
+Message-ID: <2dce4859-02df-4956-b3a0-a96b4ccd0dd8@amd.com>
+Date: Fri, 20 Feb 2026 15:30:57 -0500
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: add an option to allow gpu partition allocate
- all available memory
-To: "Xiaogang.Chen" <xiaogang.chen@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20260217162424.991875-1-xiaogang.chen@amd.com>
+Subject: Re: [PATCH 1/7] drm/amdgpu/sdma4.0: adjust SDMA limits
+To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
+References: <20260219160224.1976043-1-alexander.deucher@amd.com>
 Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <20260217162424.991875-1-xiaogang.chen@amd.com>
-X-ClientProxiedBy: YQBPR0101CA0101.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:4::34) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+From: vitaly prosyak <vprosyak@amd.com>
+In-Reply-To: <20260219160224.1976043-1-alexander.deucher@amd.com>
+X-ClientProxiedBy: YQBPR0101CA0188.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::31) To PH7PR12MB6420.namprd12.prod.outlook.com
+ (2603:10b6:510:1fc::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|CH1PR12MB9621:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49fa3aaa-6f99-49d9-aae3-08de70b97bbb
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6420:EE_|PH8PR12MB6770:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35bec46e-accd-4b4e-152b-08de70bef642
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|8096899003;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?M0dFYm9qVExGZU54SjJLdE5NczdwTktFcTF1MzJMd25PVHhoanVBUUxhSWdu?=
- =?utf-8?B?cnA1cGc2Y0RRK2libzBUMGRLNWNPemZuYitRWHF2WVprZVpiRnJtNkV6aG1j?=
- =?utf-8?B?R2NBOXBTZXVQNlBwY3pBU3ZzbEpHU2FjalVmRFRsRmlFK2pjRkdPZUp2OUN5?=
- =?utf-8?B?VjY4bkZvL0hlRXN0WDFvNndyQmhxS1ZpWnRJaEFyUG5uejNpZ0FIVldTWFM0?=
- =?utf-8?B?eS9uVEZjK0lLck5rekxqeEcyVlN4RjNYVXRhMzQ4UkEvSHRMUldObldnUWpM?=
- =?utf-8?B?T1cvMFBIVzNKd2J0ZXY3N3Y1QVZZVm9sSWM5QUloMGpUbUpqUVc1cmZ0aFAw?=
- =?utf-8?B?UFgzUWJsWkp0ZnFQeUtLVHllTHVQeXFnbE5FYkZoWU9xMktYTk43OGlKM2lX?=
- =?utf-8?B?SEpWRElLOXpuTmc0TEU2TVhINmpXRGxOa3ZqVi9BczFOQjJOdEJRQ3pIUnRU?=
- =?utf-8?B?cVJMdUE4MVh5MFNaV3V3NG15cnF1VmM3Rkt5SC9MbUlONTEwU3RHKy9RSTMy?=
- =?utf-8?B?WmhHdUgzK3lidlhWNnBaS2VKUzlVQ0xMaUtaRFdSV2VrSHZsVlgvZU5SY1Z6?=
- =?utf-8?B?Q0o1ZjdpVzI4VDljcUlXNjVZaUpYUVphcktFRlpKeE9ibHJvd0o2T0dEaVNC?=
- =?utf-8?B?NkRqUms2N1ZETzR0ZnNyNlNtdkYxR1pKNzFCeFNzd3Q0S1JyeUh5eEdxZktk?=
- =?utf-8?B?OE9IT29CTWFVTDJwMGFOZXgzdGM1b3dhUXA4ZEFPdXA4TVV2S296Z1h4Z2M1?=
- =?utf-8?B?RW02Skd6T041cTNnU044WGFxOTk0YTVkR0xaV25wWG1DS2tCQ2lxZ3hsRTlX?=
- =?utf-8?B?a09NUWRXOWYxVzdkUzBXNzdPSFJtUDd0bkcvSGJkc3VmZHVtVWhSNFJDR3N1?=
- =?utf-8?B?cHRCTkc1aG9HMGNxc0haMTA0M3NpdmZUaGhucEJPNUNLNGxtM1Blckk5akpw?=
- =?utf-8?B?dExNR2drUGlYYWdnTHltWlZka2MrcTZoT051dXMxbkpaUUc3bWlHZWhvZ3dp?=
- =?utf-8?B?WUxtczg2RzRGaUw3SlhCR3Y3dTFRYnZhblRUT0twVlhQeHBDK3B0Wm9ETWZS?=
- =?utf-8?B?cXBxMWZJN3VOdGNhZ1J3N2YycEQrUWZHeG5aUnRXVDFWOC9Pd3NVUXRZbGVO?=
- =?utf-8?B?eDNvRkIvQWpzbXJpNndXTklvbmxiQUpLNGVaK3pCVzlndFVhZURiWm9PTHRZ?=
- =?utf-8?B?NDJ1RmppVjlxQmdWL3pDbGRubkJFQW5sajZhV2l5NU5rVVN1cnhlZzZGeUsw?=
- =?utf-8?B?dzk5REJEZW1oQVZBcEM5eFVVWVFPR1dYc1o2Q2UwaXM0djkrMmJYUWJUZXpT?=
- =?utf-8?B?bWZaN1hVbFlpMkExWmxPZ3JqQ2NFTUdBMWM3WGszZVBFZlhnRDRCNExCY3pC?=
- =?utf-8?B?Sk83VURYNVdPRldhcWloYXZDUGF4V1lCR2tGRVJWdGJhdmszYjAwV2J6ZTBC?=
- =?utf-8?B?L2MvMlgwOXhGYVNnL1N5eEtXWkpWOHRaNFFxQ0JIU29aZ1NuMUlHM0JXVDI3?=
- =?utf-8?B?dUFlYTNFaUtTdlJPSWJ2UzhQRUZCVUxZS1V2cnlCaGkxVFBaK0daSzVQUk81?=
- =?utf-8?B?K2JEZmJ3alJlcEM5MDV1WkZHckJrVnFlMVpoUzRzdzNqOXoyT1E0b3RsZlJq?=
- =?utf-8?B?dzVyS3RSR0RSOVZ6QnVUT2hhemZ2YklQL3UrYXI0NkxpdVVqU2N4cnhOT245?=
- =?utf-8?B?ZFJNcW1CbmowcWFVTCtzRVg1cnozZi9aU2hCQU9Pa2NPZ2l2alNqckhIK2d6?=
- =?utf-8?B?MVVzRDd2dU5sdnNrdGdQaFk4NTE3N2RIYm5HMGgyTTA5YnFsQlVvN2phS2RT?=
- =?utf-8?B?RFloejgranlTb2FUUzc3NmF3c1NtQTRpeUtCOTVSMVhlYy9McEdUbjR2WUoz?=
- =?utf-8?B?QVFHL2Jldy9NcXBrSXFrZTFVbnljUXh2WFZxcnVnYyswVXo2Tm8xTHRSZWxu?=
- =?utf-8?B?NjhkQ1g5VHR5RmN1WXFONVhibktjRjJqWCtkWkVQeWxiakJFNVViaHQyYUt6?=
- =?utf-8?B?ZHZFNTNxbWJVbDhkeXpkTWExTER5TGNoVHEwVm81Q0pBdDhNd2dRS2VOaWNQ?=
- =?utf-8?B?Q0oyMEQrM2pGdEE4VUhIOUZBVGh5YStUWXFIWDhGd1lmRXBYU0Y4c1dBRVVN?=
- =?utf-8?Q?9Tgo=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|8096899003;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Ry9XQlV6ZmJseHhXNWdKb3FNNmJKOE9uWGlIZFU5dWdOeWxMdFh0VjhLWEJS?=
+ =?utf-8?B?ZS8xVGxaOXRsaFdjRHBYQXo5VTUrNUkxOXFQZnc5RU03NGhsSmtYMHB0a3ll?=
+ =?utf-8?B?T1F1OTFRM3c5SEZIMy9oZSsrdUFKQXIyTi96Sndoa3FURXdrV213WFlERlpl?=
+ =?utf-8?B?RkZTNnVsbTVRTWtqWm9RNm5KR0o4Z0JHcHhiMVVvYjBaZ21ZN2VkUEN3NVVQ?=
+ =?utf-8?B?UDF5c3FkOVNKZ3hTVkNWRWFGcjdNQ1owOFRLVHUrQTVQTHlTdWo3UGJDMDJQ?=
+ =?utf-8?B?bGFoYXF2MFlEdkJVUmFWeVRRbk9VNjR4d05TWnByVzc1aG0rQ2hTNGRxOXJE?=
+ =?utf-8?B?VDJvZE1DMzJwVWNWamNmbGJGNVFUTjE3SEVRT0NjYnVWZkV3MTlBYTMwKzZ0?=
+ =?utf-8?B?ZzdDUmJ5QmdtLzFRL1hEU0lEdHNtcjc3NS8rL1docHYwa0JvcThhd1lXdGRU?=
+ =?utf-8?B?OTFmL1pPUzhnTVpIRzZERktHcW1mdlk5RjNybGhoSE94L1FJTlJpVUhhb0M0?=
+ =?utf-8?B?ejBOSVBTYzQzdXR1OVcraFJVZTdOYWZqcUhLSFJHcXRDcEF0S0xpKzRObDhP?=
+ =?utf-8?B?TVlXRUZvMWhjZ1k5QkMwWkljWHdMSDZLUVNaL2tqeU1XWUNlOHFucE5XamlR?=
+ =?utf-8?B?c2FMUkRwTGt2cXIvVk5odTlRLytqeFlBdXVoNUMrTDF5dFNLWEVuWXpLSHFu?=
+ =?utf-8?B?ejJIUUlteVVRaUVXbk1ENnV0L0VJay94eEszeWhGRm5JU3B4WHYycVptdGNn?=
+ =?utf-8?B?c3hWUSsrbWdkck1IK2ZlQVZvVkF1djNEM3ZVcld0ZHNrczRYWHQ1WEZ5bDNC?=
+ =?utf-8?B?SVRDcDdwUFVSbnlrUVE2ZnovQWZMczZVYWlMQXZvZHpGZVRkMEV4a0szVXZG?=
+ =?utf-8?B?aGljRTBnaTdnV2o0MXFCN0NiUUFTUFlac3VwRkVyZ0FvN0c0UFBld2M5UGlL?=
+ =?utf-8?B?d3hWaG5iZTR5UkQ1RkNwYXRxY2xLZ2trbktCZEtYcnA3anhhbkttVDdRWU5H?=
+ =?utf-8?B?NlhGNFVLT0x2RStsZEtVZ2ljbmcrb3NBcjBYQm1Tdm53dTB3RHpydHM0cXAz?=
+ =?utf-8?B?R2g3c01BSUFiRm1XRldLK3FKajh1UFJjRmxSOXVqaGlXT2FGeEYzVmpjVTZL?=
+ =?utf-8?B?NUE5R25SWEhZbGhpK1ovV2lSY0Vkdm1xSkxCWnR6d3g4MjRybXlaT2xTWGFX?=
+ =?utf-8?B?TGVSMHFxeUx0ei91QnZzei9TcUdQTGx5Vlo2WEFYcVZ4OGMxL1cxNmp1MlJM?=
+ =?utf-8?B?Nkp4L0tjcE5pMlNkdXlmZFdhZ2NFck51dzg2ZFd2WHRHOGdwaDZLS05FWjdN?=
+ =?utf-8?B?cllOV01LOVZoZElkZmxzMWJ1WW5YWHV0THRJcVlFc28rWDBuWU0rRk1iVEsy?=
+ =?utf-8?B?Z1BKK1hZSEU0WEZ4U203L0hsbVhFY2FPa3ZpUXg1Vkhrd2JrLy80SVY3S3JX?=
+ =?utf-8?B?MVRFQnJ0NXUvcndFWTlFQ2k5NzVKbVVGUE1BU2JETjFXY256c0FZT0cxQUtL?=
+ =?utf-8?B?elYvenZaV24yQVpvVFh2OWU2UmloQ1N5TFQ3Q29vU3NiZGdycy9QY0x3Ris3?=
+ =?utf-8?B?RXB0WTh3WnhpSm9YbGRId2t4WEFoOW1kL3AxOFpzaWhUZExNbHdyTDF4ZTlU?=
+ =?utf-8?B?T3NuS2JCSlMzd2VOMDBtejBQclBIR2tNV3ZJb3pxaGZ3QnFRNjhnZmdOQWNX?=
+ =?utf-8?B?Y2JibFZJWUwraXErdFd1NHBqQ2tIazRDODJhY0E4a2VGN05pL25zTWx2bU1i?=
+ =?utf-8?B?T25JVTRTMHlFUzcrdG5WTk9GNWlsV3h2SHFCdVJLSWVVUFlHYmpoQUJQa2ps?=
+ =?utf-8?B?WkpSZWoyb2ltb0creGpkOUpVZ25rOENITWxKL0tuc2pFRFhlaUMwRTRYazNz?=
+ =?utf-8?B?NnJEVTUyQWNkN0NKZ0FkcHJ3eGJBY3V1TmpVcVkyeS91QVpqRmhqa0xOanF1?=
+ =?utf-8?B?dkk5UWJqMlRoY1h0aWNtL2NFMWlRQmpHdUFxQ3A2M2ZiMUtCUmtaeXZMV1pa?=
+ =?utf-8?B?WWxPUzdSZk0rMnpsWlZPcmZONEs0cnBpNGNUYmlMdDJrN3BaNWVTaHhNODJn?=
+ =?utf-8?B?cktldHVxVFJPWEwxK3BMNkJQNHNFRjEyaGdXU0Vuc216TUZDZER1NEJSWlhv?=
+ =?utf-8?Q?mmIw=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(8096899003); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6420.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(8096899003); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YU02WmdjMCtGTXB0SURSazB5Vm0xeERyNnB6bGlBdGNxN3RQM1V6T3M1Z1dV?=
- =?utf-8?B?TXdJKzFXVnJILy9WdUw5REJOdkhhNmo4SWl6eUtSSUpvdUxiMCszZWRZV1gr?=
- =?utf-8?B?dmR0NWRpZlB2NHNiemdJUFNNdTQ3UDVaU3BhaEFFbnFzaHkySGxaQUFyT2U4?=
- =?utf-8?B?VE1ISlRxNmhsQ0svcGplL2xMRnNzYWE4ckJKUUk3RVVsdnRybmFLZkoxZTl3?=
- =?utf-8?B?MjhzN2JFdHcvSHUxNzhsb3J6TGt3cTJLRmV2S2FtK1dSMm81anFSMjBCV3d2?=
- =?utf-8?B?NHgwZ1dzekY1TE5DdmQwaEJmU1djaWlhUi82aVgzdDZnSEk0Zmdodjl3VGFQ?=
- =?utf-8?B?SHYrYm9YOVdjeHNZcWRSQmN1TkNFZkEvbi96ZDhEWmk5MlBPSVExTWY5RjQz?=
- =?utf-8?B?ZCtES0h4eUV4ZW9JenNHNEcyelU3a1ZuaVVkR0NLK1JaaEtwbW1mWXhZVFoy?=
- =?utf-8?B?dU1oTElMcS90RHBBU28rK2xBdW1pbFdDVXVubC9XUytUcnVZbVEwSjlYZjFO?=
- =?utf-8?B?Sy9ienY5LzRRSkViTndmWlFCalBLZ21jQ2Y3NS9INU92Q241cWhIMHVmTVhT?=
- =?utf-8?B?dzhqWWFhRWRad0FOeEN2NXRRTkk2UEE4ay9KMjRqblEyeUVNTFJZZkFEOEpJ?=
- =?utf-8?B?T2ZLQXdmeHI2ejVPZ3VZRUVhdVY5N1JWb1A4RzM1cDFjNGxQM21QTTBmNzBX?=
- =?utf-8?B?Q3g0QjdjczF1WmNiUWhoa3J1dW0zV0I5QUFsd04zYUh0a242eUQ3ODFIc3JX?=
- =?utf-8?B?TXNtUXh4YzFJclZIK3h1dG1uL1JqVlMwTHhJSnFuWVNDQU41NmZiZXdzQ3dW?=
- =?utf-8?B?N3FKdS9KNENONWhlZnJIcjhQUGtvSW0rU3VvN1ZPTkF5V1RnTVZ3UUU4SXlv?=
- =?utf-8?B?VlE3K1BtSDM5SkRYU3hCT0s0N3ZJbGxPTDVrNTJTRUU3RndZeW5uVWgzQkl6?=
- =?utf-8?B?T1U5NngyUG9XNnlNNWZ4N1pxZnNBTzgvcUIxMXpac1F5RGFEaHlKMW9aZTBa?=
- =?utf-8?B?dndHL0FFdnljKzBXbzdDTlFzYTQ2LzNUdkl2R2R5WlFzZTRkWFE5TGh0YS80?=
- =?utf-8?B?RTBmRkNUcktvWklVOE9EMGprTFRsakxqVG9uMzl1TlVPaDJQbkZuelFVQkVT?=
- =?utf-8?B?WWoyT0FrNmc2QkVodGpieDZOLzFVQmRoU1lLVnIzRUp5VERGbkhZTEY3TDVs?=
- =?utf-8?B?L3o1L1JvSktodnJyQ0VrNDZBNWlDckFLVU9HR1pabXVEeFVVQjlwcXlPRm1B?=
- =?utf-8?B?WFhtS1E0b09zZmlHZ3BleU1EMWswK3Y2SUxHU1UwQ3JPM2ZzSWlkMjlzMld1?=
- =?utf-8?B?VkF3a1VDUHR2bW5jTUZPaml0SVRjVW85MUgzMmE3YXZFZ1hTNlRYVzJyOFRL?=
- =?utf-8?B?YlJ5Mk9Ha1RZRXQ5blh3cTdRQWYwOWl0ZjIrV3NYTng5SktLaW1PbG5ETDlO?=
- =?utf-8?B?UHdraFdwTUhtWlhLRDhqSjlVRVZiWjdDekZmK0psT1paL1JWb3hZeVJNQTdE?=
- =?utf-8?B?RVdXcDIvOGtLVk14WmhnRnkyc1R3dXlYLytiaXl6NnJSWFdvWjdQbDRVcVRZ?=
- =?utf-8?B?eU5OeitJbkUwcDBna3lFdU9Ha1BPcmp6ZTE3dWc1c3QwM1QxZDBoVjROd3Vw?=
- =?utf-8?B?NDQvcGhwZENXZldwbXhSV0pNbUtaMFBlU2VhbVl2TE9xZXZEVjd2cENFWWIx?=
- =?utf-8?B?ZWY5UHczT0lmZzkxTEJNQlNDRDk4c0swY0hieGZtbldJay9KWlV3djY3V3lm?=
- =?utf-8?B?dk9oU0hJdWZkVFAyb2YrbXlvdFJBNC82a094bWIxRGhyQ3dqOTZGZ3NqT1FB?=
- =?utf-8?B?eGtBN1h4WWY2K0hxUEhBdzJuUmxzOTViWXZZQ1ZxTHFiWEQ0ck1NMFVSanpv?=
- =?utf-8?B?bGNFWk0vQjdTTExtdk9XdE84bWtCZXRXOGlvTzBnbURUSFFoVzlkRU9FWE9u?=
- =?utf-8?B?QkM1bnJuUjNLazNDQmw5a0xZMStlUUtJREJ1RUI5ZWtFT2N2WGhIZi95K0Zn?=
- =?utf-8?B?OVRTZWtWUzZvaHVBQVBtWGNMUHBNWjZUWklOaXprVXRCMWcrcEY5NkFwZ1RF?=
- =?utf-8?B?MFMycmZtOVYwbkpvRVhoZUdRQTRBUVFMUElzcTIvckNMd2xBd2w2UE9pWm91?=
- =?utf-8?B?YzZXajFVWDdXUUEvLzdoT1BkS00xNE5qa09nUm9RaU1ibHllaVRuclpNSFZW?=
- =?utf-8?B?Y1Y2R1BSY2taZEFsbit5YkRmWU1HZEdzRmRwUUo0NllESEFkeVU5K2tWeDAv?=
- =?utf-8?B?aUEzVk0xTVl1cEQxdnF2QWtlU1ZDeURWSDJ5MlNWOUdhTGNSMit0THhMOGFU?=
- =?utf-8?Q?t6M2F0sCohptpOy9Tq?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?KzJYdVlSeElpdXhDYnNRNWpsNGhCOThHaU1XeURPNjBNeWk2c0ExVzJ6VU5G?=
+ =?utf-8?B?bllud2pPcERUZHN6R0g0OHU3SVdKZFdFZ05JZUNNVDRITXlpSm1nOFY3QU5p?=
+ =?utf-8?B?SitSUEhFU0NnLytqeVVmUHFBTzl5VmxFMllJM0FZNDJpRTQzOFRqeW9tcHZN?=
+ =?utf-8?B?NjIrNjJrZ2xXRWxtQlN1c0lobW54ZnJjd08zbHBtSlZMWW9va0Q0NC9ZMFRk?=
+ =?utf-8?B?VEJ2UUkzZGpmZ1BnRDNjVno2aVc4V1NMMFM1RHEwWEpyWDloK1V1ZnVLVWUv?=
+ =?utf-8?B?cWhpQnVVME5UT1BNVi9Ga3R4WE4xV1R5UUh5QkFHcXF5M0c4anE3b3BYdTFh?=
+ =?utf-8?B?VS9qTzBhL3JWd2JqeElwTHRqY1g0cnhxWStvWWFNMzMxSmZwT3RhVDEyUjZU?=
+ =?utf-8?B?WEZOajBSUTcyMEhZbWgwSitFaUtSWE9rNkRqTTd0ZndWNnM4dDh0MGQvSkhr?=
+ =?utf-8?B?Q1N5RE1kU3VwQnF2VytaM2lJMTg4TU0rclh6NlJzSjIrOHBYSlM1cHhKVTZ3?=
+ =?utf-8?B?VmlMenFMNHd4eVUvQ3ZwUmdvZGJXUXhSUkhOZFpJVWZGWlJrNUttd2Zjbjh0?=
+ =?utf-8?B?bjErNFRZWGUrQ0RXZUh1cnQzRkd5TC9xSFMvM3dqckE1bTh6QVl3Y0hsbi8r?=
+ =?utf-8?B?VGdLVjNVVmJ5R2h1dGRDMlRMOXZkTktKWFpZeVlxakE2QlRyR1h0aWFOMVBK?=
+ =?utf-8?B?TkpSZjI4MUE5WWZNRmNSVnJMa1lUaTR6VWs2dm04SHIxOGMyS1BxRFRobXh2?=
+ =?utf-8?B?YW1VQVkrT2U1b1VXclhZWlRkS0FjbVR4d1lqN2NSc1pKK3c0VVZjRTBhUHlk?=
+ =?utf-8?B?Qk9QKzdFREliVkFLdjBsK1UxNUxOaVlGMkozbUNURmIyRTRiVEdxUmZrS215?=
+ =?utf-8?B?NHhpVXJsUlNmWTFqRHo5SUJ0bE16VDUvOVNDL1ZFQ09HRzhzWURjOXR1NWht?=
+ =?utf-8?B?d1dqMkphZ3Q0Vkw1bEFFWk4zbmlsV01Jc2IzUUFQNmNSTDJrYTN6VjVrL1Bq?=
+ =?utf-8?B?RzF3VS9tenNPVGtoVVpxOTN4WGlqRkYwRnY3QksvSHFPSzFZNkpDOEZxbWZi?=
+ =?utf-8?B?R2N1RHNzSjdwREpEeUlUZkxadTZ2M3hWS0cxSWx6U1lVT2d2bnplMUV0MUNj?=
+ =?utf-8?B?TGNZdVVwZVdaQWVuVmgwZHJaQXVzVUhqZTIzRXc3RHdaekVqbWpxSHpYRzdx?=
+ =?utf-8?B?T2lPN0s5eDkwQnlZQVlHMlF0ODV0bEZ1alZvZGJpMWYyYVNzOEpZWVpPcU5y?=
+ =?utf-8?B?ZkJFbWdlMWRCaHNvYUtrNHNEZmtDWTFIMG9XdUFSdmZRaDhqeExBbXNJOGVz?=
+ =?utf-8?B?V2d0RFpZOWJMRnZ4amJIMk9iQzR1Q1gwdzdtL0dnQ0loMDlLc2huYkFEWllC?=
+ =?utf-8?B?RDR6ancrWkFhZDVTdHlvWlRxb2N2em5mSWQ4bHZLREFnSlFDZ0w5dHBuMlFP?=
+ =?utf-8?B?N2lJRnhzcjRoT0YycVNjeFNhN1J4T25adDNad05sMXNHOXR6b0xoS2NRTHVx?=
+ =?utf-8?B?dCtKWVlVeE9kNmlsVXVlV3hSeS84ZHlsN3g2aEpIcTNQbklKWFRzT252ejdG?=
+ =?utf-8?B?ajlsa24xWktETVhMZ1hIQ0hsT1l4cWJmcFBXUWd6d1NXQUg0dHRNMkdXT2t4?=
+ =?utf-8?B?TWpJR0k0RDlWdHFDdmJISC9hWDRRaDJTc3ZqZDVySllGTnNVYktkQ085V0c0?=
+ =?utf-8?B?cHdYR1ZDNmptRkJpaXU3MVZBd05hcnBkVTNXWFB6aG15Q1RNUkxkSlhFaXRD?=
+ =?utf-8?B?QWtqeHlGYWtoOW5YS05Jb21jTmhFa1U2ekp3MVVPbFVldDIyV1hoMDBQQkdq?=
+ =?utf-8?B?VForckxJUTk2VUVKemlCcGNVU0NYQXBUVmJpdE1TdkVycUpSbXpKbzBRRzhE?=
+ =?utf-8?B?NHVJZFYwK1kxUUIvaEdMZldnQnhyVTk4TjdEUjVQV2tKbHQyL3BOdnZweE9C?=
+ =?utf-8?B?bWtaTzFyTG55bTFPRGhuekY0L2UyZDVJZll4bnZEWXk5YWUvdXNvb0NmeWpX?=
+ =?utf-8?B?ZUZKZ1ZLVjRDSkJBZlRmektmWnFNMmRWNHFIY2c2YTQyaHU5amRKWEY2bGRt?=
+ =?utf-8?B?djVHNmQzbTdCY0M3RTdWOXJlQmlZaWFrUzVKNTZiK2tDWURkMXlQNzg5YXJj?=
+ =?utf-8?B?YVpEMEJ6ZHVnTUdUYVhuRWFNaE9OOGRmRmF2ZVpFcVhWMlpDSzZlUnRZZmlu?=
+ =?utf-8?B?RzAvekhKQ080NWJVemtUNWFJWG9ORzIxOFIwdnR0UVNqVnpPTWRZc09IYVQ3?=
+ =?utf-8?B?UFJhRUtualo3UnlHNzY4QnJNVzQvRnVLeGltUHhaSUNkRVFPdkVyWVh0bVFY?=
+ =?utf-8?B?cTJiaUtwaW5Rc0lRN3k3RDV6OUhmVFY2VkxUZEQrMkNIczBWSGhJdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49fa3aaa-6f99-49d9-aae3-08de70b97bbb
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35bec46e-accd-4b4e-152b-08de70bef642
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6420.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2026 19:51:48.2192 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2026 20:31:01.4037 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fvp1fhHAsVjd+YnoSDBPKzB41ihRvTv411q5TRzkOj31DiTx0B22GVsyuaKAoUk3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9621
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0ebFuzCb1QjwE3Q2N65VSqVySneXJW3T9xt8fEJ+COQ2cuAzhx+JHqBns4GM2/D0DpGe+xi0MOtg2aiSdCKbXg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6770
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,374 +166,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------NiYXwYhRyLjikKTFT10jtegk
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+--------------r0v3Id2y6bC2qK25McPIUrpX
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The entire series of 7 patches looks good to me.
+
+Reviewed-by: Vitaly Prosyak vitaly.prosyak@amd.com
+
+Yes — for SDMA 5.0 the maximum COPY transfer size should be 1 << 22 (0x400000). I validated the limits using the new IGT tests.
 
 
-
-On 2026-02-17 11:24, Xiaogang.Chen wrote:
-> From: Xiaogang Chen<xiaogang.chen@amd.com>
+On 2026-02-19 11:02, Alex Deucher wrote:
+> SDMA 4.4.x has increased transfer limits.
 >
-> Current driver reports and limits memory allocation for each partition equally
-> among partitions using same memory partition. Application may not be able to
-> use all available memory when run on a partitioned gpu though system still has
-> enough free memory.
+> v2: fix harder, use shifts to make it more obvious
 >
-> Add an option that app can use to have gpu partition allocate all available
-> memory.
->
-> Signed-off-by: Xiaogang Chen<xiaogang.chen@amd.com>
+> Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  5 ++-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 43 ++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    | 17 +++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    |  2 +
->   5 files changed, 67 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 19 ++++++++++++++++---
+>  1 file changed, 16 insertions(+), 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> index 3bfd79c89df3..006883c31342 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -805,7 +805,10 @@ u64 amdgpu_amdkfd_xcp_memory_size(struct amdgpu_device *adev, int xcp_id)
->   		} else {
->   			tmp = adev->gmc.mem_partitions[mem_id].size;
->   		}
-> -		do_div(tmp, adev->xcp_mgr->num_xcp_per_mem_partition);
-> +
-> +		if (adev->xcp_mgr->mem_alloc_mode == AMDGPU_PARTITION_MEM_ALLOC_EVEN)
-> +			do_div(tmp, adev->xcp_mgr->num_xcp_per_mem_partition);
-> +
-I think amdgpu_amdkfd_reserve_mem_limit should change to account total 
-vram used, to prevent vram
-over-commitment for not ALLOC_EVEN mode.
->   		return ALIGN_DOWN(tmp, PAGE_SIZE);
->   	} else if (adev->apu_prefer_gtt) {
->   		return (ttm_tt_pages_limit() << PAGE_SHIFT);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index cab3196a87fb..1da46eeb3f2c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -1580,6 +1580,40 @@ static ssize_t amdgpu_gfx_set_compute_partition(struct device *dev,
->   	return count;
->   }
->   
-> +static ssize_t amdgpu_gfx_get_compute_partition_mem_alloc_mode(
-> +						struct device *dev, struct device_attribute *addr,
-> +						char *buf)
-> +{
-> +	struct drm_device *ddev = dev_get_drvdata(dev);
-> +	struct amdgpu_device *adev = drm_to_adev(ddev);
-> +	int mode = adev->xcp_mgr->mem_alloc_mode;
-> +
-> +	/* Only minimal precaution taken to reject requests while in reset.*/
-> +	if (amdgpu_in_reset(adev))
-> +		return -EPERM;
-> +
-> +	return sysfs_emit(buf, "%s\n",
-> +			  amdgpu_gfx_compute_mem_alloc_mode_desc(mode));
-> +}
-> +
-> +
-> +static ssize_t amdgpu_gfx_set_compute_partition_mem_alloc_mode(
-> +						struct device *dev, struct device_attribute *addr,
-> +						const char *buf, size_t count)
-> +{
-> +	struct drm_device *ddev = dev_get_drvdata(dev);
-> +	struct amdgpu_device *adev = drm_to_adev(ddev);
-> +
-> +	if (!strncasecmp("EVEN", buf, strlen("EVEN")))
-> +		adev->xcp_mgr->mem_alloc_mode = AMDGPU_PARTITION_MEM_ALLOC_EVEN;
-> +	else if (!strncasecmp("ALL", buf, strlen("ALL")))
-> +		adev->xcp_mgr->mem_alloc_mode = AMDGPU_PARTITION_MEM_ALLOC_ALL;
-> +	else
-> +		return -EINVAL;
-> +
-> +	return count;
-> +}
-> +
->   static const char *xcp_desc[] = {
->   	[AMDGPU_SPX_PARTITION_MODE] = "SPX",
->   	[AMDGPU_DPX_PARTITION_MODE] = "DPX",
-> @@ -1935,6 +1969,10 @@ static DEVICE_ATTR(gfx_reset_mask, 0444,
->   static DEVICE_ATTR(compute_reset_mask, 0444,
->   		   amdgpu_gfx_get_compute_reset_mask, NULL);
->   
-> +static DEVICE_ATTR(compute_partition_mem_alloc_mode, 0644,
-> +		   amdgpu_gfx_get_compute_partition_mem_alloc_mode,
-> +		   amdgpu_gfx_set_compute_partition_mem_alloc_mode);
-> +
->   static int amdgpu_gfx_sysfs_xcp_init(struct amdgpu_device *adev)
->   {
->   	struct amdgpu_xcp_mgr *xcp_mgr = adev->xcp_mgr;
-> @@ -1955,6 +1993,11 @@ static int amdgpu_gfx_sysfs_xcp_init(struct amdgpu_device *adev)
->   	if (r)
->   		return r;
->   
-> +	r = device_create_file(adev->dev,
-> +			       &dev_attr_compute_partition_mem_alloc_mode);
-> +	if (r)
-> +		return r;
-> +
->   	if (xcp_switch_supported)
->   		r = device_create_file(adev->dev,
->   				       &dev_attr_available_compute_partition);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> index 720ed3a2c78c..f5713891f205 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-> @@ -71,6 +71,11 @@ enum amdgpu_gfx_partition {
->   	AMDGPU_AUTO_COMPUTE_PARTITION_MODE = -2,
->   };
->   
-> +enum amdgpu_gfx_partition_mem_alloc_mode {
-> +	AMDGPU_PARTITION_MEM_ALLOC_EVEN = 0,
-> +	AMDGPU_PARTITION_MEM_ALLOC_ALL  = 1,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> index a35d9951e22a9..44f0f23e11484 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> @@ -2604,18 +2604,31 @@ static void sdma_v4_0_emit_fill_buffer(struct amdgpu_ib *ib,
+>  }
+>  
+>  static const struct amdgpu_buffer_funcs sdma_v4_0_buffer_funcs = {
+> -	.copy_max_bytes = 0x400000,
+> +	.copy_max_bytes = 1 << 22,
+>  	.copy_num_dw = 7,
+>  	.emit_copy_buffer = sdma_v4_0_emit_copy_buffer,
+>  
+> -	.fill_max_bytes = 0x400000,
+> +	.fill_max_bytes = 1 << 22,
+> +	.fill_num_dw = 5,
+> +	.emit_fill_buffer = sdma_v4_0_emit_fill_buffer,
 > +};
 > +
->   #define NUM_XCC(x) hweight16(x)
->   
->   enum amdgpu_gfx_ras_mem_id_type {
-> @@ -676,4 +681,16 @@ static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
->   	}
->   }
->   
-> +static inline const char *amdgpu_gfx_compute_mem_alloc_mode_desc(int mode)
-> +{
-> +	switch (mode) {
-> +	case AMDGPU_PARTITION_MEM_ALLOC_EVEN:
-> +		return "EVEN";
-> +	case AMDGPU_PARTITION_MEM_ALLOC_ALL:
-> +		return "ALL";
-> +	default:
-> +		return "UNKNOWN";
-> +	}
-> +}
+> +static const struct amdgpu_buffer_funcs sdma_v4_4_buffer_funcs = {
+> +	.copy_max_bytes = 1 << 30,
+> +	.copy_num_dw = 7,
+> +	.emit_copy_buffer = sdma_v4_0_emit_copy_buffer,
 > +
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-> index 73250ab45f20..a2d50f90a066 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-> @@ -181,6 +181,7 @@ int amdgpu_xcp_init(struct amdgpu_xcp_mgr *xcp_mgr, int num_xcps, int mode)
->   	}
->   
->   	xcp_mgr->num_xcps = num_xcps;
-> +	xcp_mgr->mem_alloc_mode = AMDGPU_PARTITION_MEM_ALLOC_EVEN;
->   	amdgpu_xcp_update_partition_sched_list(adev);
->   
->   	return 0;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-> index 8058e8f35d41..878c1c422893 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-> @@ -132,6 +132,8 @@ struct amdgpu_xcp_mgr {
->   	struct amdgpu_xcp_cfg *xcp_cfg;
->   	uint32_t supp_xcp_modes;
->   	uint32_t avail_xcp_modes;
-> +	/* used to determin KFD memory alloc mode for each partition */
-> +	uint32_t mem_alloc_mode;
-rename to mem_capping_mode?
-
-Regards,
-Philip
->   };
->   
->   struct amdgpu_xcp_mgr_funcs {
-
---------------NiYXwYhRyLjikKTFT10jtegk
+> +	.fill_max_bytes = 1 << 30,
+>  	.fill_num_dw = 5,
+>  	.emit_fill_buffer = sdma_v4_0_emit_fill_buffer,
+>  };
+>  
+>  static void sdma_v4_0_set_buffer_funcs(struct amdgpu_device *adev)
+>  {
+> -	adev->mman.buffer_funcs = &sdma_v4_0_buffer_funcs;
+> +	if (amdgpu_ip_version(adev, SDMA0_HWIP, 0) >= IP_VERSION(4, 4, 0))
+> +		adev->mman.buffer_funcs = &sdma_v4_4_buffer_funcs;
+> +	else
+> +		adev->mman.buffer_funcs = &sdma_v4_0_buffer_funcs;
+>  	if (adev->sdma.has_page_queue)
+>  		adev->mman.buffer_funcs_ring = &adev->sdma.instance[0].page;
+>  	else
+--------------r0v3Id2y6bC2qK25McPIUrpX
 Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 <!DOCTYPE html><html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-02-17 11:24, Xiaogang.Chen
+  <body>
+    <p data-start="0" data-end="48">The entire series of 7 patches looks
+      good to me.</p>
+    <p data-start="50" data-end="102">Reviewed-by: Vitaly Prosyak <a data-start="78" data-end="102" class="decorated-link cursor-pointer" rel="noopener">vitaly.prosyak@amd.com<span aria-hidden="true" class="ms-0.5 inline-block align-middle leading-none"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" aria-hidden="true" data-rtl-flip="" class="block h-[0.75em] w-[0.75em] stroke-current stroke-[0.75]"><use fill="currentColor"></use></svg></span></a></p>
+    <p data-start="104" data-end="238" data-is-last-node="" data-is-only-node="">Yes — for SDMA 5.0 the maximum COPY transfer
+      size should be 1 &lt;&lt; 22 (0x400000). I validated the limits
+      using the new IGT tests.</p>
+    <pre wrap="" class="moz-quote-pre"></pre>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2026-02-19 11:02, Alex Deucher
       wrote:<br>
     </div>
-    <blockquote type="cite" cite="mid:20260217162424.991875-1-xiaogang.chen@amd.com">
-      <pre class="moz-quote-pre" wrap="">From: Xiaogang Chen <a class="moz-txt-link-rfc2396E" href="mailto:xiaogang.chen@amd.com">&lt;xiaogang.chen@amd.com&gt;</a>
+    <blockquote type="cite" cite="mid:20260219160224.1976043-1-alexander.deucher@amd.com">
+      <pre wrap="" class="moz-quote-pre">SDMA 4.4.x has increased transfer limits.
 
-Current driver reports and limits memory allocation for each partition equally
-among partitions using same memory partition. Application may not be able to
-use all available memory when run on a partitioned gpu though system still has
-enough free memory.
+v2: fix harder, use shifts to make it more obvious
 
-Add an option that app can use to have gpu partition allocate all available
-memory.
-
-Signed-off-by: Xiaogang Chen <a class="moz-txt-link-rfc2396E" href="mailto:xiaogang.chen@amd.com">&lt;xiaogang.chen@amd.com&gt;</a>
+Cc: Vitaly Prosyak <a class="moz-txt-link-rfc2396E" href="mailto:vitaly.prosyak@amd.com">&lt;vitaly.prosyak@amd.com&gt;</a>
+Signed-off-by: Alex Deucher <a class="moz-txt-link-rfc2396E" href="mailto:alexander.deucher@amd.com">&lt;alexander.deucher@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |  5 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 43 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    | 17 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c    |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h    |  2 +
- 5 files changed, 67 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 3bfd79c89df3..006883c31342 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -805,7 +805,10 @@ u64 amdgpu_amdkfd_xcp_memory_size(struct amdgpu_device *adev, int xcp_id)
- 		} else {
- 			tmp = adev-&gt;gmc.mem_partitions[mem_id].size;
- 		}
--		do_div(tmp, adev-&gt;xcp_mgr-&gt;num_xcp_per_mem_partition);
-+
-+		if (adev-&gt;xcp_mgr-&gt;mem_alloc_mode == AMDGPU_PARTITION_MEM_ALLOC_EVEN)
-+			do_div(tmp, adev-&gt;xcp_mgr-&gt;num_xcp_per_mem_partition);
-+</pre>
-    </blockquote>
-    I think amdgpu_amdkfd_reserve_mem_limit should change to account
-    total vram used, to prevent vram<br>
-    over-commitment for not ALLOC_EVEN mode.<br>
-    <blockquote type="cite" cite="mid:20260217162424.991875-1-xiaogang.chen@amd.com">
-      <pre class="moz-quote-pre" wrap="">
- 		return ALIGN_DOWN(tmp, PAGE_SIZE);
- 	} else if (adev-&gt;apu_prefer_gtt) {
- 		return (ttm_tt_pages_limit() &lt;&lt; PAGE_SHIFT);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index cab3196a87fb..1da46eeb3f2c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1580,6 +1580,40 @@ static ssize_t amdgpu_gfx_set_compute_partition(struct device *dev,
- 	return count;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index a35d9951e22a9..44f0f23e11484 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -2604,18 +2604,31 @@ static void sdma_v4_0_emit_fill_buffer(struct amdgpu_ib *ib,
  }
  
-+static ssize_t amdgpu_gfx_get_compute_partition_mem_alloc_mode(
-+						struct device *dev, struct device_attribute *addr,
-+						char *buf)
-+{
-+	struct drm_device *ddev = dev_get_drvdata(dev);
-+	struct amdgpu_device *adev = drm_to_adev(ddev);
-+	int mode = adev-&gt;xcp_mgr-&gt;mem_alloc_mode;
-+
-+	/* Only minimal precaution taken to reject requests while in reset.*/
-+	if (amdgpu_in_reset(adev))
-+		return -EPERM;
-+
-+	return sysfs_emit(buf, &quot;%s\n&quot;,
-+			  amdgpu_gfx_compute_mem_alloc_mode_desc(mode));
-+}
-+
-+
-+static ssize_t amdgpu_gfx_set_compute_partition_mem_alloc_mode(
-+						struct device *dev, struct device_attribute *addr,
-+						const char *buf, size_t count)
-+{
-+	struct drm_device *ddev = dev_get_drvdata(dev);
-+	struct amdgpu_device *adev = drm_to_adev(ddev);
-+
-+	if (!strncasecmp(&quot;EVEN&quot;, buf, strlen(&quot;EVEN&quot;)))
-+		adev-&gt;xcp_mgr-&gt;mem_alloc_mode = AMDGPU_PARTITION_MEM_ALLOC_EVEN;
-+	else if (!strncasecmp(&quot;ALL&quot;, buf, strlen(&quot;ALL&quot;)))
-+		adev-&gt;xcp_mgr-&gt;mem_alloc_mode = AMDGPU_PARTITION_MEM_ALLOC_ALL;
-+	else
-+		return -EINVAL;
-+
-+	return count;
-+}
-+
- static const char *xcp_desc[] = {
- 	[AMDGPU_SPX_PARTITION_MODE] = &quot;SPX&quot;,
- 	[AMDGPU_DPX_PARTITION_MODE] = &quot;DPX&quot;,
-@@ -1935,6 +1969,10 @@ static DEVICE_ATTR(gfx_reset_mask, 0444,
- static DEVICE_ATTR(compute_reset_mask, 0444,
- 		   amdgpu_gfx_get_compute_reset_mask, NULL);
+ static const struct amdgpu_buffer_funcs sdma_v4_0_buffer_funcs = {
+-	.copy_max_bytes = 0x400000,
++	.copy_max_bytes = 1 &lt;&lt; 22,
+ 	.copy_num_dw = 7,
+ 	.emit_copy_buffer = sdma_v4_0_emit_copy_buffer,
  
-+static DEVICE_ATTR(compute_partition_mem_alloc_mode, 0644,
-+		   amdgpu_gfx_get_compute_partition_mem_alloc_mode,
-+		   amdgpu_gfx_set_compute_partition_mem_alloc_mode);
-+
- static int amdgpu_gfx_sysfs_xcp_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_xcp_mgr *xcp_mgr = adev-&gt;xcp_mgr;
-@@ -1955,6 +1993,11 @@ static int amdgpu_gfx_sysfs_xcp_init(struct amdgpu_device *adev)
- 	if (r)
- 		return r;
- 
-+	r = device_create_file(adev-&gt;dev,
-+			       &amp;dev_attr_compute_partition_mem_alloc_mode);
-+	if (r)
-+		return r;
-+
- 	if (xcp_switch_supported)
- 		r = device_create_file(adev-&gt;dev,
- 				       &amp;dev_attr_available_compute_partition);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 720ed3a2c78c..f5713891f205 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -71,6 +71,11 @@ enum amdgpu_gfx_partition {
- 	AMDGPU_AUTO_COMPUTE_PARTITION_MODE = -2,
- };
- 
-+enum amdgpu_gfx_partition_mem_alloc_mode {
-+	AMDGPU_PARTITION_MEM_ALLOC_EVEN = 0,
-+	AMDGPU_PARTITION_MEM_ALLOC_ALL  = 1,
+-	.fill_max_bytes = 0x400000,
++	.fill_max_bytes = 1 &lt;&lt; 22,
++	.fill_num_dw = 5,
++	.emit_fill_buffer = sdma_v4_0_emit_fill_buffer,
 +};
 +
- #define NUM_XCC(x) hweight16(x)
- 
- enum amdgpu_gfx_ras_mem_id_type {
-@@ -676,4 +681,16 @@ static inline const char *amdgpu_gfx_compute_mode_desc(int mode)
- 	}
- }
- 
-+static inline const char *amdgpu_gfx_compute_mem_alloc_mode_desc(int mode)
-+{
-+	switch (mode) {
-+	case AMDGPU_PARTITION_MEM_ALLOC_EVEN:
-+		return &quot;EVEN&quot;;
-+	case AMDGPU_PARTITION_MEM_ALLOC_ALL:
-+		return &quot;ALL&quot;;
-+	default:
-+		return &quot;UNKNOWN&quot;;
-+	}
-+}
++static const struct amdgpu_buffer_funcs sdma_v4_4_buffer_funcs = {
++	.copy_max_bytes = 1 &lt;&lt; 30,
++	.copy_num_dw = 7,
++	.emit_copy_buffer = sdma_v4_0_emit_copy_buffer,
 +
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-index 73250ab45f20..a2d50f90a066 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c
-@@ -181,6 +181,7 @@ int amdgpu_xcp_init(struct amdgpu_xcp_mgr *xcp_mgr, int num_xcps, int mode)
- 	}
- 
- 	xcp_mgr-&gt;num_xcps = num_xcps;
-+	xcp_mgr-&gt;mem_alloc_mode = AMDGPU_PARTITION_MEM_ALLOC_EVEN;
- 	amdgpu_xcp_update_partition_sched_list(adev);
- 
- 	return 0;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-index 8058e8f35d41..878c1c422893 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h
-@@ -132,6 +132,8 @@ struct amdgpu_xcp_mgr {
- 	struct amdgpu_xcp_cfg *xcp_cfg;
- 	uint32_t supp_xcp_modes;
- 	uint32_t avail_xcp_modes;
-+	/* used to determin KFD memory alloc mode for each partition */
-+	uint32_t mem_alloc_mode;</pre>
-    </blockquote>
-    rename to mem_capping_mode?<br>
-    <br>
-    Regards,<br>
-    Philip<br>
-    <blockquote type="cite" cite="mid:20260217162424.991875-1-xiaogang.chen@amd.com">
-      <pre class="moz-quote-pre" wrap="">
++	.fill_max_bytes = 1 &lt;&lt; 30,
+ 	.fill_num_dw = 5,
+ 	.emit_fill_buffer = sdma_v4_0_emit_fill_buffer,
  };
  
- struct amdgpu_xcp_mgr_funcs {
+ static void sdma_v4_0_set_buffer_funcs(struct amdgpu_device *adev)
+ {
+-	adev-&gt;mman.buffer_funcs = &amp;sdma_v4_0_buffer_funcs;
++	if (amdgpu_ip_version(adev, SDMA0_HWIP, 0) &gt;= IP_VERSION(4, 4, 0))
++		adev-&gt;mman.buffer_funcs = &amp;sdma_v4_4_buffer_funcs;
++	else
++		adev-&gt;mman.buffer_funcs = &amp;sdma_v4_0_buffer_funcs;
+ 	if (adev-&gt;sdma.has_page_queue)
+ 		adev-&gt;mman.buffer_funcs_ring = &amp;adev-&gt;sdma.instance[0].page;
+ 	else
 </pre>
     </blockquote>
-    <br>
   </body>
 </html>
 
---------------NiYXwYhRyLjikKTFT10jtegk--
+--------------r0v3Id2y6bC2qK25McPIUrpX--
