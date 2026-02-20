@@ -4,159 +4,159 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED3F9C55ABE
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 13:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2609C55AB9
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Feb 2026 13:21:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EFCD10E159;
-	Fri, 20 Feb 2026 13:19:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8765610E17F;
+	Fri, 20 Feb 2026 13:21:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xxKbl7w3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K3ktE7Pb";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013018.outbound.protection.outlook.com
- [40.93.196.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF98A10E159
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 13:19:32 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012034.outbound.protection.outlook.com [52.101.53.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0C8710E17F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 13:21:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DNY/KqErdS7iS7pVb63sjDYZ4cOqbHKBqVvqCbDPqrSV7UfU0hsi0zTAW7I6gk4vrxNVcDVVIrC2TQBTtq2ktnMdvlbwvQzc9r0GHiSU6D3Qev/dfEvAFoWJFogbHpGZt1Wh6OrjsZgA9MkWri3H9i6fw9vcVuY1enOebuxGdLHwJNRJRiscMD606LIhNR3iUVy2U03gcfKp9/DHFFmf6HC/ciYw4+A0yllX415l0fQZKxDMIL/t/iy5DsQfOXI3/3+4BdK5S1hmFqcwJxXIGZKn9mPk7kFibdtv8GVvGo4ceb6fegAxgN2v9rxX3cU8cWAMEQM28RAuzkE3NmHMbA==
+ b=H7AhtxAudiE7MdDpICdfOFQui+CbBL1EoZlYaGl3jzlTFHkzlyZG78OggE/5f/o0re3lx5sLJ3/OBTpcdjF0nbb4DEDA8XIjOoUSfFA4ePyAcMSc37qIPnZri7UaPltxGMTDRyoAL+dwPsB+d3Xhxz09AQMBSGR/Mfwb/ebPmZCzYYK6E9T2C7t9OJTOF+kRsGFZhN4vBZ0wIoL4EAwt0+fml4uqZA4a//nRLKyvDOE2pWCrXPSDDJKgwHL1rfj6T3AKWJ1TAMkV7dNWABkIquZgE3PEte2tA2NwWHsPQgK5Mp8h3ecSMdNiLTmj3mzagG/DNLtFmOr4Cl/QUireKw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CUq8af3obpnFf2bF1qSkfSNiGQ43jYB4hmzcAcXJ9V4=;
- b=jQ2/fDX7MddLA5an2985RodmnWxia2dmwPVjHy/yecKLv07+DvmYpAR2iybC6Gi1jGg0Xg5KkgCrZsg2ixmHaH6dvXLJ/6gG+MQ656zfMlzmf5HkfPSuAorDfE7L/HWMkJqFnh0buYqA5Zcu1Xv3C43OzXPat6MSM9/4J9a0uJ+ro6LlL98Y2i7k2mxV0313pMLuoYAnEN7YRtHfk/uoJwN0lKw2Vlpc/DuUG5VfzSBNd3jetff+1IeZ6bgN5KcYfJmhJIGidC26U5XQxxBHN03QtNlTlZGvWV3Fc2Qs8rMHbJfxk2i2ReXiQwDjHCP2+U4DpscDU+afF2YOSdL2Gg==
+ bh=SJFwjhTltIiskZWF5mMiYqGVTQKKDsdC+2gMe6LWTY4=;
+ b=Zsftm5Kjrrwjivek6RBK+kUYz6/JaCZOnS62auRIe6uPGQXfyK5sOvTkTIgSfe+GzZUpKGmVyViogxpKqbaZnN67RTD0rZ8EIiQKwN4K17x16EzmlpErn+Ez7OqCknyBhtrpizT0dMgpAlKjGzdI3Z7pT1fvi3a/7Yqo0FmKyHHbkzIukvmK/gdZb1s1FlyBogdxNmCYQZ5y/8vkascSWnGlA2poDZK1t4+uYCrCqdE+J/ZGTwi4cOgeIuMj16f9q9otnYS3/IuzzNRqqwFRVGLXftjZRWZewC/J4L3o88qo+Ir6ygv5Zg9v2f7rNcvxuQYw0ePylpehi3DASQLw3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CUq8af3obpnFf2bF1qSkfSNiGQ43jYB4hmzcAcXJ9V4=;
- b=xxKbl7w3yB1HDZKdxpMm8TJmvvXEbYA+CBa6rHzrX0+BsZdjpcWwWUkY9rcuuktC1b+eeYQrpI9h96BywcG+Y33hdRJ7i6AOwWFI42kJLFhRxDhhHOpANYyYm4oH/AYpM6LUtsFxkrTbKsWuzBjh9cYu88aMIqKtSREMTATmiXY=
+ bh=SJFwjhTltIiskZWF5mMiYqGVTQKKDsdC+2gMe6LWTY4=;
+ b=K3ktE7Pbodg7pH2CUP1ondzPSCe6XTZxaqaSoeyzLwZxkRPv3wgyNi+pbsmiN8RRtYck3oEFDcKdqGTZRdnUx9cOVudoIimjAD+gZ24EtZu6mPQV6pycNoLuNy2cpag40uvfvB3QJYh3l3SH4JdwIRyUGO77VOw/ZEUttQTFCkM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by SJ0PR12MB7476.namprd12.prod.outlook.com (2603:10b6:a03:48d::19)
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH3PR12MB7593.namprd12.prod.outlook.com (2603:10b6:610:141::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.16; Fri, 20 Feb
- 2026 13:19:26 +0000
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9632.010; Fri, 20 Feb 2026
- 13:19:26 +0000
-Message-ID: <4a824f5e-5279-4cb7-b6a9-fb4c6f87cd91@amd.com>
-Date: Fri, 20 Feb 2026 18:49:19 +0530
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.17; Fri, 20 Feb
+ 2026 13:21:24 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9632.015; Fri, 20 Feb 2026
+ 13:21:24 +0000
+Message-ID: <c6759efc-8c96-48a2-bbdb-ffbe4398471b@amd.com>
+Date: Fri, 20 Feb 2026 14:21:18 +0100
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v1 1/2] drm/amdgpu: update memdup_user with
  memdup_array_user
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Sunil Khatri
- <sunil.khatri@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+To: "Khatri, Sunil" <sukhatri@amd.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Sunil Khatri <sunil.khatri@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 References: <20260220082840.2192325-1-sunil.khatri@amd.com>
  <3c7f24f3-d1f7-4724-bf2e-8540fa2e2648@ursulin.net>
+ <4a824f5e-5279-4cb7-b6a9-fb4c6f87cd91@amd.com>
 Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <3c7f24f3-d1f7-4724-bf2e-8540fa2e2648@ursulin.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <4a824f5e-5279-4cb7-b6a9-fb4c6f87cd91@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2P287CA0005.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:21b::20) To BL1PR12MB5753.namprd12.prod.outlook.com
- (2603:10b6:208:390::15)
+X-ClientProxiedBy: BN9PR03CA0608.namprd03.prod.outlook.com
+ (2603:10b6:408:106::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|SJ0PR12MB7476:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bdd9756-31a8-4b35-6949-08de7082ab4b
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH3PR12MB7593:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e6e1a3d-f6d0-452d-38ea-08de7082f203
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?TGwxaCtMMWVwMFJCUkQwYXkwQ3FTNElrVTA4L0NiVEc0VlBwNTQ3VDluV1JZ?=
- =?utf-8?B?TnlQRkFVVjZYVkNmUHdBZzZDeG5WOWVqM3lDL2JSNDNoUU40MVpjUjF0Sk1D?=
- =?utf-8?B?RTkraEYrOSs5T2VmRXAzYisycVpRYTgvOVhYZnFGY08xeXl1VmJSeWhLVUpV?=
- =?utf-8?B?cEh5b3dtVzdwdmcvcE9BK2ZJbEJhaFJBbmN1MHd2ZC9DNHdSMHV0NHFqOXRB?=
- =?utf-8?B?V2pTamdaZExRZzdBNlVrVEVDNGErY3drUFNIbVVXYWZ6VGtkUWhkV1NIWnAw?=
- =?utf-8?B?NUJtRmMyaFozOTNEN3RLMHpCeFhjaGVUMjh2VDN6U1RtWkxiYW1FVFJ4UnZ5?=
- =?utf-8?B?QWR6WDZaeVZjMS9WVUNTSURFa1FlQlQ1NTd2em9YK2U2d2JvM0NEamFRZ3VH?=
- =?utf-8?B?N1oxcXV0WFcxRlk0czBQR2FKY3BrZE1UNmtjZXFTRkVia0xnbXRWSEM5V2dl?=
- =?utf-8?B?VzR4Zkl1SlNYSGdraVZ3SUJuTlMxcEdVMkVlU1VIUWI4Uk5PSjdvVVQxWVlo?=
- =?utf-8?B?YzZ1SG9JZzR6TDFVN3hqcE5oZmp6TFd1c2tXT0lOSDZzWkk1UWtzRGxKaHFy?=
- =?utf-8?B?Y1gxTHRiS2NqKzlDZHkzbnl6YS94RHpld2N2OVhRQnByQkVxSHU4aktDUXY1?=
- =?utf-8?B?RDhIcDI5dHJ1NDM4K3ZBVE5tcjVaR1BPWmxITEIyUlJWVTliU1RoK0VDNFVp?=
- =?utf-8?B?K2k1Zms2T3ZJTU9MVmVvSjMydDQwKzNwMlVYNHE0N3VoQXJSendFc3VOK2xC?=
- =?utf-8?B?dFBZcEVlR3k3d0xTWHRDV1JFSzhFck9TcnRaOFlpQVFkaUlxZ2ZoYzYzbkpa?=
- =?utf-8?B?amJrSWlacVZJTWdWNjBVU3F2TnI4dHV4MjRNMW1BRjBDR2xKaDNzNWJkd1Fn?=
- =?utf-8?B?eGxjTGVBbmVvRnVIcFhoaXllT3RXZnJ0Z2YxZElqenlaVVhhMWQzVnZBNXZY?=
- =?utf-8?B?dWFGbjRMcTJIRkhSYm52TktRWU9PNVI2UjVyQjZJMWhTbzB6bGtQQWtmS2xw?=
- =?utf-8?B?QUIyZmt3aHRUdGJUOXNieldRNW9ZSlIvajJFemJ6dEk5NVdQMTFIYlE5eXpn?=
- =?utf-8?B?UnpONGZZc0hYWmVza3hqNEJCanVyVWZiWWVBU2tKbk1DR1JqU1NPNktKYVNK?=
- =?utf-8?B?RXV6V2VaVUZWSEJidlFoWWNoS0R6M0Y2MmR3aFFrdmk3MDZPSEN0Mzk0bFpU?=
- =?utf-8?B?VEJLOERlcmNvUDBmakFyRUpFNEFtOFZXakVNT3Q2WlN5RzM1WDNZNUlvSDQv?=
- =?utf-8?B?L1ZheDNGNFdDT1poSjc1ZnFkZDZJS0dKb3RXdktOQTdDaDYzaVRyQVcxdGV0?=
- =?utf-8?B?MlpkOU9peklxT3YrNklmUjEvUWY3S3hEaHh1dFhtc0IyR3pOQisycUdXNnRh?=
- =?utf-8?B?NjRVdVpkWWtKMVBSU0JnR2cvMWl5dFVIVnlzbmlRa0RtOGI1bks4SkJUR3NF?=
- =?utf-8?B?cWtUbXVMSUEzTXlKS2RrZUowU2QwZ2V6d2U2R1pFSzdrNEFkTENWTHVPUndi?=
- =?utf-8?B?MTFPYlU3amFaZlNTTEhpRXM1djhNcEIwUHBzSVM1VGZaRUpwcXBJaXljVDlt?=
- =?utf-8?B?aFByeWxkWXlwaXlWNU1sTXEvWE55VnN6bWFmMnVOVG55T3RIOU9VbUw5RE5q?=
- =?utf-8?B?Rm1ZS1ZzbnhyalN4bDVlWFlWSXkvYWsxd0sreDN6SDBIazQxVUtuM2pwWXho?=
- =?utf-8?B?NTNZV2JUOXhreGM5ZVJTamRNenJpcDNtaVRFOVdRbEoxakh4TE1HZkd3cDBr?=
- =?utf-8?B?UTFsMzk1aFkrYXUzMC9KT3BtQlJHcTJuNkRINkllRXBBbzhOYVlsTis2UDhn?=
- =?utf-8?B?RVJUdWNPU2c1MG5wWmI2WWdUVDN1MjJ0b2tGRTRQNjhEblAvT3NEdk1IR0dK?=
- =?utf-8?B?bFljNnVyNUoxM2poUTdaUzd5ZGxRdWJ0T0V1Z3B0bVRlc0xLbjNwaWJUeUE2?=
- =?utf-8?B?Y2k2d0QyWlZaeG4wVzEreWxtMTNUNUVvM0ZsU0I1YVVrRmVNZEZBTG9zQjVJ?=
- =?utf-8?B?MU5RS2U5NnBYMHhHOFRnK1BPM21Nb2Y2K2UvNkpidzFsR0ZJSTM3citoQ3JE?=
- =?utf-8?B?Z3RnaE5IaSs5U3Bwem5ScHlBMXpMMTkvRnBjTmJUbWxlYjd4VkNyMlFUU0tX?=
- =?utf-8?Q?qnLCzabkmY37ZtSdKGt7E8fIx?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?TW1BNnNzUEk1ckVva292SnNDZmR0M0krSkxlZlE0ci9yblBDQkc1bHVrdlRz?=
+ =?utf-8?B?ajErZm5rUTY2Vk9mMmU1LzdqVDFhempiYkdiNU9lMjgyeWhKQWZSRDBSY0pC?=
+ =?utf-8?B?V0MwanRaUnNGbWM0RFNLZEM0eW81a2tiUkFMdTBuMURzdUZDL2piWFU5bFRQ?=
+ =?utf-8?B?eGpIa3k4cjRXSDZvZ01SUWFQRXZ2cUNna0R0S2pDMFVKNDdPVDZyY1laWDdP?=
+ =?utf-8?B?Qk5DcHh5S1Npd2RlWXgzMzhYRjAxbmVDM0xqS053SkZmek5zYmVtdVBVRnNV?=
+ =?utf-8?B?cWQrelNVSVpRUlhtS2ZidklZZjN3SDV5KzZpZ3o2VzNvcmxEZStJWVowdWk2?=
+ =?utf-8?B?TjN0S2VWUWxpSnprYkxZczgveFUyWVg4VXZwWkJvNnVSWjVoNmIzM0JnV3NP?=
+ =?utf-8?B?N25kYWo1QmtDa1hsa2M1elFJSVZqMHVkNjBuMW1uRkJlYVhDNzFmaG04UEk2?=
+ =?utf-8?B?Wjd5UDVNYnN2SjlkYnJHZWlGMVppVzl4cldhWUR6eDNGbHZ0TStZRzE2SGRJ?=
+ =?utf-8?B?UHdtdjUwUmFBQXM5SS9nQmFxK2VPK2JvQSt0UWR0NmY4Zmw5MEtMdGlrN3pr?=
+ =?utf-8?B?RU1UZ3NLZjE3akZKZVdpeG9jZUR0QlJuaEkzemNnZ09Mc0ZhQ3ljbmZZUHJS?=
+ =?utf-8?B?MVBQdkdVL0RLcFRoNFY2Q3FWTTh1QlREQXZyTjg5MGlXcmsvdWVxZDBrcDJY?=
+ =?utf-8?B?cDRoWVU2L2FOSUlDZ0xLbHpqdUVtNTFSbFNlUm5iSGhCTWQ2RWkzYTRHVXE4?=
+ =?utf-8?B?RmFqbXFKS05sZlo5U1RBNEJISUhzZ1QxdGowUU9MWC9OdDlpbXhEdElHR0JO?=
+ =?utf-8?B?bUc3WTNzaStZdWhldmprTFAxeHNuQTJmN1VHZjlPUisvZEp0R3NmcXpUM3Rn?=
+ =?utf-8?B?b3F5RG5KTGJJVS9LZlVmSTU2cXlYa1dMV3F3ZWFjL0FKcWhWN3MzSmVUbEJy?=
+ =?utf-8?B?Q1phOFN4azlpTHBDSGdncXRwUmdiNVNuVjlUbjVucy9sTktkdjNBZWxRMnVs?=
+ =?utf-8?B?cWE3dWZobVhGczdGeHhMenNKUmYwNDJEVnhsUmJncThRVkk3aFl1QkpuTVdO?=
+ =?utf-8?B?L0FwRktKWVIrN1lLT1RPQ1JUNzRuUHZ0Y0ljbmdMV2N5REM5NC96MmdBUUNS?=
+ =?utf-8?B?aGplSk95dE10dFhGeDA3TXVteEFQUmhVZXBlVVVRUXFEMmFJdFlzckZpWVlk?=
+ =?utf-8?B?dnphOER5RjFtam8wQmx3Y3hSWmZFK1ZlekF5TGkvL0grNDRiaUdyVkZCL09h?=
+ =?utf-8?B?OTMxZ2dRTFpSMGdtTngwSkpEcXRMRHhKcnhaODJlN29uVXd5bUcvb0g5ejNB?=
+ =?utf-8?B?MDJ5ZUhVbEdPM2pMSUNhUEF1cXlvZXordmUzUUtjMlhmSW8zekMxbFN3dkhP?=
+ =?utf-8?B?S2RqUzhuRkc0SlczbFZ5TW96dGVZT2lBbEpLT2RJTlNNa2JwT1M0V3VmZ1dJ?=
+ =?utf-8?B?aFMxTklxc1JQWmFMSkZFS05aUERIUWM1TXJsSXBwNkVMWFJ3SElZM0d0aUc4?=
+ =?utf-8?B?S29pKzdvV0dMWHhNaTFtVUxOWVdtQUpqY1c4TnJvdFQ0ajQ1NDhhSWlvaHFR?=
+ =?utf-8?B?aWZiRFNRQURxL1phZDBPNk5QbVhhVWR4bVIvOFVMV3ZoWUg2MUZ4RHY4TTBE?=
+ =?utf-8?B?UVVwVWNkZloxS0xHb0FObTAxU3J1OStZZFdEVzd1OVlCRkZBeEpIRGFCYzg3?=
+ =?utf-8?B?V3Y1ellZcE1VVnY3TFFORFN6eFc0UHNXM1RqeENSS2plZXB0OXFyaGRJUHhE?=
+ =?utf-8?B?Y3ZBUzZxSDJ5S0tqaEVqSlFTUElFRk4yUmp3UXMwb0JaQmRkMG8yeVN5Zm4r?=
+ =?utf-8?B?dHpOcGdRdkR4SHRDMXRYY2dpak1ZWmRXa3NvL2NoUndXQStpaEt2UEViK21x?=
+ =?utf-8?B?UU5YY1lPOTA2c2NoUHpuZmJBRUxaZzhJOUZ0WDVBVTVLT25HRmZMQXdLMDNj?=
+ =?utf-8?B?VXJUQnVBREZhbGsxeHZvWUNaK3VMRnJHdEI3NVRqNitvTGlML3RERnM2VWJu?=
+ =?utf-8?B?S0VGZ2JvakEvaWM1cjZDbmc4QjlwQmp5bnZ1NWJkQTJiS3IxZXNsMm9OdDF0?=
+ =?utf-8?B?N3MvRnYxTDVrL3dPNnl6Y2ZWU2p1MUppcFFKNDlCUGZsZDNsaHFUK1k4Zy9m?=
+ =?utf-8?Q?8Rqi9kJdQXyk6bdELqyRVmiXs?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024); DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eVFxWklCWVJKWnR0ZzJUZmJPSW96cnRjQUZoYkRzRy9qaTVEK1ErTVpTZXFC?=
- =?utf-8?B?cmxCTXVBeUJrQ3haOFEyTVpYK2w2endBUmxIemswTTRUUXV2bzJFNllvRHBv?=
- =?utf-8?B?emc1NWl1Ujd2MFdIaE9OMEJKYi9HNEo5QjNiT0Nnc3U0ZVlGQ1JPekZNeDZG?=
- =?utf-8?B?T1RDaXJOU0I4MnVHcHBPZGt3aXZSQWtiUXlBbHE1aDJkQXNJV0ZrSVFGT1FD?=
- =?utf-8?B?ZGlwNDA1WHRJQU5teWQ4aURnbW9QdTVLWk1RNnV0a3NZYk5HSjJnU3h2UENh?=
- =?utf-8?B?TGxYdk92U3NQMGlQL1UwS1pTL2xWL0s4M1FDRDY2UkhYUWxzd3B3blIrZFdx?=
- =?utf-8?B?bHpFZTlmSzF5K2h1M0JMZzRHR2orQS9Za2FRd3JIaVFEd3dnejR0eVAvUDlS?=
- =?utf-8?B?Ymtad20wNTA3cHhVd1NPNnRtSFhTaEVLby9ud1ZnQW1ZcDB4ZXlXYm5sWHZI?=
- =?utf-8?B?OUtEckR1bHFQdVdHTFAyRGJWSnZuUDlEbjJEY0YxZ3haSGxlSkc1VkovSm1u?=
- =?utf-8?B?Q3pGQmRYQklXbER3d2MxMUl0MFB5U2RQNVlUUXRDeWN0Yk1wRmRwRjdPb3hL?=
- =?utf-8?B?djJHRkV2WVlhN3hFZ0RZanE2WnpUMXA0bEpOZnVGOVhHUW5sTkE3eWV1ZUhK?=
- =?utf-8?B?VVR3OTlZNEdPOTd1Zi84eERBa1NuZkFaM0RqVHZueU5lUldKMjU4STYyNTk5?=
- =?utf-8?B?S1BuTmo0VEpkR3JLcElOVVBPS0ZoZjNiMFVJeDNURGlJWDVQakdoNGwzT2Rk?=
- =?utf-8?B?ZnNWT1Z0QmRnUmQ2ZngvTXZpL0xDV3lNZ28rNUVQUjBLeW91djNpNGpYU2k1?=
- =?utf-8?B?OXJpbUtOSzdzckk5S3FZOUVVOFc1Tm5vZ2UxUG1rOXdMaGtKa0VBOU5tbUlO?=
- =?utf-8?B?c0ovaUg1ODFONSs0N1poL1Z4cWlDT1hZd3lkY3lwaXZSQkdPYnhWdnVLV2ky?=
- =?utf-8?B?VXRNNTZtMkZidTZHcHZZcmc0NWdnUEdXSXFMU3krUy81ekNCenVDMDVnVVhF?=
- =?utf-8?B?N3pBNHVvQVU4TDhHVE81L1NvZDUvUU04R0cxN0hiVTIraDR0UmRkc0ZjalBo?=
- =?utf-8?B?R2V2c01nL0srbGUrSGVjMXRvZllRa3hIakVLWlcvYnV3aUN5cEhBZndlSlZY?=
- =?utf-8?B?U3AyOHZCb2F1VUdmMy9LMitXUDZpTHNUcUZMczhKbEkweVVzSFo3SkN2WUxm?=
- =?utf-8?B?MlVMRXFBRmJNODQrZW1OWWtGaDYvT2NuSXdnVERlOGlheGkrYm84S0UvK1Zv?=
- =?utf-8?B?UXV5M3RvWVp2K0hKYlcyMVlYQ3lsUnNIeERkeVhSdklONjUzbFpOTmQ2OGhY?=
- =?utf-8?B?MFduWEVOSnVHNXJ4Yk5JdlNYOGdEeHAwQ3MvNEt2QzljN3dqS2FXZi9IZjRv?=
- =?utf-8?B?RXlQYU1McU5tTjJVZlIxK3lJOGtCblhiMEtPQkRqTjBKRlcrZnZ6Tmt6eFEr?=
- =?utf-8?B?Tm5NZVd0bjZPdTNVT1JsRk0wVGF4V0xWWjM1cnFET2xTYTROSXhYcFlzVTdN?=
- =?utf-8?B?SlhvOWkxL0xJQ2N3THdrZHRTSUpNYWYzNEhEM29PaWpaNWk1dEliVnF6T2tl?=
- =?utf-8?B?aTc3RlVidEZQdHlnOVlHMVFwVUZsZUR5Z0Yvc3Q2aXB0U1ZGaG1TcFBsMnMw?=
- =?utf-8?B?d2p5Q2xjcW5OaUM2V01zS3ZZRXk0VG93WU5oWDlmMHcwYW9BWEtMNXNvaWEx?=
- =?utf-8?B?TW9VL00zS1FkWTV5TzdVZ29MeFhWUGwyOXBHRWpVVGlBWnBrU3N2VzZ5a3hQ?=
- =?utf-8?B?S1lwZHB1QVBGOFdIMXZqT2RpYUZKSlAzaFoxdGQyUUYxQ3hRbWFNRFFaUEw4?=
- =?utf-8?B?Vkw3Q3lVczJoUjRZVXBCQWxxTnR6TnFoQ0FHNndnSTE4Mmh3TnpNTEtsemxh?=
- =?utf-8?B?RGpSdWN0OTFGYjBZbGVLZEJ4VDd1QjhjUTBCRU9pVzN4U1o5Vm5EWUszMzV2?=
- =?utf-8?B?R2tyanBoRWhqUTg4RUVnVDZad3VXcG1QMVVMbHE4SkROS3k0WURiWUc5UzN2?=
- =?utf-8?B?ZTF2MXV2L0hrN2pjNGkyQS9IanJWM1pJWUhiS0JnaVRnUUd6Z1BBVThVcWNM?=
- =?utf-8?B?WGxKcDh0LzJoNEl4bDBtRXZjank4a3ZXcHRXU041VE1sVUdFZzVXT3I2QlY1?=
- =?utf-8?B?cmxQYk84eCtleFl6TjBsaEkwNFZmaFhDbHRYbmtqQ0FGL2lYSmd1Z1VKYlJI?=
- =?utf-8?B?aDVzWDA1NXgxUXVGSVgxd0phdWRYRXp6QVh3eFpuQ2tmMHdrL3doSlBDTHFs?=
- =?utf-8?B?Qm5Jc3p3N04xMTQ4bUd1Zm56WitOVmp5QWluYXQrYW05ZXF6S0tlb0Z2KzI2?=
- =?utf-8?B?MFN4YzhZd3NYOVJHc0hwamdOL1BpdVp5RzAzT0VwWWJGYXhFS2dOdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S2I0WDNwYlpGRktRMXpqT2t1V1FzUkZTNmh2M2hWUjVtYUd6clNoSnhuYStZ?=
+ =?utf-8?B?REpCakZNM1BVSytvMDR1bW42NktEbFFjcXFBOS9pU3NsL3JLMmhveTh4RWlz?=
+ =?utf-8?B?MjJpUCtSaGt1eWlJMjNvajB4NVRFdlVJWjVlVjYxRW1jNEtNTmROeUJ3RW14?=
+ =?utf-8?B?eWtxYmNrRmh1Z1dCckp0VGFLeDlMUmpsMkhKRlFuVlR3L0I1WnVBMXpXVUlu?=
+ =?utf-8?B?bktHeklRZFFmYW9MNzdhTmJYa1lpZkRnUTJBYVZIM2FqaG8xRHVjQmpqQU1s?=
+ =?utf-8?B?YnB3dysxNHUvcTcyYzY4SEUxYzNLZGpLUWxiVGJsaWtERmROalB3NTl0RnZo?=
+ =?utf-8?B?R255SFNCTlJCWU1aZEY4SGRiQklOKy95OTVSak1pM2doYW50bXJxc05FcVU2?=
+ =?utf-8?B?SjVqUzRTWEd5MlI5YmtFSTZHNEQ0RDlhaGF3c2l3ZWJ3Q1daZDVSQkRxQVlp?=
+ =?utf-8?B?MlZ4N2FJT1BkMEdPc0E4eER0aVg1ajczVmtOOGNSbHNYWWFlNEZqOHA5NStR?=
+ =?utf-8?B?YytJSjJPaUNMV2Y2anJJVng1S0ZnbGRDWWJaT2dXYml0U1VxK0ZmeWRldlps?=
+ =?utf-8?B?TmZtSnlsR3RqcjE2RDBNdnRCYnZxaHpPcnBaa0hPU2dMa0Q0eTlCUFNOSXND?=
+ =?utf-8?B?aVluS2FWdE91SmpCaGZHWmJrQjNOZ2o2WFJibDJYMUlYMkpkUlYwdEQ5YytB?=
+ =?utf-8?B?S2xaM0hPRURIblZDM3FOSDlXL2ViL1lrcllGUlpjNzEwdUNxMjBmVGNYM1F2?=
+ =?utf-8?B?Qnc5Q29oRkEzRGJXUlBKUWdaVkxyV3c3NExpQUMzYVpraTduaTVMU1JkbWM2?=
+ =?utf-8?B?K0U0YndRdVJwaElXZ3dxQ24rejVOT1ZHc3puYXBaeVEvTE9Xd0hiNzVVZjFi?=
+ =?utf-8?B?ditiQzlsQk9lMkp1UVZzRi8zTzhhaG9CU0pRdDZJRHphNkQ1TklXL2Rkemow?=
+ =?utf-8?B?WXlwRFdPYVQ5Z0V2Q0ljckNPWGFhdTYxQW9sYkMrem1zcU11Z1BnNHIwQzN2?=
+ =?utf-8?B?akV1UUo4Wi9yTEFPY0duYjNjL2dYOFN4eUdDeGQxMVc3RGlIWDlFN2dOZm5a?=
+ =?utf-8?B?WlVTM29rT0VPNDBzN1Jkcml5REVlcHdnU2pPcTFRUENYSVE1MEY1SmJvZjBD?=
+ =?utf-8?B?bTR2SUFzTlV5cDdFRWlxK0dRR080SlNYdzR6ZGdxQ3J3QWg3OVlXbVZwWGx0?=
+ =?utf-8?B?M09IUWNUalZvZStLcWNmRnpZelhadGNYeVhoN0JGMDVVS2FiUUpaV3hDVGUv?=
+ =?utf-8?B?czFVYXhyV3Nmc1I4a0Q2aTNXUS9PWHpra28zT2RBNS9nSGxiM1B0V1g0M3J0?=
+ =?utf-8?B?UERYZGJxeVJ5S1gyMGNqc1VNYkVuSzg5UVVheEZlMEo2bWVVMW1udGJNR2tZ?=
+ =?utf-8?B?Zml0UThHM3pXQzcyczBlcWRxMTB1em8wOGZFamNqN08yN1JZaTZTNytCQWgz?=
+ =?utf-8?B?eTlDZXFudnhPNkU3S3d3Mm4wYktxTWRxeUQ1dnBzekJJb3c0QmM5TTRjYVFl?=
+ =?utf-8?B?dlFleHBPb2ZCZ0JPOVZhbkZHSmtzQVlNUmsxTWZzbnZBcXliamJDVTdjZlly?=
+ =?utf-8?B?elRlV2ZKSUEzVndXMURVdGYxbnIxTkt3dnJuUm1oMFQxelNyem9tQXR1NG5P?=
+ =?utf-8?B?MlNHS2orMHNrZzF1TjNWMlNuZ0k3ODRQUjNsem0yTTZHVXZyeFZSM0RPY1ls?=
+ =?utf-8?B?ZThvMHFLS0RvUjJhT3JLRDltZXdGaHBiMm9rMW1iMjNyMndjNnRteW1oZHVk?=
+ =?utf-8?B?WFdQNnBoTlFYa0NVYUtqTTBsQnQzQW8yS2I3akxyMmdDNFkvYjFEQUlyKzNm?=
+ =?utf-8?B?Y0J2MWRDejdYMm5hZExKM0E1ODNOaEtnV0FJQ3VSREdUU1BZZ0FHVVRHdE12?=
+ =?utf-8?B?NEM4b1BMcHZ4R05wUitKNTRPdnZJdmlqUmJyTm1KaEN2SDViTStSdmZLWWp2?=
+ =?utf-8?B?L0dPMU9lRW5KOExJMjd1dno0K3JNcXd2MVY1MHBHcWV1TllYY253dmJRTFAr?=
+ =?utf-8?B?cSt0Ky9lSU94T2prSzVVUHo1eVNDNUdsK0kzNUc3UkZtRWMwaXRNVm5FaFd3?=
+ =?utf-8?B?YUZHQ1RFVllPK2ZPUmdQRHJvb2hLdGs3ZmdXMitYeXRJNzA0Vm1pbTllQ3oz?=
+ =?utf-8?B?RGlxakZuT3F0eFNKTVA3TWpVWkxyS2lieDRzWFhzQWpqUjgyNVRXd1pFd1B2?=
+ =?utf-8?B?Sm9oUVE5elRDZHAxY0Zma1k0cXN2dGRtMzZ3bWNrN3cxZE9MWWJLNWo5Y0o0?=
+ =?utf-8?B?a2lJNlVydXBTK0ExeUxzVGR5WlVOZ1JuU0FzWXdXMU1XUUswVUJCcXdDSkpO?=
+ =?utf-8?Q?UpoeM62k8QZaaENYM5?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bdd9756-31a8-4b35-6949-08de7082ab4b
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e6e1a3d-f6d0-452d-38ea-08de7082f203
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2026 13:19:25.9128 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Feb 2026 13:21:24.3198 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Nx5xtB32RQTMsWvtu9HqMtcnaaVZF8/kLrS1FS+XnXiwAUQB3DAYJ+El+7yjeK+GewmGo9Q0z3CUUCmudEYNZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7476
+X-MS-Exchange-CrossTenant-UserPrincipalName: H54qozhOsZUrQ2gbA2EAPegBjP0ELLVMCysCmNIQPmtk3AmkEMpGVFlSIoTZZbQK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7593
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,143 +171,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 20-02-2026 04:54 pm, Tvrtko Ursulin wrote:
->
-> On 20/02/2026 08:28, Sunil Khatri wrote:
->> memdup_user could return invalid memory allocation if
->> there is an integer overflow. Using memdup_array_user
->> make sure we validate the size requirements upfront
->> and return with an error.
->
-> FYI:
->
-> https://lore.kernel.org/amd-gfx/20251205134035.91551-1-tvrtko.ursulin@igalia.com/ 
->
-Are you awaiting for anything to merge the changes Tvrtko or they are 
-merged in drm upstream already? Since issue is reported now so we need 
-to fix this.
-
->
-> And later:
->
-> https://lore.kernel.org/amd-gfx/20260202125149.2067-7-christian.koenig@amd.com/. 
->
-Yeah i am aware of these Christian changes and we decided we will fix 
-the issues first and reorganize the code later as needed along with 
-Christian changes. So we are going to push the changes
-
-on the existing code base first.
-
-regards
-Sunil khatri
-
->
-> Regards,
->
-> Tvrtko
->
+On 2/20/26 14:19, Khatri, Sunil wrote:
+> 
+> On 20-02-2026 04:54 pm, Tvrtko Ursulin wrote:
 >>
->> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->> ---
->>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 32 +++++++++----------
->>   1 file changed, 16 insertions(+), 16 deletions(-)
+>> On 20/02/2026 08:28, Sunil Khatri wrote:
+>>> memdup_user could return invalid memory allocation if
+>>> there is an integer overflow. Using memdup_array_user
+>>> make sure we validate the size requirements upfront
+>>> and return with an error.
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c 
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> index 212056d4ddf0..a6eb703b62c4 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> @@ -480,8 +480,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device 
->> *dev, void *data,
->>           return -ENOTSUPP;
->>         num_syncobj_handles = args->num_syncobj_handles;
->> -    syncobj_handles = 
->> memdup_user(u64_to_user_ptr(args->syncobj_handles),
->> -                      size_mul(sizeof(u32), num_syncobj_handles));
->> +    syncobj_handles = 
->> memdup_array_user(u64_to_user_ptr(args->syncobj_handles),
->> +                        num_syncobj_handles, sizeof(u32));
->>       if (IS_ERR(syncobj_handles))
->>           return PTR_ERR(syncobj_handles);
->>   @@ -501,8 +501,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device 
->> *dev, void *data,
->>       }
->>         num_read_bo_handles = args->num_bo_read_handles;
->> -    bo_handles_read = 
->> memdup_user(u64_to_user_ptr(args->bo_read_handles),
->> -                      sizeof(u32) * num_read_bo_handles);
->> +    bo_handles_read = 
->> memdup_array_user(u64_to_user_ptr(args->bo_read_handles),
->> +                        num_read_bo_handles, sizeof(u32));
->>       if (IS_ERR(bo_handles_read)) {
->>           r = PTR_ERR(bo_handles_read);
->>           goto free_syncobj;
->> @@ -524,8 +524,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device 
->> *dev, void *data,
->>       }
->>         num_write_bo_handles = args->num_bo_write_handles;
->> -    bo_handles_write = 
->> memdup_user(u64_to_user_ptr(args->bo_write_handles),
->> -                       sizeof(u32) * num_write_bo_handles);
->> +    bo_handles_write = 
->> memdup_array_user(u64_to_user_ptr(args->bo_write_handles),
->> +                         num_write_bo_handles, sizeof(u32));
->>       if (IS_ERR(bo_handles_write)) {
->>           r = PTR_ERR(bo_handles_write);
->>           goto put_gobj_read;
->> @@ -666,37 +666,37 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
->> *dev, void *data,
->>           return -ENOTSUPP;
->>         num_read_bo_handles = wait_info->num_bo_read_handles;
->> -    bo_handles_read = 
->> memdup_user(u64_to_user_ptr(wait_info->bo_read_handles),
->> -                      size_mul(sizeof(u32), num_read_bo_handles));
->> +    bo_handles_read = 
->> memdup_array_user(u64_to_user_ptr(wait_info->bo_read_handles),
->> +                        num_read_bo_handles, sizeof(u32));
->>       if (IS_ERR(bo_handles_read))
->>           return PTR_ERR(bo_handles_read);
->>         num_write_bo_handles = wait_info->num_bo_write_handles;
->> -    bo_handles_write = 
->> memdup_user(u64_to_user_ptr(wait_info->bo_write_handles),
->> -                       size_mul(sizeof(u32), num_write_bo_handles));
->> +    bo_handles_write = 
->> memdup_array_user(u64_to_user_ptr(wait_info->bo_write_handles),
->> +                         num_write_bo_handles, sizeof(u32));
->>       if (IS_ERR(bo_handles_write)) {
->>           r = PTR_ERR(bo_handles_write);
->>           goto free_bo_handles_read;
->>       }
->>         num_syncobj = wait_info->num_syncobj_handles;
->> -    syncobj_handles = 
->> memdup_user(u64_to_user_ptr(wait_info->syncobj_handles),
->> -                      size_mul(sizeof(u32), num_syncobj));
->> +    syncobj_handles = 
->> memdup_array_user(u64_to_user_ptr(wait_info->syncobj_handles),
->> +                        num_syncobj, sizeof(u32));
->>       if (IS_ERR(syncobj_handles)) {
->>           r = PTR_ERR(syncobj_handles);
->>           goto free_bo_handles_write;
->>       }
->>         num_points = wait_info->num_syncobj_timeline_handles;
->> -    timeline_handles = 
->> memdup_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
->> -                       sizeof(u32) * num_points);
->> +    timeline_handles = 
->> memdup_array_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
->> +                         num_points, sizeof(u32));
->>       if (IS_ERR(timeline_handles)) {
->>           r = PTR_ERR(timeline_handles);
->>           goto free_syncobj_handles;
->>       }
->>   -    timeline_points = 
->> memdup_user(u64_to_user_ptr(wait_info->syncobj_timeline_points),
->> -                      sizeof(u32) * num_points);
->> +    timeline_points = 
->> memdup_array_user(u64_to_user_ptr(wait_info->syncobj_timeline_points),
->> +                        num_points, sizeof(u32));
->>       if (IS_ERR(timeline_points)) {
->>           r = PTR_ERR(timeline_points);
->>           goto free_timeline_handles;
->
+>> FYI:
+>>
+>> https://lore.kernel.org/amd-gfx/20251205134035.91551-1-tvrtko.ursulin@igalia.com/
+> Are you awaiting for anything to merge the changes Tvrtko or they are merged in drm upstream already? Since issue is reported now so we need to fix this.
+
+I simply couldn't find time to review those patches and then they felt under the table.
+
+If Tvrtko came up with the same patch earlier than us then just take that one, review it and push to amd-staging-drm-next.
+
+Thanks,
+Christian.
+
+> 
+>>
+>> And later:
+>>
+>> https://lore.kernel.org/amd-gfx/20260202125149.2067-7-christian.koenig@amd.com/.
+> Yeah i am aware of these Christian changes and we decided we will fix the issues first and reorganize the code later as needed along with Christian changes. So we are going to push the changes
+> 
+> on the existing code base first.
+> 
+> regards
+> Sunil khatri
+> 
+>>
+>> Regards,
+>>
+>> Tvrtko
+>>
+>>>
+>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>>> ---
+>>>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 32 +++++++++----------
+>>>   1 file changed, 16 insertions(+), 16 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>>> index 212056d4ddf0..a6eb703b62c4 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>>> @@ -480,8 +480,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>>>           return -ENOTSUPP;
+>>>         num_syncobj_handles = args->num_syncobj_handles;
+>>> -    syncobj_handles = memdup_user(u64_to_user_ptr(args->syncobj_handles),
+>>> -                      size_mul(sizeof(u32), num_syncobj_handles));
+>>> +    syncobj_handles = memdup_array_user(u64_to_user_ptr(args->syncobj_handles),
+>>> +                        num_syncobj_handles, sizeof(u32));
+>>>       if (IS_ERR(syncobj_handles))
+>>>           return PTR_ERR(syncobj_handles);
+>>>   @@ -501,8 +501,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>>>       }
+>>>         num_read_bo_handles = args->num_bo_read_handles;
+>>> -    bo_handles_read = memdup_user(u64_to_user_ptr(args->bo_read_handles),
+>>> -                      sizeof(u32) * num_read_bo_handles);
+>>> +    bo_handles_read = memdup_array_user(u64_to_user_ptr(args->bo_read_handles),
+>>> +                        num_read_bo_handles, sizeof(u32));
+>>>       if (IS_ERR(bo_handles_read)) {
+>>>           r = PTR_ERR(bo_handles_read);
+>>>           goto free_syncobj;
+>>> @@ -524,8 +524,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>>>       }
+>>>         num_write_bo_handles = args->num_bo_write_handles;
+>>> -    bo_handles_write = memdup_user(u64_to_user_ptr(args->bo_write_handles),
+>>> -                       sizeof(u32) * num_write_bo_handles);
+>>> +    bo_handles_write = memdup_array_user(u64_to_user_ptr(args->bo_write_handles),
+>>> +                         num_write_bo_handles, sizeof(u32));
+>>>       if (IS_ERR(bo_handles_write)) {
+>>>           r = PTR_ERR(bo_handles_write);
+>>>           goto put_gobj_read;
+>>> @@ -666,37 +666,37 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>>>           return -ENOTSUPP;
+>>>         num_read_bo_handles = wait_info->num_bo_read_handles;
+>>> -    bo_handles_read = memdup_user(u64_to_user_ptr(wait_info->bo_read_handles),
+>>> -                      size_mul(sizeof(u32), num_read_bo_handles));
+>>> +    bo_handles_read = memdup_array_user(u64_to_user_ptr(wait_info->bo_read_handles),
+>>> +                        num_read_bo_handles, sizeof(u32));
+>>>       if (IS_ERR(bo_handles_read))
+>>>           return PTR_ERR(bo_handles_read);
+>>>         num_write_bo_handles = wait_info->num_bo_write_handles;
+>>> -    bo_handles_write = memdup_user(u64_to_user_ptr(wait_info->bo_write_handles),
+>>> -                       size_mul(sizeof(u32), num_write_bo_handles));
+>>> +    bo_handles_write = memdup_array_user(u64_to_user_ptr(wait_info->bo_write_handles),
+>>> +                         num_write_bo_handles, sizeof(u32));
+>>>       if (IS_ERR(bo_handles_write)) {
+>>>           r = PTR_ERR(bo_handles_write);
+>>>           goto free_bo_handles_read;
+>>>       }
+>>>         num_syncobj = wait_info->num_syncobj_handles;
+>>> -    syncobj_handles = memdup_user(u64_to_user_ptr(wait_info->syncobj_handles),
+>>> -                      size_mul(sizeof(u32), num_syncobj));
+>>> +    syncobj_handles = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_handles),
+>>> +                        num_syncobj, sizeof(u32));
+>>>       if (IS_ERR(syncobj_handles)) {
+>>>           r = PTR_ERR(syncobj_handles);
+>>>           goto free_bo_handles_write;
+>>>       }
+>>>         num_points = wait_info->num_syncobj_timeline_handles;
+>>> -    timeline_handles = memdup_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
+>>> -                       sizeof(u32) * num_points);
+>>> +    timeline_handles = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
+>>> +                         num_points, sizeof(u32));
+>>>       if (IS_ERR(timeline_handles)) {
+>>>           r = PTR_ERR(timeline_handles);
+>>>           goto free_syncobj_handles;
+>>>       }
+>>>   -    timeline_points = memdup_user(u64_to_user_ptr(wait_info->syncobj_timeline_points),
+>>> -                      sizeof(u32) * num_points);
+>>> +    timeline_points = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_timeline_points),
+>>> +                        num_points, sizeof(u32));
+>>>       if (IS_ERR(timeline_points)) {
+>>>           r = PTR_ERR(timeline_points);
+>>>           goto free_timeline_handles;
+>>
+
