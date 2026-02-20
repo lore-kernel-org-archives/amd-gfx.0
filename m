@@ -4,76 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ECE8E98E09
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 08:29:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 816FDE98E09
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 08:29:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F71210E286;
-	Mon, 23 Feb 2026 08:29:08 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i/YNVvpl";
-	dkim-atps=neutral
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5405E10E1F0
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 02:52:19 +0000 (UTC)
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-8cb4097794dso402981085a.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Feb 2026 18:52:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771815138; x=1772419938; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=uW2bmrIf7wU/GXSosfCOnygemq0h5S29C3M+QhYhtC0=;
- b=i/YNVvplLtMBW0Qy7zftJJV6eDn77CPoiEonZuH/tGPFaLcRutME26c644ourf0bQf
- SCHvTbBTgXqgR+8zc+ZtmMiJxq9wRikiLw1Sz41tyD0K2jGqovFiGtPe+Ou8IUrA34Mi
- AdTv/L506nDgqOtqSQ4sxHQ4erg/vFav7SdKhYkHhNWsUsTTysIvlhQmfNg/BMX8WeP/
- a5v4sSwsreKfVyvF0kztyLouRaob8rMPNsLzAXuJAwiyOxEO1fYcqiCjvqUhwdAmYD4q
- kXIom8lmKh4JwkPbHga8b/PiBDNBkL7T/iA7N4e5m7dNAaOOC/t1yCAelvVxj5njbtCg
- dplA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771815138; x=1772419938;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=uW2bmrIf7wU/GXSosfCOnygemq0h5S29C3M+QhYhtC0=;
- b=dUiS+WBCrXRmQ1KLBYeeGHRr+0uZZatiUVUWbtX38YI9zxSaOz0PhflwLV/mKOCgbz
- Jg/dxVv8mo40UYs46c46mt8nbt1jRUk2UhrEPV3atS6ddfV2KvobLsngoYiIonCqtW2Y
- Y3dKDdBjfjIh0ZokjZx4TgmB19oXvTwtJjf25njpSS0hyBCBU0TwmOHN+3c2p87TaPgS
- w2PEogk1WFrwQZe6PFB7wRl6Dm6ZYU2kXVT2klLLNR/h1NAkyLEymejpdeW4N+/RUkQp
- f6CRJYYaFT8j8/3UmpPAukflnRoRDMu07I/MPXM6Hm+rc/1kyScBDei15tensBSHoV3k
- 8d7w==
-X-Gm-Message-State: AOJu0YzIbhFvLo5/I5sstFFiFAgoXapMlFuegecWmxDPILzl446kk0Lh
- pAUfmfZWJ/IIhsSKq7xgKw0DMHvZ5wwcOV7uLPmV/YBvvC0BzgKR9uZv
-X-Gm-Gg: AZuq6aKEXQ2Gyj/2PH3M1MI+Ls0Qybgt2CSvLe0J4OcoAo0/eq6pxXDx3WRkdZH+XjK
- jALtFS78JI8njO4Ev++CAdD3VbgmBdDVc6z1RPtvsXdfCl8AVPvaAnbr9C4CMk9u58mEbyTttAp
- 33CtCA3F/381CtG6zAXBal3KWR1EgtDMXZOf7B32K1mr+TxqkEqMWcfRven8EoED9SuQyHzhBMI
- /a+2xlc21ggZsK7ODcrm+wLzmSBF4IYsIp3sTjbO+ps5jr+9lYbsDq+9936VsCuJHF9HFCgwoKt
- GH0bEZ6RDliS7PscHjsh10eVeoYjQjFBeVPLOTXJzHKZ7wfh9IrdYFvS7O5DY/xBJE7CKZHXiKQ
- PvVXrahNxH2upSJIQtV6wV9I0Cs47dLHpambUcX9pIomq4f0ScUok1m6zIJXUJUuiF7Jw4+3n3X
- H+d2AUdDT3EVQyhtCzurdSKgqXJNU1ip7dwEM92iMCjw+yuCfyNKxqOAIxraYTYFxtdnyVRI27Y
- tY+IsiKjU/IXMNGxukJrC4Sept3
-X-Received: by 2002:a05:620a:bd6:b0:8ca:3e78:ef79 with SMTP id
- af79cd13be357-8cb8ca93037mr774653085a.77.1771815138182; 
- Sun, 22 Feb 2026 18:52:18 -0800 (PST)
-Received: from fedora.phub.net.cable.rogers.com ([2607:fea8:2bde:a00::3345])
- by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8cb8d06f422sm610608285a.20.2026.02.22.18.52.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 22 Feb 2026 18:52:16 -0800 (PST)
-From: Hayden Heins <hayden.heins@gmail.com>
-To: harry.wentland@amd.com,
-	sunpeng.li@amd.com,
-	siqueira@igalia.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Hayden Heins <hayden.heins@gmail.com>
-Subject: [PATCH] drm/amd/display: Fix incorrect log message in LTTPR mode
- selection
-Date: Sun, 22 Feb 2026 21:51:56 -0500
-Message-ID: <20260223025156.27490-1-hayden.heins@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 114DC10E287;
+	Mon, 23 Feb 2026 08:29:16 +0000 (UTC)
+Received: from MTA-13-4.privateemail.com (mta-13-4.privateemail.com
+ [198.54.127.109])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DB4E10E83B;
+ Fri, 20 Feb 2026 17:16:03 +0000 (UTC)
+Received: from mta-13.privateemail.com (localhost [127.0.0.1])
+ by mta-13.privateemail.com (Postfix) with ESMTP id 4fHcN20Dmlz3hhTD;
+ Fri, 20 Feb 2026 12:16:02 -0500 (EST)
+Received: from localhost.localdomain
+ (bras-base-toroon4332w-grc-26-174-91-51-28.dsl.bell.ca [174.91.51.28])
+ by mta-13.privateemail.com (Postfix) with ESMTPA;
+ Fri, 20 Feb 2026 12:15:35 -0500 (EST)
+From: Hamza Mahfooz <someguy@effective-light.com>
+To: dri-devel@lists.freedesktop.org
+Cc: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Hamza Mahfooz <someguy@effective-light.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Alex Hung <alex.hung@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Ivan Lipski <ivan.lipski@amd.com>,
+ Dominik Kaszewski <dominik.kaszewski@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4 1/2] drm: introduce KMS recovery mechanism
+Date: Fri, 20 Feb 2026 12:15:12 -0500
+Message-ID: <20260220171518.711594-1-someguy@effective-light.com>
 X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Feb 2026 08:29:06 +0000
+X-Virus-Scanned: ClamAV using ClamSMTP
+X-Mailman-Approved-At: Mon, 23 Feb 2026 08:29:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,30 +60,169 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The driver was logging that it chose NON_TRANSPARENT mode while actually
-returning TRANSPARENT mode in the case where vbios_lttpr_aware is set
-but vbios_lttpr_force_non_transparent is not.This upgades the log message
-to match what the code is actually doing.
+There should be a mechanism for drivers to respond to flip_done
+timeouts. Since, as it stands it is possible for the display to stall
+indefinitely, necessitating a hard reset. So, introduce a new mechanism
+that tries various methods of recovery with increasing aggression, in
+the following order:
 
-Signed-off-by: Hayden Heins <hayden.heins@gmail.com>
+1. Force a full modeset (have the compositor reprogram the state from
+   scratch).
+2. As a last resort, have the driver attempt a vendor specific reset
+   (which they can do by reading the return value of
+   drm_atomic_helper_wait_for_flip_done()).
+
+Signed-off-by: Hamza Mahfooz <someguy@effective-light.com>
 ---
- .../amd/display/dc/link/protocols/link_dp_training_8b_10b.c    | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+v2: new to the series
+v3: get rid of page_flip_timeout() and have
+    drm_atomic_helper_wait_for_flip_done() return a error.
+v4: get rid of nested ret variable.
+---
+ drivers/gpu/drm/drm_atomic_helper.c | 47 ++++++++++++++++++++++++-----
+ include/drm/drm_atomic_helper.h     |  4 +--
+ include/drm/drm_device.h            | 24 +++++++++++++++
+ 3 files changed, 66 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
-index 66d0fb1b9..889c81aba 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training_8b_10b.c
-@@ -166,7 +166,8 @@ enum lttpr_mode dp_decide_8b_10b_lttpr_mode(struct dc_link *link)
- 			DC_LOG_DC("chose LTTPR_MODE_NON_TRANSPARENT due to VBIOS DCE_INFO_CAPS_LTTPR_SUPPORT_ENABLE set to 1.\n");
- 			return LTTPR_MODE_NON_TRANSPARENT;
- 		} else {
--			DC_LOG_DC("chose LTTPR_MODE_NON_TRANSPARENT by default due to VBIOS not set DCE_INFO_CAPS_LTTPR_SUPPORT_ENABLE set to 1.\n");
-+			DC_LOG_DC("chose LTTPR_MODE_TRANSPARENT by default due to VBIOS not set "
-+				"DCE_INFO_CAPS_LTTPR_SUPPORT_ENABLE set to 1.\n");
- 			return LTTPR_MODE_TRANSPARENT;
- 		}
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 5840e9cc6f66..d905eb166225 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -42,6 +42,7 @@
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_panic.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
+ #include <drm/drm_self_refresh_helper.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_writeback.h>
+@@ -1864,30 +1865,62 @@ EXPORT_SYMBOL(drm_atomic_helper_wait_for_vblanks);
+  *
+  * This requires that drivers use the nonblocking commit tracking support
+  * initialized using drm_atomic_helper_setup_commit().
++ *
++ * Returns:
++ * -ETIMEDOUT to indicate that drivers can attempt a vendor reset, 0 otherwise.
+  */
+-void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
+-					  struct drm_atomic_state *state)
++int drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
++					 struct drm_atomic_state *state)
+ {
+ 	struct drm_crtc *crtc;
++	int ret = 0;
+ 	int i;
+ 
+ 	for (i = 0; i < dev->mode_config.num_crtc; i++) {
+ 		struct drm_crtc_commit *commit = state->crtcs[i].commit;
+-		int ret;
+ 
+ 		crtc = state->crtcs[i].ptr;
+ 
+ 		if (!crtc || !commit)
+ 			continue;
+ 
+-		ret = wait_for_completion_timeout(&commit->flip_done, 10 * HZ);
+-		if (ret == 0)
+-			drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
+-				crtc->base.id, crtc->name);
++		if (!wait_for_completion_timeout(&commit->flip_done, 10 * HZ)) {
++			switch (dev->reset_phase) {
++			case DRM_KMS_RESET_NONE:
++				drm_err(dev, "[CRTC:%d:%s] flip_done timed out\n",
++					crtc->base.id, crtc->name);
++				dev->reset_phase = DRM_KMS_RESET_FORCE_MODESET;
++				drm_kms_helper_hotplug_event(dev);
++				break;
++			case DRM_KMS_RESET_FORCE_MODESET:
++				drm_err(dev, "[CRTC:%d:%s] force full modeset failed\n",
++					crtc->base.id, crtc->name);
++				dev->reset_phase = DRM_KMS_RESET_VENDOR;
++				ret = -ETIMEDOUT;
++				break;
++			case DRM_KMS_RESET_VENDOR:
++				drm_err(dev, "[CRTC:%d:%s] KMS recovery failed!\n",
++					crtc->base.id, crtc->name);
++				dev->reset_phase = DRM_KMS_RESET_GIVE_UP;
++				break;
++			default:
++				break;
++			}
++
++			goto exit;
++		}
++	}
++
++	if (dev->reset_phase) {
++		drm_info(dev, "KMS recovery succeeded!\n");
++		dev->reset_phase = DRM_KMS_RESET_NONE;
  	}
+ 
++exit:
+ 	if (state->fake_commit)
+ 		complete_all(&state->fake_commit->flip_done);
++
++	return ret;
+ }
+ EXPORT_SYMBOL(drm_atomic_helper_wait_for_flip_done);
+ 
+diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
+index 53382fe93537..298c8dff3993 100644
+--- a/include/drm/drm_atomic_helper.h
++++ b/include/drm/drm_atomic_helper.h
+@@ -79,8 +79,8 @@ int drm_atomic_helper_wait_for_fences(struct drm_device *dev,
+ void drm_atomic_helper_wait_for_vblanks(struct drm_device *dev,
+ 					struct drm_atomic_state *old_state);
+ 
+-void drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
+-					  struct drm_atomic_state *old_state);
++int drm_atomic_helper_wait_for_flip_done(struct drm_device *dev,
++					 struct drm_atomic_state *old_state);
+ 
+ void
+ drm_atomic_helper_update_legacy_modeset_state(struct drm_device *dev,
+diff --git a/include/drm/drm_device.h b/include/drm/drm_device.h
+index bc78fb77cc27..1244d7527e7b 100644
+--- a/include/drm/drm_device.h
++++ b/include/drm/drm_device.h
+@@ -66,6 +66,23 @@ enum switch_power_state {
+ 	DRM_SWITCH_POWER_DYNAMIC_OFF = 3,
+ };
+ 
++/**
++ * enum drm_kms_reset_phase - reset phase of drm device
++ */
++enum drm_kms_reset_phase {
++	/** @DRM_KMS_RESET_NONE: Not currently attempting recovery */
++	DRM_KMS_RESET_NONE,
++
++	/** @DRM_KMS_RESET_FORCE_MODESET: Force a full modeset */
++	DRM_KMS_RESET_FORCE_MODESET,
++
++	/** @DRM_KMS_RESET_VENDOR: Attempt a vendor reset */
++	DRM_KMS_RESET_VENDOR,
++
++	/** @DRM_KMS_RESET_GIVE_UP: All recovery methods failed */
++	DRM_KMS_RESET_GIVE_UP,
++};
++
+ /**
+  * struct drm_device - DRM device structure
+  *
+@@ -375,6 +392,13 @@ struct drm_device {
+ 	 * Root directory for debugfs files.
+ 	 */
+ 	struct dentry *debugfs_root;
++
++	/**
++	 * @reset_phase:
++	 *
++	 * Reset phase that the device is in.
++	 */
++	enum drm_kms_reset_phase reset_phase;
+ };
+ 
+ void drm_dev_set_dma_dev(struct drm_device *dev, struct device *dma_dev);
 -- 
 2.53.0
 
