@@ -4,83 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C927FE98E06
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 08:29:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14236E98E0B
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 08:29:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A77E10E289;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58B5410E290;
 	Mon, 23 Feb 2026 08:29:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M4gOzhY8";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jiY6AZ35";
 	dkim-atps=neutral
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B10DF10E10C
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Feb 2026 03:44:22 +0000 (UTC)
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-824a3ba5222so1467697b3a.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 19:44:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771645462; x=1772250262; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=rJmFbB3FwMiKYWU/wDkbhYitxVoyIrAuDm/JRU1AydA=;
- b=M4gOzhY8tkMZlqCVXTcNV7sElzvpS36HLc4HSFSeH7zC1tm4pqmYFIuVNLx5e+KCvZ
- 4JCGTU43y9sEmj0wl5Vzq8nL0IcEr/9ifzYMdJiTfPeFgrHETHQuP3ybVwrALXKBfcqk
- hXLwLCQJVPJ1heuqH4nQCZ7LkBK28brpF8vncgbWjQezw0rPHJzqhjnThS8i1bVDloxO
- WqYS0Pms0Tu2+pxqUw4aJBlYAZF2rwKGPmpXTJ+udhfmBVP1cYqnAPAACfVnurXZUYTE
- BIeM9/+uPCb/vG2SdCnOoSYW2PaOPs6oJvyIlOBRSIetQSV1fu3gfTROmU01Dam+x7bs
- XH+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771645462; x=1772250262;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=rJmFbB3FwMiKYWU/wDkbhYitxVoyIrAuDm/JRU1AydA=;
- b=ffwBF8DJJ8AKzRaZrXd/OyyWqxYL6N29v/2rQ5BYA3zDz9xZ9UHbzj1Chmy3doGb7b
- VEY7XN7HSUCiPqMuuJvA7toyk9qhm1u8Lvw5GCTkdfgyMtPqBZO6MZtabSS6VtDd2Wag
- QUelsYymZid+oktHtdbGggtzZzi3u8Y3F1xpZmEb8UmDFU+uAVariDj8KY1qI9BRbW1u
- eXRxqer/1C8FuOPFcTP/jmStVknbPjxnuJP0gm/VjB0F4kv5v57qNI8aTMnZ+keSBfAj
- M2j6Os8JNhcSAgUEjr9QG+BOPLU+wqUvnNQ8QyLUIQ63etEZRdObTcmsj06QFwtDhf+9
- rtUg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVePFgzTEdA5CNCuw+PVqqmqKXdMCAIloXkKbHgHIc3hINtlOX2HfuzHGj3lWWg8i9LlIGj6tQr@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw4ObkYSJo1g0+fAVgQskl8fi+fnKZvUwLNhg7cnULoKwOWFQVH
- 2nYG2Sdsu0TwiwtN8hme8OzoLuXort6XKGhW0w4PJQxoXrxhGyICZ0ze
-X-Gm-Gg: AZuq6aK6sHCkQmDOuagfNEcalw93/BD8PmwUcTq9Rnb/p0ibRs5/TsVclvCoNWOtrjx
- lbGvK58EFqskdZZdcnyVjawfV/Cq4ebWee9qqbvmo6qnU5GC/T9U4j5uWqzY8pITMvYQJSeX9ZN
- ucSYPFka9K/K3I15ZjZPJoG8ymFrtrMJSpKYcBpIAYasNndVastj6DJuQCVbs80SofV2mp2n6FX
- omtuYO/lnW8QDaRIkc1U+oO96y3JjypC+yQXRhxSDJY3oT5/HOZWcIgz0Ygjrnj0psfG5aJIN3k
- GsO5w8zJswA3WKH/TfteklQp/d2iEZX2bHnGcKOzX64ahAUmjPw53zDIbXzIFZ4VqNMQXr4nR82
- 0zjCNymHN7k4UE6Suvc7BirPhV1qiRF6FoX0jQCetE1skB/VQIoCgbKxdMGxXKZBwbCrN
-X-Received: by 2002:a05:6a00:430c:b0:822:682d:2c5f with SMTP id
- d2e1a72fcca58-826da948eddmr1927546b3a.28.1771645462263; 
- Fri, 20 Feb 2026 19:44:22 -0800 (PST)
-Received: from ryzen ([2601:644:8000:56f5::8bd])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-826dd8ba11bsm714951b3a.50.2026.02.20.19.44.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Feb 2026 19:44:21 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ADED10E120;
+ Sat, 21 Feb 2026 05:41:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id E6E2944206;
+ Sat, 21 Feb 2026 05:41:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68461C4CEF7;
+ Sat, 21 Feb 2026 05:41:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
+ s=korg; t=1771652500;
+ bh=dILJaJLWNaymGhs7gSN08DU8nY4kViwy9GwyMBXqpl8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jiY6AZ35TrJOFjA1SxH9rqIxI/9lg0sGDlmZm4m0KItyXLqq+68cSfrFgFjKVITcq
+ ZZccWg8G7+I79sWX/wGnmMyCbKuUXT3k0pckiYC4UCTzEtXnKB2iFiou75i6IDzYGD
+ j90LzJWXFruCYdx0DAIk4Y63nBRMxqvFEmHfrGhI=
+Date: Sat, 21 Feb 2026 06:41:37 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: stable@vger.kernel.org, Kenneth Feng <kenneth.feng@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org (open list:AMD POWERPLAY AND SWSMU),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 1/2] Revert "drm/amd/pm: Disable MCLK switching on SI at high
- pixel clocks"
-Date: Fri, 20 Feb 2026 19:44:01 -0800
-Message-ID: <20260221034402.69537-2-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260221034402.69537-1-rosenp@gmail.com>
+ "open list:AMD POWERPLAY AND SWSMU" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 0/2] 6.12 and below: amdgpu: fix panic with SI and DC
+Message-ID: <2026022126-calculate-matador-e7bd@gregkh>
 References: <20260221034402.69537-1-rosenp@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260221034402.69537-1-rosenp@gmail.com>
 X-Mailman-Approved-At: Mon, 23 Feb 2026 08:29:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,31 +60,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit d033e8cf4e8f6395102cdbc3cb00dc7cb9542f53.
+On Fri, Feb 20, 2026 at 07:44:00PM -0800, Rosen Penev wrote:
+> The first commit is needed for the second one to be reverted cleanly.
+> 
+> The second breaks DC support on my AMD 7750. Kernel panics and I get a
+> black screen on boot. With these two reverted, 6.12 is usable again.
+> 
+> Tried to git cherry-pick the fixes but that proved to be difficult to
+> do cleanly.
+> 
+> I see 6.6 also has these two commits.
+> 
+> Not sure what the proper procedure is to request reverts on stable
+> kernels.
 
-Cc: Timur Kristóf <timur.kristof@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 5 -----
- 1 file changed, 5 deletions(-)
+Close, see my comments on the first patch.
 
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-index 29cecfab0704..05eaa06dfa34 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-@@ -3486,11 +3486,6 @@ static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
- 	 * for these GPUs to calculate bandwidth requirements.
- 	 */
- 	if (high_pixelclock_count) {
--		/* Work around flickering lines at the bottom edge
--		 * of the screen when using a single 4K 60Hz monitor.
--		 */
--		disable_mclk_switching = true;
--
- 		/* On Oland, we observe some flickering when two 4K 60Hz
- 		 * displays are connected, possibly because voltage is too low.
- 		 * Raise the voltage by requiring a higher SCLK.
--- 
-2.53.0
+thanks,
 
+greg k-h
