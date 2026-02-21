@@ -4,58 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 880E9C61DC4
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Feb 2026 07:09:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48BADC61DBE
+	for <amd-gfx@archiver.kernel.org>; Sat, 21 Feb 2026 07:09:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F7A710E14A;
-	Sat, 21 Feb 2026 07:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFC7910E14F;
+	Sat, 21 Feb 2026 07:09:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="AMP02sL/";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="fMw8Y+UT";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 498C310E14A
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Feb 2026 07:09:50 +0000 (UTC)
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96F2E10E14F
+ for <amd-gfx@lists.freedesktop.org>; Sat, 21 Feb 2026 07:09:53 +0000 (UTC)
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61L6s2UT2499908; Sat, 21 Feb 2026 07:09:48 GMT
+ 61L31dP32058372; Sat, 21 Feb 2026 07:09:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=KUvAry7IHrQ5VKYAc
- 2YeBDC6Mz4A5HSHay2p0bSB0jc=; b=AMP02sL/D1iPCihclehojrP4B0B5oRlaz
- O4PGjthxNWG4rGCzabLOO6WilVoPm7LoD8pGK4gbLdRwDIZ9ogMs81Dw9L/Xwnaw
- Xu53cG3JXSHj2pp1VsWupnJnA0bwIIGbB58oXa2tYnAG5GsNWMpH125Y1STvekOE
- Rm2Sj2Ho2Svoyvu4qpSA690520kU5uY213+wKwnLO9mgW3g3h0wanA7YINfSoZfm
- 0ZGYofaz8jiJG17OokNI2P3xp+ztCW4Tj6LyUbu9bOBOmvsYs1SVeAV2u0NlPxSZ
- pJny0N/USgTiQr7M01ODJwUl22+d6cO4YlfHTqCm3rLk4zLCZNnyw==
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4cf24g0qkf-1
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=19+jLy
+ Qm4zvsV2sS5egiKao0eNycbroVcOHWTBRuZDc=; b=fMw8Y+UT/AgKmkmCMGUh06
+ iVFIVupwkHtQ3/90OQN8fcoy40IMeVp5cn78eC206qaIQZEHUm4wylph5mr0qTaP
+ x1RTcVbh4FfTJIEv6ETOXHcgt4s/Bx+RKlPmr2uubRMZFQFS0bPOR+Ph7sCpjkif
+ GFbix7QLJm3LRfkr+CiJZXgTQT8vBUHzLIHwGbgxNbr4G+69biyPrSIZOBXr6IJR
+ g2ULoag0PkvoDtzMmAWiiYYCRYrlKB1hcqDReUbhyxem26XiCsjol1O1A7VWdfFP
+ fJMHMPmxhy0v9Kd5Ym4WteqEwtJVPOs6SZ6Hg/0yEtFiRhe0rkNKKW25GOdypF7A
+ ==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4cf4e30f9d-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 21 Feb 2026 07:09:47 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 61L1QW8A015715;
- Sat, 21 Feb 2026 07:09:46 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ccb45kb0w-1
+ Sat, 21 Feb 2026 07:09:51 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 61L13ksr011920;
+ Sat, 21 Feb 2026 07:09:50 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ccb27bdcd-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 21 Feb 2026 07:09:46 +0000
+ Sat, 21 Feb 2026 07:09:50 +0000
 Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
  [10.20.54.104])
- by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 61L79g9052887918
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 61L79kw225231770
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 21 Feb 2026 07:09:42 GMT
+ Sat, 21 Feb 2026 07:09:46 GMT
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B845820043;
- Sat, 21 Feb 2026 07:09:42 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id E2F9A20043;
+ Sat, 21 Feb 2026 07:09:45 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6130D20040;
- Sat, 21 Feb 2026 07:09:40 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id BD81220040;
+ Sat, 21 Feb 2026 07:09:43 +0000 (GMT)
 Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.in.ibm.com (unknown
  [9.109.215.162])
  by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Sat, 21 Feb 2026 07:09:40 +0000 (GMT)
+ Sat, 21 Feb 2026 07:09:43 +0000 (GMT)
 From: Donet Tom <donettom@linux.ibm.com>
 To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -64,37 +65,39 @@ To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
 Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
  Ritesh Harjani <ritesh.list@gmail.com>,
  Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [RFC PATCH v3 3/6] drm/amdgpu: Handle GPU page faults correctly on
- non-4K page systems
-Date: Sat, 21 Feb 2026 12:39:21 +0530
-Message-ID: <3ece0c1c961e4f3e333ccf122eb5285351966ba0.1771656655.git.donettom@linux.ibm.com>
+Subject: [RFC PATCH v3 4/6] drm/amdgpu: Fix AMDGPU_GTT_MAX_TRANSFER_SIZE for
+ non-4K page size
+Date: Sat, 21 Feb 2026 12:39:22 +0530
+Message-ID: <009fce778133332ea29cf73b52e5b19f4dce9fb5.1771656655.git.donettom@linux.ibm.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <cover.1771656655.git.donettom@linux.ibm.com>
 References: <cover.1771656655.git.donettom@linux.ibm.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=TNRIilla c=1 sm=1 tr=0 ts=69995a3b cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=HzLeVaNsDn8A:10 a=VkNPw1HP01LnGYTKEx00:22 a=Mpw57Om8IfrbqaoTuvik:22
- a=GgsMoib0sEa3-_RKJdDe:22 a=VnNF1IyMAAAA:8 a=gKbHINidcilSpodcztQA:9
-X-Proofpoint-GUID: oLZpz35Lqwr4cFINyTY6GUmVPpRKpS75
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjIxMDA3MyBTYWx0ZWRfXy5i+ic5l2wqL
- OlUPR0n0518P63WChv+t/xeWrkqugqd19f062TzmKA95miu2wXAbx8yIOQK0EvIbVW4iwI9K4X5
- D7loaDUcxyt3jmIiR05PUDVK5k1NFjxP9akjSMPKrSPNryQrUBddxwadaoVT7Hp3orH6EroblBu
- f98BEutE601wTpGs4Sw6kt0EI8vd4RwEHUlKZSXB2Y4tb5t5K2spoGpZG9ml5Bx7GLMl+Lddup8
- oijaZKTo5fODdkstl9e7sEgkTA/8K7LhwBKgD/WYa5o1j8f7VON8fd10Vn36CRriDYYPMEgyS8l
- z64kuypSvtnYirDzPHfbC0LvJO1emkPTQEszT3IaqRhsx//fnxfIy/GDdzyUw16tIKIpKBA7nmN
- v9epJdCDeYSHjUftdH77AsA5nEx2vjqs4c0lTh/fflqTqUxDdOsVLba/CtR8U+8O19xKva7s9FF
- znHBFELbDVbWwzLn9uQ==
-X-Proofpoint-ORIG-GUID: BHxGYDC_Xq1rZCCPGhttjX1GjuuzJOyR
+X-Authority-Analysis: v=2.4 cv=XMs9iAhE c=1 sm=1 tr=0 ts=69995a3f cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22 a=VnNF1IyMAAAA:8
+ a=8OR251-K1x8n-3lZjzsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: RaQWhEZ_BjzZBKDY1QTOOiFBhSUAyE4d
+X-Proofpoint-ORIG-GUID: MgD2Os-i-ENPVIV2CqTkRzEIotWthvcU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjIxMDA3MyBTYWx0ZWRfX9rJdHSzN2758
+ xCfUdfPRr8fD7E/7UsxJvOGW0Pf8WYNQpkQtD1B7Ny719OSxgAuNONCRUZWX3wv6ZNiJUBAw79o
+ dAozHLl5VxwfnX/0SYO5P2JcLnWq4ErDj/fZWY7d4v/NOi4kc4iOKaq/wXFz6T2csowMTKPyioX
+ 4+st+pRl85Uknjp+1D0+rbW5USRdeo9k5INusASR0laRnNCbOWR+NqOuGNU3S1iCRhOCUl+Eq0K
+ +SISuEe1qkK8BXx7XzzHHHB2F+s+sEiyUO8iDn3N0HdgPoLPEdD/tSr52aV42w09Dvk6B0QYV0C
+ ikCU6+ZxelDo3d2NgSM4FnSU6KRS33LvD5tNMX8roTH8yQSN4ikMybenaFzSCiJrRDii6CVSHvj
+ RrOYOTEC3715RPzsqEHvT5FOsWbi3raZhA9KQ0mBESmaCZwmIQTxaxW2XZv6iRaymEfKYxPEtY2
+ LNxhAyJt/Zcluz97/5A==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-02-21_01,2026-02-20_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- spamscore=0 clxscore=1011 bulkscore=0 lowpriorityscore=0 phishscore=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0
+ clxscore=1015 adultscore=0 spamscore=0 priorityscore=1501 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602210073
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -111,56 +114,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-During a GPU page fault, the driver restores the SVM range and then maps it
-into the GPU page tables. The current implementation passes a GPU-page-size
-(4K-based) PFN to svm_range_restore_pages() to restore the range.
+AMDGPU_GTT_MAX_TRANSFER_SIZE represented the maximum number of
+system-page-sized pages that could be transferred in a single
+operation. The effective maximum transfer size was intended to be
+one PMD-sized mapping.
 
-SVM ranges are tracked using system-page-size PFNs. On systems where the
-system page size is larger than 4K, using GPU-page-size PFNs to restore the
-range causes two problems:
+In the existing code, AMDGPU_GTT_MAX_TRANSFER_SIZE was hard-coded
+to 512 pages. This corresponded to 2 MB on 4 KB page-size systems,
+matching the PMD size. However, on systems with a non-4 KB page
+size, this value no longer matched the PMD size.
 
-Range lookup fails:
-Because the restore function receives PFNs in GPU (4K) units, the SVM
-range lookup does not find the existing range. This will result in a
-duplicate SVM range being created.
+This patch changed the calculation of AMDGPU_GTT_MAX_TRANSFER_SIZE
+to derive it from PMD_SHIFT and PAGE_SHIFT, ensuring that the
+maximum transfer size remained PMD-sized across all system page
+sizes.
 
-VMA lookup failure:
-The restore function also tries to locate the VMA for the faulting address.
-It converts the GPU-page-size PFN into an address using the system page
-size, which results in an incorrect address on non-4K page-size systems.
-As a result, the VMA lookup fails with the message: "address 0xxxx VMA is
-removed".
+Additionally, in some places, AMDGPU_GTT_MAX_TRANSFER_SIZE was
+implicitly assumed to be based on 4 KB pages. This resulted in
+incorrect address offset calculations. This patch updated the
+address calculations to correctly handle non-4 KB system page
+sizes as well.
 
-This patch passes the system-page-size PFN to svm_range_restore_pages() so
-that the SVM range is restored correctly on non-4K page systems.
+amdgpu_ttm_map_buffer() can create both GTT GART entries and
+VRAM GART entries. For GTT mappings, amdgpu_gart_map() takes
+system page–sized PFNs, and the mappings are created correctly.
+
+However, for VRAM GART mappings, amdgpu_gart_map_vram_range() expects
+GPU page–sized PFNs, but CPU page–sized PFNs were being passed,
+resulting in incorrect mappings.
+
+This patch updates the code to pass GPU page–sized PFNs to
+amdgpu_gart_map_vram_range(), ensuring that VRAM GART mappings are
+created correctly.
 
 Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 8 +++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 2 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v1_0.c   | 3 ++-
+ 3 files changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 6a2ea200d90c..7a3cb0057ac5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2985,14 +2985,14 @@ bool amdgpu_vm_handle_fault(struct amdgpu_device *adev, u32 pasid,
- 	if (!root)
- 		return false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 15d561e3d87f..67983955a124 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -204,7 +204,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 	int r;
  
--	addr /= AMDGPU_GPU_PAGE_SIZE;
--
- 	if (is_compute_context && !svm_range_restore_pages(adev, pasid, vmid,
--	    node_id, addr, ts, write_fault)) {
-+	    node_id, addr >> PAGE_SHIFT, ts, write_fault)) {
- 		amdgpu_bo_unref(&root);
- 		return true;
+ 	BUG_ON(adev->mman.buffer_funcs->copy_max_bytes <
+-	       AMDGPU_GTT_MAX_TRANSFER_SIZE * 8);
++	       AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8);
+ 
+ 	if (WARN_ON(mem->mem_type == AMDGPU_PL_PREEMPT))
+ 		return -EINVAL;
+@@ -230,7 +230,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 
+ 	*addr = adev->gmc.gart_start;
+ 	*addr += (u64)window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
+-		AMDGPU_GPU_PAGE_SIZE;
++		AMDGPU_GPU_PAGES_IN_CPU_PAGE * AMDGPU_GPU_PAGE_SIZE;
+ 	*addr += offset;
+ 
+ 	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
+@@ -248,7 +248,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 	src_addr += job->ibs[0].gpu_addr;
+ 
+ 	dst_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
+-	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE * 8;
++	dst_addr += window * AMDGPU_GTT_MAX_TRANSFER_SIZE *
++		AMDGPU_GPU_PAGES_IN_CPU_PAGE * 8;
+ 	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr,
+ 				dst_addr, num_bytes, 0);
+ 
+@@ -266,6 +267,7 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+ 	} else {
+ 		u64 pa = mm_cur->start + adev->vm_manager.vram_base_offset;
+ 
++		num_pages *= AMDGPU_GPU_PAGES_IN_CPU_PAGE;
+ 		amdgpu_gart_map_vram_range(adev, pa, 0, num_pages, flags, cpu_addr);
  	}
  
-+	addr /= AMDGPU_GPU_PAGE_SIZE;
-+
- 	r = amdgpu_bo_reserve(root, true);
- 	if (r)
- 		goto error_unref;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index 143201ecea3f..15aff225af1d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -38,7 +38,7 @@
+ #define AMDGPU_PL_MMIO_REMAP	(TTM_PL_PRIV + 5)
+ #define __AMDGPU_PL_NUM	(TTM_PL_PRIV + 6)
+ 
+-#define AMDGPU_GTT_MAX_TRANSFER_SIZE	512
++#define AMDGPU_GTT_MAX_TRANSFER_SIZE	(1 << (PMD_SHIFT - PAGE_SHIFT))
+ #define AMDGPU_GTT_NUM_TRANSFER_WINDOWS	2
+ 
+ extern const struct attribute_group amdgpu_vram_mgr_attr_group;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+index 9ae424618556..b2d4114c258c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v1_0.c
+@@ -48,7 +48,8 @@
+ #define VCE_STATUS_VCPU_REPORT_FW_LOADED_MASK	0x02
+ 
+ #define VCE_V1_0_GART_PAGE_START \
+-	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
++	(AMDGPU_GTT_MAX_TRANSFER_SIZE * AMDGPU_GPU_PAGES_IN_CPU_PAGE * \
++	 AMDGPU_GTT_NUM_TRANSFER_WINDOWS)
+ #define VCE_V1_0_GART_ADDR_START \
+ 	(VCE_V1_0_GART_PAGE_START * AMDGPU_GPU_PAGE_SIZE)
+ 
 -- 
 2.52.0
 
