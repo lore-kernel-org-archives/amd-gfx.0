@@ -4,80 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC38CE98E0A
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 08:29:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64873E98E09
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 08:29:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50F8E10E27F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EF6A10E282;
 	Mon, 23 Feb 2026 08:29:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YpZey613";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kcnQaRIh";
 	dkim-atps=neutral
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A68110E03B
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Feb 2026 03:44:21 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-81df6a302b1so2737767b3a.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Feb 2026 19:44:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771645461; x=1772250261; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=G2lZPUnhsjUnXBJgHs4dvnaHovSRN+TSfVBm8NcKAvE=;
- b=YpZey613+tKGknWMfwboGBkYD3gQ/HBsBd5aaJYDH+KkCak6jEvUUNBuOM87nSodqW
- VR7nEUBkfytF8oisFoSsacEPQYMKrJUYtrrIkE8WcpTXXRGzo1Iy9DKlzHQPoWV1w5n1
- mnatEfyThK31VKXy4HApRVCfhYVV23nN+ZLbMh8DDHoiU1JvhoPIWKc/nWSdQ0CuhyZu
- GqcpOVaS4b+C2EKzKhn30Zt80+230S0BVzyM9NflzC0N2c91bDUecu14j/++h9NUdgjX
- yHeMb52T2jR1SoJnHFcYvavd05ls2k/AF3FsnlSsz6H0eXVSxW07qObgCddYRaTHxQIl
- 3jpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771645461; x=1772250261;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=G2lZPUnhsjUnXBJgHs4dvnaHovSRN+TSfVBm8NcKAvE=;
- b=tqyTQX/1kdAX0mBqJZ31cXHWZMsScebclsd4Z+mCO+Ij3nPEuHOHpknrWDQJaCQmmi
- g61052YeAw1yMq3d3uomEIYCgaNWHI1fdeh36tM0m/Bci0YtDRfxKuVOrbcUWNKOJLI2
- zEy4HTFWUf4OAWbo2tHgu0wLNimA+wiVZsG++Hs3/QRBy3khqM26r0wBUZ5OdBnCjDAz
- Wi9/Zb4eqb3uloNYxHwRACLCLkPkHsV67IGFlSt8ivCH5EUwODihkPkRVwsK4QTFHJjx
- w0AF8/Ga2lZe44oD+BX4rbKLfVhkKnakfUhV6QzTil4e3f8MCQttbJWgkNk3wNcXJa8o
- dXTQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUTN54gEHUK+1G5thgBOwddcWNi4T0L1a5BwAYKu9WGm/jEaCD7uq7iFg/XSr6WreiA2uUI8uB3@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz9Z1ZNI7nB7Jd0u2s307gnsXS/J5pRKlU4NcBwR35FRZ3/QLdB
- 6HM8Qn0oVPG+iNLiUrbaLPYP84+h9tAWYYe0Z0wuZHMD7q6cRclCWgIi
-X-Gm-Gg: AZuq6aI9Pe22bNl6Nm8LWUx/3WDkmW7RqxbRmMCkQ4smZN0nvdbN3PcRju2mp35IJjE
- YOZdA1KBFslhCFRUS5zQsY+jFfKC8xI1jRApukbtHBw53hLDna0bkboW2nvpgTjYa3dXHDtItCU
- CopB7CnXdaTi+rgogHFhmurrXR138PnFunZfXJAr067+M9v/iUSAMLEdZ1bWvaocJnfpmh+J1RE
- E3VxtDdPU2HVVeBR7WwzYdfmOLxeYvtTzqxSSKf9XVovtXwZTP3FrOFBzyfcI004UK0Yqj8fWIC
- y/xfXmFh5+hUBBfJZLvvdKA3n7VrMayJvYHXI2/P53rqhjGrxIT2XK0W3UlkcIDMivbSdE21nZ2
- ohTkplhRwx+aM2eCNr5oVu1HJY5XbT+gN1l7YM+etQ2c4Dh26FjOqKJwu3lhvglqCQ/Gi
-X-Received: by 2002:a05:6a00:4c19:b0:824:374a:13f6 with SMTP id
- d2e1a72fcca58-826daa0424amr1768522b3a.31.1771645460652; 
- Fri, 20 Feb 2026 19:44:20 -0800 (PST)
-Received: from ryzen ([2601:644:8000:56f5::8bd])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-826dd8ba11bsm714951b3a.50.2026.02.20.19.44.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Feb 2026 19:44:20 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Kenneth Feng <kenneth.feng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org (open list:AMD POWERPLAY AND SWSMU),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH 0/2] 6.12 and below: amdgpu: fix panic with SI and DC
-Date: Fri, 20 Feb 2026 19:44:00 -0800
-Message-ID: <20260221034402.69537-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F8C510E170;
+ Sun, 22 Feb 2026 10:42:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1771756960;
+ bh=DrCoid4Pafm2Wd5d5/Z36uNtrGzmCQLSkgqHZBWbMWI=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=kcnQaRIhmB0uGgwiB08nORlre5NuxRsoB2FhWkbTA0uYMYf6QSacBs7MCbQdRvNPi
+ JeHfk7mQs6ptHQEPHkfOwLlIPtkpiKCsUiq/ngOee4OWEUe1yGzLtMRQW1Ts5UKPJQ
+ tEbZJmMJvGuK/9DvFT1UfvlwokAAI5MS4W4yCnlUnAIusVd4I+kyR0WJhDunTD95H0
+ 8+dXODsnj4+199XZxBN4G9F3JNclal+PiE6fwmSiFxwAHdj/J7Anv9khultrTWZ0ZP
+ YUVii9sUyN07jhIf8Hq+9Y6865ccLndCOa5nJCSwfhuZ+mufH+HZi+vtiVcerihvP/
+ /B/uM1nFumzpQ==
+Received: from [192.168.1.90] (unknown [82.79.138.145])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id B2D3C17E1274;
+ Sun, 22 Feb 2026 11:42:39 +0100 (CET)
+Message-ID: <ff7b531a-77c1-4c7d-b09d-47779b640193@collabora.com>
+Date: Sun, 22 Feb 2026 12:42:39 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 13/20] drm/bridge: dw-hdmi-qp: Implement
+ atomic_get_output_bus_fmts
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org
+References: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
+ <20260216-color-format-v8-13-5722ce175dd5@collabora.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260216-color-format-v8-13-5722ce175dd5@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 23 Feb 2026 08:29:05 +0000
+Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Mon, 23 Feb 2026 08:29:06 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,27 +85,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The first commit is needed for the second one to be reverted cleanly.
+Hi Nicolas,
 
-The second breaks DC support on my AMD 7750. Kernel panics and I get a
-black screen on boot. With these two reverted, 6.12 is usable again.
+On 2/16/26 3:01 PM, Nicolas Frattaroli wrote:
+> The atomic_get_output_bus_fmts callback is used by the DRM bridge layer
+> to recursively select a suitable output format in a bridge chain.
+> 
+> As a bridge that outputs to HDMI, dw-hdmi-qp will have its output
+> formats determined by which formats the platform-specific integration of
+> the hardware supports, and the chosen HDMI output bit depth.
+> 
+> Implement this callback. The returned u32* buffer is supposed to be
+> freed by the caller of this callback, as specified by the callback's
+> documentation.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> ---
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 178 +++++++++++++++++++++++++++
+>  1 file changed, 178 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> index d649a1cf07f5..4c00218e5fd7 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/export.h>
+>  #include <linux/i2c.h>
+>  #include <linux/irq.h>
+> +#include <linux/media-bus-format.h>
+>  #include <linux/minmax.h>
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+> @@ -749,6 +750,182 @@ static struct i2c_adapter *dw_hdmi_qp_i2c_adapter(struct dw_hdmi_qp *hdmi)
+>  	return adap;
+>  }
+>  
+> +static int dw_hdmi_qp_config_avi_infoframe(struct dw_hdmi_qp *hdmi,
+> +					   const u8 *buffer, size_t len)
+> +{
+> +	u32 val, i, j;
+> +
+> +	if (len != HDMI_INFOFRAME_SIZE(AVI)) {
+> +		dev_err(hdmi->dev, "failed to configure avi infoframe\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	/*
+> +	 * DW HDMI QP IP uses a different byte format from standard AVI info
+> +	 * frames, though generally the bits are in the correct bytes.
+> +	 */
+> +	val = buffer[1] << 8 | buffer[2] << 16;
+> +	dw_hdmi_qp_write(hdmi, val, PKT_AVI_CONTENTS0);
+> +
+> +	for (i = 0; i < 4; i++) {
+> +		for (j = 0; j < 4; j++) {
+> +			if (i * 4 + j >= 14)
+> +				break;
+> +			if (!j)
+> +				val = buffer[i * 4 + j + 3];
+> +			val |= buffer[i * 4 + j + 3] << (8 * j);
+> +		}
+> +
+> +		dw_hdmi_qp_write(hdmi, val, PKT_AVI_CONTENTS1 + i * 4);
+> +	}
+> +
+> +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_AVI_FIELDRATE, PKTSCHED_PKT_CONFIG1);
+> +
+> +	dw_hdmi_qp_mod(hdmi, PKTSCHED_AVI_TX_EN | PKTSCHED_GCP_TX_EN,
+> +		       PKTSCHED_AVI_TX_EN | PKTSCHED_GCP_TX_EN, PKTSCHED_PKT_EN);
+> +
+> +	return 0;
+> +}
+> +
+> +static int dw_hdmi_qp_config_drm_infoframe(struct dw_hdmi_qp *hdmi,
+> +					   const u8 *buffer, size_t len)
+> +{
+> +	u32 val, i;
+> +
+> +	if (len != HDMI_INFOFRAME_SIZE(DRM)) {
+> +		dev_err(hdmi->dev, "failed to configure drm infoframe\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_DRMI_TX_EN, PKTSCHED_PKT_EN);
+> +
+> +	val = buffer[1] << 8 | buffer[2] << 16;
+> +	dw_hdmi_qp_write(hdmi, val, PKT_DRMI_CONTENTS0);
+> +
+> +	for (i = 0; i <= buffer[2]; i++) {
+> +		if (i % 4 == 0)
+> +			val = buffer[3 + i];
+> +		val |= buffer[3 + i] << ((i % 4) * 8);
+> +
+> +		if ((i % 4 == 3) || i == buffer[2])
+> +			dw_hdmi_qp_write(hdmi, val,
+> +					 PKT_DRMI_CONTENTS1 + ((i / 4) * 4));
+> +	}
+> +
+> +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_DRMI_FIELDRATE, PKTSCHED_PKT_CONFIG1);
+> +	dw_hdmi_qp_mod(hdmi, PKTSCHED_DRMI_TX_EN, PKTSCHED_DRMI_TX_EN,
+> +		       PKTSCHED_PKT_EN);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Static values documented in the TRM
+> + * Different values are only used for debug purposes
+> + */
+> +#define DW_HDMI_QP_AUDIO_INFOFRAME_HB1	0x1
+> +#define DW_HDMI_QP_AUDIO_INFOFRAME_HB2	0xa
+> +
+> +static int dw_hdmi_qp_config_audio_infoframe(struct dw_hdmi_qp *hdmi,
+> +					     const u8 *buffer, size_t len)
+> +{
+> +	/*
+> +	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
+> +	 * AUDI_CONTENTS1: { PB3, PB2, PB1, PB0 }
+> +	 * AUDI_CONTENTS2: { PB7, PB6, PB5, PB4 }
+> +	 *
+> +	 * PB0: CheckSum
+> +	 * PB1: | CT3    | CT2  | CT1  | CT0  | F13  | CC2 | CC1 | CC0 |
+> +	 * PB2: | F27    | F26  | F25  | SF2  | SF1  | SF0 | SS1 | SS0 |
+> +	 * PB3: | F37    | F36  | F35  | F34  | F33  | F32 | F31 | F30 |
+> +	 * PB4: | CA7    | CA6  | CA5  | CA4  | CA3  | CA2 | CA1 | CA0 |
+> +	 * PB5: | DM_INH | LSV3 | LSV2 | LSV1 | LSV0 | F52 | F51 | F50 |
+> +	 * PB6~PB10: Reserved
+> +	 *
+> +	 * AUDI_CONTENTS0 default value defined by HDMI specification,
+> +	 * and shall only be changed for debug purposes.
+> +	 */
+> +	u32 header_bytes = (DW_HDMI_QP_AUDIO_INFOFRAME_HB1 << 8) |
+> +			  (DW_HDMI_QP_AUDIO_INFOFRAME_HB2 << 16);
+> +
+> +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS0, &header_bytes, 1);
+> +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS1, &buffer[3], 1);
+> +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS2, &buffer[4], 1);
+> +
+> +	/* Enable ACR, AUDI, AMD */
+> +	dw_hdmi_qp_mod(hdmi,
+> +		       PKTSCHED_ACR_TX_EN | PKTSCHED_AUDI_TX_EN | PKTSCHED_AMD_TX_EN,
+> +		       PKTSCHED_ACR_TX_EN | PKTSCHED_AUDI_TX_EN | PKTSCHED_AMD_TX_EN,
+> +		       PKTSCHED_PKT_EN);
+> +
+> +	/* Enable AUDS */
+> +	dw_hdmi_qp_mod(hdmi, PKTSCHED_AUDS_TX_EN, PKTSCHED_AUDS_TX_EN, PKTSCHED_PKT_EN);
+> +
+> +	return 0;
+> +}
 
-Tried to git cherry-pick the fixes but that proved to be difficult to
-do cleanly.
+Something's wrong with this patch as all the functions above have been dropped
+since the HDMI VSI & SPD InfoFrames series [1] got merged.  The previous
+revision was fine though, hence that's likely an unexpected artifact of the
+latest rebase.
 
-I see 6.6 also has these two commits.
-
-Not sure what the proper procedure is to request reverts on stable
-kernels.
-
-Rosen Penev (2):
-  Revert "drm/amd/pm: Disable MCLK switching on SI at high pixel clocks"
-  Revert "drm/amd/pm: Disable SCLK switching on Oland with high pixel
-    clocks (v3)"
-
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c | 36 ----------------------
- 1 file changed, 36 deletions(-)
-
---
-2.53.0
-
+[1] https://lore.kernel.org/all/20260129-dw-hdmi-qp-iframe-v2-0-0157ad05232c@collabora.com/
