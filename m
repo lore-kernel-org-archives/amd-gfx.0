@@ -4,99 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98747C61DC4
-	for <amd-gfx@archiver.kernel.org>; Sat, 21 Feb 2026 07:10:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AADFC624A1
+	for <amd-gfx@archiver.kernel.org>; Sun, 22 Feb 2026 01:32:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D62F10E164;
-	Sat, 21 Feb 2026 07:10:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A0D110E0D5;
+	Sun, 22 Feb 2026 01:32:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="g7Z7HgND";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="lfAZCn4v";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62C9F10E164
- for <amd-gfx@lists.freedesktop.org>; Sat, 21 Feb 2026 07:09:59 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61L4tZiM2261658; Sat, 21 Feb 2026 07:09:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=nHuW8BA17L57unX6w
- jDsnsG0Yun2KSjyEBlyfR6DU1c=; b=g7Z7HgND7c9Mxk8kOqZ5RjmdLKj8nfvxa
- wJlY45d2ZBVSKj02yybynEONdJdJyYUvm1lDoX3GvHwTBkk9enJerRAHSPW9yjLA
- 6XgU9Pq2FVDvkmZKwldx3ZMjPqZA7ewgLtP856sKmhnX66AAjVPqhWcK0UsSyooK
- AW8qSKiCsUhheK/BQ3Hxajdzj4eJWdcjs8jNRxCyVqF5AZ97X0xXXfI5AA9FxlPO
- qGv3i4dslFKFJlifgQVeCzORljmyWRmpE33HrwmmrvFwiHl35QbZVM8QYI59KeZP
- 0etn80w93UyddUFmeaCmIV/mYrd4FxQh5GS+aUiFdP4aPAKr2SHvg==
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4cf4e30f9m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 21 Feb 2026 07:09:57 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 61L0aJog015679;
- Sat, 21 Feb 2026 07:09:56 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ccb45kb11-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 21 Feb 2026 07:09:56 +0000
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
- [10.20.54.104])
- by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 61L79qnO31261052
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 21 Feb 2026 07:09:52 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 346B220043;
- Sat, 21 Feb 2026 07:09:52 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 071E120040;
- Sat, 21 Feb 2026 07:09:50 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.in.ibm.com (unknown
- [9.109.215.162])
- by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Sat, 21 Feb 2026 07:09:49 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34AC010E0D5;
+ Sun, 22 Feb 2026 01:32:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1771723954; x=1803259954;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=UMNWWmO9D8kkiPDFflHPNwSITBCK2gfU+KYNvblhz6k=;
+ b=lfAZCn4vlJ6drG9VlZPnNU5CS97s90yCP/2ovdN2nZkRn81Adf7ZSjSK
+ 4buplM5K8BgpD2spSOa+HNhni+rK5R92QhBwOoisK0jMTE7E7kuSQ3UAQ
+ xNtjKMu46H3MejHI3o9jtTxJU+iZ6WF9JwHwNx28xKzeLcNpnukSqTjRS
+ LSY8Bd2kUMI6gEUH4G0Qbkpo4IgJ5dxih7wtK2wJXgSHwj3no6b0X+yGA
+ AXEd5r9NG+u/Os/v8+/hZLK3mpsLWuSlptBtj2pQPueFsrTERdV4HGTym
+ sRQdcETd5lf/ZDqUpf8AA7PM//+a1LJCkuE0W5qN0DpDf5zCVlWH36gyl Q==;
+X-CSE-ConnectionGUID: 1vdGMfKcSjunXZz9LJ/Psw==
+X-CSE-MsgGUID: tZ/zPf6fSQ6mDf/Q2M+QOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11708"; a="84126466"
+X-IronPort-AV: E=Sophos;i="6.21,304,1763452800"; d="scan'208";a="84126466"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Feb 2026 17:32:33 -0800
+X-CSE-ConnectionGUID: cEYGtZoQRZCqkcLdRr5W/A==
+X-CSE-MsgGUID: /iycV2yyQmmSDgu1elp/kQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,304,1763452800"; d="scan'208";a="214171076"
+Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
+ by fmviesa008.fm.intel.com with ESMTP; 21 Feb 2026 17:32:28 -0800
+Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vtyKf-000000015HY-3QBK;
+ Sun, 22 Feb 2026 01:32:25 +0000
+Date: Sun, 22 Feb 2026 09:32:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Hamza Mahfooz <someguy@effective-light.com>,
+ dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Hamza Mahfooz <someguy@effective-light.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>, donettom@linux.ibm.com
-Subject: [RFC PATCH v3 6/6] drm/amdkfd: Fix queue preemption/eviction failures
- by aligning control stack size to GPU page size
-Date: Sat, 21 Feb 2026 12:39:24 +0530
-Message-ID: <cec6ef1a985431ca3c44ee0dc63729c593919687.1771656655.git.donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <cover.1771656655.git.donettom@linux.ibm.com>
-References: <cover.1771656655.git.donettom@linux.ibm.com>
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Alex Hung <alex.hung@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Ivan Lipski <ivan.lipski@amd.com>,
+ Dominik Kaszewski <dominik.kaszewski@amd.com>,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] drm/amd/display: add vendor specific reset
+Message-ID: <202602220950.2iCpIKFc-lkp@intel.com>
+References: <20260220171518.711594-2-someguy@effective-light.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=XMs9iAhE c=1 sm=1 tr=0 ts=69995a45 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=HzLeVaNsDn8A:10 a=VkNPw1HP01LnGYTKEx00:22 a=Mpw57Om8IfrbqaoTuvik:22
- a=GgsMoib0sEa3-_RKJdDe:22 a=VnNF1IyMAAAA:8 a=5xC4zRIfMAlGsE5dwogA:9
-X-Proofpoint-GUID: 9ok-0fshKqzN6rS_K6e0Y8_-LQOweCVV
-X-Proofpoint-ORIG-GUID: -x2LU1F_9bJD6xsB2uXDI6MgeaiTS5lA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjIxMDA3MyBTYWx0ZWRfX4uMotyDkjA9v
- bEiWM9MgbESGQ5E9gJjU+k53LIn+YqmRKFhrmEwoHcnZHqgvgCIy6spIcC60GUgAUrG0N9UDaAg
- p4eZVDOIPJcn2TENt9Kh5exnsyQGSO/CJKcO46drnXd94NPBptY1KScxdp/WGiHSXmNSQbaSwlt
- 8PY6ARNYfeXmLosRZABCYQIlrzlxHubJ0WuyTjQ9DRkOuINBS3WuENPtAzHqfys08p4fh3ZGIfU
- uoQNEC9R1MH065kN21+0yNR+V5xa9Xkq/C1X5qKmV5cAFjNCvbuh9voilojm4DHEng5sZfL3neM
- gpYUUHsep5hS9PTbEI9UDapuPSLUi1nOmtH0IbgR2Oa6UailqP3wABunAEAXaFMRc/SUP1uhhYT
- gLYtVjZ2eFa2gUNOURb6eiX+wlprcbgty8sY3sHIFZw4xefcBpGB5uczGmwd025b0l4XCTnrTn0
- vG177BwNhom6tYV/0aA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-21_01,2026-02-20_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0
- clxscore=1015 adultscore=0 spamscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602210073
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260220171518.711594-2-someguy@effective-light.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,66 +85,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The control stack size is calculated based on the number of CUs and
-waves, and is then aligned to PAGE_SIZE. When the resulting control
-stack size is aligned to 64 KB, GPU hangs and queue preemption
-failures are observed while running RCCL unit tests on systems with
-more than two GPUs.
+Hi Hamza,
 
-amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
-doorbell_id: 80030008
-amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
-amdgpu 0048:0f:00.0: amdgpu: GPU reset begin!. Source: 4
-amdgpu 0048:0f:00.0: amdgpu: Queue preemption failed for queue with
-doorbell_id: 80030008
-amdgpu 0048:0f:00.0: amdgpu: Failed to evict process queues
-amdgpu 0048:0f:00.0: amdgpu: Failed to restore process queues
+kernel test robot noticed the following build warnings:
 
-This issue is observed on both 4 KB and 64 KB system page-size
-configurations.
+[auto build test WARNING on drm-misc/drm-misc-next]
+[also build test WARNING on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v6.19 next-20260220]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-This patch fixes the issue by aligning the control stack size to
-AMDGPU_GPU_PAGE_SIZE instead of PAGE_SIZE, so the control stack size
-will not be 64 KB on systems with a 64 KB page size and queue
-preemption works correctly.
+url:    https://github.com/intel-lab-lkp/linux/commits/Hamza-Mahfooz/drm-amd-display-add-vendor-specific-reset/20260221-011745
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260220171518.711594-2-someguy%40effective-light.com
+patch subject: [PATCH v4 2/2] drm/amd/display: add vendor specific reset
+config: x86_64-randconfig-072-20260221 (https://download.01.org/0day-ci/archive/20260222/202602220950.2iCpIKFc-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260222/202602220950.2iCpIKFc-lkp@intel.com/reproduce)
 
-Additionally, In the current code, wg_data_size is aligned to PAGE_SIZE,
-which can waste memory if the system page size is large. In this patch,
-wg_data_size is aligned to AMDGPU_GPU_PAGE_SIZE. The cwsr_size, calculated
-from wg_data_size and the control stack size, is aligned to PAGE_SIZE.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202602220950.2iCpIKFc-lkp@intel.com/
 
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+All warnings (new ones prefixed by >>):
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index 572b21e39e83..9d4838461168 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -492,10 +492,11 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
- 	cu_num = props->simd_count / props->simd_per_cu / NUM_XCC(dev->gpu->xcc_mask);
- 	wave_num = get_num_waves(props, gfxv, cu_num);
- 
--	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props), PAGE_SIZE);
-+	wg_data_size = ALIGN(cu_num * WG_CONTEXT_DATA_SIZE_PER_CU(gfxv, props),
-+				AMDGPU_GPU_PAGE_SIZE);
- 	ctl_stack_size = wave_num * CNTL_STACK_BYTES_PER_WAVE(gfxv) + 8;
- 	ctl_stack_size = ALIGN(SIZEOF_HSA_USER_CONTEXT_SAVE_AREA_HEADER + ctl_stack_size,
--			       PAGE_SIZE);
-+			       AMDGPU_GPU_PAGE_SIZE);
- 
- 	if ((gfxv / 10000 * 10000) == 100000) {
- 		/* HW design limits control stack size to 0x7000.
-@@ -507,7 +508,7 @@ void kfd_queue_ctx_save_restore_size(struct kfd_topology_device *dev)
- 
- 	props->ctl_stack_size = ctl_stack_size;
- 	props->debug_memory_size = ALIGN(wave_num * DEBUGGER_BYTES_PER_WAVE, DEBUGGER_BYTES_ALIGN);
--	props->cwsr_size = ctl_stack_size + wg_data_size;
-+	props->cwsr_size = ALIGN(ctl_stack_size + wg_data_size, PAGE_SIZE);
- 
- 	if (gfxv == 80002)	/* GFX_VERSION_TONGA */
- 		props->eop_buffer_size = 0x8000;
+>> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:11143:8: warning: variable 'acrtc' is uninitialized when used here [-Wuninitialized]
+    11143 |                         if (acrtc->event) {
+          |                             ^~~~~
+   drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:10875:27: note: initialize the variable 'acrtc' to silence this warning
+    10875 |         struct amdgpu_crtc *acrtc;
+          |                                  ^
+          |                                   = NULL
+   1 warning generated.
+
+
+vim +/acrtc +11143 drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c
+
+ 11021	
+ 11022			if (new_crtc_state->active &&
+ 11023			    (!old_crtc_state->active ||
+ 11024			     drm_atomic_crtc_needs_modeset(new_crtc_state))) {
+ 11025				dc_stream_retain(dm_new_crtc_state->stream);
+ 11026				acrtc->dm_irq_params.stream = dm_new_crtc_state->stream;
+ 11027				manage_dm_interrupts(adev, acrtc, dm_new_crtc_state);
+ 11028			}
+ 11029			/* Handle vrr on->off / off->on transitions */
+ 11030			amdgpu_dm_handle_vrr_transition(dm_old_crtc_state, dm_new_crtc_state);
+ 11031	
+ 11032	#ifdef CONFIG_DEBUG_FS
+ 11033			if (new_crtc_state->active &&
+ 11034			    (!old_crtc_state->active ||
+ 11035			     drm_atomic_crtc_needs_modeset(new_crtc_state))) {
+ 11036				/**
+ 11037				 * Frontend may have changed so reapply the CRC capture
+ 11038				 * settings for the stream.
+ 11039				 */
+ 11040				if (amdgpu_dm_is_valid_crc_source(cur_crc_src)) {
+ 11041	#if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ 11042					if (amdgpu_dm_crc_window_is_activated(crtc)) {
+ 11043						uint8_t cnt;
+ 11044	
+ 11045						spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
+ 11046						for (cnt = 0; cnt < MAX_CRC_WINDOW_NUM; cnt++) {
+ 11047							if (acrtc->dm_irq_params.window_param[cnt].enable) {
+ 11048								acrtc->dm_irq_params.window_param[cnt].update_win = true;
+ 11049	
+ 11050								/**
+ 11051								 * It takes 2 frames for HW to stably generate CRC when
+ 11052								 * resuming from suspend, so we set skip_frame_cnt 2.
+ 11053								 */
+ 11054								acrtc->dm_irq_params.window_param[cnt].skip_frame_cnt = 2;
+ 11055							}
+ 11056						}
+ 11057						spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
+ 11058					}
+ 11059	#endif
+ 11060					if (amdgpu_dm_crtc_configure_crc_source(
+ 11061						crtc, dm_new_crtc_state, cur_crc_src))
+ 11062						drm_dbg_atomic(dev, "Failed to configure crc source");
+ 11063				}
+ 11064			}
+ 11065	#endif
+ 11066		}
+ 11067	
+ 11068		for_each_new_crtc_in_state(state, crtc, new_crtc_state, j)
+ 11069			if (new_crtc_state->async_flip)
+ 11070				wait_for_vblank = false;
+ 11071	
+ 11072		/* update planes when needed per crtc*/
+ 11073		for_each_new_crtc_in_state(state, crtc, new_crtc_state, j) {
+ 11074			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 11075	
+ 11076			if (dm_new_crtc_state->stream)
+ 11077				amdgpu_dm_commit_planes(state, dev, dm, crtc, wait_for_vblank);
+ 11078		}
+ 11079	
+ 11080		/* Enable writeback */
+ 11081		for_each_new_connector_in_state(state, connector, new_con_state, i) {
+ 11082			struct dm_connector_state *dm_new_con_state = to_dm_connector_state(new_con_state);
+ 11083			struct amdgpu_crtc *acrtc = to_amdgpu_crtc(dm_new_con_state->base.crtc);
+ 11084	
+ 11085			if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
+ 11086				continue;
+ 11087	
+ 11088			if (!new_con_state->writeback_job)
+ 11089				continue;
+ 11090	
+ 11091			new_crtc_state = drm_atomic_get_new_crtc_state(state, &acrtc->base);
+ 11092	
+ 11093			if (!new_crtc_state)
+ 11094				continue;
+ 11095	
+ 11096			if (acrtc->wb_enabled)
+ 11097				continue;
+ 11098	
+ 11099			dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 11100	
+ 11101			dm_set_writeback(dm, dm_new_crtc_state, connector, new_con_state);
+ 11102			acrtc->wb_enabled = true;
+ 11103		}
+ 11104	
+ 11105		/* Update audio instances for each connector. */
+ 11106		amdgpu_dm_commit_audio(dev, state);
+ 11107	
+ 11108		/* restore the backlight level */
+ 11109		for (i = 0; i < dm->num_of_edps; i++) {
+ 11110			if (dm->backlight_dev[i] &&
+ 11111			    (dm->actual_brightness[i] != dm->brightness[i]))
+ 11112				amdgpu_dm_backlight_set_level(dm, i, dm->brightness[i]);
+ 11113		}
+ 11114	
+ 11115		/*
+ 11116		 * send vblank event on all events not handled in flip and
+ 11117		 * mark consumed event for drm_atomic_helper_commit_hw_done
+ 11118		 */
+ 11119		spin_lock_irqsave(&adev_to_drm(adev)->event_lock, flags);
+ 11120		for_each_new_crtc_in_state(state, crtc, new_crtc_state, i) {
+ 11121	
+ 11122			if (new_crtc_state->event)
+ 11123				drm_send_event_locked(dev, &new_crtc_state->event->base);
+ 11124	
+ 11125			new_crtc_state->event = NULL;
+ 11126		}
+ 11127		spin_unlock_irqrestore(&adev_to_drm(adev)->event_lock, flags);
+ 11128	
+ 11129		/* Signal HW programming completion */
+ 11130		drm_atomic_helper_commit_hw_done(state);
+ 11131	
+ 11132		if (wait_for_vblank &&
+ 11133		    drm_atomic_helper_wait_for_flip_done(dev, state)) {
+ 11134			mutex_lock(&dm->dc_lock);
+ 11135			if (dm_dmub_hw_init(adev))
+ 11136				drm_dev_wedged_event(dev, DRM_WEDGE_RECOVERY_REBIND |
+ 11137						     DRM_WEDGE_RECOVERY_BUS_RESET,
+ 11138						     NULL);
+ 11139			mutex_unlock(&dm->dc_lock);
+ 11140	
+ 11141			spin_lock_irqsave(&dev->event_lock, flags);
+ 11142			drm_for_each_crtc(crtc, dev) {
+ 11143				if (acrtc->event) {
+ 11144					drm_crtc_send_vblank_event(crtc, acrtc->event);
+ 11145					acrtc->event = NULL;
+ 11146					drm_crtc_vblank_put(crtc);
+ 11147					acrtc->pflip_status = AMDGPU_FLIP_NONE;
+ 11148				}
+ 11149			}
+ 11150			spin_unlock_irqrestore(&dev->event_lock, flags);
+ 11151		}
+ 11152	
+ 11153		drm_atomic_helper_cleanup_planes(dev, state);
+ 11154	
+ 11155		/* Don't free the memory if we are hitting this as part of suspend.
+ 11156		 * This way we don't free any memory during suspend; see
+ 11157		 * amdgpu_bo_free_kernel().  The memory will be freed in the first
+ 11158		 * non-suspend modeset or when the driver is torn down.
+ 11159		 */
+ 11160		if (!adev->in_suspend) {
+ 11161			/* return the stolen vga memory back to VRAM */
+ 11162			if (!adev->mman.keep_stolen_vga_memory)
+ 11163				amdgpu_bo_free_kernel(&adev->mman.stolen_vga_memory, NULL, NULL);
+ 11164			amdgpu_bo_free_kernel(&adev->mman.stolen_extended_memory, NULL, NULL);
+ 11165		}
+ 11166	
+ 11167		/*
+ 11168		 * Finally, drop a runtime PM reference for each newly disabled CRTC,
+ 11169		 * so we can put the GPU into runtime suspend if we're not driving any
+ 11170		 * displays anymore
+ 11171		 */
+ 11172		for (i = 0; i < crtc_disable_count; i++)
+ 11173			pm_runtime_put_autosuspend(dev->dev);
+ 11174		pm_runtime_mark_last_busy(dev->dev);
+ 11175	
+ 11176		trace_amdgpu_dm_atomic_commit_tail_finish(state);
+ 11177	}
+ 11178	
+
 -- 
-2.52.0
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
