@@ -4,17 +4,17 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2137EA4FAE
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 12:41:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01D94EA4FAE
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 12:42:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 463DA10E390;
-	Mon, 23 Feb 2026 12:41:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9524510E398;
+	Mon, 23 Feb 2026 12:42:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MsUcDV7E";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="MKe3Q6hK";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21AB110E382
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 12:41:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45F3710E38E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 12:41:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
@@ -22,24 +22,24 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=64zQje8HQ2bC3nTNb40nw60Ch4w5bLuGu90/LuzA7y4=; b=MsUcDV7EU36D7cYHsxzzwEUARD
- eC8GcEyfl3VrrZZ2cp/w4vp+DMDb1cM7/Dd/f8oXiA26WJ57ppO4a44o2Wx0Sl84NujIHR4tGABNw
- haze9xbI4zHADS2T1xMMhKENMqXplCMoOZz4COZcN2Y6UWd+Vq+Gg4nkN1vhqydUMdR73T/J6R3ml
- gRgQaUEnjKlv+LSfV4i94Fd2d4QPpfrQLRYIjSY+MWGDDFF+awwJ6k55Z6gkmllupNqnsJQC251Be
- pb94FuWhRKXib3LcQmDgxckr0ENRQvyy6n3g0sRj2ZjCaTl8CnwoA/FnzHIbRmO+hiRMGonJHBkGx
- PFnabPWw==;
+ bh=elohd8CHo20brlbaUdw+aCDYCZp0EKT3AzS1BMYGrck=; b=MKe3Q6hKlPWrh8QhR/u8HoQ+f/
+ 9s45zIrDWdQ7CRz6bZJ0Ghc9qbtt2wnmo4FY6ViynJ6fcj5eSwoCOjPxR28ZRKBRGtxUd/FzFndLD
+ +cF86B7+r8yPPiXaE9FXuxDPrfaP1zaQZ1q5vRZXsUa2PdX1lAxVpbZTyKnx/f/8FDl750kDVtger
+ hqjtDStWp5fEmJqCsJbDlyTh28pMaFEUfMZJkmBHCoNSnsp/Wvx5lwC2k6tweENzVoxi/IUNQ19BQ
+ yC2YGugAkXp5wcUT/TQ/tytPZ/cHyDgPqp7foZBukaJ2p0pr8Nhwun9MJ+Iv6z9CbSlM/fBaDGrJy
+ i+J4YN2Q==;
 Received: from [90.240.106.137] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1vuVG5-004EKz-Du; Mon, 23 Feb 2026 13:41:53 +0100
+ id 1vuVG7-004ELP-IC; Mon, 23 Feb 2026 13:41:55 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: Sunil Khatri <sunil.khatri@amd.com>, kernel-dev@igalia.com,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v2 09/12] drm/amdgpu/userq: No need to xa_erase before
- destroying the xarray
-Date: Mon, 23 Feb 2026 12:41:38 +0000
-Message-ID: <20260223124141.10641-10-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v2 12/12] drm/amdgpu/userq: Drop redundant conditional from
+ the irq path
+Date: Mon, 23 Feb 2026 12:41:41 +0000
+Message-ID: <20260223124141.10641-13-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260223124141.10641-1-tvrtko.ursulin@igalia.com>
 References: <20260223124141.10641-1-tvrtko.ursulin@igalia.com>
@@ -59,30 +59,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-xa_destroy will free all internal xarray memory so no need to do it
-manually.
+amdgpu_userq_fence_driver_process callers always pass in valid fence_drv
+so the function itself does not have to do it.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index a136289103a9..e8389dab8444 100644
+index 1328fd87c10e..3d591fa99dce 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -130,11 +130,8 @@ static void amdgpu_userq_walk_and_drop_fence_drv(struct xarray *xa)
- 		return;
+@@ -151,9 +151,6 @@ void amdgpu_userq_fence_driver_process(struct amdgpu_userq_fence_driver *fence_d
+ 	u64 rptr;
+ 	int i;
  
- 	xa_lock(xa);
--	xa_for_each(xa, index, fence_drv) {
--		__xa_erase(xa, index);
-+	xa_for_each(xa, index, fence_drv)
- 		amdgpu_userq_fence_driver_put(fence_drv);
--	}
+-	if (!fence_drv)
+-		return;
 -
- 	xa_unlock(xa);
- }
+ 	spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
+ 	rptr = amdgpu_userq_fence_read(fence_drv);
  
 -- 
 2.52.0
