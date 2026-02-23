@@ -4,78 +4,157 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB3BEA4FC2
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3552DEA4FC1
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95CF310E3BE;
-	Mon, 23 Feb 2026 13:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB8B110E2ED;
+	Mon, 23 Feb 2026 13:58:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ey8Oc4N/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="msP0yd43";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B588510E36A;
- Mon, 23 Feb 2026 11:22:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1771845726; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=S2IB7ZD6DSdp0K9Cc0NBmF40o2LhuWVfCMBxDrxcFijbXLcaH0Lyf5O+2kZkLiznNdkANWcE+BWKHonsRq9KrsrbjcrODuvcKSNxIqKHvtuAbvhQuY8SR2HXpfIgKNQxPAR0kwT3+1adyLsr7+PsZ0/XmR6FDUPRTzuOt2Q3rRg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1771845726;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=zE1zLu6pL3uqgPGPzZfTY/83E+cY4Cd10iRFX9/SaOs=; 
- b=Po53vDPX65HL6NClbbr3hhqP5yF7v8feEJRZ4aacu/eltttbeEFv2plJ6LJDIZFQ3ye/Yf/DnnD0kAORtkCD42bluLAxEQFl4MrlEVKBONaQE3/CtleL1546UG23I8FrPP7I7OKil6TwHw40C4Q84Y58qH6kwlEbMoRxjwnYajw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771845726; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=zE1zLu6pL3uqgPGPzZfTY/83E+cY4Cd10iRFX9/SaOs=;
- b=ey8Oc4N/ijwyIwISAsnqyuzxwVpaDXPyWdOQrkVUmuNLUqcBICMAqwTs8Zyvf7Uk
- V3SFa2egcB4yao+jcsR4TTgjiNmrdjggG0klVO2zrceXcT92E/POQQ6LygQdb1+w9tA
- wV1bodCAlzCCpYR9uF+d/exsYpJDZf2sbF9djF+0=
-Received: by mx.zohomail.com with SMTPS id 1771845725129427.58768335061166;
- Mon, 23 Feb 2026 03:22:05 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v8 13/20] drm/bridge: dw-hdmi-qp: Implement
- atomic_get_output_bus_fmts
-Date: Mon, 23 Feb 2026 12:21:56 +0100
-Message-ID: <5968719.DvuYhMxLoT@workhorse>
-In-Reply-To: <ff7b531a-77c1-4c7d-b09d-47779b640193@collabora.com>
-References: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
- <20260216-color-format-v8-13-5722ce175dd5@collabora.com>
- <ff7b531a-77c1-4c7d-b09d-47779b640193@collabora.com>
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013070.outbound.protection.outlook.com
+ [40.93.201.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D892710E2ED
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 13:58:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KWlkIvSJ9zVR4WUKKx8rDlJrIFfLj9F5fD8x0nOLF0Lt7SFYU2E5UpAlvsioMJcdUFDErAM93HBLRpr7Dpdg42VlZny0qdPslQ6z+FSe9eJQiqbt3jtt7WxPFF9+9RnTuV/4lJ8+UqtiNGoybJvfEtQPnJbUeGumQHkEJHybY+mY4CVTC5OU9pNn1i37cafz14VfWA1z+S/2vXZ3Nfq+XalYNhCaMvf7n5WWjBuRYW7Dkwqa8xhN8D8nOJTrFTocMh1TMS+PiTyB27EcbLyP7IwlTTwgOnuAFh4aowQw4lPNKwRo+T1CWuM5H/qvedDhCoDmZTaO/NrIqOq9cwjsLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nd2mkvrfov8SjYsaMwiGI/hlg6FimyJua+RNLEkWVGU=;
+ b=LhcuXoS8HEsrreYwhS7ZpznpybLVh9TCt0mS3h1FY/MWiPcF9YjffvX4RmoA9F44UXS5nc2+rKLYQOkieIyu1WTAdfsXSbRWWxJ52CL6Ocog1ftT+FHbjUufuVSvI9Q7kUrfszwo6tRUcNMAq962glKZHTxZbydMI6sMAksepaYcMbnHunUhHyW/Gwsls/64RhR253k1R335alH0kSMuw4ljXhY3CunULgvFPSV4yN6yievkq5UFNoYoF8XPmqbAIbaT6acbEJKgFax/jq4RodQP0n9gG/xlmdZ/f/6fetf5AaVTIpmB6z8uwXnpbc6Pu+cW89tgaSx8cpgbcVsJwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nd2mkvrfov8SjYsaMwiGI/hlg6FimyJua+RNLEkWVGU=;
+ b=msP0yd43xX9kVdcIkAivG46Qh3iZw0/iZYS4kkaMOl+U5+RLDX0/t/ucj46uCApb6+lAOzrXtPkXQBjFXFEuMoI1qtodkEbJ6pon7WfnaLM4CwiXGJmNXezudZWPN3njH3/LUm3T6dySBb8ni2AnOJ4audoJQNAo14rDzxvXEqY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by IA0PR12MB8304.namprd12.prod.outlook.com (2603:10b6:208:3dc::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.21; Mon, 23 Feb
+ 2026 13:58:46 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9632.017; Mon, 23 Feb 2026
+ 13:58:46 +0000
+Message-ID: <0047be6b-9fd3-4424-8498-cb7aed30f38b@amd.com>
+Date: Mon, 23 Feb 2026 19:28:40 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/12] drm/amdgpu/userq: Use drm_gem_objects_lookup in
+ amdgpu_userq_wait_ioctl
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Cc: Sunil Khatri <sunil.khatri@amd.com>, kernel-dev@igalia.com
+References: <20260223124141.10641-1-tvrtko.ursulin@igalia.com>
+ <20260223124141.10641-6-tvrtko.ursulin@igalia.com>
+Content-Language: en-US
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <20260223124141.10641-6-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0122.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1a7::12) To BL1PR12MB5753.namprd12.prod.outlook.com
+ (2603:10b6:208:390::15)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailman-Approved-At: Mon, 23 Feb 2026 13:54:22 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|IA0PR12MB8304:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ebdc016-aa66-490f-8e6d-08de72e3a94a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|376014|1800799024|7053199007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?eTZhL1VZSHJ4MmVjRklRVHVaVWpjOERPbjBEL1oySWN6Wk8ycFV5Z2tjY1Vh?=
+ =?utf-8?B?V1VoMUhPbVdGalFaWDJMdnVqdE83bjI4TEFpVFVPV01NV2g1bGtyTk9aODBS?=
+ =?utf-8?B?Wkdacm1jYjZ4MWE4YmFVWXlERGhPa0ZuNzJ4bGY0WnlVWWRUMG1vUFBGK09s?=
+ =?utf-8?B?U1Y3SkxEVFBIU2ZZVVVybXJJN3FsSzNsNHQ1bUlrNEpIVWFjTEZqS3BKZ2l0?=
+ =?utf-8?B?b3JHVWZvWEZabVR6V2RYdXZIRSthVXhPUTRXeUIzQzM4L2xBa1NSTWZCWmF6?=
+ =?utf-8?B?REs3RU5KajQ4QitKVGpvMHp0V0J4K3BtYjZUMUF6MHpmOVU3ekkzbTlxV2xu?=
+ =?utf-8?B?MXNuZzMvTTMrMFVWRndhSGdRTFF1UWpzckcyaTloZWgyckUvaWIrSVJ2cmhw?=
+ =?utf-8?B?aGNWMzBRWS9xd0pBNWZUU2ZPaXZ0NTNHRFZndFRENGY0R0NQQlMrTW9weFlu?=
+ =?utf-8?B?a0d1cXJJOHVxcHdNOWpRSmI2T0dDOEw3aVY4S2w4SWlMQW41bXBDc1V6a0dZ?=
+ =?utf-8?B?dktobi80SmJFRFdFRTJxUnppUWFhZ3VqMnVWYThUNTJVNXF6UGpNS0J5QVI4?=
+ =?utf-8?B?a1M2VTlPVy9NUHBOVXAxMFRoVDQ2akx1b3pqS3R3bzJOdkkwelFmK3hUeS80?=
+ =?utf-8?B?eDFpc0xrQk9NbVRmU2VzM3d2bmtSVkNlS0h5Y1NUQjM0S29MZ3JQUisvdlNI?=
+ =?utf-8?B?QmpxdWVpb1dSTGoyT3RwZlk1WElmbW40R0hpVFJIYlFUUFpNK0t4bWFZQnVu?=
+ =?utf-8?B?bUpBeEdka1ZadVdUYkdlM2ZBTWp5R3hpcmpOeWRoQ29KRFViWmhiN0czRWl2?=
+ =?utf-8?B?SDVpSDg1WFFzeW1aYnFyZEc2bGRlaFY0L1hMdFFyaTZGZWFTR2V0dHhqNnBn?=
+ =?utf-8?B?V2lqclVyU2s3Q1E5Y0F5QTFkbU9WN2lXbUxpanZqZWcwUzRuamtYYitnRC8x?=
+ =?utf-8?B?L1JyL2txZ2cva2xZUWM1Z096N29pZjBqTzIvOFR4aXZ6anJ6aFNISmN6Ykwv?=
+ =?utf-8?B?aXVGMGF4VTd6YVlMNmMrSjNodUZjN2ZJc3k0RDQyODJJcUhDRzF4bU1QcTdm?=
+ =?utf-8?B?UUJRNjR6R1hLRTM0MGhVc1QxS2ZNNU4wYzA0UXhyUC9abUQ1TFF4OTdObm4z?=
+ =?utf-8?B?TXVjWjdzM0c2VmU5RlV5UVR6K2VZOGpFUzVKZHE1c05TUGIyOVJPSXd5U1I3?=
+ =?utf-8?B?Z29wejNOWUU0VjBad3hOZFp5Sy9jWDhHMVpmUDJta3BZQmtrVFFGOXMzaVMr?=
+ =?utf-8?B?NlRYYktKQzNHK3dDLzRKMGdQRkg5Nm0wbFozcTNjdlo2czNmY20vd3VSZkxy?=
+ =?utf-8?B?STFWNm5QaUFZVVVoQUIxWXhGRmQxWXFBTEkybU14K1ByRHlkZWhSME9YdjlK?=
+ =?utf-8?B?N2RCMVl3bzZnYVl6Nm9MWkplYnN0NjQvUWF5bmExUXAyUGx1WTJUMzNxU1Br?=
+ =?utf-8?B?cndvT0RibjNvVVZuZmR2M1g1V2lNSS93S3NqbmpuTGN0NSs5cGIveFdKNy9U?=
+ =?utf-8?B?T2tWQ1BBM1U1QmU5bVRGa2ZtZHUzZmorT3BXVFBIemdUY2pyN2J1YlNhdXVy?=
+ =?utf-8?B?TjJaOXNETVdlbm5CTVgydUV2ZjJmSmdsQW1xeFR6Qk1ZK3Q1MVZPUnl5WDNT?=
+ =?utf-8?B?TGk5SUtxanRZMWt5VDB0bmh4WTl1UEtnRDdNaGRNaGc4TVV1ZE5paXRpUEh5?=
+ =?utf-8?B?K1RYWUkrWFlJOU15TEJHVlg2amI0Um1nd05zR0tnM0lDWmw0bU12NVd4V2Q5?=
+ =?utf-8?B?ZFo0ZjFGQzV5cnh1SUpxbk5GSkgxTVBHeWc2eHFTeWY1ano5c2NmK0NPVnZt?=
+ =?utf-8?B?Y0Q4OVJDWklRMDRqQnhJamZNWDRpMEJ3TGZiVDhGNjNXcUZnOEhnZVlvMGhx?=
+ =?utf-8?B?ZFV5K0lDRXBtNk5CQ1VtU3cxUDdOc0lZZXd3R0htSUZmMlZzQklMUElMeFJB?=
+ =?utf-8?B?SGdjbnNTeG9lemEzckkxeERiVzVWaU9vOVBieGhPVkxnY1RFSGJIcFJrUDNa?=
+ =?utf-8?B?R3J2RU1zUXhMTE5jV2xLVWhDcURkS29EZjFHcW5nTTNwNmVicUQwa3VSdzlO?=
+ =?utf-8?B?WFZURHFUZnZRMngzL3Q1aFQ3c2hqYi9hRnRCSTFLUVlYczFOVElBWmJSaUJS?=
+ =?utf-8?Q?FvXI=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(7053199007); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGdCaVd4aCtJVHcrZGdZQVlGMUVxNGNBK2w0bklqVlgxVHdDQjhaS1dUS25O?=
+ =?utf-8?B?ZkRwVi9Lc1ZtRG1hUHhGODhwbFN1OVp0VmFhQ2IxWmV1bXYxTng1TTlIS1dF?=
+ =?utf-8?B?K2ovLzdGank1Y25wMXdtekx4RzlFNndTRmlQYk1uRkNldElqcmFVYngyK2w5?=
+ =?utf-8?B?Nk5CdE45bllpZVQvYzVRc3NGSmc5N2VJQTQ4eTc1REdwN0pmaWhIS2FCMC9m?=
+ =?utf-8?B?Q2dTZHFvNkN3RzB2NjloS0RHZTRYSnFEc0pTSHJza2ZOakRGemp5bEJwTHM1?=
+ =?utf-8?B?TzIyMHZkNjNHakExSUh5TENYWXlXNU9YY01sOVZZcDZiQmIxTy9iLzErRWFD?=
+ =?utf-8?B?T28yMFh2VjN0Qi9DSDREVnV6ZDBpeEZLbE5CWWpiN1ZzTXZQZi9wQzE5ME5q?=
+ =?utf-8?B?YW5oYmNsYUEzUXViVVpWcG1TUFFjQXlVRXJISmZDcWRWTWRPellFenhTVGtF?=
+ =?utf-8?B?OHUrakpuekQyOUlXRHhtZTN2N1p2L3FvcHFhRUE0cFNVUVc2NlFGLzQvcDB6?=
+ =?utf-8?B?R0hwYkNGd1JuZmlpbHNnLzQ3YVlOdVN1UDR3NU84Umc1Tm5PQjlOaG9DTVBV?=
+ =?utf-8?B?RWU5ZnAvYWNMYTI5TlBsVFNUSi94MnQ0TGZMUStpWWI4SHFMMDJHMU9JaFhn?=
+ =?utf-8?B?ejUxaDRya3NoOUhqZDdpdzJkMWVOaGJTbWROZDhuaGxWdHBYOVRISkVXNElz?=
+ =?utf-8?B?bWoraldNeTFRRUtubFR1UXVVMzUyYU51ZmVIZUtyVFBLY1p1N2trbFNLQkhW?=
+ =?utf-8?B?QW9JT2FxMmhIdWVVMDQyamRjMXBMTmRFTitsWHhyWGlMRno0Uk5kT0FMNllM?=
+ =?utf-8?B?THpDaXhtbWFpYys5SVVQU1drYlJ0WW1uZUt5K241S0dkdkxVZ3pnN0lKM0Nv?=
+ =?utf-8?B?dzg5TWRQcnpDQjVhTTVmcmNFRUlJSllqUGxYWE5YUG1yU0FpczM0R0tFRHBh?=
+ =?utf-8?B?aHBvK1hIZlcrQ2s3M2kwT3dPSzBtYkJOOFZtYlVWbzF6alJtY01pVDFPbFM3?=
+ =?utf-8?B?UDFwZTFiY1lDQWRnVEpUakR3SStlRHc0U3dIaWVjMHJ4VUo0TkUwVXlCaG5X?=
+ =?utf-8?B?eWJEWUJqYk9oTXlpQndzL29Zd1UzaThKZWVOQ3UrQ29NVm5FS29uZWtnOGlz?=
+ =?utf-8?B?UjFmcGRBMjQxdzdiMTFnSTRLNU5wK015SWo4M3l5UTJPTlZyNnNxS1p5K1NP?=
+ =?utf-8?B?ZDFUSTRRZ1hySnV1dm15VUhXWG5ycVg4VnpuRWJaY0VHcVZFODdWSjU0b293?=
+ =?utf-8?B?Wm43UEQ1bllkQVlyTG1DeE90RUxJazNGYTljRjhET2hnWmoxVGJ0SEFodW5P?=
+ =?utf-8?B?dk0vbXhPeWtMM2FOZ2d2L3VXTUs4Z2p4SHEzQ3hUWGgwRG1vajZxOENyQ2hR?=
+ =?utf-8?B?T0JBYlZaQzZwdUx1OG1NWVlDUm03OGtvWUkxVWZ2dldEV2RhL25LWENTd3Q3?=
+ =?utf-8?B?b0U2ZDRLQnFSaklpZXJaS29yOUt3Q2hjZElOZVpPMWIvL01kTC9HNnRlSW02?=
+ =?utf-8?B?VnZESjlvV2FzcW9zNy9oc0Q0SGNYSEViNnJIMEpLMStKUnJhZnVpR1A4YmF6?=
+ =?utf-8?B?dks0VW5qVU8wRGZPbTVvcExXRU9venpuUlVEMmpsdVlQZmZXcGY0aTkvWTlH?=
+ =?utf-8?B?V0pGQlgzVCtMc09iSjFIZUlDaktPS3ZFdmRFcDRGMkwzcERDODk0YjBGUXpX?=
+ =?utf-8?B?Qno5cTRjck5DcmhDRjB4R2lYS21xaDNIZ3ZRbHV5T01aNjN4ZjdWaUpaWEts?=
+ =?utf-8?B?SVNiOTBmbW11VFplMlVHNWgrS2VzeGJvWDRsUnk1bmtGbWltOVVqYWxLWHI3?=
+ =?utf-8?B?WFFxbkxiY1dyek4yQnQ1OUhHc0FwaXlGNFo1Tmo5bFhkV3VsUnE3ZnNlOUhG?=
+ =?utf-8?B?NEN2Y2ZKUDBlY05ESDhlZmxFdExGV1JaeXdudEE3VEhPSTFZRXBGS2lUbFNO?=
+ =?utf-8?B?VnRvMEljS2tmRkV0VHZBTUk1UnZqczUzS2htL3NHV2xFZmtqYVRmWmNkcjdm?=
+ =?utf-8?B?VjRyNjlaTlo2T0ZENU1Qb3c3V3dOemZhSmpDb01sVDBmT0lzRSsrL0dBRmtk?=
+ =?utf-8?B?QjQxVXhnQWhnZXdWTzNUV1EvVGFoR0w5RFBjem9yanZRNUpTbHFzcnJxQkRw?=
+ =?utf-8?B?aFhDcXhpQVcxOVUyQ1pOS2VuVkNDaWVvRVlRbXBFaEI1bjhOS0p1NXM3L0o0?=
+ =?utf-8?B?MmxIcnhjQmhyOVFIaHZhT1VLVzZsM2pnV0Mvbm9VSnpINGZPUEkycXRUcHQ5?=
+ =?utf-8?B?aFVmcTBYa3djcCtXRlJWaDBpcGl1aEFrV2YyRkRGVGgvc0VyUmNlanFIV1cw?=
+ =?utf-8?B?L3RZZWI2WFE0aEtzMzFlR2J4UnJSN1NST2t5QldJRlA3dys4NUFOQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ebdc016-aa66-490f-8e6d-08de72e3a94a
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2026 13:58:45.9539 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jfQyjxoFbQMpy0MjBGEgTvhcd1RSlhE2h+qGmytFwwrK5RNhpvmvWF/w+ZmrdQ5+60JAczdK6jHH4DgqKyWQNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8304
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,167 +169,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sunday, 22 February 2026 11:42:39 Central European Standard Time Cristian Ciocaltea wrote:
-> Hi Nicolas,
-> 
-> On 2/16/26 3:01 PM, Nicolas Frattaroli wrote:
-> > The atomic_get_output_bus_fmts callback is used by the DRM bridge layer
-> > to recursively select a suitable output format in a bridge chain.
-> > 
-> > As a bridge that outputs to HDMI, dw-hdmi-qp will have its output
-> > formats determined by which formats the platform-specific integration of
-> > the hardware supports, and the chosen HDMI output bit depth.
-> > 
-> > Implement this callback. The returned u32* buffer is supposed to be
-> > freed by the caller of this callback, as specified by the callback's
-> > documentation.
-> > 
-> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > ---
-> >  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 178 +++++++++++++++++++++++++++
-> >  1 file changed, 178 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> > index d649a1cf07f5..4c00218e5fd7 100644
-> > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> > @@ -11,6 +11,7 @@
-> >  #include <linux/export.h>
-> >  #include <linux/i2c.h>
-> >  #include <linux/irq.h>
-> > +#include <linux/media-bus-format.h>
-> >  #include <linux/minmax.h>
-> >  #include <linux/module.h>
-> >  #include <linux/mutex.h>
-> > @@ -749,6 +750,182 @@ static struct i2c_adapter *dw_hdmi_qp_i2c_adapter(struct dw_hdmi_qp *hdmi)
-> >  	return adap;
-> >  }
-> >  
-> > +static int dw_hdmi_qp_config_avi_infoframe(struct dw_hdmi_qp *hdmi,
-> > +					   const u8 *buffer, size_t len)
-> > +{
-> > +	u32 val, i, j;
-> > +
-> > +	if (len != HDMI_INFOFRAME_SIZE(AVI)) {
-> > +		dev_err(hdmi->dev, "failed to configure avi infoframe\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	/*
-> > +	 * DW HDMI QP IP uses a different byte format from standard AVI info
-> > +	 * frames, though generally the bits are in the correct bytes.
-> > +	 */
-> > +	val = buffer[1] << 8 | buffer[2] << 16;
-> > +	dw_hdmi_qp_write(hdmi, val, PKT_AVI_CONTENTS0);
-> > +
-> > +	for (i = 0; i < 4; i++) {
-> > +		for (j = 0; j < 4; j++) {
-> > +			if (i * 4 + j >= 14)
-> > +				break;
-> > +			if (!j)
-> > +				val = buffer[i * 4 + j + 3];
-> > +			val |= buffer[i * 4 + j + 3] << (8 * j);
-> > +		}
-> > +
-> > +		dw_hdmi_qp_write(hdmi, val, PKT_AVI_CONTENTS1 + i * 4);
-> > +	}
-> > +
-> > +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_AVI_FIELDRATE, PKTSCHED_PKT_CONFIG1);
-> > +
-> > +	dw_hdmi_qp_mod(hdmi, PKTSCHED_AVI_TX_EN | PKTSCHED_GCP_TX_EN,
-> > +		       PKTSCHED_AVI_TX_EN | PKTSCHED_GCP_TX_EN, PKTSCHED_PKT_EN);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int dw_hdmi_qp_config_drm_infoframe(struct dw_hdmi_qp *hdmi,
-> > +					   const u8 *buffer, size_t len)
-> > +{
-> > +	u32 val, i;
-> > +
-> > +	if (len != HDMI_INFOFRAME_SIZE(DRM)) {
-> > +		dev_err(hdmi->dev, "failed to configure drm infoframe\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_DRMI_TX_EN, PKTSCHED_PKT_EN);
-> > +
-> > +	val = buffer[1] << 8 | buffer[2] << 16;
-> > +	dw_hdmi_qp_write(hdmi, val, PKT_DRMI_CONTENTS0);
-> > +
-> > +	for (i = 0; i <= buffer[2]; i++) {
-> > +		if (i % 4 == 0)
-> > +			val = buffer[3 + i];
-> > +		val |= buffer[3 + i] << ((i % 4) * 8);
-> > +
-> > +		if ((i % 4 == 3) || i == buffer[2])
-> > +			dw_hdmi_qp_write(hdmi, val,
-> > +					 PKT_DRMI_CONTENTS1 + ((i / 4) * 4));
-> > +	}
-> > +
-> > +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_DRMI_FIELDRATE, PKTSCHED_PKT_CONFIG1);
-> > +	dw_hdmi_qp_mod(hdmi, PKTSCHED_DRMI_TX_EN, PKTSCHED_DRMI_TX_EN,
-> > +		       PKTSCHED_PKT_EN);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +/*
-> > + * Static values documented in the TRM
-> > + * Different values are only used for debug purposes
-> > + */
-> > +#define DW_HDMI_QP_AUDIO_INFOFRAME_HB1	0x1
-> > +#define DW_HDMI_QP_AUDIO_INFOFRAME_HB2	0xa
-> > +
-> > +static int dw_hdmi_qp_config_audio_infoframe(struct dw_hdmi_qp *hdmi,
-> > +					     const u8 *buffer, size_t len)
-> > +{
-> > +	/*
-> > +	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
-> > +	 * AUDI_CONTENTS1: { PB3, PB2, PB1, PB0 }
-> > +	 * AUDI_CONTENTS2: { PB7, PB6, PB5, PB4 }
-> > +	 *
-> > +	 * PB0: CheckSum
-> > +	 * PB1: | CT3    | CT2  | CT1  | CT0  | F13  | CC2 | CC1 | CC0 |
-> > +	 * PB2: | F27    | F26  | F25  | SF2  | SF1  | SF0 | SS1 | SS0 |
-> > +	 * PB3: | F37    | F36  | F35  | F34  | F33  | F32 | F31 | F30 |
-> > +	 * PB4: | CA7    | CA6  | CA5  | CA4  | CA3  | CA2 | CA1 | CA0 |
-> > +	 * PB5: | DM_INH | LSV3 | LSV2 | LSV1 | LSV0 | F52 | F51 | F50 |
-> > +	 * PB6~PB10: Reserved
-> > +	 *
-> > +	 * AUDI_CONTENTS0 default value defined by HDMI specification,
-> > +	 * and shall only be changed for debug purposes.
-> > +	 */
-> > +	u32 header_bytes = (DW_HDMI_QP_AUDIO_INFOFRAME_HB1 << 8) |
-> > +			  (DW_HDMI_QP_AUDIO_INFOFRAME_HB2 << 16);
-> > +
-> > +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS0, &header_bytes, 1);
-> > +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS1, &buffer[3], 1);
-> > +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS2, &buffer[4], 1);
-> > +
-> > +	/* Enable ACR, AUDI, AMD */
-> > +	dw_hdmi_qp_mod(hdmi,
-> > +		       PKTSCHED_ACR_TX_EN | PKTSCHED_AUDI_TX_EN | PKTSCHED_AMD_TX_EN,
-> > +		       PKTSCHED_ACR_TX_EN | PKTSCHED_AUDI_TX_EN | PKTSCHED_AMD_TX_EN,
-> > +		       PKTSCHED_PKT_EN);
-> > +
-> > +	/* Enable AUDS */
-> > +	dw_hdmi_qp_mod(hdmi, PKTSCHED_AUDS_TX_EN, PKTSCHED_AUDS_TX_EN, PKTSCHED_PKT_EN);
-> > +
-> > +	return 0;
-> > +}
-> 
-> Something's wrong with this patch as all the functions above have been dropped
-> since the HDMI VSI & SPD InfoFrames series [1] got merged.  The previous
-> revision was fine though, hence that's likely an unexpected artifact of the
-> latest rebase.
 
-Oops, yeah, I think I messed this up during rebase. Thanks for letting me know!
+On 23-02-2026 06:11 pm, Tvrtko Ursulin wrote:
+> Use the existing helper instead of open coding it
+>
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> ---
+>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 79 ++++++-------------
+>   1 file changed, 23 insertions(+), 56 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index ee6f03f75b41..d779671bd0db 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -610,44 +610,29 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+>   int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   			    struct drm_file *filp)
+>   {
+> -	u32 *syncobj_handles, *timeline_points, *timeline_handles, *bo_handles_read, *bo_handles_write;
+> -	u32 num_syncobj, num_read_bo_handles, num_write_bo_handles;
+> -	struct drm_amdgpu_userq_fence_info *fence_info = NULL;
+>   	struct drm_amdgpu_userq_wait *wait_info = data;
+> +	const unsigned int num_write_bo_handles = wait_info->num_bo_write_handles;
+> +	const unsigned int num_read_bo_handles = wait_info->num_bo_read_handles;
+> +	struct drm_amdgpu_userq_fence_info *fence_info = NULL;
+>   	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+>   	struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
+> +	struct drm_gem_object **gobj_write, **gobj_read;
+> +	u32 *timeline_points, *timeline_handles;
+>   	struct amdgpu_usermode_queue *waitq;
+> -	struct drm_gem_object **gobj_write;
+> -	struct drm_gem_object **gobj_read;
+> +	u32 *syncobj_handles, num_syncobj;
+>   	struct dma_fence **fences = NULL;
+>   	u16 num_points, num_fences = 0;
+> -	int r, i, rentry, wentry, cnt;
+>   	struct drm_exec exec;
+> +	int r, i, cnt;
+>   
+>   	if (!amdgpu_userq_enabled(dev))
+>   		return -ENOTSUPP;
+>   
+> -	num_read_bo_handles = wait_info->num_bo_read_handles;
+> -	bo_handles_read = memdup_user(u64_to_user_ptr(wait_info->bo_read_handles),
+> -				      size_mul(sizeof(u32), num_read_bo_handles));
+> -	if (IS_ERR(bo_handles_read))
+> -		return PTR_ERR(bo_handles_read);
+> -
+> -	num_write_bo_handles = wait_info->num_bo_write_handles;
+> -	bo_handles_write = memdup_user(u64_to_user_ptr(wait_info->bo_write_handles),
+> -				       size_mul(sizeof(u32), num_write_bo_handles));
+> -	if (IS_ERR(bo_handles_write)) {
+> -		r = PTR_ERR(bo_handles_write);
+> -		goto free_bo_handles_read;
+> -	}
+> -
+>   	num_syncobj = wait_info->num_syncobj_handles;
+>   	syncobj_handles = memdup_user(u64_to_user_ptr(wait_info->syncobj_handles),
+>   				      size_mul(sizeof(u32), num_syncobj));
+> -	if (IS_ERR(syncobj_handles)) {
+> -		r = PTR_ERR(syncobj_handles);
+> -		goto free_bo_handles_write;
+> -	}
+> +	if (IS_ERR(syncobj_handles))
+> +		return PTR_ERR(syncobj_handles);
+>   
+>   	num_points = wait_info->num_syncobj_timeline_handles;
+>   	timeline_handles = memdup_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
+> @@ -664,33 +649,19 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   		goto free_timeline_handles;
+>   	}
+>   
+> -	gobj_read = kmalloc_array(num_read_bo_handles, sizeof(*gobj_read), GFP_KERNEL);
+> -	if (!gobj_read) {
+> -		r = -ENOMEM;
+> +	r = drm_gem_objects_lookup(filp,
+> +				   u64_to_user_ptr(wait_info->bo_read_handles),
+> +				   num_read_bo_handles,
+> +				   &gobj_read);
 
-> 
-> [1] https://lore.kernel.org/all/20260129-dw-hdmi-qp-iframe-v2-0-0157ad05232c@collabora.com/
-> 
+If i am not wrong even using the helper function will not avoid an OOM 
+situation in case num_read_bo_handles is a very big number? This is just 
+using the helper to reorganize the code but not having additonal 
+checks... and alos valid only on drm gem objects type...
 
+Regards
+Sunil Khatri
 
-
-
+> +	if (r)
+>   		goto free_timeline_points;
+> -	}
+>   
+> -	for (rentry = 0; rentry < num_read_bo_handles; rentry++) {
+> -		gobj_read[rentry] = drm_gem_object_lookup(filp, bo_handles_read[rentry]);
+> -		if (!gobj_read[rentry]) {
+> -			r = -ENOENT;
+> -			goto put_gobj_read;
+> -		}
+> -	}
+> -
+> -	gobj_write = kmalloc_array(num_write_bo_handles, sizeof(*gobj_write), GFP_KERNEL);
+> -	if (!gobj_write) {
+> -		r = -ENOMEM;
+> +	r = drm_gem_objects_lookup(filp,
+> +				   u64_to_user_ptr(wait_info->bo_write_handles),
+> +				   num_write_bo_handles,
+> +				   &gobj_write);
+> +	if (r)
+>   		goto put_gobj_read;
+> -	}
+> -
+> -	for (wentry = 0; wentry < num_write_bo_handles; wentry++) {
+> -		gobj_write[wentry] = drm_gem_object_lookup(filp, bo_handles_write[wentry]);
+> -		if (!gobj_write[wentry]) {
+> -			r = -ENOENT;
+> -			goto put_gobj_write;
+> -		}
+> -	}
+>   
+>   	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT,
+>   		      (num_read_bo_handles + num_write_bo_handles));
+> @@ -947,12 +918,12 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   exec_fini:
+>   	drm_exec_fini(&exec);
+>   put_gobj_write:
+> -	while (wentry-- > 0)
+> -		drm_gem_object_put(gobj_write[wentry]);
+> +	for (i = 0; i < num_write_bo_handles; i++)
+> +		drm_gem_object_put(gobj_write[i]);
+>   	kfree(gobj_write);
+>   put_gobj_read:
+> -	while (rentry-- > 0)
+> -		drm_gem_object_put(gobj_read[rentry]);
+> +	for (i = 0; i < num_read_bo_handles; i++)
+> +		drm_gem_object_put(gobj_read[i]);;
+>   	kfree(gobj_read);
+>   free_timeline_points:
+>   	kfree(timeline_points);
+> @@ -960,10 +931,6 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>   	kfree(timeline_handles);
+>   free_syncobj_handles:
+>   	kfree(syncobj_handles);
+> -free_bo_handles_write:
+> -	kfree(bo_handles_write);
+> -free_bo_handles_read:
+> -	kfree(bo_handles_read);
+>   
+>   	return r;
+>   }
