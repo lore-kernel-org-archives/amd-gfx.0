@@ -4,48 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87CCFEA4FBA
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 14:07:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C7C6EA4FCF
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 15:03:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19C6D10E450;
-	Mon, 23 Feb 2026 14:07:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C533210E3C7;
+	Mon, 23 Feb 2026 15:03:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nx4B7mB+";
+	dkim=pass (2048-bit key; secure) header.d=damsy.net header.i=@damsy.net header.b="OB5Pnnwk";
+	dkim=permerror (0-bit key) header.d=damsy.net header.i=@damsy.net header.b="mqi3tkex";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA57810E450
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 14:07:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=qE7hhenr7DQTVeQzL4oSdM3TgNEeGo2xDdKfHKGhDEI=; b=nx4B7mB+yNwgHzaeeN0r7M4UPG
- xeIlJi6r0/vF2ZsmcfifvmwKbbu8rbHok5Q88w8gEzhCRk67pPIh6z3zsdJukcCiJSwKZA7be0KFj
- GBwO4RLkRcpmQKdBoAPfHy8iDVbjqybR2/2trs/DS2If46lINPb8LEFTMcT3TLIyOrFZMgoNmrA1b
- G6A60FiGTQZcDuGYSq16sfGpPkNoxPipFjAzIl/15Gdm/3aO4ORDjnLyNBP9mdxQ2sSmXOllge34f
- xMTwonrKUEL703joK8e7GVSKICNfdjbxXlNJHxAC0iZtZNqfAVrfcYXSi7rqldc+IIoUeSZKNuzTC
- SSm1V9lQ==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vuWbA-004GDP-3s; Mon, 23 Feb 2026 15:07:44 +0100
-Message-ID: <445d25ae-7c45-46ce-9de2-24c09711dfe8@igalia.com>
-Date: Mon, 23 Feb 2026 14:07:43 +0000
+Received: from jeth.damsy.net (jeth.damsy.net [51.159.152.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B8DC10E3CC;
+ Mon, 23 Feb 2026 15:03:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; s=202408r; d=damsy.net; c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1771859016;
+ bh=//VyQSb1AAV7R2tybo1nmuq
+ E1TMTuJ9/sXf5xbAxuLQ=; b=OB5PnnwkJToiY2UZwgtIrXom49CvJKfPBVuPXnISLiKqYkAXHc
+ ZYJX3nyKh39WIJs8+fxvwI+B66YkGFJ4cTq8//fXkftzua5IFKZZY87YKNLU8IfthJiH6F0WvB0
+ 2wbgTJ6G6fglY4QNLvSSVpyn7v+5dqrJGHJ12Fqt9rrQei/zeKuOJWctH4P5DPrAhu1wyUGyNg+
+ COhii0/pKvEg3TD+xIM0WM2q2psum9vGbaYQ77eaJBnk8QxVVXMM1HVBMhlHHNImuvPMp+eaZLc
+ NCYYrU0lcsHazduhqx1rtieYxVhdNnfwRJyacHVpJr8mRDvb08uWk+i/3Z+ocO4Jh2w==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202408e; d=damsy.net;
+ c=relaxed/relaxed; 
+ h=From:To:Subject:Date:Message-ID; t=1771859016; bh=//VyQSb1AAV7R2tybo1nmuq
+ E1TMTuJ9/sXf5xbAxuLQ=; b=mqi3tkexMVYPE4S9pIIvoV8bkGunoJtTNnusw+RtqVTEp+9m/l
+ GnvhBR2XnzCpuJthrHMms1hrMzyUPJiQNLBQ==;
+Message-ID: <97ea1340-a17a-47f9-b491-2b6bd70cc81c@damsy.net>
+Date: Mon, 23 Feb 2026 16:03:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/12] drm/amdgpu/userq: Use drm_gem_objects_lookup in
- amdgpu_userq_wait_ioctl
-To: "Khatri, Sunil" <sukhatri@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>, kernel-dev@igalia.com
-References: <20260223124141.10641-1-tvrtko.ursulin@igalia.com>
- <20260223124141.10641-6-tvrtko.ursulin@igalia.com>
- <0047be6b-9fd3-4424-8498-cb7aed30f38b@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <0047be6b-9fd3-4424-8498-cb7aed30f38b@amd.com>
+Subject: Re: [PATCH v1 6/6] drm/amdgpu: dump job ibs in the devcoredump
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260211102657.4180-1-pierre-eric.pelloux-prayer@amd.com>
+ <20260211102657.4180-6-pierre-eric.pelloux-prayer@amd.com>
+ <CADnq5_Ndh2zaQ5VcoA1jNjAohkurqofd5_TweCfX+iaKz9h+vA@mail.gmail.com>
+ <78b10f62-60d1-4dee-94a0-fa2eaf139cb6@damsy.net>
+ <CADnq5_OJ3jS8yUN6yih5UaydOKHUr=-dxW9+anBFgniOV0UqNg@mail.gmail.com>
+Content-Language: en-US
+From: Pierre-Eric Pelloux-Prayer <pierre-eric@damsy.net>
+In-Reply-To: <CADnq5_OJ3jS8yUN6yih5UaydOKHUr=-dxW9+anBFgniOV0UqNg@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -63,169 +66,184 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 23/02/2026 13:58, Khatri, Sunil wrote:
-> 
-> On 23-02-2026 06:11 pm, Tvrtko Ursulin wrote:
->> Use the existing helper instead of open coding it
+
+Le 17/02/2026 à 17:47, Alex Deucher a écrit :
+> On Tue, Feb 17, 2026 at 11:38 AM Pierre-Eric Pelloux-Prayer
+> <pierre-eric@damsy.net> wrote:
 >>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> ---
->>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 79 ++++++-------------
->>   1 file changed, 23 insertions(+), 56 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/ 
->> drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> index ee6f03f75b41..d779671bd0db 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> @@ -610,44 +610,29 @@ int amdgpu_userq_signal_ioctl(struct drm_device 
->> *dev, void *data,
->>   int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->>                   struct drm_file *filp)
->>   {
->> -    u32 *syncobj_handles, *timeline_points, *timeline_handles, 
->> *bo_handles_read, *bo_handles_write;
->> -    u32 num_syncobj, num_read_bo_handles, num_write_bo_handles;
->> -    struct drm_amdgpu_userq_fence_info *fence_info = NULL;
->>       struct drm_amdgpu_userq_wait *wait_info = data;
->> +    const unsigned int num_write_bo_handles = wait_info- 
->> >num_bo_write_handles;
->> +    const unsigned int num_read_bo_handles = wait_info- 
->> >num_bo_read_handles;
->> +    struct drm_amdgpu_userq_fence_info *fence_info = NULL;
->>       struct amdgpu_fpriv *fpriv = filp->driver_priv;
->>       struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
->> +    struct drm_gem_object **gobj_write, **gobj_read;
->> +    u32 *timeline_points, *timeline_handles;
->>       struct amdgpu_usermode_queue *waitq;
->> -    struct drm_gem_object **gobj_write;
->> -    struct drm_gem_object **gobj_read;
->> +    u32 *syncobj_handles, num_syncobj;
->>       struct dma_fence **fences = NULL;
->>       u16 num_points, num_fences = 0;
->> -    int r, i, rentry, wentry, cnt;
->>       struct drm_exec exec;
->> +    int r, i, cnt;
->>       if (!amdgpu_userq_enabled(dev))
->>           return -ENOTSUPP;
->> -    num_read_bo_handles = wait_info->num_bo_read_handles;
->> -    bo_handles_read = memdup_user(u64_to_user_ptr(wait_info- 
->> >bo_read_handles),
->> -                      size_mul(sizeof(u32), num_read_bo_handles));
->> -    if (IS_ERR(bo_handles_read))
->> -        return PTR_ERR(bo_handles_read);
->> -
->> -    num_write_bo_handles = wait_info->num_bo_write_handles;
->> -    bo_handles_write = memdup_user(u64_to_user_ptr(wait_info- 
->> >bo_write_handles),
->> -                       size_mul(sizeof(u32), num_write_bo_handles));
->> -    if (IS_ERR(bo_handles_write)) {
->> -        r = PTR_ERR(bo_handles_write);
->> -        goto free_bo_handles_read;
->> -    }
->> -
->>       num_syncobj = wait_info->num_syncobj_handles;
->>       syncobj_handles = memdup_user(u64_to_user_ptr(wait_info- 
->> >syncobj_handles),
->>                         size_mul(sizeof(u32), num_syncobj));
->> -    if (IS_ERR(syncobj_handles)) {
->> -        r = PTR_ERR(syncobj_handles);
->> -        goto free_bo_handles_write;
->> -    }
->> +    if (IS_ERR(syncobj_handles))
->> +        return PTR_ERR(syncobj_handles);
->>       num_points = wait_info->num_syncobj_timeline_handles;
->>       timeline_handles = memdup_user(u64_to_user_ptr(wait_info- 
->> >syncobj_timeline_handles),
->> @@ -664,33 +649,19 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
->> *dev, void *data,
->>           goto free_timeline_handles;
->>       }
->> -    gobj_read = kmalloc_array(num_read_bo_handles, 
->> sizeof(*gobj_read), GFP_KERNEL);
->> -    if (!gobj_read) {
->> -        r = -ENOMEM;
->> +    r = drm_gem_objects_lookup(filp,
->> +                   u64_to_user_ptr(wait_info->bo_read_handles),
->> +                   num_read_bo_handles,
->> +                   &gobj_read);
+>>
+>> Le 17/02/2026 à 17:20, Alex Deucher a écrit :
+>>> On Wed, Feb 11, 2026 at 6:07 AM Pierre-Eric Pelloux-Prayer
+>>> <pierre-eric.pelloux-prayer@amd.com> wrote:
+>>>>
+>>>> Now that we have a worker thread, we can try to access the
+>>>> IBs of the job. The process is:
+>>>> * get the VM from the PASID
+>>>> * get the BO from its VA and the VM
+>>>> * map the BO for CPU access
+>>>> * copy everything, then add it to the dump
+>>>> Each step can fail so we have to be cautious.
+>>>> These operations can be slow so when amdgpu_devcoredump_format
+>>>> is called only to determine the size of the buffer we skip all
+>>>> of them and assume they will succeed.
+>>>>
+>>>> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>>>> ---
+>>>>    .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 84 ++++++++++++++++++-
+>>>>    1 file changed, 83 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+>>>> index d0af8a294abf..d576518c212d 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+>>>> @@ -200,12 +200,20 @@ static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
+>>>>    static ssize_t
+>>>>    amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_info *coredump)
+>>>>    {
+>>>> +       struct amdgpu_device *adev = coredump->adev;
+>>>>           struct drm_printer p;
+>>>>           struct drm_print_iterator iter;
+>>>>           struct amdgpu_vm_fault_info *fault_info;
+>>>> +       struct amdgpu_bo_va_mapping *mapping;
+>>>>           struct amdgpu_ip_block *ip_block;
+>>>> +       struct amdgpu_res_cursor cursor;
+>>>> +       struct amdgpu_bo *abo, *root;
+>>>> +       uint64_t va_start, offset;
+>>>>           struct amdgpu_ring *ring;
+>>>> -       int ver, i, j;
+>>>> +       struct amdgpu_vm *vm;
+>>>> +       u32 *ib_content;
+>>>> +       uint8_t *kptr;
+>>>> +       int ver, i, j, r;
+>>>>           u32 ring_idx, off;
+>>>>
+>>>>           iter.data = buffer;
+>>>> @@ -323,6 +331,80 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
+>>>>           else if (coredump->reset_vram_lost)
+>>>>                   drm_printf(&p, "VRAM is lost due to GPU reset!\n");
+>>>>
+>>>> +       if (coredump->num_ibs) {
+>>>> +               if (buffer)
+>>>> +                       vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
+>>>> +               else
+>>>> +                       vm = NULL;
+>>>
+>>> Is there any point in doing the loop if the vm is NULL?
+>>
+>> Yes : when doing the first pass to size the final buffer I skip the
+>> buffers mapping + read operations that might be slow and instead just
+>> account for the outputting of ib_size_dw dwords.
 > 
-> If i am not wrong even using the helper function will not avoid an OOM 
-> situation in case num_read_bo_handles is a very big number? This is just 
-> using the helper to reorganize the code but not having additonal 
-> checks... and alos valid only on drm gem objects type...
+> But if you don't map the buffer, you'll just be dumping the random
+> content from ib_content[].
 
-Last part about only DRM GEM object type I did not understand. It is 
-currently using drm_gem_object_lookup so that is the same.
+No. I'll send a v2 with more comments, but what's happening is that this 
+function is called twice:
+* the first time with buffer=NULL. In this case we just need the 
+drm_printf calls to happen. Because the output' size isn't dependent on 
+the values read from ib_content it's fine to jump to the 
+output_ib_content label as early as possible.
+* the second time buffer is not NULL. If the vm is now NULL, we won't 
+enter the loop at all.
 
-Otherwise yes, although my understanding of the overall topic was you 
-will apply the limits on top of the consolidation patches.
+The other advantage of skipping the vm lookup and bo mapping when sizing 
+the buffer is that we size the buffer as if all future lookups/mapping 
+are successful.
 
-Regards,
+Pierre-Eric
 
-Tvrtko
 
->> +    if (r)
->>           goto free_timeline_points;
->> -    }
->> -    for (rentry = 0; rentry < num_read_bo_handles; rentry++) {
->> -        gobj_read[rentry] = drm_gem_object_lookup(filp, 
->> bo_handles_read[rentry]);
->> -        if (!gobj_read[rentry]) {
->> -            r = -ENOENT;
->> -            goto put_gobj_read;
->> -        }
->> -    }
->> -
->> -    gobj_write = kmalloc_array(num_write_bo_handles, 
->> sizeof(*gobj_write), GFP_KERNEL);
->> -    if (!gobj_write) {
->> -        r = -ENOMEM;
->> +    r = drm_gem_objects_lookup(filp,
->> +                   u64_to_user_ptr(wait_info->bo_write_handles),
->> +                   num_write_bo_handles,
->> +                   &gobj_write);
->> +    if (r)
->>           goto put_gobj_read;
->> -    }
->> -
->> -    for (wentry = 0; wentry < num_write_bo_handles; wentry++) {
->> -        gobj_write[wentry] = drm_gem_object_lookup(filp, 
->> bo_handles_write[wentry]);
->> -        if (!gobj_write[wentry]) {
->> -            r = -ENOENT;
->> -            goto put_gobj_write;
->> -        }
->> -    }
->>       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT,
->>                 (num_read_bo_handles + num_write_bo_handles));
->> @@ -947,12 +918,12 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
->> *dev, void *data,
->>   exec_fini:
->>       drm_exec_fini(&exec);
->>   put_gobj_write:
->> -    while (wentry-- > 0)
->> -        drm_gem_object_put(gobj_write[wentry]);
->> +    for (i = 0; i < num_write_bo_handles; i++)
->> +        drm_gem_object_put(gobj_write[i]);
->>       kfree(gobj_write);
->>   put_gobj_read:
->> -    while (rentry-- > 0)
->> -        drm_gem_object_put(gobj_read[rentry]);
->> +    for (i = 0; i < num_read_bo_handles; i++)
->> +        drm_gem_object_put(gobj_read[i]);;
->>       kfree(gobj_read);
->>   free_timeline_points:
->>       kfree(timeline_points);
->> @@ -960,10 +931,6 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
->> *dev, void *data,
->>       kfree(timeline_handles);
->>   free_syncobj_handles:
->>       kfree(syncobj_handles);
->> -free_bo_handles_write:
->> -    kfree(bo_handles_write);
->> -free_bo_handles_read:
->> -    kfree(bo_handles_read);
->>       return r;
->>   }
-
+> 
+>>
+>>>
+>>>> +
+>>>> +               for (int i = 0; i < coredump->num_ibs && (!buffer || vm); i++) {
+>>>> +                       ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
+>>>> +                                                   GFP_KERNEL);
+>>>
+>>> Shouldn't this be GFP_NOWAIT?
+>>
+>> This is executed by a worker so GFP_KERNEL should be ok?
+> 
+> Oh, right.  Yeah, should be ok.
+> 
+> Alex
+> 
+>>
+>> Pierre-Eric
+>>
+>>>
+>>> Alex
+>>>
+>>>> +                       if (!ib_content)
+>>>> +                               continue;
+>>>> +
+>>>> +                       if (!vm)
+>>>> +                               goto output_ib_content;
+>>>> +
+>>>> +                       va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
+>>>> +                       mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
+>>>> +                       if (!mapping)
+>>>> +                               goto free_ib_content;
+>>>> +
+>>>> +                       offset = va_start - (mapping->start * AMDGPU_GPU_PAGE_SIZE);
+>>>> +                       abo = amdgpu_bo_ref(mapping->bo_va->base.bo);
+>>>> +                       r = amdgpu_bo_reserve(abo, false);
+>>>> +                       if (r)
+>>>> +                               goto free_ib_content;
+>>>> +
+>>>> +                       if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
+>>>> +                               off = 0;
+>>>> +
+>>>> +                               if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
+>>>> +                                       goto unreserve_abo;
+>>>> +
+>>>> +                               amdgpu_res_first(abo->tbo.resource, offset,
+>>>> +                                                coredump->ibs[i].ib_size_dw * 4,
+>>>> +                                                &cursor);
+>>>> +                               while (cursor.remaining) {
+>>>> +                                       amdgpu_device_mm_access(adev, cursor.start / 4,
+>>>> +                                                               &ib_content[off], cursor.size / 4,
+>>>> +                                                               false);
+>>>> +                                       off += cursor.size;
+>>>> +                                       amdgpu_res_next(&cursor, cursor.size);
+>>>> +                               }
+>>>> +                       } else {
+>>>> +                               r = ttm_bo_kmap(&abo->tbo, 0,
+>>>> +                                               PFN_UP(abo->tbo.base.size),
+>>>> +                                               &abo->kmap);
+>>>> +                               if (r)
+>>>> +                                       goto unreserve_abo;
+>>>> +
+>>>> +                               kptr = amdgpu_bo_kptr(abo);
+>>>> +                               kptr += offset;
+>>>> +                               memcpy(ib_content, kptr,
+>>>> +                                      coredump->ibs[i].ib_size_dw * 4);
+>>>> +
+>>>> +                               amdgpu_bo_kunmap(abo);
+>>>> +                       }
+>>>> +
+>>>> +output_ib_content:
+>>>> +                       drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
+>>>> +                                  i, coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
+>>>> +                       for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
+>>>> +                               drm_printf(&p, "0x%08x\n", ib_content[j]);
+>>>> +unreserve_abo:
+>>>> +                       if (vm)
+>>>> +                               amdgpu_bo_unreserve(abo);
+>>>> +free_ib_content:
+>>>> +                       kfree(ib_content);
+>>>> +               }
+>>>> +               if (vm) {
+>>>> +                       amdgpu_bo_unreserve(root);
+>>>> +                       amdgpu_bo_unref(&root);
+>>>> +               }
+>>>> +       }
+>>>> +
+>>>>           return count - iter.remain;
+>>>>    }
+>>>>
+>>>> --
+>>>> 2.43.0
+>>>>
