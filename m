@@ -4,98 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36670EA4FC3
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FB3BEA4FC2
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2600310E2EF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95CF310E3BE;
 	Mon, 23 Feb 2026 13:54:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="do1bepG6";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="ey8Oc4N/";
 	dkim-atps=neutral
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7274F10E299
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 08:52:47 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-59e62834439so4504845e87.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 00:52:47 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771836766; cv=none;
- d=google.com; s=arc-20240605;
- b=kvJAcD5qY7BPqihk3KpDppFDD5PPzJZ3VWb42u2R7+DkC7X/lPNJm2nt8JSdB0lH7w
- qe6GRjaD3r4jftaPY1N/Xj26tQF72k2vw08Hj48v7x7vS3rvADwh0DBmHK8NX88+Y0Pz
- fUWwMvkLGREhUMUr466IkuRQGlqDzvtKO7haHcZlhZ1n9PxqDv/u213/xUxeeN2bUdbe
- LxELtmvh5KlpFT3JPNDoyj/pfIXfirKyHqQ/W2lTBDJxwZjeRuDuRxwRWKNz67e7IR5n
- at/dnBTEBb4RLvyDmw0qX1/wV8GhnLTtApEGSAcccCqkrSsDCxKxoR0UfeqrWxqMb2eU
- qs/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=8pMfDy0/3VKLDSPvg/zhyqaAQb/EPG1TE7b+CoYlVks=;
- fh=/2aFyDbF4u/6Lu+E2H+ATN89M3ohUcrfgtOT+lFoJtM=;
- b=g/z4+pdF+kufhqbzf3JIMZtYvKSe1XyApsOzQSPsmzGQW0X89AmFb2hghDiD+2KQWZ
- sp9SmHXOI5G+FldeAHxXEqK0LbLqqCMIqWS0xhUaomeIYheGgbG7wys2Qlig848OKZFx
- PvVky8OlfG+hUg8qhLubi8mRPcS6U0b31AdrJedKUoUmsQ+War7EsjLiid+v0TTMLYsR
- 3Y6CgjBnfMTtY20TpdX5TnSVikOF5aApWOWIsXOJoLbjalINuvEYAG29WTK/A2VdFRT1
- 61PaYxHhR3xSJhNESNchECAcYao39N7gV0pNxkU81aGapAWniRIfbBYiorXbz1L4JRtH
- 437Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1771836766; x=1772441566; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8pMfDy0/3VKLDSPvg/zhyqaAQb/EPG1TE7b+CoYlVks=;
- b=do1bepG6l4934cYzPhXZ4yAF2xq4A+OIPzrUQ1nkcbKme6TcjJ9OuhfNxifOgxT7qP
- +Ly4M4WTjWgMkIndSGJFiB06k49f6d0Dj9+J5PdudsuVooiq9UgqntOcz1Y/buqIiH+q
- 1y/rjttFarMU2Wl3fwNB522qod/vfRAri0pyehyYMwrO48tS8Md73bpZ7UQ3Cvbxd7yv
- +cDzqA5teoU1VYcC0Ah7eyIbts+syOBPg2emVMAVGz16Hn8+6+5uT2jW4Sl1PKVdog4G
- rmn9/xMrfz5E07rVl+KpVCwexCYJFYXYCEJWCVzrWF0fw7isKz90DV3tGpLX04j1qqh6
- RdrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771836766; x=1772441566;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=8pMfDy0/3VKLDSPvg/zhyqaAQb/EPG1TE7b+CoYlVks=;
- b=kvVe8nDw3frDPcDnO7jnHxqN8hI8XtmDSaD4i3co8r8c54TLjBeRewhgl6XPyEgPxS
- UyBtR3hUzpFMPTLG0mC7QpnSIOnY2DhvyWkMsFvGxuAlSuh0sTCoPI/G3ZloQ1Jz53x4
- ARlHrYQN/Xn3fSdJ3xUvD+PRi1xsS2BTnL3MUcEHJ2FKxw1vCFRtXDobPfTh8YyeokkL
- lU2lH6RfC1mN/LZkyGw1wbxDqrApXll6x6LhvA96H8XZxw60vm5rV8Nio3Cp5jPLR3LZ
- 43EmHP6E1VMqYhT1CZ3JsCEZrDuFej2n6eLgKpgci0eOaR7rFZO1fDmqU7Zmq7Te82sF
- yPZw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWtdpGRnOb4E8yDdP/9JjayWhjQ7AGwDsin0cCDcgqiKZ8wnktYsizN1j7gfALl612C1CmEdBCi@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwnKNNgNhfxKkwKOKS+VlsvdR1mqNpNnm12k2iThqmD9tUKcSzd
- cVuuBACFx8ZcvCRRiUde/1xa4y9I84VO5geOLOAYmDtCbln8nVYHOfdNj8htfUi8+M+gfqysraD
- Q14G2xKOQzQkPVqFel4lfYaREH/v0ZfzicszpgUjsuA==
-X-Gm-Gg: AZuq6aKnCP7o5AYmkYg66c/aQ7IYeyg8JVgiCx/u9Sbb86yucHeBFMJ3PDvwr2OeNN/
- xfw+LsrDQjGffiQExFXgEJ2iXdATUNsaicAlboKR5iBvJHrrKBM8ZW4UXxGCY57cuyjXQA/wdC/
- BFPEonG/LMUv+XSbTmNzj59/MPfhpyx9BWZXrxebgBQn3jh+ARTqdak+LaTBowpPqNtvEc/yaaQ
- 2WsKvinBrptNrMJ7c9N1rSIP9bbWAU3zg6Wtp4YRlIz80PdUkPJk5ORFomIn++Fs5sqBvYa4lWy
- pmpq9VOzI5OA8JN7Om2NI3gFVCh12oHWS5DIA7Ik
-X-Received: by 2002:a05:6512:aca:b0:59d:eab0:c836 with SMTP id
- 2adb3069b0e04-5a0ed87759bmr2452544e87.6.1771836765637; Mon, 23 Feb 2026
- 00:52:45 -0800 (PST)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B588510E36A;
+ Mon, 23 Feb 2026 11:22:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1771845726; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=S2IB7ZD6DSdp0K9Cc0NBmF40o2LhuWVfCMBxDrxcFijbXLcaH0Lyf5O+2kZkLiznNdkANWcE+BWKHonsRq9KrsrbjcrODuvcKSNxIqKHvtuAbvhQuY8SR2HXpfIgKNQxPAR0kwT3+1adyLsr7+PsZ0/XmR6FDUPRTzuOt2Q3rRg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1771845726;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=zE1zLu6pL3uqgPGPzZfTY/83E+cY4Cd10iRFX9/SaOs=; 
+ b=Po53vDPX65HL6NClbbr3hhqP5yF7v8feEJRZ4aacu/eltttbeEFv2plJ6LJDIZFQ3ye/Yf/DnnD0kAORtkCD42bluLAxEQFl4MrlEVKBONaQE3/CtleL1546UG23I8FrPP7I7OKil6TwHw40C4Q84Y58qH6kwlEbMoRxjwnYajw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1771845726; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+ bh=zE1zLu6pL3uqgPGPzZfTY/83E+cY4Cd10iRFX9/SaOs=;
+ b=ey8Oc4N/ijwyIwISAsnqyuzxwVpaDXPyWdOQrkVUmuNLUqcBICMAqwTs8Zyvf7Uk
+ V3SFa2egcB4yao+jcsR4TTgjiNmrdjggG0klVO2zrceXcT92E/POQQ6LygQdb1+w9tA
+ wV1bodCAlzCCpYR9uF+d/exsYpJDZf2sbF9djF+0=
+Received: by mx.zohomail.com with SMTPS id 1771845725129427.58768335061166;
+ Mon, 23 Feb 2026 03:22:05 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org
+Subject: Re: [PATCH v8 13/20] drm/bridge: dw-hdmi-qp: Implement
+ atomic_get_output_bus_fmts
+Date: Mon, 23 Feb 2026 12:21:56 +0100
+Message-ID: <5968719.DvuYhMxLoT@workhorse>
+In-Reply-To: <ff7b531a-77c1-4c7d-b09d-47779b640193@collabora.com>
+References: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
+ <20260216-color-format-v8-13-5722ce175dd5@collabora.com>
+ <ff7b531a-77c1-4c7d-b09d-47779b640193@collabora.com>
 MIME-Version: 1.0
-References: <20251224144708.61167-1-marco.crivellari@suse.com>
-In-Reply-To: <20251224144708.61167-1-marco.crivellari@suse.com>
-From: Marco Crivellari <marco.crivellari@suse.com>
-Date: Mon, 23 Feb 2026 09:52:33 +0100
-X-Gm-Features: AaiRm50yF5Rlw7ATpftOWtV82_eD6bFHXzpnPtJ1vlADkXKmkv3g_Y7y2xwA-KI
-Message-ID: <CAAofZF5XSUVn+XW75rC76-Amibc3rZnG3QQhWxPtk7K6YMQx4w@mail.gmail.com>
-Subject: Re: [PATCH v3 0/4] Replace old wq name and add WQ_PERCPU and
- WQ_UNBOUND to alloc_workqueue users
-To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
- Frederic Weisbecker <frederic@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Christian Konig <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Philip Yang <yangp@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Mon, 23 Feb 2026 13:54:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,28 +90,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Dec 24, 2025 at 3:47=E2=80=AFPM Marco Crivellari
-<marco.crivellari@suse.com> wrote:
-> [...]
-> Marco Crivellari (4):
->   drm/amdgpu: replace use of system_unbound_wq with system_dfl_wq
->   drm/amdgpu: replace use of system_wq with system_dfl_wq
->   amd/amdkfd: add WQ_UNBOUND to alloc_workqueue users
->   drm/radeon: add WQ_PERCPU to alloc_workqueue users
->
->  drivers/gpu/drm/amd/amdgpu/aldebaran.c     | 2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 +-
->  drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 3 ++-
->  drivers/gpu/drm/radeon/radeon_display.c    | 3 ++-
->  5 files changed, 9 insertions(+), 7 deletions(-)
+On Sunday, 22 February 2026 11:42:39 Central European Standard Time Cristian Ciocaltea wrote:
+> Hi Nicolas,
+> 
+> On 2/16/26 3:01 PM, Nicolas Frattaroli wrote:
+> > The atomic_get_output_bus_fmts callback is used by the DRM bridge layer
+> > to recursively select a suitable output format in a bridge chain.
+> > 
+> > As a bridge that outputs to HDMI, dw-hdmi-qp will have its output
+> > formats determined by which formats the platform-specific integration of
+> > the hardware supports, and the chosen HDMI output bit depth.
+> > 
+> > Implement this callback. The returned u32* buffer is supposed to be
+> > freed by the caller of this callback, as specified by the callback's
+> > documentation.
+> > 
+> > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > ---
+> >  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 178 +++++++++++++++++++++++++++
+> >  1 file changed, 178 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> > index d649a1cf07f5..4c00218e5fd7 100644
+> > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> > @@ -11,6 +11,7 @@
+> >  #include <linux/export.h>
+> >  #include <linux/i2c.h>
+> >  #include <linux/irq.h>
+> > +#include <linux/media-bus-format.h>
+> >  #include <linux/minmax.h>
+> >  #include <linux/module.h>
+> >  #include <linux/mutex.h>
+> > @@ -749,6 +750,182 @@ static struct i2c_adapter *dw_hdmi_qp_i2c_adapter(struct dw_hdmi_qp *hdmi)
+> >  	return adap;
+> >  }
+> >  
+> > +static int dw_hdmi_qp_config_avi_infoframe(struct dw_hdmi_qp *hdmi,
+> > +					   const u8 *buffer, size_t len)
+> > +{
+> > +	u32 val, i, j;
+> > +
+> > +	if (len != HDMI_INFOFRAME_SIZE(AVI)) {
+> > +		dev_err(hdmi->dev, "failed to configure avi infoframe\n");
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	/*
+> > +	 * DW HDMI QP IP uses a different byte format from standard AVI info
+> > +	 * frames, though generally the bits are in the correct bytes.
+> > +	 */
+> > +	val = buffer[1] << 8 | buffer[2] << 16;
+> > +	dw_hdmi_qp_write(hdmi, val, PKT_AVI_CONTENTS0);
+> > +
+> > +	for (i = 0; i < 4; i++) {
+> > +		for (j = 0; j < 4; j++) {
+> > +			if (i * 4 + j >= 14)
+> > +				break;
+> > +			if (!j)
+> > +				val = buffer[i * 4 + j + 3];
+> > +			val |= buffer[i * 4 + j + 3] << (8 * j);
+> > +		}
+> > +
+> > +		dw_hdmi_qp_write(hdmi, val, PKT_AVI_CONTENTS1 + i * 4);
+> > +	}
+> > +
+> > +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_AVI_FIELDRATE, PKTSCHED_PKT_CONFIG1);
+> > +
+> > +	dw_hdmi_qp_mod(hdmi, PKTSCHED_AVI_TX_EN | PKTSCHED_GCP_TX_EN,
+> > +		       PKTSCHED_AVI_TX_EN | PKTSCHED_GCP_TX_EN, PKTSCHED_PKT_EN);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int dw_hdmi_qp_config_drm_infoframe(struct dw_hdmi_qp *hdmi,
+> > +					   const u8 *buffer, size_t len)
+> > +{
+> > +	u32 val, i;
+> > +
+> > +	if (len != HDMI_INFOFRAME_SIZE(DRM)) {
+> > +		dev_err(hdmi->dev, "failed to configure drm infoframe\n");
+> > +		return -EINVAL;
+> > +	}
+> > +
+> > +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_DRMI_TX_EN, PKTSCHED_PKT_EN);
+> > +
+> > +	val = buffer[1] << 8 | buffer[2] << 16;
+> > +	dw_hdmi_qp_write(hdmi, val, PKT_DRMI_CONTENTS0);
+> > +
+> > +	for (i = 0; i <= buffer[2]; i++) {
+> > +		if (i % 4 == 0)
+> > +			val = buffer[3 + i];
+> > +		val |= buffer[3 + i] << ((i % 4) * 8);
+> > +
+> > +		if ((i % 4 == 3) || i == buffer[2])
+> > +			dw_hdmi_qp_write(hdmi, val,
+> > +					 PKT_DRMI_CONTENTS1 + ((i / 4) * 4));
+> > +	}
+> > +
+> > +	dw_hdmi_qp_mod(hdmi, 0, PKTSCHED_DRMI_FIELDRATE, PKTSCHED_PKT_CONFIG1);
+> > +	dw_hdmi_qp_mod(hdmi, PKTSCHED_DRMI_TX_EN, PKTSCHED_DRMI_TX_EN,
+> > +		       PKTSCHED_PKT_EN);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +/*
+> > + * Static values documented in the TRM
+> > + * Different values are only used for debug purposes
+> > + */
+> > +#define DW_HDMI_QP_AUDIO_INFOFRAME_HB1	0x1
+> > +#define DW_HDMI_QP_AUDIO_INFOFRAME_HB2	0xa
+> > +
+> > +static int dw_hdmi_qp_config_audio_infoframe(struct dw_hdmi_qp *hdmi,
+> > +					     const u8 *buffer, size_t len)
+> > +{
+> > +	/*
+> > +	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
+> > +	 * AUDI_CONTENTS1: { PB3, PB2, PB1, PB0 }
+> > +	 * AUDI_CONTENTS2: { PB7, PB6, PB5, PB4 }
+> > +	 *
+> > +	 * PB0: CheckSum
+> > +	 * PB1: | CT3    | CT2  | CT1  | CT0  | F13  | CC2 | CC1 | CC0 |
+> > +	 * PB2: | F27    | F26  | F25  | SF2  | SF1  | SF0 | SS1 | SS0 |
+> > +	 * PB3: | F37    | F36  | F35  | F34  | F33  | F32 | F31 | F30 |
+> > +	 * PB4: | CA7    | CA6  | CA5  | CA4  | CA3  | CA2 | CA1 | CA0 |
+> > +	 * PB5: | DM_INH | LSV3 | LSV2 | LSV1 | LSV0 | F52 | F51 | F50 |
+> > +	 * PB6~PB10: Reserved
+> > +	 *
+> > +	 * AUDI_CONTENTS0 default value defined by HDMI specification,
+> > +	 * and shall only be changed for debug purposes.
+> > +	 */
+> > +	u32 header_bytes = (DW_HDMI_QP_AUDIO_INFOFRAME_HB1 << 8) |
+> > +			  (DW_HDMI_QP_AUDIO_INFOFRAME_HB2 << 16);
+> > +
+> > +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS0, &header_bytes, 1);
+> > +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS1, &buffer[3], 1);
+> > +	regmap_bulk_write(hdmi->regm, PKT_AUDI_CONTENTS2, &buffer[4], 1);
+> > +
+> > +	/* Enable ACR, AUDI, AMD */
+> > +	dw_hdmi_qp_mod(hdmi,
+> > +		       PKTSCHED_ACR_TX_EN | PKTSCHED_AUDI_TX_EN | PKTSCHED_AMD_TX_EN,
+> > +		       PKTSCHED_ACR_TX_EN | PKTSCHED_AUDI_TX_EN | PKTSCHED_AMD_TX_EN,
+> > +		       PKTSCHED_PKT_EN);
+> > +
+> > +	/* Enable AUDS */
+> > +	dw_hdmi_qp_mod(hdmi, PKTSCHED_AUDS_TX_EN, PKTSCHED_AUDS_TX_EN, PKTSCHED_PKT_EN);
+> > +
+> > +	return 0;
+> > +}
+> 
+> Something's wrong with this patch as all the functions above have been dropped
+> since the HDMI VSI & SPD InfoFrames series [1] got merged.  The previous
+> revision was fine though, hence that's likely an unexpected artifact of the
+> latest rebase.
 
-Gentle ping.
+Oops, yeah, I think I messed this up during rebase. Thanks for letting me know!
 
-Thanks.
+> 
+> [1] https://lore.kernel.org/all/20260129-dw-hdmi-qp-iframe-v2-0-0157ad05232c@collabora.com/
+> 
 
---=20
 
-Marco Crivellari
 
-L3 Support Engineer
+
