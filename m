@@ -4,148 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E31F2EA4FC2
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 14:05:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87CCFEA4FBA
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 14:07:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DB5310E44F;
-	Mon, 23 Feb 2026 14:05:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19C6D10E450;
+	Mon, 23 Feb 2026 14:07:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KBA4Zk/h";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="nx4B7mB+";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010057.outbound.protection.outlook.com [52.101.85.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8324B10E44F
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 14:05:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Tj8Lz2NVupqK+qN0dcRTdjAQYMnQEKDGEgTtnRnFWnRqSMOXfek/FFInY5wMlpehOKvt1lecR3LkbarPW+z+J27GpUSgIhzXJOHetr6Xpd+davoYG5TQEZkGsfk2U/8tc955JBpPLJfcIaOIjoViMEU55hJL8BWU0O6V/Os4EOjIi3D3+fAlm/EhMLO61UUIIiLQKaxw4PfcN456XNpavOqHkvo9kgxn1ZYlEndViQxnBRO1xkxQ1jzM0CHC3sv+uEFLN4Ubu+1ZHnT9GdEVbIZfhZ/ArrnXEC3RyuBsDXkCsT1zUTr59R4nZR1Jb0Gnso9A9EqLgXehuGg2zlIyEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YCNVn6Dsql6NQm6Ckg7tvlJsXu5AGKTtDaCqTOxolcU=;
- b=o7sRwKZCHt3xT36D+0UaV2F2y70SzVWqW5Q8KOpEUTihHO6ZvMRq49gOIRGPMqHAopYVi8/ahKnKjcOc59KeKcVApLvEzxTvoeCcg1S0mgT8yEtvw4nTtaTPyzpfDlLNng5of+CKURMsoQRSSgwz2a1rviGEZh0ZnUwfHk8QVY9R4TQ+Lc+oJskyF0MpKKxfjOZEN8QJpTVccnnpm9/sL+dgobUllXu8rdau+0KE4g8EiX6Z/J21iaukDNmia0TVNvTMP2f+dmgcnKFm8XGpuPNEx+wrJs0UYEi8G8WE0W+95Yd76DUeXi/G4nUI/m9vj43MVVpgt5HvxJAsXmor7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YCNVn6Dsql6NQm6Ckg7tvlJsXu5AGKTtDaCqTOxolcU=;
- b=KBA4Zk/h1iizmFcOlzoft7xqjTW43lWbCqJ6FPvmJb/rjt8XT8aINBYIbSZwXs+P+eQPBVUdvqUAgAlRmg6Bvw1PH5BqzX3JWR5z7W5Qnc2bJm3jzZcgNTc8Ksst32BgQbeZUfxNhJ4a9SAYqaGSgM+3rCrhL66TEOXY1wiAumU=
-Received: from CY8PR12MB8193.namprd12.prod.outlook.com (2603:10b6:930:71::22)
- by IA1PR12MB8586.namprd12.prod.outlook.com (2603:10b6:208:44e::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.21; Mon, 23 Feb
- 2026 14:05:27 +0000
-Received: from CY8PR12MB8193.namprd12.prod.outlook.com
- ([fe80::43e3:7eec:f4e2:b0e7]) by CY8PR12MB8193.namprd12.prod.outlook.com
- ([fe80::43e3:7eec:f4e2:b0e7%6]) with mapi id 15.20.9632.017; Mon, 23 Feb 2026
- 14:05:26 +0000
-From: "Li, Roman" <Roman.Li@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Hung, Alex"
- <Alex.Hung@amd.com>, "Pillai, Aurabindo" <Aurabindo.Pillai@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, Mario Limonciello
- <superm1@kernel.org>, "Chung, ChiaHsuan (Tom)" <ChiaHsuan.Chung@amd.com>
-Subject: RE: [PATCH] drm/amd/display: Fix kdoc formatting in dcn42_hwseq.c
-Thread-Topic: [PATCH] drm/amd/display: Fix kdoc formatting in dcn42_hwseq.c
-Thread-Index: AQHcpMs8y24e2XCc30KLAgyEROynXrWQUTOg
-Date: Mon, 23 Feb 2026 14:05:26 +0000
-Message-ID: <CY8PR12MB8193A77187A3826AEC297E038977A@CY8PR12MB8193.namprd12.prod.outlook.com>
-References: <20260223134914.1625954-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260223134914.1625954-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-02-23T14:05:11.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB8193:EE_|IA1PR12MB8586:EE_
-x-ms-office365-filtering-correlation-id: 957d7d6b-0394-4c9a-fc40-08de72e49874
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|38070700021|7053199007; 
-x-microsoft-antispam-message-info: =?us-ascii?Q?lPWyPrv62pKMhoF3pOijZN2LH9RCDdaepXUs7fDIidT3LOajVDCh/MkfNh0O?=
- =?us-ascii?Q?PsUIQXOKgnOYqpfMK27CgM5p5EgLrjweelYLv91O5G/6E7XIczhyt4b40L5j?=
- =?us-ascii?Q?pa9bnfmkGyPqOg3sQc0vbxGyjKTRzefqQRgtE5L2XMp+WjXgmT3lJ3woxJcU?=
- =?us-ascii?Q?mHw2LTjGsrgbnlsVOV6xS1+1gvH8zFRDiF20I/i8YUm/dHbt+XBMCtr6NK6e?=
- =?us-ascii?Q?cVO4sub5kplNQKNjXzuvo9+v5TcWDHBQMF0bscqYO1+Ar0ThsJyA5e+5stSB?=
- =?us-ascii?Q?dlKQY+Vx4OeEHMIbeYGec7oaHdHSLpNXQYk7uTt65dE4pIZFfCSGSMWB+SUd?=
- =?us-ascii?Q?JWnu+ao3HD1ekIxrZhzs6FWp/MqAQpgngte4mPdFC6f5i12QlFH1wVxVAr6h?=
- =?us-ascii?Q?vlRIzWeOnRXkmi4hE2VWqHLs4gboDsqdhg9nzNHKz3KXqrokfnOIQc+vOPVo?=
- =?us-ascii?Q?4IIFsJzx4nLNlxuh6oWfzZ2tgmsnfPpX31/Qke+bbrSKDIvVGXHvb5GoMUmv?=
- =?us-ascii?Q?8uurR8ZRhRbLZG0G4RhtPZ78lWOCOnHeZmCx94LhtdHOH/C9jah0uI+R8MEK?=
- =?us-ascii?Q?owSnkICmCy6iFVa7YQNaGHH1E0dPhGJYCJj5PGgIb4io4IBZ7eA4NTmxmn5o?=
- =?us-ascii?Q?aY+UxMt5kFCdTOs9m+LHkq0qJRzEC86EaOUV4h6SXtoNFKC+fY3wt2ieeE5j?=
- =?us-ascii?Q?h26exnhByhN2ZBAeI/EWnkW6a+mGr9W44RIdfdoUHKwRRqwIlG/UKHhrhrtX?=
- =?us-ascii?Q?AqWsL/SrF2dBE49RPIvMN8uR7xmCm5Jyh/SAZj0RbK8W89LWsLPOEWwejFCc?=
- =?us-ascii?Q?UzLI/XVkRIhoGOQ717MbDdSWOU7dBBlGiwFmhdUKay3tEjfz3HPuYcPLhxt3?=
- =?us-ascii?Q?DUof1jMTEK+hdC/5H2VyA/sY7O8xBwHXT4vqzTN7YhcpvBajm0PAqn2iLGcb?=
- =?us-ascii?Q?nApY5WKr5Is6oUgUeZPvybQl48AEHTeEzAUuWACmlHE9rV3t1i3noOTkiXE6?=
- =?us-ascii?Q?0YOIf2dfWMnfsWcpCukH35Vo7DlTI23Xn1ZDWCrI8t5O3++i2YqkiwU2/WpG?=
- =?us-ascii?Q?s9YNALQXVLALxLv0FH4RrRxBLgdb+0g9t+s7KbCXd5AT5DGXmirmD9T9utzd?=
- =?us-ascii?Q?tTV8m6zftQbBgkLRmzFbORHRsZoNGx9QGKCTt+7g+hCGU+nDp2Lzxl/rRLs8?=
- =?us-ascii?Q?DQk2qv3EtKeVA9TgcUNSHNW51wgxFiUTzobO4T9xXW9sHKRxg0bLrHJb7UR1?=
- =?us-ascii?Q?xe4e6o/WAH8+XTRHou8VVIDmUtUS4TW+6hs9F6G9WhJeRSSrNuA+EUG3WTTx?=
- =?us-ascii?Q?iI/2dstgyNQdwhXnOyt9EtG3aEi3etnIsy08f+cIolmM4hLLClmUnI8r1AxC?=
- =?us-ascii?Q?MXsvfhQV0tscY1PKaWlsWiRYVzsLK7DXw5EEodRMCRhBLGDwFcp2WrvN0wuH?=
- =?us-ascii?Q?ww3rzHh08kkSw3Upi2bAcZ62lCIInrqf+RcSQ55SMBT43l+96tU35fz++sFC?=
- =?us-ascii?Q?vhrNwZoLQePeISjYlrJXIze6kUliXd+XQpTntjY8ga7dpwFTuHK/nmlCWapi?=
- =?us-ascii?Q?OBSXIQM4b6A592LG0Vyu4PCDtr1lX7aoipDHqwceByGSmgNjPd3BifMiHwPU?=
- =?us-ascii?Q?nl2IbrZlwk+eZB69IWXlyGw=3D?=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB8193.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(38070700021)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?965yxfCRFadVZGcv0H+5M6d1hR0lC4Mj9Hhmqa+JksE8jp6Ei6uTAFH49OoV?=
- =?us-ascii?Q?MsTiPDNUwr+O7aU2+UF4qBR0UJ90faddSYgk9uLsj0paS/7Oyu8JJ0TOuXoe?=
- =?us-ascii?Q?rlxrxsjCBbGFwxkpIk/MM2bjd+se3UxixFVB+cIa/udhEcTNZ8sWUoa4Vboq?=
- =?us-ascii?Q?m4srzlFhcBk2Z344oiE+3nrmTGy4106bqEoM0o8wzu/Jt4BadbSBNDWzN+c4?=
- =?us-ascii?Q?Pl90MH7EBd5Jm92v4rF2umg8+FOkz3DMwFV+eUMIKXLV1gGDhETy5SYGoAya?=
- =?us-ascii?Q?HIfMdE6EH+w28fOhKOW3userXToyqHvrsVSpxrh3ePPoYawnv47cpn+kQZDe?=
- =?us-ascii?Q?NBDmGtL4Cf4XqvF4AU6Qcm3kmaSx13FNqI+SRAE9/78T/sDPZezThKSNjLjM?=
- =?us-ascii?Q?gOb2GnPhGC4ioLxIUdw/cCKCYmns/dozL6r6Yp/EJeuqrjDRPGWeExjsoQvl?=
- =?us-ascii?Q?4BvNvaIhE2yX0pzEisD+GAG9dmXFBNzBQ3jql6PZcwre+gBO7Ma+41+YizUA?=
- =?us-ascii?Q?P5aLHoQDNRydekYgr2LBDU3PUKKi8CisMBVyRf98py2D+gipdopmhMu1Bmjj?=
- =?us-ascii?Q?rPA90fKU/6Mv7ix4YmapNRhqoVOhK0DMpG1CgMHCs3QU5S0fKUJPAc33c5Bk?=
- =?us-ascii?Q?yA48VkMKfLTbvPDN0qzX7so3wai8V2YJASoWmUxeeSxNbAMjG9jb8mfNJSSe?=
- =?us-ascii?Q?F7K+UNYEMzgKAwGAqYDAWpBnKGDtQ6Wd+zzIaaKJRZ9JB0zigG7Zs1fo1JTV?=
- =?us-ascii?Q?qG5WQSu79qFtTJnrhdErTXQe5kEPMMXr9Lm9chy0/vBcNY2HZBNF3nOXgbNt?=
- =?us-ascii?Q?/QQgFIjmx4NIBIKFvMP/FgKPRaLKSgoEmQeuYRx2eaUIJkyryzXOmCYqaJx5?=
- =?us-ascii?Q?2VBFeDCjAsFt/n021e3EcGF/d8VDRERGwmGg/GBVDeRv7H9vFjbGO46VK0cg?=
- =?us-ascii?Q?5XS6NxRPhFSBtQ6CDSSOmwKK6Eps2HCXMMF2TQz2cBOpCf6/lM7qqZIFFm/L?=
- =?us-ascii?Q?hqAl8HLtXXMF8q4/KKKl7QwRmEzmsXhRhIT7HbfgY0YyheZ1JT3PIz5VYEFH?=
- =?us-ascii?Q?12WRyS5n3lJJJ863jCSg+miC4GlH0rIzAbGkkMkFXrmDs+3AI1+DmA9ZMfLb?=
- =?us-ascii?Q?ssp/xqx7b2p5HfP0rwzpl99WhRlN/FFfZk0zUr/JhAIYgudNm6d/dZxjiDQj?=
- =?us-ascii?Q?WDR6BFxmUb+sq0G16UAE5dZOV3D/yGb9lfP5vnrs39hmEyL3eMr+0MmgBsKq?=
- =?us-ascii?Q?wFProCoBvwHatLeaN4FsCVlZIvcdft1SfwNzYdHcCZMpS4jrp3AmFe3uoPkX?=
- =?us-ascii?Q?qb6ap08plXEvzZvpSoxLqlApagYX2+7IB8Gtiy5NaBrGjKlr/R9j2yHfYzNi?=
- =?us-ascii?Q?RZ0Cvv7ZAY5sj3CnZdBkG+KgGUQUD0pOPCp0TtqnBrHVs07I+pSWTrMogkwU?=
- =?us-ascii?Q?AN3+z9rXrXO8gyjzGzYH7VwwOt5bUZ3PvgdorbWptYia+jUw8bIUuwrM7qoj?=
- =?us-ascii?Q?IYBsRaKel44Vhmvf0RaGi3KxsYqlLqg1k27s60eaamFoYCOC3QSY+yoYNCaq?=
- =?us-ascii?Q?H7y81YJ+S2u1Kj7uzykQRSuWhwKSl4PqcvQHPPxvlS6dwoKZ12gC29q4lnlc?=
- =?us-ascii?Q?YWjZSoo7A2qKLCRqP74x+kFiUBtQbZ5wGctyQVsBpl3AEOYSVvkAweNd7i0B?=
- =?us-ascii?Q?uGIJ6hWTaEtN6WK8yKi85y26zzgYWFrtqZbvKNXBbJljbc9X?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA57810E450
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 14:07:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=qE7hhenr7DQTVeQzL4oSdM3TgNEeGo2xDdKfHKGhDEI=; b=nx4B7mB+yNwgHzaeeN0r7M4UPG
+ xeIlJi6r0/vF2ZsmcfifvmwKbbu8rbHok5Q88w8gEzhCRk67pPIh6z3zsdJukcCiJSwKZA7be0KFj
+ GBwO4RLkRcpmQKdBoAPfHy8iDVbjqybR2/2trs/DS2If46lINPb8LEFTMcT3TLIyOrFZMgoNmrA1b
+ G6A60FiGTQZcDuGYSq16sfGpPkNoxPipFjAzIl/15Gdm/3aO4ORDjnLyNBP9mdxQ2sSmXOllge34f
+ xMTwonrKUEL703joK8e7GVSKICNfdjbxXlNJHxAC0iZtZNqfAVrfcYXSi7rqldc+IIoUeSZKNuzTC
+ SSm1V9lQ==;
+Received: from [90.240.106.137] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1vuWbA-004GDP-3s; Mon, 23 Feb 2026 15:07:44 +0100
+Message-ID: <445d25ae-7c45-46ce-9de2-24c09711dfe8@igalia.com>
+Date: Mon, 23 Feb 2026 14:07:43 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB8193.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 957d7d6b-0394-4c9a-fc40-08de72e49874
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Feb 2026 14:05:26.8738 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2w8Zg2jb7oTuyZiptnuRSYkVRgb6BVGhohvljqpIAockcZTtx81gY2d9Mzgj8mss
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8586
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/12] drm/amdgpu/userq: Use drm_gem_objects_lookup in
+ amdgpu_userq_wait_ioctl
+To: "Khatri, Sunil" <sukhatri@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Sunil Khatri <sunil.khatri@amd.com>, kernel-dev@igalia.com
+References: <20260223124141.10641-1-tvrtko.ursulin@igalia.com>
+ <20260223124141.10641-6-tvrtko.ursulin@igalia.com>
+ <0047be6b-9fd3-4424-8498-cb7aed30f38b@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <0047be6b-9fd3-4424-8498-cb7aed30f38b@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,53 +62,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Public]
 
-Reviewed-by: Roman Li <roman.li@amd.com>
+On 23/02/2026 13:58, Khatri, Sunil wrote:
+> 
+> On 23-02-2026 06:11 pm, Tvrtko Ursulin wrote:
+>> Use the existing helper instead of open coding it
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> ---
+>>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 79 ++++++-------------
+>>   1 file changed, 23 insertions(+), 56 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/ 
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> index ee6f03f75b41..d779671bd0db 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> @@ -610,44 +610,29 @@ int amdgpu_userq_signal_ioctl(struct drm_device 
+>> *dev, void *data,
+>>   int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>>                   struct drm_file *filp)
+>>   {
+>> -    u32 *syncobj_handles, *timeline_points, *timeline_handles, 
+>> *bo_handles_read, *bo_handles_write;
+>> -    u32 num_syncobj, num_read_bo_handles, num_write_bo_handles;
+>> -    struct drm_amdgpu_userq_fence_info *fence_info = NULL;
+>>       struct drm_amdgpu_userq_wait *wait_info = data;
+>> +    const unsigned int num_write_bo_handles = wait_info- 
+>> >num_bo_write_handles;
+>> +    const unsigned int num_read_bo_handles = wait_info- 
+>> >num_bo_read_handles;
+>> +    struct drm_amdgpu_userq_fence_info *fence_info = NULL;
+>>       struct amdgpu_fpriv *fpriv = filp->driver_priv;
+>>       struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
+>> +    struct drm_gem_object **gobj_write, **gobj_read;
+>> +    u32 *timeline_points, *timeline_handles;
+>>       struct amdgpu_usermode_queue *waitq;
+>> -    struct drm_gem_object **gobj_write;
+>> -    struct drm_gem_object **gobj_read;
+>> +    u32 *syncobj_handles, num_syncobj;
+>>       struct dma_fence **fences = NULL;
+>>       u16 num_points, num_fences = 0;
+>> -    int r, i, rentry, wentry, cnt;
+>>       struct drm_exec exec;
+>> +    int r, i, cnt;
+>>       if (!amdgpu_userq_enabled(dev))
+>>           return -ENOTSUPP;
+>> -    num_read_bo_handles = wait_info->num_bo_read_handles;
+>> -    bo_handles_read = memdup_user(u64_to_user_ptr(wait_info- 
+>> >bo_read_handles),
+>> -                      size_mul(sizeof(u32), num_read_bo_handles));
+>> -    if (IS_ERR(bo_handles_read))
+>> -        return PTR_ERR(bo_handles_read);
+>> -
+>> -    num_write_bo_handles = wait_info->num_bo_write_handles;
+>> -    bo_handles_write = memdup_user(u64_to_user_ptr(wait_info- 
+>> >bo_write_handles),
+>> -                       size_mul(sizeof(u32), num_write_bo_handles));
+>> -    if (IS_ERR(bo_handles_write)) {
+>> -        r = PTR_ERR(bo_handles_write);
+>> -        goto free_bo_handles_read;
+>> -    }
+>> -
+>>       num_syncobj = wait_info->num_syncobj_handles;
+>>       syncobj_handles = memdup_user(u64_to_user_ptr(wait_info- 
+>> >syncobj_handles),
+>>                         size_mul(sizeof(u32), num_syncobj));
+>> -    if (IS_ERR(syncobj_handles)) {
+>> -        r = PTR_ERR(syncobj_handles);
+>> -        goto free_bo_handles_write;
+>> -    }
+>> +    if (IS_ERR(syncobj_handles))
+>> +        return PTR_ERR(syncobj_handles);
+>>       num_points = wait_info->num_syncobj_timeline_handles;
+>>       timeline_handles = memdup_user(u64_to_user_ptr(wait_info- 
+>> >syncobj_timeline_handles),
+>> @@ -664,33 +649,19 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
+>> *dev, void *data,
+>>           goto free_timeline_handles;
+>>       }
+>> -    gobj_read = kmalloc_array(num_read_bo_handles, 
+>> sizeof(*gobj_read), GFP_KERNEL);
+>> -    if (!gobj_read) {
+>> -        r = -ENOMEM;
+>> +    r = drm_gem_objects_lookup(filp,
+>> +                   u64_to_user_ptr(wait_info->bo_read_handles),
+>> +                   num_read_bo_handles,
+>> +                   &gobj_read);
+> 
+> If i am not wrong even using the helper function will not avoid an OOM 
+> situation in case num_read_bo_handles is a very big number? This is just 
+> using the helper to reorganize the code but not having additonal 
+> checks... and alos valid only on drm gem objects type...
 
-> -----Original Message-----
-> From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-> Sent: Monday, February 23, 2026 8:49 AM
-> To: Hung, Alex <Alex.Hung@amd.com>; Pillai, Aurabindo
-> <Aurabindo.Pillai@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN
-> <SRINIVASAN.SHANMUGAM@amd.com>; Wentland, Harry
-> <Harry.Wentland@amd.com>; Mario Limonciello <superm1@kernel.org>; Chung,
-> ChiaHsuan (Tom) <ChiaHsuan.Chung@amd.com>; Li, Roman
-> <Roman.Li@amd.com>
-> Subject: [PATCH] drm/amd/display: Fix kdoc formatting in dcn42_hwseq.c
->
-> Kernel-doc requires all lines within a documentation comment to start wit=
-h " *". The
-> previous empty line caused a "bad line" warning during build.
->
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Mario Limonciello <superm1@kernel.org>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
-> Cc: ChiaHsuan Chung <chiahsuan.chung@amd.com>
-> Cc: Roman Li <roman.li@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-> b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-> index c9c6ef8236ed..0d9871f9864b 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-> @@ -1294,7 +1294,7 @@ void dcn42_calc_blocks_to_ungate(struct dc *dc, str=
-uct
-> dc_state *context,
->   *   ONO Region 9, DCPG 2: dchubp2, dpp2
->   *   ONO Region 11, DCPG 3: dchubp3, dpp3
->   *   ONO Region 4, DCPG 25: hpo
-> -
-> + *
->   *  No sequential power up/down ordering for DCN42
->   *
->   * @dc: Current DC state
-> --
-> 2.34.1
+Last part about only DRM GEM object type I did not understand. It is 
+currently using drm_gem_object_lookup so that is the same.
+
+Otherwise yes, although my understanding of the overall topic was you 
+will apply the limits on top of the consolidation patches.
+
+Regards,
+
+Tvrtko
+
+>> +    if (r)
+>>           goto free_timeline_points;
+>> -    }
+>> -    for (rentry = 0; rentry < num_read_bo_handles; rentry++) {
+>> -        gobj_read[rentry] = drm_gem_object_lookup(filp, 
+>> bo_handles_read[rentry]);
+>> -        if (!gobj_read[rentry]) {
+>> -            r = -ENOENT;
+>> -            goto put_gobj_read;
+>> -        }
+>> -    }
+>> -
+>> -    gobj_write = kmalloc_array(num_write_bo_handles, 
+>> sizeof(*gobj_write), GFP_KERNEL);
+>> -    if (!gobj_write) {
+>> -        r = -ENOMEM;
+>> +    r = drm_gem_objects_lookup(filp,
+>> +                   u64_to_user_ptr(wait_info->bo_write_handles),
+>> +                   num_write_bo_handles,
+>> +                   &gobj_write);
+>> +    if (r)
+>>           goto put_gobj_read;
+>> -    }
+>> -
+>> -    for (wentry = 0; wentry < num_write_bo_handles; wentry++) {
+>> -        gobj_write[wentry] = drm_gem_object_lookup(filp, 
+>> bo_handles_write[wentry]);
+>> -        if (!gobj_write[wentry]) {
+>> -            r = -ENOENT;
+>> -            goto put_gobj_write;
+>> -        }
+>> -    }
+>>       drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT,
+>>                 (num_read_bo_handles + num_write_bo_handles));
+>> @@ -947,12 +918,12 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
+>> *dev, void *data,
+>>   exec_fini:
+>>       drm_exec_fini(&exec);
+>>   put_gobj_write:
+>> -    while (wentry-- > 0)
+>> -        drm_gem_object_put(gobj_write[wentry]);
+>> +    for (i = 0; i < num_write_bo_handles; i++)
+>> +        drm_gem_object_put(gobj_write[i]);
+>>       kfree(gobj_write);
+>>   put_gobj_read:
+>> -    while (rentry-- > 0)
+>> -        drm_gem_object_put(gobj_read[rentry]);
+>> +    for (i = 0; i < num_read_bo_handles; i++)
+>> +        drm_gem_object_put(gobj_read[i]);;
+>>       kfree(gobj_read);
+>>   free_timeline_points:
+>>       kfree(timeline_points);
+>> @@ -960,10 +931,6 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
+>> *dev, void *data,
+>>       kfree(timeline_handles);
+>>   free_syncobj_handles:
+>>       kfree(syncobj_handles);
+>> -free_bo_handles_write:
+>> -    kfree(bo_handles_write);
+>> -free_bo_handles_read:
+>> -    kfree(bo_handles_read);
+>>       return r;
+>>   }
 
