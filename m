@@ -4,141 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E413EA4FD8
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 15:28:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 507C7EC1101
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 16:17:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCD7110E3C9;
-	Mon, 23 Feb 2026 15:28:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7201E10E3E5;
+	Mon, 23 Feb 2026 16:17:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vMCcJ7au";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ddmyODij";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013067.outbound.protection.outlook.com
- [40.93.196.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF86610E3C9
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 15:28:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U7s2nCUy8o+9hzr6FqJ7NbDGoY+sWNE7mV02+gsPTUPkmB24nfCYzd5xIKUlCg9zKvAT+bPPDybmRtw1lHdJuLXQWk2o273BagNNil3OHpJazEsxFgMKlD++3JEe0R7e+c3cKTphfb40NeGzn4SOkbj10fk6h6tGAe5uoPpNHXSQQY+IOv5nmIXqEvTZhyBXovEYLhjpcGL16HV6XaTI145hRFOaCjE9HcIHnbf1XTABp4foukWGM8FCdBPRAf5f0ufYYX850WM5NQsbG5Yht8FWjo7YwOrUZvU1/3WmkxSq+KZE/KT+INsUWgDx0BaEn70gew5nPA5Cs/q2CVNVSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=O/WbWWUruwtnQb8jM8R4opAeLdRh/b1Bkl+m7aoZyfc=;
- b=l6ulSuLaP3Psy/7GxKVvRIFKeKxTgQSU4YYxeb2KNjIae2nyVzusXsvZYwCioGKZnd8uTvsRpRBPsK0fPPjRPLYYmbHfxUq8usvf4IqRWdmfBuQuk1XPBXDptqISKVBEUEsdy+S4Pt14wtC4NCU3eNGBMTHMdmP5dxT3a3gi5wApGNbuddC1zbraSOTzchEDvOLiT0uSfhzAHeHqJtMx2KaLU5Gb5ulmTLsHoFAE+YDHtJyVZJVRekAaneQ4sfhVaE56/OP/f5cLo8xV+uSKeipvfcNMEOIUZVrwsmCx2uKnPyeulT1+4ieoH9zJsyWZGFw4rACuWtjl/n9sURyTRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=m1k.cloud smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=O/WbWWUruwtnQb8jM8R4opAeLdRh/b1Bkl+m7aoZyfc=;
- b=vMCcJ7autmiUAgHzpkl89WjkEIbMaVEqWo3+l4EbTRi676qcOsjzx7kWr6FMW6v1ECyMz0RHlKbXRHCfswJ9Z/FgIMsPQY9O81VMvDNnOdx5u3dwLxe2g7IkVNDDh9acnQW4DaznOVo4emL5sluEuCpUrqxcQJeQtSjvu8ljHs8=
-Received: from BL0PR02CA0049.namprd02.prod.outlook.com (2603:10b6:207:3d::26)
- by SA1PR12MB9545.namprd12.prod.outlook.com (2603:10b6:806:45b::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.21; Mon, 23 Feb
- 2026 15:28:07 +0000
-Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
- (2603:10b6:207:3d:cafe::cf) by BL0PR02CA0049.outlook.office365.com
- (2603:10b6:207:3d::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.21 via Frontend Transport; Mon,
- 23 Feb 2026 15:28:05 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.12 via Frontend Transport; Mon, 23 Feb 2026 15:28:05 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 23 Feb
- 2026 09:28:05 -0600
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 23 Feb
- 2026 07:28:05 -0800
-Received: from [10.254.94.150] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 23 Feb 2026 09:28:04 -0600
-Message-ID: <f43075c8-e5f1-426c-b70e-743d1e7e4c59@amd.com>
-Date: Mon, 23 Feb 2026 10:27:59 -0500
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 451FE10E167;
+ Mon, 23 Feb 2026 16:17:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1771863460; x=1803399460;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=aOP5WIIIx6jXIgIj8fQMjIWqluDLQWnoK9OZpu0pAUA=;
+ b=ddmyODijzubpkvS8B4GXP3bDhz6+cTMSL5fNHvx5CEfeQ0/sjCgDFMkq
+ 2nBOOGMESzDAOpgKtmIagfsfVJDWMq46PCR0q72bv9iKwv3B3cuBjowXL
+ m3FGuJMlZPbkUPMBfEg0/sdtdszh6wHxSvkCvUAHn+qW1PaKo1DZLmtn+
+ Z8M3vHThwNnOeNiRhDHc7QaxicYrW60tZMi3BAQ1EoQFNN5Uz5slNUDhB
+ s183Rx2pfeegjxPGokCXRALOE1P0vqeOb/XwBluLgGWbtrdIZoUrKNm8v
+ 3GQnhcV3GMr+d8ib1EER31sTDh1va7d7vYnI9Drki9Tmd9+kGlNm3zP4v g==;
+X-CSE-ConnectionGUID: hQ5uza29QWexf1kzbwByQA==
+X-CSE-MsgGUID: at+TU5dpSoercxK29VLdcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11710"; a="72964232"
+X-IronPort-AV: E=Sophos;i="6.21,307,1763452800"; d="scan'208";a="72964232"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2026 08:17:38 -0800
+X-CSE-ConnectionGUID: s+T+PQQsT0SyyRAKA4P4zw==
+X-CSE-MsgGUID: bqNmgWIJTXepephYLIEsgA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,307,1763452800"; d="scan'208";a="215752862"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.246.249])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2026 08:17:26 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+ <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang
+ <hjc@rock-chips.com>, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan
+ <andy.yan@rock-chips.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer
+ <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, Jonathan Corbet
+ <corbet@lwn.net>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-doc@vger.kernel.org, Nicolas Frattaroli
+ <nicolas.frattaroli@collabora.com>, Andri Yngvason <andri@yngvason.is>,
+ Werner Sembach <wse@tuxedocomputers.com>, Marius Vlad
+ <marius.vlad@collabora.com>
+Subject: Re: [PATCH v8 02/20] drm: Add new general DRM property "color format"
+In-Reply-To: <20260216-color-format-v8-2-5722ce175dd5@collabora.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
+ <20260216-color-format-v8-2-5722ce175dd5@collabora.com>
+Date: Mon, 23 Feb 2026 18:17:23 +0200
+Message-ID: <3b5e5af4219671c5b4ffdcb09bd22679332244ac@intel.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] drm/amd/display: complete cursor vblank events
- immediately
-To: Michele Palazzi <sysdadmin@m1k.cloud>, <amd-gfx@lists.freedesktop.org>
-CC: <harry.wentland@amd.com>, <rodrigo.siqueira@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>
-References: <20260217191632.1243826-1-sysdadmin@m1k.cloud>
-Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20260217191632.1243826-1-sysdadmin@m1k.cloud>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|SA1PR12MB9545:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3665399c-4600-454d-fc43-08de72f0242f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|42112799006|1800799024|82310400026|36860700013|376014|13003099007|7053199007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OWMrVHlOSlVmMjJpQUJueGpuS3F5aEY3M3JVRHhVQ01PSlRRaTc3MU40Ykhw?=
- =?utf-8?B?ZHFBaWdIWXZNclo1Y3NVdVFHYjY2elprQmxGK2Nucm5JbWhibzN4K0tjZVg0?=
- =?utf-8?B?TlBVOWZiVDdyVFJxTWpmSDQ1VmsvSjQwQWdTSW56LzYxaWxDOW4ySi9LU3Rl?=
- =?utf-8?B?ZExyUVdNQ1JhK2o3M0REai93dDVmak82RDdqTzVJRXk2Ni90bnh1TCtMSGRl?=
- =?utf-8?B?cERUQ0tEM016MElHVFBLYWNqaTZnb0F5UDNON3dUSkRPNVB0b1B4VCtPYzJK?=
- =?utf-8?B?bzJvVEV4OUpqaDdjY0Z2eWZiR2hJd2FicFYvQnlXc21uU2RiaHBNUW9jUktj?=
- =?utf-8?B?NmMyUmNzM3A5eE4yaGFIdHoxQmZxQW5ZdVZDV0FFRGh5QmtXRklUeFh5bWV5?=
- =?utf-8?B?YmEwaGsrSGE2bWxxQ0sxQiszempoUENCQ0lnbjVmTFlCd0ZaSll0RmJ0Sldn?=
- =?utf-8?B?b0Zsbk9XdDZMMTNmWHJjZEs1cGRtWWkyR0lURUVDcVZ1dElVN1pjNVJCQS9m?=
- =?utf-8?B?MkZNOEZtS0V2bjlGYkRTWm01R1d3ZzRHRE1scm5MakJvVmd2UUN1RUtyei9L?=
- =?utf-8?B?NW1MNEF4VEZNc0lpbTlKQWszTGU4bnVGS1pSbmZVN0IxRlpnWFVJcC90b3Ax?=
- =?utf-8?B?dFJWQTZhUTVLN0IzMTlRTDlkdCtTMnZRSmt4RWltOURtb0dVeEw0SUdReHg4?=
- =?utf-8?B?ZG9iOGU5TmtGMDFoMTVNR3ZuS2FCRGcwQ3NBd2RhdFl4M2NZT1p3NDNiNmJq?=
- =?utf-8?B?QUMzSjh3RmJSL3NKS2VJeGZ2RmhSVVlIcXNLVUdaZ3ZIZGZ3eTRSUkwyV1dk?=
- =?utf-8?B?NWU4Y0RaSllOVlNKZld4U0ZKelNzTnJLdzRWUHRtTXZ3bmlRMDhDTEpkK1JN?=
- =?utf-8?B?R2kvMHJac1V3RkNwQnBVRkFraVhvWWpxUFNwbWRSaWd0WlNaSFFlbG0wTW1k?=
- =?utf-8?B?TEZ4My9XWU9Rd29NTFpqSEFnSWw5SUMxZlhya3dvMFBMaENzRzl4VXVIejZX?=
- =?utf-8?B?Q2tkQnlqdmF5QlFJUjBhYWNjTEI3eDljTUVWVThibTcrbGhLNHkrWHBTb2Fr?=
- =?utf-8?B?MldldmJxb2xEQXJ4YzVQYlRjMjZUQTJhWFg2SmFaYk42ZkF0R2cvTUl1eUtC?=
- =?utf-8?B?elhSSlpibVB3N0l5ZnZiU3FMSlZCT0Z6UzJHTW53MHZicWROUFFQaXRVM1V5?=
- =?utf-8?B?d0ZEZmMrdFJnYi9kQ1J4cU9hdno5WHVxdkRNRTZ3WnhiS3E5ZTFaczA0M0Jp?=
- =?utf-8?B?bVlrTTdSTjMzdjdHOVJ2V2RrZDBJTmFmUnFJb2dLQ2xvUXNiZGJPUThUemcy?=
- =?utf-8?B?WEhjYmd5cjIzdDZEYmRJSGIxQkNkRUF4V3FBYTBmRDNZaENhMGp2c1BnWjgr?=
- =?utf-8?B?WnJ3blo2RW4zOGluaVZCMkJHYzBlMkE5ODBkNlgrNVNyVXlZR0RuQ1FYZjFk?=
- =?utf-8?B?cU85UDFDaEFINzJwdHR3T1BSeWJiR3hnMEd6TDU2c2twbWxqTlZkQVJwSjFu?=
- =?utf-8?B?Wm9CRjNUZnlrSXdpSWtvSVlFT25ZMmRUQlh6eUFmVHhLakFDdS9PWDkyN2tX?=
- =?utf-8?B?MHNGalNMZnF5YnUzcVpqNGhlTW55d3FIWUFrbm1LV2l1eFExdVdpNUlqVU55?=
- =?utf-8?B?QkpNY1Z2eFF1alk1dEZKL09wcmh0Y2tBdS9xa2tlekIrMlkyNE5SZlBEWDN0?=
- =?utf-8?B?Q1RQUXNhQUFjbTI1eFZpQVJaNTNtTWYyS3BRZkk5OHdyc1JtUG1TbzVmcEI4?=
- =?utf-8?B?OGFxZ1RuOEljZkl1QlF4bXBFYTBma0JRelpLaW5UVmRJSkM2c3dXZWZHdTB4?=
- =?utf-8?B?bDRVNUozQWRTYkxLNGI0NWZ3SGJVUWZPS3pYSXJjQWZLOTJKczNKL29EQXFu?=
- =?utf-8?B?NmZMaWJ2Q1RlSisxR2dDWjg5Q01XWThkeFJ4REk0NFVTOStCOEFoVEh4Wksr?=
- =?utf-8?B?WkFKSnhOWnVRVEJOSDFMK2RDNmI5ekEwUml4aFNzekNVK0d3WFRqcW5STHFy?=
- =?utf-8?B?a3ZWSHNETGZLeGJWYzAxRXg5UDBMbzJBODNpMUxLc1Fwb2pMREJYeHEvUFNR?=
- =?utf-8?B?eFJjTHFGYm1tZEhRM0dKYXVTNGlHd20yN1RTbkdpT1JwSEJxTWtyeHRqNUdO?=
- =?utf-8?B?Q3haUzVYWVNsYjRPVzVVb0NmSEkwcnkzSUc1RmV2Sk9PRVlJTStwajFvRno4?=
- =?utf-8?B?MkE9PQ==?=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(42112799006)(1800799024)(82310400026)(36860700013)(376014)(13003099007)(7053199007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 1Zw9Kkb3xHl+i4z6sqMw+maQhtppUnrPcjvoOSJNOdmbiX7ZzeoS5ZVGpZIHWgWeewu5srvVkwAKnP68HIXLCVfY/FVINkls7fnvUS0dK8qt2GdRI+epNU07iDFK3N/7Paq17p1d4cM6P0BN8XY94r3Ioevb6Cz7eamYFTPB3yeGEDSg7YmeLiXimkb2iSZO0ugVU3PthPw2FQhl0lkj+bwE7UjW3N/Ay3lSquniKOlwMl46UlAYnjuKIcQ8eWwoUe6QT2JP1E/htAuy+syN98q34FoJlmSgzfHG6PSfnnUIZ/77gu34QF8O9Qkken4gYUDj91oDK8tyI2Fhr3HrORLWP8H3dZu5L2aLDR0KHAwabaHWTXpXSRYTd7+HHgKHGdFnQFgEJggszStOGcVdsJd7obhyd2ibPBx5SlhU35jmh05RAQHth+WgrML5T6x5
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2026 15:28:05.7603 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3665399c-4600-454d-fc43-08de72f0242f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB71.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9545
+Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,206 +93,465 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 2026-02-17 14:16, Michele Palazzi wrote:
-> Intermittent flip_done timeouts have been observed on AMD GPUs
-> since kernel 6.12.
-> 
-> Analysis with bpftrace reveals that amdgpu_dm_crtc_handle_vblank() can
-> incorrectly consume events meant for plane flips during cursor-only
-> updates. This happens because cursor commits defer event delivery to
-> the vblank handler, which checks (pflip_status != SUBMITTED). Since
-> AMDGPU_FLIP_NONE also matches this, cursor events can "steal" the
-> event slot for subsequent plane flips, leading to timeouts.
-> 
-> The potential for a race was present since commit 473683a03495
-> ("drm/amd/display: Create a file dedicated for CRTC"), then
-> commit 58a261bfc967 ("drm/amd/display: use a more lax vblank enable
-> policy for older ASICs") made it happen by reducing vblank
-> off-delay and making disables happen much more frequently
-> between commits.
-> 
-> Fix this by sending cursor-only vblank events immediately in
-> amdgpu_dm_commit_planes(). Since cursor updates are committed to
-> hardware immediately, deferring the event is unnecessary and
-> creates race windows for event stealing or starvation if vblank
-> is disabled before the handler runs.
-> 
-> Tested on DCN 2.1, 3.2, and 3.5.
-> 
-> Fixes: 58a261bfc967 ("drm/amd/display: use a more lax vblank enable policy for older ASICs")
-> Signed-off-by: Michele Palazzi <sysdadmin@m1k.cloud>
+On Mon, 16 Feb 2026, Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+> From: Andri Yngvason <andri@yngvason.is>
+>
+> Add a new general DRM property named "color format" which can be used by
+> userspace to request the display driver to output a particular color
+> format.
+>
+> Possible options are:
+>     - auto (setup by default, driver internally picks the color format)
+>     - rgb
+>     - ycbcr444
+>     - ycbcr422
+>     - ycbcr420
+>
+> Drivers should advertise from this list which formats they support.
+> Together with this list and EDID data from the sink we should be able
+> to relay a list of usable color formats to users to pick from.
+>
+> Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+> Signed-off-by: Andri Yngvason <andri@yngvason.is>
+> Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 > ---
-> I've been chasing intermittent flip_done timeouts on AMD GPUs (7900 GRE first, 9070 XT now)
-> since kernel 6.12. The hang occurs during normal desktop usage but is much easier to
-> trigger under specific conditions involving cursor movements and plane updates.
-> 
-> Partially tracked in https://gitlab.freedesktop.org/drm/amd/-/issues/3787
-> 
-> Hardware: Ryzen 7 7800X3D, Radeon RX 9070 XT
-> Dual DP monitors, 2560x1440, 144Hz
-> Desktop: KDE Plasma Wayland
-> 
-> The hang was initially observed while using Cisco Webex
-> (XDG_SESSION_TYPE=x11 /opt/Webex/bin/CiscoCollabHost %U), start a meeting
-> and screen share a window running Omnissa Horizon client. Then move the cursor
-> around between the two monitors and the shared window.
-> Under these conditions the hang usually occurs within a few hours.
-> 
-> Enabling drm.debug masks the issue entirely, the overhead
-> changes timing enough to close the race window.
-> So i added debug printks to amdgpu_dm.c and used a small bpftrace script to log the
-> pageflip lifecycle with per-thread tracking to debug.
-> 
-> bpftrace script:
-> 
->   config = { missing_probes = "warn" }
->   BEGIN { printf("=== flip_done tracer started ===\n"); }
->   kprobe:drm_crtc_vblank_on_config       { printf("%lu drm_crtc_vblank_on_config\n", nsecs/1000000); }
->   kprobe:drm_vblank_disable_and_save     { printf("%lu drm_vblank_disable_and_save\n", nsecs/1000000); }
->   kprobe:dm_pflip_high_irq               { printf("%lu dm_pflip_high_irq\n", nsecs/1000000); }
->   kprobe:drm_crtc_send_vblank_event      { printf("%lu drm_crtc_send_vblank_event\n", nsecs/1000000); }
->   kprobe:drm_vblank_put                  { printf("%lu drm_vblank_put\n", nsecs/1000000); }
->   kprobe:drm_atomic_helper_commit_hw_done { printf("%lu drm_atomic_helper_commit_hw_done\n", nsecs/1000000); }
->   kprobe:manage_dm_interrupts            { printf("%lu manage_dm_interrupts\n", nsecs/1000000); }
->   kprobe:drm_atomic_helper_wait_for_flip_done {
->       @wait_start[tid] = nsecs;
->       printf("%lu drm_atomic_helper_wait_for_flip_done ENTER [tid=%d]\n", nsecs/1000000, tid);
->   }
->   kretprobe:drm_atomic_helper_wait_for_flip_done {
->       $start = @wait_start[tid];
->       $ms = $start > 0 ? (nsecs - $start) / 1000000 : 0;
->       if ($ms > 100) {
->           printf("%lu drm_atomic_helper_wait_for_flip_done TIMEOUT waited %lums [tid=%d]\n",
->                  nsecs/1000000, $ms, tid);
->       } else {
->           printf("%lu drm_atomic_helper_wait_for_flip_done EXIT %lums [tid=%d]\n",
->                  nsecs/1000000, $ms, tid);
->       }
->       delete(@wait_start[tid]);
->   }
->   interval:s:60 { printf("%lu HEARTBEAT\n", nsecs/1000000); }
->   END { printf("=== stopped ===\n"); clear(@wait_start); }
-> 
-> The timeout was captured at 17:35:41 CET. The trace timestamps
-> match dmesg exactly (9942110ms = dmesg 9942.110s).
-> 
-> dmesg output from the timeout:
-> 
->   [ 9942.110360] [FLIP_DEBUG] wait_for_flip_done took 10329ms!
->   [ 9942.110380] [FLIP_DEBUG]  crtc:0 pflip_status=0 event=00000000a0636a23
->                   vbl_enabled=1 vbl_refcount=1 vbl_count=1428659
->                   disable_immediate=0 active_planes=1
-> 
-> pflip_status=0 (AMDGPU_FLIP_NONE) but event is still non-NULL. The flip was never completed
-> but the status was already reset to NONE. vblank was enabled, refcount was held, so vblank
-> IRQs were firing throughout the wait.
-> 
-> The bpftrace captured the exact sequence leading up to the hang. Here's the critical
-> timeline at ~17:35:31 (9931771), about 10 seconds before the timeout fired:
-> 
->   9931755 drm_atomic_helper_commit_hw_done
->   9931755 drm_atomic_helper_wait_for_flip_done ENTER [tid=35929]
->   9931756 dm_pflip_high_irq                           <- normal plane flip, last good one
->   9931756 drm_crtc_send_vblank_event
->   9931756 drm_vblank_put
->   9931756 drm_atomic_helper_wait_for_flip_done EXIT 1ms [tid=35929]
->   9931771 drm_vblank_disable_and_save                 <- vblank timer fires
->   9931771 drm_crtc_send_vblank_event                  <- event sent WITHOUT dm_pflip_high_irq
->   9931771 drm_vblank_put
->   9931771 drm_atomic_helper_commit_hw_done
->   9931771 drm_atomic_helper_wait_for_flip_done ENTER [tid=35929]
->   9931771 drm_atomic_helper_wait_for_flip_done EXIT 0ms [tid=35929]  <- instant, already done
->   9931773 drm_atomic_helper_commit_hw_done
->   9931773 drm_atomic_helper_wait_for_flip_done ENTER [tid=36929]     <- new commit
->   9931777 dm_pflip_high_irq                           <- pflip fires, completes the wrong one
->   9931777 drm_crtc_send_vblank_event
->   9931777 drm_vblank_put
->   9931777 drm_atomic_helper_wait_for_flip_done EXIT 3ms [tid=36929]
->   9931781 drm_atomic_helper_commit_hw_done
->   9931781 drm_atomic_helper_wait_for_flip_done ENTER [tid=36929]     <- THIS ONE HANGS
->   ... 10328ms of silence ...
->   9942110 drm_atomic_helper_wait_for_flip_done TIMEOUT waited 10328ms [tid=36929]
-> 
-> The drm_crtc_send_vblank_event at 9931771 fires without dm_pflip_high_irq. This is
-> amdgpu_dm_crtc_handle_vblank() sending a cursor-only event. The problem is that the
-> cursor-only commit path in amdgpu_dm_commit_planes() stores the event in acrtc->event
-> and defers delivery to the vblank handler. This creates two race conditions:
-> 
-> - The vblank handler checks (pflip_status != SUBMITTED) which also
->   matches NONE, so it can consume events meant for plane flips. The subsequent
->   dm_pflip_high_irq finds no event, and the next commit hangs.
-> 
-> - If vblank is disabled by the off-delay timer before the handler
->   runs, the PENDING cursor event is never delivered and the commit hangs.
-> 
-> The fix is to send cursor-only events immediately via drm_crtc_send_vblank_event()
-> in amdgpu_dm_commit_planes() instead of deferring to the vblank handler. The cursor
-> update is already committed to hardware at this point, so immediate delivery is correct.
-> This eliminates both race conditions by removing cursor events from the deferred
-> delivery path entirely:
-> 
-> - Plane flips: SUBMITTED -> dm_pflip_high_irq delivers (unchanged)
-> - Cursor updates: sent immediately in commit_planes (no deferral, no races)
-> 
-> From git history the check in amdgpu_dm_crtc_handle_vblank() has been like this since
-> 473683a03495 ("drm/amd/display: Create a file dedicated for CRTC", 2022)
-> which moved this code from amdgpu_dm.c, but it was practically impossible to trigger
-> because the default drm_vblank_offdelay was 5000ms.
-> Commit 58a261bfc967("drm/amd/display: use a more lax vblank enable policy for older ASICs") in 6.12
-> changed all ASICs to use drm_crtc_vblank_on_config() with a computed off-delay
-> of roughly 2 frames (~14ms at 144Hz).
-> This made drm_vblank_disable_and_save fire hundreds of times more often, turning
-> a theoretical race into reality. The bpftrace log is full of drm_vblank_disable_and_save
-> events interleaved with the commit sequence.
-> 
-> This fix was tested on DCN 2.1 (4700U), DCN 3.2 (7600M XT), and DCN 3.5 (9070 XT).
-> Under high-frequency glxgears + cursor jiggling test the patch successfully intercepted
-> the race thousands of times without a single timeout.
-> Also running this on the main system without issues.
-> 
-> This instead https://lists.freedesktop.org/archives/amd-gfx/2026-February/138636.html was
-> my previously rushed attempt to do something about this that is no longer needed.
-> 
-> Patch applies cleanly on top of tag v6.19.
-
-Really nice debuging work, thanks for catching this!
-
-Ideally, the cursor event should be delivered when hardware latches onto the new
-cursor info and starts scanning it out. The latching event fires an interrupt
-that should be handled by dm_crtc_high_irq().
-
-dm_pflip_high_irq() handles an interrupt specifically for when hardware latches
-onto a new fb address; I don't think it actually fires when there's a
-cursor-only update. I think if we really want to do it right, we can have
-another "acrtc_attach->cursor_event" just for cusror-only updates, and deliver
-the event in crtc_high_irq().
-
-In any case, I don't foresee any major issues with delivering the event early.
-And since it fixes an ongoing issue:
-
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-
-Thanks!
-Leo
-
-> 
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index a8a59126b2d2..35987ce80c71 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -10168,8 +10168,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->  	} else if (cursor_update && acrtc_state->active_planes > 0) {
->  		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
->  		if (acrtc_attach->base.state->event) {
-> -			drm_crtc_vblank_get(pcrtc);
-> -			acrtc_attach->event = acrtc_attach->base.state->event;
-> +			drm_crtc_send_vblank_event(pcrtc, acrtc_attach->base.state->event);
->  			acrtc_attach->base.state->event = NULL;
+>  drivers/gpu/drm/drm_atomic_helper.c |   5 ++
+>  drivers/gpu/drm/drm_atomic_uapi.c   |  11 +++
+>  drivers/gpu/drm/drm_connector.c     | 150 ++++++++++++++++++++++++++++++++++++
+>  include/drm/drm_connector.h         | 116 ++++++++++++++++++++++++++--
+>  4 files changed, 277 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index d422f79b96db..d7e902ce5d2d 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -737,6 +737,11 @@ drm_atomic_helper_check_modeset(struct drm_device *dev,
+>  			if (old_connector_state->max_requested_bpc !=
+>  			    new_connector_state->max_requested_bpc)
+>  				new_crtc_state->connectors_changed = true;
+> +
+> +			if (old_connector_state->color_format !=
+> +			    new_connector_state->color_format)
+> +				new_crtc_state->connectors_changed = true;
+> +
 >  		}
->  		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+>  
+>  		if (funcs->atomic_check)
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+> index dc013a22bf26..907dd3374533 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -931,6 +931,15 @@ static int drm_atomic_connector_set_property(struct drm_connector *connector,
+>  		state->privacy_screen_sw_state = val;
+>  	} else if (property == connector->broadcast_rgb_property) {
+>  		state->hdmi.broadcast_rgb = val;
+> +	} else if (property == connector->color_format_property) {
+> +		if (val >= DRM_COLOR_FORMAT_ENUM_NUM) {
+> +			drm_dbg_atomic(connector->dev,
+> +				       "[CONNECTOR:%d:%s] unknown color format %llu\n",
+> +				       connector->base.id, connector->name, val);
+> +			return -EINVAL;
+> +		}
+> +
+> +		state->color_format = val;
+>  	} else if (connector->funcs->atomic_set_property) {
+>  		return connector->funcs->atomic_set_property(connector,
+>  				state, property, val);
+> @@ -1016,6 +1025,8 @@ drm_atomic_connector_get_property(struct drm_connector *connector,
+>  		*val = state->privacy_screen_sw_state;
+>  	} else if (property == connector->broadcast_rgb_property) {
+>  		*val = state->hdmi.broadcast_rgb;
+> +	} else if (property == connector->color_format_property) {
+> +		*val = state->color_format;
+>  	} else if (connector->funcs->atomic_get_property) {
+>  		return connector->funcs->atomic_get_property(connector,
+>  				state, property, val);
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> index aec05adbc889..4d85add60d92 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -1359,6 +1359,32 @@ static const char * const colorspace_names[] = {
+>  	[DRM_MODE_COLORIMETRY_BT601_YCC] = "BT601_YCC",
+>  };
+>  
+> +/**
+> + * drm_get_color_format_name - return a string for color format
+> + * @color_fmt: color format to return the name of
+> + *
+> + * Returns a string constant matching the format's name, or NULL if no match
+> + * is found.
+> + */
+> +const char *drm_get_color_format_name(enum drm_color_format_enum color_fmt)
+> +{
+> +	switch (color_fmt) {
+> +	case DRM_COLOR_FORMAT_ENUM_AUTO:
+> +		return "AUTO";
+> +	case DRM_COLOR_FORMAT_ENUM_RGB444:
+> +		return "RGB";
+> +	case DRM_COLOR_FORMAT_ENUM_YCBCR444:
+> +		return "YUV 4:4:4";
+> +	case DRM_COLOR_FORMAT_ENUM_YCBCR422:
+> +		return "YUV 4:2:2";
+> +	case DRM_COLOR_FORMAT_ENUM_YCBCR420:
+> +		return "YUV 4:2:0";
+> +	default:
+> +		return NULL;
+> +	}
+> +}
+> +EXPORT_SYMBOL(drm_get_color_format_name);
+> +
+>  /**
+>   * drm_get_colorspace_name - return a string for color encoding
+>   * @colorspace: color space to compute name of
+> @@ -1388,6 +1414,20 @@ static const u32 hdmi_colorspaces =
+>  	BIT(DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65) |
+>  	BIT(DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER);
+>  
+> +/* already bit-shifted */
+> +static const u32 hdmi_colorformats =
+> +	DRM_COLOR_FORMAT_RGB444 |
+> +	DRM_COLOR_FORMAT_YCBCR444 |
+> +	DRM_COLOR_FORMAT_YCBCR422 |
+> +	DRM_COLOR_FORMAT_YCBCR420;
+> +
+> +/* already bit-shifted */
+> +static const u32 dp_colorformats =
+> +	DRM_COLOR_FORMAT_RGB444 |
+> +	DRM_COLOR_FORMAT_YCBCR444 |
+> +	DRM_COLOR_FORMAT_YCBCR422 |
+> +	DRM_COLOR_FORMAT_YCBCR420;
+> +
+>  /*
+>   * As per DP 1.4a spec, 2.2.5.7.5 VSC SDP Payload for Pixel Encoding/Colorimetry
+>   * Format Table 2-120
+> @@ -2649,6 +2689,97 @@ int drm_mode_create_hdmi_colorspace_property(struct drm_connector *connector,
+>  }
+>  EXPORT_SYMBOL(drm_mode_create_hdmi_colorspace_property);
+>  
+> +/**
+> + * drm_mode_create_color_format_property - create color format property
+> + * @connector: connector to create the color format property on
+> + * @supported_color_formats: bitmask of &enum drm_color_format values the
+> + *                           connector supports
+> + *
+> + * Called by a driver to create a color format property. Must be attached to
+> + * the desired connector afterwards.
+> + *
+> + * @supported_color_formats should only include color formats the connector
+> + * type can actually support.
+> + *
+> + * Returns:
+> + * 0 on success, negative errno on error
+> + */
+> +int drm_mode_create_color_format_property(struct drm_connector *connector,
+> +					  u32 supported_color_formats)
+> +{
+> +	struct drm_device *dev = connector->dev;
+> +	struct drm_prop_enum_list enum_list[DRM_COLOR_FORMAT_ENUM_NUM];
+> +	enum drm_color_format_enum fmt_e;
+> +	unsigned int len = 1;
+> +	unsigned int i = 1;
+> +	u32 fmt;
+> +
+> +	if (connector->color_format_property)
+> +		return 0;
+> +
+> +	if (!supported_color_formats) {
+> +		drm_err(dev, "No supported color formats provided on [CONNECTOR:%d:%s]\n",
+> +			connector->base.id, connector->name);
+> +		return -EINVAL;
+> +	}
+> +
+> +	if (supported_color_formats & ~DRM_COLOR_FORMAT_ALL) {
+> +		drm_err(dev, "Unknown color formats provided on [CONNECTOR:%d:%s]\n",
+> +			connector->base.id, connector->name);
+> +		return -EINVAL;
+> +	}
+> +
+> +	switch (connector->connector_type) {
+> +	case DRM_MODE_CONNECTOR_HDMIA:
+> +	case DRM_MODE_CONNECTOR_HDMIB:
+> +		if (supported_color_formats & ~hdmi_colorformats) {
+> +			drm_err(dev, "Color formats not allowed for HDMI on [CONNECTOR:%d:%s]\n",
+> +				connector->base.id, connector->name);
+> +			return -EINVAL;
+> +		}
+> +		break;
+> +	case DRM_MODE_CONNECTOR_DisplayPort:
+> +	case DRM_MODE_CONNECTOR_eDP:
+> +		if (supported_color_formats & ~dp_colorformats) {
+> +			drm_err(dev, "Color formats not allowed for DP on [CONNECTOR:%d:%s]\n",
+> +				connector->base.id, connector->name);
+> +			return -EINVAL;
+> +		}
+> +		break;
+> +	}
+> +
+> +	enum_list[0].name = drm_get_color_format_name(DRM_COLOR_FORMAT_ENUM_AUTO);
+> +	enum_list[0].type = DRM_COLOR_FORMAT_ENUM_AUTO;
+> +
+> +	while (supported_color_formats) {
 
+Please consider making supported_color_formats an unsigned long, and
+using for_each_set_bit(). It makes everything below much easier.
+
+> +		fmt = BIT(i - 1);
+> +		if (supported_color_formats & fmt) {
+> +			supported_color_formats ^= fmt;
+> +			fmt_e = drm_color_format_to_enum(fmt);
+
+This function doesn't exist yet, breaking bisectability. But I think
+this idea of two "domains" for color format is getting out of hand. See
+comments below. IMO drm_color_format_to_enum() should not be added
+anyway.
+
+I think the right option is to only use the enums, and then use those as
+bit numbers where masks are needed.
+
+> +			if (fmt_e != DRM_COLOR_FORMAT_ENUM_INVALID) {
+> +				enum_list[len].name = drm_get_color_format_name(fmt_e);
+> +				enum_list[len].type = fmt_e;
+> +				len++;
+> +			} else {
+> +				drm_warn(dev,
+> +					 "Unknown supported format 0x%x on [CONNECTOR:%d:%s]\n",
+> +					 fmt, connector->base.id, connector->name);
+> +			}
+
+This is just unnecessary complications from the two domains.
+
+> +		}
+> +		i++;
+> +	}
+> +
+> +	connector->color_format_property =
+> +		drm_property_create_enum(dev, DRM_MODE_PROP_ENUM, "color format",
+> +					 enum_list, len);
+> +
+> +	if (!connector->color_format_property)
+> +		return -ENOMEM;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_mode_create_color_format_property);
+> +
+>  /**
+>   * drm_mode_create_dp_colorspace_property - create dp colorspace property
+>   * @connector: connector to create the Colorspace property on.
+> @@ -2866,6 +2997,25 @@ int drm_connector_attach_max_bpc_property(struct drm_connector *connector,
+>  }
+>  EXPORT_SYMBOL(drm_connector_attach_max_bpc_property);
+>  
+> +/**
+> + * drm_connector_attach_color_format_property - attach "force color format" property
+> + * @connector: connector to attach force color format property on.
+> + *
+> + * This is used to add support for selecting a color format on a connector.
+> + *
+> + * Returns:
+> + * Zero on success, negative errno on failure.
+> + */
+> +int drm_connector_attach_color_format_property(struct drm_connector *connector)
+> +{
+> +	struct drm_property *prop = connector->color_format_property;
+> +
+> +	drm_object_attach_property(&connector->base, prop, DRM_COLOR_FORMAT_ENUM_AUTO);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(drm_connector_attach_color_format_property);
+> +
+>  /**
+>   * drm_connector_attach_hdr_output_metadata_property - attach "HDR_OUTPUT_METADA" property
+>   * @connector: connector to attach the property on.
+> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+> index c18be8c19de0..18bd875b6918 100644
+> --- a/include/drm/drm_connector.h
+> +++ b/include/drm/drm_connector.h
+> @@ -556,6 +556,97 @@ enum drm_colorspace {
+>  	DRM_MODE_COLORIMETRY_COUNT
+>  };
+>  
+> +/**
+> + * enum drm_color_format_enum - color model description
+> + *
+> + * This enum is a high-level description of the component makeup of the image
+> + * data. It says nothing about how the components are ordered or how many bits
+> + * they take up (i.e. is unlike MEDIA_BUS_FMT\_ or DRM_FORMAT\_), but
+> + * describes the type of components (Luminance-Chrominance vs. RGB) and the
+> + * sub-sampling.
+> + *
+> + * &enum drm_color_format_enum makes statements about the same attribute of
+> + * an image as the DRM_COLOR_FORMAT\_ bitfields do. Its purpose is to inform
+> + * choices made by display protocol specific implementations when it comes to
+> + * translating it to e.g. &enum hdmi_colorspace or &enum dp_pixelformat, both
+> + * of which also describe the same attribute of the image at the same level of
+> + * specificity.
+> + *
+> + * In precise terms, this enum describes a color model. It makes no statements
+> + * about the primaries, gamma, or current phase of the moon used in conversion
+> + * from one to the other. Furthermore, it also makes no statements about the
+> + * order of components (e.g. RGB vs. BGR), their depth in bits, or their binary
+> + * packing.
+> + */
+> +enum drm_color_format_enum {
+
+The enum name should not have "enum" in it. That's just not a style
+that's being used.
+
+> +	/**
+> +	 * @DRM_COLOR_FORMAT_ENUM_AUTO: The choice of format is left up to the
+> +	 * display protocol implementation. All implementations of the same
+> +	 * display protocol (e.g. HDMI) are supposed to behave the same way,
+> +	 * though display protocols may choose to behave differently compared to
+> +	 * each other (e.g. HDMI's "AUTO" does not have to match DP's "AUTO").
+> +	 *
+> +	 * Implementations may rely on @DRM_COLOR_FORMAT_ENUM_AUTO to be falsy.
+> +	 */
+> +	DRM_COLOR_FORMAT_ENUM_AUTO = 0,
+
+Ditto for the enumeration names, no ENUM in them please.
+
+> +
+> +	/**
+> +	 * @DRM_COLOR_FORMAT_ENUM_RGB444: Image components are encoded as RGB
+> +	 * values of equal resolution.
+> +	 */
+> +	DRM_COLOR_FORMAT_ENUM_RGB444,
+> +
+> +	/**
+> +	 * @DRM_COLOR_FORMAT_ENUM_YCBCR444: Image components are encoded as
+> +	 * luminance and chrominance of equal resolution.
+> +	 */
+> +	DRM_COLOR_FORMAT_ENUM_YCBCR444,
+> +
+> +	/**
+> +	 * @DRM_COLOR_FORMAT_ENUM_YCBCR422: Image components are encoded as
+> +	 * luminance and chrominance with the chrominance components having half
+> +	 * the horizontal resolution.
+> +	 */
+> +	DRM_COLOR_FORMAT_ENUM_YCBCR422,
+> +
+> +	/**
+> +	 * @DRM_COLOR_FORMAT_ENUM_YCBCR420: Image components are encoded as
+> +	 * luminance and chrominance with the chrominance components having half
+> +	 * the horizontal and vertical resolution.
+> +	 */
+> +	DRM_COLOR_FORMAT_ENUM_YCBCR420,
+> +
+> +	/**
+> +	 * @DRM_COLOR_FORMAT_ENUM_NUM: The number of valid color format values
+> +	 * in this enum. Itself not a valid color format.
+> +	 */
+> +	DRM_COLOR_FORMAT_ENUM_NUM,
+> +
+> +	/**
+> +	 * @DRM_COLOR_FORMAT_ENUM_INVALID: Error return value for conversion
+> +	 * functions encountering unexpected inputs.
+> +	 */
+> +	DRM_COLOR_FORMAT_ENUM_INVALID = -EINVAL,
+
+Please don't hide negative error codes inside enums. If you need to
+return one from a function, please return the negative error code
+directly instead.
+
+> +};
+> +
+> +/*
+> + * Constants for specifying bit masks for e.g. providing a list of supported
+> + * color formats as a single integer.
+> + */
+> +#define DRM_COLOR_FORMAT_RGB444		BIT(0)
+> +#define DRM_COLOR_FORMAT_YCBCR444	BIT(1)
+> +#define DRM_COLOR_FORMAT_YCBCR422	BIT(2)
+> +#define DRM_COLOR_FORMAT_YCBCR420	BIT(3)
+
+I don't think we should define both enum and mask. One or the
+other. Moreover, now you have two independent definitions for the same
+thing, with nothing to ensure they keep matching. It's a bug waiting to
+happen.
+
+I think the problem is that they were originally defined as bits even
+though most places actually use them as single values only. It's
+confusing. It would probably have been better to just use enums and
+BIT(DRM_COLOR_FORMAT_*) where a mask is needed.
+
+Maybe that's what should be done as the first step anyway.
+
+> +
+> +/*
+> + * Mask of all DRM_COLOR_FORMAT\_ constants. When adding new color formats,
+> + * they must be part of this define.
+> + */
+> +#define DRM_COLOR_FORMAT_ALL	(DRM_COLOR_FORMAT_RGB444   | \
+> +				 DRM_COLOR_FORMAT_YCBCR444 | \
+> +				 DRM_COLOR_FORMAT_YCBCR422 | \
+> +				 DRM_COLOR_FORMAT_YCBCR420)
+> +
+>  /**
+>   * enum drm_bus_flags - bus_flags info for &drm_display_info
+>   *
+> @@ -699,11 +790,6 @@ struct drm_display_info {
+>  	 */
+>  	enum subpixel_order subpixel_order;
+>  
+> -#define DRM_COLOR_FORMAT_RGB444		(1<<0)
+> -#define DRM_COLOR_FORMAT_YCBCR444	(1<<1)
+> -#define DRM_COLOR_FORMAT_YCBCR422	(1<<2)
+> -#define DRM_COLOR_FORMAT_YCBCR420	(1<<3)
+> -
+>  	/**
+>  	 * @panel_orientation: Read only connector property for built-in panels,
+>  	 * indicating the orientation of the panel vs the device's casing.
+> @@ -1107,6 +1193,13 @@ struct drm_connector_state {
+>  	 */
+>  	enum drm_colorspace colorspace;
+>  
+> +	/**
+> +	 * @color_format: State variable for Connector property to request
+> +	 * color format change on Sink. This is most commonly used to switch
+> +	 * between RGB to YUV and vice-versa.
+> +	 */
+> +	enum drm_color_format_enum color_format;
+> +
+>  	/**
+>  	 * @writeback_job: Writeback job for writeback connectors
+>  	 *
+> @@ -2105,6 +2198,12 @@ struct drm_connector {
+>  	 */
+>  	struct drm_property *colorspace_property;
+>  
+> +	/**
+> +	 * @color_format_property: Connector property to set the suitable
+> +	 * color format supported by the sink.
+> +	 */
+> +	struct drm_property *color_format_property;
+> +
+>  	/**
+>  	 * @path_blob_ptr:
+>  	 *
+> @@ -2507,6 +2606,9 @@ int drm_mode_create_dp_colorspace_property(struct drm_connector *connector,
+>  int drm_mode_create_content_type_property(struct drm_device *dev);
+>  int drm_mode_create_suggested_offset_properties(struct drm_device *dev);
+>  
+> +int drm_mode_create_color_format_property(struct drm_connector *connector,
+> +					  u32 supported_color_formats);
+> +
+>  int drm_connector_set_path_property(struct drm_connector *connector,
+>  				    const char *path);
+>  int drm_connector_set_tile_property(struct drm_connector *connector);
+> @@ -2588,6 +2690,10 @@ bool drm_connector_has_possible_encoder(struct drm_connector *connector,
+>  					struct drm_encoder *encoder);
+>  const char *drm_get_colorspace_name(enum drm_colorspace colorspace);
+>  
+> +int drm_connector_attach_color_format_property(struct drm_connector *connector);
+> +
+> +const char *drm_get_color_format_name(enum drm_color_format_enum color_fmt);
+> +
+>  /**
+>   * drm_for_each_connector_iter - connector_list iterator macro
+>   * @connector: &struct drm_connector pointer used as cursor
+
+-- 
+Jani Nikula, Intel
