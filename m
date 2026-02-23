@@ -4,86 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D905CEA4FB8
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 12:43:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90F6DEA4FBF
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:49:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79FA710E394;
-	Mon, 23 Feb 2026 12:43:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF6510E2E9;
+	Mon, 23 Feb 2026 13:49:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="nVQwlixA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rMRMZR5V";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3881D10E394
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 12:43:10 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-48334ee0aeaso31359055e9.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 04:43:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1771850589; x=1772455389; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=wSZ2emFEDth/ck+X6y3tAISHxFvQl33GEIxQtOSISJ4=;
- b=nVQwlixAPfxcUBc90pi8rHbgHSYmGkswjWhw8583+ysRmewr/5IFEN38wTFYETmw+e
- mEAWjEgH1L14zo7FyHrRizR5pf5CN9PhPBgVS1eingOhwjmClSWV+Acu5WDplpPS1Q2i
- OPZcira0DGGqt0eI80LMayEr/HZxpUMRimfEyym6k6/MROoM77Hgy5gUKizhLVlXtN2J
- ZmPodKELiNMbBN51abYcepw0u/fXpJPWhUe5+6T8a1g38m/3YMqNPcTliQh8vthw1yLc
- zYX+bSUChXepEQFrljURtW2WETYVNG6EvkcUgSvCma8gtV8Cjk+IK2QTDZZRFY3JHLB7
- Ca1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771850589; x=1772455389;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=wSZ2emFEDth/ck+X6y3tAISHxFvQl33GEIxQtOSISJ4=;
- b=fSy3tj+FUwe+gvFMS2OmJ2WugdNMk+M8y43OkJH4DAbDJTs2+NycUSOkxtJu1Yz36f
- MjHGmrgKXGjoqnGeyc7fDAvZlKHOuC5TaoKZYSNX+81PVZZGqEIpY51stCx20bq3pSat
- KztKx1s3UAg+8C8woFM6YM4WBJ53eXzhRRErm+bVnlcvOm7USzYNxeLwR24EZZpi3any
- W3jcmxntAa+7ejrVezCKPREM5yOstPO8DABkNsc80TBvBjn9a9J1LBUBS0MBcqUgkqTb
- gcJsayKrLJ9mV85S+o3xlml01q2N/RHSE+kvlA0dFN3Cemc+LhmBf2cVmO4Mjdp+fyxy
- x3tg==
-X-Gm-Message-State: AOJu0YwGRbXN3XedbmFrZ4U+5KhOq8daPSG8KLOUwdEhgQdv7jsiUw/m
- 5JJ12WHndJ06gY4gmpzKedjgr3GgK/H77eNmle+dpgOzP4ibynJKL0wQLhQizdcWfqc=
-X-Gm-Gg: AZuq6aI0QsirbxIyZcjTg0jrkwoITs+05p8ztRfhUbVp7Om8PbmXT7ZuNBF1oX8U/Ai
- 8Gp9nED02R7uN5suJHnsNT0ebTLzMdbWpuQ4OSiM5cBDS1+1CJwATeWtrxL6Xl9P3Yn043DbIl1
- vNP1otncpI7hePwi80CDGp5tkFRdVnZkC9hwC4USCXaYUGHeJcqxuEq5g39M+FS/28y4YSnauYd
- piX01ZN+AFKYwOSFKj2jB0IWEHoenN5+qYd5caSUJAy1VrYBXs4TCLM0k421q6ACF8d07avr62G
- rnc6wo02fNdCjo9/+tBOzgl3fErPkOJEbKfCWR/XgUKamB9o26nWOoTi3WhhYZnsJ8oetII+Xex
- 72kKDpLCRfiEbrCBxwWE67uoAPzXfP2WWfaVXIBkUuSdg/SmhTh8o9d8kFFm/8FoEZlccpG9Sbv
- 24b2ontwLh3/ipdQ4f/gaUh1YIfQYMD/BfJb1hhBwZ55R2
-X-Received: by 2002:a05:600c:8b02:b0:477:7ab8:aba with SMTP id
- 5b1f17b1804b1-483a95aa31dmr135430355e9.1.1771850588390; 
- Mon, 23 Feb 2026 04:43:08 -0800 (PST)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483a9b75b4dsm302896075e9.4.2026.02.23.04.43.07
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 23 Feb 2026 04:43:08 -0800 (PST)
-Message-ID: <1efa1b99-3a9d-4469-8723-9b064a5de393@ursulin.net>
-Date: Mon, 23 Feb 2026 12:43:07 +0000
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010022.outbound.protection.outlook.com
+ [52.101.193.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E67310E2E9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 13:49:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nhNU7jdac9xqqz87g8nmZx3WjM14xkoeqQwImK53Nd/owsZ3vkwmpOo+M3dMUhd7sthg1VFTfGvG0tntplyv2yQ8NJEGHJeQXiEKW0r4u/A/nVEe4nv3KBFwIci/hWtH+851WzbW8WdZw3P6XJYoeYXGhM2VilIGkiZXBf3GUAERXv8aUlaHhJoJ9iFhMmcZmxjA8j4Omd6NB6lqpba2no2pzefbzeAsUxYZD3bG7uog1UU17yE/AB76FEnFDmdBlxCNwqULFphHivpSw5UUKIIJlzT3pPM/g81eY8CjrXU2ZBOtnzaRGUBA3oqpBaoOJISNI07edJ/i3JW/288gFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R8bGLxYsYIwmW71nHWH5TCT374oKbm+OKvd1DhTh32A=;
+ b=Cn/2Qw0gPH8ClLNG06deAaiWkiPst3bdeKOaz7I9SA2t1bzAGoSjNrEnYeThkz/BtNJx1jS/bKPqh0hDFCn9uOag+pJFCcFdCEZaHb0A8ELL8Uv6y+Io4pJJvLKZNWNMPfiYZD+smbTRVwOYphnQbkBcF9sm1Tgmnfno6VVjidieR2A5Gwj/e0sHntlXvR3v46pQcX2cZkTu3cCC/AycNJ70BWZiWHLG9ldpgxF6zCN8dsbCqig6DLE7po3S1XVDwDBK7kTr6RoT5FYXwgwbzOI921zr9A5mcW0f7LQ3zNnVpIPucy9P3YNwXCqQYOwwRwvOnl6LYfRY3skGBBDbXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R8bGLxYsYIwmW71nHWH5TCT374oKbm+OKvd1DhTh32A=;
+ b=rMRMZR5V2XL1lpYjD2yOFUSUZhIRCX5wk8rnO5T+M98QOaODAk5YHo8oF67Ym1cCokrGJ7kfF3qShVUZUa1S6tovd9GmhaO/w9MnVDKTZU4Ro2EocMW+5zeAmg7tKy5gVvOQX6nju76JLGNBEEq8S6Z1zopYR4Fl47QVsRfjFhs=
+Received: from DS7PR03CA0267.namprd03.prod.outlook.com (2603:10b6:5:3b3::32)
+ by SA1PR12MB8698.namprd12.prod.outlook.com (2603:10b6:806:38b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.21; Mon, 23 Feb
+ 2026 13:49:29 +0000
+Received: from DS3PEPF0000C381.namprd04.prod.outlook.com
+ (2603:10b6:5:3b3:cafe::37) by DS7PR03CA0267.outlook.office365.com
+ (2603:10b6:5:3b3::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.21 via Frontend Transport; Mon,
+ 23 Feb 2026 13:49:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF0000C381.mail.protection.outlook.com (10.167.23.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9632.12 via Frontend Transport; Mon, 23 Feb 2026 13:49:29 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Mon, 23 Feb 2026 07:49:26 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ Mario Limonciello <superm1@kernel.org>, ChiaHsuan Chung
+ <chiahsuan.chung@amd.com>, Roman Li <roman.li@amd.com>
+Subject: [PATCH] drm/amd/display: Fix kdoc formatting in dcn42_hwseq.c
+Date: Mon, 23 Feb 2026 19:19:14 +0530
+Message-ID: <20260223134914.1625954-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] drm/amdgpu: update memdup_user with
- memdup_array_user
-To: "Khatri, Sunil" <sukhatri@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260220082840.2192325-1-sunil.khatri@amd.com>
- <3c7f24f3-d1f7-4724-bf2e-8540fa2e2648@ursulin.net>
- <4a824f5e-5279-4cb7-b6a9-fb4c6f87cd91@amd.com>
- <3c4c8c6c-5bcd-426a-bd39-fb24db8fc5f5@amd.com>
- <b05a405a-c9a3-4276-85df-daf223fd2a7b@ursulin.net>
- <a55ecb91-8aa2-41c5-bd76-b3ffa7d6c23c@amd.com>
- <cf512004-18ae-44e1-bc4f-63bb279a40dc@ursulin.net>
- <9ac4a721-64df-44c3-af17-77dd88988bd6@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <9ac4a721-64df-44c3-af17-77dd88988bd6@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C381:EE_|SA1PR12MB8698:EE_
+X-MS-Office365-Filtering-Correlation-Id: bdf333b8-c22d-42d9-e269-08de72e25d90
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700013|82310400026|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?GKParIeq1ppWf96fTun9xs2t+khr/OKP3Wx3qmGnRHn3cZACFdJ/jP5TwNDR?=
+ =?us-ascii?Q?M48KgK18bgcqUcigY0jb+lQzrlb74E1IkSddFdUZIRguOVPI8ZuvrDK1fqLc?=
+ =?us-ascii?Q?2Jz2bNJOqKjnt9zn/nkvwdUW5lZcw+rIr5By0oLaR3t0U+Ey+Q614OM0hkMl?=
+ =?us-ascii?Q?SknULi6P9PiDZa0BdpmfKvKsIos42WttzRpX7P/wkhkEkX8F5qHz29ePE1vF?=
+ =?us-ascii?Q?pgB+XehJvbYT46KpYOdOjO7vnrwFpzPgWOs7LlXP6YbKz58P4C7StjyroVY7?=
+ =?us-ascii?Q?hG+oG/6HJtnXEp6DFZvK5I4XonZ9XHYkn2MG7AcZM0HQT61hfkwpeikBZBvr?=
+ =?us-ascii?Q?AxgJXXJYx+YkhpS39ddFJqyqai9QBx/qcVpbeHWPX4jf5jw+jc6w1ABxoK2F?=
+ =?us-ascii?Q?abJ8FwrAnzc14U4qkfwUZx0fJnWOlvkl8gvjZjYlrruL3wGEUW5Dw8t6FlgK?=
+ =?us-ascii?Q?m49dfkZWiGGQ9t0rkZlCYCXCIzeT/RZCOrv5TrQeQpCqhGuttKqVwXpMr6ic?=
+ =?us-ascii?Q?0cwgVV+oUXieheZz2rlF1Zs9oS3F6GSUMylb0DDyt6RaGKv5lKREJYj9hPvp?=
+ =?us-ascii?Q?jdhIS2JJRE26SQr8T+xKpUe6DAciZWwGma4LQ1I+TtvNSgmw04nbVeSY+eaa?=
+ =?us-ascii?Q?1DxTbIyLuv7gwAMZvRlHvVzBkMHixM4cqjL+p68jgIqj4Tt+mnnm5wwx/Al4?=
+ =?us-ascii?Q?Jb3H1hb6SQQl4+jLmy7faMYQ5P7wwyw6uphnjtEJnMb1j4CwQJirWtZSrK3C?=
+ =?us-ascii?Q?xpvCpqwzmZZF2rf8PQAUeZpiBQd8vL1KvlY2593obUZ4MAG99oeFhDooakBe?=
+ =?us-ascii?Q?31PzlbaLexV3iwNXGj3w8zqjK7Q6v8hovoQYT+2jdzoxGDTIFmYR9gyV6W74?=
+ =?us-ascii?Q?UjHWcl4rCCuQ3Bi+/jYVuI75HcW2HMP2wB6lfiaV0192veW5OCOqwYOV07SH?=
+ =?us-ascii?Q?EbG7YPop4/2hljRIsPMJehGhaCavrC2hXUAyv8AqTI3fx30kQ+P3VEZdHnnm?=
+ =?us-ascii?Q?XebiT1b8BgxxyhRWvsTjm6YvCMvCkGP9XWscxU18BFeNOwqARX1DTqZ1txIg?=
+ =?us-ascii?Q?6dxK8rrg6W3We0KyG5iGiZ8PDG2BTrJnVigZkM7eQNcDWHDrGp1sbjgoziHg?=
+ =?us-ascii?Q?UT0wk9oRAFYuyuHczEw+rNsTS1XY/FGZp7KujZMB7XPVaSWPT6tTLTwulUOj?=
+ =?us-ascii?Q?JTHYQjsTsW0UKlnmcnbhn7CHCXCClpuaAQ4lYpfJtr4Fk8KsV8BUvnoXvavy?=
+ =?us-ascii?Q?UrPNH9kPHksjcBDIkz7lOjalZt94eTY1KPQ4CdayGZYSqWkfbgBfnfvjn2ss?=
+ =?us-ascii?Q?YK7nFxIVTOXAj2NT8ql9iiJERrJA2ePWrygd4yAKM+t5B52ILm4MTBqcnMwR?=
+ =?us-ascii?Q?a368y5cMCrLF+FrUM1LTolV6JRPJYfsLIT6PXueghShijBoBgn7fvIpgRQe1?=
+ =?us-ascii?Q?058FRc7npO+a+RegZlTMQY9Q6DMaokg6TVQvsv/O/pZlIUBizG8kBV04sQI4?=
+ =?us-ascii?Q?eyrYYd+9CsPvpxxj0UoYIuHveckyXDHS1Urd273tUF72Jm7wzVKAK2XKiOWL?=
+ =?us-ascii?Q?5LjPdMdeDCZ+vM32ELdhJ6b+RtjC4Jk1kFR34C9n+jeUG6oV5oHZMe9NCbg5?=
+ =?us-ascii?Q?J+Uj8z93dwdeZdhYDnliCYpQWx2Ey2oj9Ln+yNprc4LnqOHRSFZofw/iyNTz?=
+ =?us-ascii?Q?Ea9bEg=3D=3D?=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700013)(82310400026)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: IP0FNUT9TO2lWimQ4pwR4dq4TbEtGxSKN59xe/bmKMIBQiLXmgAIQ1F3jsKHROP5eC5TXt9T0qWRPse2ANLCiNUYiKE2GqjuNgWypMvII5Au5Qtf2WwCXM0PESawrhkJdoewliGE0czCrIbZJPb2bJuwUxAdO65AmZbKn572oufRJxAbEhP77JcHkbbtzwWjH3hTteyYj367mvCP/6XW0f/FBZvgGOhc5yQQfeBa4TynBj7hRBVx1n0hn1xnucJzPGYhPSlg2JCb9QSVpCczVN3Miviz2/soWR3aspmUZIFDfCcW4aef8qtAk9CA4+PowmEkr3fwpj8YvravYjxayH+yurtijqmwdu7N5m0IR5V24oYViYZCF70Drvt7Rcgtv4qb3dBi/Sb/1kH/iYa0Fiu1hp0pw0mZ9UQaEc6T6ofWI71srCrZnpjcKrowaPpl
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Feb 2026 13:49:29.0393 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bdf333b8-c22d-42d9-e269-08de72e25d90
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF0000C381.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8698
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,293 +139,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Kernel-doc requires all lines within a documentation
+comment to start with " *". The previous empty line
+caused a "bad line" warning during build.
 
-On 23/02/2026 10:36, Khatri, Sunil wrote:
-> 
-> On 23-02-2026 03:26 pm, Tvrtko Ursulin wrote:
->>
->> On 23/02/2026 08:21, Khatri, Sunil wrote:
->>>
->>> On 23-02-2026 01:41 pm, Tvrtko Ursulin wrote:
->>>>
->>>>
->>>> On 23/02/2026 04:31, Khatri, Sunil wrote:
->>>>> Applied the changes @Tvrtko Ursulin <tursulin@ursulin.net>
->>>>
->>>> Thank you! I am glad they still applied!
->>>>
->>>> Also, you were suggesting in your last week's reply to "Please make 
->>>> sure the changes are made for all memdup_user". There are also 
->>>> patches in that series which convert to drm_gem_objects_lookup() 
->>>> which remove some more, but, for those I think I need to check if 
->>>> they need tweaking after
->>>> dbce431756f8 ("drm/gem: Make drm_gem_objects_lookup() self-cleaning 
->>>> on failure v6"). Maybe it just works though. I will wait until the 
->>>> ones you merge appear in some branch and check.
->>>
->>> I am in process to merge only two changes patch no 6 and 7 in the 
->>> series. There were conflicts but i fixed those but still there are 
->>> some more memdup_user which i will fix with a patch which are left 
->>> after these 2 patches gets merged.
->>
->> The before mentioned object lookup and syncpoint lookup. For the 
->> latter I also had cleanup back in December but did not send it:
->>
->> commit ddb4985391907155a9cf5ef6f5262c1cc8f334c6
->> Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Date:   Thu Dec 4 13:56:56 2025 +0000
->>
->>     use syncobj lookup helper in amdgpu_userq_signal_ioctl
->>
->>     Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>
->> commit b21686063a5858833a09bb8f84cfbae2376f0c18
->> Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Date:   Thu Dec 4 13:36:15 2025 +0000
->>
->>     export sync obj lookup helper
->>
->>     Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>
->> Those two I was planning to send together with some more syncobj patches:
->>
->> 27cf1f1dabfc drm/syncobj: Add a fast path to drm_syncobj_array_find
->> e7efbf50342b drm/syncobj: Add a fast path to 
->> drm_syncobj_array_wait_timeout
->> 363279cd8eb4 drm/syncobj: Use vmemdup_array_user in 
->> drm_syncobj_array_find
->>
->> Which are interesting for graphics since four stack fast path slots 
->> avoid 99% of temporary allocations. Not sure for user queues how many 
->> sync points are typical.
->>
->>> Also if you want to take that up its ok with me. Let me know.
->>
->> ¯\_(ツ)_/¯
->>
->> Not sure if you want to re-do it because what I sent has a flaw 
->> somewhere or something else?
-> i do not want to redo it for sure :) , could you send the patches for 
-> review if you havent yet and add me in CC. Also i am here focusing on 
-> fixing the the left over place for the same function.
-> 
-> Example below, these changes are still left even after your two changes 
-> that i pushed. So i am assuming the patches you mentioned have these 
-> changes accomodated this way or some other. Please send them for review.
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Mario Limonciello <superm1@kernel.org>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: ChiaHsuan Chung <chiahsuan.chung@amd.com>
+Cc: Roman Li <roman.li@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Got it, thanks! I've sent the rebased series. You can pick and choose 
-from it but please also test the userq part since I only tested the 
-standard submission path.
-
-Regards,
-
-Tvrtko
-
-> 
-> 
-> +       bo_handles_read = memdup_array_user(u64_to_user_ptr(args- 
->  >bo_read_handles),
-> +                                           num_read_bo_handles, 
-> sizeof(u32));
->          if (IS_ERR(bo_handles_read)) {
->                  r = PTR_ERR(bo_handles_read);
->                  goto free_syncobj;
-> @@ -524,8 +524,8 @@ int amdgpu_userq_signal_ioctl(struct drm_device 
-> *dev, void *data,
->          }
-> 
->          num_write_bo_handles = args->num_bo_write_handles;
-> -       bo_handles_write = memdup_user(u64_to_user_ptr(args- 
->  >bo_write_handles),
-> -                                      sizeof(u32) * num_write_bo_handles);
-> +       bo_handles_write = memdup_array_user(u64_to_user_ptr(args- 
->  >bo_write_handles),
-> +                                            num_write_bo_handles, 
-> sizeof(u32));
->          if (IS_ERR(bo_handles_write)) {
->                  r = PTR_ERR(bo_handles_write);
->                  goto put_gobj_read;
-> @@ -666,14 +666,15 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
-> *dev, void *data,
->                  return -ENOTSUPP;
-> 
->          num_read_bo_handles = wait_info->num_bo_read_handles;
-> -       bo_handles_read = memdup_user(u64_to_user_ptr(wait_info- 
->  >bo_read_handles),
-> -                                     size_mul(sizeof(u32), 
-> num_read_bo_handles));
-> +       bo_handles_read = memdup_array_user(u64_to_user_ptr(wait_info- 
->  >bo_read_handles),
-> +                                           num_read_bo_handles, 
-> sizeof(u32));
-> +
->          if (IS_ERR(bo_handles_read))
->                  return PTR_ERR(bo_handles_read);
-> 
->          num_write_bo_handles = wait_info->num_bo_write_handles;
-> -       bo_handles_write = memdup_user(u64_to_user_ptr(wait_info- 
->  >bo_write_handles),
-> -                                      size_mul(sizeof(u32), 
-> num_write_bo_handles));
-> +       bo_handles_write = memdup_array_user(u64_to_user_ptr(wait_info- 
->  >bo_write_handles),
-> +                                            num_write_bo_handles, 
-> sizeof(u32));
-> 
-> 
-> Regards
-> Sunil khatri
-> 
->>
->> Regards,
->>
->> Tvrtko
->>
->>>>> On 20-02-2026 06:49 pm, Khatri, Sunil wrote:
->>>>>>
->>>>>> On 20-02-2026 04:54 pm, Tvrtko Ursulin wrote:
->>>>>>>
->>>>>>> On 20/02/2026 08:28, Sunil Khatri wrote:
->>>>>>>> memdup_user could return invalid memory allocation if
->>>>>>>> there is an integer overflow. Using memdup_array_user
->>>>>>>> make sure we validate the size requirements upfront
->>>>>>>> and return with an error.
->>>>>>>
->>>>>>> FYI:
->>>>>>>
->>>>>>> https://lore.kernel.org/amd-gfx/20251205134035.91551-1- 
->>>>>>> tvrtko.ursulin@igalia.com/
->>>>>> Are you awaiting for anything to merge the changes Tvrtko or they 
->>>>>> are merged in drm upstream already? Since issue is reported now so 
->>>>>> we need to fix this.
->>>>>>
->>>>>>>
->>>>>>> And later:
->>>>>>>
->>>>>>> https://lore.kernel.org/amd-gfx/20260202125149.2067-7- 
->>>>>>> christian.koenig@amd.com/.
->>>>>> Yeah i am aware of these Christian changes and we decided we will 
->>>>>> fix the issues first and reorganize the code later as needed along 
->>>>>> with Christian changes. So we are going to push the changes
->>>>>>
->>>>>> on the existing code base first.
->>>>>>
->>>>>> regards
->>>>>> Sunil khatri
->>>>>>
->>>>>>>
->>>>>>> Regards,
->>>>>>>
->>>>>>> Tvrtko
->>>>>>>
->>>>>>>>
->>>>>>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>>>>>>> ---
->>>>>>>>   .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 32 ++++++++ 
->>>>>>>> +----------
->>>>>>>>   1 file changed, 16 insertions(+), 16 deletions(-)
->>>>>>>>
->>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/ 
->>>>>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>>>>>> index 212056d4ddf0..a6eb703b62c4 100644
->>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>>>>>> @@ -480,8 +480,8 @@ int amdgpu_userq_signal_ioctl(struct 
->>>>>>>> drm_device *dev, void *data,
->>>>>>>>           return -ENOTSUPP;
->>>>>>>>         num_syncobj_handles = args->num_syncobj_handles;
->>>>>>>> -    syncobj_handles = memdup_user(u64_to_user_ptr(args- 
->>>>>>>> >syncobj_handles),
->>>>>>>> -                      size_mul(sizeof(u32), num_syncobj_handles));
->>>>>>>> +    syncobj_handles = memdup_array_user(u64_to_user_ptr(args- 
->>>>>>>> >syncobj_handles),
->>>>>>>> +                        num_syncobj_handles, sizeof(u32));
->>>>>>>>       if (IS_ERR(syncobj_handles))
->>>>>>>>           return PTR_ERR(syncobj_handles);
->>>>>>>>   @@ -501,8 +501,8 @@ int amdgpu_userq_signal_ioctl(struct 
->>>>>>>> drm_device *dev, void *data,
->>>>>>>>       }
->>>>>>>>         num_read_bo_handles = args->num_bo_read_handles;
->>>>>>>> -    bo_handles_read = memdup_user(u64_to_user_ptr(args- 
->>>>>>>> >bo_read_handles),
->>>>>>>> -                      sizeof(u32) * num_read_bo_handles);
->>>>>>>> +    bo_handles_read = memdup_array_user(u64_to_user_ptr(args- 
->>>>>>>> >bo_read_handles),
->>>>>>>> +                        num_read_bo_handles, sizeof(u32));
->>>>>>>>       if (IS_ERR(bo_handles_read)) {
->>>>>>>>           r = PTR_ERR(bo_handles_read);
->>>>>>>>           goto free_syncobj;
->>>>>>>> @@ -524,8 +524,8 @@ int amdgpu_userq_signal_ioctl(struct 
->>>>>>>> drm_device *dev, void *data,
->>>>>>>>       }
->>>>>>>>         num_write_bo_handles = args->num_bo_write_handles;
->>>>>>>> -    bo_handles_write = memdup_user(u64_to_user_ptr(args- 
->>>>>>>> >bo_write_handles),
->>>>>>>> -                       sizeof(u32) * num_write_bo_handles);
->>>>>>>> +    bo_handles_write = memdup_array_user(u64_to_user_ptr(args- 
->>>>>>>> >bo_write_handles),
->>>>>>>> +                         num_write_bo_handles, sizeof(u32));
->>>>>>>>       if (IS_ERR(bo_handles_write)) {
->>>>>>>>           r = PTR_ERR(bo_handles_write);
->>>>>>>>           goto put_gobj_read;
->>>>>>>> @@ -666,37 +666,37 @@ int amdgpu_userq_wait_ioctl(struct 
->>>>>>>> drm_device *dev, void *data,
->>>>>>>>           return -ENOTSUPP;
->>>>>>>>         num_read_bo_handles = wait_info->num_bo_read_handles;
->>>>>>>> -    bo_handles_read = memdup_user(u64_to_user_ptr(wait_info- 
->>>>>>>> >bo_read_handles),
->>>>>>>> -                      size_mul(sizeof(u32), num_read_bo_handles));
->>>>>>>> +    bo_handles_read = 
->>>>>>>> memdup_array_user(u64_to_user_ptr(wait_info- >bo_read_handles),
->>>>>>>> +                        num_read_bo_handles, sizeof(u32));
->>>>>>>>       if (IS_ERR(bo_handles_read))
->>>>>>>>           return PTR_ERR(bo_handles_read);
->>>>>>>>         num_write_bo_handles = wait_info->num_bo_write_handles;
->>>>>>>> -    bo_handles_write = memdup_user(u64_to_user_ptr(wait_info- 
->>>>>>>> >bo_write_handles),
->>>>>>>> -                       size_mul(sizeof(u32), 
->>>>>>>> num_write_bo_handles));
->>>>>>>> +    bo_handles_write = 
->>>>>>>> memdup_array_user(u64_to_user_ptr(wait_info- >bo_write_handles),
->>>>>>>> +                         num_write_bo_handles, sizeof(u32));
->>>>>>>>       if (IS_ERR(bo_handles_write)) {
->>>>>>>>           r = PTR_ERR(bo_handles_write);
->>>>>>>>           goto free_bo_handles_read;
->>>>>>>>       }
->>>>>>>>         num_syncobj = wait_info->num_syncobj_handles;
->>>>>>>> -    syncobj_handles = memdup_user(u64_to_user_ptr(wait_info- 
->>>>>>>> >syncobj_handles),
->>>>>>>> -                      size_mul(sizeof(u32), num_syncobj));
->>>>>>>> +    syncobj_handles = 
->>>>>>>> memdup_array_user(u64_to_user_ptr(wait_info- >syncobj_handles),
->>>>>>>> +                        num_syncobj, sizeof(u32));
->>>>>>>>       if (IS_ERR(syncobj_handles)) {
->>>>>>>>           r = PTR_ERR(syncobj_handles);
->>>>>>>>           goto free_bo_handles_write;
->>>>>>>>       }
->>>>>>>>         num_points = wait_info->num_syncobj_timeline_handles;
->>>>>>>> -    timeline_handles = memdup_user(u64_to_user_ptr(wait_info- 
->>>>>>>> >syncobj_timeline_handles),
->>>>>>>> -                       sizeof(u32) * num_points);
->>>>>>>> +    timeline_handles = 
->>>>>>>> memdup_array_user(u64_to_user_ptr(wait_info- 
->>>>>>>> >syncobj_timeline_handles),
->>>>>>>> +                         num_points, sizeof(u32));
->>>>>>>>       if (IS_ERR(timeline_handles)) {
->>>>>>>>           r = PTR_ERR(timeline_handles);
->>>>>>>>           goto free_syncobj_handles;
->>>>>>>>       }
->>>>>>>>   -    timeline_points = memdup_user(u64_to_user_ptr(wait_info- 
->>>>>>>> >syncobj_timeline_points),
->>>>>>>> -                      sizeof(u32) * num_points);
->>>>>>>> +    timeline_points = 
->>>>>>>> memdup_array_user(u64_to_user_ptr(wait_info- 
->>>>>>>> >syncobj_timeline_points),
->>>>>>>> +                        num_points, sizeof(u32));
->>>>>>>>       if (IS_ERR(timeline_points)) {
->>>>>>>>           r = PTR_ERR(timeline_points);
->>>>>>>>           goto free_timeline_handles;
->>>>>>>
->>>>
->>
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
+index c9c6ef8236ed..0d9871f9864b 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
+@@ -1294,7 +1294,7 @@ void dcn42_calc_blocks_to_ungate(struct dc *dc, struct dc_state *context,
+  *	ONO Region 9, DCPG 2: dchubp2, dpp2
+  *	ONO Region 11, DCPG 3: dchubp3, dpp3
+  *	ONO Region 4, DCPG 25: hpo
+-
++ *
+  *  No sequential power up/down ordering for DCN42
+  *
+  * @dc: Current DC state
+-- 
+2.34.1
 
