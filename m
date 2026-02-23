@@ -4,123 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA914EA4FC1
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36670EA4FC3
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Feb 2026 13:54:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DD7610E127;
-	Mon, 23 Feb 2026 13:54:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2600310E2EF;
+	Mon, 23 Feb 2026 13:54:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=natalie.vock@gmx.de header.b="ddAhWS7J";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="do1bepG6";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E249610E2E5
- for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 11:46:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1771847161; x=1772451961; i=natalie.vock@gmx.de;
- bh=PcoQpiSLqGlTbhPyGX90b6puX2R8XcKjDGh+e3FPiCA=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
- MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=ddAhWS7JyE6iOK4hIGEeN/GlC1jBk3A9Pki+D6JeM46YW2LyAN6pPvWquUdLzWLh
- UShrULc4jJdAgYwWfyF6NqklHyKplt94ZkVO8Mx2SgPOrktLBZxcweOf0HGJaKrD6
- epdXvi+IKbOWG8sjqoQTPZgiV2t00tcSb9CCpm5CtgJBxczGK7ZtYJkvl6EFhtalB
- TRI11gX8HAMWUiVrldlMUQoa9M4wgIwQzRk8C1YarWeJgsLwV3mgeDouRlNcnbCmb
- YzuuRZwZwvlhnTrSsKuaCBXyNmHCmEgNok+h0OaqGBk8kpSVwwcZVVKT//JhQFZjI
- dgr1bTUVfB/kOAoZ3Q==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from rizzler.fritz.box ([88.133.252.134]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MvK4f-1vdMyX3d0z-00quGp; Mon, 23
- Feb 2026 12:46:00 +0100
-From: Natalie Vock <natalie.vock@gmx.de>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>
-Cc: amd-gfx@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Use GFP_ATOMIC in dc_create_stream_for_sink
-Date: Mon, 23 Feb 2026 12:45:37 +0100
-Message-ID: <20260223114537.38145-1-natalie.vock@gmx.de>
-X-Mailer: git-send-email 2.53.0
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7274F10E299
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 08:52:47 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-59e62834439so4504845e87.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 23 Feb 2026 00:52:47 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771836766; cv=none;
+ d=google.com; s=arc-20240605;
+ b=kvJAcD5qY7BPqihk3KpDppFDD5PPzJZ3VWb42u2R7+DkC7X/lPNJm2nt8JSdB0lH7w
+ qe6GRjaD3r4jftaPY1N/Xj26tQF72k2vw08Hj48v7x7vS3rvADwh0DBmHK8NX88+Y0Pz
+ fUWwMvkLGREhUMUr466IkuRQGlqDzvtKO7haHcZlhZ1n9PxqDv/u213/xUxeeN2bUdbe
+ LxELtmvh5KlpFT3JPNDoyj/pfIXfirKyHqQ/W2lTBDJxwZjeRuDuRxwRWKNz67e7IR5n
+ at/dnBTEBb4RLvyDmw0qX1/wV8GhnLTtApEGSAcccCqkrSsDCxKxoR0UfeqrWxqMb2eU
+ qs/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=8pMfDy0/3VKLDSPvg/zhyqaAQb/EPG1TE7b+CoYlVks=;
+ fh=/2aFyDbF4u/6Lu+E2H+ATN89M3ohUcrfgtOT+lFoJtM=;
+ b=g/z4+pdF+kufhqbzf3JIMZtYvKSe1XyApsOzQSPsmzGQW0X89AmFb2hghDiD+2KQWZ
+ sp9SmHXOI5G+FldeAHxXEqK0LbLqqCMIqWS0xhUaomeIYheGgbG7wys2Qlig848OKZFx
+ PvVky8OlfG+hUg8qhLubi8mRPcS6U0b31AdrJedKUoUmsQ+War7EsjLiid+v0TTMLYsR
+ 3Y6CgjBnfMTtY20TpdX5TnSVikOF5aApWOWIsXOJoLbjalINuvEYAG29WTK/A2VdFRT1
+ 61PaYxHhR3xSJhNESNchECAcYao39N7gV0pNxkU81aGapAWniRIfbBYiorXbz1L4JRtH
+ 437Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1771836766; x=1772441566; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8pMfDy0/3VKLDSPvg/zhyqaAQb/EPG1TE7b+CoYlVks=;
+ b=do1bepG6l4934cYzPhXZ4yAF2xq4A+OIPzrUQ1nkcbKme6TcjJ9OuhfNxifOgxT7qP
+ +Ly4M4WTjWgMkIndSGJFiB06k49f6d0Dj9+J5PdudsuVooiq9UgqntOcz1Y/buqIiH+q
+ 1y/rjttFarMU2Wl3fwNB522qod/vfRAri0pyehyYMwrO48tS8Md73bpZ7UQ3Cvbxd7yv
+ +cDzqA5teoU1VYcC0Ah7eyIbts+syOBPg2emVMAVGz16Hn8+6+5uT2jW4Sl1PKVdog4G
+ rmn9/xMrfz5E07rVl+KpVCwexCYJFYXYCEJWCVzrWF0fw7isKz90DV3tGpLX04j1qqh6
+ RdrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771836766; x=1772441566;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=8pMfDy0/3VKLDSPvg/zhyqaAQb/EPG1TE7b+CoYlVks=;
+ b=kvVe8nDw3frDPcDnO7jnHxqN8hI8XtmDSaD4i3co8r8c54TLjBeRewhgl6XPyEgPxS
+ UyBtR3hUzpFMPTLG0mC7QpnSIOnY2DhvyWkMsFvGxuAlSuh0sTCoPI/G3ZloQ1Jz53x4
+ ARlHrYQN/Xn3fSdJ3xUvD+PRi1xsS2BTnL3MUcEHJ2FKxw1vCFRtXDobPfTh8YyeokkL
+ lU2lH6RfC1mN/LZkyGw1wbxDqrApXll6x6LhvA96H8XZxw60vm5rV8Nio3Cp5jPLR3LZ
+ 43EmHP6E1VMqYhT1CZ3JsCEZrDuFej2n6eLgKpgci0eOaR7rFZO1fDmqU7Zmq7Te82sF
+ yPZw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWtdpGRnOb4E8yDdP/9JjayWhjQ7AGwDsin0cCDcgqiKZ8wnktYsizN1j7gfALl612C1CmEdBCi@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwnKNNgNhfxKkwKOKS+VlsvdR1mqNpNnm12k2iThqmD9tUKcSzd
+ cVuuBACFx8ZcvCRRiUde/1xa4y9I84VO5geOLOAYmDtCbln8nVYHOfdNj8htfUi8+M+gfqysraD
+ Q14G2xKOQzQkPVqFel4lfYaREH/v0ZfzicszpgUjsuA==
+X-Gm-Gg: AZuq6aKnCP7o5AYmkYg66c/aQ7IYeyg8JVgiCx/u9Sbb86yucHeBFMJ3PDvwr2OeNN/
+ xfw+LsrDQjGffiQExFXgEJ2iXdATUNsaicAlboKR5iBvJHrrKBM8ZW4UXxGCY57cuyjXQA/wdC/
+ BFPEonG/LMUv+XSbTmNzj59/MPfhpyx9BWZXrxebgBQn3jh+ARTqdak+LaTBowpPqNtvEc/yaaQ
+ 2WsKvinBrptNrMJ7c9N1rSIP9bbWAU3zg6Wtp4YRlIz80PdUkPJk5ORFomIn++Fs5sqBvYa4lWy
+ pmpq9VOzI5OA8JN7Om2NI3gFVCh12oHWS5DIA7Ik
+X-Received: by 2002:a05:6512:aca:b0:59d:eab0:c836 with SMTP id
+ 2adb3069b0e04-5a0ed87759bmr2452544e87.6.1771836765637; Mon, 23 Feb 2026
+ 00:52:45 -0800 (PST)
 MIME-Version: 1.0
+References: <20251224144708.61167-1-marco.crivellari@suse.com>
+In-Reply-To: <20251224144708.61167-1-marco.crivellari@suse.com>
+From: Marco Crivellari <marco.crivellari@suse.com>
+Date: Mon, 23 Feb 2026 09:52:33 +0100
+X-Gm-Features: AaiRm50yF5Rlw7ATpftOWtV82_eD6bFHXzpnPtJ1vlADkXKmkv3g_Y7y2xwA-KI
+Message-ID: <CAAofZF5XSUVn+XW75rC76-Amibc3rZnG3QQhWxPtk7K6YMQx4w@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] Replace old wq name and add WQ_PERCPU and
+ WQ_UNBOUND to alloc_workqueue users
+To: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Cc: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+ Frederic Weisbecker <frederic@kernel.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Michal Hocko <mhocko@suse.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Christian Konig <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Philip Yang <yangp@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:t/hBrkRfBrWp0UhQ+7vHjNRHLl8fnAP5mzvf7af82ZN/WoJ6aoF
- lGGeqkoL5Fj8PpO2zhIYe1bUtP2hUKAk1nUgL50JGLPj6OFuorcFe6vNUTeztY9RNGxpX1A
- erMTlSdi063XsizslhJ17ehbDOOIOGNuYsADHDXGM6yfWW2gB1KG9SUQNOyuDtlYU/iWiu/
- UJ6Fb6P1ZD8y3DsHJG67w==
-UI-OutboundReport: notjunk:1;M01:P0:u/XyADBLK5A=;7c5cykvYvlksdq9yqoYC2PBT5YG
- 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
 X-Mailman-Approved-At: Mon, 23 Feb 2026 13:54:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -136,40 +111,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This can be called while preemption is disabled, for example by
-dcn32_internal_validate_bw which is called with the FPU active.
+On Wed, Dec 24, 2025 at 3:47=E2=80=AFPM Marco Crivellari
+<marco.crivellari@suse.com> wrote:
+> [...]
+> Marco Crivellari (4):
+>   drm/amdgpu: replace use of system_unbound_wq with system_dfl_wq
+>   drm/amdgpu: replace use of system_wq with system_dfl_wq
+>   amd/amdkfd: add WQ_UNBOUND to alloc_workqueue users
+>   drm/radeon: add WQ_PERCPU to alloc_workqueue users
+>
+>  drivers/gpu/drm/amd/amdgpu/aldebaran.c     | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 3 ++-
+>  drivers/gpu/drm/radeon/radeon_display.c    | 3 ++-
+>  5 files changed, 9 insertions(+), 7 deletions(-)
 
-Fixes "BUG: scheduling while atomic" messages I encounter on my Navi31
-machine.
+Gentle ping.
 
-Cc: stable@vger.kernel.org
+Thanks.
 
-Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
-=2D--
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+--=20
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu=
-/drm/amd/display/dc/core/dc_stream.c
-index 191f6435e7c64..87c0cf7e290ea 100644
-=2D-- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -170,11 +170,11 @@ struct dc_stream_state *dc_create_stream_for_sink(
- 	if (sink =3D=3D NULL)
- 		goto fail;
-=20
--	stream =3D kzalloc(sizeof(struct dc_stream_state), GFP_KERNEL);
-+	stream =3D kzalloc(sizeof(struct dc_stream_state), GFP_ATOMIC);
- 	if (stream =3D=3D NULL)
- 		goto fail;
-=20
--	stream->update_scratch =3D kzalloc((int32_t) dc_update_scratch_space_siz=
-e(), GFP_KERNEL);
-+	stream->update_scratch =3D kzalloc((int32_t) dc_update_scratch_space_siz=
-e(), GFP_ATOMIC);
- 	if (stream->update_scratch =3D=3D NULL)
- 		goto fail;
-=20
-=2D-=20
-2.53.0
+Marco Crivellari
 
+L3 Support Engineer
