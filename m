@@ -4,91 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13599F3C98B
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 14:56:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D7C1F3C989
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 15:07:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9906F10E194;
-	Tue, 24 Feb 2026 14:56:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1206210E5AB;
+	Tue, 24 Feb 2026 15:07:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hfDN1NVZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GCYzn5JK";
 	dkim-atps=neutral
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A1BC10E194
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 14:56:16 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-1273882d901so285230c88.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 06:56:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771944975; cv=none;
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 911C810E5AB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 15:07:01 +0000 (UTC)
+Received: by mail-dl1-f49.google.com with SMTP id
+ a92af1059eb24-1273c690e5bso318728c88.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 07:07:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771945621; cv=none;
  d=google.com; s=arc-20240605;
- b=XxTivVm8S9LDKlho7cT09rRutRG8t4UDTwZbwVpI5dMdy3gTQj33tfuiLIW9iLBDVS
- uAAo6a1ZmL6vnnBK4YruQTE6FNyXCPigxLJ7onp8eCp5d+IHgHocRSjBMqIFuzpyIAwg
- QhVoRBWWrN/4VMb9H7X3U+Ro7pgexoPZ7+W0bn7jcFLELhcuU3vArnMmQrcbjS8ddt4J
- hJ7Sr9BTSj69ZbxX6vMznyBDnzWpFBRLMV89g2XlDyek1xFz95d30bkoRhMyDAdy0rYt
- u4bTe4eB0DJhJOynrkWur3c0df+q8l21pTZe9Gm8rhRVj1wuqgsFCdpud/WhIgPWIofb
- Qo7Q==
+ b=a2r0xe/p8B7RT8b3zZgaqK7mrvBP3wAak7H9Nv657e0YS9CVTrhwQRbHTLhbbtWR1Q
+ g2ripjZE8IoBMwN02eVO3YuIEgTD0/VBrTiS6SkG2OfsNtJyeEblV4vspvA7KJE1hh4A
+ CUG/keC2Aqsy9S8jikEQ8nki+XvOhfKKWeDtafGtdEpRn+s3HS6TWQDogM5ZxFkxDDNy
+ 8d0O7BWHUP02RlyV/sQRlQLf2icIwLH2muo3wCetVur5TYFavPHTB4tmGWuZHPj3D7SR
+ XOCtZ59ZtiogcyJ6iiwl19QHKNjdy6lBM9ZqmKfSU5DHDAoRT/aNSRLjdVlY08Txbs+D
+ RBtQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=i+aUfl6j0iyUdg8FHTmaS7+nE4Zhy7tH6M8xZwgvbTs=;
- fh=3SOa1bRl6Yq/0jk49CuBhudAeuo/7A/nLP+3nATIQ2I=;
- b=YMRwQpzij74MZkp6NWDptpVQv7hhhHDgS9AsryCEKLql8AjumVJHR34+29sPaif8x7
- ywomI0ZOCudtnYODbqFHARIk6pytEzGLyfv8dD1m8dZ7KUj44kJ9pakRs3+erEJZqcdh
- soP3mjAupeiRgbN6+OpHKYcCYfHAKLWY+5MxnCgk2UHoE+aAX7Yu8LwJiQKxSsoTb9cJ
- nGtguPvxE6IG/a242QEVN748HLO61tfFHQrINvgXvua/aZDQ4QQFCaZw7n7sKjtwrlGY
- fNU41iq/rOqjyRLU8RCvxc8h0ZO/Cvd7RjAPKtkbWsE/XCPaRQewR9lyIIWNcozvxCgo
- 7Ong==; darn=lists.freedesktop.org
+ bh=1H08MIFYR0hI8akjAJNajM/lF+FJn974fgTnpCHpN5g=;
+ fh=pcPV6LR05iyxgJ9EDAAE6oHX+2Nk6EIgqzdZaHsn4Gk=;
+ b=BFLyrsE9FgCaGdH05u/XbJPRmSBMYTR2KBDvBOCmJ53Nj2muXONGndAwJkwkI3XTEK
+ 6pRfAsfgtVuDmgcrX/wRRovlWb+rQIoVseI6JBAdxKe7ryyvluarjkXpDGAtvaYiO+OM
+ 7Md5G97EzxG9RezZsA7vcnLbr7RCxnQDn+CPvK7UdKv9XCk2di0+FkDkZbUkvPFW1WRj
+ G6f0N6FpCFYEn1l+arJ5A/NYeMjjGQuoMvXoy7ZxVnRNnV59y3HNFbI24dW9cBJV8gZA
+ CfA4pgXTyq99ecl72449JE92Sp9XtdljMpCtkc70k9d4DFqPwo0uRMPYYE47mKi1Zu7w
+ rwnQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771944975; x=1772549775; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1771945621; x=1772550421; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=i+aUfl6j0iyUdg8FHTmaS7+nE4Zhy7tH6M8xZwgvbTs=;
- b=hfDN1NVZkiAu4JMp3DqOY/wk/W2FFouDlLYVknyCmXmn6uknggNU1mFCvt9GxUG7gt
- e53tCYn4EJIJZ5N8ND9csZhC3TKMyRZFHDvG6KCmBUZvGrQWUIyKqjyqsvVozXu/1Je7
- 2yFTHw8cSq+kjJxoczaUq9clseI3MdMdALJVLWSXRuenClJwhSbQ6aw3lxa8LQphHWlw
- sgQv3RXpbsjPR1OAFk/56OGOY9vXhVeoSMm74Rmo4cDNBqgZS45oe5vZE85d9+oiX2QX
- /itXwRU09CS4+SRvSZn7EcLJ8crk/6PLQASiBJ0VLCgnVNOrqWihjbuPryVKlDcEK1Zw
- GECQ==
+ bh=1H08MIFYR0hI8akjAJNajM/lF+FJn974fgTnpCHpN5g=;
+ b=GCYzn5JKYIiQSDjuP7O/bpfOFG+gTbpTJRq1P621EN8IDyXJpKrroaIogKTXoS4lND
+ DcZrjExbSXk9v+ElDGjYznOz3TOSCjCT57biq2WBKBbWd1V3V/yzGijtDQJZiaoiW/kn
+ zaknpPteiBZkdo0ZUWXFstPmbXY0qcumhtuRw4FEXoUDfXMFY//LLN4roj++xkzp3719
+ 54Foz7mnLomUXWPUfNynjW3gmSrzzOTRTNjtEAaNRNZMquZ7LXX+i/nEIHXt1JWsmZ9m
+ 2IXufJxd8Ios65dVNEY3olooZZat8kPvQMb2o65Wp47bPY4+H0S+X84Af+3tnrgRQ9Iy
+ FLEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771944975; x=1772549775;
+ d=1e100.net; s=20230601; t=1771945621; x=1772550421;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=i+aUfl6j0iyUdg8FHTmaS7+nE4Zhy7tH6M8xZwgvbTs=;
- b=OE5ew5UnO84MPNzkYvJPczDlHrdoCoA80AFh6uVEMYRG0Ez4HFbRGvCodYe4vrYk/H
- 7sTwfu16WfGWRxkIApEPTyI42qVPVCe+43uW3W3j16ZwHai36CWAj4ZuOwZF+vZBBnwF
- XZWGisIKsagUr5VRhzG4j4OtUBVY9JtziPxlNtcjQTsGEJIob/bpN6t2Q+bDylN9KYp6
- r2VUj5Dr9LM8DV1+gLWGSWHb/+yDoAGLn2cRuO2IulZ8j3fhwSi7A/PcsgtkFrA222R6
- MsNYWjnOKawsTeAtDobr9t00vLaAHKO76URsLaqMqHpOV7MMkKw2l5EwLqzFGiJoUJ9Q
- dzWw==
+ bh=1H08MIFYR0hI8akjAJNajM/lF+FJn974fgTnpCHpN5g=;
+ b=SVCkmPy64dS65qSrrpEPCGjEkEdHUMmtZCaokd3ufWNImgnr3LMVs78OORpeNT5/eU
+ MD64XuM8jrSSRzcGQmpllbhjgDIk+uIFFFTh6YvIQPv6v+5UGQfe2MEwfLUJyat/SRju
+ FFPoVkbN0nZ+Ya4H2EGSE4xRgtackHC0NvB69liWPWa/yhO6DycPsZWRXlpYiuSwj3Za
+ gHb/IzwD5PvvCZwXN4XbCDHn5oz/vK/r2m8VRaty79aOWJ/953CORed6oezpGq4vtvVK
+ XpjGunUgFfe6MeOBb/Fn6EWXM/uQfynQAeS/8EVYEz5RLxJZLfVM39jsEEOTgIT3wFdR
+ /Jnw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUeOYLd1nVKelRlepP7tnDCSwluV171f7XHDXnv2l/t3w7Cg03VWdFITI+kC5Q1+NChL6Mx0cOF@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwelpTAzjtYf2+wS1FXB6sp5ymdtdAx4G9222zo6lvJFzvqeu12
- p+fKv+swRG7wQOko2nRPU6Wtlii7GRlb9hyP9JZZfk88PlCJgN/oVKzR3OFUABXMZ4rqgM9OaXe
- L45XK9pR4AP9AtOvPhJAWLITOTTc4uGo=
-X-Gm-Gg: AZuq6aIYrVy9TQAovJCIl3ODzi0y69KzWTT/vmmbmUB2jSJUq57mQuom6zkBp48gyh+
- /Sgmonj1VKqX2kgBlIw2GIIutZL6gJreFns4beR5sK7WkDPInw0D+rUxFhCEJ+VHRkEE/t+ak2k
- yklB5nNqLg44ITJedYmBiewtDAFAU5mPoQ86RxQRi8QNLe6AZckTymx5u7M7hGo0nLhvIJYY+lG
- qH6/Zg4nQzWcV1AbgGatkk0m2xKEAt/m8ViR2tkk8YxrW4uO3D2j4R/cP83M9b65AFE9S2wcgIV
- lUNMbMlY9leBV1cGWzk/eQE8Mm1a9WQ8RLa3xzoyMQ5YcECNYZ4+uSg9SDGb0R5A3kiTEg==
-X-Received: by 2002:a05:7022:2383:b0:119:e56b:46b7 with SMTP id
- a92af1059eb24-1276acad3efmr2638142c88.1.1771944975132; Tue, 24 Feb 2026
- 06:56:15 -0800 (PST)
+ AJvYcCVjP7rm2MlmGn79IYgAN90cfJvTdW2oNWQJBGFH2c7YkC/C8R/730UENyfUWD5qt1KUcLuBjdbl@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YziaxlpQrBJCiSDjrv0YyPqP/02pew4s/KULVq6zLu3cNDBobRf
+ w9CclAYE20WRsVXTnHvAfWoM63wkVqh0OI44QPEgmQitl2Fl78yvXsryKyP2EkeDcN1qvpgg0kh
+ BwNz2tp43fQhAcb6w7mNEW7eZvx4LIws=
+X-Gm-Gg: AZuq6aIqcyE7YTRzBN0ytgy15M6qlA00UoqvPC9TahtRE2h1RM/jW4RZ7QOSAvsd8z1
+ lagxVlvBYsyu81YQUPoOuACiM2/cp764788NbSJ17vqPJmI4fsRLBkFr7JPqBR1qr4uTnInF+uW
+ 9u1CQ2Ekjza/apzomj71RexK8V2Om1M3xSpbaUHMv0Ioe8R/eB3RCWx8R52kzg/vJltSwafVL4z
+ qnZ5Ad6lQtO4mUSNX70jZkKvbhepe47DWkbZvprf0dhBxFbGKv9YoLYcViDb4dDLKK4K9/pFcVA
+ 7mEy7kMi4o9OaWgSvPO2icErcilgsNMdimz6uYwU+wCaO0liI4hIP+2TMrLVqr9Gwo8qig==
+X-Received: by 2002:a05:7022:69a5:b0:127:2d87:f0fa with SMTP id
+ a92af1059eb24-1276ad1be5amr2526103c88.4.1771945620575; Tue, 24 Feb 2026
+ 07:07:00 -0800 (PST)
 MIME-Version: 1.0
-References: <20260223114537.38145-1-natalie.vock@gmx.de>
-In-Reply-To: <20260223114537.38145-1-natalie.vock@gmx.de>
+References: <20260224091118.4017760-1-sunil.khatri@amd.com>
+ <20260224091118.4017760-5-sunil.khatri@amd.com>
+In-Reply-To: <20260224091118.4017760-5-sunil.khatri@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Feb 2026 09:56:03 -0500
-X-Gm-Features: AaiRm51cXcZtY95BR3KKsGNKEGAquNMI1RXUNYCMVFCpARLt8EwnLScoCBKOJGQ
-Message-ID: <CADnq5_PYyDxySN+FjqDd5LXMrYz2VYEhG_R6gY1gSXjYD6dk1Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Use GFP_ATOMIC in
- dc_create_stream_for_sink
-To: Natalie Vock <natalie.vock@gmx.de>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
- stable@vger.kernel.org
+Date: Tue, 24 Feb 2026 10:06:49 -0500
+X-Gm-Features: AaiRm50Sd_SdzbvRklz6HUv-f8hF7VTlVAdDMkPp5E60VDVXtWCRsiuxLoxUJPc
+Message-ID: <CADnq5_ODja_P+9uae4X0P4=sB_Y5HLHnpEeoNRRShGLCcuHFrg@mail.gmail.com>
+Subject: Re: [PATCH v5 4/4] drm/amdgpu: add upper bound check on user inputs
+ in wait ioctl
+To: Sunil Khatri <sunil.khatri@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -105,45 +106,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+On Tue, Feb 24, 2026 at 4:11=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com>=
+ wrote:
+>
+> Huge input values in amdgpu_userq_wait_ioctl can lead to a OOM and
+> could be exploited.
+>
+> So check these input value against AMDGPU_USERQ_MAX_HANDLES
+> which is big enough value for genuine use cases and could
+> potentially avoid OOM.
+>
+> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 
-On Mon, Feb 23, 2026 at 9:34=E2=80=AFAM Natalie Vock <natalie.vock@gmx.de> =
-wrote:
->
-> This can be called while preemption is disabled, for example by
-> dcn32_internal_validate_bw which is called with the FPU active.
->
-> Fixes "BUG: scheduling while atomic" messages I encounter on my Navi31
-> machine.
->
-> Cc: stable@vger.kernel.org
->
-> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gp=
-u/drm/amd/display/dc/core/dc_stream.c
-> index 191f6435e7c64..87c0cf7e290ea 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> @@ -170,11 +170,11 @@ struct dc_stream_state *dc_create_stream_for_sink(
->         if (sink =3D=3D NULL)
->                 goto fail;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index 4f9386677c47..e31b2c6cc73b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -636,6 +636,12 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, =
+void *data,
+>         if (!amdgpu_userq_enabled(dev))
+>                 return -ENOTSUPP;
 >
-> -       stream =3D kzalloc(sizeof(struct dc_stream_state), GFP_KERNEL);
-> +       stream =3D kzalloc(sizeof(struct dc_stream_state), GFP_ATOMIC);
->         if (stream =3D=3D NULL)
->                 goto fail;
->
-> -       stream->update_scratch =3D kzalloc((int32_t) dc_update_scratch_sp=
-ace_size(), GFP_KERNEL);
-> +       stream->update_scratch =3D kzalloc((int32_t) dc_update_scratch_sp=
-ace_size(), GFP_ATOMIC);
->         if (stream->update_scratch =3D=3D NULL)
->                 goto fail;
->
+> +       if (wait_info->num_syncobj_handles > AMDGPU_USERQ_MAX_HANDLES ||
+> +           wait_info->num_syncobj_timeline_handles > AMDGPU_USERQ_MAX_HA=
+NDLES ||
+> +           wait_info->num_bo_write_handles > AMDGPU_USERQ_MAX_HANDLES ||
+> +           wait_info->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
+> +               return -EINVAL;
+> +
+>         num_syncobj =3D wait_info->num_syncobj_handles;
+>         syncobj_handles =3D memdup_array_user(u64_to_user_ptr(wait_info->=
+syncobj_handles),
+>                                             num_syncobj, sizeof(u32));
 > --
-> 2.53.0
+> 2.34.1
 >
