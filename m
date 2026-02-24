@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 660CBEFD207
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C413FEFD20C
 	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 08:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E43C810E712;
-	Wed, 25 Feb 2026 08:32:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 438B810E714;
+	Wed, 25 Feb 2026 08:32:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="IIkjH8Xt";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="pQDQ8n9s";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011021.outbound.protection.outlook.com
- [40.93.194.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95B6710E6E3;
- Tue, 24 Feb 2026 22:54:24 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010002.outbound.protection.outlook.com
+ [52.101.193.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8809B10E207;
+ Tue, 24 Feb 2026 22:27:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e8PcMRPKpQhQik5lQe0+6f1Qhr8oPnlu5QK/txN5UcQD+0UPNzol7PrcYgBO6ThQUyxWebmV8TFKDc1BB/FIfmWuXNG326FDzp2+ldpuw5XZefDFrKnCFSOV5iqLmfTYPV7Tcla+tb7vSy2nfI7NGQCv8zOLlMr0GQ4Dm+52DGuRf0JiByHqagmUikvswt5QpVCej5faZ+4TNmd0cahYwGVFGB17ItqVZYrN/r8avYVEPBknB/YYD13jUsoOa/az+K/r2CctmN6AwjZEBQFm7zSl1melhFw7ENylxDOKZKX189VJ4TIvmO8o34vQcKEDedsC0EpjKjWRhKzvvXBqXQ==
+ b=jsDiTwGyzxlryii4KY9vFprNhIAcS0O1rEieIKxAMNaHP406u4mnGRcVLiXrf9dxObeyY2sigf5bF0HDOg89r1FU338F6vdMdcuisrzVgITP6bZz3b6qiAl+HZtDATJK9lXDMY4BqSSbD9f1/CF4e0lW1bjSiayWF1HiGcXBR0C3RrzEGmtpU7hAghsRqXlMn680AQcBvLYVLX0385M69EjkidnqnSYVFiiml5GWIoACtECfxHO9rnVxSG8ruSm4twq0q5DLIoN0S2XNklmvevWlkC6PH4/rmOVuOfa+ICB9M4qOjAdNlwCciVljSUqpxnoUht7NEnKphJOAq4Fqkw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M9APCXBK2CiR2XMzfWD5aY5NmYIj7orB++57uXHt5TQ=;
- b=ODjL9ddAXk8gdmTKeo+hLygB8BQNOCJtjX0hZGo/HdQPWUVtwogBjKdFy00fd3k/g5zuTNAZTy3MFCb8VKNl5ctUkjKcgvcORpvA38Jwd2y02TF2gUVHtJH20nnX3XnfzNjzsYOlWWV3KxLLQ8kBSQeGDTwDemA+q5mZO2lOpul29yngPZ4zEpRn8vTIqYbVK0rRYjr6g31Ooz4/Ax9pDEnDLivlpbPiweb+vTNgpo3t202/ZxhH2OnOqQFZ8qhY0Sx+4xwxRmwpmawpCAroI7j0BsEfBeWt/zMrNyyn/XALQT1ziTYy1IXUh0T+GlPwr9LSUqVpBhIhdu7VeLK52g==
+ bh=4UrcmxwL+HkPLudSy5CbQmCLYE+AgG1twDbGtchtVmg=;
+ b=kKAni6gzf1hhdoj1OmiYypDntGXnw6qOHPAtiAC/yGdw2TltNYxk3fA6mQolbbGcjqq/GlYCGpZQmfHARfYTDPRPaXdFTtCzsbb69739CWgUfEjVrFVrYb8QUOGSkMRpNSVAEvCKeJf6v4l4zzx18XiM1vIsObQnEWjVf8gVSSUEKlykhEeVyDBPmDk2ewauhPK7SBv97KG+YhfO303tGv1NqDA8t7/Mw3AYLQPjJXudaijAKNygiX+T0YjmKqvDUlCVXUyaXcz3bOmxKSGvTIIDgBqH+Ov4gd1725KNnqmVtjSIfQB2oMMnoqcKijdJZ/bsB+lQb6i2JHCOaY/+Mg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=M9APCXBK2CiR2XMzfWD5aY5NmYIj7orB++57uXHt5TQ=;
- b=IIkjH8XtiZKkrhq1Fmn0FRLMUvPclYu66JpQuikV2CSJk3zEYukv8NfkS1XuWFCg9J7snyIqNU+AN4ypZwdDCml1NxV04C+E3jonu+8RekKaKmA8eR8ijMjWdY8NP68n8hLU37pT696larGrw4YJAmIozO6eQAMbG5pcTVB+PuhS++G6SEAvDO6lOS+7IxYdNEi/7fpM6pnF6KO82gDJsrcpQQsRch4wEVkf2UCB4hdCQLmc8FdOJA+p8E1mscJXCQr4tg4jAtTOY+vUK7Af3rU9pmsEkiwWx9ChoJ6Ic5Mzt5hDwv2L0PjgnsEt4ICmvUckbhvx1B9bPHKNNpt+BA==
+ bh=4UrcmxwL+HkPLudSy5CbQmCLYE+AgG1twDbGtchtVmg=;
+ b=pQDQ8n9sSEtGNa7W0N9wCVhmTkYLjN8GIrG8pIj1F5s7ygXVMKu0Di8qc5yO91Z9pBh9eBKQ0c9RcxFyP7ByUo6Z4HDFRY2K7+3ALlMQtihljMXJZb9qvLS1ZouIkGG8zGbbd7VmYH/i0gZeTqyoDbRhSQ4gTTDgs+DeAbNoLAYHedCmaywFDBh/9+Q5RHnkr3LHTfizwtdTcT+CxnhgPmfC5q5SgyHG6f95TJXH8BjqSRnIY0xxJk+WelvYq0npTaPrj/Mw77exPCwaxF8Mmahe+dI3VkprOsvHqRE+EgfEyzhuv4qhNfcJHbIBzhwdP2l5EUSmlxDGmkHGIAcSzg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- SN7PR12MB6885.namprd12.prod.outlook.com (2603:10b6:806:263::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.21; Tue, 24 Feb 2026 22:54:19 +0000
+ PH7PR12MB5855.namprd12.prod.outlook.com (2603:10b6:510:1d6::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.22; Tue, 24 Feb
+ 2026 22:27:41 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9632.017; Tue, 24 Feb 2026
- 22:54:19 +0000
+ 22:27:41 +0000
 From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
@@ -50,15 +50,17 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
  Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
  Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- Nikola Djukic <ndjukic@nvidia.com>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
+ Dave Airlie <airlied@redhat.com>, David Airlie <airlied@gmail.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>,
+ Nikola Djukic <ndjukic@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Jani Nikula <jani.nikula@linux.intel.com>,
@@ -69,107 +71,103 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Matthew Brost <matthew.brost@intel.com>,
  Lucas De Marchi <lucas.demarchi@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>,
  Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ Edwin Peer <epeer@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
+ Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
  linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v8 25/25] gpu: nova-core: mm: Add PRAMIN aperture self-tests
-Date: Tue, 24 Feb 2026 17:53:23 -0500
-Message-Id: <20260224225323.3312204-26-joelagnelf@nvidia.com>
+Subject: [PATCH v11 0/2] rust: clist patches for nova-core memory management
+Date: Tue, 24 Feb 2026 17:27:32 -0500
+Message-Id: <20260224222734.3153931-1-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260224225323.3312204-1-joelagnelf@nvidia.com>
-References: <20260224225323.3312204-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BL0PR02CA0008.namprd02.prod.outlook.com
- (2603:10b6:207:3c::21) To DS0PR12MB6486.namprd12.prod.outlook.com
+X-ClientProxiedBy: CYXPR03CA0020.namprd03.prod.outlook.com
+ (2603:10b6:930:d0::26) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SN7PR12MB6885:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b0def32-68bc-4b98-af40-08de73f7a4cf
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH7PR12MB5855:EE_
+X-MS-Office365-Filtering-Correlation-Id: a26ad792-d3ba-4d88-1d10-08de73f3ec2d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?F/ygQZ33q5lBIT1kDoWl1xMWIGE2znAyt5Y1f9eL9ppFFQy5BP1xJEW5QCFr?=
- =?us-ascii?Q?NtDfCd3JcWK1o5TlP2v1R4Q0f1R/lS0bhK/nzQe6NYw43djdog2J5hGAHYgo?=
- =?us-ascii?Q?zclJU3WBlVppbWBBGoz5caqwVSsD91TjLjtQKDNYNq0ApBsnRTfesg7/7YQ3?=
- =?us-ascii?Q?8Ie++JtaSJ1hffbbfXyJZmV6xdZ2TOzp2vZp9PkoQxoeThYnGJptiZsiqUfR?=
- =?us-ascii?Q?Jns3gNULPCL/WCohxkf0uhqL1cl3MfTFOUiFy0Dt4ik0nyheqEBmKzmD0eY3?=
- =?us-ascii?Q?sKVmC/CatU+yKRLFB3gLhoZb+s4bgsli+jgC9XvhkHG0X/ypOWf82HXAS+Db?=
- =?us-ascii?Q?tWMF4so89LoFVwhU0aPNoRAHi6LTelT4wv/PIqv2ye6pSeJn3IHTvmIyH2HA?=
- =?us-ascii?Q?c7fwELqxq1kwWj6YHvtVRRMgxH8UDv9KYi+vlN4+c8tJVeFSOuLjALapJhM4?=
- =?us-ascii?Q?jsI3j5wBoEWyVEep1vTaHWhS1erEilz+d9HuVJyBydMwtQxLtKTqJ5sagcX+?=
- =?us-ascii?Q?Nqy4yaykzBcIJL3Ihe7rM85UU0LIuXTiNDZUc8Digk2wdj5z7ieQV/PC5uQL?=
- =?us-ascii?Q?4aK/axeC0q3uVNZied0bxRqAhA2o/fWkf/bpMOcl47XfPu1GVEU4gVbBqPFd?=
- =?us-ascii?Q?wLh9s5493tHhFjJ/k5fN3A4RNrYGbmndfRUBlsLFdcnHxISgbdIl7c3yhxte?=
- =?us-ascii?Q?rw9IQtub8mTtXZccv3CbWUSX3w8fLd6JxcxJOolaq/n3q4ncsKwcaRWT9BY7?=
- =?us-ascii?Q?CyZnnjsda9eE2JrB9VdtxerKhADdChXrrmeRivt8MAZlqUbZs2Wharbm2x8k?=
- =?us-ascii?Q?OPoZxdFnBOy2Qom1K+9yFpX8mZGI3EvcgJ2kdN6ArjMvvQPP1zFUwd33NfEV?=
- =?us-ascii?Q?qsnycFbrzqHGGQMDn8dodlTdWheqxD4PcVmzgdc/V30VQgQp7RrgvCIOPKqv?=
- =?us-ascii?Q?MV4br75+9rdqr2m2srDbY4tOgo63XpxlfzSRbYAP2LCbF5BwF+Hx1dMo4yck?=
- =?us-ascii?Q?8+9bGD7gZ+SyOvSF80FyHCoerA6eSRdqCFYyXn2gxbaMx0K+F/F0MchLezYT?=
- =?us-ascii?Q?a/kCJXZjTVrTj4jUt6NYouNhJrezfs4uEAWNM6dMHI1anzLDN24Tm7iEDeQE?=
- =?us-ascii?Q?/pzYYctPNvPlCQcs+zTjYuQdkyL5x6ln7nyZ4NjrMUuoGwRUglZVNX71ewsx?=
- =?us-ascii?Q?khSKGoVXUfNJGxqyMxiQzsGFyfgHa4Po4FpOBIH7yjd1i/CexAJ8Ei3XV+g6?=
- =?us-ascii?Q?GntyX67bexG80V6z1P4VjP5g5j+cKu/+wgXs7RPTdRkw63w0BidIL1yE403d?=
- =?us-ascii?Q?Etzi9DbwMuarS56qLP2FVEp3mVu9fSJMaOnCaTyhHily511S9/xhLPy64VXA?=
- =?us-ascii?Q?BMyieGlWGpF+ysLMBv/5p50u+q4/bXGb7trGXqXOyQnOiW0f/fnxm127vEPq?=
- =?us-ascii?Q?v1wecDKIU3ZEoAgv44sv21aFrhWvJjbDqPn7gxi+e0ZCn2ZBELmMlNAByv6U?=
- =?us-ascii?Q?rcXqsXgI0TwYuTpvNxLY2TjBdaoDAl0STWMgFgQfVORpA8oSrfI5msvN8wc7?=
- =?us-ascii?Q?HfhUlNxiiIgSpy697hQ=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?5Ehk5iQWOM7VvuHW9PJrk3BzubcJmWWPbrKlYVfSrABrXSqD1Rw5DH2HAH4T?=
+ =?us-ascii?Q?L6InJjBm/7DP+2cj+MI1HEI3OGPPRllmgbkp+OGHKcnSBqa4LmOwykE0M4vp?=
+ =?us-ascii?Q?TC0MRhpc3ZIF8pR1XeusWjaQ6cODojm9M364vvyaqLZ03eCnX/7OET533z1I?=
+ =?us-ascii?Q?+4NO14zT5CZ0W68pZ0zR39leI/0DcjKP3cHaSG8lTM6moAVjSUNPZq5owLPG?=
+ =?us-ascii?Q?+/gg2W18AsS4lMVIZfEFWkrXTSOaXkKZhVlVQheXTr1E3fqvtU+oJ4F69WlR?=
+ =?us-ascii?Q?bnDyqalaNZnw2x8LY2tR2OWIcSUhCt+G3rqMd1GCFNT6KaS0ByluqXnZo6zq?=
+ =?us-ascii?Q?P8w0NPx45e+UwQq8vp0H7E4mJsmqORvKZnuoDaQ26Dephe+mC0tZ00zaoc1z?=
+ =?us-ascii?Q?aJ5TAHkSflIa/dQ2K71PSiez4Pb+UZdGv9swG0//Py91xkb5Kzz60AFnVGYb?=
+ =?us-ascii?Q?h+h2FGmv6/pz9hpQYb1EkHBGBoYeGo0cu0upHrTAXAy6DaLp4szEYjv7SGuf?=
+ =?us-ascii?Q?FXXwxdo06dgy8LfbwqCntJd/2EW0UjU1eWaYBaYE0hR34tf3ZXTedidYDr4d?=
+ =?us-ascii?Q?YyxsphbrYVUW22IzavewABezYh5BR1Xfn1fpu4F+3hfm7Nun0a5bgKRQsGka?=
+ =?us-ascii?Q?bhp8RF5s8lVVt62txn0hs8hmoW9e9WM0tI1GZAwjG9l1QsD91sVsJwBTgRZb?=
+ =?us-ascii?Q?H8/vetoseC1MFAFvKicjRlVP6eHhMye3HCAgJIaGJzMv1xRuaiOgsFAns1dG?=
+ =?us-ascii?Q?mtGcaV0m9OelRmVF77Wt4kZ1SkhTyh2/RVInA+xkyjAUMZFCJ602QT2+YJMO?=
+ =?us-ascii?Q?2O0sPLaXahFNeLsMap+GGtJyXnvgZAQnCCrGo3RimujTruh6cpe/12e3w/1B?=
+ =?us-ascii?Q?iMRwjyVkrDBmxTsn/KysDBeICEP2fG1siIFFZs0W4n2pjH8MLQtuBg9pbusA?=
+ =?us-ascii?Q?RbXyzjhDGAIp4sOdJAYsOfF7NWTEnfu37avRBsUIQawF21DE19nT9CIfgD5m?=
+ =?us-ascii?Q?Haj6H936aFMd21lHFEArCx9WBpknXemnuhw4y5SlPbTjv4bHTNPKVKvjxLCE?=
+ =?us-ascii?Q?uHe9vgJ8gdUODq6lPa/1FsvWXyn0QGaj6C1kAqyRwmKMqbMw/09bsMLGvVlx?=
+ =?us-ascii?Q?ImZztSawd0kLrRKj3jMhbd3SZbnryEnanT+0zQBaupSnTNiEjRSJYhKjX+T4?=
+ =?us-ascii?Q?NrleDhAaahMiLgX0gxkV8tnyECoPIOeXlkVQv8E4HFjKbMLk0EVljs5mC2Wd?=
+ =?us-ascii?Q?+3CpO1WFWQR9O1X56Pd6ESvo86swyOKENeM9h82HG7R/U6wD73odFM8ELz5W?=
+ =?us-ascii?Q?mxjFHnU8d2i+z3gFZx5XxnPCNjoWpH/QQinl0mV5B9AnHeW6d97rjmllgMh4?=
+ =?us-ascii?Q?bj1l/218AuE60pj9i2nsEws7H2gF/vDJC5T4HAgL3KuPQV1K5Ywuw9fvIo1D?=
+ =?us-ascii?Q?fNwVoVFKbrsB9InKMuOlsVcNKdUl4tUfp45vtJpxhv8QegTdOGN0c4WFpupZ?=
+ =?us-ascii?Q?4sACFrl+Dlk5zLb5zXCxw4vXL8EkU3wo0LQikbEwFIAAlNt8Dv51No85W61T?=
+ =?us-ascii?Q?LKUbGzbRi5RhsD3ZC4E=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gD0PDlssN+kR8LOKa3Y4v3Su3J6UtRsAbUFbCLaQVZQOaYcNi20jTOohUl4u?=
- =?us-ascii?Q?Jo2hpXtkSmMy34CmRHLr9JgycXsXBsToXCXaVIvA3eWDWQ+20BSYf+DN5FVY?=
- =?us-ascii?Q?fjZ72td+RVCYbZiOWuX9pbnzpB5WeQSjESsyOddmTZdv9yuAb+lqmAioPQ6R?=
- =?us-ascii?Q?hf+ctWkxGxD4JDu3vwJJMz+y7/sGb4z3+UASKZz8DUZjsLAfh8N8G5OlMPcM?=
- =?us-ascii?Q?e9AOeRjZodyVVeM1BhiSw67BMeUo6JvvY8m/bkaGwPPj53Ye1rd8aCjM0jTK?=
- =?us-ascii?Q?sOpgHnKK9CtJyPNbtd+1PS7CpZs9wJzfGnWWnuaHiIb+gyDUh+hZHlRS3F7k?=
- =?us-ascii?Q?Qhn5NzDAL0xzYqr6Lsgmpago4HqtfSoVM1AflAauMmLrvdnVIEUuGx93xCmT?=
- =?us-ascii?Q?KPbOUmlAff371DpH4JFXuhi4bWjiMjag4V0Xhp9JHLVIknE/HJe3oBJaEJV+?=
- =?us-ascii?Q?t45iXEcooJB3w8hdwL0JEHJzu1kEoIIiskzzfwEwCnyD4ZBA7b8BNkz7LC7T?=
- =?us-ascii?Q?UVmj1e9BFTw7ATvCCj2A5y2L4oB0ToC0jjWrLDE/2dg6DQchqz3PAOTszlN5?=
- =?us-ascii?Q?4vcez1EvRuA2nlc6le/R0UOp/uxB3yB8a5yADMqCgDxhaTEWzsERfi1/xTW/?=
- =?us-ascii?Q?v1x/nkX05fLhh3xJ2q2xKKc9uofB44sdeZ/08ZO0F2hSA5/zu/mA09MdO5x4?=
- =?us-ascii?Q?SMq54oa1gaRVgX68V5DOS3JfoMpMpyQD6/LFyd93mems+ewREkvzm/IDP6GP?=
- =?us-ascii?Q?y0fqFotiCaj6noIQJxJ91MPPO3U2l29XlVdNURd3t9dxElIv/QZNTFecb6qQ?=
- =?us-ascii?Q?GI7hesGvxD3EI3OS1blz7uzE9S6889Lrb1TE+dxnreI90/9C/rFHPag265v/?=
- =?us-ascii?Q?lGli+KYnXoLRzCcpxlowVL2kl0C9ZvZvgIP37tioeImUp/89CsQA7YFDC+VA?=
- =?us-ascii?Q?t89DrLzOtEWy78/NbcDeCAEfCFxC4pQwKqHT2EfIM/AGPCbLmeYGwZuLo2MX?=
- =?us-ascii?Q?//pz0OWHtWG6zMfltg5gibdrCLB7sgsv1kHkXWW3TUlJ4/4aOU3yrnIgwc5y?=
- =?us-ascii?Q?s1iEzabinIdjZku5xc5DOirn1H0Y8Ueq4E3yyRKHPNnAtf4hKpSIwDHhq9/u?=
- =?us-ascii?Q?gq7oTJJW2A/GMuzxyrJcT+1k+CPuB50iCIoBW3ba9leRe5jV/SCq49tnwemq?=
- =?us-ascii?Q?n6oUYky3NVuld410Q0xe4jDazmhuO+QPjbMI6cO/uVwUPIqoREP8CO07kjs+?=
- =?us-ascii?Q?Wwqgh8KgE0ynmKEzlRzGueugOvHZZlTIwZ2X+Ibxeup8Wcpsz/3seotitbTi?=
- =?us-ascii?Q?Is1p2RsGhcC59P/a0vWdW5nxYBT099ar1c0lkF236QkA14zMrsz4KB83zH+2?=
- =?us-ascii?Q?cVF34z+Eny0WKBNVDqVsSIkCuWqwmYPL1k10qmYbVIDvVwL7q/YvMxvbmCBi?=
- =?us-ascii?Q?JxZCgx/MWKXL7nxrPtiVgF+vopTrTMeQLT6fVH3Gy7GgB+U1mg6i1JVkOS4p?=
- =?us-ascii?Q?BzeEsvwT2wfANDWGdhCbzH6Z9NxaE7jnnHy5kOCCpHefD1zswvk+/5ruKDzV?=
- =?us-ascii?Q?YfZR9mdTPNiouEXcQ5IwpBmNCISW6kQiKQUNKOvb6XHrH3NwsZX4dlv3EOBs?=
- =?us-ascii?Q?PfC/nLKsWDAhZMGqcZQ40OEY01JU0wcu9NtJxHhIn6kKD4EcpoS1GwUa9k17?=
- =?us-ascii?Q?gq/JnkdxnNVhmgTAOV3EoAsvK9KwJgHm160RFn28sBEMYDJH1T5IZyxBrdB+?=
- =?us-ascii?Q?dz78nFuO6Q=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?EMvGvgb+vpnySA9ehHDzxqOIylie8s6UGTah0sSpK+ZtX5U9p/Q4LqEUfB6e?=
+ =?us-ascii?Q?rOjVQTOEynidNQSQGY+TfqVke8k+QXQnLJzoAXgBeaDgiKhVo4VdqytQpwVq?=
+ =?us-ascii?Q?5zgMaJPj4qYMoW2SLfwwt0zgOL6Z8eq6jmQHd2kfYExyyv4+azmI1J7tpLoE?=
+ =?us-ascii?Q?GoRRz7fovoZWTytuh5m6vKhHo+LEJ2xeeNuyG4qRUpnfXB7rfoJsFrhXwp5P?=
+ =?us-ascii?Q?X+LABPv4Wc6B/zkik0BUwQdze5Jxw/EqXJBIwdq6BB2FVwWR9DR7WPqIwgj6?=
+ =?us-ascii?Q?zTrqbvOjPN6TviKRBeX12nGtmTWWEWuclI086Z3aHza84Qdu90bqChGVDiSx?=
+ =?us-ascii?Q?USNS/BwMBU5L/EDe/xTsJB1SeFQRVIfizwGbvLAzCfWI4Igd8O+dxCGVDSBO?=
+ =?us-ascii?Q?7gKk7M549z4W5pFv2gs13pphccmCoAU5pvST7sDr5nvpo3dqyluBLyP0brct?=
+ =?us-ascii?Q?kVo1YM9Do1N5geyFunGp4s/00831FIkl3aXgTNaZXOzFdszYIXO/Rb06YqI5?=
+ =?us-ascii?Q?Ewmr2ALOtjVhGekOrTNWG/CE7xfGSGRThWoGIFmVylweZ7roQDHRF07cSk6i?=
+ =?us-ascii?Q?gVqvYePd/1aLIUNsjoMcyrj27Tid4+mTbXQl4K2rvKP9lC0t23e1EqFA3tqq?=
+ =?us-ascii?Q?WSG5/ap5R9aeeVa1h/cHmf8ZHWR4alBsGjN5maMZN3isVYfCXdua4F+mrPZg?=
+ =?us-ascii?Q?f/woL+sFdG30R7P+qUpXEr1XIbHFEboWPWjRtlI5Om70/xTnqF26cwgeCmMT?=
+ =?us-ascii?Q?W4nhPvh3lORNv0b5oP3p/aUh2aCtD3/MGH+9ME55sx1HKnVbowfI0SsILSgT?=
+ =?us-ascii?Q?cZE72fAFVFRIfK6p8MMMhthwI9DBI3uga5J9ZrPCRebuRJzFVTgQuNaXvwbp?=
+ =?us-ascii?Q?cLpNU2IahCiUZNSvYRZ2CpI3e/yivXxCIjUK+RhLgXLMmg0J6fsjfPSdNWgZ?=
+ =?us-ascii?Q?FKMb0qCdVf3iFKhYo8EogjVC39D0QORqNnTjRM5l0/BIXvbvnyDlgdAGjwJ9?=
+ =?us-ascii?Q?TlCqYaRUKr+M5p8GcxpH+0G4Fg/+RyMIFrP8andLc77n4Ew8K9TpyfdB5fd2?=
+ =?us-ascii?Q?EpkQTkfr4OGGWo0us2Au613D/InnSX3L1fO+zEe3fOnACIHykBm6j2YHR5l+?=
+ =?us-ascii?Q?vwW1SFl5S29Zyj5ZdgPdIH5Fnb5XyoIWuGagrMLxABlGNm5w0vd2/xeUjEQr?=
+ =?us-ascii?Q?gHbxiDCb3ulhowG+Kk4IBJT9qHUDYoRdbxR0hyTo7fvVgkjO8qFs8UYGqtqS?=
+ =?us-ascii?Q?Iu/YIUHcUMhWCnP3P+zCnm2vfdrdn+QgQ+8kTDHc9uxZpylLf82+G7oeQy2H?=
+ =?us-ascii?Q?SYFt+Jlz+XRPe1qGgno0S+NGI++xwhBzjeBkzDfl38QdGSkf89q8kuD7bXVj?=
+ =?us-ascii?Q?gsuBMWTQ8wEcdsXXhqKc5m3HiHRrM+LBDDaJIcDyUneldXCjjMa6YspVRVR5?=
+ =?us-ascii?Q?9Mk6k3zgk0IWnGS7y6cLLl15J14fFPn6sM2yKhOibjOwkWcZgAgcLJBx+WfD?=
+ =?us-ascii?Q?z1PBQrcmQTyZvNRL+hVAUZV2E2DXJAxeFnBBFM9MKCZ93zbK2zqwflCJtktk?=
+ =?us-ascii?Q?aB0p1eI5/1q7bPvRl+VsBYDNI3T6yz02sRny1v0BhZG0vZRq8LDz0Yq6vqUB?=
+ =?us-ascii?Q?UjizBotJQxfNxRKuYn92yUInBPQt01lQgKb21Q7uzzB4OnSy8fWGWbmyGzmQ?=
+ =?us-ascii?Q?MW/qw4Iz4OnKL8SjHgi6ImtVWxy5AstI+cdoE/Sbeohc3elCIo6hOXjSXHfd?=
+ =?us-ascii?Q?WMBuOOBlCw=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b0def32-68bc-4b98-af40-08de73f7a4cf
+X-MS-Exchange-CrossTenant-Network-Message-Id: a26ad792-d3ba-4d88-1d10-08de73f3ec2d
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2026 22:54:19.3800 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2026 22:27:41.1817 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hkOcuYRL2owFvJDaQGIoO7d+RHBrjq0xp1GfEjAXzKZ1tLk+QNUvk6HkJDtgJEbx/dIyeQJN84UILUklnmy/YQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6885
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8mhhbPQSQ/hQR8IPFdGop32UNsX26WemhMKd1+jNS0/6rmdi77qL3vgWhhjKiO0dH+o6QwH5H6FQfjbW2OicXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5855
 X-Mailman-Approved-At: Wed, 25 Feb 2026 08:31:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -185,203 +183,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add self-tests for the PRAMIN aperture mechanism to verify correct
-operation during GPU probe. The tests validate various alignment
-requirements and corner cases.
+This series provides the clist module needed for nova-core memory management.
+These patches are being sent separately from the rest of the preparatory
+patches (DRM buddy movement, GPU buddy bindings, etc.) as they can go in
+independently.
 
-The tests are default disabled and behind CONFIG_NOVA_MM_SELFTESTS.
-When enabled, tests run after GSP boot during probe.
+The clist module provides Rust abstractions for iterating over C
+list_head-based linked lists. The primary use-case is iterating over GPU buddy
+allocator blocks.
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- drivers/gpu/nova-core/gpu.rs       |   3 +
- drivers/gpu/nova-core/mm/pramin.rs | 161 +++++++++++++++++++++++++++++
- 2 files changed, 164 insertions(+)
+The git tree with all patches can be found at:
+git://git.kernel.org/pub/scm/linux/kernel/git/jfern/linux.git (tag: clist-v11-20260224)
 
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index fba6ddba6a3f..34827dc2afff 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -396,6 +396,9 @@ fn run_mm_selftests(mut self: Pin<&mut Self>, pdev: &pci::Device<device::Bound>)
- 
-         let mmu_version = MmuVersion::from(self.spec.chipset.arch());
- 
-+        // PRAMIN aperture self-tests.
-+        crate::mm::pramin::run_self_test(pdev.as_ref(), self.bar.clone(), mmu_version)?;
-+
-         // BAR1 self-tests.
-         let bar1 = Arc::pin_init(
-             pdev.iomap_region_sized::<BAR1_SIZE>(1, c"nova-core/bar1"),
-diff --git a/drivers/gpu/nova-core/mm/pramin.rs b/drivers/gpu/nova-core/mm/pramin.rs
-index 04b652d3ee4f..30b1dba0c305 100644
---- a/drivers/gpu/nova-core/mm/pramin.rs
-+++ b/drivers/gpu/nova-core/mm/pramin.rs
-@@ -290,3 +290,164 @@ fn drop(&mut self) {
-         // MutexGuard drops automatically, releasing the lock.
-     }
- }
-+
-+/// Run PRAMIN self-tests during boot if self-tests are enabled.
-+#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-+pub(crate) fn run_self_test(
-+    dev: &kernel::device::Device,
-+    bar: Arc<Devres<Bar0>>,
-+    mmu_version: super::pagetable::MmuVersion,
-+) -> Result {
-+    use super::pagetable::MmuVersion;
-+
-+    // PRAMIN support is only for MMU v2 for now (Turing/Ampere/Ada).
-+    if mmu_version != MmuVersion::V2 {
-+        dev_info!(
-+            dev,
-+            "PRAMIN: Skipping self-tests for MMU {:?} (only V2 supported)\n",
-+            mmu_version
-+        );
-+        return Ok(());
-+    }
-+
-+    dev_info!(dev, "PRAMIN: Starting self-test...\n");
-+
-+    let pramin = Arc::pin_init(Pramin::new(bar)?, GFP_KERNEL)?;
-+    let mut win = pramin.window()?;
-+
-+    // Use offset 0x1000 as test area.
-+    let base: usize = 0x1000;
-+
-+    // Test 1: Read/write at byte-aligned locations.
-+    for i in 0u8..4 {
-+        let offset = base + 1 + usize::from(i); // Offsets 0x1001, 0x1002, 0x1003, 0x1004
-+        let val = 0xA0 + i;
-+        win.try_write8(offset, val)?;
-+        let read_val = win.try_read8(offset)?;
-+        if read_val != val {
-+            dev_err!(
-+                dev,
-+                "PRAMIN: FAIL - offset {:#x}: wrote {:#x}, read {:#x}\n",
-+                offset,
-+                val,
-+                read_val
-+            );
-+            return Err(EIO);
-+        }
-+    }
-+
-+    // Test 2: Write `u32` and read back as `u8`s.
-+    let test2_offset = base + 0x10;
-+    let test2_val: u32 = 0xDEADBEEF;
-+    win.try_write32(test2_offset, test2_val)?;
-+
-+    // Read back as individual bytes (little-endian: EF BE AD DE).
-+    let expected_bytes: [u8; 4] = [0xEF, 0xBE, 0xAD, 0xDE];
-+    for (i, &expected) in expected_bytes.iter().enumerate() {
-+        let read_val = win.try_read8(test2_offset + i)?;
-+        if read_val != expected {
-+            dev_err!(
-+                dev,
-+                "PRAMIN: FAIL - offset {:#x}: expected {:#x}, read {:#x}\n",
-+                test2_offset + i,
-+                expected,
-+                read_val
-+            );
-+            return Err(EIO);
-+        }
-+    }
-+
-+    // Test 3: Window repositioning across 1MB boundaries.
-+    // Write to offset > 1MB to trigger window slide, then verify.
-+    let test3_offset_a: usize = base; // First 1MB region.
-+    let test3_offset_b: usize = 0x200000 + base; // 2MB + base (different 1MB region).
-+    let val_a: u32 = 0x11111111;
-+    let val_b: u32 = 0x22222222;
-+
-+    // Write to first region.
-+    win.try_write32(test3_offset_a, val_a)?;
-+
-+    // Write to second region (triggers window reposition).
-+    win.try_write32(test3_offset_b, val_b)?;
-+
-+    // Read back from second region.
-+    let read_b = win.try_read32(test3_offset_b)?;
-+    if read_b != val_b {
-+        dev_err!(
-+            dev,
-+            "PRAMIN: FAIL - offset {:#x}: expected {:#x}, read {:#x}\n",
-+            test3_offset_b,
-+            val_b,
-+            read_b
-+        );
-+        return Err(EIO);
-+    }
-+
-+    // Read back from first region (triggers window reposition again).
-+    let read_a = win.try_read32(test3_offset_a)?;
-+    if read_a != val_a {
-+        dev_err!(
-+            dev,
-+            "PRAMIN: FAIL - offset {:#x}: expected {:#x}, read {:#x}\n",
-+            test3_offset_a,
-+            val_a,
-+            read_a
-+        );
-+        return Err(EIO);
-+    }
-+
-+    // Test 4: Invalid offset rejection (beyond 40-bit address space).
-+    {
-+        // 40-bit address space limit check.
-+        let invalid_offset: usize = MAX_VRAM_OFFSET + 1;
-+        let result = win.try_read32(invalid_offset);
-+        if result.is_ok() {
-+            dev_err!(
-+                dev,
-+                "PRAMIN: FAIL - read at invalid offset {:#x} should have failed\n",
-+                invalid_offset
-+            );
-+            return Err(EIO);
-+        }
-+    }
-+
-+    // Test 5: Misaligned multi-byte access rejection.
-+    // Verify that misaligned `u16`/`u32`/`u64` accesses are properly rejected.
-+    {
-+        // `u16` at odd offset (not 2-byte aligned).
-+        let offset_u16 = base + 0x21;
-+        if win.try_write16(offset_u16, 0xABCD).is_ok() {
-+            dev_err!(
-+                dev,
-+                "PRAMIN: FAIL - misaligned u16 write at {:#x} should have failed\n",
-+                offset_u16
-+            );
-+            return Err(EIO);
-+        }
-+
-+        // `u32` at 2-byte-aligned (not 4-byte-aligned) offset.
-+        let offset_u32 = base + 0x32;
-+        if win.try_write32(offset_u32, 0x12345678).is_ok() {
-+            dev_err!(
-+                dev,
-+                "PRAMIN: FAIL - misaligned u32 write at {:#x} should have failed\n",
-+                offset_u32
-+            );
-+            return Err(EIO);
-+        }
-+
-+        // `u64` read at 4-byte-aligned (not 8-byte-aligned) offset.
-+        let offset_u64 = base + 0x44;
-+        if win.try_read64(offset_u64).is_ok() {
-+            dev_err!(
-+                dev,
-+                "PRAMIN: FAIL - misaligned u64 read at {:#x} should have failed\n",
-+                offset_u64
-+            );
-+            return Err(EIO);
-+        }
-+    }
-+
-+    dev_info!(dev, "PRAMIN: All self-tests PASSED\n");
-+    Ok(())
-+}
+Detailed changelog
+------------------
+Changes from v10 to v11:
+- Sending only the ffi/clist patches separately from the rest of the
+  preparatory series, as these can go in independently.
+- MAINTAINERS entry: Renamed from "RUST TO C LIST INTERFACES" to
+  "RUST [FFI HELPER]" with (CLIST) scope annotations for maintainers,
+  following Danilo's suggestion. Note: There is still an ongoing
+  discussion about the MAINTAINER file entry naming between Miguel and
+  Danilo: https://lore.kernel.org/all/DGJXYEXCYIII.Z6FOAA8YYMAZ@kernel.org/
+- Updated clist.rs module documentation per Danilo's review: generalized
+  the FFI usage description and added explicit note directing Rust-only
+  users to kernel::list::List instead.
+- Implemented suggestions from Alice related to safety of CList wrt
+  concurrent modifications.
+- Removed unnecessary trailing comment markers from example imports.
+- Added feature guard for offset_of_nested (Eliot).
+
+Changes from v9 to v10:
+- Combined clist/ffi patches into the larger "Preparatory patches for
+  nova-core memory management" series (8 patches total).
+- Added new ffi module patch: Convert pub use to pub mod and create
+  rust/kernel/ffi/mod.rs to host clist as a sub-module.
+- Moved clist from rust/kernel/clist.rs to rust/kernel/ffi/clist.rs.
+- Added Reviewed-by and Acked-by tags from Gary and Daniel.
+
+Changes from v8 to v9:
+- Added nova-core Kconfig change to select GPU_BUDDY.
+- Minor fixups.
+
+Changes from v7 to v8:
+- Various changes suggested by Danilo, Gary, Daniel. Added tags.
+
+Changes from v6 to v7:
+- Extracted clist and GPU buddy patches from the larger RFC v6 nova-core
+  memory management series into a standalone series.
+- Changes based on suggestions by Gary and Dave.
+
+Changes from v5 to v6:
+- Part of the larger RFC v6 nova-core memory management series
+  (26 patches).
+
+Changes from v4 to v5:
+- Part of the larger RFC v5 nova-core memory management series
+  (6 patches).
+
+Changes from v3 to v4:
+- Combined the clist and DRM buddy series back together.
+- Added Rust bindings for the GPU buddy allocator.
+- Moved DRM buddy allocator one level up to drivers/gpu/ so it can be
+  used by GPU drivers (e.g. nova-core) that have non-DRM usecases.
+
+Changes from v2 to v3:
+- Consolidated 3 patches into a single patch.
+
+Changes from v1 to v2:
+- Dropped the DRM buddy allocator patches. Series now focuses solely on
+  the clist module.
+- Dropped samples and added doctests.
+- Added proper lifetime management similar to scatterlist.
+
+Link to v10: https://lore.kernel.org/all/20260218205507.689429-1-joelagnelf@nvidia.com/
+Link to v9: https://lore.kernel.org/all/20260210233204.790524-1-joelagnelf@nvidia.com/
+Link to v8: https://lore.kernel.org/all/20260209214246.2783990-1-joelagnelf@nvidia.com/
+Link to v7: https://lore.kernel.org/all/20260206004110.1914814-1-joelagnelf@nvidia.com/
+
+Joel Fernandes (2):
+  rust: ffi: Convert pub use to pub mod and create ffi module
+  rust: clist: Add support to interface with C linked lists
+
+ MAINTAINERS              |   8 +
+ rust/helpers/helpers.c   |   1 +
+ rust/helpers/list.c      |  17 ++
+ rust/kernel/ffi/clist.rs | 338 +++++++++++++++++++++++++++++++++++++++
+ rust/kernel/ffi/mod.rs   |   9 ++
+ rust/kernel/lib.rs       |   4 +-
+ 6 files changed, 375 insertions(+), 2 deletions(-)
+ create mode 100644 rust/helpers/list.c
+ create mode 100644 rust/kernel/ffi/clist.rs
+ create mode 100644 rust/kernel/ffi/mod.rs
+
+
+base-commit: 2961f841b025fb234860bac26dfb7fa7cb0fb122
 -- 
 2.34.1
 
