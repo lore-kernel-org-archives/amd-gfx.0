@@ -4,95 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C073E9B269
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 14:17:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27FCDF357A3
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 14:25:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B04D910E58E;
-	Tue, 24 Feb 2026 14:17:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDD6410E32B;
+	Tue, 24 Feb 2026 14:25:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="C7/ZQEph";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VcGMDq2C";
 	dkim-atps=neutral
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C7E8710E58C
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 14:17:10 +0000 (UTC)
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-1275750cfadso354304c88.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 06:17:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1771942630; cv=none;
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC39310E32B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 14:25:27 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-2bdb8250007so25706eec.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 06:25:27 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771943127; cv=none;
  d=google.com; s=arc-20240605;
- b=LBtze9vFdr7DpCeJUKfCCI7nkMDCowpMPS+cbTe61U521D/J4eP6/DuSi1ZNbakB4D
- tokWKAacrCbtmL2cuIqMHo73T6Z1qTo7CrpH5T1aXTqZ6RgrXEANgMJ3UfhyX6hYCjrr
- Kwl714/JwGofDi/PTwiPT9Z6a6jkxav+ABgr/4oaP+/nn/KprWTeCvnlEoJZZCE0KiMq
- E3XxhAmNM7GGs/GmTvmShMgnqh9r94emq4WvO+BJ9UYDVPO5PqZv3JNePrPWN8QfxlvF
- fLRsY/zaD65kEj0S+PBcRdB4101LelaXo5Am6kT6rgoJUdeXf4m9/Cd1Z2cfZN5uasx8
- SJVg==
+ b=DoF0TrsyxkykMNyzD0sdp4XHtYUMP//hg8Ga3aenMcsr1AArUINK6HBNSqs08BGhdK
+ 5PKfphtKJ2ygSZAzLUuvGwMqMVfWVM+YUmqJZlq9n/MaxFP0ZdwfaII5dIlpls5nLE5b
+ TEdsxiTrp+KzRpd0+z8jLv2adUq/ec0Qe4843fhEkCH30WHmi4YSVceLlnPVvUBPx1r3
+ tqXcQoq+PIo2C9xyRX8AN2Lo/NMZ24rcqdgSTAi9QFeoUkbmTgsIon9fMm0wIq/ju/4l
+ NgbXg22kbe/cGdQ1tOd0ISLOdGR+GlOBpAJnQukFxBjNMDJICaC7KO4FfWJqxndkK9vO
+ mxpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=/FkHItMggKyR642C3LmNyO8TwuOKHlw446oe40DvbVY=;
- fh=+TIUOhQe0qggj9A/Xr24nJtkhMNi2/748vFAEZMc/HQ=;
- b=NhF7jgLadTEnzFmQayWHJ1tLzBC/1mALlYL68nDxPUGpAEzxmsMdl56tuuLLmt4KRR
- 3zF9aztHL+dIl0EXCYp00MqxtCEd7+tODLqztGIdY9NzKcuXGEtq97kis+agb1pdIO11
- gzBvFtLxEoAK71uMfdnvW03Tfoq4LuDFkydz2UfqwNmXssOT/mAlFL1bqR56sRMbs6dS
- K/lTuqATccFnv8kLzhX3iPfesi8QY6v1kqq91jMLMFWTQx3xg/B1IBXIseHgRpdzQmMe
- x4nYWzK3+c/cnGfkJGemBThJb1kuUlrLPq1XTubhkIxmQ7rDoalgwbDtdzu98eo92ENJ
- pQ1w==; darn=lists.freedesktop.org
+ bh=gLWFzp2mvSCI7v1mJwSLgktknPipwV9L4/4r0gPjR4M=;
+ fh=rhfqgjeWhm6LyL4ZBhUckQhRoOKRAbydmNk04Hzsp6Q=;
+ b=KCLZ0yo3Tz6Dx7Q4PrDPowXH6N2J15tRFFFn5LbmfA95MNhjGlUT6NAnl5yUDr7WSh
+ MxpymiKZsC/04X3+BZvali0jxFpGIHOt/aQB2Tli0it7c5DL/+9942CivIR+5cXJCJq1
+ F+i8YMLCHwmaTttyHskCgPnzkyq/v/SOH2YmnF2JZv4UkNYz3U+KEWm/1B5nDfpRuas9
+ 9Nh1I+JDBrp0vr2bLgU0s6UlFdaEXzu3n0Fi4RlAOWj3dl89OVvNmAZHBsmMuwBgbmVC
+ M7yHFS53DGk/YOmm9vNGiaFYBau6BWVfUML3AqyoinuQzCYWRRREPTOcHWNzVo8UG6Vv
+ 3FiQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1771942630; x=1772547430; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1771943127; x=1772547927; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=/FkHItMggKyR642C3LmNyO8TwuOKHlw446oe40DvbVY=;
- b=C7/ZQEph4/maaS+PEcmivafTST34vhJr76NSxBrVJkAehs0X4GTNj/I0sCQnDH2Elh
- id1hGVGCWDTV7GzevAA3Gw6iSgcO0iipcVnoXEE1ZcASvWxhcDrTcWTp2xxqVdn//N+c
- Gd63jtmCIQmxUxD1zw4G1pnIxEczfAAbe87DL9wzUwrsEjIM5Jvhu/Ah6Ba477GhV4D6
- iOYUlrsa6+7VUyYZoBf6L+79K+qfqmWq85Ssw/rOA57184Sek87eRDA3jKrOPp04eeWO
- 9YuHi/gRBiO3crsc+udw4Mv4pf7tiPwFHikSoz6/howKe8AAwQHFmCmqBXRxQ4rvq4D6
- 8JQg==
+ bh=gLWFzp2mvSCI7v1mJwSLgktknPipwV9L4/4r0gPjR4M=;
+ b=VcGMDq2CyYLYNA9xANZqawp06xJ5hWJkT+bM25BuGliaFbJIdmovlqPnAp+KiFXIym
+ 65iQ0CdZElYaFddV7QAMUAxc/zxtuPSx8erjHnsqu24RbHYUJomHZH09Ew7xzzcudBzz
+ dRXd02GeHK5ZPngPfX2+uphZCT6fGaz117ws2lhDDwROhVcD6X6Aviuz/1SGJCUkDWbp
+ ma3dGzcBRcZj3oQHXBDBaTwDSwpIXgd0G56TcrHR2znG6Kk9navNW2tQddqv7rcVOOZE
+ NvGfTQdLR9hgKKgOepXCvCuRtXdtK86MdjaiQg2P2W69UCqousRqKM0YF21EoSv9eDjI
+ 2pPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771942630; x=1772547430;
+ d=1e100.net; s=20230601; t=1771943127; x=1772547927;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=/FkHItMggKyR642C3LmNyO8TwuOKHlw446oe40DvbVY=;
- b=puf+jbB7TEHBWtFdkbJob8Da/0MAhmRmE43gsfKrOfxpWSLcpmST5SqZJ8cBTtxRzL
- fgizx2Okes7gra6IH/786Di8meEGau5TjluzsfVvDXiSnRsKj28ApR0X0vC6gkoL5Lay
- vLzHIvhiLE9BC2CR6Le7kNNiblJrBTyUQuzoaJ3uiliD1IRm1BZXEdh6RSQCUgcGs6SU
- P6DqU7hXaTBFYQDVC0aI1jaWvdF03rwDZe1VpZt3hPOVHo8SgDDSp5jpiRSfYhJL+m5I
- VHYACQKFPOoelD6ycCfTHOEp21LgF/EE//0BKjj6mGSkTCG4Mhv3vHKWwfNFt6ZLmzYa
- 4qpg==
+ bh=gLWFzp2mvSCI7v1mJwSLgktknPipwV9L4/4r0gPjR4M=;
+ b=A/qNF8900D299z/ePYJGMAmGTjda0rRTpt+BLfWe+d3EW2gbOB8ot8bYC9wYLikb+n
+ gOFrUBwpHHMZ76tgTcK22gUbX18o4zgLxfqbAzvBRByaSf90zlEzGMkHE3OVwnR7KKMF
+ Q+b1EKaQg1x5b5meJrszlTi+sxXKrczJNoaTXnMgNffDc8xE8RCF6+sDel0zMBMvb3A6
+ TSgddfmTozusIArjTm1nz7fB7OdYSQnPd/YC3RZERbBDxttR7MFS0fErnJYj/NV+vp/0
+ v5V5YnBe0bAMPKAzkvrTBIkKj+30pX1y29NiWgZ/wuSAaw9IYSHTyHqmijBsxHAjeIxs
+ qm8w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXRp3oEkc3u5baoN1p9IckEUzcc0vq+NMXumR/hDcfuZ8l6d1Rz4wHZqVppPE1QSO5gzqZHcpy2@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzddunSguiSfl2/dqakbFWPIiYSvYAyzzwxo+JN22ZNKmwYiCWR
- j7ZGOuelBfpTr6k8FKBIZy78J0hEd7scAv9qYQBa5PpzGlllU0Y0ay+LPeezqi+UqQzc8iGKOEk
- Ehp02vslc6057s1MO3IFlkSCIfxpSV6ZV5A==
-X-Gm-Gg: AZuq6aKiREIdmFoeTImb2vhUnYpnSd7Q7LZoVpzAJ7PBRgqdKxFY57rhOISSNCKtJ90
- wiPjIDdShzEGXYKP552qp75m8GEqhSGYC1Aat9eoIKlisQTmg6/3UhrT6NahKgKyLL4Bj1jmKtz
- Q8dzoqAhhFId1VDYFAbNJpCChjjCvacXJce57dM/Fd26hGZXrpjsK6Sr8bC3jcrfJi1y+cVXNWB
- 6VQWQCQ1tuQXiNTxzKqyuoCLK3Q2dCAbe0yjiU9VBqF6zo0yAmhk3IrRLEHJybHC5nXERQ8Wokz
- JGjlP9PfBfX9MLjWzV4h5NXFKDZzRqLq2LtUkk06/9i184uDmig77rLWQTPBXxHZfBvJXQ==
-X-Received: by 2002:a05:7022:f005:b0:11a:43fb:58dd with SMTP id
- a92af1059eb24-1276ad3bcd8mr2466034c88.5.1771942629746; Tue, 24 Feb 2026
- 06:17:09 -0800 (PST)
+ AJvYcCUpAUUzOzWUIbZaGSsIcy4Tr8Bkf4/6d0KE1aCmJtTnksxFwB8u26FuDlE9i6qz3IMkcku5bUbh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTViP4IfKs18Zl3ZcBd6qMhOSfPj8LLMfiMkS+qP5BEY3TiZV4
+ y93BtXZCY82To+QWIkykx3M6oyR4r9mWCHMsZe8dIsQuCyAPJ78wqxbeLzj4qcfq964YzeVjUd1
+ bD02RFXsHdSLMIl8+nju7dLhoiGsdyPo=
+X-Gm-Gg: AZuq6aIzhQSU1f7N+YB0EiAgdI718/9IUfonxgw0ICe2uCxVAVVI7ZCRvenUVy3PymZ
+ E/FuAu1YCD8NbnkA7b60bOgeYAlzxpr/jvAO6Gzp2PIeZmLex5cjURLrV38KP6U3FJiUnOPOxb2
+ ZfDhuplz+sYw2C/Zlo1UdsAwc4GQSItAP0JmK+mhU6hBQJbj5lIynnaooxayEGzO+l8jUuNYi3L
+ xTp+gxK0cv27Q4gHGgGlOCxc1ZeBj2pyuDTYJhRDjChP6DHx+wxRO782GkfuT0Za6qdZ177xFX+
+ /MvIdmY4D1UeKEp4vVaOKpf6o15tpy5zypK3HRqlw6/7KnniOXA6eMiIrf7c9HMohxeRXy7gJuL
+ O4jqQ
+X-Received: by 2002:a05:7022:f40f:b0:127:def:dd72 with SMTP id
+ a92af1059eb24-1276acad4c1mr2415585c88.2.1771943126801; Tue, 24 Feb 2026
+ 06:25:26 -0800 (PST)
 MIME-Version: 1.0
-References: <20260224091118.4017760-1-sunil.khatri@amd.com>
- <20260224091118.4017760-2-sunil.khatri@amd.com>
- <062ce56e-5d80-47c6-88e7-c45f5f72dec9@amd.com>
- <3dbe7fa7-e498-4cab-8b96-2cee679e0eb5@amd.com>
- <ba10fefc-e5c9-4b09-80f9-e73211031c11@amd.com>
-In-Reply-To: <ba10fefc-e5c9-4b09-80f9-e73211031c11@amd.com>
+References: <20260223220102.2158611-1-bart.vanassche@linux.dev>
+ <20260223220102.2158611-8-bart.vanassche@linux.dev>
+ <DM6PR12MB29727B8394F53F1A0282D7E98274A@DM6PR12MB2972.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB29727B8394F53F1A0282D7E98274A@DM6PR12MB2972.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Feb 2026 09:16:58 -0500
-X-Gm-Features: AaiRm505Cr79o9PFePTJpJlyrHXvgQtXMjf01Mi_up3XqW3kDE2vONVapW8STcM
-Message-ID: <CADnq5_OLqfyMbY0x1d1fWbpLyvF9818MnZLEjE0tLZFo9FBcmg@mail.gmail.com>
-Subject: Re: [PATCH v5 1/4] drm/amdgpu/userq: initialize gobj_read/write in
- amdgpu_userq_signal_ioctl
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "Khatri, Sunil" <sukhatri@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, amd-gfx@lists.freedesktop.org
+Date: Tue, 24 Feb 2026 09:25:15 -0500
+X-Gm-Features: AaiRm53sCbSnoTScwu0L5hqMpvSfxt_dr4rA6LxIHhpJCNmB61AZT6P-pZ7-F0s
+Message-ID: <CADnq5_NSb-g57UyaMm-X=97=1pjh8xTZ2B9fgyHrWCfu6sDA7g@mail.gmail.com>
+Subject: Re: [PATCH 07/62] drm/amdgpu: Unlock a mutex before destroying it
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+Cc: Bart Van Assche <bart.vanassche@linux.dev>,
+ Peter Zijlstra <peterz@infradead.org>, 
+ Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Marco Elver <elver@google.com>, 
+ Christoph Hellwig <hch@lst.de>, Steven Rostedt <rostedt@goodmis.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Nathan Chancellor <nathan@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jann Horn <jannh@google.com>, Bart Van Assche <bvanassche@acm.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, 
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -109,66 +119,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 24, 2026 at 8:34=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 2/24/26 13:50, Khatri, Sunil wrote:
-> >
-> > On 24-02-2026 02:58 pm, Christian K=C3=B6nig wrote:
-> >> On 2/24/26 10:11, Sunil Khatri wrote:
-> >>> In case num_read_bo_handles or num_write_bo_handles is zero the ptrs
-> >>> remain uninitialized and during free cause a fault. So to handle such
-> >>> cases we better set the gobj_read and gobj_write to NULL.
-> >> Yeah that still doesn't looks like a good idea to me.
-> >>
-> >> We intentionally avoid nationalizations like that if they aren't neces=
-sary because that allows the compiler to complain about it.
-> >>
-> >> Christian.
-> > Sure Christian.
-> > @Alex, can you pull in the drm-misc-next to have the fixes in ASDN, or =
-if it is supposed to take some time then in that case i think we need to pu=
-sh the change no 1 and 2 to ASDN as signal/wait IOCTL are broken right now.
->
-> We just need the ack from Alex to cherry pick the patch from Srini over t=
-o ASDN. Should be able to do this by tomorrow.
+Applied.  Thanks!
 
-Sure go ahead and cherry-pick what you need.  That said, I think this
-patch is fine on its own as well:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-Alex
-
+On Mon, Feb 23, 2026 at 10:59=E2=80=AFPM Wang, Yang(Kevin)
+<KevinYang.Wang@amd.com> wrote:
 >
-> Regards,
-> Christian.
+> [AMD Official Use Only - AMD Internal Distribution Only]
 >
-> >
-> > Regards
-> > Sunil Khatri
-> >>
-> >>> Fixes: 3cf117572294 ("drm/amdgpu/userq: Use drm_gem_objects_lookup in=
- amdgpu_userq_signal_ioctl")
-> >>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-> >>> ---
-> >>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 2 +-
-> >>>   1 file changed, 1 insertion(+), 1 deletion(-)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/driver=
-s/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> >>> index 18e77b61b201..e53e14e3bf2d 100644
-> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> >>> @@ -465,7 +465,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *=
-dev, void *data,
-> >>>       const unsigned int num_read_bo_handles =3D args->num_bo_read_ha=
-ndles;
-> >>>       struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-> >>>       struct amdgpu_userq_mgr *userq_mgr =3D &fpriv->userq_mgr;
-> >>> -    struct drm_gem_object **gobj_write, **gobj_read;
-> >>> +    struct drm_gem_object **gobj_write =3D NULL, **gobj_read =3D NUL=
-L;
-> >>>       u32 *syncobj_handles, num_syncobj_handles;
-> >>>       struct amdgpu_userq_fence *userq_fence;
-> >>>       struct amdgpu_usermode_queue *queue;
+> Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+>
+> Best Regards,
+> Kevin
+>
+> -----Original Message-----
+> From: Bart Van Assche <bart.vanassche@linux.dev>
+> Sent: Tuesday, February 24, 2026 6:00 AM
+> To: Peter Zijlstra <peterz@infradead.org>
+> Cc: Ingo Molnar <mingo@redhat.com>; Will Deacon <will@kernel.org>; Boqun =
+Feng <boqun@kernel.org>; Waiman Long <longman@redhat.com>; linux-kernel@vge=
+r.kernel.org; Marco Elver <elver@google.com>; Christoph Hellwig <hch@lst.de=
+>; Steven Rostedt <rostedt@goodmis.org>; Nick Desaulniers <ndesaulniers@goo=
+gle.com>; Nathan Chancellor <nathan@kernel.org>; Kees Cook <kees@kernel.org=
+>; Jann Horn <jannh@google.com>; Bart Van Assche <bvanassche@acm.org>; Deuc=
+her, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Ko=
+enig@amd.com>; Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; Zhang, Hawking <=
+Hawking.Zhang@amd.com>; amd-gfx@lists.freedesktop.org
+> Subject: [PATCH 07/62] drm/amdgpu: Unlock a mutex before destroying it
+>
+> [You don't often get email from bart.vanassche@linux.dev. Learn why this =
+is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> From: Bart Van Assche <bvanassche@acm.org>
+>
+> Mutexes must be unlocked before these are destroyed. This has been detect=
+ed by the Clang thread-safety analyzer.
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Yang Wang <kevinyang.wang@amd.com>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Fixes: f5e4cc8461c4 ("drm/amdgpu: implement RAS ACA driver framework")
+> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_aca.c
+> index afe5ca81beec..db7858fe0c3d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+> @@ -641,6 +641,7 @@ static void aca_error_fini(struct aca_error *aerr)
+>                 aca_bank_error_remove(aerr, bank_error);
+>
+>  out_unlock:
+> +       mutex_unlock(&aerr->lock);
+>         mutex_destroy(&aerr->lock);
+>  }
 >
