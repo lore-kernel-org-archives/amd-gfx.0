@@ -4,69 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10B34EFB7F9
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 07:49:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CADFEFB814
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 08:25:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A646710E1BD;
-	Tue, 24 Feb 2026 07:49:48 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iN37a5Sf";
-	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B781910E1FE;
- Tue, 24 Feb 2026 07:49:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1771919388; x=1803455388;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=H//VFUvJXYkt57OGOyB7vvfZ27CPXVaud1KoKHUeXyc=;
- b=iN37a5SfTSkhsucFBX6wwk2m/RaRGKFUTuoq12mFYJktvIrnxYM0Euws
- rTJRUq0QOh3JJVbCCP8Xm2zAE/APfquV8ldjDYoa3rxdpqjzdlo1lD7p7
- r7d5idaOi5KAI1N+JLgfquxM997w7fBjD0fpwiPAL7gDvM0JQLWmPrkA3
- yFbXgNqi6Fr/JG1H6On0nSGL7q9wHHVDRX4it8NRJbcHhkLkmLTQnuuvi
- Xd8bCG6q5kJPhRStSkNCyEsMZZTPplCU6149l+Oxvef4nd7uat7JgYWLs
- qajCEbhehtr1ApZUnbPsPS8KhL2DEvr4VVLgE5KO2BIsU1bG4BReRXZrg A==;
-X-CSE-ConnectionGUID: al3nTfY4SG2xIXvWRIT11A==
-X-CSE-MsgGUID: mLuxyAviR1ut+0+pyA3SCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11710"; a="76757527"
-X-IronPort-AV: E=Sophos;i="6.21,308,1763452800"; d="scan'208";a="76757527"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2026 23:49:48 -0800
-X-CSE-ConnectionGUID: v9K1rx8ATkqyEi8D9HHGXQ==
-X-CSE-MsgGUID: PwYBLt45QXSLEciT15nmag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,308,1763452800"; d="scan'208";a="253551879"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.101])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Feb 2026 23:49:42 -0800
-Date: Tue, 24 Feb 2026 09:49:39 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Melissa Wen <mwen@igalia.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- siqueira@igalia.com, mario.limonciello@amd.com,
- alexander.deucher@amd.com, alex.hung@amd.com,
- Ivan Sergeev <ivan8215145640@gmail.com>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@mailbox.org>,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, Jani Nikula <jani.nikula@intel.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Mario Limonciello <superm1@kernel.org>, dri-devel@lists.freedesktop.org
-Subject: Re: [RFC PATCH] drm/drm_edid: ignore continuous frequency support
- for VRR
-Message-ID: <aZ1YE6dcEfTMwly1@intel.com>
-References: <20260223203528.213275-1-mwen@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E65E410E4DA;
+	Tue, 24 Feb 2026 08:24:59 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8213410E0BA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 08:24:58 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 61O8Ok7C4002335; Tue, 24 Feb 2026 13:54:46 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 61O8OkIA4002334;
+ Tue, 24 Feb 2026 13:54:46 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH v4 3/4] drm/amdgpu: add upper bound check on user inputs in
+ signal ioctl
+Date: Tue, 24 Feb 2026 13:54:42 +0530
+Message-Id: <20260224082443.4002292-3-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260224082443.4002292-1-sunil.khatri@amd.com>
+References: <20260224082443.4002292-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260223203528.213275-1-mwen@igalia.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,87 +46,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Feb 23, 2026 at 05:29:46PM -0300, Melissa Wen wrote:
-> Display can be VRR capable even if its EDID doesn't contain the
-> Continuous Frequency flag. On the other hand, continuous frequency
-> support is expected for smooth VRR and ensures better compatibility with
-> VRR tehcnologies. As the lack of this flag can result in unexpected
-> issues like tearing, get monitor range even without the guarantee of
-> continuous frequency but add a debug message for unexpected results.
-> 
-> CC: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> CC: Jani Nikula <jani.nikula@intel.com>
-> CC: Harry Wentland <harry.wentland@amd.com>
-> CC: Mario Limonciello <superm1@kernel.org>
-> CC: Alex Hung <alex.hung@amd.com>
-> Reported-by: Ivan Sergeev <ivan8215145640@gmail.com>
-> Fixes: 0159f88a ("drm/amd/display: remove redundant freesync parser for DP")
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
-> 
-> Hello,
-> 
-> After replacing the AMD driver-specific parser for VRR with the drm_edid
-> implementation, monitors without the continuous frequency flag in their
-> EDID stopped obtaining the monitor range because the DRM common code
-> considers them incompatible with VRR if they don't advertise support to
-> continuous frequencies. This differs from the original driver-specific
-> parser of AMD, that only checked EDID version, EDID_DETAIL_MONITOR_RANGE
-> and DRM_EDID_RANGE_LIMITS_ONLY_FLAG to determine the VRR range, so
-> switching to DRM common code caused a regression (reported by Ivan).
-> 
-> The commit ca2582c66b930 `drm/edid: Parse only the VRR range for
-> continuous frequency displays` [1] introduced the Continuous Frequency
-> flag condition. While it was created to avoid issues related to
-> non-continuous refresh rates, it looks very restrictive to drivers that
-> want to deal with VRR capable monitor even without the guarantee of
-> continuous frequencies. I propose relaxing this restriction and adding a
-> debug message if anyone experiences problems related to the lack of
-> continuous frequency support.
+Huge input values in amdgpu_userq_signal_ioctl can lead to a OOM and
+could be exploited.
 
-AFAIK without the continuous frequency bit the monitor isn't guaranteed
-to support all the refresh rates between min/max. So is this monitor
-trying to tell us that you are allowed to change the vtotal dynamically
-between the various explicit timings declared in the EDID but not between
-any other other timings?
+So check these input value against AMDGPU_USERQ_MAX_HANDLES
+which is big enough value for genuine use cases and could
+potentially avoid OOM.
 
-Or is it just a buggy EDID that needs quirking?
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-> 
-> Maybe I'm missing something, so I would like to hear your opinions.
-> 
-> Obs.: In addition to the display kernel developers who have already
-> worked with this code, I am sending copies to some compositor developers
-> who may have an opinion on it.
-> 
-> [1] https://cgit.freedesktop.org/drm/drm-misc/commit/?id=ca2582c66b930
-> 
-> Thanks in advance,
-> 
-> Melissa
-> 
-> 
->  drivers/gpu/drm/drm_edid.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index ff432ac6b569..8ebd1c17d78a 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -6517,7 +6517,9 @@ static void drm_get_monitor_range(struct drm_connector *connector,
->  		return;
->  
->  	if (!(drm_edid->edid->features & DRM_EDID_FEATURE_CONTINUOUS_FREQ))
-> -		return;
-> +		drm_dbg_kms(connector->dev,
-> +			    "[CONNECTOR:%d:%s] Display doesn't support continuous frequencies\n",
-> +			    connector->base.id, connector->name);
->  
->  	drm_for_each_detailed_block(drm_edid, get_monitor_range, &closure);
->  
-> -- 
-> 2.51.0
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index 42b548c8a86e..4f9386677c47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -35,6 +35,8 @@
+ static const struct dma_fence_ops amdgpu_userq_fence_ops;
+ static struct kmem_cache *amdgpu_userq_fence_slab;
+ 
++#define AMDGPU_USERQ_MAX_HANDLES	(1U << 16)
++
+ int amdgpu_userq_fence_slab_init(void)
+ {
+ 	amdgpu_userq_fence_slab = kmem_cache_create("amdgpu_userq_fence",
+@@ -478,6 +480,11 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 	if (!amdgpu_userq_enabled(dev))
+ 		return -ENOTSUPP;
+ 
++	if (args->num_syncobj_handles > AMDGPU_USERQ_MAX_HANDLES ||
++	    args->num_bo_write_handles > AMDGPU_USERQ_MAX_HANDLES ||
++	    args->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
++		return -EINVAL;
++
+ 	num_syncobj_handles = args->num_syncobj_handles;
+ 	syncobj_handles = memdup_array_user(u64_to_user_ptr(args->syncobj_handles),
+ 					    num_syncobj_handles, sizeof(u32));
 -- 
-Ville Syrjälä
-Intel
+2.34.1
+
