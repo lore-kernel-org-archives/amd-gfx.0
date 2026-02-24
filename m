@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 068A0EFD209
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CAE8EFD20C
 	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 08:31:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D737D10E6ED;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD38910E6EE;
 	Wed, 25 Feb 2026 08:31:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VrETmeih";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="kbE+/ZuA";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011059.outbound.protection.outlook.com [52.101.62.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D3B8C10E688;
- Tue, 24 Feb 2026 22:53:52 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010036.outbound.protection.outlook.com [52.101.61.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DF0910E638;
+ Tue, 24 Feb 2026 22:40:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yiR0bLwTm/Yw7A/0NoiWP0VPREn7DdSdAzNCjY3e9WiSI1QjWjSnr6vMNhclI19KHpCtQFIvSWDnOIJgZR9ROUVYkoW5N9vcnz4LZbMsk9kCnUUywWbker8hySw3pfiJ2bltxpJeqJOjsYBbl0Io7RooCfMzHN0c6GPA5fxs9IQG+//0TU8flG7Pu1kkgvvHNJ/sf3bl38j3qDWGT1tP6FIXKtLirn4JOp8/8Vl2as2YkFIR56mT7S0WEHEOjK+Ra6H02iet6BKo5Jqza25oorcvd64bt471SLBuYIJqtLKS7eSBoVOYVvZV+JLckzDuhghA0xIwGbTC8ysKhiLPEg==
+ b=av73kToyu84kQm20pbQvE08Rzx1oO0LBeq66hGSJ9F1Ng2ET5zMrmI5FV7Rmw9ylILY5+jDaGCRvATL+UM4Sxca2yobYom+fh3RkMd8Y31h4bwoC7uBy5qPAPJlrNEYX5b7N1bwHJLBvuQSu/oAMUEuRTkOFcM6ZjYB6/67qRav4rdAyzfvNN+sNfTq7AT9hBhg/wEPOyQYbya6FQwE1u5qpKukYC7HCAw8q1+BTzLOO4y4WYXwncPU2G0F7m6X1Z/lUaysl1oGVl0eMRbqUB0m1153pc2z55L0apUYcmcDgAs1dHN2ZJHCMA8TG6td9tdpiX/vnyYC2mkME5p+z4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7zKgDPmVZNfWiDtJ9vzaaR7u4t5UNgcAKdjFKBA03YE=;
- b=nH4p6FSNbFvTdnDJ9arCnW2lGsRXnVXQrVZCFcC991+7KrUtQDg8jwKk+tqlABfv9pl8KeMuPYgg6QBAsD8nHhwo/tedkeiOK5ULqSHjJ08K77tyTDoSFPSuL8zl5C3Tqft//e4Gi51u2V/Uuf0F4NMQSVa9rEh7W0LPblczXL/Gf+iTmSu9fljQH9SMEgfaTFh/2QYNUySR3J0uBj2Rf5HodNFY5TOvDHoyRDs6Rz+fG3RHhDzOLdlViUmxvAJBO7h28oaaydNj4N6n2WIWEwovKQZsTBf54OLNt3aep+POZZf4KRImnc5IViEDdlDjKxElNvxPEv0DGZgP08GVwA==
+ bh=+R3GxUR30Ce901aqBipSHAbEEdeQtCV+u/rZ5Kf5P0o=;
+ b=qbV0/8Q6lE2ddctuG2be8jv1bDlF/n6CGKSkupqn/aE4Ks5YE/7zzrQutRcXv66VFiGd7vXxPlgfSZUQEyiF3F5ITMAxuLcFi2KBCx0XP6ze2TgpSM08qN+wzMeJMYyHl9QHTLyTUGGUiBiW2yA84vRu/cQtxWu1SR4C0TRmpSKvy0Si/e27WWTwWe+G2lxbtmZr2kvAJYm1epyt0nG3DkfQLNL82qqLEUMHBW1/bry73dxgfPV+Hn26hW5GYT+0oF4HolRa/mVXqXkVpBsMBLGGHn0VAbsm5l21mdxDJf18rVWOU7p5NnCcU27yc0r9ZWwpJXJn8TIZB4kXlUjf7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7zKgDPmVZNfWiDtJ9vzaaR7u4t5UNgcAKdjFKBA03YE=;
- b=VrETmeihb1CinumvqinF9Up8Zw3TzdaKaUdVbQQa/g3uz4YKURlFRNAEFcUOtpaPrdpdIyPZ2uknTDH73jnDB5rkl3Zwv1X5fGmcSUkMbnqpQg84wZ45UqTxXdsXoN8XPzlubWO1bZmF+iehz1RCy7aS4yJQHTyL403xMiZORbwGa4PnoqetMJJPw1DEbHDR69F0KqWkeTpGdq1RvmVR2XZyy185AdBl8jl/VbgmQIbJqlMG6ZZMreR+LSwUi1HusDK6CPcN4roBLw0uimhHvPHyOT4f0d6qzFBsYXs44zvmWPhVoIK/i5QoXlW20i9rh/Db3d7w2/6NxTQrQegXrQ==
+ bh=+R3GxUR30Ce901aqBipSHAbEEdeQtCV+u/rZ5Kf5P0o=;
+ b=kbE+/ZuAN8mE+DRBeI1EjQSwjB+dI/sx4DlXDVcqkn84Oh0Ng9pSMpQgD4Hm4+mLRzR0+cqbAWA811vgjcXfoa+nDYKY84s61QVI+V5MdlmqtnfTAfybHbZd6zBhF/XyGEqhcAIAxA5Y95PNoVwZxM7aXoaxKonD/GnqiGmtxU17JNOF0acNqDTzSzz/VKDsCe/+x7CQW5BE27XxUsklBrOLfY5Ie5uqHpwtmE7GByw6Php7FErYzzTlehMqWI0/GybNSL85PZzN7gi+cXQYJTE6Eld29dICWl3nhmwBtRrjYQS88zxUVvNyHghtuJTXDp48IrJeEP1OlAAavXOTIg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- SN7PR12MB6885.namprd12.prod.outlook.com (2603:10b6:806:263::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.21; Tue, 24 Feb 2026 22:53:47 +0000
+ PH0PR12MB7816.namprd12.prod.outlook.com (2603:10b6:510:28c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.22; Tue, 24 Feb
+ 2026 22:40:17 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9632.017; Tue, 24 Feb 2026
- 22:53:47 +0000
+ 22:40:16 +0000
 From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
@@ -79,96 +79,98 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
  linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v8 09/25] gpu: nova-core: mm: Add TLB flush support
-Date: Tue, 24 Feb 2026 17:53:07 -0500
-Message-Id: <20260224225323.3312204-10-joelagnelf@nvidia.com>
+ linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>,
+ Peter Senna Tschudin <peter.senna@linux.intel.com>
+Subject: [reference PATCH v11 3/4] gpu: Fix uninitialized buddy for built-in
+ drivers
+Date: Tue, 24 Feb 2026 17:40:04 -0500
+Message-Id: <20260224224005.3232841-4-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260224225323.3312204-1-joelagnelf@nvidia.com>
-References: <20260224225323.3312204-1-joelagnelf@nvidia.com>
+In-Reply-To: <20260224224005.3232841-1-joelagnelf@nvidia.com>
+References: <20260224224005.3232841-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BL1PR13CA0340.namprd13.prod.outlook.com
- (2603:10b6:208:2c6::15) To DS0PR12MB6486.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN2PR13CA0005.namprd13.prod.outlook.com
+ (2603:10b6:208:160::18) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|SN7PR12MB6885:EE_
-X-MS-Office365-Filtering-Correlation-Id: b96afbfb-f868-46b7-c2e2-08de73f791e8
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH0PR12MB7816:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef25ae00-3dd0-4cad-c2a0-08de73f5ae97
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024;
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?K6JTZiAOiIHgz43T6Sj34CuBRyzmUC+ipiQXtqiCLuzF9c0xa/KmAxbP92Gy?=
- =?us-ascii?Q?Y785giZpAteYq2dN5xtSrdYlX9CtmFnY7NOE2JMXlfcZ1dknJHZRRHkZySgK?=
- =?us-ascii?Q?phl6GNKRCXaRKw66vtKye7VnNF88SRndzn3oPFkkYNRyOrKW4Zt4/rbfmwM/?=
- =?us-ascii?Q?5A/jEvYxS+i3IZLSUdGid9JVABK+Jhc+wnSA26zGDRmfll49YSTG0jdvn6DU?=
- =?us-ascii?Q?xrYpOjUj75h/MFEXsL0AUtvfBNw8V5cG0sCHKTWSBZx+Xp/6HJ5gb6r8U/hs?=
- =?us-ascii?Q?RmeGbidK/+p7wrJVjy9rlymqgM0IW5mbX2iXgtLTApoAItdsqgL55y62xDYb?=
- =?us-ascii?Q?+syuewSxfBArajaYzj3Q5Mr+JJGNveb2CBYlItAf1DBK6p+OBXLcerVHiT7Y?=
- =?us-ascii?Q?Ln0B8HOQq19IW50zoJB9C5TtKo0GeSDE9UGeSybaBXjZf6Yf1zOi7jg9LV8R?=
- =?us-ascii?Q?cB/c2KCmYHAEzm+0OPPK4jRJD/yGD64FCl8m/MaPOgQUVg6Ziubtc6JkiMWk?=
- =?us-ascii?Q?4Eog5fnw604JhUNJLQDEzG07v98S+4CpbF3j7/MnjMLF0vJWeF5GyCPyMIB0?=
- =?us-ascii?Q?ZEBY5kjpl89BlIbC/dIDkmh1UT72uw2OYsgvBQKslo4pj8fH0IOPTHTWGrqN?=
- =?us-ascii?Q?q/JCydO6FOe6gNnd/yJBS6XT44hoLwWyIHXqZPvyGHsuQ06SsplPT63d5DFx?=
- =?us-ascii?Q?g3SG9gX+6iM8p1bUbDAuTpq8a0f2fypuMOHeNFCft/Js4e/5jlpNA3qbGPs2?=
- =?us-ascii?Q?SHf8iA7nRrakzP9wYL2ijqPxEdSxIWML3poDBp6FQclmSBJRDzZoN39IMMAd?=
- =?us-ascii?Q?XCLiy6AwYrrHfFTsiUjLVUpkQXCCOftJRQHK53f0SLj9/Bfl7qumL7E8V634?=
- =?us-ascii?Q?N54gpx7LfcpA5nr19Zx+pVcSrJ0b2pKgzWORdeh/M9JfoOye2W87/IdkZVvT?=
- =?us-ascii?Q?QYdIzQxdfES0Pa2/0QJb6qibhcifyYxNhneZxi+ixiftimFNRgndXV5kl86I?=
- =?us-ascii?Q?hd/gxgJZ4wqp8ISuXiZMQVH5JgCDxVRzsX+QfZMOaa6NWMYSw4HHFan1vq9e?=
- =?us-ascii?Q?jTo+hVQqWExjOAJKRks1+P57faOCn/ImeNLbflcb2cmTWSVpbQBixiPsLGv8?=
- =?us-ascii?Q?3cms6D+UEAtGbTqe3y0jtj9QyBIiqDZFqKPluXcnHvUSngYJXNr39zosuBJ4?=
- =?us-ascii?Q?kuh0xSZEu5fbnKRoejBNaMkrOD7IZ6GLv4B+C2/L5IUdc/zkmP225Kjm23an?=
- =?us-ascii?Q?4k81ydeFYHjJ38SGFqUjNu1YhkyGmrQv2/gvyP3jeotla06Yu91S8r+FqGbk?=
- =?us-ascii?Q?v2dfu38Y5m38e/GXYBAV/sBqW1oJhZimtu3a9KSxVZFvNGddImyrxF/IFF9l?=
- =?us-ascii?Q?OUAoB45oTAWRM68ojMgcWj4rqJAIy91NjLWUlEFtdGYK0IwKqeYipRZ2cB75?=
- =?us-ascii?Q?fo53k2YdgSnAs6gEeOblnjursRZFe7InhCyysIzqWwCQaTFnELZmA1rks/fi?=
- =?us-ascii?Q?orR0/tSnnbbdFbNyUCRm0zzzU363pMa1aePErdnRCvJKbki+/2OIInOr+z1B?=
- =?us-ascii?Q?5AGbdUG3p3ECXuxtYzg=3D?=
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016;
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?0BWWCafMok3BxXGmM16kBo+ZoS1qdcacIZfuJBEqsnayez9Cz6YhtqBEmnBR?=
+ =?us-ascii?Q?Ny9O5ua7Jz1/iQu/zNp9lLlbTBcEaJgY33E/4E7zOR518zW1Dijn0joBOaqP?=
+ =?us-ascii?Q?ZQZf4L1pbBSI/ONwZ//2oYBFxhc1hzGJ3H3taDyKoaUTuh9d4n83YIhfE3Dd?=
+ =?us-ascii?Q?Dqnv/pU7hBfz0DDJQwf6r0hLzzz76R7iPPKe7AKsR5YHSktppgk+idZl1bjO?=
+ =?us-ascii?Q?E3HeJ+gBHg/2n5fCepsKQxhvWucPIdmACLOL7Muq1Po4yIRrC7Y5ftkrlVrx?=
+ =?us-ascii?Q?WxJbauvIGpwptZ7Z9+C94Pexws2Pth1ihFmO88FvreWNsqf2gsylNNEKkLq8?=
+ =?us-ascii?Q?Jqr8A4BO5oz2lxl/gKusufs4yWwjrLaRGOyBZXi49GgQq6kz9CmEDg4aC5T7?=
+ =?us-ascii?Q?eghg1PXX7Pdu2kT4lf1stv04GfBfMwcxsBye2rRDSUghHvmtyO0730b423D4?=
+ =?us-ascii?Q?l5IUOmpXbY7CJyoWmG0jj1nsdkkiwepm5SQFXKbKW8LpyGgyhBGrSiIx6Y7C?=
+ =?us-ascii?Q?AVOoahhhVa+9SzsI04sj9rAU1lNw5zsL7bUSJXQBXDxcL8ok5KFs1dLnf3wy?=
+ =?us-ascii?Q?m6aLikOOJrO7tZN/8zxP6GYZLILM8CL+GA6GqZFtBcbmrZuuh3GRTnrPYxoU?=
+ =?us-ascii?Q?EAjGJUBYbuGEgPSxVLwoJq5cSshAmFmMnzdVqB0fZJTty8tZDVPKsBxrTmvY?=
+ =?us-ascii?Q?+s1Hx2gkgMv/NP9jnduIXyJTbeuuvTzUYnAdPvb1zFP6iLO374kzSYDL9OAN?=
+ =?us-ascii?Q?4EP0GhtcCrI0JlkQCvZTVYplbixdbjaXlVEYfSsoGiHzZTeM16S0XoRWbTjf?=
+ =?us-ascii?Q?FxA0cixhJaAH2jgijYS4wCmsHA7Mo+nGfsdUv5mjKCkztOJpNNrStmUMYwCN?=
+ =?us-ascii?Q?YDdFyHbTCJOu+di7ePxdaeTT48PMtYVPixoYeuhM3tY0jSBrDLNwrCiX+AJ0?=
+ =?us-ascii?Q?xQuc90TLXte0HwJz+X62loguvIbCiyeK2RKiIQt89tpzFQcF2HprIHfhlON0?=
+ =?us-ascii?Q?zBP6wAobwx30gcFtecg8pzCcABlWCVh3vD3BdmLbpiYHMblPE/kpxBmq3izB?=
+ =?us-ascii?Q?v8dX8oC1SqhaNtE/3Nf1Vt+Y0ilyZlsRk5HUp0dMxH++OwhhTZm8Kiblawt1?=
+ =?us-ascii?Q?QBSl0xniNHlIJK6JadjRv+Wc2vAk5cD5w7nwxvbJbkcqF5gvnbphjoxqp+kr?=
+ =?us-ascii?Q?aYTzrfYp0bo8W3Twgap6z89u/OCrFS30iPUyksYu4WEWAC5nU7pxdSgwCS/4?=
+ =?us-ascii?Q?n4eDO+Sv6fBRYiVmhNrAFb0g9A1fSLdlUCcHBt7lcT1G7CR35LA3h/mySKOb?=
+ =?us-ascii?Q?5xAezPEJ9FNhe7d8BTYtxwyk8T+TUhEH0xQZGiFiUr7b5iOtAOfBWqMbSJq4?=
+ =?us-ascii?Q?BsF7o4rEXrOoS4pOq47PNZymqfKRxvtAwafp4XRTX5QwMtEFT2aT3s8TNRJT?=
+ =?us-ascii?Q?FFK65ayzkQGNaBtqG/oHpz/n5LRSeTtpZ5wP1Lcdu2Pk/ej4ic11a7i//cwW?=
+ =?us-ascii?Q?Si5UzJtiobPGksgJhRKkSsqtioCOFyY6yzqvq5/QsbNzYtLbX5W88p80OcNJ?=
+ =?us-ascii?Q?YDIJ6wsEHidDkI4T9to=3D?=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ky2dG+tkFkkRIGJsdVhswKHQGJlpp0Aqz9qXaHHHmLt4Pky3+2ulDUcPLdmI?=
- =?us-ascii?Q?8Z+aliZlGIMSnTyrU3JtxEYsPmoMrkJSAOWGTXWOo78guZ1DX7PKvuLBCnpu?=
- =?us-ascii?Q?8mshcvq/mfGfyzUe70caAEHAqFT9Ks3ZqYuJZFcQQoaksoluLg9ZrpPJFyuP?=
- =?us-ascii?Q?Czq+5yr98gUCh9xSV/pyonk9JEA+tqLM8TaqJFJCWWj0Nwlk8bTiq/fK5sT2?=
- =?us-ascii?Q?O6zLr5CR64zrCEG4DSaJSFPE84+mPni0G0LCc1TBNDsX7WZkV0zMjxU8zgwn?=
- =?us-ascii?Q?Mhg4ZIg6ZuWpJqJVFO5p6bxzY+JRTsCZmwnD7fT2G2SJYO3zjlFwZKMTfN9R?=
- =?us-ascii?Q?XF2LWho8kt6+G71avv0v1ixjdI4iDWJmwJ+uZcp0XDvpCM7gp1AyMOX/SzL4?=
- =?us-ascii?Q?CdLNwhcAXyzsKoqTc5mYqpYQ62j0vwmMv/1YpMKrsJrYDnN6FhNXO3rixXga?=
- =?us-ascii?Q?IvRnmWCfExDihb56wcQJ3PV0tSennPMp1AqfaufKFJqeapKJDQyctqkPE50i?=
- =?us-ascii?Q?6HVZFT8YA2hb40sREoEL8XcokGN8zdQSPQiBrmi2yRxHVbC+Zbi+j1y0jnlE?=
- =?us-ascii?Q?r4SQbdmfg11us3Mb2Ij28gu2APELu0M9LObhVbhnMA2oSjVqKadqTPW0qFiY?=
- =?us-ascii?Q?Do9J2g3pJQ859SPao44k78O77HRXUjBV5UklDqB7OUVZZ6Kk0mOKxQyulk3Q?=
- =?us-ascii?Q?A+cfy11d6TCZZ0RXckBKe3iZBwJ0WEZ1hWnPl0zHhXr51bpAmUZlqGdgWW66?=
- =?us-ascii?Q?3iKZQbZWcs5MYIqb+bmRkpsEvVAYOsoWukEbQytPIKAZ/Y4YcImoDEGouMGy?=
- =?us-ascii?Q?kXUn7XNvjbgf6B09WTKfe+E+8Qgl0V+x4t9FcbrJ7fRx+K7T5U2gXrkb5Aj1?=
- =?us-ascii?Q?GQTNPuyOFzeZO1v8i7nVr/IwUsdaoyX/WznuVfoe4vXxEXxeuCPOVc+s+UHx?=
- =?us-ascii?Q?b3q0ysALwzFPgqlS0HdNGLF8bpun8HaJ5MGxPnMP8VFUnUpECu9wIf0br5am?=
- =?us-ascii?Q?4onPR92DuLhQZGgTcYn7LHJGGoFQpz3KJHe5os58gpePv7AK2S+xUbkhrcVQ?=
- =?us-ascii?Q?+PcrXxaIWIkYh1GFVJH5iBwe1LS5/UTgXIhCq09aJB48AvzpeulQ7kdLYtY5?=
- =?us-ascii?Q?blN9PKDnRPcTFyYjAMnsFJLqSAsk302iQVfZ6kIqnLyA5BGAmV2XEzbmPUcs?=
- =?us-ascii?Q?C/eHuuCTnoM2Ufdp28Nry4gcHA6klYXHKHMozPHy2iWIICGzo6fF6WK5mNA5?=
- =?us-ascii?Q?aIUx6Khu2zbWoS2EbQpjCNvD6YirBOB3HaUEMyvCOg5chc2gnIT84ZN6O2OL?=
- =?us-ascii?Q?snDa6LeLUOraDv0rXtIXuMtm+LsZKv4CqrO9Ke3B1LHW+ARtQGfXijaiQODb?=
- =?us-ascii?Q?FUfJwgt9CyBqR4mQeEtvsMbTnDr3EciVKudoad0KFQB0JYhedIchAh8yMNW5?=
- =?us-ascii?Q?EXBFUvAM/C1gjIhToRImkLU0j2IyQkeGivrryWzf3dNwIm8rMk1cKDe9qdUF?=
- =?us-ascii?Q?B9X4+YcidR0HL1M1hWwvxFYFs460ZUFB91CxTsE8V2K8wqyiFDTtmmAteg9v?=
- =?us-ascii?Q?r0WMIOQK/S3bBtxa939xcnNPg0E8rudsIUXMGqKhsrc0LvR6J5lQw/JFQ+T8?=
- =?us-ascii?Q?T7GvgfPNUk/Ja2DPfjwwM3viryRQqPFWINZQvVmNFFSJAvKInhmAeCI+lqqC?=
- =?us-ascii?Q?lsLK5X7jDc0J/r5ax3MPXZW8yP37bRJBtO7ET6BuFxhfJlNk08KVVzF48heu?=
- =?us-ascii?Q?pYjRgeF2GQ=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?BZ7CImkMdbC2oH4qBoiMCBeEbmmdYe/VNPGuUSHIFpU+kCP3MWmp0ODMcdit?=
+ =?us-ascii?Q?3CooMJwQgPr1Tq/76hSljsv6suw6JDaSEQhuP4KEIRufemRV8a/0x2QBvCs6?=
+ =?us-ascii?Q?TR+rBXebZssyLZ1W+ypGlFQAQu5+ub+biQESMVxgjIGvnIIcAmgt/6ebfHL4?=
+ =?us-ascii?Q?UKbOtvZ0ZcsH3rbq6Ra7rZmyj08Sf3qaJlrU21HZ7RLqZi00EMLMyvIhuVaa?=
+ =?us-ascii?Q?8HIZAU1Gpt4wnTV4yi6syejr33yHm7EOrZUogdqY80H+yCuDe9Nb1Hnmf41d?=
+ =?us-ascii?Q?DgSviqP9wjQYNEULLEid8fsBEmlAd9AIAwXSvb+NYnWXFMANWKhP4JI4hB+g?=
+ =?us-ascii?Q?sqmIn6b8c9QKDNJtuFgaYRw3aMoYXp35aiT2O3rU/k+8jiDnxk4l8OcI1ylQ?=
+ =?us-ascii?Q?cc3GGRgy79Jox3ooMgfsQXCPLka+RWd7fFmbPaj+tj3S8LqliaEGmdbJcEXA?=
+ =?us-ascii?Q?Kq1fkxreoIHXsdVxnvSkk6N4JPNuAgzJFD8qoMUVil7rZUUhum64PisguLI1?=
+ =?us-ascii?Q?xBsIzuRUwUR7NtmWkgPVcF4daIuSzpRdjKgcmZFXHAwmEjNC/XTouQGhPHLv?=
+ =?us-ascii?Q?Gsi1BVxg/YVY0Aac9UhsS2ygFUI6LO/QcdKUdBLoY3nVKQFlCzyvgu0bOtYN?=
+ =?us-ascii?Q?ELaQa39frJ6G98ia2q3r9cBQoNAf0pCL3aQ7eVWvgN/gCY7taGLVoDnqWKgd?=
+ =?us-ascii?Q?DnjORVzqvEzPFAMxIqVnmyX1Mtsh+wqRm9zqgeLYP9IDJJhysPyHmMx+NOtE?=
+ =?us-ascii?Q?36GSASHWP0Co9Ae+zRFqbjpi+5IY9zcwO2GLH5TPex3Qopn4tEJjw8c/bxtG?=
+ =?us-ascii?Q?/V4DRkWrHjgF1FDzaAMxIS7R256RIM1eWwb24ckluetKEgcdauCkjEZp++Jy?=
+ =?us-ascii?Q?UvQ3U0SIZsZlw3NS/RsUFDQNXQEENj1UFNfuWxaWmiMjxsieKXZVLGb7ErK5?=
+ =?us-ascii?Q?MnCvqzEKzeQPGMNUXJaqfhlDPBUKLsB00lEfS7GKtYol32zzQbFrrQG068zY?=
+ =?us-ascii?Q?HUDV0oOpSEtM1SVr0PDsBCjeGa6QVhiu9ti/EhMeup/qnbJzbUhFgi0iOFp1?=
+ =?us-ascii?Q?UWu0MqU+uv83wesgD3A9lrbCVC/wEvIhF/gzYGfQ6xml8W15290FPFQbf1QK?=
+ =?us-ascii?Q?obb7XurwybUAJH1BLbA/uosoHQWwVnaN5xYzAS8fKFmX3EzAfp8fTeQAuAo+?=
+ =?us-ascii?Q?nc0ZEFnnyD+4ymMmZ7CPpR8+qRugeppPsL3PtCyd5M7O6Ap4DkHKbrvwIhJL?=
+ =?us-ascii?Q?FR3P4j7BSPUUTImeOViWSFXsVe4zsXR8/+bEUuFJZ9TZ0vu68iapeBPKRt9f?=
+ =?us-ascii?Q?RFzYxeBGqU3QAsPpC7JWWH+8Q9lkywDWTDXYgdCR2sWjk0/VzxIBLchIf7ZU?=
+ =?us-ascii?Q?rLK1X7rRex+MOZMqu/JVqOdh1PF6cr+oB547paxlsBPB6jXc98OPMPlf7bzg?=
+ =?us-ascii?Q?wMCpRoeCE4L8CQ32XoP/4wuSQDhzE6jXxYsLsXPZ3aab/+wwSjAFg1+S5fJc?=
+ =?us-ascii?Q?qYcY/DwqwAbjAIWh1odMBOh5rOjRickX3yZ6WsDTWboPc2WfHnPkpMnaayq7?=
+ =?us-ascii?Q?wmwlN4Uo/6mGAYMdP2V/TdQLv46Ilwn9V12GM8c5MnuCL+XjZHf4okvDL8jk?=
+ =?us-ascii?Q?MB64kfM2qVGcSB4ZRGdSRo0J8hRr02LpvHRy2HqLJqbh9FAqEKqJb10b33TT?=
+ =?us-ascii?Q?LGWgZggeio1klYS1cQEEjjzel3zUECS7Sk7alSsI5um90OPAj4YfeYs9Hjt+?=
+ =?us-ascii?Q?MOotaPyjFQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b96afbfb-f868-46b7-c2e2-08de73f791e8
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef25ae00-3dd0-4cad-c2a0-08de73f5ae97
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2026 22:53:47.6559 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2026 22:40:16.8243 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JUJkvzhdtCL10Txw+Cl9Z1wkNWPdHElfzcSSiWsBP4qQhfJByRZ2nWvCZNHtRzp+qxAdpiygCULH25T+eCU4HA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6885
+X-MS-Exchange-CrossTenant-UserPrincipalName: y2jjbDrTm3m3PnWN9A1A0adozSHnb060RN3CnvWu+RePo812+tOUpegxYuM9+hQzV19D9Md0TsQAuHQ8+wxUsQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7816
 X-Mailman-Approved-At: Wed, 25 Feb 2026 08:31:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -184,174 +186,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add TLB (Translation Lookaside Buffer) flush support for GPU MMU.
+From: Koen Koning <koen.koning@linux.intel.com>
 
-After modifying page table entries, the GPU's TLB must be invalidated
-to ensure the new mappings take effect. The Tlb struct provides flush
-functionality through BAR0 registers.
+Use subsys_initcall instead of module_init for the GPU buddy allocator,
+so its initialization code runs before any gpu drivers.
+Otherwise, a built-in driver that tries to use the buddy allocator will
+run into a kernel NULL pointer dereference because slab_blocks is
+uninitialized.
 
-The flush operation writes the page directory base address and triggers
-an invalidation, polling for completion with a 2 second timeout matching
-the Nouveau driver.
+Specifically, this fixes drm/xe (as built-in) running into a kernel
+panic during boot, because it uses buddy during device probe.
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
+Fixes: ba110db8e1bc ("gpu: Move DRM buddy allocator one level up (part two)")
+Cc: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: Dave Airlie <airlied@redhat.com>
+Cc: intel-xe@lists.freedesktop.org
+Cc: Peter Senna Tschudin <peter.senna@linux.intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Signed-off-by: Koen Koning <koen.koning@linux.intel.com>
+Reviewed-by: Joel Fernandes <joelagnelf@nvidia.com>
 Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
- drivers/gpu/nova-core/mm.rs     |  1 +
- drivers/gpu/nova-core/mm/tlb.rs | 90 +++++++++++++++++++++++++++++++++
- drivers/gpu/nova-core/regs.rs   | 33 ++++++++++++
- 3 files changed, 124 insertions(+)
- create mode 100644 drivers/gpu/nova-core/mm/tlb.rs
+Please note: Greg and Danilo suggest fixing this in the Makefile like Koen
+initially did, so please do so. I am just including this patch here for
+reference.
 
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index a8b2e1870566..ca685b5a44f3 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -5,6 +5,7 @@
- #![expect(dead_code)]
- 
- pub(crate) mod pramin;
-+pub(crate) mod tlb;
- 
- use kernel::sizes::SZ_4K;
- 
-diff --git a/drivers/gpu/nova-core/mm/tlb.rs b/drivers/gpu/nova-core/mm/tlb.rs
-new file mode 100644
-index 000000000000..23458395511d
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/tlb.rs
-@@ -0,0 +1,90 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! TLB (Translation Lookaside Buffer) flush support for GPU MMU.
-+//!
-+//! After modifying page table entries, the GPU's TLB must be flushed to
-+//! ensure the new mappings take effect. This module provides TLB flush
-+//! functionality for virtual memory managers.
-+//!
-+//! # Example
-+//!
-+//! ```ignore
-+//! use crate::mm::tlb::Tlb;
-+//!
-+//! fn page_table_update(tlb: &Tlb, pdb_addr: VramAddress) -> Result<()> {
-+//!     // ... modify page tables ...
-+//!
-+//!     // Flush TLB to make changes visible (polls for completion).
-+//!     tlb.flush(pdb_addr)?;
-+//!
-+//!     Ok(())
-+//! }
-+//! ```
-+
-+use kernel::{
-+    devres::Devres,
-+    io::poll::read_poll_timeout,
-+    new_mutex,
-+    prelude::*,
-+    sync::{Arc, Mutex},
-+    time::Delta, //
-+};
-+
-+use crate::{
-+    driver::Bar0,
-+    mm::VramAddress,
-+    regs, //
-+};
-+
-+/// TLB manager for GPU translation buffer operations.
-+#[pin_data]
-+pub(crate) struct Tlb {
-+    bar: Arc<Devres<Bar0>>,
-+    /// TLB flush serialization lock: This lock is acquired during the
-+    /// DMA fence signalling critical path. It must NEVER be held across any
-+    /// reclaimable CPU memory allocations because the memory reclaim path can
-+    /// call `dma_fence_wait()`, which would deadlock with this lock held.
-+    #[pin]
-+    lock: Mutex<()>,
-+}
-+
-+impl Tlb {
-+    /// Create a new TLB manager.
-+    pub(super) fn new(bar: Arc<Devres<Bar0>>) -> impl PinInit<Self> {
-+        pin_init!(Self {
-+            bar,
-+            lock <- new_mutex!((), "tlb_flush"),
-+        })
-+    }
-+
-+    /// Flush the GPU TLB for a specific page directory base.
-+    ///
-+    /// This invalidates all TLB entries associated with the given PDB address.
-+    /// Must be called after modifying page table entries to ensure the GPU sees
-+    /// the updated mappings.
-+    pub(crate) fn flush(&self, pdb_addr: VramAddress) -> Result {
-+        let _guard = self.lock.lock();
-+
-+        let bar = self.bar.try_access().ok_or(ENODEV)?;
-+
-+        // Write PDB address.
-+        regs::NV_TLB_FLUSH_PDB_LO::from_pdb_addr(pdb_addr.raw_u64()).write(&*bar);
-+        regs::NV_TLB_FLUSH_PDB_HI::from_pdb_addr(pdb_addr.raw_u64()).write(&*bar);
-+
-+        // Trigger flush: invalidate all pages and enable.
-+        regs::NV_TLB_FLUSH_CTRL::default()
-+            .set_page_all(true)
-+            .set_enable(true)
-+            .write(&*bar);
-+
-+        // Poll for completion - enable bit clears when flush is done.
-+        read_poll_timeout(
-+            || Ok(regs::NV_TLB_FLUSH_CTRL::read(&*bar)),
-+            |ctrl| !ctrl.enable(),
-+            Delta::ZERO,
-+            Delta::from_secs(2),
-+        )?;
-+
-+        Ok(())
-+    }
-+}
-diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
-index d0982e346f74..c948f961f307 100644
---- a/drivers/gpu/nova-core/regs.rs
-+++ b/drivers/gpu/nova-core/regs.rs
-@@ -454,3 +454,36 @@ pub(crate) mod ga100 {
-         0:0     display_disabled as bool;
-     });
+ drivers/gpu/buddy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index 603c59a2013a..81f57fdf913b 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -1315,7 +1315,7 @@ static int __init gpu_buddy_module_init(void)
+ 	return 0;
  }
-+
-+// MMU TLB
-+
-+register!(NV_TLB_FLUSH_PDB_LO @ 0x00b830a0, "TLB flush register: PDB address bits [39:8]" {
-+    31:0    pdb_lo as u32, "PDB address bits [39:8]";
-+});
-+
-+impl NV_TLB_FLUSH_PDB_LO {
-+    /// Create a register value from a PDB address.
-+    ///
-+    /// Extracts bits [39:8] of the address and shifts it right by 8 bits.
-+    pub(crate) fn from_pdb_addr(addr: u64) -> Self {
-+        Self::default().set_pdb_lo(((addr >> 8) & 0xFFFF_FFFF) as u32)
-+    }
-+}
-+
-+register!(NV_TLB_FLUSH_PDB_HI @ 0x00b830a4, "TLB flush register: PDB address bits [47:40]" {
-+    7:0     pdb_hi as u8, "PDB address bits [47:40]";
-+});
-+
-+impl NV_TLB_FLUSH_PDB_HI {
-+    /// Create a register value from a PDB address.
-+    ///
-+    /// Extracts bits [47:40] of the address and shifts it right by 40 bits.
-+    pub(crate) fn from_pdb_addr(addr: u64) -> Self {
-+        Self::default().set_pdb_hi(((addr >> 40) & 0xFF) as u8)
-+    }
-+}
-+
-+register!(NV_TLB_FLUSH_CTRL @ 0x00b830b0, "TLB flush control register" {
-+    0:0     page_all as bool, "Invalidate all pages";
-+    31:31   enable as bool, "Enable/trigger flush (clears when flush completes)";
-+});
+ 
+-module_init(gpu_buddy_module_init);
++subsys_initcall(gpu_buddy_module_init);
+ module_exit(gpu_buddy_module_exit);
+ 
+ MODULE_DESCRIPTION("GPU Buddy Allocator");
 -- 
 2.34.1
 
