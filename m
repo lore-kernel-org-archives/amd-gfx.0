@@ -4,90 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 612C4F4BB62
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 17:22:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 824F8F4BB65
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 17:32:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 002C410E1BA;
-	Tue, 24 Feb 2026 17:22:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B855410E5FA;
+	Tue, 24 Feb 2026 17:32:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UzFeM0ps";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="h9pDmA1K";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 323D310E1BA
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 17:22:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1771953727;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=8SD2VoRr+tc5wYI9TVLRWC6aPDSxE2BzY5GPr4tLxmE=;
- b=UzFeM0psOx2Ig+VSpBD99VcyZwXqQmrvUjRUjzruVV21q74rMIfnmNw6g/zpFmLXvD+VZh
- Ir/AjY0B5Dwjvcru0VApc6YfmIjX+kB4zwkRprxRzHvIoDk7Jnv0T4IOv3WlRpeMXOTdi5
- h+qFyDH4SY0BaWY3AaTPlJQ8FguxBgo=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-377-vW28RLunPOSq6EFbrPfPgA-1; Tue, 24 Feb 2026 12:22:05 -0500
-X-MC-Unique: vW28RLunPOSq6EFbrPfPgA-1
-X-Mimecast-MFC-AGG-ID: vW28RLunPOSq6EFbrPfPgA_1771953725
-Received: by mail-qv1-f69.google.com with SMTP id
- 6a1803df08f44-896f50f008eso636119046d6.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 09:22:05 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771953725; x=1772558525;
- h=cc:to:message-id:content-transfer-encoding:mime-version:subject
- :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8SD2VoRr+tc5wYI9TVLRWC6aPDSxE2BzY5GPr4tLxmE=;
- b=VJtKjJ6xWN3tt1e3xhrZJOD0Dx2WoBGXBSOKeswvrp1/UFPNMWJjBkMp8mEjHm+rR+
- MRDhJqJFWDPZOeFJQl4V5l2p0H/wM06LqEn61Tj0r83J1dQBQKD6iW1F+69ETWV8/7MX
- 39erwHF5uBUT1TpSOzLpdq/F2PHUl/fQDP2GnQxbDxmB8ggLv1GlFzwQxp/r0OB5mCVd
- FMpPX76mcAnJtNL62zvY2frQl6feiI16daBitv8rl7ppTLdpc4V7HO1bgO+l2ln0dpcS
- Z3Zoi5qS7wru/2GqujaES11uxvSFJQEJpP/lNjPcaRbl6p4uV4bqfBPFFMX32kKmf5G7
- ZCPw==
-X-Gm-Message-State: AOJu0YxDvdt5UO9yTWQYU7OhArYmHNRa/aWBEKtNHDUvK0kNgoKhgGhp
- RERfHhGtUgkp+Xo3I/VzySWdIwhkm9zf6Bx5K0OkTolzfgxQO/8/qgsrSdRVs0n0HbY5grL00/N
- llgtxuDkHC+/I4gHhLT1mnTdQMLJmesfJZ8XwzNwPwY8kcvx3nJhRI1F98omwoPUJRc4=
-X-Gm-Gg: ATEYQzz3NZKgtKG21MRFa1bGoM02T2kqUuIugNFp3GpUvPv8jfq0v6j145/iWE9+pp+
- dg9ie4uVqCxmSxs45729qw9z6E3D4Qfqbrd9tiKw/mu9kvWTcp5vZj+JkIIztS/FAUziwd9DsL3
- p9ZdBrXTDVdYn6xayej9qyf3e6hZlOQZ8yPy41IOqAAIr6NROXF1mFKmz4US3zE14wTmj+kHFS4
- 0Ym/6bVT7K2JsN+djV3dLCW59SHP04JoMVPm+OfioJRlLD0WiAQafJbpBCCmvNK7yux6kH8ZcwW
- hFWeQrirvvJRgtwr1b2jefP7GxCY4s8hH9WaQID8xXRdEqiKGO31SmdDcNx6ajO8Ke/aPcB0n1f
- WULQUnsLdKKmnxvNfSJehkKzG
-X-Received: by 2002:a05:6214:485:b0:895:4b79:83a3 with SMTP id
- 6a1803df08f44-89979c3d88emr159055436d6.8.1771953725008; 
- Tue, 24 Feb 2026 09:22:05 -0800 (PST)
-X-Received: by 2002:a05:6214:485:b0:895:4b79:83a3 with SMTP id
- 6a1803df08f44-89979c3d88emr159054966d6.8.1771953724466; 
- Tue, 24 Feb 2026 09:22:04 -0800 (PST)
-Received: from [172.16.1.8] ([2607:f2c0:b1e3:9a00:3c7:56c2:f819:96d2])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-8997e62fd3dsm102044536d6.39.2026.02.24.09.22.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Feb 2026 09:22:04 -0800 (PST)
-From: Peter Colberg <pcolberg@redhat.com>
-Date: Tue, 24 Feb 2026 12:21:45 -0500
-Subject: [PATCH] drm/amdkfd: remove duplicate ttmp11 scheduling mode
- definitions
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0419610E05E;
+ Tue, 24 Feb 2026 17:32:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1771954343; x=1803490343;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=uy9//N147ieOd/72rkd0ZKm1hPjw2dzP5gkxrOrFrCE=;
+ b=h9pDmA1KD1xv9n2ErCxLgRReZtFeJt0D3GpQHGGTdTYS44H0R4kWjDm7
+ /dCL520OI6EsGfPveXows2t0utw+FmVgr+OW2sbE/5uVBG+hIAfadSEvI
+ L7jrtHx2FnznZH6GmN4dhpIbwt1pPXD58D1JZ3sKH9A92FMCsWwWGmCLh
+ gCflyCplZ7iDYay0+ScB7lWtwxRUx7aVKZ9U/vSTiUHovAixrIZVBj66q
+ +cK1k2ENJGXmYJi2YnBoxLFJZWI6i22iwBeBZ3rEmCHkNTfLqNqDRfXev
+ xRDVENzPf2JhQcnOrtbIJ9fAOk9Ru+KRwxX5unrXmSXvIYjCmZo+nORFG g==;
+X-CSE-ConnectionGUID: 1iXvU/84SkWhF1G+KJ3HnQ==
+X-CSE-MsgGUID: TNRr2E9NRC6NB2zFCKCRYg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11711"; a="83690747"
+X-IronPort-AV: E=Sophos;i="6.21,309,1763452800"; d="scan'208";a="83690747"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2026 09:32:22 -0800
+X-CSE-ConnectionGUID: ClDuoCgeQlKpulIe05bcPQ==
+X-CSE-MsgGUID: E8V9LKURRqyS2GKPsZ4djw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,309,1763452800"; d="scan'208";a="214181580"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO [10.245.244.173])
+ ([10.245.244.173])
+ by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2026 09:32:20 -0800
+Message-ID: <f529e955-2db2-4fab-ad46-5345febf270f@intel.com>
+Date: Tue, 24 Feb 2026 17:32:18 +0000
 MIME-Version: 1.0
-Message-Id: <20260224-drm-amdkfd-ttmp11-sched-mode-v1-1-4254ff8952c4@redhat.com>
-X-B4-Tracking: v=1; b=H4sIACjenWkC/x3MMQqAMAwAwK9IZgNtEEW/Ig7FpDZIVVoRQfy7x
- fGWeyBLUskwVA8kuTTrvhXYuoI5uG0RVC4GMtQaogY5RXSRV894nvGwFvMchDHuLOg61xFx37K
- 3UIojidf778fpfT//tTBobgAAAA==
-X-Change-ID: 20260224-drm-amdkfd-ttmp11-sched-mode-a7a722d96df1
-To: Felix Kuehling <Felix.Kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jay Cornwall <jay.cornwall@amd.com>, Lancelot Six <lancelot.six@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Peter Colberg <pcolberg@redhat.com>
-X-Mailer: b4 0.14.2
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 6YLceBVMvIOOT7Ew8svGQ02kIff0OfjL89KTAGN8SnQ_1771953725
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] drm/buddy: Add KUnit test for offset-aligned
+ allocations
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20260217113900.10675-1-Arunpravin.PaneerSelvam@amd.com>
+ <20260217113900.10675-2-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260217113900.10675-2-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,49 +74,243 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-TTMP11_SCHED_MODE_* are only used if RELAXED_SCHEDULING_IN_TRAP is defined.
+On 17/02/2026 11:39, Arunpravin Paneer Selvam wrote:
+> Add KUnit test to validate offset-aligned allocations in the DRM buddy
+> allocator.
+> 
+> Validate offset-aligned allocation:
+> The test covers allocations with sizes smaller than the alignment constraint
+> and verifies correct size preservation, offset alignment, and behavior across
+> multiple allocation sizes. It also exercises fragmentation by freeing
+> alternating blocks and confirms that allocation fails once all aligned offsets
+> are consumed.
+> 
+> Stress subtree_max_alignment propagation:
+> Exercise subtree_max_alignment tracking by allocating blocks with descending
+> alignment constraints and freeing them in reverse order. This verifies that
+> free-tree augmentation correctly propagates the maximum offset alignment
+> present in each subtree at every stage.
+> 
+> v2:
+>    - Move the patch to gpu/tests/gpu_buddy_test.c file.
+> 
+> v3:
+>    - Fixed build warnings reported by kernel test robot <lkp@intel.com>
+> 
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>   drivers/gpu/tests/gpu_buddy_test.c | 167 +++++++++++++++++++++++++++++
+>   1 file changed, 167 insertions(+)
+> 
+> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+> index 450e71deed90..2901d43f4bae 100644
+> --- a/drivers/gpu/tests/gpu_buddy_test.c
+> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+> @@ -21,6 +21,171 @@ static inline u64 get_size(int order, u64 chunk_size)
+>   	return (1 << order) * chunk_size;
+>   }
+>   
+> +static void gpu_test_buddy_subtree_offset_alignment_stress(struct kunit *test)
+> +{
+> +	struct gpu_buddy_block *block;
+> +	struct rb_node *node = NULL;
+> +	const u64 mm_size = SZ_2M;
+> +	const u64 alignments[] = {
+> +		SZ_1M,
+> +		SZ_512K,
+> +		SZ_256K,
+> +		SZ_128K,
+> +		SZ_64K,
+> +		SZ_32K,
+> +		SZ_16K,
+> +		SZ_8K,
+> +	};
+> +
 
-Fixes: bbcad5a8896b ("drm/amdkfd: gfx12.1 trap handler support for expert scheduling mode")
-Signed-off-by: Peter Colberg <pcolberg@redhat.com>
----
- drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+Nit: extra newline
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
-index 456db81998993803a25b32653ad75d529e35931c..3c976a4aac739669a39aebeb97bb35dfaa1af2f2 100644
---- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
-+++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx12.asm
-@@ -112,12 +112,6 @@ var BARRIER_STATE_MEMBER_OFFSET			= 4
- var BARRIER_STATE_MEMBER_SIZE			= 7
- var BARRIER_STATE_VALID_OFFSET			= 0
- 
--#if RELAXED_SCHEDULING_IN_TRAP
--var TTMP11_SCHED_MODE_SHIFT			= 26
--var TTMP11_SCHED_MODE_SIZE			= 2
--var TTMP11_SCHED_MODE_MASK			= 0xC000000
--#endif
--
- var NAMED_BARRIERS_SR_OFFSET_FROM_HWREG		= 0x80
- var S_BARRIER_INIT_MEMBERCNT_MASK		= 0x7F0000
- var S_BARRIER_INIT_MEMBERCNT_SHIFT		= 0x10
-@@ -134,9 +128,11 @@ var SQ_WAVE_MODE_DST_SRC0_SRC1_VGPR_MSB_SHIFT	= 12
- var SQ_WAVE_MODE_DST_SRC0_SRC1_VGPR_MSB_SIZE	= 6
- #endif
- 
-+#if RELAXED_SCHEDULING_IN_TRAP
- var TTMP11_SCHED_MODE_SHIFT			= 26
- var TTMP11_SCHED_MODE_SIZE			= 2
- var TTMP11_SCHED_MODE_MASK			= 0xC000000
-+#endif
- var TTMP11_DEBUG_TRAP_ENABLED_SHIFT		= 23
- var TTMP11_DEBUG_TRAP_ENABLED_MASK		= 0x800000
- var TTMP11_FIRST_REPLAY_SHIFT			= 22
+> +	struct list_head allocated[ARRAY_SIZE(alignments)];
+> +	unsigned int i, order, max_subtree_align = 0;
+> +	struct gpu_buddy mm;
+> +	int ret, tree;
+> +
+> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, SZ_4K),
+> +			       "buddy_init failed\n");
+> +
+> +	for (i = 0; i < ARRAY_SIZE(allocated); i++)
+> +		INIT_LIST_HEAD(&allocated[i]);
+> +
+> +	/*
+> +	 * Exercise subtree_max_alignment tracking by allocating blocks with descending
+> +	 * alignment constraints and freeing them in reverse order. This verifies that
+> +	 * free-tree augmentation correctly propagates the maximum offset alignment
+> +	 * present in each subtree at every stage.
+> +	 */
+> +
+> +	for (i = 0; i < ARRAY_SIZE(alignments); i++) {
+> +		struct gpu_buddy_block *root = NULL;
+> +		unsigned int expected;
+> +		u64 align;
+> +
+> +		align = alignments[i];
+> +		expected = ilog2(align) - 1;
+> +
+> +		for (;;) {
+> +			ret = gpu_buddy_alloc_blocks(&mm,
+> +						     0, mm_size,
+> +						     SZ_4K, align,
+> +						     &allocated[i],
+> +						     0);
+> +			if (ret)
+> +				break;
+> +
+> +			block = list_last_entry(&allocated[i],
+> +						struct gpu_buddy_block,
+> +						link);
+> +			KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(block) & (align - 1), 0ULL);
 
----
-base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
-change-id: 20260224-drm-amdkfd-ttmp11-sched-mode-a7a722d96df1
+Perhaps simpler to use:
 
-Best regards,
--- 
-Peter Colberg <pcolberg@redhat.com>
+IS_ALIGNED(offset, align)
+
+?
+
+> +		}
+> +
+> +		for (order = mm.max_order + 1; order-- > 0 && !root; ) {
+
+This is maybe a bit hard to read?
+
+for (order = mm.max_order; order >= 0 && !root; order--)
+
+And make order an int?
+
+> +			for (tree = 0; tree < 2; tree++) {
+> +				node = mm.free_trees[tree][order].rb_node;
+> +				if (node) {
+> +					root = container_of(node,
+> +							    struct gpu_buddy_block,
+> +							    rb);
+> +					break;
+> +				}
+> +			}
+> +		}
+> +
+> +		KUNIT_ASSERT_NOT_NULL(test, root);
+> +		KUNIT_EXPECT_EQ(test, root->subtree_max_alignment, expected);
+> +	}
+> +
+> +	for (i = ARRAY_SIZE(alignments); i-- > 0; ) {
+> +		gpu_buddy_free_list(&mm, &allocated[i], 0);
+> +
+> +		for (order = 0; order <= mm.max_order; order++) {
+> +			for (tree = 0; tree < 2; tree++) {
+> +				node = mm.free_trees[tree][order].rb_node;
+> +				if (!node)
+> +					continue;
+> +
+> +				block = container_of(node, struct gpu_buddy_block, rb);
+> +				max_subtree_align = max(max_subtree_align,
+> +							block->subtree_max_alignment);
+> +			}
+> +		}
+> +
+> +		KUNIT_EXPECT_GE(test, max_subtree_align, ilog2(alignments[i]));
+> +	}
+> +
+> +	gpu_buddy_fini(&mm);
+> +}
+> +
+> +static void gpu_test_buddy_offset_aligned_allocation(struct kunit *test)
+> +{
+> +	struct gpu_buddy_block *block, *tmp;
+> +	int num_blocks, i, count = 0;
+> +	LIST_HEAD(allocated);
+> +	struct gpu_buddy mm;
+> +	u64 mm_size = SZ_4M;
+> +	LIST_HEAD(freed);
+> +
+> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, mm_size, SZ_4K),
+> +			       "buddy_init failed\n");
+> +
+> +	num_blocks = mm_size / SZ_256K;
+> +	/*
+> +	 * Allocate multiple sizes under a fixed offset alignment.
+> +	 * Ensures alignment handling is independent of allocation size and
+> +	 * exercises subtree max-alignment pruning for small requests.
+> +	 */
+> +	for (i = 0; i < num_blocks; i++)
+> +		KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size, SZ_8K, SZ_256K,
+> +								    &allocated, 0),
+> +					"buddy_alloc hit an error size=%u\n", SZ_8K);
+> +
+> +	list_for_each_entry(block, &allocated, link) {
+> +		/* Ensure the allocated block uses the expected 8 KB size */
+> +		KUNIT_EXPECT_EQ(test, gpu_buddy_block_size(&mm, block), SZ_8K);
+> +		/* Ensure the block starts at a 256 KB-aligned offset for proper alignment */
+> +		KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(block) & (SZ_256K - 1), 0ULL);
+
+IS_ALIGNED() ?
+
+> +	}
+> +	gpu_buddy_free_list(&mm, &allocated, 0);
+> +
+> +	for (i = 0; i < num_blocks; i++)
+> +		KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size, SZ_16K, SZ_256K,
+> +								    &allocated, 0),
+> +					"buddy_alloc hit an error size=%u\n", SZ_16K);
+> +
+> +	list_for_each_entry(block, &allocated, link) {
+> +		/* Ensure the allocated block uses the expected 16 KB size */
+> +		KUNIT_EXPECT_EQ(test, gpu_buddy_block_size(&mm, block), SZ_16K);
+> +		/* Ensure the block starts at a 256 KB-aligned offset for proper alignment */
+> +		KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(block) & (SZ_256K - 1), 0ULL);
+
+IS_ALIGNED() ?
+
+Anyway:
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
+> +	}
+> +
+> +	/*
+> +	 * Free alternating aligned blocks to introduce fragmentation.
+> +	 * Ensures offset-aligned allocations remain valid after frees and
+> +	 * verifies subtree max-alignment metadata is correctly maintained.
+> +	 */
+> +	list_for_each_entry_safe(block, tmp, &allocated, link) {
+> +		if (count % 2 == 0)
+> +			list_move_tail(&block->link, &freed);
+> +		count++;
+> +	}
+> +	gpu_buddy_free_list(&mm, &freed, 0);
+> +
+> +	for (i = 0; i < num_blocks / 2; i++)
+> +		KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size, SZ_16K, SZ_256K,
+> +								    &allocated, 0),
+> +					"buddy_alloc hit an error size=%u\n", SZ_16K);
+> +
+> +	/*
+> +	 * Allocate with offset alignment after all slots are used; must fail.
+> +	 * Confirms that no aligned offsets remain.
+> +	 */
+> +	KUNIT_ASSERT_TRUE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size, SZ_16K, SZ_256K,
+> +							   &allocated, 0),
+> +			       "buddy_alloc hit an error size=%u\n", SZ_16K);
+> +	gpu_buddy_free_list(&mm, &allocated, 0);
+> +	gpu_buddy_fini(&mm);
+> +}
+> +
+>   static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
+>   {
+>   	struct gpu_buddy_block *block, *tmp;
+> @@ -912,6 +1077,8 @@ static struct kunit_case gpu_buddy_tests[] = {
+>   	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
+>   	KUNIT_CASE(gpu_test_buddy_fragmentation_performance),
+>   	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+> +	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
+> +	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
+>   	{}
+>   };
+>   
 
