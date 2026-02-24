@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94EE1E9B258
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 12:43:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D5C3E9B258
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 12:45:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F33410E2C8;
-	Tue, 24 Feb 2026 12:43:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8F3F10E56F;
+	Tue, 24 Feb 2026 12:45:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bONciwJu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="IeTDMNcA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71D5B10E2C8;
- Tue, 24 Feb 2026 12:43:52 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D78C10E56F;
+ Tue, 24 Feb 2026 12:45:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1771937032; x=1803473032;
+ t=1771937114; x=1803473114;
  h=from:to:cc:subject:in-reply-to:references:date:
  message-id:mime-version;
- bh=GYIQtbOzePAjqzLuQH8+HHBY0PZDV/oocDXPjvOLjg4=;
- b=bONciwJuVEWEuEIUKBbTrgtxFX+nKBpNVz4AJdTbDKA99nP4ca5WipG5
- x37YdCglFQsLMX4GYFvvc9Vqxj5ugy8ftpTrmpFsOtljqjkcUwsB3V+b7
- 4aM50gfcQ9g3THOwvwbgzTuwOAYMyciKqjKg7sx0vVD01HF95WZsS1efc
- 30nQ2fNV+quC97z599rV3rvPdQ+KCDbb0IxJvM6SkEVcJly6KjMNdAFqq
- EBBXEp3M/6o8lv01nq8il+x0ct8VDDnAllJrif/o9IWxeTsr0m649zZnH
- y6mz2N9SSC1tUBJYh1LVLxnRIWSX+Postchns2Xnh/Uc+eHIFdp8glAZ7 g==;
-X-CSE-ConnectionGUID: lJW5wbxzT4K/MHz9anj8zw==
-X-CSE-MsgGUID: CsGtKx2QSC2nl0B602SWkw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11710"; a="72853986"
-X-IronPort-AV: E=Sophos;i="6.21,308,1763452800"; d="scan'208";a="72853986"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2026 04:43:52 -0800
-X-CSE-ConnectionGUID: yhhIkH3dTBCEo6bY5mI5tw==
-X-CSE-MsgGUID: 52bV+SrBTRymLIB6WF2upQ==
+ bh=W7iFt2fkt7YDpfXHd4Koz7uX1w/SnCnrgCNowt9OOFg=;
+ b=IeTDMNcAwD40mzY1+plh0CDE5hq1sc5k0Hknx5cfiGqgnxwWbhXZ7rOu
+ al3pRfq+DrAQpYa9bDjFKocYyHp7T2kIdGa6LW5unDX5n0WVQRxSlRgFf
+ iONXvKvTmZSn8zOdDgBYreI7ANCZQXypV5kCJZPok50OVkTjt9l7No8vg
+ +bZC2LgcImj1SQBLirT5W7gYRGFO+0eW2mIk02xZh7mxmh17A0oa3df4V
+ NOYQDhAnvhwq4PhefnlYKNqsCk+Dpg/xnLKDPvMeMJrSMk+ox7Zvliqzp
+ ZWxsiwuqo3sZc/GLa6DNSroskskNNVzR1L3qFKHy2LWSmzMVWDorDwStR w==;
+X-CSE-ConnectionGUID: xT9Z9phvTfehC8F5cwDHvg==
+X-CSE-MsgGUID: 5a3eZ0aLRoqTKs8cdtTDJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11710"; a="73128796"
+X-IronPort-AV: E=Sophos;i="6.21,308,1763452800"; d="scan'208";a="73128796"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2026 04:45:13 -0800
+X-CSE-ConnectionGUID: hR5Tp+z0SeiMexLEVtwNdg==
+X-CSE-MsgGUID: RMgpOpjdSHuKzcfGeOggUA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,308,1763452800"; d="scan'208";a="214131396"
+X-IronPort-AV: E=Sophos;i="6.21,308,1763452800"; d="scan'208";a="215752727"
 Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost)
  ([10.245.246.20])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2026 04:43:40 -0800
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2026 04:45:00 -0800
 From: Jani Nikula <jani.nikula@linux.intel.com>
 To: Maxime Ripard <mripard@kernel.org>, Nicolas Frattaroli
  <nicolas.frattaroli@collabora.com>, Maarten Lankhorst
@@ -67,15 +67,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH 14/14] drm/display: hdmi: Use drm_output_color_format
- instead of hdmi_colorspace
-In-Reply-To: <20260224-drm-rework-color-formats-v1-14-bebc76604ada@kernel.org>
+Subject: Re: [PATCH 00/14] drm: Create drm_output_color_format enum
+In-Reply-To: <20260224-drm-rework-color-formats-v1-0-bebc76604ada@kernel.org>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
  6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 References: <20260224-drm-rework-color-formats-v1-0-bebc76604ada@kernel.org>
- <20260224-drm-rework-color-formats-v1-14-bebc76604ada@kernel.org>
-Date: Tue, 24 Feb 2026 14:43:37 +0200
-Message-ID: <6bcc885f3d4c2327a9b1ca4b4521c4e59c68a414@intel.com>
+Date: Tue, 24 Feb 2026 14:44:57 +0200
+Message-ID: <f8e02ae7d60814d3d0540ab81ebccbe46eaf5e29@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -93,43 +91,23 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Tue, 24 Feb 2026, Maxime Ripard <mripard@kernel.org> wrote:
-> diff --git a/include/drm/display/drm_hdmi_helper.h b/include/drm/display/drm_hdmi_helper.h
-> index 09145c9ee9fc0cd839242f2373b305940e06e157..414e134ca23bcdcdd6ef491812ed0a9020b204ba 100644
-> --- a/include/drm/display/drm_hdmi_helper.h
-> +++ b/include/drm/display/drm_hdmi_helper.h
-> @@ -2,10 +2,11 @@
->  
->  #ifndef DRM_HDMI_HELPER
->  #define DRM_HDMI_HELPER
->  
->  #include <linux/hdmi.h>
-> +#include <drm/drm_connector.h>
+> Hi,
+>
+> This series creates an enum to represent the output color format as an
+> enum instead of a bitmask, and consolidate the HDMI helpers to use the
+> new enum.
+>
+> This should make Nicolas' work easier.
+>
+> It has been build tested, and passes kunit tests.
+>
+> Let me know what you think,
 
-You could avoid the include by forward declaring the enum, which is not
-strictly standard C but allowed by both GCC and Clang, and quite useful
-in reducing header dependencies.
+I like this. I eyeballed through the series, but did not spend enough
+time to call it detailed review.
 
-BR,
-Jani.
+Acked-by: Jani Nikula <jani.nikula@intel.com>
 
->  
->  struct drm_connector;
->  struct drm_connector_state;
->  struct drm_display_mode;
->  
-> @@ -24,11 +25,11 @@ drm_hdmi_infoframe_set_hdr_metadata(struct hdmi_drm_infoframe *frame,
->  void drm_hdmi_avi_infoframe_content_type(struct hdmi_avi_infoframe *frame,
->  					 const struct drm_connector_state *conn_state);
->  
->  unsigned long long
->  drm_hdmi_compute_mode_clock(const struct drm_display_mode *mode,
-> -			    unsigned int bpc, enum hdmi_colorspace fmt);
-> +			    unsigned int bpc, enum drm_output_color_format fmt);
->  
->  void
->  drm_hdmi_acr_get_n_cts(unsigned long long tmds_char_rate,
->  		       unsigned int sample_rate,
->  		       unsigned int *out_n,
 
 -- 
 Jani Nikula, Intel
