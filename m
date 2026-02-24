@@ -4,71 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDCB9F3C988
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 14:41:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13599F3C98B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Feb 2026 14:56:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D44A10E5A8;
-	Tue, 24 Feb 2026 14:41:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9906F10E194;
+	Tue, 24 Feb 2026 14:56:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gA+g57Qa";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hfDN1NVZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20A3A10E5A6;
- Tue, 24 Feb 2026 14:41:07 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B7CFB41791;
- Tue, 24 Feb 2026 14:41:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 125EFC116D0;
- Tue, 24 Feb 2026 14:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1771944066;
- bh=dCGqyI+rHlM3XyQ2QUXSu5nZVqUPyjQmE2WK/m+d8es=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=gA+g57QadLSgYtZf5xm7d+YH2vzWtEJsVtb2Yjxr294TnnPP+klHUGgRSnbPFMw4x
- vN4u/6wEExddpZypJjzNjT69Biz0S7GhYqq6J0L/D89mD25k39ddaOwSfiHZFcORpB
- MHAPLNeeqHAbnixkSvJidVV++YvN2rxpS7uIXzEFvqc3bY9BP8iOs2FUowmNn8CRfI
- s/uC/D5eHcKGqEVAipY4dqrtOP1JEAMVx/Cvtg+rY5lZdhIuEVymyUaO3aPbTphh/1
- 0Aa45VuNgSw1tFOaTKc4DSFTJ5elMVbaSEJ5PHaSLECpTUgsK5Gs42ik0H0ntIdmDW
- VG5P3hlMYHljA==
-Date: Tue, 24 Feb 2026 15:41:04 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, 
- Dmitry Baryshkov <lumag@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Rob Herring <robh@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- kernel@collabora.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v8 05/20] drm/display: hdmi-state-helper: Act on color
- format DRM property
-Message-ID: <20260224-hot-adaptable-sawfish-dd0f7a@houat>
-References: <20260216-color-format-v8-0-5722ce175dd5@collabora.com>
- <20260216-color-format-v8-5-5722ce175dd5@collabora.com>
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A1BC10E194
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 14:56:16 +0000 (UTC)
+Received: by mail-dl1-f46.google.com with SMTP id
+ a92af1059eb24-1273882d901so285230c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Feb 2026 06:56:16 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1771944975; cv=none;
+ d=google.com; s=arc-20240605;
+ b=XxTivVm8S9LDKlho7cT09rRutRG8t4UDTwZbwVpI5dMdy3gTQj33tfuiLIW9iLBDVS
+ uAAo6a1ZmL6vnnBK4YruQTE6FNyXCPigxLJ7onp8eCp5d+IHgHocRSjBMqIFuzpyIAwg
+ QhVoRBWWrN/4VMb9H7X3U+Ro7pgexoPZ7+W0bn7jcFLELhcuU3vArnMmQrcbjS8ddt4J
+ hJ7Sr9BTSj69ZbxX6vMznyBDnzWpFBRLMV89g2XlDyek1xFz95d30bkoRhMyDAdy0rYt
+ u4bTe4eB0DJhJOynrkWur3c0df+q8l21pTZe9Gm8rhRVj1wuqgsFCdpud/WhIgPWIofb
+ Qo7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=i+aUfl6j0iyUdg8FHTmaS7+nE4Zhy7tH6M8xZwgvbTs=;
+ fh=3SOa1bRl6Yq/0jk49CuBhudAeuo/7A/nLP+3nATIQ2I=;
+ b=YMRwQpzij74MZkp6NWDptpVQv7hhhHDgS9AsryCEKLql8AjumVJHR34+29sPaif8x7
+ ywomI0ZOCudtnYODbqFHARIk6pytEzGLyfv8dD1m8dZ7KUj44kJ9pakRs3+erEJZqcdh
+ soP3mjAupeiRgbN6+OpHKYcCYfHAKLWY+5MxnCgk2UHoE+aAX7Yu8LwJiQKxSsoTb9cJ
+ nGtguPvxE6IG/a242QEVN748HLO61tfFHQrINvgXvua/aZDQ4QQFCaZw7n7sKjtwrlGY
+ fNU41iq/rOqjyRLU8RCvxc8h0ZO/Cvd7RjAPKtkbWsE/XCPaRQewR9lyIIWNcozvxCgo
+ 7Ong==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1771944975; x=1772549775; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=i+aUfl6j0iyUdg8FHTmaS7+nE4Zhy7tH6M8xZwgvbTs=;
+ b=hfDN1NVZkiAu4JMp3DqOY/wk/W2FFouDlLYVknyCmXmn6uknggNU1mFCvt9GxUG7gt
+ e53tCYn4EJIJZ5N8ND9csZhC3TKMyRZFHDvG6KCmBUZvGrQWUIyKqjyqsvVozXu/1Je7
+ 2yFTHw8cSq+kjJxoczaUq9clseI3MdMdALJVLWSXRuenClJwhSbQ6aw3lxa8LQphHWlw
+ sgQv3RXpbsjPR1OAFk/56OGOY9vXhVeoSMm74Rmo4cDNBqgZS45oe5vZE85d9+oiX2QX
+ /itXwRU09CS4+SRvSZn7EcLJ8crk/6PLQASiBJ0VLCgnVNOrqWihjbuPryVKlDcEK1Zw
+ GECQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1771944975; x=1772549775;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=i+aUfl6j0iyUdg8FHTmaS7+nE4Zhy7tH6M8xZwgvbTs=;
+ b=OE5ew5UnO84MPNzkYvJPczDlHrdoCoA80AFh6uVEMYRG0Ez4HFbRGvCodYe4vrYk/H
+ 7sTwfu16WfGWRxkIApEPTyI42qVPVCe+43uW3W3j16ZwHai36CWAj4ZuOwZF+vZBBnwF
+ XZWGisIKsagUr5VRhzG4j4OtUBVY9JtziPxlNtcjQTsGEJIob/bpN6t2Q+bDylN9KYp6
+ r2VUj5Dr9LM8DV1+gLWGSWHb/+yDoAGLn2cRuO2IulZ8j3fhwSi7A/PcsgtkFrA222R6
+ MsNYWjnOKawsTeAtDobr9t00vLaAHKO76URsLaqMqHpOV7MMkKw2l5EwLqzFGiJoUJ9Q
+ dzWw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUeOYLd1nVKelRlepP7tnDCSwluV171f7XHDXnv2l/t3w7Cg03VWdFITI+kC5Q1+NChL6Mx0cOF@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwelpTAzjtYf2+wS1FXB6sp5ymdtdAx4G9222zo6lvJFzvqeu12
+ p+fKv+swRG7wQOko2nRPU6Wtlii7GRlb9hyP9JZZfk88PlCJgN/oVKzR3OFUABXMZ4rqgM9OaXe
+ L45XK9pR4AP9AtOvPhJAWLITOTTc4uGo=
+X-Gm-Gg: AZuq6aIYrVy9TQAovJCIl3ODzi0y69KzWTT/vmmbmUB2jSJUq57mQuom6zkBp48gyh+
+ /Sgmonj1VKqX2kgBlIw2GIIutZL6gJreFns4beR5sK7WkDPInw0D+rUxFhCEJ+VHRkEE/t+ak2k
+ yklB5nNqLg44ITJedYmBiewtDAFAU5mPoQ86RxQRi8QNLe6AZckTymx5u7M7hGo0nLhvIJYY+lG
+ qH6/Zg4nQzWcV1AbgGatkk0m2xKEAt/m8ViR2tkk8YxrW4uO3D2j4R/cP83M9b65AFE9S2wcgIV
+ lUNMbMlY9leBV1cGWzk/eQE8Mm1a9WQ8RLa3xzoyMQ5YcECNYZ4+uSg9SDGb0R5A3kiTEg==
+X-Received: by 2002:a05:7022:2383:b0:119:e56b:46b7 with SMTP id
+ a92af1059eb24-1276acad3efmr2638142c88.1.1771944975132; Tue, 24 Feb 2026
+ 06:56:15 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="5cwb2y5kukdqwgqq"
-Content-Disposition: inline
-In-Reply-To: <20260216-color-format-v8-5-5722ce175dd5@collabora.com>
+References: <20260223114537.38145-1-natalie.vock@gmx.de>
+In-Reply-To: <20260223114537.38145-1-natalie.vock@gmx.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 24 Feb 2026 09:56:03 -0500
+X-Gm-Features: AaiRm51cXcZtY95BR3KKsGNKEGAquNMI1RXUNYCMVFCpARLt8EwnLScoCBKOJGQ
+Message-ID: <CADnq5_PYyDxySN+FjqDd5LXMrYz2VYEhG_R6gY1gSXjYD6dk1Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Use GFP_ATOMIC in
+ dc_create_stream_for_sink
+To: Natalie Vock <natalie.vock@gmx.de>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, amd-gfx@lists.freedesktop.org,
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,89 +105,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Applied.  Thanks!
 
---5cwb2y5kukdqwgqq
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v8 05/20] drm/display: hdmi-state-helper: Act on color
- format DRM property
-MIME-Version: 1.0
-
-On Mon, Feb 16, 2026 at 02:01:19PM +0100, Nicolas Frattaroli wrote:
-> With the introduction of the "color format" DRM property, which allows
-> userspace to request a specific color format, the HDMI state helper
-> should implement this.
->=20
-> Implement it by translating the requested drm_color_format_enum to an
-> hdmi_colorspace enum value. Auto is translated to RGB, and a fallback to
-> YUV420 is only performed if the original color format was auto.
->=20
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+On Mon, Feb 23, 2026 at 9:34=E2=80=AFAM Natalie Vock <natalie.vock@gmx.de> =
+wrote:
+>
+> This can be called while preemption is disabled, for example by
+> dcn32_internal_validate_bw which is called with the FPU active.
+>
+> Fixes "BUG: scheduling while atomic" messages I encounter on my Navi31
+> machine.
+>
+> Cc: stable@vger.kernel.org
+>
+> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 > ---
->  drivers/gpu/drm/display/drm_hdmi_state_helper.c | 28 +++++++++++++++++++=
-++++--
->  1 file changed, 26 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gp=
-u/drm/display/drm_hdmi_state_helper.c
-> index a1d16762ac7a..3ba752200984 100644
-> --- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> +++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-> @@ -649,10 +649,34 @@ hdmi_compute_config(const struct drm_connector *con=
-nector,
->  	unsigned int max_bpc =3D clamp_t(unsigned int,
->  				       conn_state->max_bpc,
->  				       8, connector->max_bpc);
-> +	enum hdmi_colorspace fmt;
->  	int ret;
-> =20
-> -	ret =3D hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc,
-> -				      HDMI_COLORSPACE_RGB);
-> +	switch (conn_state->color_format) {
-> +	case DRM_COLOR_FORMAT_ENUM_AUTO:
-> +	case DRM_COLOR_FORMAT_ENUM_RGB444:
-> +		fmt =3D HDMI_COLORSPACE_RGB;
-> +		break;
-> +	case DRM_COLOR_FORMAT_ENUM_YCBCR444:
-> +		fmt =3D HDMI_COLORSPACE_YUV444;
-> +		break;
-> +	case DRM_COLOR_FORMAT_ENUM_YCBCR422:
-> +		fmt =3D HDMI_COLORSPACE_YUV422;
-> +		break;
-> +	case DRM_COLOR_FORMAT_ENUM_YCBCR420:
-> +		fmt =3D HDMI_COLORSPACE_YUV420;
-> +		break;
-> +	default:
-> +		drm_dbg_kms(connector->dev, "HDMI does not support color format '%s'.\=
-n",
-> +			    drm_get_color_format_name(conn_state->color_format));
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret =3D hdmi_compute_format_bpc(connector, conn_state, mode, max_bpc, f=
-mt);
-> +
-> +	if (conn_state->color_format !=3D DRM_COLOR_FORMAT_ENUM_AUTO)
-> +		return ret;
-> +
-
-This should also be greatly simplified since you don't need to deal with
-hdmi_colorspace anymore, and thus you'll just be able to use the
-construct I hinted at in the previous version.
-
-Maxime
-
---5cwb2y5kukdqwgqq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaZ24fwAKCRAnX84Zoj2+
-dh+wAXwKmT5KayIifDoxyitEKWs6EiYUCC2SA4Bg4ruLTVA9Xs//EiWw+hYVo/kQ
-7bFTr10BgODaA1IvjwBbTyIPz0upLTeNeVbfqL/ghdTyMm5jaRR3hNM7V9lXYvtY
-SsWWbJGYdQ==
-=YUqC
------END PGP SIGNATURE-----
-
---5cwb2y5kukdqwgqq--
+>  drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gp=
+u/drm/amd/display/dc/core/dc_stream.c
+> index 191f6435e7c64..87c0cf7e290ea 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> @@ -170,11 +170,11 @@ struct dc_stream_state *dc_create_stream_for_sink(
+>         if (sink =3D=3D NULL)
+>                 goto fail;
+>
+> -       stream =3D kzalloc(sizeof(struct dc_stream_state), GFP_KERNEL);
+> +       stream =3D kzalloc(sizeof(struct dc_stream_state), GFP_ATOMIC);
+>         if (stream =3D=3D NULL)
+>                 goto fail;
+>
+> -       stream->update_scratch =3D kzalloc((int32_t) dc_update_scratch_sp=
+ace_size(), GFP_KERNEL);
+> +       stream->update_scratch =3D kzalloc((int32_t) dc_update_scratch_sp=
+ace_size(), GFP_ATOMIC);
+>         if (stream->update_scratch =3D=3D NULL)
+>                 goto fail;
+>
+> --
+> 2.53.0
+>
