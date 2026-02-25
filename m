@@ -4,92 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E11A3FD3762
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 14:55:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19C3EFD3770
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 16:14:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF0010E7C4;
-	Wed, 25 Feb 2026 14:55:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c+JKoNYE";
-	dkim-atps=neutral
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4252510E7B9
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 14:55:25 +0000 (UTC)
-Received: by mail-dl1-f42.google.com with SMTP id
- a92af1059eb24-127148c2112so575731c88.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 06:55:25 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772031324; cv=none;
- d=google.com; s=arc-20240605;
- b=PdLd37pmEDDFCG8JjLNQd2op30l96faT92we87Ju8nruAAVpuW9ft1kxZ0/2zUeiAR
- JwDUQ4JmveriQ0ip8b+zBmx/WsmgfF90vdjf/VBu54c96D9mozAwAVWtiLYnPaBRDJow
- 4khkvTZulCz4b7PbgC43trljSDE0IHLyBax5ipyCNrEaV9fSNSD/l5/ngMAUCU5wR5hR
- p0TWxMbjuSnAiQQbkg23/8ehhoqzRERV0Q5bNOFgxTnTOZ3IfCIzk7ZDmiTLOuZ+6YLj
- Mk5OEeI3UpHeqVzzU1HGOwIMGwCqp+xexVryicbDFAlhFQVl4yL/hvapC6jwXcH8b6J0
- IxaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=fNZJ0xlgfHNJMHDff2n0zuiRGlk8llUuEDhpoKZUi5U=;
- fh=MzjOtP5vDMZ0AGIJ74XcxQ1DKKnKPYxAF2qfsl08MOw=;
- b=htSA4SJau8BvgiBc33Xr3R4gkPsS0+u1kg5iZRUbAGD7vCmfCQMc/qE9XuRg0+fra8
- O/9h8vZFLlaEUnyL4koc4tnMCxng6VBs9fixFwwpzYrlysccB1j8y11mjInp0ELiIL3s
- X6aKe8CbbTSkWB6DIHEj4bgYyBBaKCxZlk4uEtzt5DI2mff+FmvUvDRem462bOlOyXc4
- qVGBhAFeRUAZPWgB5hMnTeULJJ3HXNgXnFgm2PZtlFiueFQDl2H+J8ndQu10ybuf2pw4
- Giqo/TQa1KKEzX7PZ454syyXCrmL403tV4uWMIKUQA8YZA5L5JWGvAx3NI91/chseZd0
- kq9w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772031324; x=1772636124; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fNZJ0xlgfHNJMHDff2n0zuiRGlk8llUuEDhpoKZUi5U=;
- b=c+JKoNYEhcZjJoI3n4rpu3du6/3+GkqwyTli58EYL/H3zAT0cBkrsftknwhIPzZlUW
- gyIJA/3xlfmKW2CxtLa+guHpFrma1kkArXI3rJ896dPp7XpLVXEwPsJ4Lc7Jm6oiQRAy
- wygKC8qeb2Keo9KEqYqNOKAot7vuvfsDPRIsDOQSF530oNdHRGZJQpkWZ86WaDUjkbGW
- sOJyWGJBqFNFU4GC5JxvyltkIGST3kwflRqEWX6H+IYa0Vy+sJXe61Nr13VFM46qdtRO
- RJs6r+DyxSdPqjllllQ5PG3V9Epvtz0Y45178tJj6JHyMzBuPwfUSzB8LVEqRaB2eMVl
- kHyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772031324; x=1772636124;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=fNZJ0xlgfHNJMHDff2n0zuiRGlk8llUuEDhpoKZUi5U=;
- b=r2jHbv6DuKEUFXwDjN/2AdOxbcaeUCOxoDRgQfIb3c6D4Dlo+NhO3l39bE2ltBdbAN
- HzWi7wu3TZP8ZwI7ABAh6WAf7nbzO+Cmx0exIP+5PnBwlEBJQL7JQlJDC+wuCgtMt+nE
- O64PnifYp5uKl8SpfHf3pRZcpzsafLnhs+00VxTTg1HC2mA/Igc3ddC7K8FQ8bVAY6mb
- uql4qJzZy6kWH6S2MDDm/iRvj7XfX1t8xwQWFudcS9O8OTleaLaylvLbFZSc11x7IPCQ
- hnbJt5SS4jJ5ndc0TclHEjRlGAY55oLbuEkS0FwWzY+I9swZSpxhp7aGyasBn+2wckQT
- DhHA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWb1C1RWPf3y7FhyNtboJ1NTPAA+e/JIBhB8lnuCwibTPMj+xdWeG7aYvQWnMWd4ad/m6O/FwMM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YykQB90tDaYAvpy7PeLnzF2lrCVrD8KFEbCY+W+Yu8r4/D6rN8c
- IZQmHftSXGTJacYCZtH6dQ4MFYZxLjmmOvKHIR7gPL7baIVbz5GZPrLDFT5k1/LyUxb3mVG7iaC
- zdJFSDsASBtV+IK58fgNUpHCBjvT7BGA=
-X-Gm-Gg: ATEYQzyYBjtLlBEH7lhpgzNBRUCpAZypeKoqF3EOhLeFlsdSdCsyn5E3+durv+FaePo
- g/eHDIN73vn4WjCR70jJallMDuKIQEMnKE2tlpUGiMN/Mk89KsMzrwsqQ0Uj/Rd2mXSZx9piouK
- BMsVJaThNqDjEMWlt4uG2o9tCgjsdFlYZo4tkCLjgZ8xKnsKVB9EDjb/cpa2U3+ftqq+Lqb7YnQ
- Ko9CDN6eNrrnkw7kJy23senuXku23UHH6xLkS2/R2Yv9uB+O8LumBRHrcNx+amqi1upXOPAzfX4
- ymNSZAt5esoUl88nqLTWm5P/2FF+uIsEpz933ZaCFu2bFtMtPs0CqjzVvRRNgRpCc7HRZw==
-X-Received: by 2002:a05:7300:238c:b0:2b9:ddef:2c13 with SMTP id
- 5a478bee46e88-2bd7bd7bc8amr3445616eec.5.1772031324265; Wed, 25 Feb 2026
- 06:55:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0237010E7A8;
+	Wed, 25 Feb 2026 16:14:40 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6996C10E7A8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 16:14:38 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B5B201713
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 08:14:31 -0800 (PST)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ D99E13F73B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 08:14:37 -0800 (PST)
+Date: Wed, 25 Feb 2026 16:12:08 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Liu Ying <victor.liu@nxp.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH 10/14] drm/arm: komeda: Convert to drm_output_color_format
+Message-ID: <aZ8fWNYrwyxr0vqC@e142607>
+References: <20260224-drm-rework-color-formats-v1-0-bebc76604ada@kernel.org>
+ <20260224-drm-rework-color-formats-v1-10-bebc76604ada@kernel.org>
 MIME-Version: 1.0
-References: <20260225130520.1655290-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260225130520.1655290-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 25 Feb 2026 09:55:11 -0500
-X-Gm-Features: AaiRm53CgWgqC1qViuCjQPC4B5qB48qcD-dQFT8aILx_jacAIw1FrkrimPiymg4
-Message-ID: <CADnq5_PsvMD1mrE9Y0b59_1FK5cXanAipBBwb4SNVMcdoXZ93A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Drop redundant timeline handle limit check
- in userq wait ioctl v2
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260224-drm-rework-color-formats-v1-10-bebc76604ada@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,50 +74,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 25, 2026 at 8:14=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> Clang warns that comparing a __u16 value against 65536 is always false.
->
-> num_syncobj_timeline_handles is defined as __u16, so it can never exceed
-> 65535.
->
-> v2: Drop the check instead of changing the limit value. (Christian)
->
-> Fixes the below:
-> amdgpu_userq_fence.c:642:46: warning: result of comparison of constant 65=
-536 with expression of type '__u16' (aka 'unsigned short') is always false =
-[-Wtautological-constant-out-of-range-compare]
->             wait_info->num_syncobj_timeline_handles > AMDGPU_USERQ_MAX_HA=
-NDLES ||
->
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+On Tue, Feb 24, 2026 at 11:58:49AM +0100, Maxime Ripard wrote:
+> Now that we introduced a new drm_output_color_format enum to represent
+> what DRM_COLOR_FORMAT_* bits were representing, we can switch to the new
+> enum.
+> 
+> The main different is that while DRM_COLOR_FORMAT_ was a bitmask,
+> drm_output_color_format is a proper enum. However, the enum was done is
+> such a way than DRM_COLOR_FORMAT_X = BIT(DRM_OUTPUT_COLOR_FORMAT_X) so
+> the transitition is easier.
+> 
+> The only thing we need to consider is if the original code meant to use
+> that value as a bitmask, in which case we do need to keep the bit shift,
+> or as a discriminant in which case we don't.
+> 
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-Please add a Fixes: line.
-With that,
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+For the first patch in the series that introduces the enum and this one:
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index 136071172111..3c30512a6266 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -637,7 +637,6 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, v=
-oid *data,
->                 return -ENOTSUPP;
->
->         if (wait_info->num_syncobj_handles > AMDGPU_USERQ_MAX_HANDLES ||
-> -           wait_info->num_syncobj_timeline_handles > AMDGPU_USERQ_MAX_HA=
-NDLES ||
->             wait_info->num_bo_write_handles > AMDGPU_USERQ_MAX_HANDLES ||
->             wait_info->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
->                 return -EINVAL;
-> --
-> 2.34.1
->
+>  drivers/gpu/drm/arm/display/komeda/d71/d71_component.c     | 14 +++++++-------
+>  drivers/gpu/drm/arm/display/komeda/komeda_crtc.c           |  2 +-
+>  drivers/gpu/drm/arm/display/komeda/komeda_pipeline.h       |  5 +++--
+>  drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c |  2 +-
+>  4 files changed, 12 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/arm/display/komeda/d71/d71_component.c b/drivers/gpu/drm/arm/display/komeda/d71/d71_component.c
+> index 67e5d3b4190f62549bc8da700deb4b15e138b515..27ca2930cdac6e76a058102ea2c1d8306d85e751 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/d71/d71_component.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/d71/d71_component.c
+> @@ -1078,15 +1078,15 @@ static void d71_improc_update(struct komeda_component *c,
+>  	}
+>  
+>  	mask |= IPS_CTRL_YUV | IPS_CTRL_CHD422 | IPS_CTRL_CHD420;
+>  
+>  	/* config color format */
+> -	if (st->color_format == DRM_COLOR_FORMAT_YCBCR420)
+> +	if (st->color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR420)
+>  		ctrl |= IPS_CTRL_YUV | IPS_CTRL_CHD422 | IPS_CTRL_CHD420;
+> -	else if (st->color_format == DRM_COLOR_FORMAT_YCBCR422)
+> +	else if (st->color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR422)
+>  		ctrl |= IPS_CTRL_YUV | IPS_CTRL_CHD422;
+> -	else if (st->color_format == DRM_COLOR_FORMAT_YCBCR444)
+> +	else if (st->color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR444)
+>  		ctrl |= IPS_CTRL_YUV;
+>  
+>  	malidp_write32_mask(reg, BLK_CONTROL, mask, ctrl);
+>  }
+>  
+> @@ -1143,16 +1143,16 @@ static int d71_improc_init(struct d71_dev *d71,
+>  		return PTR_ERR(c);
+>  	}
+>  
+>  	improc = to_improc(c);
+>  	improc->supported_color_depths = BIT(8) | BIT(10);
+> -	improc->supported_color_formats = DRM_COLOR_FORMAT_RGB444 |
+> -					  DRM_COLOR_FORMAT_YCBCR444 |
+> -					  DRM_COLOR_FORMAT_YCBCR422;
+> +	improc->supported_color_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
+> +					  BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
+> +					  BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
+>  	value = malidp_read32(reg, BLK_INFO);
+>  	if (value & IPS_INFO_CHD420)
+> -		improc->supported_color_formats |= DRM_COLOR_FORMAT_YCBCR420;
+> +		improc->supported_color_formats |= BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
+>  
+>  	improc->supports_csc = true;
+>  	improc->supports_gamma = true;
+>  
+>  	return 0;
+> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
+> index 5a66948ffd24343cfc144e9b500679fd0c6bf43b..e78604469ef74800a4cac1e854821578b7e7bce8 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
+> @@ -38,11 +38,11 @@ void komeda_crtc_get_color_config(struct drm_crtc_state *crtc_st,
+>  			min_bpc = conn_bpc;
+>  	}
+>  
+>  	/* connector doesn't config any color_format, use RGB444 as default */
+>  	if (!conn_color_formats)
+> -		conn_color_formats = DRM_COLOR_FORMAT_RGB444;
+> +		conn_color_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
+>  
+>  	*color_depths = GENMASK(min_bpc, 0);
+>  	*color_formats = conn_color_formats;
+>  }
+>  
+> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline.h b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline.h
+> index ac8725e248537e5737d16cd36860401c42073500..dbe93894b2f6a193e24963d497ebb7b717ce3ebb 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline.h
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline.h
+> @@ -315,20 +315,21 @@ struct komeda_splitter_state {
+>  	u16 overlap;
+>  };
+>  
+>  struct komeda_improc {
+>  	struct komeda_component base;
+> -	u32 supported_color_formats;  /* DRM_RGB/YUV444/YUV420*/
+> +	u32 supported_color_formats;  /* BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444/YUV444/YUV420) */
+>  	u32 supported_color_depths; /* BIT(8) | BIT(10)*/
+>  	u8 supports_degamma : 1;
+>  	u8 supports_csc : 1;
+>  	u8 supports_gamma : 1;
+>  };
+>  
+>  struct komeda_improc_state {
+>  	struct komeda_component_state base;
+> -	u8 color_format, color_depth;
+> +	enum drm_output_color_format color_format;
+> +	u8 color_depth;
+>  	u16 hsize, vsize;
+>  	u32 fgamma_coeffs[KOMEDA_N_GAMMA_COEFFS];
+>  	u32 ctm_coeffs[KOMEDA_N_CTM_COEFFS];
+>  };
+>  
+> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
+> index f4e76b46ca327a1c5db9bdbdd9550b45190b30d8..6f9b10cc831ff748296b9ed30b6de398c90c4786 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
+> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_pipeline_state.c
+> @@ -797,11 +797,11 @@ komeda_improc_validate(struct komeda_improc *improc,
+>  					 improc->supported_color_formats);
+>  			return -EINVAL;
+>  		}
+>  
+>  		st->color_depth = __fls(avail_depths);
+> -		st->color_format = BIT(__ffs(avail_formats));
+> +		st->color_format = __ffs(avail_formats);
+>  	}
+>  
+>  	if (kcrtc_st->base.color_mgmt_changed) {
+>  		drm_lut_to_fgamma_coeffs(kcrtc_st->base.gamma_lut,
+>  					 st->fgamma_coeffs);
+> 
+> -- 
+> 2.52.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
