@@ -4,90 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7308FD3776
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 17:36:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD35FD377A
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 17:47:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 543E610E7CD;
-	Wed, 25 Feb 2026 17:36:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A75E610E7C2;
+	Wed, 25 Feb 2026 17:47:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dS0uvxzf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="scycDjy7";
 	dkim-atps=neutral
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA1DE10E2BD
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 17:36:28 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-2bda3b4318dso418458eec.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 09:36:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772040988; cv=none;
- d=google.com; s=arc-20240605;
- b=Og/jaUOQgJix/khIs/nUpWZWusBau2tZlsJUqMP0ovUR0ywa0TFqEME6TbraWhuuWU
- vfC+gQ4ZhPdvROIUrJUGXPi/hNFmaPno2trltBu//Fqz9vKWEKhbqT9cyhWo1dT09Vyp
- OdQl0ONBaZbE2Iwpj8PvdHCv28sUMnia4DfLQIuzDx/63MKjYjcat72HCB67mpRtp3m/
- CJWfiTI+I4gO0Se8Es+TZGZibLboHVGzpxlFrDTVtZwPFuW1SeIeC/+qkO2o0LT/g/pB
- hMb8bNHB+dW943uzSabUqeytd2+y9h0w2LW6uW2g1Zd5awgQcMTYqTEfhzZeabeLSjaV
- NvKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=zLNVEEL2NH3DJMk5q8kBVXqzPRSb7bE1hYpaacAnCdM=;
- fh=/jXuF6kkEzGc76I89MWDwYajZhHhstOH8SMMdzCQivY=;
- b=I8bxE1Dluj0GyzGWLelUXqblBwITzlckujZT4JBovRmCi5KKsuDCjq2bOwzkS08Mu7
- 8UWzXHRsKiBpBLICI2zKxInxSco7AeiTGAl/36v6/35clPWrevrcCrICkhFTIUpiXlEQ
- uPC53rXSVAfJiJ12nCNVHt/7O3k2MS/0VxawZxW8+75V4eRKzck4jYzdQUshaZVZ40f1
- 9Po4YaX3DUjjNDDI0rKMFtL0+i82s9phOeGOPq6YJbYAYtVvQqARyPoFcQf4/D5Ti/OO
- Q2qcFzjun0PAmiGY/JyF39oM3ZPE/hjBfQSVnL5INskv7UV1qH8AmJAct3XTcyRDH8Hx
- m2Ow==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772040988; x=1772645788; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zLNVEEL2NH3DJMk5q8kBVXqzPRSb7bE1hYpaacAnCdM=;
- b=dS0uvxzfYjVv8KpMjGnF4HGUdHrbfChEWgSlrXWxn3wbScOAjRo8Z6OE9rdB7ob9Q8
- TkprbO7TT+viXQFJz9DRYNZyhjUCVJkML+FH4iGK4DB+0mnG02C2MOkQcSYvJQAzwor6
- 0IbhsQFzbHo/h6hMAdOD/YTHhyBJY5RC4YTisQgVHFT/jNSm6Uu/VNEG7ojJGtl7t20t
- ludcVo+reXuPVaLa2cG/pQSp2SlyEAbdzoehhWSm6TV0LBUzbL5AoTCdBUtSNgiN5KM7
- 8xBu5KM+FyTZsW0S6AW+h7LzazoPqulk9neyVrOm5X0NBT5DKpW9qcP5jo/9dPPYN4CK
- 7XYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772040988; x=1772645788;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=zLNVEEL2NH3DJMk5q8kBVXqzPRSb7bE1hYpaacAnCdM=;
- b=lZoda+0b2gqS1Toh+BbHn76s4qqOIfl9Kt4d1hafqGTgqjhYYgSbfGhkD60zJVL9Sg
- 4sn8FcWj6MIn7MD+yV6fHTlHFalHSsWS95H9OlCfcs3oAvUCEQfzkCAin1+6wVBHJ+Kn
- Thixgtedgg3d+91Sor5PrDYiIZy5/TK+qOKdy+ByVyacPj/4yFrJwZ+Fe/cLp0td6Mmg
- Sak+zrz8iSRCxUaaFfQz0Q+3jUuITa70bMB9yHxlj2rAqGo7WLUEEx8j3ifQawJjT7HR
- Eyzz4mYbD0xfsxtArdZF/2o/NHvIMAeanTTOgEgRYYnTDlwOZbjDxBIQOqNUXe0v0rIB
- iqmQ==
-X-Gm-Message-State: AOJu0YykD3BYMDdbPFVUUJhDtSqo4ONNpYZjm8OlD2kt7cf10ULIrmWF
- 6hNpTmWglmDz+vURGENiDJzskiT/7qAcFgsg7pLq4bupsLiy2KtJQUI/Hir6+oQT6VvdFOVI73M
- yI16m0Ujp0Whjogg+LNbJ5Qm5hZ5L4TI=
-X-Gm-Gg: ATEYQzzaKjP8t65vZw1tY3UlciZVL872dBJ5zqrz65SMfvp5+KTB3sImjyQ/FQ/53nh
- IVkoTHU75HjvSuEDT56gfmygZFi1Jxv2hEGLOgCEAiW1Q3FxbJTEgeZ868ZYlDorwcN6WvBdawO
- t13C/WT4Ivu5ZiCCdskzmieolL5OlrG+pY96dIsyW8g0DlD9ZWrGrYyxAD0k6ljrU5gZy09x+cZ
- mKOt124B98OUdQ5QkUDGNEsWfK7wH55FUn+9dU01+ZFp+ycjLJjDXQgw7hKSxu7T3wX0AnzXbjt
- tVoI/PfGW7Dbtn8DppBTUEY9YOxeZ70uM0EtOXcKLrl5VPVVGEUsnivfIhDezzLTsgc+rQR2Nig
- ergnm
-X-Received: by 2002:a05:7022:69a5:b0:127:2d87:f0fa with SMTP id
- a92af1059eb24-1276ad1be5amr3409483c88.4.1772040987923; Wed, 25 Feb 2026
- 09:36:27 -0800 (PST)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E49CB10E7DC;
+ Wed, 25 Feb 2026 17:47:06 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 406C460053;
+ Wed, 25 Feb 2026 17:47:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF03EC116D0;
+ Wed, 25 Feb 2026 17:47:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772041625;
+ bh=3kES5koMMsOOveBPxWed4CGDwckWaezMzM1U4NZbmGc=;
+ h=From:To:Cc:Subject:Date:From;
+ b=scycDjy7y+yijVjgfP2u1s+aM+ah3eO9RgVaAl8dHbvWYfIhFLa633aymmFbaerfe
+ SpTqZJ5weJxA0JckNxAubDr1K4VeO3bs2E5R3L66cB6pj5lU/4AUXIsBmEuOGN9PcB
+ MiI8V++NVHtBoKbmqr9uHAi1BZoVKuo3Z3rc4zuGLexZGCZ0JnVY5LSdboWv/rfD/N
+ BHSAOnxgFO+9sGKntB12oalkhdcA+1v0CknhyGA3MSWbNcmYJVa1TPo6bTKlXghWbk
+ N/k2rBIqdMHhopoxMAlZNvXzJKisfY+wEmIFEBDM8LoufMsEWwUWy+xyudTXibn0tW
+ MVJbLwuHziBKQ==
+From: Kees Cook <kees@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Kees Cook <kees@kernel.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Subject: [PATCH v2] drm/amd/ras: Fix type size of remainder argument
+Date: Wed, 25 Feb 2026 09:47:03 -0800
+Message-Id: <20260225174702.it.918-kees@kernel.org>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260225165116.46224-1-mario.limonciello@amd.com>
-In-Reply-To: <20260225165116.46224-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 25 Feb 2026 12:36:14 -0500
-X-Gm-Features: AaiRm52sUwSIf3-UJfu4BXxf4gtC41OW4MPuE5Jd2_G3A70Rw9aRqub47M_qavQ
-Message-ID: <CADnq5_NHvMu9+g5pOk8ZDcs7XsKUQv6ro31ZbBqG82Vav9gxpQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Disable MES LR compute W/A
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3415; i=kees@kernel.org;
+ h=from:subject:message-id; bh=3kES5koMMsOOveBPxWed4CGDwckWaezMzM1U4NZbmGc=;
+ b=owGbwMvMwCVmps19z/KJym7G02pJDJnzTafpqa/NSVmixSh3xmHKu4kvwiSEHt3Ps2hSu/jy+
+ aGcz9f3dJSyMIhxMciKKbIE2bnHuXi8bQ93n6sIM4eVCWQIAxenAExE5TgjwwHlB3Fqax5HzHL4
+ X713OtuOyqXVZw7IXj8y6823fPOXsw8wMnS89n3xUah/l1rPHc+CF08NWe7dMlCNZrILN1gh8GH
+ den4A
+X-Developer-Key: i=kees@kernel.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,73 +68,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 25, 2026 at 12:09=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> A workaround was introduced in commit 1fb710793ce2 ("drm/amdgpu: Enable
-> MES lr_compute_wa by default") to help with some hangs observed in gfx115=
-1.
->
-> This WA didn't fully fix the issue.  It was actually fixed by adjusting
-> the VGPR size to the correct value that matched the hardware in commit
-> cf326449637a5 ("drm/amdkfd: bump minimum vgpr size for gfx1151").
->
-> There are reports of instability on other products with newer GC microcod=
-e
-> versions, and I believe they're caused by this workaround. As we don't
-> need the workaround any more, remove it.
->
-> Fixes: cf326449637a5 ("drm/amdkfd: bump minimum vgpr size for gfx1151")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Forcing an int to be dereferenced at uint64_t for div64_u64_rem() runs
+the risk of endian confusion and stack overflowing writes. Seen while
+preparing to enable -Warray-bounds globally:
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+In file included from ../arch/x86/include/asm/processor.h:35,
+                 from ../include/linux/sched.h:13,
+                 from ../include/linux/ratelimit.h:6,
+                 from ../include/linux/dev_printk.h:16,
+                 from ../drivers/gpu/drm/amd/amdgpu/../ras/ras_mgr/ras_sys.h:29,
+                 from ../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras.h:27,
+                 from ../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_core.c:24:
+In function 'div64_u64_rem',
+    inlined from 'ras_core_convert_timestamp_to_time' at ../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_core.c:72:9:
+../include/linux/math64.h:56:20: error: array subscript 'u64 {aka long long unsigned int}[0]' is partly outside array bounds of 'int[1]' [-Werror=array-bounds=]
+   56 |         *remainder = dividend % divisor;
+      |         ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_core.c: In function 'ras_core_convert_timestamp_to_time':
+../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_core.c:70:19: note: object 'remaining_seconds' of size 4
+   70 |         int days, remaining_seconds;
+      |                   ^~~~~~~~~~~~~~~~~
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 5 -----
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 5 -----
->  2 files changed, 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v11_0.c
-> index 09ebb13ca5e81..a926a330700e9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-> @@ -720,11 +720,6 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_=
-mes *mes)
->         mes_set_hw_res_pkt.enable_reg_active_poll =3D 1;
->         mes_set_hw_res_pkt.enable_level_process_quantum_check =3D 1;
->         mes_set_hw_res_pkt.oversubscription_timer =3D 50;
-> -       if ((mes->adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D=
- 0x7f)
-> -               mes_set_hw_res_pkt.enable_lr_compute_wa =3D 1;
-> -       else
-> -               dev_info_once(mes->adev->dev,
-> -                             "MES FW version must be >=3D 0x7f to enable=
- LR compute workaround.\n");
->
->         if (amdgpu_mes_log_enable) {
->                 mes_set_hw_res_pkt.enable_mes_event_int_logging =3D 1;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/mes_v12_0.c
-> index b1c864dc79a86..5bfa5d1d0b369 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-> @@ -779,11 +779,6 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_=
-mes *mes, int pipe)
->         mes_set_hw_res_pkt.use_different_vmid_compute =3D 1;
->         mes_set_hw_res_pkt.enable_reg_active_poll =3D 1;
->         mes_set_hw_res_pkt.enable_level_process_quantum_check =3D 1;
-> -       if ((mes->adev->mes.sched_version & AMDGPU_MES_VERSION_MASK) >=3D=
- 0x82)
-> -               mes_set_hw_res_pkt.enable_lr_compute_wa =3D 1;
-> -       else
-> -               dev_info_once(adev->dev,
-> -                             "MES FW version must be >=3D 0x82 to enable=
- LR compute workaround.\n");
->
->         /*
->          * Keep oversubscribe timer for sdma . When we have unmapped door=
-bell
-> --
-> 2.53.0
->
+Use a 64-bit type for the remainder calculation, but leave
+remaining_seconds as 32-bit to avoid 64-bit division later. The value of
+remainder will always be less than seconds_per_day, so there's no
+truncation risk.
+
+Fixes: ace232eff50e ("drm/amdgpu: Add ras module files into amdgpu")
+Signed-off-by: Kees Cook <kees@kernel.org>
+---
+ v2: use temp u64 to avoid 64-bit division later
+ v1: https://lore.kernel.org/lkml/20260225024716.work.043-kees@kernel.org/
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: YiPeng Chai <YiPeng.Chai@amd.com>
+Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: <amd-gfx@lists.freedesktop.org>
+Cc: <dri-devel@lists.freedesktop.org>
+---
+ drivers/gpu/drm/amd/ras/rascore/ras_core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+index 01122b55c98a..02bbee64a5bd 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+@@ -62,14 +62,16 @@ int ras_core_convert_timestamp_to_time(struct ras_core_context *ras_core,
+ 			uint64_t timestamp, struct ras_time *tm)
+ {
+ 	int days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+-	uint64_t month = 0, day = 0, hour = 0, minute = 0, second = 0;
++	uint64_t month = 0, day = 0, hour = 0, minute = 0, second = 0, remainder;
+ 	uint32_t year = 0;
+ 	int seconds_per_day = 24 * 60 * 60;
+ 	int seconds_per_hour = 60 * 60;
+ 	int seconds_per_minute = 60;
+ 	int days, remaining_seconds;
+ 
+-	days = div64_u64_rem(timestamp, seconds_per_day, (uint64_t *)&remaining_seconds);
++	days = div64_u64_rem(timestamp, seconds_per_day, &remainder);
++	/* remainder will always be less than seconds_per_day. */
++	remaining_seconds = remainder;
+ 
+ 	/* utc_timestamp follows the Unix epoch */
+ 	year = 1970;
+-- 
+2.34.1
+
