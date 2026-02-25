@@ -4,56 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD35FD377A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 17:47:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E283FFD45E4
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 19:37:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A75E610E7C2;
-	Wed, 25 Feb 2026 17:47:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A44A10E7DE;
+	Wed, 25 Feb 2026 19:37:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="scycDjy7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BJAwl+HT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E49CB10E7DC;
- Wed, 25 Feb 2026 17:47:06 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 406C460053;
- Wed, 25 Feb 2026 17:47:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF03EC116D0;
- Wed, 25 Feb 2026 17:47:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772041625;
- bh=3kES5koMMsOOveBPxWed4CGDwckWaezMzM1U4NZbmGc=;
- h=From:To:Cc:Subject:Date:From;
- b=scycDjy7y+yijVjgfP2u1s+aM+ah3eO9RgVaAl8dHbvWYfIhFLa633aymmFbaerfe
- SpTqZJ5weJxA0JckNxAubDr1K4VeO3bs2E5R3L66cB6pj5lU/4AUXIsBmEuOGN9PcB
- MiI8V++NVHtBoKbmqr9uHAi1BZoVKuo3Z3rc4zuGLexZGCZ0JnVY5LSdboWv/rfD/N
- BHSAOnxgFO+9sGKntB12oalkhdcA+1v0CknhyGA3MSWbNcmYJVa1TPo6bTKlXghWbk
- N/k2rBIqdMHhopoxMAlZNvXzJKisfY+wEmIFEBDM8LoufMsEWwUWy+xyudTXibn0tW
- MVJbLwuHziBKQ==
-From: Kees Cook <kees@kernel.org>
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Kees Cook <kees@kernel.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: [PATCH v2] drm/amd/ras: Fix type size of remainder argument
-Date: Wed, 25 Feb 2026 09:47:03 -0800
-Message-Id: <20260225174702.it.918-kees@kernel.org>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7BB010E7DE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 19:37:25 +0000 (UTC)
+Received: by mail-dl1-f49.google.com with SMTP id
+ a92af1059eb24-12736a0147cso3617c88.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 11:37:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772048245; cv=none;
+ d=google.com; s=arc-20240605;
+ b=G7ZsFdV1BROkJsBh6Q6sYFbIdmqm4cPhMIgAuHMQhVpgWitbQ5ELBvpwUGiugD1AfJ
+ dZ12hVlCMsXfBeU7zXuX0HfyFV3lGZFxE4vVVJ2pQFuuKSeAYxmbpHtEjVWlBv/e1Son
+ Kb4Na+tlDKQkc/qoLZMlIOmTzs20XV9iC8DpOBqCqFt/ofxsGDMtUrn8lSXargudTMDL
+ byvpfJEqpX1zWc7Ejb17U+xI7HQn7PoO2WxKKIlNdw2FWskSx3vKdho0cvQ6YGfHNMAK
+ I4B4ilEIRpXTcOVVV5B6XKmWs6ZEvvXy3dgg26PIQ++dZP8E9KyPjSGYDOZH5rK1iUks
+ hZ+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=2JUVh5W/M1rUZAXUYe3MHcUmZP+P0I7PmSFwmhIiz0M=;
+ fh=/E9ORGZVUSt9y+V1Y1LkLQHcLz0S1/RYg7Ps4iam1GE=;
+ b=YfXj1bHSSMUgVzkgbUmYlC9DMGumro/EEJ27POZVILw0/CXq0NHvgR2nue2zlbY2ip
+ syXfF5o+vT5SS2FLN/BUfqJX1CnDEieFThDjOB3+K+NYzkoayzQm8zbYlNRD31iiBUym
+ YLDcEX1JQj0Je6X7Lxg4ZWheYvgrygJ8MMyoowTFWijTEcqvkpOYeZFWC70RtPNt7L7O
+ 7YSMNP2vY5mVPDD4ExoOwUETvIPNGh26mw24d7nRPK/PSSjQfXhQBut7rpZYdnoC9v7E
+ Ei1UUvxVUelAeiZQqt2XOuATskmvYdui/krjhKAu2BDptMk115FVddI9hR8kgULOqdG7
+ QwyA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772048245; x=1772653045; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2JUVh5W/M1rUZAXUYe3MHcUmZP+P0I7PmSFwmhIiz0M=;
+ b=BJAwl+HTeLcEe84x8Jv73J+DxZFK789iJc231j9kisBDuNXwnEpAow+t+hzYQkl98H
+ gQKpA9WCOfIM3X+YzX5tssTaRuIsCXQ3A8S7qipBIW+cQI+x+0vGyj0gsMht+GY29Pxd
+ r4KrC3WdNMx+pl3YDXW5V+GbMcoA5QnTUHlEavsUd9rpgdIsZKZfTwMcGA8z9XdnBWd/
+ 7suTFTGeqNC0ZMA4aqpAnGZIti2er+n74qKS5NyUe8FaG0UxL0qWx7+xVy4MHrJE7w2r
+ bvuPcTaTYtoceM1pZbyoYjUOSKVdZwmq7xN2beDTgqUybogxI/elArdytOo42BAKUAwp
+ m/pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772048245; x=1772653045;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=2JUVh5W/M1rUZAXUYe3MHcUmZP+P0I7PmSFwmhIiz0M=;
+ b=AzBWjaSk/ZLyFBEEFpsC7UO7A7r6vUKDt0CCqShFLlx+MhBdV2Hf4ucwU4jx8ZPwtM
+ kFXQniTEuRencSgGNwxiiv1tb2lzEAW2GOPIDyhWyy3tEVnHufiXNz494P8SDLzpY3e2
+ VpjSngyBVc1XdjpXK8stUkQlec1foRpXITOUtQ7nGmPgjaAASHb18Hnb0inXJi44R/MO
+ QebBBgAC28flxZdDzdbOGmHZ6/EQ5F4jeiLj0wFiPO43GLav099EaImwOkpB3pdEAsaL
+ Lu8Uwh+HEpEUa7f++vlaB/Hcs48ABDH2AClqc+kudCMRWqJoiBKuJx93uY6WehA3AeuP
+ 89pQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVgkIUz5VA5ts3nVPwmO8JrC3Z7LoGhJ3pFyVdF1mYFXg/JO+kt/ZJH7slW0ayPDnWiZNmKw+wa@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWu38lgGhte60eLPBvSVLkWZFc131AVjvtOaL+rUdk2bPMKayu
+ XGkgJq+PeHrJXnpGM07rHshHHIacy0BdIfCHEoOsIh/kXgW6kK1qMFeGq/CBirotL8X6IBqbFly
+ Vd+LBAaZHUYG/tqDmE66WujopqqZFAbU=
+X-Gm-Gg: ATEYQzwiJO0qhNwcrbbmKNRLCBxBL2/jH9BbZXdwwqFQ5o9pgL9qirwOU24tPiZjwPX
+ qBvGR/thVoo14EOS6Keb98IMz+MIXrmAedKC7Fv6azTI/L/opKybitcr+8Tmrcquq9yldtr4MVD
+ YhH9fCse9lt7fPJlBbkVFlLW0l2xBDmkwHMEDfSh1fC/DCNuPUOVXqcDroWvDd7Iw9welxT3hsR
+ 2F7PRIL0OymufWJu+oEqEsPgnM7vzypvxQ504uyDe3AiEDzxsweMD5LVVR8a59PDlIT/FwPss8Z
+ TsRYD8bk5VyflNuGP9RY0DA790isFgRUpXlkhtiQn98DdyNeyXjzPGUQ2P15tMJCFFqb0g==
+X-Received: by 2002:a05:7022:ecc:b0:127:332d:63e with SMTP id
+ a92af1059eb24-1276ad1a7d8mr3574767c88.5.1772048245032; Wed, 25 Feb 2026
+ 11:37:25 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3415; i=kees@kernel.org;
- h=from:subject:message-id; bh=3kES5koMMsOOveBPxWed4CGDwckWaezMzM1U4NZbmGc=;
- b=owGbwMvMwCVmps19z/KJym7G02pJDJnzTafpqa/NSVmixSh3xmHKu4kvwiSEHt3Ps2hSu/jy+
- aGcz9f3dJSyMIhxMciKKbIE2bnHuXi8bQ93n6sIM4eVCWQIAxenAExE5TgjwwHlB3Fqax5HzHL4
- X713OtuOyqXVZw7IXj8y6823fPOXsw8wMnS89n3xUah/l1rPHc+CF08NWe7dMlCNZrILN1gh8GH
- den4A
-X-Developer-Key: i=kees@kernel.org; a=openpgp;
- fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
-Content-Transfer-Encoding: 8bit
+References: <20260225093734.481140-1-suresh.guttula@amd.com>
+In-Reply-To: <20260225093734.481140-1-suresh.guttula@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 25 Feb 2026 14:37:13 -0500
+X-Gm-Features: AaiRm50_T2BQWk8ShKykJyfxraToHrZr3t91pQgKreFdMlAc7o-ucl7GExc9FsI
+Message-ID: <CADnq5_NqFwde1xbc9j-_hdroYooaFRNZOAC_uqXYePhHFsDfRA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/psp: Use AXI address for GFX to PSP mailbox
+To: sguttula <suresh.guttula@amd.com>
+Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,73 +102,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Forcing an int to be dereferenced at uint64_t for div64_u64_rem() runs
-the risk of endian confusion and stack overflowing writes. Seen while
-preparing to enable -Warray-bounds globally:
+On Wed, Feb 25, 2026 at 4:54=E2=80=AFAM sguttula <suresh.guttula@amd.com> w=
+rote:
+>
+> This change will update GFX to ASP mailbox registers to AXI
+> address space macros instead of SMN address space.
+>
+> This will help to fix PSP TOC load failure during secureboot.
+> PSP allowed RSMU security policy for R/W on AXI address space not
+> for SMN address space, GFX Driver Need to use AXI address reg.
+>
+> Signed-off-by: sguttula <suresh.guttula@amd.com>
 
-In file included from ../arch/x86/include/asm/processor.h:35,
-                 from ../include/linux/sched.h:13,
-                 from ../include/linux/ratelimit.h:6,
-                 from ../include/linux/dev_printk.h:16,
-                 from ../drivers/gpu/drm/amd/amdgpu/../ras/ras_mgr/ras_sys.h:29,
-                 from ../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras.h:27,
-                 from ../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_core.c:24:
-In function 'div64_u64_rem',
-    inlined from 'ras_core_convert_timestamp_to_time' at ../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_core.c:72:9:
-../include/linux/math64.h:56:20: error: array subscript 'u64 {aka long long unsigned int}[0]' is partly outside array bounds of 'int[1]' [-Werror=array-bounds=]
-   56 |         *remainder = dividend % divisor;
-      |         ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
-../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_core.c: In function 'ras_core_convert_timestamp_to_time':
-../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_core.c:70:19: note: object 'remaining_seconds' of size 4
-   70 |         int days, remaining_seconds;
-      |                   ^~~~~~~~~~~~~~~~~
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Use a 64-bit type for the remainder calculation, but leave
-remaining_seconds as 32-bit to avoid 64-bit division later. The value of
-remainder will always be less than seconds_per_day, so there's no
-truncation risk.
-
-Fixes: ace232eff50e ("drm/amdgpu: Add ras module files into amdgpu")
-Signed-off-by: Kees Cook <kees@kernel.org>
----
- v2: use temp u64 to avoid 64-bit division later
- v1: https://lore.kernel.org/lkml/20260225024716.work.043-kees@kernel.org/
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: YiPeng Chai <YiPeng.Chai@amd.com>
-Cc: Tao Zhou <tao.zhou1@amd.com>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: <amd-gfx@lists.freedesktop.org>
-Cc: <dri-devel@lists.freedesktop.org>
----
- drivers/gpu/drm/amd/ras/rascore/ras_core.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-index 01122b55c98a..02bbee64a5bd 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
-@@ -62,14 +62,16 @@ int ras_core_convert_timestamp_to_time(struct ras_core_context *ras_core,
- 			uint64_t timestamp, struct ras_time *tm)
- {
- 	int days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
--	uint64_t month = 0, day = 0, hour = 0, minute = 0, second = 0;
-+	uint64_t month = 0, day = 0, hour = 0, minute = 0, second = 0, remainder;
- 	uint32_t year = 0;
- 	int seconds_per_day = 24 * 60 * 60;
- 	int seconds_per_hour = 60 * 60;
- 	int seconds_per_minute = 60;
- 	int days, remaining_seconds;
- 
--	days = div64_u64_rem(timestamp, seconds_per_day, (uint64_t *)&remaining_seconds);
-+	days = div64_u64_rem(timestamp, seconds_per_day, &remainder);
-+	/* remainder will always be less than seconds_per_day. */
-+	remaining_seconds = remainder;
- 
- 	/* utc_timestamp follows the Unix epoch */
- 	year = 1970;
--- 
-2.34.1
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/psp_v15_0.c | 20 ++++++++++----------
+>  1 file changed, 10 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c b/drivers/gpu/drm/amd=
+/amdgpu/psp_v15_0.c
+> index 723ddae17644..73a709773e85 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
+> @@ -69,12 +69,12 @@ static int psp_v15_0_0_ring_stop(struct psp_context *=
+psp,
+>                                    0x80000000, 0x80000000, false);
+>         } else {
+>                 /* Write the ring destroy command*/
+> -               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_64,
+> +               WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_64,
+>                              GFX_CTRL_CMD_ID_DESTROY_RINGS);
+>                 /* there might be handshake issue with hardware which nee=
+ds delay */
+>                 mdelay(20);
+>                 /* Wait for response flag (bit 31) */
+> -               ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPA=
+SP_SMN_C2PMSG_64),
+> +               ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPA=
+SP_PCRU1_MPASP_C2PMSG_64),
+>                                    0x80000000, 0x80000000, false);
+>         }
+>
+> @@ -116,7 +116,7 @@ static int psp_v15_0_0_ring_create(struct psp_context=
+ *psp,
+>
+>         } else {
+>                 /* Wait for sOS ready for ring creation */
+> -               ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPA=
+SP_SMN_C2PMSG_64),
+> +               ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPA=
+SP_PCRU1_MPASP_C2PMSG_64),
+>                                    0x80000000, 0x80000000, false);
+>                 if (ret) {
+>                         DRM_ERROR("Failed to wait for trust OS ready for =
+ring creation\n");
+> @@ -125,23 +125,23 @@ static int psp_v15_0_0_ring_create(struct psp_conte=
+xt *psp,
+>
+>                 /* Write low address of the ring to C2PMSG_69 */
+>                 psp_ring_reg =3D lower_32_bits(ring->ring_mem_mc_addr);
+> -               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_69, psp_ring_reg=
+);
+> +               WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_69, psp_=
+ring_reg);
+>                 /* Write high address of the ring to C2PMSG_70 */
+>                 psp_ring_reg =3D upper_32_bits(ring->ring_mem_mc_addr);
+> -               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_70, psp_ring_reg=
+);
+> +               WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_70, psp_=
+ring_reg);
+>                 /* Write size of ring to C2PMSG_71 */
+>                 psp_ring_reg =3D ring->ring_size;
+> -               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_71, psp_ring_reg=
+);
+> +               WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_71, psp_=
+ring_reg);
+>                 /* Write the ring initialization command to C2PMSG_64 */
+>                 psp_ring_reg =3D ring_type;
+>                 psp_ring_reg =3D psp_ring_reg << 16;
+> -               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_64, psp_ring_reg=
+);
+> +               WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_64, psp_=
+ring_reg);
+>
+>                 /* there might be handshake issue with hardware which nee=
+ds delay */
+>                 mdelay(20);
+>
+>                 /* Wait for response flag (bit 31) in C2PMSG_64 */
+> -               ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPA=
+SP_SMN_C2PMSG_64),
+> +               ret =3D psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPA=
+SP_PCRU1_MPASP_C2PMSG_64),
+>                                    0x80000000, 0x8000FFFF, false);
+>         }
+>
+> @@ -174,7 +174,7 @@ static uint32_t psp_v15_0_0_ring_get_wptr(struct psp_=
+context *psp)
+>         if (amdgpu_sriov_vf(adev))
+>                 data =3D RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_102);
+>         else
+> -               data =3D RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_67);
+> +               data =3D RREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG=
+_67);
+>
+>         return data;
+>  }
+> @@ -188,7 +188,7 @@ static void psp_v15_0_0_ring_set_wptr(struct psp_cont=
+ext *psp, uint32_t value)
+>                 WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_101,
+>                              GFX_CTRL_CMD_ID_CONSUME_CMD);
+>         } else
+> -               WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_67, value);
+> +               WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_67, valu=
+e);
+>  }
+>
+>  static const struct psp_funcs psp_v15_0_0_funcs =3D {
+> --
+> 2.43.0
+>
