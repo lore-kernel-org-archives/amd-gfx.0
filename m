@@ -4,60 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BEDBF55456
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 04:43:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74062EFB7F0
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 06:42:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BAF110E15C;
-	Wed, 25 Feb 2026 04:43:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D166710E1A7;
+	Wed, 25 Feb 2026 06:42:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EuxQVyhP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dEWcgyH6";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFDE610E15C;
- Wed, 25 Feb 2026 04:43:12 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6787110E1A7;
+ Wed, 25 Feb 2026 06:42:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1771994593; x=1803530593;
+ t=1772001731; x=1803537731;
  h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=t8D1jQ9ZuCv1Th6BUK3UHEMBCGLUWLXCWP6xRrFdjOk=;
- b=EuxQVyhPMy4OYbB5SmiUTcnVma9daepJnEYd2cI/W6vZZpznTiEJmB8m
- ALrcwJoL1fsHkalk56k3bJt/GxzP1IA40g2Y+zrVNgYlIOer3HNKAbWef
- bzz2IYH05mgrvNm2Q+zcQNnqZ5VJSaqYiJv/TDiRCVIsqGm2ihQAB5vNd
- 9NOuHvsipoLi5ruZ2eNpe5ztck5cFK16Hs4a1TWMmW7Ach8m72bM9Hxrr
- GUurlofhPmhzS8XXdGMF50eubhYA8mRecOgOsFPcx4JyFplAugmBw5se4
- vS5JTKQuZ+TkhL8rvsfEp4a045z4kl3oTNf6i85W3pzu9z/mvK/TPuOKW Q==;
-X-CSE-ConnectionGUID: FaT8UBgsQMimO0HWEL0c5w==
-X-CSE-MsgGUID: OXRyhaS8T5iTGlxvcRvHJg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11711"; a="76631499"
-X-IronPort-AV: E=Sophos;i="6.21,309,1763452800"; d="scan'208";a="76631499"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2026 20:43:13 -0800
-X-CSE-ConnectionGUID: gJFov5EqTTK771rDhExCrw==
-X-CSE-MsgGUID: xQlg1DhiQgaLy7mOujti4Q==
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=fM2txuhNeICW8Ro1iChqOY7CRWcaOwVJ3d53u4wNsHU=;
+ b=dEWcgyH6dEqC9lVHNiCtGdR2WKtAPZ0vWSsgCtaQo5zUexM7A4BYl1N1
+ AGiA60kkLDZT+qdF4AQsDp7TnRLOsLhq92di9lmlvjYWDQqrR46S51820
+ HZYc1eqGBgUHRAaReupYJ0nly489mttoSKCcNyrF5PS2cLYW7QImdKrfY
+ j6tdF+o+zDVNHI8afBIB2chLE9nIH5J2ErTbZLyyuwYZQYFl8s6ZT8CCS
+ IkqGuh4bE9SQBRNIb5rjeDHBUoH4UFWdscIyo3gTscplqlLe0RN8B2xZf
+ hDSz5lkvRn85Tbzuh6ca8YE5qS0fhOw1VFDn5Sl6k1M/Ma7L+tPuSyulo Q==;
+X-CSE-ConnectionGUID: TF22nLSVTT2G0y1Fa1LY/g==
+X-CSE-MsgGUID: +S9CcuvFSdmOs+/Ze7Qb4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11711"; a="95648388"
+X-IronPort-AV: E=Sophos;i="6.21,310,1763452800"; d="scan'208";a="95648388"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2026 22:42:10 -0800
+X-CSE-ConnectionGUID: Bch7d7APTou6Ijb36Z5vGQ==
+X-CSE-MsgGUID: FUq5MRIxToq/g5YGyKp1cg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,309,1763452800"; d="scan'208";a="253871912"
+X-IronPort-AV: E=Sophos;i="6.21,310,1763452800"; d="scan'208";a="215383112"
 Received: from lkp-server02.sh.intel.com (HELO a3936d6a266d) ([10.239.97.151])
- by orviesa001.jf.intel.com with ESMTP; 24 Feb 2026 20:43:10 -0800
+ by orviesa010.jf.intel.com with ESMTP; 24 Feb 2026 22:41:59 -0800
 Received: from kbuild by a3936d6a266d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vv6jV-000000003vV-0nt6;
- Wed, 25 Feb 2026 04:42:52 +0000
-Date: Wed, 25 Feb 2026 12:42:31 +0800
+ (envelope-from <lkp@intel.com>) id 1vv8WS-0000000041t-3Jb9;
+ Wed, 25 Feb 2026 06:39:56 +0000
+Date: Wed, 25 Feb 2026 14:36:28 +0800
 From: kernel test robot <lkp@intel.com>
-To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: oe-kbuild-all@lists.linux.dev, Harry.Wentland@amd.com, simona@ffwll.ch,
- airlied@gmail.com, jani.nikula@linux.intel.com,
- ville.syrjala@linux.intel.com, superm1@kernel.org,
- Leo Li <sunpeng.li@amd.com>
-Subject: Re: [PATCH 2/5] drm/vblank: Introduce deferred vblank enable/disable
-Message-ID: <202602251257.hwgG2w64-lkp@intel.com>
-References: <20260224212639.390768-3-sunpeng.li@amd.com>
+To: Ethan Tidmore <ethantidmore06@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: oe-kbuild-all@lists.linux.dev, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Lijo Lazar <lijo.lazar@amd.com>,
+ Mario Limonciello <superm1@kernel.org>, Ce Sun <cesun102@amd.com>,
+ Yo-Jung Leo Lin <Leo.Lin@amd.com>, Jammy Zhou <Jammy.Zhou@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Ethan Tidmore <ethantidmore06@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix resource leaks
+Message-ID: <202602251459.1jr0PuUf-lkp@intel.com>
+References: <20260225014425.2474802-1-ethantidmore06@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260224212639.390768-3-sunpeng.li@amd.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260225014425.2474802-1-ethantidmore06@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,75 +77,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Ethan,
 
 kernel test robot noticed the following build warnings:
 
 [auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.0-rc1 next-20260224]
-[cannot apply to drm-i915/for-linux-next]
+[also build test WARNING on linus/master v7.0-rc1 next-20260224]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/sunpeng-li-amd-com/drm-vblank-Add-drm_crtc_vblank_is_off-helper/20260225-052945
+url:    https://github.com/intel-lab-lkp/linux/commits/Ethan-Tidmore/drm-amdgpu-Fix-resource-leaks/20260225-095342
 base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260224212639.390768-3-sunpeng.li%40amd.com
-patch subject: [PATCH 2/5] drm/vblank: Introduce deferred vblank enable/disable
-config: microblaze-randconfig-r053-20260225 (https://download.01.org/0day-ci/archive/20260225/202602251257.hwgG2w64-lkp@intel.com/config)
-compiler: microblaze-linux-gcc (GCC) 8.5.0
+patch link:    https://lore.kernel.org/r/20260225014425.2474802-1-ethantidmore06%40gmail.com
+patch subject: [PATCH] drm/amdgpu: Fix resource leaks
+config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20260225/202602251459.1jr0PuUf-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260225/202602251459.1jr0PuUf-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202602251257.hwgG2w64-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202602251459.1jr0PuUf-lkp@intel.com/
 
-cocci warnings: (new ones prefixed by >>)
->> drivers/gpu/drm/drm_vblank.c:1402:6-25: WARNING: atomic_dec_and_test variation before object free at line 1409.
-   drivers/gpu/drm/drm_vblank.c:1402:6-25: WARNING: atomic_dec_and_test variation before object free at line 1416.
+All warnings (new ones prefixed by >>):
 
-vim +1402 drivers/gpu/drm/drm_vblank.c
+   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c: In function 'amdgpu_device_fini_sw':
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:4942:16: warning: unused variable 'idx' [-Wunused-variable]
+    4942 |         int i, idx;
+         |                ^~~
 
-  1385	
-  1386	void drm_vblank_put(struct drm_device *dev, unsigned int pipe)
-  1387	{
-  1388		struct drm_vblank_crtc *vblank = drm_vblank_crtc(dev, pipe);
-  1389		int vblank_offdelay = vblank->config.offdelay_ms;
-  1390		bool needs_deferred_disable;
-  1391	
-  1392		if (drm_WARN_ON(dev, pipe >= dev->num_crtcs))
-  1393			return;
-  1394	
-  1395		if (drm_WARN_ON(dev, atomic_read(&vblank->refcount) == 0))
-  1396			return;
-  1397	
-  1398		needs_deferred_disable =
-  1399			drm_crtc_needs_deferred_vblank(drm_crtc_from_index(dev, pipe));
-  1400	
-  1401		/* Last user schedules interrupt disable */
-> 1402		if (!atomic_dec_and_test(&vblank->refcount))
-  1403			return;
-  1404	
-  1405		if (!vblank_offdelay)
-  1406			return;
-  1407		else if (vblank_offdelay < 0) {
-  1408			if (needs_deferred_disable)
-> 1409				mod_delayed_work(dev->deferred_vblank_wq,
-  1410						 &vblank->disable_work,
-  1411						 0);
-  1412			else
-  1413				vblank_disable_fn(&vblank->disable_timer);
-  1414		} else if (!vblank->config.disable_immediate) {
-  1415			if (needs_deferred_disable)
-  1416				mod_delayed_work(dev->deferred_vblank_wq,
-  1417						 &vblank->disable_work,
-  1418						 msecs_to_jiffies(vblank_offdelay));
-  1419			else
-  1420				mod_timer(&vblank->disable_timer,
-  1421					  jiffies + ((vblank_offdelay * HZ) / 1000));
-  1422		}
-  1423	}
-  1424	
+
+vim +/idx +4942 drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+
+72c8c97b1522ce Andrey Grodzovsky   2021-05-12  4939  
+72c8c97b1522ce Andrey Grodzovsky   2021-05-12  4940  void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+72c8c97b1522ce Andrey Grodzovsky   2021-05-12  4941  {
+bd22e44ad415ac Christian König     2025-01-15 @4942  	int i, idx;
+d37a3929ca0363 Orlando Chamberlain 2023-03-03  4943  	bool px;
+62d5f9f7110ad3 Leslie Shi          2022-01-05  4944  
+a5c5d8d50ecf58 Lang Yu             2021-10-21  4945  	amdgpu_device_ip_fini(adev);
+b61badd20b443e Vitaly Prosyak      2024-11-11  4946  	amdgpu_fence_driver_sw_fini(adev);
+b31d306378d9ba Mario Limonciello   2023-01-04  4947  	amdgpu_ucode_release(&adev->firmware.gpu_info_fw);
+d38ceaf99ed015 Alex Deucher        2015-04-20  4948  	adev->accel_working = false;
+68ce8b24224265 Christian König     2022-03-02  4949  	dma_fence_put(rcu_dereference_protected(adev->gang_submit, true));
+bd22e44ad415ac Christian König     2025-01-15  4950  	for (i = 0; i < MAX_XCP; ++i) {
+bd22e44ad415ac Christian König     2025-01-15  4951  		dma_fence_put(adev->isolation[i].spearhead);
+bd22e44ad415ac Christian König     2025-01-15  4952  		amdgpu_sync_free(&adev->isolation[i].active);
+bd22e44ad415ac Christian König     2025-01-15  4953  		amdgpu_sync_free(&adev->isolation[i].prev);
+bd22e44ad415ac Christian König     2025-01-15  4954  	}
+04442bf70debb1 Lijo Lazar          2021-03-16  4955  
+04442bf70debb1 Lijo Lazar          2021-03-16  4956  	amdgpu_reset_fini(adev);
+04442bf70debb1 Lijo Lazar          2021-03-16  4957  
+d38ceaf99ed015 Alex Deucher        2015-04-20  4958  	/* free i2c buses */
+d38ceaf99ed015 Alex Deucher        2015-04-20  4959  	amdgpu_i2c_fini(adev);
+bfca02892773d2 Shaoyun Liu         2018-02-01  4960  
+6e8ca38ebc9b13 Lijo Lazar          2025-02-05  4961  	if (adev->bios) {
+bfca02892773d2 Shaoyun Liu         2018-02-01  4962  		if (amdgpu_emu_mode != 1)
+d38ceaf99ed015 Alex Deucher        2015-04-20  4963  			amdgpu_atombios_fini(adev);
+e986e89659e18b Lijo Lazar          2025-02-05  4964  		amdgpu_bios_release(adev);
+6e8ca38ebc9b13 Lijo Lazar          2025-02-05  4965  	}
+d37a3929ca0363 Orlando Chamberlain 2023-03-03  4966  
+8a2b51392ac4a5 Lijo Lazar          2023-10-04  4967  	kfree(adev->fru_info);
+8a2b51392ac4a5 Lijo Lazar          2023-10-04  4968  	adev->fru_info = NULL;
+8a2b51392ac4a5 Lijo Lazar          2023-10-04  4969  
+b5aaa82e2b12fe Flora Cui           2025-03-14  4970  	kfree(adev->xcp_mgr);
+b5aaa82e2b12fe Flora Cui           2025-03-14  4971  	adev->xcp_mgr = NULL;
+b5aaa82e2b12fe Flora Cui           2025-03-14  4972  
+127ed492ad2df0 Lijo Lazar          2025-06-30  4973  	px = amdgpu_device_supports_px(adev);
+d37a3929ca0363 Orlando Chamberlain 2023-03-03  4974  
+7b1c6263eaf4fd Alex Deucher        2023-10-17  4975  	if (px || (!dev_is_removable(&adev->pdev->dev) &&
+d37a3929ca0363 Orlando Chamberlain 2023-03-03  4976  				apple_gmux_detect(NULL, NULL)))
+d38ceaf99ed015 Alex Deucher        2015-04-20  4977  		vga_switcheroo_unregister_client(adev->pdev);
+d37a3929ca0363 Orlando Chamberlain 2023-03-03  4978  
+d37a3929ca0363 Orlando Chamberlain 2023-03-03  4979  	if (px)
+83ba126a9be318 Alex Deucher        2016-06-03  4980  		vga_switcheroo_fini_domain_pm_ops(adev->dev);
+d37a3929ca0363 Orlando Chamberlain 2023-03-03  4981  
+38d6be8199331e Alex Deucher        2020-11-20  4982  	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
+b8779475869a26 Christoph Hellwig   2021-07-16  4983  		vga_client_unregister(adev->pdev);
+e9bc1bf7916e00 Yintian Tao         2019-06-05  4984  
+d155bef0636e01 Arnd Bergmann       2019-07-08  4985  	if (IS_ENABLED(CONFIG_PERF_EVENTS))
+9c7c85f7ea1fe5 Jonathan Kim        2019-06-19  4986  		amdgpu_pmu_fini(adev);
+9e2096baab9add Lijo Lazar          2025-10-10  4987  	if (adev->discovery.bin)
+a190d1c75c73ce Xiaojie Yuan        2019-03-27  4988  		amdgpu_discovery_fini(adev);
+72c8c97b1522ce Andrey Grodzovsky   2021-05-12  4989  
+cfbb6b0047448e Andrey Grodzovsky   2022-01-21  4990  	amdgpu_reset_put_reset_domain(adev->reset_domain);
+cfbb6b0047448e Andrey Grodzovsky   2022-01-21  4991  	adev->reset_domain = NULL;
+cfbb6b0047448e Andrey Grodzovsky   2022-01-21  4992  
+72c8c97b1522ce Andrey Grodzovsky   2021-05-12  4993  	kfree(adev->pci_state);
+1dd2fa0e00f17b Lijo Lazar          2025-06-28  4994  	kfree(adev->pcie_reset_ctx.swds_pcistate);
+1dd2fa0e00f17b Lijo Lazar          2025-06-28  4995  	kfree(adev->pcie_reset_ctx.swus_pcistate);
+d38ceaf99ed015 Alex Deucher        2015-04-20  4996  }
+d38ceaf99ed015 Alex Deucher        2015-04-20  4997  
 
 -- 
 0-DAY CI Kernel Test Service
