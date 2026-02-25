@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBBD1FD3760
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 14:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E11A3FD3762
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Feb 2026 14:55:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4F5D910E082;
-	Wed, 25 Feb 2026 14:24:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EF0010E7C4;
+	Wed, 25 Feb 2026 14:55:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RspXEc9B";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c+JKoNYE";
 	dkim-atps=neutral
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A153810E082
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 14:24:09 +0000 (UTC)
-Received: by mail-dl1-f50.google.com with SMTP id
- a92af1059eb24-127337e3870so453350c88.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 06:24:09 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772029449; cv=none;
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4252510E7B9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 14:55:25 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-127148c2112so575731c88.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Feb 2026 06:55:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772031324; cv=none;
  d=google.com; s=arc-20240605;
- b=lnkZ+x3v0qaAmkHAg8MF/DAeoC3sq6iLS8OmkKePU9xgr98pDvWYyGUfSD7pqasYlP
- sL3dbB2FGRI/JFUR9PRk0jyYrOziHVAqUD4m++AbVm5spe6U8+Zyby1uL2fVwBvliDY9
- oi9stjxshy3xTQDt00+jXEljF+dYEofXqlKUdSxsn+ZWCCsyCj5AvSXh1dsIW1dje/np
- izIGZf9ALPcRxSwbbbUP+JLfSs3OGMpxZALD0uGbyc0msBPdW9e4PIkhOksXsWqKusDj
- G64RoqPdIlkPd5BRPeIR1DP4uIk2Fl7Uq1ekftbURgjkIVdb+9MChDzddnTOp0bvCdfj
- g0eQ==
+ b=PdLd37pmEDDFCG8JjLNQd2op30l96faT92we87Ju8nruAAVpuW9ft1kxZ0/2zUeiAR
+ JwDUQ4JmveriQ0ip8b+zBmx/WsmgfF90vdjf/VBu54c96D9mozAwAVWtiLYnPaBRDJow
+ 4khkvTZulCz4b7PbgC43trljSDE0IHLyBax5ipyCNrEaV9fSNSD/l5/ngMAUCU5wR5hR
+ p0TWxMbjuSnAiQQbkg23/8ehhoqzRERV0Q5bNOFgxTnTOZ3IfCIzk7ZDmiTLOuZ+6YLj
+ Mk5OEeI3UpHeqVzzU1HGOwIMGwCqp+xexVryicbDFAlhFQVl4yL/hvapC6jwXcH8b6J0
+ IxaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=m3qEBEXmpv4JwozKSjUi1if3b9RC/ddChLrGOjDEFEI=;
- fh=7HdDirIWVTYH0o/a0buKmgYXTLj9iBgJFOogXhOPrmw=;
- b=RLsCjyYtg1klvZXBbZph8rA3PZbdlJ0PQ1nZVUjk/CmJ9O27eFlVfuCO+4hK9SKMKo
- LcvxKLF5fkBQHlnSLxWqMaRXBS43Z77qS8lAD20gE6Cmr9nSMsjPEhtw707RRD9Q2CH/
- t8Ozmz8AHuaLuI1ibLjeg7fWbP7KKsW3fsDhfR4e62ducHkmmuccDKMrrgv2EbSx3kKM
- GB47tSwazO05ZIuLpPhOiJ3GDQgSXq5HED4346Z29MpMCwrv8XDEYWAmMq/viDfyeu+j
- 9jTo6mRNv5C0l3cLCLlw/cSGrDYO5MzJpgD09GmfU9/1bLul/RaCQNqnDdxmFJ7c/+J8
- bJxQ==; darn=lists.freedesktop.org
+ bh=fNZJ0xlgfHNJMHDff2n0zuiRGlk8llUuEDhpoKZUi5U=;
+ fh=MzjOtP5vDMZ0AGIJ74XcxQ1DKKnKPYxAF2qfsl08MOw=;
+ b=htSA4SJau8BvgiBc33Xr3R4gkPsS0+u1kg5iZRUbAGD7vCmfCQMc/qE9XuRg0+fra8
+ O/9h8vZFLlaEUnyL4koc4tnMCxng6VBs9fixFwwpzYrlysccB1j8y11mjInp0ELiIL3s
+ X6aKe8CbbTSkWB6DIHEj4bgYyBBaKCxZlk4uEtzt5DI2mff+FmvUvDRem462bOlOyXc4
+ qVGBhAFeRUAZPWgB5hMnTeULJJ3HXNgXnFgm2PZtlFiueFQDl2H+J8ndQu10ybuf2pw4
+ Giqo/TQa1KKEzX7PZ454syyXCrmL403tV4uWMIKUQA8YZA5L5JWGvAx3NI91/chseZd0
+ kq9w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772029449; x=1772634249; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1772031324; x=1772636124; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=m3qEBEXmpv4JwozKSjUi1if3b9RC/ddChLrGOjDEFEI=;
- b=RspXEc9BuMmsa6FFoL5zNcrdOCzmL6Dof2NOCpMpvR0JdiBQ2O7kheSYcobOawA2dm
- dBQ/8AyTiIpQMH8RlsKosMs6tnC6oiCvJ8bb9+Av6ugNAOeWXeaIijEgb/glFLDjJTlX
- NTwJsT7a7rrueafHVpH9HEpT+UeEVFvbos5tCX/jqbRzizOxTnuB8/kda14rQAduieSj
- Mw2fUf9tHG099phHPI2c3Y0e6WIQMfwR9jr08mgH3lrAax9GB8Bbdld8uF4Q5nFKl4Uq
- 7epK/JOm4t7kxGGBa8HwouuW83KkI8mUu/gZNWl5tSQHBG6dyib6Qz0DECE7iuwdrX15
- 81Kw==
+ bh=fNZJ0xlgfHNJMHDff2n0zuiRGlk8llUuEDhpoKZUi5U=;
+ b=c+JKoNYEhcZjJoI3n4rpu3du6/3+GkqwyTli58EYL/H3zAT0cBkrsftknwhIPzZlUW
+ gyIJA/3xlfmKW2CxtLa+guHpFrma1kkArXI3rJ896dPp7XpLVXEwPsJ4Lc7Jm6oiQRAy
+ wygKC8qeb2Keo9KEqYqNOKAot7vuvfsDPRIsDOQSF530oNdHRGZJQpkWZ86WaDUjkbGW
+ sOJyWGJBqFNFU4GC5JxvyltkIGST3kwflRqEWX6H+IYa0Vy+sJXe61Nr13VFM46qdtRO
+ RJs6r+DyxSdPqjllllQ5PG3V9Epvtz0Y45178tJj6JHyMzBuPwfUSzB8LVEqRaB2eMVl
+ kHyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772029449; x=1772634249;
+ d=1e100.net; s=20230601; t=1772031324; x=1772636124;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=m3qEBEXmpv4JwozKSjUi1if3b9RC/ddChLrGOjDEFEI=;
- b=B40/nniBLvNm7j/bMuntz/tD4bdiNRiiSWmkITY6pDyEfow88eRT7NxLms9c6FtBnr
- kTgFq5gnn7w1KhKqlGhoRaAWAU9U5OWOTBYNijCTtx4kqxvBX1ZnINVBY5ABhYOLg7DB
- pudStiIhglghJIQdz4y/a8+3l2nkf9ZQysi3VC4xQGkDVcXbiilsNXOHPDdcIDp2qlws
- eGjB7Hn94g4xmXp5TKJ/V41vDxEL+uV9JKzFMy1AwFGIzX1mTDlEb0eiDq0UE2gZBBRK
- 1CrEmx2pJjCdAmgh8c5rQ7fehCe076L9TzKc6FNP9e/3tyPsHzaREzCXCvrqMskJJWqu
- k97g==
+ bh=fNZJ0xlgfHNJMHDff2n0zuiRGlk8llUuEDhpoKZUi5U=;
+ b=r2jHbv6DuKEUFXwDjN/2AdOxbcaeUCOxoDRgQfIb3c6D4Dlo+NhO3l39bE2ltBdbAN
+ HzWi7wu3TZP8ZwI7ABAh6WAf7nbzO+Cmx0exIP+5PnBwlEBJQL7JQlJDC+wuCgtMt+nE
+ O64PnifYp5uKl8SpfHf3pRZcpzsafLnhs+00VxTTg1HC2mA/Igc3ddC7K8FQ8bVAY6mb
+ uql4qJzZy6kWH6S2MDDm/iRvj7XfX1t8xwQWFudcS9O8OTleaLaylvLbFZSc11x7IPCQ
+ hnbJt5SS4jJ5ndc0TclHEjRlGAY55oLbuEkS0FwWzY+I9swZSpxhp7aGyasBn+2wckQT
+ DhHA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXYl95UIpal2PPa1HWJ5RAJ1yXnxRS5wjRkrVp7A3ribBVTNtpnPOvhO1LFQdfUgFHuXAsSIZzI@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzR/8z1NKA3/H/swR3ndyp86+qMfDE7fMDLuBa53RcrWA3x2cN7
- 0LEJ0/pVXZi5ZUxBl5TGtb0GTiO2OofxJRFrv5qmeTm2+/7icufihmUYXlOUAnIZdrgfUkCbLim
- P1Pe8lQhOQFG4YCZTtJuABL+pPtJMXYw=
-X-Gm-Gg: ATEYQzwSt57cHtHnHiybZxoG3RAS0xqqkOsi1XuF6wCCSux61/PFDkv6s8jpiU1+qm0
- ozTjrBQXTmvLsvL9vYf2z0VCSCR423BJHcSJCIH+oJ/aMQwDXqoVwymJGQSMd8WNt+JhI70TuJ6
- UBF1dVDAKswAemX5vHq8dlvXEYjXcDg6/nCM2fLyfk3L3IlJnJqghTG9QbwnrDte0duDpjO5eJI
- OdHefSb6/mRJ+bFsvoIOYc1ws30JrOFB/lJrg2Qep/QnB084zHIBvVY7nqKq/Fut7Mt41XB1Ywk
- we3fjTevlLCp7UeY1qBlV+0M9zc+C3WNG3GCTqXy0tnUJL9OehtwVwJSiiMb+rzy9v8+Zw==
-X-Received: by 2002:a05:7022:45a8:b0:122:33e:6ec1 with SMTP id
- a92af1059eb24-1276ac58439mr3264777c88.0.1772029448455; Wed, 25 Feb 2026
- 06:24:08 -0800 (PST)
+ AJvYcCWb1C1RWPf3y7FhyNtboJ1NTPAA+e/JIBhB8lnuCwibTPMj+xdWeG7aYvQWnMWd4ad/m6O/FwMM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YykQB90tDaYAvpy7PeLnzF2lrCVrD8KFEbCY+W+Yu8r4/D6rN8c
+ IZQmHftSXGTJacYCZtH6dQ4MFYZxLjmmOvKHIR7gPL7baIVbz5GZPrLDFT5k1/LyUxb3mVG7iaC
+ zdJFSDsASBtV+IK58fgNUpHCBjvT7BGA=
+X-Gm-Gg: ATEYQzyYBjtLlBEH7lhpgzNBRUCpAZypeKoqF3EOhLeFlsdSdCsyn5E3+durv+FaePo
+ g/eHDIN73vn4WjCR70jJallMDuKIQEMnKE2tlpUGiMN/Mk89KsMzrwsqQ0Uj/Rd2mXSZx9piouK
+ BMsVJaThNqDjEMWlt4uG2o9tCgjsdFlYZo4tkCLjgZ8xKnsKVB9EDjb/cpa2U3+ftqq+Lqb7YnQ
+ Ko9CDN6eNrrnkw7kJy23senuXku23UHH6xLkS2/R2Yv9uB+O8LumBRHrcNx+amqi1upXOPAzfX4
+ ymNSZAt5esoUl88nqLTWm5P/2FF+uIsEpz933ZaCFu2bFtMtPs0CqjzVvRRNgRpCc7HRZw==
+X-Received: by 2002:a05:7300:238c:b0:2b9:ddef:2c13 with SMTP id
+ 5a478bee46e88-2bd7bd7bc8amr3445616eec.5.1772031324265; Wed, 25 Feb 2026
+ 06:55:24 -0800 (PST)
 MIME-Version: 1.0
-References: <20260225093406.498727-1-kevinyang.wang@amd.com>
- <96885b73-a1fc-4b3f-a35e-0177a415a331@amd.com>
-In-Reply-To: <96885b73-a1fc-4b3f-a35e-0177a415a331@amd.com>
+References: <20260225130520.1655290-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260225130520.1655290-1-srinivasan.shanmugam@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 25 Feb 2026 09:23:57 -0500
-X-Gm-Features: AaiRm51fG2ScPpeyNO5BZk42b1qgVkVa-kqOd_DSpRURxDTlbpNisNMtQ-eVaB4
-Message-ID: <CADnq5_O4u+v9f5XNFipKHPa1qC6tEr0k4ppZXX0tUqrAjY8PXQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: restrict sensor load values to 0-100
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org, 
- alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
+Date: Wed, 25 Feb 2026 09:55:11 -0500
+X-Gm-Features: AaiRm53CgWgqC1qViuCjQPC4B5qB48qcD-dQFT8aILx_jacAIw1FrkrimPiymg4
+Message-ID: <CADnq5_PsvMD1mrE9Y0b59_1FK5cXanAipBBwb4SNVMcdoXZ93A@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Drop redundant timeline handle limit check
+ in userq wait ioctl v2
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,82 +104,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Feb 25, 2026 at 7:14=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wr=
-ote:
+On Wed, Feb 25, 2026 at 8:14=E2=80=AFAM Srinivasan Shanmugam
+<srinivasan.shanmugam@amd.com> wrote:
 >
+> Clang warns that comparing a __u16 value against 65536 is always false.
 >
+> num_syncobj_timeline_handles is defined as __u16, so it can never exceed
+> 65535.
 >
-> On 25-Feb-26 3:04 PM, Yang Wang wrote:
-> > Limit GPU/MEM/VCN load sensor values to 0-100 range via clamp_t to ensu=
-re
-> > validity.
-> >
+> v2: Drop the check instead of changing the limit value. (Christian)
 >
-> Is this a workaround? If it's not within range, it indicates some
-> underlying issue.
+> Fixes the below:
+> amdgpu_userq_fence.c:642:46: warning: result of comparison of constant 65=
+536 with expression of type '__u16' (aka 'unsigned short') is always false =
+[-Wtautological-constant-out-of-range-compare]
+>             wait_info->num_syncobj_timeline_handles > AMDGPU_USERQ_MAX_HA=
+NDLES ||
+>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
-Likely for:
-https://gitlab.freedesktop.org/drm/amd/-/issues/4905
+Please add a Fixes: line.
+With that,
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 1 -
+>  1 file changed, 1 deletion(-)
 >
-> Thanks,
-> Lijo
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
+u/drm/amd/amdgpu/amdgpu_userq_fence.c
+> index 136071172111..3c30512a6266 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+> @@ -637,7 +637,6 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, v=
+oid *data,
+>                 return -ENOTSUPP;
 >
-> > Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/pm/amdgpu_pm.c | 27 +++++++++++++++++++++++----
-> >   1 file changed, 23 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/p=
-m/amdgpu_pm.c
-> > index 938361ecae05..86ef1ffbf1dd 100644
-> > --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-> > @@ -1414,20 +1414,39 @@ static ssize_t amdgpu_set_pp_power_profile_mode=
-(struct device *dev,
-> >
-> >   static int amdgpu_pm_get_sensor_generic(struct amdgpu_device *adev,
-> >                                       enum amd_pp_sensors sensor,
-> > -                                     void *query)
-> > +                                     uint32_t *val)
-> >   {
-> > -     int r, size =3D sizeof(uint32_t);
-> > +     uint32_t tmp =3D UINT_MAX, size =3D sizeof(tmp);
-> > +     int r;
-> > +
-> > +     if (!val)
-> > +             return -EINVAL;
-> >
-> >       r =3D amdgpu_pm_get_access_if_active(adev);
-> >       if (r)
-> >               return r;
-> >
-> >       /* get the sensor value */
-> > -     r =3D amdgpu_dpm_read_sensor(adev, sensor, query, &size);
-> > +     r =3D amdgpu_dpm_read_sensor(adev, sensor, (void *)&tmp, &size);
-> >
-> >       amdgpu_pm_put_access(adev);
-> >
-> > -     return r;
-> > +     if (r)
-> > +             return r;
-> > +
-> > +     switch (sensor) {
-> > +     case AMDGPU_PP_SENSOR_GPU_LOAD:
-> > +     case AMDGPU_PP_SENSOR_MEM_LOAD:
-> > +     case AMDGPU_PP_SENSOR_VCN_LOAD:
-> > +             tmp =3D clamp_t(uint32_t, tmp, 0, 100);
-> > +             break;
-> > +     default:
-> > +             break;
-> > +     }
-> > +
-> > +     *val =3D tmp;
-> > +
-> > +     return 0;
-> >   }
-> >
-> >   /**
+>         if (wait_info->num_syncobj_handles > AMDGPU_USERQ_MAX_HANDLES ||
+> -           wait_info->num_syncobj_timeline_handles > AMDGPU_USERQ_MAX_HA=
+NDLES ||
+>             wait_info->num_bo_write_handles > AMDGPU_USERQ_MAX_HANDLES ||
+>             wait_info->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
+>                 return -EINVAL;
+> --
+> 2.34.1
 >
