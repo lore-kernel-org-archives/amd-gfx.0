@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2997FD5329
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AD6FFD532E
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9036210EA99;
-	Fri, 27 Feb 2026 09:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80CE310EAB4;
+	Fri, 27 Feb 2026 09:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mIddKBM1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ul3rovIH";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A52C710E99F;
- Thu, 26 Feb 2026 15:56:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F81310E9A3;
+ Thu, 26 Feb 2026 16:05:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9CA5260103;
- Thu, 26 Feb 2026 15:56:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E582DC19423;
- Thu, 26 Feb 2026 15:56:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id ABB08600AE;
+ Thu, 26 Feb 2026 16:05:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C81BC19424;
+ Thu, 26 Feb 2026 16:05:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121389;
- bh=kqyt5CklUcx3SkNzffqb+SP2F4CBWvRae/HkP27yv/M=;
+ s=k20201202; t=1772121941;
+ bh=p3nWAP5CT1ulwpvJRakx7FIjnQBi7GhZAUzGirZ6VUs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=mIddKBM1XrVR3dLlPcSb0SzyD8tWLh5Lf6oSzm6BRCDz17mcjOiZhnQ+qQOBwwomf
- ExtmebvGYCHgYem9DeN8g8VYpFY/LC7Yifr6OG9OIMjAcpJy+azMBfheRhVWnwxtuh
- HrzoGPdExxO26fMdqSOjfBmr6HjAbcR9DVT/dXQ1eSCb399e/h1QVktqrUsZ0ynu6b
- Mx01BY4S00YiQsquUUBuXdEOJ/qDczdU6y0ESmH1QWEgWe0bRgQtRpOvREvqoRCsHj
- tIsCl2JNh8Ia6eQlB/TwSG30hC9aP7EpqnLYMuWGx8qctykeBvD7QxRbXV5pVp16F0
- 9v2bf0tfiOBaA==
+ b=ul3rovIH2+WUunaOYEP63DXql7KMYk2OV0h8NQoCk4Kg7NS4RElLfpNXq6VkHpZUF
+ 1FaZT+UHC7xzNc3esBZDQ5GI1UkEzyM8DSFM+56SIG49C/PsrUztxUcJar2c4DBdc1
+ Us/TQodxJKiYzavt//nVqe+ZxU9a18FeSlv5iv6L7LYafpMQHbYTs1SuK/u2PBZzN8
+ TyuT6HlZdnsuqxFciXTSKosJFTYXcaCZkUMXgPm29KMqfQHFiSek83336xSBoqWuSi
+ G6qIXvakzPqVAtgMSstXPG8G69SBqGgIZCqM1+aRQxCs/psd6sO/o6gSUXc3aaSNl7
+ +OWhK5JG9EBng==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:03 -0500
-Subject: [PATCH 01/61] vfs: widen inode hash/lookup functions to u64
+Date: Thu, 26 Feb 2026 10:55:47 -0500
+Subject: [PATCH 45/61] qnx4: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-1-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-45-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,23 +131,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11878; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=kqyt5CklUcx3SkNzffqb+SP2F4CBWvRae/HkP27yv/M=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0EBBcYmv1G5cCKfo2KCIxJusjNjE3iSeqU8
- ZJnXhKztg+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtBAAKCRAADmhBGVaC
- FXBCD/0fi3a6rxKspBHO06sGtcv25p+qnxMpOWntFE57YxJvYQrXSORyNdKiZpz0qr6XsiSVvKn
- gZ3TcTP5Fr1hqwI/TynEHJjaFjOUbr1zHSQ3OW2jAl2W5tSIsz1s6Nu4GaDr2As3S98IdP2V+R4
- gyyX1q/9H/8necwLN9rdjlwSv3euhg5ZoFknw1aVgvVsWH3urSMf06sm3CuPMJHSVmpPR0AUwHZ
- CqZyrrx3E9uJHbqrxI56QeZhEAplY5jmFgu00qXHY9Tb+ahUL7Zfhqy3MlbqCZyCVNDsEKNh+K0
- HkkBT+GV2G4cpd/vFbwHUPjUvRTbJp9OxTgBMh7oEumvPFvdgG8MD0l+o5DAo5fuJGoGSpTBALI
- 9OzP+MrHxQLHxq+jeu4Oue/PrKWscMG0+HaAvE7JkKEj6eRQ0pU2AtrLRl7Ou2nVjSHwQ5rKQSS
- clOkG0rjpbU+lNOh/JdzIAhvUVbiPC8SLW8G7QBZofvxaVBbm8QP+qd0C2EO7ET7sjPqAngcz/B
- chhtxOKLE79PjehJw2dkwP27JXPT7z6OpLIY0cH+nyrNvW3aCvsQxsBv8aerUDYtdv2oftXBn3c
- KzoiPFyEp7ssNRV3Y9vsv1ky1czAJCKZqU7IoeUhsNIJ6i553sM1SmEqWAomzSe2LA9JxXeyz1F
- R+o5dlTMD1TYfGg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1182; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=p3nWAP5CT1ulwpvJRakx7FIjnQBi7GhZAUzGirZ6VUs=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0PCoBESlfHnrvoNKvSIwMyJsP5Qf69ywFk0
+ e4gXuH1Qw+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDwAKCRAADmhBGVaC
+ FbpiEADCqc+dmVuH/SW2kJZwzUG4seXV1W2jOXg3GTT0JJy47XDvMOa8ny7NPegQxcow4mjxnbM
+ ehu+ktF+TsX60rUeNgzMRJ0aAV8Vpg1+exq9jZpO0yl2KYdWD0E8gCEBTEkk8vJ9Ezs7FZMP+Ws
+ atYkMvvR5NACbKcg3TplPWBHeuRZQYNGB4sys4SpnzbQYzrjGhGF+93wr4t3NbPzsGi+oJ3lq5u
+ WuHvq/KfudmAqIKUkrOsLZTgy/3K2ZBAF+1KQUwsskGcQqTZf3gcV+/sfZnUOv+5RwtxamY/q3f
+ fpgJRyIBtliqfUB9+JI4VVhhAcvbeYSRj5z+U4DSQSA8uS+2vC6Bf/5NOe0LqwZRJdTBpdPDwZX
+ apworER0Ru6pzxPYAnQUedV093TdPsPEGUEWAWIm+fVS2g3o1jnpYc6hb2yVePETtvxYezV/EqN
+ qNEhYWvIqK4OgjbR5THIy1ZW4L6H2cJsNx20BXCfRVXn8rKkGwD9LiSqiBa1O3TUezCFyh0zApD
+ UHdBxb9ZUqwbFqirtM3i34p/PQjOnakjp8g0MHzIyHhP+8k4X+qYzvQ8BrWcmZ7a9Pmt7t9ongz
+ jIAROU3o/STE7n93o27h1jhhMdHxLxf0USTG/ySW4Ahx6Ll8okGWAajR6kmvwz3afWFISufeTXF
+ vGbWAiNibA8+Ryw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,287 +162,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change the inode hash/lookup VFS API functions to accept u64 parameters
-instead of unsigned long for inode numbers and hash values. This is
-preparation for widening i_ino itself to u64, which will allow
-filesystems to store full 64-bit inode numbers on 32-bit architectures.
-
-Since unsigned long implicitly widens to u64 on all architectures, this
-change is backward-compatible with all existing callers.
-
-Functions updated:
-  - hash(), find_inode_fast(), find_inode_by_ino_rcu(), test_inode_iunique()
-  - __insert_inode_hash(), iget_locked(), iget5_locked(), iget5_locked_rcu()
-  - ilookup(), ilookup5(), ilookup5_nowait()
-  - find_inode_nowait(), find_inode_rcu()
-  - inode_insert5(), insert_inode_locked4()
-  - insert_inode_locked() (local variable)
-  - dump_mapping() (local variable and format string)
+Update format strings and local variable types in qnx4 for the
+i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/inode.c         | 46 +++++++++++++++++++++++-----------------------
- include/linux/fs.h | 26 +++++++++++++-------------
- 2 files changed, 36 insertions(+), 36 deletions(-)
+ fs/qnx4/inode.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/inode.c b/fs/inode.c
-index cc12b68e021b2c97cc88a46ddc736334ecb8edfa..2cabec9043e8176d20aecc5ce7e0f276c114f122 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -672,7 +672,7 @@ static inline void inode_sb_list_del(struct inode *inode)
+diff --git a/fs/qnx4/inode.c b/fs/qnx4/inode.c
+index 8aeb63d397cfd6c87b7862f0dc7a34cdfdf02f9b..9305b8bb556efda2be578c75fe3eb35ca095f8ef 100644
+--- a/fs/qnx4/inode.c
++++ b/fs/qnx4/inode.c
+@@ -62,7 +62,7 @@ static int qnx4_get_block( struct inode *inode, sector_t iblock, struct buffer_h
+ {
+ 	unsigned long phys;
+ 
+-	QNX4DEBUG((KERN_INFO "qnx4: qnx4_get_block inode=[%ld] iblock=[%ld]\n",inode->i_ino,iblock));
++	QNX4DEBUG((KERN_INFO "qnx4: qnx4_get_block inode=[%lld] iblock=[%ld]\n", inode->i_ino, iblock));
+ 
+ 	phys = qnx4_block_map( inode, iblock );
+ 	if ( phys ) {
+@@ -128,7 +128,7 @@ unsigned long qnx4_block_map( struct inode *inode, long iblock )
+ 			brelse( bh );
  	}
+ 
+-	QNX4DEBUG((KERN_INFO "qnx4: mapping block %ld of inode %ld = %ld\n",iblock,inode->i_ino,block));
++	QNX4DEBUG((KERN_INFO "qnx4: mapping block %ld of inode %lld = %ld\n", iblock, inode->i_ino, block));
+ 	return block;
  }
  
--static unsigned long hash(struct super_block *sb, unsigned long hashval)
-+static unsigned long hash(struct super_block *sb, u64 hashval)
- {
- 	unsigned long tmp;
- 
-@@ -685,12 +685,12 @@ static unsigned long hash(struct super_block *sb, unsigned long hashval)
- /**
-  *	__insert_inode_hash - hash an inode
-  *	@inode: unhashed inode
-- *	@hashval: unsigned long value used to locate this object in the
-+ *	@hashval: u64 value used to locate this object in the
-  *		inode_hashtable.
-  *
-  *	Add an inode to the inode hash for this superblock.
-  */
--void __insert_inode_hash(struct inode *inode, unsigned long hashval)
-+void __insert_inode_hash(struct inode *inode, u64 hashval)
- {
- 	struct hlist_head *b = inode_hashtable + hash(inode->i_sb, hashval);
- 
-@@ -726,7 +726,7 @@ void dump_mapping(const struct address_space *mapping)
- 	struct dentry *dentry_ptr;
- 	struct dentry dentry;
- 	char fname[64] = {};
--	unsigned long ino;
-+	u64 ino;
- 
- 	/*
- 	 * If mapping is an invalid pointer, we don't want to crash
-@@ -750,14 +750,14 @@ void dump_mapping(const struct address_space *mapping)
- 	}
- 
- 	if (!dentry_first) {
--		pr_warn("aops:%ps ino:%lx\n", a_ops, ino);
-+		pr_warn("aops:%ps ino:%llx\n", a_ops, ino);
- 		return;
- 	}
- 
- 	dentry_ptr = container_of(dentry_first, struct dentry, d_u.d_alias);
- 	if (get_kernel_nofault(dentry, dentry_ptr) ||
- 	    !dentry.d_parent || !dentry.d_name.name) {
--		pr_warn("aops:%ps ino:%lx invalid dentry:%px\n",
-+		pr_warn("aops:%ps ino:%llx invalid dentry:%px\n",
- 				a_ops, ino, dentry_ptr);
- 		return;
- 	}
-@@ -768,7 +768,7 @@ void dump_mapping(const struct address_space *mapping)
- 	 * Even if strncpy_from_kernel_nofault() succeeded,
- 	 * the fname could be unreliable
- 	 */
--	pr_warn("aops:%ps ino:%lx dentry name(?):\"%s\"\n",
-+	pr_warn("aops:%ps ino:%llx dentry name(?):\"%s\"\n",
- 		a_ops, ino, fname);
- }
- 
-@@ -1087,7 +1087,7 @@ static struct inode *find_inode(struct super_block *sb,
-  * iget_locked for details.
-  */
- static struct inode *find_inode_fast(struct super_block *sb,
--				struct hlist_head *head, unsigned long ino,
-+				struct hlist_head *head, u64 ino,
- 				bool hash_locked, bool *isnew)
- {
- 	struct inode *inode = NULL;
-@@ -1301,7 +1301,7 @@ EXPORT_SYMBOL(unlock_two_nondirectories);
-  * Note that both @test and @set are called with the inode_hash_lock held, so
-  * they can't sleep.
-  */
--struct inode *inode_insert5(struct inode *inode, unsigned long hashval,
-+struct inode *inode_insert5(struct inode *inode, u64 hashval,
- 			    int (*test)(struct inode *, void *),
- 			    int (*set)(struct inode *, void *), void *data)
- {
-@@ -1378,7 +1378,7 @@ EXPORT_SYMBOL(inode_insert5);
-  * Note that both @test and @set are called with the inode_hash_lock held, so
-  * they can't sleep.
-  */
--struct inode *iget5_locked(struct super_block *sb, unsigned long hashval,
-+struct inode *iget5_locked(struct super_block *sb, u64 hashval,
- 		int (*test)(struct inode *, void *),
- 		int (*set)(struct inode *, void *), void *data)
- {
-@@ -1408,7 +1408,7 @@ EXPORT_SYMBOL(iget5_locked);
-  * This is equivalent to iget5_locked, except the @test callback must
-  * tolerate the inode not being stable, including being mid-teardown.
-  */
--struct inode *iget5_locked_rcu(struct super_block *sb, unsigned long hashval,
-+struct inode *iget5_locked_rcu(struct super_block *sb, u64 hashval,
- 		int (*test)(struct inode *, void *),
- 		int (*set)(struct inode *, void *), void *data)
- {
-@@ -1455,7 +1455,7 @@ EXPORT_SYMBOL_GPL(iget5_locked_rcu);
-  * hashed, and with the I_NEW flag set.  The file system gets to fill it in
-  * before unlocking it via unlock_new_inode().
-  */
--struct inode *iget_locked(struct super_block *sb, unsigned long ino)
-+struct inode *iget_locked(struct super_block *sb, u64 ino)
- {
- 	struct hlist_head *head = inode_hashtable + hash(sb, ino);
- 	struct inode *inode;
-@@ -1527,7 +1527,7 @@ EXPORT_SYMBOL(iget_locked);
-  *
-  * Returns 1 if the inode number is unique, 0 if it is not.
-  */
--static int test_inode_iunique(struct super_block *sb, unsigned long ino)
-+static int test_inode_iunique(struct super_block *sb, u64 ino)
- {
- 	struct hlist_head *b = inode_hashtable + hash(sb, ino);
- 	struct inode *inode;
-@@ -1616,7 +1616,7 @@ EXPORT_SYMBOL(igrab);
-  *
-  * Note2: @test is called with the inode_hash_lock held, so can't sleep.
-  */
--struct inode *ilookup5_nowait(struct super_block *sb, unsigned long hashval,
-+struct inode *ilookup5_nowait(struct super_block *sb, u64 hashval,
- 		int (*test)(struct inode *, void *), void *data, bool *isnew)
- {
- 	struct hlist_head *head = inode_hashtable + hash(sb, hashval);
-@@ -1647,7 +1647,7 @@ EXPORT_SYMBOL(ilookup5_nowait);
-  *
-  * Note: @test is called with the inode_hash_lock held, so can't sleep.
-  */
--struct inode *ilookup5(struct super_block *sb, unsigned long hashval,
-+struct inode *ilookup5(struct super_block *sb, u64 hashval,
- 		int (*test)(struct inode *, void *), void *data)
- {
- 	struct inode *inode;
-@@ -1677,7 +1677,7 @@ EXPORT_SYMBOL(ilookup5);
-  * Search for the inode @ino in the inode cache, and if the inode is in the
-  * cache, the inode is returned with an incremented reference count.
-  */
--struct inode *ilookup(struct super_block *sb, unsigned long ino)
-+struct inode *ilookup(struct super_block *sb, u64 ino)
- {
- 	struct hlist_head *head = inode_hashtable + hash(sb, ino);
- 	struct inode *inode;
-@@ -1726,8 +1726,8 @@ EXPORT_SYMBOL(ilookup);
-  * very carefully implemented.
-  */
- struct inode *find_inode_nowait(struct super_block *sb,
--				unsigned long hashval,
--				int (*match)(struct inode *, unsigned long,
-+				u64 hashval,
-+				int (*match)(struct inode *, u64,
- 					     void *),
- 				void *data)
- {
-@@ -1773,7 +1773,7 @@ EXPORT_SYMBOL(find_inode_nowait);
-  *
-  * The caller must hold the RCU read lock.
-  */
--struct inode *find_inode_rcu(struct super_block *sb, unsigned long hashval,
-+struct inode *find_inode_rcu(struct super_block *sb, u64 hashval,
- 			     int (*test)(struct inode *, void *), void *data)
- {
- 	struct hlist_head *head = inode_hashtable + hash(sb, hashval);
-@@ -1812,7 +1812,7 @@ EXPORT_SYMBOL(find_inode_rcu);
-  * The caller must hold the RCU read lock.
-  */
- struct inode *find_inode_by_ino_rcu(struct super_block *sb,
--				    unsigned long ino)
-+				    u64 ino)
- {
- 	struct hlist_head *head = inode_hashtable + hash(sb, ino);
- 	struct inode *inode;
-@@ -1833,7 +1833,7 @@ EXPORT_SYMBOL(find_inode_by_ino_rcu);
- int insert_inode_locked(struct inode *inode)
- {
- 	struct super_block *sb = inode->i_sb;
--	ino_t ino = inode->i_ino;
-+	u64 ino = inode->i_ino;
- 	struct hlist_head *head = inode_hashtable + hash(sb, ino);
- 	bool isnew;
- 
-@@ -1884,7 +1884,7 @@ int insert_inode_locked(struct inode *inode)
- }
- EXPORT_SYMBOL(insert_inode_locked);
- 
--int insert_inode_locked4(struct inode *inode, unsigned long hashval,
-+int insert_inode_locked4(struct inode *inode, u64 hashval,
- 		int (*test)(struct inode *, void *), void *data)
- {
- 	struct inode *old;
-@@ -2642,7 +2642,7 @@ void init_special_inode(struct inode *inode, umode_t mode, dev_t rdev)
- 		break;
- 	default:
- 		printk(KERN_DEBUG "init_special_inode: bogus i_mode (%o) for"
--				  " inode %s:%lu\n", mode, inode->i_sb->s_id,
-+				  " inode %s:%llu\n", mode, inode->i_sb->s_id,
- 				  inode->i_ino);
- 		break;
- 	}
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 8b3dd145b25ec12b00ac1df17a952d9116b88047..dfa1f475b1c480c503ab6f00e891aa9b051607fa 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -2935,32 +2935,32 @@ static inline int inode_generic_drop(struct inode *inode)
- extern void d_mark_dontcache(struct inode *inode);
- 
- extern struct inode *ilookup5_nowait(struct super_block *sb,
--		unsigned long hashval, int (*test)(struct inode *, void *),
-+		u64 hashval, int (*test)(struct inode *, void *),
- 		void *data, bool *isnew);
--extern struct inode *ilookup5(struct super_block *sb, unsigned long hashval,
-+extern struct inode *ilookup5(struct super_block *sb, u64 hashval,
- 		int (*test)(struct inode *, void *), void *data);
--extern struct inode *ilookup(struct super_block *sb, unsigned long ino);
-+extern struct inode *ilookup(struct super_block *sb, u64 ino);
- 
--extern struct inode *inode_insert5(struct inode *inode, unsigned long hashval,
-+extern struct inode *inode_insert5(struct inode *inode, u64 hashval,
- 		int (*test)(struct inode *, void *),
- 		int (*set)(struct inode *, void *),
- 		void *data);
--struct inode *iget5_locked(struct super_block *, unsigned long,
-+struct inode *iget5_locked(struct super_block *, u64,
- 			   int (*test)(struct inode *, void *),
- 			   int (*set)(struct inode *, void *), void *);
--struct inode *iget5_locked_rcu(struct super_block *, unsigned long,
-+struct inode *iget5_locked_rcu(struct super_block *, u64,
- 			       int (*test)(struct inode *, void *),
- 			       int (*set)(struct inode *, void *), void *);
--extern struct inode * iget_locked(struct super_block *, unsigned long);
-+extern struct inode *iget_locked(struct super_block *, u64);
- extern struct inode *find_inode_nowait(struct super_block *,
--				       unsigned long,
-+				       u64,
- 				       int (*match)(struct inode *,
--						    unsigned long, void *),
-+						    u64, void *),
- 				       void *data);
--extern struct inode *find_inode_rcu(struct super_block *, unsigned long,
-+extern struct inode *find_inode_rcu(struct super_block *, u64,
- 				    int (*)(struct inode *, void *), void *);
--extern struct inode *find_inode_by_ino_rcu(struct super_block *, unsigned long);
--extern int insert_inode_locked4(struct inode *, unsigned long, int (*test)(struct inode *, void *), void *);
-+extern struct inode *find_inode_by_ino_rcu(struct super_block *, u64);
-+extern int insert_inode_locked4(struct inode *, u64, int (*test)(struct inode *, void *), void *);
- extern int insert_inode_locked(struct inode *);
- #ifdef CONFIG_DEBUG_LOCK_ALLOC
- extern void lockdep_annotate_inode_mutex_key(struct inode *inode);
-@@ -3015,7 +3015,7 @@ int setattr_should_drop_sgid(struct mnt_idmap *idmap,
-  */
- #define alloc_inode_sb(_sb, _cache, _gfp) kmem_cache_alloc_lru(_cache, &_sb->s_inode_lru, _gfp)
- 
--extern void __insert_inode_hash(struct inode *, unsigned long hashval);
-+extern void __insert_inode_hash(struct inode *, u64 hashval);
- static inline void insert_inode_hash(struct inode *inode)
- {
- 	__insert_inode_hash(inode, inode->i_ino);
 
 -- 
 2.53.0
