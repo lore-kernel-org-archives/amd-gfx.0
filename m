@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54E42FD5320
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 153E0FD532B
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BE5410EAAD;
-	Fri, 27 Feb 2026 09:17:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AD3010EAA7;
+	Fri, 27 Feb 2026 09:17:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k5dYSDIB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Al9v4g11";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E846B10E9A6;
- Thu, 26 Feb 2026 16:08:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F1B910E96B;
+ Thu, 26 Feb 2026 16:00:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B85EA4090F;
- Thu, 26 Feb 2026 16:08:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6370AC2BCAF;
- Thu, 26 Feb 2026 16:08:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7011161337;
+ Thu, 26 Feb 2026 16:00:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9001C2BC86;
+ Thu, 26 Feb 2026 16:00:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772122103;
- bh=DKhApmyz97hHNqRDBfnn+HmbPok4RTPICktaKEFjeAw=;
+ s=k20201202; t=1772121654;
+ bh=/Rh5l92pxUR0Hc+NWiEklxCWU8fkH3LHs6FMqZ19Oo8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=k5dYSDIBAPQzqW+BguNSbxXsI77/BBR1Zqkb2GTl5B+wNZoLV877xFojJINgg+Hfc
- UrOVLQI/YLOUBa4a3ST9a0Igdn6L8rKk+lTiknPRPXqyYw1a4Ly58655gQuh8GP9Y9
- rs4kvUwYSS+RyO9nii4FBh0CFg9GIl8SJdAnjcjlt/dTjcLvW0ePiFCs7YE0MHvU60
- DC6hyGIImi5K1WDNQGddQrz0a2NwQ8qfapAn52bH5aHlz6kpMX6qiGAwc3l5RsMMi5
- TWpwAqf4c35siWMewXwkgGem7qGmVkQMu6wwPk3bFQPYe1ZnYG7S+4zzzLfGJLMoyL
- yuwTxLt9qHLnQ==
+ b=Al9v4g11bgttBretqCk6v+BK+murK6wO5/oUmaNNieQtPjIMVjtuBO8PMZCCyv/5+
+ X8jdGZPNJ3Fz/FAWtJMVYZybLTu0jAyAiSWOJwgQtVZSWj7pQcO0riI2lmq7rC4Jth
+ BDf1bLNgHpQRr3qrClsuzCYSIm/wZNEjHIvoniQuogUVRVQhiudWxOeF0x6s3TdCol
+ IfHTDEbWAbTw0dspo7vWT/gYzIm2KIAMtE5csK3lSM3M53qqo4hmxiK0S9h17zteF7
+ 3LvhC5cERiGItYRrQrFzWgcBUAKKqhnM0ywV1SL7X70zb/FKxoNkZCVAzfkqw8nZwA
+ 2Su+wJiblkW6g==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:56:00 -0500
-Subject: [PATCH 58/61] fsverity: update format string for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:24 -0500
+Subject: [PATCH 22/61] befs: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-58-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-22-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,23 +131,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=793; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=DKhApmyz97hHNqRDBfnn+HmbPok4RTPICktaKEFjeAw=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0ShJVaxVP99hosE1VCTn8mUr4e1D55bkFMr
- JLwUwTrQ8WJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEgAKCRAADmhBGVaC
- FW1wD/9n4D6Ggc73Uc+iboQycTz+zQzDx3YB6SvNvw5tExXkQWrmbQHXWE0jl7c6Vv/TMM5TYO9
- XX6CptmWBNF0kABjqGkwrvHTDy/oyVFDYPaS78W5JcqRlHO+So3SlR23AEn9lhJAdZzlSzuZq+u
- HzC3jaM5bQPJnbqqli463SyTOrMsBafb9RJYiHZJQsFE20MzfSqd5dIHjuKKTjil+qsqBx0H4vj
- a3jlcDRGPwnJQ16+G1JcSgAbtFVslpI/FpVdkpOQItQ8Smhsffm5rqsWL3rKZVMbbc5+nwn4s6D
- a3hxXNGxqd+96VN4BQUZ9f9pUlGCJOuj7Kc9nTOAadOsCObc52ugfbdTfElrTl7JLLTMXOx24SL
- IQnmSBSw3tVQNQHOfdkYiiHKD9GjmZZtwYGU/X8jf+c0cejzd7lqJr+1k24qEFL5rNA8EicGvmo
- UhNG0XQ7IWd9ji4Tn1Hnjb6iqL1cugOk4rx1ms9l4An0V5SjLmDJDtl04mdxf+3CYLhw7zN+bXb
- Tj2y70Cdw++wiRSHr4B+1EHhS0mGBjuy9GC3CImYWdDJt1sMdK46feI5rvC5EpK+O7++Boc36rL
- /5Z9a/w9FwsXha3/fp8uwVNalc/hucFqX7HnNt9MRtb3RIMdwskorXYS2D90WUhctvSUvMRRbM3
- rmbMtROf0z871BA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3936; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=/Rh5l92pxUR0Hc+NWiEklxCWU8fkH3LHs6FMqZ19Oo8=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0Jvmm76WStrh5xahUTKUjiwtcnMq9ptlqKZ
+ tqDyJlo9miJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCQAKCRAADmhBGVaC
+ FbmUD/9q5ZqayUoYrNWZkjLIrqrANg3Io4MBJ6MmK3WYFloPzA6GMTaNhuhwZKsYzL7+nxAIapv
+ pXVOs2Vc0T4DbTVK49XTh0Ak98am85jThlTD1sq+Tzh7C64LE4MCRLirQG75+bclLqRFhek8FUi
+ 7JaaQRNSQeVvJbVY13poNMa6w5xyLnXXvTkezLGWfkAO6iG2zDNevRjhNzizbfq6fjuBqenD1O4
+ Cpmh9/t0YPuPpceU7G/qxPhwGQ+uz9RQx6y8iPTY9lWyWo1fjIJLf87FXqLnjGT39NnfuLl4MQC
+ 2wURNAbVNF8xbZs78b1tPxp2YHop5vI05kxdwnqJC881GAzBpy3zqJGxTA98tExCGG5tXIPkjiI
+ jBhDIIzyKFZtfBvcEXttoK2b9x8U6kNs+uSCT1WZRLhLlv7Bv7dSo4PR9Bih9LV8Oqj+sx9sl1Y
+ kusaOE5oDwfnhkjNusNUQNSpVO1U8Cv1eMUODJx1cORGtqci+dqTQJJltibPcrPoAj5ExD0VMvS
+ 1Ic2P472u61RvIhg7soyu0jhEJi8ZwT5bEw19a+dkpLoQPlrJOJ+anDi5hL9QM5l/BFiZ6v/eEf
+ lXRJN/PX62lhGypSgM4xlJPcKRmNY9fIklDVBTIp+GeYU+uuxwAqKOK5wTMNybQqHCkbrR0zciD
+ 3KB09K53Ips4MBQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,27 +162,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format string from %lu to %llu for inode->i_ino now that
-i_ino is u64 instead of unsigned long.
+Update format strings and local variable types in befs for the
+i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/verity/init.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/befs/linuxvfs.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/fs/verity/init.c b/fs/verity/init.c
-index d6520660858386d3b7d69b20a459dc27d8017a5f..3aa55dec88fc919792a2cb4be476f8481ef78a9e 100644
---- a/fs/verity/init.c
-+++ b/fs/verity/init.c
-@@ -50,7 +50,7 @@ void fsverity_msg(const struct inode *inode, const char *level,
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 	if (inode)
--		printk("%sfs-verity (%s, inode %lu): %pV\n",
-+		printk("%sfs-verity (%s, inode %llu): %pV\n",
- 		       level, inode->i_sb->s_id, inode->i_ino, &vaf);
- 	else
- 		printk("%sfs-verity: %pV\n", level, &vaf);
+diff --git a/fs/befs/linuxvfs.c b/fs/befs/linuxvfs.c
+index cecbc92f959aa5098313050b515c9af38662c8e6..fac23d6cb6c49f2cab691af357f76a17e1c0ef29 100644
+--- a/fs/befs/linuxvfs.c
++++ b/fs/befs/linuxvfs.c
+@@ -140,20 +140,20 @@ befs_get_block(struct inode *inode, sector_t block,
+ 	int res;
+ 	ulong disk_off;
+ 
+-	befs_debug(sb, "---> befs_get_block() for inode %lu, block %ld",
+-		   (unsigned long)inode->i_ino, (long)block);
++	befs_debug(sb, "---> befs_get_block() for inode %llu, block %ld",
++		   (unsigned long long)inode->i_ino, (long)block);
+ 	if (create) {
+ 		befs_error(sb, "befs_get_block() was asked to write to "
+-			   "block %ld in inode %lu", (long)block,
+-			   (unsigned long)inode->i_ino);
++			   "block %ld in inode %llu", (long)block,
++			   (unsigned long long)inode->i_ino);
+ 		return -EPERM;
+ 	}
+ 
+ 	res = befs_fblock2brun(sb, ds, block, &run);
+ 	if (res != BEFS_OK) {
+ 		befs_error(sb,
+-			   "<--- %s for inode %lu, block %ld ERROR",
+-			   __func__, (unsigned long)inode->i_ino,
++			   "<--- %s for inode %llu, block %ld ERROR",
++			   __func__, (unsigned long long)inode->i_ino,
+ 			   (long)block);
+ 		return -EFBIG;
+ 	}
+@@ -162,8 +162,8 @@ befs_get_block(struct inode *inode, sector_t block,
+ 
+ 	map_bh(bh_result, inode->i_sb, disk_off);
+ 
+-	befs_debug(sb, "<--- %s for inode %lu, block %ld, disk address %lu",
+-		  __func__, (unsigned long)inode->i_ino, (long)block,
++	befs_debug(sb, "<--- %s for inode %llu, block %ld, disk address %lu",
++		  __func__, (unsigned long long)inode->i_ino, (long)block,
+ 		  (unsigned long)disk_off);
+ 
+ 	return 0;
+@@ -181,7 +181,7 @@ befs_lookup(struct inode *dir, struct dentry *dentry, unsigned int flags)
+ 	char *utfname;
+ 	const char *name = dentry->d_name.name;
+ 
+-	befs_debug(sb, "---> %s name %pd inode %ld", __func__,
++	befs_debug(sb, "---> %s name %pd inode %lld", __func__,
+ 		   dentry, dir->i_ino);
+ 
+ 	/* Convert to UTF-8 */
+@@ -224,7 +224,7 @@ befs_readdir(struct file *file, struct dir_context *ctx)
+ 	size_t keysize;
+ 	char keybuf[BEFS_NAME_LEN + 1];
+ 
+-	befs_debug(sb, "---> %s name %pD, inode %ld, ctx->pos %lld",
++	befs_debug(sb, "---> %s name %pD, inode %lld, ctx->pos %lld",
+ 		  __func__, file, inode->i_ino, ctx->pos);
+ 
+ 	while (1) {
+@@ -233,7 +233,7 @@ befs_readdir(struct file *file, struct dir_context *ctx)
+ 
+ 		if (result == BEFS_ERR) {
+ 			befs_debug(sb, "<--- %s ERROR", __func__);
+-			befs_error(sb, "IO error reading %pD (inode %lu)",
++			befs_error(sb, "IO error reading %pD (inode %llu)",
+ 				   file, inode->i_ino);
+ 			return -EIO;
+ 
+@@ -324,7 +324,7 @@ static struct inode *befs_iget(struct super_block *sb, unsigned long ino)
+ 	bh = sb_bread(sb, inode->i_ino);
+ 	if (!bh) {
+ 		befs_error(sb, "unable to read inode block - "
+-			   "inode = %lu", inode->i_ino);
++			   "inode = %llu", inode->i_ino);
+ 		goto unacquire_none;
+ 	}
+ 
+@@ -333,7 +333,7 @@ static struct inode *befs_iget(struct super_block *sb, unsigned long ino)
+ 	befs_dump_inode(sb, raw_inode);
+ 
+ 	if (befs_check_inode(sb, raw_inode, inode->i_ino) != BEFS_OK) {
+-		befs_error(sb, "Bad inode: %lu", inode->i_ino);
++		befs_error(sb, "Bad inode: %llu", inode->i_ino);
+ 		goto unacquire_bh;
+ 	}
+ 
+@@ -407,7 +407,7 @@ static struct inode *befs_iget(struct super_block *sb, unsigned long ino)
+ 			inode->i_op = &simple_symlink_inode_operations;
+ 		}
+ 	} else {
+-		befs_error(sb, "Inode %lu is not a regular file, "
++		befs_error(sb, "Inode %llu is not a regular file, "
+ 			   "directory or symlink. THAT IS WRONG! BeFS has no "
+ 			   "on disk special files", inode->i_ino);
+ 		goto unacquire_bh;
 
 -- 
 2.53.0
