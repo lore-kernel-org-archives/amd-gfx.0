@@ -4,74 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77D9DFD5327
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BA04FD531C
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3286810EA85;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2858010EA83;
 	Fri, 27 Feb 2026 09:17:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="bLq8scXn";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="AUyzYfQ9";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="bLq8scXn";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="AUyzYfQ9";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="XJGRYCvU";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="HFKLpE5P";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="P0cj5v4E";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="qDd8WHtq";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C47810E9AC
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 17:11:16 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D8F410E9C6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 17:00:44 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A6EE11FA8E;
- Thu, 26 Feb 2026 17:11:14 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id BD9CC1FB1A;
+ Thu, 26 Feb 2026 17:00:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1772125874; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1772125243; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=M8csZr2EQgc5N3LRaH5ivagOwuXzf8UvC8RjMLY1sRU=;
- b=bLq8scXnwXC0vwEJ5ilKWXpiGzWGXINIRxQGuAPYznnzF8dJ7yEAGsRN1FXFSCo0wMOtEw
- R1r7iRQfHNM8PtehEoACNOxGhhYttQpUUfNxxp1s2Wvc9j05A7FUEFY5faSoAqQhjduxby
- hGwdqMrN8ovxNjwcyfxmNJZvL2UdNBA=
+ bh=2UqxE3+lcinVC8tUtPMhxZS4tV0HDyUFUfF7VsRmpXg=;
+ b=XJGRYCvUQEtIavuwyI0SAwKPiy3GZ/OGVFA/HK00Zt+6pITIKUpnRL9qJli9zFinAkD1W7
+ Vxgy8eY26i46GzNiwxgtrpkXkYptZJCqiB05xpDR2FfG7+w4FXN6zZ2zwKUXqTSCs2t/PT
+ iRkQO9+ZXTTMOyySveoDk4AAkQYE2SE=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1772125874;
+ s=susede2_ed25519; t=1772125243;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=M8csZr2EQgc5N3LRaH5ivagOwuXzf8UvC8RjMLY1sRU=;
- b=AUyzYfQ90XcSZmOs/v84BZ0D0IAVBm4VSfgx0h3wTW4vNmvkFtLxsrW/okGqwdCnF/6uEc
- +rRoz6E13pCoehCw==
+ bh=2UqxE3+lcinVC8tUtPMhxZS4tV0HDyUFUfF7VsRmpXg=;
+ b=HFKLpE5PEy48uwFKGnDhcBt+zN1U7QXn1+eST5YuNecl5/9geGKgIwMhoURm5MEd+cRRnD
+ Ek1LpwK7K+IiblBQ==
 Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=bLq8scXn;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=AUyzYfQ9
+	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1772125874; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1772125240; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=M8csZr2EQgc5N3LRaH5ivagOwuXzf8UvC8RjMLY1sRU=;
- b=bLq8scXnwXC0vwEJ5ilKWXpiGzWGXINIRxQGuAPYznnzF8dJ7yEAGsRN1FXFSCo0wMOtEw
- R1r7iRQfHNM8PtehEoACNOxGhhYttQpUUfNxxp1s2Wvc9j05A7FUEFY5faSoAqQhjduxby
- hGwdqMrN8ovxNjwcyfxmNJZvL2UdNBA=
+ bh=2UqxE3+lcinVC8tUtPMhxZS4tV0HDyUFUfF7VsRmpXg=;
+ b=P0cj5v4E6hRE7j8RzUgxGJPn1i5piS2UxiIx1ItwZ56RFolWcP2L5iYRpfabk3xpxJajdy
+ 2cskCjRdF1qAxrAvUUWm9uDlwOb5uzOicFHIkGNUOGU2xvBSrsDYnKZwwsWhpkbVWNZGW4
+ nC9jI1iVB3z8PRq+9A6F/BRSx4k26yM=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1772125874;
+ s=susede2_ed25519; t=1772125240;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=M8csZr2EQgc5N3LRaH5ivagOwuXzf8UvC8RjMLY1sRU=;
- b=AUyzYfQ90XcSZmOs/v84BZ0D0IAVBm4VSfgx0h3wTW4vNmvkFtLxsrW/okGqwdCnF/6uEc
- +rRoz6E13pCoehCw==
+ bh=2UqxE3+lcinVC8tUtPMhxZS4tV0HDyUFUfF7VsRmpXg=;
+ b=qDd8WHtqgMZ3g7j76If0cqNMPcnUnXUjZYYYy50JHWmm2+96xHsEXdjzAcqO2Nfud1EwU2
+ UYQIvBB456QifSAA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8EC4B3EA62;
- Thu, 26 Feb 2026 17:11:14 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A90923EA62;
+ Thu, 26 Feb 2026 17:00:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id cu1uIrJ+oGlERwAAD6G6ig
- (envelope-from <jack@suse.cz>); Thu, 26 Feb 2026 17:11:14 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Cg06KTh8oGmpPAAAD6G6ig
+ (envelope-from <jack@suse.cz>); Thu, 26 Feb 2026 17:00:40 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 1EDF2A0A27; Thu, 26 Feb 2026 18:11:06 +0100 (CET)
-Date: Thu, 26 Feb 2026 18:11:06 +0100
+ id 545EAA0A27; Thu, 26 Feb 2026 18:00:36 +0100 (CET)
+Date: Thu, 26 Feb 2026 18:00:36 +0100
 From: Jan Kara <jack@suse.cz>
 To: Jeff Layton <jlayton@kernel.org>
 Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -166,19 +164,15 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  linux-perf-users@vger.kernel.org, 
  linux-fscrypt@vger.kernel.org, linux-xfs@vger.kernel.org,
  linux-hams@vger.kernel.org, linux-x25@vger.kernel.org
-Subject: Re: [PATCH 03/61] trace: update VFS-layer trace events for u64 i_ino
-Message-ID: <6exhq5gjvef5obfsqwkxfcpl2sjqmlv7klrzolodzpcjolgrmd@ds42ulhod7pw>
+Subject: Re: [PATCH 01/61] vfs: widen inode hash/lookup functions to u64
+Message-ID: <cmxf6pu3xuwvbhg3alu725hd4b3dheowoumd6drolde7pypwor@eplss6764uuf>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
- <20260226-iino-u64-v1-3-ccceff366db9@kernel.org>
+ <20260226-iino-u64-v1-1-ccceff366db9@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260226-iino-u64-v1-3-ccceff366db9@kernel.org>
-X-Spamd-Bar: /
-X-Rspamd-Queue-Id: A6EE11FA8E
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-0.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+In-Reply-To: <20260226-iino-u64-v1-1-ccceff366db9@kernel.org>
+X-Spamd-Result: default: False [-0.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FORGED_RECIPIENTS(2.00)[m:viro@zeniv.linux.org.uk, m:jack@suse.cz,
  m:rostedt@goodmis.org, m:mathieu.desnoyers@efficios.com,
  m:dan.j.williams@intel.com, m:willy@infradead.org, m:osalvador@suse.de,
@@ -214,26 +208,20 @@ X-Spamd-Result: default: False [-0.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  s:jfs-discussion
  @lists.sourceforge.net,s:linux-f2fs-devel@lists.sourceforge.net,s:apparmor@lists.ubuntu.com];
  SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_RHS_NOT_FQDN(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- RCVD_TLS_LAST(0.00)[]; RCVD_COUNT_THREE(0.00)[3];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; TO_DN_SOME(0.00)[];
- ARC_NA(0.00)[];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- MIME_TRACE(0.00)[0:+]; FROM_HAS_DN(0.00)[];
+ MID_RHS_NOT_FQDN(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; MISSING_XM_UA(0.00)[]; ARC_NA(0.00)[];
+ TAGGED_RCPT(0.00)[];
  FREEMAIL_CC(0.00)[zeniv.linux.org.uk,kernel.org,suse.cz,goodmis.org,efficios.com,intel.com,infradead.org,mit.edu,linux.dev,suse.de,redhat.com,manguebit.org,dilger.ca,suse.com,oracle.com,brown.name,talpey.com,samba.org,gmail.com,microsoft.com,dubeyko.com,ionkov.net,codewreck.org,crudebyte.com,auristor.com,themaw.net,cs.cmu.edu,fluxnic.net,tyhicks.com,physik.fu-berlin.de,vivo.com,artax.karlin.mff.cuni.cz,nod.at,paragon-software.com,fasheh.com,evilplan.org,linux.alibaba.com,omnibond.com,szeredi.hu,alarsen.net,huawei.com,wdc.com,canonical.com,paul-moore.com,namei.org,hallyn.com,linux.ibm.com,schaufler-ca.com,amd.com,ffwll.ch,linaro.org,google.com,davemloft.net,arm.com,linux.intel.com,dev.tdt.de,vger.kernel.org,lists.linux.dev,kvack.org,lists.sourceforge.net,lists.samba.org,lists.infradead.org,coda.cs.cmu.edu,lists.orangefs.org,lists.ubuntu.com,lists.freedesktop.org,lists.linaro.org];
- RCPT_COUNT_GT_50(0.00)[146];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- TAGGED_RCPT(0.00)[]; MISSING_XM_UA(0.00)[];
- RCVD_VIA_SMTP_AUTH(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
- R_RATELIMIT(0.00)[to_ip_from(RL1uz4ghne7c4p595ugmmfw3g8)];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email, suse.cz:dkim,
- imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
+ RCVD_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLs9g4ywj3srcibiwb6pkkw9we)];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; RCPT_COUNT_GT_50(0.00)[146];
+ RCVD_TLS_LAST(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
+ suse.cz:email]
 X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -249,73 +237,299 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu 26-02-26 10:55:05, Jeff Layton wrote:
-> Update trace event definitions in VFS-layer trace headers to use u64
-> instead of ino_t/unsigned long for inode number fields, and change
-> format strings from %lu/%lx to %llu/%llx to match.
+On Thu 26-02-26 10:55:03, Jeff Layton wrote:
+> Change the inode hash/lookup VFS API functions to accept u64 parameters
+> instead of unsigned long for inode numbers and hash values. This is
+> preparation for widening i_ino itself to u64, which will allow
+> filesystems to store full 64-bit inode numbers on 32-bit architectures.
 > 
-> This is needed because i_ino is now u64. Changing trace event field
-> types changes the binary trace format, but the self-describing format
-> metadata handles this transparently for modern trace-cmd and perf.
+> Since unsigned long implicitly widens to u64 on all architectures, this
+> change is backward-compatible with all existing callers.
 > 
-> Files updated:
->   - cachefiles.h, filelock.h, filemap.h, fs_dax.h, fsverity.h,
->     hugetlbfs.h, netfs.h, readahead.h, timestamp.h, writeback.h
+> Functions updated:
+>   - hash(), find_inode_fast(), find_inode_by_ino_rcu(), test_inode_iunique()
+>   - __insert_inode_hash(), iget_locked(), iget5_locked(), iget5_locked_rcu()
+>   - ilookup(), ilookup5(), ilookup5_nowait()
+>   - find_inode_nowait(), find_inode_rcu()
+>   - inode_insert5(), insert_inode_locked4()
+>   - insert_inode_locked() (local variable)
+>   - dump_mapping() (local variable and format string)
 > 
 > Signed-off-by: Jeff Layton <jlayton@kernel.org>
 
-...
+Looks good. Feel free to add:
 
-> diff --git a/include/trace/events/writeback.h b/include/trace/events/writeback.h
-> index 4d3d8c8f3a1bc3e5ef10fc96e3c6dbbd0cf00c98..cc7651749eb3ce1123cb3ea9496f0803a0f4c1a0 100644
-> --- a/include/trace/events/writeback.h
-> +++ b/include/trace/events/writeback.h
-> @@ -67,7 +67,7 @@ DECLARE_EVENT_CLASS(writeback_folio_template,
->  
->  	TP_STRUCT__entry (
->  		__array(char, name, 32)
-> -		__field(ino_t, ino)
-> +		__field(u64, ino)
->  		__field(pgoff_t, index)
->  	),
->  
-> @@ -79,9 +79,9 @@ DECLARE_EVENT_CLASS(writeback_folio_template,
->  		__entry->index = folio->index;
->  	),
->  
-> -	TP_printk("bdi %s: ino=%lu index=%lu",
-> +	TP_printk("bdi %s: ino=%llu index=%lu",
->  		__entry->name,
-> -		(unsigned long)__entry->ino,
-> +		(unsigned long long)__entry->ino,
-
-No need for explicit typing to ULL?
-
->  		__entry->index
->  	)
->  );
-> @@ -108,7 +108,7 @@ DECLARE_EVENT_CLASS(writeback_dirty_inode_template,
->  
->  	TP_STRUCT__entry (
->  		__array(char, name, 32)
-> -		__field(ino_t, ino)
-> +		__field(u64, ino)
->  		__field(unsigned long, state)
->  		__field(unsigned long, flags)
->  	),
-> @@ -123,9 +123,9 @@ DECLARE_EVENT_CLASS(writeback_dirty_inode_template,
->  		__entry->flags		= flags;
->  	),
->  
-> -	TP_printk("bdi %s: ino=%lu state=%s flags=%s",
-> +	TP_printk("bdi %s: ino=%llu state=%s flags=%s",
->  		__entry->name,
-> -		(unsigned long)__entry->ino,
-> +		(unsigned long long)__entry->ino,
-
-And here as well? And many times below as well...
+Reviewed-by: Jan Kara <jack@suse.cz>
 
 								Honza
+
+> ---
+>  fs/inode.c         | 46 +++++++++++++++++++++++-----------------------
+>  include/linux/fs.h | 26 +++++++++++++-------------
+>  2 files changed, 36 insertions(+), 36 deletions(-)
+> 
+> diff --git a/fs/inode.c b/fs/inode.c
+> index cc12b68e021b2c97cc88a46ddc736334ecb8edfa..2cabec9043e8176d20aecc5ce7e0f276c114f122 100644
+> --- a/fs/inode.c
+> +++ b/fs/inode.c
+> @@ -672,7 +672,7 @@ static inline void inode_sb_list_del(struct inode *inode)
+>  	}
+>  }
+>  
+> -static unsigned long hash(struct super_block *sb, unsigned long hashval)
+> +static unsigned long hash(struct super_block *sb, u64 hashval)
+>  {
+>  	unsigned long tmp;
+>  
+> @@ -685,12 +685,12 @@ static unsigned long hash(struct super_block *sb, unsigned long hashval)
+>  /**
+>   *	__insert_inode_hash - hash an inode
+>   *	@inode: unhashed inode
+> - *	@hashval: unsigned long value used to locate this object in the
+> + *	@hashval: u64 value used to locate this object in the
+>   *		inode_hashtable.
+>   *
+>   *	Add an inode to the inode hash for this superblock.
+>   */
+> -void __insert_inode_hash(struct inode *inode, unsigned long hashval)
+> +void __insert_inode_hash(struct inode *inode, u64 hashval)
+>  {
+>  	struct hlist_head *b = inode_hashtable + hash(inode->i_sb, hashval);
+>  
+> @@ -726,7 +726,7 @@ void dump_mapping(const struct address_space *mapping)
+>  	struct dentry *dentry_ptr;
+>  	struct dentry dentry;
+>  	char fname[64] = {};
+> -	unsigned long ino;
+> +	u64 ino;
+>  
+>  	/*
+>  	 * If mapping is an invalid pointer, we don't want to crash
+> @@ -750,14 +750,14 @@ void dump_mapping(const struct address_space *mapping)
+>  	}
+>  
+>  	if (!dentry_first) {
+> -		pr_warn("aops:%ps ino:%lx\n", a_ops, ino);
+> +		pr_warn("aops:%ps ino:%llx\n", a_ops, ino);
+>  		return;
+>  	}
+>  
+>  	dentry_ptr = container_of(dentry_first, struct dentry, d_u.d_alias);
+>  	if (get_kernel_nofault(dentry, dentry_ptr) ||
+>  	    !dentry.d_parent || !dentry.d_name.name) {
+> -		pr_warn("aops:%ps ino:%lx invalid dentry:%px\n",
+> +		pr_warn("aops:%ps ino:%llx invalid dentry:%px\n",
+>  				a_ops, ino, dentry_ptr);
+>  		return;
+>  	}
+> @@ -768,7 +768,7 @@ void dump_mapping(const struct address_space *mapping)
+>  	 * Even if strncpy_from_kernel_nofault() succeeded,
+>  	 * the fname could be unreliable
+>  	 */
+> -	pr_warn("aops:%ps ino:%lx dentry name(?):\"%s\"\n",
+> +	pr_warn("aops:%ps ino:%llx dentry name(?):\"%s\"\n",
+>  		a_ops, ino, fname);
+>  }
+>  
+> @@ -1087,7 +1087,7 @@ static struct inode *find_inode(struct super_block *sb,
+>   * iget_locked for details.
+>   */
+>  static struct inode *find_inode_fast(struct super_block *sb,
+> -				struct hlist_head *head, unsigned long ino,
+> +				struct hlist_head *head, u64 ino,
+>  				bool hash_locked, bool *isnew)
+>  {
+>  	struct inode *inode = NULL;
+> @@ -1301,7 +1301,7 @@ EXPORT_SYMBOL(unlock_two_nondirectories);
+>   * Note that both @test and @set are called with the inode_hash_lock held, so
+>   * they can't sleep.
+>   */
+> -struct inode *inode_insert5(struct inode *inode, unsigned long hashval,
+> +struct inode *inode_insert5(struct inode *inode, u64 hashval,
+>  			    int (*test)(struct inode *, void *),
+>  			    int (*set)(struct inode *, void *), void *data)
+>  {
+> @@ -1378,7 +1378,7 @@ EXPORT_SYMBOL(inode_insert5);
+>   * Note that both @test and @set are called with the inode_hash_lock held, so
+>   * they can't sleep.
+>   */
+> -struct inode *iget5_locked(struct super_block *sb, unsigned long hashval,
+> +struct inode *iget5_locked(struct super_block *sb, u64 hashval,
+>  		int (*test)(struct inode *, void *),
+>  		int (*set)(struct inode *, void *), void *data)
+>  {
+> @@ -1408,7 +1408,7 @@ EXPORT_SYMBOL(iget5_locked);
+>   * This is equivalent to iget5_locked, except the @test callback must
+>   * tolerate the inode not being stable, including being mid-teardown.
+>   */
+> -struct inode *iget5_locked_rcu(struct super_block *sb, unsigned long hashval,
+> +struct inode *iget5_locked_rcu(struct super_block *sb, u64 hashval,
+>  		int (*test)(struct inode *, void *),
+>  		int (*set)(struct inode *, void *), void *data)
+>  {
+> @@ -1455,7 +1455,7 @@ EXPORT_SYMBOL_GPL(iget5_locked_rcu);
+>   * hashed, and with the I_NEW flag set.  The file system gets to fill it in
+>   * before unlocking it via unlock_new_inode().
+>   */
+> -struct inode *iget_locked(struct super_block *sb, unsigned long ino)
+> +struct inode *iget_locked(struct super_block *sb, u64 ino)
+>  {
+>  	struct hlist_head *head = inode_hashtable + hash(sb, ino);
+>  	struct inode *inode;
+> @@ -1527,7 +1527,7 @@ EXPORT_SYMBOL(iget_locked);
+>   *
+>   * Returns 1 if the inode number is unique, 0 if it is not.
+>   */
+> -static int test_inode_iunique(struct super_block *sb, unsigned long ino)
+> +static int test_inode_iunique(struct super_block *sb, u64 ino)
+>  {
+>  	struct hlist_head *b = inode_hashtable + hash(sb, ino);
+>  	struct inode *inode;
+> @@ -1616,7 +1616,7 @@ EXPORT_SYMBOL(igrab);
+>   *
+>   * Note2: @test is called with the inode_hash_lock held, so can't sleep.
+>   */
+> -struct inode *ilookup5_nowait(struct super_block *sb, unsigned long hashval,
+> +struct inode *ilookup5_nowait(struct super_block *sb, u64 hashval,
+>  		int (*test)(struct inode *, void *), void *data, bool *isnew)
+>  {
+>  	struct hlist_head *head = inode_hashtable + hash(sb, hashval);
+> @@ -1647,7 +1647,7 @@ EXPORT_SYMBOL(ilookup5_nowait);
+>   *
+>   * Note: @test is called with the inode_hash_lock held, so can't sleep.
+>   */
+> -struct inode *ilookup5(struct super_block *sb, unsigned long hashval,
+> +struct inode *ilookup5(struct super_block *sb, u64 hashval,
+>  		int (*test)(struct inode *, void *), void *data)
+>  {
+>  	struct inode *inode;
+> @@ -1677,7 +1677,7 @@ EXPORT_SYMBOL(ilookup5);
+>   * Search for the inode @ino in the inode cache, and if the inode is in the
+>   * cache, the inode is returned with an incremented reference count.
+>   */
+> -struct inode *ilookup(struct super_block *sb, unsigned long ino)
+> +struct inode *ilookup(struct super_block *sb, u64 ino)
+>  {
+>  	struct hlist_head *head = inode_hashtable + hash(sb, ino);
+>  	struct inode *inode;
+> @@ -1726,8 +1726,8 @@ EXPORT_SYMBOL(ilookup);
+>   * very carefully implemented.
+>   */
+>  struct inode *find_inode_nowait(struct super_block *sb,
+> -				unsigned long hashval,
+> -				int (*match)(struct inode *, unsigned long,
+> +				u64 hashval,
+> +				int (*match)(struct inode *, u64,
+>  					     void *),
+>  				void *data)
+>  {
+> @@ -1773,7 +1773,7 @@ EXPORT_SYMBOL(find_inode_nowait);
+>   *
+>   * The caller must hold the RCU read lock.
+>   */
+> -struct inode *find_inode_rcu(struct super_block *sb, unsigned long hashval,
+> +struct inode *find_inode_rcu(struct super_block *sb, u64 hashval,
+>  			     int (*test)(struct inode *, void *), void *data)
+>  {
+>  	struct hlist_head *head = inode_hashtable + hash(sb, hashval);
+> @@ -1812,7 +1812,7 @@ EXPORT_SYMBOL(find_inode_rcu);
+>   * The caller must hold the RCU read lock.
+>   */
+>  struct inode *find_inode_by_ino_rcu(struct super_block *sb,
+> -				    unsigned long ino)
+> +				    u64 ino)
+>  {
+>  	struct hlist_head *head = inode_hashtable + hash(sb, ino);
+>  	struct inode *inode;
+> @@ -1833,7 +1833,7 @@ EXPORT_SYMBOL(find_inode_by_ino_rcu);
+>  int insert_inode_locked(struct inode *inode)
+>  {
+>  	struct super_block *sb = inode->i_sb;
+> -	ino_t ino = inode->i_ino;
+> +	u64 ino = inode->i_ino;
+>  	struct hlist_head *head = inode_hashtable + hash(sb, ino);
+>  	bool isnew;
+>  
+> @@ -1884,7 +1884,7 @@ int insert_inode_locked(struct inode *inode)
+>  }
+>  EXPORT_SYMBOL(insert_inode_locked);
+>  
+> -int insert_inode_locked4(struct inode *inode, unsigned long hashval,
+> +int insert_inode_locked4(struct inode *inode, u64 hashval,
+>  		int (*test)(struct inode *, void *), void *data)
+>  {
+>  	struct inode *old;
+> @@ -2642,7 +2642,7 @@ void init_special_inode(struct inode *inode, umode_t mode, dev_t rdev)
+>  		break;
+>  	default:
+>  		printk(KERN_DEBUG "init_special_inode: bogus i_mode (%o) for"
+> -				  " inode %s:%lu\n", mode, inode->i_sb->s_id,
+> +				  " inode %s:%llu\n", mode, inode->i_sb->s_id,
+>  				  inode->i_ino);
+>  		break;
+>  	}
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index 8b3dd145b25ec12b00ac1df17a952d9116b88047..dfa1f475b1c480c503ab6f00e891aa9b051607fa 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -2935,32 +2935,32 @@ static inline int inode_generic_drop(struct inode *inode)
+>  extern void d_mark_dontcache(struct inode *inode);
+>  
+>  extern struct inode *ilookup5_nowait(struct super_block *sb,
+> -		unsigned long hashval, int (*test)(struct inode *, void *),
+> +		u64 hashval, int (*test)(struct inode *, void *),
+>  		void *data, bool *isnew);
+> -extern struct inode *ilookup5(struct super_block *sb, unsigned long hashval,
+> +extern struct inode *ilookup5(struct super_block *sb, u64 hashval,
+>  		int (*test)(struct inode *, void *), void *data);
+> -extern struct inode *ilookup(struct super_block *sb, unsigned long ino);
+> +extern struct inode *ilookup(struct super_block *sb, u64 ino);
+>  
+> -extern struct inode *inode_insert5(struct inode *inode, unsigned long hashval,
+> +extern struct inode *inode_insert5(struct inode *inode, u64 hashval,
+>  		int (*test)(struct inode *, void *),
+>  		int (*set)(struct inode *, void *),
+>  		void *data);
+> -struct inode *iget5_locked(struct super_block *, unsigned long,
+> +struct inode *iget5_locked(struct super_block *, u64,
+>  			   int (*test)(struct inode *, void *),
+>  			   int (*set)(struct inode *, void *), void *);
+> -struct inode *iget5_locked_rcu(struct super_block *, unsigned long,
+> +struct inode *iget5_locked_rcu(struct super_block *, u64,
+>  			       int (*test)(struct inode *, void *),
+>  			       int (*set)(struct inode *, void *), void *);
+> -extern struct inode * iget_locked(struct super_block *, unsigned long);
+> +extern struct inode *iget_locked(struct super_block *, u64);
+>  extern struct inode *find_inode_nowait(struct super_block *,
+> -				       unsigned long,
+> +				       u64,
+>  				       int (*match)(struct inode *,
+> -						    unsigned long, void *),
+> +						    u64, void *),
+>  				       void *data);
+> -extern struct inode *find_inode_rcu(struct super_block *, unsigned long,
+> +extern struct inode *find_inode_rcu(struct super_block *, u64,
+>  				    int (*)(struct inode *, void *), void *);
+> -extern struct inode *find_inode_by_ino_rcu(struct super_block *, unsigned long);
+> -extern int insert_inode_locked4(struct inode *, unsigned long, int (*test)(struct inode *, void *), void *);
+> +extern struct inode *find_inode_by_ino_rcu(struct super_block *, u64);
+> +extern int insert_inode_locked4(struct inode *, u64, int (*test)(struct inode *, void *), void *);
+>  extern int insert_inode_locked(struct inode *);
+>  #ifdef CONFIG_DEBUG_LOCK_ALLOC
+>  extern void lockdep_annotate_inode_mutex_key(struct inode *inode);
+> @@ -3015,7 +3015,7 @@ int setattr_should_drop_sgid(struct mnt_idmap *idmap,
+>   */
+>  #define alloc_inode_sb(_sb, _cache, _gfp) kmem_cache_alloc_lru(_cache, &_sb->s_inode_lru, _gfp)
+>  
+> -extern void __insert_inode_hash(struct inode *, unsigned long hashval);
+> +extern void __insert_inode_hash(struct inode *, u64 hashval);
+>  static inline void insert_inode_hash(struct inode *inode)
+>  {
+>  	__insert_inode_hash(inode, inode->i_ino);
+> 
+> -- 
+> 2.53.0
+> 
 -- 
 Jan Kara <jack@suse.com>
 SUSE Labs, CR
