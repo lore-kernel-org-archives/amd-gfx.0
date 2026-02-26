@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CCF7FD531A
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1F06FD531D
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB00010EA73;
-	Fri, 27 Feb 2026 09:17:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 216A710EA79;
+	Fri, 27 Feb 2026 09:17:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kmkL8rma";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HPrUls0p";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E56C10E9A4;
- Thu, 26 Feb 2026 16:06:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 585CF10E9A3;
+ Thu, 26 Feb 2026 16:05:04 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4DD46440E4;
- Thu, 26 Feb 2026 16:06:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED574C2BCAF;
- Thu, 26 Feb 2026 16:06:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 226CA4192E;
+ Thu, 26 Feb 2026 16:05:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7722C19423;
+ Thu, 26 Feb 2026 16:04:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121991;
- bh=UzUJVkE54+5worUh+6CVBOEGlTktcxnLHEhhDzvvwXo=;
+ s=k20201202; t=1772121904;
+ bh=WjoPQEYX62ntQ5KvwiKXATuVz2FXwgUeqUutOdHuQO8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=kmkL8rmaozr/GXIlU/D7mK8GBNmNhhiV1Q8VAayDic9ByvlDowdpB6ogncyg9UwTh
- eB4Bkt9hNTQkgrFB3r8PReLXMHxe05on7pqliEoz7iGFB0kzcqew7EKfooZtTC/q/b
- 2+GnTXGg4O6SOWtV+Fe8HB4W61tD7peqZKcxEz3PejxRcNOmZaCfRDBHNsWSNfedzQ
- EFNcjkR14TRnUEgdMnm2SqkWGdd7BAj7KDR9jYJyk5bZYwRMg8RAWJMn2SND0n2gSk
- h/yARg/DV+fMiSaKvZCrWFBIexFCxpRm6k+xA0n59bFkA5KAcDomjBkNRLgD4hDRZU
- tqWfvejc7L1/Q==
+ b=HPrUls0pttYjYlcIKlZofSrqW3fdl89q1I46EFL3Ui9bdpMLXu3vRfiIrp+kzPgOB
+ RBwGgjaLoRKm+EPrhWUG+BdSYdVAcSPulqqKyq0D2N2CiCufQ3eJdG3aR2BdTNTnbu
+ bjpLNSiNZkUxPvxkTATzyMkvMjGekVrLYOsYBs6On/AAbw9x2Zqs7u1MaMV9I9C2c6
+ 6R2p4D81mdC1vzc6ZV2IP/ocrLyha5EFh4BtvCHFduJPOHKMPy5UO4rPryiehYkb0B
+ rJ8gyGaCi9BxDhuhH0a1WTxBQ2XSn+7whUV7nvDaFlQEl4/fCBKyqX4TfllbLfUlYE
+ FEutDFpxmUvnQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:51 -0500
-Subject: [PATCH 49/61] ufs: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:44 -0500
+Subject: [PATCH 42/61] ocfs2: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-49-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-42-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,23 +131,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9194; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=UzUJVkE54+5worUh+6CVBOEGlTktcxnLHEhhDzvvwXo=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0QVGhyJJXjlb0Ncw4uXhIxu6EV5MOzZNNp3
- gvBgg8J/O2JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEAAKCRAADmhBGVaC
- Ff+iD/wO+msPOQaend9RGYlXSQlSmXaivymDEu0nuVAnKZyjZbYxWvPNY2bhJjvYsPkvh+MWd3f
- 8cMRNKE51rT2lYPI9r8YmbARRKckpiLX8YRuXQL26fwGK7qferIdfm/fxBQWMGuZb3B5xUExPwB
- MQXfy6cKzU9bynP1/NVvS8lAzFGnd/+I4SbsODF6dmbeehYcuIn1vQ4ggbv7iiWL8qNf2dtPAHh
- RLwCH9pZ3weunInHQbgOMowX2nZow+LkI0VFrVx2m4z54vRYdl6JIlxkG6PZXNEU1V/+BuxVPFV
- aC0WizkgjFeIdzzeMF81SoHOMOrleC1ZP+CLELNh/7VBCzX+5ZJjuT2m7fUr0y0X2al4NiTM6+E
- RnJJr8b019swsihaUbYJiTL0jiq5z5t5XzkZkJJRlqsPQNCqYUUrD+WsBEQ+r5eW/P+EdgZBDEd
- zwycEJ5ba9Sp3eF2fTEZ6d518Ri948FUEmDt0VrJestxGs6a9mmg25imFrXNOjfziIw6WENc6/U
- TJv7lBjDApR3WVdhISSn9oGRuOc0EaBDKdvQDB2DriRAla8NcD9AEgjaOp/S726BSztATlmMu3O
- G0Pc/ZYkAoZy4dExx5I3JPwmK3Xmwo0OiktEYvcT0znNkk34XPloOoANLg762thAyWbbxRUmte4
- 28SOSQyVJZbEdpg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12451; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=WjoPQEYX62ntQ5KvwiKXATuVz2FXwgUeqUutOdHuQO8=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0OfrfTZKHp1n/fmZIYEbIrkGI0Y5JPmrYRj
+ XCtZRIknwaJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDgAKCRAADmhBGVaC
+ FZmGD/wOCKbpkObKLXVuNdAaYn+YRBVtPHnVeinRG9CpA2zkvkmHkpGaJw/t/lRR305OQ4IOLnB
+ +Re9+UFnwawHAWE83vUbqg1B0cRR7JhfVsn0ZmlzcXCSlkvZOqc/i+sYdDtOLmuhI7/lc97aqp6
+ azifdrS19aKHKGTarMljUoY5siOudJImEtsrAB2RLSdmSeP3vt44DbWTkoBpYdWwk/hHvkEfz7N
+ f8N97wz0ObO9lAcUiYQQ0x/DfBWP1Yg/EfWO0g7txRlYDqVFHP6fn7g682D6rXjcsQHuFrWvtkM
+ egzSbbKNZrwORrEgFHYFPGgh2zHHs1V3LkQY80lyAimWjOSNe+TogzLtn5fLcZjZGdiAJkSxpti
+ 9wTBnJ0aw2aF/X/KZbCx3dcrG6tH1GImbBRli30p5izUd19v9aSL0T+Cq3FciE2Xkn6Jd27r7sx
+ BsF21i7U33FM4efy7YEFCXah17EY0QvnHjLdZUPOfQ3sHryM6C6WLaet9c5UJTv2PHgp+ZcZNr1
+ wcZd6gVc4CYe0Y1sivEREcbArmpfOuGdCu0oJzxJU71lra+jgK5UxFzz3Hq2XgjDi79HscgO2CI
+ VRDYxVXvsM2OKidz2ccd+ymCIAuJ9Rp/UTYplRb8FGUProNn7xcIvpPMFlJ0k+6qGOGq9HE26dG
+ lWMMkEsNAdXcYuA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,240 +162,301 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in ufs for the
+Update format strings and local variable types in ocfs2 for the
 i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ufs/balloc.c |  6 +++---
- fs/ufs/dir.c    | 10 +++++-----
- fs/ufs/ialloc.c |  6 +++---
- fs/ufs/inode.c  | 18 +++++++++---------
- fs/ufs/ufs_fs.h |  6 +++---
- fs/ufs/util.c   |  2 +-
- 6 files changed, 24 insertions(+), 24 deletions(-)
+ fs/ocfs2/alloc.c        |  2 +-
+ fs/ocfs2/aops.c         |  4 ++--
+ fs/ocfs2/dir.c          |  8 ++++----
+ fs/ocfs2/dlmfs/dlmfs.c  | 10 +++++-----
+ fs/ocfs2/extent_map.c   | 12 ++++++------
+ fs/ocfs2/inode.c        |  2 +-
+ fs/ocfs2/quota_local.c  |  2 +-
+ fs/ocfs2/refcounttree.c | 10 +++++-----
+ fs/ocfs2/xattr.c        |  4 ++--
+ 9 files changed, 27 insertions(+), 27 deletions(-)
 
-diff --git a/fs/ufs/balloc.c b/fs/ufs/balloc.c
-index 194ed3ab945e3eae94db085ee8d37eb1a4439470..628edfde3a9fd73852930094c19ae6944858f2c4 100644
---- a/fs/ufs/balloc.c
-+++ b/fs/ufs/balloc.c
-@@ -245,7 +245,7 @@ static void ufs_change_blocknr(struct inode *inode, sector_t beg,
- 	sector_t end, i;
- 	struct buffer_head *head, *bh;
+diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
+index 344fd4d95fbc8bd7a749e9d51d31b5682ff030d0..d40f5d205bce3675ffd37e0e6c228e88c1804a1a 100644
+--- a/fs/ocfs2/alloc.c
++++ b/fs/ocfs2/alloc.c
+@@ -7318,7 +7318,7 @@ int ocfs2_commit_truncate(struct ocfs2_super *osb,
+ 		 * to check it up here before changing the tree.
+ 		*/
+ 		if (root_el->l_tree_depth && rec->e_int_clusters == 0) {
+-			mlog(ML_ERROR, "Inode %lu has an empty "
++			mlog(ML_ERROR, "Inode %llu has an empty "
+ 				    "extent record, depth %u\n", inode->i_ino,
+ 				    le16_to_cpu(root_el->l_tree_depth));
+ 			status = ocfs2_remove_rightmost_empty_extent(osb,
+diff --git a/fs/ocfs2/aops.c b/fs/ocfs2/aops.c
+index 17ba79f443ee736cb5225702c57d13f4019f3c52..c7ad912ec7a0d6fffd09c3d38f110e5d1517d829 100644
+--- a/fs/ocfs2/aops.c
++++ b/fs/ocfs2/aops.c
+@@ -137,7 +137,7 @@ int ocfs2_get_block(struct inode *inode, sector_t iblock,
+ 			      (unsigned long long)iblock, bh_result, create);
  
--	UFSD("ENTER, ino %lu, count %u, oldb %llu, newb %llu\n",
-+	UFSD("ENTER, ino %llu, count %u, oldb %llu, newb %llu\n",
- 	      inode->i_ino, count,
- 	     (unsigned long long)oldb, (unsigned long long)newb);
+ 	if (OCFS2_I(inode)->ip_flags & OCFS2_INODE_SYSTEM_FILE)
+-		mlog(ML_NOTICE, "get_block on system inode 0x%p (%lu)\n",
++		mlog(ML_NOTICE, "get_block on system inode 0x%p (%llu)\n",
+ 		     inode, inode->i_ino);
  
-@@ -340,7 +340,7 @@ u64 ufs_new_fragments(struct inode *inode, void *p, u64 fragment,
- 	unsigned cgno, oldcount, newcount;
- 	u64 tmp, request, result;
- 	
--	UFSD("ENTER, ino %lu, fragment %llu, goal %llu, count %u\n",
-+	UFSD("ENTER, ino %llu, fragment %llu, goal %llu, count %u\n",
- 	     inode->i_ino, (unsigned long long)fragment,
- 	     (unsigned long long)goal, count);
- 	
-@@ -583,7 +583,7 @@ static u64 ufs_alloc_fragments(struct inode *inode, unsigned cgno,
- 	unsigned oldcg, i, j, k, allocsize;
- 	u64 result;
- 	
--	UFSD("ENTER, ino %lu, cgno %u, goal %llu, count %u\n",
-+	UFSD("ENTER, ino %llu, cgno %u, goal %llu, count %u\n",
- 	     inode->i_ino, cgno, (unsigned long long)goal, count);
+ 	if (S_ISLNK(inode->i_mode)) {
+@@ -2146,7 +2146,7 @@ static int ocfs2_dio_wr_get_block(struct inode *inode, sector_t iblock,
+ 	    ((iblock + ((len - 1) >> i_blkbits)) > endblk))
+ 		len = (endblk - iblock + 1) << i_blkbits;
  
- 	sb = inode->i_sb;
-diff --git a/fs/ufs/dir.c b/fs/ufs/dir.c
-index 43f1578ab8666a9611d4a77f5aababfce812fbe4..f10a50f7e78b8020fd216eff19c147b20bd332c1 100644
---- a/fs/ufs/dir.c
-+++ b/fs/ufs/dir.c
-@@ -150,7 +150,7 @@ static bool ufs_check_folio(struct folio *folio, char *kaddr)
+-	mlog(0, "get block of %lu at %llu:%u req %u\n",
++	mlog(0, "get block of %llu at %llu:%u req %u\n",
+ 			inode->i_ino, pos, len, total_len);
  
- Ebadsize:
- 	ufs_error(sb, __func__,
--		  "size of directory #%lu is not a multiple of chunk size",
-+		  "size of directory #%llu is not a multiple of chunk size",
- 		  dir->i_ino
- 	);
- 	goto fail;
-@@ -169,7 +169,7 @@ static bool ufs_check_folio(struct folio *folio, char *kaddr)
- Einumber:
- 	error = "inode out of bounds";
- bad_entry:
--	ufs_error(sb, __func__, "bad entry in directory #%lu: %s - "
-+	ufs_error(sb, __func__, "bad entry in directory #%llu: %s - "
- 		   "offset=%llu, rec_len=%d, name_len=%d",
- 		   dir->i_ino, error, folio_pos(folio) + offs,
- 		   rec_len, ufs_get_de_namlen(sb, p));
-@@ -177,7 +177,7 @@ static bool ufs_check_folio(struct folio *folio, char *kaddr)
- Eend:
- 	p = (struct ufs_dir_entry *)(kaddr + offs);
- 	ufs_error(sb, __func__,
--		   "entry in directory #%lu spans the page boundary"
-+		   "entry in directory #%llu spans the page boundary"
- 		   "offset=%llu",
- 		   dir->i_ino, folio_pos(folio) + offs);
- fail:
-@@ -258,7 +258,7 @@ struct ufs_dir_entry *ufs_find_entry(struct inode *dir, const struct qstr *qstr,
- 	struct ufs_inode_info *ui = UFS_I(dir);
- 	struct ufs_dir_entry *de;
- 
--	UFSD("ENTER, dir_ino %lu, name %s, namlen %u\n", dir->i_ino, name, namelen);
-+	UFSD("ENTER, dir_ino %llu, name %s, namlen %u\n", dir->i_ino, name, namelen);
- 
- 	if (npages == 0 || namelen > UFS_MAXNAMLEN)
- 		goto out;
-@@ -434,7 +434,7 @@ ufs_readdir(struct file *file, struct dir_context *ctx)
- 
- 		if (IS_ERR(kaddr)) {
- 			ufs_error(sb, __func__,
--				  "bad page in #%lu",
-+				  "bad page in #%llu",
- 				  inode->i_ino);
- 			ctx->pos += PAGE_SIZE - offset;
- 			return PTR_ERR(kaddr);
-diff --git a/fs/ufs/ialloc.c b/fs/ufs/ialloc.c
-index 73531827ecee12b3dff09aef0acc0e374b00fb29..8e51f4630d186ae49aa987ca46df20960f300614 100644
---- a/fs/ufs/ialloc.c
-+++ b/fs/ufs/ialloc.c
-@@ -63,7 +63,7 @@ void ufs_free_inode (struct inode * inode)
- 	int is_directory;
- 	unsigned ino, cg, bit;
- 	
--	UFSD("ENTER, ino %lu\n", inode->i_ino);
-+	UFSD("ENTER, ino %llu\n", inode->i_ino);
- 
- 	sb = inode->i_sb;
- 	uspi = UFS_SB(sb)->s_uspi;
-@@ -317,7 +317,7 @@ struct inode *ufs_new_inode(struct inode *dir, umode_t mode)
- 		bh = sb_bread(sb, uspi->s_sbbase + ufs_inotofsba(inode->i_ino));
- 		if (!bh) {
- 			ufs_warning(sb, "ufs_read_inode",
--				    "unable to read inode %lu\n",
-+				    "unable to read inode %llu\n",
- 				    inode->i_ino);
- 			err = -EIO;
- 			goto fail_remove_inode;
-@@ -336,7 +336,7 @@ struct inode *ufs_new_inode(struct inode *dir, umode_t mode)
- 	}
- 	mutex_unlock(&sbi->s_lock);
- 
--	UFSD("allocating inode %lu\n", inode->i_ino);
-+	UFSD("allocating inode %llu\n", inode->i_ino);
- 	UFSD("EXIT\n");
- 	return inode;
- 
-diff --git a/fs/ufs/inode.c b/fs/ufs/inode.c
-index e2b0a35de2a7000f46a298114c1dcaffa17c43dc..2a8728c879796403166f713d1b4ee1b05fe1ffed 100644
---- a/fs/ufs/inode.c
-+++ b/fs/ufs/inode.c
-@@ -400,7 +400,7 @@ static int ufs_getfrag_block(struct inode *inode, sector_t fragment, struct buff
- 
- 	mutex_lock(&UFS_I(inode)->truncate_mutex);
- 
--	UFSD("ENTER, ino %lu, fragment %llu\n", inode->i_ino, (unsigned long long)fragment);
-+	UFSD("ENTER, ino %llu, fragment %llu\n", inode->i_ino, (unsigned long long)fragment);
- 	if (unlikely(!depth)) {
- 		ufs_warning(sb, "ufs_get_block", "block > big");
- 		err = -EIO;
-@@ -595,7 +595,7 @@ static int ufs2_read_inode(struct inode *inode, struct ufs2_inode *ufs2_inode)
- 	struct super_block *sb = inode->i_sb;
- 	umode_t mode;
- 
--	UFSD("Reading ufs2 inode, ino %lu\n", inode->i_ino);
-+	UFSD("Reading ufs2 inode, ino %llu\n", inode->i_ino);
  	/*
- 	 * Copy data to the in-core inode.
- 	 */
-@@ -662,7 +662,7 @@ struct inode *ufs_iget(struct super_block *sb, unsigned long ino)
- 
- 	bh = sb_bread(sb, uspi->s_sbbase + ufs_inotofsba(inode->i_ino));
- 	if (!bh) {
--		ufs_warning(sb, "ufs_read_inode", "unable to read inode %lu\n",
-+		ufs_warning(sb, "ufs_read_inode", "unable to read inode %llu\n",
- 			    inode->i_ino);
- 		goto bad_inode;
+diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
+index 1c8abf2c592caacbe734d49254b04d507925c9d1..b82fe4431eb1f0811d81525237d02c5a3f3b021c 100644
+--- a/fs/ocfs2/dir.c
++++ b/fs/ocfs2/dir.c
+@@ -794,7 +794,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
+ 	if (le16_to_cpu(el->l_count) !=
+ 	    ocfs2_extent_recs_per_dx_root(inode->i_sb)) {
+ 		ret = ocfs2_error(inode->i_sb,
+-				  "Inode %lu has invalid extent list length %u\n",
++				  "Inode %llu has invalid extent list length %u\n",
+ 				  inode->i_ino, le16_to_cpu(el->l_count));
+ 		goto out;
  	}
-@@ -793,17 +793,17 @@ static int ufs_update_inode(struct inode * inode, int do_sync)
- 	struct ufs_sb_private_info *uspi = UFS_SB(sb)->s_uspi;
- 	struct buffer_head * bh;
+@@ -812,7 +812,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
  
--	UFSD("ENTER, ino %lu\n", inode->i_ino);
-+	UFSD("ENTER, ino %llu\n", inode->i_ino);
+ 		if (el->l_tree_depth) {
+ 			ret = ocfs2_error(inode->i_sb,
+-					  "Inode %lu has non zero tree depth in btree tree block %llu\n",
++					  "Inode %llu has non zero tree depth in btree tree block %llu\n",
+ 					  inode->i_ino,
+ 					  (unsigned long long)eb_bh->b_blocknr);
+ 			goto out;
+@@ -821,7 +821,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
  
- 	if (inode->i_ino < UFS_ROOTINO ||
- 	    inode->i_ino > (uspi->s_ncg * uspi->s_ipg)) {
--		ufs_warning (sb, "ufs_read_inode", "bad inode number (%lu)\n", inode->i_ino);
-+		ufs_warning (sb, "ufs_read_inode", "bad inode number (%llu)\n", inode->i_ino);
- 		return -1;
+ 	if (le16_to_cpu(el->l_next_free_rec) == 0) {
+ 		ret = ocfs2_error(inode->i_sb,
+-				  "Inode %lu has empty extent list at depth %u\n",
++				  "Inode %llu has empty extent list at depth %u\n",
+ 				  inode->i_ino,
+ 				  le16_to_cpu(el->l_tree_depth));
+ 		goto out;
+@@ -839,7 +839,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
+ 
+ 	if (!found) {
+ 		ret = ocfs2_error(inode->i_sb,
+-				  "Inode %lu has bad extent record (%u, %u, 0) in btree\n",
++				  "Inode %llu has bad extent record (%u, %u, 0) in btree\n",
+ 				  inode->i_ino,
+ 				  le32_to_cpu(rec->e_cpos),
+ 				  ocfs2_rec_clusters(el, rec));
+diff --git a/fs/ocfs2/dlmfs/dlmfs.c b/fs/ocfs2/dlmfs/dlmfs.c
+index 45cce261da65cab7ef48b5b88c0de5d41fa57615..5821e33df78fd92fabc7fe7fa1c3b3c62c50f9f8 100644
+--- a/fs/ocfs2/dlmfs/dlmfs.c
++++ b/fs/ocfs2/dlmfs/dlmfs.c
+@@ -123,7 +123,7 @@ static int dlmfs_file_open(struct inode *inode,
+ 	if (S_ISDIR(inode->i_mode))
+ 		BUG();
+ 
+-	mlog(0, "open called on inode %lu, flags 0x%x\n", inode->i_ino,
++	mlog(0, "open called on inode %llu, flags 0x%x\n", inode->i_ino,
+ 		file->f_flags);
+ 
+ 	status = dlmfs_decode_open_flags(file->f_flags, &level, &flags);
+@@ -170,7 +170,7 @@ static int dlmfs_file_release(struct inode *inode,
+ 	if (S_ISDIR(inode->i_mode))
+ 		BUG();
+ 
+-	mlog(0, "close called on inode %lu\n", inode->i_ino);
++	mlog(0, "close called on inode %llu\n", inode->i_ino);
+ 
+ 	if (fp) {
+ 		level = fp->fp_lock_level;
+@@ -242,7 +242,7 @@ static ssize_t dlmfs_file_write(struct file *filp,
+ 	int bytes_left;
+ 	struct inode *inode = file_inode(filp);
+ 
+-	mlog(0, "inode %lu, count = %zu, *ppos = %llu\n",
++	mlog(0, "inode %llu, count = %zu, *ppos = %llu\n",
+ 		inode->i_ino, count, *ppos);
+ 
+ 	if (*ppos >= DLM_LVB_LEN)
+@@ -301,7 +301,7 @@ static void dlmfs_evict_inode(struct inode *inode)
+ 
+ 	clear_inode(inode);
+ 
+-	mlog(0, "inode %lu\n", inode->i_ino);
++	mlog(0, "inode %llu\n", inode->i_ino);
+ 
+ 	ip = DLMFS_I(inode);
+ 	lockres = &ip->ip_lockres;
+@@ -490,7 +490,7 @@ static int dlmfs_unlink(struct inode *dir,
+ 	int status;
+ 	struct inode *inode = d_inode(dentry);
+ 
+-	mlog(0, "unlink inode %lu\n", inode->i_ino);
++	mlog(0, "unlink inode %llu\n", inode->i_ino);
+ 
+ 	/* if there are no current holders, or none that are waiting
+ 	 * to acquire a lock, this basically destroys our lockres. */
+diff --git a/fs/ocfs2/extent_map.c b/fs/ocfs2/extent_map.c
+index d68229422dda3423971d7ab0e9a4335acab8b344..eb5dcd17d43752c08eab423fd667b7c0363ba6a1 100644
+--- a/fs/ocfs2/extent_map.c
++++ b/fs/ocfs2/extent_map.c
+@@ -291,7 +291,7 @@ static int ocfs2_last_eb_is_empty(struct inode *inode,
+ 
+ 	if (el->l_tree_depth) {
+ 		ocfs2_error(inode->i_sb,
+-			    "Inode %lu has non zero tree depth in leaf block %llu\n",
++			    "Inode %llu has non zero tree depth in leaf block %llu\n",
+ 			    inode->i_ino,
+ 			    (unsigned long long)eb_bh->b_blocknr);
+ 		ret = -EROFS;
+@@ -427,7 +427,7 @@ static int ocfs2_get_clusters_nocache(struct inode *inode,
+ 
+ 		if (el->l_tree_depth) {
+ 			ocfs2_error(inode->i_sb,
+-				    "Inode %lu has non zero tree depth in leaf block %llu\n",
++				    "Inode %llu has non zero tree depth in leaf block %llu\n",
+ 				    inode->i_ino,
+ 				    (unsigned long long)eb_bh->b_blocknr);
+ 			ret = -EROFS;
+@@ -437,7 +437,7 @@ static int ocfs2_get_clusters_nocache(struct inode *inode,
+ 
+ 	if (le16_to_cpu(el->l_next_free_rec) > le16_to_cpu(el->l_count)) {
+ 		ocfs2_error(inode->i_sb,
+-			    "Inode %lu has an invalid extent (next_free_rec %u, count %u)\n",
++			    "Inode %llu has an invalid extent (next_free_rec %u, count %u)\n",
+ 			    inode->i_ino,
+ 			    le16_to_cpu(el->l_next_free_rec),
+ 			    le16_to_cpu(el->l_count));
+@@ -472,7 +472,7 @@ static int ocfs2_get_clusters_nocache(struct inode *inode,
+ 
+ 	if (!rec->e_blkno) {
+ 		ocfs2_error(inode->i_sb,
+-			    "Inode %lu has bad extent record (%u, %u, 0)\n",
++			    "Inode %llu has bad extent record (%u, %u, 0)\n",
+ 			    inode->i_ino,
+ 			    le32_to_cpu(rec->e_cpos),
+ 			    ocfs2_rec_clusters(el, rec));
+@@ -561,7 +561,7 @@ int ocfs2_xattr_get_clusters(struct inode *inode, u32 v_cluster,
+ 
+ 		if (el->l_tree_depth) {
+ 			ocfs2_error(inode->i_sb,
+-				    "Inode %lu has non zero tree depth in xattr leaf block %llu\n",
++				    "Inode %llu has non zero tree depth in xattr leaf block %llu\n",
+ 				    inode->i_ino,
+ 				    (unsigned long long)eb_bh->b_blocknr);
+ 			ret = -EROFS;
+@@ -580,7 +580,7 @@ int ocfs2_xattr_get_clusters(struct inode *inode, u32 v_cluster,
+ 
+ 		if (!rec->e_blkno) {
+ 			ocfs2_error(inode->i_sb,
+-				    "Inode %lu has bad extent record (%u, %u, 0) in xattr\n",
++				    "Inode %llu has bad extent record (%u, %u, 0) in xattr\n",
+ 				    inode->i_ino,
+ 				    le32_to_cpu(rec->e_cpos),
+ 				    ocfs2_rec_clusters(el, rec));
+diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
+index 03a51662ea8e79f7a64fcd320b974f954b2ea8bf..26025ba2656c66b61866deaff60a0da204745c4f 100644
+--- a/fs/ocfs2/inode.c
++++ b/fs/ocfs2/inode.c
+@@ -1196,7 +1196,7 @@ static void ocfs2_clear_inode(struct inode *inode)
+ 				inode->i_nlink);
+ 
+ 	mlog_bug_on_msg(osb == NULL,
+-			"Inode=%lu\n", inode->i_ino);
++			"Inode=%llu\n", inode->i_ino);
+ 
+ 	dquot_drop(inode);
+ 
+diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
+index c4e0117d8977807dd6f0f4df64e1ddf72a62ea09..346c455d089564aa8c9bdead9385ef0e9eaef5cf 100644
+--- a/fs/ocfs2/quota_local.c
++++ b/fs/ocfs2/quota_local.c
+@@ -471,7 +471,7 @@ static int ocfs2_recover_local_quota_file(struct inode *lqinode,
+ 	qsize_t spacechange, inodechange;
+ 	unsigned int memalloc;
+ 
+-	trace_ocfs2_recover_local_quota_file((unsigned long)lqinode->i_ino, type);
++	trace_ocfs2_recover_local_quota_file((unsigned long long)lqinode->i_ino, type);
+ 
+ 	list_for_each_entry_safe(rchunk, next, &(rec->r_list[type]), rc_list) {
+ 		chunk = rchunk->rc_chunk;
+diff --git a/fs/ocfs2/refcounttree.c b/fs/ocfs2/refcounttree.c
+index c1cdececdfa4ef51a1bd3a5addad734b324b92c0..6d7f44d3e929d94f3ba6121cc30a867887e0bbe3 100644
+--- a/fs/ocfs2/refcounttree.c
++++ b/fs/ocfs2/refcounttree.c
+@@ -2341,7 +2341,7 @@ static int ocfs2_mark_extent_refcounted(struct inode *inode,
+ 					   cpos, len, phys);
+ 
+ 	if (!ocfs2_refcount_tree(OCFS2_SB(inode->i_sb))) {
+-		ret = ocfs2_error(inode->i_sb, "Inode %lu want to use refcount tree, but the feature bit is not set in the super block\n",
++		ret = ocfs2_error(inode->i_sb, "Inode %llu want to use refcount tree, but the feature bit is not set in the super block\n",
+ 				  inode->i_ino);
+ 		goto out;
  	}
+@@ -2524,7 +2524,7 @@ int ocfs2_prepare_refcount_change_for_del(struct inode *inode,
+ 	u64 start_cpos = ocfs2_blocks_to_clusters(inode->i_sb, phys_blkno);
  
- 	bh = sb_bread(sb, ufs_inotofsba(inode->i_ino));
- 	if (!bh) {
--		ufs_warning (sb, "ufs_read_inode", "unable to read inode %lu\n", inode->i_ino);
-+		ufs_warning (sb, "ufs_read_inode", "unable to read inode %llu\n", inode->i_ino);
- 		return -1;
+ 	if (!ocfs2_refcount_tree(OCFS2_SB(inode->i_sb))) {
+-		ret = ocfs2_error(inode->i_sb, "Inode %lu want to use refcount tree, but the feature bit is not set in the super block\n",
++		ret = ocfs2_error(inode->i_sb, "Inode %llu want to use refcount tree, but the feature bit is not set in the super block\n",
+ 				  inode->i_ino);
+ 		goto out;
  	}
- 	if (uspi->fs_magic == UFS2_MAGIC) {
-@@ -891,7 +891,7 @@ static void ufs_trunc_direct(struct inode *inode)
- 	unsigned int old_tail, new_tail;
- 	struct to_free ctx = {.inode = inode};
+@@ -2650,7 +2650,7 @@ static int ocfs2_refcount_cal_cow_clusters(struct inode *inode,
  
--	UFSD("ENTER: ino %lu\n", inode->i_ino);
-+	UFSD("ENTER: ino %llu\n", inode->i_ino);
+ 		if (el->l_tree_depth) {
+ 			ret = ocfs2_error(inode->i_sb,
+-					  "Inode %lu has non zero tree depth in leaf block %llu\n",
++					  "Inode %llu has non zero tree depth in leaf block %llu\n",
+ 					  inode->i_ino,
+ 					  (unsigned long long)eb_bh->b_blocknr);
+ 			goto out;
+@@ -2662,7 +2662,7 @@ static int ocfs2_refcount_cal_cow_clusters(struct inode *inode,
+ 		rec = &el->l_recs[i];
  
- 	new_frags = DIRECT_FRAGMENT;
- 	// new_frags = first fragment past the new EOF
-@@ -956,7 +956,7 @@ static void ufs_trunc_direct(struct inode *inode)
+ 		if (ocfs2_is_empty_extent(rec)) {
+-			mlog_bug_on_msg(i != 0, "Inode %lu has empty record in "
++			mlog_bug_on_msg(i != 0, "Inode %llu has empty record in "
+ 					"index %d\n", inode->i_ino, i);
+ 			continue;
  		}
+@@ -3325,7 +3325,7 @@ static int ocfs2_replace_cow(struct ocfs2_cow_context *context)
+ 	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
+ 
+ 	if (!ocfs2_refcount_tree(osb)) {
+-		return ocfs2_error(inode->i_sb, "Inode %lu want to use refcount tree, but the feature bit is not set in the super block\n",
++		return ocfs2_error(inode->i_sb, "Inode %llu want to use refcount tree, but the feature bit is not set in the super block\n",
+ 				   inode->i_ino);
  	}
- done:
--	UFSD("EXIT: ino %lu\n", inode->i_ino);
-+	UFSD("EXIT: ino %llu\n", inode->i_ino);
- }
  
- static void free_full_branch(struct inode *inode, u64 ind_block, int depth)
-@@ -1169,7 +1169,7 @@ static int ufs_truncate(struct inode *inode, loff_t size)
- {
- 	int err = 0;
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index 42ee5db362d3eb6df886d6721dd7398b8aca8cdb..4d55ad963ac514b4b4081447af0992345facd83a 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -3741,7 +3741,7 @@ static int ocfs2_xattr_get_rec(struct inode *inode,
  
--	UFSD("ENTER: ino %lu, i_size: %llu, old_i_size: %llu\n",
-+	UFSD("ENTER: ino %llu, i_size: %llu, old_i_size: %llu\n",
- 	     inode->i_ino, (unsigned long long)size,
- 	     (unsigned long long)i_size_read(inode));
+ 		if (el->l_tree_depth) {
+ 			ret = ocfs2_error(inode->i_sb,
+-					  "Inode %lu has non zero tree depth in xattr tree block %llu\n",
++					  "Inode %llu has non zero tree depth in xattr tree block %llu\n",
+ 					  inode->i_ino,
+ 					  (unsigned long long)eb_bh->b_blocknr);
+ 			goto out;
+@@ -3758,7 +3758,7 @@ static int ocfs2_xattr_get_rec(struct inode *inode,
+ 	}
  
-diff --git a/fs/ufs/ufs_fs.h b/fs/ufs/ufs_fs.h
-index 0905f9a16b9150b656bd6d8966c0f8cc220b439d..b8dc354ae90f4a0839303f89c87bd2940db62b99 100644
---- a/fs/ufs/ufs_fs.h
-+++ b/fs/ufs/ufs_fs.h
-@@ -226,10 +226,10 @@ typedef __u16 __bitwise __fs16;
-  *     inode number to cylinder group number.
-  *     inode number to file system block address.
-  */
--#define	ufs_inotocg(x)		((x) / uspi->s_ipg)
--#define	ufs_inotocgoff(x)	((x) % uspi->s_ipg)
-+#define	ufs_inotocg(x)		((unsigned int)(x) / uspi->s_ipg)
-+#define	ufs_inotocgoff(x)	((unsigned int)(x) % uspi->s_ipg)
- #define	ufs_inotofsba(x)	(((u64)ufs_cgimin(ufs_inotocg(x))) + ufs_inotocgoff(x) / uspi->s_inopf)
--#define	ufs_inotofsbo(x)	((x) % uspi->s_inopf)
-+#define	ufs_inotofsbo(x)	((unsigned int)(x) % uspi->s_inopf)
- 
- /*
-  * Compute the cylinder and rotational position of a cyl block addr.
-diff --git a/fs/ufs/util.c b/fs/ufs/util.c
-index 034b1d82c355ca49ec917e98dcfcc6d80e6eb00b..dff6f74618def7bd5687bd7427f3001a78b708b8 100644
---- a/fs/ufs/util.c
-+++ b/fs/ufs/util.c
-@@ -203,7 +203,7 @@ struct folio *ufs_get_locked_folio(struct address_space *mapping,
- 		folio = read_mapping_folio(mapping, index, NULL);
- 
- 		if (IS_ERR(folio)) {
--			printk(KERN_ERR "ufs_change_blocknr: read_mapping_folio error: ino %lu, index: %lu\n",
-+			printk(KERN_ERR "ufs_change_blocknr: read_mapping_folio error: ino %llu, index: %lu\n",
- 			       mapping->host->i_ino, index);
- 			return folio;
- 		}
+ 	if (!e_blkno) {
+-		ret = ocfs2_error(inode->i_sb, "Inode %lu has bad extent record (%u, %u, 0) in xattr\n",
++		ret = ocfs2_error(inode->i_sb, "Inode %llu has bad extent record (%u, %u, 0) in xattr\n",
+ 				  inode->i_ino,
+ 				  le32_to_cpu(rec->e_cpos),
+ 				  ocfs2_rec_clusters(el, rec));
 
 -- 
 2.53.0
