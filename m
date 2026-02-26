@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CC4BFD5325
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1430FD5338
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C35710EABA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C988610EABD;
 	Fri, 27 Feb 2026 09:17:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TbQmzaY0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TRyb5ELU";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8549710E98B;
- Thu, 26 Feb 2026 16:02:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81CC210E98B;
+ Thu, 26 Feb 2026 16:02:34 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5D9734178D;
- Thu, 26 Feb 2026 16:02:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04B50C116C6;
- Thu, 26 Feb 2026 16:02:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4D155409DB;
+ Thu, 26 Feb 2026 16:02:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75CAC19424;
+ Thu, 26 Feb 2026 16:02:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121779;
- bh=OQCOf5ab2K1mQ+xHyh4YDX8Wu4WoXlx58z+ZGgzTgGo=;
+ s=k20201202; t=1772121754;
+ bh=e36wvBqbLnA74Icp0D/z5ihyz+lsimYXgzizPubPc88=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=TbQmzaY0ToimFSGEqqBviXqxwD0bsQQunPHBe4Esrx7faWGcGcQAWK/x89VfMQARu
- MAF416OE8SaAb2kDCB7GYV73dZyAtE7pa8T2thN0ZQYwZJZIRrTkGi0HdyKSLBqHE9
- jk83XUg+9Dw0B8v5uK8+g6si9Q1VjGUchf+JZ3VQz4A4Z97Fo7oCUECQKvtOtqz6Qm
- 8apXth+/R3hmpE/a0ui3v6v/JU0Ca2KazJu3UX2LW3h8VyEakwzX0ai1eFnGVuADkm
- 16lHS2lWUcEpC3DciJr9rb7jPw0FQlx8BFdmvHSTJW9e5mFcKhS5/Mz51lf0ofiEAK
- FxcCtypCuKNww==
+ b=TRyb5ELUwAisy0K081InalDzTYh15bN85HIat66QUrbTbFqkuLts5A/eu+pmsvLRc
+ SUtPpvZo/C6MKT5xJLJAOusvl3H7JGF/sDA1x8eaecHzewRHMiahhr85S/WbysY9LE
+ S5eQ+L7mcOqPK7QlRAcOG63JiHGqjanMp0FAj8Txtay4IK/egUUnFTKjjf+hzff1IF
+ zClndhO/xidSow88/OYkvEbqe1Z//ZmzId5N+5NBRYwVbHvy4VqwrCs9iB6fmMzado
+ OKRxYN4dnupx2LVz/oLfTLGDmszUVeYOi5uLa9S8LI4zeJ8YH/d5NUXTzULFR+KbUM
+ LdNv4gRs8sCzg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:34 -0500
-Subject: [PATCH 32/61] freevxfs: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:32 -0500
+Subject: [PATCH 30/61] exportfs: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-32-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-30-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,20 +131,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1010; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=OQCOf5ab2K1mQ+xHyh4YDX8Wu4WoXlx58z+ZGgzTgGo=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0MytO42ubVkDA1oR7CCr2K7tCY0oxaOdcl7
- ubGW17+fNeJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDAAKCRAADmhBGVaC
- FaSRD/9QZxi4U+dSi8DJ94se4LGWC4f3gLm7EreqnTo0S5Uw1lXf085M+yMl8fOGQP5j5HOXAMZ
- zlV4QOZrgcvv5qbNR/Uu1bIqTr4GHSHKyJRhb4qtl3XVVD9OJjwjulJPWUWGWTAHWJvUamYmUAG
- hXgGEUQxxU7+fHHrNObtVo80fQXdhXwCy3VHQYpZzJk3fRfkWehkcjrhq1KUn/mE4E/q73FuL4J
- iIFJxiycMuoF2Nk1tPnVZdml8zdN7phdfKQ1IIwhTz7fPC3lwhJk0JJ0yT3UloXDRA+RGIR+DaV
- l+3GuzqonpW6vsTlD21OALuHKEIrn0a/+TuUgceZzb7iJwss2Y3sdItY7U5JCxFUVrrjhGUXJbh
- NBMZAccD4ydwd2qrAcM5vQID6YReX//sqI3yMQnV3NbXdzPPC0BS3YXFtsVDcfm6AJHANVxOIXf
- 78Am9OXq7FDfhsbMlJumVawUiJXcUQ1G9ykIA6+7J6RhjnJuWt+sB81Mzr9QKnmqs3BWIXvJPOl
- e46W5ho5QdNKcbtaP3D9LL2RWW8okhwpDeWBatMG+8dYr5WeCcVq1uJkjKj5c57uIwz3Ah8/X59
- /CWaZqu9q9XJKqkwLn6kHAdDG7FDvv5IiCzUKq3JfCR0eg7y49iFkuBkwgYzMQMDMucgUs9EoKw
- V5YG7u/5qThqmSQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1061; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=e36wvBqbLnA74Icp0D/z5ihyz+lsimYXgzizPubPc88=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0L3+TuSu4JgWyD1O9aXArZUMQ6ROSrPqkT1
+ DvBvPOLQJOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCwAKCRAADmhBGVaC
+ Fet2D/9Nq6OH+wWNLA7uY3LUWtFVML7UMlUF3CZ6lkxbs2ZFlG76cdpXh8UVAuWv24ikYq7RZoV
+ 4onKygMToVtMwKvbxh6adn1CT80krVi3vlsb81Y2IY9z7cKeK0fC1yrEMlMEmoppHSK3L24mQww
+ 5pp9nLFT7gWIzm6/Lvj8e9FQr+1CpHHeA6nzGX+F+OVu3CVLcwRvNc1FOCrY85NAfAEZXAwP3Yu
+ ww6lvg4vMbk6zCFUtjw6xJJssvy68cKX88tIhT1/MRmufCFsG4Mzc4puW/9OOkRhGmlWyXNrDK4
+ Xe2Sb0i5KQDFDnAKCoaIUls3VjGqDqDliIm/ux6ZrD78hXcSHQHMAMcRmJPP0GKTWNoxIzsezpN
+ kxIhx5qrMEifohsa2S4/56QGWIbS5ZnPoF6MlAJhbHtgv0e50asp7m8bArINnPxyPWDbJhA7EaE
+ Tt9oDe8j7EuZGzLKMSBdmMo6AQU4y8oPKQq4ZpAkOfNsdu1qUFO/Jf3YyCrltpx4q+F63X0gn+w
+ LyRJyufz81WgOojER6AjeUhQsdB3QDqEdXAhmhWz3mqhTDl1mZV40cNem/TWiLbs0a7BbJQGS5u
+ 4ysEMzwC/R6VktA7f2DqeBct1fX8MC1tyCwC+fCtJVYPlD7/xN1f4g6ilt7VsEroaAigB+ZWULQ
+ F25b2DCB1PEj4Gg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
@@ -162,33 +162,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in freevxfs for the
+Update format strings and local variable types in exportfs for the
 i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/freevxfs/vxfs_bmap.c | 4 ++--
+ fs/exportfs/expfs.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/freevxfs/vxfs_bmap.c b/fs/freevxfs/vxfs_bmap.c
-index 26d367e3668da0cfd916881c7a07c047a7ef1bf5..cde52187bb7e3dcc05a45b1032994b579d4e4974 100644
---- a/fs/freevxfs/vxfs_bmap.c
-+++ b/fs/freevxfs/vxfs_bmap.c
-@@ -260,12 +260,12 @@ vxfs_bmap1(struct inode *ip, long iblock)
- 	if (VXFS_ISIMMED(vip))
- 		goto unsupp;
+diff --git a/fs/exportfs/expfs.c b/fs/exportfs/expfs.c
+index 6c9be60a3e48dc5e984a826029375550d1494835..5c3183ce350ebc89ba4a5c10ffd644b6666395c3 100644
+--- a/fs/exportfs/expfs.c
++++ b/fs/exportfs/expfs.c
+@@ -130,12 +130,12 @@ static struct dentry *reconnect_one(struct vfsmount *mnt,
+ 		parent = mnt->mnt_sb->s_export_op->get_parent(dentry);
  
--	printk(KERN_WARNING "vxfs: inode %ld has no valid orgtype (%x)\n",
-+	printk(KERN_WARNING "vxfs: inode %lld has no valid orgtype (%x)\n",
- 			ip->i_ino, vip->vii_orgtype);
- 	BUG();
+ 	if (IS_ERR(parent)) {
+-		dprintk("get_parent of %lu failed, err %ld\n",
++		dprintk("get_parent of %llu failed, err %ld\n",
+ 			dentry->d_inode->i_ino, PTR_ERR(parent));
+ 		return parent;
+ 	}
  
- unsupp:
--	printk(KERN_WARNING "vxfs: inode %ld has an unsupported orgtype (%x)\n",
-+	printk(KERN_WARNING "vxfs: inode %lld has an unsupported orgtype (%x)\n",
- 			ip->i_ino, vip->vii_orgtype);
- 	return 0;
- }
+-	dprintk("%s: find name of %lu in %lu\n", __func__,
++	dprintk("%s: find name of %llu in %llu\n", __func__,
+ 		dentry->d_inode->i_ino, parent->d_inode->i_ino);
+ 	err = exportfs_get_name(mnt, parent, nbuf, dentry);
+ 	if (err == -ENOENT)
 
 -- 
 2.53.0
