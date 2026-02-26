@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E850FD5316
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B640FD531A
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0B8C10EA87;
-	Fri, 27 Feb 2026 09:17:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1632510EA89;
+	Fri, 27 Feb 2026 09:17:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HYTbh8az";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JK5x+DGZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB57F10E96B;
- Thu, 26 Feb 2026 16:00:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28D4810E9A7;
+ Thu, 26 Feb 2026 16:07:34 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2679F6111B;
- Thu, 26 Feb 2026 16:00:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6ADC2BCB6;
- Thu, 26 Feb 2026 16:00:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F1CB041B34;
+ Thu, 26 Feb 2026 16:07:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB8CC19423;
+ Thu, 26 Feb 2026 16:07:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121628;
- bh=T4XOURJp5h6a0W+w6Slhd7r2zVOXmWLyb5oaovUOm6s=;
+ s=k20201202; t=1772122053;
+ bh=g3n1nCxYMXEXDsu2ySJk4rG4mNa4qrBoj39gl+KTRp8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=HYTbh8az9ttre2WoQ3PB5MGwQxAiiploAPcWAy93PIxVejigQcZDcMkTnfaGW8HgR
- lTA7Pb1/NOMO83NTvalDUDSElKXMxtvLDHgmXRvT8DZq7TWtAODghENsLgepuGwCdh
- Pb7MLLg/AFm5mEmSnA0W6cOba53KeeKBRJuWMNOtIkBDyNvU/lFp/7OHDCTFTd8izc
- YzzeIR3xEvFuqHTvzU5WZ6akTwHBiLw/lG0kXIYOcle1pKp6l2vHhl3PhbFk1DlxXI
- siJmnZMwWR2mTtQTkRDpA9w8jfwFg86GAPmVFa0vrH2ByNRt7nUjALiU7hMNSkimpP
- r7/FNozXlhnEg==
+ b=JK5x+DGZZZUuI0edwhDsoOLVacQSr2/2YCXlaFfdQqIunLA1rkj5wQ9VamvSO3bCA
+ A5nWTz3DvoXB5ol7feKJES0oIZcWbjYxY4HE/9ngdNeySq7KWFTfmCF5VsALncqJTm
+ aFulpOAiFtNLP68xa4SaFWpTjyOtA7E3xPHi08mdDQfxDUfAVmHBfIsRrP4fTKI2OP
+ /IjobM+teyuaj6/j3CVBQvJaTbr8dqEm9vVNEVt+zOpTOoD6yX+lBPZsXS0fG50YVd
+ UE40mkB0rrqxWqWmutULB0BzzxTD4xqLxmhEY4ebRz8xEj+XODgaa1cGYt6lx4MDP3
+ g01ujiPYpLTCw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:22 -0500
-Subject: [PATCH 20/61] afs: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:56 -0500
+Subject: [PATCH 54/61] net: update socket dname format for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-20-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-54-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,23 +131,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3827; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=T4XOURJp5h6a0W+w6Slhd7r2zVOXmWLyb5oaovUOm6s=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0Jd3rTJKBznl41a30r5qtD/z0aeq/r47sgP
- CVEl5KncpyJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCQAKCRAADmhBGVaC
- FfTFD/91T+jSkWFt3wxt6E+853oG/5gpw6xS6mUwZV8IgcoYswcYSqbkTpqsCPaikzV0xFXpX+p
- 92d/7BN9iTdm3au3BsH44pHnkX7XObNAg9sdTQP52K6DjP4Ufwz7XbXpPc0tQ2fThZjUWNGiOJ6
- bme3H1hM/w0HUxB2616Sz0uqNvSQGjvaUnUv72hTiXrsEkZ4m3tYZDBBP/Uiq9vEV4vgQn99aMC
- JrQDxxuyEz5xnv9psyVOfUi7H8UCZmc0rqJDf7njZ/Qf9W1K1iSTJiCAmz8prECctblCpvbBewD
- ue7i7WUwkbgbb8INumtZy3sWluypc5dMkD1zRITFM7W4trbEHZx2P3g2pJbplJ4SlgpS0ahhVsk
- Shfnhfm7R3smVsVJBsM9s3OmcMuTO8LFbLFyVK6q/6RO5qnx45HwHHsP4oLAs79iBQLqFt93DOa
- iO3Z6XuLlcEM7M2hi90gY2GAKLbiLs6G/QWEpfFC+IVSoCJqXFcBv8vbp5JGPSPrlubPwc1myaF
- TS5RtvR/iXMmTfsM7ypKOkxmThIMIFh/phF4TckHqHH7B8FfxJC+36v9VFeimnBDc92ZfkCM1Ae
- R070EpuJNv/2J3/k9D2zcnmnuhcgE5roc4eEEVayPUeRtrDZkWkX6QNUOAsKz2oJ97LwFSIPkWZ
- xjAju7Q478qpNxQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=716; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=g3n1nCxYMXEXDsu2ySJk4rG4mNa4qrBoj39gl+KTRp8=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0R0ftkUVIgNWqRLpd6PjX/F6VzDmk1dabAF
+ WFJS0/tvhyJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEQAKCRAADmhBGVaC
+ FbWzD/0YwIWbFt/wgPSYpzAoZ+dvSXhYUNv1qSOgWuZe/51x7ywGmtwlS+4pzvJVeUBrlxRp7yP
+ UUIL4k3r2vgnjv5AbwRjtmB5HXfWlJ8gvx0bL9FPlxPP3sa/Q4JdlMIzJQDBxPQTPLv4WiOkUGI
+ r+q0zTk77AVk/IELx074i7//bQBt+CGIiGRrD75P/ybl/IpF9ChoNKDKQhUB3g44T79ggU1A+VR
+ eEP9NRAmIT9zaHIi0ZxuPtEERuECX+IosPUx85+UjTw7T2RvpPBwQTZAQKMyQWRaL/BVRzqzc63
+ hGptdBZnmMgfDRh9zcCtZloAPd0wXeKNQh65r+MkW9yV+6cyzZypkA53Au9S+h1YFxWRv4q7P+p
+ 5Zd6+fG1C1PVFaNu5I1e91bs6LjWWhkE1D+I+PDj54RnPpzl4jGHfRLcIWlCGqO/FaHY/lTcfhv
+ ioQXIQKh+cMjH/Gbq/OI01UMmaM0g4DsroUqoDPwKwevT1tUD8lSgbKv0mC08VZaMqEE7XNeOzI
+ 3lWP97M3d25pq/AJz98IKhSCNg6GcDc2v95IhToNIzeiW2tLT7qcWSUg9Xvm2jjTNsyltIi5egT
+ itiO0drEKuORLrzOiZKvkEM0f0A1llbTYHIjitVM3x+tT5ARx5ZXL6QBynHiCaiRNETRgJuk3ar
+ 6/G5xOXPzR5hAjw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,105 +162,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in afs for the
-i_ino type change from unsigned long to u64.
+Update %lu to %llu in sockfs_dname() for printing i_ino, since i_ino
+is now u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/afs/dir.c        | 10 +++++-----
- fs/afs/dir_search.c |  2 +-
- fs/afs/dynroot.c    |  2 +-
- fs/afs/inode.c      |  2 +-
- 4 files changed, 8 insertions(+), 8 deletions(-)
+ net/socket.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/afs/dir.c b/fs/afs/dir.c
-index 78caef3f13388c5f604e4970bc0874de168b57f3..aaaa55878ffd28691777668261f577d7a9472d6d 100644
---- a/fs/afs/dir.c
-+++ b/fs/afs/dir.c
-@@ -148,7 +148,7 @@ static bool afs_dir_check_block(struct afs_vnode *dvnode, size_t progress,
- 				union afs_xdr_dir_block *block)
- {
- 	if (block->hdr.magic != AFS_DIR_MAGIC) {
--		pr_warn("%s(%lx): [%zx] bad magic %04x\n",
-+		pr_warn("%s(%llx): [%zx] bad magic %04x\n",
- 		       __func__, dvnode->netfs.inode.i_ino,
- 		       progress, ntohs(block->hdr.magic));
- 		trace_afs_dir_check_failed(dvnode, progress);
-@@ -214,7 +214,7 @@ static int afs_dir_check(struct afs_vnode *dvnode)
+diff --git a/net/socket.c b/net/socket.c
+index 7aa94fce7a8b3d6beec7594e311e73fb52f371cc..3f4d2a867aa15b2d2aec1c9dfa004bca94f6d5de 100644
+--- a/net/socket.c
++++ b/net/socket.c
+@@ -399,7 +399,7 @@ static const struct super_operations sockfs_ops = {
   */
- static int afs_dir_open(struct inode *inode, struct file *file)
+ static char *sockfs_dname(struct dentry *dentry, char *buffer, int buflen)
  {
--	_enter("{%lu}", inode->i_ino);
-+	_enter("{%llu}", inode->i_ino);
+-	return dynamic_dname(buffer, buflen, "socket:[%lu]",
++	return dynamic_dname(buffer, buflen, "socket:[%llu]",
+ 				d_inode(dentry)->i_ino);
+ }
  
- 	BUILD_BUG_ON(sizeof(union afs_xdr_dir_block) != 2048);
- 	BUILD_BUG_ON(sizeof(union afs_xdr_dirent) != 32);
-@@ -523,7 +523,7 @@ static int afs_dir_iterate(struct inode *dir, struct dir_context *ctx,
- 	int retry_limit = 100;
- 	int ret;
- 
--	_enter("{%lu},%llx,,", dir->i_ino, ctx->pos);
-+	_enter("{%llu},%llx,,", dir->i_ino, ctx->pos);
- 
- 	do {
- 		if (--retry_limit < 0) {
-@@ -610,7 +610,7 @@ static int afs_do_lookup_one(struct inode *dir, const struct qstr *name,
- 	};
- 	int ret;
- 
--	_enter("{%lu},{%.*s},", dir->i_ino, name->len, name->name);
-+	_enter("{%llu},{%.*s},", dir->i_ino, name->len, name->name);
- 
- 	/* search the directory */
- 	ret = afs_dir_iterate(dir, &cookie.ctx, NULL, _dir_version);
-@@ -783,7 +783,7 @@ static struct inode *afs_do_lookup(struct inode *dir, struct dentry *dentry)
- 	long ret;
- 	int i;
- 
--	_enter("{%lu},%p{%pd},", dir->i_ino, dentry, dentry);
-+	_enter("{%llu},%p{%pd},", dir->i_ino, dentry, dentry);
- 
- 	cookie = kzalloc_obj(struct afs_lookup_cookie);
- 	if (!cookie)
-diff --git a/fs/afs/dir_search.c b/fs/afs/dir_search.c
-index d2516e55b5edb273677c9cedb6f15524bc56348d..104411c0692f570a217d8f0e6fd35818eaa02932 100644
---- a/fs/afs/dir_search.c
-+++ b/fs/afs/dir_search.c
-@@ -194,7 +194,7 @@ int afs_dir_search(struct afs_vnode *dvnode, const struct qstr *name,
- 	struct afs_dir_iter iter = { .dvnode = dvnode, };
- 	int ret, retry_limit = 3;
- 
--	_enter("{%lu},,,", dvnode->netfs.inode.i_ino);
-+	_enter("{%llu},,,", dvnode->netfs.inode.i_ino);
- 
- 	if (!afs_dir_init_iter(&iter, name))
- 		return -ENOENT;
-diff --git a/fs/afs/dynroot.c b/fs/afs/dynroot.c
-index aa56e8951e037b2e3fa9fc452b43e7bd2d61b926..1d5e33bc750224d063446ea952d5ef97a2481010 100644
---- a/fs/afs/dynroot.c
-+++ b/fs/afs/dynroot.c
-@@ -59,7 +59,7 @@ static struct inode *afs_iget_pseudo_dir(struct super_block *sb, ino_t ino)
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
--	_debug("GOT INODE %p { ino=%lu, vl=%llx, vn=%llx, u=%x }",
-+	_debug("GOT INODE %p { ino=%llu, vl=%llx, vn=%llx, u=%x }",
- 	       inode, inode->i_ino, fid.vid, fid.vnode, fid.unique);
- 
- 	vnode = AFS_FS_I(inode);
-diff --git a/fs/afs/inode.c b/fs/afs/inode.c
-index dde1857fcabb302cc6b06cc018fb1e4108ec6284..a5173434f7862e92a127994c56b89f530ad4c298 100644
---- a/fs/afs/inode.c
-+++ b/fs/afs/inode.c
-@@ -683,7 +683,7 @@ int afs_getattr(struct mnt_idmap *idmap, const struct path *path,
- 	struct key *key;
- 	int ret, seq;
- 
--	_enter("{ ino=%lu v=%u }", inode->i_ino, inode->i_generation);
-+	_enter("{ ino=%llu v=%u }", inode->i_ino, inode->i_generation);
- 
- 	if (vnode->volume &&
- 	    !(query_flags & AT_STATX_DONT_SYNC) &&
 
 -- 
 2.53.0
