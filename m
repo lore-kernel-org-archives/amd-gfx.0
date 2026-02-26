@@ -4,55 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EDA4FD531C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EBF87FD5320
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:18:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1370D10EAEE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BFE010EAF1;
 	Fri, 27 Feb 2026 09:18:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T6YnEYfl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rVUHwL4n";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2389610E081;
- Thu, 26 Feb 2026 20:06:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF8310E9D2;
+ Thu, 26 Feb 2026 17:01:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E765A60054;
- Thu, 26 Feb 2026 20:06:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 520C4C116C6;
- Thu, 26 Feb 2026 20:06:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CA15443C9A;
+ Thu, 26 Feb 2026 17:01:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276F7C19424;
+ Thu, 26 Feb 2026 17:01:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772136410;
- bh=76x3DU9MzBkl90lZYLvAbZAUO09C1G9Su6aBBpYsJFY=;
+ s=k20201202; t=1772125317;
+ bh=/QmItQ6z1ymV5XtAi2g/Dw5o5IqkDFW1zO5h6zottN4=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=T6YnEYfl11ih7xUSiFK61/RDBp81heXTpln3ok8zs3Zd3nR9+pOnRsLAGh/eo6zzB
- xh1FFGrV6ghTw8iJhqrMVYDcQ7Io+PErWnVjKKQrZ1K9m8FptJkjvekaVsWXJU24My
- UlJTUr1mw9KmSblPgaqK4kPBOMclcTyGUg6sIEibALC6s9Eo0RAC4P98mpmWUxKxML
- WCYGgFC1YjtgKQbYQpyc/2jhWHqhTn6/UIey3SlJZaM8cFB91k1Jrn8n4CCOSeLC5x
- 1Zz9aVxBrExtMgqHMxE6dB/3PmeoJvP6nYlZZkPZRM4Wr+F97z1rOiIzHljyWlcR5y
- +jc4SHRMUt5HA==
-Message-ID: <9dd2d94989c395a99576b6a8896c582dd33f6740.camel@kernel.org>
-Subject: Re: [PATCH 12/61] nfsd: update format strings for u64 i_ino
+ b=rVUHwL4neSjulGzFN8BMg9pKoDHwp+Xwjt8pk4Dq976Yi206M6fYhg3+WieL+MRW4
+ gvEYeLd4d0OrxGKSyMS7lmJtR19iZofD0P+t90t6LNfHeq6XzW6OQASj4UUhHO5fCd
+ Jt8xHWi5aSMJPSiNEI9iRQh8NC5Dch7xrdXuGdJKTx0aJjs5j6cKM9Gkvh3cIFtK2O
+ sFUZj/AjXkRLJQmkUXZbGx0heTelso0a9SoyRim4Ku5V4qzU2utzORGAmy3wFg6DDs
+ Ch7D5AWOMdEKvdHUcpKrRe2Jd7F1IAFx5wgWR1LreDYTyyqYBb0eiRGxIh6ia26Q45
+ Bviw8G4tAPjkA==
+Message-ID: <5826915dea6b149707f68847f0f3330a25615eae.camel@kernel.org>
+Subject: Re: [PATCH 00/61] vfs: change inode->i_ino from unsigned long to u64
 From: Jeff Layton <jlayton@kernel.org>
-To: Chuck Lever <chuck.lever@oracle.com>, Alexander Viro	
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara
- <jack@suse.cz>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu	
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Dan Williams <dan.j.williams@intel.com>, Matthew Wilcox
- <willy@infradead.org>, Eric Biggers	 <ebiggers@kernel.org>, "Theodore Y.
- Ts'o" <tytso@mit.edu>, Muchun Song	 <muchun.song@linux.dev>, Oscar Salvador
- <osalvador@suse.de>, David Hildenbrand	 <david@kernel.org>, David Howells
- <dhowells@redhat.com>, Paulo Alcantara	 <pc@manguebit.org>, Andreas Dilger
- <adilger.kernel@dilger.ca>, Jan Kara	 <jack@suse.com>, Jaegeuk Kim
+To: Matthew Wilcox <willy@infradead.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner	
+ <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Steven Rostedt	
+ <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Dan Williams
+ <dan.j.williams@intel.com>, Eric Biggers	 <ebiggers@kernel.org>, "Theodore
+ Y. Ts'o" <tytso@mit.edu>, Muchun Song	 <muchun.song@linux.dev>, Oscar
+ Salvador <osalvador@suse.de>, David Hildenbrand	 <david@kernel.org>, David
+ Howells <dhowells@redhat.com>, Paulo Alcantara	 <pc@manguebit.org>, Andreas
+ Dilger <adilger.kernel@dilger.ca>, Jan Kara	 <jack@suse.com>, Jaegeuk Kim
  <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,  Trond Myklebust
- <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, NeilBrown
- <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo
- <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, Steve French	
- <sfrench@samba.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam
- Prasad N	 <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>,
- Alexander Aring	 <alex.aring@gmail.com>, Ryusuke Konishi
- <konishi.ryusuke@gmail.com>,  Viacheslav Dubeyko	 <slava@dubeyko.com>, Eric
- Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov	 <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>, Christian Schoenebeck
+ <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, Chuck Lever
+ <chuck.lever@oracle.com>,  NeilBrown <neil@brown.name>, Olga Kornievskaia
+ <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,  Tom Talpey
+ <tom@talpey.com>, Steve French <sfrench@samba.org>, Ronnie Sahlberg
+ <ronniesahlberg@gmail.com>,  Shyam Prasad N <sprasad@microsoft.com>,
+ Bharath SM <bharathsm@microsoft.com>, Alexander Aring	
+ <alex.aring@gmail.com>, Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
+ Viacheslav Dubeyko	 <slava@dubeyko.com>, Eric Van Hensbergen
+ <ericvh@kernel.org>, Latchesar Ionkov	 <lucho@ionkov.net>, Dominique
+ Martinet <asmadeus@codewreck.org>, Christian Schoenebeck
  <linux_oss@crudebyte.com>, David Sterba <dsterba@suse.com>, Marc Dionne	
  <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>, Luis de
  Bethencourt	 <luisbg@kernel.org>, Salah Triki <salah.triki@gmail.com>,
@@ -91,8 +92,8 @@ To: Chuck Lever <chuck.lever@oracle.com>, Alexander Viro
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,  Jiri Olsa
  <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
  <adrian.hunter@intel.com>,  James Clark <james.clark@linaro.org>, "Darrick
- J. Wong" <djwong@kernel.org>, Martin Schiller <ms@dev.tdt.de>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ J. Wong" <djwong@kernel.org>, Martin Schiller <ms@dev.tdt.de>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
  fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
  linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
@@ -111,11 +112,10 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  netdev@vger.kernel.org, 	linux-perf-users@vger.kernel.org,
  linux-fscrypt@vger.kernel.org, 	linux-xfs@vger.kernel.org,
  linux-hams@vger.kernel.org, linux-x25@vger.kernel.org
-Date: Thu, 26 Feb 2026 15:06:36 -0500
-In-Reply-To: <8b0bb056-9504-4835-8063-7ddeba328721@oracle.com>
+Date: Thu, 26 Feb 2026 12:01:42 -0500
+In-Reply-To: <aaB5lgKd8FOIizPg@casper.infradead.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
- <20260226-iino-u64-v1-12-ccceff366db9@kernel.org>
- <8b0bb056-9504-4835-8063-7ddeba328721@oracle.com>
+ <aaB5lgKd8FOIizPg@casper.infradead.org>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -194,7 +194,7 @@ Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -209,104 +209,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2026-02-26 at 14:48 -0500, Chuck Lever wrote:
-> On 2/26/26 10:55 AM, Jeff Layton wrote:
-> > Update format strings from %ld/%lu to %lld/%llu for i_ino, which is
-> > now a u64.
-> >=20
-> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> > ---
-> >  fs/nfsd/export.c    | 2 +-
-> >  fs/nfsd/nfs4state.c | 4 ++--
-> >  fs/nfsd/nfsfh.c     | 4 ++--
-> >  fs/nfsd/vfs.c       | 2 +-
-> >  4 files changed, 6 insertions(+), 6 deletions(-)
-> >=20
-> > diff --git a/fs/nfsd/export.c b/fs/nfsd/export.c
-> > index 8fdbba7cad96443d92cc7fdeea6158c4cc681be1..334b63eb966e71e6af6adde=
-61aa1123f01b4390b 100644
-> > --- a/fs/nfsd/export.c
-> > +++ b/fs/nfsd/export.c
-> > @@ -1039,7 +1039,7 @@ exp_rootfh(struct net *net, struct auth_domain *c=
-lp, char *name,
-> >  	}
-> >  	inode =3D d_inode(path.dentry);
-> > =20
-> > -	dprintk("nfsd: exp_rootfh(%s [%p] %s:%s/%ld)\n",
-> > +	dprintk("nfsd: exp_rootfh(%s [%p] %s:%s/%lld)\n",
-> >  		 name, path.dentry, clp->name,
-> >  		 inode->i_sb->s_id, inode->i_ino);
-> >  	exp =3D exp_parent(cd, clp, &path);
-> > diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-> > index 6b9c399b89dfb71a52b9c97f0efe9a1dea0558a6..a569d89ac9123d66bb47e7d=
-74c7c98610de21da2 100644
-> > --- a/fs/nfsd/nfs4state.c
-> > +++ b/fs/nfsd/nfs4state.c
-> > @@ -1253,7 +1253,7 @@ static void nfsd4_finalize_deleg_timestamps(struc=
-t nfs4_delegation *dp, struct f
-> >  	if (ret) {
-> >  		struct inode *inode =3D file_inode(f);
-> > =20
-> > -		pr_notice_ratelimited("nfsd: Unable to update timestamps on inode %0=
-2x:%02x:%lu: %d\n",
-> > +		pr_notice_ratelimited("nfsd: Unable to update timestamps on inode %0=
-2x:%02x:%llu: %d\n",
-> >  					MAJOR(inode->i_sb->s_dev),
-> >  					MINOR(inode->i_sb->s_dev),
-> >  					inode->i_ino, ret);
-> > @@ -2888,7 +2888,7 @@ static void nfs4_show_superblock(struct seq_file =
-*s, struct nfsd_file *f)
-> >  {
-> >  	struct inode *inode =3D file_inode(f->nf_file);
-> > =20
-> > -	seq_printf(s, "superblock: \"%02x:%02x:%ld\"",
-> > +	seq_printf(s, "superblock: \"%02x:%02x:%llu\"",
-> >  					MAJOR(inode->i_sb->s_dev),
-> >  					 MINOR(inode->i_sb->s_dev),
-> >  					 inode->i_ino);
-> > diff --git a/fs/nfsd/nfsfh.c b/fs/nfsd/nfsfh.c
-> > index ed85dd43da18e6d4c4667ff14dc035f2eacff1d6..cfd143b41eb1fb53868f378=
-d668905c1c7d5f868 100644
-> > --- a/fs/nfsd/nfsfh.c
-> > +++ b/fs/nfsd/nfsfh.c
-> > @@ -601,9 +601,9 @@ fh_compose(struct svc_fh *fhp, struct svc_export *e=
-xp, struct dentry *dentry,
-> >  	struct inode * inode =3D d_inode(dentry);
-> >  	dev_t ex_dev =3D exp_sb(exp)->s_dev;
-> > =20
-> > -	dprintk("nfsd: fh_compose(exp %02x:%02x/%ld %pd2, ino=3D%ld)\n",
-> > +	dprintk("nfsd: fh_compose(exp %02x:%02x/%lld %pd2, ino=3D%lld)\n",
-> >  		MAJOR(ex_dev), MINOR(ex_dev),
-> > -		(long) d_inode(exp->ex_path.dentry)->i_ino,
-> > +		(long long) d_inode(exp->ex_path.dentry)->i_ino,
-> >  		dentry,
-> >  		(inode ? inode->i_ino : 0));
-> > =20
-> > diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-> > index c884c3f34afb044ee5cacc962a04a97de2f7fd88..dde09f3734c2844a3fe0b6d=
-18d596276a19aa2d1 100644
-> > --- a/fs/nfsd/vfs.c
-> > +++ b/fs/nfsd/vfs.c
-> > @@ -1163,7 +1163,7 @@ nfsd_direct_read(struct svc_rqst *rqstp, struct s=
-vc_fh *fhp,
-> >  	} else if (unlikely(host_err =3D=3D -EINVAL)) {
-> >  		struct inode *inode =3D d_inode(fhp->fh_dentry);
-> > =20
-> > -		pr_info_ratelimited("nfsd: Direct I/O alignment failure on %s/%ld\n"=
-,
-> > +		pr_info_ratelimited("nfsd: Direct I/O alignment failure on %s/%lld\n=
-",
-> >  				    inode->i_sb->s_id, inode->i_ino);
-> >  		host_err =3D -ESERVERFAULT;
-> >  	}
-> >=20
+On Thu, 2026-02-26 at 16:49 +0000, Matthew Wilcox wrote:
+> On Thu, Feb 26, 2026 at 10:55:02AM -0500, Jeff Layton wrote:
+> > The bulk of the changes are to format strings and tracepoints, since th=
+e
+> > kernel itself doesn't care that much about the i_ino field. The first
+> > patch changes some vfs function arguments, so check that one out
+> > carefully.
 >=20
-> Suggestion: Let's use the %llu format specifier consistently for
-> inode->i_ino, which is unsigned.
->=20
-> Reviewed-by: Chuck Lever <chuck.lever@oracle.com>
->=20
+> Why are the format strings all done as separate patches?  Don't we get
+> bisection hazards by splitting it apart this way?
 
-Good plan. I'll have claude do a pass for that in the next set.
+One big patch would be Yuuuuge. We could certainly do it that way, but
+it'll be nightmare if we ever do have to revert part of it. What do you
+suggest?
+
 --=20
 Jeff Layton <jlayton@kernel.org>
