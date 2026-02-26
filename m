@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12A37FC5913
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 08:59:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88DCDFC5910
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 09:00:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0399910E88B;
-	Thu, 26 Feb 2026 08:59:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2028E10E88D;
+	Thu, 26 Feb 2026 09:00:16 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A3B010E88B
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 08:59:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A28A10E88D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 09:00:15 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <p.zabel@pengutronix.de>)
- id 1vvXCY-0006mh-AZ; Thu, 26 Feb 2026 09:58:30 +0100
+ id 1vvXDg-00073c-Bg; Thu, 26 Feb 2026 09:59:40 +0100
 Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
  helo=lupine)
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1vvXCR-002hWl-1x;
- Thu, 26 Feb 2026 09:58:24 +0100
+ (envelope-from <p.zabel@pengutronix.de>) id 1vvXDd-002hWz-1F;
+ Thu, 26 Feb 2026 09:59:38 +0100
 Received: from pza by lupine with local (Exim 4.98.2)
- (envelope-from <p.zabel@pengutronix.de>) id 1vvXCS-000000004Cy-3TL6;
- Thu, 26 Feb 2026 09:58:24 +0100
-Message-ID: <f6807ac0f40dbcb87278f6339c4f2b5f715eb359.camel@pengutronix.de>
-Subject: Re: [PATCH 11/14] drm/mediatek: dp: Convert to drm_output_color_format
+ (envelope-from <p.zabel@pengutronix.de>) id 1vvXDe-000000004FT-2WQa;
+ Thu, 26 Feb 2026 09:59:38 +0100
+Message-ID: <62beeba182aa7e84c6cd02805a0e75094ad10a6e.camel@pengutronix.de>
+Subject: Re: [PATCH 09/14] drm/bridge: synopsys: dw-hdmi: Convert to
+ drm_output_color_format
 From: Philipp Zabel <p.zabel@pengutronix.de>
 To: Maxime Ripard <mripard@kernel.org>, Nicolas Frattaroli	
  <nicolas.frattaroli@collabora.com>, Jani Nikula
@@ -55,10 +56,10 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-sunxi@lists.linux.dev
-Date: Thu, 26 Feb 2026 09:58:24 +0100
-In-Reply-To: <20260224-drm-rework-color-formats-v1-11-bebc76604ada@kernel.org>
+Date: Thu, 26 Feb 2026 09:59:38 +0100
+In-Reply-To: <20260224-drm-rework-color-formats-v1-9-bebc76604ada@kernel.org>
 References: <20260224-drm-rework-color-formats-v1-0-bebc76604ada@kernel.org>
- <20260224-drm-rework-color-formats-v1-11-bebc76604ada@kernel.org>
+ <20260224-drm-rework-color-formats-v1-9-bebc76604ada@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.56.2-0+deb13u1 
@@ -88,9 +89,6 @@ On Di, 2026-02-24 at 11:58 +0100, Maxime Ripard wrote:
 > enum.
 >=20
 > The main different is that while DRM_COLOR_FORMAT_ was a bitmask,
-
-s/different/difference/
-
 > drm_output_color_format is a proper enum. However, the enum was done is
 > such a way than DRM_COLOR_FORMAT_X =3D BIT(DRM_OUTPUT_COLOR_FORMAT_X) so
 > the transitition is easier.
