@@ -4,71 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3FC6FD532A
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20ECCFD5324
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54AE210EAA1;
-	Fri, 27 Feb 2026 09:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A519910EA8E;
+	Fri, 27 Feb 2026 09:17:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="A+6pYEIX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YDzbCEdI";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD7310EA4E
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 07:55:09 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-48379a42f76so13028525e9.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 23:55:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1772178908; x=1772783708; darn=lists.freedesktop.org;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=0bo1+MeHyz3oo0R9LPXDVH4BNCFrZ2q0p2S2NbLydZI=;
- b=A+6pYEIXWEW7cWn8OIuPXubR9GI76T5KDQvZKHwYHhqS1GOgaLABxHrz+oYTiRWxSE
- +H2zBp0xvbRwCc7iWacIxYJ7dnUPSAZQhmVrHFYK3RULG81VocebYyf3GRMr5EgCsRtD
- E29ZcK+l74HbfSZKTcsp/1qlPelWSm+yCMvGfz3PYwqcxEUqteJw2cjO7K60BbEYoHTz
- ovYqADgeq6kuvmTJzhxpcTHCyD+PP2LHR9R7x/G7zqwTxY1Q4o9pB04VIAkj9gtvB+jE
- HaT8JF7Fz1S5jF/lsc6xAMEMZmhUSU7RCD2s5TjsttgEUTRWueGIgxF6R0RjNLyJiqL7
- +ZkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772178908; x=1772783708;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=0bo1+MeHyz3oo0R9LPXDVH4BNCFrZ2q0p2S2NbLydZI=;
- b=KXAEDubpV8UP16RMvgVEw24dlnZHL8FE98fRzHSXamdFDQzSmaAMvLWT3t/0HUBf5s
- 0feGdjIcrrze40Zf2yBUcD7f7nFqK4mv0pPMzEH+UbUThIL6MGjZdE/6BlxzWquV5amG
- MRuy/RSUHWyTEltWVA5xylcVSlDczrXTVXKLetZSGtMGEPHB2glgYY8qh1AYh2bHYpZR
- xYKMBF1YbvKwqFaJsE/9ZfU+RgWeVZm31nLOZMkoB7UOnh6W2JirvyhezDbqs2VvmjiL
- Q9zfMhzJT6KEn7UxYKrpJNzagrVj3kjFpPOP6U7johjPkGF+yCpFGxfHSpxgAp+sumu/
- RQLA==
-X-Gm-Message-State: AOJu0YxcP3tpxuw/xFHQbbkLH6GKkfeITDWqTyGp4mJzt/Pzz2YkxLvV
- /e8zg65ZUPm/cROwO4eVgSYalonJSACPQjW8wdyvDM4Y6KdFELemDRwfjNKkQIggZ8k=
-X-Gm-Gg: ATEYQzwM02t2RP43TEWf1mp8bKLaMqxyMg7U+GJvdIXUT7On616S/o9/e5GVctysGHj
- t8Px9VZNnqLC4E4rPOD+nW9yKL0MYtKYPItwXZ4rhgscNcKhMYbmz2uldVLbpQMJMus/twXKKxe
- N2ZkVg7XvWJsBYKDep2jV9jjuciw0YEtY8rWP1svps2HtYKS5sbOhrG916bT7TEDdLRcm9F7cHx
- An7+BkEaaHDTZDXsTWYGah6sk3PEH3mJFJFUogF5jgrgdVugjIX0caIFeZFw5OZjs8IibGRmpkX
- CbISTb4oL0bEmqYnKyaTo1MhJYWXyLIAZQdxZJRGLByleXSZZzknthHo3W0M8PQkPX91vEt4A7f
- VS3s46AocZPwu5F/LsxtNxW1yecEeiHsReo7R1Rpb0NWDwWNFzGn++WH470bIDsmhAxgCLYnewi
- z4zBh8Di+4kKzgLf/LI3dQc5G+aNef
-X-Received: by 2002:a05:600c:828c:b0:482:dbd7:a1c1 with SMTP id
- 5b1f17b1804b1-483c9c23c72mr23232475e9.34.1772178907803; 
- Thu, 26 Feb 2026 23:55:07 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483bd7507adsm219000415e9.9.2026.02.26.23.55.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Feb 2026 23:55:07 -0800 (PST)
-Date: Fri, 27 Feb 2026 10:55:04 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amdgpu: add missing lock in amdgpu_benchmark_do_move
-Message-ID: <aaFN2JyOolrjynKP@stanley.mountain>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B01FF10E96B;
+ Thu, 26 Feb 2026 16:00:04 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 011DE61332;
+ Thu, 26 Feb 2026 16:00:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10356C2BCB3;
+ Thu, 26 Feb 2026 15:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772121603;
+ bh=kIVFsmXtBE3YuzRB+strxcrcOEXNDR/4sXDdnMV6RAw=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=YDzbCEdIFAS3XGTFYeKhbBvMOHdk2GCv65NO1aAYs5h3azw9VRNLRJ9Fbn00BONBd
+ XZ7Q5YtaGOLoNjN44S8s2loYRg9chGJoSdQqOQUCUSyyrTuMXpdER+QNm8x2gyF7L8
+ ri1g5oeJ1OfZ/tOcgVd456us4+YacMZX/hr46U25NZBBgnaKDgHrOprTihC/bgFhA1
+ RiYO1VO8vRpTLjdTKTu+uePcGEN6072PH5y/cukbIpk3bxRe2aKXlakKytXJdfNbg8
+ CPNEVITwSY9we00NyTjK9lJzoNG5SDqRTyk7TCSii+0E3vkMGJPHWkJzKpDUpL4qH8
+ o5DeOf1pEvh1Q==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Thu, 26 Feb 2026 10:55:20 -0500
+Subject: [PATCH 18/61] 9p: update format strings for u64 i_ino
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:17 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260226-iino-u64-v1-18-ccceff366db9@kernel.org>
+References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
+In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Dan Williams <dan.j.williams@intel.com>, 
+ Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>, 
+ "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+ David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>, 
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+ Shyam Prasad N <sprasad@microsoft.com>, 
+ Bharath SM <bharathsm@microsoft.com>, 
+ Alexander Aring <alex.aring@gmail.com>, 
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, 
+ Eric Van Hensbergen <ericvh@kernel.org>, 
+ Latchesar Ionkov <lucho@ionkov.net>, 
+ Dominique Martinet <asmadeus@codewreck.org>, 
+ Christian Schoenebeck <linux_oss@crudebyte.com>, 
+ David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>, 
+ Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>, 
+ Salah Triki <salah.triki@gmail.com>, 
+ "Tigran A. Aivazian" <aivazian.tigran@gmail.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
+ Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>, 
+ Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Yangtao Li <frank.li@vivo.com>, 
+ Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>, 
+ David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, 
+ Dave Kleikamp <shaggy@kernel.org>, 
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+ Joseph Qi <joseph.qi@linux.alibaba.com>, 
+ Mike Marshall <hubcap@omnibond.com>, 
+ Martin Brandenburg <martin@omnibond.com>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
+ Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>, 
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Ondrej Mosnacek <omosnace@redhat.com>, 
+ Casey Schaufler <casey@schaufler-ca.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Willem de Bruijn <willemb@google.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Martin Schiller <ms@dev.tdt.de>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+ linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
+ v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
+ ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, 
+ ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
+ ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
+ linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
+ linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
+ selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
+ linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3755; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=kIVFsmXtBE3YuzRB+strxcrcOEXNDR/4sXDdnMV6RAw=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0If6psvaFLhG5GB3QWW9P7h7vG/pnb7lxXs
+ CZ+gDM6mG2JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCAAKCRAADmhBGVaC
+ FdKIEADP6XMRuAe/OrAUfesmSxFdHao88/Flin1MLL7xtSytZJHGQ4CZFPmxHE0vn4cXVNtsXur
+ 4lOmKOvGEvRgPNsggDD5qBh1Arb0M9DX0QxIvm/EH79Z0ptVoVu8m7SpOj6e6IQ3y6SFjZBjicK
+ dO+LW3XgSPLXjy9hxv+oS432GzeyPdrOlNQF4wKgxYtRUc0dPnzDFSC1CqjNRxP+T7l5aySDOoe
+ S8oLG4YoEk63+3sJj5kjGMBIFveg23IW0jalUkrEIl0D1ZSUvoSKpsoHYU1Y4XuIHGW63gfJskj
+ /jwpRMnzoio+x5aNIiRplu8qY5Jo/nAnwCKdqddKWLeo3pys8P4TKPmEQ7gL2MsuAQ8feiD3hht
+ hOkyH1vUB4bT6NZe7njX6tr7A6vvrgITD2WiVwput54LNflG7A3WKXLtV/UTR3QEdRAxxeJUfvt
+ ooybLC4A0ZpJDd0YYSP4zGcUmWDvmBSUmBEbP8sD2mQNLoJMuM9h8OySjaQ9NZtx2iCuCS4Rxoj
+ RciUZM5QkBcyuBTeD4YDGohYKBN4wgy9Gg3GdJ8fDeRjJytnZnFAx/dyUY7PTGqG+UwgfU94Fwl
+ h3fv5Myhfxhuy1PDazOm/qHMj9NpBQAZiaLTm5d1PxJL0ih+NNN95P4uEvVH+76atxLGWmN8zO6
+ u/SWlnT7tELjwcA==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,50 +162,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[ Smatch checking is paused while we raise funding. #SadFace
-  https://lore.kernel.org/all/aTaiGSbWZ9DJaGo7@stanley.mountain/ -dan ]
+Update format strings and local variable types in 9p for the
+i_ino type change from unsigned long to u64.
 
-Hello Pierre-Eric Pelloux-Prayer,
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+ fs/9p/vfs_addr.c       | 4 ++--
+ fs/9p/vfs_inode.c      | 6 +++---
+ fs/9p/vfs_inode_dotl.c | 6 +++---
+ 3 files changed, 8 insertions(+), 8 deletions(-)
 
-Commit 30f2daedf4d8 ("drm/amdgpu: add missing lock in
-amdgpu_benchmark_do_move") from Nov 18, 2025 (linux-next), leads to
-the following Smatch static checker warning:
+diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+index 862164181baca1e88ecf8859c55868bb01525ce1..c21d33830f5f021904f490ab6185db5fd40f736d 100644
+--- a/fs/9p/vfs_addr.c
++++ b/fs/9p/vfs_addr.c
+@@ -36,7 +36,7 @@ static void v9fs_begin_writeback(struct netfs_io_request *wreq)
+ 
+ 	fid = v9fs_fid_find_inode(wreq->inode, true, INVALID_UID, true);
+ 	if (!fid) {
+-		WARN_ONCE(1, "folio expected an open fid inode->i_ino=%lx\n",
++		WARN_ONCE(1, "folio expected an open fid inode->i_ino=%llx\n",
+ 			  wreq->inode->i_ino);
+ 		return;
+ 	}
+@@ -133,7 +133,7 @@ static int v9fs_init_request(struct netfs_io_request *rreq, struct file *file)
+ 	return 0;
+ 
+ no_fid:
+-	WARN_ONCE(1, "folio expected an open fid inode->i_ino=%lx\n",
++	WARN_ONCE(1, "folio expected an open fid inode->i_ino=%llx\n",
+ 		  rreq->inode->i_ino);
+ 	return -EINVAL;
+ }
+diff --git a/fs/9p/vfs_inode.c b/fs/9p/vfs_inode.c
+index 97abe65bf7c1f00e94e431fc69dc5ce647d1742b..d1508b1fe10929d8d847af313f7661d693167d96 100644
+--- a/fs/9p/vfs_inode.c
++++ b/fs/9p/vfs_inode.c
+@@ -1245,7 +1245,7 @@ static int
+ v9fs_vfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 		 struct dentry *dentry, const char *symname)
+ {
+-	p9_debug(P9_DEBUG_VFS, " %lu,%pd,%s\n",
++	p9_debug(P9_DEBUG_VFS, " %llu,%pd,%s\n",
+ 		 dir->i_ino, dentry, symname);
+ 
+ 	return v9fs_vfs_mkspecial(dir, dentry, P9_DMSYMLINK, symname);
+@@ -1269,7 +1269,7 @@ v9fs_vfs_link(struct dentry *old_dentry, struct inode *dir,
+ 	char name[1 + U32_MAX_DIGITS + 2]; /* sign + number + \n + \0 */
+ 	struct p9_fid *oldfid;
+ 
+-	p9_debug(P9_DEBUG_VFS, " %lu,%pd,%pd\n",
++	p9_debug(P9_DEBUG_VFS, " %llu,%pd,%pd\n",
+ 		 dir->i_ino, dentry, old_dentry);
+ 
+ 	oldfid = v9fs_fid_clone(old_dentry);
+@@ -1305,7 +1305,7 @@ v9fs_vfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
+ 	char name[2 + U32_MAX_DIGITS + 1 + U32_MAX_DIGITS + 1];
+ 	u32 perm;
+ 
+-	p9_debug(P9_DEBUG_VFS, " %lu,%pd mode: %x MAJOR: %u MINOR: %u\n",
++	p9_debug(P9_DEBUG_VFS, " %llu,%pd mode: %x MAJOR: %u MINOR: %u\n",
+ 		 dir->i_ino, dentry, mode,
+ 		 MAJOR(rdev), MINOR(rdev));
+ 
+diff --git a/fs/9p/vfs_inode_dotl.c b/fs/9p/vfs_inode_dotl.c
+index 643e759eacb2a46855c7db6187fe6b29b7534c9a..71796a89bcf4745363b59af1047ecfd7e3f4d956 100644
+--- a/fs/9p/vfs_inode_dotl.c
++++ b/fs/9p/vfs_inode_dotl.c
+@@ -691,7 +691,7 @@ v9fs_vfs_symlink_dotl(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct p9_fid *fid = NULL;
+ 
+ 	name = dentry->d_name.name;
+-	p9_debug(P9_DEBUG_VFS, "%lu,%s,%s\n", dir->i_ino, name, symname);
++	p9_debug(P9_DEBUG_VFS, "%llu,%s,%s\n", dir->i_ino, name, symname);
+ 
+ 	dfid = v9fs_parent_fid(dentry);
+ 	if (IS_ERR(dfid)) {
+@@ -734,7 +734,7 @@ v9fs_vfs_link_dotl(struct dentry *old_dentry, struct inode *dir,
+ 	struct p9_fid *dfid, *oldfid;
+ 	struct v9fs_session_info *v9ses;
+ 
+-	p9_debug(P9_DEBUG_VFS, "dir ino: %lu, old_name: %pd, new_name: %pd\n",
++	p9_debug(P9_DEBUG_VFS, "dir ino: %llu, old_name: %pd, new_name: %pd\n",
+ 		 dir->i_ino, old_dentry, dentry);
+ 
+ 	v9ses = v9fs_inode2v9ses(dir);
+@@ -798,7 +798,7 @@ v9fs_vfs_mknod_dotl(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct p9_qid qid;
+ 	struct posix_acl *dacl = NULL, *pacl = NULL;
+ 
+-	p9_debug(P9_DEBUG_VFS, " %lu,%pd mode: %x MAJOR: %u MINOR: %u\n",
++	p9_debug(P9_DEBUG_VFS, " %llu,%pd mode: %x MAJOR: %u MINOR: %u\n",
+ 		 dir->i_ino, dentry, omode,
+ 		 MAJOR(rdev), MINOR(rdev));
+ 
 
-	drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c:57 amdgpu_benchmark_do_move()
-	warn: inconsistent returns '&adev->mman.default_entity.lock'.
+-- 
+2.53.0
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-    31 static int amdgpu_benchmark_do_move(struct amdgpu_device *adev, unsigned size,
-    32                                     uint64_t saddr, uint64_t daddr, int n, s64 *time_ms)
-    33 {
-    34         ktime_t stime, etime;
-    35         struct dma_fence *fence;
-    36         int i, r;
-    37 
-    38         mutex_lock(&adev->mman.default_entity.lock);
-    39         stime = ktime_get();
-    40         for (i = 0; i < n; i++) {
-    41                 r = amdgpu_copy_buffer(adev, &adev->mman.default_entity,
-    42                                        saddr, daddr, size, NULL, &fence,
-    43                                        false, 0);
-    44                 if (r)
-    45                         goto exit_do_move;
-    46                 r = dma_fence_wait(fence, false);
-    47                 dma_fence_put(fence);
-    48                 if (r)
-    49                         goto exit_do_move;
-    50         }
-    51         mutex_unlock(&adev->mman.default_entity.lock);
-    52 
-    53 exit_do_move:
-
-The unlock should be after the exit_do_move label.
-
-    54         etime = ktime_get();
-    55         *time_ms = ktime_ms_delta(etime, stime);
-    56 
---> 57         return r;
-    58 }
-
-regards,
-dan carpenter
