@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7E59FD531A
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 609D5FD5316
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0168310EA74;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E32C110EA72;
 	Fri, 27 Feb 2026 09:17:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pBlTECaW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GJUXRCbN";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C1A010E9B3;
- Thu, 26 Feb 2026 15:57:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48D7410E99C;
+ Thu, 26 Feb 2026 15:56:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7187D60130;
- Thu, 26 Feb 2026 15:57:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC98C2BCAF;
- Thu, 26 Feb 2026 15:57:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 20EF644522;
+ Thu, 26 Feb 2026 15:56:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD31C2BC86;
+ Thu, 26 Feb 2026 15:56:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121440;
- bh=onxb3Cyqd/rilCm65K+p7iNnpXJ1vFPpFmw2Azg3uIU=;
+ s=k20201202; t=1772121402;
+ bh=p4gAehVmKV9HRwKOVD7lkA3H4G5n6gGJrLiMZGfJlk8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=pBlTECaWBg2Lnsgi4c3FnOQxb+NhDxloLDFll2ORgPJtvoW3bSi/c1w6MjoZ/MWDx
- 6yQb2NAWqPtdoP//iXZhudf5uwqmvA6zTsZysd0RclMa4KA8A2E7yubYRXWaEkwGLH
- KcP47iPodNczlsp4pkoEOsmIrodBF2R1908h827GvxVRN7M8RkVTmdnlWAeJwIB6ml
- OH06GMgsn7Xhsq0Tjlr96Ik/X9487Ydj4Kr0llQ9seraIF9scWjV1cyKKw4WVdPZdG
- ihwjXNIfAI7Cf+zdOWxcOt5RxWayraIECcLCLMf8qh18HpDPCd7C+y4E1yDFufLkyu
- /Zr3aN0J0Tb6w==
+ b=GJUXRCbNue8c5nQUmOYnprKKGdq7est6xgtINLJuUUXA4AxOjErZBX1aak75+Z21b
+ sxiP1Rl7ai+UG33KyVcwcRkjZXWRDBruS7v9OzV8IuEOOSF3c8s1CXc28CbGsrZGtE
+ xD0keh/3myZHJQB64m40mvnfyBsaLRvn1Dnmw9dC0BDswBoq55OK9GwHazx35/BTvI
+ AWKEnc6brxgFFmMt17kKJI6KCK6v1ivCu24aRSOj8nQK8WkEfm+jfEukffTvGE03Ll
+ nJ1uNR5hOO0JnT6KLr0xHOiP1dSY5HMiZwyXHC/GMlpwNre1sCDIp3ELyKlr7lS7OX
+ qCy5Ft/TOotVw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:07 -0500
-Subject: [PATCH 05/61] jbd2: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:04 -0500
+Subject: [PATCH 02/61] vfs: change i_ino from unsigned long to u64
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-5-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-2-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,20 +131,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1864; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=onxb3Cyqd/rilCm65K+p7iNnpXJ1vFPpFmw2Azg3uIU=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0F8qRmALygPLLmUZVfpzbSTaHn975/yAwHB
- dI9f09ry0yJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtBQAKCRAADmhBGVaC
- FTGYD/0elblMywWvVOn9kJc2PjMQ+s7lv+2eg/EeUnkEeM1NRAlfHASrkNovCSp2JS8bN3Wio3K
- oTEF74kP2mzLPNtCAEkpGyBdTQwFDZiHsG8G8OISwxOERd5YsPrAEw1nBrLrphhpt0Lo9hKbAUQ
- tRWzAlooO5fdcC7gywLb4awZYzRFdVq8IbvBWvMdsEhjiZld9T1wx879gxJZcGPXcMs5Ch//E7m
- 6uOTayYJ3+mWjLk5L+lyCAUwjR/SGxD1EkfAo4PHRP7XksV+tlwJAnVncKDwnZ9TEN0HNHkwAPx
- GgRwnMuzw24gx3kVRm7R2qkdlgGrg9C2qt/Ks/anblg+tOrlNgx1mpyVAkzWISmZBqs/K00IWq8
- NMpy+k2NHj3u7RrSq0JfaUJkxTyEfiob89EoUIKc/lHeasUhFMbSwNSWh1phJ5+MDw0p/KIFa81
- GcsYIoBEQqgbTPjwRrIQ2Hm43oQIkg84N2pK713+zgfsJ6BIcmI5O1N1WQLc4tnTFnFa1kLDCue
- yPOrVs3TZT9rPDeu1qfi//a9XSO06xqU33tMKAunO+K2Y8XD2TB3CalnBIFVoP953fD/RNjNQNx
- K/uXIIYVUwmz0TkKYPYnL8E3R/S54eAgjbhLs1iHrx7lxAwI9/BMsp/p8OcwqXKO46Ka2D93Nr5
- u/i7SAc1jppid9A==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1326; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=p4gAehVmKV9HRwKOVD7lkA3H4G5n6gGJrLiMZGfJlk8=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0E7jdzVUiTIZmlR2CbMineoxpzqpeIgZghk
+ w9xgP6zhVKJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtBAAKCRAADmhBGVaC
+ FddWEAC/pE+Y3T6Sy6mzHZaq/ChUkWFVvyHrvP0hJug6Uo8Izaru5rInGMeAdUWp/Kq9GEBWDYd
+ /VRX/PMYewqA9ZBE6BfIe3k9MHRxDbRdJ1DDUZrgrfwTjQ+V1qQZjA25e6SflJIsWyPi2tIsTOj
+ 3pc9wz4+v+SFEPDSSvdwlwsd1DUeBkbZ9w7suFRGOI7I5VdslhapmQuqz7wOaIsILumdQIA5V18
+ 1sA/ljkjTWvu3wRqnx2/HZwqH6Hk3vCl4jTwXTKMOtbHBRhN9T7nWQg2XKX323R54BIRKKDDoa+
+ FIms6yXt07D0pcD8Qxe3ynSsIZZlM+CHi2etoc3KcSBOQZ4qUUhKeekchWa5rXdnUR5dHCAccjC
+ cGFjJLxuGTBREkSYZVk1Dw+nJZVJqCzjeRLtOkDP7QdcQn2UFWnPuuDiiRSlDo11QXWh1cUNOJu
+ umuHhAch0IS0VZ4zXX3Pm4XqH49/QnNNEPW3I5F+ezC07rpVel7oHK+Wg95LWew1niKhvVTTbtA
+ 3n0H6Vm80X1OlmZWH4V1WeUN48P2H4agTQxObtRr48n07+hmCldNwwwi3o5mArzoh58n1cVbutF
+ bCbB2Iwu/fQevOiKPcQuu76biljIvPYmgGX+lQ30ipMaGmAOibaungypM5v6ep1tOUtQApiOanC
+ dYao6xjrL9V2c3w==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
@@ -162,50 +162,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update %lu to %llu in jbd2 debug/warning messages that print i_ino,
-since i_ino is now u64.
+Change the type of i_ino in struct inode from unsigned long to u64.
+
+On 64-bit architectures, unsigned long is already 64 bits, so this is
+effectively a type alias change with no runtime impact. On 32-bit
+architectures, this widens i_ino from 32 to 64 bits, allowing
+filesystems like NFS, CIFS, XFS, Ceph, and FUSE to store their native
+64-bit inode numbers without folding/hashing.
+
+The VFS already handles 64-bit inode numbers in kstat.ino (u64) and
+statx.stx_ino (__u64). The existing overflow checks in cp_new_stat(),
+cp_old_stat(), and cp_compat_stat() handle narrowing to 32-bit st_ino
+with -EOVERFLOW, so userspace ABI is preserved.
+
+struct inode will grow by 4 bytes on 32-bit architectures.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/jbd2/journal.c     | 4 ++--
- fs/jbd2/transaction.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ include/linux/fs.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
-index cb2c529a8f1bea33df6d4135e5782b9a77792732..dcb38453fcda1ea666db5c692dc48f90a40e0d7d 100644
---- a/fs/jbd2/journal.c
-+++ b/fs/jbd2/journal.c
-@@ -1677,7 +1677,7 @@ journal_t *jbd2_journal_init_inode(struct inode *inode)
- 		return err ? ERR_PTR(err) : ERR_PTR(-EINVAL);
- 	}
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index dfa1f475b1c480c503ab6f00e891aa9b051607fa..097443bf12e289c347651e5f3da5b67eb6b53121 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -783,7 +783,7 @@ struct inode {
+ #endif
  
--	jbd2_debug(1, "JBD2: inode %s/%ld, size %lld, bits %d, blksize %ld\n",
-+	jbd2_debug(1, "JBD2: inode %s/%lld, size %lld, bits %d, blksize %ld\n",
- 		  inode->i_sb->s_id, inode->i_ino, (long long) inode->i_size,
- 		  inode->i_sb->s_blocksize_bits, inode->i_sb->s_blocksize);
- 
-@@ -1689,7 +1689,7 @@ journal_t *jbd2_journal_init_inode(struct inode *inode)
- 
- 	journal->j_inode = inode;
- 	snprintf(journal->j_devname, sizeof(journal->j_devname),
--		 "%pg-%lu", journal->j_dev, journal->j_inode->i_ino);
-+		 "%pg-%llu", journal->j_dev, journal->j_inode->i_ino);
- 	strreplace(journal->j_devname, '/', '!');
- 	jbd2_stats_proc_init(journal);
- 
-diff --git a/fs/jbd2/transaction.c b/fs/jbd2/transaction.c
-index dca4b5d8aaaa3e1505b09fab42eb45bb201a8db8..a90f9092706cceea56c1100f7d40ccba0d50adba 100644
---- a/fs/jbd2/transaction.c
-+++ b/fs/jbd2/transaction.c
-@@ -2651,7 +2651,7 @@ static int jbd2_journal_file_inode(handle_t *handle, struct jbd2_inode *jinode,
- 		return -EROFS;
- 	journal = transaction->t_journal;
- 
--	jbd2_debug(4, "Adding inode %lu, tid:%d\n", jinode->i_vfs_inode->i_ino,
-+	jbd2_debug(4, "Adding inode %llu, tid:%d\n", jinode->i_vfs_inode->i_ino,
- 			transaction->t_tid);
- 
- 	spin_lock(&journal->j_list_lock);
+ 	/* Stat data, not accessed from path walking */
+-	unsigned long		i_ino;
++	u64			i_ino;
+ 	/*
+ 	 * Filesystems may only read i_nlink directly.  They shall use the
+ 	 * following functions for modification:
 
 -- 
 2.53.0
