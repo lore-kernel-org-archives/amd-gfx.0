@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7235FD5316
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FBD7FD531A
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:18:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5715110EAD0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA1AD10EAD9;
 	Fri, 27 Feb 2026 09:18:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ME/XYMrD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N/wtq9Yq";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6492310E9A2;
- Thu, 26 Feb 2026 16:04:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C60F10E9A1;
+ Thu, 26 Feb 2026 16:03:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3E91743BB9;
- Thu, 26 Feb 2026 16:04:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D25D0C2BC9E;
- Thu, 26 Feb 2026 16:04:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D59BF441C3;
+ Thu, 26 Feb 2026 16:03:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E0E9C2BC86;
+ Thu, 26 Feb 2026 16:03:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121879;
- bh=/R13WlmCiqf+otA9FtjIvnhA88neDdZ1z3bo46wgKlk=;
+ s=k20201202; t=1772121816;
+ bh=Mm9/OP1Us2ZjMqs5yAJOCtSY+KcTrwpYMhIt9vayw6Q=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ME/XYMrD0mbvHzirdHMfJIsfdtmPFxCfe6GE465X1RJF3PBm2jj4PJNJPYeT1iDOG
- LbsRm0hPLRDwtyDoOgB+Voef7jG8Y2KK22baj2rjclEI6wj5ibMesgE2ai+NJ/UR7X
- 6+QUTAooFfBgGcyast5Z94iyXho7rgdTdHdAwiZsKDxD+igqWK/cnx7ELcaU3fYIRy
- ng9wFCImfGsr/rZxhue+trQ/GIHKbB3bcg6whxFxw1Y2QglSKv4ojDEr74/nb1FFQ1
- tYyPsAGjzIDRWCtNI5FfKR1Aw/GoyUNOpP4KvVJnARaeqTNjVtrA4JR7sRW9jnU9kC
- 8v15Pgqa22BtA==
+ b=N/wtq9Yq1v9LjJEvOJcB4GqjdG6FyOkiqDeKIjlIp1hJXZG2nttGDsAuWI3sa/hUN
+ XTxIAFPfrbTTj9ShQOTTox1X2bHJOkY9NB2iEz93vj4GrIzNlux88w8z407qzForZH
+ 1a87Kim/akMpwP6GwC22lGad82iCSV/DBT28s5v0xnEAMLmbQpLZawhGzqr5oRDcXP
+ OKZtqGXtDlq7wrOjIb7ynIOkMKne58O0jsE7Tk6RIfAbw3oCLieGp+GfH8auZnKYuC
+ RcyVvVHgkZo0bZrDNq0DsihqpKZkBUrLzrhhCr5gnCdOKGGzszV4WTirWYtIE/0mu9
+ tFRgaJMbr07zw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:42 -0500
-Subject: [PATCH 40/61] nsfs: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:37 -0500
+Subject: [PATCH 35/61] hpfs: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-40-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-35-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,23 +131,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1097; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=/R13WlmCiqf+otA9FtjIvnhA88neDdZ1z3bo46wgKlk=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0O+wdqUvmhdzWRUaf/uRFQdKMMnnQ4hzPLX
- 9J0lNA/txOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDgAKCRAADmhBGVaC
- FReqD/wINOu58ZOathcZxcR1CK7TMnX0vxSOJoULS3X1jMBCONSGbKTI4Mwm0CSAxlQ98Ny4Nnn
- rtBtuGY3VRIjCSjO47+h7GQ1YV0V6Hc+rMhcOISbfMFy81P+loguWdTSkab9YblDvqIBIo8D6MI
- aeO7eQcn3P3Amz+zf+MJyA4wHMa6kUeyvW9ZKGd0CGk4Nbpc2hWw8vyhzqBOW/Zowk/OAe9T9OD
- fi+nNVJoTHG5Noq62obje8GhGhhYR/s5tI7dhXDVjhEpPGT/sFn5ElbkZwU7xptq2KT4yauQ7/Z
- DicbI1P6DJ50SqUjzuGz935+4TaETa7GtJyOMH5p6f5NVnl9iAPRms08XEOh7yI92eChFW7TmWw
- UWmDE4w7QRmZyyfOTgl2q06EuSTKCXIEbyGz5L/24Gim9RqCoV48oqVEnIg/sAFpPzo5xi5BIXf
- V1O08+55HNciUF+beE4JnOTS0c0eA+gQG4KJKrK/vP28C/zZn1ASyS4G2vPv+b85tystcOOUs2y
- g3wQEGVlU4mGAe1eRf3tPrndsga/Y72dzsCKqLqF9DyeTNT7ZSXa6UQ06Ih334PtgWGBjQP6S2p
- ZL32WssPTyas96P4SaYWACeakyldlGnUtNJrwKQoqVchA+l5uktGdxteZLiNkIHXVwmcaZaU/Ql
- kKqNMyGtdnhOPGg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2961; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=Mm9/OP1Us2ZjMqs5yAJOCtSY+KcTrwpYMhIt9vayw6Q=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0N7kdaYrUk/5+PhJXM2cVD9G1tsSNaaeQNq
+ x2+GLQgWSiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDQAKCRAADmhBGVaC
+ FZC/D/0e/0AVhKBe5ozYYOnbgiAtc1nrTMnGaFW8Rdg/h1dux1f37tU+G8wakXQcfRJ+LTzQ9R3
+ 41/wptHxxGiF2TF7NuBK4AJoFJ2K/vthItVl9PKqGT3znPVGctxHrJd3/TqAUVA2HD2RnH8vZY9
+ HDofY52XzY9t0Y7ozbRmq07Voi3EokGoVvYNHhU/SWRgNrp+uRfmloaN5Dd4vp4Eiei4rsblfco
+ Pk3r3cTXLszGokDkB56olfZy9coVhY2zlD1E73gh1tivftXDQdZx2J0VLfslN/EXiCEcqW66stW
+ PiTLj3Tl2SBExh7Wbd7PCSQHFeYWjGY5QblzfySOeHk4Qn6naqktDjXrjudaJHbIeP6VBbXVRNn
+ mhxIvVpYE2rhU2EfdFxrK6gSE7N09E6aosv6yw3AkkDoEGNhsa/pxYhbI8PXXM+v1EIP7bqiF1W
+ 9BJRu/Z+enOQfgFZlV8n3UTqD5LMiWSqVTD1hI6oTapARo5mp9FVgCTQ35t094RRkjp1MXgZt/Q
+ 2RIW0w85r2dct6IHBA6UcOcFW6xn0SjsehuFmzMvyzP1ccF/AVHC+Rtu7UPC6WU+1hjq3jGJ3aD
+ MUGE2bCkZFuVsXb7vZQdaAGkWhfjgvIgiglP7fQJXuqhLQ/o1NXaaxiANsHkSdpmOO21vsnp/6M
+ SdxP3CWDbZzdz7Q==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,36 +162,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in nsfs for the
+Update format strings and local variable types in hpfs for the
 i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/nsfs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/hpfs/dir.c   | 4 ++--
+ fs/hpfs/dnode.c | 4 ++--
+ fs/hpfs/ea.c    | 4 ++--
+ fs/hpfs/inode.c | 4 ++--
+ 4 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/fs/nsfs.c b/fs/nsfs.c
-index db91de2086456bb9fe0547be7dbbd2de87c97ca7..eac326b85314ac8080248347154d599c953969c7 100644
---- a/fs/nsfs.c
-+++ b/fs/nsfs.c
-@@ -46,7 +46,7 @@ static char *ns_dname(struct dentry *dentry, char *buffer, int buflen)
- 	struct ns_common *ns = inode->i_private;
- 	const struct proc_ns_operations *ns_ops = ns->ops;
- 
--	return dynamic_dname(buffer, buflen, "%s:[%lu]",
-+	return dynamic_dname(buffer, buflen, "%s:[%llu]",
- 		ns_ops->name, inode->i_ino);
- }
- 
-@@ -394,7 +394,7 @@ static int nsfs_show_path(struct seq_file *seq, struct dentry *dentry)
- 	const struct ns_common *ns = inode->i_private;
- 	const struct proc_ns_operations *ns_ops = ns->ops;
- 
--	seq_printf(seq, "%s:[%lu]", ns_ops->name, inode->i_ino);
-+	seq_printf(seq, "%s:[%llu]", ns_ops->name, inode->i_ino);
- 	return 0;
- }
- 
+diff --git a/fs/hpfs/dir.c b/fs/hpfs/dir.c
+index ceb50b2dc91a9da02997a40836d6543786d883d3..3398b3417a4966450e8e070ddb7a45a19c442d3c 100644
+--- a/fs/hpfs/dir.c
++++ b/fs/hpfs/dir.c
+@@ -96,8 +96,8 @@ static int hpfs_readdir(struct file *file, struct dir_context *ctx)
+ 		}
+ 		if (!fnode_is_dir(fno)) {
+ 			e = 1;
+-			hpfs_error(inode->i_sb, "not a directory, fnode %08lx",
+-					(unsigned long)inode->i_ino);
++			hpfs_error(inode->i_sb, "not a directory, fnode %08llx",
++					(unsigned long long)inode->i_ino);
+ 		}
+ 		if (hpfs_inode->i_dno != le32_to_cpu(fno->u.external[0].disk_secno)) {
+ 			e = 1;
+diff --git a/fs/hpfs/dnode.c b/fs/hpfs/dnode.c
+index dde764ebe24673c339d4602172618dbf6ca0b5c9..a89c5b795c4bcee590bb9200296ce78c64211bef 100644
+--- a/fs/hpfs/dnode.c
++++ b/fs/hpfs/dnode.c
+@@ -550,9 +550,9 @@ static void delete_empty_dnode(struct inode *i, dnode_secno dno)
+ 			if (hpfs_sb(i->i_sb)->sb_chk)
+ 				if (up != i->i_ino) {
+ 					hpfs_error(i->i_sb,
+-						   "bad pointer to fnode, dnode %08x, pointing to %08x, should be %08lx",
++						   "bad pointer to fnode, dnode %08x, pointing to %08x, should be %08llx",
+ 						   dno, up,
+-						   (unsigned long)i->i_ino);
++						   (unsigned long long)i->i_ino);
+ 					return;
+ 				}
+ 			if ((d1 = hpfs_map_dnode(i->i_sb, down, &qbh1))) {
+diff --git a/fs/hpfs/ea.c b/fs/hpfs/ea.c
+index 2149d3ca530b6f635ff884988383bdde21be5e7a..7440d31d2821fabb3e2cf4327281c20d16773225 100644
+--- a/fs/hpfs/ea.c
++++ b/fs/hpfs/ea.c
+@@ -245,8 +245,8 @@ void hpfs_set_ea(struct inode *inode, struct fnode *fnode, const char *key,
+ 		fnode->ea_offs = cpu_to_le16(0xc4);
+ 	}
+ 	if (le16_to_cpu(fnode->ea_offs) < 0xc4 || le16_to_cpu(fnode->ea_offs) + le16_to_cpu(fnode->acl_size_s) + le16_to_cpu(fnode->ea_size_s) > 0x200) {
+-		hpfs_error(s, "fnode %08lx: ea_offs == %03x, ea_size_s == %03x",
+-			(unsigned long)inode->i_ino,
++		hpfs_error(s, "fnode %08llx: ea_offs == %03x, ea_size_s == %03x",
++			(unsigned long long)inode->i_ino,
+ 			le16_to_cpu(fnode->ea_offs), le16_to_cpu(fnode->ea_size_s));
+ 		return;
+ 	}
+diff --git a/fs/hpfs/inode.c b/fs/hpfs/inode.c
+index 93d528f4f4f28d5070162faacd65d3fc2341248a..cbde82a53066c5d467173b67b5e1c445fe3c9101 100644
+--- a/fs/hpfs/inode.c
++++ b/fs/hpfs/inode.c
+@@ -250,8 +250,8 @@ void hpfs_write_inode_nolock(struct inode *i)
+ 			hpfs_brelse4(&qbh);
+ 		} else
+ 			hpfs_error(i->i_sb,
+-				"directory %08lx doesn't have '.' entry",
+-				(unsigned long)i->i_ino);
++				"directory %08llx doesn't have '.' entry",
++				(unsigned long long)i->i_ino);
+ 	}
+ 	mark_buffer_dirty(bh);
+ 	brelse(bh);
 
 -- 
 2.53.0
