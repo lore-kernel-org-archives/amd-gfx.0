@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 970D2FD5316
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48C31FD531B
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB36D10EA82;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6F7610EA81;
 	Fri, 27 Feb 2026 09:17:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e/I2LrAJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ji2YnR8m";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C266910E9C0;
- Thu, 26 Feb 2026 16:01:56 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F30C510E98B;
+ Thu, 26 Feb 2026 16:02:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9B06540527;
- Thu, 26 Feb 2026 16:01:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43023C2BCAF;
- Thu, 26 Feb 2026 16:01:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 24CC36184C;
+ Thu, 26 Feb 2026 16:02:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 662A7C2BCB6;
+ Thu, 26 Feb 2026 16:02:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121716;
- bh=9N75YU8P0Dg8THcxQbWno3cEp0CN0prbaNbOwalVkKM=;
+ s=k20201202; t=1772121766;
+ bh=fIoK69cdEWEBP2I83U9z6r8DTMmEfNeiFVnV/oaeX78=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=e/I2LrAJtlajRHbmApBBp9GF/jNhQdIGLETvtCEnAzUVUtba8QK0CBGWmV9htCT6B
- 5K6R2idub7svbh/mw9n90uNytkxvJhgBcffgrIRhIGuivq+iId7ayUPqXBP9t97MuZ
- hkBNExUfd7etzo5lfzZThjHdvIm1YRbUX5Z1AbidHk4Fw4nsbHWhOsKCZfW/M7qyhb
- hneHLVlhtGFZyUxwo7lS4xi78nN/dh6F7R89m9Q3zlwhsUSWW/9tgRo+NFkkgnzNHw
- xTOAf1RzdTLGgfXDcrDFUDU0cG7V7OPS3TMg6/ofg5003GN/je1prtytpOmOVqeEG4
- Q3G+ILuBFRJ6Q==
+ b=Ji2YnR8mQ5wad/oF0jPuW9nL/OPwCpL6+zKMmv0H19n9XnotdFO3o3e3rUCEDhb9Z
+ 1WF/KkwzM64ExlHBH0B69S4s2meMjQx9vWjoA/AkZ80bU81SsuAlI2fXJwJraJ238b
+ zH7VVtRkcRXHsnWSJaF5568UCrPS7PThaFg9NlqqN+urXCQoEZRdyaUzrdrxBCUO2E
+ 7I82X6Y5bVSyvS9s81e5aPbOZ1Dp3A7Hecs7W8mEzGL4plcq6VYIkCD9jx4XfbbS7i
+ sO8wk3aypDF8Sqbh28vP5BmlyYB77S1ZnMG8ghlFhEhkRk5jxxg9jMGGDMylpiV/ff
+ 015uIipzZyWwA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:29 -0500
-Subject: [PATCH 27/61] cramfs: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:33 -0500
+Subject: [PATCH 31/61] ext2: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-27-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-31-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,20 +131,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=848; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=9N75YU8P0Dg8THcxQbWno3cEp0CN0prbaNbOwalVkKM=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0LKMgHR3VVeOoTBTGq+UXxZ66ksEq5R7ONd
- Gh23SbI7jWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCwAKCRAADmhBGVaC
- FVrMD/9TPlMz1avJRvLzXr4XKIEyTKJl0/n8qdLwIZPVmFSra7fQYCR4nDjNAbvq5t7Bj2uG2Cg
- 9lPaebAEBXG4NSa817wFHm1WkeiRdg+Dtjx3vXI3h99IhKi7mzJDHs9k8j3+1dVa5Y0uoQXr+w7
- 76aaK8JGiMxxskZboMpBrNj6Mq5ZMfcePJwS72FB7z8WeW4PdvpmPIdfyjYi3/VBZ1PcGoDtXfC
- Si/m6S/FBXgCO6Wt6m3vYLyu0S5gjlMbi8Ijjd7wxo/8WsfUGfyDVOLIM3roFQG+dU+tKjRYEhg
- CMdXUOREK+PclQtWurWUV+syJ/U5vnceqvg/4eyRMTCUl5n7Qemk9BkCZhxsQ1+jC9Rxddo+kJi
- f7ntEzDqc3eljeIolbh+kOcaIRldz5wW25WozcEgrP2HsC1+u+kakEE1qvMHnlG8RUhoSYHW7Wt
- GAOX8NuIDfK3uf9Uc+UjIvO6SrZ11bJXx+/P3h1qtq8h7ohU8d8ulkJiE6b5KTC/r3WCw8xl8XN
- 8yCBV7Pdm/43xeMdxScGgd1dtuk5ToxVONwc4n3begxzyEurk1ereoUwZKB8PVBeYzoy2uPL2CD
- zSkFIpwncp2hQddaNxedeTnKj06KaFw7WntckzTBbp6Z83UmktCVtZEREX4F8KOhf93jLcVUQeI
- TUYSztb1qSZQgGQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7381; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=fIoK69cdEWEBP2I83U9z6r8DTMmEfNeiFVnV/oaeX78=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0MrWn95OY2IvrlnUkZNzB5OKGldbHxaeOhx
+ 6fnNYyqTCaJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDAAKCRAADmhBGVaC
+ FTUQD/48IgCmYwuVS4Syo6OsAn79pnl/D+n76rrtbnabt+Gej6so4CnUg14EOIdtAOICigP2EiV
+ LrN/eA1QXBz+cgGpZ+Bp+uYstZEXVE4wj85CNn3345fs/O8Twwy59xmFxPLabFN+2rhMKDFRUVB
+ qZHd1/KAm3NDhhTnrF12i7q6W6qeY6ACZvT5gYalYp289/OgmM50p12JHBIxViZOGjK9yW9ZJ5k
+ 6C8j82F0K6aqnKKDaAlwZ5G4swXcYaRLDSCKLfeErd/1ggu8jObCi+H25F6gwuAsQD2TEC+bRgP
+ +xT3s+NtSrG3Cf0Q/Kim3XDDQc7abwcwqij61zu07WrcrGMBJCsaUvJqb73ZKWekCHuuEurPyC2
+ A60TdWIk2ox9QpZhNSdCY7UyXhyPqdBCpKB3TAPA7g8osE4Siu/sPGrhS6yaxcl72XJu6kFBODo
+ y2D23z9768RuMBc07LSCgxsuYStiKlUuplXWVStRZ1nQqm5i9ktn7YPXuFtmTY4HqnsfVMaDgjY
+ G3ZTx5towv6Y6QxYKbTVv3Eu/VDTdtWWHhf+o4H1YT4TtWRumFVxwiGrd712o3hs/2ccYsV2sJm
+ qbvTzz3JyAjyloZygBQkSVIGL8QK+PeRmEtzUJ/e1SzB51SUxA85NK9dyRNGtX+eOX/PCgt7gVU
+ oQbY/jqG9WlxSQg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
@@ -162,27 +162,188 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in cramfs for the
+Update format strings and local variable types in ext2 for the
 i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/cramfs/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/ext2/dir.c    | 10 +++++-----
+ fs/ext2/ialloc.c |  9 +++++----
+ fs/ext2/inode.c  |  2 +-
+ fs/ext2/xattr.c  | 14 +++++++-------
+ 4 files changed, 18 insertions(+), 17 deletions(-)
 
-diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
-index e0ba9cd640dcfe86e0976344b30a5b9a0da6b90f..4edbfccd0bbea39a1babd289afb1d8b985570eeb 100644
---- a/fs/cramfs/inode.c
-+++ b/fs/cramfs/inode.c
-@@ -125,7 +125,7 @@ static struct inode *get_cramfs_inode(struct super_block *sb,
- 				old_decode_dev(cramfs_inode->size));
- 		break;
- 	default:
--		printk(KERN_DEBUG "CRAMFS: Invalid file type 0%04o for inode %lu.\n",
-+		printk(KERN_DEBUG "CRAMFS: Invalid file type 0%04o for inode %llu.\n",
- 		       inode->i_mode, inode->i_ino);
- 		iget_failed(inode);
- 		return ERR_PTR(-EIO);
+diff --git a/fs/ext2/dir.c b/fs/ext2/dir.c
+index 395fc36c089b7bb6360a8326727bd5606c7e2476..278d4be8ecbe7790204b5ba985a7ce088fadb181 100644
+--- a/fs/ext2/dir.c
++++ b/fs/ext2/dir.c
+@@ -141,7 +141,7 @@ static bool ext2_check_folio(struct folio *folio, int quiet, char *kaddr)
+ Ebadsize:
+ 	if (!quiet)
+ 		ext2_error(sb, __func__,
+-			"size of directory #%lu is not a multiple "
++			"size of directory #%llu is not a multiple "
+ 			"of chunk size", dir->i_ino);
+ 	goto fail;
+ Eshort:
+@@ -160,7 +160,7 @@ static bool ext2_check_folio(struct folio *folio, int quiet, char *kaddr)
+ 	error = "inode out of bounds";
+ bad_entry:
+ 	if (!quiet)
+-		ext2_error(sb, __func__, "bad entry in directory #%lu: : %s - "
++		ext2_error(sb, __func__, "bad entry in directory #%llu: : %s - "
+ 			"offset=%llu, inode=%lu, rec_len=%d, name_len=%d",
+ 			dir->i_ino, error, folio_pos(folio) + offs,
+ 			(unsigned long) le32_to_cpu(p->inode),
+@@ -170,7 +170,7 @@ static bool ext2_check_folio(struct folio *folio, int quiet, char *kaddr)
+ 	if (!quiet) {
+ 		p = (ext2_dirent *)(kaddr + offs);
+ 		ext2_error(sb, "ext2_check_folio",
+-			"entry in directory #%lu spans the page boundary"
++			"entry in directory #%llu spans the page boundary"
+ 			"offset=%llu, inode=%lu",
+ 			dir->i_ino, folio_pos(folio) + offs,
+ 			(unsigned long) le32_to_cpu(p->inode));
+@@ -281,7 +281,7 @@ ext2_readdir(struct file *file, struct dir_context *ctx)
+ 
+ 		if (IS_ERR(kaddr)) {
+ 			ext2_error(sb, __func__,
+-				   "bad page in #%lu",
++				   "bad page in #%llu",
+ 				   inode->i_ino);
+ 			ctx->pos += PAGE_SIZE - offset;
+ 			return PTR_ERR(kaddr);
+@@ -383,7 +383,7 @@ struct ext2_dir_entry_2 *ext2_find_entry (struct inode *dir,
+ 		/* next folio is past the blocks we've got */
+ 		if (unlikely(n > (dir->i_blocks >> (PAGE_SHIFT - 9)))) {
+ 			ext2_error(dir->i_sb, __func__,
+-				"dir %lu size %lld exceeds block count %llu",
++				"dir %llu size %lld exceeds block count %llu",
+ 				dir->i_ino, dir->i_size,
+ 				(unsigned long long)dir->i_blocks);
+ 			goto out;
+diff --git a/fs/ext2/ialloc.c b/fs/ext2/ialloc.c
+index fdf63e9c6e7caa6d5267c25faa6c293622f00627..bf21b57cf98cd5f90e1177454a8fd5cca482c2f8 100644
+--- a/fs/ext2/ialloc.c
++++ b/fs/ext2/ialloc.c
+@@ -169,9 +169,10 @@ static void ext2_preread_inode(struct inode *inode)
+ 	unsigned long block_group;
+ 	unsigned long offset;
+ 	unsigned long block;
++	unsigned int ino = inode->i_ino;
+ 	struct ext2_group_desc * gdp;
+ 
+-	block_group = (inode->i_ino - 1) / EXT2_INODES_PER_GROUP(inode->i_sb);
++	block_group = (ino - 1) / EXT2_INODES_PER_GROUP(inode->i_sb);
+ 	gdp = ext2_get_group_desc(inode->i_sb, block_group, NULL);
+ 	if (gdp == NULL)
+ 		return;
+@@ -179,7 +180,7 @@ static void ext2_preread_inode(struct inode *inode)
+ 	/*
+ 	 * Figure out the offset within the block group inode table
+ 	 */
+-	offset = ((inode->i_ino - 1) % EXT2_INODES_PER_GROUP(inode->i_sb)) *
++	offset = ((ino - 1) % EXT2_INODES_PER_GROUP(inode->i_sb)) *
+ 				EXT2_INODE_SIZE(inode->i_sb);
+ 	block = le32_to_cpu(gdp->bg_inode_table) +
+ 				(offset >> EXT2_BLOCK_SIZE_BITS(inode->i_sb));
+@@ -381,7 +382,7 @@ static int find_group_other(struct super_block *sb, struct inode *parent)
+ 	 *
+ 	 * So add our directory's i_ino into the starting point for the hash.
+ 	 */
+-	group = (group + parent->i_ino) % ngroups;
++	group = (group + (unsigned int)parent->i_ino) % ngroups;
+ 
+ 	/*
+ 	 * Use a quadratic hash to find a group with a free inode and some
+@@ -589,7 +590,7 @@ struct inode *ext2_new_inode(struct inode *dir, umode_t mode,
+ 		goto fail_free_drop;
+ 
+ 	mark_inode_dirty(inode);
+-	ext2_debug("allocating inode %lu\n", inode->i_ino);
++	ext2_debug("allocating inode %llu\n", inode->i_ino);
+ 	ext2_preread_inode(inode);
+ 	return inode;
+ 
+diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
+index dbfe9098a1245d97ba97cff24395754197043c33..819fa81901b79e0ef4e01e428445bd8d8cc01e68 100644
+--- a/fs/ext2/inode.c
++++ b/fs/ext2/inode.c
+@@ -1152,7 +1152,7 @@ static void ext2_free_branches(struct inode *inode, __le32 *p, __le32 *q, int de
+ 			 */ 
+ 			if (!bh) {
+ 				ext2_error(inode->i_sb, "ext2_free_branches",
+-					"Read failure, inode=%ld, block=%ld",
++					"Read failure, inode=%lld, block=%ld",
+ 					inode->i_ino, nr);
+ 				continue;
+ 			}
+diff --git a/fs/ext2/xattr.c b/fs/ext2/xattr.c
+index c885dcc3bd0d180c4c3f0945ca23ed8ce569ef10..e7f87d1514458f14252702119e1c065a28ea3d73 100644
+--- a/fs/ext2/xattr.c
++++ b/fs/ext2/xattr.c
+@@ -227,7 +227,7 @@ ext2_xattr_get(struct inode *inode, int name_index, const char *name,
+ 	if (!ext2_xattr_header_valid(HDR(bh))) {
+ bad_block:
+ 		ext2_error(inode->i_sb, "ext2_xattr_get",
+-			"inode %ld: bad block %d", inode->i_ino,
++			"inode %llu: bad block %d", inode->i_ino,
+ 			EXT2_I(inode)->i_file_acl);
+ 		error = -EIO;
+ 		goto cleanup;
+@@ -313,7 +313,7 @@ ext2_xattr_list(struct dentry *dentry, char *buffer, size_t buffer_size)
+ 	if (!ext2_xattr_header_valid(HDR(bh))) {
+ bad_block:
+ 		ext2_error(inode->i_sb, "ext2_xattr_list",
+-			"inode %ld: bad block %d", inode->i_ino,
++			"inode %llu: bad block %d", inode->i_ino,
+ 			EXT2_I(inode)->i_file_acl);
+ 		error = -EIO;
+ 		goto cleanup;
+@@ -454,7 +454,7 @@ ext2_xattr_set(struct inode *inode, int name_index, const char *name,
+ 		if (!ext2_xattr_header_valid(header)) {
+ bad_block:
+ 			ext2_error(sb, "ext2_xattr_set",
+-				"inode %ld: bad block %d", inode->i_ino, 
++				"inode %llu: bad block %d", inode->i_ino,
+ 				   EXT2_I(inode)->i_file_acl);
+ 			error = -EIO;
+ 			goto cleanup;
+@@ -833,7 +833,7 @@ ext2_xattr_delete_inode(struct inode *inode)
+ 
+ 	if (!ext2_data_block_valid(sbi, EXT2_I(inode)->i_file_acl, 1)) {
+ 		ext2_error(inode->i_sb, "ext2_xattr_delete_inode",
+-			"inode %ld: xattr block %d is out of data blocks range",
++			"inode %lld: xattr block %d is out of data blocks range",
+ 			inode->i_ino, EXT2_I(inode)->i_file_acl);
+ 		goto cleanup;
+ 	}
+@@ -841,14 +841,14 @@ ext2_xattr_delete_inode(struct inode *inode)
+ 	bh = sb_bread(inode->i_sb, EXT2_I(inode)->i_file_acl);
+ 	if (!bh) {
+ 		ext2_error(inode->i_sb, "ext2_xattr_delete_inode",
+-			"inode %ld: block %d read error", inode->i_ino,
++			"inode %llu: block %d read error", inode->i_ino,
+ 			EXT2_I(inode)->i_file_acl);
+ 		goto cleanup;
+ 	}
+ 	ea_bdebug(bh, "b_count=%d", atomic_read(&(bh->b_count)));
+ 	if (!ext2_xattr_header_valid(HDR(bh))) {
+ 		ext2_error(inode->i_sb, "ext2_xattr_delete_inode",
+-			"inode %ld: bad block %d", inode->i_ino,
++			"inode %llu: bad block %d", inode->i_ino,
+ 			EXT2_I(inode)->i_file_acl);
+ 		goto cleanup;
+ 	}
+@@ -952,7 +952,7 @@ ext2_xattr_cache_find(struct inode *inode, struct ext2_xattr_header *header)
+ 		bh = sb_bread(inode->i_sb, ce->e_value);
+ 		if (!bh) {
+ 			ext2_error(inode->i_sb, "ext2_xattr_cache_find",
+-				"inode %ld: block %ld read error",
++				"inode %lld: block %ld read error",
+ 				inode->i_ino, (unsigned long) ce->e_value);
+ 		} else {
+ 			lock_buffer(bh);
 
 -- 
 2.53.0
