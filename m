@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 112AAFCE088
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 13:55:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE5EEFCE086
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 13:55:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 230AA10E941;
-	Thu, 26 Feb 2026 13:55:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C88DA10E0B8;
+	Thu, 26 Feb 2026 13:55:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Abei6PWT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gPnVYc02";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E328A10E85A;
- Thu, 26 Feb 2026 03:02:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CC9110E0D9;
+ Thu, 26 Feb 2026 03:02:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1772074947; x=1803610947;
+ t=1772074925; x=1803610925;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=JXXup06q1D1WAb8wh1UAYbSkqo6wlGiQ89Qwt0SWXBM=;
- b=Abei6PWT6KEhvn+5ZMDDjMqdC0GQybDxVTcTLIwDciHYfH96K9ffSH04
- UQeIEAcAuAIl7zatNOi2Fc/rJ6yXk1O49fQczJzg/kmqBG4izcj6HCVuc
- DQvVhRlMRoYBqoFKD9Nanjv8bbZKh/2jqAvIkHr8MOca4LnzhCAoyajp0
- NwLE/bd0Chjb5ouIBrgoDz6v05Z0cmj44BGdjij0LES5WyeGb/qdV0ZbL
- t47ApIgh4cu2dDLOmwy1JM2SRnuOOiVlFDxEh1FQJmnfISxOIBeRHcl21
- Y1AbRkclck48uwADRyHw34qAMQG1aE4VUi8FdlzqYbwgfMrvZMByJi2rA g==;
-X-CSE-ConnectionGUID: /TVm6iNxT0q7WhrdLdkaVA==
-X-CSE-MsgGUID: Xq65V/RWQ3S3nNZju/s2PA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11712"; a="72160464"
-X-IronPort-AV: E=Sophos;i="6.21,311,1763452800"; d="scan'208";a="72160464"
+ bh=jEJUzFHoRE3d2/ezJ6fU2pSSD3BXkE7mH0J33xBDPd8=;
+ b=gPnVYc02LY5neZH+6+4un5d4sHb8U8MHy+Yzdja64H9nWOMzR6uM0YCS
+ IyC8bHU/8XJezNrTniTqAZM6XZ47sQrza2C4fZNJn6NIqfnoBHkd0mnpW
+ w6Wsatdxjm3FO2SZScp9xE4uOM1wiDz/W6KnaEwtT1rT5zP3My+BbjEGL
+ qtpNRSQUS/ewGlhpR6KSkOk2P8dcB+d2axFILevzzsGBvSoSfkeDhCjce
+ 3WcRSSZOA/331ymTNBJsHpeRSgBTjJJpmdnElwUQnAbzzjcKgHTIIIZdl
+ Z/QAfA/Sbu9YxlV6Ppb7QgJD3TjZW2R2oPrsnuO3WOZUGIRtPLD/6DE3Z w==;
+X-CSE-ConnectionGUID: sOtRJX8dRcixtHcZ5BwEMQ==
+X-CSE-MsgGUID: bcDEkqbNRdO9/ReOkr7Nsw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11712"; a="72160418"
+X-IronPort-AV: E=Sophos;i="6.21,311,1763452800"; d="scan'208";a="72160418"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2026 19:02:26 -0800
-X-CSE-ConnectionGUID: dxrRX5ULQNS+Q8zJ+sk6LA==
-X-CSE-MsgGUID: 3HUY1c5yQWSwoR9xLzLd9g==
+ 25 Feb 2026 19:02:05 -0800
+X-CSE-ConnectionGUID: 45t1mdtRSPCAMUTsuExbTg==
+X-CSE-MsgGUID: NbK7EVlaSrueUaDq1PrAgg==
 X-ExtLoop1: 1
 Received: from x299.sh.intel.com ([10.239.159.77])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2026 19:02:19 -0800
+ 25 Feb 2026 19:01:58 -0800
 From: Yujie Liu <yujie.liu@intel.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -67,10 +67,10 @@ Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  Michal Wajdeczko <michal.wajdeczko@intel.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org
-Subject: [PATCH 7/7] drm/amd/ras: fix kernel-doc warning for
- ras_eeprom_append()
-Date: Thu, 26 Feb 2026 11:00:38 +0800
-Message-ID: <20260226030038.1182961-8-yujie.liu@intel.com>
+Subject: [PATCH 4/7] drm/amdgpu: fix kernel-doc warning for
+ amdgpu_ttm_alloc_mmio_remap_bo()
+Date: Thu, 26 Feb 2026 11:00:35 +0800
+Message-ID: <20260226030038.1182961-5-yujie.liu@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260226030038.1182961-1-yujie.liu@intel.com>
 References: <20260226030038.1182961-1-yujie.liu@intel.com>
@@ -91,30 +91,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Warning: drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_eeprom.c:845 function parameter 'ras_core' not described in 'ras_eeprom_append'
-Warning: drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_eeprom.c:845 expecting prototype for ras_core_eeprom_append(). Prototype was for ras_eeprom_append() instead
+Warning: drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:1923 expecting prototype for amdgpu_ttm_mmio_remap_bo_init(). Prototype was for amdgpu_ttm_alloc_mmio_remap_bo() instead
 
-Fixes: 5c3be5defc92 ("drm/amd/ras: Add eeprom ras functions")
+Fixes: 96e97a562d06 ("drm/amdgpu: Drop MMIO_REMAP domain bit and keep it Internal")
 Signed-off-by: Yujie Liu <yujie.liu@intel.com>
 ---
- drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
-index cd6b057bdaf3..65c1812a10fb 100644
---- a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
-@@ -829,8 +829,8 @@ static int ras_eeprom_update_header(struct ras_eeprom_control *control)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index eeaa56c8d129..9789b778d491 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1908,7 +1908,7 @@ static void amdgpu_ttm_pools_fini(struct amdgpu_device *adev)
  }
  
  /**
-- * ras_core_eeprom_append -- append records to the EEPROM RAS table
-- * @control: pointer to control structure
-+ * ras_eeprom_append -- append records to the EEPROM RAS table
-+ * @ras_core: pointer to ras core context
-  * @record: array of records to append
-  * @num: number of records in @record array
+- * amdgpu_ttm_mmio_remap_bo_init - Allocate the singleton MMIO_REMAP BO
++ * amdgpu_ttm_alloc_mmio_remap_bo - Allocate the singleton MMIO_REMAP BO
+  * @adev: amdgpu device
   *
+  * Allocates a global BO with backing AMDGPU_PL_MMIO_REMAP when the
 -- 
 2.43.0
 
