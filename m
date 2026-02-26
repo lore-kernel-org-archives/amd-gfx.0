@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A1F3FD5322
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 400C5FD531E
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB90010EA91;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DFBF10EA8C;
 	Fri, 27 Feb 2026 09:17:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GmrdppOH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N77oxwXz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19E6510E99F;
- Thu, 26 Feb 2026 15:58:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC19910E99E;
+ Thu, 26 Feb 2026 15:59:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E1C5240E31;
- Thu, 26 Feb 2026 15:58:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A1D7C116C6;
- Thu, 26 Feb 2026 15:58:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 304A3600AE;
+ Thu, 26 Feb 2026 15:59:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BCBFC19424;
+ Thu, 26 Feb 2026 15:59:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121515;
- bh=YA3Mtm5mPmkVjL6hFtey9KMWh3gSaYq2MagoP4LN3/A=;
+ s=k20201202; t=1772121565;
+ bh=g5wV3nKd2fkYaUzdtAFph9msp5xwJ6RZyVnJ1pAoKXQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=GmrdppOHVxTK6LjwPJUDCRCr56MTlrDltKbBC7kjaIBy7u7PeoWA2d5cbdi8vYlRo
- VHH6W1mETt+muiHQyBLKRS1eZbP/x+JD6/mcHLZuSB8JM4wlewRNxTu/nz8RTZ9yXJ
- OlrwKNA8ElMmnLoZXapQor9EiTxscN/HV2SjnSL+OmKYSyHZCtpJAm0sP/MTOBXdfE
- gbU9CW1TQFNiUrpBDEaUSBy040cvPOdWtoayIKmOghN2yBTZB/HVVZxNYX1eHVaeAY
- jn4G/B3doACFrs0XhKmGU+BQSamXDsqOL1QBEcsX8vnDPTCT4BiLmZrP1qK3iI48Ip
- K8p7OmEZiI0Xg==
+ b=N77oxwXzWSmqiv4n9JoAOeNfszEZBfeOgSv8Tvh6hdzfxMHzcWkg6NqzIwzXL1t9J
+ lIfgR0aoySbF9TxW4bRiTuva6YbgTY7qIIkaiL0SyNKorrLDxsWZwwc77811vnw/4z
+ kH1IrYSjgNM/SD7ioFxLkm0RjZqGM3zdAdSxhKHrqgU2v6KjjiZEedNO1Oay17zKYI
+ m29sPyavc2gZoemVxxngEEdBgYx7vYYt6cswz+cjE+UpRoOcJEabGTgYyhStcY/9PD
+ W7SiFP1Zc9ivzrBKhGK10ZSSiECGZ/2W0j3mghQNRu4TT6vd2HuPhzeOT3wYYlaDHD
+ SFeO6K5okNvrQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:13 -0500
-Subject: [PATCH 11/61] nfs: remove enable_ino64 module parameter
+Date: Thu, 26 Feb 2026 10:55:17 -0500
+Subject: [PATCH 15/61] locks: update /proc/locks format for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-11-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-15-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,20 +131,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1279; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=YA3Mtm5mPmkVjL6hFtey9KMWh3gSaYq2MagoP4LN3/A=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0Gs4nMQ7L6lsVYVbz9tP+3htrQ7f3vsiUCO
- jWU1x0BBJeJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtBgAKCRAADmhBGVaC
- FXJ0D/4idsXZVMw5wmoMDDtM6AOQkegw7aKpmJucAxThq9u28V0k5Lv/tKuxcDyaWp0Qk98pcC1
- THlFYaoMkc7byE0+Hmcgkxdo4IjLCDtLHlxmvrOiLmHSJ9UZto07rvtQGD04R4aWGxQ8/7/zFUv
- hWrQSVnKGkxCPRx6Yvr/mE4SJtsKsq4qoEsz3uFUqYkCPHEPZ0rSLvS5NUSTn1T2J4NlrLbX8ak
- 1ja3HKzV6IfA6E/G8N8UoRcGMgU0YfRykto3QM87/x3SZ7azd0hInC6OippwGXjP8o2hVEhCNle
- YQYOI1St4BAmtt9kX7Bmsl/DANMUbS/+UgPJ5ku38ohJLC7JBwo9DN60feaXlcIvK88km2kzqYW
- CuXGRMXz9e+SOjoxR7PNYr1cgU3XVjDyya4Kkc8AG2Rze32VPYSO3BMa4zPE0eRWWjIZt3m9UNx
- dKQtLQ4NuBOhba+BvvkX0SHwDZ7+z11cDz7yZDaaekU48wtWD4neVYf4Jsr+agoF6HRJgZ1+eht
- sTxSLr20OypdDn/AOhDecQymubNDOQ8GANzIZrnciGCoC5AMCUpzbuB2GKKeP86s9hupVnHOM8S
- 4+EiSz/H3rEasjtRAfLXqUMKHjs1F0BtsyDNUr4UT/WQdlwLXpLyvqHTEcp9U3ja60cqNUEWkhj
- xA71KUF6JLqqfLg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1741; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=g5wV3nKd2fkYaUzdtAFph9msp5xwJ6RZyVnJ1pAoKXQ=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0HH319jkE4Yrl34DaunuDnGYZ75BXLH9h46
+ zoQskxUz6GJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtBwAKCRAADmhBGVaC
+ FUwjEAC2ZD0qhNxn0eTdG9w5L7ZFtQ6MZt/PduR8tBc3steDLPNlVr1HlkztvzNhjEOjeFzGNPU
+ 4noqHrsD5fArwVU/hc6LnjXeQ8RAy/6Hlf3azXhaKWbWbrzkh13zrEYDIdOJ14A9y6jY3+xttky
+ D8J0Zr1cBS+Fea9EypNUH9iUbsMWzobZMoFdR0QuVJKHuORdhQcCVeBdduppG5CLBlz8mDe9fO4
+ fl87CAf8I8SWWGbHr+Ci6+/7Cr8hK6ED5HB2IDSeilxnKXdaHNFgGNGNGzYwowpMPX6H/JlrNSN
+ EanbpucgYZEbZp8Q5AP8enVYbOCx8iesoQSTsYqhB4YbEZyRXe/HyQcclJ+1cKiT+/mKW7y8Krc
+ M0+g4XeUfCV28zdM/SRcop8nhoVyuv4ZR9JNdA9pb4+iiVb41A9l8m9vkxO/uFsXMfaG2sPRjk3
+ l3rQ2itrahMP9pU9pjjJ3pO6wU4VI1O8I3iw87/ngaPXuWbRUxWm+ZQ3BLLijixSs2EGPRHP0s1
+ FP/nnlD54YoVMLF9vPr4rvBWgP4pY2pJsjAOTLFpNvYzfvlVpGWBUhJwm6vSBhfysRhoV3ME84C
+ 9U+FefjqnYIccrpU9UZdDviywXX3E9g8/fiSYVJTayZJdkBeH4Qdvg+hgVcv3BrX1XcZxdljHr4
+ zqhW1CQyEOF9qKA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
@@ -162,43 +162,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The enable_ino64 module parameter controlled whether NFS presented
-64-bit or XOR-folded 32-bit inode numbers to userspace. With i_ino now
-being u64 and the compat folding function removed, this parameter has
-no remaining consumers.
-
-Remove the parameter, the NFS_64_BIT_INODE_NUMBERS_ENABLED macro, and
-the enable_ino64 variable.
+Update the seq_printf format string in lock_get_status() from %lu to
+%llu for printing inode->i_ino, since i_ino is now u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/nfs/inode.c | 6 ------
- 1 file changed, 6 deletions(-)
+ fs/locks.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/nfs/inode.c b/fs/nfs/inode.c
-index 1a7d7bafbb623ab603b8c517628343463277e096..8743f3bd96a7b5915ae892abe731f159a7055d40 100644
---- a/fs/nfs/inode.c
-+++ b/fs/nfs/inode.c
-@@ -57,11 +57,6 @@
+diff --git a/fs/locks.c b/fs/locks.c
+index d13ec930b7bb03905df50bdce30b84749edab8d0..d8b066fb42108971f6b3c7449dbc9b5f8df16b13 100644
+--- a/fs/locks.c
++++ b/fs/locks.c
+@@ -234,7 +234,7 @@ locks_check_ctx_lists(struct inode *inode)
+ 	if (unlikely(!list_empty(&ctx->flc_flock) ||
+ 		     !list_empty(&ctx->flc_posix) ||
+ 		     !list_empty(&ctx->flc_lease))) {
+-		pr_warn("Leaked locks on dev=0x%x:0x%x ino=0x%lx:\n",
++		pr_warn("Leaked locks on dev=0x%x:0x%x ino=0x%llx:\n",
+ 			MAJOR(inode->i_sb->s_dev), MINOR(inode->i_sb->s_dev),
+ 			inode->i_ino);
+ 		locks_dump_ctx_list(&ctx->flc_flock, "FLOCK");
+@@ -251,7 +251,7 @@ locks_check_ctx_file_list(struct file *filp, struct list_head *list, char *list_
  
- #define NFSDBG_FACILITY		NFSDBG_VFS
- 
--#define NFS_64_BIT_INODE_NUMBERS_ENABLED	1
--
--/* Default is to see 64-bit inode numbers */
--static bool enable_ino64 = NFS_64_BIT_INODE_NUMBERS_ENABLED;
--
- static int nfs_update_inode(struct inode *, struct nfs_fattr *);
- 
- static struct kmem_cache * nfs_inode_cachep;
-@@ -2770,7 +2765,6 @@ static void __exit exit_nfs_fs(void)
- MODULE_AUTHOR("Olaf Kirch <okir@monad.swb.de>");
- MODULE_DESCRIPTION("NFS client support");
- MODULE_LICENSE("GPL");
--module_param(enable_ino64, bool, 0644);
- 
- module_init(init_nfs_fs)
- module_exit(exit_nfs_fs)
+ 	list_for_each_entry(flc, list, flc_list)
+ 		if (flc->flc_file == filp)
+-			pr_warn("Leaked %s lock on dev=0x%x:0x%x ino=0x%lx "
++			pr_warn("Leaked %s lock on dev=0x%x:0x%x ino=0x%llx "
+ 				" fl_owner=%p fl_flags=0x%x fl_type=0x%x fl_pid=%u\n",
+ 				list_type, MAJOR(inode->i_sb->s_dev),
+ 				MINOR(inode->i_sb->s_dev), inode->i_ino,
+@@ -2896,7 +2896,7 @@ static void lock_get_status(struct seq_file *f, struct file_lock_core *flc,
+ 			     (type == F_RDLCK) ? "READ" : "UNLCK");
+ 	if (inode) {
+ 		/* userspace relies on this representation of dev_t */
+-		seq_printf(f, "%d %02x:%02x:%lu ", pid,
++		seq_printf(f, "%d %02x:%02x:%llu ", pid,
+ 				MAJOR(inode->i_sb->s_dev),
+ 				MINOR(inode->i_sb->s_dev), inode->i_ino);
+ 	} else {
 
 -- 
 2.53.0
