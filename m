@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1F06FD531D
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32135FD531B
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 216A710EA79;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2914910EA7A;
 	Fri, 27 Feb 2026 09:17:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HPrUls0p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X8gbu+8h";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 585CF10E9A3;
- Thu, 26 Feb 2026 16:05:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86DC010E99F;
+ Thu, 26 Feb 2026 15:58:48 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 226CA4192E;
- Thu, 26 Feb 2026 16:05:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7722C19423;
- Thu, 26 Feb 2026 16:04:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5E95C4016D;
+ Thu, 26 Feb 2026 15:58:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079EFC2BCB2;
+ Thu, 26 Feb 2026 15:58:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121904;
- bh=WjoPQEYX62ntQ5KvwiKXATuVz2FXwgUeqUutOdHuQO8=;
+ s=k20201202; t=1772121528;
+ bh=LhaFa78gxfrhAkvUGOb7wByUuSw4XO1wqjqmi2Bt73w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=HPrUls0pttYjYlcIKlZofSrqW3fdl89q1I46EFL3Ui9bdpMLXu3vRfiIrp+kzPgOB
- RBwGgjaLoRKm+EPrhWUG+BdSYdVAcSPulqqKyq0D2N2CiCufQ3eJdG3aR2BdTNTnbu
- bjpLNSiNZkUxPvxkTATzyMkvMjGekVrLYOsYBs6On/AAbw9x2Zqs7u1MaMV9I9C2c6
- 6R2p4D81mdC1vzc6ZV2IP/ocrLyha5EFh4BtvCHFduJPOHKMPy5UO4rPryiehYkb0B
- rJ8gyGaCi9BxDhuhH0a1WTxBQ2XSn+7whUV7nvDaFlQEl4/fCBKyqX4TfllbLfUlYE
- FEutDFpxmUvnQ==
+ b=X8gbu+8hqujtbKGPCk1kPp9AdxgQQkyTYj9wJK4pj1AfA95WhjTKyFeU7i6QaQx8b
+ 9Ff3kMpD1HN5KfULOr+hQsKWxQmHLkAeP2AwYvDEMOGrubBkhhmBzel+V+p2akshV1
+ lMz3PJMZnZ3E6m7Cnekjggj9x6kL/psFgxA0zBreX3Ap1EYofbu7Ejxxv0CvjQvEwo
+ pv0FRN5+u7frv/KT2CA/l2hCSPNpzsLDbVm5/wlga5nePBBel9/Lzzjqp5aAxJnnb9
+ r9dOcdTC67BuqOWlM2nS1BVbe/ZwHV9tHVtRL0tm2G1CHH8o8qUYytQdyn4RDGT86n
+ icn3ZCUgQkpwg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:44 -0500
-Subject: [PATCH 42/61] ocfs2: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:14 -0500
+Subject: [PATCH 12/61] nfsd: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-42-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-12-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,20 +131,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12451; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=WjoPQEYX62ntQ5KvwiKXATuVz2FXwgUeqUutOdHuQO8=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0OfrfTZKHp1n/fmZIYEbIrkGI0Y5JPmrYRj
- XCtZRIknwaJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDgAKCRAADmhBGVaC
- FZmGD/wOCKbpkObKLXVuNdAaYn+YRBVtPHnVeinRG9CpA2zkvkmHkpGaJw/t/lRR305OQ4IOLnB
- +Re9+UFnwawHAWE83vUbqg1B0cRR7JhfVsn0ZmlzcXCSlkvZOqc/i+sYdDtOLmuhI7/lc97aqp6
- azifdrS19aKHKGTarMljUoY5siOudJImEtsrAB2RLSdmSeP3vt44DbWTkoBpYdWwk/hHvkEfz7N
- f8N97wz0ObO9lAcUiYQQ0x/DfBWP1Yg/EfWO0g7txRlYDqVFHP6fn7g682D6rXjcsQHuFrWvtkM
- egzSbbKNZrwORrEgFHYFPGgh2zHHs1V3LkQY80lyAimWjOSNe+TogzLtn5fLcZjZGdiAJkSxpti
- 9wTBnJ0aw2aF/X/KZbCx3dcrG6tH1GImbBRli30p5izUd19v9aSL0T+Cq3FciE2Xkn6Jd27r7sx
- BsF21i7U33FM4efy7YEFCXah17EY0QvnHjLdZUPOfQ3sHryM6C6WLaet9c5UJTv2PHgp+ZcZNr1
- wcZd6gVc4CYe0Y1sivEREcbArmpfOuGdCu0oJzxJU71lra+jgK5UxFzz3Hq2XgjDi79HscgO2CI
- VRDYxVXvsM2OKidz2ccd+ymCIAuJ9Rp/UTYplRb8FGUProNn7xcIvpPMFlJ0k+6qGOGq9HE26dG
- lWMMkEsNAdXcYuA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3147; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=LhaFa78gxfrhAkvUGOb7wByUuSw4XO1wqjqmi2Bt73w=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0HXohJrTDl3u7/VSJPdaDuhMnlyPMlaLAj3
+ YUIRWFp4d2JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtBwAKCRAADmhBGVaC
+ FVSAD/45IqX6+xuwmnva5iqZm4UD0KnQsGRgRCvM4rewzSVs0kNhmwVYfo4M76X3WuZ3BmOnejp
+ B8bCkH+cbUqTeSJlVrlu+gobSIGqkVTdEbP3RY7gDlsdRrdKrlX0KdFgKAuQ/F+c/kJHYJ8mdls
+ XMWNXEkLSm4Oai/DNU0JWUGlbxQr8yLKjQr6tLqu2eSVNruMbH7P7rjKnFS1S/IUJ5Bt5R+dg+N
+ MPcfRmX5vBEywbG8UbmpmrBSycvmIOu1E0xJ39xzHzAcGh+B6A+pJpll3EZJ8oMQjM71t99TuvX
+ iSplgvSyk0Zftf/+KWp39q/iYqxtmn/QWSo3g750DjcneR3akuimY3L4StuTSmCDwHlE17nZllM
+ vBwGoFwCrCpeFop2J9W+Vc4DojDlUAoL9Qjupq0+QAzWsowxM8g8TwUY/pqNEpG85H7dUOO3O+9
+ BFKKL/vgVc/VQBGGG8NQnp+kxJGJmlzGlThmm25qVW95D7ViecdZFgRRlfXZ4VsoG1jUUTz+GM9
+ VA2pkfO37UG6fnUG9Tlm4eE/MjOnYU81htNYZ175MzZhO14jPlYNj54a/SJDiSJUwO8lGHolcSC
+ e2nIDBpzR86KF3pOF6P51Xv7IgnvEE/GNwB7C3YM70SH33V3PIgvJuvCmshoAcD2q53Ode6yQet
+ YES9kPT7R903z7g==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
@@ -162,301 +162,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in ocfs2 for the
-i_ino type change from unsigned long to u64.
+Update format strings from %ld/%lu to %lld/%llu for i_ino, which is
+now a u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ocfs2/alloc.c        |  2 +-
- fs/ocfs2/aops.c         |  4 ++--
- fs/ocfs2/dir.c          |  8 ++++----
- fs/ocfs2/dlmfs/dlmfs.c  | 10 +++++-----
- fs/ocfs2/extent_map.c   | 12 ++++++------
- fs/ocfs2/inode.c        |  2 +-
- fs/ocfs2/quota_local.c  |  2 +-
- fs/ocfs2/refcounttree.c | 10 +++++-----
- fs/ocfs2/xattr.c        |  4 ++--
- 9 files changed, 27 insertions(+), 27 deletions(-)
+ fs/nfsd/export.c    | 2 +-
+ fs/nfsd/nfs4state.c | 4 ++--
+ fs/nfsd/nfsfh.c     | 4 ++--
+ fs/nfsd/vfs.c       | 2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
-index 344fd4d95fbc8bd7a749e9d51d31b5682ff030d0..d40f5d205bce3675ffd37e0e6c228e88c1804a1a 100644
---- a/fs/ocfs2/alloc.c
-+++ b/fs/ocfs2/alloc.c
-@@ -7318,7 +7318,7 @@ int ocfs2_commit_truncate(struct ocfs2_super *osb,
- 		 * to check it up here before changing the tree.
- 		*/
- 		if (root_el->l_tree_depth && rec->e_int_clusters == 0) {
--			mlog(ML_ERROR, "Inode %lu has an empty "
-+			mlog(ML_ERROR, "Inode %llu has an empty "
- 				    "extent record, depth %u\n", inode->i_ino,
- 				    le16_to_cpu(root_el->l_tree_depth));
- 			status = ocfs2_remove_rightmost_empty_extent(osb,
-diff --git a/fs/ocfs2/aops.c b/fs/ocfs2/aops.c
-index 17ba79f443ee736cb5225702c57d13f4019f3c52..c7ad912ec7a0d6fffd09c3d38f110e5d1517d829 100644
---- a/fs/ocfs2/aops.c
-+++ b/fs/ocfs2/aops.c
-@@ -137,7 +137,7 @@ int ocfs2_get_block(struct inode *inode, sector_t iblock,
- 			      (unsigned long long)iblock, bh_result, create);
- 
- 	if (OCFS2_I(inode)->ip_flags & OCFS2_INODE_SYSTEM_FILE)
--		mlog(ML_NOTICE, "get_block on system inode 0x%p (%lu)\n",
-+		mlog(ML_NOTICE, "get_block on system inode 0x%p (%llu)\n",
- 		     inode, inode->i_ino);
- 
- 	if (S_ISLNK(inode->i_mode)) {
-@@ -2146,7 +2146,7 @@ static int ocfs2_dio_wr_get_block(struct inode *inode, sector_t iblock,
- 	    ((iblock + ((len - 1) >> i_blkbits)) > endblk))
- 		len = (endblk - iblock + 1) << i_blkbits;
- 
--	mlog(0, "get block of %lu at %llu:%u req %u\n",
-+	mlog(0, "get block of %llu at %llu:%u req %u\n",
- 			inode->i_ino, pos, len, total_len);
- 
- 	/*
-diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-index 1c8abf2c592caacbe734d49254b04d507925c9d1..b82fe4431eb1f0811d81525237d02c5a3f3b021c 100644
---- a/fs/ocfs2/dir.c
-+++ b/fs/ocfs2/dir.c
-@@ -794,7 +794,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
- 	if (le16_to_cpu(el->l_count) !=
- 	    ocfs2_extent_recs_per_dx_root(inode->i_sb)) {
- 		ret = ocfs2_error(inode->i_sb,
--				  "Inode %lu has invalid extent list length %u\n",
-+				  "Inode %llu has invalid extent list length %u\n",
- 				  inode->i_ino, le16_to_cpu(el->l_count));
- 		goto out;
+diff --git a/fs/nfsd/export.c b/fs/nfsd/export.c
+index 8fdbba7cad96443d92cc7fdeea6158c4cc681be1..334b63eb966e71e6af6adde61aa1123f01b4390b 100644
+--- a/fs/nfsd/export.c
++++ b/fs/nfsd/export.c
+@@ -1039,7 +1039,7 @@ exp_rootfh(struct net *net, struct auth_domain *clp, char *name,
  	}
-@@ -812,7 +812,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
+ 	inode = d_inode(path.dentry);
  
- 		if (el->l_tree_depth) {
- 			ret = ocfs2_error(inode->i_sb,
--					  "Inode %lu has non zero tree depth in btree tree block %llu\n",
-+					  "Inode %llu has non zero tree depth in btree tree block %llu\n",
- 					  inode->i_ino,
- 					  (unsigned long long)eb_bh->b_blocknr);
- 			goto out;
-@@ -821,7 +821,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
+-	dprintk("nfsd: exp_rootfh(%s [%p] %s:%s/%ld)\n",
++	dprintk("nfsd: exp_rootfh(%s [%p] %s:%s/%lld)\n",
+ 		 name, path.dentry, clp->name,
+ 		 inode->i_sb->s_id, inode->i_ino);
+ 	exp = exp_parent(cd, clp, &path);
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 6b9c399b89dfb71a52b9c97f0efe9a1dea0558a6..a569d89ac9123d66bb47e7d74c7c98610de21da2 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -1253,7 +1253,7 @@ static void nfsd4_finalize_deleg_timestamps(struct nfs4_delegation *dp, struct f
+ 	if (ret) {
+ 		struct inode *inode = file_inode(f);
  
- 	if (le16_to_cpu(el->l_next_free_rec) == 0) {
- 		ret = ocfs2_error(inode->i_sb,
--				  "Inode %lu has empty extent list at depth %u\n",
-+				  "Inode %llu has empty extent list at depth %u\n",
- 				  inode->i_ino,
- 				  le16_to_cpu(el->l_tree_depth));
- 		goto out;
-@@ -839,7 +839,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
+-		pr_notice_ratelimited("nfsd: Unable to update timestamps on inode %02x:%02x:%lu: %d\n",
++		pr_notice_ratelimited("nfsd: Unable to update timestamps on inode %02x:%02x:%llu: %d\n",
+ 					MAJOR(inode->i_sb->s_dev),
+ 					MINOR(inode->i_sb->s_dev),
+ 					inode->i_ino, ret);
+@@ -2888,7 +2888,7 @@ static void nfs4_show_superblock(struct seq_file *s, struct nfsd_file *f)
+ {
+ 	struct inode *inode = file_inode(f->nf_file);
  
- 	if (!found) {
- 		ret = ocfs2_error(inode->i_sb,
--				  "Inode %lu has bad extent record (%u, %u, 0) in btree\n",
-+				  "Inode %llu has bad extent record (%u, %u, 0) in btree\n",
- 				  inode->i_ino,
- 				  le32_to_cpu(rec->e_cpos),
- 				  ocfs2_rec_clusters(el, rec));
-diff --git a/fs/ocfs2/dlmfs/dlmfs.c b/fs/ocfs2/dlmfs/dlmfs.c
-index 45cce261da65cab7ef48b5b88c0de5d41fa57615..5821e33df78fd92fabc7fe7fa1c3b3c62c50f9f8 100644
---- a/fs/ocfs2/dlmfs/dlmfs.c
-+++ b/fs/ocfs2/dlmfs/dlmfs.c
-@@ -123,7 +123,7 @@ static int dlmfs_file_open(struct inode *inode,
- 	if (S_ISDIR(inode->i_mode))
- 		BUG();
+-	seq_printf(s, "superblock: \"%02x:%02x:%ld\"",
++	seq_printf(s, "superblock: \"%02x:%02x:%llu\"",
+ 					MAJOR(inode->i_sb->s_dev),
+ 					 MINOR(inode->i_sb->s_dev),
+ 					 inode->i_ino);
+diff --git a/fs/nfsd/nfsfh.c b/fs/nfsd/nfsfh.c
+index ed85dd43da18e6d4c4667ff14dc035f2eacff1d6..cfd143b41eb1fb53868f378d668905c1c7d5f868 100644
+--- a/fs/nfsd/nfsfh.c
++++ b/fs/nfsd/nfsfh.c
+@@ -601,9 +601,9 @@ fh_compose(struct svc_fh *fhp, struct svc_export *exp, struct dentry *dentry,
+ 	struct inode * inode = d_inode(dentry);
+ 	dev_t ex_dev = exp_sb(exp)->s_dev;
  
--	mlog(0, "open called on inode %lu, flags 0x%x\n", inode->i_ino,
-+	mlog(0, "open called on inode %llu, flags 0x%x\n", inode->i_ino,
- 		file->f_flags);
+-	dprintk("nfsd: fh_compose(exp %02x:%02x/%ld %pd2, ino=%ld)\n",
++	dprintk("nfsd: fh_compose(exp %02x:%02x/%lld %pd2, ino=%lld)\n",
+ 		MAJOR(ex_dev), MINOR(ex_dev),
+-		(long) d_inode(exp->ex_path.dentry)->i_ino,
++		(long long) d_inode(exp->ex_path.dentry)->i_ino,
+ 		dentry,
+ 		(inode ? inode->i_ino : 0));
  
- 	status = dlmfs_decode_open_flags(file->f_flags, &level, &flags);
-@@ -170,7 +170,7 @@ static int dlmfs_file_release(struct inode *inode,
- 	if (S_ISDIR(inode->i_mode))
- 		BUG();
+diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+index c884c3f34afb044ee5cacc962a04a97de2f7fd88..dde09f3734c2844a3fe0b6d18d596276a19aa2d1 100644
+--- a/fs/nfsd/vfs.c
++++ b/fs/nfsd/vfs.c
+@@ -1163,7 +1163,7 @@ nfsd_direct_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	} else if (unlikely(host_err == -EINVAL)) {
+ 		struct inode *inode = d_inode(fhp->fh_dentry);
  
--	mlog(0, "close called on inode %lu\n", inode->i_ino);
-+	mlog(0, "close called on inode %llu\n", inode->i_ino);
- 
- 	if (fp) {
- 		level = fp->fp_lock_level;
-@@ -242,7 +242,7 @@ static ssize_t dlmfs_file_write(struct file *filp,
- 	int bytes_left;
- 	struct inode *inode = file_inode(filp);
- 
--	mlog(0, "inode %lu, count = %zu, *ppos = %llu\n",
-+	mlog(0, "inode %llu, count = %zu, *ppos = %llu\n",
- 		inode->i_ino, count, *ppos);
- 
- 	if (*ppos >= DLM_LVB_LEN)
-@@ -301,7 +301,7 @@ static void dlmfs_evict_inode(struct inode *inode)
- 
- 	clear_inode(inode);
- 
--	mlog(0, "inode %lu\n", inode->i_ino);
-+	mlog(0, "inode %llu\n", inode->i_ino);
- 
- 	ip = DLMFS_I(inode);
- 	lockres = &ip->ip_lockres;
-@@ -490,7 +490,7 @@ static int dlmfs_unlink(struct inode *dir,
- 	int status;
- 	struct inode *inode = d_inode(dentry);
- 
--	mlog(0, "unlink inode %lu\n", inode->i_ino);
-+	mlog(0, "unlink inode %llu\n", inode->i_ino);
- 
- 	/* if there are no current holders, or none that are waiting
- 	 * to acquire a lock, this basically destroys our lockres. */
-diff --git a/fs/ocfs2/extent_map.c b/fs/ocfs2/extent_map.c
-index d68229422dda3423971d7ab0e9a4335acab8b344..eb5dcd17d43752c08eab423fd667b7c0363ba6a1 100644
---- a/fs/ocfs2/extent_map.c
-+++ b/fs/ocfs2/extent_map.c
-@@ -291,7 +291,7 @@ static int ocfs2_last_eb_is_empty(struct inode *inode,
- 
- 	if (el->l_tree_depth) {
- 		ocfs2_error(inode->i_sb,
--			    "Inode %lu has non zero tree depth in leaf block %llu\n",
-+			    "Inode %llu has non zero tree depth in leaf block %llu\n",
- 			    inode->i_ino,
- 			    (unsigned long long)eb_bh->b_blocknr);
- 		ret = -EROFS;
-@@ -427,7 +427,7 @@ static int ocfs2_get_clusters_nocache(struct inode *inode,
- 
- 		if (el->l_tree_depth) {
- 			ocfs2_error(inode->i_sb,
--				    "Inode %lu has non zero tree depth in leaf block %llu\n",
-+				    "Inode %llu has non zero tree depth in leaf block %llu\n",
- 				    inode->i_ino,
- 				    (unsigned long long)eb_bh->b_blocknr);
- 			ret = -EROFS;
-@@ -437,7 +437,7 @@ static int ocfs2_get_clusters_nocache(struct inode *inode,
- 
- 	if (le16_to_cpu(el->l_next_free_rec) > le16_to_cpu(el->l_count)) {
- 		ocfs2_error(inode->i_sb,
--			    "Inode %lu has an invalid extent (next_free_rec %u, count %u)\n",
-+			    "Inode %llu has an invalid extent (next_free_rec %u, count %u)\n",
- 			    inode->i_ino,
- 			    le16_to_cpu(el->l_next_free_rec),
- 			    le16_to_cpu(el->l_count));
-@@ -472,7 +472,7 @@ static int ocfs2_get_clusters_nocache(struct inode *inode,
- 
- 	if (!rec->e_blkno) {
- 		ocfs2_error(inode->i_sb,
--			    "Inode %lu has bad extent record (%u, %u, 0)\n",
-+			    "Inode %llu has bad extent record (%u, %u, 0)\n",
- 			    inode->i_ino,
- 			    le32_to_cpu(rec->e_cpos),
- 			    ocfs2_rec_clusters(el, rec));
-@@ -561,7 +561,7 @@ int ocfs2_xattr_get_clusters(struct inode *inode, u32 v_cluster,
- 
- 		if (el->l_tree_depth) {
- 			ocfs2_error(inode->i_sb,
--				    "Inode %lu has non zero tree depth in xattr leaf block %llu\n",
-+				    "Inode %llu has non zero tree depth in xattr leaf block %llu\n",
- 				    inode->i_ino,
- 				    (unsigned long long)eb_bh->b_blocknr);
- 			ret = -EROFS;
-@@ -580,7 +580,7 @@ int ocfs2_xattr_get_clusters(struct inode *inode, u32 v_cluster,
- 
- 		if (!rec->e_blkno) {
- 			ocfs2_error(inode->i_sb,
--				    "Inode %lu has bad extent record (%u, %u, 0) in xattr\n",
-+				    "Inode %llu has bad extent record (%u, %u, 0) in xattr\n",
- 				    inode->i_ino,
- 				    le32_to_cpu(rec->e_cpos),
- 				    ocfs2_rec_clusters(el, rec));
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 03a51662ea8e79f7a64fcd320b974f954b2ea8bf..26025ba2656c66b61866deaff60a0da204745c4f 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -1196,7 +1196,7 @@ static void ocfs2_clear_inode(struct inode *inode)
- 				inode->i_nlink);
- 
- 	mlog_bug_on_msg(osb == NULL,
--			"Inode=%lu\n", inode->i_ino);
-+			"Inode=%llu\n", inode->i_ino);
- 
- 	dquot_drop(inode);
- 
-diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
-index c4e0117d8977807dd6f0f4df64e1ddf72a62ea09..346c455d089564aa8c9bdead9385ef0e9eaef5cf 100644
---- a/fs/ocfs2/quota_local.c
-+++ b/fs/ocfs2/quota_local.c
-@@ -471,7 +471,7 @@ static int ocfs2_recover_local_quota_file(struct inode *lqinode,
- 	qsize_t spacechange, inodechange;
- 	unsigned int memalloc;
- 
--	trace_ocfs2_recover_local_quota_file((unsigned long)lqinode->i_ino, type);
-+	trace_ocfs2_recover_local_quota_file((unsigned long long)lqinode->i_ino, type);
- 
- 	list_for_each_entry_safe(rchunk, next, &(rec->r_list[type]), rc_list) {
- 		chunk = rchunk->rc_chunk;
-diff --git a/fs/ocfs2/refcounttree.c b/fs/ocfs2/refcounttree.c
-index c1cdececdfa4ef51a1bd3a5addad734b324b92c0..6d7f44d3e929d94f3ba6121cc30a867887e0bbe3 100644
---- a/fs/ocfs2/refcounttree.c
-+++ b/fs/ocfs2/refcounttree.c
-@@ -2341,7 +2341,7 @@ static int ocfs2_mark_extent_refcounted(struct inode *inode,
- 					   cpos, len, phys);
- 
- 	if (!ocfs2_refcount_tree(OCFS2_SB(inode->i_sb))) {
--		ret = ocfs2_error(inode->i_sb, "Inode %lu want to use refcount tree, but the feature bit is not set in the super block\n",
-+		ret = ocfs2_error(inode->i_sb, "Inode %llu want to use refcount tree, but the feature bit is not set in the super block\n",
- 				  inode->i_ino);
- 		goto out;
+-		pr_info_ratelimited("nfsd: Direct I/O alignment failure on %s/%ld\n",
++		pr_info_ratelimited("nfsd: Direct I/O alignment failure on %s/%lld\n",
+ 				    inode->i_sb->s_id, inode->i_ino);
+ 		host_err = -ESERVERFAULT;
  	}
-@@ -2524,7 +2524,7 @@ int ocfs2_prepare_refcount_change_for_del(struct inode *inode,
- 	u64 start_cpos = ocfs2_blocks_to_clusters(inode->i_sb, phys_blkno);
- 
- 	if (!ocfs2_refcount_tree(OCFS2_SB(inode->i_sb))) {
--		ret = ocfs2_error(inode->i_sb, "Inode %lu want to use refcount tree, but the feature bit is not set in the super block\n",
-+		ret = ocfs2_error(inode->i_sb, "Inode %llu want to use refcount tree, but the feature bit is not set in the super block\n",
- 				  inode->i_ino);
- 		goto out;
- 	}
-@@ -2650,7 +2650,7 @@ static int ocfs2_refcount_cal_cow_clusters(struct inode *inode,
- 
- 		if (el->l_tree_depth) {
- 			ret = ocfs2_error(inode->i_sb,
--					  "Inode %lu has non zero tree depth in leaf block %llu\n",
-+					  "Inode %llu has non zero tree depth in leaf block %llu\n",
- 					  inode->i_ino,
- 					  (unsigned long long)eb_bh->b_blocknr);
- 			goto out;
-@@ -2662,7 +2662,7 @@ static int ocfs2_refcount_cal_cow_clusters(struct inode *inode,
- 		rec = &el->l_recs[i];
- 
- 		if (ocfs2_is_empty_extent(rec)) {
--			mlog_bug_on_msg(i != 0, "Inode %lu has empty record in "
-+			mlog_bug_on_msg(i != 0, "Inode %llu has empty record in "
- 					"index %d\n", inode->i_ino, i);
- 			continue;
- 		}
-@@ -3325,7 +3325,7 @@ static int ocfs2_replace_cow(struct ocfs2_cow_context *context)
- 	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
- 
- 	if (!ocfs2_refcount_tree(osb)) {
--		return ocfs2_error(inode->i_sb, "Inode %lu want to use refcount tree, but the feature bit is not set in the super block\n",
-+		return ocfs2_error(inode->i_sb, "Inode %llu want to use refcount tree, but the feature bit is not set in the super block\n",
- 				   inode->i_ino);
- 	}
- 
-diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index 42ee5db362d3eb6df886d6721dd7398b8aca8cdb..4d55ad963ac514b4b4081447af0992345facd83a 100644
---- a/fs/ocfs2/xattr.c
-+++ b/fs/ocfs2/xattr.c
-@@ -3741,7 +3741,7 @@ static int ocfs2_xattr_get_rec(struct inode *inode,
- 
- 		if (el->l_tree_depth) {
- 			ret = ocfs2_error(inode->i_sb,
--					  "Inode %lu has non zero tree depth in xattr tree block %llu\n",
-+					  "Inode %llu has non zero tree depth in xattr tree block %llu\n",
- 					  inode->i_ino,
- 					  (unsigned long long)eb_bh->b_blocknr);
- 			goto out;
-@@ -3758,7 +3758,7 @@ static int ocfs2_xattr_get_rec(struct inode *inode,
- 	}
- 
- 	if (!e_blkno) {
--		ret = ocfs2_error(inode->i_sb, "Inode %lu has bad extent record (%u, %u, 0) in xattr\n",
-+		ret = ocfs2_error(inode->i_sb, "Inode %llu has bad extent record (%u, %u, 0) in xattr\n",
- 				  inode->i_ino,
- 				  le32_to_cpu(rec->e_cpos),
- 				  ocfs2_rec_clusters(el, rec));
 
 -- 
 2.53.0
