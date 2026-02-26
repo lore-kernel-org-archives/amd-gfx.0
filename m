@@ -4,100 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DA7CFD8FD2
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 16:13:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E39FFD8FD3
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 16:47:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD5410E9A7;
-	Thu, 26 Feb 2026 16:13:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31E5010E9C1;
+	Thu, 26 Feb 2026 16:47:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mRTAsMgi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gkCClim/";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012044.outbound.protection.outlook.com [52.101.43.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF66510E9A7;
- Thu, 26 Feb 2026 16:13:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OhNIugziWgAjMffY0yHD5LmPSqbwoUpbs7tLJTNphDFEte8UM72b9ZudTPq0KQM1d91dCoN7nGPMPlm2u7g/ZI5btBiom7VzCIjOc4HvTuaMzjq1vXqIgViLOIqEDnxD8xlBA7ozUvOg1c5qCPG52c2kxpgbrpmaKjwrVj0lkIASNe6TGXr7U/hJ6YwfrDODfquDADsxnzB7dabDg710uSMnhlthSQF+zHkGzOMOcqXYnrEQ2YwAoitQPlqIU+daEuYGNvS2/u09p587yJYjbG8yXmue+lo+zSRhxNJtnBTEjfBOwAFD0Porjwy8I5DUk0EuvX8cbnvj8p2cOtQ0Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zrfdn01DvUA9D4GuHnoz3WfK5qbckAQwQY+Fh8TzNUo=;
- b=bxfKEux0RT/zSVdmyw74AC2pjmWw6R86tKvHVYCtr89VvuAiOoNPLOI8j8QJrOTVylCMi33UOGky4W1sMMc91sYEVStGgwkrBDUNcI5WlLBihngi28ESPsF9cBniypNQOLUAQ1q3CH8jSILBQLc2sUHFI2XOXMQYRtjr0DDdy3QrJb9I9+NbyKMEsGI+45sl/6WZ/k9dAdNlCqTSrU/w301fyB8VbOFtUdgwOS8kXaYtp3BI2PbS/NSzMpx9xYkzi+/zSTh3b/JOmt+LQRDdO+XbQYmFiAa9elr7E/I4qCuArVQTOOVRB+KptfvUQjxSf4GpZbCVd/FO9YiR5tOt7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zrfdn01DvUA9D4GuHnoz3WfK5qbckAQwQY+Fh8TzNUo=;
- b=mRTAsMgiZvCW55hnsgr6C+mGyYFk/tZVng34lrSiwLew4cRn7N+FFtiBAeKgH4SaRtMBWOmBuHd511BvoeHn0UAXCSKfOPP3wY7mE1wD2lWT2wlZ+343UQgvrxiUILSLZvtshI2gkdcf7rqvVmYlIT1XkwUysMYMXliK8pYz6k4=
-Received: from PH8PR05CA0014.namprd05.prod.outlook.com (2603:10b6:510:2cc::7)
- by BL4PR12MB9507.namprd12.prod.outlook.com (2603:10b6:208:58d::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.14; Thu, 26 Feb
- 2026 16:13:43 +0000
-Received: from CY4PEPF0000E9CE.namprd03.prod.outlook.com
- (2603:10b6:510:2cc:cafe::61) by PH8PR05CA0014.outlook.office365.com
- (2603:10b6:510:2cc::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.0 via Frontend Transport; Thu,
- 26 Feb 2026 16:13:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000E9CE.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9632.12 via Frontend Transport; Thu, 26 Feb 2026 16:13:43 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 26 Feb
- 2026 10:13:41 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 26 Feb
- 2026 08:13:41 -0800
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 26 Feb 2026 10:13:40 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu drm-fixes-7.0
-Date: Thu, 26 Feb 2026 11:13:30 -0500
-Message-ID: <20260226161330.3549393-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.53.0
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F39010E9C9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 16:47:12 +0000 (UTC)
+Received: by mail-dl1-f52.google.com with SMTP id
+ a92af1059eb24-124a7216c9cso70644c88.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 08:47:12 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772124432; cv=none;
+ d=google.com; s=arc-20240605;
+ b=IY2i1i/TfYvbICwO8DLYuOLQQWCF0ykxG/DuDpI2uddJFPb73vfrzARWtEqUZg+ah4
+ 6voks0GBFVEwb4od+3+VDzQqdJccm6Dt6XQ80AeyC+EDHANOT3l2DBv+0ZE/ak/la86a
+ MVJ1xvGWyifpevdbXOiiFexSZPDqhcQIVTH8w/zKtZ6a+8ACa49hciXGzN18/CYpywgQ
+ k0rPNv0DUqiTWi1wOnkEw2OAt9b86g7ZHEvuS6RPgGkw+UfTNqE1pUSBPX6UDFe70t68
+ fa8lObpJVRxtGEzXWA02DnXLbXSE/+kHmbvF3yWuZYtolpauj5ys/xV7cTABt5pN++U+
+ o4SQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=14b7Avo43YlZe+hxgSc9nKn/f7gq8EMXA4C+O7gB90A=;
+ fh=IidcqntdObpsT8v2qsPipjz8Uhxx0h3FNwm0yzxjHds=;
+ b=YHWl4vhWkiTlFBTmBUR7LT/6GSBW+slHbCmRqgdNyWuLMWA+V0ba53wqApw+7RVIfc
+ SBxhHPFJtMJW6FZBWxchBo+vw5Qkrl0BeI+ZVbpak2ITkNEd7Cl9phitaspp6hT23EUb
+ OfCLAd9HFny+mgpUdU6tEI0n9CBgtA1E2QJPTS7XNmX0t3N1EFLzjZA1JjPI+/C35GZX
+ HC4uoGWN3ZeHbeYypnZIVCFFEqQsVBibqS7kgVtQJd6FpdPgw8bmE6/lGMWs0gZTXr3Q
+ mKZxfm0EIUtkY12jVsbb7qmFaqIy8OMiyFpGMVzlNgv23z8Tfis3NeWIEW1NjbQyh2Y4
+ y40g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772124432; x=1772729232; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=14b7Avo43YlZe+hxgSc9nKn/f7gq8EMXA4C+O7gB90A=;
+ b=gkCClim/7wCUe97rcZQZutuIimQ0sX43oYAKmJShh+npmCszMMfdvD65Ph3b9NBzZg
+ C+yhSz2V3qlcXCz29ZrEKUbqkzCTn/knblA+Si/ThJ5hmb8FZddT7M7UtLSINRqZ2/VG
+ zQNRDlqKX6lSCzI1QSgRdJN2FDVvPW0dAwIa79HQGo+NpQSpii15oQLlb3/1FoWDUu/2
+ O9KO9hCR741xB33MZ2ofL6vpaUvswI+fytnRwhxxUuanAzZQrNKxzoU5zXho1M7nouxl
+ LteNQ4El53bDEZZm4JIdcBXnYT4VBLuvED0gcna1bkvpBPedCE9dNJEyL70U1qFQUS9r
+ onfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772124432; x=1772729232;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=14b7Avo43YlZe+hxgSc9nKn/f7gq8EMXA4C+O7gB90A=;
+ b=gLIewAg+4pcKQnpeIuqJtY4HWLHlAz0mTich+ZXi1GKe9y6SE4ES+jluDVVudCSX0z
+ /2jtcm5zHipkFd8UkUJz9irglp7k0Yjx5RejFRnEQnHi1k60C9Pj4xIWoQnAdSCfIAEE
+ D3HS1wMS/YxRuUT2qLjgb5vqi4F/tqy6ZLGTiOX4/qPFx+U8JVavJKu8MBg6WBRG1amc
+ Is6TtTgFnCJyxYeIZGDj2hX5FrXs1qWa2ntJx5BJJrODbF3SeYRb5dz1vBNLCgdK3Deq
+ xEWMkppiN1H8R1Cxn5A2sMXBK3aKzgN22AsZwDp/fPVHnGJzrotbF6/XInc0MpbF7n3x
+ NoVQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX+V6ffkMgd7kLCsVxMFsspEKbdXbE7Tohijq9y34uYpqBSU26SCOhzyXX9XQ8/CyC+qKn/D9h8@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YznNr6tseba/R7USumf7oOGjHi1+OyqlBykiEZNrDIztEpOl4fb
+ jHp9fOO4Ic1DDKK4UssLADZmUfmAGRz12SasRTRQtYmt+PKG4BkDBhpJ4+RzJbGiR8RZReAb5i6
+ AjTq50VrHsPazTOTk/6RhvjQt6avDfbs=
+X-Gm-Gg: ATEYQzyJvoG8S/ILVs1YXtzOsJaVNPY1gYP1I9b6Z9EOXEwDtlrz13MbEPDZ4yWOW/h
+ hdQ9l2iNCS2k/GYQiKAsPZTFBqGR3WSIjeHfcMJ1mBscTlkKpOXY7FjhdDVLGjhFQLEEM13s1Oq
+ iL4LdFknhnnEDTDAkU9Am8uYasISyTnTOVAcSa7Twfbpsg8N7OrPF/MtJhauaqQGZdbMDyDH/Lw
+ OrmPdHnHn/cC4ceq13fKXSIKq/qDLJ5FvS6dAKKAnnQDsCCFvhXfvC+juH3aSin7Wv3Ml3DVyJS
+ TM4tfA6HvNQvSw9rtER/QTPXgYpoORsWdSA+gekfveCd38K0OOuuDe/tV0QyF7aEZ6bAsQ==
+X-Received: by 2002:a05:7022:521:b0:11e:3e9:3e88 with SMTP id
+ a92af1059eb24-1276ad1a953mr3945750c88.6.1772124431737; Thu, 26 Feb 2026
+ 08:47:11 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000E9CE:EE_|BL4PR12MB9507:EE_
-X-MS-Office365-Filtering-Correlation-Id: f376df9e-bdaf-4ce7-56db-08de7552030a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: BSs7xEkjZ6Cvq7idfWdon2UC3M3ev3svL20WFL7QUFpw18Xic0W+9DYDBO+Jvc/4Y4dO7S4Q0JhrulNUiyD6gi5QyVLtxexGFejFwuJQQcc5z8vAWV0PVZluSkjjPa4l6vIqMOPZB5GcHpw40yRkkNSgeg8SM1MSecZgID8bPECj6ri55i8rUtuSmRYN7jTdUjGuAZIf8/v+gWOyvCFLzHEL0MrpKDc6yTwdGTrzErn9V//u3w8shlGDBwtPPbz6g7z9sPJbNn/puB87dCpWqPmjzsH/ngN4SpKDLCH8BeDAnDII1j7NxBW1syk4UZ/XQ6nnqi+Ietk+Z376oD4zGqNwTkL3dojvmvXRoHtB7BBftt4NNbY3a6OfJHmKshtHBar3Lrn25O8TFQ7mYUOaEHBC7+r81437VYhKVFYpkjsDlAdtxLYVFkc7SJdiQjhNZuqQSvefNnkE81jNB/h0rAvFI9NhxmsNw0TOnN7ttqwASA0ex0p3JnfoxvWUY9wo8H0h7/H5fULx3Qf3GlRf61sPOm2XbsfzkD5w0QrY5PhvDrbXJAlexUjwFzuulAV3G3GDDIytxma9RrzRZI1sKO/e1iSId/vYbl9cB5y0Jd/Kh2bBqMuCQMiGAG0BgYgpzpTXXOpZXxUqPg+RY+i8RHdzxdDYQvvnXnVByt4em/Ea+uUittXQfQBehjOBuCh8ZixP3VyyRthYuDQIvWHqbU3qG6fJm+n0oPfCMQzu/eSvlI22HMyRpuKQhCyK9dkLBYDDLWj9vNT2eFqmO+8kQg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /8rZUpDzALvdeLOnvEnz10P0x2jGrrXb2pX0yk1NB8YhtPFqLCOFlXScZS9Z2xmTj+LpYYDTYo+5izllRWFuksGFxKnDwVXP2gBH1PFOhUHSduBZuxFE2tXnf1Zg85SOdY95YyG1A9KEAGo95RtYBkc5XRevDBjZk8N8nKSeMjRtkxJDqkBO+0xkD+Sj4TBqHZfiDcD5Ov2yx4wfeb6RW2y/LQ6XfoF7ceAuhi5dN3YKbINmhH59MgYbEcEpiSE0Aq29IqM/BBfzV/uRitDVvX9c1//SI2sTSzdd6ki/n89q4FPF8Q9xzY7LicUpuo88MSlaJyle3iafiFLfSXqJXTpI4oxeyWSmG8NhASbaOexv5pwAAf1Y8wFTwYYCLZWTSACZnkmvZ6Aa6pYIGk+dCrx7u4aXuV/tqg9+PsW9S+q5gy7pEbpu15vL8570EZ9i
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2026 16:13:43.1064 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f376df9e-bdaf-4ce7-56db-08de7552030a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000E9CE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9507
+References: <20260225174702.it.918-kees@kernel.org>
+In-Reply-To: <20260225174702.it.918-kees@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 26 Feb 2026 11:46:58 -0500
+X-Gm-Features: AaiRm51xyAWxRasXbIsk-hsIItXJk-3QDBUo6dz1ndGIfSkhqxcHNt_CuM4bM8E
+Message-ID: <CADnq5_MWNLM+KUb09LgPUq6QsY68paojSAWXEZ3n+YLHq0ULxA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/ras: Fix type size of remainder argument
+To: Kees Cook <kees@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ YiPeng Chai <YiPeng.Chai@amd.com>, 
+ Tao Zhou <tao.zhou1@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,64 +109,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+Applied.  Thanks!
 
-Fixes for 7.0.
+Alex
 
-The following changes since commit 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f:
-
-  Linux 7.0-rc1 (2026-02-22 13:18:59 -0800)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.0-2026-02-26
-
-for you to fetch changes up to 6b0d812971370c64b837a2db4275410f478272fe:
-
-  drm/amd: Disable MES LR compute W/A (2026-02-25 17:58:06 -0500)
-
-----------------------------------------------------------------
-amd-drm-fixes-7.0-2026-02-26:
-
-amdgpu:
-- UserQ fixes
-- DC fix
-- RAS fixes
-- VCN 5 fix
-- Slot reset fix
-- Remove MES workaround that's no longer needed
-
-----------------------------------------------------------------
-Bart Van Assche (2):
-      drm/amdgpu: Unlock a mutex before destroying it
-      drm/amdgpu: Fix locking bugs in error paths
-
-Lijo Lazar (1):
-      drm/amdgpu: Fix error handling in slot reset
-
-Mario Limonciello (1):
-      drm/amd: Disable MES LR compute W/A
-
-Natalie Vock (1):
-      drm/amd/display: Use GFP_ATOMIC in dc_create_stream_for_sink
-
-Sunil Khatri (2):
-      drm/amdgpu: add upper bound check on user inputs in signal ioctl
-      drm/amdgpu: add upper bound check on user inputs in wait ioctl
-
-Tvrtko Ursulin (2):
-      drm/amdgpu/userq: Fix reference leak in amdgpu_userq_wait_ioctl
-      drm/amdgpu/userq: Do not allow userspace to trivially triger kernel warnings
-
-sguttula (1):
-      drm/amdgpu/vcn5: Add SMU dpm interface type
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c         |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c      | 17 ++++++++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp_ta.c      | 12 +++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 22 ++++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c          |  5 -----
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c          |  5 -----
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c         |  4 ++++
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c |  4 ++--
- 8 files changed, 42 insertions(+), 28 deletions(-)
+On Wed, Feb 25, 2026 at 1:04=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
+>
+> Forcing an int to be dereferenced at uint64_t for div64_u64_rem() runs
+> the risk of endian confusion and stack overflowing writes. Seen while
+> preparing to enable -Warray-bounds globally:
+>
+> In file included from ../arch/x86/include/asm/processor.h:35,
+>                  from ../include/linux/sched.h:13,
+>                  from ../include/linux/ratelimit.h:6,
+>                  from ../include/linux/dev_printk.h:16,
+>                  from ../drivers/gpu/drm/amd/amdgpu/../ras/ras_mgr/ras_sy=
+s.h:29,
+>                  from ../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras.h:=
+27,
+>                  from ../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_co=
+re.c:24:
+> In function 'div64_u64_rem',
+>     inlined from 'ras_core_convert_timestamp_to_time' at ../drivers/gpu/d=
+rm/amd/amdgpu/../ras/rascore/ras_core.c:72:9:
+> ../include/linux/math64.h:56:20: error: array subscript 'u64 {aka long lo=
+ng unsigned int}[0]' is partly outside array bounds of 'int[1]' [-Werror=3D=
+array-bounds=3D]
+>    56 |         *remainder =3D dividend % divisor;
+>       |         ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+> ../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_core.c: In function 'ras=
+_core_convert_timestamp_to_time':
+> ../drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_core.c:70:19: note: obje=
+ct 'remaining_seconds' of size 4
+>    70 |         int days, remaining_seconds;
+>       |                   ^~~~~~~~~~~~~~~~~
+>
+> Use a 64-bit type for the remainder calculation, but leave
+> remaining_seconds as 32-bit to avoid 64-bit division later. The value of
+> remainder will always be less than seconds_per_day, so there's no
+> truncation risk.
+>
+> Fixes: ace232eff50e ("drm/amdgpu: Add ras module files into amdgpu")
+> Signed-off-by: Kees Cook <kees@kernel.org>
+> ---
+>  v2: use temp u64 to avoid 64-bit division later
+>  v1: https://lore.kernel.org/lkml/20260225024716.work.043-kees@kernel.org=
+/
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: YiPeng Chai <YiPeng.Chai@amd.com>
+> Cc: Tao Zhou <tao.zhou1@amd.com>
+> Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+> Cc: <amd-gfx@lists.freedesktop.org>
+> Cc: <dri-devel@lists.freedesktop.org>
+> ---
+>  drivers/gpu/drm/amd/ras/rascore/ras_core.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm=
+/amd/ras/rascore/ras_core.c
+> index 01122b55c98a..02bbee64a5bd 100644
+> --- a/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+> +++ b/drivers/gpu/drm/amd/ras/rascore/ras_core.c
+> @@ -62,14 +62,16 @@ int ras_core_convert_timestamp_to_time(struct ras_cor=
+e_context *ras_core,
+>                         uint64_t timestamp, struct ras_time *tm)
+>  {
+>         int days_in_month[] =3D {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, =
+30, 31};
+> -       uint64_t month =3D 0, day =3D 0, hour =3D 0, minute =3D 0, second=
+ =3D 0;
+> +       uint64_t month =3D 0, day =3D 0, hour =3D 0, minute =3D 0, second=
+ =3D 0, remainder;
+>         uint32_t year =3D 0;
+>         int seconds_per_day =3D 24 * 60 * 60;
+>         int seconds_per_hour =3D 60 * 60;
+>         int seconds_per_minute =3D 60;
+>         int days, remaining_seconds;
+>
+> -       days =3D div64_u64_rem(timestamp, seconds_per_day, (uint64_t *)&r=
+emaining_seconds);
+> +       days =3D div64_u64_rem(timestamp, seconds_per_day, &remainder);
+> +       /* remainder will always be less than seconds_per_day. */
+> +       remaining_seconds =3D remainder;
+>
+>         /* utc_timestamp follows the Unix epoch */
+>         year =3D 1970;
+> --
+> 2.34.1
+>
