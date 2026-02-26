@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD514FD5316
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 949C6FD531C
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E9BB10EAB3;
-	Fri, 27 Feb 2026 09:17:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 274A110EAAF;
+	Fri, 27 Feb 2026 09:17:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oP0XhNxc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JkZASixi";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F30510E9A7;
- Thu, 26 Feb 2026 16:07:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84AA210E9A1;
+ Thu, 26 Feb 2026 16:04:14 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8501341902;
- Thu, 26 Feb 2026 16:07:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14A8EC2BC9E;
- Thu, 26 Feb 2026 16:07:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 501F043720;
+ Thu, 26 Feb 2026 16:04:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9546C19424;
+ Thu, 26 Feb 2026 16:04:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772122041;
- bh=guIyR8txAyswD3hV7ksTPOwKgOC5jl6K3IuEHEeuazY=;
+ s=k20201202; t=1772121854;
+ bh=AClwnsoOnb4s1w/37/x3Wjk9ZhEATE7ToSrQpKzKnv4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=oP0XhNxch+g3ihBD0nKGKJbH8GWy25UibaNuGneJv2vKAKAvpBXyRRyDQAh+7r/mj
- 0tj5DG3z5WZiIBo6ukSqM/xNVCclXpalBC8EnHMcepR/Id/T8kJiYvdIQoz/8BGD+Y
- 4cX1i9xUrbUhQ+qs3cT3KBOvXfScQAVx40mJkk7zu90aUJRfq+6vndvqiubk6S8UAG
- OCdrgWUILGd8iCGxzF5Tuo4w70SkeQb5LvixBFHRHfCw72oXu4u5HmxqEEHaHjD2N6
- t3+5KOuAMEvXLdKEXQyTsMsboXwEHUiapjR7XM+/H97N0pDnM4Kh22dmlU6WPmD+fB
- s0fHo8dLgp/hg==
+ b=JkZASixi554z5yi5ZZIWYqlk1ZbECUEfSqcqGujNjQ6C86T0rhzMLLyX6N1SUyDT/
+ eacDvIi4KsxI6Y++V1V8fXIiVurB4j7z8x6XPih4feH53SmhQygd3QGwtZj3+SsdgR
+ 9Ji9p9bQF+sF6AjITALSoY4FIaGaz/s/C0xhEg1Ss/pnQ36ylVw5uU5DlHN4JW/xDy
+ gQ/21wx0xf1lNQOeP5Tb61fp9B8vUf4ktsntXvnHA9wi9AFNfAvWpcJ7gcu7nR8c+Y
+ qvBVMuUomfD7iUb8ytAu02WBsjYNp4eSVaFElV1DgJ1Eg/idnYMgsiC4sh2tI1CrYR
+ fXhCYJ6C0fPQw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:55 -0500
-Subject: [PATCH 53/61] fsnotify: update fdinfo format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:40 -0500
+Subject: [PATCH 38/61] jfs: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-53-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-38-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,20 +131,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1455; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=guIyR8txAyswD3hV7ksTPOwKgOC5jl6K3IuEHEeuazY=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0RiY9iQ/WI9xzF8HjuSF0msd9z65XTS1K3v
- W0Jme2yHyeJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEQAKCRAADmhBGVaC
- FUdXEACVy0RSg//ixaXELfj5UYiV+H80XbKRqlys8++/J+rh+FUyeqvaKy3D8aWpMOzazuduA4H
- N3+TGxw3ybpjbHT/F94iC/Lap37RUxYODHLoirg+hdONUnX3UiWOMmm7EGl+D9lEionRSeK59Ud
- NYqDJgfaYqg4ElQ8kkK6Sj/OCB4DF5OVQPsO7ajqz59MBYDNWIORf8StRcDgClB4jfSdtU01Lfs
- 3VMa9eqaG2AoO6jUI7XdX/CyvsbaIcrCvMvlNmpAJcd/My+rWY1ePJdybAmHaSaQHEhNbFTA74A
- dl0kZP5lWE2a+5Xjb0BjiviDEua1jaJQ/XXhjoITYssXmchunqi2XGiG8CSkelRfXV+Dj/iUeoX
- 2jWkJg4vtYV74oCqJ7EQkNuV8DckUTxePz/vgkmjiUC3Rouj09LGiXtdgz/L32fL5qm6qq/XKZn
- AZ0b47pHHvLrz5+2ZcNK97YTeScVVL1ksJrPodgioUmRwdjcxSrbQxXs4anUPhlfHCfc3AjRqFi
- LRk0kVjY2MFBuYmha4wXPXmzs9LqGEl17305Fak20VPYzOSMV8mbJeQPCi0WqrycFSf5qvjZl4n
- Qv8ymGVAGxz2vIrWx8CH0jaVxPfGKHp3HESyfW4gBjmUvw/KMOtBn1LJ1WjVsBnInM68bFVVzO2
- sa5ABNGi9XyWjug==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1973; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=AClwnsoOnb4s1w/37/x3Wjk9ZhEATE7ToSrQpKzKnv4=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0N0bOtgyDQKaoCMzeyS0ybevShKonkEMhhg
+ xIfs2vXiaOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDQAKCRAADmhBGVaC
+ FUduD/9bWKVRqNRryYhi0l3hd0bJfi5zi+Bj9b4Sj/rCTi1/ZWGN+g6mAnVnDqVIuEH3AFFqMe9
+ +fddP4rH+hcmqrP9r5WtAB/nU3loLKCARLtrCaM3soW+zFwYqLn93Fi+6JyQ3kymejEgcCqDcZr
+ +3mk+sBp5Iw9ESn1KCeZtzTeOkm33zBsof+00D1giQ7aaQOZ20MB36AXTN+KZrrU3Xc98770MnA
+ 7nL3DXPmK10Bo79Q2Gq4DmDZXUtD5/k4lsbxY6tTxxeUPRYR1Q8Pwq3Xo3DxD6wfB5BL+EwsW8/
+ gZ0ZCKZZV9lqnJmddoSGuHSnFVbUEiTpwCpzRP54ZgTt7UtgO2UC9lSetosy+vDbZRhBGOhtYBB
+ ZSAbin8hCUWXz6iZFk76OfxwbtJO909PLKTRDONCnLPVENtd52CoSFcph2/SW/0lWTUaS74T2j/
+ FeSqJknU0HJ+CnR78eCFGQkv5wj3iCU3SOL/a2ue5aQW2PdX3W0JbgRTkndzs1jfPagy0SKH9Yq
+ /84UTImr7g/wQS017LZvRC9TD+ucIWeddouDutL/dAVIQ8cv++OMp0JgZRxI4DgIYNvuYCAmWI6
+ 7bt3syz64DH8VZ796/EN1ThA9UfFbxxopX0VvgtC/CLWkc4LfPiAre+P7cro8zSixCwN3LFIPKY
+ rgBiRzZP7A2Nh6w==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
@@ -162,36 +162,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update %lx to %llx in inotify and fanotify fdinfo output for printing
-inode->i_ino, since i_ino is now u64.
+Update format strings and local variable types in jfs for the
+i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/notify/fdinfo.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/jfs/inode.c        | 2 +-
+ fs/jfs/jfs_imap.c     | 2 +-
+ fs/jfs/jfs_metapage.c | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/notify/fdinfo.c b/fs/notify/fdinfo.c
-index 9cc7eb863643774b83da8b6228c38db16d0dbed1..0f731eddeb8be74113361f45aa4fca2943395e9d 100644
---- a/fs/notify/fdinfo.c
-+++ b/fs/notify/fdinfo.c
-@@ -84,7 +84,7 @@ static void inotify_fdinfo(struct seq_file *m, struct fsnotify_mark *mark)
- 	inode_mark = container_of(mark, struct inotify_inode_mark, fsn_mark);
- 	inode = igrab(fsnotify_conn_inode(mark->connector));
- 	if (inode) {
--		seq_printf(m, "inotify wd:%x ino:%lx sdev:%x mask:%x ignored_mask:0 ",
-+		seq_printf(m, "inotify wd:%x ino:%llx sdev:%x mask:%x ignored_mask:0 ",
- 			   inode_mark->wd, inode->i_ino, inode->i_sb->s_dev,
- 			   inotify_mark_user_mask(mark));
- 		show_mark_fhandle(m, inode);
-@@ -111,7 +111,7 @@ static void fanotify_fdinfo(struct seq_file *m, struct fsnotify_mark *mark)
- 		inode = igrab(fsnotify_conn_inode(mark->connector));
- 		if (!inode)
- 			return;
--		seq_printf(m, "fanotify ino:%lx sdev:%x mflags:%x mask:%x ignored_mask:%x ",
-+		seq_printf(m, "fanotify ino:%llx sdev:%x mflags:%x mask:%x ignored_mask:%x ",
- 			   inode->i_ino, inode->i_sb->s_dev,
- 			   mflags, mark->mask, mark->ignore_mask);
- 		show_mark_fhandle(m, inode);
+diff --git a/fs/jfs/inode.c b/fs/jfs/inode.c
+index 4709762713efc5f1c6199ccfd9ecefe933e13f67..c7914dbc91ed97e200edbd114e2d4c695b46fb7e 100644
+--- a/fs/jfs/inode.c
++++ b/fs/jfs/inode.c
+@@ -64,7 +64,7 @@ struct inode *jfs_iget(struct super_block *sb, unsigned long ino)
+ 		inode->i_op = &jfs_file_inode_operations;
+ 		init_special_inode(inode, inode->i_mode, inode->i_rdev);
+ 	} else {
+-		printk(KERN_DEBUG "JFS: Invalid file type 0%04o for inode %lu.\n",
++		printk(KERN_DEBUG "JFS: Invalid file type 0%04o for inode %llu.\n",
+ 		       inode->i_mode, inode->i_ino);
+ 		iget_failed(inode);
+ 		return ERR_PTR(-EIO);
+diff --git a/fs/jfs/jfs_imap.c b/fs/jfs/jfs_imap.c
+index 294a67327c735fb9cbe074078ed72e872862d710..3d714fff09992173dfe6c9c74980f034ba4e1a72 100644
+--- a/fs/jfs/jfs_imap.c
++++ b/fs/jfs/jfs_imap.c
+@@ -302,7 +302,7 @@ int diRead(struct inode *ip)
+ 	unsigned long pageno;
+ 	int rel_inode;
+ 
+-	jfs_info("diRead: ino = %ld", ip->i_ino);
++	jfs_info("diRead: ino = %lld", ip->i_ino);
+ 
+ 	ipimap = sbi->ipimap;
+ 	JFS_IP(ip)->ipimap = ipimap;
+diff --git a/fs/jfs/jfs_metapage.c b/fs/jfs/jfs_metapage.c
+index 64c6eaa7f3f264ac7c6c71ad8dd0d59b63f15414..714dbf34b7ac17f82ee9ebec2f9a5b4c5e6f7356 100644
+--- a/fs/jfs/jfs_metapage.c
++++ b/fs/jfs/jfs_metapage.c
+@@ -692,7 +692,7 @@ struct metapage *__get_metapage(struct inode *inode, unsigned long lblock,
+ 	unsigned long page_index;
+ 	unsigned long page_offset;
+ 
+-	jfs_info("__get_metapage: ino = %ld, lblock = 0x%lx, abs=%d",
++	jfs_info("__get_metapage: ino = %lld, lblock = 0x%lx, abs=%d",
+ 		 inode->i_ino, lblock, absolute);
+ 
+ 	l2bsize = inode->i_blkbits;
 
 -- 
 2.53.0
