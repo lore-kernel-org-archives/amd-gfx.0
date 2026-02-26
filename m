@@ -4,88 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6F58FD8FD9
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 16:53:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC1D7FD8FD9
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 16:54:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6789110E9D3;
-	Thu, 26 Feb 2026 16:53:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EA5410E9D8;
+	Thu, 26 Feb 2026 16:54:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AwRMxKjA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bsecA1zQ";
 	dkim-atps=neutral
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9898F10E9D5
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 16:53:34 +0000 (UTC)
-Received: by mail-dl1-f42.google.com with SMTP id
- a92af1059eb24-124a5810e41so62101c88.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 08:53:34 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772124814; cv=none;
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A82810E9D8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 16:54:39 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-2bda3b4318dso83092eec.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 08:54:39 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772124878; cv=none;
  d=google.com; s=arc-20240605;
- b=U+6BmX50SC/wNdyjxZRNFav6OhRb3G8E/WagbZg5DrMYMnVSrqN6snThXCyhrWTMR6
- 16JR8H1wjBDpTK9iCCKJwJqF/hHATWlnjfpdHs+i3/DaAXdv0PEqLhQ7Ad6674RrkjBR
- FVHdUpR/Txd0QNqj0dZgmt3r6Sn6KO53WDUic0KLwNHZkUQkzeIDP1OJ815Y2Xe+mdJu
- Kwq/N2XNi0m32FOxpy8ALIrbnHvFPXrOd8SBWHoH9QwgDyL16nfOzk/vdqZhG58h4hhw
- C5vuHsgSK+hd55O+5PG4O3mpA7cMVcQpV8H4bofugH6mDc32pprWeaJ0DHoWPApXjbNF
- AXFw==
+ b=jkRQ4ORfXe5jvG1hTpP88QG2MntRC8s+pWx9ONmIb3T6jIJU+HGj8718i1HbUcpJLU
+ 6TEG1O01Ehcv3lOSj9a4u0ovAIdjX4fQFAre+ou5Xg4U0PcTyLGZeopaJIolKvWAlwvk
+ JK2U0K/JmdKAkY30O8EqkgWworxiCXwXTN2YuInP7BYgTqXPfE+cjCOr5F6t1DjtB2hz
+ wmUliDCuaQKdzNERtM7HvZMFbdKVn9Dwli6an7dK7NsbG3WLY4tsch6ew5lH6vry/JV+
+ GtiiMIqiCoEohtGZhF9927Xg7Eb7y8XUbSoq2CtD7RZKCUECU+ZONf348RXXVaR5xfyE
+ lChQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=nSMaYfcAaczcS5xedZ+A5sc4SxyyrrIlz7xrQ4/9ZI0=;
- fh=oksQNGgXrGE2SUW2788ZYyt1S1PqjrPr6QAfkcQ4xZk=;
- b=euWvwmb8fzcYhaW6HCWOqiLX5jam4WT6DfHzA+G/tPUPYQXXBbX/hFJSO0NVf4lZ56
- fNe2/r/nxqTM3gEqywcqRBCM7ajLA/0lTAEExuOkM2uDPz7GCTYx9wbteXyrPSZj4/lD
- mgKN5vOAiIslxcsQFVGwex/bSJEgZvF0c4gchzq4s1xpATVGePOKaDYYrs/+W39EsqsX
- UVaDBzhPfayoPdm3ql3BZ6ZUef6joaHBgjmNBHMGdEZ+BtLU6EGgNtU8DbKmPuFs0Cb/
- tHORha1FE0fGPSYXi0cdh+0h02d499IybJbWjZdEl7a9KIa/VaOC8g1E3En4Y2aNC/fq
- NmVg==; darn=lists.freedesktop.org
+ bh=Up3sT8qjuR5kM0SPkhMO2u8EAJVJK4TECaFQv8JLTOM=;
+ fh=+JyG5JBvSeunIIwyQbZAlEPaka/uc/yMgD64kkAO84M=;
+ b=ksKW05a6oAIZcxFyCxiQxTvzlqpt9+iBFuqSdmjXksAfKIXkEl0rVllwTqhFu3qjKc
+ wx1/4yH6DQlv9KuzJdE77u6rhasPv7fzPuPrCli2BixIroJszFZdq20XXVZy0az2wdvc
+ qKkIS9IJlj2OTKltMoRSN0tXSNpuL+y52Gj5BCoHIcjaoU3lAbQJj2e8sLsweAPJOXEZ
+ EjuJmMEH/J8mi+eryevvUeqKdXpsyf+umkC6oAIz5STjn+6MUR4rtLxWUWosnbiNaF23
+ sUyr+S8N4qrKnTSJqKRnw7d3gcyp83FUz43UDqDK541rA500dBoCRGpxrHWbRBW6irfM
+ kqxA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772124814; x=1772729614; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1772124878; x=1772729678; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=nSMaYfcAaczcS5xedZ+A5sc4SxyyrrIlz7xrQ4/9ZI0=;
- b=AwRMxKjAsUHiqfy4c/NJU4iuytLg90dnQ1QgihGt1xQRJdeAyQMrZyu0G8NEyQhUkt
- 7FaRwbg6t0fpIbM1ZCMyvvkP4dlYZG4EuzcB1osHkObpDPujyvU6vnt2zsQPXMzeV8vG
- ZTwRGTAPN2s+V+C2uIjrbIFXHAPrigJe/dhxNZy5RE8R0ZgyW+no0zfIjEt1EnY3dWVp
- bUSaedoY+sA3+L9vWmyitg+Ni+zuJW5fjSqRufqmfaXKVVxl8MJXal9BVJ+RotOSYk9p
- JSqzoGZ+DmUSWEyVBEw7Su9jgp4DOEsxiErdgvrabRauHF5b79K3Uo2qbzEApETKiPUo
- qHCA==
+ bh=Up3sT8qjuR5kM0SPkhMO2u8EAJVJK4TECaFQv8JLTOM=;
+ b=bsecA1zQKJaORF7opFUhwDHK8/F5CmhDrs4cMTf8kCB/Qd9A7IO3ubFjBuRBOk+0IE
+ ETXIJ7lumShjWf0huZt4fzbO2tHzY47qsoiOXMcSWqV8LBikPRGIsqsnoRAS5koi1QcH
+ onPd7O5VOlch3YfSjmt6/BZjlH7Sq711fOgeXsvueGaiYsXDOB+FTQucZGY/ITlzeihK
+ M0/xlWEjJ6idR4Ecx0HDt4RQ2CDm9/QC1R4KFDVjBdJu3/dLNfNhtC3/feu+LwXwE3us
+ AB/A3VIayIWQmSAYxE/SsiDLJ01DQeFcW8+3YgPOcjhWpXbhIHRIOPKer0dLB3kzITPz
+ FhRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772124814; x=1772729614;
+ d=1e100.net; s=20230601; t=1772124878; x=1772729678;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=nSMaYfcAaczcS5xedZ+A5sc4SxyyrrIlz7xrQ4/9ZI0=;
- b=mOU9xPddK99FpbaQV4/e1lIkMliyfPZ3S9O2BqfHh7XhgyzD+RgcKO65NfXfUGXYT4
- bhgvhZTkk/jB3p/B954EFADjZUjwUsv7V+Zxd8u91r2qo5IHLR1/fF0LdXRkddpaN6V2
- H7pwcVwAdHr8rv3kdjyVqLwG0Mi/uVg7yzRu9YO1cQGqJLtDkQnvqM3PP9gnYv11nc+8
- DFNCMLef15/rXZBBNeATAeLcrOWyIias4tkgLJPCtkYqENot+eZLgSBUDvtd5qbIeuMB
- VVc4Tep6i7xP99tSQt4DXK0FBwr3YIhyvhWMP3Ral2gmzfXR4/pTqFqtVn1TdzOuwLkC
- +mHA==
+ bh=Up3sT8qjuR5kM0SPkhMO2u8EAJVJK4TECaFQv8JLTOM=;
+ b=Jqb/7AsPkmadyq55QZqcpBGJmQqdewUPBdXcTeSSBT1857jGOt0o03M2ypMtkbG3i0
+ LS7GxPATafuQS7nz87BrDVj+4HgS/GVYpVW3twwMpuwfDg7pwmCPLD9zsD06buK3FzVh
+ HduwgyTGds88DjGXM+UV3Ma2BDy+7v86UkadF4DkxSOeuZmvpPA09JEz1PkfHE4ybF9h
+ QNyX5ytriqkdiX4wxYUe9UN/moW9O9X/HydXwtbZaSFBrOhdrBXUjQpalarF8wkXDtRV
+ VuSeOLSRnxS+xtP2TmzHhZzyQWNItpIzEiNShy3r6IhhzH8/Td1UI5hBX1VfJ8k+5PxV
+ f0Rg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUH2Ubc3rWGZTGwhSlByqpHkPFL0GZgms927aEf+Rc2aiwwvGc8bkSe/BBs9pISuJj6omXqubqN@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyCCF6skqx+FSn0FOejQi0L2F5JSkAh598RgGy3NMZXP+BP+DHT
- jVwOR3yfn65ZzstV1kHZpWhgBO+/6KXL1xxbs++lWFy6Js6MnP1v5x57PB5Pp1Ehl61NkHLMu8l
- kC9M7XnOocjSZM90bwDnViFTc/fD7za8=
-X-Gm-Gg: ATEYQzzwVrqVXX3JLu1rVlCIUl4dk29rMnc94A8G/Ssk8m06DpNsz8Rl74TaBtTsnxI
- HDPExtn095o/zz09Al6XtZvvCoCwyYGkX6Z95ho6+9JCKdUnc8d9NnlqmhrnC4cozHCm1wnuplN
- giFxUFkVP0QlTqosmzw+VGVcUxMszR2anVEtSneyisJ/aIk0RXINoQ4OfYZwzj+eW7xAQOK3L/N
- S6yBaeqq+VZ6yhQv92MNE6dg363HpN0v6r6+fPOhZvH3NQMnWpUPqtjHZMV4Wkk079RtsjAXYQJ
- OMnfYbSGuLOQStSVve/0ir8LsfWsHmeghoY/SY7jZi8id1zCfQZrOLl4R6u6akpX487KGA==
-X-Received: by 2002:a05:7022:2383:b0:119:e56b:46b7 with SMTP id
- a92af1059eb24-1276acad3efmr4459654c88.1.1772124813724; Thu, 26 Feb 2026
- 08:53:33 -0800 (PST)
+ AJvYcCX3QMiHQ93eDDD6dAgCY4olJhaCd6O1mOUkOJK4e+CpTNMSRzXkfmZEeIcaAv3GOwWck2SbFTUh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzWS6n92NP83AWoaqI3r6rnWV/TgEL2yuo5tF2rQSINfvWtPUG9
+ E+gkQsHajCJCQnDIC8hdJbRH6h3JimmV66Eqd/HQWtokEJP4cp3jnQuuy1M7CHy0z+1iGNbmPSZ
+ 4YIeMrzsijsRS+EAkpj6W5FAzNRr0ITU=
+X-Gm-Gg: ATEYQzzdcgnuEHAZVC+IsmpSbo3PRj+vZzCoxdcwD2KsFB0vabgTJttD++EQzl0Nmbm
+ IkGu+eHc+Xzt6jwNktdKpLYpb01U8xKWbLyJCk++ubflFhwn2hG4GwW8icW1jncOeP6bpT9wWTE
+ j7O4akZZNKOdzkOfGV65QJzq3QOR1mA+W2ade4q6MnmogE5McMXqdbKbP6Dyte+6QDD+o6HEkg1
+ 4DAW1EvHZm9CmzEFoasnBublU/DSbzH79hy4mID7q5X11nyQrEI+H84aSm9ZPRRLFMV+70UUsCy
+ oNbhcvlv3FUY06aon+tmN284av7NxtK32Q8Ur6jHo5Gg0OFEiMCnyJnUfPIsUQlOBNkv0g==
+X-Received: by 2002:a05:7022:f005:b0:11a:43fb:58dd with SMTP id
+ a92af1059eb24-1276ad3bcd8mr3975440c88.5.1772124878272; Thu, 26 Feb 2026
+ 08:54:38 -0800 (PST)
 MIME-Version: 1.0
 References: <20260226030038.1182961-1-yujie.liu@intel.com>
- <20260226030038.1182961-8-yujie.liu@intel.com>
-In-Reply-To: <20260226030038.1182961-8-yujie.liu@intel.com>
+ <20260226030038.1182961-7-yujie.liu@intel.com>
+In-Reply-To: <20260226030038.1182961-7-yujie.liu@intel.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 26 Feb 2026 11:53:21 -0500
-X-Gm-Features: AaiRm53PhKEH-H8S2VgmZZ1MUIfEIaZDuRwRMb5_ZanlUifF-Xs_VnxnKyGbvPw
-Message-ID: <CADnq5_PD3DMPA5WY-wGS+NHmEQRXSx=WQNOygNXt8so-n2L2mA@mail.gmail.com>
-Subject: Re: [PATCH 7/7] drm/amd/ras: fix kernel-doc warning for
- ras_eeprom_append()
+Date: Thu, 26 Feb 2026 11:54:26 -0500
+X-Gm-Features: AaiRm50FIm7gW9ftKbXM9mUDFZF-JB2g7m56NgkO01zsGUV36mqPkWnCPIpQdvQ
+Message-ID: <CADnq5_N819Zv-dQU_rswGDBdt7wKB+fCgFDLswbLgbwhz6J2Sg@mail.gmail.com>
+Subject: Re: [PATCH 6/7] drm/amd/pm: fix kernel-doc warning for
+ smu_msg_v1_send_msg()
 To: Yujie Liu <yujie.liu@intel.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -131,39 +132,33 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-Alex
-
-On Wed, Feb 25, 2026 at 10:02=E2=80=AFPM Yujie Liu <yujie.liu@intel.com> wr=
+On Wed, Feb 25, 2026 at 10:19=E2=80=AFPM Yujie Liu <yujie.liu@intel.com> wr=
 ote:
 >
-> Warning: drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_eeprom.c:845 funct=
-ion parameter 'ras_core' not described in 'ras_eeprom_append'
-> Warning: drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_eeprom.c:845 expec=
-ting prototype for ras_core_eeprom_append(). Prototype was for ras_eeprom_a=
-ppend() instead
+> Warning: drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu_cmn.c:415 expecting p=
+rototype for smu_msg_proto_v1_send_msg(). Prototype was for smu_msg_v1_send=
+_msg() instead
 >
-> Fixes: 5c3be5defc92 ("drm/amd/ras: Add eeprom ras functions")
+> Fixes: 4f379370a49c ("drm/amd/pm: Add smu message control block")
 > Signed-off-by: Yujie Liu <yujie.liu@intel.com>
 > ---
->  drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c b/drivers/gpu/d=
-rm/amd/ras/rascore/ras_eeprom.c
-> index cd6b057bdaf3..65c1812a10fb 100644
-> --- a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
-> +++ b/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
-> @@ -829,8 +829,8 @@ static int ras_eeprom_update_header(struct ras_eeprom=
-_control *control)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd=
+/pm/swsmu/smu_cmn.c
+> index 6fd50c2fd20e..c471c0e2cbd1 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -405,7 +405,7 @@ static int __smu_msg_v1_ras_filter(struct smu_msg_ctl=
+ *ctl,
 >  }
 >
 >  /**
-> - * ras_core_eeprom_append -- append records to the EEPROM RAS table
-> - * @control: pointer to control structure
-> + * ras_eeprom_append -- append records to the EEPROM RAS table
-> + * @ras_core: pointer to ras core context
->   * @record: array of records to append
->   * @num: number of records in @record array
+> - * smu_msg_proto_v1_send_msg - Complete V1 protocol with all filtering
+> + * smu_msg_v1_send_msg - Complete V1 protocol with all filtering
+>   * @ctl: Message control block
+>   * @args: Message arguments
 >   *
 > --
 > 2.43.0
