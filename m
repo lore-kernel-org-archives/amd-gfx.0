@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9096EFD5334
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CC4BFD5325
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E30E010EA94;
-	Fri, 27 Feb 2026 09:17:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C35710EABA;
+	Fri, 27 Feb 2026 09:17:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N/iU9fkY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TbQmzaY0";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5115210E9A6;
- Thu, 26 Feb 2026 16:08:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8549710E98B;
+ Thu, 26 Feb 2026 16:02:59 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 745C86013C;
- Thu, 26 Feb 2026 16:08:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC59C19423;
- Thu, 26 Feb 2026 16:07:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5D9734178D;
+ Thu, 26 Feb 2026 16:02:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04B50C116C6;
+ Thu, 26 Feb 2026 16:02:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772122091;
- bh=QVP/A0Wr2Abx3BWIf3M/CTqVpPmV8SXmSE5S4tBQdB8=;
+ s=k20201202; t=1772121779;
+ bh=OQCOf5ab2K1mQ+xHyh4YDX8Wu4WoXlx58z+ZGgzTgGo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=N/iU9fkY7C+X0gBA8Fi8wI+B9cgJ3ZSt6kN4EuqYE+eP8vng3qyDWNfsyIhvtKLdH
- b+b4Aulfg3FxrO0Nm/YcWTCOcXO8KCjAYbQRgQ7mVqFUqT4sm4WDf0eBVloGkV76Qr
- nzuEqM5tBQz8ltYFpBlQxn9/JiVP72na6rLnacqYsI4nNdpxGTgdAMyZLHYRXq/4hX
- iUesVZMqUqLc1V+1j2OQrGrDnS19dzjRGvGlWMVyWmletccEF567lF82pATRt0e1O/
- TjpBPU5Ieg1IbZKo5hjqzncuK/qa9dvo9N2Li7BzU0aNxcuEYodPJfkpyZdtWwQ3zU
- M4VIYqh/JOBMg==
+ b=TbQmzaY0ToimFSGEqqBviXqxwD0bsQQunPHBe4Esrx7faWGcGcQAWK/x89VfMQARu
+ MAF416OE8SaAb2kDCB7GYV73dZyAtE7pa8T2thN0ZQYwZJZIRrTkGi0HdyKSLBqHE9
+ jk83XUg+9Dw0B8v5uK8+g6si9Q1VjGUchf+JZ3VQz4A4Z97Fo7oCUECQKvtOtqz6Qm
+ 8apXth+/R3hmpE/a0ui3v6v/JU0Ca2KazJu3UX2LW3h8VyEakwzX0ai1eFnGVuADkm
+ 16lHS2lWUcEpC3DciJr9rb7jPw0FQlx8BFdmvHSTJW9e5mFcKhS5/Mz51lf0ofiEAK
+ FxcCtypCuKNww==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:59 -0500
-Subject: [PATCH 57/61] fscrypt: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:34 -0500
+Subject: [PATCH 32/61] freevxfs: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-57-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-32-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,23 +131,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2279; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=QVP/A0Wr2Abx3BWIf3M/CTqVpPmV8SXmSE5S4tBQdB8=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0Sq+j7M9feeeWsEEfnIcsU2CbAxEDqyZD2b
- 80+R1w14vOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEgAKCRAADmhBGVaC
- FVKJEAC5sid11Go6fuJI7CWXgk/4O9Urmq5+faYtXDswS3e3Xney5z3y6yARF5s8jF6mfhgzQla
- vQ5vaTZ4z5mXQy/RAzR9sUFhWtITbMTuDCT5t/OkYsBp8k7TwPqeEVypA51Ep4SVoYatBJBiLQf
- 2fat2kabGqKEdxfCFhYZ/T/0dQV3iRAt9D43qR/WxIm6MSoTlo9YHWCG91yTvgD0CJW04McaD9e
- nABf28Ev6HbF1zoK9hLfjRiwAC29acMvnrI3Im5gXXzJ3e46OOwusoMZtJhXXd2agPTunLgXcRl
- +/ycDsR+Tty6dLu6VAPvTR3bnQezZb781kcYoTcQIWu/ddCkKz0VN6tP3bv0JkLuXRGp5oMuJvs
- FLd0RNjIJ8Ld9Cxg6Okd724968ObOXOBed5IGmMNSiyI1onguOK2GPh5Y4UcuvhDl3Hb9B3YLPv
- GQoEkhHN0x/lNXU8GCxcaTPkOHjEdaymP6yleBH4f2aw30WmtBhphVmnABJ3EIHcDVimT+dukC3
- 7UJg7jQn/8YGDHpTw5kC/uLPLgLMuwHYtsmRsnrvs61gYC+3Qtk3Y7gYe4FIJx76xaByCFyzY87
- rBIQo95KFdLZQVVKUfEH8H44JnZ0KGwlz9muKgqItA3T9f5veP4BQOKpi5i+iTywd4a4kYDOPcK
- EQzZuVxQyu+fRsA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1010; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=OQCOf5ab2K1mQ+xHyh4YDX8Wu4WoXlx58z+ZGgzTgGo=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0MytO42ubVkDA1oR7CCr2K7tCY0oxaOdcl7
+ ubGW17+fNeJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDAAKCRAADmhBGVaC
+ FaSRD/9QZxi4U+dSi8DJ94se4LGWC4f3gLm7EreqnTo0S5Uw1lXf085M+yMl8fOGQP5j5HOXAMZ
+ zlV4QOZrgcvv5qbNR/Uu1bIqTr4GHSHKyJRhb4qtl3XVVD9OJjwjulJPWUWGWTAHWJvUamYmUAG
+ hXgGEUQxxU7+fHHrNObtVo80fQXdhXwCy3VHQYpZzJk3fRfkWehkcjrhq1KUn/mE4E/q73FuL4J
+ iIFJxiycMuoF2Nk1tPnVZdml8zdN7phdfKQ1IIwhTz7fPC3lwhJk0JJ0yT3UloXDRA+RGIR+DaV
+ l+3GuzqonpW6vsTlD21OALuHKEIrn0a/+TuUgceZzb7iJwss2Y3sdItY7U5JCxFUVrrjhGUXJbh
+ NBMZAccD4ydwd2qrAcM5vQID6YReX//sqI3yMQnV3NbXdzPPC0BS3YXFtsVDcfm6AJHANVxOIXf
+ 78Am9OXq7FDfhsbMlJumVawUiJXcUQ1G9ykIA6+7J6RhjnJuWt+sB81Mzr9QKnmqs3BWIXvJPOl
+ e46W5ho5QdNKcbtaP3D9LL2RWW8okhwpDeWBatMG+8dYr5WeCcVq1uJkjKj5c57uIwz3Ah8/X59
+ /CWaZqu9q9XJKqkwLn6kHAdDG7FDvv5IiCzUKq3JfCR0eg7y49iFkuBkwgYzMQMDMucgUs9EoKw
+ V5YG7u/5qThqmSQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,54 +162,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings from %lu to %llu for inode->i_ino now that
-i_ino is u64 instead of unsigned long.
+Update format strings and local variable types in freevxfs for the
+i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/crypto/crypto.c   | 2 +-
- fs/crypto/hooks.c    | 2 +-
- fs/crypto/keysetup.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ fs/freevxfs/vxfs_bmap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
-index 07f9cbfe3ea4115b8fcc881ae5154b3c3e898c04..570a2231c945a6c649cf8dc3b457f0b55657e0c3 100644
---- a/fs/crypto/crypto.c
-+++ b/fs/crypto/crypto.c
-@@ -365,7 +365,7 @@ void fscrypt_msg(const struct inode *inode, const char *level,
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 	if (inode && inode->i_ino)
--		printk("%sfscrypt (%s, inode %lu): %pV\n",
-+		printk("%sfscrypt (%s, inode %llu): %pV\n",
- 		       level, inode->i_sb->s_id, inode->i_ino, &vaf);
- 	else if (inode)
- 		printk("%sfscrypt (%s): %pV\n", level, inode->i_sb->s_id, &vaf);
-diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
-index b97de0d1430fd6ec764f4a758dffe00263496118..a7a8a3f581a0460537f5ff955bc8b5d30573a033 100644
---- a/fs/crypto/hooks.c
-+++ b/fs/crypto/hooks.c
-@@ -62,7 +62,7 @@ int fscrypt_file_open(struct inode *inode, struct file *filp)
- 	dentry_parent = dget_parent(dentry);
- 	if (!fscrypt_has_permitted_context(d_inode(dentry_parent), inode)) {
- 		fscrypt_warn(inode,
--			     "Inconsistent encryption context (parent directory: %lu)",
-+			     "Inconsistent encryption context (parent directory: %llu)",
- 			     d_inode(dentry_parent)->i_ino);
- 		err = -EPERM;
- 	}
-diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index 40fa05688d3a1d4aa33d29e9508441faf4bca933..df58ca4a5e3cb1df94e2f08e3f3b093c33368993 100644
---- a/fs/crypto/keysetup.c
-+++ b/fs/crypto/keysetup.c
-@@ -91,7 +91,7 @@ select_encryption_mode(const union fscrypt_policy *policy,
- 	if (S_ISDIR(inode->i_mode) || S_ISLNK(inode->i_mode))
- 		return &fscrypt_modes[fscrypt_policy_fnames_mode(policy)];
+diff --git a/fs/freevxfs/vxfs_bmap.c b/fs/freevxfs/vxfs_bmap.c
+index 26d367e3668da0cfd916881c7a07c047a7ef1bf5..cde52187bb7e3dcc05a45b1032994b579d4e4974 100644
+--- a/fs/freevxfs/vxfs_bmap.c
++++ b/fs/freevxfs/vxfs_bmap.c
+@@ -260,12 +260,12 @@ vxfs_bmap1(struct inode *ip, long iblock)
+ 	if (VXFS_ISIMMED(vip))
+ 		goto unsupp;
  
--	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %lu, which is not encryptable (file type %d)\n",
-+	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %llu, which is not encryptable (file type %d)\n",
- 		  inode->i_ino, (inode->i_mode & S_IFMT));
- 	return ERR_PTR(-EINVAL);
+-	printk(KERN_WARNING "vxfs: inode %ld has no valid orgtype (%x)\n",
++	printk(KERN_WARNING "vxfs: inode %lld has no valid orgtype (%x)\n",
+ 			ip->i_ino, vip->vii_orgtype);
+ 	BUG();
+ 
+ unsupp:
+-	printk(KERN_WARNING "vxfs: inode %ld has an unsupported orgtype (%x)\n",
++	printk(KERN_WARNING "vxfs: inode %lld has an unsupported orgtype (%x)\n",
+ 			ip->i_ino, vip->vii_orgtype);
+ 	return 0;
  }
 
 -- 
