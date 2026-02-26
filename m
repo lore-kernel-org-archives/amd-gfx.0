@@ -4,231 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDFECFD5322
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85088FD5333
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D42A210EABE;
-	Fri, 27 Feb 2026 09:17:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E791C10EAAE;
+	Fri, 27 Feb 2026 09:17:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GoiapCCj";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gnQJg5FC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AC6C10E046;
- Thu, 26 Feb 2026 20:06:18 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD2DD10E99E;
+ Thu, 26 Feb 2026 15:57:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0C48043A05;
- Thu, 26 Feb 2026 20:06:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1109C116C6;
- Thu, 26 Feb 2026 20:06:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E8A6F6013A;
+ Thu, 26 Feb 2026 15:57:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 615F9C2BCB2;
+ Thu, 26 Feb 2026 15:57:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772136377;
- bh=amJIWoT1nC09hCk+fwfbrDXhDDzedSUJ2LEhzzxxTsU=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=GoiapCCjXtcW/ncWAnCZfJR5QyfV+JUZXXnUIjhxbyDc7L9/74824XjLGF/9FcdJR
- SHDVHPsQnmcX9UVRLy8HgT37wgK6s8QXPaw6c3IwlPsGwOa3bfi8lNSWFLe/Bah+sW
- ZA/4okeZZPZJ7mvZzl3EE6xRSak7Kyr4Yu/stsPLfya2o43enXoLgzD9mTD+FyXLtX
- +yY8TWh/m28GLJhf7ExEjMw72g8WiX6uYn3ecMNMArIST8tJ8isTBaGjNYY7m790z7
- pQLCm+TMkPfrsnPhjngtxwcWPP0z2TyIJi4xqcJt/EgJRaTRJCjXT19SFgFPN0H64M
- eqDgsSpMWSpow==
-Message-ID: <d8d47ebf099b21bf20f7284837f8164a19590010.camel@kernel.org>
-Subject: Re:  [PATCH 17/61] nilfs2: update for u64 i_ino
+ s=k20201202; t=1772121452;
+ bh=ssx2IpAMqaxniype/4uVoYfZEQDEAGD8rhxutC32X1Y=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=gnQJg5FC2TrfmGKCHtBXTKsdnxdFxJmNXnISICWPbnC3hb1wfxEgebI6iJoLTtgQy
+ 173uYgqDx5i298Xu3EperqcDskmyX9ilPHqGcQ12xD14FR0b14WtYD4k8CQU6atGUl
+ yi8BqxIys5mzQIFdPo9FTsDiy8H2gxu9FKnTpDIVWYnYnbLgsu6IxrpC4TqRfizQ/q
+ NmpTjIKf8B2L1AHXMJFFDcX2LpwmiBloBBaLJJFSfCEeHZm08y2cXksJjhlp0tfJJW
+ YeU6GQxJ1aQnbIN6oYZo5mpGP5nMYZveOM8a/KJv+TZJRvdoYDAv0MCCZ/bXo154uR
+ p7FceaY/1R8Jg==
 From: Jeff Layton <jlayton@kernel.org>
-To: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>, "david@kernel.org"	
- <david@kernel.org>, "namhyung@kernel.org" <namhyung@kernel.org>, 
- "oleg@redhat.com"	 <oleg@redhat.com>, "anna@kernel.org" <anna@kernel.org>,
- "ms@dev.tdt.de"	 <ms@dev.tdt.de>, "alexander.shishkin@linux.intel.com"	
- <alexander.shishkin@linux.intel.com>, "jack@suse.cz" <jack@suse.cz>, 
- "ebiggers@kernel.org"	 <ebiggers@kernel.org>, Ondrej Mosnacek
- <omosnace@redhat.com>,  "mark.rutland@arm.com"	 <mark.rutland@arm.com>,
- "casey@schaufler-ca.com" <casey@schaufler-ca.com>, 
- "glaubitz@physik.fu-berlin.de"	 <glaubitz@physik.fu-berlin.de>,
- "miklos@szeredi.hu" <miklos@szeredi.hu>,  "sumit.semwal@linaro.org"	
- <sumit.semwal@linaro.org>, "john.johansen@canonical.com"	
- <john.johansen@canonical.com>, "amir73il@gmail.com" <amir73il@gmail.com>, 
- "slava@dubeyko.com"	 <slava@dubeyko.com>, "willy@infradead.org"
- <willy@infradead.org>,  "tytso@mit.edu"	 <tytso@mit.edu>,
- "asmadeus@codewreck.org" <asmadeus@codewreck.org>,  "jth@kernel.org"	
- <jth@kernel.org>, "shaggy@kernel.org" <shaggy@kernel.org>,
- "serge@hallyn.com"	 <serge@hallyn.com>, "jaharkes@cs.cmu.edu"
- <jaharkes@cs.cmu.edu>,  "trondmy@kernel.org"	 <trondmy@kernel.org>,
- "jolsa@kernel.org" <jolsa@kernel.org>,  "ericvh@kernel.org"	
- <ericvh@kernel.org>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "willemb@google.com"	 <willemb@google.com>, "aivazian.tigran@gmail.com"
- <aivazian.tigran@gmail.com>,  "hubcap@omnibond.com"	 <hubcap@omnibond.com>,
- "muchun.song@linux.dev" <muchun.song@linux.dev>,  "sfrench@samba.org"	
- <sfrench@samba.org>, "neil@brown.name" <neil@brown.name>,
- "jmorris@namei.org"	 <jmorris@namei.org>, "jlbec@evilplan.org"
- <jlbec@evilplan.org>,  "chuck.lever@oracle.com"	 <chuck.lever@oracle.com>,
- "ronniesahlberg@gmail.com" <ronniesahlberg@gmail.com>,  "lucho@ionkov.net"	
- <lucho@ionkov.net>, "dan.j.williams@intel.com" <dan.j.williams@intel.com>, 
- "raven@themaw.net"	 <raven@themaw.net>, Alex Markuze <amarkuze@redhat.com>,
- "mhiramat@kernel.org"	 <mhiramat@kernel.org>, "alexander.deucher@amd.com"
- <alexander.deucher@amd.com>,  "mathieu.desnoyers@efficios.com"	
- <mathieu.desnoyers@efficios.com>, "horms@kernel.org" <horms@kernel.org>, 
- "tom@talpey.com"	 <tom@talpey.com>, "mark@fasheh.com" <mark@fasheh.com>, 
- "mikulas@artax.karlin.mff.cuni.cz"	 <mikulas@artax.karlin.mff.cuni.cz>,
- "djwong@kernel.org" <djwong@kernel.org>,  "edumazet@google.com"	
- <edumazet@google.com>, Olga Kornievskaia <okorniev@redhat.com>, 
- "bharathsm@microsoft.com"	 <bharathsm@microsoft.com>,
- "adrian.hunter@intel.com" <adrian.hunter@intel.com>,  "osalvador@suse.de"	
- <osalvador@suse.de>, "peterz@infradead.org" <peterz@infradead.org>, 
- "christian.koenig@amd.com"	 <christian.koenig@amd.com>, "pc@manguebit.org"
- <pc@manguebit.org>,  "martin@omnibond.com"	 <martin@omnibond.com>,
- "naohiro.aota@wdc.com" <naohiro.aota@wdc.com>,  "frank.li@vivo.com"	
- <frank.li@vivo.com>, "dsterba@suse.com" <dsterba@suse.com>, 
- "zohar@linux.ibm.com"	 <zohar@linux.ibm.com>, "code@tyhicks.com"
- <code@tyhicks.com>,  "dwmw2@infradead.org"	 <dwmw2@infradead.org>,
- "kuba@kernel.org" <kuba@kernel.org>, "kuniyu@google.com"	
- <kuniyu@google.com>, "nico@fluxnic.net" <nico@fluxnic.net>, "jack@suse.com"
- <jack@suse.com>, "dlemoal@kernel.org" <dlemoal@kernel.org>, 
- "viro@zeniv.linux.org.uk"	 <viro@zeniv.linux.org.uk>,
- "stephen.smalley.work@gmail.com"	 <stephen.smalley.work@gmail.com>,
- "salah.triki@gmail.com"	 <salah.triki@gmail.com>, David Howells
- <dhowells@redhat.com>,  "paul@paul-moore.com"	 <paul@paul-moore.com>,
- "luisbg@kernel.org" <luisbg@kernel.org>,  "irogers@google.com"	
- <irogers@google.com>, "acme@kernel.org" <acme@kernel.org>, "richard@nod.at"
- <richard@nod.at>, "rostedt@goodmis.org" <rostedt@goodmis.org>, 
- "idryomov@gmail.com"	 <idryomov@gmail.com>, "joseph.qi@linux.alibaba.com"	
- <joseph.qi@linux.alibaba.com>, "al@alarsen.net" <al@alarsen.net>, 
- "james.clark@linaro.org"	 <james.clark@linaro.org>,
- "dmitry.kasatkin@gmail.com"	 <dmitry.kasatkin@gmail.com>,
- "roberto.sassu@huawei.com"	 <roberto.sassu@huawei.com>,
- "konishi.ryusuke@gmail.com"	 <konishi.ryusuke@gmail.com>,
- "sprasad@microsoft.com" <sprasad@microsoft.com>,  "jaegeuk@kernel.org"	
- <jaegeuk@kernel.org>, "linux_oss@crudebyte.com" <linux_oss@crudebyte.com>, 
- "brauner@kernel.org"	 <brauner@kernel.org>, "Dai.Ngo@oracle.com"
- <Dai.Ngo@oracle.com>,  "eric.snowberg@oracle.com"	
- <eric.snowberg@oracle.com>, "adilger.kernel@dilger.ca"	
- <adilger.kernel@dilger.ca>, "chao@kernel.org" <chao@kernel.org>, 
- "wufan@kernel.org"	 <wufan@kernel.org>, "coda@cs.cmu.edu"
- <coda@cs.cmu.edu>, Ingo Molnar	 <mingo@redhat.com>, "alex.aring@gmail.com"
- <alex.aring@gmail.com>,  "airlied@gmail.com"	 <airlied@gmail.com>,
- "chengzhihao1@huawei.com" <chengzhihao1@huawei.com>,  Paolo Abeni
- <pabeni@redhat.com>, "marc.dionne@auristor.com" <marc.dionne@auristor.com>,
- "almaz.alexandrovich@paragon-software.com"	
- <almaz.alexandrovich@paragon-software.com>, "davem@davemloft.net"	
- <davem@davemloft.net>, "hch@infradead.org" <hch@infradead.org>
-Cc: "ecryptfs@vger.kernel.org" <ecryptfs@vger.kernel.org>, 
- "linux-unionfs@vger.kernel.org"	 <linux-unionfs@vger.kernel.org>,
- "apparmor@lists.ubuntu.com"	 <apparmor@lists.ubuntu.com>,
- "linux-ext4@vger.kernel.org"	 <linux-ext4@vger.kernel.org>,
- "autofs@vger.kernel.org" <autofs@vger.kernel.org>, 
- "amd-gfx@lists.freedesktop.org"	 <amd-gfx@lists.freedesktop.org>,
- "fsverity@lists.linux.dev"	 <fsverity@lists.linux.dev>,
- "ntfs3@lists.linux.dev" <ntfs3@lists.linux.dev>, 
- "ocfs2-devel@lists.linux.dev"	 <ocfs2-devel@lists.linux.dev>,
- "linux-fsdevel@vger.kernel.org"	 <linux-fsdevel@vger.kernel.org>,
- "linux-media@vger.kernel.org"	 <linux-media@vger.kernel.org>,
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
- "netdev@vger.kernel.org"	 <netdev@vger.kernel.org>,
- "linux-integrity@vger.kernel.org"	 <linux-integrity@vger.kernel.org>,
- "samba-technical@lists.samba.org"	 <samba-technical@lists.samba.org>,
- "linux-nilfs@vger.kernel.org"	 <linux-nilfs@vger.kernel.org>,
- "selinux@vger.kernel.org"	 <selinux@vger.kernel.org>,
- "linaro-mm-sig@lists.linaro.org"	 <linaro-mm-sig@lists.linaro.org>,
- "linux-trace-kernel@vger.kernel.org"	 <linux-trace-kernel@vger.kernel.org>,
- "v9fs@lists.linux.dev"	 <v9fs@lists.linux.dev>, "linux-xfs@vger.kernel.org"
- <linux-xfs@vger.kernel.org>,  "linux-x25@vger.kernel.org"	
- <linux-x25@vger.kernel.org>, "linux-f2fs-devel@lists.sourceforge.net"	
- <linux-f2fs-devel@lists.sourceforge.net>, "nvdimm@lists.linux.dev"	
- <nvdimm@lists.linux.dev>, "ceph-devel@vger.kernel.org"	
- <ceph-devel@vger.kernel.org>, "jfs-discussion@lists.sourceforge.net"	
- <jfs-discussion@lists.sourceforge.net>, "linux-mtd@lists.infradead.org"	
- <linux-mtd@lists.infradead.org>, "devel@lists.orangefs.org"	
- <devel@lists.orangefs.org>, "linux-afs@lists.infradead.org"	
- <linux-afs@lists.infradead.org>, "linux-fscrypt@vger.kernel.org"	
- <linux-fscrypt@vger.kernel.org>, "linux-security-module@vger.kernel.org"	
- <linux-security-module@vger.kernel.org>, "linux-cifs@vger.kernel.org"	
- <linux-cifs@vger.kernel.org>, "linux-hams@vger.kernel.org"	
- <linux-hams@vger.kernel.org>, "linux-nfs@vger.kernel.org"	
- <linux-nfs@vger.kernel.org>, "codalist@coda.cs.cmu.edu"	
- <codalist@coda.cs.cmu.edu>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
- "netfs@lists.linux.dev"	 <netfs@lists.linux.dev>,
- "linux-perf-users@vger.kernel.org"	 <linux-perf-users@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org"	 <dri-devel@lists.freedesktop.org>
-Date: Thu, 26 Feb 2026 15:06:03 -0500
-In-Reply-To: <34b1d1f43043ca1b71a3ca9ea5ebce597a4c02aa.camel@ibm.com>
-References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
- <20260226-iino-u64-v1-17-ccceff366db9@kernel.org>
- <34b1d1f43043ca1b71a3ca9ea5ebce597a4c02aa.camel@ibm.com>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Date: Thu, 26 Feb 2026 10:55:08 -0500
+Subject: [PATCH 06/61] f2fs: update for u64 i_ino
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260226-iino-u64-v1-6-ccceff366db9@kernel.org>
+References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
+In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Dan Williams <dan.j.williams@intel.com>, 
+ Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>, 
+ "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+ David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>, 
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+ Shyam Prasad N <sprasad@microsoft.com>, 
+ Bharath SM <bharathsm@microsoft.com>, 
+ Alexander Aring <alex.aring@gmail.com>, 
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, 
+ Eric Van Hensbergen <ericvh@kernel.org>, 
+ Latchesar Ionkov <lucho@ionkov.net>, 
+ Dominique Martinet <asmadeus@codewreck.org>, 
+ Christian Schoenebeck <linux_oss@crudebyte.com>, 
+ David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>, 
+ Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>, 
+ Salah Triki <salah.triki@gmail.com>, 
+ "Tigran A. Aivazian" <aivazian.tigran@gmail.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
+ Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>, 
+ Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Yangtao Li <frank.li@vivo.com>, 
+ Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>, 
+ David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, 
+ Dave Kleikamp <shaggy@kernel.org>, 
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+ Joseph Qi <joseph.qi@linux.alibaba.com>, 
+ Mike Marshall <hubcap@omnibond.com>, 
+ Martin Brandenburg <martin@omnibond.com>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
+ Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>, 
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Ondrej Mosnacek <omosnace@redhat.com>, 
+ Casey Schaufler <casey@schaufler-ca.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Willem de Bruijn <willemb@google.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Martin Schiller <ms@dev.tdt.de>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+ linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
+ v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
+ ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, 
+ ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
+ ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
+ linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
+ linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
+ selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
+ linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=51378; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=ssx2IpAMqaxniype/4uVoYfZEQDEAGD8rhxutC32X1Y=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0F4KRhMIfqGLim+RK2KV8IRqMs9t86x89Cy
+ oK6lXXq0duJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtBQAKCRAADmhBGVaC
+ FWkKEACNiFZZW2m66ieWqSQLZlEtqvhGteFEAoLMS5ynfPSAQ5Vp54WLP+WIf2O7QxNZqE8aKdZ
+ yDloorLkKlv0nTZkg283rP3ENShgUFZbyqGJQVNmT5Pbvl4x/e0PHzRZG7k027Ou3YLgTpZJdfN
+ n2KR2UfwSgjxU3tm9IooaPhEiUrFHFoWgLAegJRWwUdLKE7/77+64LvVq8N08XvzZo3++9v5m5J
+ d9Uuv1YWai2HW9q5xcJ7EpmToHak6JX0BE0CM4oiOdqqSmIO1dIw4Lkscxp42dVrgpEr6soVxRE
+ 2oRAM4rEX1ynjx8codPXjueYWWxtJ3Ru7zcmCKD6IHmsTt5rQyNjqnFOCP78izFiUF5PSQFnP97
+ 9ZtjHsxDouVTxbC3Q5r9Ks5PC3IhGYGuRr9FDIiV+I7DfEHjKzgJUN+sMUbp5r8W/GBaiveLgbS
+ /gUHVAvvqpddVRKVJuXI2SOzU8oTNKa3UwJY7/fVu15Ixwg4AAaXp6zW5VVgd6eJ/jJ9EKpRgJN
+ gBMef7nsj9VQy3YnabhR+12FRUGANpAuNrRZv8areyIomw3cIxmx0j2LFWwvSCK5OA63z7SyF57
+ Hg8WeYX73NLo/muPPO/KW0qf+D9P98gRY5RhrBbfkTo+7HENaFcnbtKCuaJgT62ioAZg4YNwSeE
+ 5SjJJJezWBS/5rw==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -244,480 +162,1343 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2026-02-26 at 19:46 +0000, Viacheslav Dubeyko wrote:
-> On Thu, 2026-02-26 at 10:55 -0500, Jeff Layton wrote:
-> > Update nilfs2 trace events and filesystem code for u64 i_ino:
-> >=20
-> > - Change __field(ino_t, ...) to __field(u64, ...) in trace events
-> > - Update format strings from %lu to %llu
-> > - Cast to (unsigned long long) in TP_printk
-> >=20
-> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> > ---
-> >  fs/nilfs2/alloc.c             | 10 +++++-----
-> >  fs/nilfs2/bmap.c              |  2 +-
-> >  fs/nilfs2/btnode.c            |  2 +-
-> >  fs/nilfs2/btree.c             | 12 ++++++------
-> >  fs/nilfs2/dir.c               | 12 ++++++------
-> >  fs/nilfs2/direct.c            |  4 ++--
-> >  fs/nilfs2/gcinode.c           |  2 +-
-> >  fs/nilfs2/inode.c             |  8 ++++----
-> >  fs/nilfs2/mdt.c               |  2 +-
-> >  fs/nilfs2/namei.c             |  2 +-
-> >  fs/nilfs2/segment.c           |  2 +-
-> >  include/trace/events/nilfs2.h | 12 ++++++------
-> >  12 files changed, 35 insertions(+), 35 deletions(-)
-> >=20
-> > diff --git a/fs/nilfs2/alloc.c b/fs/nilfs2/alloc.c
-> > index e7eebb04f9a4080a39f17d4123e58ed7df6b2f4b..7b1cd2baefcf21e54f92608=
-45b02c7c95c148c64 100644
-> > --- a/fs/nilfs2/alloc.c
-> > +++ b/fs/nilfs2/alloc.c
-> > @@ -707,7 +707,7 @@ void nilfs_palloc_commit_free_entry(struct inode *i=
-node,
-> > =20
-> >  	if (!nilfs_clear_bit_atomic(lock, group_offset, bitmap))
-> >  		nilfs_warn(inode->i_sb,
-> > -			   "%s (ino=3D%lu): entry number %llu already freed",
-> > +			   "%s (ino=3D%llu): entry number %llu already freed",
-> >  			   __func__, inode->i_ino,
-> >  			   (unsigned long long)req->pr_entry_nr);
-> >  	else
-> > @@ -748,7 +748,7 @@ void nilfs_palloc_abort_alloc_entry(struct inode *i=
-node,
-> > =20
-> >  	if (!nilfs_clear_bit_atomic(lock, group_offset, bitmap))
-> >  		nilfs_warn(inode->i_sb,
-> > -			   "%s (ino=3D%lu): entry number %llu already freed",
-> > +			   "%s (ino=3D%llu): entry number %llu already freed",
-> >  			   __func__, inode->i_ino,
-> >  			   (unsigned long long)req->pr_entry_nr);
-> >  	else
-> > @@ -861,7 +861,7 @@ int nilfs_palloc_freev(struct inode *inode, __u64 *=
-entry_nrs, size_t nitems)
-> >  			if (!nilfs_clear_bit_atomic(lock, group_offset,
-> >  						    bitmap)) {
-> >  				nilfs_warn(inode->i_sb,
-> > -					   "%s (ino=3D%lu): entry number %llu already freed",
-> > +					   "%s (ino=3D%llu): entry number %llu already freed",
-> >  					   __func__, inode->i_ino,
-> >  					   (unsigned long long)entry_nrs[j]);
-> >  			} else {
-> > @@ -906,7 +906,7 @@ int nilfs_palloc_freev(struct inode *inode, __u64 *=
-entry_nrs, size_t nitems)
-> >  							      last_nrs[k]);
-> >  			if (ret && ret !=3D -ENOENT)
-> >  				nilfs_warn(inode->i_sb,
-> > -					   "error %d deleting block that object (entry=3D%llu, ino=3D%lu)=
- belongs to",
-> > +					   "error %d deleting block that object (entry=3D%llu, ino=3D%llu=
-) belongs to",
-> >  					   ret, (unsigned long long)last_nrs[k],
-> >  					   inode->i_ino);
-> >  		}
-> > @@ -923,7 +923,7 @@ int nilfs_palloc_freev(struct inode *inode, __u64 *=
-entry_nrs, size_t nitems)
-> >  			ret =3D nilfs_palloc_delete_bitmap_block(inode, group);
-> >  			if (ret && ret !=3D -ENOENT)
-> >  				nilfs_warn(inode->i_sb,
-> > -					   "error %d deleting bitmap block of group=3D%lu, ino=3D%lu",
-> > +					   "error %d deleting bitmap block of group=3D%lu, ino=3D%llu",
-> >  					   ret, group, inode->i_ino);
-> >  		}
-> >  	}
-> > diff --git a/fs/nilfs2/bmap.c b/fs/nilfs2/bmap.c
-> > index ccc1a7aa52d2064d56b826058554264c498d592f..824f2bd91c167965ec3a660=
-202b6e6c5f1fe007e 100644
-> > --- a/fs/nilfs2/bmap.c
-> > +++ b/fs/nilfs2/bmap.c
-> > @@ -33,7 +33,7 @@ static int nilfs_bmap_convert_error(struct nilfs_bmap=
- *bmap,
-> > =20
-> >  	if (err =3D=3D -EINVAL) {
-> >  		__nilfs_error(inode->i_sb, fname,
-> > -			      "broken bmap (inode number=3D%lu)", inode->i_ino);
-> > +			      "broken bmap (inode number=3D%llu)", inode->i_ino);
-> >  		err =3D -EIO;
-> >  	}
-> >  	return err;
-> > diff --git a/fs/nilfs2/btnode.c b/fs/nilfs2/btnode.c
-> > index 56836712909201775907483887e8a0022851bbec..2e553d698d0f3980de98fce=
-d415dfd819ddbca0a 100644
-> > --- a/fs/nilfs2/btnode.c
-> > +++ b/fs/nilfs2/btnode.c
-> > @@ -64,7 +64,7 @@ nilfs_btnode_create_block(struct address_space *btnc,=
- __u64 blocknr)
-> >  		 * clearing of an abandoned b-tree node is missing somewhere).
-> >  		 */
-> >  		nilfs_error(inode->i_sb,
-> > -			    "state inconsistency probably due to duplicate use of b-tree no=
-de block address %llu (ino=3D%lu)",
-> > +			    "state inconsistency probably due to duplicate use of b-tree no=
-de block address %llu (ino=3D%llu)",
-> >  			    (unsigned long long)blocknr, inode->i_ino);
-> >  		goto failed;
-> >  	}
-> > diff --git a/fs/nilfs2/btree.c b/fs/nilfs2/btree.c
-> > index dd0c8e560ef6a2c96515025321914e0d73f41144..3c03f5a741d144d22d1ffb5=
-acf43a035e88c00dc 100644
-> > --- a/fs/nilfs2/btree.c
-> > +++ b/fs/nilfs2/btree.c
-> > @@ -353,7 +353,7 @@ static int nilfs_btree_node_broken(const struct nil=
-fs_btree_node *node,
-> >  		     nchildren <=3D 0 ||
-> >  		     nchildren > NILFS_BTREE_NODE_NCHILDREN_MAX(size))) {
-> >  		nilfs_crit(inode->i_sb,
-> > -			   "bad btree node (ino=3D%lu, blocknr=3D%llu): level =3D %d, flags=
- =3D 0x%x, nchildren =3D %d",
-> > +			   "bad btree node (ino=3D%llu, blocknr=3D%llu): level =3D %d, flag=
-s =3D 0x%x, nchildren =3D %d",
-> >  			   inode->i_ino, (unsigned long long)blocknr, level,
-> >  			   flags, nchildren);
-> >  		ret =3D 1;
-> > @@ -384,7 +384,7 @@ static int nilfs_btree_root_broken(const struct nil=
-fs_btree_node *node,
-> >  		     nchildren > NILFS_BTREE_ROOT_NCHILDREN_MAX ||
-> >  		     (nchildren =3D=3D 0 && level > NILFS_BTREE_LEVEL_NODE_MIN))) {
-> >  		nilfs_crit(inode->i_sb,
-> > -			   "bad btree root (ino=3D%lu): level =3D %d, flags =3D 0x%x, nchil=
-dren =3D %d",
-> > +			   "bad btree root (ino=3D%llu): level =3D %d, flags =3D 0x%x, nchi=
-ldren =3D %d",
-> >  			   inode->i_ino, level, flags, nchildren);
-> >  		ret =3D 1;
-> >  	}
-> > @@ -453,7 +453,7 @@ static int nilfs_btree_bad_node(const struct nilfs_=
-bmap *btree,
-> >  	if (unlikely(nilfs_btree_node_get_level(node) !=3D level)) {
-> >  		dump_stack();
-> >  		nilfs_crit(btree->b_inode->i_sb,
-> > -			   "btree level mismatch (ino=3D%lu): %d !=3D %d",
-> > +			   "btree level mismatch (ino=3D%llu): %d !=3D %d",
-> >  			   btree->b_inode->i_ino,
-> >  			   nilfs_btree_node_get_level(node), level);
-> >  		return 1;
-> > @@ -521,7 +521,7 @@ static int __nilfs_btree_get_block(const struct nil=
-fs_bmap *btree, __u64 ptr,
-> >   out_no_wait:
-> >  	if (!buffer_uptodate(bh)) {
-> >  		nilfs_err(btree->b_inode->i_sb,
-> > -			  "I/O error reading b-tree node block (ino=3D%lu, blocknr=3D%llu)"=
-,
-> > +			  "I/O error reading b-tree node block (ino=3D%llu, blocknr=3D%llu)=
-",
-> >  			  btree->b_inode->i_ino, (unsigned long long)ptr);
-> >  		brelse(bh);
-> >  		return -EIO;
-> > @@ -2104,7 +2104,7 @@ static int nilfs_btree_propagate(struct nilfs_bma=
-p *btree,
-> >  	if (ret < 0) {
-> >  		if (unlikely(ret =3D=3D -ENOENT)) {
-> >  			nilfs_crit(btree->b_inode->i_sb,
-> > -				   "writing node/leaf block does not appear in b-tree (ino=3D%lu) =
-at key=3D%llu, level=3D%d",
-> > +				   "writing node/leaf block does not appear in b-tree (ino=3D%llu)=
- at key=3D%llu, level=3D%d",
-> >  				   btree->b_inode->i_ino,
-> >  				   (unsigned long long)key, level);
-> >  			ret =3D -EINVAL;
-> > @@ -2146,7 +2146,7 @@ static void nilfs_btree_add_dirty_buffer(struct n=
-ilfs_bmap *btree,
-> >  	    level >=3D NILFS_BTREE_LEVEL_MAX) {
-> >  		dump_stack();
-> >  		nilfs_warn(btree->b_inode->i_sb,
-> > -			   "invalid btree level: %d (key=3D%llu, ino=3D%lu, blocknr=3D%llu)=
-",
-> > +			   "invalid btree level: %d (key=3D%llu, ino=3D%llu, blocknr=3D%llu=
-)",
-> >  			   level, (unsigned long long)key,
-> >  			   btree->b_inode->i_ino,
-> >  			   (unsigned long long)bh->b_blocknr);
-> > diff --git a/fs/nilfs2/dir.c b/fs/nilfs2/dir.c
-> > index b243199036dfa1ab2299efaaa5bdf5da2d159ff2..3653db5cdb65137d1e660bb=
-509c14ec4cbc8840b 100644
-> > --- a/fs/nilfs2/dir.c
-> > +++ b/fs/nilfs2/dir.c
-> > @@ -150,7 +150,7 @@ static bool nilfs_check_folio(struct folio *folio, =
-char *kaddr)
-> > =20
-> >  Ebadsize:
-> >  	nilfs_error(sb,
-> > -		    "size of directory #%lu is not a multiple of chunk size",
-> > +		    "size of directory #%llu is not a multiple of chunk size",
-> >  		    dir->i_ino);
-> >  	goto fail;
-> >  Eshort:
-> > @@ -169,7 +169,7 @@ static bool nilfs_check_folio(struct folio *folio, =
-char *kaddr)
-> >  	error =3D "disallowed inode number";
-> >  bad_entry:
-> >  	nilfs_error(sb,
-> > -		    "bad entry in directory #%lu: %s - offset=3D%lu, inode=3D%lu, re=
-c_len=3D%zd, name_len=3D%d",
-> > +		    "bad entry in directory #%llu: %s - offset=3D%lu, inode=3D%lu, r=
-ec_len=3D%zd, name_len=3D%d",
->=20
-> I think you missed 'inode=3D%lu' here.=20
+Update f2fs trace events and filesystem code for u64 i_ino:
 
-That is actually the placeholder for this:
+- Change __field(ino_t, ...) to __field(u64, ...) in trace events
+- Update show_dev_ino() macro format strings from %lu to %llu
+- Cast inode numbers to (unsigned long long) in TP_printk
+- Update format string in fs/f2fs/node.c
 
-    (unsigned long)le64_to_cpu(p->inode)
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+ fs/f2fs/compress.c          |   4 +-
+ fs/f2fs/dir.c               |   2 +-
+ fs/f2fs/extent_cache.c      |   8 +--
+ fs/f2fs/f2fs.h              |   6 +-
+ fs/f2fs/file.c              |  12 ++--
+ fs/f2fs/gc.c                |   2 +-
+ fs/f2fs/inline.c            |   4 +-
+ fs/f2fs/inode.c             |  48 ++++++-------
+ fs/f2fs/namei.c             |   8 +--
+ fs/f2fs/node.c              |  12 ++--
+ fs/f2fs/recovery.c          |  10 +--
+ fs/f2fs/xattr.c             |  10 +--
+ include/trace/events/f2fs.h | 172 ++++++++++++++++++++++----------------------
+ 13 files changed, 149 insertions(+), 149 deletions(-)
 
-...which is not inode->i_ino. I do agree that the cast probably no
-longer makes sense with this change, but I'd probably leave that to a
-later cleanup so we can keep this set focused on the i_ino change.
+diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
+index 8c76400ba6317d9b62428a1d7b53a54d7c5d07ef..0b8be500db656f8439725cac2f6a927c2f06ca4f 100644
+--- a/fs/f2fs/compress.c
++++ b/fs/f2fs/compress.c
+@@ -773,7 +773,7 @@ void f2fs_decompress_cluster(struct decompress_io_ctx *dic, bool in_task)
+ 			if (!is_inode_flag_set(dic->inode, FI_COMPRESS_CORRUPT)) {
+ 				set_inode_flag(dic->inode, FI_COMPRESS_CORRUPT);
+ 				f2fs_info_ratelimited(sbi,
+-					"checksum invalid, nid = %lu, %x vs %x",
++					"checksum invalid, nid = %llu, %x vs %x",
+ 					dic->inode->i_ino,
+ 					provided, calculated);
+ 			}
+@@ -932,7 +932,7 @@ bool f2fs_sanity_check_cluster(struct dnode_of_data *dn)
+ 
+ 	return false;
+ out:
+-	f2fs_warn(sbi, "access invalid cluster, ino:%lu, nid:%u, ofs_in_node:%u, reason:%s",
++	f2fs_warn(sbi, "access invalid cluster, ino:%llu, nid:%u, ofs_in_node:%u, reason:%s",
+ 			dn->inode->i_ino, dn->nid, dn->ofs_in_node, reason);
+ 	set_sbi_flag(sbi, SBI_NEED_FSCK);
+ 	return true;
+diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
+index f70092e231f0f47e589d648b0c6f83ef3aa8fd6c..38802ee2e40deb4995a4e5f4118330b90b2f10e2 100644
+--- a/fs/f2fs/dir.c
++++ b/fs/f2fs/dir.c
+@@ -368,7 +368,7 @@ struct f2fs_dir_entry *__f2fs_find_entry(struct inode *dir,
+ 
+ 	max_depth = F2FS_I(dir)->i_current_depth;
+ 	if (unlikely(max_depth > MAX_DIR_HASH_DEPTH)) {
+-		f2fs_warn(F2FS_I_SB(dir), "Corrupted max_depth of %lu: %u",
++		f2fs_warn(F2FS_I_SB(dir), "Corrupted max_depth of %llu: %u",
+ 			  dir->i_ino, max_depth);
+ 		max_depth = MAX_DIR_HASH_DEPTH;
+ 		f2fs_i_depth_write(dir, max_depth);
+diff --git a/fs/f2fs/extent_cache.c b/fs/f2fs/extent_cache.c
+index 0ed84cc065a7eda66c50eae97d70e9ab93de31c3..d73aeef333a24766aaab9914a02b99fbf035e78d 100644
+--- a/fs/f2fs/extent_cache.c
++++ b/fs/f2fs/extent_cache.c
+@@ -34,7 +34,7 @@ bool sanity_check_extent_cache(struct inode *inode, struct folio *ifolio)
+ 	if (!f2fs_is_valid_blkaddr(sbi, ei.blk, DATA_GENERIC_ENHANCE) ||
+ 	    !f2fs_is_valid_blkaddr(sbi, ei.blk + ei.len - 1,
+ 					DATA_GENERIC_ENHANCE)) {
+-		f2fs_warn(sbi, "%s: inode (ino=%lx) extent info [%u, %u, %u] is incorrect, run fsck to fix",
++		f2fs_warn(sbi, "%s: inode (ino=%llx) extent info [%u, %u, %u] is incorrect, run fsck to fix",
+ 			  __func__, inode->i_ino,
+ 			  ei.blk, ei.fofs, ei.len);
+ 		return false;
+@@ -50,14 +50,14 @@ bool sanity_check_extent_cache(struct inode *inode, struct folio *ifolio)
+ 
+ 		if (devi == 0) {
+ 			f2fs_warn(sbi,
+-			    "%s: inode (ino=%lx) is an alias of meta device",
++			    "%s: inode (ino=%llx) is an alias of meta device",
+ 			    __func__, inode->i_ino);
+ 			return false;
+ 		}
+ 
+ 		if (bdev_is_zoned(FDEV(devi).bdev)) {
+ 			f2fs_warn(sbi,
+-			    "%s: device alias inode (ino=%lx)'s extent info "
++			    "%s: device alias inode (ino=%llx)'s extent info "
+ 			    "[%u, %u, %u] maps to zoned block device",
+ 			    __func__, inode->i_ino, ei.blk, ei.fofs, ei.len);
+ 			return false;
+@@ -65,7 +65,7 @@ bool sanity_check_extent_cache(struct inode *inode, struct folio *ifolio)
+ 		return true;
+ 	}
+ 
+-	f2fs_warn(sbi, "%s: device alias inode (ino=%lx)'s extent info "
++	f2fs_warn(sbi, "%s: device alias inode (ino=%llx)'s extent info "
+ 			"[%u, %u, %u] is inconsistent w/ any devices",
+ 			__func__, inode->i_ino, ei.blk, ei.fofs, ei.len);
+ 	return false;
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index bb34e864d0efc742c651a285c5989bd73530fbe3..760e6d80bbddd8393394c30c740ba05faded332f 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -2706,7 +2706,7 @@ static inline void dec_valid_block_count(struct f2fs_sb_info *sbi,
+ 
+ 	spin_lock(&sbi->stat_lock);
+ 	if (unlikely(sbi->total_valid_block_count < count)) {
+-		f2fs_warn(sbi, "Inconsistent total_valid_block_count:%u, ino:%lu, count:%u",
++		f2fs_warn(sbi, "Inconsistent total_valid_block_count:%u, ino:%llu, count:%u",
+ 			  sbi->total_valid_block_count, inode->i_ino, count);
+ 		sbi->total_valid_block_count = 0;
+ 		set_sbi_flag(sbi, SBI_NEED_FSCK);
+@@ -2719,7 +2719,7 @@ static inline void dec_valid_block_count(struct f2fs_sb_info *sbi,
+ 					sbi->current_reserved_blocks + count);
+ 	spin_unlock(&sbi->stat_lock);
+ 	if (unlikely(inode->i_blocks < sectors)) {
+-		f2fs_warn(sbi, "Inconsistent i_blocks, ino:%lu, iblocks:%llu, sectors:%llu",
++		f2fs_warn(sbi, "Inconsistent i_blocks, ino:%llu, iblocks:%llu, sectors:%llu",
+ 			  inode->i_ino,
+ 			  (unsigned long long)inode->i_blocks,
+ 			  (unsigned long long)sectors);
+@@ -2993,7 +2993,7 @@ static inline void dec_valid_node_count(struct f2fs_sb_info *sbi,
+ 		dquot_free_inode(inode);
+ 	} else {
+ 		if (unlikely(inode->i_blocks == 0)) {
+-			f2fs_warn(sbi, "dec_valid_node_count: inconsistent i_blocks, ino:%lu, iblocks:%llu",
++			f2fs_warn(sbi, "dec_valid_node_count: inconsistent i_blocks, ino:%llu, iblocks:%llu",
+ 				  inode->i_ino,
+ 				  (unsigned long long)inode->i_blocks);
+ 			set_sbi_flag(sbi, SBI_NEED_FSCK);
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index c8a2f17a8f11cfc746c6a6ec4a225199929c2ee6..a56bbcca7898282eab1fea7e1b2acee5ea00df88 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -1917,7 +1917,7 @@ static int f2fs_expand_inode_data(struct inode *inode, loff_t offset,
+ 				f2fs_up_write(&sbi->pin_sem);
+ 				err = -ENOSPC;
+ 				f2fs_warn_ratelimited(sbi,
+-					"ino:%lu, start:%lu, end:%lu, need to trigger GC to "
++					"ino:%llu, start:%lu, end:%lu, need to trigger GC to"
+ 					"reclaim enough free segment when checkpoint is enabled",
+ 					inode->i_ino, pg_start, pg_end);
+ 				goto out_err;
+@@ -2307,7 +2307,7 @@ static int f2fs_ioc_start_atomic_write(struct file *filp, bool truncate)
+ 	 * f2fs_is_atomic_file.
+ 	 */
+ 	if (get_dirty_pages(inode))
+-		f2fs_warn(sbi, "Unexpected flush for atomic writes: ino=%lu, npages=%u",
++		f2fs_warn(sbi, "Unexpected flush for atomic writes: ino=%llu, npages=%u",
+ 			  inode->i_ino, get_dirty_pages(inode));
+ 	ret = filemap_write_and_wait_range(inode->i_mapping, 0, LLONG_MAX);
+ 	if (ret)
+@@ -3494,7 +3494,7 @@ int f2fs_pin_file_control(struct inode *inode, bool inc)
+ 		return -EINVAL;
+ 
+ 	if (fi->i_gc_failures >= sbi->gc_pin_file_threshold) {
+-		f2fs_warn(sbi, "%s: Enable GC = ino %lx after %x GC trials",
++		f2fs_warn(sbi, "%s: Enable GC = ino %llx after %x GC trials",
+ 			  __func__, inode->i_ino, fi->i_gc_failures);
+ 		clear_inode_flag(inode, FI_PIN_FILE);
+ 		return -EAGAIN;
+@@ -3679,7 +3679,7 @@ static int f2fs_ioc_enable_verity(struct file *filp, unsigned long arg)
+ 
+ 	if (!f2fs_sb_has_verity(F2FS_I_SB(inode))) {
+ 		f2fs_warn(F2FS_I_SB(inode),
+-			  "Can't enable fs-verity on inode %lu: the verity feature is not enabled on this filesystem",
++			  "Can't enable fs-verity on inode %llu: the verity feature is not enabled on this filesystem",
+ 			  inode->i_ino);
+ 		return -EOPNOTSUPP;
+ 	}
+@@ -3950,7 +3950,7 @@ static int f2fs_release_compress_blocks(struct file *filp, unsigned long arg)
+ 	} else if (released_blocks &&
+ 			atomic_read(&fi->i_compr_blocks)) {
+ 		set_sbi_flag(sbi, SBI_NEED_FSCK);
+-		f2fs_warn(sbi, "%s: partial blocks were released i_ino=%lx "
++		f2fs_warn(sbi, "%s: partial blocks were released i_ino=%llx "
+ 			"iblocks=%llu, released=%u, compr_blocks=%u, "
+ 			"run fsck to fix.",
+ 			__func__, inode->i_ino, inode->i_blocks,
+@@ -4133,7 +4133,7 @@ static int f2fs_reserve_compress_blocks(struct file *filp, unsigned long arg)
+ 	} else if (reserved_blocks &&
+ 			atomic_read(&fi->i_compr_blocks)) {
+ 		set_sbi_flag(sbi, SBI_NEED_FSCK);
+-		f2fs_warn(sbi, "%s: partial blocks were reserved i_ino=%lx "
++		f2fs_warn(sbi, "%s: partial blocks were reserved i_ino=%llx "
+ 			"iblocks=%llu, reserved=%u, compr_blocks=%u, "
+ 			"run fsck to fix.",
+ 			__func__, inode->i_ino, inode->i_blocks,
+diff --git a/fs/f2fs/gc.c b/fs/f2fs/gc.c
+index f46b2673d31f5a334bac543947e713cfe85dc68a..c0c8a1056d6b089397b4aa92b88b14cfd88c9de5 100644
+--- a/fs/f2fs/gc.c
++++ b/fs/f2fs/gc.c
+@@ -1622,7 +1622,7 @@ static int gc_data_segment(struct f2fs_sb_info *sbi, struct f2fs_summary *sum,
+ 				iput(inode);
+ 				set_sbi_flag(sbi, SBI_NEED_FSCK);
+ 				f2fs_err_ratelimited(sbi,
+-					"inode %lx has both inline_data flag and "
++					"inode %llu has both inline_data flag and "
+ 					"data block, nid=%u, ofs_in_node=%u",
+ 					inode->i_ino, dni.nid, ofs_in_node);
+ 				continue;
+diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+index 0a1052d5ee624e68ba27200b100a567a5d216f2a..2669439b941387a96318f77fca7dfe35723e59d9 100644
+--- a/fs/f2fs/inline.c
++++ b/fs/f2fs/inline.c
+@@ -176,7 +176,7 @@ int f2fs_convert_inline_folio(struct dnode_of_data *dn, struct folio *folio)
+ 	if (unlikely(dn->data_blkaddr != NEW_ADDR)) {
+ 		f2fs_put_dnode(dn);
+ 		set_sbi_flag(fio.sbi, SBI_NEED_FSCK);
+-		f2fs_warn(fio.sbi, "%s: corrupted inline inode ino=%lx, i_addr[0]:0x%x, run fsck to fix.",
++		f2fs_warn(fio.sbi, "%s: corrupted inline inode ino=%llu, i_addr[0]:0x%x, run fsck to fix.",
+ 			  __func__, dn->inode->i_ino, dn->data_blkaddr);
+ 		f2fs_handle_error(fio.sbi, ERROR_INVALID_BLKADDR);
+ 		return -EFSCORRUPTED;
+@@ -431,7 +431,7 @@ static int f2fs_move_inline_dirents(struct inode *dir, struct folio *ifolio,
+ 	if (unlikely(dn.data_blkaddr != NEW_ADDR)) {
+ 		f2fs_put_dnode(&dn);
+ 		set_sbi_flag(F2FS_F_SB(folio), SBI_NEED_FSCK);
+-		f2fs_warn(F2FS_F_SB(folio), "%s: corrupted inline inode ino=%lx, i_addr[0]:0x%x, run fsck to fix.",
++		f2fs_warn(F2FS_F_SB(folio), "%s: corrupted inline inode ino=%llu, i_addr[0]:0x%x, run fsck to fix.",
+ 			  __func__, dir->i_ino, dn.data_blkaddr);
+ 		f2fs_handle_error(F2FS_F_SB(folio), ERROR_INVALID_BLKADDR);
+ 		err = -EFSCORRUPTED;
+diff --git a/fs/f2fs/inode.c b/fs/f2fs/inode.c
+index e0f850b3f0c38797fbba726af424161a147ee4f7..f27198d6695b91d2a041318aeecd04c65d38a4ba 100644
+--- a/fs/f2fs/inode.c
++++ b/fs/f2fs/inode.c
+@@ -203,14 +203,14 @@ static bool sanity_check_compress_inode(struct inode *inode,
+ 
+ 	if (ri->i_compress_algorithm >= COMPRESS_MAX) {
+ 		f2fs_warn(sbi,
+-			"%s: inode (ino=%lx) has unsupported compress algorithm: %u, run fsck to fix",
++			"%s: inode (ino=%llx) has unsupported compress algorithm: %u, run fsck to fix",
+ 			__func__, inode->i_ino, ri->i_compress_algorithm);
+ 		return false;
+ 	}
+ 	if (le64_to_cpu(ri->i_compr_blocks) >
+ 			SECTOR_TO_BLOCK(inode->i_blocks)) {
+ 		f2fs_warn(sbi,
+-			"%s: inode (ino=%lx) has inconsistent i_compr_blocks:%llu, i_blocks:%llu, run fsck to fix",
++			"%s: inode (ino=%llx) has inconsistent i_compr_blocks:%llu, i_blocks:%llu, run fsck to fix",
+ 			__func__, inode->i_ino, le64_to_cpu(ri->i_compr_blocks),
+ 			SECTOR_TO_BLOCK(inode->i_blocks));
+ 		return false;
+@@ -218,7 +218,7 @@ static bool sanity_check_compress_inode(struct inode *inode,
+ 	if (ri->i_log_cluster_size < MIN_COMPRESS_LOG_SIZE ||
+ 		ri->i_log_cluster_size > MAX_COMPRESS_LOG_SIZE) {
+ 		f2fs_warn(sbi,
+-			"%s: inode (ino=%lx) has unsupported log cluster size: %u, run fsck to fix",
++			"%s: inode (ino=%llx) has unsupported log cluster size: %u, run fsck to fix",
+ 			__func__, inode->i_ino, ri->i_log_cluster_size);
+ 		return false;
+ 	}
+@@ -262,7 +262,7 @@ static bool sanity_check_compress_inode(struct inode *inode,
+ 
+ 	return true;
+ err_level:
+-	f2fs_warn(sbi, "%s: inode (ino=%lx) has unsupported compress level: %u, run fsck to fix",
++	f2fs_warn(sbi, "%s: inode (ino=%llx) has unsupported compress level: %u, run fsck to fix",
+ 		  __func__, inode->i_ino, clevel);
+ 	return false;
+ }
+@@ -276,40 +276,40 @@ static bool sanity_check_inode(struct inode *inode, struct folio *node_folio)
+ 
+ 	iblocks = le64_to_cpu(F2FS_INODE(node_folio)->i_blocks);
+ 	if (!iblocks) {
+-		f2fs_warn(sbi, "%s: corrupted inode i_blocks i_ino=%lx iblocks=%llu, run fsck to fix.",
++		f2fs_warn(sbi, "%s: corrupted inode i_blocks i_ino=%llx iblocks=%llu, run fsck to fix.",
+ 			  __func__, inode->i_ino, iblocks);
+ 		return false;
+ 	}
+ 
+ 	if (ino_of_node(node_folio) != nid_of_node(node_folio)) {
+-		f2fs_warn(sbi, "%s: corrupted inode footer i_ino=%lx, ino,nid: [%u, %u] run fsck to fix.",
++		f2fs_warn(sbi, "%s: corrupted inode footer i_ino=%llx, ino,nid: [%u, %u] run fsck to fix.",
+ 			  __func__, inode->i_ino,
+ 			  ino_of_node(node_folio), nid_of_node(node_folio));
+ 		return false;
+ 	}
+ 
+ 	if (ino_of_node(node_folio) == fi->i_xattr_nid) {
+-		f2fs_warn(sbi, "%s: corrupted inode i_ino=%lx, xnid=%x, run fsck to fix.",
++		f2fs_warn(sbi, "%s: corrupted inode i_ino=%llx, xnid=%x, run fsck to fix.",
+ 			  __func__, inode->i_ino, fi->i_xattr_nid);
+ 		return false;
+ 	}
+ 
+ 	if (S_ISDIR(inode->i_mode) && unlikely(inode->i_nlink == 1)) {
+-		f2fs_warn(sbi, "%s: directory inode (ino=%lx) has a single i_nlink",
++		f2fs_warn(sbi, "%s: directory inode (ino=%llx) has a single i_nlink",
+ 			  __func__, inode->i_ino);
+ 		return false;
+ 	}
+ 
+ 	if (f2fs_has_extra_attr(inode)) {
+ 		if (!f2fs_sb_has_extra_attr(sbi)) {
+-			f2fs_warn(sbi, "%s: inode (ino=%lx) is with extra_attr, but extra_attr feature is off",
++			f2fs_warn(sbi, "%s: inode (ino=%llx) is with extra_attr, but extra_attr feature is off",
+ 				  __func__, inode->i_ino);
+ 			return false;
+ 		}
+ 		if (fi->i_extra_isize > F2FS_TOTAL_EXTRA_ATTR_SIZE ||
+ 			fi->i_extra_isize < F2FS_MIN_EXTRA_ATTR_SIZE ||
+ 			fi->i_extra_isize % sizeof(__le32)) {
+-			f2fs_warn(sbi, "%s: inode (ino=%lx) has corrupted i_extra_isize: %d, max: %zu",
++			f2fs_warn(sbi, "%s: inode (ino=%llx) has corrupted i_extra_isize: %d, max: %zu",
+ 				  __func__, inode->i_ino, fi->i_extra_isize,
+ 				  F2FS_TOTAL_EXTRA_ATTR_SIZE);
+ 			return false;
+@@ -327,7 +327,7 @@ static bool sanity_check_inode(struct inode *inode, struct folio *node_folio)
+ 		f2fs_has_inline_xattr(inode) &&
+ 		(fi->i_inline_xattr_size < MIN_INLINE_XATTR_SIZE ||
+ 		fi->i_inline_xattr_size > MAX_INLINE_XATTR_SIZE)) {
+-		f2fs_warn(sbi, "%s: inode (ino=%lx) has corrupted i_inline_xattr_size: %d, min: %zu, max: %lu",
++		f2fs_warn(sbi, "%s: inode (ino=%llx) has corrupted i_inline_xattr_size: %d, min: %zu, max: %lu",
+ 			  __func__, inode->i_ino, fi->i_inline_xattr_size,
+ 			  MIN_INLINE_XATTR_SIZE, MAX_INLINE_XATTR_SIZE);
+ 		return false;
+@@ -335,64 +335,64 @@ static bool sanity_check_inode(struct inode *inode, struct folio *node_folio)
+ 
+ 	if (!f2fs_sb_has_extra_attr(sbi)) {
+ 		if (f2fs_sb_has_project_quota(sbi)) {
+-			f2fs_warn(sbi, "%s: corrupted inode ino=%lx, wrong feature flag: %u, run fsck to fix.",
++			f2fs_warn(sbi, "%s: corrupted inode ino=%llx, wrong feature flag: %u, run fsck to fix.",
+ 				  __func__, inode->i_ino, F2FS_FEATURE_PRJQUOTA);
+ 			return false;
+ 		}
+ 		if (f2fs_sb_has_inode_chksum(sbi)) {
+-			f2fs_warn(sbi, "%s: corrupted inode ino=%lx, wrong feature flag: %u, run fsck to fix.",
++			f2fs_warn(sbi, "%s: corrupted inode ino=%llx, wrong feature flag: %u, run fsck to fix.",
+ 				  __func__, inode->i_ino, F2FS_FEATURE_INODE_CHKSUM);
+ 			return false;
+ 		}
+ 		if (f2fs_sb_has_flexible_inline_xattr(sbi)) {
+-			f2fs_warn(sbi, "%s: corrupted inode ino=%lx, wrong feature flag: %u, run fsck to fix.",
++			f2fs_warn(sbi, "%s: corrupted inode ino=%llx, wrong feature flag: %u, run fsck to fix.",
+ 				  __func__, inode->i_ino, F2FS_FEATURE_FLEXIBLE_INLINE_XATTR);
+ 			return false;
+ 		}
+ 		if (f2fs_sb_has_inode_crtime(sbi)) {
+-			f2fs_warn(sbi, "%s: corrupted inode ino=%lx, wrong feature flag: %u, run fsck to fix.",
++			f2fs_warn(sbi, "%s: corrupted inode ino=%llx, wrong feature flag: %u, run fsck to fix.",
+ 				  __func__, inode->i_ino, F2FS_FEATURE_INODE_CRTIME);
+ 			return false;
+ 		}
+ 		if (f2fs_sb_has_compression(sbi)) {
+-			f2fs_warn(sbi, "%s: corrupted inode ino=%lx, wrong feature flag: %u, run fsck to fix.",
++			f2fs_warn(sbi, "%s: corrupted inode ino=%llx, wrong feature flag: %u, run fsck to fix.",
+ 				  __func__, inode->i_ino, F2FS_FEATURE_COMPRESSION);
+ 			return false;
+ 		}
+ 	}
+ 
+ 	if (f2fs_sanity_check_inline_data(inode, node_folio)) {
+-		f2fs_warn(sbi, "%s: inode (ino=%lx, mode=%u) should not have inline_data, run fsck to fix",
++		f2fs_warn(sbi, "%s: inode (ino=%llx, mode=%u) should not have inline_data, run fsck to fix",
+ 			  __func__, inode->i_ino, inode->i_mode);
+ 		return false;
+ 	}
+ 
+ 	if (f2fs_has_inline_dentry(inode) && !S_ISDIR(inode->i_mode)) {
+-		f2fs_warn(sbi, "%s: inode (ino=%lx, mode=%u) should not have inline_dentry, run fsck to fix",
++		f2fs_warn(sbi, "%s: inode (ino=%llx, mode=%u) should not have inline_dentry, run fsck to fix",
+ 			  __func__, inode->i_ino, inode->i_mode);
+ 		return false;
+ 	}
+ 
+ 	if ((fi->i_flags & F2FS_CASEFOLD_FL) && !f2fs_sb_has_casefold(sbi)) {
+-		f2fs_warn(sbi, "%s: inode (ino=%lx) has casefold flag, but casefold feature is off",
++		f2fs_warn(sbi, "%s: inode (ino=%llx) has casefold flag, but casefold feature is off",
+ 			  __func__, inode->i_ino);
+ 		return false;
+ 	}
+ 
+ 	if (fi->i_xattr_nid && f2fs_check_nid_range(sbi, fi->i_xattr_nid)) {
+-		f2fs_warn(sbi, "%s: inode (ino=%lx) has corrupted i_xattr_nid: %u, run fsck to fix.",
++		f2fs_warn(sbi, "%s: inode (ino=%llx) has corrupted i_xattr_nid: %u, run fsck to fix.",
+ 			  __func__, inode->i_ino, fi->i_xattr_nid);
+ 		return false;
+ 	}
+ 
+ 	if (IS_DEVICE_ALIASING(inode)) {
+ 		if (!f2fs_sb_has_device_alias(sbi)) {
+-			f2fs_warn(sbi, "%s: inode (ino=%lx) has device alias flag, but the feature is off",
++			f2fs_warn(sbi, "%s: inode (ino=%llx) has device alias flag, but the feature is off",
+ 				  __func__, inode->i_ino);
+ 			return false;
+ 		}
+ 		if (!f2fs_is_pinned_file(inode)) {
+-			f2fs_warn(sbi, "%s: inode (ino=%lx) has device alias flag, but is not pinned",
++			f2fs_warn(sbi, "%s: inode (ino=%llx) has device alias flag, but is not pinned",
+ 				  __func__, inode->i_ino);
+ 			return false;
+ 		}
+@@ -925,7 +925,7 @@ void f2fs_evict_inode(struct inode *inode)
+ 			 */
+ 			if (is_inode_flag_set(inode, FI_DIRTY_INODE)) {
+ 				f2fs_warn(F2FS_I_SB(inode),
+-					"f2fs_evict_inode: inconsistent node id, ino:%lu",
++					"f2fs_evict_inode: inconsistent node id, ino:%llu",
+ 					inode->i_ino);
+ 				f2fs_inode_synced(inode);
+ 				set_sbi_flag(sbi, SBI_NEED_FSCK);
+@@ -954,7 +954,7 @@ void f2fs_evict_inode(struct inode *inode)
+ 		 */
+ 		if (is_inode_flag_set(inode, FI_DIRTY_INODE)) {
+ 			f2fs_warn(sbi,
+-				"f2fs_evict_inode: inode is dirty, ino:%lu",
++				"f2fs_evict_inode: inode is dirty, ino:%llu",
+ 				inode->i_ino);
+ 			f2fs_inode_synced(inode);
+ 			set_sbi_flag(sbi, SBI_NEED_FSCK);
+diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
+index e360f08a9586ab5b75d6e1e1748219c3190a7580..efbb0732d4206f63b5221605a08ffa5c17e8a8b6 100644
+--- a/fs/f2fs/namei.c
++++ b/fs/f2fs/namei.c
+@@ -505,7 +505,7 @@ static struct dentry *f2fs_lookup(struct inode *dir, struct dentry *dentry,
+ 	}
+ 
+ 	if (inode->i_nlink == 0) {
+-		f2fs_warn(F2FS_I_SB(inode), "%s: inode (ino=%lx) has zero i_nlink",
++		f2fs_warn(F2FS_I_SB(inode), "%s: inode (ino=%llx) has zero i_nlink",
+ 			  __func__, inode->i_ino);
+ 		err = -EFSCORRUPTED;
+ 		set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_FSCK);
+@@ -515,7 +515,7 @@ static struct dentry *f2fs_lookup(struct inode *dir, struct dentry *dentry,
+ 	if (IS_ENCRYPTED(dir) &&
+ 	    (S_ISDIR(inode->i_mode) || S_ISLNK(inode->i_mode)) &&
+ 	    !fscrypt_has_permitted_context(dir, inode)) {
+-		f2fs_warn(F2FS_I_SB(inode), "Inconsistent encryption contexts: %lu/%lu",
++		f2fs_warn(F2FS_I_SB(inode), "Inconsistent encryption contexts: %llu/%llu",
+ 			  dir->i_ino, inode->i_ino);
+ 		err = -EPERM;
+ 		goto out_iput;
+@@ -573,11 +573,11 @@ static int f2fs_unlink(struct inode *dir, struct dentry *dentry)
+ 	}
+ 
+ 	if (unlikely(inode->i_nlink == 0)) {
+-		f2fs_warn(sbi, "%s: inode (ino=%lx) has zero i_nlink",
++		f2fs_warn(sbi, "%s: inode (ino=%llx) has zero i_nlink",
+ 			  __func__, inode->i_ino);
+ 		goto corrupted;
+ 	} else if (S_ISDIR(inode->i_mode) && unlikely(inode->i_nlink == 1)) {
+-		f2fs_warn(sbi, "%s: directory inode (ino=%lx) has a single i_nlink",
++		f2fs_warn(sbi, "%s: directory inode (ino=%llx) has a single i_nlink",
+ 			  __func__, inode->i_ino);
+ 		goto corrupted;
+ 	}
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 2030e943ab9b3d5e2deb20efe9a44cf5093a61fb..2856d5dbdd00a659b548ca6a0d8a973fc1341297 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -847,7 +847,7 @@ int f2fs_get_dnode_of_data(struct dnode_of_data *dn, pgoff_t index, int mode)
+ 			err = -EFSCORRUPTED;
+ 			f2fs_err_ratelimited(sbi,
+ 				"inode mapping table is corrupted, run fsck to fix it, "
+-				"ino:%lu, nid:%u, level:%d, offset:%d",
++				"ino:%llu, nid:%u, level:%d, offset:%d",
+ 				dn->inode->i_ino, nids[i], level, offset[level]);
+ 			set_sbi_flag(sbi, SBI_NEED_FSCK);
+ 			goto release_pages;
+@@ -1013,7 +1013,7 @@ static int truncate_dnode(struct dnode_of_data *dn)
+ 		return PTR_ERR(folio);
+ 
+ 	if (IS_INODE(folio) || ino_of_node(folio) != dn->inode->i_ino) {
+-		f2fs_err(sbi, "incorrect node reference, ino: %lu, nid: %u, ino_of_node: %u",
++		f2fs_err(sbi, "incorrect node reference, ino: %llu, nid: %u, ino_of_node: %u",
+ 				dn->inode->i_ino, dn->nid, ino_of_node(folio));
+ 		set_sbi_flag(sbi, SBI_NEED_FSCK);
+ 		f2fs_handle_error(sbi, ERROR_INVALID_NODE_REFERENCE);
+@@ -1194,7 +1194,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from)
+ 	if (level <= 0) {
+ 		if (!level) {
+ 			level = -EFSCORRUPTED;
+-			f2fs_err(sbi, "%s: inode ino=%lx has corrupted node block, from:%lu addrs:%u",
++			f2fs_err(sbi, "%s: inode ino=%llx has corrupted node block, from:%lu addrs:%u",
+ 					__func__, inode->i_ino,
+ 					from, ADDRS_PER_INODE(inode));
+ 			set_sbi_flag(sbi, SBI_NEED_FSCK);
+@@ -1265,7 +1265,7 @@ int f2fs_truncate_inode_blocks(struct inode *inode, pgoff_t from)
+ 			set_sbi_flag(F2FS_F_SB(folio), SBI_NEED_FSCK);
+ 			f2fs_handle_error(sbi, ERROR_INVALID_BLKADDR);
+ 			f2fs_err_ratelimited(sbi,
+-				"truncate node fail, ino:%lu, nid:%u, "
++				"truncate node fail, ino:%llu, nid:%u, "
+ 				"offset[0]:%d, offset[1]:%d, nofs:%d",
+ 				inode->i_ino, dn.nid, offset[0],
+ 				offset[1], nofs);
+@@ -1351,7 +1351,7 @@ int f2fs_remove_inode_page(struct inode *inode)
+ 
+ 	if (unlikely(inode->i_blocks != 0 && inode->i_blocks != 8)) {
+ 		f2fs_warn(F2FS_I_SB(inode),
+-			"f2fs_remove_inode_page: inconsistent i_blocks, ino:%lu, iblocks:%llu",
++			"f2fs_remove_inode_page: inconsistent i_blocks, ino:%llu, iblocks:%llu",
+ 			inode->i_ino, (unsigned long long)inode->i_blocks);
+ 		set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_FSCK);
+ 	}
+@@ -1997,7 +1997,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 	return ret;
+ }
+ 
+-static int f2fs_match_ino(struct inode *inode, unsigned long ino, void *data)
++static int f2fs_match_ino(struct inode *inode, u64 ino, void *data)
+ {
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+ 	bool clean;
+diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
+index a26071f2b0bc81fb768982841e37a63b2ca701b3..3d3dacec94825f6695d67043fd3ca42329aa5929 100644
+--- a/fs/f2fs/recovery.c
++++ b/fs/f2fs/recovery.c
+@@ -232,7 +232,7 @@ static int recover_dentry(struct inode *inode, struct folio *ifolio,
+ 		name = "<encrypted>";
+ 	else
+ 		name = raw_inode->i_name;
+-	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %s, dir = %lx, err = %d",
++	f2fs_notice(F2FS_I_SB(inode), "%s: ino = %x, name = %s, dir = %llu, err = %d",
+ 		    __func__, ino_of_node(ifolio), name,
+ 		    IS_ERR(dir) ? 0 : dir->i_ino, err);
+ 	return err;
+@@ -532,7 +532,7 @@ static int check_index_in_prev_nodes(struct f2fs_sb_info *sbi,
+ 
+ 	max_addrs = ADDRS_PER_PAGE(dn->node_folio, dn->inode);
+ 	if (ofs_in_node >= max_addrs) {
+-		f2fs_err(sbi, "Inconsistent ofs_in_node:%u in summary, ino:%lu, nid:%u, max:%u",
++		f2fs_err(sbi, "Inconsistent ofs_in_node:%u in summary, ino:%llu, nid:%u, max:%u",
+ 			ofs_in_node, dn->inode->i_ino, nid, max_addrs);
+ 		f2fs_handle_error(sbi, ERROR_INCONSISTENT_SUMMARY);
+ 		return -EFSCORRUPTED;
+@@ -674,7 +674,7 @@ static int do_recover_data(struct f2fs_sb_info *sbi, struct inode *inode,
+ 	f2fs_bug_on(sbi, ni.ino != ino_of_node(folio));
+ 
+ 	if (ofs_of_node(dn.node_folio) != ofs_of_node(folio)) {
+-		f2fs_warn(sbi, "Inconsistent ofs_of_node, ino:%lu, ofs:%u, %u",
++		f2fs_warn(sbi, "Inconsistent ofs_of_node, ino:%llu, ofs:%u, %u",
+ 			  inode->i_ino, ofs_of_node(dn.node_folio),
+ 			  ofs_of_node(folio));
+ 		err = -EFSCORRUPTED;
+@@ -748,7 +748,7 @@ static int do_recover_data(struct f2fs_sb_info *sbi, struct inode *inode,
+ 
+ 			if (f2fs_is_valid_blkaddr(sbi, dest,
+ 					DATA_GENERIC_ENHANCE_UPDATE)) {
+-				f2fs_err(sbi, "Inconsistent dest blkaddr:%u, ino:%lu, ofs:%u",
++				f2fs_err(sbi, "Inconsistent dest blkaddr:%u, ino:%llu, ofs:%u",
+ 					dest, inode->i_ino, dn.ofs_in_node);
+ 				err = -EFSCORRUPTED;
+ 				goto err;
+@@ -768,7 +768,7 @@ static int do_recover_data(struct f2fs_sb_info *sbi, struct inode *inode,
+ err:
+ 	f2fs_put_dnode(&dn);
+ out:
+-	f2fs_notice(sbi, "recover_data: ino = %lx, nid = %x (i_size: %s), "
++	f2fs_notice(sbi, "recover_data: ino = %llx, nid = %x (i_size: %s), "
+ 		    "range (%u, %u), recovered = %d, err = %d",
+ 		    inode->i_ino, nid_of_node(folio),
+ 		    file_keep_isize(inode) ? "keep" : "recover",
+diff --git a/fs/f2fs/xattr.c b/fs/f2fs/xattr.c
+index 941dc62a6d6f7c50c1a661397ef1bbb611e6c304..610d5810074dc501d02c93a4feb308e12a21a056 100644
+--- a/fs/f2fs/xattr.c
++++ b/fs/f2fs/xattr.c
+@@ -365,7 +365,7 @@ static int lookup_all_xattrs(struct inode *inode, struct folio *ifolio,
+ 
+ 	*xe = __find_xattr(cur_addr, last_txattr_addr, NULL, index, len, name);
+ 	if (!*xe) {
+-		f2fs_err(F2FS_I_SB(inode), "lookup inode (%lu) has corrupted xattr",
++		f2fs_err(F2FS_I_SB(inode), "lookup inode (%llu) has corrupted xattr",
+ 								inode->i_ino);
+ 		set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_FSCK);
+ 		err = -ENODATA;
+@@ -585,7 +585,7 @@ ssize_t f2fs_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size)
+ 
+ 		if ((void *)(entry) + sizeof(__u32) > last_base_addr ||
+ 			(void *)XATTR_NEXT_ENTRY(entry) > last_base_addr) {
+-			f2fs_err(F2FS_I_SB(inode), "list inode (%lu) has corrupted xattr",
++			f2fs_err(F2FS_I_SB(inode), "list inode (%llu) has corrupted xattr",
+ 						inode->i_ino);
+ 			set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_FSCK);
+ 			f2fs_handle_error(F2FS_I_SB(inode),
+@@ -664,14 +664,14 @@ static int __f2fs_setxattr(struct inode *inode, int index,
+ 		if (!F2FS_I(inode)->i_xattr_nid) {
+ 			error = f2fs_recover_xattr_data(inode, NULL);
+ 			f2fs_notice(F2FS_I_SB(inode),
+-				"recover xattr in inode (%lu), error(%d)",
++				"recover xattr in inode (%llu), error(%d)",
+ 					inode->i_ino, error);
+ 			if (!error) {
+ 				kfree(base_addr);
+ 				goto retry;
+ 			}
+ 		}
+-		f2fs_err(F2FS_I_SB(inode), "set inode (%lu) has corrupted xattr",
++		f2fs_err(F2FS_I_SB(inode), "set inode (%llu) has corrupted xattr",
+ 								inode->i_ino);
+ 		set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_FSCK);
+ 		error = -EFSCORRUPTED;
+@@ -699,7 +699,7 @@ static int __f2fs_setxattr(struct inode *inode, int index,
+ 	while (!IS_XATTR_LAST_ENTRY(last)) {
+ 		if ((void *)(last) + sizeof(__u32) > last_base_addr ||
+ 			(void *)XATTR_NEXT_ENTRY(last) > last_base_addr) {
+-			f2fs_err(F2FS_I_SB(inode), "inode (%lu) has invalid last xattr entry, entry_size: %zu",
++			f2fs_err(F2FS_I_SB(inode), "inode (%llu) has invalid last xattr entry, entry_size: %zu",
+ 					inode->i_ino, ENTRY_SIZE(last));
+ 			set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_FSCK);
+ 			error = -EFSCORRUPTED;
+diff --git a/include/trace/events/f2fs.h b/include/trace/events/f2fs.h
+index 9364e677556207ac041353a9eb2d5c2ee49b9dff..109b4f5771cbd5b019a1a9cfdc178892a19b7c54 100644
+--- a/include/trace/events/f2fs.h
++++ b/include/trace/events/f2fs.h
+@@ -9,7 +9,7 @@
+ #include <uapi/linux/f2fs.h>
+ 
+ #define show_dev(dev)		MAJOR(dev), MINOR(dev)
+-#define show_dev_ino(entry)	show_dev(entry->dev), (unsigned long)entry->ino
++#define show_dev_ino(entry)	show_dev(entry->dev), (unsigned long long)entry->ino
+ 
+ TRACE_DEFINE_ENUM(NODE);
+ TRACE_DEFINE_ENUM(DATA);
+@@ -207,8 +207,8 @@ DECLARE_EVENT_CLASS(f2fs__inode,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
+-		__field(ino_t,	pino)
++		__field(u64,	ino)
++		__field(u64,	pino)
+ 		__field(umode_t, mode)
+ 		__field(loff_t,	size)
+ 		__field(unsigned int, nlink)
+@@ -227,10 +227,10 @@ DECLARE_EVENT_CLASS(f2fs__inode,
+ 		__entry->advise	= F2FS_I(inode)->i_advise;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, pino = %lu, i_mode = 0x%hx, "
++	TP_printk("dev = (%d,%d), ino = %llu, pino = %llu, i_mode = 0x%hx, "
+ 		"i_size = %lld, i_nlink = %u, i_blocks = %llu, i_advise = 0x%x",
+ 		show_dev_ino(__entry),
+-		(unsigned long)__entry->pino,
++		(unsigned long long)__entry->pino,
+ 		__entry->mode,
+ 		__entry->size,
+ 		(unsigned int)__entry->nlink,
+@@ -246,7 +246,7 @@ DECLARE_EVENT_CLASS(f2fs__inode_exit,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(umode_t, mode)
+ 		__field(int,	ret)
+ 	),
+@@ -258,7 +258,7 @@ DECLARE_EVENT_CLASS(f2fs__inode_exit,
+ 		__entry->ret	= ret;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, type: %s, mode = 0%o, ret = %d",
++	TP_printk("dev = (%d,%d), ino = %llu, type: %s, mode = 0%o, ret = %d",
+ 		show_dev_ino(__entry),
+ 		show_inode_type(__entry->mode & S_IFMT),
+ 		__entry->mode & S_ALL_PERM,
+@@ -280,7 +280,7 @@ TRACE_EVENT(f2fs_sync_file_exit,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(int,	cp_reason)
+ 		__field(int,	datasync)
+ 		__field(int,	ret)
+@@ -294,7 +294,7 @@ TRACE_EVENT(f2fs_sync_file_exit,
+ 		__entry->ret		= ret;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, cp_reason: %s, "
++	TP_printk("dev = (%d,%d), ino = %llu, cp_reason: %s, "
+ 		"datasync = %d, ret = %d",
+ 		show_dev_ino(__entry),
+ 		show_fsync_cpreason(__entry->cp_reason),
+@@ -362,7 +362,7 @@ TRACE_EVENT(f2fs_unlink_enter,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(loff_t,	size)
+ 		__field(blkcnt_t, blocks)
+ 		__string(name,  dentry->d_name.name)
+@@ -376,7 +376,7 @@ TRACE_EVENT(f2fs_unlink_enter,
+ 		__assign_str(name);
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), dir ino = %lu, i_size = %lld, "
++	TP_printk("dev = (%d,%d), dir ino = %llu, i_size = %lld, "
+ 		"i_blocks = %llu, name = %s",
+ 		show_dev_ino(__entry),
+ 		__entry->size,
+@@ -413,7 +413,7 @@ TRACE_EVENT(f2fs_truncate_data_blocks_range,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(nid_t,	nid)
+ 		__field(unsigned int,	ofs)
+ 		__field(int,	free)
+@@ -427,7 +427,7 @@ TRACE_EVENT(f2fs_truncate_data_blocks_range,
+ 		__entry->free	= free;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, nid = %u, offset = %u, freed = %d",
++	TP_printk("dev = (%d,%d), ino = %llu, nid = %u, offset = %u, freed = %d",
+ 		show_dev_ino(__entry),
+ 		(unsigned int)__entry->nid,
+ 		__entry->ofs,
+@@ -442,7 +442,7 @@ DECLARE_EVENT_CLASS(f2fs__truncate_op,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(loff_t,	size)
+ 		__field(blkcnt_t, blocks)
+ 		__field(u64,	from)
+@@ -456,7 +456,7 @@ DECLARE_EVENT_CLASS(f2fs__truncate_op,
+ 		__entry->from	= from;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, i_size = %lld, i_blocks = %llu, "
++	TP_printk("dev = (%d,%d), ino = %llu, i_size = %lld, i_blocks = %llu, "
+ 		"start file offset = %llu",
+ 		show_dev_ino(__entry),
+ 		__entry->size,
+@@ -500,7 +500,7 @@ DECLARE_EVENT_CLASS(f2fs__truncate_node,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(nid_t,	nid)
+ 		__field(block_t,	blk_addr)
+ 	),
+@@ -512,7 +512,7 @@ DECLARE_EVENT_CLASS(f2fs__truncate_node,
+ 		__entry->blk_addr	= blk_addr;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, nid = %u, block_address = 0x%llx",
++	TP_printk("dev = (%d,%d), ino = %llu, nid = %u, block_address = 0x%llx",
+ 		show_dev_ino(__entry),
+ 		(unsigned int)__entry->nid,
+ 		(unsigned long long)__entry->blk_addr)
+@@ -547,7 +547,7 @@ TRACE_EVENT(f2fs_truncate_partial_nodes,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__array(nid_t,	nid, 3)
+ 		__field(int,	depth)
+ 		__field(int,	err)
+@@ -563,7 +563,7 @@ TRACE_EVENT(f2fs_truncate_partial_nodes,
+ 		__entry->err	= err;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, "
++	TP_printk("dev = (%d,%d), ino = %llu, "
+ 		"nid[0] = %u, nid[1] = %u, nid[2] = %u, depth = %d, err = %d",
+ 		show_dev_ino(__entry),
+ 		(unsigned int)__entry->nid[0],
+@@ -582,7 +582,7 @@ TRACE_EVENT(f2fs_file_write_iter,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(loff_t, offset)
+ 		__field(size_t, length)
+ 		__field(ssize_t, ret)
+@@ -596,7 +596,7 @@ TRACE_EVENT(f2fs_file_write_iter,
+ 		__entry->ret	= ret;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, "
++	TP_printk("dev = (%d,%d), ino = %llu, "
+ 		"offset = %lld, length = %zu, written(err) = %zd",
+ 		show_dev_ino(__entry),
+ 		__entry->offset,
+@@ -612,7 +612,7 @@ TRACE_EVENT(f2fs_fadvise,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(loff_t, size)
+ 		__field(loff_t,	offset)
+ 		__field(loff_t,	len)
+@@ -628,7 +628,7 @@ TRACE_EVENT(f2fs_fadvise,
+ 		__entry->advice	= advice;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, i_size = %lld offset:%llu, len:%llu, advise:%d",
++	TP_printk("dev = (%d,%d), ino = %llu, i_size = %lld offset:%llu, len:%llu, advise:%d",
+ 		show_dev_ino(__entry),
+ 		(unsigned long long)__entry->size,
+ 		__entry->offset,
+@@ -644,7 +644,7 @@ TRACE_EVENT(f2fs_map_blocks,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(block_t,	m_lblk)
+ 		__field(block_t,	m_pblk)
+ 		__field(unsigned int,	m_len)
+@@ -670,7 +670,7 @@ TRACE_EVENT(f2fs_map_blocks,
+ 		__entry->ret		= ret;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, file offset = %llu, "
++	TP_printk("dev = (%d,%d), ino = %llu, file offset = %llu, "
+ 		"start blkaddr = 0x%llx, len = 0x%llx, flags = %u, "
+ 		"seg_type = %d, may_create = %d, multidevice = %d, "
+ 		"flag = %d, err = %d",
+@@ -886,7 +886,7 @@ TRACE_EVENT(f2fs_lookup_start,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__string(name,	dentry->d_name.name)
+ 		__field(unsigned int, flags)
+ 	),
+@@ -898,7 +898,7 @@ TRACE_EVENT(f2fs_lookup_start,
+ 		__entry->flags	= flags;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), pino = %lu, name:%s, flags:%u",
++	TP_printk("dev = (%d,%d), pino = %llu, name:%s, flags:%u",
+ 		show_dev_ino(__entry),
+ 		__get_str(name),
+ 		__entry->flags)
+@@ -913,7 +913,7 @@ TRACE_EVENT(f2fs_lookup_end,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__string(name,	dentry->d_name.name)
+ 		__field(nid_t,	cino)
+ 		__field(int,	err)
+@@ -927,7 +927,7 @@ TRACE_EVENT(f2fs_lookup_end,
+ 		__entry->err	= err;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), pino = %lu, name:%s, ino:%u, err:%d",
++	TP_printk("dev = (%d,%d), pino = %llu, name:%s, ino:%u, err:%d",
+ 		show_dev_ino(__entry),
+ 		__get_str(name),
+ 		__entry->cino,
+@@ -944,9 +944,9 @@ TRACE_EVENT(f2fs_rename_start,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,		dev)
+-		__field(ino_t,		ino)
++		__field(u64,		ino)
+ 		__string(old_name,	old_dentry->d_name.name)
+-		__field(ino_t,		new_pino)
++		__field(u64,		new_pino)
+ 		__string(new_name,	new_dentry->d_name.name)
+ 		__field(unsigned int,	flags)
+ 	),
+@@ -960,8 +960,8 @@ TRACE_EVENT(f2fs_rename_start,
+ 		__entry->flags		= flags;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), old_dir = %lu, old_name: %s, "
+-		"new_dir = %lu, new_name: %s, flags = %u",
++	TP_printk("dev = (%d,%d), old_dir = %llu, old_name: %s, "
++		"new_dir = %llu, new_name: %s, flags = %u",
+ 		show_dev_ino(__entry),
+ 		__get_str(old_name),
+ 		__entry->new_pino,
+@@ -978,7 +978,7 @@ TRACE_EVENT(f2fs_rename_end,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,		dev)
+-		__field(ino_t,		ino)
++		__field(u64,		ino)
+ 		__string(old_name,	old_dentry->d_name.name)
+ 		__string(new_name,	new_dentry->d_name.name)
+ 		__field(unsigned int,	flags)
+@@ -994,7 +994,7 @@ TRACE_EVENT(f2fs_rename_end,
+ 		__entry->ret		= ret;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, old_name: %s, "
++	TP_printk("dev = (%d,%d), ino = %llu, old_name: %s, "
+ 		"new_name: %s, flags = %u, ret = %d",
+ 		show_dev_ino(__entry),
+ 		__get_str(old_name),
+@@ -1011,7 +1011,7 @@ TRACE_EVENT(f2fs_readdir,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(loff_t,	start)
+ 		__field(loff_t,	end)
+ 		__field(int,	err)
+@@ -1025,7 +1025,7 @@ TRACE_EVENT(f2fs_readdir,
+ 		__entry->err	= err;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, start_pos:%llu, end_pos:%llu, err:%d",
++	TP_printk("dev = (%d,%d), ino = %llu, start_pos:%llu, end_pos:%llu, err:%d",
+ 		show_dev_ino(__entry),
+ 		__entry->start,
+ 		__entry->end,
+@@ -1041,7 +1041,7 @@ TRACE_EVENT(f2fs_fallocate,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(int,	mode)
+ 		__field(loff_t,	offset)
+ 		__field(loff_t,	len)
+@@ -1061,7 +1061,7 @@ TRACE_EVENT(f2fs_fallocate,
+ 		__entry->ret	= ret;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, mode = %x, offset = %lld, "
++	TP_printk("dev = (%d,%d), ino = %llu, mode = %x, offset = %lld, "
+ 		"len = %lld,  i_size = %lld, i_blocks = %llu, ret = %d",
+ 		show_dev_ino(__entry),
+ 		__entry->mode,
+@@ -1080,7 +1080,7 @@ TRACE_EVENT(f2fs_direct_IO_enter,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(loff_t,	ki_pos)
+ 		__field(int,	ki_flags)
+ 		__field(u16,	ki_ioprio)
+@@ -1098,7 +1098,7 @@ TRACE_EVENT(f2fs_direct_IO_enter,
+ 		__entry->rw		= rw;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu pos = %lld len = %lu ki_flags = %x ki_ioprio = %x rw = %d",
++	TP_printk("dev = (%d,%d), ino = %llu pos = %lld len = %lu ki_flags = %x ki_ioprio = %x rw = %d",
+ 		show_dev_ino(__entry),
+ 		__entry->ki_pos,
+ 		__entry->len,
+@@ -1116,7 +1116,7 @@ TRACE_EVENT(f2fs_direct_IO_exit,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(loff_t,	pos)
+ 		__field(unsigned long,	len)
+ 		__field(int,	rw)
+@@ -1132,7 +1132,7 @@ TRACE_EVENT(f2fs_direct_IO_exit,
+ 		__entry->ret	= ret;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu pos = %lld len = %lu "
++	TP_printk("dev = (%d,%d), ino = %llu pos = %lld len = %lu "
+ 		"rw = %d ret = %d",
+ 		show_dev_ino(__entry),
+ 		__entry->pos,
+@@ -1177,7 +1177,7 @@ DECLARE_EVENT_CLASS(f2fs__submit_folio_bio,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t, dev)
+-		__field(ino_t, ino)
++		__field(u64, ino)
+ 		__field(pgoff_t, index)
+ 		__field(block_t, old_blkaddr)
+ 		__field(block_t, new_blkaddr)
+@@ -1199,7 +1199,7 @@ DECLARE_EVENT_CLASS(f2fs__submit_folio_bio,
+ 		__entry->type		= fio->type;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, folio_index = 0x%lx, "
++	TP_printk("dev = (%d,%d), ino = %llu, folio_index = 0x%lx, "
+ 		"oldaddr = 0x%llx, newaddr = 0x%llx, rw = %s(%s), type = %s_%s",
+ 		show_dev_ino(__entry),
+ 		(unsigned long)__entry->index,
+@@ -1307,7 +1307,7 @@ TRACE_EVENT(f2fs_write_begin,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(loff_t,	pos)
+ 		__field(unsigned int, len)
+ 	),
+@@ -1319,7 +1319,7 @@ TRACE_EVENT(f2fs_write_begin,
+ 		__entry->len	= len;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, pos = %llu, len = %u",
++	TP_printk("dev = (%d,%d), ino = %llu, pos = %llu, len = %u",
+ 		show_dev_ino(__entry),
+ 		(unsigned long long)__entry->pos,
+ 		__entry->len)
+@@ -1334,7 +1334,7 @@ TRACE_EVENT(f2fs_write_end,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(loff_t,	pos)
+ 		__field(unsigned int, len)
+ 		__field(unsigned int, copied)
+@@ -1348,7 +1348,7 @@ TRACE_EVENT(f2fs_write_end,
+ 		__entry->copied	= copied;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, pos = %llu, len = %u, copied = %u",
++	TP_printk("dev = (%d,%d), ino = %llu, pos = %llu, len = %u, copied = %u",
+ 		show_dev_ino(__entry),
+ 		(unsigned long long)__entry->pos,
+ 		__entry->len,
+@@ -1363,7 +1363,7 @@ DECLARE_EVENT_CLASS(f2fs__folio,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(int, type)
+ 		__field(int, dir)
+ 		__field(pgoff_t, index)
+@@ -1383,7 +1383,7 @@ DECLARE_EVENT_CLASS(f2fs__folio,
+ 		__entry->uptodate = folio_test_uptodate(folio);
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, %s, %s, index = %lu, nr_pages = %lu, "
++	TP_printk("dev = (%d,%d), ino = %llu, %s, %s, index = %lu, nr_pages = %lu, "
+ 		"dirty = %d, uptodate = %d",
+ 		show_dev_ino(__entry),
+ 		show_block_type(__entry->type),
+@@ -1438,8 +1438,8 @@ TRACE_EVENT(f2fs_replace_atomic_write_block,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
+-		__field(ino_t,	cow_ino)
++		__field(u64,	ino)
++		__field(u64,	cow_ino)
+ 		__field(pgoff_t, index)
+ 		__field(block_t, old_addr)
+ 		__field(block_t, new_addr)
+@@ -1456,7 +1456,7 @@ TRACE_EVENT(f2fs_replace_atomic_write_block,
+ 		__entry->recovery	= recovery;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, cow_ino = %lu, index = %lu, "
++	TP_printk("dev = (%d,%d), ino = %llu, cow_ino = %llu, index = %lu, "
+ 			"old_addr = 0x%llx, new_addr = 0x%llx, recovery = %d",
+ 		show_dev_ino(__entry),
+ 		__entry->cow_ino,
+@@ -1475,7 +1475,7 @@ DECLARE_EVENT_CLASS(f2fs_mmap,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(pgoff_t, index)
+ 		__field(vm_flags_t, flags)
+ 		__field(vm_fault_t, ret)
+@@ -1489,7 +1489,7 @@ DECLARE_EVENT_CLASS(f2fs_mmap,
+ 		__entry->ret	= ret;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, index = %lu, flags: %s, ret: %s",
++	TP_printk("dev = (%d,%d), ino = %llu, index = %lu, flags: %s, ret: %s",
+ 		show_dev_ino(__entry),
+ 		(unsigned long)__entry->index,
+ 		__print_flags(__entry->flags, "|", FAULT_FLAG_TRACE),
+@@ -1520,7 +1520,7 @@ TRACE_EVENT(f2fs_writepages,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(int,	type)
+ 		__field(int,	dir)
+ 		__field(long,	nr_to_write)
+@@ -1554,7 +1554,7 @@ TRACE_EVENT(f2fs_writepages,
+ 		__entry->for_sync	= wbc->for_sync;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, %s, %s, nr_to_write %ld, "
++	TP_printk("dev = (%d,%d), ino = %llu, %s, %s, nr_to_write %ld, "
+ 		"skipped %ld, start %lld, end %lld, wb_idx %lu, sync_mode %d, "
+ 		"kupdate %u background %u tagged %u cyclic %u sync %u",
+ 		show_dev_ino(__entry),
+@@ -1581,7 +1581,7 @@ TRACE_EVENT(f2fs_readpages,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(pgoff_t,	start)
+ 		__field(unsigned int,	nrpage)
+ 	),
+@@ -1593,7 +1593,7 @@ TRACE_EVENT(f2fs_readpages,
+ 		__entry->nrpage	= nrpage;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, start = %lu nrpage = %u",
++	TP_printk("dev = (%d,%d), ino = %llu, start = %lu nrpage = %u",
+ 		show_dev_ino(__entry),
+ 		(unsigned long)__entry->start,
+ 		__entry->nrpage)
+@@ -1739,7 +1739,7 @@ TRACE_EVENT(f2fs_lookup_extent_tree_start,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(unsigned int, pgofs)
+ 		__field(enum extent_type, type)
+ 	),
+@@ -1751,7 +1751,7 @@ TRACE_EVENT(f2fs_lookup_extent_tree_start,
+ 		__entry->type = type;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, pgofs = %u, type = %s",
++	TP_printk("dev = (%d,%d), ino = %llu, pgofs = %u, type = %s",
+ 		show_dev_ino(__entry),
+ 		__entry->pgofs,
+ 		show_extent_type(__entry->type))
+@@ -1768,7 +1768,7 @@ TRACE_EVENT_CONDITION(f2fs_lookup_read_extent_tree_end,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(unsigned int, pgofs)
+ 		__field(unsigned int, fofs)
+ 		__field(unsigned int, len)
+@@ -1784,7 +1784,7 @@ TRACE_EVENT_CONDITION(f2fs_lookup_read_extent_tree_end,
+ 		__entry->blk = ei->blk;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, pgofs = %u, "
++	TP_printk("dev = (%d,%d), ino = %llu, pgofs = %u, "
+ 		"read_ext_info(fofs: %u, len: %u, blk: %u)",
+ 		show_dev_ino(__entry),
+ 		__entry->pgofs,
+@@ -1804,7 +1804,7 @@ TRACE_EVENT_CONDITION(f2fs_lookup_age_extent_tree_end,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(unsigned int, pgofs)
+ 		__field(unsigned int, fofs)
+ 		__field(unsigned int, len)
+@@ -1822,7 +1822,7 @@ TRACE_EVENT_CONDITION(f2fs_lookup_age_extent_tree_end,
+ 		__entry->blocks = ei->last_blocks;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, pgofs = %u, "
++	TP_printk("dev = (%d,%d), ino = %llu, pgofs = %u, "
+ 		"age_ext_info(fofs: %u, len: %u, age: %llu, blocks: %llu)",
+ 		show_dev_ino(__entry),
+ 		__entry->pgofs,
+@@ -1842,7 +1842,7 @@ TRACE_EVENT(f2fs_update_read_extent_tree_range,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(unsigned int, pgofs)
+ 		__field(u32, blk)
+ 		__field(unsigned int, len)
+@@ -1858,7 +1858,7 @@ TRACE_EVENT(f2fs_update_read_extent_tree_range,
+ 		__entry->c_len = c_len;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, pgofs = %u, "
++	TP_printk("dev = (%d,%d), ino = %llu, pgofs = %u, "
+ 				"len = %u, blkaddr = %u, c_len = %u",
+ 		show_dev_ino(__entry),
+ 		__entry->pgofs,
+@@ -1877,7 +1877,7 @@ TRACE_EVENT(f2fs_update_age_extent_tree_range,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(unsigned int, pgofs)
+ 		__field(unsigned int, len)
+ 		__field(unsigned long long, age)
+@@ -1893,7 +1893,7 @@ TRACE_EVENT(f2fs_update_age_extent_tree_range,
+ 		__entry->blocks = last_blks;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, pgofs = %u, "
++	TP_printk("dev = (%d,%d), ino = %llu, pgofs = %u, "
+ 				"len = %u, age = %llu, blocks = %llu",
+ 		show_dev_ino(__entry),
+ 		__entry->pgofs,
+@@ -1939,7 +1939,7 @@ TRACE_EVENT(f2fs_destroy_extent_tree,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(unsigned int, node_cnt)
+ 		__field(enum extent_type, type)
+ 	),
+@@ -1951,7 +1951,7 @@ TRACE_EVENT(f2fs_destroy_extent_tree,
+ 		__entry->type = type;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, destroyed: node_cnt = %u, type = %s",
++	TP_printk("dev = (%d,%d), ino = %llu, destroyed: node_cnt = %u, type = %s",
+ 		show_dev_ino(__entry),
+ 		__entry->node_cnt,
+ 		show_extent_type(__entry->type))
+@@ -2028,7 +2028,7 @@ DECLARE_EVENT_CLASS(f2fs_zip_start,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(pgoff_t, idx)
+ 		__field(unsigned int, size)
+ 		__field(unsigned int, algtype)
+@@ -2042,7 +2042,7 @@ DECLARE_EVENT_CLASS(f2fs_zip_start,
+ 		__entry->algtype = algtype;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, cluster_idx:%lu, "
++	TP_printk("dev = (%d,%d), ino = %llu, cluster_idx:%lu, "
+ 		"cluster_size = %u, algorithm = %s",
+ 		show_dev_ino(__entry),
+ 		__entry->idx,
+@@ -2059,7 +2059,7 @@ DECLARE_EVENT_CLASS(f2fs_zip_end,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t,	dev)
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(pgoff_t, idx)
+ 		__field(unsigned int, size)
+ 		__field(unsigned int, ret)
+@@ -2073,7 +2073,7 @@ DECLARE_EVENT_CLASS(f2fs_zip_end,
+ 		__entry->ret = ret;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, cluster_idx:%lu, "
++	TP_printk("dev = (%d,%d), ino = %llu, cluster_idx:%lu, "
+ 		"compressed_size = %u, ret = %d",
+ 		show_dev_ino(__entry),
+ 		__entry->idx,
+@@ -2312,7 +2312,7 @@ TRACE_EVENT(f2fs_bmap,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t, dev)
+-		__field(ino_t, ino)
++		__field(u64, ino)
+ 		__field(sector_t, lblock)
+ 		__field(sector_t, pblock)
+ 	),
+@@ -2324,7 +2324,7 @@ TRACE_EVENT(f2fs_bmap,
+ 		__entry->pblock		= pblock;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, lblock:%lld, pblock:%lld",
++	TP_printk("dev = (%d,%d), ino = %llu, lblock:%lld, pblock:%lld",
+ 		show_dev_ino(__entry),
+ 		(unsigned long long)__entry->lblock,
+ 		(unsigned long long)__entry->pblock)
+@@ -2339,7 +2339,7 @@ TRACE_EVENT(f2fs_fiemap,
+ 
+ 	TP_STRUCT__entry(
+ 		__field(dev_t, dev)
+-		__field(ino_t, ino)
++		__field(u64, ino)
+ 		__field(sector_t, lblock)
+ 		__field(sector_t, pblock)
+ 		__field(unsigned long long, len)
+@@ -2357,7 +2357,7 @@ TRACE_EVENT(f2fs_fiemap,
+ 		__entry->ret		= ret;
+ 	),
+ 
+-	TP_printk("dev = (%d,%d), ino = %lu, lblock:%lld, pblock:%lld, "
++	TP_printk("dev = (%d,%d), ino = %llu, lblock:%lld, pblock:%lld, "
+ 		"len:%llu, flags:%u, ret:%d",
+ 		show_dev_ino(__entry),
+ 		(unsigned long long)__entry->lblock,
+@@ -2381,7 +2381,7 @@ DECLARE_EVENT_CLASS(f2fs__rw_start,
+ 		__field(loff_t, i_size)
+ 		__string(cmdline, command)
+ 		__field(pid_t, pid)
+-		__field(ino_t, ino)
++		__field(u64, ino)
+ 	),
+ 
+ 	TP_fast_assign(
+@@ -2402,10 +2402,10 @@ DECLARE_EVENT_CLASS(f2fs__rw_start,
+ 	),
+ 
+ 	TP_printk("entry_name %s, offset %llu, bytes %d, cmdline %s,"
+-		" pid %d, i_size %llu, ino %lu",
++		" pid %d, i_size %llu, ino %llu",
+ 		__get_str(pathbuf), __entry->offset, __entry->bytes,
+ 		__get_str(cmdline), __entry->pid, __entry->i_size,
+-		(unsigned long) __entry->ino)
++		(unsigned long long) __entry->ino)
+ );
+ 
+ DECLARE_EVENT_CLASS(f2fs__rw_end,
+@@ -2415,7 +2415,7 @@ DECLARE_EVENT_CLASS(f2fs__rw_end,
+ 	TP_ARGS(inode, offset, bytes),
+ 
+ 	TP_STRUCT__entry(
+-		__field(ino_t,	ino)
++		__field(u64,	ino)
+ 		__field(loff_t,	offset)
+ 		__field(int,	bytes)
+ 	),
+@@ -2426,8 +2426,8 @@ DECLARE_EVENT_CLASS(f2fs__rw_end,
+ 		__entry->bytes		= bytes;
+ 	),
+ 
+-	TP_printk("ino %lu, offset %llu, bytes %d",
+-		(unsigned long) __entry->ino,
++	TP_printk("ino %llu, offset %llu, bytes %d",
++		(unsigned long long) __entry->ino,
+ 		__entry->offset, __entry->bytes)
+ );
+ 
 
+-- 
+2.53.0
 
-> >  		    dir->i_ino, error, (folio->index << PAGE_SHIFT) + offs,
-> >  		    (unsigned long)le64_to_cpu(p->inode),
-> >  		    rec_len, p->name_len);
-> > @@ -177,7 +177,7 @@ static bool nilfs_check_folio(struct folio *folio, =
-char *kaddr)
-> >  Eend:
-> >  	p =3D (struct nilfs_dir_entry *)(kaddr + offs);
-> >  	nilfs_error(sb,
-> > -		    "entry in directory #%lu spans the page boundary offset=3D%lu, i=
-node=3D%lu",
-> > +		    "entry in directory #%llu spans the page boundary offset=3D%lu, =
-inode=3D%lu",
->=20
-> Ditto. You missed 'inode=3D%lu' here.
->=20
->
-
-Same here.
-
-> >  		    dir->i_ino, (folio->index << PAGE_SHIFT) + offs,
-> >  		    (unsigned long)le64_to_cpu(p->inode));
-> >  fail:
-> > @@ -251,7 +251,7 @@ static int nilfs_readdir(struct file *file, struct =
-dir_context *ctx)
-> > =20
-> >  		kaddr =3D nilfs_get_folio(inode, n, &folio);
-> >  		if (IS_ERR(kaddr)) {
-> > -			nilfs_error(sb, "bad page in #%lu", inode->i_ino);
-> > +			nilfs_error(sb, "bad page in #%llu", inode->i_ino);
-> >  			ctx->pos +=3D PAGE_SIZE - offset;
-> >  			return -EIO;
-> >  		}
-> > @@ -336,7 +336,7 @@ struct nilfs_dir_entry *nilfs_find_entry(struct ino=
-de *dir,
-> >  		/* next folio is past the blocks we've got */
-> >  		if (unlikely(n > (dir->i_blocks >> (PAGE_SHIFT - 9)))) {
-> >  			nilfs_error(dir->i_sb,
-> > -			       "dir %lu size %lld exceeds block count %llu",
-> > +			       "dir %llu size %lld exceeds block count %llu",
-> >  			       dir->i_ino, dir->i_size,
-> >  			       (unsigned long long)dir->i_blocks);
-> >  			goto out;
-> > @@ -382,7 +382,7 @@ struct nilfs_dir_entry *nilfs_dotdot(struct inode *=
-dir, struct folio **foliop)
-> >  	return next_de;
-> > =20
-> >  fail:
-> > -	nilfs_error(dir->i_sb, "directory #%lu %s", dir->i_ino, msg);
-> > +	nilfs_error(dir->i_sb, "directory #%llu %s", dir->i_ino, msg);
-> >  	folio_release_kmap(folio, de);
-> >  	return NULL;
-> >  }
-> > diff --git a/fs/nilfs2/direct.c b/fs/nilfs2/direct.c
-> > index 2d8dc6b35b5477947ca12a70288d3a3cce858aab..8bd0b1374e25f8ff510f3b3=
-6dbde2acc01aafc1e 100644
-> > --- a/fs/nilfs2/direct.c
-> > +++ b/fs/nilfs2/direct.c
-> > @@ -338,7 +338,7 @@ static int nilfs_direct_assign(struct nilfs_bmap *b=
-map,
-> >  	key =3D nilfs_bmap_data_get_key(bmap, *bh);
-> >  	if (unlikely(key > NILFS_DIRECT_KEY_MAX)) {
-> >  		nilfs_crit(bmap->b_inode->i_sb,
-> > -			   "%s (ino=3D%lu): invalid key: %llu",
-> > +			   "%s (ino=3D%llu): invalid key: %llu",
-> >  			   __func__,
-> >  			   bmap->b_inode->i_ino, (unsigned long long)key);
-> >  		return -EINVAL;
-> > @@ -346,7 +346,7 @@ static int nilfs_direct_assign(struct nilfs_bmap *b=
-map,
-> >  	ptr =3D nilfs_direct_get_ptr(bmap, key);
-> >  	if (unlikely(ptr =3D=3D NILFS_BMAP_INVALID_PTR)) {
-> >  		nilfs_crit(bmap->b_inode->i_sb,
-> > -			   "%s (ino=3D%lu): invalid pointer: %llu",
-> > +			   "%s (ino=3D%llu): invalid pointer: %llu",
-> >  			   __func__,
-> >  			   bmap->b_inode->i_ino, (unsigned long long)ptr);
-> >  		return -EINVAL;
-> > diff --git a/fs/nilfs2/gcinode.c b/fs/nilfs2/gcinode.c
-> > index 561c220799c7aee879ad866865e377799c8ee6bb..62d4c1b787e95c961a360a4=
-214d621d564ad8b4c 100644
-> > --- a/fs/nilfs2/gcinode.c
-> > +++ b/fs/nilfs2/gcinode.c
-> > @@ -137,7 +137,7 @@ int nilfs_gccache_wait_and_mark_dirty(struct buffer=
-_head *bh)
-> >  		struct inode *inode =3D bh->b_folio->mapping->host;
-> > =20
-> >  		nilfs_err(inode->i_sb,
-> > -			  "I/O error reading %s block for GC (ino=3D%lu, vblocknr=3D%llu)",
-> > +			  "I/O error reading %s block for GC (ino=3D%llu, vblocknr=3D%llu)"=
-,
-> >  			  buffer_nilfs_node(bh) ? "node" : "data",
-> >  			  inode->i_ino, (unsigned long long)bh->b_blocknr);
-> >  		return -EIO;
-> > diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-> > index 51bde45d586509dda3ef0cb7c46facb7fb2c61dd..51f7e125a311b868860e3e1=
-11700d49d4cb98fa6 100644
-> > --- a/fs/nilfs2/inode.c
-> > +++ b/fs/nilfs2/inode.c
-> > @@ -108,7 +108,7 @@ int nilfs_get_block(struct inode *inode, sector_t b=
-lkoff,
-> >  				 * be locked in this case.
-> >  				 */
-> >  				nilfs_warn(inode->i_sb,
-> > -					   "%s (ino=3D%lu): a race condition while inserting a data block=
- at offset=3D%llu",
-> > +					   "%s (ino=3D%llu): a race condition while inserting a data bloc=
-k at offset=3D%llu",
-> >  					   __func__, inode->i_ino,
-> >  					   (unsigned long long)blkoff);
-> >  				err =3D -EAGAIN;
-> > @@ -789,7 +789,7 @@ static void nilfs_truncate_bmap(struct nilfs_inode_=
-info *ii,
-> >  		goto repeat;
-> > =20
-> >  failed:
-> > -	nilfs_warn(ii->vfs_inode.i_sb, "error %d truncating bmap (ino=3D%lu)"=
-,
-> > +	nilfs_warn(ii->vfs_inode.i_sb, "error %d truncating bmap (ino=3D%llu)=
-",
-> >  		   ret, ii->vfs_inode.i_ino);
-> >  }
-> > =20
-> > @@ -1026,7 +1026,7 @@ int nilfs_set_file_dirty(struct inode *inode, uns=
-igned int nr_dirty)
-> >  			 * this inode.
-> >  			 */
-> >  			nilfs_warn(inode->i_sb,
-> > -				   "cannot set file dirty (ino=3D%lu): the file is being freed",
-> > +				   "cannot set file dirty (ino=3D%llu): the file is being freed",
-> >  				   inode->i_ino);
-> >  			spin_unlock(&nilfs->ns_inode_lock);
-> >  			return -EINVAL; /*
-> > @@ -1057,7 +1057,7 @@ int __nilfs_mark_inode_dirty(struct inode *inode,=
- int flags)
-> >  	err =3D nilfs_load_inode_block(inode, &ibh);
-> >  	if (unlikely(err)) {
-> >  		nilfs_warn(inode->i_sb,
-> > -			   "cannot mark inode dirty (ino=3D%lu): error %d loading inode blo=
-ck",
-> > +			   "cannot mark inode dirty (ino=3D%llu): error %d loading inode bl=
-ock",
-> >  			   inode->i_ino, err);
-> >  		return err;
-> >  	}
-> > diff --git a/fs/nilfs2/mdt.c b/fs/nilfs2/mdt.c
-> > index 946b0d3534a5f22f34ac44a91fb121541881c548..09adb40c65e505d92012a3d=
-2f5fe8a5696e10056 100644
-> > --- a/fs/nilfs2/mdt.c
-> > +++ b/fs/nilfs2/mdt.c
-> > @@ -203,7 +203,7 @@ static int nilfs_mdt_read_block(struct inode *inode=
-, unsigned long block,
-> >  	err =3D -EIO;
-> >  	if (!buffer_uptodate(first_bh)) {
-> >  		nilfs_err(inode->i_sb,
-> > -			  "I/O error reading meta-data file (ino=3D%lu, block-offset=3D%lu)=
-",
-> > +			  "I/O error reading meta-data file (ino=3D%llu, block-offset=3D%lu=
-)",
-> >  			  inode->i_ino, block);
-> >  		goto failed_bh;
-> >  	}
-> > diff --git a/fs/nilfs2/namei.c b/fs/nilfs2/namei.c
-> > index 40f4b1a28705b6e0eb8f0978cf3ac18b43aa1331..40ac679ec56e400b1df98e9=
-be6fe9ca338a9ba51 100644
-> > --- a/fs/nilfs2/namei.c
-> > +++ b/fs/nilfs2/namei.c
-> > @@ -292,7 +292,7 @@ static int nilfs_do_unlink(struct inode *dir, struc=
-t dentry *dentry)
-> > =20
-> >  	if (!inode->i_nlink) {
-> >  		nilfs_warn(inode->i_sb,
-> > -			   "deleting nonexistent file (ino=3D%lu), %d",
-> > +			   "deleting nonexistent file (ino=3D%llu), %d",
-> >  			   inode->i_ino, inode->i_nlink);
-> >  		set_nlink(inode, 1);
-> >  	}
-> > diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-> > index 098a3bd103e04cd09b0689fe2017380d74664496..4b1bf559f3524b1cc3965da=
-e9fd3e5745718569d 100644
-> > --- a/fs/nilfs2/segment.c
-> > +++ b/fs/nilfs2/segment.c
-> > @@ -2024,7 +2024,7 @@ static int nilfs_segctor_collect_dirty_files(stru=
-ct nilfs_sc_info *sci,
-> >  				ifile, ii->vfs_inode.i_ino, &ibh);
-> >  			if (unlikely(err)) {
-> >  				nilfs_warn(sci->sc_super,
-> > -					   "log writer: error %d getting inode block (ino=3D%lu)",
-> > +					   "log writer: error %d getting inode block (ino=3D%llu)",
-> >  					   err, ii->vfs_inode.i_ino);
-> >  				return err;
-> >  			}
-> > diff --git a/include/trace/events/nilfs2.h b/include/trace/events/nilfs=
-2.h
-> > index 8880c11733dd307c223cc62ee34ebeff650ecb12..86a0011c9eeaf031cfa0b79=
-875b2b106ef8b7cfd 100644
-> > --- a/include/trace/events/nilfs2.h
-> > +++ b/include/trace/events/nilfs2.h
-> > @@ -165,14 +165,14 @@ TRACE_EVENT(nilfs2_segment_usage_freed,
-> > =20
-> >  TRACE_EVENT(nilfs2_mdt_insert_new_block,
-> >  	    TP_PROTO(struct inode *inode,
-> > -		     unsigned long ino,
-> > +		     u64 ino,
-> >  		     unsigned long block),
-> > =20
-> >  	    TP_ARGS(inode, ino, block),
-> > =20
-> >  	    TP_STRUCT__entry(
-> >  		    __field(struct inode *, inode)
-> > -		    __field(unsigned long, ino)
-> > +		    __field(u64, ino)
-> >  		    __field(unsigned long, block)
-> >  	    ),
-> > =20
-> > @@ -182,7 +182,7 @@ TRACE_EVENT(nilfs2_mdt_insert_new_block,
-> >  		    __entry->block =3D block;
-> >  		    ),
-> > =20
-> > -	    TP_printk("inode =3D %p ino =3D %lu block =3D %lu",
-> > +	    TP_printk("inode =3D %p ino =3D %llu block =3D %lu",
-> >  		      __entry->inode,
-> >  		      __entry->ino,
-> >  		      __entry->block)
-> > @@ -190,7 +190,7 @@ TRACE_EVENT(nilfs2_mdt_insert_new_block,
-> > =20
-> >  TRACE_EVENT(nilfs2_mdt_submit_block,
-> >  	    TP_PROTO(struct inode *inode,
-> > -		     unsigned long ino,
-> > +		     u64 ino,
-> >  		     unsigned long blkoff,
-> >  		     enum req_op mode),
-> > =20
-> > @@ -198,7 +198,7 @@ TRACE_EVENT(nilfs2_mdt_submit_block,
-> > =20
-> >  	    TP_STRUCT__entry(
-> >  		    __field(struct inode *, inode)
-> > -		    __field(unsigned long, ino)
-> > +		    __field(u64, ino)
-> >  		    __field(unsigned long, blkoff)
-> >  		    /*
-> >  		     * Use field_struct() to avoid is_signed_type() on the
-> > @@ -214,7 +214,7 @@ TRACE_EVENT(nilfs2_mdt_submit_block,
-> >  		    __entry->mode =3D mode;
-> >  		    ),
-> > =20
-> > -	    TP_printk("inode =3D %p ino =3D %lu blkoff =3D %lu mode =3D %x",
-> > +	    TP_printk("inode =3D %p ino =3D %llu blkoff =3D %lu mode =3D %x",
-> >  		      __entry->inode,
-> >  		      __entry->ino,
-> >  		      __entry->blkoff,
-
---=20
-Jeff Layton <jlayton@kernel.org>
