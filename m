@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3C2CFCE089
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 13:55:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1359DFCE085
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 13:55:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B79E10E94E;
-	Thu, 26 Feb 2026 13:55:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F59010E950;
+	Thu, 26 Feb 2026 13:55:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="NE+M5LRr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="irB5J4JG";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 694BC10E0FE;
- Thu, 26 Feb 2026 03:02:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 257C810E0D9;
+ Thu, 26 Feb 2026 03:01:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1772074932; x=1803610932;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=rLKrqWvXZmiRlPwNwT0KN1pdGmTSu7/QIs0m2zyAKGc=;
- b=NE+M5LRrHIe2iCP53+y1gD+BMtI239gUORorniTK+UPhEi49pXA+4Z/N
- NNYlpA2Wj8peK2ZHEEh2SnhzLJwex0SK6h/3cDqIklFCLaRg3kpISyP1U
- 8SUOdXPPYUvpFIotxOuChsbcQ783MAll/hWHSKvQhdPV6n/ddPmdd9dzR
- iBBaEcCi0pSi9XzZkiuqZQn79rakCqcfbQGKFwTUNU7DwQtzB2CtfHvWn
- FiTEonABd/LRpbfI4a5BKJGsCq4N0wF+qmegjLfBLbtgvMv9kWw9f1TUG
- rWDdzXEL0BzymWo+6AamVCisKQj/Yc9Dy3p+aXlCrIFHgpPFQ+gsYsa4j A==;
-X-CSE-ConnectionGUID: XYgxQZfsQEyPKLkWnlAkwA==
-X-CSE-MsgGUID: geFe5OpZQuGv8RSsQ3K8rg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11712"; a="72160439"
-X-IronPort-AV: E=Sophos;i="6.21,311,1763452800"; d="scan'208";a="72160439"
+ t=1772074912; x=1803610912;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=EMyw7QkTIGd6JUcIN1XEuwyKhym7f5E8Crv3cebehYA=;
+ b=irB5J4JGZhuXIEr4KViqTWxA+rHtAe2vRxosCMOOGHqFoNVAtw6HrBmA
+ 9D4KGTpL1Kt3mVrjYgL8VYWkcOL+g7g3G1DgLc9+U538+8tLAQpn5Igpu
+ fpGNqhRrT6S779Rqi06L6NRxDZGMOVpTyU1Sw6FQl+kJWL4OZVJNyz+4f
+ EuiunKhubZC9Zq1o5bNtY91Xb1G942oC/CCWCeUXkd+jB59KPxLNIEB5S
+ sNlcpb1RkhtSYqZF9mwu9ilcnaqAOrmLO6rLVNf4qvnggPMM2bghu5IdW
+ fpZaBtD8EQhd2ijyHZEeRdj8Pv+NYq8vqkBPeGR8W47+dTVB4ZUEb5ixI g==;
+X-CSE-ConnectionGUID: sOPJxlYlRSy+maPjoO16Kw==
+X-CSE-MsgGUID: BDVeGbXVT1W2YnnZy3EUOw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11712"; a="72160306"
+X-IronPort-AV: E=Sophos;i="6.21,311,1763452800"; d="scan'208";a="72160306"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2026 19:02:12 -0800
-X-CSE-ConnectionGUID: 5Xwx6m21Qd+0XNc7XVEdHw==
-X-CSE-MsgGUID: 9kUD08HDSyGiViiLlgh+sg==
+ 25 Feb 2026 19:01:35 -0800
+X-CSE-ConnectionGUID: K7D9cgqmT1CKgaCWNp6deg==
+X-CSE-MsgGUID: DC9Tt5RFRhuFtePJlYdziQ==
 X-ExtLoop1: 1
 Received: from x299.sh.intel.com ([10.239.159.77])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2026 19:02:05 -0800
+ 25 Feb 2026 19:01:28 -0800
 From: Yujie Liu <yujie.liu@intel.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -67,13 +67,10 @@ Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
  Michal Wajdeczko <michal.wajdeczko@intel.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org
-Subject: [PATCH 5/7] drm/xe/pf: fix kernel-doc warning for SR-IOV VF restore
- function
-Date: Thu, 26 Feb 2026 11:00:36 +0800
-Message-ID: <20260226030038.1182961-6-yujie.liu@intel.com>
+Subject: [PATCH 0/7] drm: fix some kernel-doc warnings
+Date: Thu, 26 Feb 2026 11:00:31 +0800
+Message-ID: <20260226030038.1182961-1-yujie.liu@intel.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260226030038.1182961-1-yujie.liu@intel.com>
-References: <20260226030038.1182961-1-yujie.liu@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 26 Feb 2026 13:55:07 +0000
@@ -91,28 +88,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Warning: drivers/gpu/drm/xe/xe_gt_sriov_pf_control.c:1261 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
- * xe_gt_sriov_pf_control_trigger restore_vf() - Start an SR-IOV VF migration data restore sequence.
+Yujie Liu (7):
+  drm/gpusvm: fix kernel-doc warning for
+    drm_gpusvm_pages_valid_unlocked()
+  drm/scheduler: fix kernel-doc warning for drm_sched_job_done()
+  drm/gma500: fix kernel-doc warning for framebuffer init/create
+    functions
+  drm/amdgpu: fix kernel-doc warning for
+    amdgpu_ttm_alloc_mmio_remap_bo()
+  drm/xe/pf: fix kernel-doc warning for SR-IOV VF restore function
+  drm/amd/pm: fix kernel-doc warning for smu_msg_v1_send_msg()
+  drm/amd/ras: fix kernel-doc warning for ras_eeprom_append()
 
-Fixes: ed46ff0d51e4 ("drm/xe/pf: Add save/restore control state stubs and connect to debugfs")
-Signed-off-by: Yujie Liu <yujie.liu@intel.com>
----
- drivers/gpu/drm/xe/xe_gt_sriov_pf_control.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      | 2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c       | 2 +-
+ drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c | 4 ++--
+ drivers/gpu/drm/drm_gpusvm.c                 | 4 ++--
+ drivers/gpu/drm/gma500/framebuffer.c         | 2 ++
+ drivers/gpu/drm/scheduler/sched_main.c       | 1 +
+ drivers/gpu/drm/xe/xe_gt_sriov_pf_control.c  | 2 +-
+ 7 files changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_gt_sriov_pf_control.c b/drivers/gpu/drm/xe/xe_gt_sriov_pf_control.c
-index bf48b05797de..5cb705c7ee7a 100644
---- a/drivers/gpu/drm/xe/xe_gt_sriov_pf_control.c
-+++ b/drivers/gpu/drm/xe/xe_gt_sriov_pf_control.c
-@@ -1259,7 +1259,7 @@ int xe_gt_sriov_pf_control_process_restore_data(struct xe_gt *gt, unsigned int v
- }
- 
- /**
-- * xe_gt_sriov_pf_control_trigger restore_vf() - Start an SR-IOV VF migration data restore sequence.
-+ * xe_gt_sriov_pf_control_trigger_restore_vf() - Start an SR-IOV VF migration data restore sequence.
-  * @gt: the &xe_gt
-  * @vfid: the VF identifier
-  *
 -- 
 2.43.0
 
