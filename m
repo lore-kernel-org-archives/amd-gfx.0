@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FCD9FD531A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEEDCFD531F
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1558B10EA76;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75BF910EA7B;
 	Fri, 27 Feb 2026 09:17:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gJlVm7bE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ivmk1v7V";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD6AF10E9A1;
- Thu, 26 Feb 2026 16:04:02 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0F9A10E96B;
+ Thu, 26 Feb 2026 16:01:19 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D37461858;
- Thu, 26 Feb 2026 16:04:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D281C2BC86;
- Thu, 26 Feb 2026 16:03:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3BF274180E;
+ Thu, 26 Feb 2026 16:01:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8AE2C2BCB4;
+ Thu, 26 Feb 2026 16:01:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121841;
- bh=HQnqBhHZU2sAWZhxdsq0PVvzgqOCHqHvsaI1swrWu1M=;
+ s=k20201202; t=1772121679;
+ bh=MwavyxIYlS9bWn9ErxsqoDmGcaV0lMqgZ3OvxFOJWq0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=gJlVm7bE76zMjPY0CgXsfeaUiMCfDr29KRS7Vh4h2cufOsxVaL5HokgQrFZjvKWr0
- LEH+khOHPUXIeREJ7JyKNIXJlLHTCAOxJPnAYoeWoFtolV2nTN/DhtW7MOAbUVibQc
- WTdgnawaWwkZx/nuKKRr7IFt/5sE9Nl9CFm9QEukVr5io4yf2T5BY0t386rJEC+GEl
- SflifBzQRFAoEaN/bU2SoYbHxhSyHeYnJKCUiuG46KLIUz85b/Ru9/lo2uzwMGJzZM
- y3ZayvYKCJ9VnC/06j4fIoKbF7OIfu0CdyMytRJDWNemrerfOYGB0Kys9ZbiVmtqY5
- 73k3GRG0I2lLA==
+ b=Ivmk1v7V3CJiICUlcp+XecxQ8lV8EsvWNHo7eR+YxOQbmYtedtALPPtlvxelp6hjh
+ en8jABiMzMb/OrtCHXYcM4ik86k8b/NdKS6iQNsceskhDSrUAGrthU+Mluo9Y3k5OY
+ hLGGzCNMcAx+HcJMRHPgHxCwW6zWxH6VTPO2mshnW9Ta5etwpt94k3KwJKKWDvu9ZO
+ wzvN5qcZ0hcx3Fb9eoFa+y7vAEMv+EMzEtIsC5mu61EwaXjr9g30suDQA0zhULrwLi
+ r1tYEXKRj5sFs5LaOuPmEij4Gg2A3MbYdnp+GKNGqW6icNTxudYs2jchlG7ZcVlSJW
+ TlOBjKksVvQ6A==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:39 -0500
-Subject: [PATCH 37/61] jffs2: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:26 -0500
+Subject: [PATCH 24/61] cachefiles: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-37-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-24-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,23 +131,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4882; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=HQnqBhHZU2sAWZhxdsq0PVvzgqOCHqHvsaI1swrWu1M=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0NSWGyn7zHQs4lO9B7QHYKEbCOl3hhGFFiP
- wXI+jDlXyCJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDQAKCRAADmhBGVaC
- FSE6D/oDcjFvjSL27UnDC75n4tTWmF3e+3hOlngVHS0P8swlrVZHH8UB/b5H9mPfSBtEwXOQ1Kk
- MG7NQleGUa3kL6qeHvNkP+Nh8nsEaTHjrvHUZiIrhWp7x6ItgtwqyKAOBGvCIm/ta4v/QNNLCW/
- U7+MA/+xQRyCPuJMUkEEffctlwe12qlyupf0uWNsR0SVxcFfc6tuqzxl7CNAf81vEfaRGZXKOjf
- iBw1omDa0EZ5xyRlJQgyvwDn6gYmkqiCec2DjDz3n21jYMA6oUvsdVldlPSoT4jBRQwFxiTUZwY
- 4WsvihWU3QXqlN3KfgXvQBm4yE9dar7P0n35DxdQm+bxDzg9hOxMx7DArTKBYlogjLiQiaEkbIJ
- QyD6nTO13d55OgImz6XzFTTGgQSBr6CVz67a1snb/v5o+133K6uJ5nJ1HNXeptjXGc5O8ea3YOW
- +A/zEnZ4mJfWGG2qeDI8yQVZnR5lZV6OyCbzZaLFZaxIvadZ6m4EWHmLfcblHaPIguoJbzdKyVJ
- 9b4uhXscumqEchfZwL61TofMl1Wnc4+VvquOetaInENpVxsGuUyv5KxOr4RN1gknWp1mzefX5v0
- nusE399ByDmiN2rubObzc6m3vJLBare12HsXVGbGORpySeuYoRB/HJXyFKUH4NBTzeJfVgIZxL5
- flGSB6N+pfsDpgQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4391; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=MwavyxIYlS9bWn9ErxsqoDmGcaV0lMqgZ3OvxFOJWq0=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0KNFRsbW5kG/p9PtFPpXWeEzWzPxJtHpHVp
+ a6torUfDXmJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCgAKCRAADmhBGVaC
+ FbHIEACZSDMJAqAwQ0UXgiwJ0jC+ChGbMCd/Sa5yBvlpCfjSmkn4n6HEjHw/4s1+fMmd0m/LwmE
+ 8jH1uSEVla1iJBWmZN4Xmpo5/oGmeKxuCJiBT+T//EpjIq1eV366Wwlq7KQ+yOwNIpAewI1OK4N
+ PRlmobIu63prMJmjcVGhaMWtjg/olAgXr+44X79kcORF1excabF2OOgoAE237OZrMV/pXS/EyUw
+ cRh+8Bqx0o/fII34tA4kAWOou4JBmxxBQGz7pB1yGKxbzrM/hUf1apOp6sY1tIB/EHW+XUJ1135
+ UimmosoXllhYTYz7gsjIEu9frAYnYwXkrfuEUag+2PAjWfNTIqHI8PxPEuTcmY6erOvzxw88LzW
+ jsGnRh3iUm7XUez/cpw0Ara59XzP/RWYuRYzwSLHWaub8hRyUrvdC/6X6DMrvMmABzLvFNoXMum
+ U+NXn/y/d8sMb1KpWcJZtq8Fh4VtPJi9afupJhGnOXq+JGgNjjpUhCxAd3M1JBxNo/ueFIhhIbb
+ wwcyV7LsjMJhwseMYJqWooz6vpkd/aGCbLkFfbdVky/iO7E0YpZ10MzPRZpsqsOpn9pAxtkPhh+
+ EucWjJg2UwqxM6ydVT7EBx2NgQD6V+NpF2Mg83BX551O6BuZMAl01ktREHrwHp3YwbqnlZsQdVI
+ BaUUCgERHQ6vaqA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,128 +162,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in jffs2 for the
+Update format strings and local variable types in cachefiles for the
 i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/jffs2/dir.c  |  4 ++--
- fs/jffs2/file.c |  4 ++--
- fs/jffs2/fs.c   | 18 +++++++++---------
- 3 files changed, 13 insertions(+), 13 deletions(-)
+ fs/cachefiles/io.c    |  6 +++---
+ fs/cachefiles/namei.c | 12 ++++++------
+ fs/cachefiles/xattr.c |  2 +-
+ 3 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/fs/jffs2/dir.c b/fs/jffs2/dir.c
-index 2b38ce1fd8e8d8d59e80f6ffb9ea2935f8cb27e4..c4088c3b4ac0362074cfa186c04f9c3afcccdff2 100644
---- a/fs/jffs2/dir.c
-+++ b/fs/jffs2/dir.c
-@@ -129,7 +129,7 @@ static int jffs2_readdir(struct file *file, struct dir_context *ctx)
- 	struct jffs2_full_dirent *fd;
- 	unsigned long curofs = 1;
+diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
+index eaf47851c65f4736a7a27f13c498028c7c8dd1b4..d879b80a0bedc95533ce05361ed8cb79c7ed3826 100644
+--- a/fs/cachefiles/io.c
++++ b/fs/cachefiles/io.c
+@@ -93,7 +93,7 @@ static int cachefiles_read(struct netfs_cache_resources *cres,
+ 	object = cachefiles_cres_object(cres);
+ 	file = cachefiles_cres_file(cres);
  
--	jffs2_dbg(1, "jffs2_readdir() for dir_i #%lu\n", inode->i_ino);
-+	jffs2_dbg(1, "jffs2_readdir() for dir_i #%llu\n", inode->i_ino);
+-	_enter("%pD,%li,%llx,%zx/%llx",
++	_enter("%pD,%llu,%llx,%zx/%llx",
+ 	       file, file_inode(file)->i_ino, start_pos, len,
+ 	       i_size_read(file_inode(file)));
  
- 	if (!dir_emit_dots(file, ctx))
- 		return 0;
-@@ -211,7 +211,7 @@ static int jffs2_create(struct mnt_idmap *idmap, struct inode *dir_i,
+@@ -214,7 +214,7 @@ static int cachefiles_query_occupancy(struct netfs_cache_resources *cres,
+ 	file = cachefiles_cres_file(cres);
+ 	granularity = max_t(size_t, object->volume->cache->bsize, granularity);
  
- 	jffs2_free_raw_inode(ri);
+-	_enter("%pD,%li,%llx,%zx/%llx",
++	_enter("%pD,%llu,%llx,%zx/%llx",
+ 	       file, file_inode(file)->i_ino, start, len,
+ 	       i_size_read(file_inode(file)));
  
--	jffs2_dbg(1, "%s(): Created ino #%lu with mode %o, nlink %d(%d). nrpages %ld\n",
-+	jffs2_dbg(1, "%s(): Created ino #%llu with mode %o, nlink %d(%d). nrpages %ld\n",
- 		  __func__, inode->i_ino, inode->i_mode, inode->i_nlink,
- 		  f->inocache->pino_nlink, inode->i_mapping->nrpages);
+@@ -294,7 +294,7 @@ int __cachefiles_write(struct cachefiles_object *object,
+ 	fscache_count_write();
+ 	cache = object->volume->cache;
  
-diff --git a/fs/jffs2/file.c b/fs/jffs2/file.c
-index 5e1ef4bc009b6e5b4818a7467639fc328c137c12..1e18d3a798409d23440a5890808bc25372549e93 100644
---- a/fs/jffs2/file.c
-+++ b/fs/jffs2/file.c
-@@ -88,7 +88,7 @@ static int jffs2_do_readpage_nolock(struct inode *inode, struct folio *folio)
- 	unsigned char *kaddr;
- 	int ret;
+-	_enter("%pD,%li,%llx,%zx/%llx",
++	_enter("%pD,%llu,%llx,%zx/%llx",
+ 	       file, file_inode(file)->i_ino, start_pos, len,
+ 	       i_size_read(file_inode(file)));
  
--	jffs2_dbg(2, "%s(): ino #%lu, page at offset 0x%lx\n",
-+	jffs2_dbg(2, "%s(): ino #%llu, page at offset 0x%lx\n",
- 		  __func__, inode->i_ino, folio->index << PAGE_SHIFT);
- 
- 	BUG_ON(!folio_test_locked(folio));
-@@ -259,7 +259,7 @@ static int jffs2_write_end(const struct kiocb *iocb,
- 	uint32_t writtenlen = 0;
- 	void *buf;
- 
--	jffs2_dbg(1, "%s(): ino #%lu, page at 0x%llx, range %d-%d, flags %lx\n",
-+	jffs2_dbg(1, "%s(): ino #%llu, page at 0x%llx, range %d-%d, flags %lx\n",
- 		  __func__, inode->i_ino, folio_pos(folio),
- 		  start, end, folio->flags.f);
- 
-diff --git a/fs/jffs2/fs.c b/fs/jffs2/fs.c
-index c3ce2c868f7a33476d5cde4f1af7c7ed9c6c6c41..d3561a9c3d2a836e2c1f9de87816b80d0a1cf2e0 100644
---- a/fs/jffs2/fs.c
-+++ b/fs/jffs2/fs.c
-@@ -43,7 +43,7 @@ int jffs2_do_setattr (struct inode *inode, struct iattr *iattr)
- 	int ret;
- 	int alloc_type = ALLOC_NORMAL;
- 
--	jffs2_dbg(1, "%s(): ino #%lu\n", __func__, inode->i_ino);
-+	jffs2_dbg(1, "%s(): ino #%llu\n", __func__, inode->i_ino);
- 
- 	/* Special cases - we don't want more than one data node
- 	   for these types on the medium at any time. So setattr
-@@ -243,7 +243,7 @@ void jffs2_evict_inode (struct inode *inode)
- 	struct jffs2_sb_info *c = JFFS2_SB_INFO(inode->i_sb);
- 	struct jffs2_inode_info *f = JFFS2_INODE_INFO(inode);
- 
--	jffs2_dbg(1, "%s(): ino #%lu mode %o\n",
-+	jffs2_dbg(1, "%s(): ino #%llu mode %o\n",
- 		  __func__, inode->i_ino, inode->i_mode);
- 	truncate_inode_pages_final(&inode->i_data);
- 	clear_inode(inode);
-@@ -334,8 +334,8 @@ struct inode *jffs2_iget(struct super_block *sb, unsigned long ino)
- 		ret = jffs2_read_dnode(c, f, f->metadata, (char *)&jdev, 0, f->metadata->size);
- 		if (ret < 0) {
- 			/* Eep */
--			pr_notice("Read device numbers for inode %lu failed\n",
--				  (unsigned long)inode->i_ino);
-+			pr_notice("Read device numbers for inode %llu failed\n",
-+				  (unsigned long long)inode->i_ino);
- 			goto error;
+diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+index e5ec90dccc27f71dc19219f7632f3e48eaf51545..4fdf7687aacb8285ae38d9b5d7e5129897b3ca03 100644
+--- a/fs/cachefiles/namei.c
++++ b/fs/cachefiles/namei.c
+@@ -147,7 +147,7 @@ struct dentry *cachefiles_get_directory(struct cachefiles_cache *cache,
  		}
- 		if (f->metadata->size == sizeof(jdev.old_id))
-@@ -351,8 +351,8 @@ struct inode *jffs2_iget(struct super_block *sb, unsigned long ino)
- 		break;
+ 		ASSERT(d_backing_inode(subdir));
  
- 	default:
--		pr_warn("%s(): Bogus i_mode %o for ino %lu\n",
--			__func__, inode->i_mode, (unsigned long)inode->i_ino);
-+		pr_warn("%s(): Bogus i_mode %o for ino %llu\n",
-+			__func__, inode->i_mode, (unsigned long long)inode->i_ino);
+-		_debug("mkdir -> %pd{ino=%lu}",
++		_debug("mkdir -> %pd{ino=%llu}",
+ 		       subdir, d_backing_inode(subdir)->i_ino);
+ 		if (_is_new)
+ 			*_is_new = true;
+@@ -158,7 +158,7 @@ struct dentry *cachefiles_get_directory(struct cachefiles_cache *cache,
+ 	end_creating_keep(subdir);
+ 
+ 	if (!__cachefiles_mark_inode_in_use(NULL, d_inode(subdir))) {
+-		pr_notice("cachefiles: Inode already in use: %pd (B=%lx)\n",
++		pr_notice("cachefiles: Inode already in use: %pd (B=%llx)\n",
+ 			  subdir, d_inode(subdir)->i_ino);
+ 		goto mark_error;
  	}
+@@ -183,7 +183,7 @@ struct dentry *cachefiles_get_directory(struct cachefiles_cache *cache,
+ 	    !d_backing_inode(subdir)->i_op->unlink)
+ 		goto check_error;
  
- 	mutex_unlock(&f->sem);
-@@ -374,12 +374,12 @@ void jffs2_dirty_inode(struct inode *inode, int flags)
- 	struct iattr iattr;
+-	_leave(" = [%lu]", d_backing_inode(subdir)->i_ino);
++	_leave(" = [%llu]", d_backing_inode(subdir)->i_ino);
+ 	return subdir;
  
- 	if (!(inode_state_read_once(inode) & I_DIRTY_DATASYNC)) {
--		jffs2_dbg(2, "%s(): not calling setattr() for ino #%lu\n",
-+		jffs2_dbg(2, "%s(): not calling setattr() for ino #%llu\n",
- 			  __func__, inode->i_ino);
- 		return;
+ check_error:
+@@ -529,7 +529,7 @@ static bool cachefiles_create_file(struct cachefiles_object *object)
+ 
+ 	set_bit(FSCACHE_COOKIE_NEEDS_UPDATE, &object->cookie->flags);
+ 	set_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags);
+-	_debug("create -> %pD{ino=%lu}", file, file_inode(file)->i_ino);
++	_debug("create -> %pD{ino=%llu}", file, file_inode(file)->i_ino);
+ 	object->file = file;
+ 	return true;
+ }
+@@ -549,7 +549,7 @@ static bool cachefiles_open_file(struct cachefiles_object *object,
+ 	_enter("%pd", dentry);
+ 
+ 	if (!cachefiles_mark_inode_in_use(object, d_inode(dentry))) {
+-		pr_notice("cachefiles: Inode already in use: %pd (B=%lx)\n",
++		pr_notice("cachefiles: Inode already in use: %pd (B=%llx)\n",
+ 			  dentry, d_inode(dentry)->i_ino);
+ 		return false;
  	}
+@@ -657,7 +657,7 @@ bool cachefiles_look_up_object(struct cachefiles_object *object)
+ 	if (!ret)
+ 		return false;
  
--	jffs2_dbg(1, "%s(): calling setattr() for ino #%lu\n",
-+	jffs2_dbg(1, "%s(): calling setattr() for ino #%llu\n",
- 		  __func__, inode->i_ino);
+-	_leave(" = t [%lu]", file_inode(object->file)->i_ino);
++	_leave(" = t [%llu]", file_inode(object->file)->i_ino);
+ 	return true;
  
- 	iattr.ia_valid = ATTR_MODE|ATTR_UID|ATTR_GID|ATTR_ATIME|ATTR_MTIME|ATTR_CTIME;
-@@ -428,7 +428,7 @@ struct inode *jffs2_new_inode (struct inode *dir_i, umode_t mode, struct jffs2_r
- 	struct jffs2_inode_info *f;
- 	int ret;
- 
--	jffs2_dbg(1, "%s(): dir_i %ld, mode 0x%x\n",
-+	jffs2_dbg(1, "%s(): dir_i %lld, mode 0x%x\n",
- 		  __func__, dir_i->i_ino, mode);
- 
- 	c = JFFS2_SB_INFO(sb);
+ new_file:
+diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
+index 52383b1d0ba63d4a09413177d8c0d841b5b5b43c..f8ae78b3f7b6d368526a86b454bf0febd1ccc509 100644
+--- a/fs/cachefiles/xattr.c
++++ b/fs/cachefiles/xattr.c
+@@ -179,7 +179,7 @@ int cachefiles_remove_object_xattr(struct cachefiles_cache *cache,
+ 			ret = 0;
+ 		else if (ret != -ENOMEM)
+ 			cachefiles_io_error(cache,
+-					    "Can't remove xattr from %lu"
++					    "Can't remove xattr from %llu"
+ 					    " (error %d)",
+ 					    d_backing_inode(dentry)->i_ino, -ret);
+ 	}
 
 -- 
 2.53.0
