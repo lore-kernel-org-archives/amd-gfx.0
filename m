@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15C55FD5316
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7235FD5316
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:18:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA12810EAB5;
-	Fri, 27 Feb 2026 09:17:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5715110EAD0;
+	Fri, 27 Feb 2026 09:18:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ihikh0fH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ME/XYMrD";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9073710E9A3;
- Thu, 26 Feb 2026 16:04:52 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CA7186187B;
- Thu, 26 Feb 2026 16:04:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F9C5C116C6;
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6492310E9A2;
  Thu, 26 Feb 2026 16:04:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3E91743BB9;
+ Thu, 26 Feb 2026 16:04:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D25D0C2BC9E;
+ Thu, 26 Feb 2026 16:04:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121891;
- bh=wgaEh25KMLtfYap2XafuanTTSwLN7VDrZOEdlc+rhYE=;
+ s=k20201202; t=1772121879;
+ bh=/R13WlmCiqf+otA9FtjIvnhA88neDdZ1z3bo46wgKlk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Ihikh0fHkFo5VHrN+kl5f9glGlinbKtpho2+DlzUtm4OmjkMCG2xnfPWMK+adJAp8
- tuz6Jje9w4lDHKub6lxBIZ8ud/+PV8si/+Y6reMvHz/mbUAVxRyEIdTHk5Z5mvkoPq
- fyAbSrYDacnT0cdxeMC4pv0CYMHBI9b/sdX91/uFj/jRCmQgRXjq7FZWkN2Pk80noT
- 34bnbfnst9zjf3oFsUKAwoa98O9Wikot7oUadV+HG/IEoTHIOqKT7CYUabmNpaTAbE
- TWndB177NRkSpiMjT0FnrM2tqfOsOweeQcR2wmf1L/VhsVCOC0fl9e3ZVPjeyLaajI
- vcRLvdwNKn94g==
+ b=ME/XYMrD0mbvHzirdHMfJIsfdtmPFxCfe6GE465X1RJF3PBm2jj4PJNJPYeT1iDOG
+ LbsRm0hPLRDwtyDoOgB+Voef7jG8Y2KK22baj2rjclEI6wj5ibMesgE2ai+NJ/UR7X
+ 6+QUTAooFfBgGcyast5Z94iyXho7rgdTdHdAwiZsKDxD+igqWK/cnx7ELcaU3fYIRy
+ ng9wFCImfGsr/rZxhue+trQ/GIHKbB3bcg6whxFxw1Y2QglSKv4ojDEr74/nb1FFQ1
+ tYyPsAGjzIDRWCtNI5FfKR1Aw/GoyUNOpP4KvVJnARaeqTNjVtrA4JR7sRW9jnU9kC
+ 8v15Pgqa22BtA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:43 -0500
-Subject: [PATCH 41/61] ntfs3: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:42 -0500
+Subject: [PATCH 40/61] nsfs: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-41-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-40-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,23 +131,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=815; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=wgaEh25KMLtfYap2XafuanTTSwLN7VDrZOEdlc+rhYE=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0OSIiUz1AkDZ6JYGrAoeFBgTB7iDZPyaD5c
- NromnZp8+qJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDgAKCRAADmhBGVaC
- FTqCD/9UYfDbK1XGdJjkbgOj5OvuREi9qNRYWSvCJQjp0V1l40Tc2SwR0HmU+EfwBlx6Txb4Wrq
- QdcBO1GXudcSjsvJ/3hDOB4tWaT+HJWmU2xqpTs1Z1tyxrirA1E6eBgrFZFGzvOweegta67Cz7z
- VI0eeOR1o4J4WhJeAmqXgEFNF70lduqS1RwWyH9HGET9JjZWgaQ2zaaEBbxgJ6A1kYGvZzSFdqE
- 276PPffVIlQyNtpPaqDUqNQ2n71ynLyE/SxFTeMN40RwZQ9zLXYj7pEBMzCCe5aNctu9Pa+u3C3
- opcZB2xSdWANY+EVsDRUBiP6xPoipYDMS5EoMOeUiNlpB0Umy6Z50lWTGn+4yRK//d8hbJg64Ur
- i5bT2mFmy9QAVGKTGcqnn62Vm/lxRrCeklIgoH1O1dp3hgS3OnZYYrT+51ij1fkoEgpKYQzasJp
- MQF1WYqqr9U3V6EWXm6UZPZ6qv1f5hvsNepUtngGu2BBedYjgk9HVNlFEcX5rUaDaza5rpxEzDW
- D4yhFGSyaYUAKjHy+UjGu2sUAbiqM2qLyNtGqZPP4LMOwQAh3o/hAqoCj+8txericgHxp1879k+
- gs9ZoEcZXM7zFmOIdIdPyEb/kup0f5KrRxobeyYYYoV+9YP/2uBa2lVyl9AxEdR9RzQIQ5ak+WK
- VJL0ubImZpV5d2g==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1097; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=/R13WlmCiqf+otA9FtjIvnhA88neDdZ1z3bo46wgKlk=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0O+wdqUvmhdzWRUaf/uRFQdKMMnnQ4hzPLX
+ 9J0lNA/txOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDgAKCRAADmhBGVaC
+ FReqD/wINOu58ZOathcZxcR1CK7TMnX0vxSOJoULS3X1jMBCONSGbKTI4Mwm0CSAxlQ98Ny4Nnn
+ rtBtuGY3VRIjCSjO47+h7GQ1YV0V6Hc+rMhcOISbfMFy81P+loguWdTSkab9YblDvqIBIo8D6MI
+ aeO7eQcn3P3Amz+zf+MJyA4wHMa6kUeyvW9ZKGd0CGk4Nbpc2hWw8vyhzqBOW/Zowk/OAe9T9OD
+ fi+nNVJoTHG5Noq62obje8GhGhhYR/s5tI7dhXDVjhEpPGT/sFn5ElbkZwU7xptq2KT4yauQ7/Z
+ DicbI1P6DJ50SqUjzuGz935+4TaETa7GtJyOMH5p6f5NVnl9iAPRms08XEOh7yI92eChFW7TmWw
+ UWmDE4w7QRmZyyfOTgl2q06EuSTKCXIEbyGz5L/24Gim9RqCoV48oqVEnIg/sAFpPzo5xi5BIXf
+ V1O08+55HNciUF+beE4JnOTS0c0eA+gQG4KJKrK/vP28C/zZn1ASyS4G2vPv+b85tystcOOUs2y
+ g3wQEGVlU4mGAe1eRf3tPrndsga/Y72dzsCKqLqF9DyeTNT7ZSXa6UQ06Ih334PtgWGBjQP6S2p
+ ZL32WssPTyas96P4SaYWACeakyldlGnUtNJrwKQoqVchA+l5uktGdxteZLiNkIHXVwmcaZaU/Ql
+ kKqNMyGtdnhOPGg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,27 +162,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in ntfs3 for the
+Update format strings and local variable types in nsfs for the
 i_ino type change from unsigned long to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ntfs3/super.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/nsfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index 174a7cb202a08c550b3b8497cdf6105192be2e43..51aa008e126a8af18c39dd825a17c12df859329d 100644
---- a/fs/ntfs3/super.c
-+++ b/fs/ntfs3/super.c
-@@ -153,7 +153,7 @@ void ntfs_inode_printk(struct inode *inode, const char *fmt, ...)
- 	vaf.fmt = printk_skip_level(fmt);
- 	vaf.va = &args;
+diff --git a/fs/nsfs.c b/fs/nsfs.c
+index db91de2086456bb9fe0547be7dbbd2de87c97ca7..eac326b85314ac8080248347154d599c953969c7 100644
+--- a/fs/nsfs.c
++++ b/fs/nsfs.c
+@@ -46,7 +46,7 @@ static char *ns_dname(struct dentry *dentry, char *buffer, int buflen)
+ 	struct ns_common *ns = inode->i_private;
+ 	const struct proc_ns_operations *ns_ops = ns->ops;
  
--	printk("%c%cntfs3(%s): ino=%lx,%s %pV\n", KERN_SOH_ASCII, level,
-+	printk("%c%cntfs3(%s): ino=%llx,%s %pV\n", KERN_SOH_ASCII, level,
- 	       sb->s_id, inode->i_ino, name ? name : "", &vaf);
+-	return dynamic_dname(buffer, buflen, "%s:[%lu]",
++	return dynamic_dname(buffer, buflen, "%s:[%llu]",
+ 		ns_ops->name, inode->i_ino);
+ }
  
- 	va_end(args);
+@@ -394,7 +394,7 @@ static int nsfs_show_path(struct seq_file *seq, struct dentry *dentry)
+ 	const struct ns_common *ns = inode->i_private;
+ 	const struct proc_ns_operations *ns_ops = ns->ops;
+ 
+-	seq_printf(seq, "%s:[%lu]", ns_ops->name, inode->i_ino);
++	seq_printf(seq, "%s:[%llu]", ns_ops->name, inode->i_ino);
+ 	return 0;
+ }
+ 
 
 -- 
 2.53.0
