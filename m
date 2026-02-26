@@ -4,79 +4,165 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF58DFCE085
-	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 13:55:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2196BFCE08E
+	for <amd-gfx@archiver.kernel.org>; Thu, 26 Feb 2026 13:55:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB1E210E948;
-	Thu, 26 Feb 2026 13:55:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13F5F10E94C;
+	Thu, 26 Feb 2026 13:55:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="V3jgCVhI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KJqx9URA";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADCA910E8A5;
- Wed, 25 Feb 2026 17:03:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1772038990; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Stq7NiyxW5CF/ZYpj1nqvMDannoyZwlnMzQ/PgyeF0NaxkMVUlI68eDs/afuHnbr2+WHFmRQZxfJTlYWlLd0zyLWqjjWUVTxJnumFxAofhYeOXCqmvKvqp555F7wVXsQumH5tw1GduK4PpZ5MrE99aPbOnBScVHIW5+7cxFCsaM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1772038990;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=3RYgv+ynJj3S1QIru3Hn9dqc29aPNWjUzmoSLU7r5Kw=; 
- b=a5Oe0Ndnnz06KHDJo5Dq3J6MK/1KLjOuG3mwgwqqqQbKovJWasZ2MCpjlf8ey6OnHnCH4SKGA2z2D1avhxLtcyK+FRyYoZXnSih4UZM7quz5VNvfSBEPZ9pvoY+A2AMBB4eNwEzhaTesQui5FtYM0obtGOLyxS312/LjUHkL7vg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772038990; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=3RYgv+ynJj3S1QIru3Hn9dqc29aPNWjUzmoSLU7r5Kw=;
- b=V3jgCVhIW8MxRWz+GFV+y8JHyIm3dWD68I3G+7EGdF+br4N512+++HwmFH7XXJyX
- VTX84XBJmyiXwt+qxWxRcDszqGbmzTaLyzaROG7CcMhxb7bXr21EUYFCQsl2vZalyv8
- FARjC/W5DW9MnsdktyO2a03wVkp5f4pro6xFBbTQ=
-Received: by mx.zohomail.com with SMTPS id 1772038989356790.0109700812275;
- Wed, 25 Feb 2026 09:03:09 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andy Yan <andy.yan@rock-chips.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Liu Ying <victor.liu@nxp.com>, Chen-Yu Tsai <wens@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maxime Ripard <mripard@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH 14/14] drm/display: hdmi: Use drm_output_color_format
- instead of hdmi_colorspace
-Date: Wed, 25 Feb 2026 18:03:00 +0100
-Message-ID: <8234454.EvYhyI6sBW@workhorse>
-In-Reply-To: <20260224-drm-rework-color-formats-v1-14-bebc76604ada@kernel.org>
-References: <20260224-drm-rework-color-formats-v1-0-bebc76604ada@kernel.org>
- <20260224-drm-rework-color-formats-v1-14-bebc76604ada@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2771B10E032;
+ Thu, 26 Feb 2026 05:57:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1772085457; x=1803621457;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=AG4DLsUVjm5Ba/AFPdjuhsgh7WkFH+18h/QrXrUeYrg=;
+ b=KJqx9URAE8Clh4G2QPn6NctNMKlxr5o9AC1echKKc2Dtt+TPvWJYxoNg
+ n+mLT6IXtinpCJctz3C8+RbmUV+r6YXbepIKASdtFcFiba4d3j1pphdlP
+ 7B1IEd5cz+MJUVDg4fwny58aBZIsXwmGnPX1ouY7T4BqC4PptvFU3VWZw
+ f288aRR4FOeTsrEuocza/0zQA0GHWW5gKB6TZSCG+TW2YA0jjZ98Tzrf4
+ i59W/RcOxK3A+KbILq7M/J81AlXP10yeP5VJCmMZNEDZ5UQwIKf64Srwx
+ hn7zJehtQLBZPuBnrvo38gPq7LYjq63LCXLDexxW8/JibQMQP1kt0S9t0 Q==;
+X-CSE-ConnectionGUID: DWKk1ZxgTI2bj14PDACQxw==
+X-CSE-MsgGUID: EMpv503WSoaq3HZP9spN6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11712"; a="73241370"
+X-IronPort-AV: E=Sophos;i="6.21,311,1763452800"; d="scan'208";a="73241370"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2026 21:57:37 -0800
+X-CSE-ConnectionGUID: GqZ1BcCORnKuF78Y6860tQ==
+X-CSE-MsgGUID: LlXu9ergQIWdb0hXbnk2Ng==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,311,1763452800"; d="scan'208";a="244098516"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2026 21:57:36 -0800
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 25 Feb 2026 21:57:36 -0800
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 25 Feb 2026 21:57:36 -0800
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.18) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.35; Wed, 25 Feb 2026 21:57:36 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y/di9tu64zzdreUEQHw+zh76RLzWxLVBplSAaAcXKNXP7M5FBEVgMbW4f9ISmI4YtqqGQMdKoejYSsqz/W0Qg+AMQulYbdPl2kkM5fRTaZ9cWcys/Wielli+5RaGHtNAbbQidaEHdKKbSCK4gUamX4ak8LrOwDe7ey4BJpEllGZCAomx6HNrMiyErZiyWYnGsuYsFLq5n33bizMYPbdmCDdZ8SabfVyTI+v6tOqKcOH8m0dwWNBaqxoeFbGCOWMYrZwgEDKOOXCt98DQXsXelazuakNDS/A50LfvLM4mT7d1izGfi4PJF72XgPm0AXGiFrfrS9OibDASs834yZF2Jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=335XJj2QlKT/xKTFCoriOUBlbkYCmpiVq03n8pPP4ug=;
+ b=x7S3f9JA+Ditr/YY7eeNV389+AXnG+P4U42/CJuZwgU+/ZQGrfdZYXA+mghq+ty4YMZroMJ55Q8/qyBkwhs24jlm4wV88MzwoY4E5L2BuyJg+AUDrxvKyumh3tob09MigVdPnA9lNHQGD01s1RvBEDhoMvO4ybhVQXZeXNMzEmJude0X1NWZbqDwSBf7dggzx/Zj2M6t2kk6yTrYpFQzz+hwu0KNM5YdX4HSXp6owTnJtvJla2i2qnapEfDq5IHCyjM4owjMc0VIjd32aQm2s0ni7Djexf/InFzc9sgEYze/E83GqZnLUTOepdxkhN/+DVgy8z27rtBa4iqqnrTaTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SA1PR11MB8393.namprd11.prod.outlook.com (2603:10b6:806:373::21)
+ by CO1PR11MB5186.namprd11.prod.outlook.com (2603:10b6:303:9b::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.14; Thu, 26 Feb
+ 2026 05:57:34 +0000
+Received: from SA1PR11MB8393.namprd11.prod.outlook.com
+ ([fe80::804e:63d1:f2ce:7ce4]) by SA1PR11MB8393.namprd11.prod.outlook.com
+ ([fe80::804e:63d1:f2ce:7ce4%6]) with mapi id 15.20.9654.007; Thu, 26 Feb 2026
+ 05:57:34 +0000
+Date: Thu, 26 Feb 2026 13:56:30 +0800
+From: Yujie Liu <yujie.liu@intel.com>
+To: Matthew Brost <matthew.brost@intel.com>
+CC: Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Kenneth Feng
+ <kenneth.feng@amd.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Patrik Jakobsson
+ <patrik.r.jakobsson@gmail.com>, Danilo Krummrich <dakr@kernel.org>, "Philipp
+ Stanner" <phasta@kernel.org>, Thomas =?iso-8859-1?Q?Hellstr=F6m?=
+ <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>, "Srinivasan
+ Shanmugam" <srinivasan.shanmugam@amd.com>, Tvrtko Ursulin
+ <tvrtko.ursulin@igalia.com>, Sunil Khatri <sunil.khatri@amd.com>, Lijo Lazar
+ <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>, Yang Wang
+ <kevinyang.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Tao Zhou
+ <tao.zhou1@amd.com>, Gangliang Xie <ganglxie@amd.com>, Candice Li
+ <candice.li@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>, Matthew Auld
+ <matthew.auld@intel.com>, Luben Tuikov <luben.tuikov@amd.com>, Ville
+ =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>,
+ =?utf-8?Q?Micha=C5=82?= Winiarski <michal.winiarski@intel.com>, "Michal
+ Wajdeczko" <michal.wajdeczko@intel.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <intel-xe@lists.freedesktop.org>
+Subject: Re: [PATCH 1/7] drm/gpusvm: fix kernel-doc warning for
+ drm_gpusvm_pages_valid_unlocked()
+Message-ID: <aZ_gjpylcgG7PxPL@X299>
+References: <20260226030038.1182961-1-yujie.liu@intel.com>
+ <20260226030038.1182961-2-yujie.liu@intel.com>
+ <aZ+4sZoTzX4C/P2T@lstrano-desk.jf.intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <aZ+4sZoTzX4C/P2T@lstrano-desk.jf.intel.com>
+X-ClientProxiedBy: KUZPR04CA0004.apcprd04.prod.outlook.com
+ (2603:1096:d10:32::6) To SA1PR11MB8393.namprd11.prod.outlook.com
+ (2603:10b6:806:373::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR11MB8393:EE_|CO1PR11MB5186:EE_
+X-MS-Office365-Filtering-Correlation-Id: a250cf06-362d-4f64-53cb-08de74fbef90
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: gzbGz4GnSJT6JkOJtEzt9psiWkIUuGiQkzv5+rUTH/YU/I2DyOYb63fk6ihUBl28NFdtWD9bmGu0UZ+zW7RF/bJmAevILH4Hr/VHrQMTIyy0FIePGdco56PHwjSJFC4K3l71+zbVX7m/bpSq2kX2eEepxUTBAuGM0Gg//TEhHCQidlw2AQ9sY27CoE9KVccRYIKfFMX05qH5bh5R1IQMaUN9Jx6YFXWoc0hp1TR3FC4zyjQWnfKgj21XFUFTjCP6RGD5+MMcC6qkZg9XGQLLSUykuBuEZGBx2Ox633ei9vJfLMuYMjRzCzJSdAWrlVAVoG2rj1TQnYdva84DisyEhLMKXpoVEpSPQqKWI6zba8JxqRseUTxiY8YBQQE1AaKwLWFVcjNmY6uQ3k35jfuJr1+UByq1di9dqbXqHmMRl/+NIU8OBiZsN1RsEXA/Hmlyk02dQuWWzHngqCjLe3Y7edSSkDqXBgLIsqLVQepyc5R/2E0cI+4VPRrVbLnuD/pLLtKhFv4eHZmGogvRNVGVeuyF5yEUWjTXlTD/pENzJQ7htgqpL/8i7F+7ahSi9W1XCGsfKmkYht9xOrXyOX2Lbym2yPuRkEE4nXx6RV8J9euwqNGWLA4QMYo7MbjfL1f2lADA9Xc7iZ5LK6Mzes7qGr3+QCSOhpmdanm1hHdS8u7oqZx5ZNIw3RFz60JI02EDoyhCUCqWolq8RMJ86QPI41iGaiBbm3F7gU0/qSMVXG0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR11MB8393.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+QUcTZ9FJzhxZfaztWkMHRG5+NVAgVH9xNaEWdi4m0gA713olRslN5ePWyf0?=
+ =?us-ascii?Q?/4mCy8NquYg3kO5ulRo/UyAEwKBCwjrxKkoBLge9Y/AtyVBvbkyP7HoloOLn?=
+ =?us-ascii?Q?pnNWQ0mvC1vY3JlolPLqk+MTDwauYgTcmYVUgnaIC+iwIY4pXZQZ6eXxKCIF?=
+ =?us-ascii?Q?qA02ICz78/3Q0UwKikhV8igKAQcJmCvtBzRUx+nSkFtlxN50G3lhCJlUNfdb?=
+ =?us-ascii?Q?07VHfPVdOfnd3Fd6MGtr/bSYGKHzNz6sgJr3rSO5Ign8gyEVJw20NvBsVGlu?=
+ =?us-ascii?Q?p/bnIqYDeUV3+XuxGTiy6mYckJz1/kQVpbrdF3ElugDH5oHXXE9Jg3VGrtMC?=
+ =?us-ascii?Q?m0GEd9zXkRLy+GC9lhGEt1/en5NLFJ9mDfmaUZRhC+kdK3Z8QgnuK3GZUWxZ?=
+ =?us-ascii?Q?iNXeCEU5K0/0jodNDUYz8WKvXkkictZOJit+MjdMm2QQXFN98wuH3hS4ewXJ?=
+ =?us-ascii?Q?8zZSG5V0oxqMmvw0OG58zaUYMzp161vX4wz/+2gk+DQeXD21szk5l1mdT8ay?=
+ =?us-ascii?Q?E92wEItRigYUeRFMar2AENWB/gvhGCZJlIMKqVKEX95u/jrNmqkBY2VvuPeF?=
+ =?us-ascii?Q?HEpM0Y3GkMdFj+waBVItPrvdcNVl6c5fpnsqYexAkjLqJsF5Y4CY2D2q6uid?=
+ =?us-ascii?Q?0l1HN2MrswsZNAizcw84WHndXeMg0nwAXBusMlBTxziVx1zyjizSBkMUrmey?=
+ =?us-ascii?Q?ipwbqzqLnwY09AmJT10y71i9HtkSwaPbtgknoI5jSpcX5l1DZmtHEaqoijzC?=
+ =?us-ascii?Q?XTnwVzVaXeFwQJxeKMSiDT1rinHQzg8P32opBpi3lcQnMWZpPe3PalTjzXgy?=
+ =?us-ascii?Q?MnGP7JUC2R8SfOd+iyAuAUqA4S/8o26gxLvsJqQ1HKbqVY5RtmW582bWYQnJ?=
+ =?us-ascii?Q?/JQxPYp2OFM/xTU0HUagh3P0vv1ryZq0SpNa6OOsTTXcXrrnhISwjkyl1KYX?=
+ =?us-ascii?Q?3Dc9jpVIUcvS5B6RpxRu480yunM/ihd7o4OLxLAcge5my+ySVjs5gPui/Zlc?=
+ =?us-ascii?Q?LzkI5u02XaMD6e3pOAGM0MZ/S9ADrxfuyN/pL5synLBhTHfbxNla+wkmu2mO?=
+ =?us-ascii?Q?aN7ONE7un+Tj6aCXS1ToGRp0BvuGO0tNqVt7KOpcGz6SN82Rbb+r98h+DSyo?=
+ =?us-ascii?Q?7Bwcn6x/DybBNC8SQxhT1oug22rp8Ozct5z2AI3S1h3fuSfsbPSQig/fKhJ+?=
+ =?us-ascii?Q?ha87VGBlDZMDiCYdRzrGCCnObve64QwltWAIF57vH5WvMWiZun3RsCBrTUao?=
+ =?us-ascii?Q?K342hg01mMomdSfzefOjp93hX0LtxIsELxqW+hDljaVhJPUa+a8HsbNTeBPx?=
+ =?us-ascii?Q?rI3ei3YXjI8MdaGOwO/l26ilLSet24pG9iaDuhjjv8qmBpXXvD0GMg2qXxb6?=
+ =?us-ascii?Q?R5n90Vr8iGaHEBTpBg2SPeLNO79+ZArZqXDVNNs97jDa785dbf9BPYk0hOxs?=
+ =?us-ascii?Q?ukCyPJ8fIBSmNR1dGdekbFzVaH586Iy2c41nb7Q+3h5Ewo9bjE/Qr9lTKQEy?=
+ =?us-ascii?Q?Hx2nRZ6Cam1lTxJFIQMOnVxonlOj5m1DYpi6OkoVmtjI/q6RLbU6QVBMqC/f?=
+ =?us-ascii?Q?Yyo+Hjgm1eqfUM+vvOmF6IeyH1FcZLyRVzmBUxQOB5s+d0PQjXw3pH/WMBnJ?=
+ =?us-ascii?Q?LjgGOEJ9PyxNp69iXwZ6kmpavSsp0gE4mYtPQv+DCQTz+QXe0QqEqGgYH/sz?=
+ =?us-ascii?Q?02lHyxgmZ3rl47vphZwNhtbFX4thBMVHCfLVqRhIT+hPua2VgtmiH/oO4Sz+?=
+ =?us-ascii?Q?tF2mFxSSzw=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: a250cf06-362d-4f64-53cb-08de74fbef90
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB8393.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2026 05:57:33.9873 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w6DX/J7Cf5BoImjoQRymGwXZqB9OH/lX1nVw8tu39u2mpzEaJvqpKN5pPae1OH0AVoTvAZWw9BD+UeTXN/4wpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5186
+X-OriginatorOrg: intel.com
 X-Mailman-Approved-At: Thu, 26 Feb 2026 13:55:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,98 +178,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tuesday, 24 February 2026 11:58:53 Central European Standard Time Maxime Ripard wrote:
-> The hdmi_colorspace enum was defined to represent the colorspace value
-> of the HDMI infoframes. It was later used by some HDMI drivers to
-> express the output format they should be setting up.
+On Wed, Feb 25, 2026 at 07:06:25PM -0800, Matthew Brost wrote:
+> On Thu, Feb 26, 2026 at 11:00:32AM +0800, Yujie Liu wrote:
+> > Warning: drivers/gpu/drm/drm_gpusvm.c:1351 function parameter 'svm_pages' not described in 'drm_gpusvm_pages_valid_unlocked'
+> > Warning: drivers/gpu/drm/drm_gpusvm.c:1351 expecting prototype for drm_gpusvm_range_pages_valid_unlocked(). Prototype was for drm_gpusvm_pages_valid_unlocked() instead
+> > 
+> > Fixes: 6364afd532bc ("drm/gpusvm: refactor core API to use pages struct")
 > 
-> During the introduction of the HDMI helpers, it then was used to
-> represent it in the drm_connector_hdmi_state structure.
+> I fix this one already. Believe it merged yesterday.
+
+Thanks. I will drop this patch and respin the series after waiting
+briefly for possible comments on other patches.
+
+Yujie
+
 > 
-> However, it's always been somewhat redundant with the DRM_COLOR_FORMAT_*
-> defines, and now with the drm_output_color_format enum. Let's
-> consolidate around drm_output_color_format in drm_connector_hdmi_state
-> to facilitate the current effort to provide a global output format
-> selection mechanism.
+> 74b6e83942dc drm/gpusvm: Fix drm_gpusvm_pages_valid_unlocked() kernel-doc
 > 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
->  drivers/gpu/drm/bridge/inno-hdmi.c                 |   6 +-
->  drivers/gpu/drm/bridge/ite-it6263.c                |   2 +-
->  drivers/gpu/drm/display/drm_hdmi_helper.c          |   7 +-
->  drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  52 ++++--
->  drivers/gpu/drm/drm_bridge.c                       |   2 +-
->  drivers/gpu/drm/drm_connector.c                    |  14 +-
->  drivers/gpu/drm/mediatek/mtk_hdmi_v2.c             |   8 +-
->  drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             |   2 +-
->  drivers/gpu/drm/tests/drm_connector_test.c         |  80 ++++-----
->  drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 182 ++++++++++-----------
->  drivers/gpu/drm/vc4/vc4_hdmi.c                     |  18 +-
->  drivers/gpu/drm/vc4/vc4_hdmi.h                     |   2 +-
->  include/drm/display/drm_hdmi_helper.h              |   3 +-
->  include/drm/drm_connector.h                        |   7 +-
->  14 files changed, 205 insertions(+), 180 deletions(-)
-> 
-> [... snip ...]
->
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 4f5b27fab475c7c733622eb8727927571f3fb8fe..171cd495976a3e16f201fd339d3d42a09dc3b63f 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> [... snip ...]
->  
-> @@ -1424,25 +1424,25 @@ drm_hdmi_connector_get_broadcast_rgb_name(enum drm_hdmi_broadcast_rgb broadcast_
->  	return broadcast_rgb_names[broadcast_rgb].name;
->  }
->  EXPORT_SYMBOL(drm_hdmi_connector_get_broadcast_rgb_name);
->  
->  static const char * const output_format_str[] = {
-> -	[HDMI_COLORSPACE_RGB]		= "RGB",
-> -	[HDMI_COLORSPACE_YUV420]	= "YUV 4:2:0",
-> -	[HDMI_COLORSPACE_YUV422]	= "YUV 4:2:2",
-> -	[HDMI_COLORSPACE_YUV444]	= "YUV 4:4:4",
-> +	[DRM_OUTPUT_COLOR_FORMAT_RGB444]	= "RGB",
-> +	[DRM_OUTPUT_COLOR_FORMAT_YCBCR420]	= "YUV 4:2:0",
-> +	[DRM_OUTPUT_COLOR_FORMAT_YCBCR422]	= "YUV 4:2:2",
-> +	[DRM_OUTPUT_COLOR_FORMAT_YCBCR444]	= "YUV 4:4:4",
->  };
->  
->  /*
->   * drm_hdmi_connector_get_output_format_name() - Return a string for HDMI connector output format
->   * @fmt: Output format to compute name of
->   *
->   * Returns: the name of the output format, or NULL if the type is not
->   * valid.
->   */
->  const char *
-> -drm_hdmi_connector_get_output_format_name(enum hdmi_colorspace fmt)
-> +drm_hdmi_connector_get_output_format_name(enum drm_output_color_format fmt)
->  {
->  	if (fmt >= ARRAY_SIZE(output_format_str))
->  		return NULL;
-
-Almost unrelated nit: we might want to also `fmt < 0 ||` here, since the
-base type of enums is a signed int. I almost caught myself using this function
-as a way to quickly check if a supplied color format property from userspace
-was valid, which would've had some unpleasant consequences for the kernel's
-memory.
-
-Alternatively, I make my own switch-case based "is this a valid enum value"
-function. I probably should do that actually, but my laziness lead me to
-make sure we only have a single source of truth of what counts as a valid
-enum value.
-
->  
->  	return output_format_str[fmt];
-> [... snip ...]
-
-Thanks for your work on this series, I was afraid of getting rid of
-DRM_COLOR_FORMAT_* myself because I suspected it was going to be a
-fairly large refactor across every driver. Guess I was both right
-and wrong: it touches many files, but all the replacements are
-fairly simple. :)
-
-Kind regards,
-Nicolas Frattaroli
-
-
+> Matt
