@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20ECCFD5324
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEEC8FD5321
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A519910EA8E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9E6C10EA9B;
 	Fri, 27 Feb 2026 09:17:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YDzbCEdI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P1fg6RLY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B01FF10E96B;
- Thu, 26 Feb 2026 16:00:04 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 660ED10E9A4;
+ Thu, 26 Feb 2026 16:06:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 011DE61332;
- Thu, 26 Feb 2026 16:00:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10356C2BCB3;
- Thu, 26 Feb 2026 15:59:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3B30340571;
+ Thu, 26 Feb 2026 16:06:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9EE8C19424;
+ Thu, 26 Feb 2026 16:06:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121603;
- bh=kIVFsmXtBE3YuzRB+strxcrcOEXNDR/4sXDdnMV6RAw=;
+ s=k20201202; t=1772122016;
+ bh=FmPBc0NhfLgyYBRek3UGiwF5KRQmM91KdK9CMwNeb7A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=YDzbCEdIFAS3XGTFYeKhbBvMOHdk2GCv65NO1aAYs5h3azw9VRNLRJ9Fbn00BONBd
- XZ7Q5YtaGOLoNjN44S8s2loYRg9chGJoSdQqOQUCUSyyrTuMXpdER+QNm8x2gyF7L8
- ri1g5oeJ1OfZ/tOcgVd456us4+YacMZX/hr46U25NZBBgnaKDgHrOprTihC/bgFhA1
- RiYO1VO8vRpTLjdTKTu+uePcGEN6072PH5y/cukbIpk3bxRe2aKXlakKytXJdfNbg8
- CPNEVITwSY9we00NyTjK9lJzoNG5SDqRTyk7TCSii+0E3vkMGJPHWkJzKpDUpL4qH8
- o5DeOf1pEvh1Q==
+ b=P1fg6RLYZtOqeaPyYCSbcWnLY0bPAHJhLVTkuiLTNpt81BXrMXLx7a90piiz4kVDN
+ ZwEVP9yzroCTdwrjOyqkuQb1AygqTWpE4gSuCRmV+2JH97xaHBkhG2SGgwl49NKbzV
+ WVbG+Y9GnPqQlyVbwVwGRjXFzNLih5FQCDNkt6W3J15NYBkeyYiOTdvhexWLzISbG2
+ 3++3CE5I1Xq6GZic+my5GsrMK3uWBn0DQ/+aH2W6VhBfDrbLrsZnN4BJAoa0M3BVGG
+ eLSHGwn5gRXb9om3wP9dM99al/tcw4wxsP+jK1HoKsOyT3DKn944Re8Y40lRLwUPZD
+ AbEOCA/YNbN9w==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:20 -0500
-Subject: [PATCH 18/61] 9p: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:53 -0500
+Subject: [PATCH 51/61] security: update audit format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-18-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-51-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,23 +131,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3755; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=kIVFsmXtBE3YuzRB+strxcrcOEXNDR/4sXDdnMV6RAw=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0If6psvaFLhG5GB3QWW9P7h7vG/pnb7lxXs
- CZ+gDM6mG2JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCAAKCRAADmhBGVaC
- FdKIEADP6XMRuAe/OrAUfesmSxFdHao88/Flin1MLL7xtSytZJHGQ4CZFPmxHE0vn4cXVNtsXur
- 4lOmKOvGEvRgPNsggDD5qBh1Arb0M9DX0QxIvm/EH79Z0ptVoVu8m7SpOj6e6IQ3y6SFjZBjicK
- dO+LW3XgSPLXjy9hxv+oS432GzeyPdrOlNQF4wKgxYtRUc0dPnzDFSC1CqjNRxP+T7l5aySDOoe
- S8oLG4YoEk63+3sJj5kjGMBIFveg23IW0jalUkrEIl0D1ZSUvoSKpsoHYU1Y4XuIHGW63gfJskj
- /jwpRMnzoio+x5aNIiRplu8qY5Jo/nAnwCKdqddKWLeo3pys8P4TKPmEQ7gL2MsuAQ8feiD3hht
- hOkyH1vUB4bT6NZe7njX6tr7A6vvrgITD2WiVwput54LNflG7A3WKXLtV/UTR3QEdRAxxeJUfvt
- ooybLC4A0ZpJDd0YYSP4zGcUmWDvmBSUmBEbP8sD2mQNLoJMuM9h8OySjaQ9NZtx2iCuCS4Rxoj
- RciUZM5QkBcyuBTeD4YDGohYKBN4wgy9Gg3GdJ8fDeRjJytnZnFAx/dyUY7PTGqG+UwgfU94Fwl
- h3fv5Myhfxhuy1PDazOm/qHMj9NpBQAZiaLTm5d1PxJL0ih+NNN95P4uEvVH+76atxLGWmN8zO6
- u/SWlnT7tELjwcA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8060; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=FmPBc0NhfLgyYBRek3UGiwF5KRQmM91KdK9CMwNeb7A=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0RIkOUwB5FdByxBC3LRrIg3ty7KbK+nLDoh
+ QFlxOd+DmqJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEQAKCRAADmhBGVaC
+ Fd2qD/4sHrpKWPPkClKVMZa1IK2OiuALVNOenyP1HzN7a81bq2lSU/lTmH19YwylEeGJd6mAly/
+ Nlth2m2Wd1orRPqEGRyW5PLu20EtAstZ79tv44qr4Yiez5kOyntZhwtUM7asrWWJbBbgqqCM2ae
+ x+nr/CqLoQ0oxfSBX0IKn1P3095P5SUTv6jJM0baKx7pXP5fDHolobpbmfBIfvgPO6sVU/HptjR
+ hQayS2OjlhcNKyJK9yYP8sXDb1iEqUKEBILryQCfUeYOMZp2Tt5RwEt9zgYmkF4OoreIZ5NyVMP
+ ckk9U4Zy/iT2+/hvxSLlJ3FpQwMY8ezs8k1RB5Eb+QZprStMacIRl+QYeIphbQgCnN7iptIKxuk
+ X3BjKUXXUkLr9QkmpGjkLzLjObwxSNJOmhd+JuxDwVwkd16XM/3qhyeOSJTozf7mxwKK8BdJApJ
+ IgNRvWFB3pDfZTNYObJOeY5srE7RepL0u8IGsTSON8gQQ1wyZz8mudCi8FmSe1QV3YP1HAZ73/h
+ 5Jp33Gj41Y54Rc4i4+c1uCzQLaeVrZPZqye37ol/uMIfcRGl0BXbOpF1ByHps1s5H0A6VdYtMbE
+ B9iom5OtSG5rz9aEC58EdWdw+UPdz67cqbD4y4A/6xHMEv82aVmTMZuFFsEbg6NIJ5uQMfz41Au
+ sZrWk4IjaZWH7jQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,100 +162,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in 9p for the
-i_ino type change from unsigned long to u64.
+Update %lu/%ld to %llu/%lld in security audit logging functions that
+print inode->i_ino, since i_ino is now u64.
+
+Files updated: apparmor/apparmorfs.c, integrity/integrity_audit.c,
+ipe/audit.c, lsm_audit.c.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/9p/vfs_addr.c       | 4 ++--
- fs/9p/vfs_inode.c      | 6 +++---
- fs/9p/vfs_inode_dotl.c | 6 +++---
- 3 files changed, 8 insertions(+), 8 deletions(-)
+ security/apparmor/apparmorfs.c       |  4 ++--
+ security/integrity/integrity_audit.c |  2 +-
+ security/ipe/audit.c                 |  2 +-
+ security/lsm_audit.c                 | 10 +++++-----
+ security/selinux/hooks.c             |  4 ++--
+ security/smack/smack_lsm.c           | 12 ++++++------
+ 6 files changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
-index 862164181baca1e88ecf8859c55868bb01525ce1..c21d33830f5f021904f490ab6185db5fd40f736d 100644
---- a/fs/9p/vfs_addr.c
-+++ b/fs/9p/vfs_addr.c
-@@ -36,7 +36,7 @@ static void v9fs_begin_writeback(struct netfs_io_request *wreq)
+diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
+index 2f84bd23edb69e7e69cb097e554091df0132816d..7b645f40e71c956f216fa6a7d69c3ecd4e2a5ff4 100644
+--- a/security/apparmor/apparmorfs.c
++++ b/security/apparmor/apparmorfs.c
+@@ -149,7 +149,7 @@ static int aafs_count;
  
- 	fid = v9fs_fid_find_inode(wreq->inode, true, INVALID_UID, true);
- 	if (!fid) {
--		WARN_ONCE(1, "folio expected an open fid inode->i_ino=%lx\n",
-+		WARN_ONCE(1, "folio expected an open fid inode->i_ino=%llx\n",
- 			  wreq->inode->i_ino);
+ static int aafs_show_path(struct seq_file *seq, struct dentry *dentry)
+ {
+-	seq_printf(seq, "%s:[%lu]", AAFS_NAME, d_inode(dentry)->i_ino);
++	seq_printf(seq, "%s:[%llu]", AAFS_NAME, d_inode(dentry)->i_ino);
+ 	return 0;
+ }
+ 
+@@ -2644,7 +2644,7 @@ static int policy_readlink(struct dentry *dentry, char __user *buffer,
+ 	char name[32];
+ 	int res;
+ 
+-	res = snprintf(name, sizeof(name), "%s:[%lu]", AAFS_NAME,
++	res = snprintf(name, sizeof(name), "%s:[%llu]", AAFS_NAME,
+ 		       d_inode(dentry)->i_ino);
+ 	if (res > 0 && res < sizeof(name))
+ 		res = readlink_copy(buffer, buflen, name, strlen(name));
+diff --git a/security/integrity/integrity_audit.c b/security/integrity/integrity_audit.c
+index 0ec5e4c22cb2a1066c2b897776ead6d3db72635c..d8d9e5ff1cd22b091f462d1e83d28d2d6bd983e9 100644
+--- a/security/integrity/integrity_audit.c
++++ b/security/integrity/integrity_audit.c
+@@ -62,7 +62,7 @@ void integrity_audit_message(int audit_msgno, struct inode *inode,
+ 	if (inode) {
+ 		audit_log_format(ab, " dev=");
+ 		audit_log_untrustedstring(ab, inode->i_sb->s_id);
+-		audit_log_format(ab, " ino=%lu", inode->i_ino);
++		audit_log_format(ab, " ino=%llu", inode->i_ino);
+ 	}
+ 	audit_log_format(ab, " res=%d errno=%d", !result, errno);
+ 	audit_log_end(ab);
+diff --git a/security/ipe/audit.c b/security/ipe/audit.c
+index 3f0deeb54912730d9acf5e021a4a0cb29a34e982..93fb59fbddd60b56c0b22be2a38b809ef9e18b76 100644
+--- a/security/ipe/audit.c
++++ b/security/ipe/audit.c
+@@ -153,7 +153,7 @@ void ipe_audit_match(const struct ipe_eval_ctx *const ctx,
+ 		if (inode) {
+ 			audit_log_format(ab, " dev=");
+ 			audit_log_untrustedstring(ab, inode->i_sb->s_id);
+-			audit_log_format(ab, " ino=%lu", inode->i_ino);
++			audit_log_format(ab, " ino=%llu", inode->i_ino);
+ 		} else {
+ 			audit_log_format(ab, " dev=? ino=?");
+ 		}
+diff --git a/security/lsm_audit.c b/security/lsm_audit.c
+index 7d623b00495c14b079e10e963c21a9f949c11f07..737f5a263a8f79416133315edf363ece3d79c722 100644
+--- a/security/lsm_audit.c
++++ b/security/lsm_audit.c
+@@ -202,7 +202,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+ 		if (inode) {
+ 			audit_log_format(ab, " dev=");
+ 			audit_log_untrustedstring(ab, inode->i_sb->s_id);
+-			audit_log_format(ab, " ino=%lu", inode->i_ino);
++			audit_log_format(ab, " ino=%llu", inode->i_ino);
+ 		}
+ 		break;
+ 	}
+@@ -215,7 +215,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+ 		if (inode) {
+ 			audit_log_format(ab, " dev=");
+ 			audit_log_untrustedstring(ab, inode->i_sb->s_id);
+-			audit_log_format(ab, " ino=%lu", inode->i_ino);
++			audit_log_format(ab, " ino=%llu", inode->i_ino);
+ 		}
+ 		break;
+ 	}
+@@ -228,7 +228,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+ 		if (inode) {
+ 			audit_log_format(ab, " dev=");
+ 			audit_log_untrustedstring(ab, inode->i_sb->s_id);
+-			audit_log_format(ab, " ino=%lu", inode->i_ino);
++			audit_log_format(ab, " ino=%llu", inode->i_ino);
+ 		}
+ 
+ 		audit_log_format(ab, " ioctlcmd=0x%hx", a->u.op->cmd);
+@@ -246,7 +246,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+ 		if (inode) {
+ 			audit_log_format(ab, " dev=");
+ 			audit_log_untrustedstring(ab, inode->i_sb->s_id);
+-			audit_log_format(ab, " ino=%lu", inode->i_ino);
++			audit_log_format(ab, " ino=%llu", inode->i_ino);
+ 		}
+ 		break;
+ 	}
+@@ -265,7 +265,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+ 		}
+ 		audit_log_format(ab, " dev=");
+ 		audit_log_untrustedstring(ab, inode->i_sb->s_id);
+-		audit_log_format(ab, " ino=%lu", inode->i_ino);
++		audit_log_format(ab, " ino=%llu", inode->i_ino);
+ 		rcu_read_unlock();
+ 		break;
+ 	}
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index d8224ea113d1ac273aac1fb52324f00b3301ae75..150ea86ebc1f7c7f8391af4109a3da82b12d00d2 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -1400,7 +1400,7 @@ static int inode_doinit_use_xattr(struct inode *inode, struct dentry *dentry,
+ 	if (rc < 0) {
+ 		kfree(context);
+ 		if (rc != -ENODATA) {
+-			pr_warn("SELinux: %s:  getxattr returned %d for dev=%s ino=%ld\n",
++			pr_warn("SELinux: %s:  getxattr returned %d for dev=%s ino=%lld\n",
+ 				__func__, -rc, inode->i_sb->s_id, inode->i_ino);
+ 			return rc;
+ 		}
+@@ -3477,7 +3477,7 @@ static void selinux_inode_post_setxattr(struct dentry *dentry, const char *name,
+ 					   &newsid);
+ 	if (rc) {
+ 		pr_err("SELinux:  unable to map context to SID"
+-		       "for (%s, %lu), rc=%d\n",
++		       "for (%s, %llu), rc=%d\n",
+ 		       inode->i_sb->s_id, inode->i_ino, -rc);
  		return;
  	}
-@@ -133,7 +133,7 @@ static int v9fs_init_request(struct netfs_io_request *rreq, struct file *file)
+diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
+index 98af9d7b943469d0ddd344fc78c0b87ca40c16c4..7e2f54c17a5d5c70740bbfa92ba4d4f1aca2cf22 100644
+--- a/security/smack/smack_lsm.c
++++ b/security/smack/smack_lsm.c
+@@ -182,7 +182,7 @@ static int smk_bu_inode(struct inode *inode, int mode, int rc)
+ 	char acc[SMK_NUM_ACCESS_TYPE + 1];
+ 
+ 	if (isp->smk_flags & SMK_INODE_IMPURE)
+-		pr_info("Smack Unconfined Corruption: inode=(%s %ld) %s\n",
++		pr_info("Smack Unconfined Corruption: inode=(%s %lld) %s\n",
+ 			inode->i_sb->s_id, inode->i_ino, current->comm);
+ 
+ 	if (rc <= 0)
+@@ -195,7 +195,7 @@ static int smk_bu_inode(struct inode *inode, int mode, int rc)
+ 
+ 	smk_bu_mode(mode, acc);
+ 
+-	pr_info("Smack %s: (%s %s %s) inode=(%s %ld) %s\n", smk_bu_mess[rc],
++	pr_info("Smack %s: (%s %s %s) inode=(%s %lld) %s\n", smk_bu_mess[rc],
+ 		tsp->smk_task->smk_known, isp->smk_inode->smk_known, acc,
+ 		inode->i_sb->s_id, inode->i_ino, current->comm);
  	return 0;
+@@ -214,7 +214,7 @@ static int smk_bu_file(struct file *file, int mode, int rc)
+ 	char acc[SMK_NUM_ACCESS_TYPE + 1];
  
- no_fid:
--	WARN_ONCE(1, "folio expected an open fid inode->i_ino=%lx\n",
-+	WARN_ONCE(1, "folio expected an open fid inode->i_ino=%llx\n",
- 		  rreq->inode->i_ino);
- 	return -EINVAL;
- }
-diff --git a/fs/9p/vfs_inode.c b/fs/9p/vfs_inode.c
-index 97abe65bf7c1f00e94e431fc69dc5ce647d1742b..d1508b1fe10929d8d847af313f7661d693167d96 100644
---- a/fs/9p/vfs_inode.c
-+++ b/fs/9p/vfs_inode.c
-@@ -1245,7 +1245,7 @@ static int
- v9fs_vfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
- 		 struct dentry *dentry, const char *symname)
- {
--	p9_debug(P9_DEBUG_VFS, " %lu,%pd,%s\n",
-+	p9_debug(P9_DEBUG_VFS, " %llu,%pd,%s\n",
- 		 dir->i_ino, dentry, symname);
+ 	if (isp->smk_flags & SMK_INODE_IMPURE)
+-		pr_info("Smack Unconfined Corruption: inode=(%s %ld) %s\n",
++		pr_info("Smack Unconfined Corruption: inode=(%s %lld) %s\n",
+ 			inode->i_sb->s_id, inode->i_ino, current->comm);
  
- 	return v9fs_vfs_mkspecial(dir, dentry, P9_DMSYMLINK, symname);
-@@ -1269,7 +1269,7 @@ v9fs_vfs_link(struct dentry *old_dentry, struct inode *dir,
- 	char name[1 + U32_MAX_DIGITS + 2]; /* sign + number + \n + \0 */
- 	struct p9_fid *oldfid;
+ 	if (rc <= 0)
+@@ -223,7 +223,7 @@ static int smk_bu_file(struct file *file, int mode, int rc)
+ 		rc = 0;
  
--	p9_debug(P9_DEBUG_VFS, " %lu,%pd,%pd\n",
-+	p9_debug(P9_DEBUG_VFS, " %llu,%pd,%pd\n",
- 		 dir->i_ino, dentry, old_dentry);
+ 	smk_bu_mode(mode, acc);
+-	pr_info("Smack %s: (%s %s %s) file=(%s %ld %pD) %s\n", smk_bu_mess[rc],
++	pr_info("Smack %s: (%s %s %s) file=(%s %lld %pD) %s\n", smk_bu_mess[rc],
+ 		sskp->smk_known, smk_of_inode(inode)->smk_known, acc,
+ 		inode->i_sb->s_id, inode->i_ino, file,
+ 		current->comm);
+@@ -244,7 +244,7 @@ static int smk_bu_credfile(const struct cred *cred, struct file *file,
+ 	char acc[SMK_NUM_ACCESS_TYPE + 1];
  
- 	oldfid = v9fs_fid_clone(old_dentry);
-@@ -1305,7 +1305,7 @@ v9fs_vfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
- 	char name[2 + U32_MAX_DIGITS + 1 + U32_MAX_DIGITS + 1];
- 	u32 perm;
+ 	if (isp->smk_flags & SMK_INODE_IMPURE)
+-		pr_info("Smack Unconfined Corruption: inode=(%s %ld) %s\n",
++		pr_info("Smack Unconfined Corruption: inode=(%s %lld) %s\n",
+ 			inode->i_sb->s_id, inode->i_ino, current->comm);
  
--	p9_debug(P9_DEBUG_VFS, " %lu,%pd mode: %x MAJOR: %u MINOR: %u\n",
-+	p9_debug(P9_DEBUG_VFS, " %llu,%pd mode: %x MAJOR: %u MINOR: %u\n",
- 		 dir->i_ino, dentry, mode,
- 		 MAJOR(rdev), MINOR(rdev));
+ 	if (rc <= 0)
+@@ -253,7 +253,7 @@ static int smk_bu_credfile(const struct cred *cred, struct file *file,
+ 		rc = 0;
  
-diff --git a/fs/9p/vfs_inode_dotl.c b/fs/9p/vfs_inode_dotl.c
-index 643e759eacb2a46855c7db6187fe6b29b7534c9a..71796a89bcf4745363b59af1047ecfd7e3f4d956 100644
---- a/fs/9p/vfs_inode_dotl.c
-+++ b/fs/9p/vfs_inode_dotl.c
-@@ -691,7 +691,7 @@ v9fs_vfs_symlink_dotl(struct mnt_idmap *idmap, struct inode *dir,
- 	struct p9_fid *fid = NULL;
- 
- 	name = dentry->d_name.name;
--	p9_debug(P9_DEBUG_VFS, "%lu,%s,%s\n", dir->i_ino, name, symname);
-+	p9_debug(P9_DEBUG_VFS, "%llu,%s,%s\n", dir->i_ino, name, symname);
- 
- 	dfid = v9fs_parent_fid(dentry);
- 	if (IS_ERR(dfid)) {
-@@ -734,7 +734,7 @@ v9fs_vfs_link_dotl(struct dentry *old_dentry, struct inode *dir,
- 	struct p9_fid *dfid, *oldfid;
- 	struct v9fs_session_info *v9ses;
- 
--	p9_debug(P9_DEBUG_VFS, "dir ino: %lu, old_name: %pd, new_name: %pd\n",
-+	p9_debug(P9_DEBUG_VFS, "dir ino: %llu, old_name: %pd, new_name: %pd\n",
- 		 dir->i_ino, old_dentry, dentry);
- 
- 	v9ses = v9fs_inode2v9ses(dir);
-@@ -798,7 +798,7 @@ v9fs_vfs_mknod_dotl(struct mnt_idmap *idmap, struct inode *dir,
- 	struct p9_qid qid;
- 	struct posix_acl *dacl = NULL, *pacl = NULL;
- 
--	p9_debug(P9_DEBUG_VFS, " %lu,%pd mode: %x MAJOR: %u MINOR: %u\n",
-+	p9_debug(P9_DEBUG_VFS, " %llu,%pd mode: %x MAJOR: %u MINOR: %u\n",
- 		 dir->i_ino, dentry, omode,
- 		 MAJOR(rdev), MINOR(rdev));
- 
+ 	smk_bu_mode(mode, acc);
+-	pr_info("Smack %s: (%s %s %s) file=(%s %ld %pD) %s\n", smk_bu_mess[rc],
++	pr_info("Smack %s: (%s %s %s) file=(%s %lld %pD) %s\n", smk_bu_mess[rc],
+ 		sskp->smk_known, smk_of_inode(inode)->smk_known, acc,
+ 		inode->i_sb->s_id, inode->i_ino, file,
+ 		current->comm);
 
 -- 
 2.53.0
