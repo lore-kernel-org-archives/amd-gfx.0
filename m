@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35454FD5336
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9096EFD5334
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A53510EA9F;
-	Fri, 27 Feb 2026 09:17:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E30E010EA94;
+	Fri, 27 Feb 2026 09:17:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KTS2PWGC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="N/iU9fkY";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 447A910E96B;
- Thu, 26 Feb 2026 16:02:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5115210E9A6;
+ Thu, 26 Feb 2026 16:08:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1B311440BA;
- Thu, 26 Feb 2026 16:02:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B310CC2BC86;
- Thu, 26 Feb 2026 16:01:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 745C86013C;
+ Thu, 26 Feb 2026 16:08:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECC59C19423;
+ Thu, 26 Feb 2026 16:07:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121728;
- bh=YTbr7TKt4LQ2o1+jxlObzx7emPxn1Oeq/I0LezRxo6Y=;
+ s=k20201202; t=1772122091;
+ bh=QVP/A0Wr2Abx3BWIf3M/CTqVpPmV8SXmSE5S4tBQdB8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=KTS2PWGC6R9Sylx3hK9EcI/jfttT97QjRqd4AxXZUUK2JrVz0ftTQ/sVqVpNcj4eO
- x34z5H3Bp+9OPPDwFyhn+iHp2VkfykINv4c9c6+QMG28V8N8KPeLaFGRC/bLjUttS2
- FnuDol5Y0RXjQ0cI0VQJFRBbWVJO6yRgUFs85sQu80Rc0dBsfXAlHLyt4ofWn4lpvG
- n2+A4jL7FsRm6RFi0xVb1CxYgffoFDsAdB/eWsn14lebKKPT2qtt1HYSch9UwRjAhT
- 36q57LVuDl9ME+VWcfuj36QVmM+TDuiK/XhR4RVuQmT+n89sm9P5XsxkNMhU9uzjiX
- kVoil9mKcnsOw==
+ b=N/iU9fkY7C+X0gBA8Fi8wI+B9cgJ3ZSt6kN4EuqYE+eP8vng3qyDWNfsyIhvtKLdH
+ b+b4Aulfg3FxrO0Nm/YcWTCOcXO8KCjAYbQRgQ7mVqFUqT4sm4WDf0eBVloGkV76Qr
+ nzuEqM5tBQz8ltYFpBlQxn9/JiVP72na6rLnacqYsI4nNdpxGTgdAMyZLHYRXq/4hX
+ iUesVZMqUqLc1V+1j2OQrGrDnS19dzjRGvGlWMVyWmletccEF567lF82pATRt0e1O/
+ TjpBPU5Ieg1IbZKo5hjqzncuK/qa9dvo9N2Li7BzU0aNxcuEYodPJfkpyZdtWwQ3zU
+ M4VIYqh/JOBMg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:30 -0500
-Subject: [PATCH 28/61] ecryptfs: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:59 -0500
+Subject: [PATCH 57/61] fscrypt: update format strings for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-28-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-57-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,23 +131,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2296; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=YTbr7TKt4LQ2o1+jxlObzx7emPxn1Oeq/I0LezRxo6Y=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0L4Mj1AxIDQm1k1xmtwQArsrOZBQzBXsRIl
- tJOq34H56SJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtCwAKCRAADmhBGVaC
- FYHFD/9/4SmDq0NVf4WyTJj1QscpH29q4srVz/eMwSxi0pL+MnvNyTuo59lf1LRqS3dEpDBzDYJ
- DiZ01OllPxKnt8d4cJhXmfuIURz6vvcDRxuYsedQe4ns8+CcAl7xfzom83oshqp7Ja36Nqx7X1E
- NocldtEIlx/Xeb1waUhyR91Tg2yVfnsLWdlYaBiIy529/ksoQihkbkepd8QVGAVlP44SnqfVEyn
- HbUx6CUjW4bfMZ4N6flUhVl78JBAHpZ1rn6jNxdGOXhL++NZCwCHZ7q5OhhpDYF0iSdfelnzUsU
- 5zjIIg3pCzsznlwpIlqYIoIeVGF22rauK90zWoDPByftW6+t9XFEVCTTGZdihafkl502Cld+4cW
- 9Ma20UDTYRBB2WOflt4RgpKuKQSRY31MPpLYp0QmUkrn8cG3Qhf+MPxRXrAmKTPh44k4xSRmNeY
- UIWoy//TjdKKCa/DHvCQ6R8BUC9/xdLut6keDa985ONgQ6y7Jhf+JHrn01215JzBAYXqNYhZlNw
- Q0UNmqycS3rp/nY1u8a+JOzH6rwCIw60HOclnd2vrEvaNKF46a0I9nAO6JfL2D5BbGGW2dqhwCt
- lIO4QxejAs5/blU84QUTM6sWE8ra1z4nUEP/3JR7Ox4CodTj+5LIsx7AsH/jviyD86jq++0GzBh
- l0kMb25Ke5SmJqg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2279; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=QVP/A0Wr2Abx3BWIf3M/CTqVpPmV8SXmSE5S4tBQdB8=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0Sq+j7M9feeeWsEEfnIcsU2CbAxEDqyZD2b
+ 80+R1w14vOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEgAKCRAADmhBGVaC
+ FVKJEAC5sid11Go6fuJI7CWXgk/4O9Urmq5+faYtXDswS3e3Xney5z3y6yARF5s8jF6mfhgzQla
+ vQ5vaTZ4z5mXQy/RAzR9sUFhWtITbMTuDCT5t/OkYsBp8k7TwPqeEVypA51Ep4SVoYatBJBiLQf
+ 2fat2kabGqKEdxfCFhYZ/T/0dQV3iRAt9D43qR/WxIm6MSoTlo9YHWCG91yTvgD0CJW04McaD9e
+ nABf28Ev6HbF1zoK9hLfjRiwAC29acMvnrI3Im5gXXzJ3e46OOwusoMZtJhXXd2agPTunLgXcRl
+ +/ycDsR+Tty6dLu6VAPvTR3bnQezZb781kcYoTcQIWu/ddCkKz0VN6tP3bv0JkLuXRGp5oMuJvs
+ FLd0RNjIJ8Ld9Cxg6Okd724968ObOXOBed5IGmMNSiyI1onguOK2GPh5Y4UcuvhDl3Hb9B3YLPv
+ GQoEkhHN0x/lNXU8GCxcaTPkOHjEdaymP6yleBH4f2aw30WmtBhphVmnABJ3EIHcDVimT+dukC3
+ 7UJg7jQn/8YGDHpTw5kC/uLPLgLMuwHYtsmRsnrvs61gYC+3Qtk3Y7gYe4FIJx76xaByCFyzY87
+ rBIQo95KFdLZQVVKUfEH8H44JnZ0KGwlz9muKgqItA3T9f5veP4BQOKpi5i+iTywd4a4kYDOPcK
+ EQzZuVxQyu+fRsA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,59 +162,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in ecryptfs for the
-i_ino type change from unsigned long to u64.
+Update format strings from %lu to %llu for inode->i_ino now that
+i_ino is u64 instead of unsigned long.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ecryptfs/crypto.c | 6 +++---
- fs/ecryptfs/file.c   | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ fs/crypto/crypto.c   | 2 +-
+ fs/crypto/hooks.c    | 2 +-
+ fs/crypto/keysetup.c | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
-index 3b59346d68c594fcd7e27bae87849d3e19eff56e..f25c9a49e251a591695a143f64d1a81c5211ec18 100644
---- a/fs/ecryptfs/crypto.c
-+++ b/fs/ecryptfs/crypto.c
-@@ -1313,7 +1313,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 		rc = ecryptfs_read_xattr_region(page_virt, ecryptfs_inode);
- 		if (rc) {
- 			printk(KERN_DEBUG "Valid eCryptfs headers not found in "
--			       "file header region or xattr region, inode %lu\n",
-+			       "file header region or xattr region, inode %llu\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 			goto out;
-@@ -1323,7 +1323,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 						ECRYPTFS_DONT_VALIDATE_HEADER_SIZE);
- 		if (rc) {
- 			printk(KERN_DEBUG "Valid eCryptfs headers not found in "
--			       "file xattr region either, inode %lu\n",
-+			       "file xattr region either, inode %llu\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 		}
-@@ -1335,7 +1335,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 			       "crypto metadata only in the extended attribute "
- 			       "region, but eCryptfs was mounted without "
- 			       "xattr support enabled. eCryptfs will not treat "
--			       "this like an encrypted file, inode %lu\n",
-+			       "this like an encrypted file, inode %llu\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 		}
-diff --git a/fs/ecryptfs/file.c b/fs/ecryptfs/file.c
-index 7929411837cf5b2e98e1d4288791d2e07c44a4eb..49b0fbe0428a2d202434ce4b5fd7d82d2a63cf58 100644
---- a/fs/ecryptfs/file.c
-+++ b/fs/ecryptfs/file.c
-@@ -253,7 +253,7 @@ static int ecryptfs_open(struct inode *inode, struct file *file)
- 	if (rc)
- 		goto out_put;
- 	ecryptfs_printk(KERN_DEBUG, "inode w/ addr = [0x%p], i_ino = "
--			"[0x%.16lx] size: [0x%.16llx]\n", inode, inode->i_ino,
-+			"[0x%.16llx] size: [0x%.16llx]\n", inode, inode->i_ino,
- 			(unsigned long long)i_size_read(inode));
- 	goto out;
- out_put:
+diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
+index 07f9cbfe3ea4115b8fcc881ae5154b3c3e898c04..570a2231c945a6c649cf8dc3b457f0b55657e0c3 100644
+--- a/fs/crypto/crypto.c
++++ b/fs/crypto/crypto.c
+@@ -365,7 +365,7 @@ void fscrypt_msg(const struct inode *inode, const char *level,
+ 	vaf.fmt = fmt;
+ 	vaf.va = &args;
+ 	if (inode && inode->i_ino)
+-		printk("%sfscrypt (%s, inode %lu): %pV\n",
++		printk("%sfscrypt (%s, inode %llu): %pV\n",
+ 		       level, inode->i_sb->s_id, inode->i_ino, &vaf);
+ 	else if (inode)
+ 		printk("%sfscrypt (%s): %pV\n", level, inode->i_sb->s_id, &vaf);
+diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
+index b97de0d1430fd6ec764f4a758dffe00263496118..a7a8a3f581a0460537f5ff955bc8b5d30573a033 100644
+--- a/fs/crypto/hooks.c
++++ b/fs/crypto/hooks.c
+@@ -62,7 +62,7 @@ int fscrypt_file_open(struct inode *inode, struct file *filp)
+ 	dentry_parent = dget_parent(dentry);
+ 	if (!fscrypt_has_permitted_context(d_inode(dentry_parent), inode)) {
+ 		fscrypt_warn(inode,
+-			     "Inconsistent encryption context (parent directory: %lu)",
++			     "Inconsistent encryption context (parent directory: %llu)",
+ 			     d_inode(dentry_parent)->i_ino);
+ 		err = -EPERM;
+ 	}
+diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
+index 40fa05688d3a1d4aa33d29e9508441faf4bca933..df58ca4a5e3cb1df94e2f08e3f3b093c33368993 100644
+--- a/fs/crypto/keysetup.c
++++ b/fs/crypto/keysetup.c
+@@ -91,7 +91,7 @@ select_encryption_mode(const union fscrypt_policy *policy,
+ 	if (S_ISDIR(inode->i_mode) || S_ISLNK(inode->i_mode))
+ 		return &fscrypt_modes[fscrypt_policy_fnames_mode(policy)];
+ 
+-	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %lu, which is not encryptable (file type %d)\n",
++	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %llu, which is not encryptable (file type %d)\n",
+ 		  inode->i_ino, (inode->i_mode & S_IFMT));
+ 	return ERR_PTR(-EINVAL);
+ }
 
 -- 
 2.53.0
