@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEA71FD531C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E73FFD531B
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:18:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20D1610EAD1;
-	Fri, 27 Feb 2026 09:18:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7E1C10EADC;
+	Fri, 27 Feb 2026 09:18:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TeEU7zeU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MTzuK409";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B91610E9A3;
- Thu, 26 Feb 2026 16:05:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2347010E9A6;
+ Thu, 26 Feb 2026 16:07:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E8E1A40284;
- Thu, 26 Feb 2026 16:05:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B825C2BCB0;
- Thu, 26 Feb 2026 16:05:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E1EE840301;
+ Thu, 26 Feb 2026 16:07:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546B1C2BCAF;
+ Thu, 26 Feb 2026 16:06:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121953;
- bh=NT9GoCKrhJHxzJaFVzYs+iwgpSzcQsNFzrkjPRxmI4A=;
+ s=k20201202; t=1772122028;
+ bh=7K/FmEuDwTdjSg9C4rAKy27XY8EaYM64Jbqxib0imtg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=TeEU7zeUNxSpMMkN46e9L3j3aOlE0vDkwCXGq1PJj/CHTmYVutZnXL5F8MKin4JrP
- A2G7qUafg3ehXB/Blk5az8FIg9TANb7MNemEsXrYya0b5Fvst66jtyIF6YUJ7v27VK
- z3EYy1wCaHSO5b901ZxcnOkCEAbffwTCLfaayIvm7hBm7inmuRzrEp8G8PGlf7TbUl
- iQJDbzU/9ZKHv9IW/GHirGk7LZ1m1u23z3/nlVfBjjNaKKqYUxY3x72+ZQPhCC4a0+
- ObSwwws+YwOg9yQP55KRghBkVnGX8DhzzxIwaxbgZGpifL5ay0WcCfXOGZzl3mHLfb
- GCRq348a4qFaQ==
+ b=MTzuK409usSF/cCRJwKXtZdkSE+7pHi8yAZ9UZ76L5NsHfF5ERt7nC6cuK6PyEV6L
+ wuPk+HwpV4SYjH4tCBsNgiI/678QKspeymc5VXcjQXnq70cN/JUrG+t75ZyU/HFl3v
+ IJlI42/zJZkvI9VmjeDxiHpkaLAsKRxdoGmJ5kZFm2BOFKtZP0fiIPawonOspYjOYh
+ ElsV6nhu1rfvM7+lq9jzj9SzP31ih3vT+/mK4TWTONAfGnk4jDs0Z4HSGmkmhX5MPm
+ l6O6P6KmcK4u8AF0coLoixJNbAxHMZED6GQQ46ntc5J7spZJa0dE7vmlt628I3T4XT
+ +I1+GhJYaCqkQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:48 -0500
-Subject: [PATCH 46/61] qnx6: update format strings for u64 i_ino
+Date: Thu, 26 Feb 2026 10:55:54 -0500
+Subject: [PATCH 52/61] drm/amdgpu: update for u64 i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-46-ccceff366db9@kernel.org>
+Message-Id: <20260226-iino-u64-v1-52-ccceff366db9@kernel.org>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -131,20 +131,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
  linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=757; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=NT9GoCKrhJHxzJaFVzYs+iwgpSzcQsNFzrkjPRxmI4A=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0PPx4vgLzFRyqyCgx4J34+XZiyaw/sSPdij
- GSRivfac1mJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDwAKCRAADmhBGVaC
- FbT2D/9FjLqJOuCZ/iHUB6fXfFS0PRvj7GjtXh3TEl7mBaBqwoKn2tiJVhj8uIoLDInua9zDarS
- kj49CPCKVHUju5nyjzd4AYbAyvz+bLNRXpkiv+wwBafITWWLDAUBYHd3khfRwC7Zf2/GsbtOqra
- G0PjEIwc+ggLzHWlwJkaatzkAnwHg5mOg4skMPzKOTrAesBH0B/ud00dXWV41oUIPXO/zVBKa5j
- HlgW2VN0KHdXbenXBNwgZCva8rq2Yk0gvoe4F+hxSCKC6jVrstMcij8oTQRe4XdYBLW6j93GZ1l
- Bz+pZzyG/BEAqMQlDpq02p1pUK3Iq8wVtspVp+kenzKWBcRFzQzrgTze7VnpKUlLX/zqVduXx5+
- I31MduvitvhgUpJGk5SMbjgZhl650TRGucqbdCl51NzVhjfbT2ynMIyUE9lydocd6jRa34VJ4lV
- 8HsbsnPB7bZvLUBGy9FSb03giKnQ5Af6PWhWgr/PZU63A9s3GhqIyla4lD3Bv/7vZ3poxaSpFb0
- UZOZoc19F0oKz49lInvML8oh0Zc+DLugGv49Fg2/DhdKc/ZNcLda4sZOipoNBhNkB5PhTVKOi1M
- Undibt3NU51UZyvlBAQGdE+ZbWo/s/gnPJPNhUQcUFSn86PjjdYzZ1wCSODoogl3UhmOdIQbV9R
- R0VSmXPaEkSynww==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1179; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=7K/FmEuDwTdjSg9C4rAKy27XY8EaYM64Jbqxib0imtg=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0RH0BlVgd1hc2ARIapdMesOcS14opM003NR
+ 0erAY72K1uJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEQAKCRAADmhBGVaC
+ FVkrEACFYDnqY+DXVKQGR0Z58808QWgMd5pKPx2DTRKvHR17M3Hp++u6sixkYKtqtN5Vgtjtves
+ COCxrY5lB6ULDLg/YhlBrempWhSvAlbQnsrmNV1Vz4kpbHhknIPakEgxTz1NH2lBS3Gh2z6yTkh
+ vq4UOlQjzeLuBVa8St9lXEr6JyYIMYlccfZ6wvlGG32nzar5ePPSRk22lJixkBhqiK2zYyW/qza
+ dQMjurfZLFcy0HxoBnoy14C2/TgwvEf+hSykLI5YwCnOfyZnZ9ymGxexwtDoTn5ew7qLwuO0+Yb
+ 13buCK6sXK6vZDcJqU1pObj+2Q+OhPftmJoGVBwYZhvyb5B7NJsgsFllJ7AvzW519vIYgF/CZ/j
+ vwmDwyGT8qiQbeCAeWlK/t7xRN/FFYxTNDN5/aAATKmOCGE/v1TjgrV3Aha7It/M1Yvc/Gp4hTe
+ gJdO5OQEF2tRaq/FqrRPOJRWPPqruBbOfz7WyLHAgVBSFcIzU8sl3p9GXiTZP2TYRcLpRQ3m33e
+ yhVzI4bWSiqG+WeMlfMvzndN98pBgwCnDN/d5Zr09Jy777jlU4bqCdVDj/L8ryxSWfU7CXDVqUO
+ g1hF/vxaNXaMtE4O62LJCjZI/tDh7Uw/IvtWG1FQHdgeWA/PJNtmZnA7jY6iekxKbYCjsmTkZ7k
+ YT8fFRkl5728AJw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
@@ -162,27 +162,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in qnx6 for the
-i_ino type change from unsigned long to u64.
+Update %lu to %llu in drm_info() calls that print inode->i_ino, since
+i_ino is now u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/qnx6/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/qnx6/inode.c b/fs/qnx6/inode.c
-index c4049bb8bd60d47f9edd3d724a5d5be6b5deb5ee..73c9c456ecdfcbecee677877e9b1d5dc65071d43 100644
---- a/fs/qnx6/inode.c
-+++ b/fs/qnx6/inode.c
-@@ -75,7 +75,7 @@ static int qnx6_get_block(struct inode *inode, sector_t iblock,
- {
- 	unsigned phys;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 1fb95640069667bf731df05990b57c6e0a0d2c16..aaa8cdc122c49ebf0b5b6c55edb3a1db2a4fd710 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1676,9 +1676,9 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
+ 	attachment = READ_ONCE(bo->tbo.base.import_attach);
  
--	pr_debug("qnx6_get_block inode=[%ld] iblock=[%ld]\n",
-+	pr_debug("qnx6_get_block inode=[%lld] iblock=[%ld]\n",
- 		 inode->i_ino, (unsigned long)iblock);
+ 	if (attachment)
+-		seq_printf(m, " imported from ino:%lu", file_inode(dma_buf->file)->i_ino);
++		seq_printf(m, " imported from ino:%llu", file_inode(dma_buf->file)->i_ino);
+ 	else if (dma_buf)
+-		seq_printf(m, " exported as ino:%lu", file_inode(dma_buf->file)->i_ino);
++		seq_printf(m, " exported as ino:%llu", file_inode(dma_buf->file)->i_ino);
  
- 	phys = qnx6_block_map(inode, iblock);
+ 	amdgpu_bo_print_flag(m, bo, CPU_ACCESS_REQUIRED);
+ 	amdgpu_bo_print_flag(m, bo, NO_CPU_ACCESS);
 
 -- 
 2.53.0
