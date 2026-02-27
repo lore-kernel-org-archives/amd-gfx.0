@@ -4,90 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90E6AFEFB56
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 14:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C143AFEFB54
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 14:16:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25DBB10EB91;
-	Fri, 27 Feb 2026 14:15:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C40A10E18E;
+	Fri, 27 Feb 2026 14:16:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GY1lD4nn";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="k96Wvzmf";
 	dkim-atps=neutral
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
- [74.125.82.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86A0710EB91
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 14:15:54 +0000 (UTC)
-Received: by mail-dy1-f175.google.com with SMTP id
- 5a478bee46e88-2bde2674894so68794eec.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 06:15:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772201754; cv=none;
- d=google.com; s=arc-20240605;
- b=IvebnzIRFUHmGeNepRnBQObzjSUstz4WrNaPTQlyKWr6wUjGHsaQWwQHRlPNwY7+3t
- XZCna9fKHhqTQRL0VakymqROza6WrnmSmB3G4X3N5iqLWmp6VgOAjoXAGmuedYZJkj1f
- /cqYFglI13pp5KUkuRi4rHMJRWuhiKHde6jp0zGn9koqPRaMQNkWd7mUWgBoy6wOLfUi
- gGfbQyuiI4mga10POKvl+2zly0a22gQrRGWjBZ01w4TVWmir5JRl9jAqER9FrgEVtEmv
- QlHGe3sPE+34mLTS4+u/1V025tp2OCgbosk49qt7QkjP1VtXD1z3x3MtlQjYGtFG6qLJ
- BoPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=FDGG2eMGK3eChCkiMnr0ODzJ1+O+mYmXM68Z+wUVoIY=;
- fh=gf4np/dma38JjuJC3NR0JaE+G2nPdt83N0TFJFd1b58=;
- b=SD3vQxyj8p50SuW4l6GvLetc8Vy59MU9CTpNqGzrlN2viElYYIigaYARjDhaYP01OJ
- ANwgrum5JUZxsQFr+p6RugrTzpb7QuPm1/2kalX/d9ofkG7M5Y6/bmtl7UdQkwjqFiLF
- 2KbpZjhYw3zbKy8L/M3QW7XWX2g1b+8qLvElJYiWroSnlMMGAFAyCHvBQQXQ1xM4O4jK
- s4Df4qd0kinooBvYt02PbQmSlOK7zyzImCiBoKXH7xVQK66G23n5g0W0tIny/9LqoK4x
- hxQ6rxf5sydRCftGzeDGT6V8A06rfD0zeQ25tfSi8p0jkAoWOPkr+M7kE/z0PgcKKmhp
- OS/A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772201754; x=1772806554; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=FDGG2eMGK3eChCkiMnr0ODzJ1+O+mYmXM68Z+wUVoIY=;
- b=GY1lD4nna03XgXHhA1kp+SjjUEV0fhG/vpGfXW/fBP5etmOuKHqwCb/A7KqlmvjP6m
- CmhIT7QnYyOlakh62bdDVcA3cXkHhQVs/SE9SPsC/ejVYWrs0BoiquQDkyEh9M1j/ztj
- Jk10CE3pAP9O+0JlZyZ/CYA0LRevqWKoXFZG9tFQOYwQZwV4F73AF9dCO3fKjkHS2L+1
- K+5zK1Vjp9xCYNDcLp1JzThNjtqO4dTiUVwsm6rBiTf0bbT3SordR6GtlMG/ORd5Jma5
- yVRUo52RBNQBskwtW43EG+EDXUiSN5Lor7FDMS8CMIQImRBNE6C+pbOFPOZZsLGMI7o7
- N4TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772201754; x=1772806554;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=FDGG2eMGK3eChCkiMnr0ODzJ1+O+mYmXM68Z+wUVoIY=;
- b=XQvQDkhPnMBmm590k9EBL+5BHvupsF6Oqf/bh2WwN5iyQy/lEQlwhBNGm5S+/mUqsE
- axqr736fhAgAfm8om9jhgTf2uuTWVCUEFINkKlsJls9ILFaVHkIu8Huj9Wp4aayssjp4
- UsGtquCBXVhJIOhbeMTSuVo7PMl0+MyK0auNZlgnwQYUF8ko0Uk/3NsAlEliRSOagWxs
- Dh+0jZnbaY9Hg3TKA2QfcOCbaZ69+G8g2FBH3VAZmxCJRl21ZMiun2SBuUXAWC7nK2Sr
- rISHzKGod63O+wkthgVVo9nHRS/3Q6AN/1SQ0S7LIXKnpm6/GpqnohpMhjn7jc8qww9x
- 2dSA==
-X-Gm-Message-State: AOJu0YyrVACwK6yV1PxMAXTzlm0OjzwNmoPmK2gXT7l+nwCzJJm2ep4M
- wibTKn204D8s2ZK1i9HOsVdcpqZb5vRqO7H6yUPP1hl3YHvJwF2UnZUx4CtwCoHNtxhXx6z2JqX
- d3HnnHjIMQO3apa60oOjT7oGX+lCzlew=
-X-Gm-Gg: ATEYQzzQYJzShkLtPOgegzg77y5JEmGvIqb6YZjDYwakNpe2qt20jjtoPvhyhqTIsde
- N+UsFF4PKVkW8BMvscqY/3VAKHcdY32JAB+h1bqWPYT+v1aqvSkCghW91JycqcLjTxvC8YVzfkW
- ULDYRNIcmuSDpnB/9qHeVbCWdVtCZfG3pVXhkDxUspSa25bpzzBPAbUYTnfbfMkqineQVdHJR9K
- IGthIzZ3o6eXk9oM3X2FB7T6tMqYQtahIHQ1AS3a5fc29KuYflNBGXNLAoPN7eR4vYsMTZb2bVr
- Ji1cmMNcIIOp4g0f9tpr0f+K4uHLmxPs7MClqVmM3tG/9kfqPorD1XU3cOipQTXOYuUwfA==
-X-Received: by 2002:a05:7022:ec12:b0:122:33e:6ec1 with SMTP id
- a92af1059eb24-1278fa835a9mr588889c88.0.1772201753368; Fri, 27 Feb 2026
- 06:15:53 -0800 (PST)
-MIME-Version: 1.0
-References: <VI0P251MB11869B2637BE556CFA76E6C89772A@VI0P251MB1186.EURP251.PROD.OUTLOOK.COM>
-In-Reply-To: <VI0P251MB11869B2637BE556CFA76E6C89772A@VI0P251MB1186.EURP251.PROD.OUTLOOK.COM>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 27 Feb 2026 09:15:42 -0500
-X-Gm-Features: AaiRm51lPVGx49GlFmA7VFNlIt3KcMojw06MPNfX2KfAFR5MNjPUlV4Am1__6is
-Message-ID: <CADnq5_MTCBEcdu_c_4g=-fq22negivw_98r_NOzmnAHVXkdL=Q@mail.gmail.com>
-Subject: Re: Inquiry: Raven Ridge `RLC_RESTORE_LIST_CNTL` failure (0xFFFF300F)
- on Kernel 6.17 - Missing GFX9 fix?
-To: outlook user <RACP@outlook.fr>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 967D010E1BF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 08:55:49 +0000 (UTC)
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 61QMZNoT1887407; Fri, 27 Feb 2026 08:55:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=yEoWWB
+ TLUI0tgWA8yfsxm2q7FGxZdJJE0qIEmnGTgvU=; b=k96WvzmfzgFQ++7h0wsIYm
+ IaDPdeoM567z05RjiQz9LiJ+2NtUxoF37rD8ctb6XzklbkEcdolzyaAJh/qW9mIP
+ XDpHhLXRTTa90FNDPMlwx8JIbaHVprLZkuqqyQ2IBVhIzkG9mm6I36AIqzrcx/Yk
+ vYiFm5g+lzeZ917Pawm2LEuD4wCdeRnsJQMnIaHRT1tCMmCrK7hkkcKuiI3gCrBg
+ MZGsANXelCOvTi3jjIUlPBna4jTvi2fgqNJ0BHTms/vyc+0e9vd5a3AzW2iUtFfS
+ aTOfKaYiyWImXS7osMTwqKkjiIDQsoCVN/vZsIOhvZSFNkseqfNG21lTdWJUNccQ
+ ==
+Received: from ppma21.wdc07v.mail.ibm.com
+ (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4cf24gu0bm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 27 Feb 2026 08:55:46 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma21.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 61R73MpD001646;
+ Fri, 27 Feb 2026 08:55:45 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+ by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4cfr1nh7kr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 27 Feb 2026 08:55:45 +0000
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com
+ [10.241.53.100])
+ by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 61R8ti0641943518
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 27 Feb 2026 08:55:45 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C442558058;
+ Fri, 27 Feb 2026 08:55:44 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 156CF58061;
+ Fri, 27 Feb 2026 08:55:42 +0000 (GMT)
+Received: from smtpclient.apple (unknown [9.61.248.160])
+ by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTPS;
+ Fri, 27 Feb 2026 08:55:41 +0000 (GMT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.300.41.1.7\))
+Subject: Re: [PATCH] drm/amdgpu: Fix static assertion failure issue
+From: Venkat <venkat88@linux.ibm.com>
+In-Reply-To: <20260226114944.610238-1-YiPeng.Chai@amd.com>
+Date: Fri, 27 Feb 2026 14:25:29 +0530
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Tao.Zhou1@amd.com,
+ Candice.Li@amd.com, Stanley.Yang@amd.com, Jinzhou.Su@amd.com,
+ kernel test robot <lkp@intel.com>, venkat88@linux.ibm.com
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <99F5B510-3AA8-4950-B663-B8FB4C9B8B2D@linux.ibm.com>
+References: <20260226114944.610238-1-YiPeng.Chai@amd.com>
+To: YiPeng Chai <YiPeng.Chai@amd.com>
+X-Mailer: Apple Mail (2.3864.300.41.1.7)
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=TNRIilla c=1 sm=1 tr=0 ts=69a15c12 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22 a=VwQbUJbxAAAA:8
+ a=QyXUC8HyAAAA:8 a=VnNF1IyMAAAA:8 a=zd2uoN0lAAAA:8 a=6TG8_EcTQC1Qb05om-EA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: ScwHjagGsVZbdCYBgNJlpzjKOLS4hNWV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjI3MDA3MyBTYWx0ZWRfX94P9bIn5dTj/
+ sHAIYk7dkMVio3ZZOTFY4K0kaBMJEzC89FT2HIzhg6VecWM75Klz3JXNwswK/8GZruKKuLEfvfC
+ lcAJglIVHxxrpse1RlZmt58kWErrBbzJrF4CIpnBjyP14Cr11mWEW7Q/furuwlQhe0e/6h+RONt
+ hRDAkVnZLXbzqsGTCS2345nbqvIZcMxsc6mHylyWyz23s2GmWRcuGnLx9orrhU3uFJlO9hDO1PM
+ JsYU+8EUkzguqi42zDsfvv6E6RFfJDdB4DiJZht7gCEhTDcYSp9TuQAkviYMZGGrXctJdonQtCZ
+ Nf/HYzjju19uZPxyCayA/b7Xebj/Tn+dzSEIh8jNfYuk7Zjobg/yLLg34sJsTnyTY9Q01GqxF0q
+ +wVTk7EH9u7xUxExL0lTbvFw3LPsQ9WLfLiY6y57WrB77SJPOqc8xqCopL5su2LDoL/wyijgtmK
+ xUvbRkwOjYOkePdpemA==
+X-Proofpoint-ORIG-GUID: ScwHjagGsVZbdCYBgNJlpzjKOLS4hNWV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-02-27_01,2026-02-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602270073
+X-Mailman-Approved-At: Fri, 27 Feb 2026 14:16:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,40 +111,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 27, 2026 at 4:29=E2=80=AFAM outlook user <RACP@outlook.fr> wrot=
-e:
->
-> > Hi team,
-> >
-> > I am running a Raven Ridge APU (Ryzen 5 3500U, device 0x15D8) on kernel=
- 6.17.
-> >
-> > **The Issue:**
-> > I see persistent firmware load failures at boot:
-> > `amdgpu: failed to load ucode RLC_RESTORE_LIST_CNTL`
-> > `psp gfx command LOAD_IP_FW(0x6) failed and response status is (0xFFFF3=
-00F)`
-> >
-> > **Context:**
-> > I noticed the recent patch *[PATCH] drm/amdgpu: fixing rlc firmware loa=
-ding failure issue* (Aug 2024) which fixed header size mismatch issues for =
-GFX10 by switching to `request_firmware`.
-> >
-> > **My Question:**
-> > Should this fix also apply to GFX9 (gfx_v9_0.c)?
-> >
-> > My system is currently using `amdgpu_ucode_request` for the "kicker" pa=
-th, and the hardware rejects the firmware (likely due to the signature/head=
-er mismatch mentioned in the GFX10 patch). This leaves the GPU without RLC =
-loaded, leading to intermittent system freezes.
-> >
-> > Is this a known gap for Raven Ridge, or is there a specific firmware ve=
-rsion I should be using?
-> >
 
-That gfx10 patch is unrelated and not applicable.  It sounds more like
-your firmware file on disk or in your initrd may have gotten
-corrupted.  If that's not the issue, can you try older (or newer
-depending on what versions you are using) firmware files for your GPU?
 
-Alex
+> On 26 Feb 2026, at 5:19=E2=80=AFPM, YiPeng Chai <YiPeng.Chai@amd.com> =
+wrote:
+>=20
+> Since the PAGE_SIZE is 8KB on sparc64, the size of
+> structure amdsriov_ras_telemetry will exceed 64KB,
+> so use absolute value to fix the buffer size.
+>=20
+> Fixes the issue:
+> drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:522:2: error: static
+> assertion failed due to requirement 'sizeof(struct
+> amdsriov_ras_telemetry) <=3D 64 << 10': amdsriov_ras_telemetry must be =
+64 KB
+> |  sizeof(struct amdsriov_ras_telemetry) <=3D
+> AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10,
+> drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:522:40: note:
+> expression evaluates to '115616 <=3D 65536'
+> |   sizeof(struct amdsriov_ras_telemetry) <=3D
+> AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10,
+>=20
+> Fixes: cb48a6b2b61d ("drm/amd/ras: use dedicated memory as vf ras =
+command buffer")
+>=20
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: =
+https://lore.kernel.org/oe-kbuild-all/202602261700.rVOLIw4l-lkp@intel.com/=
+
+>=20
+> Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+> ---
+
+Resending. Looks like earlier response didn=E2=80=99t go through.
+
+IBM CI has also reported the same issue, and tested this patch and it =
+fixes the reported build issue.
+
+Link to upstream report: =
+https://lore.kernel.org/all/2b5eda65-a1dd-4858-a6e1-ac2f183ec410@linux.ibm=
+.com/
+
+Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+
+Regards,
+Venkat.
+
+> drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h           | 5 +++--
+> drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c | 4 ++--
+> 2 files changed, 5 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h =
+b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> index 4870c03627df..a841f342a3eb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> @@ -476,9 +476,10 @@ union amd_sriov_ras_host_push {
+> struct amd_sriov_ras_chk_criti chk_criti;
+> };
+>=20
+> -#define AMD_SRIOV_UNIRAS_CMD_MAX_SIZE (PAGE_SIZE * 13)
+> +#define AMD_SRIOV_UNIRAS_BLOCKS_BUF_SIZE 4096
+> +#define AMD_SRIOV_UNIRAS_CMD_MAX_SIZE (4096 * 13)
+> struct amd_sriov_uniras_shared_mem {
+> - uint8_t blocks_ecc_buf[PAGE_SIZE];
+> + uint8_t blocks_ecc_buf[AMD_SRIOV_UNIRAS_BLOCKS_BUF_SIZE];
+> uint8_t cmd_buf[AMD_SRIOV_UNIRAS_CMD_MAX_SIZE];
+> };
+>=20
+> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c =
+b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+> index 3e8b500caec1..81553230dca4 100644
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+> @@ -63,7 +63,7 @@ static int amdgpu_virt_ras_get_cmd_shared_mem(struct =
+ras_core_context *ras_core,
+> ras_telemetry_offset);
+>=20
+> if (cmd =3D=3D RAS_CMD__GET_ALL_BLOCK_ECC_STATUS) {
+> - if (mem_size > PAGE_SIZE)
+> + if (mem_size > AMD_SRIOV_UNIRAS_BLOCKS_BUF_SIZE)
+> return -ENOMEM;
+>=20
+> shared_mem->cpu_addr =3D =
+ras_telemetry_cpu->uniras_shared_mem.blocks_ecc_buf;
+> @@ -504,7 +504,7 @@ int amdgpu_virt_ras_hw_init(struct amdgpu_device =
+*adev)
+> memset(blks_ecc, 0, sizeof(*blks_ecc));
+> if (amdgpu_virt_ras_get_cmd_shared_mem(ras_mgr->ras_core,
+> RAS_CMD__GET_ALL_BLOCK_ECC_STATUS,
+> - PAGE_SIZE, &blks_ecc->shared_mem))
+> + AMD_SRIOV_UNIRAS_BLOCKS_BUF_SIZE, &blks_ecc->shared_mem))
+> return -ENOMEM;
+>=20
+> return 0;
+> --=20
+> 2.43.0
+>=20
+
