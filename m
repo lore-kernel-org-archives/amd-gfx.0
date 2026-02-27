@@ -4,90 +4,196 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23978FEE4F1
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C364FEE4DD
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5AE10E289;
-	Sat, 28 Feb 2026 09:19:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCC5510E250;
+	Sat, 28 Feb 2026 09:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Avc9UyJ9";
+	dkim=pass (4096-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.b="AsZRArcr";
 	dkim-atps=neutral
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCC6D10E1FF
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Feb 2026 04:54:26 +0000 (UTC)
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-79860421382so26013327b3.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 20:54:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772254466; x=1772859266; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LtZILg1UfPbIs6Qetp2wD7SekLL2E2Ax5WmC10z0J5E=;
- b=Avc9UyJ9GmaGJx6sQxtYrOb9+e5TJnl51MyKRDkoM9FfvofuMY+RF1a2OYp6kly1Qx
- SqnkCZCxg6f9LsvtfnsfPbTRculMcZFLNd0N8hOhONfSSuMAqqsB9Qa5ihvLf3aSPPCv
- XLQY7qX/3no4I8cZGr9awrPFe3OaBd4eF3PI3LxBzyt1Fu/VlxIGa9ZXJK+lw9r7fhOY
- Ut2ghwfyIdPELMEu5NanE3F4V4KIF1xBw4o8KiukHt87lX3s6s+RbD4JbE+Qnf2GXCIX
- 4eStMQTC+q2UHmBWkH7DhtdGRcjHlheO5cLspKjJA4frzUI0H1gsrblzx9hiavERdFGI
- XIpg==
+X-Greylist: delayed 453 seconds by postgrey-1.36 at gabe;
+ Fri, 27 Feb 2026 16:54:46 UTC
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0CA810EBCE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 16:54:46 +0000 (UTC)
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
+ [74.125.224.70])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id EE6233F917
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 16:47:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20251003; t=1772210832;
+ bh=BKQzT9t7ZI3mb+6EDIKBTxaX0DX68JkIAcPYLBp08+M=;
+ h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+ To:Cc:Content-Type;
+ b=AsZRArcr+IHOjGSBnonu/oj477dSluZfbYqix5/Y3zCBdoV1+uw6mYYHWwc4sPEzW
+ HjFcFZE09FnavTkEnrKbxmF0r3YbTQPiFMojDWqkufdWKDMCZW9OPxWmPLHGl8VYyP
+ aEEDR142r/egN11v+6BUwh9UCjnO7iqcqVKNlvjuimRs6gHHfWgooiT0xYazkycZV9
+ iGaNpfepDa56QYdI4I7j3O9bAMZ5DH4c2WTlkXndqNrhlLiQOUUvwizjaREzzR+RaW
+ G6qhyP2mK34/AwEY8BsSjxU/P2yJBLCVcFF0FazsuIIhPpIJJoppDe/KKLv377XKJO
+ ckRoiSwBJ3h5NMgLM0yT68s2FLDl6gyLkP/lRN3fVuLZu1yxgjda/ENN1odqNnDS9i
+ cUltWCZdejwVb0iOVt7w8SJ+e7iURRxp5NxrVK346lnXyAMDOroqzltJLwTrKWTFrE
+ AN4ruGpriTmmvQ9GwGNvr1LpOw6mwnclV+8SKwiXFM2kWGMs7WC4UqqVSYW/5oxS+O
+ xoiqh6Acy+TYgniHFTAsDU75wpJzuZLSiIVgwW31LUadIpejlNvpg5EcfEaBbQmLVj
+ NgnJJyPdPSKozzmB9LKkQNdrUwMQftfhfgs3hHlvFhllpGK5m8UgazcxDHxIY0+WhT
+ Efp718XcrpREHjvzQoHFxdjs=
+Received: by mail-yx1-f70.google.com with SMTP id
+ 956f58d0204a3-64cad8f8d03so4108361d50.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 08:47:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772210831; cv=none;
+ d=google.com; s=arc-20240605;
+ b=UWiMvQZp9CZkPv1G1zGB0rqnDB5uo4QaXjUPTbigBHfHiuURbodb+3cyx9kUqlDf6/
+ YdVxQYJGkTUcXghGT6rb54hHOpQ7AAnahXBX0ZwT8Xm1oztulSrQ446K/T9l5FWKAPPf
+ YDDICi+GBFBUi+2AhF/uBwK1xRBrPCP5zQsQ0BUf0xuG97YjkGqRpH0mlLWIqtX53f1E
+ oTD6TVFKtd+lmds3QPXGpJU9GQMJ/WaBCAVJ+OuQLwWZxhbHAWSgNLvC/tOHkdpIQLQp
+ xc5vSiU4aoegWs3yxqRvWkBIGh3F66OdWMyokYsL52sbvqbFHahtcQvkYitZ5jKuKJwx
+ w3SQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version;
+ bh=BKQzT9t7ZI3mb+6EDIKBTxaX0DX68JkIAcPYLBp08+M=;
+ fh=OacpuURuRqkqcbE0fl+qNkzWgxiTmozwN/dptuZDuKQ=;
+ b=NEW7k5W3uL6X1Kf1GKE9p03jWkfzR8ns4nLF5x4yABh5nqrW9e+lgcO5r8UqHqYlAJ
+ x+X1M47sm/nX2eswx5sNdejHIYUdfCz0qej0laTlzyLb3H8meLc/M5vSxejTmrg7NDge
+ R2bFoFZ7svOFuqviNKLVHzNsD3yB3vNFnUamHKhtY7DFjoggEfxn10wExO3qMfDXts6Z
+ Knlio7nSz/uKTVIIqypHG2WLNOJ5hY8lMlZgk08WjMZQ0VH1kVQxmNNypKRexyt69Bh2
+ VA1Xg79REtGlxEffhKmoBZOw4gkHqO/5Usqox0qfjRqhp/nlQgECIys9giRHpmJwt+tn
+ ji9A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772254466; x=1772859266;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20230601; t=1772210831; x=1772815631;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=LtZILg1UfPbIs6Qetp2wD7SekLL2E2Ax5WmC10z0J5E=;
- b=je8asf+XvVGjI1tq0NCwnIvKYAEh0tV7pZfpuzIoXG13YbhfoX37qFV1+GBGzGu8N5
- 4mhuYUs9CV4xSTJbX2pifcKwzMtya41iu/B7rUvuNKzc2EkdqwSBb5fi09gHtDQguM2c
- KlozBtbS55z9OUDiw10k98JLp6UIKy6cNEwO6uc5N679Lwx4o0jIRP08KYI9rAVlh85q
- ummtcVjNI94vpQMk4J/iR7yOAJtE1OSDuhSVNix+bg0PYSSk0mwR82rwWR9+94SP1J+8
- hOkU91Y2LSQHSE7eqiskaam2k7UUtWZPP1VZOr7yMfjFbZoV4a2BeIz/9yeK5JdlSX6E
- Yi9Q==
+ bh=BKQzT9t7ZI3mb+6EDIKBTxaX0DX68JkIAcPYLBp08+M=;
+ b=tZqXLHvjT3lqXXSqHhzyTuPcoN+PVG7gMof2wY/S8SQp69RJDnRvSH0wVdcD81Xzpq
+ QWu5F+NLopToUfKsOE0S4iwZus3WsvxEgu2YNlUNrYx566s6eq3SjdqdCtM6mVY+0QlL
+ KEcGom6l4fz4GjC6yt08hJXxl4Tvs5I8GJ4mhLDX2u7zcfHm43YNN8+wNpdxn6ocUj1t
+ qEIZJeG/WX4Z7EhAYURY2XoQ7L16vX4udz+W+VcUm66awMTSzCzlaTuWHdjibujZ2Bqi
+ DmmnNQjC8vLXotfqxUlgfcZkl3kTliL9VIrtBLNJG28/L4mnwufvTPYdtjBM7ckTbPeu
+ kAtg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWhQhGBdlsDSQ2UxTTq5fuoZNj5pgrIHFqNAiGdbg/Wv/APZ6Sg4GwAD22rfNj7eqGk8VzGLcMc@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxC2152n057ZDbjZYAJxlSOtb5DQTTwzhO44tEm3bHW9hLDP8wX
- E/A+QehWVJmc4RkaVvZOTTyciSCBbZ9YH9arX66nYh2f6+J41tccXIaG
-X-Gm-Gg: ATEYQzy44/r1T3OkQzBE5X/kxPpzIzhGAfV5gSB+CnNlmvXpye5KsM7327zwNtIWFVJ
- b+CW+VomhdtSmuZumu3of3o0aRSUvdeAnEBXRm3TascxI2uXaItBVaF5CYwlaMbPVIfcfgjWHG9
- kEOoVInjDVgc8sBnj9k49vkeA/lvbznqrBMmEubRXXsu5VlujeLokIS3Mo02rUUcqXbZCibf3Zt
- gJl9BESGI9e7KqjEl1JbageI4//dJX8my8g5qQNRGhQiL5DeUjRNMkSMnT2KOYZj0fgV1vBF1EK
- JU04ZrwmJ2b8/t+zBO5AjQdc5YVJDxFOvcldgzMEcniIoWTb9Rvt0VSAu9kV89X9eCvLUdMo/RH
- j91+vPBuoY2XdllzHRo7SwmTq+cwu6qWSO5nbQYyjWLSXn0L+OFczTmc0uhc9Pi7LyP6gWAsWUp
- 1ZZoa+8x6jcFshPspQs9ZomuJMjyPhLAe2bR0e2EPWrp+RVK8iGd6udXUJQDs6MQ8U
-X-Received: by 2002:a05:690c:60c2:b0:798:65eb:aff0 with SMTP id
- 00721157ae682-798854e24a9mr50867397b3.14.1772254465800; 
- Fri, 27 Feb 2026 20:54:25 -0800 (PST)
-Received: from ryzen ([2601:644:8000:56f5::8bd])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-79876bf8103sm29865967b3.27.2026.02.27.20.54.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Feb 2026 20:54:24 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Alex Hung <alex.hung@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Lijo Lazar <lijo.lazar@amd.com>, "chr[]" <chris@rudorff.com>,
- Sasha Levin <sashal@kernel.org>, Wentao Liang <vulab@iscas.ac.cn>,
- amd-gfx@lists.freedesktop.org (open list:AMD DISPLAY CORE),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2 for 6.112 and 6.6 2/2] drm/amd/pm: Use pm_display_cfg in
- legacy DPM (v2)
-Date: Fri, 27 Feb 2026 20:53:56 -0800
-Message-ID: <20260228045356.3561-3-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260228045356.3561-1-rosenp@gmail.com>
-References: <20260228045356.3561-1-rosenp@gmail.com>
+ AJvYcCVS5tIjfbF3IQtzSpcCAvB7nJIfT39yzzPM3MrksHQ3ioLFc4uTaHWN8b+cowl617fJnX66v1bA@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy4AEuNBpH3AsoWZQ7/sao75KD6Qhj00d1urS9aVCM3oofww6RO
+ j/Oc22fulGhnjiPZq+qGvdchPBLRg0CXmKHMdXoGbokDljWY4E1voZTQz291DjyQwhDkyYFAzUI
+ 5vOgpugyJkkHtHu4vnjKfdu6k/KiOK9crCW129/5zSkEFBF7JeZSMcwG7V/FVm51HAG8TpY1TIx
+ Aev9KQK0B4KQFHFNPWpwdsnuoM1y4cc0CrwquHo5bJyYJixEVqQKcWWqzLNw==
+X-Gm-Gg: ATEYQzyOiQM+tI4D1LE9pgmMFTAmAGIDuCnpGgrCQ7Xg7CcNlM0iVt43wA3mt02uezb
+ 4kRYixTVm9Wkl2/sR31F/ia52ZQ3kACI2kRAmJjmYwhN7V21j3lDWn3cUdmer++Pv0ImStBei2e
+ 4I9gdCDHxMONM6mcelHDWpXFkmuaY+5XtC1dMcClLpWlv0kxXWA+SSiv4m96iJhFmYQJ60+5V+W
+ 0RaDz7ndpqxXq3/2nLjO7v0pxMll92Yi1gpsxGaKIYoCQmvLASZSQqcZpM0oIXUaOA=
+X-Received: by 2002:a53:b743:0:b0:64c:9b84:92ee with SMTP id
+ 956f58d0204a3-64cb6f438a9mr3821198d50.31.1772210830748; 
+ Fri, 27 Feb 2026 08:47:10 -0800 (PST)
+X-Received: by 2002:a53:b743:0:b0:64c:9b84:92ee with SMTP id
+ 956f58d0204a3-64cb6f438a9mr3821130d50.31.1772210830102; Fri, 27 Feb 2026
+ 08:47:10 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
+ <20260226-iino-u64-v1-51-ccceff366db9@kernel.org>
+In-Reply-To: <20260226-iino-u64-v1-51-ccceff366db9@kernel.org>
+From: Ryan Lee <ryan.lee@canonical.com>
+Date: Fri, 27 Feb 2026 08:46:58 -0800
+X-Gm-Features: AaiRm50sr0j0-BwzNnmwGRvH8jyB1wNkHgZo3vdp3K_4YIT1mBOH-BzuS2c5S3A
+Message-ID: <CAKCV-6ujQK3yj8sB2eHafaw4pvrJUeK18Hu4vzvNSjH48RVgYg@mail.gmail.com>
+Subject: Re: [PATCH 51/61] security: update audit format strings for u64 i_ino
+To: Jeff Layton <jlayton@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Dan Williams <dan.j.williams@intel.com>, 
+ Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>, 
+ "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+ David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
+ Tom Talpey <tom@talpey.com>, 
+ Steve French <sfrench@samba.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+ Shyam Prasad N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>, 
+ Alexander Aring <alex.aring@gmail.com>,
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, Eric Van Hensbergen <ericvh@kernel.org>,
+ Latchesar Ionkov <lucho@ionkov.net>,
+ Dominique Martinet <asmadeus@codewreck.org>, 
+ Christian Schoenebeck <linux_oss@crudebyte.com>,
+ David Sterba <dsterba@suse.com>, 
+ Marc Dionne <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>, 
+ Luis de Bethencourt <luisbg@kernel.org>, Salah Triki <salah.triki@gmail.com>, 
+ "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
+ Ilya Dryomov <idryomov@gmail.com>, 
+ Alex Markuze <amarkuze@redhat.com>, Jan Harkes <jaharkes@cs.cmu.edu>,
+ coda@cs.cmu.edu, 
+ Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>,
+ Amir Goldstein <amir73il@gmail.com>, 
+ Christoph Hellwig <hch@infradead.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Yangtao Li <frank.li@vivo.com>, 
+ Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
+ David Woodhouse <dwmw2@infradead.org>, 
+ Richard Weinberger <richard@nod.at>, Dave Kleikamp <shaggy@kernel.org>, 
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ Mark Fasheh <mark@fasheh.com>, 
+ Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>, 
+ Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
+ Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
+ John Johansen <john.johansen@canonical.com>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>, 
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Willem de Bruijn <willemb@google.com>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Martin Schiller <ms@dev.tdt.de>, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+ linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
+ v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
+ ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, 
+ ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
+ ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
+ linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
+ linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
+ selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
+ linux-x25@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sat, 28 Feb 2026 09:19:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,360 +209,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Timur Kristóf <timur.kristof@gmail.com>
+On Thu, Feb 26, 2026 at 9:13=E2=80=AFAM Jeff Layton <jlayton@kernel.org> wr=
+ote:
+>
+> Update %lu/%ld to %llu/%lld in security audit logging functions that
+> print inode->i_ino, since i_ino is now u64.
+>
+> Files updated: apparmor/apparmorfs.c, integrity/integrity_audit.c,
+> ipe/audit.c, lsm_audit.c.
+>
+> Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> ---
+>  security/apparmor/apparmorfs.c       |  4 ++--
+>  security/integrity/integrity_audit.c |  2 +-
+>  security/ipe/audit.c                 |  2 +-
+>  security/lsm_audit.c                 | 10 +++++-----
+>  security/selinux/hooks.c             |  4 ++--
+>  security/smack/smack_lsm.c           | 12 ++++++------
+>  6 files changed, 17 insertions(+), 17 deletions(-)
+>
+> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorf=
+s.c
+> index 2f84bd23edb69e7e69cb097e554091df0132816d..7b645f40e71c956f216fa6a7d=
+69c3ecd4e2a5ff4 100644
+> --- a/security/apparmor/apparmorfs.c
+> +++ b/security/apparmor/apparmorfs.c
+> @@ -149,7 +149,7 @@ static int aafs_count;
+>
+>  static int aafs_show_path(struct seq_file *seq, struct dentry *dentry)
+>  {
+> -       seq_printf(seq, "%s:[%lu]", AAFS_NAME, d_inode(dentry)->i_ino);
+> +       seq_printf(seq, "%s:[%llu]", AAFS_NAME, d_inode(dentry)->i_ino);
+>         return 0;
+>  }
+>
+> @@ -2644,7 +2644,7 @@ static int policy_readlink(struct dentry *dentry, c=
+har __user *buffer,
+>         char name[32];
 
-[ Upstream commit 9d73b107a61b73e7101d4b728ddac3d2c77db111 ]
+I have confirmed that the buffer is still big enough for a 64-bit inode num=
+ber.
 
-This commit is necessary for DC to function well with chips
-that use the legacy power management code, ie. SI and KV.
-Communicate display information from DC to the legacy PM code.
+>         int res;
+>
+> -       res =3D snprintf(name, sizeof(name), "%s:[%lu]", AAFS_NAME,
+> +       res =3D snprintf(name, sizeof(name), "%s:[%llu]", AAFS_NAME,
+>                        d_inode(dentry)->i_ino);
+>         if (res > 0 && res < sizeof(name))
+>                 res =3D readlink_copy(buffer, buflen, name, strlen(name))=
+;
 
-Currently DC uses pm_display_cfg to communicate power management
-requirements from the display code to the DPM code.
-However, the legacy (non-DC) code path used different fields
-and therefore could not take into account anything from DC.
+For the AppArmor portion:
 
-Change the legacy display code to fill the same pm_display_cfg
-struct as DC and use the same in the legacy DPM code.
+Reviewed-By: Ryan Lee <ryan.lee@canonical.com>
 
-To ease review and reduce churn, this commit does not yet
-delete the now unneeded code, that is done in the next commit.
-
-v2:
-Rebase.
-Fix single_display in amdgpu_dpm_pick_power_state.
-
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  | 67 +++++++++++++++++++
- .../gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h  |  2 +
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  4 +-
- .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    |  6 +-
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 65 ++++++------------
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 11 +--
- 6 files changed, 97 insertions(+), 58 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
-index 2d2d2d5e6763..9ef965e4a92e 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
-@@ -100,3 +100,70 @@ u32 amdgpu_dpm_get_vrefresh(struct amdgpu_device *adev)
-
- 	return vrefresh;
- }
-+
-+void amdgpu_dpm_get_display_cfg(struct amdgpu_device *adev)
-+{
-+	struct drm_device *ddev = adev_to_drm(adev);
-+	struct amd_pp_display_configuration *cfg = &adev->pm.pm_display_cfg;
-+	struct single_display_configuration *display_cfg;
-+	struct drm_crtc *crtc;
-+	struct amdgpu_crtc *amdgpu_crtc;
-+	struct amdgpu_connector *conn;
-+	int num_crtcs = 0;
-+	int vrefresh;
-+	u32 vblank_in_pixels, vblank_time_us;
-+
-+	cfg->min_vblank_time = 0xffffffff; /* if the displays are off, vblank time is max */
-+
-+	if (adev->mode_info.num_crtc && adev->mode_info.mode_config_initialized) {
-+		list_for_each_entry(crtc, &ddev->mode_config.crtc_list, head) {
-+			amdgpu_crtc = to_amdgpu_crtc(crtc);
-+
-+			/* The array should only contain active displays. */
-+			if (!amdgpu_crtc->enabled)
-+				continue;
-+
-+			conn = to_amdgpu_connector(amdgpu_crtc->connector);
-+			display_cfg = &adev->pm.pm_display_cfg.displays[num_crtcs++];
-+
-+			if (amdgpu_crtc->hw_mode.clock) {
-+				vrefresh = drm_mode_vrefresh(&amdgpu_crtc->hw_mode);
-+
-+				vblank_in_pixels =
-+					amdgpu_crtc->hw_mode.crtc_htotal *
-+					(amdgpu_crtc->hw_mode.crtc_vblank_end -
-+					amdgpu_crtc->hw_mode.crtc_vdisplay +
-+					(amdgpu_crtc->v_border * 2));
-+
-+				vblank_time_us =
-+					vblank_in_pixels * 1000 / amdgpu_crtc->hw_mode.clock;
-+
-+				/* The legacy (non-DC) code has issues with mclk switching
-+				 * with refresh rates over 120 Hz. Disable mclk switching.
-+				 */
-+				if (vrefresh > 120)
-+					vblank_time_us = 0;
-+
-+				/* Find minimum vblank time. */
-+				if (vblank_time_us < cfg->min_vblank_time)
-+					cfg->min_vblank_time = vblank_time_us;
-+
-+				/* Find vertical refresh rate of first active display. */
-+				if (!cfg->vrefresh)
-+					cfg->vrefresh = vrefresh;
-+			}
-+
-+			if (amdgpu_crtc->crtc_id < cfg->crtc_index) {
-+				/* Find first active CRTC and its line time. */
-+				cfg->crtc_index = amdgpu_crtc->crtc_id;
-+				cfg->line_time_in_us = amdgpu_crtc->line_time;
-+			}
-+
-+			display_cfg->controller_id = amdgpu_crtc->crtc_id;
-+			display_cfg->pixel_clock = conn->pixelclock_for_modeset;
-+		}
-+	}
-+
-+	cfg->display_clk = adev->clock.default_dispclk;
-+	cfg->num_display = num_crtcs;
-+}
-diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h
-index 5c2a89f0d5d5..8be11510cd92 100644
---- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h
-+++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h
-@@ -29,4 +29,6 @@ u32 amdgpu_dpm_get_vblank_time(struct amdgpu_device *adev);
-
- u32 amdgpu_dpm_get_vrefresh(struct amdgpu_device *adev);
-
-+void amdgpu_dpm_get_display_cfg(struct amdgpu_device *adev);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-index 6b34a33d788f..8cf7e517da84 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-@@ -2299,7 +2299,7 @@ static void kv_apply_state_adjust_rules(struct amdgpu_device *adev,
-
- 		if (pi->sys_info.nb_dpm_enable) {
- 			force_high = (mclk >= pi->sys_info.nbp_memory_clock[3]) ||
--				pi->video_start || (adev->pm.dpm.new_active_crtc_count >= 3) ||
-+				pi->video_start || (adev->pm.pm_display_cfg.num_display >= 3) ||
- 				pi->disable_nb_ps3_in_battery;
- 			ps->dpm0_pg_nb_ps_lo = force_high ? 0x2 : 0x3;
- 			ps->dpm0_pg_nb_ps_hi = 0x2;
-@@ -2358,7 +2358,7 @@ static int kv_calculate_nbps_level_settings(struct amdgpu_device *adev)
- 			return 0;
-
- 		force_high = ((mclk >= pi->sys_info.nbp_memory_clock[3]) ||
--			      (adev->pm.dpm.new_active_crtc_count >= 3) || pi->video_start);
-+			      (adev->pm.pm_display_cfg.num_display >= 3) || pi->video_start);
-
- 		if (force_high) {
- 			for (i = pi->lowest_valid; i <= pi->highest_valid; i++)
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-index c7518b13e787..8eb121db2ce4 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
-@@ -797,8 +797,7 @@ static struct amdgpu_ps *amdgpu_dpm_pick_power_state(struct amdgpu_device *adev,
- 	int i;
- 	struct amdgpu_ps *ps;
- 	u32 ui_class;
--	bool single_display = (adev->pm.dpm.new_active_crtc_count < 2) ?
--		true : false;
-+	bool single_display = adev->pm.pm_display_cfg.num_display < 2;
-
- 	/* check if the vblank period is too short to adjust the mclk */
- 	if (single_display && adev->powerplay.pp_funcs->vblank_too_short) {
-@@ -994,7 +993,8 @@ void amdgpu_legacy_dpm_compute_clocks(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-
--	amdgpu_dpm_get_active_displays(adev);
-+	if (!adev->dc_enabled)
-+		amdgpu_dpm_get_display_cfg(adev);
-
- 	amdgpu_dpm_change_power_state_locked(adev);
- }
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-index 29cecfab0704..7ea310601ff5 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-@@ -3058,7 +3058,7 @@ static int si_get_vce_clock_voltage(struct amdgpu_device *adev,
- static bool si_dpm_vblank_too_short(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	u32 vblank_time = amdgpu_dpm_get_vblank_time(adev);
-+	u32 vblank_time = adev->pm.pm_display_cfg.min_vblank_time;
- 	/* we never hit the non-gddr5 limit so disable it */
- 	u32 switch_limit = adev->gmc.vram_type == AMDGPU_VRAM_TYPE_GDDR5 ? 450 : 0;
-
-@@ -3424,9 +3424,10 @@ static void rv770_get_engine_memory_ss(struct amdgpu_device *adev)
- static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
- 					struct amdgpu_ps *rps)
- {
-+	const struct amd_pp_display_configuration *display_cfg =
-+		&adev->pm.pm_display_cfg;
- 	struct  si_ps *ps = si_get_ps(rps);
- 	struct amdgpu_clock_and_voltage_limits *max_limits;
--	struct amdgpu_connector *conn;
- 	bool disable_mclk_switching = false;
- 	bool disable_sclk_switching = false;
- 	u32 mclk, sclk;
-@@ -3470,14 +3471,9 @@ static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
- 	 * For example, 4K 60Hz and 1080p 144Hz fall into this category.
- 	 * Find number of such displays connected.
- 	 */
--	for (i = 0; i < adev->mode_info.num_crtc; i++) {
--		if (!(adev->pm.dpm.new_active_crtcs & (1 << i)) ||
--			!adev->mode_info.crtcs[i]->enabled)
--			continue;
--
--		conn = to_amdgpu_connector(adev->mode_info.crtcs[i]->connector);
--
--		if (conn->pixelclock_for_modeset > 297000)
-+	for (i = 0; i < display_cfg->num_display; i++) {
-+		/* The array only contains active displays. */
-+		if (display_cfg->displays[i].pixel_clock > 297000)
- 			high_pixelclock_count++;
- 	}
-
-@@ -3510,7 +3506,7 @@ static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
- 		rps->ecclk = 0;
- 	}
-
--	if ((adev->pm.dpm.new_active_crtc_count > 1) ||
-+	if ((adev->pm.pm_display_cfg.num_display > 1) ||
- 	    si_dpm_vblank_too_short(adev))
- 		disable_mclk_switching = true;
-
-@@ -3658,7 +3654,7 @@ static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
- 						   ps->performance_levels[i].mclk,
- 						   max_limits->vddc,  &ps->performance_levels[i].vddc);
- 		btc_apply_voltage_dependency_rules(&adev->pm.dpm.dyn_state.vddc_dependency_on_dispclk,
--						   adev->clock.current_dispclk,
-+						   display_cfg->display_clk,
- 						   max_limits->vddc,  &ps->performance_levels[i].vddc);
- 	}
-
-@@ -4183,16 +4179,16 @@ static void si_program_ds_registers(struct amdgpu_device *adev)
-
- static void si_program_display_gap(struct amdgpu_device *adev)
- {
-+	const struct amd_pp_display_configuration *cfg = &adev->pm.pm_display_cfg;
- 	u32 tmp, pipe;
--	int i;
-
- 	tmp = RREG32(CG_DISPLAY_GAP_CNTL) & ~(DISP1_GAP_MASK | DISP2_GAP_MASK);
--	if (adev->pm.dpm.new_active_crtc_count > 0)
-+	if (cfg->num_display > 0)
- 		tmp |= DISP1_GAP(R600_PM_DISPLAY_GAP_VBLANK_OR_WM);
- 	else
- 		tmp |= DISP1_GAP(R600_PM_DISPLAY_GAP_IGNORE);
-
--	if (adev->pm.dpm.new_active_crtc_count > 1)
-+	if (cfg->num_display > 1)
- 		tmp |= DISP2_GAP(R600_PM_DISPLAY_GAP_VBLANK_OR_WM);
- 	else
- 		tmp |= DISP2_GAP(R600_PM_DISPLAY_GAP_IGNORE);
-@@ -4202,17 +4198,8 @@ static void si_program_display_gap(struct amdgpu_device *adev)
- 	tmp = RREG32(DCCG_DISP_SLOW_SELECT_REG);
- 	pipe = (tmp & DCCG_DISP1_SLOW_SELECT_MASK) >> DCCG_DISP1_SLOW_SELECT_SHIFT;
-
--	if ((adev->pm.dpm.new_active_crtc_count > 0) &&
--	    (!(adev->pm.dpm.new_active_crtcs & (1 << pipe)))) {
--		/* find the first active crtc */
--		for (i = 0; i < adev->mode_info.num_crtc; i++) {
--			if (adev->pm.dpm.new_active_crtcs & (1 << i))
--				break;
--		}
--		if (i == adev->mode_info.num_crtc)
--			pipe = 0;
--		else
--			pipe = i;
-+	if (cfg->num_display > 0 && pipe != cfg->crtc_index) {
-+		pipe = cfg->crtc_index;
-
- 		tmp &= ~DCCG_DISP1_SLOW_SELECT_MASK;
- 		tmp |= DCCG_DISP1_SLOW_SELECT(pipe);
-@@ -4223,7 +4210,7 @@ static void si_program_display_gap(struct amdgpu_device *adev)
- 	 * This can be a problem on PowerXpress systems or if you want to use the card
- 	 * for offscreen rendering or compute if there are no crtcs enabled.
- 	 */
--	si_notify_smc_display_change(adev, adev->pm.dpm.new_active_crtc_count > 0);
-+	si_notify_smc_display_change(adev, cfg->num_display > 0);
- }
-
- static void si_enable_spread_spectrum(struct amdgpu_device *adev, bool enable)
-@@ -5527,7 +5514,7 @@ static int si_convert_power_level_to_smc(struct amdgpu_device *adev,
- 	    (pl->mclk <= pi->mclk_stutter_mode_threshold) &&
- 	    !eg_pi->uvd_enabled &&
- 	    (RREG32(DPG_PIPE_STUTTER_CONTROL) & STUTTER_ENABLE) &&
--	    (adev->pm.dpm.new_active_crtc_count <= 2)) {
-+	    (adev->pm.pm_display_cfg.num_display <= 2)) {
- 		level->mcFlags |= SISLANDS_SMC_MC_STUTTER_EN;
- 	}
-
-@@ -5676,7 +5663,7 @@ static bool si_is_state_ulv_compatible(struct amdgpu_device *adev,
- 	/* XXX validate against display requirements! */
-
- 	for (i = 0; i < adev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.count; i++) {
--		if (adev->clock.current_dispclk <=
-+		if (adev->pm.pm_display_cfg.display_clk <=
- 		    adev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries[i].clk) {
- 			if (ulv->pl.vddc <
- 			    adev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries[i].v)
-@@ -5830,30 +5817,22 @@ static int si_upload_ulv_state(struct amdgpu_device *adev)
-
- static int si_upload_smc_data(struct amdgpu_device *adev)
- {
--	struct amdgpu_crtc *amdgpu_crtc = NULL;
--	int i;
-+	const struct amd_pp_display_configuration *cfg = &adev->pm.pm_display_cfg;
- 	u32 crtc_index = 0;
- 	u32 mclk_change_block_cp_min = 0;
- 	u32 mclk_change_block_cp_max = 0;
-
--	for (i = 0; i < adev->mode_info.num_crtc; i++) {
--		if (adev->pm.dpm.new_active_crtcs & (1 << i)) {
--			amdgpu_crtc = adev->mode_info.crtcs[i];
--			break;
--		}
--	}
--
- 	/* When a display is plugged in, program these so that the SMC
- 	 * performs MCLK switching when it doesn't cause flickering.
- 	 * When no display is plugged in, there is no need to restrict
- 	 * MCLK switching, so program them to zero.
- 	 */
--	if (adev->pm.dpm.new_active_crtc_count && amdgpu_crtc) {
--		crtc_index = amdgpu_crtc->crtc_id;
-+	if (cfg->num_display) {
-+		crtc_index = cfg->crtc_index;
-
--		if (amdgpu_crtc->line_time) {
--			mclk_change_block_cp_min = 200 / amdgpu_crtc->line_time;
--			mclk_change_block_cp_max = 100 / amdgpu_crtc->line_time;
-+		if (cfg->line_time_in_us) {
-+			mclk_change_block_cp_min = 200 / cfg->line_time_in_us;
-+			mclk_change_block_cp_max = 100 / cfg->line_time_in_us;
- 		}
- 	}
-
-diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-index 0115d26b5af9..24b25cddf0c1 100644
---- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
-@@ -1569,16 +1569,7 @@ static void pp_pm_compute_clocks(void *handle)
- 	struct amdgpu_device *adev = hwmgr->adev;
-
- 	if (!adev->dc_enabled) {
--		amdgpu_dpm_get_active_displays(adev);
--		adev->pm.pm_display_cfg.num_display = adev->pm.dpm.new_active_crtc_count;
--		adev->pm.pm_display_cfg.vrefresh = amdgpu_dpm_get_vrefresh(adev);
--		adev->pm.pm_display_cfg.min_vblank_time = amdgpu_dpm_get_vblank_time(adev);
--		/* we have issues with mclk switching with
--		 * refresh rates over 120 hz on the non-DC code.
--		 */
--		if (adev->pm.pm_display_cfg.vrefresh > 120)
--			adev->pm.pm_display_cfg.min_vblank_time = 0;
--
-+		amdgpu_dpm_get_display_cfg(adev);
- 		pp_display_configuration_change(handle,
- 						&adev->pm.pm_display_cfg);
- 	}
---
-2.53.0
-
+> diff --git a/security/integrity/integrity_audit.c b/security/integrity/in=
+tegrity_audit.c
+> index 0ec5e4c22cb2a1066c2b897776ead6d3db72635c..d8d9e5ff1cd22b091f462d1e8=
+3d28d2d6bd983e9 100644
+> --- a/security/integrity/integrity_audit.c
+> +++ b/security/integrity/integrity_audit.c
+> @@ -62,7 +62,7 @@ void integrity_audit_message(int audit_msgno, struct in=
+ode *inode,
+>         if (inode) {
+>                 audit_log_format(ab, " dev=3D");
+>                 audit_log_untrustedstring(ab, inode->i_sb->s_id);
+> -               audit_log_format(ab, " ino=3D%lu", inode->i_ino);
+> +               audit_log_format(ab, " ino=3D%llu", inode->i_ino);
+>         }
+>         audit_log_format(ab, " res=3D%d errno=3D%d", !result, errno);
+>         audit_log_end(ab);
+> diff --git a/security/ipe/audit.c b/security/ipe/audit.c
+> index 3f0deeb54912730d9acf5e021a4a0cb29a34e982..93fb59fbddd60b56c0b22be2a=
+38b809ef9e18b76 100644
+> --- a/security/ipe/audit.c
+> +++ b/security/ipe/audit.c
+> @@ -153,7 +153,7 @@ void ipe_audit_match(const struct ipe_eval_ctx *const=
+ ctx,
+>                 if (inode) {
+>                         audit_log_format(ab, " dev=3D");
+>                         audit_log_untrustedstring(ab, inode->i_sb->s_id);
+> -                       audit_log_format(ab, " ino=3D%lu", inode->i_ino);
+> +                       audit_log_format(ab, " ino=3D%llu", inode->i_ino)=
+;
+>                 } else {
+>                         audit_log_format(ab, " dev=3D? ino=3D?");
+>                 }
+> diff --git a/security/lsm_audit.c b/security/lsm_audit.c
+> index 7d623b00495c14b079e10e963c21a9f949c11f07..737f5a263a8f79416133315ed=
+f363ece3d79c722 100644
+> --- a/security/lsm_audit.c
+> +++ b/security/lsm_audit.c
+> @@ -202,7 +202,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+>                 if (inode) {
+>                         audit_log_format(ab, " dev=3D");
+>                         audit_log_untrustedstring(ab, inode->i_sb->s_id);
+> -                       audit_log_format(ab, " ino=3D%lu", inode->i_ino);
+> +                       audit_log_format(ab, " ino=3D%llu", inode->i_ino)=
+;
+>                 }
+>                 break;
+>         }
+> @@ -215,7 +215,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+>                 if (inode) {
+>                         audit_log_format(ab, " dev=3D");
+>                         audit_log_untrustedstring(ab, inode->i_sb->s_id);
+> -                       audit_log_format(ab, " ino=3D%lu", inode->i_ino);
+> +                       audit_log_format(ab, " ino=3D%llu", inode->i_ino)=
+;
+>                 }
+>                 break;
+>         }
+> @@ -228,7 +228,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+>                 if (inode) {
+>                         audit_log_format(ab, " dev=3D");
+>                         audit_log_untrustedstring(ab, inode->i_sb->s_id);
+> -                       audit_log_format(ab, " ino=3D%lu", inode->i_ino);
+> +                       audit_log_format(ab, " ino=3D%llu", inode->i_ino)=
+;
+>                 }
+>
+>                 audit_log_format(ab, " ioctlcmd=3D0x%hx", a->u.op->cmd);
+> @@ -246,7 +246,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+>                 if (inode) {
+>                         audit_log_format(ab, " dev=3D");
+>                         audit_log_untrustedstring(ab, inode->i_sb->s_id);
+> -                       audit_log_format(ab, " ino=3D%lu", inode->i_ino);
+> +                       audit_log_format(ab, " ino=3D%llu", inode->i_ino)=
+;
+>                 }
+>                 break;
+>         }
+> @@ -265,7 +265,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
+>                 }
+>                 audit_log_format(ab, " dev=3D");
+>                 audit_log_untrustedstring(ab, inode->i_sb->s_id);
+> -               audit_log_format(ab, " ino=3D%lu", inode->i_ino);
+> +               audit_log_format(ab, " ino=3D%llu", inode->i_ino);
+>                 rcu_read_unlock();
+>                 break;
+>         }
+> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+> index d8224ea113d1ac273aac1fb52324f00b3301ae75..150ea86ebc1f7c7f8391af410=
+9a3da82b12d00d2 100644
+> --- a/security/selinux/hooks.c
+> +++ b/security/selinux/hooks.c
+> @@ -1400,7 +1400,7 @@ static int inode_doinit_use_xattr(struct inode *ino=
+de, struct dentry *dentry,
+>         if (rc < 0) {
+>                 kfree(context);
+>                 if (rc !=3D -ENODATA) {
+> -                       pr_warn("SELinux: %s:  getxattr returned %d for d=
+ev=3D%s ino=3D%ld\n",
+> +                       pr_warn("SELinux: %s:  getxattr returned %d for d=
+ev=3D%s ino=3D%lld\n",
+>                                 __func__, -rc, inode->i_sb->s_id, inode->=
+i_ino);
+>                         return rc;
+>                 }
+> @@ -3477,7 +3477,7 @@ static void selinux_inode_post_setxattr(struct dent=
+ry *dentry, const char *name,
+>                                            &newsid);
+>         if (rc) {
+>                 pr_err("SELinux:  unable to map context to SID"
+> -                      "for (%s, %lu), rc=3D%d\n",
+> +                      "for (%s, %llu), rc=3D%d\n",
+>                        inode->i_sb->s_id, inode->i_ino, -rc);
+>                 return;
+>         }
+> diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
+> index 98af9d7b943469d0ddd344fc78c0b87ca40c16c4..7e2f54c17a5d5c70740bbfa92=
+ba4d4f1aca2cf22 100644
+> --- a/security/smack/smack_lsm.c
+> +++ b/security/smack/smack_lsm.c
+> @@ -182,7 +182,7 @@ static int smk_bu_inode(struct inode *inode, int mode=
+, int rc)
+>         char acc[SMK_NUM_ACCESS_TYPE + 1];
+>
+>         if (isp->smk_flags & SMK_INODE_IMPURE)
+> -               pr_info("Smack Unconfined Corruption: inode=3D(%s %ld) %s=
+\n",
+> +               pr_info("Smack Unconfined Corruption: inode=3D(%s %lld) %=
+s\n",
+>                         inode->i_sb->s_id, inode->i_ino, current->comm);
+>
+>         if (rc <=3D 0)
+> @@ -195,7 +195,7 @@ static int smk_bu_inode(struct inode *inode, int mode=
+, int rc)
+>
+>         smk_bu_mode(mode, acc);
+>
+> -       pr_info("Smack %s: (%s %s %s) inode=3D(%s %ld) %s\n", smk_bu_mess=
+[rc],
+> +       pr_info("Smack %s: (%s %s %s) inode=3D(%s %lld) %s\n", smk_bu_mes=
+s[rc],
+>                 tsp->smk_task->smk_known, isp->smk_inode->smk_known, acc,
+>                 inode->i_sb->s_id, inode->i_ino, current->comm);
+>         return 0;
+> @@ -214,7 +214,7 @@ static int smk_bu_file(struct file *file, int mode, i=
+nt rc)
+>         char acc[SMK_NUM_ACCESS_TYPE + 1];
+>
+>         if (isp->smk_flags & SMK_INODE_IMPURE)
+> -               pr_info("Smack Unconfined Corruption: inode=3D(%s %ld) %s=
+\n",
+> +               pr_info("Smack Unconfined Corruption: inode=3D(%s %lld) %=
+s\n",
+>                         inode->i_sb->s_id, inode->i_ino, current->comm);
+>
+>         if (rc <=3D 0)
+> @@ -223,7 +223,7 @@ static int smk_bu_file(struct file *file, int mode, i=
+nt rc)
+>                 rc =3D 0;
+>
+>         smk_bu_mode(mode, acc);
+> -       pr_info("Smack %s: (%s %s %s) file=3D(%s %ld %pD) %s\n", smk_bu_m=
+ess[rc],
+> +       pr_info("Smack %s: (%s %s %s) file=3D(%s %lld %pD) %s\n", smk_bu_=
+mess[rc],
+>                 sskp->smk_known, smk_of_inode(inode)->smk_known, acc,
+>                 inode->i_sb->s_id, inode->i_ino, file,
+>                 current->comm);
+> @@ -244,7 +244,7 @@ static int smk_bu_credfile(const struct cred *cred, s=
+truct file *file,
+>         char acc[SMK_NUM_ACCESS_TYPE + 1];
+>
+>         if (isp->smk_flags & SMK_INODE_IMPURE)
+> -               pr_info("Smack Unconfined Corruption: inode=3D(%s %ld) %s=
+\n",
+> +               pr_info("Smack Unconfined Corruption: inode=3D(%s %lld) %=
+s\n",
+>                         inode->i_sb->s_id, inode->i_ino, current->comm);
+>
+>         if (rc <=3D 0)
+> @@ -253,7 +253,7 @@ static int smk_bu_credfile(const struct cred *cred, s=
+truct file *file,
+>                 rc =3D 0;
+>
+>         smk_bu_mode(mode, acc);
+> -       pr_info("Smack %s: (%s %s %s) file=3D(%s %ld %pD) %s\n", smk_bu_m=
+ess[rc],
+> +       pr_info("Smack %s: (%s %s %s) file=3D(%s %lld %pD) %s\n", smk_bu_=
+mess[rc],
+>                 sskp->smk_known, smk_of_inode(inode)->smk_known, acc,
+>                 inode->i_sb->s_id, inode->i_ino, file,
+>                 current->comm);
+>
+> --
+> 2.53.0
+>
+>
