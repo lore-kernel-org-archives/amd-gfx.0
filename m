@@ -4,150 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E69CFD5324
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DA67FD532A
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52EF410EAA4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70A1B10EAB8;
 	Fri, 27 Feb 2026 09:17:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KwAsXlRo";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="LnER0ISj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED2E10E9A7;
- Thu, 26 Feb 2026 16:07:46 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 656224404F;
- Thu, 26 Feb 2026 16:07:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182BFC19424;
- Thu, 26 Feb 2026 16:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772122066;
- bh=87RomnifO0cL5ulL+HismKZkw+RwFQPeGoOI69KOx40=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=KwAsXlRovpo0h09a4MZbAKFc9uk/4A+aQTF4aProFCmuL6hG40MvhhxJUI+VqfRud
- O6lcHDeBshiWkZIDgRdaxnaj+C8AFUJ8rOsvkPj8ib0pFg4RybCP12WGycXssGRPxa
- Y/xp2kWbPY1WqWMEVzYgJzKmhnM6MZrgeBQmZGeQodKg6IrAj1UkJKygD1YzzHn800
- 2KSHklBObDd+M72oyka/zzgTKj/HvjXOsXi5hwZU4h9ENuru/sXV6fqZycHFM07/gy
- TXu1xft5ywD39PmN4it9lfO1rB+zJedqmopTLvG6GcEsbLoqlHekI8H2PY5/Dz/XKO
- EXxVq4IYq56zw==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:57 -0500
-Subject: [PATCH 55/61] uprobes: update format strings for u64 i_ino
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-55-ccceff366db9@kernel.org>
-References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
-In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Dan Williams <dan.j.williams@intel.com>, 
- Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>, 
- "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
- David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>, 
- Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
- Shyam Prasad N <sprasad@microsoft.com>, 
- Bharath SM <bharathsm@microsoft.com>, 
- Alexander Aring <alex.aring@gmail.com>, 
- Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>, 
- Eric Van Hensbergen <ericvh@kernel.org>, 
- Latchesar Ionkov <lucho@ionkov.net>, 
- Dominique Martinet <asmadeus@codewreck.org>, 
- Christian Schoenebeck <linux_oss@crudebyte.com>, 
- David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>, 
- Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>, 
- Salah Triki <salah.triki@gmail.com>, 
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>, 
- Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>, 
- Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
- Yangtao Li <frank.li@vivo.com>, 
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>, 
- David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, 
- Dave Kleikamp <shaggy@kernel.org>, 
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
- Joseph Qi <joseph.qi@linux.alibaba.com>, 
- Mike Marshall <hubcap@omnibond.com>, 
- Martin Brandenburg <martin@omnibond.com>, 
- Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
- Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
- Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
- John Johansen <john.johansen@canonical.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
- Roberto Sassu <roberto.sassu@huawei.com>, 
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Ondrej Mosnacek <omosnace@redhat.com>, 
- Casey Schaufler <casey@schaufler-ca.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Willem de Bruijn <willemb@google.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
- Martin Schiller <ms@dev.tdt.de>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
- fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
- linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
- samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
- v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
- ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, 
- ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
- jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
- ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
- linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
- selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
- linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
- linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1424; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=87RomnifO0cL5ulL+HismKZkw+RwFQPeGoOI69KOx40=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0SgH+gJAN29PyQUVILDrGJ9juPunMjNerJ8
- p9n6L8XweWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtEgAKCRAADmhBGVaC
- FbzND/0RW8OwdDIsMNP/tE/3wHlHzbrhC6zVA5x3k2XukHz7HwfDr/1AV6nP0+2rs1tmoxOCBKd
- uB3bC8zaWu2bOdmlNB9AJp3YtiZ29kD1TqBZi1fg1uq98Y/F/YDGSspkxIMu+tzuTcHFRtSvSH+
- IDpK337hFool4tBRuBOST6DrvXm4ihW7o/zqDFmgaHeyGIDcdBbFcKIxKOW/ed+5ntAUUpCTw6S
- WArcCdtpB+8odYkpEtb8hvj0sWMIjlyxxNrrW4J4XRzKGcpx9s3vB00xdJzCpRnJ29X09oG9ccg
- +h4daAbfsXU83CBHtze+Y4734lKaOKw62NnpIOhMZIMYloPgKNEFOTW632ULNN5gWWaucAc/OjE
- VcXPJeL90s+LzWRjIxIqZNYEZzGcQLv1xUM2ji5x1ieTov8j07uiFW/SZtoylEhw2qKExhXny0Y
- B4T8eiCR3m4FwoK0/kWQJwZ8wkZP+ZWlMtJ7B4cUavNhFHR3KpsAajcjpAd39hYsLMh0SszZaTM
- awizdyLsgkfNtdVqMmGQgIHN4K2CS6rGe/1MWiNMu6vcdBTvw1FEWSCzJHb+ZV4mXxYAIVewcMo
- Tm+/Akh931ithtTOjIZe3mE3UFxpvTvcptAA47mL0syU01j4yq0zP683Uhp3KJk7UeNzlCO1Nn8
- UAMj/f2rI4uvZhQ==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCABE10EA4E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 07:51:12 +0000 (UTC)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 61QNGaVF327440; Fri, 27 Feb 2026 07:51:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=65Y/qE
+ lswmwDnkkg8fAFq6V0JfT9J/loZLKSgV4FR84=; b=LnER0ISjyWpBjqVOzVQKsz
+ +8ziiJIjrC5GK+zr83tSMc07xvhIsZRUBnyw739fwVJuDhP23fsle7GYerqZqOoz
+ dcK0Yf1n9N2WlGMBjX1D2xGRQpn1WcKS9zGfoMo5C0Ur32qcBsQXtgy7hlu7eh6S
+ Jm9S5S0+HEDnZX4hvHeSFfjzzJ2S1+hXedmzDc3tEK62Nd0PCLbxgnmdoWrQbfx4
+ ZTF/OnVWoAk0EZmaefFFm/XuwySOFsqOv+xUtPPjMS/FIgiQsTUklp/5UfFKKgE8
+ YZYUvxZaHgY5HrZuwiw2+vCyIhoooM96urHd/2RBdx8gzC/iNnxbDsk3lGroeYaw
+ ==
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4cf34cjhvq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 27 Feb 2026 07:51:09 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 61R4pOcM004541;
+ Fri, 27 Feb 2026 07:51:08 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4cfs8k8q7f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 27 Feb 2026 07:51:08 +0000
+Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com
+ [10.241.53.100])
+ by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 61R7p8HE32178700
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 27 Feb 2026 07:51:08 GMT
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 085AC580C1;
+ Fri, 27 Feb 2026 07:51:08 +0000 (GMT)
+Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7C6A6580C3;
+ Fri, 27 Feb 2026 07:51:05 +0000 (GMT)
+Received: from smtpclient.apple (unknown [9.61.248.160])
+ by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTPS;
+ Fri, 27 Feb 2026 07:51:05 +0000 (GMT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.300.41.1.7\))
+Subject: Re: [PATCH] drm/amdgpu: Fix static assertion failure issue
+From: Venkat <venkat88@linux.ibm.com>
+In-Reply-To: <20260226114944.610238-1-YiPeng.Chai@amd.com>
+Date: Fri, 27 Feb 2026 13:20:51 +0530
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Tao.Zhou1@amd.com,
+ Candice.Li@amd.com, Stanley.Yang@amd.com, Jinzhou.Su@amd.com,
+ kernel test robot <lkp@intel.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6ABCD441-BF62-437F-A1AB-14929BB2C064@linux.ibm.com>
+References: <20260226114944.610238-1-YiPeng.Chai@amd.com>
+To: YiPeng Chai <YiPeng.Chai@amd.com>
+X-Mailer: Apple Mail (2.3864.300.41.1.7)
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjI3MDA2NCBTYWx0ZWRfX8pceL7iz9nCO
+ U0SzKklM0sUE1IRQqq0H50XEFwo+NNNahbEudb1KFeLmJdjXxAxICv7tvxCS6RzxgfJzzKDHVrX
+ 98j2+ql6MwYKSDxQyRwSkAqfi6B7OAV/G76fTtlqFit/kHoGvmwuhKaGc1ra08RpgwaMw33PaI2
+ JD184RvY9s1ffAH4BJNEMCxB5kirH4E04TTzw5pA0u/TrhHD4GoLXo5Nb/3Vt4ud8AjlYC07iiG
+ kbg0UREGeEjJUgskMrS6WumBJyha6KxHayXmIam7CoIKl3tFWbL1VhHtkL8xpp12Yvp5MekA/ep
+ 1suSOke8K0i6QQRciSv05k/m+lEgLRs2Bc+c3mXwIX4JP2Bx46UM9VGG3SVTyEIgh/zBHZI0Yce
+ cv8k2RqyI8XmYgy5n0OBOVMeC8i9oib+aYsatdLC7bOPIgSAoMJHu6I9rvVKOgpHPQXU/Nn9bCc
+ wzj9o/NcVezWs93lm+Q==
+X-Proofpoint-ORIG-GUID: nvuW7XX0uIWrT0mn7siGcMXmS6l_Q4Tt
+X-Authority-Analysis: v=2.4 cv=F9lat6hN c=1 sm=1 tr=0 ts=69a14ced cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=HzLeVaNsDn8A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22 a=VwQbUJbxAAAA:8
+ a=QyXUC8HyAAAA:8 a=VnNF1IyMAAAA:8 a=zd2uoN0lAAAA:8 a=6TG8_EcTQC1Qb05om-EA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: nvuW7XX0uIWrT0mn7siGcMXmS6l_Q4Tt
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-02-27_01,2026-02-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 bulkscore=0 adultscore=0 spamscore=0
+ clxscore=1011 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
+ definitions=main-2602270064
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,37 +112,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update %lx to %llx in uprobe warning messages for printing
-inode->i_ino, since i_ino is now u64.
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- kernel/events/uprobes.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index 923b24b321cc0fbdecaf016645cdac0457a74463..4084e926e284487ea7e28b63721797b20f0dfefd 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -344,7 +344,7 @@ __update_ref_ctr(struct mm_struct *mm, unsigned long vaddr, short d)
- static void update_ref_ctr_warn(struct uprobe *uprobe,
- 				struct mm_struct *mm, short d)
- {
--	pr_warn("ref_ctr %s failed for inode: 0x%lx offset: "
-+	pr_warn("ref_ctr %s failed for inode: 0x%llx offset: "
- 		"0x%llx ref_ctr_offset: 0x%llx of mm: 0x%p\n",
- 		d > 0 ? "increment" : "decrement", uprobe->inode->i_ino,
- 		(unsigned long long) uprobe->offset,
-@@ -982,7 +982,7 @@ static struct uprobe *insert_uprobe(struct uprobe *uprobe)
- static void
- ref_ctr_mismatch_warn(struct uprobe *cur_uprobe, struct uprobe *uprobe)
- {
--	pr_warn("ref_ctr_offset mismatch. inode: 0x%lx offset: 0x%llx "
-+	pr_warn("ref_ctr_offset mismatch. inode: 0x%llx offset: 0x%llx "
- 		"ref_ctr_offset(old): 0x%llx ref_ctr_offset(new): 0x%llx\n",
- 		uprobe->inode->i_ino, (unsigned long long) uprobe->offset,
- 		(unsigned long long) cur_uprobe->ref_ctr_offset,
+> On 26 Feb 2026, at 5:19=E2=80=AFPM, YiPeng Chai <YiPeng.Chai@amd.com> =
+wrote:
+>=20
+> Since the PAGE_SIZE is 8KB on sparc64, the size of
+> structure amdsriov_ras_telemetry will exceed 64KB,
+> so use absolute value to fix the buffer size.
+>=20
+> Fixes the issue:
+> drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:522:2: error: static
+> assertion failed due to requirement 'sizeof(struct
+> amdsriov_ras_telemetry) <=3D 64 << 10': amdsriov_ras_telemetry must be =
+64 KB
+> |  sizeof(struct amdsriov_ras_telemetry) <=3D
+> AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10,
+> drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:522:40: note:
+> expression evaluates to '115616 <=3D 65536'
+> |   sizeof(struct amdsriov_ras_telemetry) <=3D
+> AMD_SRIOV_MSG_RAS_TELEMETRY_SIZE_KB_V1 << 10,
+>=20
+> Fixes: cb48a6b2b61d ("drm/amd/ras: use dedicated memory as vf ras =
+command buffer")
+>=20
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: =
+https://lore.kernel.org/oe-kbuild-all/202602261700.rVOLIw4l-lkp@intel.com/=
 
--- 
-2.53.0
+>=20
+> Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+> ---
+
+IBM CI has also reported the same issue, and tested this patch and it =
+fixes the reported build issue.
+
+Link to upstream report: =
+https://lore.kernel.org/all/2b5eda65-a1dd-4858-a6e1-ac2f183ec410@linux.ibm=
+.com/
+
+Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+
+Regards,
+Venkat.
+
+> drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h           | 5 +++--
+> drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c | 4 ++--
+> 2 files changed, 5 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h =
+b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> index 4870c03627df..a841f342a3eb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+> @@ -476,9 +476,10 @@ union amd_sriov_ras_host_push {
+> struct amd_sriov_ras_chk_criti chk_criti;
+> };
+>=20
+> -#define AMD_SRIOV_UNIRAS_CMD_MAX_SIZE (PAGE_SIZE * 13)
+> +#define AMD_SRIOV_UNIRAS_BLOCKS_BUF_SIZE 4096
+> +#define AMD_SRIOV_UNIRAS_CMD_MAX_SIZE (4096 * 13)
+> struct amd_sriov_uniras_shared_mem {
+> - uint8_t blocks_ecc_buf[PAGE_SIZE];
+> + uint8_t blocks_ecc_buf[AMD_SRIOV_UNIRAS_BLOCKS_BUF_SIZE];
+> uint8_t cmd_buf[AMD_SRIOV_UNIRAS_CMD_MAX_SIZE];
+> };
+>=20
+> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c =
+b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+> index 3e8b500caec1..81553230dca4 100644
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_virt_ras_cmd.c
+> @@ -63,7 +63,7 @@ static int amdgpu_virt_ras_get_cmd_shared_mem(struct =
+ras_core_context *ras_core,
+> ras_telemetry_offset);
+>=20
+> if (cmd =3D=3D RAS_CMD__GET_ALL_BLOCK_ECC_STATUS) {
+> - if (mem_size > PAGE_SIZE)
+> + if (mem_size > AMD_SRIOV_UNIRAS_BLOCKS_BUF_SIZE)
+> return -ENOMEM;
+>=20
+> shared_mem->cpu_addr =3D =
+ras_telemetry_cpu->uniras_shared_mem.blocks_ecc_buf;
+> @@ -504,7 +504,7 @@ int amdgpu_virt_ras_hw_init(struct amdgpu_device =
+*adev)
+> memset(blks_ecc, 0, sizeof(*blks_ecc));
+> if (amdgpu_virt_ras_get_cmd_shared_mem(ras_mgr->ras_core,
+> RAS_CMD__GET_ALL_BLOCK_ECC_STATUS,
+> - PAGE_SIZE, &blks_ecc->shared_mem))
+> + AMD_SRIOV_UNIRAS_BLOCKS_BUF_SIZE, &blks_ecc->shared_mem))
+> return -ENOMEM;
+>=20
+> return 0;
+> --=20
+> 2.43.0
+>=20
 
