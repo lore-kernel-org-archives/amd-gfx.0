@@ -4,149 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D46FFD5327
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3FC6FD532A
 	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:17:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 676BD10EAA3;
-	Fri, 27 Feb 2026 09:17:19 +0000 (UTC)
-X-Greylist: delayed 473 seconds by postgrey-1.36 at gabe;
- Thu, 26 Feb 2026 21:14:08 UTC
-Received: from lithops.sigma-star.at (mailout.nod.at [116.203.167.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A707510E089;
- Thu, 26 Feb 2026 21:14:08 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by lithops.sigma-star.at (Postfix) with ESMTP id 8F3C528F9E9;
- Thu, 26 Feb 2026 22:06:12 +0100 (CET)
-Received: from lithops.sigma-star.at ([127.0.0.1])
- by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10032)
- with ESMTP id iWyiIX5CRUJd; Thu, 26 Feb 2026 22:06:11 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by lithops.sigma-star.at (Postfix) with ESMTP id 9FBFB29859D;
- Thu, 26 Feb 2026 22:06:10 +0100 (CET)
-Received: from lithops.sigma-star.at ([127.0.0.1])
- by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10026)
- with ESMTP id cwbgIi8mwQ6r; Thu, 26 Feb 2026 22:06:09 +0100 (CET)
-Received: from lithops.sigma-star.at (lithops.sigma-star.at [195.201.40.130])
- by lithops.sigma-star.at (Postfix) with ESMTP id 1868E298580;
- Thu, 26 Feb 2026 22:06:08 +0100 (CET)
-Date: Thu, 26 Feb 2026 22:06:07 +0100 (CET)
-From: Richard Weinberger <richard@nod.at>
-To: Jeff Layton <jlayton@kernel.org>
-Cc: Al Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
- Jan Kara <jack@suse.cz>, Steven Rostedt <rostedt@goodmis.org>, 
- mhiramat <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- dan j williams <dan.j.williams@intel.com>, 
- Matthew Wilcox <willy@infradead.org>, 
- Eric Biggers <ebiggers@kernel.org>, tytso <tytso@mit.edu>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, 
- David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
- Trond Myklebust <trondmy@kernel.org>, anna <anna@kernel.org>, 
- chuck lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, 
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
- Steve French <sfrench@samba.org>, 
- Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
- Shyam <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>, 
- Alexander Aring <alex.aring@gmail.com>, 
- Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>, 
- Eric Van Hensbergen <ericvh@kernel.org>, 
- Latchesar Ionkov <lucho@ionkov.net>, 
- Dominique Martinet <asmadeus@codewreck.org>, 
- Christian Schoenebeck <linux_oss@crudebyte.com>, 
- David Sterba <dsterba@suse.com>, 
- Marc Dionne <marc.dionne@auristor.com>, raven <raven@themaw.net>, 
- Luis de Bethencourt <luisbg@kernel.org>, 
- Salah Triki <salah.triki@gmail.com>, 
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>, 
- Ilya Dryomov <idryomov@gmail.com>, 
- Alex Markuze <amarkuze@redhat.com>, Jan Harkes <jaharkes@cs.cmu.edu>, 
- coda@cs.cmu.edu, Nicolas Pitre <nico@fluxnic.net>, 
- Tyler Hicks <code@tyhicks.com>, Amir Goldstein <amir73il@gmail.com>, 
- Christoph Hellwig <hch@infradead.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
- Yangtao Li <frank.li@vivo.com>, 
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>, 
- David Woodhouse <dwmw2@infradead.org>, Dave Kleikamp <shaggy@kernel.org>, 
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
- Joseph Qi <joseph.qi@linux.alibaba.com>, 
- Mike Marshall <hubcap@omnibond.com>, 
- Martin Brandenburg <martin@omnibond.com>, 
- Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
- chengzhihao1 <chengzhihao1@huawei.com>, 
- Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>, 
- Johannes Thumshirn <jth@kernel.org>, 
- John Johansen <john.johansen@canonical.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
- Roberto Sassu <roberto.sassu@huawei.com>, 
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Ondrej Mosnacek <omosnace@redhat.com>, 
- Casey Schaufler <casey@schaufler-ca.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- sumit semwal <sumit.semwal@linaro.org>, edumazet <edumazet@google.com>, 
- Kuniyuki Iwashima <kuniyu@google.com>, pabeni <pabeni@redhat.com>, 
- Willem de Bruijn <willemb@google.com>, davem <davem@davemloft.net>, 
- kuba <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
- oleg <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- mingo <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, 
- "Darrick J. Wong" <djwong@kernel.org>, Martin Schiller <ms@dev.tdt.de>, 
- linux-fsdevel <linux-fsdevel@vger.kernel.org>, 
- linux-kernel <linux-kernel@vger.kernel.org>, 
- linux-trace-kernel <linux-trace-kernel@vger.kernel.org>, 
- nvdimm@lists.linux.dev, fsverity@lists.linux.dev, 
- linux-mm <linux-mm@kvack.org>, netfs@lists.linux.dev, 
- linux-ext4 <linux-ext4@vger.kernel.org>, 
- linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>, 
- linux-nfs <linux-nfs@vger.kernel.org>, 
- linux-cifs <linux-cifs@vger.kernel.org>, 
- samba-technical <samba-technical@lists.samba.org>, 
- linux-nilfs <linux-nilfs@vger.kernel.org>, v9fs <v9fs@lists.linux.dev>, 
- linux-afs <linux-afs@lists.infradead.org>, autofs@vger.kernel.org, 
- ceph-devel <ceph-devel@vger.kernel.org>, codalist@coda.cs.cmu.edu, 
- ecryptfs <ecryptfs@vger.kernel.org>, 
- linux-mtd <linux-mtd@lists.infradead.org>, 
- jfs-discussion <jfs-discussion@lists.sourceforge.net>, 
- ntfs3 <ntfs3@lists.linux.dev>, ocfs2-devel <ocfs2-devel@lists.linux.dev>, 
- devel <devel@lists.orangefs.org>, 
- linux-unionfs <linux-unionfs@vger.kernel.org>, apparmor@lists.ubuntu.com, 
- LSM <linux-security-module@vger.kernel.org>, 
- linux-integrity <linux-integrity@vger.kernel.org>, 
- selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- DRI mailing list <dri-devel@lists.freedesktop.org>, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- netdev <netdev@vger.kernel.org>, linux-perf-users@vger.kernel.org, 
- linux-fscrypt <linux-fscrypt@vger.kernel.org>, 
- linux-xfs <linux-xfs@vger.kernel.org>, linux-hams@vger.kernel.org, 
- linux-x25@vger.kernel.org
-Message-ID: <909001762.1963.1772139967060.JavaMail.zimbra@nod.at>
-In-Reply-To: <20260226-iino-u64-v1-47-ccceff366db9@kernel.org>
-References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
- <20260226-iino-u64-v1-47-ccceff366db9@kernel.org>
-Subject: Re: [PATCH 47/61] ubifs: update format strings for u64 i_ino
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54AE210EAA1;
+	Fri, 27 Feb 2026 09:17:21 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="A+6pYEIX";
+	dkim-atps=neutral
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AD7310EA4E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 07:55:09 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-48379a42f76so13028525e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 26 Feb 2026 23:55:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1772178908; x=1772783708; darn=lists.freedesktop.org;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=0bo1+MeHyz3oo0R9LPXDVH4BNCFrZ2q0p2S2NbLydZI=;
+ b=A+6pYEIXWEW7cWn8OIuPXubR9GI76T5KDQvZKHwYHhqS1GOgaLABxHrz+oYTiRWxSE
+ +H2zBp0xvbRwCc7iWacIxYJ7dnUPSAZQhmVrHFYK3RULG81VocebYyf3GRMr5EgCsRtD
+ E29ZcK+l74HbfSZKTcsp/1qlPelWSm+yCMvGfz3PYwqcxEUqteJw2cjO7K60BbEYoHTz
+ ovYqADgeq6kuvmTJzhxpcTHCyD+PP2LHR9R7x/G7zqwTxY1Q4o9pB04VIAkj9gtvB+jE
+ HaT8JF7Fz1S5jF/lsc6xAMEMZmhUSU7RCD2s5TjsttgEUTRWueGIgxF6R0RjNLyJiqL7
+ +ZkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772178908; x=1772783708;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=0bo1+MeHyz3oo0R9LPXDVH4BNCFrZ2q0p2S2NbLydZI=;
+ b=KXAEDubpV8UP16RMvgVEw24dlnZHL8FE98fRzHSXamdFDQzSmaAMvLWT3t/0HUBf5s
+ 0feGdjIcrrze40Zf2yBUcD7f7nFqK4mv0pPMzEH+UbUThIL6MGjZdE/6BlxzWquV5amG
+ MRuy/RSUHWyTEltWVA5xylcVSlDczrXTVXKLetZSGtMGEPHB2glgYY8qh1AYh2bHYpZR
+ xYKMBF1YbvKwqFaJsE/9ZfU+RgWeVZm31nLOZMkoB7UOnh6W2JirvyhezDbqs2VvmjiL
+ Q9zfMhzJT6KEn7UxYKrpJNzagrVj3kjFpPOP6U7johjPkGF+yCpFGxfHSpxgAp+sumu/
+ RQLA==
+X-Gm-Message-State: AOJu0YxcP3tpxuw/xFHQbbkLH6GKkfeITDWqTyGp4mJzt/Pzz2YkxLvV
+ /e8zg65ZUPm/cROwO4eVgSYalonJSACPQjW8wdyvDM4Y6KdFELemDRwfjNKkQIggZ8k=
+X-Gm-Gg: ATEYQzwM02t2RP43TEWf1mp8bKLaMqxyMg7U+GJvdIXUT7On616S/o9/e5GVctysGHj
+ t8Px9VZNnqLC4E4rPOD+nW9yKL0MYtKYPItwXZ4rhgscNcKhMYbmz2uldVLbpQMJMus/twXKKxe
+ N2ZkVg7XvWJsBYKDep2jV9jjuciw0YEtY8rWP1svps2HtYKS5sbOhrG916bT7TEDdLRcm9F7cHx
+ An7+BkEaaHDTZDXsTWYGah6sk3PEH3mJFJFUogF5jgrgdVugjIX0caIFeZFw5OZjs8IibGRmpkX
+ CbISTb4oL0bEmqYnKyaTo1MhJYWXyLIAZQdxZJRGLByleXSZZzknthHo3W0M8PQkPX91vEt4A7f
+ VS3s46AocZPwu5F/LsxtNxW1yecEeiHsReo7R1Rpb0NWDwWNFzGn++WH470bIDsmhAxgCLYnewi
+ z4zBh8Di+4kKzgLf/LI3dQc5G+aNef
+X-Received: by 2002:a05:600c:828c:b0:482:dbd7:a1c1 with SMTP id
+ 5b1f17b1804b1-483c9c23c72mr23232475e9.34.1772178907803; 
+ Thu, 26 Feb 2026 23:55:07 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-483bd7507adsm219000415e9.9.2026.02.26.23.55.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Feb 2026 23:55:07 -0800 (PST)
+Date: Fri, 27 Feb 2026 10:55:04 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amdgpu: add missing lock in amdgpu_benchmark_do_move
+Message-ID: <aaFN2JyOolrjynKP@stanley.mountain>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [195.201.40.130]
-X-Mailer: Zimbra 8.8.12_GA_3807 (ZimbraWebClient - FF147
- (Linux)/8.8.12_GA_3809)
-Thread-Topic: ubifs: update format strings for u64 i_ino
-Thread-Index: W1YwJFGUiVxHsVs+FtVDAklXBDhaRQ==
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:01 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,23 +83,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
------ Urspr=C3=BCngliche Mail -----
-> Von: "Jeff Layton" <jlayton@kernel.org>
-> Update format strings and local variable types in ubifs for the
-> i_ino type change from unsigned long to u64.
->=20
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
-> fs/ubifs/debug.c   |  8 ++++----
-> fs/ubifs/dir.c     | 28 ++++++++++++++--------------
-> fs/ubifs/file.c    | 28 ++++++++++++++--------------
-> fs/ubifs/journal.c |  6 +++---
-> fs/ubifs/super.c   | 16 ++++++++--------
-> fs/ubifs/tnc.c     |  4 ++--
-> fs/ubifs/xattr.c   | 14 +++++++-------
-> 7 files changed, 52 insertions(+), 52 deletions(-)
+[ Smatch checking is paused while we raise funding. #SadFace
+  https://lore.kernel.org/all/aTaiGSbWZ9DJaGo7@stanley.mountain/ -dan ]
 
-Acked-by: Richard Weinberger <richard@nod.at>
+Hello Pierre-Eric Pelloux-Prayer,
 
-Thanks,
-//richard
+Commit 30f2daedf4d8 ("drm/amdgpu: add missing lock in
+amdgpu_benchmark_do_move") from Nov 18, 2025 (linux-next), leads to
+the following Smatch static checker warning:
+
+	drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c:57 amdgpu_benchmark_do_move()
+	warn: inconsistent returns '&adev->mman.default_entity.lock'.
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
+    31 static int amdgpu_benchmark_do_move(struct amdgpu_device *adev, unsigned size,
+    32                                     uint64_t saddr, uint64_t daddr, int n, s64 *time_ms)
+    33 {
+    34         ktime_t stime, etime;
+    35         struct dma_fence *fence;
+    36         int i, r;
+    37 
+    38         mutex_lock(&adev->mman.default_entity.lock);
+    39         stime = ktime_get();
+    40         for (i = 0; i < n; i++) {
+    41                 r = amdgpu_copy_buffer(adev, &adev->mman.default_entity,
+    42                                        saddr, daddr, size, NULL, &fence,
+    43                                        false, 0);
+    44                 if (r)
+    45                         goto exit_do_move;
+    46                 r = dma_fence_wait(fence, false);
+    47                 dma_fence_put(fence);
+    48                 if (r)
+    49                         goto exit_do_move;
+    50         }
+    51         mutex_unlock(&adev->mman.default_entity.lock);
+    52 
+    53 exit_do_move:
+
+The unlock should be after the exit_do_move label.
+
+    54         etime = ktime_get();
+    55         *time_ms = ktime_ms_delta(etime, stime);
+    56 
+--> 57         return r;
+    58 }
+
+regards,
+dan carpenter
