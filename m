@@ -4,196 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C364FEE4DD
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B35BAFEE4D9
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:20:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BCC5510E250;
-	Sat, 28 Feb 2026 09:19:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BBEA10E28E;
+	Sat, 28 Feb 2026 09:20:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.b="AsZRArcr";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="CLaYwmKp";
 	dkim-atps=neutral
-X-Greylist: delayed 453 seconds by postgrey-1.36 at gabe;
- Fri, 27 Feb 2026 16:54:46 UTC
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0CA810EBCE
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 16:54:46 +0000 (UTC)
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
- [74.125.224.70])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id EE6233F917
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 16:47:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1772210832;
- bh=BKQzT9t7ZI3mb+6EDIKBTxaX0DX68JkIAcPYLBp08+M=;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
- To:Cc:Content-Type;
- b=AsZRArcr+IHOjGSBnonu/oj477dSluZfbYqix5/Y3zCBdoV1+uw6mYYHWwc4sPEzW
- HjFcFZE09FnavTkEnrKbxmF0r3YbTQPiFMojDWqkufdWKDMCZW9OPxWmPLHGl8VYyP
- aEEDR142r/egN11v+6BUwh9UCjnO7iqcqVKNlvjuimRs6gHHfWgooiT0xYazkycZV9
- iGaNpfepDa56QYdI4I7j3O9bAMZ5DH4c2WTlkXndqNrhlLiQOUUvwizjaREzzR+RaW
- G6qhyP2mK34/AwEY8BsSjxU/P2yJBLCVcFF0FazsuIIhPpIJJoppDe/KKLv377XKJO
- ckRoiSwBJ3h5NMgLM0yT68s2FLDl6gyLkP/lRN3fVuLZu1yxgjda/ENN1odqNnDS9i
- cUltWCZdejwVb0iOVt7w8SJ+e7iURRxp5NxrVK346lnXyAMDOroqzltJLwTrKWTFrE
- AN4ruGpriTmmvQ9GwGNvr1LpOw6mwnclV+8SKwiXFM2kWGMs7WC4UqqVSYW/5oxS+O
- xoiqh6Acy+TYgniHFTAsDU75wpJzuZLSiIVgwW31LUadIpejlNvpg5EcfEaBbQmLVj
- NgnJJyPdPSKozzmB9LKkQNdrUwMQftfhfgs3hHlvFhllpGK5m8UgazcxDHxIY0+WhT
- Efp718XcrpREHjvzQoHFxdjs=
-Received: by mail-yx1-f70.google.com with SMTP id
- 956f58d0204a3-64cad8f8d03so4108361d50.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 08:47:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772210831; cv=none;
- d=google.com; s=arc-20240605;
- b=UWiMvQZp9CZkPv1G1zGB0rqnDB5uo4QaXjUPTbigBHfHiuURbodb+3cyx9kUqlDf6/
- YdVxQYJGkTUcXghGT6rb54hHOpQ7AAnahXBX0ZwT8Xm1oztulSrQ446K/T9l5FWKAPPf
- YDDICi+GBFBUi+2AhF/uBwK1xRBrPCP5zQsQ0BUf0xuG97YjkGqRpH0mlLWIqtX53f1E
- oTD6TVFKtd+lmds3QPXGpJU9GQMJ/WaBCAVJ+OuQLwWZxhbHAWSgNLvC/tOHkdpIQLQp
- xc5vSiU4aoegWs3yxqRvWkBIGh3F66OdWMyokYsL52sbvqbFHahtcQvkYitZ5jKuKJwx
- w3SQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=BKQzT9t7ZI3mb+6EDIKBTxaX0DX68JkIAcPYLBp08+M=;
- fh=OacpuURuRqkqcbE0fl+qNkzWgxiTmozwN/dptuZDuKQ=;
- b=NEW7k5W3uL6X1Kf1GKE9p03jWkfzR8ns4nLF5x4yABh5nqrW9e+lgcO5r8UqHqYlAJ
- x+X1M47sm/nX2eswx5sNdejHIYUdfCz0qej0laTlzyLb3H8meLc/M5vSxejTmrg7NDge
- R2bFoFZ7svOFuqviNKLVHzNsD3yB3vNFnUamHKhtY7DFjoggEfxn10wExO3qMfDXts6Z
- Knlio7nSz/uKTVIIqypHG2WLNOJ5hY8lMlZgk08WjMZQ0VH1kVQxmNNypKRexyt69Bh2
- VA1Xg79REtGlxEffhKmoBZOw4gkHqO/5Usqox0qfjRqhp/nlQgECIys9giRHpmJwt+tn
- ji9A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772210831; x=1772815631;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=BKQzT9t7ZI3mb+6EDIKBTxaX0DX68JkIAcPYLBp08+M=;
- b=tZqXLHvjT3lqXXSqHhzyTuPcoN+PVG7gMof2wY/S8SQp69RJDnRvSH0wVdcD81Xzpq
- QWu5F+NLopToUfKsOE0S4iwZus3WsvxEgu2YNlUNrYx566s6eq3SjdqdCtM6mVY+0QlL
- KEcGom6l4fz4GjC6yt08hJXxl4Tvs5I8GJ4mhLDX2u7zcfHm43YNN8+wNpdxn6ocUj1t
- qEIZJeG/WX4Z7EhAYURY2XoQ7L16vX4udz+W+VcUm66awMTSzCzlaTuWHdjibujZ2Bqi
- DmmnNQjC8vLXotfqxUlgfcZkl3kTliL9VIrtBLNJG28/L4mnwufvTPYdtjBM7ckTbPeu
- kAtg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVS5tIjfbF3IQtzSpcCAvB7nJIfT39yzzPM3MrksHQ3ioLFc4uTaHWN8b+cowl617fJnX66v1bA@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy4AEuNBpH3AsoWZQ7/sao75KD6Qhj00d1urS9aVCM3oofww6RO
- j/Oc22fulGhnjiPZq+qGvdchPBLRg0CXmKHMdXoGbokDljWY4E1voZTQz291DjyQwhDkyYFAzUI
- 5vOgpugyJkkHtHu4vnjKfdu6k/KiOK9crCW129/5zSkEFBF7JeZSMcwG7V/FVm51HAG8TpY1TIx
- Aev9KQK0B4KQFHFNPWpwdsnuoM1y4cc0CrwquHo5bJyYJixEVqQKcWWqzLNw==
-X-Gm-Gg: ATEYQzyOiQM+tI4D1LE9pgmMFTAmAGIDuCnpGgrCQ7Xg7CcNlM0iVt43wA3mt02uezb
- 4kRYixTVm9Wkl2/sR31F/ia52ZQ3kACI2kRAmJjmYwhN7V21j3lDWn3cUdmer++Pv0ImStBei2e
- 4I9gdCDHxMONM6mcelHDWpXFkmuaY+5XtC1dMcClLpWlv0kxXWA+SSiv4m96iJhFmYQJ60+5V+W
- 0RaDz7ndpqxXq3/2nLjO7v0pxMll92Yi1gpsxGaKIYoCQmvLASZSQqcZpM0oIXUaOA=
-X-Received: by 2002:a53:b743:0:b0:64c:9b84:92ee with SMTP id
- 956f58d0204a3-64cb6f438a9mr3821198d50.31.1772210830748; 
- Fri, 27 Feb 2026 08:47:10 -0800 (PST)
-X-Received: by 2002:a53:b743:0:b0:64c:9b84:92ee with SMTP id
- 956f58d0204a3-64cb6f438a9mr3821130d50.31.1772210830102; Fri, 27 Feb 2026
- 08:47:10 -0800 (PST)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02D2010EBF4;
+ Fri, 27 Feb 2026 19:21:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772220059; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=a7lFIvyCcJsH9DCvDr4jZHEDLNIq1Hq76GliARJV+zQn0Pgg/lMiAJByeVcFg/RSmi3fmxWIpWGBLTJizZRvy4k5QNVgg7AmOdo3WBPNE3DLCM+7FgqLw8Y7LDEOpu2iklQauZgjoNCz6JGkrnV0l5Ow0/uK9uS3vXeZk2LHmKs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1772220059;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=hg3JbOf51qGFiNWUz4/s1v5VBKG+/JhvVIcP9q/nOnU=; 
+ b=lHOS1T8Hrps+SdPfmbeeSAxjwFnkDJutw/Qi6k2llpvTv2O09SQ+Y4E94JQUz1cwwi7Lat1vQLD8Dn6YYJqo2OHlJ1vihu5AS9OG3w+wzo5HQSt1GwKAOyznZOFL3xYoW9hRtyZcKIC1h6FjhF0ivDRDv8VkgYz3jyQ+FJuXxrA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772220059; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=hg3JbOf51qGFiNWUz4/s1v5VBKG+/JhvVIcP9q/nOnU=;
+ b=CLaYwmKpY8Xjs9BOCDkT58HyGwWipr+AcLwrrKsgqAciegkltLKvTPMSNJaC3pew
+ +uN3EdkSJvr9UIH8mnnHjBpHlFyJT9xeJ9QhtW8ilUrL38tXhI/G1mDgOpb/Y8LshGE
+ zn6CvXQM1O3Cq1OqxQgt291EYOi6nxUoHb3gaK1Y=
+Received: by mx.zohomail.com with SMTPS id 177222005703079.58928466955979;
+ Fri, 27 Feb 2026 11:20:57 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Fri, 27 Feb 2026 20:20:08 +0100
+Subject: [PATCH v9 03/19] drm/bridge: Act on the DRM color format property
 MIME-Version: 1.0
-References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
- <20260226-iino-u64-v1-51-ccceff366db9@kernel.org>
-In-Reply-To: <20260226-iino-u64-v1-51-ccceff366db9@kernel.org>
-From: Ryan Lee <ryan.lee@canonical.com>
-Date: Fri, 27 Feb 2026 08:46:58 -0800
-X-Gm-Features: AaiRm50sr0j0-BwzNnmwGRvH8jyB1wNkHgZo3vdp3K_4YIT1mBOH-BzuS2c5S3A
-Message-ID: <CAKCV-6ujQK3yj8sB2eHafaw4pvrJUeK18Hu4vzvNSjH48RVgYg@mail.gmail.com>
-Subject: Re: [PATCH 51/61] security: update audit format strings for u64 i_ino
-To: Jeff Layton <jlayton@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Dan Williams <dan.j.williams@intel.com>, 
- Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>, 
- "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
- David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
- Tom Talpey <tom@talpey.com>, 
- Steve French <sfrench@samba.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
- Shyam Prasad N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>, 
- Alexander Aring <alex.aring@gmail.com>,
- Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>, Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>, 
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- David Sterba <dsterba@suse.com>, 
- Marc Dionne <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>, 
- Luis de Bethencourt <luisbg@kernel.org>, Salah Triki <salah.triki@gmail.com>, 
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- Ilya Dryomov <idryomov@gmail.com>, 
- Alex Markuze <amarkuze@redhat.com>, Jan Harkes <jaharkes@cs.cmu.edu>,
- coda@cs.cmu.edu, 
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>,
- Amir Goldstein <amir73il@gmail.com>, 
- Christoph Hellwig <hch@infradead.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>, 
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- David Woodhouse <dwmw2@infradead.org>, 
- Richard Weinberger <richard@nod.at>, Dave Kleikamp <shaggy@kernel.org>, 
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Mark Fasheh <mark@fasheh.com>, 
- Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>, 
- Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, 
- Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
- Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
- Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
- John Johansen <john.johansen@canonical.com>, Paul Moore <paul@paul-moore.com>, 
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Mimi Zohar <zohar@linux.ibm.com>, 
- Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>, 
- Casey Schaufler <casey@schaufler-ca.com>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260227-color-format-v9-3-658c3b9db7ef@collabora.com>
+References: <20260227-color-format-v9-0-658c3b9db7ef@collabora.com>
+In-Reply-To: <20260227-color-format-v9-0-658c3b9db7ef@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Willem de Bruijn <willemb@google.com>, "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
- Martin Schiller <ms@dev.tdt.de>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
- fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
- linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
- samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
- v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
- ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, 
- ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
- jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
- ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
- linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
- selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
- linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
- linux-x25@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Sat, 28 Feb 2026 09:19:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -209,253 +88,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 26, 2026 at 9:13=E2=80=AFAM Jeff Layton <jlayton@kernel.org> wr=
-ote:
->
-> Update %lu/%ld to %llu/%lld in security audit logging functions that
-> print inode->i_ino, since i_ino is now u64.
->
-> Files updated: apparmor/apparmorfs.c, integrity/integrity_audit.c,
-> ipe/audit.c, lsm_audit.c.
->
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->  security/apparmor/apparmorfs.c       |  4 ++--
->  security/integrity/integrity_audit.c |  2 +-
->  security/ipe/audit.c                 |  2 +-
->  security/lsm_audit.c                 | 10 +++++-----
->  security/selinux/hooks.c             |  4 ++--
->  security/smack/smack_lsm.c           | 12 ++++++------
->  6 files changed, 17 insertions(+), 17 deletions(-)
->
-> diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorf=
-s.c
-> index 2f84bd23edb69e7e69cb097e554091df0132816d..7b645f40e71c956f216fa6a7d=
-69c3ecd4e2a5ff4 100644
-> --- a/security/apparmor/apparmorfs.c
-> +++ b/security/apparmor/apparmorfs.c
-> @@ -149,7 +149,7 @@ static int aafs_count;
->
->  static int aafs_show_path(struct seq_file *seq, struct dentry *dentry)
->  {
-> -       seq_printf(seq, "%s:[%lu]", AAFS_NAME, d_inode(dentry)->i_ino);
-> +       seq_printf(seq, "%s:[%llu]", AAFS_NAME, d_inode(dentry)->i_ino);
->         return 0;
->  }
->
-> @@ -2644,7 +2644,7 @@ static int policy_readlink(struct dentry *dentry, c=
-har __user *buffer,
->         char name[32];
+The new DRM color format property allows userspace to request a specific
+color format on a connector. In turn, this fills the connector state's
+color_format member to switch color formats.
 
-I have confirmed that the buffer is still big enough for a 64-bit inode num=
-ber.
+Make drm_bridges consider the color_format set in the connector state
+during the atomic bridge check. For bridges that represent HDMI bridges,
+rely on whatever format the HDMI logic set. Reject any output bus
+formats that do not correspond to the requested color format.
 
->         int res;
->
-> -       res =3D snprintf(name, sizeof(name), "%s:[%lu]", AAFS_NAME,
-> +       res =3D snprintf(name, sizeof(name), "%s:[%llu]", AAFS_NAME,
->                        d_inode(dentry)->i_ino);
->         if (res > 0 && res < sizeof(name))
->                 res =3D readlink_copy(buffer, buflen, name, strlen(name))=
-;
+Non-HDMI last bridges with DRM_CONNECTOR_COLOR_FORMAT_AUTO set will end
+up choosing the first output format that functions to make a whole
+recursive bridge chain format selection succeed.
 
-For the AppArmor portion:
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/drm_bridge.c | 89 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 88 insertions(+), 1 deletion(-)
 
-Reviewed-By: Ryan Lee <ryan.lee@canonical.com>
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 6d8947419940..5938fba0a983 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -1117,6 +1117,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
+ 	return ret;
+ }
+ 
++static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_connector_color_format fmt)
++{
++	if (fmt == DRM_CONNECTOR_COLOR_FORMAT_AUTO)
++		return true;
++
++	switch (bus_fmt) {
++	case MEDIA_BUS_FMT_FIXED:
++		return true;
++	case MEDIA_BUS_FMT_RGB888_1X24:
++	case MEDIA_BUS_FMT_RGB101010_1X30:
++	case MEDIA_BUS_FMT_RGB121212_1X36:
++	case MEDIA_BUS_FMT_RGB161616_1X48:
++		return fmt == DRM_CONNECTOR_COLOR_FORMAT_RGB444;
++	case MEDIA_BUS_FMT_YUV8_1X24:
++	case MEDIA_BUS_FMT_YUV10_1X30:
++	case MEDIA_BUS_FMT_YUV12_1X36:
++	case MEDIA_BUS_FMT_YUV16_1X48:
++		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
++	case MEDIA_BUS_FMT_UYVY8_1X16:
++	case MEDIA_BUS_FMT_VYUY8_1X16:
++	case MEDIA_BUS_FMT_YUYV8_1X16:
++	case MEDIA_BUS_FMT_YVYU8_1X16:
++	case MEDIA_BUS_FMT_UYVY10_1X20:
++	case MEDIA_BUS_FMT_YUYV10_1X20:
++	case MEDIA_BUS_FMT_VYUY10_1X20:
++	case MEDIA_BUS_FMT_YVYU10_1X20:
++	case MEDIA_BUS_FMT_UYVY12_1X24:
++	case MEDIA_BUS_FMT_VYUY12_1X24:
++	case MEDIA_BUS_FMT_YUYV12_1X24:
++	case MEDIA_BUS_FMT_YVYU12_1X24:
++		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
++	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
++	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
++	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
++	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
++		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
++	default:
++		return false;
++	}
++}
++
+ /*
+  * This function is called by &drm_atomic_bridge_chain_check() just before
+  * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
+@@ -1160,6 +1201,7 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+ 	struct drm_encoder *encoder = bridge->encoder;
+ 	struct drm_bridge_state *last_bridge_state;
+ 	unsigned int i, num_out_bus_fmts = 0;
++	enum drm_connector_color_format fmt;
+ 	u32 *out_bus_fmts;
+ 	int ret = 0;
+ 
+@@ -1201,13 +1243,58 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+ 			out_bus_fmts[0] = MEDIA_BUS_FMT_FIXED;
+ 	}
+ 
++	/*
++	 * On HDMI connectors, use the output format chosen by whatever does the
++	 * HDMI logic. For everyone else, just trust that the bridge out_bus_fmts
++	 * are sorted by preference for %DRM_CONNECTOR_COLOR_FORMAT_AUTO, as
++	 * bus_format_is_color_fmt() always returns true for AUTO.
++	 */
++	if (last_bridge->ops & DRM_BRIDGE_OP_HDMI) {
++		drm_dbg_kms(last_bridge->dev,
++			    "HDMI bridge requests format %s\n",
++			    drm_hdmi_connector_get_output_format_name(
++				    conn_state->hdmi.output_format));
++		switch (conn_state->hdmi.output_format) {
++		case DRM_OUTPUT_COLOR_FORMAT_RGB444:
++			fmt = DRM_CONNECTOR_COLOR_FORMAT_RGB444;
++			break;
++		case DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
++			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
++			break;
++		case DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
++			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
++			break;
++		case DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
++			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
++			break;
++		default:
++			ret = -EINVAL;
++			goto out_free_bus_fmts;
++		}
++	} else {
++		fmt = conn_state->color_format;
++		drm_dbg_kms(last_bridge->dev, "Non-HDMI bridge requests format %d\n", fmt);
++	}
++
+ 	for (i = 0; i < num_out_bus_fmts; i++) {
++		if (!bus_format_is_color_fmt(out_bus_fmts[i], fmt)) {
++			drm_dbg_kms(last_bridge->dev,
++				    "Skipping bus format 0x%04x as it doesn't match format %d\n",
++				    out_bus_fmts[i], fmt);
++			ret = -ENOTSUPP;
++			continue;
++		}
+ 		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
+ 					       conn_state, out_bus_fmts[i]);
+-		if (ret != -ENOTSUPP)
++		if (ret != -ENOTSUPP) {
++			drm_dbg_kms(last_bridge->dev,
++				    "Found bridge chain ending with bus format 0x%04x\n",
++				    out_bus_fmts[i]);
+ 			break;
++		}
+ 	}
+ 
++out_free_bus_fmts:
+ 	kfree(out_bus_fmts);
+ 
+ 	return ret;
 
-> diff --git a/security/integrity/integrity_audit.c b/security/integrity/in=
-tegrity_audit.c
-> index 0ec5e4c22cb2a1066c2b897776ead6d3db72635c..d8d9e5ff1cd22b091f462d1e8=
-3d28d2d6bd983e9 100644
-> --- a/security/integrity/integrity_audit.c
-> +++ b/security/integrity/integrity_audit.c
-> @@ -62,7 +62,7 @@ void integrity_audit_message(int audit_msgno, struct in=
-ode *inode,
->         if (inode) {
->                 audit_log_format(ab, " dev=3D");
->                 audit_log_untrustedstring(ab, inode->i_sb->s_id);
-> -               audit_log_format(ab, " ino=3D%lu", inode->i_ino);
-> +               audit_log_format(ab, " ino=3D%llu", inode->i_ino);
->         }
->         audit_log_format(ab, " res=3D%d errno=3D%d", !result, errno);
->         audit_log_end(ab);
-> diff --git a/security/ipe/audit.c b/security/ipe/audit.c
-> index 3f0deeb54912730d9acf5e021a4a0cb29a34e982..93fb59fbddd60b56c0b22be2a=
-38b809ef9e18b76 100644
-> --- a/security/ipe/audit.c
-> +++ b/security/ipe/audit.c
-> @@ -153,7 +153,7 @@ void ipe_audit_match(const struct ipe_eval_ctx *const=
- ctx,
->                 if (inode) {
->                         audit_log_format(ab, " dev=3D");
->                         audit_log_untrustedstring(ab, inode->i_sb->s_id);
-> -                       audit_log_format(ab, " ino=3D%lu", inode->i_ino);
-> +                       audit_log_format(ab, " ino=3D%llu", inode->i_ino)=
-;
->                 } else {
->                         audit_log_format(ab, " dev=3D? ino=3D?");
->                 }
-> diff --git a/security/lsm_audit.c b/security/lsm_audit.c
-> index 7d623b00495c14b079e10e963c21a9f949c11f07..737f5a263a8f79416133315ed=
-f363ece3d79c722 100644
-> --- a/security/lsm_audit.c
-> +++ b/security/lsm_audit.c
-> @@ -202,7 +202,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
->                 if (inode) {
->                         audit_log_format(ab, " dev=3D");
->                         audit_log_untrustedstring(ab, inode->i_sb->s_id);
-> -                       audit_log_format(ab, " ino=3D%lu", inode->i_ino);
-> +                       audit_log_format(ab, " ino=3D%llu", inode->i_ino)=
-;
->                 }
->                 break;
->         }
-> @@ -215,7 +215,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
->                 if (inode) {
->                         audit_log_format(ab, " dev=3D");
->                         audit_log_untrustedstring(ab, inode->i_sb->s_id);
-> -                       audit_log_format(ab, " ino=3D%lu", inode->i_ino);
-> +                       audit_log_format(ab, " ino=3D%llu", inode->i_ino)=
-;
->                 }
->                 break;
->         }
-> @@ -228,7 +228,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
->                 if (inode) {
->                         audit_log_format(ab, " dev=3D");
->                         audit_log_untrustedstring(ab, inode->i_sb->s_id);
-> -                       audit_log_format(ab, " ino=3D%lu", inode->i_ino);
-> +                       audit_log_format(ab, " ino=3D%llu", inode->i_ino)=
-;
->                 }
->
->                 audit_log_format(ab, " ioctlcmd=3D0x%hx", a->u.op->cmd);
-> @@ -246,7 +246,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
->                 if (inode) {
->                         audit_log_format(ab, " dev=3D");
->                         audit_log_untrustedstring(ab, inode->i_sb->s_id);
-> -                       audit_log_format(ab, " ino=3D%lu", inode->i_ino);
-> +                       audit_log_format(ab, " ino=3D%llu", inode->i_ino)=
-;
->                 }
->                 break;
->         }
-> @@ -265,7 +265,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
->                 }
->                 audit_log_format(ab, " dev=3D");
->                 audit_log_untrustedstring(ab, inode->i_sb->s_id);
-> -               audit_log_format(ab, " ino=3D%lu", inode->i_ino);
-> +               audit_log_format(ab, " ino=3D%llu", inode->i_ino);
->                 rcu_read_unlock();
->                 break;
->         }
-> diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-> index d8224ea113d1ac273aac1fb52324f00b3301ae75..150ea86ebc1f7c7f8391af410=
-9a3da82b12d00d2 100644
-> --- a/security/selinux/hooks.c
-> +++ b/security/selinux/hooks.c
-> @@ -1400,7 +1400,7 @@ static int inode_doinit_use_xattr(struct inode *ino=
-de, struct dentry *dentry,
->         if (rc < 0) {
->                 kfree(context);
->                 if (rc !=3D -ENODATA) {
-> -                       pr_warn("SELinux: %s:  getxattr returned %d for d=
-ev=3D%s ino=3D%ld\n",
-> +                       pr_warn("SELinux: %s:  getxattr returned %d for d=
-ev=3D%s ino=3D%lld\n",
->                                 __func__, -rc, inode->i_sb->s_id, inode->=
-i_ino);
->                         return rc;
->                 }
-> @@ -3477,7 +3477,7 @@ static void selinux_inode_post_setxattr(struct dent=
-ry *dentry, const char *name,
->                                            &newsid);
->         if (rc) {
->                 pr_err("SELinux:  unable to map context to SID"
-> -                      "for (%s, %lu), rc=3D%d\n",
-> +                      "for (%s, %llu), rc=3D%d\n",
->                        inode->i_sb->s_id, inode->i_ino, -rc);
->                 return;
->         }
-> diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-> index 98af9d7b943469d0ddd344fc78c0b87ca40c16c4..7e2f54c17a5d5c70740bbfa92=
-ba4d4f1aca2cf22 100644
-> --- a/security/smack/smack_lsm.c
-> +++ b/security/smack/smack_lsm.c
-> @@ -182,7 +182,7 @@ static int smk_bu_inode(struct inode *inode, int mode=
-, int rc)
->         char acc[SMK_NUM_ACCESS_TYPE + 1];
->
->         if (isp->smk_flags & SMK_INODE_IMPURE)
-> -               pr_info("Smack Unconfined Corruption: inode=3D(%s %ld) %s=
-\n",
-> +               pr_info("Smack Unconfined Corruption: inode=3D(%s %lld) %=
-s\n",
->                         inode->i_sb->s_id, inode->i_ino, current->comm);
->
->         if (rc <=3D 0)
-> @@ -195,7 +195,7 @@ static int smk_bu_inode(struct inode *inode, int mode=
-, int rc)
->
->         smk_bu_mode(mode, acc);
->
-> -       pr_info("Smack %s: (%s %s %s) inode=3D(%s %ld) %s\n", smk_bu_mess=
-[rc],
-> +       pr_info("Smack %s: (%s %s %s) inode=3D(%s %lld) %s\n", smk_bu_mes=
-s[rc],
->                 tsp->smk_task->smk_known, isp->smk_inode->smk_known, acc,
->                 inode->i_sb->s_id, inode->i_ino, current->comm);
->         return 0;
-> @@ -214,7 +214,7 @@ static int smk_bu_file(struct file *file, int mode, i=
-nt rc)
->         char acc[SMK_NUM_ACCESS_TYPE + 1];
->
->         if (isp->smk_flags & SMK_INODE_IMPURE)
-> -               pr_info("Smack Unconfined Corruption: inode=3D(%s %ld) %s=
-\n",
-> +               pr_info("Smack Unconfined Corruption: inode=3D(%s %lld) %=
-s\n",
->                         inode->i_sb->s_id, inode->i_ino, current->comm);
->
->         if (rc <=3D 0)
-> @@ -223,7 +223,7 @@ static int smk_bu_file(struct file *file, int mode, i=
-nt rc)
->                 rc =3D 0;
->
->         smk_bu_mode(mode, acc);
-> -       pr_info("Smack %s: (%s %s %s) file=3D(%s %ld %pD) %s\n", smk_bu_m=
-ess[rc],
-> +       pr_info("Smack %s: (%s %s %s) file=3D(%s %lld %pD) %s\n", smk_bu_=
-mess[rc],
->                 sskp->smk_known, smk_of_inode(inode)->smk_known, acc,
->                 inode->i_sb->s_id, inode->i_ino, file,
->                 current->comm);
-> @@ -244,7 +244,7 @@ static int smk_bu_credfile(const struct cred *cred, s=
-truct file *file,
->         char acc[SMK_NUM_ACCESS_TYPE + 1];
->
->         if (isp->smk_flags & SMK_INODE_IMPURE)
-> -               pr_info("Smack Unconfined Corruption: inode=3D(%s %ld) %s=
-\n",
-> +               pr_info("Smack Unconfined Corruption: inode=3D(%s %lld) %=
-s\n",
->                         inode->i_sb->s_id, inode->i_ino, current->comm);
->
->         if (rc <=3D 0)
-> @@ -253,7 +253,7 @@ static int smk_bu_credfile(const struct cred *cred, s=
-truct file *file,
->                 rc =3D 0;
->
->         smk_bu_mode(mode, acc);
-> -       pr_info("Smack %s: (%s %s %s) file=3D(%s %ld %pD) %s\n", smk_bu_m=
-ess[rc],
-> +       pr_info("Smack %s: (%s %s %s) file=3D(%s %lld %pD) %s\n", smk_bu_=
-mess[rc],
->                 sskp->smk_known, smk_of_inode(inode)->smk_known, acc,
->                 inode->i_sb->s_id, inode->i_ino, file,
->                 current->comm);
->
-> --
-> 2.53.0
->
->
+-- 
+2.53.0
+
