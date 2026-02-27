@@ -4,73 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DA95FD530C
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 08:38:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDF0AFD530D
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 08:51:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38DB810EA60;
-	Fri, 27 Feb 2026 08:38:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 502F510E107;
+	Fri, 27 Feb 2026 08:51:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h2SN9TPW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KzlC3XFA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6219E10EA5F;
- Fri, 27 Feb 2026 08:38:17 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E753644498;
- Fri, 27 Feb 2026 08:38:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48D05C116C6;
- Fri, 27 Feb 2026 08:38:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772181496;
- bh=JxFRQuyAOAtMYqF/3/WfzrGOV/lulPZh3R/a6BPJ3vU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=h2SN9TPW9+50N0x4JTYDj0MPTo3reFNOXXZeruZ+d0HOF5CtwriLkf9ctOzcUy60t
- 13Feqf/5Npq87ed9DNpqG9guPAWnIAmlD16H7f7SeY6Q69svSmdcBaXIhh6rhSyUIt
- uc0J5aRplddQ7ExJ9QC3a+DkscYbtDYEZ01johDHFF2z5IXT2geVk2iJ+h6wiIt6Gk
- ceDmlX7k2ActitGzwsNBQMueaa05EMQ4QbGNtTh1FRVmQt7f8JwhxmsfwDq8YJ7A6G
- Z4tzkS0lq+PsoWpZ/z8LWj/fjGxcTPtLRYGb8b3cWISUtpDUSuK0Lf2WdXEzs8Jmx2
- ww7eZk+XsqYcQ==
-Date: Fri, 27 Feb 2026 09:38:13 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Andy Yan <andy.yan@rock-chips.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Liu Ying <victor.liu@nxp.com>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev
-Subject: Re: [PATCH 01/14] drm/connector: Introduce drm_output_color_format
- enum
-Message-ID: <20260227-overjoyed-glaring-dogfish-89effa@houat>
-References: <20260224-drm-rework-color-formats-v1-0-bebc76604ada@kernel.org>
- <20260224-drm-rework-color-formats-v1-1-bebc76604ada@kernel.org>
- <4ea869750681f5eee3bbb2978f4ff0ace70310a9.camel@pengutronix.de>
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010034.outbound.protection.outlook.com [52.101.46.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D4C710E107
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 08:51:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=A1TPENU3NSl7eXLl2PVwSI7d6Re1XvZxIUgoQSYHhBMi+Zvh5h7UnderPFRzCf1b3kukrg2mVPgKOmAB2pqjHUymoUJ5iPIGNinEFmVlUo76THmNBZE7oqlcHYDX613QUQLb0Qvx6oSBtH43LygdyYkstPxbZkzIS+pc/HPkcMUn7o3IFOMxtCH6UQsu8/5zvb6tQuWwi0+6yj0DQT0hrS018zrEAmnC++qurlcTfLh6k8jqUyRJ+zTYsosUzC5dIFsnWKo0wFtZ266A53Xoq+rbpZZ7ZOPSsTKIvUUgEa0a3jVPxXUQ2Zy5sS6bujHyk7as6p//wRjR1kNJ2eXLJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SRMkEFn0YZzs9H96FgoF4vb1jxRMvY/CZLT4dPF4g0Q=;
+ b=HVZNqbdzYvsa2jGFoXOWDKqiGB5p5jVZrFQHTiJJLITpngiSvSe07FQUfv8NTuHeHJoiFC2CJrWtSMN3PdDHJy9jtfBLAxB/H6c80htGNo1v5Snr6PAAwk5ly6q8MedkkCA6I9nltj03dhrsAwF1V6hI1j0jm5ipzAeqlgN0LbPrrjBT8oKehcUYFKEqIt6WQhAZPWMwSWh5S9kv5fmjA4JA8PktDVpqOq5C/chzpYHS1Ln/DBWFTahtiKK/trMt3IH866EvoP1js0V5CGqdJvJBZO5qhCPEjXfH92261s2NFI9XUPYmM8T3e3EeuAapg0UIUL+w9taIPXo0fPOR/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SRMkEFn0YZzs9H96FgoF4vb1jxRMvY/CZLT4dPF4g0Q=;
+ b=KzlC3XFAlLNizzMi92vWfajnJdYr1zjcjzJkCeGG3M6LtGBp6N+uvwL+WwbJyaB6oFUd1BJD06BDf542T2hEoOPULkPBzUWJdrUhVVn3qB93xsYouD6U0Mr6uW58bXbsBM5+3UzROCcfUNlHmoupExh5ueiLBIiyJWkCoMNtUgo=
+Received: from SJ0PR05CA0091.namprd05.prod.outlook.com (2603:10b6:a03:334::6)
+ by SA1PR12MB8163.namprd12.prod.outlook.com (2603:10b6:806:332::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.16; Fri, 27 Feb
+ 2026 08:51:24 +0000
+Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
+ (2603:10b6:a03:334:cafe::c3) by SJ0PR05CA0091.outlook.office365.com
+ (2603:10b6:a03:334::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.21 via Frontend Transport; Fri,
+ 27 Feb 2026 08:51:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9654.16 via Frontend Transport; Fri, 27 Feb 2026 08:51:23 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 27 Feb
+ 2026 02:51:22 -0600
+Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 27 Feb
+ 2026 02:51:22 -0600
+Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17
+ via Frontend Transport; Fri, 27 Feb 2026 02:51:16 -0600
+From: Jesse.Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse.Zhang <Jesse.Zhang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>
+Subject: [PATCH v2] drm/amdgpu: Fix null pointer access in
+ amdgpu_userq_signal_ioctl
+Date: Fri, 27 Feb 2026 16:50:15 +0800
+Message-ID: <20260227085110.2865415-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="4g2ghndtsljakowa"
-Content-Disposition: inline
-In-Reply-To: <4ea869750681f5eee3bbb2978f4ff0ace70310a9.camel@pengutronix.de>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|SA1PR12MB8163:EE_
+X-MS-Office365-Filtering-Correlation-Id: b4545493-6b74-4101-fe22-08de75dd6285
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: T7SU4audKQ0BCK19hVPsJhGPY7/BCpJqJ5EDdpNGc71FjpHqqociFELjyYmArP8Jg/0LaVPPRtKpIvoDyvPPHBXuvufJ19Yfz0zAGtzXUTuggyuH+qc7W95NP6IWnavUWLWLeIl8Hhv9OIgfh1yjK8KqP0hpYC6+xRHdwoHtNIpdBtbxgBjb0wbYsnHyiEiZiUulDY+jBM+mDsPsRMeOjN6rcrm9pQhvOzIw3xQPuhGCJEYvgcv8xw9xdPX/jyPBvWhYZmVuim2dstU64Kf7fwEB+kGkBJbx8AcYedjnTEhj1f9GANNSERsGizz7/DQ++K61cWKjhe/syWbRDWbP1p7RcQMRgCsd9xDobhYFNeBPR3NJoSLv8HBebJ//qCOksuJ0Hi8OBLsSuwVIVyWO9NyVwMUZ40WgIiRgKefOqsVNMEJ3Q0NPzLev0RwP8lfeR0o/Jcm6ZBr7Pw5xts7e79tA5zsioJaTyTOnqDONPUHl9Zo0N/TmWCiMLiidXVeBKFveyIPMQZ8pDuOyzQglMgJlxjTBdDMaikEcUeGF80qvtIbwOW/O++u/cQGJDRTlVGT0GDWDkYXDEKwRg4LOO3vJs4EyLnBIG2T6CtXL9Kgk3O+HjXtfx9e4gE1mutmtpL+ntpD0+t3nhZcLJHytdPcVyUzquz0QP+a3kIN1GMnn7to/IO9Y5wqAcgQqQO+duwNLws07ivuN84mBT/Bkl+V3v+xK0mg+fuNgHm6YU2xcU1hD8NMI2BTD1DR+QC9B5LpknFlNANCYYEwHeER7nyy/z8yvgxQCnCk6uYdBUWb4nzt9y0aC4OcDIr++v9FE65AK4hVbJjHwR5/cKkvYcw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700013)(376014)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: T+SzY/ywby+3i0Us9LUaircD0UzcSjBUiNTRGMm/UtOxx+IA70z7eR0Tque6j6VPele7BTM2GHOBbKS9+brPQiXp/DBUisYxXB527vrBoEWAwsEjte9Q1M/l52ffwQmgpK1T8b+iH4vdgM7CeXhl9qv3gfcWlYG1wHhSCd+LcBxH5HvhYd92wn4hB2dDf3oOk7aqEKqOGY3qti086S3e4v/E9FNPjsVpDT0nNZriB5B/GQtPGtaEDiX9UtZ0Y0WDhRNKqn7LIUWWQwTSnsjD4h2kBMV1wpXdt0sw0rM6G5ElZs3qFaB+yM/AOPdYA96rYCo3d7/2ZSzjYd2Y9gnz8zrq/8DamrY58PnfSI0tPbK6Z8xgh3NRoqD21zIxb0nprvfjv8CMNced4vZUrl7IdJKlsiUGABQSjNMf1Aw00GPsOUsj95bwQUljTxKDtcCB
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2026 08:51:23.2461 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4545493-6b74-4101-fe22-08de75dd6285
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE16.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8163
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,149 +113,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The amdgpu_userq_signal_ioctl function was triggering kernel page faults
+due to missing null pointer checks when accessing gobj_read/gobj_write
+arrays, and improper handling of memory allocation for these arrays.
 
---4g2ghndtsljakowa
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 01/14] drm/connector: Introduce drm_output_color_format
- enum
-MIME-Version: 1.0
+The crash stack showed the failure originated from the ioctl path:
+[   64.977695] Call Trace:
+[   64.977696]  <TASK>
+[   64.977700]  amdgpu_userq_signal_ioctl+0x8e4/0xda0 [amdgpu]
+[   64.977830]  ? tty_ldisc_deref+0x1a/0x20
+[   64.977834]  ? __pfx_amdgpu_userq_signal_ioctl+0x10/0x10 [amdgpu]
+[   64.977934]  drm_ioctl_kernel+0xab/0x110 [drm]
+[   64.977955]  ? __pfx_amdgpu_userq_signal_ioctl+0x10/0x10 [amdgpu]
+[   64.978071]  drm_ioctl+0x2cb/0x5a0 [drm]
+[   64.978088]  ? ttm_bo_vm_fault_reserved+0x1ef/0x410 [ttm]
+[   64.978093]  amdgpu_drm_ioctl+0x4f/0x90 [amdgpu]
+[   64.978179]  __x64_sys_ioctl+0x9e/0xf0
+[   64.978182]  x64_sys_call+0x1274/0x2190
+[   64.978185]  do_syscall_64+0x74/0x950
+[   64.978189]  ? ___pte_offset_map+0x20/0x170
+[   64.978191]  ? __handle_mm_fault+0x986/0xfb0
+[   64.978194]  ? count_memcg_events+0xe7/0x1e0
+[   64.978197]  ? handle_mm_fault+0x1cc/0x2b0
+[   64.978199]  ? do_user_addr_fault+0x394/0x8a0
+[   64.978202]  ? irqentry_exit_to_user_mode+0x2a/0x1e0
+[   64.978205]  ? irqentry_exit+0x3f/0x50
+[   64.978206]  ? exc_page_fault+0x97/0x190
+[   64.978208]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[   64.978210] RIP: 0033:0x7f3c08b24ded
 
-Hi Philipp
+Fixes: fd4fde1df18b ("drm/amdgpu/userq: Use drm_gem_objects_lookup in amdgpu_userq_signal_ioctl")
 
-On Thu, Feb 26, 2026 at 10:12:02AM +0100, Philipp Zabel wrote:
-> On Di, 2026-02-24 at 11:58 +0100, Maxime Ripard wrote:
-> > The EDID parsing code initially introduced the DRM_COLOR_FORMAT_*
-> > defines to represent the sink capabilities. Since a given sink could
-> > support multiple formats, it was first defined as a bitmask.
-> >=20
-> > However, the core and drivers have since leveraged those defines to
-> > represent both the supported formats but also the current format being
-> > used.
-> >=20
-> > Considering the latter case, the more natural, and consistent, thing to
-> > do would be to create an enum of all the possible formats, and then list
-> > the supported formats using a bitmask of the individual enum values.
-> >=20
-> > Let's create a new enum following that pattern, drm_output_color_format,
-> > while maintaining the DRM_COLOR_FORMAT_* compatibility to make the
-> > transition easier.
-> >=20
-> > Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> > ---
-> >  include/drm/drm_connector.h | 42 ++++++++++++++++++++++++++++++++++---=
------
-> >  1 file changed, 34 insertions(+), 8 deletions(-)
-> >=20
-> > diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> > index 7eaec37ae1c735334afa7dad15a38cf0c8b761b8..c67539708f636ae3905bb84=
-24c63799bd1811f28 100644
-> > --- a/include/drm/drm_connector.h
-> > +++ b/include/drm/drm_connector.h
-> > @@ -554,10 +554,35 @@ enum drm_colorspace {
-> >  	DRM_MODE_COLORIMETRY_RGB_WIDE_FLOAT	=3D 14,
-> >  	DRM_MODE_COLORIMETRY_BT601_YCC		=3D 15,
-> >  	DRM_MODE_COLORIMETRY_COUNT
-> >  };
-> > =20
-> > +/**
-> > + * enum drm_output_color_format - Output Color Format
-> > + *
-> > + * This enum is a consolidated color format list supported by
-> > + * connectors. It's only ever really been used for HDMI and DP so far,
-> > + * so it's not exhaustive and can be extended to represent other forma=
-ts
-> > + * in the future.
-> > + *
-> > + *
-> > + * @DRM_OUTPUT_COLOR_FORMAT_RGB444:
-> > + *   RGB output format
-> > + * @DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
-> > + *   YCbCr 4:4:4 output format (ie. not subsampled)
-> > + * @DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
-> > + *   YCbCr 4:2:2 output format (ie. with horizontal subsampling)
-> > + * @DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
-> > + *   YCbCr 4:2:0 output format (ie. with horizontal and vertical subsa=
-mpling)
-> > + */
-> > +enum drm_output_color_format {
-> > +	DRM_OUTPUT_COLOR_FORMAT_RGB444 =3D 0,
-> > +	DRM_OUTPUT_COLOR_FORMAT_YCBCR444,
-> > +	DRM_OUTPUT_COLOR_FORMAT_YCBCR422,
-> > +	DRM_OUTPUT_COLOR_FORMAT_YCBCR420,
-> > +};
-> > +
-> >  /**
-> >   * enum drm_bus_flags - bus_flags info for &drm_display_info
-> >   *
-> >   * This enum defines signal polarities and clock edge information for =
-signals on
-> >   * a bus as bitmask flags.
-> > @@ -697,14 +722,14 @@ struct drm_display_info {
-> >  	/**
-> >  	 * @subpixel_order: Subpixel order of LCD panels.
-> >  	 */
-> >  	enum subpixel_order subpixel_order;
-> > =20
-> > -#define DRM_COLOR_FORMAT_RGB444		(1<<0)
-> > -#define DRM_COLOR_FORMAT_YCBCR444	(1<<1)
-> > -#define DRM_COLOR_FORMAT_YCBCR422	(1<<2)
-> > -#define DRM_COLOR_FORMAT_YCBCR420	(1<<3)
-> > +#define DRM_COLOR_FORMAT_RGB444		(1 << DRM_OUTPUT_COLOR_FORMAT_RGB444)
-> > +#define DRM_COLOR_FORMAT_YCBCR444	(1 << DRM_OUTPUT_COLOR_FORMAT_YCBCR4=
-44)
-> > +#define DRM_COLOR_FORMAT_YCBCR422	(1 << DRM_OUTPUT_COLOR_FORMAT_YCBCR4=
-22)
-> > +#define DRM_COLOR_FORMAT_YCBCR420	(1 << DRM_OUTPUT_COLOR_FORMAT_YCBCR4=
-20)
->=20
-> Can we move this? Either up, directly after drm_output_color_format, or
-> down, directly before color_formats.
->
-> I think 8d70f395e6cb ("drm: Add support for a panel-orientation
-> connector property, v6") didn't separate the two on purpose.
+V2: initialize gobj_write
 
-I'm not sure it's worth it, the last patch in this series will remove
-these so it's not going to stick around either.
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 22 +++++++++++++------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-> >  	/**
-> >  	 * @panel_orientation: Read only connector property for built-in pane=
-ls,
-> >  	 * indicating the orientation of the panel vs the device's casing.
-> >  	 * drm_connector_init() sets this to DRM_MODE_PANEL_ORIENTATION_UNKNO=
-WN.
-> > @@ -712,14 +737,15 @@ struct drm_display_info {
-> >  	 * fb to compensate and gets exported as prop to userspace.
-> >  	 */
-> >  	int panel_orientation;
-> > =20
-> >  	/**
-> > -	 * @color_formats: HDMI Color formats, selects between RGB and YCrCb
-> > -	 * modes. Used DRM_COLOR_FORMAT\_ defines, which are _not_ the same o=
-nes
-> > -	 * as used to describe the pixel format in framebuffers, and also don=
-'t
-> > -	 * match the formats in @bus_formats which are shared with v4l.
-> > +	 * @color_formats: HDMI Color formats, selects between RGB and
-> > +	 * YCrCb modes. Uses a bitmask of DRM_OUTPUT_COLOR_FORMAT\_
->=20
-> Maybe s/YCrCb/YCbCr/ for consistency?
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index 3c30512a6266..af934374df94 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -467,7 +467,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 	const unsigned int num_read_bo_handles = args->num_bo_read_handles;
+ 	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+ 	struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
+-	struct drm_gem_object **gobj_write, **gobj_read;
++	struct drm_gem_object **gobj_write = NULL, **gobj_read = NULL;
+ 	u32 *syncobj_handles, num_syncobj_handles;
+ 	struct amdgpu_userq_fence *userq_fence;
+ 	struct amdgpu_usermode_queue *queue;
+@@ -597,13 +597,21 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ exec_fini:
+ 	drm_exec_fini(&exec);
+ put_gobj_write:
+-	for (i = 0; i < num_write_bo_handles; i++)
+-		drm_gem_object_put(gobj_write[i]);
+-	kfree(gobj_write);
++	for (i = 0; i < num_write_bo_handles; i++) {
++		if (gobj_write)
++			drm_gem_object_put(gobj_write[i]);
++	}
++
++	if (gobj_write)
++		kfree(gobj_write);
+ put_gobj_read:
+-	for (i = 0; i < num_read_bo_handles; i++)
+-		drm_gem_object_put(gobj_read[i]);
+-	kfree(gobj_read);
++	for (i = 0; i < num_read_bo_handles; i++) {
++		if (gobj_read)
++			drm_gem_object_put(gobj_read[i]);
++	}
++
++	if (gobj_read)
++		kfree(gobj_read);
+ free_syncobj:
+ 	while (entry-- > 0)
+ 		if (syncobj[entry])
+-- 
+2.49.0
 
-Yep, definitely. I'll update it.
-
-Maxime
-
---4g2ghndtsljakowa
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaaFX9QAKCRAnX84Zoj2+
-dmxcAYCTnPEWQk0d2T09EPqIDncreEtsxUKKkoZBhMXxCZHvYGuTLjKpiG5d9DVP
-bimDyVcBf1TU/oK/YyoR5WUGp2e2wBBKJslWjyZOy1Ng07mJWV9f+13k42kP7JzN
-5oCetRCy+w==
-=Anpu
------END PGP SIGNATURE-----
-
---4g2ghndtsljakowa--
