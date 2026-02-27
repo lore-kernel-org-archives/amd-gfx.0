@@ -4,138 +4,195 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C31BAFEFB56
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 14:16:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6413FEFB54
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 14:16:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAC1310EB93;
-	Fri, 27 Feb 2026 14:16:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B6E210EB96;
+	Fri, 27 Feb 2026 14:16:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="FexkOtUa";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="FexkOtUa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="diZXoxwf";
 	dkim-atps=neutral
-X-Greylist: delayed 953 seconds by postgrey-1.36 at gabe;
- Fri, 27 Feb 2026 08:32:29 UTC
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C54A110EA5E;
- Fri, 27 Feb 2026 08:32:29 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=Wmv8uJ7HJDbZV50M+x838HOhuGm9CcXmr7O5DxYmnaA=;
- b=FexkOtUagAcXDFcLvanuYXCxG6VsB4YyIX20qg20gGlU56RQBvPIdX5JmmfvAen1kl9Xcad9P
- BxTzvSbaMCfK6x/I533upYv8dB5mDxS3zN0xsMCDpaP2BLxgIVtISPyXXJDdxnYqn2e9mf1ZnD9
- Jm8up2Sq/fbakpqcesMqrt8=
-Received: from canpmsgout01.his.huawei.com (unknown [172.19.92.178])
- by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4fMh3w1MvJz1BFnx;
- Fri, 27 Feb 2026 16:16:12 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=Wmv8uJ7HJDbZV50M+x838HOhuGm9CcXmr7O5DxYmnaA=;
- b=FexkOtUagAcXDFcLvanuYXCxG6VsB4YyIX20qg20gGlU56RQBvPIdX5JmmfvAen1kl9Xcad9P
- BxTzvSbaMCfK6x/I533upYv8dB5mDxS3zN0xsMCDpaP2BLxgIVtISPyXXJDdxnYqn2e9mf1ZnD9
- Jm8up2Sq/fbakpqcesMqrt8=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
- by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4fMgyb2x4nz1T4Fc;
- Fri, 27 Feb 2026 16:11:35 +0800 (CST)
-Received: from kwepemk500005.china.huawei.com (unknown [7.202.194.90])
- by mail.maildlp.com (Postfix) with ESMTPS id DB9DD40363;
- Fri, 27 Feb 2026 16:16:29 +0800 (CST)
-Received: from [10.174.178.46] (10.174.178.46) by
- kwepemk500005.china.huawei.com (7.202.194.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Fri, 27 Feb 2026 16:16:23 +0800
-Subject: Re: [PATCH 47/61] ubifs: update format strings for u64 i_ino
-To: Jeff Layton <jlayton@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara
- <jack@suse.cz>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Dan Williams <dan.j.williams@intel.com>, Matthew Wilcox
- <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o"
- <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
- <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, David Howells
- <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, Andreas Dilger
- <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, Jaegeuk Kim
- <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, Trond Myklebust
- <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, Chuck Lever
- <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, Olga Kornievskaia
- <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey
- <tom@talpey.com>, Steve French <sfrench@samba.org>, Ronnie Sahlberg
- <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, Bharath
- SM <bharathsm@microsoft.com>, Alexander Aring <alex.aring@gmail.com>, Ryusuke
- Konishi <konishi.ryusuke@gmail.com>, Viacheslav Dubeyko <slava@dubeyko.com>,
- Eric Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov <lucho@ionkov.net>, 
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1101610E182;
+ Fri, 27 Feb 2026 11:52:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id D179960008;
+ Fri, 27 Feb 2026 11:52:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBFF4C116C6;
+ Fri, 27 Feb 2026 11:52:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772193151;
+ bh=AHIu6hmZ25K7bmjnXab9d2i3pQnGSr88KkWt5FGz11I=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=diZXoxwffaidus7MxAp1Eyu5/08SuGQlJYylv7Tw2kSa+99BefT8wuBY5c7K+J8d/
+ BWNslUUdscgtZmZ7z2CUgETfnKv/WI97BkPZTtABy4fl/iFRyTUXmiU1mBdhnn4kU2
+ w1seuO99nMcqTlGkUktPGyGxpfDy1hJF2wl4NnrOKDm9diIz/rWTJRuIfNzRLHo/EY
+ iOqFK6sBWPZBk8Nkumum2ECsuuNmIf+ppg640yLu/SKi8TWWAC/cKffuAM3oTfliIf
+ /51QadZ74qxYRoO+u+30e20c/hMXF/BVjjMcaLegyGlBZboh0UaFLezFJnjZtBPklT
+ Vf8NwwShZt11w==
+Message-ID: <2185009115e4c8efcb1c94866db4efec4fbcccbf.camel@kernel.org>
+Subject: Re: [PATCH 00/61] vfs: change inode->i_ino from unsigned long to u64
+From: Jeff Layton <jlayton@kernel.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
+ <brauner@kernel.org>, Jan Kara <jack@suse.cz>,  Steven Rostedt
+ <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+ Desnoyers	 <mathieu.desnoyers@efficios.com>, Dan Williams
+ <dan.j.williams@intel.com>,  Matthew Wilcox <willy@infradead.org>, Eric
+ Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>,  Muchun
+ Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, David
+ Hildenbrand	 <david@kernel.org>, David Howells <dhowells@redhat.com>, Paulo
+ Alcantara	 <pc@manguebit.org>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Jan Kara	 <jack@suse.com>, Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu
+ <chao@kernel.org>,  Trond Myklebust <trondmy@kernel.org>, Anna Schumaker
+ <anna@kernel.org>, Chuck Lever <chuck.lever@oracle.com>,  NeilBrown
+ <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo
+ <Dai.Ngo@oracle.com>,  Tom Talpey <tom@talpey.com>, Steve French
+ <sfrench@samba.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>,  Shyam
+ Prasad N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>,
+ Alexander Aring	 <alex.aring@gmail.com>, Ryusuke Konishi
+ <konishi.ryusuke@gmail.com>,  Viacheslav Dubeyko	 <slava@dubeyko.com>, Eric
+ Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov	 <lucho@ionkov.net>,
  Dominique Martinet <asmadeus@codewreck.org>, Christian Schoenebeck
- <linux_oss@crudebyte.com>, David Sterba <dsterba@suse.com>, Marc Dionne
- <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>, Luis de Bethencourt
- <luisbg@kernel.org>, Salah Triki <salah.triki@gmail.com>, "Tigran A.
- Aivazian" <aivazian.tigran@gmail.com>, Ilya Dryomov <idryomov@gmail.com>,
- Alex Markuze <amarkuze@redhat.com>, Jan Harkes <jaharkes@cs.cmu.edu>,
- <coda@cs.cmu.edu>, Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks
- <code@tyhicks.com>, Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig
- <hch@infradead.org>, John Paul Adrian Glaubitz
- <glaubitz@physik.fu-berlin.de>, Yangtao Li <frank.li@vivo.com>, Mikulas
- Patocka <mikulas@artax.karlin.mff.cuni.cz>, David Woodhouse
- <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, Dave Kleikamp
- <shaggy@kernel.org>, Konstantin Komarov
- <almaz.alexandrovich@paragon-software.com>, Mark Fasheh <mark@fasheh.com>,
+ <linux_oss@crudebyte.com>, David Sterba <dsterba@suse.com>, Marc Dionne	
+ <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>, Luis de
+ Bethencourt	 <luisbg@kernel.org>, Salah Triki <salah.triki@gmail.com>,
+ "Tigran A. Aivazian"	 <aivazian.tigran@gmail.com>, Ilya Dryomov
+ <idryomov@gmail.com>, Alex Markuze	 <amarkuze@redhat.com>, Jan Harkes
+ <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,  Nicolas Pitre <nico@fluxnic.net>,
+ Tyler Hicks <code@tyhicks.com>, Amir Goldstein <amir73il@gmail.com>, 
+ Christoph Hellwig	 <hch@infradead.org>, John Paul Adrian Glaubitz
+ <glaubitz@physik.fu-berlin.de>,  Yangtao Li <frank.li@vivo.com>, Mikulas
+ Patocka <mikulas@artax.karlin.mff.cuni.cz>, David Woodhouse	
+ <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, Dave Kleikamp	
+ <shaggy@kernel.org>, Konstantin Komarov	
+ <almaz.alexandrovich@paragon-software.com>, Mark Fasheh <mark@fasheh.com>, 
  Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>,
- Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg
- <martin@omnibond.com>, Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen
- <al@alarsen.net>, Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota
- <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, John Johansen
- <john.johansen@canonical.com>, Paul Moore <paul@paul-moore.com>, James Morris
- <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar
- <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>, Dmitry
- Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
- <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, Stephen Smalley
- <stephen.smalley.work@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>,
- Casey Schaufler <casey@schaufler-ca.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet
- <edumazet@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, "David S. Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Simon Horman
- <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra
- <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de
- Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
- Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
- Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, Martin
- Schiller <ms@dev.tdt.de>
-CC: <linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-trace-kernel@vger.kernel.org>, <nvdimm@lists.linux.dev>,
- <fsverity@lists.linux.dev>, <linux-mm@kvack.org>, <netfs@lists.linux.dev>,
- <linux-ext4@vger.kernel.org>, <linux-f2fs-devel@lists.sourceforge.net>,
- <linux-nfs@vger.kernel.org>, <linux-cifs@vger.kernel.org>,
- <samba-technical@lists.samba.org>, <linux-nilfs@vger.kernel.org>,
- <v9fs@lists.linux.dev>, <linux-afs@lists.infradead.org>,
- <autofs@vger.kernel.org>, <ceph-devel@vger.kernel.org>,
- <codalist@coda.cs.cmu.edu>, <ecryptfs@vger.kernel.org>,
- <linux-mtd@lists.infradead.org>, <jfs-discussion@lists.sourceforge.net>,
- <ntfs3@lists.linux.dev>, <ocfs2-devel@lists.linux.dev>,
- <devel@lists.orangefs.org>, <linux-unionfs@vger.kernel.org>,
- <apparmor@lists.ubuntu.com>, <linux-security-module@vger.kernel.org>,
- <linux-integrity@vger.kernel.org>, <selinux@vger.kernel.org>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
- <netdev@vger.kernel.org>, <linux-perf-users@vger.kernel.org>,
- <linux-fscrypt@vger.kernel.org>, <linux-xfs@vger.kernel.org>,
- <linux-hams@vger.kernel.org>, <linux-x25@vger.kernel.org>
+ Mike Marshall	 <hubcap@omnibond.com>, Martin Brandenburg
+ <martin@omnibond.com>, Miklos Szeredi	 <miklos@szeredi.hu>, Anders Larsen
+ <al@alarsen.net>, Zhihao Cheng	 <chengzhihao1@huawei.com>, Damien Le Moal
+ <dlemoal@kernel.org>, Naohiro Aota	 <naohiro.aota@wdc.com>, Johannes
+ Thumshirn <jth@kernel.org>, John Johansen	 <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris	 <jmorris@namei.org>, "Serge
+ E. Hallyn" <serge@hallyn.com>, Mimi Zohar	 <zohar@linux.ibm.com>, Roberto
+ Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin
+ <dmitry.kasatkin@gmail.com>, Eric Snowberg <eric.snowberg@oracle.com>, Fan
+ Wu	 <wufan@kernel.org>, Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>, Casey Schaufler
+ <casey@schaufler-ca.com>, Alex Deucher	 <alexander.deucher@amd.com>, David
+ Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Eric Dumazet	 <edumazet@google.com>, Kuniyuki
+ Iwashima <kuniyu@google.com>, Paolo Abeni	 <pabeni@redhat.com>, Willem de
+ Bruijn <willemb@google.com>, "David S. Miller"	 <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman	 <horms@kernel.org>, Oleg
+ Nesterov <oleg@redhat.com>, Peter Zijlstra	 <peterz@infradead.org>, Ingo
+ Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland	 <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,  Jiri Olsa
+ <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
+ <adrian.hunter@intel.com>,  James Clark <james.clark@linaro.org>, "Darrick
+ J. Wong" <djwong@kernel.org>, Martin Schiller <ms@dev.tdt.de>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+ linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
+ v9fs@lists.linux.dev, linux-afs@lists.infradead.org,
+ autofs@vger.kernel.org, 	ceph-devel@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, ecryptfs@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, jfs-discussion@lists.sourceforge.net, 
+ ntfs3@lists.linux.dev, ocfs2-devel@lists.linux.dev,
+ devel@lists.orangefs.org, 	linux-unionfs@vger.kernel.org,
+ apparmor@lists.ubuntu.com, 	linux-security-module@vger.kernel.org,
+ linux-integrity@vger.kernel.org, 	selinux@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 	linaro-mm-sig@lists.linaro.org,
+ netdev@vger.kernel.org, 	linux-perf-users@vger.kernel.org,
+ linux-fscrypt@vger.kernel.org, 	linux-xfs@vger.kernel.org,
+ linux-hams@vger.kernel.org, linux-x25@vger.kernel.org
+Date: Fri, 27 Feb 2026 06:52:16 -0500
+In-Reply-To: <b4f32cab-2b34-4002-83d1-3ae038a4bb38@amd.com>
 References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
- <20260226-iino-u64-v1-47-ccceff366db9@kernel.org>
-From: Zhihao Cheng <chengzhihao1@huawei.com>
-Message-ID: <def8c48d-495c-9942-c66b-4e91d81a8e28@huawei.com>
-Date: Fri, 27 Feb 2026 16:16:21 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ <b4f32cab-2b34-4002-83d1-3ae038a4bb38@amd.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-In-Reply-To: <20260226-iino-u64-v1-47-ccceff366db9@kernel.org>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.174.178.46]
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk500005.china.huawei.com (7.202.194.90)
 X-Mailman-Approved-At: Fri, 27 Feb 2026 14:16:40 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -151,507 +208,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-在 2026/2/26 23:55, Jeff Layton 写道:
-> Update format strings and local variable types in ubifs for the
-> i_ino type change from unsigned long to u64.
-> 
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> ---
->   fs/ubifs/debug.c   |  8 ++++----
->   fs/ubifs/dir.c     | 28 ++++++++++++++--------------
->   fs/ubifs/file.c    | 28 ++++++++++++++--------------
->   fs/ubifs/journal.c |  6 +++---
->   fs/ubifs/super.c   | 16 ++++++++--------
->   fs/ubifs/tnc.c     |  4 ++--
->   fs/ubifs/xattr.c   | 14 +++++++-------
->   7 files changed, 52 insertions(+), 52 deletions(-)
+On Fri, 2026-02-27 at 10:30 +0100, Christian K=C3=B6nig wrote:
+> On 2/26/26 16:55, Jeff Layton wrote:
+> > Christian said [1] to "just do it" when I proposed this, so here we are=
+!
+> >=20
+> > For historical reasons, the inode->i_ino field is an unsigned long,
+> > which means that it's 32 bits on 32 bit architectures. This has caused =
+a
+> > number of filesystems to implement hacks to hash a 64-bit identifier
+> > into a 32-bit field, and deprives us of a universal identifier field fo=
+r
+> > an inode.
+> >=20
+> > This patchset changes the inode->i_ino field from an unsigned long to a
+> > u64. This shouldn't make any material difference on 64-bit hosts, but
+> > 32-bit hosts will see struct inode grow by at least 4 bytes. This could
+> > have effects on slabcache sizes and field alignment.
+> >=20
+> > The bulk of the changes are to format strings and tracepoints, since th=
+e
+> > kernel itself doesn't care that much about the i_ino field. The first
+> > patch changes some vfs function arguments, so check that one out
+> > carefully.
+> >=20
+> > With this change, we may be able to shrink some inode structures. For
+> > instance, struct nfs_inode has a fileid field that holds the 64-bit
+> > inode number. With this set of changes, that field could be eliminated.
+> > I'd rather leave that sort of cleanups for later just to keep this
+> > simple.
+> >=20
+> > Much of this set was generated by LLM, but I attributed it to myself
+> > since I consider this to be in the "menial tasks" category of LLM usage=
+.
+>=20
+> Sounds reasonable to me, should get_next_ino() also be changed to return =
+an 64bit ino?
+>=20
 
-Reviewed-by: Zhihao Cheng <chengzhihao1@huawei.com>
-> 
-> diff --git a/fs/ubifs/debug.c b/fs/ubifs/debug.c
-> index 160c16aa7b6e7088355582670357262ab3930225..5794de5a9069f20302b6630c39c1452183137acc 100644
-> --- a/fs/ubifs/debug.c
-> +++ b/fs/ubifs/debug.c
-> @@ -230,7 +230,7 @@ void ubifs_dump_inode(struct ubifs_info *c, const struct inode *inode)
->   	int count = 2;
->   
->   	pr_err("Dump in-memory inode:");
-> -	pr_err("\tinode          %lu\n", inode->i_ino);
-> +	pr_err("\tinode          %llu\n", inode->i_ino);
->   	pr_err("\tsize           %llu\n",
->   	       (unsigned long long)i_size_read(inode));
->   	pr_err("\tnlink          %u\n", inode->i_nlink);
-> @@ -1101,7 +1101,7 @@ int dbg_check_synced_i_size(const struct ubifs_info *c, struct inode *inode)
->   	if (ui->ui_size != ui->synced_i_size && !ui->dirty) {
->   		ubifs_err(c, "ui_size is %lld, synced_i_size is %lld, but inode is clean",
->   			  ui->ui_size, ui->synced_i_size);
-> -		ubifs_err(c, "i_ino %lu, i_mode %#x, i_size %lld", inode->i_ino,
-> +		ubifs_err(c, "i_ino %llu, i_mode %#x, i_size %lld", inode->i_ino,
->   			  inode->i_mode, i_size_read(inode));
->   		dump_stack();
->   		err = -EINVAL;
-> @@ -1163,7 +1163,7 @@ int dbg_check_dir(struct ubifs_info *c, const struct inode *dir)
->   	kfree(pdent);
->   
->   	if (i_size_read(dir) != size) {
-> -		ubifs_err(c, "directory inode %lu has size %llu, but calculated size is %llu",
-> +		ubifs_err(c, "directory inode %llu has size %llu, but calculated size is %llu",
->   			  dir->i_ino, (unsigned long long)i_size_read(dir),
->   			  (unsigned long long)size);
->   		ubifs_dump_inode(c, dir);
-> @@ -1171,7 +1171,7 @@ int dbg_check_dir(struct ubifs_info *c, const struct inode *dir)
->   		return -EINVAL;
->   	}
->   	if (dir->i_nlink != nlink) {
-> -		ubifs_err(c, "directory inode %lu has nlink %u, but calculated nlink is %u",
-> +		ubifs_err(c, "directory inode %llu has nlink %u, but calculated nlink is %u",
->   			  dir->i_ino, dir->i_nlink, nlink);
->   		ubifs_dump_inode(c, dir);
->   		dump_stack();
-> diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
-> index 4c9f57f3b2adbbd396b288878cb18fa87cdbd0df..86d41e077e4d621dbb8c448acd0065c8ac7ae225 100644
-> --- a/fs/ubifs/dir.c
-> +++ b/fs/ubifs/dir.c
-> @@ -223,7 +223,7 @@ static struct dentry *ubifs_lookup(struct inode *dir, struct dentry *dentry,
->   	struct ubifs_info *c = dir->i_sb->s_fs_info;
->   	struct fscrypt_name nm;
->   
-> -	dbg_gen("'%pd' in dir ino %lu", dentry, dir->i_ino);
-> +	dbg_gen("'%pd' in dir ino %llu", dentry, dir->i_ino);
->   
->   	err = fscrypt_prepare_lookup(dir, dentry, &nm);
->   	if (err == -ENOENT)
-> @@ -281,7 +281,7 @@ static struct dentry *ubifs_lookup(struct inode *dir, struct dentry *dentry,
->   	if (IS_ENCRYPTED(dir) &&
->   	    (S_ISDIR(inode->i_mode) || S_ISLNK(inode->i_mode)) &&
->   	    !fscrypt_has_permitted_context(dir, inode)) {
-> -		ubifs_warn(c, "Inconsistent encryption contexts: %lu/%lu",
-> +		ubifs_warn(c, "Inconsistent encryption contexts: %llu/%llu",
->   			   dir->i_ino, inode->i_ino);
->   		iput(inode);
->   		inode = ERR_PTR(-EPERM);
-> @@ -318,7 +318,7 @@ static int ubifs_create(struct mnt_idmap *idmap, struct inode *dir,
->   	 * parent directory inode.
->   	 */
->   
-> -	dbg_gen("dent '%pd', mode %#hx in dir ino %lu",
-> +	dbg_gen("dent '%pd', mode %#hx in dir ino %llu",
->   		dentry, mode, dir->i_ino);
->   
->   	err = ubifs_budget_space(c, &req);
-> @@ -386,7 +386,7 @@ static struct inode *create_whiteout(struct inode *dir, struct dentry *dentry)
->   	 * atomically.
->   	 */
->   
-> -	dbg_gen("dent '%pd', mode %#hx in dir ino %lu",
-> +	dbg_gen("dent '%pd', mode %#hx in dir ino %llu",
->   		dentry, mode, dir->i_ino);
->   
->   	inode = ubifs_new_inode(c, dir, mode, false);
-> @@ -460,7 +460,7 @@ static int ubifs_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
->   	 * be released via writeback.
->   	 */
->   
-> -	dbg_gen("dent '%pd', mode %#hx in dir ino %lu",
-> +	dbg_gen("dent '%pd', mode %#hx in dir ino %llu",
->   		dentry, mode, dir->i_ino);
->   
->   	err = fscrypt_setup_filename(dir, &dentry->d_name, 0, &nm);
-> @@ -589,7 +589,7 @@ static int ubifs_readdir(struct file *file, struct dir_context *ctx)
->   	bool encrypted = IS_ENCRYPTED(dir);
->   	struct ubifs_dir_data *data = file->private_data;
->   
-> -	dbg_gen("dir ino %lu, f_pos %#llx", dir->i_ino, ctx->pos);
-> +	dbg_gen("dir ino %llu, f_pos %#llx", dir->i_ino, ctx->pos);
->   
->   	if (ctx->pos > UBIFS_S_KEY_HASH_MASK || ctx->pos == 2)
->   		/*
-> @@ -764,7 +764,7 @@ static int ubifs_link(struct dentry *old_dentry, struct inode *dir,
->   	 * changing the parent inode.
->   	 */
->   
-> -	dbg_gen("dent '%pd' to ino %lu (nlink %d) in dir ino %lu",
-> +	dbg_gen("dent '%pd' to ino %llu (nlink %d) in dir ino %llu",
->   		dentry, inode->i_ino,
->   		inode->i_nlink, dir->i_ino);
->   	ubifs_assert(c, inode_is_locked(dir));
-> @@ -836,7 +836,7 @@ static int ubifs_unlink(struct inode *dir, struct dentry *dentry)
->   	 * deletions.
->   	 */
->   
-> -	dbg_gen("dent '%pd' from ino %lu (nlink %d) in dir ino %lu",
-> +	dbg_gen("dent '%pd' from ino %llu (nlink %d) in dir ino %llu",
->   		dentry, inode->i_ino,
->   		inode->i_nlink, dir->i_ino);
->   
-> @@ -941,7 +941,7 @@ static int ubifs_rmdir(struct inode *dir, struct dentry *dentry)
->   	 * because we have extra space reserved for deletions.
->   	 */
->   
-> -	dbg_gen("directory '%pd', ino %lu in dir ino %lu", dentry,
-> +	dbg_gen("directory '%pd', ino %llu in dir ino %llu", dentry,
->   		inode->i_ino, dir->i_ino);
->   	ubifs_assert(c, inode_is_locked(dir));
->   	ubifs_assert(c, inode_is_locked(inode));
-> @@ -1018,7 +1018,7 @@ static struct dentry *ubifs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
->   	 * directory inode.
->   	 */
->   
-> -	dbg_gen("dent '%pd', mode %#hx in dir ino %lu",
-> +	dbg_gen("dent '%pd', mode %#hx in dir ino %llu",
->   		dentry, mode, dir->i_ino);
->   
->   	err = ubifs_budget_space(c, &req);
-> @@ -1096,7 +1096,7 @@ static int ubifs_mknod(struct mnt_idmap *idmap, struct inode *dir,
->   	 * directory inode.
->   	 */
->   
-> -	dbg_gen("dent '%pd' in dir ino %lu", dentry, dir->i_ino);
-> +	dbg_gen("dent '%pd' in dir ino %llu", dentry, dir->i_ino);
->   
->   	if (S_ISBLK(mode) || S_ISCHR(mode)) {
->   		dev = kmalloc_obj(union ubifs_dev_desc, GFP_NOFS);
-> @@ -1183,7 +1183,7 @@ static int ubifs_symlink(struct mnt_idmap *idmap, struct inode *dir,
->   					.dirtied_ino = 1 };
->   	struct fscrypt_name nm;
->   
-> -	dbg_gen("dent '%pd', target '%s' in dir ino %lu", dentry,
-> +	dbg_gen("dent '%pd', target '%s' in dir ino %llu", dentry,
->   		symname, dir->i_ino);
->   
->   	err = fscrypt_prepare_symlink(dir, symname, len, UBIFS_MAX_INO_DATA,
-> @@ -1349,7 +1349,7 @@ static int do_rename(struct inode *old_dir, struct dentry *old_dentry,
->   	 *   ino_req: marks the target inode as dirty and does not write it.
->   	 */
->   
-> -	dbg_gen("dent '%pd' ino %lu in dir ino %lu to dent '%pd' in dir ino %lu flags 0x%x",
-> +	dbg_gen("dent '%pd' ino %llu in dir ino %llu to dent '%pd' in dir ino %llu flags 0x%x",
->   		old_dentry, old_inode->i_ino, old_dir->i_ino,
->   		new_dentry, new_dir->i_ino, flags);
->   
-> @@ -1597,7 +1597,7 @@ static int ubifs_xrename(struct inode *old_dir, struct dentry *old_dentry,
->   	 * parent directory inodes.
->   	 */
->   
-> -	dbg_gen("dent '%pd' ino %lu in dir ino %lu exchange dent '%pd' ino %lu in dir ino %lu",
-> +	dbg_gen("dent '%pd' ino %llu in dir ino %llu exchange dent '%pd' ino %llu in dir ino %llu",
->   		old_dentry, fst_inode->i_ino, old_dir->i_ino,
->   		new_dentry, snd_inode->i_ino, new_dir->i_ino);
->   
-> diff --git a/fs/ubifs/file.c b/fs/ubifs/file.c
-> index cd04755e792a7f8e7d33ed4e67806cd202c71fad..e73c28b12f97fd1fbeb67510434e499eab84da70 100644
-> --- a/fs/ubifs/file.c
-> +++ b/fs/ubifs/file.c
-> @@ -90,7 +90,7 @@ static int read_block(struct inode *inode, struct folio *folio, size_t offset,
->   	return 0;
->   
->   dump:
-> -	ubifs_err(c, "bad data node (block %u, inode %lu)",
-> +	ubifs_err(c, "bad data node (block %u, inode %llu)",
->   		  block, inode->i_ino);
->   	ubifs_dump_node(c, dn, UBIFS_MAX_DATA_NODE_SZ);
->   	return -EINVAL;
-> @@ -106,7 +106,7 @@ static int do_readpage(struct folio *folio)
->   	loff_t i_size = i_size_read(inode);
->   	size_t offset = 0;
->   
-> -	dbg_gen("ino %lu, pg %lu, i_size %lld, flags %#lx",
-> +	dbg_gen("ino %llu, pg %lu, i_size %lld, flags %#lx",
->   		inode->i_ino, folio->index, i_size, folio->flags.f);
->   	ubifs_assert(c, !folio_test_checked(folio));
->   	ubifs_assert(c, !folio->private);
-> @@ -162,7 +162,7 @@ static int do_readpage(struct folio *folio)
->   			dbg_gen("hole");
->   			err = 0;
->   		} else {
-> -			ubifs_err(c, "cannot read page %lu of inode %lu, error %d",
-> +			ubifs_err(c, "cannot read page %lu of inode %llu, error %d",
->   				  folio->index, inode->i_ino, err);
->   		}
->   	}
-> @@ -212,7 +212,7 @@ static int write_begin_slow(struct address_space *mapping,
->   	int err, appending = !!(pos + len > inode->i_size);
->   	struct folio *folio;
->   
-> -	dbg_gen("ino %lu, pos %llu, len %u, i_size %lld",
-> +	dbg_gen("ino %llu, pos %llu, len %u, i_size %lld",
->   		inode->i_ino, pos, len, inode->i_size);
->   
->   	/*
-> @@ -526,7 +526,7 @@ static int ubifs_write_end(const struct kiocb *iocb,
->   	loff_t end_pos = pos + len;
->   	int appending = !!(end_pos > inode->i_size);
->   
-> -	dbg_gen("ino %lu, pos %llu, pg %lu, len %u, copied %d, i_size %lld",
-> +	dbg_gen("ino %llu, pos %llu, pg %lu, len %u, copied %d, i_size %lld",
->   		inode->i_ino, pos, folio->index, len, copied, inode->i_size);
->   
->   	if (unlikely(copied < len && !folio_test_uptodate(folio))) {
-> @@ -599,7 +599,7 @@ static int populate_page(struct ubifs_info *c, struct folio *folio,
->   	size_t offset = 0;
->   	pgoff_t end_index;
->   
-> -	dbg_gen("ino %lu, pg %lu, i_size %lld, flags %#lx",
-> +	dbg_gen("ino %llu, pg %lu, i_size %lld, flags %#lx",
->   		inode->i_ino, folio->index, i_size, folio->flags.f);
->   
->   	end_index = (i_size - 1) >> PAGE_SHIFT;
-> @@ -680,7 +680,7 @@ static int populate_page(struct ubifs_info *c, struct folio *folio,
->   	return 0;
->   
->   out_err:
-> -	ubifs_err(c, "bad data node (block %u, inode %lu)",
-> +	ubifs_err(c, "bad data node (block %u, inode %llu)",
->   		  page_block, inode->i_ino);
->   	return -EINVAL;
->   }
-> @@ -913,7 +913,7 @@ static int do_writepage(struct folio *folio, size_t len)
->   	}
->   	if (err) {
->   		mapping_set_error(folio->mapping, err);
-> -		ubifs_err(c, "cannot write folio %lu of inode %lu, error %d",
-> +		ubifs_err(c, "cannot write folio %lu of inode %llu, error %d",
->   			  folio->index, inode->i_ino, err);
->   		ubifs_ro_mode(c, err);
->   	}
-> @@ -987,7 +987,7 @@ static int ubifs_writepage(struct folio *folio, struct writeback_control *wbc)
->   	loff_t i_size =  i_size_read(inode), synced_i_size;
->   	int err, len = folio_size(folio);
->   
-> -	dbg_gen("ino %lu, pg %lu, pg flags %#lx",
-> +	dbg_gen("ino %llu, pg %lu, pg flags %#lx",
->   		inode->i_ino, folio->index, folio->flags.f);
->   	ubifs_assert(c, folio->private != NULL);
->   
-> @@ -1106,7 +1106,7 @@ static int do_truncation(struct ubifs_info *c, struct inode *inode,
->   	int offset = new_size & (UBIFS_BLOCK_SIZE - 1), budgeted = 1;
->   	struct ubifs_inode *ui = ubifs_inode(inode);
->   
-> -	dbg_gen("ino %lu, size %lld -> %lld", inode->i_ino, old_size, new_size);
-> +	dbg_gen("ino %llu, size %lld -> %lld", inode->i_ino, old_size, new_size);
->   	memset(&req, 0, sizeof(struct ubifs_budget_req));
->   
->   	/*
-> @@ -1258,7 +1258,7 @@ int ubifs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
->   	struct inode *inode = d_inode(dentry);
->   	struct ubifs_info *c = inode->i_sb->s_fs_info;
->   
-> -	dbg_gen("ino %lu, mode %#x, ia_valid %#x",
-> +	dbg_gen("ino %llu, mode %#x, ia_valid %#x",
->   		inode->i_ino, inode->i_mode, attr->ia_valid);
->   	err = setattr_prepare(&nop_mnt_idmap, dentry, attr);
->   	if (err)
-> @@ -1308,7 +1308,7 @@ int ubifs_fsync(struct file *file, loff_t start, loff_t end, int datasync)
->   	struct ubifs_info *c = inode->i_sb->s_fs_info;
->   	int err;
->   
-> -	dbg_gen("syncing inode %lu", inode->i_ino);
-> +	dbg_gen("syncing inode %llu", inode->i_ino);
->   
->   	if (c->ro_mount)
->   		/*
-> @@ -1495,7 +1495,7 @@ static vm_fault_t ubifs_vm_page_mkwrite(struct vm_fault *vmf)
->   	struct ubifs_budget_req req = { .new_page = 1 };
->   	int err, update_time;
->   
-> -	dbg_gen("ino %lu, pg %lu, i_size %lld",	inode->i_ino, folio->index,
-> +	dbg_gen("ino %llu, pg %lu, i_size %lld",	inode->i_ino, folio->index,
->   		i_size_read(inode));
->   	ubifs_assert(c, !c->ro_media && !c->ro_mount);
->   
-> @@ -1531,7 +1531,7 @@ static vm_fault_t ubifs_vm_page_mkwrite(struct vm_fault *vmf)
->   	err = ubifs_budget_space(c, &req);
->   	if (unlikely(err)) {
->   		if (err == -ENOSPC)
-> -			ubifs_warn(c, "out of space for mmapped file (inode number %lu)",
-> +			ubifs_warn(c, "out of space for mmapped file (inode number %llu)",
->   				   inode->i_ino);
->   		return VM_FAULT_SIGBUS;
->   	}
-> diff --git a/fs/ubifs/journal.c b/fs/ubifs/journal.c
-> index e28ab4395e5ca404d8e8d8f735c3113b58bcc941..40a95a2fad50039f39917e71da7b71a735237469 100644
-> --- a/fs/ubifs/journal.c
-> +++ b/fs/ubifs/journal.c
-> @@ -982,7 +982,7 @@ int ubifs_jnl_write_inode(struct ubifs_info *c, const struct inode *inode)
->   	int kill_xattrs = ui->xattr_cnt && last_reference;
->   	u8 hash[UBIFS_HASH_ARR_SZ];
->   
-> -	dbg_jnl("ino %lu, nlink %u", inode->i_ino, inode->i_nlink);
-> +	dbg_jnl("ino %llu, nlink %u", inode->i_ino, inode->i_nlink);
->   
->   	if (kill_xattrs && ui->xattr_cnt > ubifs_xattr_max_cnt(c)) {
->   		ubifs_err(c, "Cannot delete inode, it has too many xattrs!");
-> @@ -1743,7 +1743,7 @@ int ubifs_jnl_truncate(struct ubifs_info *c, const struct inode *inode,
->   			int dn_len = le32_to_cpu(dn->size);
->   
->   			if (dn_len <= 0 || dn_len > UBIFS_BLOCK_SIZE) {
-> -				ubifs_err(c, "bad data node (block %u, inode %lu)",
-> +				ubifs_err(c, "bad data node (block %u, inode %llu)",
->   					  blk, inode->i_ino);
->   				ubifs_dump_node(c, dn, dn_size);
->   				err = -EUCLEAN;
-> @@ -1987,7 +1987,7 @@ int ubifs_jnl_change_xattr(struct ubifs_info *c, const struct inode *inode,
->   	u8 hash_host[UBIFS_HASH_ARR_SZ];
->   	u8 hash[UBIFS_HASH_ARR_SZ];
->   
-> -	dbg_jnl("ino %lu, ino %lu", host->i_ino, inode->i_ino);
-> +	dbg_jnl("ino %llu, ino %llu", host->i_ino, inode->i_ino);
->   	ubifs_assert(c, inode->i_nlink > 0);
->   	ubifs_assert(c, mutex_is_locked(&host_ui->ui_mutex));
->   
-> diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
-> index 03bf924756ca003809d229837a970d5935450f23..9a77d8b64ffa70f9d5b695fb3d87c22cb223704f 100644
-> --- a/fs/ubifs/super.c
-> +++ b/fs/ubifs/super.c
-> @@ -92,7 +92,7 @@ static int validate_inode(struct ubifs_info *c, const struct inode *inode)
->   		return 5;
->   
->   	if (!ubifs_compr_present(c, ui->compr_type)) {
-> -		ubifs_warn(c, "inode %lu uses '%s' compression, but it was not compiled in",
-> +		ubifs_warn(c, "inode %llu uses '%s' compression, but it was not compiled in",
->   			   inode->i_ino, ubifs_compr_name(c, ui->compr_type));
->   	}
->   
-> @@ -248,14 +248,14 @@ struct inode *ubifs_iget(struct super_block *sb, unsigned long inum)
->   	return inode;
->   
->   out_invalid:
-> -	ubifs_err(c, "inode %lu validation failed, error %d", inode->i_ino, err);
-> +	ubifs_err(c, "inode %llu validation failed, error %d", inode->i_ino, err);
->   	ubifs_dump_node(c, ino, UBIFS_MAX_INO_NODE_SZ);
->   	ubifs_dump_inode(c, inode);
->   	err = -EINVAL;
->   out_ino:
->   	kfree(ino);
->   out:
-> -	ubifs_err(c, "failed to read inode %lu, error %d", inode->i_ino, err);
-> +	ubifs_err(c, "failed to read inode %llu, error %d", inode->i_ino, err);
->   	iget_failed(inode);
->   	return ERR_PTR(err);
->   }
-> @@ -316,12 +316,12 @@ static int ubifs_write_inode(struct inode *inode, struct writeback_control *wbc)
->   	 * As an optimization, do not write orphan inodes to the media just
->   	 * because this is not needed.
->   	 */
-> -	dbg_gen("inode %lu, mode %#x, nlink %u",
-> +	dbg_gen("inode %llu, mode %#x, nlink %u",
->   		inode->i_ino, (int)inode->i_mode, inode->i_nlink);
->   	if (inode->i_nlink) {
->   		err = ubifs_jnl_write_inode(c, inode);
->   		if (err)
-> -			ubifs_err(c, "can't write inode %lu, error %d",
-> +			ubifs_err(c, "can't write inode %llu, error %d",
->   				  inode->i_ino, err);
->   		else
->   			err = dbg_check_inode_size(c, inode, ui->ui_size);
-> @@ -357,7 +357,7 @@ static void ubifs_evict_inode(struct inode *inode)
->   		 */
->   		goto out;
->   
-> -	dbg_gen("inode %lu, mode %#x", inode->i_ino, (int)inode->i_mode);
-> +	dbg_gen("inode %llu, mode %#x", inode->i_ino, (int)inode->i_mode);
->   	ubifs_assert(c, !icount_read(inode));
->   
->   	truncate_inode_pages_final(&inode->i_data);
-> @@ -375,7 +375,7 @@ static void ubifs_evict_inode(struct inode *inode)
->   		 * Worst case we have a lost orphan inode wasting space, so a
->   		 * simple error message is OK here.
->   		 */
-> -		ubifs_err(c, "can't delete inode %lu, error %d",
-> +		ubifs_err(c, "can't delete inode %llu, error %d",
->   			  inode->i_ino, err);
->   
->   out:
-> @@ -399,7 +399,7 @@ static void ubifs_dirty_inode(struct inode *inode, int flags)
->   	ubifs_assert(c, mutex_is_locked(&ui->ui_mutex));
->   	if (!ui->dirty) {
->   		ui->dirty = 1;
-> -		dbg_gen("inode %lu",  inode->i_ino);
-> +		dbg_gen("inode %llu",  inode->i_ino);
->   	}
->   }
->   
-> diff --git a/fs/ubifs/tnc.c b/fs/ubifs/tnc.c
-> index 694b08d27d7d9c7d9d7d9039f406637c702f8613..52c758c5290d8cc425fdc6d49c608d0cb0ba7ff7 100644
-> --- a/fs/ubifs/tnc.c
-> +++ b/fs/ubifs/tnc.c
-> @@ -3561,8 +3561,8 @@ int dbg_check_inode_size(struct ubifs_info *c, const struct inode *inode,
->   
->   out_dump:
->   	block = key_block(c, key);
-> -	ubifs_err(c, "inode %lu has size %lld, but there are data at offset %lld",
-> -		  (unsigned long)inode->i_ino, size,
-> +	ubifs_err(c, "inode %llu has size %lld, but there are data at offset %lld",
-> +		  (unsigned long long)inode->i_ino, size,
->   		  ((loff_t)block) << UBIFS_BLOCK_SHIFT);
->   	mutex_unlock(&c->tnc_mutex);
->   	ubifs_dump_inode(c, inode);
-> diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
-> index c21a0c2b3e907c1572780d4a3e48cc9d2a11b9d6..b5a9ab9d8a10adcf49e6d7228d385cb986e6e75e 100644
-> --- a/fs/ubifs/xattr.c
-> +++ b/fs/ubifs/xattr.c
-> @@ -76,7 +76,7 @@ static int create_xattr(struct ubifs_info *c, struct inode *host,
->   				.dirtied_ino_d = ALIGN(host_ui->data_len, 8) };
->   
->   	if (host_ui->xattr_cnt >= ubifs_xattr_max_cnt(c)) {
-> -		ubifs_err(c, "inode %lu already has too many xattrs (%d), cannot create more",
-> +		ubifs_err(c, "inode %llu already has too many xattrs (%d), cannot create more",
->   			  host->i_ino, host_ui->xattr_cnt);
->   		return -ENOSPC;
->   	}
-> @@ -88,7 +88,7 @@ static int create_xattr(struct ubifs_info *c, struct inode *host,
->   	 */
->   	names_len = host_ui->xattr_names + host_ui->xattr_cnt + fname_len(nm) + 1;
->   	if (names_len > XATTR_LIST_MAX) {
-> -		ubifs_err(c, "cannot add one more xattr name to inode %lu, total names length would become %d, max. is %d",
-> +		ubifs_err(c, "cannot add one more xattr name to inode %llu, total names length would become %d, max. is %d",
->   			  host->i_ino, names_len, XATTR_LIST_MAX);
->   		return -ENOSPC;
->   	}
-> @@ -390,7 +390,7 @@ ssize_t ubifs_listxattr(struct dentry *dentry, char *buffer, size_t size)
->   	int err, len, written = 0;
->   	struct fscrypt_name nm = {0};
->   
-> -	dbg_gen("ino %lu ('%pd'), buffer size %zd", host->i_ino,
-> +	dbg_gen("ino %llu ('%pd'), buffer size %zd", host->i_ino,
->   		dentry, size);
->   
->   	down_read(&host_ui->xattr_sem);
-> @@ -498,7 +498,7 @@ int ubifs_purge_xattrs(struct inode *host)
->   	if (ubifs_inode(host)->xattr_cnt <= ubifs_xattr_max_cnt(c))
->   		return 0;
->   
-> -	ubifs_warn(c, "inode %lu has too many xattrs, doing a non-atomic deletion",
-> +	ubifs_warn(c, "inode %llu has too many xattrs, doing a non-atomic deletion",
->   		   host->i_ino);
->   
->   	down_write(&ubifs_inode(host)->xattr_sem);
-> @@ -641,7 +641,7 @@ int ubifs_init_security(struct inode *dentry, struct inode *inode,
->   					   &init_xattrs, NULL);
->   	if (err) {
->   		struct ubifs_info *c = dentry->i_sb->s_fs_info;
-> -		ubifs_err(c, "cannot initialize security for inode %lu, error %d",
-> +		ubifs_err(c, "cannot initialize security for inode %llu, error %d",
->   			  inode->i_ino, err);
->   	}
->   	return err;
-> @@ -652,7 +652,7 @@ static int xattr_get(const struct xattr_handler *handler,
->   			   struct dentry *dentry, struct inode *inode,
->   			   const char *name, void *buffer, size_t size)
->   {
-> -	dbg_gen("xattr '%s', ino %lu ('%pd'), buf size %zd", name,
-> +	dbg_gen("xattr '%s', ino %llu ('%pd'), buf size %zd", name,
->   		inode->i_ino, dentry, size);
->   
->   	name = xattr_full_name(handler, name);
-> @@ -665,7 +665,7 @@ static int xattr_set(const struct xattr_handler *handler,
->   			   const char *name, const void *value,
->   			   size_t size, int flags)
->   {
-> -	dbg_gen("xattr '%s', host ino %lu ('%pd'), size %zd",
-> +	dbg_gen("xattr '%s', host ino %llu ('%pd'), size %zd",
->   		name, inode->i_ino, dentry, size);
->   
->   	name = xattr_full_name(handler, name);
-> 
-
+I'm not opposed to doing that, but I'd probably leave that for a
+follow-on cleanup. Just doing the i_ino conversion is already making
+for a huge patchset.
+--=20
+Jeff Layton <jlayton@kernel.org>
