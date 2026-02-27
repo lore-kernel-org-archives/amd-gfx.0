@@ -4,124 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E194FFEFB5D
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 15:22:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14BF6FEFB6D
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 16:49:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78EF710E19E;
-	Fri, 27 Feb 2026 15:22:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9205710EBCC;
+	Fri, 27 Feb 2026 16:49:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vZtjEz5A";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BMGK66Il";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013025.outbound.protection.outlook.com
- [40.107.201.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ECB710E19E;
- Fri, 27 Feb 2026 15:22:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n6BuCRbhtrL8l2E08bNaMz9g06HVSeaTvBMwNiB6+qPEVNRTbSXWCZQ1w9GcoSqRd03rT382aH59pfbrIZR1pXnkoxDYCFdBg50D6cXY/EWOoE/yP0+AL+2alEEorNui6tQGRqC9hw+c/FZql5J2tngj1PqKaKZy6iPZtECDtz01AIGXQ0HnTZEEfIkj3SWNg7qp2olh1hBOuN6l8Rdv5SCdYQVLo7BhZ8SH7mnQZ4lcvGKOtDFLvnAQ2TcL0dRW2iZvDObN3x127jbfapLOd2FgiWq2SJRT82PQz/qnnOJCMm9OYMsVfxzFbunzkCft7qzyuWwo9FjRrfMQvFdHkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PCxAZ6SDkcezgV8MT7Vg6ldknipCPNXQ3ua9UwCXdDM=;
- b=l6aOF/+XFIbKBoxdl0qn7qnwZvUNngvJdEXu10cxVgjKS8G/CvWF5LOpRwMUNwZ7DucsUVJ8Xjq1fYuNRY6/eYmHNaQXuhsm3IjHH8ZLtf3zEDTkTPV0RdscQS4iv1ngfkOAcn7QBuM+EquFg6HNcukPSfAw8ZJo5qR/2PifPK6b+5p0/h3BxyGdctowj1LDCemJFxUXbNAgrR8Dne1EdmNPdqxZEy18Uaglho923rpya/etyPDs+nofuokq7UzQC8wg4Fma8so1yyskzmsBd5SJbFa7t4k6eUqe5g2Nu6cFWEF6/ECIJTcO9lbgPuNzSCZKG6G0DVIQzEgwefVM8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PCxAZ6SDkcezgV8MT7Vg6ldknipCPNXQ3ua9UwCXdDM=;
- b=vZtjEz5AI1FvFrN5VIQ6OxhRYi9q1o6f4kWHbL6CZHemQdZJSZbL/Pfum/yzNJvXvqt4JoDpiLu125m995Ft+m0YC9NbuiPNxGzotUi2HE11gs/MHSOoDmQDbwCh3opLpf96kHhw5tgVbWVtNQMI9yINDWN55KppRc+0VsWJOy0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW4PR12MB6777.namprd12.prod.outlook.com (2603:10b6:303:1e9::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.22; Fri, 27 Feb
- 2026 15:22:36 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9632.017; Fri, 27 Feb 2026
- 15:22:36 +0000
-Message-ID: <62c3dd75-0ecc-456e-a4b7-8999b6dbe9aa@amd.com>
-Date: Fri, 27 Feb 2026 16:22:30 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/radeon: Test for imported buffers with
- drm_gem_is_imported()
-To: Thomas Zimmermann <tzimmermann@suse.de>,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org, Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20260227133113.235940-10-tzimmermann@suse.de>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260227133113.235940-10-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0403.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cf::9) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C80710E125;
+ Fri, 27 Feb 2026 16:49:21 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 269B9444D5;
+ Fri, 27 Feb 2026 16:49:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3011C116C6;
+ Fri, 27 Feb 2026 16:49:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772210961;
+ bh=jznU9LDSkQYILvcSIV46IxA3CrI9OTrcodpcP2KE/Rk=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=BMGK66IlpUYHanCwORkjV1r5gD4tZdmf3FdgQyvpYqd87OnPE/XYM3XTkW4Ksw/Y2
+ Y3jxv1rvP5tPMlEvJt5tjaSTDHFbZ6E0cmQiJ4sJ1nQ4Fa0ouKncl5VoVtiCuVxIzZ
+ wWKIJt52O1sSUx08jbmlf8//snPIjiC+zltv0lkdOUs2BhGHuFA3bE4uAUcyVVBSxy
+ qaQx337ysm56rZiMRyNkrrziyLzOmk1FheLkVIlnP9JOrOh9Vg2yq723loCPFce4ld
+ PQ+fWhfMBe0FBUqcD3yCDZF4bHUCb4tFZLXFqqmmZy1DAO7HVlmZIQO39PRRlHaFGU
+ +2b9qvGprKjDg==
+Date: Fri, 27 Feb 2026 10:49:19 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Vivian Wang <wangruikang@iscas.ac.cn>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Mark Bloch <mbloch@nvidia.com>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Brett Creeley <brett.creeley@amd.com>, Han Gao <gaohan@iscas.ac.cn>,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-riscv@lists.infradead.org,
+ sophgo@lists.linux.dev, Takashi Iwai <tiwai@suse.de>,
+ Maor Gottlieb <maorg@nvidia.com>
+Subject: Re: [PATCH v4 1/4] PCI/MSI: Conservatively generalize no_64bit_msi
+ into msi_addr_mask
+Message-ID: <20260227164919.GA3897300@bhelgaas>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB6777:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40f5958d-c145-45ac-3b35-08de761408ea
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016|7053199007;
-X-Microsoft-Antispam-Message-Info: ttmJ7jIUMm1VrJheHNX4kuPvSrk8Q3YPennVkGU8hEMlF13CmA1Yaf4NP1tppwlxHUHKi2HrVzI9nQ26AjYQw5QUFn7i0ZpA5UCRIExUSQU1Z24I5nokw38un2dQ8VwWZp9V0vv/4cAfxuiq+TDxJL9tLsR10Ego6uYtgUnoN9PTehCnKGe9rdoBRg6QRNYbP0gaxTLhnGrUrmc6BTwHNhCYMs+h8dwJ5h1Y3uXH0GNO16sHyFlzmzf0emEPTK9O1ipgew8nGCcVPQ+/u4PldLFzvwR/JdZ8V6aqs6vq2MADv9nAVcY4OZZghx9SqxsFN52IUIcyTrnYFrRIO00sNJ8KNAzgjwQis+wVlas/UwYSF1D40KBXEvBEFeKBKmQySR5JiV6/o+SELLwsPC1YHLOaJ2RrR9Y9CFrHi5/E/Q4A1MfUbQ/Rp3hhAV9vXUkF8bY4lEHBcl9SyrI6dE5wq9n2omv8m8Y1Dp1rTXgCW+rQwef644sbvnr2tYSi9Bco8na+YGUlj+sizzf/PoPxd9rtiT7v/XR1cf+TwdXWaSMQ8ty3AfOwnqVqQfMiBgdKB4Ij3h1tKWTY6flRenzb6SAReEW1373lusF/sW44sYFyEVIZONCbWBHWKvFuNC+Hwn6bFDktbenKSNk6k2MSNcsd+NaNAehftVkbKcB910+MIMLst0KuGF/U9MfIU90GnkEBXLyzdd6rQ1NcTaevDrVctvQgYz2lFZ8nXbsBKBk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(7053199007); DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y09sMzlzdS9CYlU0ZUR2bUpJUUxVV3k3TEdnd3FxUHZ6UzVQWlYveStnSzVY?=
- =?utf-8?B?bVA0QnJCbEJWbDdIYmd1WFZCb2dPTmhoZFhoSkYvL1Z0Y09XQTQxTVpFTUZJ?=
- =?utf-8?B?ZXM2Y1h6UW5DY3NtR1A0bThFRXEvcjF0TUpNV1g1STVPSjVQaTF6cUxLKzhW?=
- =?utf-8?B?T24xdWt4b1VxczJlRCtVa285NHpCbEhIZXU0NWNQM1Q3bHQvUSsyVGhVYll3?=
- =?utf-8?B?MEJnK0JlTTN1Rk9CaDJMZmxTREN0VnJ0TkgyTFZHK2I3eWF6STN4QVdIK3ZD?=
- =?utf-8?B?VkgzL2VjYThCYmZpSVk4amp4K0lUcmc4bmk0QktjVmNkN09jTEZPaUwzRjE2?=
- =?utf-8?B?VGIwQ0MyZUorR1RydGYwbXM2b3kzSS9xMnZ0aTRVOHF6eC9VZzFaMExMV3NS?=
- =?utf-8?B?QVJYNWc5SDd6U1BXVUdRYnZJWjFIN0dXVXdzM085M0w5MG1XNVZoL1FUNm5s?=
- =?utf-8?B?MkkvZm15SHp0bTRHYWg4S0R3L2tqY0kvRHdERjdpQnJsMU5YR2J1SkhwalNW?=
- =?utf-8?B?RmNzQWVBS2NEd3RVM29lYUNYMEpNU094S21YM29sbTQ1TU5NRzlaaXVTbE54?=
- =?utf-8?B?NW82M3pXVXFlOWxUc0JkblV6Mi9EUUo0bHY5cHNPc2tnaW0xa3BVUE5lMTFR?=
- =?utf-8?B?KzlWSmpIRlB5VHY0bG4wNGRNUExIUno2YzlrcDJtdmhxWFFTRndSanB6OXVG?=
- =?utf-8?B?S2tXYnRyRkdqRzBZdExBb0ZyUWQ1V3NYSDB4U3JvZit0WnFOTkNnTW5qckwv?=
- =?utf-8?B?bU45Rm1TSUFDb21MNFBEcVRGb09sRW4wSEdsdHFPeFRyR2FlemdxVmsyRXo0?=
- =?utf-8?B?N3ZXY2JKRHJITW1EYnBac0lVaXNoK3VaNERLRmlydlg2R3ZWa2xzQ3poN0FY?=
- =?utf-8?B?WnAwdmRlc2RxR0hkZGM3bzVYRVc1RkliZzd2YXVXN0wyeXRmb1ZvTFdDandI?=
- =?utf-8?B?TFErdkJqTnp5SlZyZGl6b1RVYmtCRHRxUjc3ekxHYm5wM2VrdUdpeXZxWFdU?=
- =?utf-8?B?alNWSkRiem40TDJRb25NelhITXNQN2hiSmdiZHFUa0s5V2dHbHk3OWw1QXI3?=
- =?utf-8?B?SDN1aXQvQkgwOU5ucFRwR3V2cG9adHpMK21XWTRMRW9jTlV1a2I5MEs1OVpB?=
- =?utf-8?B?a2d0ZFVNczNTRmtiMFpZRWtTMUE0d1Y1bURCRStFVWZ3enJjUEZlTDVyNXUw?=
- =?utf-8?B?d3B4WUlqT2JjQ25PU1VSMGJlL3d2U3ZqQlFRMVk5akVoaXBYQmlNTDJyalBD?=
- =?utf-8?B?bDJBbm53SWtCYXNyRlorcG05QkZ1RkwzdE9Gd2NjYlUwaVlBanV2dlpjdjNC?=
- =?utf-8?B?dkFVbVB0TW9oTmR3ZjQ1dkRBeVNMNWVoUG5ISHdXQ293R2ZkWlNnZEsxdWVp?=
- =?utf-8?B?Q2xsTHRlN3RmaGhQRys4K2JLcU03bCtuK1ZJNWxTZ2drUVdCSkEvandxWkRL?=
- =?utf-8?B?L0kxVWpibEVPOVhOdU5EZktKZ1ZYdU1iZHVYZ1QwV05adktvYUh6S2tud3FB?=
- =?utf-8?B?YWxVSmlQSWM0aUFEL0EyUVU4NjRrWkFZVFlVWUxjZEJqdkpOWVBZcWsrdXht?=
- =?utf-8?B?YndaT1Z6K09NNDFCRVBqdFJpMlplVlBBV1JIVjQ2REtMVkc2TGwyUG1Fc2cx?=
- =?utf-8?B?bGR5WGdoOVdzUVYwbmhqMjlWU3R0cXhwRk9oZENyZytsZERCQ2RQU0h0V1JS?=
- =?utf-8?B?YzQ3dFVoL0NBQ3VkcVZZSllJRk1jQUxXR0IxVmU2QlYya2R0UzdRWGliNyt4?=
- =?utf-8?B?OWZaMSttV2svT1BuVEVUM2o0U043am44eitjZXFhZGIxRTZVamFyN0pBM0Zn?=
- =?utf-8?B?YjJVRDdLL0l0dDBLdFZNQ2FSY09Sd2RvRVB2d0tLQ09yRVJOWnN4Y05wMzQy?=
- =?utf-8?B?QjY1MlJXS2Vma2NvdUhrSHI3aE5YKzgrc09LaFBnM1ZtZi8zU1RvOHVNYlRH?=
- =?utf-8?B?Nlo4bElycGRjczNDZkw3RFlzUTZza1FQUTBWNlNnNnRhZVhPd0pUTmdUUlFy?=
- =?utf-8?B?S1E5REFxcGIxR2x4dC8vS1NFMmVjaUhOK09YeWVabWRLTVMvSWMvbStxNERT?=
- =?utf-8?B?bDNBTXBFdFZaWk5uRHBUbEl6VjRaK2JQbUdQT2RPanJjQlBZYUpPL3BHaVpv?=
- =?utf-8?B?eWZ1WkpQVTV5OXF6QWtXNHkycUVRQXBkK0sxTWJPdHBqOU9ZMEJUWHVqY1lo?=
- =?utf-8?B?UHhWTnFMT3NSZFZWQWVRK2FCcmM2K2svZWViZnUybThGQlpodm9iUldwYWhU?=
- =?utf-8?B?ZXk3Yk1BT0ltNG1TM0FVdjFLaGpqZU5HWVEvcURnQThPUnhERjVsOStiaEcy?=
- =?utf-8?Q?cruzhdvnTV95lCeh/U?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40f5958d-c145-45ac-3b35-08de761408ea
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2026 15:22:36.0950 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lEaVUt1RwMWXp5q8aaMs6bUqnGuXhXUsNxvv4iKsj5zY1vLawbi4Jd5JWau3zYKZ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6777
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c9329ae2-721d-4127-9380-b1ea454bd8f2@iscas.ac.cn>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,46 +74,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2/27/26 14:31, Thomas Zimmermann wrote:
-> Instead of testing import_attach for imported GEM buffers, invoke
-> drm_gem_is_imported() to do the test. The test itself does not change.
+On Fri, Feb 27, 2026 at 01:25:03PM +0800, Vivian Wang wrote:
+> On 2/27/26 02:25, Mark Bloch wrote:
+> > On 29/01/2026 3:56, Vivian Wang wrote:
+> >> Some PCI devices have PCI_MSI_FLAGS_64BIT in the MSI capability, but
+> >> implement less than 64 address bits. This breaks on platforms where such
+> >> a device is assigned an MSI address higher than what's reachable.
+> >>
+> >> Currently, the no_64bit_msi bit is set for these devices, meaning that
+> >> only 32-bit MSI addresses are allowed for them. However, on some
+> >> platforms the MSI doorbell address is above the 32-bit limit but within
+> >> the addressable range of the device.
+> >>
+> >> As a first step to enabling MSI on those combinations of devices and
+> >> platforms, conservatively generalize the single-bit flag no_64bit_msi
+> >> into msi_addr_mask. (The name msi_addr_mask is chosen to avoid confusion
+> >> with msi_mask.)
+> >>
+> >> The translation is essentially:
+> >>
+> >> - no_64bit_msi = 1    ->    msi_addr_mask = DMA_BIT_MASK(32)
+> >> - no_64bit_msi = 0    ->    msi_addr_mask = DMA_BIT_MASK(64)
+> >> - if (no_64bit_msi)   ->    if (msi_addr_mask < DMA_BIT_MASK(64))
+> >>
+> > Hey Vivian,
+> >
+> > We are seeing issues while reloading mlx5 on a PPC64 platform.
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: "Christian König" <christian.koenig@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org
-
-Reviewed-by: Christian König <christian.koenig@amd.com>
-
-> ---
->  drivers/gpu/drm/radeon/radeon_display.c | 2 +-
->  drivers/gpu/drm/radeon/radeon_object.c  | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+> Mea culpa. There's a fix on the list [1] since last Friday. I'm not sure
+> why it hasn't moved yet, but please take a look.
 > 
-> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-> index 5c72aad3dae7..4002a85cba3b 100644
-> --- a/drivers/gpu/drm/radeon/radeon_display.c
-> +++ b/drivers/gpu/drm/radeon/radeon_display.c
-> @@ -1340,7 +1340,7 @@ radeon_user_framebuffer_create(struct drm_device *dev,
->  	}
->  
->  	/* Handle is imported dma-buf, so cannot be migrated to VRAM for scanout */
-> -	if (obj->import_attach) {
-> +	if (drm_gem_is_imported(obj)) {
->  		DRM_DEBUG_KMS("Cannot create framebuffer from imported dma_buf\n");
->  		drm_gem_object_put(obj);
->  		return ERR_PTR(-EINVAL);
-> diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
-> index a0fc0801abb0..2d958272d810 100644
-> --- a/drivers/gpu/drm/radeon/radeon_object.c
-> +++ b/drivers/gpu/drm/radeon/radeon_object.c
-> @@ -60,7 +60,7 @@ static void radeon_ttm_bo_destroy(struct ttm_buffer_object *tbo)
->  	mutex_unlock(&bo->rdev->gem.mutex);
->  	radeon_bo_clear_surface_reg(bo);
->  	WARN_ON_ONCE(!list_empty(&bo->va));
-> -	if (bo->tbo.base.import_attach)
-> +	if (drm_gem_is_imported(&bo->tbo.base))
->  		drm_prime_gem_destroy(&bo->tbo.base, bo->tbo.sg);
->  	drm_gem_object_release(&bo->tbo.base);
->  	kfree(bo);
+> [1]: https://lore.kernel.org/all/20260220070239.1693303-1-nilay@linux.ibm.com/
 
+We needed testing on powerpc and sparc, which has now been done,
+thanks to Han Gao (SPARC Enterprise T5220), Nathaniel Roach (SPARC
+T5-2), and Venkat Rao Bagalkote (IBM Power System LPAR (pseries)).
+
+It would be ideal to have acks from the powerpc and sparc maintainers,
+so I just solicited those.
+
+Thomas merged 386ced19e9a3 ("PCI/MSI: Convert the boolean no_64bit_msi
+flag to a DMA address mask"), and could merge the fixes.  Otherwise I
+can merge via PCI.
+
+Bjorn
