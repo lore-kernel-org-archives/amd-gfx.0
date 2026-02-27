@@ -4,150 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE69EFD531A
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:18:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F6E5FD5316
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Feb 2026 09:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F0F210EACC;
-	Fri, 27 Feb 2026 09:18:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CD4C10EACF;
+	Fri, 27 Feb 2026 09:22:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iyTB+PgO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JlzAYg6d";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFD0C10E9A2;
- Thu, 26 Feb 2026 16:04:27 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E29EE6184D;
- Thu, 26 Feb 2026 16:04:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6882DC2BCAF;
- Thu, 26 Feb 2026 16:04:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772121866;
- bh=3gdRZB/bYaBq74nWKzTYBoxrmHjdrwN42kbAbXUAO1A=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=iyTB+PgO5AoaN163AMcsotNvfXJuGhxw2cTMRntNhnt93ETFlbFc3PJnpiI4fcftF
- QiMVFgL34YT6vMFgDtQ5pp5x3zuFr7xw0xcXxbRPnceBpAmIbSde2MA7Ix6CNLBDxl
- xfDZdS64xn0x9jcrNDACgBBE+i3GvTW9KLEj9uurSWnH73nLcrxN8bG6K5ps0BlP32
- hUml2ssxE5ImMag/sNw4Z4Jie9WtMK3TrTfo6An52tCSB6I9GtNO5Z/v0qm5YwD62X
- TS/Bdak2CFmyn+OOPuqLm9D7AEx9dV0w+c8kCdRe47Z2CmYrXj8sh2cVuUvN7Bp7xX
- BU59DAM8w9/Jw==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 26 Feb 2026 10:55:41 -0500
-Subject: [PATCH 39/61] minix: update format strings for u64 i_ino
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010040.outbound.protection.outlook.com [52.101.201.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A79D10E11D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 09:22:12 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iTYBinkLvf65CR9qIYK4+FCQbOnrcAuZhsajLhwOGh4LqL8wWhIZIQ17UVVthvbIEIKgn5/emUK0riOny1kuJyFnWKL3ZEXW++2ixYg0zR32BcW9KAwJfgoGqhXHUAchlqfMTFNAdI510aXrktgQThWh3/DctEWpP7OcaNUx3LBjaiMoLAkO11dzXeRTp3o2oGB7NvuTgN9rvP8Pv1pg4oNqRn512xOxlaiiL+5+j1AbRZBI/Mmp0w5aZbPEolVOdZy1kXde31tsIXEf4TjfaTj1/RfLXyIRyuzzXrDhqa8q098sbXfgxl3RFg7OSqxC4QhzxysECQL6qY5+3OX59w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CQc5oF3EYwCU+twAdnR25blnn1y5B0N1uC0tVyczYI4=;
+ b=MzZghTlzAKU6Bv5K1vhGW0o6zzKnOh+rjq/mkLwTeW+Sd0y3FGXfreQsOB/6jQo/R6gYf2LKhXIMQ/A2nlszdZTRyzZya8GHKk5dY+zTYD2v91QSacqJ6MFPiCPCVVbH0Azbnkv26r/FqD3G0y06nOWtxSI2Q0vVd0cR540+4SpJAELo2nPaLz3dfuMJv/lAbX6mQmAwKHj0c/9OnKlC1RKFpwcswk5AUSqxD6vfaWETgVEi3LAFbEZaX6fL1BhwQTpgCyHW7WV4yYFdff3oLSUGjssx1JdOGLowz8AGGsT/1HoSaLHzaTV47b14eRQjd110hAucn4kHFnfiGn/GTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CQc5oF3EYwCU+twAdnR25blnn1y5B0N1uC0tVyczYI4=;
+ b=JlzAYg6d0FUK6no5S5vgKvdAELvcfuGwqBF+Vbs3RYu63+giFd3m3ODkPu8THUITTxTj8HEHmUNwVszlteWLOy6vSswzmIE7IAYc6VZ8kJTeFchaF+opz9FawKF9ZULL189SNDyKFrC3QzJcB3qGEXY1DGVrG/Scvo93px4OEzY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by CH2PR12MB4039.namprd12.prod.outlook.com (2603:10b6:610:a8::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.21; Fri, 27 Feb
+ 2026 09:22:09 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9654.014; Fri, 27 Feb 2026
+ 09:22:09 +0000
+Message-ID: <6e1ec357-6858-48ae-9447-e915fc946417@amd.com>
+Date: Fri, 27 Feb 2026 14:52:03 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] drm/amdgpu: update type for num_syncobj_handles in
+ drm_amdgpu_userq_signal
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Sunil Khatri <sunil.khatri@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+References: <20260226155146.3727191-1-sunil.khatri@amd.com>
+ <e93f64b2-8157-4cc8-b4b9-16572a8cd022@igalia.com>
+ <490f80ef-6614-4ba3-8183-fbca7698f8da@mailbox.org>
+Content-Language: en-US
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <490f80ef-6614-4ba3-8183-fbca7698f8da@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN4P287CA0103.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:276::9) To BL1PR12MB5753.namprd12.prod.outlook.com
+ (2603:10b6:208:390::15)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260226-iino-u64-v1-39-ccceff366db9@kernel.org>
-References: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
-In-Reply-To: <20260226-iino-u64-v1-0-ccceff366db9@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Dan Williams <dan.j.williams@intel.com>, 
- Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>, 
- "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
- David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>, 
- Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
- Shyam Prasad N <sprasad@microsoft.com>, 
- Bharath SM <bharathsm@microsoft.com>, 
- Alexander Aring <alex.aring@gmail.com>, 
- Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>, 
- Eric Van Hensbergen <ericvh@kernel.org>, 
- Latchesar Ionkov <lucho@ionkov.net>, 
- Dominique Martinet <asmadeus@codewreck.org>, 
- Christian Schoenebeck <linux_oss@crudebyte.com>, 
- David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>, 
- Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>, 
- Salah Triki <salah.triki@gmail.com>, 
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>, 
- Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>, 
- Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
- Yangtao Li <frank.li@vivo.com>, 
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>, 
- David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, 
- Dave Kleikamp <shaggy@kernel.org>, 
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
- Joseph Qi <joseph.qi@linux.alibaba.com>, 
- Mike Marshall <hubcap@omnibond.com>, 
- Martin Brandenburg <martin@omnibond.com>, 
- Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
- Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
- Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
- John Johansen <john.johansen@canonical.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
- Roberto Sassu <roberto.sassu@huawei.com>, 
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Ondrej Mosnacek <omosnace@redhat.com>, 
- Casey Schaufler <casey@schaufler-ca.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Willem de Bruijn <willemb@google.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
- Martin Schiller <ms@dev.tdt.de>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
- fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
- linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
- samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
- v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
- ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, 
- ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
- jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
- ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
- linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
- selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
- linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
- linux-x25@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2322; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=3gdRZB/bYaBq74nWKzTYBoxrmHjdrwN42kbAbXUAO1A=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpoG0OE+//p6uwDvrj0gzItm2YGfi4UxMBXmZ0C
- pGiklI3Fg+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaBtDgAKCRAADmhBGVaC
- FUouD/sF3zA4f3V+06shKK08E+NRNBErpZlePyQWQ2KtTi3YsBwsRapqP1ljo0hPlbf8XOgRPSs
- KWWT43ftfSdav6Mz/lDNUTR2mwgsVazb/FkQWmKzAsc+m+AEVdgUxr7vz27HuQIOpJJwlWbukWk
- HRth2j8IvUo6uiuOBoSZ0oFjPlQWjLQVmvlcfUzpkL7J1Mn2eB7xqhizUoWCSU6+fo8p1gDsDCG
- pLDwiJY669EWlSIP0aMdDDy8ImoK3ngSmxikBLziQ9afCInCr5KeuNfwtDhBUbDAR8NvQEQazk4
- yAbSr5uuOVhe8S6Q8Sf8D9R1KPRHrbd9dVt8uMEsdFtRxI+wDD0n9MWOnZgO/gnqicYyjvizxqs
- SspzvjH+moxKJ0E0NmHt4nSTyNejtNtF+pbXBRcrFN+Jz0K9WQoPqJdcG63LGYRb7KAEmp/8ALM
- 50GCfPjpme+Qttn6Pr394fSBJbTVSTqAGIYiscVUGCZJjPQo/XUm7w/9IDIDxAGqKaYq8Qlsqqu
- 2YL8VDMlffOar9Mpq0vZub6t+CMlZRCiPGySod1JkezjvHtPl0lriqGHrl+NkvGotWcZ1bI5rlt
- d3UlVgZH5x5bgNfmNJzxgO2vj1etSDC5g62YDX6JkogU++t2RQ8NF31NUf1aLbftqdLoCm3RHz7
- V+TirKKj2qfXDeQ==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Fri, 27 Feb 2026 09:17:00 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|CH2PR12MB4039:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb98ca83-c39b-466e-da85-08de75e1ae8a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016;
+X-Microsoft-Antispam-Message-Info: YzuA5g2WWnGWlL1ynG9vWmdSMutP4kkkjNlIquFG4z42eYuGoZfoj8npe09Pfiki8N5XNF0nTvp0rPwvkI4ZwiGZU4TconjtF8D36uRxOmZF9m8vCsrZR7Mkg/nwyIBIsDNZBtKKsNOeRCegUWpFc/xt5+TyQVmNkJTArGjT+MhaLAPE5PJ4pk9EChCIgMlxq2QjK0l+sndR0c0qxSXFHnPfY7uVQv3nqZqzXMVn0yKMQkoWG/QCkmyFWvp9Qgy0l7dwOwozOqt1ZXRf9zSfDYtG5IURMsadrZPmRL+y6xk2BFX/HPVLOTdVfeXi0dGKF5P3pEkaYx6pzCqfxEO+ltLU/KBstVXQCqYxCKWGqzYkbfFaVxLKapp0Lrq76/zh/58kdEekQPbHYaPajrPnh9QB4gAt/mvQWJF0YnByEQY771f69NudAklBcqoanpRFJrYZahWZwJsdyyHquyCiy0M7o516CSltnu2m6gsKiYwFbhbHAzL8Zu50wpFAsUZ0vgQwNtOoT7qDMpVcOeFnB8izjJEvaSKT37WksykHEiY+gUsYWHnLQaimpALIEyIGoaxZguQDJ773jjRpcuUIuAUgUAZ8Y3JmTqmISok+ESe7zwlhJ8mdhlzKi2qMQt4mJ4Z3AAoXta95ylBlbuDUA4RXq/uQkTTZjGOhIIdLvlbf8zkhM1qXI3S8eQSiqEHnUGqXiW2H+ou38ZUmbcFo7RrBhr59KRcH1/pt1Y1dWYw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SzEwY2JyQlNmemdHUXEzYzRUZ1BqVnVIQkk0TGRZZkZTVHRySHN1OTh2OHh4?=
+ =?utf-8?B?OWprS2lEdk13Y0lobWFGeW9paFJueTJaWFZncDJhWUZqV2xGTVN3bUhBemp2?=
+ =?utf-8?B?UTNsZ3N6Tms1ckJUYnBhVGtxbU9OZ2N2ajhOcDlVRnJsYkhlWEpnZVU0TDhW?=
+ =?utf-8?B?QjF5V1ZqeGozTHNlM1VPOGpnNlRPQXFRSmNua1FjTjRoTGZDaDdqdmQ3Z0Q2?=
+ =?utf-8?B?Z2tTeDJvZlh3WGt1UU5SMVNOSFltVDhhZXVkN0w4UWtqUXZSMHpSSkpEcGxI?=
+ =?utf-8?B?cnlkNzFHaWpveENNTXF1blBYNjNwYVJXSGhNTmlLeEc3cVpKc01zV2FsTW95?=
+ =?utf-8?B?R2YrMGk2T0QzcVNITk1ncGRGQ0RMblpVUEFFY3Vld1FoYXVVRjZLejlZUDEz?=
+ =?utf-8?B?WTdTd0k0OFBYQUFsVDVIODU5SHBEMjRqWFF0RVFTa1RCWGRvbVh1MndRT3dS?=
+ =?utf-8?B?NzVWK2FGbnEwTTFkM0ZOYVl4cWZGUFdzYXdtK3RVZlFDUWhFemZ5ZnRQWDg3?=
+ =?utf-8?B?Smt3OW5HZWFGNHRPSDNYRHZBanVGQXpmbnNBU3NiU1JDUWJCL1Bqb1ppempR?=
+ =?utf-8?B?VzFTRVNrZE14TUJTeVMwVWw4dDlkeVl1aUhjMEV5UW1IZmNYZUJ3M1FKM1lu?=
+ =?utf-8?B?MTJLREMrY0Zrckw3bmU5KzZoWXZ0NUp6aEVMVDE5RHZBd2tWTDFLMXVaeTQy?=
+ =?utf-8?B?TFdiUHpnREM3dlZ0Y3hiYVZMaWRmQS9EMUNOdzgyQnlhSGtjdmZGN1E4OEc0?=
+ =?utf-8?B?RUNtZmQ4eG03bVovbE9DMGRQZzVFY2lUQTQ4dUwvd1h3YS9UTDhva1pkZDlT?=
+ =?utf-8?B?b3JqcTd2MDY5Z042bXFIaGZ1ZjZLdU1Ia2JURXRYNzBqUmpjblBFS0NGTWRV?=
+ =?utf-8?B?ajdvT1B1YXJVQVNJMWZXTXZTQXlrM3RhMWFUNS9wY2NRZnh3OSt0YjlrMDNI?=
+ =?utf-8?B?VEQrRE9RdFV4bjlNZFpSUHIwUk1aUjRTbXhuNGN0bzNPK2pBT3VuVmloNXZL?=
+ =?utf-8?B?bFpDRzRwdEUrYmxUN0o4TkNtTG5OcDBPOFZLL0h5YlpFZ2gwdXNrZTJ4MUZz?=
+ =?utf-8?B?b0g1UGowV0tKNlNKL1FEWm5yVHdzSDdCdlZRdnVhSlVuSVNQcVNkczVOL2ox?=
+ =?utf-8?B?UCtLU1pJTkhOSkprYmoyNGNPc0NiaC9ldFN3RXVYTlM4SHR0U0YzdndLZWpu?=
+ =?utf-8?B?aG1LbmJtQTBGN0Jib1owMEU3Rkx6ZGdvZ28weU5ic29qQTJPWHFRK3VBUFNL?=
+ =?utf-8?B?UVpTamJhZEliZnZyWXRxMnk4ZTc2T2hHUlZDYk1ERU0wNU94UU1sbkZGNkZX?=
+ =?utf-8?B?aGtvOURhemxGOVE4RjI2MmFHUXlybFFGME1icEk5dGNBSTNCMTIxb0lDRFNV?=
+ =?utf-8?B?cTFNbGZTRFA5WWNEQm5FWjJ5d29LNk5lQVpkMXhlSnFHMXNqV3VUWjl2MkZN?=
+ =?utf-8?B?c2phK3ZzTHBzSlNBNTQ1b1drendwaUhHZ2VZYW5PRFJjN0ZWWEYwekZUczli?=
+ =?utf-8?B?WWxRNTNTN0lWdnBpSkY0UUQyS2xsY3UrQ21EcW0xTE1OYjV1UkxOWlFneGlk?=
+ =?utf-8?B?T3Jab3lWRGVVWXF6WWdzNUlremVDb3FsUkR1S0pMUlYrdHk4NGdYNCs1bU5o?=
+ =?utf-8?B?S0FNVE9XYmNpWXo3TjlTYk40SDc2enVOVzRnTS9uaC94dUsxRy8vdkdCbVFB?=
+ =?utf-8?B?cWNwM3k5VEhUY05nR2hqSmpBRUVrWVY5RU1IZmxZUGNmcU8xdXNhR24wdUlK?=
+ =?utf-8?B?bVphckE2bEtvVHRnV3F6WUZ0OWwrT3ZrWTFJK0xzWUhKMjd4UGlXVVF6T0V6?=
+ =?utf-8?B?eDlCOE1lZTdmdTkxYWovOFNDaFMrdDhzVy9qc1ZNMVhMSDliMGdRVm9hUlhI?=
+ =?utf-8?B?ZmFYN05aWTF3Y3ZqdWVNcGZOYWZhV21TNVVJNW50cit4N21pOVVjcnRQOEJi?=
+ =?utf-8?B?MU1zUktISTA0bHl0aTI3a1VSdzRUSURxcXFpRDVjODRkRWJQbUJBb2p2ckh0?=
+ =?utf-8?B?blArenZQTm84WnoyVTZ0VWhacmJ2c0xaUEhTSFpuT2ZpSW1sZm5ZK1EyNlRP?=
+ =?utf-8?B?TDlrMDkyb1hROFUyZi9zL0pDd1hkYkRlOXlFWXd2WmVpVEFaUGVTa0pZWGJv?=
+ =?utf-8?B?TGMxSHE0aUl6S2xGYUJiT1RNK0hSZmtuYjNhNktKTjhxQ2pTRjlJUXJrNHBI?=
+ =?utf-8?B?M1hZcHdDWGpRSE9XQmxaQi8zNXF1MXo1enU0MG9FMnNEcWZlWXF6alp3U2xD?=
+ =?utf-8?B?bzFGUmQzL2dmblQ4YnJRczJFN1ZEdzlnaGUvU205alcwcUpCUEhyU0FRZmRH?=
+ =?utf-8?B?R3dRb3lENnZxc29GLzl1Nm44TFI0UHNFSVJENUtKQnk3VnFBS1FKdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb98ca83-c39b-466e-da85-08de75e1ae8a
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2026 09:22:09.2642 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y24IiI02tqIUWm5QZtXZpsGXtrn+COsB3csaT1CcBNVege/MjWjPE5D3Yr3+oE8rLSb5hTFGr7SWBjC/8F0h8g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4039
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,64 +138,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update format strings and local variable types in minix for the
-i_ino type change from unsigned long to u64.
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- fs/minix/inode.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+On 27-02-2026 02:43 pm, Michel Dänzer wrote:
+> On 2/26/26 17:05, Tvrtko Ursulin wrote:
+>> On 26/02/2026 15:51, Sunil Khatri wrote:
+>>> update the type for num_syncobj_handles from __u64 to _u16 with
+>>> required padding.
+>>>
+>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>>> ---
+>>>    include/uapi/drm/amdgpu_drm.h | 4 +++-
+>>>    1 file changed, 3 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+>>> index 33e8738ce91f..42b4c0f6746b 100644
+>>> --- a/include/uapi/drm/amdgpu_drm.h
+>>> +++ b/include/uapi/drm/amdgpu_drm.h
+>>> @@ -479,7 +479,9 @@ struct drm_amdgpu_userq_signal {
+>>>         * @num_syncobj_handles: A count that represents the number of syncobj handles in
+>>>         * @syncobj_handles.
+>>>         */
+>>> -    __u64    num_syncobj_handles;
+>>> +    __u16    num_syncobj_handles;
+>> Could probably cause build warnings/errors for something which builds fine today. Hm on big endian it actually breaks completely.
+> Yeah this is a clear UAPI break, no go.
 
-diff --git a/fs/minix/inode.c b/fs/minix/inode.c
-index 99541c6a5bbf13f3be27474a316b31d8db9fbce0..838b072b6cf0b54c955320916ac996e72f994a14 100644
---- a/fs/minix/inode.c
-+++ b/fs/minix/inode.c
-@@ -36,7 +36,7 @@ void __minix_error_inode(struct inode *inode, const char *function,
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 	printk(KERN_CRIT "minix-fs error (device %s): %s:%d: "
--	       "inode #%lu: comm %s: %pV\n",
-+	       "inode #%llu: comm %s: %pV\n",
- 	       inode->i_sb->s_id, function, line, inode->i_ino,
- 	       current->comm, &vaf);
- 	va_end(args);
-@@ -520,7 +520,7 @@ void minix_set_inode(struct inode *inode, dev_t rdev)
- 		   S_ISFIFO(inode->i_mode) || S_ISSOCK(inode->i_mode)) {
- 		init_special_inode(inode, inode->i_mode, rdev);
- 	} else {
--		printk(KERN_DEBUG "MINIX-fs: Invalid file type 0%04o for inode %lu.\n",
-+		printk(KERN_DEBUG "MINIX-fs: Invalid file type 0%04o for inode %llu.\n",
- 		       inode->i_mode, inode->i_ino);
- 		make_bad_inode(inode);
- 	}
-@@ -542,7 +542,7 @@ static struct inode *V1_minix_iget(struct inode *inode)
- 		return ERR_PTR(-EIO);
- 	}
- 	if (raw_inode->i_nlinks == 0) {
--		printk("MINIX-fs: deleted inode referenced: %lu\n",
-+		printk("MINIX-fs: deleted inode referenced: %llu\n",
- 		       inode->i_ino);
- 		brelse(bh);
- 		iget_failed(inode);
-@@ -580,7 +580,7 @@ static struct inode *V2_minix_iget(struct inode *inode)
- 		return ERR_PTR(-EIO);
- 	}
- 	if (raw_inode->i_nlinks == 0) {
--		printk("MINIX-fs: deleted inode referenced: %lu\n",
-+		printk("MINIX-fs: deleted inode referenced: %llu\n",
- 		       inode->i_ino);
- 		brelse(bh);
- 		iget_failed(inode);
-@@ -692,7 +692,7 @@ static int minix_write_inode(struct inode *inode, struct writeback_control *wbc)
- 	if (wbc->sync_mode == WB_SYNC_ALL && buffer_dirty(bh)) {
- 		sync_dirty_buffer(bh);
- 		if (buffer_req(bh) && !buffer_uptodate(bh)) {
--			printk("IO error syncing minix inode [%s:%08lx]\n",
-+			printk("IO error syncing minix inode [%s:%08llx]\n",
- 				inode->i_sb->s_id, inode->i_ino);
- 			err = -EIO;
- 		}
+Yeah i am holding on this change for a cleaner solution. I acknowledge 
+the UAPI breaking here.
 
--- 
-2.53.0
+Regards
 
+Sunil khatri
+
+>
+>
+>>> +    __u16    pad0;
+>>> +    __u32    pad1;
+>>>        /**
+>>>         * @bo_read_handles: The list of BO handles that the submitted user queue job
+>>>         * is using for read only. This will update BO fences in the kernel.
+>
