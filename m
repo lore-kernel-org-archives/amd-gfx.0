@@ -4,86 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF0D3FEE4EE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2C55FEE4D9
 	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C04A610E252;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB49B10E24D;
 	Sat, 28 Feb 2026 09:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WVYRPjio";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=rcpassos.me header.i=@rcpassos.me header.b="Q78BslMQ";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=purelymail.com header.i=@purelymail.com header.b="bgXVljlA";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A773E10E038
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Feb 2026 04:54:19 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-79863ab8478so28060297b3.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 20:54:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772254458; x=1772859258; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=SWHLiQPGuLNOIoRU+H9lZYNm5Ub8L3rxXj707dfRdFk=;
- b=WVYRPjio0rgWrk5fq893sAQ9rYd/GrwXImR8qKrzXiW/Z6nsSWWXoi8rTNSWikpoYY
- REEu2TlFe18ZbytfKu3t0w8uAgapeCvMnEYleP1IUdtYjcY9ECgWLqWkJdutBVa+tTQg
- ZKS0GORoGIqKExhUZRVU4l4o0GRVAhHJg1/ZVrYJ1FvnQ84PssF4qZVxolB60WoZDK9k
- s8OGQXSuHfzclBDmf1gy6UI77CFNTiChUdyywHduXEJks40UqKEWSFkhN4jRLSlfOREX
- k8S70mUtIDbnFQogoPC5UCIwvcVc5BQcznDvjhiq+6SEMjtiLjq6sHzGYLlkS/jBwdz8
- /+cQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772254458; x=1772859258;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SWHLiQPGuLNOIoRU+H9lZYNm5Ub8L3rxXj707dfRdFk=;
- b=JGwhmeMeH6uOKLppe+68yt0yivOvU/8bb7O6ZPng0PTylHWIQM0dpw+n/sWSuJ0rDy
- QbKqDK08csUzwL9NpUXuABBBZqEmVmXtkU3HTjjWEVv3GTjReatHf3e1sR+tw1o/7d7J
- jsoH0tlbInSkvSn5xq4PSxGvNg8r3lugsWJQCdAQJGJ9OBsgwRvBIETkerzkycUK6yYf
- lk9z46oprqCL8dkzI3sfBYX0bv98Sj9x4dQmzEi0TzW+b+h5oy7zpudMVAq4Q3QbbaaM
- /YD8ds2frJVNlzeSjpv7habvQNTMmOXMpBnxhb/8BcAXqn95MoPCXjlV5rr0lYPG7bAt
- NiGQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUhcuAh1hIhgk1DRfhOE9mTalAaMEl7Zs32dGUJG/NyfM/5G2EEoF9rHYiknPMFSLGpX9PrMCTg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzxuVsNRm/8edSKpGIcfswQJweLXD8ftcMvjLVGnW+3ASCWvPgj
- wJMEmZk/EkSFU56vGrB/1/MV9e22o4DoiGU9J9jKAj8OEqoP7cpgX9sj
-X-Gm-Gg: ATEYQzyd8WSUvgVefbgC3JyPuzxo6qdM/hHoV/+pX/gkj1FPdzD1IsjCnvHHAN+xP3Y
- mkz3Jvv3llsOKiy4OoPD2cfA8faWheDtALdt57o3DPiUgxUoVNtB1rwAhRRWcFnPhZxDGf88DCs
- CkeH2/nR+OtiCBiq4sWt8sq23fohvKnBNNuNT6DD60of9aGuPZ11Z/gPNC3RvyKNjRDIqHwGqWB
- xMG88Qo0y0zdC57NaYOZSiy0CG++ETj/4W33kqoGHh1kbJmsWTWn8xv5SQQHPpTKFRVtYKbCvgd
- XK4NSd2NnmaZjJJcMZtnV/3hx8ZrG7CMNkXKHHNLZ6pNPV9D2PSxx8IY0ClwpUZvCm0lZukGExu
- loAQuNyOwOmfqOzex9iscwZnqWC1QEUsewyBJH1kuLNPHXwDBwZq++TKWAu/NEOC1HqWdvPGS/b
- xJIirC1Ce5kdMavKC95klUTccUHScyeRVuRVKeodD5Bffl/DOW5tjmnA==
-X-Received: by 2002:a05:690c:c50b:b0:796:2dfb:4af1 with SMTP id
- 00721157ae682-798854690f5mr45220647b3.9.1772254458385; 
- Fri, 27 Feb 2026 20:54:18 -0800 (PST)
-Received: from ryzen ([2601:644:8000:56f5::8bd])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-79876bf8103sm29865967b3.27.2026.02.27.20.54.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Feb 2026 20:54:17 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: stable@vger.kernel.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Alex Hung <alex.hung@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Lijo Lazar <lijo.lazar@amd.com>, "chr[]" <chris@rudorff.com>,
- Sasha Levin <sashal@kernel.org>, Wentao Liang <vulab@iscas.ac.cn>,
- amd-gfx@lists.freedesktop.org (open list:AMD DISPLAY CORE),
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2 for 6.112 and 6.6 0/2] amdgpu: fix panic on old GPUs
-Date: Fri, 27 Feb 2026 20:53:54 -0800
-Message-ID: <20260228045356.3561-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
+Received: from sendmail.purelymail.com (sendmail.purelymail.com
+ [34.202.193.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB9EA10E1C4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 23:01:35 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256;
+ b=Q78BslMQ/p7F+ujBEh9dwI0HaQF8BeZiD1W+aJNAMqReDVnXsXBb9PttxaI5/NvadgZcGl2Oxnn4TAFMR0gWS7ku+kp7gdvRlUILoXcpm9DXXmC6Lx8b61xmq/karXnWOXNPuaOOKFyxY6W88ZlkWVmlc2J+D4OzcN/Yt42GM9afjLHHetgFJLN2/Q7adYHArgsBqanFxYdqB/jsL3TabxfPXFitDzHI8Hyn1wKCRV7+OauwGOFsudUFltYNy1cOrI5o/1BZMSeKvv1D4qAcyzNDBrCKB2AN3VF5o7ypX+mwpsiNKEIuyuzrddOLCWZdv8/BcDGyODUtzlXbXPQuLA==;
+ s=purelymail3; d=rcpassos.me; v=1;
+ bh=rX7wenqbXadkw/eCFpE8kSAWOgl+KlNXGlxRzG1En+I=;
+ h=Received:Date:Subject:From:To; 
+DKIM-Signature: a=rsa-sha256;
+ b=bgXVljlACXtabSk1i9/htsefZh83i1/Axdh/ioS5X8zFmelqDlUthnb/VLstQojiY1BhxbPZBe77QNNpkiIj6Wjhp3YdBv+NbIigQmFZDcmMY6Nu1io6xb1QzmFFfRLB8Qw+TVCHt+kgLQEbnOplmNn7DmyZtVQmRx9kpMuv3+g7p1a2t6cGmZfCTXODReFQ2pf5G1SJ7YfR00IwgdzXwyEzvKQSw0AJsOo/rc6nyJEVX8PQt/+98c++nNLD97Qh3N/fd5Vh6fMyzqkCp8U6OTTAsaj8O9rB4bPpQBAcimA+wPilyB0g50J0Nqd60/HMnLVghUYzXmwf3Qkuwc6nlg==;
+ s=purelymail3; d=purelymail.com; v=1;
+ bh=rX7wenqbXadkw/eCFpE8kSAWOgl+KlNXGlxRzG1En+I=;
+ h=Feedback-ID:Received:Date:Subject:From:To; 
+Feedback-ID: 45355:7809:null:purelymail
+X-Pm-Original-To: amd-gfx@lists.freedesktop.org
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -262709579; 
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
+ Fri, 27 Feb 2026 23:01:32 +0000 (UTC)
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Fri, 27 Feb 2026 20:01:29 -0300
+Message-Id: <DGQ49PK0QE7U.3O1AQPSD6NI7I@rcpassos.me>
+Cc: <rcpassos@ime.usp.br>, <davidtadokoro@ime.usp.br>
+Subject: [bug report] 7.0-rc1 flip_done timed out: amd igpu off when
+ resuming in laptop (regression)
+From: "Rafael Passos" <rafael@rcpassos.me>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <siqueira@igalia.com>, <linux-kernel@vger.kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+X-Mailer: aerc 0.21.0
 X-Mailman-Approved-At: Sat, 28 Feb 2026 09:19:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,38 +59,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Because of incomplete backports to stable kernels, DC ended up breaking
-on older GCN 1 GPUs. This patchset adds the missing upstream commits to
-at least fix the panic/black screen on boot.
+Hi,
 
-They are applicable to 6.12, 6.6, and 6.1 as those are the currently
-supported kernels that 7009e3af0474aca5f64262b3c72fb6e23b232f9b got
-backported to.
+I found this bug while running v7.0-rc1 on my HP laptop.
+The laptop returns from suspension when flipping the scren up,
+but the iGPU does not. Tested in Fedora and Arch.
+Same compilation has no issues in my Desktop (with a 6800XT).
 
-6.1 needs two extra backports for these two commits to be cherry-picked
-cleanly. Those are
+HP ProBook x360 435 G7
+CPU is a AMD Ryzen 7 4700U (8) @ 2.00 GHz with Vega iGPU
 
-96ce96f8773da4814622fd97e5226915a2c30706
-d09ef243035b75a6d403ebfeb7e87fa20d7e25c6
+This started in a compilation (mainline) between Feb 10 and Feb 23.
+I plan to do a lot of bisecting this weekend to find the exact cause.
+I know ga9aabb3b839a is a good commit, and 6de23f8 is a bad one (the tag).
+Hopefully I can submit a patch fixing this bug,
+but helping to find it is ok as well.
 
-v2: Add Signed-off-by.
+Here is one sample of the Kernel logs I collected over SSH.
 
-Timur Kristóf (2):
-  drm/amd/display: Add pixel_clock to amd_pp_display_configuration
-  drm/amd/pm: Use pm_display_cfg in legacy DPM (v2)
+[   98.539672] smpboot: Booting Node 0 Processor 7 APIC 0x7
+[   98.543543] CPU7 is up
+[   98.544343] ACPI: PM: Waking up from system sleep state S3
+[   99.061284] ACPI: EC: interrupt unblocked
+[   99.066648] ACPI: EC: event unblocked
+[   99.067043] amdgpu 0000:04:00.0: [drm] PCIE GART of 1024M enabled.
+[   99.067049] amdgpu 0000:04:00.0: [drm] PTB located at 0x000000F41FC00000
+[   99.067070] amdgpu 0000:04:00.0: PSP is resuming...
+[   99.067167] amdgpu 0000:04:00.0: reserve 0x400000 from 0xf41f800000 for =
+PSP TMR
+[   99.157012] amdgpu 0000:04:00.0: RAS: optional ras ta ucode is not avail=
+able
+[   99.168905] amdgpu 0000:04:00.0: RAP: optional rap ta ucode is not avail=
+able
+[   99.168909] amdgpu 0000:04:00.0: SECUREDISPLAY: optional securedisplay t=
+a ucode is not available
+[   99.168913] amdgpu 0000:04:00.0: SMU is resuming...
+[   99.169354] amdgpu 0000:04:00.0: dpm has been disabled
+[   99.170469] amdgpu 0000:04:00.0: SMU is resumed successfully!
+[   99.171833] amdgpu 0000:04:00.0: kiq ring mec 2 pipe 1 q 0
+[   99.176522] amdgpu 0000:04:00.0: [drm] DMUB hardware initialized: versio=
+n=3D0x0101002B
+[   99.176650] ------------[ cut here ]------------
+[   99.176652] WARNING: drivers/gpu/drm/amd/amdgpu/../display/dc/hubbub/dcn=
+20/dcn20_hubbub.c:587 at hubbub2_get_dchub_ref_freq+0xa1/0xb0 [amdgpu], CPU=
+#3: kworker/u33:7/782
+[   99.177462] Modules linked in: uinput rfcomm snd_seq_dummy snd_hrtimer c=
+cm nf_conntrack_netbios_ns nf_conntrack_broadcast nft_fib_inet nft_fib_ipv4=
+ nft_fib_ipv6 nft_fib sunrpc nft_reject_inet nf_reject_ipv4 nf_reject_ipv6 =
+nft_reject nft_ct nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defra=
+g_ipv4 nf_tables qrtr cmac algif_hash algif_skcipher af_alg bnep vfat fat s=
+nd_sof_amd_acp70 snd_sof_amd_acp63 snd_sof_amd_vangogh snd_sof_amd_rembrand=
+t snd_sof_amd_renoir snd_sof_amd_acp snd_sof_pci snd_sof_xtensa_dsp snd_sof=
+ snd_sof_utils snd_pci_ps snd_soc_acpi_amd_match snd_soc_acpi_amd_sdca_quir=
+ks snd_amd_sdw_acpi soundwire_amd soundwire_generic_allocation snd_ctl_led =
+soundwire_bus snd_soc_sdca snd_hda_codec_alc269 snd_hda_codec_realtek_lib a=
+md_atl intel_rapl_msr snd_hda_codec_atihdmi snd_hda_scodec_component snd_so=
+c_core snd_hda_codec_generic intel_rapl_common snd_hda_codec_hdmi iwlmvm sn=
+d_compress ac97_bus snd_pcm_dmaengine snd_hda_intel snd_hda_codec mac80211 =
+snd_rpl_pci_acp6x btusb snd_acp_pci hp_bioscfg snd_hda_core
+[   99.177516]  snd_amd_acpi_mach btmtk snd_intel_dspcfg snd_acp_legacy_com=
+mon btrtl ptp snd_intel_sdw_acpi firmware_attributes_class snd_pci_acp6x kv=
+m_amd pps_core snd_hwdep libarc4 uvcvideo btbcm hp_wmi snd_pci_acp5x videob=
+uf2_vmalloc btintel kvm snd_seq uvc platform_profile videobuf2_memops snd_r=
+n_pci_acp3x sparse_keymap snd_seq_device videobuf2_v4l2 irqbypass snd_acp_c=
+onfig videobuf2_common bluetooth rapl videodev wmi_bmof iwlwifi mc snd_pcm =
+snd_soc_acpi pcspkr acpi_cpufreq i2c_piix4 i2c_smbus k10temp snd_pci_acp3x =
+snd_timer cfg80211 hid_sensor_gyro_3d hid_sensor_magn_3d snd hid_sensor_acc=
+el_3d hid_sensor_trigger soundcore rfkill industrialio_triggered_buffer kfi=
+fo_buf wireless_hotkey hid_sensor_iio_common industrialio joydev mousedev m=
+ac_hid loop nfnetlink zram 842_decompress 842_compress lz4hc_compress lz4_c=
+ompress dm_crypt encrypted_keys trusted asn1_encoder tee amdgpu hid_sensor_=
+hub amdxcp i2c_algo_bit drm_ttm_helper ttm drm_exec drm_panel_backlight_qui=
+rks gpu_sched drm_suballoc_helper nvme rtsx_pci_sdmmc
+[   99.177578]  drm_buddy nvme_core ucsi_acpi mmc_core drm_display_helper n=
+vme_keyring typec_ucsi ghash_clmulni_intel nvme_auth roles hid_multitouch a=
+esni_intel typec cec ccp hkdf amd_sfh video rtsx_pci i2c_hid_acpi wmi thund=
+erbolt sp5100_tco i2c_hid serio_raw dm_mod i2c_dev
+[   99.177603] CPU: 3 UID: 0 PID: 782 Comm: kworker/u33:7 Tainted: G       =
+ W           7.0.0-rc1-auyer+ #3 PREEMPT(full)  89085bfd3471dc2ddc421b17d99=
+0c1c500db5584
+[   99.177608] Tainted: [W]=3DWARN
+[   99.177609] Hardware name: HP HP ProBook x360 435 G7/8735, BIOS S80 Ver.=
+ 01.17.02 06/07/2024
+[   99.177612] Workqueue: async async_run_entry_fn
+[   99.177619] RIP: 0010:hubbub2_get_dchub_ref_freq+0xa1/0xb0 [amdgpu]
+[   99.178421] Code: 8d 83 c0 63 ff ff 3d 20 4e 00 00 77 21 89 5d 00 48 8b =
+44 24 08 65 48 2b 05 84 05 36 d0 75 13 48 83 c4 10 5b 5d e9 af ae 7f ce <0f=
+> 0b eb df 0f 0b eb db e8 e2 7a 7e ce 66 90 90 90 90 90 90 90 90
+[   99.178423] RSP: 0018:ffffcd310072fc50 EFLAGS: 00010246
+[   99.178426] RAX: 0000000000001000 RBX: 000000000000bb80 RCX: 00000000000=
+00000
+[   99.178428] RDX: ffffcd310072fc54 RSI: 00000000000039df RDI: ffff8ce0148=
+00000
+[   99.178430] RBP: ffff8ce00f882bf8 R08: ffffcd310072fc50 R09: 00000000000=
+0000c
+[   99.178431] R10: ffffcd313fecaf00 R11: ffffcd310072f898 R12: ffff8ce00f8=
+82800
+[   99.178433] R13: ffff8ce00f848400 R14: ffff8ce00dc83e00 R15: ffff8ce0f63=
+17ec0
+[   99.178435] FS:  0000000000000000(0000) GS:ffff8ce75e767000(0000) knlGS:=
+0000000000000000
+[   99.178437] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   99.178439] CR2: 0000000000000000 CR3: 0000000211d28000 CR4: 00000000003=
+50ef0
+[   99.178441] Call Trace:
+[   99.178446]  <TASK>
+[   99.178450]  dcn10_init_hw+0x186/0x4e0 [amdgpu c06be2407ae9725ac90c67be7=
+9bb3ef89e7cefec]
+[   99.179286]  dc_set_power_state+0xd1/0x150 [amdgpu c06be2407ae9725ac90c6=
+7be79bb3ef89e7cefec]
+[   99.180031]  dm_resume+0x12e/0x8b0 [amdgpu c06be2407ae9725ac90c67be79bb3=
+ef89e7cefec]
+[   99.180833]  amdgpu_ip_block_resume+0x27/0x50 [amdgpu c06be2407ae9725ac9=
+0c67be79bb3ef89e7cefec]
+[   99.181466]  amdgpu_device_ip_resume_phase3+0x6d/0x90 [amdgpu c06be2407a=
+e9725ac90c67be79bb3ef89e7cefec]
+[   99.182040]  amdgpu_device_resume+0xbb/0x380 [amdgpu c06be2407ae9725ac90=
+c67be79bb3ef89e7cefec]
+[   99.182620]  amdgpu_pmops_resume+0x46/0x80 [amdgpu c06be2407ae9725ac90c6=
+7be79bb3ef89e7cefec]
+[   99.183194]  ? __pfx_pci_pm_resume+0x10/0x10
+[   99.183200]  dpm_run_callback+0x51/0x180
+[   99.183204]  ? dpm_wait_for_superior+0xf7/0x150
+[   99.183207]  device_resume+0x15c/0x260
+[   99.183210]  async_resume+0x21/0x30
+[   99.183213]  async_run_entry_fn+0x36/0x160
+[   99.183218]  process_one_work+0x193/0x390
+[   99.183222]  worker_thread+0x1a1/0x310
+[   99.183226]  ? __pfx_worker_thread+0x10/0x10
+[   99.183229]  kthread+0xe3/0x120
+[   99.183234]  ? __pfx_kthread+0x10/0x10
+[   99.183238]  ret_from_fork+0x2bf/0x350
+[   99.183243]  ? __pfx_kthread+0x10/0x10
+[   99.183246]  ret_from_fork_asm+0x1a/0x30
+[   99.183253]  </TASK>
+[   99.183255] ---[ end trace 0000000000000000 ]---
+[   99.299257] usb 1-4: reset full-speed USB device number 3 using xhci_hcd
+[   99.307188] usb 3-3: reset high-speed USB device number 2 using xhci_hcd
+[   99.404342] nvme nvme0: 8/0/0 default/read/poll queues
+[   99.538424] usb 1-3: reset full-speed USB device number 2 using xhci_hcd
+[  100.833055] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+22: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed
+[  100.919764] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+27: core_link_write_dpcd (DP_LANE_COUNT_SET) failed
+[  101.006487] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+55: core_link_write_dpcd (DP_LINK_BW_SET) failed
+[  102.589793] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+22: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed
+[  102.676500] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+27: core_link_write_dpcd (DP_LANE_COUNT_SET) failed
+[  102.763207] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+55: core_link_write_dpcd (DP_LINK_BW_SET) failed
+[  104.398168] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+22: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed
+[  104.484883] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+27: core_link_write_dpcd (DP_LANE_COUNT_SET) failed
+[  104.571597] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+55: core_link_write_dpcd (DP_LINK_BW_SET) failed
+[  106.253776] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+22: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed
+[  106.340510] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+27: core_link_write_dpcd (DP_LANE_COUNT_SET) failed
+[  106.427251] amdgpu 0000:04:00.0: [drm] *ERROR* dpcd_set_link_settings:11=
+55: core_link_write_dpcd (DP_LINK_BW_SET) failed
+[  107.382304] amdgpu 0000:04:00.0: [drm] enabling link 0 failed: 15
+[  107.568497] amdgpu 0000:04:00.0: ring gfx uses VM inv eng 0 on hub 0
+[  107.568501] amdgpu 0000:04:00.0: ring comp_1.0.0 uses VM inv eng 1 on hu=
+b 0
+[  107.568503] amdgpu 0000:04:00.0: ring comp_1.1.0 uses VM inv eng 4 on hu=
+b 0
+[  107.568504] amdgpu 0000:04:00.0: ring comp_1.2.0 uses VM inv eng 5 on hu=
+b 0
+[  107.568506] amdgpu 0000:04:00.0: ring comp_1.3.0 uses VM inv eng 6 on hu=
+b 0
+[  107.568508] amdgpu 0000:04:00.0: ring comp_1.0.1 uses VM inv eng 7 on hu=
+b 0
+[  107.568509] amdgpu 0000:04:00.0: ring comp_1.1.1 uses VM inv eng 8 on hu=
+b 0
+[  107.568511] amdgpu 0000:04:00.0: ring comp_1.2.1 uses VM inv eng 9 on hu=
+b 0
+[  107.568512] amdgpu 0000:04:00.0: ring comp_1.3.1 uses VM inv eng 10 on h=
+ub 0
+[  107.568514] amdgpu 0000:04:00.0: ring kiq_0.2.1.0 uses VM inv eng 11 on =
+hub 0
+[  107.568516] amdgpu 0000:04:00.0: ring sdma0 uses VM inv eng 0 on hub 8
+[  107.568518] amdgpu 0000:04:00.0: ring vcn_dec uses VM inv eng 1 on hub 8
+[  107.568520] amdgpu 0000:04:00.0: ring vcn_enc0 uses VM inv eng 4 on hub =
+8
+[  107.568521] amdgpu 0000:04:00.0: ring vcn_enc1 uses VM inv eng 5 on hub =
+8
+[  107.568523] amdgpu 0000:04:00.0: ring jpeg_dec uses VM inv eng 6 on hub =
+8
+[  107.584564] OOM killer enabled.
+[  107.584569] Restarting tasks: Starting
+[  107.585190] Restarting tasks: Done
 
- .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  |  1 +
- .../dc/clk_mgr/dce110/dce110_clk_mgr.c        |  2 +-
- .../drm/amd/display/dc/dm_services_types.h    |  2 +-
- drivers/gpu/drm/amd/include/dm_pp_interface.h |  1 +
- drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  | 67 +++++++++++++++++++
- .../gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h  |  2 +
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  4 +-
- .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    |  6 +-
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 65 ++++++------------
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 11 +--
- 10 files changed, 101 insertions(+), 60 deletions(-)
 
---
-2.53.0
-
+regards,
+Rafael Passos
