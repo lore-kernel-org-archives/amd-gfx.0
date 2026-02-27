@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6FF3FEE4E9
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CBB4FEE4E1
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 714D310E26C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAEF310E276;
 	Sat, 28 Feb 2026 09:19:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="iBytIcMY";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="WOS2jtS9";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 372C810EBFE;
- Fri, 27 Feb 2026 19:21:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1772220097; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DFC010EC05;
+ Fri, 27 Feb 2026 19:22:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772220127; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=X851BuYrAOQe5dKnV3F6vHm39l7qGKYl94waSkGAf/OerbPDIh2pTEMNXISJxZe7HR90yRafNtxTwQiJoNFw/qWuKwKUr0cpGntlyc+QFl2AwCepQQzBroJgPhAXRZzbc+7lBrf4OipyxKcuk7uZpTpI0BoKTF+hlsmhjajLQzk=
+ b=gmELs3Nl/vS1UrpyYAF2cyf1WSvQbOzQBUye0NbDy5BsujxiWibWCTm3V7ilHip8F30hCudB6DhAm1vLwsf/T8a6ExpV7+mC4ybOUuZ6a8wrNm0zD4cISwDtqoIV17/kMM4MXYsudveWZ3hRcqfATS1PMViC+LHGK3JMkCxysOA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1772220097;
+ s=zohoarc; t=1772220127;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=I6mnIoMwQGSuHjHjLVfRnXnzAB6xS7ZmlkuOJOt+Ckg=; 
- b=JT7T3ssGWI6PlEZbsUKRsryo+NtnfB3mg17nMlzLovS/fnqquaNRAH1hyic9jkl7AjOwA3At2eslzTCrNMWN5DQQNn9XzUYU+HUlSZz0Zq5egXLymzzSmsw3bs2pVuSxjq+n/kf+jNCpPInePexnwgvoWLaUjuvDmXLetUK76oo=
+ bh=/k5/BqEah/aoOJSil87LueDqk+SxhPr5/f7eVZQF6Ak=; 
+ b=dZvQnJDQeuvipgnF2pQJ+a5/1DxsOQ4ONtUws0ECjw1mmMgrqHOFxbfABhYYDe2YNwAbt92NIm3TrUtsCUYbyjqBcEdv+Ll/v0BjMRjNngiWocjdqaaiL2dPQ5jjj2FJBJZZHDnb9BqiZe7CWUND6OqF8yl6S6Vk2fuQRFg76Jk=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772220097; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772220127; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=I6mnIoMwQGSuHjHjLVfRnXnzAB6xS7ZmlkuOJOt+Ckg=;
- b=iBytIcMYBz0Au1zq1eszN/Qe5StE1C8xxH4O85phHbJgheajFy6caHO1VLu3S7Tr
- CgkCRWNfqP7K0wWNmsWFkoax9l0CA74mILxcFMnpT0IQdNTZBwcs88Q2JAfUGfhYNI1
- jZFgmwroUGpsfK0EsYex3RruTUIGP4OdyXbTHkN0=
-Received: by mx.zohomail.com with SMTPS id 1772220095523648.4626705291115;
- Fri, 27 Feb 2026 11:21:35 -0800 (PST)
+ bh=/k5/BqEah/aoOJSil87LueDqk+SxhPr5/f7eVZQF6Ak=;
+ b=WOS2jtS92hr5dcpbdmXKLe2XTEk4g7filaYDOnN7N+dK5HK/pfrNmdLQFZlFv1DB
+ h2lchROahOTivvDujSgHkJzL6ejcUUnuH1s2sZmZ1/iEyK06km6cHDBR+1rLbwo7nYt
+ hzrIIsQFoXe3RNNJ/DQ8WBghMInBqXZNCCIjeLUE=
+Received: by mx.zohomail.com with SMTPS id 1772220125698172.56653551643058;
+ Fri, 27 Feb 2026 11:22:05 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 27 Feb 2026 20:20:13 +0100
-Subject: [PATCH v9 08/19] drm/rockchip: Add YUV422 output mode constants
- for VOP2
+Date: Fri, 27 Feb 2026 20:20:17 +0100
+Subject: [PATCH v9 12/19] drm/bridge: dw-hdmi-qp: Implement
+ atomic_get_output_bus_fmts
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260227-color-format-v9-8-658c3b9db7ef@collabora.com>
+Message-Id: <20260227-color-format-v9-12-658c3b9db7ef@collabora.com>
 References: <20260227-color-format-v9-0-658c3b9db7ef@collabora.com>
 In-Reply-To: <20260227-color-format-v9-0-658c3b9db7ef@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -72,10 +72,9 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Andy Yan <andyshrk@163.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 X-Mailer: b4 0.14.3
-X-Mailman-Approved-At: Sat, 28 Feb 2026 09:19:11 +0000
+X-Mailman-Approved-At: Sat, 28 Feb 2026 09:19:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,37 +89,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The Rockchip display controller has a general YUV422 output mode, and
-some SoC-specific connector-specific output modes for RK3576.
+The atomic_get_output_bus_fmts callback is used by the DRM bridge layer
+to recursively select a suitable output format in a bridge chain.
 
-Add them, based on the values in downstream and the TRM (dsp_out_mode in
-RK3576 TRM Part 2, register POST*_CTRL_POST_DSP_CTRL).
+As a bridge that outputs to HDMI, dw-hdmi-qp will have its output
+formats determined by which formats the platform-specific integration of
+the hardware supports, and the chosen HDMI output bit depth.
 
-Reviewed-by: Andy Yan <andyshrk@163.com>
+Implement this callback. The returned u32* buffer is supposed to be
+freed by the caller of this callback, as specified by the callback's
+documentation.
+
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_drv.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 64 ++++++++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-index 2e86ad00979c..4705dc6b8bd7 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
-@@ -30,10 +30,14 @@
- #define ROCKCHIP_OUT_MODE_P565		2
- #define ROCKCHIP_OUT_MODE_BT656		5
- #define ROCKCHIP_OUT_MODE_S888		8
-+#define ROCKCHIP_OUT_MODE_YUV422	9
- #define ROCKCHIP_OUT_MODE_S888_DUMMY	12
- #define ROCKCHIP_OUT_MODE_YUV420	14
- /* for use special outface */
- #define ROCKCHIP_OUT_MODE_AAAA		15
-+/* SoC specific output modes */
-+#define ROCKCHIP_OUT_MODE_YUV422_RK3576_DP	12
-+#define ROCKCHIP_OUT_MODE_YUV422_RK3576_HDMI	13
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index d649a1cf07f5..4556494f9bb1 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -11,6 +11,7 @@
+ #include <linux/export.h>
+ #include <linux/i2c.h>
+ #include <linux/irq.h>
++#include <linux/media-bus-format.h>
+ #include <linux/minmax.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+@@ -749,6 +750,68 @@ static struct i2c_adapter *dw_hdmi_qp_i2c_adapter(struct dw_hdmi_qp *hdmi)
+ 	return adap;
+ }
  
- /* output flags */
- #define ROCKCHIP_OUTPUT_DSI_DUAL	BIT(0)
++static u32*
++dw_hdmi_qp_bridge_get_output_bus_fmts(struct drm_bridge *bridge,
++				      struct drm_bridge_state *bridge_state,
++				      struct drm_crtc_state *crtc_state,
++				      struct drm_connector_state *conn_state,
++				      unsigned int *num_output_fmts)
++{
++	unsigned int num_fmts = 0;
++	u32 *out_fmts;
++
++	/*
++	 * bridge->supported_formats is a bit field of the HDMI_COLORSPACE_* enums.
++	 * These enums are defined by the HDMI standard, and currently top out at
++	 * 7. Consequently, BIT(7) is the highest bit that will be set here, unless
++	 * the standard runs out of reserved pixel formats. Therefore, hweight8()
++	 * will give an accurate count of how many bus formats we'll output.
++	 */
++	out_fmts = kmalloc_array(hweight8(bridge->supported_formats), sizeof(u32),
++				 GFP_KERNEL);
++	if (!out_fmts) {
++		*num_output_fmts = 0;
++		return NULL;
++	}
++
++	switch (conn_state->hdmi.output_bpc) {
++	case 12:
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB121212_1X36;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV12_1X36;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY12_1X24;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY12_0_5X36;
++		break;
++	case 10:
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB101010_1X30;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV10_1X30;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY10_1X20;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY10_0_5X30;
++		break;
++	default:
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_RGB888_1X24;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_YUV8_1X24;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYVY8_1X16;
++		if (bridge->supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420))
++			out_fmts[num_fmts++] = MEDIA_BUS_FMT_UYYVYY8_0_5X24;
++		break;
++	}
++
++	*num_output_fmts = num_fmts;
++
++	return out_fmts;
++}
++
+ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 					    struct drm_atomic_state *state)
+ {
+@@ -1192,6 +1255,7 @@ static int dw_hdmi_qp_cec_transmit(struct drm_bridge *bridge, u8 attempts,
+ #endif /* CONFIG_DRM_DW_HDMI_QP_CEC */
+ 
+ static const struct drm_bridge_funcs dw_hdmi_qp_bridge_funcs = {
++	.atomic_get_output_bus_fmts = dw_hdmi_qp_bridge_get_output_bus_fmts,
+ 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_reset = drm_atomic_helper_bridge_reset,
 
 -- 
 2.53.0
