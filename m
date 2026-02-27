@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19470FEE4D9
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D246FEE4E6
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D49B310E268;
-	Sat, 28 Feb 2026 09:19:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BF3910E26A;
+	Sat, 28 Feb 2026 09:19:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="heiaU3AL";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="OAT0rU3n";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7619D10EC0F;
- Fri, 27 Feb 2026 19:22:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1772220142; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A96610EC08;
+ Fri, 27 Feb 2026 19:22:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772220111; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=YAU6BwdAJ7wEvYFHk9Hh9wGXk//KhxkMFQRc1o/fr2LsRub313dasK/7zmUFjxiD/XJiW0tetUNSBFkAt0RFm35CsKd1AitnR1qyCmpacdbu2wZvf6dGvacHNbGF+y8i188IRZ/8IxRSQyguFSw0gJ0+RPOPxUmUZtKw+ShvAB8=
+ b=bsHrprkm55T8boFqsNoJqacOSEMII6d5JmV7CQd16eSDk5z66oAt2K3FjiMh4EamtvnfA3fImKXG8rEeQVz3JY7+PzPYVlrQoKsSRzJcckbDc98cLnQiqpzdP91UC4t4KjqLAgiSYPETjpXsTs99DE56ArIUpvSmSU7Kkq0pfuY=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1772220142;
+ s=zohoarc; t=1772220111;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Zbv1svLNiELU2nwPQbaiNz8rD89KKv3/KBIEB/KjLZ4=; 
- b=To92WGSXuPSzu5ldQB+Vi05uDmvNhPRT83GgnmU7jlaeQnLimwqL+aCAqcsOAD3lf1TK00h0mTmU3qympb475thWIHxxO0TZ4MKxnODktnIl55C3DV4+HRw8ifJpA0pKo2D+zp6cZ8ucma/0KksZShlLM4kLpzqGy6wJ56w3DTo=
+ bh=IDxTyd4/XBpqSKcrq+B2Z7kB7UuQuSq9lTwP/+9WOEE=; 
+ b=QTd9SJrsGwcTy5aXDJ4SDFy+2HsU4J8w+S1fW6WQXw0ynP4VQ+YL0Y4mfFtZ/plFSIQq8THLii2zJZtr7o39X6vvYs4dt9jhUN0CVXF4hpRdvNvEMbIN5WSUe8xAl5O2aldcQ5hH/Vroe4Wd/HDpHiPSzR5CB8WiiViGRHYOg08=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772220141; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772220111; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=Zbv1svLNiELU2nwPQbaiNz8rD89KKv3/KBIEB/KjLZ4=;
- b=heiaU3ALL/XBsRGvzi+ohkf9IU+k2IZO3zVKhxpSm4KWldqJDmfgpoyDj38X3CtQ
- 2SsVoGrAZscGN9K7bASueuSiT9uU2jU3Woz+npP69r/qq9/Uykvvh5dHyZEwcB7Ivjk
- +p9kboqCaUfv7Zny0aPqoNtW0j+//EZ3y36hMjyQ=
-Received: by mx.zohomail.com with SMTPS id 1772220140565558.7417148774391;
- Fri, 27 Feb 2026 11:22:20 -0800 (PST)
+ bh=IDxTyd4/XBpqSKcrq+B2Z7kB7UuQuSq9lTwP/+9WOEE=;
+ b=OAT0rU3nYG5qYMoQIwN3C6ntBvdtWzoyLXfiDhN7D9HRMvirjBSqzgid8YsPRh55
+ XiX5coDfSdCm9/xYlNVN/XEgOhgEpaOVg0xnEZSXfKPKd3MxFGutI8A0F+kMRTUZs5A
+ c25sp9ka5oZyZuIhURcUJnf+2ZnxbK2HfODYyJKI=
+Received: by mx.zohomail.com with SMTPS id 1772220110660858.4104769861244;
+ Fri, 27 Feb 2026 11:21:50 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 27 Feb 2026 20:20:19 +0100
-Subject: [PATCH v9 14/19] drm/rockchip: dw_hdmi_qp: Set supported_formats
- platdata
+Date: Fri, 27 Feb 2026 20:20:15 +0100
+Subject: [PATCH v9 10/19] drm/rockchip: vop2: Recognise 10-bit YUV422 as
+ YUV format
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260227-color-format-v9-14-658c3b9db7ef@collabora.com>
+Message-Id: <20260227-color-format-v9-10-658c3b9db7ef@collabora.com>
 References: <20260227-color-format-v9-0-658c3b9db7ef@collabora.com>
 In-Reply-To: <20260227-color-format-v9-0-658c3b9db7ef@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -89,36 +89,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With the introduction of the supported_formats member in the
-dw-hdmi-qp platform data struct, drivers that have access to this
-information should now set it.
+The Rockchip VOP2 video output driver has a "is_yuv_output" function,
+which returns true when a given bus format is a YUV format, and false
+otherwise.
 
-Set it in the rockchip dw_hdmi_qp glue driver.
+This switch statement is lacking the bus format used for YUV422 10-bit.
 
-This allows this information to be passed down to the dw-hdmi-qp core,
-which sets it in the bridge it creates, and consequently will allow the
-common HDMI bridge code to act on it.
+Add the two component orderings of the YUV422 10-bit bus formats to the
+switch statement.
 
+Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index e2fa1aa53394..ec78c6895334 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -601,6 +601,10 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	plat_data.phy_data = hdmi;
- 	plat_data.max_bpc = 10;
- 
-+	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
-+				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
-+
- 	encoder = &hdmi->encoder.encoder;
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
- 
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+index 39c64296174f..46d49bc98ddb 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
+@@ -352,6 +352,8 @@ static bool is_yuv_output(u32 bus_format)
+ 	switch (bus_format) {
+ 	case MEDIA_BUS_FMT_YUV8_1X24:
+ 	case MEDIA_BUS_FMT_YUV10_1X30:
++	case MEDIA_BUS_FMT_YUYV10_1X20:
++	case MEDIA_BUS_FMT_UYVY10_1X20:
+ 	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
+ 	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
+ 	case MEDIA_BUS_FMT_YUYV8_2X8:
 
 -- 
 2.53.0
