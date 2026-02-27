@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED88FEE4EA
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D3F9FEE4E7
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE06510E278;
-	Sat, 28 Feb 2026 09:19:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B12DD10E297;
+	Sat, 28 Feb 2026 09:19:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b="REWOxg4d";
+	dkim=pass (2048-bit key; secure) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b="DfVWCFun";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 650D610E1A9
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 23:19:07 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45D2E10EC46
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 21:23:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
- s=s31663417; t=1772234345; x=1772839145; i=quwenruo.btrfs@gmx.com;
- bh=5XVPlbFAX3DUfBsLc64lrUlmLEAMMrD3hhu5WjnN6bs=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
- References:In-Reply-To:Content-Type:Content-Transfer-Encoding:cc:
+ s=s31663417; t=1772227407; x=1772832207; i=quwenruo.btrfs@gmx.com;
+ bh=XYWsHwt7MmWIFs1XrnXwRd+MWvHb6RIA6K58lYp7a5s=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:From:Subject:
+ Content-Type:Content-Transfer-Encoding:cc:
  content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=REWOxg4d+1ou512zY4Tt+JOyFPxcLMbLj0Eo6qe0uCz192Mx4nB9Uc8J9ZUiSaEM
- ERnWhwjbe16U8zA5o38PGhZWSXExVglMZn1B/jiEltQ32Mlk1ou8oQjLaESui99S3
- nBPSlWs4450EjrlYZrcrhIcjf/O7WNZBSE7B9WuDvUHw/Cri5GcwiK4nd4Dwmi3Vw
- M+GBLPpNBSfFd0bUDiAMOhjdfoExUDd2rkxHgGwYCqQOIeWWIUtjAG1GRiEoXjNhf
- vdFEyG5qvmva5hw4PzOFDvDSz98lZf0Xs90rHA1q6guA6cxdsKG/3DIhnr3UHsP99
- W7Qhce+xd9vCF4ni4w==
+ b=DfVWCFunNvtCEvohQNu9jM6jWk7t0Z58CoZmKqOAqw6OlKntGaIrF4oScu+W5kEO
+ 6y5dBlYRwvYDzw8FoiuTNLkhBZ43b+55F54nZEY8uKvaeMvUccc8IGb6IitSXIX4H
+ yQdfOZ2oRGI3rjq24x0cKeTCs1XkrhKz2qFJ/7mI3SsE3JRc3kFjnuN4n/qGrUYWG
+ akwsyqGufkWPA8SYgs4tDbTeFYYXgtX+XO8NGo07yocjYnCxgJOUplmyXt3+KidJy
+ yyv50VRhBIGFRsi5Fhalowg7RGZAOVu+TSbIgoFuQdYkeVz4T02SN7xyGAPin49dR
+ CG0r7ZMiBVodVnBmuQ==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.184]) with ESMTPSA (Nemesis) id 1Mw9UE-1vfoiL1JdE-012bpX; Sat, 28
- Feb 2026 00:19:05 +0100
-Message-ID: <a6b5282c-6844-41cc-b5a5-895567af1f4a@gmx.com>
-Date: Sat, 28 Feb 2026 09:49:02 +1030
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MV67y-1w5XU81I4k-00PemW; Fri, 27
+ Feb 2026 22:23:27 +0100
+Message-ID: <ab5b4f6c-f03d-4ca9-a80e-69cd43eb0c24@gmx.com>
+Date: Sat, 28 Feb 2026 07:53:22 +1030
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: GPU has a very high load if the monitor is turned off by KDE
-From: Qu Wenruo <quwenruo.btrfs@gmx.com>
 To: amd-gfx@lists.freedesktop.org, kde@mail.kde.org
-References: <ab5b4f6c-f03d-4ca9-a80e-69cd43eb0c24@gmx.com>
- <ebc85e84-abd9-4647-8e79-6925895fa4b0@gmx.com>
 Content-Language: en-US
+From: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Subject: GPU has a very high load if the monitor is turned off by KDE
 Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
  xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
  8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
@@ -66,87 +64,84 @@ Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
  Vmi36kmq8o5c0f97QVjMryHlmSlEZ2Wwc1kURAe4lsRG2dNeAd4CAqmTw0cMIrR6R/Dpt3ma
  +8oGXJOmwWuDFKNV4G2XLKcghqrtcRf2zAGNogg3KulCykHHripG3kPKsb7fYVcSQtlt5R6v
  HZStaZBzw4PcDiaAF3pPDBd+0fIKS6BlpeNRSFG94RYrt84Qw77JWDOAZsyNfEIEE0J6LSR/
-In-Reply-To: <ebc85e84-abd9-4647-8e79-6925895fa4b0@gmx.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:2eCfCzVg7AVqSMKQ19S0B9GGyjWGiNV8Tt6e95AFApdoF8ME9RC
- /2bgXe1BiRhR8NupxzGtytz3idANClxxM7/sLv2J6fr0RC7hYNFF1Vc8mK7vOW1DJnlnPjd
- M4VMTBF94p3HwcoltFI9a6HoNkEmwa7wGnc7Vhd0CmB3ivt4BTaCyn7eyBUKystJlQm5j4H
- txUCM0EG8dzX4KqHIRsjg==
-UI-OutboundReport: notjunk:1;M01:P0:j34cIowXKpw=;NaMGuiB02JMFsvIp2db1zs242NL
- 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
- W0hOrcw4=
+X-Provags-ID: V03:K1:pJANBvZ2UkZWmrnqxG393coIvozIvxJV3X+zkzHhzyqzat2dib8
+ QJz/6/mySZrIVjfRKYtZrpqFYHWIT17Kb1pv7LWPTM8BuTUx+vgKumNI2ywV/hgbLerBjW2
+ SQbVLNGPUX4MOAsH+JnzNAxnUOrzcS6RzFp3pxlAOmPJ7eE+gdkVHfN/DO+DtLU0nWVrunv
+ TkfQp2q+/pOytFehsK6/g==
+UI-OutboundReport: notjunk:1;M01:P0:xHgkQ4Yceyg=;+2VZnHVevyLbZKk+GzZS4gPgYP+
+ 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
 X-Mailman-Approved-At: Sat, 28 Feb 2026 09:19:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -162,74 +157,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi,
+
+Recently I upgraded my Arch with the following package updates:
+
+- Plasma (6.6.0-1 -> 6.6.1-1)
+- Kernel (6.18.6 -> 6.18.9)
+
+Both are minor updates thus I thought it should be mostly smooth sailing.
+
+But after the update, after the monitor is turned off after a timeout=20
+(10min in my case), the fan of my GPU ramp up.
+This also happens when my system is put into suspension.
+
+Unfortunately the behavior is not 100% reproducible, but still=20
+frequently enough to notice the noisy fan running.
 
 
-=E5=9C=A8 2026/2/28 09:26, Qu Wenruo =E5=86=99=E9=81=93:
->=20
->=20
-> =E5=9C=A8 2026/2/28 07:53, Qu Wenruo =E5=86=99=E9=81=93:
->> Hi,
->>
->> Recently I upgraded my Arch with the following package updates:
->>
->> - Plasma (6.6.0-1 -> 6.6.1-1)
->> - Kernel (6.18.6 -> 6.18.9)
->>
->> Both are minor updates thus I thought it should be mostly smooth sailin=
-g.
->>
->> But after the update, after the monitor is turned off after a timeout=
-=20
->> (10min in my case), the fan of my GPU ramp up.
->> This also happens when my system is put into suspension.
->>
->> Unfortunately the behavior is not 100% reproducible, but still=20
->> frequently enough to notice the noisy fan running.
->=20
-> Downgrading kernel ruled out the kernel bug.
->=20
-> And I have tried 3 times to suspend, and can reproduce the high GPU load=
-=20
-> 3 times.
->=20
-> Another thing I noticed is, previous when suspending, the eGPU seems to=
-=20
-> be completely shutdown (only the power LED lights up, the work LED shut=
-=20
-> down).
->=20
-> But now when suspension happened, the eGPU doesn't shutdown at all, just=
-=20
-> with its fan ramping up.
->=20
-> Will try downgrading the firmware as the next step just in case.
+The involved platform is:
 
-Blacklisting the amdxdna module solves the suspension problem at least.
+CPU: AMD Ryzen AI 9 HX 370 w/ Radeon 890M
+iGPU: Radeon 890M
+eGPU: RX 7600M XT
+       OcuLink eGPU from Aoostar
 
-I can not hate the stupid NPU/AI thing more.
+All monitors are connected to that eGPU.
+
+Any clue on what to test next? Is it something related to KDE or the kerne=
+l?
 
 Thanks,
 Qu
-
->=20
-> Thanks,
-> Qu
->=20
->>
->>
->> The involved platform is:
->>
->> CPU: AMD Ryzen AI 9 HX 370 w/ Radeon 890M
->> iGPU: Radeon 890M
->> eGPU: RX 7600M XT
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 OcuLink eGPU from Aoostar
->>
->> All monitors are connected to that eGPU.
->>
->> Any clue on what to test next? Is it something related to KDE or the=20
->> kernel?
->>
->> Thanks,
->> Qu
->=20
-
