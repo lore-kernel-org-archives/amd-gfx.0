@@ -4,84 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F227FFEE4E2
-	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23978FEE4F1
+	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED8D310EC5A;
-	Sat, 28 Feb 2026 09:19:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C5AE10E289;
+	Sat, 28 Feb 2026 09:19:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="LQMPZfkB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Avc9UyJ9";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3503C10E1A1;
- Fri, 27 Feb 2026 19:20:48 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1772220035; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PY2J/d7NzZLc4ZfiSd1dvzpNJifDUJ7BUjRjSrNCDn8y5hO1S/0Sfi4qB/0RJ2wP1Vhv3cxVEA9v4YRx5qbhi8a4TN7wfxyAdSsrkEpMJXtkkVTvpYem/tqLvVAi/lpIpnhOHLjaZCG5xTIYFHCZRhsi1hk3JATKUKEExSm5E6I=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1772220035;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=sz0xxFcDmil/0IDttMrbdwZKer9vFTtP9vAed5GSTXM=; 
- b=TBiVZZJnsZSZRPmhKRxJorRMGzDZquTk1OO2+eXzOl4ARmGcQOJTpviJpoqc2rnUucpbQNCYzM+NFl7S+9RFdbFUYBNwb1M3+wu1sPo3eiuUtFwBOF6w1+YvRccPFsTwNIi5siBXkhtjj6lUHI3VoLblPiAvFiiTuhtS1MRUp4I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772220035; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=sz0xxFcDmil/0IDttMrbdwZKer9vFTtP9vAed5GSTXM=;
- b=LQMPZfkBabECQFvA0h9+Ppw6LXCIBEdyNnRjZro9+/fPBAdhOZzK6crIj9jaVQLb
- WDx8Yyub88XzI6GOuQLb6eL4G/tkW+sFNKltvFDKVJHl7uZGZW3XFJTpG2ZRk6eabaz
- bk/hT15Q3fDwWmEMpFc4YQuINGZoue8CTcGdFVMs=
-Received: by mx.zohomail.com with SMTPS id 177222003334318.130928466806267;
- Fri, 27 Feb 2026 11:20:33 -0800 (PST)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: [PATCH v9 00/19] Add new general DRM property "color format"
-Date: Fri, 27 Feb 2026 20:20:05 +0100
-Message-Id: <20260227-color-format-v9-0-658c3b9db7ef@collabora.com>
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
+ [209.85.128.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCC6D10E1FF
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Feb 2026 04:54:26 +0000 (UTC)
+Received: by mail-yw1-f172.google.com with SMTP id
+ 00721157ae682-79860421382so26013327b3.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 20:54:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772254466; x=1772859266; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LtZILg1UfPbIs6Qetp2wD7SekLL2E2Ax5WmC10z0J5E=;
+ b=Avc9UyJ9GmaGJx6sQxtYrOb9+e5TJnl51MyKRDkoM9FfvofuMY+RF1a2OYp6kly1Qx
+ SqnkCZCxg6f9LsvtfnsfPbTRculMcZFLNd0N8hOhONfSSuMAqqsB9Qa5ihvLf3aSPPCv
+ XLQY7qX/3no4I8cZGr9awrPFe3OaBd4eF3PI3LxBzyt1Fu/VlxIGa9ZXJK+lw9r7fhOY
+ Ut2ghwfyIdPELMEu5NanE3F4V4KIF1xBw4o8KiukHt87lX3s6s+RbD4JbE+Qnf2GXCIX
+ 4eStMQTC+q2UHmBWkH7DhtdGRcjHlheO5cLspKjJA4frzUI0H1gsrblzx9hiavERdFGI
+ XIpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772254466; x=1772859266;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=LtZILg1UfPbIs6Qetp2wD7SekLL2E2Ax5WmC10z0J5E=;
+ b=je8asf+XvVGjI1tq0NCwnIvKYAEh0tV7pZfpuzIoXG13YbhfoX37qFV1+GBGzGu8N5
+ 4mhuYUs9CV4xSTJbX2pifcKwzMtya41iu/B7rUvuNKzc2EkdqwSBb5fi09gHtDQguM2c
+ KlozBtbS55z9OUDiw10k98JLp6UIKy6cNEwO6uc5N679Lwx4o0jIRP08KYI9rAVlh85q
+ ummtcVjNI94vpQMk4J/iR7yOAJtE1OSDuhSVNix+bg0PYSSk0mwR82rwWR9+94SP1J+8
+ hOkU91Y2LSQHSE7eqiskaam2k7UUtWZPP1VZOr7yMfjFbZoV4a2BeIz/9yeK5JdlSX6E
+ Yi9Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWhQhGBdlsDSQ2UxTTq5fuoZNj5pgrIHFqNAiGdbg/Wv/APZ6Sg4GwAD22rfNj7eqGk8VzGLcMc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxC2152n057ZDbjZYAJxlSOtb5DQTTwzhO44tEm3bHW9hLDP8wX
+ E/A+QehWVJmc4RkaVvZOTTyciSCBbZ9YH9arX66nYh2f6+J41tccXIaG
+X-Gm-Gg: ATEYQzy44/r1T3OkQzBE5X/kxPpzIzhGAfV5gSB+CnNlmvXpye5KsM7327zwNtIWFVJ
+ b+CW+VomhdtSmuZumu3of3o0aRSUvdeAnEBXRm3TascxI2uXaItBVaF5CYwlaMbPVIfcfgjWHG9
+ kEOoVInjDVgc8sBnj9k49vkeA/lvbznqrBMmEubRXXsu5VlujeLokIS3Mo02rUUcqXbZCibf3Zt
+ gJl9BESGI9e7KqjEl1JbageI4//dJX8my8g5qQNRGhQiL5DeUjRNMkSMnT2KOYZj0fgV1vBF1EK
+ JU04ZrwmJ2b8/t+zBO5AjQdc5YVJDxFOvcldgzMEcniIoWTb9Rvt0VSAu9kV89X9eCvLUdMo/RH
+ j91+vPBuoY2XdllzHRo7SwmTq+cwu6qWSO5nbQYyjWLSXn0L+OFczTmc0uhc9Pi7LyP6gWAsWUp
+ 1ZZoa+8x6jcFshPspQs9ZomuJMjyPhLAe2bR0e2EPWrp+RVK8iGd6udXUJQDs6MQ8U
+X-Received: by 2002:a05:690c:60c2:b0:798:65eb:aff0 with SMTP id
+ 00721157ae682-798854e24a9mr50867397b3.14.1772254465800; 
+ Fri, 27 Feb 2026 20:54:25 -0800 (PST)
+Received: from ryzen ([2601:644:8000:56f5::8bd])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-79876bf8103sm29865967b3.27.2026.02.27.20.54.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Feb 2026 20:54:24 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: stable@vger.kernel.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Alex Hung <alex.hung@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Lijo Lazar <lijo.lazar@amd.com>, "chr[]" <chris@rudorff.com>,
+ Sasha Levin <sashal@kernel.org>, Wentao Liang <vulab@iscas.ac.cn>,
+ amd-gfx@lists.freedesktop.org (open list:AMD DISPLAY CORE),
+ dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2 for 6.112 and 6.6 2/2] drm/amd/pm: Use pm_display_cfg in
+ legacy DPM (v2)
+Date: Fri, 27 Feb 2026 20:53:56 -0800
+Message-ID: <20260228045356.3561-3-rosenp@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260228045356.3561-1-rosenp@gmail.com>
+References: <20260228045356.3561-1-rosenp@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QS07DMBAG4KtEXuPicR52suIeiIUfE2rR1K2dB
- lDVuzMNBdqowhtrNPI3v+fIMqaAmXXFkSWcQg5xS0X7UDC3NttX5MFTzaSQNQipuYubmHgf02B
- GXrW9p45VoEtGT3YJ+/Axc88vVPcpDnxcJzS/iGgBoBSqbFdVWzYc+GBSOOTVtDH+ifSNsTGZl
- YvDRUy4P1Cu8Ztl1mSkFMMQxq7wifywe7zc7Dp2V9C8RkhZ8XM74XtMbzf5M9fSOzpQOoBukuw
- ceh3yGNPnvJKpmmfOvwdQt7+fKi648OiVtB6sEIv4Z2yqr4Dl+qaagKZELXvwFhDuAc0P0AiQs
- AAaApTVYJQC54W9B6j/AEUA9qoV3qDSwt0D9B8goVkAmoBaSekQVO19vQROp9MXNr8KMGUCAAA
- =
-X-Change-ID: 20251028-color-format-49fd202b7183
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Werner Sembach <wse@tuxedocomputers.com>, 
- Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>, 
- Andy Yan <andyshrk@163.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 28 Feb 2026 09:19:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,317 +103,360 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-this is a follow-up to
-https://lore.kernel.org/all/20250911130739.4936-1-marius.vlad@collabora.com/
-which in of itself is a follow-up to
-https://lore.kernel.org/dri-devel/20240115160554.720247-1-andri@yngvason.is/ where
-a new DRM connector property has been added allowing users to
-force a particular color format.
+[ Upstream commit 9d73b107a61b73e7101d4b728ddac3d2c77db111 ]
 
-That in turn was actually also a follow-up from Werner Sembach's posted at
-https://lore.kernel.org/dri-devel/20210630151018.330354-1-wse@tuxedocomputers.com/
+This commit is necessary for DC to function well with chips
+that use the legacy power management code, ie. SI and KV.
+Communicate display information from DC to the legacy PM code.
 
-As the number of cooks have reached critical mass, I'm hoping I'll be
-the last person to touch this particular series.
+Currently DC uses pm_display_cfg to communicate power management
+requirements from the display code to the DPM code.
+However, the legacy (non-DC) code path used different fields
+and therefore could not take into account anything from DC.
 
-We have an implementation in Weston at
-https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/1825 that
-adds support for this property. This patch series has been tested
-against that MR on i915 (HDMI, DP), amdgpu (HDMI, DP) and on rockchip
-(HDMI).
+Change the legacy display code to fill the same pm_display_cfg
+struct as DC and use the same in the legacy DPM code.
 
-You can also manually test this with modetest like so, but beware that
-this is a non-atomic invocation, so testing YUV420 like this will result
-in weird outcomes if only some of the modes support YUV420:
+To ease review and reduce churn, this commit does not yet
+delete the now unneeded code, that is done in the next commit.
 
-  $ modetest -s 115:1920x1080-60@NV12 -w 115:'color format':4
+v2:
+Rebase.
+Fix single_display in amdgpu_dpm_pick_power_state.
 
-where 115 is the connector ID and '4' is the enum value for a particular
-color format.
-
-General notes on the approach taken by me: instead of silently switching
-to a different format than was explicitly requested, or even worse,
-outputting something to the sink the sink doesn't support, bubble up an
-error to userspace instead. "color format" is a "I want this" type
-property, not a "force this" type property, i.e. the kernel will respect
-the limits imposed by the hardware.
-
-Things I've tested:
-- HDMI (YCbCr 4:4:4 + YCbCr 4:2:2 (8-bit) + RGB + Auto) on RK3588
-- HDMI (YCbCr 4:4:4 + YCbCr 4:2:2 (8-bit) + RGB + Auto) on RK3576
-- HDMI + DP (YCbCr 4:4:4, YCbCr 4:2:0, RGB, Auto) on Intel N97 (i915)
-  DP-MST is untested, and no longer trivially equivalent.
-- HDMI (YCbCr 4:4:4, YCbCr 4:2:2, YCbCr 4:2:0, RGB, Auto) + DP (YCbCr
-  4:4:4, RGB, Auto) on an AMD Radeon RX 550 (amdgpu). DP-MST is
-  untested.
-
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-Changes in v9:
-- Document what the "AUTO" behaviour is in the color format enum (thanks
-  to Maxime)
-- drm/bridge: dw-hdmi-qp: Fix a rebase oopsie that reintroduced some
-  functions that were dropped. (thanks to Cristian)
-- drm/bridge: Shuffle "1:1" in the bridge fmt selection docs to earlier
-  in the sentence. (thanks to Randy Dunlap)
-- i915: Check chosen output format against requested format for dp-mst
-- All color format driver implementations: rebase and rework on top of
-  Maxime's series
-- As part of this rework, rename drm_color_format_enum to
-  drm_connector_color_format
-- drm kunit tests: rework for the new enums. Changes were trivial, so
-  trailers were kept
-- Link to v8: https://lore.kernel.org/r/20260216-color-format-v8-0-5722ce175dd5@collabora.com
+ drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  | 67 +++++++++++++++++++
+ .../gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h  |  2 +
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  4 +-
+ .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    |  6 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 65 ++++++------------
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 11 +--
+ 6 files changed, 97 insertions(+), 58 deletions(-)
 
-Changes in v8:
-- Drop "drm/rockchip: vop2: Fix YUV444 output", as the original problem
-  could not be reproduced anymore, and the justification did not make
-  sense.
-- Remove the 12-bit format from "drm/rockchip: vop2: Recognise 10/12-bit
-  YUV422 as YUV formats".
-- Refactor to keep the original DRM_COLOR_FORMAT bitshifted defines
-  as-is, but introduce a new drm_color_format_enum enum.
-- Adjust conversion functions for the newly refactored enum, ensuring
-  they only return valid enum values, and only convert in directions
-  that open up no error value cans of worms.
-- Rework the property uapi code for the newly refactored enum, since
-  it no longer needs to do any bitshifting or ffs().
-- Rework all the device drivers for the new enum.
-- Rework all the tests for the refactored enum.
-- Rework the hdmi state helper for the new enum, and also make it more
-  explicit about the auto behaviour by not relying on a conversion
-  function to map AUTO to RGB, but do this in the framework itself.
-- rockchip dw_hdmi_qp: Fix the GRF value to check for color >= 0 instead
-  of color > 0, as the latter broke switching back to RGB.
-- Rebase onto a recent drm-tip. This necessitated blindly reworking some
-  of the i915 dp-mst code.
-- Drop the __maybe_unused edid test patch, as I could no longer
-  reproduce the build warnings I added it for. I blame ghosts.
-- drm_bridge tests: remove "destroyed" member from struct
-  drm_bridge_chain_priv and all associated code, as it was not used in
-  any test.
-- Link to v7: https://lore.kernel.org/r/20260121-color-format-v7-0-ef790dae780c@collabora.com
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
+index 2d2d2d5e6763..9ef965e4a92e 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c
+@@ -100,3 +100,70 @@ u32 amdgpu_dpm_get_vrefresh(struct amdgpu_device *adev)
 
-Changes in v7:
-- Fix drm_bridge kunit test build failure caused by rebasing across an
-  API change.
-- Make compilers shut up about unused EDID definitions in the test
-  suites.
-- Empty line checkpatch fixes that b4 prep --check didn't catch.
-- Link to v6: https://lore.kernel.org/r/20260121-color-format-v6-0-7b81a771cd0b@collabora.com
+ 	return vrefresh;
+ }
++
++void amdgpu_dpm_get_display_cfg(struct amdgpu_device *adev)
++{
++	struct drm_device *ddev = adev_to_drm(adev);
++	struct amd_pp_display_configuration *cfg = &adev->pm.pm_display_cfg;
++	struct single_display_configuration *display_cfg;
++	struct drm_crtc *crtc;
++	struct amdgpu_crtc *amdgpu_crtc;
++	struct amdgpu_connector *conn;
++	int num_crtcs = 0;
++	int vrefresh;
++	u32 vblank_in_pixels, vblank_time_us;
++
++	cfg->min_vblank_time = 0xffffffff; /* if the displays are off, vblank time is max */
++
++	if (adev->mode_info.num_crtc && adev->mode_info.mode_config_initialized) {
++		list_for_each_entry(crtc, &ddev->mode_config.crtc_list, head) {
++			amdgpu_crtc = to_amdgpu_crtc(crtc);
++
++			/* The array should only contain active displays. */
++			if (!amdgpu_crtc->enabled)
++				continue;
++
++			conn = to_amdgpu_connector(amdgpu_crtc->connector);
++			display_cfg = &adev->pm.pm_display_cfg.displays[num_crtcs++];
++
++			if (amdgpu_crtc->hw_mode.clock) {
++				vrefresh = drm_mode_vrefresh(&amdgpu_crtc->hw_mode);
++
++				vblank_in_pixels =
++					amdgpu_crtc->hw_mode.crtc_htotal *
++					(amdgpu_crtc->hw_mode.crtc_vblank_end -
++					amdgpu_crtc->hw_mode.crtc_vdisplay +
++					(amdgpu_crtc->v_border * 2));
++
++				vblank_time_us =
++					vblank_in_pixels * 1000 / amdgpu_crtc->hw_mode.clock;
++
++				/* The legacy (non-DC) code has issues with mclk switching
++				 * with refresh rates over 120 Hz. Disable mclk switching.
++				 */
++				if (vrefresh > 120)
++					vblank_time_us = 0;
++
++				/* Find minimum vblank time. */
++				if (vblank_time_us < cfg->min_vblank_time)
++					cfg->min_vblank_time = vblank_time_us;
++
++				/* Find vertical refresh rate of first active display. */
++				if (!cfg->vrefresh)
++					cfg->vrefresh = vrefresh;
++			}
++
++			if (amdgpu_crtc->crtc_id < cfg->crtc_index) {
++				/* Find first active CRTC and its line time. */
++				cfg->crtc_index = amdgpu_crtc->crtc_id;
++				cfg->line_time_in_us = amdgpu_crtc->line_time;
++			}
++
++			display_cfg->controller_id = amdgpu_crtc->crtc_id;
++			display_cfg->pixel_clock = conn->pixelclock_for_modeset;
++		}
++	}
++
++	cfg->display_clk = adev->clock.default_dispclk;
++	cfg->num_display = num_crtcs;
++}
+diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h
+index 5c2a89f0d5d5..8be11510cd92 100644
+--- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h
++++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h
+@@ -29,4 +29,6 @@ u32 amdgpu_dpm_get_vblank_time(struct amdgpu_device *adev);
 
-Changes in v6:
-- Checkpatch fixes
-- Add drm_bridge.c kerneldoc fix patch to b4 deps so the kernel docs
-  required for every contribution to the subsystem can be built
-- dw-hdmi-qp core has gained the atomic_get_output_bus_fmts bridge func,
-  which allows it to participate in the drm_bridge chain recursive format
-  selection code properly.
-- The Rockchip dw-hdmi-qp integration now no longer reimplements the
-  color format logic (improperly), but reads the bus format of the first
-  bridge as set by the recursive bridge format selection. If the input
-  format is FIXED, it'll use the output format. Otherwise, the input
-  format is used.
-- In the synopsys drivers, YUV422 uses the same bus format as the non-qp
-  hdmi encoder driver. Probably correcter this way. The Rockchip vop2
-  is_yuv function has been extended to recognise this format as well.
-- KUnit tests for drm_bridge chains are now included, which exercise the
-  chain's recursive bus format selection.
-- On HDMI connectors, the drm_bridge bus format selection will try to target
-  the color format that the HDMI layer came up with. This means the AUTO
-  logic is not duplicated for HDMI connectors.
-- The enum conversion function commit gained a function for converting
-  from hdmi_colorspace to drm_color_format, and its author changed as no
-  original code remains anyway. Marius is still included as a
-  Co-developer.
-- Some tests for the HDMI state helper's mode_valid have been written.
-  They are incomplete as we lack a test EDID for a 420-also mode that
-  would violate the clock constraints on RGB. I hacked one together with
-  a hex editor, but it reports a too high of a clock rate, and there's
-  no EDID editor I could find which supports these extension blocks.
-- The color_format KUnit tests have been more heavily parameterised, the
-  auto case absorbed into other tests, and the comments around them
-  rewritten.
-- Add a few paragraphs of documentation that explain the bridge format
-  selection, and how to make use of it in a display driver.
-- Link to v5: https://lore.kernel.org/r/20251128-color-format-v5-0-63e82f1db1e1@collabora.com
+ u32 amdgpu_dpm_get_vrefresh(struct amdgpu_device *adev);
 
-Changes in v5:
-- Rebase onto drm-tip
-- Drop DRM_MODE_COLOR_FORMAT_* as an enum
-- Unify DRM_COLOR_FORMAT_NONE and DRM_COLOR_FORMAT_AUTO, with AUTO being
-  0. This makes conversion and general logic much easier.
-- Adjust the drm_color_format enum to not needlessly renumber the
-  existing defines, as it doesn't need to correspond to how HDMI numbers
-  them.
-- Make the DRM-to-HDMI conversion function static inline __pure, because
-  the assembly it generates is tiny, and the function is pure.
-- Don't accept nothing as the list of supported color formats for
-  registration of the property.
-- Drop the per-connector variants of the color format registration
-  function, as it's not needed.
-- drm_hdmi_state_helper: Fix mode_valid rejecting 420-only modes.
-- drm_hdmi_state_helper: Only fall back to YUV420 with
-  DRM_COLOR_FORMAT_AUTO.
-- drm_hdmi_state_helper: Remove redundant AUTO->RGB condition, as the
-  conversion already does this.
-- Add KUnit tests for hdmi_compute_config.
-- drm/bridge: Refactor bus_format_is_color_fmt and add a few more YUV422
-  formats.
-- Register the color format property in drmm_connector_hdmi_init based
-  on the supported HDMI formats passed to it. This means rockchip
-  dw_hdmi_qp no longer needs to register it.
-- amdgpu: Simplify YUV420 logic
-- amdgpu: Don't try to pick YUV444 on YUV420-only modes
-- i915: Try to make behaviour more or less the same as that of the drm
-  hdmi state helper.
-- rockchip dw_hdmi_qp: Set supported HDMI formats
-- rockchip dw_hdmi_qp: Set the right VO GRF values depending on color
-  format.
-- rockchip dw_hdmi_qp: Act on the color format property in this driver,
-  rather than in VOP2, by setting the bus_format appropriately.
-- rockchip VOP2: Can the BCSH-based implementation. BCSH isn't available
-  on all video ports of the hardware, and the code was extremely
-  suspect. Instead, plug into the existing YUV-to-RGB/RGB-to-YUV code,
-  which can be done now that the HDMI driver sets the bus format.
-- A whole bunch of Rockchip VOP2 fixes.
-- Link to v4: https://lore.kernel.org/r/20251117-color-format-v4-0-0ded72bd1b00@collabora.com
++void amdgpu_dpm_get_display_cfg(struct amdgpu_device *adev);
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+index 6b34a33d788f..8cf7e517da84 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
+@@ -2299,7 +2299,7 @@ static void kv_apply_state_adjust_rules(struct amdgpu_device *adev,
 
-Changes in v4:
-- Rebase onto next-20251117
-- Get rid of HDMI_COLORSPACE_AUTO
-- Split hdmi_compute_config change into separate patch
-- Add missing symbol export for color_format_to_hdmi_colorspace to fix
-  builds in certain configurations
-- Drop "drm: Pass supported color formats straight onto drm_bridge"
-- Make dw-hdmi-qp set the platform data's supported color formats as
-  the bridge's supported HDMI color formats
-- drm_hdmi_state_helper: pass requested color format to
-  hdmi_compute_format_bpc if set.
-- drm_bridge: limit the bus formats to those explicitly requested with
-  the color format property during the atomic bridge check call,
-  specifically in drm_atomic_bridge_chain_select_bus_fmts.
-- i915: Remove INTEL_OUTPUT_FORMAT_AUTO, as automatic format selection
-  does not need to involve the hardware state
-- i915: Deduplicate ntel_output_format_to_drm_color_format code by
-  moving it as a static inline __pure function into a shared header
-- i915: rework logic in HDMI, DP and DP-MST output config functions to
-  remove redundant locals, simplify execution flow, and return an error
-  to userspace if an explicit color_format request can't be satisfied.
-- i915: assign myself as the author and make the others Co-developers,
-  so that they don't get the blame for any of my bugs.
-- amdgpu: refactor fill_stream_properties_from_drm_display_mode to
-  improve readability and ensure that impossible color format requests
-  get bubbled up to userspace as errors
-- amdgpu: don't pick YUV444 over RGB.
-- amdgpu: assign authorship to myself, with others as Co-developers, as
-  logic was modified and the blame should fall on me
-- dw_hdmi_qp-rockchip: set the supported color formats platform data
-  member
-- rockchip: remove drm property registration for rk3066_hdmi and
-  inno_hdmi. None of the platforms that use these use vop2 as the
-  video output processor.
-- Link to v3: https://lore.kernel.org/all/20250911130739.4936-1-marius.vlad@collabora.com/
+ 		if (pi->sys_info.nb_dpm_enable) {
+ 			force_high = (mclk >= pi->sys_info.nbp_memory_clock[3]) ||
+-				pi->video_start || (adev->pm.dpm.new_active_crtc_count >= 3) ||
++				pi->video_start || (adev->pm.pm_display_cfg.num_display >= 3) ||
+ 				pi->disable_nb_ps3_in_battery;
+ 			ps->dpm0_pg_nb_ps_lo = force_high ? 0x2 : 0x3;
+ 			ps->dpm0_pg_nb_ps_hi = 0x2;
+@@ -2358,7 +2358,7 @@ static int kv_calculate_nbps_level_settings(struct amdgpu_device *adev)
+ 			return 0;
 
-Changes in v3 by mvlad compared to Andri's v2 series:
-- renamed the property to just 'color format'
-- the property is added dynamically similar to the Colorspace property
-- a key point from previous comments was that drivers should advertise
-  the color formats they support and userspace would query EDID and
-  perform an intersection from those color formats which users can
-  further use. With this patch set each driver that adds this property
-  has such list of hard-coded color formats, but fundamentally the idea
-  is that driver can query the HW and do that on its own. The
-  infrastructure is now in place to allow to do that
-- by default the 'AUTO' color format is set. With this patch series that
-  has been introduced as a fallback to RGB. Drivers could further
-  customize this behavour and could perform additional checks on the sink
-  to pick another suitable color format they'd like for AUTO
-- drm_bridge bridge code has been improved to allow initialization with
-  the same color formats list as the DRM connector property. Similarly, bpc
-  pick-up now takes the color format into consideration when deciding
-  which bpc to choose from
-- The new DRM color format re-uses HDMI_COLORPSACE enum and provides an
-  enum translations between the two to avoid touching all other drivers that
-  use HDMI_COLORPSACE enum. I believe at this point that this allows the
-  least amount of disruption and avoids a massive bike shedding around
-  that part
-- a rockchip implementation has been by my colleague Derek Foreman
-- YUV444 color format has been added in i915
-- address comment about "Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A
-  check" where aconnector might be invalid
-- Link to v2: https://lore.kernel.org/dri-devel/20240115160554.720247-1-andri@yngvason.is/
+ 		force_high = ((mclk >= pi->sys_info.nbp_memory_clock[3]) ||
+-			      (adev->pm.dpm.new_active_crtc_count >= 3) || pi->video_start);
++			      (adev->pm.pm_display_cfg.num_display >= 3) || pi->video_start);
 
----
-Andri Yngvason (1):
-      drm: Add new general DRM property "color format"
+ 		if (force_high) {
+ 			for (i = pi->lowest_valid; i <= pi->highest_valid; i++)
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+index c7518b13e787..8eb121db2ce4 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c
+@@ -797,8 +797,7 @@ static struct amdgpu_ps *amdgpu_dpm_pick_power_state(struct amdgpu_device *adev,
+ 	int i;
+ 	struct amdgpu_ps *ps;
+ 	u32 ui_class;
+-	bool single_display = (adev->pm.dpm.new_active_crtc_count < 2) ?
+-		true : false;
++	bool single_display = adev->pm.pm_display_cfg.num_display < 2;
 
-Nicolas Frattaroli (17):
-      drm/bridge: Act on the DRM color format property
-      drm/display: hdmi-state-helper: Act on color format DRM property
-      drm/display: hdmi-state-helper: Try subsampling in mode_valid
-      drm/i915: Implement the "color format" DRM property
-      drm/amdgpu: Implement "color format" DRM property
-      drm/rockchip: Add YUV422 output mode constants for VOP2
-      drm/rockchip: vop2: Add RK3576 to the RG swap special case
-      drm/rockchip: vop2: Recognise 10-bit YUV422 as YUV format
-      drm/rockchip: vop2: Set correct output format for RK3576 YUV422
-      drm/bridge: dw-hdmi-qp: Implement atomic_get_output_bus_fmts
-      drm/rockchip: dw_hdmi_qp: Implement "color format" DRM property
-      drm/rockchip: dw_hdmi_qp: Set supported_formats platdata
-      drm/connector: Register color format property on HDMI connectors
-      drm/tests: hdmi: Add tests for the color_format property
-      drm/tests: hdmi: Add tests for HDMI helper's mode_valid
-      drm/tests: bridge: Add KUnit tests for bridge chain format selection
-      drm/bridge: Document bridge chain format selection
+ 	/* check if the vblank period is too short to adjust the mclk */
+ 	if (single_display && adev->powerplay.pp_funcs->vblank_too_short) {
+@@ -994,7 +993,8 @@ void amdgpu_legacy_dpm_compute_clocks(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
 
-Werner Sembach (1):
-      drm/amd/display: Remove unnecessary SIGNAL_TYPE_HDMI_TYPE_A check
+-	amdgpu_dpm_get_active_displays(adev);
++	if (!adev->dc_enabled)
++		amdgpu_dpm_get_display_cfg(adev);
 
- Documentation/gpu/drm-kms-helpers.rst              |   6 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  90 ++-
- .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  13 +
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c       |  64 ++
- drivers/gpu/drm/display/drm_hdmi_state_helper.c    |  43 +-
- drivers/gpu/drm/drm_atomic_helper.c                |   5 +
- drivers/gpu/drm/drm_atomic_uapi.c                  |  11 +
- drivers/gpu/drm/drm_bridge.c                       | 129 +++-
- drivers/gpu/drm/drm_connector.c                    | 127 ++++
- drivers/gpu/drm/i915/display/intel_connector.c     |  11 +
- drivers/gpu/drm/i915/display/intel_connector.h     |   1 +
- drivers/gpu/drm/i915/display/intel_dp.c            |  71 +-
- drivers/gpu/drm/i915/display/intel_dp.h            |   4 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |  55 +-
- drivers/gpu/drm/i915/display/intel_hdmi.c          |  72 +-
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c     | 111 ++-
- drivers/gpu/drm/rockchip/rockchip_drm_drv.h        |   4 +
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |  21 +-
- drivers/gpu/drm/tests/drm_bridge_test.c            | 787 +++++++++++++++++++++
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 345 +++++++++
- include/drm/drm_connector.h                        | 103 +++
- 21 files changed, 2018 insertions(+), 55 deletions(-)
----
-base-commit: a5ccd35ff3ac42d49a4a857195577887ac9667c8
-change-id: 20251028-color-format-49fd202b7183
-prerequisite-change-id: 20260224-drm-rework-color-formats-82dcccc13c11:v2
-prerequisite-patch-id: fbf602b97d4e1bda1f812fe036fa1295d34a7a33
-prerequisite-patch-id: 83eeae76222fad7c1908f81e2694fb7f72bff980
-prerequisite-patch-id: c08f10ed86f847d27f4843284a0f523e0b5c198f
-prerequisite-patch-id: f88f789b3f3b19a48469c5fe1d17205772d1ca1e
-prerequisite-patch-id: 1e6c3b33758ffd36bda067da90f7187e5d27db20
-prerequisite-patch-id: db784a1fb0c758558bd17270c5239b95c7e1cda6
-prerequisite-patch-id: 970fbdd9b5e213b06e0ac2e73267d65f567fbe04
-prerequisite-patch-id: d089ecfea90265df04cb4e6d1eb79a987f5ab2d9
-prerequisite-patch-id: 7ffda67d2082589a261ffe5d0f17b1e7d52b8a2d
-prerequisite-patch-id: f2b0997150dac43608710dc3328e5ebcdc97992c
-prerequisite-patch-id: c4f19af08ec3d6be8f2f5ce8bf7c9a192a6e7514
-prerequisite-patch-id: 4c712770a76ea130539dd18d76425f22ca9e3f92
-prerequisite-patch-id: 27ca247ea9f3b9fe1ec89af7ceef8dc3c67631c9
-prerequisite-patch-id: f293289278bdcb8e813046e2d2af26e6c6a25fb3
+ 	amdgpu_dpm_change_power_state_locked(adev);
+ }
+diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+index 29cecfab0704..7ea310601ff5 100644
+--- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
++++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
+@@ -3058,7 +3058,7 @@ static int si_get_vce_clock_voltage(struct amdgpu_device *adev,
+ static bool si_dpm_vblank_too_short(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+-	u32 vblank_time = amdgpu_dpm_get_vblank_time(adev);
++	u32 vblank_time = adev->pm.pm_display_cfg.min_vblank_time;
+ 	/* we never hit the non-gddr5 limit so disable it */
+ 	u32 switch_limit = adev->gmc.vram_type == AMDGPU_VRAM_TYPE_GDDR5 ? 450 : 0;
 
-Best regards,
--- 
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+@@ -3424,9 +3424,10 @@ static void rv770_get_engine_memory_ss(struct amdgpu_device *adev)
+ static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
+ 					struct amdgpu_ps *rps)
+ {
++	const struct amd_pp_display_configuration *display_cfg =
++		&adev->pm.pm_display_cfg;
+ 	struct  si_ps *ps = si_get_ps(rps);
+ 	struct amdgpu_clock_and_voltage_limits *max_limits;
+-	struct amdgpu_connector *conn;
+ 	bool disable_mclk_switching = false;
+ 	bool disable_sclk_switching = false;
+ 	u32 mclk, sclk;
+@@ -3470,14 +3471,9 @@ static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
+ 	 * For example, 4K 60Hz and 1080p 144Hz fall into this category.
+ 	 * Find number of such displays connected.
+ 	 */
+-	for (i = 0; i < adev->mode_info.num_crtc; i++) {
+-		if (!(adev->pm.dpm.new_active_crtcs & (1 << i)) ||
+-			!adev->mode_info.crtcs[i]->enabled)
+-			continue;
+-
+-		conn = to_amdgpu_connector(adev->mode_info.crtcs[i]->connector);
+-
+-		if (conn->pixelclock_for_modeset > 297000)
++	for (i = 0; i < display_cfg->num_display; i++) {
++		/* The array only contains active displays. */
++		if (display_cfg->displays[i].pixel_clock > 297000)
+ 			high_pixelclock_count++;
+ 	}
+
+@@ -3510,7 +3506,7 @@ static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
+ 		rps->ecclk = 0;
+ 	}
+
+-	if ((adev->pm.dpm.new_active_crtc_count > 1) ||
++	if ((adev->pm.pm_display_cfg.num_display > 1) ||
+ 	    si_dpm_vblank_too_short(adev))
+ 		disable_mclk_switching = true;
+
+@@ -3658,7 +3654,7 @@ static void si_apply_state_adjust_rules(struct amdgpu_device *adev,
+ 						   ps->performance_levels[i].mclk,
+ 						   max_limits->vddc,  &ps->performance_levels[i].vddc);
+ 		btc_apply_voltage_dependency_rules(&adev->pm.dpm.dyn_state.vddc_dependency_on_dispclk,
+-						   adev->clock.current_dispclk,
++						   display_cfg->display_clk,
+ 						   max_limits->vddc,  &ps->performance_levels[i].vddc);
+ 	}
+
+@@ -4183,16 +4179,16 @@ static void si_program_ds_registers(struct amdgpu_device *adev)
+
+ static void si_program_display_gap(struct amdgpu_device *adev)
+ {
++	const struct amd_pp_display_configuration *cfg = &adev->pm.pm_display_cfg;
+ 	u32 tmp, pipe;
+-	int i;
+
+ 	tmp = RREG32(CG_DISPLAY_GAP_CNTL) & ~(DISP1_GAP_MASK | DISP2_GAP_MASK);
+-	if (adev->pm.dpm.new_active_crtc_count > 0)
++	if (cfg->num_display > 0)
+ 		tmp |= DISP1_GAP(R600_PM_DISPLAY_GAP_VBLANK_OR_WM);
+ 	else
+ 		tmp |= DISP1_GAP(R600_PM_DISPLAY_GAP_IGNORE);
+
+-	if (adev->pm.dpm.new_active_crtc_count > 1)
++	if (cfg->num_display > 1)
+ 		tmp |= DISP2_GAP(R600_PM_DISPLAY_GAP_VBLANK_OR_WM);
+ 	else
+ 		tmp |= DISP2_GAP(R600_PM_DISPLAY_GAP_IGNORE);
+@@ -4202,17 +4198,8 @@ static void si_program_display_gap(struct amdgpu_device *adev)
+ 	tmp = RREG32(DCCG_DISP_SLOW_SELECT_REG);
+ 	pipe = (tmp & DCCG_DISP1_SLOW_SELECT_MASK) >> DCCG_DISP1_SLOW_SELECT_SHIFT;
+
+-	if ((adev->pm.dpm.new_active_crtc_count > 0) &&
+-	    (!(adev->pm.dpm.new_active_crtcs & (1 << pipe)))) {
+-		/* find the first active crtc */
+-		for (i = 0; i < adev->mode_info.num_crtc; i++) {
+-			if (adev->pm.dpm.new_active_crtcs & (1 << i))
+-				break;
+-		}
+-		if (i == adev->mode_info.num_crtc)
+-			pipe = 0;
+-		else
+-			pipe = i;
++	if (cfg->num_display > 0 && pipe != cfg->crtc_index) {
++		pipe = cfg->crtc_index;
+
+ 		tmp &= ~DCCG_DISP1_SLOW_SELECT_MASK;
+ 		tmp |= DCCG_DISP1_SLOW_SELECT(pipe);
+@@ -4223,7 +4210,7 @@ static void si_program_display_gap(struct amdgpu_device *adev)
+ 	 * This can be a problem on PowerXpress systems or if you want to use the card
+ 	 * for offscreen rendering or compute if there are no crtcs enabled.
+ 	 */
+-	si_notify_smc_display_change(adev, adev->pm.dpm.new_active_crtc_count > 0);
++	si_notify_smc_display_change(adev, cfg->num_display > 0);
+ }
+
+ static void si_enable_spread_spectrum(struct amdgpu_device *adev, bool enable)
+@@ -5527,7 +5514,7 @@ static int si_convert_power_level_to_smc(struct amdgpu_device *adev,
+ 	    (pl->mclk <= pi->mclk_stutter_mode_threshold) &&
+ 	    !eg_pi->uvd_enabled &&
+ 	    (RREG32(DPG_PIPE_STUTTER_CONTROL) & STUTTER_ENABLE) &&
+-	    (adev->pm.dpm.new_active_crtc_count <= 2)) {
++	    (adev->pm.pm_display_cfg.num_display <= 2)) {
+ 		level->mcFlags |= SISLANDS_SMC_MC_STUTTER_EN;
+ 	}
+
+@@ -5676,7 +5663,7 @@ static bool si_is_state_ulv_compatible(struct amdgpu_device *adev,
+ 	/* XXX validate against display requirements! */
+
+ 	for (i = 0; i < adev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.count; i++) {
+-		if (adev->clock.current_dispclk <=
++		if (adev->pm.pm_display_cfg.display_clk <=
+ 		    adev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries[i].clk) {
+ 			if (ulv->pl.vddc <
+ 			    adev->pm.dpm.dyn_state.vddc_dependency_on_dispclk.entries[i].v)
+@@ -5830,30 +5817,22 @@ static int si_upload_ulv_state(struct amdgpu_device *adev)
+
+ static int si_upload_smc_data(struct amdgpu_device *adev)
+ {
+-	struct amdgpu_crtc *amdgpu_crtc = NULL;
+-	int i;
++	const struct amd_pp_display_configuration *cfg = &adev->pm.pm_display_cfg;
+ 	u32 crtc_index = 0;
+ 	u32 mclk_change_block_cp_min = 0;
+ 	u32 mclk_change_block_cp_max = 0;
+
+-	for (i = 0; i < adev->mode_info.num_crtc; i++) {
+-		if (adev->pm.dpm.new_active_crtcs & (1 << i)) {
+-			amdgpu_crtc = adev->mode_info.crtcs[i];
+-			break;
+-		}
+-	}
+-
+ 	/* When a display is plugged in, program these so that the SMC
+ 	 * performs MCLK switching when it doesn't cause flickering.
+ 	 * When no display is plugged in, there is no need to restrict
+ 	 * MCLK switching, so program them to zero.
+ 	 */
+-	if (adev->pm.dpm.new_active_crtc_count && amdgpu_crtc) {
+-		crtc_index = amdgpu_crtc->crtc_id;
++	if (cfg->num_display) {
++		crtc_index = cfg->crtc_index;
+
+-		if (amdgpu_crtc->line_time) {
+-			mclk_change_block_cp_min = 200 / amdgpu_crtc->line_time;
+-			mclk_change_block_cp_max = 100 / amdgpu_crtc->line_time;
++		if (cfg->line_time_in_us) {
++			mclk_change_block_cp_min = 200 / cfg->line_time_in_us;
++			mclk_change_block_cp_max = 100 / cfg->line_time_in_us;
+ 		}
+ 	}
+
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+index 0115d26b5af9..24b25cddf0c1 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/amd_powerplay.c
+@@ -1569,16 +1569,7 @@ static void pp_pm_compute_clocks(void *handle)
+ 	struct amdgpu_device *adev = hwmgr->adev;
+
+ 	if (!adev->dc_enabled) {
+-		amdgpu_dpm_get_active_displays(adev);
+-		adev->pm.pm_display_cfg.num_display = adev->pm.dpm.new_active_crtc_count;
+-		adev->pm.pm_display_cfg.vrefresh = amdgpu_dpm_get_vrefresh(adev);
+-		adev->pm.pm_display_cfg.min_vblank_time = amdgpu_dpm_get_vblank_time(adev);
+-		/* we have issues with mclk switching with
+-		 * refresh rates over 120 hz on the non-DC code.
+-		 */
+-		if (adev->pm.pm_display_cfg.vrefresh > 120)
+-			adev->pm.pm_display_cfg.min_vblank_time = 0;
+-
++		amdgpu_dpm_get_display_cfg(adev);
+ 		pp_display_configuration_change(handle,
+ 						&adev->pm.pm_display_cfg);
+ 	}
+--
+2.53.0
 
