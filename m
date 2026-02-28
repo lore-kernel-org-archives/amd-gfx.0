@@ -4,90 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3821FFEE4E6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF0D3FEE4EE
 	for <amd-gfx@archiver.kernel.org>; Sat, 28 Feb 2026 09:19:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12C0B10EC5D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C04A610E252;
 	Sat, 28 Feb 2026 09:19:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b0P0q+xd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WVYRPjio";
 	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1C2110E1D8
- for <amd-gfx@lists.freedesktop.org>; Sat, 28 Feb 2026 01:12:33 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-82735a41985so1564150b3a.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 17:12:33 -0800 (PST)
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
+ [209.85.128.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A773E10E038
+ for <amd-gfx@lists.freedesktop.org>; Sat, 28 Feb 2026 04:54:19 +0000 (UTC)
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-79863ab8478so28060297b3.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Feb 2026 20:54:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772241153; x=1772845953; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=UVWvXlolIB1z5Wdh/ZWEpJ69krVbfULM/4hKT6Ylcj4=;
- b=b0P0q+xdcs6NGO5h624gOFU/DgAyODs2EwpARCaCPXiqdTOSUakEa/EK77RkOj2jGq
- JGltKyalt8DSsE+9hf+zZYiIkh8vX/aEyuZJwpRE3DN5D0QS5C3edBTbp79SX1pnFoc0
- NYZjwDhL4hReNviSZyjsws0LyPNFx54HhcJATw0YbnM5ukPTxRkDe+32vleRbzOOD+aa
- YrJY7goiuNp7n3z9l144Iiz4zTvFeDDMCPZ+Vq6C9MHIpH3j33O8yc0YxDPwTzKmzelv
- iyf49H0gcrHPJnIg2Jz1IgD7p7A9Jl0XGIe7JBtW4DPp2MCpuPY/ycsaNRN4O0m0RWuP
- VrmQ==
+ d=gmail.com; s=20230601; t=1772254458; x=1772859258; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=SWHLiQPGuLNOIoRU+H9lZYNm5Ub8L3rxXj707dfRdFk=;
+ b=WVYRPjio0rgWrk5fq893sAQ9rYd/GrwXImR8qKrzXiW/Z6nsSWWXoi8rTNSWikpoYY
+ REEu2TlFe18ZbytfKu3t0w8uAgapeCvMnEYleP1IUdtYjcY9ECgWLqWkJdutBVa+tTQg
+ ZKS0GORoGIqKExhUZRVU4l4o0GRVAhHJg1/ZVrYJ1FvnQ84PssF4qZVxolB60WoZDK9k
+ s8OGQXSuHfzclBDmf1gy6UI77CFNTiChUdyywHduXEJks40UqKEWSFkhN4jRLSlfOREX
+ k8S70mUtIDbnFQogoPC5UCIwvcVc5BQcznDvjhiq+6SEMjtiLjq6sHzGYLlkS/jBwdz8
+ /+cQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772241153; x=1772845953;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=UVWvXlolIB1z5Wdh/ZWEpJ69krVbfULM/4hKT6Ylcj4=;
- b=PplLH6h2xi7gSE6HikAaKGa9yXUR9NoOCgaJb9bAVBtUbIa6VmshvKtP3ZLi670aT6
- FuJ4ikFIn2C3J35DmW6Cs0MYhNoWFjE1aYjeN5mA4NfdqcCkUUDXWM1ZexYLOaN2PXWK
- 9XW1PyUt+wiT3nVZ1wHlBaiGAjVT0UyKGUra80/ZfRSJsqHClC8ovqLwciewv4b2Uv1U
- RL/izrD9Opn8/hfEA8RnCYehJ/cCdlne4OaZPfyWQRv2olzuoTXpS651TQ4vxfgvuNyR
- l7/SEDjiJT8V16xAczyLVxTGP34tk8qIgrK4ls47snWQvem2k7fuLAtINwwq+ASK/6s0
- BrFg==
+ d=1e100.net; s=20230601; t=1772254458; x=1772859258;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=SWHLiQPGuLNOIoRU+H9lZYNm5Ub8L3rxXj707dfRdFk=;
+ b=JGwhmeMeH6uOKLppe+68yt0yivOvU/8bb7O6ZPng0PTylHWIQM0dpw+n/sWSuJ0rDy
+ QbKqDK08csUzwL9NpUXuABBBZqEmVmXtkU3HTjjWEVv3GTjReatHf3e1sR+tw1o/7d7J
+ jsoH0tlbInSkvSn5xq4PSxGvNg8r3lugsWJQCdAQJGJ9OBsgwRvBIETkerzkycUK6yYf
+ lk9z46oprqCL8dkzI3sfBYX0bv98Sj9x4dQmzEi0TzW+b+h5oy7zpudMVAq4Q3QbbaaM
+ /YD8ds2frJVNlzeSjpv7habvQNTMmOXMpBnxhb/8BcAXqn95MoPCXjlV5rr0lYPG7bAt
+ NiGQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWwc/8BDJHi70JFSCqd8kKXGLnb2wzpKuhNymqiQ0KAUjTbo1/rYoFatl5oAeiRaxLjxO1JvLgM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyA24+kQYavymHrEhU8nopK31jkSNs2y3qcb2ynQt/u8dH+8nWh
- mYT2YWl6duVFrvh0QqhnFi72NKdPpfAIq7eGSJzzCJYoiq63KXFuHG3r
-X-Gm-Gg: ATEYQzwmBd+nDsCM7g3kzdCn2bnUqeopAPbFqJTthApEmti4Gw8vxh1SihIFWZ+eDvJ
- IukpwGUBjXHiDw6gOgELSoPeLRx6sR/lAh+LGfAuFFoQVcVy3sP2wSQOuU9S/qqCiQrd4wnsrZW
- tVo6rgbYmVLM8EfNkHsVy28Fs/Q5fL52qoT6RUJBIgjGrdgPO/YLgZczb6k38XWeELjKyCzF9r7
- VkqPpl0DIMl85AY/2BBWicgY62ACiRRgREqBp5mzGuyuyGVPirZrGF9RCQqKChSI4WTZVHo65pc
- ClNeT2aiwxUnhZU7+yTCy9R6ixkuIngRTxAjTQIphKz5mrvbBcM1gnCIlTHYWZ16ycLGEFhUXLk
- /C84JTdMew0Huq//BNUgl/V4pt8JSVxwTCPQw5WJQ8fcnAQLAyctpdkNpK8LxiniARjfu2IJ/XA
- 3/AdMDTiKcodazq33P4Rv4bWw2mw/kA/9Ax7MvE67JG/3HhIuK+me1Vw==
-X-Received: by 2002:a05:6a20:56a3:b0:395:1200:3abd with SMTP id
- adf61e73a8af0-395c3b45943mr4205836637.62.1772241153329; 
- Fri, 27 Feb 2026 17:12:33 -0800 (PST)
+ AJvYcCUhcuAh1hIhgk1DRfhOE9mTalAaMEl7Zs32dGUJG/NyfM/5G2EEoF9rHYiknPMFSLGpX9PrMCTg@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzxuVsNRm/8edSKpGIcfswQJweLXD8ftcMvjLVGnW+3ASCWvPgj
+ wJMEmZk/EkSFU56vGrB/1/MV9e22o4DoiGU9J9jKAj8OEqoP7cpgX9sj
+X-Gm-Gg: ATEYQzyd8WSUvgVefbgC3JyPuzxo6qdM/hHoV/+pX/gkj1FPdzD1IsjCnvHHAN+xP3Y
+ mkz3Jvv3llsOKiy4OoPD2cfA8faWheDtALdt57o3DPiUgxUoVNtB1rwAhRRWcFnPhZxDGf88DCs
+ CkeH2/nR+OtiCBiq4sWt8sq23fohvKnBNNuNT6DD60of9aGuPZ11Z/gPNC3RvyKNjRDIqHwGqWB
+ xMG88Qo0y0zdC57NaYOZSiy0CG++ETj/4W33kqoGHh1kbJmsWTWn8xv5SQQHPpTKFRVtYKbCvgd
+ XK4NSd2NnmaZjJJcMZtnV/3hx8ZrG7CMNkXKHHNLZ6pNPV9D2PSxx8IY0ClwpUZvCm0lZukGExu
+ loAQuNyOwOmfqOzex9iscwZnqWC1QEUsewyBJH1kuLNPHXwDBwZq++TKWAu/NEOC1HqWdvPGS/b
+ xJIirC1Ce5kdMavKC95klUTccUHScyeRVuRVKeodD5Bffl/DOW5tjmnA==
+X-Received: by 2002:a05:690c:c50b:b0:796:2dfb:4af1 with SMTP id
+ 00721157ae682-798854690f5mr45220647b3.9.1772254458385; 
+ Fri, 27 Feb 2026 20:54:18 -0800 (PST)
 Received: from ryzen ([2601:644:8000:56f5::8bd])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2adfb6f46c2sm75772845ad.89.2026.02.27.17.12.31
+ 00721157ae682-79876bf8103sm29865967b3.27.2026.02.27.20.54.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Feb 2026 17:12:32 -0800 (PST)
+ Fri, 27 Feb 2026 20:54:17 -0800 (PST)
 From: Rosen Penev <rosenp@gmail.com>
 To: stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "Pan, Xinhui" <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Evan Quan <evan.quan@amd.com>, Sasha Levin <sashal@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Eliav Farber <farbere@amazon.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Ma Jun <Jun.Ma2@amd.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Zhigang Luo <Zhigang.Luo@amd.com>,
- Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- Bert Karwatzki <spasswolf@web.de>, Ray Wu <ray.wu@amd.com>,
- Wayne Lin <Wayne.Lin@amd.com>, Roman Li <Roman.Li@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Wentao Liang <vulab@iscas.ac.cn>,
- amd-gfx@lists.freedesktop.org (open list:RADEON and AMDGPU DRM DRIVERS),
+ Xinhui Pan <Xinhui.Pan@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Alex Hung <alex.hung@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Lijo Lazar <lijo.lazar@amd.com>, "chr[]" <chris@rudorff.com>,
+ Sasha Levin <sashal@kernel.org>, Wentao Liang <vulab@iscas.ac.cn>,
+ amd-gfx@lists.freedesktop.org (open list:AMD DISPLAY CORE),
  dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
  linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH for 6.1 1/2] drm/amdgpu: use proper DC check in
- amdgpu_display_supported_domains()
-Date: Fri, 27 Feb 2026 17:12:12 -0800
-Message-ID: <20260228011213.423524-2-rosenp@gmail.com>
+Subject: [PATCHv2 for 6.112 and 6.6 0/2] amdgpu: fix panic on old GPUs
+Date: Fri, 27 Feb 2026 20:53:54 -0800
+Message-ID: <20260228045356.3561-1-rosenp@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260228011213.423524-1-rosenp@gmail.com>
-References: <20260228011213.423524-1-rosenp@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -106,35 +99,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
+Because of incomplete backports to stable kernels, DC ended up breaking
+on older GCN 1 GPUs. This patchset adds the missing upstream commits to
+at least fix the panic/black screen on boot.
 
-[ Upstream commit 96ce96f8773da4814622fd97e5226915a2c30706 ]
+They are applicable to 6.12, 6.6, and 6.1 as those are the currently
+supported kernels that 7009e3af0474aca5f64262b3c72fb6e23b232f9b got
+backported to.
 
-amdgpu_device_asic_has_dc_support() just checks the asic itself.
-amdgpu_device_has_dc_support() is a runtime check which not
-only checks the asic, but also other things in the driver
-like whether virtual display is enabled.  We want the latter
-here.
+6.1 needs two extra backports for these two commits to be cherry-picked
+cleanly. Those are
 
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+96ce96f8773da4814622fd97e5226915a2c30706
+d09ef243035b75a6d403ebfeb7e87fa20d7e25c6
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index cd0bccc95205..98cce09684f2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -534,7 +534,7 @@ uint32_t amdgpu_display_supported_domains(struct amdgpu_device *adev,
- 	 */
- 	if ((bo_flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC) &&
- 	    amdgpu_bo_support_uswc(bo_flags) &&
--	    amdgpu_device_asic_has_dc_support(adev->asic_type) &&
-+	    amdgpu_device_has_dc_support(adev) &&
- 	    adev->mode_info.gpu_vm_support)
- 		domain |= AMDGPU_GEM_DOMAIN_GTT;
- #endif
--- 
+v2: Add Signed-off-by.
+
+Timur Kristóf (2):
+  drm/amd/display: Add pixel_clock to amd_pp_display_configuration
+  drm/amd/pm: Use pm_display_cfg in legacy DPM (v2)
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c  |  1 +
+ .../dc/clk_mgr/dce110/dce110_clk_mgr.c        |  2 +-
+ .../drm/amd/display/dc/dm_services_types.h    |  2 +-
+ drivers/gpu/drm/amd/include/dm_pp_interface.h |  1 +
+ drivers/gpu/drm/amd/pm/amdgpu_dpm_internal.c  | 67 +++++++++++++++++++
+ .../gpu/drm/amd/pm/inc/amdgpu_dpm_internal.h  |  2 +
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  4 +-
+ .../gpu/drm/amd/pm/legacy-dpm/legacy_dpm.c    |  6 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    | 65 ++++++------------
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  | 11 +--
+ 10 files changed, 101 insertions(+), 60 deletions(-)
+
+--
 2.53.0
 
