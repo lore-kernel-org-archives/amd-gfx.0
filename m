@@ -4,153 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 359B0EA4E06
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 13:48:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F3E2EA4E07
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 13:48:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9829A10E4F7;
-	Mon,  2 Mar 2026 13:48:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BACB10E4F4;
+	Mon,  2 Mar 2026 13:48:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="AzwX26nW";
+	dkim=pass (2048-bit key; secure) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b="lhfPaaXt";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013037.outbound.protection.outlook.com
- [40.107.201.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7DF510E0EE;
- Mon,  2 Mar 2026 12:06:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZGLbJYDYBGc46RCMp47Vd3pDUXoErxtewm+wAeygw4iWxyMNaWp7DJ+lAG8HH8j/PcurnUN97XQurRJeAx4qi1eCueKT92+cg2seE9ApJJ9v5m2byAkO/QRjmjdof8PmReiMF/K5AWEbbd3R3inqFKuk13SPO5y+L4/8uPMiDu5fvPPUg8DMz53YL/5golMI8VsdBmag9LKqpZj3mCyzqBhOxlrj+Ay/UN6S7iBGO+HDfd9OZLbANGC4heTgcJdsops+kAkwWlxEVTkKx0K3zMBBxnRXYRxlHxIbAXDsBQoSbkzPfTlmP6ExjNSyvqRYaTF5zaB8KZ7ivlTLlDSbWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0wDG2F4FP4t9vr5XybLEbUSjzlw5hd5DwJRQ/AONEAI=;
- b=N0OU0COouT1Env+O+kmb8XqTEOjcDSnMUCn1+AXUUId+qAhe+Syxfyptk/65beo2/yyBSQwbjM/S8zClnmTyjyGeO/Lk9+AxY1HsU8sN32eVc4ftmXQlMYx/8CV5NIZ3ov0czcEpsmE3cftpYAoAd92ItRgr+AaVVG7s0iXYTYAcZpdQ0WBbuhSIGq3A2A3ZjRZbf6l5fs2tYesKBV0HCLUFF7xelM8mQ52NoMt9F44UFXjVTpNe7BjQRbBA7F6zdvbox0kaBGe366NwLrYmy/wfbmxaHLjdY2IkXzBTCdZ1uqr75t5KST3lT9vwv47qpBSM6ErCvy6HZ1CSjNiEtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0wDG2F4FP4t9vr5XybLEbUSjzlw5hd5DwJRQ/AONEAI=;
- b=AzwX26nW1Lv+ND4tYpbLMpi++q6pYCMlbj9bBOlLhH+E44Fe1NuPyckYrJkvxwQcoywydo5K8L64F8NWomkJgokS/N93z5QTfVuKTQyWgWhBh1VQzWc1zrX6L7VszH1sNHtQODQ7OoGRKKxifwOqeQ8ffJG8HUm5w9eMpVXMVe6/xpv45n8Di9YG/nSdFrHtrhtptDZJciqtbO4kFOF58ZgFSnHPZBX1xr2HINWxQP/D7FBRLg7YGwUi/qHB8MsGozIKCEDC/L4VoWw06Mn0zKgzze46ok74OrX0XvyCO/SVNal0ayQXRjWKDDuULahkUFPYWguuZL63JRY7OQfV9g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by CY5PR12MB6083.namprd12.prod.outlook.com (2603:10b6:930:29::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.21; Mon, 2 Mar
- 2026 12:04:12 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9654.020; Mon, 2 Mar 2026
- 12:04:11 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Mar 2026 21:04:07 +0900
-Message-Id: <DGSA61C5BMSB.1RFPQAR3NFHKB@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Joel Fernandes" <joelagnelf@nvidia.com>
-Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
- "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Koen Koning"
- <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>, "Nikola
- Djukic" <ndjukic@nvidia.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet" <corbet@lwn.net>,
- "Alex Deucher" <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
- "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
- <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Helge Deller" <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>,
- "Boqun Feng" <boqun.feng@gmail.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, "Elle Rhumsaa"
- <elle@weathered-steel.dev>, <alexeyi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <joel@joelfernandes.org>,
- <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH v8 25/25] gpu: nova-core: mm: Add PRAMIN aperture
- self-tests
-References: <20260224225323.3312204-1-joelagnelf@nvidia.com>
- <20260224225323.3312204-26-joelagnelf@nvidia.com>
-In-Reply-To: <20260224225323.3312204-26-joelagnelf@nvidia.com>
-X-ClientProxiedBy: TY4PR01CA0107.jpnprd01.prod.outlook.com
- (2603:1096:405:378::15) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+X-Greylist: delayed 316 seconds by postgrey-1.36 at gabe;
+ Mon, 02 Mar 2026 00:00:53 UTC
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD8110E335
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2026 00:00:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
+ s=s31663417; t=1772409651; x=1773014451; i=quwenruo.btrfs@gmx.com;
+ bh=bTIGSF5NsPv0G4ks6nGwKYOcvbN6IniMFPE2x9fPKIs=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
+ References:In-Reply-To:Content-Type:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=lhfPaaXtV3hoNdyPIKfTUeYxg582qr4zoCEsOk8Qfg7iwMQ7+izghv6M9+oNVJkL
+ lDmUnczrLSyaven6MoooLFxrypBJGNcM2Cngc7dfVMOvvnWNw4Mk7kreDYreW43/R
+ Yfa/NEiH/iNB/pqrV+my6RI1QB9LeG0bFhhBGQHg/BdUFZpPlm0zGzuURGRdIMXd+
+ pLIGOKmlGYWbhSkd1/BlJIGbfOa0q3N6Tz2etR4gWw51FKblR0Z3P9zSHkHefR2h5
+ igE2d6yEeoaRLUGhimY3th4DOfF8FyyE/aImue9d7x0dEnqAuLGKvaJbx4kOzcsgI
+ MlnPY4B/Cx1yOyXBnA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
+ [212.227.17.184]) with ESMTPSA (Nemesis) id 1MKsnP-1wFlSk0Mzl-00QZH9; Mon, 02
+ Mar 2026 00:55:35 +0100
+Message-ID: <1dddfae5-ac4f-436e-a191-5dfd1b9e957d@gmx.com>
+Date: Mon, 2 Mar 2026 10:25:31 +1030
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CY5PR12MB6083:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc491496-bbaf-4e2e-1bf3-08de7853d093
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|10070799003|1800799024|366016; 
-X-Microsoft-Antispam-Message-Info: sYDAsPoXH5ct2j9EDLjrxM8W8joJSHap7oaidFDfTTOOTKXnIlo1oDMqZQbxulhwH4QlqhWbSKlcgzdrYVnM/Jojp3Bm3lYAWHVvuZ2rhRxJQ/WqVesZ1FIQ1z2Srr17I3i/S1ThKYj5Y9BIC8B0Mg/yg5DJ/XjWjqosRqFEpwAui8Lls3foBG3T0YS8+3PAF6NQOoDVi3XeQCwVHLXTftL0MvyPEVesaq4OwlpHCPBLpZW188OD3makArcp9r3doeG+sF5PFSeXCq5LmJiS49Nwf7N9D8Lxp1q0motAJ344tEKFTecqttsOA2lQHaZMNfZzpgCE0CYEUMOymCG1F2TbBhsU3btZl2Ebz2qBE16niHqY0lxUxNQ/1S+x3blNgOgqCLtN+sEvm2gKS30kLhhFosd9eAeqyAQ1J8i87yk5D5Yl4ExWpCd/ZnyGF+wavnsQl+z6jKNf9MQr6OzufSH1jd+MtcgnAum0K1n1TAGA3j7GJNYeZCIoHH8roEY+qn91ILnUts6sc8FUuMyBnNUP/GMQ8puSf3EeLwN/jHEq91+S+oV6sZPcizAzj/KgPIkRGjj70O7cD0A4GsXkv0mqgqVbjj9eCjP8YkxS/bGUmpbmG8EFzP6tvGTkAjn27A38X73aOLeE0gC3cJu4Y6bUOnNd70+q0JxmKy45yBRp8MYaFQ10AGwxNQhSkdV8SYueVD416zkPjN1/2anqFq0s2gw/WezM00GtprqYepA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(366016); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VXlBeE43WXNGUHVuZ24xdWpKRW5QU3Mxc3dxTW5WYzRYc21EbWh0cVNUeXdG?=
- =?utf-8?B?RjF2NTYzTGNVUU5ZWjVmdnRNWkp2YStKdlB0OTFYSUwzQ0ZWU1BkdWV4d2lW?=
- =?utf-8?B?Smg4dnVrY3NuOVk2dGhBVlp0WWtaV0lXb1ZpK1liUWttUnEyM2FoSHJxdXhD?=
- =?utf-8?B?Vk5Wd1pGZ3hzS05pV0d3UHFjS25HLzB1L3ZJZEF5SWZJaGZpR3A2OGVEcUkw?=
- =?utf-8?B?czR4NmFxcnMwNndLOTVPdm9VUDNubHNaQlAvWkprSFAzNXlaUDlhOVFKdlVk?=
- =?utf-8?B?UFlWQVVaZ3VMZVlTaEdUYTR4OFlJbXBrQ1FiMEpKbzJ2Tk1wM1I5bVF5TVZO?=
- =?utf-8?B?cjZSWVllOHpQanN0Z3VnQ01WNnlGWHZPTmNpTGRsbXAwelZKRkd6MkpNTXEw?=
- =?utf-8?B?UUQwTVJiYlF1THVQLy81N3dJbGV3MzNtVlQ4VHRuYVM3OHhjSS9nTjFWZWtZ?=
- =?utf-8?B?cHJjcUJpNWxteEN6dnZVd2xncjNvUlVLVDJxS1NDRHdhOHNLa0s4OXcyTHkr?=
- =?utf-8?B?aktJd3dKZHB4QVo5dzU0dlkvNGtheHJNY1FJTnpMWklGNC9TZmVmODZPb1ox?=
- =?utf-8?B?aFd3Vmd6K2Q5UFpUd25KZEVxcHdnQ2FqVzZMdTh3UUp0OFFEc2dUK3RibDc1?=
- =?utf-8?B?b0VqWEUyL2x3YlRHTTRzL0ZoYU85MTZnOGlTZVdWdG9sNVcvSHI2aFcrRGxH?=
- =?utf-8?B?SXdYTW00bGtWVWxwMUY3NDlmTTdFRDFsTUM3UkVScEl1V2N3Yzdha3JHajBM?=
- =?utf-8?B?ekJRZWdEejU4M2xQNE9VVnF4TisvZlBTR09GZCtnTGhMUi9PZDdxazdUTmRQ?=
- =?utf-8?B?Mm8rSHpsSjJRaGNueXc4OXFLK3J2eHlUNFc5ZENKcXlDMTlRak1pN1NVOGZm?=
- =?utf-8?B?aU4vN0hOWTZuSXN1YVh5Nnhhb3VISmJyR0RzTVNTRVpPZEJNRkZGb0QzKzZu?=
- =?utf-8?B?cHRuOGlhS3gyMFJrYi9HL215Y250R0MwVlh2dE9STXZvcTBVYTV0SnRma0t2?=
- =?utf-8?B?LzVTR01zaGZvZlM3Z0Z4T0JlZ3JoTmhrYi9VcW5qRnYxMWxSTDM4cVYrcFpO?=
- =?utf-8?B?Ymord2xMbGdKeG9MVE5FM1NWMkdOcnpVaE50L3dlUzlXb0V0RTc3cGJoUC9p?=
- =?utf-8?B?Z3VvVkF6NHlYWkVEay80ZnFGU3Rubi8yM0NZRk9GL0JHaHhBeE9QVDhlRnZ5?=
- =?utf-8?B?RVZRUnlrQURDVE5wM2RjY1JVY3FoNytIUmxSaG5JTjFCNGpmTEVzOEF5SC95?=
- =?utf-8?B?OUY3ZTFwaVFVNitzTm5QK0NrWDdZVkZlMGZFTTZ4WEU4NVJKelE5NjVSZzln?=
- =?utf-8?B?SUlsTXpyVVo5QUx4VU9UaVdVeHJxaGwxM3R5OWw1eGE2aEJmeHNsUmhZbWFi?=
- =?utf-8?B?cTJRYVRPY090MTZ4RnpHQUhId2VDcmt0VXRGaEhyYkMxZnkrckR5K2Z2c1B6?=
- =?utf-8?B?cmFjdkU1N1cwQVRsSnBnWE9VcFRQYnZ4Q2FncEhxT3UrNWRwajJlYk4xdlFt?=
- =?utf-8?B?U0V2R09PVUJaR3FOLzRvMVJqTVRIQktZSVNsNlhNMnpRODRtbUV3OW5sNTcw?=
- =?utf-8?B?YTRRUnJZK2ZnclJBcVlIdnpKQisyWkxzeTFLRmxVZml3UXFwbk5VZGtwaDJE?=
- =?utf-8?B?UElNbE5sa2k0UitTQWgvS3BYOUk4cUtreVZubDFVcWs3VUhZZFp5ZnlOVDVL?=
- =?utf-8?B?QzAxbWxjYTFTVko5K05GRDBZNi9Qd3lkRU14RDc5VmJuRXRTV2RtZEh3SCto?=
- =?utf-8?B?WmlOQXZ5VEY0ZkNxS1owOVlpWlVMcmJFNStvaVRWQUN5OTJ6YkovT0dmZkVT?=
- =?utf-8?B?Y0Q5VWpjVG0zV2Yrb1NTOXNlNmhpaE93UUZveWs4TSs0a1lHU2FnZi9RSnRL?=
- =?utf-8?B?bW1nd2xucHFJUUVJMFBXL1JxelhsZjlSMDVnQUVQT1o1aHV6SGJiRmNPUHN3?=
- =?utf-8?B?aDgzMm9oOEY0aWgwaXdwYngwVC9ISklyKzZmanAwSWxoN3NaaERmTzN3MktH?=
- =?utf-8?B?SEgxUU1Da0lBaC96TFArTjFvak9OdnBGb1VBL0owMVBXOGhodEFFUGtoZWtF?=
- =?utf-8?B?SVJENzVyMEhOdmVhNnM0cFd3b2RUR0EvSlVabm1iY2w3Q2h0QUNpQlNVdmQz?=
- =?utf-8?B?Uk8yTGxrbHZOOUhnNlNKTDFwTWxqc21pelR6UU03WTY1c3c3dEgrcjZYM21C?=
- =?utf-8?B?RFljV3YwWHRBZ1lBYW1DTTBFYWNWM2lKTG1GRHdycTVlRFB1dGZacG5kS1Jm?=
- =?utf-8?B?OTQ3Tk1TTjFvbG00Uk56OU1mYnVJejQ4K0RJdUJkMlhiYURGbFNLSTZvckNa?=
- =?utf-8?B?WnltNnlDclNVRDhDQzFGalRxLzh5U0NtdUlTdWVDQ3V6VnhnYVFiOS9SdDdN?=
- =?utf-8?Q?HDZalEDhcJdth5dcb2WVKkU+ikadneMJjq0rlx+LjyPWD?=
-X-MS-Exchange-AntiSpam-MessageData-1: SjdiZ2RI8LSbrg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc491496-bbaf-4e2e-1bf3-08de7853d093
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2026 12:04:11.1767 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LXOPW8KV7fAX/JQTcXSYQGlng5gCuD80ASG/okzzgkOOpPpOGfXRbuxlFSQ+zD7V5Xl00Mq9cfLXg3oYWUweVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6083
+User-Agent: Mozilla Thunderbird
+Subject: Re: GPU has a very high load if the monitor is turned off by KDE
+From: Qu Wenruo <quwenruo.btrfs@gmx.com>
+To: amd-gfx@lists.freedesktop.org, kde@mail.kde.org
+References: <ab5b4f6c-f03d-4ca9-a80e-69cd43eb0c24@gmx.com>
+ <ebc85e84-abd9-4647-8e79-6925895fa4b0@gmx.com>
+ <a6b5282c-6844-41cc-b5a5-895567af1f4a@gmx.com>
+Content-Language: en-US
+Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNIlF1IFdlbnJ1byA8cXV3ZW5ydW8uYnRyZnNAZ214LmNvbT7CwJQEEwEIAD4CGwMFCwkI
+ BwIGFQgJCgsCBBYCAwECHgECF4AWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1YAUJEP5a
+ sQAKCRDCPZHzoSX+qF+mB/9gXu9C3BV0omDZBDWevJHxpWpOwQ8DxZEbk9b9LcrQlWdhFhyn
+ xi+l5lRziV9ZGyYXp7N35a9t7GQJndMCFUWYoEa+1NCuxDs6bslfrCaGEGG/+wd6oIPb85xo
+ naxnQ+SQtYLUFbU77WkUPaaIU8hH2BAfn9ZSDX9lIxheQE8ZYGGmo4wYpnN7/hSXALD7+oun
+ tZljjGNT1o+/B8WVZtw/YZuCuHgZeaFdhcV2jsz7+iGb+LsqzHuznrXqbyUQgQT9kn8ZYFNW
+ 7tf+LNxXuwedzRag4fxtR+5GVvJ41Oh/eygp8VqiMAtnFYaSlb9sjia1Mh+m+OBFeuXjgGlG
+ VvQFzsBNBFnVga8BCACqU+th4Esy/c8BnvliFAjAfpzhI1wH76FD1MJPmAhA3DnX5JDORcga
+ CbPEwhLj1xlwTgpeT+QfDmGJ5B5BlrrQFZVE1fChEjiJvyiSAO4yQPkrPVYTI7Xj34FnscPj
+ /IrRUUka68MlHxPtFnAHr25VIuOS41lmYKYNwPNLRz9Ik6DmeTG3WJO2BQRNvXA0pXrJH1fN
+ GSsRb+pKEKHKtL1803x71zQxCwLh+zLP1iXHVM5j8gX9zqupigQR/Cel2XPS44zWcDW8r7B0
+ q1eW4Jrv0x19p4P923voqn+joIAostyNTUjCeSrUdKth9jcdlam9X2DziA/DHDFfS5eq4fEv
+ ABEBAAHCwHwEGAEIACYCGwwWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1gQUJEP5a0gAK
+ CRDCPZHzoSX+qHGpB/kB8A7M7KGL5qzat+jBRoLwB0Y3Zax0QWuANVdZM3eJDlKJKJ4HKzjo
+ B2Pcn4JXL2apSan2uJftaMbNQbwotvabLXkE7cPpnppnBq7iovmBw++/d8zQjLQLWInQ5kNq
+ Vmi36kmq8o5c0f97QVjMryHlmSlEZ2Wwc1kURAe4lsRG2dNeAd4CAqmTw0cMIrR6R/Dpt3ma
+ +8oGXJOmwWuDFKNV4G2XLKcghqrtcRf2zAGNogg3KulCykHHripG3kPKsb7fYVcSQtlt5R6v
+ HZStaZBzw4PcDiaAF3pPDBd+0fIKS6BlpeNRSFG94RYrt84Qw77JWDOAZsyNfEIEE0J6LSR/
+In-Reply-To: <a6b5282c-6844-41cc-b5a5-895567af1f4a@gmx.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:tHrkhm8LdbM06YmG6Hpcv9ALKvHsChtrLvuwpQxryI+UQPyTl/P
+ cHk3wBKp2OS8HN7+l25AwlyTIszkZJdgVE5XmHtU17a/zSpCw1n9yMUngXLvr6uQyE6LyKi
+ 4ncDaOU2iQaZy5QQbKim8p2fvLxLnkA8UcikyIQD6xGw2GxXcyxNUxf2uOWcXsASyC4ny2+
+ nMkj7um5VZwZXkoMZBMgg==
+UI-OutboundReport: notjunk:1;M01:P0:NP0AmQBFzzg=;3eOznCMIL40EZPfvPrB5aqPAeFb
+ 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
+ XHiYHPiiq2UINSun0=
 X-Mailman-Approved-At: Mon, 02 Mar 2026 13:48:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -166,51 +164,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed Feb 25, 2026 at 7:53 AM JST, Joel Fernandes wrote:
-<snip>
-> diff --git a/drivers/gpu/nova-core/mm/pramin.rs b/drivers/gpu/nova-core/m=
-m/pramin.rs
-> index 04b652d3ee4f..30b1dba0c305 100644
-> --- a/drivers/gpu/nova-core/mm/pramin.rs
-> +++ b/drivers/gpu/nova-core/mm/pramin.rs
-> @@ -290,3 +290,164 @@ fn drop(&mut self) {
->          // MutexGuard drops automatically, releasing the lock.
->      }
->  }
-> +
-> +/// Run PRAMIN self-tests during boot if self-tests are enabled.
-> +#[cfg(CONFIG_NOVA_MM_SELFTESTS)]
-> +pub(crate) fn run_self_test(
-> +    dev: &kernel::device::Device,
-> +    bar: Arc<Devres<Bar0>>,
-> +    mmu_version: super::pagetable::MmuVersion,
-> +) -> Result {
-> +    use super::pagetable::MmuVersion;
-> +
-> +    // PRAMIN support is only for MMU v2 for now (Turing/Ampere/Ada).
-> +    if mmu_version !=3D MmuVersion::V2 {
 
-Why is that? I thought PRAMIN was also working on Hopper+. Isn't it
-orthogonal to the kind of MMU used?
 
-> +        dev_info!(
-> +            dev,
-> +            "PRAMIN: Skipping self-tests for MMU {:?} (only V2 supported=
-)\n",
-> +            mmu_version
-> +        );
-> +        return Ok(());
-> +    }
-> +
-> +    dev_info!(dev, "PRAMIN: Starting self-test...\n");
-> +
-> +    let pramin =3D Arc::pin_init(Pramin::new(bar)?, GFP_KERNEL)?;
-> +    let mut win =3D pramin.window()?;
-> +
-> +    // Use offset 0x1000 as test area.
-> +    let base: usize =3D 0x1000;
-> +
-> +    // Test 1: Read/write at byte-aligned locations.
+=E5=9C=A8 2026/2/28 09:49, Qu Wenruo =E5=86=99=E9=81=93:
+>=20
+>=20
+> =E5=9C=A8 2026/2/28 09:26, Qu Wenruo =E5=86=99=E9=81=93:
+>>
+>>
+>> =E5=9C=A8 2026/2/28 07:53, Qu Wenruo =E5=86=99=E9=81=93:
+>>> Hi,
+>>>
+>>> Recently I upgraded my Arch with the following package updates:
+>>>
+>>> - Plasma (6.6.0-1 -> 6.6.1-1)
+>>> - Kernel (6.18.6 -> 6.18.9)
+>>>
+>>> Both are minor updates thus I thought it should be mostly smooth=20
+>>> sailing.
+>>>
+>>> But after the update, after the monitor is turned off after a timeout=
+=20
+>>> (10min in my case), the fan of my GPU ramp up.
+>>> This also happens when my system is put into suspension.
+>>>
+>>> Unfortunately the behavior is not 100% reproducible, but still=20
+>>> frequently enough to notice the noisy fan running.
+>>
+>> Downgrading kernel ruled out the kernel bug.
+>>
+>> And I have tried 3 times to suspend, and can reproduce the high GPU=20
+>> load 3 times.
+>>
+>> Another thing I noticed is, previous when suspending, the eGPU seems=20
+>> to be completely shutdown (only the power LED lights up, the work LED=
+=20
+>> shut down).
+>>
+>> But now when suspension happened, the eGPU doesn't shutdown at all,=20
+>> just with its fan ramping up.
+>>
+>> Will try downgrading the firmware as the next step just in case.
+>=20
+> Blacklisting the amdxdna module solves the suspension problem at least.
 
-Let's split each test into its own function for readability.
+Meanwhile for the monitor off high GPU usage, even with the xdna driver=20
+blacklisted, tried different kernel (LTS, the last working one, the=20
+latest) and firmware (the last working one with the latest), all the=20
+same high GPU usage when the monitor is off.
+
+So this looks more like something in the KDE part.
+
+Thanks,
+Qu
+
+>=20
+> I can not hate the stupid NPU/AI thing more.
+>=20
+> Thanks,
+> Qu
+>=20
+>>
+>> Thanks,
+>> Qu
+>>
+>>>
+>>>
+>>> The involved platform is:
+>>>
+>>> CPU: AMD Ryzen AI 9 HX 370 w/ Radeon 890M
+>>> iGPU: Radeon 890M
+>>> eGPU: RX 7600M XT
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 OcuLink eGPU from Aoostar
+>>>
+>>> All monitors are connected to that eGPU.
+>>>
+>>> Any clue on what to test next? Is it something related to KDE or the=
+=20
+>>> kernel?
+>>>
+>>> Thanks,
+>>> Qu
+>>
+>=20
 
