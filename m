@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52889FD0045
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Mar 2026 01:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CC86FD0045
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Mar 2026 01:55:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9D9B10E396;
-	Sun,  1 Mar 2026 01:55:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2209C10E399;
+	Sun,  1 Mar 2026 01:55:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z/uL99ou";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="laIKjeiB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D787510E396;
- Sun,  1 Mar 2026 01:55:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB76210E398;
+ Sun,  1 Mar 2026 01:55:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B5B894095C;
- Sun,  1 Mar 2026 01:55:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD025C19421;
- Sun,  1 Mar 2026 01:55:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3BB6D60134;
+ Sun,  1 Mar 2026 01:55:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C8EC19421;
+ Sun,  1 Mar 2026 01:55:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772330136;
- bh=musc2uRF0XxxZlUq2OWGOOlzOkQAX09z5nqdbHPwYJs=;
+ s=k20201202; t=1772330138;
+ bh=PbhtZHps7fvqv08yRTQKF/ykoEkv4V3+N8iOb4uoLnc=;
  h=From:To:Cc:Subject:Date:From;
- b=Z/uL99ouGdPGadeRJLV441D4aAalYLk6gd88PviR4OWO1xpSxL4odeFS+kWmnyYvb
- wolaM9umxCNJEznmaYnFrQACNbFVClz96R9o8r9rRSwtCF8B5RVruWqbA/2o8TKSro
- XXksJqqWAj3mB+um/lwLrP1tytcMas4Er/kKjFgF/Wm5qAm8E4HVB02r32YE3L0Od6
- GTb6eRl60HfGtKTna3rfQ0IIMStLYhQV1ncyQROSM/nAZL6p6CzHayqFLVFeRCP/Dh
- bs+uAY/r8Go63ej3uJWnwJomioLxiWZ0DJexRXei/8nJVnSduDo/M0qN3/7r4MTu4b
- KSNHlt7iGTJlA==
+ b=laIKjeiBAap+fse+YEnUwKrCrnptW0/xYiwEfxEruZ408ilfoDoxsAueeE6HzguIn
+ tWaHPQJlJ4niFa7xjRZg9HmtD3gTt8+X9RJcqZ7QNrD1Ht50RtikW/klhAKTIKr/Q+
+ kjNJUitBe7QMsH6K0m8FYLZeS0k+xk2pnQzvGlExuevaRcX9cCHkJaorjfqSTZplSj
+ 7k2AGs24tEyqdrDx0Dnwqljc7Muy+xrXpjSTS/zR0H3qx9/mUNAua6MyJ25cgHGU84
+ bBW5wwVm67d/6JfM15y4FuzeZp2ZSZ4piJ9kg716PEQc7qH6mRJhlEJzgviMhR7zDU
+ pEhhP3sF2/rOg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	sunpeng.li@amd.com
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Tom Chung <chiahsuan.chung@amd.com>,
- Daniel Wheeler <daniel.wheeler@amd.com>,
+	pierre-eric.pelloux-prayer@amd.com
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: FAILED: Patch "drm/amd/display: Increase DCN35 SR enter/exit latency"
- failed to apply to 5.15-stable tree
-Date: Sat, 28 Feb 2026 20:55:34 -0500
-Message-ID: <20260301015534.1722831-1-sashal@kernel.org>
+Subject: FAILED: Patch "drm/amdgpu: fix sync handling in
+ amdgpu_dma_buf_move_notify" failed to apply to 5.15-stable tree
+Date: Sat, 28 Feb 2026 20:55:36 -0500
+Message-ID: <20260301015537.1722904-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
 X-stable: review
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,89 +70,75 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From 318917e1d8ecc89f820f4fabf79935f4fed718cd Mon Sep 17 00:00:00 2001
-From: Leo Li <sunpeng.li@amd.com>
-Date: Mon, 3 Nov 2025 11:14:59 -0500
-Subject: [PATCH] drm/amd/display: Increase DCN35 SR enter/exit latency
+From b18fc0ab837381c1a6ef28386602cd888f2d9edf Mon Sep 17 00:00:00 2001
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Date: Mon, 9 Feb 2026 18:54:45 +0100
+Subject: [PATCH] drm/amdgpu: fix sync handling in amdgpu_dma_buf_move_notify
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-[Why & How]
+Invalidating a dmabuf will impact other users of the shared BO.
+In the scenario where process A moves the BO, it needs to inform
+process B about the move and process B will need to update its
+page table.
 
-On Framework laptops with DDR5 modules, underflow can be observed.
-It's unclear why it only occurs on specific desktop contents. However,
-increasing enter/exit latencies by 3us seems to resolve it.
+The commit fixes a synchronisation bug caused by the use of the
+ticket: it made amdgpu_vm_handle_moved behave as if updating
+the page table immediately was correct but in this case it's not.
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4463
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+An example is the following scenario, with 2 GPUs and glxgears
+running on GPU0 and Xorg running on GPU1, on a system where P2P
+PCI isn't supported:
+
+glxgears:
+  export linear buffer from GPU0 and import using GPU1
+  submit frame rendering to GPU0
+  submit tiled->linear blit
+Xorg:
+  copy of linear buffer
+
+The sequence of jobs would be:
+  drm_sched_job_run                       # GPU0, frame rendering
+  drm_sched_job_queue                     # GPU0, blit
+  drm_sched_job_done                      # GPU0, frame rendering
+  drm_sched_job_run                       # GPU0, blit
+  move linear buffer for GPU1 access      #
+  amdgpu_dma_buf_move_notify -> update pt # GPU0
+
+It this point the blit job on GPU0 is still running and would
+likely produce a page fault.
+
 Cc: stable@vger.kernel.org
+Fixes: a448cb003edc ("drm/amdgpu: implement amdgpu_gem_prime_move_notify v2")
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c | 16 ++++++++--------
- .../gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c |  4 ++--
- 2 files changed, 10 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index 7abe6811e4dfa..6fc5247526132 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -766,32 +766,32 @@ static struct wm_table ddr5_wm_table = {
- 			.wm_inst = WM_A,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
- 			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 28.0,
--			.sr_enter_plus_exit_time_us = 30.0,
-+			.sr_exit_time_us = 31.0,
-+			.sr_enter_plus_exit_time_us = 33.0,
- 			.valid = true,
- 		},
- 		{
- 			.wm_inst = WM_B,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
- 			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 28.0,
--			.sr_enter_plus_exit_time_us = 30.0,
-+			.sr_exit_time_us = 31.0,
-+			.sr_enter_plus_exit_time_us = 33.0,
- 			.valid = true,
- 		},
- 		{
- 			.wm_inst = WM_C,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
- 			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 28.0,
--			.sr_enter_plus_exit_time_us = 30.0,
-+			.sr_exit_time_us = 31.0,
-+			.sr_enter_plus_exit_time_us = 33.0,
- 			.valid = true,
- 		},
- 		{
- 			.wm_inst = WM_D,
- 			.wm_type = WM_TYPE_PSTATE_CHG,
- 			.pstate_latency_us = 11.72,
--			.sr_exit_time_us = 28.0,
--			.sr_enter_plus_exit_time_us = 30.0,
-+			.sr_exit_time_us = 31.0,
-+			.sr_enter_plus_exit_time_us = 33.0,
- 			.valid = true,
- 		},
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-index 817a370e80a77..8a177d5ae213e 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn35/dcn35_fpu.c
-@@ -164,8 +164,8 @@ struct _vcs_dpi_soc_bounding_box_st dcn3_5_soc = {
- 		},
- 	},
- 	.num_states = 5,
--	.sr_exit_time_us = 28.0,
--	.sr_enter_plus_exit_time_us = 30.0,
-+	.sr_exit_time_us = 31.0,
-+	.sr_enter_plus_exit_time_us = 33.0,
- 	.sr_exit_z8_time_us = 250.0,
- 	.sr_enter_plus_exit_z8_time_us = 350.0,
- 	.fclk_change_latency_us = 24.0,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index b9c38a4fe546a..656c267dbe587 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -514,8 +514,15 @@ amdgpu_dma_buf_move_notify(struct dma_buf_attachment *attach)
+ 		r = dma_resv_reserve_fences(resv, 2);
+ 		if (!r)
+ 			r = amdgpu_vm_clear_freed(adev, vm, NULL);
++
++		/* Don't pass 'ticket' to amdgpu_vm_handle_moved: we want the clear=true
++		 * path to be used otherwise we might update the PT of another process
++		 * while it's using the BO.
++		 * With clear=true, amdgpu_vm_bo_update will sync to command submission
++		 * from the same VM.
++		 */
+ 		if (!r)
+-			r = amdgpu_vm_handle_moved(adev, vm, ticket);
++			r = amdgpu_vm_handle_moved(adev, vm, NULL);
+ 
+ 		if (r && r != -EBUSY)
+ 			DRM_ERROR("Failed to invalidate VM page tables (%d))\n",
 -- 
 2.51.0
 
