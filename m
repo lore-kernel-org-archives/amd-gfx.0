@@ -4,151 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F3E2EA4E07
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 13:48:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96910EA4E09
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 13:48:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BACB10E4F4;
-	Mon,  2 Mar 2026 13:48:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 143CB10E503;
+	Mon,  2 Mar 2026 13:48:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.b="lhfPaaXt";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="dABDq58F";
 	dkim-atps=neutral
-X-Greylist: delayed 316 seconds by postgrey-1.36 at gabe;
- Mon, 02 Mar 2026 00:00:53 UTC
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FD8110E335
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2026 00:00:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
- s=s31663417; t=1772409651; x=1773014451; i=quwenruo.btrfs@gmx.com;
- bh=bTIGSF5NsPv0G4ks6nGwKYOcvbN6IniMFPE2x9fPKIs=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
- References:In-Reply-To:Content-Type:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=lhfPaaXtV3hoNdyPIKfTUeYxg582qr4zoCEsOk8Qfg7iwMQ7+izghv6M9+oNVJkL
- lDmUnczrLSyaven6MoooLFxrypBJGNcM2Cngc7dfVMOvvnWNw4Mk7kreDYreW43/R
- Yfa/NEiH/iNB/pqrV+my6RI1QB9LeG0bFhhBGQHg/BdUFZpPlm0zGzuURGRdIMXd+
- pLIGOKmlGYWbhSkd1/BlJIGbfOa0q3N6Tz2etR4gWw51FKblR0Z3P9zSHkHefR2h5
- igE2d6yEeoaRLUGhimY3th4DOfF8FyyE/aImue9d7x0dEnqAuLGKvaJbx4kOzcsgI
- MlnPY4B/Cx1yOyXBnA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.184]) with ESMTPSA (Nemesis) id 1MKsnP-1wFlSk0Mzl-00QZH9; Mon, 02
- Mar 2026 00:55:35 +0100
-Message-ID: <1dddfae5-ac4f-436e-a191-5dfd1b9e957d@gmx.com>
-Date: Mon, 2 Mar 2026 10:25:31 +1030
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: GPU has a very high load if the monitor is turned off by KDE
-From: Qu Wenruo <quwenruo.btrfs@gmx.com>
-To: amd-gfx@lists.freedesktop.org, kde@mail.kde.org
-References: <ab5b4f6c-f03d-4ca9-a80e-69cd43eb0c24@gmx.com>
- <ebc85e84-abd9-4647-8e79-6925895fa4b0@gmx.com>
- <a6b5282c-6844-41cc-b5a5-895567af1f4a@gmx.com>
-Content-Language: en-US
-Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNIlF1IFdlbnJ1byA8cXV3ZW5ydW8uYnRyZnNAZ214LmNvbT7CwJQEEwEIAD4CGwMFCwkI
- BwIGFQgJCgsCBBYCAwECHgECF4AWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1YAUJEP5a
- sQAKCRDCPZHzoSX+qF+mB/9gXu9C3BV0omDZBDWevJHxpWpOwQ8DxZEbk9b9LcrQlWdhFhyn
- xi+l5lRziV9ZGyYXp7N35a9t7GQJndMCFUWYoEa+1NCuxDs6bslfrCaGEGG/+wd6oIPb85xo
- naxnQ+SQtYLUFbU77WkUPaaIU8hH2BAfn9ZSDX9lIxheQE8ZYGGmo4wYpnN7/hSXALD7+oun
- tZljjGNT1o+/B8WVZtw/YZuCuHgZeaFdhcV2jsz7+iGb+LsqzHuznrXqbyUQgQT9kn8ZYFNW
- 7tf+LNxXuwedzRag4fxtR+5GVvJ41Oh/eygp8VqiMAtnFYaSlb9sjia1Mh+m+OBFeuXjgGlG
- VvQFzsBNBFnVga8BCACqU+th4Esy/c8BnvliFAjAfpzhI1wH76FD1MJPmAhA3DnX5JDORcga
- CbPEwhLj1xlwTgpeT+QfDmGJ5B5BlrrQFZVE1fChEjiJvyiSAO4yQPkrPVYTI7Xj34FnscPj
- /IrRUUka68MlHxPtFnAHr25VIuOS41lmYKYNwPNLRz9Ik6DmeTG3WJO2BQRNvXA0pXrJH1fN
- GSsRb+pKEKHKtL1803x71zQxCwLh+zLP1iXHVM5j8gX9zqupigQR/Cel2XPS44zWcDW8r7B0
- q1eW4Jrv0x19p4P923voqn+joIAostyNTUjCeSrUdKth9jcdlam9X2DziA/DHDFfS5eq4fEv
- ABEBAAHCwHwEGAEIACYCGwwWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCZxF1gQUJEP5a0gAK
- CRDCPZHzoSX+qHGpB/kB8A7M7KGL5qzat+jBRoLwB0Y3Zax0QWuANVdZM3eJDlKJKJ4HKzjo
- B2Pcn4JXL2apSan2uJftaMbNQbwotvabLXkE7cPpnppnBq7iovmBw++/d8zQjLQLWInQ5kNq
- Vmi36kmq8o5c0f97QVjMryHlmSlEZ2Wwc1kURAe4lsRG2dNeAd4CAqmTw0cMIrR6R/Dpt3ma
- +8oGXJOmwWuDFKNV4G2XLKcghqrtcRf2zAGNogg3KulCykHHripG3kPKsb7fYVcSQtlt5R6v
- HZStaZBzw4PcDiaAF3pPDBd+0fIKS6BlpeNRSFG94RYrt84Qw77JWDOAZsyNfEIEE0J6LSR/
-In-Reply-To: <a6b5282c-6844-41cc-b5a5-895567af1f4a@gmx.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010070.outbound.protection.outlook.com [52.101.46.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69FEE10E242;
+ Sun,  1 Mar 2026 12:56:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tUWXcmSbDADXCXCj4mTqO1s2ZfQRWbLbjsXWD4cK0s7nBJD28PfHWDpX8fKKPP2xdmwzmpIG30/KT3uvojkrl09jsTwmA/R7agmQkByrfs4Ag4hs/0g+OGf8+4u05NYViMwe81vR8WN0T1eo/F+UNm2fReg3ZI4DyCM27niB861FYOS1DgolfrgUaq3BeM5suvz7SS73vOkfzK350Hp5YEw6vywq09AsLWvEl1gXpmgzlxKd3BkbK7ZrH+/wdvywN95KwCZS1V2wAThJw3qrv0bQsROV3o/GW2TiiTvRKc7I5WhNHEsXOQp5qYnF5ByWD5YjmOkvloSCJ/TEzWtGPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GIGfi1bmm7i7SmOkR5eGx5RU+3wrmWy3gsj7tkhJ06M=;
+ b=fIp1TNoHl+kR5m5V3SCt7fa4J2yTr8U+r3prafF3/cGIAdblI2NaJ7njaqlDoxByPpoAI0h9s9/xH65ike6SEyfPva+FpIbgFbN5EDVxbRlfm9xLvWTX0pe/nmcxY0V1/y6BoOe4IMghpaqoG2DES/T8QOXBu4nzcE3Uyo9a3VfCpy08h6tQEzKfZAxL7RD00ZHp6raZiWTfibTe7sKDPxN1HNsfMx69OhI/csXiTiYZsRZ3HItSnQjzJ0q63L82F1OliwX58gXBhnesY2sJk/Ds6aDchRgWc02kFsJrJB1hdWt7aR+qerAQZZ08/ZcD+aTsJdvs/z+/ayrJFDlT4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GIGfi1bmm7i7SmOkR5eGx5RU+3wrmWy3gsj7tkhJ06M=;
+ b=dABDq58FJKUUm7UTPBAFY4EfwwKjXKNpvdjTInF5PxqzFYeaU10hhGUPGyf2EhgybgZqnqeN4vTGBaFOVVttMIiWy5b+huIYGJbCAFxwSqRgBxrbrFiTgku/0m8LU2QyoHYGF+2cNmVyoCo6nhGaBspPELzad3xu7ylOK26r1FZh+tVy0bWfeDQgFe3CV4T2SJTRNN3MY5QTytkLOARD3KeBG+voUnmmLtr20L3bkuf8BjGY3D8rILpDPe3VMppR4hh8FkO2a9mwHIsNjr09fF1bd/Lf18xQKo+TBZE52powTj4niEGH0Qzy2FQWXbmxSJUqNYG1MpWk9NATFmQ4ww==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by IA0PR12MB9010.namprd12.prod.outlook.com (2603:10b6:208:48e::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.11; Sun, 1 Mar
+ 2026 12:56:34 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9654.020; Sun, 1 Mar 2026
+ 12:56:33 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 01 Mar 2026 21:56:30 +0900
+Message-Id: <DGRGNLACDJI2.1JFEXE1GL1ZVM@nvidia.com>
+Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Koen Koning"
+ <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
+ <nouveau@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>, "Nikola
+ Djukic" <ndjukic@nvidia.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet" <corbet@lwn.net>,
+ "Alex Deucher" <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Helge Deller" <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>,
+ "Boqun Feng" <boqun.feng@gmail.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, "Zhi Wang"
+ <zhiw@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, "Elle Rhumsaa"
+ <elle@weathered-steel.dev>, <alexeyi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <joel@joelfernandes.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v8 11/25] gpu: nova-core: mm: Use usable VRAM region for
+ buddy allocator
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:tHrkhm8LdbM06YmG6Hpcv9ALKvHsChtrLvuwpQxryI+UQPyTl/P
- cHk3wBKp2OS8HN7+l25AwlyTIszkZJdgVE5XmHtU17a/zSpCw1n9yMUngXLvr6uQyE6LyKi
- 4ncDaOU2iQaZy5QQbKim8p2fvLxLnkA8UcikyIQD6xGw2GxXcyxNUxf2uOWcXsASyC4ny2+
- nMkj7um5VZwZXkoMZBMgg==
-UI-OutboundReport: notjunk:1;M01:P0:NP0AmQBFzzg=;3eOznCMIL40EZPfvPrB5aqPAeFb
- 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
- XHiYHPiiq2UINSun0=
+References: <20260224225323.3312204-1-joelagnelf@nvidia.com>
+ <20260224225323.3312204-12-joelagnelf@nvidia.com>
+In-Reply-To: <20260224225323.3312204-12-joelagnelf@nvidia.com>
+X-ClientProxiedBy: TYCP286CA0176.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c6::8) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|IA0PR12MB9010:EE_
+X-MS-Office365-Filtering-Correlation-Id: 18c503f3-34b3-4fd3-33f1-08de7791f737
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|376014|366016|10070799003; 
+X-Microsoft-Antispam-Message-Info: BVIctgIHLM9b55JzsXRI9vFlGJU+bvF6aVKWxpIjQ9UTgLXp7vpJsW/dDIRBzvye4F8X7jv4uhippvTuxOjBENIUuZ3yYKYia2Y0DhWPHfNl+8i6yVFc5r9uf36UcNJTConsG/byocsKCWMdDoLZe/p4u29S5N4Q5Varl2IYShQPqDrREIbDLtqZuKoPtmQAfE2r3PP6UMiSyK1rLPfyhOIfcLfEcWID448ngYyEduOjbrjZM3653nH+o2GIeM81CqSg5tJyCdbKYe2ExvgcvvX95UnoyiS8yTc4KSTZ3Lt85if8Bphw6u/HFiOxPRJHmxuHcG5yEkaab2lW+TSaW3xw4P/c92mlwRlpFVI8UK0sPxUXfzT3cMx/g3VevXEiDsWETlC74Sd2LZnglJGzVJMRFJ2+6n5KHHL1O/nwk1PTGJXp6kmN+tOdTOKZk02ibrbboXpzsFGF1sX4O6sb3743eCeAv2WlpKBr9v/NFk0BmalzDrPlD84PRPoacg/jIb9gFfrnWOuNTxjOvOKSsAOBTpBj58kCDnxHjc8051xwSOixlmc+Iq1R6v+xvCfrC3Syjg0jygahbAljRGbtwOl1SKJz+hlhO0x6/xIQNfuffkaRfSjMIXAFvDwbHsqtly1PepYeI/dAHQVbic6oZEYY7d5bpEdo49nygHL7f4iQtdVLRa7dBV12fvuQDGEUFmZm36xdFJcmAiWb4qDWTb8vwDhcZYBf5BFU0I6tj6k=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(10070799003); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y1ZYZWlYRE1iY1hnNkcvOHVKMkplakpNN1dJN1VkWkxrTUFXRFp2WWFzNmly?=
+ =?utf-8?B?bElIeis4a3hpdXBmTHpLVVZoWEVNWG04Qk01UjJkSFhCWkhLKzc5RlIvTWJR?=
+ =?utf-8?B?cUlDRDZnWDl0eml5ZkR1eHhGd1JocDlZaS91R3VKbmw0bEZ4QjE3emdBQlZO?=
+ =?utf-8?B?Q3c3U3JjOXdNck91endNcC80QkU1WTN3UTg3WWxBTFRiYnJ3M1QvOWt1SUdE?=
+ =?utf-8?B?SzBpQ0hqNlBDVmdIdTdJZU1rN0k1MkxMcXdreW1Za2gzWU0rYVlXTytRSkQ4?=
+ =?utf-8?B?N1pYUFA4MlhjV1BiWm1kYmFqbllGTDE2ekNOZVlvSFhGQkoxQXk5ZU5GMkJE?=
+ =?utf-8?B?UW8remtxWkg0L0d1d1h1ZmVGMW54dXBSVXZaaVdyL3J0aXZYdU9aeW1yUHZI?=
+ =?utf-8?B?K3lsRDFOUndMbVMwTFkzakdndDJrNXhBZDRsRHgrZ1dIdHc4Nmw1Ty91Umxt?=
+ =?utf-8?B?Uk9qRkwrNThwYy9CN0VIZlY4ZytaZ2pUWmZkOG9MUmh4RHFacUxudVcvSmUw?=
+ =?utf-8?B?eHY3N2hWQTNucTNuTy9zM2lRT2hwaDhZb0xobW9kdlhwc081aVFnMXZHU2ZV?=
+ =?utf-8?B?TzV5R0NoNFYzTUtSV3FzMzZyaEJkclU0OE1Dcm83dldDKzUzV0RmQlVNVmZ3?=
+ =?utf-8?B?T0hidHJURkptOEFnMnlQTlZNUTdsV0pRcG1GL2FrYVBBRWlMamRiYjNLS1NJ?=
+ =?utf-8?B?MnhaUjB3c29Vd3FtbFZmRmJYLzUzSFRReDJMMlRlUW9seTQ0V010UmNzSmxq?=
+ =?utf-8?B?aE1nMEZUMUVsZHVycW9ZVzZHdXdBWkVtRDd3ems4QVlMc2szYmQvNVJZYWg5?=
+ =?utf-8?B?RThSRlo0bWkrdFp3SGxLdE8xMEp4Zmg4UkFEYjF2MHlJY05GekRmMWY0emhG?=
+ =?utf-8?B?U2dVa1BLNFJyR1hlVWF3UTlSNjNuaFg3bzhCekpDdUYwdnE4bGNCYmRrT244?=
+ =?utf-8?B?VXVKMUJ6QkJST2k4cXViK1RmT0w4R09tZzBpUmZYOVMwa1hKVVZFdy9PQjAy?=
+ =?utf-8?B?MzZYQlYrNmxGWmxjNElWYWNDZGU0dkkxa1lUSURWWE8xOUpVd3NqRVVnQVU5?=
+ =?utf-8?B?TmxJdG8zZ0xzdm10TEVpV1ArMzlCWGo0WDhkVStKVlF6TU4zZCsvRTNvVTJu?=
+ =?utf-8?B?VUdTcWhKMmxXWkpuZ0VWRVJTM0ZnSVdmUDM2RHZSUStPbFhJWDh0dXNkRTRH?=
+ =?utf-8?B?QWlUWHFrQ2RCUWlMU25oaGg1NWpzZ0VOVUNBR3VwSU0zdTJ6eG80L21yYnhR?=
+ =?utf-8?B?aFVteGJqV2dmdVJacjlCazkyNkM0TFhsM3RZbkpZdHM4MUlwaVRnQnk4Y1N2?=
+ =?utf-8?B?SlBRVFJLYmJWVlc4NGJZL3VvTVFVY1BTNE5pYjdaK2dUc080RkZNMEVZclVV?=
+ =?utf-8?B?TmdncUVycG9QMGpVdTI4YmI2OWN1bGxLSDd2eDNYYWJiVkMzTU5FbjFiaFds?=
+ =?utf-8?B?UW9QVTVOM3dXTGFBZ05ZMzBTODJOY25PejM4Sk5UNUplM1hBRzE1M0lsUUds?=
+ =?utf-8?B?NlVrU2VvY2xVc1YxYitNMDNsMWtGVi9Oc1ZTUU5mS2o1cVVmcm9FYjduTWZT?=
+ =?utf-8?B?aTluSWs4ZjFWOWpyVEVxTWNwcEZVZ1B1WGN6TEpHRVMzRXRxQ0J4aEs1VlJT?=
+ =?utf-8?B?UldSZHQ1V0M1VER4MmxrVDkrbENuUjJlY3pkNXk2NjlCYStRSEEraXkrSlIw?=
+ =?utf-8?B?YU90K2xiS2YrNGUvamR1SmhidTFZMTMrOWRaa1NiOTNObVgyVVJ3S2JkMHNT?=
+ =?utf-8?B?K1NEREsvd29kZGgwU3Q4eHhqY3pGSnYvUUZUNWZ2cFA1MkJIOHNhQVFUVnBN?=
+ =?utf-8?B?NU0xbWI2b283Y0NvTFlzdnc5TFBob2N6QlZVWCtmRDlUSTAxSHRjV05zRjVv?=
+ =?utf-8?B?QmxYbmtpTGlBRnhibGJJTVAvK2tEWHhZUHFaOFJYOWd2RG90MDRCN3BQSm40?=
+ =?utf-8?B?VHlvRDZka1BDNGw1S2pjNjhEdWFQZWxzRitnblE1blRkREJBSVpaZ2haZlhT?=
+ =?utf-8?B?SmtCN2M4OWJnNUowU2t1S1kwY1YrbTdVQnJBVlJyNGh4bGJkM3AvbDhoVHIv?=
+ =?utf-8?B?TU9CWHJkSXdOMzZOTmVqV09zUm56NUZtYUNBL1pEVXVkeW9mR3pSdUFENTZN?=
+ =?utf-8?B?ZCtLWmVFU3hHL0VucHVOci9nTnJ5dGFCcUdFR3JGekNqY2NKL3haZVpMTlRH?=
+ =?utf-8?B?OTRSbDkzUXEybCtUTVpnQTFXMWU4SlpST29wL1pZbTJuaFdOd3VodzV3Zlla?=
+ =?utf-8?B?UTVMcnFoYThnWHVGdGFHbXN4R0NZbzdTeGN1V0o5Z0x0bGxMUlBhbDF4cnVY?=
+ =?utf-8?B?NUs0SHEyK201cEtVOExmNTJ0cHg5TGF6eXBWMW1zQ0ZiSTZ0a05URk9xNThT?=
+ =?utf-8?Q?lc9hhgtmFjdpNYVpzhkiWxV27l7yST8wkYYh90OWXByBP?=
+X-MS-Exchange-AntiSpam-MessageData-1: mJHfwKYVfBlOlg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 18c503f3-34b3-4fd3-33f1-08de7791f737
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Mar 2026 12:56:33.7750 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GrsTA4RK6nYCZX2TqyENznuJDOXVtqwsjWz2vHI2tq2o36basnKvRGaxrc7m5cf5eXEZI4JnBxmGZOoouxs2dQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9010
 X-Mailman-Approved-At: Mon, 02 Mar 2026 13:48:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -164,87 +165,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Wed Feb 25, 2026 at 7:53 AM JST, Joel Fernandes wrote:
+<snip>
+> @@ -295,18 +309,42 @@ pub(crate) fn new<'a>(
+> =20
+>              sec2_falcon: Falcon::new(pdev.as_ref(), spec.chipset)?,
+> =20
+> -            // Create GPU memory manager owning memory management resour=
+ces.
+> -            // This will be initialized with the usable VRAM region from=
+ GSP in a later
+> -            // patch. For now, we use a placeholder of 1MB.
+> -            mm <- GpuMm::new(devres_bar.clone(), GpuBuddyParams {
+> -                base_offset_bytes: 0,
+> -                physical_memory_size_bytes: SZ_1M as u64,
+> -                chunk_size_bytes: SZ_4K as u64,
+> -            })?,
+> -
+>              gsp <- Gsp::new(pdev),
+> =20
+> -            gsp_static_info: { gsp.boot(pdev, bar, spec.chipset, gsp_fal=
+con, sec2_falcon)?.0 },
+> +            // Boot GSP and extract usable VRAM region for buddy allocat=
+or.
+> +            gsp_static_info: {
+> +                let (info, fb_layout) =3D gsp.boot(pdev, bar, spec.chips=
+et, gsp_falcon, sec2_falcon)?;
+> +
+> +                let usable_vram =3D fb_layout.usable_vram.as_ref().ok_or=
+_else(|| {
+> +                    dev_err!(pdev.as_ref(), "No usable FB regions found =
+from GSP\n");
+> +                    ENODEV
+> +                })?;
+
+The chain through which we obtain `usable_vram` is very inefficient and
+much more complex than it needs to be.
+
+`fb_layout` is used as a transport for `usable_vram`, but `usable_vram`
+is the only member of it that we ever use. In that case, why not return
+`usable_vram` directly?
+
+This is all the better as `usable_vram` is added as an `Option` in
+`FbLayout`, not because `None` is a valid state but because `FbLayout`
+is already constructed by the time we obtain `usable_vram`. So `None` is
+just a value that tells the caller "please return an error". Now we can
+remove the option altogether, drop patch 5, and have `boot` return the
+error for us if `usable_vram` cannot be obtained.
+
+But let's not stop here. `usable_vram` is first obtained as part of the
+`GetGspStaticInfo` reply. It starts its life as `(u64, u64)` before
+being morphed into a `Range<u64>` when stored in `FbLayout`. Since its
+tuple state is never useful, let's store it as a `Range<u64>` in
+`GetGspStaticInfoReply` to begin with and, since we cannot continue
+without it anyway, let's make `commands::get_gsp_info()` fail if it
+cannot build it. That way we don't even need to store it as an `Option`.
+
+And now, since `boot` already returns the `GetGspStaticInfoReply`, we
+can directly access it just by making `usable_vram` public - no need for
+`boot` to return a tuple anymore.
+
+Once you have that, something interesting happens: you don't need to
+change the `gsp_static_info` arm at all in this patch. All the new code
+can be moved to the `mm` arm, which is where it is actually useful
+anyway.
+
+The subsequent patches that make use of `boot_params` in other arms can
+also access the exact same data using `gsp_static_info`:
+
+- `bar1_pde_base` is also accessible from `gsp_static_info` (let's also
+  make it public instead of adding an accessor method),
+- The other `boot_params` used to build the `GpuMM` can be reconstructed
+  from `usable_vram`.
+
+Which means `boot_params` and `BootParams` can be removed (and the
+`Cell` import), and we have something simpler and more direct that takes
+~60 less LoCs.
+
+In other words, this arm remains as it was:
+
+    gsp_static_info: gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_fal=
+con)?,
 
 
-=E5=9C=A8 2026/2/28 09:49, Qu Wenruo =E5=86=99=E9=81=93:
->=20
->=20
-> =E5=9C=A8 2026/2/28 09:26, Qu Wenruo =E5=86=99=E9=81=93:
->>
->>
->> =E5=9C=A8 2026/2/28 07:53, Qu Wenruo =E5=86=99=E9=81=93:
->>> Hi,
->>>
->>> Recently I upgraded my Arch with the following package updates:
->>>
->>> - Plasma (6.6.0-1 -> 6.6.1-1)
->>> - Kernel (6.18.6 -> 6.18.9)
->>>
->>> Both are minor updates thus I thought it should be mostly smooth=20
->>> sailing.
->>>
->>> But after the update, after the monitor is turned off after a timeout=
-=20
->>> (10min in my case), the fan of my GPU ramp up.
->>> This also happens when my system is put into suspension.
->>>
->>> Unfortunately the behavior is not 100% reproducible, but still=20
->>> frequently enough to notice the noisy fan running.
->>
->> Downgrading kernel ruled out the kernel bug.
->>
->> And I have tried 3 times to suspend, and can reproduce the high GPU=20
->> load 3 times.
->>
->> Another thing I noticed is, previous when suspending, the eGPU seems=20
->> to be completely shutdown (only the power LED lights up, the work LED=
-=20
->> shut down).
->>
->> But now when suspension happened, the eGPU doesn't shutdown at all,=20
->> just with its fan ramping up.
->>
->> Will try downgrading the firmware as the next step just in case.
->=20
-> Blacklisting the amdxdna module solves the suspension problem at least.
+> +            // Create GPU memory manager owning memory management resour=
+ces.
+> +            // Uses the usable VRAM region from GSP for buddy allocator.
+> +            mm <- {
 
-Meanwhile for the monitor off high GPU usage, even with the xdna driver=20
-blacklisted, tried different kernel (LTS, the last working one, the=20
-latest) and firmware (the last working one with the latest), all the=20
-same high GPU usage when the monitor is off.
+this arm can now be:
 
-So this looks more like something in the KDE part.
+    let usable_vram =3D &gsp_static_info.usable_fb_region;
 
-Thanks,
-Qu
+    dev_info!(
+        pdev.as_ref(),
+        "Using FB region: {:#x}..{:#x}\n",
+        usable_vram.start,
+        usable_vram.end
+    );
 
->=20
-> I can not hate the stupid NPU/AI thing more.
->=20
-> Thanks,
-> Qu
->=20
->>
->> Thanks,
->> Qu
->>
->>>
->>>
->>> The involved platform is:
->>>
->>> CPU: AMD Ryzen AI 9 HX 370 w/ Radeon 890M
->>> iGPU: Radeon 890M
->>> eGPU: RX 7600M XT
->>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 OcuLink eGPU from Aoostar
->>>
->>> All monitors are connected to that eGPU.
->>>
->>> Any clue on what to test next? Is it something related to KDE or the=
-=20
->>> kernel?
->>>
->>> Thanks,
->>> Qu
->>
->=20
+    GpuMm::new(devres_bar.clone(), GpuBuddyParams {
+        base_offset_bytes: usable_vram.start,
+        physical_memory_size_bytes: usable_vram.end - usable_vram.start,
+        chunk_size_bytes: SZ_4K.into_safe_cast(),
+    })?
+
+> +                let params =3D boot_params.get();
+> +                GpuMm::new(devres_bar.clone(), GpuBuddyParams {
+> +                    base_offset_bytes: params.usable_vram_start,
+> +                    physical_memory_size_bytes: params.usable_vram_size,
+> +                    chunk_size_bytes: SZ_4K.into_safe_cast(),
+> +                })?
+> +            },
+> =20
+>              bar: devres_bar,
+>          })
+> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/gs=
+p/boot.rs
+> index 7a4a0c759267..bc4446282613 100644
+> --- a/drivers/gpu/nova-core/gsp/boot.rs
+> +++ b/drivers/gpu/nova-core/gsp/boot.rs
+> @@ -150,7 +150,7 @@ pub(crate) fn boot(
+> =20
+>          let gsp_fw =3D KBox::pin_init(GspFirmware::new(dev, chipset, FIR=
+MWARE_VERSION), GFP_KERNEL)?;
+> =20
+> -        let fb_layout =3D FbLayout::new(chipset, bar, &gsp_fw)?;
+> +        let mut fb_layout =3D FbLayout::new(chipset, bar, &gsp_fw)?;
+>          dev_dbg!(dev, "{:#x?}\n", fb_layout);
+> =20
+>          Self::run_fwsec_frts(dev, gsp_falcon, bar, &bios, &fb_layout)?;
+> @@ -252,6 +252,11 @@ pub(crate) fn boot(
+>              Err(e) =3D> dev_warn!(pdev.as_ref(), "GPU name unavailable: =
+{:?}\n", e),
+>          }
+> =20
+> +        // Populate usable VRAM from GSP response.
+> +        if let Some((base, size)) =3D info.usable_fb_region() {
+> +            fb_layout.set_usable_vram(base, size);
+> +        }
+> +
+
+And this change is not needed anymore.
 
