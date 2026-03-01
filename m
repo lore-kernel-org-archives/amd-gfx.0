@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE003FD0048
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Mar 2026 01:17:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D4BDFD0048
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Mar 2026 01:25:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A00A10E2E1;
-	Sun,  1 Mar 2026 01:17:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7FF010E2F3;
+	Sun,  1 Mar 2026 01:25:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dachz+Xt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dtz2YYIv";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F06F10E2E0;
- Sun,  1 Mar 2026 01:17:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4221F10E2F3;
+ Sun,  1 Mar 2026 01:25:42 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1DA9443942;
- Sun,  1 Mar 2026 01:17:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 513BCC19421;
- Sun,  1 Mar 2026 01:17:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 28A6740283;
+ Sun,  1 Mar 2026 01:25:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 552F2C2BC86;
+ Sun,  1 Mar 2026 01:25:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772327852;
- bh=Zs+lV6WzByO5DOJKciAmQwlU/O+C9Rh/JqGQ0kowbLM=;
+ s=k20201202; t=1772328342;
+ bh=iYfT2cToUYqsGSZq9JRF4W4eu/WYwHdaJ+xiafr+s90=;
  h=From:To:Cc:Subject:Date:From;
- b=Dachz+XtA43wnzWAEs4jaSoxnIyNEUGxStL48gZi14KteLwJ5C20n987kVQDSpUK/
- IB3ij7Y3PYOmLkO5egId0PGyLR6DbPHKPEBqjqSbQYh9pXtL5jXECn9WBxn4sLX+Sf
- VSYs302S3ayfnsAI8l3XrJ8rRPi6B7Iu+y0xdQHTnS/eh30Kiryu/WWM7k8n2rHFMo
- xnYYb7BZNWMUw3zkliwChUnHSHEBLIMFZHayl9i5uZ1Qy0z6S2+CjkFS+H3OkyaXMl
- PVmGNjxW3v5k9TeEFAgVVE4ixmHyKYlb798jHBpxq8mEX2/B+tHwv+QgejFCu/Tkl4
- ZJjY9/7XhyU1g==
+ b=dtz2YYIvaHVcvY1YgWtdcKUKeBRNnlZ615V2AVRCegJb9ycSnWz1bnLZMAE8eypZo
+ 2G6+bCNUD4iFnYdeJACu/BCMDqukiylgNllK8YzpRmVY2WL+R50j+ntXc9asvlLFxl
+ VpaKVSsMArGSnT7x0uS+pWOm0NNO7zB2ur/V83ZiMiT70ByZlx+UHkQHPyfi5qIrYV
+ Nt1ur1wEruw3JRo+0j6DKFxhEwDN0+jlUZAVbIgkZZ7Dkzw8UW/42zzIL22vso0QpF
+ mBt8+BTzMnNWzMjjA/cX6v8sHt5OXVVa7UU/V4LqJyatLrY9885LHmYU3i4SeVQ8qy
+ 8/zkpW/X6CQLg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
-	mario.limonciello@amd.com
-Cc: Cal Peake <cp@absolutedigital.net>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: FAILED: Patch "drm/amd: Fix hang on amdgpu unload by using
- pci_dev_is_disconnected()" failed to apply to 6.18-stable tree
-Date: Sat, 28 Feb 2026 20:17:29 -0500
-Message-ID: <20260301011730.1671451-1-sashal@kernel.org>
+	yifan1.zhang@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: FAILED: Patch "drm/amdgpu: Protect GPU register accesses in
+ powergated state in some paths" failed to apply to 6.12-stable tree
+Date: Sat, 28 Feb 2026 20:25:39 -0500
+Message-ID: <20260301012540.1682831-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -59,7 +58,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
@@ -69,66 +68,59 @@ Sasha
 
 ------------------ original commit in Linus's tree ------------------
 
-From f7afda7fcd169a9168695247d07ad94cf7b9798f Mon Sep 17 00:00:00 2001
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Thu, 5 Feb 2026 10:42:54 -0600
-Subject: [PATCH] drm/amd: Fix hang on amdgpu unload by using
- pci_dev_is_disconnected()
+From 39fc2bc4da0082c226cbee331f0a5d44db3997da Mon Sep 17 00:00:00 2001
+From: Yifan Zhang <yifan1.zhang@amd.com>
+Date: Mon, 2 Feb 2026 13:17:39 +0800
+Subject: [PATCH] drm/amdgpu: Protect GPU register accesses in powergated state
+ in some paths
 
-The commit 6a23e7b4332c ("drm/amd: Clean up kfd node on surprise
-disconnect") introduced early KFD cleanup when drm_dev_is_unplugged()
-returns true. However, this causes hangs during normal module unload
-(rmmod amdgpu).
+Ungate GPU CG/PG in device_fini_hw and device_halt to protect GPU
+register accesses, e.g. GC registers are accessed in amdgpu_irq_disable_all()
+and amdgpu_fence_driver_hw_fini().
 
-The issue occurs because drm_dev_unplug() is called in amdgpu_pci_remove()
-for all removal scenarios, not just surprise disconnects. This was done
-intentionally in commit 39934d3ed572 ("Revert "drm/amdgpu: TA unload
-messages are not actually sent to psp when amdgpu is uninstalled"") to
-fix IGT PCI software unplug test failures. As a result,
-drm_dev_is_unplugged() returns true even during normal module unload,
-triggering the early KFD cleanup inappropriately.
-
-The correct check should distinguish between:
-- Actual surprise disconnect (eGPU unplugged): pci_dev_is_disconnected()
-  returns true
-- Normal module unload (rmmod): pci_dev_is_disconnected() returns false
-
-Replace drm_dev_is_unplugged() with pci_dev_is_disconnected() to ensure
-the early cleanup only happens during true hardware disconnect events.
-
-Cc: stable@vger.kernel.org
-Reported-by: Cal Peake <cp@absolutedigital.net>
-Closes: https://lore.kernel.org/all/b0c22deb-c0fa-3343-33cf-fd9a77d7db99@absolutedigital.net/
-Fixes: 6a23e7b4332c ("drm/amd: Clean up kfd node on surprise disconnect")
+Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 528990a595ec9..9758221413814 100644
+index c1ffc63e23ab5..528990a595ec9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4924,7 +4924,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 	 * before ip_fini_early to prevent kfd locking refcount issues by calling
- 	 * amdgpu_amdkfd_suspend()
- 	 */
--	if (drm_dev_is_unplugged(adev_to_drm(adev)))
-+	if (pci_dev_is_disconnected(adev->pdev))
- 		amdgpu_amdkfd_device_fini_sw(adev);
+@@ -3504,9 +3504,6 @@ static int amdgpu_device_ip_fini_early(struct amdgpu_device *adev)
+ 		}
+ 	}
  
- 	amdgpu_device_ip_fini_early(adev);
-@@ -4936,7 +4936,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+-	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+-	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+-
+ 	amdgpu_amdkfd_suspend(adev, true);
+ 	amdgpu_amdkfd_teardown_processes(adev);
+ 	amdgpu_userq_suspend(adev);
+@@ -4902,6 +4899,9 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
+ 		amdgpu_virt_fini_data_exchange(adev);
+ 	}
  
- 	amdgpu_gart_dummy_page_fini(adev);
++	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
++	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
++
+ 	/* disable all interrupts */
+ 	amdgpu_irq_disable_all(adev);
+ 	if (adev->mode_info.mode_config_initialized) {
+@@ -7360,6 +7360,9 @@ void amdgpu_device_halt(struct amdgpu_device *adev)
+ 	amdgpu_xcp_dev_unplug(adev);
+ 	drm_dev_unplug(ddev);
  
--	if (drm_dev_is_unplugged(adev_to_drm(adev)))
-+	if (pci_dev_is_disconnected(adev->pdev))
- 		amdgpu_device_unmap_mmio(adev);
++	amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
++	amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
++
+ 	amdgpu_irq_disable_all(adev);
  
- }
+ 	amdgpu_fence_driver_hw_fini(adev);
 -- 
 2.51.0
 
