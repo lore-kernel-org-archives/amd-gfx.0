@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 223F2EC0479
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EFD4EC0466
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A227010E761;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 082BA10E75B;
 	Tue,  3 Mar 2026 09:01:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a/jE3ee6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D28UfErK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AFDE10E5BD;
- Mon,  2 Mar 2026 20:42:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF55E10E5C0;
+ Mon,  2 Mar 2026 20:36:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CE0C96013C;
- Mon,  2 Mar 2026 20:42:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B88CC19425;
- Mon,  2 Mar 2026 20:42:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A20ED42CED;
+ Mon,  2 Mar 2026 20:36:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68853C2BCB3;
+ Mon,  2 Mar 2026 20:36:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484149;
- bh=YwcnJPXAAscKHpgEUGItsgnX0yRJGV/n6SkEskf1J7U=;
+ s=k20201202; t=1772483776;
+ bh=2D5RY10D3f9EA9VpSCyHAUgXnN1Zhdx+XHZEceYHLkw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=a/jE3ee6RkkoAR7s9l6a1ENMXzAkQH3rzlJKvh65bROG350op/0J6iplw4D1sc4+d
- oclKZeRf/gF9p3h+0Ecg7zQDc8pfY94Psk3F75OQyXtohzK22vgDimG9zV25t+77Fa
- 4QFCTa1FhaSK7w4t7ExfQXlnKNZGeowT7C2QYGwPkKFQGZoxe9cB8Gu4co9y2fRdPz
- OdbDV3ayUG5lGiEuhTBPpj9O3buZIBpVUm47FTOYZAtxvGOYKsASwsEhe8WTNzaPvZ
- x0nFFGGJCvI8tGIu9/jGqJSU8XQ3ahul/FvMkZP/YJggSxaUgXDpMkcHIaqtdgE5aW
- pqqiTw2LzquqQ==
+ b=D28UfErKl1eVcmih3OCYqwtJEuipyNBp9pccWN4O90PfjlQCfkkqiKjHx0aD063mq
+ l821fn1Q2d9BAIgMPaDT6IfrQUygarHlZB4m+fsBbydlI2jsHc1vHUoRf6RM+GdM0m
+ /FVKPTbWxqvtfYUVIqsR8nj/U2sD7GLB2Ls9Ru5l+x/v38Jfw6FpxolDHaxAoIyaA+
+ 8Sx8d9SB+FgceSv49vWPXcCRFJEGFdyB8MA3zKxF/dknpmKpl3PTOwupPpI5NnZKFZ
+ j6rLDF+JnhA01/h5fNLCayGWtR0S/VuDR72pkdqZq+useJcEkMg3c9QWpOiqJNRued
+ +3gaPWPXWwOBw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:57 -0500
-Subject: [PATCH v2 073/110] befs: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:24:31 -0500
+Subject: [PATCH v2 047/110] ufs: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-73-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-47-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3816; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=YwcnJPXAAscKHpgEUGItsgnX0yRJGV/n6SkEskf1J7U=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIDQ79pU7FI0fHRZsQJj5jJC8eGbR6XylCUt
- iOfUtPsDk+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAwAKCRAADmhBGVaC
- FVTDEACODHYOCUH/LdAmO41y4Vp/cQpSV4BkS6bppIiXGVitrXjSRpOaFdxtiz9gxx54BpWWKdR
- Al+s6e/U0ikWt8dDXfF720St9a3sq9NhnC9kk7RLKYiTYzCiysHFoxvJ2Sq5/9Xdq8+4Dl+7cDi
- UItfZbfovn1p1DaU8yxRY0gG3AGBr8YVljmhwc1jWQwATwMdZO3Ccq67ucawTLfSk0UMP1InPTP
- 38hAu0GT+lCiUGUC9PsWGrtiAWoigdRD0KiYA924ehRyaAvljF2ZYXUNw39S3TdLVBao0+0UCBl
- Uo1KrUYQ+S/pg5fZSTMSe8/N4d/0KilhB6RZ+12IiUhp5JUGqEENQGik6peVTS7xUZ2UsV7AHBb
- 6fJQ0zIyydryLLsSJo+wFm2AHn/S6718RwT0xJfq3gngJQmsMm3R+fJMQ0UpXOx9jRecSQlVA4x
- 4hN3zUrRZzrRSy3r/AHaMthM+sn6ALA0ftLLaHTXxVTa83nswRChaRiI4QAM02yLFh30DSm3OPA
- 9lbE1Mf3tJAAmVI3W5tKTn/GqACo8SiCb5TSnWQokqFjxwQawyM4Zm894Pt8md3nZwvM+IW2DMW
- GdSy9hz3NvToRFldLJ2SWMeHuOK6wRLgIVFi28TrErot3lvkCo7CGu38/w/PyKvVGa90brNOBGI
- 9atXB2D5v/wb2CA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9430; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=2D5RY10D3f9EA9VpSCyHAUgXnN1Zhdx+XHZEceYHLkw=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH7rH5PHRctdRRgjkwiK9qGagiBnv38zWs92
+ EflSEcxid6JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx+wAKCRAADmhBGVaC
+ FSh3D/4/PsJte0gi8dRA0elfhS2fQq0Q5BLWsJIRQ0v1yNUSYVJBfsKc21wLkeg28VhyxcPrBdB
+ wV8K4/ffWGU7hs5jUXnMevIziT5Ni0HtqEJgdX79aoxyyblykf5U/2r5meRVpQWJ3pW9a6vlPMn
+ n+5vlifF8JzJqiEOoiilUeT/eI+sj1LVaytSk9qgSIFYoz0qcO+aP0tflWOtQESjcDQpNn5fiTI
+ cfJPvelPlPF1zzoS9suzIcAYeSJ41/BYVlfNp5y6si/Yq/1Bi1g35jmTPIfSQYKS5VVlDOXWFXS
+ E/KoPB7IsQZGsFQ89C3T7aaaVk18XUhffxKeodoFgKmb3sFpxJ53fttSUL6XISkSomzHH3tbsrH
+ +/zRf21W/uqcXY7lLxPLSKtAA7ZnDaPi1aIT61mPsi7cKtf8E3YEmGmyCW4nxiVQ8oSWomZYYaD
+ TXwkCIXmDp6cbw/OBcsiDQM1jSeSB6QigN9xYFvYTx+KvDtVrtUeWPigEenILHOS33QJR6aiYMO
+ WV5VDgDnKrStOWXcyvzqqbnUbWSYvNoNP5hUCSXAby8uLfxo85MxPHYxefD5fjJtAR6QQDnfum0
+ M31wgdYwMrbWW7LrWYZcx3bdukHRB0f7bamrCtoxYs/3A5nL69KoTjrgLZqyP4xaYXJyD2qvmPp
+ 02rS3BwD2CnpO7A==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,104 +182,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in befs with the concrete format strings.
+Convert ufs i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
+
+Remove now-unnecessary (unsigned long) casts on i_ino.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/befs/linuxvfs.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ fs/ufs/balloc.c |  6 +++---
+ fs/ufs/dir.c    | 10 +++++-----
+ fs/ufs/ialloc.c |  6 +++---
+ fs/ufs/inode.c  | 18 +++++++++---------
+ fs/ufs/ufs_fs.h |  6 +++---
+ fs/ufs/util.c   |  2 +-
+ 6 files changed, 24 insertions(+), 24 deletions(-)
 
-diff --git a/fs/befs/linuxvfs.c b/fs/befs/linuxvfs.c
-index c36216e23eb3678645cbdece913cc260fd10f4f8..c12caae9a96799b0a57e6cb5010de756f8b86346 100644
---- a/fs/befs/linuxvfs.c
-+++ b/fs/befs/linuxvfs.c
-@@ -140,11 +140,11 @@ befs_get_block(struct inode *inode, sector_t block,
- 	int res;
- 	ulong disk_off;
+diff --git a/fs/ufs/balloc.c b/fs/ufs/balloc.c
+index 194ed3ab945e3eae94db085ee8d37eb1a4439470..b961daa05608fa52dcfc2702bb97c437ef27d9c2 100644
+--- a/fs/ufs/balloc.c
++++ b/fs/ufs/balloc.c
+@@ -245,7 +245,7 @@ static void ufs_change_blocknr(struct inode *inode, sector_t beg,
+ 	sector_t end, i;
+ 	struct buffer_head *head, *bh;
  
--	befs_debug(sb, "---> befs_get_block() for inode %" PRIino "u, block %ld",
-+	befs_debug(sb, "---> befs_get_block() for inode %llu, block %ld",
- 		   inode->i_ino, (long)block);
- 	if (create) {
- 		befs_error(sb, "befs_get_block() was asked to write to "
--			   "block %ld in inode %" PRIino "u", (long)block,
-+			   "block %ld in inode %llu", (long)block,
- 			   inode->i_ino);
- 		return -EPERM;
+-	UFSD("ENTER, ino %lu, count %u, oldb %llu, newb %llu\n",
++	UFSD("ENTER, ino %" PRIino "u, count %u, oldb %llu, newb %llu\n",
+ 	      inode->i_ino, count,
+ 	     (unsigned long long)oldb, (unsigned long long)newb);
+ 
+@@ -340,7 +340,7 @@ u64 ufs_new_fragments(struct inode *inode, void *p, u64 fragment,
+ 	unsigned cgno, oldcount, newcount;
+ 	u64 tmp, request, result;
+ 	
+-	UFSD("ENTER, ino %lu, fragment %llu, goal %llu, count %u\n",
++	UFSD("ENTER, ino %" PRIino "u, fragment %llu, goal %llu, count %u\n",
+ 	     inode->i_ino, (unsigned long long)fragment,
+ 	     (unsigned long long)goal, count);
+ 	
+@@ -583,7 +583,7 @@ static u64 ufs_alloc_fragments(struct inode *inode, unsigned cgno,
+ 	unsigned oldcg, i, j, k, allocsize;
+ 	u64 result;
+ 	
+-	UFSD("ENTER, ino %lu, cgno %u, goal %llu, count %u\n",
++	UFSD("ENTER, ino %" PRIino "u, cgno %u, goal %llu, count %u\n",
+ 	     inode->i_ino, cgno, (unsigned long long)goal, count);
+ 
+ 	sb = inode->i_sb;
+diff --git a/fs/ufs/dir.c b/fs/ufs/dir.c
+index 43f1578ab8666a9611d4a77f5aababfce812fbe4..c7a13e01119f990b8f7139fdc3005e7b65afeb54 100644
+--- a/fs/ufs/dir.c
++++ b/fs/ufs/dir.c
+@@ -150,7 +150,7 @@ static bool ufs_check_folio(struct folio *folio, char *kaddr)
+ 
+ Ebadsize:
+ 	ufs_error(sb, __func__,
+-		  "size of directory #%lu is not a multiple of chunk size",
++		  "size of directory #%" PRIino "u is not a multiple of chunk size",
+ 		  dir->i_ino
+ 	);
+ 	goto fail;
+@@ -169,7 +169,7 @@ static bool ufs_check_folio(struct folio *folio, char *kaddr)
+ Einumber:
+ 	error = "inode out of bounds";
+ bad_entry:
+-	ufs_error(sb, __func__, "bad entry in directory #%lu: %s - "
++	ufs_error(sb, __func__, "bad entry in directory #%" PRIino "u: %s - "
+ 		   "offset=%llu, rec_len=%d, name_len=%d",
+ 		   dir->i_ino, error, folio_pos(folio) + offs,
+ 		   rec_len, ufs_get_de_namlen(sb, p));
+@@ -177,7 +177,7 @@ static bool ufs_check_folio(struct folio *folio, char *kaddr)
+ Eend:
+ 	p = (struct ufs_dir_entry *)(kaddr + offs);
+ 	ufs_error(sb, __func__,
+-		   "entry in directory #%lu spans the page boundary"
++		   "entry in directory #%" PRIino "u spans the page boundary"
+ 		   "offset=%llu",
+ 		   dir->i_ino, folio_pos(folio) + offs);
+ fail:
+@@ -258,7 +258,7 @@ struct ufs_dir_entry *ufs_find_entry(struct inode *dir, const struct qstr *qstr,
+ 	struct ufs_inode_info *ui = UFS_I(dir);
+ 	struct ufs_dir_entry *de;
+ 
+-	UFSD("ENTER, dir_ino %lu, name %s, namlen %u\n", dir->i_ino, name, namelen);
++	UFSD("ENTER, dir_ino %" PRIino "u, name %s, namlen %u\n", dir->i_ino, name, namelen);
+ 
+ 	if (npages == 0 || namelen > UFS_MAXNAMLEN)
+ 		goto out;
+@@ -434,7 +434,7 @@ ufs_readdir(struct file *file, struct dir_context *ctx)
+ 
+ 		if (IS_ERR(kaddr)) {
+ 			ufs_error(sb, __func__,
+-				  "bad page in #%lu",
++				  "bad page in #%" PRIino "u",
+ 				  inode->i_ino);
+ 			ctx->pos += PAGE_SIZE - offset;
+ 			return PTR_ERR(kaddr);
+diff --git a/fs/ufs/ialloc.c b/fs/ufs/ialloc.c
+index 73531827ecee12b3dff09aef0acc0e374b00fb29..f26fbe330a1d0e053ddf8dbe2a8ec5d41373c79f 100644
+--- a/fs/ufs/ialloc.c
++++ b/fs/ufs/ialloc.c
+@@ -63,7 +63,7 @@ void ufs_free_inode (struct inode * inode)
+ 	int is_directory;
+ 	unsigned ino, cg, bit;
+ 	
+-	UFSD("ENTER, ino %lu\n", inode->i_ino);
++	UFSD("ENTER, ino %" PRIino "u\n", inode->i_ino);
+ 
+ 	sb = inode->i_sb;
+ 	uspi = UFS_SB(sb)->s_uspi;
+@@ -317,7 +317,7 @@ struct inode *ufs_new_inode(struct inode *dir, umode_t mode)
+ 		bh = sb_bread(sb, uspi->s_sbbase + ufs_inotofsba(inode->i_ino));
+ 		if (!bh) {
+ 			ufs_warning(sb, "ufs_read_inode",
+-				    "unable to read inode %lu\n",
++				    "unable to read inode %" PRIino "u\n",
+ 				    inode->i_ino);
+ 			err = -EIO;
+ 			goto fail_remove_inode;
+@@ -336,7 +336,7 @@ struct inode *ufs_new_inode(struct inode *dir, umode_t mode)
  	}
-@@ -152,7 +152,7 @@ befs_get_block(struct inode *inode, sector_t block,
- 	res = befs_fblock2brun(sb, ds, block, &run);
- 	if (res != BEFS_OK) {
- 		befs_error(sb,
--			   "<--- %s for inode %" PRIino "u, block %ld ERROR",
-+			   "<--- %s for inode %llu, block %ld ERROR",
- 			   __func__, inode->i_ino,
- 			   (long)block);
- 		return -EFBIG;
-@@ -162,7 +162,7 @@ befs_get_block(struct inode *inode, sector_t block,
+ 	mutex_unlock(&sbi->s_lock);
  
- 	map_bh(bh_result, inode->i_sb, disk_off);
+-	UFSD("allocating inode %lu\n", inode->i_ino);
++	UFSD("allocating inode %" PRIino "u\n", inode->i_ino);
+ 	UFSD("EXIT\n");
+ 	return inode;
  
--	befs_debug(sb, "<--- %s for inode %" PRIino "u, block %ld, disk address %lu",
-+	befs_debug(sb, "<--- %s for inode %llu, block %ld, disk address %lu",
- 		  __func__, inode->i_ino, (long)block,
- 		  (unsigned long)disk_off);
+diff --git a/fs/ufs/inode.c b/fs/ufs/inode.c
+index e2b0a35de2a7000f46a298114c1dcaffa17c43dc..199f5f71f77b20bfde408cb1ac7a8ea8c45cc465 100644
+--- a/fs/ufs/inode.c
++++ b/fs/ufs/inode.c
+@@ -400,7 +400,7 @@ static int ufs_getfrag_block(struct inode *inode, sector_t fragment, struct buff
  
-@@ -181,7 +181,7 @@ befs_lookup(struct inode *dir, struct dentry *dentry, unsigned int flags)
- 	char *utfname;
- 	const char *name = dentry->d_name.name;
+ 	mutex_lock(&UFS_I(inode)->truncate_mutex);
  
--	befs_debug(sb, "---> %s name %pd inode %" PRIino "u", __func__,
-+	befs_debug(sb, "---> %s name %pd inode %llu", __func__,
- 		   dentry, dir->i_ino);
+-	UFSD("ENTER, ino %lu, fragment %llu\n", inode->i_ino, (unsigned long long)fragment);
++	UFSD("ENTER, ino %" PRIino "u, fragment %llu\n", inode->i_ino, (unsigned long long)fragment);
+ 	if (unlikely(!depth)) {
+ 		ufs_warning(sb, "ufs_get_block", "block > big");
+ 		err = -EIO;
+@@ -595,7 +595,7 @@ static int ufs2_read_inode(struct inode *inode, struct ufs2_inode *ufs2_inode)
+ 	struct super_block *sb = inode->i_sb;
+ 	umode_t mode;
  
- 	/* Convert to UTF-8 */
-@@ -224,7 +224,7 @@ befs_readdir(struct file *file, struct dir_context *ctx)
- 	size_t keysize;
- 	char keybuf[BEFS_NAME_LEN + 1];
+-	UFSD("Reading ufs2 inode, ino %lu\n", inode->i_ino);
++	UFSD("Reading ufs2 inode, ino %" PRIino "u\n", inode->i_ino);
+ 	/*
+ 	 * Copy data to the in-core inode.
+ 	 */
+@@ -662,7 +662,7 @@ struct inode *ufs_iget(struct super_block *sb, unsigned long ino)
  
--	befs_debug(sb, "---> %s name %pD, inode %" PRIino "u, ctx->pos %lld",
-+	befs_debug(sb, "---> %s name %pD, inode %llu, ctx->pos %lld",
- 		  __func__, file, inode->i_ino, ctx->pos);
- 
- 	while (1) {
-@@ -233,7 +233,7 @@ befs_readdir(struct file *file, struct dir_context *ctx)
- 
- 		if (result == BEFS_ERR) {
- 			befs_debug(sb, "<--- %s ERROR", __func__);
--			befs_error(sb, "IO error reading %pD (inode %" PRIino "u)",
-+			befs_error(sb, "IO error reading %pD (inode %llu)",
- 				   file, inode->i_ino);
- 			return -EIO;
- 
-@@ -324,7 +324,7 @@ static struct inode *befs_iget(struct super_block *sb, unsigned long ino)
- 	bh = sb_bread(sb, inode->i_ino);
+ 	bh = sb_bread(sb, uspi->s_sbbase + ufs_inotofsba(inode->i_ino));
  	if (!bh) {
- 		befs_error(sb, "unable to read inode block - "
--			   "inode = %" PRIino "u", inode->i_ino);
-+			   "inode = %llu", inode->i_ino);
- 		goto unacquire_none;
+-		ufs_warning(sb, "ufs_read_inode", "unable to read inode %lu\n",
++		ufs_warning(sb, "ufs_read_inode", "unable to read inode %" PRIino "u\n",
+ 			    inode->i_ino);
+ 		goto bad_inode;
+ 	}
+@@ -793,17 +793,17 @@ static int ufs_update_inode(struct inode * inode, int do_sync)
+ 	struct ufs_sb_private_info *uspi = UFS_SB(sb)->s_uspi;
+ 	struct buffer_head * bh;
+ 
+-	UFSD("ENTER, ino %lu\n", inode->i_ino);
++	UFSD("ENTER, ino %" PRIino "u\n", inode->i_ino);
+ 
+ 	if (inode->i_ino < UFS_ROOTINO ||
+ 	    inode->i_ino > (uspi->s_ncg * uspi->s_ipg)) {
+-		ufs_warning (sb, "ufs_read_inode", "bad inode number (%lu)\n", inode->i_ino);
++		ufs_warning (sb, "ufs_read_inode", "bad inode number (%" PRIino "u)\n", inode->i_ino);
+ 		return -1;
  	}
  
-@@ -333,7 +333,7 @@ static struct inode *befs_iget(struct super_block *sb, unsigned long ino)
- 	befs_dump_inode(sb, raw_inode);
- 
- 	if (befs_check_inode(sb, raw_inode, inode->i_ino) != BEFS_OK) {
--		befs_error(sb, "Bad inode: %" PRIino "u", inode->i_ino);
-+		befs_error(sb, "Bad inode: %llu", inode->i_ino);
- 		goto unacquire_bh;
+ 	bh = sb_bread(sb, ufs_inotofsba(inode->i_ino));
+ 	if (!bh) {
+-		ufs_warning (sb, "ufs_read_inode", "unable to read inode %lu\n", inode->i_ino);
++		ufs_warning (sb, "ufs_read_inode", "unable to read inode %" PRIino "u\n", inode->i_ino);
+ 		return -1;
  	}
+ 	if (uspi->fs_magic == UFS2_MAGIC) {
+@@ -891,7 +891,7 @@ static void ufs_trunc_direct(struct inode *inode)
+ 	unsigned int old_tail, new_tail;
+ 	struct to_free ctx = {.inode = inode};
  
-@@ -407,7 +407,7 @@ static struct inode *befs_iget(struct super_block *sb, unsigned long ino)
- 			inode->i_op = &simple_symlink_inode_operations;
+-	UFSD("ENTER: ino %lu\n", inode->i_ino);
++	UFSD("ENTER: ino %" PRIino "u\n", inode->i_ino);
+ 
+ 	new_frags = DIRECT_FRAGMENT;
+ 	// new_frags = first fragment past the new EOF
+@@ -956,7 +956,7 @@ static void ufs_trunc_direct(struct inode *inode)
  		}
- 	} else {
--		befs_error(sb, "Inode %" PRIino "u is not a regular file, "
-+		befs_error(sb, "Inode %llu is not a regular file, "
- 			   "directory or symlink. THAT IS WRONG! BeFS has no "
- 			   "on disk special files", inode->i_ino);
- 		goto unacquire_bh;
+ 	}
+ done:
+-	UFSD("EXIT: ino %lu\n", inode->i_ino);
++	UFSD("EXIT: ino %" PRIino "u\n", inode->i_ino);
+ }
+ 
+ static void free_full_branch(struct inode *inode, u64 ind_block, int depth)
+@@ -1169,7 +1169,7 @@ static int ufs_truncate(struct inode *inode, loff_t size)
+ {
+ 	int err = 0;
+ 
+-	UFSD("ENTER: ino %lu, i_size: %llu, old_i_size: %llu\n",
++	UFSD("ENTER: ino %" PRIino "u, i_size: %llu, old_i_size: %llu\n",
+ 	     inode->i_ino, (unsigned long long)size,
+ 	     (unsigned long long)i_size_read(inode));
+ 
+diff --git a/fs/ufs/ufs_fs.h b/fs/ufs/ufs_fs.h
+index 0905f9a16b9150b656bd6d8966c0f8cc220b439d..b8dc354ae90f4a0839303f89c87bd2940db62b99 100644
+--- a/fs/ufs/ufs_fs.h
++++ b/fs/ufs/ufs_fs.h
+@@ -226,10 +226,10 @@ typedef __u16 __bitwise __fs16;
+  *     inode number to cylinder group number.
+  *     inode number to file system block address.
+  */
+-#define	ufs_inotocg(x)		((x) / uspi->s_ipg)
+-#define	ufs_inotocgoff(x)	((x) % uspi->s_ipg)
++#define	ufs_inotocg(x)		((unsigned int)(x) / uspi->s_ipg)
++#define	ufs_inotocgoff(x)	((unsigned int)(x) % uspi->s_ipg)
+ #define	ufs_inotofsba(x)	(((u64)ufs_cgimin(ufs_inotocg(x))) + ufs_inotocgoff(x) / uspi->s_inopf)
+-#define	ufs_inotofsbo(x)	((x) % uspi->s_inopf)
++#define	ufs_inotofsbo(x)	((unsigned int)(x) % uspi->s_inopf)
+ 
+ /*
+  * Compute the cylinder and rotational position of a cyl block addr.
+diff --git a/fs/ufs/util.c b/fs/ufs/util.c
+index 034b1d82c355ca49ec917e98dcfcc6d80e6eb00b..9acb59697d85015e83cd1e59ffbccb5452e6dd2d 100644
+--- a/fs/ufs/util.c
++++ b/fs/ufs/util.c
+@@ -203,7 +203,7 @@ struct folio *ufs_get_locked_folio(struct address_space *mapping,
+ 		folio = read_mapping_folio(mapping, index, NULL);
+ 
+ 		if (IS_ERR(folio)) {
+-			printk(KERN_ERR "ufs_change_blocknr: read_mapping_folio error: ino %lu, index: %lu\n",
++			printk(KERN_ERR "ufs_change_blocknr: read_mapping_folio error: ino %" PRIino "u, index: %lu\n",
+ 			       mapping->host->i_ino, index);
+ 			return folio;
+ 		}
 
 -- 
 2.53.0
