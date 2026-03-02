@@ -4,152 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AC87FD006D
-	for <amd-gfx@archiver.kernel.org>; Sun,  1 Mar 2026 16:58:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B4FDD58E4B
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 03:02:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C699C10E3EF;
-	Sun,  1 Mar 2026 16:58:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABAAA10E1D9;
+	Mon,  2 Mar 2026 03:02:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fkhYPumS";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T5HtZ/1d";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Q0qEQYnO";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18F4C10E3EE
- for <amd-gfx@lists.freedesktop.org>; Sun,  1 Mar 2026 16:58:32 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 621BRYlt2815492
- for <amd-gfx@lists.freedesktop.org>; Sun, 1 Mar 2026 16:58:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=yZjRbJ2gpSOpi4BD2wRxX0dJ
- 2Njlip5bE4IRh4tsp0k=; b=fkhYPumSL/QAlMbXMLtEWChiX97tIzcJ8VeBIX4T
- 7342qTqQUCnt0S7oDq9sQfzhyGpEUUJellGBOuoJYTfsmMFHgnXodEk5AC55z1iG
- c18u06r73+Pdj0npRxhtTGO474kenLYedhcwWpbRcBC3ivwUaTrgm50Dsqk4R6aI
- +2cwuKSHZdg1z1b9ojEBXDyD89t9uzig7w2KMFQb1bUwamY01WeikQvsTWQDMhlM
- wS7Axd8o1A+YDbnxSksJB4wZ0i060owQOeU4T2ACD8MJ4tYn9Af87F/Z+bjux2Vo
- fOz++88nKgW1Zk3CTwm94ccFlRFF5WRpv6fuV0NvlWcAeA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cksf6jxmg-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Sun, 01 Mar 2026 16:58:30 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-8c71655aa11so4666652285a.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 01 Mar 2026 08:58:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772384310; x=1772989110;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=yZjRbJ2gpSOpi4BD2wRxX0dJ2Njlip5bE4IRh4tsp0k=;
- b=T5HtZ/1dr8xhlk5K5n2vsvGjj6cJVNlMgnZaFJ286RkQDiVgcMhI7DH+rXVapZ1r2R
- Lcik5RDe83oXJqKTPio3Bf5OkEZmeWAIYkrhstjXFlTpJuM+KOv1C6WmgpLHj7MfZMTy
- eqeLkjkXL9rAk00SK4smmodiSNDj/Shcha0NLmYs7ENXMQu9yBnag0VfbcA3GEwEd+bz
- daruiYD7DdmgCiZNVNdwtiWxmYsJmaYU7GH6U6Rln4fd8E4tin3iln2IuhZVKvK+v6J1
- Rji6TxGl08ZDo46Tx4XNjQ/aPX8yc+L/qeet2Sehj1TTWjt6rbr1op6BuhpQ9pZbFf0g
- rFAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772384310; x=1772989110;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=yZjRbJ2gpSOpi4BD2wRxX0dJ2Njlip5bE4IRh4tsp0k=;
- b=vFQeAnYdHvdUCMeOqsLgy0CgCBq2X/ji7Gz1knUTGvsgbz8pPrYHl6myiuEqChL55r
- W+BRF+VFQZnTDlFhxJe3GcAeJYKrdZYAtMCU4yhlCLDaxVqPcg8/PUKdaxbQ/KSVyiBY
- gk+BQf04wEwOB4FXTQaqeFdicEl4yTEkexRcWatEuXNytgh+CdJAeiNl7SqJ7Rahno0p
- utbCdZZUoLMCwJ38uaDNyMeH60anOGs6HbTBryWpd+sOg0BU4tsfz7pNx7ffxOT+vttR
- kZP2DFj56zKrBgx2K73HMKix4F8iG4NoE2fIi8lnf+q9PJ/CnDsZaHi98X3/RSR76867
- FSIw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWbaQABvL5ca6SgxqZVx+UrfzkKtOrGEfYIVWWONh5+Lz/ClpKkhRry42vJd0VuYxNLW17/4+UM@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxMKyfRqNWiHCG1juXkfbMyeqnUHesFSA5fo9tOxWHdefHaXRog
- 0RCgMyqZdBbQBkyVR2UP82dkINLvYIT0xGumdnz37NZNgSkZSo93/dZ6djCPJL+fHTbBAXEM9cA
- FZ83HhAoZyy55YBozIsVaj1jUC6ugDhQVgZ49pF5yZ2k1kbVliBOuQ4lvWKlDnevjg5gT
-X-Gm-Gg: ATEYQzzhJYjQAhbd6UWQdQ53Esz4IcY43+gT6B/hJlIK2Fem9oqiIHaiTqd/UGiOzkd
- pD48+q9g7Rb83F5m79YXMmsor40GwBaPVj4FGblHiDnxRqRmv+ydOvnkBT3WIXTdNvSoDwZlMjx
- Ly3anL6k1xp78+Q8teNWgd+Ub0RjiL4iaMyWOmRL2mfi8JHhaKOWn5bRgOJIswCsxTz/n1lWpMB
- jTo2sGXxJkCiZ8DSQRLNi28lk17/hP80HO9CtkNkXhxTVlaCb8zE6jD3bwpsFmG7RfoexintJOv
- 6+3Dn78jPc7IOd7TYx0ZHVh3BG/djaZ4cMir8Q84z1vXAUqTYyA8mdGx054ERHg/hmu49dslwre
- bBbdEnHkWpMLl58XU0exN90AVr3gLBcSO5RErogxvK0BR9CDX5iQfXgBCvP+gPwdNywimcSDi3O
- oq/UCabhGGQoMEMm+XTuWyvJe7Pa0nARyMDgo=
-X-Received: by 2002:a05:620a:3952:b0:8c6:e8f6:2c7 with SMTP id
- af79cd13be357-8cbc8e4b725mr1252710785a.38.1772384310436; 
- Sun, 01 Mar 2026 08:58:30 -0800 (PST)
-X-Received: by 2002:a05:620a:3952:b0:8c6:e8f6:2c7 with SMTP id
- af79cd13be357-8cbc8e4b725mr1252708585a.38.1772384309937; 
- Sun, 01 Mar 2026 08:58:29 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a115bca0dbsm1204999e87.41.2026.03.01.08.58.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Mar 2026 08:58:29 -0800 (PST)
-Date: Sun, 1 Mar 2026 18:58:27 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, kernel@collabora.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v9 15/19] drm/connector: Register color format property
- on HDMI connectors
-Message-ID: <mxfdm4rrsizf3jzjbeoxosb5lhm2wrzqipn6rvly4ukrodltgp@vcu2fkgwagdx>
-References: <20260227-color-format-v9-0-658c3b9db7ef@collabora.com>
- <20260227-color-format-v9-15-658c3b9db7ef@collabora.com>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012060.outbound.protection.outlook.com [52.101.53.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10D7C10E1D9
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2026 03:02:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CGBmNAB6DkTefXF7tpsETlUefYkmmbX7860BU2tqltbng89ty79UCiaFGFW4blIrQcJl7sMF5IpBwT4wZGBVsAiy52GCepIUfdsaDnn2Sup4CuUxlilL8E5VrC9ut4vohSEFFhasejxHnh1TxEOwzegkt947k+IvvPTa5g9mBLtd5YDVWbtNFM0zhkjPfc80TR+JINCa9S4A1Rdc3N9rnDbyUpziBtx1tD0JBN1vgJ7tHObXLSMYJ/AAM6i/vN99aY19gQftOxTZ2XzdbtnATf9Nqq+ySZg/3IoBrSBiuQxmmlWCuY8LmJgcJVFeu10LtCHdgFVrux3UTpyZdiRulA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5YE0hWnG5jr1hkoIadgc+FAFz58g1t+VIeXvdeUitwE=;
+ b=FPufO168iEj5dhLWUa5e9AjwW3nBX9UO6johQjQ44BAOllzLkXker77zRV86N2N7LV9Jq+Pz/tXDfgO+07lwfuu6IMbdTnunNPfPVdoyKbr6fqQ8NXQfmspWgZWk0tX8SjaQgSDDG99iM/3IMqWRz3UxGvP7xVfIaNY8eXr3nwzAQsXV6rxz1nh5z80+uNlo/5HlhRdPOSH37xY2BQgtUodvK8LkA0AyBSULqc2+WEWILKO+96SkxmozutqqYJ1JQPpm6fc8FvC2kzyN7ppKFc+jaWipnU5y8zmo5p+5yMggQU6jZp8vv+G71ML5tH2CrL5xojBpA5B267EV/y5jEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5YE0hWnG5jr1hkoIadgc+FAFz58g1t+VIeXvdeUitwE=;
+ b=Q0qEQYnOu7hKj/KLVUc46g73XWzHWDcWcQzIcKFmj96hcKk5t72vQlJOgdwO4bzQExT9LbktEehFwh8gvqyo4VyeLCWqRC7YlxCu7yTXXUdfZNC1yEdNV3csIq9EIKG8dHJWN4YpcH2042k3PHoENDiZaaf2ts3j7EOhJIxfYOc=
+Received: from SJ0PR03CA0068.namprd03.prod.outlook.com (2603:10b6:a03:331::13)
+ by MN0PR12MB6152.namprd12.prod.outlook.com (2603:10b6:208:3c4::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.16; Mon, 2 Mar
+ 2026 03:02:42 +0000
+Received: from SJ1PEPF000026C8.namprd04.prod.outlook.com
+ (2603:10b6:a03:331:cafe::2b) by SJ0PR03CA0068.outlook.office365.com
+ (2603:10b6:a03:331::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.18 via Frontend Transport; Mon,
+ 2 Mar 2026 03:02:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000026C8.mail.protection.outlook.com (10.167.244.105) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9654.16 via Frontend Transport; Mon, 2 Mar 2026 03:02:41 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Sun, 1 Mar 2026 21:02:39 -0600
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH v3 0/4] drm/amdgpu: Render-node eventfd subscription
+ infrastructure (toward KFD/KGD event unification)
+Date: Mon, 2 Mar 2026 08:32:15 +0530
+Message-ID: <20260302030219.1734986-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260227-color-format-v9-15-658c3b9db7ef@collabora.com>
-X-Proofpoint-ORIG-GUID: O0KNQKZnKbHhCP_D9JWUqmw8wOOOW8nA
-X-Authority-Analysis: v=2.4 cv=JoL8bc4C c=1 sm=1 tr=0 ts=69a47037 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=QX4gbG5DAAAA:8 a=QnxT5sWzqww7kDut_5wA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAxMDE1NSBTYWx0ZWRfX3DMWj1aRDOcj
- tMwDr4FN43l9ptJddWI3gYyvT37YIYPUTrLM1vlviXUaZ7+P8HMJA4W6PScoa6rQNIphoHXhkK3
- 5IKEIK6mACiosWIt4MBKSlzu9IM9SL7Rx8c8KcLZUKC7iPA3j/jJ713wEucUhGzAoL3M9VD01wY
- MEf7D14IlCMPAUiZtbQSfb3nv36tlcZsFyBbjXB7GquXaTgjdkOX4ZgTyNQHGMyZU1dIYaXKcqo
- es2EAQJG016aD9/UGT2YW/iyRfnH9vDYU+D/uKFceTLOBSHIKd9nyHpSFgGPPvhgsrLLnsj4Gn8
- K96uAyC2CYtGDQFVdw1/hnCejbsKoIZvYMGraT0K5dP+Hp1pnGT292qRiU6LfmFwXwlsEmSZgbk
- 9ngfmMJ47NWwJAr6Cr7hY0T+RBnepYIs172wvJAZZcL732uVicxcaQ0GK7wmdtGrME4pwI+Jdwr
- L+0YApbVnDuZTOHwE9Q==
-X-Proofpoint-GUID: O0KNQKZnKbHhCP_D9JWUqmw8wOOOW8nA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-01_03,2026-02-27_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 malwarescore=0 priorityscore=1501
- adultscore=0 bulkscore=0 clxscore=1015 impostorscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
- definitions=main-2603010155
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C8:EE_|MN0PR12MB6152:EE_
+X-MS-Office365-Filtering-Correlation-Id: eae389f0-4cc4-4f6b-170b-08de78082b6f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: 7BSBjKkB7I4Abqiu+34YMav8vkuf2JZcqzTZy3OeJbA7MsVqyD3KVqY/2Cw2lTg1ALzlOCTXj3hgQDaa1rVjt8kEMLehvFJM49kVxPRUjCDk2EqiQywJVmMhUrMQpbn3id9BmttSmGiZcFPmQTcSOuXc/yRfVgAzv1FHuo40tuRRDsT2nZSiGVeoOMMLSEcTN0rL+n2I2ogfiQ6PACpCn9VPekA+if8oLn3brto92LOK8tKvJbZxb40SsBhfVTYCukK/wvwE26YxaUOkUJe+pxFcKmVJ/FStGKfv23VXH9G+nxgTbf35k3OyZIfgvd7u9P3CAaxUf3fpN3fhHdhl81AGEOAkpgkMh87WfWalw7zMEr/6EeQcrYD39WcAjhC33dOJQOs4motmXa5LGdvRkuaXq/pAyvxQY1UCWucepFMxLlw9yDd0Zo9r4+0mvXSvrFmlPlnd3yDLgxUBZ66AQkA1AIcUbKtr1kLkeO2lLc6PeFsgPdafvXMmLh8h68iAyhvPcLi+AMnRMnqirZNuyM+wxG3w/u8emL3Btu/vkLAEH9iK7BYgvfdVhX4ekl9GL4hh2PUEx5MR95iW2WPmoThN6sTLH4/nTJOG2kkE4b2gH1d1xI8HMBOG94TWWRIroP5m8mk82hS+YtX0CdGWMNc/SeUK8JcAZ4e/rqoh4wP7FtC0Nnez69I/Ow1xnCLbmudxejjr/I5JVo01vgP9884pyWwqCvfBll8t5YTcrtNB82RyPrDfrR6uJ5iV2fdYNU3rF8Ul399KSdbvXDNszmJY8yNosnaxtKY8tmJ54BkZzeh4QffDK8f7lmDHD2nRraTz0ytFczeOcv8bhaQTaA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Z2e58aE4tT9EYWzrD2h/+l0fAgOydplZIG//c887KZnmbG4+Zywxq0Vc1UW7eMmkvqF05yg+BH7bK3fX3IINYSlmSvLFzd4Wvsg00FR8dHIVFvjntJhEoxxNCo+2XmmGbbT7N0cHn2Eprf9hIQDz//EBowt6TAXpGxfqRUCoKHinTQEJvliufqayqC/A2bp6gS3wfdVTa5s0DnF+ZEfV0WU3kQDphaxMIZzNfUhVx5FEotWbP3BiT0cWR06Eenp7t/ZkpadjMYvSZmD+QF/JuVOYBBK3uFN5M1mmEdWNUWymE+2hKYk/suiyTE4xMmuHNB5WLXNynesfkSJbNmDdSRDjBFH6NqqL+eZEGlWtnw0qSMlNZMLeDLnaaN8NQmFLbyMZrFNuBLq9Oh3tIzqqVnG4hGdYZ+rV5R0p05WBPqY0EPC54pu3ARVmfLdkqpdN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2026 03:02:41.5858 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eae389f0-4cc4-4f6b-170b-08de78082b6f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C8.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6152
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -164,44 +110,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 27, 2026 at 08:20:20PM +0100, Nicolas Frattaroli wrote:
-> The drmm_connector_hdmi_init function can figure out what DRM color
-> formats are supported by a particular connector based on the supported
-> HDMI format bitmask that's passed in.
-> 
-> Use it to register the drm color format property.
-> 
-> Reviewed-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> ---
->  drivers/gpu/drm/drm_connector.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index a4907e15dfc5..0f4e24446a9e 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -627,6 +627,9 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
->  	if (max_bpc > 8)
->  		drm_connector_attach_hdr_output_metadata_property(connector);
->  
-> +	if (!drm_mode_create_color_format_property(connector, supported_formats))
-> +		drm_connector_attach_color_format_property(connector);
+Based on Christian's feedbacks:
 
-It really looks like:
+The core concept is a per-drm_file "eventfd manager" (owned by amdgpu_fpriv) that
+maps event_id -> a list of eventfd contexts (fan-out). The manager is kref’d so
+it can be safely referenced by longer-lived producer objects, such as the USERQ
+fence driver, which may outlive the originating amdgpu_fpriv.
 
-   drm_connector_attach_color_format_property(connector,
-					      supported_formats);
+This v3 contains:
 
-> +
->  	connector->hdmi.funcs = hdmi_funcs;
->  
->  	return 0;
-> 
-> -- 
-> 2.53.0
-> 
+Core: amdgpu_eventfd.[ch] implements the per-file eventfd manager and wires
+its lifetime into open/postclose.
+
+USERQ: fence driver stores a kref’d amdgpu_eventfd_mgr pointer instead of
+referencing amdgpu_fpriv directly.
+
+GFX11 producer: wire GFX11 MES/userq EOP IRQ to signal a fixed event_id via
+the manager, by resolving doorbell_offset -> fence_drv -> mgr.
+
+UAPI: add two render-node ioctls to bind/unbind an eventfd to an event_id.
+
+Notes:
+Multiple eventfds can be bound to the same event_id (fan-out).
+The UAPI structs contain only fixed-width scalars (no pointers), avoiding
+compat ioctl issues.
+
+Testing:
+  - Compile-tested only (CONFIG_DRM_AMDGPU=m).
+
+Follow-up work:
+  - I will post a separate series adding the KFD/PASID bridge:
+      * PASID -> eventfd_mgr registry (refcounted; no PASID -> fpriv raw pointers)
+      * amdgpu_eventfd_notify(pasid, event_id, count)
+      * Stop depending on KFD (kfd_events.c) to be the place that “converts interrupts → eventfd wakeups”.
+		Do that directly in KGD (amdgpu) where the interrupts are already handled.
+
+Srinivasan Shanmugam (4):
+  drm/amdgpu: Add render-node EVENTFD manager core
+  drm/amdgpu/userq: Hold eventfd manager ref in fence driver
+  drm/amdgpu/gfx11: Wire MES EOP IRQ to render-node eventfd
+  drm/amdgpu/uapi: Add EVENTFD bind/unbind ioctls for render node
+
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  11 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c   | 321 ++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h   |  76 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  64 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |   2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  24 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.h   |   4 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |  14 +
+ include/uapi/drm/amdgpu_drm.h                 |  18 +
+ 11 files changed, 533 insertions(+), 6 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_eventfd.h
 
 -- 
-With best wishes
-Dmitry
+2.34.1
+
