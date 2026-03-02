@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9ADA1EC046A
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F28CEC0467
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D75610E6E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A64210E700;
 	Tue,  3 Mar 2026 09:01:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I3DXMe2E";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qacI2mHY";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6409210E5C5;
- Mon,  2 Mar 2026 20:32:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C46E10E5BB;
+ Mon,  2 Mar 2026 20:28:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A6D4161335;
- Mon,  2 Mar 2026 20:32:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C565C19425;
- Mon,  2 Mar 2026 20:32:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D2DD86013C;
+ Mon,  2 Mar 2026 20:28:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DD42C19425;
+ Mon,  2 Mar 2026 20:27:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483575;
- bh=6he62HkTmrAJJK1V+F014fP6cP4Uk2TDa7mAcm5F3PM=;
+ s=k20201202; t=1772483287;
+ bh=1ivESi7OxYMAVoEUneLRmG4iZ+3lem17D5YDwFd2su4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=I3DXMe2EZLLgmbJ+4COsXB7QmFoiqqwBMZHBERmgMBum1GEmM9WBOndN6QOxNrTa6
- XodAOBXKzRxZqLXzs/LEkDIQwz663dLxlCzXbT7ly7Mjq4OGMQCOwPLr6PqHY9OKJR
- 6nOHbSKj4KRHm3p3+DKRAe9jY/5WHpG4Yqq8ZZAfvQ4GfxsD65XDTnSyUcFO4wf2jy
- mIDrGEFRJBRURxhU0mTu8jVk0xVVdDZe3p2nzsNKB+LpyYp2fQLz6QYL0Uy6cUqpBG
- UQx90IGGFTeMYJ8B5R3SgVBVkYUm3YI63u6Ngwh42A48ZsoIXxLzXwHjS96ACfHe/H
- RbZPpKHHnn+zg==
+ b=qacI2mHYOWhdrqERQd+Otx6N+q+X1OOGn+EwKATQdVjMN1diiif/VEBc7q/vu7SNx
+ Dh9eqRvl7o9ps9FAzqtuLCUPaCfRbcEwZV8JfI8TnYqD5HHV4PIJ0W8i/KNlCR4cNG
+ T6R78TMDKrj2ir4GlKURJo1gK+WU1BzKR05rLmivRey5OahoHbNrrYuvcSKo9Ymzsh
+ K+Yeql0LeKhntftA7AY56wCiMOYQ/jzYTPAdnLBGI/+qvUdH8YaaARcXDtqBmfiQUT
+ lB0UxAtQ9jbphFQ/OkXpTHx7azoKW+t+f2O+gV5uDqkItqaFeVxzk/d+2Oc275mF1C
+ 5+Dse9wkztsVA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:17 -0500
-Subject: [PATCH v2 033/110] hpfs: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:23:57 -0500
+Subject: [PATCH v2 013/110] locks: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-33-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-13-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2981; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=6he62HkTmrAJJK1V+F014fP6cP4Uk2TDa7mAcm5F3PM=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH3QkUy253PqLXrCPd4bzHtp562xc6o9hGTd
- APWnnkqD92JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9wAKCRAADmhBGVaC
- FYuCEACCUfWHkYFuIq/9X5eqdFwf9bC6OV9r2Q3T6m28PCze7gl9TRluZli+IW3JCUNHVTnyjs/
- dfPF9HSuq0C4m5hhDuABwyUyWQ8Vm7AA1MoL6wZe3Mg6WCS8BxDfT/0p6J6hziiAvdymvcPYhia
- 7Ap1VKx8lzJbTNe8L459ylLmo6bm+FH1GJuiu3DH3iMZ9idxhXDOEB9H0FqKriyAGjeFa6UVdHG
- qaxKUVm5cjh/9sahddb9icD2E+MVCzRci8C8+/QsgL+n1gEF+t9JKzg2qvBAwJWPBNrUYXWSLru
- 7Yu2GrxJIJiVxs7P8S1bNp2PQBtpE9cOjcL/DTj/yGqXags4FDoZOmjta+8CUrv2EszWgQF43Q5
- SMRNoHT+8nVlCGUeeA0jCCrQ7T676Z1ML5o7lugaNKq3RE46ASPtpNOk8Qlmdez9CCrT09SPRAF
- 1L7T54i0wH2e59Up8p8gMQVpBAPOZoLiytzikLWjfTMDiNr10z0cjqnlxLv4jvR2jVK4BlpEoSM
- GEFxdU8OmY0iiH/4/dGejJX9qkBMmuQscoTYADycPtHI9WkpdPYUM08ytZU8Wl28NJ4bRv9dIjH
- abldNKX7F2qN//q04f4/za/Im6dy66lMRpWX8m5mEG1+6CCjLsut0spC7foCfz1fcRsLWMOpeEV
- NKzahrEAEsuxzGQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1759; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=1ivESi7OxYMAVoEUneLRmG4iZ+3lem17D5YDwFd2su4=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHyS0FdhrZYEU4R3h5I4O4CjVxowV5X+2BwL
+ fyWGe6UxOWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8gAKCRAADmhBGVaC
+ FbDhEACS/+k5beSLIB49AO1LucZKn6unZyW+FWBqW0V3kTE4HZ1xhQ5WhYx6NSrb76dDqiFudwD
+ +j9+krlU79fUTPsJzF/r0O+83Hm62pPpNXzsii9XlSfL+rtJX/Bo5nmOJUqn2Kz1pZtLbbt+Kgv
+ xHvvBLGX2QLK7qytBDicAI7dzgq1BlSdNjqIDUcnwf5tt3z4c9i/qaPQjEc4IYWHi1WP0mgMqYc
+ TTHnu8RcGhKs2M0dIeCZTT58wTGvL0anGnmhE1fhRbqoAP8cGjlFOjz9J3jNnNOFJDqk9mGeIFy
+ 8s7rLfkcy5xTSSfPcLCy8ZMQ2RAzJnhTBzjC7B3i6qLPZoxIU7kgeWdsfXzN5iObNz1MaTb7J5M
+ jEyiuSgVVVYtxnAMWW7wtqVjrb6844OziSVigT0MUV7fivHiVSGO54eeVWbP5lX4CNag/y7GEwO
+ zl+o6G64hjSDUnviLuvGhB37l6I+Y54GDbugfgOMd+1Y2ToBwTBDTlX5HTA32bPmlPW6YEe4GgJ
+ ShijJPtTgPXPq/EkgSct0D9fpNqma9uiRhiM5490x+qkuTkfch2OdZ8n6K3oImWcyXJFPf5hiq+
+ zakfFyuziCYzCLJrH2i4F3feY7KE56q+60ZnxyWrD+sIPn81mSSMnqALQrqQgBJ68Oo8Ch8txde
+ hcx5uXX89U7AuGA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,80 +182,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert hpfs i_ino format strings to use the PRIino format
+Convert locks i_ino format strings to use the PRIino format
 macro in preparation for the widening of i_ino via kino_t.
-
-Remove now-unnecessary (unsigned long) casts on i_ino.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/hpfs/dir.c   | 4 ++--
- fs/hpfs/dnode.c | 4 ++--
- fs/hpfs/ea.c    | 4 ++--
- fs/hpfs/inode.c | 4 ++--
- 4 files changed, 8 insertions(+), 8 deletions(-)
+ fs/locks.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/hpfs/dir.c b/fs/hpfs/dir.c
-index ceb50b2dc91a9da02997a40836d6543786d883d3..9db0e7a101c2a8d9cc265c14ed74c58533ab31ff 100644
---- a/fs/hpfs/dir.c
-+++ b/fs/hpfs/dir.c
-@@ -96,8 +96,8 @@ static int hpfs_readdir(struct file *file, struct dir_context *ctx)
- 		}
- 		if (!fnode_is_dir(fno)) {
- 			e = 1;
--			hpfs_error(inode->i_sb, "not a directory, fnode %08lx",
--					(unsigned long)inode->i_ino);
-+			hpfs_error(inode->i_sb, "not a directory, fnode %08" PRIino "x",
-+					inode->i_ino);
- 		}
- 		if (hpfs_inode->i_dno != le32_to_cpu(fno->u.external[0].disk_secno)) {
- 			e = 1;
-diff --git a/fs/hpfs/dnode.c b/fs/hpfs/dnode.c
-index dde764ebe24673c339d4602172618dbf6ca0b5c9..5df10c82f84ca40c4d65b97b6c6b61ec364029b5 100644
---- a/fs/hpfs/dnode.c
-+++ b/fs/hpfs/dnode.c
-@@ -550,9 +550,9 @@ static void delete_empty_dnode(struct inode *i, dnode_secno dno)
- 			if (hpfs_sb(i->i_sb)->sb_chk)
- 				if (up != i->i_ino) {
- 					hpfs_error(i->i_sb,
--						   "bad pointer to fnode, dnode %08x, pointing to %08x, should be %08lx",
-+						   "bad pointer to fnode, dnode %08x, pointing to %08x, should be %08" PRIino "x",
- 						   dno, up,
--						   (unsigned long)i->i_ino);
-+						   i->i_ino);
- 					return;
- 				}
- 			if ((d1 = hpfs_map_dnode(i->i_sb, down, &qbh1))) {
-diff --git a/fs/hpfs/ea.c b/fs/hpfs/ea.c
-index 2149d3ca530b6f635ff884988383bdde21be5e7a..f4fce87110d77c6af47fd45e024fb913c09e82f7 100644
---- a/fs/hpfs/ea.c
-+++ b/fs/hpfs/ea.c
-@@ -245,8 +245,8 @@ void hpfs_set_ea(struct inode *inode, struct fnode *fnode, const char *key,
- 		fnode->ea_offs = cpu_to_le16(0xc4);
- 	}
- 	if (le16_to_cpu(fnode->ea_offs) < 0xc4 || le16_to_cpu(fnode->ea_offs) + le16_to_cpu(fnode->acl_size_s) + le16_to_cpu(fnode->ea_size_s) > 0x200) {
--		hpfs_error(s, "fnode %08lx: ea_offs == %03x, ea_size_s == %03x",
--			(unsigned long)inode->i_ino,
-+		hpfs_error(s, "fnode %08" PRIino "x: ea_offs == %03x, ea_size_s == %03x",
-+			inode->i_ino,
- 			le16_to_cpu(fnode->ea_offs), le16_to_cpu(fnode->ea_size_s));
- 		return;
- 	}
-diff --git a/fs/hpfs/inode.c b/fs/hpfs/inode.c
-index 93d528f4f4f28d5070162faacd65d3fc2341248a..c82f5f7f435a1a6f6c26fc62ff0c680c26c9f4ad 100644
---- a/fs/hpfs/inode.c
-+++ b/fs/hpfs/inode.c
-@@ -250,8 +250,8 @@ void hpfs_write_inode_nolock(struct inode *i)
- 			hpfs_brelse4(&qbh);
- 		} else
- 			hpfs_error(i->i_sb,
--				"directory %08lx doesn't have '.' entry",
--				(unsigned long)i->i_ino);
-+				"directory %08" PRIino "x doesn't have '.' entry",
-+				i->i_ino);
- 	}
- 	mark_buffer_dirty(bh);
- 	brelse(bh);
+diff --git a/fs/locks.c b/fs/locks.c
+index d13ec930b7bb03905df50bdce30b84749edab8d0..9c5aa23f09b6e061dc94c81cd802bb65dd0053c1 100644
+--- a/fs/locks.c
++++ b/fs/locks.c
+@@ -234,7 +234,7 @@ locks_check_ctx_lists(struct inode *inode)
+ 	if (unlikely(!list_empty(&ctx->flc_flock) ||
+ 		     !list_empty(&ctx->flc_posix) ||
+ 		     !list_empty(&ctx->flc_lease))) {
+-		pr_warn("Leaked locks on dev=0x%x:0x%x ino=0x%lx:\n",
++		pr_warn("Leaked locks on dev=0x%x:0x%x ino=0x%" PRIino "x:\n",
+ 			MAJOR(inode->i_sb->s_dev), MINOR(inode->i_sb->s_dev),
+ 			inode->i_ino);
+ 		locks_dump_ctx_list(&ctx->flc_flock, "FLOCK");
+@@ -251,7 +251,7 @@ locks_check_ctx_file_list(struct file *filp, struct list_head *list, char *list_
+ 
+ 	list_for_each_entry(flc, list, flc_list)
+ 		if (flc->flc_file == filp)
+-			pr_warn("Leaked %s lock on dev=0x%x:0x%x ino=0x%lx "
++			pr_warn("Leaked %s lock on dev=0x%x:0x%x ino=0x%" PRIino "x "
+ 				" fl_owner=%p fl_flags=0x%x fl_type=0x%x fl_pid=%u\n",
+ 				list_type, MAJOR(inode->i_sb->s_dev),
+ 				MINOR(inode->i_sb->s_dev), inode->i_ino,
+@@ -2896,7 +2896,7 @@ static void lock_get_status(struct seq_file *f, struct file_lock_core *flc,
+ 			     (type == F_RDLCK) ? "READ" : "UNLCK");
+ 	if (inode) {
+ 		/* userspace relies on this representation of dev_t */
+-		seq_printf(f, "%d %02x:%02x:%lu ", pid,
++		seq_printf(f, "%d %02x:%02x:%" PRIino "u ", pid,
+ 				MAJOR(inode->i_sb->s_dev),
+ 				MINOR(inode->i_sb->s_dev), inode->i_ino);
+ 	} else {
 
 -- 
 2.53.0
