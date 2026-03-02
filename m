@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E8C7EC0472
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83134EC0461
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B051D10E75C;
-	Tue,  3 Mar 2026 09:01:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76A7F10E73D;
+	Tue,  3 Mar 2026 09:01:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HAdByGNx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nlzXdd2d";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8942010E5DB;
- Mon,  2 Mar 2026 20:48:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60A8A10E5BD;
+ Mon,  2 Mar 2026 20:48:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5D44542B6B;
- Mon,  2 Mar 2026 20:48:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC80C2BC87;
- Mon,  2 Mar 2026 20:48:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id ABA346111A;
+ Mon,  2 Mar 2026 20:47:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E051C2BC87;
+ Mon,  2 Mar 2026 20:47:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484538;
- bh=tg2GBJRcO6vMjzaMBfFcDIy8ZKyDb6aFMJ4tiWotI5c=;
+ s=k20201202; t=1772484479;
+ bh=aRx+vBv2M2iRm6msaGNPhasqatamVupEcEqra1pj50U=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=HAdByGNxmW08C5+Re1Gb5QIfJvh7W3RRSi/6F1cFsEwAggofFwWgUeimzkFbyPUOY
- BpMrZkgal8HWLqJmZoa4CfJ7QVPUqq7RfD/5KjaGUc9b9JhvdHLpU9OhGpPUoUlJJd
- SZjhUtdBdArACAUj0Ipa6ewEj9LZrDhEZ9jEQEdzYSV4nQHTDGCXynbDj1OiqZi2Lt
- 4n4XPCp/sOUx4Rd8Ra6SNXwf1wjb9CfGYyrp4A1WIEmsdzPIq1g2oclhZMvtCjNsMw
- Dg99kikAcdt1Fs2ylLBOi3qRicncT8lP5mr7FE2GkTwVzBq8TP0ONXslliEImrfNkp
- SXdV/u4Pl4BCA==
+ b=nlzXdd2d2jmb6ZCZJlUjsUWRxHX5Ef4p0g3CYJDJ6NRTC9wfC8nnMXQz81G3kHFIf
+ bk3ktV1oHOpMcMQOnvKOeWGTvG6ZnQ/MocHukfvCturZOxU/Bi8OvGApPLNcUd/hK4
+ bhwDnT+CVtxrCw78WPAaFCT09qXHfgAYMWpTDutUEUGqFkMaNaLBVSyEo0cNPh7I3Q
+ h9fZyYNh4rrnUZV+4xi2MJGXnJEhnuj+XvYPzs61Ct4ZpVnyPq3IXEWJt7Ine4BMIk
+ /gTcT4ElgQ2QlP4iB+YuH6gEdPvIx61yjxxZ3x4tL+yQ5hudAkroDrPOeTNPOXK5Wv
+ EYBb/ZIP/1i/A==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:24 -0500
-Subject: [PATCH v2 100/110] zonefs: replace PRIino with %llu/%llx format
- strings
+Date: Mon, 02 Mar 2026 15:25:20 -0500
+Subject: [PATCH v2 096/110] qnx6: replace PRIino with %llu/%llx format strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-100-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-96-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -152,23 +151,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2133; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=tg2GBJRcO6vMjzaMBfFcDIy8ZKyDb6aFMJ4tiWotI5c=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfILBKyvots3fqrnm3b3+1nlzkkUuZL/UNO2s
- Y9u3WybBLWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCwAKCRAADmhBGVaC
- FaTTEACnI/vvfaLeyQUKf94n7FqC/B/DSywMOa0cw/ECthv67Dj41AVTZCneKCKSRZyANNa0WYm
- l355RIIpHOTBxXnpFXD3lksIkUZGReQER+Kf7NQdgCd8qaVBWaTtN3cWUaCA2OqaFslA4cikPE9
- PgHwcvjs1KYGo5O0LkZdoG30AKyzvktYdZWwJIJ5VkEoXNoG6YDhBMWa6SoJ3k0SAmFODLK9y/8
- 85ngFaMnf3d/jFNL119T2Wz5/yPvuuSoxBRVTVL69qYwIvooH70O3tkujVGx30Y1MnoZW4twblY
- QHSNk70vhVl1ErSJapAsovk0wHdpIG08OaSHpvu2Tpk0Zm1z+VdAP5Yv5rsbnZN16MeQ0PqnRNk
- lXmao39Wa1d/LpsrU4m06JV0AwWp01RdNKTDFM+6EuXEjfyA5a+sT19+fZFgcc6mJr1XRaDsOm7
- MuQAqsi5tBg8PRKxpaY0P50OUbiygtpEY6PgdMtoSBKYETXU2hcTGAMnDy8SUMe3x34cQYN7R/L
- dpY7ZOfPKPpdV+otDv9XGmgf1URb1UsAddW1cfbJE1thukY6ybg+Tju8ryqT6GDUFjveLyMt2AC
- YjvAmlVC0KZOohNIMf6SCTK+Xxt3XSL1YACXE2p7jDpiveCgGw3dzRLHVuB0b4Ap3nMAXHZOkfP
- vtZAladjPrF/TCw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=785; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=aRx+vBv2M2iRm6msaGNPhasqatamVupEcEqra1pj50U=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIJiw1odsluet/XL7Mqa4kgajSxQPLdtlQBP
+ Cnhi68Zt2uJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCQAKCRAADmhBGVaC
+ FabQEACmwH3xIV1kMlBE8jZgQl7+E4xyQ9Ct8W8zuWbIuWwDYMbjqugxPOEv67u11lXTH29X2dg
+ T+teVLNpE9KEA+QSZStGPzfwjKkV2dmFsTfKy60GPnda3f/FkiCLwnnd5OPZ80Q+3AnEBxZHH6f
+ wAWAjTFt9+1olQE+oiRr2tCPwDyirwOWOhhzxpvJoDphHy9s/VnilrBBjEMj6H2mLI7JbcMEroZ
+ awVclVwRnT+oYmRgjWvjJf6E5h9jseIrrvPZz0RDJyl0oW9Bgd1rd0fJ/aaA8iaijQhkqrz53M2
+ wfSxfIEH8oZCg2cxuxhf09hMyZoEB7LosomyOY/lHkHSRNeaXoKS/vu++fmfG4Zetr0mv2qRTP5
+ X/CZConNXt4BZWWp5ZTPBSrRraBWY2RnP8jO0mp3Ju+6PBk2uvnbjniN7GNlDPpdLvINPUYoyX3
+ tIl+GoSDldlirpwTmIkMxsPtzVi1aNgq5PflX3rr3L35rBTC/Ag2NHL82QBb0bpG5hUB/wEDzAf
+ BQ/2pzx8lCQp1KW0rqYQ3+NZ9O5fVnj13wHOKy1FiOOK94ifA+A9WKPPTy/wVGIsarmfnH9D5Zl
+ KYc8wQvQe0PIpa6fpTWJxlUHZ617zXMAkBSZldBDPIZrtfWQm65IggBJCjJnu6Y9BueSk6yfJlT
+ fi7dwf/3MTPla3g==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
+X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -184,53 +183,26 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in zonefs with the concrete format strings.
+replace all uses in qnx6 with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/zonefs/super.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ fs/qnx6/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/zonefs/super.c b/fs/zonefs/super.c
-index cf084c7905d4d43c0638187a55f3c9af71364f3d..9b646cb5335d0643bc0431aa8efc35a90fbcdac5 100644
---- a/fs/zonefs/super.c
-+++ b/fs/zonefs/super.c
-@@ -297,7 +297,7 @@ static void zonefs_handle_io_error(struct inode *inode, struct blk_zone *zone,
- 	 */
- 	if (isize != data_size)
- 		zonefs_warn(sb,
--			    "inode %" PRIino "u: invalid size %lld (should be %lld)\n",
-+			    "inode %llu: invalid size %lld (should be %lld)\n",
- 			    inode->i_ino, isize, data_size);
+diff --git a/fs/qnx6/inode.c b/fs/qnx6/inode.c
+index 630ebaa8a1c554b4d83ae75e5940a512e847bf51..6de49333acadbf08a8ce20d86e566433bc911f7d 100644
+--- a/fs/qnx6/inode.c
++++ b/fs/qnx6/inode.c
+@@ -75,7 +75,7 @@ static int qnx6_get_block(struct inode *inode, sector_t iblock,
+ {
+ 	unsigned phys;
  
- 	/*
-@@ -308,7 +308,7 @@ static void zonefs_handle_io_error(struct inode *inode, struct blk_zone *zone,
- 	 */
- 	if ((z->z_flags & ZONEFS_ZONE_OFFLINE) ||
- 	    (sbi->s_mount_opts & ZONEFS_MNTOPT_ERRORS_ZOL)) {
--		zonefs_warn(sb, "inode %" PRIino "u: read/write access disabled\n",
-+		zonefs_warn(sb, "inode %llu: read/write access disabled\n",
- 			    inode->i_ino);
- 		if (!(z->z_flags & ZONEFS_ZONE_OFFLINE))
- 			z->z_flags |= ZONEFS_ZONE_OFFLINE;
-@@ -316,7 +316,7 @@ static void zonefs_handle_io_error(struct inode *inode, struct blk_zone *zone,
- 		data_size = 0;
- 	} else if ((z->z_flags & ZONEFS_ZONE_READONLY) ||
- 		   (sbi->s_mount_opts & ZONEFS_MNTOPT_ERRORS_ZRO)) {
--		zonefs_warn(sb, "inode %" PRIino "u: write access disabled\n",
-+		zonefs_warn(sb, "inode %llu: write access disabled\n",
- 			    inode->i_ino);
- 		if (!(z->z_flags & ZONEFS_ZONE_READONLY))
- 			z->z_flags |= ZONEFS_ZONE_READONLY;
-@@ -402,7 +402,7 @@ void __zonefs_io_error(struct inode *inode, bool write)
- 	memalloc_noio_restore(noio_flag);
+-	pr_debug("qnx6_get_block inode=[%" PRIino "u] iblock=[%ld]\n",
++	pr_debug("qnx6_get_block inode=[%llu] iblock=[%ld]\n",
+ 		 inode->i_ino, (unsigned long)iblock);
  
- 	if (ret != 1) {
--		zonefs_err(sb, "Get inode %" PRIino "u zone information failed %d\n",
-+		zonefs_err(sb, "Get inode %llu zone information failed %d\n",
- 			   inode->i_ino, ret);
- 		zonefs_warn(sb, "remounting filesystem read-only\n");
- 		sb->s_flags |= SB_RDONLY;
+ 	phys = qnx6_block_map(inode, iblock);
 
 -- 
 2.53.0
