@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95993EC046F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2DF2EC0475
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10F8410E78B;
-	Tue,  3 Mar 2026 09:01:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A405410E782;
+	Tue,  3 Mar 2026 09:01:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nXSuM6cR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fd7yo1LT";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF00710E5C3;
- Mon,  2 Mar 2026 20:45:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCDD110E5BD;
+ Mon,  2 Mar 2026 20:31:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 71897418F7;
- Mon,  2 Mar 2026 20:45:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C547C2BC87;
- Mon,  2 Mar 2026 20:45:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A54E94374D;
+ Mon,  2 Mar 2026 20:31:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D6B1C2BCB7;
+ Mon,  2 Mar 2026 20:31:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484350;
- bh=7Yaqcvybh/+pWSp1blOqkW5oyFHsnJR2av48Tn6jnLc=;
+ s=k20201202; t=1772483503;
+ bh=wekE/Bi2k/fqUlznYUS1Zt4JWtkXEPagUOCDt+B28VU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=nXSuM6cRhWdFTIU+hMmsLRYCX1vJ/QVNZgjUVeDUVAQ0g3JY2lxvUILaJao43J3kT
- sRkXNwWAxvtwAX9KcRKoX9U/e3H4NCyU1StJSBlnjx0BCtP+L1fhLpqMMnw8V/wyks
- RKdHHAS1N2b8WNX4fPf1Dd4e6j6/C5cylUfidJ33oKLNTcZ+hISHpLhNHLONdrQIEW
- I6SHbzLJHnY93Fu8gTWHjpc2W+D/vs4qzIRaeRQnBVEu9PFnrQKgP25gOUFXkg1IWV
- 7fZiX0CFTAfk87fhAw+VEtIVkc15wB6uQ7Fxys52W3ZeyrzQykBn4xmX5tM1IpJAu0
- qxiPTiowROnog==
+ b=fd7yo1LTsMfOUN7EliqmB0yPYFBe7ZY8CFHO+5sVxI+rR+SMGZ8i1zoS/7zhVzL3S
+ q3I2jO5N7k7lnSO7aYU05WXZeoLfD6/C1SX7kDCUmTwrr+Th6ttIn57Re8bUAxquvX
+ qYWpl6ANuuIwHP+5iv6/3N+trDqGSgBiKS7+qgok5Ww5LWLT0v7fvuqwbg4l6NAhV0
+ xO5HrOIYXfNvrWAHRVLMlL0LY8kYYKvFm86FrgXq1WdYYCptASnxKNTCVTpDAeMWMB
+ kT5po7Hs2kA49XgOQDHp/jnCybTJ8yYwvyzlBIOmrRlmiS/+Z6s9cg1NgiiFvG9R8U
+ Hk1cy33siwgpA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:11 -0500
-Subject: [PATCH v2 087/110] isofs: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:24:12 -0500
+Subject: [PATCH v2 028/110] exportfs: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-87-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-28-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3540; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=7Yaqcvybh/+pWSp1blOqkW5oyFHsnJR2av48Tn6jnLc=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIHSlmbS586IDrOOOEqQZtQI/Z2+zAR5lHJd
- 78usd0crveJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBwAKCRAADmhBGVaC
- FVD8EACNshWBBeX04wM44HuTFupoTtw6nDoXa5sxvVoQw3ZqUVhTZcysodTV4o7fBAafvTADc2M
- 453eWiBpQO3xZ0J+c9wnS8Jt29iGen6P1BpCm73AGV14xG6xWfxmSwPHLM1JrivyqoxZKYiC1sO
- hU7DEIPdbTIH3X83w7VOet9XzHnlCmAZpd/+F0VRTsa5dZndOzT+YBRIvCx27APYMwmC7Icv9XQ
- lwPeqcMzseE2kggAa1yu5/PvA6VhzWQDC5LPOqZECQFupxF4AvskTIeaQSz6hYo1UNxcBUy2QFD
- glWJF5l4mIUgJQyPidLRm4uOwlnM/OMN/VCwgLqFDoiOAKaGZdH4zQgBFitJ1gAY4o5BOWTZ++v
- 0LJpO0II7noEnl3UdbkGww36amRn99U3qifqGRSVuKwA5nfnFWjqHO+vL4rn7oE+KCccl1XpGHY
- qLeW98RKpdCaF5QuR70By4fIg24w/VKB9yKRE7JmbczXXRI33LsoP2nVLz0Nf0lgkBwBE9IndOg
- gqP2Zx1J1UEo66s7sAiu+v1DTidPgC+jrEM2IWZYCAFc9MY1Ki3veP956T36zVCISOKz+hydm6H
- 1A3sm4SxqrspBa7d0cvcUNA0OZbVbslphQZyN2RC42GndLkYgjqpKpWNTkfP1Puwe9OP7VHpUnH
- KkgktuBEm1G8yBw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1095; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=wekE/Bi2k/fqUlznYUS1Zt4JWtkXEPagUOCDt+B28VU=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH2d5YG8596BxmRDbKrF+v3TG4vyuAwgzGll
+ VnVdTt/phyJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9gAKCRAADmhBGVaC
+ Ff4NEACRx2Wp6JBmXJbj2Besnbvhwf0ofGiK4tR7JJ9Hzm8NmMBqV6ee+WgKVot34tdz3LEjpYM
+ YV8jRMgMOpsZA8WKvFLe3i3a/foaGvci6hu3dy7P8/g6zn+6R+ZafQrMz1RR35i8CoXSjVzGxA1
+ Kkrl6U+QjESR43kMcTUZ58UbemFNZonCwK1yj87OeRtTejDJplVB/r4iu14lp0hbBpZ9nk5+mVT
+ yfa14S5EHvFV5aS6+Swnh5ITEjbLb6rCGbt8bqp6EqDUmAe0jGptay6O+SD8951aEQfela8YgNK
+ jyAkcpZ+BOZ2fVTeDT0o2Dl5jlsoy0XzFCsqt9UlEEjSlJaM0RbeELbgxEeAYoHTUW8PA6QgAdS
+ +7pr2Efbh/JV2g82ILs6PYAzbJwqfwH5ZRJ/WI4yTnxIPEYZ91b2UfWU/jc9vWllMfYi7pOG3Q0
+ AvUVh9XiC1Jr4CJbKFrzLoGm1xZBh55neN/RAK2k0WpjtPOg7e0ixOFjRfkCMrFj5gLbsO/EMIA
+ Qzu9ihj9DDMLB3GjiZphNYo/4LVjvh5c11IMz5S93U5WVIxPajqAZPOTaS8hW7qG2hMHt90ht/T
+ +dJ2s7TSjVSJoSCtDjsZL+djDPVkOPAkObKX8clDYgkUZb1y2qn6EbA+V7QyJqIFqBDF2VGIS5F
+ zjgJOqo4ZpdMtVQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,87 +182,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in isofs with the concrete format strings.
+Convert exportfs i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/isofs/compress.c | 2 +-
- fs/isofs/dir.c      | 2 +-
- fs/isofs/inode.c    | 6 +++---
- fs/isofs/namei.c    | 2 +-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ fs/exportfs/expfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/isofs/compress.c b/fs/isofs/compress.c
-index dc6c7d247cf880720be47cd26d23206d25a4e453..397568b9c7e7d3e28873be02c8a4befcddaec7b5 100644
---- a/fs/isofs/compress.c
-+++ b/fs/isofs/compress.c
-@@ -156,7 +156,7 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
- 				else {
- 					printk(KERN_DEBUG
- 					       "zisofs: zisofs_inflate returned"
--					       " %d, inode = %" PRIino "u,"
-+					       " %d, inode = %llu,"
- 					       " page idx = %d, bh idx = %d,"
- 					       " avail_in = %ld,"
- 					       " avail_out = %ld\n",
-diff --git a/fs/isofs/dir.c b/fs/isofs/dir.c
-index 0a8f9e411c23425a6919b7a4fa3fb387eb2c3209..2fd9948d606e9c92f3003bfbaa4f0271c750a93d 100644
---- a/fs/isofs/dir.c
-+++ b/fs/isofs/dir.c
-@@ -152,7 +152,7 @@ static int do_isofs_readdir(struct inode *inode, struct file *file,
- 		    de_len < de->name_len[0] +
- 					sizeof(struct iso_directory_record)) {
- 			printk(KERN_NOTICE "iso9660: Corrupted directory entry"
--			       " in block %lu of inode %" PRIino "u\n", block,
-+			       " in block %lu of inode %llu\n", block,
- 			       inode->i_ino);
- 			brelse(bh);
- 			return -EIO;
-diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
-index 678d7363e157d893e005152e64e922d9170468d0..3593e02e75fef8567643137e0ff992019d2b6fbb 100644
---- a/fs/isofs/inode.c
-+++ b/fs/isofs/inode.c
-@@ -1261,7 +1261,7 @@ static int isofs_read_level3_size(struct inode *inode)
+diff --git a/fs/exportfs/expfs.c b/fs/exportfs/expfs.c
+index 6c9be60a3e48dc5e984a826029375550d1494835..b9ec3be466a06c9ea90cac62979887c3fe1af5a1 100644
+--- a/fs/exportfs/expfs.c
++++ b/fs/exportfs/expfs.c
+@@ -130,12 +130,12 @@ static struct dentry *reconnect_one(struct vfsmount *mnt,
+ 		parent = mnt->mnt_sb->s_export_op->get_parent(dentry);
  
- out_toomany:
- 	printk(KERN_INFO "%s: More than 100 file sections ?!?, aborting...\n"
--		"isofs_read_level3_size: inode=%" PRIino "u\n",
-+		"isofs_read_level3_size: inode=%llu\n",
- 		__func__, inode->i_ino);
- 	goto out;
- }
-@@ -1380,7 +1380,7 @@ static int isofs_read_inode(struct inode *inode, int relocated)
- 	/* I have no idea what file_unit_size is used for, so
- 	   we will flag it for now */
- 	if (de->file_unit_size[0] != 0) {
--		printk(KERN_DEBUG "ISOFS: File unit size != 0 for ISO file (%" PRIino "u).\n",
-+		printk(KERN_DEBUG "ISOFS: File unit size != 0 for ISO file (%llu).\n",
- 			inode->i_ino);
+ 	if (IS_ERR(parent)) {
+-		dprintk("get_parent of %lu failed, err %ld\n",
++		dprintk("get_parent of %" PRIino "u failed, err %ld\n",
+ 			dentry->d_inode->i_ino, PTR_ERR(parent));
+ 		return parent;
  	}
  
-@@ -1450,7 +1450,7 @@ static int isofs_read_inode(struct inode *inode, int relocated)
- 		/* XXX - parse_rock_ridge_inode() had already set i_rdev. */
- 		init_special_inode(inode, inode->i_mode, inode->i_rdev);
- 	} else {
--		printk(KERN_DEBUG "ISOFS: Invalid file type 0%04o for inode %" PRIino "u.\n",
-+		printk(KERN_DEBUG "ISOFS: Invalid file type 0%04o for inode %llu.\n",
- 			inode->i_mode, inode->i_ino);
- 		ret = -EIO;
- 		goto fail;
-diff --git a/fs/isofs/namei.c b/fs/isofs/namei.c
-index 494d2ae4c0955123335a97f23672b959dcc9e0bd..8dd3911717e0cc221f60fb6447e1bf26cc2223dd 100644
---- a/fs/isofs/namei.c
-+++ b/fs/isofs/namei.c
-@@ -100,7 +100,7 @@ isofs_find_entry(struct inode *dir, struct dentry *dentry,
- 		/* Basic sanity check, whether name doesn't exceed dir entry */
- 		if (de_len < dlen + sizeof(struct iso_directory_record)) {
- 			printk(KERN_NOTICE "iso9660: Corrupted directory entry"
--			       " in block %lu of inode %" PRIino "u\n", block,
-+			       " in block %lu of inode %llu\n", block,
- 			       dir->i_ino);
- 			brelse(bh);
- 			return 0;
+-	dprintk("%s: find name of %lu in %lu\n", __func__,
++	dprintk("%s: find name of %" PRIino "u in %" PRIino "u\n", __func__,
+ 		dentry->d_inode->i_ino, parent->d_inode->i_ino);
+ 	err = exportfs_get_name(mnt, parent, nbuf, dentry);
+ 	if (err == -ENOENT)
 
 -- 
 2.53.0
