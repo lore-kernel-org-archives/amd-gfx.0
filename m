@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DF4CEC0462
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64E5CEC046B
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C57010E72C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71CCD10E739;
 	Tue,  3 Mar 2026 09:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fBMBqtar";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k9FUmhbp";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D14F10E5BB;
- Mon,  2 Mar 2026 20:29:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE9E210E5BF;
+ Mon,  2 Mar 2026 20:26:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id AB04660145;
- Mon,  2 Mar 2026 20:29:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4398CC19425;
- Mon,  2 Mar 2026 20:29:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0CB5B6013F;
+ Mon,  2 Mar 2026 20:26:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9405BC2BCB7;
+ Mon,  2 Mar 2026 20:26:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483359;
- bh=eZCt7O/cBHS6+jaXbF0bDvdTJVnhNrKq3wa2lAjd6r8=;
+ s=k20201202; t=1772483215;
+ bh=pcuSLYfmNOsFzvDXp96caWKHF9+QhaBN4U2v/FyzFxs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=fBMBqtart3aD0C9RzMfCHTMFx3kcpZai+WoV3/wlDdnhCRn576Oi01in8ttP89rrE
- 1jbLEXnH+DHrEGsYmqJiPrBONqu8+W536+wcd7gPdwUXljUJbhXOcQjv3U58cWs1Bw
- yvA04Z5/1tYmvhR6EIwuN4x6yE4TQ3vij1yl36SwVS+9uAikR3ofEAIaHwhf28yVQI
- nnWs1kCVddFM1M6h5PvLxCCq1vG4N3N0eg9OcH++fLDnbg2+WgxiVb6DgHnL1XIpBG
- kmEmtZg4iFg5s/AtPz7mqssjfeXGuS5qEvVqKxEZGY+sy05o1BzDpXrkCWS3pnQ490
- lHm6Qt5QdCPrA==
+ b=k9FUmhbphE7ZlYt9YsmEPGkz0bU4CWVQDwqgS8f1QOPvTvkN4sazSJkbMmCP63dNF
+ YDWhfNWdsTXXRWKxduxCIzNnD/30dO/SlLblszs9hL0cVyYgDpoBwgJMZUPo6VqZw2
+ UNeNfu5QfVNFa1mNd/98D6Zm2FhNNY2EZFtScgTzYFYM8kNxkH202f1DekWcztx7n6
+ 2RrfFt5CKFeNDgoNyMFJgb4HCTqyblxAihCVC73XM0LuNnmTHQKKmG7FkR078S4K9g
+ cBflBedTRNNfKBTpPccxkB61O/hQ1DW/e/TQJkByiTe4HPgh5SfBNg2o61JrTJrz1b
+ ZB2gvbI8mQfDQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:02 -0500
-Subject: [PATCH v2 018/110] afs: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:23:52 -0500
+Subject: [PATCH v2 008/110] jbd2: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-18-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-8-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3901; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=eZCt7O/cBHS6+jaXbF0bDvdTJVnhNrKq3wa2lAjd6r8=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH0RWX8wpryRk/QgAbjn1Q1ANZbw4V+PFw8A
- vATQsWHGvyJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9AAKCRAADmhBGVaC
- FQaAD/9DyJTyKKu/cuTCajh+8TP5xfDXlFmrEcCNSHdEiwWEokDdm2i1zkGOG7X37vO2jK00FQo
- WjBIS9/SahFHFKYltsILzhUTsyqG2dGgqlMHmmvEsPlH3sY4ceSTCVxr7QPAAXw4qs0Ubk5uk6v
- 66Ta9GmMoq1EVnQdLiocwj8ezT1Tip7XxRvuesh0eaZ4t7PYnVShZvOq/8pxR5lBdi2x4UawIyY
- Da9WRPW2K3CENHKIL0mMv6M8duTJvIpXQM+1jTZ/GxO2pPtbYoVrDsdcZbOufwZv+2khcznhGTr
- asoLO2U26rig19ah9eoWCs8/wlRtvU+8z6/OlVXeeF9rGXbbLuE4iSPpUqP7jxBQfwMuHj5ZCX4
- EOxwz8pdqTN+NW6Z5baBdvt2ZlIAiut/DYl1I+MiPUYp/UJ2QqGbCm1lZoP/SYCEtNaAzTbIKAJ
- u11RPrKEnI/046wbiTYxb3VWrNRz9oxghsSipLPEgFccdFxmdm61J1ol2HcWaSxC6rrtcP7Bevq
- KGc12QzSt8zNfENsH+pM2JNf7XxMK5LTyXT3D4pnmbZsw+aKFwf3r2GmTAt+nCEuWwd050ur19+
- 4lYSgVxjvBOPBGW+PkSFoOwP1q2Ro8/isBujNxmKasNg0fsW9KA5a9E/0PjiIrziosap53nhDmG
- NQgJaccyKt30Rqw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2010; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=pcuSLYfmNOsFzvDXp96caWKHF9+QhaBN4U2v/FyzFxs=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHxzbZh8N1PXHeUBwZSAEp948ZGgaO5osN8G
+ KKuuuuMwiiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8QAKCRAADmhBGVaC
+ FW+7D/9wm3WjzYIdQjdh6bRjyfST5jzgYMO6C4GT6br3r886vIXvEwuSBzKsu5MNqNnbUOePAin
+ F4OhvPc5X9XWEcCtW4ZcSVXPsmyDEnv0iIlw/dkT99Q3OyQTEJjAofAGXWTsw2h2lnh3n5Az00a
+ 72EQC65sZ/my3/miAQof2H3PLQjSsNBnuS5BxEMKMei2RDpD0mFm7NPZ5zIclcC+WDdCHE0Mv3G
+ 2MW9YDA5TPZdsFf4Jx2b/cFA4yw3FlFtKR0IiVN7nbc8mHHmiZHJWlRUQBFNWkfkqQ9mVB3PfD/
+ 82n4staT0LseRTL/IjHtx24Be6yUHaUrvKLFqnZdkMg+Xo+ioWXRY/KKp3WVNfR1R9slrMHVKy/
+ 35cg6s1++v5FWGc+cjkk32jE9197PBDdI1bs3pMbI6safkGOwFaeb/lpIF8kvx1YYXsIZQTEbmy
+ a2rHgBA+RtXvuPYbH1rNZjERAL1VaIac1jxTQQKrPpD0uhIuYB+Cn25tYwNtLmFUdd1jW4kez3J
+ dk0KfWcs8maf5L5MRle7/BQcaV9Ofv22UgP1byPmvcIlUeE7wi4HyFrw+k/fi6Ci8BSIXswcad8
+ hJZPR3RugQCPQKA+zn/zagmRAlvKJvFxfU55BS0PuvHH8DPcWWDwddgAutJSX43+fALihnm58BU
+ LsYBmgZaysVaI+Q==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,105 +182,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert afs i_ino format strings to use the PRIino format
+Convert jbd2 i_ino format strings to use the PRIino format
 macro in preparation for the widening of i_ino via kino_t.
+
+Also correct signed format specifiers to unsigned, since inode
+numbers are unsigned values.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/afs/dir.c        | 10 +++++-----
- fs/afs/dir_search.c |  2 +-
- fs/afs/dynroot.c    |  2 +-
- fs/afs/inode.c      |  2 +-
- 4 files changed, 8 insertions(+), 8 deletions(-)
+ fs/jbd2/journal.c     | 4 ++--
+ fs/jbd2/transaction.c | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/afs/dir.c b/fs/afs/dir.c
-index 78caef3f13388c5f604e4970bc0874de168b57f3..52accf0a8d9d2e4dfdff444080683d5ab16d8e69 100644
---- a/fs/afs/dir.c
-+++ b/fs/afs/dir.c
-@@ -148,7 +148,7 @@ static bool afs_dir_check_block(struct afs_vnode *dvnode, size_t progress,
- 				union afs_xdr_dir_block *block)
- {
- 	if (block->hdr.magic != AFS_DIR_MAGIC) {
--		pr_warn("%s(%lx): [%zx] bad magic %04x\n",
-+		pr_warn("%s(%" PRIino "x): [%zx] bad magic %04x\n",
- 		       __func__, dvnode->netfs.inode.i_ino,
- 		       progress, ntohs(block->hdr.magic));
- 		trace_afs_dir_check_failed(dvnode, progress);
-@@ -214,7 +214,7 @@ static int afs_dir_check(struct afs_vnode *dvnode)
-  */
- static int afs_dir_open(struct inode *inode, struct file *file)
- {
--	_enter("{%lu}", inode->i_ino);
-+	_enter("{%" PRIino "u}", inode->i_ino);
- 
- 	BUILD_BUG_ON(sizeof(union afs_xdr_dir_block) != 2048);
- 	BUILD_BUG_ON(sizeof(union afs_xdr_dirent) != 32);
-@@ -523,7 +523,7 @@ static int afs_dir_iterate(struct inode *dir, struct dir_context *ctx,
- 	int retry_limit = 100;
- 	int ret;
- 
--	_enter("{%lu},%llx,,", dir->i_ino, ctx->pos);
-+	_enter("{%" PRIino "u},%llx,,", dir->i_ino, ctx->pos);
- 
- 	do {
- 		if (--retry_limit < 0) {
-@@ -610,7 +610,7 @@ static int afs_do_lookup_one(struct inode *dir, const struct qstr *name,
- 	};
- 	int ret;
- 
--	_enter("{%lu},{%.*s},", dir->i_ino, name->len, name->name);
-+	_enter("{%" PRIino "u},{%.*s},", dir->i_ino, name->len, name->name);
- 
- 	/* search the directory */
- 	ret = afs_dir_iterate(dir, &cookie.ctx, NULL, _dir_version);
-@@ -783,7 +783,7 @@ static struct inode *afs_do_lookup(struct inode *dir, struct dentry *dentry)
- 	long ret;
- 	int i;
- 
--	_enter("{%lu},%p{%pd},", dir->i_ino, dentry, dentry);
-+	_enter("{%" PRIino "u},%p{%pd},", dir->i_ino, dentry, dentry);
- 
- 	cookie = kzalloc_obj(struct afs_lookup_cookie);
- 	if (!cookie)
-diff --git a/fs/afs/dir_search.c b/fs/afs/dir_search.c
-index d2516e55b5edb273677c9cedb6f15524bc56348d..903cefd81f3f2ccbdb28264b5e99151f5a54d1ce 100644
---- a/fs/afs/dir_search.c
-+++ b/fs/afs/dir_search.c
-@@ -194,7 +194,7 @@ int afs_dir_search(struct afs_vnode *dvnode, const struct qstr *name,
- 	struct afs_dir_iter iter = { .dvnode = dvnode, };
- 	int ret, retry_limit = 3;
- 
--	_enter("{%lu},,,", dvnode->netfs.inode.i_ino);
-+	_enter("{%" PRIino "u},,,", dvnode->netfs.inode.i_ino);
- 
- 	if (!afs_dir_init_iter(&iter, name))
- 		return -ENOENT;
-diff --git a/fs/afs/dynroot.c b/fs/afs/dynroot.c
-index aa56e8951e037b2e3fa9fc452b43e7bd2d61b926..448083d79c3d0d2f29934e105f48d617330de8b4 100644
---- a/fs/afs/dynroot.c
-+++ b/fs/afs/dynroot.c
-@@ -59,7 +59,7 @@ static struct inode *afs_iget_pseudo_dir(struct super_block *sb, ino_t ino)
- 		return ERR_PTR(-ENOMEM);
+diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+index cb2c529a8f1bea33df6d4135e5782b9a77792732..9df937f0e15c71028038e1c0c12159421a2444b4 100644
+--- a/fs/jbd2/journal.c
++++ b/fs/jbd2/journal.c
+@@ -1677,7 +1677,7 @@ journal_t *jbd2_journal_init_inode(struct inode *inode)
+ 		return err ? ERR_PTR(err) : ERR_PTR(-EINVAL);
  	}
  
--	_debug("GOT INODE %p { ino=%lu, vl=%llx, vn=%llx, u=%x }",
-+	_debug("GOT INODE %p { ino=%" PRIino "u, vl=%llx, vn=%llx, u=%x }",
- 	       inode, inode->i_ino, fid.vid, fid.vnode, fid.unique);
+-	jbd2_debug(1, "JBD2: inode %s/%ld, size %lld, bits %d, blksize %ld\n",
++	jbd2_debug(1, "JBD2: inode %s/%" PRIino "u, size %lld, bits %d, blksize %ld\n",
+ 		  inode->i_sb->s_id, inode->i_ino, (long long) inode->i_size,
+ 		  inode->i_sb->s_blocksize_bits, inode->i_sb->s_blocksize);
  
- 	vnode = AFS_FS_I(inode);
-diff --git a/fs/afs/inode.c b/fs/afs/inode.c
-index dde1857fcabb302cc6b06cc018fb1e4108ec6284..a0261c2c246a379689cbaa44b7ec456f1a986142 100644
---- a/fs/afs/inode.c
-+++ b/fs/afs/inode.c
-@@ -683,7 +683,7 @@ int afs_getattr(struct mnt_idmap *idmap, const struct path *path,
- 	struct key *key;
- 	int ret, seq;
+@@ -1689,7 +1689,7 @@ journal_t *jbd2_journal_init_inode(struct inode *inode)
  
--	_enter("{ ino=%lu v=%u }", inode->i_ino, inode->i_generation);
-+	_enter("{ ino=%" PRIino "u v=%u }", inode->i_ino, inode->i_generation);
+ 	journal->j_inode = inode;
+ 	snprintf(journal->j_devname, sizeof(journal->j_devname),
+-		 "%pg-%lu", journal->j_dev, journal->j_inode->i_ino);
++		 "%pg-%" PRIino "u", journal->j_dev, journal->j_inode->i_ino);
+ 	strreplace(journal->j_devname, '/', '!');
+ 	jbd2_stats_proc_init(journal);
  
- 	if (vnode->volume &&
- 	    !(query_flags & AT_STATX_DONT_SYNC) &&
+diff --git a/fs/jbd2/transaction.c b/fs/jbd2/transaction.c
+index dca4b5d8aaaa3e1505b09fab42eb45bb201a8db8..2a03d4eafdee95e5caa8dbd0afe4e32ef4104378 100644
+--- a/fs/jbd2/transaction.c
++++ b/fs/jbd2/transaction.c
+@@ -2651,7 +2651,7 @@ static int jbd2_journal_file_inode(handle_t *handle, struct jbd2_inode *jinode,
+ 		return -EROFS;
+ 	journal = transaction->t_journal;
+ 
+-	jbd2_debug(4, "Adding inode %lu, tid:%d\n", jinode->i_vfs_inode->i_ino,
++	jbd2_debug(4, "Adding inode %" PRIino "u, tid:%d\n", jinode->i_vfs_inode->i_ino,
+ 			transaction->t_tid);
+ 
+ 	spin_lock(&journal->j_list_lock);
 
 -- 
 2.53.0
