@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDA76EC0473
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60A72EC0476
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 563DC10E6F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A814D10E707;
 	Tue,  3 Mar 2026 09:01:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="q5bXqMSc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E9+ubBiy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C9DAD10E36C;
- Mon,  2 Mar 2026 20:39:52 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 979A010E5BD;
+ Mon,  2 Mar 2026 20:44:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1AAFA6013A;
- Mon,  2 Mar 2026 20:39:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF32FC19423;
- Mon,  2 Mar 2026 20:39:37 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 67615407F9;
+ Mon,  2 Mar 2026 20:44:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3517CC2BCB3;
+ Mon,  2 Mar 2026 20:44:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483991;
- bh=QP1pHkPZoLpD9JaMwF5iOH10RN7x3Ujzz0cas9iNb9o=;
+ s=k20201202; t=1772484264;
+ bh=4E1gzRUBmunwgkb0zMzfDEZ/3XSvh+vlngA03NseX/8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=q5bXqMSc6HyfjyQ+rKMD4tXKlYlU72CQmV2xfF3xqVPwIaGxl7JcjmwWHVoMmc0rK
- CWAjhyTzKGHthuWmJymYztkTSvFuX7+BVY0Lp016Uhv8duDgAHpR2VnfSz9UWIP0yT
- /2vDVQ5ucGaSJd6doP/EZEKRN/+1JVRf0qCGLdGxrFwhZWuIORw7Vzh45MvkXEGNt/
- aWEl30w3MzyXT+IzkQwgEkb8qFYpHqWJSkBNH2rcmXESx9FsMgFwZrY4o9duO1em9F
- v+1hjK+WqWDb4VU8EqD3OnTnovgCEsrygBIwZQn6R0v/TyN9hjhM1XVMxH4FPFG3Be
- HQlzNn88eJppQ==
+ b=E9+ubBiybQM4l8J+x0uaWTrJ76FPaFlfXpfLW274DMsNkP+ZxsdUliXZoKKVP6djg
+ 83tb0KTHY0ioVcHMcYF6YTXIDwmqUIiMzvE4ba7OPOV2u4HgV3LB3sVX8MXanItq+3
+ iHqFjtWyG4FeIpoVAydn4THnBQBPOHkNggIOt+pOQ9PCK3D6wZ1lVvDMzkzQvAxX0/
+ dhK7SILY1PhxfyDhxG0b0xRZnLFC+sZUYeyNvrbE3hrd3rDb6iypP7aQRRKkh3AkMy
+ AGf0z8UjGi9SiRcN+d3yNP5QWj6m1ZrplF3x15L3Fk+R2kjMIfG/y8oDo4WLJvTe9+
+ Nh7DfktB6muXg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:46 -0500
-Subject: [PATCH v2 062/110] jbd2: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:25:05 -0500
+Subject: [PATCH v2 081/110] exportfs: replace PRIino with %llu/%llx format
+ strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-62-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-81-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +152,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1926; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=QP1pHkPZoLpD9JaMwF5iOH10RN7x3Ujzz0cas9iNb9o=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH/RvDEtosASDfOeZZpWoaG2cnuxJxTLGMB5
- hi9ySzAN9aJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/wAKCRAADmhBGVaC
- Fe2DEACArQPddvA94Mxrryfvoz/dxNj68gxh2bOVsktdzw/FE6wVdDGb4fOkGyRw6XD9xPmfmbU
- 3bb5T1jfhX98izCfL2GeJuLAl+LPNlDQM9WjGbCyTknP/hSEHvapoYinYT2XCQuH+xKqWayKsrS
- PvHiqJKoWj0RvQsM0U8hoBUcoPWzuYATZ3BBQvJIn/enc453xHUusrB1hIVBg6zLyj/zKQILlJU
- abDFdxUQUVFKSxNDmRVkgNkR8O24DXexGWAE2OLbhz5p2cMvUPWvM3x2Y7i8TffMbjzgg6fMQat
- efpNoHgJ/w+669/EoVggUbqAqTXKOdovVWVM2bZMGD9zj2Po2GogvWJnVM/nGp1nHIvqza44BSi
- xEK+bg7wrAiS9HVvXNnS/aiW52YUGBT9S1RbXlfUkj/U8MvrP5yAfbgMZZtDijmG8fNARRT2IKW
- QkBF/N73kwBazRwkz1Yy3ReqYTJ0GgoDprLih1+sMAE/VhMrR2CY6bTTL7LNS2nlEx4xXHWgeUI
- 0eJMZ+Tz1+NfdGD72+BhVVp27P633oUqHfm5syu9K51i1rhf9TF1hcpWTTeGHpGIgMYoTiTXpP/
- XPDixroR6lm0/7ASy6R5kjAch1XVpWRA/e0gK2N5kbaZya7Lo/0NMEtULES9Zaz/PtR/nZg9FFk
- 8w2D6U+4Gi4DKvg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1107; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=4E1gzRUBmunwgkb0zMzfDEZ/3XSvh+vlngA03NseX/8=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIFr/xLC8FHqElos9Jx0FlcCMm2vSh3OUBzE
+ MyfOvUWL8mJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBQAKCRAADmhBGVaC
+ FXrgEAC2fOFg/WTLNoXvWGsPImb/26xOHXaPVYy//FG+b/NEfpy0INOU75ohoYtWFAlQQQAVy6K
+ WwFypniJMx7qup2zKyPqMOBDdXILeEaHzrFxwTkebRBowv1lHwDN1MNIMVH/eI46ZuIGPflMQ2/
+ nl/BGjeBU+RC8B7uJiHCnG1SKIFFTe1ehGOstt1p6PkK7BkMB9GijlEPo8UTDJP5ISpt1BWylby
+ DGfEZ7FrRe53WIFFKCloOE0ziSwiJEPJggN8UtT0zzc2oDnbPKJLZIuqo7P4BHY6pABLlMRYB9k
+ 1dfj1ytzYywLzl9F1pb5q/mZ6zX6zUhhqlYX6ihQoZBvRrJcnQdkdYsCKEBjyleHreTywcEhg/I
+ xiBAh7k//PoJAoEp92y/4+fN+s1IbU5yCFu1LRgTywGkFugeE5qazuuj3KlHzwitAD5/keMeR2n
+ MpTGRLUa7s2PYj8NE4d0hV8MutPuy3MLiyvS4+zQSsR9Q4/J8vXGEGCZ4WCMOa3SstDomdJHIbr
+ s1gEWIie828N3apNapK7BtKyPYbBYKl8FCqOVGyTGQvR90q7TvyFrZ+cix1VvyCfpUP2PT5Yn/H
+ 8w82mrmMztw72nvuHUy9j3RS3KEEBs+FdelNIuKaFQ3MwiY0P+GU4DcQrlqBNfMCPZCMZnVxx3o
+ 34OcsOZ2JYQjryg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -183,49 +184,32 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in jbd2 with the concrete format strings.
+replace all uses in exportfs with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/jbd2/journal.c     | 4 ++--
- fs/jbd2/transaction.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ fs/exportfs/expfs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
-index 9df937f0e15c71028038e1c0c12159421a2444b4..b60918ed8a9965efe42419e6de3f449be50f7ca0 100644
---- a/fs/jbd2/journal.c
-+++ b/fs/jbd2/journal.c
-@@ -1677,7 +1677,7 @@ journal_t *jbd2_journal_init_inode(struct inode *inode)
- 		return err ? ERR_PTR(err) : ERR_PTR(-EINVAL);
+diff --git a/fs/exportfs/expfs.c b/fs/exportfs/expfs.c
+index b9ec3be466a06c9ea90cac62979887c3fe1af5a1..5c3183ce350ebc89ba4a5c10ffd644b6666395c3 100644
+--- a/fs/exportfs/expfs.c
++++ b/fs/exportfs/expfs.c
+@@ -130,12 +130,12 @@ static struct dentry *reconnect_one(struct vfsmount *mnt,
+ 		parent = mnt->mnt_sb->s_export_op->get_parent(dentry);
+ 
+ 	if (IS_ERR(parent)) {
+-		dprintk("get_parent of %" PRIino "u failed, err %ld\n",
++		dprintk("get_parent of %llu failed, err %ld\n",
+ 			dentry->d_inode->i_ino, PTR_ERR(parent));
+ 		return parent;
  	}
  
--	jbd2_debug(1, "JBD2: inode %s/%" PRIino "u, size %lld, bits %d, blksize %ld\n",
-+	jbd2_debug(1, "JBD2: inode %s/%llu, size %lld, bits %d, blksize %ld\n",
- 		  inode->i_sb->s_id, inode->i_ino, (long long) inode->i_size,
- 		  inode->i_sb->s_blocksize_bits, inode->i_sb->s_blocksize);
- 
-@@ -1689,7 +1689,7 @@ journal_t *jbd2_journal_init_inode(struct inode *inode)
- 
- 	journal->j_inode = inode;
- 	snprintf(journal->j_devname, sizeof(journal->j_devname),
--		 "%pg-%" PRIino "u", journal->j_dev, journal->j_inode->i_ino);
-+		 "%pg-%llu", journal->j_dev, journal->j_inode->i_ino);
- 	strreplace(journal->j_devname, '/', '!');
- 	jbd2_stats_proc_init(journal);
- 
-diff --git a/fs/jbd2/transaction.c b/fs/jbd2/transaction.c
-index 2a03d4eafdee95e5caa8dbd0afe4e32ef4104378..a90f9092706cceea56c1100f7d40ccba0d50adba 100644
---- a/fs/jbd2/transaction.c
-+++ b/fs/jbd2/transaction.c
-@@ -2651,7 +2651,7 @@ static int jbd2_journal_file_inode(handle_t *handle, struct jbd2_inode *jinode,
- 		return -EROFS;
- 	journal = transaction->t_journal;
- 
--	jbd2_debug(4, "Adding inode %" PRIino "u, tid:%d\n", jinode->i_vfs_inode->i_ino,
-+	jbd2_debug(4, "Adding inode %llu, tid:%d\n", jinode->i_vfs_inode->i_ino,
- 			transaction->t_tid);
- 
- 	spin_lock(&journal->j_list_lock);
+-	dprintk("%s: find name of %" PRIino "u in %" PRIino "u\n", __func__,
++	dprintk("%s: find name of %llu in %llu\n", __func__,
+ 		dentry->d_inode->i_ino, parent->d_inode->i_ino);
+ 	err = exportfs_get_name(mnt, parent, nbuf, dentry);
+ 	if (err == -ENOENT)
 
 -- 
 2.53.0
