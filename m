@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33B2DEC0469
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9A84EC046A
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4D4710E727;
-	Tue,  3 Mar 2026 09:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2359910E72D;
+	Tue,  3 Mar 2026 09:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SpeNrNds";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QGKDMPmB";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5B1610E36C;
- Mon,  2 Mar 2026 20:40:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 431AF10E5BB;
+ Mon,  2 Mar 2026 20:30:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 976F141A4B;
- Mon,  2 Mar 2026 20:40:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6095AC19423;
- Mon,  2 Mar 2026 20:40:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D0BA0443A7;
+ Mon,  2 Mar 2026 20:30:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92324C2BCC4;
+ Mon,  2 Mar 2026 20:30:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484020;
- bh=OF7uSlUo6C4FfGcZ/A/G2ejJXiIFafXdHzMLPEkSHxw=;
+ s=k20201202; t=1772483431;
+ bh=HzkTCfTdbZXozIi72Y3c8yb38EYipl+Okwb/1CYJMQs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=SpeNrNdsWmclv+sNLroIWVAK2THmien+wfYWh+QS4w18kIc3IKJD0ZgwlQKglcIfM
- iNgfMLYWPMYpIhn6uaHUsIDFZ5GDjud0bfH2K+gBBip5kamPtRSWXaclntYbwMtKCG
- UcgmDgh9J61lpoDFLl9qC7fXnpjJczkjp1hznDeVj3LUaa8adqR4wTHPVXr4RgKFAI
- W5Ke+6C/JPVQPferAYmluBkd45YRK7YkvcpcPNFLMdpVkiagwGYcpg6X2e6tp1hj+B
- Lm+PGhhtosj3xSybl+9TvyCmWExeedc6Bd4Kw0LckXNc1diwNacboNH24PznkpF7nG
- YlQaVTsAe6iKA==
+ b=QGKDMPmBZScP1p88q+0GtwvCQ8N1XOEZpPXE5npuKlCAYT2YhxMA0L2XUBKQ89Kvl
+ 0X8j4P+dsWPgrozE1MFbcLSCky227YVYgr8+XKShfglZTIbSgoD+X/2xDGc/g8tVAM
+ pM2X1ZueBn9CJyiolCVTZE2H5ofqPtipn6QFx1YpPi4xa4sXMf/SrPIwJ53cXOpk12
+ 2BEyZRBvwGfVV/xqSDYXS5K1PincxX4uRBuwhygtWfqiuCSRhO40hO2iQd+BkNGtEq
+ BmtG87s8RksaPLPYpmth5aW6LvruTmJyHIs9BTz3lLue5p8SbP22P+xcjddKPGe4EJ
+ TB11oiIG15/7g==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:48 -0500
-Subject: [PATCH v2 064/110] lockd: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:24:07 -0500
+Subject: [PATCH v2 023/110] ceph: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-64-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-23-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2478; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=OF7uSlUo6C4FfGcZ/A/G2ejJXiIFafXdHzMLPEkSHxw=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIAbn7eJQi8G8YpuSI449d9QIYS+V4UNgoQk
- ZRiRrv1kZWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAAAKCRAADmhBGVaC
- FUWYD/wMLf58W6HxUg0MUydpCPTRvW75D9+kn6Ow79eNh8L1eRRfYift/vG3IruJ+wniCtAGH1y
- +Z5uZliy4AGEeCxwr1Qc+nfkdzNVysEq+BIaqhBSmC89Twwc/53lNZ2ZbnNetZKa/6I4zLE0HmD
- k2D+AoBEPPXjQ4BNy/UOHfA1EueNsMPdgb6c9vaaoKgwnFs1FWt87Qu7Hx9pmrr1Vn5Ieqt9mbt
- nswtXh7uRraIFLWlz6ZdrmGdK4xYdUJ+WVn20ePxzT++rb6Q3CrRPsarm/rIMo0Z3CcU776M5PO
- 8zL73LVv56Z5QFXcbfMavIKWymGKj2zosjRYWKuhioL1+cD/afym4fh2AVMJtUk4fGeeielmjW0
- ZoAoz0dnn23eefPrxL0Op11k84ZlOlm/m6AAA5CZv7/hHFfm1Qr3tczELFc2/za8NCmfyrvGkd5
- VbrI+tmEEtrztSZh1le4rEeEJvNxaDVOnQpPV/Ttu0twm2Nkmk6zZMwgxE/CwIjLS0KuZE1PAY5
- zLeVdO7pSfTOGBSTUwsihXfMjiDeCJ8Kqz/b1I1mgo/krqdQYCcWVASRr7hDWXLJXwWzmaLcqD6
- 6PGxG00rMcLsLohfS9cD8pk1ANYeh72a83sUhTfVNP0BavgoJ5btN5phrexyfelGe4OmYYk0w2e
- X+7/B9mCJIywoiw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1410; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=HzkTCfTdbZXozIi72Y3c8yb38EYipl+Okwb/1CYJMQs=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH1q7k2SFrGnaDsZ6JWT0aZQUGR01qn3laql
+ Bf+R57PpDWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9QAKCRAADmhBGVaC
+ Fce6D/4jdG0G/SR3JVEOwPpDJIAgrqCTmUYNA/iAtg23BJ8jTnRGt2tnKORjREbtHrA7cIbnHo9
+ WlBSFP7RRFt91i+5VUPZ0O/qBD0fBXFQG9PDTEbjk1ObHduCzdbjVTTGhv8NlkNO2SVokjMfGRM
+ /bdjAVI7vMyZY9G0G7lh6V4kSPxhZo49nOHoQ1Rgx3FulsEAjzqk6cKdK0WuYpeoFtjB31nHFOI
+ C8WxuS5q2Qe27OR/frKM11w2JIlOvAk2sO+E4k/MuemVUmDp4rpes2pK8JE/gwXyd0HZqO2IIuT
+ tvEUOVai+aNZgBB9Pb30Ml3+GLHhsBHbxJuBCfUSAaMtNfccBQBcrLDEUrZJUvkZSyEddPeZ0UN
+ O8r9XzGu5cqzzACzr/+1R0f7s2mRrLieZHULDNP6s5FuMJoek3/ef/9iTP0PEdlUBz8/0HfRDB8
+ oGdQwzV1r0tOg1yr0mf37YDHRm/N+PX6RdjnzTDYvdGvWjOQVdTHTMXTSMzdpNnWhYDS2GXgwwF
+ Fn7hv3MCYgxaptT77U4pMqwbCmJ5rdC4E1nbq7HTFqYpJlj6D/VOrKLEKCreZSAcyUomsELKb8V
+ oRtmXT0NGqGTcA/82d0nnaKDM43BYb+4vzit817795+sDhSChOs4I5rKs195MoRsEqJeV1QHtGs
+ xp4GC+ckXG1fDtQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,68 +182,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in lockd with the concrete format strings.
+Convert ceph i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
+
+Also correct signed format specifiers to unsigned, since inode
+numbers are unsigned values.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/lockd/svclock.c | 8 ++++----
- fs/lockd/svcsubs.c | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ fs/ceph/crypto.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
-index 2ee2c3d6e442e701dab29dafc23da8209306b84f..0b6be8b8aeb1edf85cbb1063763a230e70c64e18 100644
---- a/fs/lockd/svclock.c
-+++ b/fs/lockd/svclock.c
-@@ -487,7 +487,7 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *file,
- 	int			async_block = 0;
- 	__be32			ret;
+diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
+index f3de43ccb470ddbd7945426d79f9024ae615c127..718c194ba5d8ce22c6a5d1dd687ec3761263e7e1 100644
+--- a/fs/ceph/crypto.c
++++ b/fs/ceph/crypto.c
+@@ -272,7 +272,7 @@ int ceph_encode_encrypted_dname(struct inode *parent, char *buf, int elen)
+ 	/* To understand the 240 limit, see CEPH_NOHASH_NAME_MAX comments */
+ 	WARN_ON(elen > 240);
+ 	if (dir != parent) // leading _ is already there; append _<inum>
+-		elen += 1 + sprintf(p + elen, "_%ld", dir->i_ino);
++		elen += 1 + sprintf(p + elen, "_%" PRIino "u", dir->i_ino);
  
--	dprintk("lockd: nlmsvc_lock(%s/%" PRIino "u, ty=%d, pi=%d, %Ld-%Ld, bl=%d)\n",
-+	dprintk("lockd: nlmsvc_lock(%s/%llu, ty=%d, pi=%d, %Ld-%Ld, bl=%d)\n",
- 				inode->i_sb->s_id, inode->i_ino,
- 				lock->fl.c.flc_type,
- 				lock->fl.c.flc_pid,
-@@ -617,7 +617,7 @@ nlmsvc_testlock(struct svc_rqst *rqstp, struct nlm_file *file,
- 	int			mode;
- 	__be32			ret;
+ out:
+ 	kfree(cryptbuf);
+@@ -377,7 +377,7 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+ 	if (!ret && (dir != fname->dir)) {
+ 		char tmp_buf[BASE64_CHARS(NAME_MAX)];
  
--	dprintk("lockd: nlmsvc_testlock(%s/%" PRIino "u, ty=%d, %Ld-%Ld)\n",
-+	dprintk("lockd: nlmsvc_testlock(%s/%llu, ty=%d, %Ld-%Ld)\n",
- 				nlmsvc_file_inode(file)->i_sb->s_id,
- 				nlmsvc_file_inode(file)->i_ino,
- 				lock->fl.c.flc_type,
-@@ -676,7 +676,7 @@ nlmsvc_unlock(struct net *net, struct nlm_file *file, struct nlm_lock *lock)
- {
- 	int	error = 0;
- 
--	dprintk("lockd: nlmsvc_unlock(%s/%" PRIino "u, pi=%d, %Ld-%Ld)\n",
-+	dprintk("lockd: nlmsvc_unlock(%s/%llu, pi=%d, %Ld-%Ld)\n",
- 				nlmsvc_file_inode(file)->i_sb->s_id,
- 				nlmsvc_file_inode(file)->i_ino,
- 				lock->fl.c.flc_pid,
-@@ -716,7 +716,7 @@ nlmsvc_cancel_blocked(struct net *net, struct nlm_file *file, struct nlm_lock *l
- 	int status = 0;
- 	int mode;
- 
--	dprintk("lockd: nlmsvc_cancel(%s/%" PRIino "u, pi=%d, %Ld-%Ld)\n",
-+	dprintk("lockd: nlmsvc_cancel(%s/%llu, pi=%d, %Ld-%Ld)\n",
- 				nlmsvc_file_inode(file)->i_sb->s_id,
- 				nlmsvc_file_inode(file)->i_ino,
- 				lock->fl.c.flc_pid,
-diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
-index 5e7b2a7967bd23365dae2817a0e11c50e4be7c83..79f3dd2fd3666d835161a54a6b3d2b69e7741dd5 100644
---- a/fs/lockd/svcsubs.c
-+++ b/fs/lockd/svcsubs.c
-@@ -47,7 +47,7 @@ static inline void nlm_debug_print_file(char *msg, struct nlm_file *file)
- {
- 	struct inode *inode = nlmsvc_file_inode(file);
- 
--	dprintk("lockd: %s %s/%" PRIino "u\n",
-+	dprintk("lockd: %s %s/%llu\n",
- 		msg, inode->i_sb->s_id, inode->i_ino);
- }
- #else
+-		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%ld",
++		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%" PRIino "u",
+ 				    oname->len, oname->name, dir->i_ino);
+ 		memcpy(oname->name, tmp_buf, name_len);
+ 		oname->len = name_len;
 
 -- 
 2.53.0
