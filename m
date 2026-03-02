@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3147EC0483
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 964A5EC0487
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 92E4410E775;
-	Tue,  3 Mar 2026 09:01:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1439D10E77F;
+	Tue,  3 Mar 2026 09:01:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q3lWy3v4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j4Q0pC9g";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2950910E36C;
- Mon,  2 Mar 2026 20:41:18 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6CA410E5BB;
+ Mon,  2 Mar 2026 20:30:18 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id F402E40279;
- Mon,  2 Mar 2026 20:41:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA4D6C2BCB2;
- Mon,  2 Mar 2026 20:41:03 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B5A5961118;
+ Mon,  2 Mar 2026 20:30:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3952DC2BCB2;
+ Mon,  2 Mar 2026 20:30:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484077;
- bh=7iiTK/WlallPtoG9cPNjecKgEBkMT/TeqVgQy+WopvM=;
+ s=k20201202; t=1772483417;
+ bh=SFRV06+LrpGHyP+DQJTOgjuew1xPKXuf8ELCQbvFgSw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Q3lWy3v43bm+80a+0OwzqN6HO+WYZrL+cAeVzq9he36ZmAtFYTR/rzVUIOd+XPIZn
- xiciprDtyAiCVp57Nzi4tvZ8Y21cP7iDyRS6JDAwcVAjHQ3q1cgBKlwkGplcbRZtaq
- wu0ln60mDcobYuejPozOuD/SEwr5UkMfFPRnckpe33RzwKjIXJ3Jucu0Cix62ZMXir
- u+siRB/S0m7tx5nTgxL3R7ly4+L/HI3KzITee/l1HsslT8QqSzDTLx5ns5Mq4srKXf
- Ndo3CW8EU5EMBb98PjC+ney+FXVIpyqf3TaCiM/5UU3fbLTn0M67jYrBEstdade6rG
- PYLcnjlQMOWag==
+ b=j4Q0pC9gVLX/GuwL7w/ffoGxBSP7RPq+NpPeuKosbD6Ck2Gau/xQeD4N8u/naDEfg
+ sQvcWEs62tYZz1Og6NpqphRwz7cEYCfdKIKPrjOotUTkt3XZhHEwi/2iG912xqPECA
+ 7YMNOiIX+IghztcKyWE7Ox/VLOKYNqsl7Rsk8r9ufWjVVx6E/HxKBo2GjSiifNcZO4
+ ietEPmuzEpsEPHkaC7xO+bNI/vdAUkDAuAuVRxSyT1gJUTSRzevU77MTueOLTV7YVl
+ kY7/Mvx1lXjTk92Cl5v04JlNgyEnC26cdENhAS0zGOG9gxP2feZIqQD2OjFTyOXtxA
+ RoeIwgF10gexQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:52 -0500
-Subject: [PATCH v2 068/110] nilfs2: replace PRIino with %llu/%llx format
- strings
+Date: Mon, 02 Mar 2026 15:24:06 -0500
+Subject: [PATCH v2 022/110] cachefiles: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-68-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-22-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -152,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14594; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=7iiTK/WlallPtoG9cPNjecKgEBkMT/TeqVgQy+WopvM=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIByzPBKN+6Lr3DkJlbKoKDXSsmMjh2nWOjA
- OenDfFcRDKJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAQAKCRAADmhBGVaC
- FcVzD/0a3wbbo/lvqeGMdK9SeYLF3NTrj3JCtWkiw1CiLf06TkanPBZN4g21uciz8A3bhypmKQm
- ur1miF+4oxMw995RrTSwqIFlhBTSOlbgi88+V9KV6ir1SaXotaYRHWTnkhmEazGKyQ4e15gUV7d
- 4EtAAK2sojRlcY+0Zn002f1amXr5goGrtuQcMx3mLOVglOIlAi0k/n8GyW+N6kNeMV6wxKokXiE
- yfkwZMenwOROw3SG3fLOtneaSgawXku/m2Jtt/Q4ch0tGmrbNq1ZCyOczLh6zQt8U/h660/LhkZ
- EZSjYQqYUc7519xck4rS9esm9Dae6T7ihTSgSQOy08KoX+EgqqxqWIObPtH7FPpWdZeZMTiEdra
- xbOHVgxCqFJfLvM4c5G2PsIFVCXcIBiQF7jnORE0Y1wUdL9xEHUUA2eeEkwv2px+oI+R0P4Az0h
- mQ2V1Zjafq9RxYAZhPoaBr8TsqNQPach7sdWbxhTPgQzZjTbHZwsdROvQlBAdznlxLzIRbkzByX
- n4VnP/+pP+U2Xp7ibTRbYfdhtRyJoa6MqjOfrpZGaBGVI0BfQ9a41R3xYDUif/ioKhDEoxEfud1
- NbBFix+eq/ukXY+6Dz/20Ixoih4nKZOD868lCfiF/gOalbvoZZlWsu3VLzKMUgSj2Cab4Zk0v2z
- dBKhS6EU8pUW1VA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4457; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=SFRV06+LrpGHyP+DQJTOgjuew1xPKXuf8ELCQbvFgSw=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH1W0urNlOitGlDcMkogI9SpWyxFPxip32Cx
+ 0CQBjKPBryJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9QAKCRAADmhBGVaC
+ Fa4nEACgU9mb4glul3V7gbaPmMmo0AVe5vpRFRnW3696SkbgSJ0VBjlh5PZmnldNvzfjR8agjgC
+ blt9LYwfP104fdmxdFml5BhFoIICV/xdU/ZyqeJkY47XmrEU5i4i5TxfUk09rsNI7IYdHEhvlrs
+ yxbfR83D5O9puMDcxFZK5FzMN08g6gq5jd8Sm02cpZH6PeQ/q6gGjDTlsD3V7cGbunZE0XTPUd1
+ P68x0C+ZLSqEg1xDgLoI0TElMvVIrEixULTNgmd0kgC5jlBlesUvYw3366GeftrljvSKHhWmApN
+ TNwJ/vPHrrrNk7im2W0S+Avn0l94NtR8AJryn1v3iznfSFcQEUPbVetlK2xQDcFGAEuTndnYEXz
+ dBEU7aqaV0M+0jegI910gHVLl6bxFEtpLOa1Dzhj04T8Zpy8DA7L3OAesSYO1O/UZaslux7SR5o
+ 18Yveno33NG/TnVYsZT3yLBEhatWz/zjHJexQnXLaHGNgAbKlBtxpBNXbBxPeJ69/LVKYCLXJAS
+ 0jHnDr+/6Fwt6q4ZNad4+cN6/v5ijaB83K1rkncF1nwi7Hv7rTPP0nnbHRQ7SebPbfMyP6vpezH
+ zgm/wh5VFkMEEGaDIOaVnyq+jjB1YsDsMP8aOsxwA4sgn3ksKF1jwyvsyoe1fPWmuY9FbmOuRyy
+ Q9ROlaQrf2RDRXA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -183,329 +182,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in nilfs2 with the concrete format strings.
+Convert cachefiles i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/nilfs2/alloc.c   | 10 +++++-----
- fs/nilfs2/bmap.c    |  2 +-
- fs/nilfs2/btnode.c  |  2 +-
- fs/nilfs2/btree.c   | 12 ++++++------
- fs/nilfs2/dir.c     | 12 ++++++------
- fs/nilfs2/direct.c  |  4 ++--
- fs/nilfs2/gcinode.c |  2 +-
- fs/nilfs2/inode.c   |  8 ++++----
- fs/nilfs2/mdt.c     |  2 +-
- fs/nilfs2/namei.c   |  2 +-
- fs/nilfs2/segment.c |  2 +-
- 11 files changed, 29 insertions(+), 29 deletions(-)
+ fs/cachefiles/io.c    |  6 +++---
+ fs/cachefiles/namei.c | 12 ++++++------
+ fs/cachefiles/xattr.c |  2 +-
+ 3 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/fs/nilfs2/alloc.c b/fs/nilfs2/alloc.c
-index a3c559c86e5a4c63b1c9dd4ca137f24749c3ee87..7b1cd2baefcf21e54f9260845b02c7c95c148c64 100644
---- a/fs/nilfs2/alloc.c
-+++ b/fs/nilfs2/alloc.c
-@@ -707,7 +707,7 @@ void nilfs_palloc_commit_free_entry(struct inode *inode,
+diff --git a/fs/cachefiles/io.c b/fs/cachefiles/io.c
+index eaf47851c65f4736a7a27f13c498028c7c8dd1b4..d879b80a0bedc95533ce05361ed8cb79c7ed3826 100644
+--- a/fs/cachefiles/io.c
++++ b/fs/cachefiles/io.c
+@@ -93,7 +93,7 @@ static int cachefiles_read(struct netfs_cache_resources *cres,
+ 	object = cachefiles_cres_object(cres);
+ 	file = cachefiles_cres_file(cres);
  
- 	if (!nilfs_clear_bit_atomic(lock, group_offset, bitmap))
- 		nilfs_warn(inode->i_sb,
--			   "%s (ino=%" PRIino "u): entry number %llu already freed",
-+			   "%s (ino=%llu): entry number %llu already freed",
- 			   __func__, inode->i_ino,
- 			   (unsigned long long)req->pr_entry_nr);
- 	else
-@@ -748,7 +748,7 @@ void nilfs_palloc_abort_alloc_entry(struct inode *inode,
+-	_enter("%pD,%li,%llx,%zx/%llx",
++	_enter("%pD,%llu,%llx,%zx/%llx",
+ 	       file, file_inode(file)->i_ino, start_pos, len,
+ 	       i_size_read(file_inode(file)));
  
- 	if (!nilfs_clear_bit_atomic(lock, group_offset, bitmap))
- 		nilfs_warn(inode->i_sb,
--			   "%s (ino=%" PRIino "u): entry number %llu already freed",
-+			   "%s (ino=%llu): entry number %llu already freed",
- 			   __func__, inode->i_ino,
- 			   (unsigned long long)req->pr_entry_nr);
- 	else
-@@ -861,7 +861,7 @@ int nilfs_palloc_freev(struct inode *inode, __u64 *entry_nrs, size_t nitems)
- 			if (!nilfs_clear_bit_atomic(lock, group_offset,
- 						    bitmap)) {
- 				nilfs_warn(inode->i_sb,
--					   "%s (ino=%" PRIino "u): entry number %llu already freed",
-+					   "%s (ino=%llu): entry number %llu already freed",
- 					   __func__, inode->i_ino,
- 					   (unsigned long long)entry_nrs[j]);
- 			} else {
-@@ -906,7 +906,7 @@ int nilfs_palloc_freev(struct inode *inode, __u64 *entry_nrs, size_t nitems)
- 							      last_nrs[k]);
- 			if (ret && ret != -ENOENT)
- 				nilfs_warn(inode->i_sb,
--					   "error %d deleting block that object (entry=%llu, ino=%" PRIino "u) belongs to",
-+					   "error %d deleting block that object (entry=%llu, ino=%llu) belongs to",
- 					   ret, (unsigned long long)last_nrs[k],
- 					   inode->i_ino);
+@@ -214,7 +214,7 @@ static int cachefiles_query_occupancy(struct netfs_cache_resources *cres,
+ 	file = cachefiles_cres_file(cres);
+ 	granularity = max_t(size_t, object->volume->cache->bsize, granularity);
+ 
+-	_enter("%pD,%li,%llx,%zx/%llx",
++	_enter("%pD,%llu,%llx,%zx/%llx",
+ 	       file, file_inode(file)->i_ino, start, len,
+ 	       i_size_read(file_inode(file)));
+ 
+@@ -294,7 +294,7 @@ int __cachefiles_write(struct cachefiles_object *object,
+ 	fscache_count_write();
+ 	cache = object->volume->cache;
+ 
+-	_enter("%pD,%li,%llx,%zx/%llx",
++	_enter("%pD,%llu,%llx,%zx/%llx",
+ 	       file, file_inode(file)->i_ino, start_pos, len,
+ 	       i_size_read(file_inode(file)));
+ 
+diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+index e5ec90dccc27f71dc19219f7632f3e48eaf51545..ace111f29c6fa006b69a0808764b60a0074db229 100644
+--- a/fs/cachefiles/namei.c
++++ b/fs/cachefiles/namei.c
+@@ -147,7 +147,7 @@ struct dentry *cachefiles_get_directory(struct cachefiles_cache *cache,
  		}
-@@ -923,7 +923,7 @@ int nilfs_palloc_freev(struct inode *inode, __u64 *entry_nrs, size_t nitems)
- 			ret = nilfs_palloc_delete_bitmap_block(inode, group);
- 			if (ret && ret != -ENOENT)
- 				nilfs_warn(inode->i_sb,
--					   "error %d deleting bitmap block of group=%lu, ino=%" PRIino "u",
-+					   "error %d deleting bitmap block of group=%lu, ino=%llu",
- 					   ret, group, inode->i_ino);
- 		}
- 	}
-diff --git a/fs/nilfs2/bmap.c b/fs/nilfs2/bmap.c
-index e12979bac3c3ee5eb7fcc2bf156fe6e48fc65a7d..824f2bd91c167965ec3a660202b6e6c5f1fe007e 100644
---- a/fs/nilfs2/bmap.c
-+++ b/fs/nilfs2/bmap.c
-@@ -33,7 +33,7 @@ static int nilfs_bmap_convert_error(struct nilfs_bmap *bmap,
+ 		ASSERT(d_backing_inode(subdir));
  
- 	if (err == -EINVAL) {
- 		__nilfs_error(inode->i_sb, fname,
--			      "broken bmap (inode number=%" PRIino "u)", inode->i_ino);
-+			      "broken bmap (inode number=%llu)", inode->i_ino);
- 		err = -EIO;
- 	}
- 	return err;
-diff --git a/fs/nilfs2/btnode.c b/fs/nilfs2/btnode.c
-index 3d64f3a9223e5601dc2332ae6e1007edd5b4827b..2e553d698d0f3980de98fced415dfd819ddbca0a 100644
---- a/fs/nilfs2/btnode.c
-+++ b/fs/nilfs2/btnode.c
-@@ -64,7 +64,7 @@ nilfs_btnode_create_block(struct address_space *btnc, __u64 blocknr)
- 		 * clearing of an abandoned b-tree node is missing somewhere).
- 		 */
- 		nilfs_error(inode->i_sb,
--			    "state inconsistency probably due to duplicate use of b-tree node block address %llu (ino=%" PRIino "u)",
-+			    "state inconsistency probably due to duplicate use of b-tree node block address %llu (ino=%llu)",
- 			    (unsigned long long)blocknr, inode->i_ino);
- 		goto failed;
- 	}
-diff --git a/fs/nilfs2/btree.c b/fs/nilfs2/btree.c
-index 57163e991fbc49e2bfba2fa543f1b8dbd77718f4..3c03f5a741d144d22d1ffb5acf43a035e88c00dc 100644
---- a/fs/nilfs2/btree.c
-+++ b/fs/nilfs2/btree.c
-@@ -353,7 +353,7 @@ static int nilfs_btree_node_broken(const struct nilfs_btree_node *node,
- 		     nchildren <= 0 ||
- 		     nchildren > NILFS_BTREE_NODE_NCHILDREN_MAX(size))) {
- 		nilfs_crit(inode->i_sb,
--			   "bad btree node (ino=%" PRIino "u, blocknr=%llu): level = %d, flags = 0x%x, nchildren = %d",
-+			   "bad btree node (ino=%llu, blocknr=%llu): level = %d, flags = 0x%x, nchildren = %d",
- 			   inode->i_ino, (unsigned long long)blocknr, level,
- 			   flags, nchildren);
- 		ret = 1;
-@@ -384,7 +384,7 @@ static int nilfs_btree_root_broken(const struct nilfs_btree_node *node,
- 		     nchildren > NILFS_BTREE_ROOT_NCHILDREN_MAX ||
- 		     (nchildren == 0 && level > NILFS_BTREE_LEVEL_NODE_MIN))) {
- 		nilfs_crit(inode->i_sb,
--			   "bad btree root (ino=%" PRIino "u): level = %d, flags = 0x%x, nchildren = %d",
-+			   "bad btree root (ino=%llu): level = %d, flags = 0x%x, nchildren = %d",
- 			   inode->i_ino, level, flags, nchildren);
- 		ret = 1;
- 	}
-@@ -453,7 +453,7 @@ static int nilfs_btree_bad_node(const struct nilfs_bmap *btree,
- 	if (unlikely(nilfs_btree_node_get_level(node) != level)) {
- 		dump_stack();
- 		nilfs_crit(btree->b_inode->i_sb,
--			   "btree level mismatch (ino=%" PRIino "u): %d != %d",
-+			   "btree level mismatch (ino=%llu): %d != %d",
- 			   btree->b_inode->i_ino,
- 			   nilfs_btree_node_get_level(node), level);
- 		return 1;
-@@ -521,7 +521,7 @@ static int __nilfs_btree_get_block(const struct nilfs_bmap *btree, __u64 ptr,
-  out_no_wait:
- 	if (!buffer_uptodate(bh)) {
- 		nilfs_err(btree->b_inode->i_sb,
--			  "I/O error reading b-tree node block (ino=%" PRIino "u, blocknr=%llu)",
-+			  "I/O error reading b-tree node block (ino=%llu, blocknr=%llu)",
- 			  btree->b_inode->i_ino, (unsigned long long)ptr);
- 		brelse(bh);
- 		return -EIO;
-@@ -2104,7 +2104,7 @@ static int nilfs_btree_propagate(struct nilfs_bmap *btree,
- 	if (ret < 0) {
- 		if (unlikely(ret == -ENOENT)) {
- 			nilfs_crit(btree->b_inode->i_sb,
--				   "writing node/leaf block does not appear in b-tree (ino=%" PRIino "u) at key=%llu, level=%d",
-+				   "writing node/leaf block does not appear in b-tree (ino=%llu) at key=%llu, level=%d",
- 				   btree->b_inode->i_ino,
- 				   (unsigned long long)key, level);
- 			ret = -EINVAL;
-@@ -2146,7 +2146,7 @@ static void nilfs_btree_add_dirty_buffer(struct nilfs_bmap *btree,
- 	    level >= NILFS_BTREE_LEVEL_MAX) {
- 		dump_stack();
- 		nilfs_warn(btree->b_inode->i_sb,
--			   "invalid btree level: %d (key=%llu, ino=%" PRIino "u, blocknr=%llu)",
-+			   "invalid btree level: %d (key=%llu, ino=%llu, blocknr=%llu)",
- 			   level, (unsigned long long)key,
- 			   btree->b_inode->i_ino,
- 			   (unsigned long long)bh->b_blocknr);
-diff --git a/fs/nilfs2/dir.c b/fs/nilfs2/dir.c
-index b182da076c58c4813145bc3e501a1e9a188bce85..3653db5cdb65137d1e660bb509c14ec4cbc8840b 100644
---- a/fs/nilfs2/dir.c
-+++ b/fs/nilfs2/dir.c
-@@ -150,7 +150,7 @@ static bool nilfs_check_folio(struct folio *folio, char *kaddr)
+-		_debug("mkdir -> %pd{ino=%lu}",
++		_debug("mkdir -> %pd{ino=%" PRIino "u}",
+ 		       subdir, d_backing_inode(subdir)->i_ino);
+ 		if (_is_new)
+ 			*_is_new = true;
+@@ -158,7 +158,7 @@ struct dentry *cachefiles_get_directory(struct cachefiles_cache *cache,
+ 	end_creating_keep(subdir);
  
- Ebadsize:
- 	nilfs_error(sb,
--		    "size of directory #%" PRIino "u is not a multiple of chunk size",
-+		    "size of directory #%llu is not a multiple of chunk size",
- 		    dir->i_ino);
- 	goto fail;
- Eshort:
-@@ -169,7 +169,7 @@ static bool nilfs_check_folio(struct folio *folio, char *kaddr)
- 	error = "disallowed inode number";
- bad_entry:
- 	nilfs_error(sb,
--		    "bad entry in directory #%" PRIino "u: %s - offset=%lu, inode=%lu, rec_len=%zd, name_len=%d",
-+		    "bad entry in directory #%llu: %s - offset=%lu, inode=%lu, rec_len=%zd, name_len=%d",
- 		    dir->i_ino, error, (folio->index << PAGE_SHIFT) + offs,
- 		    (unsigned long)le64_to_cpu(p->inode),
- 		    rec_len, p->name_len);
-@@ -177,7 +177,7 @@ static bool nilfs_check_folio(struct folio *folio, char *kaddr)
- Eend:
- 	p = (struct nilfs_dir_entry *)(kaddr + offs);
- 	nilfs_error(sb,
--		    "entry in directory #%" PRIino "u spans the page boundary offset=%lu, inode=%lu",
-+		    "entry in directory #%llu spans the page boundary offset=%lu, inode=%lu",
- 		    dir->i_ino, (folio->index << PAGE_SHIFT) + offs,
- 		    (unsigned long)le64_to_cpu(p->inode));
- fail:
-@@ -251,7 +251,7 @@ static int nilfs_readdir(struct file *file, struct dir_context *ctx)
+ 	if (!__cachefiles_mark_inode_in_use(NULL, d_inode(subdir))) {
+-		pr_notice("cachefiles: Inode already in use: %pd (B=%lx)\n",
++		pr_notice("cachefiles: Inode already in use: %pd (B=%" PRIino "x)\n",
+ 			  subdir, d_inode(subdir)->i_ino);
+ 		goto mark_error;
+ 	}
+@@ -183,7 +183,7 @@ struct dentry *cachefiles_get_directory(struct cachefiles_cache *cache,
+ 	    !d_backing_inode(subdir)->i_op->unlink)
+ 		goto check_error;
  
- 		kaddr = nilfs_get_folio(inode, n, &folio);
- 		if (IS_ERR(kaddr)) {
--			nilfs_error(sb, "bad page in #%" PRIino "u", inode->i_ino);
-+			nilfs_error(sb, "bad page in #%llu", inode->i_ino);
- 			ctx->pos += PAGE_SIZE - offset;
- 			return -EIO;
- 		}
-@@ -336,7 +336,7 @@ struct nilfs_dir_entry *nilfs_find_entry(struct inode *dir,
- 		/* next folio is past the blocks we've got */
- 		if (unlikely(n > (dir->i_blocks >> (PAGE_SHIFT - 9)))) {
- 			nilfs_error(dir->i_sb,
--			       "dir %" PRIino "u size %lld exceeds block count %llu",
-+			       "dir %llu size %lld exceeds block count %llu",
- 			       dir->i_ino, dir->i_size,
- 			       (unsigned long long)dir->i_blocks);
- 			goto out;
-@@ -382,7 +382,7 @@ struct nilfs_dir_entry *nilfs_dotdot(struct inode *dir, struct folio **foliop)
- 	return next_de;
+-	_leave(" = [%lu]", d_backing_inode(subdir)->i_ino);
++	_leave(" = [%" PRIino "u]", d_backing_inode(subdir)->i_ino);
+ 	return subdir;
  
- fail:
--	nilfs_error(dir->i_sb, "directory #%" PRIino "u %s", dir->i_ino, msg);
-+	nilfs_error(dir->i_sb, "directory #%llu %s", dir->i_ino, msg);
- 	folio_release_kmap(folio, de);
- 	return NULL;
+ check_error:
+@@ -529,7 +529,7 @@ static bool cachefiles_create_file(struct cachefiles_object *object)
+ 
+ 	set_bit(FSCACHE_COOKIE_NEEDS_UPDATE, &object->cookie->flags);
+ 	set_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags);
+-	_debug("create -> %pD{ino=%lu}", file, file_inode(file)->i_ino);
++	_debug("create -> %pD{ino=%" PRIino "u}", file, file_inode(file)->i_ino);
+ 	object->file = file;
+ 	return true;
  }
-diff --git a/fs/nilfs2/direct.c b/fs/nilfs2/direct.c
-index 1084d4d586e078ab6825167976dd2a71d52bc8aa..8bd0b1374e25f8ff510f3b36dbde2acc01aafc1e 100644
---- a/fs/nilfs2/direct.c
-+++ b/fs/nilfs2/direct.c
-@@ -338,7 +338,7 @@ static int nilfs_direct_assign(struct nilfs_bmap *bmap,
- 	key = nilfs_bmap_data_get_key(bmap, *bh);
- 	if (unlikely(key > NILFS_DIRECT_KEY_MAX)) {
- 		nilfs_crit(bmap->b_inode->i_sb,
--			   "%s (ino=%" PRIino "u): invalid key: %llu",
-+			   "%s (ino=%llu): invalid key: %llu",
- 			   __func__,
- 			   bmap->b_inode->i_ino, (unsigned long long)key);
- 		return -EINVAL;
-@@ -346,7 +346,7 @@ static int nilfs_direct_assign(struct nilfs_bmap *bmap,
- 	ptr = nilfs_direct_get_ptr(bmap, key);
- 	if (unlikely(ptr == NILFS_BMAP_INVALID_PTR)) {
- 		nilfs_crit(bmap->b_inode->i_sb,
--			   "%s (ino=%" PRIino "u): invalid pointer: %llu",
-+			   "%s (ino=%llu): invalid pointer: %llu",
- 			   __func__,
- 			   bmap->b_inode->i_ino, (unsigned long long)ptr);
- 		return -EINVAL;
-diff --git a/fs/nilfs2/gcinode.c b/fs/nilfs2/gcinode.c
-index 714962d010da4a23e9b5f40de8aaaca8b95a74da..62d4c1b787e95c961a360a4214d621d564ad8b4c 100644
---- a/fs/nilfs2/gcinode.c
-+++ b/fs/nilfs2/gcinode.c
-@@ -137,7 +137,7 @@ int nilfs_gccache_wait_and_mark_dirty(struct buffer_head *bh)
- 		struct inode *inode = bh->b_folio->mapping->host;
+@@ -549,7 +549,7 @@ static bool cachefiles_open_file(struct cachefiles_object *object,
+ 	_enter("%pd", dentry);
  
- 		nilfs_err(inode->i_sb,
--			  "I/O error reading %s block for GC (ino=%" PRIino "u, vblocknr=%llu)",
-+			  "I/O error reading %s block for GC (ino=%llu, vblocknr=%llu)",
- 			  buffer_nilfs_node(bh) ? "node" : "data",
- 			  inode->i_ino, (unsigned long long)bh->b_blocknr);
- 		return -EIO;
-diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-index 0bc1c5141ec596b3c31e7d18e4ba3541bf618406..51f7e125a311b868860e3e111700d49d4cb98fa6 100644
---- a/fs/nilfs2/inode.c
-+++ b/fs/nilfs2/inode.c
-@@ -108,7 +108,7 @@ int nilfs_get_block(struct inode *inode, sector_t blkoff,
- 				 * be locked in this case.
- 				 */
- 				nilfs_warn(inode->i_sb,
--					   "%s (ino=%" PRIino "u): a race condition while inserting a data block at offset=%llu",
-+					   "%s (ino=%llu): a race condition while inserting a data block at offset=%llu",
- 					   __func__, inode->i_ino,
- 					   (unsigned long long)blkoff);
- 				err = -EAGAIN;
-@@ -789,7 +789,7 @@ static void nilfs_truncate_bmap(struct nilfs_inode_info *ii,
- 		goto repeat;
- 
- failed:
--	nilfs_warn(ii->vfs_inode.i_sb, "error %d truncating bmap (ino=%" PRIino "u)",
-+	nilfs_warn(ii->vfs_inode.i_sb, "error %d truncating bmap (ino=%llu)",
- 		   ret, ii->vfs_inode.i_ino);
- }
- 
-@@ -1026,7 +1026,7 @@ int nilfs_set_file_dirty(struct inode *inode, unsigned int nr_dirty)
- 			 * this inode.
- 			 */
- 			nilfs_warn(inode->i_sb,
--				   "cannot set file dirty (ino=%" PRIino "u): the file is being freed",
-+				   "cannot set file dirty (ino=%llu): the file is being freed",
- 				   inode->i_ino);
- 			spin_unlock(&nilfs->ns_inode_lock);
- 			return -EINVAL; /*
-@@ -1057,7 +1057,7 @@ int __nilfs_mark_inode_dirty(struct inode *inode, int flags)
- 	err = nilfs_load_inode_block(inode, &ibh);
- 	if (unlikely(err)) {
- 		nilfs_warn(inode->i_sb,
--			   "cannot mark inode dirty (ino=%" PRIino "u): error %d loading inode block",
-+			   "cannot mark inode dirty (ino=%llu): error %d loading inode block",
- 			   inode->i_ino, err);
- 		return err;
+ 	if (!cachefiles_mark_inode_in_use(object, d_inode(dentry))) {
+-		pr_notice("cachefiles: Inode already in use: %pd (B=%lx)\n",
++		pr_notice("cachefiles: Inode already in use: %pd (B=%" PRIino "x)\n",
+ 			  dentry, d_inode(dentry)->i_ino);
+ 		return false;
  	}
-diff --git a/fs/nilfs2/mdt.c b/fs/nilfs2/mdt.c
-index 8629c72b62db33217d4747124885b6f727f182be..09adb40c65e505d92012a3d2f5fe8a5696e10056 100644
---- a/fs/nilfs2/mdt.c
-+++ b/fs/nilfs2/mdt.c
-@@ -203,7 +203,7 @@ static int nilfs_mdt_read_block(struct inode *inode, unsigned long block,
- 	err = -EIO;
- 	if (!buffer_uptodate(first_bh)) {
- 		nilfs_err(inode->i_sb,
--			  "I/O error reading meta-data file (ino=%" PRIino "u, block-offset=%lu)",
-+			  "I/O error reading meta-data file (ino=%llu, block-offset=%lu)",
- 			  inode->i_ino, block);
- 		goto failed_bh;
- 	}
-diff --git a/fs/nilfs2/namei.c b/fs/nilfs2/namei.c
-index 29edb84a0663caa4b29fa488c0495fc53358ca00..40ac679ec56e400b1df98e9be6fe9ca338a9ba51 100644
---- a/fs/nilfs2/namei.c
-+++ b/fs/nilfs2/namei.c
-@@ -292,7 +292,7 @@ static int nilfs_do_unlink(struct inode *dir, struct dentry *dentry)
+@@ -657,7 +657,7 @@ bool cachefiles_look_up_object(struct cachefiles_object *object)
+ 	if (!ret)
+ 		return false;
  
- 	if (!inode->i_nlink) {
- 		nilfs_warn(inode->i_sb,
--			   "deleting nonexistent file (ino=%" PRIino "u), %d",
-+			   "deleting nonexistent file (ino=%llu), %d",
- 			   inode->i_ino, inode->i_nlink);
- 		set_nlink(inode, 1);
+-	_leave(" = t [%lu]", file_inode(object->file)->i_ino);
++	_leave(" = t [%" PRIino "u]", file_inode(object->file)->i_ino);
+ 	return true;
+ 
+ new_file:
+diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
+index 52383b1d0ba63d4a09413177d8c0d841b5b5b43c..1cfeadc4f8f0b95ce861a2faf5b7b41b8156cf47 100644
+--- a/fs/cachefiles/xattr.c
++++ b/fs/cachefiles/xattr.c
+@@ -179,7 +179,7 @@ int cachefiles_remove_object_xattr(struct cachefiles_cache *cache,
+ 			ret = 0;
+ 		else if (ret != -ENOMEM)
+ 			cachefiles_io_error(cache,
+-					    "Can't remove xattr from %lu"
++					    "Can't remove xattr from %" PRIino "u"
+ 					    " (error %d)",
+ 					    d_backing_inode(dentry)->i_ino, -ret);
  	}
-diff --git a/fs/nilfs2/segment.c b/fs/nilfs2/segment.c
-index 9a8bc3fa35ce9b447abbc2fb56cbd2b0cc5f76de..4b1bf559f3524b1cc3965dae9fd3e5745718569d 100644
---- a/fs/nilfs2/segment.c
-+++ b/fs/nilfs2/segment.c
-@@ -2024,7 +2024,7 @@ static int nilfs_segctor_collect_dirty_files(struct nilfs_sc_info *sci,
- 				ifile, ii->vfs_inode.i_ino, &ibh);
- 			if (unlikely(err)) {
- 				nilfs_warn(sci->sc_super,
--					   "log writer: error %d getting inode block (ino=%" PRIino "u)",
-+					   "log writer: error %d getting inode block (ino=%llu)",
- 					   err, ii->vfs_inode.i_ino);
- 				return err;
- 			}
 
 -- 
 2.53.0
