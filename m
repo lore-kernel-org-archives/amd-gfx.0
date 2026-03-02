@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F43E67A9E
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97269E67A9F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A146210E719;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C365410E6EF;
 	Tue,  3 Mar 2026 09:01:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qnvKe0nX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sph0KI0t";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6B9510E5BD;
- Mon,  2 Mar 2026 20:31:00 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A37E910E5BB;
+ Mon,  2 Mar 2026 20:28:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id AA8C1423CE;
- Mon,  2 Mar 2026 20:31:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F096C2BC87;
- Mon,  2 Mar 2026 20:30:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D96166013E;
+ Mon,  2 Mar 2026 20:28:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B64AC19425;
+ Mon,  2 Mar 2026 20:28:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483460;
- bh=riRsVNtCfCFegg9RyCzZ4Sz7jbdraQnKk8jYFH84Icc=;
+ s=k20201202; t=1772483330;
+ bh=yq1Cs9ZR0lS9egEdGO4mUiRBStCZ5hAnYl6TTsYVp40=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=qnvKe0nX8QwUdQoIpHO/ZgmdEE5cOFTXQqjK33XdgB7DYCgcZnGqlFaUg29IlWmuV
- RpX6zUne9keLBWiLnN8Kf/7mw3bMCoZqrcH1oD1n+g2rghVCZNwys0mDgXBj58y78n
- ra3VHpaiBeC1gGEPkj0JZJVMkqeJOSrG5RgJGHdXoOQeMT2VvP+eP9/UU++B73Hxl6
- ac823MLXfOQHxj2HQ/j+T6IizaYa14nSw8j79/rWBkXcn/XSubxKUG8CkUnfDMlgPE
- wr0Ez5NpMjcw1bAP6uhshpK8AblWMuxtAQXuFDnFXtpgTT9IL/DPOwNDhWJydGMriu
- qzJEouDe28RRg==
+ b=Sph0KI0tM2m5iJ7o/uDRUkmQrQd55EjK7+kOBcZEB+Z865SXKxxqYKXQlil0TPhhl
+ 1TLaDa1FusgfArqQgtA/+bqrH7RP9Mf7on//w1qvwazMPq1IBps4ucgLRandSFs+me
+ 2vXmCGOlvs2r+od3HGrWxm+BfAsndPV8fJYUFExKYzvjJKLysspt3Y137nOhCHP05W
+ kLjY+KR+GqK5XU2eoEeanI2ywIOH4g+YX2e5aehBacSrgMwMUnVRASxCDeJWqLYBp3
+ sUjtvh3a9E/UvMlMDvrO2uOa+q2E0sKiOz8R4BiRzD0qmvO/5im+Hra6a/HIurcRXC
+ 63qhZ59B4r1Rw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:09 -0500
-Subject: [PATCH v2 025/110] cramfs: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:24:00 -0500
+Subject: [PATCH v2 016/110] 9p: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-25-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-16-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=866; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=riRsVNtCfCFegg9RyCzZ4Sz7jbdraQnKk8jYFH84Icc=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH1bEf196AVsr+Ud/aaxjvJQgxKhH/XClqjX
- MSfRbTdPm6JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9QAKCRAADmhBGVaC
- FTcaEACprwQPcR4yodSqEJmffPlvSdmIx4EzfJK5L/SlJyMWj4ntmS2KZcxaJGD5wvr+9IjBLtx
- 6Fjn5KNv1RpqKEyPbXoK+DBK46cdKHbmNZHS3te0teZYTwSZzH39CDqdk4JcrBMpRL1AqWLcLsQ
- 0PY39sZuPaHOs5MLQC9YC3X2GWSbBcu23B+7FYuhYfEZJwa19x9q5sb8vIBX+wj9tfAk9iL1/Na
- eP7gOl2qLRHzNyCEsUdu4rgIdrRz9NO3cv7jrLSe0X2l7Zcy16R7mXgU606DPjbWFaCGH103fu/
- nTNCjuSR9wanoZgBVVitZWUsO+8FvSKsetv3PnUzodUQlnWhWGVMH8drB75vI6ocAdWewtp/bbD
- Mb/VKjJt5GdHym8es1Z+DiMdupuZcAjFULurZEM/sydLBYroadzmugolrxCh/9+yWQNJeFZaCIC
- ZX42GGtqXmerBVHSIBxv8A0KEiSR+XmA49hHGS/E7oOFjdJSp+ARL3D39ZOkhFGm1ty2ClQP/iP
- DqcTMbssUbELTKTFhMCB94WLalQefSD3yQaqFQnP5V6W/V7r5PwxzfgWVg0b9Wv4V8Z+rebP4xC
- 0jUTuGrsWIvDqm9U9gFCE9IXL1KwqpzSwiTYxNERrgaMl+7DblOWrpWqeoAgIJu7PPXTENLLcnL
- //bfkHZlbLGnbpw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3829; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=yq1Cs9ZR0lS9egEdGO4mUiRBStCZ5hAnYl6TTsYVp40=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHzcHlSSc03ks1WmM35c7oIOdItTbwjnJVYQ
+ RlqK+TmiaSJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8wAKCRAADmhBGVaC
+ Fcl+EADKome0L9OFCCWtEcg+bnttOWPBC2ymrN21IlU4xNiJxXd/SNBmwfNw2PhlYAU3eQFtI0+
+ 5m9gyVkegAC7dmP7O49oU9P9bLik3GRIBPcyct4T0wKcKcoJ8qDjZjZDyWXKG2hRCc3POma6vh9
+ PGEY2XVNxD4VSw8TNbwTMQDVvFUewJD5pE9kO4rCEaoQ5U0MEhxk2TNJwE45QRfi/2/5KVyCgiU
+ 3BWRw8P9bt9rJFZMJsXqF3Wjpc38gN8z7bQRHunl6L3+zEv0JNc1AzzgUDQfsqkSzsTmu9OoHsV
+ 8r7u//Pnt4LQxUanpv8tk9/eLdDkzIixQGkonO4WZtrrZsWs2ilYU/C21KbB8/wrScyo40u77aI
+ EdME7QJX9yxWjJggTLjow3HOrentf4oMkx1dfEuanCoZ8RjROxhYpPJTnUBeLF3WEf2Nq3xOwfj
+ hvqQORN4ikvenhSXH10X/8g/ZlBLQLqcWwgzy7d7Zyc8wkLe0mYdYSOE2ybwhHHlzzFunX1JQGi
+ qd88Y3A/+Ym90L7ziA6480ULmn7vidwkNWAEob8awEMhtrSoE87De/Mnmzw4l2xQG3YdvdZEsI6
+ mLIxaGHjhUd9SghLavqmIVLfK9GDC0M3adC4bGecCPA+sXyHlvP38Mi8mx890qqCVbRyXsDfUnw
+ MAF6nWY7uo7+esQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,27 +182,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert cramfs i_ino format strings to use the PRIino format
+Convert 9p i_ino format strings to use the PRIino format
 macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/cramfs/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/9p/vfs_addr.c       | 4 ++--
+ fs/9p/vfs_inode.c      | 6 +++---
+ fs/9p/vfs_inode_dotl.c | 6 +++---
+ 3 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
-index e0ba9cd640dcfe86e0976344b30a5b9a0da6b90f..624c5ed0ceff2e4d3e964401e3cfb82154c719ae 100644
---- a/fs/cramfs/inode.c
-+++ b/fs/cramfs/inode.c
-@@ -125,7 +125,7 @@ static struct inode *get_cramfs_inode(struct super_block *sb,
- 				old_decode_dev(cramfs_inode->size));
- 		break;
- 	default:
--		printk(KERN_DEBUG "CRAMFS: Invalid file type 0%04o for inode %lu.\n",
-+		printk(KERN_DEBUG "CRAMFS: Invalid file type 0%04o for inode %" PRIino "u.\n",
- 		       inode->i_mode, inode->i_ino);
- 		iget_failed(inode);
- 		return ERR_PTR(-EIO);
+diff --git a/fs/9p/vfs_addr.c b/fs/9p/vfs_addr.c
+index 862164181baca1e88ecf8859c55868bb01525ce1..59c1d3f3c45300f5c796a2a441842a1a781e7291 100644
+--- a/fs/9p/vfs_addr.c
++++ b/fs/9p/vfs_addr.c
+@@ -36,7 +36,7 @@ static void v9fs_begin_writeback(struct netfs_io_request *wreq)
+ 
+ 	fid = v9fs_fid_find_inode(wreq->inode, true, INVALID_UID, true);
+ 	if (!fid) {
+-		WARN_ONCE(1, "folio expected an open fid inode->i_ino=%lx\n",
++		WARN_ONCE(1, "folio expected an open fid inode->i_ino=%" PRIino "x\n",
+ 			  wreq->inode->i_ino);
+ 		return;
+ 	}
+@@ -133,7 +133,7 @@ static int v9fs_init_request(struct netfs_io_request *rreq, struct file *file)
+ 	return 0;
+ 
+ no_fid:
+-	WARN_ONCE(1, "folio expected an open fid inode->i_ino=%lx\n",
++	WARN_ONCE(1, "folio expected an open fid inode->i_ino=%" PRIino "x\n",
+ 		  rreq->inode->i_ino);
+ 	return -EINVAL;
+ }
+diff --git a/fs/9p/vfs_inode.c b/fs/9p/vfs_inode.c
+index 97abe65bf7c1f00e94e431fc69dc5ce647d1742b..c3eee0d7a70dfe07ba09ce36458228fb00c5855f 100644
+--- a/fs/9p/vfs_inode.c
++++ b/fs/9p/vfs_inode.c
+@@ -1245,7 +1245,7 @@ static int
+ v9fs_vfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 		 struct dentry *dentry, const char *symname)
+ {
+-	p9_debug(P9_DEBUG_VFS, " %lu,%pd,%s\n",
++	p9_debug(P9_DEBUG_VFS, " %" PRIino "u,%pd,%s\n",
+ 		 dir->i_ino, dentry, symname);
+ 
+ 	return v9fs_vfs_mkspecial(dir, dentry, P9_DMSYMLINK, symname);
+@@ -1269,7 +1269,7 @@ v9fs_vfs_link(struct dentry *old_dentry, struct inode *dir,
+ 	char name[1 + U32_MAX_DIGITS + 2]; /* sign + number + \n + \0 */
+ 	struct p9_fid *oldfid;
+ 
+-	p9_debug(P9_DEBUG_VFS, " %lu,%pd,%pd\n",
++	p9_debug(P9_DEBUG_VFS, " %" PRIino "u,%pd,%pd\n",
+ 		 dir->i_ino, dentry, old_dentry);
+ 
+ 	oldfid = v9fs_fid_clone(old_dentry);
+@@ -1305,7 +1305,7 @@ v9fs_vfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
+ 	char name[2 + U32_MAX_DIGITS + 1 + U32_MAX_DIGITS + 1];
+ 	u32 perm;
+ 
+-	p9_debug(P9_DEBUG_VFS, " %lu,%pd mode: %x MAJOR: %u MINOR: %u\n",
++	p9_debug(P9_DEBUG_VFS, " %" PRIino "u,%pd mode: %x MAJOR: %u MINOR: %u\n",
+ 		 dir->i_ino, dentry, mode,
+ 		 MAJOR(rdev), MINOR(rdev));
+ 
+diff --git a/fs/9p/vfs_inode_dotl.c b/fs/9p/vfs_inode_dotl.c
+index 643e759eacb2a46855c7db6187fe6b29b7534c9a..18a3792afb4fedcc870a6090ad364a7ed3c5e9a6 100644
+--- a/fs/9p/vfs_inode_dotl.c
++++ b/fs/9p/vfs_inode_dotl.c
+@@ -691,7 +691,7 @@ v9fs_vfs_symlink_dotl(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct p9_fid *fid = NULL;
+ 
+ 	name = dentry->d_name.name;
+-	p9_debug(P9_DEBUG_VFS, "%lu,%s,%s\n", dir->i_ino, name, symname);
++	p9_debug(P9_DEBUG_VFS, "%" PRIino "u,%s,%s\n", dir->i_ino, name, symname);
+ 
+ 	dfid = v9fs_parent_fid(dentry);
+ 	if (IS_ERR(dfid)) {
+@@ -734,7 +734,7 @@ v9fs_vfs_link_dotl(struct dentry *old_dentry, struct inode *dir,
+ 	struct p9_fid *dfid, *oldfid;
+ 	struct v9fs_session_info *v9ses;
+ 
+-	p9_debug(P9_DEBUG_VFS, "dir ino: %lu, old_name: %pd, new_name: %pd\n",
++	p9_debug(P9_DEBUG_VFS, "dir ino: %" PRIino "u, old_name: %pd, new_name: %pd\n",
+ 		 dir->i_ino, old_dentry, dentry);
+ 
+ 	v9ses = v9fs_inode2v9ses(dir);
+@@ -798,7 +798,7 @@ v9fs_vfs_mknod_dotl(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct p9_qid qid;
+ 	struct posix_acl *dacl = NULL, *pacl = NULL;
+ 
+-	p9_debug(P9_DEBUG_VFS, " %lu,%pd mode: %x MAJOR: %u MINOR: %u\n",
++	p9_debug(P9_DEBUG_VFS, " %" PRIino "u,%pd mode: %x MAJOR: %u MINOR: %u\n",
+ 		 dir->i_ino, dentry, omode,
+ 		 MAJOR(rdev), MINOR(rdev));
+ 
 
 -- 
 2.53.0
