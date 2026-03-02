@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D14BAEC046C
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F16CEC047E
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF8BC10E735;
-	Tue,  3 Mar 2026 09:01:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50F8810E73C;
+	Tue,  3 Mar 2026 09:01:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="REYuvFsD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AvovHTO0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8391D10E5BD;
- Mon,  2 Mar 2026 20:36:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E823F10E36C;
+ Mon,  2 Mar 2026 20:44:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5491D43B42;
- Mon,  2 Mar 2026 20:36:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0873CC2BCB5;
- Mon,  2 Mar 2026 20:35:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B33C343585;
+ Mon,  2 Mar 2026 20:44:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C6FC19423;
+ Mon,  2 Mar 2026 20:44:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483762;
- bh=ERGVnc/eNvk3T/zuaFFuXcHD9EL1GuErviurDex5W4o=;
+ s=k20201202; t=1772484278;
+ bh=GpoXSAIQgn/BIYS+Nk/tCtiWihZ//MwJ8Zy+f0Lcga8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=REYuvFsDDR+oxBK7+A0CfVNiADY41vFTKoKcokLx+U/4MauiWmR5IPgW1ys7G/NW0
- loEvYpig71yLk0MwJ0ymDsMR98bBIpzDrWen0Tw54b7bCP/xbmKsKGfH9coaRp/18y
- Eo0H6ZGp5Ty/7F7rwpR4r+Hx2H0nZLg+fbnV+iiEv5zC6whurjOhbHJHY3KZ17yzlS
- XKpFn831tIVJfa3gRbLsfyQ4ot+jkdGNv2F60iwxRINAN0TQk+lIUPAd1iK7ktRn3M
- O0XnapSqAqCnsDUZsfqS8R2J6JsY/rdYoLvxzMnEaMALXPuXaWeiy70Wdi10ERpMSm
- X3mDLx+Xd6KIw==
+ b=AvovHTO067lyD+ZjLSJpxY8Wfw6m9TS/lKDW0wYVJy3tppLbQMr8Ut2Werk5RAzh7
+ 5KCcz3HhSNdectg1M7MN30RacrgFHJ8UIK6NS8T71v3uwCcpRW/GYiqX4b4hckooEf
+ fu4M8605uVLHr5jcw865Tso/y2e2Iyy1FA77WWGpp74pLjRpDTwfd5Z9HcBTnNehBW
+ M/7LNqlLha5XlqxCXpG1215wLFSBEqq8XiFeqoZpji3oBYvjuoyucMQKt2lSvIMgsl
+ zSw5iI8JrNs9fqMgeqHzBBgEaK0KLZ+BLOkM57mupMWF2U2/Qy8A2GWonfGOyzElBB
+ xSRHW5m4oMAvQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:30 -0500
-Subject: [PATCH v2 046/110] udf: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:25:06 -0500
+Subject: [PATCH v2 082/110] ext2: replace PRIino with %llu/%llx format strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-46-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-82-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9467; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=ERGVnc/eNvk3T/zuaFFuXcHD9EL1GuErviurDex5W4o=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH7+07vkyyUMJ8L7y9+mlPY4jMzb+NyG+v/R
- pgBoyVgEcOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx+wAKCRAADmhBGVaC
- FfZHEADJ/fjGrDSfQhhbluCM8cNtkizM9fG4iQpD1GJd8F6pckX2OF3puZnuhvDvkJx1GrSQGpf
- QW/yi7pUzSsl5pmkzn8cPf0XOVnw/HrW30iy7qftMlY1u4pe2cGXaxj9L5mEwIF3RaXpFvqiU45
- 812ILv/xFfAB+tE0lLgn8azq/WMlHUpMUdDxjKutRWykRDMjdYLNd7xsS1Iv/C4J3qmMZGBCPhW
- oJ4fdndEf8wcBjyb2ZakJRWtI5/6KqcytqeHHnC3Hf8MxGbSEoxP+U+AfYMb6Up7xG4/BZJIoqu
- NH0S4x6NhuPkIz7iKLoyYpNPaCfjTBfW32smIeAFg1dmNWBaSxFLsp7I1sW9MCTU7GjwT3kJB0e
- RqzRBjmuIMay1eqHOGoO3jQAhchsuDJ/RKxnWofZPYIQQAKLDB+w4DwT6sAHBFBtJt3Pog1XFGw
- 0fFbFLdIOZhBnJoWN6O2n+BW8auYit7amRfHOQcyREVzZhFGjJdwruGm0vXmoCfUMBgecY1Josh
- 1sot2IriM7ar0A+xdl7wMN74Fer508nUbS76dwwBz+KNC8OTHje4X5uWQXE/XzBqXWeuFRgYK6E
- qTaGyUMzpjWB2HiLSpxSKYcyu6wLbgTYgBtGNMo2HR2W4GR5ZXkfdtWbSGi6w3i4eZ2BwxyF6NW
- i6WIlbxHST3GYpA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6275; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=GpoXSAIQgn/BIYS+Nk/tCtiWihZ//MwJ8Zy+f0Lcga8=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIFeUYeRSPse4fCxGgNDYIK+l25DrEjdBbN4
+ hMW8oJt+9eJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBQAKCRAADmhBGVaC
+ FbgtD/9SGi4ZCAigckE5c0j0w/wNI20Kmd/l9hEx1qxDeDfpdAF7/czQKFnBM80YvdtzNq8HIHT
+ khCVNvYdgyxo45oTfevabzGB3sZlj94WJ96jQ7cfAH13fpM7LxdiQuIFbpilCWaog8iIzdMYbPe
+ jJOL9b5e5O4J6AcC9M8BZLZhvegN+9cQ7ynZiq4wK2tyzTa/if4CM+2Jkg15OjZ54f+WPm+kr/V
+ N1/jvzNuOncAgK+UOfVFAydqc3nZamV0MXvH3bABFfLxMyZSwb8sKhrEwMlEMWNYvJjXrpsF11+
+ l2dEPYn8+l/sZL8zSa5Pr1PgOPe6+CMBXBR6GkjcVn/G/rbMVhapqpOV6TUCpG0eiVW/DqZv3nO
+ dOy0FeQgJ1vgf9MuEPuqMZlDHrFBSDmXSmBaoyQfu3ffHRHg8sSjB5isPrsxeoDsYdPCvbKIB8A
+ umvDGu8/OecEbapCjXPQkhWhOJdDrxlUNhDZ+ecWs4g/cNVcc6d9tRJlm0gr8NQ9e7ikHZVbk3Y
+ tHynxNQ3AXXy4OvvcQ9knjlsFR4v2nZcYJ4f2IEZNtUwfAPHRFuZ0tl60/rIX1Nl5sd5m/dBUDK
+ X7pd97Xzq79QQ2r0CqkX/GF8KMEnXj+eG5FMjm3KkGNi7q7irme8pm7/bfBXeRxujbnXuPQbkft
+ Dcpv+qu8GeHoDGg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,222 +182,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert udf i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in ext2 with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/udf/directory.c | 18 +++++++++---------
- fs/udf/file.c      |  2 +-
- fs/udf/inode.c     | 12 ++++++------
- fs/udf/namei.c     |  8 ++++----
- fs/udf/super.c     |  2 +-
- 5 files changed, 21 insertions(+), 21 deletions(-)
+ fs/ext2/dir.c    | 10 +++++-----
+ fs/ext2/ialloc.c |  2 +-
+ fs/ext2/inode.c  |  2 +-
+ fs/ext2/xattr.c  | 14 +++++++-------
+ 4 files changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/fs/udf/directory.c b/fs/udf/directory.c
-index 632453aa38934a0b58b420717ec0674c85627ce5..c825e11c017f652500a3dfc83905679ef86ec570 100644
---- a/fs/udf/directory.c
-+++ b/fs/udf/directory.c
-@@ -22,7 +22,7 @@ static int udf_verify_fi(struct udf_fileident_iter *iter)
+diff --git a/fs/ext2/dir.c b/fs/ext2/dir.c
+index f87106907da31bb7c1ca65c0ec2dcc0d47d27c62..278d4be8ecbe7790204b5ba985a7ce088fadb181 100644
+--- a/fs/ext2/dir.c
++++ b/fs/ext2/dir.c
+@@ -141,7 +141,7 @@ static bool ext2_check_folio(struct folio *folio, int quiet, char *kaddr)
+ Ebadsize:
+ 	if (!quiet)
+ 		ext2_error(sb, __func__,
+-			"size of directory #%" PRIino "u is not a multiple "
++			"size of directory #%llu is not a multiple "
+ 			"of chunk size", dir->i_ino);
+ 	goto fail;
+ Eshort:
+@@ -160,7 +160,7 @@ static bool ext2_check_folio(struct folio *folio, int quiet, char *kaddr)
+ 	error = "inode out of bounds";
+ bad_entry:
+ 	if (!quiet)
+-		ext2_error(sb, __func__, "bad entry in directory #%" PRIino "u: : %s - "
++		ext2_error(sb, __func__, "bad entry in directory #%llu: : %s - "
+ 			"offset=%llu, inode=%lu, rec_len=%d, name_len=%d",
+ 			dir->i_ino, error, folio_pos(folio) + offs,
+ 			(unsigned long) le32_to_cpu(p->inode),
+@@ -170,7 +170,7 @@ static bool ext2_check_folio(struct folio *folio, int quiet, char *kaddr)
+ 	if (!quiet) {
+ 		p = (ext2_dirent *)(kaddr + offs);
+ 		ext2_error(sb, "ext2_check_folio",
+-			"entry in directory #%" PRIino "u spans the page boundary"
++			"entry in directory #%llu spans the page boundary"
+ 			"offset=%llu, inode=%lu",
+ 			dir->i_ino, folio_pos(folio) + offs,
+ 			(unsigned long) le32_to_cpu(p->inode));
+@@ -281,7 +281,7 @@ ext2_readdir(struct file *file, struct dir_context *ctx)
  
- 	if (iter->fi.descTag.tagIdent != cpu_to_le16(TAG_IDENT_FID)) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %lu) has entry at pos %llu with incorrect tag %x\n",
-+			"directory (ino %" PRIino "u) has entry at pos %llu with incorrect tag %x\n",
- 			iter->dir->i_ino, (unsigned long long)iter->pos,
- 			le16_to_cpu(iter->fi.descTag.tagIdent));
- 		return -EFSCORRUPTED;
-@@ -30,7 +30,7 @@ static int udf_verify_fi(struct udf_fileident_iter *iter)
- 	len = udf_dir_entry_len(&iter->fi);
- 	if (le16_to_cpu(iter->fi.lengthOfImpUse) & 3) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %lu) has entry at pos %llu with unaligned length of impUse field\n",
-+			"directory (ino %" PRIino "u) has entry at pos %llu with unaligned length of impUse field\n",
- 			iter->dir->i_ino, (unsigned long long)iter->pos);
- 		return -EFSCORRUPTED;
- 	}
-@@ -41,20 +41,20 @@ static int udf_verify_fi(struct udf_fileident_iter *iter)
- 	 */
- 	if (len > 1 << iter->dir->i_blkbits) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %lu) has too big (%u) entry at pos %llu\n",
-+			"directory (ino %" PRIino "u) has too big (%u) entry at pos %llu\n",
- 			iter->dir->i_ino, len, (unsigned long long)iter->pos);
- 		return -EFSCORRUPTED;
- 	}
- 	if (iter->pos + len > iter->dir->i_size) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %lu) has entry past directory size at pos %llu\n",
-+			"directory (ino %" PRIino "u) has entry past directory size at pos %llu\n",
- 			iter->dir->i_ino, (unsigned long long)iter->pos);
- 		return -EFSCORRUPTED;
- 	}
- 	if (udf_dir_entry_len(&iter->fi) !=
- 	    sizeof(struct tag) + le16_to_cpu(iter->fi.descTag.descCRCLength)) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %lu) has entry where CRC length (%u) does not match entry length (%u)\n",
-+			"directory (ino %" PRIino "u) has entry where CRC length (%u) does not match entry length (%u)\n",
- 			iter->dir->i_ino,
- 			(unsigned)le16_to_cpu(iter->fi.descTag.descCRCLength),
- 			(unsigned)(udf_dir_entry_len(&iter->fi) -
-@@ -78,7 +78,7 @@ static int udf_copy_fi(struct udf_fileident_iter *iter)
- 	}
- 	if (iter->dir->i_size < iter->pos + sizeof(struct fileIdentDesc)) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %lu) has entry straddling EOF\n",
-+			"directory (ino %" PRIino "u) has entry straddling EOF\n",
- 			iter->dir->i_ino);
- 		return -EFSCORRUPTED;
- 	}
-@@ -184,7 +184,7 @@ static int udf_fiiter_advance_blk(struct udf_fileident_iter *iter)
- 			return 0;
- 		}
- 		udf_err(iter->dir->i_sb,
--			"extent after position %llu not allocated in directory (ino %lu)\n",
-+			"extent after position %llu not allocated in directory (ino %" PRIino "u)\n",
- 			(unsigned long long)iter->pos, iter->dir->i_ino);
- 		return -EFSCORRUPTED;
- 	}
-@@ -272,7 +272,7 @@ int udf_fiiter_init(struct udf_fileident_iter *iter, struct inode *dir,
- 		if (pos == dir->i_size)
- 			return 0;
- 		udf_err(dir->i_sb,
--			"position %llu not allocated in directory (ino %lu)\n",
-+			"position %llu not allocated in directory (ino %" PRIino "u)\n",
- 			(unsigned long long)pos, dir->i_ino);
- 		err = -EFSCORRUPTED;
- 		goto out;
-@@ -483,7 +483,7 @@ int udf_fiiter_append_blk(struct udf_fileident_iter *iter)
- 		   &iter->loffset, &etype);
- 	if (err <= 0 || etype != (EXT_RECORDED_ALLOCATED >> 30)) {
- 		udf_err(iter->dir->i_sb,
--			"block %llu not allocated in directory (ino %lu)\n",
-+			"block %llu not allocated in directory (ino %" PRIino "u)\n",
- 			(unsigned long long)block, iter->dir->i_ino);
- 		return -EFSCORRUPTED;
- 	}
-diff --git a/fs/udf/file.c b/fs/udf/file.c
-index 32ae7cfd72c549958b70824b449cf146f6750f44..ab8093b87dc8f21ce8af6a72621e2868fb4b9a82 100644
---- a/fs/udf/file.c
-+++ b/fs/udf/file.c
-@@ -133,7 +133,7 @@ long udf_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
- 	int result;
+ 		if (IS_ERR(kaddr)) {
+ 			ext2_error(sb, __func__,
+-				   "bad page in #%" PRIino "u",
++				   "bad page in #%llu",
+ 				   inode->i_ino);
+ 			ctx->pos += PAGE_SIZE - offset;
+ 			return PTR_ERR(kaddr);
+@@ -383,7 +383,7 @@ struct ext2_dir_entry_2 *ext2_find_entry (struct inode *dir,
+ 		/* next folio is past the blocks we've got */
+ 		if (unlikely(n > (dir->i_blocks >> (PAGE_SHIFT - 9)))) {
+ 			ext2_error(dir->i_sb, __func__,
+-				"dir %" PRIino "u size %lld exceeds block count %llu",
++				"dir %llu size %lld exceeds block count %llu",
+ 				dir->i_ino, dir->i_size,
+ 				(unsigned long long)dir->i_blocks);
+ 			goto out;
+diff --git a/fs/ext2/ialloc.c b/fs/ext2/ialloc.c
+index 6a317411e54191578343308b5a3990aea9c36436..bf21b57cf98cd5f90e1177454a8fd5cca482c2f8 100644
+--- a/fs/ext2/ialloc.c
++++ b/fs/ext2/ialloc.c
+@@ -590,7 +590,7 @@ struct inode *ext2_new_inode(struct inode *dir, umode_t mode,
+ 		goto fail_free_drop;
  
- 	if (file_permission(filp, MAY_READ) != 0) {
--		udf_debug("no permission to access inode %lu\n", inode->i_ino);
-+		udf_debug("no permission to access inode %" PRIino "u\n", inode->i_ino);
- 		return -EPERM;
- 	}
+ 	mark_inode_dirty(inode);
+-	ext2_debug("allocating inode %" PRIino "u\n", inode->i_ino);
++	ext2_debug("allocating inode %llu\n", inode->i_ino);
+ 	ext2_preread_inode(inode);
+ 	return inode;
  
-diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-index 7fae8002344a0e1e7e51022e97f1e0e2424185f9..ecc22aded0d287ccdfb34b42a0d82e392054f585 100644
---- a/fs/udf/inode.c
-+++ b/fs/udf/inode.c
-@@ -147,7 +147,7 @@ void udf_evict_inode(struct inode *inode)
- 		if (iinfo->i_alloc_type != ICBTAG_FLAG_AD_IN_ICB &&
- 		    inode->i_size != iinfo->i_lenExtents) {
- 			udf_warn(inode->i_sb,
--				 "Inode %lu (mode %o) has inode size %llu different from extent length %llu. Filesystem need not be standards compliant.\n",
-+				 "Inode %" PRIino "u (mode %o) has inode size %llu different from extent length %llu. Filesystem need not be standards compliant.\n",
- 				 inode->i_ino, inode->i_mode,
- 				 (unsigned long long)inode->i_size,
- 				 (unsigned long long)iinfo->i_lenExtents);
-@@ -1386,13 +1386,13 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
- 	 */
- 	bh = udf_read_ptagged(inode->i_sb, iloc, 0, &ident);
+diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
+index 0ca9148583646812b478f01fd35bcad11498f951..45286c0c3b6b8f86a1ecec0e2f545c5a678dd6ac 100644
+--- a/fs/ext2/inode.c
++++ b/fs/ext2/inode.c
+@@ -1152,7 +1152,7 @@ static void ext2_free_branches(struct inode *inode, __le32 *p, __le32 *q, int de
+ 			 */ 
+ 			if (!bh) {
+ 				ext2_error(inode->i_sb, "ext2_free_branches",
+-					"Read failure, inode=%" PRIino "u, block=%ld",
++					"Read failure, inode=%llu, block=%ld",
+ 					inode->i_ino, nr);
+ 				continue;
+ 			}
+diff --git a/fs/ext2/xattr.c b/fs/ext2/xattr.c
+index 4b3dadc0a2a47c85682d9c74edb900cf0f20996f..14ada70db36a76d1436944a3622e5caf0b373b9e 100644
+--- a/fs/ext2/xattr.c
++++ b/fs/ext2/xattr.c
+@@ -227,7 +227,7 @@ ext2_xattr_get(struct inode *inode, int name_index, const char *name,
+ 	if (!ext2_xattr_header_valid(HDR(bh))) {
+ bad_block:
+ 		ext2_error(inode->i_sb, "ext2_xattr_get",
+-			"inode %" PRIino "u: bad block %d", inode->i_ino,
++			"inode %llu: bad block %d", inode->i_ino,
+ 			EXT2_I(inode)->i_file_acl);
+ 		error = -EIO;
+ 		goto cleanup;
+@@ -313,7 +313,7 @@ ext2_xattr_list(struct dentry *dentry, char *buffer, size_t buffer_size)
+ 	if (!ext2_xattr_header_valid(HDR(bh))) {
+ bad_block:
+ 		ext2_error(inode->i_sb, "ext2_xattr_list",
+-			"inode %" PRIino "u: bad block %d", inode->i_ino,
++			"inode %llu: bad block %d", inode->i_ino,
+ 			EXT2_I(inode)->i_file_acl);
+ 		error = -EIO;
+ 		goto cleanup;
+@@ -454,7 +454,7 @@ ext2_xattr_set(struct inode *inode, int name_index, const char *name,
+ 		if (!ext2_xattr_header_valid(header)) {
+ bad_block:
+ 			ext2_error(sb, "ext2_xattr_set",
+-				"inode %" PRIino "u: bad block %d", inode->i_ino,
++				"inode %llu: bad block %d", inode->i_ino,
+ 				   EXT2_I(inode)->i_file_acl);
+ 			error = -EIO;
+ 			goto cleanup;
+@@ -833,7 +833,7 @@ ext2_xattr_delete_inode(struct inode *inode)
+ 
+ 	if (!ext2_data_block_valid(sbi, EXT2_I(inode)->i_file_acl, 1)) {
+ 		ext2_error(inode->i_sb, "ext2_xattr_delete_inode",
+-			"inode %" PRIino "u: xattr block %d is out of data blocks range",
++			"inode %llu: xattr block %d is out of data blocks range",
+ 			inode->i_ino, EXT2_I(inode)->i_file_acl);
+ 		goto cleanup;
+ 	}
+@@ -841,14 +841,14 @@ ext2_xattr_delete_inode(struct inode *inode)
+ 	bh = sb_bread(inode->i_sb, EXT2_I(inode)->i_file_acl);
  	if (!bh) {
--		udf_err(inode->i_sb, "(ino %lu) failed !bh\n", inode->i_ino);
-+		udf_err(inode->i_sb, "(ino %" PRIino "u) failed !bh\n", inode->i_ino);
- 		return -EIO;
+ 		ext2_error(inode->i_sb, "ext2_xattr_delete_inode",
+-			"inode %" PRIino "u: block %d read error", inode->i_ino,
++			"inode %llu: block %d read error", inode->i_ino,
+ 			EXT2_I(inode)->i_file_acl);
+ 		goto cleanup;
  	}
- 
- 	if (ident != TAG_IDENT_FE && ident != TAG_IDENT_EFE &&
- 	    ident != TAG_IDENT_USE) {
--		udf_err(inode->i_sb, "(ino %lu) failed ident=%u\n",
-+		udf_err(inode->i_sb, "(ino %" PRIino "u) failed ident=%u\n",
- 			inode->i_ino, ident);
- 		goto out;
+ 	ea_bdebug(bh, "b_count=%d", atomic_read(&(bh->b_count)));
+ 	if (!ext2_xattr_header_valid(HDR(bh))) {
+ 		ext2_error(inode->i_sb, "ext2_xattr_delete_inode",
+-			"inode %" PRIino "u: bad block %d", inode->i_ino,
++			"inode %llu: bad block %d", inode->i_ino,
+ 			EXT2_I(inode)->i_file_acl);
+ 		goto cleanup;
  	}
-@@ -1641,7 +1641,7 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
- 		udf_debug("METADATA BITMAP FILE-----\n");
- 		break;
- 	default:
--		udf_err(inode->i_sb, "(ino %lu) failed unknown file type=%u\n",
-+		udf_err(inode->i_sb, "(ino %" PRIino "u) failed unknown file type=%u\n",
- 			inode->i_ino, fe->icbTag.fileType);
- 		goto out;
- 	}
-@@ -1942,7 +1942,7 @@ static int udf_update_inode(struct inode *inode, int do_sync)
- 	if (do_sync) {
- 		sync_dirty_buffer(bh);
- 		if (buffer_write_io_error(bh)) {
--			udf_warn(inode->i_sb, "IO error syncing udf inode [%08lx]\n",
-+			udf_warn(inode->i_sb, "IO error syncing udf inode [%08" PRIino "x]\n",
- 				 inode->i_ino);
- 			err = -EIO;
- 		}
-@@ -2224,7 +2224,7 @@ int udf_next_aext(struct inode *inode, struct extent_position *epos,
- 
- 		if (++indirections > UDF_MAX_INDIR_EXTS) {
- 			udf_err(inode->i_sb,
--				"too many indirect extents in inode %lu\n",
-+				"too many indirect extents in inode %" PRIino "u\n",
- 				inode->i_ino);
- 			return -EFSCORRUPTED;
- 		}
-diff --git a/fs/udf/namei.c b/fs/udf/namei.c
-index 5f2e9a892bffa9579143cedf71d80efa7ad6e9fb..32209549a31f451a486918e673a41497bef42e89 100644
---- a/fs/udf/namei.c
-+++ b/fs/udf/namei.c
-@@ -550,7 +550,7 @@ static int udf_unlink(struct inode *dir, struct dentry *dentry)
- 		goto end_unlink;
- 
- 	if (!inode->i_nlink) {
--		udf_debug("Deleting nonexistent file (%lu), %u\n",
-+		udf_debug("Deleting nonexistent file (%" PRIino "u), %u\n",
- 			  inode->i_ino, inode->i_nlink);
- 		set_nlink(inode, 1);
- 	}
-@@ -809,7 +809,7 @@ static int udf_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 					       &diriter);
- 		if (retval == -ENOENT) {
- 			udf_err(old_inode->i_sb,
--				"directory (ino %lu) has no '..' entry\n",
-+				"directory (ino %" PRIino "u) has no '..' entry\n",
- 				old_inode->i_ino);
- 			retval = -EFSCORRUPTED;
- 		}
-@@ -821,7 +821,7 @@ static int udf_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 				old_dir->i_ino) {
- 			retval = -EFSCORRUPTED;
- 			udf_err(old_inode->i_sb,
--				"directory (ino %lu) has parent entry pointing to another inode (%lu != %u)\n",
-+				"directory (ino %" PRIino "u) has parent entry pointing to another inode (%" PRIino "u != %u)\n",
- 				old_inode->i_ino, old_dir->i_ino,
- 				udf_get_lb_pblock(old_inode->i_sb, &tloc, 0));
- 			goto out_oiter;
-@@ -869,7 +869,7 @@ static int udf_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 	retval = udf_fiiter_find_entry(old_dir, &old_dentry->d_name, &oiter);
- 	if (retval) {
- 		udf_err(old_dir->i_sb,
--			"failed to find renamed entry again in directory (ino %lu)\n",
-+			"failed to find renamed entry again in directory (ino %" PRIino "u)\n",
- 			old_dir->i_ino);
- 	} else {
- 		udf_fiiter_delete_entry(&oiter);
-diff --git a/fs/udf/super.c b/fs/udf/super.c
-index 27f463fd1d89e8ae4844cd70c291d737aee1589e..c6e372d573885742745d3ff4b3b017facf228a32 100644
---- a/fs/udf/super.c
-+++ b/fs/udf/super.c
-@@ -1166,7 +1166,7 @@ static int udf_fill_partdesc_info(struct super_block *sb,
- 		}
- 		map->s_uspace.s_table = inode;
- 		map->s_partition_flags |= UDF_PART_FLAG_UNALLOC_TABLE;
--		udf_debug("unallocSpaceTable (part %d) @ %lu\n",
-+		udf_debug("unallocSpaceTable (part %d) @ %" PRIino "u\n",
- 			  p_index, map->s_uspace.s_table->i_ino);
- 	}
- 
+@@ -952,7 +952,7 @@ ext2_xattr_cache_find(struct inode *inode, struct ext2_xattr_header *header)
+ 		bh = sb_bread(inode->i_sb, ce->e_value);
+ 		if (!bh) {
+ 			ext2_error(inode->i_sb, "ext2_xattr_cache_find",
+-				"inode %" PRIino "u: block %ld read error",
++				"inode %llu: block %ld read error",
+ 				inode->i_ino, (unsigned long) ce->e_value);
+ 		} else {
+ 			lock_buffer(bh);
 
 -- 
 2.53.0
