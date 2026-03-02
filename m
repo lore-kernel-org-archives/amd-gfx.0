@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F264EB363E
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD335EB3645
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09D8610E722;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80C6310E6E0;
 	Tue,  3 Mar 2026 09:01:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dugwQL0r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J/0mEX+2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6079710E5BF;
- Mon,  2 Mar 2026 20:34:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D053B10E5BD;
+ Mon,  2 Mar 2026 20:39:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2868C43E15;
- Mon,  2 Mar 2026 20:34:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9153C2BCB3;
- Mon,  2 Mar 2026 20:34:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2C0E160133;
+ Mon,  2 Mar 2026 20:39:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BF15C19423;
+ Mon,  2 Mar 2026 20:38:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483676;
- bh=zDOfQu3cch1u1Ngb97bS3zzdl0dgOjMk0bBEwc1nc/8=;
+ s=k20201202; t=1772483948;
+ bh=Gs35boKyxgnd6AK1hIGNOaT7cmCaVBjAuSuFUf3Jc5I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=dugwQL0rTQlo0eqDRzSj4bYCAaBkPTXwufIqepq8L90QxEZs131C8UyeZwQkXNV5w
- Lsk4QdjxCSTp8kwzxRwVjy2QkvT4nom7g3raD5B/rkXq2DpuY/wMATjLDt9fRLqVTc
- UtpvEt96O1ADdKNw2IppMzkDUg/eisPOIVPYCYsPxy7r0hrIIQyytgyk1BZDLCz5Pe
- g/JLxWm1VRV7z/75H9nFzdMmu50H0lDEU8fuF3/3lIJOSXOB4X+zZVv3mXp/sNRpJi
- NvajzXzASpyuyjaCxWYTXFpgLHERczrlNtRBRyrDg1mcKFrZprGTcncFL49eXanKVQ
- qF/pw/twmcmoA==
+ b=J/0mEX+2I5d/RuqYCJxGEFWFGN5i/FNi9MYTRfJiWPgEv4WyyoxOBiSwB9doWNhqu
+ 8HzBDuWTWgvBnu+W5upst9Tq+IdSmegMnQfpocbi8KPqZbkqll00OGn0sxmveqikZ4
+ VrvQthnnu2V0O3B5pRmnq2ED1EMTlXl2WaQHejYEj4H07IsKE63RH0EdzulikApjz+
+ P/+4Kj3ShwuKtZGGzptw8AqpVLiduNYywEJrjLhZ6oBQnAXjOpSGsQoSG4oPYtW3WB
+ vMET5jWxbonNAxxI6wa4LZioME0jG5p1zH3tehu+VG6P/G2IaJ+m6V4/vc/C/bmA6w
+ xOBqUG2q4Sq5w==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:24 -0500
-Subject: [PATCH v2 040/110] ocfs2: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:24:43 -0500
+Subject: [PATCH v2 059/110] vfs: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-40-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-59-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12707; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=zDOfQu3cch1u1Ngb97bS3zzdl0dgOjMk0bBEwc1nc/8=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH5TH81MLXzhYX9ei+5zmHkw2gJXRYBhwKEr
- Jw8vSwrFu6JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx+QAKCRAADmhBGVaC
- FWlGD/9G0B+TKkI8uy3/96mmUDo5WHDJCLonyJTn0kWyjP9i0eBajXAHt1oQL6Lw129hT0PB6xk
- 4mdougx7mf/BE6XmUcqAx+uzskgptUnDaYSdftObugoUd+kw6PGxHR8HUdRXN8Fa6MVw85JgFZ7
- 9ZOL9MqZhJcGXjUn/11WT/w2cLSpf31tBHS+zRaNdNlRjYwdu/qG4Eywt66YnnFasE2NU8EXFuI
- hGY+DT21F3nA99M1IUicDc9WS7tPFk2HFtDlviD6+AQWJnOCbr5x7vAxoxCdJPMUvHNHIChjGMN
- 0zfQrLVLz/eBQvCIOoaH1f8ob9UQakCQXZ0hTd1Wz9iDByUkzxz6RnSc7lLhr5d1fgnEvVjRVYq
- 2wLlq+YN4Fqhad3LrKtFIODaGIvpvzg13GB6wKejwN4G3gj7hewX4vcwspbWO88vQujvwl8jpHm
- D2n4fsox9PfGt09vUTu5++IhlvfkM8jBlh1Y9tS+QN2gC4WWLnoMwut/ONLYDLjDZzCQmIAj1MH
- fj8wQbQQWXZqLXLEQoxRzjuoSWcVGZVCAN1FC9o1xTlUbcdgpWHjPoFc4lYw5VDlclxQ5rEvatn
- aeKm7ipPYT/7vBaPyMs9AVwWrP24kooYoy2NWKb7x0YC0ccAwKc7xOnPq6XbBrfCYv43dOcA6Fx
- R1s8v/5yER4ThmQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2761; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=Gs35boKyxgnd6AK1hIGNOaT7cmCaVBjAuSuFUf3Jc5I=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH+91J4KBDB2hDn0qDUxRonhElkhdedME3xJ
+ B/BW/0vlnGJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/gAKCRAADmhBGVaC
+ FcuFD/oD8Yp/dzC9uRSQy4WTdSxX8N7nmwgkzyjPPieVQ/3bXxk9KNtjb9+aWRD+STEIs8UBGGT
+ galtNwy0DCULHM4+oOeWuzxvnPo/CBCX0Qh5zx2NWhrXh8MVqKpfA79Sn/O9m0Hmv3FklJ859tS
+ sm+eqGxgsaQakSp/u3f6SkouNLsnZqjcceDWMSG1AWwkWiJvehD8lOmKaZ9dNPkBbnhSt918QLl
+ obKXJ5KjPeYa5voKMeGcXKqB0to6HV6xOKHaIA5UnTAuDlB8u3s+PlV7XFZ4DzkrZBHZ0IT/c4F
+ E/rwhRhVGfA86rfwZbgzFdK8JpGMFG5ckQcNMH5Vf+e/hZzkXcJo8c7kDXUU8Xhol8N7ot3aaS/
+ xVfP2nrw1IAhdKbGyuCT107lRvbh0s/gKOJ3iVhyTE0Dh3jRmFOPhvBDrNWIHoEJ7JnGgIO3A4m
+ WOJptVxnl8uo5IGP6ChBXt6KiRCxdhiugZGm7t90o3dTvgoKr7nm7XoOM8HaM8j9fJJTI1gCNKd
+ 7IGZ94XW8QjdzKaDjaIgiy+0VF3g/dA4yPOnShFNKYyr6mQyO2YS9sGDMI1Q94uCI6S8ZhV1R2n
+ W0xzM63QkE+KdaN7pM7W7jOIuD/Uwq8WSR1xbEl0YdsHQs9VNWYDyDKnRDkE01chpjHLLlLKOCa
+ QKr/nNSOgss4FYQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,303 +182,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert ocfs2 i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
-
-Remove now-unnecessary (unsigned long) casts on i_ino.
+Convert i_ino format strings in pipe, dcache, fserror, and eventpoll to
+use the PRIino format macro and update the 0UL literal in dcache to
+(kino_t)0.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ocfs2/alloc.c        |  2 +-
- fs/ocfs2/aops.c         |  4 ++--
- fs/ocfs2/dir.c          |  8 ++++----
- fs/ocfs2/dlmfs/dlmfs.c  | 10 +++++-----
- fs/ocfs2/extent_map.c   | 12 ++++++------
- fs/ocfs2/inode.c        |  2 +-
- fs/ocfs2/quota_local.c  |  2 +-
- fs/ocfs2/refcounttree.c | 10 +++++-----
- fs/ocfs2/xattr.c        |  4 ++--
- 9 files changed, 27 insertions(+), 27 deletions(-)
+ fs/dcache.c    | 4 ++--
+ fs/eventpoll.c | 2 +-
+ fs/fserror.c   | 2 +-
+ fs/pipe.c      | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
-index 344fd4d95fbc8bd7a749e9d51d31b5682ff030d0..d7703549645b548d9f5d77b2214a9a7c0af0ef6f 100644
---- a/fs/ocfs2/alloc.c
-+++ b/fs/ocfs2/alloc.c
-@@ -7318,7 +7318,7 @@ int ocfs2_commit_truncate(struct ocfs2_super *osb,
- 		 * to check it up here before changing the tree.
- 		*/
- 		if (root_el->l_tree_depth && rec->e_int_clusters == 0) {
--			mlog(ML_ERROR, "Inode %lu has an empty "
-+			mlog(ML_ERROR, "Inode %" PRIino "u has an empty "
- 				    "extent record, depth %u\n", inode->i_ino,
- 				    le16_to_cpu(root_el->l_tree_depth));
- 			status = ocfs2_remove_rightmost_empty_extent(osb,
-diff --git a/fs/ocfs2/aops.c b/fs/ocfs2/aops.c
-index 17ba79f443ee736cb5225702c57d13f4019f3c52..aea35b1c9fa3ce7327672c1862d0d1201c895c40 100644
---- a/fs/ocfs2/aops.c
-+++ b/fs/ocfs2/aops.c
-@@ -137,7 +137,7 @@ int ocfs2_get_block(struct inode *inode, sector_t iblock,
- 			      (unsigned long long)iblock, bh_result, create);
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 24f4f3acaa8cffd6f98124eec38c1a92d6c9fd8e..13fb3e89cba7442c9bed74c41ca18be5e43e28c9 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -1637,11 +1637,11 @@ static enum d_walk_ret umount_check(void *_data, struct dentry *dentry)
+ 	if (dentry == _data && dentry->d_lockref.count == 1)
+ 		return D_WALK_CONTINUE;
  
- 	if (OCFS2_I(inode)->ip_flags & OCFS2_INODE_SYSTEM_FILE)
--		mlog(ML_NOTICE, "get_block on system inode 0x%p (%lu)\n",
-+		mlog(ML_NOTICE, "get_block on system inode 0x%p (%" PRIino "u)\n",
- 		     inode, inode->i_ino);
+-	WARN(1, "BUG: Dentry %p{i=%lx,n=%pd} "
++	WARN(1, "BUG: Dentry %p{i=%" PRIino "x,n=%pd} "
+ 			" still in use (%d) [unmount of %s %s]\n",
+ 		       dentry,
+ 		       dentry->d_inode ?
+-		       dentry->d_inode->i_ino : 0UL,
++		       dentry->d_inode->i_ino : (kino_t)0,
+ 		       dentry,
+ 		       dentry->d_lockref.count,
+ 		       dentry->d_sb->s_type->name,
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index 5714e900567c499739bb205f43bb6bf73f7ebe54..90fd92425492221d13bd0cf067d47579bb407a01 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -1080,7 +1080,7 @@ static void ep_show_fdinfo(struct seq_file *m, struct file *f)
+ 		struct inode *inode = file_inode(epi->ffd.file);
  
- 	if (S_ISLNK(inode->i_mode)) {
-@@ -2146,7 +2146,7 @@ static int ocfs2_dio_wr_get_block(struct inode *inode, sector_t iblock,
- 	    ((iblock + ((len - 1) >> i_blkbits)) > endblk))
- 		len = (endblk - iblock + 1) << i_blkbits;
+ 		seq_printf(m, "tfd: %8d events: %8x data: %16llx "
+-			   " pos:%lli ino:%lx sdev:%x\n",
++			   " pos:%lli ino:%" PRIino "x sdev:%x\n",
+ 			   epi->ffd.fd, epi->event.events,
+ 			   (long long)epi->event.data,
+ 			   (long long)epi->ffd.file->f_pos,
+diff --git a/fs/fserror.c b/fs/fserror.c
+index 06ca86adab9b769dfb72ec58b9e51627abee5152..b685b329b5956a639c41b25c42cfff16e6e5ab6e 100644
+--- a/fs/fserror.c
++++ b/fs/fserror.c
+@@ -176,7 +176,7 @@ void fserror_report(struct super_block *sb, struct inode *inode,
+ lost:
+ 	if (inode)
+ 		pr_err_ratelimited(
+- "%s: lost file I/O error report for ino %lu type %u pos 0x%llx len 0x%llx error %d",
++ "%s: lost file I/O error report for ino %" PRIino "u type %u pos 0x%llx len 0x%llx error %d",
+ 		       sb->s_id, inode->i_ino, type, pos, len, error);
+ 	else
+ 		pr_err_ratelimited(
+diff --git a/fs/pipe.c b/fs/pipe.c
+index b44a756c0b4165edc2801b2290bf35480245d7a6..311928e8713989747605fd79f653e36d27ce8c0e 100644
+--- a/fs/pipe.c
++++ b/fs/pipe.c
+@@ -873,7 +873,7 @@ static struct vfsmount *pipe_mnt __ro_after_init;
+  */
+ static char *pipefs_dname(struct dentry *dentry, char *buffer, int buflen)
+ {
+-	return dynamic_dname(buffer, buflen, "pipe:[%lu]",
++	return dynamic_dname(buffer, buflen, "pipe:[%" PRIino "u]",
+ 				d_inode(dentry)->i_ino);
+ }
  
--	mlog(0, "get block of %lu at %llu:%u req %u\n",
-+	mlog(0, "get block of %" PRIino "u at %llu:%u req %u\n",
- 			inode->i_ino, pos, len, total_len);
- 
- 	/*
-diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
-index 1c8abf2c592caacbe734d49254b04d507925c9d1..eecb2b1d2ec17fb4b3f09abb9e168d2f28f9b420 100644
---- a/fs/ocfs2/dir.c
-+++ b/fs/ocfs2/dir.c
-@@ -794,7 +794,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
- 	if (le16_to_cpu(el->l_count) !=
- 	    ocfs2_extent_recs_per_dx_root(inode->i_sb)) {
- 		ret = ocfs2_error(inode->i_sb,
--				  "Inode %lu has invalid extent list length %u\n",
-+				  "Inode %" PRIino "u has invalid extent list length %u\n",
- 				  inode->i_ino, le16_to_cpu(el->l_count));
- 		goto out;
- 	}
-@@ -812,7 +812,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
- 
- 		if (el->l_tree_depth) {
- 			ret = ocfs2_error(inode->i_sb,
--					  "Inode %lu has non zero tree depth in btree tree block %llu\n",
-+					  "Inode %" PRIino "u has non zero tree depth in btree tree block %llu\n",
- 					  inode->i_ino,
- 					  (unsigned long long)eb_bh->b_blocknr);
- 			goto out;
-@@ -821,7 +821,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
- 
- 	if (le16_to_cpu(el->l_next_free_rec) == 0) {
- 		ret = ocfs2_error(inode->i_sb,
--				  "Inode %lu has empty extent list at depth %u\n",
-+				  "Inode %" PRIino "u has empty extent list at depth %u\n",
- 				  inode->i_ino,
- 				  le16_to_cpu(el->l_tree_depth));
- 		goto out;
-@@ -839,7 +839,7 @@ static int ocfs2_dx_dir_lookup_rec(struct inode *inode,
- 
- 	if (!found) {
- 		ret = ocfs2_error(inode->i_sb,
--				  "Inode %lu has bad extent record (%u, %u, 0) in btree\n",
-+				  "Inode %" PRIino "u has bad extent record (%u, %u, 0) in btree\n",
- 				  inode->i_ino,
- 				  le32_to_cpu(rec->e_cpos),
- 				  ocfs2_rec_clusters(el, rec));
-diff --git a/fs/ocfs2/dlmfs/dlmfs.c b/fs/ocfs2/dlmfs/dlmfs.c
-index 45cce261da65cab7ef48b5b88c0de5d41fa57615..e96c1c574ff7dc3dffad58ce8536b7e337d3f6fa 100644
---- a/fs/ocfs2/dlmfs/dlmfs.c
-+++ b/fs/ocfs2/dlmfs/dlmfs.c
-@@ -123,7 +123,7 @@ static int dlmfs_file_open(struct inode *inode,
- 	if (S_ISDIR(inode->i_mode))
- 		BUG();
- 
--	mlog(0, "open called on inode %lu, flags 0x%x\n", inode->i_ino,
-+	mlog(0, "open called on inode %" PRIino "u, flags 0x%x\n", inode->i_ino,
- 		file->f_flags);
- 
- 	status = dlmfs_decode_open_flags(file->f_flags, &level, &flags);
-@@ -170,7 +170,7 @@ static int dlmfs_file_release(struct inode *inode,
- 	if (S_ISDIR(inode->i_mode))
- 		BUG();
- 
--	mlog(0, "close called on inode %lu\n", inode->i_ino);
-+	mlog(0, "close called on inode %" PRIino "u\n", inode->i_ino);
- 
- 	if (fp) {
- 		level = fp->fp_lock_level;
-@@ -242,7 +242,7 @@ static ssize_t dlmfs_file_write(struct file *filp,
- 	int bytes_left;
- 	struct inode *inode = file_inode(filp);
- 
--	mlog(0, "inode %lu, count = %zu, *ppos = %llu\n",
-+	mlog(0, "inode %" PRIino "u, count = %zu, *ppos = %llu\n",
- 		inode->i_ino, count, *ppos);
- 
- 	if (*ppos >= DLM_LVB_LEN)
-@@ -301,7 +301,7 @@ static void dlmfs_evict_inode(struct inode *inode)
- 
- 	clear_inode(inode);
- 
--	mlog(0, "inode %lu\n", inode->i_ino);
-+	mlog(0, "inode %" PRIino "u\n", inode->i_ino);
- 
- 	ip = DLMFS_I(inode);
- 	lockres = &ip->ip_lockres;
-@@ -490,7 +490,7 @@ static int dlmfs_unlink(struct inode *dir,
- 	int status;
- 	struct inode *inode = d_inode(dentry);
- 
--	mlog(0, "unlink inode %lu\n", inode->i_ino);
-+	mlog(0, "unlink inode %" PRIino "u\n", inode->i_ino);
- 
- 	/* if there are no current holders, or none that are waiting
- 	 * to acquire a lock, this basically destroys our lockres. */
-diff --git a/fs/ocfs2/extent_map.c b/fs/ocfs2/extent_map.c
-index d68229422dda3423971d7ab0e9a4335acab8b344..3cf93a08f7a8946810ccd2de246be4d07a23b53b 100644
---- a/fs/ocfs2/extent_map.c
-+++ b/fs/ocfs2/extent_map.c
-@@ -291,7 +291,7 @@ static int ocfs2_last_eb_is_empty(struct inode *inode,
- 
- 	if (el->l_tree_depth) {
- 		ocfs2_error(inode->i_sb,
--			    "Inode %lu has non zero tree depth in leaf block %llu\n",
-+			    "Inode %" PRIino "u has non zero tree depth in leaf block %llu\n",
- 			    inode->i_ino,
- 			    (unsigned long long)eb_bh->b_blocknr);
- 		ret = -EROFS;
-@@ -427,7 +427,7 @@ static int ocfs2_get_clusters_nocache(struct inode *inode,
- 
- 		if (el->l_tree_depth) {
- 			ocfs2_error(inode->i_sb,
--				    "Inode %lu has non zero tree depth in leaf block %llu\n",
-+				    "Inode %" PRIino "u has non zero tree depth in leaf block %llu\n",
- 				    inode->i_ino,
- 				    (unsigned long long)eb_bh->b_blocknr);
- 			ret = -EROFS;
-@@ -437,7 +437,7 @@ static int ocfs2_get_clusters_nocache(struct inode *inode,
- 
- 	if (le16_to_cpu(el->l_next_free_rec) > le16_to_cpu(el->l_count)) {
- 		ocfs2_error(inode->i_sb,
--			    "Inode %lu has an invalid extent (next_free_rec %u, count %u)\n",
-+			    "Inode %" PRIino "u has an invalid extent (next_free_rec %u, count %u)\n",
- 			    inode->i_ino,
- 			    le16_to_cpu(el->l_next_free_rec),
- 			    le16_to_cpu(el->l_count));
-@@ -472,7 +472,7 @@ static int ocfs2_get_clusters_nocache(struct inode *inode,
- 
- 	if (!rec->e_blkno) {
- 		ocfs2_error(inode->i_sb,
--			    "Inode %lu has bad extent record (%u, %u, 0)\n",
-+			    "Inode %" PRIino "u has bad extent record (%u, %u, 0)\n",
- 			    inode->i_ino,
- 			    le32_to_cpu(rec->e_cpos),
- 			    ocfs2_rec_clusters(el, rec));
-@@ -561,7 +561,7 @@ int ocfs2_xattr_get_clusters(struct inode *inode, u32 v_cluster,
- 
- 		if (el->l_tree_depth) {
- 			ocfs2_error(inode->i_sb,
--				    "Inode %lu has non zero tree depth in xattr leaf block %llu\n",
-+				    "Inode %" PRIino "u has non zero tree depth in xattr leaf block %llu\n",
- 				    inode->i_ino,
- 				    (unsigned long long)eb_bh->b_blocknr);
- 			ret = -EROFS;
-@@ -580,7 +580,7 @@ int ocfs2_xattr_get_clusters(struct inode *inode, u32 v_cluster,
- 
- 		if (!rec->e_blkno) {
- 			ocfs2_error(inode->i_sb,
--				    "Inode %lu has bad extent record (%u, %u, 0) in xattr\n",
-+				    "Inode %" PRIino "u has bad extent record (%u, %u, 0) in xattr\n",
- 				    inode->i_ino,
- 				    le32_to_cpu(rec->e_cpos),
- 				    ocfs2_rec_clusters(el, rec));
-diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 03a51662ea8e79f7a64fcd320b974f954b2ea8bf..c3076b450de3599291c386ceeb8b2d26e8680904 100644
---- a/fs/ocfs2/inode.c
-+++ b/fs/ocfs2/inode.c
-@@ -1196,7 +1196,7 @@ static void ocfs2_clear_inode(struct inode *inode)
- 				inode->i_nlink);
- 
- 	mlog_bug_on_msg(osb == NULL,
--			"Inode=%lu\n", inode->i_ino);
-+			"Inode=%" PRIino "u\n", inode->i_ino);
- 
- 	dquot_drop(inode);
- 
-diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
-index c4e0117d8977807dd6f0f4df64e1ddf72a62ea09..269b0f27d5679aba317059b245ee4bf4f5580eca 100644
---- a/fs/ocfs2/quota_local.c
-+++ b/fs/ocfs2/quota_local.c
-@@ -471,7 +471,7 @@ static int ocfs2_recover_local_quota_file(struct inode *lqinode,
- 	qsize_t spacechange, inodechange;
- 	unsigned int memalloc;
- 
--	trace_ocfs2_recover_local_quota_file((unsigned long)lqinode->i_ino, type);
-+	trace_ocfs2_recover_local_quota_file(lqinode->i_ino, type);
- 
- 	list_for_each_entry_safe(rchunk, next, &(rec->r_list[type]), rc_list) {
- 		chunk = rchunk->rc_chunk;
-diff --git a/fs/ocfs2/refcounttree.c b/fs/ocfs2/refcounttree.c
-index c1cdececdfa4ef51a1bd3a5addad734b324b92c0..1586c42fdabe70056bf7f103d583dd9000fe9510 100644
---- a/fs/ocfs2/refcounttree.c
-+++ b/fs/ocfs2/refcounttree.c
-@@ -2341,7 +2341,7 @@ static int ocfs2_mark_extent_refcounted(struct inode *inode,
- 					   cpos, len, phys);
- 
- 	if (!ocfs2_refcount_tree(OCFS2_SB(inode->i_sb))) {
--		ret = ocfs2_error(inode->i_sb, "Inode %lu want to use refcount tree, but the feature bit is not set in the super block\n",
-+		ret = ocfs2_error(inode->i_sb, "Inode %" PRIino "u want to use refcount tree, but the feature bit is not set in the super block\n",
- 				  inode->i_ino);
- 		goto out;
- 	}
-@@ -2524,7 +2524,7 @@ int ocfs2_prepare_refcount_change_for_del(struct inode *inode,
- 	u64 start_cpos = ocfs2_blocks_to_clusters(inode->i_sb, phys_blkno);
- 
- 	if (!ocfs2_refcount_tree(OCFS2_SB(inode->i_sb))) {
--		ret = ocfs2_error(inode->i_sb, "Inode %lu want to use refcount tree, but the feature bit is not set in the super block\n",
-+		ret = ocfs2_error(inode->i_sb, "Inode %" PRIino "u want to use refcount tree, but the feature bit is not set in the super block\n",
- 				  inode->i_ino);
- 		goto out;
- 	}
-@@ -2650,7 +2650,7 @@ static int ocfs2_refcount_cal_cow_clusters(struct inode *inode,
- 
- 		if (el->l_tree_depth) {
- 			ret = ocfs2_error(inode->i_sb,
--					  "Inode %lu has non zero tree depth in leaf block %llu\n",
-+					  "Inode %" PRIino "u has non zero tree depth in leaf block %llu\n",
- 					  inode->i_ino,
- 					  (unsigned long long)eb_bh->b_blocknr);
- 			goto out;
-@@ -2662,7 +2662,7 @@ static int ocfs2_refcount_cal_cow_clusters(struct inode *inode,
- 		rec = &el->l_recs[i];
- 
- 		if (ocfs2_is_empty_extent(rec)) {
--			mlog_bug_on_msg(i != 0, "Inode %lu has empty record in "
-+			mlog_bug_on_msg(i != 0, "Inode %" PRIino "u has empty record in "
- 					"index %d\n", inode->i_ino, i);
- 			continue;
- 		}
-@@ -3325,7 +3325,7 @@ static int ocfs2_replace_cow(struct ocfs2_cow_context *context)
- 	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
- 
- 	if (!ocfs2_refcount_tree(osb)) {
--		return ocfs2_error(inode->i_sb, "Inode %lu want to use refcount tree, but the feature bit is not set in the super block\n",
-+		return ocfs2_error(inode->i_sb, "Inode %" PRIino "u want to use refcount tree, but the feature bit is not set in the super block\n",
- 				   inode->i_ino);
- 	}
- 
-diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index 42ee5db362d3eb6df886d6721dd7398b8aca8cdb..74cd6dd57abf71a69adef18863d057e48496ccfe 100644
---- a/fs/ocfs2/xattr.c
-+++ b/fs/ocfs2/xattr.c
-@@ -3741,7 +3741,7 @@ static int ocfs2_xattr_get_rec(struct inode *inode,
- 
- 		if (el->l_tree_depth) {
- 			ret = ocfs2_error(inode->i_sb,
--					  "Inode %lu has non zero tree depth in xattr tree block %llu\n",
-+					  "Inode %" PRIino "u has non zero tree depth in xattr tree block %llu\n",
- 					  inode->i_ino,
- 					  (unsigned long long)eb_bh->b_blocknr);
- 			goto out;
-@@ -3758,7 +3758,7 @@ static int ocfs2_xattr_get_rec(struct inode *inode,
- 	}
- 
- 	if (!e_blkno) {
--		ret = ocfs2_error(inode->i_sb, "Inode %lu has bad extent record (%u, %u, 0) in xattr\n",
-+		ret = ocfs2_error(inode->i_sb, "Inode %" PRIino "u has bad extent record (%u, %u, 0) in xattr\n",
- 				  inode->i_ino,
- 				  le32_to_cpu(rec->e_cpos),
- 				  ocfs2_rec_clusters(el, rec));
 
 -- 
 2.53.0
