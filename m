@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5913EC0467
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77F05EC047F
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17DFE10E73B;
-	Tue,  3 Mar 2026 09:01:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B813F10E762;
+	Tue,  3 Mar 2026 09:01:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nsRQ0zb1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kk2zQoYk";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFBF910E36C;
- Mon,  2 Mar 2026 20:41:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC16B10E5BD;
+ Mon,  2 Mar 2026 20:37:28 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A217A43A6B;
- Mon,  2 Mar 2026 20:41:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FEE7C2BCB9;
- Mon,  2 Mar 2026 20:40:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8ADDD43444;
+ Mon,  2 Mar 2026 20:37:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AC4AC2BC87;
+ Mon,  2 Mar 2026 20:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484063;
- bh=WWDsZMw+xAvkwDsc0kcWPVeKunXZFMVO799PmJoRNqM=;
+ s=k20201202; t=1772483848;
+ bh=alIboQURMSK+ocSf/bFc1ar67kVswLEBUSDYfenVfUM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=nsRQ0zb1ab+ZkcZzz7r+YLKuwRK24aFsFKjgWA4FqQGqh4dZ8yFa/Djf4+GRwzYO3
- Dmrby9nn7us83Wu4l9/uHZibESyh8J47JWQr0eVNZ+t+ZYgZZlgwcTZjR18/xniQdg
- 9GFSImETKoEqRuGXt0X1AGsdJsHvr1AQGIo66OojuqHIKlAdlXpOZuL2LE/3vBTexv
- 7xxyBEGmDtBwaC14K7iA9/5sfpdVZ+iTysYke3a2+8xRl9UX6SMGbF53LOpsfIprfx
- p6xACfvAYCLtYWTpA8NrsvuLipLVjA4moAg6dQ9t0FQN1+My+OG439WexLgPEkb76z
- +cZzBsaMbDNZw==
+ b=kk2zQoYkBDVLmoWgKHZGKpn6ciMFY0Lbxt9dGlgIR/0lSt9KnofVckQ/mlSO61Wd/
+ JUadFiLXBbn75sghsOdtPcAm1W0R+9zn7xYBbZd8Z9SUbEkfHQaN0R1rsKSsPj+Xmn
+ MgSlyPKkbHTzlCSvGcKDN6rfFlkyCWv/Qp1l0NoPWsIIo6XbKx2AFBTeAIRA5boOPV
+ qckOmImvtrEhq3IfTiENBL1u8UnTNC70aoQfpfo3E3c+ESJRJmLbAPOmVNChAxcqNj
+ Fre4JczkJH6RIUREqUj8fF0NayvsPuWmvQCQr2RaNhqGgQ2jiBHhT1hgnCt+uvBxbH
+ VBBzAjyYbLQwA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:51 -0500
-Subject: [PATCH v2 067/110] proc: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:24:36 -0500
+Subject: [PATCH v2 052/110] net: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-67-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-52-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1739; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=WWDsZMw+xAvkwDsc0kcWPVeKunXZFMVO799PmJoRNqM=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIB3Mqfx6DG7ZTBsjtQrYMLYe/Nl/Mvu66tj
- sUpsC41/jiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAQAKCRAADmhBGVaC
- FerzD/91JAKzoD5PVDImrNmj8PqJtg5HShblNDfRf4ROaIlaFt13tN/BOrz0SnQq63H+8q+VsNL
- rMevWMQM3T9oESfg5ka5s2M+zZyQV+KVX3XnnDO1WY3b6KPXs0whkV4/mPVUG5DnkeFk8WHPj6D
- 4QW0ZBR4kAA+i9p1aDo210b6b8yVlGTLSyVkfffd30FshwQJZRBJnfCNncEK+s4133oJ2qemVVl
- juUMsuYyLNztqGCKg/wvQVlJNSzfQ12reYqlEqKbo8fLja06KpWxS/IFmhx8P6xfjSiMIOMu/N+
- RuqcXYlnpKzWFwEr1Ei5yMZkSemIbR5UAq+gO8W07YAcOJF1swBHK/Yd0VzM3tk123T2U5YL342
- ouYpQidGM+00icbnbO48hdQaA6Ta3Kx21wRp80jKnyJQOEfL2pV3Qj8UATOKl5z0sBUu3g/SNmo
- 3GPC5WUCYgvUYG2z7RYd5eIS9k2lEkPxvkwEsDnqwQ/FfHzW+tqIyHrwJQh/JwRvInyNGXWQeod
- 48gfWV56buVvcn/Gkw4ZNFC6e+L4HMyMc22XxyYbJ5P03zTtcoCxkA6AZMCcMgxN+d2+yNyt59c
- XulFUs6HcNiHkZC/RLHjley2OWDsXYScFR1zXhCEEYwm3l9MgJhFi/hB6CjAFVqgezk/xCV4U28
- HRTx/obS6b+0ESQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=725; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=alIboQURMSK+ocSf/bFc1ar67kVswLEBUSDYfenVfUM=;
+ b=owEBbAKT/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH8QXEIw/5gHEXeNiHaVL979z6DfrTJZcwhr
+ 5Wh/IhWaSaJAjIEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/AAKCRAADmhBGVaC
+ FadsD/jqW06qbLKQK8ySWMls9LvJMwDTfI0waxgMsD3IIx5QvU7aM2FC4Dzo533i69av7HWEhvG
+ AL5R3yXp7BtQ1uhorCB1GGR9HPQDeZnkxUBmuR7b/D422qzz6wmLet1jyHw7x3AYUDXKo1hc7qS
+ KV9z8VBGFhfutf2zvQqvKDr0HI54etmLsRNGzphVmsn/xpAFZrbDaRYrkv3dG16RrIWFIIJ1z6p
+ iJBtOkUzcnyydqX/T2U4yMAQ/cYn5B3Ff8byI1QIFb88cQbgv9jRQce7DVC6Be1RpdJGxat2QLg
+ DSu6J+cB1HiZ6FMJOzsocwII5LsCxvTORHzkuHcONuuqxERq+e82InEA9w7HJQ7VDTfDSHOmtTa
+ X9kgWHAicmgUEVJjouiXOGERNrOdM9noz8bYXFmeFlDhs8gTW8VNwsqW6BkLRaCs7SC5BBd5MNQ
+ JKsUnY8t4txGe3bRKcHDJOaAhfqWJX2vIjeWNBQVz7REBu9gXcMK/L3QIaGDSelXK0JvXWxJDmq
+ rQg06k6xTCn54Hp3APckPu5S7lmRwAS/pGeL9MesU51wK+5r6lUmk814kj6Y9FVd+3ycy2ZiHvc
+ fepQJzb1f/55QB+/pq3Mor1mYgPcV/SjzpEp3xUZRqIeC9FpR076/m1Wxy1t11+r73esUyAK9SS
+ 5kqXEvwauhcaj
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,50 +182,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in proc with the concrete format strings.
+Convert the i_ino format string in sockfs_dname() to use the PRIino
+format macro.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/proc/fd.c       | 2 +-
- fs/proc/task_mmu.c | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ net/socket.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/proc/fd.c b/fs/proc/fd.c
-index 936d0258d688be5fdc384ee5c4dfbb8fa0d19dff..aae1a83e884686471758703634f0d3479e77c9a7 100644
---- a/fs/proc/fd.c
-+++ b/fs/proc/fd.c
-@@ -54,7 +54,7 @@ static int seq_show(struct seq_file *m, void *v)
- 	if (ret)
- 		return ret;
- 
--	seq_printf(m, "pos:\t%lli\nflags:\t0%o\nmnt_id:\t%i\nino:\t%" PRIino "u\n",
-+	seq_printf(m, "pos:\t%lli\nflags:\t0%o\nmnt_id:\t%i\nino:\t%llu\n",
- 		   (long long)file->f_pos, f_flags,
- 		   real_mount(file->f_path.mnt)->mnt_id,
- 		   file_inode(file)->i_ino);
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 702b0f0433f91077cd0d0af4a07e9d67d9fa9a45..751b9ba160fbf15499555875871d727644b0df44 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -442,7 +442,7 @@ static void get_vma_name(struct vm_area_struct *vma,
- static void show_vma_header_prefix(struct seq_file *m,
- 				   unsigned long start, unsigned long end,
- 				   vm_flags_t flags, unsigned long long pgoff,
--				   dev_t dev, kino_t ino)
-+				   dev_t dev, u64 ino)
+diff --git a/net/socket.c b/net/socket.c
+index d25be67e4b84a5a0a033802404ad06a837b299b3..24b89b8e39405972dd602f3373ae53d56a4c625d 100644
+--- a/net/socket.c
++++ b/net/socket.c
+@@ -399,7 +399,7 @@ static const struct super_operations sockfs_ops = {
+  */
+ static char *sockfs_dname(struct dentry *dentry, char *buffer, int buflen)
  {
- 	seq_setwidth(m, 25 + sizeof(void *) * 6 - 1);
- 	seq_put_hex_ll(m, NULL, start, 8);
-@@ -465,7 +465,7 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma)
- 	const struct path *path;
- 	const char *name_fmt, *name;
- 	vm_flags_t flags = vma->vm_flags;
--	kino_t ino = 0;
-+	u64 ino = 0;
- 	unsigned long long pgoff = 0;
- 	unsigned long start, end;
- 	dev_t dev = 0;
+-	return dynamic_dname(buffer, buflen, "socket:[%lu]",
++	return dynamic_dname(buffer, buflen, "socket:[%" PRIino "u]",
+ 				d_inode(dentry)->i_ino);
+ }
+ 
 
 -- 
 2.53.0
