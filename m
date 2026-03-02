@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2CBEEC0460
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBE5DEC0464
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B04BE10E716;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD37910E6B5;
 	Tue,  3 Mar 2026 09:01:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ao8cWXeU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FekABZ2j";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA65610E5C0;
- Mon,  2 Mar 2026 20:46:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 182EB10E5BB;
+ Mon,  2 Mar 2026 20:30:47 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D0DD60141;
- Mon,  2 Mar 2026 20:46:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94E7EC19425;
- Mon,  2 Mar 2026 20:46:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 62E4860128;
+ Mon,  2 Mar 2026 20:30:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94FDC19423;
+ Mon,  2 Mar 2026 20:30:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484407;
- bh=vp0zPvf4xGJU8rljdJEp2XVsjnBl+O9vg1b2GqgCbLI=;
+ s=k20201202; t=1772483446;
+ bh=f/fwVVJUhkGYbPGB+Meav4MEfogu90OScL5Qckf7yg4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ao8cWXeU3C09G1xH+QkDsKkvNhRkpOLVBv2yk1GUM0JbIv9pTPlWFzDh7wDwobU1k
- 03B6hNEGKWBIA9+zJxX9wJQaf+qJ502R//MztKoI+4NBvQSKR+/48T0vL/HEGlXC2y
- Ek2YoHcq8/NY90GlJ540fUYxSaFiPukIOkbJViutTH2V03vTM2J9f+bh40+1O6T+fV
- EkNeJIN1dsmt9P1whwPuNQNrlHNy4rYanqZ9NqkUJ1t8zA8Nj7Kp4eryWYAgk6sb2I
- ubIqZzyyjnsCmuyFfWgQ+8dcJQenHyIJWSWa0vDgNqWVLmMs26mIxU1ixsvQMbAFaz
- MmXG8DWwBeTLg==
+ b=FekABZ2j/7c/jYvntkWo0mlCTNNHALh4A3PX8BU7nHj+M/PM97wVWXFm5EtSgfXdT
+ iWS2Mg3rdFxX/hBo+NysTDs3o8v3Fd0je59H5mhjdID5gzr/OyJb7wt2C1DcmguYAV
+ DFa4WoT5Ip8848eB/EIrfX6NsrclAtTL0TwlwUwis7zksfFEoAxNIpqqVDqAdq8WKV
+ EKUvIgQfUEqZLoRu3SZopLRBHCi8VhRnkM+6aEJelI5FJqBvHlpT+nEvy+l4NElwRo
+ OEs0ukpKA7aqEJbX7P+8qtK6q/X8XgZM0lLyT5EbMhKeYhv89xawRNDO23FRXnB207
+ FbDIrbbXuf0uQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:15 -0500
-Subject: [PATCH v2 091/110] ntfs3: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:24:08 -0500
+Subject: [PATCH v2 024/110] coda: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-91-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-24-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=843; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=vp0zPvf4xGJU8rljdJEp2XVsjnBl+O9vg1b2GqgCbLI=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIIVMHHvceWBREHvqQurM0kfFdE+gebjZBd8
- i3g3r8xANmJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCAAKCRAADmhBGVaC
- FSwjD/9ZAfgzGHA/XuhcN3+Qn8iU6M8mbeFn9K8HG25WwxL8Ryj339D63XriZCJla5mdb3xriHO
- Wa0WTzXWUDojsc9FLecu8CXqxsHFeXUQfoyb4WBlA2ldn+OJY04Zf/IRPUHFTLPOY+GiCSbwtn3
- a1TRzXxhX1AVr2vMwg0YabnT20XQEB/otx84bAx8iYGahuGrFrY2g30Gmcy7fk3nIkrIMgy3AKR
- hyc+lnGS8RZe4HEAk+ZQw9eN22V8zAKop8PreX7joAs+7cZU1DzXQ+qSzv6cGL0YZNDLjYp+jfS
- cJeUWbBZWQyrpOC+DPTGLZrFtQR4Auf1UOHvwVHApkOR4Zmsl6Z3U+3n2cYxuJNpi98KyNh26lY
- 9LklbWv4bGi1sfDkh8ldg/s/EZtokLrpkdBckpc6i8dlQsrtCJOCUX2Ym3CY2dEzplKb8Bu1kDB
- F7BjebEKlchHqvOgrXZHpOI0BK5Y3fDdsN8oVzJ1+rf/XKwWVa+lk2Rf0wxK/CvfyvzcbmRT7h2
- ZV1fliYg7z2IZuHQBjCivcz8DS+tb2zLzxVZdFWx/NpQS4o83zrHzBHvS8n2bcKg50j32dGeKPQ
- mB71C2Rq4OjKabEB9z3Zqd2hYmJ6dzdSo5Ak52R0k32hWu1uFdZWFm8GxCab580XDPU7gaCsVPk
- Dfu+nE8rkBBvgVQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1417; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=f/fwVVJUhkGYbPGB+Meav4MEfogu90OScL5Qckf7yg4=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH1JNZnTt1N00WLD2F0McaKJ2wk2UepiITW/
+ FBPA7YXDc+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9QAKCRAADmhBGVaC
+ Fb1GEACzdtDY8MwU++1kXjTBb/K0JgEVOC5FXPix/VzvhakzfWPQGJVdRNL7eO0X9izqtJYmhfp
+ TfDcsPYjeLRHcdqAXlkG86NfHOlqwd21oz0KHP3yCO+FyPKEgu6tRNhWHpIeSPuNq0uZaGdGSDA
+ guHrRhfJbI5VOW+R27lhpgHW/2dYIYMou/eWxnT4AwUU4WEH+8nM5sTdj81IRcxXmIZy695LRLi
+ OMpeFla5+UU4q67up5UA+tr7fyFPoL5+g8oUXTwul8O0l+hjRJXJ8anJGbLMLay4dPPeE5+y6pj
+ UpUwwFuxK4Y7P9VjwrejtIY+A33GIL1FOtZFBpoxAWCpuOmw+X90Ts0v/+/uSltfmDjenowseXJ
+ 5jNw9USFO8q1C7v+exQpc7MQmNbSRSWGLuOlM+7j3FBekwCoiwIj2L42r6ZD11179o0in0oKGtK
+ DDTVz6ROH3APwFZHIdgURyG7KjpvAjppBEEOr1MrzfoVqmacctrHdmpcHRzdTS7FjLQ168KNKVq
+ t1ZjWz/l2gf43SlQ7anJmAwT7fT8lydwHpoWcMGr1Fq9vqXbQrvoklK04JTe0MNSNvbbRel5vIl
+ R2zDVaDm7uPrvFCCYVDfMBIocl3QM5t844cP3FjjesQF0BcFCoHIeANVPIzxaR47TydoLhnScPj
+ Zj+3m3JN/rSDqGA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,27 +182,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in ntfs3 with the concrete format strings.
+Convert coda i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
+
+Also correct signed format specifiers to unsigned, since inode
+numbers are unsigned values.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ntfs3/super.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/coda/dir.c   | 2 +-
+ fs/coda/inode.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
-index f32227750d6f569286fd973a5ca745a655a470de..51aa008e126a8af18c39dd825a17c12df859329d 100644
---- a/fs/ntfs3/super.c
-+++ b/fs/ntfs3/super.c
-@@ -153,7 +153,7 @@ void ntfs_inode_printk(struct inode *inode, const char *fmt, ...)
- 	vaf.fmt = printk_skip_level(fmt);
- 	vaf.va = &args;
+diff --git a/fs/coda/dir.c b/fs/coda/dir.c
+index c64b8cd81568d3a7c0055f139d4b12cfa37399de..b9e1674a8493e5578a04e4f8165ba30dc3b225b4 100644
+--- a/fs/coda/dir.c
++++ b/fs/coda/dir.c
+@@ -533,7 +533,7 @@ int coda_revalidate_inode(struct inode *inode)
+ 		coda_vattr_to_iattr(inode, &attr);
  
--	printk("%c%cntfs3(%s): ino=%" PRIino "x,%s %pV\n", KERN_SOH_ASCII, level,
-+	printk("%c%cntfs3(%s): ino=%llx,%s %pV\n", KERN_SOH_ASCII, level,
- 	       sb->s_id, inode->i_ino, name ? name : "", &vaf);
+ 		if ((old_mode & S_IFMT) != (inode->i_mode & S_IFMT)) {
+-			pr_warn("inode %ld, fid %s changed type!\n",
++			pr_warn("inode %" PRIino "u, fid %s changed type!\n",
+ 				inode->i_ino, coda_f2s(&(cii->c_fid)));
+ 		}
  
- 	va_end(args);
+diff --git a/fs/coda/inode.c b/fs/coda/inode.c
+index ad1654f3adf8a6f4d9322d507264472f1703ffd4..964b9558cdb2e622eb9903974a10a6c5e561886e 100644
+--- a/fs/coda/inode.c
++++ b/fs/coda/inode.c
+@@ -257,7 +257,7 @@ static int coda_fill_super(struct super_block *sb, struct fs_context *fc)
+ 		goto error;
+ 	} 
+ 
+-	pr_info("%s: rootinode is %ld dev %s\n",
++	pr_info("%s: rootinode is %" PRIino "u dev %s\n",
+ 		__func__, root->i_ino, root->i_sb->s_id);
+ 	sb->s_root = d_make_root(root);
+ 	if (!sb->s_root) {
 
 -- 
 2.53.0
