@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 461EDEB362F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE0CE67A9E
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAD3E10E6FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F162810E721;
 	Tue,  3 Mar 2026 09:01:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cvJD0maX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="adORPXSh";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3AA10E5BD;
- Mon,  2 Mar 2026 20:32:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 154B010E5BB;
+ Mon,  2 Mar 2026 20:28:22 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9981461336;
- Mon,  2 Mar 2026 20:32:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24D85C2BC87;
- Mon,  2 Mar 2026 20:31:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EE6EF441DA;
+ Mon,  2 Mar 2026 20:28:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6EF5C2BCB6;
+ Mon,  2 Mar 2026 20:28:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483532;
- bh=Yn2Qu7UMbJThtBrilI7pPp75jpWmCP33tSnnkZRaNHI=;
+ s=k20201202; t=1772483301;
+ bh=ILNBX20XMm1WGYeu4fSbxc7i4uyu2mHUuuBgFEHaTLQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=cvJD0maXNCq/O2xWYA+10/z/E8YRFJML0cT1B7vETcvH7heKfTKxs7p0sibB9di3C
- xmlXCoIm0SbP8G0jP6YbPVrS08BL1CKixwPXXAHSwrbjS/ap9RtAD2VbsMv+6DS1Z+
- bYFRaNFCNzJyKTwYvKvWvkDXLLlz6UDKUv4QdWjuBjWr2s8DeLpw4BzecJndVkUDTc
- JvNMHFwSqjHsLvb+zIYSgWv98lgKNu5JyaFPqeiyRcJSPD+6PeEPcA4HTxiN01b/WA
- uJsVT+8FSNriX6qmTtPlrORgIvHgNAff+hjUKshE6/oY62XlnyoDIEObjmzvFgOxFs
- 1KO0+PpVUVnaQ==
+ b=adORPXShDJaWeQRCvSdSr3L2lXo65cAtKpYBCDaRHoy0MKNKUvrF7aMymnslSSs4B
+ AMdjhjFRvGdybr+uMutunCNdot7V1s1CHUjy6TEuq079//WixBAim/+w7whDBK17Ql
+ sd2diEDzU8ZI+CvgWovO3j6esT6DeAP5TRyjb1iQdmS1xVBNOR15bGyfPt63Xj6X6a
+ UEZVKUYin8jropztKyWus6l9QY2MA6uXm0QunpThKHKrDotZZJ4pcvPlDw2DJnQI6R
+ 2TeAOGs/0VwH5i/Xm+KY62RmHm3kRHZwqDCzK04Ymq6OabPDu+qR14tIW4YzVWfMYm
+ NiqS4oO3UXgFw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:14 -0500
-Subject: [PATCH v2 030/110] freevxfs: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:23:58 -0500
+Subject: [PATCH v2 014/110] proc: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-30-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-14-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1132; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=Yn2Qu7UMbJThtBrilI7pPp75jpWmCP33tSnnkZRaNHI=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH2F6E1WlwdQlGn42tvtpN56rew8QauNYZQs
- uWunqtOWmiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9gAKCRAADmhBGVaC
- FYwCD/9NZonA3wb3PFwtQxjXkl3/WD8EX6eYeInYrgJ+QQAL3s5tSoYqrHvvuIMkqJtY2WtxKqx
- CF8LInObvig0s/yGrrCPVa2VoLCG5Z0LvqvpOVu6C70X4D6PTl+bZk2/ntELohSSwHjidIKND9G
- O+oGpBZ8AiRa+lnT47HdvUbfICl/UEOL7sWQpgKMOJu20kdNSTp88wCNqlEudsDwgmkDnhGhVhz
- W7en3NFkygdhFH/wKB1zoCC8TjZysN4zbXYomqgVIYiXDwlzQbNo2jlNP1N940xUEv/3hFfG8qf
- Vw0dHduyiZTtOM5UffLrRmXGRc+1KOzZ/BvlTWZoRoVLTOYPUNVklRgufo+O+VlM4OwZ6LV92om
- yk4fZFCjGarfqb4xOPpE4ch44M7YSeH9r6R9R6rBQdDz47vVglWbtQQEZYACQXI/5rj+POP+fgA
- 27EgS+Iw1Jy7RaDluifkQV8PMrxIUlZP0tqbLdBeHv4QrY6gUv9TOHrmXIFGAnfGb7nvXYaLAIG
- I3eTOBuvNA4I61CPlwUonTwuAom5g/7CgzIAezX/YGgTjF/d/vxADqcCDboGMg9hX/ZLS7gcTmw
- pRMcZQMdu9Cjzbc7d/2GgYJhPsRGWSxkZ011EBbkX7wxbrRKf3i6YdwSF8cFWU5jNvT4fKKy32K
- y8aKLyjuQhVAEUQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1853; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=ILNBX20XMm1WGYeu4fSbxc7i4uyu2mHUuuBgFEHaTLQ=;
+ b=kA0DAAoBAA5oQRlWghUByyZiAGml8fKhukipLxqLUFvO9iuDYAGOPry/2sA4SjKuNUK0omXcO
+ okCMwQAAQoAHRYhBEvA17JEcbKhhOr10wAOaEEZVoIVBQJppfHyAAoJEAAOaEEZVoIVtoUP/R3e
+ In/Btns6OtO77+sWMs3v1xqzUdt4DAPFPDwvgQ3x5gDTR9PmppRzZM33aV68PBKlwHXKMZxO7/V
+ KmLhAIL0EMOzoOx4oVwoRmV2F5Gw5mMpRhTZOO5FsZv2WCle07tsqIXifbmkx8OgPQIB5wjlD/E
+ YqqdFbIvbMnLqiPJnZdk6DC4DPRnZhVj+EDM04AaWnAImg6uwnAgAfaf0OSVnULRQjRb0bdjWad
+ 7NOEkQH8pvNfiEF1ehH541oh1JzxjmRvzWJ4GzZXf+/hKptYyo1D5K6y/XzD4K31TehEcGgJGOn
+ OJ3GBq4ovtNAlkjVawu/nHiS7VZy7DCdknM+nF32EXE1mn6R2JDGBi+hmCMlifzP1wU3lh4GLQC
+ TfX70d8OPw+pAqWzvpZd5cxUJtZab6jpqaJnsurPw8kYnRAEHIvW7Ga6f7h3M4AdZAj+x3KiIam
+ jA0RNbEbbRPl0M+91ZxAGncuHOdwHPCHt1zNtpRUGfVmgViUEjMcGQieyUpLcG/PoQ0Ljbn7miz
+ aUqsyJCUqTyMcSvv5TBk068RoRkuiXb9wSbX/gcQ0EaqxmWyrD2jHcJPCFL6fm7i8IKDq4mcKAh
+ avWiCOvFCb6F9ihaU6qIM2bsHjOee0SVqqRiazHpodnilhViUZ7MJ/zirvzO3KxKkWZ6aQGy9CT
+ 2wGqM
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,36 +182,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert freevxfs i_ino format strings to use the PRIino format
+Convert proc i_ino format strings to use the PRIino format
 macro in preparation for the widening of i_ino via kino_t.
 
-Also correct signed format specifiers to unsigned, since inode
-numbers are unsigned values.
+Update local variables and function parameters that hold i_ino
+values from unsigned long to kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/freevxfs/vxfs_bmap.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/proc/fd.c       | 2 +-
+ fs/proc/task_mmu.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/freevxfs/vxfs_bmap.c b/fs/freevxfs/vxfs_bmap.c
-index 26d367e3668da0cfd916881c7a07c047a7ef1bf5..93570fc8eee1e0889d13e3e6e351fdda91d9094a 100644
---- a/fs/freevxfs/vxfs_bmap.c
-+++ b/fs/freevxfs/vxfs_bmap.c
-@@ -260,12 +260,12 @@ vxfs_bmap1(struct inode *ip, long iblock)
- 	if (VXFS_ISIMMED(vip))
- 		goto unsupp;
+diff --git a/fs/proc/fd.c b/fs/proc/fd.c
+index 9eeccff49b2abf57d766ce17fe47070c379ed2c8..936d0258d688be5fdc384ee5c4dfbb8fa0d19dff 100644
+--- a/fs/proc/fd.c
++++ b/fs/proc/fd.c
+@@ -54,7 +54,7 @@ static int seq_show(struct seq_file *m, void *v)
+ 	if (ret)
+ 		return ret;
  
--	printk(KERN_WARNING "vxfs: inode %ld has no valid orgtype (%x)\n",
-+	printk(KERN_WARNING "vxfs: inode %" PRIino "u has no valid orgtype (%x)\n",
- 			ip->i_ino, vip->vii_orgtype);
- 	BUG();
- 
- unsupp:
--	printk(KERN_WARNING "vxfs: inode %ld has an unsupported orgtype (%x)\n",
-+	printk(KERN_WARNING "vxfs: inode %" PRIino "u has an unsupported orgtype (%x)\n",
- 			ip->i_ino, vip->vii_orgtype);
- 	return 0;
- }
+-	seq_printf(m, "pos:\t%lli\nflags:\t0%o\nmnt_id:\t%i\nino:\t%lu\n",
++	seq_printf(m, "pos:\t%lli\nflags:\t0%o\nmnt_id:\t%i\nino:\t%" PRIino "u\n",
+ 		   (long long)file->f_pos, f_flags,
+ 		   real_mount(file->f_path.mnt)->mnt_id,
+ 		   file_inode(file)->i_ino);
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index e091931d7ca19d71f31699913d177eec0821ca7b..702b0f0433f91077cd0d0af4a07e9d67d9fa9a45 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -442,7 +442,7 @@ static void get_vma_name(struct vm_area_struct *vma,
+ static void show_vma_header_prefix(struct seq_file *m,
+ 				   unsigned long start, unsigned long end,
+ 				   vm_flags_t flags, unsigned long long pgoff,
+-				   dev_t dev, unsigned long ino)
++				   dev_t dev, kino_t ino)
+ {
+ 	seq_setwidth(m, 25 + sizeof(void *) * 6 - 1);
+ 	seq_put_hex_ll(m, NULL, start, 8);
+@@ -465,7 +465,7 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma)
+ 	const struct path *path;
+ 	const char *name_fmt, *name;
+ 	vm_flags_t flags = vma->vm_flags;
+-	unsigned long ino = 0;
++	kino_t ino = 0;
+ 	unsigned long long pgoff = 0;
+ 	unsigned long start, end;
+ 	dev_t dev = 0;
 
 -- 
 2.53.0
