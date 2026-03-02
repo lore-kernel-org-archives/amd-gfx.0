@@ -4,91 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 681BEEB362A
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 18:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25385EB3624
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2026 18:48:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0102910E577;
-	Mon,  2 Mar 2026 18:17:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8005010E58B;
+	Mon,  2 Mar 2026 18:48:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hY75gZbi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BwbX7wCe";
 	dkim-atps=neutral
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B928F10E577
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2026 18:17:24 +0000 (UTC)
-Received: by mail-dl1-f54.google.com with SMTP id
- a92af1059eb24-12714f01940so196994c88.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Mar 2026 10:17:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772475444; cv=none;
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F155410E58B
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2026 18:47:58 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-124a5810e41so336984c88.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 02 Mar 2026 10:47:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772477278; cv=none;
  d=google.com; s=arc-20240605;
- b=gcpwFMWBrd85P+Dhj50z9CRFv5zMnhuuxNnZafMdDR0D4Zw/fnWgJ9F8A6A2nbuVAM
- r4HR9d7sP/H3K4thxg7iogioPFPn3NDMTfEjnnGZRsK6J/XYE3PkLC6FGxHDmb7WGB3K
- Ug71Iu33U3mH3oJqf6skfe3sDiVuOaX0PnSxg2yA2A58PzOiMoNqzbklOrHZuvLXpjvJ
- nVbTKA82KyW7TXMazmc7oqBjeboEDeZlQnEeFSQeoM3fzWqFxPGx1iaf9t7GgK6MXYQl
- Gq+yPlYONnfX3uCSuCW8bhG+j0wV2mdsyYhE6uZkK/f4CH3ZvLiYKWHAodpTvKyCJE4g
- FOJw==
+ b=fVab9SnZ/bSlUNhzuXHtQIXuXAYn/BIMOOwlK2DeeXXZs/kpen16IEPLSuZfNJiNfI
+ Ny4dRA2Aezf9jJIKoCaAqIfknwfwEvtnP+5xaT04jzNxkcpCUVm2+HprYh+rafaOMSek
+ CSyXR1Na25drNdOzKW5vv2IGBXdKm1zJOL1QS4JezYs1KfygJbtU/B5ZGkKuAaeDSb9u
+ gYfyFOIiuJVIMvHcuFFUZjs90ptTbOvxfQTNiNCLfw5QIZwI2a1JPrBwqBv7YY1qaZyF
+ VCY8N/1T+lbcqCZcMlbGOWlYHVvj55ZbYCfQ5I4MlvXvNvmRrCf+jH8PZJmXldS2VVVE
+ tQlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=durjHlG5guYLR/wsnRksSAWWBCFh90Y80v8kx3y7OeI=;
- fh=66rZtncR4IYLcl5U7BlcIffkJDvzCXKojmrODFCk14A=;
- b=jnA1tWQ2vAYBO15ec/OGTVG/V0d4uXfhP2sEXNK2zdeexEdLTsrhef3G3TZAVsiQWv
- ODL6aP87lEktqfDyH1UtALc8PXIBKShPs2IBoekCwcJ28d5/M6b9WNwuad72WvRE8hCs
- KeEDuwTbAgvFw7SpIbGQkkf756KYIEtEJHRH59DIW4eIO17inuGNIDE5tV836zTLHBkn
- 3xNN7IBbFEuU+xd3ITK4NbAPk8qUwUktTXDV9bXdlfUs4EcpKqBJ8RPABcQQ1jBmslPW
- NgDvw/HF6xro0q/zFhvqoivOE6Jzenja0hMV7Etb63HM2jS4puPwVSJIMJPxaEWJ3uCk
- 2QBw==; darn=lists.freedesktop.org
+ bh=PhaxULRQYchacioDU3vakiclpPLY/jVd5nFbk4UvYrY=;
+ fh=5o17x/9fV3VzOOnqJBPsbzDynGsLhZlIGkzGL+sZ5OY=;
+ b=VdZWBgQK6MicpIS3upcogEQWrikm6x3Z30V/6U/RUnlQaNIlPr/ez63Z16TbsyaDSJ
+ 5t5sXIIGvmvDrFXEtmUC/dzi8GEr//oxtQCqVmgb9wSzYr351ZQ9Z5cmGZno53e+/ckR
+ DRB1eArcL0wq16p2UH5IdzGBa5UZW4rVDrww+uRz0Ip4c4/5/QFEwUcCaHTD10P8icep
+ ylc1YvTK5v/ZngD5x356RT69cE9uX9E/iSjFQMiBsOWO4g10dwp0bDfqrxtm5NSe7c6S
+ FCTjEb/vtkTXCOZ4ySxlG1jxQfRyRvV6huDU22fE5f3mB1okUJA/jN61z0EMc0GdA1gD
+ 4utA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772475444; x=1773080244; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1772477278; x=1773082078; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=durjHlG5guYLR/wsnRksSAWWBCFh90Y80v8kx3y7OeI=;
- b=hY75gZbioc6b9wA29rbm0s0eLsvL9nmgKkr/rnJDhWEbuenE5VyWbOzCgHhafpOjxt
- eJ1I74jAFhZwP81jZXtgsK2CmTdlJK0Z/yyDmKsTuhrIsZpnul+VPxt5oCsKx5eCJqbc
- CfIXAbdZU7rico5sq9ZEB7Und7kwEeUC+eGLdfDM00+VGgM9KNG71YkbsFtDUCer6vb0
- rqZXqBe5qJ0C5YLHeaVgacZDDyjeWs67UpGjXfTw8RbQkMDeVfnjudVBskVkXVl6ctSQ
- fvoIR9ofcomuXtg18aYfsqSuetS+B90gb4DgFbEjkBRYovKyPxpK39LvV7ZBdERfr1fR
- gC+A==
+ bh=PhaxULRQYchacioDU3vakiclpPLY/jVd5nFbk4UvYrY=;
+ b=BwbX7wCeslJVMpNQZBrdKQPmRqoGPEBJCxTNGIzzRqCaqG6A/pt6DMzsfNb/MKMYR4
+ NkHsSbPu4rKnIatuhXs/jKD1OygQOTyswjuFX7zHYYQQa0pNkISoofM+qK3PHh70F92K
+ YtEpdNMYNKpq7xQlaEKLc6u/LDn8LzjZcrHhfoszBPQGl6XS5WPq6MIqwj5FdXILwbb5
+ UpZqejffU4UF79c573OBYeFF85PLuUfZzk1xox/IKhhY1cV23ZZIv7Wx13pp1pexahrf
+ lKPKJ2Sve4cN1614Wq7Qc8vndZ/ccppFbiGLzWV6J/3b/NANc9TsPX22bEjE/Nx3ZeeZ
+ n1rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772475444; x=1773080244;
+ d=1e100.net; s=20230601; t=1772477278; x=1773082078;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=durjHlG5guYLR/wsnRksSAWWBCFh90Y80v8kx3y7OeI=;
- b=rL2m2dkmwoL2TAZRAJmg9y20JZAKLuAT4KzlTydhWVjv5lXJkw+W6N1uWG4NyqZ7cl
- 6QDzEAdK9XRT22sO1PkVd0whGcCU7VhOROETOWKVtcEzqxL465EGW0U5pouNqkOemyZV
- 8jLepALwAG/C4K5LSzCnUzoLwXFo0D5bWQj1yxkxh49RQO0uBPSXG+CPnGdw+aRCVoC4
- AYo8QrJAVuH6SmGUf0Kp7NVgPrpOe99meT/UTjehzEEAsUQk1+HaWJ68HdhdUbuCh1VQ
- Ux1kNo5Jxa1e3Do8IBy6fB7S+SxuQ+D+lTbdQLadUeTVf+JLkkj/+LGDh/ClIzsND0is
- HCJQ==
+ bh=PhaxULRQYchacioDU3vakiclpPLY/jVd5nFbk4UvYrY=;
+ b=QnNhjXMy9yXvdObMxyQ0F2HECDe1aZtEloX1eke3rj1bNkINFevRO7tjTzgrKnqqky
+ KsqVVCfJHUaklSbN1te8VMRlBhUhlQgZYTIO4GQc9H0Lyeb5dwFcjvk1xYmLR2B3iUHi
+ MB1IPTfCHY7QIZYjHDlkRW7MRm+ndbP8G3fOJpXQnYyVuT/PMxKD78kGSq8eNSTGasbc
+ Lmu+rNFdzbATVFuS7iVESOR2xkEFR3jyQj7QjkpyWrujc5+hzgv7/J3uma4MZHUeX7OS
+ uRhtOFgnG0afPX4/SsioIyQg/wKFricv3651T/f7zuWRhsttt4NEC7zusBDgXcdHZfKH
+ osPQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW+wJMrgC3ywBvZ3pgIc85J7yom3kIulZler8nTSweik2dNXin1JK+3gJC3Shpa0agwhoKFORY9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxOfMzUGf8o7gBEdl0INTPAN9w+1mNTiAsiRfGtq30rzHQLMKne
- jRFE1X15NjKMY2gC/VIaXT2DH3ZuWJ9w9cSrLSpdJZhpABpn7GStpNHkwbpg8pudiYzDwzb8K9S
- 3zSRf+gS0f9plRB6dJ4j124GQ4hqoGgk=
-X-Gm-Gg: ATEYQzxUK9jGuvJxQ1eaEepw7N1dPOsTrxDL7QmoXa3vy/UbrH+LOP09xqqy8r1W4tI
- DcTIK9abfI4fuYNDQpPPNIDVA3PLPICnyd4xPAvdMp7B3wKN7VDbr/PZyownVA5j4VJcbhVc9J7
- 0ljrig16HrfNwFf1Gi6CbNQd7a9KO6q2lOZoOVIkA3BLyzMl3tljGPuXNmRZV8nnl3ZhD4rDDgd
- EzMo/KXq/eVpagQlD3bE1u3tZIsrmQDYz/XbsH9LLBV2Nqeo3j9kOa9Ol9nJe2bNs9YjWnCmorK
- TLUV202jbll55wJtHGFCm+zkTilzfV+ssbUCoUxSqrK6LQK5CdllFqCv3HnPXv3n/wHEfg==
-X-Received: by 2002:a05:7022:62a7:b0:11b:98e8:624e with SMTP id
- a92af1059eb24-1278fcdfab8mr2783078c88.4.1772475443639; Mon, 02 Mar 2026
- 10:17:23 -0800 (PST)
+ AJvYcCXuYIBqTKNU88SaJFXO/aNG0KUTt0z8ZTiduEYDB0fnfr9wXaw0yIJX8Roorj8OtxpPJV/lQdH1@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxykWauLB17i4EcN8i2TG6nWmqzrl+QSiCKjMblYSRbFfzE1BfJ
+ sdJIgQ/GQ6lOXHNpSztkQLwGddNXppIowQtAbJs+MQRloyeE9dDozpBAw496bL4MiqYfWxxJtDf
+ 0LJYkzm4+RZA8zUsY/zgrOzHqnZLTYEg=
+X-Gm-Gg: ATEYQzwWzaCpK7Lwjmy84oB4CR0wsCT2mTQ7NRwdX3aFERw53x/6fbx4TwewNiSIubI
+ les3N2T8xS3WC5e9OftI//SEW3KFkF45xbrr/bWEntjkwNsHxEPaXo4p0YknzJPR9sVk1+/b32h
+ pfdwkUoL/48tx8VWL4VTdSb3O14pnU79LObsPiRH78fwjO3ZTuXWdRaDUL14GWSMBOt8QH+y70i
+ sGc2sWf0A67Mjfv5WYtsiW7EevsDh67cOaZazktrS+Bzf53Uw/0fLAcxZ1ybGgaqdOZO5EmhsDp
+ od7sI2fsxqDkWSpP1cpliZgCT1z2Gc1HaQz/l6Jn+Iu1GgowOXBOTFMqcVoXISyyK3LAHg==
+X-Received: by 2002:a05:7022:439e:b0:127:1186:812f with SMTP id
+ a92af1059eb24-1278fd12699mr2707242c88.7.1772477277777; Mon, 02 Mar 2026
+ 10:47:57 -0800 (PST)
 MIME-Version: 1.0
-References: <20260302180852.1344171-1-sunil.khatri@amd.com>
-In-Reply-To: <20260302180852.1344171-1-sunil.khatri@amd.com>
+References: <20260226093727.2584-1-pierre-eric.pelloux-prayer@amd.com>
+ <20260226093727.2584-6-pierre-eric.pelloux-prayer@amd.com>
+In-Reply-To: <20260226093727.2584-6-pierre-eric.pelloux-prayer@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 2 Mar 2026 13:17:11 -0500
-X-Gm-Features: AaiRm51mvhO9U20vtW-7HC3R-Gvz_NJt1wSuKN1GyhPkWX0dlCx5_OMwTdHp1Dk
-Message-ID: <CADnq5_OeGHi3kHAMQkkf+0nG=6+gf5_tzfCh6V-R0RmW8eo-gg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/amdgpu/userq: refcount userqueues to avoid any
- race conditions
-To: Sunil Khatri <sunil.khatri@amd.com>
+Date: Mon, 2 Mar 2026 13:47:45 -0500
+X-Gm-Features: AaiRm52KgTUh-oE9R4J6uimSKwR89a_13yJJU7x5eCzcIbspb-yc-pcKUsAVKa4
+Message-ID: <CADnq5_NMc0HSQy7x3DxZaox6myjjDkCtBEO7cp0523XNs+X1Jg@mail.gmail.com>
+Subject: Re: [PATCH v2 6/6] drm/amdgpu: dump job ibs in the devcoredump
+To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- amd-gfx@lists.freedesktop.org
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -105,325 +107,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 2, 2026 at 1:09=E2=80=AFPM Sunil Khatri <sunil.khatri@amd.com> =
-wrote:
+On Thu, Feb 26, 2026 at 4:49=E2=80=AFAM Pierre-Eric Pelloux-Prayer
+<pierre-eric.pelloux-prayer@amd.com> wrote:
 >
-> To avoid race condition and avoid UAF cases, implement kref
-> based queues and protect the below operations using xa lock
-> a. Getting a queue from xarray
-> b. Increment/Decrement it's refcount
+> Now that we have a worker thread, we can try to access the
+> IBs of the job. The process is:
+> * get the VM from the PASID
+> * get the BO from its VA and the VM
+> * map the BO for CPU access
+> * copy everything, then add it to the dump
+> Each step can fail so we have to be cautious.
+> These operations can be slow so when amdgpu_devcoredump_format
+> is called only to determine the size of the buffer we skip all
+> of them and assume they will succeed.
 >
-> Every time some one want to access a queue, always get via
-> amdgpu_userq_get to make sure we have locks in place and get
-> the object if active.
+> ---
+> v2: added some comments
+> ---
 >
-> A userqueue is destroyed on the last refcount is dropped which
-> typically would be via IOCTL or during fini.
->
-> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd=
+.com>
 
-Series is:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 85 ++++++++++++++-----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |  4 +
->  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 10 ++-
->  3 files changed, 76 insertions(+), 23 deletions(-)
+>  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 93 ++++++++++++++++++-
+>  1 file changed, 92 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.c
-> index e07b2082cf25..bd62c95eeaad 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -461,7 +461,6 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermo=
-de_queue *queue,
->         uq_funcs->mqd_destroy(queue);
->         amdgpu_userq_fence_driver_free(queue);
->         /* Use interrupt-safe locking since IRQ handlers may access these=
- XArrays */
-> -       xa_erase_irq(&uq_mgr->userq_xa, queue_id);
->         xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index);
->         queue->userq_mgr =3D NULL;
->         list_del(&queue->userq_va_list);
-> @@ -470,12 +469,6 @@ static void amdgpu_userq_cleanup(struct amdgpu_userm=
-ode_queue *queue,
->         up_read(&adev->reset_domain->sem);
->  }
->
-> -static struct amdgpu_usermode_queue *
-> -amdgpu_userq_find(struct amdgpu_userq_mgr *uq_mgr, u32 qid)
-> -{
-> -       return xa_load(&uq_mgr->userq_xa, qid);
-> -}
-> -
->  void
->  amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
->                              struct amdgpu_eviction_fence_mgr *evf_mgr)
-> @@ -625,22 +618,14 @@ amdgpu_userq_get_doorbell_index(struct amdgpu_userq=
-_mgr *uq_mgr,
->  }
->
->  static int
-> -amdgpu_userq_destroy(struct drm_file *filp, u32 queue_id)
-> +amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_user=
-mode_queue *queue,
-> +                    u32 queue_id)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> index d0af8a294abf..e489bf089bc9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> @@ -200,14 +200,24 @@ static void amdgpu_devcoredump_fw_info(struct amdgp=
+u_device *adev,
+>  static ssize_t
+>  amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_core=
+dump_info *coredump)
 >  {
-> -       struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
-> -       struct amdgpu_userq_mgr *uq_mgr =3D &fpriv->userq_mgr;
->         struct amdgpu_device *adev =3D uq_mgr->adev;
-> -       struct amdgpu_usermode_queue *queue;
->         int r =3D 0;
+> +       struct amdgpu_device *adev =3D coredump->adev;
+>         struct drm_printer p;
+>         struct drm_print_iterator iter;
+>         struct amdgpu_vm_fault_info *fault_info;
+> +       struct amdgpu_bo_va_mapping *mapping;
+>         struct amdgpu_ip_block *ip_block;
+> +       struct amdgpu_res_cursor cursor;
+> +       struct amdgpu_bo *abo, *root;
+> +       uint64_t va_start, offset;
+>         struct amdgpu_ring *ring;
+> -       int ver, i, j;
+> +       struct amdgpu_vm *vm;
+> +       u32 *ib_content;
+> +       uint8_t *kptr;
+> +       int ver, i, j, r;
+>         u32 ring_idx, off;
+> +       bool sizing_pass;
 >
->         cancel_delayed_work_sync(&uq_mgr->resume_work);
->         mutex_lock(&uq_mgr->userq_mutex);
-> -       queue =3D amdgpu_userq_find(uq_mgr, queue_id);
-> -       if (!queue) {
-> -               drm_dbg_driver(adev_to_drm(uq_mgr->adev), "Invalid queue =
-id to destroy\n");
-> -               mutex_unlock(&uq_mgr->userq_mutex);
-> -               return -EINVAL;
-> -       }
->         amdgpu_userq_wait_for_last_fence(queue);
->         /* Cancel any pending hang detection work and cleanup */
->         if (queue->hang_detect_fence) {
-> @@ -680,6 +665,38 @@ amdgpu_userq_destroy(struct drm_file *filp, u32 queu=
-e_id)
->         return r;
->  }
+> +       sizing_pass =3D buffer =3D=3D NULL;
+>         iter.data =3D buffer;
+>         iter.offset =3D 0;
+>         iter.remain =3D count;
+> @@ -323,6 +333,87 @@ amdgpu_devcoredump_format(char *buffer, size_t count=
+, struct amdgpu_coredump_inf
+>         else if (coredump->reset_vram_lost)
+>                 drm_printf(&p, "VRAM is lost due to GPU reset!\n");
 >
-> +struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *=
-uq_mgr, u32 qid)
-> +{
-> +       struct amdgpu_usermode_queue *queue;
+> +       if (coredump->num_ibs) {
+> +               /* Don't try to lookup the VM or map the BOs when calcula=
+ting the
+> +                * size required to store the devcoredump.
+> +                */
+> +               if (sizing_pass)
+> +                       vm =3D NULL;
+> +               else
+> +                       vm =3D amdgpu_vm_lock_by_pasid(adev, &root, cored=
+ump->pasid);
 > +
-> +       xa_lock(&uq_mgr->userq_xa);
-> +       queue =3D xa_load(&uq_mgr->userq_xa, qid);
-> +       if (queue)
-> +               kref_get(&queue->refcount);
+> +               for (int i =3D 0; i < coredump->num_ibs && (sizing_pass |=
+| vm); i++) {
+> +                       ib_content =3D kvmalloc_array(coredump->ibs[i].ib=
+_size_dw, 4,
+> +                                                   GFP_KERNEL);
+> +                       if (!ib_content)
+> +                               continue;
 > +
-> +       xa_unlock(&uq_mgr->userq_xa);
-> +       return queue;
-> +}
+> +                       /* vm=3DNULL can only happen when 'sizing_pass' i=
+s true. Skip to the
+> +                        * drm_printf() calls (ib_content doesn't need to=
+ be initialized
+> +                        * as its content won't be written anywhere).
+> +                        */
+> +                       if (!vm)
+> +                               goto output_ib_content;
 > +
-> +void amdgpu_userq_put(struct amdgpu_userq_mgr *uq_mgr, u32 qid)
-> +{
-> +       struct amdgpu_usermode_queue *queue;
+> +                       va_start =3D coredump->ibs[i].gpu_addr & AMDGPU_G=
+MC_HOLE_MASK;
+> +                       mapping =3D amdgpu_vm_bo_lookup_mapping(vm, va_st=
+art / AMDGPU_GPU_PAGE_SIZE);
+> +                       if (!mapping)
+> +                               goto free_ib_content;
 > +
-> +       xa_lock(&uq_mgr->userq_xa);
-> +       queue =3D xa_load(&uq_mgr->userq_xa, qid);
+> +                       offset =3D va_start - (mapping->start * AMDGPU_GP=
+U_PAGE_SIZE);
+> +                       abo =3D amdgpu_bo_ref(mapping->bo_va->base.bo);
+> +                       r =3D amdgpu_bo_reserve(abo, false);
+> +                       if (r)
+> +                               goto free_ib_content;
 > +
-> +       if (queue && refcount_dec_and_test(&queue->refcount.refcount)) {
-> +               __xa_erase(&uq_mgr->userq_xa, qid);
-> +               xa_unlock(&uq_mgr->userq_xa);
+> +                       if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS)=
+ {
+> +                               off =3D 0;
 > +
-> +               if (amdgpu_userq_destroy(uq_mgr, queue, qid))
-> +                       drm_file_err(uq_mgr->file, "Failed to destroy use=
-rmode queue\n");
-> +               return;
+> +                               if (abo->tbo.resource->mem_type !=3D TTM_=
+PL_VRAM)
+> +                                       goto unreserve_abo;
+> +
+> +                               amdgpu_res_first(abo->tbo.resource, offse=
+t,
+> +                                                coredump->ibs[i].ib_size=
+_dw * 4,
+> +                                                &cursor);
+> +                               while (cursor.remaining) {
+> +                                       amdgpu_device_mm_access(adev, cur=
+sor.start / 4,
+> +                                                               &ib_conte=
+nt[off], cursor.size / 4,
+> +                                                               false);
+> +                                       off +=3D cursor.size;
+> +                                       amdgpu_res_next(&cursor, cursor.s=
+ize);
+> +                               }
+> +                       } else {
+> +                               r =3D ttm_bo_kmap(&abo->tbo, 0,
+> +                                               PFN_UP(abo->tbo.base.size=
+),
+> +                                               &abo->kmap);
+> +                               if (r)
+> +                                       goto unreserve_abo;
+> +
+> +                               kptr =3D amdgpu_bo_kptr(abo);
+> +                               kptr +=3D offset;
+> +                               memcpy(ib_content, kptr,
+> +                                      coredump->ibs[i].ib_size_dw * 4);
+> +
+> +                               amdgpu_bo_kunmap(abo);
+> +                       }
+> +
+> +output_ib_content:
+> +                       drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
+> +                                  i, coredump->ibs[i].gpu_addr, coredump=
+->ibs[i].ib_size_dw);
+> +                       for (int j =3D 0; j < coredump->ibs[i].ib_size_dw=
+; j++)
+> +                               drm_printf(&p, "0x%08x\n", ib_content[j])=
+;
+> +unreserve_abo:
+> +                       if (vm)
+> +                               amdgpu_bo_unreserve(abo);
+> +free_ib_content:
+> +                       kfree(ib_content);
+> +               }
+> +               if (vm) {
+> +                       amdgpu_bo_unreserve(root);
+> +                       amdgpu_bo_unref(&root);
+> +               }
 > +       }
 > +
-> +       xa_unlock(&uq_mgr->userq_xa);
-> +}
-> +
->  static int amdgpu_userq_priority_permit(struct drm_file *filp,
->                                         int priority)
->  {
-> @@ -891,6 +908,8 @@ amdgpu_userq_create(struct drm_file *filp, union drm_=
-amdgpu_userq *args)
->
->         args->out.queue_id =3D qid;
->         atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
-> +       /* drop this refcount during queue destroy */
-> +       kref_init(&queue->refcount);
->
->  unlock:
->         mutex_unlock(&uq_mgr->userq_mutex);
-> @@ -985,6 +1004,7 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void =
-*data,
->                        struct drm_file *filp)
->  {
->         union drm_amdgpu_userq *args =3D data;
-> +       struct amdgpu_fpriv *fpriv =3D filp->driver_priv;
->         int r;
->
->         if (!amdgpu_userq_enabled(dev))
-> @@ -1001,9 +1021,7 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void=
- *data,
->                 break;
->
->         case AMDGPU_USERQ_OP_FREE:
-> -               r =3D amdgpu_userq_destroy(filp, args->in.queue_id);
-> -               if (r)
-> -                       drm_file_err(filp, "Failed to destroy usermode qu=
-eue\n");
-> +               amdgpu_userq_put(&fpriv->userq_mgr, args->in.queue_id);
->                 break;
->
->         default:
-> @@ -1023,16 +1041,23 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr =
-*uq_mgr)
->
->         /* Resume all the queues for this process */
->         xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
-> +               queue =3D amdgpu_userq_get(uq_mgr, queue_id);
-> +               if (!queue)
-> +                       continue;
-> +
->                 if (!amdgpu_userq_buffer_vas_mapped(queue)) {
->                         drm_file_err(uq_mgr->file,
->                                      "trying restore queue without va map=
-ping\n");
->                         queue->state =3D AMDGPU_USERQ_STATE_INVALID_VA;
-> +                       amdgpu_userq_put(uq_mgr, queue_id);
->                         continue;
->                 }
->
->                 r =3D amdgpu_userq_restore_helper(queue);
->                 if (r)
->                         ret =3D r;
-> +
-> +               amdgpu_userq_put(uq_mgr, queue_id);
->         }
->
->         if (ret)
-> @@ -1266,9 +1291,13 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq=
-_mgr)
->         amdgpu_userq_detect_and_reset_queues(uq_mgr);
->         /* Try to unmap all the queues in this process ctx */
->         xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
-> +               queue =3D amdgpu_userq_get(uq_mgr, queue_id);
-> +               if (!queue)
-> +                       continue;
->                 r =3D amdgpu_userq_preempt_helper(queue);
->                 if (r)
->                         ret =3D r;
-> +               amdgpu_userq_put(uq_mgr, queue_id);
->         }
->
->         if (ret)
-> @@ -1301,16 +1330,24 @@ amdgpu_userq_wait_for_signal(struct amdgpu_userq_=
-mgr *uq_mgr)
->         int ret;
->
->         xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
-> +               queue =3D amdgpu_userq_get(uq_mgr, queue_id);
-> +               if (!queue)
-> +                       continue;
-> +
->                 struct dma_fence *f =3D queue->last_fence;
->
-> -               if (!f || dma_fence_is_signaled(f))
-> +               if (!f || dma_fence_is_signaled(f)) {
-> +                       amdgpu_userq_put(uq_mgr, queue_id);
->                         continue;
-> +               }
->                 ret =3D dma_fence_wait_timeout(f, true, msecs_to_jiffies(=
-100));
->                 if (ret <=3D 0) {
->                         drm_file_err(uq_mgr->file, "Timed out waiting for=
- fence=3D%llu:%llu\n",
->                                      f->context, f->seqno);
-> +                       amdgpu_userq_put(uq_mgr, queue_id);
->                         return -ETIMEDOUT;
->                 }
-> +               amdgpu_userq_put(uq_mgr, queue_id);
->         }
->
->         return 0;
-> @@ -1368,9 +1405,15 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr=
- *userq_mgr)
->         mutex_lock(&userq_mgr->userq_mutex);
->         amdgpu_userq_detect_and_reset_queues(userq_mgr);
->         xa_for_each(&userq_mgr->userq_xa, queue_id, queue) {
-> +               queue =3D amdgpu_userq_get(userq_mgr, queue_id);
-> +               if (!queue)
-> +                       continue;
->                 amdgpu_userq_wait_for_last_fence(queue);
->                 amdgpu_userq_unmap_helper(queue);
->                 amdgpu_userq_cleanup(queue, queue_id);
-> +               amdgpu_userq_put(userq_mgr, queue_id);
-> +               /* Second put is for the reference taken in this function=
- itself */
-> +               amdgpu_userq_put(userq_mgr, queue_id);
->         }
->
->         xa_destroy(&userq_mgr->userq_xa);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_userq.h
-> index f4d1d46ae15e..ec3ce485626d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-> @@ -74,6 +74,7 @@ struct amdgpu_usermode_queue {
->         struct dentry           *debugfs_queue;
->         struct delayed_work hang_detect_work;
->         struct dma_fence *hang_detect_fence;
-> +       struct kref             refcount;
->
->         struct list_head        userq_va_list;
->  };
-> @@ -114,6 +115,9 @@ struct amdgpu_db_info {
->         struct amdgpu_userq_obj *db_obj;
->  };
->
-> +struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *=
-uq_mgr, u32 qid);
-> +void amdgpu_userq_put(struct amdgpu_userq_mgr *uq_mgr, u32 qid);
-> +
->  int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_fi=
-le *filp);
->
->  int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm=
-_file *file_priv,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index 3c30512a6266..ba453361d2b4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -521,7 +521,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev,=
- void *data,
->                 goto put_gobj_read;
->
->         /* Retrieve the user queue */
-> -       queue =3D xa_load(&userq_mgr->userq_xa, args->queue_id);
-> +       queue =3D amdgpu_userq_get(userq_mgr, args->queue_id);
->         if (!queue) {
->                 r =3D -ENOENT;
->                 goto put_gobj_write;
-> @@ -612,6 +612,9 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev,=
- void *data,
->  free_syncobj_handles:
->         kfree(syncobj_handles);
->
-> +       if (queue)
-> +               amdgpu_userq_put(userq_mgr, args->queue_id);
-> +
->         return r;
+>         return count - iter.remain;
 >  }
 >
-> @@ -863,7 +866,7 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, v=
-oid *data,
->                  */
->                 num_fences =3D dma_fence_dedup_array(fences, num_fences);
->
-> -               waitq =3D xa_load(&userq_mgr->userq_xa, wait_info->waitq_=
-id);
-> +               waitq =3D amdgpu_userq_get(userq_mgr, wait_info->waitq_id=
-);
->                 if (!waitq) {
->                         r =3D -EINVAL;
->                         goto free_fences;
-> @@ -947,5 +950,8 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, v=
-oid *data,
->  free_syncobj_handles:
->         kfree(syncobj_handles);
->
-> +       if (waitq)
-> +               amdgpu_userq_put(userq_mgr, wait_info->waitq_id);
-> +
->         return r;
->  }
 > --
-> 2.34.1
+> 2.43.0
 >
