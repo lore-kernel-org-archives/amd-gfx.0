@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1512AE67A9B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F43E67A9E
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E52610E717;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A146210E719;
 	Tue,  3 Mar 2026 09:01:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dhc0/IGx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qnvKe0nX";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE11E10E5BD;
- Mon,  2 Mar 2026 20:43:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6B9510E5BD;
+ Mon,  2 Mar 2026 20:31:00 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A29A844343;
- Mon,  2 Mar 2026 20:43:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63AE0C19423;
- Mon,  2 Mar 2026 20:43:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AA8C1423CE;
+ Mon,  2 Mar 2026 20:31:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F096C2BC87;
+ Mon,  2 Mar 2026 20:30:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484235;
- bh=UOAEYynzD6EMQO6Y3DFiwCQHZhBo1KFizd/HOCrLZgw=;
+ s=k20201202; t=1772483460;
+ bh=riRsVNtCfCFegg9RyCzZ4Sz7jbdraQnKk8jYFH84Icc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Dhc0/IGxPCWnAO0jbCZROqeyev75wTetSuhR6IVoinPu4E1gWULuPW4d5RiCaQGEq
- AFbJS55ArLRvwhpdmdATFnAdV0GUJHkRI3c8w1lWlz3ULpT5gMFFEEoZv5zxdEh+a7
- kWoTA8Mk05bOqAWXdm3f3WCB6WTdqX7BD86y6lIXQKLSwMy3JakIrO9m47wKxJP4JF
- KPqpqKefVELZWgjK5sG4D+uYNah9CKSQNKZQKj2pY81fYHyBvUMEVBQSlmrCirpWP2
- 8HzfNIdRTpBmtfbpFzPS9EKOpiBjNqjl/Nju19PccEHTVt4QgowIaIMeaHdzeWBE0+
- /SqM2z5f7dvRQ==
+ b=qnvKe0nX8QwUdQoIpHO/ZgmdEE5cOFTXQqjK33XdgB7DYCgcZnGqlFaUg29IlWmuV
+ RpX6zUne9keLBWiLnN8Kf/7mw3bMCoZqrcH1oD1n+g2rghVCZNwys0mDgXBj58y78n
+ ra3VHpaiBeC1gGEPkj0JZJVMkqeJOSrG5RgJGHdXoOQeMT2VvP+eP9/UU++B73Hxl6
+ ac823MLXfOQHxj2HQ/j+T6IizaYa14nSw8j79/rWBkXcn/XSubxKUG8CkUnfDMlgPE
+ wr0Ez5NpMjcw1bAP6uhshpK8AblWMuxtAQXuFDnFXtpgTT9IL/DPOwNDhWJydGMriu
+ qzJEouDe28RRg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:03 -0500
-Subject: [PATCH v2 079/110] ecryptfs: replace PRIino with %llu/%llx format
- strings
+Date: Mon, 02 Mar 2026 15:24:09 -0500
+Subject: [PATCH v2 025/110] cramfs: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-79-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-25-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -152,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2351; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=UOAEYynzD6EMQO6Y3DFiwCQHZhBo1KFizd/HOCrLZgw=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIEOuphnEavDEIC3+G9bP/yGebCzlr8YPYv6
- f7CLhYHSnWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBAAKCRAADmhBGVaC
- FTOOEACXi4R2sd3xPPG8cv+3X/RfWdB69ekqMDYPyJQsUVp6n/yLGDiQtqcTUVfgmrBB+6AJfRc
- YvpZ4LYwGC/BOekpbEQMk/XhiiLvGO5X9Uu8z3giqLLoQN/4f5oLT0F0Evqf1T87s33bKV4IXQG
- dl3gDdHNA/IK3VCypwTH4d6HIR/jmnIvEMwDOuwSPc9rezoO12Mn07KPTb/5r2ZOCP9cqiOgeFP
- 8LLRk4PwVfkg1MC+BirRPJ/TVcYIIj3OgrHimnANR+BqG9u9avtjVDTTZ4eJfRBUlLTRGqMpACK
- FTA/g/fmcCr3LujF1e6yqKdEBaEIpi8N6ShH8dbh08vCuRiriFQd6Ty4jS/Cwn8i8BXIs60W4tf
- zy6N4OdstOOea6o5cLIKf0LjXynUSwR1YOv/LtkqsRa0gFXvPo+Iw9mLx2mSzEkYvxRzfhClFhf
- KfEoeOggJflUZdvIuYRnc5RuqCu9Ce0iDQmEfrmAUD2Xe7sZa4kfmQPVUJbG4vB12lyTueZHPmw
- 1ZxUfjFGzwwk2epkGp2/HFuwDeYbYbVDNz3AqQ+6IUDkwr773Dt1lAhomV2+/xE2euDce/ytt1g
- OxRCuhXWvvLoDd92q7M5PNh/vGHe5FtHtwx/XaxI9w/OBs0+Izqtj1WHqE/4lL8IDUevPGhzYf+
- ekbd6QBV6PaqQWQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=866; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=riRsVNtCfCFegg9RyCzZ4Sz7jbdraQnKk8jYFH84Icc=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH1bEf196AVsr+Ud/aaxjvJQgxKhH/XClqjX
+ MSfRbTdPm6JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9QAKCRAADmhBGVaC
+ FTcaEACprwQPcR4yodSqEJmffPlvSdmIx4EzfJK5L/SlJyMWj4ntmS2KZcxaJGD5wvr+9IjBLtx
+ 6Fjn5KNv1RpqKEyPbXoK+DBK46cdKHbmNZHS3te0teZYTwSZzH39CDqdk4JcrBMpRL1AqWLcLsQ
+ 0PY39sZuPaHOs5MLQC9YC3X2GWSbBcu23B+7FYuhYfEZJwa19x9q5sb8vIBX+wj9tfAk9iL1/Na
+ eP7gOl2qLRHzNyCEsUdu4rgIdrRz9NO3cv7jrLSe0X2l7Zcy16R7mXgU606DPjbWFaCGH103fu/
+ nTNCjuSR9wanoZgBVVitZWUsO+8FvSKsetv3PnUzodUQlnWhWGVMH8drB75vI6ocAdWewtp/bbD
+ Mb/VKjJt5GdHym8es1Z+DiMdupuZcAjFULurZEM/sydLBYroadzmugolrxCh/9+yWQNJeFZaCIC
+ ZX42GGtqXmerBVHSIBxv8A0KEiSR+XmA49hHGS/E7oOFjdJSp+ARL3D39ZOkhFGm1ty2ClQP/iP
+ DqcTMbssUbELTKTFhMCB94WLalQefSD3yQaqFQnP5V6W/V7r5PwxzfgWVg0b9Wv4V8Z+rebP4xC
+ 0jUTuGrsWIvDqm9U9gFCE9IXL1KwqpzSwiTYxNERrgaMl+7DblOWrpWqeoAgIJu7PPXTENLLcnL
+ //bfkHZlbLGnbpw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -183,59 +182,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in ecryptfs with the concrete format strings.
+Convert cramfs i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ecryptfs/crypto.c | 6 +++---
- fs/ecryptfs/file.c   | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ fs/cramfs/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
-index 015b2e4ee11cba5b734d1f8fcd851accfa8f0481..f25c9a49e251a591695a143f64d1a81c5211ec18 100644
---- a/fs/ecryptfs/crypto.c
-+++ b/fs/ecryptfs/crypto.c
-@@ -1313,7 +1313,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 		rc = ecryptfs_read_xattr_region(page_virt, ecryptfs_inode);
- 		if (rc) {
- 			printk(KERN_DEBUG "Valid eCryptfs headers not found in "
--			       "file header region or xattr region, inode %" PRIino "u\n",
-+			       "file header region or xattr region, inode %llu\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 			goto out;
-@@ -1323,7 +1323,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 						ECRYPTFS_DONT_VALIDATE_HEADER_SIZE);
- 		if (rc) {
- 			printk(KERN_DEBUG "Valid eCryptfs headers not found in "
--			       "file xattr region either, inode %" PRIino "u\n",
-+			       "file xattr region either, inode %llu\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 		}
-@@ -1335,7 +1335,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 			       "crypto metadata only in the extended attribute "
- 			       "region, but eCryptfs was mounted without "
- 			       "xattr support enabled. eCryptfs will not treat "
--			       "this like an encrypted file, inode %" PRIino "u\n",
-+			       "this like an encrypted file, inode %llu\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 		}
-diff --git a/fs/ecryptfs/file.c b/fs/ecryptfs/file.c
-index 9eff00cfbc46c5fbd599252dcc4434fceafb7223..49b0fbe0428a2d202434ce4b5fd7d82d2a63cf58 100644
---- a/fs/ecryptfs/file.c
-+++ b/fs/ecryptfs/file.c
-@@ -253,7 +253,7 @@ static int ecryptfs_open(struct inode *inode, struct file *file)
- 	if (rc)
- 		goto out_put;
- 	ecryptfs_printk(KERN_DEBUG, "inode w/ addr = [0x%p], i_ino = "
--			"[0x%.16" PRIino "x] size: [0x%.16llx]\n", inode, inode->i_ino,
-+			"[0x%.16llx] size: [0x%.16llx]\n", inode, inode->i_ino,
- 			(unsigned long long)i_size_read(inode));
- 	goto out;
- out_put:
+diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
+index e0ba9cd640dcfe86e0976344b30a5b9a0da6b90f..624c5ed0ceff2e4d3e964401e3cfb82154c719ae 100644
+--- a/fs/cramfs/inode.c
++++ b/fs/cramfs/inode.c
+@@ -125,7 +125,7 @@ static struct inode *get_cramfs_inode(struct super_block *sb,
+ 				old_decode_dev(cramfs_inode->size));
+ 		break;
+ 	default:
+-		printk(KERN_DEBUG "CRAMFS: Invalid file type 0%04o for inode %lu.\n",
++		printk(KERN_DEBUG "CRAMFS: Invalid file type 0%04o for inode %" PRIino "u.\n",
+ 		       inode->i_mode, inode->i_ino);
+ 		iget_failed(inode);
+ 		return ERR_PTR(-EIO);
 
 -- 
 2.53.0
