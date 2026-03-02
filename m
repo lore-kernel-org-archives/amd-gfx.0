@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF178EC0476
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1CBFEC0474
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4657D10E75D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E0810E69C;
 	Tue,  3 Mar 2026 09:01:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GyUE/vAD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jQmcfG0R";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 788DA10E36C;
- Mon,  2 Mar 2026 20:43:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 402DA10E36C;
+ Mon,  2 Mar 2026 20:44:10 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4C0E94174A;
- Mon,  2 Mar 2026 20:43:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154C0C19425;
- Mon,  2 Mar 2026 20:43:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1A74E41AF3;
+ Mon,  2 Mar 2026 20:44:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B38FAC2BCB1;
+ Mon,  2 Mar 2026 20:43:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484221;
- bh=VipzHX+Kr9eDABZYeJk6DXBkX8DLxI2R5jnS1ony64M=;
+ s=k20201202; t=1772484250;
+ bh=4w4fA6dhQCNf/APQlOMjiisq4usxy5N0JbGQrOBIfHY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=GyUE/vAD7KzUY+7p+6OmzJggORJGIyVREtyftkpl10eY2gxWch503ETBsS4wCHIT1
- 62MZajxbDK2+GuySOwLeZahfA/Ps8QLVRgyph++jY9+uLBX7YeSFNkrvESE+Y1kjHG
- YiHhSdAyiald82Pd99zhkXqo6vqkhCPD9r0lpWAOb/kAW8p0qJgwUA6yqMtIzF62xl
- sRDysRmrUVr5kNd2wqV4/laZwY1jJyIKNVXByAbROAP4l38TPMI8NAxfgzqZ1SYf/s
- lLM3lfoPrclW8CEygf6/FU7krXV9mW99CkiVhlAKJsEKBWWofOi1SqStPAXfzd5zcg
- dQd1a/KDab6bQ==
+ b=jQmcfG0R/etcu4AtMgMzx+6210wFhdpzx4VBtstHwijAJj1WcqKYoqHi3c823/EVj
+ Ol3vXOlW+2Qb8OOE9xV95XfwG1RNKVkg3U5GT/GCa+j07aCaZQqkao3eJvzjW0kiMy
+ Wa/BWUsqX3j2iqdLgs5Sfl+ck23zI0IPSbXYuvRfNAp/ktx0Xbs772zxKVXp1HG0yV
+ I/95mI2VKXBLL7b5P1JjuZuqoj49S0kTem6ElXk8GHhSY2rhrAqxUa41c3p+snu513
+ sFY6f11xyykIkDW5gFwyNCfFpdJABbA4RO0j6qHKfjnfhsi+ggsS1Ea7ZGD7KWzjbS
+ wBNsB+g4/56fQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:02 -0500
-Subject: [PATCH v2 078/110] cramfs: replace PRIino with %llu/%llx format
- strings
+Date: Mon, 02 Mar 2026 15:25:04 -0500
+Subject: [PATCH v2 080/110] efs: replace PRIino with %llu/%llx format strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-78-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-80-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -152,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=876; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=VipzHX+Kr9eDABZYeJk6DXBkX8DLxI2R5jnS1ony64M=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIEChGs6AwJHM9PcHc3H1I/xxqGIk65ZS7xZ
- yEW4qgpENOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBAAKCRAADmhBGVaC
- FTijEACkfQg4sZvZGPKPlw/OjLHzSIaxMDkyWX+Dxmfd8ktn9hI69X91bCmCML6O56ilJSkp2Mx
- xfgiC2NDUbZaRMumgnemmv/0CeiN1n1o3hFCaJY5JUHUrJrHNvd3Ei5ELm+m8qSI8lpH7b66D8B
- 3E2QcAeGYNoxD69FgeaOSRFTRztCC68g2e1gdT/sGBaLQDWyCOE7Wc+xK0Qe3EagqrrUedInoK0
- kYnxsYoTuCD2Vy98DcuILDzEE7y2wR+zvPitJ/qQISjXuxMObSopJWLHLC7TpL2IwW9t87siF12
- WSxVzSoh/WY61jRE+sFIukPOX0lW5/ajdNO9f82kLr1ClpN0w4gWQbt7p9x0s2WagnfHuovxzWN
- 1HY3t+EAcaIYbA9UiLxiQY2XsW6OdFeVzQDtqysCCPM9VlULMMXh79oNhFPJMBohHmHbH82iBBa
- wpZsYSmUZDem5L7WrQU9dl0kjd9GoykXnln+2enjQTO7vP6YABTdqnCwjNOTslJNgiHr9r10tsG
- vHAj8E8cKfFKZeAr9+9N37Vq9RhNS4xlrNNIINaab+uGhkU0YFNge1h+EVHqvtcMpBf4Jb2wwqs
- kwb7Gvr/KosDfFhdl6UD5h2cHOIod/bddYSfwLB3AaZl7DyHGpq35B17sDwXSEAUOJV6RiqGfHd
- 6LwaZCyFH0ivbtg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1604; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=4w4fA6dhQCNf/APQlOMjiisq4usxy5N0JbGQrOBIfHY=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIFUSBYm47jl/gQ5ZybZZz5mjBR7fn61c9UJ
+ rlM0RlJ2i+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBQAKCRAADmhBGVaC
+ FbY2D/9aXK0BLLKkuyBGYm022HPboICg++WR7xeq0N25AFYA/jmyqK/9ldEChVQT/4P8hjRV6Ey
+ o3mU/en6afvPYKoDsolzdVN5UjcEHlqWfyzrTr7m81pFC8474syuuwKbLbp6e4jfF/aLNJQqpmO
+ ty2qbxqkBeqhZQAvg/i56PfIbeUCTFkn4lSm+74r75wu2w0aI9nNO1sAsHGSBLs1vlX6Ct64Hs0
+ Pkdrg3FDTaxzTA19bPk5YFZzi59YzBraWmHaH+GD0elt/94yfsdbzCmLpvtAvH4tJ0JvrzbxmsV
+ 8PpViqm7enuNr5fzS5sUvG2/SrQqK0kTjDsoCsRUQe1pdkVYBjCSiz8UIP/M3yJnxd3eFKFWnFl
+ P3r5/SCwkcD8S/ssmV0sdbxg2tskt1jG0nvAdaiotALMlyMxsgj9fqj7y4E5w5B0ZQ2w/Lrvxbx
+ HkL7JPjcfvw75xyFUfvqjUe2nG5lDorbOTHl8QhvNmpbvf+U/kxYcydrnnoZoTumiP3MIEQG1nr
+ w7uc+AqtP3O4GjJPN4liIyi6x2huu+tBp1YyphFEf7AIldVbKWJdLM55AX7D4FJTdbZ59HU+Srb
+ F3X+X96KD3v97gUsh5nT9ALqIEAJJKR/uKUK0hRPaqRDElMeDtSqB9KCyeBdNh1UGG8ofnHxI14
+ 4JbqwB06oLNknyw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -184,26 +183,44 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in cramfs with the concrete format strings.
+replace all uses in efs with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/cramfs/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/efs/inode.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
-index 624c5ed0ceff2e4d3e964401e3cfb82154c719ae..4edbfccd0bbea39a1babd289afb1d8b985570eeb 100644
---- a/fs/cramfs/inode.c
-+++ b/fs/cramfs/inode.c
-@@ -125,7 +125,7 @@ static struct inode *get_cramfs_inode(struct super_block *sb,
- 				old_decode_dev(cramfs_inode->size));
- 		break;
- 	default:
--		printk(KERN_DEBUG "CRAMFS: Invalid file type 0%04o for inode %" PRIino "u.\n",
-+		printk(KERN_DEBUG "CRAMFS: Invalid file type 0%04o for inode %llu.\n",
- 		       inode->i_mode, inode->i_ino);
- 		iget_failed(inode);
- 		return ERR_PTR(-EIO);
+diff --git a/fs/efs/inode.c b/fs/efs/inode.c
+index a21a03f7e5790aed95738b1a0c0f1edcc84848e8..4b132729e6385de196e156400d17a86ed04dc2f4 100644
+--- a/fs/efs/inode.c
++++ b/fs/efs/inode.c
+@@ -132,7 +132,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
+ 	for(i = 0; i < EFS_DIRECTEXTENTS; i++) {
+ 		extent_copy(&(efs_inode->di_u.di_extents[i]), &(in->extents[i]));
+ 		if (i < in->numextents && in->extents[i].cooked.ex_magic != 0) {
+-			pr_warn("extent %d has bad magic number in inode %" PRIino "u\n",
++			pr_warn("extent %d has bad magic number in inode %llu\n",
+ 				i, inode->i_ino);
+ 			brelse(bh);
+ 			goto read_inode_error;
+@@ -140,7 +140,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
+ 	}
+ 
+ 	brelse(bh);
+-	pr_debug("efs_iget(): inode %" PRIino "u, extents %d, mode %o\n",
++	pr_debug("efs_iget(): inode %llu, extents %d, mode %o\n",
+ 		 inode->i_ino, in->numextents, inode->i_mode);
+ 	switch (inode->i_mode & S_IFMT) {
+ 		case S_IFDIR: 
+@@ -171,7 +171,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
+ 	return inode;
+         
+ read_inode_error:
+-	pr_warn("failed to read inode %" PRIino "u\n", inode->i_ino);
++	pr_warn("failed to read inode %llu\n", inode->i_ino);
+ 	iget_failed(inode);
+ 	return ERR_PTR(-EIO);
+ }
 
 -- 
 2.53.0
