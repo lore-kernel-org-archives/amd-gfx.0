@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AF04EC0475
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C4AAEC0474
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C934910E742;
-	Tue,  3 Mar 2026 09:01:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 486EB10E74F;
+	Tue,  3 Mar 2026 09:01:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MnGBqwrV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rRp+2X0I";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 162D910E5BB;
- Mon,  2 Mar 2026 20:27:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7993E10E5BB;
+ Mon,  2 Mar 2026 20:25:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0405C60131;
- Mon,  2 Mar 2026 20:27:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BDC8C2BCC6;
- Mon,  2 Mar 2026 20:27:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 49E6143B42;
+ Mon,  2 Mar 2026 20:25:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131BCC19423;
+ Mon,  2 Mar 2026 20:25:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483258;
- bh=G4EPy7Pq05uNoLyHzs/6sFEMGAsKLKmM5Lo9955ZGjE=;
+ s=k20201202; t=1772483158;
+ bh=UbQUSM17B8eDjqJD3X56G3Nb04mdY/iOfKJir9jCM4E=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=MnGBqwrVT4pjHh2pWOoo27Edr8966wN36IpLgacyCDkWZx9F9x5zHnRw6GnZVbYH7
- wOKcDfgZmxVJmuLpl9lQXtuTExgXATfBud1XjeHERBX8IZTkdrcZ5GiZEczBR5Pvhf
- TswIEkP8LSZKrjLPQAs/Rkp+i/bEAhP7tJUKmVxF38KlAkZndj6na8L1lZt2TUdyTo
- BFZwCWJcxWcnXKU1eO5aRdnDG+Z+3fFOD+UEAR4CVq5+NNREq9E975Fe25CPb4lYAh
- cygJDzB6U7tk8rKP6hhCjsIPci85ScxIbky2lMM6f/h6/5Qscr7KqUkjj9Cn5p/F2D
- InIsXTRipxQRg==
+ b=rRp+2X0ImgIVAwMegso2leOSmZtxSmSmtg4qNHIG9ul5rMyukotTq2fkUevH7eaLV
+ ryILOF7JoqRurfiuCfJy+VjH5kU6G0uZIbLTg465bR7ww2uOp0ZjFp9DXqSqU3LApP
+ nw6cpHunjJ29JIv/fFQhhAYAusM+OEG71fbi3Jv7ebsLFEkjf2uPIj2OxnAzPD0DFz
+ 3UVCNp2YRxq9sFqOhkPed1ocV8yfLW+ykwagKi0ng5Ufmk1ibKMnxWdSwfWSK+3DXJ
+ +sElapFHd+wZbdUxI61yu3DR/JpovXB/rNzg0tDIruMCdTd2kt/tT0INtGCQsE7mYb
+ IbryZLDCc5z3A==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:23:55 -0500
-Subject: [PATCH v2 011/110] nfs: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:23:48 -0500
+Subject: [PATCH v2 004/110] net: change sock.sk_ino and sock_i_ino() to u64
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-11-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-4-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14403; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=G4EPy7Pq05uNoLyHzs/6sFEMGAsKLKmM5Lo9955ZGjE=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHyftibhhLZs6aC5I7+mR6gKwCUcoWM5c+X5
- NyGs9Mn1Z6JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8gAKCRAADmhBGVaC
- FX06EADTh6qq4AvyEbQ73V3y8NR+EYKgyZSIkk+GD1UTrxdRxXUuXVhB33M+q5E6Byg3czI0zcH
- rSMh3eqa0r6yeQwCelGzK3w1thlLwl/UDQq4cRcDOKsOvxSga2ZkcFQe1UU4pQ0LsZI8kWNkNE7
- 8EMI9qUCwMwCYnuPvMIeyxiHmbXFelN3ZpOk9lwqc8I/YkkmCrNbPO9CGoO+HDuFxJF9BtHgHyI
- iLhg4xlb1f1gK4TllxFLUsQ7wWao/WRb4PvYMFKLdTBYiFpmhtQGhA5EE/6ToyjEz2EdC+pOAlV
- rIxBo7rxEup+yluQTuUS6ifi7Cd2UH6gbJhsXkNGYMpNhnoYgc4q1lFvJmlnifthEL+sluwMPwb
- HkAEB6jjjP4+1R8loL9Vlzn9XjWrkZkr79HLNNQ7T1ISIOV1r1lvO/PI7dOIQrNJ7E/qwhSy8Ey
- a6lgMX9Pdt+5zE8T79C1OS2TvEg1aRHPz3Mq3Wf+pm4T7yMozAwBMAwjpIbwYa+08ij+zQ/PWxM
- 6SB+DyMaCkqrAOFPfHb8/g/JembB2/cfPcaotRKqx8VeKWd5s71kLmcNxxWn5x+g5RaDE3h5qCY
- 1qYDZ08CjfMAt3u1uNc9V8qwLkm4e9QLHNWKbocrlj86NuwU/FcZ0jl7OKI3RsNvDZI9phSjGn4
- pjfjI+yyO/UukCQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=15087; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=UbQUSM17B8eDjqJD3X56G3Nb04mdY/iOfKJir9jCM4E=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHw+bUj5KD7645Ru6nna5NEOhgGQ/ZBSt0+S
+ F6thM3zGSKJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8AAKCRAADmhBGVaC
+ FQNAD/9Z+6TMZgqRnEpXcdR1p0qNAtxIsaAzMUMRjztwCF0ikGlRqtoTLb/5v5z0WOPbQKKom0D
+ XSPPP2v7mca/A15gcKW23KrSsw+rcoIuCQ2Qql6BEGECkvdi9ib+H2cRA9ZVWvi4yjOjk8WmpIR
+ a3RXi8ZLjR/m2ChgCvutshJuljgk/htz0tADLUtaNojY4m8MzW04D2hlYT69/pFINZdPFC4KqVp
+ IUa4MwVasmawi5DoL/lxdR8ugvedDFBGnlsx9KVdWKzhG7tvVnk8cy+xiO57yO/3ntFg+MgJNyS
+ AB66Ee2NWuyWDjW4bMY5c09IQUIVwUgaS8YBmpIvQ7U5cFJEV9z960/wDO/SLaQnwnZC8Pjgm8M
+ 2dDu/k6cVPHys4xlHc0BzpmTsotrt/2msyxy5Prj8DE+DuOR1I3d7/bdhtjCUlfkA7Dbs8sDbw8
+ WKhXZ7ucreQN4RehoHk1p+821qNPOCqH0RHV9E0zmHXfSrYvCog7Pq8/UsIWNiNAo0FLlJWVHdo
+ 4QHbcfTcLSMjQhdv0uXzA5ziGN8eX8QI7/sdZEsOjT6bdafvKY68m5nbMalXcV9oLVt6fieSH1B
+ +fUHynxooCPYvPRxXk7gb64Zp+pXLmfEV49fpmmUKq3MHilyET4Kym6LqJNEe+lQiJxk3b/s1N9
+ na6/kacFrz96BhQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,345 +182,358 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert nfs i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
+inode->i_ino is being converted to a u64. sock.sk_ino (which caches the
+inode number) must also be widened to avoid truncation on 32-bit
+architectures where unsigned long is only 32 bits.
+
+Change sk_ino from unsigned long to u64, and update the return type
+of sock_i_ino() to match. Fix all format strings that print the
+result of sock_i_ino() (%lu -> %llu), and widen the intermediate
+variables and function parameters in the diag modules that were
+using int to hold the inode number.
+
+Note that the UAPI socket diag structures (inet_diag_msg.idiag_inode,
+unix_diag_msg.udiag_ino, etc.) are all __u32 and cannot be changed
+without breaking the ABI. The assignments to those fields will
+silently truncate, which is the existing behavior.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/nfs/dir.c                           | 20 ++++++++++----------
- fs/nfs/file.c                          |  8 ++++----
- fs/nfs/filelayout/filelayout.c         |  8 ++++----
- fs/nfs/flexfilelayout/flexfilelayout.c |  8 ++++----
- fs/nfs/inode.c                         |  6 +++---
- fs/nfs/nfs4proc.c                      |  4 ++--
- fs/nfs/pnfs.c                          | 12 ++++++------
- 7 files changed, 33 insertions(+), 33 deletions(-)
+ include/net/sock.h           | 4 ++--
+ net/ax25/af_ax25.c           | 2 +-
+ net/bluetooth/af_bluetooth.c | 4 ++--
+ net/can/bcm.c                | 2 +-
+ net/ipv4/ping.c              | 2 +-
+ net/ipv4/raw.c               | 2 +-
+ net/ipv4/tcp_ipv4.c          | 2 +-
+ net/ipv4/udp.c               | 2 +-
+ net/ipv6/datagram.c          | 2 +-
+ net/ipv6/tcp_ipv6.c          | 2 +-
+ net/key/af_key.c             | 2 +-
+ net/netlink/af_netlink.c     | 2 +-
+ net/netlink/diag.c           | 2 +-
+ net/packet/af_packet.c       | 2 +-
+ net/packet/diag.c            | 2 +-
+ net/phonet/socket.c          | 4 ++--
+ net/sctp/proc.c              | 4 ++--
+ net/unix/af_unix.c           | 2 +-
+ net/unix/diag.c              | 6 +++---
+ net/xdp/xsk_diag.c           | 2 +-
+ 20 files changed, 26 insertions(+), 26 deletions(-)
 
-diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-index 2402f57c8e7d932c4656a1439f1deff7954e0dc4..e69d34ab42ea30fec939cb9cbec2226967ccbadc 100644
---- a/fs/nfs/dir.c
-+++ b/fs/nfs/dir.c
-@@ -1906,7 +1906,7 @@ static int nfs_weak_revalidate(struct dentry *dentry, unsigned int flags)
- 	}
- 
- 	error = nfs_lookup_verify_inode(inode, flags);
--	dfprintk(LOOKUPCACHE, "NFS: %s: inode %lu is %s\n",
-+	dfprintk(LOOKUPCACHE, "NFS: %s: inode %" PRIino "u is %s\n",
- 			__func__, inode->i_ino, error ? "invalid" : "valid");
- 	return !error;
+diff --git a/include/net/sock.h b/include/net/sock.h
+index 6c9a83016e9551ed2e2a0d7edf32300b8a4327e7..cfae4fefb8f55d8be6ff5ef401f7b9c601f67cc3 100644
+--- a/include/net/sock.h
++++ b/include/net/sock.h
+@@ -537,7 +537,7 @@ struct sock {
+ 	rwlock_t		sk_callback_lock;
+ 	u32			sk_ack_backlog;
+ 	u32			sk_max_ack_backlog;
+-	unsigned long		sk_ino;
++	u64			sk_ino;
+ 	spinlock_t		sk_peer_lock;
+ 	int			sk_bind_phc;
+ 	struct pid		*sk_peer_pid;
+@@ -2140,7 +2140,7 @@ static inline void sock_graft(struct sock *sk, struct socket *parent)
+ 	write_unlock_bh(&sk->sk_callback_lock);
  }
-@@ -2121,7 +2121,7 @@ int nfs_atomic_open(struct inode *dir, struct dentry *dentry,
- 	/* Expect a negative dentry */
- 	BUG_ON(d_inode(dentry));
  
--	dfprintk(VFS, "NFS: atomic_open(%s/%lu), %pd\n",
-+	dfprintk(VFS, "NFS: atomic_open(%s/%" PRIino "u), %pd\n",
- 			dir->i_sb->s_id, dir->i_ino, dentry);
- 
- 	err = nfs_check_flags(open_flags);
-@@ -2404,7 +2404,7 @@ static int nfs_do_create(struct inode *dir, struct dentry *dentry,
- 
- 	open_flags |= O_CREAT;
- 
--	dfprintk(VFS, "NFS: create(%s/%lu), %pd\n",
-+	dfprintk(VFS, "NFS: create(%s/%" PRIino "u), %pd\n",
- 			dir->i_sb->s_id, dir->i_ino, dentry);
- 
- 	attr.ia_mode = mode;
-@@ -2442,7 +2442,7 @@ nfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
- 	struct iattr attr;
- 	int status;
- 
--	dfprintk(VFS, "NFS: mknod(%s/%lu), %pd\n",
-+	dfprintk(VFS, "NFS: mknod(%s/%" PRIino "u), %pd\n",
- 			dir->i_sb->s_id, dir->i_ino, dentry);
- 
- 	attr.ia_mode = mode;
-@@ -2469,7 +2469,7 @@ struct dentry *nfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
- 	struct iattr attr;
- 	struct dentry *ret;
- 
--	dfprintk(VFS, "NFS: mkdir(%s/%lu), %pd\n",
-+	dfprintk(VFS, "NFS: mkdir(%s/%" PRIino "u), %pd\n",
- 			dir->i_sb->s_id, dir->i_ino, dentry);
- 
- 	attr.ia_valid = ATTR_MODE;
-@@ -2507,7 +2507,7 @@ int nfs_rmdir(struct inode *dir, struct dentry *dentry)
+-static inline unsigned long sock_i_ino(const struct sock *sk)
++static inline u64 sock_i_ino(const struct sock *sk)
  {
- 	int error;
+ 	/* Paired with WRITE_ONCE() in sock_graft() and sock_orphan() */
+ 	return READ_ONCE(sk->sk_ino);
+diff --git a/net/ax25/af_ax25.c b/net/ax25/af_ax25.c
+index a76f4793aed27657dea22e9e28c1d3cd45087cb2..9d236e64f5f59abe2fd974ffd9d6ef1193db5b52 100644
+--- a/net/ax25/af_ax25.c
++++ b/net/ax25/af_ax25.c
+@@ -1986,7 +1986,7 @@ static int ax25_info_show(struct seq_file *seq, void *v)
+ 		   ax25->paclen);
  
--	dfprintk(VFS, "NFS: rmdir(%s/%lu), %pd\n",
-+	dfprintk(VFS, "NFS: rmdir(%s/%" PRIino "u), %pd\n",
- 			dir->i_sb->s_id, dir->i_ino, dentry);
+ 	if (ax25->sk != NULL) {
+-		seq_printf(seq, " %d %d %lu\n",
++		seq_printf(seq, " %d %d %llu\n",
+ 			   sk_wmem_alloc_get(ax25->sk),
+ 			   sk_rmem_alloc_get(ax25->sk),
+ 			   sock_i_ino(ax25->sk));
+diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
+index 2b94e20772038f1d90228d214f57ab334ca01a50..33d053d634072fee79bb62c003980c203fb30111 100644
+--- a/net/bluetooth/af_bluetooth.c
++++ b/net/bluetooth/af_bluetooth.c
+@@ -817,14 +817,14 @@ static int bt_seq_show(struct seq_file *seq, void *v)
+ 		struct bt_sock *bt = bt_sk(sk);
  
- 	trace_nfs_rmdir_enter(dir, dentry);
-@@ -2578,7 +2578,7 @@ int nfs_unlink(struct inode *dir, struct dentry *dentry)
+ 		seq_printf(seq,
+-			   "%pK %-6d %-6u %-6u %-6u %-6lu %-6lu",
++			   "%pK %-6d %-6u %-6u %-6u %-6llu %-6llu",
+ 			   sk,
+ 			   refcount_read(&sk->sk_refcnt),
+ 			   sk_rmem_alloc_get(sk),
+ 			   sk_wmem_alloc_get(sk),
+ 			   from_kuid(seq_user_ns(seq), sk_uid(sk)),
+ 			   sock_i_ino(sk),
+-			   bt->parent ? sock_i_ino(bt->parent) : 0LU);
++			   bt->parent ? sock_i_ino(bt->parent) : 0ULL);
+ 
+ 		if (l->custom_seq_show) {
+ 			seq_putc(seq, ' ');
+diff --git a/net/can/bcm.c b/net/can/bcm.c
+index b7324e9c955b7f03a8f032676bbd89aa8e06bded..30aac2f903d57421d2761153939200813b99e0e9 100644
+--- a/net/can/bcm.c
++++ b/net/can/bcm.c
+@@ -1712,7 +1712,7 @@ static int bcm_connect(struct socket *sock, struct sockaddr_unsized *uaddr, int
+ #if IS_ENABLED(CONFIG_PROC_FS)
+ 	if (net->can.bcmproc_dir) {
+ 		/* unique socket address as filename */
+-		sprintf(bo->procname, "%lu", sock_i_ino(sk));
++		sprintf(bo->procname, "%llu", sock_i_ino(sk));
+ 		bo->bcm_proc_read = proc_create_net_single(bo->procname, 0644,
+ 						     net->can.bcmproc_dir,
+ 						     bcm_proc_show, sk);
+diff --git a/net/ipv4/ping.c b/net/ipv4/ping.c
+index 71d5e17719debb14ca2400edcf5a2cc3153291c6..bc4b43e5230336521802403c5c74cfb5da8b05b1 100644
+--- a/net/ipv4/ping.c
++++ b/net/ipv4/ping.c
+@@ -1111,7 +1111,7 @@ static void ping_v4_format_sock(struct sock *sp, struct seq_file *f,
+ 	__u16 srcp = ntohs(inet->inet_sport);
+ 
+ 	seq_printf(f, "%5d: %08X:%04X %08X:%04X"
+-		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %lu %d %pK %u",
++		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %llu %d %pK %u",
+ 		bucket, src, srcp, dest, destp, sp->sk_state,
+ 		sk_wmem_alloc_get(sp),
+ 		sk_rmem_alloc_get(sp),
+diff --git a/net/ipv4/raw.c b/net/ipv4/raw.c
+index e20c41206e29d5655f5378f08fb283f2ecbd2097..bcc99ced1ade135701e2df0e32da0da0af2fc487 100644
+--- a/net/ipv4/raw.c
++++ b/net/ipv4/raw.c
+@@ -1041,7 +1041,7 @@ static void raw_sock_seq_show(struct seq_file *seq, struct sock *sp, int i)
+ 	      srcp  = inet->inet_num;
+ 
+ 	seq_printf(seq, "%4d: %08X:%04X %08X:%04X"
+-		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %lu %d %pK %u\n",
++		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %llu %d %pK %u\n",
+ 		i, src, srcp, dest, destp, sp->sk_state,
+ 		sk_wmem_alloc_get(sp),
+ 		sk_rmem_alloc_get(sp),
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index d53d39be291a5750af3ab2a160b35f0f8a28ff9d..f2ef41583fc195e153ed848afaf3391080696f02 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -2889,7 +2889,7 @@ static void get_tcp4_sock(struct sock *sk, struct seq_file *f, int i)
+ 				      READ_ONCE(tp->copied_seq), 0);
+ 
+ 	seq_printf(f, "%4d: %08X:%04X %08X:%04X %02X %08X:%08X %02X:%08lX "
+-			"%08X %5u %8d %lu %d %pK %lu %lu %u %u %d",
++			"%08X %5u %8d %llu %d %pK %lu %lu %u %u %d",
+ 		i, src, srcp, dest, destp, state,
+ 		READ_ONCE(tp->write_seq) - tp->snd_una,
+ 		rx_queue,
+diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
+index 6c6b68a66dcd3b3d8f1747fead868c195e04a0a9..db58bf786c4a8c73b5d42851bb68bbb22a5e85ab 100644
+--- a/net/ipv4/udp.c
++++ b/net/ipv4/udp.c
+@@ -3428,7 +3428,7 @@ static void udp4_format_sock(struct sock *sp, struct seq_file *f,
+ 	__u16 srcp	  = ntohs(inet->inet_sport);
+ 
+ 	seq_printf(f, "%5d: %08X:%04X %08X:%04X"
+-		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %lu %d %pK %u",
++		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %llu %d %pK %u",
+ 		bucket, src, srcp, dest, destp, sp->sk_state,
+ 		sk_wmem_alloc_get(sp),
+ 		udp_rqueue_get(sp),
+diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
+index c564b68a056268c7cbc81b5f29f60289ea9e09eb..611fddb90c79e94cc7dfcf85b343bcbf630c39d4 100644
+--- a/net/ipv6/datagram.c
++++ b/net/ipv6/datagram.c
+@@ -1055,7 +1055,7 @@ void __ip6_dgram_sock_seq_show(struct seq_file *seq, struct sock *sp,
+ 	src   = &sp->sk_v6_rcv_saddr;
+ 	seq_printf(seq,
+ 		   "%5d: %08X%08X%08X%08X:%04X %08X%08X%08X%08X:%04X "
+-		   "%02X %08X:%08X %02X:%08lX %08X %5u %8d %lu %d %pK %u\n",
++		   "%02X %08X:%08X %02X:%08lX %08X %5u %8d %llu %d %pK %u\n",
+ 		   bucket,
+ 		   src->s6_addr32[0], src->s6_addr32[1],
+ 		   src->s6_addr32[2], src->s6_addr32[3], srcp,
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index e46a0efae01235ae7430ed268b92cb47309b8d28..379c0935f4030b9b3432e867c357883df3089f74 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -2175,7 +2175,7 @@ static void get_tcp6_sock(struct seq_file *seq, struct sock *sp, int i)
+ 
+ 	seq_printf(seq,
+ 		   "%4d: %08X%08X%08X%08X:%04X %08X%08X%08X%08X:%04X "
+-		   "%02X %08X:%08X %02X:%08lX %08X %5u %8d %lu %d %pK %lu %lu %u %u %d\n",
++		   "%02X %08X:%08X %02X:%08lX %08X %5u %8d %llu %d %pK %lu %lu %u %u %d\n",
+ 		   i,
+ 		   src->s6_addr32[0], src->s6_addr32[1],
+ 		   src->s6_addr32[2], src->s6_addr32[3], srcp,
+diff --git a/net/key/af_key.c b/net/key/af_key.c
+index 0756bac62f7c042851636badf0a5e961c4e673c1..522308ec934ed055bdce4fa672b4e6a8bb67edc7 100644
+--- a/net/key/af_key.c
++++ b/net/key/af_key.c
+@@ -3783,7 +3783,7 @@ static int pfkey_seq_show(struct seq_file *f, void *v)
+ 	if (v == SEQ_START_TOKEN)
+ 		seq_printf(f ,"sk       RefCnt Rmem   Wmem   User   Inode\n");
+ 	else
+-		seq_printf(f, "%pK %-6d %-6u %-6u %-6u %-6lu\n",
++		seq_printf(f, "%pK %-6d %-6u %-6u %-6u %-6llu\n",
+ 			       s,
+ 			       refcount_read(&s->sk_refcnt),
+ 			       sk_rmem_alloc_get(s),
+diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
+index 4d609d5cf40653e04de60f2d28ee26b8bdcdc2ed..aba847902be5ace66e17abf0236a5eeebfee0739 100644
+--- a/net/netlink/af_netlink.c
++++ b/net/netlink/af_netlink.c
+@@ -2700,7 +2700,7 @@ static int netlink_native_seq_show(struct seq_file *seq, void *v)
+ 		struct sock *s = v;
+ 		struct netlink_sock *nlk = nlk_sk(s);
+ 
+-		seq_printf(seq, "%pK %-3d %-10u %08x %-8d %-8d %-5d %-8d %-8u %-8lu\n",
++		seq_printf(seq, "%pK %-3d %-10u %08x %-8d %-8d %-5d %-8d %-8u %-8llu\n",
+ 			   s,
+ 			   s->sk_protocol,
+ 			   nlk->portid,
+diff --git a/net/netlink/diag.c b/net/netlink/diag.c
+index 1dfc340736b832459388304003ff1f5e1e481d23..0b3e021bd0ed29edc094fad2c79c7c067edcdd50 100644
+--- a/net/netlink/diag.c
++++ b/net/netlink/diag.c
+@@ -43,7 +43,7 @@ static int sk_diag_put_flags(struct sock *sk, struct sk_buff *skb)
+ 
+ static int sk_diag_fill(struct sock *sk, struct sk_buff *skb,
+ 			struct netlink_diag_req *req,
+-			u32 portid, u32 seq, u32 flags, int sk_ino)
++			u32 portid, u32 seq, u32 flags, u64 sk_ino)
  {
- 	int error;
+ 	struct nlmsghdr *nlh;
+ 	struct netlink_diag_msg *rep;
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 72d0935139f0f5feb00c051143fb47f45fd1f94d..f2af2e0a8530a982d7b95b91ac0388f67b16d46f 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -4721,7 +4721,7 @@ static int packet_seq_show(struct seq_file *seq, void *v)
+ 		const struct packet_sock *po = pkt_sk(s);
  
--	dfprintk(VFS, "NFS: unlink(%s/%lu, %pd)\n", dir->i_sb->s_id,
-+	dfprintk(VFS, "NFS: unlink(%s/%" PRIino "u, %pd)\n", dir->i_sb->s_id,
- 		dir->i_ino, dentry);
+ 		seq_printf(seq,
+-			   "%pK %-6d %-4d %04x   %-5d %1d %-6u %-6u %-6lu\n",
++			   "%pK %-6d %-4d %04x   %-5d %1d %-6u %-6u %-6llu\n",
+ 			   s,
+ 			   refcount_read(&s->sk_refcnt),
+ 			   s->sk_type,
+diff --git a/net/packet/diag.c b/net/packet/diag.c
+index c8f43e0c1925fab8ef6c39de3547dcd6f7389b81..cee773f46571ca51718544227f3425192bb77f24 100644
+--- a/net/packet/diag.c
++++ b/net/packet/diag.c
+@@ -130,7 +130,7 @@ static int sk_diag_fill(struct sock *sk, struct sk_buff *skb,
+ 			struct packet_diag_req *req,
+ 			bool may_report_filterinfo,
+ 			struct user_namespace *user_ns,
+-			u32 portid, u32 seq, u32 flags, int sk_ino)
++			u32 portid, u32 seq, u32 flags, u64 sk_ino)
+ {
+ 	struct nlmsghdr *nlh;
+ 	struct packet_diag_msg *rp;
+diff --git a/net/phonet/socket.c b/net/phonet/socket.c
+index 4423d483c630adc93af07e0c23a78800b696d4a4..c4af26357144ebb8016d001244c1fdaf925892fc 100644
+--- a/net/phonet/socket.c
++++ b/net/phonet/socket.c
+@@ -579,7 +579,7 @@ static int pn_sock_seq_show(struct seq_file *seq, void *v)
+ 		struct sock *sk = v;
+ 		struct pn_sock *pn = pn_sk(sk);
  
- 	trace_nfs_unlink_enter(dir, dentry);
-@@ -2638,7 +2638,7 @@ int nfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
- 	unsigned int pathlen = strlen(symname);
- 	int error;
+-		seq_printf(seq, "%2d %04X:%04X:%02X %02X %08X:%08X %5d %lu "
++		seq_printf(seq, "%2d %04X:%04X:%02X %02X %08X:%08X %5d %llu "
+ 			"%d %pK %u",
+ 			sk->sk_protocol, pn->sobject, pn->dobject,
+ 			pn->resource, sk->sk_state,
+@@ -754,7 +754,7 @@ static int pn_res_seq_show(struct seq_file *seq, void *v)
+ 		struct sock *sk = rcu_dereference_protected(*psk,
+ 					lockdep_is_held(&resource_mutex));
  
--	dfprintk(VFS, "NFS: symlink(%s/%lu, %pd, %s)\n", dir->i_sb->s_id,
-+	dfprintk(VFS, "NFS: symlink(%s/%" PRIino "u, %pd, %s)\n", dir->i_sb->s_id,
- 		dir->i_ino, dentry, symname);
+-		seq_printf(seq, "%02X %5u %lu",
++		seq_printf(seq, "%02X %5u %llu",
+ 			   (int) (psk - pnres.sk),
+ 			   from_kuid_munged(seq_user_ns(seq), sk_uid(sk)),
+ 			   sock_i_ino(sk));
+diff --git a/net/sctp/proc.c b/net/sctp/proc.c
+index 1ed281f3c355d559d82e4fa2be10c191f787c85e..43433d7e2acd706ede7b59a51ab6441d1ee1dd12 100644
+--- a/net/sctp/proc.c
++++ b/net/sctp/proc.c
+@@ -174,7 +174,7 @@ static int sctp_eps_seq_show(struct seq_file *seq, void *v)
+ 		sk = ep->base.sk;
+ 		if (!net_eq(sock_net(sk), seq_file_net(seq)))
+ 			continue;
+-		seq_printf(seq, "%8pK %8pK %-3d %-3d %-4d %-5d %5u %5lu ", ep, sk,
++		seq_printf(seq, "%8pK %8pK %-3d %-3d %-4d %-5d %5u %5llu ", ep, sk,
+ 			   sctp_sk(sk)->type, sk->sk_state, hash,
+ 			   ep->base.bind_addr.port,
+ 			   from_kuid_munged(seq_user_ns(seq), sk_uid(sk)),
+@@ -261,7 +261,7 @@ static int sctp_assocs_seq_show(struct seq_file *seq, void *v)
  
- 	if (pathlen > PAGE_SIZE)
-@@ -2660,7 +2660,7 @@ int nfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
- 	error = NFS_PROTO(dir)->symlink(dir, dentry, folio, pathlen, &attr);
- 	trace_nfs_symlink_exit(dir, dentry, error);
- 	if (error != 0) {
--		dfprintk(VFS, "NFS: symlink(%s/%lu, %pd, %s) error %d\n",
-+		dfprintk(VFS, "NFS: symlink(%s/%" PRIino "u, %pd, %s) error %d\n",
- 			dir->i_sb->s_id, dir->i_ino,
- 			dentry, symname, error);
- 		d_drop(dentry);
-@@ -3414,7 +3414,7 @@ int nfs_permission(struct mnt_idmap *idmap,
- 	if (!res && (mask & MAY_EXEC))
- 		res = nfs_execute_ok(inode, mask);
+ 	seq_printf(seq,
+ 		   "%8pK %8pK %-3d %-3d %-2d %-4d "
+-		   "%4d %8d %8d %7u %5lu %-5d %5d ",
++		   "%4d %8d %8d %7u %5llu %-5d %5d ",
+ 		   assoc, sk, sctp_sk(sk)->type, sk->sk_state,
+ 		   assoc->state, 0,
+ 		   assoc->assoc_id,
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index 3756a93dc63aabc814f7edd31e8c0b6fafa02ce7..a6c5015f3f0a19a930da636ef37eb98b3c40663f 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -3537,7 +3537,7 @@ static int unix_seq_show(struct seq_file *seq, void *v)
+ 		struct unix_sock *u = unix_sk(s);
+ 		unix_state_lock(s);
  
--	dfprintk(VFS, "NFS: permission(%s/%lu), mask=0x%x, res=%d\n",
-+	dfprintk(VFS, "NFS: permission(%s/%" PRIino "u), mask=0x%x, res=%d\n",
- 		inode->i_sb->s_id, inode->i_ino, mask, res);
- 	return res;
- out_notsup:
-diff --git a/fs/nfs/file.c b/fs/nfs/file.c
-index 5d08b6409c284f1ee78f1c2fa327e447eee1ab69..10ce5261c1660942203794f4a82b8e4b0d98e68e 100644
---- a/fs/nfs/file.c
-+++ b/fs/nfs/file.c
-@@ -391,7 +391,7 @@ static int nfs_write_begin(const struct kiocb *iocb,
+-		seq_printf(seq, "%pK: %08X %08X %08X %04X %02X %5lu",
++		seq_printf(seq, "%pK: %08X %08X %08X %04X %02X %5llu",
+ 			s,
+ 			refcount_read(&s->sk_refcnt),
+ 			0,
+diff --git a/net/unix/diag.c b/net/unix/diag.c
+index ca34730261510c2b34dc6661eadaa9d1651e59d2..410f6c8745b7a0e5287b9f7fbc0a71d15cffc850 100644
+--- a/net/unix/diag.c
++++ b/net/unix/diag.c
+@@ -45,7 +45,7 @@ static int sk_diag_dump_vfs(struct sock *sk, struct sk_buff *nlskb)
+ static int sk_diag_dump_peer(struct sock *sk, struct sk_buff *nlskb)
+ {
+ 	struct sock *peer;
+-	int ino;
++	u64 ino;
  
- 	trace_nfs_write_begin(file_inode(file), pos, len);
+ 	peer = unix_peer_get(sk);
+ 	if (peer) {
+@@ -112,7 +112,7 @@ static int sk_diag_dump_uid(struct sock *sk, struct sk_buff *nlskb,
  
--	dfprintk(PAGECACHE, "NFS: write_begin(%pD2(%lu), %u@%lld)\n",
-+	dfprintk(PAGECACHE, "NFS: write_begin(%pD2(%" PRIino "u), %u@%lld)\n",
- 		file, mapping->host->i_ino, len, (long long) pos);
- 	nfs_truncate_last_folio(mapping, i_size_read(mapping->host), pos);
+ static int sk_diag_fill(struct sock *sk, struct sk_buff *skb, struct unix_diag_req *req,
+ 			struct user_namespace *user_ns,
+-			u32 portid, u32 seq, u32 flags, int sk_ino)
++			u32 portid, u32 seq, u32 flags, u64 sk_ino)
+ {
+ 	struct nlmsghdr *nlh;
+ 	struct unix_diag_msg *rep;
+@@ -186,7 +186,7 @@ static int unix_diag_dump(struct sk_buff *skb, struct netlink_callback *cb)
+ 		num = 0;
+ 		spin_lock(&net->unx.table.locks[slot]);
+ 		sk_for_each(sk, &net->unx.table.buckets[slot]) {
+-			int sk_ino;
++			u64 sk_ino;
  
-@@ -432,7 +432,7 @@ static int nfs_write_end(const struct kiocb *iocb,
- 	int status;
- 
- 	trace_nfs_write_end(file_inode(file), pos, len);
--	dfprintk(PAGECACHE, "NFS: write_end(%pD2(%lu), %u@%lld)\n",
-+	dfprintk(PAGECACHE, "NFS: write_end(%pD2(%" PRIino "u), %u@%lld)\n",
- 		file, mapping->host->i_ino, len, (long long) pos);
- 
- 	/*
-@@ -557,7 +557,7 @@ static int nfs_launder_folio(struct folio *folio)
- 	struct inode *inode = folio->mapping->host;
- 	int ret;
- 
--	dfprintk(PAGECACHE, "NFS: launder_folio(%ld, %llu)\n",
-+	dfprintk(PAGECACHE, "NFS: launder_folio(%" PRIino "u, %llu)\n",
- 		inode->i_ino, folio_pos(folio));
- 
- 	folio_wait_private_2(folio); /* [DEPRECATED] */
-@@ -647,7 +647,7 @@ static vm_fault_t nfs_vm_page_mkwrite(struct vm_fault *vmf)
- 	struct address_space *mapping;
- 	struct folio *folio = page_folio(vmf->page);
- 
--	dfprintk(PAGECACHE, "NFS: vm_page_mkwrite(%pD2(%lu), offset %lld)\n",
-+	dfprintk(PAGECACHE, "NFS: vm_page_mkwrite(%pD2(%" PRIino "u), offset %lld)\n",
- 		 filp, filp->f_mapping->host->i_ino,
- 		 (long long)folio_pos(folio));
- 
-diff --git a/fs/nfs/filelayout/filelayout.c b/fs/nfs/filelayout/filelayout.c
-index 90a11afa5d05423bb289c7f2020ef3b82707a79c..390ed5f5f92d025e179a7c07c181a8369b24ab2f 100644
---- a/fs/nfs/filelayout/filelayout.c
-+++ b/fs/nfs/filelayout/filelayout.c
-@@ -241,7 +241,7 @@ filelayout_set_layoutcommit(struct nfs_pgio_header *hdr)
- 
- 	/* Note: if the write is unstable, don't set end_offs until commit */
- 	pnfs_set_layoutcommit(hdr->inode, hdr->lseg, end_offs);
--	dprintk("%s inode %lu pls_end_pos %lu\n", __func__, hdr->inode->i_ino,
-+	dprintk("%s inode %" PRIino "u pls_end_pos %lu\n", __func__, hdr->inode->i_ino,
- 		(unsigned long) NFS_I(hdr->inode)->layout->plh_lwb);
- }
- 
-@@ -456,7 +456,7 @@ filelayout_read_pagelist(struct nfs_pgio_header *hdr)
- 	u32 j, idx;
- 	struct nfs_fh *fh;
- 
--	dprintk("--> %s ino %lu pgbase %u req %zu@%llu\n",
-+	dprintk("--> %s ino %" PRIino "u pgbase %u req %zu@%llu\n",
- 		__func__, hdr->inode->i_ino,
- 		hdr->args.pgbase, (size_t)hdr->args.count, offset);
- 
-@@ -514,7 +514,7 @@ filelayout_write_pagelist(struct nfs_pgio_header *hdr, int sync)
- 	if (IS_ERR(ds_clnt))
- 		return PNFS_NOT_ATTEMPTED;
- 
--	dprintk("%s ino %lu sync %d req %zu@%llu DS: %s cl_count %d\n",
-+	dprintk("%s ino %" PRIino "u sync %d req %zu@%llu DS: %s cl_count %d\n",
- 		__func__, hdr->inode->i_ino, sync, (size_t) hdr->args.count,
- 		offset, ds->ds_remotestr, refcount_read(&ds->ds_clp->cl_count));
- 
-@@ -1001,7 +1001,7 @@ static int filelayout_initiate_commit(struct nfs_commit_data *data, int how)
- 	if (IS_ERR(ds_clnt))
- 		goto out_err;
- 
--	dprintk("%s ino %lu, how %d cl_count %d\n", __func__,
-+	dprintk("%s ino %" PRIino "u, how %d cl_count %d\n", __func__,
- 		data->inode->i_ino, how, refcount_read(&ds->ds_clp->cl_count));
- 	data->commit_done_cb = filelayout_commit_done_cb;
- 	refcount_inc(&ds->ds_clp->cl_count);
-diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
-index f67773d52830d2ab4d12dd04caccc2077d4105e0..716ffc14cca8b0f2ab3e06c4297070129b668e9e 100644
---- a/fs/nfs/flexfilelayout/flexfilelayout.c
-+++ b/fs/nfs/flexfilelayout/flexfilelayout.c
-@@ -1631,7 +1631,7 @@ ff_layout_set_layoutcommit(struct inode *inode,
- 		return;
- 
- 	pnfs_set_layoutcommit(inode, lseg, end_offset);
--	dprintk("%s inode %lu pls_end_pos %llu\n", __func__, inode->i_ino,
-+	dprintk("%s inode %" PRIino "u pls_end_pos %llu\n", __func__, inode->i_ino,
- 		(unsigned long long) NFS_I(inode)->layout->plh_lwb);
- }
- 
-@@ -2136,7 +2136,7 @@ ff_layout_read_pagelist(struct nfs_pgio_header *hdr)
- 	u32 dss_id;
- 	bool ds_fatal_error = false;
- 
--	dprintk("--> %s ino %lu pgbase %u req %zu@%llu\n",
-+	dprintk("--> %s ino %" PRIino "u pgbase %u req %zu@%llu\n",
- 		__func__, hdr->inode->i_ino,
- 		hdr->args.pgbase, (size_t)hdr->args.count, offset);
- 
-@@ -2245,7 +2245,7 @@ ff_layout_write_pagelist(struct nfs_pgio_header *hdr, int sync)
- 
- 	vers = nfs4_ff_layout_ds_version(mirror, dss_id);
- 
--	dprintk("%s ino %lu sync %d req %zu@%llu DS: %s cl_count %d vers %d\n",
-+	dprintk("%s ino %" PRIino "u sync %d req %zu@%llu DS: %s cl_count %d vers %d\n",
- 		__func__, hdr->inode->i_ino, sync, (size_t) hdr->args.count,
- 		offset, ds->ds_remotestr, refcount_read(&ds->ds_clp->cl_count),
- 		vers);
-@@ -2336,7 +2336,7 @@ static int ff_layout_initiate_commit(struct nfs_commit_data *data, int how)
- 
- 	vers = nfs4_ff_layout_ds_version(mirror, dss_id);
- 
--	dprintk("%s ino %lu, how %d cl_count %d vers %d\n", __func__,
-+	dprintk("%s ino %" PRIino "u, how %d cl_count %d vers %d\n", __func__,
- 		data->inode->i_ino, how, refcount_read(&ds->ds_clp->cl_count),
- 		vers);
- 	data->commit_done_cb = ff_layout_commit_done_cb;
-diff --git a/fs/nfs/inode.c b/fs/nfs/inode.c
-index 4786343eeee0f874aa1f31ace2f35fdcb83fc7a6..81c2ab599e2f7a93c004219dcc52a5817b894cee 100644
---- a/fs/nfs/inode.c
-+++ b/fs/nfs/inode.c
-@@ -2258,7 +2258,7 @@ static int nfs_update_inode(struct inode *inode, struct nfs_fattr *fattr)
- 	bool attr_changed = false;
- 	bool have_delegation;
- 
--	dfprintk(VFS, "NFS: %s(%s/%lu fh_crc=0x%08x ct=%d info=0x%llx)\n",
-+	dfprintk(VFS, "NFS: %s(%s/%" PRIino "u fh_crc=0x%08x ct=%d info=0x%llx)\n",
- 			__func__, inode->i_sb->s_id, inode->i_ino,
- 			nfs_display_fhandle_hash(NFS_FH(inode)),
- 			icount_read(inode), fattr->valid);
-@@ -2288,7 +2288,7 @@ static int nfs_update_inode(struct inode *inode, struct nfs_fattr *fattr)
- 		/*
- 		* Big trouble! The inode has become a different object.
- 		*/
--		printk(KERN_DEBUG "NFS: %s: inode %lu mode changed, %07o to %07o\n",
-+		printk(KERN_DEBUG "NFS: %s: inode %" PRIino "u mode changed, %07o to %07o\n",
- 				__func__, inode->i_ino, inode->i_mode, fattr->mode);
- 		goto out_err;
- 	}
-@@ -2358,7 +2358,7 @@ static int nfs_update_inode(struct inode *inode, struct nfs_fattr *fattr)
- 				if (S_ISDIR(inode->i_mode))
- 					nfs_force_lookup_revalidate(inode);
- 				attr_changed = true;
--				dprintk("NFS: change_attr change on server for file %s/%ld\n",
-+				dprintk("NFS: change_attr change on server for file %s/%" PRIino "d\n",
- 						inode->i_sb->s_id,
- 						inode->i_ino);
- 			} else if (!have_delegation) {
-diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index 91bcf67bd743f72a008a9dcde29207bf7a36c407..f66683a6663e879e9b66de587abe0a6c471b68a0 100644
---- a/fs/nfs/nfs4proc.c
-+++ b/fs/nfs/nfs4proc.c
-@@ -4714,7 +4714,7 @@ static int _nfs4_proc_lookupp(struct inode *inode,
- 	nfs_fattr_init(fattr);
- 	nfs4_init_sequence(server->nfs_client, &args.seq_args, &res.seq_res, 0, 0);
- 
--	dprintk("NFS call  lookupp ino=0x%lx\n", inode->i_ino);
-+	dprintk("NFS call  lookupp ino=0x%" PRIino "x\n", inode->i_ino);
- 	status = nfs4_do_call_sync(clnt, server, &msg, &args.seq_args,
- 				   &res.seq_res, task_flags);
- 	dprintk("NFS reply lookupp: %d\n", status);
-@@ -10019,7 +10019,7 @@ nfs4_proc_layoutcommit(struct nfs4_layoutcommit_data *data, bool sync)
- 	int status = 0;
- 
- 	dprintk("NFS: initiating layoutcommit call. sync %d "
--		"lbw: %llu inode %lu\n", sync,
-+		"lbw: %llu inode %" PRIino "u\n", sync,
- 		data->args.lastbytewritten,
- 		data->args.inode->i_ino);
- 
-diff --git a/fs/nfs/pnfs.c b/fs/nfs/pnfs.c
-index bc13d1e69449ce9bb3ed3ef0bbff06dfab5c60b5..9a335fc06c68e30c27c8b46ad0521026370449da 100644
---- a/fs/nfs/pnfs.c
-+++ b/fs/nfs/pnfs.c
-@@ -891,7 +891,7 @@ pnfs_layout_free_bulk_destroy_list(struct list_head *layout_list,
- 	while (!list_empty(layout_list)) {
- 		lo = list_entry(layout_list->next, struct pnfs_layout_hdr,
- 				plh_bulk_destroy);
--		dprintk("%s freeing layout for inode %lu\n", __func__,
-+		dprintk("%s freeing layout for inode %" PRIino "u\n", __func__,
- 			lo->plh_inode->i_ino);
- 		inode = lo->plh_inode;
- 
-@@ -1440,7 +1440,7 @@ _pnfs_return_layout(struct inode *ino)
- 	int status = 0;
- 	bool send, valid_layout;
- 
--	dprintk("NFS: %s for inode %lu\n", __func__, ino->i_ino);
-+	dprintk("NFS: %s for inode %" PRIino "u\n", __func__, ino->i_ino);
- 
- 	spin_lock(&ino->i_lock);
- 	lo = nfsi->layout;
-@@ -3055,7 +3055,7 @@ pnfs_try_to_write_data(struct nfs_pgio_header *hdr,
- 
- 	hdr->mds_ops = call_ops;
- 
--	dprintk("%s: Writing ino:%lu %u@%llu (how %d)\n", __func__,
-+	dprintk("%s: Writing ino:%" PRIino "u %u@%llu (how %d)\n", __func__,
- 		inode->i_ino, hdr->args.count, hdr->args.offset, how);
- 	trypnfs = nfss->pnfs_curr_ld->write_pagelist(hdr, how);
- 	if (trypnfs != PNFS_NOT_ATTEMPTED)
-@@ -3181,7 +3181,7 @@ pnfs_try_to_read_data(struct nfs_pgio_header *hdr,
- 
- 	hdr->mds_ops = call_ops;
- 
--	dprintk("%s: Reading ino:%lu %u@%llu\n",
-+	dprintk("%s: Reading ino:%" PRIino "u %u@%llu\n",
- 		__func__, inode->i_ino, hdr->args.count, hdr->args.offset);
- 
- 	trypnfs = nfss->pnfs_curr_ld->read_pagelist(hdr);
-@@ -3314,7 +3314,7 @@ pnfs_set_layoutcommit(struct inode *inode, struct pnfs_layout_segment *lseg,
- 	if (!test_and_set_bit(NFS_INO_LAYOUTCOMMIT, &nfsi->flags)) {
- 		nfsi->layout->plh_lwb = end_pos;
- 		mark_as_dirty = true;
--		dprintk("%s: Set layoutcommit for inode %lu ",
-+		dprintk("%s: Set layoutcommit for inode %" PRIino "u ",
- 			__func__, inode->i_ino);
- 	} else if (end_pos > nfsi->layout->plh_lwb)
- 		nfsi->layout->plh_lwb = end_pos;
-@@ -3363,7 +3363,7 @@ pnfs_layoutcommit_inode(struct inode *inode, bool sync)
- 	if (!pnfs_layoutcommit_outstanding(inode))
- 		return 0;
- 
--	dprintk("--> %s inode %lu\n", __func__, inode->i_ino);
-+	dprintk("--> %s inode %" PRIino "u\n", __func__, inode->i_ino);
- 
- 	status = -EAGAIN;
- 	if (test_and_set_bit(NFS_INO_LAYOUTCOMMITTING, &nfsi->flags)) {
+ 			if (num < s_num)
+ 				goto next;
+diff --git a/net/xdp/xsk_diag.c b/net/xdp/xsk_diag.c
+index 0e0bca031c0399901949982bf430ade6cde286d3..0170363eb542cc1874817f46fd3627857761ab77 100644
+--- a/net/xdp/xsk_diag.c
++++ b/net/xdp/xsk_diag.c
+@@ -92,7 +92,7 @@ static int xsk_diag_put_stats(const struct xdp_sock *xs, struct sk_buff *nlskb)
+ static int xsk_diag_fill(struct sock *sk, struct sk_buff *nlskb,
+ 			 struct xdp_diag_req *req,
+ 			 struct user_namespace *user_ns,
+-			 u32 portid, u32 seq, u32 flags, int sk_ino)
++			 u32 portid, u32 seq, u32 flags, u64 sk_ino)
+ {
+ 	struct xdp_sock *xs = xdp_sk(sk);
+ 	struct xdp_diag_msg *msg;
 
 -- 
 2.53.0
