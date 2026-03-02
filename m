@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97FF0EC047D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4154DEC0480
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC2C910E76D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E698910E76C;
 	Tue,  3 Mar 2026 09:01:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IorKuZlv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="r7BFRfZy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 063A710E5BD;
- Mon,  2 Mar 2026 20:49:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28A8F10E5BB;
+ Mon,  2 Mar 2026 20:25:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 28B1261338;
- Mon,  2 Mar 2026 20:49:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B31C2BC9E;
- Mon,  2 Mar 2026 20:48:58 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F2C4542AC5;
+ Mon,  2 Mar 2026 20:25:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B490EC2BCC4;
+ Mon,  2 Mar 2026 20:25:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484553;
- bh=6cZwsfpbObzNeQK7uzLXLbgL+hWNwgK2OM7xy5ID8J4=;
+ s=k20201202; t=1772483143;
+ bh=1QnrHxnBcXfO2uSVzU2vj/PkHMu/3m9r2gHHNQDxEW4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=IorKuZlvL6dslhQZhuCOB77oSou3b9HVCdnk+hCgyzh8s5PaZDXHXQRR8e/ueaj3v
- Of2NatafLlcq93I3N3tj+b+ji3Cw90UnmElVxNb7flMZt0afB/JdPeJYxL+ZfTA5Ed
- r0Z9ma/eWygxi1n/JRHTwMwmayCZetTxj3iG3May/82azlyawA58n4CaW9UKfbezRV
- txPWvxHfqldCnxmeykB5RfT0sF6KyZj6k8QVjuAXYISpgl9wdenOoGH8O6mP0feaF3
- y7dED4qd+cENaLutYTklGDqxvIvPzTVhN8sNmXnBBosIiQA1FoeB9I757q97DjpyFL
- yYxh3gef8x7+Q==
+ b=r7BFRfZyRe9aj6jmw/n8KuWCzGH8zgO5mUlf7g6pyX8b1KNAIQ0Pqz6o4pyAFypRr
+ oT5YEYKwRvzi3Q9qPwDqHUKXvjJvSN4b0FUeUXAno91hQj7sL7QlntE/b3FydK1fFS
+ PYmZdvTCv3eWnNZ0nmCfunqZKoLuZSg7eWn2H3qbkJZaziMBI1BN5hmL3xmrhq51hW
+ hMgf9bjA1CIbL8zYwSscLjtE+V29LTeBSAZoPsT95AnGA+kU9SY/aMJawiwuOxACnL
+ LDkCX9mzv7vUui9cHmwlcutr1dSYoAzoFzQIDkCNrDJgIvKkFcVOWUJhLVhsIy3JZo
+ oshKp85bElhvA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:25 -0500
-Subject: [PATCH v2 101/110] fscrypt: replace PRIino with %llu/%llx format
- strings
+Date: Mon, 02 Mar 2026 15:23:47 -0500
+Subject: [PATCH v2 003/110] audit: widen ino fields to u64
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-101-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-3-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -152,23 +151,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3214; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=6cZwsfpbObzNeQK7uzLXLbgL+hWNwgK2OM7xy5ID8J4=;
- b=kA0DAAoBAA5oQRlWghUByyZiAGml8gujQ93Hzj5fXRpB1CYY3q3nHyAjWcLgnlNTz75TUF9PE
- YkCMwQAAQoAHRYhBEvA17JEcbKhhOr10wAOaEEZVoIVBQJppfILAAoJEAAOaEEZVoIVG/gP/1mz
- Z/aWsv6cLzW611kkwDhqAudZlM+C3BBx64Q0uc7G30XNc2yp0PWvuAMk61d9m6VCuoomh90jTr0
- NK6FFf3SL8jrC60bf3SoyBPUViDMMoKszBoRfVX2ASjXOLZJZzjeC5m0/glF5Wizs5+1UolOGYw
- wWYdsC+EeM6Qi6hHsqIONu2XYW2hepv6cwmVCFOPJAVcawQftNR+bvtC6wDTytEvgHKXjUTqhAS
- dpKjQ7vXFs+wZRVKSlavUg+b4iTYJhnZwifA44iJCd7edSq0hT6yK0/u91lhJaLGeadKtdIHHPj
- fHWpOhEWlg9lA4rhKrDRBHd1PZyjmhCxhcEfGIDdLnH7iesATUg9e2/6Eh9yJLEv1F8L+2RhdUQ
- ustpIjeJuUKJxHNOLj5kPcqOYapqJb+IsiP5qBGKMgNxAHDebqn357vmChru0JtK0EAe/xn0jai
- BCD5MX12d8DF4il2j5RTcpQX5sqs38yjrTATcTpDS98mNtHwOt9kMg0Whs5spp3DoqdpOb6kEqY
- Ee50OlpWXEY0cz+TyNIGDLRTvcizbTME7y0X9K9VolAB1L3Zttt8gL73zMs0WJi+TlQk35WSX8w
- 0g4Q7ostGDkCw5+XEqNWcIAanuZS6o5ssN4Bnpn/NIw6AWt87L3RuH4HvJoG7EDPCPQdKfUSflG
- 5+vLL
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6157; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=1QnrHxnBcXfO2uSVzU2vj/PkHMu/3m9r2gHHNQDxEW4=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHw8RCQYUtuyf0oxb41H9gT//L3ivMfz3AzN
+ o8PjWqWq3+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8AAKCRAADmhBGVaC
+ FbkxD/91B/Xiija72btQSyx1g+eqGEjGVA+A68lG8l2V7F9fsWTmUXuUYGtAplWHKYa2A2/uPRw
+ gFr1ruDZBin9emBmoDC9kk0uafOvmlmWNswRzgp0pB18gu72O+HkD1o6riCzw36LIoIxoOyNo22
+ Nw/s0eIT6LIanSuwvgaTDTpPjQYxYKsIbV5+OHqJv0q0KeiWKf35apujN9PFHhh5V+8FKs2jW/Z
+ WzbOPmZatbzrA4/Msl/Jpsm9RdIOgr3fyrGHVPyRVTBoKK3g/QGi103aqZF8Yd5taiJ469FJlNV
+ DvVjBQPb43q4KEGwG4/UBYMmnmj9cJ7qGkE2oK6cE2QtwLaOjw4XOmSw6sIAiZaliig7WdiXRFr
+ ek5AllnlFH7M+mD4naNe45WCx9CfNS1dLw5ma7to5V+PshGk0CVp239RO28hVsaqLJMyzBCYU/9
+ 9WcvlZ1DFl9AjFHsBJexpyhL7V12EhYi+NDL0cpH7T9PSTrw4qjHwyHNyCmfI1ziHPIxu6aSuZG
+ th2Rx3TQEv3FBYTeZiJVBqyXQX9QkPV9MEshGki8OAqXRr+5KSKc2evtrBg9caZvyk/q9p5TuCx
+ 7J1C15awBoHhICU07xV70r9hs37GYE2pbDQM6KZ74KAgtfV6RhShhjAvXo80HXcQiSHpybRRxQz
+ exiCfDqO/+9ZmeA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
+X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -183,78 +182,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in fscrypt with the concrete format strings.
+inode->i_ino is being widened from unsigned long to u64. The audit
+subsystem uses unsigned long ino in struct fields, function parameters,
+and local variables that store inode numbers from arbitrary filesystems.
+On 32-bit platforms this truncates inode numbers that exceed 32 bits,
+which will cause incorrect audit log entries and broken watch/mark
+comparisons.
+
+Widen all audit ino fields, parameters, and locals to u64, and update
+the inode format string from %lu to %llu to match.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/crypto/crypto.c   | 2 +-
- fs/crypto/hooks.c    | 2 +-
- fs/crypto/keyring.c  | 4 ++--
- fs/crypto/keysetup.c | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ include/linux/audit.h   | 2 +-
+ kernel/audit.h          | 9 ++++-----
+ kernel/audit_fsnotify.c | 4 ++--
+ kernel/audit_watch.c    | 8 ++++----
+ kernel/auditsc.c        | 2 +-
+ 5 files changed, 12 insertions(+), 13 deletions(-)
 
-diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
-index 4fc2990642fd3ee385a9919183cbb0f1c5ba6a58..570a2231c945a6c649cf8dc3b457f0b55657e0c3 100644
---- a/fs/crypto/crypto.c
-+++ b/fs/crypto/crypto.c
-@@ -365,7 +365,7 @@ void fscrypt_msg(const struct inode *inode, const char *level,
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 	if (inode && inode->i_ino)
--		printk("%sfscrypt (%s, inode %" PRIino "u): %pV\n",
-+		printk("%sfscrypt (%s, inode %llu): %pV\n",
- 		       level, inode->i_sb->s_id, inode->i_ino, &vaf);
- 	else if (inode)
- 		printk("%sfscrypt (%s): %pV\n", level, inode->i_sb->s_id, &vaf);
-diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
-index f41809f1f1ed0b1ed78b85a4a987ec9e6cbcfa9d..a7a8a3f581a0460537f5ff955bc8b5d30573a033 100644
---- a/fs/crypto/hooks.c
-+++ b/fs/crypto/hooks.c
-@@ -62,7 +62,7 @@ int fscrypt_file_open(struct inode *inode, struct file *filp)
- 	dentry_parent = dget_parent(dentry);
- 	if (!fscrypt_has_permitted_context(d_inode(dentry_parent), inode)) {
- 		fscrypt_warn(inode,
--			     "Inconsistent encryption context (parent directory: %" PRIino "u)",
-+			     "Inconsistent encryption context (parent directory: %llu)",
- 			     d_inode(dentry_parent)->i_ino);
- 		err = -EPERM;
- 	}
-diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index c0a2568a88cf6318877dec0f5379c5c8511c00f8..be8e6e8011f2131f2908da746a37d33fd5295122 100644
---- a/fs/crypto/keyring.c
-+++ b/fs/crypto/keyring.c
-@@ -970,7 +970,7 @@ static int check_for_busy_inodes(struct super_block *sb,
- 	struct list_head *pos;
- 	size_t busy_count = 0;
- 	char ino_str[50] = "";
--	kino_t ino;
-+	u64 ino;
+diff --git a/include/linux/audit.h b/include/linux/audit.h
+index b642b5faca654c8465b6839c32b633426e1d3d9a..b915aaa7ed7399a6e453b1bb9bacbda686028638 100644
+--- a/include/linux/audit.h
++++ b/include/linux/audit.h
+@@ -15,7 +15,7 @@
+ #include <uapi/linux/audit.h>
+ #include <uapi/linux/fanotify.h>
  
- 	spin_lock(&mk->mk_decrypted_inodes_lock);
+-#define AUDIT_INO_UNSET ((unsigned long)-1)
++#define AUDIT_INO_UNSET ((u64)-1)
+ #define AUDIT_DEV_UNSET ((dev_t)-1)
  
-@@ -994,7 +994,7 @@ static int check_for_busy_inodes(struct super_block *sb,
+ struct audit_sig_info {
+diff --git a/kernel/audit.h b/kernel/audit.h
+index 7c401729e21bbcb062e2d5f3059d4496ed83529b..a41b5a727eda66ef8b211b9598e86f945c6c1235 100644
+--- a/kernel/audit.h
++++ b/kernel/audit.h
+@@ -76,7 +76,7 @@ struct audit_names {
+ 	int			name_len;	/* number of chars to log */
+ 	bool			hidden;		/* don't log this record */
  
- 	/* If the inode is currently being created, ino may still be 0. */
- 	if (ino)
--		snprintf(ino_str, sizeof(ino_str), ", including ino %" PRIino "u", ino);
-+		snprintf(ino_str, sizeof(ino_str), ", including ino %llu", ino);
+-	unsigned long		ino;
++	u64			ino;
+ 	dev_t			dev;
+ 	umode_t			mode;
+ 	kuid_t			uid;
+@@ -277,16 +277,15 @@ extern int audit_to_watch(struct audit_krule *krule, char *path, int len,
+ extern int audit_add_watch(struct audit_krule *krule, struct list_head **list);
+ extern void audit_remove_watch_rule(struct audit_krule *krule);
+ extern char *audit_watch_path(struct audit_watch *watch);
+-extern int audit_watch_compare(struct audit_watch *watch, unsigned long ino,
+-			       dev_t dev);
++extern int audit_watch_compare(struct audit_watch *watch, u64 ino, dev_t dev);
  
- 	fscrypt_warn(NULL,
- 		     "%s: %zu inode(s) still busy after removing key with %s %*phN%s",
-diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index b30630f2c6a4e341c72af0db6aa173f59f742fa1..df58ca4a5e3cb1df94e2f08e3f3b093c33368993 100644
---- a/fs/crypto/keysetup.c
-+++ b/fs/crypto/keysetup.c
-@@ -91,7 +91,7 @@ select_encryption_mode(const union fscrypt_policy *policy,
- 	if (S_ISDIR(inode->i_mode) || S_ISLNK(inode->i_mode))
- 		return &fscrypt_modes[fscrypt_policy_fnames_mode(policy)];
- 
--	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %" PRIino "u, which is not encryptable (file type %d)\n",
-+	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %llu, which is not encryptable (file type %d)\n",
- 		  inode->i_ino, (inode->i_mode & S_IFMT));
- 	return ERR_PTR(-EINVAL);
+ extern struct audit_fsnotify_mark *audit_alloc_mark(struct audit_krule *krule,
+ 						    char *pathname, int len);
+ extern char *audit_mark_path(struct audit_fsnotify_mark *mark);
+ extern void audit_remove_mark(struct audit_fsnotify_mark *audit_mark);
+ extern void audit_remove_mark_rule(struct audit_krule *krule);
+-extern int audit_mark_compare(struct audit_fsnotify_mark *mark,
+-			      unsigned long ino, dev_t dev);
++extern int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino,
++			      dev_t dev);
+ extern int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old);
+ extern int audit_exe_compare(struct task_struct *tsk,
+ 			     struct audit_fsnotify_mark *mark);
+diff --git a/kernel/audit_fsnotify.c b/kernel/audit_fsnotify.c
+index a4401f6510608119fd928944c36103326475e3b2..711454f9f7242847f78e7eeed92db7a66be265e6 100644
+--- a/kernel/audit_fsnotify.c
++++ b/kernel/audit_fsnotify.c
+@@ -25,7 +25,7 @@
+  */
+ struct audit_fsnotify_mark {
+ 	dev_t dev;		/* associated superblock device */
+-	unsigned long ino;	/* associated inode number */
++	u64 ino;		/* associated inode number */
+ 	char *path;		/* insertion path */
+ 	struct fsnotify_mark mark; /* fsnotify mark on the inode */
+ 	struct audit_krule *rule;
+@@ -57,7 +57,7 @@ char *audit_mark_path(struct audit_fsnotify_mark *mark)
+ 	return mark->path;
  }
+ 
+-int audit_mark_compare(struct audit_fsnotify_mark *mark, unsigned long ino, dev_t dev)
++int audit_mark_compare(struct audit_fsnotify_mark *mark, u64 ino, dev_t dev)
+ {
+ 	if (mark->ino == AUDIT_INO_UNSET)
+ 		return 0;
+diff --git a/kernel/audit_watch.c b/kernel/audit_watch.c
+index 096faac2435ce2b3741fb1f623ea7fab65ae7a07..b0694fcfd4080d6be587ae20d9c91450c33480b1 100644
+--- a/kernel/audit_watch.c
++++ b/kernel/audit_watch.c
+@@ -37,7 +37,7 @@ struct audit_watch {
+ 	refcount_t		count;	/* reference count */
+ 	dev_t			dev;	/* associated superblock device */
+ 	char			*path;	/* insertion path */
+-	unsigned long		ino;	/* associated inode number */
++	u64			ino;	/* associated inode number */
+ 	struct audit_parent	*parent; /* associated parent */
+ 	struct list_head	wlist;	/* entry in parent->watches list */
+ 	struct list_head	rules;	/* anchor for krule->rlist */
+@@ -125,7 +125,7 @@ char *audit_watch_path(struct audit_watch *watch)
+ 	return watch->path;
+ }
+ 
+-int audit_watch_compare(struct audit_watch *watch, unsigned long ino, dev_t dev)
++int audit_watch_compare(struct audit_watch *watch, u64 ino, dev_t dev)
+ {
+ 	return (watch->ino != AUDIT_INO_UNSET) &&
+ 		(watch->ino == ino) &&
+@@ -244,7 +244,7 @@ static void audit_watch_log_rule_change(struct audit_krule *r, struct audit_watc
+ /* Update inode info in audit rules based on filesystem event. */
+ static void audit_update_watch(struct audit_parent *parent,
+ 			       const struct qstr *dname, dev_t dev,
+-			       unsigned long ino, unsigned invalidating)
++			       u64 ino, unsigned invalidating)
+ {
+ 	struct audit_watch *owatch, *nwatch, *nextw;
+ 	struct audit_krule *r, *nextr;
+@@ -527,7 +527,7 @@ int audit_dupe_exe(struct audit_krule *new, struct audit_krule *old)
+ int audit_exe_compare(struct task_struct *tsk, struct audit_fsnotify_mark *mark)
+ {
+ 	struct file *exe_file;
+-	unsigned long ino;
++	u64 ino;
+ 	dev_t dev;
+ 
+ 	/* only do exe filtering if we are recording @current events/records */
+diff --git a/kernel/auditsc.c b/kernel/auditsc.c
+index f6af6a8f68c4f6d14d9a899934138df2036e1f9a..61e4ca47b15e57e33b61c1465eb1988eb4271c3d 100644
+--- a/kernel/auditsc.c
++++ b/kernel/auditsc.c
+@@ -1534,7 +1534,7 @@ static void audit_log_name(struct audit_context *context, struct audit_names *n,
+ 		audit_log_format(ab, " name=(null)");
+ 
+ 	if (n->ino != AUDIT_INO_UNSET)
+-		audit_log_format(ab, " inode=%lu dev=%02x:%02x mode=%#ho ouid=%u ogid=%u rdev=%02x:%02x",
++		audit_log_format(ab, " inode=%llu dev=%02x:%02x mode=%#ho ouid=%u ogid=%u rdev=%02x:%02x",
+ 				 n->ino,
+ 				 MAJOR(n->dev),
+ 				 MINOR(n->dev),
 
 -- 
 2.53.0
