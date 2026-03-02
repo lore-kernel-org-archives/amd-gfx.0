@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACE9AEC0477
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09420EC0469
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 938F810E755;
-	Tue,  3 Mar 2026 09:01:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1290710E764;
+	Tue,  3 Mar 2026 09:01:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jr4ryKdK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WUgJCdF5";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E247610E36C;
- Mon,  2 Mar 2026 20:42:44 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCCF310E5B8;
+ Mon,  2 Mar 2026 20:25:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 2809760180;
- Mon,  2 Mar 2026 20:42:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB6DEC2BC9E;
- Mon,  2 Mar 2026 20:42:29 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4B49F436EC;
+ Mon,  2 Mar 2026 20:25:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043D8C2BC87;
+ Mon,  2 Mar 2026 20:25:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484163;
- bh=EAJn9Z1NV4V/84sfstd7Uwl4ofHtYkZnXmJoeTB2O0U=;
+ s=k20201202; t=1772483115;
+ bh=a/GWSK0b9QXvtWMAeqXB3u+MddZFQoYzg2G9mjzwaQE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Jr4ryKdKtx1Xl9H8jdMicHUh0ZD42bTwJ5rs5qy5r8kvx0IRNKlpuXO2UnhmAYNb5
- MMjczqniL11HgAnnMwY/J4SxP3KYbOnhyAaBVIyO5cI47o3h5HuD9b9FL8kkpmNzk0
- bHWJ90Q2CfU+X1p7WAIizPNzmZRMqEKbn0gqaHzTl0GSjMfk4STHRgXCUFsmAvmdeg
- 7CoucHzN3eNoxUJ+MLdy4ul4iCatQM2SQJAJDpOqZhAUz8yeNRB9undUoQxo4t+2vg
- Nu33AqNUyJs9z6hd1uAj6cq0LLryxc+fo8QjBb6MCXpkmGori6DIf/OMolbD57+7r6
- 0PHDYuhVphGIg==
+ b=WUgJCdF5t+Q1hK98cJHCI3yR4RRoaShPYoOuDVqA7bN0VVkGDmdd+xm+7ktLcUk01
+ EGdiF3IXRPe/50XIN/hcE50LLQL5RkjKg0n2DlG1WQL9loLiI5A5a/gZ9UIV4bsZTc
+ CmW8JtCoNZPuZPMgbWlhxWemup/Rm8sUzlLv5FQ+LBGmQz5a0Vrt4SK71foF1X9nWM
+ tEYcSb9RsFzTsrGm8Jcfaic19f8MaHL69up0/JoRawoxpouAHK7TmPnhvW74EAmIcJ
+ 8MXLzhZlvizURsAInXf0jL+7Fn0tgIPFDwmr8aFk/Ljlg1e++4RbexATuMW3x9CnKj
+ 2PBS37WBUhsTQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:58 -0500
-Subject: [PATCH v2 074/110] bfs: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:23:45 -0500
+Subject: [PATCH v2 001/110] vfs: introduce kino_t typedef and PRIino format
+ macro
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-74-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +152,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1144; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=EAJn9Z1NV4V/84sfstd7Uwl4ofHtYkZnXmJoeTB2O0U=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIDN2db72FR1UWDXZCuAGWaBceZDMPNjq6A3
- xUpvPai2ViJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAwAKCRAADmhBGVaC
- FfEPEACxDpZ4NHP5fwLmLmKBZLRvL1n45+ePpCbdvB+lSGBQwRMvcN8doyc/3m4x+L9yg0POdje
- BTXvhtP6M3D1VX4SjH2U5lHcNjOIOa1iNipJqhtnwoN/Xa65n8PZY2LwHpWXr/dB1QhXb0960IS
- qHytjICufHdkZhDulqmJh/z5zdIAHKlMaQsoIgNRnMiWySIE3dITo23Pq6pxbmTAI5uMGDd1Z72
- nFhq8jYOO/+KE4f7dIEhFXOLukkL9ZW+Jn/Idri2QLZ1LxFuoS0ydvpjc0Dw0FPRWeR7TsaBBZZ
- LPJQ98oB02rnYEx3HZDlZPgyn2UzOviV5lYWe/Iht1ltqwUdPDLKF2imVUlsG7OOGXCoGrEdfmw
- aIBjlKyYQcC986YSod1svFJn++ExJaMHgD+RdAbqCxrut0io3LChN0wVaQQFbOL2s1Jer3SZqSz
- AeIyna5wMIziQ3gOA5p1h+wsNMCVaPuhn94NTjFog4da67Fv7BaoQoiEY13Lj+JAUBM6QXbkm2e
- hfsoJio494+cFY59ICY/ZEB0l23IT9DKZGPJuCof8x5waX+aBpI3Aq1I0PDebbaypQQRngsK8kZ
- MYAdEDyXIVm/IVrlWavPwYIqp5scGsbzm35tZQsYk8gs9SJktBCxayP3BNrZ7MjT27gCheVfIcS
- Ze2xcUru3kDB4bg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1721; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=a/GWSK0b9QXvtWMAeqXB3u+MddZFQoYzg2G9mjzwaQE=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHvSSPODOGv+IDeLjtFG7YpO1D5z3aKetMMJ
+ fVghWz/+YeJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx7wAKCRAADmhBGVaC
+ FbwmD/9p2V49BAW6bIXPo2PewhpDsNQPKpX1wZUIsvxqGpZ6OoPwCdTPl5JCdJpBZmDUV7xAAet
+ GlbT9i4wB/NFkKQ4KrOGznjzpC7tpffCcO2sYntinXsiW8KC/5wjT+XwLP9beoYik1TS7LEA2D+
+ vfj6urKts/Z2WhB8n+dPuEeFdMe26J7GcxDgZXJJaxtbQFIK2Kx9kxNE6YqgzGsCiCR6SUqooDa
+ Z5h8Xj6w9sbvUV4NVm3Geb9YZn1s1u0TuJmIReIOZakp9qXk5bjhxeKsvbm9LcG1LZtvYnwny0I
+ 9HCRSTm5S904N17xb4gq9ptERLW/oJODRgpI84H15dAXxJQ0OMXmVMcldx6KF2V3cfXmEyJADQX
+ HivLqyZD1/kytrFqvn32XWRqpdxCzgUFEEcKv2bUPnerzqbTT4N+3jZhRHyPowqPc14BLN5BZ8A
+ 0nvAFTFwK51nt5JY4VwpS253elwJVd8n8K5ZGEXB+K6KeLl08JL7UK59u7/W46KRFbFJfP7ggtE
+ xR+Z1fmcG2iKvEAeQ+FN4loRB8iPdg6XUfBeTjfL/XUa3xEexjDxV7bZzoYVCZCSFttt0n84DwN
+ dTfnY8nwZyuQDq6o+DlqztqDyUiCLpF4wd74VvQk92opgYHwEbXw0SmGlbxwF3ccsa/VT4qmkiD
+ 0g11lTFvRYNLbBQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,36 +183,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in bfs with the concrete format strings.
+Introduce a kino_t typedef and PRIino format macro to enable a
+bisect-clean transition of i_ino from unsigned long to u64.
+
+kino_t is initially defined as unsigned long (matching the original
+i_ino type), and PRIino is "l" (the format length modifier for
+unsigned long). A later patch will change these to u64 and "ll"
+respectively once all format strings have been updated to use PRIino.
+
+The PRIino macro is a length modifier, not a complete format specifier.
+It is used as: "%" PRIino "u" for decimal, "%" PRIino "x" for hex, etc.
+This follows the pattern used by userspace PRIu64/PRIx64 macros.
+
+Format strings using i_ino should be updated to use PRIino instead of
+a hard-coded length modifier to ensure warning-free compilation on
+both 32-bit and 64-bit architectures throughout the transition.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/bfs/dir.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/fs.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/fs/bfs/dir.c b/fs/bfs/dir.c
-index a70efe448ee82e9b1bd499abc968cd47271e33ba..481514db4eae3c33c280d04371a17ef321486ac1 100644
---- a/fs/bfs/dir.c
-+++ b/fs/bfs/dir.c
-@@ -35,7 +35,7 @@ static int bfs_readdir(struct file *f, struct dir_context *ctx)
- 	int block;
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 8b3dd145b25ec12b00ac1df17a952d9116b88047..e38bc5ece1f360d679a8f30b8171292f7a65c218 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -758,6 +758,9 @@ struct inode_state_flags {
+ 	enum inode_state_flags_enum __state;
+ };
  
- 	if (ctx->pos & (BFS_DIRENT_SIZE - 1)) {
--		printf("Bad f_pos=%08lx for %s:%08" PRIino "x\n",
-+		printf("Bad f_pos=%08lx for %s:%08llx\n",
- 					(unsigned long)ctx->pos,
- 					dir->i_sb->s_id, dir->i_ino);
- 		return -EINVAL;
-@@ -180,7 +180,7 @@ static int bfs_unlink(struct inode *dir, struct dentry *dentry)
- 		goto out_brelse;
++typedef unsigned long	kino_t;
++#define PRIino		"l"
++
+ /*
+  * Keep mostly read-only and often accessed (especially for
+  * the RCU path lookup and 'stat' data) fields at the beginning
+@@ -783,7 +786,7 @@ struct inode {
+ #endif
  
- 	if (!inode->i_nlink) {
--		printf("unlinking non-existent file %s:%" PRIino "u (nlink=%d)\n",
-+		printf("unlinking non-existent file %s:%llu (nlink=%d)\n",
- 					inode->i_sb->s_id, inode->i_ino,
- 					inode->i_nlink);
- 		set_nlink(inode, 1);
+ 	/* Stat data, not accessed from path walking */
+-	unsigned long		i_ino;
++	kino_t			i_ino;
+ 	/*
+ 	 * Filesystems may only read i_nlink directly.  They shall use the
+ 	 * following functions for modification:
 
 -- 
 2.53.0
