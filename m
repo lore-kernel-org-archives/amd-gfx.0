@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83134EC0461
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACE9AEC0477
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76A7F10E73D;
-	Tue,  3 Mar 2026 09:01:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 938F810E755;
+	Tue,  3 Mar 2026 09:01:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nlzXdd2d";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jr4ryKdK";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 60A8A10E5BD;
- Mon,  2 Mar 2026 20:48:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E247610E36C;
+ Mon,  2 Mar 2026 20:42:44 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id ABA346111A;
- Mon,  2 Mar 2026 20:47:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E051C2BC87;
- Mon,  2 Mar 2026 20:47:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2809760180;
+ Mon,  2 Mar 2026 20:42:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB6DEC2BC9E;
+ Mon,  2 Mar 2026 20:42:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484479;
- bh=aRx+vBv2M2iRm6msaGNPhasqatamVupEcEqra1pj50U=;
+ s=k20201202; t=1772484163;
+ bh=EAJn9Z1NV4V/84sfstd7Uwl4ofHtYkZnXmJoeTB2O0U=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=nlzXdd2d2jmb6ZCZJlUjsUWRxHX5Ef4p0g3CYJDJ6NRTC9wfC8nnMXQz81G3kHFIf
- bk3ktV1oHOpMcMQOnvKOeWGTvG6ZnQ/MocHukfvCturZOxU/Bi8OvGApPLNcUd/hK4
- bhwDnT+CVtxrCw78WPAaFCT09qXHfgAYMWpTDutUEUGqFkMaNaLBVSyEo0cNPh7I3Q
- h9fZyYNh4rrnUZV+4xi2MJGXnJEhnuj+XvYPzs61Ct4ZpVnyPq3IXEWJt7Ine4BMIk
- /gTcT4ElgQ2QlP4iB+YuH6gEdPvIx61yjxxZ3x4tL+yQ5hudAkroDrPOeTNPOXK5Wv
- EYBb/ZIP/1i/A==
+ b=Jr4ryKdKtx1Xl9H8jdMicHUh0ZD42bTwJ5rs5qy5r8kvx0IRNKlpuXO2UnhmAYNb5
+ MMjczqniL11HgAnnMwY/J4SxP3KYbOnhyAaBVIyO5cI47o3h5HuD9b9FL8kkpmNzk0
+ bHWJ90Q2CfU+X1p7WAIizPNzmZRMqEKbn0gqaHzTl0GSjMfk4STHRgXCUFsmAvmdeg
+ 7CoucHzN3eNoxUJ+MLdy4ul4iCatQM2SQJAJDpOqZhAUz8yeNRB9undUoQxo4t+2vg
+ Nu33AqNUyJs9z6hd1uAj6cq0LLryxc+fo8QjBb6MCXpkmGori6DIf/OMolbD57+7r6
+ 0PHDYuhVphGIg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:20 -0500
-Subject: [PATCH v2 096/110] qnx6: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:24:58 -0500
+Subject: [PATCH v2 074/110] bfs: replace PRIino with %llu/%llx format strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-96-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-74-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=785; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=aRx+vBv2M2iRm6msaGNPhasqatamVupEcEqra1pj50U=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIJiw1odsluet/XL7Mqa4kgajSxQPLdtlQBP
- Cnhi68Zt2uJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCQAKCRAADmhBGVaC
- FabQEACmwH3xIV1kMlBE8jZgQl7+E4xyQ9Ct8W8zuWbIuWwDYMbjqugxPOEv67u11lXTH29X2dg
- T+teVLNpE9KEA+QSZStGPzfwjKkV2dmFsTfKy60GPnda3f/FkiCLwnnd5OPZ80Q+3AnEBxZHH6f
- wAWAjTFt9+1olQE+oiRr2tCPwDyirwOWOhhzxpvJoDphHy9s/VnilrBBjEMj6H2mLI7JbcMEroZ
- awVclVwRnT+oYmRgjWvjJf6E5h9jseIrrvPZz0RDJyl0oW9Bgd1rd0fJ/aaA8iaijQhkqrz53M2
- wfSxfIEH8oZCg2cxuxhf09hMyZoEB7LosomyOY/lHkHSRNeaXoKS/vu++fmfG4Zetr0mv2qRTP5
- X/CZConNXt4BZWWp5ZTPBSrRraBWY2RnP8jO0mp3Ju+6PBk2uvnbjniN7GNlDPpdLvINPUYoyX3
- tIl+GoSDldlirpwTmIkMxsPtzVi1aNgq5PflX3rr3L35rBTC/Ag2NHL82QBb0bpG5hUB/wEDzAf
- BQ/2pzx8lCQp1KW0rqYQ3+NZ9O5fVnj13wHOKy1FiOOK94ifA+A9WKPPTy/wVGIsarmfnH9D5Zl
- KYc8wQvQe0PIpa6fpTWJxlUHZ617zXMAkBSZldBDPIZrtfWQm65IggBJCjJnu6Y9BueSk6yfJlT
- fi7dwf/3MTPla3g==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1144; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=EAJn9Z1NV4V/84sfstd7Uwl4ofHtYkZnXmJoeTB2O0U=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIDN2db72FR1UWDXZCuAGWaBceZDMPNjq6A3
+ xUpvPai2ViJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAwAKCRAADmhBGVaC
+ FfEPEACxDpZ4NHP5fwLmLmKBZLRvL1n45+ePpCbdvB+lSGBQwRMvcN8doyc/3m4x+L9yg0POdje
+ BTXvhtP6M3D1VX4SjH2U5lHcNjOIOa1iNipJqhtnwoN/Xa65n8PZY2LwHpWXr/dB1QhXb0960IS
+ qHytjICufHdkZhDulqmJh/z5zdIAHKlMaQsoIgNRnMiWySIE3dITo23Pq6pxbmTAI5uMGDd1Z72
+ nFhq8jYOO/+KE4f7dIEhFXOLukkL9ZW+Jn/Idri2QLZ1LxFuoS0ydvpjc0Dw0FPRWeR7TsaBBZZ
+ LPJQ98oB02rnYEx3HZDlZPgyn2UzOviV5lYWe/Iht1ltqwUdPDLKF2imVUlsG7OOGXCoGrEdfmw
+ aIBjlKyYQcC986YSod1svFJn++ExJaMHgD+RdAbqCxrut0io3LChN0wVaQQFbOL2s1Jer3SZqSz
+ AeIyna5wMIziQ3gOA5p1h+wsNMCVaPuhn94NTjFog4da67Fv7BaoQoiEY13Lj+JAUBM6QXbkm2e
+ hfsoJio494+cFY59ICY/ZEB0l23IT9DKZGPJuCof8x5waX+aBpI3Aq1I0PDebbaypQQRngsK8kZ
+ MYAdEDyXIVm/IVrlWavPwYIqp5scGsbzm35tZQsYk8gs9SJktBCxayP3BNrZ7MjT27gCheVfIcS
+ Ze2xcUru3kDB4bg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -183,26 +183,35 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in qnx6 with the concrete format strings.
+replace all uses in bfs with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/qnx6/inode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/bfs/dir.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/qnx6/inode.c b/fs/qnx6/inode.c
-index 630ebaa8a1c554b4d83ae75e5940a512e847bf51..6de49333acadbf08a8ce20d86e566433bc911f7d 100644
---- a/fs/qnx6/inode.c
-+++ b/fs/qnx6/inode.c
-@@ -75,7 +75,7 @@ static int qnx6_get_block(struct inode *inode, sector_t iblock,
- {
- 	unsigned phys;
+diff --git a/fs/bfs/dir.c b/fs/bfs/dir.c
+index a70efe448ee82e9b1bd499abc968cd47271e33ba..481514db4eae3c33c280d04371a17ef321486ac1 100644
+--- a/fs/bfs/dir.c
++++ b/fs/bfs/dir.c
+@@ -35,7 +35,7 @@ static int bfs_readdir(struct file *f, struct dir_context *ctx)
+ 	int block;
  
--	pr_debug("qnx6_get_block inode=[%" PRIino "u] iblock=[%ld]\n",
-+	pr_debug("qnx6_get_block inode=[%llu] iblock=[%ld]\n",
- 		 inode->i_ino, (unsigned long)iblock);
+ 	if (ctx->pos & (BFS_DIRENT_SIZE - 1)) {
+-		printf("Bad f_pos=%08lx for %s:%08" PRIino "x\n",
++		printf("Bad f_pos=%08lx for %s:%08llx\n",
+ 					(unsigned long)ctx->pos,
+ 					dir->i_sb->s_id, dir->i_ino);
+ 		return -EINVAL;
+@@ -180,7 +180,7 @@ static int bfs_unlink(struct inode *dir, struct dentry *dentry)
+ 		goto out_brelse;
  
- 	phys = qnx6_block_map(inode, iblock);
+ 	if (!inode->i_nlink) {
+-		printf("unlinking non-existent file %s:%" PRIino "u (nlink=%d)\n",
++		printf("unlinking non-existent file %s:%llu (nlink=%d)\n",
+ 					inode->i_sb->s_id, inode->i_ino,
+ 					inode->i_nlink);
+ 		set_nlink(inode, 1);
 
 -- 
 2.53.0
