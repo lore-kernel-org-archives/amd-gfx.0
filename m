@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3CC0EEC0479
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3393EEC048C
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEF7F10E787;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE33510E788;
 	Tue,  3 Mar 2026 09:01:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ezajfXsx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="d8pF+XiA";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA27C10E5C3;
- Mon,  2 Mar 2026 20:51:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D88B10E5BF;
+ Mon,  2 Mar 2026 20:45:37 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D546C6013C;
- Mon,  2 Mar 2026 20:51:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E3CC19425;
- Mon,  2 Mar 2026 20:50:54 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 506766132F;
+ Mon,  2 Mar 2026 20:45:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9E5C19425;
+ Mon,  2 Mar 2026 20:45:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484668;
- bh=bh/9FqQ+zYZ3KRPKzQcXTHwDk+54O75ySXqKcS7HYvs=;
+ s=k20201202; t=1772484336;
+ bh=GisfDvIMJS5+/ACR6XGt6OCvg/VPhMFu0yCg5/zEC50=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ezajfXsx7jOzzXGyYD5JyoqhK8Em2M19Oms4vv5wm8s7gGd1RNIG17dLJ5uTr+5D6
- 13XlSDniCDt/7J/ablb2gb7iBuW/Oox6Ug/Wbln6TdU5pjRwg8QqUZyvUmWrrwzdzh
- TdPoePjqX1wISY5ACwM75XnPKfo63iKnsAlgsvSfbHZnf07XlHfFY43qEpxpxB/MWl
- zscDqCe1CnjGQpXdKoCAVl0e8woVX3ioo/6Qwmd9fITJqR2AokFIdtHXdns/BkdG0u
- 8tm3I731Q//Wx6DIYlJDNlt02wCFczoInqoYaDkiI/NtEl1kCXQ/RPXOqv4IcIOCPv
- 17eeYGfWCbmqw==
+ b=d8pF+XiAxxr5Rd6pQVJKLalnobSDcbvAKp7+uPSnJED0FReFWYFYpEORS8k0pwIqB
+ YZHzvmCBs6dVFXO9QXSd70XKUDaz3xDROfqfmr/MUnvyxVorS44POhT8CYOWQ2k9AB
+ suUyfu12Q0CGQSNjZPBklFgI3+OexDnF1iet8YNlUt+woxx1CRDBsLOFZ+tPgCyywk
+ /75nyQP+/1HvQkeaSBY3kM/Cx67T8SYk7/aMgkHYSwMh1mmVdGedbXic/WXDRB5Y+r
+ dFGjYxzs4s52/N1vRMV9HBLBi0AVw/P/8Mqi+8PFWvXQz2YuJs1s+DJCdjzYaM9K4B
+ I3bQ59DG2FizA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:33 -0500
-Subject: [PATCH v2 109/110] uprobes: replace PRIino with %llu/%llx format
- strings
+Date: Mon, 02 Mar 2026 15:25:10 -0500
+Subject: [PATCH v2 086/110] hpfs: replace PRIino with %llu/%llx format strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-109-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-86-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -152,23 +151,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1475; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=bh/9FqQ+zYZ3KRPKzQcXTHwDk+54O75ySXqKcS7HYvs=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfINtFesBvHoVALkwuzaop+mrk5+hHLUhRkav
- SbiQ5q2EFuJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyDQAKCRAADmhBGVaC
- FaifD/93wgaFohJzMv84cczGy5tqsiSQqVwg9N8IAOpIePJgt0kVY/+xJf0mgMpNCnwO6zNhsuS
- g1IOSlsrTR/MJcpKIRNRt/reW3SdqaEBr7CdUBnbzbCxAGIB+xu/HLgkHB7/xhXL78vuqw+zKnn
- JWZDTxZoLmgiBqPUS8UuOWTjTgkdOZ3zJMEnhCZsH/bvVaqe/Rx87GvqY9JB1vVpsjXluNfRHKK
- wnBcICij2U5zjwQL5pknxzyX+HmPY8260HO4DpxpwCbbXYKu4ZWIJ/0RD/8Rxnqi9RMgWONvuJK
- t+OWOpldFH4s+VBc2nkWs/1iRttLrxwAIoTe727yA+1RDN0kDcWgo5OKw7ETerM45p0uldTJJZz
- +b+0XOeGvsVl2qkZ4+XzpPZhUWp47tWlf1PFhlW8GonbWOTaJNdK8qvCFr3zuvsSmJOiG/+rg5Q
- B2j6heaXrv7KtI4KgpYSMyno9u5SyNZcSqBZspBnXgh2tJj5aQYIxuCDdbq0L4shZAGYBclkCXT
- A78go1uY2C0RpRjk/L8MeHCIPpy2rSoZDGJjUO/g5YlhVBfxrWaCv8yPvr9+APQpC0tLwYTEh7+
- RFM6hW4wUjX/5fMwwSL9Dp6TWTKIc6GW5tTG3pc5VAzwgmOaFPDsLKARdA8RqzISSskdsOHTFvR
- wQa3ZehRJTPIiiA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2692; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=GisfDvIMJS5+/ACR6XGt6OCvg/VPhMFu0yCg5/zEC50=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIG9oWwNKw+7hnDwGQdVh7GuK9QLizbtdRLK
+ yabNEQe8VaJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBgAKCRAADmhBGVaC
+ FbDcEAChwPefJDL+u2bmVreu8DWYGyQ8npBbLa81Vem1c4WA6LYCYxDVDGCeAxPXrS6+lAJtZPv
+ eVf9lhme77ZJuIjxbm4gZ/zpawMnPWl+qZYybB3T9WQ8KgsWx3sRKvc1csYXukuesFoTYjNNxRP
+ sr88BlCeZD+RLp8Zn5n0BOCW+ChiZEubHaHo9Fv/NgjV73ahYqW7bSWN5+q0eykiDClNtvJYhFV
+ jtXZA7qcS6Dt+S2V+sR6KOjZGaotQNDH5I2UOpuOpDGTIEMT+GmvY/tR7vI6CAWWFNFRev1jgA0
+ Q3kmAkwrBPaWToV9sExBMIvAjTdx2mT3GUn7eISMCU8bXtfw36MLqCav3dutjCOREaLQjqaczok
+ d653t1zQLh0Wfar6y3VgjsDBQceqDh/2hj6l/csE694vTuvcjgNGmAtVhuC5VNWcOon3Rjxr0Nk
+ DXPWZKevZWeId2Lq0kz+880etRXEeIa4vCrGMGoF7sCbH0ErDMrHNK4z658CjqErRdZjT+yHIPc
+ yHVd50g9/hsbvwYD3hKtlw3qCoDQ/XgAp9gLqMGMBQXRGjU2lSuJHX3yXxrsvGBOianeXJZ4/bd
+ elCq3IKPa4PKIK91kx4NtdhXR42XE05iXjZyBVLebErmWVU2IdNLEEfu0N5kt3di8z2KUXsusjJ
+ g6/cfvTu2mdTqvQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
+X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -184,35 +183,68 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in uprobes with the concrete format strings.
+replace all uses in hpfs with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- kernel/events/uprobes.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/hpfs/dir.c   | 2 +-
+ fs/hpfs/dnode.c | 2 +-
+ fs/hpfs/ea.c    | 2 +-
+ fs/hpfs/inode.c | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
-index d5bf51565851223730c63b50436c493c0c05eafd..4084e926e284487ea7e28b63721797b20f0dfefd 100644
---- a/kernel/events/uprobes.c
-+++ b/kernel/events/uprobes.c
-@@ -344,7 +344,7 @@ __update_ref_ctr(struct mm_struct *mm, unsigned long vaddr, short d)
- static void update_ref_ctr_warn(struct uprobe *uprobe,
- 				struct mm_struct *mm, short d)
- {
--	pr_warn("ref_ctr %s failed for inode: 0x%" PRIino "x offset: "
-+	pr_warn("ref_ctr %s failed for inode: 0x%llx offset: "
- 		"0x%llx ref_ctr_offset: 0x%llx of mm: 0x%p\n",
- 		d > 0 ? "increment" : "decrement", uprobe->inode->i_ino,
- 		(unsigned long long) uprobe->offset,
-@@ -982,7 +982,7 @@ static struct uprobe *insert_uprobe(struct uprobe *uprobe)
- static void
- ref_ctr_mismatch_warn(struct uprobe *cur_uprobe, struct uprobe *uprobe)
- {
--	pr_warn("ref_ctr_offset mismatch. inode: 0x%" PRIino "x offset: 0x%llx "
-+	pr_warn("ref_ctr_offset mismatch. inode: 0x%llx offset: 0x%llx "
- 		"ref_ctr_offset(old): 0x%llx ref_ctr_offset(new): 0x%llx\n",
- 		uprobe->inode->i_ino, (unsigned long long) uprobe->offset,
- 		(unsigned long long) cur_uprobe->ref_ctr_offset,
+diff --git a/fs/hpfs/dir.c b/fs/hpfs/dir.c
+index 9db0e7a101c2a8d9cc265c14ed74c58533ab31ff..3bf11202e2d3c585a3f1aefb5180da82fd7d4a3f 100644
+--- a/fs/hpfs/dir.c
++++ b/fs/hpfs/dir.c
+@@ -96,7 +96,7 @@ static int hpfs_readdir(struct file *file, struct dir_context *ctx)
+ 		}
+ 		if (!fnode_is_dir(fno)) {
+ 			e = 1;
+-			hpfs_error(inode->i_sb, "not a directory, fnode %08" PRIino "x",
++			hpfs_error(inode->i_sb, "not a directory, fnode %08llx",
+ 					inode->i_ino);
+ 		}
+ 		if (hpfs_inode->i_dno != le32_to_cpu(fno->u.external[0].disk_secno)) {
+diff --git a/fs/hpfs/dnode.c b/fs/hpfs/dnode.c
+index 5df10c82f84ca40c4d65b97b6c6b61ec364029b5..8c6aa060fd874ac9ac844268b016491204d978fd 100644
+--- a/fs/hpfs/dnode.c
++++ b/fs/hpfs/dnode.c
+@@ -550,7 +550,7 @@ static void delete_empty_dnode(struct inode *i, dnode_secno dno)
+ 			if (hpfs_sb(i->i_sb)->sb_chk)
+ 				if (up != i->i_ino) {
+ 					hpfs_error(i->i_sb,
+-						   "bad pointer to fnode, dnode %08x, pointing to %08x, should be %08" PRIino "x",
++						   "bad pointer to fnode, dnode %08x, pointing to %08x, should be %08llx",
+ 						   dno, up,
+ 						   i->i_ino);
+ 					return;
+diff --git a/fs/hpfs/ea.c b/fs/hpfs/ea.c
+index f4fce87110d77c6af47fd45e024fb913c09e82f7..4664f9ab06eef3795b33cebcdc57e598cf83b0e9 100644
+--- a/fs/hpfs/ea.c
++++ b/fs/hpfs/ea.c
+@@ -245,7 +245,7 @@ void hpfs_set_ea(struct inode *inode, struct fnode *fnode, const char *key,
+ 		fnode->ea_offs = cpu_to_le16(0xc4);
+ 	}
+ 	if (le16_to_cpu(fnode->ea_offs) < 0xc4 || le16_to_cpu(fnode->ea_offs) + le16_to_cpu(fnode->acl_size_s) + le16_to_cpu(fnode->ea_size_s) > 0x200) {
+-		hpfs_error(s, "fnode %08" PRIino "x: ea_offs == %03x, ea_size_s == %03x",
++		hpfs_error(s, "fnode %08llx: ea_offs == %03x, ea_size_s == %03x",
+ 			inode->i_ino,
+ 			le16_to_cpu(fnode->ea_offs), le16_to_cpu(fnode->ea_size_s));
+ 		return;
+diff --git a/fs/hpfs/inode.c b/fs/hpfs/inode.c
+index c82f5f7f435a1a6f6c26fc62ff0c680c26c9f4ad..0e932cc8be1b28353cffd8e62e26f77a02394edb 100644
+--- a/fs/hpfs/inode.c
++++ b/fs/hpfs/inode.c
+@@ -250,7 +250,7 @@ void hpfs_write_inode_nolock(struct inode *i)
+ 			hpfs_brelse4(&qbh);
+ 		} else
+ 			hpfs_error(i->i_sb,
+-				"directory %08" PRIino "x doesn't have '.' entry",
++				"directory %08llx doesn't have '.' entry",
+ 				i->i_ino);
+ 	}
+ 	mark_buffer_dirty(bh);
 
 -- 
 2.53.0
