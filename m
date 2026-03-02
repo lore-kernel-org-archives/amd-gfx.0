@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E754EC0466
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AF04EC0475
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B07C810E725;
-	Tue,  3 Mar 2026 09:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C934910E742;
+	Tue,  3 Mar 2026 09:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hXq/Qbhl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MnGBqwrV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA0B310E5C0;
- Mon,  2 Mar 2026 20:39:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 162D910E5BB;
+ Mon,  2 Mar 2026 20:27:40 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9843943BAB;
- Mon,  2 Mar 2026 20:39:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67A19C2BCB6;
- Mon,  2 Mar 2026 20:39:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0405C60131;
+ Mon,  2 Mar 2026 20:27:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BDC8C2BCC6;
+ Mon,  2 Mar 2026 20:27:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483977;
- bh=T2IsifKoW8AH9BcUlcrVDOEbUA73CXM67EzY1ozI0BQ=;
+ s=k20201202; t=1772483258;
+ bh=G4EPy7Pq05uNoLyHzs/6sFEMGAsKLKmM5Lo9955ZGjE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=hXq/Qbhl6jHcjd3mGPeZ/Sn4geGvr3qelph71TgIVOHDIoZRbx6yQCKH8BwLwYXRp
- YMykhabHSLM3iJbXOapeGtXvbavWIwXE9T7Uw+MKubaVpieAjcNxGECJSsSmrA5kcc
- iiRuyqx2Sl3koIoPbew1pb/jXCNwG3bFJCfmhrCrOARRlFTIPgxcIZ12JM2Ni6zfUo
- KsoXk7Z+GwLZkGXemfB6gZuvzTevGkmHfALuVq9IBRf5RV/p8MjrZ212USCOOMQ5MY
- sMEngePisoXS0VtJZvUX+J7pL0hd891aj/aFyokGefqyv5/IX/WgM4GbMrnxHIx1WZ
- fDHSOwngD+lQw==
+ b=MnGBqwrVT4pjHh2pWOoo27Edr8966wN36IpLgacyCDkWZx9F9x5zHnRw6GnZVbYH7
+ wOKcDfgZmxVJmuLpl9lQXtuTExgXATfBud1XjeHERBX8IZTkdrcZ5GiZEczBR5Pvhf
+ TswIEkP8LSZKrjLPQAs/Rkp+i/bEAhP7tJUKmVxF38KlAkZndj6na8L1lZt2TUdyTo
+ BFZwCWJcxWcnXKU1eO5aRdnDG+Z+3fFOD+UEAR4CVq5+NNREq9E975Fe25CPb4lYAh
+ cygJDzB6U7tk8rKP6hhCjsIPci85ScxIbky2lMM6f/h6/5Qscr7KqUkjj9Cn5p/F2D
+ InIsXTRipxQRg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:45 -0500
-Subject: [PATCH v2 061/110] ext4: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:23:55 -0500
+Subject: [PATCH v2 011/110] nfs: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-61-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-11-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=40942; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=T2IsifKoW8AH9BcUlcrVDOEbUA73CXM67EzY1ozI0BQ=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH/KmBuN9lF6l23dJZzzdLcefNxi95tQmFd2
- RhS0iYncL6JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/wAKCRAADmhBGVaC
- FWi8EADQ6IxHyfoPMeCBqRB7DMnq5sNXYX//Ck7o4JU1KtGI68ygOUO6jW8EG0K65DcxhCx4oc6
- cwuIeWUZT74CScXpF4WxUiAiuHYpNUvXX6H34eE+pj3eD9c72WFNgjm8GzjLu9TKkWXZeboGOhh
- QnjJYXbqfSVRPEFSDEQfeHx7ZZEVUqZEMP47PkeaXvJsNW593Vr/OBlUCuTJOS+NFc3Ti8A4NJu
- dTkVhZcKMqmi0FvTxAj9B7Zvx2CEoZC0aZx2lHo/e2vGiW77VTVDITW5+kT39VOJPwzkYnyYN5H
- XytQH3NFAUupS5U9cJM0ElEVNVas737/8P604kv6YOKJAQNJBRlPytRto3+c8AhLaYBnOTcMiQI
- mT9QD+vPvGqjE1GT/v2aMcOoMmq4eNniq91HsMSczaBpiYlHlRragq5B0H56+Fc+TpWp8mqtsqg
- kx7BsAtiSQDhiIvfOlmhsJBGUEbxfya4MqfdOAkJdFW9Jy/TV0ffwFxbLzP/4pZsZaZPj7u68dA
- 1GP3brwQ6skDvke8wddomSL4g1ciSFHHQ2M3uBsDpVyFacENKL8hFPD8xpNk9zgF+i7iJEYgDvm
- kgoW8u5OJwdm4k1rcIUxIVQTzJgTG+SxXHIBKEDvPlu62xHLgmLubb6nMDHUqnfMGcKBsSXNlOi
- gWy7NiLUEcIBpCQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14403; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=G4EPy7Pq05uNoLyHzs/6sFEMGAsKLKmM5Lo9955ZGjE=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHyftibhhLZs6aC5I7+mR6gKwCUcoWM5c+X5
+ NyGs9Mn1Z6JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8gAKCRAADmhBGVaC
+ FX06EADTh6qq4AvyEbQ73V3y8NR+EYKgyZSIkk+GD1UTrxdRxXUuXVhB33M+q5E6Byg3czI0zcH
+ rSMh3eqa0r6yeQwCelGzK3w1thlLwl/UDQq4cRcDOKsOvxSga2ZkcFQe1UU4pQ0LsZI8kWNkNE7
+ 8EMI9qUCwMwCYnuPvMIeyxiHmbXFelN3ZpOk9lwqc8I/YkkmCrNbPO9CGoO+HDuFxJF9BtHgHyI
+ iLhg4xlb1f1gK4TllxFLUsQ7wWao/WRb4PvYMFKLdTBYiFpmhtQGhA5EE/6ToyjEz2EdC+pOAlV
+ rIxBo7rxEup+yluQTuUS6ifi7Cd2UH6gbJhsXkNGYMpNhnoYgc4q1lFvJmlnifthEL+sluwMPwb
+ HkAEB6jjjP4+1R8loL9Vlzn9XjWrkZkr79HLNNQ7T1ISIOV1r1lvO/PI7dOIQrNJ7E/qwhSy8Ey
+ a6lgMX9Pdt+5zE8T79C1OS2TvEg1aRHPz3Mq3Wf+pm4T7yMozAwBMAwjpIbwYa+08ij+zQ/PWxM
+ 6SB+DyMaCkqrAOFPfHb8/g/JembB2/cfPcaotRKqx8VeKWd5s71kLmcNxxWn5x+g5RaDE3h5qCY
+ 1qYDZ08CjfMAt3u1uNc9V8qwLkm4e9QLHNWKbocrlj86NuwU/FcZ0jl7OKI3RsNvDZI9phSjGn4
+ pjfjI+yyO/UukCQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,917 +182,345 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in ext4 with the concrete format strings.
+Convert nfs i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ext4/dir.c            |  2 +-
- fs/ext4/ext4.h           |  4 ++--
- fs/ext4/extents.c        |  8 ++++----
- fs/ext4/extents_status.c | 28 ++++++++++++++--------------
- fs/ext4/fast_commit.c    |  8 ++++----
- fs/ext4/ialloc.c         |  8 ++++----
- fs/ext4/indirect.c       |  2 +-
- fs/ext4/inline.c         | 14 +++++++-------
- fs/ext4/inode.c          | 22 +++++++++++-----------
- fs/ext4/ioctl.c          |  4 ++--
- fs/ext4/mballoc.c        |  2 +-
- fs/ext4/move_extent.c    | 20 ++++++++++----------
- fs/ext4/namei.c          | 10 +++++-----
- fs/ext4/orphan.c         | 16 ++++++++--------
- fs/ext4/page-io.c        | 10 +++++-----
- fs/ext4/super.c          | 22 +++++++++++-----------
- fs/ext4/xattr.c          | 10 +++++-----
- 17 files changed, 95 insertions(+), 95 deletions(-)
+ fs/nfs/dir.c                           | 20 ++++++++++----------
+ fs/nfs/file.c                          |  8 ++++----
+ fs/nfs/filelayout/filelayout.c         |  8 ++++----
+ fs/nfs/flexfilelayout/flexfilelayout.c |  8 ++++----
+ fs/nfs/inode.c                         |  6 +++---
+ fs/nfs/nfs4proc.c                      |  4 ++--
+ fs/nfs/pnfs.c                          | 12 ++++++------
+ 7 files changed, 33 insertions(+), 33 deletions(-)
 
-diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
-index 785d482b0ff01686ed420508e826eb8d2745aa92..17edd678fa87b8f024232081888c4054d42a7bd9 100644
---- a/fs/ext4/dir.c
-+++ b/fs/ext4/dir.c
-@@ -535,7 +535,7 @@ static int call_filldir(struct file *file, struct dir_context *ctx,
- 	struct super_block *sb = inode->i_sb;
- 
- 	if (!fname) {
--		ext4_msg(sb, KERN_ERR, "%s:%d: inode #%" PRIino "u: comm %s: "
-+		ext4_msg(sb, KERN_ERR, "%s:%d: inode #%llu: comm %s: "
- 			 "called with null fname?!?", __func__, __LINE__,
- 			 inode->i_ino, current->comm);
- 		return 0;
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index d2bf5f7db5524c50626833a82987f89965ab7f67..85e6c2b543a82e83b777c2cc2f54a6ed53b554f2 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -92,7 +92,7 @@
-  */
- #ifdef CONFIG_EXT4_DEBUG
- #define ext_debug(ino, fmt, ...)					\
--	pr_debug("[%s/%d] EXT4-fs (%s): ino %" PRIino "u: (%s, %d): %s:" fmt,	\
-+	pr_debug("[%s/%d] EXT4-fs (%s): ino %llu: (%s, %d): %s:" fmt,	\
- 		 current->comm, task_pid_nr(current),			\
- 		 ino->i_sb->s_id, ino->i_ino, __FILE__, __LINE__,	\
- 		 __func__, ##__VA_ARGS__)
-@@ -3229,7 +3229,7 @@ extern void __dump_mmp_msg(struct super_block *, struct mmp_struct *mmp,
- extern __printf(7, 8)
- void __ext4_grp_locked_error(const char *, unsigned int,
- 			     struct super_block *, ext4_group_t,
--			     kino_t, ext4_fsblk_t,
-+			     u64, ext4_fsblk_t,
- 			     const char *, ...);
- 
- #define EXT4_ERROR_INODE(inode, fmt, a...) \
-diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 668bb30771fb4fb33e75971b4488359e636d7d1b..042e1555a674149f8d47716f288ca175556b6b45 100644
---- a/fs/ext4/extents.c
-+++ b/fs/ext4/extents.c
-@@ -4603,7 +4603,7 @@ static int ext4_alloc_file_blocks(struct file *file, ext4_lblk_t offset,
- 		}
- 		ret = ext4_map_blocks(handle, inode, &map, flags);
- 		if (ret <= 0) {
--			ext4_debug("inode #%" PRIino "u: block %u: len %u: "
-+			ext4_debug("inode #%llu: block %u: len %u: "
- 				   "ext4_ext_map_blocks returned %d",
- 				   inode->i_ino, map.m_lblk,
- 				   map.m_len, ret);
-@@ -4955,7 +4955,7 @@ int ext4_convert_unwritten_extents_atomic(handle_t *handle, struct inode *inode,
- 		ret = ext4_map_blocks(handle, inode, &map, flags);
- 		if (ret != max_blocks)
- 			ext4_msg(inode->i_sb, KERN_INFO,
--				     "inode #%" PRIino "u: block %u: len %u: "
-+				     "inode #%llu: block %u: len %u: "
- 				     "split block mapping found for atomic write, "
- 				     "ret = %d",
- 				     inode->i_ino, map.m_lblk,
-@@ -4974,7 +4974,7 @@ int ext4_convert_unwritten_extents_atomic(handle_t *handle, struct inode *inode,
- 
- 	if (ret <= 0 || ret2)
- 		ext4_warning(inode->i_sb,
--			     "inode #%" PRIino "u: block %u: len %u: "
-+			     "inode #%llu: block %u: len %u: "
- 			     "returned %d or %d",
- 			     inode->i_ino, map.m_lblk,
- 			     map.m_len, ret, ret2);
-@@ -5031,7 +5031,7 @@ int ext4_convert_unwritten_extents(handle_t *handle, struct inode *inode,
- 				      EXT4_EX_NOCACHE);
- 		if (ret <= 0)
- 			ext4_warning(inode->i_sb,
--				     "inode #%" PRIino "u: block %u: len %u: "
-+				     "inode #%llu: block %u: len %u: "
- 				     "ext4_ext_map_blocks returned %d",
- 				     inode->i_ino, map.m_lblk,
- 				     map.m_len, ret);
-diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
-index 01ab48602798f0cdf6312e8bbe130dc319405bff..6e4a191e821915d2b61646f46304ffab6d531126 100644
---- a/fs/ext4/extents_status.c
-+++ b/fs/ext4/extents_status.c
-@@ -214,7 +214,7 @@ static void ext4_es_print_tree(struct inode *inode)
- 	struct ext4_es_tree *tree;
- 	struct rb_node *node;
- 
--	printk(KERN_DEBUG "status extents for inode %" PRIino "u:", inode->i_ino);
-+	printk(KERN_DEBUG "status extents for inode %llu:", inode->i_ino);
- 	tree = &EXT4_I(inode)->i_es_tree;
- 	node = rb_first(&tree->root);
- 	while (node) {
-@@ -703,7 +703,7 @@ static void ext4_es_insert_extent_ext_check(struct inode *inode,
- 		if (!ext4_es_is_written(es) && !ext4_es_is_unwritten(es)) {
- 			if (in_range(es->es_lblk, ee_block, ee_len)) {
- 				pr_warn("ES insert assertion failed for "
--					"inode: %" PRIino "u we can find an extent "
-+					"inode: %llu we can find an extent "
- 					"at block [%d/%d/%llu/%c], but we "
- 					"want to add a delayed/hole extent "
- 					"[%d/%d/%llu/%x]\n",
-@@ -721,7 +721,7 @@ static void ext4_es_insert_extent_ext_check(struct inode *inode,
- 		 */
- 		if (es->es_lblk < ee_block ||
- 		    ext4_es_pblock(es) != ee_start + es->es_lblk - ee_block) {
--			pr_warn("ES insert assertion failed for inode: %" PRIino "u "
-+			pr_warn("ES insert assertion failed for inode: %llu "
- 				"ex_status [%d/%d/%llu/%c] != "
- 				"es_status [%d/%d/%llu/%c]\n", inode->i_ino,
- 				ee_block, ee_len, ee_start,
-@@ -731,7 +731,7 @@ static void ext4_es_insert_extent_ext_check(struct inode *inode,
- 		}
- 
- 		if (ee_status ^ es_status) {
--			pr_warn("ES insert assertion failed for inode: %" PRIino "u "
-+			pr_warn("ES insert assertion failed for inode: %llu "
- 				"ex_status [%d/%d/%llu/%c] != "
- 				"es_status [%d/%d/%llu/%c]\n", inode->i_ino,
- 				ee_block, ee_len, ee_start,
-@@ -744,7 +744,7 @@ static void ext4_es_insert_extent_ext_check(struct inode *inode,
- 		 * that we don't want to add an written/unwritten extent.
- 		 */
- 		if (!ext4_es_is_delayed(es) && !ext4_es_is_hole(es)) {
--			pr_warn("ES insert assertion failed for inode: %" PRIino "u "
-+			pr_warn("ES insert assertion failed for inode: %llu "
- 				"can't find an extent at block %d but we want "
- 				"to add a written/unwritten extent "
- 				"[%d/%d/%llu/%x]\n", inode->i_ino,
-@@ -779,7 +779,7 @@ static void ext4_es_insert_extent_ind_check(struct inode *inode,
- 			 * We want to add a delayed/hole extent but this
- 			 * block has been allocated.
- 			 */
--			pr_warn("ES insert assertion failed for inode: %" PRIino "u "
-+			pr_warn("ES insert assertion failed for inode: %llu "
- 				"We can find blocks but we want to add a "
- 				"delayed/hole extent [%d/%d/%llu/%x]\n",
- 				inode->i_ino, es->es_lblk, es->es_len,
-@@ -788,13 +788,13 @@ static void ext4_es_insert_extent_ind_check(struct inode *inode,
- 		} else if (ext4_es_is_written(es)) {
- 			if (retval != es->es_len) {
- 				pr_warn("ES insert assertion failed for "
--					"inode: %" PRIino "u retval %d != es_len %d\n",
-+					"inode: %llu retval %d != es_len %d\n",
- 					inode->i_ino, retval, es->es_len);
- 				return;
- 			}
- 			if (map.m_pblk != ext4_es_pblock(es)) {
- 				pr_warn("ES insert assertion failed for "
--					"inode: %" PRIino "u m_pblk %llu != "
-+					"inode: %llu m_pblk %llu != "
- 					"es_pblk %llu\n",
- 					inode->i_ino, map.m_pblk,
- 					ext4_es_pblock(es));
-@@ -809,7 +809,7 @@ static void ext4_es_insert_extent_ind_check(struct inode *inode,
- 		}
- 	} else if (retval == 0) {
- 		if (ext4_es_is_written(es)) {
--			pr_warn("ES insert assertion failed for inode: %" PRIino "u "
-+			pr_warn("ES insert assertion failed for inode: %llu "
- 				"We can't find the block but we want to add "
- 				"a written extent [%d/%d/%llu/%x]\n",
- 				inode->i_ino, es->es_lblk, es->es_len,
-@@ -919,7 +919,7 @@ void ext4_es_insert_extent(struct inode *inode, ext4_lblk_t lblk,
- 	if (EXT4_SB(inode->i_sb)->s_mount_state & EXT4_FC_REPLAY)
- 		return;
- 
--	es_debug("add [%u/%u) %llu %x %d to extent status tree of inode %" PRIino "u\n",
-+	es_debug("add [%u/%u) %llu %x %d to extent status tree of inode %llu\n",
- 		 lblk, len, pblk, status, delalloc_reserve_used, inode->i_ino);
- 
- 	if (!len)
-@@ -1631,7 +1631,7 @@ void ext4_es_remove_extent(struct inode *inode, ext4_lblk_t lblk,
- 	if (EXT4_SB(inode->i_sb)->s_mount_state & EXT4_FC_REPLAY)
- 		return;
- 
--	es_debug("remove [%u/%u) from extent status tree of inode %" PRIino "u\n",
-+	es_debug("remove [%u/%u) from extent status tree of inode %llu\n",
- 		 lblk, len, inode->i_ino);
- 
- 	if (!len)
-@@ -1821,7 +1821,7 @@ int ext4_seq_es_shrinker_info_show(struct seq_file *seq, void *v)
- 	seq_printf(seq, "  %lu shrunk objects\n", es_stats->es_stats_shrunk);
- 	if (inode_cnt)
- 		seq_printf(seq,
--		    "maximum:\n  %" PRIino "u inode (%u objects, %u reclaimable)\n"
-+		    "maximum:\n  %llu inode (%u objects, %u reclaimable)\n"
- 		    "  %llu us max scan time\n",
- 		    max->vfs_inode.i_ino, max->i_es_all_nr, max->i_es_shk_nr,
- 		    div_u64(es_stats->es_stats_max_scan_time, 1000));
-@@ -1998,7 +1998,7 @@ static void ext4_print_pending_tree(struct inode *inode)
- 	struct rb_node *node;
- 	struct pending_reservation *pr;
- 
--	printk(KERN_DEBUG "pending reservations for inode %" PRIino "u:", inode->i_ino);
-+	printk(KERN_DEBUG "pending reservations for inode %llu:", inode->i_ino);
- 	tree = &EXT4_I(inode)->i_pending_tree;
- 	node = rb_first(&tree->root);
- 	while (node) {
-@@ -2214,7 +2214,7 @@ void ext4_es_insert_delayed_extent(struct inode *inode, ext4_lblk_t lblk,
- 	if (EXT4_SB(inode->i_sb)->s_mount_state & EXT4_FC_REPLAY)
- 		return;
- 
--	es_debug("add [%u/%u) delayed to extent status tree of inode %" PRIino "u\n",
-+	es_debug("add [%u/%u) delayed to extent status tree of inode %llu\n",
- 		 lblk, len, inode->i_ino);
- 	if (!len)
- 		return;
-diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
-index 8c6512d4ebcbd377186e4ce1ad5811b626d095db..379fb66dedbcd1c87b960cfe8786601700f797f3 100644
---- a/fs/ext4/fast_commit.c
-+++ b/fs/ext4/fast_commit.c
-@@ -616,7 +616,7 @@ static int __track_range(handle_t *handle, struct inode *inode, void *arg,
- 		(struct __track_range_args *)arg;
- 
- 	if (inode->i_ino < EXT4_FIRST_INO(inode->i_sb)) {
--		ext4_debug("Special inode %" PRIino "u being modified\n", inode->i_ino);
-+		ext4_debug("Special inode %llu being modified\n", inode->i_ino);
- 		return -ECANCELED;
+diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
+index 2402f57c8e7d932c4656a1439f1deff7954e0dc4..e69d34ab42ea30fec939cb9cbec2226967ccbadc 100644
+--- a/fs/nfs/dir.c
++++ b/fs/nfs/dir.c
+@@ -1906,7 +1906,7 @@ static int nfs_weak_revalidate(struct dentry *dentry, unsigned int flags)
  	}
  
-@@ -914,7 +914,7 @@ static int ext4_fc_write_inode_data(struct inode *inode, u32 *crc)
- 	spin_unlock(&ei->i_fc_lock);
+ 	error = nfs_lookup_verify_inode(inode, flags);
+-	dfprintk(LOOKUPCACHE, "NFS: %s: inode %lu is %s\n",
++	dfprintk(LOOKUPCACHE, "NFS: %s: inode %" PRIino "u is %s\n",
+ 			__func__, inode->i_ino, error ? "invalid" : "valid");
+ 	return !error;
+ }
+@@ -2121,7 +2121,7 @@ int nfs_atomic_open(struct inode *dir, struct dentry *dentry,
+ 	/* Expect a negative dentry */
+ 	BUG_ON(d_inode(dentry));
  
- 	cur_lblk_off = old_blk_size;
--	ext4_debug("will try writing %d to %d for inode %" PRIino "u\n",
-+	ext4_debug("will try writing %d to %d for inode %llu\n",
- 		   cur_lblk_off, new_blk_size, inode->i_ino);
+-	dfprintk(VFS, "NFS: atomic_open(%s/%lu), %pd\n",
++	dfprintk(VFS, "NFS: atomic_open(%s/%" PRIino "u), %pd\n",
+ 			dir->i_sb->s_id, dir->i_ino, dentry);
  
- 	while (cur_lblk_off <= new_blk_size) {
-@@ -1792,7 +1792,7 @@ static int ext4_fc_replay_add_range(struct super_block *sb,
+ 	err = nfs_check_flags(open_flags);
+@@ -2404,7 +2404,7 @@ static int nfs_do_create(struct inode *dir, struct dentry *dentry,
  
- 	cur = start;
- 	remaining = len;
--	ext4_debug("ADD_RANGE, lblk %d, pblk %lld, len %d, unwritten %d, inode %" PRIino "u\n",
-+	ext4_debug("ADD_RANGE, lblk %d, pblk %lld, len %d, unwritten %d, inode %llu\n",
- 		  start, start_pblk, len, ext4_ext_is_unwritten(ex),
- 		  inode->i_ino);
+ 	open_flags |= O_CREAT;
  
-@@ -1903,7 +1903,7 @@ ext4_fc_replay_del_range(struct super_block *sb,
- 	if (ret)
- 		goto out;
+-	dfprintk(VFS, "NFS: create(%s/%lu), %pd\n",
++	dfprintk(VFS, "NFS: create(%s/%" PRIino "u), %pd\n",
+ 			dir->i_sb->s_id, dir->i_ino, dentry);
  
--	ext4_debug("DEL_RANGE, inode %" PRIino "u, lblk %d, len %d\n",
-+	ext4_debug("DEL_RANGE, inode %llu, lblk %d, len %d\n",
- 			inode->i_ino, le32_to_cpu(lrange.fc_lblk),
- 			le32_to_cpu(lrange.fc_len));
- 	while (remaining > 0) {
-diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
-index 35899f04a995b2b8b0fad275ad1920467701f54b..628a74b2bbe6232eabbf2562ffd0e350ea37446e 100644
---- a/fs/ext4/ialloc.c
-+++ b/fs/ext4/ialloc.c
-@@ -253,13 +253,13 @@ void ext4_free_inode(handle_t *handle, struct inode *inode)
- 		return;
- 	}
- 	if (icount_read(inode) > 1) {
--		ext4_msg(sb, KERN_ERR, "%s:%d: inode #%" PRIino "u: count=%d",
-+		ext4_msg(sb, KERN_ERR, "%s:%d: inode #%llu: count=%d",
- 			 __func__, __LINE__, inode->i_ino,
- 			 icount_read(inode));
- 		return;
- 	}
- 	if (inode->i_nlink) {
--		ext4_msg(sb, KERN_ERR, "%s:%d: inode #%" PRIino "u: nlink=%d\n",
-+		ext4_msg(sb, KERN_ERR, "%s:%d: inode #%llu: nlink=%d\n",
- 			 __func__, __LINE__, inode->i_ino, inode->i_nlink);
- 		return;
- 	}
-@@ -1275,7 +1275,7 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
- 		 * twice.
- 		 */
- 		err = -EIO;
--		ext4_error(sb, "failed to insert inode %" PRIino "u: doubly allocated?",
-+		ext4_error(sb, "failed to insert inode %llu: doubly allocated?",
- 			   inode->i_ino);
- 		ext4_mark_group_bitmap_corrupted(sb, group,
- 					EXT4_GROUP_INFO_IBITMAP_CORRUPT);
-@@ -1344,7 +1344,7 @@ struct inode *__ext4_new_inode(struct mnt_idmap *idmap,
- 		goto fail_free_drop;
- 	}
+ 	attr.ia_mode = mode;
+@@ -2442,7 +2442,7 @@ nfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct iattr attr;
+ 	int status;
  
--	ext4_debug("allocating inode %" PRIino "u\n", inode->i_ino);
-+	ext4_debug("allocating inode %llu\n", inode->i_ino);
- 	trace_ext4_allocate_inode(inode, dir, mode);
- 	brelse(inode_bitmap_bh);
- 	return ret;
-diff --git a/fs/ext4/indirect.c b/fs/ext4/indirect.c
-index ba53698cef951676f409203fbf76439510a39dbc..5aec759eed7055dbe954c25da0181ebd04bb0be3 100644
---- a/fs/ext4/indirect.c
-+++ b/fs/ext4/indirect.c
-@@ -102,7 +102,7 @@ static int ext4_block_to_path(struct inode *inode,
- 		offsets[n++] = i_block & (ptrs - 1);
- 		final = ptrs;
- 	} else {
--		ext4_warning(inode->i_sb, "block %lu > max in inode %" PRIino "u",
-+		ext4_warning(inode->i_sb, "block %lu > max in inode %llu",
- 			     i_block + direct_blocks +
- 			     indirect_blocks + double_blocks, inode->i_ino);
- 	}
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index fbdad8395f92ef5683a7bd65d683650a0ec04bc3..f846fcb7db2442149776fa2ba45ddc5e0b71245e 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -119,7 +119,7 @@ int ext4_get_max_inline_size(struct inode *inode)
- 	error = ext4_get_inode_loc(inode, &iloc);
- 	if (error) {
- 		ext4_error_inode_err(inode, __func__, __LINE__, 0, -error,
--				     "can't get inode location %" PRIino "u",
-+				     "can't get inode location %llu",
- 				     inode->i_ino);
- 		return 0;
- 	}
-@@ -512,7 +512,7 @@ static int ext4_read_inline_folio(struct inode *inode, struct folio *folio)
- 	BUG_ON(folio->index);
+-	dfprintk(VFS, "NFS: mknod(%s/%lu), %pd\n",
++	dfprintk(VFS, "NFS: mknod(%s/%" PRIino "u), %pd\n",
+ 			dir->i_sb->s_id, dir->i_ino, dentry);
  
- 	if (!EXT4_I(inode)->i_inline_off) {
--		ext4_warning(inode->i_sb, "inode %" PRIino "u doesn't have inline data.",
-+		ext4_warning(inode->i_sb, "inode %llu doesn't have inline data.",
- 			     inode->i_ino);
- 		goto out;
- 	}
-@@ -934,7 +934,7 @@ void ext4_show_inline_dir(struct inode *dir, struct buffer_head *bh,
- 	struct ext4_dir_entry_2 *de = inline_start;
- 	void *dlimit = inline_start + inline_size;
+ 	attr.ia_mode = mode;
+@@ -2469,7 +2469,7 @@ struct dentry *nfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct iattr attr;
+ 	struct dentry *ret;
  
--	trace_printk("inode %" PRIino "u\n", dir->i_ino);
-+	trace_printk("inode %llu\n", dir->i_ino);
- 	offset = 0;
- 	while ((void *)de < dlimit) {
- 		de_len = ext4_rec_len_from_disk(de->rec_len, inline_size);
-@@ -1071,7 +1071,7 @@ static void ext4_restore_inline_data(handle_t *handle, struct inode *inode,
- 	ret = ext4_create_inline_data(handle, inode, inline_size);
- 	if (ret) {
- 		ext4_msg(inode->i_sb, KERN_EMERG,
--			"error restoring inline_data for inode -- potential data loss! (inode %" PRIino "u, error %d)",
-+			"error restoring inline_data for inode -- potential data loss! (inode %llu, error %d)",
- 			inode->i_ino, ret);
- 		return;
- 	}
-@@ -1740,7 +1740,7 @@ bool empty_inline_dir(struct inode *dir, int *has_inline_data)
- 	err = ext4_get_inode_loc(dir, &iloc);
- 	if (err) {
- 		EXT4_ERROR_INODE_ERR(dir, -err,
--				     "error %d getting inode %" PRIino "u block",
-+				     "error %d getting inode %llu block",
- 				     err, dir->i_ino);
- 		return false;
- 	}
-@@ -1755,7 +1755,7 @@ bool empty_inline_dir(struct inode *dir, int *has_inline_data)
- 	de = (struct ext4_dir_entry_2 *)ext4_raw_inode(&iloc)->i_block;
- 	if (!le32_to_cpu(de->inode)) {
- 		ext4_warning(dir->i_sb,
--			     "bad inline directory (dir #%" PRIino "u) - no `..'",
-+			     "bad inline directory (dir #%llu) - no `..'",
- 			     dir->i_ino);
- 		goto out;
- 	}
-@@ -1769,7 +1769,7 @@ bool empty_inline_dir(struct inode *dir, int *has_inline_data)
- 					 iloc.bh, inline_pos,
- 					 inline_size, offset)) {
- 			ext4_warning(dir->i_sb,
--				     "bad inline directory (dir #%" PRIino "u) - "
-+				     "bad inline directory (dir #%llu) - "
- 				     "inode %u, rec_len %u, name_len %d"
- 				     "inline size %d",
- 				     dir->i_ino, le32_to_cpu(de->inode),
-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 1d694672c851dd255f905de3d6260b24295ce30f..d50f31124a784ba6eeb916f9a2f62ec840aee52e 100644
---- a/fs/ext4/inode.c
-+++ b/fs/ext4/inode.c
-@@ -262,7 +262,7 @@ void ext4_evict_inode(struct inode *inode)
- 		err = ext4_truncate(inode);
- 		if (err) {
- 			ext4_error_err(inode->i_sb, -err,
--				       "couldn't truncate inode %" PRIino "u (err %d)",
-+				       "couldn't truncate inode %llu (err %d)",
- 				       inode->i_ino, err);
- 			goto stop_handle;
- 		}
-@@ -342,7 +342,7 @@ void ext4_da_update_reserve_space(struct inode *inode,
- 	spin_lock(&ei->i_block_reservation_lock);
- 	trace_ext4_da_update_reserve_space(inode, used, quota_claim);
- 	if (unlikely(used > ei->i_reserved_data_blocks)) {
--		ext4_warning(inode->i_sb, "%s: ino %" PRIino "u, used %d "
-+		ext4_warning(inode->i_sb, "%s: ino %llu, used %d "
- 			 "with only %d reserved data blocks",
- 			 __func__, inode->i_ino, used,
- 			 ei->i_reserved_data_blocks);
-@@ -475,7 +475,7 @@ static void ext4_map_blocks_es_recheck(handle_t *handle,
- 	if (es_map->m_lblk != map->m_lblk ||
- 	    es_map->m_flags != map->m_flags ||
- 	    es_map->m_pblk != map->m_pblk) {
--		printk("ES cache assertion failed for inode: %" PRIino "u "
-+		printk("ES cache assertion failed for inode: %llu "
- 		       "es_cached ex [%d/%d/%llu/%x] != "
- 		       "found ex [%d/%d/%llu/%x] retval %d flags %x\n",
- 		       inode->i_ino, es_map->m_lblk, es_map->m_len,
-@@ -515,7 +515,7 @@ static int ext4_map_query_blocks_next_in_leaf(handle_t *handle,
- 	if (unlikely(retval != map2.m_len)) {
- 		ext4_warning(inode->i_sb,
- 			     "ES len assertion failed for inode "
--			     "%" PRIino "u: retval %d != map->m_len %d",
-+			     "%llu: retval %d != map->m_len %d",
- 			     inode->i_ino, retval, map2.m_len);
- 		WARN_ON(1);
- 	}
-@@ -563,7 +563,7 @@ int ext4_map_query_blocks(handle_t *handle, struct inode *inode,
- 	if (unlikely(retval != map->m_len)) {
- 		ext4_warning(inode->i_sb,
- 			     "ES len assertion failed for inode "
--			     "%" PRIino "u: retval %d != map->m_len %d",
-+			     "%llu: retval %d != map->m_len %d",
- 			     inode->i_ino, retval, map->m_len);
- 		WARN_ON(1);
- 	}
-@@ -630,7 +630,7 @@ int ext4_map_create_blocks(handle_t *handle, struct inode *inode,
+-	dfprintk(VFS, "NFS: mkdir(%s/%lu), %pd\n",
++	dfprintk(VFS, "NFS: mkdir(%s/%" PRIino "u), %pd\n",
+ 			dir->i_sb->s_id, dir->i_ino, dentry);
  
- 	if (unlikely(retval != map->m_len)) {
- 		ext4_warning(inode->i_sb,
--			     "ES len assertion failed for inode %" PRIino "u: "
-+			     "ES len assertion failed for inode %llu: "
- 			     "retval %d != map->m_len %d",
- 			     inode->i_ino, retval, map->m_len);
- 		WARN_ON(1);
-@@ -937,7 +937,7 @@ int ext4_get_block_unwritten(struct inode *inode, sector_t iblock,
+ 	attr.ia_valid = ATTR_MODE;
+@@ -2507,7 +2507,7 @@ int nfs_rmdir(struct inode *dir, struct dentry *dentry)
  {
- 	int ret = 0;
+ 	int error;
  
--	ext4_debug("ext4_get_block_unwritten: inode %" PRIino "u, create flag %d\n",
-+	ext4_debug("ext4_get_block_unwritten: inode %llu, create flag %d\n",
- 		   inode->i_ino, create);
- 	ret = _ext4_get_block(inode, iblock, bh_result,
- 			       EXT4_GET_BLOCKS_CREATE_UNWRIT_EXT);
-@@ -1659,7 +1659,7 @@ void ext4_da_release_space(struct inode *inode, int to_free)
- 		 * harmless to return without any action.
- 		 */
- 		ext4_warning(inode->i_sb, "ext4_da_release_space: "
--			 "ino %" PRIino "u, to_free %d with only %d reserved "
-+			 "ino %llu, to_free %d with only %d reserved "
- 			 "data blocks", inode->i_ino, to_free,
- 			 ei->i_reserved_data_blocks);
- 		WARN_ON(1);
-@@ -2491,7 +2491,7 @@ static int mpage_map_and_submit_extent(handle_t *handle,
- 			}
- 			ext4_msg(sb, KERN_CRIT,
- 				 "Delayed block allocation failed for "
--				 "inode %" PRIino "u at logical offset %llu with"
-+				 "inode %llu at logical offset %llu with"
- 				 " max blocks %u with error %d",
- 				 inode->i_ino,
- 				 (unsigned long long)map->m_lblk,
-@@ -2535,7 +2535,7 @@ static int mpage_map_and_submit_extent(handle_t *handle,
- 		err2 = ext4_mark_inode_dirty(handle, inode);
- 		if (err2) {
- 			ext4_error_err(inode->i_sb, -err2,
--				       "Failed to mark inode %" PRIino "u dirty",
-+				       "Failed to mark inode %llu dirty",
- 				       inode->i_ino);
- 		}
- 		if (!err)
-@@ -2909,7 +2909,7 @@ static int ext4_do_writepages(struct mpage_da_data *mpd)
- 		if (IS_ERR(handle)) {
- 			ret = PTR_ERR(handle);
- 			ext4_msg(inode->i_sb, KERN_CRIT, "%s: jbd2_start: "
--			       "%ld pages, ino %" PRIino "u; err %d", __func__,
-+			       "%ld pages, ino %llu; err %d", __func__,
- 				wbc->nr_to_write, inode->i_ino, ret);
- 			/* Release allocated io_end */
- 			ext4_put_io_end(mpd->io_submit.io_end);
-diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
-index dcd71f84d9a80f464349e75e4dbbf62757dfeb03..1d0c3d4bdf472715a7070b184fdc7d9bf5885950 100644
---- a/fs/ext4/ioctl.c
-+++ b/fs/ext4/ioctl.c
-@@ -477,7 +477,7 @@ static long swap_inode_boot_loader(struct super_block *sb,
- 	if (err < 0) {
- 		/* No need to update quota information. */
- 		ext4_warning(inode->i_sb,
--			"couldn't mark inode #%" PRIino "u dirty (err %d)",
-+			"couldn't mark inode #%llu dirty (err %d)",
- 			inode->i_ino, err);
- 		/* Revert all changes: */
- 		swap_inode_data(inode, inode_bl);
-@@ -493,7 +493,7 @@ static long swap_inode_boot_loader(struct super_block *sb,
- 	if (err < 0) {
- 		/* No need to update quota information. */
- 		ext4_warning(inode_bl->i_sb,
--			"couldn't mark inode #%" PRIino "u dirty (err %d)",
-+			"couldn't mark inode #%llu dirty (err %d)",
- 			inode_bl->i_ino, err);
- 		goto revert;
- 	}
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index f597135a669a53c05a5fd8f48c02a43ef4f1cdb0..9e8041ac56239e64326343b0adef062611189d6a 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -5628,7 +5628,7 @@ void ext4_discard_preallocations(struct inode *inode)
- 	if (EXT4_SB(sb)->s_mount_state & EXT4_FC_REPLAY)
- 		return;
+-	dfprintk(VFS, "NFS: rmdir(%s/%lu), %pd\n",
++	dfprintk(VFS, "NFS: rmdir(%s/%" PRIino "u), %pd\n",
+ 			dir->i_sb->s_id, dir->i_ino, dentry);
  
--	mb_debug(sb, "discard preallocation for inode %" PRIino "u\n",
-+	mb_debug(sb, "discard preallocation for inode %llu\n",
- 		 inode->i_ino);
- 	trace_ext4_discard_preallocations(inode,
- 			atomic_read(&ei->i_prealloc_active));
-diff --git a/fs/ext4/move_extent.c b/fs/ext4/move_extent.c
-index 89df4e0591055ec3c365bd51995a523e5b4d83d1..ab17c1d3a7b51198c2332e8a1dd44f7a1bff40cf 100644
---- a/fs/ext4/move_extent.c
-+++ b/fs/ext4/move_extent.c
-@@ -420,21 +420,21 @@ static int mext_check_validity(struct inode *orig_inode,
+ 	trace_nfs_rmdir_enter(dir, dentry);
+@@ -2578,7 +2578,7 @@ int nfs_unlink(struct inode *dir, struct dentry *dentry)
+ {
+ 	int error;
  
- 	/* origin and donor should be different inodes */
- 	if (orig_inode == donor_inode) {
--		ext4_debug("ext4 move extent: The argument files should not be same inode [ino:orig %" PRIino "u, donor %" PRIino "u]\n",
-+		ext4_debug("ext4 move extent: The argument files should not be same inode [ino:orig %llu, donor %llu]\n",
- 			   orig_inode->i_ino, donor_inode->i_ino);
- 		return -EINVAL;
- 	}
+-	dfprintk(VFS, "NFS: unlink(%s/%lu, %pd)\n", dir->i_sb->s_id,
++	dfprintk(VFS, "NFS: unlink(%s/%" PRIino "u, %pd)\n", dir->i_sb->s_id,
+ 		dir->i_ino, dentry);
  
- 	/* origin and donor should belone to the same filesystem */
- 	if (orig_inode->i_sb != donor_inode->i_sb) {
--		ext4_debug("ext4 move extent: The argument files should be in same FS [ino:orig %" PRIino "u, donor %" PRIino "u]\n",
-+		ext4_debug("ext4 move extent: The argument files should be in same FS [ino:orig %llu, donor %llu]\n",
- 			   orig_inode->i_ino, donor_inode->i_ino);
- 		return -EINVAL;
- 	}
+ 	trace_nfs_unlink_enter(dir, dentry);
+@@ -2638,7 +2638,7 @@ int nfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 	unsigned int pathlen = strlen(symname);
+ 	int error;
  
- 	/* Regular file check */
- 	if (!S_ISREG(orig_inode->i_mode) || !S_ISREG(donor_inode->i_mode)) {
--		ext4_debug("ext4 move extent: The argument files should be regular file [ino:orig %" PRIino "u, donor %" PRIino "u]\n",
-+		ext4_debug("ext4 move extent: The argument files should be regular file [ino:orig %llu, donor %llu]\n",
- 			   orig_inode->i_ino, donor_inode->i_ino);
- 		return -EINVAL;
- 	}
-@@ -477,26 +477,26 @@ static int mext_check_validity(struct inode *orig_inode,
- 	}
+-	dfprintk(VFS, "NFS: symlink(%s/%lu, %pd, %s)\n", dir->i_sb->s_id,
++	dfprintk(VFS, "NFS: symlink(%s/%" PRIino "u, %pd, %s)\n", dir->i_sb->s_id,
+ 		dir->i_ino, dentry, symname);
  
- 	if (donor_inode->i_mode & (S_ISUID|S_ISGID)) {
--		ext4_debug("ext4 move extent: suid or sgid is set to donor file [ino:orig %" PRIino "u, donor %" PRIino "u]\n",
-+		ext4_debug("ext4 move extent: suid or sgid is set to donor file [ino:orig %llu, donor %llu]\n",
- 			   orig_inode->i_ino, donor_inode->i_ino);
- 		return -EINVAL;
- 	}
+ 	if (pathlen > PAGE_SIZE)
+@@ -2660,7 +2660,7 @@ int nfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 	error = NFS_PROTO(dir)->symlink(dir, dentry, folio, pathlen, &attr);
+ 	trace_nfs_symlink_exit(dir, dentry, error);
+ 	if (error != 0) {
+-		dfprintk(VFS, "NFS: symlink(%s/%lu, %pd, %s) error %d\n",
++		dfprintk(VFS, "NFS: symlink(%s/%" PRIino "u, %pd, %s) error %d\n",
+ 			dir->i_sb->s_id, dir->i_ino,
+ 			dentry, symname, error);
+ 		d_drop(dentry);
+@@ -3414,7 +3414,7 @@ int nfs_permission(struct mnt_idmap *idmap,
+ 	if (!res && (mask & MAY_EXEC))
+ 		res = nfs_execute_ok(inode, mask);
  
- 	if (IS_IMMUTABLE(donor_inode) || IS_APPEND(donor_inode)) {
--		ext4_debug("ext4 move extent: donor should not be immutable or append file [ino:orig %" PRIino "u, donor %" PRIino "u]\n",
-+		ext4_debug("ext4 move extent: donor should not be immutable or append file [ino:orig %llu, donor %llu]\n",
- 			   orig_inode->i_ino, donor_inode->i_ino);
- 		return -EPERM;
- 	}
+-	dfprintk(VFS, "NFS: permission(%s/%lu), mask=0x%x, res=%d\n",
++	dfprintk(VFS, "NFS: permission(%s/%" PRIino "u), mask=0x%x, res=%d\n",
+ 		inode->i_sb->s_id, inode->i_ino, mask, res);
+ 	return res;
+ out_notsup:
+diff --git a/fs/nfs/file.c b/fs/nfs/file.c
+index 5d08b6409c284f1ee78f1c2fa327e447eee1ab69..10ce5261c1660942203794f4a82b8e4b0d98e68e 100644
+--- a/fs/nfs/file.c
++++ b/fs/nfs/file.c
+@@ -391,7 +391,7 @@ static int nfs_write_begin(const struct kiocb *iocb,
  
- 	/* Ext4 move extent does not support swap files */
- 	if (IS_SWAPFILE(orig_inode) || IS_SWAPFILE(donor_inode)) {
--		ext4_debug("ext4 move extent: The argument files should not be swap files [ino:orig %" PRIino "u, donor %" PRIino "u]\n",
-+		ext4_debug("ext4 move extent: The argument files should not be swap files [ino:orig %llu, donor %llu]\n",
- 			   orig_inode->i_ino, donor_inode->i_ino);
- 		return -ETXTBSY;
- 	}
+ 	trace_nfs_write_begin(file_inode(file), pos, len);
  
- 	if (ext4_is_quota_file(orig_inode) || ext4_is_quota_file(donor_inode)) {
--		ext4_debug("ext4 move extent: The argument files should not be quota files [ino:orig %" PRIino "u, donor %" PRIino "u]\n",
-+		ext4_debug("ext4 move extent: The argument files should not be quota files [ino:orig %llu, donor %llu]\n",
- 			   orig_inode->i_ino, donor_inode->i_ino);
- 		return -EOPNOTSUPP;
- 	}
-@@ -523,7 +523,7 @@ static int mext_check_adjust_range(struct inode *orig_inode,
- 	/* Start offset should be same */
- 	if ((orig_start & ~(PAGE_MASK >> orig_inode->i_blkbits)) !=
- 	    (donor_start & ~(PAGE_MASK >> orig_inode->i_blkbits))) {
--		ext4_debug("ext4 move extent: orig and donor's start offsets are not aligned [ino:orig %" PRIino "u, donor %" PRIino "u]\n",
-+		ext4_debug("ext4 move extent: orig and donor's start offsets are not aligned [ino:orig %llu, donor %llu]\n",
- 			   orig_inode->i_ino, donor_inode->i_ino);
- 		return -EINVAL;
- 	}
-@@ -533,7 +533,7 @@ static int mext_check_adjust_range(struct inode *orig_inode,
- 	    (*len > EXT_MAX_BLOCKS) ||
- 	    (donor_start + *len >= EXT_MAX_BLOCKS) ||
- 	    (orig_start + *len >= EXT_MAX_BLOCKS))  {
--		ext4_debug("ext4 move extent: Can't handle over [%u] blocks [ino:orig %" PRIino "u, donor %" PRIino "u]\n",
-+		ext4_debug("ext4 move extent: Can't handle over [%u] blocks [ino:orig %llu, donor %llu]\n",
- 			   EXT_MAX_BLOCKS,
- 			   orig_inode->i_ino, donor_inode->i_ino);
- 		return -EINVAL;
-@@ -550,7 +550,7 @@ static int mext_check_adjust_range(struct inode *orig_inode,
- 	else if (donor_eof < donor_start + *len - 1)
- 		*len = donor_eof - donor_start;
- 	if (!*len) {
--		ext4_debug("ext4 move extent: len should not be 0 [ino:orig %" PRIino "u, donor %" PRIino "u]\n",
-+		ext4_debug("ext4 move extent: len should not be 0 [ino:orig %llu, donor %llu]\n",
- 			   orig_inode->i_ino, donor_inode->i_ino);
- 		return -EINVAL;
- 	}
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index e659897787de1cc7e587af191908408162511db4..503dc9ffd61465686bb1a253bfeee41c0e9acd59 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -144,7 +144,7 @@ static struct buffer_head *__ext4_read_dirblock(struct inode *inode,
- 		bh = ext4_bread(NULL, inode, block, 0);
- 	if (IS_ERR(bh)) {
- 		__ext4_warning(inode->i_sb, func, line,
--			       "inode #%" PRIino "u: lblock %lu: comm %s: "
-+			       "inode #%llu: lblock %lu: comm %s: "
- 			       "error %ld reading directory block",
- 			       inode->i_ino, (unsigned long)block,
- 			       current->comm, PTR_ERR(bh));
-@@ -841,7 +841,7 @@ dx_probe(struct ext4_filename *fname, struct inode *dir,
- 	indirect = root->info.indirect_levels;
- 	if (indirect >= ext4_dir_htree_level(dir->i_sb)) {
- 		ext4_warning(dir->i_sb,
--			     "Directory (ino: %" PRIino "u) htree depth %#06x exceed"
-+			     "Directory (ino: %llu) htree depth %#06x exceed"
- 			     "supported value", dir->i_ino,
- 			     ext4_dir_htree_level(dir->i_sb));
- 		if (ext4_dir_htree_level(dir->i_sb) < EXT4_HTREE_LEVEL) {
-@@ -1793,7 +1793,7 @@ static struct dentry *ext4_lookup(struct inode *dir, struct dentry *dentry, unsi
- 		    (S_ISDIR(inode->i_mode) || S_ISLNK(inode->i_mode)) &&
- 		    !fscrypt_has_permitted_context(dir, inode)) {
- 			ext4_warning(inode->i_sb,
--				     "Inconsistent encryption contexts: %" PRIino "u/%" PRIino "u",
-+				     "Inconsistent encryption contexts: %llu/%llu",
- 				     dir->i_ino, inode->i_ino);
- 			iput(inode);
- 			return ERR_PTR(-EPERM);
-@@ -2227,7 +2227,7 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
- 		csum_size = sizeof(struct ext4_dir_entry_tail);
+-	dfprintk(PAGECACHE, "NFS: write_begin(%pD2(%lu), %u@%lld)\n",
++	dfprintk(PAGECACHE, "NFS: write_begin(%pD2(%" PRIino "u), %u@%lld)\n",
+ 		file, mapping->host->i_ino, len, (long long) pos);
+ 	nfs_truncate_last_folio(mapping, i_size_read(mapping->host), pos);
  
- 	blocksize =  dir->i_sb->s_blocksize;
--	dxtrace(printk(KERN_DEBUG "Creating index: inode %" PRIino "u\n", dir->i_ino));
-+	dxtrace(printk(KERN_DEBUG "Creating index: inode %llu\n", dir->i_ino));
- 	BUFFER_TRACE(bh, "get_write_access");
- 	retval = ext4_journal_get_write_access(handle, dir->i_sb, bh,
- 					       EXT4_JTR_NONE);
-@@ -2523,7 +2523,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
- 			restart = 1;
- 		}
- 		if (add_level && levels == ext4_dir_htree_level(sb)) {
--			ext4_warning(sb, "Directory (ino: %" PRIino "u) index full, "
-+			ext4_warning(sb, "Directory (ino: %llu) index full, "
- 					 "reach max htree level :%d",
- 					 dir->i_ino, levels);
- 			if (ext4_dir_htree_level(sb) < EXT4_HTREE_LEVEL) {
-diff --git a/fs/ext4/orphan.c b/fs/ext4/orphan.c
-index 7082af298f1c648fba8a1aa1141b3c76f4c15e22..64ea4762423386db79e739a2448bf70c12415ef8 100644
---- a/fs/ext4/orphan.c
-+++ b/fs/ext4/orphan.c
-@@ -179,8 +179,8 @@ int ext4_orphan_add(handle_t *handle, struct inode *inode)
- 	} else
- 		brelse(iloc.bh);
+@@ -432,7 +432,7 @@ static int nfs_write_end(const struct kiocb *iocb,
+ 	int status;
  
--	ext4_debug("superblock will point to %" PRIino "u\n", inode->i_ino);
--	ext4_debug("orphan inode %" PRIino "u will point to %d\n",
-+	ext4_debug("superblock will point to %llu\n", inode->i_ino);
-+	ext4_debug("orphan inode %llu will point to %d\n",
- 			inode->i_ino, NEXT_ORPHAN(inode));
- out:
- 	ext4_std_error(sb, err);
-@@ -249,7 +249,7 @@ int ext4_orphan_del(handle_t *handle, struct inode *inode)
- 	}
+ 	trace_nfs_write_end(file_inode(file), pos, len);
+-	dfprintk(PAGECACHE, "NFS: write_end(%pD2(%lu), %u@%lld)\n",
++	dfprintk(PAGECACHE, "NFS: write_end(%pD2(%" PRIino "u), %u@%lld)\n",
+ 		file, mapping->host->i_ino, len, (long long) pos);
  
- 	mutex_lock(&sbi->s_orphan_lock);
--	ext4_debug("remove inode %" PRIino "u from orphan list\n", inode->i_ino);
-+	ext4_debug("remove inode %llu from orphan list\n", inode->i_ino);
+ 	/*
+@@ -557,7 +557,7 @@ static int nfs_launder_folio(struct folio *folio)
+ 	struct inode *inode = folio->mapping->host;
+ 	int ret;
  
- 	prev = ei->i_orphan.prev;
- 	list_del_init(&ei->i_orphan);
-@@ -284,7 +284,7 @@ int ext4_orphan_del(handle_t *handle, struct inode *inode)
- 		struct inode *i_prev =
- 			&list_entry(prev, struct ext4_inode_info, i_orphan)->vfs_inode;
+-	dfprintk(PAGECACHE, "NFS: launder_folio(%ld, %llu)\n",
++	dfprintk(PAGECACHE, "NFS: launder_folio(%" PRIino "u, %llu)\n",
+ 		inode->i_ino, folio_pos(folio));
  
--		ext4_debug("orphan inode %" PRIino "u will point to %u\n",
-+		ext4_debug("orphan inode %llu will point to %u\n",
- 			  i_prev->i_ino, ino_next);
- 		err = ext4_reserve_inode_write(handle, i_prev, &iloc2);
- 		if (err) {
-@@ -328,9 +328,9 @@ static void ext4_process_orphan(struct inode *inode,
- 	if (inode->i_nlink) {
- 		if (test_opt(sb, DEBUG))
- 			ext4_msg(sb, KERN_DEBUG,
--				"%s: truncating inode %" PRIino "u to %lld bytes",
-+				"%s: truncating inode %llu to %lld bytes",
- 				__func__, inode->i_ino, inode->i_size);
--		ext4_debug("truncating inode %" PRIino "u to %lld bytes\n",
-+		ext4_debug("truncating inode %llu to %lld bytes\n",
- 			   inode->i_ino, inode->i_size);
- 		inode_lock(inode);
- 		truncate_inode_pages(inode->i_mapping, inode->i_size);
-@@ -349,9 +349,9 @@ static void ext4_process_orphan(struct inode *inode,
- 	} else {
- 		if (test_opt(sb, DEBUG))
- 			ext4_msg(sb, KERN_DEBUG,
--				"%s: deleting unreferenced inode %" PRIino "u",
-+				"%s: deleting unreferenced inode %llu",
- 				__func__, inode->i_ino);
--		ext4_debug("deleting unreferenced inode %" PRIino "u\n",
-+		ext4_debug("deleting unreferenced inode %llu\n",
- 			   inode->i_ino);
- 		(*nr_orphans)++;
- 	}
-diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
-index 09046cfb58dd52a2fe682560fa09e39e902dd0a2..86011275ad83668d591488fad90959ec04625c55 100644
---- a/fs/ext4/page-io.c
-+++ b/fs/ext4/page-io.c
-@@ -180,7 +180,7 @@ static int ext4_end_io_end(ext4_io_end_t *io_end)
- 	struct super_block *sb = inode->i_sb;
- 	int ret = 0;
+ 	folio_wait_private_2(folio); /* [DEPRECATED] */
+@@ -647,7 +647,7 @@ static vm_fault_t nfs_vm_page_mkwrite(struct vm_fault *vmf)
+ 	struct address_space *mapping;
+ 	struct folio *folio = page_folio(vmf->page);
  
--	ext4_debug("ext4_end_io_nolock: io_end 0x%p from inode %" PRIino "u,list->next 0x%p,"
-+	ext4_debug("ext4_end_io_nolock: io_end 0x%p from inode %llu,list->next 0x%p,"
- 		   "list->prev 0x%p\n",
- 		   io_end, inode->i_ino, io_end->list.next, io_end->list.prev);
+-	dfprintk(PAGECACHE, "NFS: vm_page_mkwrite(%pD2(%lu), offset %lld)\n",
++	dfprintk(PAGECACHE, "NFS: vm_page_mkwrite(%pD2(%" PRIino "u), offset %lld)\n",
+ 		 filp, filp->f_mapping->host->i_ino,
+ 		 (long long)folio_pos(folio));
  
-@@ -204,7 +204,7 @@ static int ext4_end_io_end(ext4_io_end_t *io_end)
- 		ext4_msg(sb, KERN_EMERG,
- 			 "failed to convert unwritten extents to written "
- 			 "extents -- potential data loss!  "
--			 "(inode %" PRIino "u, error %d)", inode->i_ino, ret);
-+			 "(inode %llu, error %d)", inode->i_ino, ret);
- 	}
+diff --git a/fs/nfs/filelayout/filelayout.c b/fs/nfs/filelayout/filelayout.c
+index 90a11afa5d05423bb289c7f2020ef3b82707a79c..390ed5f5f92d025e179a7c07c181a8369b24ab2f 100644
+--- a/fs/nfs/filelayout/filelayout.c
++++ b/fs/nfs/filelayout/filelayout.c
+@@ -241,7 +241,7 @@ filelayout_set_layoutcommit(struct nfs_pgio_header *hdr)
  
- 	ext4_clear_io_unwritten_flag(io_end);
-@@ -221,7 +221,7 @@ static void dump_completed_IO(struct inode *inode, struct list_head *head)
- 	if (list_empty(head))
- 		return;
- 
--	ext4_debug("Dump inode %" PRIino "u completed io list\n", inode->i_ino);
-+	ext4_debug("Dump inode %llu completed io list\n", inode->i_ino);
- 	list_for_each_entry(io_end, head, list) {
- 		cur = &io_end->list;
- 		before = cur->prev;
-@@ -229,7 +229,7 @@ static void dump_completed_IO(struct inode *inode, struct list_head *head)
- 		after = cur->next;
- 		io_end1 = container_of(after, ext4_io_end_t, list);
- 
--		ext4_debug("io 0x%p from inode %" PRIino "u,prev 0x%p,next 0x%p\n",
-+		ext4_debug("io 0x%p from inode %llu,prev 0x%p,next 0x%p\n",
- 			    io_end, inode->i_ino, io_end0, io_end1);
- 	}
- #endif
-@@ -366,7 +366,7 @@ static void ext4_end_bio(struct bio *bio)
- 	if (bio->bi_status) {
- 		struct inode *inode = io_end->inode;
- 
--		ext4_warning(inode->i_sb, "I/O error %d writing to inode %" PRIino "u "
-+		ext4_warning(inode->i_sb, "I/O error %d writing to inode %llu "
- 			     "starting block %llu)",
- 			     bio->bi_status, inode->i_ino,
- 			     (unsigned long long)
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 17463e9cc893cf3158a5a75d64d453956373f149..781c083000c2ea2232846b0827c7d4799d87bd5d 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -848,12 +848,12 @@ void __ext4_error_inode(struct inode *inode, const char *function,
- 		vaf.va = &args;
- 		if (block)
- 			printk(KERN_CRIT "EXT4-fs error (device %s): %s:%d: "
--			       "inode #%" PRIino "u: block %llu: comm %s: %pV\n",
-+			       "inode #%llu: block %llu: comm %s: %pV\n",
- 			       inode->i_sb->s_id, function, line, inode->i_ino,
- 			       block, current->comm, &vaf);
- 		else
- 			printk(KERN_CRIT "EXT4-fs error (device %s): %s:%d: "
--			       "inode #%" PRIino "u: comm %s: %pV\n",
-+			       "inode #%llu: comm %s: %pV\n",
- 			       inode->i_sb->s_id, function, line, inode->i_ino,
- 			       current->comm, &vaf);
- 		va_end(args);
-@@ -888,13 +888,13 @@ void __ext4_error_file(struct file *file, const char *function,
- 		vaf.va = &args;
- 		if (block)
- 			printk(KERN_CRIT
--			       "EXT4-fs error (device %s): %s:%d: inode #%" PRIino "u: "
-+			       "EXT4-fs error (device %s): %s:%d: inode #%llu: "
- 			       "block %llu: comm %s: path %s: %pV\n",
- 			       inode->i_sb->s_id, function, line, inode->i_ino,
- 			       block, current->comm, path, &vaf);
- 		else
- 			printk(KERN_CRIT
--			       "EXT4-fs error (device %s): %s:%d: inode #%" PRIino "u: "
-+			       "EXT4-fs error (device %s): %s:%d: inode #%llu: "
- 			       "comm %s: path %s: %pV\n",
- 			       inode->i_sb->s_id, function, line, inode->i_ino,
- 			       current->comm, path, &vaf);
-@@ -1035,14 +1035,14 @@ void __ext4_warning_inode(const struct inode *inode, const char *function,
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 	printk(KERN_WARNING "EXT4-fs warning (device %s): %s:%d: "
--	       "inode #%" PRIino "u: comm %s: %pV\n", inode->i_sb->s_id,
-+	       "inode #%llu: comm %s: %pV\n", inode->i_sb->s_id,
- 	       function, line, inode->i_ino, current->comm, &vaf);
- 	va_end(args);
+ 	/* Note: if the write is unstable, don't set end_offs until commit */
+ 	pnfs_set_layoutcommit(hdr->inode, hdr->lseg, end_offs);
+-	dprintk("%s inode %lu pls_end_pos %lu\n", __func__, hdr->inode->i_ino,
++	dprintk("%s inode %" PRIino "u pls_end_pos %lu\n", __func__, hdr->inode->i_ino,
+ 		(unsigned long) NFS_I(hdr->inode)->layout->plh_lwb);
  }
  
- void __ext4_grp_locked_error(const char *function, unsigned int line,
- 			     struct super_block *sb, ext4_group_t grp,
--			     kino_t ino, ext4_fsblk_t block,
-+			     u64 ino, ext4_fsblk_t block,
- 			     const char *fmt, ...)
- __releases(bitlock)
- __acquires(bitlock)
-@@ -1061,7 +1061,7 @@ __acquires(bitlock)
- 		printk(KERN_CRIT "EXT4-fs error (device %s): %s:%d: group %u, ",
- 		       sb->s_id, function, line, grp);
- 		if (ino)
--			printk(KERN_CONT "inode %" PRIino "u: ", ino);
-+			printk(KERN_CONT "inode %llu: ", ino);
- 		if (block)
- 			printk(KERN_CONT "block %llu:",
- 			       (unsigned long long) block);
-@@ -1170,7 +1170,7 @@ static void dump_orphan_list(struct super_block *sb, struct ext4_sb_info *sbi)
- 	list_for_each(l, &sbi->s_orphan) {
- 		struct inode *inode = orphan_list_entry(l);
- 		printk(KERN_ERR "  "
--		       "inode %s:%" PRIino "u at %p: mode %o, nlink %d, next %d\n",
-+		       "inode %s:%llu at %p: mode %o, nlink %d, next %d\n",
- 		       inode->i_sb->s_id, inode->i_ino, inode,
- 		       inode->i_mode, inode->i_nlink,
- 		       NEXT_ORPHAN(inode));
-@@ -1446,7 +1446,7 @@ static void ext4_free_in_core_inode(struct inode *inode)
- {
- 	fscrypt_free_inode(inode);
- 	if (!list_empty(&(EXT4_I(inode)->i_fc_list))) {
--		pr_warn("%s: inode %" PRIino "u still in fc list",
-+		pr_warn("%s: inode %llu still in fc list",
+@@ -456,7 +456,7 @@ filelayout_read_pagelist(struct nfs_pgio_header *hdr)
+ 	u32 j, idx;
+ 	struct nfs_fh *fh;
+ 
+-	dprintk("--> %s ino %lu pgbase %u req %zu@%llu\n",
++	dprintk("--> %s ino %" PRIino "u pgbase %u req %zu@%llu\n",
+ 		__func__, hdr->inode->i_ino,
+ 		hdr->args.pgbase, (size_t)hdr->args.count, offset);
+ 
+@@ -514,7 +514,7 @@ filelayout_write_pagelist(struct nfs_pgio_header *hdr, int sync)
+ 	if (IS_ERR(ds_clnt))
+ 		return PNFS_NOT_ATTEMPTED;
+ 
+-	dprintk("%s ino %lu sync %d req %zu@%llu DS: %s cl_count %d\n",
++	dprintk("%s ino %" PRIino "u sync %d req %zu@%llu DS: %s cl_count %d\n",
+ 		__func__, hdr->inode->i_ino, sync, (size_t) hdr->args.count,
+ 		offset, ds->ds_remotestr, refcount_read(&ds->ds_clp->cl_count));
+ 
+@@ -1001,7 +1001,7 @@ static int filelayout_initiate_commit(struct nfs_commit_data *data, int how)
+ 	if (IS_ERR(ds_clnt))
+ 		goto out_err;
+ 
+-	dprintk("%s ino %lu, how %d cl_count %d\n", __func__,
++	dprintk("%s ino %" PRIino "u, how %d cl_count %d\n", __func__,
+ 		data->inode->i_ino, how, refcount_read(&ds->ds_clp->cl_count));
+ 	data->commit_done_cb = filelayout_commit_done_cb;
+ 	refcount_inc(&ds->ds_clp->cl_count);
+diff --git a/fs/nfs/flexfilelayout/flexfilelayout.c b/fs/nfs/flexfilelayout/flexfilelayout.c
+index f67773d52830d2ab4d12dd04caccc2077d4105e0..716ffc14cca8b0f2ab3e06c4297070129b668e9e 100644
+--- a/fs/nfs/flexfilelayout/flexfilelayout.c
++++ b/fs/nfs/flexfilelayout/flexfilelayout.c
+@@ -1631,7 +1631,7 @@ ff_layout_set_layoutcommit(struct inode *inode,
+ 		return;
+ 
+ 	pnfs_set_layoutcommit(inode, lseg, end_offset);
+-	dprintk("%s inode %lu pls_end_pos %llu\n", __func__, inode->i_ino,
++	dprintk("%s inode %" PRIino "u pls_end_pos %llu\n", __func__, inode->i_ino,
+ 		(unsigned long long) NFS_I(inode)->layout->plh_lwb);
+ }
+ 
+@@ -2136,7 +2136,7 @@ ff_layout_read_pagelist(struct nfs_pgio_header *hdr)
+ 	u32 dss_id;
+ 	bool ds_fatal_error = false;
+ 
+-	dprintk("--> %s ino %lu pgbase %u req %zu@%llu\n",
++	dprintk("--> %s ino %" PRIino "u pgbase %u req %zu@%llu\n",
+ 		__func__, hdr->inode->i_ino,
+ 		hdr->args.pgbase, (size_t)hdr->args.count, offset);
+ 
+@@ -2245,7 +2245,7 @@ ff_layout_write_pagelist(struct nfs_pgio_header *hdr, int sync)
+ 
+ 	vers = nfs4_ff_layout_ds_version(mirror, dss_id);
+ 
+-	dprintk("%s ino %lu sync %d req %zu@%llu DS: %s cl_count %d vers %d\n",
++	dprintk("%s ino %" PRIino "u sync %d req %zu@%llu DS: %s cl_count %d vers %d\n",
+ 		__func__, hdr->inode->i_ino, sync, (size_t) hdr->args.count,
+ 		offset, ds->ds_remotestr, refcount_read(&ds->ds_clp->cl_count),
+ 		vers);
+@@ -2336,7 +2336,7 @@ static int ff_layout_initiate_commit(struct nfs_commit_data *data, int how)
+ 
+ 	vers = nfs4_ff_layout_ds_version(mirror, dss_id);
+ 
+-	dprintk("%s ino %lu, how %d cl_count %d vers %d\n", __func__,
++	dprintk("%s ino %" PRIino "u, how %d cl_count %d vers %d\n", __func__,
+ 		data->inode->i_ino, how, refcount_read(&ds->ds_clp->cl_count),
+ 		vers);
+ 	data->commit_done_cb = ff_layout_commit_done_cb;
+diff --git a/fs/nfs/inode.c b/fs/nfs/inode.c
+index 4786343eeee0f874aa1f31ace2f35fdcb83fc7a6..81c2ab599e2f7a93c004219dcc52a5817b894cee 100644
+--- a/fs/nfs/inode.c
++++ b/fs/nfs/inode.c
+@@ -2258,7 +2258,7 @@ static int nfs_update_inode(struct inode *inode, struct nfs_fattr *fattr)
+ 	bool attr_changed = false;
+ 	bool have_delegation;
+ 
+-	dfprintk(VFS, "NFS: %s(%s/%lu fh_crc=0x%08x ct=%d info=0x%llx)\n",
++	dfprintk(VFS, "NFS: %s(%s/%" PRIino "u fh_crc=0x%08x ct=%d info=0x%llx)\n",
+ 			__func__, inode->i_sb->s_id, inode->i_ino,
+ 			nfs_display_fhandle_hash(NFS_FH(inode)),
+ 			icount_read(inode), fattr->valid);
+@@ -2288,7 +2288,7 @@ static int nfs_update_inode(struct inode *inode, struct nfs_fattr *fattr)
+ 		/*
+ 		* Big trouble! The inode has become a different object.
+ 		*/
+-		printk(KERN_DEBUG "NFS: %s: inode %lu mode changed, %07o to %07o\n",
++		printk(KERN_DEBUG "NFS: %s: inode %" PRIino "u mode changed, %07o to %07o\n",
+ 				__func__, inode->i_ino, inode->i_mode, fattr->mode);
+ 		goto out_err;
+ 	}
+@@ -2358,7 +2358,7 @@ static int nfs_update_inode(struct inode *inode, struct nfs_fattr *fattr)
+ 				if (S_ISDIR(inode->i_mode))
+ 					nfs_force_lookup_revalidate(inode);
+ 				attr_changed = true;
+-				dprintk("NFS: change_attr change on server for file %s/%ld\n",
++				dprintk("NFS: change_attr change on server for file %s/%" PRIino "d\n",
+ 						inode->i_sb->s_id,
+ 						inode->i_ino);
+ 			} else if (!have_delegation) {
+diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
+index 91bcf67bd743f72a008a9dcde29207bf7a36c407..f66683a6663e879e9b66de587abe0a6c471b68a0 100644
+--- a/fs/nfs/nfs4proc.c
++++ b/fs/nfs/nfs4proc.c
+@@ -4714,7 +4714,7 @@ static int _nfs4_proc_lookupp(struct inode *inode,
+ 	nfs_fattr_init(fattr);
+ 	nfs4_init_sequence(server->nfs_client, &args.seq_args, &res.seq_res, 0, 0);
+ 
+-	dprintk("NFS call  lookupp ino=0x%lx\n", inode->i_ino);
++	dprintk("NFS call  lookupp ino=0x%" PRIino "x\n", inode->i_ino);
+ 	status = nfs4_do_call_sync(clnt, server, &msg, &args.seq_args,
+ 				   &res.seq_res, task_flags);
+ 	dprintk("NFS reply lookupp: %d\n", status);
+@@ -10019,7 +10019,7 @@ nfs4_proc_layoutcommit(struct nfs4_layoutcommit_data *data, bool sync)
+ 	int status = 0;
+ 
+ 	dprintk("NFS: initiating layoutcommit call. sync %d "
+-		"lbw: %llu inode %lu\n", sync,
++		"lbw: %llu inode %" PRIino "u\n", sync,
+ 		data->args.lastbytewritten,
+ 		data->args.inode->i_ino);
+ 
+diff --git a/fs/nfs/pnfs.c b/fs/nfs/pnfs.c
+index bc13d1e69449ce9bb3ed3ef0bbff06dfab5c60b5..9a335fc06c68e30c27c8b46ad0521026370449da 100644
+--- a/fs/nfs/pnfs.c
++++ b/fs/nfs/pnfs.c
+@@ -891,7 +891,7 @@ pnfs_layout_free_bulk_destroy_list(struct list_head *layout_list,
+ 	while (!list_empty(layout_list)) {
+ 		lo = list_entry(layout_list->next, struct pnfs_layout_hdr,
+ 				plh_bulk_destroy);
+-		dprintk("%s freeing layout for inode %lu\n", __func__,
++		dprintk("%s freeing layout for inode %" PRIino "u\n", __func__,
+ 			lo->plh_inode->i_ino);
+ 		inode = lo->plh_inode;
+ 
+@@ -1440,7 +1440,7 @@ _pnfs_return_layout(struct inode *ino)
+ 	int status = 0;
+ 	bool send, valid_layout;
+ 
+-	dprintk("NFS: %s for inode %lu\n", __func__, ino->i_ino);
++	dprintk("NFS: %s for inode %" PRIino "u\n", __func__, ino->i_ino);
+ 
+ 	spin_lock(&ino->i_lock);
+ 	lo = nfsi->layout;
+@@ -3055,7 +3055,7 @@ pnfs_try_to_write_data(struct nfs_pgio_header *hdr,
+ 
+ 	hdr->mds_ops = call_ops;
+ 
+-	dprintk("%s: Writing ino:%lu %u@%llu (how %d)\n", __func__,
++	dprintk("%s: Writing ino:%" PRIino "u %u@%llu (how %d)\n", __func__,
+ 		inode->i_ino, hdr->args.count, hdr->args.offset, how);
+ 	trypnfs = nfss->pnfs_curr_ld->write_pagelist(hdr, how);
+ 	if (trypnfs != PNFS_NOT_ATTEMPTED)
+@@ -3181,7 +3181,7 @@ pnfs_try_to_read_data(struct nfs_pgio_header *hdr,
+ 
+ 	hdr->mds_ops = call_ops;
+ 
+-	dprintk("%s: Reading ino:%lu %u@%llu\n",
++	dprintk("%s: Reading ino:%" PRIino "u %u@%llu\n",
+ 		__func__, inode->i_ino, hdr->args.count, hdr->args.offset);
+ 
+ 	trypnfs = nfss->pnfs_curr_ld->read_pagelist(hdr);
+@@ -3314,7 +3314,7 @@ pnfs_set_layoutcommit(struct inode *inode, struct pnfs_layout_segment *lseg,
+ 	if (!test_and_set_bit(NFS_INO_LAYOUTCOMMIT, &nfsi->flags)) {
+ 		nfsi->layout->plh_lwb = end_pos;
+ 		mark_as_dirty = true;
+-		dprintk("%s: Set layoutcommit for inode %lu ",
++		dprintk("%s: Set layoutcommit for inode %" PRIino "u ",
  			__func__, inode->i_ino);
- 	}
- 	kmem_cache_free(ext4_inode_cachep, EXT4_I(inode));
-@@ -1456,7 +1456,7 @@ static void ext4_destroy_inode(struct inode *inode)
- {
- 	if (ext4_inode_orphan_tracked(inode)) {
- 		ext4_msg(inode->i_sb, KERN_ERR,
--			 "Inode %" PRIino "u (%p): inode tracked as orphan!",
-+			 "Inode %llu (%p): inode tracked as orphan!",
- 			 inode->i_ino, EXT4_I(inode));
- 		print_hex_dump(KERN_INFO, "", DUMP_PREFIX_ADDRESS, 16, 4,
- 				EXT4_I(inode), sizeof(struct ext4_inode_info),
-@@ -1467,7 +1467,7 @@ static void ext4_destroy_inode(struct inode *inode)
- 	if (!(EXT4_SB(inode->i_sb)->s_mount_state & EXT4_ERROR_FS) &&
- 	    WARN_ON_ONCE(EXT4_I(inode)->i_reserved_data_blocks))
- 		ext4_msg(inode->i_sb, KERN_ERR,
--			 "Inode %" PRIino "u (%p): i_reserved_data_blocks (%u) not cleared!",
-+			 "Inode %llu (%p): i_reserved_data_blocks (%u) not cleared!",
- 			 inode->i_ino, EXT4_I(inode),
- 			 EXT4_I(inode)->i_reserved_data_blocks);
- }
-diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
-index 13d8f5c80b3128e3cf1044e57fd667f47f90ad6d..60aec4712f7fc52a8cc8ce31e4d5bd740a193903 100644
---- a/fs/ext4/xattr.c
-+++ b/fs/ext4/xattr.c
-@@ -64,7 +64,7 @@
+ 	} else if (end_pos > nfsi->layout->plh_lwb)
+ 		nfsi->layout->plh_lwb = end_pos;
+@@ -3363,7 +3363,7 @@ pnfs_layoutcommit_inode(struct inode *inode, bool sync)
+ 	if (!pnfs_layoutcommit_outstanding(inode))
+ 		return 0;
  
- #ifdef EXT4_XATTR_DEBUG
- # define ea_idebug(inode, fmt, ...)					\
--	printk(KERN_DEBUG "inode %s:%" PRIino "u: " fmt "\n",			\
-+	printk(KERN_DEBUG "inode %s:%llu: " fmt "\n",			\
- 	       inode->i_sb->s_id, inode->i_ino, ##__VA_ARGS__)
- # define ea_bdebug(bh, fmt, ...)					\
- 	printk(KERN_DEBUG "block %pg:%lu: " fmt "\n",			\
-@@ -1035,7 +1035,7 @@ static int ext4_xattr_inode_update_ref(handle_t *handle, struct inode *ea_inode,
- 	ref_count = ext4_xattr_inode_get_ref(ea_inode);
- 	if ((ref_count == 0 && ref_change < 0) || (ref_count == U64_MAX && ref_change > 0)) {
- 		ext4_error_inode(ea_inode, __func__, __LINE__, 0,
--			"EA inode %" PRIino "u ref wraparound: ref_count=%lld ref_change=%d",
-+			"EA inode %llu ref wraparound: ref_count=%lld ref_change=%d",
- 			ea_inode->i_ino, ref_count, ref_change);
- 		brelse(iloc.bh);
- 		ret = -EFSCORRUPTED;
-@@ -1046,7 +1046,7 @@ static int ext4_xattr_inode_update_ref(handle_t *handle, struct inode *ea_inode,
+-	dprintk("--> %s inode %lu\n", __func__, inode->i_ino);
++	dprintk("--> %s inode %" PRIino "u\n", __func__, inode->i_ino);
  
- 	if (ref_change > 0) {
- 		if (ref_count == 1) {
--			WARN_ONCE(ea_inode->i_nlink, "EA inode %" PRIino "u i_nlink=%u",
-+			WARN_ONCE(ea_inode->i_nlink, "EA inode %llu i_nlink=%u",
- 				  ea_inode->i_ino, ea_inode->i_nlink);
- 
- 			set_nlink(ea_inode, 1);
-@@ -1055,7 +1055,7 @@ static int ext4_xattr_inode_update_ref(handle_t *handle, struct inode *ea_inode,
- 	} else {
- 		if (ref_count == 0) {
- 			WARN_ONCE(ea_inode->i_nlink != 1,
--				  "EA inode %" PRIino "u i_nlink=%u",
-+				  "EA inode %llu i_nlink=%u",
- 				  ea_inode->i_ino, ea_inode->i_nlink);
- 
- 			clear_nlink(ea_inode);
-@@ -2854,7 +2854,7 @@ int ext4_expand_extra_isize_ea(struct inode *inode, int new_extra_isize,
- 
- cleanup:
- 	if (error && (mnt_count != le16_to_cpu(sbi->s_es->s_mnt_count))) {
--		ext4_warning(inode->i_sb, "Unable to expand inode %" PRIino "u. Delete some EAs or run e2fsck.",
-+		ext4_warning(inode->i_sb, "Unable to expand inode %llu. Delete some EAs or run e2fsck.",
- 			     inode->i_ino);
- 		mnt_count = le16_to_cpu(sbi->s_es->s_mnt_count);
- 	}
+ 	status = -EAGAIN;
+ 	if (test_and_set_bit(NFS_INO_LAYOUTCOMMITTING, &nfsi->flags)) {
 
 -- 
 2.53.0
