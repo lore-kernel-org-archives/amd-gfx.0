@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBE5DEC0464
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33B2DEC0469
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD37910E6B5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4D4710E727;
 	Tue,  3 Mar 2026 09:01:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FekABZ2j";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SpeNrNds";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 182EB10E5BB;
- Mon,  2 Mar 2026 20:30:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5B1610E36C;
+ Mon,  2 Mar 2026 20:40:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 62E4860128;
- Mon,  2 Mar 2026 20:30:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E94FDC19423;
- Mon,  2 Mar 2026 20:30:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 976F141A4B;
+ Mon,  2 Mar 2026 20:40:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6095AC19423;
+ Mon,  2 Mar 2026 20:40:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483446;
- bh=f/fwVVJUhkGYbPGB+Meav4MEfogu90OScL5Qckf7yg4=;
+ s=k20201202; t=1772484020;
+ bh=OF7uSlUo6C4FfGcZ/A/G2ejJXiIFafXdHzMLPEkSHxw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=FekABZ2j/7c/jYvntkWo0mlCTNNHALh4A3PX8BU7nHj+M/PM97wVWXFm5EtSgfXdT
- iWS2Mg3rdFxX/hBo+NysTDs3o8v3Fd0je59H5mhjdID5gzr/OyJb7wt2C1DcmguYAV
- DFa4WoT5Ip8848eB/EIrfX6NsrclAtTL0TwlwUwis7zksfFEoAxNIpqqVDqAdq8WKV
- EKUvIgQfUEqZLoRu3SZopLRBHCi8VhRnkM+6aEJelI5FJqBvHlpT+nEvy+l4NElwRo
- OEs0ukpKA7aqEJbX7P+8qtK6q/X8XgZM0lLyT5EbMhKeYhv89xawRNDO23FRXnB207
- FbDIrbbXuf0uQ==
+ b=SpeNrNdsWmclv+sNLroIWVAK2THmien+wfYWh+QS4w18kIc3IKJD0ZgwlQKglcIfM
+ iNgfMLYWPMYpIhn6uaHUsIDFZ5GDjud0bfH2K+gBBip5kamPtRSWXaclntYbwMtKCG
+ UcgmDgh9J61lpoDFLl9qC7fXnpjJczkjp1hznDeVj3LUaa8adqR4wTHPVXr4RgKFAI
+ W5Ke+6C/JPVQPferAYmluBkd45YRK7YkvcpcPNFLMdpVkiagwGYcpg6X2e6tp1hj+B
+ Lm+PGhhtosj3xSybl+9TvyCmWExeedc6Bd4Kw0LckXNc1diwNacboNH24PznkpF7nG
+ YlQaVTsAe6iKA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:08 -0500
-Subject: [PATCH v2 024/110] coda: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:24:48 -0500
+Subject: [PATCH v2 064/110] lockd: replace PRIino with %llu/%llx format strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-24-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-64-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1417; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=f/fwVVJUhkGYbPGB+Meav4MEfogu90OScL5Qckf7yg4=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH1JNZnTt1N00WLD2F0McaKJ2wk2UepiITW/
- FBPA7YXDc+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9QAKCRAADmhBGVaC
- Fb1GEACzdtDY8MwU++1kXjTBb/K0JgEVOC5FXPix/VzvhakzfWPQGJVdRNL7eO0X9izqtJYmhfp
- TfDcsPYjeLRHcdqAXlkG86NfHOlqwd21oz0KHP3yCO+FyPKEgu6tRNhWHpIeSPuNq0uZaGdGSDA
- guHrRhfJbI5VOW+R27lhpgHW/2dYIYMou/eWxnT4AwUU4WEH+8nM5sTdj81IRcxXmIZy695LRLi
- OMpeFla5+UU4q67up5UA+tr7fyFPoL5+g8oUXTwul8O0l+hjRJXJ8anJGbLMLay4dPPeE5+y6pj
- UpUwwFuxK4Y7P9VjwrejtIY+A33GIL1FOtZFBpoxAWCpuOmw+X90Ts0v/+/uSltfmDjenowseXJ
- 5jNw9USFO8q1C7v+exQpc7MQmNbSRSWGLuOlM+7j3FBekwCoiwIj2L42r6ZD11179o0in0oKGtK
- DDTVz6ROH3APwFZHIdgURyG7KjpvAjppBEEOr1MrzfoVqmacctrHdmpcHRzdTS7FjLQ168KNKVq
- t1ZjWz/l2gf43SlQ7anJmAwT7fT8lydwHpoWcMGr1Fq9vqXbQrvoklK04JTe0MNSNvbbRel5vIl
- R2zDVaDm7uPrvFCCYVDfMBIocl3QM5t844cP3FjjesQF0BcFCoHIeANVPIzxaR47TydoLhnScPj
- Zj+3m3JN/rSDqGA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2478; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=OF7uSlUo6C4FfGcZ/A/G2ejJXiIFafXdHzMLPEkSHxw=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIAbn7eJQi8G8YpuSI449d9QIYS+V4UNgoQk
+ ZRiRrv1kZWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAAAKCRAADmhBGVaC
+ FUWYD/wMLf58W6HxUg0MUydpCPTRvW75D9+kn6Ow79eNh8L1eRRfYift/vG3IruJ+wniCtAGH1y
+ +Z5uZliy4AGEeCxwr1Qc+nfkdzNVysEq+BIaqhBSmC89Twwc/53lNZ2ZbnNetZKa/6I4zLE0HmD
+ k2D+AoBEPPXjQ4BNy/UOHfA1EueNsMPdgb6c9vaaoKgwnFs1FWt87Qu7Hx9pmrr1Vn5Ieqt9mbt
+ nswtXh7uRraIFLWlz6ZdrmGdK4xYdUJ+WVn20ePxzT++rb6Q3CrRPsarm/rIMo0Z3CcU776M5PO
+ 8zL73LVv56Z5QFXcbfMavIKWymGKj2zosjRYWKuhioL1+cD/afym4fh2AVMJtUk4fGeeielmjW0
+ ZoAoz0dnn23eefPrxL0Op11k84ZlOlm/m6AAA5CZv7/hHFfm1Qr3tczELFc2/za8NCmfyrvGkd5
+ VbrI+tmEEtrztSZh1le4rEeEJvNxaDVOnQpPV/Ttu0twm2Nkmk6zZMwgxE/CwIjLS0KuZE1PAY5
+ zLeVdO7pSfTOGBSTUwsihXfMjiDeCJ8Kqz/b1I1mgo/krqdQYCcWVASRr7hDWXLJXwWzmaLcqD6
+ 6PGxG00rMcLsLohfS9cD8pk1ANYeh72a83sUhTfVNP0BavgoJ5btN5phrexyfelGe4OmYYk0w2e
+ X+7/B9mCJIywoiw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,44 +182,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert coda i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
-
-Also correct signed format specifiers to unsigned, since inode
-numbers are unsigned values.
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in lockd with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/coda/dir.c   | 2 +-
- fs/coda/inode.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ fs/lockd/svclock.c | 8 ++++----
+ fs/lockd/svcsubs.c | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/fs/coda/dir.c b/fs/coda/dir.c
-index c64b8cd81568d3a7c0055f139d4b12cfa37399de..b9e1674a8493e5578a04e4f8165ba30dc3b225b4 100644
---- a/fs/coda/dir.c
-+++ b/fs/coda/dir.c
-@@ -533,7 +533,7 @@ int coda_revalidate_inode(struct inode *inode)
- 		coda_vattr_to_iattr(inode, &attr);
+diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
+index 2ee2c3d6e442e701dab29dafc23da8209306b84f..0b6be8b8aeb1edf85cbb1063763a230e70c64e18 100644
+--- a/fs/lockd/svclock.c
++++ b/fs/lockd/svclock.c
+@@ -487,7 +487,7 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *file,
+ 	int			async_block = 0;
+ 	__be32			ret;
  
- 		if ((old_mode & S_IFMT) != (inode->i_mode & S_IFMT)) {
--			pr_warn("inode %ld, fid %s changed type!\n",
-+			pr_warn("inode %" PRIino "u, fid %s changed type!\n",
- 				inode->i_ino, coda_f2s(&(cii->c_fid)));
- 		}
+-	dprintk("lockd: nlmsvc_lock(%s/%" PRIino "u, ty=%d, pi=%d, %Ld-%Ld, bl=%d)\n",
++	dprintk("lockd: nlmsvc_lock(%s/%llu, ty=%d, pi=%d, %Ld-%Ld, bl=%d)\n",
+ 				inode->i_sb->s_id, inode->i_ino,
+ 				lock->fl.c.flc_type,
+ 				lock->fl.c.flc_pid,
+@@ -617,7 +617,7 @@ nlmsvc_testlock(struct svc_rqst *rqstp, struct nlm_file *file,
+ 	int			mode;
+ 	__be32			ret;
  
-diff --git a/fs/coda/inode.c b/fs/coda/inode.c
-index ad1654f3adf8a6f4d9322d507264472f1703ffd4..964b9558cdb2e622eb9903974a10a6c5e561886e 100644
---- a/fs/coda/inode.c
-+++ b/fs/coda/inode.c
-@@ -257,7 +257,7 @@ static int coda_fill_super(struct super_block *sb, struct fs_context *fc)
- 		goto error;
- 	} 
+-	dprintk("lockd: nlmsvc_testlock(%s/%" PRIino "u, ty=%d, %Ld-%Ld)\n",
++	dprintk("lockd: nlmsvc_testlock(%s/%llu, ty=%d, %Ld-%Ld)\n",
+ 				nlmsvc_file_inode(file)->i_sb->s_id,
+ 				nlmsvc_file_inode(file)->i_ino,
+ 				lock->fl.c.flc_type,
+@@ -676,7 +676,7 @@ nlmsvc_unlock(struct net *net, struct nlm_file *file, struct nlm_lock *lock)
+ {
+ 	int	error = 0;
  
--	pr_info("%s: rootinode is %ld dev %s\n",
-+	pr_info("%s: rootinode is %" PRIino "u dev %s\n",
- 		__func__, root->i_ino, root->i_sb->s_id);
- 	sb->s_root = d_make_root(root);
- 	if (!sb->s_root) {
+-	dprintk("lockd: nlmsvc_unlock(%s/%" PRIino "u, pi=%d, %Ld-%Ld)\n",
++	dprintk("lockd: nlmsvc_unlock(%s/%llu, pi=%d, %Ld-%Ld)\n",
+ 				nlmsvc_file_inode(file)->i_sb->s_id,
+ 				nlmsvc_file_inode(file)->i_ino,
+ 				lock->fl.c.flc_pid,
+@@ -716,7 +716,7 @@ nlmsvc_cancel_blocked(struct net *net, struct nlm_file *file, struct nlm_lock *l
+ 	int status = 0;
+ 	int mode;
+ 
+-	dprintk("lockd: nlmsvc_cancel(%s/%" PRIino "u, pi=%d, %Ld-%Ld)\n",
++	dprintk("lockd: nlmsvc_cancel(%s/%llu, pi=%d, %Ld-%Ld)\n",
+ 				nlmsvc_file_inode(file)->i_sb->s_id,
+ 				nlmsvc_file_inode(file)->i_ino,
+ 				lock->fl.c.flc_pid,
+diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
+index 5e7b2a7967bd23365dae2817a0e11c50e4be7c83..79f3dd2fd3666d835161a54a6b3d2b69e7741dd5 100644
+--- a/fs/lockd/svcsubs.c
++++ b/fs/lockd/svcsubs.c
+@@ -47,7 +47,7 @@ static inline void nlm_debug_print_file(char *msg, struct nlm_file *file)
+ {
+ 	struct inode *inode = nlmsvc_file_inode(file);
+ 
+-	dprintk("lockd: %s %s/%" PRIino "u\n",
++	dprintk("lockd: %s %s/%llu\n",
+ 		msg, inode->i_sb->s_id, inode->i_ino);
+ }
+ #else
 
 -- 
 2.53.0
