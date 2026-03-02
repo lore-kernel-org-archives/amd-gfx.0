@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D065EC0462
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9207AEC0470
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59E0610E741;
-	Tue,  3 Mar 2026 09:01:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B95E10E778;
+	Tue,  3 Mar 2026 09:01:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mn1jDEeI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wl3ZbsRo";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 821BF10E5BD;
- Mon,  2 Mar 2026 20:31:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED6010E5BD;
+ Mon,  2 Mar 2026 20:42:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 52D5E4165E;
- Mon,  2 Mar 2026 20:31:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A54C2BCB3;
- Mon,  2 Mar 2026 20:31:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8DB1C6014B;
+ Mon,  2 Mar 2026 20:42:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16308C2BCB5;
+ Mon,  2 Mar 2026 20:42:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483489;
- bh=EUtvhtP85AhwBvScrYqnCppGsNhvVgwIar2mU46rYXU=;
+ s=k20201202; t=1772484135;
+ bh=IP0YnTMmc9wTva3If3PO5tp5gSAQtRQKE7/wVmuSLLQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Mn1jDEeIHTNuH8npwJ6PAZMEY5mnygPSTBG2na8sq7yRuo3NkZggb4wUeRpbvnRpB
- OkZY4VEEf4TdERI2nnBdDbCfdyXMwGs2FomhvBC6xygk2qGLXjXjj5k4URDOEViHrJ
- 5vWB73Clu4powjSrewHesTWAuzpk7k1tqRCTWZcTlwkfdHf6UffBReM2ugKG+iG1wc
- 0AUvUfpKIzMO7jxzftrwjQzFtEdGc7hJLgflIbyg49ZpR47fcypQD8i0YatnVbnSkC
- GzWghdAE0Cg65NiYq1VOtsK01J9C7d5sAnZkafhZS8K749Z/cW0PshXIffzCpc6Rz6
- cUxop/qZ+TYwg==
+ b=Wl3ZbsRoM5ck011FqVwHfbEfS01iBSt7CO7RtdGO2+yf/iDB2k9mXVzwvuvKP/RbD
+ 65Za+ri9YFWQ5n+Nlk1Wk074vKzdzOCFYNCzlkd21sNnsb9tWMCKP5xWyPi0akAEoX
+ o8vGIzAlgR3myF5DydGb01m6Bts6T5I1OmvPM+sB/HUWFmb5Au6VHF6sfXzcJ7lu55
+ /ORzjazWm2jO7eZ62N58RLj1sfGSe56gMsLUSkLeg5Nm0KWw61Ko7QZfKeY1fUiKPZ
+ m4mgbOnkPSJQIq4/Po68uALqmPh6s9gjo2eifqr8K+IJf3LM9tiwQ6YK3mHRZMPdwA
+ A9FBcg8AxIJ4g==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:11 -0500
-Subject: [PATCH v2 027/110] efs: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:24:56 -0500
+Subject: [PATCH v2 072/110] autofs: replace PRIino with %llu/%llx format
+ strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-27-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-72-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +152,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1592; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=EUtvhtP85AhwBvScrYqnCppGsNhvVgwIar2mU46rYXU=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH2Wb+txQs3hUYjnTffsfzpJlLE1nFakCE6h
- FGp+U/n2/uJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9gAKCRAADmhBGVaC
- FRQvEADQeW8jCH/RGruXnEY9hdq+SS533KeGGxnNJUZbN/kso8RPKVZtPoOVxAHIgXdD2iOlpvP
- gGyroUgmaHH/E+sI42ij0kNnaUn66OM1IViP6Qpl3Uw0Wjgx1VqiLu+OL6qXw4aKHREVYcNoGkg
- P5DdBdkJhU1SmHATBT6CccY4S4kG8s/BVT9Wnzk6e75j9vIhlkuJxuJe+mzKSV4iGprhIgDhA0e
- ZvVCc5wO5GN2EZKMqcwzhrcoOJiNqS/Nt7uz7/C6WREVEwuQjsjWsiCU+r7nLc57++5xAKCxBUL
- nZSHQVFXIXNFbrU7Pk7kD62JOjj/CBU/q4JrFEr0hYP+vLHTSqNll0HC6AEQdp5lGrtMLUTSUZs
- fyWsPziK0k/sb45uMjPIiG6RMzHEcuvgEnwNYpr9V+/AS0HXYaOUB1yMPZCqzrpzt625+1wH82m
- XeGgtH/X/jtfbUUtJwO6AwvrEsv6mMq4XWJlNteJTQAWU+xXKdg03LAOhonGMbYmDnTjWQSbGFE
- HMFiTkUY5wT7QqfZvbxO9nNKh+BF1X3rypPAN8CunLYNfW9CtO/fKzCbrLEPPh3+yXI0QMILGoY
- 71lGdDmo/RqE9fZxU0hqghAJe2Um8QPCiu/jqbIXeZuAUIpyCl9hDpFREd9+3ljAYpqeTxU6jIP
- 0qvVrWu34KEe/Ow==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=842; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=IP0YnTMmc9wTva3If3PO5tp5gSAQtRQKE7/wVmuSLLQ=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfICNF/UZGT1Q3WO+utk0heRN7L1CmCvfRQAt
+ Ye2Y505rTaJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAgAKCRAADmhBGVaC
+ FVRFD/4z4mQKsRgosXPgDFBMNhvKIbWjzUs5k/gAI5tx8dkoA5mKp/zvjH3Dt2E4vhNtVCyeD+f
+ R4PBRwI/UFSnuWBQrVkXONs3F8uICDg3NSYei4nj027qe1ZLsVO/E4tOQAy6rnQEWJWDUq6rsxR
+ 97XAGNxBs3rOnV4iROyGI+PgGB8NlrxvVf9ONpkI6xznfQF8iOIbNrUAqeWBjJTpPPqufbD08p7
+ vsxtNlCWUSHeITywpYQGDGFw+Epe0wA95dAVoDgL9RxabwElp1P/LXrlMWfj+wTeuK1gV9lcNub
+ Rd7uaF8S3/rPiJCFX2goqPu3aribuI+jJjx8MZonjphgqEi487jUtl77GLFrfpLYqyrNx/yMR5S
+ OKsZNFhkkQSJRs0NZ+gKOrCOiWQl5wbATtkHug0yAOgtiZwkKrg0Ck990Q0Ci4Rlu/f7miB6RJ7
+ QJoO5FfKdgefLuOoNUzsWsasFdU99HjRlujO7yy6reAUVyphx6tQeBjjDObagO8eGWNjFXlykwz
+ MpugOnr1x6JFiDryK9TRsIUxDqdv0mFR33J1Z2F8quwVrL3ipqMVzoGJ/k7Beg/mRFBRgcppyja
+ 1py86RJKbv3x0AAAj0bS4JhXpmA9r/X9IWiGP/+q38ddzXhYcT/qsiUTzA3T5f2RrCL8WK3hU9h
+ vM+412QReJseiwQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,45 +183,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert efs i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in autofs with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/efs/inode.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ fs/autofs/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/efs/inode.c b/fs/efs/inode.c
-index 28407578f83ad5db1b8a7b082fa3e990b6b442ec..a21a03f7e5790aed95738b1a0c0f1edcc84848e8 100644
---- a/fs/efs/inode.c
-+++ b/fs/efs/inode.c
-@@ -132,7 +132,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
- 	for(i = 0; i < EFS_DIRECTEXTENTS; i++) {
- 		extent_copy(&(efs_inode->di_u.di_extents[i]), &(in->extents[i]));
- 		if (i < in->numextents && in->extents[i].cooked.ex_magic != 0) {
--			pr_warn("extent %d has bad magic number in inode %lu\n",
-+			pr_warn("extent %d has bad magic number in inode %" PRIino "u\n",
- 				i, inode->i_ino);
- 			brelse(bh);
- 			goto read_inode_error;
-@@ -140,7 +140,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
- 	}
- 
- 	brelse(bh);
--	pr_debug("efs_iget(): inode %lu, extents %d, mode %o\n",
-+	pr_debug("efs_iget(): inode %" PRIino "u, extents %d, mode %o\n",
- 		 inode->i_ino, in->numextents, inode->i_mode);
- 	switch (inode->i_mode & S_IFMT) {
- 		case S_IFDIR: 
-@@ -171,7 +171,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
- 	return inode;
-         
- read_inode_error:
--	pr_warn("failed to read inode %lu\n", inode->i_ino);
-+	pr_warn("failed to read inode %" PRIino "u\n", inode->i_ino);
- 	iget_failed(inode);
- 	return ERR_PTR(-EIO);
- }
+diff --git a/fs/autofs/inode.c b/fs/autofs/inode.c
+index ef3444d57f6ee15767f744a5ecda020c247095d7..c1e210cec436928b80ac21af4713598bbfe04b11 100644
+--- a/fs/autofs/inode.c
++++ b/fs/autofs/inode.c
+@@ -92,7 +92,7 @@ static int autofs_show_options(struct seq_file *m, struct dentry *root)
+ 		seq_puts(m, ",ignore");
+ #ifdef CONFIG_CHECKPOINT_RESTORE
+ 	if (sbi->pipe)
+-		seq_printf(m, ",pipe_ino=%" PRIino "u", file_inode(sbi->pipe)->i_ino);
++		seq_printf(m, ",pipe_ino=%llu", file_inode(sbi->pipe)->i_ino);
+ 	else
+ 		seq_puts(m, ",pipe_ino=-1");
+ #endif
 
 -- 
 2.53.0
