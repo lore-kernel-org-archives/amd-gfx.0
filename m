@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B51B5EC047A
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9456FEC046B
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8332910E70C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1D0610E730;
 	Tue,  3 Mar 2026 09:01:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tWGaH2eI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XuSlDM4w";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BDD310E5BD;
- Mon,  2 Mar 2026 20:39:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE02A10E5BD;
+ Mon,  2 Mar 2026 20:38:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4E2CA43A76;
- Mon,  2 Mar 2026 20:39:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1720FC2BC9E;
- Mon,  2 Mar 2026 20:39:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0D4466013F;
+ Mon,  2 Mar 2026 20:38:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DA41C19423;
+ Mon,  2 Mar 2026 20:38:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483963;
- bh=m5qXv8LzTjrrHawpXG4FjY1bAed0fpNbFRdYn+t2iRc=;
+ s=k20201202; t=1772483905;
+ bh=KNPTuBj6JODO+UF3sDdvTtrB3bvqvQCLfGB8wqrZcAY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=tWGaH2eIcCtGq0rj5uXX9kFap7NkcKiDhEc10PxrY8ua/QCr9LbkB3Sb8J6gOA5Dq
- dO87Cz7Vne8kcK5oUGLznzZ6+roGhrkPGv6EMOeBwhlJXNCXfzB1dIe+jt05hLfts5
- h56xMnhkZ/tt3ulE6x9GDMS/D+zAOKhV6LMo2SXyD1pO+aCyJRZWsU991uJKSoZuYa
- zzw+Vm4VqQAipdWITuMMIITaAYNjGaEd3YWaHeRsvi5qHCFOumortMStpiruRHJTib
- V+DAun1eGMXdM+R62dFYPRbH3sIjSUUi9NTfRFIFhbL8xUM1O9+S9o9Jpv2xJ7OsAm
- blcxJcmsMD34g==
+ b=XuSlDM4wnU6cCPWdfuQZzSfcOelvABCzcEfM4ltWJtLByYlM/VIi3u3EaI5qzsKOT
+ 4jrMfpB6c0ng91tIt3cPdC3iLZ53e873UGXYhat7jDAN6GLHavNRzlaqJF1gwzm2GN
+ FQ/YiWekPqxQZX+yPaaOtbjUSrFW8AH1xpabdAVbKUOUV6DDviSjRujv26q9zV1Cn8
+ dCr23XYgJQi1XIIqArL6faVhwzfAPni67NNWXsiTcqAUbx3Xit7MK+wf6cA4nUNumh
+ tJC70xaUqYDALBwWMnqCM3orLjKibsBBhPMYvB0vueqT1AwvT3vnLlzLK/yMc6eR9A
+ vWejBDQ5F32AA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:44 -0500
-Subject: [PATCH v2 060/110] vfs: change kino_t from unsigned long to u64
+Date: Mon, 02 Mar 2026 15:24:40 -0500
+Subject: [PATCH v2 056/110] fsverity: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-60-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-56-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1545; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=m5qXv8LzTjrrHawpXG4FjY1bAed0fpNbFRdYn+t2iRc=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH/CelvtxYkmubgwQL93hbaaeF/Lcipca1TD
- nmG1ZIz+3WJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/wAKCRAADmhBGVaC
- FcekD/40SfgYN98/I/iKb83ETfOTpXWW+m/XTvqQjbiYJ0yb9cGecrukv9U+LuSoCRp2F8qjaEG
- KwSKcoNeD3bLi8YRSx0Jo55zpvV+0GEF5pYMsLyuz2mgss7nYEHu7KNvJeInMOxwowpPdPqRNu7
- Ppq1dp/1AM3AymC/FXqtq2Tv8HTmfQeqCuOp/6YYnMJFIJhWoBAfvpsQTSWM9HY1SuWEDoQbE5N
- 2LEftI8/pUeKAX167/iekCZsEzvYlRky3lNIuB0wQIW1djQpCAugeGhsaFp9AZWL3zSj87xiuO9
- UNszqAcxPs1LyIDZmw2MRd9bSJ3IQhQpaI+4Dukg4Nd17YjfU1riCW2fCSYtV8+JCExOFPFNCxZ
- fHlcLe24YBWqG/j0FJfWiYPh0puc/2EhgeruwgUAW3dNz41A7H5gyNzLLTk/G1j0lt1DHq91uHg
- TbL0yQHkqQ2yZgnf9niLxrsdMDgb4kc9TeNtWlwf12yQAsLX2pvxob+xrImW9RxTi+fTWwlIxqF
- e2aTVNNTvEQe/FfANNViNtWa2//y7pcFg2ozKI7hHopJ7lhDIrFuzmUePxlgKpPeyxWO9eZGLCb
- 9/qek6yqPKgzxPKPxMFaxLl8qKdTUtBKAWaADTleXG3rC4d+u1Wt4aN50RoaFgA/UKqBF1BWrAW
- 881Y6dqAC+vEbnA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=820; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=KNPTuBj6JODO+UF3sDdvTtrB3bvqvQCLfGB8wqrZcAY=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH+Gi5aMv1hqlu7WIpcniOaGSe4LY3o19SOE
+ gzV5OhOq76JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/gAKCRAADmhBGVaC
+ FeKGEADStbHNuE8fe2Clpi4JmXKZc//qA9cmXQXztEHJVGe533GHokIOnjmdvSvJjvyXs+kKuA+
+ ZuRJFOK02dmFOOjFCMw7nWz9HzRwL933c+U570XCbYSygaDvQfXThR6hk7tZ00Ay4dkOocJALoB
+ c6zWW+OLA9ZeVBEApwnV2taISeIN+eiVINwtrUe1Av5i3Mesi1It/0AUOYqOMaXc+QemaoCJ68G
+ kMDfEA58hENR1B/9DArlzNyZ1lWTfAMgv42hqIyZNrCUjS9TQhrEkJTU+LXELV6rB2vSai2Tioj
+ ZDp7SR/v2Jyi3NdGWbZQbULd5Hy7j8SkimdodHT0NprVYVG9JuMH5Us5W5DpNvzcOxzYFYeUqTa
+ JKvLR3O5IXiIqNRXfGV/MJIAPtewN827vUYcsMM2iZZuionSzwS3TN8pqekevc5E8XkPnp2vMjA
+ y31e+0KXzxHoXgXvlXBiEyrdRw7FldZUw0KFabsht7k1pRYM9eLUogbfTJkWJ+wlKGdtpqps19t
+ upjs3+aQoNZQu7LmYct2y8b56/1d5nyr6rhXs4fKGHyWlQFi9rGRYaN+SzlFtgYuYkZXIdrJWaJ
+ JltXmqf6WJ/xuxd1GCg8/D7IOX8zpb4mpUB37ETNBLGFeA+fXCiV+MlMI+hhqO/aZpLh1T9QqlV
+ 7mzbtG0PlwC9oEw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,45 +182,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Change kino_t from unsigned long to u64, and update PRIino from "l"
-to "ll" accordingly. This is the actual type widening of i_ino.
-
-All format strings have already been converted to use PRIino, so this
-change compiles warning-free on both 32-bit and 64-bit architectures.
-
-On 64-bit architectures, unsigned long is already 64 bits, so this is
-effectively a type alias change with no runtime impact. On 32-bit
-architectures, this widens i_ino from 32 to 64 bits, allowing
-filesystems like NFS, CIFS, XFS, Ceph, and FUSE to store their native
-64-bit inode numbers without folding/hashing.
-
-The VFS already handles 64-bit inode numbers in kstat.ino (u64) and
-statx.stx_ino (__u64). The existing overflow checks in cp_new_stat(),
-cp_old_stat(), and cp_compat_stat() handle narrowing to 32-bit st_ino
-with -EOVERFLOW, so userspace ABI is preserved.
-
-struct inode will grow by 4 bytes on 32-bit architectures.
+Convert fsverity i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- include/linux/fs.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/verity/init.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index d0c4789838b5852111583a3e4cced88999496e68..4193817e02e8bf94f29514ca43379af21f37ac61 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -758,8 +758,8 @@ struct inode_state_flags {
- 	enum inode_state_flags_enum __state;
- };
- 
--typedef unsigned long	kino_t;
--#define PRIino		"l"
-+typedef u64		kino_t;
-+#define PRIino		"ll"
- 
- /*
-  * Keep mostly read-only and often accessed (especially for
+diff --git a/fs/verity/init.c b/fs/verity/init.c
+index d6520660858386d3b7d69b20a459dc27d8017a5f..5f6a7b4f0a34aedebfcaffc2be53e00b23976217 100644
+--- a/fs/verity/init.c
++++ b/fs/verity/init.c
+@@ -50,7 +50,7 @@ void fsverity_msg(const struct inode *inode, const char *level,
+ 	vaf.fmt = fmt;
+ 	vaf.va = &args;
+ 	if (inode)
+-		printk("%sfs-verity (%s, inode %lu): %pV\n",
++		printk("%sfs-verity (%s, inode %" PRIino "u): %pV\n",
+ 		       level, inode->i_sb->s_id, inode->i_ino, &vaf);
+ 	else
+ 		printk("%sfs-verity: %pV\n", level, &vaf);
 
 -- 
 2.53.0
