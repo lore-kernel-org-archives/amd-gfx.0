@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6CF7EC0467
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DF4CEC0462
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C08FE10E726;
-	Tue,  3 Mar 2026 09:01:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C57010E72C;
+	Tue,  3 Mar 2026 09:01:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iLDEKABf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fBMBqtar";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E12F610E5BF;
- Mon,  2 Mar 2026 20:31:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D14F10E5BB;
+ Mon,  2 Mar 2026 20:29:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 32B8260134;
- Mon,  2 Mar 2026 20:31:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0E42C2BCB6;
- Mon,  2 Mar 2026 20:31:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AB04660145;
+ Mon,  2 Mar 2026 20:29:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4398CC19425;
+ Mon,  2 Mar 2026 20:29:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483474;
- bh=PQs9e/NOjDYQIdekonxqO2Eg+K5kq8v2IBNAbt6jik8=;
+ s=k20201202; t=1772483359;
+ bh=eZCt7O/cBHS6+jaXbF0bDvdTJVnhNrKq3wa2lAjd6r8=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=iLDEKABfnyEwokacyJc+5tE7MW1eGsXyn1cd8frfJYf03nto7ny+7UcEjBahu9oFR
- w8fNdbnsnvjW9ZKuZO0qPuh/mYfRHsFe6bbm8gndqSI+A2aXRJOnY2wmecb9CiMt/9
- tLwDroyIHJfyFvkxWEcQ9dvfXLeTqYgTEGWwzsS34H0ZAoK+36PRzQS719v2XPDByu
- H+zq6ZrpLXRWhv3VDpEqXHw9icIvmEg1krs90GIoMjV3wzrsnoIjNkL5Oa8qV/8WtZ
- egOWkMJ/rdh2HRuLEAAOqdi0o0N4h4aJAW4/V7v0glZ1E3E8ht1Zm7+2xyCczHE7ej
- FGow+Uq3khl1g==
+ b=fBMBqtart3aD0C9RzMfCHTMFx3kcpZai+WoV3/wlDdnhCRn576Oi01in8ttP89rrE
+ 1jbLEXnH+DHrEGsYmqJiPrBONqu8+W536+wcd7gPdwUXljUJbhXOcQjv3U58cWs1Bw
+ yvA04Z5/1tYmvhR6EIwuN4x6yE4TQ3vij1yl36SwVS+9uAikR3ofEAIaHwhf28yVQI
+ nnWs1kCVddFM1M6h5PvLxCCq1vG4N3N0eg9OcH++fLDnbg2+WgxiVb6DgHnL1XIpBG
+ kmEmtZg4iFg5s/AtPz7mqssjfeXGuS5qEvVqKxEZGY+sy05o1BzDpXrkCWS3pnQ490
+ lHm6Qt5QdCPrA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:10 -0500
-Subject: [PATCH v2 026/110] ecryptfs: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:24:02 -0500
+Subject: [PATCH v2 018/110] afs: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-26-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-18-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2338; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=PQs9e/NOjDYQIdekonxqO2Eg+K5kq8v2IBNAbt6jik8=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH1FkE5dE7Y0NIe63WcPbRR9LyBnUB7GTTws
- DTP377b2LuJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9QAKCRAADmhBGVaC
- FXI6D/9Bg5yw6mYy/IgYsOpeDgG3m4q68wHA5zFH0nMd6cmp+0K1eZLmFTrlctr7OnYwEIwX6RL
- RBJ8cvCZu3r2LsUy5TqsFCNH4FLZ6DOWIYyC+39C4fAzrVNg8t3P/u9MoSoOMlDPSojaa5ETnXP
- mYaPta1+Bm45AZezRf9ZaNedU9dkRbzDCH9/e0bem+J38IleYk1dmJBbf38jkRt22nvPysOBkq4
- /oO7UaW0ln3aGb/OvFHTgcHv2Hd0P2irky9qeLUlr6IMATSCktEOHX0xWddZZo2Oya2effvUFyZ
- b66aM4WclxeSeJQAH03ZP1EcYs22K100luc830HOC87JarOUbsZyDCE9JhxB9hZnNDlPAkCv3QV
- GDVFO+/dBCoSCLW/X2OCPzTIWWn2nnjdg12SbOktg/zn/9xsrpHDlfNGGaQv8eDFBpBuWdsFTVD
- WRvmsQIgiEnJs0gWagNVcG+/qNGaeGVwNVRmz2bKd8UBXaKfK2MknHjGobTfygvHaivSzucjJvH
- LgRe65ISNG+uUDRHs4boc5s7UzorIfLLqdRc3/aTSfEbIBCEsbpsBwELPyO0TfqZR1bDxV73Ib+
- r33cFhr08IaoFvlx0/xR2I+U3kBsUz2zLZzv+p6/aCAuv3qL+ATLBSZ2LCStIkV69+YiY+fUbCG
- IJKDD7vRoDijdWQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3901; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=eZCt7O/cBHS6+jaXbF0bDvdTJVnhNrKq3wa2lAjd6r8=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH0RWX8wpryRk/QgAbjn1Q1ANZbw4V+PFw8A
+ vATQsWHGvyJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9AAKCRAADmhBGVaC
+ FQaAD/9DyJTyKKu/cuTCajh+8TP5xfDXlFmrEcCNSHdEiwWEokDdm2i1zkGOG7X37vO2jK00FQo
+ WjBIS9/SahFHFKYltsILzhUTsyqG2dGgqlMHmmvEsPlH3sY4ceSTCVxr7QPAAXw4qs0Ubk5uk6v
+ 66Ta9GmMoq1EVnQdLiocwj8ezT1Tip7XxRvuesh0eaZ4t7PYnVShZvOq/8pxR5lBdi2x4UawIyY
+ Da9WRPW2K3CENHKIL0mMv6M8duTJvIpXQM+1jTZ/GxO2pPtbYoVrDsdcZbOufwZv+2khcznhGTr
+ asoLO2U26rig19ah9eoWCs8/wlRtvU+8z6/OlVXeeF9rGXbbLuE4iSPpUqP7jxBQfwMuHj5ZCX4
+ EOxwz8pdqTN+NW6Z5baBdvt2ZlIAiut/DYl1I+MiPUYp/UJ2QqGbCm1lZoP/SYCEtNaAzTbIKAJ
+ u11RPrKEnI/046wbiTYxb3VWrNRz9oxghsSipLPEgFccdFxmdm61J1ol2HcWaSxC6rrtcP7Bevq
+ KGc12QzSt8zNfENsH+pM2JNf7XxMK5LTyXT3D4pnmbZsw+aKFwf3r2GmTAt+nCEuWwd050ur19+
+ 4lYSgVxjvBOPBGW+PkSFoOwP1q2Ro8/isBujNxmKasNg0fsW9KA5a9E/0PjiIrziosap53nhDmG
+ NQgJaccyKt30Rqw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,59 +182,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert ecryptfs i_ino format strings to use the PRIino format
+Convert afs i_ino format strings to use the PRIino format
 macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ecryptfs/crypto.c | 6 +++---
- fs/ecryptfs/file.c   | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ fs/afs/dir.c        | 10 +++++-----
+ fs/afs/dir_search.c |  2 +-
+ fs/afs/dynroot.c    |  2 +-
+ fs/afs/inode.c      |  2 +-
+ 4 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
-index 3b59346d68c594fcd7e27bae87849d3e19eff56e..015b2e4ee11cba5b734d1f8fcd851accfa8f0481 100644
---- a/fs/ecryptfs/crypto.c
-+++ b/fs/ecryptfs/crypto.c
-@@ -1313,7 +1313,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 		rc = ecryptfs_read_xattr_region(page_virt, ecryptfs_inode);
- 		if (rc) {
- 			printk(KERN_DEBUG "Valid eCryptfs headers not found in "
--			       "file header region or xattr region, inode %lu\n",
-+			       "file header region or xattr region, inode %" PRIino "u\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 			goto out;
-@@ -1323,7 +1323,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 						ECRYPTFS_DONT_VALIDATE_HEADER_SIZE);
- 		if (rc) {
- 			printk(KERN_DEBUG "Valid eCryptfs headers not found in "
--			       "file xattr region either, inode %lu\n",
-+			       "file xattr region either, inode %" PRIino "u\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 		}
-@@ -1335,7 +1335,7 @@ int ecryptfs_read_metadata(struct dentry *ecryptfs_dentry)
- 			       "crypto metadata only in the extended attribute "
- 			       "region, but eCryptfs was mounted without "
- 			       "xattr support enabled. eCryptfs will not treat "
--			       "this like an encrypted file, inode %lu\n",
-+			       "this like an encrypted file, inode %" PRIino "u\n",
- 				ecryptfs_inode->i_ino);
- 			rc = -EINVAL;
- 		}
-diff --git a/fs/ecryptfs/file.c b/fs/ecryptfs/file.c
-index 7929411837cf5b2e98e1d4288791d2e07c44a4eb..9eff00cfbc46c5fbd599252dcc4434fceafb7223 100644
---- a/fs/ecryptfs/file.c
-+++ b/fs/ecryptfs/file.c
-@@ -253,7 +253,7 @@ static int ecryptfs_open(struct inode *inode, struct file *file)
- 	if (rc)
- 		goto out_put;
- 	ecryptfs_printk(KERN_DEBUG, "inode w/ addr = [0x%p], i_ino = "
--			"[0x%.16lx] size: [0x%.16llx]\n", inode, inode->i_ino,
-+			"[0x%.16" PRIino "x] size: [0x%.16llx]\n", inode, inode->i_ino,
- 			(unsigned long long)i_size_read(inode));
- 	goto out;
- out_put:
+diff --git a/fs/afs/dir.c b/fs/afs/dir.c
+index 78caef3f13388c5f604e4970bc0874de168b57f3..52accf0a8d9d2e4dfdff444080683d5ab16d8e69 100644
+--- a/fs/afs/dir.c
++++ b/fs/afs/dir.c
+@@ -148,7 +148,7 @@ static bool afs_dir_check_block(struct afs_vnode *dvnode, size_t progress,
+ 				union afs_xdr_dir_block *block)
+ {
+ 	if (block->hdr.magic != AFS_DIR_MAGIC) {
+-		pr_warn("%s(%lx): [%zx] bad magic %04x\n",
++		pr_warn("%s(%" PRIino "x): [%zx] bad magic %04x\n",
+ 		       __func__, dvnode->netfs.inode.i_ino,
+ 		       progress, ntohs(block->hdr.magic));
+ 		trace_afs_dir_check_failed(dvnode, progress);
+@@ -214,7 +214,7 @@ static int afs_dir_check(struct afs_vnode *dvnode)
+  */
+ static int afs_dir_open(struct inode *inode, struct file *file)
+ {
+-	_enter("{%lu}", inode->i_ino);
++	_enter("{%" PRIino "u}", inode->i_ino);
+ 
+ 	BUILD_BUG_ON(sizeof(union afs_xdr_dir_block) != 2048);
+ 	BUILD_BUG_ON(sizeof(union afs_xdr_dirent) != 32);
+@@ -523,7 +523,7 @@ static int afs_dir_iterate(struct inode *dir, struct dir_context *ctx,
+ 	int retry_limit = 100;
+ 	int ret;
+ 
+-	_enter("{%lu},%llx,,", dir->i_ino, ctx->pos);
++	_enter("{%" PRIino "u},%llx,,", dir->i_ino, ctx->pos);
+ 
+ 	do {
+ 		if (--retry_limit < 0) {
+@@ -610,7 +610,7 @@ static int afs_do_lookup_one(struct inode *dir, const struct qstr *name,
+ 	};
+ 	int ret;
+ 
+-	_enter("{%lu},{%.*s},", dir->i_ino, name->len, name->name);
++	_enter("{%" PRIino "u},{%.*s},", dir->i_ino, name->len, name->name);
+ 
+ 	/* search the directory */
+ 	ret = afs_dir_iterate(dir, &cookie.ctx, NULL, _dir_version);
+@@ -783,7 +783,7 @@ static struct inode *afs_do_lookup(struct inode *dir, struct dentry *dentry)
+ 	long ret;
+ 	int i;
+ 
+-	_enter("{%lu},%p{%pd},", dir->i_ino, dentry, dentry);
++	_enter("{%" PRIino "u},%p{%pd},", dir->i_ino, dentry, dentry);
+ 
+ 	cookie = kzalloc_obj(struct afs_lookup_cookie);
+ 	if (!cookie)
+diff --git a/fs/afs/dir_search.c b/fs/afs/dir_search.c
+index d2516e55b5edb273677c9cedb6f15524bc56348d..903cefd81f3f2ccbdb28264b5e99151f5a54d1ce 100644
+--- a/fs/afs/dir_search.c
++++ b/fs/afs/dir_search.c
+@@ -194,7 +194,7 @@ int afs_dir_search(struct afs_vnode *dvnode, const struct qstr *name,
+ 	struct afs_dir_iter iter = { .dvnode = dvnode, };
+ 	int ret, retry_limit = 3;
+ 
+-	_enter("{%lu},,,", dvnode->netfs.inode.i_ino);
++	_enter("{%" PRIino "u},,,", dvnode->netfs.inode.i_ino);
+ 
+ 	if (!afs_dir_init_iter(&iter, name))
+ 		return -ENOENT;
+diff --git a/fs/afs/dynroot.c b/fs/afs/dynroot.c
+index aa56e8951e037b2e3fa9fc452b43e7bd2d61b926..448083d79c3d0d2f29934e105f48d617330de8b4 100644
+--- a/fs/afs/dynroot.c
++++ b/fs/afs/dynroot.c
+@@ -59,7 +59,7 @@ static struct inode *afs_iget_pseudo_dir(struct super_block *sb, ino_t ino)
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+-	_debug("GOT INODE %p { ino=%lu, vl=%llx, vn=%llx, u=%x }",
++	_debug("GOT INODE %p { ino=%" PRIino "u, vl=%llx, vn=%llx, u=%x }",
+ 	       inode, inode->i_ino, fid.vid, fid.vnode, fid.unique);
+ 
+ 	vnode = AFS_FS_I(inode);
+diff --git a/fs/afs/inode.c b/fs/afs/inode.c
+index dde1857fcabb302cc6b06cc018fb1e4108ec6284..a0261c2c246a379689cbaa44b7ec456f1a986142 100644
+--- a/fs/afs/inode.c
++++ b/fs/afs/inode.c
+@@ -683,7 +683,7 @@ int afs_getattr(struct mnt_idmap *idmap, const struct path *path,
+ 	struct key *key;
+ 	int ret, seq;
+ 
+-	_enter("{ ino=%lu v=%u }", inode->i_ino, inode->i_generation);
++	_enter("{ ino=%" PRIino "u v=%u }", inode->i_ino, inode->i_generation);
+ 
+ 	if (vnode->volume &&
+ 	    !(query_flags & AT_STATX_DONT_SYNC) &&
 
 -- 
 2.53.0
