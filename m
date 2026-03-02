@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A75E67A9F
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 315DEEC0463
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8104B10E6E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 832D910E6F2;
 	Tue,  3 Mar 2026 09:01:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qfVHOdkd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U64fZHux";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AACD710E5BB;
- Mon,  2 Mar 2026 20:27:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C2B410E36C;
+ Mon,  2 Mar 2026 20:42:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 843C741951;
- Mon,  2 Mar 2026 20:27:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53151C19425;
- Mon,  2 Mar 2026 20:27:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 45670439F6;
+ Mon,  2 Mar 2026 20:42:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14CA9C2BC87;
+ Mon,  2 Mar 2026 20:42:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483244;
- bh=5VB+NzTxyTTbdILrjVS0CXpowNihfbF7KKD2ZGuki60=;
+ s=k20201202; t=1772484178;
+ bh=az5/UfgR48DhHcdtOz5xQudKTVsY7dUyG5/iejsoF3Q=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=qfVHOdkdt02CZl3KdunfN2VVSon3TWufr6tZYTCXdZ0hAm7kh4m0Q5yBErAai6J9Z
- URfmsEUOqNqbdTHs16kR25ycpZz+prweGn8en/42ThckoVrq2k1JsCqa7GRxU3k/t4
- 79f2NED3SU9GeP7S8imZ7XOZxgUhSOgThefzv4gzy5IpRGUV6+dZBWkKvooE9YNn/m
- AaKp1YNGkS4BYgbI4ER5pVJ17dyz87CaA8fSOIqh9a+SxkAwzayLdtj16xCarl2naP
- KPVrSZ15CqavU8DoTC1nQMQaj6L2pFl4fNxOE+Y9XtPyk0Z7tXTQYTFPtJwiGz0ZmN
- nUkUGLjw0woCg==
+ b=U64fZHuxQT3j2g9YM2j7e/vbcbDBvajdnUXKwQIjuM3WFcIX/1QkPqF5sUYX3qHHz
+ Mb4JEexSPcZ+WRvsCPNifVFsOfIy/CB/Z/Glo/3zoEdMwflqDdpFDmrISqab44Dg0k
+ xXkLYaFAC5AyCROU+yxO1j/kVfIKnLHxzCW/grvhs8R6WgbTQJYhsMfGiX511FLGj7
+ G4AsHVkltVKQ3I9t+dgV/Uvo1wOyaHk3xXC3zcnK/CFBb4vsWNY+qK1nFlQBeXjm99
+ 1DAM06ER88Zk2V8P4cduXVwHJgbcmFSUq0hqqz8MmZdSkmBf6enZg5hHpsT1vwSIXL
+ Q8/gXJBezzM+Q==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:23:54 -0500
-Subject: [PATCH v2 010/110] lockd: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:24:59 -0500
+Subject: [PATCH v2 075/110] cachefiles: replace PRIino with %llu/%llx
+ format strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-10-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-75-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +152,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2560; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=5VB+NzTxyTTbdILrjVS0CXpowNihfbF7KKD2ZGuki60=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHxRIp/wSp+XA/WsU2UWjaucC6lZTxvCM0fM
- 48TEkF4WjWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8QAKCRAADmhBGVaC
- FU9tEACzae8Mk5amZ0VIj9ptrSq4/DkARwfOtgg0FBX48Yv+IIco33E1ItoDw1qU/+srG6Qf0cH
- BXm/HrKitguKwL3fUhDn0ABgyXc6+k5cEyyrwpdqkZxoRjqefrGGaHnmb3FQe5OdINNUIlOj8AL
- g+gXOVpRXyt5AYwOVaBkTxCU9xVIIjXPEU8hGDWuHpX8rNeBQi1BOGwVeNZ4Qjg9mHgoe/qH/xh
- 4oBpMBPS+X2Jl0fzF+SD2RgsjHunuxqPKUzyahe10YYm1MCO0fwW9PFq4EhoUh5/Eqa1V+hCX1E
- i4mOPjFxj1KoGOocZcDav2L+VBPFYIHT4uVVni9z/CjdRqBhyoYn1Q1BCeB00WPkGy/H1K6vO6a
- zWDgOjPifip7WDVxoJrxR9LE5pxcVrqaZvKbI9eWWaDZA3mVr8/fZcxKiQdEhh1XX0sB6olH24u
- 8twty75/dEezhiAtIKRFf9lDdDJn/9GnD4iFc4YoiuEKmioZWWs5SaFOeuIK6pzZjrzu5F4TH12
- Y8r+DCaxc9KMimUq1mpiEDStKjW/9zryKoAdyeTmv4JqsIz+V3QyImJJNBWy4iSNoMVFUFedjqv
- lrEpps4nQw71S49uyIOnYI5EiPzurtH1d2zrO+7g/k+IFA0vQu7fNstjjBEGC/4V0ll8PZcagLr
- nFaaUgNOQ51LaIQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3200; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=az5/UfgR48DhHcdtOz5xQudKTVsY7dUyG5/iejsoF3Q=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIDvrM/TGfOFWGOUqzfIyuwAF6e1qhVhF+Yh
+ Qv8S2GtC/mJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAwAKCRAADmhBGVaC
+ FX1hEACqbYeHwrURpMMogt8p9UTcZ6PyKhws+kg8vAResb4l8L4XKPbalHZif6Y08h58t/KgmbN
+ AkeZNtvuSQBICx9k2yue0Kg1DC5VB163feX+p8iHl4d9W61xhIx9hc9MIZSo48OyYobj5dZJmxd
+ saqzyRL+cpFK11qSphNjtHv5QicR5807/BTwqicaoAcc+0wG6Wwww9xIM0EepTkrs/YczUYJthe
+ CFXtU18q3Df2UomQg5hEepZS074QE5VH1iwVIbkLo8aGKHjwI9Qhyaoz0GVV6/T5Kzaj0l+B05c
+ j17C+65SAsnLhabenAbtSuH2PiV/K+GgKI+EVd1UCeFO4Tndlo8CF2lkIbzEr+uccKkSpo83bdW
+ 1IqkMQiNWhkDchA4mi2HgqQkwzX49TTnlMxF0uqpVnSgNpRHcBbuzBK1sMTrd8O3aeQdNTYDTQY
+ 8vvN3iiFDN/D86PtCY1nYl3+mxGdVATt9O9oaUxAi/8s3QI8OK5uXim0mOLMv42sx06Ff63wTCZ
+ Gmz7zDOigm9j99CSyK87xQ0wkrLHj1wnv59TUkj378+ps4zBidsrXd3JPdFWl9EVxhMq0P9irT8
+ CmZSS5ry0AXxlvqeLQoCk7RzUsNUi9i7238avFyp3g91NNOpuEYTCknceTCWgjP5GtOz3vvQVY3
+ JkCvUHLgEBDZ2+A==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,71 +183,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert lockd i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
-
-Also correct signed format specifiers to unsigned, since inode
-numbers are unsigned values.
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in cachefiles with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/lockd/svclock.c | 8 ++++----
- fs/lockd/svcsubs.c | 2 +-
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ fs/cachefiles/namei.c | 12 ++++++------
+ fs/cachefiles/xattr.c |  2 +-
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
-index 255a847ca0b6b9f7ab5a99c3aaa6856044ac0535..2ee2c3d6e442e701dab29dafc23da8209306b84f 100644
---- a/fs/lockd/svclock.c
-+++ b/fs/lockd/svclock.c
-@@ -487,7 +487,7 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *file,
- 	int			async_block = 0;
- 	__be32			ret;
+diff --git a/fs/cachefiles/namei.c b/fs/cachefiles/namei.c
+index ace111f29c6fa006b69a0808764b60a0074db229..4fdf7687aacb8285ae38d9b5d7e5129897b3ca03 100644
+--- a/fs/cachefiles/namei.c
++++ b/fs/cachefiles/namei.c
+@@ -147,7 +147,7 @@ struct dentry *cachefiles_get_directory(struct cachefiles_cache *cache,
+ 		}
+ 		ASSERT(d_backing_inode(subdir));
  
--	dprintk("lockd: nlmsvc_lock(%s/%ld, ty=%d, pi=%d, %Ld-%Ld, bl=%d)\n",
-+	dprintk("lockd: nlmsvc_lock(%s/%" PRIino "u, ty=%d, pi=%d, %Ld-%Ld, bl=%d)\n",
- 				inode->i_sb->s_id, inode->i_ino,
- 				lock->fl.c.flc_type,
- 				lock->fl.c.flc_pid,
-@@ -617,7 +617,7 @@ nlmsvc_testlock(struct svc_rqst *rqstp, struct nlm_file *file,
- 	int			mode;
- 	__be32			ret;
+-		_debug("mkdir -> %pd{ino=%" PRIino "u}",
++		_debug("mkdir -> %pd{ino=%llu}",
+ 		       subdir, d_backing_inode(subdir)->i_ino);
+ 		if (_is_new)
+ 			*_is_new = true;
+@@ -158,7 +158,7 @@ struct dentry *cachefiles_get_directory(struct cachefiles_cache *cache,
+ 	end_creating_keep(subdir);
  
--	dprintk("lockd: nlmsvc_testlock(%s/%ld, ty=%d, %Ld-%Ld)\n",
-+	dprintk("lockd: nlmsvc_testlock(%s/%" PRIino "u, ty=%d, %Ld-%Ld)\n",
- 				nlmsvc_file_inode(file)->i_sb->s_id,
- 				nlmsvc_file_inode(file)->i_ino,
- 				lock->fl.c.flc_type,
-@@ -676,7 +676,7 @@ nlmsvc_unlock(struct net *net, struct nlm_file *file, struct nlm_lock *lock)
- {
- 	int	error = 0;
+ 	if (!__cachefiles_mark_inode_in_use(NULL, d_inode(subdir))) {
+-		pr_notice("cachefiles: Inode already in use: %pd (B=%" PRIino "x)\n",
++		pr_notice("cachefiles: Inode already in use: %pd (B=%llx)\n",
+ 			  subdir, d_inode(subdir)->i_ino);
+ 		goto mark_error;
+ 	}
+@@ -183,7 +183,7 @@ struct dentry *cachefiles_get_directory(struct cachefiles_cache *cache,
+ 	    !d_backing_inode(subdir)->i_op->unlink)
+ 		goto check_error;
  
--	dprintk("lockd: nlmsvc_unlock(%s/%ld, pi=%d, %Ld-%Ld)\n",
-+	dprintk("lockd: nlmsvc_unlock(%s/%" PRIino "u, pi=%d, %Ld-%Ld)\n",
- 				nlmsvc_file_inode(file)->i_sb->s_id,
- 				nlmsvc_file_inode(file)->i_ino,
- 				lock->fl.c.flc_pid,
-@@ -716,7 +716,7 @@ nlmsvc_cancel_blocked(struct net *net, struct nlm_file *file, struct nlm_lock *l
- 	int status = 0;
- 	int mode;
+-	_leave(" = [%" PRIino "u]", d_backing_inode(subdir)->i_ino);
++	_leave(" = [%llu]", d_backing_inode(subdir)->i_ino);
+ 	return subdir;
  
--	dprintk("lockd: nlmsvc_cancel(%s/%ld, pi=%d, %Ld-%Ld)\n",
-+	dprintk("lockd: nlmsvc_cancel(%s/%" PRIino "u, pi=%d, %Ld-%Ld)\n",
- 				nlmsvc_file_inode(file)->i_sb->s_id,
- 				nlmsvc_file_inode(file)->i_ino,
- 				lock->fl.c.flc_pid,
-diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
-index dd0214dcb69503006181a1533c440fc04a329d73..5e7b2a7967bd23365dae2817a0e11c50e4be7c83 100644
---- a/fs/lockd/svcsubs.c
-+++ b/fs/lockd/svcsubs.c
-@@ -47,7 +47,7 @@ static inline void nlm_debug_print_file(char *msg, struct nlm_file *file)
- {
- 	struct inode *inode = nlmsvc_file_inode(file);
+ check_error:
+@@ -529,7 +529,7 @@ static bool cachefiles_create_file(struct cachefiles_object *object)
  
--	dprintk("lockd: %s %s/%ld\n",
-+	dprintk("lockd: %s %s/%" PRIino "u\n",
- 		msg, inode->i_sb->s_id, inode->i_ino);
+ 	set_bit(FSCACHE_COOKIE_NEEDS_UPDATE, &object->cookie->flags);
+ 	set_bit(CACHEFILES_OBJECT_USING_TMPFILE, &object->flags);
+-	_debug("create -> %pD{ino=%" PRIino "u}", file, file_inode(file)->i_ino);
++	_debug("create -> %pD{ino=%llu}", file, file_inode(file)->i_ino);
+ 	object->file = file;
+ 	return true;
  }
- #else
+@@ -549,7 +549,7 @@ static bool cachefiles_open_file(struct cachefiles_object *object,
+ 	_enter("%pd", dentry);
+ 
+ 	if (!cachefiles_mark_inode_in_use(object, d_inode(dentry))) {
+-		pr_notice("cachefiles: Inode already in use: %pd (B=%" PRIino "x)\n",
++		pr_notice("cachefiles: Inode already in use: %pd (B=%llx)\n",
+ 			  dentry, d_inode(dentry)->i_ino);
+ 		return false;
+ 	}
+@@ -657,7 +657,7 @@ bool cachefiles_look_up_object(struct cachefiles_object *object)
+ 	if (!ret)
+ 		return false;
+ 
+-	_leave(" = t [%" PRIino "u]", file_inode(object->file)->i_ino);
++	_leave(" = t [%llu]", file_inode(object->file)->i_ino);
+ 	return true;
+ 
+ new_file:
+diff --git a/fs/cachefiles/xattr.c b/fs/cachefiles/xattr.c
+index 1cfeadc4f8f0b95ce861a2faf5b7b41b8156cf47..f8ae78b3f7b6d368526a86b454bf0febd1ccc509 100644
+--- a/fs/cachefiles/xattr.c
++++ b/fs/cachefiles/xattr.c
+@@ -179,7 +179,7 @@ int cachefiles_remove_object_xattr(struct cachefiles_cache *cache,
+ 			ret = 0;
+ 		else if (ret != -ENOMEM)
+ 			cachefiles_io_error(cache,
+-					    "Can't remove xattr from %" PRIino "u"
++					    "Can't remove xattr from %llu"
+ 					    " (error %d)",
+ 					    d_backing_inode(dentry)->i_ino, -ret);
+ 	}
 
 -- 
 2.53.0
