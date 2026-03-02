@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA4CEC0465
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B51B5EC047A
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 461E110E6FF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8332910E70C;
 	Tue,  3 Mar 2026 09:01:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m+cQsJz3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tWGaH2eI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8721610E36C;
- Mon,  2 Mar 2026 20:40:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BDD310E5BD;
+ Mon,  2 Mar 2026 20:39:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4B159415F6;
- Mon,  2 Mar 2026 20:40:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FD2DC2BCB3;
- Mon,  2 Mar 2026 20:40:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4E2CA43A76;
+ Mon,  2 Mar 2026 20:39:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1720FC2BC9E;
+ Mon,  2 Mar 2026 20:39:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484049;
- bh=HyR4sniz95teBoJHWgP/H2+rStT6qfCUCVZPgmMuwcs=;
+ s=k20201202; t=1772483963;
+ bh=m5qXv8LzTjrrHawpXG4FjY1bAed0fpNbFRdYn+t2iRc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=m+cQsJz3LSlySQ/LkV8g0UkbIMSqSvNRtu7xio/tlhYMu/YSnzafEF+V8yjx+SjoM
- yl0M/ozfu9C0JcgOkGK/507Jp7sC4ljOg6kEdREcBn4IkMyNyOJ4T84BND1Zg7v78x
- ecHvzizX37InYHwAZdg/VtThEzoQyj1CdG+IztwgFiQ6MfW/1qLXGYYw+CWVbCT3b0
- nGPk0wgOJFoUd918Owmtl8+//s429jEFvcNcVLX+GX0/YsE9Z2aPE0UNuexhzbxM4P
- gBngfBKui4FXJQDOZXLnIHPqvzn5fUbR/gxU02itW5JApfugQvpKnJGfTWDqkVmMnz
- /I5TauxXOf9mQ==
+ b=tWGaH2eIcCtGq0rj5uXX9kFap7NkcKiDhEc10PxrY8ua/QCr9LbkB3Sb8J6gOA5Dq
+ dO87Cz7Vne8kcK5oUGLznzZ6+roGhrkPGv6EMOeBwhlJXNCXfzB1dIe+jt05hLfts5
+ h56xMnhkZ/tt3ulE6x9GDMS/D+zAOKhV6LMo2SXyD1pO+aCyJRZWsU991uJKSoZuYa
+ zzw+Vm4VqQAipdWITuMMIITaAYNjGaEd3YWaHeRsvi5qHCFOumortMStpiruRHJTib
+ V+DAun1eGMXdM+R62dFYPRbH3sIjSUUi9NTfRFIFhbL8xUM1O9+S9o9Jpv2xJ7OsAm
+ blcxJcmsMD34g==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:50 -0500
-Subject: [PATCH v2 066/110] nfsd: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:24:44 -0500
+Subject: [PATCH v2 060/110] vfs: change kino_t from unsigned long to u64
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-66-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-60-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3151; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=HyR4sniz95teBoJHWgP/H2+rStT6qfCUCVZPgmMuwcs=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIA0Fa1714anVwENAiRmnB+U/0TA0CuNSmGy
- S5/qF96pyOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAAAKCRAADmhBGVaC
- FW3MEADU+whCFtqkgurCGlaONnct++YahRLhSTluVahbwEwdjbrbG7/7TsgiZPqagHMLlQ75BmW
- ylyzoMJID0RQLRuriVYXFqgM1bsGBWwWUE5vQeLlq/U6V9hQ14AflkyIYQCaxrhsZ/BRchuJOVe
- YGfTn8zZLGQyhgcOMKgJPctCMtYNJI0dDTP+TdxEAXO4FVzGpuq4ISjGB4rVspIzqwJZ9vTDDeH
- RaPDWEy47VzON4mSIyPGs2bMeKXmNuzabCV42blfkozkCYDmWnCoil2ws40UOZyww0F2inVxIm1
- biCcqKW/4hLNP+Jg6A+FMqTdqxNXscogSoAZzVZ8SHrisiZqvfqY0cwdhGKoIb3oPmZzfohHl7I
- bEk6mxpcNHe0P05heIjqcvKOXsnJUP+v4/D62nRiOfEtOJny85qobmr26MZxCVFiq6a3Ct1b5mN
- y1XG538Y1/cHD9aEh7GND7hy1awXpMnPjoVqIjeMXMSRKNn/0LY7Be9TT21yUHp+08h0uxyOnik
- 1idly8EzgBBEw1zwwIybPJxNgbwUjqF9nlUaZ1p4VRHFedCPKrra1FIbZuRVqhQU4P8fHZ0BwK8
- mTiKztWgspKLCYLbVwNJ96kS6/jElrgR3RBA/IxZyawPb5WdB+8xtUZZoi/8ynJDTOwOB4MOfoN
- M20Iy7wAit/xe/A==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1545; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=m5qXv8LzTjrrHawpXG4FjY1bAed0fpNbFRdYn+t2iRc=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH/CelvtxYkmubgwQL93hbaaeF/Lcipca1TD
+ nmG1ZIz+3WJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/wAKCRAADmhBGVaC
+ FcekD/40SfgYN98/I/iKb83ETfOTpXWW+m/XTvqQjbiYJ0yb9cGecrukv9U+LuSoCRp2F8qjaEG
+ KwSKcoNeD3bLi8YRSx0Jo55zpvV+0GEF5pYMsLyuz2mgss7nYEHu7KNvJeInMOxwowpPdPqRNu7
+ Ppq1dp/1AM3AymC/FXqtq2Tv8HTmfQeqCuOp/6YYnMJFIJhWoBAfvpsQTSWM9HY1SuWEDoQbE5N
+ 2LEftI8/pUeKAX167/iekCZsEzvYlRky3lNIuB0wQIW1djQpCAugeGhsaFp9AZWL3zSj87xiuO9
+ UNszqAcxPs1LyIDZmw2MRd9bSJ3IQhQpaI+4Dukg4Nd17YjfU1riCW2fCSYtV8+JCExOFPFNCxZ
+ fHlcLe24YBWqG/j0FJfWiYPh0puc/2EhgeruwgUAW3dNz41A7H5gyNzLLTk/G1j0lt1DHq91uHg
+ TbL0yQHkqQ2yZgnf9niLxrsdMDgb4kc9TeNtWlwf12yQAsLX2pvxob+xrImW9RxTi+fTWwlIxqF
+ e2aTVNNTvEQe/FfANNViNtWa2//y7pcFg2ozKI7hHopJ7lhDIrFuzmUePxlgKpPeyxWO9eZGLCb
+ 9/qek6yqPKgzxPKPxMFaxLl8qKdTUtBKAWaADTleXG3rC4d+u1Wt4aN50RoaFgA/UKqBF1BWrAW
+ 881Y6dqAC+vEbnA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,78 +182,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in nfsd with the concrete format strings.
+Change kino_t from unsigned long to u64, and update PRIino from "l"
+to "ll" accordingly. This is the actual type widening of i_ino.
+
+All format strings have already been converted to use PRIino, so this
+change compiles warning-free on both 32-bit and 64-bit architectures.
+
+On 64-bit architectures, unsigned long is already 64 bits, so this is
+effectively a type alias change with no runtime impact. On 32-bit
+architectures, this widens i_ino from 32 to 64 bits, allowing
+filesystems like NFS, CIFS, XFS, Ceph, and FUSE to store their native
+64-bit inode numbers without folding/hashing.
+
+The VFS already handles 64-bit inode numbers in kstat.ino (u64) and
+statx.stx_ino (__u64). The existing overflow checks in cp_new_stat(),
+cp_old_stat(), and cp_compat_stat() handle narrowing to 32-bit st_ino
+with -EOVERFLOW, so userspace ABI is preserved.
+
+struct inode will grow by 4 bytes on 32-bit architectures.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/nfsd/export.c    | 2 +-
- fs/nfsd/nfs4state.c | 4 ++--
- fs/nfsd/nfsfh.c     | 2 +-
- fs/nfsd/vfs.c       | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ include/linux/fs.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/nfsd/export.c b/fs/nfsd/export.c
-index 5dfdd836bbb63d6af17204c8df7ecf3f450998c2..d2259d948cc33e1c192531d34679123b826cf4dc 100644
---- a/fs/nfsd/export.c
-+++ b/fs/nfsd/export.c
-@@ -1039,7 +1039,7 @@ exp_rootfh(struct net *net, struct auth_domain *clp, char *name,
- 	}
- 	inode = d_inode(path.dentry);
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index d0c4789838b5852111583a3e4cced88999496e68..4193817e02e8bf94f29514ca43379af21f37ac61 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -758,8 +758,8 @@ struct inode_state_flags {
+ 	enum inode_state_flags_enum __state;
+ };
  
--	dprintk("nfsd: exp_rootfh(%s [%p] %s:%s/%" PRIino "u)\n",
-+	dprintk("nfsd: exp_rootfh(%s [%p] %s:%s/%llu)\n",
- 		 name, path.dentry, clp->name,
- 		 inode->i_sb->s_id, inode->i_ino);
- 	exp = exp_parent(cd, clp, &path);
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index d9d548225afb764326b2bb211919e24c87f15a00..a569d89ac9123d66bb47e7d74c7c98610de21da2 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -1253,7 +1253,7 @@ static void nfsd4_finalize_deleg_timestamps(struct nfs4_delegation *dp, struct f
- 	if (ret) {
- 		struct inode *inode = file_inode(f);
+-typedef unsigned long	kino_t;
+-#define PRIino		"l"
++typedef u64		kino_t;
++#define PRIino		"ll"
  
--		pr_notice_ratelimited("nfsd: Unable to update timestamps on inode %02x:%02x:%" PRIino "u: %d\n",
-+		pr_notice_ratelimited("nfsd: Unable to update timestamps on inode %02x:%02x:%llu: %d\n",
- 					MAJOR(inode->i_sb->s_dev),
- 					MINOR(inode->i_sb->s_dev),
- 					inode->i_ino, ret);
-@@ -2888,7 +2888,7 @@ static void nfs4_show_superblock(struct seq_file *s, struct nfsd_file *f)
- {
- 	struct inode *inode = file_inode(f->nf_file);
- 
--	seq_printf(s, "superblock: \"%02x:%02x:%" PRIino "u\"",
-+	seq_printf(s, "superblock: \"%02x:%02x:%llu\"",
- 					MAJOR(inode->i_sb->s_dev),
- 					 MINOR(inode->i_sb->s_dev),
- 					 inode->i_ino);
-diff --git a/fs/nfsd/nfsfh.c b/fs/nfsd/nfsfh.c
-index 22df07be0650d9260a30e12c1371ccc4f89234db..ee72c9565e4fe85356674b22b4505d3d531dbe40 100644
---- a/fs/nfsd/nfsfh.c
-+++ b/fs/nfsd/nfsfh.c
-@@ -601,7 +601,7 @@ fh_compose(struct svc_fh *fhp, struct svc_export *exp, struct dentry *dentry,
- 	struct inode * inode = d_inode(dentry);
- 	dev_t ex_dev = exp_sb(exp)->s_dev;
- 
--	dprintk("nfsd: fh_compose(exp %02x:%02x/%" PRIino "u %pd2, ino=%" PRIino "u)\n",
-+	dprintk("nfsd: fh_compose(exp %02x:%02x/%llu %pd2, ino=%llu)\n",
- 		MAJOR(ex_dev), MINOR(ex_dev),
- 		d_inode(exp->ex_path.dentry)->i_ino,
- 		dentry,
-diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-index 4c2095c83503e7fddc7e1ec528f55e36b6a326a4..eafdf7b7890fdee55ddf802d040363f33a7be628 100644
---- a/fs/nfsd/vfs.c
-+++ b/fs/nfsd/vfs.c
-@@ -1163,7 +1163,7 @@ nfsd_direct_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 	} else if (unlikely(host_err == -EINVAL)) {
- 		struct inode *inode = d_inode(fhp->fh_dentry);
- 
--		pr_info_ratelimited("nfsd: Direct I/O alignment failure on %s/%" PRIino "u\n",
-+		pr_info_ratelimited("nfsd: Direct I/O alignment failure on %s/%llu\n",
- 				    inode->i_sb->s_id, inode->i_ino);
- 		host_err = -ESERVERFAULT;
- 	}
+ /*
+  * Keep mostly read-only and often accessed (especially for
 
 -- 
 2.53.0
