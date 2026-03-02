@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C4AAEC0474
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F071EC0479
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 486EB10E74F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C179B10E72B;
 	Tue,  3 Mar 2026 09:01:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="rRp+2X0I";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KW6sLgQ0";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7993E10E5BB;
- Mon,  2 Mar 2026 20:25:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1527210E5BD;
+ Mon,  2 Mar 2026 20:38:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 49E6143B42;
- Mon,  2 Mar 2026 20:25:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 131BCC19423;
- Mon,  2 Mar 2026 20:25:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5BAFF60141;
+ Mon,  2 Mar 2026 20:38:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC9CCC2BCB9;
+ Mon,  2 Mar 2026 20:38:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483158;
- bh=UbQUSM17B8eDjqJD3X56G3Nb04mdY/iOfKJir9jCM4E=;
+ s=k20201202; t=1772483920;
+ bh=Pa1a7MUazwWtRIy/L91NUgTuxF0Xvz5MqICsJ7XcBpc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=rRp+2X0ImgIVAwMegso2leOSmZtxSmSmtg4qNHIG9ul5rMyukotTq2fkUevH7eaLV
- ryILOF7JoqRurfiuCfJy+VjH5kU6G0uZIbLTg465bR7ww2uOp0ZjFp9DXqSqU3LApP
- nw6cpHunjJ29JIv/fFQhhAYAusM+OEG71fbi3Jv7ebsLFEkjf2uPIj2OxnAzPD0DFz
- 3UVCNp2YRxq9sFqOhkPed1ocV8yfLW+ykwagKi0ng5Ufmk1ibKMnxWdSwfWSK+3DXJ
- +sElapFHd+wZbdUxI61yu3DR/JpovXB/rNzg0tDIruMCdTd2kt/tT0INtGCQsE7mYb
- IbryZLDCc5z3A==
+ b=KW6sLgQ0+kbptMpwfxgqsxPKgJHgnWkHvUw15MtsbIIFkGZmGZMlUspcJiYwMb9w/
+ /JFlKe6QcXKc54Vdz78zZ2mk3pDDG29SWDK1PSSvV1BE031EZCFWF0a1vcNSba9tS9
+ sYEQ7WJVhOinJFas4ubuTyArDmN0FTJxphA2q3qScM17hlNdCneF2rXuZ4dDiffRPh
+ +Gb0vdptxU/rrtwQIfuH+64gsOfed7AmMdofGQSWqPB3Tl+RKI1XwvdQtdil6jB3Oq
+ unRBEFdvDrTHjttKFgRV3DQSb11jr0zeTz4sLbEA3zUOPC4kPnTueMsS4YNC/RKl2w
+ 4nxBXWc2HzFFQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:23:48 -0500
-Subject: [PATCH v2 004/110] net: change sock.sk_ino and sock_i_ino() to u64
+Date: Mon, 02 Mar 2026 15:24:41 -0500
+Subject: [PATCH v2 057/110] iomap: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-4-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-57-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15087; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=UbQUSM17B8eDjqJD3X56G3Nb04mdY/iOfKJir9jCM4E=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHw+bUj5KD7645Ru6nna5NEOhgGQ/ZBSt0+S
- F6thM3zGSKJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8AAKCRAADmhBGVaC
- FQNAD/9Z+6TMZgqRnEpXcdR1p0qNAtxIsaAzMUMRjztwCF0ikGlRqtoTLb/5v5z0WOPbQKKom0D
- XSPPP2v7mca/A15gcKW23KrSsw+rcoIuCQ2Qql6BEGECkvdi9ib+H2cRA9ZVWvi4yjOjk8WmpIR
- a3RXi8ZLjR/m2ChgCvutshJuljgk/htz0tADLUtaNojY4m8MzW04D2hlYT69/pFINZdPFC4KqVp
- IUa4MwVasmawi5DoL/lxdR8ugvedDFBGnlsx9KVdWKzhG7tvVnk8cy+xiO57yO/3ntFg+MgJNyS
- AB66Ee2NWuyWDjW4bMY5c09IQUIVwUgaS8YBmpIvQ7U5cFJEV9z960/wDO/SLaQnwnZC8Pjgm8M
- 2dDu/k6cVPHys4xlHc0BzpmTsotrt/2msyxy5Prj8DE+DuOR1I3d7/bdhtjCUlfkA7Dbs8sDbw8
- WKhXZ7ucreQN4RehoHk1p+821qNPOCqH0RHV9E0zmHXfSrYvCog7Pq8/UsIWNiNAo0FLlJWVHdo
- 4QHbcfTcLSMjQhdv0uXzA5ziGN8eX8QI7/sdZEsOjT6bdafvKY68m5nbMalXcV9oLVt6fieSH1B
- +fUHynxooCPYvPRxXk7gb64Zp+pXLmfEV49fpmmUKq3MHilyET4Kym6LqJNEe+lQiJxk3b/s1N9
- na6/kacFrz96BhQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=896; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=Pa1a7MUazwWtRIy/L91NUgTuxF0Xvz5MqICsJ7XcBpc=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH+YUoZGChUtceBYv02WJsKa3i5Y+UJjTf5j
+ GbTR0EKL/WJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/gAKCRAADmhBGVaC
+ FSjdEACHQO+4+knOc4KC48DC1onGbTDd53B9vfLkTayG5rzp6rApyO1WfzrquWc20DTlq+fDmly
+ J7FEad79OdL5kngOID3P6/NqK+KGBl05ggSgc/t4z5+JA7ILeoKrH/kSED5DUU5sEb4eqaBZ567
+ XF71VJ34KQKQqS6+nK2eCr2mM2BC+k7qMXqwXnEpoZCxpa9siuJYrOnliG1DP67w7+XuOMYPW9M
+ urDy3cKTSbf2iOub7OystjIg9N9ZOGYnoRw0Hf9b5M1vFcoZfLxx1R7L/tOgcP7VhMBb/R4S0yk
+ P67atnhYv3eg/NxGB4ZELKYvKhPoCJqTwGLPdD9lld9bYBlJYSLxI5VxXpwkwyw1Wvh6eD+Xsce
+ 8VS/yBHBTjd+RJhFN8dqwUgS98PCV1i88V8nhA4pu7e4r85kTXdSUIGj7m5w+pZ4ImdZ9dLgZLM
+ 1fAUnseohUleWPev0UWdk0quelSLb5rz0aqRwyrVtj4q6G3Y2rWEYMeUPHq4nSne0Fqet0ZF4hN
+ 4OTt7LByIoy9+VKlqgcI8IUu2bjkE65Qx0JE3UaMl+ONPP74HMWx5e2bSVlppxrqhPrNMnUD87+
+ xEl1W9YJFqWtC/iDpQCA73TLsvBIeQMWP9s5BpsQR7R9aeSD4FdmdjOjwZYu44PlmYPm3R0Fc46
+ 06M+Oieuh9u2YoQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,358 +182,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-inode->i_ino is being converted to a u64. sock.sk_ino (which caches the
-inode number) must also be widened to avoid truncation on 32-bit
-architectures where unsigned long is only 32 bits.
-
-Change sk_ino from unsigned long to u64, and update the return type
-of sock_i_ino() to match. Fix all format strings that print the
-result of sock_i_ino() (%lu -> %llu), and widen the intermediate
-variables and function parameters in the diag modules that were
-using int to hold the inode number.
-
-Note that the UAPI socket diag structures (inet_diag_msg.idiag_inode,
-unix_diag_msg.udiag_ino, etc.) are all __u32 and cannot be changed
-without breaking the ABI. The assignments to those fields will
-silently truncate, which is the existing behavior.
+Convert iomap i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- include/net/sock.h           | 4 ++--
- net/ax25/af_ax25.c           | 2 +-
- net/bluetooth/af_bluetooth.c | 4 ++--
- net/can/bcm.c                | 2 +-
- net/ipv4/ping.c              | 2 +-
- net/ipv4/raw.c               | 2 +-
- net/ipv4/tcp_ipv4.c          | 2 +-
- net/ipv4/udp.c               | 2 +-
- net/ipv6/datagram.c          | 2 +-
- net/ipv6/tcp_ipv6.c          | 2 +-
- net/key/af_key.c             | 2 +-
- net/netlink/af_netlink.c     | 2 +-
- net/netlink/diag.c           | 2 +-
- net/packet/af_packet.c       | 2 +-
- net/packet/diag.c            | 2 +-
- net/phonet/socket.c          | 4 ++--
- net/sctp/proc.c              | 4 ++--
- net/unix/af_unix.c           | 2 +-
- net/unix/diag.c              | 6 +++---
- net/xdp/xsk_diag.c           | 2 +-
- 20 files changed, 26 insertions(+), 26 deletions(-)
+ fs/iomap/ioend.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/net/sock.h b/include/net/sock.h
-index 6c9a83016e9551ed2e2a0d7edf32300b8a4327e7..cfae4fefb8f55d8be6ff5ef401f7b9c601f67cc3 100644
---- a/include/net/sock.h
-+++ b/include/net/sock.h
-@@ -537,7 +537,7 @@ struct sock {
- 	rwlock_t		sk_callback_lock;
- 	u32			sk_ack_backlog;
- 	u32			sk_max_ack_backlog;
--	unsigned long		sk_ino;
-+	u64			sk_ino;
- 	spinlock_t		sk_peer_lock;
- 	int			sk_bind_phc;
- 	struct pid		*sk_peer_pid;
-@@ -2140,7 +2140,7 @@ static inline void sock_graft(struct sock *sk, struct socket *parent)
- 	write_unlock_bh(&sk->sk_callback_lock);
- }
- 
--static inline unsigned long sock_i_ino(const struct sock *sk)
-+static inline u64 sock_i_ino(const struct sock *sk)
- {
- 	/* Paired with WRITE_ONCE() in sock_graft() and sock_orphan() */
- 	return READ_ONCE(sk->sk_ino);
-diff --git a/net/ax25/af_ax25.c b/net/ax25/af_ax25.c
-index a76f4793aed27657dea22e9e28c1d3cd45087cb2..9d236e64f5f59abe2fd974ffd9d6ef1193db5b52 100644
---- a/net/ax25/af_ax25.c
-+++ b/net/ax25/af_ax25.c
-@@ -1986,7 +1986,7 @@ static int ax25_info_show(struct seq_file *seq, void *v)
- 		   ax25->paclen);
- 
- 	if (ax25->sk != NULL) {
--		seq_printf(seq, " %d %d %lu\n",
-+		seq_printf(seq, " %d %d %llu\n",
- 			   sk_wmem_alloc_get(ax25->sk),
- 			   sk_rmem_alloc_get(ax25->sk),
- 			   sock_i_ino(ax25->sk));
-diff --git a/net/bluetooth/af_bluetooth.c b/net/bluetooth/af_bluetooth.c
-index 2b94e20772038f1d90228d214f57ab334ca01a50..33d053d634072fee79bb62c003980c203fb30111 100644
---- a/net/bluetooth/af_bluetooth.c
-+++ b/net/bluetooth/af_bluetooth.c
-@@ -817,14 +817,14 @@ static int bt_seq_show(struct seq_file *seq, void *v)
- 		struct bt_sock *bt = bt_sk(sk);
- 
- 		seq_printf(seq,
--			   "%pK %-6d %-6u %-6u %-6u %-6lu %-6lu",
-+			   "%pK %-6d %-6u %-6u %-6u %-6llu %-6llu",
- 			   sk,
- 			   refcount_read(&sk->sk_refcnt),
- 			   sk_rmem_alloc_get(sk),
- 			   sk_wmem_alloc_get(sk),
- 			   from_kuid(seq_user_ns(seq), sk_uid(sk)),
- 			   sock_i_ino(sk),
--			   bt->parent ? sock_i_ino(bt->parent) : 0LU);
-+			   bt->parent ? sock_i_ino(bt->parent) : 0ULL);
- 
- 		if (l->custom_seq_show) {
- 			seq_putc(seq, ' ');
-diff --git a/net/can/bcm.c b/net/can/bcm.c
-index b7324e9c955b7f03a8f032676bbd89aa8e06bded..30aac2f903d57421d2761153939200813b99e0e9 100644
---- a/net/can/bcm.c
-+++ b/net/can/bcm.c
-@@ -1712,7 +1712,7 @@ static int bcm_connect(struct socket *sock, struct sockaddr_unsized *uaddr, int
- #if IS_ENABLED(CONFIG_PROC_FS)
- 	if (net->can.bcmproc_dir) {
- 		/* unique socket address as filename */
--		sprintf(bo->procname, "%lu", sock_i_ino(sk));
-+		sprintf(bo->procname, "%llu", sock_i_ino(sk));
- 		bo->bcm_proc_read = proc_create_net_single(bo->procname, 0644,
- 						     net->can.bcmproc_dir,
- 						     bcm_proc_show, sk);
-diff --git a/net/ipv4/ping.c b/net/ipv4/ping.c
-index 71d5e17719debb14ca2400edcf5a2cc3153291c6..bc4b43e5230336521802403c5c74cfb5da8b05b1 100644
---- a/net/ipv4/ping.c
-+++ b/net/ipv4/ping.c
-@@ -1111,7 +1111,7 @@ static void ping_v4_format_sock(struct sock *sp, struct seq_file *f,
- 	__u16 srcp = ntohs(inet->inet_sport);
- 
- 	seq_printf(f, "%5d: %08X:%04X %08X:%04X"
--		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %lu %d %pK %u",
-+		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %llu %d %pK %u",
- 		bucket, src, srcp, dest, destp, sp->sk_state,
- 		sk_wmem_alloc_get(sp),
- 		sk_rmem_alloc_get(sp),
-diff --git a/net/ipv4/raw.c b/net/ipv4/raw.c
-index e20c41206e29d5655f5378f08fb283f2ecbd2097..bcc99ced1ade135701e2df0e32da0da0af2fc487 100644
---- a/net/ipv4/raw.c
-+++ b/net/ipv4/raw.c
-@@ -1041,7 +1041,7 @@ static void raw_sock_seq_show(struct seq_file *seq, struct sock *sp, int i)
- 	      srcp  = inet->inet_num;
- 
- 	seq_printf(seq, "%4d: %08X:%04X %08X:%04X"
--		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %lu %d %pK %u\n",
-+		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %llu %d %pK %u\n",
- 		i, src, srcp, dest, destp, sp->sk_state,
- 		sk_wmem_alloc_get(sp),
- 		sk_rmem_alloc_get(sp),
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index d53d39be291a5750af3ab2a160b35f0f8a28ff9d..f2ef41583fc195e153ed848afaf3391080696f02 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -2889,7 +2889,7 @@ static void get_tcp4_sock(struct sock *sk, struct seq_file *f, int i)
- 				      READ_ONCE(tp->copied_seq), 0);
- 
- 	seq_printf(f, "%4d: %08X:%04X %08X:%04X %02X %08X:%08X %02X:%08lX "
--			"%08X %5u %8d %lu %d %pK %lu %lu %u %u %d",
-+			"%08X %5u %8d %llu %d %pK %lu %lu %u %u %d",
- 		i, src, srcp, dest, destp, state,
- 		READ_ONCE(tp->write_seq) - tp->snd_una,
- 		rx_queue,
-diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
-index 6c6b68a66dcd3b3d8f1747fead868c195e04a0a9..db58bf786c4a8c73b5d42851bb68bbb22a5e85ab 100644
---- a/net/ipv4/udp.c
-+++ b/net/ipv4/udp.c
-@@ -3428,7 +3428,7 @@ static void udp4_format_sock(struct sock *sp, struct seq_file *f,
- 	__u16 srcp	  = ntohs(inet->inet_sport);
- 
- 	seq_printf(f, "%5d: %08X:%04X %08X:%04X"
--		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %lu %d %pK %u",
-+		" %02X %08X:%08X %02X:%08lX %08X %5u %8d %llu %d %pK %u",
- 		bucket, src, srcp, dest, destp, sp->sk_state,
- 		sk_wmem_alloc_get(sp),
- 		udp_rqueue_get(sp),
-diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
-index c564b68a056268c7cbc81b5f29f60289ea9e09eb..611fddb90c79e94cc7dfcf85b343bcbf630c39d4 100644
---- a/net/ipv6/datagram.c
-+++ b/net/ipv6/datagram.c
-@@ -1055,7 +1055,7 @@ void __ip6_dgram_sock_seq_show(struct seq_file *seq, struct sock *sp,
- 	src   = &sp->sk_v6_rcv_saddr;
- 	seq_printf(seq,
- 		   "%5d: %08X%08X%08X%08X:%04X %08X%08X%08X%08X:%04X "
--		   "%02X %08X:%08X %02X:%08lX %08X %5u %8d %lu %d %pK %u\n",
-+		   "%02X %08X:%08X %02X:%08lX %08X %5u %8d %llu %d %pK %u\n",
- 		   bucket,
- 		   src->s6_addr32[0], src->s6_addr32[1],
- 		   src->s6_addr32[2], src->s6_addr32[3], srcp,
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index e46a0efae01235ae7430ed268b92cb47309b8d28..379c0935f4030b9b3432e867c357883df3089f74 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -2175,7 +2175,7 @@ static void get_tcp6_sock(struct seq_file *seq, struct sock *sp, int i)
- 
- 	seq_printf(seq,
- 		   "%4d: %08X%08X%08X%08X:%04X %08X%08X%08X%08X:%04X "
--		   "%02X %08X:%08X %02X:%08lX %08X %5u %8d %lu %d %pK %lu %lu %u %u %d\n",
-+		   "%02X %08X:%08X %02X:%08lX %08X %5u %8d %llu %d %pK %lu %lu %u %u %d\n",
- 		   i,
- 		   src->s6_addr32[0], src->s6_addr32[1],
- 		   src->s6_addr32[2], src->s6_addr32[3], srcp,
-diff --git a/net/key/af_key.c b/net/key/af_key.c
-index 0756bac62f7c042851636badf0a5e961c4e673c1..522308ec934ed055bdce4fa672b4e6a8bb67edc7 100644
---- a/net/key/af_key.c
-+++ b/net/key/af_key.c
-@@ -3783,7 +3783,7 @@ static int pfkey_seq_show(struct seq_file *f, void *v)
- 	if (v == SEQ_START_TOKEN)
- 		seq_printf(f ,"sk       RefCnt Rmem   Wmem   User   Inode\n");
- 	else
--		seq_printf(f, "%pK %-6d %-6u %-6u %-6u %-6lu\n",
-+		seq_printf(f, "%pK %-6d %-6u %-6u %-6u %-6llu\n",
- 			       s,
- 			       refcount_read(&s->sk_refcnt),
- 			       sk_rmem_alloc_get(s),
-diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-index 4d609d5cf40653e04de60f2d28ee26b8bdcdc2ed..aba847902be5ace66e17abf0236a5eeebfee0739 100644
---- a/net/netlink/af_netlink.c
-+++ b/net/netlink/af_netlink.c
-@@ -2700,7 +2700,7 @@ static int netlink_native_seq_show(struct seq_file *seq, void *v)
- 		struct sock *s = v;
- 		struct netlink_sock *nlk = nlk_sk(s);
- 
--		seq_printf(seq, "%pK %-3d %-10u %08x %-8d %-8d %-5d %-8d %-8u %-8lu\n",
-+		seq_printf(seq, "%pK %-3d %-10u %08x %-8d %-8d %-5d %-8d %-8u %-8llu\n",
- 			   s,
- 			   s->sk_protocol,
- 			   nlk->portid,
-diff --git a/net/netlink/diag.c b/net/netlink/diag.c
-index 1dfc340736b832459388304003ff1f5e1e481d23..0b3e021bd0ed29edc094fad2c79c7c067edcdd50 100644
---- a/net/netlink/diag.c
-+++ b/net/netlink/diag.c
-@@ -43,7 +43,7 @@ static int sk_diag_put_flags(struct sock *sk, struct sk_buff *skb)
- 
- static int sk_diag_fill(struct sock *sk, struct sk_buff *skb,
- 			struct netlink_diag_req *req,
--			u32 portid, u32 seq, u32 flags, int sk_ino)
-+			u32 portid, u32 seq, u32 flags, u64 sk_ino)
- {
- 	struct nlmsghdr *nlh;
- 	struct netlink_diag_msg *rep;
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 72d0935139f0f5feb00c051143fb47f45fd1f94d..f2af2e0a8530a982d7b95b91ac0388f67b16d46f 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -4721,7 +4721,7 @@ static int packet_seq_show(struct seq_file *seq, void *v)
- 		const struct packet_sock *po = pkt_sk(s);
- 
- 		seq_printf(seq,
--			   "%pK %-6d %-4d %04x   %-5d %1d %-6u %-6u %-6lu\n",
-+			   "%pK %-6d %-4d %04x   %-5d %1d %-6u %-6u %-6llu\n",
- 			   s,
- 			   refcount_read(&s->sk_refcnt),
- 			   s->sk_type,
-diff --git a/net/packet/diag.c b/net/packet/diag.c
-index c8f43e0c1925fab8ef6c39de3547dcd6f7389b81..cee773f46571ca51718544227f3425192bb77f24 100644
---- a/net/packet/diag.c
-+++ b/net/packet/diag.c
-@@ -130,7 +130,7 @@ static int sk_diag_fill(struct sock *sk, struct sk_buff *skb,
- 			struct packet_diag_req *req,
- 			bool may_report_filterinfo,
- 			struct user_namespace *user_ns,
--			u32 portid, u32 seq, u32 flags, int sk_ino)
-+			u32 portid, u32 seq, u32 flags, u64 sk_ino)
- {
- 	struct nlmsghdr *nlh;
- 	struct packet_diag_msg *rp;
-diff --git a/net/phonet/socket.c b/net/phonet/socket.c
-index 4423d483c630adc93af07e0c23a78800b696d4a4..c4af26357144ebb8016d001244c1fdaf925892fc 100644
---- a/net/phonet/socket.c
-+++ b/net/phonet/socket.c
-@@ -579,7 +579,7 @@ static int pn_sock_seq_show(struct seq_file *seq, void *v)
- 		struct sock *sk = v;
- 		struct pn_sock *pn = pn_sk(sk);
- 
--		seq_printf(seq, "%2d %04X:%04X:%02X %02X %08X:%08X %5d %lu "
-+		seq_printf(seq, "%2d %04X:%04X:%02X %02X %08X:%08X %5d %llu "
- 			"%d %pK %u",
- 			sk->sk_protocol, pn->sobject, pn->dobject,
- 			pn->resource, sk->sk_state,
-@@ -754,7 +754,7 @@ static int pn_res_seq_show(struct seq_file *seq, void *v)
- 		struct sock *sk = rcu_dereference_protected(*psk,
- 					lockdep_is_held(&resource_mutex));
- 
--		seq_printf(seq, "%02X %5u %lu",
-+		seq_printf(seq, "%02X %5u %llu",
- 			   (int) (psk - pnres.sk),
- 			   from_kuid_munged(seq_user_ns(seq), sk_uid(sk)),
- 			   sock_i_ino(sk));
-diff --git a/net/sctp/proc.c b/net/sctp/proc.c
-index 1ed281f3c355d559d82e4fa2be10c191f787c85e..43433d7e2acd706ede7b59a51ab6441d1ee1dd12 100644
---- a/net/sctp/proc.c
-+++ b/net/sctp/proc.c
-@@ -174,7 +174,7 @@ static int sctp_eps_seq_show(struct seq_file *seq, void *v)
- 		sk = ep->base.sk;
- 		if (!net_eq(sock_net(sk), seq_file_net(seq)))
- 			continue;
--		seq_printf(seq, "%8pK %8pK %-3d %-3d %-4d %-5d %5u %5lu ", ep, sk,
-+		seq_printf(seq, "%8pK %8pK %-3d %-3d %-4d %-5d %5u %5llu ", ep, sk,
- 			   sctp_sk(sk)->type, sk->sk_state, hash,
- 			   ep->base.bind_addr.port,
- 			   from_kuid_munged(seq_user_ns(seq), sk_uid(sk)),
-@@ -261,7 +261,7 @@ static int sctp_assocs_seq_show(struct seq_file *seq, void *v)
- 
- 	seq_printf(seq,
- 		   "%8pK %8pK %-3d %-3d %-2d %-4d "
--		   "%4d %8d %8d %7u %5lu %-5d %5d ",
-+		   "%4d %8d %8d %7u %5llu %-5d %5d ",
- 		   assoc, sk, sctp_sk(sk)->type, sk->sk_state,
- 		   assoc->state, 0,
- 		   assoc->assoc_id,
-diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
-index 3756a93dc63aabc814f7edd31e8c0b6fafa02ce7..a6c5015f3f0a19a930da636ef37eb98b3c40663f 100644
---- a/net/unix/af_unix.c
-+++ b/net/unix/af_unix.c
-@@ -3537,7 +3537,7 @@ static int unix_seq_show(struct seq_file *seq, void *v)
- 		struct unix_sock *u = unix_sk(s);
- 		unix_state_lock(s);
- 
--		seq_printf(seq, "%pK: %08X %08X %08X %04X %02X %5lu",
-+		seq_printf(seq, "%pK: %08X %08X %08X %04X %02X %5llu",
- 			s,
- 			refcount_read(&s->sk_refcnt),
- 			0,
-diff --git a/net/unix/diag.c b/net/unix/diag.c
-index ca34730261510c2b34dc6661eadaa9d1651e59d2..410f6c8745b7a0e5287b9f7fbc0a71d15cffc850 100644
---- a/net/unix/diag.c
-+++ b/net/unix/diag.c
-@@ -45,7 +45,7 @@ static int sk_diag_dump_vfs(struct sock *sk, struct sk_buff *nlskb)
- static int sk_diag_dump_peer(struct sock *sk, struct sk_buff *nlskb)
- {
- 	struct sock *peer;
--	int ino;
-+	u64 ino;
- 
- 	peer = unix_peer_get(sk);
- 	if (peer) {
-@@ -112,7 +112,7 @@ static int sk_diag_dump_uid(struct sock *sk, struct sk_buff *nlskb,
- 
- static int sk_diag_fill(struct sock *sk, struct sk_buff *skb, struct unix_diag_req *req,
- 			struct user_namespace *user_ns,
--			u32 portid, u32 seq, u32 flags, int sk_ino)
-+			u32 portid, u32 seq, u32 flags, u64 sk_ino)
- {
- 	struct nlmsghdr *nlh;
- 	struct unix_diag_msg *rep;
-@@ -186,7 +186,7 @@ static int unix_diag_dump(struct sk_buff *skb, struct netlink_callback *cb)
- 		num = 0;
- 		spin_lock(&net->unx.table.locks[slot]);
- 		sk_for_each(sk, &net->unx.table.buckets[slot]) {
--			int sk_ino;
-+			u64 sk_ino;
- 
- 			if (num < s_num)
- 				goto next;
-diff --git a/net/xdp/xsk_diag.c b/net/xdp/xsk_diag.c
-index 0e0bca031c0399901949982bf430ade6cde286d3..0170363eb542cc1874817f46fd3627857761ab77 100644
---- a/net/xdp/xsk_diag.c
-+++ b/net/xdp/xsk_diag.c
-@@ -92,7 +92,7 @@ static int xsk_diag_put_stats(const struct xdp_sock *xs, struct sk_buff *nlskb)
- static int xsk_diag_fill(struct sock *sk, struct sk_buff *nlskb,
- 			 struct xdp_diag_req *req,
- 			 struct user_namespace *user_ns,
--			 u32 portid, u32 seq, u32 flags, int sk_ino)
-+			 u32 portid, u32 seq, u32 flags, u64 sk_ino)
- {
- 	struct xdp_sock *xs = xdp_sk(sk);
- 	struct xdp_diag_msg *msg;
+diff --git a/fs/iomap/ioend.c b/fs/iomap/ioend.c
+index 4d1ef8a2cee90b91591d387f8e1c3f75350c1da0..60c4ba5867f8c9edda2d8b14c6cac0e1d0e80484 100644
+--- a/fs/iomap/ioend.c
++++ b/fs/iomap/ioend.c
+@@ -48,7 +48,7 @@ static u32 iomap_finish_ioend_buffered(struct iomap_ioend *ioend)
+ 		mapping_set_error(inode->i_mapping, ioend->io_error);
+ 		if (!bio_flagged(bio, BIO_QUIET)) {
+ 			pr_err_ratelimited(
+-"%s: writeback error on inode %lu, offset %lld, sector %llu",
++"%s: writeback error on inode %" PRIino "u, offset %lld, sector %llu",
+ 				inode->i_sb->s_id, inode->i_ino,
+ 				ioend->io_offset, ioend->io_sector);
+ 		}
 
 -- 
 2.53.0
