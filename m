@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F007AEC0481
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97FF0EC047D
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CFF210E770;
-	Tue,  3 Mar 2026 09:01:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC2C910E76D;
+	Tue,  3 Mar 2026 09:01:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jb0EwRhp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IorKuZlv";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF8E10E5BD;
- Mon,  2 Mar 2026 20:36:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 063A710E5BD;
+ Mon,  2 Mar 2026 20:49:15 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5188943B8A;
- Mon,  2 Mar 2026 20:36:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E28C2BC87;
- Mon,  2 Mar 2026 20:36:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 28B1261338;
+ Mon,  2 Mar 2026 20:49:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B31C2BC9E;
+ Mon,  2 Mar 2026 20:48:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483805;
- bh=H3tL61fbWz+6oVu8xWt6IvuT0fFPzYC+T2ZsfuwYtEE=;
+ s=k20201202; t=1772484553;
+ bh=6cZwsfpbObzNeQK7uzLXLbgL+hWNwgK2OM7xy5ID8J4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=jb0EwRhpHGcE220YDMsWSuPg35XSq9cyiwcFhJQ8siQHLMQWzG8i2y3FoBOtdsxS9
- /EDw7m1rf0WcV5mtk0FOjBB0zCbpG7g1rtQxNdqr6jhRcr+BbjiUm/sYPWDTSY3p8c
- IQXLH/KIH0e4kWvqpZ54+HPEHzQaOhGJaPC7QVzKeWNtWoDth/SKHT0Dy3XzCN94A0
- RaeG5MiKhhWwatscIOBrsa2NW3KO2i2v94MUPvP0MdcEGNt4dFzcNMtV2Qok4k1a3I
- uxmlDo6F4HEGR6q8t+BVX2Nv0OXZ+To870NHKFm9/QQh62tmbhyPuTdmgvQV/j3muj
- jte1N/R0jEc7w==
+ b=IorKuZlvL6dslhQZhuCOB77oSou3b9HVCdnk+hCgyzh8s5PaZDXHXQRR8e/ueaj3v
+ Of2NatafLlcq93I3N3tj+b+ji3Cw90UnmElVxNb7flMZt0afB/JdPeJYxL+ZfTA5Ed
+ r0Z9ma/eWygxi1n/JRHTwMwmayCZetTxj3iG3May/82azlyawA58n4CaW9UKfbezRV
+ txPWvxHfqldCnxmeykB5RfT0sF6KyZj6k8QVjuAXYISpgl9wdenOoGH8O6mP0feaF3
+ y7dED4qd+cENaLutYTklGDqxvIvPzTVhN8sNmXnBBosIiQA1FoeB9I757q97DjpyFL
+ yYxh3gef8x7+Q==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:33 -0500
-Subject: [PATCH v2 049/110] security: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:25:25 -0500
+Subject: [PATCH v2 101/110] fscrypt: replace PRIino with %llu/%llx format
+ strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-49-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-101-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,23 +152,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9136; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=H3tL61fbWz+6oVu8xWt6IvuT0fFPzYC+T2ZsfuwYtEE=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH7D5zjUk6ZmaUDERwrTJr0eT7+HFUlu3gfC
- gJ2G/7C4vGJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx+wAKCRAADmhBGVaC
- FUGAD/4tZ8ATwOq5FhuMuFqlnoBgDgX4KgpAqw3nDkOioCbzRI2x0A4UdyghtBNj2ENMISFUiSc
- Aat6uAxQuXz216zBpHpV0AvGeuW74IDTVEqTkP1iKmKXcM/nf879ZTeWUl9HvtNFB5piLmT0AKb
- USC2zGKx8pih/uyufVImQcZsLvJcWz6RX+jADkYFTA1ttN5lyahaRFJ6EZ3ZJkwCm+ZpRMjFXDh
- pt8C5Cl0GWw4x81tnJgbSYHUGwzPyYnNZHLXD8Wlbkxa/CB4hQNdIOqUkkg/+9UcICK3/RENtoJ
- zqs0aQrqzBvk2AlX1q5OmLhGejCZuGefd4y+2LigaI5FJj5g282DBNppyCEyOipT2eqHAF2Na/+
- KCCMeC5OWo4zMrmypcQJ+kkKUYo9ZKvj2X0Mudel7eLUZ1I0dMfcs1od4E74C2m9jsspDR4JF7S
- lf/NjzfWtH8CaY/x+DvvAlG+ExMGk5hM6kreEq34SLp0ibsAD/8lp55HGc2xXQHfcbeqYseMkyV
- LlXACKLdA0S53mH4jZi0vfT1bOWAwC6HMhDhfrejzvZpXezlkoNVo077BtvVXMHW20PhJ5c61pQ
- 74oQLAYB8YWWR7ZqRuTKTXsdcqVx74hcl6wMQak/8LWj2D0dyeMxqws9EgC3tzGM8ct2S5rMvb/
- agR0vgUd1qAypMg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3214; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=6cZwsfpbObzNeQK7uzLXLbgL+hWNwgK2OM7xy5ID8J4=;
+ b=kA0DAAoBAA5oQRlWghUByyZiAGml8gujQ93Hzj5fXRpB1CYY3q3nHyAjWcLgnlNTz75TUF9PE
+ YkCMwQAAQoAHRYhBEvA17JEcbKhhOr10wAOaEEZVoIVBQJppfILAAoJEAAOaEEZVoIVG/gP/1mz
+ Z/aWsv6cLzW611kkwDhqAudZlM+C3BBx64Q0uc7G30XNc2yp0PWvuAMk61d9m6VCuoomh90jTr0
+ NK6FFf3SL8jrC60bf3SoyBPUViDMMoKszBoRfVX2ASjXOLZJZzjeC5m0/glF5Wizs5+1UolOGYw
+ wWYdsC+EeM6Qi6hHsqIONu2XYW2hepv6cwmVCFOPJAVcawQftNR+bvtC6wDTytEvgHKXjUTqhAS
+ dpKjQ7vXFs+wZRVKSlavUg+b4iTYJhnZwifA44iJCd7edSq0hT6yK0/u91lhJaLGeadKtdIHHPj
+ fHWpOhEWlg9lA4rhKrDRBHd1PZyjmhCxhcEfGIDdLnH7iesATUg9e2/6Eh9yJLEv1F8L+2RhdUQ
+ ustpIjeJuUKJxHNOLj5kPcqOYapqJb+IsiP5qBGKMgNxAHDebqn357vmChru0JtK0EAe/xn0jai
+ BCD5MX12d8DF4il2j5RTcpQX5sqs38yjrTATcTpDS98mNtHwOt9kMg0Whs5spp3DoqdpOb6kEqY
+ Ee50OlpWXEY0cz+TyNIGDLRTvcizbTME7y0X9K9VolAB1L3Zttt8gL73zMs0WJi+TlQk35WSX8w
+ 0g4Q7ostGDkCw5+XEqNWcIAanuZS6o5ssN4Bnpn/NIw6AWt87L3RuH4HvJoG7EDPCPQdKfUSflG
+ 5+vLL
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
+X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,216 +183,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert security i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
-
-Also correct signed format specifiers to unsigned, since inode
-numbers are unsigned values.
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in fscrypt with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- security/apparmor/apparmorfs.c       |  4 ++--
- security/integrity/integrity_audit.c |  2 +-
- security/ipe/audit.c                 |  2 +-
- security/lsm_audit.c                 | 10 +++++-----
- security/selinux/hooks.c             | 10 +++++-----
- security/smack/smack_lsm.c           | 12 ++++++------
- 6 files changed, 20 insertions(+), 20 deletions(-)
+ fs/crypto/crypto.c   | 2 +-
+ fs/crypto/hooks.c    | 2 +-
+ fs/crypto/keyring.c  | 4 ++--
+ fs/crypto/keysetup.c | 2 +-
+ 4 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/security/apparmor/apparmorfs.c b/security/apparmor/apparmorfs.c
-index 2f84bd23edb69e7e69cb097e554091df0132816d..be343479f80b71566be6fda90fc4e00912faad63 100644
---- a/security/apparmor/apparmorfs.c
-+++ b/security/apparmor/apparmorfs.c
-@@ -149,7 +149,7 @@ static int aafs_count;
+diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
+index 4fc2990642fd3ee385a9919183cbb0f1c5ba6a58..570a2231c945a6c649cf8dc3b457f0b55657e0c3 100644
+--- a/fs/crypto/crypto.c
++++ b/fs/crypto/crypto.c
+@@ -365,7 +365,7 @@ void fscrypt_msg(const struct inode *inode, const char *level,
+ 	vaf.fmt = fmt;
+ 	vaf.va = &args;
+ 	if (inode && inode->i_ino)
+-		printk("%sfscrypt (%s, inode %" PRIino "u): %pV\n",
++		printk("%sfscrypt (%s, inode %llu): %pV\n",
+ 		       level, inode->i_sb->s_id, inode->i_ino, &vaf);
+ 	else if (inode)
+ 		printk("%sfscrypt (%s): %pV\n", level, inode->i_sb->s_id, &vaf);
+diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
+index f41809f1f1ed0b1ed78b85a4a987ec9e6cbcfa9d..a7a8a3f581a0460537f5ff955bc8b5d30573a033 100644
+--- a/fs/crypto/hooks.c
++++ b/fs/crypto/hooks.c
+@@ -62,7 +62,7 @@ int fscrypt_file_open(struct inode *inode, struct file *filp)
+ 	dentry_parent = dget_parent(dentry);
+ 	if (!fscrypt_has_permitted_context(d_inode(dentry_parent), inode)) {
+ 		fscrypt_warn(inode,
+-			     "Inconsistent encryption context (parent directory: %" PRIino "u)",
++			     "Inconsistent encryption context (parent directory: %llu)",
+ 			     d_inode(dentry_parent)->i_ino);
+ 		err = -EPERM;
+ 	}
+diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
+index c0a2568a88cf6318877dec0f5379c5c8511c00f8..be8e6e8011f2131f2908da746a37d33fd5295122 100644
+--- a/fs/crypto/keyring.c
++++ b/fs/crypto/keyring.c
+@@ -970,7 +970,7 @@ static int check_for_busy_inodes(struct super_block *sb,
+ 	struct list_head *pos;
+ 	size_t busy_count = 0;
+ 	char ino_str[50] = "";
+-	kino_t ino;
++	u64 ino;
  
- static int aafs_show_path(struct seq_file *seq, struct dentry *dentry)
- {
--	seq_printf(seq, "%s:[%lu]", AAFS_NAME, d_inode(dentry)->i_ino);
-+	seq_printf(seq, "%s:[%" PRIino "u]", AAFS_NAME, d_inode(dentry)->i_ino);
- 	return 0;
+ 	spin_lock(&mk->mk_decrypted_inodes_lock);
+ 
+@@ -994,7 +994,7 @@ static int check_for_busy_inodes(struct super_block *sb,
+ 
+ 	/* If the inode is currently being created, ino may still be 0. */
+ 	if (ino)
+-		snprintf(ino_str, sizeof(ino_str), ", including ino %" PRIino "u", ino);
++		snprintf(ino_str, sizeof(ino_str), ", including ino %llu", ino);
+ 
+ 	fscrypt_warn(NULL,
+ 		     "%s: %zu inode(s) still busy after removing key with %s %*phN%s",
+diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
+index b30630f2c6a4e341c72af0db6aa173f59f742fa1..df58ca4a5e3cb1df94e2f08e3f3b093c33368993 100644
+--- a/fs/crypto/keysetup.c
++++ b/fs/crypto/keysetup.c
+@@ -91,7 +91,7 @@ select_encryption_mode(const union fscrypt_policy *policy,
+ 	if (S_ISDIR(inode->i_mode) || S_ISLNK(inode->i_mode))
+ 		return &fscrypt_modes[fscrypt_policy_fnames_mode(policy)];
+ 
+-	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %" PRIino "u, which is not encryptable (file type %d)\n",
++	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %llu, which is not encryptable (file type %d)\n",
+ 		  inode->i_ino, (inode->i_mode & S_IFMT));
+ 	return ERR_PTR(-EINVAL);
  }
- 
-@@ -2644,7 +2644,7 @@ static int policy_readlink(struct dentry *dentry, char __user *buffer,
- 	char name[32];
- 	int res;
- 
--	res = snprintf(name, sizeof(name), "%s:[%lu]", AAFS_NAME,
-+	res = snprintf(name, sizeof(name), "%s:[%" PRIino "u]", AAFS_NAME,
- 		       d_inode(dentry)->i_ino);
- 	if (res > 0 && res < sizeof(name))
- 		res = readlink_copy(buffer, buflen, name, strlen(name));
-diff --git a/security/integrity/integrity_audit.c b/security/integrity/integrity_audit.c
-index 0ec5e4c22cb2a1066c2b897776ead6d3db72635c..d28dac23a4e7cf651856b80ab7756d250187ccde 100644
---- a/security/integrity/integrity_audit.c
-+++ b/security/integrity/integrity_audit.c
-@@ -62,7 +62,7 @@ void integrity_audit_message(int audit_msgno, struct inode *inode,
- 	if (inode) {
- 		audit_log_format(ab, " dev=");
- 		audit_log_untrustedstring(ab, inode->i_sb->s_id);
--		audit_log_format(ab, " ino=%lu", inode->i_ino);
-+		audit_log_format(ab, " ino=%" PRIino "u", inode->i_ino);
- 	}
- 	audit_log_format(ab, " res=%d errno=%d", !result, errno);
- 	audit_log_end(ab);
-diff --git a/security/ipe/audit.c b/security/ipe/audit.c
-index 3f0deeb54912730d9acf5e021a4a0cb29a34e982..0de95dd4fbea15d4d913fc42e197c3120a9d24a0 100644
---- a/security/ipe/audit.c
-+++ b/security/ipe/audit.c
-@@ -153,7 +153,7 @@ void ipe_audit_match(const struct ipe_eval_ctx *const ctx,
- 		if (inode) {
- 			audit_log_format(ab, " dev=");
- 			audit_log_untrustedstring(ab, inode->i_sb->s_id);
--			audit_log_format(ab, " ino=%lu", inode->i_ino);
-+			audit_log_format(ab, " ino=%" PRIino "u", inode->i_ino);
- 		} else {
- 			audit_log_format(ab, " dev=? ino=?");
- 		}
-diff --git a/security/lsm_audit.c b/security/lsm_audit.c
-index 7d623b00495c14b079e10e963c21a9f949c11f07..523f2ee116f0f928003aec30a105d6d4ecb49b0b 100644
---- a/security/lsm_audit.c
-+++ b/security/lsm_audit.c
-@@ -202,7 +202,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 		if (inode) {
- 			audit_log_format(ab, " dev=");
- 			audit_log_untrustedstring(ab, inode->i_sb->s_id);
--			audit_log_format(ab, " ino=%lu", inode->i_ino);
-+			audit_log_format(ab, " ino=%" PRIino "u", inode->i_ino);
- 		}
- 		break;
- 	}
-@@ -215,7 +215,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 		if (inode) {
- 			audit_log_format(ab, " dev=");
- 			audit_log_untrustedstring(ab, inode->i_sb->s_id);
--			audit_log_format(ab, " ino=%lu", inode->i_ino);
-+			audit_log_format(ab, " ino=%" PRIino "u", inode->i_ino);
- 		}
- 		break;
- 	}
-@@ -228,7 +228,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 		if (inode) {
- 			audit_log_format(ab, " dev=");
- 			audit_log_untrustedstring(ab, inode->i_sb->s_id);
--			audit_log_format(ab, " ino=%lu", inode->i_ino);
-+			audit_log_format(ab, " ino=%" PRIino "u", inode->i_ino);
- 		}
- 
- 		audit_log_format(ab, " ioctlcmd=0x%hx", a->u.op->cmd);
-@@ -246,7 +246,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 		if (inode) {
- 			audit_log_format(ab, " dev=");
- 			audit_log_untrustedstring(ab, inode->i_sb->s_id);
--			audit_log_format(ab, " ino=%lu", inode->i_ino);
-+			audit_log_format(ab, " ino=%" PRIino "u", inode->i_ino);
- 		}
- 		break;
- 	}
-@@ -265,7 +265,7 @@ void audit_log_lsm_data(struct audit_buffer *ab,
- 		}
- 		audit_log_format(ab, " dev=");
- 		audit_log_untrustedstring(ab, inode->i_sb->s_id);
--		audit_log_format(ab, " ino=%lu", inode->i_ino);
-+		audit_log_format(ab, " ino=%" PRIino "u", inode->i_ino);
- 		rcu_read_unlock();
- 		break;
- 	}
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index d8224ea113d1ac273aac1fb52324f00b3301ae75..9430f44c81447708c67ddc35c5b4254f16731b8f 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -1400,7 +1400,7 @@ static int inode_doinit_use_xattr(struct inode *inode, struct dentry *dentry,
- 	if (rc < 0) {
- 		kfree(context);
- 		if (rc != -ENODATA) {
--			pr_warn("SELinux: %s:  getxattr returned %d for dev=%s ino=%ld\n",
-+			pr_warn("SELinux: %s:  getxattr returned %d for dev=%s ino=%" PRIino "u\n",
- 				__func__, -rc, inode->i_sb->s_id, inode->i_ino);
- 			return rc;
- 		}
-@@ -1412,13 +1412,13 @@ static int inode_doinit_use_xattr(struct inode *inode, struct dentry *dentry,
- 					     def_sid, GFP_NOFS);
- 	if (rc) {
- 		char *dev = inode->i_sb->s_id;
--		unsigned long ino = inode->i_ino;
-+		kino_t ino = inode->i_ino;
- 
- 		if (rc == -EINVAL) {
--			pr_notice_ratelimited("SELinux: inode=%lu on dev=%s was found to have an invalid context=%s.  This indicates you may need to relabel the inode or the filesystem in question.\n",
-+			pr_notice_ratelimited("SELinux: inode=%" PRIino "u on dev=%s was found to have an invalid context=%s.  This indicates you may need to relabel the inode or the filesystem in question.\n",
- 					      ino, dev, context);
- 		} else {
--			pr_warn("SELinux: %s:  context_to_sid(%s) returned %d for dev=%s ino=%ld\n",
-+			pr_warn("SELinux: %s:  context_to_sid(%s) returned %d for dev=%s ino=%" PRIino "u\n",
- 				__func__, context, -rc, dev, ino);
- 		}
- 	}
-@@ -3477,7 +3477,7 @@ static void selinux_inode_post_setxattr(struct dentry *dentry, const char *name,
- 					   &newsid);
- 	if (rc) {
- 		pr_err("SELinux:  unable to map context to SID"
--		       "for (%s, %lu), rc=%d\n",
-+		       "for (%s, %" PRIino "u), rc=%d\n",
- 		       inode->i_sb->s_id, inode->i_ino, -rc);
- 		return;
- 	}
-diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index 98af9d7b943469d0ddd344fc78c0b87ca40c16c4..22b6bd322840c82697c38c07b19a4677e7da2598 100644
---- a/security/smack/smack_lsm.c
-+++ b/security/smack/smack_lsm.c
-@@ -182,7 +182,7 @@ static int smk_bu_inode(struct inode *inode, int mode, int rc)
- 	char acc[SMK_NUM_ACCESS_TYPE + 1];
- 
- 	if (isp->smk_flags & SMK_INODE_IMPURE)
--		pr_info("Smack Unconfined Corruption: inode=(%s %ld) %s\n",
-+		pr_info("Smack Unconfined Corruption: inode=(%s %" PRIino "u) %s\n",
- 			inode->i_sb->s_id, inode->i_ino, current->comm);
- 
- 	if (rc <= 0)
-@@ -195,7 +195,7 @@ static int smk_bu_inode(struct inode *inode, int mode, int rc)
- 
- 	smk_bu_mode(mode, acc);
- 
--	pr_info("Smack %s: (%s %s %s) inode=(%s %ld) %s\n", smk_bu_mess[rc],
-+	pr_info("Smack %s: (%s %s %s) inode=(%s %" PRIino "u) %s\n", smk_bu_mess[rc],
- 		tsp->smk_task->smk_known, isp->smk_inode->smk_known, acc,
- 		inode->i_sb->s_id, inode->i_ino, current->comm);
- 	return 0;
-@@ -214,7 +214,7 @@ static int smk_bu_file(struct file *file, int mode, int rc)
- 	char acc[SMK_NUM_ACCESS_TYPE + 1];
- 
- 	if (isp->smk_flags & SMK_INODE_IMPURE)
--		pr_info("Smack Unconfined Corruption: inode=(%s %ld) %s\n",
-+		pr_info("Smack Unconfined Corruption: inode=(%s %" PRIino "u) %s\n",
- 			inode->i_sb->s_id, inode->i_ino, current->comm);
- 
- 	if (rc <= 0)
-@@ -223,7 +223,7 @@ static int smk_bu_file(struct file *file, int mode, int rc)
- 		rc = 0;
- 
- 	smk_bu_mode(mode, acc);
--	pr_info("Smack %s: (%s %s %s) file=(%s %ld %pD) %s\n", smk_bu_mess[rc],
-+	pr_info("Smack %s: (%s %s %s) file=(%s %" PRIino "u %pD) %s\n", smk_bu_mess[rc],
- 		sskp->smk_known, smk_of_inode(inode)->smk_known, acc,
- 		inode->i_sb->s_id, inode->i_ino, file,
- 		current->comm);
-@@ -244,7 +244,7 @@ static int smk_bu_credfile(const struct cred *cred, struct file *file,
- 	char acc[SMK_NUM_ACCESS_TYPE + 1];
- 
- 	if (isp->smk_flags & SMK_INODE_IMPURE)
--		pr_info("Smack Unconfined Corruption: inode=(%s %ld) %s\n",
-+		pr_info("Smack Unconfined Corruption: inode=(%s %" PRIino "u) %s\n",
- 			inode->i_sb->s_id, inode->i_ino, current->comm);
- 
- 	if (rc <= 0)
-@@ -253,7 +253,7 @@ static int smk_bu_credfile(const struct cred *cred, struct file *file,
- 		rc = 0;
- 
- 	smk_bu_mode(mode, acc);
--	pr_info("Smack %s: (%s %s %s) file=(%s %ld %pD) %s\n", smk_bu_mess[rc],
-+	pr_info("Smack %s: (%s %s %s) file=(%s %" PRIino "u %pD) %s\n", smk_bu_mess[rc],
- 		sskp->smk_known, smk_of_inode(inode)->smk_known, acc,
- 		inode->i_sb->s_id, inode->i_ino, file,
- 		current->comm);
 
 -- 
 2.53.0
