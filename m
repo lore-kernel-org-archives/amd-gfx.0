@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BEBEEC0484
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D065EC0462
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA33310E74B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59E0610E741;
 	Tue,  3 Mar 2026 09:01:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WD9QSZaB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Mn1jDEeI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE1DC10E5BD;
- Mon,  2 Mar 2026 20:46:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 821BF10E5BD;
+ Mon,  2 Mar 2026 20:31:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C279E43B9E;
- Mon,  2 Mar 2026 20:46:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A47FC2BC9E;
- Mon,  2 Mar 2026 20:45:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 52D5E4165E;
+ Mon,  2 Mar 2026 20:31:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A54C2BCB3;
+ Mon,  2 Mar 2026 20:31:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484364;
- bh=qBOGZ+H4FCJyoScuTijEcAxm33DX4t54AKihmOD4lfc=;
+ s=k20201202; t=1772483489;
+ bh=EUtvhtP85AhwBvScrYqnCppGsNhvVgwIar2mU46rYXU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=WD9QSZaB4Ynf3T2024pRykq9e0/jdmE8EG7gpxceQsWLs9ldUDrFlX4ArZiie0vbL
- 19LbIvHDGkRkdQlFvg2Y7NwamnoN3dr7aJrGPp3z71wIC5mJJ7qSa4bmsCB3TH/SeC
- hUi3DjOP9V4XSETuRPjeZTuWgMSi9immDKfUAEtwEpfS0taqUCB19NTdwT9PAl2Dr1
- X6n/FZutnR9+MwmmLPosjsknaR7URHBAA5CT4uRPA0WQdzY1319ktmFMHsHOHDXsX6
- uClORVRaA5wOmwgDDGWX9W7QBFGsaZ2Twg5ddM1UZAYTdINoixEOU0+4vzdq6qPVwW
- Ibfy5Y48Gl/bg==
+ b=Mn1jDEeIHTNuH8npwJ6PAZMEY5mnygPSTBG2na8sq7yRuo3NkZggb4wUeRpbvnRpB
+ OkZY4VEEf4TdERI2nnBdDbCfdyXMwGs2FomhvBC6xygk2qGLXjXjj5k4URDOEViHrJ
+ 5vWB73Clu4powjSrewHesTWAuzpk7k1tqRCTWZcTlwkfdHf6UffBReM2ugKG+iG1wc
+ 0AUvUfpKIzMO7jxzftrwjQzFtEdGc7hJLgflIbyg49ZpR47fcypQD8i0YatnVbnSkC
+ GzWghdAE0Cg65NiYq1VOtsK01J9C7d5sAnZkafhZS8K749Z/cW0PshXIffzCpc6Rz6
+ cUxop/qZ+TYwg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:12 -0500
-Subject: [PATCH v2 088/110] jffs2: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:24:11 -0500
+Subject: [PATCH v2 027/110] efs: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-88-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-27-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4782; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=qBOGZ+H4FCJyoScuTijEcAxm33DX4t54AKihmOD4lfc=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIHR7PXwpRijiaDSNoHBRx6sRq6q8UIIYKp7
- 0L0gu64QBiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBwAKCRAADmhBGVaC
- FdutD/9ObZxe+nOy3nsTFaq7Ut8ArWcplsqSov2kMlKcZpVCHHzCKDenXVX9I9pFuqNSk3FCVmR
- ZtENkgoSqrEgrLbDJ9RYgQz5YLIkClSpE+d+3sRwa1vcidi9xUmF9r1539KnV74bVbjnUn7n39b
- 5Yz4oalHYtyM0RxZBk4NYEBKtBfrTqeXOydheHjmorfO4SLpKbS0DJSXG6yKJp+8cYAotA5dyLc
- 3wz9mx4uNNIi189tf6M4st3QnK1Rse02wHg82ld1a3TZwDRBfVMBrAtlw7DNUBGBc+nVPRYksak
- VxsyEvoslW6Mw05AybupfOtcxkiI7AacYGnromEJLcZ9ZlsBvV9WkRnM9x/QaFVylYPnp96tPfm
- vie5eyII+IYTlT43Ms7C5qU2fcqdKWkC6fZeKSw3Kh7u/pRdAWPgmiOQdnJIZMUoz4UB6CSQJK8
- a47IYq+UxK3Wc55K1/6Nr/HQ7be+ZGdPny2IRYMf644RLf9W0bUdW+9jBTSSRT7I/77bh4GypLj
- 13ZdGuuNKShNp8yE8pV0NP6WB8IbR3yr/yVN3F5UOGRYYRzT5c7/SWeas3JKNG3EhQqXtFQBTC8
- n8AEMtgsyD6/eAVFe8FdKpcragAugbl/JXE/AL/jlB+vFGxVdYQthx9JOUOfU1J2NFyfRZMlbfb
- M6QevW1Grdb83mA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1592; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=EUtvhtP85AhwBvScrYqnCppGsNhvVgwIar2mU46rYXU=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH2Wb+txQs3hUYjnTffsfzpJlLE1nFakCE6h
+ FGp+U/n2/uJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9gAKCRAADmhBGVaC
+ FRQvEADQeW8jCH/RGruXnEY9hdq+SS533KeGGxnNJUZbN/kso8RPKVZtPoOVxAHIgXdD2iOlpvP
+ gGyroUgmaHH/E+sI42ij0kNnaUn66OM1IViP6Qpl3Uw0Wjgx1VqiLu+OL6qXw4aKHREVYcNoGkg
+ P5DdBdkJhU1SmHATBT6CccY4S4kG8s/BVT9Wnzk6e75j9vIhlkuJxuJe+mzKSV4iGprhIgDhA0e
+ ZvVCc5wO5GN2EZKMqcwzhrcoOJiNqS/Nt7uz7/C6WREVEwuQjsjWsiCU+r7nLc57++5xAKCxBUL
+ nZSHQVFXIXNFbrU7Pk7kD62JOjj/CBU/q4JrFEr0hYP+vLHTSqNll0HC6AEQdp5lGrtMLUTSUZs
+ fyWsPziK0k/sb45uMjPIiG6RMzHEcuvgEnwNYpr9V+/AS0HXYaOUB1yMPZCqzrpzt625+1wH82m
+ XeGgtH/X/jtfbUUtJwO6AwvrEsv6mMq4XWJlNteJTQAWU+xXKdg03LAOhonGMbYmDnTjWQSbGFE
+ HMFiTkUY5wT7QqfZvbxO9nNKh+BF1X3rypPAN8CunLYNfW9CtO/fKzCbrLEPPh3+yXI0QMILGoY
+ 71lGdDmo/RqE9fZxU0hqghAJe2Um8QPCiu/jqbIXeZuAUIpyCl9hDpFREd9+3ljAYpqeTxU6jIP
+ 0qvVrWu34KEe/Ow==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,124 +182,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in jffs2 with the concrete format strings.
+Convert efs i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/jffs2/dir.c  |  4 ++--
- fs/jffs2/file.c |  4 ++--
- fs/jffs2/fs.c   | 14 +++++++-------
- 3 files changed, 11 insertions(+), 11 deletions(-)
+ fs/efs/inode.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/fs/jffs2/dir.c b/fs/jffs2/dir.c
-index 6ef2641b39b3c66924eb4641f5c0024ae11ff255..c4088c3b4ac0362074cfa186c04f9c3afcccdff2 100644
---- a/fs/jffs2/dir.c
-+++ b/fs/jffs2/dir.c
-@@ -129,7 +129,7 @@ static int jffs2_readdir(struct file *file, struct dir_context *ctx)
- 	struct jffs2_full_dirent *fd;
- 	unsigned long curofs = 1;
- 
--	jffs2_dbg(1, "jffs2_readdir() for dir_i #%" PRIino "u\n", inode->i_ino);
-+	jffs2_dbg(1, "jffs2_readdir() for dir_i #%llu\n", inode->i_ino);
- 
- 	if (!dir_emit_dots(file, ctx))
- 		return 0;
-@@ -211,7 +211,7 @@ static int jffs2_create(struct mnt_idmap *idmap, struct inode *dir_i,
- 
- 	jffs2_free_raw_inode(ri);
- 
--	jffs2_dbg(1, "%s(): Created ino #%" PRIino "u with mode %o, nlink %d(%d). nrpages %ld\n",
-+	jffs2_dbg(1, "%s(): Created ino #%llu with mode %o, nlink %d(%d). nrpages %ld\n",
- 		  __func__, inode->i_ino, inode->i_mode, inode->i_nlink,
- 		  f->inocache->pino_nlink, inode->i_mapping->nrpages);
- 
-diff --git a/fs/jffs2/file.c b/fs/jffs2/file.c
-index f6b9d76d9dbc32f582069aeef0b73cf3c6ff842e..1e18d3a798409d23440a5890808bc25372549e93 100644
---- a/fs/jffs2/file.c
-+++ b/fs/jffs2/file.c
-@@ -88,7 +88,7 @@ static int jffs2_do_readpage_nolock(struct inode *inode, struct folio *folio)
- 	unsigned char *kaddr;
- 	int ret;
- 
--	jffs2_dbg(2, "%s(): ino #%" PRIino "u, page at offset 0x%lx\n",
-+	jffs2_dbg(2, "%s(): ino #%llu, page at offset 0x%lx\n",
- 		  __func__, inode->i_ino, folio->index << PAGE_SHIFT);
- 
- 	BUG_ON(!folio_test_locked(folio));
-@@ -259,7 +259,7 @@ static int jffs2_write_end(const struct kiocb *iocb,
- 	uint32_t writtenlen = 0;
- 	void *buf;
- 
--	jffs2_dbg(1, "%s(): ino #%" PRIino "u, page at 0x%llx, range %d-%d, flags %lx\n",
-+	jffs2_dbg(1, "%s(): ino #%llu, page at 0x%llx, range %d-%d, flags %lx\n",
- 		  __func__, inode->i_ino, folio_pos(folio),
- 		  start, end, folio->flags.f);
- 
-diff --git a/fs/jffs2/fs.c b/fs/jffs2/fs.c
-index 4ad37a42c03d8357f3ef99596b725bea3db1932b..6ada8369a76227c30ec27e8efebd93939376494e 100644
---- a/fs/jffs2/fs.c
-+++ b/fs/jffs2/fs.c
-@@ -43,7 +43,7 @@ int jffs2_do_setattr (struct inode *inode, struct iattr *iattr)
- 	int ret;
- 	int alloc_type = ALLOC_NORMAL;
- 
--	jffs2_dbg(1, "%s(): ino #%" PRIino "u\n", __func__, inode->i_ino);
-+	jffs2_dbg(1, "%s(): ino #%llu\n", __func__, inode->i_ino);
- 
- 	/* Special cases - we don't want more than one data node
- 	   for these types on the medium at any time. So setattr
-@@ -243,7 +243,7 @@ void jffs2_evict_inode (struct inode *inode)
- 	struct jffs2_sb_info *c = JFFS2_SB_INFO(inode->i_sb);
- 	struct jffs2_inode_info *f = JFFS2_INODE_INFO(inode);
- 
--	jffs2_dbg(1, "%s(): ino #%" PRIino "u mode %o\n",
-+	jffs2_dbg(1, "%s(): ino #%llu mode %o\n",
- 		  __func__, inode->i_ino, inode->i_mode);
- 	truncate_inode_pages_final(&inode->i_data);
- 	clear_inode(inode);
-@@ -334,7 +334,7 @@ struct inode *jffs2_iget(struct super_block *sb, unsigned long ino)
- 		ret = jffs2_read_dnode(c, f, f->metadata, (char *)&jdev, 0, f->metadata->size);
- 		if (ret < 0) {
- 			/* Eep */
--			pr_notice("Read device numbers for inode %" PRIino "u failed\n",
-+			pr_notice("Read device numbers for inode %llu failed\n",
- 				  inode->i_ino);
- 			goto error;
- 		}
-@@ -351,7 +351,7 @@ struct inode *jffs2_iget(struct super_block *sb, unsigned long ino)
- 		break;
- 
- 	default:
--		pr_warn("%s(): Bogus i_mode %o for ino %" PRIino "u\n",
-+		pr_warn("%s(): Bogus i_mode %o for ino %llu\n",
- 			__func__, inode->i_mode, inode->i_ino);
+diff --git a/fs/efs/inode.c b/fs/efs/inode.c
+index 28407578f83ad5db1b8a7b082fa3e990b6b442ec..a21a03f7e5790aed95738b1a0c0f1edcc84848e8 100644
+--- a/fs/efs/inode.c
++++ b/fs/efs/inode.c
+@@ -132,7 +132,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
+ 	for(i = 0; i < EFS_DIRECTEXTENTS; i++) {
+ 		extent_copy(&(efs_inode->di_u.di_extents[i]), &(in->extents[i]));
+ 		if (i < in->numextents && in->extents[i].cooked.ex_magic != 0) {
+-			pr_warn("extent %d has bad magic number in inode %lu\n",
++			pr_warn("extent %d has bad magic number in inode %" PRIino "u\n",
+ 				i, inode->i_ino);
+ 			brelse(bh);
+ 			goto read_inode_error;
+@@ -140,7 +140,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
  	}
  
-@@ -374,12 +374,12 @@ void jffs2_dirty_inode(struct inode *inode, int flags)
- 	struct iattr iattr;
- 
- 	if (!(inode_state_read_once(inode) & I_DIRTY_DATASYNC)) {
--		jffs2_dbg(2, "%s(): not calling setattr() for ino #%" PRIino "u\n",
-+		jffs2_dbg(2, "%s(): not calling setattr() for ino #%llu\n",
- 			  __func__, inode->i_ino);
- 		return;
- 	}
- 
--	jffs2_dbg(1, "%s(): calling setattr() for ino #%" PRIino "u\n",
-+	jffs2_dbg(1, "%s(): calling setattr() for ino #%llu\n",
- 		  __func__, inode->i_ino);
- 
- 	iattr.ia_valid = ATTR_MODE|ATTR_UID|ATTR_GID|ATTR_ATIME|ATTR_MTIME|ATTR_CTIME;
-@@ -428,7 +428,7 @@ struct inode *jffs2_new_inode (struct inode *dir_i, umode_t mode, struct jffs2_r
- 	struct jffs2_inode_info *f;
- 	int ret;
- 
--	jffs2_dbg(1, "%s(): dir_i %" PRIino "u, mode 0x%x\n",
-+	jffs2_dbg(1, "%s(): dir_i %llu, mode 0x%x\n",
- 		  __func__, dir_i->i_ino, mode);
- 
- 	c = JFFS2_SB_INFO(sb);
+ 	brelse(bh);
+-	pr_debug("efs_iget(): inode %lu, extents %d, mode %o\n",
++	pr_debug("efs_iget(): inode %" PRIino "u, extents %d, mode %o\n",
+ 		 inode->i_ino, in->numextents, inode->i_mode);
+ 	switch (inode->i_mode & S_IFMT) {
+ 		case S_IFDIR: 
+@@ -171,7 +171,7 @@ struct inode *efs_iget(struct super_block *super, unsigned long ino)
+ 	return inode;
+         
+ read_inode_error:
+-	pr_warn("failed to read inode %lu\n", inode->i_ino);
++	pr_warn("failed to read inode %" PRIino "u\n", inode->i_ino);
+ 	iget_failed(inode);
+ 	return ERR_PTR(-EIO);
+ }
 
 -- 
 2.53.0
