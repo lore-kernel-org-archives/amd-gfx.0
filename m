@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 821F7EC0461
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A75E67A9F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8758C10E724;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8104B10E6E8;
 	Tue,  3 Mar 2026 09:01:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QFK/l67W";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="qfVHOdkd";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F182210E5C3;
- Mon,  2 Mar 2026 20:46:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AACD710E5BB;
+ Mon,  2 Mar 2026 20:27:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5321A60133;
- Mon,  2 Mar 2026 20:46:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC442C19425;
- Mon,  2 Mar 2026 20:46:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 843C741951;
+ Mon,  2 Mar 2026 20:27:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53151C19425;
+ Mon,  2 Mar 2026 20:27:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484379;
- bh=oOhSUmlogX3hUkfVoKDF8y8a/pqC/DLSTod5Uj4+yCo=;
+ s=k20201202; t=1772483244;
+ bh=5VB+NzTxyTTbdILrjVS0CXpowNihfbF7KKD2ZGuki60=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=QFK/l67WhGTxY3MNVSkTneymqOrQE5FKXZDHe6SB+nNMXtNeYjIew5DQgABkgt0Gn
- lNM8YjJvoVkj+HtgUYYgAW9IQzpr0/cfOIHJ4dGkG9iAxa7WPVTRI7LfMjERvp1g20
- NB2RNHKtU66gMxoH3/HZRV4R+2rfoO7mGxOFgvn81JNmQu79EVZeqb5N7sgERHMisD
- XaWcM75KqkO3sODXZYDjBLbuOWxKgLDuUYiEf04D7AYj7x0tsxaMfo2IGzfcO0gSOD
- YcWpwatBWQJMdZT69vmlZKdq2eHu04aKj7o7WnXXgMX3icvM9eeDG89T5QFXZHV9ki
- qqt8UpZV8JT4Q==
+ b=qfVHOdkdt02CZl3KdunfN2VVSon3TWufr6tZYTCXdZ0hAm7kh4m0Q5yBErAai6J9Z
+ URfmsEUOqNqbdTHs16kR25ycpZz+prweGn8en/42ThckoVrq2k1JsCqa7GRxU3k/t4
+ 79f2NED3SU9GeP7S8imZ7XOZxgUhSOgThefzv4gzy5IpRGUV6+dZBWkKvooE9YNn/m
+ AaKp1YNGkS4BYgbI4ER5pVJ17dyz87CaA8fSOIqh9a+SxkAwzayLdtj16xCarl2naP
+ KPVrSZ15CqavU8DoTC1nQMQaj6L2pFl4fNxOE+Y9XtPyk0Z7tXTQYTFPtJwiGz0ZmN
+ nUkUGLjw0woCg==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:13 -0500
-Subject: [PATCH v2 089/110] jfs: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:23:54 -0500
+Subject: [PATCH v2 010/110] lockd: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-89-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-10-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2019; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=oOhSUmlogX3hUkfVoKDF8y8a/pqC/DLSTod5Uj4+yCo=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIHVuyPWm6Ogyyr4Uaitgz5+Zy0QdOagQ0LM
- rh3nzuPVViJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBwAKCRAADmhBGVaC
- FUG8EAC6sR6nI8JObBOYvouIGChfBANCmxFZ2xYcY1j5s2hD9uFCg7fQJ0jAKZMouw/tMAZgjd/
- m4N7AubbGIA/9/WBMScxAnpsIYHXZraFaWvOsndsTukur5JxALyIhPFz6+GpkFDN2s2OT66hKfh
- C/RT3gGd4yxg98E2KnCo8aHKhr5lG/0fXpqgH+IOfdddVYehawAK6JakiIfhF2nyW8nDX8U0Eif
- /6Wj4ib6XZsuiGvHt7SJ07d2Q8QTzUhgWiyNtu8KcSYMces0Gj6zeg+i/SvD0L0ALWJ56UUe659
- pdyiLnatxvmsx1NdT/UKUKlFugXyUeJFD46H6wHulnrl6XCiWi8FzNwUrOe41pj5DwtyLLp2E9Y
- sAA5HchXdhWof5rVVqElVkMrXdASYBe7HPu/dRMeWwAdQalBHWFivg2gKMIpej4I8Uhqffimo7K
- Ax4qoBlNlESu4VpNIsliVjzhHvzh2cmxafpGTewoFYW4P5GIh1IZHN6nd73fG9NauLvMC/J3K+w
- kqx0oRG4EpCQ1U/ntMliW508gwqp7fjR6/uekoTUSYH9eplK82F0BA7QAlBmiB1LBAj9pVj3DLn
- jte/6qynA4B5h0jRQkSRTuvbLsRccq+akrBDBXmhP8CALxeqnjlFNMsC6dLgInpOlFCBea/12HK
- JZIjXU3wI/gm1HQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2560; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=5VB+NzTxyTTbdILrjVS0CXpowNihfbF7KKD2ZGuki60=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHxRIp/wSp+XA/WsU2UWjaucC6lZTxvCM0fM
+ 48TEkF4WjWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8QAKCRAADmhBGVaC
+ FU9tEACzae8Mk5amZ0VIj9ptrSq4/DkARwfOtgg0FBX48Yv+IIco33E1ItoDw1qU/+srG6Qf0cH
+ BXm/HrKitguKwL3fUhDn0ABgyXc6+k5cEyyrwpdqkZxoRjqefrGGaHnmb3FQe5OdINNUIlOj8AL
+ g+gXOVpRXyt5AYwOVaBkTxCU9xVIIjXPEU8hGDWuHpX8rNeBQi1BOGwVeNZ4Qjg9mHgoe/qH/xh
+ 4oBpMBPS+X2Jl0fzF+SD2RgsjHunuxqPKUzyahe10YYm1MCO0fwW9PFq4EhoUh5/Eqa1V+hCX1E
+ i4mOPjFxj1KoGOocZcDav2L+VBPFYIHT4uVVni9z/CjdRqBhyoYn1Q1BCeB00WPkGy/H1K6vO6a
+ zWDgOjPifip7WDVxoJrxR9LE5pxcVrqaZvKbI9eWWaDZA3mVr8/fZcxKiQdEhh1XX0sB6olH24u
+ 8twty75/dEezhiAtIKRFf9lDdDJn/9GnD4iFc4YoiuEKmioZWWs5SaFOeuIK6pzZjrzu5F4TH12
+ Y8r+DCaxc9KMimUq1mpiEDStKjW/9zryKoAdyeTmv4JqsIz+V3QyImJJNBWy4iSNoMVFUFedjqv
+ lrEpps4nQw71S49uyIOnYI5EiPzurtH1d2zrO+7g/k+IFA0vQu7fNstjjBEGC/4V0ll8PZcagLr
+ nFaaUgNOQ51LaIQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,55 +182,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in jfs with the concrete format strings.
+Convert lockd i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
+
+Also correct signed format specifiers to unsigned, since inode
+numbers are unsigned values.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/jfs/inode.c        | 2 +-
- fs/jfs/jfs_imap.c     | 2 +-
- fs/jfs/jfs_metapage.c | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ fs/lockd/svclock.c | 8 ++++----
+ fs/lockd/svcsubs.c | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/fs/jfs/inode.c b/fs/jfs/inode.c
-index 7529043baaf30a6227e5d8edbefd9e37a8105d43..c7914dbc91ed97e200edbd114e2d4c695b46fb7e 100644
---- a/fs/jfs/inode.c
-+++ b/fs/jfs/inode.c
-@@ -64,7 +64,7 @@ struct inode *jfs_iget(struct super_block *sb, unsigned long ino)
- 		inode->i_op = &jfs_file_inode_operations;
- 		init_special_inode(inode, inode->i_mode, inode->i_rdev);
- 	} else {
--		printk(KERN_DEBUG "JFS: Invalid file type 0%04o for inode %" PRIino "u.\n",
-+		printk(KERN_DEBUG "JFS: Invalid file type 0%04o for inode %llu.\n",
- 		       inode->i_mode, inode->i_ino);
- 		iget_failed(inode);
- 		return ERR_PTR(-EIO);
-diff --git a/fs/jfs/jfs_imap.c b/fs/jfs/jfs_imap.c
-index c9ea54f06114ce210ab2d80ad80d0dfa6c55b250..13ab21e66f510befc477bd15d40f69544cb7a386 100644
---- a/fs/jfs/jfs_imap.c
-+++ b/fs/jfs/jfs_imap.c
-@@ -302,7 +302,7 @@ int diRead(struct inode *ip)
- 	unsigned long pageno;
- 	int rel_inode;
+diff --git a/fs/lockd/svclock.c b/fs/lockd/svclock.c
+index 255a847ca0b6b9f7ab5a99c3aaa6856044ac0535..2ee2c3d6e442e701dab29dafc23da8209306b84f 100644
+--- a/fs/lockd/svclock.c
++++ b/fs/lockd/svclock.c
+@@ -487,7 +487,7 @@ nlmsvc_lock(struct svc_rqst *rqstp, struct nlm_file *file,
+ 	int			async_block = 0;
+ 	__be32			ret;
  
--	jfs_info("diRead: ino = %" PRIino "u", ip->i_ino);
-+	jfs_info("diRead: ino = %llu", ip->i_ino);
+-	dprintk("lockd: nlmsvc_lock(%s/%ld, ty=%d, pi=%d, %Ld-%Ld, bl=%d)\n",
++	dprintk("lockd: nlmsvc_lock(%s/%" PRIino "u, ty=%d, pi=%d, %Ld-%Ld, bl=%d)\n",
+ 				inode->i_sb->s_id, inode->i_ino,
+ 				lock->fl.c.flc_type,
+ 				lock->fl.c.flc_pid,
+@@ -617,7 +617,7 @@ nlmsvc_testlock(struct svc_rqst *rqstp, struct nlm_file *file,
+ 	int			mode;
+ 	__be32			ret;
  
- 	ipimap = sbi->ipimap;
- 	JFS_IP(ip)->ipimap = ipimap;
-diff --git a/fs/jfs/jfs_metapage.c b/fs/jfs/jfs_metapage.c
-index 0a1efacaf4e2196197cfe44e5c51d89b15d39545..c95804f6dc1912510c51163cc120d536de652fd3 100644
---- a/fs/jfs/jfs_metapage.c
-+++ b/fs/jfs/jfs_metapage.c
-@@ -692,7 +692,7 @@ struct metapage *__get_metapage(struct inode *inode, unsigned long lblock,
- 	unsigned long page_index;
- 	unsigned long page_offset;
+-	dprintk("lockd: nlmsvc_testlock(%s/%ld, ty=%d, %Ld-%Ld)\n",
++	dprintk("lockd: nlmsvc_testlock(%s/%" PRIino "u, ty=%d, %Ld-%Ld)\n",
+ 				nlmsvc_file_inode(file)->i_sb->s_id,
+ 				nlmsvc_file_inode(file)->i_ino,
+ 				lock->fl.c.flc_type,
+@@ -676,7 +676,7 @@ nlmsvc_unlock(struct net *net, struct nlm_file *file, struct nlm_lock *lock)
+ {
+ 	int	error = 0;
  
--	jfs_info("__get_metapage: ino = %" PRIino "u, lblock = 0x%lx, abs=%d",
-+	jfs_info("__get_metapage: ino = %llu, lblock = 0x%lx, abs=%d",
- 		 inode->i_ino, lblock, absolute);
+-	dprintk("lockd: nlmsvc_unlock(%s/%ld, pi=%d, %Ld-%Ld)\n",
++	dprintk("lockd: nlmsvc_unlock(%s/%" PRIino "u, pi=%d, %Ld-%Ld)\n",
+ 				nlmsvc_file_inode(file)->i_sb->s_id,
+ 				nlmsvc_file_inode(file)->i_ino,
+ 				lock->fl.c.flc_pid,
+@@ -716,7 +716,7 @@ nlmsvc_cancel_blocked(struct net *net, struct nlm_file *file, struct nlm_lock *l
+ 	int status = 0;
+ 	int mode;
  
- 	l2bsize = inode->i_blkbits;
+-	dprintk("lockd: nlmsvc_cancel(%s/%ld, pi=%d, %Ld-%Ld)\n",
++	dprintk("lockd: nlmsvc_cancel(%s/%" PRIino "u, pi=%d, %Ld-%Ld)\n",
+ 				nlmsvc_file_inode(file)->i_sb->s_id,
+ 				nlmsvc_file_inode(file)->i_ino,
+ 				lock->fl.c.flc_pid,
+diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
+index dd0214dcb69503006181a1533c440fc04a329d73..5e7b2a7967bd23365dae2817a0e11c50e4be7c83 100644
+--- a/fs/lockd/svcsubs.c
++++ b/fs/lockd/svcsubs.c
+@@ -47,7 +47,7 @@ static inline void nlm_debug_print_file(char *msg, struct nlm_file *file)
+ {
+ 	struct inode *inode = nlmsvc_file_inode(file);
+ 
+-	dprintk("lockd: %s %s/%ld\n",
++	dprintk("lockd: %s %s/%" PRIino "u\n",
+ 		msg, inode->i_sb->s_id, inode->i_ino);
+ }
+ #else
 
 -- 
 2.53.0
