@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47896EC046E
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E60A1EC047E
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFF0B10E77C;
-	Tue,  3 Mar 2026 09:01:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CCAE10E77B;
+	Tue,  3 Mar 2026 09:01:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dfihw1jF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X/phi7gi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F10A10E5BD;
- Mon,  2 Mar 2026 20:38:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9C7410E36C;
+ Mon,  2 Mar 2026 20:41:46 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B137D60145;
- Mon,  2 Mar 2026 20:38:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490D7C2BC9E;
- Mon,  2 Mar 2026 20:37:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9F46241909;
+ Mon,  2 Mar 2026 20:41:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69E3CC2BCB5;
+ Mon,  2 Mar 2026 20:41:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483891;
- bh=dnPu98PpOBsxLD5hcLK4mgf9NbKurHnG2PHV/YVPMtE=;
+ s=k20201202; t=1772484106;
+ bh=vNkzHuGLAk6SRSLBijwmtGmdFlDfgPU49VRuVG8BzJA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=dfihw1jFSIdvvofM7GeczTRZaGjN56IVko/RjWryiRlHmabpPZmIfpljOJ2J9MNOV
- ys0IDuA6hyXtNpLSD2zuRcDoVU/QLP7NlQ3Ef9jE+J8bRYhSKrBKc3JqiKI3zZiRQf
- Cdu1+/pJ2+qo+qXqDf3bRWM7JI3BxxucWbSP5c0+7xYBk+8f8BOmCFC/cctg83T9iw
- 6MUxikSWx/kJCJgX/mbJrJmLC3xowGW+PwD3vA3NivcNM6sfK0x43czxIYsP6PktEY
- KhKMBNMYfkJiICleMUUBg0ZVsV+gi0abWrxcL/3dVrICnxMxJygieV9huNAKdzhf+Q
- 1CEdudwrsxe+g==
+ b=X/phi7giFaiaj1D5rEFCicJuPbTWAsn004MqbAjC0lc7T3FifsJTWN6txiKvvhPxR
+ oIB8oR1w/cMe51tLB8DbblN3yOgcW4zdAnbjf5yO4FCsvs5RMrq0qTihvN2IseYp40
+ +QunU7MlsngzRdOyWxLaFxrJVOED606+Nr+pIr+mZKTzfVojHse/GuifEIFhh1hUKn
+ A/5CxguwtMB2GqqnCaIVPuZ8bqQZmmsgab86o88A3MEM2rlxJQEPPclKHNjtulT8qj
+ i+E9qCaozbnzrTSAInWiG5fTyZXUKm2QpPYfZqjb9hAn7PUwtwMGxcOGcBAslnC8+p
+ f0evqvl1eIhKw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:39 -0500
-Subject: [PATCH v2 055/110] fscrypt: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:24:54 -0500
+Subject: [PATCH v2 070/110] affs: replace PRIino with %llu/%llx format strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-55-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-70-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3328; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=dnPu98PpOBsxLD5hcLK4mgf9NbKurHnG2PHV/YVPMtE=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH97wgCsVXgRJvPbO7D9YfwDtQeOfAz7v61x
- OuSsVRyaqaJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/QAKCRAADmhBGVaC
- FT5qD/9WD46NwA8dANhwhXI+E4wgQ2ujvVgqswNVOt/R0A3KIx0sWulEaOIVfb0S5FhqLDrP0g8
- O0nsiKplGgwCYCETurJGyhKlKT3Hs5NMI+PMPNHbHDEummbv973D/kH9gzHzg28yaYLCxBEkXxr
- WN10jr1wEowWdjCJkQepvboyqOMMphj/mMqpwI/oaUyNOTilpa2TaMSQypi8qXY5tFyPWAoVZEm
- 1gafS/GnYTOLOuvdBmxV00tHamx+t24MobT4a+bXvq+W1le30GP/PZq8XNUEIGAVssSdSK8jlCv
- V9hxJbB6ouLnkbYzPUy2wzaeyNHM+T2wZ2zW+e1zP9+sxk8cp3nHhoT4kKfZ2aRnmSQxEUMoGf1
- C+xlt3Ko9v+UoVeYS46O44bFTxxfQjVYFqlHK0X7hv0fRr8vo+OGzmWNX2YopKnaVxWvcTOgmvK
- VUionH4RvddXKuFr7wkk7h9HPsU1IIrpQn/DO9boSCZKCmn+0+P808UszU176RwChBwc5wIdmAK
- 97bikNaDuaAHX3GPGyo4TzY9azrw/+7t/X5pIsfbRpJ+s9gJE246v9pS3SXnM3x07Hu9gpUjJ2K
- e24X9IhPT9nnEQbjLHrTrbB9ufKbvzg1uI/0emWw7jPTLCJOf1nxHIBi0rAn7v39h1caBc0EMZ+
- 1r9FSwPv866FIaw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12112; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=vNkzHuGLAk6SRSLBijwmtGmdFlDfgPU49VRuVG8BzJA=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfICX1Jxnt0SgWXJk6o0J3qu6igz5r+jH8R/L
+ pnDRJJlhteJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAgAKCRAADmhBGVaC
+ FdM5EADXgpT6XXk4/t6U1lGf/D91W3n6UCz5rUXRXJvxglEv4H2rIa4+9wcmkUfftfPhsOiPXhQ
+ CYcCa+mL1tE5ShaNZijMFX1p78taK83nEzxe6bP4j/iJPiXBwfpvKwS6Sq2rcTFfwmJ3FXKrEhO
+ PH3duzRbwNBvAmHPMj8EAWexWj4ASOMuUZdK6jXjYyFrSN+a/MCBai+8yYabyGOo4cMepM6wdTx
+ JSiYjJiq8M+YN8GvqxmDiAk4FpyHJqEMGx3ruCWks3LuPHakheWi+qndFj6c6G77jUJrue/C5mf
+ FhvsCWRlJEIKH8jTgtdyJWt5mDRuiKuh3iO+HflCjHlw/jb+Q18gipr/Yv3WFHyPG1gKBjpP46D
+ BKFnIxHLsDlD52tUH2S4iXa76L0j+hgk0NS8GFFLhO9ifPYZsgit8R8oaTvovtbqj3VbmgmDppb
+ oCREEYsP4ZMu1wNvM+Fu5CSRlP+WiY/LEMZNosat/fGxfjzsXjlH185lU9hDmsU1bZvVL1Ca8ie
+ 3hvK7wfHF26GolLrq33oXZY3n57DEqySFiyzBGAmTSZ/zkZX3BQmsi5AM4NmcGxgsq8UAV5Ukgy
+ 3tz8EmMCwtxdmMYYQtPxpbT0meSfhd1XAEBMSFsN9evDOiLTQ/KjA17PT3PzqoRTn+rMke7e3Yt
+ njvdWX9LkqIDaUg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,81 +182,317 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert fscrypt i_ino format strings to use the PRIino format macro in
-preparation for the widening of i_ino via kino_t.  Also change the
-temporary variable in check_for_busy_inodes() to be kino_t in
-preparation of the same change.
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in affs with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/crypto/crypto.c   | 2 +-
- fs/crypto/hooks.c    | 2 +-
- fs/crypto/keyring.c  | 4 ++--
- fs/crypto/keysetup.c | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ fs/affs/amigaffs.c |  8 ++++----
+ fs/affs/bitmap.c   |  2 +-
+ fs/affs/dir.c      |  2 +-
+ fs/affs/file.c     | 20 ++++++++++----------
+ fs/affs/inode.c    | 12 ++++++------
+ fs/affs/namei.c    | 14 +++++++-------
+ fs/affs/symlink.c  |  2 +-
+ 7 files changed, 30 insertions(+), 30 deletions(-)
 
-diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
-index 07f9cbfe3ea4115b8fcc881ae5154b3c3e898c04..4fc2990642fd3ee385a9919183cbb0f1c5ba6a58 100644
---- a/fs/crypto/crypto.c
-+++ b/fs/crypto/crypto.c
-@@ -365,7 +365,7 @@ void fscrypt_msg(const struct inode *inode, const char *level,
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 	if (inode && inode->i_ino)
--		printk("%sfscrypt (%s, inode %lu): %pV\n",
-+		printk("%sfscrypt (%s, inode %" PRIino "u): %pV\n",
- 		       level, inode->i_sb->s_id, inode->i_ino, &vaf);
- 	else if (inode)
- 		printk("%sfscrypt (%s): %pV\n", level, inode->i_sb->s_id, &vaf);
-diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
-index b97de0d1430fd6ec764f4a758dffe00263496118..f41809f1f1ed0b1ed78b85a4a987ec9e6cbcfa9d 100644
---- a/fs/crypto/hooks.c
-+++ b/fs/crypto/hooks.c
-@@ -62,7 +62,7 @@ int fscrypt_file_open(struct inode *inode, struct file *filp)
- 	dentry_parent = dget_parent(dentry);
- 	if (!fscrypt_has_permitted_context(d_inode(dentry_parent), inode)) {
- 		fscrypt_warn(inode,
--			     "Inconsistent encryption context (parent directory: %lu)",
-+			     "Inconsistent encryption context (parent directory: %" PRIino "u)",
- 			     d_inode(dentry_parent)->i_ino);
- 		err = -EPERM;
- 	}
-diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index 9ec6e5ef0947eff394166d8af438a808cc8a4b2b..c0a2568a88cf6318877dec0f5379c5c8511c00f8 100644
---- a/fs/crypto/keyring.c
-+++ b/fs/crypto/keyring.c
-@@ -969,8 +969,8 @@ static int check_for_busy_inodes(struct super_block *sb,
+diff --git a/fs/affs/amigaffs.c b/fs/affs/amigaffs.c
+index 0e1939cf27bba0c10d2b657b94f3cd5dbee1a61c..b401aacaa06744130eb191daf334bdf979fdc0a6 100644
+--- a/fs/affs/amigaffs.c
++++ b/fs/affs/amigaffs.c
+@@ -33,7 +33,7 @@ affs_insert_hash(struct inode *dir, struct buffer_head *bh)
+ 	ino = bh->b_blocknr;
+ 	offset = affs_hash_name(sb, AFFS_TAIL(sb, bh)->name + 1, AFFS_TAIL(sb, bh)->name[0]);
+ 
+-	pr_debug("%s(dir=%" PRIino "u, ino=%d)\n", __func__, dir->i_ino, ino);
++	pr_debug("%s(dir=%llu, ino=%d)\n", __func__, dir->i_ino, ino);
+ 
+ 	dir_bh = affs_bread(sb, dir->i_ino);
+ 	if (!dir_bh)
+@@ -83,7 +83,7 @@ affs_remove_hash(struct inode *dir, struct buffer_head *rem_bh)
+ 	sb = dir->i_sb;
+ 	rem_ino = rem_bh->b_blocknr;
+ 	offset = affs_hash_name(sb, AFFS_TAIL(sb, rem_bh)->name+1, AFFS_TAIL(sb, rem_bh)->name[0]);
+-	pr_debug("%s(dir=%" PRIino "u, ino=%d, hashval=%d)\n", __func__, dir->i_ino,
++	pr_debug("%s(dir=%llu, ino=%d, hashval=%d)\n", __func__, dir->i_ino,
+ 		 rem_ino, offset);
+ 
+ 	bh = affs_bread(sb, dir->i_ino);
+@@ -147,7 +147,7 @@ affs_remove_link(struct dentry *dentry)
+ 	u32 link_ino, ino;
+ 	int retval;
+ 
+-	pr_debug("%s(key=%" PRIino "u)\n", __func__, inode->i_ino);
++	pr_debug("%s(key=%llu)\n", __func__, inode->i_ino);
+ 	retval = -EIO;
+ 	bh = affs_bread(sb, inode->i_ino);
+ 	if (!bh)
+@@ -279,7 +279,7 @@ affs_remove_header(struct dentry *dentry)
+ 	if (!inode)
+ 		goto done;
+ 
+-	pr_debug("%s(key=%" PRIino "u)\n", __func__, inode->i_ino);
++	pr_debug("%s(key=%llu)\n", __func__, inode->i_ino);
+ 	retval = -EIO;
+ 	bh = affs_bread(sb, (u32)(long)dentry->d_fsdata);
+ 	if (!bh)
+diff --git a/fs/affs/bitmap.c b/fs/affs/bitmap.c
+index 904cd5bc5a4bd5719017bf1820a053557c35d67c..40bc4ce6af4ac9d8dba81809e22516a58f0aaf15 100644
+--- a/fs/affs/bitmap.c
++++ b/fs/affs/bitmap.c
+@@ -125,7 +125,7 @@ affs_alloc_block(struct inode *inode, u32 goal)
+ 	sb = inode->i_sb;
+ 	sbi = AFFS_SB(sb);
+ 
+-	pr_debug("balloc(inode=%" PRIino "u,goal=%u): ", inode->i_ino, goal);
++	pr_debug("balloc(inode=%llu,goal=%u): ", inode->i_ino, goal);
+ 
+ 	if (AFFS_I(inode)->i_pa_cnt) {
+ 		pr_debug("%d\n", AFFS_I(inode)->i_lastalloc+1);
+diff --git a/fs/affs/dir.c b/fs/affs/dir.c
+index 127741d9cac940a45a832bf78b36296dec77cd40..11e2bac2e391896a32109335530a6af5543a0abe 100644
+--- a/fs/affs/dir.c
++++ b/fs/affs/dir.c
+@@ -90,7 +90,7 @@ affs_readdir(struct file *file, struct dir_context *ctx)
+ 	u32			 ino;
+ 	int			 error = 0;
+ 
+-	pr_debug("%s(ino=%" PRIino "u,f_pos=%llx)\n", __func__, inode->i_ino, ctx->pos);
++	pr_debug("%s(ino=%llu,f_pos=%llx)\n", __func__, inode->i_ino, ctx->pos);
+ 
+ 	if (ctx->pos < 2) {
+ 		data->ino = 0;
+diff --git a/fs/affs/file.c b/fs/affs/file.c
+index e2129cc3411f1cc6cf8bf29fe6740e619554e420..a51dee9d7d7ec3724c642725812415bd33c76273 100644
+--- a/fs/affs/file.c
++++ b/fs/affs/file.c
+@@ -24,7 +24,7 @@ static struct buffer_head *affs_get_extblock_slow(struct inode *inode, u32 ext);
+ static int
+ affs_file_open(struct inode *inode, struct file *filp)
  {
- 	struct list_head *pos;
- 	size_t busy_count = 0;
--	unsigned long ino;
- 	char ino_str[50] = "";
-+	kino_t ino;
+-	pr_debug("open(%" PRIino "u,%d)\n",
++	pr_debug("open(%llu,%d)\n",
+ 		 inode->i_ino, atomic_read(&AFFS_I(inode)->i_opencnt));
+ 	atomic_inc(&AFFS_I(inode)->i_opencnt);
+ 	return 0;
+@@ -33,7 +33,7 @@ affs_file_open(struct inode *inode, struct file *filp)
+ static int
+ affs_file_release(struct inode *inode, struct file *filp)
+ {
+-	pr_debug("release(%" PRIino "u, %d)\n",
++	pr_debug("release(%llu, %d)\n",
+ 		 inode->i_ino, atomic_read(&AFFS_I(inode)->i_opencnt));
  
- 	spin_lock(&mk->mk_decrypted_inodes_lock);
+ 	if (atomic_dec_and_test(&AFFS_I(inode)->i_opencnt)) {
+@@ -301,7 +301,7 @@ affs_get_block(struct inode *inode, sector_t block, struct buffer_head *bh_resul
+ 	struct buffer_head	*ext_bh;
+ 	u32			 ext;
  
-@@ -994,7 +994,7 @@ static int check_for_busy_inodes(struct super_block *sb,
+-	pr_debug("%s(%" PRIino "u, %llu)\n", __func__, inode->i_ino,
++	pr_debug("%s(%llu, %llu)\n", __func__, inode->i_ino,
+ 		 (unsigned long long)block);
  
- 	/* If the inode is currently being created, ino may still be 0. */
- 	if (ino)
--		snprintf(ino_str, sizeof(ino_str), ", including ino %lu", ino);
-+		snprintf(ino_str, sizeof(ino_str), ", including ino %" PRIino "u", ino);
+ 	BUG_ON(block > (sector_t)0x7fffffffUL);
+@@ -534,7 +534,7 @@ static int affs_do_read_folio_ofs(struct folio *folio, size_t to, int create)
+ 	size_t bidx, boff, bsize;
+ 	u32 tmp;
  
- 	fscrypt_warn(NULL,
- 		     "%s: %zu inode(s) still busy after removing key with %s %*phN%s",
-diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index 40fa05688d3a1d4aa33d29e9508441faf4bca933..b30630f2c6a4e341c72af0db6aa173f59f742fa1 100644
---- a/fs/crypto/keysetup.c
-+++ b/fs/crypto/keysetup.c
-@@ -91,7 +91,7 @@ select_encryption_mode(const union fscrypt_policy *policy,
- 	if (S_ISDIR(inode->i_mode) || S_ISLNK(inode->i_mode))
- 		return &fscrypt_modes[fscrypt_policy_fnames_mode(policy)];
+-	pr_debug("%s(%" PRIino "u, %ld, 0, %zu)\n", __func__, inode->i_ino,
++	pr_debug("%s(%llu, %ld, 0, %zu)\n", __func__, inode->i_ino,
+ 		 folio->index, to);
+ 	BUG_ON(to > folio_size(folio));
+ 	bsize = AFFS_SB(sb)->s_data_blksize;
+@@ -566,7 +566,7 @@ affs_extent_file_ofs(struct inode *inode, u32 newsize)
+ 	u32 size, bsize;
+ 	u32 tmp;
  
--	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %lu, which is not encryptable (file type %d)\n",
-+	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %" PRIino "u, which is not encryptable (file type %d)\n",
- 		  inode->i_ino, (inode->i_mode & S_IFMT));
- 	return ERR_PTR(-EINVAL);
- }
+-	pr_debug("%s(%" PRIino "u, %d)\n", __func__, inode->i_ino, newsize);
++	pr_debug("%s(%llu, %d)\n", __func__, inode->i_ino, newsize);
+ 	bsize = AFFS_SB(sb)->s_data_blksize;
+ 	bh = NULL;
+ 	size = AFFS_I(inode)->mmu_private;
+@@ -634,7 +634,7 @@ static int affs_read_folio_ofs(struct file *file, struct folio *folio)
+ 	size_t to;
+ 	int err;
+ 
+-	pr_debug("%s(%" PRIino "u, %ld)\n", __func__, inode->i_ino, folio->index);
++	pr_debug("%s(%llu, %ld)\n", __func__, inode->i_ino, folio->index);
+ 	to = folio_size(folio);
+ 	if (folio_pos(folio) + to > inode->i_size) {
+ 		to = inode->i_size - folio_pos(folio);
+@@ -658,7 +658,7 @@ static int affs_write_begin_ofs(const struct kiocb *iocb,
+ 	pgoff_t index;
+ 	int err = 0;
+ 
+-	pr_debug("%s(%" PRIino "u, %llu, %llu)\n", __func__, inode->i_ino, pos,
++	pr_debug("%s(%llu, %llu, %llu)\n", __func__, inode->i_ino, pos,
+ 		 pos + len);
+ 	if (pos > AFFS_I(inode)->mmu_private) {
+ 		/* XXX: this probably leaves a too-big i_size in case of
+@@ -710,7 +710,7 @@ static int affs_write_end_ofs(const struct kiocb *iocb,
+ 	 * due to write_begin.
+ 	 */
+ 
+-	pr_debug("%s(%" PRIino "u, %llu, %llu)\n", __func__, inode->i_ino, pos,
++	pr_debug("%s(%llu, %llu, %llu)\n", __func__, inode->i_ino, pos,
+ 		 pos + len);
+ 	bsize = AFFS_SB(sb)->s_data_blksize;
+ 	data = folio_address(folio);
+@@ -854,7 +854,7 @@ affs_free_prealloc(struct inode *inode)
+ {
+ 	struct super_block *sb = inode->i_sb;
+ 
+-	pr_debug("free_prealloc(ino=%" PRIino "u)\n", inode->i_ino);
++	pr_debug("free_prealloc(ino=%llu)\n", inode->i_ino);
+ 
+ 	while (AFFS_I(inode)->i_pa_cnt) {
+ 		AFFS_I(inode)->i_pa_cnt--;
+@@ -874,7 +874,7 @@ affs_truncate(struct inode *inode)
+ 	struct buffer_head *ext_bh;
+ 	int i;
+ 
+-	pr_debug("truncate(inode=%" PRIino "u, oldsize=%llu, newsize=%llu)\n",
++	pr_debug("truncate(inode=%llu, oldsize=%llu, newsize=%llu)\n",
+ 		 inode->i_ino, AFFS_I(inode)->mmu_private, inode->i_size);
+ 
+ 	last_blk = 0;
+diff --git a/fs/affs/inode.c b/fs/affs/inode.c
+index 14f6a6352662ba9514a64ea0893e848e79abed63..561fc0185e89c47947c83bd1a56cdc8be46f8d0e 100644
+--- a/fs/affs/inode.c
++++ b/fs/affs/inode.c
+@@ -32,7 +32,7 @@ struct inode *affs_iget(struct super_block *sb, unsigned long ino)
+ 	if (!(inode_state_read_once(inode) & I_NEW))
+ 		return inode;
+ 
+-	pr_debug("affs_iget(%" PRIino "u)\n", inode->i_ino);
++	pr_debug("affs_iget(%llu)\n", inode->i_ino);
+ 
+ 	block = inode->i_ino;
+ 	bh = affs_bread(sb, block);
+@@ -171,14 +171,14 @@ affs_write_inode(struct inode *inode, struct writeback_control *wbc)
+ 	uid_t			 uid;
+ 	gid_t			 gid;
+ 
+-	pr_debug("write_inode(%" PRIino "u)\n", inode->i_ino);
++	pr_debug("write_inode(%llu)\n", inode->i_ino);
+ 
+ 	if (!inode->i_nlink)
+ 		// possibly free block
+ 		return 0;
+ 	bh = affs_bread(sb, inode->i_ino);
+ 	if (!bh) {
+-		affs_error(sb, "write_inode", "Cannot read block %" PRIino "u", inode->i_ino);
++		affs_error(sb, "write_inode", "Cannot read block %llu", inode->i_ino);
+ 		return -EIO;
+ 	}
+ 	tail = AFFS_TAIL(sb, bh);
+@@ -219,7 +219,7 @@ affs_notify_change(struct mnt_idmap *idmap, struct dentry *dentry,
+ 	struct inode *inode = d_inode(dentry);
+ 	int error;
+ 
+-	pr_debug("notify_change(%" PRIino "u,0x%x)\n", inode->i_ino, attr->ia_valid);
++	pr_debug("notify_change(%llu,0x%x)\n", inode->i_ino, attr->ia_valid);
+ 
+ 	error = setattr_prepare(&nop_mnt_idmap, dentry, attr);
+ 	if (error)
+@@ -260,7 +260,7 @@ void
+ affs_evict_inode(struct inode *inode)
+ {
+ 	unsigned long cache_page;
+-	pr_debug("evict_inode(ino=%" PRIino "u, nlink=%u)\n",
++	pr_debug("evict_inode(ino=%llu, nlink=%u)\n",
+ 		 inode->i_ino, inode->i_nlink);
+ 	truncate_inode_pages_final(&inode->i_data);
+ 
+@@ -353,7 +353,7 @@ affs_add_entry(struct inode *dir, struct inode *inode, struct dentry *dentry, s3
+ 	u32 block = 0;
+ 	int retval;
+ 
+-	pr_debug("%s(dir=%" PRIino "u, inode=%" PRIino "u, \"%pd\", type=%d)\n", __func__,
++	pr_debug("%s(dir=%llu, inode=%llu, \"%pd\", type=%d)\n", __func__,
+ 		 dir->i_ino, inode->i_ino, dentry, type);
+ 
+ 	retval = -EIO;
+diff --git a/fs/affs/namei.c b/fs/affs/namei.c
+index 725a005a0aec9d4727b6bf561333b236844ae7ec..8705321926007f559bac1af42fbadca8da67afcc 100644
+--- a/fs/affs/namei.c
++++ b/fs/affs/namei.c
+@@ -235,7 +235,7 @@ affs_lookup(struct inode *dir, struct dentry *dentry, unsigned int flags)
+ int
+ affs_unlink(struct inode *dir, struct dentry *dentry)
+ {
+-	pr_debug("%s(dir=%" PRIino "u, %" PRIino "u \"%pd\")\n", __func__, dir->i_ino,
++	pr_debug("%s(dir=%llu, %llu \"%pd\")\n", __func__, dir->i_ino,
+ 		 d_inode(dentry)->i_ino, dentry);
+ 
+ 	return affs_remove_header(dentry);
+@@ -249,7 +249,7 @@ affs_create(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct inode	*inode;
+ 	int		 error;
+ 
+-	pr_debug("%s(%" PRIino "u,\"%pd\",0%ho)\n",
++	pr_debug("%s(%llu,\"%pd\",0%ho)\n",
+ 		 __func__, dir->i_ino, dentry, mode);
+ 
+ 	inode = affs_new_inode(dir);
+@@ -280,7 +280,7 @@ affs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
+ 	struct inode		*inode;
+ 	int			 error;
+ 
+-	pr_debug("%s(%" PRIino "u,\"%pd\",0%ho)\n",
++	pr_debug("%s(%llu,\"%pd\",0%ho)\n",
+ 		 __func__, dir->i_ino, dentry, mode);
+ 
+ 	inode = affs_new_inode(dir);
+@@ -306,7 +306,7 @@ affs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
+ int
+ affs_rmdir(struct inode *dir, struct dentry *dentry)
+ {
+-	pr_debug("%s(dir=%" PRIino "u, %" PRIino "u \"%pd\")\n", __func__, dir->i_ino,
++	pr_debug("%s(dir=%llu, %llu \"%pd\")\n", __func__, dir->i_ino,
+ 		 d_inode(dentry)->i_ino, dentry);
+ 
+ 	return affs_remove_header(dentry);
+@@ -323,7 +323,7 @@ affs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 	int			 i, maxlen, error;
+ 	char			 c, lc;
+ 
+-	pr_debug("%s(%" PRIino "u,\"%pd\" -> \"%s\")\n",
++	pr_debug("%s(%llu,\"%pd\" -> \"%s\")\n",
+ 		 __func__, dir->i_ino, dentry, symname);
+ 
+ 	maxlen = AFFS_SB(sb)->s_hashsize * sizeof(u32) - 1;
+@@ -395,7 +395,7 @@ affs_link(struct dentry *old_dentry, struct inode *dir, struct dentry *dentry)
+ {
+ 	struct inode *inode = d_inode(old_dentry);
+ 
+-	pr_debug("%s(%" PRIino "u, %" PRIino "u, \"%pd\")\n", __func__, inode->i_ino, dir->i_ino,
++	pr_debug("%s(%llu, %llu, \"%pd\")\n", __func__, inode->i_ino, dir->i_ino,
+ 		 dentry);
+ 
+ 	return affs_add_entry(dir, inode, dentry, ST_LINKFILE);
+@@ -511,7 +511,7 @@ int affs_rename2(struct mnt_idmap *idmap, struct inode *old_dir,
+ 	if (flags & ~(RENAME_NOREPLACE | RENAME_EXCHANGE))
+ 		return -EINVAL;
+ 
+-	pr_debug("%s(old=%" PRIino "u,\"%pd\" to new=%" PRIino "u,\"%pd\")\n", __func__,
++	pr_debug("%s(old=%llu,\"%pd\" to new=%llu,\"%pd\")\n", __func__,
+ 		 old_dir->i_ino, old_dentry, new_dir->i_ino, new_dentry);
+ 
+ 	if (flags & RENAME_EXCHANGE)
+diff --git a/fs/affs/symlink.c b/fs/affs/symlink.c
+index 05ec904089fb8287545ccc8128ba4057175576cf..de31ed2e71dfcb71b770a98c9b43a248de8d7041 100644
+--- a/fs/affs/symlink.c
++++ b/fs/affs/symlink.c
+@@ -21,7 +21,7 @@ static int affs_symlink_read_folio(struct file *file, struct folio *folio)
+ 	char			 c;
+ 	char			 lc;
+ 
+-	pr_debug("get_link(ino=%" PRIino "u)\n", inode->i_ino);
++	pr_debug("get_link(ino=%llu)\n", inode->i_ino);
+ 
+ 	bh = affs_bread(inode->i_sb, inode->i_ino);
+ 	if (!bh)
 
 -- 
 2.53.0
