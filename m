@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87030EC0489
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCE2EEC0466
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1EA210E786;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF6DD10E78A;
 	Tue,  3 Mar 2026 09:01:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AP6bQvtX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cw6fYKRx";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1341E10E5BD;
- Mon,  2 Mar 2026 20:49:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B38D810E5BD;
+ Mon,  2 Mar 2026 20:38:54 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E2B4B434BC;
- Mon,  2 Mar 2026 20:49:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF473C19425;
- Mon,  2 Mar 2026 20:49:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8460C44238;
+ Mon,  2 Mar 2026 20:38:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 475B2C19425;
+ Mon,  2 Mar 2026 20:38:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484596;
- bh=CN3Vb1L8i0VZsrYdPILKyhnj2bRK1H4I1nJGsMGG62A=;
+ s=k20201202; t=1772483934;
+ bh=EkVY4OzCxoV1B6JjTU1CxpHxdOMuJb7GCMDpICOoKnM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=AP6bQvtXhfBToO9oB0VDONr8q982yEUUVD5JZPDLskRPfkWRwE6jAhwMZTKtDmgt0
- I24miIwTJyX4oztUqhwwge482KsAyO8Vnp94cMh4efEg3IOI/164vXWkBx6nookw9C
- cyVbCCiuC9ip2HnbczJcKCvkBovkOzPHjeiRz2AiF01nHJI5d6FB0F7HinabUvnLKp
- n/U6ulULi8fqpZEhmMScKl2+/o53uF41EnQj+eWT4uODXSFOaKBwfddx/AMB/beMLu
- DFxaMcSe+w1X+nFQXM8OX2PXIbFTqwmzdkipPDMvQ9Ejvet+Gj0AZQGQ9Foq3Rk1Ww
- KnHkx4wP7H7Lg==
+ b=cw6fYKRxkA/2qSg00XWLZ3vREeGKcKpXCr2z3otf7bkXJULLwvJXZFBTr8QeEXtnl
+ O3cBxE5aiqKSM1aXOiGIip6+rT4A0MrUQH9aqQU83yhz8xx/h9TGq8qEhmouP0c+Aj
+ /6PXUjtDxSwGSliUzbksOagSQR4xwcd/yRfOL2tsDICH2gl+uLTlfAbxk5gSrdPWHv
+ xw/4aJ3ejktiyiV+amJL/6JM1R2kuUkhC7Yjo7k09FiJfXJg5p5pScgxdBJr7BV8uO
+ 5575ABTf8Qasm1xofy9cIyMwaj8Va59trON8+cvaXZLEJLXGYR/KR9qJUlavo5ClzX
+ fXp6LnsikOCag==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:28 -0500
-Subject: [PATCH v2 104/110] fsnotify: replace PRIino with %llu/%llx format
- strings
+Date: Mon, 02 Mar 2026 15:24:42 -0500
+Subject: [PATCH v2 058/110] net: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-104-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-58-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -152,23 +151,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1496; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=CN3Vb1L8i0VZsrYdPILKyhnj2bRK1H4I1nJGsMGG62A=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIMzBlvAhZJgMzJqzX4izA79Kto6h+aiUDxX
- 0pd599iWAOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyDAAKCRAADmhBGVaC
- FSBHD/9Xm/whp2eS/s3EENxptUqi9eR5Vgz+4j1Q1kCDfooLE8OdGNoSt8DpER/caqkUMDPJgdH
- 7bOD5B270x+2bB7erEXmLstrLF/M+zRLg/oRr7wf/COY6k3I3Gq/abj1pLjvTDiNWo2R24qNuJP
- 7jxiJj1q2s4thT9Er8VuuEybQJ9Uc/pJy2x70yKdiEDA/UvLRe2fGLXCdpj6FIMoGrpE2CueAoV
- UeFxHRj1oVMXWJ8fo4ewAATMFb8ndMidCVYhoSS3td6cDB7wCl2CBIUxkgYIfrvwG2Hz2b38Yxd
- KE2Fsf0a6JthS2C+iSarSTUro22kcq3ODAx6EaReSo5eL/dEc6w78pbB8ayg6ALuKpcGaZ5HdaJ
- UC9GuEGUE4OLoXZbMhtZ5njorh5XtyXu+Kh72nlAeQK+89hiI0Ozua+workiO8TMm5NGRfZFdV+
- kjJY7e2/CWmETkRpZUy9Bmp1R0tts8MqPfEHgsf6NdOiR+Oin+KPhXHgFQrRkad8dgQ3hhFNpLI
- UtqMp7u6IShGbaNuR4m6QPRuKrq+Ooap4YGKdv+jOgLNcjodGHN0f1HCtnmxKP7KbfYsMFFA/Tx
- p5RTB6ZKnDsdQONeE2mAyhCpUPlfFWrJTXdJZLTa91bKsamIQGPm2L/cu/rYvoilF1yQqHNNFtb
- /3ZqyY5gjroxFHQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3590; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=EkVY4OzCxoV1B6JjTU1CxpHxdOMuJb7GCMDpICOoKnM=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH+Mnc8nVtv6Lm/omX/kUloGe5xdlARw0dWD
+ Dkf72ua1PiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/gAKCRAADmhBGVaC
+ FV7ND/9cbF3xOXUXzNKgQSMwCY/Z6EDC24GChRkdNAAl2jLMVrNdA7SH+rUX8wS/Xb+ecl0XjLI
+ HFbdQ8UNLvQUahhf1pRfQXjDDizfsBxDz0duLiApUFVBwsiAaoWrQYbIHfWhlzdAJepp/UtQJ/D
+ GIQwokNyeDXWkaggAVnPkm2d3COjH83H2J8ccxPeLu9l9zDOBvWyDLkGlOjkscwb/iR7xJr2fXc
+ 0CEWI9jtoEP3GEivF0SjoIc5i2h3SQEBoAYj0t8+IcbpZ90X/s/MK2k+HwpUCjvSFSNbI5BV8Tg
+ 3Ouof1vHdnLHBn+12oiFIs1tadfwHNStEOM7OcrKXaXrJXXLUmXy74caMCsgJ2gnR7wgeRtE/Vk
+ JwqHwo3E8d5x8cbXVL+202F3p5BdjJ2kOorBQTzRHYE5ivZlttgpSL4sgvE4Gm+JK2ID7EWPdh+
+ pFWKqlh0cEgynItMvOkQ5UpsXIW4ApzelXba3f60fUeLkuqQnB+ub2aeVlMhM9ohXSul6YNT6v6
+ xJt3BmT7UVPe3ytZX6eKnsmRaA32wHZD71biGWWoWDE/2JSKC0IHCVBEi2BWWvHErfhWEARE7uC
+ cx+k76sD2N1X1CWyiiJjpWD04bpl8Jzg6bd+yv+OkmZkJk38rrUw8X5C0qzK+ZUYfxWKya/Ufq2
+ ER0lcckWB4Db/Aw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
+X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -183,36 +182,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in fsnotify with the concrete format strings.
+Convert i_ino format strings in x25, netrom, and rose /proc output to
+use the PRIino format macro. Also correct the format specifiers from
+signed (%ld) to unsigned, and change 0L fallback literals to (kino_t)0,
+since inode numbers are unsigned. Update the local ino variable type
+from unsigned long to kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/notify/fdinfo.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ net/netrom/af_netrom.c | 4 ++--
+ net/rose/af_rose.c     | 4 ++--
+ net/x25/x25_proc.c     | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/fs/notify/fdinfo.c b/fs/notify/fdinfo.c
-index 586eaa7f65a4a61b892fb9c39e6a0d81e025b790..0f731eddeb8be74113361f45aa4fca2943395e9d 100644
---- a/fs/notify/fdinfo.c
-+++ b/fs/notify/fdinfo.c
-@@ -84,7 +84,7 @@ static void inotify_fdinfo(struct seq_file *m, struct fsnotify_mark *mark)
- 	inode_mark = container_of(mark, struct inotify_inode_mark, fsn_mark);
- 	inode = igrab(fsnotify_conn_inode(mark->connector));
- 	if (inode) {
--		seq_printf(m, "inotify wd:%x ino:%" PRIino "x sdev:%x mask:%x ignored_mask:0 ",
-+		seq_printf(m, "inotify wd:%x ino:%llx sdev:%x mask:%x ignored_mask:0 ",
- 			   inode_mark->wd, inode->i_ino, inode->i_sb->s_dev,
- 			   inotify_mark_user_mask(mark));
- 		show_mark_fhandle(m, inode);
-@@ -111,7 +111,7 @@ static void fanotify_fdinfo(struct seq_file *m, struct fsnotify_mark *mark)
- 		inode = igrab(fsnotify_conn_inode(mark->connector));
- 		if (!inode)
- 			return;
--		seq_printf(m, "fanotify ino:%" PRIino "x sdev:%x mflags:%x mask:%x ignored_mask:%x ",
-+		seq_printf(m, "fanotify ino:%llx sdev:%x mflags:%x mask:%x ignored_mask:%x ",
- 			   inode->i_ino, inode->i_sb->s_dev,
- 			   mflags, mark->mask, mark->ignore_mask);
- 		show_mark_fhandle(m, inode);
+diff --git a/net/netrom/af_netrom.c b/net/netrom/af_netrom.c
+index b816c56124ab8b7e59689e612d36007bb11aacaa..883c8aa90235d746a688c5f38b812c20faa7c770 100644
+--- a/net/netrom/af_netrom.c
++++ b/net/netrom/af_netrom.c
+@@ -1305,7 +1305,7 @@ static int nr_info_show(struct seq_file *seq, void *v)
+ 		seq_printf(seq, "%-9s ", ax2asc(buf, &nr->user_addr));
+ 		seq_printf(seq, "%-9s ", ax2asc(buf, &nr->dest_addr));
+ 		seq_printf(seq,
+-"%-9s %-3s  %02X/%02X %02X/%02X %2d %3d %3d %3d %3lu/%03lu %2lu/%02lu %3lu/%03lu %3lu/%03lu %2d/%02d %3d %5d %5d %ld\n",
++"%-9s %-3s  %02X/%02X %02X/%02X %2d %3d %3d %3d %3lu/%03lu %2lu/%02lu %3lu/%03lu %3lu/%03lu %2d/%02d %3d %5d %5d %" PRIino "u\n",
+ 			ax2asc(buf, &nr->source_addr),
+ 			devname,
+ 			nr->my_index,
+@@ -1329,7 +1329,7 @@ static int nr_info_show(struct seq_file *seq, void *v)
+ 			nr->window,
+ 			sk_wmem_alloc_get(s),
+ 			sk_rmem_alloc_get(s),
+-			s->sk_socket ? SOCK_INODE(s->sk_socket)->i_ino : 0L);
++			s->sk_socket ? SOCK_INODE(s->sk_socket)->i_ino : (kino_t)0);
+ 
+ 		bh_unlock_sock(s);
+ 	}
+diff --git a/net/rose/af_rose.c b/net/rose/af_rose.c
+index 841d62481048def8d800779efb6e4ea8cbe419fe..ceef3e801030d4782b3d05374b6ef48a9d544b14 100644
+--- a/net/rose/af_rose.c
++++ b/net/rose/af_rose.c
+@@ -1479,7 +1479,7 @@ static int rose_info_show(struct seq_file *seq, void *v)
+ 			callsign = ax2asc(buf, &rose->source_call);
+ 
+ 		seq_printf(seq,
+-			   "%-10s %-9s %-5s %3.3X %05d  %d  %d  %d  %d %3lu %3lu %3lu %3lu %3lu %3lu/%03lu %5d %5d %ld\n",
++			   "%-10s %-9s %-5s %3.3X %05d  %d  %d  %d  %d %3lu %3lu %3lu %3lu %3lu %3lu/%03lu %5d %5d %" PRIino "u\n",
+ 			rose2asc(rsbuf, &rose->source_addr),
+ 			callsign,
+ 			devname,
+@@ -1498,7 +1498,7 @@ static int rose_info_show(struct seq_file *seq, void *v)
+ 			rose->idle / (60 * HZ),
+ 			sk_wmem_alloc_get(s),
+ 			sk_rmem_alloc_get(s),
+-			s->sk_socket ? SOCK_INODE(s->sk_socket)->i_ino : 0L);
++			s->sk_socket ? SOCK_INODE(s->sk_socket)->i_ino : (kino_t)0);
+ 	}
+ 
+ 	return 0;
+diff --git a/net/x25/x25_proc.c b/net/x25/x25_proc.c
+index 0412814a2295bba5e26f4c95697ef7b7ba5fb34f..196e1850e925e4034b2ac71df151b9b953fb2570 100644
+--- a/net/x25/x25_proc.c
++++ b/net/x25/x25_proc.c
+@@ -96,7 +96,7 @@ static int x25_seq_socket_show(struct seq_file *seq, void *v)
+ 		devname = x25->neighbour->dev->name;
+ 
+ 	seq_printf(seq, "%-10s %-10s %-5s %3.3X  %d  %d  %d  %d %3lu %3lu "
+-			"%3lu %3lu %3lu %5d %5d %ld\n",
++			"%3lu %3lu %3lu %5d %5d %" PRIino "u\n",
+ 		   !x25->dest_addr.x25_addr[0] ? "*" : x25->dest_addr.x25_addr,
+ 		   !x25->source_addr.x25_addr[0] ? "*" : x25->source_addr.x25_addr,
+ 		   devname, x25->lci & 0x0FFF, x25->state, x25->vs, x25->vr,
+@@ -104,7 +104,7 @@ static int x25_seq_socket_show(struct seq_file *seq, void *v)
+ 		   x25->t21 / HZ, x25->t22 / HZ, x25->t23 / HZ,
+ 		   sk_wmem_alloc_get(s),
+ 		   sk_rmem_alloc_get(s),
+-		   s->sk_socket ? SOCK_INODE(s->sk_socket)->i_ino : 0L);
++		   s->sk_socket ? SOCK_INODE(s->sk_socket)->i_ino : (kino_t)0);
+ out:
+ 	return 0;
+ }
 
 -- 
 2.53.0
