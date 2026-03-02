@@ -4,169 +4,301 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E286CEC046A
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CBD6EC047F
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94E1D10E7B7;
-	Tue,  3 Mar 2026 09:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7BEE10E79C;
+	Tue,  3 Mar 2026 09:01:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XI76oZ+h";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="sB+Sp+5f";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CD4710E5BD;
- Mon,  2 Mar 2026 20:48:29 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 5553061339;
- Mon,  2 Mar 2026 20:48:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE446C2BCB6;
- Mon,  2 Mar 2026 20:48:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484508;
- bh=1EJjHbG93FSjDeVuMtsafteGGE98yBTaCfnvBYFEQq8=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=XI76oZ+h5xF3w7QVbOqso7b5tHF8kPu/QbazDfUNrBnF47NKKXkiiXNGQy1aAV3hb
- xSK75SC+X1nl7ZJGquRPkcbqgP3Bw9n2dLWq6bKl/z+BNsKh/p7yTgMK89uXYn4nhH
- aoe5C9WUXQfvw4qVHCBd++yOFxb/+F5pnSzSTP0Mx0vqPXIGp+ro/XVZVIzeXyzq/G
- 5xLCVO7l7kKikZOv7Q0iyckDW2xmL7nWKTdxohDRFFpJhzWwzGe3mRmsKzoG4/wKEq
- P/ejMiT7DW65nCO6HOBBRcU48QJgpO/KPXD3O4PkogPNyMfm3zF61cqhfI92yIsOv/
- s1t0q+qtDQLgw==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:22 -0500
-Subject: [PATCH v2 098/110] udf: replace PRIino with %llu/%llx format strings
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-98-e5388800dae0@kernel.org>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D20A110E076;
+ Mon,  2 Mar 2026 22:39:39 +0000 (UTC)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 622EDwbq2397074; Mon, 2 Mar 2026 22:39:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-id:content-transfer-encoding:content-type:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to; s=
+ pp1; bh=N/G62JhCN08BwvKuGUwa9MSbzChBGBirQKzbud1KX4c=; b=sB+Sp+5f
+ s7Xbe7mVzRyEilJDP0bo7TxSph3x3VGdMKO9tZZxbXuzRzW093uZFwk3hiwRt0tz
+ B/eeQBQFEGnuysqAAC43laapO+lDC6YGOt/FO+iCKeMM3/jzgzHft/h5Y2QA5Mne
+ SsDsrWSa56km65fifUUS2qza+CmMArVcYiUX+HB0KyLhIBiAbv1t4oeaL2qm2+Bs
+ Akz91YLCxFMYEi0IEUe6mLhcFwqpBDf+13vmGM0je4pNIW9To/hS2DUeuIgS23+F
+ i53CbCnKvbM2PEWkedd+whmiPfaUwD2L1XeYXWHLMs2EDl8afqgZBAKitMOwwozr
+ kFGyl4s1NjP7OA==
+Received: from dm5pr21cu001.outbound.protection.outlook.com
+ (mail-centralusazon11011005.outbound.protection.outlook.com [52.101.62.5])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4cksrj0qet-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Mon, 02 Mar 2026 22:39:30 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pnEE2FIJAa+WesSBRLXiHBEv+iTHEwttugbP5esTQ9PoK2aFjJ5ri+xUPrs4EfgViZRUqjwlDOJjaNwIK0HW8q6ZdUx3Wsfkf1iDNn/Xn24XAZBNYftLIUCTfUUFazeFrbsIzdMzaDYrWdZ5X93WiEbyNX602/xLz1nLCpyygxgPrd5y6Ks6UjeKz0axg+bqfbURiUFyAVtsmlfWylGmD4bfv1ohw+Ht3iyitPUpm+HCsCYR3DvObkO+JSjV0nWQB03l74KHFP8GcOXhhXio23IuXqNOzfEJ9vmprLadkyWpr4ZYUkL5/WfFwvtjthf+cxb/AI+Azn77rnQKF6FUJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N/G62JhCN08BwvKuGUwa9MSbzChBGBirQKzbud1KX4c=;
+ b=l6n8oPPdQpgLbvuzCoZd5gLghS0mIEbmQjO/30reKFUPRcwjmaUe5IWmfbjyXNsH3PK45sQ/948+DofT+yWTgPa740LV+2z1tCxkxybBt9ur98xDMPQvQ2Z4DmdaT60GxzAl3NJ2ND4FUDEWkcr75sFynifJF/nPKbiRunwJGOZRd46lfU4HCUde7lwPGpE8ZHjrHTHu0ShOyLX7KTLiGd4B0JYDg48ZZJ6mydsEfIh1nphu7gF/LWhzQB+VrE9jVfX8Cz/KjWSv6tQ6TRuOJmB4ctqDI6Ih5TbdNiexrn2OVHnmoP/tMGypRUeeNeEF2JCy9ZqJZ6tWj7ZR5mHRMg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=ibm.com; dmarc=pass action=none header.from=ibm.com; dkim=pass
+ header.d=ibm.com; arc=none
+Received: from SA1PR15MB5819.namprd15.prod.outlook.com (2603:10b6:806:338::8)
+ by PH3PPFE061D9768.namprd15.prod.outlook.com (2603:10b6:518:1::4cd)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.18; Mon, 2 Mar
+ 2026 22:39:24 +0000
+Received: from SA1PR15MB5819.namprd15.prod.outlook.com
+ ([fe80::920c:d2ba:5432:b539]) by SA1PR15MB5819.namprd15.prod.outlook.com
+ ([fe80::920c:d2ba:5432:b539%7]) with mapi id 15.20.9632.017; Mon, 2 Mar 2026
+ 22:39:24 +0000
+From: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+To: "socketcan@hartkopp.net" <socketcan@hartkopp.net>,
+ "herbert@gondor.apana.org.au" <herbert@gondor.apana.org.au>,
+ "jolsa@kernel.org" <jolsa@kernel.org>,
+ "jreuter@yaina.de" <jreuter@yaina.de>,
+ "Dai.Ngo@oracle.com" <Dai.Ngo@oracle.com>, Ondrej Mosnacek
+ <omosnace@redhat.com>, "davem@davemloft.net" <davem@davemloft.net>,
+ "dlemoal@kernel.org" <dlemoal@kernel.org>, "trondmy@kernel.org"
+ <trondmy@kernel.org>, "namhyung@kernel.org" <namhyung@kernel.org>,
+ "almaz.alexandrovich@paragon-software.com"
+ <almaz.alexandrovich@paragon-software.com>, "miklos@szeredi.hu"
+ <miklos@szeredi.hu>, "john.johansen@canonical.com"
+ <john.johansen@canonical.com>, "stephen.smalley.work@gmail.com"
+ <stephen.smalley.work@gmail.com>, "nico@fluxnic.net" <nico@fluxnic.net>,
+ "maciej.fijalkowski@intel.com" <maciej.fijalkowski@intel.com>, Olga
+ Kornievskaia <okorniev@redhat.com>, "amir73il@gmail.com"
+ <amir73il@gmail.com>, "tom@talpey.com" <tom@talpey.com>,
+ "joseph.qi@linux.alibaba.com" <joseph.qi@linux.alibaba.com>,
+ "paul@paul-moore.com" <paul@paul-moore.com>, "asmadeus@codewreck.org"
+ <asmadeus@codewreck.org>, "alexander.shishkin@linux.intel.com"
+ <alexander.shishkin@linux.intel.com>, "mark@fasheh.com" <mark@fasheh.com>,
+ "linux_oss@crudebyte.com" <linux_oss@crudebyte.com>,
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ "viro@zeniv.linux.org.uk" <viro@zeniv.linux.org.uk>, "willy@infradead.org"
+ <willy@infradead.org>, "ebiggers@kernel.org" <ebiggers@kernel.org>,
+ "lucien.xin@gmail.com" <lucien.xin@gmail.com>, "bharathsm@microsoft.com"
+ <bharathsm@microsoft.com>, "marcel@holtmann.org" <marcel@holtmann.org>,
+ "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>, Eric Paris
+ <eparis@redhat.com>, "djwong@kernel.org" <djwong@kernel.org>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "hawk@kernel.org" <hawk@kernel.org>,
+ "mark.rutland@arm.com" <mark.rutland@arm.com>, "james.clark@linaro.org"
+ <james.clark@linaro.org>, "john.fastabend@gmail.com"
+ <john.fastabend@gmail.com>, "dsterba@suse.com" <dsterba@suse.com>,
+ "kuniyu@google.com" <kuniyu@google.com>, "hch@infradead.org"
+ <hch@infradead.org>, "luiz.dentz@gmail.com" <luiz.dentz@gmail.com>,
+ "daniel@iogearbox.net" <daniel@iogearbox.net>, "dwmw2@infradead.org"
+ <dwmw2@infradead.org>, "ncardwell@google.com" <ncardwell@google.com>,
+ "sprasad@microsoft.com" <sprasad@microsoft.com>,
+ "marcelo.leitner@gmail.com" <marcelo.leitner@gmail.com>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "rostedt@goodmis.org" <rostedt@goodmis.org>,
+ "jack@suse.com" <jack@suse.com>,
+ "mhiramat@kernel.org" <mhiramat@kernel.org>, "frank.li@vivo.com"
+ <frank.li@vivo.com>, "alex.aring@gmail.com" <alex.aring@gmail.com>,
+ "luisbg@kernel.org" <luisbg@kernel.org>,
+ "ms@dev.tdt.de" <ms@dev.tdt.de>, "jth@kernel.org" <jth@kernel.org>,
+ "jlbec@evilplan.org" <jlbec@evilplan.org>,
+ "aivazian.tigran@gmail.com" <aivazian.tigran@gmail.com>, "anna@kernel.org"
+ <anna@kernel.org>, "peterz@infradead.org" <peterz@infradead.org>,
+ "tytso@mit.edu" <tytso@mit.edu>, "willemb@google.com" <willemb@google.com>,
+ "eric.snowberg@oracle.com" <eric.snowberg@oracle.com>,
+ "johan.hedberg@gmail.com" <johan.hedberg@gmail.com>, "acme@kernel.org"
+ <acme@kernel.org>, "ronniesahlberg@gmail.com" <ronniesahlberg@gmail.com>,
+ "jaharkes@cs.cmu.edu" <jaharkes@cs.cmu.edu>, David Howells
+ <dhowells@redhat.com>, "jaegeuk@kernel.org" <jaegeuk@kernel.org>,
+ "courmisch@gmail.com" <courmisch@gmail.com>, "martin@omnibond.com"
+ <martin@omnibond.com>,
+ "christian.koenig@amd.com" <christian.koenig@amd.com>,
+ "jmorris@namei.org" <jmorris@namei.org>, "adilger.kernel@dilger.ca"
+ <adilger.kernel@dilger.ca>, "idryomov@gmail.com" <idryomov@gmail.com>,
+ "brauner@kernel.org" <brauner@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "glaubitz@physik.fu-berlin.de" <glaubitz@physik.fu-berlin.de>,
+ "magnus.karlsson@intel.com" <magnus.karlsson@intel.com>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ "coda@cs.cmu.edu" <coda@cs.cmu.edu>,
+ "casey@schaufler-ca.com" <casey@schaufler-ca.com>, "raven@themaw.net"
+ <raven@themaw.net>, "horms@kernel.org" <horms@kernel.org>,
+ "adrian.hunter@intel.com" <adrian.hunter@intel.com>, "kuba@kernel.org"
+ <kuba@kernel.org>, "muchun.song@linux.dev" <muchun.song@linux.dev>,
+ "chao@kernel.org" <chao@kernel.org>, "mathieu.desnoyers@efficios.com"
+ <mathieu.desnoyers@efficios.com>, "hubcap@omnibond.com"
+ <hubcap@omnibond.com>, "jlayton@kernel.org" <jlayton@kernel.org>,
+ "sdf@fomichev.me" <sdf@fomichev.me>, "roberto.sassu@huawei.com"
+ <roberto.sassu@huawei.com>, Alex Markuze <amarkuze@redhat.com>,
+ "chengzhihao1@huawei.com" <chengzhihao1@huawei.com>,
+ "mikulas@artax.karlin.mff.cuni.cz" <mikulas@artax.karlin.mff.cuni.cz>,
+ "ericvh@kernel.org" <ericvh@kernel.org>, "salah.triki@gmail.com"
+ <salah.triki@gmail.com>, "osalvador@suse.de" <osalvador@suse.de>,
+ "dmitry.kasatkin@gmail.com" <dmitry.kasatkin@gmail.com>,
+ "sfrench@samba.org" <sfrench@samba.org>,
+ "serge@hallyn.com" <serge@hallyn.com>,
+ "wufan@kernel.org" <wufan@kernel.org>, "al@alarsen.net" <al@alarsen.net>,
+ "pc@manguebit.org" <pc@manguebit.org>,
+ "ast@kernel.org" <ast@kernel.org>, "oleg@redhat.com" <oleg@redhat.com>,
+ "slava@dubeyko.com" <slava@dubeyko.com>,
+ "konishi.ryusuke@gmail.com" <konishi.ryusuke@gmail.com>, "lucho@ionkov.net"
+ <lucho@ionkov.net>, "dsahern@kernel.org" <dsahern@kernel.org>,
+ "shaggy@kernel.org" <shaggy@kernel.org>, "richard@nod.at" <richard@nod.at>,
+ "marc.dionne@auristor.com" <marc.dionne@auristor.com>, "neil@brown.name"
+ <neil@brown.name>, "dan.j.williams@intel.com" <dan.j.williams@intel.com>,
+ "mkl@pengutronix.de" <mkl@pengutronix.de>, "david@kernel.org"
+ <david@kernel.org>, Ingo Molnar <mingo@redhat.com>, "jack@suse.cz"
+ <jack@suse.cz>, "code@tyhicks.com" <code@tyhicks.com>,
+ "steffen.klassert@secunet.com" <steffen.klassert@secunet.com>,
+ "naohiro.aota@wdc.com" <naohiro.aota@wdc.com>, "zohar@linux.ibm.com"
+ <zohar@linux.ibm.com>, "chuck.lever@oracle.com" <chuck.lever@oracle.com>,
+ "irogers@google.com" <irogers@google.com>
+CC: "linux-sctp@vger.kernel.org" <linux-sctp@vger.kernel.org>,
+ "ecryptfs@vger.kernel.org" <ecryptfs@vger.kernel.org>,
+ "linux-unionfs@vger.kernel.org" <linux-unionfs@vger.kernel.org>,
+ "apparmor@lists.ubuntu.com" <apparmor@lists.ubuntu.com>,
+ "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
+ "autofs@vger.kernel.org" <autofs@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "fsverity@lists.linux.dev" <fsverity@lists.linux.dev>,
+ "ntfs3@lists.linux.dev" <ntfs3@lists.linux.dev>,
+ "ocfs2-devel@lists.linux.dev" <ocfs2-devel@lists.linux.dev>,
+ "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
+ "samba-technical@lists.samba.org" <samba-technical@lists.samba.org>,
+ "linux-nilfs@vger.kernel.org" <linux-nilfs@vger.kernel.org>,
+ "audit@vger.kernel.org" <audit@vger.kernel.org>, "selinux@vger.kernel.org"
+ <selinux@vger.kernel.org>, "linaro-mm-sig@lists.linaro.org"
+ <linaro-mm-sig@lists.linaro.org>, "linux-trace-kernel@vger.kernel.org"
+ <linux-trace-kernel@vger.kernel.org>, "v9fs@lists.linux.dev"
+ <v9fs@lists.linux.dev>, "linux-xfs@vger.kernel.org"
+ <linux-xfs@vger.kernel.org>, "linux-x25@vger.kernel.org"
+ <linux-x25@vger.kernel.org>, "linux-f2fs-devel@lists.sourceforge.net"
+ <linux-f2fs-devel@lists.sourceforge.net>, "linux-bluetooth@vger.kernel.org"
+ <linux-bluetooth@vger.kernel.org>, "nvdimm@lists.linux.dev"
+ <nvdimm@lists.linux.dev>, "ceph-devel@vger.kernel.org"
+ <ceph-devel@vger.kernel.org>, "jfs-discussion@lists.sourceforge.net"
+ <jfs-discussion@lists.sourceforge.net>, "linux-mtd@lists.infradead.org"
+ <linux-mtd@lists.infradead.org>, "devel@lists.orangefs.org"
+ <devel@lists.orangefs.org>, "linux-afs@lists.infradead.org"
+ <linux-afs@lists.infradead.org>, "linux-fscrypt@vger.kernel.org"
+ <linux-fscrypt@vger.kernel.org>, "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>, "linux-cifs@vger.kernel.org"
+ <linux-cifs@vger.kernel.org>, "linux-hams@vger.kernel.org"
+ <linux-hams@vger.kernel.org>, "bpf@vger.kernel.org" <bpf@vger.kernel.org>,
+ "linux-can@vger.kernel.org" <linux-can@vger.kernel.org>,
+ "linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+ "codalist@coda.cs.cmu.edu" <codalist@coda.cs.cmu.edu>, "linux-mm@kvack.org"
+ <linux-mm@kvack.org>, "netfs@lists.linux.dev" <netfs@lists.linux.dev>,
+ "linux-perf-users@vger.kernel.org" <linux-perf-users@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Thread-Topic: [EXTERNAL] [PATCH v2 076/110] ceph: replace PRIino with
+ %llu/%llx format strings
+Thread-Index: AQHcqowWsQ3iP9CtvEGa6huypOhw+LWb1b2A
+Date: Mon, 2 Mar 2026 22:39:24 +0000
+Message-ID: <f9a2b53b518a4154847b2ac1eeb3f9807a8c6a19.camel@ibm.com>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
-In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Dan Williams <dan.j.williams@intel.com>, 
- Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>, 
- "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
- David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>, 
- Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
- Shyam Prasad N <sprasad@microsoft.com>, 
- Bharath SM <bharathsm@microsoft.com>, 
- Alexander Aring <alex.aring@gmail.com>, 
- Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>, 
- Eric Van Hensbergen <ericvh@kernel.org>, 
- Latchesar Ionkov <lucho@ionkov.net>, 
- Dominique Martinet <asmadeus@codewreck.org>, 
- Christian Schoenebeck <linux_oss@crudebyte.com>, 
- David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>, 
- Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>, 
- Salah Triki <salah.triki@gmail.com>, 
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>, 
- Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
- Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>, 
- Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
- Yangtao Li <frank.li@vivo.com>, 
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>, 
- David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, 
- Dave Kleikamp <shaggy@kernel.org>, 
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
- Joseph Qi <joseph.qi@linux.alibaba.com>, 
- Mike Marshall <hubcap@omnibond.com>, 
- Martin Brandenburg <martin@omnibond.com>, 
- Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
- Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
- Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
- John Johansen <john.johansen@canonical.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
- Roberto Sassu <roberto.sassu@huawei.com>, 
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Ondrej Mosnacek <omosnace@redhat.com>, 
- Casey Schaufler <casey@schaufler-ca.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Willem de Bruijn <willemb@google.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
- Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>, 
- Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>, 
- Johan Hedberg <johan.hedberg@gmail.com>, 
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Oliver Hartkopp <socketcan@hartkopp.net>, 
- Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>, 
- Neal Cardwell <ncardwell@google.com>, 
- Steffen Klassert <steffen.klassert@secunet.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- Remi Denis-Courmont <courmisch@gmail.com>, 
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
- Xin Long <lucien.xin@gmail.com>, 
- Magnus Karlsson <magnus.karlsson@intel.com>, 
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
- fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
- linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
- samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
- v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
- ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, 
- ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
- jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
- ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
- linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
- selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
- linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
- linux-x25@vger.kernel.org, audit@vger.kernel.org, 
- linux-bluetooth@vger.kernel.org, linux-can@vger.kernel.org, 
- linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
- Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9498; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=1EJjHbG93FSjDeVuMtsafteGGE98yBTaCfnvBYFEQq8=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIKSMQ3yX9CjAYQGZfiTyoaVu5Yy1AajInAk
- 1pTdvUiJvWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCgAKCRAADmhBGVaC
- FXV0D/9333Ohxa6heYn2cRvQwO6TWNzz7GT9iAbWB6LsKbLiddG1fpr+Yet8e4boKA5FI8ER1X9
- yeMN9IIetzlO6DeWcawCiRa82kjwS87XIVykw4R//Esc5JVEH07e9ETgD0GmRZAuN0MOzGsw4sJ
- v7VosoXItrNo73SoCmYrbeYz+0T7dHfUZn7AmgHNzRfts7Jvu427jYOLas3+O6XiueCJ6QNmB7k
- vbgFxWrOrMniCM9U3PTAp4TeYv3Pluod7KSd0jBh4oAsme243OEZbNcN0zlF7T3DGPORUxc7Nyx
- OJZDmbSLTK0H9aNFFbVAPp7d+vMrdqTmSVSRHr5EhtwyFx/WEu2DspFnBeSrISOc6We9MioM51z
- Sbm9W0h8amUrhwZ3AVJEPzIIEpsNsDGftPTk/Wmps25zq+u4/BvAM0NfQL5Izp4jyO1f4acreGd
- nkoRiNlqt3bAbM61M+cRPRNoHk98W3ibZInUIOZwA5B8jR0uC5rSTeFipru/6747gOLEhhMrC7r
- B4VvJSv/naEQPOPDseSyE+cjKvBViFRMyT76nmvTHzIazA7oN/ybLO353x4hcGT0Uuqabe+DFc6
- CBYXLQIq37bJjJW2s1LPpMPRwaMSVHB7/C6o3/9CBxVJfoa3GputtmBlQr83d7PWptlHuBhabd8
- 3iDTCeuE2cVcKNw==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+ <20260302-iino-u64-v2-76-e5388800dae0@kernel.org>
+In-Reply-To: <20260302-iino-u64-v2-76-e5388800dae0@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA1PR15MB5819:EE_|PH3PPFE061D9768:EE_
+x-ms-office365-filtering-correlation-id: 42e1ad80-9c05-4c2a-0da8-08de78ac8dee
+x-ld-processed: fcf67057-50c9-4ad4-98f3-ffca64add9e9,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|7416014|10070799003|366016|1800799024|38070700021|921020; 
+x-microsoft-antispam-message-info: bN7dZpSfZ8UkUdOHlLFv9lIGIona2w3coeS+Cn/mrdzyyXt94HgZcVI1xL1vbXpL86t4WlOewX7/7+l8OTjV1TaeViEMfHUtxXHQIveObleWZGXX/X2jAJKNfAbBhIQkm58cS31uRkGZwl5XHPip9jFC2Nxawvqe1l7WEx5011wFc24bZoH4NFEF/eODFjNqZmvTPDVDI7j/RtBmVgHzCPV//KDc+i/tt8Dw/EluKzW0muzPPWibDDCN6TM8bpmoaSjzqJ9jqeyAF5h+j/uC2vmit/DucARdg/uYldFCHwGUT/QHsDTrojpPD452TgaWJBSHY6n3G/lijBDTisnYHIlv6oteQFtmJFK6NqHjE+4BUMDLoF4JvUs/iLNv1P2WNJ9HcvqlmqF4Ns/kWn4Yr1eBxg8U/xn3nUwi61AGyANHTp+D4QPT5YtrQUAAcV9zyjOVHahT0ZQEmASA9lI13nQ/AtVgJ/6LV6NA329o2G7xjVrb1cSdr6c0vHQzmselB/mvtVFmP0ILwl6sSUcV4MpxC2P7njIgL9F53dWUxECfbreSHQvTFuc8RY0ufHLbC/H3J24i+7OBH+ipqQFskp0Elc5B1ZLqNh3ZjQ6sGKeuypunkCYF8IoM4siOIVlFKwtXcjZafNYJVstE8zY/6A2PR+42hGCAi+WtspX+VQy2jwLF/eUsHh22qlX9dAXNXgxEk0x4tVUFDycOnmtZa9COO0amoM2h7klzrakDI7TBb/BzohZSlC59nRbaNKe3NBEmrWuLiRMvGWl0+bHgCUxyQBQksbQyBZfNNlTAEVUGFF5wRlZm6IducRrLXbaV
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR15MB5819.namprd15.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(10070799003)(366016)(1800799024)(38070700021)(921020);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZUZQZmJTRTdqUnVUTjV3QU1KMEFmdCtyNXRKZjFWQUc4ZE9rTFNiQWRTWjg2?=
+ =?utf-8?B?cUwrM01SVEhSMzh4cExhTnZSY3FGN3QzTWVIeGlaN2dNVVlYVHZpVTJyeDFh?=
+ =?utf-8?B?OWtpbkdzdzhoL3RrTkNSbmIzTEgvYVVjUkJMZFJhQm5kMHVJUWZNNVB2U0Ny?=
+ =?utf-8?B?NW1pRlJFMG1EeG5ScGFIMGUrRFNpUnJzWFFDdU53ck5ZOG5UUERhUm01eEsw?=
+ =?utf-8?B?cDhOelYxS0xpNmlCZ2tKUXppQVBKMk9yZCsrRVU5eUx1aTRqSGNmK0tvanlR?=
+ =?utf-8?B?SXZlblU0bkpPaThMQk9ZK29seDVWWnpJWm5MS3FlWDh2UlRDc29Gb2dwMU9v?=
+ =?utf-8?B?cWVMNkdCNzhjdWxLeXhQejBSV0FsYVBXWDhwMlR5WjdjM2cvZjBydm5iVzZi?=
+ =?utf-8?B?K0JOTHYvTHB0ejBJYThReldLWTYrODFqMkNlSTgxaVUzcCtPNzYxSUl0Y1Yy?=
+ =?utf-8?B?QnRuS0M4ZkFwRzdvQjN5dm9oMzdKZWJZTW5kVnZzZkZ2QVA5UGc1MjZlTDd1?=
+ =?utf-8?B?Z0xyNCtUdlJZVnlBNktpV3d3TTExZHdKeTlETnlEaVd5ZXNHRFlmWU91d0ln?=
+ =?utf-8?B?Wnh4R1JITEllRjUya2U0Y2hhVVFNU003cFlOc3l5MEkvQXp1Y0pwdXB6QVQx?=
+ =?utf-8?B?K21WcEFpcHFnSHNubnRDNHY2MGtGQlQ1RTNWMk94NXhIU2FjUlJHUHgwN1hF?=
+ =?utf-8?B?ZHhucC9OcG5sRGI2QnV6aDVPZEd1UGw5bUwwN1dZS0hlaXVmU25UVXEwSHNU?=
+ =?utf-8?B?NzIyaUdsaFdkZXZLbFNEZTZwSjIzbEpIN1FrbUlhSVlIVmV5ZUp4U21uZ0pp?=
+ =?utf-8?B?b2diZEpxWW15eWJ2RE8wb1hReEhvbVZZNDFqRERzZjA2bDJWQnFjNHM2Z2tp?=
+ =?utf-8?B?RWxzc3Y4dnNlaXF0dEhaR0Y1cER5djJJUnIvMnNQVmMrWVZqMzg5TXdxSDNw?=
+ =?utf-8?B?elNEZCtUUHZqMVBmMk96YmZlckV4UjUxd2hPZ292dnhKTXlwSjg4dUErMXBv?=
+ =?utf-8?B?OEpIWVBxdlZRZnNWdTdGMzlJdUFzWnJzS29WU3FjTkRMeFJFY1pMM2MvcFRQ?=
+ =?utf-8?B?bVQ0MHdwTEFOS2EyNzZScVg4Q3plb1FZNlhCbHhYVTN6cXNKSkVQaDh5Q2VT?=
+ =?utf-8?B?VitJY292ekRmK0s4QWRlcjJpazJ5dVBOUUIvTGkrSnE0WEYxM21DWloydmJ0?=
+ =?utf-8?B?di9EWUJPN2NHcHArS1JURTk2eW5ubGpQbm5JbmYrbkF4VWhNbDRDb2N2YlV5?=
+ =?utf-8?B?N1lsVkFYVXpGbHdoZWJ3cjlSWGFFcHBGbTBPYzE2N1JmcnlYVHd2d2lmUFlu?=
+ =?utf-8?B?S202ZkdtT2tzM2RWcEo3N3R2Nld2aXRlM0tpR1N5RGxnNG8yTG5IeGhpcncv?=
+ =?utf-8?B?Mys4QStKNWtrZXhUNE8xaDNUTmNSNmd1ZC9qRDlLK0Z4Nk1Xd3loZGlMdVkz?=
+ =?utf-8?B?QnNIQit5YWljbUVnYTVyc1NqSHMrMjhwKzN3M1FqRlJ6MXVqbE9XZjhIdm4y?=
+ =?utf-8?B?ZHc0TXVjVGpGMC83SEpDM2lXYzQxM1U4ZytBSmhvc2s2TCtOL0ZwYWVjRitM?=
+ =?utf-8?B?NkttVlRLWlE2NFB2NW1nVDh0YmJITE1HWXFlNzdqNDRzOWwwUmtGcmdDMkI4?=
+ =?utf-8?B?aTlPS1pjYldzSlYzTDlrOUVBZlNGMnFZWlZWOU5tMUdxZXBnazZMODl2SDlS?=
+ =?utf-8?B?cWtYbWU5a01wTUhNdUNrVHJIb3g4eGh6K3YxSXhYa0o3b3VrVTZycXFLM1Ji?=
+ =?utf-8?B?SE9WbzVLWWhibURVSWFSVktTK21vTzBWdlc5YVYweU53MGMzR0pUazVIVlJ4?=
+ =?utf-8?B?Mi9mK0RJK0d2cTE1VVlXbUdaQUNXeVcwSTFRK3BUSmU3NEVhbkZ2RS9WVzZI?=
+ =?utf-8?B?a09PNDRPeUJOck1ray9GU1RTZFVaa1c1TWgvYkVnalp2V3Bpai9vcU9DblJJ?=
+ =?utf-8?B?THpCcDVHT0dPUWNJc3ZlWDRhVExmYUdkRU9ZUjlHQVhueFRnMloxMXM0Wlda?=
+ =?utf-8?B?Y2FocE52VWFBVDgvT2pSZU9WTGdmVjh0M212UU1KOTlFZERZamVGNUNhMGVE?=
+ =?utf-8?B?TFdsSnRjYTFVTmFxemJ4UEtyWVFrdzMrU0hpbUxmZmlnSUNvTmNVa0dJUkZM?=
+ =?utf-8?B?dk9MT29GVzczS0dvdUhGZGVYaVgvRDR6cTlnYzJqcS9OYUlkc0h6d1F3WjVk?=
+ =?utf-8?B?cDBpRFpUeWJNL0hPclB3Q01hQ2JwOVEyTlVPM3RZVFZyOVhiR1RUelNnSlMz?=
+ =?utf-8?B?TjFlQS9HNlcrRzVRWFZrNXZCVFV0Y3NHYjNORklzK1h4M2haSE94bjBPV3NE?=
+ =?utf-8?B?L2RVajdCTzlhKzY5a2c1ZTJ5aGlTYUlpU0RDN2p1WmpqTXZlUGgrK3hEUXE1?=
+ =?utf-8?Q?h0IcOa5IVP6bLMrbWf/KOarnhInsuYr7xQRbC?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A08375D7B8845F4FA238852084288CE0@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: ibm.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR15MB5819.namprd15.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42e1ad80-9c05-4c2a-0da8-08de78ac8dee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Mar 2026 22:39:24.3396 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: fcf67057-50c9-4ad4-98f3-ffca64add9e9
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hQYXPAwIwPvfgGWWALb/opqzhxwXIiIgreK3jCqjbAQKP2Dq09i6vYpuGJVZj6lY0+CGYMJGO6Bhd+74WS2xNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH3PPFE061D9768
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=Rp/I7SmK c=1 sm=1 tr=0 ts=69a611a3 cx=c_pps
+ a=F30aWN9Bm7kNfdI93JtEUg==:117 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=zr94bLkQGwJZMLBWZqwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAyMDE2NyBTYWx0ZWRfX1rR6Tnq4Qqpg
+ kqs7+xhiCFjGcgNTQedSA0r/iuOVPPKRF/3KXxv19QP75PHy4R9UjnV5yBMzgOl5NmJk4IhGExg
+ kNvfdZzof0Fa0XCNcYnUhyKTPdSAGsGxKJEWsg3Njl4p40zK5O4sNWEPJJkB45ucrQoUQOarlrj
+ YvADnglgyCQrq9OPGX6BR01hX1Z+sMxp6CyFhMGoPZ79fq56HGDVKgMTQfCLlKLdMiq+uvt8tPc
+ sFtQewHiFMG3u8orj3+yaFD9IPXOs+iyyfSVLJj/b9nGG3kdS2eVZXD6gGhlr/fpy+7+sVlOn76
+ IYChymsxi7odsZG7eKlinZiwrY8+tWRr/Rn7F+5O4kQa4jWyg1Z6lBCCy5UXYiGyVAfrYxWhPcx
+ 90b53j9qXavj8ytYR2BdnnwTFpzxrz75CI8g8sGWHuudjzzixPc4qWFyAzFotireNnzxi6UzQiE
+ 2SYh/QcCBz2+vqfLFpg==
+X-Proofpoint-GUID: wAHWO7AIhd_eiEtwNQVjoHH536mRyHyx
+X-Proofpoint-ORIG-GUID: jVK4Lp_MX4Bgm_h0yJKMdIbd2BR59aRH
+Subject: Re:  [PATCH v2 076/110] ceph: replace PRIino with %llu/%llx format
+ strings
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-02_05,2026-03-02_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 spamscore=0 phishscore=0 adultscore=0
+ bulkscore=0 clxscore=1015 impostorscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603020167
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -182,223 +314,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in udf with the concrete format strings.
-
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- fs/udf/directory.c | 18 +++++++++---------
- fs/udf/file.c      |  2 +-
- fs/udf/inode.c     | 12 ++++++------
- fs/udf/namei.c     |  8 ++++----
- fs/udf/super.c     |  2 +-
- 5 files changed, 21 insertions(+), 21 deletions(-)
-
-diff --git a/fs/udf/directory.c b/fs/udf/directory.c
-index c825e11c017f652500a3dfc83905679ef86ec570..f5c81e13eacb17f931d2df564ec4f2a6e9a5d7ab 100644
---- a/fs/udf/directory.c
-+++ b/fs/udf/directory.c
-@@ -22,7 +22,7 @@ static int udf_verify_fi(struct udf_fileident_iter *iter)
- 
- 	if (iter->fi.descTag.tagIdent != cpu_to_le16(TAG_IDENT_FID)) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %" PRIino "u) has entry at pos %llu with incorrect tag %x\n",
-+			"directory (ino %llu) has entry at pos %llu with incorrect tag %x\n",
- 			iter->dir->i_ino, (unsigned long long)iter->pos,
- 			le16_to_cpu(iter->fi.descTag.tagIdent));
- 		return -EFSCORRUPTED;
-@@ -30,7 +30,7 @@ static int udf_verify_fi(struct udf_fileident_iter *iter)
- 	len = udf_dir_entry_len(&iter->fi);
- 	if (le16_to_cpu(iter->fi.lengthOfImpUse) & 3) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %" PRIino "u) has entry at pos %llu with unaligned length of impUse field\n",
-+			"directory (ino %llu) has entry at pos %llu with unaligned length of impUse field\n",
- 			iter->dir->i_ino, (unsigned long long)iter->pos);
- 		return -EFSCORRUPTED;
- 	}
-@@ -41,20 +41,20 @@ static int udf_verify_fi(struct udf_fileident_iter *iter)
- 	 */
- 	if (len > 1 << iter->dir->i_blkbits) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %" PRIino "u) has too big (%u) entry at pos %llu\n",
-+			"directory (ino %llu) has too big (%u) entry at pos %llu\n",
- 			iter->dir->i_ino, len, (unsigned long long)iter->pos);
- 		return -EFSCORRUPTED;
- 	}
- 	if (iter->pos + len > iter->dir->i_size) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %" PRIino "u) has entry past directory size at pos %llu\n",
-+			"directory (ino %llu) has entry past directory size at pos %llu\n",
- 			iter->dir->i_ino, (unsigned long long)iter->pos);
- 		return -EFSCORRUPTED;
- 	}
- 	if (udf_dir_entry_len(&iter->fi) !=
- 	    sizeof(struct tag) + le16_to_cpu(iter->fi.descTag.descCRCLength)) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %" PRIino "u) has entry where CRC length (%u) does not match entry length (%u)\n",
-+			"directory (ino %llu) has entry where CRC length (%u) does not match entry length (%u)\n",
- 			iter->dir->i_ino,
- 			(unsigned)le16_to_cpu(iter->fi.descTag.descCRCLength),
- 			(unsigned)(udf_dir_entry_len(&iter->fi) -
-@@ -78,7 +78,7 @@ static int udf_copy_fi(struct udf_fileident_iter *iter)
- 	}
- 	if (iter->dir->i_size < iter->pos + sizeof(struct fileIdentDesc)) {
- 		udf_err(iter->dir->i_sb,
--			"directory (ino %" PRIino "u) has entry straddling EOF\n",
-+			"directory (ino %llu) has entry straddling EOF\n",
- 			iter->dir->i_ino);
- 		return -EFSCORRUPTED;
- 	}
-@@ -184,7 +184,7 @@ static int udf_fiiter_advance_blk(struct udf_fileident_iter *iter)
- 			return 0;
- 		}
- 		udf_err(iter->dir->i_sb,
--			"extent after position %llu not allocated in directory (ino %" PRIino "u)\n",
-+			"extent after position %llu not allocated in directory (ino %llu)\n",
- 			(unsigned long long)iter->pos, iter->dir->i_ino);
- 		return -EFSCORRUPTED;
- 	}
-@@ -272,7 +272,7 @@ int udf_fiiter_init(struct udf_fileident_iter *iter, struct inode *dir,
- 		if (pos == dir->i_size)
- 			return 0;
- 		udf_err(dir->i_sb,
--			"position %llu not allocated in directory (ino %" PRIino "u)\n",
-+			"position %llu not allocated in directory (ino %llu)\n",
- 			(unsigned long long)pos, dir->i_ino);
- 		err = -EFSCORRUPTED;
- 		goto out;
-@@ -483,7 +483,7 @@ int udf_fiiter_append_blk(struct udf_fileident_iter *iter)
- 		   &iter->loffset, &etype);
- 	if (err <= 0 || etype != (EXT_RECORDED_ALLOCATED >> 30)) {
- 		udf_err(iter->dir->i_sb,
--			"block %llu not allocated in directory (ino %" PRIino "u)\n",
-+			"block %llu not allocated in directory (ino %llu)\n",
- 			(unsigned long long)block, iter->dir->i_ino);
- 		return -EFSCORRUPTED;
- 	}
-diff --git a/fs/udf/file.c b/fs/udf/file.c
-index ab8093b87dc8f21ce8af6a72621e2868fb4b9a82..b043fe10e5d605b62988512bbda65bd357fb649a 100644
---- a/fs/udf/file.c
-+++ b/fs/udf/file.c
-@@ -133,7 +133,7 @@ long udf_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
- 	int result;
- 
- 	if (file_permission(filp, MAY_READ) != 0) {
--		udf_debug("no permission to access inode %" PRIino "u\n", inode->i_ino);
-+		udf_debug("no permission to access inode %llu\n", inode->i_ino);
- 		return -EPERM;
- 	}
- 
-diff --git a/fs/udf/inode.c b/fs/udf/inode.c
-index ecc22aded0d287ccdfb34b42a0d82e392054f585..902f81729bd886a534c9da644771c7c04c067cbf 100644
---- a/fs/udf/inode.c
-+++ b/fs/udf/inode.c
-@@ -147,7 +147,7 @@ void udf_evict_inode(struct inode *inode)
- 		if (iinfo->i_alloc_type != ICBTAG_FLAG_AD_IN_ICB &&
- 		    inode->i_size != iinfo->i_lenExtents) {
- 			udf_warn(inode->i_sb,
--				 "Inode %" PRIino "u (mode %o) has inode size %llu different from extent length %llu. Filesystem need not be standards compliant.\n",
-+				 "Inode %llu (mode %o) has inode size %llu different from extent length %llu. Filesystem need not be standards compliant.\n",
- 				 inode->i_ino, inode->i_mode,
- 				 (unsigned long long)inode->i_size,
- 				 (unsigned long long)iinfo->i_lenExtents);
-@@ -1386,13 +1386,13 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
- 	 */
- 	bh = udf_read_ptagged(inode->i_sb, iloc, 0, &ident);
- 	if (!bh) {
--		udf_err(inode->i_sb, "(ino %" PRIino "u) failed !bh\n", inode->i_ino);
-+		udf_err(inode->i_sb, "(ino %llu) failed !bh\n", inode->i_ino);
- 		return -EIO;
- 	}
- 
- 	if (ident != TAG_IDENT_FE && ident != TAG_IDENT_EFE &&
- 	    ident != TAG_IDENT_USE) {
--		udf_err(inode->i_sb, "(ino %" PRIino "u) failed ident=%u\n",
-+		udf_err(inode->i_sb, "(ino %llu) failed ident=%u\n",
- 			inode->i_ino, ident);
- 		goto out;
- 	}
-@@ -1641,7 +1641,7 @@ static int udf_read_inode(struct inode *inode, bool hidden_inode)
- 		udf_debug("METADATA BITMAP FILE-----\n");
- 		break;
- 	default:
--		udf_err(inode->i_sb, "(ino %" PRIino "u) failed unknown file type=%u\n",
-+		udf_err(inode->i_sb, "(ino %llu) failed unknown file type=%u\n",
- 			inode->i_ino, fe->icbTag.fileType);
- 		goto out;
- 	}
-@@ -1942,7 +1942,7 @@ static int udf_update_inode(struct inode *inode, int do_sync)
- 	if (do_sync) {
- 		sync_dirty_buffer(bh);
- 		if (buffer_write_io_error(bh)) {
--			udf_warn(inode->i_sb, "IO error syncing udf inode [%08" PRIino "x]\n",
-+			udf_warn(inode->i_sb, "IO error syncing udf inode [%08llx]\n",
- 				 inode->i_ino);
- 			err = -EIO;
- 		}
-@@ -2224,7 +2224,7 @@ int udf_next_aext(struct inode *inode, struct extent_position *epos,
- 
- 		if (++indirections > UDF_MAX_INDIR_EXTS) {
- 			udf_err(inode->i_sb,
--				"too many indirect extents in inode %" PRIino "u\n",
-+				"too many indirect extents in inode %llu\n",
- 				inode->i_ino);
- 			return -EFSCORRUPTED;
- 		}
-diff --git a/fs/udf/namei.c b/fs/udf/namei.c
-index 32209549a31f451a486918e673a41497bef42e89..ccafcaa9680982decaabc180833b67ace5c92973 100644
---- a/fs/udf/namei.c
-+++ b/fs/udf/namei.c
-@@ -550,7 +550,7 @@ static int udf_unlink(struct inode *dir, struct dentry *dentry)
- 		goto end_unlink;
- 
- 	if (!inode->i_nlink) {
--		udf_debug("Deleting nonexistent file (%" PRIino "u), %u\n",
-+		udf_debug("Deleting nonexistent file (%llu), %u\n",
- 			  inode->i_ino, inode->i_nlink);
- 		set_nlink(inode, 1);
- 	}
-@@ -809,7 +809,7 @@ static int udf_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 					       &diriter);
- 		if (retval == -ENOENT) {
- 			udf_err(old_inode->i_sb,
--				"directory (ino %" PRIino "u) has no '..' entry\n",
-+				"directory (ino %llu) has no '..' entry\n",
- 				old_inode->i_ino);
- 			retval = -EFSCORRUPTED;
- 		}
-@@ -821,7 +821,7 @@ static int udf_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 				old_dir->i_ino) {
- 			retval = -EFSCORRUPTED;
- 			udf_err(old_inode->i_sb,
--				"directory (ino %" PRIino "u) has parent entry pointing to another inode (%" PRIino "u != %u)\n",
-+				"directory (ino %llu) has parent entry pointing to another inode (%llu != %u)\n",
- 				old_inode->i_ino, old_dir->i_ino,
- 				udf_get_lb_pblock(old_inode->i_sb, &tloc, 0));
- 			goto out_oiter;
-@@ -869,7 +869,7 @@ static int udf_rename(struct mnt_idmap *idmap, struct inode *old_dir,
- 	retval = udf_fiiter_find_entry(old_dir, &old_dentry->d_name, &oiter);
- 	if (retval) {
- 		udf_err(old_dir->i_sb,
--			"failed to find renamed entry again in directory (ino %" PRIino "u)\n",
-+			"failed to find renamed entry again in directory (ino %llu)\n",
- 			old_dir->i_ino);
- 	} else {
- 		udf_fiiter_delete_entry(&oiter);
-diff --git a/fs/udf/super.c b/fs/udf/super.c
-index c6e372d573885742745d3ff4b3b017facf228a32..3a2d66c7e856383cc5c8a605180a9582396ba805 100644
---- a/fs/udf/super.c
-+++ b/fs/udf/super.c
-@@ -1166,7 +1166,7 @@ static int udf_fill_partdesc_info(struct super_block *sb,
- 		}
- 		map->s_uspace.s_table = inode;
- 		map->s_partition_flags |= UDF_PART_FLAG_UNALLOC_TABLE;
--		udf_debug("unallocSpaceTable (part %d) @ %" PRIino "u\n",
-+		udf_debug("unallocSpaceTable (part %d) @ %llu\n",
- 			  p_index, map->s_uspace.s_table->i_ino);
- 	}
- 
-
--- 
-2.53.0
-
+T24gTW9uLCAyMDI2LTAzLTAyIGF0IDE1OjI1IC0wNTAwLCBKZWZmIExheXRvbiB3cm90ZToNCj4g
+Tm93IHRoYXQgaV9pbm8gaXMgdTY0IGFuZCB0aGUgUFJJaW5vIGZvcm1hdCBtYWNybyBoYXMgYmVl
+biByZW1vdmVkLA0KPiByZXBsYWNlIGFsbCB1c2VzIGluIGNlcGggd2l0aCB0aGUgY29uY3JldGUg
+Zm9ybWF0IHN0cmluZ3MuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBKZWZmIExheXRvbiA8amxheXRv
+bkBrZXJuZWwub3JnPg0KPiAtLS0NCj4gIGZzL2NlcGgvY3J5cHRvLmMgfCA0ICsrLS0NCj4gIDEg
+ZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZm
+IC0tZ2l0IGEvZnMvY2VwaC9jcnlwdG8uYyBiL2ZzL2NlcGgvY3J5cHRvLmMNCj4gaW5kZXggNzE4
+YzE5NGJhNWQ4Y2UyMmM2YTVkMWRkNjg3ZWMzNzYxMjYzZTdlMS4uNjRkMjQwNzU5Mjc3MmVkNjFm
+Yjk1YjYyNDAxZGIxOTQxMTJmNDhhOCAxMDA2NDQNCj4gLS0tIGEvZnMvY2VwaC9jcnlwdG8uYw0K
+PiArKysgYi9mcy9jZXBoL2NyeXB0by5jDQo+IEBAIC0yNzIsNyArMjcyLDcgQEAgaW50IGNlcGhf
+ZW5jb2RlX2VuY3J5cHRlZF9kbmFtZShzdHJ1Y3QgaW5vZGUgKnBhcmVudCwgY2hhciAqYnVmLCBp
+bnQgZWxlbikNCj4gIAkvKiBUbyB1bmRlcnN0YW5kIHRoZSAyNDAgbGltaXQsIHNlZSBDRVBIX05P
+SEFTSF9OQU1FX01BWCBjb21tZW50cyAqLw0KPiAgCVdBUk5fT04oZWxlbiA+IDI0MCk7DQo+ICAJ
+aWYgKGRpciAhPSBwYXJlbnQpIC8vIGxlYWRpbmcgXyBpcyBhbHJlYWR5IHRoZXJlOyBhcHBlbmQg
+XzxpbnVtPg0KPiAtCQllbGVuICs9IDEgKyBzcHJpbnRmKHAgKyBlbGVuLCAiXyUiIFBSSWlubyAi
+dSIsIGRpci0+aV9pbm8pOw0KPiArCQllbGVuICs9IDEgKyBzcHJpbnRmKHAgKyBlbGVuLCAiXyVs
+bHUiLCBkaXItPmlfaW5vKTsNCj4gIA0KPiAgb3V0Og0KPiAgCWtmcmVlKGNyeXB0YnVmKTsNCj4g
+QEAgLTM3Nyw3ICszNzcsNyBAQCBpbnQgY2VwaF9mbmFtZV90b191c3IoY29uc3Qgc3RydWN0IGNl
+cGhfZm5hbWUgKmZuYW1lLCBzdHJ1Y3QgZnNjcnlwdF9zdHIgKnRuYW1lLA0KPiAgCWlmICghcmV0
+ICYmIChkaXIgIT0gZm5hbWUtPmRpcikpIHsNCj4gIAkJY2hhciB0bXBfYnVmW0JBU0U2NF9DSEFS
+UyhOQU1FX01BWCldOw0KPiAgDQo+IC0JCW5hbWVfbGVuID0gc25wcmludGYodG1wX2J1Ziwgc2l6
+ZW9mKHRtcF9idWYpLCAiXyUuKnNfJSIgUFJJaW5vICJ1IiwNCj4gKwkJbmFtZV9sZW4gPSBzbnBy
+aW50Zih0bXBfYnVmLCBzaXplb2YodG1wX2J1ZiksICJfJS4qc18lbGx1IiwNCj4gIAkJCQkgICAg
+b25hbWUtPmxlbiwgb25hbWUtPm5hbWUsIGRpci0+aV9pbm8pOw0KPiAgCQltZW1jcHkob25hbWUt
+Pm5hbWUsIHRtcF9idWYsIG5hbWVfbGVuKTsNCj4gIAkJb25hbWUtPmxlbiA9IG5hbWVfbGVuOw0K
+DQpSZXZpZXdlZC1ieTogVmlhY2hlc2xhdiBEdWJleWtvIDxTbGF2YS5EdWJleWtvQGlibS5jb20+
+DQoNClRoYW5rcywNClNsYXZhLg0K
