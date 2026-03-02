@@ -4,119 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59026EC0488
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F17DEC0476
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0948310E77E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE2EB10E785;
 	Tue,  3 Mar 2026 09:01:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=yngvason.is header.i=@yngvason.is header.b="XTK0VG55";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dUluxAGL";
 	dkim-atps=neutral
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com
- [74.125.224.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00C5610E521
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2026 15:07:50 +0000 (UTC)
-Received: by mail-yx1-f52.google.com with SMTP id
- 956f58d0204a3-64aea64bf15so3888266d50.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 02 Mar 2026 07:07:50 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772464070; cv=none;
- d=google.com; s=arc-20240605;
- b=VvNU9KxkwLr/LWJCUoK4VfxiN4HlzHaWTfba8B8azcedZ9drvtCCy3I0aXp7x9UxN8
- +JzLfXPmfs7ii6HTffav2UFsoX8ixTb5J2JJd+FGld2QaQqURvTmBSkmL4lNrPmOKopX
- 6d9HSMSryz0SUcrQniTnNQP2c638Nv3665XORT4Y62z4oJ2hiJildxoKvnKslY/F/yMh
- QFq2QWB+lrbCrwawuDQiSFO7XxmIefMS1nc4J2RPTXB3CWAEkrMFjPloeVMoatQEby8d
- TmgNOovoriIFW2RW5FRUpnOkq0q0Skn3sr7Ff1WUnHJA1pmRbI1G7D0Jpw8gxmrsyjiW
- Na6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=+gDTORrI2pQyWVeOn4meK1oMBrguCe1b/ScMwN2EmY8=;
- fh=AHbeDQJvqwNJ6+Y6wdM6uwuukqvxgo5gGshEMVvR78Y=;
- b=IXAGirxgmt698ByRRR0P0y+dZLsWM3bV3ix7435c/Jo+pJk8GABIFP3OBfOEuqkCkS
- 0E1+X/ufkxnJUfNH99SIJubDnLM2QcbDSZH/ye0WFe5DpKXqdcpHdo3KnEC2t4kmpUcJ
- xY4udTuy2yaaFDb5CUEgPgdssNrDrlu913BNs2adE6M1e1RMEPxzchjsDabiuTbENXnM
- vR9JXysMotjJ4sQ8rbKIdWQLq4ZfMXnFoI5A6YeEPVoN2OS28+HA+n2SdJBfzfmAKsBV
- 3A7210ZQ0jTZEzqBkt83QsYzTIYJv51lSg198Q+5hFJkXTY41C4LTJPV8Bie4hcegCFX
- w0xg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=yngvason.is; s=google; t=1772464070; x=1773068870; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+gDTORrI2pQyWVeOn4meK1oMBrguCe1b/ScMwN2EmY8=;
- b=XTK0VG55hePAbMb19t8yRWiq0ocGIb6Q0hk42Co9/9oi++86Oelhu532rQObN6hH+a
- deT+Bgi2MDiDubVofKCtSe9Tbbm5cHrzXGqPke44mMqiFFD40kp7hiNFE7dg9c3VHrgF
- 2SYctykfde//3kG9NAYjUK1c8X5qikuArzis8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772464070; x=1773068870;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=+gDTORrI2pQyWVeOn4meK1oMBrguCe1b/ScMwN2EmY8=;
- b=w9Kgnn1NkeIgwcXGtD58fY34LSBDoYOkZUJTksfqhcMnEeg5wiFImA+bFT21g72NtK
- 1q1vOEaAYa5y/mt7v9mVxjoydOP4KDbQUSKLwV9JWeOjTG71atElN1RqyEAyawovWRjg
- QFGQWVR4fXlNQ3eXGkYL0CdE+S5fnMeamRQWZocYKyvW8vZ9JEZEC4zrpmLV44UGo5mH
- tusbUQRyI/rd9/Wp5UCHK0K12zc8bcxUXfQBBWwCXHsWQsOs8nRzcuOD10gzwjSJhPLi
- o/9vVGUxxj2YOl4Ua8mm0MR3WcZdbQwUgKitjYC1SA5P5a1SfakLK/J8XnnKnwx13nv1
- hjgg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV/9RTHLM4/hqaPb41UYQocSDGfLJbnafsqXtikZyd+zbzEZ1QAUM5HCNUUtX9mHkZu1hNPQKdT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywi0KwkzhRQjnuXQ5ZpKbNB+VGkos1tW67hdLeSu6RvmcUNb3uv
- 72WzsMC7Zf5attRAQ6fuFQRZjZcrvZwc7t51NGrCeGnfAF9Ww4R1VvNRO1xCLTfWUKBc3z5CWa9
- L+9pArUN3kQiZ5Hs/w+pV3GxPWX81awyQcZZezTDX4g==
-X-Gm-Gg: ATEYQzw6zeA1YYAALjV/l+yFmxqVubSoxw5mP5M7Slc3tJbRNwbMm6tmsqkhY/2pT58
- /dC/AtSfMiieRmqBlpp51S0OfRAT2uz5g50OinlbXpgbrwilA8VhpjWlXnqft3ENSegHo/xMpBA
- KRSCzR0QRXqXuicqr8ZX6jekmj2fnT8/MM1LR1YPzW+sbNwKLwAB6rzTKEJLX2fMu8kOwVvMZOs
- 1ChV4ulbuo7cocUUhxylKzdEUqVghQJ+kyM1wJ+d1doP8+RLoeF3thaL0EgL47ApeN2wb4weEYG
- nSHzQt/tClQJzboDDORUzp6D3JDvWjS7rfLME7g=
-X-Received: by 2002:a53:ab0a:0:b0:64c:c1b6:714c with SMTP id
- 956f58d0204a3-64cc2379297mr8671268d50.70.1772464069335; Mon, 02 Mar 2026
- 07:07:49 -0800 (PST)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8236D10E5C3;
+ Mon,  2 Mar 2026 20:50:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id AE0A26183D;
+ Mon,  2 Mar 2026 20:50:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CFC1C2BCAF;
+ Mon,  2 Mar 2026 20:50:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772484625;
+ bh=uNYFxtg5Iv5MXUsRjSnqZGWzI+LksrISC7QvWEDcE88=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=dUluxAGL9dbpHV0Un3l78iD2YJVbMrQu1Bd02WAf7Z4BPvMflxqtAVZpbEzaq6i1Y
+ WuUqDTCPchi4N+ooyqer66e4url/wraC+5KhJdG0UPsOr5PEn1NqTwnidWuSdRD/sT
+ Z6EtOJh6y5/KBCbHADqSwAP+FwBnT+EC+5niBxaZAZInGEGGUZpE3P7E0Dpo970iZI
+ cvNPiWtZ4VbDdM4Jwr+YTreyWRrF06Nw5T/nzxV9YtUj6jZP3b8YNwwRsJyB2ZfVwB
+ ISrbSIaAOOY5322QCpIywNnN/Q/FGKDqkJJf3EUTq/1XU9lYa75SMvlKMBB3wuYXZu
+ KF64/hQAst3LQ==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Mon, 02 Mar 2026 15:25:30 -0500
+Subject: [PATCH v2 106/110] drm/amdgpu: replace PRIino with %llu/%llx
+ format strings
 MIME-Version: 1.0
-References: <20260227-color-format-v9-0-658c3b9db7ef@collabora.com>
- <20260227-color-format-v9-2-658c3b9db7ef@collabora.com>
- <y5ybjitphwydvtcjdtrmpcx7t7hwevjszpktcnmyvjqkgzinmu@hoitkl7lghxh>
- <5081457.31r3eYUQgx@workhorse>
-In-Reply-To: <5081457.31r3eYUQgx@workhorse>
-From: Andri Yngvason <andri@yngvason.is>
-Date: Mon, 2 Mar 2026 15:07:12 +0000
-X-Gm-Features: AaiRm531VbuvPlDMvL8ehAEpeh4QP_0yXJbIL2OEHZWnP0es8QNn2W0TYwz5fEU
-Message-ID: <CAFNQBQymuv0roy_xupcgU1bHygfBeE3S1FepQYxpobLq8O0yEA@mail.gmail.com>
-Subject: Re: [PATCH v9 02/19] drm: Add new general DRM property "color format"
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260302-iino-u64-v2-106-e5388800dae0@kernel.org>
+References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
+In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Dan Williams <dan.j.williams@intel.com>, 
+ Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>, 
+ "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+ David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>, 
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+ Shyam Prasad N <sprasad@microsoft.com>, 
+ Bharath SM <bharathsm@microsoft.com>, 
+ Alexander Aring <alex.aring@gmail.com>, 
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, 
+ Eric Van Hensbergen <ericvh@kernel.org>, 
+ Latchesar Ionkov <lucho@ionkov.net>, 
+ Dominique Martinet <asmadeus@codewreck.org>, 
+ Christian Schoenebeck <linux_oss@crudebyte.com>, 
+ David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>, 
+ Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>, 
+ Salah Triki <salah.triki@gmail.com>, 
+ "Tigran A. Aivazian" <aivazian.tigran@gmail.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
+ Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>, 
+ Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Yangtao Li <frank.li@vivo.com>, 
+ Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>, 
+ David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, 
+ Dave Kleikamp <shaggy@kernel.org>, 
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+ Joseph Qi <joseph.qi@linux.alibaba.com>, 
+ Mike Marshall <hubcap@omnibond.com>, 
+ Martin Brandenburg <martin@omnibond.com>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
+ Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>, 
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Ondrej Mosnacek <omosnace@redhat.com>, 
+ Casey Schaufler <casey@schaufler-ca.com>, 
  Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- kernel@collabora.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- Werner Sembach <wse@tuxedocomputers.com>,
- Marius Vlad <marius.vlad@collabora.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
+ Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Willem de Bruijn <willemb@google.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>, 
+ Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>, 
+ Johan Hedberg <johan.hedberg@gmail.com>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>, 
+ Neal Cardwell <ncardwell@google.com>, 
+ Steffen Klassert <steffen.klassert@secunet.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ Remi Denis-Courmont <courmisch@gmail.com>, 
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
+ Xin Long <lucien.xin@gmail.com>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+ linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
+ v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
+ ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, 
+ ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
+ ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
+ linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
+ linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
+ selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
+ linux-x25@vger.kernel.org, audit@vger.kernel.org, 
+ linux-bluetooth@vger.kernel.org, linux-can@vger.kernel.org, 
+ linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
+ Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1242; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=uNYFxtg5Iv5MXUsRjSnqZGWzI+LksrISC7QvWEDcE88=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIMt5x4iQABLZluIVrTQbU0nR9vsQFBc6H8e
+ MaC1UngLK6JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyDAAKCRAADmhBGVaC
+ FRSWEADRmDAkhNpK6+h7nauxslYyedT5jkgsddgrricfItWlqYChN5XEbiXdUOC4dm00LJ3n7Nm
+ VsWfAVmXtEEMi1+OpAFZvptU/z1Uhp9fYwk0i0r4u9ryoW6/Hh2Q+i04MpCrkJsEBlVnFZEF1Ri
+ z2Yi6MhJXl8YpsG98d2VAXOVJ7cfOynOaqYULzaleFqzV/irdYjVAZ1bSb2hpsbDiJgwtxXnemR
+ 2vmYccDKKghYcmpjZHg9r2aADiTOyck38QbcEC2urm/h+1jvFG0W9jPua7cXa2x3Z/pJZiX+mlN
+ NC2f7hcaxhvWDuPOvxL5+/VdL7xIL8L3Px4gHh6Ffr1QWvth403RYl1iUY30L7AHGxs72TnqJN8
+ CLghrL0HEqob/Q2qg4+542aTMFH7sqfBoP8+vK2E7w+ZS5bm19LLfKuGuwhzUpCua5AS9L73+60
+ VCBvv8iCUYZfwgoQHkqxe7w3Qkz3Ictbi61tv0JW6jg0DvAiU1dNNFn67R1WJuLRFR65OSXw0g+
+ VpqQwvPKpMNahMcL7sma6piTYysuNd8Z5tbgGm0RMauZ/TdZMXfcn54KRTENJ2KU+CuzXuHHdH0
+ Pc1W3xausB9ERPDY1WKRZXPjZ1W4zh9wces/wn5ONEa8DBA7snqsUlleWjtkb0xDTICuyOdXk5R
+ KkYgGAqOFGM8+Qw==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,21 +183,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Nicolas,
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in drm/amdgpu with the concrete format strings.
 
-Thanks for carrying this forward.
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-m=C3=A1n., 2. mar. 2026 kl. 12:36 skrifa=C3=B0i Nicolas Frattaroli
-<nicolas.frattaroli@collabora.com>:
->
-> On Sunday, 1 March 2026 17:47:48 Central European Standard Time Dmitry Ba=
-ryshkov wrote:
-> > On Fri, Feb 27, 2026 at 08:20:07PM +0100, Nicolas Frattaroli wrote:
-> > > From: Andri Yngvason <andri@yngvason.is>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index d62f7cd1bdd3643803a99c3cbe35fa5b19217eeb..aaa8cdc122c49ebf0b5b6c55edb3a1db2a4fd710 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -1676,9 +1676,9 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
+ 	attachment = READ_ONCE(bo->tbo.base.import_attach);
+ 
+ 	if (attachment)
+-		seq_printf(m, " imported from ino:%" PRIino "u", file_inode(dma_buf->file)->i_ino);
++		seq_printf(m, " imported from ino:%llu", file_inode(dma_buf->file)->i_ino);
+ 	else if (dma_buf)
+-		seq_printf(m, " exported as ino:%" PRIino "u", file_inode(dma_buf->file)->i_ino);
++		seq_printf(m, " exported as ino:%llu", file_inode(dma_buf->file)->i_ino);
+ 
+ 	amdgpu_bo_print_flag(m, bo, CPU_ACCESS_REQUIRED);
+ 	amdgpu_bo_print_flag(m, bo, NO_CPU_ACCESS);
 
-N.b. this patch was originally from Werner Sembach, but it has grown
-considerably since either of us touched it, so I think that
-Co-developed-by tags would be more appropriate here.
+-- 
+2.53.0
 
-Best regards,
-Andri
