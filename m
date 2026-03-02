@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9456FEC046B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA464EC047D
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1D0610E730;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDA9310E734;
 	Tue,  3 Mar 2026 09:01:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XuSlDM4w";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GKA9YAdD";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE02A10E5BD;
- Mon,  2 Mar 2026 20:38:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A06D10E5BD;
+ Mon,  2 Mar 2026 20:49:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D4466013F;
- Mon,  2 Mar 2026 20:38:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DA41C19423;
- Mon,  2 Mar 2026 20:38:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 772CB6133C;
+ Mon,  2 Mar 2026 20:49:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123B5C2BCB4;
+ Mon,  2 Mar 2026 20:49:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483905;
- bh=KNPTuBj6JODO+UF3sDdvTtrB3bvqvQCLfGB8wqrZcAY=;
+ s=k20201202; t=1772484568;
+ bh=vzIQRv67NMWSNgS1VbjzK8gHJGBIX5DecOuq4g2+t/Y=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=XuSlDM4wnU6cCPWdfuQZzSfcOelvABCzcEfM4ltWJtLByYlM/VIi3u3EaI5qzsKOT
- 4jrMfpB6c0ng91tIt3cPdC3iLZ53e873UGXYhat7jDAN6GLHavNRzlaqJF1gwzm2GN
- FQ/YiWekPqxQZX+yPaaOtbjUSrFW8AH1xpabdAVbKUOUV6DDviSjRujv26q9zV1Cn8
- dCr23XYgJQi1XIIqArL6faVhwzfAPni67NNWXsiTcqAUbx3Xit7MK+wf6cA4nUNumh
- tJC70xaUqYDALBwWMnqCM3orLjKibsBBhPMYvB0vueqT1AwvT3vnLlzLK/yMc6eR9A
- vWejBDQ5F32AA==
+ b=GKA9YAdDB192UWw6Ik1+IjOsjLdN6nt+3OcqupadQsh6+xxwtrbePQBg8GZbEyoN3
+ vO6jFKIL4G9a8Vq7JIVMLKNMvWgl2e686DUqFpww9RsYvJusQXIjA5DRSVALHhV0XD
+ sKJpFOz+3Prz7Gf8D8l7la5HSWWMcRbxrapQ0hXgeKUu0KUU5FicrtQM/r9zUst/+8
+ xRFRfobXD7ZwAShbn85mB4uV3Xlw5Ci5j0P45dY87aI+Vx9PwEHfpIyh0HKhXsT7zB
+ rJcRDsj++olsdd4Zuo3XxNg4YQ0KM/bM0nmSS+BEd63yAXecSzTWyg9S77GEGM1hj8
+ X/xOzuffFg7Uw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:40 -0500
-Subject: [PATCH v2 056/110] fsverity: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:25:26 -0500
+Subject: [PATCH v2 102/110] fsverity: replace PRIino with %llu/%llx format
+ strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-56-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-102-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,23 +152,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=820; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=KNPTuBj6JODO+UF3sDdvTtrB3bvqvQCLfGB8wqrZcAY=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH+Gi5aMv1hqlu7WIpcniOaGSe4LY3o19SOE
- gzV5OhOq76JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx/gAKCRAADmhBGVaC
- FeKGEADStbHNuE8fe2Clpi4JmXKZc//qA9cmXQXztEHJVGe533GHokIOnjmdvSvJjvyXs+kKuA+
- ZuRJFOK02dmFOOjFCMw7nWz9HzRwL933c+U570XCbYSygaDvQfXThR6hk7tZ00Ay4dkOocJALoB
- c6zWW+OLA9ZeVBEApwnV2taISeIN+eiVINwtrUe1Av5i3Mesi1It/0AUOYqOMaXc+QemaoCJ68G
- kMDfEA58hENR1B/9DArlzNyZ1lWTfAMgv42hqIyZNrCUjS9TQhrEkJTU+LXELV6rB2vSai2Tioj
- ZDp7SR/v2Jyi3NdGWbZQbULd5Hy7j8SkimdodHT0NprVYVG9JuMH5Us5W5DpNvzcOxzYFYeUqTa
- JKvLR3O5IXiIqNRXfGV/MJIAPtewN827vUYcsMM2iZZuionSzwS3TN8pqekevc5E8XkPnp2vMjA
- y31e+0KXzxHoXgXvlXBiEyrdRw7FldZUw0KFabsht7k1pRYM9eLUogbfTJkWJ+wlKGdtpqps19t
- upjs3+aQoNZQu7LmYct2y8b56/1d5nyr6rhXs4fKGHyWlQFi9rGRYaN+SzlFtgYuYkZXIdrJWaJ
- JltXmqf6WJ/xuxd1GCg8/D7IOX8zpb4mpUB37ETNBLGFeA+fXCiV+MlMI+hhqO/aZpLh1T9QqlV
- 7mzbtG0PlwC9oEw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=830; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=vzIQRv67NMWSNgS1VbjzK8gHJGBIX5DecOuq4g2+t/Y=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfILORiaxrEB5DiZmtKXsmsAIwV16e9x2gsA6
+ iuyH09ayOuJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCwAKCRAADmhBGVaC
+ FUGMEACyRmyxK+AXHZh2l9nhLoEUj6daFKPMxeFZc3xikQ9UYU4tO+iAd3XEUu/T6UesQVADyRu
+ Dg54ayCFZYhCuAN2ftoGf0q6tue0XDsH16Kbw16nWgFgwjG0SFCSasCSeNt9IdGGUT23uaoTC6g
+ PdPhKlrkgngnRtyeQhY2HaPR39lqLV/WpLREBVsi9tv7qBQT8uK4z+CehDgoVEJxpHQvgT6mHCM
+ XuSmjrkCS3sUkxZTZJV/p/a1Pjw7A34YzfqgkJK8Dx5YAyT+umwCkzRX5hXXd842n7WnLMk1n3s
+ 3SJkqTzDqh1w7wQo/pnUtztBXBRMosGGr64Kay2b1TeH9F2gw7jI1YNadmmFxjM5e9h469OzeBV
+ N+Ze5M5OEzZ8KvTFcWAUJRlcDKDuGdAz7NHN6h2LBr8mmak6XiAn7UK59M8+dW0uo6Y81iF6eMt
+ KFQQ12fURLzdqMx97SxsCE2UuejB4qBRta/1Xzf4cqPTb4/CRc20amRzBCmAuW5D5yvHvywKOvI
+ Jz/KhUqg35TzOUn+kqMbWzJdkMUxKLZFCGYJnrO4+cTBN7Pu9CzR+6Gy0foX6fPDA61RTIaOuVE
+ uUF+/mI1ADdERH8VPGKomlZtk0+OpgHhsLYUe5iC0cLB5yFrDLJFkkQ3TKCteBbnTzXXCmqZk59
+ qJ10YlxsTbU003w==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
+X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,8 +183,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert fsverity i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in fsverity with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
@@ -191,15 +192,15 @@ Signed-off-by: Jeff Layton <jlayton@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/verity/init.c b/fs/verity/init.c
-index d6520660858386d3b7d69b20a459dc27d8017a5f..5f6a7b4f0a34aedebfcaffc2be53e00b23976217 100644
+index 5f6a7b4f0a34aedebfcaffc2be53e00b23976217..3aa55dec88fc919792a2cb4be476f8481ef78a9e 100644
 --- a/fs/verity/init.c
 +++ b/fs/verity/init.c
 @@ -50,7 +50,7 @@ void fsverity_msg(const struct inode *inode, const char *level,
  	vaf.fmt = fmt;
  	vaf.va = &args;
  	if (inode)
--		printk("%sfs-verity (%s, inode %lu): %pV\n",
-+		printk("%sfs-verity (%s, inode %" PRIino "u): %pV\n",
+-		printk("%sfs-verity (%s, inode %" PRIino "u): %pV\n",
++		printk("%sfs-verity (%s, inode %llu): %pV\n",
  		       level, inode->i_sb->s_id, inode->i_ino, &vaf);
  	else
  		printk("%sfs-verity: %pV\n", level, &vaf);
