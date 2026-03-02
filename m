@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AB6DEC046C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA152EC0486
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD5FA10E777;
-	Tue,  3 Mar 2026 09:01:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28CC110E74C;
+	Tue,  3 Mar 2026 09:01:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ojCoqFhm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l537t4QA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70A5910E5BF;
- Mon,  2 Mar 2026 20:32:41 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC40710E5BD;
+ Mon,  2 Mar 2026 20:47:31 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 224384386B;
- Mon,  2 Mar 2026 20:32:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2FAC19423;
- Mon,  2 Mar 2026 20:32:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 13D046111B;
+ Mon,  2 Mar 2026 20:47:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A13CAC2BCB3;
+ Mon,  2 Mar 2026 20:47:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483561;
- bh=+U4pNt+4swYiU9juB5jIauHdQ9T31eEfIxB1XthGj+w=;
+ s=k20201202; t=1772484450;
+ bh=0FUq3oBHlZbVkcm2IzUt/QSOlhrOWkdnXhWG19OJKNo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ojCoqFhmV7GCrZ+Yvx92kOHI5TqyKrnvaCFU6FpqnAGViviTfAuamRP/H9mhNqtGH
- u+FxaG4Wf66tEh4drhDAttVolsG2tSNh2xSH9OXsDquICmuS7tb898TcRn+9hcrXNB
- PIsRd0nYcnTuoNzODM5aRXboLjkIT1lQTFrRJqn7sPcx197sc9545FiIhdWhV5F+ji
- OIsl8P5PnoElKCdcgCqJTiewXixIrqIe2jSM/AI4HyRwmBJTahxFKfNd3TUxtlokVD
- LlgPb3dM5yyDrht4HOUX7JY0uMwI2XSnGXVsqP8Pkgw6VtEp9Blri5ZcPVwSqvfr2F
- YvSNTWVnt+3Xg==
+ b=l537t4QAmQuqxHKR5dYe85JUCbHQIh2XEpZ24tx5tQc7Z1RDfwhGxK4FMZXcbvQnq
+ aQ4HM6bLCa/Un9i6wnelpzLWo4dY9m9wOv+CcKQdftNx0/nHie8sNyjfkeMNDxiKEe
+ +a/+PNHGixc1Hi7FnmNMfbMhLA2uZ0Zv04KJE3LT7uivia9qGOIsQUMJEPLYJob5Zk
+ pp6q3elNvMPS9ffgrI8phMvsrlYR1hyXe248YcSkVzjPbGsmjWJ04UEAxhv+RXeQmt
+ rWaurG0VS/6V2pcG/kY8pyLSOgULGMj/BMa0aYE9sV6q8hKqVXU1KovTqqUPf/PYhu
+ iQU6/Gfpkj8vA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:16 -0500
-Subject: [PATCH v2 032/110] hfsplus: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:25:18 -0500
+Subject: [PATCH v2 094/110] overlayfs: replace PRIino with %llu/%llx format
+ strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-32-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-94-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +152,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9754; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=+U4pNt+4swYiU9juB5jIauHdQ9T31eEfIxB1XthGj+w=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH3jSEbImeP7Mt3efN3F3b1XEUUqy+cE5abN
- fhMCVLVv9mJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9wAKCRAADmhBGVaC
- FQGVEACGoc4gHJJvkaRBE7U4SzusXwktwtTDiKy1lqvRLWq+5xd3TiTXvRW49fG3Px4IXHfgjeU
- OA20qk0l1SI3NPYLqkBZwudJosLPcYEJKF0/nGoUqtGTQMbdy2OgVw+Kbwcobr5uEFvHqHVzGtI
- 6wyAaAkj8aJewHaL2Hwgk5IMoVl1CEZmSHkx2AellzvvcQn8giFdE49TuyFj8Y907fBc7KE194n
- TRxwkGIhlEq+OqMtwWVbyYVMIWF6/dYDdMXn5uzXJywhJSTZf8P23fgT+0kwoXtHJ3et7zhVBmq
- Mdi1PN/1V0oqyrX+iAO2chFbHQuViQAnYSfRVr6b5oxGnfZ70u337q2BKjiLy38H3+K8yhTswND
- KLdEl4N7hRJI3LnjK+63/aMsB7DnzRK2aCzhe6dCfDTOqLhY1YkHt8X3nUOv4j0RLN1ssNieDSH
- OyVpQdlVRYbCr8D3PQreL7rsevbkdhCqG3pgzfTe58Ybj9ddRTGEbGpUkrGmD05mBmf9aY4BMjS
- kjKI5ywio73Kd9rXiJ7H+xSPoDlorC4vGHKaHfj/vhRmtYcDbX7csmpHZcCJB8ygyo+mBLmm/Rj
- L0pmwUiNwPV4dxK42KDv3SAGQJtnlxEgSmMFt1WXljiiCvXT0VjtaM1vzVIbaVWqcdz1YiNrjl/
- mH4QTILnPt0HyTw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2628; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=0FUq3oBHlZbVkcm2IzUt/QSOlhrOWkdnXhWG19OJKNo=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIJASn3pwzi/JkVT9cf7ITV/RmgrfApAFtpI
+ LpkxUcunG2JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCQAKCRAADmhBGVaC
+ FVQHEACatKPlTEQQlB+7HsoaPyVQKa2XKb+wwdq2O/9NWcgaSaCS9gV8r7nX+4Mny3M6JTWcL24
+ MPUocZoNadpP40XaT8KG/rh880/xyk3+lQT6GCIL6TL8x2is8hEMcgJB9HBpsmNLt0B4Fs9Pagx
+ tfqdViW5TXmnyKIGgmFGl7/4+6Imh+2U+B+wgmzG7qibX1oT4TwJlbu/DOTO7nqqAx3oVrT/iK7
+ BYKLIqYRY7OAlOOtwcf7lEtRzB9C76dJ3ZKmQIQ7TBo50rBHh5Tq6IUws7Ne3l32Id0PsycHhdo
+ qCfnIqq0ImzKIci2MTphv9mXJzoRjzP93IzaORtagDQ2JLxQrFQ+P33x6id8lDbW0eqnCefuhYs
+ PZ07FVi5+JlPYv/3XVl00hOOn90/1zy1dUo1cJi7fn6JU893QmR8YqN91J+GOd6jeTEZ8A8qeop
+ J9c5m5+g5mQuc9WstGLo6GeYk7lQJWgW3azzbIBl5ZAsNxjv+f219wJ7bTkGZtnZE7srR2wUpYn
+ boaXmlmryyuYUZyFfwkO/OsoO6NHb+tBQJde46hU0iPlWEysiUyCcBQe4qMUIXBiD9RbN+N1V3s
+ MdLbZGH1eC6ibbTDrr3FZIXKyyBM+ol7OtycvZ9OWGkq84QSWiki7fglVwFXD3XIv7iKnvACt3b
+ SsswaxS3dqCGQzw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,267 +183,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert hfsplus i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
-
-Also correct signed format specifiers to unsigned, since inode
-numbers are unsigned values.
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in overlayfs with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/hfsplus/attributes.c | 10 +++++-----
- fs/hfsplus/catalog.c    |  2 +-
- fs/hfsplus/dir.c        |  6 +++---
- fs/hfsplus/extents.c    |  6 +++---
- fs/hfsplus/inode.c      |  8 ++++----
- fs/hfsplus/super.c      |  6 +++---
- fs/hfsplus/xattr.c      | 10 +++++-----
- 7 files changed, 24 insertions(+), 24 deletions(-)
+ fs/overlayfs/export.c | 2 +-
+ fs/overlayfs/namei.c  | 4 ++--
+ fs/overlayfs/util.c   | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/hfsplus/attributes.c b/fs/hfsplus/attributes.c
-index 4b79cd606276e31c20fa18ef3a099596f50e8a0f..d0b3f58166a057c0a5bf2e41cf6fc839798c0ded 100644
---- a/fs/hfsplus/attributes.c
-+++ b/fs/hfsplus/attributes.c
-@@ -203,7 +203,7 @@ int hfsplus_create_attr_nolock(struct inode *inode, const char *name,
- 	int entry_size;
- 	int err;
+diff --git a/fs/overlayfs/export.c b/fs/overlayfs/export.c
+index a17d55db8ebfab7e47f122eade22b96505392b05..0a35d1a20f13fbab5bbee5f271d41f52334a9a6a 100644
+--- a/fs/overlayfs/export.c
++++ b/fs/overlayfs/export.c
+@@ -262,7 +262,7 @@ static int ovl_dentry_to_fid(struct ovl_fs *ofs, struct inode *inode,
+ 	return err;
  
--	hfs_dbg("name %s, ino %ld\n",
-+	hfs_dbg("name %s, ino %" PRIino "u\n",
- 		name ? name : NULL, inode->i_ino);
- 
- 	if (name) {
-@@ -255,7 +255,7 @@ int hfsplus_create_attr(struct inode *inode,
- 	hfsplus_attr_entry *entry_ptr;
- 	int err;
- 
--	hfs_dbg("name %s, ino %ld\n",
-+	hfs_dbg("name %s, ino %" PRIino "u\n",
- 		name ? name : NULL, inode->i_ino);
- 
- 	if (!HFSPLUS_SB(sb)->attr_tree) {
-@@ -337,7 +337,7 @@ int hfsplus_delete_attr_nolock(struct inode *inode, const char *name,
- 	struct super_block *sb = inode->i_sb;
- 	int err;
- 
--	hfs_dbg("name %s, ino %ld\n",
-+	hfs_dbg("name %s, ino %" PRIino "u\n",
- 		name ? name : NULL, inode->i_ino);
- 
- 	if (name) {
-@@ -367,7 +367,7 @@ int hfsplus_delete_attr(struct inode *inode, const char *name)
- 	struct super_block *sb = inode->i_sb;
- 	struct hfs_find_data fd;
- 
--	hfs_dbg("name %s, ino %ld\n",
-+	hfs_dbg("name %s, ino %" PRIino "u\n",
- 		name ? name : NULL, inode->i_ino);
- 
- 	if (!HFSPLUS_SB(sb)->attr_tree) {
-@@ -436,7 +436,7 @@ int hfsplus_replace_attr(struct inode *inode,
- 	hfsplus_attr_entry *entry_ptr;
- 	int err = 0;
- 
--	hfs_dbg("name %s, ino %ld\n",
-+	hfs_dbg("name %s, ino %" PRIino "u\n",
- 		name ? name : NULL, inode->i_ino);
- 
- 	if (!HFSPLUS_SB(sb)->attr_tree) {
-diff --git a/fs/hfsplus/catalog.c b/fs/hfsplus/catalog.c
-index 02c1eee4a4b86059ceaab7a7c68ab65adba6fa26..d422f117c60dee6fd8ece0d01d4ce66e04421e4a 100644
---- a/fs/hfsplus/catalog.c
-+++ b/fs/hfsplus/catalog.c
-@@ -441,7 +441,7 @@ int hfsplus_rename_cat(u32 cnid,
- 	int entry_size, type;
- 	int err;
- 
--	hfs_dbg("cnid %u - ino %lu, name %s - ino %lu, name %s\n",
-+	hfs_dbg("cnid %u - ino %" PRIino "u, name %s - ino %" PRIino "u, name %s\n",
- 		cnid, src_dir->i_ino, src_name->name,
- 		dst_dir->i_ino, dst_name->name);
- 	err = hfs_find_init(HFSPLUS_SB(sb)->cat_tree, &src_fd);
-diff --git a/fs/hfsplus/dir.c b/fs/hfsplus/dir.c
-index d559bf8625f853d50fd316d157cf8afe22069565..e701b11437f09172f88d68b4e4f5998591572b38 100644
---- a/fs/hfsplus/dir.c
-+++ b/fs/hfsplus/dir.c
-@@ -313,7 +313,7 @@ static int hfsplus_link(struct dentry *src_dentry, struct inode *dst_dir,
- 	if (!S_ISREG(inode->i_mode))
- 		return -EPERM;
- 
--	hfs_dbg("src_dir->i_ino %lu, dst_dir->i_ino %lu, inode->i_ino %lu\n",
-+	hfs_dbg("src_dir->i_ino %" PRIino "u, dst_dir->i_ino %" PRIino "u, inode->i_ino %" PRIino "u\n",
- 		src_dir->i_ino, dst_dir->i_ino, inode->i_ino);
- 
- 	mutex_lock(&sbi->vh_mutex);
-@@ -385,7 +385,7 @@ static int hfsplus_unlink(struct inode *dir, struct dentry *dentry)
- 	if (HFSPLUS_IS_RSRC(inode))
- 		return -EPERM;
- 
--	hfs_dbg("dir->i_ino %lu, inode->i_ino %lu\n",
-+	hfs_dbg("dir->i_ino %" PRIino "u, inode->i_ino %" PRIino "u\n",
- 		dir->i_ino, inode->i_ino);
- 
- 	mutex_lock(&sbi->vh_mutex);
-@@ -393,7 +393,7 @@ static int hfsplus_unlink(struct inode *dir, struct dentry *dentry)
- 	if (inode->i_ino == cnid &&
- 	    atomic_read(&HFSPLUS_I(inode)->opencnt)) {
- 		str.name = name;
--		str.len = sprintf(name, "temp%lu", inode->i_ino);
-+		str.len = sprintf(name, "temp%" PRIino "u", inode->i_ino);
- 		res = hfsplus_rename_cat(inode->i_ino,
- 					 dir, &dentry->d_name,
- 					 sbi->hidden_dir, &str);
-diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-index 8e886514d27f1e5d4d94be75142f197669e62234..1dbfdf44f954f2768852678d1e386a91758848f9 100644
---- a/fs/hfsplus/extents.c
-+++ b/fs/hfsplus/extents.c
-@@ -275,7 +275,7 @@ int hfsplus_get_block(struct inode *inode, sector_t iblock,
- 	mutex_unlock(&hip->extents_lock);
- 
- done:
--	hfs_dbg("ino %lu, iblock %llu - dblock %u\n",
-+	hfs_dbg("ino %" PRIino "u, iblock %llu - dblock %u\n",
- 		inode->i_ino, (long long)iblock, dblock);
- 
- 	mask = (1 << sbi->fs_shift) - 1;
-@@ -476,7 +476,7 @@ int hfsplus_file_extend(struct inode *inode, bool zeroout)
- 			goto out;
- 	}
- 
--	hfs_dbg("ino %lu, start %u, len %u\n", inode->i_ino, start, len);
-+	hfs_dbg("ino %" PRIino "u, start %u, len %u\n", inode->i_ino, start, len);
- 
- 	if (hip->alloc_blocks <= hip->first_blocks) {
- 		if (!hip->first_blocks) {
-@@ -545,7 +545,7 @@ void hfsplus_file_truncate(struct inode *inode)
- 	u32 alloc_cnt, blk_cnt, start;
- 	int res;
- 
--	hfs_dbg("ino %lu, phys_size %llu -> i_size %llu\n",
-+	hfs_dbg("ino %" PRIino "u, phys_size %llu -> i_size %llu\n",
- 		inode->i_ino, (long long)hip->phys_size, inode->i_size);
- 
- 	if (inode->i_size > hip->phys_size) {
-diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
-index 922ff41df042a83d47364f2d941c45dabda29afb..f61397db976e8b15fa186c3b31af71e55f9e26a6 100644
---- a/fs/hfsplus/inode.c
-+++ b/fs/hfsplus/inode.c
-@@ -230,7 +230,7 @@ static int hfsplus_get_perms(struct inode *inode,
- 		inode->i_flags &= ~S_APPEND;
- 	return 0;
- bad_type:
--	pr_err("invalid file type 0%04o for inode %lu\n", mode, inode->i_ino);
-+	pr_err("invalid file type 0%04o for inode %" PRIino "u\n", mode, inode->i_ino);
- 	return -EIO;
+ fail:
+-	pr_warn_ratelimited("failed to encode file handle (ino=%" PRIino "u, err=%i)\n",
++	pr_warn_ratelimited("failed to encode file handle (ino=%llu, err=%i)\n",
+ 			    inode->i_ino, err);
+ 	goto out;
  }
+diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
+index 6cab72d7f70611a83bba433c769323a8954a61d4..ca899fdfaafd21f4bb31807e73883b4978116732 100644
+--- a/fs/overlayfs/namei.c
++++ b/fs/overlayfs/namei.c
+@@ -591,7 +591,7 @@ int ovl_verify_origin_xattr(struct ovl_fs *ofs, struct dentry *dentry,
  
-@@ -328,7 +328,7 @@ int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
- 	struct hfsplus_vh *vhdr = sbi->s_vhdr;
- 	int error = 0, error2;
- 
--	hfs_dbg("inode->i_ino %lu, start %llu, end %llu\n",
-+	hfs_dbg("inode->i_ino %" PRIino "u, start %llu, end %llu\n",
- 		inode->i_ino, start, end);
- 
- 	error = file_write_and_wait_range(file, start, end);
-@@ -639,7 +639,7 @@ int hfsplus_cat_write_inode(struct inode *inode)
- 	hfsplus_cat_entry entry;
- 	int res = 0;
- 
--	hfs_dbg("inode->i_ino %lu\n", inode->i_ino);
-+	hfs_dbg("inode->i_ino %" PRIino "u\n", inode->i_ino);
- 
- 	if (HFSPLUS_IS_RSRC(inode))
- 		main_inode = HFSPLUS_I(inode)->rsrc_inode;
-@@ -716,7 +716,7 @@ int hfsplus_cat_write_inode(struct inode *inode)
- 	if (!res) {
- 		res = hfs_btree_write(tree);
- 		if (res) {
--			pr_err("b-tree write err: %d, ino %lu\n",
-+			pr_err("b-tree write err: %d, ino %" PRIino "u\n",
- 			       res, inode->i_ino);
+ fail:
+ 	inode = d_inode(real);
+-	pr_warn_ratelimited("failed to verify %s (%pd2, ino=%" PRIino "u, err=%i)\n",
++	pr_warn_ratelimited("failed to verify %s (%pd2, ino=%llu, err=%i)\n",
+ 			    is_upper ? "upper" : "origin", real,
+ 			    inode ? inode->i_ino : 0, err);
+ 	goto out;
+@@ -831,7 +831,7 @@ struct dentry *ovl_lookup_index(struct ovl_fs *ofs, struct dentry *upper,
+ 			index = NULL;
+ 			goto out;
  		}
- 	}
-diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
-index 7229a8ae89f9469109b1c3a317ee9b7705a83f8b..b76865e2eac5260b681fc46b297f1665f1bc10da 100644
---- a/fs/hfsplus/super.c
-+++ b/fs/hfsplus/super.c
-@@ -156,7 +156,7 @@ static int hfsplus_system_write_inode(struct inode *inode)
- 		int err = hfs_btree_write(tree);
- 
- 		if (err) {
--			pr_err("b-tree write err: %d, ino %lu\n",
-+			pr_err("b-tree write err: %d, ino %" PRIino "u\n",
- 			       err, inode->i_ino);
- 			return err;
- 		}
-@@ -169,7 +169,7 @@ static int hfsplus_write_inode(struct inode *inode,
- {
- 	int err;
- 
--	hfs_dbg("ino %lu\n", inode->i_ino);
-+	hfs_dbg("ino %" PRIino "u\n", inode->i_ino);
- 
- 	err = hfsplus_ext_write_extent(inode);
- 	if (err)
-@@ -184,7 +184,7 @@ static int hfsplus_write_inode(struct inode *inode,
- 
- static void hfsplus_evict_inode(struct inode *inode)
- {
--	hfs_dbg("ino %lu\n", inode->i_ino);
-+	hfs_dbg("ino %" PRIino "u\n", inode->i_ino);
- 	truncate_inode_pages_final(&inode->i_data);
- 	clear_inode(inode);
- 	if (HFSPLUS_IS_RSRC(inode)) {
-diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-index 9904944cbd54e3d326591fa65a5ed678f38ca583..ef9121843482e81961fa541c53c906ab04d6fc33 100644
---- a/fs/hfsplus/xattr.c
-+++ b/fs/hfsplus/xattr.c
-@@ -277,7 +277,7 @@ int __hfsplus_setxattr(struct inode *inode, const char *name,
- 	u16 folder_finderinfo_len = sizeof(DInfo) + sizeof(DXInfo);
- 	u16 file_finderinfo_len = sizeof(FInfo) + sizeof(FXInfo);
- 
--	hfs_dbg("ino %lu, name %s, value %p, size %zu\n",
-+	hfs_dbg("ino %" PRIino "u, name %s, value %p, size %zu\n",
- 		inode->i_ino, name ? name : NULL,
- 		value, size);
- 
-@@ -447,7 +447,7 @@ int hfsplus_setxattr(struct inode *inode, const char *name,
- 		NLS_MAX_CHARSET_SIZE * HFSPLUS_ATTR_MAX_STRLEN + 1;
- 	int res;
- 
--	hfs_dbg("ino %lu, name %s, prefix %s, prefixlen %zu, "
-+	hfs_dbg("ino %" PRIino "u, name %s, prefix %s, prefixlen %zu, "
- 		"value %p, size %zu\n",
- 		inode->i_ino, name ? name : NULL,
- 		prefix ? prefix : NULL, prefixlen,
-@@ -607,7 +607,7 @@ ssize_t hfsplus_getxattr(struct inode *inode, const char *name,
- 	int res;
- 	char *xattr_name;
- 
--	hfs_dbg("ino %lu, name %s, prefix %s\n",
-+	hfs_dbg("ino %" PRIino "u, name %s, prefix %s\n",
- 		inode->i_ino, name ? name : NULL,
- 		prefix ? prefix : NULL);
- 
-@@ -717,7 +717,7 @@ ssize_t hfsplus_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	size_t strbuf_size;
- 	int xattr_name_len;
- 
--	hfs_dbg("ino %lu\n", inode->i_ino);
-+	hfs_dbg("ino %" PRIino "u\n", inode->i_ino);
- 
- 	if (!is_xattr_operation_supported(inode))
- 		return -EOPNOTSUPP;
-@@ -819,7 +819,7 @@ static int hfsplus_removexattr(struct inode *inode, const char *name)
- 	int is_xattr_acl_deleted;
- 	int is_all_xattrs_deleted;
- 
--	hfs_dbg("ino %lu, name %s\n",
-+	hfs_dbg("ino %" PRIino "u, name %s\n",
- 		inode->i_ino, name ? name : NULL);
- 
- 	if (!HFSPLUS_SB(inode->i_sb)->attr_tree)
+-		pr_warn_ratelimited("failed inode index lookup (ino=%" PRIino "u, key=%.*s, err=%i);\n"
++		pr_warn_ratelimited("failed inode index lookup (ino=%llu, key=%.*s, err=%i);\n"
+ 				    "overlayfs: mount with '-o index=off' to disable inodes index.\n",
+ 				    d_inode(origin)->i_ino, name.len, name.name,
+ 				    err);
+diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
+index 536504e9803e6457fb7d248036263da446569051..2edad9a146486bda5edf47dc60e1645d49af6539 100644
+--- a/fs/overlayfs/util.c
++++ b/fs/overlayfs/util.c
+@@ -1092,7 +1092,7 @@ static void ovl_cleanup_index(struct dentry *dentry)
+ 	got_write = true;
+ 	inode = d_inode(upperdentry);
+ 	if (!S_ISDIR(inode->i_mode) && inode->i_nlink != 1) {
+-		pr_warn_ratelimited("cleanup linked index (%pd2, ino=%" PRIino "u, nlink=%u)\n",
++		pr_warn_ratelimited("cleanup linked index (%pd2, ino=%llu, nlink=%u)\n",
+ 				    upperdentry, inode->i_ino, inode->i_nlink);
+ 		/*
+ 		 * We either have a bug with persistent union nlink or a lower
 
 -- 
 2.53.0
