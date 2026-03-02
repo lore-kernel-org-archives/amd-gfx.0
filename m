@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41BDAEC046A
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBC2CEC046B
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D78C10E75A;
-	Tue,  3 Mar 2026 09:01:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D009E10E76B;
+	Tue,  3 Mar 2026 09:01:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iVXrDOh2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aBcXn5QX";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F0CD10E5BD;
- Mon,  2 Mar 2026 20:48:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7A1610E5C0;
+ Mon,  2 Mar 2026 20:42:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 15E774049E;
- Mon,  2 Mar 2026 20:48:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40790C19425;
- Mon,  2 Mar 2026 20:48:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2BD0C60134;
+ Mon,  2 Mar 2026 20:42:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7FA4C19425;
+ Mon,  2 Mar 2026 20:41:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484523;
- bh=XH+uFZSmNDN2ptX3RrQASaTIj90c+ocZQ3rxyA6ATLE=;
+ s=k20201202; t=1772484120;
+ bh=cZRkm/x8uYswKiXIjQxPVFH9LRQuTFkwNEeVHlJiyks=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=iVXrDOh2Ncf5NrMJX3ihQ0yWYBb2qKpf1HDvUW8uaT1pQpdMsT5DTGR0WLz8/PKcW
- dE7bHgzpy10p5+ASLMDMPbJwJ+lyneDG1E/2GII25P4yGZW7tTPCBi2IwXsjtzXpza
- gQ/67PlXgGE4V3TZod6qgfREW74kicxEttREEGGDVmakwnnSBQl/9iH8qiQwX3UUUi
- qTYNw/V30fH3FRdzDydenPEg5d0ZpCBxvGPyfwxsCpYSFUuFo2vrKBZNb741AfLs45
- t3aKxo67Sv9a2MrfLiyxtNdMk0hwRyd82S9gMag4wOxhRH6k3m1e6uHk3O5iJTtC+l
- C7dNHXCjjF2Tw==
+ b=aBcXn5QXA3MwG7lnQn77lFtc6yjxwtV/hhmSL/G1RX8cGUqimMoWE4usYcWsJPtEh
+ xfvjyHSQQA6xt+Zs9RR1HfuA4mIHa+LnsqQPy8K+DD0z0Pem9UNS5BKbZ+bq3A9QKI
+ 1IrW2zOHOYVaNEGfwAs+cAlO2WXSV2Qsx1cfORaKg8jNOqcQ39UTXwFuwKkJsl5/Fg
+ knCCbms+ECneqoTRvnwoU0qB3aN0/iSBzSOA0qFy67rQqYjxDsuN5/PGEXU9lEEYOA
+ lfi3kmG/w7fxnQqekxwiuyVw8mVyugp8DJM6zTkXBVzdumbjC3FO43IhHM5srdeZEc
+ LsAYyuc22nHvA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:23 -0500
-Subject: [PATCH v2 099/110] ufs: replace PRIino with %llu/%llx format strings
+Date: Mon, 02 Mar 2026 15:24:55 -0500
+Subject: [PATCH v2 071/110] afs: replace PRIino with %llu/%llx format strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-99-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-71-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,23 +151,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8514; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=XH+uFZSmNDN2ptX3RrQASaTIj90c+ocZQ3rxyA6ATLE=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIKMSoWP8hFQKjjQeno+hUGUuYd6GvJ4bDs5
- 7A3Boocpn2JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCgAKCRAADmhBGVaC
- FY3oEACyqIaJVAIso5s3j+X74J8R7OIZ/3TDCJ9XB5tC1cEx7enUCvtu37j0livMQYt+5/C2Rh9
- ru6qJKy8aZ21jQpbYqyiZHIg/0is1waiDOrKEtB7HyYm98IaEN0YFz5uzcfiGuGJSdzakmiFuu2
- nMfsAW/4aEtQE1ytbOR1ZWtykmsZMe0h91vvVWbHlZ3lNJWX+5ui2x51WoK4i056frqSjzIwyAM
- nV65BDJ1Y0tAUVBUznyrFbkHe4tOWe4RpA0g6E3+zlKE1johBi2QGhPhT0t1JpefRePwXzSMZ+d
- 5v5FTyhm28Gpj0m5gm5BkoO6DHT75enaedHOt/b6OhMPG+iKy1Q4BuDdnCpMgnB2piQQNiFJ6qS
- DwxuMt4AghbxBQWlmKoImjirtPYMvGQMpCVHCLm6cIhr8KQxHxVItTV0X1tRSVKorrPzeDlzTj7
- YxBIK6/M4zQHsnJXnXsVUi+fVQJA7206szogovn3GVf/tIiAmhkwVhsCjw25MppPIcsgmXBsvMs
- Iirc+TTCe6Q3FCBzUJX4x7/xhRAYOArxmoTLoon39IirCDJwAg8jI3hhd3fE992K99lw47W7Hxx
- J+el66KP4PdCBmx03OzxpYxhI2TyG4C5EZui0czqddpHczx8MN+mfe62gilR434DDf3aunJnsvv
- Z+h+VZ85i3fWN1A==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3918; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=cZRkm/x8uYswKiXIjQxPVFH9LRQuTFkwNEeVHlJiyks=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIChBoSEfj+8Eytj86TxKJcjYWZP4+8EVvqy
+ JByJAE8rpaJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAgAKCRAADmhBGVaC
+ FU9bD/9zOL3GtqLTCPm3spGglMWl0EVnZTZ6JIDMho3AmfQ6DUBAbl+PtE7sbQJMDnDWGGLIlYf
+ uCbubmpX5wgfsqxVaGqHJ1u8XGeX3FjBEIVcO0CjFv5Crc64VN+fMWC91K8T1EkD1eR6ESGVXnw
+ KwKySuvae4DKLyeEnvt5JmnLolo1hWZ6Rrf5DIYJ7QOIhWYQMAdE6KSDSKG4o7k/8CLI6UPPV3n
+ aG1kb48P2FcCEEATrohBxw5oV/7BeG9Ld22TDasZu8y089OZtxoyM+4n+RVug+AhI65V61b+tNh
+ i+1p8hpUrdSo7pS4b6MVerqpl7TBGRzHcU1PCxfPjI4ssd650H7lgC8RJv+JH1ce0OMGKyi6soM
+ DcxtqprS/Xxuylze6/BtrC/UMaoiGn3HGM6l4vPaUViR7ExVNZx1zoC1JYMhDPI/8P1Ti8l5ZXc
+ 0Snvk9WHAHNTPq1xUwXYPjiWeiHO94zn2OUim9konNp3ATlguW9We+XjJzAeaAaYYQHKxncLE58
+ mZ7gIj44wxs3RmAlGfcnOCt5ioeszdiLclJ7yMD7tOyMIBk0IiE1Wwr63iL3QTN39rvLBgAjSDh
+ fr4al4ZnGN5Nj4qBIJio4OYkH06HuNvh9yTLj4nnxDX9DHLbX99hL9X9KWck6B32ImcyEM07eLS
+ mrzS1JaYFd5K8lA==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
+X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -183,220 +183,104 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in ufs with the concrete format strings.
+replace all uses in afs with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ufs/balloc.c |  6 +++---
- fs/ufs/dir.c    | 10 +++++-----
- fs/ufs/ialloc.c |  6 +++---
- fs/ufs/inode.c  | 18 +++++++++---------
- fs/ufs/util.c   |  2 +-
- 5 files changed, 21 insertions(+), 21 deletions(-)
+ fs/afs/dir.c        | 10 +++++-----
+ fs/afs/dir_search.c |  2 +-
+ fs/afs/dynroot.c    |  2 +-
+ fs/afs/inode.c      |  2 +-
+ 4 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/fs/ufs/balloc.c b/fs/ufs/balloc.c
-index b961daa05608fa52dcfc2702bb97c437ef27d9c2..628edfde3a9fd73852930094c19ae6944858f2c4 100644
---- a/fs/ufs/balloc.c
-+++ b/fs/ufs/balloc.c
-@@ -245,7 +245,7 @@ static void ufs_change_blocknr(struct inode *inode, sector_t beg,
- 	sector_t end, i;
- 	struct buffer_head *head, *bh;
- 
--	UFSD("ENTER, ino %" PRIino "u, count %u, oldb %llu, newb %llu\n",
-+	UFSD("ENTER, ino %llu, count %u, oldb %llu, newb %llu\n",
- 	      inode->i_ino, count,
- 	     (unsigned long long)oldb, (unsigned long long)newb);
- 
-@@ -340,7 +340,7 @@ u64 ufs_new_fragments(struct inode *inode, void *p, u64 fragment,
- 	unsigned cgno, oldcount, newcount;
- 	u64 tmp, request, result;
- 	
--	UFSD("ENTER, ino %" PRIino "u, fragment %llu, goal %llu, count %u\n",
-+	UFSD("ENTER, ino %llu, fragment %llu, goal %llu, count %u\n",
- 	     inode->i_ino, (unsigned long long)fragment,
- 	     (unsigned long long)goal, count);
- 	
-@@ -583,7 +583,7 @@ static u64 ufs_alloc_fragments(struct inode *inode, unsigned cgno,
- 	unsigned oldcg, i, j, k, allocsize;
- 	u64 result;
- 	
--	UFSD("ENTER, ino %" PRIino "u, cgno %u, goal %llu, count %u\n",
-+	UFSD("ENTER, ino %llu, cgno %u, goal %llu, count %u\n",
- 	     inode->i_ino, cgno, (unsigned long long)goal, count);
- 
- 	sb = inode->i_sb;
-diff --git a/fs/ufs/dir.c b/fs/ufs/dir.c
-index c7a13e01119f990b8f7139fdc3005e7b65afeb54..f10a50f7e78b8020fd216eff19c147b20bd332c1 100644
---- a/fs/ufs/dir.c
-+++ b/fs/ufs/dir.c
-@@ -150,7 +150,7 @@ static bool ufs_check_folio(struct folio *folio, char *kaddr)
- 
- Ebadsize:
- 	ufs_error(sb, __func__,
--		  "size of directory #%" PRIino "u is not a multiple of chunk size",
-+		  "size of directory #%llu is not a multiple of chunk size",
- 		  dir->i_ino
- 	);
- 	goto fail;
-@@ -169,7 +169,7 @@ static bool ufs_check_folio(struct folio *folio, char *kaddr)
- Einumber:
- 	error = "inode out of bounds";
- bad_entry:
--	ufs_error(sb, __func__, "bad entry in directory #%" PRIino "u: %s - "
-+	ufs_error(sb, __func__, "bad entry in directory #%llu: %s - "
- 		   "offset=%llu, rec_len=%d, name_len=%d",
- 		   dir->i_ino, error, folio_pos(folio) + offs,
- 		   rec_len, ufs_get_de_namlen(sb, p));
-@@ -177,7 +177,7 @@ static bool ufs_check_folio(struct folio *folio, char *kaddr)
- Eend:
- 	p = (struct ufs_dir_entry *)(kaddr + offs);
- 	ufs_error(sb, __func__,
--		   "entry in directory #%" PRIino "u spans the page boundary"
-+		   "entry in directory #%llu spans the page boundary"
- 		   "offset=%llu",
- 		   dir->i_ino, folio_pos(folio) + offs);
- fail:
-@@ -258,7 +258,7 @@ struct ufs_dir_entry *ufs_find_entry(struct inode *dir, const struct qstr *qstr,
- 	struct ufs_inode_info *ui = UFS_I(dir);
- 	struct ufs_dir_entry *de;
- 
--	UFSD("ENTER, dir_ino %" PRIino "u, name %s, namlen %u\n", dir->i_ino, name, namelen);
-+	UFSD("ENTER, dir_ino %llu, name %s, namlen %u\n", dir->i_ino, name, namelen);
- 
- 	if (npages == 0 || namelen > UFS_MAXNAMLEN)
- 		goto out;
-@@ -434,7 +434,7 @@ ufs_readdir(struct file *file, struct dir_context *ctx)
- 
- 		if (IS_ERR(kaddr)) {
- 			ufs_error(sb, __func__,
--				  "bad page in #%" PRIino "u",
-+				  "bad page in #%llu",
- 				  inode->i_ino);
- 			ctx->pos += PAGE_SIZE - offset;
- 			return PTR_ERR(kaddr);
-diff --git a/fs/ufs/ialloc.c b/fs/ufs/ialloc.c
-index f26fbe330a1d0e053ddf8dbe2a8ec5d41373c79f..8e51f4630d186ae49aa987ca46df20960f300614 100644
---- a/fs/ufs/ialloc.c
-+++ b/fs/ufs/ialloc.c
-@@ -63,7 +63,7 @@ void ufs_free_inode (struct inode * inode)
- 	int is_directory;
- 	unsigned ino, cg, bit;
- 	
--	UFSD("ENTER, ino %" PRIino "u\n", inode->i_ino);
-+	UFSD("ENTER, ino %llu\n", inode->i_ino);
- 
- 	sb = inode->i_sb;
- 	uspi = UFS_SB(sb)->s_uspi;
-@@ -317,7 +317,7 @@ struct inode *ufs_new_inode(struct inode *dir, umode_t mode)
- 		bh = sb_bread(sb, uspi->s_sbbase + ufs_inotofsba(inode->i_ino));
- 		if (!bh) {
- 			ufs_warning(sb, "ufs_read_inode",
--				    "unable to read inode %" PRIino "u\n",
-+				    "unable to read inode %llu\n",
- 				    inode->i_ino);
- 			err = -EIO;
- 			goto fail_remove_inode;
-@@ -336,7 +336,7 @@ struct inode *ufs_new_inode(struct inode *dir, umode_t mode)
- 	}
- 	mutex_unlock(&sbi->s_lock);
- 
--	UFSD("allocating inode %" PRIino "u\n", inode->i_ino);
-+	UFSD("allocating inode %llu\n", inode->i_ino);
- 	UFSD("EXIT\n");
- 	return inode;
- 
-diff --git a/fs/ufs/inode.c b/fs/ufs/inode.c
-index 199f5f71f77b20bfde408cb1ac7a8ea8c45cc465..2a8728c879796403166f713d1b4ee1b05fe1ffed 100644
---- a/fs/ufs/inode.c
-+++ b/fs/ufs/inode.c
-@@ -400,7 +400,7 @@ static int ufs_getfrag_block(struct inode *inode, sector_t fragment, struct buff
- 
- 	mutex_lock(&UFS_I(inode)->truncate_mutex);
- 
--	UFSD("ENTER, ino %" PRIino "u, fragment %llu\n", inode->i_ino, (unsigned long long)fragment);
-+	UFSD("ENTER, ino %llu, fragment %llu\n", inode->i_ino, (unsigned long long)fragment);
- 	if (unlikely(!depth)) {
- 		ufs_warning(sb, "ufs_get_block", "block > big");
- 		err = -EIO;
-@@ -595,7 +595,7 @@ static int ufs2_read_inode(struct inode *inode, struct ufs2_inode *ufs2_inode)
- 	struct super_block *sb = inode->i_sb;
- 	umode_t mode;
- 
--	UFSD("Reading ufs2 inode, ino %" PRIino "u\n", inode->i_ino);
-+	UFSD("Reading ufs2 inode, ino %llu\n", inode->i_ino);
- 	/*
- 	 * Copy data to the in-core inode.
- 	 */
-@@ -662,7 +662,7 @@ struct inode *ufs_iget(struct super_block *sb, unsigned long ino)
- 
- 	bh = sb_bread(sb, uspi->s_sbbase + ufs_inotofsba(inode->i_ino));
- 	if (!bh) {
--		ufs_warning(sb, "ufs_read_inode", "unable to read inode %" PRIino "u\n",
-+		ufs_warning(sb, "ufs_read_inode", "unable to read inode %llu\n",
- 			    inode->i_ino);
- 		goto bad_inode;
- 	}
-@@ -793,17 +793,17 @@ static int ufs_update_inode(struct inode * inode, int do_sync)
- 	struct ufs_sb_private_info *uspi = UFS_SB(sb)->s_uspi;
- 	struct buffer_head * bh;
- 
--	UFSD("ENTER, ino %" PRIino "u\n", inode->i_ino);
-+	UFSD("ENTER, ino %llu\n", inode->i_ino);
- 
- 	if (inode->i_ino < UFS_ROOTINO ||
- 	    inode->i_ino > (uspi->s_ncg * uspi->s_ipg)) {
--		ufs_warning (sb, "ufs_read_inode", "bad inode number (%" PRIino "u)\n", inode->i_ino);
-+		ufs_warning (sb, "ufs_read_inode", "bad inode number (%llu)\n", inode->i_ino);
- 		return -1;
- 	}
- 
- 	bh = sb_bread(sb, ufs_inotofsba(inode->i_ino));
- 	if (!bh) {
--		ufs_warning (sb, "ufs_read_inode", "unable to read inode %" PRIino "u\n", inode->i_ino);
-+		ufs_warning (sb, "ufs_read_inode", "unable to read inode %llu\n", inode->i_ino);
- 		return -1;
- 	}
- 	if (uspi->fs_magic == UFS2_MAGIC) {
-@@ -891,7 +891,7 @@ static void ufs_trunc_direct(struct inode *inode)
- 	unsigned int old_tail, new_tail;
- 	struct to_free ctx = {.inode = inode};
- 
--	UFSD("ENTER: ino %" PRIino "u\n", inode->i_ino);
-+	UFSD("ENTER: ino %llu\n", inode->i_ino);
- 
- 	new_frags = DIRECT_FRAGMENT;
- 	// new_frags = first fragment past the new EOF
-@@ -956,7 +956,7 @@ static void ufs_trunc_direct(struct inode *inode)
- 		}
- 	}
- done:
--	UFSD("EXIT: ino %" PRIino "u\n", inode->i_ino);
-+	UFSD("EXIT: ino %llu\n", inode->i_ino);
- }
- 
- static void free_full_branch(struct inode *inode, u64 ind_block, int depth)
-@@ -1169,7 +1169,7 @@ static int ufs_truncate(struct inode *inode, loff_t size)
+diff --git a/fs/afs/dir.c b/fs/afs/dir.c
+index 52accf0a8d9d2e4dfdff444080683d5ab16d8e69..aaaa55878ffd28691777668261f577d7a9472d6d 100644
+--- a/fs/afs/dir.c
++++ b/fs/afs/dir.c
+@@ -148,7 +148,7 @@ static bool afs_dir_check_block(struct afs_vnode *dvnode, size_t progress,
+ 				union afs_xdr_dir_block *block)
  {
- 	int err = 0;
+ 	if (block->hdr.magic != AFS_DIR_MAGIC) {
+-		pr_warn("%s(%" PRIino "x): [%zx] bad magic %04x\n",
++		pr_warn("%s(%llx): [%zx] bad magic %04x\n",
+ 		       __func__, dvnode->netfs.inode.i_ino,
+ 		       progress, ntohs(block->hdr.magic));
+ 		trace_afs_dir_check_failed(dvnode, progress);
+@@ -214,7 +214,7 @@ static int afs_dir_check(struct afs_vnode *dvnode)
+  */
+ static int afs_dir_open(struct inode *inode, struct file *file)
+ {
+-	_enter("{%" PRIino "u}", inode->i_ino);
++	_enter("{%llu}", inode->i_ino);
  
--	UFSD("ENTER: ino %" PRIino "u, i_size: %llu, old_i_size: %llu\n",
-+	UFSD("ENTER: ino %llu, i_size: %llu, old_i_size: %llu\n",
- 	     inode->i_ino, (unsigned long long)size,
- 	     (unsigned long long)i_size_read(inode));
+ 	BUILD_BUG_ON(sizeof(union afs_xdr_dir_block) != 2048);
+ 	BUILD_BUG_ON(sizeof(union afs_xdr_dirent) != 32);
+@@ -523,7 +523,7 @@ static int afs_dir_iterate(struct inode *dir, struct dir_context *ctx,
+ 	int retry_limit = 100;
+ 	int ret;
  
-diff --git a/fs/ufs/util.c b/fs/ufs/util.c
-index 9acb59697d85015e83cd1e59ffbccb5452e6dd2d..dff6f74618def7bd5687bd7427f3001a78b708b8 100644
---- a/fs/ufs/util.c
-+++ b/fs/ufs/util.c
-@@ -203,7 +203,7 @@ struct folio *ufs_get_locked_folio(struct address_space *mapping,
- 		folio = read_mapping_folio(mapping, index, NULL);
+-	_enter("{%" PRIino "u},%llx,,", dir->i_ino, ctx->pos);
++	_enter("{%llu},%llx,,", dir->i_ino, ctx->pos);
  
- 		if (IS_ERR(folio)) {
--			printk(KERN_ERR "ufs_change_blocknr: read_mapping_folio error: ino %" PRIino "u, index: %lu\n",
-+			printk(KERN_ERR "ufs_change_blocknr: read_mapping_folio error: ino %llu, index: %lu\n",
- 			       mapping->host->i_ino, index);
- 			return folio;
- 		}
+ 	do {
+ 		if (--retry_limit < 0) {
+@@ -610,7 +610,7 @@ static int afs_do_lookup_one(struct inode *dir, const struct qstr *name,
+ 	};
+ 	int ret;
+ 
+-	_enter("{%" PRIino "u},{%.*s},", dir->i_ino, name->len, name->name);
++	_enter("{%llu},{%.*s},", dir->i_ino, name->len, name->name);
+ 
+ 	/* search the directory */
+ 	ret = afs_dir_iterate(dir, &cookie.ctx, NULL, _dir_version);
+@@ -783,7 +783,7 @@ static struct inode *afs_do_lookup(struct inode *dir, struct dentry *dentry)
+ 	long ret;
+ 	int i;
+ 
+-	_enter("{%" PRIino "u},%p{%pd},", dir->i_ino, dentry, dentry);
++	_enter("{%llu},%p{%pd},", dir->i_ino, dentry, dentry);
+ 
+ 	cookie = kzalloc_obj(struct afs_lookup_cookie);
+ 	if (!cookie)
+diff --git a/fs/afs/dir_search.c b/fs/afs/dir_search.c
+index 903cefd81f3f2ccbdb28264b5e99151f5a54d1ce..104411c0692f570a217d8f0e6fd35818eaa02932 100644
+--- a/fs/afs/dir_search.c
++++ b/fs/afs/dir_search.c
+@@ -194,7 +194,7 @@ int afs_dir_search(struct afs_vnode *dvnode, const struct qstr *name,
+ 	struct afs_dir_iter iter = { .dvnode = dvnode, };
+ 	int ret, retry_limit = 3;
+ 
+-	_enter("{%" PRIino "u},,,", dvnode->netfs.inode.i_ino);
++	_enter("{%llu},,,", dvnode->netfs.inode.i_ino);
+ 
+ 	if (!afs_dir_init_iter(&iter, name))
+ 		return -ENOENT;
+diff --git a/fs/afs/dynroot.c b/fs/afs/dynroot.c
+index 448083d79c3d0d2f29934e105f48d617330de8b4..1d5e33bc750224d063446ea952d5ef97a2481010 100644
+--- a/fs/afs/dynroot.c
++++ b/fs/afs/dynroot.c
+@@ -59,7 +59,7 @@ static struct inode *afs_iget_pseudo_dir(struct super_block *sb, ino_t ino)
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+-	_debug("GOT INODE %p { ino=%" PRIino "u, vl=%llx, vn=%llx, u=%x }",
++	_debug("GOT INODE %p { ino=%llu, vl=%llx, vn=%llx, u=%x }",
+ 	       inode, inode->i_ino, fid.vid, fid.vnode, fid.unique);
+ 
+ 	vnode = AFS_FS_I(inode);
+diff --git a/fs/afs/inode.c b/fs/afs/inode.c
+index a0261c2c246a379689cbaa44b7ec456f1a986142..a5173434f7862e92a127994c56b89f530ad4c298 100644
+--- a/fs/afs/inode.c
++++ b/fs/afs/inode.c
+@@ -683,7 +683,7 @@ int afs_getattr(struct mnt_idmap *idmap, const struct path *path,
+ 	struct key *key;
+ 	int ret, seq;
+ 
+-	_enter("{ ino=%" PRIino "u v=%u }", inode->i_ino, inode->i_generation);
++	_enter("{ ino=%llu v=%u }", inode->i_ino, inode->i_generation);
+ 
+ 	if (vnode->volume &&
+ 	    !(query_flags & AT_STATX_DONT_SYNC) &&
 
 -- 
 2.53.0
