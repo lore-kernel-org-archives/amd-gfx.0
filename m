@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 103C9EC0462
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C69DEC047C
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6792110E70A;
-	Tue,  3 Mar 2026 09:01:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4372010E738;
+	Tue,  3 Mar 2026 09:01:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Li6sL0a+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T7M2jA0E";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C2FC10E5BD;
- Mon,  2 Mar 2026 20:31:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0278910E5C3;
+ Mon,  2 Mar 2026 20:51:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3996660180;
- Mon,  2 Mar 2026 20:31:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFEF4C19423;
- Mon,  2 Mar 2026 20:31:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2836160180;
+ Mon,  2 Mar 2026 20:51:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC98CC2BCAF;
+ Mon,  2 Mar 2026 20:51:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483517;
- bh=XoVTzN6eBFxJLa+BE/pk+HgcXW2U/zY8piTlCXX74Rc=;
+ s=k20201202; t=1772484682;
+ bh=/sz7TWb/8/hX0LciA1x/Z08Sx95qZ79eor/fKNv831c=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Li6sL0a+oyYaZb5loMXRQVVEBqU5MM+GmRSYreCrPJmP26o1SIPa0bN8EuAYhSZYk
- OBNRTSv6Dv1enDzk4AG3b7TJmehy8EMyM1JloGvvoov1tJBTbMNPMlQoeXgjWDiE1K
- qqRX/Nr/WHSlT2DFVPAMNRywBNda1P9ICWR7mV/0eAEkOqQjOKufgWQ5XS4uj0JS3/
- 58xxHS1csLhK6vkvYAxdIwyo5hfFIQblKazZHdPySc0O8GZ8ZAluKPBWA5oTReccst
- LujABIFDexfk7Iq1ESPn7xqWw3YoUVFXLb0R3MC2wPClKxcaSnCpEl/EjO7SGs7LXb
- tsDDMqy6zc3zA==
+ b=T7M2jA0E+nOiFu6g0V2eB4Fpg250FkkborXQ68QoO89fQRYaKtke1mCmqo5Vuf7+r
+ wiGdNgQVLprPk5IB7mkheRRMyC+FRKyQz6ka9nPwO+kJgHBHZ43Md2Dkd9VD0/Of83
+ ZUNAObaZI0EzCRK+rvOI+NopDu28S8zgq5QgcDyiMewHIqmRZf306wVK3dRX1tBBlm
+ VErLvddEWB8MSYgMw/Tz8REN4YQ1FxmYNeki4O77thoNIvmMcSZ/Thb9ssZkIaaIfz
+ KZV2FrOeEqwnH4Do1nBzSwg2vKuYdXhsUVCS3pZV7L6ke8IgQelYklF9NzLOeqoxtq
+ 8b/TRYKwQNuoQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:24:13 -0500
-Subject: [PATCH v2 029/110] ext2: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:25:34 -0500
+Subject: [PATCH v2 110/110] vfs: remove kino_t typedef and PRIino format macro
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-29-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-110-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,23 +151,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7599; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=XoVTzN6eBFxJLa+BE/pk+HgcXW2U/zY8piTlCXX74Rc=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH2w5Kjq4Q8NCePjxszp9Wu5rq+HJV6Zr+aA
- xQGuM4HB8KJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx9gAKCRAADmhBGVaC
- FaQdD/9NXJ014MXWsM0uAaawc1kzXHnQlnBEkq2ZeON6ZwhV7CSSGDYwroD6I+qfapTTiD3jXcd
- Vv91VggjPIwqKecXFfuVetJ5B1jcGosi9aCSzi4raBk/H1Me+mWSGXfzu/UbDcq4Voib3Ie0xDy
- 9q8iKw5ESYgO7fN8ym9mxGXlQ/QmsVyEaow+0HgrI5x+csk5o5CUD3j7Bv9XjJ/kbROoLj/O4io
- lUXibWs++d0XTW/ZFelDxtjGSs7AW97lN4d0OVRa3BYuqW53vpW1xK1fhNQHQb60pKle6r0pIFA
- EJTTPtguR6pb0ZiKMlC5co9czELzU7uoX5qqbh3lAYNbKwQ4tm2rJxf1wx1SyTJBN95fbkXR9QU
- GA9zL/OdsrM6s7XTqWbFrzaouw4mTyjroSyF87iEHX8CinFBxMlMJbtQGCExULWYNAJLcW4LAac
- QBx8NvfE/3VxJzIVjvKSynV6xJm/0jf7BRoCQSLGCjgC2M9Y92WDxIlNJe1I3NDiK6oCVwY8N/P
- RAai1/XqSyTwjz4HvSzW7yC4kF4IoYiQMEkKxDg118CeFfl2nYUaNynVWJt7+CutXoSOA4QFUi6
- fsqvliM7tl7pbZniEYsaTfx1PtOVhrNEORSL8mgP8TBeHplfYrtwfRF5I2WIHWQQhCiEk3iOxDP
- 9IMmkuJ5S8qUbJw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7864; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=/sz7TWb/8/hX0LciA1x/Z08Sx95qZ79eor/fKNv831c=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIOWw4VpZ1f0esD0l2eblcdOGEvFuzW5qecf
+ cTPMYYfwB+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyDgAKCRAADmhBGVaC
+ FSiGEADKoZsC6JwFSXz5Q8tPMZ6t8//Y5SGA/vaBUiD5D0C+kZUFc/J5USU5TJAKaXk0BTDmAT/
+ 2kbSCQNocpoPv3+wT1fnN67/FnoxtqnhKqtCXlvPPR9RqXVCoIxxjy81hmMGvj5OueJeojBhBrE
+ EPeNMIFty+gCEGi2dWknNkaFTtNxVknqICbKKlus5egvNmB/P/wcCwA75eyzT9Cqf8HgCQ2UWH6
+ E+1UZg/P3Utcs5RWUN4LdyqwfM+nEl51pMv3R4lNJeMv6VLFYo0VBxIBSMwMwLYGA8ONx6GabD8
+ h7hmuJLNcF4apD7rmibApIK+IR8kjVt7xg3Z1R/kF7WyEW+ipWCA+d5pPv4ATJrviTJ5swUDr+e
+ 0fR52ir06HftVbBViJXC+/+JeBB5ygEQwwixuJf+EHIPh8Nw+eAOeSMTJT6/5J9boBSM4t53R2U
+ 1uE4EroXow0SM75te/gScXwcjFowrQz/+gRU3pxfj31chpErmp6yk2ql36oF4XCRuFtyNVG3v2y
+ fwmpsbHx68WQUTJbKUJrw9HuC4vvVoFx2K26sNk8Mvnxfxb/Menyn7MMrfXHs4wZ/DdlCIHP9J6
+ K4FPkJfGrBW5QSCsdyluxgAY1+ed66E9Oz4M67wxOod8vTaTchUlxDXS5wJQNAd38COtoq/jHe9
+ EYgFPWN/4XZNcUQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
+X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -182,191 +182,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert ext2 i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
+Now that i_ino has been widened to u64, replace the kino_t typedef with
+u64 and the PRIino format macro with the concrete format strings.
 
-Also correct signed format specifiers to unsigned, since inode
-numbers are unsigned values.
+Replace the remaining PRIino uses throughout the tree, and remove the
+typedef and #define from include/linux/fs.h. Change the i_ino field in
+struct inode from kino_t to u64.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/ext2/dir.c    | 10 +++++-----
- fs/ext2/ialloc.c |  9 +++++----
- fs/ext2/inode.c  |  2 +-
- fs/ext2/xattr.c  | 14 +++++++-------
- 4 files changed, 18 insertions(+), 17 deletions(-)
+ fs/dcache.c        |  4 ++--
+ fs/eventpoll.c     |  2 +-
+ fs/fserror.c       |  2 +-
+ fs/inode.c         | 10 +++++-----
+ fs/locks.c         |  6 +++---
+ fs/nsfs.c          |  4 ++--
+ fs/pipe.c          |  2 +-
+ include/linux/fs.h |  5 +----
+ 8 files changed, 16 insertions(+), 19 deletions(-)
 
-diff --git a/fs/ext2/dir.c b/fs/ext2/dir.c
-index 395fc36c089b7bb6360a8326727bd5606c7e2476..f87106907da31bb7c1ca65c0ec2dcc0d47d27c62 100644
---- a/fs/ext2/dir.c
-+++ b/fs/ext2/dir.c
-@@ -141,7 +141,7 @@ static bool ext2_check_folio(struct folio *folio, int quiet, char *kaddr)
- Ebadsize:
- 	if (!quiet)
- 		ext2_error(sb, __func__,
--			"size of directory #%lu is not a multiple "
-+			"size of directory #%" PRIino "u is not a multiple "
- 			"of chunk size", dir->i_ino);
- 	goto fail;
- Eshort:
-@@ -160,7 +160,7 @@ static bool ext2_check_folio(struct folio *folio, int quiet, char *kaddr)
- 	error = "inode out of bounds";
- bad_entry:
- 	if (!quiet)
--		ext2_error(sb, __func__, "bad entry in directory #%lu: : %s - "
-+		ext2_error(sb, __func__, "bad entry in directory #%" PRIino "u: : %s - "
- 			"offset=%llu, inode=%lu, rec_len=%d, name_len=%d",
- 			dir->i_ino, error, folio_pos(folio) + offs,
- 			(unsigned long) le32_to_cpu(p->inode),
-@@ -170,7 +170,7 @@ static bool ext2_check_folio(struct folio *folio, int quiet, char *kaddr)
- 	if (!quiet) {
- 		p = (ext2_dirent *)(kaddr + offs);
- 		ext2_error(sb, "ext2_check_folio",
--			"entry in directory #%lu spans the page boundary"
-+			"entry in directory #%" PRIino "u spans the page boundary"
- 			"offset=%llu, inode=%lu",
- 			dir->i_ino, folio_pos(folio) + offs,
- 			(unsigned long) le32_to_cpu(p->inode));
-@@ -281,7 +281,7 @@ ext2_readdir(struct file *file, struct dir_context *ctx)
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 13fb3e89cba7442c9bed74c41ca18be5e43e28c9..9ceab142896f6631017067890fd1079240448e13 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -1637,11 +1637,11 @@ static enum d_walk_ret umount_check(void *_data, struct dentry *dentry)
+ 	if (dentry == _data && dentry->d_lockref.count == 1)
+ 		return D_WALK_CONTINUE;
  
- 		if (IS_ERR(kaddr)) {
- 			ext2_error(sb, __func__,
--				   "bad page in #%lu",
-+				   "bad page in #%" PRIino "u",
- 				   inode->i_ino);
- 			ctx->pos += PAGE_SIZE - offset;
- 			return PTR_ERR(kaddr);
-@@ -383,7 +383,7 @@ struct ext2_dir_entry_2 *ext2_find_entry (struct inode *dir,
- 		/* next folio is past the blocks we've got */
- 		if (unlikely(n > (dir->i_blocks >> (PAGE_SHIFT - 9)))) {
- 			ext2_error(dir->i_sb, __func__,
--				"dir %lu size %lld exceeds block count %llu",
-+				"dir %" PRIino "u size %lld exceeds block count %llu",
- 				dir->i_ino, dir->i_size,
- 				(unsigned long long)dir->i_blocks);
- 			goto out;
-diff --git a/fs/ext2/ialloc.c b/fs/ext2/ialloc.c
-index fdf63e9c6e7caa6d5267c25faa6c293622f00627..6a317411e54191578343308b5a3990aea9c36436 100644
---- a/fs/ext2/ialloc.c
-+++ b/fs/ext2/ialloc.c
-@@ -169,9 +169,10 @@ static void ext2_preread_inode(struct inode *inode)
- 	unsigned long block_group;
- 	unsigned long offset;
- 	unsigned long block;
-+	unsigned int ino = inode->i_ino;
- 	struct ext2_group_desc * gdp;
+-	WARN(1, "BUG: Dentry %p{i=%" PRIino "x,n=%pd} "
++	WARN(1, "BUG: Dentry %p{i=%llx,n=%pd} "
+ 			" still in use (%d) [unmount of %s %s]\n",
+ 		       dentry,
+ 		       dentry->d_inode ?
+-		       dentry->d_inode->i_ino : (kino_t)0,
++		       dentry->d_inode->i_ino : (u64)0,
+ 		       dentry,
+ 		       dentry->d_lockref.count,
+ 		       dentry->d_sb->s_type->name,
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index 90fd92425492221d13bd0cf067d47579bb407a01..4ccd4d2e31adf571f939d2e777123e40302e565f 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -1080,7 +1080,7 @@ static void ep_show_fdinfo(struct seq_file *m, struct file *f)
+ 		struct inode *inode = file_inode(epi->ffd.file);
  
--	block_group = (inode->i_ino - 1) / EXT2_INODES_PER_GROUP(inode->i_sb);
-+	block_group = (ino - 1) / EXT2_INODES_PER_GROUP(inode->i_sb);
- 	gdp = ext2_get_group_desc(inode->i_sb, block_group, NULL);
- 	if (gdp == NULL)
+ 		seq_printf(m, "tfd: %8d events: %8x data: %16llx "
+-			   " pos:%lli ino:%" PRIino "x sdev:%x\n",
++			   " pos:%lli ino:%llx sdev:%x\n",
+ 			   epi->ffd.fd, epi->event.events,
+ 			   (long long)epi->event.data,
+ 			   (long long)epi->ffd.file->f_pos,
+diff --git a/fs/fserror.c b/fs/fserror.c
+index b685b329b5956a639c41b25c42cfff16e6e5ab6e..1e4d11fd9562fd158a23b64ca60e9b7e01719cb8 100644
+--- a/fs/fserror.c
++++ b/fs/fserror.c
+@@ -176,7 +176,7 @@ void fserror_report(struct super_block *sb, struct inode *inode,
+ lost:
+ 	if (inode)
+ 		pr_err_ratelimited(
+- "%s: lost file I/O error report for ino %" PRIino "u type %u pos 0x%llx len 0x%llx error %d",
++ "%s: lost file I/O error report for ino %llu type %u pos 0x%llx len 0x%llx error %d",
+ 		       sb->s_id, inode->i_ino, type, pos, len, error);
+ 	else
+ 		pr_err_ratelimited(
+diff --git a/fs/inode.c b/fs/inode.c
+index 24ab9fa10baf7c885244f23bfccd731efe4a14cc..5ad169d51728c260aeaabb810e59eb3ec1d1ce52 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -726,7 +726,7 @@ void dump_mapping(const struct address_space *mapping)
+ 	struct dentry *dentry_ptr;
+ 	struct dentry dentry;
+ 	char fname[64] = {};
+-	kino_t ino;
++	u64 ino;
+ 
+ 	/*
+ 	 * If mapping is an invalid pointer, we don't want to crash
+@@ -750,14 +750,14 @@ void dump_mapping(const struct address_space *mapping)
+ 	}
+ 
+ 	if (!dentry_first) {
+-		pr_warn("aops:%ps ino:%" PRIino "x\n", a_ops, ino);
++		pr_warn("aops:%ps ino:%llx\n", a_ops, ino);
  		return;
-@@ -179,7 +180,7 @@ static void ext2_preread_inode(struct inode *inode)
- 	/*
- 	 * Figure out the offset within the block group inode table
+ 	}
+ 
+ 	dentry_ptr = container_of(dentry_first, struct dentry, d_u.d_alias);
+ 	if (get_kernel_nofault(dentry, dentry_ptr) ||
+ 	    !dentry.d_parent || !dentry.d_name.name) {
+-		pr_warn("aops:%ps ino:%" PRIino "x invalid dentry:%px\n",
++		pr_warn("aops:%ps ino:%llx invalid dentry:%px\n",
+ 				a_ops, ino, dentry_ptr);
+ 		return;
+ 	}
+@@ -768,7 +768,7 @@ void dump_mapping(const struct address_space *mapping)
+ 	 * Even if strncpy_from_kernel_nofault() succeeded,
+ 	 * the fname could be unreliable
  	 */
--	offset = ((inode->i_ino - 1) % EXT2_INODES_PER_GROUP(inode->i_sb)) *
-+	offset = ((ino - 1) % EXT2_INODES_PER_GROUP(inode->i_sb)) *
- 				EXT2_INODE_SIZE(inode->i_sb);
- 	block = le32_to_cpu(gdp->bg_inode_table) +
- 				(offset >> EXT2_BLOCK_SIZE_BITS(inode->i_sb));
-@@ -381,7 +382,7 @@ static int find_group_other(struct super_block *sb, struct inode *parent)
- 	 *
- 	 * So add our directory's i_ino into the starting point for the hash.
- 	 */
--	group = (group + parent->i_ino) % ngroups;
-+	group = (group + (unsigned int)parent->i_ino) % ngroups;
+-	pr_warn("aops:%ps ino:%" PRIino "x dentry name(?):\"%s\"\n",
++	pr_warn("aops:%ps ino:%llx dentry name(?):\"%s\"\n",
+ 		a_ops, ino, fname);
+ }
  
+@@ -2641,7 +2641,7 @@ void init_special_inode(struct inode *inode, umode_t mode, dev_t rdev)
+ 		/* leave it no_open_fops */
+ 		break;
+ 	default:
+-		pr_debug("init_special_inode: bogus i_mode (%o) for inode %s:%" PRIino "u\n",
++		pr_debug("init_special_inode: bogus i_mode (%o) for inode %s:%llu\n",
+ 			 mode, inode->i_sb->s_id, inode->i_ino);
+ 		break;
+ 	}
+diff --git a/fs/locks.c b/fs/locks.c
+index 9c5aa23f09b6e061dc94c81cd802bb65dd0053c1..d8b066fb42108971f6b3c7449dbc9b5f8df16b13 100644
+--- a/fs/locks.c
++++ b/fs/locks.c
+@@ -234,7 +234,7 @@ locks_check_ctx_lists(struct inode *inode)
+ 	if (unlikely(!list_empty(&ctx->flc_flock) ||
+ 		     !list_empty(&ctx->flc_posix) ||
+ 		     !list_empty(&ctx->flc_lease))) {
+-		pr_warn("Leaked locks on dev=0x%x:0x%x ino=0x%" PRIino "x:\n",
++		pr_warn("Leaked locks on dev=0x%x:0x%x ino=0x%llx:\n",
+ 			MAJOR(inode->i_sb->s_dev), MINOR(inode->i_sb->s_dev),
+ 			inode->i_ino);
+ 		locks_dump_ctx_list(&ctx->flc_flock, "FLOCK");
+@@ -251,7 +251,7 @@ locks_check_ctx_file_list(struct file *filp, struct list_head *list, char *list_
+ 
+ 	list_for_each_entry(flc, list, flc_list)
+ 		if (flc->flc_file == filp)
+-			pr_warn("Leaked %s lock on dev=0x%x:0x%x ino=0x%" PRIino "x "
++			pr_warn("Leaked %s lock on dev=0x%x:0x%x ino=0x%llx "
+ 				" fl_owner=%p fl_flags=0x%x fl_type=0x%x fl_pid=%u\n",
+ 				list_type, MAJOR(inode->i_sb->s_dev),
+ 				MINOR(inode->i_sb->s_dev), inode->i_ino,
+@@ -2896,7 +2896,7 @@ static void lock_get_status(struct seq_file *f, struct file_lock_core *flc,
+ 			     (type == F_RDLCK) ? "READ" : "UNLCK");
+ 	if (inode) {
+ 		/* userspace relies on this representation of dev_t */
+-		seq_printf(f, "%d %02x:%02x:%" PRIino "u ", pid,
++		seq_printf(f, "%d %02x:%02x:%llu ", pid,
+ 				MAJOR(inode->i_sb->s_dev),
+ 				MINOR(inode->i_sb->s_dev), inode->i_ino);
+ 	} else {
+diff --git a/fs/nsfs.c b/fs/nsfs.c
+index 0e099ee2121f8831645c3a25d759793ef2ff9ce6..eac326b85314ac8080248347154d599c953969c7 100644
+--- a/fs/nsfs.c
++++ b/fs/nsfs.c
+@@ -46,7 +46,7 @@ static char *ns_dname(struct dentry *dentry, char *buffer, int buflen)
+ 	struct ns_common *ns = inode->i_private;
+ 	const struct proc_ns_operations *ns_ops = ns->ops;
+ 
+-	return dynamic_dname(buffer, buflen, "%s:[%" PRIino "u]",
++	return dynamic_dname(buffer, buflen, "%s:[%llu]",
+ 		ns_ops->name, inode->i_ino);
+ }
+ 
+@@ -394,7 +394,7 @@ static int nsfs_show_path(struct seq_file *seq, struct dentry *dentry)
+ 	const struct ns_common *ns = inode->i_private;
+ 	const struct proc_ns_operations *ns_ops = ns->ops;
+ 
+-	seq_printf(seq, "%s:[%" PRIino "u]", ns_ops->name, inode->i_ino);
++	seq_printf(seq, "%s:[%llu]", ns_ops->name, inode->i_ino);
+ 	return 0;
+ }
+ 
+diff --git a/fs/pipe.c b/fs/pipe.c
+index 311928e8713989747605fd79f653e36d27ce8c0e..9841648c9cf3e8e569cf6ba5c792624fe92396f5 100644
+--- a/fs/pipe.c
++++ b/fs/pipe.c
+@@ -873,7 +873,7 @@ static struct vfsmount *pipe_mnt __ro_after_init;
+  */
+ static char *pipefs_dname(struct dentry *dentry, char *buffer, int buflen)
+ {
+-	return dynamic_dname(buffer, buflen, "pipe:[%" PRIino "u]",
++	return dynamic_dname(buffer, buflen, "pipe:[%llu]",
+ 				d_inode(dentry)->i_ino);
+ }
+ 
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 4193817e02e8bf94f29514ca43379af21f37ac61..097443bf12e289c347651e5f3da5b67eb6b53121 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -758,9 +758,6 @@ struct inode_state_flags {
+ 	enum inode_state_flags_enum __state;
+ };
+ 
+-typedef u64		kino_t;
+-#define PRIino		"ll"
+-
+ /*
+  * Keep mostly read-only and often accessed (especially for
+  * the RCU path lookup and 'stat' data) fields at the beginning
+@@ -786,7 +783,7 @@ struct inode {
+ #endif
+ 
+ 	/* Stat data, not accessed from path walking */
+-	kino_t			i_ino;
++	u64			i_ino;
  	/*
- 	 * Use a quadratic hash to find a group with a free inode and some
-@@ -589,7 +590,7 @@ struct inode *ext2_new_inode(struct inode *dir, umode_t mode,
- 		goto fail_free_drop;
- 
- 	mark_inode_dirty(inode);
--	ext2_debug("allocating inode %lu\n", inode->i_ino);
-+	ext2_debug("allocating inode %" PRIino "u\n", inode->i_ino);
- 	ext2_preread_inode(inode);
- 	return inode;
- 
-diff --git a/fs/ext2/inode.c b/fs/ext2/inode.c
-index dbfe9098a1245d97ba97cff24395754197043c33..0ca9148583646812b478f01fd35bcad11498f951 100644
---- a/fs/ext2/inode.c
-+++ b/fs/ext2/inode.c
-@@ -1152,7 +1152,7 @@ static void ext2_free_branches(struct inode *inode, __le32 *p, __le32 *q, int de
- 			 */ 
- 			if (!bh) {
- 				ext2_error(inode->i_sb, "ext2_free_branches",
--					"Read failure, inode=%ld, block=%ld",
-+					"Read failure, inode=%" PRIino "u, block=%ld",
- 					inode->i_ino, nr);
- 				continue;
- 			}
-diff --git a/fs/ext2/xattr.c b/fs/ext2/xattr.c
-index c885dcc3bd0d180c4c3f0945ca23ed8ce569ef10..4b3dadc0a2a47c85682d9c74edb900cf0f20996f 100644
---- a/fs/ext2/xattr.c
-+++ b/fs/ext2/xattr.c
-@@ -227,7 +227,7 @@ ext2_xattr_get(struct inode *inode, int name_index, const char *name,
- 	if (!ext2_xattr_header_valid(HDR(bh))) {
- bad_block:
- 		ext2_error(inode->i_sb, "ext2_xattr_get",
--			"inode %ld: bad block %d", inode->i_ino,
-+			"inode %" PRIino "u: bad block %d", inode->i_ino,
- 			EXT2_I(inode)->i_file_acl);
- 		error = -EIO;
- 		goto cleanup;
-@@ -313,7 +313,7 @@ ext2_xattr_list(struct dentry *dentry, char *buffer, size_t buffer_size)
- 	if (!ext2_xattr_header_valid(HDR(bh))) {
- bad_block:
- 		ext2_error(inode->i_sb, "ext2_xattr_list",
--			"inode %ld: bad block %d", inode->i_ino,
-+			"inode %" PRIino "u: bad block %d", inode->i_ino,
- 			EXT2_I(inode)->i_file_acl);
- 		error = -EIO;
- 		goto cleanup;
-@@ -454,7 +454,7 @@ ext2_xattr_set(struct inode *inode, int name_index, const char *name,
- 		if (!ext2_xattr_header_valid(header)) {
- bad_block:
- 			ext2_error(sb, "ext2_xattr_set",
--				"inode %ld: bad block %d", inode->i_ino, 
-+				"inode %" PRIino "u: bad block %d", inode->i_ino,
- 				   EXT2_I(inode)->i_file_acl);
- 			error = -EIO;
- 			goto cleanup;
-@@ -833,7 +833,7 @@ ext2_xattr_delete_inode(struct inode *inode)
- 
- 	if (!ext2_data_block_valid(sbi, EXT2_I(inode)->i_file_acl, 1)) {
- 		ext2_error(inode->i_sb, "ext2_xattr_delete_inode",
--			"inode %ld: xattr block %d is out of data blocks range",
-+			"inode %" PRIino "u: xattr block %d is out of data blocks range",
- 			inode->i_ino, EXT2_I(inode)->i_file_acl);
- 		goto cleanup;
- 	}
-@@ -841,14 +841,14 @@ ext2_xattr_delete_inode(struct inode *inode)
- 	bh = sb_bread(inode->i_sb, EXT2_I(inode)->i_file_acl);
- 	if (!bh) {
- 		ext2_error(inode->i_sb, "ext2_xattr_delete_inode",
--			"inode %ld: block %d read error", inode->i_ino,
-+			"inode %" PRIino "u: block %d read error", inode->i_ino,
- 			EXT2_I(inode)->i_file_acl);
- 		goto cleanup;
- 	}
- 	ea_bdebug(bh, "b_count=%d", atomic_read(&(bh->b_count)));
- 	if (!ext2_xattr_header_valid(HDR(bh))) {
- 		ext2_error(inode->i_sb, "ext2_xattr_delete_inode",
--			"inode %ld: bad block %d", inode->i_ino,
-+			"inode %" PRIino "u: bad block %d", inode->i_ino,
- 			EXT2_I(inode)->i_file_acl);
- 		goto cleanup;
- 	}
-@@ -952,7 +952,7 @@ ext2_xattr_cache_find(struct inode *inode, struct ext2_xattr_header *header)
- 		bh = sb_bread(inode->i_sb, ce->e_value);
- 		if (!bh) {
- 			ext2_error(inode->i_sb, "ext2_xattr_cache_find",
--				"inode %ld: block %ld read error",
-+				"inode %" PRIino "u: block %ld read error",
- 				inode->i_ino, (unsigned long) ce->e_value);
- 		} else {
- 			lock_buffer(bh);
+ 	 * Filesystems may only read i_nlink directly.  They shall use the
+ 	 * following functions for modification:
 
 -- 
 2.53.0
