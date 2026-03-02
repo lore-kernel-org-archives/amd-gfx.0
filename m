@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09420EC0469
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5913EC0467
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1290710E764;
-	Tue,  3 Mar 2026 09:01:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17DFE10E73B;
+	Tue,  3 Mar 2026 09:01:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WUgJCdF5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nsRQ0zb1";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCCF310E5B8;
- Mon,  2 Mar 2026 20:25:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFBF910E36C;
+ Mon,  2 Mar 2026 20:41:03 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4B49F436EC;
- Mon,  2 Mar 2026 20:25:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043D8C2BC87;
- Mon,  2 Mar 2026 20:25:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A217A43A6B;
+ Mon,  2 Mar 2026 20:41:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FEE7C2BCB9;
+ Mon,  2 Mar 2026 20:40:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483115;
- bh=a/GWSK0b9QXvtWMAeqXB3u+MddZFQoYzg2G9mjzwaQE=;
+ s=k20201202; t=1772484063;
+ bh=WWDsZMw+xAvkwDsc0kcWPVeKunXZFMVO799PmJoRNqM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=WUgJCdF5t+Q1hK98cJHCI3yR4RRoaShPYoOuDVqA7bN0VVkGDmdd+xm+7ktLcUk01
- EGdiF3IXRPe/50XIN/hcE50LLQL5RkjKg0n2DlG1WQL9loLiI5A5a/gZ9UIV4bsZTc
- CmW8JtCoNZPuZPMgbWlhxWemup/Rm8sUzlLv5FQ+LBGmQz5a0Vrt4SK71foF1X9nWM
- tEYcSb9RsFzTsrGm8Jcfaic19f8MaHL69up0/JoRawoxpouAHK7TmPnhvW74EAmIcJ
- 8MXLzhZlvizURsAInXf0jL+7Fn0tgIPFDwmr8aFk/Ljlg1e++4RbexATuMW3x9CnKj
- 2PBS37WBUhsTQ==
+ b=nsRQ0zb1ab+ZkcZzz7r+YLKuwRK24aFsFKjgWA4FqQGqh4dZ8yFa/Djf4+GRwzYO3
+ Dmrby9nn7us83Wu4l9/uHZibESyh8J47JWQr0eVNZ+t+ZYgZZlgwcTZjR18/xniQdg
+ 9GFSImETKoEqRuGXt0X1AGsdJsHvr1AQGIo66OojuqHIKlAdlXpOZuL2LE/3vBTexv
+ 7xxyBEGmDtBwaC14K7iA9/5sfpdVZ+iTysYke3a2+8xRl9UX6SMGbF53LOpsfIprfx
+ p6xACfvAYCLtYWTpA8NrsvuLipLVjA4moAg6dQ9t0FQN1+My+OG439WexLgPEkb76z
+ +cZzBsaMbDNZw==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:23:45 -0500
-Subject: [PATCH v2 001/110] vfs: introduce kino_t typedef and PRIino format
- macro
+Date: Mon, 02 Mar 2026 15:24:51 -0500
+Subject: [PATCH v2 067/110] proc: replace PRIino with %llu/%llx format strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-67-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -152,20 +151,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1721; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=a/GWSK0b9QXvtWMAeqXB3u+MddZFQoYzg2G9mjzwaQE=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHvSSPODOGv+IDeLjtFG7YpO1D5z3aKetMMJ
- fVghWz/+YeJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx7wAKCRAADmhBGVaC
- FbwmD/9p2V49BAW6bIXPo2PewhpDsNQPKpX1wZUIsvxqGpZ6OoPwCdTPl5JCdJpBZmDUV7xAAet
- GlbT9i4wB/NFkKQ4KrOGznjzpC7tpffCcO2sYntinXsiW8KC/5wjT+XwLP9beoYik1TS7LEA2D+
- vfj6urKts/Z2WhB8n+dPuEeFdMe26J7GcxDgZXJJaxtbQFIK2Kx9kxNE6YqgzGsCiCR6SUqooDa
- Z5h8Xj6w9sbvUV4NVm3Geb9YZn1s1u0TuJmIReIOZakp9qXk5bjhxeKsvbm9LcG1LZtvYnwny0I
- 9HCRSTm5S904N17xb4gq9ptERLW/oJODRgpI84H15dAXxJQ0OMXmVMcldx6KF2V3cfXmEyJADQX
- HivLqyZD1/kytrFqvn32XWRqpdxCzgUFEEcKv2bUPnerzqbTT4N+3jZhRHyPowqPc14BLN5BZ8A
- 0nvAFTFwK51nt5JY4VwpS253elwJVd8n8K5ZGEXB+K6KeLl08JL7UK59u7/W46KRFbFJfP7ggtE
- xR+Z1fmcG2iKvEAeQ+FN4loRB8iPdg6XUfBeTjfL/XUa3xEexjDxV7bZzoYVCZCSFttt0n84DwN
- dTfnY8nwZyuQDq6o+DlqztqDyUiCLpF4wd74VvQk92opgYHwEbXw0SmGlbxwF3ccsa/VT4qmkiD
- 0g11lTFvRYNLbBQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1739; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=WWDsZMw+xAvkwDsc0kcWPVeKunXZFMVO799PmJoRNqM=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIB3Mqfx6DG7ZTBsjtQrYMLYe/Nl/Mvu66tj
+ sUpsC41/jiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyAQAKCRAADmhBGVaC
+ FerzD/91JAKzoD5PVDImrNmj8PqJtg5HShblNDfRf4ROaIlaFt13tN/BOrz0SnQq63H+8q+VsNL
+ rMevWMQM3T9oESfg5ka5s2M+zZyQV+KVX3XnnDO1WY3b6KPXs0whkV4/mPVUG5DnkeFk8WHPj6D
+ 4QW0ZBR4kAA+i9p1aDo210b6b8yVlGTLSyVkfffd30FshwQJZRBJnfCNncEK+s4133oJ2qemVVl
+ juUMsuYyLNztqGCKg/wvQVlJNSzfQ12reYqlEqKbo8fLja06KpWxS/IFmhx8P6xfjSiMIOMu/N+
+ RuqcXYlnpKzWFwEr1Ei5yMZkSemIbR5UAq+gO8W07YAcOJF1swBHK/Yd0VzM3tk123T2U5YL342
+ ouYpQidGM+00icbnbO48hdQaA6Ta3Kx21wRp80jKnyJQOEfL2pV3Qj8UATOKl5z0sBUu3g/SNmo
+ 3GPC5WUCYgvUYG2z7RYd5eIS9k2lEkPxvkwEsDnqwQ/FfHzW+tqIyHrwJQh/JwRvInyNGXWQeod
+ 48gfWV56buVvcn/Gkw4ZNFC6e+L4HMyMc22XxyYbJ5P03zTtcoCxkA6AZMCcMgxN+d2+yNyt59c
+ XulFUs6HcNiHkZC/RLHjley2OWDsXYScFR1zXhCEEYwm3l9MgJhFi/hB6CjAFVqgezk/xCV4U28
+ HRTx/obS6b+0ESQ==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -183,50 +182,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Introduce a kino_t typedef and PRIino format macro to enable a
-bisect-clean transition of i_ino from unsigned long to u64.
-
-kino_t is initially defined as unsigned long (matching the original
-i_ino type), and PRIino is "l" (the format length modifier for
-unsigned long). A later patch will change these to u64 and "ll"
-respectively once all format strings have been updated to use PRIino.
-
-The PRIino macro is a length modifier, not a complete format specifier.
-It is used as: "%" PRIino "u" for decimal, "%" PRIino "x" for hex, etc.
-This follows the pattern used by userspace PRIu64/PRIx64 macros.
-
-Format strings using i_ino should be updated to use PRIino instead of
-a hard-coded length modifier to ensure warning-free compilation on
-both 32-bit and 64-bit architectures throughout the transition.
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in proc with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- include/linux/fs.h | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ fs/proc/fd.c       | 2 +-
+ fs/proc/task_mmu.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 8b3dd145b25ec12b00ac1df17a952d9116b88047..e38bc5ece1f360d679a8f30b8171292f7a65c218 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -758,6 +758,9 @@ struct inode_state_flags {
- 	enum inode_state_flags_enum __state;
- };
+diff --git a/fs/proc/fd.c b/fs/proc/fd.c
+index 936d0258d688be5fdc384ee5c4dfbb8fa0d19dff..aae1a83e884686471758703634f0d3479e77c9a7 100644
+--- a/fs/proc/fd.c
++++ b/fs/proc/fd.c
+@@ -54,7 +54,7 @@ static int seq_show(struct seq_file *m, void *v)
+ 	if (ret)
+ 		return ret;
  
-+typedef unsigned long	kino_t;
-+#define PRIino		"l"
-+
- /*
-  * Keep mostly read-only and often accessed (especially for
-  * the RCU path lookup and 'stat' data) fields at the beginning
-@@ -783,7 +786,7 @@ struct inode {
- #endif
- 
- 	/* Stat data, not accessed from path walking */
--	unsigned long		i_ino;
-+	kino_t			i_ino;
- 	/*
- 	 * Filesystems may only read i_nlink directly.  They shall use the
- 	 * following functions for modification:
+-	seq_printf(m, "pos:\t%lli\nflags:\t0%o\nmnt_id:\t%i\nino:\t%" PRIino "u\n",
++	seq_printf(m, "pos:\t%lli\nflags:\t0%o\nmnt_id:\t%i\nino:\t%llu\n",
+ 		   (long long)file->f_pos, f_flags,
+ 		   real_mount(file->f_path.mnt)->mnt_id,
+ 		   file_inode(file)->i_ino);
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 702b0f0433f91077cd0d0af4a07e9d67d9fa9a45..751b9ba160fbf15499555875871d727644b0df44 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -442,7 +442,7 @@ static void get_vma_name(struct vm_area_struct *vma,
+ static void show_vma_header_prefix(struct seq_file *m,
+ 				   unsigned long start, unsigned long end,
+ 				   vm_flags_t flags, unsigned long long pgoff,
+-				   dev_t dev, kino_t ino)
++				   dev_t dev, u64 ino)
+ {
+ 	seq_setwidth(m, 25 + sizeof(void *) * 6 - 1);
+ 	seq_put_hex_ll(m, NULL, start, 8);
+@@ -465,7 +465,7 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma)
+ 	const struct path *path;
+ 	const char *name_fmt, *name;
+ 	vm_flags_t flags = vma->vm_flags;
+-	kino_t ino = 0;
++	u64 ino = 0;
+ 	unsigned long long pgoff = 0;
+ 	unsigned long start, end;
+ 	dev_t dev = 0;
 
 -- 
 2.53.0
