@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA464EC047D
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D27AEC0468
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:01:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDA9310E734;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD5E010E733;
 	Tue,  3 Mar 2026 09:01:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GKA9YAdD";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fgY16fS3";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A06D10E5BD;
- Mon,  2 Mar 2026 20:49:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6588610E5BD;
+ Mon,  2 Mar 2026 20:34:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 772CB6133C;
- Mon,  2 Mar 2026 20:49:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123B5C2BCB4;
- Mon,  2 Mar 2026 20:49:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A2B6D61332;
+ Mon,  2 Mar 2026 20:34:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40AFDC2BCB1;
+ Mon,  2 Mar 2026 20:34:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484568;
- bh=vzIQRv67NMWSNgS1VbjzK8gHJGBIX5DecOuq4g2+t/Y=;
+ s=k20201202; t=1772483690;
+ bh=EHTsZzHVuU/dAy7aXd2v1GUI+PyYFtjQTBu0LlSdxmo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=GKA9YAdDB192UWw6Ik1+IjOsjLdN6nt+3OcqupadQsh6+xxwtrbePQBg8GZbEyoN3
- vO6jFKIL4G9a8Vq7JIVMLKNMvWgl2e686DUqFpww9RsYvJusQXIjA5DRSVALHhV0XD
- sKJpFOz+3Prz7Gf8D8l7la5HSWWMcRbxrapQ0hXgeKUu0KUU5FicrtQM/r9zUst/+8
- xRFRfobXD7ZwAShbn85mB4uV3Xlw5Ci5j0P45dY87aI+Vx9PwEHfpIyh0HKhXsT7zB
- rJcRDsj++olsdd4Zuo3XxNg4YQ0KM/bM0nmSS+BEd63yAXecSzTWyg9S77GEGM1hj8
- X/xOzuffFg7Uw==
+ b=fgY16fS38E/poeIDCvXwd3Uta9LHaa1wjvUhqssQ1VgO6gCS6Y1GzJlWzt+QOplXT
+ +wL/zcmPvZR6tRpbj+9gDIhvp3laupQc95FBZa/PLD/4FiyPanmiQUTP5Yivwzh5+8
+ ltJRJD7fRDVnX62HkgYMdezXFWsSlTl/Kxxaal8h8NrN9OMVgP/npyY9E1Bki6/2e5
+ Kq9R12cj0929PjFeVc3hwTl+oknr5F9dtb6M2ZV9nnEr2FPIUzzewSlYEajo/imw9Y
+ 67RLjLyAPet1y4NBEUiQvYbWxunU1VBAmdGFz2rFIcIBeCcdVqPlXXKZ5PbVUWcYFl
+ CUpiqX/BGq9AA==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:26 -0500
-Subject: [PATCH v2 102/110] fsverity: replace PRIino with %llu/%llx format
- strings
+Date: Mon, 02 Mar 2026 15:24:25 -0500
+Subject: [PATCH v2 041/110] orangefs: use PRIino format for i_ino
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-102-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-41-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -152,23 +151,23 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=830; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=vzIQRv67NMWSNgS1VbjzK8gHJGBIX5DecOuq4g2+t/Y=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfILORiaxrEB5DiZmtKXsmsAIwV16e9x2gsA6
- iuyH09ayOuJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyCwAKCRAADmhBGVaC
- FUGMEACyRmyxK+AXHZh2l9nhLoEUj6daFKPMxeFZc3xikQ9UYU4tO+iAd3XEUu/T6UesQVADyRu
- Dg54ayCFZYhCuAN2ftoGf0q6tue0XDsH16Kbw16nWgFgwjG0SFCSasCSeNt9IdGGUT23uaoTC6g
- PdPhKlrkgngnRtyeQhY2HaPR39lqLV/WpLREBVsi9tv7qBQT8uK4z+CehDgoVEJxpHQvgT6mHCM
- XuSmjrkCS3sUkxZTZJV/p/a1Pjw7A34YzfqgkJK8Dx5YAyT+umwCkzRX5hXXd842n7WnLMk1n3s
- 3SJkqTzDqh1w7wQo/pnUtztBXBRMosGGr64Kay2b1TeH9F2gw7jI1YNadmmFxjM5e9h469OzeBV
- N+Ze5M5OEzZ8KvTFcWAUJRlcDKDuGdAz7NHN6h2LBr8mmak6XiAn7UK59M8+dW0uo6Y81iF6eMt
- KFQQ12fURLzdqMx97SxsCE2UuejB4qBRta/1Xzf4cqPTb4/CRc20amRzBCmAuW5D5yvHvywKOvI
- Jz/KhUqg35TzOUn+kqMbWzJdkMUxKLZFCGYJnrO4+cTBN7Pu9CzR+6Gy0foX6fPDA61RTIaOuVE
- uUF+/mI1ADdERH8VPGKomlZtk0+OpgHhsLYUe5iC0cLB5yFrDLJFkkQ3TKCteBbnTzXXCmqZk59
- qJ10YlxsTbU003w==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=808; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=EHTsZzHVuU/dAy7aXd2v1GUI+PyYFtjQTBu0LlSdxmo=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfH5WfrxGH3Mh44KYOsW9XO3qsbxXNwgi6BBy
+ q2ckAptuM6JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx+QAKCRAADmhBGVaC
+ FTRpD/wO+gig26Q2pAO0c10h91G7JeQHdtm93kH3B5YmF+85UiTROFT/FQ6b8Xr8QyQ8yB6pcNE
+ OIynDYQwbs0utcUEU2W23V2gSV6M6UolcdjiDkL4C6yC27/J5tgxPfXFkRcCGmzhYtFfdg7t4Pl
+ Uj/YIZ+k5+YjstOHulNPBp7qzrkatUoQ1Ngz5qq4nPswn8NkK72vs52MQ+I8CLKrF4CCy7wAQwI
+ F07cyOuNO+ao8KdbWqwRgVcm3QjyAcj59iL3ThjYPnZyz4zudphEqaR1F/Oz69if0BJ3ybiGWbG
+ 7QQvJsih7YiAxDSGAnNblFKgw6vQ5Okr7yQaEjeeMhvwSbbusMZBrYz1Bjz+mslvl85HyW18nsx
+ ad6VSTOCsXafZidzXSqx1NK2w/Z0EegWPpG6rbk+PmTIzW8bhl8jA7zgLQFVaWt+uvWF3/YsWR3
+ phuYf55TbT4TBqEMOJdr1DuiI/CCKM+SNkHOobO0JQct04U1Xc2dIUKKVttqz3bmoZlGw1mB2ZR
+ 3fx/A3s4KYjTu+RyvqioVFNutz6Gik5US9ioG8UKG90XFVIPkVz/PF2tPXGkGN4/jYGPi594gZY
+ T3eps8lpKzobfpEhVn5gbXSL/MToqXXiuXyUPUD35K77OcFQV1hZMFb8FSe9pSJ17khNtZqgizn
+ nHzm2A2UJPzbMiw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
-X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:31 +0000
+X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -183,27 +182,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in fsverity with the concrete format strings.
+Convert orangefs i_ino format strings to use the PRIino format
+macro in preparation for the widening of i_ino via kino_t.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/verity/init.c | 2 +-
+ fs/orangefs/inode.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/verity/init.c b/fs/verity/init.c
-index 5f6a7b4f0a34aedebfcaffc2be53e00b23976217..3aa55dec88fc919792a2cb4be476f8481ef78a9e 100644
---- a/fs/verity/init.c
-+++ b/fs/verity/init.c
-@@ -50,7 +50,7 @@ void fsverity_msg(const struct inode *inode, const char *level,
- 	vaf.fmt = fmt;
- 	vaf.va = &args;
- 	if (inode)
--		printk("%sfs-verity (%s, inode %" PRIino "u): %pV\n",
-+		printk("%sfs-verity (%s, inode %llu): %pV\n",
- 		       level, inode->i_sb->s_id, inode->i_ino, &vaf);
- 	else
- 		printk("%sfs-verity: %pV\n", level, &vaf);
+diff --git a/fs/orangefs/inode.c b/fs/orangefs/inode.c
+index 2d4710d0e05e195855186c6bedd211bc419abc36..fc0b20bd1d37043461bd2768e9155a763d3469fe 100644
+--- a/fs/orangefs/inode.c
++++ b/fs/orangefs/inode.c
+@@ -1062,7 +1062,7 @@ struct inode *orangefs_iget(struct super_block *sb,
+ 	unlock_new_inode(inode);
+ 
+ 	gossip_debug(GOSSIP_INODE_DEBUG,
+-		     "iget handle %pU, fsid %d hash %ld i_ino %lu\n",
++		     "iget handle %pU, fsid %d hash %ld i_ino %" PRIino "u\n",
+ 		     &ref->khandle,
+ 		     ref->fs_id,
+ 		     hash,
 
 -- 
 2.53.0
