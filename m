@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAAB6EC0482
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39C1CEC0468
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41E1B10E772;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0934110E76F;
 	Tue,  3 Mar 2026 09:01:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pcG9rlTn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gZESrDHF";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BC6910E5BD;
- Mon,  2 Mar 2026 20:45:23 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5346E10E5BB;
+ Mon,  2 Mar 2026 20:26:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D0916132D;
- Mon,  2 Mar 2026 20:45:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5BFC19423;
- Mon,  2 Mar 2026 20:45:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2559B406CD;
+ Mon,  2 Mar 2026 20:26:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E16CCC2BCB8;
+ Mon,  2 Mar 2026 20:26:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772484321;
- bh=hXZa7KMq0thqNyf3M2ptoW/dddwHvltqq9Ic1Sx2+m4=;
+ s=k20201202; t=1772483187;
+ bh=eoNvK5Yl7SeIQgq9YrEwF9MuEybDgaw/cGTOe/274yY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=pcG9rlTnEqBa4+qhvGpZ9dgf1tP86eL/AQxOFeaV48xtNdFjK6DO691QO4GdUUWx6
- rhtzufD0On501TB1/TqgED73jZgl6cinyiFDSXjV1j/KiqBZ8WQaybUyLo5j7EW8wK
- AQmjfdhk4/it2n9DU50WJQcunG/RV4aqE5UlXG5lEnWrWCCCMUF2WFg1rVp3ZJxrWh
- qwWoUajgEAuE8Jcm83RHVW6od8cFFapYlaDRHBiW/U0zDpQ24//yGxE0FYy5fnrYei
- YonE1g93IxukqssEdeX8PpUWwDwvJVEmwBnHYoRhAwmCbLT91cVrg4Op47V31jGeBP
- dP/NemM98K3xA==
+ b=gZESrDHFBopSybBDaCrr/gadYhHmmqGteyjtsyw9Pv1m1XE6MLR/cdhwN0RnwNFCX
+ QPrCN5JSpeWOwodlWI4OQoNjzrc5vHUaGjO2R8dzz/MOqJGKpmclBoUCuwxHU3vGCL
+ +70+lpClDBk9cuezXISD0YdDWnhmpbXqHaFyn5wOKnrl1NqphXwc9iKmGSfeqobEi1
+ l6maOnpOdK1oOk8r8/lcVzrZtBYJX61HKxrTgPal3sbXhizaPR33lnmh/tdmaWhaLj
+ hEnaPacjOr2dqigfZtNesqwNm+Yl1BP/O5LbH0tfBVx/U5/dXCsco+Za3w/B6J8LkS
+ mtYyh35Kv+06A==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:25:09 -0500
-Subject: [PATCH v2 085/110] hfsplus: replace PRIino with %llu/%llx format
- strings
+Date: Mon, 02 Mar 2026 15:23:50 -0500
+Subject: [PATCH v2 006/110] trace: reorder TP_STRUCT__entry fields for
+ better packing on 32-bit
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-85-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-6-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -152,20 +152,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9695; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=hXZa7KMq0thqNyf3M2ptoW/dddwHvltqq9Ic1Sx2+m4=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIGI6mtXlw4jltNkiZO3yOQTAZCguLk6KmrG
- aLE4661BuWJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBgAKCRAADmhBGVaC
- FbzkD/9mMMSqjUxSShVq5p+gmO4O0xxbgB/rm1XXmGLb85uUh7io3vVAKAv0tvOy8n+KZFj6ABn
- pBdo2DCgqxdlefyAA8IRaID/zK8evjcLGNjfvkWy2n8lHsqebSE5r3Wrgk1FaCmUi691r6fZBHi
- txOOs0A+NH+NVxCq6q+i0j2VkbErfh1ok83PjSZf115YzWgZ5aM96+MrQnunRMIyhgMdS69Qi22
- yDMhToXagfPir17CCUFDLJC71uSruJGPxh/gQFfW3rOODLJO4a5S6JCO8AMjP29BCM8g4qGDgwE
- B7KBeV6PJlqB9xsksXoloWcb8HEuNICacscC/yEcjAKjaAYVj4mKmoNemYOeN1TTo6enqNxV5Zh
- ij8j7Zyr6uvxYFqn5ZO/clL3Vl095OzH4gUAPxo83nilYLvscWCd+fo174Q2jCMGkzQKDKLmD9D
- uaDLXFIF1zVB/HeH17woowdt0DVJbU38mwrsjciAJ9nxjHEU/w6XEuHcnOPVL7PrL9WxoyMjXyq
- L0hVjLOhxRRv5DGbe6bGT4CzdVkDG7IqQAWlN1/G+48r1vSJeU0CnSFUgSKKpNjU6BjSQMRNsBJ
- pE0sLA8LAQe+BsrMOF8A3ddLa/2rh1ImGZSonPuvL2j8Ia3GAYwMpB8AqTnTsc6qPriWWpvcJNQ
- GNagc/MtRR9bIZg==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13682; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=eoNvK5Yl7SeIQgq9YrEwF9MuEybDgaw/cGTOe/274yY=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHwneWwRCtH37qDPSjc8Wo97edXJDLDHXsih
+ RCid9s596mJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8AAKCRAADmhBGVaC
+ FeXoD/40MQDB8ZGY3bAmS4aZn5ULoTZ7fhEUkxxa3aguvcw00rG2zuF/QNLGsDtg4gEE1YIGOg7
+ xDxs5j4PXMy+C+Snbg5wk+/G/TXdL98RBqUJeZAsaVfQ+C+vVeuowoIxyY5WtgZmXVdQjwQrRbZ
+ Tnz0m6PdPeWy/iwJGXMpG26DhkYKaKpFaC/D8alFD7tZqrIQhBeL3/HJTevsTAJJUQr19ohUjFY
+ vhqACbzEwStOkD7DyJHw+1pYJTP2uT3IzOgAgiROmYyrGW8F8TwjIjrRp66I1Ov0fnjPSPzkJst
+ 9+yium6UMI+Oup1WDiyc9FXahpKE1uX3b5kyPOlnUeO7oirOc7www3Cyp6L+tNhMfUB5aT4F7VK
+ +CMvIKE2OX+IaN/pMOKc48PLUb3GwfVRMjz/Marq/QE2hMuuNWlWVuO7eI0MVk3MtXxeUC0/Puk
+ w7sX4hWrKYPEO6rr/KdhRp5biPoU7ezh520WhVEWmCjAQ5jHs7aibCAk+q/TUjXMp5Nuvq8ON1E
+ 1MigX6VhzzLKer3JNYYOGpndOkW5GlfF3gp/35EeeOa72WEkbs0B+VRblNznDCUD7KDC51pQUci
+ m14ODDyp/XhBlXNdVLeMolvVzZBv5q2BWwD+8uhjnUY/clrz9z7+e4IgpcRcVK21zO959Q9AD7q
+ idB+xSxglbMDOWw==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -183,264 +183,449 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that i_ino is u64 and the PRIino format macro has been removed,
-replace all uses in hfsplus with the concrete format strings.
+The recent conversion of ino_t/unsigned long inode number fields to u64
+in VFS-layer trace events can leave alignment holes on 32-bit platforms
+(particularly ARM, where u64 has 8-byte alignment). Reorder the
+TP_STRUCT__entry fields so that 64-bit integer fields (u64, loff_t,
+time64_t) come first, followed by pointers and unsigned longs, then
+integer-sized and smaller fields.
+
+This eliminates padding holes on 32-bit without worsening packing on
+64-bit. Only the field declaration order in TP_STRUCT__entry is changed;
+TP_fast_assign and TP_printk reference fields by name and are unaffected.
+
+Files affected: cachefiles.h, filelock.h, filemap.h, hugetlbfs.h,
+readahead.h, timestamp.h, writeback.h.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/hfsplus/attributes.c | 10 +++++-----
- fs/hfsplus/catalog.c    |  2 +-
- fs/hfsplus/dir.c        |  6 +++---
- fs/hfsplus/extents.c    |  6 +++---
- fs/hfsplus/inode.c      |  8 ++++----
- fs/hfsplus/super.c      |  6 +++---
- fs/hfsplus/xattr.c      | 10 +++++-----
- 7 files changed, 24 insertions(+), 24 deletions(-)
+ include/trace/events/cachefiles.h | 10 +++++-----
+ include/trace/events/filelock.h   | 22 +++++++++++-----------
+ include/trace/events/filemap.h    |  4 ++--
+ include/trace/events/hugetlbfs.h  | 18 +++++++++---------
+ include/trace/events/readahead.h  |  6 +++---
+ include/trace/events/timestamp.h  |  6 +++---
+ include/trace/events/writeback.h  | 32 ++++++++++++++++----------------
+ 7 files changed, 49 insertions(+), 49 deletions(-)
 
-diff --git a/fs/hfsplus/attributes.c b/fs/hfsplus/attributes.c
-index d0b3f58166a057c0a5bf2e41cf6fc839798c0ded..174cd13106ad66008a120e3e70984be7cb42a65f 100644
---- a/fs/hfsplus/attributes.c
-+++ b/fs/hfsplus/attributes.c
-@@ -203,7 +203,7 @@ int hfsplus_create_attr_nolock(struct inode *inode, const char *name,
- 	int entry_size;
- 	int err;
+diff --git a/include/trace/events/cachefiles.h b/include/trace/events/cachefiles.h
+index f967027711ee823f224abc1b8ab03f63da06ae6f..6e3b1424eea4dc9e414dd9d1439339132d516339 100644
+--- a/include/trace/events/cachefiles.h
++++ b/include/trace/events/cachefiles.h
+@@ -249,10 +249,10 @@ TRACE_EVENT(cachefiles_lookup,
+ 	    TP_ARGS(obj, dir, de),
  
--	hfs_dbg("name %s, ino %" PRIino "u\n",
-+	hfs_dbg("name %s, ino %llu\n",
- 		name ? name : NULL, inode->i_ino);
+ 	    TP_STRUCT__entry(
+-		    __field(unsigned int,		obj)
+-		    __field(short,			error)
+ 		    __field(u64,			dino)
+ 		    __field(u64,			ino)
++		    __field(unsigned int,		obj)
++		    __field(short,			error)
+ 			     ),
  
- 	if (name) {
-@@ -255,7 +255,7 @@ int hfsplus_create_attr(struct inode *inode,
- 	hfsplus_attr_entry *entry_ptr;
- 	int err;
+ 	    TP_fast_assign(
+@@ -578,8 +578,8 @@ TRACE_EVENT(cachefiles_mark_active,
  
--	hfs_dbg("name %s, ino %" PRIino "u\n",
-+	hfs_dbg("name %s, ino %llu\n",
- 		name ? name : NULL, inode->i_ino);
+ 	    /* Note that obj may be NULL */
+ 	    TP_STRUCT__entry(
+-		    __field(unsigned int,		obj)
+ 		    __field(u64,			inode)
++		    __field(unsigned int,		obj)
+ 			     ),
  
- 	if (!HFSPLUS_SB(sb)->attr_tree) {
-@@ -337,7 +337,7 @@ int hfsplus_delete_attr_nolock(struct inode *inode, const char *name,
- 	struct super_block *sb = inode->i_sb;
- 	int err;
+ 	    TP_fast_assign(
+@@ -599,8 +599,8 @@ TRACE_EVENT(cachefiles_mark_failed,
  
--	hfs_dbg("name %s, ino %" PRIino "u\n",
-+	hfs_dbg("name %s, ino %llu\n",
- 		name ? name : NULL, inode->i_ino);
+ 	    /* Note that obj may be NULL */
+ 	    TP_STRUCT__entry(
+-		    __field(unsigned int,		obj)
+ 		    __field(u64,			inode)
++		    __field(unsigned int,		obj)
+ 			     ),
  
- 	if (name) {
-@@ -367,7 +367,7 @@ int hfsplus_delete_attr(struct inode *inode, const char *name)
- 	struct super_block *sb = inode->i_sb;
- 	struct hfs_find_data fd;
+ 	    TP_fast_assign(
+@@ -620,8 +620,8 @@ TRACE_EVENT(cachefiles_mark_inactive,
  
--	hfs_dbg("name %s, ino %" PRIino "u\n",
-+	hfs_dbg("name %s, ino %llu\n",
- 		name ? name : NULL, inode->i_ino);
+ 	    /* Note that obj may be NULL */
+ 	    TP_STRUCT__entry(
+-		    __field(unsigned int,		obj)
+ 		    __field(u64,			inode)
++		    __field(unsigned int,		obj)
+ 			     ),
  
- 	if (!HFSPLUS_SB(sb)->attr_tree) {
-@@ -436,7 +436,7 @@ int hfsplus_replace_attr(struct inode *inode,
- 	hfsplus_attr_entry *entry_ptr;
- 	int err = 0;
+ 	    TP_fast_assign(
+diff --git a/include/trace/events/filelock.h b/include/trace/events/filelock.h
+index 41bc752616b25d6cd7955203e2c604029d0b440c..1167748862449ef6ff04c40b568ea8c3bbb08207 100644
+--- a/include/trace/events/filelock.h
++++ b/include/trace/events/filelock.h
+@@ -43,9 +43,9 @@ TRACE_EVENT(locks_get_lock_context,
  
--	hfs_dbg("name %s, ino %" PRIino "u\n",
-+	hfs_dbg("name %s, ino %llu\n",
- 		name ? name : NULL, inode->i_ino);
+ 	TP_STRUCT__entry(
+ 		__field(u64, i_ino)
++		__field(struct file_lock_context *, ctx)
+ 		__field(dev_t, s_dev)
+ 		__field(unsigned char, type)
+-		__field(struct file_lock_context *, ctx)
+ 	),
  
- 	if (!HFSPLUS_SB(sb)->attr_tree) {
-diff --git a/fs/hfsplus/catalog.c b/fs/hfsplus/catalog.c
-index d422f117c60dee6fd8ece0d01d4ce66e04421e4a..0e961e99b9856ab7d95da5d070b4fbce1e67ebde 100644
---- a/fs/hfsplus/catalog.c
-+++ b/fs/hfsplus/catalog.c
-@@ -441,7 +441,7 @@ int hfsplus_rename_cat(u32 cnid,
- 	int entry_size, type;
- 	int err;
+ 	TP_fast_assign(
+@@ -66,16 +66,16 @@ DECLARE_EVENT_CLASS(filelock_lock,
+ 	TP_ARGS(inode, fl, ret),
  
--	hfs_dbg("cnid %u - ino %" PRIino "u, name %s - ino %" PRIino "u, name %s\n",
-+	hfs_dbg("cnid %u - ino %llu, name %s - ino %llu, name %s\n",
- 		cnid, src_dir->i_ino, src_name->name,
- 		dst_dir->i_ino, dst_name->name);
- 	err = hfs_find_init(HFSPLUS_SB(sb)->cat_tree, &src_fd);
-diff --git a/fs/hfsplus/dir.c b/fs/hfsplus/dir.c
-index e701b11437f09172f88d68b4e4f5998591572b38..054f6da46033404bbbcf299beb5d8765495c0de3 100644
---- a/fs/hfsplus/dir.c
-+++ b/fs/hfsplus/dir.c
-@@ -313,7 +313,7 @@ static int hfsplus_link(struct dentry *src_dentry, struct inode *dst_dir,
- 	if (!S_ISREG(inode->i_mode))
- 		return -EPERM;
+ 	TP_STRUCT__entry(
+-		__field(struct file_lock *, fl)
+ 		__field(u64, i_ino)
+-		__field(dev_t, s_dev)
++		__field(loff_t, fl_start)
++		__field(loff_t, fl_end)
++		__field(struct file_lock *, fl)
+ 		__field(struct file_lock_core *, blocker)
+ 		__field(fl_owner_t, owner)
++		__field(dev_t, s_dev)
+ 		__field(unsigned int, pid)
+ 		__field(unsigned int, flags)
+ 		__field(unsigned char, type)
+-		__field(loff_t, fl_start)
+-		__field(loff_t, fl_end)
+ 		__field(int, ret)
+ 	),
  
--	hfs_dbg("src_dir->i_ino %" PRIino "u, dst_dir->i_ino %" PRIino "u, inode->i_ino %" PRIino "u\n",
-+	hfs_dbg("src_dir->i_ino %llu, dst_dir->i_ino %llu, inode->i_ino %llu\n",
- 		src_dir->i_ino, dst_dir->i_ino, inode->i_ino);
+@@ -123,15 +123,15 @@ DECLARE_EVENT_CLASS(filelock_lease,
+ 	TP_ARGS(inode, fl),
  
- 	mutex_lock(&sbi->vh_mutex);
-@@ -385,7 +385,7 @@ static int hfsplus_unlink(struct inode *dir, struct dentry *dentry)
- 	if (HFSPLUS_IS_RSRC(inode))
- 		return -EPERM;
+ 	TP_STRUCT__entry(
+-		__field(struct file_lease *, fl)
+ 		__field(u64, i_ino)
+-		__field(dev_t, s_dev)
++		__field(struct file_lease *, fl)
+ 		__field(struct file_lock_core *, blocker)
+ 		__field(fl_owner_t, owner)
+-		__field(unsigned int, flags)
+-		__field(unsigned char, type)
+ 		__field(unsigned long, break_time)
+ 		__field(unsigned long, downgrade_time)
++		__field(dev_t, s_dev)
++		__field(unsigned int, flags)
++		__field(unsigned char, type)
+ 	),
  
--	hfs_dbg("dir->i_ino %" PRIino "u, inode->i_ino %" PRIino "u\n",
-+	hfs_dbg("dir->i_ino %llu, inode->i_ino %llu\n",
- 		dir->i_ino, inode->i_ino);
+ 	TP_fast_assign(
+@@ -176,11 +176,11 @@ TRACE_EVENT(generic_add_lease,
  
- 	mutex_lock(&sbi->vh_mutex);
-@@ -393,7 +393,7 @@ static int hfsplus_unlink(struct inode *dir, struct dentry *dentry)
- 	if (inode->i_ino == cnid &&
- 	    atomic_read(&HFSPLUS_I(inode)->opencnt)) {
- 		str.name = name;
--		str.len = sprintf(name, "temp%" PRIino "u", inode->i_ino);
-+		str.len = sprintf(name, "temp%llu", inode->i_ino);
- 		res = hfsplus_rename_cat(inode->i_ino,
- 					 dir, &dentry->d_name,
- 					 sbi->hidden_dir, &str);
-diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-index 1dbfdf44f954f2768852678d1e386a91758848f9..474fde1a1653be6cf74b26e757c6d8a6f8d2906a 100644
---- a/fs/hfsplus/extents.c
-+++ b/fs/hfsplus/extents.c
-@@ -275,7 +275,7 @@ int hfsplus_get_block(struct inode *inode, sector_t iblock,
- 	mutex_unlock(&hip->extents_lock);
+ 	TP_STRUCT__entry(
+ 		__field(u64, i_ino)
++		__field(fl_owner_t, owner)
++		__field(dev_t, s_dev)
+ 		__field(int, wcount)
+ 		__field(int, rcount)
+ 		__field(int, icount)
+-		__field(dev_t, s_dev)
+-		__field(fl_owner_t, owner)
+ 		__field(unsigned int, flags)
+ 		__field(unsigned char, type)
+ 	),
+diff --git a/include/trace/events/filemap.h b/include/trace/events/filemap.h
+index 153491e57cce6df73e30ddee60a52ed7d8923c24..4dcf8e9e2e0d8bde7c9df9856c059d2cdebff59f 100644
+--- a/include/trace/events/filemap.h
++++ b/include/trace/events/filemap.h
+@@ -20,8 +20,8 @@ DECLARE_EVENT_CLASS(mm_filemap_op_page_cache,
+ 	TP_ARGS(folio),
  
- done:
--	hfs_dbg("ino %" PRIino "u, iblock %llu - dblock %u\n",
-+	hfs_dbg("ino %llu, iblock %llu - dblock %u\n",
- 		inode->i_ino, (long long)iblock, dblock);
+ 	TP_STRUCT__entry(
+-		__field(unsigned long, pfn)
+ 		__field(u64, i_ino)
++		__field(unsigned long, pfn)
+ 		__field(unsigned long, index)
+ 		__field(dev_t, s_dev)
+ 		__field(unsigned char, order)
+@@ -171,8 +171,8 @@ TRACE_EVENT(file_check_and_advance_wb_err,
+ 		TP_ARGS(file, old),
  
- 	mask = (1 << sbi->fs_shift) - 1;
-@@ -476,7 +476,7 @@ int hfsplus_file_extend(struct inode *inode, bool zeroout)
- 			goto out;
- 	}
+ 		TP_STRUCT__entry(
+-			__field(struct file *, file)
+ 			__field(u64, i_ino)
++			__field(struct file *, file)
+ 			__field(dev_t, s_dev)
+ 			__field(errseq_t, old)
+ 			__field(errseq_t, new)
+diff --git a/include/trace/events/hugetlbfs.h b/include/trace/events/hugetlbfs.h
+index d4fefa571b829f92729c7e175df9ad5ed701131a..8ba72c1d4f4d8ba616906be5b5c4b487972fec00 100644
+--- a/include/trace/events/hugetlbfs.h
++++ b/include/trace/events/hugetlbfs.h
+@@ -14,9 +14,9 @@ TRACE_EVENT(hugetlbfs_alloc_inode,
+ 	TP_ARGS(inode, dir, mode),
  
--	hfs_dbg("ino %" PRIino "u, start %u, len %u\n", inode->i_ino, start, len);
-+	hfs_dbg("ino %llu, start %u, len %u\n", inode->i_ino, start, len);
+ 	TP_STRUCT__entry(
+-		__field(dev_t,		dev)
+ 		__field(u64,		ino)
+ 		__field(u64,		dir)
++		__field(dev_t,		dev)
+ 		__field(__u16,		mode)
+ 	),
  
- 	if (hip->alloc_blocks <= hip->first_blocks) {
- 		if (!hip->first_blocks) {
-@@ -545,7 +545,7 @@ void hfsplus_file_truncate(struct inode *inode)
- 	u32 alloc_cnt, blk_cnt, start;
- 	int res;
+@@ -40,13 +40,13 @@ DECLARE_EVENT_CLASS(hugetlbfs__inode,
+ 	TP_ARGS(inode),
  
--	hfs_dbg("ino %" PRIino "u, phys_size %llu -> i_size %llu\n",
-+	hfs_dbg("ino %llu, phys_size %llu -> i_size %llu\n",
- 		inode->i_ino, (long long)hip->phys_size, inode->i_size);
+ 	TP_STRUCT__entry(
+-		__field(dev_t,		dev)
+ 		__field(u64,		ino)
+-		__field(__u16,		mode)
+ 		__field(loff_t,		size)
++		__field(blkcnt_t,	blocks)
++		__field(dev_t,		dev)
+ 		__field(unsigned int,	nlink)
+ 		__field(unsigned int,	seals)
+-		__field(blkcnt_t,	blocks)
++		__field(__u16,		mode)
+ 	),
  
- 	if (inode->i_size > hip->phys_size) {
-diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
-index f61397db976e8b15fa186c3b31af71e55f9e26a6..02be32dc6833dfdd767c407ec0263485d1a2c3c6 100644
---- a/fs/hfsplus/inode.c
-+++ b/fs/hfsplus/inode.c
-@@ -230,7 +230,7 @@ static int hfsplus_get_perms(struct inode *inode,
- 		inode->i_flags &= ~S_APPEND;
- 	return 0;
- bad_type:
--	pr_err("invalid file type 0%04o for inode %" PRIino "u\n", mode, inode->i_ino);
-+	pr_err("invalid file type 0%04o for inode %llu\n", mode, inode->i_ino);
- 	return -EIO;
- }
+ 	TP_fast_assign(
+@@ -87,14 +87,14 @@ TRACE_EVENT(hugetlbfs_setattr,
+ 	TP_ARGS(inode, dentry, attr),
  
-@@ -328,7 +328,7 @@ int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
- 	struct hfsplus_vh *vhdr = sbi->s_vhdr;
- 	int error = 0, error2;
+ 	TP_STRUCT__entry(
+-		__field(dev_t,		dev)
+ 		__field(u64,		ino)
++		__field(loff_t,		old_size)
++		__field(loff_t,		ia_size)
++		__field(dev_t,		dev)
+ 		__field(unsigned int,	d_len)
+ 		__string(d_name,	dentry->d_name.name)
+ 		__field(unsigned int,	ia_valid)
+ 		__field(unsigned int,	ia_mode)
+-		__field(loff_t,		old_size)
+-		__field(loff_t,		ia_size)
+ 	),
  
--	hfs_dbg("inode->i_ino %" PRIino "u, start %llu, end %llu\n",
-+	hfs_dbg("inode->i_ino %llu, start %llu, end %llu\n",
- 		inode->i_ino, start, end);
+ 	TP_fast_assign(
+@@ -122,12 +122,12 @@ TRACE_EVENT(hugetlbfs_fallocate,
+ 	TP_ARGS(inode, mode, offset, len, ret),
  
- 	error = file_write_and_wait_range(file, start, end);
-@@ -639,7 +639,7 @@ int hfsplus_cat_write_inode(struct inode *inode)
- 	hfsplus_cat_entry entry;
- 	int res = 0;
+ 	TP_STRUCT__entry(
+-		__field(dev_t,		dev)
+ 		__field(u64,		ino)
+-		__field(int,		mode)
+ 		__field(loff_t,		offset)
+ 		__field(loff_t,		len)
+ 		__field(loff_t,		size)
++		__field(dev_t,		dev)
++		__field(int,		mode)
+ 		__field(int,		ret)
+ 	),
  
--	hfs_dbg("inode->i_ino %" PRIino "u\n", inode->i_ino);
-+	hfs_dbg("inode->i_ino %llu\n", inode->i_ino);
+diff --git a/include/trace/events/readahead.h b/include/trace/events/readahead.h
+index 928b2c67654735cc004d27beeee2066196e60a70..087f171e2b02d30f09179d5ed6c27a7e0224370b 100644
+--- a/include/trace/events/readahead.h
++++ b/include/trace/events/readahead.h
+@@ -81,15 +81,15 @@ DECLARE_EVENT_CLASS(page_cache_ra_op,
  
- 	if (HFSPLUS_IS_RSRC(inode))
- 		main_inode = HFSPLUS_I(inode)->rsrc_inode;
-@@ -716,7 +716,7 @@ int hfsplus_cat_write_inode(struct inode *inode)
- 	if (!res) {
- 		res = hfs_btree_write(tree);
- 		if (res) {
--			pr_err("b-tree write err: %d, ino %" PRIino "u\n",
-+			pr_err("b-tree write err: %d, ino %llu\n",
- 			       res, inode->i_ino);
- 		}
- 	}
-diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
-index b76865e2eac5260b681fc46b297f1665f1bc10da..b3917249c206c3a25fe98b39a5eb2168b7404dc2 100644
---- a/fs/hfsplus/super.c
-+++ b/fs/hfsplus/super.c
-@@ -156,7 +156,7 @@ static int hfsplus_system_write_inode(struct inode *inode)
- 		int err = hfs_btree_write(tree);
+ 	TP_STRUCT__entry(
+ 		__field(u64, i_ino)
+-		__field(dev_t, s_dev)
++		__field(loff_t, prev_pos)
+ 		__field(pgoff_t, index)
++		__field(unsigned long, req_count)
++		__field(dev_t, s_dev)
+ 		__field(unsigned int, order)
+ 		__field(unsigned int, size)
+ 		__field(unsigned int, async_size)
+ 		__field(unsigned int, ra_pages)
+ 		__field(unsigned int, mmap_miss)
+-		__field(loff_t, prev_pos)
+-		__field(unsigned long, req_count)
+ 	),
  
- 		if (err) {
--			pr_err("b-tree write err: %d, ino %" PRIino "u\n",
-+			pr_err("b-tree write err: %d, ino %llu\n",
- 			       err, inode->i_ino);
- 			return err;
- 		}
-@@ -169,7 +169,7 @@ static int hfsplus_write_inode(struct inode *inode,
- {
- 	int err;
+ 	TP_fast_assign(
+diff --git a/include/trace/events/timestamp.h b/include/trace/events/timestamp.h
+index 315ea8d57796617661768da24591d53095ac7649..d6503612dddf9c6a2f785fad549fa04adddb06fe 100644
+--- a/include/trace/events/timestamp.h
++++ b/include/trace/events/timestamp.h
+@@ -18,9 +18,9 @@ DECLARE_EVENT_CLASS(ctime,
+ 	TP_ARGS(inode, ctime),
  
--	hfs_dbg("ino %" PRIino "u\n", inode->i_ino);
-+	hfs_dbg("ino %llu\n", inode->i_ino);
+ 	TP_STRUCT__entry(
+-		__field(dev_t,		dev)
+ 		__field(u64,		ino)
+ 		__field(time64_t,	ctime_s)
++		__field(dev_t,		dev)
+ 		__field(u32,		ctime_ns)
+ 		__field(u32,		gen)
+ 	),
+@@ -58,8 +58,8 @@ TRACE_EVENT(ctime_ns_xchg,
+ 	TP_ARGS(inode, old, new, cur),
  
- 	err = hfsplus_ext_write_extent(inode);
- 	if (err)
-@@ -184,7 +184,7 @@ static int hfsplus_write_inode(struct inode *inode,
+ 	TP_STRUCT__entry(
+-		__field(dev_t,		dev)
+ 		__field(u64,		ino)
++		__field(dev_t,		dev)
+ 		__field(u32,		gen)
+ 		__field(u32,		old)
+ 		__field(u32,		new)
+@@ -93,10 +93,10 @@ TRACE_EVENT(fill_mg_cmtime,
+ 	TP_ARGS(inode, ctime, mtime),
  
- static void hfsplus_evict_inode(struct inode *inode)
- {
--	hfs_dbg("ino %" PRIino "u\n", inode->i_ino);
-+	hfs_dbg("ino %llu\n", inode->i_ino);
- 	truncate_inode_pages_final(&inode->i_data);
- 	clear_inode(inode);
- 	if (HFSPLUS_IS_RSRC(inode)) {
-diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-index ef9121843482e81961fa541c53c906ab04d6fc33..c70bb6f494b22b1e3f74e18a9ef378e0c87f8194 100644
---- a/fs/hfsplus/xattr.c
-+++ b/fs/hfsplus/xattr.c
-@@ -277,7 +277,7 @@ int __hfsplus_setxattr(struct inode *inode, const char *name,
- 	u16 folder_finderinfo_len = sizeof(DInfo) + sizeof(DXInfo);
- 	u16 file_finderinfo_len = sizeof(FInfo) + sizeof(FXInfo);
+ 	TP_STRUCT__entry(
+-		__field(dev_t,		dev)
+ 		__field(u64,		ino)
+ 		__field(time64_t,	ctime_s)
+ 		__field(time64_t,	mtime_s)
++		__field(dev_t,		dev)
+ 		__field(u32,		ctime_ns)
+ 		__field(u32,		mtime_ns)
+ 		__field(u32,		gen)
+diff --git a/include/trace/events/writeback.h b/include/trace/events/writeback.h
+index ad269142f3f9a288d87e5252f08e8a17fd06e8d5..e5cd2b80fd29dba9177b8ea7c37d63e50e9f60e2 100644
+--- a/include/trace/events/writeback.h
++++ b/include/trace/events/writeback.h
+@@ -280,9 +280,9 @@ TRACE_EVENT(track_foreign_dirty,
+ 		__array(char,		name, 32)
+ 		__field(u64,		bdi_id)
+ 		__field(u64,		ino)
+-		__field(unsigned int,	memcg_id)
+ 		__field(u64,		cgroup_ino)
+ 		__field(u64,		page_cgroup_ino)
++		__field(unsigned int,	memcg_id)
+ 	),
  
--	hfs_dbg("ino %" PRIino "u, name %s, value %p, size %zu\n",
-+	hfs_dbg("ino %llu, name %s, value %p, size %zu\n",
- 		inode->i_ino, name ? name : NULL,
- 		value, size);
+ 	TP_fast_assign(
+@@ -346,8 +346,8 @@ DECLARE_EVENT_CLASS(writeback_write_inode_template,
+ 	TP_STRUCT__entry (
+ 		__array(char, name, 32)
+ 		__field(u64, ino)
+-		__field(int, sync_mode)
+ 		__field(u64, cgroup_ino)
++		__field(int, sync_mode)
+ 	),
  
-@@ -447,7 +447,7 @@ int hfsplus_setxattr(struct inode *inode, const char *name,
- 		NLS_MAX_CHARSET_SIZE * HFSPLUS_ATTR_MAX_STRLEN + 1;
- 	int res;
+ 	TP_fast_assign(
+@@ -385,6 +385,7 @@ DECLARE_EVENT_CLASS(writeback_work_class,
+ 	TP_ARGS(wb, work),
+ 	TP_STRUCT__entry(
+ 		__array(char, name, 32)
++		__field(u64, cgroup_ino)
+ 		__field(long, nr_pages)
+ 		__field(dev_t, sb_dev)
+ 		__field(int, sync_mode)
+@@ -392,7 +393,6 @@ DECLARE_EVENT_CLASS(writeback_work_class,
+ 		__field(int, range_cyclic)
+ 		__field(int, for_background)
+ 		__field(int, reason)
+-		__field(u64, cgroup_ino)
+ 	),
+ 	TP_fast_assign(
+ 		strscpy_pad(__entry->name, bdi_dev_name(wb->bdi), 32);
+@@ -482,15 +482,15 @@ DECLARE_EVENT_CLASS(wbc_class,
+ 	TP_ARGS(wbc, bdi),
+ 	TP_STRUCT__entry(
+ 		__array(char, name, 32)
++		__field(u64, cgroup_ino)
+ 		__field(long, nr_to_write)
+ 		__field(long, pages_skipped)
++		__field(long, range_start)
++		__field(long, range_end)
+ 		__field(int, sync_mode)
+ 		__field(int, for_kupdate)
+ 		__field(int, for_background)
+ 		__field(int, range_cyclic)
+-		__field(long, range_start)
+-		__field(long, range_end)
+-		__field(u64, cgroup_ino)
+ 	),
  
--	hfs_dbg("ino %" PRIino "u, name %s, prefix %s, prefixlen %zu, "
-+	hfs_dbg("ino %llu, name %s, prefix %s, prefixlen %zu, "
- 		"value %p, size %zu\n",
- 		inode->i_ino, name ? name : NULL,
- 		prefix ? prefix : NULL, prefixlen,
-@@ -607,7 +607,7 @@ ssize_t hfsplus_getxattr(struct inode *inode, const char *name,
- 	int res;
- 	char *xattr_name;
+ 	TP_fast_assign(
+@@ -535,11 +535,11 @@ TRACE_EVENT(writeback_queue_io,
+ 	TP_ARGS(wb, work, dirtied_before, moved),
+ 	TP_STRUCT__entry(
+ 		__array(char,		name, 32)
++		__field(u64,		cgroup_ino)
+ 		__field(unsigned long,	older)
+ 		__field(long,		age)
+ 		__field(int,		moved)
+ 		__field(int,		reason)
+-		__field(u64,		cgroup_ino)
+ 	),
+ 	TP_fast_assign(
+ 		strscpy_pad(__entry->name, bdi_dev_name(wb->bdi), 32);
+@@ -614,13 +614,13 @@ TRACE_EVENT(bdi_dirty_ratelimit,
  
--	hfs_dbg("ino %" PRIino "u, name %s, prefix %s\n",
-+	hfs_dbg("ino %llu, name %s, prefix %s\n",
- 		inode->i_ino, name ? name : NULL,
- 		prefix ? prefix : NULL);
+ 	TP_STRUCT__entry(
+ 		__array(char,		bdi, 32)
++		__field(u64,		cgroup_ino)
+ 		__field(unsigned long,	write_bw)
+ 		__field(unsigned long,	avg_write_bw)
+ 		__field(unsigned long,	dirty_rate)
+ 		__field(unsigned long,	dirty_ratelimit)
+ 		__field(unsigned long,	task_ratelimit)
+ 		__field(unsigned long,	balanced_dirty_ratelimit)
+-		__field(u64,		cgroup_ino)
+ 	),
  
-@@ -717,7 +717,7 @@ ssize_t hfsplus_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	size_t strbuf_size;
- 	int xattr_name_len;
+ 	TP_fast_assign(
+@@ -667,6 +667,7 @@ TRACE_EVENT(balance_dirty_pages,
  
--	hfs_dbg("ino %" PRIino "u\n", inode->i_ino);
-+	hfs_dbg("ino %llu\n", inode->i_ino);
+ 	TP_STRUCT__entry(
+ 		__array(	 char,	bdi, 32)
++		__field(u64,		cgroup_ino)
+ 		__field(unsigned long,	limit)
+ 		__field(unsigned long,	setpoint)
+ 		__field(unsigned long,	dirty)
+@@ -674,13 +675,12 @@ TRACE_EVENT(balance_dirty_pages,
+ 		__field(unsigned long,	wb_dirty)
+ 		__field(unsigned long,	dirty_ratelimit)
+ 		__field(unsigned long,	task_ratelimit)
+-		__field(unsigned int,	dirtied)
+-		__field(unsigned int,	dirtied_pause)
+ 		__field(unsigned long,	paused)
+ 		__field(	 long,	pause)
+ 		__field(unsigned long,	period)
+ 		__field(	 long,	think)
+-		__field(u64,		cgroup_ino)
++		__field(unsigned int,	dirtied)
++		__field(unsigned int,	dirtied_pause)
+ 	),
  
- 	if (!is_xattr_operation_supported(inode))
- 		return -EOPNOTSUPP;
-@@ -819,7 +819,7 @@ static int hfsplus_removexattr(struct inode *inode, const char *name)
- 	int is_xattr_acl_deleted;
- 	int is_all_xattrs_deleted;
+ 	TP_fast_assign(
+@@ -738,9 +738,9 @@ TRACE_EVENT(writeback_sb_inodes_requeue,
+ 	TP_STRUCT__entry(
+ 		__array(char, name, 32)
+ 		__field(u64, ino)
++		__field(u64, cgroup_ino)
+ 		__field(unsigned long, state)
+ 		__field(unsigned long, dirtied_when)
+-		__field(u64, cgroup_ino)
+ 	),
  
--	hfs_dbg("ino %" PRIino "u, name %s\n",
-+	hfs_dbg("ino %llu, name %s\n",
- 		inode->i_ino, name ? name : NULL);
+ 	TP_fast_assign(
+@@ -774,12 +774,12 @@ DECLARE_EVENT_CLASS(writeback_single_inode_template,
+ 	TP_STRUCT__entry(
+ 		__array(char, name, 32)
+ 		__field(u64, ino)
++		__field(u64, cgroup_ino)
+ 		__field(unsigned long, state)
+ 		__field(unsigned long, dirtied_when)
+ 		__field(unsigned long, writeback_index)
+-		__field(long, nr_to_write)
+ 		__field(unsigned long, wrote)
+-		__field(u64, cgroup_ino)
++		__field(long, nr_to_write)
+ 	),
  
- 	if (!HFSPLUS_SB(inode->i_sb)->attr_tree)
+ 	TP_fast_assign(
+@@ -828,11 +828,11 @@ DECLARE_EVENT_CLASS(writeback_inode_template,
+ 	TP_ARGS(inode),
+ 
+ 	TP_STRUCT__entry(
+-		__field(	dev_t,	dev			)
+ 		__field(	u64,	ino			)
+ 		__field(unsigned long,	state			)
+-		__field(	__u16, mode			)
+ 		__field(unsigned long, dirtied_when		)
++		__field(	dev_t,	dev			)
++		__field(	__u16, mode			)
+ 	),
+ 
+ 	TP_fast_assign(
 
 -- 
 2.53.0
