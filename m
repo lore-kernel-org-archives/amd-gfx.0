@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 165D5EC0460
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF178EC0476
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 09:02:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 033EB10E74E;
-	Tue,  3 Mar 2026 09:01:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4657D10E75D;
+	Tue,  3 Mar 2026 09:01:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fKcWRljk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GyUE/vAD";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E45110E5BB;
- Mon,  2 Mar 2026 20:27:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 788DA10E36C;
+ Mon,  2 Mar 2026 20:43:41 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 452F243AE6;
- Mon,  2 Mar 2026 20:27:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC6BC2BCB6;
- Mon,  2 Mar 2026 20:27:38 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4C0E94174A;
+ Mon,  2 Mar 2026 20:43:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 154C0C19425;
+ Mon,  2 Mar 2026 20:43:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772483273;
- bh=nciTTDQZK5qL3LQUCUCqIfcKo6ZHsmG0S/2Wz1vkROU=;
+ s=k20201202; t=1772484221;
+ bh=VipzHX+Kr9eDABZYeJk6DXBkX8DLxI2R5jnS1ony64M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=fKcWRljkyhMMZ3o199G7gg005clJYunnzB1iU9CZy8suR9Alt4Fp/YmNJgWwziFIL
- XzB1Y/wziCsMMUW6GFHvAtNpfbWNrPOdzvRRa2OuXPjlQu2g4Zv5bXzVhnK06KwWNl
- KKaQ6raK6f4pfxIrCYYqz+30cr1BdbxPh6IE3chZdzaXtxXxSscfIE5515NT6Wvi3I
- PN2ZFMFeIYs4Mp9nXp6zaUXXIVdZ2v8mI94J9wTJbxdLlwq10bbFI8bddDYEvNsa+b
- HlcOdAcyVO+cdIHOy00NQtU/ZS5WT9oJQvXrOk1jVweeSJpTUNnjY6N76k09M+LWkx
- lBMDt0baT98bg==
+ b=GyUE/vAD7KzUY+7p+6OmzJggORJGIyVREtyftkpl10eY2gxWch503ETBsS4wCHIT1
+ 62MZajxbDK2+GuySOwLeZahfA/Ps8QLVRgyph++jY9+uLBX7YeSFNkrvESE+Y1kjHG
+ YiHhSdAyiald82Pd99zhkXqo6vqkhCPD9r0lpWAOb/kAW8p0qJgwUA6yqMtIzF62xl
+ sRDysRmrUVr5kNd2wqV4/laZwY1jJyIKNVXByAbROAP4l38TPMI8NAxfgzqZ1SYf/s
+ lLM3lfoPrclW8CEygf6/FU7krXV9mW99CkiVhlAKJsEKBWWofOi1SqStPAXfzd5zcg
+ dQd1a/KDab6bQ==
 From: Jeff Layton <jlayton@kernel.org>
-Date: Mon, 02 Mar 2026 15:23:56 -0500
-Subject: [PATCH v2 012/110] nfsd: use PRIino format for i_ino
+Date: Mon, 02 Mar 2026 15:25:02 -0500
+Subject: [PATCH v2 078/110] cramfs: replace PRIino with %llu/%llx format
+ strings
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260302-iino-u64-v2-12-e5388800dae0@kernel.org>
+Message-Id: <20260302-iino-u64-v2-78-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -151,20 +152,20 @@ Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
  Jeff Layton <jlayton@kernel.org>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3318; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=nciTTDQZK5qL3LQUCUCqIfcKo6ZHsmG0S/2Wz1vkROU=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfHy3iEDWlbvoHl989GkXqWG5TvmCd867TP2y
- WqatYkLrY+JAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXx8gAKCRAADmhBGVaC
- FVbVEADAsWmGMRTMR35XMoh+WB/EpKPAdnqyUxMzTxYr+ydkirRcnOxigphvl447C9K2I+s/djB
- G913QXK/8KM7sI90vMXGcwv09RasMmupJlyAQ58Sqyk8FOktvffY8AMjJUAAmQBb/lJ2Xa7goYY
- MM1iYebddqHF563/QzS4sYMTNEvGY5/uyP0t+7XBvk/YhmlvcKg3Nd7AyWhbke/D1Gh/NXU3UTn
- ZFl8lkGlpQN6+P+kM+7riEvZkcVXVJCVgjNXh2pDlDcdCCjve8LLHR2mag/kehPzZP5cSFLC42l
- KZNZ7xkE39Xb8+WUnCf8LDTF2427hxu2kQhIeyFs58FiU+PjtkrgZo6eM6Ml/ZAYoTYqDkjDRRg
- tLaqlAAsIE5wwLKLL+3XrZjH4kh6xVjJH5abuHNT1A3i4Z8FaIOhgpsWbfk479xTdXlCs2bc4cw
- LMAPoL32oMU6WgbqFBW0vqYUUdhSwJfqcohfkttig3Ouay8lvsZtcxl7rtyGFtPXLHRXWrJAIvy
- 6KZF3ChI0I8zdoBll2VDlcB5bFDwspGq0zjEpv/fLlt93xFpilUl9qHwAz8WENXoK7t7dWqIIOl
- ZO+RIVg7MsVjLQ9fYFd0z/XQMQjENm3UeaSSkDmRD28bXOrfCP3hzSceHRKWKQ/OhnBIPlIAgD8
- FxliLLn7VHmr43w==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=876; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=VipzHX+Kr9eDABZYeJk6DXBkX8DLxI2R5jnS1ony64M=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBppfIEChGs6AwJHM9PcHc3H1I/xxqGIk65ZS7xZ
+ yEW4qgpENOJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaaXyBAAKCRAADmhBGVaC
+ FTijEACkfQg4sZvZGPKPlw/OjLHzSIaxMDkyWX+Dxmfd8ktn9hI69X91bCmCML6O56ilJSkp2Mx
+ xfgiC2NDUbZaRMumgnemmv/0CeiN1n1o3hFCaJY5JUHUrJrHNvd3Ei5ELm+m8qSI8lpH7b66D8B
+ 3E2QcAeGYNoxD69FgeaOSRFTRztCC68g2e1gdT/sGBaLQDWyCOE7Wc+xK0Qe3EagqrrUedInoK0
+ kYnxsYoTuCD2Vy98DcuILDzEE7y2wR+zvPitJ/qQISjXuxMObSopJWLHLC7TpL2IwW9t87siF12
+ WSxVzSoh/WY61jRE+sFIukPOX0lW5/ajdNO9f82kLr1ClpN0w4gWQbt7p9x0s2WagnfHuovxzWN
+ 1HY3t+EAcaIYbA9UiLxiQY2XsW6OdFeVzQDtqysCCPM9VlULMMXh79oNhFPJMBohHmHbH82iBBa
+ wpZsYSmUZDem5L7WrQU9dl0kjd9GoykXnln+2enjQTO7vP6YABTdqnCwjNOTslJNgiHr9r10tsG
+ vHAj8E8cKfFKZeAr9+9N37Vq9RhNS4xlrNNIINaab+uGhkU0YFNge1h+EVHqvtcMpBf4Jb2wwqs
+ kwb7Gvr/KosDfFhdl6UD5h2cHOIod/bddYSfwLB3AaZl7DyHGpq35B17sDwXSEAUOJV6RiqGfHd
+ 6LwaZCyFH0ivbtg==
 X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
  fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 X-Mailman-Approved-At: Tue, 03 Mar 2026 09:01:28 +0000
@@ -182,84 +183,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Convert nfsd i_ino format strings to use the PRIino format
-macro in preparation for the widening of i_ino via kino_t.
-
-Also correct signed format specifiers to unsigned, since inode
-numbers are unsigned values.
+Now that i_ino is u64 and the PRIino format macro has been removed,
+replace all uses in cramfs with the concrete format strings.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/nfsd/export.c    | 2 +-
- fs/nfsd/nfs4state.c | 4 ++--
- fs/nfsd/nfsfh.c     | 4 ++--
- fs/nfsd/vfs.c       | 2 +-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ fs/cramfs/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/nfsd/export.c b/fs/nfsd/export.c
-index 8fdbba7cad96443d92cc7fdeea6158c4cc681be1..5dfdd836bbb63d6af17204c8df7ecf3f450998c2 100644
---- a/fs/nfsd/export.c
-+++ b/fs/nfsd/export.c
-@@ -1039,7 +1039,7 @@ exp_rootfh(struct net *net, struct auth_domain *clp, char *name,
- 	}
- 	inode = d_inode(path.dentry);
- 
--	dprintk("nfsd: exp_rootfh(%s [%p] %s:%s/%ld)\n",
-+	dprintk("nfsd: exp_rootfh(%s [%p] %s:%s/%" PRIino "u)\n",
- 		 name, path.dentry, clp->name,
- 		 inode->i_sb->s_id, inode->i_ino);
- 	exp = exp_parent(cd, clp, &path);
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index 6b9c399b89dfb71a52b9c97f0efe9a1dea0558a6..d9d548225afb764326b2bb211919e24c87f15a00 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -1253,7 +1253,7 @@ static void nfsd4_finalize_deleg_timestamps(struct nfs4_delegation *dp, struct f
- 	if (ret) {
- 		struct inode *inode = file_inode(f);
- 
--		pr_notice_ratelimited("nfsd: Unable to update timestamps on inode %02x:%02x:%lu: %d\n",
-+		pr_notice_ratelimited("nfsd: Unable to update timestamps on inode %02x:%02x:%" PRIino "u: %d\n",
- 					MAJOR(inode->i_sb->s_dev),
- 					MINOR(inode->i_sb->s_dev),
- 					inode->i_ino, ret);
-@@ -2888,7 +2888,7 @@ static void nfs4_show_superblock(struct seq_file *s, struct nfsd_file *f)
- {
- 	struct inode *inode = file_inode(f->nf_file);
- 
--	seq_printf(s, "superblock: \"%02x:%02x:%ld\"",
-+	seq_printf(s, "superblock: \"%02x:%02x:%" PRIino "u\"",
- 					MAJOR(inode->i_sb->s_dev),
- 					 MINOR(inode->i_sb->s_dev),
- 					 inode->i_ino);
-diff --git a/fs/nfsd/nfsfh.c b/fs/nfsd/nfsfh.c
-index ed85dd43da18e6d4c4667ff14dc035f2eacff1d6..22df07be0650d9260a30e12c1371ccc4f89234db 100644
---- a/fs/nfsd/nfsfh.c
-+++ b/fs/nfsd/nfsfh.c
-@@ -601,9 +601,9 @@ fh_compose(struct svc_fh *fhp, struct svc_export *exp, struct dentry *dentry,
- 	struct inode * inode = d_inode(dentry);
- 	dev_t ex_dev = exp_sb(exp)->s_dev;
- 
--	dprintk("nfsd: fh_compose(exp %02x:%02x/%ld %pd2, ino=%ld)\n",
-+	dprintk("nfsd: fh_compose(exp %02x:%02x/%" PRIino "u %pd2, ino=%" PRIino "u)\n",
- 		MAJOR(ex_dev), MINOR(ex_dev),
--		(long) d_inode(exp->ex_path.dentry)->i_ino,
-+		d_inode(exp->ex_path.dentry)->i_ino,
- 		dentry,
- 		(inode ? inode->i_ino : 0));
- 
-diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-index c884c3f34afb044ee5cacc962a04a97de2f7fd88..4c2095c83503e7fddc7e1ec528f55e36b6a326a4 100644
---- a/fs/nfsd/vfs.c
-+++ b/fs/nfsd/vfs.c
-@@ -1163,7 +1163,7 @@ nfsd_direct_read(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 	} else if (unlikely(host_err == -EINVAL)) {
- 		struct inode *inode = d_inode(fhp->fh_dentry);
- 
--		pr_info_ratelimited("nfsd: Direct I/O alignment failure on %s/%ld\n",
-+		pr_info_ratelimited("nfsd: Direct I/O alignment failure on %s/%" PRIino "u\n",
- 				    inode->i_sb->s_id, inode->i_ino);
- 		host_err = -ESERVERFAULT;
- 	}
+diff --git a/fs/cramfs/inode.c b/fs/cramfs/inode.c
+index 624c5ed0ceff2e4d3e964401e3cfb82154c719ae..4edbfccd0bbea39a1babd289afb1d8b985570eeb 100644
+--- a/fs/cramfs/inode.c
++++ b/fs/cramfs/inode.c
+@@ -125,7 +125,7 @@ static struct inode *get_cramfs_inode(struct super_block *sb,
+ 				old_decode_dev(cramfs_inode->size));
+ 		break;
+ 	default:
+-		printk(KERN_DEBUG "CRAMFS: Invalid file type 0%04o for inode %" PRIino "u.\n",
++		printk(KERN_DEBUG "CRAMFS: Invalid file type 0%04o for inode %llu.\n",
+ 		       inode->i_mode, inode->i_ino);
+ 		iget_failed(inode);
+ 		return ERR_PTR(-EIO);
 
 -- 
 2.53.0
