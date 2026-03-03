@@ -4,258 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E778EEC1438
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 11:36:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EC4FEC1430
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 11:40:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E06710E801;
-	Tue,  3 Mar 2026 11:36:18 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="EmOx0lKI";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="xHcfN5qP";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="EmOx0lKI";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="xHcfN5qP";
-	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D88D10E799
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 11:29:50 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id EFF813F899;
- Tue,  3 Mar 2026 11:29:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1772537389; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4cYw8VD7aleVcghFQ9+p/b6r3CSegw4nIvkNduu063c=;
- b=EmOx0lKIT3N1EWFaJ+qXMxOLK6ewXQRsG1S7uUHtrrsyZKCuKpQq1d5e/B2EI4OLCk5Zsx
- +HBoagECsN1Bb9zjUfycxKVXPSLBGZkIFVk4nMkH3R6KfTwyB4g5jdsFjHwwqdmwDk0gjC
- SGJcEP7zorePK8+w5QgsfvCtqorcOsM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1772537389;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4cYw8VD7aleVcghFQ9+p/b6r3CSegw4nIvkNduu063c=;
- b=xHcfN5qP49v6i+SF5MTzOV+1zpFdvaekhWZ8tV1V6SJgevJciM4Bcy5z5W/57zxlA2cda8
- 32g45NoTRnMkZkCg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1772537389; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4cYw8VD7aleVcghFQ9+p/b6r3CSegw4nIvkNduu063c=;
- b=EmOx0lKIT3N1EWFaJ+qXMxOLK6ewXQRsG1S7uUHtrrsyZKCuKpQq1d5e/B2EI4OLCk5Zsx
- +HBoagECsN1Bb9zjUfycxKVXPSLBGZkIFVk4nMkH3R6KfTwyB4g5jdsFjHwwqdmwDk0gjC
- SGJcEP7zorePK8+w5QgsfvCtqorcOsM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1772537389;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4cYw8VD7aleVcghFQ9+p/b6r3CSegw4nIvkNduu063c=;
- b=xHcfN5qP49v6i+SF5MTzOV+1zpFdvaekhWZ8tV1V6SJgevJciM4Bcy5z5W/57zxlA2cda8
- 32g45NoTRnMkZkCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DCABF3EA6C;
- Tue,  3 Mar 2026 11:29:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id egbaNSzGpmkOUAAAD6G6ig
- (envelope-from <jack@suse.cz>); Tue, 03 Mar 2026 11:29:48 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 9BC70A0A1B; Tue,  3 Mar 2026 12:29:48 +0100 (CET)
-Date: Tue, 3 Mar 2026 12:29:48 +0100
-From: Jan Kara <jack@suse.cz>
-To: Jeff Layton <jlayton@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Dan Williams <dan.j.williams@intel.com>, Matthew Wilcox <willy@infradead.org>, 
- Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- David Hildenbrand <david@kernel.org>, David Howells <dhowells@redhat.com>, 
- Paulo Alcantara <pc@manguebit.org>, Andreas Dilger <adilger.kernel@dilger.ca>, 
- Jan Kara <jack@suse.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
- Chao Yu <chao@kernel.org>, 
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
- Tom Talpey <tom@talpey.com>, 
- Steve French <sfrench@samba.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
- Shyam Prasad N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>, 
- Alexander Aring <alex.aring@gmail.com>,
- Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
- Viacheslav Dubeyko <slava@dubeyko.com>, Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>, 
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- David Sterba <dsterba@suse.com>, 
- Marc Dionne <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>, 
- Luis de Bethencourt <luisbg@kernel.org>, Salah Triki <salah.triki@gmail.com>, 
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- Ilya Dryomov <idryomov@gmail.com>, 
- Alex Markuze <amarkuze@redhat.com>, Jan Harkes <jaharkes@cs.cmu.edu>,
- coda@cs.cmu.edu, 
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>, 
- Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>, 
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- David Woodhouse <dwmw2@infradead.org>, 
- Richard Weinberger <richard@nod.at>, Dave Kleikamp <shaggy@kernel.org>, 
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
- Joseph Qi <joseph.qi@linux.alibaba.com>, Mike Marshall <hubcap@omnibond.com>, 
- Martin Brandenburg <martin@omnibond.com>, Miklos Szeredi <miklos@szeredi.hu>, 
- Anders Larsen <al@alarsen.net>, Zhihao Cheng <chengzhihao1@huawei.com>, 
- Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>, 
- Johannes Thumshirn <jth@kernel.org>,
- John Johansen <john.johansen@canonical.com>, 
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
- Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>, 
- Casey Schaufler <casey@schaufler-ca.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Eric Dumazet <edumazet@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
- Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
- "Darrick J. Wong" <djwong@kernel.org>, Martin Schiller <ms@dev.tdt.de>,
- Eric Paris <eparis@redhat.com>, 
- Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>, 
- Johan Hedberg <johan.hedberg@gmail.com>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Marc Kleine-Budde <mkl@pengutronix.de>, 
- David Ahern <dsahern@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
- Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, 
- Remi Denis-Courmont <courmisch@gmail.com>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
- Xin Long <lucien.xin@gmail.com>, Magnus Karlsson <magnus.karlsson@intel.com>, 
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Stanislav Fomichev <sdf@fomichev.me>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, 
- nvdimm@lists.linux.dev, fsverity@lists.linux.dev, linux-mm@kvack.org, 
- netfs@lists.linux.dev, linux-ext4@vger.kernel.org, 
- linux-f2fs-devel@lists.sourceforge.net, linux-nfs@vger.kernel.org,
- linux-cifs@vger.kernel.org, 
- samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org,
- v9fs@lists.linux.dev, 
- linux-afs@lists.infradead.org, autofs@vger.kernel.org,
- ceph-devel@vger.kernel.org, 
- codalist@coda.cs.cmu.edu, ecryptfs@vger.kernel.org,
- linux-mtd@lists.infradead.org, 
- jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev,
- ocfs2-devel@lists.linux.dev, 
- devel@lists.orangefs.org, linux-unionfs@vger.kernel.org,
- apparmor@lists.ubuntu.com, 
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org,
- selinux@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org,
- linux-perf-users@vger.kernel.org, 
- linux-fscrypt@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-hams@vger.kernel.org, 
- linux-x25@vger.kernel.org, audit@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, 
- linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v2 060/110] vfs: change kino_t from unsigned long to u64
-Message-ID: <yfjlanmzvvyuea5qeqnozxtb4ubpkdev3o7ibwmmoo3oczthtu@27zcimxovqjh>
-References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-60-e5388800dae0@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A627210E795;
+	Tue,  3 Mar 2026 11:40:48 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4CB210E795
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 11:40:46 +0000 (UTC)
+Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
+ 623BeafG2413482; Tue, 3 Mar 2026 17:10:36 +0530
+Received: (from sunil@localhost)
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 623BeaJX2413475;
+ Tue, 3 Mar 2026 17:10:36 +0530
+From: Sunil Khatri <sunil.khatri@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
+Subject: [PATCH v3] drm/amdgpu/userq: refcount userqueues to avoid any race
+ conditions
+Date: Tue,  3 Mar 2026 17:10:34 +0530
+Message-Id: <20260303114034.2413456-1-sunil.khatri@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260302-iino-u64-v2-60-e5388800dae0@kernel.org>
-X-Spamd-Result: default: False [-0.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- FORGED_RECIPIENTS(2.00)[m:viro@zeniv.linux.org.uk, m:jack@suse.cz,
- m:rostedt@goodmis.org, m:mathieu.desnoyers@efficios.com, m:tytso@mit.edu,
- m:osalvador@suse.de, m:dhowells@redhat.com, m:pc@manguebit.org,
- m:adilger.kernel@dilger.ca, m:jack@suse.com, m:chuck.lever@oracle.com,
- m:neil@brown.name, m:okorniev@redhat.com, m:Dai.Ngo@oracle.com,
- m:tom@talpey.com, m:sfrench@samba.org, m:ronniesahlberg@gmail.com,
- m:sprasad@microsoft.com, m:bharathsm@microsoft.com, m:alex.aring@gmail.com,
- m:konishi.ryusuke@gmail.com, m:slava@dubeyko.com, m:asmadeus@codewreck.org,
- m:linux_oss@crudebyte.com, m:dsterba@suse.com, m:marc.dionne@auristor.com,
- m:raven@themaw.net, m:salah.triki@gmail.com, m:aivazian.tigran@gmail.com,
- m:idryomov@gmail.com, m:amarkuze@redhat.com, m:jaharkes@cs.cmu.edu,
- m:coda@cs.cmu.edu, m:nico@fluxnic.net, m:code@tyhicks.com,
- m:amir73il@gmail.com, m:glaubitz@physik.fu-berlin.de, m:frank.li@vivo.com,
- m:mikulas@artax.karlin.mff.cuni.cz, m:richard@nod.at,
- m:almaz.alexandrovich@paragon-software.com, m:mark@fasheh.com, m:jlbec@evil
- plan.org, m:hubcap@omnibond.com, m:martin@omnibond.com, m:miklos@szeredi.hu,
- m:al@alarsen.net, m:naohiro.aota@wdc.com, m:john.johansen@canonical.com,
- m:paul@paul-moore.com, m:jmorris@namei.org, m:serge@hallyn.com,
- m:dmitry.kasatkin@gmail.com, m:eric.snowberg@oracle.com,
- m:stephen.smalley.work@gmail.com, m:omosnace@redhat.com,
- m:casey@schaufler-ca.com, m:alexander.deucher@amd.com,
- m:christian.koenig@amd.com, m:airlied@gmail.com, m:simona@ffwll.ch,
- m:edumazet@google.com, m:kuniyu@google.com, m:pabeni@redhat.com,
- m:willemb@google.com, m:davem@davemloft.net, m:oleg@redhat.com,
- m:mingo@redhat.com, s:adrian.hunter@intel.com, s:maciej.fijalkowski@intel.com,
- s:magnus.karlsson@intel.com, s:daniel@iogearbox.net, s:ast@kernel.org,
- s:djwong@kernel.org, s:dsahern@kernel.org, s:hawk@kernel.org,
- s:jolsa@kernel.org, s:linux-mm@kvack.org, s:james.clark@linaro.org,
- s:alexander.shishkin@linux.intel.com, s:amd-gfx@lists.freedesktop.org,
- s:dri-devel@lists.freedesktop.org, s:linux-afs@lists.infradead.org,
- s:linux-mtd@lists.infradead.org, s:linar
- o-mm-sig@lists.linaro.org,s:fsverity@lists.linux.dev,s:netfs@lists.linux.dev,s:ntfs3@lists.linux.dev];
- SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- MID_RHS_NOT_FQDN(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
- MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
- TO_DN_SOME(0.00)[]; MISSING_XM_UA(0.00)[]; ARC_NA(0.00)[];
- TAGGED_RCPT(0.00)[];
- FREEMAIL_CC(0.00)[zeniv.linux.org.uk, kernel.org, suse.cz, goodmis.org,
- efficios.com, intel.com, infradead.org, mit.edu, linux.dev, suse.de,
- redhat.com, manguebit.org, dilger.ca, suse.com, oracle.com, brown.name,
- talpey.com, samba.org, gmail.com, microsoft.com, dubeyko.com, ionkov.net,
- codewreck.org, crudebyte.com, auristor.com, themaw.net, cs.cmu.edu,
- fluxnic.net, tyhicks.com, physik.fu-berlin.de, vivo.com,
- artax.karlin.mff.cuni.cz, nod.at, paragon-software.com, fasheh.com,
- evilplan.org, linux.alibaba.com, omnibond.com, szeredi.hu, alarsen.net,
- huawei.com, wdc.com, canonical.com, paul-moore.com, namei.org, hallyn.com,
- linux.ibm.com, schaufler-ca.com, amd.com, ffwll.ch, linaro.org, google.com,
- davemloft.net, arm.com, linux.intel.com, dev.tdt.de, yaina.de, holtmann.org,
- hartkopp.net, pengutronix.de, secunet.com, gondor.apana.org.au, fomichev.me,
- iogearbox.net, vger.kernel.org, lists.linux.dev, kvack.org,
- lists.sourceforge.net, lists.samba.org, lists.infradead.org, coda.cs.cmu.edu,
- lists.orangefs.org, lists.ubuntu.com, lists.freedesktop.org, lists.linaro.or
- g]; RCVD_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLzmnxm7msfpf7ixykpj9feesk)];
- TO_MATCH_ENVRCPT_SOME(0.00)[]; RCPT_COUNT_GT_50(0.00)[172];
- RCVD_TLS_LAST(0.00)[];
- DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
- suse.cz:email]
-X-Mailman-Approved-At: Tue, 03 Mar 2026 11:35:58 +0000
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -270,57 +43,360 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon 02-03-26 15:24:44, Jeff Layton wrote:
-> Change kino_t from unsigned long to u64, and update PRIino from "l"
-> to "ll" accordingly. This is the actual type widening of i_ino.
-> 
-> All format strings have already been converted to use PRIino, so this
-> change compiles warning-free on both 32-bit and 64-bit architectures.
-> 
-> On 64-bit architectures, unsigned long is already 64 bits, so this is
-> effectively a type alias change with no runtime impact. On 32-bit
-> architectures, this widens i_ino from 32 to 64 bits, allowing
-> filesystems like NFS, CIFS, XFS, Ceph, and FUSE to store their native
-> 64-bit inode numbers without folding/hashing.
-> 
-> The VFS already handles 64-bit inode numbers in kstat.ino (u64) and
-> statx.stx_ino (__u64). The existing overflow checks in cp_new_stat(),
-> cp_old_stat(), and cp_compat_stat() handle narrowing to 32-bit st_ino
-> with -EOVERFLOW, so userspace ABI is preserved.
-> 
-> struct inode will grow by 4 bytes on 32-bit architectures.
-> 
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
+To avoid race condition and avoid UAF cases, implement kref
+based queues and protect the below operations using xa lock
+a. Getting a queue from xarray
+b. Increment/Decrement it's refcount
 
-Looks good. Feel free to add:
+Every time some one want to access a queue, always get via
+amdgpu_userq_get to make sure we have locks in place and get
+the object if active.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+A userqueue is destroyed on the last refcount is dropped which
+typically would be via IOCTL or during fini.
 
-								Honza
+v2: Add the missing drop in one the condition in the signal ioclt [Alex]
 
-> ---
->  include/linux/fs.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index d0c4789838b5852111583a3e4cced88999496e68..4193817e02e8bf94f29514ca43379af21f37ac61 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -758,8 +758,8 @@ struct inode_state_flags {
->  	enum inode_state_flags_enum __state;
->  };
->  
-> -typedef unsigned long	kino_t;
-> -#define PRIino		"l"
-> +typedef u64		kino_t;
-> +#define PRIino		"ll"
->  
->  /*
->   * Keep mostly read-only and often accessed (especially for
-> 
-> -- 
-> 2.53.0
-> 
+v3: remove the queue from the xarray first in the free queue ioctl path
+    [Christian]
+
+- Pass queue to the amdgpu_userq_put directly.
+- make amdgpu_userq_put xa_lock free since we are doing put for each get
+  only and final put is done via destroy and we remove the queue from xa
+  with lock.
+- use userq_put in fini too so cleanup is done fully.
+
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     | 114 +++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h     |   4 +
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  14 ++-
+ 3 files changed, 95 insertions(+), 37 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index e07b2082cf25..7a4b8caa8547 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -446,8 +446,7 @@ static int amdgpu_userq_wait_for_last_fence(struct amdgpu_usermode_queue *queue)
+ 	return ret;
+ }
+ 
+-static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue,
+-				 u32 queue_id)
++static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue)
+ {
+ 	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
+ 	struct amdgpu_device *adev = uq_mgr->adev;
+@@ -461,7 +460,6 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue,
+ 	uq_funcs->mqd_destroy(queue);
+ 	amdgpu_userq_fence_driver_free(queue);
+ 	/* Use interrupt-safe locking since IRQ handlers may access these XArrays */
+-	xa_erase_irq(&uq_mgr->userq_xa, queue_id);
+ 	xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index);
+ 	queue->userq_mgr = NULL;
+ 	list_del(&queue->userq_va_list);
+@@ -470,12 +468,6 @@ static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue,
+ 	up_read(&adev->reset_domain->sem);
+ }
+ 
+-static struct amdgpu_usermode_queue *
+-amdgpu_userq_find(struct amdgpu_userq_mgr *uq_mgr, u32 qid)
+-{
+-	return xa_load(&uq_mgr->userq_xa, qid);
+-}
+-
+ void
+ amdgpu_userq_ensure_ev_fence(struct amdgpu_userq_mgr *uq_mgr,
+ 			     struct amdgpu_eviction_fence_mgr *evf_mgr)
+@@ -625,22 +617,13 @@ amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+ }
+ 
+ static int
+-amdgpu_userq_destroy(struct drm_file *filp, u32 queue_id)
++amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
+ {
+-	struct amdgpu_fpriv *fpriv = filp->driver_priv;
+-	struct amdgpu_userq_mgr *uq_mgr = &fpriv->userq_mgr;
+ 	struct amdgpu_device *adev = uq_mgr->adev;
+-	struct amdgpu_usermode_queue *queue;
+ 	int r = 0;
+ 
+ 	cancel_delayed_work_sync(&uq_mgr->resume_work);
+ 	mutex_lock(&uq_mgr->userq_mutex);
+-	queue = amdgpu_userq_find(uq_mgr, queue_id);
+-	if (!queue) {
+-		drm_dbg_driver(adev_to_drm(uq_mgr->adev), "Invalid queue id to destroy\n");
+-		mutex_unlock(&uq_mgr->userq_mutex);
+-		return -EINVAL;
+-	}
+ 	amdgpu_userq_wait_for_last_fence(queue);
+ 	/* Cancel any pending hang detection work and cleanup */
+ 	if (queue->hang_detect_fence) {
+@@ -672,13 +655,42 @@ amdgpu_userq_destroy(struct drm_file *filp, u32 queue_id)
+ 		drm_warn(adev_to_drm(uq_mgr->adev), "trying to destroy a HW mapping userq\n");
+ 		queue->state = AMDGPU_USERQ_STATE_HUNG;
+ 	}
+-	amdgpu_userq_cleanup(queue, queue_id);
++	amdgpu_userq_cleanup(queue);
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+ 
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ 
+ 	return r;
+ }
++static void amdgpu_userq_kref_destroy(struct kref *kref)
++{
++	struct amdgpu_usermode_queue *queue =
++		container_of(kref, struct amdgpu_usermode_queue, refcount);
++	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
++
++	if (amdgpu_userq_destroy(uq_mgr, queue))
++		drm_file_err(uq_mgr->file, "Failed to destroy usermode queue\n");
++}
++
++struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr, u32 qid)
++{
++	struct amdgpu_usermode_queue *queue;
++
++	xa_lock(&uq_mgr->userq_xa);
++	queue = xa_load(&uq_mgr->userq_xa, qid);
++
++	if (queue && !kref_get_unless_zero(&queue->refcount))
++		queue = NULL;
++
++	xa_unlock(&uq_mgr->userq_xa);
++	return queue;
++}
++
++void amdgpu_userq_put(struct amdgpu_usermode_queue *queue)
++{
++	if (queue)
++		kref_put(&queue->refcount, amdgpu_userq_kref_destroy);
++}
+ 
+ static int amdgpu_userq_priority_permit(struct drm_file *filp,
+ 					int priority)
+@@ -891,6 +903,8 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 
+ 	args->out.queue_id = qid;
+ 	atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
++	/* drop this refcount during queue destroy */
++	kref_init(&queue->refcount);
+ 
+ unlock:
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+@@ -985,6 +999,8 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+ 		       struct drm_file *filp)
+ {
+ 	union drm_amdgpu_userq *args = data;
++	struct amdgpu_fpriv *fpriv = filp->driver_priv;
++	struct amdgpu_usermode_queue *queue;
+ 	int r;
+ 
+ 	if (!amdgpu_userq_enabled(dev))
+@@ -1000,11 +1016,20 @@ int amdgpu_userq_ioctl(struct drm_device *dev, void *data,
+ 			drm_file_err(filp, "Failed to create usermode queue\n");
+ 		break;
+ 
+-	case AMDGPU_USERQ_OP_FREE:
+-		r = amdgpu_userq_destroy(filp, args->in.queue_id);
+-		if (r)
+-			drm_file_err(filp, "Failed to destroy usermode queue\n");
++	case AMDGPU_USERQ_OP_FREE: {
++		xa_lock(&fpriv->userq_mgr.userq_xa);
++		queue = xa_load(&fpriv->userq_mgr.userq_xa, args->in.queue_id);
++		if (!queue) {
++			xa_unlock(&fpriv->userq_mgr.userq_xa);
++			drm_file_err(filp, "Invalid queue id to free: %d\n", args->in.queue_id);
++			return -EINVAL;
++		}
++		__xa_erase(&fpriv->userq_mgr.userq_xa, args->in.queue_id);
++		xa_unlock(&fpriv->userq_mgr.userq_xa);
++
++		amdgpu_userq_put(queue);
+ 		break;
++	}
+ 
+ 	default:
+ 		drm_dbg_driver(dev, "Invalid user queue op specified: %d\n", args->in.op);
+@@ -1023,16 +1048,23 @@ amdgpu_userq_restore_all(struct amdgpu_userq_mgr *uq_mgr)
+ 
+ 	/* Resume all the queues for this process */
+ 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
++		queue = amdgpu_userq_get(uq_mgr, queue_id);
++		if (!queue)
++			continue;
++
+ 		if (!amdgpu_userq_buffer_vas_mapped(queue)) {
+ 			drm_file_err(uq_mgr->file,
+ 				     "trying restore queue without va mapping\n");
+ 			queue->state = AMDGPU_USERQ_STATE_INVALID_VA;
++			amdgpu_userq_put(queue);
+ 			continue;
+ 		}
+ 
+ 		r = amdgpu_userq_restore_helper(queue);
+ 		if (r)
+ 			ret = r;
++
++		amdgpu_userq_put(queue);
+ 	}
+ 
+ 	if (ret)
+@@ -1266,9 +1298,13 @@ amdgpu_userq_evict_all(struct amdgpu_userq_mgr *uq_mgr)
+ 	amdgpu_userq_detect_and_reset_queues(uq_mgr);
+ 	/* Try to unmap all the queues in this process ctx */
+ 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
++		queue = amdgpu_userq_get(uq_mgr, queue_id);
++		if (!queue)
++			continue;
+ 		r = amdgpu_userq_preempt_helper(queue);
+ 		if (r)
+ 			ret = r;
++		amdgpu_userq_put(queue);
+ 	}
+ 
+ 	if (ret)
+@@ -1301,16 +1337,24 @@ amdgpu_userq_wait_for_signal(struct amdgpu_userq_mgr *uq_mgr)
+ 	int ret;
+ 
+ 	xa_for_each(&uq_mgr->userq_xa, queue_id, queue) {
++		queue = amdgpu_userq_get(uq_mgr, queue_id);
++		if (!queue)
++			continue;
++
+ 		struct dma_fence *f = queue->last_fence;
+ 
+-		if (!f || dma_fence_is_signaled(f))
++		if (!f || dma_fence_is_signaled(f)) {
++			amdgpu_userq_put(queue);
+ 			continue;
++		}
+ 		ret = dma_fence_wait_timeout(f, true, msecs_to_jiffies(100));
+ 		if (ret <= 0) {
+ 			drm_file_err(uq_mgr->file, "Timed out waiting for fence=%llu:%llu\n",
+ 				     f->context, f->seqno);
++			amdgpu_userq_put(queue);
+ 			return -ETIMEDOUT;
+ 		}
++		amdgpu_userq_put(queue);
+ 	}
+ 
+ 	return 0;
+@@ -1361,20 +1405,24 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *f
+ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
+ {
+ 	struct amdgpu_usermode_queue *queue;
+-	unsigned long queue_id;
++	unsigned long queue_id = 0;
+ 
+ 	cancel_delayed_work_sync(&userq_mgr->resume_work);
++	for (;;) {
++		xa_lock(&userq_mgr->userq_xa);
++		queue = xa_find(&userq_mgr->userq_xa, &queue_id, ULONG_MAX,
++				XA_PRESENT);
++		if (queue)
++			__xa_erase(&userq_mgr->userq_xa, queue_id);
++		xa_unlock(&userq_mgr->userq_xa);
++
++		if (!queue)
++			break;
+ 
+-	mutex_lock(&userq_mgr->userq_mutex);
+-	amdgpu_userq_detect_and_reset_queues(userq_mgr);
+-	xa_for_each(&userq_mgr->userq_xa, queue_id, queue) {
+-		amdgpu_userq_wait_for_last_fence(queue);
+-		amdgpu_userq_unmap_helper(queue);
+-		amdgpu_userq_cleanup(queue, queue_id);
++		amdgpu_userq_put(queue);
+ 	}
+ 
+ 	xa_destroy(&userq_mgr->userq_xa);
+-	mutex_unlock(&userq_mgr->userq_mutex);
+ 	mutex_destroy(&userq_mgr->userq_mutex);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index f4d1d46ae15e..54e1997b3cc0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -74,6 +74,7 @@ struct amdgpu_usermode_queue {
+ 	struct dentry		*debugfs_queue;
+ 	struct delayed_work hang_detect_work;
+ 	struct dma_fence *hang_detect_fence;
++	struct kref		refcount;
+ 
+ 	struct list_head	userq_va_list;
+ };
+@@ -114,6 +115,9 @@ struct amdgpu_db_info {
+ 	struct amdgpu_userq_obj	*db_obj;
+ };
+ 
++struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr, u32 qid);
++void amdgpu_userq_put(struct amdgpu_usermode_queue *queue);
++
+ int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
+ 
+ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *file_priv,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index 3c30512a6266..a7ded25346b8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -470,7 +470,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 	struct drm_gem_object **gobj_write, **gobj_read;
+ 	u32 *syncobj_handles, num_syncobj_handles;
+ 	struct amdgpu_userq_fence *userq_fence;
+-	struct amdgpu_usermode_queue *queue;
++	struct amdgpu_usermode_queue *queue = NULL;
+ 	struct drm_syncobj **syncobj = NULL;
+ 	struct dma_fence *fence;
+ 	struct drm_exec exec;
+@@ -521,7 +521,7 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ 		goto put_gobj_read;
+ 
+ 	/* Retrieve the user queue */
+-	queue = xa_load(&userq_mgr->userq_xa, args->queue_id);
++	queue = amdgpu_userq_get(userq_mgr, args->queue_id);
+ 	if (!queue) {
+ 		r = -ENOENT;
+ 		goto put_gobj_write;
+@@ -612,6 +612,9 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+ free_syncobj_handles:
+ 	kfree(syncobj_handles);
+ 
++	if (queue)
++		amdgpu_userq_put(queue);
++
+ 	return r;
+ }
+ 
+@@ -626,7 +629,7 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 	struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
+ 	struct drm_gem_object **gobj_write, **gobj_read;
+ 	u32 *timeline_points, *timeline_handles;
+-	struct amdgpu_usermode_queue *waitq;
++	struct amdgpu_usermode_queue *waitq = NULL;
+ 	u32 *syncobj_handles, num_syncobj;
+ 	struct dma_fence **fences = NULL;
+ 	u16 num_points, num_fences = 0;
+@@ -863,7 +866,7 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ 		 */
+ 		num_fences = dma_fence_dedup_array(fences, num_fences);
+ 
+-		waitq = xa_load(&userq_mgr->userq_xa, wait_info->waitq_id);
++		waitq = amdgpu_userq_get(userq_mgr, wait_info->waitq_id);
+ 		if (!waitq) {
+ 			r = -EINVAL;
+ 			goto free_fences;
+@@ -947,5 +950,8 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+ free_syncobj_handles:
+ 	kfree(syncobj_handles);
+ 
++	if (waitq)
++		amdgpu_userq_put(waitq);
++
+ 	return r;
+ }
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.34.1
+
