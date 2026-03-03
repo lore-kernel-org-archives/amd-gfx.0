@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 111CDEC1433
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BDC0EC1439
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 11:36:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0AB10E7DF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47EFE10E7DE;
 	Tue,  3 Mar 2026 11:36:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UtTdE6Ld";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="HK1IEmOM";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE98A10E79E
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 10:56:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E329B10E166
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 10:49:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1772535394;
+ s=mimecast20190719; t=1772534954;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ to:to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
  bh=lQfcYf0nTgw81P/IsIDOOQjFjTNPUrLYna+XMlLw958=;
- b=UtTdE6LdOzlxdKJ5bGxDxUZYxjMUD+Co+f9HJGkV2iq59k3MxnA6ge/UcVzdFe2vbK0V6h
- 4+pVKOQXZ94J4q9mV7y9swuegRNSdfymjO0V9RrCJ7gsBlLxkxBnov59AmRM0UVeNgVrNJ
- 47XIE14+gZlsjsjZFP4C2gPiKkT0gkI=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ b=HK1IEmOMmouXSlz6qtsqcUgcEtTZDx+NXTTmq73NbQdJWiZKLQR1poE6CPeQfXlSRRXW47
+ sk+w5+J5Pigy4Q/pblO9NEKR7H+jvpW8rUZA0Gjh2T4E4CstqC7BZ8zDU45Aj7qgjNjLAn
+ qVpXpC5v/eLXq6W8BJN3FTMBac7OJvg=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-74-R91O7FvuP62Aw9I_7hsZqg-1; Tue,
- 03 Mar 2026 05:56:31 -0500
-X-MC-Unique: R91O7FvuP62Aw9I_7hsZqg-1
-X-Mimecast-MFC-AGG-ID: R91O7FvuP62Aw9I_7hsZqg_1772535386
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-452-0G4Chi9APz6r17gOWHLpdw-1; Tue,
+ 03 Mar 2026 05:49:09 -0500
+X-MC-Unique: 0G4Chi9APz6r17gOWHLpdw-1
+X-Mimecast-MFC-AGG-ID: 0G4Chi9APz6r17gOWHLpdw_1772534944
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id AA3BB1800378; Tue,  3 Mar 2026 10:56:24 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 529D919560B0; Tue,  3 Mar 2026 10:49:02 +0000 (UTC)
 Received: from warthog.procyon.org.uk (unknown [10.44.33.249])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id B3DC31800672; Tue,  3 Mar 2026 10:55:35 +0000 (UTC)
+ by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id 1F8F319560A7; Tue,  3 Mar 2026 10:48:06 +0000 (UTC)
 Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
  Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
  Kingdom.
@@ -50,7 +50,7 @@ From: David Howells <dhowells@redhat.com>
 In-Reply-To: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
 To: Jeff Layton <jlayton@kernel.org>
-cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
  Steven Rostedt <rostedt@goodmis.org>,
  Masami Hiramatsu <mhiramat@kernel.org>,
@@ -115,8 +115,8 @@ cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>,
  Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Willem de Bruijn <willemb@google.com>,
- "David S. Miller" <davem@davemloft.net>,
+ Willem de Bruijn <willemb@google.com>, "David S.
+ Miller" <davem@davemloft.net>,
  Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
  Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
@@ -143,8 +143,8 @@ cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>,
  Daniel Borkmann <daniel@iogearbox.net>,
  Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ John Fastabend <john.fastabend@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev,
  fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev,
  linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
@@ -168,11 +168,11 @@ cc: Alexander Viro <viro@zeniv.linux.org.uk>,
 Subject: Re: [PATCH v2 000/110] vfs: change inode->i_ino from unsigned long to
  u64
 MIME-Version: 1.0
-Date: Tue, 03 Mar 2026 10:55:32 +0000
-Message-ID: <1787281.1772535332@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Date: Tue, 03 Mar 2026 10:48:05 +0000
+Message-ID: <1773080.1772534885@warthog.procyon.org.uk>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: gHV0OLFJ-hnS36gvsC2tXzQ1xZAELNvaI1OM--irV-k_1772535386
+X-Mimecast-MFC-PROC-ID: p-PtlTCaLXtDfnu-oee5Swqy8rjAOukjkLP1mjl_pBQ_1772534944
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain
 X-Mailman-Approved-At: Tue, 03 Mar 2026 11:35:58 +0000
