@@ -4,35 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A26D5EC143D
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 11:36:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E778EEC1438
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 11:36:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B94B10E802;
-	Tue,  3 Mar 2026 11:36:10 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A972B10E0A5
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 10:05:21 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mkl@pengutronix.de>)
- id 1vxMbX-0007dn-3h; Tue, 03 Mar 2026 11:03:51 +0100
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b]
- helo=bjornoya.blackshift.org)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <mkl@pengutronix.de>) id 1vxMbP-003Wd8-0B;
- Tue, 03 Mar 2026 11:03:44 +0100
-Received: from pengutronix.de (p4ffb2dc6.dip0.t-ipconnect.de [79.251.45.198])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E06710E801;
+	Tue,  3 Mar 2026 11:36:18 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="EmOx0lKI";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="xHcfN5qP";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="EmOx0lKI";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="xHcfN5qP";
+	dkim-atps=neutral
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D88D10E799
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 11:29:50 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- (Authenticated sender: mkl-all@blackshift.org)
- by smtp.blackshift.org (Postfix) with ESMTPSA id 23B2F4F64B1;
- Tue, 03 Mar 2026 10:03:43 +0000 (UTC)
-Date: Tue, 3 Mar 2026 11:03:42 +0100
-From: Marc Kleine-Budde <mkl@pengutronix.de>
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EFF813F899;
+ Tue,  3 Mar 2026 11:29:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1772537389; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4cYw8VD7aleVcghFQ9+p/b6r3CSegw4nIvkNduu063c=;
+ b=EmOx0lKIT3N1EWFaJ+qXMxOLK6ewXQRsG1S7uUHtrrsyZKCuKpQq1d5e/B2EI4OLCk5Zsx
+ +HBoagECsN1Bb9zjUfycxKVXPSLBGZkIFVk4nMkH3R6KfTwyB4g5jdsFjHwwqdmwDk0gjC
+ SGJcEP7zorePK8+w5QgsfvCtqorcOsM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1772537389;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4cYw8VD7aleVcghFQ9+p/b6r3CSegw4nIvkNduu063c=;
+ b=xHcfN5qP49v6i+SF5MTzOV+1zpFdvaekhWZ8tV1V6SJgevJciM4Bcy5z5W/57zxlA2cda8
+ 32g45NoTRnMkZkCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1772537389; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4cYw8VD7aleVcghFQ9+p/b6r3CSegw4nIvkNduu063c=;
+ b=EmOx0lKIT3N1EWFaJ+qXMxOLK6ewXQRsG1S7uUHtrrsyZKCuKpQq1d5e/B2EI4OLCk5Zsx
+ +HBoagECsN1Bb9zjUfycxKVXPSLBGZkIFVk4nMkH3R6KfTwyB4g5jdsFjHwwqdmwDk0gjC
+ SGJcEP7zorePK8+w5QgsfvCtqorcOsM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1772537389;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=4cYw8VD7aleVcghFQ9+p/b6r3CSegw4nIvkNduu063c=;
+ b=xHcfN5qP49v6i+SF5MTzOV+1zpFdvaekhWZ8tV1V6SJgevJciM4Bcy5z5W/57zxlA2cda8
+ 32g45NoTRnMkZkCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DCABF3EA6C;
+ Tue,  3 Mar 2026 11:29:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id egbaNSzGpmkOUAAAD6G6ig
+ (envelope-from <jack@suse.cz>); Tue, 03 Mar 2026 11:29:48 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 9BC70A0A1B; Tue,  3 Mar 2026 12:29:48 +0100 (CET)
+Date: Tue, 3 Mar 2026 12:29:48 +0100
+From: Jan Kara <jack@suse.cz>
 To: Jeff Layton <jlayton@kernel.org>
 Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
@@ -107,23 +145,23 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>, 
  Johan Hedberg <johan.hedberg@gmail.com>,
  Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Oliver Hartkopp <socketcan@hartkopp.net>, David Ahern <dsahern@kernel.org>, 
- Neal Cardwell <ncardwell@google.com>,
- Steffen Klassert <steffen.klassert@secunet.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>,
- Remi Denis-Courmont <courmisch@gmail.com>, 
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>, 
- Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev,
- fsverity@lists.linux.dev, 
- linux-mm@kvack.org, netfs@lists.linux.dev, linux-ext4@vger.kernel.org, 
+ Oliver Hartkopp <socketcan@hartkopp.net>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, 
+ David Ahern <dsahern@kernel.org>, Neal Cardwell <ncardwell@google.com>, 
+ Steffen Klassert <steffen.klassert@secunet.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ Remi Denis-Courmont <courmisch@gmail.com>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
+ Xin Long <lucien.xin@gmail.com>, Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, 
+ nvdimm@lists.linux.dev, fsverity@lists.linux.dev, linux-mm@kvack.org, 
+ netfs@lists.linux.dev, linux-ext4@vger.kernel.org, 
  linux-f2fs-devel@lists.sourceforge.net, linux-nfs@vger.kernel.org,
  linux-cifs@vger.kernel.org, 
  samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org,
@@ -147,21 +185,76 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  linux-x25@vger.kernel.org, audit@vger.kernel.org,
  linux-bluetooth@vger.kernel.org, 
  linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v2 004/110] net: change sock.sk_ino and sock_i_ino() to u64
-Message-ID: <20260303-tall-fictional-tench-7c5f66-mkl@pengutronix.de>
-X-AI: stop_reason: "refusal"
+Subject: Re: [PATCH v2 060/110] vfs: change kino_t from unsigned long to u64
+Message-ID: <yfjlanmzvvyuea5qeqnozxtb4ubpkdev3o7ibwmmoo3oczthtu@27zcimxovqjh>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-4-e5388800dae0@kernel.org>
+ <20260302-iino-u64-v2-60-e5388800dae0@kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="w7xntzjnabubqe7a"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260302-iino-u64-v2-4-e5388800dae0@kernel.org>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mkl@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: amd-gfx@lists.freedesktop.org
+In-Reply-To: <20260302-iino-u64-v2-60-e5388800dae0@kernel.org>
+X-Spamd-Result: default: False [-0.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ FORGED_RECIPIENTS(2.00)[m:viro@zeniv.linux.org.uk, m:jack@suse.cz,
+ m:rostedt@goodmis.org, m:mathieu.desnoyers@efficios.com, m:tytso@mit.edu,
+ m:osalvador@suse.de, m:dhowells@redhat.com, m:pc@manguebit.org,
+ m:adilger.kernel@dilger.ca, m:jack@suse.com, m:chuck.lever@oracle.com,
+ m:neil@brown.name, m:okorniev@redhat.com, m:Dai.Ngo@oracle.com,
+ m:tom@talpey.com, m:sfrench@samba.org, m:ronniesahlberg@gmail.com,
+ m:sprasad@microsoft.com, m:bharathsm@microsoft.com, m:alex.aring@gmail.com,
+ m:konishi.ryusuke@gmail.com, m:slava@dubeyko.com, m:asmadeus@codewreck.org,
+ m:linux_oss@crudebyte.com, m:dsterba@suse.com, m:marc.dionne@auristor.com,
+ m:raven@themaw.net, m:salah.triki@gmail.com, m:aivazian.tigran@gmail.com,
+ m:idryomov@gmail.com, m:amarkuze@redhat.com, m:jaharkes@cs.cmu.edu,
+ m:coda@cs.cmu.edu, m:nico@fluxnic.net, m:code@tyhicks.com,
+ m:amir73il@gmail.com, m:glaubitz@physik.fu-berlin.de, m:frank.li@vivo.com,
+ m:mikulas@artax.karlin.mff.cuni.cz, m:richard@nod.at,
+ m:almaz.alexandrovich@paragon-software.com, m:mark@fasheh.com, m:jlbec@evil
+ plan.org, m:hubcap@omnibond.com, m:martin@omnibond.com, m:miklos@szeredi.hu,
+ m:al@alarsen.net, m:naohiro.aota@wdc.com, m:john.johansen@canonical.com,
+ m:paul@paul-moore.com, m:jmorris@namei.org, m:serge@hallyn.com,
+ m:dmitry.kasatkin@gmail.com, m:eric.snowberg@oracle.com,
+ m:stephen.smalley.work@gmail.com, m:omosnace@redhat.com,
+ m:casey@schaufler-ca.com, m:alexander.deucher@amd.com,
+ m:christian.koenig@amd.com, m:airlied@gmail.com, m:simona@ffwll.ch,
+ m:edumazet@google.com, m:kuniyu@google.com, m:pabeni@redhat.com,
+ m:willemb@google.com, m:davem@davemloft.net, m:oleg@redhat.com,
+ m:mingo@redhat.com, s:adrian.hunter@intel.com, s:maciej.fijalkowski@intel.com,
+ s:magnus.karlsson@intel.com, s:daniel@iogearbox.net, s:ast@kernel.org,
+ s:djwong@kernel.org, s:dsahern@kernel.org, s:hawk@kernel.org,
+ s:jolsa@kernel.org, s:linux-mm@kvack.org, s:james.clark@linaro.org,
+ s:alexander.shishkin@linux.intel.com, s:amd-gfx@lists.freedesktop.org,
+ s:dri-devel@lists.freedesktop.org, s:linux-afs@lists.infradead.org,
+ s:linux-mtd@lists.infradead.org, s:linar
+ o-mm-sig@lists.linaro.org,s:fsverity@lists.linux.dev,s:netfs@lists.linux.dev,s:ntfs3@lists.linux.dev];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ MID_RHS_NOT_FQDN(0.50)[]; NEURAL_HAM_SHORT(-0.20)[-1.000];
+ MIME_GOOD(-0.10)[text/plain]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ FUZZY_RATELIMITED(0.00)[rspamd.com]; MIME_TRACE(0.00)[0:+];
+ TO_DN_SOME(0.00)[]; MISSING_XM_UA(0.00)[]; ARC_NA(0.00)[];
+ TAGGED_RCPT(0.00)[];
+ FREEMAIL_CC(0.00)[zeniv.linux.org.uk, kernel.org, suse.cz, goodmis.org,
+ efficios.com, intel.com, infradead.org, mit.edu, linux.dev, suse.de,
+ redhat.com, manguebit.org, dilger.ca, suse.com, oracle.com, brown.name,
+ talpey.com, samba.org, gmail.com, microsoft.com, dubeyko.com, ionkov.net,
+ codewreck.org, crudebyte.com, auristor.com, themaw.net, cs.cmu.edu,
+ fluxnic.net, tyhicks.com, physik.fu-berlin.de, vivo.com,
+ artax.karlin.mff.cuni.cz, nod.at, paragon-software.com, fasheh.com,
+ evilplan.org, linux.alibaba.com, omnibond.com, szeredi.hu, alarsen.net,
+ huawei.com, wdc.com, canonical.com, paul-moore.com, namei.org, hallyn.com,
+ linux.ibm.com, schaufler-ca.com, amd.com, ffwll.ch, linaro.org, google.com,
+ davemloft.net, arm.com, linux.intel.com, dev.tdt.de, yaina.de, holtmann.org,
+ hartkopp.net, pengutronix.de, secunet.com, gondor.apana.org.au, fomichev.me,
+ iogearbox.net, vger.kernel.org, lists.linux.dev, kvack.org,
+ lists.sourceforge.net, lists.samba.org, lists.infradead.org, coda.cs.cmu.edu,
+ lists.orangefs.org, lists.ubuntu.com, lists.freedesktop.org, lists.linaro.or
+ g]; RCVD_COUNT_THREE(0.00)[3]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLzmnxm7msfpf7ixykpj9feesk)];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; RCPT_COUNT_GT_50(0.00)[172];
+ RCVD_TLS_LAST(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
+ suse.cz:email]
 X-Mailman-Approved-At: Tue, 03 Mar 2026 11:35:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -177,55 +270,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
---w7xntzjnabubqe7a
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 004/110] net: change sock.sk_ino and sock_i_ino() to
- u64
-MIME-Version: 1.0
-
-On 02.03.2026 15:23:48, Jeff Layton wrote:
-> inode->i_ino is being converted to a u64. sock.sk_ino (which caches the
-> inode number) must also be widened to avoid truncation on 32-bit
-> architectures where unsigned long is only 32 bits.
->
-> Change sk_ino from unsigned long to u64, and update the return type
-> of sock_i_ino() to match. Fix all format strings that print the
-> result of sock_i_ino() (%lu -> %llu), and widen the intermediate
-> variables and function parameters in the diag modules that were
-> using int to hold the inode number.
->
-> Note that the UAPI socket diag structures (inet_diag_msg.idiag_inode,
-> unix_diag_msg.udiag_ino, etc.) are all __u32 and cannot be changed
-> without breaking the ABI. The assignments to those fields will
-> silently truncate, which is the existing behavior.
->
+On Mon 02-03-26 15:24:44, Jeff Layton wrote:
+> Change kino_t from unsigned long to u64, and update PRIino from "l"
+> to "ll" accordingly. This is the actual type widening of i_ino.
+> 
+> All format strings have already been converted to use PRIino, so this
+> change compiles warning-free on both 32-bit and 64-bit architectures.
+> 
+> On 64-bit architectures, unsigned long is already 64 bits, so this is
+> effectively a type alias change with no runtime impact. On 32-bit
+> architectures, this widens i_ino from 32 to 64 bits, allowing
+> filesystems like NFS, CIFS, XFS, Ceph, and FUSE to store their native
+> 64-bit inode numbers without folding/hashing.
+> 
+> The VFS already handles 64-bit inode numbers in kstat.ino (u64) and
+> statx.stx_ino (__u64). The existing overflow checks in cp_new_stat(),
+> cp_old_stat(), and cp_compat_stat() handle narrowing to 32-bit st_ino
+> with -EOVERFLOW, so userspace ABI is preserved.
+> 
+> struct inode will grow by 4 bytes on 32-bit architectures.
+> 
 > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
->  net/can/bcm.c                | 2 +-
-
-Acked-by: Marc Kleine-Budde <mkl@pengutronix.de> # for net/can
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---w7xntzjnabubqe7a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCaaax+QAKCRDMOmT6rpmt
-0hl7AQCzPgPTWe6ol8KwtKBDfHnqkx4Ku1cIiwlQY4Hnx5jz1wD5ASVd5abGOb50
-lF4hQNIazRvyjJwKRF+va5JwX/SN2go=
-=y8vr
------END PGP SIGNATURE-----
-
---w7xntzjnabubqe7a--
+>  include/linux/fs.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index d0c4789838b5852111583a3e4cced88999496e68..4193817e02e8bf94f29514ca43379af21f37ac61 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -758,8 +758,8 @@ struct inode_state_flags {
+>  	enum inode_state_flags_enum __state;
+>  };
+>  
+> -typedef unsigned long	kino_t;
+> -#define PRIino		"l"
+> +typedef u64		kino_t;
+> +#define PRIino		"ll"
+>  
+>  /*
+>   * Keep mostly read-only and often accessed (especially for
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
