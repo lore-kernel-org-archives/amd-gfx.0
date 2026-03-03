@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D0F7EDA6AB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8764EDA698
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 17:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C190A10E878;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91D9310E87E;
 	Tue,  3 Mar 2026 17:00:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="Lcd6Fno+";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="qxYMrhdo";
 	dkim-atps=neutral
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6C8710E823;
- Tue,  3 Mar 2026 14:31:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8CEC10E83D;
+ Tue,  3 Mar 2026 15:24:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
  :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=FVGHEap2/y4lqrOlTw4I1PUuJRk8gJ1LY6chx54er5w=; b=Lcd6Fno+d5UFOYRjzgSXS/STDW
- OnOCNUozkxsQY4gAaLcG3UD8bgmPzX/hQhnp+XRh93wE//HqWrx6I2tY3mKjuf2IaREQRwDMg25PG
- 3rHjoEyH4eWTjWo2to2N4q8xFIulCCjw+wnruiylvrdWjofeIWtF3V0P9I2qdnWzQ6TL3ZQvvH61Z
- rPO9WUDLhEIV5cHVRy7B8ebSHdIsWTUbMNRXqGGAPCL3AhrpvrHgan/jOnhq5S2sES5qYdDusKr5g
- aSpySF1dCrXtiFPjIQCZRSsvuPR6BM2kGpXN99BQqvFof3+8ottSE9BRZ+7Avp/LETtYrw8IHT+HY
- hmdbkK9g==;
+ bh=FVOKKYXrgrNLIFNC3VguacredGR7s2JIN9XLcH6po4k=; b=qxYMrhdokZ5HXfsJyeZZ+fltiy
+ 1XEerkGQnRdFJFtxn82KxLYF5xmIBDbLKs4V5zGrkkAKdseaLA2m9lZs4IGEqH3A6LWUpxG3Ek+0v
+ CsFSDoyxjNUXK6JzWA2t741hlnnhb/IO6SKTq1jFtxCMKdi84yA3hG1047qxz6D3ckz2IMKUPrrZ+
+ IsefqNYtlHN3yxW5z7UoF5CjHCs3ZSN48O0RyskoLNNqzqmRayaRrfbdVH28j1Gcw0oa+snoJHb4N
+ qozTUybJXPeznhh0k0t81pNRkw9cK+17tfXfV/o+1HTdZPJiQ61RdyrlxyCx2e/u2tRFDLzeS3ydy
+ Ipijolfw==;
 Received: from hch by bombadil.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1vxQlS-0000000FKdJ-46fW;
- Tue, 03 Mar 2026 14:30:23 +0000
-Date: Tue, 3 Mar 2026 06:30:22 -0800
+ Hat Linux)) id 1vxRb8-0000000FQIt-0QKR;
+ Tue, 03 Mar 2026 15:23:46 +0000
+Date: Tue, 3 Mar 2026 07:23:46 -0800
 From: Christoph Hellwig <hch@infradead.org>
 To: Jeff Layton <jlayton@kernel.org>
 Cc: Christoph Hellwig <hch@infradead.org>,
@@ -149,9 +149,8 @@ Cc: Christoph Hellwig <hch@infradead.org>,
  linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
 Subject: Re: [PATCH v2 001/110] vfs: introduce kino_t typedef and PRIino
  format macro
-Message-ID: <aabwflLfe2HcGv7X@infradead.org>
-References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
+Message-ID: <aab9AlhqA5u4p5FY@infradead.org>
+References: <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
  <20260303012556.GA6520@macsyma-wired.lan>
  <20260303042546.GF13868@frogsfrogsfrogs>
  <33228005140684201de2ca0c157441d3b6a06413.camel@kernel.org>
@@ -159,10 +158,12 @@ References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
  <19e4e79a59dcfc4c61c8cf263af345d0d7026fc8.camel@kernel.org>
  <aabpPQxCTweoTp8Z@infradead.org>
  <1310fc5c09cce52ec00344b936275fe584c88dea.camel@kernel.org>
+ <aabwflLfe2HcGv7X@infradead.org>
+ <4d3b9b92da613ad329b822f3f6043fa08f534451.camel@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1310fc5c09cce52ec00344b936275fe584c88dea.camel@kernel.org>
+In-Reply-To: <4d3b9b92da613ad329b822f3f6043fa08f534451.camel@kernel.org>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Tue, 03 Mar 2026 17:00:33 +0000
@@ -180,47 +181,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 03, 2026 at 09:19:42AM -0500, Jeff Layton wrote:
-> On Tue, 2026-03-03 at 05:59 -0800, Christoph Hellwig wrote:
-> > On Tue, Mar 03, 2026 at 08:43:15AM -0500, Jeff Layton wrote:
-> > > On Tue, 2026-03-03 at 05:37 -0800, Christoph Hellwig wrote:
-> > > > On Tue, Mar 03, 2026 at 05:53:39AM -0500, Jeff Layton wrote:
-> > > > > Like I said to Ted, this is just temporary scaffolding for the change.
-> > > > > The PRIino macro is removed in the end. Given that, perhaps you can
-> > > > > overlook the bikeshed's color in this instance?
-> > > > 
-> > > > So why add it in the first place?  
-> > > 
-> > > Bisectability. The first version I did of this would have broken the
-> > > ability to bisect properly across these changes. I don't love the
-> > > "churn" here either, but this should be cleanly bisectable.
-> > 
-> > What do you need to bisect in format string changes?  Splitting
-> > every variable type change outside of the main i_ino out - sure.
-> > But bisecting that "change to u64 in ext4" really broke ext4 and
-> > not "change to u64" is not very useful.  Commits should do one
-> > well defined thing.  Adding a weird transition layer for a format
-> > thing that just gets dropped is not one well defined thing.
+On Tue, Mar 03, 2026 at 10:14:27AM -0500, Jeff Layton wrote:
+> I think we'll be looking at close to a 1000 line patch that touches
+> nearly 200 files if go that route. Roughly:
 > 
-> In the middle stages of the series, you will get warnings or errors on
-> 32-bit hosts when i_ino's type doesn't match what the format string
-> expects.
-> 
-> There are really only three options here:
-> 
-> 1/ Do (almost) all of the changes in one giant patch
-> 
-> 2/ Accept that the build may break during the interim stages
-> 
-> 3/ This series: using a typedef and macro to work around the breakage
-> until the type can be changed, at the expense of some extra churn in
-> the codebase
-> 
-> 3 seems like the lesser evil.
+>  182 files changed, 910 insertions(+), 912 deletions(-)
 
-No, 1 is by far the least evil.  Note that it's not really almost all,
-as all the local variables can easily and sanely be split out.  It's
-all of the format strings, and that makes sense.  The only "regressions"
-there are incorrect format strings which have good warnings and can
-be fixed easily.
+That's not actually a lot, especially for a patch that should be
+scriped and mechnanical.
+
+I also really don't understand the backport argument.  It's not like
+you could backport any of the split out patches individually anyway.
 
