@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF812EC1433
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 11:36:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3D26EC1430
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 11:36:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33E4610E7D5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BB7510E7D8;
 	Tue,  3 Mar 2026 11:35:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="MMje5RHt";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="mBJ7uKd5";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="MMje5RHt";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="mBJ7uKd5";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="iTDQ92u9";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="VbHT7f4K";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="iTDQ92u9";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="VbHT7f4K";
 	dkim-atps=neutral
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66FBD10E799
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 11:22:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69A2110E7A0
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 11:33:51 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F3B445BD15;
- Tue,  3 Mar 2026 11:22:13 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2A7B45BDFF;
+ Tue,  3 Mar 2026 11:33:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1772536934; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1772537630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=KeUIkqizRv13GXqCMqsXZmgZff1w7sG5Qjbx6Jj7J7Q=;
- b=MMje5RHtAq0iyN2Ci5NB3siR+5uKf4OabgxeLPpbapGQwdYTZLHIG9WbEhBZtfZH4K6FJj
- K6dLcOOiweD5MCv526aROGLBnxAitX0xVEFukIg5VKf81+ODBL8aapNjjd2HAUQ3YbMqn7
- qxFG09Zg+uhBneAwqCoeimjK9RUv3zM=
+ bh=FMmHC5tnpofLlXcYTVcJFpK5OzfQknG7AaaojvDUgik=;
+ b=iTDQ92u9eNbf2ao+RuOymkmCDVw/XBW9HphQAIazIZz1kx750zvPpDHUtNTpCQETiqqSDv
+ IgGus5h5MGb8bcixWgr/QBhDf0DeylI6r+9FCBYKch0yl9b6v7mz8tF+1owW/SDK/9/PRC
+ gCPkD3Cub6EJtb3p9EuBql351dJygOA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1772536934;
+ s=susede2_ed25519; t=1772537630;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=KeUIkqizRv13GXqCMqsXZmgZff1w7sG5Qjbx6Jj7J7Q=;
- b=mBJ7uKd5M1QzjfrDgXpF0iEdCEhfwIvS8TCLCSzoZDho+dSibf/db1v1ycUm9i74WcZRv4
- dGapPbtCt8Qt4hAA==
+ bh=FMmHC5tnpofLlXcYTVcJFpK5OzfQknG7AaaojvDUgik=;
+ b=VbHT7f4KxCwdLDtsk4IvFQoOp05K/VV2j/FlDdKZYoBOcdhy8XPeIxZioLLCy00usoHvIk
+ qpQyvVs3ARxUckDQ==
 Authentication-Results: smtp-out2.suse.de;
 	none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1772536934; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1772537630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=KeUIkqizRv13GXqCMqsXZmgZff1w7sG5Qjbx6Jj7J7Q=;
- b=MMje5RHtAq0iyN2Ci5NB3siR+5uKf4OabgxeLPpbapGQwdYTZLHIG9WbEhBZtfZH4K6FJj
- K6dLcOOiweD5MCv526aROGLBnxAitX0xVEFukIg5VKf81+ODBL8aapNjjd2HAUQ3YbMqn7
- qxFG09Zg+uhBneAwqCoeimjK9RUv3zM=
+ bh=FMmHC5tnpofLlXcYTVcJFpK5OzfQknG7AaaojvDUgik=;
+ b=iTDQ92u9eNbf2ao+RuOymkmCDVw/XBW9HphQAIazIZz1kx750zvPpDHUtNTpCQETiqqSDv
+ IgGus5h5MGb8bcixWgr/QBhDf0DeylI6r+9FCBYKch0yl9b6v7mz8tF+1owW/SDK/9/PRC
+ gCPkD3Cub6EJtb3p9EuBql351dJygOA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1772536934;
+ s=susede2_ed25519; t=1772537630;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=KeUIkqizRv13GXqCMqsXZmgZff1w7sG5Qjbx6Jj7J7Q=;
- b=mBJ7uKd5M1QzjfrDgXpF0iEdCEhfwIvS8TCLCSzoZDho+dSibf/db1v1ycUm9i74WcZRv4
- dGapPbtCt8Qt4hAA==
+ bh=FMmHC5tnpofLlXcYTVcJFpK5OzfQknG7AaaojvDUgik=;
+ b=VbHT7f4KxCwdLDtsk4IvFQoOp05K/VV2j/FlDdKZYoBOcdhy8XPeIxZioLLCy00usoHvIk
+ qpQyvVs3ARxUckDQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DC5A43EA69;
- Tue,  3 Mar 2026 11:22:13 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 140CA3EA69;
+ Tue,  3 Mar 2026 11:33:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id EgrGNWXEpmnvRwAAD6G6ig
- (envelope-from <jack@suse.cz>); Tue, 03 Mar 2026 11:22:13 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 9ePZBB7HpmnjVAAAD6G6ig
+ (envelope-from <jack@suse.cz>); Tue, 03 Mar 2026 11:33:50 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 9E82BA0A1B; Tue,  3 Mar 2026 12:22:13 +0100 (CET)
-Date: Tue, 3 Mar 2026 12:22:13 +0100
+ id CE61AA0A1B; Tue,  3 Mar 2026 12:33:49 +0100 (CET)
+Date: Tue, 3 Mar 2026 12:33:49 +0100
 From: Jan Kara <jack@suse.cz>
 To: Jeff Layton <jlayton@kernel.org>
 Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -185,14 +185,15 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  linux-x25@vger.kernel.org, audit@vger.kernel.org,
  linux-bluetooth@vger.kernel.org, 
  linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v2 014/110] proc: use PRIino format for i_ino
-Message-ID: <ylcfz3i2lduxgi5sywsxolkk3yc6u5satyzrf2mymj2vcirtiy@bfgr5natl6gf>
+Subject: Re: [PATCH v2 087/110] isofs: replace PRIino with %llu/%llx format
+ strings
+Message-ID: <2mme4klgztb3hiutdnsp4pntmk7zf75frle4dexeuvv6f5j4ax@hn6evhnkzfx6>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-14-e5388800dae0@kernel.org>
+ <20260302-iino-u64-v2-87-e5388800dae0@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260302-iino-u64-v2-14-e5388800dae0@kernel.org>
+In-Reply-To: <20260302-iino-u64-v2-87-e5388800dae0@kernel.org>
 X-Spamd-Result: default: False [-0.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  FORGED_RECIPIENTS(2.00)[m:viro@zeniv.linux.org.uk, m:jack@suse.cz,
  m:rostedt@goodmis.org, m:mathieu.desnoyers@efficios.com, m:tytso@mit.edu,
@@ -253,8 +254,8 @@ X-Spamd-Result: default: False [-0.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  TO_MATCH_ENVRCPT_SOME(0.00)[]; RCPT_COUNT_GT_50(0.00)[172];
  RCVD_TLS_LAST(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:email,
- suse.cz:email]
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email, suse.cz:email,
+ imap1.dmz-prg2.suse.org:helo]
 X-Mailman-Approved-At: Tue, 03 Mar 2026 11:35:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -270,12 +271,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon 02-03-26 15:23:58, Jeff Layton wrote:
-> Convert proc i_ino format strings to use the PRIino format
-> macro in preparation for the widening of i_ino via kino_t.
-> 
-> Update local variables and function parameters that hold i_ino
-> values from unsigned long to kino_t.
+On Mon 02-03-26 15:25:11, Jeff Layton wrote:
+> Now that i_ino is u64 and the PRIino format macro has been removed,
+> replace all uses in isofs with the concrete format strings.
 > 
 > Signed-off-by: Jeff Layton <jlayton@kernel.org>
 
@@ -286,45 +284,82 @@ Reviewed-by: Jan Kara <jack@suse.cz>
 								Honza
 
 > ---
->  fs/proc/fd.c       | 2 +-
->  fs/proc/task_mmu.c | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
+>  fs/isofs/compress.c | 2 +-
+>  fs/isofs/dir.c      | 2 +-
+>  fs/isofs/inode.c    | 6 +++---
+>  fs/isofs/namei.c    | 2 +-
+>  4 files changed, 6 insertions(+), 6 deletions(-)
 > 
-> diff --git a/fs/proc/fd.c b/fs/proc/fd.c
-> index 9eeccff49b2abf57d766ce17fe47070c379ed2c8..936d0258d688be5fdc384ee5c4dfbb8fa0d19dff 100644
-> --- a/fs/proc/fd.c
-> +++ b/fs/proc/fd.c
-> @@ -54,7 +54,7 @@ static int seq_show(struct seq_file *m, void *v)
->  	if (ret)
->  		return ret;
+> diff --git a/fs/isofs/compress.c b/fs/isofs/compress.c
+> index dc6c7d247cf880720be47cd26d23206d25a4e453..397568b9c7e7d3e28873be02c8a4befcddaec7b5 100644
+> --- a/fs/isofs/compress.c
+> +++ b/fs/isofs/compress.c
+> @@ -156,7 +156,7 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
+>  				else {
+>  					printk(KERN_DEBUG
+>  					       "zisofs: zisofs_inflate returned"
+> -					       " %d, inode = %" PRIino "u,"
+> +					       " %d, inode = %llu,"
+>  					       " page idx = %d, bh idx = %d,"
+>  					       " avail_in = %ld,"
+>  					       " avail_out = %ld\n",
+> diff --git a/fs/isofs/dir.c b/fs/isofs/dir.c
+> index 0a8f9e411c23425a6919b7a4fa3fb387eb2c3209..2fd9948d606e9c92f3003bfbaa4f0271c750a93d 100644
+> --- a/fs/isofs/dir.c
+> +++ b/fs/isofs/dir.c
+> @@ -152,7 +152,7 @@ static int do_isofs_readdir(struct inode *inode, struct file *file,
+>  		    de_len < de->name_len[0] +
+>  					sizeof(struct iso_directory_record)) {
+>  			printk(KERN_NOTICE "iso9660: Corrupted directory entry"
+> -			       " in block %lu of inode %" PRIino "u\n", block,
+> +			       " in block %lu of inode %llu\n", block,
+>  			       inode->i_ino);
+>  			brelse(bh);
+>  			return -EIO;
+> diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
+> index 678d7363e157d893e005152e64e922d9170468d0..3593e02e75fef8567643137e0ff992019d2b6fbb 100644
+> --- a/fs/isofs/inode.c
+> +++ b/fs/isofs/inode.c
+> @@ -1261,7 +1261,7 @@ static int isofs_read_level3_size(struct inode *inode)
 >  
-> -	seq_printf(m, "pos:\t%lli\nflags:\t0%o\nmnt_id:\t%i\nino:\t%lu\n",
-> +	seq_printf(m, "pos:\t%lli\nflags:\t0%o\nmnt_id:\t%i\nino:\t%" PRIino "u\n",
->  		   (long long)file->f_pos, f_flags,
->  		   real_mount(file->f_path.mnt)->mnt_id,
->  		   file_inode(file)->i_ino);
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index e091931d7ca19d71f31699913d177eec0821ca7b..702b0f0433f91077cd0d0af4a07e9d67d9fa9a45 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -442,7 +442,7 @@ static void get_vma_name(struct vm_area_struct *vma,
->  static void show_vma_header_prefix(struct seq_file *m,
->  				   unsigned long start, unsigned long end,
->  				   vm_flags_t flags, unsigned long long pgoff,
-> -				   dev_t dev, unsigned long ino)
-> +				   dev_t dev, kino_t ino)
->  {
->  	seq_setwidth(m, 25 + sizeof(void *) * 6 - 1);
->  	seq_put_hex_ll(m, NULL, start, 8);
-> @@ -465,7 +465,7 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma)
->  	const struct path *path;
->  	const char *name_fmt, *name;
->  	vm_flags_t flags = vma->vm_flags;
-> -	unsigned long ino = 0;
-> +	kino_t ino = 0;
->  	unsigned long long pgoff = 0;
->  	unsigned long start, end;
->  	dev_t dev = 0;
+>  out_toomany:
+>  	printk(KERN_INFO "%s: More than 100 file sections ?!?, aborting...\n"
+> -		"isofs_read_level3_size: inode=%" PRIino "u\n",
+> +		"isofs_read_level3_size: inode=%llu\n",
+>  		__func__, inode->i_ino);
+>  	goto out;
+>  }
+> @@ -1380,7 +1380,7 @@ static int isofs_read_inode(struct inode *inode, int relocated)
+>  	/* I have no idea what file_unit_size is used for, so
+>  	   we will flag it for now */
+>  	if (de->file_unit_size[0] != 0) {
+> -		printk(KERN_DEBUG "ISOFS: File unit size != 0 for ISO file (%" PRIino "u).\n",
+> +		printk(KERN_DEBUG "ISOFS: File unit size != 0 for ISO file (%llu).\n",
+>  			inode->i_ino);
+>  	}
+>  
+> @@ -1450,7 +1450,7 @@ static int isofs_read_inode(struct inode *inode, int relocated)
+>  		/* XXX - parse_rock_ridge_inode() had already set i_rdev. */
+>  		init_special_inode(inode, inode->i_mode, inode->i_rdev);
+>  	} else {
+> -		printk(KERN_DEBUG "ISOFS: Invalid file type 0%04o for inode %" PRIino "u.\n",
+> +		printk(KERN_DEBUG "ISOFS: Invalid file type 0%04o for inode %llu.\n",
+>  			inode->i_mode, inode->i_ino);
+>  		ret = -EIO;
+>  		goto fail;
+> diff --git a/fs/isofs/namei.c b/fs/isofs/namei.c
+> index 494d2ae4c0955123335a97f23672b959dcc9e0bd..8dd3911717e0cc221f60fb6447e1bf26cc2223dd 100644
+> --- a/fs/isofs/namei.c
+> +++ b/fs/isofs/namei.c
+> @@ -100,7 +100,7 @@ isofs_find_entry(struct inode *dir, struct dentry *dentry,
+>  		/* Basic sanity check, whether name doesn't exceed dir entry */
+>  		if (de_len < dlen + sizeof(struct iso_directory_record)) {
+>  			printk(KERN_NOTICE "iso9660: Corrupted directory entry"
+> -			       " in block %lu of inode %" PRIino "u\n", block,
+> +			       " in block %lu of inode %llu\n", block,
+>  			       dir->i_ino);
+>  			brelse(bh);
+>  			return 0;
 > 
 > -- 
 > 2.53.0
