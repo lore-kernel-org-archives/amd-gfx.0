@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C17C4EDA6AB
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 17:00:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 384AFEDA6B5
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 17:00:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA83710E88C;
-	Tue,  3 Mar 2026 17:00:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C717B10E893;
+	Tue,  3 Mar 2026 17:00:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FuSlGmei";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DAmilg92";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D26F10E836;
- Tue,  3 Mar 2026 15:26:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5474D10E83E;
+ Tue,  3 Mar 2026 16:12:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D268260127;
- Tue,  3 Mar 2026 15:26:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19832C116C6;
- Tue,  3 Mar 2026 15:25:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B3C5643E45;
+ Tue,  3 Mar 2026 16:12:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C998C2BCAF;
+ Tue,  3 Mar 2026 16:12:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772551566;
- bh=GR5xxAO3SaQW9wgM7VGtxRPOkk2oeXbLrLD7cLv6Vfo=;
+ s=k20201202; t=1772554348;
+ bh=DHwb1w4rbyjffvv/2dbDWAHJ7e/mef+KxqtMj51rARA=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=FuSlGmeiPRKGLoVXeyoAW/4o0okRbURy9ms1hiH2PDqHC8YS5UGUv9pjnJURfC1N3
- wEHpswFKJ9D7LuZA6II7jxIclJzmZ5mTaaPW4MAHz1ft4MhLW1HZrLr0Juj9NIJ8+5
- CYHQJkN8Mlno7UC+a35h2JBvFZEkwIKYFfjenBa8ci++7tWv3SBJpPkEUhCg7EA8/C
- T2oD0g2pCazrgxokqgkGYkIajww+MhJ1/Z0LjEDZPy8xCtNF381iB35sgllJ8wNyOg
- qAL/lm8ZnxNCumPp1kFjCkJBZmxGM1T9KXd47dCgWe+GFM6EaCUfBAl9jXPgSERD/R
- MVuefm1rcs/Xg==
-Message-ID: <78abbfef9b7ac8cdde4de9f2cf3fbb50317d6dd3.camel@kernel.org>
-Subject: Re: [PATCH v2 001/110] vfs: introduce kino_t typedef and PRIino
- format macro
+ b=DAmilg92EMM5p+oBAiJod0pyfJNnnEgeo/FHI7Mt2tLqRb5btdUmLaBqveM9jVjLi
+ Rs1bZ9VXqnLLBPtsKjZiGU65p9YwK2O90hnrBBB5IbBGxbV5fsqsFCL5BPjNoFktRM
+ 9pbG4QDyP022c1s8Z36onUYV0x0hfc5XlTzhqulI2XOKQGvhykIef5J78h7gEF8HAr
+ vrL1Kdx04gNh7dqXDuFHHcf6i6Nln3Le9QC/xXvIfu2MMc08R/9VQf0UWHcDryW4zP
+ wt4aUnI0TUpn7Jgy6RntsLOuNDb3tu0L/3jw/oOf46o04Iv9Xc1ksw8iqkEfgP4p7Y
+ l/HlE10Zw24ow==
+Message-ID: <add39953250a4a1b2fe2b09deb3373c2a7482b88.camel@kernel.org>
+Subject: Re: [PATCH v2 003/110] audit: widen ino fields to u64
 From: Jeff Layton <jlayton@kernel.org>
-To: Theodore Tso <tytso@mit.edu>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, Alexander Viro	
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara
- <jack@suse.cz>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu	
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Dan Williams <dan.j.williams@intel.com>, Matthew Wilcox
- <willy@infradead.org>, Eric Biggers	 <ebiggers@kernel.org>, Muchun Song
- <muchun.song@linux.dev>, Oscar Salvador	 <osalvador@suse.de>, David
+To: Paul Moore <paul@paul-moore.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner	
+ <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Steven Rostedt	
+ <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Dan Williams
+ <dan.j.williams@intel.com>, Matthew Wilcox	 <willy@infradead.org>, Eric
+ Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o"	 <tytso@mit.edu>, Muchun
+ Song <muchun.song@linux.dev>, Oscar Salvador	 <osalvador@suse.de>, David
  Hildenbrand <david@kernel.org>, David Howells	 <dhowells@redhat.com>, Paulo
  Alcantara <pc@manguebit.org>, Andreas Dilger	 <adilger.kernel@dilger.ca>,
  Jan Kara <jack@suse.com>, Jaegeuk Kim	 <jaegeuk@kernel.org>, Chao Yu
@@ -74,38 +73,38 @@ Cc: "Darrick J. Wong" <djwong@kernel.org>, Alexander Viro
  <al@alarsen.net>, Zhihao Cheng	 <chengzhihao1@huawei.com>, Damien Le Moal
  <dlemoal@kernel.org>, Naohiro Aota	 <naohiro.aota@wdc.com>, Johannes
  Thumshirn <jth@kernel.org>, John Johansen	 <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris	 <jmorris@namei.org>, "Serge
- E. Hallyn" <serge@hallyn.com>, Mimi Zohar	 <zohar@linux.ibm.com>, Roberto
- Sassu <roberto.sassu@huawei.com>, Dmitry Kasatkin
- <dmitry.kasatkin@gmail.com>, Eric Snowberg <eric.snowberg@oracle.com>, Fan
- Wu	 <wufan@kernel.org>, Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>, Casey Schaufler
- <casey@schaufler-ca.com>, Alex Deucher	 <alexander.deucher@amd.com>,
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>, Eric Dumazet	 <edumazet@google.com>, Kuniyuki
- Iwashima <kuniyu@google.com>, Paolo Abeni	 <pabeni@redhat.com>, Willem de
- Bruijn <willemb@google.com>, "David S. Miller"	 <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman	 <horms@kernel.org>, Oleg
- Nesterov <oleg@redhat.com>, Peter Zijlstra	 <peterz@infradead.org>, Ingo
- Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland	 <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,  Jiri Olsa
- <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
- <adrian.hunter@intel.com>,  James Clark <james.clark@linaro.org>, Martin
- Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>,  Joerg Reuter
- <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg	
- <johan.hedberg@gmail.com>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Oliver Hartkopp <socketcan@hartkopp.net>, Marc Kleine-Budde
- <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>,  Neal Cardwell
- <ncardwell@google.com>, Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu	 <herbert@gondor.apana.org.au>, Remi Denis-Courmont
- <courmisch@gmail.com>,  Marcelo Ricardo Leitner
- <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Magnus
- Karlsson <magnus.karlsson@intel.com>,  Maciej Fijalkowski
- <maciej.fijalkowski@intel.com>, Stanislav Fomichev <sdf@fomichev.me>,
- Alexei Starovoitov	 <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, John
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu	
+ <roberto.sassu@huawei.com>, Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
+ Stephen Smalley	 <stephen.smalley.work@gmail.com>, Ondrej Mosnacek
+ <omosnace@redhat.com>,  Casey Schaufler <casey@schaufler-ca.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet	
+ <edumazet@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni	
+ <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, "David S.
+ Miller"	 <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Simon
+ Horman	 <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra
+ <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho
+ de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>,  Jiri Olsa <jolsa@kernel.org>, Ian
+ Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, "Darrick J. Wong"
+ <djwong@kernel.org>, Martin Schiller <ms@dev.tdt.de>,  Eric Paris
+ <eparis@redhat.com>, Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann
+ <marcel@holtmann.org>,  Johan Hedberg <johan.hedberg@gmail.com>, Luiz
+ Augusto von Dentz <luiz.dentz@gmail.com>, Oliver Hartkopp	
+ <socketcan@hartkopp.net>, Marc Kleine-Budde <mkl@pengutronix.de>, David
+ Ahern	 <dsahern@kernel.org>, Neal Cardwell <ncardwell@google.com>, Steffen
+ Klassert	 <steffen.klassert@secunet.com>, Herbert Xu
+ <herbert@gondor.apana.org.au>,  Remi Denis-Courmont	 <courmisch@gmail.com>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,  Xin Long
+ <lucien.xin@gmail.com>, Magnus Karlsson <magnus.karlsson@intel.com>, Maciej
+ Fijalkowski	 <maciej.fijalkowski@intel.com>, Stanislav Fomichev
+ <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Jesper Dangaard Brouer	 <hawk@kernel.org>, John
  Fastabend <john.fastabend@gmail.com>, 	linux-fsdevel@vger.kernel.org,
  linux-kernel@vger.kernel.org, 	linux-trace-kernel@vger.kernel.org,
  nvdimm@lists.linux.dev, 	fsverity@lists.linux.dev, linux-mm@kvack.org,
@@ -114,9 +113,9 @@ Cc: "Darrick J. Wong" <djwong@kernel.org>, Alexander Viro
  linux-cifs@vger.kernel.org, 	samba-technical@lists.samba.org,
  linux-nilfs@vger.kernel.org, 	v9fs@lists.linux.dev,
  linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
- ceph-devel@vger.kernel.org, codalist@telemann.coda.cs.cmu.edu, 
- ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
- jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
+ ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu,
+ ecryptfs@vger.kernel.org, 	linux-mtd@lists.infradead.org,
+ jfs-discussion@lists.sourceforge.net, 	ntfs3@lists.linux.dev,
  ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
  linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
  linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
@@ -128,14 +127,13 @@ Cc: "Darrick J. Wong" <djwong@kernel.org>, Alexander Viro
  linux-x25@vger.kernel.org, 	audit@vger.kernel.org,
  linux-bluetooth@vger.kernel.org, 	linux-can@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org
-Date: Tue, 03 Mar 2026 10:25:50 -0500
-In-Reply-To: <20260303151617.GD6520@macsyma-wired.lan>
+Date: Tue, 03 Mar 2026 11:12:12 -0500
+In-Reply-To: <CAHC9VhTyhnG7-ojnTnVdh_m1x=rKxw9YEH9g7Xp9m4F78aA5cA@mail.gmail.com>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
- <20260303012556.GA6520@macsyma-wired.lan>
- <20260303042546.GF13868@frogsfrogsfrogs>
- <33228005140684201de2ca0c157441d3b6a06413.camel@kernel.org>
- <20260303151617.GD6520@macsyma-wired.lan>
+ <20260302-iino-u64-v2-3-e5388800dae0@kernel.org>
+ <CAHC9VhRnmBuXEKkUPQhJ_LDzcksjoAJL-ne6mFoJdR1hnDdzsg@mail.gmail.com>
+ <7a0165fe39e82a1effd8cce5c2c4e82d6a42cb3a.camel@kernel.org>
+ <CAHC9VhTyhnG7-ojnTnVdh_m1x=rKxw9YEH9g7Xp9m4F78aA5cA@mail.gmail.com>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -229,38 +227,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-03-03 at 10:16 -0500, Theodore Tso wrote:
-> On Tue, Mar 03, 2026 at 05:53:39AM -0500, Jeff Layton wrote:
-> >=20
-> > Like I said to Ted, this is just temporary scaffolding for the change.
-> > The PRIino macro is removed in the end. Given that, perhaps you can
-> > overlook the bikeshed's color in this instance?
+On Tue, 2026-03-03 at 11:03 -0500, Paul Moore wrote:
+> On Tue, Mar 3, 2026 at 6:05=E2=80=AFAM Jeff Layton <jlayton@kernel.org> w=
+rote:
+> > On Mon, 2026-03-02 at 18:44 -0500, Paul Moore wrote:
+> > > On Mon, Mar 2, 2026 at 3:25=E2=80=AFPM Jeff Layton <jlayton@kernel.or=
+g> wrote:
+> > > >=20
+> > > > inode->i_ino is being widened from unsigned long to u64. The audit
+> > > > subsystem uses unsigned long ino in struct fields, function paramet=
+ers,
+> > > > and local variables that store inode numbers from arbitrary filesys=
+tems.
+> > > > On 32-bit platforms this truncates inode numbers that exceed 32 bit=
+s,
+> > > > which will cause incorrect audit log entries and broken watch/mark
+> > > > comparisons.
+> > > >=20
+> > > > Widen all audit ino fields, parameters, and locals to u64, and upda=
+te
+> > > > the inode format string from %lu to %llu to match.
+> > > >=20
+> > > > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> > > > ---
+> > > >  include/linux/audit.h   | 2 +-
+> > > >  kernel/audit.h          | 9 ++++-----
+> > > >  kernel/audit_fsnotify.c | 4 ++--
+> > > >  kernel/audit_watch.c    | 8 ++++----
+> > > >  kernel/auditsc.c        | 2 +-
+> > > >  5 files changed, 12 insertions(+), 13 deletions(-)
+> > >=20
+> > > We should also update audit_hash_ino() in kernel/audit.h.  It is a
+> > > *very* basic hash function, so I think leaving the function as-is and
+> > > just changing the inode parameter from u32 to u64 should be fine.
 >=20
-> I didn't realize that this was going to disappear in the end.  That
-> makes me feel much better about the change.  I'd suggest changing the
-> commit description where it claims that we're using something that
-> follows the inttypes.h convention and making it clear that this is
-> temporary and only to preserve bisectability.
+> ...
 >=20
-> One question though --- are there *really* places that are using
-> signed inode numbers and trying to print them?  If people are trying
-> to use negative inodes to signal an error or some such, the it implies
-> that at least for some file systems, an inode number larger than 2**63
-> might be problematic.  If there is core VFS code that uses a negative
-> inode number then this could be a real potential trap.
+> > It doesn't look like changing the argument type will make any material
+> > difference. Given that it should still work without that change, can we
+> > leave this cleanup for you to do in a follow-on patchset?
 >=20
-> So are there really code which is doing a printf of 'PRIino "d"'?  Or
-> was this to allow the use of of 'PRiino "x"'?
+> I would prefer if you made the change as part of the patch, mainly to
+> keep a patch record of this being related.
 >=20
 
-Mostly it's to allow 'PRIino "x"'. There are a number of places that
-(for whatever reason) print the inode number in hex. I don't want to
-change those.
+Ok, I'll see about factoring that in.
 
-There are also some places that print it as a signed value (PRIino
-"d"). I suspect most of those are bugs, or just holdovers from a
-simpler time when we didn't worry so much about the signedness of inode
-numbers. I fixed a few of those in the context of this series, fwiw.
+> Ideally I'd really like to see kino_t used in the audit code instead
+> of u64, but perhaps that is done in a later patch that I didn't see.
 
+I think I didn't make this clear enough in the cover letter, but kino_t
+is removed at the end of the series. It's just there to support the
+change during the interim.
+
+If HCH gets his way to do the changes as one big patch, it'll go away
+entirely.
 --=20
 Jeff Layton <jlayton@kernel.org>
