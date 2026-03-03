@@ -4,88 +4,167 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C7D7EDA6AB
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 17:00:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D0F7EDA6AB
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 17:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1799810E87B;
-	Tue,  3 Mar 2026 17:00:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C190A10E878;
+	Tue,  3 Mar 2026 17:00:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lIOkp5bR";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="Lcd6Fno+";
 	dkim-atps=neutral
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com
- [209.85.210.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF4E510E08A
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 14:26:24 +0000 (UTC)
-Received: by mail-ot1-f43.google.com with SMTP id
- 46e09a7af769-7d1872504cbso3167530a34.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 03 Mar 2026 06:26:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772547984; cv=none;
- d=google.com; s=arc-20240605;
- b=k7xq1vJeh1e7m/RNH8hrrDUmQYF/l/JF2x56YGZ8U5+xSnmRhHd6w8sDRXXiH/rRXb
- KJYFCNOv07BMmO12MWhEhq/gqGHxaM3rwPHdyD7FPMB4wNepgCy2CpIbgjYmL091MEDA
- EI6O+S44mRGdOpQJ+13keYhw1c1668tgp+DvKYdapKVn1AYzOIz867fRFdJvuwB/e0G4
- MgFLNLUZcQDNcWzy2mvTMu6a1TOquC3jSfu6v7bxAG7Bjy/lbK+JK3hgWAZ3XFmz16Xt
- EBwLKHdywANVg/FOpPdjdJ5BZTLkEN1cpCIapogx7Q018SJ9S3eT+9KrH1lsjgD60VBM
- eYkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=zjDQShb2cetjCLPrloiVWT5yoU/lEoVjrpV36OKktkA=;
- fh=hjoHnlzbJAd54qNnBJyoMoj1w6q0D+0tneoeKQ9fI9k=;
- b=Ps1be1XFADGpEOxznuFpt2k7zyxucZIkTSGH7HF1ntbF/w6VIYl87WpOd/WQ4fpv1m
- 4BMq/AkzoyR2U6EvlRx6utBsMVthxhWWeIVff+iYuSi6wjEhXg+niTwuuDFCkSauQIPv
- OVgLzFa9XCqbKSSvH4zp5jdlUuWpTWGyCmQQ5ZKSXf4rFHFVs72EJGIfPxWgDAbnDIMc
- cnLsaLkpAGp2fb85X7pnmrStxWTUBpqCCKKMgjEr3IEktoil7tUw+YxLwDpBW96NOyXW
- 5ibU9R9p9n5a2vXi+4NFgiX2cknPsg3q+Xb0sWiOQcQfD6PdnmQRozI2J3ETdOOM+u2r
- Qmcg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772547984; x=1773152784; darn=lists.freedesktop.org;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=zjDQShb2cetjCLPrloiVWT5yoU/lEoVjrpV36OKktkA=;
- b=lIOkp5bRiygvmrvHDMnEZuHicBr5AjTfBPu164OJ7mp0vqVvYV/jHC3wDCzuxnlQei
- juNX8R+84wzTt3QXE3pmOBh3XUDhntm70AfTtRMlDQUvRZqcpjKjaPtQrePT8unFsS5b
- 4IyJoJj+NtKO3ye+JHFYfPe5TuABNVdanrWNQEmxoJ9cIpp6cl4Z2xBckDMCBK2plUEG
- BUJtVuqBmRZl2aLCjdX/tN2fcPG0CaHCqkWuE6L17NeeToZ4FLD9Q4H7nUzQfddnmzFc
- Hr2ufPkktA3IRaifukXoXoUGzLQ1jRYnH7no1IsOro3YwDkFEnEF7Ng0cEufIczs9fLs
- aUGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772547984; x=1773152784;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=zjDQShb2cetjCLPrloiVWT5yoU/lEoVjrpV36OKktkA=;
- b=uldrVoJ5Jb7SCqQcBoIAGRgpg4XPWQ+0qm6Io/YwqFnJQtSQPIj+NUnKhqYTHTjqWU
- pBE0yFTD2dw6Ds8Ei9gmKK80Ay/J5pm99hKKc3IZcVLZR7O3aGTDbrS7s5c8/hglJtMU
- NPemUPmOSFZHxEviTOLGCLyXE6UrFNoBjhJeQXw3ivrEJ8sezjoDXFaxAfkBORx46Rux
- j3LXtWfh5sHtPwfqznRopYYk4aqQ+Hk49RHcTSYXuYIwuNozoynFRVvDuBAv1PPQ6inc
- a6HNuEKZB959+FEE0Xl+5LwFIZtLys2cHu9OvLCJQBx6HIDm7yE7jxgEQ6rXGVwlMpys
- KDww==
-X-Gm-Message-State: AOJu0YyXCvSWxR25VsmAzkaaBVcTwhCglIrzXWaxQ72zFwQ6UkTUQWTw
- SHjP6NDVt0pBR7JWsW+noy4u/rgI+Rq7Aq3dvoJrFbf5/uQW1nKf+PvWlonpVqhi0zk07eHsSqy
- t6ee4FPnoSl6yoAUCSyRyCkPPyZMbT/Q=
-X-Gm-Gg: ATEYQzykmvKu4vlttVfhsKvREpEEFM97R1l/1g0KohBMYmGkQSB2T3tCBGXg0wEMm0N
- V4wSrDtnvir2PCdB0m2taDlR7AcZcemGwE6ZmlK4D0yb7rjf8mISk1ms6JXonksKKoQh/MwQk+1
- FcwFFQ1CBB2qiB3J8yvqo6+sk1ifQy82fSq5ROu3RvjvR4KAQeFMBg6DUAB5Hp2doN0pYcIUqmq
- kePVXlevktBh+vGCY2nPXqR6Mkr/HtcAbf+b+Z+okdjlaxxKgzXZucOOKs0/AVU7g1ZpqIr+Nmp
- YqeSocF8CHcFMGLgmjO5l+ot+PVwbk78cFfSfA71
-X-Received: by 2002:a05:6830:2992:b0:7d1:9066:26b7 with SMTP id
- 46e09a7af769-7d5be394227mr1532481a34.6.1772547984067; Tue, 03 Mar 2026
- 06:26:24 -0800 (PST)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6C8710E823;
+ Tue,  3 Mar 2026 14:31:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=FVGHEap2/y4lqrOlTw4I1PUuJRk8gJ1LY6chx54er5w=; b=Lcd6Fno+d5UFOYRjzgSXS/STDW
+ OnOCNUozkxsQY4gAaLcG3UD8bgmPzX/hQhnp+XRh93wE//HqWrx6I2tY3mKjuf2IaREQRwDMg25PG
+ 3rHjoEyH4eWTjWo2to2N4q8xFIulCCjw+wnruiylvrdWjofeIWtF3V0P9I2qdnWzQ6TL3ZQvvH61Z
+ rPO9WUDLhEIV5cHVRy7B8ebSHdIsWTUbMNRXqGGAPCL3AhrpvrHgan/jOnhq5S2sES5qYdDusKr5g
+ aSpySF1dCrXtiFPjIQCZRSsvuPR6BM2kGpXN99BQqvFof3+8ottSE9BRZ+7Avp/LETtYrw8IHT+HY
+ hmdbkK9g==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.98.2 #2 (Red
+ Hat Linux)) id 1vxQlS-0000000FKdJ-46fW;
+ Tue, 03 Mar 2026 14:30:23 +0000
+Date: Tue, 3 Mar 2026 06:30:22 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: Christoph Hellwig <hch@infradead.org>,
+ "Darrick J. Wong" <djwong@kernel.org>, Theodore Tso <tytso@mit.edu>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, David Howells <dhowells@redhat.com>,
+ Paulo Alcantara <pc@manguebit.org>,
+ Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
+ Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>,
+ Olga Kornievskaia <okorniev@redhat.com>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
+ Steve French <sfrench@samba.org>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>,
+ Bharath SM <bharathsm@microsoft.com>,
+ Alexander Aring <alex.aring@gmail.com>,
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+ Viacheslav Dubeyko <slava@dubeyko.com>,
+ Eric Van Hensbergen <ericvh@kernel.org>,
+ Latchesar Ionkov <lucho@ionkov.net>,
+ Dominique Martinet <asmadeus@codewreck.org>,
+ Christian Schoenebeck <linux_oss@crudebyte.com>,
+ David Sterba <dsterba@suse.com>,
+ Marc Dionne <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>,
+ Luis de Bethencourt <luisbg@kernel.org>,
+ Salah Triki <salah.triki@gmail.com>,
+ "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
+ Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,
+ Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>,
+ Amir Goldstein <amir73il@gmail.com>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Yangtao Li <frank.li@vivo.com>,
+ Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
+ David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>,
+ Dave Kleikamp <shaggy@kernel.org>,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ Joseph Qi <joseph.qi@linux.alibaba.com>,
+ Mike Marshall <hubcap@omnibond.com>,
+ Martin Brandenburg <martin@omnibond.com>,
+ Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>,
+ Zhihao Cheng <chengzhihao1@huawei.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>,
+ Johannes Thumshirn <jth@kernel.org>,
+ John Johansen <john.johansen@canonical.com>,
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>,
+ Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>,
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Willem de Bruijn <willemb@google.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ James Clark <james.clark@linaro.org>,
+ Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>,
+ Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>,
+ Johan Hedberg <johan.hedberg@gmail.com>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Oliver Hartkopp <socketcan@hartkopp.net>,
+ Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>,
+ Neal Cardwell <ncardwell@google.com>,
+ Steffen Klassert <steffen.klassert@secunet.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Remi Denis-Courmont <courmisch@gmail.com>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>,
+ Magnus Karlsson <magnus.karlsson@intel.com>,
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev,
+ fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev,
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org,
+ v9fs@lists.linux.dev, linux-afs@lists.infradead.org,
+ autofs@vger.kernel.org, ceph-devel@vger.kernel.org,
+ codalist@telemann.coda.cs.cmu.edu, ecryptfs@vger.kernel.org,
+ linux-mtd@lists.infradead.org, jfs-discussion@lists.sourceforge.net,
+ ntfs3@lists.linux.dev, ocfs2-devel@lists.linux.dev,
+ devel@lists.orangefs.org, linux-unionfs@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-integrity@vger.kernel.org, selinux@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ netdev@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-fscrypt@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-hams@vger.kernel.org, linux-x25@vger.kernel.org,
+ audit@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH v2 001/110] vfs: introduce kino_t typedef and PRIino
+ format macro
+Message-ID: <aabwflLfe2HcGv7X@infradead.org>
+References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
+ <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
+ <20260303012556.GA6520@macsyma-wired.lan>
+ <20260303042546.GF13868@frogsfrogsfrogs>
+ <33228005140684201de2ca0c157441d3b6a06413.camel@kernel.org>
+ <aabkBadGzo7IZpSU@infradead.org>
+ <19e4e79a59dcfc4c61c8cf263af345d0d7026fc8.camel@kernel.org>
+ <aabpPQxCTweoTp8Z@infradead.org>
+ <1310fc5c09cce52ec00344b936275fe584c88dea.camel@kernel.org>
 MIME-Version: 1.0
-References: <CPUPR80MB65833AEF510B7D067FCCA46DA370A@CPUPR80MB6583.lamprd80.prod.outlook.com>
-In-Reply-To: <CPUPR80MB65833AEF510B7D067FCCA46DA370A@CPUPR80MB6583.lamprd80.prod.outlook.com>
-From: Alex Huang <huangalex409@gmail.com>
-Date: Tue, 3 Mar 2026 09:26:13 -0500
-X-Gm-Features: AaiRm52zXomEfNTsPOWshMnrJHpOX58Ft4I0r1063LnbaBeXiIeelpv3sYCfeLE
-Message-ID: <CAOnW2VTGBP=MMWM=W41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com>
-Subject: Re: [Bug report] AMD Radeon R9 380 (Tonga) suspend resume regression:
- black screen / no EDID on kernel 6.13+ (ref: Ubuntu #2142389)
-To: Danilo Machado <danilomachado2002@hotmail.com>
-Cc: amd-gfx@lists.freedesktop.org, regressions@lists.linux.dev
-Content-Type: multipart/alternative; boundary="000000000000f00f81064c1f7c33"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1310fc5c09cce52ec00344b936275fe584c88dea.camel@kernel.org>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Tue, 03 Mar 2026 17:00:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,338 +180,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---000000000000f00f81064c1f7c33
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Tue, Mar 03, 2026 at 09:19:42AM -0500, Jeff Layton wrote:
+> On Tue, 2026-03-03 at 05:59 -0800, Christoph Hellwig wrote:
+> > On Tue, Mar 03, 2026 at 08:43:15AM -0500, Jeff Layton wrote:
+> > > On Tue, 2026-03-03 at 05:37 -0800, Christoph Hellwig wrote:
+> > > > On Tue, Mar 03, 2026 at 05:53:39AM -0500, Jeff Layton wrote:
+> > > > > Like I said to Ted, this is just temporary scaffolding for the change.
+> > > > > The PRIino macro is removed in the end. Given that, perhaps you can
+> > > > > overlook the bikeshed's color in this instance?
+> > > > 
+> > > > So why add it in the first place?  
+> > > 
+> > > Bisectability. The first version I did of this would have broken the
+> > > ability to bisect properly across these changes. I don't love the
+> > > "churn" here either, but this should be cleanly bisectable.
+> > 
+> > What do you need to bisect in format string changes?  Splitting
+> > every variable type change outside of the main i_ino out - sure.
+> > But bisecting that "change to u64 in ext4" really broke ext4 and
+> > not "change to u64" is not very useful.  Commits should do one
+> > well defined thing.  Adding a weird transition layer for a format
+> > thing that just gets dropped is not one well defined thing.
+> 
+> In the middle stages of the series, you will get warnings or errors on
+> 32-bit hosts when i_ino's type doesn't match what the format string
+> expects.
+> 
+> There are really only three options here:
+> 
+> 1/ Do (almost) all of the changes in one giant patch
+> 
+> 2/ Accept that the build may break during the interim stages
+> 
+> 3/ This series: using a typedef and macro to work around the breakage
+> until the type can be changed, at the expense of some extra churn in
+> the codebase
+> 
+> 3 seems like the lesser evil.
 
-Hi,
-+cc amd-gfx
-+cc regressions
--cc freedesktop
+No, 1 is by far the least evil.  Note that it's not really almost all,
+as all the local variables can easily and sanely be split out.  It's
+all of the format strings, and that makes sense.  The only "regressions"
+there are incorrect format strings which have good warnings and can
+be fixed easily.
 
-On Tue, Mar 3, 2026 at 7:30=E2=80=AFAM Danilo Machado <danilomachado2002@ho=
-tmail.com>
-wrote:
-
-> To: freedesktop@lists.freedesktop.org
-> Subject: [Bug report] AMD Radeon R9 380 (Tonga) suspend resume regression=
-:
-> black screen / no EDID on kernel 6.13+ (ref: Ubuntu #2142389)
->
-> Dear AMDGPU/DRM maintainers,
->
-> I'm reporting a suspend/resume regression affecting the Radeon R9 380
-> (Tonga / GCN 3rd gen) on recent kernels (6.13+), observed on Ubuntu 24.10
-> derivatives (Zorin OS 18) with kernel 6.17.0-14-generic.
->
-A nontrivial amount of pm/EDID changes occurred between 6.12 and 6.13, are
-you able to bisect the kernel between those two revisions? Even narrowing
-it down to a release candidate should be useful.
-
-#regzbot introduced: v5.12..v5.13
-#regzbot from: Danilo Machado <danilomachado2002@hotmail.com>
-#regzbot monitor:
-https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
-
-Best,
-Alex H
-
->
-> **Hardware:**
-> - GPU: AMD Radeon R9 380 Series (Tonga XT, Tonga)
-> - Motherboard: Gigabyte B450 AORUS PRO WIFI (BIOS F66)
-> - CPU: AMD Ryzen 5 5500
-> - Connection: Direct HDMI
-> - Display server: X11
-> - Power state: Deep sleep (S3)
->
-> **Symptoms:**
-> - After suspend (first cycle often works; subsequent cycles fail
-> consistently):
->   - System wakes (fans/LEDs active), but display shows black screen / no
-> signal ("HDMI Out of Range" on monitor).
->   - EDID read/handshake fails =E2=86=92 no video output recovered.
->   - Keyboard/mouse may respond briefly, but desktop freezes =E2=86=92 har=
-d reboot
-> required.
-> - Logs show:
->   [drm] *ERROR* HDMI-A-1: probed a monitor but no|invalid EDID
->   [drm] *ERROR* No EDID read.
->
-
-> **Kernels tested:**
-> - Broken: 6.13.12 =E2=86=92 6.17.0-14 (regression starts between 6.12 and=
- 6.13)
-> - Stable: 6.12.74 (LTS) =E2=80=93 suspend/resume fully reliable, no EDID =
-errors
->
-> **GRUB parameters used:**
-> quiet splash amdgpu.si_support=3D1 radeon.si_support=3D0 amdgpu.runpm=3D0
-> amdgpu.dc=3D0
->
-> **Reference:**
-> This matches Ubuntu bug #2142389:
-> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
-> (Reported by me on Launchpad; includes full dmesg logs and attachments)
->
-> The issue appears to be in the DRM/DC layer (HDMI EDID re-detection durin=
-g
-> multi-cycle suspend/resume on Tonga). Downgrading to 6.12.74 resolves it
-> completely.
->
-> Is this a known regression? Any patches or additional debug info needed
-> from my side?
->
-> Happy to test patches, provide more logs (dmesg, journalctl -b -u
-> systemd-suspend, full amdgpu debug), or try kernel builds.
->
-> Thanks for your attention and work on amdgpu!
->
->
-> Tested kernels:
->
-> 6.12.74 =E2=80=94 stable, HDMI resume works
-> 6.13.12 =E2=80=94 first resume OK, second suspend fails
-> 6.14.x =E2=80=94 HDMI issues
-> 6.17.0-14 =E2=80=94 frequent resume black screen
->
-> Best regards,
-> Danilo Machado
-> Minas Gerais, Brazil
-> (Original reporter of Ubuntu bug #2142389)
->
-
---000000000000f00f81064c1f7c33
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi,</div><div>+cc amd-gfx</div><div>+cc regressions</=
-div><div>-cc freedesktop</div><div></div><div dir=3D"ltr"><br></div><div cl=
-ass=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_a=
-ttr">On Tue, Mar 3, 2026 at 7:30=E2=80=AFAM Danilo Machado &lt;<a href=3D"m=
-ailto:danilomachado2002@hotmail.com">danilomachado2002@hotmail.com</a>&gt; =
-wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div clas=
-s=3D"msg4344539165856588496">
-
-
-
-
-<div dir=3D"ltr">
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-To: <a href=3D"mailto:freedesktop@lists.freedesktop.org" target=3D"_blank">=
-freedesktop@lists.freedesktop.org</a></div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-Subject: [Bug report] AMD Radeon R9 380 (Tonga) suspend resume regression: =
-black screen / no EDID on kernel 6.13+ (ref: Ubuntu #2142389)</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-Dear AMDGPU/DRM maintainers,</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-I&#39;m reporting a suspend/resume regression affecting the Radeon R9 380 (=
-Tonga / GCN 3rd gen) on recent kernels (6.13+), observed on Ubuntu 24.10 de=
-rivatives (Zorin OS 18) with kernel 6.17.0-14-generic.</div></div></div></b=
-lockquote><div>A nontrivial amount of pm/EDID changes=C2=A0occurred between=
- 6.12 and 6.13, are you able to bisect the kernel between those two revisio=
-ns? Even narrowing it down to a release candidate should be useful.</div><d=
-iv><br></div><div>#regzbot introduced: v5.12..v5.13<br>#regzbot from: Danil=
-o Machado &lt;<a href=3D"mailto:danilomachado2002@hotmail.com">danilomachad=
-o2002@hotmail.com</a>&gt;<br>#regzbot monitor: <a href=3D"https://bugs.laun=
-chpad.net/ubuntu/+source/linux/+bug/2142389">https://bugs.launchpad.net/ubu=
-ntu/+source/linux/+bug/2142389</a></div><div><br></div><div>Best,</div><div=
->Alex H</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div class=
-=3D"msg4344539165856588496"><div dir=3D"ltr">
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-**Hardware:**</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-- GPU: AMD Radeon R9 380 Series (Tonga XT, Tonga)</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-- Motherboard: Gigabyte B450 AORUS PRO WIFI (BIOS F66)</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-- CPU: AMD Ryzen 5 5500</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-- Connection: Direct HDMI</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-- Display server: X11</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-- Power state: Deep sleep (S3)</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-**Symptoms:**</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-- After suspend (first cycle often works; subsequent cycles fail consistent=
-ly):</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-=C2=A0 - System wakes (fans/LEDs active), but display shows black screen / =
-no signal (&quot;HDMI Out of Range&quot; on monitor).</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-=C2=A0 - EDID read/handshake fails =E2=86=92 no video output recovered.</di=
-v>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-=C2=A0 - Keyboard/mouse may respond briefly, but desktop freezes =E2=86=92 =
-hard reboot required.</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-- Logs show:</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-=C2=A0 [drm] *ERROR* HDMI-A-1: probed a monitor but no|invalid EDID</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-=C2=A0 [drm] *ERROR* No EDID read.</div></div></div></blockquote><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px s=
-olid rgb(204,204,204);padding-left:1ex"><div class=3D"msg434453916585658849=
-6"><div dir=3D"ltr">
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-**Kernels tested:**</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-- Broken: 6.13.12 =E2=86=92 6.17.0-14 (regression starts between 6.12 and 6=
-.13)</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-- Stable: 6.12.74 (LTS) =E2=80=93 suspend/resume fully reliable, no EDID er=
-rors</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-**GRUB parameters used:**</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-quiet splash amdgpu.si_support=3D1 radeon.si_support=3D0 amdgpu.runpm=3D0 a=
-mdgpu.dc=3D0</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-**Reference:**</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-This matches Ubuntu bug #2142389: <a href=3D"https://bugs.launchpad.net/ubu=
-ntu/+source/linux/+bug/2142389" target=3D"_blank">https://bugs.launchpad.ne=
-t/ubuntu/+source/linux/+bug/2142389</a></div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-(Reported by me on Launchpad; includes full dmesg logs and attachments)</di=
-v>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-The issue appears to be in the DRM/DC layer (HDMI EDID re-detection during =
-multi-cycle suspend/resume on Tonga). Downgrading to 6.12.74 resolves it co=
-mpletely.</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-Is this a known regression? Any patches or additional debug info needed fro=
-m my side?</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-Happy to test patches, provide more logs (dmesg, journalctl -b -u systemd-s=
-uspend, full amdgpu debug), or try kernel builds.</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-Thanks for your attention and work on amdgpu!</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-Tested kernels:</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-6.12.74 =E2=80=94 stable, HDMI resume works</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-6.13.12 =E2=80=94 first resume OK, second suspend fails</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-6.14.x =E2=80=94 HDMI issues</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-6.17.0-14 =E2=80=94 frequent resume black screen</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-Best regards, =C2=A0</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-Danilo Machado =C2=A0</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-Minas Gerais, Brazil =C2=A0</div>
-<div style=3D"font-family:Calibri,Helvetica,sans-serif;font-size:12pt;color=
-:rgb(0,0,0)">
-(Original reporter of Ubuntu bug #2142389)</div>
-</div>
-
-</div></blockquote></div></div>
-
---000000000000f00f81064c1f7c33--
