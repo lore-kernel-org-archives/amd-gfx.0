@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E268EC143C
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 11:36:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D6C3EC143E
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 11:36:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE98510E7EF;
-	Tue,  3 Mar 2026 11:36:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1860310E800;
+	Tue,  3 Mar 2026 11:36:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="UoWJ+20F";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Q6oUQTud";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="UoWJ+20F";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Q6oUQTud";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="oy8pWoHq";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="jJuhp4wn";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="oy8pWoHq";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="jJuhp4wn";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DA8610E795
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 11:24:38 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99AC610E795
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 11:24:03 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 21B0F3F957;
- Tue,  3 Mar 2026 11:24:37 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4BF235BDF1;
+ Tue,  3 Mar 2026 11:24:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1772537077; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1772537042; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vDQHJTybbwme79tj0LaoGJ3bxXhb6k+U6EpthuA22eM=;
- b=UoWJ+20FudPqog6nxHkr+fdHi2sJkTvwHuu+U6kuvo8gTTWmh/AlFpBu94vJwGOq83XWlO
- SWRBZty/CKQ0hlfQ+lZ8gNI3kKqwwsJ/Lu5UnE5LBFMyAaA3/uvcm0WcVYOvdRBJtXQ4CA
- ohEwDdk4ePzsFvbqpNx8CmCIILQIl8w=
+ bh=K7Yl9Dt7jVlcVQjEf63B1tQYNVt8eYC4EdfdZsuIVJM=;
+ b=oy8pWoHqrMEHlN4brCXg2tPFAhfnj7hNnLiWr7QZqvLnhUUVRLml6dG2v7DgEPSLDnZovj
+ KAXy3PwMSytjm6CRgomx/IgEopJ3owCZp+3PaBD8ZCWWFIlSZ6TreqR/OCjywszkRFPjhM
+ RZ129a6nRDsR1gOHwRCIua5AvBIGjGg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1772537077;
+ s=susede2_ed25519; t=1772537042;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vDQHJTybbwme79tj0LaoGJ3bxXhb6k+U6EpthuA22eM=;
- b=Q6oUQTudfBrS7v+5ldwHSD1RVeupUKkxjY+tqUelutQ+f0ackTTzkSKTR5cBNAJo7Ebnpa
- K1UfuCNCKIm02nCA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=UoWJ+20F;
- dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Q6oUQTud
+ bh=K7Yl9Dt7jVlcVQjEf63B1tQYNVt8eYC4EdfdZsuIVJM=;
+ b=jJuhp4wn8vYJLdotyAquo63x/02x111qPRtzSjYNdGjAowRt5gzgynAxTUYw+Ln14/yoSt
+ LKDZZhnGQ3WO8cCw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=oy8pWoHq;
+ dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=jJuhp4wn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1772537077; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1772537042; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vDQHJTybbwme79tj0LaoGJ3bxXhb6k+U6EpthuA22eM=;
- b=UoWJ+20FudPqog6nxHkr+fdHi2sJkTvwHuu+U6kuvo8gTTWmh/AlFpBu94vJwGOq83XWlO
- SWRBZty/CKQ0hlfQ+lZ8gNI3kKqwwsJ/Lu5UnE5LBFMyAaA3/uvcm0WcVYOvdRBJtXQ4CA
- ohEwDdk4ePzsFvbqpNx8CmCIILQIl8w=
+ bh=K7Yl9Dt7jVlcVQjEf63B1tQYNVt8eYC4EdfdZsuIVJM=;
+ b=oy8pWoHqrMEHlN4brCXg2tPFAhfnj7hNnLiWr7QZqvLnhUUVRLml6dG2v7DgEPSLDnZovj
+ KAXy3PwMSytjm6CRgomx/IgEopJ3owCZp+3PaBD8ZCWWFIlSZ6TreqR/OCjywszkRFPjhM
+ RZ129a6nRDsR1gOHwRCIua5AvBIGjGg=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1772537077;
+ s=susede2_ed25519; t=1772537042;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  in-reply-to:in-reply-to:references:references;
- bh=vDQHJTybbwme79tj0LaoGJ3bxXhb6k+U6EpthuA22eM=;
- b=Q6oUQTudfBrS7v+5ldwHSD1RVeupUKkxjY+tqUelutQ+f0ackTTzkSKTR5cBNAJo7Ebnpa
- K1UfuCNCKIm02nCA==
+ bh=K7Yl9Dt7jVlcVQjEf63B1tQYNVt8eYC4EdfdZsuIVJM=;
+ b=jJuhp4wn8vYJLdotyAquo63x/02x111qPRtzSjYNdGjAowRt5gzgynAxTUYw+Ln14/yoSt
+ LKDZZhnGQ3WO8cCw==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 080963EA6D;
- Tue,  3 Mar 2026 11:24:37 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 356003EA6C;
+ Tue,  3 Mar 2026 11:24:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id htTrAfXEpmlNSgAAD6G6ig
- (envelope-from <jack@suse.cz>); Tue, 03 Mar 2026 11:24:37 +0000
+ by imap1.dmz-prg2.suse.org with ESMTPSA id KO4ODdLEpmm1SQAAD6G6ig
+ (envelope-from <jack@suse.cz>); Tue, 03 Mar 2026 11:24:02 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
- id BC159A0A1B; Tue,  3 Mar 2026 12:24:36 +0100 (CET)
-Date: Tue, 3 Mar 2026 12:24:36 +0100
+ id D1FB8A0A1B; Tue,  3 Mar 2026 12:24:01 +0100 (CET)
+Date: Tue, 3 Mar 2026 12:24:01 +0100
 From: Jan Kara <jack@suse.cz>
 To: Jeff Layton <jlayton@kernel.org>
 Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
@@ -187,16 +187,16 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  linux-x25@vger.kernel.org, audit@vger.kernel.org,
  linux-bluetooth@vger.kernel.org, 
  linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v2 034/110] isofs: use PRIino format for i_ino
-Message-ID: <4sefbdgtlxnclmqd5drtyk7k7iixheqrkxambzoazpc5wjbaad@z4djfmeum5ks>
+Subject: Re: [PATCH v2 029/110] ext2: use PRIino format for i_ino
+Message-ID: <ru6heof6ndlg2doksb3mhaz2gnfdt32pqkiwv3trx6ppbmtu3l@466clvjonlps>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-34-e5388800dae0@kernel.org>
+ <20260302-iino-u64-v2-29-e5388800dae0@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260302-iino-u64-v2-34-e5388800dae0@kernel.org>
+In-Reply-To: <20260302-iino-u64-v2-29-e5388800dae0@kernel.org>
 X-Spamd-Bar: /
-X-Rspamd-Queue-Id: 21B0F3F957
+X-Rspamd-Queue-Id: 4BF235BDF1
 X-Rspamd-Action: no action
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-Spamd-Result: default: False [-0.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
@@ -238,7 +238,8 @@ X-Spamd-Result: default: False [-0.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
  RCVD_TLS_LAST(0.00)[]; ARC_NA(0.00)[];
  DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
- TO_DN_SOME(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MIME_TRACE(0.00)[0:+];
+ SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
  FUZZY_RATELIMITED(0.00)[rspamd.com]; RCVD_COUNT_THREE(0.00)[3];
  FROM_HAS_DN(0.00)[];
  FREEMAIL_CC(0.00)[zeniv.linux.org.uk, kernel.org, suse.cz, goodmis.org,
@@ -257,10 +258,9 @@ X-Spamd-Result: default: False [-0.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  lists.sourceforge.net, lists.samba.org, lists.infradead.org, coda.cs.cmu.edu,
  lists.orangefs.org, lists.ubuntu.com, lists.freedesktop.org, lists.linaro.or
  g];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
+ DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
  RCPT_COUNT_GT_50(0.00)[172]; TO_MATCH_ENVRCPT_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+ FROM_EQ_ENVFROM(0.00)[]; TO_DN_SOME(0.00)[];
  TAGGED_RCPT(0.00)[]; MISSING_XM_UA(0.00)[];
  RCVD_VIA_SMTP_AUTH(0.00)[]; DKIM_TRACE(0.00)[suse.cz:+];
  R_RATELIMIT(0.00)[to_ip_from(RLp7r18z3ddgt3fwq5oy83ragc)];
@@ -280,8 +280,8 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon 02-03-26 15:24:18, Jeff Layton wrote:
-> Convert isofs i_ino format strings to use the PRIino format
+On Mon 02-03-26 15:24:13, Jeff Layton wrote:
+> Convert ext2 i_ino format strings to use the PRIino format
 > macro in preparation for the widening of i_ino via kino_t.
 > 
 > Also correct signed format specifiers to unsigned, since inode
@@ -294,88 +294,6 @@ Looks good. Feel free to add:
 Reviewed-by: Jan Kara <jack@suse.cz>
 
 								Honza
-
-> ---
->  fs/isofs/compress.c | 2 +-
->  fs/isofs/dir.c      | 2 +-
->  fs/isofs/inode.c    | 6 +++---
->  fs/isofs/namei.c    | 2 +-
->  4 files changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/fs/isofs/compress.c b/fs/isofs/compress.c
-> index 50b4cb3aea87c7fc46b8b5483162bce84573b483..dc6c7d247cf880720be47cd26d23206d25a4e453 100644
-> --- a/fs/isofs/compress.c
-> +++ b/fs/isofs/compress.c
-> @@ -156,7 +156,7 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
->  				else {
->  					printk(KERN_DEBUG
->  					       "zisofs: zisofs_inflate returned"
-> -					       " %d, inode = %lu,"
-> +					       " %d, inode = %" PRIino "u,"
->  					       " page idx = %d, bh idx = %d,"
->  					       " avail_in = %ld,"
->  					       " avail_out = %ld\n",
-> diff --git a/fs/isofs/dir.c b/fs/isofs/dir.c
-> index 2ca16c3fe5ef3427e5bbd0631eb8323ef3c58bf1..0a8f9e411c23425a6919b7a4fa3fb387eb2c3209 100644
-> --- a/fs/isofs/dir.c
-> +++ b/fs/isofs/dir.c
-> @@ -152,7 +152,7 @@ static int do_isofs_readdir(struct inode *inode, struct file *file,
->  		    de_len < de->name_len[0] +
->  					sizeof(struct iso_directory_record)) {
->  			printk(KERN_NOTICE "iso9660: Corrupted directory entry"
-> -			       " in block %lu of inode %lu\n", block,
-> +			       " in block %lu of inode %" PRIino "u\n", block,
->  			       inode->i_ino);
->  			brelse(bh);
->  			return -EIO;
-> diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
-> index 5c01536c5e8fecb73a95d801cdd3b8ee22011a3c..678d7363e157d893e005152e64e922d9170468d0 100644
-> --- a/fs/isofs/inode.c
-> +++ b/fs/isofs/inode.c
-> @@ -1261,7 +1261,7 @@ static int isofs_read_level3_size(struct inode *inode)
->  
->  out_toomany:
->  	printk(KERN_INFO "%s: More than 100 file sections ?!?, aborting...\n"
-> -		"isofs_read_level3_size: inode=%lu\n",
-> +		"isofs_read_level3_size: inode=%" PRIino "u\n",
->  		__func__, inode->i_ino);
->  	goto out;
->  }
-> @@ -1380,7 +1380,7 @@ static int isofs_read_inode(struct inode *inode, int relocated)
->  	/* I have no idea what file_unit_size is used for, so
->  	   we will flag it for now */
->  	if (de->file_unit_size[0] != 0) {
-> -		printk(KERN_DEBUG "ISOFS: File unit size != 0 for ISO file (%ld).\n",
-> +		printk(KERN_DEBUG "ISOFS: File unit size != 0 for ISO file (%" PRIino "u).\n",
->  			inode->i_ino);
->  	}
->  
-> @@ -1450,7 +1450,7 @@ static int isofs_read_inode(struct inode *inode, int relocated)
->  		/* XXX - parse_rock_ridge_inode() had already set i_rdev. */
->  		init_special_inode(inode, inode->i_mode, inode->i_rdev);
->  	} else {
-> -		printk(KERN_DEBUG "ISOFS: Invalid file type 0%04o for inode %lu.\n",
-> +		printk(KERN_DEBUG "ISOFS: Invalid file type 0%04o for inode %" PRIino "u.\n",
->  			inode->i_mode, inode->i_ino);
->  		ret = -EIO;
->  		goto fail;
-> diff --git a/fs/isofs/namei.c b/fs/isofs/namei.c
-> index 58f80e1b3ac0d5082c24b5dbfd064cf5bff7d5a5..494d2ae4c0955123335a97f23672b959dcc9e0bd 100644
-> --- a/fs/isofs/namei.c
-> +++ b/fs/isofs/namei.c
-> @@ -100,7 +100,7 @@ isofs_find_entry(struct inode *dir, struct dentry *dentry,
->  		/* Basic sanity check, whether name doesn't exceed dir entry */
->  		if (de_len < dlen + sizeof(struct iso_directory_record)) {
->  			printk(KERN_NOTICE "iso9660: Corrupted directory entry"
-> -			       " in block %lu of inode %lu\n", block,
-> +			       " in block %lu of inode %" PRIino "u\n", block,
->  			       dir->i_ino);
->  			brelse(bh);
->  			return 0;
-> 
-> -- 
-> 2.53.0
-> 
 -- 
 Jan Kara <jack@suse.com>
 SUSE Labs, CR
