@@ -4,101 +4,204 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17BEAEDA693
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 16:21:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BCC4EDA698
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 17:00:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACC3C10E84D;
-	Tue,  3 Mar 2026 16:21:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B0F210E875;
+	Tue,  3 Mar 2026 17:00:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GtRbykN6";
+	dkim=pass (2048-bit key; unprotected) header.d=paul-moore.com header.i=@paul-moore.com header.b="XM1eQFEy";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010025.outbound.protection.outlook.com [52.101.85.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58F7F10E84A;
- Tue,  3 Mar 2026 16:21:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e4JSMtUcKO2/RHn8c1wsni1zywVaKE4+KJxJT8vjmK2tWJ5ZZFiSEZ79xm1Kdt9fLwRkWPekphHtnOa8FZOsybHT3PQYSbpsP0SO+3fdiwH1oXhZZh2UkRl6O55+D1vVmGJvCp1jXbUA34vtLxP0RKRV7kzam4QhKwYBSuJuXhWnFhSlFoKc5/3cfVhCuPNtMSiHfzIQfFrCq5NmtSIJg/wTdHpHYBZpjmxT836/juTHglP3PjTxIS8Fa3DtTBctrZCtz7sbb6P1r5IKXlIJTDjDijSfVg6j3FrWusjZtPzfv9OVsbmE4BpxO3bIG6AVsUHMeIUN+NlMER3uogaa7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fr/dR8E6Q3J4TdjtZXh/Rr1YMtbkY9VXydTOt/SLkzk=;
- b=eOQA9ohZqSwIs/QXNrrcZdDefFzoQoSk//eq2xXWMiDMadpHAmO8uIBUAUYzTMCTAreIMGMpEntX5iboPTtn1H96U9RUDHUNefNAGSAEFJgzrQkiELPXVbhj01wb5KUtNEUnb+lkASbjtZd4N3XwPyqjK6MLaeWR6FVPRsEvCGJiQwulq3k3O7Op2wGq/DU/7gy++OG+xYInXxdjPr0sJc0izttca74eoks3N4r7nWmkaJ8taczyCvX3sMOX4b+dZRSvmRosJhsUDzd9cAB/dKw0RDjRcy2pDgrDz/9IhvwSJcUgsLLRI5iljwNFLeqhavs5BjLtvjBHoROz1yp4Jw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fr/dR8E6Q3J4TdjtZXh/Rr1YMtbkY9VXydTOt/SLkzk=;
- b=GtRbykN67dAMJwrkko1XUM0aG8kNH/4+hmVV0qAP0BXws2eMbI8RauyOzz66lMd1KRNMgWpGEMBESvQ3P9KcqlV3XUOo61tTNZPDpOt4zacCcXhgtHEX/bKLv9uDXFendDDPGTz+MBl6SOA8q0Stk5M3Gwi4uO8iwV39GsA+fG8=
-Received: from SN7PR18CA0027.namprd18.prod.outlook.com (2603:10b6:806:f3::22)
- by DM4PR12MB6062.namprd12.prod.outlook.com (2603:10b6:8:b2::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9654.21; Tue, 3 Mar 2026 16:21:22 +0000
-Received: from SN1PEPF0002BA50.namprd03.prod.outlook.com
- (2603:10b6:806:f3:cafe::4d) by SN7PR18CA0027.outlook.office365.com
- (2603:10b6:806:f3::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.22 via Frontend Transport; Tue,
- 3 Mar 2026 16:21:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF0002BA50.mail.protection.outlook.com (10.167.242.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9654.16 via Frontend Transport; Tue, 3 Mar 2026 16:21:21 +0000
-Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Tue, 3 Mar 2026 10:21:19 -0600
-From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 6/6] drm/amdgpu: dump job ibs in the devcoredump
-Date: Tue, 3 Mar 2026 17:18:19 +0100
-Message-ID: <20260303161824.7765-6-pierre-eric.pelloux-prayer@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260303161824.7765-1-pierre-eric.pelloux-prayer@amd.com>
-References: <20260303161824.7765-1-pierre-eric.pelloux-prayer@amd.com>
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 947AA10E846
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2026 16:17:48 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-824a6f2d816so2598088b3a.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 03 Mar 2026 08:17:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772554668; cv=none;
+ d=google.com; s=arc-20240605;
+ b=GQ3AmFi0f7nTCNbpulCIYPVekZnj5ZXKPS/bpgqS+MVGWP34cJGiBL9QUtkIOjb5qC
+ DqTwbClEMTSdvbMqIMcvRVmFbGNOFzWIOBPtU6Gl8KVCigdG83dLQvIj0G8E9PLY5nKk
+ 13Mkx1YpVC7O0wZhB3ICbS5uRSQYywttpmBIZbcv8j4HZ4H4oq6XQVylKkExQYYAt5Bp
+ bsFa3/O5wrSuqAUZksCEgOIpGXai+Q+L1HU2/rnd40XegRuEaLHi6b6k6k/pK92wCbZu
+ ZtFbARrORgzt0UzahufvHp9Nbjq3MUm4XPm3XO5lX/7qFtxECVZWyehdMyyGsw1KuhpA
+ gcpw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=vlM0HTuT+/Lu8GovscjfA3KZuqms5GnXWRMciKBvDhQ=;
+ fh=tecWcxNWi2OoBZBQu/XGA51ZsFJl2V+D4pPwfhRhwcQ=;
+ b=kmhMEdFgPoX/JfRxMxWjcVOUz4gmZ+kPTecIouyUoOFt6THfvFNt4iwFCTqC/7/3lF
+ Q4f47RsLfa9fmogmuaUDF92aN69irp8btaOldQCCQ7FbFEVn8kzOAPLP3Bjosfm4bQDH
+ KK3z0Qj4tzwAs7a6ff29mGh0svF3lF9OSssTapXQ9bnXWZou5sN+WLJ0s5Xg3OaRfAFB
+ WyCwxLz5fUfWxfBTpG82QFCj08J9OIdRiLD+UC3PUmhWXd19HIEtHu05qFBvKsoMDnJp
+ AmmtfsPAR5GptwIASnmwFb8M2E3VnL7qypoHHLtcqKX3D5/u5PYkAEneKObCbS9DYt7/
+ r9Ew==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=paul-moore.com; s=google; t=1772554668; x=1773159468;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=vlM0HTuT+/Lu8GovscjfA3KZuqms5GnXWRMciKBvDhQ=;
+ b=XM1eQFEywMqysfGSCA1xKkvxUL0ijCtPeBNPPMJO+VhInGCuV1hXcdq6kTpJy5EwYc
+ ba+ckqW/ebDKbLqP3qUfhSdrO9355jdBaQ4lyCQ9zGr3ty1kjaWry5lDHtxM5MQtuxPw
+ mA7QhV9WJiPdOBar1yCHliuSI+T7Neucl3aDZaDsML0fgweFgS4u4i5H9H70fwmnmbrN
+ +7RbOdIlNu+Ae4S57W1Vd6ikevGdTV3NRa/X4YbcTs47I3h3ouRNL75bF3RZPVOrg6Y3
+ qrGDeOP0yVhwjJMHKNl7dhXofXw0gi5v1kQbkUKDrdbfIL3qwoNqJFxZnEN53MId8mRg
+ Cafw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772554668; x=1773159468;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=vlM0HTuT+/Lu8GovscjfA3KZuqms5GnXWRMciKBvDhQ=;
+ b=tSC/e/zfomNK7dVt3rGMAqoDK3hy8jUgsbTMeiM2CUgDGCFw0Nw3nw5XfJzUgTFrWm
+ 8mNXMPUCAx/B7iZ38Ou0vWUjsApWFey1Yk+7Qu5Ok+yzqWhOJQsCsBjlrHu3xSCUXWJj
+ ILWz3r6C6iDOXm06Uw0ycq1VCn1VSW9hjsWHX3ze+z8aT/Amr0Ebsaz7+Li2dTFr9vF5
+ hhc5YCWAe1HI6RdjbNG+zuNWMcQ1d75Eq6YR32ZNSwbjFJQIlgn5cf3bMDGrCMNevvUf
+ dnjWy+h5WyzeLm/g7UHkFn9TI8HKI7/cspNlc7o+fO2BvH+WpgVJttENN9hW4gsniSFt
+ WKzA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXJ7+6za2gvu4RSjEITGxwZ19vac5USfbGsrejD5C7g58t+YKMTiz8wKq6N8NHcIDtwVRe8fZ50@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxDmL/aDy2UJS6Xkj2MUPInhqs19J83Qzk2h3/BrklrbtJ39qtT
+ FePlhcK46AtiawE/w66tVIxrYcM5kNqujXGYuORLVEl9GOZdIyjNISm4j5zvtAX+P2t8heUoivf
+ e61Ct57ql3mvoatGoG7NC2Z6JPfWgqMSYYmz1egcS
+X-Gm-Gg: ATEYQzwnerV0G83RZ5Y7BdwByYPekbn9lPuoD22e3Ssq1OnBf+9PeXLPH46Igj6uaCc
+ 0z5gFLOVqotctb5fvJEH+Iex1vRpRuQ2XvsrohtastKF/SYcnm82UWByR2AbhrSCsvBpyjdhugO
+ Xef1/cyGEUg9YG+AVezbmv15Mj66NOaaHkP4obvkphebD5vjqKAN1Qx+jLbmeJ+2jNUCbcf9cS3
+ MRHSjTkfIlleLLPqbU4GHEDh/YrbqtonzWTxAqkeHmo0tngowjQRGwWJLRP9elEXBVshL8BP/1K
+ QFxyrKk=
+X-Received: by 2002:a17:90b:4c12:b0:359:8d70:c4e6 with SMTP id
+ 98e67ed59e1d1-3598d70c5admr5344309a91.1.1772554667658; Tue, 03 Mar 2026
+ 08:17:47 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA50:EE_|DM4PR12MB6062:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2630665d-f94a-4324-b788-08de7940e871
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700013|1800799024|82310400026; 
-X-Microsoft-Antispam-Message-Info: 8gT99qSTKxev8GqaFya+bZYlN+9gf1Vtq6pI80GI9kH8Foa87LR6zuCsY3wXLbZBP/3vez6697du9NFP4PtOCAlI9lLquVkRZyTeV2/BwmeULJSjv4w7GymPGpiE1GaaTx60RXHYvPB5yM1pMee1K0zKMewtjcUwG5gAnTLFuVR/hUMYLlG9lvEseG5cN2/nrewyXQPwVNJ+5Ah+i9ZHpHzud8hS40YOahL3c5pTL9cwuLPhfpLZEu6+C1coiNla37hoICEwvMAHvwCBEVnneptIzhGiLKCuUpy6cnMsi6ouRi0EsdK1wp/RopMvXjl1q1b/RIFc4ljC8dvr240FqAwmcsGJGfT9tDGo1aoWBPTgOlFQd+yHN7AFCO4luCN8KjPD6nzoG/KBpPsuInQ8AYLnPjxSxSM9mcueOJnXtYl9+cj/W5XFT21FbunOGiyv0CYQDqnmJEAWfyq9CBG5Mz9NhrgWffI4l/JyvcbH7lUbNAY9/9z8bqrZ/EUCFIu7DnDRRpMS1kze2gYah5rI8mUt6RVDafYAomHkF9xQTGM/rQkH03us4y8KveeoUomkrGizfSrYz1+A+S4ZdQ16uJrg9gh9JXRSupe05G5xXiKVsdTomfGGy6JMUbtvSb+XSy/ZoNDUiS1VqiA84SNKd4i9VqypusEGLZU7ycPiNaUPGktkaw26rQkcTmtjMeIKpFaircXDRgMaN1MUM1IwGThv/be8ppWSTrVT8yl/UNzRO+8c7MQ/F0T7jQ9cfxt1FHPMaoOzUp3o5VWJzSKGybbIrsUoxsQwBFYvAY/4603+K+VTcSsR7OpmAohiFvQoYDIwOi84GGn7WKelGImDXw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700013)(1800799024)(82310400026); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5yGQ0HY7cjIH8/Nk8HiwdRW/xZB8ZmtiyqJVzp3BzLyiXXTeaWmCOF9l2VJTWH5X6YdoqmvtqKU/tfHwvz97aCqGXC6+x7eOM5bkHHiUt7Jr8ZcJS3cvFYXOnnPLLKKjYiEfrvlRe2MPZHagwI17V3Vzam263gvzcAZ57TKbk8Qo/vzgV6blk9O/9SgQyJXpLn+63d5oJRGMCk2uJwoUZ5GX/aUuT9fZfjYwSnAnLgb7bLj+xI9UhYkuY8LoCF4aF114IJGSXX+bXvP5YcKLwnyk9RONyOkWItMYAj+bF+O+EArnwcj/YjFpQWrV85xH8L+m85e/tBuYuEVa4F8VKZOfGhPbZl0pwCdONNtYTge8lww9poP/6QV1nnK+W09Vgt6cuT48S97qh3f97LSgADr9Cij7rhiAzLVpF0+8l65wtD50+38G6SY6/4g9aK5c
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2026 16:21:21.7174 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2630665d-f94a-4324-b788-08de7940e871
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA50.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6062
+References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
+ <20260302-iino-u64-v2-3-e5388800dae0@kernel.org>
+ <CAHC9VhRnmBuXEKkUPQhJ_LDzcksjoAJL-ne6mFoJdR1hnDdzsg@mail.gmail.com>
+ <7a0165fe39e82a1effd8cce5c2c4e82d6a42cb3a.camel@kernel.org>
+ <CAHC9VhTyhnG7-ojnTnVdh_m1x=rKxw9YEH9g7Xp9m4F78aA5cA@mail.gmail.com>
+ <add39953250a4a1b2fe2b09deb3373c2a7482b88.camel@kernel.org>
+In-Reply-To: <add39953250a4a1b2fe2b09deb3373c2a7482b88.camel@kernel.org>
+From: Paul Moore <paul@paul-moore.com>
+Date: Tue, 3 Mar 2026 11:17:34 -0500
+X-Gm-Features: AaiRm503AvilRZsmzje3hsLVwZQN2UeIDoaYrT0wwtgoCj-_LcRzyWRvZdGrFAo
+Message-ID: <CAHC9VhSb3nAsJBxhqitDVQw=J8hX1CJDe1xqL-JMjOA5J4tUkw@mail.gmail.com>
+Subject: Re: [PATCH v2 003/110] audit: widen ino fields to u64
+To: Jeff Layton <jlayton@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Dan Williams <dan.j.williams@intel.com>, 
+ Matthew Wilcox <willy@infradead.org>, Eric Biggers <ebiggers@kernel.org>, 
+ "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+ David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
+ Tom Talpey <tom@talpey.com>, 
+ Steve French <sfrench@samba.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+ Shyam Prasad N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>, 
+ Alexander Aring <alex.aring@gmail.com>,
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, Eric Van Hensbergen <ericvh@kernel.org>,
+ Latchesar Ionkov <lucho@ionkov.net>,
+ Dominique Martinet <asmadeus@codewreck.org>, 
+ Christian Schoenebeck <linux_oss@crudebyte.com>,
+ David Sterba <dsterba@suse.com>, 
+ Marc Dionne <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>, 
+ Luis de Bethencourt <luisbg@kernel.org>, Salah Triki <salah.triki@gmail.com>, 
+ "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
+ Ilya Dryomov <idryomov@gmail.com>, 
+ Alex Markuze <amarkuze@redhat.com>, Jan Harkes <jaharkes@cs.cmu.edu>,
+ coda@cs.cmu.edu, 
+ Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>,
+ Amir Goldstein <amir73il@gmail.com>, 
+ Christoph Hellwig <hch@infradead.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Yangtao Li <frank.li@vivo.com>, 
+ Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
+ David Woodhouse <dwmw2@infradead.org>, 
+ Richard Weinberger <richard@nod.at>, Dave Kleikamp <shaggy@kernel.org>, 
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ Mark Fasheh <mark@fasheh.com>, 
+ Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>, 
+ Mike Marshall <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
+ Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
+ John Johansen <john.johansen@canonical.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Ondrej Mosnacek <omosnace@redhat.com>, 
+ Casey Schaufler <casey@schaufler-ca.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Willem de Bruijn <willemb@google.com>, "David S. Miller" <davem@davemloft.net>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>,
+ Joerg Reuter <jreuter@yaina.de>, 
+ Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg <johan.hedberg@gmail.com>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Oliver Hartkopp <socketcan@hartkopp.net>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>, 
+ Neal Cardwell <ncardwell@google.com>,
+ Steffen Klassert <steffen.klassert@secunet.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Remi Denis-Courmont <courmisch@gmail.com>, 
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+ linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
+ v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
+ ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, 
+ ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
+ ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
+ linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
+ linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
+ selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
+ linux-x25@vger.kernel.org, audit@vger.kernel.org, 
+ linux-bluetooth@vger.kernel.org, linux-can@vger.kernel.org, 
+ linux-sctp@vger.kernel.org, bpf@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 03 Mar 2026 17:00:33 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,145 +216,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Now that we have a worker thread, we can try to access the
-IBs of the job. The process is:
-* get the VM from the PASID
-* get the BO from its VA and the VM
-* map the BO for CPU access
-* copy everything, then add it to the dump
-Each step can fail so we have to be cautious.
-These operations can be slow so when amdgpu_devcoredump_format
-is called only to determine the size of the buffer we skip all
-of them and assume they will succeed.
+On Tue, Mar 3, 2026 at 11:12=E2=80=AFAM Jeff Layton <jlayton@kernel.org> wr=
+ote:
+> On Tue, 2026-03-03 at 11:03 -0500, Paul Moore wrote:
+> > On Tue, Mar 3, 2026 at 6:05=E2=80=AFAM Jeff Layton <jlayton@kernel.org>=
+ wrote:
+> > > On Mon, 2026-03-02 at 18:44 -0500, Paul Moore wrote:
+> > > > On Mon, Mar 2, 2026 at 3:25=E2=80=AFPM Jeff Layton <jlayton@kernel.=
+org> wrote:
+> > > > >
+> > > > > inode->i_ino is being widened from unsigned long to u64. The audi=
+t
+> > > > > subsystem uses unsigned long ino in struct fields, function param=
+eters,
+> > > > > and local variables that store inode numbers from arbitrary files=
+ystems.
+> > > > > On 32-bit platforms this truncates inode numbers that exceed 32 b=
+its,
+> > > > > which will cause incorrect audit log entries and broken watch/mar=
+k
+> > > > > comparisons.
+> > > > >
+> > > > > Widen all audit ino fields, parameters, and locals to u64, and up=
+date
+> > > > > the inode format string from %lu to %llu to match.
+> > > > >
+> > > > > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> > > > > ---
+> > > > >  include/linux/audit.h   | 2 +-
+> > > > >  kernel/audit.h          | 9 ++++-----
+> > > > >  kernel/audit_fsnotify.c | 4 ++--
+> > > > >  kernel/audit_watch.c    | 8 ++++----
+> > > > >  kernel/auditsc.c        | 2 +-
+> > > > >  5 files changed, 12 insertions(+), 13 deletions(-)
+> > > >
+> > > > We should also update audit_hash_ino() in kernel/audit.h.  It is a
+> > > > *very* basic hash function, so I think leaving the function as-is a=
+nd
+> > > > just changing the inode parameter from u32 to u64 should be fine.
+> >
+> > ...
+> >
+> > > It doesn't look like changing the argument type will make any materia=
+l
+> > > difference. Given that it should still work without that change, can =
+we
+> > > leave this cleanup for you to do in a follow-on patchset?
+> >
+> > I would prefer if you made the change as part of the patch, mainly to
+> > keep a patch record of this being related.
+>
+> Ok, I'll see about factoring that in.
 
----
-v3: use kvfree
----
+Thanks.
 
-Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
----
- .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 93 ++++++++++++++++++-
- 1 file changed, 92 insertions(+), 1 deletion(-)
+> > Ideally I'd really like to see kino_t used in the audit code instead
+> > of u64, but perhaps that is done in a later patch that I didn't see.
+>
+> I think I didn't make this clear enough in the cover letter, but kino_t
+> is removed at the end of the series. It's just there to support the
+> change during the interim.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index 82814646695d..3115835617cc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -203,14 +203,24 @@ static void amdgpu_devcoredump_fw_info(struct amdgpu_device *adev,
- static ssize_t
- amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_info *coredump)
- {
-+	struct amdgpu_device *adev = coredump->adev;
- 	struct drm_printer p;
- 	struct drm_print_iterator iter;
- 	struct amdgpu_vm_fault_info *fault_info;
-+	struct amdgpu_bo_va_mapping *mapping;
- 	struct amdgpu_ip_block *ip_block;
-+	struct amdgpu_res_cursor cursor;
-+	struct amdgpu_bo *abo, *root;
-+	uint64_t va_start, offset;
- 	struct amdgpu_ring *ring;
--	int ver, i, j;
-+	struct amdgpu_vm *vm;
-+	u32 *ib_content;
-+	uint8_t *kptr;
-+	int ver, i, j, r;
- 	u32 ring_idx, off;
-+	bool sizing_pass;
- 
-+	sizing_pass = buffer == NULL;
- 	iter.data = buffer;
- 	iter.offset = 0;
- 	iter.remain = count;
-@@ -326,6 +336,87 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 	else if (coredump->reset_vram_lost)
- 		drm_printf(&p, "VRAM is lost due to GPU reset!\n");
- 
-+	if (coredump->num_ibs) {
-+		/* Don't try to lookup the VM or map the BOs when calculating the
-+		 * size required to store the devcoredump.
-+		 */
-+		if (sizing_pass)
-+			vm = NULL;
-+		else
-+			vm = amdgpu_vm_lock_by_pasid(adev, &root, coredump->pasid);
-+
-+		for (int i = 0; i < coredump->num_ibs && (sizing_pass || vm); i++) {
-+			ib_content = kvmalloc_array(coredump->ibs[i].ib_size_dw, 4,
-+						    GFP_KERNEL);
-+			if (!ib_content)
-+				continue;
-+
-+			/* vm=NULL can only happen when 'sizing_pass' is true. Skip to the
-+			 * drm_printf() calls (ib_content doesn't need to be initialized
-+			 * as its content won't be written anywhere).
-+			 */
-+			if (!vm)
-+				goto output_ib_content;
-+
-+			va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
-+			mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start / AMDGPU_GPU_PAGE_SIZE);
-+			if (!mapping)
-+				goto free_ib_content;
-+
-+			offset = va_start - (mapping->start * AMDGPU_GPU_PAGE_SIZE);
-+			abo = amdgpu_bo_ref(mapping->bo_va->base.bo);
-+			r = amdgpu_bo_reserve(abo, false);
-+			if (r)
-+				goto free_ib_content;
-+
-+			if (abo->flags & AMDGPU_GEM_CREATE_NO_CPU_ACCESS) {
-+				off = 0;
-+
-+				if (abo->tbo.resource->mem_type != TTM_PL_VRAM)
-+					goto unreserve_abo;
-+
-+				amdgpu_res_first(abo->tbo.resource, offset,
-+						 coredump->ibs[i].ib_size_dw * 4,
-+						 &cursor);
-+				while (cursor.remaining) {
-+					amdgpu_device_mm_access(adev, cursor.start / 4,
-+								&ib_content[off], cursor.size / 4,
-+								false);
-+					off += cursor.size;
-+					amdgpu_res_next(&cursor, cursor.size);
-+				}
-+			} else {
-+				r = ttm_bo_kmap(&abo->tbo, 0,
-+						PFN_UP(abo->tbo.base.size),
-+						&abo->kmap);
-+				if (r)
-+					goto unreserve_abo;
-+
-+				kptr = amdgpu_bo_kptr(abo);
-+				kptr += offset;
-+				memcpy(ib_content, kptr,
-+				       coredump->ibs[i].ib_size_dw * 4);
-+
-+				amdgpu_bo_kunmap(abo);
-+			}
-+
-+output_ib_content:
-+			drm_printf(&p, "\nIB #%d 0x%llx %d dw\n",
-+				   i, coredump->ibs[i].gpu_addr, coredump->ibs[i].ib_size_dw);
-+			for (int j = 0; j < coredump->ibs[i].ib_size_dw; j++)
-+				drm_printf(&p, "0x%08x\n", ib_content[j]);
-+unreserve_abo:
-+			if (vm)
-+				amdgpu_bo_unreserve(abo);
-+free_ib_content:
-+			kvfree(ib_content);
-+		}
-+		if (vm) {
-+			amdgpu_bo_unreserve(root);
-+			amdgpu_bo_unref(&root);
-+		}
-+	}
-+
- 	return count - iter.remain;
- }
- 
--- 
-2.43.0
+Ah, gotcha, thanks for the education :)
 
+> If HCH gets his way to do the changes as one big patch, it'll go away
+> entirely.
+
+--=20
+paul-moore.com
