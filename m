@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D91DEDA6B4
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C17C4EDA6AB
 	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2026 17:00:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B135010E88A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA83710E88C;
 	Tue,  3 Mar 2026 17:00:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lPtWXQNt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FuSlGmei";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2046F10E80D;
- Tue,  3 Mar 2026 13:43:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D26F10E836;
+ Tue,  3 Mar 2026 15:26:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E51A360127;
- Tue,  3 Mar 2026 13:43:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E11BC116C6;
- Tue,  3 Mar 2026 13:43:17 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D268260127;
+ Tue,  3 Mar 2026 15:26:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19832C116C6;
+ Tue,  3 Mar 2026 15:25:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772545411;
- bh=TjmiuM+OEwlaZJFhFJESx27NKhtF5NKVQ1B/VbuqFXg=;
+ s=k20201202; t=1772551566;
+ bh=GR5xxAO3SaQW9wgM7VGtxRPOkk2oeXbLrLD7cLv6Vfo=;
  h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=lPtWXQNttIOex0BiPgyvU4GuNeeGsyj4j+7AWaYBWN3CCABxKy1hQAYgMSkJpwy5l
- KOJY156ACLADjQDWlItIDw/49RdCs18oTHXwiiVd1dwRmt4U+JUltG4yMQsZ+Yq7J2
- e7mX3xmrstuR28/iYagyTLQBnBnHGA0A/0nvfcTWrvcWSZJQ+TPl5feg0p5u96Mb88
- 6JKIzukMTm7ucaoIQK6U0z5IYYMsLhd4n3Eh3CgrLG/pMDXafO9Vbw5HRY2Gk4GIpd
- 1wGE5yBP27UyQKdEM9RU2hejqHxifQK5csKEfhDIWSGXdoi6xNmgMLHZp8uO6BvsLQ
- /fLz8gFa4zSSQ==
-Message-ID: <19e4e79a59dcfc4c61c8cf263af345d0d7026fc8.camel@kernel.org>
+ b=FuSlGmeiPRKGLoVXeyoAW/4o0okRbURy9ms1hiH2PDqHC8YS5UGUv9pjnJURfC1N3
+ wEHpswFKJ9D7LuZA6II7jxIclJzmZ5mTaaPW4MAHz1ft4MhLW1HZrLr0Juj9NIJ8+5
+ CYHQJkN8Mlno7UC+a35h2JBvFZEkwIKYFfjenBa8ci++7tWv3SBJpPkEUhCg7EA8/C
+ T2oD0g2pCazrgxokqgkGYkIajww+MhJ1/Z0LjEDZPy8xCtNF381iB35sgllJ8wNyOg
+ qAL/lm8ZnxNCumPp1kFjCkJBZmxGM1T9KXd47dCgWe+GFM6EaCUfBAl9jXPgSERD/R
+ MVuefm1rcs/Xg==
+Message-ID: <78abbfef9b7ac8cdde4de9f2cf3fbb50317d6dd3.camel@kernel.org>
 Subject: Re: [PATCH v2 001/110] vfs: introduce kino_t typedef and PRIino
  format macro
 From: Jeff Layton <jlayton@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: "Darrick J. Wong" <djwong@kernel.org>, Theodore Tso <tytso@mit.edu>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
- <brauner@kernel.org>, Jan Kara <jack@suse.cz>,  Steven Rostedt
- <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
- Desnoyers	 <mathieu.desnoyers@efficios.com>, Dan Williams
- <dan.j.williams@intel.com>,  Matthew Wilcox <willy@infradead.org>, Eric
- Biggers <ebiggers@kernel.org>, Muchun Song <muchun.song@linux.dev>,  Oscar
- Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, David
- Howells <dhowells@redhat.com>,  Paulo Alcantara	 <pc@manguebit.org>,
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara	 <jack@suse.com>,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,  Trond
- Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, Chuck
- Lever <chuck.lever@oracle.com>,  NeilBrown <neil@brown.name>, Olga
- Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,  Tom
- Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>, Ronnie Sahlberg
- <ronniesahlberg@gmail.com>,  Shyam Prasad N <sprasad@microsoft.com>,
- Bharath SM <bharathsm@microsoft.com>, Alexander Aring	
- <alex.aring@gmail.com>, Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
- Viacheslav Dubeyko	 <slava@dubeyko.com>, Eric Van Hensbergen
- <ericvh@kernel.org>, Latchesar Ionkov	 <lucho@ionkov.net>, Dominique
- Martinet <asmadeus@codewreck.org>, Christian Schoenebeck
+To: Theodore Tso <tytso@mit.edu>
+Cc: "Darrick J. Wong" <djwong@kernel.org>, Alexander Viro	
+ <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara
+ <jack@suse.cz>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu	
+ <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Dan Williams <dan.j.williams@intel.com>, Matthew Wilcox
+ <willy@infradead.org>, Eric Biggers	 <ebiggers@kernel.org>, Muchun Song
+ <muchun.song@linux.dev>, Oscar Salvador	 <osalvador@suse.de>, David
+ Hildenbrand <david@kernel.org>, David Howells	 <dhowells@redhat.com>, Paulo
+ Alcantara <pc@manguebit.org>, Andreas Dilger	 <adilger.kernel@dilger.ca>,
+ Jan Kara <jack@suse.com>, Jaegeuk Kim	 <jaegeuk@kernel.org>, Chao Yu
+ <chao@kernel.org>, Trond Myklebust	 <trondmy@kernel.org>, Anna Schumaker
+ <anna@kernel.org>, Chuck Lever	 <chuck.lever@oracle.com>, NeilBrown
+ <neil@brown.name>, Olga Kornievskaia	 <okorniev@redhat.com>, Dai Ngo
+ <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,  Steve French
+ <sfrench@samba.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam
+ Prasad N	 <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>,
+ Alexander Aring	 <alex.aring@gmail.com>, Ryusuke Konishi
+ <konishi.ryusuke@gmail.com>,  Viacheslav Dubeyko	 <slava@dubeyko.com>, Eric
+ Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov	 <lucho@ionkov.net>,
+ Dominique Martinet <asmadeus@codewreck.org>, Christian Schoenebeck
  <linux_oss@crudebyte.com>, David Sterba <dsterba@suse.com>, Marc Dionne	
  <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>, Luis de
  Bethencourt	 <luisbg@kernel.org>, Salah Triki <salah.triki@gmail.com>,
  "Tigran A. Aivazian"	 <aivazian.tigran@gmail.com>, Ilya Dryomov
  <idryomov@gmail.com>, Alex Markuze	 <amarkuze@redhat.com>, Jan Harkes
  <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,  Nicolas Pitre <nico@fluxnic.net>,
- Tyler Hicks <code@tyhicks.com>, Amir Goldstein <amir73il@gmail.com>, John
- Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
- <frank.li@vivo.com>, Mikulas Patocka	 <mikulas@artax.karlin.mff.cuni.cz>,
- David Woodhouse <dwmw2@infradead.org>,  Richard Weinberger	
- <richard@nod.at>, Dave Kleikamp <shaggy@kernel.org>, Konstantin Komarov	
+ Tyler Hicks <code@tyhicks.com>, Amir Goldstein <amir73il@gmail.com>, 
+ Christoph Hellwig	 <hch@infradead.org>, John Paul Adrian Glaubitz
+ <glaubitz@physik.fu-berlin.de>,  Yangtao Li <frank.li@vivo.com>, Mikulas
+ Patocka <mikulas@artax.karlin.mff.cuni.cz>, David Woodhouse	
+ <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, Dave Kleikamp	
+ <shaggy@kernel.org>, Konstantin Komarov	
  <almaz.alexandrovich@paragon-software.com>, Mark Fasheh <mark@fasheh.com>, 
  Joel Becker <jlbec@evilplan.org>, Joseph Qi <joseph.qi@linux.alibaba.com>,
  Mike Marshall	 <hubcap@omnibond.com>, Martin Brandenburg
@@ -128,14 +128,14 @@ Cc: "Darrick J. Wong" <djwong@kernel.org>, Theodore Tso <tytso@mit.edu>,
  linux-x25@vger.kernel.org, 	audit@vger.kernel.org,
  linux-bluetooth@vger.kernel.org, 	linux-can@vger.kernel.org,
  linux-sctp@vger.kernel.org, bpf@vger.kernel.org
-Date: Tue, 03 Mar 2026 08:43:15 -0500
-In-Reply-To: <aabkBadGzo7IZpSU@infradead.org>
+Date: Tue, 03 Mar 2026 10:25:50 -0500
+In-Reply-To: <20260303151617.GD6520@macsyma-wired.lan>
 References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
  <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
  <20260303012556.GA6520@macsyma-wired.lan>
  <20260303042546.GF13868@frogsfrogsfrogs>
  <33228005140684201de2ca0c157441d3b6a06413.camel@kernel.org>
- <aabkBadGzo7IZpSU@infradead.org>
+ <20260303151617.GD6520@macsyma-wired.lan>
 Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
  keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
  n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
@@ -229,16 +229,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-03-03 at 05:37 -0800, Christoph Hellwig wrote:
+On Tue, 2026-03-03 at 10:16 -0500, Theodore Tso wrote:
 > On Tue, Mar 03, 2026 at 05:53:39AM -0500, Jeff Layton wrote:
+> >=20
 > > Like I said to Ted, this is just temporary scaffolding for the change.
 > > The PRIino macro is removed in the end. Given that, perhaps you can
 > > overlook the bikeshed's color in this instance?
 >=20
-> So why add it in the first place? =20
+> I didn't realize that this was going to disappear in the end.  That
+> makes me feel much better about the change.  I'd suggest changing the
+> commit description where it claims that we're using something that
+> follows the inttypes.h convention and making it clear that this is
+> temporary and only to preserve bisectability.
+>=20
+> One question though --- are there *really* places that are using
+> signed inode numbers and trying to print them?  If people are trying
+> to use negative inodes to signal an error or some such, the it implies
+> that at least for some file systems, an inode number larger than 2**63
+> might be problematic.  If there is core VFS code that uses a negative
+> inode number then this could be a real potential trap.
+>=20
+> So are there really code which is doing a printf of 'PRIino "d"'?  Or
+> was this to allow the use of of 'PRiino "x"'?
+>=20
 
-Bisectability. The first version I did of this would have broken the
-ability to bisect properly across these changes. I don't love the
-"churn" here either, but this should be cleanly bisectable.
+Mostly it's to allow 'PRIino "x"'. There are a number of places that
+(for whatever reason) print the inode number in hex. I don't want to
+change those.
+
+There are also some places that print it as a signed value (PRIino
+"d"). I suspect most of those are bugs, or just holdovers from a
+simpler time when we didn't worry so much about the signedness of inode
+numbers. I fixed a few of those in the context of this series, fwiw.
+
 --=20
 Jeff Layton <jlayton@kernel.org>
