@@ -4,128 +4,169 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE86EEF309
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 06:48:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9E80EEF31B
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 08:15:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3CEE110E210;
-	Thu,  5 Mar 2026 06:48:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9DC410EB71;
+	Thu,  5 Mar 2026 08:15:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5VwGbGkh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bChptJ5T";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011024.outbound.protection.outlook.com [52.101.57.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A463110E210
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2026 06:48:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fREHi9kioD3HFyAqcYX04sWL9ELFQ6AhvnSOtiAZ8Mqgvi1lCaC2AmKTH9rOpZ14Wv8J2PpkQbpvTI1OTs3dLSGE4Hw9csiR0sGd11K+mz2/dZiRVjWBp/uYnRNQyBTyyOuBteQ7bj9R3yVNHW30KnYH1s79R6Y2bQpJ54U9TjjzD+fDbuIrokCkdlt6cQi+20bB5bZdQeLjxIrc5gDoMc3NgmtC7CN5bG6DNwY4A1ttrX1pGxo7nm5MtN+JzNZ6RESyie0GgZy6l7ecOTuErpXM5xRn3X/0UvwtQdT2F6AqBk8uvkbTnd495B8RmLCzmxThsQr6wmNTd6E3HL10Ug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gqpThfce6KNcP3ZNSmxZMEzkm0XaLs1aYmnCrr0p4Po=;
- b=GcsuFr3vuFqubeIR1j/uHklbgZaQ9W6qN+0dLGmYicakec6WVeq1IpxXjOUr2kTJxhfNQ3Ew1dXfMFkg1GCBlXxFHMd/TcvukuBpjL7LDPrnIawVSYsdciU0VIQHgmrQ/YJwCcOdGOmGmmQ9Hw2qpsbWumlC1beHRS9/P10mDibWMYr7yUm8U8v5GKUE0k8eRQ3EI0wJKlIo9XuU256u2PVGFqouZXZsyLzbLl7Y38QUxqls4uXUA4EQitsPYe4XjijB4EWeR71ncfWnxNjTsFv+Sl0nG+5BIVWXyrHtvHiaFt7HP/Cd7RX2y8RJMbq5vuqB4QYxrB4ZSn/qUcAyhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gqpThfce6KNcP3ZNSmxZMEzkm0XaLs1aYmnCrr0p4Po=;
- b=5VwGbGkhGHn0O/rtR3aAWPUs0eAbo1eGnukfYWUq4KVg/Veem0Lp8zx+oCCpWHnYunB5DZ2TZ9rl09Z5E3P4OVRktImTUGhwkovliAY7vnTyzHmqGRoLUQxy5n3mCRJt4bWHZT4QfD9rmyX7TAtbrQAVq+LjEW+s2vicdrG8NiI=
-Received: from MN0PR12MB6004.namprd12.prod.outlook.com (2603:10b6:208:380::17)
- by DM6PR12MB4484.namprd12.prod.outlook.com (2603:10b6:5:28f::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Thu, 5 Mar
- 2026 06:48:26 +0000
-Received: from MN0PR12MB6004.namprd12.prod.outlook.com
- ([fe80::4579:c97:2cfc:1338]) by MN0PR12MB6004.namprd12.prod.outlook.com
- ([fe80::4579:c97:2cfc:1338%2]) with mapi id 15.20.9678.016; Thu, 5 Mar 2026
- 06:48:26 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] Revert "drm/amdgpu: attach tlb fence to the PTs update"
-Thread-Topic: [PATCH] Revert "drm/amdgpu: attach tlb fence to the PTs update"
-Thread-Index: AQHcq95wC0xBjhKbkkyDodOxFeg1SbWeZckAgAEYT0A=
-Date: Thu, 5 Mar 2026 06:48:26 +0000
-Message-ID: <MN0PR12MB6004C9B59FDA8BDC2F45AD32FB7DA@MN0PR12MB6004.namprd12.prod.outlook.com>
-References: <20260304135425.18729-1-alexander.deucher@amd.com>
- <bae8f0a1-2dba-4286-ae28-78f0a3c63faa@amd.com>
-In-Reply-To: <bae8f0a1-2dba-4286-ae28-78f0a3c63faa@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-03-05T06:40:20.0000000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MN0PR12MB6004:EE_|DM6PR12MB4484:EE_
-x-ms-office365-filtering-correlation-id: 01733015-cb91-4a6b-fc27-08de7a83340f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0; ARA:13230040|366016|376014|1800799024|38070700021;
-x-microsoft-antispam-message-info: MddJhxXYSKodH9QBDWwJjpUty8XaGP+Rl6GZuDoWR2Se5hlZJHXVTKewS+6AI6H6YhlmoqgYQvvpKymOq+NwUWEQfp4ROBHPYY0JQBaChZsJOHVbk4xoOOkDUqSKXTFgoUf0hIFrq1wQOZhMCCq1JQwC1b6+Cn6fHXINOyRwx2nrlR9zmSvl7Br8GmTbGrG2tDgr+gKSRBHUQUd8jFTC1rlfMK1A6rj9g3l5EBkTDqAn4nYzAluJdFW7E7JwM5eOc0vmed20tBEM0v7cDEHI6ATmKfQBj55V6tqL3tS1tRJ5wVwDV1F1byLFnO9ljdYiBAQykdPmjh7LTqP5fN8TMTVyjgn5uPShUH+8wvl0wN+73c7BEXX7YjXv8dPnLnpEMY3I4f1R1o4i/h+RjzllGeI+Y3ssFBz3/h+YwYSIBD2WEO+aeH1C0ssZAQBu8eDMMB/WUDXaYGstznmx0SacpIYW6GcIBNVREcqzV9Jt1pJT/RZA+u8GUita59T4xtiffUx0lMgJOZxh5Qt4wNgvgiXlZmpgiOKpfDDCOPloqNCYAW56YlKgftomEKPsBvC7+B804VNAUDDxxEL60ZTAeOFNI0SvXizVbmSm3rCSPmZJW58yQtLSbw0P5ahH4yhF8hLPvAo2i1xnNs27WQE4rZoDfGOroBjxlTssJ29qDMmOl3rWG/B6q+crlliysaqBuBtFExbvRxwfWcyf2+I1cz1d3lK/XDTlWbPGvUwPwvE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN0PR12MB6004.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700021); DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Vk9nbnJzL3BycGY5b1NjSk1FL3VUazlqWDQxNndCQzUzbCtUWGlJWm94OGNl?=
- =?utf-8?B?cGRrZjI4dkJTUUJQVmJpeG1QcXFzUDRReTVPWU1VV2FzSU1DelR0ek5ZYjdW?=
- =?utf-8?B?V2gvYTZESTlaQU1hSkFpL0VRcGtXZzJkSWpxQ0RNMThxN2NVSms4L3plVXI5?=
- =?utf-8?B?ZXRub0s5Q1o0ZzFxWTNsRlIybHRDWTBtbkdLUGR1QmxaTGV4dE1icm5rRGJk?=
- =?utf-8?B?MnBoR2prQjJjRkRwTndPR0tpdXhsNWlHNDdrODFjT0RTZUs3V2hJNGZEWjF5?=
- =?utf-8?B?Q211dUVheW11M0ZUbW4yNmpzaFRzejZ4NGN4YTJud3hTN3YyRWgxU3ZmSG4z?=
- =?utf-8?B?KzdPdTRIaHBLeXFmM0JyQVRKQlYzNjgxb2NiZmR3QWZEMHVxTFUyRjF4bzdw?=
- =?utf-8?B?OGt0bVJHQjM3VlhoOExDemhGMHlXc2ttTTladjBla3d4bDdFRHdWNXNTaG92?=
- =?utf-8?B?STVhaXFlK3RJQnFhSmEwdjdlRDFtNndjMmpPaTVtU2RuWGN2MjQ5Nmp1UUFL?=
- =?utf-8?B?N1NaT3FGTHU2RlhMRkZ4ZW5Iamx5THNUZjZWeU9WdW5PMzQzbWc0V3FhMmxp?=
- =?utf-8?B?RjdFTlhMNFkxSldZOVJwT2VqVHBSTUljNThJZk0ybXIwR1NnNEtDWmQzNC9n?=
- =?utf-8?B?QXB4dnp3Tlk1L0RnTG90aEcxQ3UrZHdGV1Q4Mzg4QitCb0tuR05kQVRzRW80?=
- =?utf-8?B?WWcxVWtBSUpOQnF6Y251eXBXMy83SjB6NkMrNHp1bm02ZWNWY09KYU96Vm92?=
- =?utf-8?B?SU5lbFA4UzZRS1VqbDZZL21LeGFiR0hLMjVjeFhKNUZMSE1mTUxQU2ZMZmw0?=
- =?utf-8?B?MUsrOGwvSVJncTVaTk0zQkZNZVhPRVRPNjY1bzhvQmFsZmxnNzNFUUhrQWVI?=
- =?utf-8?B?VktxYktTbzVuVEFvUFdBOHdZVCtCcncyTWMvcUtxUDNiTXYzNG42NzdjaXhn?=
- =?utf-8?B?STEvRkl0NEdOYWFKRVZTTmE1eUhlNTErbGFmVmE2cCtsUFpmaWR1TnZGQ1FV?=
- =?utf-8?B?b05SZHdQTkdYbFNFOCtKaEdaZzNoblhiZ05zei9PcW1FVjBkZlpybkQzbEgw?=
- =?utf-8?B?NFhSZmV3Y2R3dXlNdjJnMzFoKy9nN3VRaGw4Nk5PT2FsanlXTGY1b2NVTGw2?=
- =?utf-8?B?cDdIUHVGQnJZYUtiY1NTamdYMU5od0MxaHpSUUwxVmhSK2twUUZNVTAwN0V5?=
- =?utf-8?B?QWZTN0xmY3lGSlZhUmNiMlluZGEvSkR2YXdsVGhhZ3dFTzdYN2FTWUtpQ1VN?=
- =?utf-8?B?UGYvQSs2ZGFtWE95K1l1SjdyUEhEV0hVZ0d6Q3NFdkJBMS9MdjlvOTBZRUdF?=
- =?utf-8?B?Ymg1c2lOeklOSlh3V254SW5wRnhPSHVlWWNZU2FBVnJURXpMTG9NS05HSHV3?=
- =?utf-8?B?bGRUclczSnJzSkdySTZoZUk4VE1xN01FMWhhTExkTVdJTktQZytUWlVVTEZm?=
- =?utf-8?B?WnRmenRMRTNpRk01WmxTM2ZkNEZ2dllldE50cnBvaHVnNlZESWZHR2M4dTRL?=
- =?utf-8?B?d21jQnFXM2huNXZIZ0Y1dWYzblczOGhVcVNRZnhvK0Uwb2RHMkxVUzk2Z2tD?=
- =?utf-8?B?dklxWnYwVGlGOW5mUUJYVUhlWkNBanl0YTVtYzRlM2I4TEhXdVZIejUwcngw?=
- =?utf-8?B?TWNMcWVrRzAwVkxYVVFHZjJYaERoaXBuckJBTWg5emNnRStRUkFZU0JNZFFO?=
- =?utf-8?B?eEJqZXl0V2NJVkJvZmpsWHpLUUlrbkJUTnlETmNHK1pPM2RaWVh0TlZVRTRT?=
- =?utf-8?B?TFNRWVVMdDZvb1BvaXpVMk1xNFRsSEZ5WG1qd2l5VkdaZTdTU2hpMmh3Tmk1?=
- =?utf-8?B?aUt6MVhhekhJKzlJU2xoQ1pjam81L2RyQ0doM3ZWNTBUMzBwdWZoak5wRHpZ?=
- =?utf-8?B?ZHdHcVFUajI4eGZrbm1Zb25DZlV3b25ubVdneUNlcHJManp4anJsT3hSMU1q?=
- =?utf-8?B?c2dOU1hGU0tpNFB4cTVMbTVaZThXODRpNERYNTRvQTVTT2RLZzl4WkJvMG15?=
- =?utf-8?B?YVhrWEdnY0QxL29zK1Zndkl0T1hFajd6aU1wVmd2eG01RTBFVm5yYWIvajR0?=
- =?utf-8?B?M2hXekZqT2FxZkNsTkN0QnZIcjdMNU4vR0JuYjVQS0ZiN2JtcGFyMUl5a3ZM?=
- =?utf-8?B?cS9PY21vb0hiaVV3WDJ5d21GMU5YSGNPdXhhczNYWWRDVGRMTmZ4KzV4MTRu?=
- =?utf-8?B?T1pJRi9ONjhOOS8weXk5S3BlRVJaMHNYYmFhWTFTTnpkSFRpMW84UXk5MjJh?=
- =?utf-8?B?bWxOK1JmRk9rbkFXek15M0E2eUN4cmhqb01uVVg0NTdJNkRodjJnc3RlZktS?=
- =?utf-8?Q?DTGF5fL7A03yBZTGF4?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A69FF10EA45;
+ Wed,  4 Mar 2026 15:33:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4E9CD4427F;
+ Wed,  4 Mar 2026 15:33:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C009AC19423;
+ Wed,  4 Mar 2026 15:33:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772638407;
+ bh=5cP83dKvqPjVsj1XPnIyUXMyl29bPUyTZbFPkJY+hYA=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=bChptJ5TJzLEN1XfmQ7DZM46vuOu+oMXoZpPjhyPc3DOQsK6Anrzo1DvrJfxKa8g6
+ T8ZxpFwq8TPMgaGqmZlTDxg/mGyAeW2gNEhv9raQTJk1So+85RdbTmP3srwaIrUgkY
+ 7nnE9eMoKmvoGwFZALIpm1UD2SBIyN+ViJkLRYPH1XCWp9ScI+8wuyTGHaFjriYqSz
+ dPcawWLJtNXmxcgB5MLz+VLRToUxsaIv4mTRg4y+yqjxWt/9PxUytmusigPJ/6hpY8
+ ++x+JjdMWX9ujFyI58Gwj+ifYm2UXv0ieMtF9F0YEKVJaZy8JmvrwJjGl8RfXA8rMi
+ GYeukqw9VVF7g==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Wed, 04 Mar 2026 10:32:31 -0500
+Subject: [PATCH v3 01/12] vfs: widen inode hash/lookup functions to u64
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6004.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01733015-cb91-4a6b-fc27-08de7a83340f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Mar 2026 06:48:26.5423 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WEi1qE9DjrTKLDjzWed/dNqDQLxy2W0aUrdV21DpUn4qxbQs9+rjhzAduO3Exu4C
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4484
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260304-iino-u64-v3-1-2257ad83d372@kernel.org>
+References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
+In-Reply-To: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Dan Williams <dan.j.williams@intel.com>, Eric Biggers <ebiggers@kernel.org>, 
+ "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, 
+ David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>, 
+ Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>, 
+ Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>, 
+ Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
+ Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>, 
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+ Shyam Prasad N <sprasad@microsoft.com>, 
+ Bharath SM <bharathsm@microsoft.com>, 
+ Alexander Aring <alex.aring@gmail.com>, 
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
+ Viacheslav Dubeyko <slava@dubeyko.com>, 
+ Eric Van Hensbergen <ericvh@kernel.org>, 
+ Latchesar Ionkov <lucho@ionkov.net>, 
+ Dominique Martinet <asmadeus@codewreck.org>, 
+ Christian Schoenebeck <linux_oss@crudebyte.com>, 
+ David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>, 
+ Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>, 
+ Salah Triki <salah.triki@gmail.com>, 
+ "Tigran A. Aivazian" <aivazian.tigran@gmail.com>, 
+ Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>, 
+ Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu, 
+ Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>, 
+ Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Yangtao Li <frank.li@vivo.com>, 
+ Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>, 
+ David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>, 
+ Dave Kleikamp <shaggy@kernel.org>, 
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
+ Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, 
+ Joseph Qi <joseph.qi@linux.alibaba.com>, 
+ Mike Marshall <hubcap@omnibond.com>, 
+ Martin Brandenburg <martin@omnibond.com>, 
+ Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>, 
+ Zhihao Cheng <chengzhihao1@huawei.com>, Damien Le Moal <dlemoal@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <jth@kernel.org>, 
+ John Johansen <john.johansen@canonical.com>, 
+ Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+ "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>, 
+ Roberto Sassu <roberto.sassu@huawei.com>, 
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, 
+ Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Ondrej Mosnacek <omosnace@redhat.com>, 
+ Casey Schaufler <casey@schaufler-ca.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>, 
+ Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Willem de Bruijn <willemb@google.com>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>, 
+ Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>, 
+ Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>, 
+ Johan Hedberg <johan.hedberg@gmail.com>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+ Oliver Hartkopp <socketcan@hartkopp.net>, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>, 
+ Neal Cardwell <ncardwell@google.com>, 
+ Steffen Klassert <steffen.klassert@secunet.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ Remi Denis-Courmont <courmisch@gmail.com>, 
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
+ Xin Long <lucien.xin@gmail.com>, 
+ Magnus Karlsson <magnus.karlsson@intel.com>, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+ linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
+ v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org, 
+ ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu, 
+ ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev, 
+ ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org, 
+ linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com, 
+ linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org, 
+ selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
+ linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org, 
+ linux-x25@vger.kernel.org, audit@vger.kernel.org, 
+ linux-bluetooth@vger.kernel.org, linux-can@vger.kernel.org, 
+ linux-sctp@vger.kernel.org, bpf@vger.kernel.org, 
+ Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10591; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=5cP83dKvqPjVsj1XPnIyUXMyl29bPUyTZbFPkJY+hYA=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBpqFCmmQpujh448XNFM6BLqUSXhX6OopSNb2vZQ
+ YuT/+5KSTiJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCaahQpgAKCRAADmhBGVaC
+ FabnD/4/xiP6rMz15b4n1SAp1B3YU/tfdq/NzXrOqhtxlHMkMl+XM8wIA4aIk9JOYAg896eD/Fy
+ +WEN1lOcfd2TZD7vLlzGp2ml8bg/c47mXjrailQCw57Rtg+1iLHTCzPvCrRLEv7tMnVmZGSNUQt
+ gXXuX4g7ABl1s+Rz5EDehLR75HThVUn/RVkHycVFw2OeuG7lNkghSfnVhGWrK22o4/30C3md+eh
+ r8Y5hmLT7kDTthNo9t1BidFUHy4va8kKZReNiFeD984T2JT8aJdqDwczA+VKzt38SEP0In9d6/h
+ ESHbggCh1x9Q5vNaYxlswea13/mgjpLWFPsf3ye1ys0w83/tE9A10G8HRgGEJyiT8cqfOnmz0cW
+ DcY7aHOuldgAAT2nwIMKDyUvYyp7RIIY1r0atfMubBaT0r7pdaRUghPP0hddnqvHsAnpcI/gTOY
+ DC4kZGycm+cqQHmeftuedmmTY3ph2H8N3nwdiPuCqMxTGDQEZ7RXlJ7De8YF0LWELZMfQV8ErYd
+ YzFowiaXrWgeMMEYTLXpmh7XV3mOi0HZF58L8r8uighvnGQPtPho03bVLJEkk0zMdCmT17g/M6a
+ m/BIxsDn02CGLaAh5pC+VoSVhoN3OdF6N8p5QZ/+CeVE5Q7L7NN6Y+tj/6KT70Do8/drp3ASace
+ 2sxFmo+H7Ut8k6g==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+X-Mailman-Approved-At: Thu, 05 Mar 2026 08:15:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,41 +181,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1B1YmxpY10NCg0KSXTigJlzIHBvc3NpYmxlIHRoYXQgd2UgZmFpbGVkIHRvIHNhdmUgYW5kIGlu
-dmFsaWRhdGUgc29tZSBhY3RpdmUgcGFnZXMgZHVyaW5nIHN1c3BlbmQsIHdoaWNoIHRoZW4gcHJl
-dmVudHMgdGhvc2UgcGFnZXMgZnJvbSBiZWluZyByZXN0b3JlZCBjb3JyZWN0bHkgb24gcmVzdW1l
-Lg0KDQpGb3Igbm93LCB3ZSBzdGlsbCByZWx5IG9uIHRoaXMgcGF0Y2ggdG8ga2VlcCB0aGUgdXNl
-cnEgcGFnZSB0YWJsZXMgdXBkYXRlZCBhbmQgc3luY2hyb25pemVkLiBVbnRpbCB0aGUgZnVsbCBz
-b2x1dGlvbiBpcyByZWFkeSwgaG93IGFib3V0IHdlIGZhbGwgYmFjayB0byB0aGUgaW5pdGlhbCBh
-cHByb2FjaCBhbmQgcmVzdHJpY3QgdGhpcyBUTEIgZmx1c2ggdG8gb25seSB0aGUgdXNlcnEgcGF0
-aD8NCg0KUmVnYXJkcywNCiAgICAgIFByaWtlDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0t
-LS0NCj4gRnJvbTogS29lbmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4N
-Cj4gU2VudDogV2VkbmVzZGF5LCBNYXJjaCA0LCAyMDI2IDk6NTcgUE0NCj4gVG86IERldWNoZXIs
-IEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IGFtZC0NCj4gZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogTGlhbmcsIFByaWtlIDxQcmlrZS5MaWFuZ0BhbWQuY29t
-Pg0KPiBTdWJqZWN0OiBSZTogW1BBVENIXSBSZXZlcnQgImRybS9hbWRncHU6IGF0dGFjaCB0bGIg
-ZmVuY2UgdG8gdGhlIFBUcyB1cGRhdGUiDQo+DQo+IE9uIDMvNC8yNiAxNDo1NCwgQWxleCBEZXVj
-aGVyIHdyb3RlOg0KPiA+IFRoaXMgcmV2ZXJ0cyBjb21taXQgZjM4NTRlMDRiNzA4ZDczMjc2YzQ0
-ODgyMzFhOGJkNjZkMzBiNDY3MS4NCj4gPg0KPiA+IFRoaXMgY2F1c2VzIGZyYW1lYnVmZmVyIGNv
-cnJ1cHRpb24gYWZ0ZXIgc3VzcGVuZC4NCj4NCj4gQnV0IHByZXZlbnRzIG1hc3NpdmUgbWVtb3J5
-IGNvcnJ1cHRpb24gd2l0aCB1c2VycXVldWVzLg0KPg0KPiBJIGhhdmUgc3Ryb25nIGRvdWJ0cyB0
-aGF0IHRoaXMgaXMgcmVsYXRlZCB0byB0aGUgRkIgY29ycnVwdGlvbiBpbiBhbnkgd2F5LCBpdCB3
-aWxsIGp1c3QNCj4gY2hhbmdlIHRoZSB0aW1pbmcuDQo+DQo+IFJlZ2FyZHMsDQo+IENocmlzdGlh
-bi4NCj4NCj4gPg0KPiA+IENsb3NlczogaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2Ry
-bS9hbWQvLS9pc3N1ZXMvNDc5OA0KPiA+IENjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4u
-a29lbmlnQGFtZC5jb20+DQo+ID4gQ2M6IFByaWtlIExpYW5nIDxQcmlrZS5MaWFuZ0BhbWQuY29t
-Pg0KPiA+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1k
-LmNvbT4NCj4gPiAtLS0NCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
-LmMgfCAyICstDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlv
-bigtKQ0KPiA+DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4g
-PiBpbmRleCAwMWZlZjBlNGY0MDg1Li4yNWIxZDY3OWJhMjYyIDEwMDY0NA0KPiA+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+ID4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4gPiBAQCAtMTA3Myw3ICsxMDczLDcgQEAg
-YW1kZ3B1X3ZtX3RsYl9mbHVzaChzdHJ1Y3QNCj4gYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJhbXMgKnBh
-cmFtcywNCj4gPiAgICAgfQ0KPiA+DQo+ID4gICAgIC8qIFByZXBhcmUgYSBUTEIgZmx1c2ggZmVu
-Y2UgdG8gYmUgYXR0YWNoZWQgdG8gUFRzICovDQo+ID4gLSAgIGlmICghcGFyYW1zLT51bmxvY2tl
-ZCkgew0KPiA+ICsgICBpZiAoIXBhcmFtcy0+dW5sb2NrZWQgJiYgdm0tPmlzX2NvbXB1dGVfY29u
-dGV4dCkgew0KPiA+ICAgICAgICAgICAgIGFtZGdwdV92bV90bGJfZmVuY2VfY3JlYXRlKHBhcmFt
-cy0+YWRldiwgdm0sIGZlbmNlKTsNCj4gPg0KPiA+ICAgICAgICAgICAgIC8qIE1ha2VzIHN1cmUg
-bm8gUEQvUFQgaXMgZnJlZWQgYmVmb3JlIHRoZSBmbHVzaCAqLw0KDQo=
+Change the inode hash/lookup VFS API functions to accept u64 parameters
+instead of unsigned long for inode numbers and hash values. This is
+preparation for widening i_ino itself to u64, which will allow
+filesystems to store full 64-bit inode numbers on 32-bit architectures.
+
+Since unsigned long implicitly widens to u64 on all architectures, this
+change is backward-compatible with all existing callers.
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+ fs/f2fs/node.c     |  2 +-
+ fs/inode.c         | 36 ++++++++++++++++++------------------
+ include/linux/fs.h | 26 +++++++++++++-------------
+ 3 files changed, 32 insertions(+), 32 deletions(-)
+
+diff --git a/fs/f2fs/node.c b/fs/f2fs/node.c
+index 2030e943ab9b3d5e2deb20efe9a44cf5093a61fb..d8d02870cfd1c22cf1951201361519de534b6bf7 100644
+--- a/fs/f2fs/node.c
++++ b/fs/f2fs/node.c
+@@ -1997,7 +1997,7 @@ int f2fs_fsync_node_pages(struct f2fs_sb_info *sbi, struct inode *inode,
+ 	return ret;
+ }
+ 
+-static int f2fs_match_ino(struct inode *inode, unsigned long ino, void *data)
++static int f2fs_match_ino(struct inode *inode, u64 ino, void *data)
+ {
+ 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
+ 	bool clean;
+diff --git a/fs/inode.c b/fs/inode.c
+index cc12b68e021b2c97cc88a46ddc736334ecb8edfa..62df5dda05894297dde05e541e4c8550bd866fef 100644
+--- a/fs/inode.c
++++ b/fs/inode.c
+@@ -672,7 +672,7 @@ static inline void inode_sb_list_del(struct inode *inode)
+ 	}
+ }
+ 
+-static unsigned long hash(struct super_block *sb, unsigned long hashval)
++static unsigned long hash(struct super_block *sb, u64 hashval)
+ {
+ 	unsigned long tmp;
+ 
+@@ -685,12 +685,12 @@ static unsigned long hash(struct super_block *sb, unsigned long hashval)
+ /**
+  *	__insert_inode_hash - hash an inode
+  *	@inode: unhashed inode
+- *	@hashval: unsigned long value used to locate this object in the
++ *	@hashval: u64 value used to locate this object in the
+  *		inode_hashtable.
+  *
+  *	Add an inode to the inode hash for this superblock.
+  */
+-void __insert_inode_hash(struct inode *inode, unsigned long hashval)
++void __insert_inode_hash(struct inode *inode, u64 hashval)
+ {
+ 	struct hlist_head *b = inode_hashtable + hash(inode->i_sb, hashval);
+ 
+@@ -1087,7 +1087,7 @@ static struct inode *find_inode(struct super_block *sb,
+  * iget_locked for details.
+  */
+ static struct inode *find_inode_fast(struct super_block *sb,
+-				struct hlist_head *head, unsigned long ino,
++				struct hlist_head *head, u64 ino,
+ 				bool hash_locked, bool *isnew)
+ {
+ 	struct inode *inode = NULL;
+@@ -1301,7 +1301,7 @@ EXPORT_SYMBOL(unlock_two_nondirectories);
+  * Note that both @test and @set are called with the inode_hash_lock held, so
+  * they can't sleep.
+  */
+-struct inode *inode_insert5(struct inode *inode, unsigned long hashval,
++struct inode *inode_insert5(struct inode *inode, u64 hashval,
+ 			    int (*test)(struct inode *, void *),
+ 			    int (*set)(struct inode *, void *), void *data)
+ {
+@@ -1378,7 +1378,7 @@ EXPORT_SYMBOL(inode_insert5);
+  * Note that both @test and @set are called with the inode_hash_lock held, so
+  * they can't sleep.
+  */
+-struct inode *iget5_locked(struct super_block *sb, unsigned long hashval,
++struct inode *iget5_locked(struct super_block *sb, u64 hashval,
+ 		int (*test)(struct inode *, void *),
+ 		int (*set)(struct inode *, void *), void *data)
+ {
+@@ -1408,7 +1408,7 @@ EXPORT_SYMBOL(iget5_locked);
+  * This is equivalent to iget5_locked, except the @test callback must
+  * tolerate the inode not being stable, including being mid-teardown.
+  */
+-struct inode *iget5_locked_rcu(struct super_block *sb, unsigned long hashval,
++struct inode *iget5_locked_rcu(struct super_block *sb, u64 hashval,
+ 		int (*test)(struct inode *, void *),
+ 		int (*set)(struct inode *, void *), void *data)
+ {
+@@ -1455,7 +1455,7 @@ EXPORT_SYMBOL_GPL(iget5_locked_rcu);
+  * hashed, and with the I_NEW flag set.  The file system gets to fill it in
+  * before unlocking it via unlock_new_inode().
+  */
+-struct inode *iget_locked(struct super_block *sb, unsigned long ino)
++struct inode *iget_locked(struct super_block *sb, u64 ino)
+ {
+ 	struct hlist_head *head = inode_hashtable + hash(sb, ino);
+ 	struct inode *inode;
+@@ -1527,7 +1527,7 @@ EXPORT_SYMBOL(iget_locked);
+  *
+  * Returns 1 if the inode number is unique, 0 if it is not.
+  */
+-static int test_inode_iunique(struct super_block *sb, unsigned long ino)
++static int test_inode_iunique(struct super_block *sb, u64 ino)
+ {
+ 	struct hlist_head *b = inode_hashtable + hash(sb, ino);
+ 	struct inode *inode;
+@@ -1616,7 +1616,7 @@ EXPORT_SYMBOL(igrab);
+  *
+  * Note2: @test is called with the inode_hash_lock held, so can't sleep.
+  */
+-struct inode *ilookup5_nowait(struct super_block *sb, unsigned long hashval,
++struct inode *ilookup5_nowait(struct super_block *sb, u64 hashval,
+ 		int (*test)(struct inode *, void *), void *data, bool *isnew)
+ {
+ 	struct hlist_head *head = inode_hashtable + hash(sb, hashval);
+@@ -1647,7 +1647,7 @@ EXPORT_SYMBOL(ilookup5_nowait);
+  *
+  * Note: @test is called with the inode_hash_lock held, so can't sleep.
+  */
+-struct inode *ilookup5(struct super_block *sb, unsigned long hashval,
++struct inode *ilookup5(struct super_block *sb, u64 hashval,
+ 		int (*test)(struct inode *, void *), void *data)
+ {
+ 	struct inode *inode;
+@@ -1677,7 +1677,7 @@ EXPORT_SYMBOL(ilookup5);
+  * Search for the inode @ino in the inode cache, and if the inode is in the
+  * cache, the inode is returned with an incremented reference count.
+  */
+-struct inode *ilookup(struct super_block *sb, unsigned long ino)
++struct inode *ilookup(struct super_block *sb, u64 ino)
+ {
+ 	struct hlist_head *head = inode_hashtable + hash(sb, ino);
+ 	struct inode *inode;
+@@ -1726,8 +1726,8 @@ EXPORT_SYMBOL(ilookup);
+  * very carefully implemented.
+  */
+ struct inode *find_inode_nowait(struct super_block *sb,
+-				unsigned long hashval,
+-				int (*match)(struct inode *, unsigned long,
++				u64 hashval,
++				int (*match)(struct inode *, u64,
+ 					     void *),
+ 				void *data)
+ {
+@@ -1773,7 +1773,7 @@ EXPORT_SYMBOL(find_inode_nowait);
+  *
+  * The caller must hold the RCU read lock.
+  */
+-struct inode *find_inode_rcu(struct super_block *sb, unsigned long hashval,
++struct inode *find_inode_rcu(struct super_block *sb, u64 hashval,
+ 			     int (*test)(struct inode *, void *), void *data)
+ {
+ 	struct hlist_head *head = inode_hashtable + hash(sb, hashval);
+@@ -1812,7 +1812,7 @@ EXPORT_SYMBOL(find_inode_rcu);
+  * The caller must hold the RCU read lock.
+  */
+ struct inode *find_inode_by_ino_rcu(struct super_block *sb,
+-				    unsigned long ino)
++				    u64 ino)
+ {
+ 	struct hlist_head *head = inode_hashtable + hash(sb, ino);
+ 	struct inode *inode;
+@@ -1833,7 +1833,7 @@ EXPORT_SYMBOL(find_inode_by_ino_rcu);
+ int insert_inode_locked(struct inode *inode)
+ {
+ 	struct super_block *sb = inode->i_sb;
+-	ino_t ino = inode->i_ino;
++	u64 ino = inode->i_ino;
+ 	struct hlist_head *head = inode_hashtable + hash(sb, ino);
+ 	bool isnew;
+ 
+@@ -1884,7 +1884,7 @@ int insert_inode_locked(struct inode *inode)
+ }
+ EXPORT_SYMBOL(insert_inode_locked);
+ 
+-int insert_inode_locked4(struct inode *inode, unsigned long hashval,
++int insert_inode_locked4(struct inode *inode, u64 hashval,
+ 		int (*test)(struct inode *, void *), void *data)
+ {
+ 	struct inode *old;
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 8b3dd145b25ec12b00ac1df17a952d9116b88047..dfa1f475b1c480c503ab6f00e891aa9b051607fa 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -2935,32 +2935,32 @@ static inline int inode_generic_drop(struct inode *inode)
+ extern void d_mark_dontcache(struct inode *inode);
+ 
+ extern struct inode *ilookup5_nowait(struct super_block *sb,
+-		unsigned long hashval, int (*test)(struct inode *, void *),
++		u64 hashval, int (*test)(struct inode *, void *),
+ 		void *data, bool *isnew);
+-extern struct inode *ilookup5(struct super_block *sb, unsigned long hashval,
++extern struct inode *ilookup5(struct super_block *sb, u64 hashval,
+ 		int (*test)(struct inode *, void *), void *data);
+-extern struct inode *ilookup(struct super_block *sb, unsigned long ino);
++extern struct inode *ilookup(struct super_block *sb, u64 ino);
+ 
+-extern struct inode *inode_insert5(struct inode *inode, unsigned long hashval,
++extern struct inode *inode_insert5(struct inode *inode, u64 hashval,
+ 		int (*test)(struct inode *, void *),
+ 		int (*set)(struct inode *, void *),
+ 		void *data);
+-struct inode *iget5_locked(struct super_block *, unsigned long,
++struct inode *iget5_locked(struct super_block *, u64,
+ 			   int (*test)(struct inode *, void *),
+ 			   int (*set)(struct inode *, void *), void *);
+-struct inode *iget5_locked_rcu(struct super_block *, unsigned long,
++struct inode *iget5_locked_rcu(struct super_block *, u64,
+ 			       int (*test)(struct inode *, void *),
+ 			       int (*set)(struct inode *, void *), void *);
+-extern struct inode * iget_locked(struct super_block *, unsigned long);
++extern struct inode *iget_locked(struct super_block *, u64);
+ extern struct inode *find_inode_nowait(struct super_block *,
+-				       unsigned long,
++				       u64,
+ 				       int (*match)(struct inode *,
+-						    unsigned long, void *),
++						    u64, void *),
+ 				       void *data);
+-extern struct inode *find_inode_rcu(struct super_block *, unsigned long,
++extern struct inode *find_inode_rcu(struct super_block *, u64,
+ 				    int (*)(struct inode *, void *), void *);
+-extern struct inode *find_inode_by_ino_rcu(struct super_block *, unsigned long);
+-extern int insert_inode_locked4(struct inode *, unsigned long, int (*test)(struct inode *, void *), void *);
++extern struct inode *find_inode_by_ino_rcu(struct super_block *, u64);
++extern int insert_inode_locked4(struct inode *, u64, int (*test)(struct inode *, void *), void *);
+ extern int insert_inode_locked(struct inode *);
+ #ifdef CONFIG_DEBUG_LOCK_ALLOC
+ extern void lockdep_annotate_inode_mutex_key(struct inode *inode);
+@@ -3015,7 +3015,7 @@ int setattr_should_drop_sgid(struct mnt_idmap *idmap,
+  */
+ #define alloc_inode_sb(_sb, _cache, _gfp) kmem_cache_alloc_lru(_cache, &_sb->s_inode_lru, _gfp)
+ 
+-extern void __insert_inode_hash(struct inode *, unsigned long hashval);
++extern void __insert_inode_hash(struct inode *, u64 hashval);
+ static inline void insert_inode_hash(struct inode *inode)
+ {
+ 	__insert_inode_hash(inode, inode->i_ino);
+
+-- 
+2.53.0
+
