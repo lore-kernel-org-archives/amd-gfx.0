@@ -4,99 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACF0BEB7EA0
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 08:19:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B185DEB7EAC
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 09:09:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F22B10E977;
-	Wed,  4 Mar 2026 08:19:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FEA610E986;
+	Wed,  4 Mar 2026 09:09:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="35Et0Ye/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NFYWt+nX";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012023.outbound.protection.outlook.com [52.101.43.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85BD410E972
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 08:19:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ne3MSIGAL75GbuvBejYHjMWm4UY6QS0DLcvtdx7Z80qakHhu1XDAT16Gz/XQhXoZe8pvRj029ZXT/NyR0st0pXYTcJ9+V5+5nxFsu9Kd/euv1fSNHJr0/I34QzA4Nt5XZiPhtAM+6g+ENOMJKdKsIMVZ60y8UaFrupLLAqY47+Z4pqkVUvkql71tbno9/rhx7XGgIuBZtj98CeNxuWeAQHqwLjDtRFGUtQu+wfQzWkF+zaH298qHkc2JtgO41ttiZZBY0FOwFyZZyba2Ef87B23Ps1EKo+cw8qJclrAWtJVtb8p/tmVauHp2CtRr58h03Sui2avkjb60QeJoAT+eEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=T7IR9kfvh42i3tMhelg1bRNtfGenhDfdAkLnf1rNkKA=;
- b=IcdC2Egbj97S292mnMyT1QWYT+47cr1E/So+Br8V0HZ1kNm0+Z5meoIWa4zzG9sLzc7GKs0owFDXB36qb7pNMl/oOk83/TqdfOOdsijuUmbSFH2DJsIo3xIyy7irVt5GekFb8SdoPLiiLmutDgBfZdDzm+Bsuv9CBIP1Gypc6cjWSP48KXPxcwGAWycWliqLOCCx74f7BMI1pKI+Rw+ZJ0AX8e5ijHlcAGONK6vBzNDlRUa6mIOhVsMpL2qmNRwoEujPOMgeaAXX5HY4b310571OubQYq8HVOg3C4L7dYXaHnqZekh590tvFXSoHjI1Opnp+Dukird7bZDTIhXPCzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T7IR9kfvh42i3tMhelg1bRNtfGenhDfdAkLnf1rNkKA=;
- b=35Et0Ye/SmKrZP8r0P0OetISndfsAVfsvvcr5BGMgaMAXcrYzQHJhd67AmYzWCmVgIO4kvuFEOEdOdmR1ADJYRqpmu51f82kTKEDj65jEbq6aN/nkiiNJAljA6i/0o3hAUn4DhqxTsqSq+YUxlJFMhARsLHoA1J/qXO0NlLOORw=
-Received: from SJ0PR13CA0189.namprd13.prod.outlook.com (2603:10b6:a03:2c3::14)
- by LV2PR12MB5896.namprd12.prod.outlook.com (2603:10b6:408:172::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Wed, 4 Mar
- 2026 08:19:21 +0000
-Received: from SJ1PEPF00002327.namprd03.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::8f) by SJ0PR13CA0189.outlook.office365.com
- (2603:10b6:a03:2c3::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.22 via Frontend Transport; Wed,
- 4 Mar 2026 08:19:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002327.mail.protection.outlook.com (10.167.242.90) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Wed, 4 Mar 2026 08:19:21 +0000
-Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 4 Mar
- 2026 02:19:18 -0600
-From: Asad Kamal <asad.kamal@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
- <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>, 
- <asad.kamal@amd.com>
-Subject: [PATCH v2 2/2] drm/amd/pm: Enable aid/xcd/hbm temperature reporting
-Date: Wed, 4 Mar 2026 16:19:04 +0800
-Message-ID: <20260304081904.3132877-2-asad.kamal@amd.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260304081904.3132877-1-asad.kamal@amd.com>
-References: <20260304081904.3132877-1-asad.kamal@amd.com>
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B21BE10E986
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 09:09:23 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-48069a48629so70435795e9.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Mar 2026 01:09:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772615362; x=1773220162; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CZ/Jm3ZTuzxCI3S6sfQeg+h/tN3BN6x7OrgQZSzJtuw=;
+ b=NFYWt+nXRQLXkE5hQrzsHacbwBITMw2GIqdtx7B+Jh84nVLID0DM5a1Q+iy+9PjkJQ
+ Qg/hGwRo3bk+lTHhD2X0S98HYtOMrQQaJtNlMScWDYJ4+JzsnQw+e23+Ha+sQe8dNzex
+ yIpv965jfr4HMSLCoUGmGJIfzzJtnEyfVD06rFtKDZxe9VfpdlDeknJPstASXJTuqEWy
+ 5pqQMOwzGDXdUoHKSapU39e03LboRmVBjtRmuN5kdIUlVGsnrwPwGkg2l/MRGP79r5+2
+ OxvEjRlF6neFUVJxRtNIseP0IeDO2ytNAUhjKjTswuDeeobQooc1K3cthL3fsuwJcCA2
+ sYVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772615362; x=1773220162;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=CZ/Jm3ZTuzxCI3S6sfQeg+h/tN3BN6x7OrgQZSzJtuw=;
+ b=peCPhgVoZJiZ4Ak8wIO0X8Jqlp7xufpz8A4BtyP9dy3MZ2YrDpenmxXj1Oe+zZdsIc
+ ucq5cKWv07R5u+DSpwz8CeW7/L6OozC61hEpgMULzkf6oqQb4iiZ8VJ60g9nU9iyyS3j
+ 0Dc9/DBIutZ+XcUPc/tDccvKAQ41kJHNC0nTTYX69sVZOsMkPsKofhdn0h8089czcXLQ
+ 8kkioKtZsPu9QNup8yEZBrWmVDSXfSxl2kc4dt6DYBdwX4/pAikLosJlV7ZkS9xWKgfA
+ EV2Uj3bFlN9rfH9JU+bQCaaLzX/DGsuTUiglY3V2Tb3AvhWL5Z16oR7J0jDVtXleapdq
+ Ayzg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUCY6qyZFPc8lL2Q3viHBCoSnwz+JLnMNtE4qvudAYS06g+zBWSnxs96eqwhDjYvLn+BaF90DKN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy9w32CA7NEtqEuCVy03Sgh03Ui/5V+lIZGFBTR1KnOXjvLHlyv
+ YXwpZLlZMwIQqNIKdmEpWTbXxZg6Arl4T1bG4SDLCrNIgFKYIr8VF+Le
+X-Gm-Gg: ATEYQzzogq7/vuf08ThjcBOew9YtvMHJ6ruajkw5j68Zhiq9AyXwp3ifSJ1FBKdgZdg
+ Yasf8he7wyrTKlwZePWzGiAJILQmLRBzUvTI/LxHcePR1gKycl8X5ju3PW1rFxwQ7zKOxFvoDH2
+ WqKEu/M3MPdBItLWS8m2zgjYv29rKMFf5pBCu2IvNMpPlXzKJE/Havgm+IAFdYw0MulmIEsKYKw
+ 0jOFV9pQhY8ov/JhUz0+nCegdxAcC2/kNM9XwNwuARTngw717RLMo5D3jRjq6doBNIEfCFG11WR
+ tWg+ITrKiOdXtA05YLSnSOyzUHDSXwsxBY5hZ9TNace6QXaw9izvup5ae8ogEE22CeCXrimi85n
+ e6sS/R0+7iZt2dNSbH7BORFGUM1Z4f8s8nkuAa+x0WuLJDSCy9YiTlXBhVikx2SdQGm4Af7XCJd
+ 9C20GENtAE/WaTuq1pMwmG6+yp/anEkOV4ovuvz7Z76fnxJ2DFKhi9SJ686BkRwjruT8OMVg==
+X-Received: by 2002:a05:600c:4e0b:b0:483:71f9:37f3 with SMTP id
+ 5b1f17b1804b1-485198311c7mr20105555e9.1.1772615361768; 
+ Wed, 04 Mar 2026 01:09:21 -0800 (PST)
+Received: from timur-hyperion.localnet (540018D2.dsl.pool.telekom.hu.
+ [84.0.24.210]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4399c60f764sm42846932f8f.3.2026.03.04.01.09.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Mar 2026 01:09:21 -0800 (PST)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Rosen Penev <rosenp@gmail.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Xinhui Pan <Xinhui.Pan@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kenneth Feng <kenneth.feng@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Lijo Lazar <lijo.lazar@amd.com>, "chr[]" <chris@rudorff.com>,
+ Sasha Levin <sashal@kernel.org>, Wentao Liang <vulab@iscas.ac.cn>,
+ "open list:AMD DISPLAY CORE" <amd-gfx@lists.freedesktop.org>,
+ "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Greg KH <gregkh@linuxfoundation.org>
+Subject: Re: [PATCHv2 for 6.112 and 6.6 0/2] amdgpu: fix panic on old GPUs
+Date: Wed, 04 Mar 2026 10:09:19 +0100
+Message-ID: <2596902.XAFRqVoOGU@timur-hyperion>
+In-Reply-To: <7d3a4090-06bf-40b0-8c80-ca08625608d7@amd.com>
+References: <20260228045356.3561-1-rosenp@gmail.com>
+ <CAKxU2N_FbB_d6ntXEOFzE2u-sfu9sRRFwaDnb3P=RfTwE5yuDA@mail.gmail.com>
+ <7d3a4090-06bf-40b0-8c80-ca08625608d7@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002327:EE_|LV2PR12MB5896:EE_
-X-MS-Office365-Filtering-Correlation-Id: 57773892-7407-467f-5b5c-08de79c6bcfa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|82310400026; 
-X-Microsoft-Antispam-Message-Info: qDTVoazhytqhY5VFDk8Ces0H7+FuY1iIbXZzBkUU/rGQ+caR8IppRUCpXwm5Ly9HD+RbnH/W0qA7eg4Xg5Fi1SVlUJIFeRdkLzEchJWXJAe3kdU+fzhFKiFy1Mrii44T9jWnAViqZVFyy6EYCNVxSQCiHrgWByAiG/zG31g/DZrgE8b/12gLfP0OQGMBlD+IjzofQohHYKZ+ddcGBoafElJy5ilJLIYicH7FqZ9fkmqn0p7BMZ4oxqxy37a4m+JaX46rMI/GuMPKTMnBL2yBtZsYK6bKox180ljwXAnIMBc4Lfjdb9WGAQryngNm4/YzgwujSnHUzhCdjRP7RkTKYrPwqIdUxJ9eBP3iLbSzvEmobvT9ZHxgGyIKQnqllIyYaxoB3cglXlsxpm3jvdt6JnqfXiDPxK9y6043I2ukThut8n8p61qjyD4s969PA8Ad1W7UUfDa5oEWVjP/t3DOUMfg2cNY/vMRLo/U8r/OWUdwhJIZQnmDBEBN9A87JJObG8Qbh3QWbBL7RUilvdjIGkMwigEXWY0I5tx62qpQot4CLNS9ONpFphsnMshNoHsUze70vhazBlmaM2mTd+UkUXyxP4dDdUlnY0e5zi3pBewVd8HNZOB4Ly/poX6aT3yUzWii7Glk7QF23+qkFsjviCQ9rsUqVqVhxGEuhg1tznuCYgqylm1AJ+ZOpnwSjDxrny0YllzwvK0JIO2qeHkBjfotX0dStwtM4S16nydalpw1Qb34Ub0Me3+9n8laRe4ab088I7qNno3Glpk6MLnBHA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: grtGAKt4Onn3LKO7Mx+8h7xJfyu1X1TQIsgfkDP2fD5Pm6xu7LCPvQX0kb4H8azNHp456dEszn8f+QZkGLn+5fAeeX6/048hihGKmykUBe6IAStq4SK0O3IUOqi1nNUORj1IEqHCVe087HmQS9g5HKprXKNNSX0lxWWOvd4jPhqWNgWLdrXOt+uQxefHaB7fG6gizqkcd3qovwEt4/9hdVJJtue+b1jkSKcze9DK5VG0Bo+aupWsizgvYpg99rjqzc+v8Z8kqKcSOhazgIqT7S2cl9Pyv/HxgpsQ4Lkm+d0W3LCTpDzpnGfEErnW3IcuMscQW2nYEE6PRkKAp+yohQU3tK1fFUhwKe9S4o6Jotr8NCjslPBEt9Fmf7bwCMMQb7ISwM1AVBQxSXzv5gXYNe7VK2VXBHSpDZKwKeaf956bs5DTqORnXCcMRb9wfNFA
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 08:19:21.3587 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 57773892-7407-467f-5b5c-08de79c6bcfa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002327.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5896
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,29 +101,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable aid/xcd/hbm temperature reporting for smu_v13_0_12 via gpu
-metrics
+On Wednesday, March 4, 2026 9:10:02=E2=80=AFAM Central European Standard Ti=
+me=20
+Christian K=C3=B6nig wrote:
+> -stable +Greg
+>=20
+> On 3/4/26 05:03, Rosen Penev wrote:
+> > On Fri, Feb 27, 2026 at 8:54=E2=80=AFPM Rosen Penev <rosenp@gmail.com> =
+wrote:
+> >> Because of incomplete backports to stable kernels, DC ended up breaking
+> >> on older GCN 1 GPUs. This patchset adds the missing upstream commits to
+> >> at least fix the panic/black screen on boot.
+> >>=20
+> >> They are applicable to 6.12, 6.6, and 6.1 as those are the currently
+> >> supported kernels that 7009e3af0474aca5f64262b3c72fb6e23b232f9b got
+> >> backported to.
+> >>=20
+> >> 6.1 needs two extra backports for these two commits to be cherry-picked
+> >> cleanly. Those are
+> >>=20
+> >> 96ce96f8773da4814622fd97e5226915a2c30706
+> >> d09ef243035b75a6d403ebfeb7e87fa20d7e25c6
+> >>=20
+> >> v2: Add Signed-off-by.
+> >=20
+> > Do I need to resend?
+>=20
+> Well first of all please stop sending those patches at all.
+>=20
+> When you want something backported then add the CC: stable tag to the
+> original patch.
+>=20
+> If you find that some patch is already upstream which isn't correctly tag=
+ged
+> then ping the relevant maintainers if that patch can be backported.
+>=20
+> But don't send stuff to the stable list all by yourself.
+>=20
+> Regards,
+> Christian.
 
-Signed-off-by: Asad Kamal <asad.kamal@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c | 3 +++
- 1 file changed, 3 insertions(+)
+Hi Everyone,
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index ab690fcccf0b..1bf3ebfe8656 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -373,6 +373,9 @@ static void smu_v13_0_12_init_caps(struct smu_context *smu)
- 	} else {
- 		smu_v13_0_12_tables_fini(smu);
- 	}
-+
-+	if (fw_ver >= 0x04561000)
-+		smu_v13_0_6_cap_set(smu, SMU_CAP(TEMP_AID_XCD_HBM));
- }
- 
- static void smu_v13_0_6_init_caps(struct smu_context *smu)
--- 
-2.46.0
+The patches actually come from a branch of mine:
+https://gitlab.freedesktop.org/Venemo/linux/-/commits/v6.12.74_si_dc_fixes
+
+=46or context:
+
+The crash comes from a patch that I wrote for 6.18 that fixes some issues o=
+n=20
+the default, non-DC code path, that was backported to stable kernels. DC wa=
+s=20
+not the default code path before Linux 6.19, so I didn't mark the patches t=
+hat=20
+also fix DC for backporting, because I had assumed nobody uses the DC code =
+path=20
+on these kernel versions.
+
+After a user reported to me that this causes issues for him with DC on 6.17=
+=20
+and older kernels, I sent a backported series to Greg and Sasha, in an emai=
+l=20
+thread with the subject line "Fixing an amdgpu crash caused by a backported=
+=20
+patch". The fixes were backported to 6.17 then.
+
+I assumed that the stable maintainers would backport the fixes to all older=
+=20
+kernels that were also affected, but Rosen brought it to my attention that =
+it=20
+didn't happen. So I made the backports in the above branch. Rosen then deci=
+ded=20
+to send them to the mailing list.
+
+Hope that helps clear up the situation.
+
+Thanks & best regards,
+Timur
+
+
 
