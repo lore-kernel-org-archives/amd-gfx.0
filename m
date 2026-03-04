@@ -4,52 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33151EF9014
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 16:59:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4A7FEFCE38
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 18:33:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C46A710EA76;
-	Wed,  4 Mar 2026 16:59:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60BFE10EA97;
+	Wed,  4 Mar 2026 18:33:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CLS9ngoU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TUcefKv/";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 268F910EA76
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 16:59:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Q9+LQDad4mHx9KX7kuht31hVZF4uHGbenJ6h1olMK/U=; b=CLS9ngoU3xxnY16OPAw8pVwy9N
- IRUK8HmCxgOvv/EV/DArP6KoNCFC//ESf9DLr11zI6R7G1csx18YgcE5vSEWQX19EguXxzFcs2QEg
- YZLlbsfYK7W0E3czoVWZMOUChf2zzonsO2s/76bf6AG3mPKonjp9hatmvqCg9JbIZ3LrgSuhE/w5n
- rbVJ9FdMN7sAtA45aZ1Q9eIPRRONAXIA9h8z8pYyBFz+jQAVRY+SQ9K2bn3p8lS0FMQbclS7+vzgZ
- xKzUUYYz5IwOaBMBY2IigsOxF7ksCf2iG/ut0U1pb1sPh9I5xSug7m1A4Aao/gydDKu+IH2XgsSF8
- rkElKAhQ==;
-Received: from [90.240.106.137] (helo=[192.168.0.101])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vxpZ0-0090ig-C1; Wed, 04 Mar 2026 17:59:10 +0100
-Message-ID: <4df1d2b1-af8f-4b76-974a-37d8280dc211@igalia.com>
-Date: Wed, 4 Mar 2026 16:59:09 +0000
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012046.outbound.protection.outlook.com
+ [40.93.195.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A60AA10EA97
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 18:33:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RftT5dyCjR9gAUTLGePi+LWP+qz6/DJ2r9HUSKTTApFAus3dVDwgz5/6hWKseCyiAac29U4fhbjWg4PodTvNl7v2CxVxNi4BDu28+Xdc0APXxygyvGNd//Y3qKguUaFw2nsAZx5aIFtL/OUqHTinG07BudwwzJK7d9aTAZP1QiVqz8LmsZz7ywyg1pr5LOkUrTIflRlHwgGlnj9lmTdPRc3wPoThqaAccn78bqF81NU2KEvdZbluWZa3Qs1QoSdu2WF72wp/bpuqcuPfU/vOCjiIbPtjNth1O1Gv1FJ1HFUjeubyh91ZdVmCbRoHLyuc74C/PcHsanbqMfjqxC40eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nXAhGFQX0wX+VWAGp5WbJpQP7jde5Nmk55SKkOIJrDE=;
+ b=dePMq8VjFqgku92fO3wzZ2AU0xYZo523V9oxlw0HubITuFnTDwSnnJeQSm7W5MFGTSFM6tlGIYpXWyLvzfCPjZyqRflWsFfxsigpOm2G9D/PYfHpvF3QxcMaNxNOkvyKMJO3TFFB1SR+idSHwwwUscRX3U01DYnjwTjlJYbXw8wrSK6y30RwUJ9lR9q3b5Vv6LZa4H6AEqCIgyNsE2ESOvra2gqKYd+6rEbGka8thhU7uoVuo19Vq3jUj3gufX04WUaQk9e4QxFUqoRIuC6OG+XzRcnVBnWAhac0mcOv5kUwHKm4owynJzET3jGAmxHcvkB0YfCn0XzTWinI2Ju4Cw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nXAhGFQX0wX+VWAGp5WbJpQP7jde5Nmk55SKkOIJrDE=;
+ b=TUcefKv/CYiHafFlOpLNLZCwVvtlzFeT1j09J8yqI3bwNek/oxOU2/9tfnYLpALynvy7AET4jHO5w/HGIHAn+8lWnUW8xTo3PSyGPhOpiGXVOrTNEsyWeCLp2WSe2ZcUwYAnAn+aPn3yBX5WB6YHnU0SbnEgMrfYBUwlVH82YBU=
+Received: from SJ0PR05CA0014.namprd05.prod.outlook.com (2603:10b6:a03:33b::19)
+ by SA3PR12MB9225.namprd12.prod.outlook.com (2603:10b6:806:39e::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.17; Wed, 4 Mar
+ 2026 18:33:20 +0000
+Received: from MWH0EPF000C618A.namprd02.prod.outlook.com
+ (2603:10b6:a03:33b:cafe::1a) by SJ0PR05CA0014.outlook.office365.com
+ (2603:10b6:a03:33b::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.17 via Frontend Transport; Wed,
+ 4 Mar 2026 18:33:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000C618A.mail.protection.outlook.com (10.167.249.122) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Wed, 4 Mar 2026 18:33:19 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 4 Mar
+ 2026 12:33:18 -0600
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, David Francis <David.Francis@amd.com>
+Subject: [PATCH] drm/amdgpu: Check for multiplication overflow in checkpoint
+ stack size
+Date: Wed, 4 Mar 2026 13:33:03 -0500
+Message-ID: <20260304183303.1116307-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/12] drm/amdgpu: Consolidate ctx put
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
-References: <20260112102244.63308-1-tvrtko.ursulin@igalia.com>
- <20260112102244.63308-9-tvrtko.ursulin@igalia.com>
- <4a57e7f6-0722-411f-a37f-24d1f5d6f0e8@amd.com>
- <1dc6b09f-563a-480a-a884-101271302367@igalia.com>
- <8241286e-49aa-4cbb-8bd9-bb660682b530@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <8241286e-49aa-4cbb-8bd9-bb660682b530@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C618A:EE_|SA3PR12MB9225:EE_
+X-MS-Office365-Filtering-Correlation-Id: ace94a1a-b8f4-47c1-c6a0-08de7a1c8205
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|1800799024|82310400026; 
+X-Microsoft-Antispam-Message-Info: YZ3vX8V3jMpAiynFgKKfkbqvFTq8IElXpLl5Y3SytfzZTUFw2DSSkWBuTr73kcacT2rQhrQZjhUUJVICs83Bj+4mI3KAVSidsUcFTKf87oaGZjStT2z0KfNlIoC1hQ2Qo37jh0v/m5bFpgTbHqp+iNHVvJxN2mlS1vxuvb2oPAnnMYegj7EGMgzMssQdUDOYdO7JuHUvQyP81DcSqyQcUjcRc7iK7Z0XCAT4Q1leUSQlrTKHzZ0BeGB1UseW+DAe4QWTzGAG7YAjmgUE4l9Lb62nDQYvIm4KohEByDNuNsTSwzarObQojWPHYrnSLW4h0psG47dmNkbDl1qxSbD9hDvtsO+GMm1OpcnJcELA3zjlRgfPZ+kypyX5XW81sbQlq+EBTGmoKBmiQZrJbn/CNfyBdzLGRc2xWnMCt5BMojQ6fNorLg1V+4QeZe+CoOJi2yB6Xys7lxfVYV+GPRnY5hz7QCdbVD+hx8RnBE0/VrBE3D2bxlnkinQRW9Rd/HRy2ElDLskK36aOpOMfmHUA0Pl3VLYUiFtfter2zMIZgwx/AdQ1geA6TC6oBzoLqIPOwBsg3zAIgxPzVvkLN0D7GRS/XsW9aEfJ1/pzDqNf0rNjWQKXgj/es/7okjmp1VmKg6CTVlWWy8sxKAaKmB03NoH/wlgz3I2p9PFbfihJ52D1lP049hs7ve4n7n8S7gqVK4gQAykLR/VdqjT/tX7uB7UuEDmha51cHwW7qEkgBXJd9CWZGc03fDTHJwYpzJ4evsfGFc3WcncuPkPC/2/5hw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: sqRg/pXjsuqk6iPFIj4dKyM+NJQq3BrIAqehNmo8jaaqhKMponiY6nGLLN5hWi17R5ZprD3IOthk00WHFz0rb5yE2NxK/NsIJcJQ8QCHHp8TAvBHIdmpJv88gcjECo0ITRSfXgHcpmQ22bd/t/aJzxD4YQp88h019bfm0GywknSlQR1YsUn9pb3x49MmbAnsWdjUygo2k3GlFEYm8gAqSavQ3UC/kbq+9P37QD/0qxCNYLFmEbBXP2w66dB2rX1Z/+80+wNwXLzmt315mN5lWGBwJCVgMjloblgP2WTXGvkYxc8Vs5ysrGAX6Ai5gXN4508+/MV9Ce+uTG4aCSW/+rMwUg6Ziuoh1cJuU8hpIYcUFeL5rnB5FxiLc8HScwfbYXVlJaaTq7aBCRDRMZTrr3Pbpq3kENTtj9iJDA/5LknneHQmwQxD0CEXI3SU41NP
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 18:33:19.1178 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ace94a1a-b8f4-47c1-c6a0-08de7a1c8205
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C618A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9225
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,197 +109,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+get_checkpoint_info() in kfd_mqd_manager_v9.c finds 32-bit value
+ctl_stack_size by multiplying two 32-bit values. This can overflow to a
+lower value, which could result in copying outside the bounds of
+a buffer in checkpoint_mqd() in the same file.
 
-On 04/03/2026 10:21, Christian König wrote:
-> On 1/22/26 09:56, Tvrtko Ursulin wrote:
->>
->> On 12/01/2026 13:32, Christian König wrote:
->>> On 1/12/26 11:22, Tvrtko Ursulin wrote:
->>>> Currently there are two flavours of the context reference count
->>>> destructor:
->>>>
->>>>    - amdgpu_ctx_do_release(), used from kref_put from places where the code
->>>>      thinks context may have been used, or is in active use, and;
->>>>    - amdgpu_ctx_fini(), used when code is sure context entities have already
->>>>      been idled.
->>>>
->>>> Since amdgpu_ctx_do_release() calls amdgpu_ctx_fini() after having idled
->>>> and destroyed the scheduler entities, we can consolidate the two into a
->>>> single function.
->>>>
->>>> Functional difference is that now drm_sched_entity_destroy() is called on
->>>> context manager shutdown (file close), where previously it was
->>>> drm_sched_entity_fini(). But the former is a superset of the latter, and
->>>> during file close the flush method is also called, which calls
->>>> drm_sched_entity_flush(), which is also called by
->>>> drm_sched_entity_destroy(). And as it is safe to attempt to flush a never
->>>> used entity, or flush it twice, there is actually no functional change.
->>>>
->>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>>> Suggested-by: Christian König <christian.koenig@amd.com>
->>>
->>> Reviewed-by: Christian König <christian.koenig@amd.com>
->>>
->>> Looks like this was the last patch to review. I will pick up the set and try to push it to amd-staging-drm-next.
->>
->> Gentle reminder if we could try to validate the series via amd-staging-drm-next.
-> 
-> I pushed the first 7 patches from this series to amd-staging-drm-next and our CI systems seem to be happy with them.
-> 
-> But starting with patch #8 I either had rebase conflicts or the CI system seem to reject something here.
-> 
-> Can you rebase on top of amd-staging-drm-next and test a bit more? If you are confident that the patches work I can throw them into the CI system once more.
+Put in a check for the overflow, and fail with -EINVAL if detected.
 
-I don't see all of the first 7 in amd-staging-drm-next just yet, but I 
-have rebased the rest of the series on top of what is there. With that, 
-I so far did not manage to observe any failures or suspicious behaviour 
-in the context management area. I can game, use the desktop, run some IGTs.
+v2: use check_mul_overflow()
 
-One thing I did observe are lockdep splats from 
-amdgpu_device_skip_hw_access() when GPU resets are tested. Not sure if 
-this is known or what?
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  | 7 +++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  | 2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h           | 3 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c        | 7 +++++--
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c        | 3 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 8 +++++++-
+ 6 files changed, 22 insertions(+), 8 deletions(-)
 
-Otherwise, are there any hints from the CI system as to what test cases 
-or where in amdgpu things are going bad?
-
-Regards,
-
-Tvrtko
-
->> Also, what could I do on my end to get more confidence some edge case is not broken? Run the IGT tests? Is there an useful testlist which can be used with the IGT runner or that is not used on the AMD side?
->>
->> Regards,
->>
->> Tvrtko
->>
->>>> ---
->>>> v2:
->>>>    * Use separate variable for drm_dev_enter for readability.
->>>>
->>>> v3:
->>>>    * Keep amdgpu_ctx_fini_entity as a separate function.
->>>> ---
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 54 ++++---------------------
->>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  9 ++++-
->>>>    2 files changed, 15 insertions(+), 48 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>>> index 325833ed2571..cc69ad0f03d5 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>>> @@ -284,6 +284,8 @@ static ktime_t amdgpu_ctx_fini_entity(struct amdgpu_device *adev,
->>>>        if (!entity)
->>>>            return res;
->>>>    +    drm_sched_entity_destroy(&entity->entity);
->>>> +
->>>>        for (i = 0; i < amdgpu_sched_jobs; ++i) {
->>>>            res = ktime_add(res, amdgpu_ctx_fence_time(entity->fences[i]));
->>>>            dma_fence_put(entity->fences[i]);
->>>> @@ -409,7 +411,7 @@ static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
->>>>        return r;
->>>>    }
->>>>    -static void amdgpu_ctx_fini(struct kref *ref)
->>>> +void amdgpu_ctx_fini(struct kref *ref)
->>>>    {
->>>>        struct amdgpu_ctx *ctx = container_of(ref, struct amdgpu_ctx, refcount);
->>>>        struct amdgpu_ctx_mgr *mgr = ctx->mgr;
->>>> @@ -508,24 +510,6 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
->>>>        return r;
->>>>    }
->>>>    -static void amdgpu_ctx_do_release(struct kref *ref)
->>>> -{
->>>> -    struct amdgpu_ctx *ctx;
->>>> -    u32 i, j;
->>>> -
->>>> -    ctx = container_of(ref, struct amdgpu_ctx, refcount);
->>>> -    for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
->>>> -        for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
->>>> -            if (!ctx->entities[i][j])
->>>> -                continue;
->>>> -
->>>> -            drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
->>>> -        }
->>>> -    }
->>>> -
->>>> -    amdgpu_ctx_fini(ref);
->>>> -}
->>>> -
->>>>    static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
->>>>    {
->>>>        struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
->>>> @@ -533,8 +517,7 @@ static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
->>>>          mutex_lock(&mgr->lock);
->>>>        ctx = idr_remove(&mgr->ctx_handles, id);
->>>> -    if (ctx)
->>>> -        kref_put(&ctx->refcount, amdgpu_ctx_do_release);
->>>> +    amdgpu_ctx_put(ctx);
->>>>        mutex_unlock(&mgr->lock);
->>>>        return ctx ? 0 : -EINVAL;
->>>>    }
->>>> @@ -750,15 +733,6 @@ struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id)
->>>>        return ctx;
->>>>    }
->>>>    -int amdgpu_ctx_put(struct amdgpu_ctx *ctx)
->>>> -{
->>>> -    if (ctx == NULL)
->>>> -        return -EINVAL;
->>>> -
->>>> -    kref_put(&ctx->refcount, amdgpu_ctx_do_release);
->>>> -    return 0;
->>>> -}
->>>> -
->>>>    uint64_t amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
->>>>                      struct drm_sched_entity *entity,
->>>>                      struct dma_fence *fence)
->>>> @@ -927,29 +901,15 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
->>>>    static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
->>>>    {
->>>>        struct amdgpu_ctx *ctx;
->>>> -    struct idr *idp;
->>>> -    uint32_t id, i, j;
->>>> +    uint32_t id;
->>>>    -    idp = &mgr->ctx_handles;
->>>> -
->>>> -    idr_for_each_entry(idp, ctx, id) {
->>>> +    idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
->>>>            if (kref_read(&ctx->refcount) != 1) {
->>>>                DRM_ERROR("ctx %p is still alive\n", ctx);
->>>>                continue;
->>>>            }
->>>>    -        for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
->>>> -            for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
->>>> -                struct drm_sched_entity *entity;
->>>> -
->>>> -                if (!ctx->entities[i][j])
->>>> -                    continue;
->>>> -
->>>> -                entity = &ctx->entities[i][j]->entity;
->>>> -                drm_sched_entity_fini(entity);
->>>> -            }
->>>> -        }
->>>> -        kref_put(&ctx->refcount, amdgpu_ctx_fini);
->>>> +        amdgpu_ctx_put(ctx);
->>>>        }
->>>>    }
->>>>    diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->>>> index cf8d700a22fe..b1fa7fe74569 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
->>>> @@ -70,7 +70,14 @@ struct amdgpu_ctx_mgr {
->>>>    extern const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM];
->>>>      struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id);
->>>> -int amdgpu_ctx_put(struct amdgpu_ctx *ctx);
->>>> +
->>>> +void amdgpu_ctx_fini(struct kref *kref);
->>>> +
->>>> +static inline void amdgpu_ctx_put(struct amdgpu_ctx *ctx)
->>>> +{
->>>> +    if (ctx)
->>>> +        kref_put(&ctx->refcount, amdgpu_ctx_fini);
->>>> +}
->>>>      int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 instance,
->>>>                  u32 ring, struct drm_sched_entity **entity);
->>>
->>
-> 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 804851632c4c..18bc5ba25f8f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2720,7 +2720,7 @@ static int get_wave_state(struct device_queue_manager *dqm,
+ 			ctl_stack, ctl_stack_used_size, save_area_used_size);
+ }
+ 
+-static void get_queue_checkpoint_info(struct device_queue_manager *dqm,
++static int get_queue_checkpoint_info(struct device_queue_manager *dqm,
+ 			const struct queue *q,
+ 			u32 *mqd_size,
+ 			u32 *ctl_stack_size)
+@@ -2728,6 +2728,7 @@ static void get_queue_checkpoint_info(struct device_queue_manager *dqm,
+ 	struct mqd_manager *mqd_mgr;
+ 	enum KFD_MQD_TYPE mqd_type =
+ 			get_mqd_type_from_queue_type(q->properties.type);
++	int ret = 0;
+ 
+ 	dqm_lock(dqm);
+ 	mqd_mgr = dqm->mqd_mgrs[mqd_type];
+@@ -2735,9 +2736,11 @@ static void get_queue_checkpoint_info(struct device_queue_manager *dqm,
+ 	*ctl_stack_size = 0;
+ 
+ 	if (q->properties.type == KFD_QUEUE_TYPE_COMPUTE && mqd_mgr->get_checkpoint_info)
+-		mqd_mgr->get_checkpoint_info(mqd_mgr, q->mqd, ctl_stack_size);
++		ret = mqd_mgr->get_checkpoint_info(mqd_mgr, q->mqd, ctl_stack_size);
+ 
+ 	dqm_unlock(dqm);
++
++	return ret;
+ }
+ 
+ static int checkpoint_mqd(struct device_queue_manager *dqm,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+index ef07e44916f8..3272328da11f 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+@@ -192,7 +192,7 @@ struct device_queue_manager_ops {
+ 
+ 	int (*reset_queues)(struct device_queue_manager *dqm,
+ 					uint16_t pasid);
+-	void	(*get_queue_checkpoint_info)(struct device_queue_manager *dqm,
++	int	(*get_queue_checkpoint_info)(struct device_queue_manager *dqm,
+ 				  const struct queue *q, u32 *mqd_size,
+ 				  u32 *ctl_stack_size);
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+index 2429d278ef0e..06ca6235ff1b 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+@@ -102,7 +102,8 @@ struct mqd_manager {
+ 				  u32 *ctl_stack_used_size,
+ 				  u32 *save_area_used_size);
+ 
+-	void	(*get_checkpoint_info)(struct mqd_manager *mm, void *mqd, uint32_t *ctl_stack_size);
++	int	(*get_checkpoint_info)(struct mqd_manager *mm, void *mqd,
++				       uint32_t *ctl_stack_size);
+ 
+ 	void	(*checkpoint_mqd)(struct mqd_manager *mm,
+ 				  void *mqd,
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 273d52c8d332..8630f679a5d4 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -385,11 +385,14 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 	return 0;
+ }
+ 
+-static void get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
++static int get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
+ {
+ 	struct v9_mqd *m = get_mqd(mqd);
+ 
+-	*ctl_stack_size = m->cp_hqd_cntl_stack_size * NUM_XCC(mm->dev->xcc_mask);
++	if (check_mul_overflow(m->cp_hqd_cntl_stack_size, NUM_XCC(mm->dev->xcc_mask), ctl_stack_size))
++		return -EINVAL;
++
++	return 0;
+ }
+ 
+ static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_dst, void *ctl_stack_dst)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index c192c66a5c7b..499d366db91c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -274,10 +274,11 @@ static int get_wave_state(struct mqd_manager *mm, void *mqd,
+ 	return 0;
+ }
+ 
+-static void get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
++static int get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *ctl_stack_size)
+ {
+ 	/* Control stack is stored in user mode */
+ 	*ctl_stack_size = 0;
++	return 0;
+ }
+ 
+ static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_dst, void *ctl_stack_dst)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 449be58e884c..cb2416687137 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -1069,6 +1069,7 @@ int pqm_get_queue_checkpoint_info(struct process_queue_manager *pqm,
+ 				  uint32_t *ctl_stack_size)
+ {
+ 	struct process_queue_node *pqn;
++	int ret;
+ 
+ 	pqn = get_queue_by_qid(pqm, qid);
+ 	if (!pqn) {
+@@ -1081,9 +1082,14 @@ int pqm_get_queue_checkpoint_info(struct process_queue_manager *pqm,
+ 		return -EOPNOTSUPP;
+ 	}
+ 
+-	pqn->q->device->dqm->ops.get_queue_checkpoint_info(pqn->q->device->dqm,
++	ret = pqn->q->device->dqm->ops.get_queue_checkpoint_info(pqn->q->device->dqm,
+ 						       pqn->q, mqd_size,
+ 						       ctl_stack_size);
++	if (ret) {
++		pr_debug("amdkfd: Overflow while computing stack size for queue %d\n", qid);
++		return ret;
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.34.1
 
