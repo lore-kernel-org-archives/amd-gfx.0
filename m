@@ -4,54 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7CD9EF8FE7
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 13:42:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97D66EF8FEA
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 13:54:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 187E610E189;
-	Wed,  4 Mar 2026 13:42:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 106E910EA03;
+	Wed,  4 Mar 2026 13:54:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=rcpassos.me header.i=@rcpassos.me header.b="EYkN4gbz";
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=purelymail.com header.i=@purelymail.com header.b="jhSAJAGW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e4gFlKVt";
 	dkim-atps=neutral
-Received: from sendmail.purelymail.com (sendmail.purelymail.com
- [34.202.193.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F0CA10E163
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 12:27:07 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256;
- b=EYkN4gbzuJMGrWpEDAGPsdfzFcLJf5OZaYAmIs8zNLT5S4tzHHoatEHWaQs1brOtTvkRobnN/RtOoYxfN13bTYBMBiMlp8MFL6lvFRtkGVC2bQjB5ljDoJB7pcJVJppgh5fR9DxDtVxWJxe/4tIz6jpHYVfjyrfP/fhyXuFmNEQOoqk/MpTxnqT45MYEyoibH6UnmbfV3C+TCR13/sGWR0AaZdk7jyd1cZMqYWXHV/6MRCLGx5fJvDm0cccPtZXP/+hne0DGET3qndUcRZaGJCbgxmpDdfeLHO/o5db2/mr7KE/UJAJlTP/Y2Q4CgutgFvIVA7wW3mkgygEZ6CMLBw==;
- s=purelymail1; d=rcpassos.me; v=1;
- bh=0dvJShcbjQxcyQfBOwzlQckvGtiDm2Cjtzv0f2nXCGg=;
- h=Received:Date:Subject:From:To; 
-DKIM-Signature: a=rsa-sha256;
- b=jhSAJAGWRn0aD2lgK9wQYdw3V1oYqNsO0PW+3E9ZHVXq9Wfrh4rBMRS+t7hETIrVIAMCogvbJhE7koAZ3l8jlYanBnEysgvtLouQNiqeakdPGbgzYIwV9l4doY5RIovcQcD/f0n5+khOkvSCHu/k/iipC5V4M9+AL2TpNXxwIjK89jYxeQB73+bgI5LbLHQRFw4cFlxarpVkDthfxgzpQE29IJgVY850unItM1+TS8lvFtu2tBC8eklGP0PrlhTNq5FmqpFnd3/q64ZyCoQ4TC/tdUayGZ8CVvmv8RVWfAOs64qEMeW1KyDlaIaQG05Nx2VkPotNqtywnMG6TzEuow==;
- s=purelymail1; d=purelymail.com; v=1;
- bh=0dvJShcbjQxcyQfBOwzlQckvGtiDm2Cjtzv0f2nXCGg=;
- h=Feedback-ID:Received:Date:Subject:From:To; 
-Feedback-ID: 45355:7809:null:purelymail
-X-Pm-Original-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 620782028; 
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Wed, 04 Mar 2026 12:27:04 +0000 (UTC)
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 04 Mar 2026 09:27:01 -0300
-Message-Id: <DGTZWNGLPVI3.108P2EKGFCO2R@rcpassos.me>
-Subject: Re: [bug report] 7.0-rc1 flip_done timed out: amd igpu off when
- resuming in laptop (regression)
-From: "Rafael Passos" <rafael@rcpassos.me>
-To: <amd-gfx@lists.freedesktop.org>, <siqueira@igalia.com>,
- <linux-kernel@vger.kernel.org>, "Martin Leung" <Martin.Leung@amd.com>,
- "Bhuvanachandra Pinninti" <BhuvanaChandra.Pinninti@amd.com>, "Ray Wu"
- <ray.wu@amd.com>, "Daniel Wheeler" <daniel.wheeler@amd.com>, "Alex Deucher"
- <alexander.deucher@amd.com>
-Cc: "Rafael Passos" <rcpassos@ime.usp.br>, <davidbtadokoro@ime.usp.br>,
- <dri-devel@lists.freedesktop.org>
-Content-Transfer-Encoding: quoted-printable
-Mime-Version: 1.0
-X-Mailer: aerc 0.21.0
-References: <DGQ49PK0QE7U.3O1AQPSD6NI7I@rcpassos.me>
-In-Reply-To: <DGQ49PK0QE7U.3O1AQPSD6NI7I@rcpassos.me>
-X-TUID: tZ4Zipe8Yo0F
-X-Mailman-Approved-At: Wed, 04 Mar 2026 13:42:51 +0000
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012070.outbound.protection.outlook.com [40.107.209.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8427D10EA03
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 13:54:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=g4xrm167KFbM9gj0XEBNOsK6xA+ayeWrinJFzNiUCAM5aTufXbbyopYd4ts5Nhp2eFCNGhbiE9bnfoXVgd9jzum7tJ6EO1QRI1pI54jYxf3Kjaox5HOtNvDLD6eoriJyTzr2M1qVS8ZJMD6R8W26qg7aPm2vdHkp3TwV49KCccPf8rzXXDpw52keUVxp2sm3QjRwfcaDWmKy3HGax26TAOi4AVc4dSuzVLONyZKauJnBCeSNXC2UENzkssC5Nby2uaZEiu5TGrhhQJJa4YAdJdy3S/Cr6uZIUmTS9TQ8AhydWqVSUaw2aJIbPtKLkpyAZy6bs99LXP1Gv4Ny3nz0gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SyAENaV7krBCtpoq2anBKmH0g4tyk4/aVdR/j3JiPss=;
+ b=ArV3qlWWpwq7kjYWd4x79LiThH1tk6Vpz4dexJprREOSBlnh3Wl/Me0k5s3DIGwCt7i2HT17Ycq80L92QKUCry9X5M6SRMyJYW9hqd0UCNS0f0RPqk8XSP/KiQxO6VSbbJUlIiBBoODGy1+bEjmh3HHcJEn+ZHSHKaWjlYVnOIsGxsptjgpfryjyiim54wNozMPeb5U5MWKRVsGXfSJF4r9KGJHikrws9eOREuLhcbVMX4Eb5bVQzfPDDfKNKEEPW73V5Z6wFWnE0hsPXfcpHU0pkmqrHNTBStHGvH30AZvCcpynMY82mbhp7DOHoJyNlV2QNKRy9sItd9uyJQHGLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SyAENaV7krBCtpoq2anBKmH0g4tyk4/aVdR/j3JiPss=;
+ b=e4gFlKVt9hTLyM5pQDzNclE3nHLDfkOP9bBwtQ/+DyweejAMfa4O+qUVbAJwSThBDmHYgM21Rq85zLisrgDugApsND+TQLPz+lPDaEj1gWJDZqbKoD2cujb8YBNoTpkOD43cPiupuBcAHljxVQGLO7IQJxds7WRpexD0BFuXSXk=
+Received: from CH0PR03CA0353.namprd03.prod.outlook.com (2603:10b6:610:11a::15)
+ by SJ1PR12MB6242.namprd12.prod.outlook.com (2603:10b6:a03:457::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Wed, 4 Mar
+ 2026 13:54:33 +0000
+Received: from CH1PEPF0000A347.namprd04.prod.outlook.com
+ (2603:10b6:610:11a:cafe::20) by CH0PR03CA0353.outlook.office365.com
+ (2603:10b6:610:11a::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.22 via Frontend Transport; Wed,
+ 4 Mar 2026 13:54:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000A347.mail.protection.outlook.com (10.167.244.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Wed, 4 Mar 2026 13:54:32 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Wed, 4 Mar
+ 2026 07:54:32 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 4 Mar
+ 2026 07:54:31 -0600
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Wed, 4 Mar 2026 07:54:31 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Prike Liang
+ <Prike.Liang@amd.com>
+Subject: [PATCH] Revert "drm/amdgpu: attach tlb fence to the PTs update"
+Date: Wed, 4 Mar 2026 08:54:25 -0500
+Message-ID: <20260304135425.18729-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.53.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A347:EE_|SJ1PR12MB6242:EE_
+X-MS-Office365-Filtering-Correlation-Id: fc839e65-c87e-4375-5066-08de79f59024
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|36860700016|1800799024|13003099007; 
+X-Microsoft-Antispam-Message-Info: KIR8r3oz71V+mHjrGi7/dMfJ61Hlmn/eLoR4jk7ugT21XyMM4pXto7FfI0wj/TWe/s+qNde0nZHJRziEDncVpYE0gaWpL4cqwMeYwJUWOFSf6VpEaSb77dO/cOqc0KswbbifdHohuNRkgS7BO5R8Zvh4IShSl/rHLxLzn7BJGPsqtnS7O1C4VzPfBaU5x/kJj99KE5BzP3spMJpHLcXQWJPZGOImD/3VPwIrFOT8ZmIEGEq8VX0cHr/i/RL+Bf1+1yLjvYx5XO91/zpkcRPYO4wioybxR197JJsCDAW+9KNkd0w3dn8y3Muu8x7QEsmAMzwW3X1dtxGEnIupPKo1ltQT9+lpa2ZW/4Ph8VkD/jet4ulQe9rClgDOKwsRP0LrP+yjjPiD0YEFFBzw+zfvq5hQsa5CoglXzbVhBbPfN/ByWXzsDgPJ64RZ34jD2PIrKMsUPCoTf9KGAo45cVy9frd5Wo+kZOOjgXQpzFOHmk/1CKxyb4+IclT5g+7hCmijX3tm2OJwuxT0PEJ0b6190msTYIktrMT1MfnUP8p+1wrg7Oaarxm9YPbThrc15/ygFiP11D8KMlkTZ+t/cxHdngr1u72tbBvg2JgsH+UQyXv64m66RxfRl2vaPkttiFut24KssAqMoyIvw6Ej2847CSlULmZO7vySEryacjjKVwTgpvzrKxTC1R+22mXL5b/F8696QRcLPjqogLZNeDAmbcRb5o95gS/7PWTpA82KOlc=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 7gpD3jcjJDfHxaeq3kaNleCS9B4/S2JWMftnn/no3S6TM4qfnp9J1oP3fg5syKOhmohkZ+Lksm4iWcHzkLHccRzm171fjx0yQreql09LGuIhuiqc3V2EzyAyoistdU1lN+vpjw5/nLY6pWn7kF+m66o1FGpFCP9GRsM+kzXYDqpOVUWthbVIg5v5Pkc/DabayagSY5uhE1pZ5V4rlyM4qWSdVUkqr2kDlUC5+q5qCsEG86hw+9J5OqGmxV2DYugMBLEIzwZu6ONB0bA/viMQtxbbCJkm97rstogEGmnC4btWvbrLmsr+gRQl9hcYWakaOHcl70dc8Gd87TxPirmVDk5ZyZ/Ayc4jF+BiskQ4dHaCFDb9U7mqlyg5IhSxIsPwrJ22tgiNocKb9TQp4RiANsvbQc7nLDzhtsGFmsMnq+CQchQXF5z1fLSPGaFigh/Q
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 13:54:32.4895 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc839e65-c87e-4375-5066-08de79f59024
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A347.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6242
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,190 +113,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I found the issue, but I'm still not sure how to proceed.
-I would like some guidance in fixing this regression.
+This reverts commit f3854e04b708d73276c4488231a8bd66d30b4671.
 
-The issue is the where a Register is being read from.
-Before this change, the MICROSECOND_TIME_BASE_DIV reg wa read from
-dce_hwseq_registers (dce_hwseq.h) and now from dccg_registers (dcn20_dccg.h=
-)
+This causes framebuffer corruption after suspend.
 
-The bisection lead me to this commit: 4c595e75110ece20af3a68c1ebef8ed4c1b69=
-afe
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
-id=3D4c595e75110ece20af3a68c1ebef8ed4c1b69afe
-
-After lot of debugging, I traced the issue to this file:
-drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff/dri=
-vers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c?id=3D4c595e75110ece20a=
-f3a68c1ebef8ed4c1b69afe
-
-This card is dcn21, but it uses most of the dcn20 implementation.
-For easy comparison, the following block contains the function with the ori=
-ginal path
-commented out (from dcn21), and the function it calls from dcn20:
-
-```
-bool dcn21_s0i3_golden_init_wa(struct dc *dc)
-{
-	if (dc->res_pool->dccg && dc->res_pool->dccg->funcs && dc->res_pool->dccg-=
->funcs->is_s0i3_golden_init_wa_done){
-
-		printk(KERN_CRIT "AUYER in %s", __func__);
-		return !dc->res_pool->dccg->funcs->is_s0i3_golden_init_wa_done(dc->res_po=
-ol->dccg);
-	}
-
-	printk(KERN_CRIT "AUYER in %s", __func__);
-
-	return false;
-=09
-	// original flow:
-	// struct dce_hwseq *hws =3D dc->hwseq;
-	// uint32_t value =3D 0;
-	// value =3D REG_READ(MICROSECOND_TIME_BASE_DIV);
-
-	// return value !=3D 0x00120464;
-}
-
-// is_s0i3_golden_init_wa_done -> dccg2_is_s0i3_golden_init_wa_done
-bool dccg2_is_s0i3_golden_init_wa_done(struct dccg *dccg)
-{
-	struct dcn_dccg *dccg_dcn =3D TO_DCN_DCCG(dccg);
-
-	return REG_READ(MICROSECOND_TIME_BASE_DIV) =3D=3D 0x00120464;
-}
-```
-
-I instrumented this code to compare the values.
-On boot, the value is the same. When resuming from s3 sleep, different.
-If using the output of this codepath before this commit, the screen works.
-At the end of this email is my "debugging patch", and the logs comparing wh=
-at shows
-up on boot vs on resuming from sleep.
-
-I am attempting to implement a `dccg21_is_s0i3_golden_init_wa_done` to
-replace the `dccg2_is_s0i3_golden_init_wa_done` that is used in dcn21_dccg.=
-c.
-Maybe dcn21 needs a separate register page, (insted of using dcn20_dccg.h)?
-
-
-Note the difference between log line 2 and 5
-[    4.956404] [    T316] AUYER PATCHED in dcn21_s0i3_golden_init_wa, value=
-s compared to 0x00120464
-[    4.956407] [    T316] AUYER in dcn21_s0i3_golden_init_wa, original flow=
- value: 1180208, bool: 1
-[    4.956411] [    T316] AUYER in dcn21_s0i3_golden_init_wa: MICROSECOND_T=
-IME_BASE_DIV reg: 13b value: 1180208
-[    4.956412] [    T316] AUYER in dccg21_is_s0i3_golden_init_wa_done
-[    4.956415] [    T316] AUYER in dccg21_is_s0i3_golden_init_wa_done: MICR=
-OSECOND_TIME_BASE_DIV reg: 0, value: 1148576
-[    4.956418] [    T316] AUYER in dcn21_s0i3_golden_init_wa, NEW flow valu=
-e as bool 1
-
-
-1 [    4.942660] [    T343] AUYER PATCHED in dcn21_s0i3_golden_init_wa
-2 [    4.942662] [    T343] AUYER in dcn21_s0i3_golden_init_wa, original fl=
-ow value: 1180208, comparing to 0x00120464 bool: 1
-3 [    4.942665] [    T343] AUYER in dcn21_s0i3_golden_init_wa: MICROSECOND=
-_TIME_BASE_DIV reg: 13b value: 1180208
-4 [    4.942668] [    T343] AUYER in dccg2_is_s0i3_golden_init_wa_done: MIC=
-ROSECOND_TIME_BASE_DIV reg: 0, value: 1148576
-5 [    4.942671] [    T343] AUYER in dcn21_s0i3_golden_init_wa, NEW flow va=
-lue as is: bool 1
-
-On wake from S3:
-
-1 [  279.431636] [   T5497] AUYER PATCHED in dcn21_s0i3_golden_init_wa
-2 [  279.431638] [   T5497] AUYER in dcn21_s0i3_golden_init_wa, original fl=
-ow value: 1180772, comparing to 0x00120464 bool: 0
-3 [  279.431640] [   T5497] AUYER in dcn21_s0i3_golden_init_wa: MICROSECOND=
-_TIME_BASE_DIV reg: 13b value: 1180772
-4 [  279.431641] [   T5497] AUYER in dccg2_is_s0i3_golden_init_wa_done: MIC=
-ROSECOND_TIME_BASE_DIV reg: 0, value: 1148576
-5 [  279.431642] [   T5497] AUYER in dcn21_s0i3_golden_init_wa, NEW flow va=
-lue as is: bool 1
-
-
-The "patch" (just a test lab), to understad where these logs came from.
-I applies cleanly to amddrm drm-next, and mainline.
-
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4798
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../amd/display/dc/dccg/dcn20/dcn20_dccg.c    |  3 +++
- .../amd/display/dc/hwss/dcn21/dcn21_hwseq.c   | 25 ++++++++++++++++---
- 2 files changed, 24 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.c b/drive=
-rs/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.c
-index 13ba7f5ce13e..0ba20c7969ed 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.c
-@@ -158,6 +158,9 @@ bool dccg2_is_s0i3_golden_init_wa_done(struct dccg *dcc=
-g)
- {
-        struct dcn_dccg *dccg_dcn =3D TO_DCN_DCCG(dccg);
-=20
-+       printk(KERN_CRIT "AUYER in %s: MICROSECOND_TIME_BASE_DIV reg: %x, v=
-alue: %d",
-+               __func__, dccg_dcn->regs->MICROSECOND_TIME_BASE_DIV, REG_RE=
-AD(MICROSECOND_TIME_BASE_DIV));
-+
-        return REG_READ(MICROSECOND_TIME_BASE_DIV) =3D=3D 0x00120464;
- }
-=20
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c b/driv=
-ers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-index 062745389d9a..143c552e0fa9 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
-@@ -88,10 +88,28 @@ int dcn21_init_sys_ctx(struct dce_hwseq *hws, struct dc=
- *dc, struct dc_phy_addr_
-=20
- bool dcn21_s0i3_golden_init_wa(struct dc *dc)
- {
--       if (dc->res_pool->dccg && dc->res_pool->dccg->funcs && dc->res_pool=
-->dccg->funcs->is_s0i3_golden_init_wa_done)
--               return !dc->res_pool->dccg->funcs->is_s0i3_golden_init_wa_d=
-one(dc->res_pool->dccg);
-=20
--       return false;
-+       printk(KERN_CRIT "AUYER PATCHED in %s, values compared to 0x0012046=
-4", __func__);
-+
-+       // original flow
-+       struct dce_hwseq *hws =3D dc->hwseq;
-+       uint32_t value =3D 0;
-+       value =3D REG_READ(MICROSECOND_TIME_BASE_DIV);
-+
-+       printk(KERN_CRIT "AUYER in %s, original flow value: %d, bool: %d",
-+               __func__, value, value !=3D 0x00120464);
-+
-+       printk(KERN_CRIT "AUYER in %s: MICROSECOND_TIME_BASE_DIV reg: %x va=
-lue: %d",
-+               __func__, hws->regs->MICROSECOND_TIME_BASE_DIV, REG_READ(MI=
-CROSECOND_TIME_BASE_DIV));
-+
-+       if (dc->res_pool->dccg && dc->res_pool->dccg->funcs && dc->res_pool=
-->dccg->funcs->is_s0i3_golden_init_wa_done) {
-+               // new flow
-+               bool v2 =3D 0;
-+               v2 =3D !dc->res_pool->dccg->funcs->is_s0i3_golden_init_wa_d=
-one(dc->res_pool->dccg);
-+               printk(KERN_CRIT "AUYER in %s, NEW flow value as bool %d", =
-__func__,  v2);
-+       }
-+
-+       return value !=3D 0x00120464;
- }
-=20
- void dcn21_exit_optimized_pwr_state(
-@@ -298,4 +316,3 @@ bool dcn21_is_abm_supported(struct dc *dc,
-        }
-        return false;
- }
--
---=20
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 01fef0e4f4085..25b1d679ba262 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1073,7 +1073,7 @@ amdgpu_vm_tlb_flush(struct amdgpu_vm_update_params *params,
+ 	}
+ 
+ 	/* Prepare a TLB flush fence to be attached to PTs */
+-	if (!params->unlocked) {
++	if (!params->unlocked && vm->is_compute_context) {
+ 		amdgpu_vm_tlb_fence_create(params->adev, vm, fence);
+ 
+ 		/* Makes sure no PD/PT is freed before the flush */
+-- 
 2.53.0
-
 
