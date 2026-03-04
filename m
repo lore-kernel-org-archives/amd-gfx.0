@@ -4,113 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 524E3EC1439
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 13:03:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDA18EF8FE0
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 13:09:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED22810E9EB;
-	Wed,  4 Mar 2026 13:03:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E7E610E9B8;
+	Wed,  4 Mar 2026 13:09:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="uCsnzMuK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xL4QyKjH";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="uCsnzMuK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xL4QyKjH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xj7OO5mT";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 367D510E9EA
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 13:03:00 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2E1745BE26;
- Wed,  4 Mar 2026 13:02:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1772629375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UHlUgqo5LlLa89h3t9+P5fca2U7bx201Q1DVzi9ZgTw=;
- b=uCsnzMuKTJPHDK5ui8Uj9W5SuPh+WzlgSwC400OC6NaWGaBV0lMBy8TmfSqyBnn0+n/Il7
- Tvub9ig1GGj4Mex0K2iAo7kJ4AtXB65u3jtc1gXeXQZxw3kWfLjdg1dXsOUvnnpmV/rqq1
- a9GjLvGZYJykugGKC6GYlK0Ho6SykyU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1772629375;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UHlUgqo5LlLa89h3t9+P5fca2U7bx201Q1DVzi9ZgTw=;
- b=xL4QyKjHwRmLnF33mwUf9esHs+rjXc8cH3M2BYCOVsgcXlUi+hJX4dgyQVeMD97EhVO+QL
- JwPr+4sbWAIoLoBg==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=uCsnzMuK;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xL4QyKjH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1772629375; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UHlUgqo5LlLa89h3t9+P5fca2U7bx201Q1DVzi9ZgTw=;
- b=uCsnzMuKTJPHDK5ui8Uj9W5SuPh+WzlgSwC400OC6NaWGaBV0lMBy8TmfSqyBnn0+n/Il7
- Tvub9ig1GGj4Mex0K2iAo7kJ4AtXB65u3jtc1gXeXQZxw3kWfLjdg1dXsOUvnnpmV/rqq1
- a9GjLvGZYJykugGKC6GYlK0Ho6SykyU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1772629375;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=UHlUgqo5LlLa89h3t9+P5fca2U7bx201Q1DVzi9ZgTw=;
- b=xL4QyKjHwRmLnF33mwUf9esHs+rjXc8cH3M2BYCOVsgcXlUi+hJX4dgyQVeMD97EhVO+QL
- JwPr+4sbWAIoLoBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EA04E3EA69;
- Wed,  4 Mar 2026 13:02:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 8LHuN34tqGmlNQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 04 Mar 2026 13:02:54 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH 2/2] drm/radeon: Test for fbdev GEM object with generic helper
-Date: Wed,  4 Mar 2026 13:58:39 +0100
-Message-ID: <20260304130250.59008-3-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260304130250.59008-1-tzimmermann@suse.de>
-References: <20260304130250.59008-1-tzimmermann@suse.de>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012011.outbound.protection.outlook.com [40.107.209.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7154910E9D4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 13:09:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EGH8MzE09LSGZ3FnPeZgUvKN7rtmgYhJ2CWyXbEKuZ2RJyMrS62RWV1RyhoGCQNcEKi7OjBqzGPTZRXd2VM/66tbcoI2H3AWf0fx7TMBtjm2hCtT8eEyMdq7ew0o0MGXAJdbXHwljeJruZevOQDyyX5IgbYOFg4IVvG3nloSB1ThwvupQhwax6L/tH1MNLcdZb63E3fGtc6C/XaPfUx0Inc3n4+vfClwbLYtxQq6CzcxIq2C3qHA2GzqZgL9/xNqwZ7qh7EXM/mX86JSYNPAvmIn++R2ZykseTXS3Ud7GLAFyybk2bTL2J24thNlR2IPXOmY0Bh4CsxzlORpddgTFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EJYiABCtly3xLMNuRotP9B+VCXkV3cs23k0NigFynl8=;
+ b=Hn5Aa28l8YWVvmYERALbjqqSz4KTCMkXx5xY+asdVu+EJiq595lB2O0lihvzSXhxlZS+f5gxKlZrGKhXCQcJ3rhrYCd7fC1us9UDXwdZRS3aEAtQg9LyQrpjU9Z5XK8cP+qLOty5H35I/RQ4Gs2opxTRCyzFN6a4iBOVQQRSJ59jrNnWaU0d3b8GmEaNtwkxY8dsVYFRAdnSA7+p8xRLb7JpvGEJv8nSY7oRTbNNQyAMEJGmhyZz0814ef+5+OY6jklv+GWHDbzJbtw5+M1rdFCL2Ss12CKWYJHSEaXJJwq/s8GVzsNCwfFk+P5+eMwxwPZ/fqdoSkFWSf0dI/YKGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EJYiABCtly3xLMNuRotP9B+VCXkV3cs23k0NigFynl8=;
+ b=xj7OO5mTHOw8UvMX8PCSLFSePR7NzI0XUuMDC9RH3vQbpdEEusWSMGv767UMlsTnl/PLmA47C1PircO0u+rMxGLVGhZmfugWCArZDXhAuSOioh0woFCJEyEVYe11Bd//j84ETFo85N0nBF3u/5bP8CqO3GjfwPkXnFJJgL8lTWI=
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by MN2PR12MB4240.namprd12.prod.outlook.com (2603:10b6:208:1d3::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.17; Wed, 4 Mar
+ 2026 13:09:45 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9654.022; Wed, 4 Mar 2026
+ 13:09:45 +0000
+From: "Khatri, Sunil" <Sunil.Khatri@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v1 1/2] drm/amdgpu/userq: remove queue from doorbell xarray
+Thread-Topic: [PATCH v1 1/2] drm/amdgpu/userq: remove queue from doorbell
+ xarray
+Thread-Index: AQHcqzDDo6FP34ZQVEyLwzOjqbwLKLWeWehW
+Date: Wed, 4 Mar 2026 13:09:44 +0000
+Message-ID: <BL1PR12MB5753AE9D4D5B370D32242FFB937CA@BL1PR12MB5753.namprd12.prod.outlook.com>
+References: <20260303171111.92396-1-sunil.khatri@amd.com>
+In-Reply-To: <20260303171111.92396-1-sunil.khatri@amd.com>
+Accept-Language: en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-04T13:09:33.6769067Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+x-ms-reactions: allow
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5753:EE_|MN2PR12MB4240:EE_
+x-ms-office365-filtering-correlation-id: 4a72b920-0007-4d6b-4560-08de79ef4e37
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|38070700021|8096899003|7053199007; 
+x-microsoft-antispam-message-info: CHtUFfoDyAwuy6BUiIiE7IDZwzeb0ln5h7AwM2ClqJvueZL79tywqtvN6IIMI+q+4Zxy+pP/V3YR4miXyGZMiO52AsK77CZ9qqcXj88rOGx4M4h3zeanx+VCiYL2rFValRy6UTcaU+WqxtKzlQn+7HnVFqVzxfl//PNCJgmBk++V/exUj3Tz2UFobWZeHq/QzYzq9E6+eGCOIYGog15nLOLneHD/7TxjZZRcbUODUlN2WZprM3gXgtZ0/2vbSgCQM4P5Hifw964YU5wddxm2YRHshzNXSoNAjX4wH6/At3fZxj/UcRaqfWoHuGaXJwMMjztNdeCKplZISfvDq7oDjMwHJWl3ENKWP7+RjK4YQIsQNZyjnExqfiWrl+OGgb24gLoiOmpk7Ofe9em8i9/GU5x9nZpZMg9U4zuX3dlSP0ghVosDMVSLrxbJmgUIw4tMX2z3UO17A7etJdb3mS+8frIOHNm92E7Bq2cGHBlcPrU63xfK4GD/8XlCtvZj4ct6Wrpm7nb0ybcQI93d2nGUxcihD5wTN//v7CC79NZ+mklBjp6SfzSVm4qcx+y4jZuJ03Vc6tEEtH7w5oBzuWGcA7yU7ZkEYNOOI0n9mLFP/B4MGrhkpUTtrLsru8+yegynX0netIkBBzzC56lvL5UCCoHpzTW6QD1r7KXCTkQb3eSXkN5FxKM2ksDa7ZgEt7DhugJ+G0msbIGnYn2ZgxpE2h4j2BhOcY8UCMDyWFjf6RFaP29qCd+N3DIHL7gEe7lE2MJrFBTNWZOY9GNwLZQZuU9e24XQ7zFO/rIKbGaui9A=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(38070700021)(8096899003)(7053199007);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?MeubVeGjzQTtjm0OmHbJbnlqZWFtZxP6WwNKmad5xBOwd5qhcYNE/NK8I7fw?=
+ =?us-ascii?Q?h1tInoDqBrr5SO098iD/iKdpubcgLCLXTO6CIadWQN5Cm1M6au8/GE+lRXTT?=
+ =?us-ascii?Q?G9Xpcg6frXJQtXbcaLJ24Oh+qz+UJFTEsIRNc1dB4rZ1BW8Ln8xpCkn7ewbs?=
+ =?us-ascii?Q?uiqnbKsLwF7AxoHzy3bjWKc4uGKY1mYMmCn9c22foDIWGClFHEk/xkTFF/iG?=
+ =?us-ascii?Q?Jesu/Z4r/DlphXN8tjmrU3sagMMOeUrWrMU7/1dUh9MEWnI0TGGSn+e7uvFS?=
+ =?us-ascii?Q?Kp1zMck4BRKlxAb++tUFiRPLUf3YDnUV/8BrHIw4+MinTQV1SQZbk6iirOek?=
+ =?us-ascii?Q?MNWPZgXPvCCjCH9D+6qzrOYK65yXm98T9XNhgRqWoe2mTzV92/ouPMGntMmf?=
+ =?us-ascii?Q?t9v5h900ai44GEoywyIrQ4b9ZyPTu8s2SXOWRnwGNnH9cplo/A5UGL28Cy46?=
+ =?us-ascii?Q?+Uc+BLiAneYn2vxi6hkJ8L4JM5emoFjHkKtGlCUTSoz2j7k/G7hWEz/NGl4X?=
+ =?us-ascii?Q?ppUDvY28r/jlzldyApCl0df+2ycViAgtsx7oWH9jvdeJrziXIj18O/qKsatr?=
+ =?us-ascii?Q?Yte0+rT5uypr8Q/WAvyz7hT4JuTBoFG2ryltVCI4BFhr/TBZD+nRg7ALMLzN?=
+ =?us-ascii?Q?vNZXhjE47DgySvznhw65468DxCSqww0JB0YAxEZuFp/ecHb4/yR0vrb/HHBU?=
+ =?us-ascii?Q?TpjMoAYPHMVlgloKuQ8lIQLcc7IpdqJ26q7uLtTIrG6LKyxfD5aTEg/HZswh?=
+ =?us-ascii?Q?j4mxmqD21Aqd8NG+JhWcsdA6j4UEM5TsVe9G9Rn3VzGhG3mFHt4QHJa79tML?=
+ =?us-ascii?Q?5EeCVlW1xneolmH87fizOVl3zg8WwaCYXlR0YzJRwiswjvIqYhazwrza5GuN?=
+ =?us-ascii?Q?sonA1J6D/7Dx0msz30uRUHEqSuxSb/Xoy7HN8fG0uXer30YiQ76K0LaM8+XJ?=
+ =?us-ascii?Q?0jkklhOJ8azb2sF61LOXL4yOdkfSdorPVKPejGafANz0tMYLG2n3hOJ8mKaq?=
+ =?us-ascii?Q?1xpEjU4N4EJnYM6014HZkur6gZDftxiEtKSADOyoSe2KWqmP8yg6BzF8rWnC?=
+ =?us-ascii?Q?guOVWqN7Q6fH3oog6P9WtVIfOZFb9ukdYWkPgIiTDlsPlUZLyT0nvGluuTVJ?=
+ =?us-ascii?Q?LmKZXl/gHppntlkoLVtIvIJh/GEjBdT9J/tXDVHIOgKApNtn67jsXNH63suL?=
+ =?us-ascii?Q?CF9XDFTtD2Q3gJj9Fa8rffDK50emNJEHj/aVFwQaIli2ifIGKdTWdZs/+8a4?=
+ =?us-ascii?Q?n1nZt/EK4u0BpoG+FUg18JIOtCCkG74lbFGNf5oy4sD73YnMou++kXXlAL4C?=
+ =?us-ascii?Q?KyWB5p4XDyrOCJUr/Bxwe+nrcXoJtg88szNDc233YF2o1wJ5BZIfOQkNYCAO?=
+ =?us-ascii?Q?nttpDkyXr4p3USvOiQ9YTU6jAwgwsJWqkgUnVCRa+OGfu18ndKT2xaGchx4Y?=
+ =?us-ascii?Q?keTAx/LvELPjoiPsuJFNXyDAw8Dw8WxZld9dDaky42c3gDv0m5ezG0MpWu54?=
+ =?us-ascii?Q?Dd/oJaENjWFb3QSXpc+Y0lSY5aIkoIvoxamnn7TXpcQqFPeHbULaiI68tivP?=
+ =?us-ascii?Q?NdwVvOsk5sHP3jTzayr26N11IC8wlqVm650ru61JqARbJg8my8putrKdlpR7?=
+ =?us-ascii?Q?3n36DJ4m+jEoLW5wHAAbmPm9YnndpqMU9piKdQvqNiHLW8M5Q667X5B6wOE+?=
+ =?us-ascii?Q?kcYGLGc6LQlPtVoN1sAvKSTPePIrGlRxHRbJmhIfLHcm7kaqp9f8puZcf1rM?=
+ =?us-ascii?Q?EHBQKpb4+A=3D=3D?=
+Content-Type: multipart/alternative;
+ boundary="_000_BL1PR12MB5753AE9D4D5B370D32242FFB937CABL1PR12MB5753namp_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- R_MISSING_CHARSET(0.50)[];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- MIME_TRACE(0.00)[0:+];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_DN_SOME(0.00)[];
- FREEMAIL_TO(0.00)[amd.com,gmail.com,ffwll.ch];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[];
- SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
- RCPT_COUNT_SEVEN(0.00)[7];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- RCVD_VIA_SMTP_AUTH(0.00)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]
-X-Rspamd-Queue-Id: 2E1745BE26
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4a72b920-0007-4d6b-4560-08de79ef4e37
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2026 13:09:44.9470 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: kriTC6y5tfgcNNAY2YFGy4K55axFIAVX7n21MVNRX1HMgqOb+ct8DjS4C8WOhiM1kvhQHsnboiz+Skzn4+K1UA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4240
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,93 +135,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace radeon's test for the fbdev GEM object with a call to the
-generic helper.
+--_000_BL1PR12MB5753AE9D4D5B370D32242FFB937CABL1PR12MB5753namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+[AMD Official Use Only - AMD Internal Distribution Only]
+
+Ping
+
+Get Outlook for iOS<https://aka.ms/o0ukef>
+________________________________
+From: Sunil Khatri <sunil.khatri@amd.com>
+Sent: Tuesday, March 3, 2026 10:41:10 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Khatri, =
+Sunil <Sunil.Khatri@amd.com>
+Subject: [PATCH v1 1/2] drm/amdgpu/userq: remove queue from doorbell xarray
+
+In case of failure in xa_alloc, remove the queue during
+clean up from the userq_doorbell_xa.
+
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/radeon/radeon_device.c |  7 ++++---
- drivers/gpu/drm/radeon/radeon_fbdev.c  | 17 -----------------
- drivers/gpu/drm/radeon/radeon_mode.h   |  5 -----
- 3 files changed, 4 insertions(+), 25 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 5d523d5dae88..705c012fcf9e 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -37,6 +37,7 @@
- #include <drm/drm_client_event.h>
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_device.h>
-+#include <drm/drm_fb_helper.h>
- #include <drm/drm_file.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_probe_helper.h>
-@@ -1574,7 +1575,6 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
- 	list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
- 		struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
- 		struct drm_framebuffer *fb = crtc->primary->fb;
--		struct radeon_bo *robj;
- 
- 		if (radeon_crtc->cursor_bo) {
- 			struct radeon_bo *robj = gem_to_radeon_bo(radeon_crtc->cursor_bo);
-@@ -1588,9 +1588,10 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
- 		if (fb == NULL || fb->obj[0] == NULL) {
- 			continue;
- 		}
--		robj = gem_to_radeon_bo(fb->obj[0]);
- 		/* don't unpin kernel fb objects */
--		if (!radeon_fbdev_robj_is_fb(rdev, robj)) {
-+		if (!drm_fb_helper_gem_is_fb(dev->fb_helper, fb->obj[0])) {
-+			struct radeon_bo *robj = gem_to_radeon_bo(fb->obj[0]);
-+
- 			r = radeon_bo_reserve(robj, false);
- 			if (r == 0) {
- 				radeon_bo_unpin(robj);
-diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
-index 18d61f3f7344..3e243f5e2f44 100644
---- a/drivers/gpu/drm/radeon/radeon_fbdev.c
-+++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
-@@ -274,20 +274,3 @@ int radeon_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
- 	radeon_fbdev_destroy_pinned_object(gobj);
- 	return ret;
- }
--
--bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj)
--{
--	struct drm_fb_helper *fb_helper = rdev_to_drm(rdev)->fb_helper;
--	struct drm_gem_object *gobj;
--
--	if (!fb_helper)
--		return false;
--
--	gobj = drm_gem_fb_get_obj(fb_helper->fb, 0);
--	if (!gobj)
--		return false;
--	if (gobj != &robj->tbo.base)
--		return false;
--
--	return true;
--}
-diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
-index 088af85902f7..ae1ecdc2e189 100644
---- a/drivers/gpu/drm/radeon/radeon_mode.h
-+++ b/drivers/gpu/drm/radeon/radeon_mode.h
-@@ -936,14 +936,9 @@ int radeon_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
- 				    struct drm_fb_helper_surface_size *sizes);
- #define RADEON_FBDEV_DRIVER_OPS \
- 	.fbdev_probe = radeon_fbdev_driver_fbdev_probe
--bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj);
- #else
- #define RADEON_FBDEV_DRIVER_OPS \
- 	.fbdev_probe = NULL
--static inline bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj)
--{
--	return false;
--}
- #endif
- 
- void radeon_crtc_handle_vblank(struct radeon_device *rdev, int crtc_id);
--- 
-2.53.0
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_userq.c
+index 001fcfcbde0f..5224871a099c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -865,6 +865,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_am=
+dgpu_userq *args)
+         if (r) {
+                 drm_file_err(uq_mgr->file, "Failed to allocate a queue id\=
+n");
+                 amdgpu_userq_fence_driver_free(queue);
++               xa_erase_irq(&adev->userq_doorbell_xa, index);
+                 uq_funcs->mqd_destroy(queue);
+                 kfree(queue);
+                 r =3D -ENOMEM;
+--
+2.34.1
 
+
+--_000_BL1PR12MB5753AE9D4D5B370D32242FFB937CABL1PR12MB5753namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body>
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[AMD Official Use Only - AMD Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Aptos, -apple-system, HelveticaNeue, sans-serif;=
+font-size: 12pt">
+<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
+o, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" dir=
+=3D"ltr">
+Ping</div>
+</div>
+<div id=3D"ms-outlook-mobile-body-separator-line" style=3D"font-family: Apt=
+os, -apple-system, HelveticaNeue, sans-serif;font-size: 12pt" dir=3D"auto">
+<br>
+</div>
+<div id=3D"ms-outlook-mobile-signature" style=3D"font-family: Aptos, -apple=
+-system, HelveticaNeue, sans-serif;font-size: 12pt">
+Get <a href=3D"https://aka.ms/o0ukef">Outlook for iOS</a></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Sunil Khatri &lt;suni=
+l.khatri@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, March 3, 2026 10:41:10 PM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
+ristian &lt;Christian.Koenig@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Khatri, Sunil &lt;Sunil.Khatri@amd.com&gt;<br>
+<b>Subject:</b> [PATCH v1 1/2] drm/amdgpu/userq: remove queue from doorbell=
+ xarray</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">In case of failure in xa_alloc, remove the queue d=
+uring<br>
+clean up from the userq_doorbell_xa.<br>
+<br>
+Signed-off-by: Sunil Khatri &lt;sunil.khatri@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 1 +<br>
+&nbsp;1 file changed, 1 insertion(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_userq.c<br>
+index 001fcfcbde0f..5224871a099c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
+@@ -865,6 +865,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_am=
+dgpu_userq *args)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; drm_file_err(uq_mgr-&gt;file, &quot;Failed to allocat=
+e a queue id\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_userq_fence_driver_free(queue);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; xa_erase_irq(&amp;adev-&gt;userq_doorbell_xa, index);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; uq_funcs-&gt;mqd_destroy(queue);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; kfree(queue);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; r =3D -ENOMEM;<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL1PR12MB5753AE9D4D5B370D32242FFB937CABL1PR12MB5753namp_--
