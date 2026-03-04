@@ -4,164 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B80FFEB7EA4
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 08:18:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57105EB7EA2
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 08:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 377AC10E96C;
-	Wed,  4 Mar 2026 08:18:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D961910E972;
+	Wed,  4 Mar 2026 08:19:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="Dwtx7drr";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w6YXC/9M";
 	dkim-atps=neutral
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BFB310E0C3;
- Tue,  3 Mar 2026 17:20:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=Tao3d1V6YUWjQGbciieZF7tZIWM4RPJQYZqAieQGxVw=; b=Dwtx7drrLMoXnL7AZ4mDDb+Dr1
- pHpHIG972dhLGyxzFcAQx+NudbFIcurMxKVq97sQTr1lhz5PGW3hew2GVT9QoeCbheZzl/O82STLK
- vg8zfOueGsejINU32tZqwfKdGcdQbjZuH93Vwz2pTaPZIsUFcvRc5p4xprv+YZmZa41AUiirVclTo
- qxIIHl6PoQ8QMH4z3vU3H3gUflIy+NEXbLJEmvYHKdxOjT+/NqRvilsvA6ZnM/G8lcC5UPT2gBhSW
- z8jZyRc6CCB7fazc1OBmrw5oOtDAXe2WSm0mby/ncmsCi8bS24bckEVTfiMaEfIq2JCGnv34ZS2p+
- wh5wZg3A==;
-Received: from willy by casper.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1vxTOA-0000000BrGK-29fG;
- Tue, 03 Mar 2026 17:18:30 +0000
-Date: Tue, 3 Mar 2026 17:18:30 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Jeff Layton <jlayton@kernel.org>
-Cc: Christoph Hellwig <hch@infradead.org>,
- "Darrick J. Wong" <djwong@kernel.org>, Theodore Tso <tytso@mit.edu>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Eric Biggers <ebiggers@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>,
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
- Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>,
- Olga Kornievskaia <okorniev@redhat.com>,
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
- Steve French <sfrench@samba.org>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>,
- Shyam Prasad N <sprasad@microsoft.com>,
- Bharath SM <bharathsm@microsoft.com>,
- Alexander Aring <alex.aring@gmail.com>,
- Ryusuke Konishi <konishi.ryusuke@gmail.com>,
- Viacheslav Dubeyko <slava@dubeyko.com>,
- Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- David Sterba <dsterba@suse.com>,
- Marc Dionne <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>,
- Luis de Bethencourt <luisbg@kernel.org>,
- Salah Triki <salah.triki@gmail.com>,
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
- Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>,
- Amir Goldstein <amir73il@gmail.com>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>,
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>,
- Dave Kleikamp <shaggy@kernel.org>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Joseph Qi <joseph.qi@linux.alibaba.com>,
- Mike Marshall <hubcap@omnibond.com>,
- Martin Brandenburg <martin@omnibond.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>,
- Johannes Thumshirn <jth@kernel.org>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Willem de Bruijn <willemb@google.com>,
- "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>,
- Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>,
- Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>,
- Johan Hedberg <johan.hedberg@gmail.com>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>,
- Neal Cardwell <ncardwell@google.com>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Remi Denis-Courmont <courmisch@gmail.com>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>,
- Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev,
- fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev,
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org,
- v9fs@lists.linux.dev, linux-afs@lists.infradead.org,
- autofs@vger.kernel.org, ceph-devel@vger.kernel.org,
- codalist@telemann.coda.cs.cmu.edu, ecryptfs@vger.kernel.org,
- linux-mtd@lists.infradead.org, jfs-discussion@lists.sourceforge.net,
- ntfs3@lists.linux.dev, ocfs2-devel@lists.linux.dev,
- devel@lists.orangefs.org, linux-unionfs@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-integrity@vger.kernel.org, selinux@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- netdev@vger.kernel.org, linux-perf-users@vger.kernel.org,
- linux-fscrypt@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-hams@vger.kernel.org, linux-x25@vger.kernel.org,
- audit@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v2 001/110] vfs: introduce kino_t typedef and PRIino
- format macro
-Message-ID: <aacX5metux-C_xBw@casper.infradead.org>
-References: <20260302-iino-u64-v2-0-e5388800dae0@kernel.org>
- <20260302-iino-u64-v2-1-e5388800dae0@kernel.org>
- <20260303012556.GA6520@macsyma-wired.lan>
- <20260303042546.GF13868@frogsfrogsfrogs>
- <33228005140684201de2ca0c157441d3b6a06413.camel@kernel.org>
- <aabkBadGzo7IZpSU@infradead.org>
- <19e4e79a59dcfc4c61c8cf263af345d0d7026fc8.camel@kernel.org>
- <aabpPQxCTweoTp8Z@infradead.org>
- <1310fc5c09cce52ec00344b936275fe584c88dea.camel@kernel.org>
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012011.outbound.protection.outlook.com
+ [40.93.195.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1276410E978
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 08:19:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WgiZkie4nLuNaWrNHgpalSfkbuk3+Vww/DJY+GKnP6U2TIeFwg7aUOMB8V5zCkC24phEFYLIhpFHwe+VITTSRa8iLjSVYRC75bMO1BhdSFb9mPJtuUe+JUyCUdqn2LZddak5/CDbQ1IDvLminVSkzlu6YguX5jLgbK8FOgxJ0lov/C+BBBvh9B9i+ZlhIxZ8OdhmYhWKKuEuddZdwVrB0FE9xq3ut2yiBbWpk3H0ssD1HkDmm1KMOH+hh0mXtI2VrcoIPN6cFfNPPwYKSm6hNK6B70jtX6UuQ6fRTXVoHpZvVdwSmfKwE6O2AZz0zwpr26aFR6xNoZe7ZfSbnEXx7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C1cPkXxVTZVO0YKUoBHkKalMJAi8u0CSU2C6IsTKVmA=;
+ b=GZvSObL0/BPL69WB4lCa3STzoqyAzBBCwb8b1tSDhXkPCvxRnjBPP0kTvBQyGRc7jUgfHQPRGyLikhfI2U19Hqnkuj1O4+YLqyBZSTu0RvjoOR0jre5cnE3riiJzFkZTzOcnYNedA0CctxkhZE5Av1qboMln3QBihspUmNbSuUmuCfUXLoBcMocreb/sXL9TtwLRVjsH6HeWuN/Qcwp8NtdVEEGmgZ1MaA/3+mF6rTlHFQk/vB07y/h/ZQ+hW0Gf+khB8PkSvLQZ4PzyL5koXerim++BxE/bU+Dp3kNgU+jUj5wXnFF++RIMg3UxVk6Ktay96oA7hlj8KS81uWKuLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C1cPkXxVTZVO0YKUoBHkKalMJAi8u0CSU2C6IsTKVmA=;
+ b=w6YXC/9McNUed95kN228MNIZ9oHLqip99/V3k/oSgBkn+xIYFr4ziXklSsZc1lkH3lSC51g7tV6Pb5Y/3GpQ89etRCAppSeqA7Kf2Mou6VyNfowXwMDbM0o9/1T9Jr+ezqzK1kZJMdNJhG+AqTcH5jmatH7jJ58QmpL9PmUphWM=
+Received: from SJ0PR13CA0208.namprd13.prod.outlook.com (2603:10b6:a03:2c3::33)
+ by MN0PR12MB5786.namprd12.prod.outlook.com (2603:10b6:208:375::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.17; Wed, 4 Mar
+ 2026 08:19:19 +0000
+Received: from SJ1PEPF00002327.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c3:cafe::33) by SJ0PR13CA0208.outlook.office365.com
+ (2603:10b6:a03:2c3::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.21 via Frontend Transport; Wed,
+ 4 Mar 2026 08:19:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002327.mail.protection.outlook.com (10.167.242.90) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Wed, 4 Mar 2026 08:19:19 +0000
+Received: from asad-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 4 Mar
+ 2026 02:19:16 -0600
+From: Asad Kamal <asad.kamal@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <lijo.lazar@amd.com>, <hawking.zhang@amd.com>, <le.ma@amd.com>,
+ <shiwu.zhang@amd.com>, <alexander.deucher@amd.com>, <kevinyang.wang@amd.com>, 
+ <asad.kamal@amd.com>
+Subject: [PATCH v2 1/2] drm/amd/pm: Add aid/xcd/hbm temperatures
+Date: Wed, 4 Mar 2026 16:19:03 +0800
+Message-ID: <20260304081904.3132877-1-asad.kamal@amd.com>
+X-Mailer: git-send-email 2.46.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1310fc5c09cce52ec00344b936275fe584c88dea.camel@kernel.org>
-X-Mailman-Approved-At: Wed, 04 Mar 2026 08:18:12 +0000
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002327:EE_|MN0PR12MB5786:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc342adb-59d8-4857-14fd-08de79c6bbc7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|82310400026|376014; 
+X-Microsoft-Antispam-Message-Info: lVWOZq9uIljES3ATFddvWE9pO4GMOu7+Gtm1O/EMBf/voXVbc/nMg0oZqA6gMGctwyyVGT/gKAsVAxoR8PdipdkFrG6K45Pw1SUIj0vjgH/0xWwVAFA+ymS4F8LYZyoi74Md2MiJcqdhWqp5TnnMiowOzegwT49iD//VMyIy0fD3hUFYshpGL6GCAZhH0zx+ZsXlrz1uT5AXs6pNReigptaC17uUnwjBPkRJuzUr62Z1HTCW+w6UwG1DAbVpyNp/b3QqrxvDAsQdIxMcQnlk1Lzt1vLgswlFn8/6pwdxfcZLTJ0RUTRWKHizFgKZKyy2Uk2QRWpSO+4tEtUEwV69uv0TLV0N7oGfBdqAhEIjeAPLyPxzHAhxftv7SAVWYyzgnMeayqivpYL7bglohU65+QJEOPzLlzf5f/Op0zcUfhocmlNL4bfAB7ueN16PMwxUq5QKRpS4UFGE9Nsr02qLjwgSvKOhU6rN5IGYnwcV4MBErjfxiSDZXQ3TnuiQbO262qpS5M0zTU4sylf7ePHUHUQPC5ocbVJs70KsYNPFRHqVogSybQp4EHiTsoXJHMzHEdbw5L5l9IdfBw8tQQHVym49ds4AcrQGdRLVBguHU55isGuxuzEP03XrYlRHyEZAr1+UJhqd6tMfca4i672Eqw7oJ4DR74j+uqomBsFR8P6UKXmMwiXDjjaNachcH0pEg6Q1ANNGBFUJzyFvukAQeC7Wj9KhkluG0fFXI6myfiq0gY0dvvHenzxwsNq4wGKuHRbA/lhU/y4xH6q4k60X5g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: hUi9qLS1k/9/uiWVroFd+o1iPKKpfuiODBYysqQOIoRxM+x64aLwpcVnf3k2QX7Qa9dF5MH97nXohaKeT5ywFq9HDEDc4WJ04uI2NSwe2I2BRJ1C1N++lW+2Vy1rkB539gGw9Kgsew6ZJNsLJ9eIdUHN6NbMw6vAkzZ8y6NCQxlChJN/Ht+TVZwhGu+FbvvXdpkHBI4W8PegI4EYMcMBS0TYdneI7PmaE4NZ7BUfaEd22Bk4KXgAwW3m3fto32tzfviX0ayl5NS3c6FVwzdmmeFFORzoDUHGh+gFpFc6K738V1I9cckAsuDz0K/TUEuCZ7nWNwWJqsVOnjHJaZFV0CV4Zp+w3L+s3pxYmBoTr96yvwoscSxdBpBwO0M42+NJ4KSWA/nWCTe72vuxYegK2NhjOOPUmRTK0qfLIJYHsctCHNJgSV5KlHKg7fyD4aNU
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 08:19:19.2716 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc342adb-59d8-4857-14fd-08de79c6bbc7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002327.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5786
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,52 +110,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 03, 2026 at 09:19:42AM -0500, Jeff Layton wrote:
-> There are really only three options here:
-> 
-> 1/ Do (almost) all of the changes in one giant patch
-> 
-> 2/ Accept that the build may break during the interim stages
-> 
-> 3/ This series: using a typedef and macro to work around the breakage
-> until the type can be changed, at the expense of some extra churn in
-> the codebase
+Add aid, xcd & hbm temperatures to gpu metrics for smu_v13_0_12
 
-4/ Don't do anything, drop the patch series (I'm not in favour of this,
-but it is an option)
+v2: Use correct umc control per stack (Lijo)
 
-5/ Do the conversion(s) _once_ per filesystem.  Here's one way to do
-it:
+Signed-off-by: Asad Kamal <asad.kamal@amd.com>
+---
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  3 ++
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c | 37 ++++++++++++++++++-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h  | 13 ++++++-
+ 3 files changed, 51 insertions(+), 2 deletions(-)
 
--	unsigned long           i_ino;
-+	union {
-+		u64 i_ino64;
-+		struct {
-+#if defined(CONFIG_64BIT)
-+			unsigned long i_ino;
-+#elif defined(CONFIG_CPU_BIG_ENDIAN)
-+			unsigned long i_ino;
-+			unsigned long i_ino_pad;
-+#else
-+			unsigned long i_ino_pad;
-+			unsigned long i_ino;
-+#endif
-+		};
-+	};
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+index bdf8e6ff556c..a9b73f4fd466 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -584,6 +584,9 @@ enum amdgpu_metrics_attr_id {
+ 	AMDGPU_METRICS_ATTR_ID_GFX_BELOW_HOST_LIMIT_THM_ACC,
+ 	AMDGPU_METRICS_ATTR_ID_GFX_LOW_UTILIZATION_ACC,
+ 	AMDGPU_METRICS_ATTR_ID_GFX_BELOW_HOST_LIMIT_TOTAL_ACC,
++	AMDGPU_METRICS_ATTR_ID_TEMPERATURE_HBM,
++	AMDGPU_METRICS_ATTR_ID_TEMPERATURE_AID,
++	AMDGPU_METRICS_ATTR_ID_TEMPERATURE_XCD,
+ 	AMDGPU_METRICS_ATTR_ID_MAX,
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+index f2a6ecb64c03..96a58d43db53 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c
+@@ -49,6 +49,13 @@
+ #undef pr_info
+ #undef pr_debug
+ 
++#define hbm_stack_mask_valid(umc_mask) \
++	(((umc_mask) & 0x3) == 0x3)
++
++#define for_each_hbm_stack(stack_idx, umc_mask) \
++	for ((stack_idx) = 0; (umc_mask); \
++	     (umc_mask) >>= 2, (stack_idx)++) \
++
+ #define SMU_13_0_12_FEA_MAP(smu_feature, smu_13_0_12_feature)                    \
+ 	[smu_feature] = { 1, (smu_13_0_12_feature) }
+ 
+@@ -834,7 +841,7 @@ void smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table,
+ 				  struct smu_v13_0_6_gpu_metrics *gpu_metrics)
+ {
+ 	struct amdgpu_device *adev = smu->adev;
+-	int ret = 0, xcc_id, inst, i, j;
++	int ret = 0, xcc_id, inst, i, j, idx;
+ 	u8 num_jpeg_rings_gpu_metrics;
+ 	MetricsTable_t *metrics;
+ 
+@@ -849,6 +856,31 @@ void smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table,
+ 	gpu_metrics->temperature_vrsoc =
+ 		SMUQ10_ROUND(metrics->MaxVrTemperature);
+ 
++	if (smu_v13_0_6_cap_supported(smu,
++				      SMU_CAP(TEMP_AID_XCD_HBM))) {
++		if (adev->umc.active_mask) {
++			u64 mask = adev->umc.active_mask;
++			int out_idx = 0;
++			int stack_idx;
++
++			if (unlikely(hweight64(mask) / 2 > SMU_13_0_6_MAX_HBM_STACKS)) {
++				dev_warn(adev->dev, "Invalid umc mask %lld\n", mask);
++			} else  {
++				for_each_hbm_stack(stack_idx, mask) {
++					if (!hbm_stack_mask_valid(mask))
++						continue;
++					gpu_metrics->temperature_hbm[out_idx++] =
++						metrics->HbmTemperature[stack_idx];
++				}
++			}
++		}
++		idx = 0;
++		for_each_inst(i, adev->aid_mask) {
++			gpu_metrics->temperature_aid[idx] = metrics->AidTemperature[i];
++			idx++;
++		}
++	}
++
+ 	gpu_metrics->average_gfx_activity =
+ 		SMUQ10_ROUND(metrics->SocketGfxBusy);
+ 	gpu_metrics->average_umc_activity =
+@@ -964,6 +996,9 @@ void smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table,
+ 				[i] = SMUQ10_ROUND(
+ 				metrics->GfxclkBelowHostLimitTotalAcc[inst]);
+ 		}
++		if (smu_v13_0_6_cap_supported(smu,
++					      SMU_CAP(TEMP_AID_XCD_HBM)))
++			gpu_metrics->temperature_xcd[i] = metrics->XcdTemperature[inst];
+ 	}
+ 
+ 	gpu_metrics->xgmi_link_width = metrics->XgmiWidth;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+index ffb06564f830..a150fc88902c 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.h
+@@ -78,6 +78,7 @@ enum smu_v13_0_6_caps {
+ 	SMU_CAP(RAS_EEPROM),
+ 	SMU_CAP(FAST_PPT),
+ 	SMU_CAP(SYSTEM_POWER_METRICS),
++	SMU_CAP(TEMP_AID_XCD_HBM),
+ 	SMU_CAP(ALL),
+ };
+ 
+@@ -87,6 +88,8 @@ enum smu_v13_0_6_caps {
+ #define SMU_13_0_6_MAX_XCC 8
+ #define SMU_13_0_6_MAX_VCN 4
+ #define SMU_13_0_6_MAX_JPEG 40
++#define SMU_13_0_6_MAX_AID 4
++#define SMU_13_0_6_MAX_HBM_STACKS 8
+ 
+ extern void smu_v13_0_6_set_ppt_funcs(struct smu_context *smu);
+ bool smu_v13_0_6_cap_supported(struct smu_context *smu, enum smu_v13_0_6_caps cap);
+@@ -222,7 +225,15 @@ extern const struct ras_smu_drv smu_v13_0_12_ras_smu_drv;
+ 		  SMU_13_0_6_MAX_XCC);                                         \
+ 	SMU_ARRAY(SMU_MATTR(GFX_BELOW_HOST_LIMIT_TOTAL_ACC), SMU_MUNIT(NONE),  \
+ 		  SMU_MTYPE(U64), gfx_below_host_limit_total_acc,              \
+-		  SMU_13_0_6_MAX_XCC);
++		  SMU_13_0_6_MAX_XCC);					       \
++	SMU_ARRAY(SMU_MATTR(TEMPERATURE_HBM), SMU_MUNIT(TEMP_1),               \
++		  SMU_MTYPE(U16), temperature_hbm,                             \
++		  SMU_13_0_6_MAX_HBM_STACKS);                                  \
++	SMU_ARRAY(SMU_MATTR(TEMPERATURE_AID), SMU_MUNIT(TEMP_1),               \
++		  SMU_MTYPE(U16), temperature_aid, SMU_13_0_6_MAX_AID);        \
++	SMU_ARRAY(SMU_MATTR(TEMPERATURE_XCD), SMU_MUNIT(TEMP_1),               \
++		  SMU_MTYPE(U16), temperature_xcd, SMU_13_0_6_MAX_XCC);        \
++
+ 
+ DECLARE_SMU_METRICS_CLASS(smu_v13_0_6_gpu_metrics, SMU_13_0_6_METRICS_FIELDS);
+ void smu_v13_0_12_get_gpu_metrics(struct smu_context *smu, void **table,
+-- 
+2.46.0
 
-[...]
-#define i_ino(inode)	(inode)->i_ino64
-
-So that's patch one.  All plain references to i_ino access the lower
-bits of i_ino64, so everything will continue to work as it does today.
-
-Once you've got the VFS core in shape, you can convert filesystems one
-at a time to use i_ino(inode).  Once you're done you can delete the
-scaffolding from the core and go back to calling i_ino64 just i_ino.
-You could delete the i_ino() uses from filesystems at that point, but
-why bother?
-
-I'm sure there are other ways to do it, this is just the one I came up
-with.  But for the love of god stop spamming hundreds of people on the
-cc of this patchset.  In fact, take me off for next time -- I get each
-one of these fucking patches four times.
