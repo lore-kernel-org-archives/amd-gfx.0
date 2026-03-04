@@ -4,132 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BDB9EB7EAC
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 10:07:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7287EB7EA5
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 10:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F42110E99D;
-	Wed,  4 Mar 2026 10:07:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7672A10E108;
+	Wed,  4 Mar 2026 10:21:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IpnQ9OsB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PaF+HKi3";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012063.outbound.protection.outlook.com [52.101.43.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6722210E999;
- Wed,  4 Mar 2026 10:07:05 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011064.outbound.protection.outlook.com [52.101.52.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F6B310E108
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 10:21:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ncNtR1Ppk2whavyF7jpOAglbaBY9bhdQUejVK7bnOjCWny7mrJ2/6F/lwTlNse8T4ps3B75DoZR+qVDvcHuNozYANCdWOfhZ1+sTCWyHZH59uDjDuIuqtbZx4kAtfsS+rzPlO7htpH1vz4PCxMJVABhEjWNsoVN272BXssItPf9crFzLGS0phbFtAa4UZhaH3JbsfY+nIxkLgdMUYJUO34zaoNDAIN44DuYD30XjTMWzDI9DVtU/WfxDPiZOxPemeIskCe75S2X8Ie9Z80XZ6+ESmvJaTOj+o8mxeqij1T5IrZ4r0mhdlvkBnygbh3gaemLcC9Ojs5KOq4ep9CU+dQ==
+ b=SSV6Xksh4Ja0XVUUJY4eWldgAeObQUi/qhGXoN6vMH594Ns0IfIV+jNSta4EGYiomn8E9k3x8d0aCOejd+xmRY9Fm1eTlJIvqH3JC2LzEWh2V4twEuEf0x8YXykShzfAvmYThL1oRcjydoC8X0NK5j6AJvqNw0ZzxqwzsjOida5msJ1vxVFGNHLNHEesb4CjauEkwuI3lI2zcsfDgmlIuyk71oawGGLLHcsVInOGNjpO7m8bq37xyWRH4CGLBEA4Jm45IRKa/BGt4gQLsjF0ixEq7+Zu+MN7UNCZSk1q9i6hISOiKCCZ+2q0ULa9NSv3f1FoKQbIePF/Z2njPlFmYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vAilE3kvEb8tJpybv+zLICWfzXVK35uwb4mPGq8mu7w=;
- b=yvCkMVLhxvNbHL3G++jTf7H7egEiIitD8bBeZ9GVcXTfJ262Uwb53L1wiqD51hrNMTxUsswFJKsmZ6KQNSsX4OtY2FIrB6wFdTq3b/jbjGEmdeo1KQpHackrSxDnZHVCDJBUw3hCAGXjuwwfI2frL0lO2uofrp3lBJJmXIe7hmOMYQ8V62WcYADkF4SK02KA2IZq8pNAdq6PFAc+ccS4VwjgEQrSZRuJ0sZgo6P2bEhHGUch8R3YDiduzr0exoDcd/hil2yQyxxyIqo0eWjGy0TknLr617R5zl7gnnWNgvozj2S2ZkN5jEhL17bCs03rxW2c9HcvIglszzIUX9ffnA==
+ bh=dEAhoozfDDCdi7j7cKpp7TJkjiZ59MMrN9qf0tvYlLc=;
+ b=UtxcgaJIhCp3HwPuu3ONE1fosn/WLVYVctHOnGJj1Lwvh5u8becBpMFsCT/4JAcjOFfF2uy7JRH+GghfynwHuyGtMnhmxhlHP8btWvScoiBDGKC2wLGvRucn75B4SOwoP1hGOYHl+f5L8NSnxdpW3ja5l+MUOddGEFH/zRiJr8rOEFdb/GHlJ1xZ05z593HMRSMaN02aMocrhes45Q2lL/QvRLAvOoqWo7FotTShwjGOBVDaltKk4la0DMjmh+xkg+FOLfpUfLF6hGkOrkNGL7jvy4S2Q7HDR9E1yJ7IZyWQnQ1HWgoct17QFGxRYnPbcvSFxzjsln4BEbJFaXQ09A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vAilE3kvEb8tJpybv+zLICWfzXVK35uwb4mPGq8mu7w=;
- b=IpnQ9OsB3yio0RMTj9SkKi4eC/bxaZGXopuUcQp9iNNYgjk6JGWn8sbIzmEkO0uXAq21Nb4AiXF2gi4w0u4kVsyR9ntfCTyF9aythuNtKu+monOravQW0cVgkCuVc89P0EKDvRZTXegxpOg2GnH6PVxm51jQSdf+n6mE2Xh4bm8=
+ bh=dEAhoozfDDCdi7j7cKpp7TJkjiZ59MMrN9qf0tvYlLc=;
+ b=PaF+HKi3f7o0ocgRMnqSXAYWcpHNnEN5HLut2yGe8H7G9gU2KlVEvJcjyVq+m/9emNznFq2ignwVPGN9j06N+3dJuVnxCOPqMX2kF1UcEifY5emQRRswKCjIyGT8iqFJL2YS6gsoJMY5p+7G4FtvoHyr930UawE7HWHKHEM+ZpM=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB8558.namprd12.prod.outlook.com (2603:10b6:8:187::22) with
- Microsoft SMTP Server (version=TLS1_2,
+ by MN6PR12MB8513.namprd12.prod.outlook.com (2603:10b6:208:472::13)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Wed, 4 Mar
- 2026 10:07:00 +0000
+ 2026 10:21:10 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9654.022; Wed, 4 Mar 2026
- 10:07:00 +0000
-Message-ID: <4d00945c-f439-4460-9f8b-12e7e498fb20@amd.com>
-Date: Wed, 4 Mar 2026 11:06:53 +0100
+ 10:21:10 +0000
+Message-ID: <8241286e-49aa-4cbb-8bd9-bb660682b530@amd.com>
+Date: Wed, 4 Mar 2026 11:21:06 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 for 6.112 and 6.6 0/2] amdgpu: fix panic on old GPUs
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Rosen Penev <rosenp@gmail.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Kenneth Feng <kenneth.feng@amd.com>,
- Alex Hung <alex.hung@amd.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Lijo Lazar <lijo.lazar@amd.com>, "chr[]" <chris@rudorff.com>,
- Sasha Levin <sashal@kernel.org>, Wentao Liang <vulab@iscas.ac.cn>,
- "open list:AMD DISPLAY CORE" <amd-gfx@lists.freedesktop.org>,
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260228045356.3561-1-rosenp@gmail.com>
- <CAKxU2N_FbB_d6ntXEOFzE2u-sfu9sRRFwaDnb3P=RfTwE5yuDA@mail.gmail.com>
- <7d3a4090-06bf-40b0-8c80-ca08625608d7@amd.com>
- <2596902.XAFRqVoOGU@timur-hyperion>
+Subject: Re: [PATCH v4 08/12] drm/amdgpu: Consolidate ctx put
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Alex Deucher <alexander.deucher@amd.com>
+References: <20260112102244.63308-1-tvrtko.ursulin@igalia.com>
+ <20260112102244.63308-9-tvrtko.ursulin@igalia.com>
+ <4a57e7f6-0722-411f-a37f-24d1f5d6f0e8@amd.com>
+ <1dc6b09f-563a-480a-a884-101271302367@igalia.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <2596902.XAFRqVoOGU@timur-hyperion>
+In-Reply-To: <1dc6b09f-563a-480a-a884-101271302367@igalia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0110.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:bb::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: FR4P281CA0253.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f5::7) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB8558:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4e8c166-1c40-4a04-99d4-08de79d5c6b7
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN6PR12MB8513:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46c6c331-603f-4be5-4a99-08de79d7c11c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|376014|7416014;
-X-Microsoft-Antispam-Message-Info: kcq9CvOIC/S7c04Ru1KVmibJVr/OrYopKCF2CEbPB5RU0El03k86oqRKwz6iBobHD+RrMKiTW+5cX5l+WzNo6Q+S1CzT+luExW9IP0KlyO8oL0qoypd+gv+PEznqEfcWKM+sLjFOt0lA4jtXEB6ZC1YGIxvYh4DHJuTA1BY76ylDxUhgYi79M2lrbeQBXsV9uv50besjZn2LAYej+oyberdny6pjVxNzZ3gBhp4oGmhfUqhAo0onDkg9vqd1jV6PuGqwghWdNunoruW8WhnsjbHgsKFGT1tiXJV+Attk3cGMd82o1CC8OXtVTJLjBAQvcNifT/5mKjE9P3Kkdx/fW3Wop5uLcAppaMpgQG6oe6hjStFNkjSzbgcOCqlLeGRNScd8evzh1zDXELaPiBIEqzrEhcgGifUI4Jz2/mvdHlMYUxeyLxb3QdhFY+gcmbftO8iZE2zx4+4pQkTX8N962uCAwB6Mb6OhEgho6g2Mo9zJEpttLi4t4Ou2ZBuXwTFHRgWOwWGMu+dKp+mifIQ8yYoNxS25EgF5F7KTH31Epv6GCwsbVvP1Kph62tWsoYym6MtXT+q0WXXe67Fb9AiAd4BRhTWk9VtFOkV8ch5DAcyyuaaCjXKh+wm5LHx9j+aJclqNjGcyvMqP2XT4+zCFLpcVhgS3dPXsR3ZUHYRkjB3CvBtZHirTMlNkjKmKYoDO
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7053199007;
+X-Microsoft-Antispam-Message-Info: mHgn+Hsn7DrzIawbPeLRqAeiWHvLKEIhH2kRGJvM/s7QYTVklLQIybq8HO7Cxk7eMn8XieRDRjupzGqx9vkV4Fe9Lq/UblcfNWtmRrNqV1L1MsT5te/RW1wcfiYj1SPwNY/XJMQYw0kufNZoiYruy/R5pamRnwOXnumYRysQoJqy4lfneQih+g4t7EHud7IhGR6iEKq21ll0fCt0OIw1iD3fJgj2+KS6D6zDYxTULqkAWYLP64A8710yh1sjUQbnX0vXdf1PpmxdEUXn6j6Tf1tOAO3akqBg69rehqOfkkrhc6LENvBoqj3DYa+mRTP3LCJrrJcx90tf+J+laA/MfdcVBF7nxTAz7qRu2fTZ8pzqnvZzC511Ujpb8jfcP2Ywjzb7wUWlI7SxapmIrDgfMfYKxHiFmOAnD1JgSec7FYklWy5gUX9huHLmuWyIFkunBnpa74GfsTOEWPANC6AbAboUoiuj+pUq9qRXg/W7YwDrB5HeZhWJI4Xx/aXgb4u/ygzK6TIuo5a1+hROo+Lv/2VRiHwE0EpRIPQrXhmdxcfoyBBe1unNmAcgcCbC9K4MJpBE4jsXKAPN+WlD1stQ9qvgp8BoLagcupYZ44Byqh+62Co7eBiKDh4QuCkTu5Yfxe64GqSj/pJG9PoGzTHMxwN/Rplb2Xiu6VR3roOEytqv66iQdJYoMQNBhRo0F13LVFwrB+pS6q4CvFb7hGGsQlnVhuyb5KVuT0N7rlLXHeY=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(7416014); DIR:OUT; SFP:1101; 
+ SFS:(13230040)(1800799024)(366016)(376014)(7053199007); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VFlZdUdUVFJDSnUrVGRqSk9aTks0WEtBb01ibi9OSGxQQVMwZ1V2a0FMY0Jl?=
- =?utf-8?B?anBpVlI5U2E0aHhPSnhqejNUZHRrcUkvRVpENzRhK2dQek9BekJGaW4xbWNk?=
- =?utf-8?B?R284M3UreWUwT1FLSjhCL1c3alRjdDVJMnVHSk4yYURIa1NOSUUyMmNwRGp2?=
- =?utf-8?B?RUw2ejBqQWlMU1V2eFcxSU5iZFFOZG9UWHUrRWg1V3VKUDB5b1g2NzdRSUJk?=
- =?utf-8?B?TUNwYlNlU3ljN3plWGNFYVdnY1o1WFl4VHd2d28vQUdwMzZsVTNLWE1abkM2?=
- =?utf-8?B?N3drRUEyMDJQZFpmTUNreFVYY2xvekFqc1B1Y2RxRUxDNXdyanhtSnp2WHJt?=
- =?utf-8?B?dTdzRkpJYWNoMTQydU9jV3RrdThHQzVBc0UwQmpVeGYzTVZIVXpnZExUczha?=
- =?utf-8?B?ZHQrd204cHVzaldwUzc2ZVNtVnM5V2pkemhlMGNKSVcvelFvb0xqT1dMNjd5?=
- =?utf-8?B?N3BTMXV0dlVKcU00K05qTjlxUGtnbXIwd1VMT0lJUHVGMWVjNEY4alFRZ0lO?=
- =?utf-8?B?TzFyY0lLQUxzUkM1SFdUcDZ1TmdsbWxtOTh4dzRaaktrbHZHNXRwUFhncWZS?=
- =?utf-8?B?TXAzUVFvYTR3ZEFjaG9ZVFRYdmJWLzZ5RlJPMmpZcTZWdy9TWkxsS0VENlls?=
- =?utf-8?B?Q3JRdzE1Rng0OHExaUpQMDJ2THRxV3h5S0JVQU1OTlRoQWovWGtRRmY3MXhK?=
- =?utf-8?B?dUhJQnZlOS9vNUh4b1ZKeS9EN2s0WDhTamlBdEhpWUNJMXpsN1RVbGlEQ21S?=
- =?utf-8?B?akF4SDR2R3kydUc4WmVlSWcwVUtkR2dCWjl4Z1Z1dy9GZ1NER0M1aGphRVZL?=
- =?utf-8?B?b2dUT1BQbnlUZnFBZ0hMYWNnSkVEc2ljUlNEV3U3QlhoOWNqbXNpTlZ2ajBs?=
- =?utf-8?B?N2x5VkVHeTViK2l6MW8vaEZ0TTZKcTRkUmE1KzdKUzJLL3hjdElVRVpiZWRm?=
- =?utf-8?B?R3ptTCtvUXNsVmJHa2VVTmppOWJaVThDMExzcndFV3haYTNBdHBPTUpKTXBX?=
- =?utf-8?B?R3N2a1RLcnNzc2xHVlBUYjJiUGJoak1HcWxjVk12cENadEFtaFkrbXFBaHJp?=
- =?utf-8?B?a0NBdTVFenYyQk9OQVJmZitJS0xsa2ZnbzJMZXVpaTZWVmtEa1V0UDF3Sitw?=
- =?utf-8?B?SDMwODRoNTlkYjZQMmZQemNiSms0ZkJxMU5YL0N4cTBHb0N4UVFDOW9xM0tm?=
- =?utf-8?B?bEhoMk0zVkNJZmFFN1RMWUE1WStqd1pXRXgvaHBPamdlS1JVK1psT0I3Tzc1?=
- =?utf-8?B?Q0QyQWMvYXFCMjEvWGc5NTRXbnFWaTArMkZDVXV6MHFsUVBmcFhweWVoZHEv?=
- =?utf-8?B?MkxiNmFCSTZ0YXRrNDdNTG9SVnhxOU5ZN3JEaTYxS0tOVjN4T0p1L1d2Mkl2?=
- =?utf-8?B?YTkxWXc1QUlKT2NFVWtkL0VHZmtYWnUweDErcW5pOGF2Y2RORjg3NlFyUmpM?=
- =?utf-8?B?bHF3MWVSb1VnYjlESlR5NnJQMWxWQTQvdzVBT1FCRmdncDRZTGNuNnRicG9C?=
- =?utf-8?B?cHZpTDgycGJmM1lDOGV4TGUwdkNZWXlUTnVLMmV3QWwyb3dlRFlsT3NYK05q?=
- =?utf-8?B?anlKTTFYcUk5b0o0akUyY243OUxXeDNaYzdyeFV3Mk5uVHZkOFBJd2YyMVdK?=
- =?utf-8?B?Z0JyeHQvOGJWdXJ0SSs4ZStaMlZvN0g2U0FqME9HNjVoZXBJU3dOaCtuRzF4?=
- =?utf-8?B?VnM3RW5uVDBPVWpJZDlUODlxSEV4Ky9Zc2hNUGRUV3M3RGZqRUZZV1V4ZitU?=
- =?utf-8?B?WFJMaFhYZWxReEZNSGhLeGtUSElpTTdzUHRsR2tlSEtMeGdOZlkxaGVqMjBh?=
- =?utf-8?B?dERzdERMelo1N1VhbkpUaHhRVVZqdFhpeU05YWptVDZKK3R6bHVBNi9xYVFv?=
- =?utf-8?B?enB1Y3AvMUw0K2x3Sjd5RnN4d2YyMnN2M0FXVFc5cW85L0ZLVGZIdHY2M1pF?=
- =?utf-8?B?NlBjMXE4YThOWG5kdStsOWp0azkzTGkrMVFYQVVUUUNWemEzY3NjS05qcXJw?=
- =?utf-8?B?aDNrakpncDFleU9nczRlK1lqZ1p0MDZyRVdEZ3NZWXNWanc2NUZYdTMxUHBF?=
- =?utf-8?B?WkhJUFFwaCtCYWFKSEJGREJ6ejloYTh1dW5vdmFmM0NlTm5Qd0dCdGxrU0cw?=
- =?utf-8?B?cTJEUktiRjZHWlNGV0lzaFlLOG1oeE51d08xcUs1N0RzVmFRd2l4dWlBVk5V?=
- =?utf-8?B?bGxjWVcxNVp0UGRGY0o1T2doZFU4Vld4anFaYmVxenlnbVpMVytDUm8yOGZN?=
- =?utf-8?B?ejNXQVhXUGIxREwwOWJTZ1FSWnBqRXpHblRYTjhiaHpqOGlCWC9HUVdueGxU?=
- =?utf-8?Q?SqbxWZtWfrPNjS7E+M?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RVAzbnh0WW5Ca1JlMGxsL2hKejh5Z1lQbHdlbEVDRU4zRXRwRkhTeUkrcktp?=
+ =?utf-8?B?OUhyVkR4amZQUWsvSXBueit4L2dIdDluemhKalVBenlzZmJnbmx6eThQUlhW?=
+ =?utf-8?B?b0NLenFJSjBuSVlOclNyZ2FHTGRZSHdIZ0VIWG5DRjNyYURIT0czNXdxcU9m?=
+ =?utf-8?B?djRGZFZEa05KbURQaXBnSkNlU0Z6RjgzaVVjbjRSVTc0NEFIdGRGa1hhd3g0?=
+ =?utf-8?B?Q1BaczlMNUZXSlF4ZzZvcU1pc3dVOUZ4RnM1Q3ZQRlNaUWdwZERGNGMyRTdr?=
+ =?utf-8?B?b0tMTng4NzltTDdjY3JSOFlMQUc4dmdQVlNnZjU1SjlXYU1HMmg0d2ZMdWpJ?=
+ =?utf-8?B?UnUwL1lsSStKRFgxb0JHVVE2T0xxTjRFTk1KMEZIVU42T01lNlM3bE10b3pH?=
+ =?utf-8?B?S3hiLzdlTjVxUFFoZHg0eGJLRmdVZTFONDJkVzloK09tM1hEcDVwbVowSkJj?=
+ =?utf-8?B?WmkzelEwNHB6WUZ5UDR2c0VhWmZ5V3FsSjFTUmlwRmVzN1hxVzQ5ak5mOUVV?=
+ =?utf-8?B?OENJTnV0cVNNVTVkWHREUjkzMC9oQ0c2ZWJlTXZ2K0orL0hyYkZGV1Z2Ulhz?=
+ =?utf-8?B?cGlpNVRmV1VxWHlmTlEzcFdDa1hNdmtpc3BHTm9KclRidWtQRTNCanJsRy96?=
+ =?utf-8?B?eXM2djlFS0VIdWg0UkZQRUNPVlNLdHVxYkhqRVREdm9OeDhGbUVZMlpvNTA0?=
+ =?utf-8?B?NlI4a2JWTU81RnRkdmRYN3E4ZVJMUmgyUitaOVo3S0tOUGNsdFpsWWVCcm1t?=
+ =?utf-8?B?NXFrLzJBbmNrQ3l0ODFrdzNNVTIvTkVRTUhuQWlBNFM4LzkvSVhCcEQzRFYz?=
+ =?utf-8?B?Qm0yT0hoMENLWmRzbGU1K1RlSXNLU0VTaXd2SnhHbmNBYnE3OGRORzdiSWY0?=
+ =?utf-8?B?bWwrS0xROVIwUUJqYnlpZzVxeVNyak04WU9hbkxrVC93Y1RZNmNvblhwVW42?=
+ =?utf-8?B?K0RpUFkzUVZBL0VtRWVaSTF6aVBiZFJkWm9EcU9DUnVxM01TM2VmVWg4VFEw?=
+ =?utf-8?B?UUlRT1JibGVFZEJRN1l4dHprWDJKVWkyQVhvWndOeHQ0cjFzR24zSHJZSyt2?=
+ =?utf-8?B?VW9SdmVqMzNvMTZ6MUZFNmRTaGU5bjhZVEFzMlBzTjJwQnJDQUtSMFAwMW1k?=
+ =?utf-8?B?Rjdud013dW56R2RZdnNtdXI3VGFvdzBFTmdzRDJsSDRvMWVmOU82L25CL1oy?=
+ =?utf-8?B?eDE0WU9rVE5RSld4K1UvaStSeDllUFk1OVB3L1QzRkxMSVhTY2VadTFoNnhD?=
+ =?utf-8?B?ZjNyVmhNSEVUcEppR21KbC9Wcy8zUFhTMGxRV1UrWWlaWER6eE9ORWpUOC9Y?=
+ =?utf-8?B?eitxQmU1QnNWTDlZMWg3R2lsbTZqYjc3Q0F0R1N0VXNlbGpsZDBqTkFmdzlR?=
+ =?utf-8?B?R1hrZ3gzWVphVzQ1dUkwS2JuTWdFTTVxTzF6c2xzcHh5SUtZNnVUbHRyam9M?=
+ =?utf-8?B?UlZUUWN0L3ZWRWI4d0RTU1Q2am5sUzFtMVNoVUpETE83aXRLLzQvTkcxa3k1?=
+ =?utf-8?B?Y0VhdEs1cG9pb2NvOGRDMXlJd3NQOXBjQTAreWJRaTV3K3IyaFh5K0dvVHBx?=
+ =?utf-8?B?MHpYU0JnTVBXbFE4bWtMb0NGU0x0UVhSU09tNGdmZzFqYklwVHg0ZXUvQWxp?=
+ =?utf-8?B?MTZkRWwwQWpGaXJoMWIxcm1VR1l5OGFjVDNwT2Z5bjhlNXRQS0hSRGE0QVYy?=
+ =?utf-8?B?ME94ZEgvSE1oYVlqd0dJYmNuSU9sRjJqQkI2WFhUWFVSejhSUFNLVVpzRVJO?=
+ =?utf-8?B?Y3pjb3dHM2FqeXg4anUrMUxIYWVnQSswZ3ByZC9aRFdCME5iZTJ1UlZ4dGYw?=
+ =?utf-8?B?ZDRROFptN2kyN21WVXFJYmwyQlhmc0ErSkZpWEYvQkt5cHRQTlpRYlVNRTMr?=
+ =?utf-8?B?bFNNUmZWbytqaTlmU3R4SFZEU1JWbFNKM2EyL2gzSFkwdzhjejNSU3lLLzh0?=
+ =?utf-8?B?U2VNNWxwZjRYNFNkb0lueHdzT1Z1cXcyRjZtMHA0NHVwbFZtZlNZR1NWcHRo?=
+ =?utf-8?B?UlRmL0JvMzlzWWhRWDV5QlUvS2xwY3N1TW92My92RFQ5NGZBTWJIbHJSQUto?=
+ =?utf-8?B?ZkJGbE1DczVkenFKM2hnU0hhWHVEUHVuWU9pYjhja3lYY0JVYk03eUJ6SXd1?=
+ =?utf-8?B?ZXFJL3UrZ0FxU01JdGZBYWZabkFtaU90eHVrK0swK01UVEdIUDVwdUxFZlBq?=
+ =?utf-8?B?L0xuVnNRMktGYnVzaER2b2QxL044WkN6a3FBeU1OQWJjcmp3dTA1bXdONFZk?=
+ =?utf-8?B?QjBWMHMrYVcrcG1tRm9uQTNiK3cvZ1lBRzR4eTBCZ3lEUmFVdG56ZTZ5NDBO?=
+ =?utf-8?Q?Dtx91Tu+2+buSh6pku?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4e8c166-1c40-4a04-99d4-08de79d5c6b7
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46c6c331-603f-4be5-4a99-08de79d7c11c
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 10:07:00.3533 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 10:21:10.0513 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fxu3j7+t7BENbmWb9tKwQFroXeKzZYwsD8s2en3JAVmz6BHkRbv6mqRf3R1xc1YE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8558
+X-MS-Exchange-CrossTenant-UserPrincipalName: LTmA3f0fOFHBop+sWiFOBgbKYzmrda3eBRNbK8lRLcPgzZ8li7ojPS7QmzfzbRoZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8513
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,83 +136,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/4/26 10:09, Timur Kristóf wrote:
-> On Wednesday, March 4, 2026 9:10:02 AM Central European Standard Time 
-> Christian König wrote:
->> -stable +Greg
->>
->> On 3/4/26 05:03, Rosen Penev wrote:
->>> On Fri, Feb 27, 2026 at 8:54 PM Rosen Penev <rosenp@gmail.com> wrote:
->>>> Because of incomplete backports to stable kernels, DC ended up breaking
->>>> on older GCN 1 GPUs. This patchset adds the missing upstream commits to
->>>> at least fix the panic/black screen on boot.
->>>>
->>>> They are applicable to 6.12, 6.6, and 6.1 as those are the currently
->>>> supported kernels that 7009e3af0474aca5f64262b3c72fb6e23b232f9b got
->>>> backported to.
->>>>
->>>> 6.1 needs two extra backports for these two commits to be cherry-picked
->>>> cleanly. Those are
->>>>
->>>> 96ce96f8773da4814622fd97e5226915a2c30706
->>>> d09ef243035b75a6d403ebfeb7e87fa20d7e25c6
->>>>
->>>> v2: Add Signed-off-by.
+On 1/22/26 09:56, Tvrtko Ursulin wrote:
+> 
+> On 12/01/2026 13:32, Christian König wrote:
+>> On 1/12/26 11:22, Tvrtko Ursulin wrote:
+>>> Currently there are two flavours of the context reference count
+>>> destructor:
 >>>
->>> Do I need to resend?
+>>>   - amdgpu_ctx_do_release(), used from kref_put from places where the code
+>>>     thinks context may have been used, or is in active use, and;
+>>>   - amdgpu_ctx_fini(), used when code is sure context entities have already
+>>>     been idled.
+>>>
+>>> Since amdgpu_ctx_do_release() calls amdgpu_ctx_fini() after having idled
+>>> and destroyed the scheduler entities, we can consolidate the two into a
+>>> single function.
+>>>
+>>> Functional difference is that now drm_sched_entity_destroy() is called on
+>>> context manager shutdown (file close), where previously it was
+>>> drm_sched_entity_fini(). But the former is a superset of the latter, and
+>>> during file close the flush method is also called, which calls
+>>> drm_sched_entity_flush(), which is also called by
+>>> drm_sched_entity_destroy(). And as it is safe to attempt to flush a never
+>>> used entity, or flush it twice, there is actually no functional change.
+>>>
+>>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>>> Suggested-by: Christian König <christian.koenig@amd.com>
 >>
->> Well first of all please stop sending those patches at all.
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
 >>
->> When you want something backported then add the CC: stable tag to the
->> original patch.
->>
->> If you find that some patch is already upstream which isn't correctly tagged
->> then ping the relevant maintainers if that patch can be backported.
->>
->> But don't send stuff to the stable list all by yourself.
->>
->> Regards,
->> Christian.
+>> Looks like this was the last patch to review. I will pick up the set and try to push it to amd-staging-drm-next.
 > 
-> Hi Everyone,
-> 
-> The patches actually come from a branch of mine:
-> https://gitlab.freedesktop.org/Venemo/linux/-/commits/v6.12.74_si_dc_fixes
-> 
-> For context:
-> 
-> The crash comes from a patch that I wrote for 6.18 that fixes some issues on 
-> the default, non-DC code path, that was backported to stable kernels. DC was 
-> not the default code path before Linux 6.19, so I didn't mark the patches that 
-> also fix DC for backporting, because I had assumed nobody uses the DC code path 
-> on these kernel versions.
-> 
-> After a user reported to me that this causes issues for him with DC on 6.17 
-> and older kernels, I sent a backported series to Greg and Sasha, in an email 
-> thread with the subject line "Fixing an amdgpu crash caused by a backported 
-> patch". The fixes were backported to 6.17 then.
-> 
-> I assumed that the stable maintainers would backport the fixes to all older 
-> kernels that were also affected, but Rosen brought it to my attention that it 
-> didn't happen. So I made the backports in the above branch. Rosen then decided 
-> to send them to the mailing list.
-> > Hope that helps clear up the situation.
+> Gentle reminder if we could try to validate the series via amd-staging-drm-next.
 
-Yeah that indeed helped me to understand the situation, thanks.
+I pushed the first 7 patches from this series to amd-staging-drm-next and our CI systems seem to be happy with them.
 
-In theory Harry an Leo should take care of stuff like this, but pretty much everybody is overworked.
+But starting with patch #8 I either had rebase conflicts or the CI system seem to reject something here.
 
-In that case guys feel free to go ahead and ping the stable maintainers that something is missing.
-
-Just make sure that when a patch passes through your hands that you add a Signed-off-by tag.
+Can you rebase on top of amd-staging-drm-next and test a bit more? If you are confident that the patches work I can throw them into the CI system once more.
 
 Regards,
 Christian.
 
 > 
-> Thanks & best regards,
-> Timur
+> Also, what could I do on my end to get more confidence some edge case is not broken? Run the IGT tests? Is there an useful testlist which can be used with the IGT runner or that is not used on the AMD side?
 > 
+> Regards,
 > 
+> Tvrtko
+> 
+>>> ---
+>>> v2:
+>>>   * Use separate variable for drm_dev_enter for readability.
+>>>
+>>> v3:
+>>>   * Keep amdgpu_ctx_fini_entity as a separate function.
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 54 ++++---------------------
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |  9 ++++-
+>>>   2 files changed, 15 insertions(+), 48 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>>> index 325833ed2571..cc69ad0f03d5 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+>>> @@ -284,6 +284,8 @@ static ktime_t amdgpu_ctx_fini_entity(struct amdgpu_device *adev,
+>>>       if (!entity)
+>>>           return res;
+>>>   +    drm_sched_entity_destroy(&entity->entity);
+>>> +
+>>>       for (i = 0; i < amdgpu_sched_jobs; ++i) {
+>>>           res = ktime_add(res, amdgpu_ctx_fence_time(entity->fences[i]));
+>>>           dma_fence_put(entity->fences[i]);
+>>> @@ -409,7 +411,7 @@ static int amdgpu_ctx_set_stable_pstate(struct amdgpu_ctx *ctx,
+>>>       return r;
+>>>   }
+>>>   -static void amdgpu_ctx_fini(struct kref *ref)
+>>> +void amdgpu_ctx_fini(struct kref *ref)
+>>>   {
+>>>       struct amdgpu_ctx *ctx = container_of(ref, struct amdgpu_ctx, refcount);
+>>>       struct amdgpu_ctx_mgr *mgr = ctx->mgr;
+>>> @@ -508,24 +510,6 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
+>>>       return r;
+>>>   }
+>>>   -static void amdgpu_ctx_do_release(struct kref *ref)
+>>> -{
+>>> -    struct amdgpu_ctx *ctx;
+>>> -    u32 i, j;
+>>> -
+>>> -    ctx = container_of(ref, struct amdgpu_ctx, refcount);
+>>> -    for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+>>> -        for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+>>> -            if (!ctx->entities[i][j])
+>>> -                continue;
+>>> -
+>>> -            drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
+>>> -        }
+>>> -    }
+>>> -
+>>> -    amdgpu_ctx_fini(ref);
+>>> -}
+>>> -
+>>>   static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
+>>>   {
+>>>       struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
+>>> @@ -533,8 +517,7 @@ static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
+>>>         mutex_lock(&mgr->lock);
+>>>       ctx = idr_remove(&mgr->ctx_handles, id);
+>>> -    if (ctx)
+>>> -        kref_put(&ctx->refcount, amdgpu_ctx_do_release);
+>>> +    amdgpu_ctx_put(ctx);
+>>>       mutex_unlock(&mgr->lock);
+>>>       return ctx ? 0 : -EINVAL;
+>>>   }
+>>> @@ -750,15 +733,6 @@ struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id)
+>>>       return ctx;
+>>>   }
+>>>   -int amdgpu_ctx_put(struct amdgpu_ctx *ctx)
+>>> -{
+>>> -    if (ctx == NULL)
+>>> -        return -EINVAL;
+>>> -
+>>> -    kref_put(&ctx->refcount, amdgpu_ctx_do_release);
+>>> -    return 0;
+>>> -}
+>>> -
+>>>   uint64_t amdgpu_ctx_add_fence(struct amdgpu_ctx *ctx,
+>>>                     struct drm_sched_entity *entity,
+>>>                     struct dma_fence *fence)
+>>> @@ -927,29 +901,15 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+>>>   static void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>>>   {
+>>>       struct amdgpu_ctx *ctx;
+>>> -    struct idr *idp;
+>>> -    uint32_t id, i, j;
+>>> +    uint32_t id;
+>>>   -    idp = &mgr->ctx_handles;
+>>> -
+>>> -    idr_for_each_entry(idp, ctx, id) {
+>>> +    idr_for_each_entry(&mgr->ctx_handles, ctx, id) {
+>>>           if (kref_read(&ctx->refcount) != 1) {
+>>>               DRM_ERROR("ctx %p is still alive\n", ctx);
+>>>               continue;
+>>>           }
+>>>   -        for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+>>> -            for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+>>> -                struct drm_sched_entity *entity;
+>>> -
+>>> -                if (!ctx->entities[i][j])
+>>> -                    continue;
+>>> -
+>>> -                entity = &ctx->entities[i][j]->entity;
+>>> -                drm_sched_entity_fini(entity);
+>>> -            }
+>>> -        }
+>>> -        kref_put(&ctx->refcount, amdgpu_ctx_fini);
+>>> +        amdgpu_ctx_put(ctx);
+>>>       }
+>>>   }
+>>>   diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+>>> index cf8d700a22fe..b1fa7fe74569 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+>>> @@ -70,7 +70,14 @@ struct amdgpu_ctx_mgr {
+>>>   extern const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM];
+>>>     struct amdgpu_ctx *amdgpu_ctx_get(struct amdgpu_fpriv *fpriv, uint32_t id);
+>>> -int amdgpu_ctx_put(struct amdgpu_ctx *ctx);
+>>> +
+>>> +void amdgpu_ctx_fini(struct kref *kref);
+>>> +
+>>> +static inline void amdgpu_ctx_put(struct amdgpu_ctx *ctx)
+>>> +{
+>>> +    if (ctx)
+>>> +        kref_put(&ctx->refcount, amdgpu_ctx_fini);
+>>> +}
+>>>     int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 instance,
+>>>                 u32 ring, struct drm_sched_entity **entity);
+>>
 > 
 
