@@ -4,137 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 837A2EF8FFA
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 15:49:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E15AEF9001
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2026 16:33:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0279310EA15;
-	Wed,  4 Mar 2026 15:49:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07F8510EA5E;
+	Wed,  4 Mar 2026 16:33:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="WnNpGdV+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3JzdDpdA";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="WnNpGdV+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3JzdDpdA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ShGzyH9t";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 838F310EA15
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 15:49:31 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 137B73F974;
- Wed,  4 Mar 2026 15:49:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1772639370; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xCXzVXRNiQUEv2rL+BPMuBd1c7Pw9X/gCQi73Ayv7iA=;
- b=WnNpGdV+lx09lgr9ZcU+eX/7mMKvqZQ62cKe3pg+VHyr57UKMejgeqgIWxHQbdQy94YZ+3
- 43eAPp4bOpvOMsBFybkeZIx5Ylfm+0/K9Ed1oenw0FlxAZOaWySpkco2PjtHtC+FYl6g9B
- hOGVncb4pHqEEsypFEJp/qEQ9dy8yKY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1772639370;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xCXzVXRNiQUEv2rL+BPMuBd1c7Pw9X/gCQi73Ayv7iA=;
- b=3JzdDpdArHYQvGbvnYqcwiUUvVW/JE11WJMXSIZ6CJNocL47gndqHQQl+lWJzdrKvOTWee
- Ahn7dDys/7UvkaDA==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=WnNpGdV+;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=3JzdDpdA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1772639370; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xCXzVXRNiQUEv2rL+BPMuBd1c7Pw9X/gCQi73Ayv7iA=;
- b=WnNpGdV+lx09lgr9ZcU+eX/7mMKvqZQ62cKe3pg+VHyr57UKMejgeqgIWxHQbdQy94YZ+3
- 43eAPp4bOpvOMsBFybkeZIx5Ylfm+0/K9Ed1oenw0FlxAZOaWySpkco2PjtHtC+FYl6g9B
- hOGVncb4pHqEEsypFEJp/qEQ9dy8yKY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1772639370;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=xCXzVXRNiQUEv2rL+BPMuBd1c7Pw9X/gCQi73Ayv7iA=;
- b=3JzdDpdArHYQvGbvnYqcwiUUvVW/JE11WJMXSIZ6CJNocL47gndqHQQl+lWJzdrKvOTWee
- Ahn7dDys/7UvkaDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D21053EA69;
- Wed,  4 Mar 2026 15:49:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id qpnZMYlUqGkKaQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 04 Mar 2026 15:49:29 +0000
-Message-ID: <2e3fd9d3-71de-4900-93af-2120af27d051@suse.de>
-Date: Wed, 4 Mar 2026 16:49:29 +0100
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com
+ [74.125.82.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D6E610EA5E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2026 16:33:10 +0000 (UTC)
+Received: by mail-dy1-f171.google.com with SMTP id
+ 5a478bee46e88-2bd5658b901so403637eec.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Mar 2026 08:33:10 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772641989; cv=none;
+ d=google.com; s=arc-20240605;
+ b=b0XltSf5heuxg7AtCejAM6t8AUh2b2cxVNZsgVpD1HYFhBSm2k0gAOARI432Nevbl+
+ osXcCWJ6s2/jU8QXr+OP8Wr32MDUMS4r0byukO0M52USDTEheB3OgRcgZguz+XMNyyxW
+ 0crDKcg6J7bY/+8Yz9uwmeMkLZ0g01jK9LhD/8L+5/TRKtvucoSqMUnCId1Sr8D9AHTY
+ RJWxLbHJmuMAjM14aR5QNGSGAKMB0UkMeS3DOqX2vvoqhEpVWiYHz5QwMIaa4UiIK6aS
+ C+6xakZOE+QU69AxEXnSsaXXfQ6m2HssK5naU2OaW9G0M5a5rwIsdRIGxZ2R2n7bSu3Y
+ ySpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=j/giy9beQVz+/rScwRdpnZMgd2sdf7gAoO/VOU+Yy1M=;
+ fh=MwYnbjbHwPfQYt9qEgYxtO/fSXMRZ6NX15+HysDrntE=;
+ b=ICrh8KyevL7M9XQpqXs1MY68xNcKD+JzfAGQOXIjEYfv+UdDHHGaXkvyICQbWb5ynO
+ m54zGx0OiUULvlGwKep3vDMSCVoO73LClJKQmzmDXl+1TIkgxlp/GOF3HJ75uwl0BXGI
+ oIaHoscf4D7Rpzh/d6k+U6OF94zZ7MANy20q1SAZh/nLHSY350jW+a5qGQcDrZqOzZPb
+ WXGG3PTsfw759cBPpydKkE2RlACedF65rZJlMyyoOkZ4rs1oabYwaUhogRFS9ZQSoMxX
+ MIpuYMwy0VPU6DCUzGkJRf+eNO+XI5MHxWjsAG9Zr/+YiU3B6fSOG8n1uQsu4hI6kboC
+ 80tQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772641989; x=1773246789; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=j/giy9beQVz+/rScwRdpnZMgd2sdf7gAoO/VOU+Yy1M=;
+ b=ShGzyH9tZGIPrB5bp0TSu9SWOpZeLNx0Imq0cA7e5aTDvs85JOEGaqeGJ6poqZh4t1
+ BjPEsjI0mHf+qUc9ZPRpg8lx/CJoYav7aNmt6CadQ2T2LF//mQ+/8xBr3LbZZFmMMPbj
+ 4az01wTp6rW+ILFmNZivKdl1eH8iJt07eEJPrx3avZlPzETWQJiPBieFXklVtQrQl8UK
+ GQIbtF33aRIB5KmRvotDWj6IcLaMhKEHtOpxN7vWU/DDyPqKZkFve+ZRCLvEyMc3tgbr
+ k397FP/Kx470UW7CR5DjpqxGOIz3KRT6XfzHmMYEYBQLUZUW+ghjeiiI6u3yntLEVS1G
+ GBBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772641989; x=1773246789;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=j/giy9beQVz+/rScwRdpnZMgd2sdf7gAoO/VOU+Yy1M=;
+ b=EyXTt9j6oH36mVZ4GJTh6sPuIcxzMz/5yU/dduWmRZQ1vH8IDf+zgGQM3QmkvzhA7j
+ dGhR0yHvY3XZjxGcx0HqyHjd4Vt9dicww8tQZZBNmbfEwUo5D/SVwrsSJzL20VI3ijZr
+ 2YY7GZiv9cMFg+LKXoAwf3JBUwrJeEYKn3HVkloC2Vy42gOt393NEqtxiRbQGQb8pkZf
+ jv+KiKW4L06uGT+1FP9pFrHKVe71ifMl1wurLzI8vqLbmdXLlCkx0LjMlHeBi0MY8pKH
+ qSOTRzCxFkQf1CMlQvQwq7olWemGWNKisoYoa5i2L9OLu8IntlC3dLVXy6vjNq1m5SFg
+ dc9g==
+X-Gm-Message-State: AOJu0YzP71JiFKS/7sWZA1d4kvnCG6f6s+ukhOpzh+AZQ9gebFhkKeB7
+ ifzcVPOIfaXvkJnFtmhFJn/D432HQsLhV+IkXskazlxrp3EW+Vo3VBhiFusGLg4ff5dX638T0z7
+ 0osCG6dX/LQP3SNCKU8OVn3H+PqgPu3s=
+X-Gm-Gg: ATEYQzwqTIVlDItg41QR5BR6F4Kyr45+YvODHkNIEPkhtenKCAjttjGNy57a2OrrNHZ
+ OU9kkpRaoTO4EiLPWp3cRVmC4JckNoQjVvv1UcdeCTOUMPQp9GK+0yCIsYnGl9vlKJZEqeCJTUH
+ ECmzXAnGo3vwaIKEnXIWHrBs5mHLcpc7eGOZbFem0011KuQZ2J7QFUxKjbb9OQf1gNd9ioNA0nu
+ M7P2ZYkhPCdf/XPzl27UOWKkL9ZO94P3V5QZJVIdrqny+XOzcZHiu/T3DaPsX01XkKvOcCSy0dF
+ 8IcLQpBib8DD9HQnoseA3r3Tfx7yqr16AU4v84AaZoxa5XtGuDcB5+hW/+uadxfcS6yNSdJAoKN
+ yooG5
+X-Received: by 2002:a05:7022:68a8:b0:11a:2020:ac85 with SMTP id
+ a92af1059eb24-128b70bad39mr594783c88.4.1772641989260; Wed, 04 Mar 2026
+ 08:33:09 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/radeon: Test for fbdev GEM object with generic
- helper
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260304130250.59008-1-tzimmermann@suse.de>
- <20260304130250.59008-3-tzimmermann@suse.de>
- <CADnq5_NyHuvQfggvZ2aUJ4uv_3HAwKTA5fYWxQej1=QtF7PJBQ@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CADnq5_NyHuvQfggvZ2aUJ4uv_3HAwKTA5fYWxQej1=QtF7PJBQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- FUZZY_RATELIMITED(0.00)[rspamd.com]; ARC_NA(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- MIME_TRACE(0.00)[0:+]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FREEMAIL_TO(0.00)[gmail.com]; MID_RHS_MATCH_FROM(0.00)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- FREEMAIL_CC(0.00)[amd.com,gmail.com,ffwll.ch,lists.freedesktop.org];
- RCPT_COUNT_SEVEN(0.00)[7]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,suse.de:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:url];
- DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
- DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Queue-Id: 137B73F974
+References: <DGQ49PK0QE7U.3O1AQPSD6NI7I@rcpassos.me>
+ <DGTZWNGLPVI3.108P2EKGFCO2R@rcpassos.me>
+In-Reply-To: <DGTZWNGLPVI3.108P2EKGFCO2R@rcpassos.me>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 4 Mar 2026 11:32:57 -0500
+X-Gm-Features: AaiRm534Q6doSjPpf0QK4yrPoiBJU1oTbMFooDJnGdR_5oZDeZtS9L4TkUxGtUQ
+Message-ID: <CADnq5_Msmohg3T5KLrqPwvJGbXPOMKeNN-ZcqgTS2pHb+GjuYQ@mail.gmail.com>
+Subject: Re: [bug report] 7.0-rc1 flip_done timed out: amd igpu off when
+ resuming in laptop (regression)
+To: Rafael Passos <rafael@rcpassos.me>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>, 
+ Bhuvana Chandra Pinninti <BhuvanaChandra.Pinninti@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, siqueira@igalia.com, 
+ linux-kernel@vger.kernel.org, Martin Leung <Martin.Leung@amd.com>, 
+ Ray Wu <ray.wu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, Rafael Passos <rcpassos@ime.usp.br>, 
+ davidbtadokoro@ime.usp.br, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,123 +110,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
++ Harry, Leo, Bhuvana
 
-Am 04.03.26 um 16:32 schrieb Alex Deucher:
-> On Wed, Mar 4, 2026 at 8:03 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Replace radeon's test for the fbdev GEM object with a call to the
->> generic helper.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Series is:
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-Thanks
-
+On Wed, Mar 4, 2026 at 8:42=E2=80=AFAM Rafael Passos <rafael@rcpassos.me> w=
+rote:
 >
-> Did you want me to pick these up or did you want to land them in drm-misc?
-
-Please add it to your tree.
-
-Best regards
-Thomas
-
+> I found the issue, but I'm still not sure how to proceed.
+> I would like some guidance in fixing this regression.
 >
-> Alex
+> The issue is the where a Register is being read from.
+> Before this change, the MICROSECOND_TIME_BASE_DIV reg wa read from
+> dce_hwseq_registers (dce_hwseq.h) and now from dccg_registers (dcn20_dccg=
+.h)
 >
->> ---
->>   drivers/gpu/drm/radeon/radeon_device.c |  7 ++++---
->>   drivers/gpu/drm/radeon/radeon_fbdev.c  | 17 -----------------
->>   drivers/gpu/drm/radeon/radeon_mode.h   |  5 -----
->>   3 files changed, 4 insertions(+), 25 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
->> index 5d523d5dae88..705c012fcf9e 100644
->> --- a/drivers/gpu/drm/radeon/radeon_device.c
->> +++ b/drivers/gpu/drm/radeon/radeon_device.c
->> @@ -37,6 +37,7 @@
->>   #include <drm/drm_client_event.h>
->>   #include <drm/drm_crtc_helper.h>
->>   #include <drm/drm_device.h>
->> +#include <drm/drm_fb_helper.h>
->>   #include <drm/drm_file.h>
->>   #include <drm/drm_framebuffer.h>
->>   #include <drm/drm_probe_helper.h>
->> @@ -1574,7 +1575,6 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
->>          list_for_each_entry(crtc, &dev->mode_config.crtc_list, head) {
->>                  struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
->>                  struct drm_framebuffer *fb = crtc->primary->fb;
->> -               struct radeon_bo *robj;
->>
->>                  if (radeon_crtc->cursor_bo) {
->>                          struct radeon_bo *robj = gem_to_radeon_bo(radeon_crtc->cursor_bo);
->> @@ -1588,9 +1588,10 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
->>                  if (fb == NULL || fb->obj[0] == NULL) {
->>                          continue;
->>                  }
->> -               robj = gem_to_radeon_bo(fb->obj[0]);
->>                  /* don't unpin kernel fb objects */
->> -               if (!radeon_fbdev_robj_is_fb(rdev, robj)) {
->> +               if (!drm_fb_helper_gem_is_fb(dev->fb_helper, fb->obj[0])) {
->> +                       struct radeon_bo *robj = gem_to_radeon_bo(fb->obj[0]);
->> +
->>                          r = radeon_bo_reserve(robj, false);
->>                          if (r == 0) {
->>                                  radeon_bo_unpin(robj);
->> diff --git a/drivers/gpu/drm/radeon/radeon_fbdev.c b/drivers/gpu/drm/radeon/radeon_fbdev.c
->> index 18d61f3f7344..3e243f5e2f44 100644
->> --- a/drivers/gpu/drm/radeon/radeon_fbdev.c
->> +++ b/drivers/gpu/drm/radeon/radeon_fbdev.c
->> @@ -274,20 +274,3 @@ int radeon_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
->>          radeon_fbdev_destroy_pinned_object(gobj);
->>          return ret;
->>   }
->> -
->> -bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj)
->> -{
->> -       struct drm_fb_helper *fb_helper = rdev_to_drm(rdev)->fb_helper;
->> -       struct drm_gem_object *gobj;
->> -
->> -       if (!fb_helper)
->> -               return false;
->> -
->> -       gobj = drm_gem_fb_get_obj(fb_helper->fb, 0);
->> -       if (!gobj)
->> -               return false;
->> -       if (gobj != &robj->tbo.base)
->> -               return false;
->> -
->> -       return true;
->> -}
->> diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
->> index 088af85902f7..ae1ecdc2e189 100644
->> --- a/drivers/gpu/drm/radeon/radeon_mode.h
->> +++ b/drivers/gpu/drm/radeon/radeon_mode.h
->> @@ -936,14 +936,9 @@ int radeon_fbdev_driver_fbdev_probe(struct drm_fb_helper *fb_helper,
->>                                      struct drm_fb_helper_surface_size *sizes);
->>   #define RADEON_FBDEV_DRIVER_OPS \
->>          .fbdev_probe = radeon_fbdev_driver_fbdev_probe
->> -bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj);
->>   #else
->>   #define RADEON_FBDEV_DRIVER_OPS \
->>          .fbdev_probe = NULL
->> -static inline bool radeon_fbdev_robj_is_fb(struct radeon_device *rdev, struct radeon_bo *robj)
->> -{
->> -       return false;
->> -}
->>   #endif
->>
->>   void radeon_crtc_handle_vblank(struct radeon_device *rdev, int crtc_id);
->> --
->> 2.53.0
->>
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
-
-
+> The bisection lead me to this commit: 4c595e75110ece20af3a68c1ebef8ed4c1b=
+69afe
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
+/?id=3D4c595e75110ece20af3a68c1ebef8ed4c1b69afe
+>
+> After lot of debugging, I traced the issue to this file:
+> drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/diff/d=
+rivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c?id=3D4c595e75110ece2=
+0af3a68c1ebef8ed4c1b69afe
+>
+> This card is dcn21, but it uses most of the dcn20 implementation.
+> For easy comparison, the following block contains the function with the o=
+riginal path
+> commented out (from dcn21), and the function it calls from dcn20:
+>
+> ```
+> bool dcn21_s0i3_golden_init_wa(struct dc *dc)
+> {
+>         if (dc->res_pool->dccg && dc->res_pool->dccg->funcs && dc->res_po=
+ol->dccg->funcs->is_s0i3_golden_init_wa_done){
+>
+>                 printk(KERN_CRIT "AUYER in %s", __func__);
+>                 return !dc->res_pool->dccg->funcs->is_s0i3_golden_init_wa=
+_done(dc->res_pool->dccg);
+>         }
+>
+>         printk(KERN_CRIT "AUYER in %s", __func__);
+>
+>         return false;
+>
+>         // original flow:
+>         // struct dce_hwseq *hws =3D dc->hwseq;
+>         // uint32_t value =3D 0;
+>         // value =3D REG_READ(MICROSECOND_TIME_BASE_DIV);
+>
+>         // return value !=3D 0x00120464;
+> }
+>
+> // is_s0i3_golden_init_wa_done -> dccg2_is_s0i3_golden_init_wa_done
+> bool dccg2_is_s0i3_golden_init_wa_done(struct dccg *dccg)
+> {
+>         struct dcn_dccg *dccg_dcn =3D TO_DCN_DCCG(dccg);
+>
+>         return REG_READ(MICROSECOND_TIME_BASE_DIV) =3D=3D 0x00120464;
+> }
+> ```
+>
+> I instrumented this code to compare the values.
+> On boot, the value is the same. When resuming from s3 sleep, different.
+> If using the output of this codepath before this commit, the screen works=
+.
+> At the end of this email is my "debugging patch", and the logs comparing =
+what shows
+> up on boot vs on resuming from sleep.
+>
+> I am attempting to implement a `dccg21_is_s0i3_golden_init_wa_done` to
+> replace the `dccg2_is_s0i3_golden_init_wa_done` that is used in dcn21_dcc=
+g.c.
+> Maybe dcn21 needs a separate register page, (insted of using dcn20_dccg.h=
+)?
+>
+>
+> Note the difference between log line 2 and 5
+> [    4.956404] [    T316] AUYER PATCHED in dcn21_s0i3_golden_init_wa, val=
+ues compared to 0x00120464
+> [    4.956407] [    T316] AUYER in dcn21_s0i3_golden_init_wa, original fl=
+ow value: 1180208, bool: 1
+> [    4.956411] [    T316] AUYER in dcn21_s0i3_golden_init_wa: MICROSECOND=
+_TIME_BASE_DIV reg: 13b value: 1180208
+> [    4.956412] [    T316] AUYER in dccg21_is_s0i3_golden_init_wa_done
+> [    4.956415] [    T316] AUYER in dccg21_is_s0i3_golden_init_wa_done: MI=
+CROSECOND_TIME_BASE_DIV reg: 0, value: 1148576
+> [    4.956418] [    T316] AUYER in dcn21_s0i3_golden_init_wa, NEW flow va=
+lue as bool 1
+>
+>
+> 1 [    4.942660] [    T343] AUYER PATCHED in dcn21_s0i3_golden_init_wa
+> 2 [    4.942662] [    T343] AUYER in dcn21_s0i3_golden_init_wa, original =
+flow value: 1180208, comparing to 0x00120464 bool: 1
+> 3 [    4.942665] [    T343] AUYER in dcn21_s0i3_golden_init_wa: MICROSECO=
+ND_TIME_BASE_DIV reg: 13b value: 1180208
+> 4 [    4.942668] [    T343] AUYER in dccg2_is_s0i3_golden_init_wa_done: M=
+ICROSECOND_TIME_BASE_DIV reg: 0, value: 1148576
+> 5 [    4.942671] [    T343] AUYER in dcn21_s0i3_golden_init_wa, NEW flow =
+value as is: bool 1
+>
+> On wake from S3:
+>
+> 1 [  279.431636] [   T5497] AUYER PATCHED in dcn21_s0i3_golden_init_wa
+> 2 [  279.431638] [   T5497] AUYER in dcn21_s0i3_golden_init_wa, original =
+flow value: 1180772, comparing to 0x00120464 bool: 0
+> 3 [  279.431640] [   T5497] AUYER in dcn21_s0i3_golden_init_wa: MICROSECO=
+ND_TIME_BASE_DIV reg: 13b value: 1180772
+> 4 [  279.431641] [   T5497] AUYER in dccg2_is_s0i3_golden_init_wa_done: M=
+ICROSECOND_TIME_BASE_DIV reg: 0, value: 1148576
+> 5 [  279.431642] [   T5497] AUYER in dcn21_s0i3_golden_init_wa, NEW flow =
+value as is: bool 1
+>
+>
+> The "patch" (just a test lab), to understad where these logs came from.
+> I applies cleanly to amddrm drm-next, and mainline.
+>
+> ---
+>  .../amd/display/dc/dccg/dcn20/dcn20_dccg.c    |  3 +++
+>  .../amd/display/dc/hwss/dcn21/dcn21_hwseq.c   | 25 ++++++++++++++++---
+>  2 files changed, 24 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.c b/dri=
+vers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.c
+> index 13ba7f5ce13e..0ba20c7969ed 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn20/dcn20_dccg.c
+> @@ -158,6 +158,9 @@ bool dccg2_is_s0i3_golden_init_wa_done(struct dccg *d=
+ccg)
+>  {
+>         struct dcn_dccg *dccg_dcn =3D TO_DCN_DCCG(dccg);
+>
+> +       printk(KERN_CRIT "AUYER in %s: MICROSECOND_TIME_BASE_DIV reg: %x,=
+ value: %d",
+> +               __func__, dccg_dcn->regs->MICROSECOND_TIME_BASE_DIV, REG_=
+READ(MICROSECOND_TIME_BASE_DIV));
+> +
+>         return REG_READ(MICROSECOND_TIME_BASE_DIV) =3D=3D 0x00120464;
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c b/dr=
+ivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
+> index 062745389d9a..143c552e0fa9 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn21/dcn21_hwseq.c
+> @@ -88,10 +88,28 @@ int dcn21_init_sys_ctx(struct dce_hwseq *hws, struct =
+dc *dc, struct dc_phy_addr_
+>
+>  bool dcn21_s0i3_golden_init_wa(struct dc *dc)
+>  {
+> -       if (dc->res_pool->dccg && dc->res_pool->dccg->funcs && dc->res_po=
+ol->dccg->funcs->is_s0i3_golden_init_wa_done)
+> -               return !dc->res_pool->dccg->funcs->is_s0i3_golden_init_wa=
+_done(dc->res_pool->dccg);
+>
+> -       return false;
+> +       printk(KERN_CRIT "AUYER PATCHED in %s, values compared to 0x00120=
+464", __func__);
+> +
+> +       // original flow
+> +       struct dce_hwseq *hws =3D dc->hwseq;
+> +       uint32_t value =3D 0;
+> +       value =3D REG_READ(MICROSECOND_TIME_BASE_DIV);
+> +
+> +       printk(KERN_CRIT "AUYER in %s, original flow value: %d, bool: %d"=
+,
+> +               __func__, value, value !=3D 0x00120464);
+> +
+> +       printk(KERN_CRIT "AUYER in %s: MICROSECOND_TIME_BASE_DIV reg: %x =
+value: %d",
+> +               __func__, hws->regs->MICROSECOND_TIME_BASE_DIV, REG_READ(=
+MICROSECOND_TIME_BASE_DIV));
+> +
+> +       if (dc->res_pool->dccg && dc->res_pool->dccg->funcs && dc->res_po=
+ol->dccg->funcs->is_s0i3_golden_init_wa_done) {
+> +               // new flow
+> +               bool v2 =3D 0;
+> +               v2 =3D !dc->res_pool->dccg->funcs->is_s0i3_golden_init_wa=
+_done(dc->res_pool->dccg);
+> +               printk(KERN_CRIT "AUYER in %s, NEW flow value as bool %d"=
+, __func__,  v2);
+> +       }
+> +
+> +       return value !=3D 0x00120464;
+>  }
+>
+>  void dcn21_exit_optimized_pwr_state(
+> @@ -298,4 +316,3 @@ bool dcn21_is_abm_supported(struct dc *dc,
+>         }
+>         return false;
+>  }
+> -
+> --
+> 2.53.0
+>
+>
