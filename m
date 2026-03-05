@@ -4,123 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BBE6EFCE56
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 01:21:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A659EFCE57
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 02:19:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95A7510E1CF;
-	Thu,  5 Mar 2026 01:21:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2176F10E1E1;
+	Thu,  5 Mar 2026 02:19:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mZ/5n1U3";
+	dkim=pass (2048-bit key; unprotected) header.d=deeplearntech.com header.i=@deeplearntech.com header.b="RFn+kKH0";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010058.outbound.protection.outlook.com [52.101.61.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D50C10E1CF
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2026 01:20:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RKyy4l39E2PxqAze9+fYEgZPAr3qFxUvDezAQJQR4qzgou6akPGuBH8ASO7JebM+m6mA+vRnOe1fp9RAknXz4zpm2dqNnUcaQ2Xdp1PbiIllm3YJwIgrVJDWyyqSa9KOMiQqz9/JoAeTu9PD/6m3ZEZm1uo55cf1xEYgfjQ1lbxCMDxpg31ua4hjFjFy14WDlHiIXRCjMBd7ImtYdPcnthpyAs2ry4UtF11rol4l9IqEyXjBqAs0oF/pGjBkLGv+k6P8Efu41WXAk2BMPJ08jZ8dCVKDqGmX9SrU0qZoI7roUrWDHm8tupE8EnsTGpXgjsgbvdZm7dzaNKU7HIUmHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jS17SD83D3Hiutj+DUf9Avv23hwdVLeS0yL+kRp/FxQ=;
- b=iKgjC1JdXMt6TdNyJxRfiQqHOSRMS4tBc8IzRWzFfOYK0GOmTXZU9U1EL4MWcQ56J/gA546oczJx2U4/S+tKgL/k0gcW9hYZL5uhHH0qsUV9yw8cGIO1bOfvh8dvpJ+ajNvn3+C17kBqplVouJjZZgUGfyIW7OUjfRNPjbf7TTZCNXKYS7eV4yxDr6ckCo/vkg7fAxV1MNnSc24+Hmsp2rOuJh+pHh97quoEbCaZTGqq6FkqdnzhXOz97Vx1jfep5sevm7RpoNQK8hu7Oz90wITGd6B3AZOIxSpUolopAzmJe41rw9kmx3mvG00AbzYj9F75joX1YioZeDilKcoHDA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jS17SD83D3Hiutj+DUf9Avv23hwdVLeS0yL+kRp/FxQ=;
- b=mZ/5n1U3nkigF5+P8NAfZXQ13qC4bSssX0oXU6Ha1Zb4bjfarCy1AzGajYc6tFYX6BdDbSd2gEELidSxyYxQKxKrYI8civJW4pYQBYLmibpTPwYa1zdNlLLfWdnalmg9YAe+Uy1aphnrS1CBNtaNYI571x8jUHWiNWi9v7xTE38=
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
- SJ5PPFA5F0E981D.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::99d)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Thu, 5 Mar
- 2026 01:20:51 +0000
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.20.9654.022; Thu, 5 Mar 2026
- 01:20:51 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Xiao, Jack" <Jack.Xiao@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: fix gpu idle power consumtion issue for gfx
- v12
-Thread-Topic: [PATCH] drm/amdgpu: fix gpu idle power consumtion issue for gfx
- v12
-Thread-Index: AQHcrD1dRhNckWxuVEqZvahyrGd5iLWfI+ww
-Date: Thu, 5 Mar 2026 01:20:51 +0000
-Message-ID: <DM6PR12MB2972994E2E3531359D45C2AC827DA@DM6PR12MB2972.namprd12.prod.outlook.com>
-References: <20260305011342.925550-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260305011342.925550-1-kevinyang.wang@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-05T01:20:07.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|SJ5PPFA5F0E981D:EE_
-x-ms-office365-filtering-correlation-id: d6641b5b-ab9c-4aaf-824d-08de7a55709a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7053199007|38070700021; 
-x-microsoft-antispam-message-info: 1ST+nRLDutwPX7sFnHLuZ4VTUq/d6Ukd+1AZjzVko5h77tZnhDaX4xz8/TdZEM5h6jeVxWMZi162Ik57am8OYhsSBFtvjNdW3H+3GMFjyVIse77YmBYOsexhBL4GUPNKP4qlmpUSPaA4t13X2foRkzcR9WKAcrJo4+A2/BozTRavgxrHNMUzM/B4qRK3O9ks5R9AtystTV1+HG6mQ6bBIAp1aKGNwxRbSk25v/W4vRdivqvJu1LN05hjPVmt1Yq6m3t6kgAF6OQv0SOpS9048HcjWaznzmToNITo68ENZ9UaNOh3ybTrsCuAiBigkXRcmhnOa1l3ZINZ31ZL3fWzm/C4DpQ/r9bnBLDUmIz5b40cxGAe7c7MFeDP+0kOR214Ro3+8/h/rJ7fuHPP7Hcp9EvZ41JsqnxmRY1r+cYWdtqPAulktzZqV9h1PjnK3wXrXQT/Ba0Jp8pS1dxsUqUZ/khdg6XsYwY0lipcdcJgVnJHwTsvibAluwBr8kXFoVfLbOG3JEjeEyq/xSTD6ZBslIp4HskqZKiC57M4XssIasHc2hrJEs0C9FRJ48+5ibsEYP2nPoh6BV7MMec15p9KS1w/j40Sniw9XI67uZmyh14QOtk1Ch/UmOoNpL9bH4Oimy7t9Tr/TTILpmHXDojJPPkhCPC8+SnGwc+64CgWqCvMzvtDtihVVRLM7m1PjWcK3mWB82uKSwb8TaWXFv7mop61hlfPy+89XxonH8cP7tOfjsxZnbst3V1jIpjhiwaYF7CVo2kUL4m5sGyWck3iMHF52Zps+LXXy6+ju8v1Xm4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7053199007)(38070700021); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?VBG53XWG4DQhQRu1IgCMgjGNkMGksZeQQHX/afdBHCk5YFbX6IBmUaqDUSj+?=
- =?us-ascii?Q?P0mfT1KSL4B9E2KIiskbXW7YOZMJuE43EIdj8hWBlEuukliU2z87Z6XQsvPz?=
- =?us-ascii?Q?jXb7iKEEMCLASoMEZZyj8jrPvLpbyD7iDKV0bNJhIMGqoi1Hgi4JpWi0U9GV?=
- =?us-ascii?Q?+d0pEi5o7bUUzcN8HhBeFQQfPg2xw/b1wGsHj8G6TBluAxpk6ZLgCpVMyJhu?=
- =?us-ascii?Q?iCLMqeQpf5JNSJegKvuvsb7NlDvIf+tP2z1qWZdv/mveuWRNRASf4RPLYue8?=
- =?us-ascii?Q?7vNfdgFYClNVOPdkavQZfrVwdKWmJOQ8TsWh8ok/nO2GHdvmUB404vMwm1Dj?=
- =?us-ascii?Q?NjpZCu5Kt+QSLIs2mmEOCkzjY0oFNHRkLVBBR3n32KW4xw+PRsNM3O8HIMOF?=
- =?us-ascii?Q?LRqlhJIdsGF/16BCIf0Cm+C52EmdtT1f4OaErigCQh+XVIR0Qgkorsmsonbm?=
- =?us-ascii?Q?orjoTP9RqV/iz2o/JcCvLgue+XTuK2yVr5W0rdPL+5Bc17RiIAbNo5MU/2ll?=
- =?us-ascii?Q?zJ7iCTmQ6kLfVwF04cgrDLGnAryfvVSWRehftN+4UF7UbcJbyFPS+AwogbGH?=
- =?us-ascii?Q?sC46yimj12yeZXPvsa2OAAYDqgwop6F+SOOcWdONt0frg88JRwGglxbwh/2s?=
- =?us-ascii?Q?CR+MnjM2KfwKfYWZWuYtj6UesUVAmHzUJDMtgVZ1y44rhIkMNnE4OWtsvRUT?=
- =?us-ascii?Q?/D0b+/NNqfElcTqzvwVIapFPmcStZekQFoIA6QA5Tb+4eSOKSkB+svSPF5Df?=
- =?us-ascii?Q?ohpEokk4uoClHt65x1ZBBvN/upw4mpo6jv7IFmAJtb2i/uzgapN7E9EERcEt?=
- =?us-ascii?Q?LLnqVsELDHpKEAs1Jfnt8bpGDLoNZBRsga2O5+4nivzgCXa/LthSVKdTfTEf?=
- =?us-ascii?Q?b+4TjRIc7aSM7Od3KMjanwwaWqie1X2MEE53eETuXBoqpFlzb9qtLOlFvVes?=
- =?us-ascii?Q?A8OdP+55fISoIzOl/5nsIHUe9DVSLyfl23/xoodWZ9EkVHzKz3PQClvF0EoX?=
- =?us-ascii?Q?Aavju6xb+NCgddg3Yg77IdlgoDQ1caPBAbriQ8wPP6OfPAZISDFuXbV7b4hc?=
- =?us-ascii?Q?SBQGo6GcZJyZrYmLSw2jMfzkssW5PC+3zhmKG5M1Zg8/9VgZB0kv22HMp9TC?=
- =?us-ascii?Q?yQmVQVcSv5bveItkSB+SeboJco0HyBeIDuXlriYjbh8jVkAmTC77lWJZDg4j?=
- =?us-ascii?Q?aZ0gQChRsgsMffTBv19ssoGv13zwvhWs5eOt4cjUyek7OwbTIWrEcXxMH3ea?=
- =?us-ascii?Q?+PACBZILye8Wjkp/Mv/6MYHtHiaCdEJTfMzBx/1n5x1H0/iEWhKvipVADJbq?=
- =?us-ascii?Q?qczv11E8nrSCDvjonY3zQFyzOiKUfWb8H2RinUnebJnda8Wnv4WYFLcxpdln?=
- =?us-ascii?Q?WruywgNelkSMSo/6VHXmnxGMdlPtod7fB8oN0MfsHNhiMVMsd6EVKjvOaGZd?=
- =?us-ascii?Q?IbuFJb0/Mkk++uWG/RRFTZCG2Z9Dln5I3gQbkIBT2ziS4aHtWcBNZntL8web?=
- =?us-ascii?Q?vP2PNgvXImpSkYkZxX2ptP5BxhPsx5e2i3QSc3PkQPKeCGA4CBKw/jnLN+T5?=
- =?us-ascii?Q?v6m2XmC1ndMpDhs0We4BRuRj9q6/O3bheHepYHLnmWOMqJkgw2PV9OsymnED?=
- =?us-ascii?Q?f0lEcucioBaZfVc0hUUkBqXiBVRrb/W+jVAnc6oV78HBnwxkEw0gm7zwKXH5?=
- =?us-ascii?Q?fIqZpsjy+1Hv0E7Cz+hglqbCawX3FvRXlC6Yursr/cFa0yPy?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Greylist: delayed 522 seconds by postgrey-1.36 at gabe;
+ Thu, 05 Mar 2026 02:19:52 UTC
+Received: from zmailpro.com (zmailpro.com [174.129.240.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFE8110E1E1
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2026 02:19:52 +0000 (UTC)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by zmailpro.com (Postfix) with ESMTP id 7D70D8AF837;
+ Wed,  4 Mar 2026 21:11:09 -0500 (EST)
+Received: from zmailpro.com ([127.0.0.1])
+ by localhost (zmailpro.com [127.0.0.1]) (amavis, port 10032) with ESMTP
+ id P4PrmCmGE8lQ; Wed,  4 Mar 2026 21:11:08 -0500 (EST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by zmailpro.com (Postfix) with ESMTP id 71E098AF838;
+ Wed,  4 Mar 2026 21:11:08 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 zmailpro.com 71E098AF838
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=deeplearntech.com;
+ s=E11F0DAC-414D-11E7-97F0-308B22DE3479; t=1772676668;
+ bh=FUs1QTMSapz7Ac+MSggPpyALvxbJxVsmSnIkEwE4JE4=;
+ h=Date:From:To:Message-ID:MIME-Version;
+ b=RFn+kKH0xkOvE3tZ3Z86hN47F7o2IJEKbEYJny/cVW9PBGGnISijOnU/OfqIxC+xA
+ dcg7N7fzAYr+pKc71C5C4F7BPCSCZvqCJRyaXTeaZne43BFRSdsbHy7JcpUYltdsnb
+ 01rT1BQDeHwpAjJQ7omvVgnH72/XzefXZ7ylVCeR8kBCXTdZuoWNTyUC/jTeVThs6M
+ N6xS3nhqmwvTc6XbS2nweUrKVtONjtLKC3Pkf2Zuh2wIIIAfuTMcf5OfeqpQ7FGwAd
+ tu7jWQCnv0RQaOGdjZjhzUl1TV0nIFWJb3OpMIjgb1DCAVTS3rEqvVAUi9AomyAYuj
+ Jlq66GLQGSFwQ==
+X-Virus-Scanned: amavis at zmailpro.com
+Received: from zmailpro.com ([127.0.0.1])
+ by localhost (zmailpro.com [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id tnXd1SeIrrrJ; Wed,  4 Mar 2026 21:11:08 -0500 (EST)
+Received: from zmailpro.com (zmailpro.com [174.129.240.60])
+ by zmailpro.com (Postfix) with ESMTP id 53D208AF837;
+ Wed,  4 Mar 2026 21:11:08 -0500 (EST)
+Date: Wed, 4 Mar 2026 21:11:07 -0500 (EST)
+From: Harris Landgarten <harrisl@deeplearntech.com>
+To: amd-gfx <amd-gfx@lists.freedesktop.org>
+Cc: alexander deucher <alexander.deucher@amd.com>
+Message-ID: <418525920.108982.1772676667882.JavaMail.zimbra@lhjonline.com>
+Subject: critical bug amdgpu hard reboot after amd-smi reset --gpureset on
+ Strix Point (Radeon 890M)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6641b5b-ab9c-4aaf-824d-08de7a55709a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Mar 2026 01:20:51.2680 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VikpWK/xZH3Y/5CTzATilzdnJU6buzcc5OIsJ65uYPuXHXf9ED23NF/sG6kcKXU+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPFA5F0E981D
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [174.129.240.60]
+X-Mailer: Zimbra 9.0.0_ZEXTRAS_20240927 (ZimbraWebClient - GC146
+ (Linux)/9.0.0_ZEXTRAS_20240927)
+Thread-Index: +zSCaUzFLnTFmBDrLhiaUTpFzbaNQw==
+Thread-Topic: critical bug amdgpu hard reboot after amd-smi reset --gpureset
+ on Strix Point (Radeon 890M)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,62 +74,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+Hello,
 
-Please ignore this change.
+System:
 
-Best Regards,
-Kevin
+Host: beelink2
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Yang Wan=
-g
-Sent: Thursday, March 5, 2026 9:14 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Xiao, Jack <Jack.Xiao@amd.com>
-Subject: [PATCH] drm/amdgpu: fix gpu idle power consumtion issue for gfx v1=
-2
+Kernel: 7.0.0-rc2-x86_64 #1 SMP PREEMPT_DYNAMIC Sun Mar 1 19:54:38 EST 2026
 
-Older versions of the MES firmware may cause abnormal GPU power consumption=
-.
-When performing inference tasks on the GPU (e.g., with Ollama using ROCm), =
-the GPU may show abnormal power consumption in idle state and incorrect GPU=
- load information.
-This issue has been fixed in firmware version 0x8b and newer.
+CPU/GPU: AMD Ryzen AI 9 HX 370 / Radeon 890M (Strix Point)
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+GPU PCI ID: 1002:150e
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v12_0.c
-index 5bfa5d1d0b36..6584ade3b3f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -731,6 +731,7 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_mes=
- *mes, int pipe)
-        int i;
-        struct amdgpu_device *adev =3D mes->adev;
-        union MESAPI_SET_HW_RESOURCES mes_set_hw_res_pkt;
-+       uint32_t mes_rev =3D mes->sched_version & AMDGPU_MES_VERSION_MASK;
+Firmware: Beelink T305 BIOS
 
-        memset(&mes_set_hw_res_pkt, 0, sizeof(mes_set_hw_res_pkt));
+sys-kernel/linux-firmware-20260221
 
-@@ -785,7 +786,7 @@ static int mes_v12_0_set_hw_resources(struct amdgpu_mes=
- *mes, int pipe)
-         * handling support, other queue will not use the oversubscribe tim=
-er.
-         * handling  mode - 0: disabled; 1: basic version; 2: basic+ versio=
-n
-         */
--       mes_set_hw_res_pkt.oversubscription_timer =3D 50;
-+       mes_set_hw_res_pkt.oversubscription_timer =3D mes_rev <=3D 0x8b ? 0=
- : 50;
-        mes_set_hw_res_pkt.unmapped_doorbell_handling =3D 1;
+dev-util/amdsmi-7.1.1
 
-        if (amdgpu_mes_log_enable) {
---
-2.47.3
+Kernel configuration: PREEMPT_DYNAMIC
 
+Problem:
+
+Running the following command causes the system to hard crash and immediate=
+ly reboot:
+
+amd-smi reset --gpureset
+This behaves like a sudden power loss. In some cases the machine will not r=
+estart cleanly until power is physically removed.
+
+This issue has been occurring for some time on 6.18 and 6.19 kernels, but w=
+ith 7.0-rc2 I was able to capture the failure sequence in the journal befor=
+e the crash.
+
+Reproduction:
+
+Boot normally into GNOME Wayland.
+
+Run the command as root:
+
+amd-smi reset --gpureset
+The GPU reset begins but the system crashes shortly afterward.
+
+Journal excerpt:
+
+Mar 01 20:04:24 beelink2 doas[7188]: harrisl ran command amd-smi reset --gp=
+ureset as root from /home/harrisl
+Mar 01 20:04:24 beelink2 kernel: amdgpu 0000:c5:00.0: GPU reset begin!. Sou=
+rce:  5
+Mar 01 20:04:24 beelink2 kernel: amdgpu 0000:c5:00.0: MODE2 reset
+Mar 01 20:04:24 beelink2 kernel: amdgpu 0000:c5:00.0: GPU reset succeeded, =
+trying to resume
+Mar 01 20:04:24 beelink2 kernel: amdgpu 0000:c5:00.0: [drm] PCIE GART of 51=
+2M enabled (table at 0x0000008000900000).
+Mar 01 20:04:24 beelink2 kernel: amdgpu 0000:c5:00.0: SMU is resuming...
+Mar 01 20:04:24 beelink2 kernel: amdgpu 0000:c5:00.0: SMU is resumed succes=
+sfully!
+Mar 01 20:04:28 beelink2 kernel: amdgpu 0000:c5:00.0: SMU: No response msg_=
+reg: 31 resp_reg: 0
+Mar 01 20:04:28 beelink2 kernel: in params:00000000
+Mar 01 20:04:28 beelink2 kernel: amdgpu 0000:c5:00.0: Failed to power ungat=
+e VPE!
+Mar 01 20:04:28 beelink2 kernel: amdgpu 0000:c5:00.0: [drm] *ERROR* DPM ena=
+ble vpe failed, ret =3D -62.
+Mar 01 20:04:30 beelink2 kernel: amdgpu 0000:c5:00.0: failed to load ucode =
+VPE(0x42)
+Mar 01 20:04:30 beelink2 kernel: amdgpu 0000:c5:00.0: psp gfx command LOAD_=
+IP_FW(0x6) failed and response status is (0x0)
+Mar 01 20:04:30 beelink2 kernel: amdgpu 0000:c5:00.0: resume of IP block <v=
+pe_v6_1> failed -22
+Mar 01 20:04:30 beelink2 kernel: amdgpu 0000:c5:00.0: GPU reset end with re=
+t =3D -22
+Mar 01 20:04:32 beelink2 kernel: amdgpu 0000:c5:00.0: SMU: No response msg_=
+reg: 31 resp_reg: 0
+Mar 01 20:04:32 beelink2 kernel: in params:00000000
+Mar 01 20:04:32 beelink2 kernel: amdgpu 0000:c5:00.0: Failed to power gate =
+VCN instance 0!
+Mar 01 20:04:32 beelink2 kernel: amdgpu 0000:c5:00.0: [drm] *ERROR* DPM dis=
+able vcn failed, ret =3D -62.
+Immediately after this sequence the system performs a hard reset.
+
+Firmware files present:
+
+=EF=BF=BC
+/lib/firmware/amdgpu/vpe_6_1_0.bin
+/lib/firmware/amdgpu/vpe_6_1_1.bin
+/lib/firmware/amdgpu/vpe_6_1_3.bin
+Questions:
+
+Is this a known issue with amd-smi --gpureset on Strix Point / Radeon 890M?
+
+Does the failure of the VPE resume (vpe_v6_1) during the MODE2 reset sequen=
+ce indicate a firmware issue or driver bug?
+
+If needed I can provide:
+
+full dmesg
+
+lspci -nnk
+
+complete journal logs from boot to crash
+
+kernel config
+
+Thanks,
+
+Harris Landgarten
