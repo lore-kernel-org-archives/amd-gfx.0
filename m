@@ -4,88 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 502A5F3D31C
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 16:08:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00636F3D31A
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 16:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0A5210EC21;
-	Thu,  5 Mar 2026 16:08:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9285810EC50;
+	Thu,  5 Mar 2026 16:17:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VDv1cArV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jVkA6szp";
 	dkim-atps=neutral
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B72B10EC21
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2026 16:08:56 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-2be22d699c9so228768eec.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 08:08:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772726935; cv=none;
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A74C10EC3E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2026 16:17:05 +0000 (UTC)
+Received: by mail-dl1-f45.google.com with SMTP id
+ a92af1059eb24-127337e3870so398174c88.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 08:17:05 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772727425; cv=none;
  d=google.com; s=arc-20240605;
- b=b8uAKymzRTjlQaL/KYEYmwlSGpE0htDExrj6GMvyuFZduCb283DO+VqdSYqfFjUQn3
- sITDMmAXX5BbYzUaVFi6O0sZdmuzKrNqV8bIpdGg31g6GMUPFOjqAMxGfZFnNDbBNIYE
- OYEeDhLbZay+yxMkMvG70vatmTHivdCu7MzDb1utpvVcsyPiIdh7n57s3hBAfDsBua3U
- Ump9e8KxxyDE6NDLDdnHOcQHfnLQ0+bcyvSup3hsegUYzDq5orHNsWH5cxwisOVu1abc
- GP0SXx311U1jBSBBcanZl87+mJk2M3aL06ZfMxv1CJcruWrNIlIx8XpBpAjR1sr3oaKP
- Y+iQ==
+ b=Buy+ojBs4atCmqrs+j5iWROqiaaKwaTKGS6H/USdqs8uqHxG5/gMAa/uIiZdKE72gn
+ BN1QsQnB/ZuDyZntMk9dd6fduqTcxdG08OHk78DTjJXG7nowTq75ezwvxN3adL8UuEX2
+ jx60nHxknPz/ZACqpAe5ld2dtPVNIYKpwA5AYO4ijs7XwSrJQqE044hGCXIB2eVKSP4Q
+ emfS98x96M3SiVFsO+rMCazliMuKhMztAPWOwdKsMUaTqLJtOtrOHj9b+mjBR6XvJJk4
+ knCVfOJAatttfcpJEFlgVS+aJN+YmOGq+mSeaTaUBjcaAtP0z6CJTnTurufvhy0VpYIj
+ V9Qw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=dK/J8ibJ9vqPLIn+YDQpyW9uGinxxdR9Usb7tnZ3Nzo=;
- fh=/jXuF6kkEzGc76I89MWDwYajZhHhstOH8SMMdzCQivY=;
- b=exdc2MBa/GiGspY5menN9iJ4LgwPjiyF84cQoiT6zNEp8VGyNVbGtfGBS2m3u6dP11
- 8CreQqV4UDRsXIjyBXzUZKIcmbYOwu1QWTwb+LMqlWdx6VImxtRV3UItCh7w9U7+eUYQ
- IFaDRgC/sDiXOWwXWyL7FQRbd0xYZnEYhJ9Xv2g4ZLUqcnPxfXxHBTc1/V+r/46EX2Iw
- L65vyMlD8zkOnx1Cbd51Ee8mrBFMwBgw7kfbQyZc0gHjGexTFNEkYVqIamMNCvSBSXsc
- JCBOVYlFlBjQmllRU+snLACgpVflgAjFsKwQY8zeh++DDFN9sNMEAohJVhz7Rh4hn6Ab
- 16Xw==; darn=lists.freedesktop.org
+ bh=VW4fluvLXpkSm5l3tJWLpzGdSZxAHhTQFuOxlkilp8Q=;
+ fh=Tu1gLr2UAUz1DKxvTgjFVnniHuqtQ4ARVsYDcnB4B6g=;
+ b=EWXs1gbkYgb4iG0DftpuMT6rzXwJ8qmkbMcDnDZFsg1lhB98BVi74ylSN1kHQbhV+Y
+ dhZTVSDYBcS55SwOvay06NH4gHh/Kvupl+BfixDZXX3Xz9AiA1oOBge+Ot3CaG3vCs6h
+ HcLsOSpWaQpz6UJKC7v5uBSVDTiudRpA5Rvkvkh1tWrRF5Nzx8vH/MGPubMlUtOZ73xe
+ MLUzChpst/2VzPmnKrpv+UUZbS2tMWqSQE9LpU54j+ztBSv0JF/n0z3hNI1MXpcnMTzs
+ jb2hyUCQUKu5czsdDIJpu7z3LRCsu2SYlhQbWKrVxdaQ7nDdFiX4Il0gkIAyB4VycN0S
+ Zy1g==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772726935; x=1773331735; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1772727425; x=1773332225; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dK/J8ibJ9vqPLIn+YDQpyW9uGinxxdR9Usb7tnZ3Nzo=;
- b=VDv1cArV76QBN3ZZyVg0K9aoAY0JS2TcYfL/W3WVR6PVpurkdIlAVYwMigk4T6lDlE
- OtHegT1x4Da7zG7YHxUZNLE4HOV43Cy9RUyYdOaRMSDOxexKk6If5p3vm3R3dDjCkcuf
- LuReeMPvLX7l2la1z9kp4v9aQaLVZ93Ftkqu/xr6hWjXRdVz0wZc7dtPNTV6nwUslEHD
- pIjE7yaAH0Fk3py6aduWlPeg/1Vd6UwinSIewesCZsMj0xCw5pM3cMKBax1qXIZSIGC3
- qB2h/XEWgHObZLTenLc3t6cyzCY0Fy0joov9kp9raM0oJaUF3nyqTfva00X2QqSYixxC
- 0EOw==
+ bh=VW4fluvLXpkSm5l3tJWLpzGdSZxAHhTQFuOxlkilp8Q=;
+ b=jVkA6szpt6uoNV9/Z8swU5Cw75qBTRC5hHXEbKC2JSCK4U/0u4mS96aGeRroeKlQhB
+ LBSeU3qqFcmYW8RiRAfJwaKtBTM3KtPJ4p+5EBQhFwVtOGLZdiDrLV13tFHmZvaodNYM
+ UVCeAip8FRW7FH00V1G/nVvIdwjo/KAodyY6prJRUe+LO34HjF8BmrinrAdFr+Bo3c5g
+ NEXn6tL7AXY1bHoOSQgw53Iv0KI/wh29xYZ9fh9e/pOR9vC5VI3oiItdesyFkeg6xQMc
+ 3b49Mr3qP++Nsrx1tYZ0508osxXH4T77MXjGds51nPj6pfwRtycG976FzrZOwn2zzcAK
+ dDqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772726935; x=1773331735;
+ d=1e100.net; s=20230601; t=1772727425; x=1773332225;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=dK/J8ibJ9vqPLIn+YDQpyW9uGinxxdR9Usb7tnZ3Nzo=;
- b=XZpAmiRW2QRg3TWVv+nvlN41cganwvaMPKl50uvNzZ4LQ9vGJ/GDsgkq3xEMuoTauO
- Zyc31lhFKLvp8OyDZmlkRvewCce3Ai0+4vLRGWNZdizyYLlYlBY0Q0yqwjobdrcThZbX
- UUCmifCMPgtT9cdpdSWbXTQusweYNfH6P3Hao4ctSDyNKYOIKfLyrJ0Uq16if+l8FybJ
- o8IKUTJvD3nBQxAJMT0asHhTlZDbeof8tAOdreapJEV0tavkm2GMXxrS0RLMZKQVedtJ
- GMBlPjyopp5HvRaU6g6EblsUjVQJZVqBHg1eKH+6BrNaTlPd5PZDIyhKF3SEQ9iH8YgG
- uq6w==
-X-Gm-Message-State: AOJu0YxmSjDoJoc+9hVJBcbIkBkplxR7dHAkhjpK8P9hOlraKw/+Og48
- grGynZ/BP1//nSDwmVOGezjA5+jqf/xdRfUWIVgpRZsIoO2/7jPJw7cyYWcvRqAHm+/9JZ4AWhu
- tPcI80wGhzC4cSgSLhbCibfVt4Y4i/GM=
-X-Gm-Gg: ATEYQzy3F9dbOls1N8njbbboWTUVbcgz7UODUnmm3TsSEI732UUCvxJyjGHM3lZWT+F
- cy3NsMJYLafl5FB0KoVD5uizqlcEbSwO1gwTyEvHNnr3GqmcW7VA04cU7LqFHhl/eMeEKsKLpm5
- frtmMIdFtICZNRf2xvRBffhLVwdBQY8Ozk80RKs/poXfHDn0zpvqnzBM8BgItLSItI98shIyHET
- 67NRas0LPNW0UUxwHSP9Jh3fpSWtgfrSoPC49GY4FlFcUXXLBX00ZONaCcVg1YGC+fKt7sOoR07
- wfo6qqKD7FEIGD9/64+sFQvnz481ZSTlX4XVIx6M+oi2KvjIqSmyZ5tUFuo3n+9RHP0aOA==
-X-Received: by 2002:a05:7022:62a8:b0:11e:3e9:3e88 with SMTP id
- a92af1059eb24-128b70c81bfmr1445898c88.6.1772726935168; Thu, 05 Mar 2026
- 08:08:55 -0800 (PST)
+ bh=VW4fluvLXpkSm5l3tJWLpzGdSZxAHhTQFuOxlkilp8Q=;
+ b=O7z6clILxv0m95wXklHM8evoSRZs2SKbhCTqlABX+33Y+06ZE4lrzDf5MVfawsl/o5
+ SrmMW8/2gK7AFHDSxQ9fOJZhOj2IoMX61ncEUb0smBKvJ6cellQQhOD0KVdq2/r5AbQ9
+ 8+4cTqAhfcz0M/I0RgrMeFBA3rtJbU1hURzD+Anz498vcg24G5UUD1OdxaxDz3289iuL
+ 6A+Pmtq4rtJF3CQTmYiAzLzaDS8j0REnYElq+i5vw3jTmqF0Z2Qa6Hda5mbqpyo01mFD
+ CRslb3wkpQlDHMCKNAadzlr5rA+cOQhfxMRKQWiq6YnJKqeT/4280Wykn+vPZqAgIWtw
+ r9VA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVbiqi/QYAg5qp6wCCyP+LG+xtZ3fUnb0p3faHSHOP/VF0W6qc0FNA8ZcMppc+mEN3iNvvVpMll@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yypi3ET0sF1x5686Pw+VWbVsf7kwisSxiIsevP4z3UIf4k0Uoa0
+ elwpuKj0HkmLuWH5N57y4POTlwqNHf8Iqu406YEpsFyL6Em0yuUgCRiHyn9sAYzjmsleKbFoVZa
+ dZgfC6dnkilBmUU5IbECGtfug3nEc5dg=
+X-Gm-Gg: ATEYQzwiT70Io9axXk/goNKvNCmL8g6knIFArkyErv6oeTdO/Wh/UbjMW4W2+j4S5fN
+ KA2e86CMC7eSDUxfFpBQzsLVchhXZnBFXcyZV89JfAUUnzcR60bwATX+VauNqrQ8Xn4FEUpEuHR
+ LWjmpG3AVc1h3ijzDEQjNVQgT4xUSPVjJA8wILKjJ5kgikJ0TiBefzzPWpLNUwadoS52fUIPKPW
+ e8RSxRDTNFcvF2Eey/yVF7SZbX+ZvczBz7aDLaWMFQtd4GqRVjeUZwPKYJG4fn65chmL3HJYu9c
+ zBEN7LmWNuyxvSkY67rJ0KhJppeaC7oYyh5N0huknEaikct7rqFUYO10PmIacUrg+voVitzTx00
+ IKsKY
+X-Received: by 2002:a05:7022:ef05:b0:122:33e:6ec1 with SMTP id
+ a92af1059eb24-128b6fd1600mr1114670c88.0.1772727424705; Thu, 05 Mar 2026
+ 08:17:04 -0800 (PST)
 MIME-Version: 1.0
-References: <20260305150611.1166241-1-mario.limonciello@amd.com>
-In-Reply-To: <20260305150611.1166241-1-mario.limonciello@amd.com>
+References: <20260304222732.2403409-1-alexander.deucher@amd.com>
+ <42e624f7-5190-49b4-95c4-dc22a6ba1ab8@amd.com>
+In-Reply-To: <42e624f7-5190-49b4-95c4-dc22a6ba1ab8@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 5 Mar 2026 11:08:44 -0500
-X-Gm-Features: AaiRm509hnQWQBJqhfYRLn7YB3GKobv9zlMr3b_4b107GcrIbc4FKzNxdU2uv9w
-Message-ID: <CADnq5_PktSmCEVwMk8p531+h0M1DPaK2mSHOPbes5tmY+MHk=Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: Fix a few more NULL pointer dereference in
- device cleanup
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Thu, 5 Mar 2026 11:16:53 -0500
+X-Gm-Features: AaiRm51ERRpcNIu8irMm6sRnIs1EpX-sCPj8JoIHrkXKcRhCfoGK613U-o03fh0
+Message-ID: <CADnq5_Md6LQ2n7ciXKuhvvbcq7NZxHZ2VsY0TpPQyDNwAko7iA@mail.gmail.com>
+Subject: Re: [PATCH 1/7] drm/amdgpu/mmhub2.0: add bounds checking for cid
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -102,61 +104,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 5, 2026 at 10:14=E2=80=AFAM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
+On Thu, Mar 5, 2026 at 10:24=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wr=
+ote:
 >
-> I found a few more paths that cleanup fails due to a NULL version pointer
-> on unsupported hardware.
 >
-> Add NULL checks as applicable.
 >
-> Fixes: 39fc2bc4da00 ("drm/amdgpu: Protect GPU register accesses in powerg=
-ated state in some paths")
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> On 05-Mar-26 3:57 AM, Alex Deucher wrote:
+> > The value should never exceed the array size as those
+> > are the only values the hardware is expected to return,
+> > but add checks anyway.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 9 ++++++---
+> >   1 file changed, 6 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/=
+amd/amdgpu/mmhub_v2_0.c
+> > index a0cc8e218ca1e..534cb4c544dc4 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> > @@ -154,14 +154,17 @@ mmhub_v2_0_print_l2_protection_fault_status(struc=
+t amdgpu_device *adev,
+> >       switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
+> >       case IP_VERSION(2, 0, 0):
+> >       case IP_VERSION(2, 0, 2):
+> > -             mmhub_cid =3D mmhub_client_ids_navi1x[cid][rw];
+> > +             mmhub_cid =3D cid < ARRAY_SIZE(mmhub_client_ids_navi1x) ?
+>
+> Does this introduce speculation and requirement to use array_index_nospec=
+?
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+I don't think so, but I'm not really an expert on side channel attacks.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+Alex
+
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 258391ddee7c9..bc6f714e8763a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3508,6 +3508,8 @@ static int amdgpu_device_ip_fini_early(struct amdgp=
-u_device *adev)
->         int i, r;
+> Thanks,
+> Lijo
 >
->         for (i =3D 0; i < adev->num_ip_blocks; i++) {
-> +               if (!adev->ip_blocks[i].version)
-> +                       continue;
->                 if (!adev->ip_blocks[i].version->funcs->early_fini)
->                         continue;
->
-> @@ -3585,6 +3587,8 @@ static int amdgpu_device_ip_fini(struct amdgpu_devi=
-ce *adev)
->                 if (!adev->ip_blocks[i].status.sw)
->                         continue;
->
-> +               if (!adev->ip_blocks[i].version)
-> +                       continue;
->                 if (adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLOCK_=
-TYPE_GMC) {
->                         amdgpu_ucode_free_bo(adev);
->                         amdgpu_free_static_csa(&adev->virt.csa_obj);
-> @@ -3611,6 +3615,8 @@ static int amdgpu_device_ip_fini(struct amdgpu_devi=
-ce *adev)
->         for (i =3D adev->num_ip_blocks - 1; i >=3D 0; i--) {
->                 if (!adev->ip_blocks[i].status.late_initialized)
->                         continue;
-> +               if (!adev->ip_blocks[i].version)
-> +                       continue;
->                 if (adev->ip_blocks[i].version->funcs->late_fini)
->                         adev->ip_blocks[i].version->funcs->late_fini(&ade=
-v->ip_blocks[i]);
->                 adev->ip_blocks[i].status.late_initialized =3D false;
-> --
-> 2.53.0
+> > +                     mmhub_client_ids_navi1x[cid][rw] : NULL;
+> >               break;
+> >       case IP_VERSION(2, 1, 0):
+> >       case IP_VERSION(2, 1, 1):
+> > -             mmhub_cid =3D mmhub_client_ids_sienna_cichlid[cid][rw];
+> > +             mmhub_cid =3D cid < ARRAY_SIZE(mmhub_client_ids_sienna_ci=
+chlid) ?
+> > +                     mmhub_client_ids_sienna_cichlid[cid][rw] : NULL;
+> >               break;
+> >       case IP_VERSION(2, 1, 2):
+> > -             mmhub_cid =3D mmhub_client_ids_beige_goby[cid][rw];
+> > +             mmhub_cid =3D cid < ARRAY_SIZE(mmhub_client_ids_beige_gob=
+y) ?
+> > +                     mmhub_client_ids_beige_goby[cid][rw] : NULL;
+> >               break;
+> >       default:
+> >               mmhub_cid =3D NULL;
 >
