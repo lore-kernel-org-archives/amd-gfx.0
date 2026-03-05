@@ -4,151 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1583EEF317
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 08:15:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F617EEF31B
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 08:15:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEB1810EB72;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1F0F10EB6F;
 	Thu,  5 Mar 2026 08:15:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MTiNOmzu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="WG0Mu4WM";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE03C10EAC0;
- Wed,  4 Mar 2026 21:42:13 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A3CB743232;
- Wed,  4 Mar 2026 21:42:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07326C2BCB4;
- Wed,  4 Mar 2026 21:41:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772660533;
- bh=xiOhB9YembJ+CStGf833o6vXChZ9R9iPIsGRMRIY668=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=MTiNOmzumY+Ccr9Y25oeq5uYZKghdKy9YuMJBVJenlXMeDIlM5fFuFFctJXPSrlj1
- KOikET8YCvcGy9yWYQw1bgH6uo7qLLK1Yimq397PsLMKP+QRrCFPLt2x5Iauoplbvb
- eVdpKah8RLNh0zfOSHOOrQ3xqtsNbQi1nkFz6EB4vJXFLpSPJMg52b3nqo2mplKkNj
- xJmYwih0yzyZ+saefyHXLopmh2Uw8y8KnyiNiI3ZzGwKqQQ7Bt9hEM//Ab6R2kTuX0
- dvCJZkANj5UO/wUvSeTKYiDWcUSEi2O8IiF1HH0MkcYb0vMhcqKbNtD1e26QLX94o6
- x5Esh08bkPubQ==
-Message-ID: <000dfca2-3101-45dd-8fdd-987ca885124a@kernel.org>
-Date: Thu, 5 Mar 2026 06:41:41 +0900
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEA6C10EB15;
+ Thu,  5 Mar 2026 05:48:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1772689698; x=1804225698;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=DqaP8dV2T+SUGxDdGdYO+QbCPj1MvZsW7StlBp58UJM=;
+ b=WG0Mu4WMMPiBeOWhB5POWOoDCoaI9yoNiM1q0ycbdKV+Kb+4YfJST4G5
+ l49udD9ibBfXFX+p866byLGl40qCFTmouiVghpJOn+u+Tf16lhoBNHGKF
+ QdCYSl4qOO4//tRt0osEtAjMUaUrIMmTyYtxKUEWy8oE2TV7AHWEPUvp3
+ iLN53a4BB3rwbtMIZEAQJhBQFTbC7yDqzjVC8811txXWQmomj2/p9FzVc
+ 4ORwoLF19GT4TMBbzeMzfjEH3SrhPYJo/JRKEygFPEWvCcQpcjstE6D1f
+ V72G/+NSaIMQMuk+IU12mVUictVeWNqKO50og/3ILrHmKnSg99DaIZbl3 w==;
+X-CSE-ConnectionGUID: B6P/z5yvS1SRekTWkWetDQ==
+X-CSE-MsgGUID: b3+nQIs/Qm66S5J/Rm4fjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11719"; a="72794506"
+X-IronPort-AV: E=Sophos;i="6.21,325,1763452800"; d="scan'208";a="72794506"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2026 21:48:17 -0800
+X-CSE-ConnectionGUID: e996yRDXTginx/ifxSXYww==
+X-CSE-MsgGUID: I+BosB8NRVicmE/epXuzCw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,325,1763452800"; d="scan'208";a="217728571"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2026 21:48:18 -0800
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 4 Mar 2026 21:48:16 -0800
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 4 Mar 2026 21:48:16 -0800
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.48) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 4 Mar 2026 21:48:16 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LLy9D5br68nQHvF9e6sQxqv17riJ5zA0NRwzVBzdKqIl6Q/9Ysxr2Hx8unvEwqj5MH6kAlVG0n82NfHq/tf6w96kSAPwStn/wH6VTYJHTybT3gbJXAmPr13SDaRqvfzneAI1aaBaf0eBvJl9bHcAdmZZpHppNOitAkfQxBJajDCEeF88FG+IK0afYA/j/AwTMpQU+6XwnnuD9APdVC3GmntXDC8BmapkkykHdgxp6tSxuQjXK4yi2n4CSBLaR31QYVU8QuitcGshy2ndjuaLalCecoprMUshv5Qfv46XH6PjYnA78EcXcPPfpIHIDnl8pltXTkKFb4RbIiIaw6YHgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GUD5penfaGtujgfVDrIkjjTAoap6QEbG36SZsjkuGRY=;
+ b=qwuLeQ7KYyicjaZ3f6xnIA/rgK31kW+OlrbI3rZRMcOnv6UVCBC44P0nOF9W4qeh164ppZaAJ+wdBbiO7ehObGODOz5EDdWdfcM7NoEbntcCQ5vFvPhC5wl/+UHM0uEwhnPPhrbjWnk2fOxeGxu36SNoDpK37VMK9EiTvUD5w+/f3gPpRUY8v7nV4vSRYiNMiJ/M9pbbrgy53ghJatMLxgxCFB04zq23u6AJEPb8TAaf2n8CitP0xnf2su46ItcHf1Xw8j6JkR1/04zZat36lp59QVYXD0knd5bzxnlhUUpcBK2WLmhFCeG+UUd66D7fH/Vrv2YkX/LvmExkFngjSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SA1PR11MB8393.namprd11.prod.outlook.com (2603:10b6:806:373::21)
+ by DM4PR11MB8180.namprd11.prod.outlook.com (2603:10b6:8:18d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.17; Thu, 5 Mar
+ 2026 05:48:08 +0000
+Received: from SA1PR11MB8393.namprd11.prod.outlook.com
+ ([fe80::804e:63d1:f2ce:7ce4]) by SA1PR11MB8393.namprd11.prod.outlook.com
+ ([fe80::804e:63d1:f2ce:7ce4%6]) with mapi id 15.20.9678.016; Thu, 5 Mar 2026
+ 05:48:08 +0000
+Date: Thu, 5 Mar 2026 13:47:27 +0800
+From: Yujie Liu <yujie.liu@intel.com>
+To: <phasta@kernel.org>
+CC: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ Alex Deucher <Alexander.Deucher@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] drm/scheduler: fix kernel-doc warning for
+ drm_sched_job_done()
+Message-ID: <aakY72_ScpDLcytF@X299>
+References: <20260227082452.1802922-1-yujie.liu@intel.com>
+ <76e69151fe679658d8816dcce1011cea20633252.camel@mailbox.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <76e69151fe679658d8816dcce1011cea20633252.camel@mailbox.org>
+X-ClientProxiedBy: KU0P306CA0091.MYSP306.PROD.OUTLOOK.COM
+ (2603:1096:d10:22::14) To SA1PR11MB8393.namprd11.prod.outlook.com
+ (2603:10b6:806:373::21)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/12] zonefs: widen trace event i_ino fields to u64
-To: Jeff Layton <jlayton@kernel.org>, Alexander Viro
- <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
- Jan Kara <jack@suse.cz>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Dan Williams <dan.j.williams@intel.com>, Eric Biggers <ebiggers@kernel.org>,
- "Theodore Y. Ts'o" <tytso@mit.edu>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>,
- David Howells <dhowells@redhat.com>, Paulo Alcantara <pc@manguebit.org>,
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
- Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>,
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
- Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>,
- Shyam Prasad N <sprasad@microsoft.com>, Bharath SM
- <bharathsm@microsoft.com>, Alexander Aring <alex.aring@gmail.com>,
- Ryusuke Konishi <konishi.ryusuke@gmail.com>,
- Viacheslav Dubeyko <slava@dubeyko.com>,
- Eric Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov
- <lucho@ionkov.net>, Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>,
- Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>,
- Salah Triki <salah.triki@gmail.com>,
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
- Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>,
- Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>,
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>,
- Dave Kleikamp <shaggy@kernel.org>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Joseph Qi <joseph.qi@linux.alibaba.com>, Mike Marshall
- <hubcap@omnibond.com>, Martin Brandenburg <martin@omnibond.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>,
- Zhihao Cheng <chengzhihao1@huawei.com>, Naohiro Aota <naohiro.aota@wdc.com>,
- Johannes Thumshirn <jth@kernel.org>,
- John Johansen <john.johansen@canonical.com>, Paul Moore
- <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Willem de Bruijn <willemb@google.com>, "David S. Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, James Clark
- <james.clark@linaro.org>, "Darrick J. Wong" <djwong@kernel.org>,
- Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>,
- Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>,
- Johan Hedberg <johan.hedberg@gmail.com>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>,
- Neal Cardwell <ncardwell@google.com>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Remi Denis-Courmont <courmisch@gmail.com>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>, Magnus Karlsson
- <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev,
- fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev,
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org,
- v9fs@lists.linux.dev, linux-afs@lists.infradead.org, autofs@vger.kernel.org,
- ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu,
- ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org,
- jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev,
- ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org,
- linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org,
- selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org,
- linux-x25@vger.kernel.org, audit@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-can@vger.kernel.org,
- linux-sctp@vger.kernel.org, bpf@vger.kernel.org
-References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
- <20260304-iino-u64-v3-8-2257ad83d372@kernel.org>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <20260304-iino-u64-v3-8-2257ad83d372@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR11MB8393:EE_|DM4PR11MB8180:EE_
+X-MS-Office365-Filtering-Correlation-Id: 793d61de-772a-4178-8074-08de7a7ac771
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|366016;
+X-Microsoft-Antispam-Message-Info: 5DvOkSi6EiY/wQY1Xt5Hfv2LYu2nyh6fA6aLlPWhSdAq/UYOZHnHd8Zbe7ZBlBB+4JJWlilEWGUXCdazMRAw8KKdCmG3hsR6CzGYAYbeNjPdtS4aJ9tYsAwc1Umoj1f9l3r6onfemqZEM9CexH5/ezBrFh+P9ejJgv1kgGNZ/X8Fqt2Bd1LbS+0Jq5EtfaejqjxpEarC87e+d36peGs3Z9emj46giqFd4LFN1NOaRUiLVv9Vy2eLBBUvYvOlKhh/dSjMiF7D8gZfWHfSsGGyFgvtt6J6gIPONrJIuoyt0M0PdQG4I9p0hAySa/W89GuSy/nt4HJGB5qo7EDajaHpjuuvY/0lT/pEXLUmulpuhSguVNkVrSLI0Xoai5hvO5JNEoVDC2/dGhSdkiiW/82zE5zXmKzqG5EWX+zvoH1WHJKq8fDfe4sv1C0uA7QaIz/j450KL1Yc6+Q41NveAl8Z/x+dzR8C3WsCwFyZIA2ehXqZ4ANU/fHN6dEo4s/2Y28g0IFM8TKsVpJkmLG4s8VURdN0Dg+IlZNsCGZHsS0Vyvow3nfotm+OuUPPHaX5IYajMxBq2FiV9ip3VC4jfMi51vqXhvEGq5uVKFwJfzb1ZJB/PTE9ZtEYHEvS+lz2/istKM9q8OLR/4XUsnHte4/wc2j7hpMo72cQ2/BfVj2zjmwYDboQ15XQo1rjkaAzF04rlao0oXa9nE26FHuLhtrZrAdUbo2HIOOa3i0BB3PWye4u9PyqalqVx7if97Y2fxEn
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR11MB8393.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?aDLRUzEMDMGS8/M9R721hLm8PchyOpJT32jE2F5BJmF/iGi6t7ifgsuSUP?=
+ =?iso-8859-1?Q?d5YAXYGJM5e/ooQXw+EXAOBOJi7zmy+5Ke+4XQTe/KzGcGvJB+Q0gcijEL?=
+ =?iso-8859-1?Q?5mH4bU2/DaO+9ePTZv4GyZ/TCa82Z+mXHln0E0D4Dhepe8P6MG2Gd9Vw9k?=
+ =?iso-8859-1?Q?gD/V94VISfUx6/+GOeWquShOnpqDVxbHAwX5WizM6x5J2k8kfullE2eH7m?=
+ =?iso-8859-1?Q?HAjSalq5b/ZX6Rqzxnwl/SO5ZtHIKmCsU/3dIoDlplyv970UJsCRnMG7FV?=
+ =?iso-8859-1?Q?FCAHKNV22udwh/x8RHFSKNSatNNKZ/x4C9A5JdpNiIAYotZD5hYaoQ+1aP?=
+ =?iso-8859-1?Q?tnhV9l4U616kAr/66On2Z+Uo/IkK7TCQHCzZz7+Y3gybF+Q7IKVt4uWOU6?=
+ =?iso-8859-1?Q?vSftgGGoLSncElAxpqeL99qD3ZKXFZNqi6NGYUmOvU6aX5QcGAv9TMw3Ov?=
+ =?iso-8859-1?Q?QuqeAw6FjZrILXafuYfzns7PfexyepZ2Ok2COI2doW5o6Zv7QBH4SJP3qm?=
+ =?iso-8859-1?Q?c+y61Ij4v+BBwafKIjzkjZmkPB4p2IBebhxyRkRdz9ayt8SCzxO9n/6IOR?=
+ =?iso-8859-1?Q?Evlp2MtWwNn5tXIVH+M1OmHRkbiQVHe1x0TNj630m4qakeXBU5FY5rnTIr?=
+ =?iso-8859-1?Q?aMSojj+m5HJbcQFB7m8AEyaDKZhd4EVIlYMh43HLCmTzHaV8XQ3OynpKa2?=
+ =?iso-8859-1?Q?zko4dUZbZIWiM+2s6PDJ7r6us23EgcaEaoAKpJvpcMzbbZjp5uq5wRbw57?=
+ =?iso-8859-1?Q?wgy84OwcPLxkGurprkimSubB4yAOyop7lDal4xDTyZLQWGIjK8jgwu0fTp?=
+ =?iso-8859-1?Q?Jsyju6z9b3V10MxXQmHxG4v0is63MbFqbGN2caEXrIcpSWORD5RKkYs+0r?=
+ =?iso-8859-1?Q?ZfpRAitxHbwjGE7WA0l6aAWPeAJsxfy73JZWsEtEMbFF3y9OOgTxJwIf/h?=
+ =?iso-8859-1?Q?vQXJ/CkUk3RrgNFiDzispx4FpBSbCWf3lKScHACfn0CJ+mTjJu87AUIKmI?=
+ =?iso-8859-1?Q?4rqazQz7Iwx5O4a9qkYhY+YqloHi5UIhBlJM1TMYu8DtziizHG3RHfYt6D?=
+ =?iso-8859-1?Q?jYTJLlFcW7F6KcnOm/CCsoV2pcZUQrkE+DvJhc+/UJOaZ6OMgXOjssIeQ3?=
+ =?iso-8859-1?Q?c0ZP8AA2uiW/lYI+iErVrRi3XMJYXJyNXBsrvoX5pHYcK67oGI0OmxIhB+?=
+ =?iso-8859-1?Q?litBnXbkdV0RcAlRsf7JB/yeo1yBFgqH5k5KXk0at9+EiSkZFTQ0mdY6x7?=
+ =?iso-8859-1?Q?qqpxnT1nNr0jYzbPkYtbMyJzAFYntYU1OiiQQ+kzFNAOkSf+pY1B0c8vG4?=
+ =?iso-8859-1?Q?KRQCQGjKOZFGjJZnSwBl5cRnPELguzz/1l7daqVBVPy/seruftC5AXyUxf?=
+ =?iso-8859-1?Q?sy64AkrGhVHBTcvG0CJoWMtWpdzex4Vclvru7/nKPC1iNu33ovFflReAPK?=
+ =?iso-8859-1?Q?tEs0t1VD16imIPURMIKAQgRUlCFZetomgKdE06thPpoe34xxJCkqDvn33R?=
+ =?iso-8859-1?Q?SzxdScfePtuXZjTpnQDJZKKdKWrJneNzeNvnYjSfzqAauPSOX/KegALGqa?=
+ =?iso-8859-1?Q?8ccArXZgycEXm273cW/uMUfgL+45LsGXfotM8/t2eeIYhoXw/LcJF9a4I/?=
+ =?iso-8859-1?Q?I+kEuS9ucO1N7DyCtX3mget+hnNMzKPPT8x2GSpQcffPC1zBq+VWqRdxUv?=
+ =?iso-8859-1?Q?WYZBOEbYLc9NZ0e4Low9FIhmukv/oNm8nxvasfrFBfy2Zk+oovCYKEWQjW?=
+ =?iso-8859-1?Q?M/FEc4tsjmHKqvLIW6laI+uXr2u/4Dsyi6Sq1opzeqcuwnPqQmGa61WK17?=
+ =?iso-8859-1?Q?UE8GdPX0HQ=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 793d61de-772a-4178-8074-08de7a7ac771
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR11MB8393.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2026 05:48:08.5117 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zhExvsdsiNGlP0Nu9s+rEBeIkPlgn9qm8aQoFq3Du4362tVsjvkFDGWHBD4YxQykNxDULb90UDBdGiBPR5CZsw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB8180
+X-OriginatorOrg: intel.com
 X-Mailman-Approved-At: Thu, 05 Mar 2026 08:15:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -164,14 +160,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/5/26 00:32, Jeff Layton wrote:
-> Update zonefs trace event definitions to use u64 instead of
-> ino_t/unsigned long for inode number fields.
+On Wed, Mar 04, 2026 at 10:34:48AM +0100, Philipp Stanner wrote:
+> On Fri, 2026-02-27 at 16:24 +0800, Yujie Liu wrote:
+> > Warning: drivers/gpu/drm/scheduler/sched_main.c:367 function parameter 'result' not described in 'drm_sched_job_done'
+> > 
+> > Fixes: 539f9ee4b52a ("drm/scheduler: properly forward fence errors")
+> > Signed-off-by: Yujie Liu <yujie.liu@intel.com>
 > 
-> Signed-off-by: Jeff Layton <jlayton@kernel.org>
+> Pushed to drm-misc-fixes.
+> 
+> Thank you
+> 
+> P.
+> 
+> PS:
+> for the future, scripts/get_maintainer provides a list of all recipents
+> a patch should go to (two maintainers were missing). And a sentence or
+> two in commit messages to describe what is being done are desirable. I
+> added them for now, so no big deal. Just as a tip for the future :]
 
-Acked-by: Damien Le Moal <dlemoal@kernel.org>
+Thank you for the helpful tips. I did try scripts/get_maintainer.pl
+which showed many recipients. I wasn't sure if such a minor kernel-doc
+fix should be sent to so many maintainers, so I followed the same
+recipient list as the commit in the "Fixes:" tag [1]. And yes I should
+put some description words in commit message in addition to the plain
+build warning, thanks for help adding this. I'll keep these nice tips
+in mind for furture patches.
 
--- 
-Damien Le Moal
-Western Digital Research
+[1] https://lore.kernel.org/all/20230420115752.31470-1-christian.koenig@amd.com/
+
+Yujie
+
+> 
+> > ---
+> > Changes in v2:
+> > - Split from the original patch set
+> >   https://lore.kernel.org/all/20260226030038.1182961-1-yujie.liu@intel.com/
+> > - Rebase onto latest drm-tip
+> > 
+> > Changes in v3:
+> > - Change "errno" to uppercase "ERRNO" (suggested by Philipp)
+> > 
+> >  drivers/gpu/drm/scheduler/sched_main.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+> > index e6ee35406165..2d5cb21a05b6 100644
+> > --- a/drivers/gpu/drm/scheduler/sched_main.c
+> > +++ b/drivers/gpu/drm/scheduler/sched_main.c
+> > @@ -361,6 +361,7 @@ static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
+> >  /**
+> >   * drm_sched_job_done - complete a job
+> >   * @s_job: pointer to the job which is done
+> > + * @result: 0 on success, -ERRNO on error
+> >   *
+> >   * Finish the job's fence and resubmit the work items.
+> >   */
+> 
