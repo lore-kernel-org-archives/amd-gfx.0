@@ -4,54 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB3C9F47CA3
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 18:01:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21CB8F47CD0
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 20:29:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD2E10E29B;
-	Thu,  5 Mar 2026 18:01:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF0AB10E1AA;
+	Thu,  5 Mar 2026 20:29:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DPzCFkE0";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="t8NX1EBR";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1878210E0F8;
- Thu,  5 Mar 2026 18:01:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=YUr1+sWEO9j5kitoHz+vNz4j+awsJ1fwf/poatsFNbU=; b=DPzCFkE0MC874adOXYhljT3y3s
- 1r4WzOqbGBJUT1HrX43ZOiB35t7xvcy21s7NgHX8freBwrlCwrPbE9B8RhEuG4rzc1laiHDMyVixZ
- gSbR9wAk9tp9p/lCQ+m8IyJDgKlhA/29iJX7WLvGMVXKw7xo+AHiSk3NC25kOGhiBDvn7L5qutJx3
- +9AuuHd8ScbmTcYOxBC+m17yRBb1AlgTKDxAqwfWBd7wwzJMrO3EKKim1NbT0vTxQ5xirUYTRW7X6
- M/JQ+dmICa+pLHgEBlHHSZaIQB+8c7bDavGbkdmlQumc5F07SPUuqnzM5wE8RgSHJXfwM2vDf3gz5
- IXcTiHyA==;
-Received: from [186.208.68.119] (helo=[192.168.18.14])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1vyD0G-009Tnn-Kz; Thu, 05 Mar 2026 19:00:52 +0100
-Message-ID: <ae12b964-de1a-475c-9ea6-811ee541d146@igalia.com>
-Date: Thu, 5 Mar 2026 15:00:47 -0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v2] drm/amdgpu: Fix kernel-doc comments for some
- LUT properties
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9717210E1AA
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2026 20:29:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3DABC43A8F;
+ Thu,  5 Mar 2026 20:29:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3C4C19425;
+ Thu,  5 Mar 2026 20:29:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772742554;
+ bh=8U6oCaz2fszjX0uJDiK5nFm+1kN/ZxnPUg0Hj9h2Qyg=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=t8NX1EBRD0hxHnXP1yJDXKiGll76O/NmVv1jMSuxTgVMFb5THrHWoMXkbYoJi7Voz
+ MTKJLiz9I4953q3e7NCKqtyPMmrznRi8g4PKkqxslR3f+6JsEcENA247ugvKV9+IAX
+ WRUMpdrIL5ACuP7/V1DvWPWUDlJZiLwlBdePPYd+ZwjKkhiSvI+DXGyUTEFILcTusg
+ L+Tn58+6H2YHxuoifRQqprri9xI+eiNNBrrOUy84g1dlEztT2SDRSaqYwUqPIqIFR5
+ oJt1SF74UG9ErymwY1JKf3RXqEI2enl3v+dA6sBzo6/VwwZDhQ4AWbFS6L6GKGsvW0
+ BI5Vosv3/KpMA==
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Hans de Goede <hansg@kernel.org>,
+ Ilpo =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>
-Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Alex Hung <alex.hung@amd.com>
-References: <20260305-amdgpu-fix-kdoc-lut-v2-1-37947aca68e8@collabora.com>
-Content-Language: en-US
-From: Melissa Wen <mwen@igalia.com>
-In-Reply-To: <20260305-amdgpu-fix-kdoc-lut-v2-1-37947aca68e8@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: [PATCH v1 9/9] ACPI: AC: Define ACPI_AC_CLASS in one place
+Date: Thu, 05 Mar 2026 21:27:28 +0100
+Message-ID: <2787819.X9hSmTKtgW@rafael.j.wysocki>
+Organization: Linux Kernel Development
+In-Reply-To: <4505861.ejJDZkT8p0@rafael.j.wysocki>
+References: <4505861.ejJDZkT8p0@rafael.j.wysocki>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,80 +60,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ cc: Alex Hung
+From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Hi Alex H.,
+The ACPI_AC_CLASS symbol is defined in several places in the same way
+which is rather unfortunate.
 
-Can you apply this patch?
+Instead, define it in one common header file (acpi_bus.h) that is
+already included by all of its users.
 
-Thanks,
+No intentional functional impact.
 
-Melissa
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+---
+ drivers/acpi/ac.c                         |    1 -
+ drivers/acpi/sbs.c                        |    1 -
+ drivers/gpu/drm/amd/include/amd_acpi.h    |    2 --
+ drivers/gpu/drm/radeon/radeon_acpi.c      |    2 --
+ drivers/platform/x86/hp/hp-wmi.c          |    2 --
+ drivers/platform/x86/lenovo/wmi-capdata.c |    1 -
+ include/acpi/acpi_bus.h                   |    2 ++
+ 7 files changed, 2 insertions(+), 9 deletions(-)
 
-On 05/03/2026 08:16, Cristian Ciocaltea wrote:
-> The following members of struct amdgpu_mode_info do not have valid
-> references in the related kernel-doc sections:
->
->   - plane_shaper_lut_property
->   - plane_shaper_lut_size_property,
->   - plane_lut3d_size_property
->
-> Correct all affected comment blocks.
->
-> Fixes: f545d82479b4 ("drm/amd/display: add plane shaper LUT and TF driver-specific properties")
-> Fixes: 671994e3bf33 ("drm/amd/display: add plane 3D LUT driver-specific properties")
-> Reviewed-by: Melissa Wen <mwen@igalia.com>
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> ---
-> Changes in v2:
-> - Collected R-b tag from Melissa
-> - Rebased onto latest drm-misc-next
-> - Link to v1: https://lore.kernel.org/r/20250823-amdgpu-fix-kdoc-lut-v1-1-306bcad41267@collabora.com
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h | 16 ++++++++--------
->   1 file changed, 8 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> index dc8d2f52c7d6..e244c12ceb23 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-> @@ -368,15 +368,15 @@ struct amdgpu_mode_info {
->   
->   	struct drm_property *plane_ctm_property;
->   	/**
-> -	 * @shaper_lut_property: Plane property to set pre-blending shaper LUT
-> -	 * that converts color content before 3D LUT. If
-> -	 * plane_shaper_tf_property != Identity TF, AMD color module will
-> +	 * @plane_shaper_lut_property: Plane property to set pre-blending
-> +	 * shaper LUT that converts color content before 3D LUT.
-> +	 * If plane_shaper_tf_property != Identity TF, AMD color module will
->   	 * combine the user LUT values with pre-defined TF into the LUT
->   	 * parameters to be programmed.
->   	 */
->   	struct drm_property *plane_shaper_lut_property;
->   	/**
-> -	 * @shaper_lut_size_property: Plane property for the size of
-> +	 * @plane_shaper_lut_size_property: Plane property for the size of
->   	 * pre-blending shaper LUT as supported by the driver (read-only).
->   	 */
->   	struct drm_property *plane_shaper_lut_size_property;
-> @@ -400,10 +400,10 @@ struct amdgpu_mode_info {
->   	 */
->   	struct drm_property *plane_lut3d_property;
->   	/**
-> -	 * @plane_degamma_lut_size_property: Plane property to define the max
-> -	 * size of 3D LUT as supported by the driver (read-only). The max size
-> -	 * is the max size of one dimension and, therefore, the max number of
-> -	 * entries for 3D LUT array is the 3D LUT size cubed;
-> +	 * @plane_lut3d_size_property: Plane property to define the max size
-> +	 * of 3D LUT as supported by the driver (read-only). The max size is
-> +	 * the max size of one dimension and, therefore, the max number of
-> +	 * entries for 3D LUT array is the 3D LUT size cubed.
->   	 */
->   	struct drm_property *plane_lut3d_size_property;
->   	/**
->
-> ---
-> base-commit: be4cd2a13a31496c7fb9e46a244c4391b8b7cf31
-> change-id: 20250823-amdgpu-fix-kdoc-lut-357db8b57fee
+--- a/drivers/acpi/ac.c
++++ b/drivers/acpi/ac.c
+@@ -21,7 +21,6 @@
+ #include <linux/acpi.h>
+ #include <acpi/battery.h>
+ 
+-#define ACPI_AC_CLASS			"ac_adapter"
+ #define ACPI_AC_FILE_STATE		"state"
+ #define ACPI_AC_NOTIFY_STATUS		0x80
+ #define ACPI_AC_STATUS_OFFLINE		0x00
+--- a/drivers/acpi/sbs.c
++++ b/drivers/acpi/sbs.c
+@@ -26,7 +26,6 @@
+ 
+ #include "sbshc.h"
+ 
+-#define ACPI_AC_CLASS			"ac_adapter"
+ #define ACPI_SBS_DEVICE_NAME		"Smart Battery System"
+ #define ACPI_BATTERY_DIR_NAME		"BAT%i"
+ #define ACPI_AC_DIR_NAME		"AC0"
+--- a/drivers/gpu/drm/amd/include/amd_acpi.h
++++ b/drivers/gpu/drm/amd/include/amd_acpi.h
+@@ -26,8 +26,6 @@
+ 
+ #include <linux/types.h>
+ 
+-#define ACPI_AC_CLASS           "ac_adapter"
+-
+ struct atif_verify_interface {
+ 	u16 size;		/* structure size in bytes (includes size field) */
+ 	u16 version;		/* version */
+--- a/drivers/gpu/drm/radeon/radeon_acpi.c
++++ b/drivers/gpu/drm/radeon/radeon_acpi.c
+@@ -44,8 +44,6 @@ bool radeon_atpx_dgpu_req_power_for_disp
+ static inline bool radeon_atpx_dgpu_req_power_for_displays(void) { return false; }
+ #endif
+ 
+-#define ACPI_AC_CLASS           "ac_adapter"
+-
+ struct atif_verify_interface {
+ 	u16 size;		/* structure size in bytes (includes size field) */
+ 	u16 version;		/* version */
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -58,8 +58,6 @@ enum hp_ec_offsets {
+ #define HP_POWER_LIMIT_DEFAULT	 0x00
+ #define HP_POWER_LIMIT_NO_CHANGE 0xFF
+ 
+-#define ACPI_AC_CLASS "ac_adapter"
+-
+ #define zero_if_sup(tmp) (zero_insize_support?0:sizeof(tmp)) // use when zero insize is required
+ 
+ enum hp_thermal_profile_omen_v0 {
+--- a/drivers/platform/x86/lenovo/wmi-capdata.c
++++ b/drivers/platform/x86/lenovo/wmi-capdata.c
+@@ -53,7 +53,6 @@
+ #define LENOVO_CAPABILITY_DATA_01_GUID "7A8F5407-CB67-4D6E-B547-39B3BE018154"
+ #define LENOVO_FAN_TEST_DATA_GUID "B642801B-3D21-45DE-90AE-6E86F164FB21"
+ 
+-#define ACPI_AC_CLASS "ac_adapter"
+ #define ACPI_AC_NOTIFY_STATUS 0x80
+ 
+ #define LWMI_FEATURE_ID_FAN_TEST 0x05
+--- a/include/acpi/acpi_bus.h
++++ b/include/acpi/acpi_bus.h
+@@ -613,6 +613,8 @@ struct acpi_bus_event {
+ 	u32 data;
+ };
+ 
++#define ACPI_AC_CLASS	"ac_adapter"
++
+ extern struct kobject *acpi_kobj;
+ extern int acpi_bus_generate_netlink_event(const char*, const char*, u8, int);
+ void acpi_bus_private_data_handler(acpi_handle, void *);
+
+
 
