@@ -4,78 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1537F01817
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ABEEF0181A
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08D3710EC99;
-	Fri,  6 Mar 2026 08:52:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFDF110E067;
+	Fri,  6 Mar 2026 08:52:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SqztcIfP";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="R3BTto6H";
 	dkim-atps=neutral
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com
- [209.85.161.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 347E310E2F1
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:51:15 +0000 (UTC)
-Received: by mail-oo1-f54.google.com with SMTP id
- 006d021491bc7-67a22322cebso1921341eaf.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:51:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772761874; x=1773366674; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Rjic6E4sYgoKxkNkNG8eG+bbyrYHUHzf7UJjTOVCQkA=;
- b=SqztcIfPRBD2tzqtLW/ac+y64QOL4W5AmcXWlV5s3IMJ0/wV+UxfGqBD2FPCsXyyo7
- 7IglWvDRmXuesxe5kiIZlkl7pI+FP0SbGRBMd6h/Cd+UbeJWF0vem7m+z8S1ZEuVhy81
- cHsJFbMc4hZP75EFN9h4zCalRU+/rNFKCazXgdYLvfNDMbshsmwsK7oj0tCXM4K19omu
- 56i6eUMOkauW0wQWanr4wHKjWjCinUzm1QocTQ++wLIGxg2o9Qd+lpRwwz6dBa4+ehMq
- PhoTfnZDbJtyDZhp5NkrCE87+FmpTLq3pUSgf1shfuUluPctcEaXHq6WhJwU2xQAR193
- HDjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772761874; x=1773366674;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Rjic6E4sYgoKxkNkNG8eG+bbyrYHUHzf7UJjTOVCQkA=;
- b=vao3gwZ+V/38r9+Xk/oAWzTszzQxBOV1CxsHSx8534KPi1zpi9gtWR4TQ18E7dJXJZ
- 09cXoVnP5U/oR1IqOXposCzh1JnHvLpq6MoW5+tYeHrdEMJ58QcGTynlLtwt7yGa/frM
- mN7eiLQVvJtgsoctXIz3YC9ZokksJMxqC+E3NnJ5F2OPHROOGALPjG2NnMaHN/cC3wP/
- rnolEgQlUL8xJjugEaumil3eI5ZSTohNqcQ4sLO6LBg9aIq0DqvponT3CJx3Lc1A2Rtx
- aKlubj1O4S6JOi0uU4feSSit6Nf1K3rpUAjUm0ZGJMJxAYO2dA+hzlLeqroXXuz3TBGl
- OjhA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUiqT0cN2cQc0gAHmOSG8z3MsSfiu7JN6iuXkxroP2c9NfE2+v/KTeGWSF2NcZa+LKj36Su9Qjr@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy/g3huhYI89/bLeFamHrEyZLA6OrQBmsVtURx7zUKpqcpWexDy
- NssKR2tewt3abTii7K1ik9WpfyrAaEbS1L+mx8wBFhfDnTzQRaXvx62u
-X-Gm-Gg: ATEYQzx6LYvK85XWb9m8Ca0A2yeI5PnS6pT7UMOm5SER5vxpweP6oJFscQW320jJYsw
- PRenXG2P5xE9Wl4rcwIMwbJN1y9XswIQTzu4EcRYLwsD1tvVoHkOz9Rc4dUWfSobzRXOqlWolQ1
- ujFeW8KMaNY8FDVwyP6rCNEzmBKYSU3TErxEwgtZ5ykI7MOg4MydqhRNSWkmGz2PJR7jlFFcJ1q
- HuMO4nacNGCuWG7znm2x8wEAMOTOWLGa4atX3eA5iCvF198Mo80EpR+oa9+zvb4O5ywBkOzQ/hZ
- ua7L5VrW1klKwXDHCokBxfZGKjhvpOq1c6UtwjkufyOZ+leCf1cAc4Wb7aUr+xDUfok1VFoYRD5
- b7/CnEsge+aFAmJdh80+AcrDRsLpqG6dN4jlUQstxdcM0ED0q7JUFeebKe+xcoUSGXPW5s+bOK2
- jZiNCjDIDuemrFHisZpNXOnW5nd0zw2G0ClETv651YTwFcUvdu
-X-Received: by 2002:a05:6820:3103:b0:663:11b2:d61d with SMTP id
- 006d021491bc7-67b9bca1e01mr428086eaf.25.1772761874446; 
- Thu, 05 Mar 2026 17:51:14 -0800 (PST)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.51.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 17:51:13 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, Jason Baron <jbaron@akamai.com>,
- Shuah Khan <shuah@kernel.org>, linux-kselftest@vger.kernel.org
-Subject: [RFC PATCH 7/7] dyndbg-test: test keyword !value negation
-Date: Thu,  5 Mar 2026 18:50:10 -0700
-Message-ID: <20260306015022.1940986-8-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
-References: <20260306015022.1940986-1-jim.cromie@gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F8D410EC35;
+ Thu,  5 Mar 2026 14:22:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772720565; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=QO7S6+tMxYLUuPbcO1pLetZx8TWaiv7sSs9huh2qqwUqPqxB753ovpQMr9s0MqIOtUx84k8ZYOm2RgKzmRwqWm5AQV7VYzbRwbFUj/jTgbaWfuo6H8nrGAFC4VbYi7bLuo/BAACJNVM/IsDhZumC0R5JVli/8y3Fg4hYd3AJupc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1772720565;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=yE8vbeYdKcftvYs+PymllWj2E1+jwIq94xvRBnlmVWA=; 
+ b=VWeSKUxEcuISXPdF/ECTat7ENYuPtHg11EyI2q0B3+gochGu2/NPdlsjvpYeDNjhb1RYAG6eryoG8LFl3gNTGwmgOFLGfQdCcA4Lt7bxAxmDL/W75rrHZGt72bL3xcd+VGKe6ZoMavXW4sJP97o998Kr/cjtbuzmz+dP14EMv/Q=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772720565; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=yE8vbeYdKcftvYs+PymllWj2E1+jwIq94xvRBnlmVWA=;
+ b=R3BTto6H/5Kl0ixzAFRKP2l3+2zayBXVO42c8lsz0pYykas8PF7bi2fKrL3HnApz
+ dPUVNP3DWMwNXqK2bhAV//hSWh/4ywfSYpUufsI56X/nBfxoF3VYuse8Es5mA5ExJQd
+ B7qEIZRstoljb7U4+B+NktmpET4Uw8DYccQnOKv0=
+Received: by mx.zohomail.com with SMTPS id 1772720564028953.1845608441924;
+ Thu, 5 Mar 2026 06:22:44 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Thu, 05 Mar 2026 15:19:48 +0100
+Subject: [PATCH v10 22/22] drm/bridge: Document bridge chain format selection
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260305-color-format-v10-22-a58c68a11868@collabora.com>
+References: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
+In-Reply-To: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 06 Mar 2026 08:52:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,62 +88,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
----
- .../dynamic_debug/dyndbg_selftest.sh          | 35 +++++++++++++++++++
- 1 file changed, 35 insertions(+)
+The bridge chain format selection behaviour was, until now,
+undocumented. With the addition of the "color format" DRM property, it's
+not sufficiently complex enough that documentation is warranted,
+especially for driver authors trying to do the right thing.
 
-diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-index 09937dca3056..5c35d7cc5ecf 100755
---- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-+++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
-@@ -350,12 +350,47 @@ function test_mod_submod {
-     ifrmmod test_dynamic_debug
- }
+Add a high-level overview of how the process is supposed to work, and
+mention what the display driver is supposed to do if it wants to make
+use of this functionality.
+
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ Documentation/gpu/drm-kms-helpers.rst |  6 ++++++
+ drivers/gpu/drm/drm_bridge.c          | 40 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 46 insertions(+)
+
+diff --git a/Documentation/gpu/drm-kms-helpers.rst b/Documentation/gpu/drm-kms-helpers.rst
+index 781129f78b06..47c4f593cf9d 100644
+--- a/Documentation/gpu/drm-kms-helpers.rst
++++ b/Documentation/gpu/drm-kms-helpers.rst
+@@ -181,6 +181,12 @@ Bridge Operations
+ .. kernel-doc:: drivers/gpu/drm/drm_bridge.c
+    :doc: bridge operations
  
-+function test_negated_keywords {
-+    echo -e "${GREEN}# TEST_NEGATED_KEYWORDS ${NC}"
++Bridge Chain Format Selection
++-----------------------------
 +
-+    # Test 1: Disable negated subset from enabled set
-+    # Enables all 6 in init/main.c, then pulses ONLY those that are NOT run_init_process (the 2 blacklist sites) OFF.
-+    ddcmd =_
-+    ddcmd file init/main.c +p
-+    check_match_ct 'init/main.c:.*=p' 6 -r
-+    ddcmd file init/main.c func !run_init_process -p
-+    # Result: 6 - 2 = 4 sites (run_init_process) remain enabled.
-+    check_match_ct 'init/main.c:.*=p' 4 -r
-+    check_match_ct 'run_init_process' 4 -r
++.. kernel-doc:: drivers/gpu/drm/drm_bridge.c
++   :doc: bridge chain format selection
 +
-+    # Test 2: Enable negated subset from clean slate
-+    # Negation !run_init_process should match the 2 blacklist sites.
-+    ddcmd =_
-+    ddcmd file init/main.c func !run_init_process +p
-+    # Verify exactly 2 sites enabled
-+    check_match_ct 'init/main.c:.*=p' 2 -r
-+    check_match_ct 'initcall_blacklist[[:space:]]' 1 -r
-+    check_match_ct 'initcall_blacklisted[[:space:]]' 1 -r
-+
-+    # Test 3: Enable negated subset with wildcard
-+    # Negation !run_init_* should match the same 2 blacklist sites.
-+    ddcmd =_
-+    ddcmd file init/main.c func !run_init_* +p
-+    # Verify exactly 2 sites enabled
-+    check_match_ct 'init/main.c:.*=p' 2 -r
-+    check_match_ct 'initcall_blacklist[[:space:]]' 1 -r
-+    check_match_ct 'initcall_blacklisted[[:space:]]' 1 -r
-+
-+    ddcmd =_
-+}
-+
- tests_list=(
-     basic_tests
-     # these require test_dynamic_debug*.ko
-     comma_terminator_tests
-     test_percent_splitting
-     test_mod_submod
-+    test_negated_keywords
- )
+ Bridge Connector Helper
+ -----------------------
  
- # Run tests
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 6ad725e511f3..da021b49acc6 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -198,6 +198,46 @@
+  * driver.
+  */
+ 
++/**
++ * DOC: bridge chain format selection
++ *
++ * A bridge chain, from display output processor to connector, may contain
++ * bridges capable of converting between bus formats on their inputs, and
++ * output formats on their outputs. For example, a bridge may be able to convert
++ * from RGB to YCbCr 4:4:4, and pass through YCbCr 4:2:0 as-is, but not convert
++ * from RGB to YCbCr 4:2:0. This means not all input formats map to all output
++ * formats.
++ *
++ * Further adding to this, a desired output color format, as specified with the
++ * "color format" DRM property, might not correspond 1:1 to what the display
++ * driver should set at its output. The bridge chain it feeds into may only be
++ * able to reach the desired output format, if a conversion from a different
++ * starting format is performed.
++ *
++ * To deal with this complexity, the recursive bridge chain bus format selection
++ * logic starts with the last bridge in the chain, usually the connector, and
++ * then recursively walks the chain of bridges backwards to the first bridge,
++ * trying to find a path.
++ *
++ * For a display driver to work in such a scenario, it should read the first
++ * bridge's bridge state to figure out which bus format the chain resolved to.
++ * If the first bridge's input format resolved to %MEDIA_BUS_FMT_FIXED, then its
++ * output format should be used.
++ *
++ * Special handling is done for HDMI as it relates to format selection. Instead
++ * of directly using the "color format" DRM property for bridge chains that end
++ * in HDMI bridges, the bridge chain format selection logic will trust the logic
++ * that set the HDMI output format. For the common HDMI state helper
++ * functionality, this means that %DRM_CONNECTOR_COLOR_FORMAT_AUTO will allow
++ * fallbacks to YCBCr 4:2:0 if the bandwidth requirements would otherwise be too
++ * high but the mode and connector allow it.
++ *
++ * For bridge chains that do not end in an HDMI bridge,
++ * %DRM_CONNECTOR_COLOR_FORMAT_AUTO will be satisfied with the first output
++ * format on the last bridge for which it can find a path back to the first
++ * bridge.
++ */
++
+ /* Protect bridge_list and bridge_lingering_list */
+ static DEFINE_MUTEX(bridge_lock);
+ static LIST_HEAD(bridge_list);
+
 -- 
 2.53.0
 
