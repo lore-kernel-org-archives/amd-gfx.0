@@ -4,75 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A650F01819
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9327F0181C
 	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DEB210EC9C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37AB910ECA1;
 	Fri,  6 Mar 2026 08:52:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iJ6KU0B9";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="JHP+i8Il";
 	dkim-atps=neutral
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com
- [209.85.161.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCAB310E2E3
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:50:39 +0000 (UTC)
-Received: by mail-oo1-f52.google.com with SMTP id
- 006d021491bc7-66e3100515dso5165824eaf.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:50:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772761839; x=1773366639; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=bkFWDNzYpAaNf6nKTX9X2HQLMlJtuGjLEa5TVIf/IA4=;
- b=iJ6KU0B9xpJmpAsnoXuhKqsVAnPEzYjYgty+P0/JMZMxUvgkTOAkk6kUG8Dx+JQaUD
- OthHA9qZiFXu4hXIVQH9U7RLpVHmi/WsCikVQuDwLvJCjgJjiZqMIJZ+Tf8XejENNKrO
- JTKhfcx4bKMclqFOKKiwrG6LdOju3iW9pkv/KwKoQ9lShGZgzU3gep+mG8T6wTCghQqL
- 1zrEZ80GgQHIi/GVfccTOUYrQVwm/rUNSjjF5ObN5aoKrrpFsWfsjgj8DbJOpjwKZLsV
- N2zjXz7GpfLcOH865jrEuIJxZsRPYmq9b1w9X57RFzG0hpCGqQOqEKEGlipFTS5l0x9Y
- aToA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772761839; x=1773366639;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=bkFWDNzYpAaNf6nKTX9X2HQLMlJtuGjLEa5TVIf/IA4=;
- b=v9IU1DzYgty+AKk1wEIo4pNBEqJhraZa8GwJivOzgNURbKKHdiJmNkq0lvY6HPVAJ3
- 3QBcdS/kUZmQLigPl+AJBGI2N/yPTCRxMIW9XbWMCiZaX4uptU5Aq6SEaii5mPx+RxyQ
- 2XHnWssEAkwIPlTY97/2geLIU2nMKax+IZl7SkRbdE1AKijPkVBudiJJt1RsaVdkg/Yq
- h5VSHj6TWV0aixy08wGB0Ak4wB8Iay/xtxIyqACgFH5wTA9tFTlBhwYw6rPuOK44pM0E
- niI6579AlXKIcot0FVhbHThCyrsCl5MgGVDl38uD1hw/VMkx0c3+GHepJIPAur2OjyEC
- dQjw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUf6tVqAODZ4pS3q/Sq5xzSxZF34dGI9zA2kgq0Ava+G1DfndT+ELZhBAWgv/H+GX/uQB7sXxan@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx0b2DzWEoWWEczWjToB8jatTt7vACaVH4MQlDPHSRGWZeEgUH+
- yutXyWdzVsffPhmck/qC6yj0/rFWr+5Zz8ppCdYgyengx4XTVTyWtCMp3JGnjg==
-X-Gm-Gg: ATEYQzyyAPMo28a1RZD0dXOxELTYGe4xrL/UGAD45uRLd8n/m0YyDjAhdGR457WCyLf
- Gnsrk/okRkIkrD9iQ3OnNdRYIwmMEHcIatlTEqkqd1aNGkPrUP8Wdp0G58PoK+JRmAZwH9/X13u
- 4qZ7w/CrvkrNJMtwdo5hqJ4GRKEAOeMzG/HObjxNTrOkoG9J7/Ec6LnBOvl3TFrTSCcVBuocR3L
- NSaLzy6A9KmigtWsjH+oyflz1J0+/zJR2oreKP4CL0MYQnoYO5z+D3eZrTsqeUnb8O8KVhFKEji
- inBxLCmHRrt0ROAbMCUhxDMliFSN6ieEGmHbKP4EtLBjpiushyeJepfgFogBkABIKSBQyvdpGRx
- VdJOPsOY5uqxIdbcYqVH+2pqBLw4Z/ZsEBDfWXPXdr+lNUBAmSqmSK9skQTVGXj4P8UcvflCg7u
- KIxp9YQOxpiWvsOjEuMFQ7i7coHi0kAScr+MSJ9dy3z/xmajhk
-X-Received: by 2002:a05:6820:4487:b0:679:96f:3f11 with SMTP id
- 006d021491bc7-67b9bd4c44bmr385436eaf.64.1772761838800; 
- Thu, 05 Mar 2026 17:50:38 -0800 (PST)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.50.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 17:50:38 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: Jim Cromie <jim.cromie@gmail.com>
-Subject: [RFC PATCH 0/7] queued static-key API reduces IPIs to 134/16154 in
- dyndbg 
-Date: Thu,  5 Mar 2026 18:50:03 -0700
-Message-ID: <20260306015022.1940986-1-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4A0610EC00;
+ Thu,  5 Mar 2026 14:22:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772720523; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=gT71gpjDLSKmJGEi+i4YeeijxN4S6ily71LyMSk/Nf/8abqQxizPo84Aji6fCIwkOJWxxT4PVdD/hgstiRVepjyQxkJfgwqdTiH8FGi4VSYoj260knFu9EblzaTbd29B2/q0ARCT76RZwUMI4eXwJnQTKa2KhravZLhV2IW/Olk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1772720523;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Zbv1svLNiELU2nwPQbaiNz8rD89KKv3/KBIEB/KjLZ4=; 
+ b=HkoOnJRjQUKzWZdNI5F+6AIFVDg3s0NqNWg6WU7NiStuc3LPwuW/oiibnk6/jE/t5npwmHPvhfOSYPAb83/OJI7b0iqkAc21zoMyWLTppkNxohlMS2gFr1w1OHrl+ADoXt7+f+iXy27/bY7ufDobI00ExBHWOLgyiBgJvhWejIw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772720523; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=Zbv1svLNiELU2nwPQbaiNz8rD89KKv3/KBIEB/KjLZ4=;
+ b=JHP+i8IlsM82rCAhUyPM7lijruOyLcVumgxRAcMHaimbngNP7q1VadP2KdQuHXaq
+ 5LgcjQiZKDjtRF5Z4H3qAmIPD/G844fkBhPXTlTh0UgTt0LENal6fwtKSuOABtRk1/S
+ EuMFrrW46TILElVXSFroxcBdtajcw1W5khnw/Ycw=
+Received: by mx.zohomail.com with SMTPS id 1772720521186416.0074677105963;
+ Thu, 5 Mar 2026 06:22:01 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Thu, 05 Mar 2026 15:19:42 +0100
+Subject: [PATCH v10 16/22] drm/rockchip: dw_hdmi_qp: Set supported_formats
+ platdata
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260305-color-format-v10-16-a58c68a11868@collabora.com>
+References: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
+In-Reply-To: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 06 Mar 2026 08:52:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,88 +89,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patchset formalizes and exposes the internal
-architecture-specific arch_jump_label_transform_queue API as a public
-kernel interface (static_key_*_queued).
+With the introduction of the supported_formats member in the
+dw-hdmi-qp platform data struct, drivers that have access to this
+information should now set it.
 
-Currently, dynamic_debug toggles static keys individually, which
-triggers a machine-wide synchronization (IPI) for every callsite.
-This causes $O(N)$ overhead.
+Set it in the rockchip dw_hdmi_qp glue driver.
 
-By using the new queued API, (which also adds an insert-sort to the
-queue) dynamic_debug can now toggle up to 256 sites (x86 queue length)
-with a single IPI.
+This allows this information to be passed down to the dw-hdmi-qp core,
+which sets it in the bridge it creates, and consequently will allow the
+common HDMI bridge code to act on it.
 
-Without the sort, dyndbg saw a far more modest IPI reduction; ~6k/16k.
-Ordered descriptors does not insure ordered patch-addresses.
-Currently, only x86 has the sort.
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-I tested on virtme-ng, using:
-
-  echo +p > /proc/dynamic_debug/control
-  echo -p > /proc/dynamic_debug/control
-
-With this patch and test, IPIs reduced to 134 from 16154.
-
-Patchset also changes virtio.c to use pr_debug_ratelimited() instead
-of pr_debug(), which otherwise flooded my test-setup, obscuring
-results.
-
-serial_core.c also gets 1 _ratelimited() change, though I didnt see
-them in my setup, and likely missed a few conversion candidates.
-
-Patchset also includes a new query-cmd syntax for dyndbg:
-
-  echo 'module !virtio* +p' > /proc/dynamic_debug/control
-  echo -p > /proc/dynamic_debug/control
-
-It further reduced the console output, so might have sufficient
-utility for eventual inclusion, despite lacking and/or logic.
-
-The patch hoisting the static_key_apply_queued() out of
-ddebug_change() up to ddebug_exec_queries() does nothing in this case,
-and would only affect multi-queries:
-
-  echo 'module !virtio* +p ; module serial -p' > /proc/dynamic_debug/control
-
-ISTM such queries are currently rare, but could be leveraged in
-classmap-params, to optimize drm.debug=0x1ff, which currently would
-get one query-command per bit (12+ IPIs).
-
-DRM is the biggest potential beneficiary of this:
-
-root@drm-misc-fixes-2026-02-26-78-g535e886b182f:/home/jimc/projects/lx/wk-D/b0-dd-drm-all# modprobe i915
-[   20.405557] dyndbg:  25 debug prints in module i2c_core
-[   20.459373] dyndbg: 340 debug prints in module drm
-[   20.459851] ACPI: bus type drm_connector registered
-[   20.471366] dyndbg:  89 debug prints in module drm_kms_helper
-[   20.482336] dyndbg: 155 debug prints in module drm_display_helper
-[   20.496153] dyndbg:   2 debug prints in module ttm
-[   21.136619] dyndbg: 1801 debug prints in module i915
-root@drm-misc-fixes-2026-02-26-78-g535e886b182f:/home/jimc/projects/lx/wk-D/b0-dd-drm-all# modprobe amdgpu
-[   32.907485] dyndbg: 4532 debug prints in module amdgpu
-
-
-Jim Cromie (7):
-  jump_label: expose queueing API for batched static key updates
-  virtio: use pr_debug_ratelimited to avoid flooding
-  drivers/tty/serial/serial_core: ratelimit uart_wait_until_sent
-  dyndbg: use static-key queueing API in dynamic-debug
-  dyndbg: hoist static_key_apply_queued up
-  lib/dynamic_debug: add negation support to queries
-  dyndbg-test: test keyword !value negation
-
- arch/Kconfig                                  |   3 +
- arch/x86/Kconfig                              |   1 +
- arch/x86/kernel/alternative.c                 |  50 ++++---
- arch/x86/kernel/jump_label.c                  |  13 +-
- drivers/tty/serial/serial_core.c              |   4 +-
- drivers/virtio/virtio_ring.c                  |  12 +-
- include/linux/jump_label.h                    |  24 ++++
- kernel/jump_label.c                           | 125 ++++++++++++++++--
- lib/dynamic_debug.c                           |  88 ++++++++----
- .../dynamic_debug/dyndbg_selftest.sh          |  35 +++++
- 10 files changed, 290 insertions(+), 65 deletions(-)
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index e2fa1aa53394..ec78c6895334 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -601,6 +601,10 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	plat_data.phy_data = hdmi;
+ 	plat_data.max_bpc = 10;
+ 
++	plat_data.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++				      BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
++
+ 	encoder = &hdmi->encoder.encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm, dev->of_node);
+ 
 
 -- 
 2.53.0
