@@ -4,52 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA2A5F3D30A
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 15:37:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36576F3D315
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 16:06:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBB910E2BF;
-	Thu,  5 Mar 2026 15:37:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC1AC10E1E5;
+	Thu,  5 Mar 2026 16:06:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nXquMt/o";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QA4v2zAS";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94F6910E2BF;
- Thu,  5 Mar 2026 15:37:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B328C61344;
- Thu,  5 Mar 2026 15:37:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 391BFC19423;
- Thu,  5 Mar 2026 15:37:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772725030;
- bh=6tujxYpRlhxev6CqOHJ+H3QHJmBdmYEOacOOWDxfjrE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nXquMt/oLERUwzeQ9JN2sXweNmfxtj9AAk2HljBlMGJHuHYFfSTECv18cqj/BENwY
- WlJcAwVzkITu0NQOSFYV4yZOsFu3kRs0c5CcvE4jZY3kuCYnUTUUM7JBmQoWy9KBeu
- i2bi6CLNo/5NhUGKFoDueubPe/INcD1ZhThGN1g1vxXcp2HKA/8PKUwvmzIOPstq/y
- Uwk5LlvuUoolHy0vPu95Jm1rilRUi2FpCQe6eN9XsgfTYVLkNHHbN22ikkUl7c/uVX
- dVMnM0b8vOhXZiB4pdvRi6bF+KhT6pDUgtmMQ+3mY+jKiY00pPo3RTP5o/vEJSXjMV
- qLkoGWErlx6xQ==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: sguttula <suresh.guttula@amd.com>,
- Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.19-6.12] drm/amdgpu/vcn5: Add SMU dpm interface type
-Date: Thu,  5 Mar 2026 10:36:46 -0500
-Message-ID: <20260305153704.106918-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260305153704.106918-1-sashal@kernel.org>
-References: <20260305153704.106918-1-sashal@kernel.org>
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD3B110E1E5
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2026 16:06:03 +0000 (UTC)
+Received: by mail-dl1-f52.google.com with SMTP id
+ a92af1059eb24-12736a0147cso418577c88.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 08:06:03 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1772726763; cv=none;
+ d=google.com; s=arc-20240605;
+ b=DAMBhizBXKIDDqqG0ESdQujeu9rOE1rLe0ZTxlmJRIMxCL4ejKukBLuTGZa2TWQJ8p
+ 6Kf+hkmM58OLQwEZsM/Je6O6DPW9A/FHT978+aeDLCiavf3bqCtpN33TkvMrcAtXdlGu
+ N2wPfSPyFks/eK37oQCWPZV+/JDc7Q5nN8tq+8A54QO/9F5JvbNVZGVOZpyjvByqg/J4
+ 7d8CxAvNsYpQS9fIkA7EWsRyoNYnJtgrG0i857BZmV9siXrQWQwbFlF/+a9A/uNvTSvJ
+ A4+YelqaeR9Dz5jkahDbVGMFocRnQ0OqeC8MnI9KBmlaHjWbS0++8FdgM6TM0ptoe7Ll
+ AjEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=M3Kd20gVvSlVv4+Nt1TrsuAV0KsHbJ2Dir1Z/N6WLkg=;
+ fh=Q8XfLa/HsYYJ909fZsdcfL9dG6jXKK0n9+vL1EIokXc=;
+ b=A+fQ8m27mzZweMKGOLgK84LZ20gQ3pGmnmacvbuqjE/VHgxBQmNUZvYnoIEEvwRppt
+ zb86Q172iL6fzyv/zBAZufIgKJIUHY24htnF1D9V2y52850qggoCXI9RQj/+g1VFb68l
+ tJb1A253BLH7qVqYHNMOmfwzfEOol1ly6FeNv4UMH5WsCDGiMJeehsag5tdhzTAHIHMK
+ 12HUWgTqi7JMSOc/ziLbGx962wlps6jljF86Ts+1JqFtFUWaft7AGcdkbhM1b5aPrvgJ
+ jVxi1WqW5K6pkH5B7M7GHPWwSDsxQRqeASITxzcKoGuguOgeTJTiawDroc2+6YsACFoi
+ l59w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772726763; x=1773331563; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=M3Kd20gVvSlVv4+Nt1TrsuAV0KsHbJ2Dir1Z/N6WLkg=;
+ b=QA4v2zASvBgO/P4QmDHEmQL1eQ+loVavQ8Vyh70E3hM2xWpwH3xwgyuvalUFvwomyM
+ 5YmpP0evgRQtxTOOXJ3vWgUxPCKtloCdaYufCoKLfuZl6AiFTAo4/zC3w/3S+ce4CINO
+ snxJqS0Z3YUyMumxB/jICzgPazcmVWk+7/wjJck52JE7ujCRBbRFsejLM0ace5Xg4UXG
+ hDBQzDrOxVopFIB6PPqLAYM28M9SZQgHFWO9xE4AI+mGhM+38HaEBKIcPOMtlwvktkyd
+ 0P0d8EBJ++qay1Ui4Jk4OwTHKN+dxEwMHuZ0eIED5c8SX3inc7If3vzzbSygOoFaquZ+
+ wscg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772726763; x=1773331563;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=M3Kd20gVvSlVv4+Nt1TrsuAV0KsHbJ2Dir1Z/N6WLkg=;
+ b=omS29ckXKqmS11Z2v/hEUvbnokSxnxB4bq9sixTVic5L7wTKY9p5VJoZtQRMOCHhBB
+ Bi8A4qsEBEgE47ANd03wg2aSdlZYQefnO7RyurOGng2rWzz5sgmd1khio6CBXShqd/Wj
+ oZYpc2HuwyzKUArAJKzu5jKEz8nJbS0+3487nO+gmOMdXVSlbeHgpvbDYWYftcDMiz6g
+ tVetO3TJ91lxHb+h1VgMJlblRIgTEppxWKBYtOilPiwaN0qmSRSefXOkNoXU2k/dYBaE
+ SDXqHHpgMFMiZNakDUs1/2lsdT0VMEbM+Cs+8PsYjSdGk0Fd1Y31MtpJxZiPIfSOLKR4
+ DxHQ==
+X-Gm-Message-State: AOJu0YzqkVaHi4u77D1NMmamSe1kmbmDzxry1mV9lDRuRmV/uJYdMRTk
+ bdD80ODEPmrV+1UMGukFof/ifpdNnhIDd4FKCsaH0tIftmxQuq4S/X3sPWfCxHi/QXevh3I9SkM
+ rdzhZLaluBSdxl3Nsrcxz4+5zgnAT0I8=
+X-Gm-Gg: ATEYQzxFbvcx74OGTi+KqqIZajfnhuuKR3u4rwau/q5uwm9MtXOwZGVTF6phVZan9+A
+ qr8IW2Upw1uUBn8fW/3NOdR2+SDSQn9TpoX3AQrUUqQUh8wMNvcEc4C2k5iukxoRe8cxl3HHNNv
+ wRAlTPyh8/SxeH81JCsvbOBtRiBf5r5GntK7TkIdz0r3ydqtvfRBEiC2yNeIYLTqfMd2y9AiDTn
+ 1uTLfcgR7eiDbKW/dcd0Trt1fOio2uJSwUx0/ykYRsWvwz5AVavt0BX2S9ZM2tEn+MxjKE1yXtG
+ +0u1Rc8yoYTRrdruj1qi4gy83tmT0JVUld/8Uu2508npQ6KZqYQdXSBiCyLZqtpYqoMzWw==
+X-Received: by 2002:a05:7022:ec84:b0:127:3480:7ca5 with SMTP id
+ a92af1059eb24-128b7066dbbmr1593978c88.2.1772726762868; Thu, 05 Mar 2026
+ 08:06:02 -0800 (PST)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.19.6
-Content-Transfer-Encoding: 8bit
+References: <20260304183303.1116307-1-David.Francis@amd.com>
+In-Reply-To: <20260304183303.1116307-1-David.Francis@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 5 Mar 2026 11:05:51 -0500
+X-Gm-Features: AaiRm506feDZKBNAy-WT1RuODc9-pDbT55JembkQ4n6J1Bvy8BoD9jF-4NDHKLU
+Message-ID: <CADnq5_PjHB5R916dz7+kVRkxzUDHA9J-Kp+5cJfZ87Vnu38USw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Check for multiplication overflow in
+ checkpoint stack size
+To: David Francis <David.Francis@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,117 +101,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: sguttula <suresh.guttula@amd.com>
+On Wed, Mar 4, 2026 at 1:33=E2=80=AFPM David Francis <David.Francis@amd.com=
+> wrote:
+>
+> get_checkpoint_info() in kfd_mqd_manager_v9.c finds 32-bit value
+> ctl_stack_size by multiplying two 32-bit values. This can overflow to a
+> lower value, which could result in copying outside the bounds of
+> a buffer in checkpoint_mqd() in the same file.
+>
+> Put in a check for the overflow, and fail with -EINVAL if detected.
+>
+> v2: use check_mul_overflow()
+>
+> Signed-off-by: David Francis <David.Francis@amd.com>
 
-[ Upstream commit a5fe1a54513196e4bc8f9170006057dc31e7155e ]
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-This will set AMDGPU_VCN_SMU_DPM_INTERFACE_* smu_type
-based on soc type and fixing ring timeout issue seen
-for DPM enabled case.
-
-Signed-off-by: sguttula <suresh.guttula@amd.com>
-Reviewed-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit f0f23c315b38c55e8ce9484cf59b65811f350630)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-## Analysis
-
-### What the commit does
-This adds 3 lines to `vcn_v5_0_0_sw_init()` that set the SMU DPM
-(Dynamic Power Management) interface type in the VCN firmware shared
-memory structure. It sets `AMDGPU_VCN_SMU_DPM_INTERFACE_FLAG` in
-`present_flag_0` and tells the firmware whether the platform is an APU
-or DGPU.
-
-### Bug being fixed
-The commit message explicitly states it's "fixing ring timeout issue
-seen for DPM enabled case." Ring timeouts on GPU hardware mean the GPU's
-command ring becomes unresponsive, which causes GPU hangs and failed
-video encoding/decoding operations. This is a serious user-visible
-issue.
-
-### Pattern analysis
-This is clearly a missing initialization that was already present in VCN
-v4.0 (`vcn_v4_0.c:157-159`) and VCN v4.0.5 (`vcn_v4_0_5.c:201-203`) but
-was omitted when VCN v5.0.0 was written. The code added is **identical**
-to the VCN v4.0 pattern:
-```c
-fw_shared->present_flag_0 |=
-cpu_to_le32(AMDGPU_VCN_SMU_DPM_INTERFACE_FLAG);
-fw_shared->smu_dpm_interface.smu_interface_type = (adev->flags &
-AMD_IS_APU) ?
-    AMDGPU_VCN_SMU_DPM_INTERFACE_APU :
-AMDGPU_VCN_SMU_DPM_INTERFACE_DGPU;
-```
-
-### Stable kernel criteria
-1. **Obviously correct**: YES - exact copy of well-established pattern
-   from VCN v4.0
-2. **Fixes a real bug**: YES - ring timeouts causing GPU hangs
-3. **Important**: YES - ring timeouts prevent proper GPU video
-   functionality
-4. **Small and contained**: YES - 3 lines, single file, single function
-5. **No new features**: Correct - enables existing DPM functionality to
-   work properly
-6. **Risk**: Very low - the `smu_dpm_interface` field already exists in
-   the `amdgpu_vcn5_fw_shared` structure; the constants are already
-   defined; this just populates fields that were left uninitialized
-
-### Affected versions
-VCN v5.0.0 was added in commit `b6d1a06320519` which is present since
-v6.10. Stable trees 6.12.y, 6.11.y, and 6.10.y would benefit from this
-fix.
-
-### Verification
-- Verified vcn_v5_0_0.c current code at line 173-175 shows
-  `present_flag_0` being set but **no** `smu_dpm_interface`
-  initialization (confirmed the bug exists)
-- Verified vcn_v4_0.c lines 157-159 contain the identical DPM interface
-  initialization pattern
-- Verified `AMDGPU_VCN_SMU_DPM_INTERFACE_FLAG`,
-  `AMDGPU_VCN_SMU_DPM_INTERFACE_APU`,
-  `AMDGPU_VCN_SMU_DPM_INTERFACE_DGPU` are defined in `amdgpu_vcn.h`
-- Verified `smu_dpm_interface` field exists in `amdgpu_vcn5_fw_shared`
-  structure definition
-- Verified VCN v5.0.0 was first added in commit b6d1a06320519, present
-  since v6.10
-- Could not directly verify the upstream cherry-pick source commit
-  f0f23c315b38 (not reachable from current branch), but the "(cherry
-  picked from commit ...)" tag confirms it was already deemed important
-  within the amdgpu tree
-
-### Conclusion
-This is a small, surgical fix for a real hardware issue (ring timeouts)
-on VCN 5.0 AMD GPUs. The fix follows an identical pattern already used
-in VCN v4.0 and v4.0.5 drivers, making it obviously correct. The risk is
-minimal - it simply populates firmware shared memory fields that were
-being left uninitialized. Users with VCN 5.0 hardware experiencing DPM-
-related ring timeouts would directly benefit.
-
-**YES**
-
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-index 0202df5db1e12..6109124f852e5 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c
-@@ -174,6 +174,10 @@ static int vcn_v5_0_0_sw_init(struct amdgpu_ip_block *ip_block)
- 		fw_shared->present_flag_0 = cpu_to_le32(AMDGPU_FW_SHARED_FLAG_0_UNIFIED_QUEUE);
- 		fw_shared->sq.is_enabled = 1;
- 
-+		fw_shared->present_flag_0 |= cpu_to_le32(AMDGPU_VCN_SMU_DPM_INTERFACE_FLAG);
-+		fw_shared->smu_dpm_interface.smu_interface_type = (adev->flags & AMD_IS_APU) ?
-+			AMDGPU_VCN_SMU_DPM_INTERFACE_APU : AMDGPU_VCN_SMU_DPM_INTERFACE_DGPU;
-+
- 		if (amdgpu_vcnfw_log)
- 			amdgpu_vcn_fwlog_init(&adev->vcn.inst[i]);
- 
--- 
-2.51.0
-
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  | 7 +++++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h  | 2 +-
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h           | 3 ++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c        | 7 +++++--
+>  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c        | 3 ++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 8 +++++++-
+>  6 files changed, 22 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 804851632c4c..18bc5ba25f8f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -2720,7 +2720,7 @@ static int get_wave_state(struct device_queue_manag=
+er *dqm,
+>                         ctl_stack, ctl_stack_used_size, save_area_used_si=
+ze);
+>  }
+>
+> -static void get_queue_checkpoint_info(struct device_queue_manager *dqm,
+> +static int get_queue_checkpoint_info(struct device_queue_manager *dqm,
+>                         const struct queue *q,
+>                         u32 *mqd_size,
+>                         u32 *ctl_stack_size)
+> @@ -2728,6 +2728,7 @@ static void get_queue_checkpoint_info(struct device=
+_queue_manager *dqm,
+>         struct mqd_manager *mqd_mgr;
+>         enum KFD_MQD_TYPE mqd_type =3D
+>                         get_mqd_type_from_queue_type(q->properties.type);
+> +       int ret =3D 0;
+>
+>         dqm_lock(dqm);
+>         mqd_mgr =3D dqm->mqd_mgrs[mqd_type];
+> @@ -2735,9 +2736,11 @@ static void get_queue_checkpoint_info(struct devic=
+e_queue_manager *dqm,
+>         *ctl_stack_size =3D 0;
+>
+>         if (q->properties.type =3D=3D KFD_QUEUE_TYPE_COMPUTE && mqd_mgr->=
+get_checkpoint_info)
+> -               mqd_mgr->get_checkpoint_info(mqd_mgr, q->mqd, ctl_stack_s=
+ize);
+> +               ret =3D mqd_mgr->get_checkpoint_info(mqd_mgr, q->mqd, ctl=
+_stack_size);
+>
+>         dqm_unlock(dqm);
+> +
+> +       return ret;
+>  }
+>
+>  static int checkpoint_mqd(struct device_queue_manager *dqm,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> index ef07e44916f8..3272328da11f 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+> @@ -192,7 +192,7 @@ struct device_queue_manager_ops {
+>
+>         int (*reset_queues)(struct device_queue_manager *dqm,
+>                                         uint16_t pasid);
+> -       void    (*get_queue_checkpoint_info)(struct device_queue_manager =
+*dqm,
+> +       int     (*get_queue_checkpoint_info)(struct device_queue_manager =
+*dqm,
+>                                   const struct queue *q, u32 *mqd_size,
+>                                   u32 *ctl_stack_size);
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/d=
+rm/amd/amdkfd/kfd_mqd_manager.h
+> index 2429d278ef0e..06ca6235ff1b 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
+> @@ -102,7 +102,8 @@ struct mqd_manager {
+>                                   u32 *ctl_stack_used_size,
+>                                   u32 *save_area_used_size);
+>
+> -       void    (*get_checkpoint_info)(struct mqd_manager *mm, void *mqd,=
+ uint32_t *ctl_stack_size);
+> +       int     (*get_checkpoint_info)(struct mqd_manager *mm, void *mqd,
+> +                                      uint32_t *ctl_stack_size);
+>
+>         void    (*checkpoint_mqd)(struct mqd_manager *mm,
+>                                   void *mqd,
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> index 273d52c8d332..8630f679a5d4 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+> @@ -385,11 +385,14 @@ static int get_wave_state(struct mqd_manager *mm, v=
+oid *mqd,
+>         return 0;
+>  }
+>
+> -static void get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *=
+ctl_stack_size)
+> +static int get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *c=
+tl_stack_size)
+>  {
+>         struct v9_mqd *m =3D get_mqd(mqd);
+>
+> -       *ctl_stack_size =3D m->cp_hqd_cntl_stack_size * NUM_XCC(mm->dev->=
+xcc_mask);
+> +       if (check_mul_overflow(m->cp_hqd_cntl_stack_size, NUM_XCC(mm->dev=
+->xcc_mask), ctl_stack_size))
+> +               return -EINVAL;
+> +
+> +       return 0;
+>  }
+>
+>  static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_=
+dst, void *ctl_stack_dst)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+> index c192c66a5c7b..499d366db91c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+> @@ -274,10 +274,11 @@ static int get_wave_state(struct mqd_manager *mm, v=
+oid *mqd,
+>         return 0;
+>  }
+>
+> -static void get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *=
+ctl_stack_size)
+> +static int get_checkpoint_info(struct mqd_manager *mm, void *mqd, u32 *c=
+tl_stack_size)
+>  {
+>         /* Control stack is stored in user mode */
+>         *ctl_stack_size =3D 0;
+> +       return 0;
+>  }
+>
+>  static void checkpoint_mqd(struct mqd_manager *mm, void *mqd, void *mqd_=
+dst, void *ctl_stack_dst)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/dri=
+vers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 449be58e884c..cb2416687137 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -1069,6 +1069,7 @@ int pqm_get_queue_checkpoint_info(struct process_qu=
+eue_manager *pqm,
+>                                   uint32_t *ctl_stack_size)
+>  {
+>         struct process_queue_node *pqn;
+> +       int ret;
+>
+>         pqn =3D get_queue_by_qid(pqm, qid);
+>         if (!pqn) {
+> @@ -1081,9 +1082,14 @@ int pqm_get_queue_checkpoint_info(struct process_q=
+ueue_manager *pqm,
+>                 return -EOPNOTSUPP;
+>         }
+>
+> -       pqn->q->device->dqm->ops.get_queue_checkpoint_info(pqn->q->device=
+->dqm,
+> +       ret =3D pqn->q->device->dqm->ops.get_queue_checkpoint_info(pqn->q=
+->device->dqm,
+>                                                        pqn->q, mqd_size,
+>                                                        ctl_stack_size);
+> +       if (ret) {
+> +               pr_debug("amdkfd: Overflow while computing stack size for=
+ queue %d\n", qid);
+> +               return ret;
+> +       }
+> +
+>         return 0;
+>  }
+>
+> --
+> 2.34.1
+>
