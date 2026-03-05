@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B2D6F01812
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A515F01819
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 314C510E3D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA2F10E3E6;
 	Fri,  6 Mar 2026 08:52:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="lLlzAe5e";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="H7WdE1Oa";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F78D10EC05;
- Thu,  5 Mar 2026 14:21:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1772720501; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D93A10EC1D;
+ Thu,  5 Mar 2026 14:22:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772720529; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=TgCeDZZWRVmR46YKkdAOhyFr/9AjWT27GLJ1MdbZCm20rOECTJiMopX+2KGzkFqCP082GsTHyN4wRN+P/whGl1FXCGy8x/rPwTf6gAGMuZLKwIp3p1iXn2y0BNADaI4jFaOlR4RNGndQ6qimgg1ca0E3ypz9TzClllFdZLXCEfY=
+ b=b0q9E4wq2mNbgSQiZD3SluDyaqtPFkFeWWekgjflKjnHj1yDQHg2gSHgJ04CtRFwERTkoKynbcuURNoDTxh+EcpcR1/+sw1jqIJMlvFwWPtrsCLS/VI4ZOYsQoHcRJypsys3xBQENeDK3jK5ba0J29gdssC66iGmJsd0kGvzTc8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1772720501;
+ s=zohoarc; t=1772720529;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=JjTun7V4sdMrqY3oz515484Kw69CJtG/jWkM2sUF4Ss=; 
- b=feQjw4AZFM0/UgoSsGeqgK5ekauQp2DCR5EgiQxWIRLUQNANfMG0gvnmj4/C4LuN19rW9RbghpQAGFeTSKOlHuvBiHeER3G0TdSLeP4ELyKXkCBEqfF7LNYiQaGdOAujYOTF7sGh+LPvbkw4Eq2TgxJNuZl/7RoQ4WIsu8QImF4=
+ bh=d1yMthHYWepKMoQtIRkHnB54WfQr2uBE10YWq40qjiM=; 
+ b=fvDXAD+lUcv/CRIGv2Y5p70iR7f0xaFXgHtwNsGLr2ZNMdPnxgaiyn2uglIEIYKibxFxS5Jwz737fXcmmqc0gvC0p52k/znEt2QrbTWF1sbgJmmt2Kw337HkCMoJ5xPPR68ZYbcx2qcOxQjnHRIdZiAIhFmkIPpZ+zHe3fZuwlU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772720501; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772720529; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=JjTun7V4sdMrqY3oz515484Kw69CJtG/jWkM2sUF4Ss=;
- b=lLlzAe5eCtTj77bTrXyx/fhmmoKm8c26Cgf1gBrmGdtKPS8bZ6/3wYPs9R4nHOz3
- 3gsypYjzpMMrl3ecfTKFD4xGPrEDZXijJpyIpIRnv+b2qbQ6KngeAqpvzI4wF57JAIt
- C7ir+Kx4VDJkEZszLD1xrGTkt6pLwbVTa0p1dKkg=
-Received: by mx.zohomail.com with SMTPS id 177272049987123.476864387595242;
- Thu, 5 Mar 2026 06:21:39 -0800 (PST)
+ bh=d1yMthHYWepKMoQtIRkHnB54WfQr2uBE10YWq40qjiM=;
+ b=H7WdE1Oa1r/0OZTcKQ1wUuH1dicilIjRgTW+qy8nnCxkTjfkCTnBQCnkMVoo7Ul6
+ OuBvQUxo3ojid/zzKQ7GbXOuHfmnQzFOVTLFBuExt7VTF89+VKpHqy6OBWD4wRwUiqK
+ 6QnwN4v+JV2KhgrAmaX1XSJs/tujyU8k92R0euAU=
+Received: by mx.zohomail.com with SMTPS id 1772720528297844.6772673115894;
+ Thu, 5 Mar 2026 06:22:08 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Mar 2026 15:19:39 +0100
-Subject: [PATCH v10 13/22] drm/rockchip: vop2: Set correct output format
- for RK3576 YUV422
+Date: Thu, 05 Mar 2026 15:19:43 +0100
+Subject: [PATCH v10 17/22] drm/connector: Register color format property on
+ HDMI connectors
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260305-color-format-v10-13-a58c68a11868@collabora.com>
+Message-Id: <20260305-color-format-v10-17-a58c68a11868@collabora.com>
 References: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
 In-Reply-To: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -72,8 +72,7 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Andy Yan <andyshrk@163.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 06 Mar 2026 08:52:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,48 +89,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For RK3576 to be able to output YUV422 signals, it first needs to be
-able to pick the right output mode in the display controller to do so.
+The drmm_connector_hdmi_init function can figure out what DRM color
+formats are supported by a particular connector based on the supported
+HDMI format bitmask that's passed in.
 
-The RK3576 hardware specifies different output formats depending on the
-used display protocol.
+Use it to register the drm color format property.
 
-Adjust the written register value based on the SoC and connector, so
-other users of vcstate->output_mode don't have to care about this.
-
-Reviewed-by: Andy Yan <andyshrk@163.com>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/gpu/drm/drm_connector.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 46d49bc98ddb..205ecf06abdf 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1686,6 +1686,22 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 	if (vcstate->output_mode == ROCKCHIP_OUT_MODE_AAAA &&
- 	    !(vp_data->feature & VOP2_VP_FEATURE_OUTPUT_10BIT))
- 		out_mode = ROCKCHIP_OUT_MODE_P888;
-+	else if (vcstate->output_mode == ROCKCHIP_OUT_MODE_YUV422 &&
-+		 vop2->version == VOP_VERSION_RK3576)
-+		switch (vcstate->output_type) {
-+		case DRM_MODE_CONNECTOR_DisplayPort:
-+		case DRM_MODE_CONNECTOR_eDP:
-+			out_mode = ROCKCHIP_OUT_MODE_YUV422_RK3576_DP;
-+			break;
-+		case DRM_MODE_CONNECTOR_HDMIA:
-+			out_mode = ROCKCHIP_OUT_MODE_YUV422_RK3576_HDMI;
-+			break;
-+		default:
-+			drm_err(vop2->drm, "Unknown DRM_MODE_CONNECTOR %d\n",
-+				vcstate->output_type);
-+			vop2_unlock(vop2);
-+			return;
-+		}
- 	else
- 		out_mode = vcstate->output_mode;
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index e848374dee0b..724245d2df29 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -627,6 +627,10 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 	if (max_bpc > 8)
+ 		drm_connector_attach_hdr_output_metadata_property(connector);
  
++	ret = drm_connector_attach_color_format_property(connector, supported_formats);
++	if (ret)
++		return ret;
++
+ 	connector->hdmi.funcs = hdmi_funcs;
+ 
+ 	return 0;
 
 -- 
 2.53.0
