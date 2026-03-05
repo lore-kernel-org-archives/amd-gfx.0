@@ -4,159 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A216F0181D
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BED79F0180E
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE87310ECB0;
-	Fri,  6 Mar 2026 08:53:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 56DBD10ECB1;
+	Fri,  6 Mar 2026 08:53:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="N/OnFzWa";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="QU7KYu97";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81A4310EBD9;
- Thu,  5 Mar 2026 14:25:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=; b=N/OnFzWa9k33Gb8WoaORaZf8/1
- omQzMxzv7AKB0iGBOiFBTlfDd8cv/SFY2cN/xlhCF9LD4axDr458b3KkJDHIqY9jaYSeX0Iuke/ea
- ruLhr6C+ymLhOMKavxBklyL56gQe5kOFHaR9GqikFPQ4+YspElC14XRfWh6kM52omEOHgMpsSREro
- y5uto1k++Slfwuo7nq2YzlvQFOIu0vNsS5w8AUmDYAa3V8L257/vRobIemRsPwt43jEH4dMBKvjE9
- qvJU8j7WutreciL7iwRXCEmJf59WsaeHF8hGB2PcyqrdNOf6OBCyjpqgu7qzQ+34Omj2U+HU1z4kP
- lBT6VZKQ==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1vy9dP-00000001z65-3qix;
- Thu, 05 Mar 2026 14:25:03 +0000
-Date: Thu, 5 Mar 2026 06:25:03 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Jeff Layton <jlayton@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>, David Howells <dhowells@redhat.com>,
- Paulo Alcantara <pc@manguebit.org>,
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
- Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>,
- Olga Kornievskaia <okorniev@redhat.com>,
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
- Steve French <sfrench@samba.org>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>,
- Shyam Prasad N <sprasad@microsoft.com>,
- Bharath SM <bharathsm@microsoft.com>,
- Alexander Aring <alex.aring@gmail.com>,
- Ryusuke Konishi <konishi.ryusuke@gmail.com>,
- Viacheslav Dubeyko <slava@dubeyko.com>,
- Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- David Sterba <dsterba@suse.com>,
- Marc Dionne <marc.dionne@auristor.com>, Ian Kent <raven@themaw.net>,
- Luis de Bethencourt <luisbg@kernel.org>,
- Salah Triki <salah.triki@gmail.com>,
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
- Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>,
- Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>,
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>,
- Dave Kleikamp <shaggy@kernel.org>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Joseph Qi <joseph.qi@linux.alibaba.com>,
- Mike Marshall <hubcap@omnibond.com>,
- Martin Brandenburg <martin@omnibond.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>,
- Johannes Thumshirn <jth@kernel.org>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Willem de Bruijn <willemb@google.com>,
- "David S. Miller" <davem@davemloft.net>,
- Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>,
- "Darrick J. Wong" <djwong@kernel.org>,
- Martin Schiller <ms@dev.tdt.de>, Eric Paris <eparis@redhat.com>,
- Joerg Reuter <jreuter@yaina.de>, Marcel Holtmann <marcel@holtmann.org>,
- Johan Hedberg <johan.hedberg@gmail.com>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>,
- Neal Cardwell <ncardwell@google.com>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Remi Denis-Courmont <courmisch@gmail.com>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>,
- Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev,
- fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev,
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org,
- v9fs@lists.linux.dev, linux-afs@lists.infradead.org,
- autofs@vger.kernel.org, ceph-devel@vger.kernel.org,
- codalist@coda.cs.cmu.edu, ecryptfs@vger.kernel.org,
- linux-mtd@lists.infradead.org, jfs-discussion@lists.sourceforge.net,
- ntfs3@lists.linux.dev, ocfs2-devel@lists.linux.dev,
- devel@lists.orangefs.org, linux-unionfs@vger.kernel.org,
- apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
- linux-integrity@vger.kernel.org, selinux@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- netdev@vger.kernel.org, linux-perf-users@vger.kernel.org,
- linux-fscrypt@vger.kernel.org, linux-xfs@vger.kernel.org,
- linux-hams@vger.kernel.org, linux-x25@vger.kernel.org,
- audit@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
-Subject: Re: [PATCH v3 12/12] treewide: change inode->i_ino from unsigned
- long to u64
-Message-ID: <aamSP0KKicK3dvIf@infradead.org>
-References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
- <20260304-iino-u64-v3-12-2257ad83d372@kernel.org>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F5BA10EBDA;
+ Thu,  5 Mar 2026 14:20:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772720435; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=Q7SsuUW8IplC1BVTGTgCyB4esDjdA4gsPUZjoCGxedAmv2FH+xf0SbNpGpz+2zR+MYjLhHdJ71/y94hR4Y2VXOW3A+WLH+5F9tbwRYmVVx0xEIR/z1i0qD0Rk+e57BuF6OBRYGFijqXVp+o4UeIazAd21+od6eJyzam1UGP6dEE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1772720435;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=AIQjhjCX/0becvkm2W2yvB09KM7xCA6Zn7uqZHaAVP8=; 
+ b=TIcr4IXQe3349QxkXeZGoGI3XQe12eeDwT6C5dlLMkaISShLpWctPN65uBlDZuQrRIzC3VuhawL//nfgZfalVejY7DpPMEG09svK/9NBeBprX63I+L/EGc6bePg+lX0iKpTl8QYv+mEjuAR0DcJxsn4VbDteQHqS6Y4z1hKNzX4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772720435; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=AIQjhjCX/0becvkm2W2yvB09KM7xCA6Zn7uqZHaAVP8=;
+ b=QU7KYu97bd58NO6ogZE/pgX70SoT59CXBO+cnfOiNIwykhP2KsEekyWpJiK6/It+
+ t4awk23tP3VtqX+qmNMh24msmwkSchfAZKf2A07916crADu9Zw8ElAphs9iibP536gW
+ GIGGhBf1FioXM8iCrigJxd1nDhfIA9FL+dLtXhx8=
+Received: by mx.zohomail.com with SMTPS id 1772720433597826.3315564708929;
+ Thu, 5 Mar 2026 06:20:33 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Thu, 05 Mar 2026 15:19:30 +0100
+Subject: [PATCH v10 04/22] drm/bridge: Act on the DRM color format property
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260304-iino-u64-v3-12-2257ad83d372@kernel.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260305-color-format-v10-4-a58c68a11868@collabora.com>
+References: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
+In-Reply-To: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 06 Mar 2026 08:52:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -172,7 +88,145 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Looks good:
+The new DRM color format property allows userspace to request a specific
+color format on a connector. In turn, this fills the connector state's
+color_format member to switch color formats.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Make drm_bridges consider the color_format set in the connector state
+during the atomic bridge check. For bridges that represent HDMI bridges,
+rely on whatever format the HDMI logic set. Reject any output bus
+formats that do not correspond to the requested color format.
+
+Non-HDMI last bridges with DRM_CONNECTOR_COLOR_FORMAT_AUTO set will end
+up choosing the first output format that functions to make a whole
+recursive bridge chain format selection succeed.
+
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/drm_bridge.c | 89 +++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 88 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 6d8947419940..6ad725e511f3 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -1117,6 +1117,47 @@ static int select_bus_fmt_recursive(struct drm_bridge *first_bridge,
+ 	return ret;
+ }
+ 
++static bool __pure bus_format_is_color_fmt(u32 bus_fmt, enum drm_connector_color_format fmt)
++{
++	if (fmt == DRM_CONNECTOR_COLOR_FORMAT_AUTO)
++		return true;
++
++	switch (bus_fmt) {
++	case MEDIA_BUS_FMT_FIXED:
++		return true;
++	case MEDIA_BUS_FMT_RGB888_1X24:
++	case MEDIA_BUS_FMT_RGB101010_1X30:
++	case MEDIA_BUS_FMT_RGB121212_1X36:
++	case MEDIA_BUS_FMT_RGB161616_1X48:
++		return fmt == DRM_CONNECTOR_COLOR_FORMAT_RGB444;
++	case MEDIA_BUS_FMT_YUV8_1X24:
++	case MEDIA_BUS_FMT_YUV10_1X30:
++	case MEDIA_BUS_FMT_YUV12_1X36:
++	case MEDIA_BUS_FMT_YUV16_1X48:
++		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
++	case MEDIA_BUS_FMT_UYVY8_1X16:
++	case MEDIA_BUS_FMT_VYUY8_1X16:
++	case MEDIA_BUS_FMT_YUYV8_1X16:
++	case MEDIA_BUS_FMT_YVYU8_1X16:
++	case MEDIA_BUS_FMT_UYVY10_1X20:
++	case MEDIA_BUS_FMT_YUYV10_1X20:
++	case MEDIA_BUS_FMT_VYUY10_1X20:
++	case MEDIA_BUS_FMT_YVYU10_1X20:
++	case MEDIA_BUS_FMT_UYVY12_1X24:
++	case MEDIA_BUS_FMT_VYUY12_1X24:
++	case MEDIA_BUS_FMT_YUYV12_1X24:
++	case MEDIA_BUS_FMT_YVYU12_1X24:
++		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
++	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
++	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
++	case MEDIA_BUS_FMT_UYYVYY12_0_5X36:
++	case MEDIA_BUS_FMT_UYYVYY16_0_5X48:
++		return fmt == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
++	default:
++		return false;
++	}
++}
++
+ /*
+  * This function is called by &drm_atomic_bridge_chain_check() just before
+  * calling &drm_bridge_funcs.atomic_check() on all elements of the chain.
+@@ -1160,6 +1201,7 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+ 	struct drm_encoder *encoder = bridge->encoder;
+ 	struct drm_bridge_state *last_bridge_state;
+ 	unsigned int i, num_out_bus_fmts = 0;
++	enum drm_connector_color_format fmt;
+ 	u32 *out_bus_fmts;
+ 	int ret = 0;
+ 
+@@ -1201,13 +1243,58 @@ drm_atomic_bridge_chain_select_bus_fmts(struct drm_bridge *bridge,
+ 			out_bus_fmts[0] = MEDIA_BUS_FMT_FIXED;
+ 	}
+ 
++	/*
++	 * On HDMI connectors, use the output format chosen by whatever does the
++	 * HDMI logic. For everyone else, just trust that the bridge out_bus_fmts
++	 * are sorted by preference for %DRM_CONNECTOR_COLOR_FORMAT_AUTO, as
++	 * bus_format_is_color_fmt() always returns true for AUTO.
++	 */
++	if (last_bridge->type == DRM_MODE_CONNECTOR_HDMIA) {
++		drm_dbg_kms(last_bridge->dev,
++			    "HDMI bridge requests format %s\n",
++			    drm_hdmi_connector_get_output_format_name(
++				    conn_state->hdmi.output_format));
++		switch (conn_state->hdmi.output_format) {
++		case DRM_OUTPUT_COLOR_FORMAT_RGB444:
++			fmt = DRM_CONNECTOR_COLOR_FORMAT_RGB444;
++			break;
++		case DRM_OUTPUT_COLOR_FORMAT_YCBCR444:
++			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444;
++			break;
++		case DRM_OUTPUT_COLOR_FORMAT_YCBCR422:
++			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR422;
++			break;
++		case DRM_OUTPUT_COLOR_FORMAT_YCBCR420:
++			fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420;
++			break;
++		default:
++			ret = -EINVAL;
++			goto out_free_bus_fmts;
++		}
++	} else {
++		fmt = conn_state->color_format;
++		drm_dbg_kms(last_bridge->dev, "Non-HDMI bridge requests format %d\n", fmt);
++	}
++
+ 	for (i = 0; i < num_out_bus_fmts; i++) {
++		if (!bus_format_is_color_fmt(out_bus_fmts[i], fmt)) {
++			drm_dbg_kms(last_bridge->dev,
++				    "Skipping bus format 0x%04x as it doesn't match format %d\n",
++				    out_bus_fmts[i], fmt);
++			ret = -ENOTSUPP;
++			continue;
++		}
+ 		ret = select_bus_fmt_recursive(bridge, last_bridge, crtc_state,
+ 					       conn_state, out_bus_fmts[i]);
+-		if (ret != -ENOTSUPP)
++		if (ret != -ENOTSUPP) {
++			drm_dbg_kms(last_bridge->dev,
++				    "Found bridge chain ending with bus format 0x%04x\n",
++				    out_bus_fmts[i]);
+ 			break;
++		}
+ 	}
+ 
++out_free_bus_fmts:
+ 	kfree(out_bus_fmts);
+ 
+ 	return ret;
+
+-- 
+2.53.0
 
