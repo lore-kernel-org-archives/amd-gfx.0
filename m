@@ -4,94 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0E20F3D32B
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 16:23:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB3C9F47CA3
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2026 18:01:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58E8610E2CA;
-	Thu,  5 Mar 2026 16:23:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD2E10E29B;
+	Thu,  5 Mar 2026 18:01:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y36ipOrS";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="DPzCFkE0";
 	dkim-atps=neutral
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
- [74.125.82.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BE4310EC40
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2026 16:23:21 +0000 (UTC)
-Received: by mail-dy1-f173.google.com with SMTP id
- 5a478bee46e88-2be07cafe27so300360eec.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 08:23:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1772727801; cv=none;
- d=google.com; s=arc-20240605;
- b=V7PMjN2lnnpLFf5tC5QVN2yYtoDQ9jCXI9w6aadau28HTC+SSxqOT2oGs3wBWvYDz8
- oXnr24VjQRJkNuKm9pbzfqqytObqJd2Zr6hK/Hu3oW2fzIYhqrccI/j6CrxIqEZBlKkm
- 09kwFDTtK/rCwXQHwmo8/hA7eeMPoplGk/esUnxzyWQEwJ3z8MJJpiHPruc8MpSyw1h1
- feBEIxCXkvAEuWRkrXExjUHyeYzKUmp1HvzD5QhaxET3alMF9IYba6cqlSgghZNP/pXI
- jZAZOkzonkWLc1K4BqyCk6BSPy3OUINKLNd9X10SqGpX3jooWJNFQ+9uX9m08rkzW47I
- +o3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=W6F+nfMUPxF4a7E27ABQJs8vgRwzPBeDB+h+6m9Jqk4=;
- fh=Z8KoS9XFs5Oc1amUAun74POtOGZ8gF5xAaz27PMl4Kg=;
- b=PAGrNt/wUVEFL80O0MYiJl8LTPdCsOjXbo0TpYa0LRLrzCbs8LSePIXflgTtsELZ2R
- NtbwHy66seaXtUFfZ4JouDWN1aHEB3WVeLrWFVS9gGdFII8G7+/B3IJo35Cd/NhWXwv2
- rdKD1Wx09WGKGzniANSaPZW8QSfIoU+1NT+fyYC+BOXdKG+AfjzC80l2UD+FCnPawFYc
- p8do8VcFWQxt6JlidNrtX+LclS8bt4JfS9QghVsXAD7bSt8ozOj+Wi2BvJP/a9+pWR79
- 3tyXPErIXPRThvt85nTYwQXXnAB58C/Qd6wuK7r+TAIsE6SL204FeQU4nKMenv/k0xpO
- /YuQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772727801; x=1773332601; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=W6F+nfMUPxF4a7E27ABQJs8vgRwzPBeDB+h+6m9Jqk4=;
- b=Y36ipOrS0vbe0nVkZQFB5D1wlIzGS2MUqh3ZAJCnhBVmX6ub78Y5t9kNfiDq2FvoBH
- ANfgEZ1QhHfVRzvU0argFQGYLftdcrZyrEhbDdrHhnO+XphkYwFQFs9KqqfI1G8Llp73
- qfeSNNe0o4S+E8pphlgPL3mIE0zqB2UOmTMiiHGBOPyQJDdR7cizzbgeRXVSGIlq7jFO
- iHKeAyKaEKrjnmOIpcCtKDuSGJyM1uxhr+mtodkSRKATxE6Fzo6wgerDwrO2u+l0rDV4
- PjG5GBB7iJlchyb6N1lP8CAq+OIlPJr0A4cb1xlho7Hu8wgnwyG9wGePs92UPrco1qe2
- 5JUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772727801; x=1773332601;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=W6F+nfMUPxF4a7E27ABQJs8vgRwzPBeDB+h+6m9Jqk4=;
- b=nlbjEM+Pif1FwnveOaCtWXNE+VxCOWh136T41CbJauuemf+7qQUd+2yweFSFAXqpHZ
- lOEey3k7R5JBi/leTG7uoDG+ljSdP0OW/tEI+ULNeUhLXkE5LSwc6+Otf6HZrrElE6Ls
- ZCbYCBTvgPMLHmu8g9Q+zGkmZxYGUynwLTZT863w/5bpRuRZd5fPWC/3HEjog7g7z7nC
- fFhbjuYtkO2kS1HGXg8f4NkM6OmvbsPTBBS0rc1kNlWia3unwlXi2f3ZWSR4Qgs7VdUu
- LX6jaKOyRgCwKXx/4TqWHf/SbKxAJwT9m+aHcD9AXnPJHwOELhcI2i+YGmwdibRxTII9
- 4FiQ==
-X-Gm-Message-State: AOJu0YxmCAGKjUbdSpU4Y/uC4m+MwF3vVbZgRHsmMsXWJ8V+fFw0e9kX
- vPvP1qAmnVr8BL3wwZO08XUZtib0+yujXh9XQWYn8SLS345a/C6bpT59NWLlExBn1UAjn8cphqZ
- zjcAU21hrwSl5hOpxUeHX6yUtNZdViqersg==
-X-Gm-Gg: ATEYQzzpZERJv1cuZcwEOYUyu7D/HDN2o5QQ6i5xosYsg/WRZunKFVIFMsaPVC9RLIC
- rk5Hp2XNmi4L4RIoKUdVJ5I3XO/S584WJ58c19EbBKTDvHj5e/Au/lk7Y2yRlWEyRGWIUlmcGnP
- I5pOS3bPg694C1ma9vtG/CmTuKdgXWDF9LSI3BztRwf2jyrihA+Qn+yAa3xQxbj6aHPtOnpdxmd
- rEvgbH08oYZCpNwr6n93box887pn483x2K5/OIzDwuP8gUOJ0d8fFIkwkFx/rCxzVqdlZFabh4x
- WRDrHZDwDZKY9xEZfK2m3S47KAMy0PHw6w84aspj5wi1CtzAWYMliP3jQQoN1UjU75EPirs6DLe
- VJ02Z
-X-Received: by 2002:a05:7022:6b82:b0:11b:65e:f33 with SMTP id
- a92af1059eb24-128b70664bbmr1490910c88.1.1772727800809; Thu, 05 Mar 2026
- 08:23:20 -0800 (PST)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1878210E0F8;
+ Thu,  5 Mar 2026 18:01:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=YUr1+sWEO9j5kitoHz+vNz4j+awsJ1fwf/poatsFNbU=; b=DPzCFkE0MC874adOXYhljT3y3s
+ 1r4WzOqbGBJUT1HrX43ZOiB35t7xvcy21s7NgHX8freBwrlCwrPbE9B8RhEuG4rzc1laiHDMyVixZ
+ gSbR9wAk9tp9p/lCQ+m8IyJDgKlhA/29iJX7WLvGMVXKw7xo+AHiSk3NC25kOGhiBDvn7L5qutJx3
+ +9AuuHd8ScbmTcYOxBC+m17yRBb1AlgTKDxAqwfWBd7wwzJMrO3EKKim1NbT0vTxQ5xirUYTRW7X6
+ M/JQ+dmICa+pLHgEBlHHSZaIQB+8c7bDavGbkdmlQumc5F07SPUuqnzM5wE8RgSHJXfwM2vDf3gz5
+ IXcTiHyA==;
+Received: from [186.208.68.119] (helo=[192.168.18.14])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1vyD0G-009Tnn-Kz; Thu, 05 Mar 2026 19:00:52 +0100
+Message-ID: <ae12b964-de1a-475c-9ea6-811ee541d146@igalia.com>
+Date: Thu, 5 Mar 2026 15:00:47 -0300
 MIME-Version: 1.0
-References: <20260303211823.76631-1-jpeisach@ubuntu.com>
- <20260303211823.76631-3-jpeisach@ubuntu.com>
-In-Reply-To: <20260303211823.76631-3-jpeisach@ubuntu.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 5 Mar 2026 11:23:09 -0500
-X-Gm-Features: AaiRm53O0Gz_IyWjrfwtBJvNGedJNJLK6tD16jvmpNK_3Hj0veX7H5OdrmEZeHM
-Message-ID: <CADnq5_MioRPUgwWeRWBQLMVvjPjFLL8Ub+w6dQCkj84xUqu1Tw@mail.gmail.com>
-Subject: Re: [PATCH RESEND 2/2] drm/amdgpu/amdgpu_connectors: remove
- amdgpu_connector_free_edid
-To: Joshua Peisach <jpeisach@ubuntu.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v2] drm/amdgpu: Fix kernel-doc comments for some
+ LUT properties
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Alex Hung <alex.hung@amd.com>
+References: <20260305-amdgpu-fix-kdoc-lut-v2-1-37947aca68e8@collabora.com>
+Content-Language: en-US
+From: Melissa Wen <mwen@igalia.com>
+In-Reply-To: <20260305-amdgpu-fix-kdoc-lut-v2-1-37947aca68e8@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,125 +66,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
++ cc: Alex Hung
 
-Alex
+Hi Alex H.,
 
-On Tue, Mar 3, 2026 at 4:19=E2=80=AFPM Joshua Peisach <jpeisach@ubuntu.com>=
- wrote:
+Can you apply this patch?
+
+Thanks,
+
+Melissa
+
+On 05/03/2026 08:16, Cristian Ciocaltea wrote:
+> The following members of struct amdgpu_mode_info do not have valid
+> references in the related kernel-doc sections:
 >
-> Now that we are using struct drm_edid, we can just call drm_edid_free
-> directly. Remove the function and update calls to drm_edid_free.
+>   - plane_shaper_lut_property
+>   - plane_shaper_lut_size_property,
+>   - plane_lut3d_size_property
 >
-> Signed-off-by: Joshua Peisach <jpeisach@ubuntu.com>
+> Correct all affected comment blocks.
+>
+> Fixes: f545d82479b4 ("drm/amd/display: add plane shaper LUT and TF driver-specific properties")
+> Fixes: 671994e3bf33 ("drm/amd/display: add plane 3D LUT driver-specific properties")
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 > ---
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 22 ++++++-------------
->  1 file changed, 7 insertions(+), 15 deletions(-)
+> Changes in v2:
+> - Collected R-b tag from Melissa
+> - Rebased onto latest drm-misc-next
+> - Link to v1: https://lore.kernel.org/r/20250823-amdgpu-fix-kdoc-lut-v1-1-306bcad41267@collabora.com
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h | 16 ++++++++--------
+>   1 file changed, 8 insertions(+), 8 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_connectors.c
-> index 6336cadad..aabe9d58c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> @@ -297,14 +297,6 @@ static void amdgpu_connector_get_edid(struct drm_con=
-nector *connector)
->         }
->  }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> index dc8d2f52c7d6..e244c12ceb23 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+> @@ -368,15 +368,15 @@ struct amdgpu_mode_info {
+>   
+>   	struct drm_property *plane_ctm_property;
+>   	/**
+> -	 * @shaper_lut_property: Plane property to set pre-blending shaper LUT
+> -	 * that converts color content before 3D LUT. If
+> -	 * plane_shaper_tf_property != Identity TF, AMD color module will
+> +	 * @plane_shaper_lut_property: Plane property to set pre-blending
+> +	 * shaper LUT that converts color content before 3D LUT.
+> +	 * If plane_shaper_tf_property != Identity TF, AMD color module will
+>   	 * combine the user LUT values with pre-defined TF into the LUT
+>   	 * parameters to be programmed.
+>   	 */
+>   	struct drm_property *plane_shaper_lut_property;
+>   	/**
+> -	 * @shaper_lut_size_property: Plane property for the size of
+> +	 * @plane_shaper_lut_size_property: Plane property for the size of
+>   	 * pre-blending shaper LUT as supported by the driver (read-only).
+>   	 */
+>   	struct drm_property *plane_shaper_lut_size_property;
+> @@ -400,10 +400,10 @@ struct amdgpu_mode_info {
+>   	 */
+>   	struct drm_property *plane_lut3d_property;
+>   	/**
+> -	 * @plane_degamma_lut_size_property: Plane property to define the max
+> -	 * size of 3D LUT as supported by the driver (read-only). The max size
+> -	 * is the max size of one dimension and, therefore, the max number of
+> -	 * entries for 3D LUT array is the 3D LUT size cubed;
+> +	 * @plane_lut3d_size_property: Plane property to define the max size
+> +	 * of 3D LUT as supported by the driver (read-only). The max size is
+> +	 * the max size of one dimension and, therefore, the max number of
+> +	 * entries for 3D LUT array is the 3D LUT size cubed.
+>   	 */
+>   	struct drm_property *plane_lut3d_size_property;
+>   	/**
 >
-> -static void amdgpu_connector_free_edid(struct drm_connector *connector)
-> -{
-> -       struct amdgpu_connector *amdgpu_connector =3D to_amdgpu_connector=
-(connector);
-> -
-> -       kfree(amdgpu_connector->edid);
-> -       amdgpu_connector->edid =3D NULL;
-> -}
-> -
->  static int amdgpu_connector_ddc_get_modes(struct drm_connector *connecto=
-r)
->  {
->         struct amdgpu_connector *amdgpu_connector =3D to_amdgpu_connector=
-(connector);
-> @@ -754,7 +746,7 @@ static void amdgpu_connector_destroy(struct drm_conne=
-ctor *connector)
->  {
->         struct amdgpu_connector *amdgpu_connector =3D to_amdgpu_connector=
-(connector);
->
-> -       amdgpu_connector_free_edid(connector);
-> +       drm_edid_free(amdgpu_connector->edid);
->         kfree(amdgpu_connector->con_priv);
->         drm_connector_unregister(connector);
->         drm_connector_cleanup(connector);
-> @@ -873,7 +865,7 @@ amdgpu_connector_vga_detect(struct drm_connector *con=
-nector, bool force)
->                 dret =3D amdgpu_display_ddc_probe(amdgpu_connector, false=
-);
->         if (dret) {
->                 amdgpu_connector->detected_by_load =3D false;
-> -               amdgpu_connector_free_edid(connector);
-> +               drm_edid_free(amdgpu_connector->edid);
->                 amdgpu_connector_get_edid(connector);
->
->                 if (!amdgpu_connector->edid) {
-> @@ -889,7 +881,7 @@ amdgpu_connector_vga_detect(struct drm_connector *con=
-nector, bool force)
->                          * with a shared ddc line (often vga + hdmi)
->                          */
->                         if (amdgpu_connector->use_digital && amdgpu_conne=
-ctor->shared_ddc) {
-> -                               amdgpu_connector_free_edid(connector);
-> +                               drm_edid_free(amdgpu_connector->edid);
->                                 ret =3D connector_status_disconnected;
->                         } else {
->                                 ret =3D connector_status_connected;
-> @@ -984,7 +976,7 @@ static void amdgpu_connector_shared_ddc(enum drm_conn=
-ector_status *status,
->                                         /* hpd is our only option in this=
- case */
->                                         if (!amdgpu_display_hpd_sense(ade=
-v,
->                                                                       amd=
-gpu_connector->hpd.hpd)) {
-> -                                               amdgpu_connector_free_edi=
-d(connector);
-> +                                               drm_edid_free(amdgpu_conn=
-ector->edid);
->                                                 *status =3D connector_sta=
-tus_disconnected;
->                                         }
->                                 }
-> @@ -1053,7 +1045,7 @@ amdgpu_connector_dvi_detect(struct drm_connector *c=
-onnector, bool force)
->         }
->         if (dret) {
->                 amdgpu_connector->detected_by_load =3D false;
-> -               amdgpu_connector_free_edid(connector);
-> +               drm_edid_free(amdgpu_connector->edid);
->                 amdgpu_connector_get_edid(connector);
->
->                 if (!amdgpu_connector->edid) {
-> @@ -1069,7 +1061,7 @@ amdgpu_connector_dvi_detect(struct drm_connector *c=
-onnector, bool force)
->                          * with a shared ddc line (often vga + hdmi)
->                          */
->                         if ((!amdgpu_connector->use_digital) && amdgpu_co=
-nnector->shared_ddc) {
-> -                               amdgpu_connector_free_edid(connector);
-> +                               drm_edid_free(amdgpu_connector->edid);
->                                 ret =3D connector_status_disconnected;
->                         } else {
->                                 ret =3D connector_status_connected;
-> @@ -1417,7 +1409,7 @@ amdgpu_connector_dp_detect(struct drm_connector *co=
-nnector, bool force)
->                 goto out;
->         }
->
-> -       amdgpu_connector_free_edid(connector);
-> +       drm_edid_free(amdgpu_connector->edid);
->
->         if ((connector->connector_type =3D=3D DRM_MODE_CONNECTOR_eDP) ||
->             (connector->connector_type =3D=3D DRM_MODE_CONNECTOR_LVDS)) {
-> --
-> 2.51.0
->
+> ---
+> base-commit: be4cd2a13a31496c7fb9e46a244c4391b8b7cf31
+> change-id: 20250823-amdgpu-fix-kdoc-lut-357db8b57fee
+
