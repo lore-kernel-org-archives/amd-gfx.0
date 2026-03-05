@@ -4,80 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07433F0181F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D3B2F01816
 	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6A010ECA5;
-	Fri,  6 Mar 2026 08:52:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7F5810EC9E;
+	Fri,  6 Mar 2026 08:53:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Fp7i4V/e";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="eqEZysvQ";
 	dkim-atps=neutral
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
- [209.85.210.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 664EF10E2F0
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:51:13 +0000 (UTC)
-Received: by mail-ot1-f49.google.com with SMTP id
- 46e09a7af769-7d18d0e6d71so6417932a34.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:51:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772761870; x=1773366670; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LBdiOYK9OqacwkN82GElrUr530ZKa03hWcr3nX6dVyA=;
- b=Fp7i4V/eOX6IhHuA14XXtTanknN8Y76o3kmMhbZUtog+mOGMjYrexwuiYKbkDcxUi9
- vQScxp9MaE0s19345coQM4gxHl+ChvaIyrUiWnseqZHITdzUDw3qQSghJrKCOZEK/1KA
- zgc5fBUYrHRkx6Ar5X74y09cS2d+FUqtWc84NGVMJYInqWq37fU29dVWlfjspv4cFBsU
- GdWu/08/EiN+uvJdYei5qmpZMYBg78OKv4Tv5x9QdoHgWHPEgxIJqPO7VEhynj9fkfTJ
- YGj8A2umI7k5jrX6PQmPVED7D6LNhuj6lzYiotj65un3MBTCAkOnMFd4WVvpImrw57mn
- TM7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772761870; x=1773366670;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=LBdiOYK9OqacwkN82GElrUr530ZKa03hWcr3nX6dVyA=;
- b=WCH9GKOJTTiBSLv9uwbq/oxNseQ43DO0TUFjvTIxhODVJsbuZxI06gbAQXtuHHAJuI
- 3AqKHmLHp/6EWttU1jHaInpHe7rWR90YhBgO1Q0Z7kbh67fF59OZ+4lo26WGi626a29h
- eLX3W50ydWR5WyW4Ja2rN8KcE6vKFtN2ssI6P858kRhOznCe7/+1JJW1UYpDvnm8LQwg
- f+iS5WfKJMoifOwbenBl94PllwfOLB4LuVmP3/uB2Puqf7lIqMuAnLwHS/383mwdXBmM
- XEK9raXBiuLldV6YKlQi6Spa4a4HZFPUqwb/yNOA8XpQUGJ3yctmrv13IGYdj4FpmKnv
- JIbg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWtNwNNw0zYrwt5NdFno1BfAJ4mosyiBF22Hc2l6XCSkkF5facPnyhkhehFf7xEJFhOQIIvSYo+@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YydmLlsAKn0fLZRuCaxxVH1CvGAO3gLPGE7DhFfJrWPHW1iwvAG
- TJThYA9ulJyK0gVPD55M2JhDBIFXF4n5P1waVl2eFWXr7iF1wTVNukmk
-X-Gm-Gg: ATEYQzwLvAO98/1iE0Q9UrpLcrLhNNHdSWlMG2lxs9kni2elB+cp8OQ8WMIeXltxXNu
- hWhpDPsuAwioveVrTlFLYYXcYv2efayiTo3jxX+hI+cOZgPPwAq4Xi5RESZbFJ0S9ScdyoapwOH
- o7tgF8uSh5ihNZPGftEqrMEUMTfv2WKj3tnrI8TqcIthGAo18e58qe93850NAe9jmpvAwqTYnh2
- X7tK7A6zF480kNCl0eFJXIAJw2vkDQowQFzUsXMsWau+aS6HnNz0fAQMdTgxbWrXpBDDz2SFozQ
- ByQ0fuQoq/1hDjX7tPwGMsC2n1tXqBzKiY1j5kg9Gr3CdtpO0taAwCcOx8wURdPLPSTV9JAuv9c
- Y2oQDNB1GBJ63nevVCie2TaFfVfFYSTL42w9zX6n3PxEQD3beLt+po8SPNl/WKEYaRwNmBvirDl
- ohI4p/RiIAbSsQokiD/O07klcl+TOBATB6bO0qP1KrumG7TZwl
-X-Received: by 2002:a05:6820:198e:b0:672:fec8:e61 with SMTP id
- 006d021491bc7-67b9bcc0fabmr433464eaf.32.1772761870142; 
- Thu, 05 Mar 2026 17:51:10 -0800 (PST)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.51.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 17:51:09 -0800 (PST)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, Jason Baron <jbaron@akamai.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Josh Poimboeuf <jpoimboe@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: [RFC PATCH 4/7] dyndbg: use static-key queueing API in dynamic-debug
-Date: Thu,  5 Mar 2026 18:50:07 -0700
-Message-ID: <20260306015022.1940986-5-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
-References: <20260306015022.1940986-1-jim.cromie@gmail.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C401110EBED;
+ Thu,  5 Mar 2026 14:21:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772720457; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=P6Ab/CO2RX/Ij6HTnhUdk7Vi3IaxcW/ASI/OzvFno2IkKXgf17mm23Hv2utnVAMtLABwmIS3QbEeXp3qkfz064n0GFwrLHOiAh8JGYJaJJe1wz7cQXH3SIiC5or+XqBModqeWt7jrN2+bI/jRehzO+/nQNfqQvNOU9qLcuKfzos=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1772720457;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=MC7m65enPeoK56w15mZU/jnX37Exa8SW0qeHJO7INHM=; 
+ b=IbF+hPqBjiHa1U5idtGcjUxqoqzEebZsa1uZG3WG+MsOS17Mss+iaEkCuYqbWI/Svv2tkeqBNipHZn+xkmEhfcE021KG/+oFI41FDrnuFvxHEpHrEd9lgtIovgfIa1so3L8n6TCoocp+duIN4EvtyGcdIvysCMNr1KB/4vwyWjM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772720457; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=MC7m65enPeoK56w15mZU/jnX37Exa8SW0qeHJO7INHM=;
+ b=eqEZysvQEPWC8iTQU94OHwQITkU39XmlfsXjjcItuJDjbD1TWXDrvTnsZR81tLpU
+ HyN42Ybv2V2uzHtL98xYo+DJ/hsC8JAemhBtXi/A3WEqpJItsopg53sKL6Ve5mi35rY
+ +VrKlSkg27Y6yUjPvoXxaDSLpOY5wbEA0ANlgskI=
+Received: by mx.zohomail.com with SMTPS id 1772720455361273.8151288498693;
+ Thu, 5 Mar 2026 06:20:55 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Thu, 05 Mar 2026 15:19:33 +0100
+Subject: [PATCH v10 07/22] drm/display: hdmi-state-helper: Try subsampling
+ in mode_valid
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260305-color-format-v10-7-a58c68a11868@collabora.com>
+References: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
+In-Reply-To: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Rob Herring <robh@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 06 Mar 2026 08:52:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,88 +90,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use the new static-key queueing API in dynamic-debug
+drm_hdmi_connector_mode_valid assumes modes are only valid if they work
+with RGB. The reality is more complex however: YCbCr 4:2:0
+chroma-subsampled modes only require half the pixel clock that the same
+mode would require in RGB.
 
-function _get_cal_count() {
-    # Sum all CPU columns for the 'CAL' (Function call interrupts) line
-    grep CAL /proc/interrupts | awk '{ sum=0; for(i=2; i<NF-2; i++) sum+=$i; print sum }'
-}
-function ddcmdq () {
-    local cal_before=$(_get_cal_count)
-    echo $* > /proc/dynamic_debug/control
-    local cal_after=$(_get_cal_count)
-    printf "Delta-CAL (IPI): %d\n" "$((cal_after - cal_before))"
-}
+This leads to drm_hdmi_connector_mode_valid rejecting perfectly valid
+420-only or 420-also modes.
 
-Before:
+Fix this by checking whether the mode is 420-capable first. If so, then
+proceed by checking it with DRM_OUTPUT_COLOR_FORMAT_YCBCR420 so long as
+the connector has legalized 420, otherwise error out. If the mode is not
+420-capable, check with RGB as was previously always the case.
 
-  #> ddcmdq +p
-  #> ddcmdq -p
-  ...
-  [   37.165860] virtqueue callback for 000000009e760656 (00000000011de1b1)
-  [   37.165952] virtiofs virtio0: virtio_fs_vq_done requests.0
-  [   37.166119] dyndbg: query 0: "-p" mod:*
-  Delta-CAL (IPI): 16154
-
-After:
-  ...
-  [   32.189131] dyndbg: batch desc: ffffffff89468028, static_key addr ffffffff89468050 (fbcon_startup:1032)
-  [   32.189225] dyndbg: batch desc: ffffffff89468060, static_key addr ffffffff89468088 (acpi_table_parse_entries_array:264)
-  [   32.189332] dyndbg: batch desc: ffffffff89468098, static_key addr ffffffff894680c0 (acpi_table_print_madt_entry:229)
-  Delta-CAL (IPI): 134
-
-Extra context:
-
-  #> wc /proc/dynamic_debug/control
-  1903 15092 185427 /proc/dynamic_debug/control
-  #> ddgrep dynamic_debug
-  lib/dynamic_debug.c:386 [dynamic_debug]ddebug_change =_ "batch desc: %px, static_key addr %px (%s:%d)\n"
-  lib/dynamic_debug.c:397 [dynamic_debug]ddebug_change =_ "applied queued updates to %d sites in total\n"
-  #> dmesg | grep queued
-  [   26.837520] dyndbg: applied queued updates to 1902 sites in total
-  [   26.837631] applying 1866 queued jump_labels
-
-The baseline has the 2 ratelimited patches cherry-picked in, so both
-of these numbers include whatever overhead is caused by virtio and
-dynamic-debugs pr_debug()s.
-
-Cc: Jason Baron <jbaron@akamai.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Fixes: 47368ab437fd ("drm/display: hdmi: add generic mode_valid helper")
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- lib/dynamic_debug.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index aa16782bc93b..e555a8dbdc27 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -371,10 +371,12 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- #ifdef CONFIG_JUMP_LABEL
- 			if (dp->flags & _DPRINTK_FLAGS_PRINT) {
- 				if (!(newflags & _DPRINTK_FLAGS_PRINT))
--					static_branch_disable(&dp->key.dd_key_true);
-+					static_branch_disable_queued(&dp->key.dd_key_true);
- 			} else if (newflags & _DPRINTK_FLAGS_PRINT) {
--				static_branch_enable(&dp->key.dd_key_true);
-+				static_branch_enable_queued(&dp->key.dd_key_true);
- 			}
-+			pr_debug("batch desc: %px, static_key addr %px (%s:%d)\n",
-+				 dp, &dp->key.dd_key_true, dp->function, dp->lineno);
- #endif
- 			v4pr_info("changed %s:%d [%s]%s %s => %s\n",
- 				  trim_prefix(dp->filename), dp->lineno,
-@@ -384,6 +386,8 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- 			dp->flags = newflags;
- 		}
- 	}
-+	pr_debug("applied queued updates to %d sites in total\n", nfound);
-+	static_key_apply_queued();
- 	mutex_unlock(&ddebug_lock);
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index 954f8b2973fc..5cc30da30989 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -942,8 +942,21 @@ drm_hdmi_connector_mode_valid(struct drm_connector *connector,
+ 			      const struct drm_display_mode *mode)
+ {
+ 	unsigned long long clock;
++	enum drm_output_color_format fmt;
++
++	if (drm_mode_is_420_only(&connector->display_info, mode)) {
++		if (connector->ycbcr_420_allowed)
++			fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR420;
++		else
++			return MODE_NO_420;
++	} else if (drm_mode_is_420_also(&connector->display_info, mode) &&
++		   connector->ycbcr_420_allowed) {
++		fmt = DRM_OUTPUT_COLOR_FORMAT_YCBCR420;
++	} else {
++		fmt = DRM_OUTPUT_COLOR_FORMAT_RGB444;
++	}
  
- 	return nfound;
+-	clock = drm_hdmi_compute_mode_clock(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444);
++	clock = drm_hdmi_compute_mode_clock(mode, 8, fmt);
+ 	if (!clock)
+ 		return MODE_ERROR;
+ 
+
 -- 
 2.53.0
 
