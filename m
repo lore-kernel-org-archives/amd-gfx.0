@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA975F01812
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:52:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 565FDF01815
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:52:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2869110E3C3;
-	Fri,  6 Mar 2026 08:52:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E98710E3CC;
+	Fri,  6 Mar 2026 08:52:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="is8+uHEu";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="L9qy768h";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4906810EC05;
- Thu,  5 Mar 2026 14:22:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1772720515; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31C7F10EC22;
+ Thu,  5 Mar 2026 14:22:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772720537; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=n9EMgC8XgE6bCoG1njTvCTNnR3WHQ+sYtTnEjTJaP38WBwKMpYcSihFl0hkTV59MUqtK7MA4aLn4eunKVReTLsWsOh9FfM8vkqFtQJ/mVzs5wHk0x4ArPATyR+pCogAD7LEg1kM/Wg4UHJvX24HaGAPgD3HsQeRvQ87WGDb3hnY=
+ b=bYYD0NTg34/jXorGg8cGrdZrmldRnCl8YYCOEZtnWNuPCrkInj3BX+ohbTPuqhGHMkYDUJ2rlsvxQgFTs+FhBD9iUcrJwnU1K8UKF4l7tZFXBICEv7IXk42rMGUomue2cDLaDkj+jH+d9P+U2LIEphOb1rza5cjGfDGPnU3yYJk=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1772720515;
+ s=zohoarc; t=1772720537;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=aAKo1twm4zvOU57OmqnMmeCHmOgUWQwHKdY/derPNZ0=; 
- b=XCfqwq25Kq7yhtXNxnbaJGAmL0cLuCMGVqckBLH6Eyt5Ii1rWPFeW771+r3G0H8ZcxfEqIv6ozakMn0wC7yYnNUzubPAnF94OVWvNES3ZJT9D6Xv+JJaDMPGhjQ/NdGp/Ls/APR+hkm5jtPPpyjovzi6lenPI2Cog2mHSISPeYI=
+ bh=oBUEH9z6fnnMMO3qVEtl/mVjCKKVwrQw2lUD6hVHl4g=; 
+ b=JuWqmp6LTP9JCkHWUYVgiqly8dXbRUXAsxeNYSdU6+U8mfIS6VwTHX+hKBaTAzAiHgSlC2mBhAz5VRqYCt+PjIZFxn4fK+Sm5mu6CpUKccvtwDQtC1FS8bOdmTgxQ/BJz2FOJVY8eT2QloYy92fKS/0+Kw9rJ54vBtO5LvGUpxs=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772720515; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772720537; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=aAKo1twm4zvOU57OmqnMmeCHmOgUWQwHKdY/derPNZ0=;
- b=is8+uHEu/0jBLzXY8q1wCA5fhL66pg0RpHosYeejr9S69dfv9CYpoEZl7PAjlhe4
- c5rb2BeLkYFz2t6ERaS/I3RITiKRHO/fqTP/5SD7wBQZrLHxZ6PO/9NEyCd4k8W3QhE
- ke7PbUf35tGuOoWrw0/SXuVuX58/pGZi7Qw2Nim8=
-Received: by mx.zohomail.com with SMTPS id 17727205140834.031568916258038;
- Thu, 5 Mar 2026 06:21:54 -0800 (PST)
+ bh=oBUEH9z6fnnMMO3qVEtl/mVjCKKVwrQw2lUD6hVHl4g=;
+ b=L9qy768hIK54h8waXjNCEXVJFuRMzUBNWvD3NObfD2R0wKCTYcSQEWJREwLTidtW
+ k1J8AJjQ+owRAl8ZeZcdjPPrdavejLLab2sqMBeyxh3RS57GH0pvw2Yn1zf5XdIvzu2
+ fQ4Omsj4WiZ9fJo4cpo/B3LBaqjq+YTZjTwlQulg=
+Received: by mx.zohomail.com with SMTPS id 1772720535415974.8973045236457;
+ Thu, 5 Mar 2026 06:22:15 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Mar 2026 15:19:41 +0100
-Subject: [PATCH v10 15/22] drm/rockchip: dw_hdmi_qp: Implement "color
- format" DRM property
+Date: Thu, 05 Mar 2026 15:19:44 +0100
+Subject: [PATCH v10 18/22] drm/tests: hdmi: Add tests for the color_format
+ property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260305-color-format-v10-15-a58c68a11868@collabora.com>
+Message-Id: <20260305-color-format-v10-18-a58c68a11868@collabora.com>
 References: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
 In-Reply-To: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -89,223 +89,309 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Switch between requested color formats by setting the right bus formats,
-configuring the VO GRF registers, and setting the right output mode.
+Add some KUnit tests to check the color_format property is working as
+expected with the HDMI state helper.
 
-To do this, the encoder's atomic_check queries the bus format of the
-first bridge, which was determined by the bridge chain recursive format
-selection. Pick the input format if it's !FIXED, otherwise, pick the
-output format.
+Existing tests are extended to also test the
+DRM_CONNECTOR_COLOR_FORMAT_AUTO case, in order to avoid duplicating test
+cases. For the explicitly selected color format cases, parameterized
+tests are added.
 
-The previously unused GRF register color format defines are redone as
-well. Both RK3588 and RK3576 use the same defines; it didn't look like
-this as there was a typo in the previously (unused) definition.
-
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 107 ++++++++++++++++++++++---
- 1 file changed, 98 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 236 +++++++++++++++++++++
+ 1 file changed, 236 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 1a09bcc96c3e..e2fa1aa53394 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -11,6 +11,7 @@
- #include <linux/gpio/consumer.h>
- #include <linux/hw_bitfield.h>
- #include <linux/mfd/syscon.h>
-+#include <linux/media-bus-format.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/phy/phy.h>
-@@ -43,10 +44,6 @@
- #define RK3576_8BPC			0x0
- #define RK3576_10BPC			0x6
- #define RK3576_COLOR_FORMAT_MASK	GENMASK(7, 4)
--#define RK3576_RGB			0x9
--#define RK3576_YUV422			0x1
--#define RK3576_YUV444			0x2
--#define RK3576_YUV420			0x3
- #define RK3576_CECIN_MASK		BIT(3)
- 
- #define RK3576_VO0_GRF_SOC_CON14	0x0038
-@@ -74,8 +71,6 @@
- #define RK3588_8BPC			0x0
- #define RK3588_10BPC			0x6
- #define RK3588_COLOR_FORMAT_MASK	GENMASK(3, 0)
--#define RK3588_RGB			0x0
--#define RK3588_YUV420			0x3
- #define RK3588_SCLIN_MASK		BIT(9)
- #define RK3588_SDAIN_MASK		BIT(10)
- #define RK3588_MODE_MASK		BIT(11)
-@@ -87,6 +82,11 @@
- #define HOTPLUG_DEBOUNCE_MS		150
- #define MAX_HDMI_PORT_NUM		2
- 
-+#define RK_COLOR_FMT_RGB		0x0
-+#define RK_COLOR_FMT_YUV422		0x1
-+#define RK_COLOR_FMT_YUV444		0x2
-+#define RK_COLOR_FMT_YUV420		0x3
-+
- struct rockchip_hdmi_qp {
- 	struct device *dev;
- 	struct regmap *regmap;
-@@ -115,6 +115,33 @@ static struct rockchip_hdmi_qp *to_rockchip_hdmi_qp(struct drm_encoder *encoder)
- 	return container_of(rkencoder, struct rockchip_hdmi_qp, encoder);
+diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+index a4357efaa983..3444c93c615f 100644
+--- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+@@ -60,6 +60,23 @@ static struct drm_display_mode *find_preferred_mode(struct drm_connector *connec
+ 	return preferred;
  }
  
-+/**
-+ * dw_hdmi_qp_rockchip_bus_fmt_to_reg - converts a bus format to a GRF reg value
-+ * @bus_fmt: One of the MEDIA_BUS_FMT_s allowed by this driver's atomic_check
-+ *
-+ * Returns: an unshifted value to be written to the COLOR_FORMAT GRF register
-+ * on success, or %-EINVAL if the bus format is not supported.
-+ */
-+static int __pure dw_hdmi_qp_rockchip_bus_fmt_to_reg(u32 bus_fmt)
++static struct drm_display_mode *find_420_only_mode(struct drm_connector *connector)
 +{
-+	switch (bus_fmt) {
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+		return RK_COLOR_FMT_RGB;
-+	case MEDIA_BUS_FMT_UYVY8_1X16:
-+	case MEDIA_BUS_FMT_UYVY10_1X20:
-+		return RK_COLOR_FMT_YUV422;
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+		return RK_COLOR_FMT_YUV444;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+		return RK_COLOR_FMT_YUV420;
-+	}
++	struct drm_device *drm = connector->dev;
++	struct drm_display_mode *mode;
 +
-+	return -EINVAL;
++	mutex_lock(&drm->mode_config.mutex);
++	list_for_each_entry(mode, &connector->modes, head) {
++		if (drm_mode_is_420_only(&connector->display_info, mode)) {
++			mutex_unlock(&drm->mode_config.mutex);
++			return mode;
++		}
++	}
++	mutex_unlock(&drm->mode_config.mutex);
++
++	return NULL;
 +}
 +
- static void dw_hdmi_qp_rockchip_encoder_enable(struct drm_encoder *encoder)
+ static int set_connector_edid(struct kunit *test, struct drm_connector *connector,
+ 			      const void *edid, size_t edid_len)
  {
- 	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
-@@ -130,29 +157,83 @@ static void dw_hdmi_qp_rockchip_encoder_enable(struct drm_encoder *encoder)
- 		hdmi->ctrl_ops->enc_init(hdmi, to_rockchip_crtc_state(crtc->state));
+@@ -1547,6 +1564,7 @@ static void drm_test_check_max_tmds_rate_bpc_fallback_yuv420(struct kunit *test)
+  *   RGB/10bpc
+  * - The chosen mode has a TMDS character rate lower than the display
+  *   supports in YUV422/12bpc.
++ * - The HDMI connector state's color format property is unset (i.e. AUTO)
+  *
+  * Then we will prefer to keep the RGB format with a lower bpc over
+  * picking YUV422.
+@@ -1609,6 +1627,7 @@ static void drm_test_check_max_tmds_rate_bpc_fallback_ignore_yuv422(struct kunit
+ 
+ 	conn_state = conn->state;
+ 	KUNIT_ASSERT_NOT_NULL(test, conn_state);
++	KUNIT_ASSERT_EQ(test, conn_state->color_format, DRM_CONNECTOR_COLOR_FORMAT_AUTO);
+ 
+ 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_bpc, 10);
+ 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, DRM_OUTPUT_COLOR_FORMAT_RGB444);
+@@ -1626,6 +1645,7 @@ static void drm_test_check_max_tmds_rate_bpc_fallback_ignore_yuv422(struct kunit
+  *   RGB/8bpc
+  * - The chosen mode has a TMDS character rate lower than the display
+  *   supports in YUV420/12bpc.
++ * - The HDMI connector state's color format property is unset (i.e. AUTO)
+  *
+  * Then we will prefer to keep the RGB format with a lower bpc over
+  * picking YUV420.
+@@ -1687,6 +1707,7 @@ static void drm_test_check_max_tmds_rate_bpc_fallback_ignore_yuv420(struct kunit
+ 
+ 	conn_state = conn->state;
+ 	KUNIT_ASSERT_NOT_NULL(test, conn_state);
++	KUNIT_ASSERT_EQ(test, conn_state->color_format, DRM_CONNECTOR_COLOR_FORMAT_AUTO);
+ 
+ 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_bpc, 8);
+ 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, DRM_OUTPUT_COLOR_FORMAT_RGB444);
+@@ -2198,6 +2219,217 @@ static void drm_test_check_disable_connector(struct kunit *test)
+ 	drm_modeset_acquire_fini(&ctx);
  }
  
-+/**
-+ * dw_hdmi_qp_rockchip_get_vop_format - get the bus format VOP should output
-+ * @encoder: pointer to a &struct drm_encoder
-+ * @conn_state: pointer to the current atomic &struct drm_connector_state
-+ *
-+ * Determines which bus format the Rockchip video processor should output as
-+ * to feed into the bridge chain.
-+ *
-+ * Returns a MEDIA_BUS_FMT_* on success, or %0 on error.
++struct color_format_test_param {
++	enum drm_connector_color_format fmt;
++	enum drm_output_color_format expected;
++	int expected_ret;
++	const char *desc;
++};
++
++/* Test that if:
++ * - an HDMI connector supports RGB, YUV444, YUV422, and YUV420
++ * - the display supports RGB, YUV444, YUV422, and YUV420
++ * - the "color format" property is set
++ * then, for the preferred mode, for a given "color format" option:
++ * - DRM_CONNECTOR_COLOR_FORMAT_AUTO results in an output format of RGB
++ * - DRM_CONNECTOR_COLOR_FORMAT_YCBCR422 results in an output format of YUV422
++ * - DRM_CONNECTOR_COLOR_FORMAT_YCBCR420 results in an output format of YUV420
++ * - DRM_CONNECTOR_COLOR_FORMAT_YCBCR444 results in an output format of YUV444
++ * - DRM_CONNECTOR_COLOR_FORMAT_RGB results in an HDMI output format of RGB
 + */
-+static u32 dw_hdmi_qp_rockchip_get_vop_format(struct drm_encoder *encoder,
-+					      struct drm_connector_state *conn_state)
++static void drm_test_check_hdmi_color_format(struct kunit *test)
 +{
-+	struct drm_bridge *bridge __free(drm_bridge_put) = NULL;
-+	struct drm_bridge_state *bstate;
++	const struct color_format_test_param *param = test->param_value;
++	struct drm_atomic_helper_connector_hdmi_priv *priv;
++	struct drm_connector_state *conn_state;
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_crtc_state *crtc_state;
++	struct drm_atomic_state *state;
++	struct drm_display_info *info;
++	struct drm_display_mode *preferred;
++	int ret;
 +
-+	bridge = drm_bridge_chain_get_first_bridge(encoder);
-+	if (!bridge)
-+		return 0;
++	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
++				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
++				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420) |
++				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),
++				12,
++				&dummy_connector_hdmi_funcs,
++				test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
++	KUNIT_ASSERT_NOT_NULL(test, priv);
 +
-+	bstate = drm_atomic_get_bridge_state(conn_state->state, bridge);
-+	if (!bstate)
-+		return 0;
++	drm_modeset_acquire_init(&ctx, 0);
 +
-+	if (bstate->input_bus_cfg.format != MEDIA_BUS_FMT_FIXED)
-+		return bstate->input_bus_cfg.format;
++	KUNIT_ASSERT_TRUE(test, priv->connector.ycbcr_420_allowed);
 +
-+	return bstate->output_bus_cfg.format;
++	info = &priv->connector.display_info;
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, info);
++	preferred = find_preferred_mode(&priv->connector);
++	KUNIT_ASSERT_TRUE(test, drm_mode_is_420(info, preferred));
++
++	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++
++	conn_state = drm_atomic_get_connector_state(state, &priv->connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
++
++	conn_state->color_format = param->fmt;
++
++	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
++
++	ret = drm_atomic_set_mode_for_crtc(crtc_state, preferred);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	crtc_state->enable = true;
++	crtc_state->active = true;
++
++	ret = drm_atomic_check_only(state);
++	KUNIT_EXPECT_EQ(test, ret, param->expected_ret);
++	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, param->expected);
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
 +}
 +
- static int
- dw_hdmi_qp_rockchip_encoder_atomic_check(struct drm_encoder *encoder,
- 					 struct drm_crtc_state *crtc_state,
- 					 struct drm_connector_state *conn_state)
- {
--	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
- 	struct rockchip_crtc_state *s = to_rockchip_crtc_state(crtc_state);
-+	struct rockchip_hdmi_qp *hdmi = to_rockchip_hdmi_qp(encoder);
- 	union phy_configure_opts phy_cfg = {};
-+	u32 ingest_fmt;
- 	int ret;
- 
-+	ingest_fmt = dw_hdmi_qp_rockchip_get_vop_format(encoder, conn_state);
-+	if (!ingest_fmt)
-+		return -EINVAL;
++static const struct color_format_test_param hdmi_color_format_params[] = {
++	{
++		.fmt = DRM_CONNECTOR_COLOR_FORMAT_AUTO,
++		.expected = DRM_OUTPUT_COLOR_FORMAT_RGB444,
++		.expected_ret = 0,
++		.desc = "AUTO -> RGB"
++	},
++	{
++		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
++		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR422,
++		.expected_ret = 0,
++		.desc = "YCBCR422 -> YUV422"
++	},
++	{
++		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
++		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR420,
++		.expected_ret = 0,
++		.desc = "YCBCR420 -> YUV420"
++	},
++	{
++		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
++		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR444,
++		.expected_ret = 0,
++		.desc = "YCBCR444 -> YUV444"
++	},
++	{
++		.fmt = DRM_CONNECTOR_COLOR_FORMAT_RGB444,
++		.expected = DRM_OUTPUT_COLOR_FORMAT_RGB444,
++		.expected_ret = 0,
++		.desc = "RGB -> RGB"
++	},
++};
 +
- 	if (hdmi->tmds_char_rate == conn_state->hdmi.tmds_char_rate &&
--	    s->output_bpc == conn_state->hdmi.output_bpc)
-+	    s->output_bpc == conn_state->hdmi.output_bpc &&
-+	    s->bus_format == ingest_fmt)
- 		return 0;
- 
-+	switch (ingest_fmt) {
-+	case MEDIA_BUS_FMT_RGB888_1X24:
-+	case MEDIA_BUS_FMT_RGB101010_1X30:
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
-+		break;
-+	case MEDIA_BUS_FMT_UYVY8_1X16:
-+		s->output_mode = ROCKCHIP_OUT_MODE_YUV422;
-+		break;
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+		s->output_mode = ROCKCHIP_OUT_MODE_YUV420;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
++KUNIT_ARRAY_PARAM_DESC(check_hdmi_color_format, hdmi_color_format_params, desc);
 +
- 	phy_cfg.hdmi.tmds_char_rate = conn_state->hdmi.tmds_char_rate;
- 	phy_cfg.hdmi.bpc = conn_state->hdmi.output_bpc;
- 
- 	ret = phy_configure(hdmi->phy, &phy_cfg);
- 	if (!ret) {
- 		hdmi->tmds_char_rate = conn_state->hdmi.tmds_char_rate;
--		s->output_mode = ROCKCHIP_OUT_MODE_AAAA;
- 		s->output_type = DRM_MODE_CONNECTOR_HDMIA;
- 		s->output_bpc = conn_state->hdmi.output_bpc;
-+		s->bus_format = ingest_fmt;
- 	} else {
- 		dev_err(hdmi->dev, "Failed to configure phy: %d\n", ret);
- 	}
-@@ -382,6 +463,7 @@ static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
- static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
- 				       struct rockchip_crtc_state *state)
- {
-+	int color = dw_hdmi_qp_rockchip_bus_fmt_to_reg(state->bus_format);
- 	u32 val;
- 
- 	if (state->output_bpc == 10)
-@@ -389,12 +471,16 @@ static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
- 	else
- 		val = FIELD_PREP_WM16(RK3576_COLOR_DEPTH_MASK, RK3576_8BPC);
- 
-+	if (likely(color >= 0))
-+		val |= FIELD_PREP_WM16(RK3576_COLOR_FORMAT_MASK, color);
++/* Test that if:
++ * - the HDMI connector supports RGB, YUV422, YUV420, and YUV444
++ * - the display has a YUV420-only mode
++ * - the "color format" property is explicitly set (i.e. !AUTO)
++ * then:
++ * - color format DRM_CONNECTOR_COLOR_FORMAT_RGB444 will fail
++ *   drm_atomic_check_only for the YUV420-only mode with -EINVAL
++ * - color format DRM_CONNECTOR_COLOR_FORMAT_YCBCR444 will fail
++ *   drm_atomic_check_only for the YUV420-only mode with -EINVAL
++ * - color format DRM_CONNECTOR_COLOR_FORMAT_YCBCR422 will fail
++ *   drm_atomic_check_only for the YUV420-only mode with -EINVAL
++ * - color format DRM_CONNECTOR_COLOR_FORMAT_YCBCR420 passes
++ *   drm_atomic_check_only for the YUV420-only mode
++ */
++static void drm_test_check_hdmi_color_format_420_only(struct kunit *test)
++{
++	const struct color_format_test_param *param = test->param_value;
++	struct drm_atomic_helper_connector_hdmi_priv *priv;
++	struct drm_connector_state *conn_state;
++	struct drm_modeset_acquire_ctx ctx;
++	struct drm_crtc_state *crtc_state;
++	struct drm_atomic_state *state;
++	struct drm_display_mode *dank;
++	int ret;
 +
- 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON8, val);
- }
- 
- static void dw_hdmi_qp_rk3588_enc_init(struct rockchip_hdmi_qp *hdmi,
- 				       struct rockchip_crtc_state *state)
- {
-+	int color = dw_hdmi_qp_rockchip_bus_fmt_to_reg(state->bus_format);
- 	u32 val;
- 
- 	if (state->output_bpc == 10)
-@@ -402,6 +488,9 @@ static void dw_hdmi_qp_rk3588_enc_init(struct rockchip_hdmi_qp *hdmi,
- 	else
- 		val = FIELD_PREP_WM16(RK3588_COLOR_DEPTH_MASK, RK3588_8BPC);
- 
-+	if (likely(color >= 0))
-+		val |= FIELD_PREP_WM16(RK3588_COLOR_FORMAT_MASK, color);
++	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
++				BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
++				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420) |
++				BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),
++				12,
++				&dummy_connector_hdmi_funcs,
++				test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
++	KUNIT_ASSERT_NOT_NULL(test, priv);
 +
- 	regmap_write(hdmi->vo_regmap,
- 		     hdmi->port_id ? RK3588_GRF_VO1_CON6 : RK3588_GRF_VO1_CON3,
- 		     val);
++	drm_modeset_acquire_init(&ctx, 0);
++
++	dank = find_420_only_mode(&priv->connector);
++	KUNIT_ASSERT_NOT_NULL(test, dank);
++
++	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
++
++	conn_state = drm_atomic_get_connector_state(state, &priv->connector);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
++
++	conn_state->color_format = param->fmt;
++
++	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
++
++	ret = drm_atomic_set_mode_for_crtc(crtc_state, dank);
++	KUNIT_ASSERT_EQ(test, ret, 0);
++
++	crtc_state->enable = true;
++	crtc_state->active = true;
++
++	ret = drm_atomic_check_only(state);
++	KUNIT_EXPECT_EQ(test, ret, param->expected_ret);
++	if (!param->expected_ret)
++		KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, param->expected);
++
++	drm_modeset_drop_locks(&ctx);
++	drm_modeset_acquire_fini(&ctx);
++};
++
++static const struct color_format_test_param hdmi_color_format_420_only_params[] = {
++	{
++		.fmt = DRM_CONNECTOR_COLOR_FORMAT_RGB444,
++		.expected = DRM_OUTPUT_COLOR_FORMAT_RGB444,
++		.expected_ret = -EINVAL,
++		.desc = "RGB should fail"
++	},
++	{
++		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR444,
++		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR444,
++		.expected_ret = -EINVAL,
++		.desc = "YUV444 should fail"
++	},
++	{
++		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR422,
++		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR422,
++		.expected_ret = -EINVAL,
++		.desc = "YUV422 should fail"
++	},
++	{
++		.fmt = DRM_CONNECTOR_COLOR_FORMAT_YCBCR420,
++		.expected = DRM_OUTPUT_COLOR_FORMAT_YCBCR420,
++		.expected_ret = 0,
++		.desc = "YUV420 should work"
++	},
++};
++
++KUNIT_ARRAY_PARAM_DESC(check_hdmi_color_format_420_only,
++		       hdmi_color_format_420_only_params, desc);
++
+ static struct kunit_case drm_atomic_helper_connector_hdmi_check_tests[] = {
+ 	KUNIT_CASE(drm_test_check_broadcast_rgb_auto_cea_mode),
+ 	KUNIT_CASE(drm_test_check_broadcast_rgb_auto_cea_mode_vic_1),
+@@ -2227,6 +2459,10 @@ static struct kunit_case drm_atomic_helper_connector_hdmi_check_tests[] = {
+ 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_8bpc),
+ 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_10bpc),
+ 	KUNIT_CASE(drm_test_check_tmds_char_rate_rgb_12bpc),
++	KUNIT_CASE_PARAM(drm_test_check_hdmi_color_format,
++			 check_hdmi_color_format_gen_params),
++	KUNIT_CASE_PARAM(drm_test_check_hdmi_color_format_420_only,
++			 check_hdmi_color_format_420_only_gen_params),
+ 	/*
+ 	 * TODO: We should have tests to check that a change in the
+ 	 * format triggers a CRTC mode change just like we do for the
 
 -- 
 2.53.0
