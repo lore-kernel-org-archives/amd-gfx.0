@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A515F01819
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 776ADF01818
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BA2F10E3E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4090110E3D4;
 	Fri,  6 Mar 2026 08:52:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="H7WdE1Oa";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="TQi+jJZe";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D93A10EC1D;
- Thu,  5 Mar 2026 14:22:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1772720529; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C468310E2A7;
+ Thu,  5 Mar 2026 14:21:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1772720473; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=b0q9E4wq2mNbgSQiZD3SluDyaqtPFkFeWWekgjflKjnHj1yDQHg2gSHgJ04CtRFwERTkoKynbcuURNoDTxh+EcpcR1/+sw1jqIJMlvFwWPtrsCLS/VI4ZOYsQoHcRJypsys3xBQENeDK3jK5ba0J29gdssC66iGmJsd0kGvzTc8=
+ b=j2EmzwmcCS2qEO3IKqK8IICh9uOajfL/yzUBQQSb/6lmGqX5jRmT47X9jr+XdspqDmZntyGPR9h2zxyk2nM1rzqY9cYvlPQ8NCFNcxZwo0OBJ7r2bgWAdaGEzUiyQi96EENk6znMSacb45PnyKpJYM7Wlb/+nnZP53mAffJdle0=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1772720529;
+ s=zohoarc; t=1772720473;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=d1yMthHYWepKMoQtIRkHnB54WfQr2uBE10YWq40qjiM=; 
- b=fvDXAD+lUcv/CRIGv2Y5p70iR7f0xaFXgHtwNsGLr2ZNMdPnxgaiyn2uglIEIYKibxFxS5Jwz737fXcmmqc0gvC0p52k/znEt2QrbTWF1sbgJmmt2Kw337HkCMoJ5xPPR68ZYbcx2qcOxQjnHRIdZiAIhFmkIPpZ+zHe3fZuwlU=
+ bh=pn+SoHgacHChoX2xxNQ92MG31pkzN6YnfiEZQA7SDbE=; 
+ b=eCw2OFSAwFyQYjKaBQFOjBwfFEk2tPVH8UnRh9d8DNrQsIxDeX7Etmr0cGHXnZfWjGbLmRuKeG84K3xhbrMUWX9x0IO3oQUVwE/8gNXoegoDJT8BgEnMJk7ygYjcuNrS4Uj8kwo6csmpuJYqdKhGag0bq536WCSdGX7HxHFbt9I=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772720529; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1772720473; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=d1yMthHYWepKMoQtIRkHnB54WfQr2uBE10YWq40qjiM=;
- b=H7WdE1Oa1r/0OZTcKQ1wUuH1dicilIjRgTW+qy8nnCxkTjfkCTnBQCnkMVoo7Ul6
- OuBvQUxo3ojid/zzKQ7GbXOuHfmnQzFOVTLFBuExt7VTF89+VKpHqy6OBWD4wRwUiqK
- 6QnwN4v+JV2KhgrAmaX1XSJs/tujyU8k92R0euAU=
-Received: by mx.zohomail.com with SMTPS id 1772720528297844.6772673115894;
- Thu, 5 Mar 2026 06:22:08 -0800 (PST)
+ bh=pn+SoHgacHChoX2xxNQ92MG31pkzN6YnfiEZQA7SDbE=;
+ b=TQi+jJZey/34oJSVCHuM2f/jqPhbPHO6LOzNXi2gNykQuRIz6hf1ptj2bUTFISeb
+ 0fq4I+qSmpyaIOU5dm5nYygjoHq4+6tzj9svqfmAOJrBqR6GXNWtixKzVQsN4/4EyGi
+ JWaXhzAbAYyzFW7TkhNtQDTMz1U/9Haw9pzdaMko=
+Received: by mx.zohomail.com with SMTPS id 1772720470856454.6109095815931;
+ Thu, 5 Mar 2026 06:21:10 -0800 (PST)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Thu, 05 Mar 2026 15:19:43 +0100
-Subject: [PATCH v10 17/22] drm/connector: Register color format property on
- HDMI connectors
+Date: Thu, 05 Mar 2026 15:19:35 +0100
+Subject: [PATCH v10 09/22] drm/amdgpu: Implement "color format" DRM
+ property
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260305-color-format-v10-17-a58c68a11868@collabora.com>
+Message-Id: <20260305-color-format-v10-9-a58c68a11868@collabora.com>
 References: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
 In-Reply-To: <20260305-color-format-v10-0-a58c68a11868@collabora.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -72,7 +72,9 @@ Cc: kernel@collabora.com, amd-gfx@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-doc@vger.kernel.org, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Werner Sembach <wse@tuxedocomputers.com>, 
+ Andri Yngvason <andri@yngvason.is>, Marius Vlad <marius.vlad@collabora.com>
 X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 06 Mar 2026 08:52:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,33 +91,198 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The drmm_connector_hdmi_init function can figure out what DRM color
-formats are supported by a particular connector based on the supported
-HDMI format bitmask that's passed in.
+The "color format" DRM property allows userspace to explicitly pick a
+color format to use. If an unsupported color format is requested,
+userspace will be given an error instead of silently having its request
+disobeyed.
 
-Use it to register the drm color format property.
+The default case, which is AUTO, picks YCbCr 4:2:0 if it's a 4:2:0-only
+mode, and RGB in all other cases.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Co-developed-by: Werner Sembach <wse@tuxedocomputers.com>
+Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
+Co-developed-by: Andri Yngvason <andri@yngvason.is>
+Signed-off-by: Andri Yngvason <andri@yngvason.is>
+Co-developed-by: Marius Vlad <marius.vlad@collabora.com>
+Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 88 +++++++++++++++++++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 11 +++
+ 2 files changed, 89 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index e848374dee0b..724245d2df29 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -627,6 +627,10 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- 	if (max_bpc > 8)
- 		drm_connector_attach_hdr_output_metadata_property(connector);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 6eac9a273f87..da8b93d5afc3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6700,11 +6700,14 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	const struct dc_stream_state *old_stream,
+ 	int requested_bpc)
+ {
++	bool is_dp_or_hdmi = dc_is_hdmi_signal(stream->signal) || dc_is_dp_signal(stream->signal);
+ 	struct dc_crtc_timing *timing_out = &stream->timing;
+ 	const struct drm_display_info *info = &connector->display_info;
+ 	struct amdgpu_dm_connector *aconnector = NULL;
+ 	struct hdmi_vendor_infoframe hv_frame;
+ 	struct hdmi_avi_infoframe avi_frame;
++	bool want_420;
++	bool want_422;
+ 	ssize_t err;
  
-+	ret = drm_connector_attach_color_format_property(connector, supported_formats);
-+	if (ret)
-+		return ret;
+ 	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
+@@ -6717,20 +6720,41 @@ static void fill_stream_properties_from_drm_display_mode(
+ 	timing_out->h_border_right = 0;
+ 	timing_out->v_border_top = 0;
+ 	timing_out->v_border_bottom = 0;
+-	/* TODO: un-hardcode */
+-	if (drm_mode_is_420_only(info, mode_in) ||
+-	    (aconnector && aconnector->force_yuv420_output &&
+-	     drm_mode_is_420_also(info, mode_in)))
 +
- 	connector->hdmi.funcs = hdmi_funcs;
++	want_420 = (aconnector && aconnector->force_yuv420_output) ||
++		   (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR420);
++	want_422 = (aconnector && aconnector->force_yuv422_output) ||
++		   (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR422);
++
++	if (drm_mode_is_420_only(info, mode_in) &&
++	    (want_420 || connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO)) {
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
+-			&& aconnector
+-			&& aconnector->force_yuv422_output)
++	} else if (drm_mode_is_420_also(info, mode_in) && want_420) {
++		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
++	} else if ((info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422)) &&
++		   want_422 && is_dp_or_hdmi) {
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR422;
+-	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
+-			&& stream->signal == SIGNAL_TYPE_HDMI_TYPE_A)
++	} else if (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_YCBCR444 &&
++		   (info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)) &&
++		   is_dp_or_hdmi) {
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
+-	else
++	} else if (connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_RGB444 ||
++		   connector_state->color_format == DRM_CONNECTOR_COLOR_FORMAT_AUTO) {
+ 		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
++	} else {
++		/*
++		 * If a format was explicitly requested but the requested format
++		 * can't be satisfied, set it to an invalid value so that an
++		 * error bubbles up to userspace. This way, userspace knows it
++		 * needs to make a better choice.
++		 */
++		if (connector_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO)
++			timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
++		else if (drm_mode_is_420_only(info, mode_in))
++			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
++		else
++			timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
++	}
  
- 	return 0;
+ 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
+ 	timing_out->display_color_depth = convert_color_depth_from_display_info(
+@@ -8080,6 +8104,38 @@ static enum dc_status dm_validate_stream_and_context(struct dc *dc,
+ 	return dc_result;
+ }
+ 
++static enum dc_status
++dm_validate_stream_color_format(const struct drm_connector_state *drm_state,
++				const struct dc_stream_state *stream)
++{
++	enum dc_pixel_encoding encoding;
++
++	if (!drm_state->color_format)
++		return DC_OK;
++
++	switch (drm_state->color_format) {
++	case DRM_CONNECTOR_COLOR_FORMAT_AUTO:
++	case DRM_CONNECTOR_COLOR_FORMAT_RGB444:
++		encoding = PIXEL_ENCODING_RGB;
++		break;
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR444:
++		encoding = PIXEL_ENCODING_YCBCR444;
++		break;
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR422:
++		encoding = PIXEL_ENCODING_YCBCR422;
++		break;
++	case DRM_CONNECTOR_COLOR_FORMAT_YCBCR420:
++		encoding = PIXEL_ENCODING_YCBCR420;
++		break;
++	default:
++		encoding = PIXEL_ENCODING_UNDEFINED;
++		break;
++	}
++
++	return encoding == stream->timing.pixel_encoding ?
++		DC_OK : DC_UNSUPPORTED_VALUE;
++}
++
+ struct dc_stream_state *
+ create_validate_stream_for_sink(struct drm_connector *connector,
+ 				const struct drm_display_mode *drm_mode,
+@@ -8126,6 +8182,9 @@ create_validate_stream_for_sink(struct drm_connector *connector,
+ 		if (dc_result == DC_OK)
+ 			dc_result = dm_validate_stream_and_context(adev->dm.dc, stream);
+ 
++		if (dc_result == DC_OK)
++			dc_result = dm_validate_stream_color_format(drm_state, stream);
++
+ 		if (dc_result != DC_OK) {
+ 			drm_dbg_kms(connector->dev, "Pruned mode %d x %d (clk %d) %s %s -- %s\n",
+ 				      drm_mode->hdisplay,
+@@ -8949,6 +9008,12 @@ static const u32 supported_colorspaces =
+ 	BIT(DRM_MODE_COLORIMETRY_BT2020_RGB) |
+ 	BIT(DRM_MODE_COLORIMETRY_BT2020_YCC);
+ 
++static const u32 supported_colorformats =
++	BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
++
+ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 				     struct amdgpu_dm_connector *aconnector,
+ 				     int connector_type,
+@@ -9070,6 +9135,9 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 
+ 		if (adev->dm.hdcp_workqueue)
+ 			drm_connector_attach_content_protection_property(&aconnector->base, true);
++
++		drm_connector_attach_color_format_property(&aconnector->base,
++							   supported_colorformats);
+ 	}
+ 
+ 	if (connector_type == DRM_MODE_CONNECTOR_eDP) {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 7be50e8c0636..e9a2d0f8fdf4 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -52,6 +52,12 @@
+ 
+ #define PEAK_FACTOR_X1000 1006
+ 
++static const u32 supported_colorformats =
++	BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
++	BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420);
++
+ /*
+  * This function handles both native AUX and I2C-Over-AUX transactions.
+  */
+@@ -679,6 +685,11 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
+ 	if (connector->max_bpc_property)
+ 		drm_connector_attach_max_bpc_property(connector, 8, 16);
+ 
++	connector->color_format_property = master->base.color_format_property;
++	if (connector->color_format_property)
++		drm_connector_attach_color_format_property(&aconnector->base,
++							   supported_colorformats);
++
+ 	connector->vrr_capable_property = master->base.vrr_capable_property;
+ 	if (connector->vrr_capable_property)
+ 		drm_connector_attach_vrr_capable_property(connector);
 
 -- 
 2.53.0
