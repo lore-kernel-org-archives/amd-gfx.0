@@ -4,69 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 157ADF01835
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC6C5F01838
 	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 14:00:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88F9610ED41;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A17CB10ED48;
 	Fri,  6 Mar 2026 14:00:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="Upy2xTSI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k8bsKCJl";
 	dkim-atps=neutral
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.63.162])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E988310E3C3
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 08:48:35 +0000 (UTC)
-Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
- by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4fS0Rt13H7z3yXr;
- Fri,  6 Mar 2026 09:48:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1772786906;
- bh=iYLAWAqdJS4uUCqz0qr0sNxQmBz2NGF4XjSuVdETqJA=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Upy2xTSIGa9ztyLpv1LwNlaHFB5DRcFXGhOULIAz4kFQBb91QBa1jt0NguMvaPdZv
- Q4y2M9ZzWx/05xh1ZFbINr/jWLpfWN++oktBam3sqXVm6cv/wgMIHvDqHY2zOmbp/I
- tSGYhACxP0DQy21qPNLkL96FC/nHzD0TJC79fKinDotaN4V/mcelBIsdi580c894Y5
- yOv1m6QzdLlqkM5v0MxWCsZmyVOBUGfqs2wxkigStO4CWcWGtWUv2QfiqHhwnJ6Wos
- QQGW+wuHJXza00jqwJGx1m9HjL4y7IMMLG7WU5RCfecpzAX85ADkAZPrnSyQO6DHUH
- 8hYtlUrPxP3KA==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4fS0Rt0Jcsz3yVW;
- Fri,  6 Mar 2026 09:48:26 +0100 (CET)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4fS0Rr53PXz8sgW;
- Fri,  6 Mar 2026 09:48:24 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id D60D0633EC;
- Fri,  6 Mar 2026 09:48:23 +0100 (CET)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <c78f97a1-a9ba-4d63-a22b-f9ff8f240ba0@leemhuis.info>
-Date: Fri, 6 Mar 2026 09:48:22 +0100
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A195A10E1EC
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 12:44:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1772801061; x=1804337061;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=Tq1d43LGzegHgS7nbs7ynJ8NqJPbG38gDZGWn7nBmhU=;
+ b=k8bsKCJlcHdl38VS0SQaNeWvdFRSVfeCNuSYUPfyF/wMb7ng5JB3pguW
+ /XkgmFgWLPtWQ6PjdG4VFrec2ZoY3TVKo5z0cVJXY/vV00AWniEFdcodN
+ EiR51z1Llz1J22EKevkwph14FM9QCdieMtvBXZ7rfyHfOvmjyoO7gM7ro
+ i+z+0aGV+FQ+OIPTC691b9dN//0WWZKjpha8sYxbwJGBkpp9wJWM9pCvT
+ ReVd4Zq+6Ro6hJiM7vPAaVLvjJuUNtKmcsU2oYNb1L6S5UM0+p6hiYT4S
+ NqPhH5JtQ1Uk+xfmv1Z/d22AS8osey84VTfTLvTPeiSp86+uP/tFzdWR7 w==;
+X-CSE-ConnectionGUID: MqPn0K7XRuegvOwL8zefhg==
+X-CSE-MsgGUID: SBWX+V7SQ92yA/JLfX8XSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11720"; a="77777582"
+X-IronPort-AV: E=Sophos;i="6.23,104,1770624000"; d="scan'208";a="77777582"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2026 04:44:20 -0800
+X-CSE-ConnectionGUID: OtofVhFTTyOSIeT4q7K2KA==
+X-CSE-MsgGUID: MGdmFMJNQ6aArM44PPNKoA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,104,1770624000"; d="scan'208";a="223123793"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.235])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2026 04:44:16 -0800
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 6 Mar 2026 14:44:12 +0200 (EET)
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+cc: Linux ACPI <linux-acpi@vger.kernel.org>, 
+ LKML <linux-kernel@vger.kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH v1 9/9] ACPI: AC: Define ACPI_AC_CLASS in one place
+In-Reply-To: <2787819.X9hSmTKtgW@rafael.j.wysocki>
+Message-ID: <ba409fad-7b2e-6fb1-eeee-8d9cacf4cb74@linux.intel.com>
+References: <4505861.ejJDZkT8p0@rafael.j.wysocki>
+ <2787819.X9hSmTKtgW@rafael.j.wysocki>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Bug report] AMD Radeon R9 380 (Tonga) suspend resume regression:
- black screen / no EDID on kernel 6.13+ (ref: Ubuntu #2142389)
-To: Alex Huang <huangalex409@gmail.com>,
- Danilo Machado <danilomachado2002@hotmail.com>
-Cc: amd-gfx@lists.freedesktop.org, regressions@lists.linux.dev
-References: <CPUPR80MB65833AEF510B7D067FCCA46DA370A@CPUPR80MB6583.lamprd80.prod.outlook.com>
- <CAOnW2VTGBP=MMWM=W41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <CAOnW2VTGBP=MMWM=W41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <177278690418.1187128.18288302240743858911@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: D60D0633EC
-X-NC-CID: M3fH9NEvobomdOjuclzFzxB084ZUP0HfrkS5N12Sb4vLbIe2qGw=
+Content-Type: multipart/mixed; boundary="8323328-151852091-1772801052=:1000"
 X-Mailman-Approved-At: Fri, 06 Mar 2026 14:00:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,105 +72,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/3/26 15:26, Alex Huang wrote:
-> On Tue, Mar 3, 2026 at 7:30 AM Danilo Machado
-> <danilomachado2002@hotmail.com <mailto:danilomachado2002@hotmail.com>>
-> wrote:
-> 
->     To: freedesktop@lists.freedesktop.org
->     <mailto:freedesktop@lists.freedesktop.org>
->     Subject: [Bug report] AMD Radeon R9 380 (Tonga) suspend resume
->     regression: black screen / no EDID on kernel 6.13+ (ref: Ubuntu
->     #2142389)
-> 
->     Dear AMDGPU/DRM maintainers,
-> 
->     I'm reporting a suspend/resume regression affecting the Radeon R9
->     380 (Tonga / GCN 3rd gen) on recent kernels (6.13+), observed on
->     Ubuntu 24.10 derivatives (Zorin OS 18) with kernel 6.17.0-14-generic.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-That is a vendor kernel that contains quite a few modifications that
-might contain the bug you are seeing; hence please either report the
-problem to your vendor or check with the latest vanilla mainline kernel
-(e.g. 7.0-rc2; latest 6.19.y might also suffice, but better test
-7.0-rc). The latter is needed anyway, as the bug might already be fixed.
-If the problem still happens there, you as mentioned by Alex most likely
-need to do a bisection to get some tracking on this.
+--8323328-151852091-1772801052=:1000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Ciao, Thorsten
+On Thu, 5 Mar 2026, Rafael J. Wysocki wrote:
 
-> A nontrivial amount of pm/EDID changes occurred between 6.12 and 6.13,
-> are you able to bisect the kernel between those two revisions? Even
-> narrowing it down to a release candidate should be useful.
-> 
-> #regzbot introduced: v5.12..v5.13
-> #regzbot from: Danilo Machado <danilomachado2002@hotmail.com
-> <mailto:danilomachado2002@hotmail.com>>
-> #regzbot monitor: https://bugs.launchpad.net/ubuntu/+source/linux/
-> +bug/2142389 <https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389>
-> 
-> Best,
-> Alex H
-> 
-> 
->     **Hardware:**
->     - GPU: AMD Radeon R9 380 Series (Tonga XT, Tonga)
->     - Motherboard: Gigabyte B450 AORUS PRO WIFI (BIOS F66)
->     - CPU: AMD Ryzen 5 5500
->     - Connection: Direct HDMI
->     - Display server: X11
->     - Power state: Deep sleep (S3)
-> 
->     **Symptoms:**
->     - After suspend (first cycle often works; subsequent cycles fail
->     consistently):
->       - System wakes (fans/LEDs active), but display shows black
->     screen / no signal ("HDMI Out of Range" on monitor).
->       - EDID read/handshake fails → no video output recovered.
->       - Keyboard/mouse may respond briefly, but desktop freezes → hard
->     reboot required.
->     - Logs show:
->       [drm] *ERROR* HDMI-A-1: probed a monitor but no|invalid EDID
->       [drm] *ERROR* No EDID read.
-> 
-> 
->     **Kernels tested:**
->     - Broken: 6.13.12 → 6.17.0-14 (regression starts between 6.12 and 6.13)
->     - Stable: 6.12.74 (LTS) – suspend/resume fully reliable, no EDID errors
-> 
->     **GRUB parameters used:**
->     quiet splash amdgpu.si_support=1 radeon.si_support=0 amdgpu.runpm=0
->     amdgpu.dc=0
-> 
->     **Reference:**
->     This matches Ubuntu bug #2142389: https://bugs.launchpad.net/ubuntu/
->     +source/linux/+bug/2142389 <https://bugs.launchpad.net/ubuntu/
->     +source/linux/+bug/2142389>
->     (Reported by me on Launchpad; includes full dmesg logs and attachments)
-> 
->     The issue appears to be in the DRM/DC layer (HDMI EDID re-detection
->     during multi-cycle suspend/resume on Tonga). Downgrading to 6.12.74
->     resolves it completely.
-> 
->     Is this a known regression? Any patches or additional debug info
->     needed from my side?
-> 
->     Happy to test patches, provide more logs (dmesg, journalctl -b -u
->     systemd-suspend, full amdgpu debug), or try kernel builds.
-> 
->     Thanks for your attention and work on amdgpu!
-> 
-> 
->     Tested kernels:
-> 
->     6.12.74 — stable, HDMI resume works
->     6.13.12 — first resume OK, second suspend fails
->     6.14.x — HDMI issues
->     6.17.0-14 — frequent resume black screen
-> 
->     Best regards,  
->     Danilo Machado  
->     Minas Gerais, Brazil  
->     (Original reporter of Ubuntu bug #2142389)
-> 
+> From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+>=20
+> The ACPI_AC_CLASS symbol is defined in several places in the same way
+> which is rather unfortunate.
+>=20
+> Instead, define it in one common header file (acpi_bus.h) that is
+> already included by all of its users.
 
+It's a bit misleading to say it like that as acpi_bus.h is included only=20
+through another include (at least acpi/acpi.h) for most of the=20
+cases.
+
+Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+
+--=20
+ i.
+
+> No intentional functional impact.
+>=20
+> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> ---
+>  drivers/acpi/ac.c                         |    1 -
+>  drivers/acpi/sbs.c                        |    1 -
+>  drivers/gpu/drm/amd/include/amd_acpi.h    |    2 --
+>  drivers/gpu/drm/radeon/radeon_acpi.c      |    2 --
+>  drivers/platform/x86/hp/hp-wmi.c          |    2 --
+>  drivers/platform/x86/lenovo/wmi-capdata.c |    1 -
+>  include/acpi/acpi_bus.h                   |    2 ++
+>  7 files changed, 2 insertions(+), 9 deletions(-)
+>=20
+> --- a/drivers/acpi/ac.c
+> +++ b/drivers/acpi/ac.c
+> @@ -21,7 +21,6 @@
+>  #include <linux/acpi.h>
+>  #include <acpi/battery.h>
+> =20
+> -#define ACPI_AC_CLASS=09=09=09"ac_adapter"
+>  #define ACPI_AC_FILE_STATE=09=09"state"
+>  #define ACPI_AC_NOTIFY_STATUS=09=090x80
+>  #define ACPI_AC_STATUS_OFFLINE=09=090x00
+> --- a/drivers/acpi/sbs.c
+> +++ b/drivers/acpi/sbs.c
+> @@ -26,7 +26,6 @@
+> =20
+>  #include "sbshc.h"
+> =20
+> -#define ACPI_AC_CLASS=09=09=09"ac_adapter"
+>  #define ACPI_SBS_DEVICE_NAME=09=09"Smart Battery System"
+>  #define ACPI_BATTERY_DIR_NAME=09=09"BAT%i"
+>  #define ACPI_AC_DIR_NAME=09=09"AC0"
+> --- a/drivers/gpu/drm/amd/include/amd_acpi.h
+> +++ b/drivers/gpu/drm/amd/include/amd_acpi.h
+> @@ -26,8 +26,6 @@
+> =20
+>  #include <linux/types.h>
+> =20
+> -#define ACPI_AC_CLASS           "ac_adapter"
+> -
+>  struct atif_verify_interface {
+>  =09u16 size;=09=09/* structure size in bytes (includes size field) */
+>  =09u16 version;=09=09/* version */
+> --- a/drivers/gpu/drm/radeon/radeon_acpi.c
+> +++ b/drivers/gpu/drm/radeon/radeon_acpi.c
+> @@ -44,8 +44,6 @@ bool radeon_atpx_dgpu_req_power_for_disp
+>  static inline bool radeon_atpx_dgpu_req_power_for_displays(void) { retur=
+n false; }
+>  #endif
+> =20
+> -#define ACPI_AC_CLASS           "ac_adapter"
+> -
+>  struct atif_verify_interface {
+>  =09u16 size;=09=09/* structure size in bytes (includes size field) */
+>  =09u16 version;=09=09/* version */
+> --- a/drivers/platform/x86/hp/hp-wmi.c
+> +++ b/drivers/platform/x86/hp/hp-wmi.c
+> @@ -58,8 +58,6 @@ enum hp_ec_offsets {
+>  #define HP_POWER_LIMIT_DEFAULT=09 0x00
+>  #define HP_POWER_LIMIT_NO_CHANGE 0xFF
+> =20
+> -#define ACPI_AC_CLASS "ac_adapter"
+> -
+>  #define zero_if_sup(tmp) (zero_insize_support?0:sizeof(tmp)) // use when=
+ zero insize is required
+> =20
+>  enum hp_thermal_profile_omen_v0 {
+> --- a/drivers/platform/x86/lenovo/wmi-capdata.c
+> +++ b/drivers/platform/x86/lenovo/wmi-capdata.c
+> @@ -53,7 +53,6 @@
+>  #define LENOVO_CAPABILITY_DATA_01_GUID "7A8F5407-CB67-4D6E-B547-39B3BE01=
+8154"
+>  #define LENOVO_FAN_TEST_DATA_GUID "B642801B-3D21-45DE-90AE-6E86F164FB21"
+> =20
+> -#define ACPI_AC_CLASS "ac_adapter"
+>  #define ACPI_AC_NOTIFY_STATUS 0x80
+> =20
+>  #define LWMI_FEATURE_ID_FAN_TEST 0x05
+> --- a/include/acpi/acpi_bus.h
+> +++ b/include/acpi/acpi_bus.h
+> @@ -613,6 +613,8 @@ struct acpi_bus_event {
+>  =09u32 data;
+>  };
+> =20
+> +#define ACPI_AC_CLASS=09"ac_adapter"
+> +
+>  extern struct kobject *acpi_kobj;
+>  extern int acpi_bus_generate_netlink_event(const char*, const char*, u8,=
+ int);
+>  void acpi_bus_private_data_handler(acpi_handle, void *);
+
+--8323328-151852091-1772801052=:1000--
