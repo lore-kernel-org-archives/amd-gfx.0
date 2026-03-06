@@ -4,53 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AD2AFCB63F
-	for <amd-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 14:14:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6622FCB63B
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 14:14:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ED6810E45D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D7D810E455;
 	Sun,  8 Mar 2026 14:14:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=rcpassos.me header.i=@rcpassos.me header.b="Fyl6+6CA";
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=purelymail.com header.i=@purelymail.com header.b="Dnxht6qa";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="O+PFUNd6";
 	dkim-atps=neutral
-Received: from sendmail.purelymail.com (sendmail.purelymail.com
- [34.202.193.197])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E13BF10E00C
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Mar 2026 00:05:33 +0000 (UTC)
-Authentication-Results: purelymail.com; auth=pass
-DKIM-Signature: a=rsa-sha256;
- b=Fyl6+6CAtGGGKuJ+BVAHrzaZUCZfO7TgXcjm2dFdflfaCdhzaM1Pe0bs3r5t1owbLfkCG6nizSS88lmwqR0rejl2rdVogx13Tdjw615QFcbFsUNBb0Xis5SCRorfQF8X5XqUDni7l6uNVcmOG2rIuEg5araRHETpcCJ7nK1xd5rgl/HZuEOyvtX/GjPvujQaFV4RjwoBl06qSfXi1lGx/N3T/nrTRfSj/F1/PLIrmZUVQcQ4Sniy37ruyJgD/KJzCoerryUHcG+XOutrDE9MkBjV/HMIgA/hbtlNLY3awyLMOTP9gD4C5hPdRt6lvdqWsAYBwmvmtb3i5gwEP1bEZw==;
- s=purelymail1; d=rcpassos.me; v=1;
- bh=R8xSOdzYzJCd5hJX+8z//Gh+40HMLCgVDc2ZQ55Cqnk=;
- h=Received:From:To:Subject:Date; 
-DKIM-Signature: a=rsa-sha256;
- b=Dnxht6qae2y0e8Q6It/WKwP+UVTkUyVIfp2SBmllxmU7CwvqMYxA5l9ng6Jkm0IAvMJAA8uN2461zvI5jSwj1K0wu1PRVyGjC5ET/GkwzIpa5lmvJL+dk5E6IGgg+2WkxQIYF9gVfCO0T0Pxpmfs0dBTzJ2DccqHBpQJxC6bA3SXSp5go9w2QnRA5CxKwLAEom4NGlgFi7wP+OYDAaRX54hYj81ia1TQ8uCY1g7n7wdEbkQS0sgOD3lh52wAyFB8puVBxfD3lXd3tNvEYfq+PrUwlInjgbxuysFn2/CYHlbD7vZVN5tXsKuBLxtWvxjSYW8H28QXnL9GwflYIrXFOQ==;
- s=purelymail1; d=purelymail.com; v=1;
- bh=R8xSOdzYzJCd5hJX+8z//Gh+40HMLCgVDc2ZQ55Cqnk=;
- h=Feedback-ID:Received:From:To:Subject:Date; 
-Feedback-ID: 45355:7809:null:purelymail
-X-Pm-Original-To: amd-gfx@lists.freedesktop.org
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -240878125; 
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
- Sun, 08 Mar 2026 00:05:19 +0000 (UTC)
-From: Rafael Passos <rafael@rcpassos.me>
-To: alexdeucher@gmail.com
-Cc: BhuvanaChandra.Pinninti@amd.com, Harry.Wentland@amd.com,
- Martin.Leung@amd.com, Sunpeng.Li@amd.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, daniel.wheeler@amd.com,
- davidbtadokoro@ime.usp.br, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, rafael@rcpassos.me, ray.wu@amd.com,
- rcpassos@ime.usp.br, siqueira@igalia.com
-Subject: [PATCH] drm/amd/display: fix resuming from S3 sleep for Renoir iGPU
-Date: Sat,  7 Mar 2026 21:04:22 -0300
-Message-ID: <20260308000515.890688-1-rafael@rcpassos.me>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CADnq5_Msmohg3T5KLrqPwvJGbXPOMKeNN-ZcqgTS2pHb+GjuYQ@mail.gmail.com>
-References: <CADnq5_Msmohg3T5KLrqPwvJGbXPOMKeNN-ZcqgTS2pHb+GjuYQ@mail.gmail.com>
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012009.outbound.protection.outlook.com [52.101.43.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2419910E3F6;
+ Fri,  6 Mar 2026 20:37:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NwD1Bh9uCL9N2XvrIJaCWJxXI+4E/XejvhxFpNYBOuj8+ZTnMPG0ewB+fbAfaF6oiXovMhbg9orOkg3tqaOxnTxe3No/GmethAOKgVP+W0m8sKeXj3FVPerrQTh1kvfrPGTKI5GuFpkSBip2dFbWpFK0ia9lvE1xrHNgNxHQY4gZqjphj4QqsfqztmQlIqrlnYE2ECPbi6KqNiVDPdVwrg8K28ffRpeZqM9904qQRhZ9KGgRpNJmx9pm4mPLaK6nFYk/1W8rSwtJeCnUkyZxRELoR9LyY2GauyPvlrrW7+r4Rl75ZSU/1LzVnehjDopYvphFEZ7puxtl9pHnvLLxmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2XNkb1D12AsW3gTS+bYnTkPz1ejCDjzZVfRD0TfyXaM=;
+ b=N8DaETYHVWope3d7kqwQ8mIE/84+uWABmfX5Vq18Sn2DU5A69GXjGJetvRHSqJnjY6tS+p0JoQJTpjmJQ9vNegVaalGvx5R3X9wzgHlFuSeiPaJHK1eokJ0mSkJUo+q2iNf7wwTK5RIdT8/v1hpA4PO2dXRlW45zdxBfAY/oe7/IVC3rgpVgACuIYDC3lENzxXPAdyBl+E9l3Zuoej3AmO7xCC0Xy1IDxmNDOj8NHZV20aUvuUxFM4QBCtEb5395HET07XHedUbxXpWjLGoYuHUIPd82xWkgw5Kz5neuIP3MN2fcUiKjbz+4Ts54mcw1gqhNsr9HLvDWfsbUOyhmMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2XNkb1D12AsW3gTS+bYnTkPz1ejCDjzZVfRD0TfyXaM=;
+ b=O+PFUNd61PUz7HkDcK6hexVEzIMTTcv6FJ/8kcFonXt/NrVvE+3dglY8VABRhxBIDAlB/Deg2fqRQnRHQaUGaL3j/U66Dm7dAxkEYndm7RpNd8YLfSHM+5aVmQlRRZUd+cZxyFuoGA26esxbW3320uMD6PU5bl3TSLpVZYdn7sfiHYOdKzWRRAuPfhDXVu68U/o21JjDB1Nhxi+Un/kYjRA0WS1/FpV+nBEnlYDPvdz37RYThl5FCVcFX0K+9W2JbzjJqqgZJhhqwy3RlA2W2SJ4C6dUB1LuX/p+GrrzIhEF1sVwqaQ+s9c70O9/kV0gJv0ElJaqeanurS+2OT9xcA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ CY5PR12MB6528.namprd12.prod.outlook.com (2603:10b6:930:43::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9700.5; Fri, 6 Mar 2026 20:36:54 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9678.017; Fri, 6 Mar 2026
+ 20:36:53 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
+ Dave Airlie <airlied@redhat.com>, David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>,
+ Nikola Djukic <ndjukic@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
+ Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [PATCH v12 0/1] rust: interop: Add list module for C linked list
+ interface
+Date: Fri,  6 Mar 2026 15:36:47 -0500
+Message-Id: <20260306203648.1136554-1-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CYZPR05CA0023.namprd05.prod.outlook.com
+ (2603:10b6:930:89::9) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
-Content-Type: text/plain; charset=UTF-8
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CY5PR12MB6528:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60e1cbc7-a73a-464a-7c13-08de7bc01a17
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|1800799024|7416014|366016;
+X-Microsoft-Antispam-Message-Info: TEbSWHHTto1pZmxh74cjjskEnuxjaM5zFabi7UTPXoeDUGGwDZgUTTrsyEK2fB4tFez6jiUZa5i0G2sc55KpgOehRBq5HObkiROLX1ZUVojL27wdWpY462pQpJEcgIM65N/AcHt+Yan4Dh7drBqpo29BHYCqF7GmqSMevLMUydAK/hzbIzxosV0nKNcXdopRpO083ZrvTSxxWwYIJyzuGYKhuCr2ct258E2fr1zhmU7Mh+rFjz+hEW6Ry0v++C6e4Uii5mz/Eq1MRfQbHWGo2b0+1Tmeb3h+4P9+OSBGvi9S0xLWlArBWonXFBxQx3aBSZ1m2bLmuZTkrjCZSKOrSkbQhNMwZDHqnJpECaIFUlV8mzbhAjkgu8UI93hzMwaLCXSzRYCcsaXejnw7w9kgJhB5NjYmIfefsCrjii0o/9Hybg9uPIB1f+FPbHQmqjE9gq2MJy7cSNR/ycLCeyQVW4Lvjk6jwBDTsbBggY6ADzHgoBnZHIwjabHcrMcCoWWmwK0c9s3o+eqSLEZkIFIi+lO5Lo4AtG0VO/rXYj0njRPfztLHYDjAV/t/J05Ghk2QMHvMntv4sxZOX2fkgKfcy1vk2mPOjr8JgoD+h03GvbcKZmeUk/kO32EWn+L4qyQbGNCBVjmOn5QSNZPoZ14+N16krV+IpHYL5jnpih4MPX1U/rOKfMDy1Ycccwo28e5mJ1LscV4TzyHoRnScRSSS86rTjbUu/emPYiCkLskmhzc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(7416014)(366016); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zbYKxRLTCTAbMsxglHq3g+raF3LFFskHb4VwLuNOWeLrRo6azNtbQBBe/anf?=
+ =?us-ascii?Q?8GqVNYmU2Epjn9VcWoz9ZMH8BEwGrtuo39VXRWqHOHZBA7HCvFKSWFtzNult?=
+ =?us-ascii?Q?ZWWHKwHnNFMM+RFx01vvzScwEahz9389u8al5EeVU3dQ5bwiyD8tV/A8oA95?=
+ =?us-ascii?Q?g7tjQjHNjJcpwpouoFUcGjQFI3voPbsUnlR2l5Ts0vFJRRwe4KD3MeC2Q20L?=
+ =?us-ascii?Q?qlAUH0zOC7/v52tWgdtHfnz+B8+VaMGAEGcTzLEjWTdNQNWR4ajsyuMxIi4h?=
+ =?us-ascii?Q?pMrk5ufVZzZ6NNWQ/6pv4xO6aYhvdO+R/FUBhpYJyEf70PId4L6FDF73En78?=
+ =?us-ascii?Q?gnnYqj7jT7lDE6LAY5HQ50/3VmZAdf45ZtNl6QVgC/XX6dFBloruAuhnRYZU?=
+ =?us-ascii?Q?xM6eCI3wdg4mMZJZhg5EdP8OhTnaz47gErmhb48Lynnx2kOArRxBHb5VR6sD?=
+ =?us-ascii?Q?J2emJ3aynH2XRNW4OjUBeg9mGN/xYeL2SK7K88IE3CjmDUTKcz1faZQLdY4s?=
+ =?us-ascii?Q?cilfBwj6FxK8YEHu9Qk3HJbOXHFDfgjlixQ4GMDZG/SPmAcgrrw321e/TMCG?=
+ =?us-ascii?Q?SAxt3rpnmcfgq33RdDkVbeBJFhEL872WN755XRGziJRXUqBU6gAPnrPoxB8f?=
+ =?us-ascii?Q?AJSM5bpqWeFEsuRo3CEqQYB7IyeqWmPYWE8P8xLnfndGlpSj5LecbFIke+Rj?=
+ =?us-ascii?Q?iBAnjYlfSOF98FIfUf4pxTzK9FrDzvVtj/SjXpmDatuCORDDe+9K+57WLdzj?=
+ =?us-ascii?Q?KG2x8GlF3wobufACLoldqybIzHF1pmQQAJnM1GO26eNHQTNF0v+GABtiDWct?=
+ =?us-ascii?Q?b5Gzk8MNuUs3fVJJmRY5H9QEPLMIsn75GYNE0cwKvV2cJM2b6c21P+5HQe2Y?=
+ =?us-ascii?Q?ZIm/whwh5PiShq7KoI6h4EC5uVQ+szkMaOtEku0qAf55Kr/bffLBKiW8JVUk?=
+ =?us-ascii?Q?uP4rjFb1gsWlgY9sQUQ7dkCjvEFvzjGwCrJR7BdP6VnPssgIfNtFCRYcfD+4?=
+ =?us-ascii?Q?uqM5XI3gxpZ6i/PkLM2N7CuIEVnW+6borGFMwkjSMUhijeMb4i/uRZIm+zG+?=
+ =?us-ascii?Q?ebOEwNZ2FhXz1Uo2ug4TDMhd6dYfT26VolW/9mmQMQAu/f52RyL9DvD7G2sI?=
+ =?us-ascii?Q?8MG2HDxmNgmV8gLjkHohA4fTw2GnfupgjZhhttCMx5hXGpOndPuvOM1Sisph?=
+ =?us-ascii?Q?KAv+5Ha9jezXug8rUcdtlJwC6fyv3UXo1NxORtoPmd4H5UTgOHUzO6As8niP?=
+ =?us-ascii?Q?QSYO8mso2X7syv+hB3QsYTJn6LUupotOGP/UkXOEH6ZLUtjVPWmIKAhfi1BF?=
+ =?us-ascii?Q?hh+t7WPkfq7RCbipaJj2wsQU75qishyVTcvJTGHc2oqCT2deDTeK2BS6TlIR?=
+ =?us-ascii?Q?9Kpku/gCGueMDnMLPgACOn845JB2xsKfWmitMoflkWiE9zx0bwwZWXsdKLUu?=
+ =?us-ascii?Q?uxRIyaN/FpBUZm+o4o6rJKz291193tptjcHx8BpkGED9MQN/t5m5L+tjqBCe?=
+ =?us-ascii?Q?d+gNhcy+nNzwXAAw+9xMvO1VrmpfYA3HIPL753XTIpYvnz7fbEeUhuY1qiYE?=
+ =?us-ascii?Q?gPg/WbJV8TYw43gGGhVtgjzzl47U5BHAGBvl6lB1CrER1J8ev09LkUbM4EKK?=
+ =?us-ascii?Q?0ADs2h9CPbnYamZqmp12ThuTLNf1nLjT+NoivEogIrmJwn5GNbh7LQn8zwL/?=
+ =?us-ascii?Q?n0+VWvbyOTIA4vlTwpFvWRRqnZnAa4AQMzzj4XhbnvDgfIMGqvhci4IzsPlT?=
+ =?us-ascii?Q?NxTbfHngVw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60e1cbc7-a73a-464a-7c13-08de7bc01a17
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 20:36:53.8106 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IjuXA6RBy5zzUFBU31/2jZvp+WyNca9gg/4Kik6lQDVf/NmTE7knCybeEq4zKn8nYa9qjf/9MlgaO3HTlpTKGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6528
 X-Mailman-Approved-At: Sun, 08 Mar 2026 14:14:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,126 +157,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[WHAT]
-Set the register offset MICROSECOND_TIME_BASE_DIV in dccg_registers for DCN=
-21.
-Introduce a new dccg21_init function, used in dccg_funcs.dccg_init for DCN2=
-1.
-The new dccg21_init sets 0x00120464 to set the MICROSECOND_TIME_BASE_DIV
-register instead of 0x00120264, set by dccg2_init.
+The interop/list module provides Rust abstractions for iterating over C
+list_head-based linked lists. The primary use-case right now is iterating
+over GPU buddy allocator blocks.
 
-[WHY]
-The previous commit introduced a change where the dcn21_s0i3_golden_init_wa
-function used to read the MICROSECOND_TIME_BASE_DIV reg from hwseq, and
-now started reading from dccg using dccg2_is_s0i3_golden_init_wa_done.
-However, this register is not properly initialized in dccg.
-Also, the value was initialized to 0x00120264 by dccg2_init, but
-compared to 0x00120464. For this reason, we created a new dccg21_init
-with the values specific to this card.
+This series provides the interop/list module required for GPU buddy bindings,
+which is inturn required for nova-core memory memory management. This patch is
+being sent separately from the rest of the preparatory patches (DRM buddy
+movement, GPU buddy bindings, etc.) as it can go in independently.
 
-Fixes: 4c595e75110e ("drm/amd/display: Migrate DCCG registers access from h=
-wseq to dccg component.")
-Signed-off-by: Rafael Passos <rafael@rcpassos.me>
-Co-developed-by: David Tadokoro <davidbtadokoro@ime.usp.br>
-Signed-off-by: David Tadokoro <davidbtadokoro@ime.usp.br>
----
+The git tree with the patch can be found at:
+git://git.kernel.org/pub/scm/linux/kernel/git/jfern/linux.git (tag: interop-v12-20260306)
 
-It took a lot of debugging to get to this point.
-We are not sure this is the right fix, but it works.
-We found that when reading the MICROSECOND_TIME_BASE_DIV register,
-the offset was 13b in the old path and 0 in the new path.
+Change log:
 
-The dcn21_s0i3_golden_init_wa is called when booting
-and when waking from sleep. It compares the value from
-MICROSECOND_TIME_BASE_DIV to 0x00120464.
-When booting, the value was different (and this function returns true).
-When waking from sleep, the value should be equal; thus,
-this function would return false.
+Changes from v11 to v12:
+- Renamed module from ffi/clist to interop/list, reflecting community feedback
+  that 'interop' better describes the purpose than 'ffi' (credit to Boqun for
+  starting this idea.)
+- Updated MAINTAINERS entry from "RUST [FFI HELPER]" to "RUST [INTEROP]"
+  and updated git tree reference.
+- Added Acked-by from Miguel.
 
-After 4c595e75110e, the value was always different than 0x00120464, so
-this function always returned true, failing to wake the screen.
-This happened because the offset of MICROSECOND_TIME_BASE_DIV was 0,
-and READ_REG always returned 0x1186A0 (value from MILLISECOND_TIME_BASE_DIV=
-?).
+Changes from v10 to v11:
+- Sending only the ffi/clist patches separately from the rest of the
+  preparatory series, as these can go in independently.
+- MAINTAINERS entry: Renamed from "RUST TO C LIST INTERFACES" to
+  "RUST [FFI HELPER]" with (CLIST) scope annotations for maintainers,
+  following Danilo's suggestion. Note: There is still an ongoing
+  discussion about the MAINTAINER file entry naming between Miguel and
+  Danilo: https://lore.kernel.org/all/DGJXYEXCYIII.Z6FOAA8YYMAZ@kernel.org/
+- Updated clist.rs module documentation per Danilo's review: generalized
+  the FFI usage description and added explicit note directing Rust-only
+  users to kernel::list::List instead.
+- Implemented suggestions from Alice related to safety of CList wrt
+  concurrent modifications.
+- Removed unnecessary trailing comment markers from example imports.
+- Added feature guard for offset_of_nested (Eliot).
 
-Things we are unsure of:
-- We used SR to set MICROSECOND_TIME_BASE_DIV direclty in the
-=09dccg_registers struct. We did not find other examples of this.
-=09Should we set MICROSECOND_TIME_BASE_DIV to the DCCG_COMMON_REG_LIST_DCN_=
-BASE ?
-=09I only added it to DCN21, because it is the hardware I have (and validat=
-ed it works).
-- We changed 0x00120264 to 0x00120464 in the init, but dccg2 has the
-=09same difference in setting and reading. We would like to know if this is=
-sue
-=09also affects dccg2 (and other cards), or if we are missing something.
-=09Maybe we should change this value in dccg2_is_s0i3_golden_init_wa_done.
+Changes from v9 to v10:
+- Combined clist/ffi patches into the larger "Preparatory patches for
+  nova-core memory management" series (8 patches total).
+- Added new ffi module patch: Convert pub use to pub mod and create
+  rust/kernel/ffi/mod.rs to host clist as a sub-module.
+- Moved clist from rust/kernel/clist.rs to rust/kernel/ffi/clist.rs.
+- Added Reviewed-by and Acked-by tags from Gary and Daniel.
 
-It applies to the mainline master, amdgpu drm-next and amd-staging-drm-next=
-.
+Changes from v8 to v9:
+- Added nova-core Kconfig change to select GPU_BUDDY.
+- Minor fixups.
 
-Any feedback is appreciated. It was a fun-frustrating-veryfun journey. :)
-Code written only by humans.
+Changes from v7 to v8:
+- Various changes suggested by Danilo, Gary, Daniel. Added tags.
+
+Changes from v6 to v7:
+- Extracted clist and GPU buddy patches from the larger RFC v6 nova-core
+  memory management series into a standalone series.
+- Changes based on suggestions by Gary and Dave.
+
+Changes from v5 to v6:
+- Part of the larger RFC v6 nova-core memory management series
+  (26 patches).
+
+Changes from v4 to v5:
+- Part of the larger RFC v5 nova-core memory management series
+  (6 patches).
+
+Changes from v3 to v4:
+- Combined the clist and DRM buddy series back together.
+- Added Rust bindings for the GPU buddy allocator.
+- Moved DRM buddy allocator one level up to drivers/gpu/ so it can be
+  used by GPU drivers (e.g. nova-core) that have non-DRM usecases.
+
+Changes from v2 to v3:
+- Consolidated 3 patches into a single patch.
+
+Changes from v1 to v2:
+- Dropped the DRM buddy allocator patches. Series now focuses solely on
+  the clist module.
+- Dropped samples and added doctests.
+- Added proper lifetime management similar to scatterlist.
+
+Link to v11: https://lore.kernel.org/all/20260224222734.3153931-1-joelagnelf@nvidia.com/
+Link to v10: https://lore.kernel.org/all/20260218205507.689429-1-joelagnelf@nvidia.com/
+Link to v9: https://lore.kernel.org/all/20260210233204.790524-1-joelagnelf@nvidia.com/
+Link to v8: https://lore.kernel.org/all/20260209214246.2783990-1-joelagnelf@nvidia.com/
+Link to v7: https://lore.kernel.org/all/20260206004110.1914814-1-joelagnelf@nvidia.com/
 
 
- .../drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c  | 17 ++++++++++++++++-
- .../display/dc/resource/dcn21/dcn21_resource.c  |  3 ++-
- 2 files changed, 18 insertions(+), 2 deletions(-)
+Joel Fernandes (1):
+  rust: interop: Add list module for C linked list interface
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c b/drive=
-rs/gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c
-index 75c69348027e..6f96e9c189dc 100644
---- a/drivers/gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c
-+++ b/drivers/gpu/drm/amd/display/dc/dccg/dcn21/dcn21_dccg.c
-@@ -96,6 +96,21 @@ static void dccg21_update_dpp_dto(struct dccg *dccg, int=
- dpp_inst, int req_dppcl
- =09dccg->pipe_dppclk_khz[dpp_inst] =3D req_dppclk;
- }
-=20
-+void dccg21_init(struct dccg *dccg)
-+{
-+=09struct dcn_dccg *dccg_dcn =3D TO_DCN_DCCG(dccg);
-+
-+=09/* Hardcoded register values for DCN21
-+=09 * These are specific to 100Mhz refclk
-+=09 * Different ASICs with different refclk may override this in their own=
- init
-+=09 */
-+=09REG_WRITE(MICROSECOND_TIME_BASE_DIV, 0x00120464);
-+=09REG_WRITE(MILLISECOND_TIME_BASE_DIV, 0x001186a0);
-+=09REG_WRITE(DISPCLK_FREQ_CHANGE_CNTL, 0x0e01003c);
-+
-+=09if (REG(REFCLK_CNTL))
-+=09=09REG_WRITE(REFCLK_CNTL, 0);
-+}
-=20
- static const struct dccg_funcs dccg21_funcs =3D {
- =09.update_dpp_dto =3D dccg21_update_dpp_dto,
-@@ -103,7 +118,7 @@ static const struct dccg_funcs dccg21_funcs =3D {
- =09.set_fifo_errdet_ovr_en =3D dccg2_set_fifo_errdet_ovr_en,
- =09.otg_add_pixel =3D dccg2_otg_add_pixel,
- =09.otg_drop_pixel =3D dccg2_otg_drop_pixel,
--=09.dccg_init =3D dccg2_init,
-+=09.dccg_init =3D dccg21_init,
- =09.refclk_setup =3D dccg2_refclk_setup, /* Deprecated - for backward comp=
-atibility only */
- =09.allow_clock_gating =3D dccg2_allow_clock_gating,
- =09.enable_memory_low_power =3D dccg2_enable_memory_low_power,
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c=
- b/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
-index 0f4307f8f3dd..7f8f657eb0f2 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn21/dcn21_resource.c
-@@ -222,7 +222,8 @@ static const struct dce_audio_mask audio_mask =3D {
- };
-=20
- static const struct dccg_registers dccg_regs =3D {
--=09=09DCCG_COMMON_REG_LIST_DCN_BASE()
-+=09=09DCCG_COMMON_REG_LIST_DCN_BASE(),
-+=09=09SR(MICROSECOND_TIME_BASE_DIV)
- };
-=20
- static const struct dccg_shift dccg_shift =3D {
---=20
-2.53.0
+ MAINTAINERS                 |   8 +
+ rust/helpers/helpers.c      |   1 +
+ rust/helpers/list.c         |  17 ++
+ rust/kernel/interop/list.rs | 338 ++++++++++++++++++++++++++++++++++++
+ rust/kernel/interop/mod.rs  |   9 +
+ rust/kernel/lib.rs          |   2 +
+ 6 files changed, 375 insertions(+)
+ create mode 100644 rust/helpers/list.c
+ create mode 100644 rust/kernel/interop/list.rs
+ create mode 100644 rust/kernel/interop/mod.rs
+
+
+base-commit: 877552aa875839314afad7154b5a561889e87ea9
+-- 
+2.34.1
 
