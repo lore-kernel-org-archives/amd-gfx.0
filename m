@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4B2DFCB61A
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 15:36:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E60A3FCB619
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 15:36:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7759D10ED58;
-	Fri,  6 Mar 2026 15:36:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83F7210ED59;
+	Fri,  6 Mar 2026 15:36:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PZx/DdPU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3aQK1AUA";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013064.outbound.protection.outlook.com
- [40.93.201.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E38F610ED54
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 15:36:32 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010015.outbound.protection.outlook.com
+ [52.101.193.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6743310ED59
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 15:36:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JekwD0L8fH8gjacRG0dCTLrwdFOfe+5vXh3LDxyQ5OB3nA3pkoQrxr0AfVfF2ate0yRuz/9WGCwblN3MVL5GupcI5tdthvQErGt4NEvo1NUcClDDz3uaXp/wnPrsI72/ffA8JQUHRxF+467Mj/OSTmqQolMZXydIe4S4PBf028814YfwQIyCDalFad+7SGBuQRlWrEYksVJFy8zrkajFxcwRfA/uNtwELfgN6aE2FW0jH9I6PYIVCWqlUcyWdj4F+gAnCQPGfC+ntXZ7IAcZ9pkQ3TzAZ6Cdmu3U/M/Bug+77wI9Lap5BdnQVXJNo5w5S+E7pLajGGESwNVXvXvxWQ==
+ b=m8lSWKACJEVEWBvDnhsCMplY9tfrIbWXGHmyNhjXrr8a9VbWmdaRcIFdHNtaRjjP7sX7yRB3L9HYSspOeUF/5lxRNj2JDH/kRwFEPPBp70YNHh1c9UOcQipfQVxi5L47ClXxGeVOE1XcsslqGuqrQ0AC1vgF4QSeGhJGP6cN2/5B+ltz8+Mo1dR/UtPnpGXrTvqGNS7RgEjuXmC3nk86yXlrm2uNfJXvb+8PmjOfTJ3D1sFjIww9WDdmKuy5VkrbzNSQ3GSAXLc1LfmJ5p+c+7v5uUZ/LZyd//6xSVy7FWtHxB53zU+SzuWOEA0qpLU0YzRAaMF4yrKqpjYgpNK8XA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VVFdeG8N+YBM9+8bmE4DesaHtantsZKt6I2Xe75DhHo=;
- b=q7WhSkyj3YHzCdaTkuO0nEVtjrOXz/k/k1tFp8jURyK8o90s67WyMzwqMjzvLsC5O8fazjP+WfBOUihZFnK90EYtQw/YvuFP26kQFyY9iQoA1muxMTQ60Ms/cGIgPxRIyGE5z5AcXxGYFdaGYBfjcJZcKB8M2a6Ihi8M7zadJUqJWmMw3WmjCL0fb4GniBwJiT487IjBr20yurHwGtEyPd0Oh25OL1YZxopJYY9sA5UvgZ8ek2ybnXWBP/FRJFM+se14Z/hX1uwPsF+PZwGt0qTPlVyH4EidDp2lyJbhi/TX+xq1mLkiFjrn7xfIXTAalYHqUsoSHffo1ISOWj7eBA==
+ bh=5JNSRDmE0i3+jd3+8CkUXqUcNU3G2ShPZ3+ybe88UVQ=;
+ b=OGwTs3umBQ5QDob8Ebf3REQF7qZqn28KvvNlaZDf7IBpcoa/g6n7eXbubqbJ/eLnXMIIfl0AODWZ1+VzNMDvfu27GxhItNYvzhPN1t5ZCXT3xWjoCY5zU9qYc8E8RXI9xVhocWNV54f4cyAxS4VftnWnkaOoLyINNf6KvA1QpaVW4mtrylZ8veCmoKxyqrKa1oe8bWiSjYHWroUofofHC5RRO4WUwqUVIR+neFb8UrqNVCiyj8eH/VjClehNoeYUEDvK7Gki/OKFj9vzPP118e6TuCbJWgCyiE3Lyx+5ss0IXBqm7akZutNHlqVPs7EzOUkShD6xgYuqSKw0Z4Xn5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VVFdeG8N+YBM9+8bmE4DesaHtantsZKt6I2Xe75DhHo=;
- b=PZx/DdPUrtD1ddBjLsETkE0iRDxz962jqeYPJALVSii6Ee+2pOobVogbHVcKM3n6qEtGH6EByqvZi1TRjqCqYVfrIn/8r1g5kXRQKNxfzkWnjfRzn4C0zlikmIxdx73yf3F10e/jWlWofDx47v7Q6xcLXDagVAaTSdSUIegEZgw=
-Received: from SA9PR13CA0022.namprd13.prod.outlook.com (2603:10b6:806:21::27)
- by CYYPR12MB8702.namprd12.prod.outlook.com (2603:10b6:930:c8::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Fri, 6 Mar
- 2026 15:36:28 +0000
+ bh=5JNSRDmE0i3+jd3+8CkUXqUcNU3G2ShPZ3+ybe88UVQ=;
+ b=3aQK1AUAWvBGp6ByJKSVHA3zxpK+QJjlDxf36kJLi+Ys7Q89ic3E+Ont2CqbJvLjsaIGgqjouuCiSGChTHrx+vaI7rRb0IIDVHYubYc7aehPoeVyM/PtXAeH3i5I4cWBRlmh2HvoN1wWmxO9E0TTCMpyCp6HBR+B2E0Ggrv28gw=
+Received: from SA9PR13CA0003.namprd13.prod.outlook.com (2603:10b6:806:21::8)
+ by BL1PR12MB5708.namprd12.prod.outlook.com (2603:10b6:208:387::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.5; Fri, 6 Mar
+ 2026 15:36:27 +0000
 Received: from SN1PEPF0002529D.namprd05.prod.outlook.com
- (2603:10b6:806:21:cafe::c) by SA9PR13CA0022.outlook.office365.com
- (2603:10b6:806:21::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.19 via Frontend Transport; Fri,
- 6 Mar 2026 15:36:27 +0000
+ (2603:10b6:806:21:cafe::d5) by SA9PR13CA0003.outlook.office365.com
+ (2603:10b6:806:21::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.18 via Frontend Transport; Fri,
+ 6 Mar 2026 15:36:26 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,25 +51,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SN1PEPF0002529D.mail.protection.outlook.com (10.167.242.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Fri, 6 Mar 2026 15:36:27 +0000
+ 15.20.9678.18 via Frontend Transport; Fri, 6 Mar 2026 15:36:26 +0000
 Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 6 Mar
- 2026 09:36:27 -0600
+ 2026 09:36:26 -0600
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Fri, 6 Mar
- 2026 09:36:26 -0600
+ 2026 09:36:25 -0600
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 6 Mar 2026 09:36:26 -0600
+ Transport; Fri, 6 Mar 2026 09:36:25 -0600
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Hawking Zhang <Hawking.Zhang@amd.com>, Likun Gao <Likun.Gao@amd.com>, Alex
+CC: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Alex
  Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 4/4] drm/amdgpu: Use memcpy to update IPD table for sriov guest
-Date: Fri, 6 Mar 2026 10:36:15 -0500
-Message-ID: <20260306153615.21854-4-alexander.deucher@amd.com>
+Subject: [PATCH 2/4] drm/amdgpu/discovery: use common function to check
+ discovery table
+Date: Fri, 6 Mar 2026 10:36:13 -0500
+Message-ID: <20260306153615.21854-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260306153615.21854-1-alexander.deucher@amd.com>
 References: <20260306153615.21854-1-alexander.deucher@amd.com>
@@ -78,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF0002529D:EE_|CYYPR12MB8702:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0953f25-d5a8-4f99-5b77-08de7b9621ea
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002529D:EE_|BL1PR12MB5708:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0132bc8d-2acf-4a4d-0ca9-08de7b962130
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024; 
-X-Microsoft-Antispam-Message-Info: ydne3pMGvtgDCtno9RPj2EQP3gP+kvDnTVF14Ib6k/JMjlXRJsbqyrCmh70qfd+kRW6002xPLCes+VM6D9P74uEcuw03yIOvHIjaealnkxbRLGey33wE7yMy1H7jQNOKZTRkFbnZtT1Mx8tUpat6UF+hoONcFFd/Hibw9sJCa7LNbo3Ju/TZoIyJ9T4HKFvYMFsWSe5G9tMTbivSEow7shGoFXLauioHsDHgYWkXDXXSZBpNc4DejiXtuqvoADqrGC4DhvYAEdYsFnwER/iGKx1wpDojHs0mFXnqaDhN/i+NgX16TrWYgZDFT+FFivhrEyNT4qhpQzmjVTANn67BqjY6g2HspnwokBPeaqLMfAifXvK9gs7Oa5SqNed9/1ERmfOATbncnmhqqjpQd5C0oMBW/MkO4kgPP2AIms4TcWE26xwehJczfsA2WeHvffY+7p2l9EhYAZmC5hmYHNi5/5RzEZwlQT+m/ew6yujdYy/v6XPhXIINNDa1pg6qd1GZDp0BoFgHOBJBVFueHKDu9lJvKEpZvgIWe14URrHQ6hvRKzuufrNQg28KlKrKfw7bD1eyyHUqGgawwPUGXZhJzz46eYmVWG+Gu2uw7YSr/SFVA5Q+kJqPv0qbLwURijS66I0e5qBaE0Td0QwmwMRb3Q3wEdO5JGAJDmQmgiNnsSv+XR9A7gt49RpEyVUZn1h3+b/Nnhrm4vSrm9HAWngynQry9E2etx1vBKg7raTIWSw2/jo3h/B48jME1ZpchzN5VdqRazlpvAzLOcT8Wht2Ow==
+ ARA:13230040|1800799024|376014|36860700016|82310400026; 
+X-Microsoft-Antispam-Message-Info: GisQGWrFIK60TWkD2BVH2QNU07+b6wv7uHR8/T+52YvHWi4BUOUzjwJ2Z4fUshcQBs57amlkI3Ci3URQfL7yQ7+Ta+DDK2O4HS2d2PAzjgTZvqfdE3HADZmmZjp9asQdEKC+jXM8Okvx5Ln+cxxpb+EMKU4NGlvwFsNxvW/LNaDQ1lrp54K+WFmvTimTHajn4IIPhc6W5T/gEbFpPj3pL2f7ejWTc74oPaSfBC9wiKDjvFEJX4aLKf+tqctlYGDa7lPGGMZTETuc4cEhr0Kg74gvO+WFqbm7aY+IPXI4OvTwFOUGGnfRNJx/ZbnPwc4cX7Ek52lyHBoWPCwxKPyP3kxEvvOQKHqb0n9sRoffKFHShit9d6UK3VhHtAXKuYwXuKztoYQTwExBJiGonn0qDYhFgJ88ZhPyWL9SvGEqdpgy8WBj5sgK+bbm4jZ+RWPSQuiVI/3TM4Hkt/95o18LxwMPKha1vO+EFLJFHkEwrvxDTrUguSdKje0vrB6+sFuOnF4U320h6SFYCfkhKGV1JdDRqdxoK3JaSxheQT2fa3KbVk5zLqqxFXRd0QZrf9EBAU/zopoL5fPtLHApVrWyVuV2m/XaSOxIGYqYnbEy4amdopWE5mqRpDc9Cq2yFJd5S0WhtXZ/N0hMLkD+S6XBokvzxtmayCy9XF3+QxCTH3RKTJr+mIyUjsBSei4EuJ++j2j9rhDHzsz4Cq7b6NWpFcO0HjkACGbuj6QZgyJyK0EsASThhX9Kt6WPsLdloUT524ow5auZrzHMMOM8bYnF2A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: XB3jIGoYBRsv7Dzn3VIB3m+YAUoT//OBHFNsLSzWx7nf+Op0pUIGop8j0PWW9hF11NeToDFuAkBFk3UTCLpi7QQCWe5mSJifXbzwFI8tLembu4j3wICUUUhk/DLnQoav7tfsJPKg+QJcgJVecBK9c+FwZ95Q1/M5V64DNkdEKF/+4thtdBfU/lvG25mY1Sp2uoYeJGp8uP+X4p3Q2KGeQGu4aMHeM1ketbOAhekKDU5sJe1/R/dbt25L0T+fUTNkSo3dsG0y9uySptfOWP9uqRSxcST2pyEKgKwQoSUP+22I7KM5sAWly6m9l9x3jf3A8Q+M11i2Vm7AsZZ24EFT5QBjrTzxqxIFjJtO4XUaxNFyJcvbdFwo5M4HMLtEQi16LXC3UZH/21EHo40aBwMr+/KerHuIJLjGJrjqs6a4R3d5okC2RgOduqZmhbmOdYtD
+X-MS-Exchange-AntiSpam-MessageData-0: y9xOEp3m1avD1fJIB3JhKoNrAQpc1IYzDZRwY/ysqSL5qYYfTo6IoU+t0cNiE+SNGmu7IKGbzQN74b/7FjoB7WKq6bBFuRzfigqfQyMZnc9zNjjpkF9tQ0ZhahgylvaJJza6CIZ4ZWGl6DYX+SY52z1N5cnb/ps6XVkyJc9t3ZrFhmZA2/0xPhA+iVR1D4KDBS4LjIGAjcRuRbxHv2ikcNGEHbLwKmufyLdsd+y+m5rVVunVR/MGxlClloNgjsGoEagCdmVwqBXqIZMd8ddXe/m6YjpItaYVDl1I6wo32F8jxaLUuVVp7wHjDVMxOz7Z5vWSZKPkSkbja8AuSiAe1TpTS19BlKqj5O3P2oOpBLxsXrFDO7smPejmAxw/k+OvXqcT6yZ6drjBfz4qdd2hp2Uez9h6fMjag3D7qlDUdplwESYFDXk5mdYIF633bAtg
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 15:36:27.6875 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0953f25-d5a8-4f99-5b77-08de7b9621ea
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 15:36:26.4946 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0132bc8d-2acf-4a4d-0ca9-08de7b962130
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002529D.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8702
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5708
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,81 +116,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+From: Likun Gao <Likun.Gao@amd.com>
 
-On some hardware configuration, sriov guests
-cannot access mm_index and mm_data. Update the
-IPD table via memcpy in these cases
+Use an common function to check the validation of discovery table.
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Likun Gao <Likun.Gao@amd.com>
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 13 +++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h      |  4 ++++
- drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h   |  3 ++-
- 3 files changed, 15 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 206 +++++++-----------
+ 1 file changed, 84 insertions(+), 122 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index 36dc0add26f32..daa2a27718edb 100644
+index cab5e643cf21b..415849bf568b7 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -356,10 +356,15 @@ static int amdgpu_discovery_read_binary_from_mem(struct amdgpu_device *adev,
- 	int ret = 0;
+@@ -513,15 +513,95 @@ static int amdgpu_discovery_get_table_info(struct amdgpu_device *adev,
+ 	return 0;
+ }
  
- 	if (!is_tmr_in_sysmem) {
--		amdgpu_device_vram_access(adev, adev->discovery.offset,
--					  (uint32_t *)binary,
--					  adev->discovery.size, false);
--		adev->discovery.reserve_tmr = true;
-+		if (amdgpu_sriov_vf(adev) &&
-+		    amdgpu_sriov_xgmi_connected_to_cpu(adev)) {
-+			ret = amdgpu_discovery_read_binary_from_sysmem(adev, binary);
-+		} else {
-+			amdgpu_device_vram_access(adev, adev->discovery.offset,
-+						  (uint32_t *)binary,
-+						  adev->discovery.size, false);
-+			adev->discovery.reserve_tmr = true;
-+		}
- 	} else {
- 		ret = amdgpu_discovery_read_binary_from_sysmem(adev, binary);
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index 886fbce0bfd1d..9da0c6e9b8695 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -162,6 +162,7 @@ enum AMDGIM_FEATURE_FLAG {
- 	AMDGIM_FEATURE_RAS_TELEMETRY = (1 << 10),
- 	AMDGIM_FEATURE_RAS_CPER = (1 << 11),
- 	AMDGIM_FEATURE_XGMI_TA_EXT_PEER_LINK = (1 << 12),
-+	AMDGIM_FEATURE_XGMI_CONNECTED_TO_CPU = (1 << 13),
- };
- 
- enum AMDGIM_REG_ACCESS_FLAG {
-@@ -412,6 +413,9 @@ struct amdgpu_video_codec_info;
- #define amdgpu_sriov_xgmi_ta_ext_peer_link_en(adev) \
- ((adev)->virt.gim_feature & AMDGIM_FEATURE_XGMI_TA_EXT_PEER_LINK)
- 
-+#define amdgpu_sriov_xgmi_connected_to_cpu(adev) \
-+((adev)->virt.gim_feature & AMDGIM_FEATURE_XGMI_CONNECTED_TO_CPU)
-+
- static inline bool is_virtual_machine(void)
+-static int amdgpu_discovery_init(struct amdgpu_device *adev)
++static int amdgpu_discovery_table_check(struct amdgpu_device *adev,
++					uint8_t *discovery_bin,
++					uint16_t table_id)
  {
- #if defined(CONFIG_X86)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-index a841f342a3ebb..847cfd1fd0046 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
-@@ -161,7 +161,8 @@ union amd_sriov_msg_feature_flags {
- 		uint32_t ras_telemetry		: 1;
- 		uint32_t ras_cper		: 1;
- 		uint32_t xgmi_ta_ext_peer_link	: 1;
--		uint32_t reserved		: 19;
-+		uint32_t xgmi_connected_to_cpu  : 1;
-+		uint32_t reserved		: 18;
- 	} flags;
- 	uint32_t all;
- };
++	int r, act_val, exp_val, table_size;
++	uint16_t offset, checksum;
+ 	struct table_info *info;
++	bool check_table = true;
++	char *table_name;
++
++	r = amdgpu_discovery_get_table_info(adev, &info, table_id);
++	if (r)
++		return r;
++	offset = le16_to_cpu(info->offset);
++	checksum = le16_to_cpu(info->checksum);
++
++	switch (table_id) {
++	case IP_DISCOVERY:
++		struct ip_discovery_header *ihdr =
++			(struct ip_discovery_header *)(discovery_bin + offset);
++		act_val = le32_to_cpu(ihdr->signature);
++		exp_val = DISCOVERY_TABLE_SIGNATURE;
++		table_size = le16_to_cpu(ihdr->size);
++		table_name = "data table";
++		break;
++	case GC:
++		struct gpu_info_header *ghdr =
++			(struct gpu_info_header *)(discovery_bin + offset);
++		act_val = le32_to_cpu(ghdr->table_id);
++		exp_val = GC_TABLE_ID;
++		table_size = le16_to_cpu(ghdr->size);
++		table_name = "gc table";
++		break;
++	case HARVEST_INFO:
++		struct harvest_info_header *hhdr =
++			(struct harvest_info_header *)(discovery_bin + offset);
++		act_val = le32_to_cpu(hhdr->signature);
++		exp_val = HARVEST_TABLE_SIGNATURE;
++		table_size = sizeof(struct harvest_table);
++		table_name = "harvest table";
++		break;
++	case VCN_INFO:
++		struct vcn_info_header *vhdr =
++			(struct vcn_info_header *)(discovery_bin + offset);
++		act_val = le32_to_cpu(vhdr->table_id);
++		exp_val = VCN_INFO_TABLE_ID;
++		table_size = le32_to_cpu(vhdr->size_bytes);
++		table_name = "vcn table";
++		break;
++	case MALL_INFO:
++		struct mall_info_header *mhdr =
++			(struct mall_info_header *)(discovery_bin + offset);
++		act_val = le32_to_cpu(mhdr->table_id);
++		exp_val = MALL_INFO_TABLE_ID;
++		table_size = le32_to_cpu(mhdr->size_bytes);
++		table_name = "mall table";
++		check_table = false;
++		break;
++	default:
++		dev_err(adev->dev, "invalid ip discovery table id %d specified\n", table_id);
++		check_table = false;
++		break;
++	}
++
++	if (check_table && offset) {
++		if (act_val != exp_val) {
++			dev_err(adev->dev, "invalid ip discovery %s signature\n", table_name);
++			return -EINVAL;
++		}
++
++		if (!amdgpu_discovery_verify_checksum(adev, discovery_bin + offset,
++						      table_size, checksum)) {
++			dev_err(adev->dev, "invalid ip discovery %s checksum\n", table_name);
++			return -EINVAL;
++		}
++	}
++
++	return 0;
++}
++
++static int amdgpu_discovery_init(struct amdgpu_device *adev)
++{
+ 	struct binary_header *bhdr;
+ 	uint8_t *discovery_bin;
+ 	const char *fw_name;
+ 	uint16_t offset;
+ 	uint16_t size;
+ 	uint16_t checksum;
++	uint16_t table_id;
+ 	int r;
+ 
+ 	adev->discovery.bin = kzalloc(DISCOVERY_TMR_SIZE, GFP_KERNEL);
+@@ -569,128 +649,10 @@ static int amdgpu_discovery_init(struct amdgpu_device *adev)
+ 		goto out;
+ 	}
+ 
+-	r = amdgpu_discovery_get_table_info(adev, &info, IP_DISCOVERY);
+-	if (r)
+-		goto out;
+-	offset = le16_to_cpu(info->offset);
+-	checksum = le16_to_cpu(info->checksum);
+-
+-	if (offset) {
+-		struct ip_discovery_header *ihdr =
+-			(struct ip_discovery_header *)(discovery_bin + offset);
+-		if (le32_to_cpu(ihdr->signature) != DISCOVERY_TABLE_SIGNATURE) {
+-			dev_err(adev->dev, "invalid ip discovery data table signature\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-
+-		if (!amdgpu_discovery_verify_checksum(adev, discovery_bin + offset,
+-						      le16_to_cpu(ihdr->size),
+-						      checksum)) {
+-			dev_err(adev->dev, "invalid ip discovery data table checksum\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-	}
+-
+-	r = amdgpu_discovery_get_table_info(adev, &info, GC);
+-	if (r)
+-		goto out;
+-	offset = le16_to_cpu(info->offset);
+-	checksum = le16_to_cpu(info->checksum);
+-
+-	if (offset) {
+-		struct gpu_info_header *ghdr =
+-			(struct gpu_info_header *)(discovery_bin + offset);
+-
+-		if (le32_to_cpu(ghdr->table_id) != GC_TABLE_ID) {
+-			dev_err(adev->dev, "invalid ip discovery gc table id\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-
+-		if (!amdgpu_discovery_verify_checksum(adev, discovery_bin + offset,
+-						      le32_to_cpu(ghdr->size),
+-						      checksum)) {
+-			dev_err(adev->dev, "invalid gc data table checksum\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-	}
+-
+-	r = amdgpu_discovery_get_table_info(adev, &info, HARVEST_INFO);
+-	if (r)
+-		goto out;
+-	offset = le16_to_cpu(info->offset);
+-	checksum = le16_to_cpu(info->checksum);
+-
+-	if (offset) {
+-		struct harvest_info_header *hhdr =
+-			(struct harvest_info_header *)(discovery_bin + offset);
+-
+-		if (le32_to_cpu(hhdr->signature) != HARVEST_TABLE_SIGNATURE) {
+-			dev_err(adev->dev, "invalid ip discovery harvest table signature\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-
+-		if (!amdgpu_discovery_verify_checksum(adev,
+-			    discovery_bin + offset,
+-			    sizeof(struct harvest_table), checksum)) {
+-			dev_err(adev->dev, "invalid harvest data table checksum\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-	}
+-
+-	r = amdgpu_discovery_get_table_info(adev, &info, VCN_INFO);
+-	if (r)
+-		goto out;
+-	offset = le16_to_cpu(info->offset);
+-	checksum = le16_to_cpu(info->checksum);
+-
+-	if (offset) {
+-		struct vcn_info_header *vhdr =
+-			(struct vcn_info_header *)(discovery_bin + offset);
+-
+-		if (le32_to_cpu(vhdr->table_id) != VCN_INFO_TABLE_ID) {
+-			dev_err(adev->dev, "invalid ip discovery vcn table id\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-
+-		if (!amdgpu_discovery_verify_checksum(adev,
+-			    discovery_bin + offset,
+-			    le32_to_cpu(vhdr->size_bytes), checksum)) {
+-			dev_err(adev->dev, "invalid vcn data table checksum\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-	}
+-
+-	r = amdgpu_discovery_get_table_info(adev, &info, MALL_INFO);
+-	if (r)
+-		goto out;
+-	offset = le16_to_cpu(info->offset);
+-	checksum = le16_to_cpu(info->checksum);
+-
+-	if (0 && offset) {
+-		struct mall_info_header *mhdr =
+-			(struct mall_info_header *)(discovery_bin + offset);
+-
+-		if (le32_to_cpu(mhdr->table_id) != MALL_INFO_TABLE_ID) {
+-			dev_err(adev->dev, "invalid ip discovery mall table id\n");
+-			r = -EINVAL;
+-			goto out;
+-		}
+-
+-		if (!amdgpu_discovery_verify_checksum(adev,
+-			    discovery_bin + offset,
+-			    le32_to_cpu(mhdr->size_bytes), checksum)) {
+-			dev_err(adev->dev, "invalid mall data table checksum\n");
+-			r = -EINVAL;
++	for (table_id = 0; table_id <= MALL_INFO; table_id++) {
++		r = amdgpu_discovery_table_check(adev, discovery_bin, table_id);
++		if (r)
+ 			goto out;
+-		}
+ 	}
+ 
+ 	return 0;
 -- 
 2.53.0
 
