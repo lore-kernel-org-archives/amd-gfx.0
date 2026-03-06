@@ -4,78 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 924E9F0181D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40764F0181E
 	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:53:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85DAA10ECA4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8329110ECA3;
 	Fri,  6 Mar 2026 08:52:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OfbcGuQQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ns4WzGmK";
 	dkim-atps=neutral
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com
- [209.85.161.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC63110E2E8
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:51:09 +0000 (UTC)
-Received: by mail-oo1-f41.google.com with SMTP id
- 006d021491bc7-676e5c56fe1so3867937eaf.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:51:09 -0800 (PST)
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com
+ [209.85.161.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1B8810E2F3
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 01:51:13 +0000 (UTC)
+Received: by mail-oo1-f48.google.com with SMTP id
+ 006d021491bc7-66f747175d8so5066826eaf.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2026 17:51:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772761869; x=1773366669; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1772761873; x=1773366673; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=bUT8OXayauJDeUXGjkmGNUpTYIk2PPPOV9CpVsGLhj0=;
- b=OfbcGuQQXk7TnXTWL2CayiETbUGRKuAKDLAR3z/uCEMjgD1qBeHy/yzGSMXVupEMGR
- b1I577PMAa+ymRxUfpTRQXdzugWJYIduWvXZrB54JmFZhkXboxKMmFkQ9KQZg7g1tkjw
- TjljFOJJT0AeGdaGlc4mOXCpGrgtDv2ILtydNFZ2xtcSbObXuuOS5mGaHMfL7OGpCd1r
- 2mjRq9CV7R4jK6R05IaJjfIE1RYWxBoigAB3fSHA5eaOTd4A9Y0LGKth9zLoFGeVGxit
- JGMZS7rLQEu13s66hLif+27ugwoSsWUzlVvKDwgCcEWtKmmU8i4PSoV+qK0ypcrsi++p
- 3nHg==
+ bh=bv05xjmvI4rIAw60NQ+tAXnn+K45GBBhYovFXo2xASw=;
+ b=ns4WzGmKwFcPQRXOEp/XQ+YT/zr2qyN2d5s5Ath7FdNLpk+Z5Gttq8MjRBRJkAODla
+ V91ZjvxZMfMyd/qPkheOO3G2cBvMgVWbaK4EqBj07NJY9SNnqM0TuOX05+Xpc8OSCHYu
+ 3R2RwL18A3ITGWmBckyvK419gSi8WAhwjXWobvkZvxBHKZtGnRu0YNIbj5vf41XTlKGG
+ 4GYCJqcLuXYDu/tLcDEJb8p4G7kdIL8S1sUGvpk9B5j1jDgdY5KaBts+6oQIMx7Fn7x1
+ zRXbBB2q12iFxOE2UIiBLq1qMc6qRD4QwmaH5xoxnlTgidSy8t78+T/p3BQAXfHOWUyp
+ zaug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772761869; x=1773366669;
+ d=1e100.net; s=20230601; t=1772761873; x=1773366673;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=bUT8OXayauJDeUXGjkmGNUpTYIk2PPPOV9CpVsGLhj0=;
- b=IVxGbdcx7XIBsqNijgTWn9GPJ/vNT8QSdQRr5JGuO/mjCZ/TYt3frv0PVd3c490wiB
- Mv2sFBdNRcq2y9A2wbdNs0Q9+dnUx3pwVrqGO48lmvqU2Vky8xRJjo5HcP6w2/UkIejW
- YEbyYEegVbQ7B2YOKn4Am9fQ/xWIBpLySz6QeAiQrXZS5tRxJo6+btL+fJcvZziayj6O
- bg10c+hyWa22Iyh8WURuy2Puv4OGc+WFu7AGMl2KQ5lD4PHyzEQwhac/Dzie5uxSOKXJ
- YNUV61sh2LJWSG8Y2W4U30ZLKjpNoxO7JVdNXNsqXUXU26OAFLgY3JmbYt1Ofsburtg9
- 7crA==
+ bh=bv05xjmvI4rIAw60NQ+tAXnn+K45GBBhYovFXo2xASw=;
+ b=cWuRHWctbtQCbJSmn+t899uLkOaHWAXzNXYuT345RbRt4gB2jQbhu3Wbnrc9hVUf3+
+ zbtyYSFWIUv35CH23X3Pnikt010BCjounf9+0aHnxMO2gWsVbzore6ewrB8F8eNB5jGg
+ ySSf1ilUxasLzfZXBjY+mSqnRcLl6fdcdrh4px2ueOmmx1v/YOK7hW/NXZLIEEm5yeqi
+ 01Wzp2kwuCFn+hynUW+4PP9kiMmHoB2sB2Pfeb1AZ5vlX1Xhhtsxj9OnEUHu1H57U/ww
+ MptMk7nYp4StMxuMD0PdYTff54CmpxWuKlN6KmicL9cZaERHnsBU4OL0pQSt5HNdmitM
+ iR4w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX4LB0CI6kItAkOeYJQdZe9fDoVKB6bwx3Ks0hqEdh7qaTf0IensjgB9/hBFjrWeLR4y2Q9Nb9u@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUsDDG4jPm6byNnqzXkuzVQ9Z/O8u8PLvL3QTDGLcm0K7H6OP7
- DuhrkzeTp0qQ5z84Vq5C9XFvYaiHZ9hiOBvTJWMiGEdUKXnLgLvE2tIb
-X-Gm-Gg: ATEYQzxuBzveGCveA4ezCnI8e2Dz1qMarDqhKzrZUjXV8NmEN9arHpdXeHaURZ+bMbF
- yfLj9hUTH0I5IZFAPQD0MVAaMEoN/CjF3v+/NW4ZB3pVC4by7kbIus/lza0FXQ5dLrJ+CcENSTu
- 6FWwlwoBN2AIdH7eedGMxeZhM3UQ7vS8/h4T4e217tcl4XQQ42MMieYtmEwJz4ZUcxFIiSf9F0r
- 68xoD5yy7H7Wbr62fKOIlR7453y9TJcfAyjzlu4EJBGjqpxOHwefQXtad0HtAs8TCcO/WU4pJB0
- TvP8eewNEw1AoISfJaKWW6Yd+zQpxAMtDxgRKvQ6Hwzo71I75SINdPgwxIt/VYha1Y9gLAlrRjN
- cDy7sUvRql8fGTC70jz4WNeCIXzHGk2CABG4C1u98FXckyCoa6Vm4+suX0wizxxyoroDKrzpbIg
- 1hpUhfvNVn1z3/cttIDDsLvcqPrsbN3PGggQIMdmvatvwFlCDy
-X-Received: by 2002:a4a:ee14:0:b0:677:3b8f:43a4 with SMTP id
- 006d021491bc7-67b9c485db9mr276619eaf.36.1772761868900; 
- Thu, 05 Mar 2026 17:51:08 -0800 (PST)
+ AJvYcCVPlxriMNwHD9eqTjZ3IygMnpZTfJTdWxDPTINSi7VZiZYyR5Gsz7QD4xmcNuglzx0NF073vq7d@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwJoj9Hk11E+DW96HTQFviOJpBV7C9/WxjgafYUGpiITDhDfSFq
+ I8XOOOzy49+26/keIFEsGV+83qBvP2bFS3R8w7Vv9vhzgmS9+X1mgypc
+X-Gm-Gg: ATEYQzwOhGilQheXpLfaS575Cn4X9lmqB6JWTK1BAb0CmTW2f2JclZkI6zwxxMCIEIm
+ 5Aoaciam9krfQLQY4ifq3DmjCEj/sJQ2Ntym8uYzHkYdQvDC+IY8nwsiGbyotRNRrk4OnK/c6Vo
+ BuZLIqdi+VvKGrWHMDf809IZYUjXLlYAumCnapKgfUikeeNIwBJbJ+mSb/njuQ7NvRSLoDpi9xh
+ m9QLbhezQyxWJ9AuJVwRy4jHG75/h3oOj1+GqBzlWk01wfMToOEKer5+M5n+AUiG6PZ+Q/aYZ7E
+ R006LUMnGZ34t1iX5HP1fyLZEMF13QxZBiMCH6V2LRqnXLNyhirVWit8+5xu86SE/c/xk25ocVL
+ FwW8wDN5PE9RaEbUVKqjjjLav5DjJ53NWcNxv5s84gVh5+fD9bHVjVGUpZhkW1XMnToUUBJCNXk
+ p9dnkk/8hYeAtaRP4FYRA0Ik4ZvZrACqx+jvcK5zdz0NVaDYpw
+X-Received: by 2002:a05:6820:4b05:b0:67a:4fe9:a4ba with SMTP id
+ 006d021491bc7-67b9bd49644mr410552eaf.63.1772761872956; 
+ Thu, 05 Mar 2026 17:51:12 -0800 (PST)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.51.07
+ 006d021491bc7-67b9cc1a627sm115245eaf.6.2026.03.05.17.51.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2026 17:51:08 -0800 (PST)
+ Thu, 05 Mar 2026 17:51:12 -0800 (PST)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gvt-dev@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org
 Cc: Jim Cromie <jim.cromie@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Petr Mladek <pmladek@suse.com>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Dr. David Alan Gilbert" <linux@treblig.org>,
- Joseph Tilahun <jtilahun@astranis.com>, linux-serial@vger.kernel.org
-Subject: [RFC PATCH 3/7] drivers/tty/serial/serial_core: ratelimit
- uart_wait_until_sent
-Date: Thu,  5 Mar 2026 18:50:06 -0700
-Message-ID: <20260306015022.1940986-4-jim.cromie@gmail.com>
+ Andrew Morton <akpm@linux-foundation.org>, Jason Baron <jbaron@akamai.com>
+Subject: [RFC PATCH 6/7] lib/dynamic_debug: add negation support to queries
+Date: Thu,  5 Mar 2026 18:50:09 -0700
+Message-ID: <20260306015022.1940986-7-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260306015022.1940986-1-jim.cromie@gmail.com>
 References: <20260306015022.1940986-1-jim.cromie@gmail.com>
@@ -96,30 +91,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ratelimiting these pr_debug()s can reduce the console flood during
-bulk dynamic-debug activation, in environments where a serial console
-is used.
+This allow users to invert the selection of any keyword.
+For example:
+
+  echo "module !virtio* +p" > /proc/dynamic_debug/control
+
+When I test with virtme-ng, this cmd prevents flooding the logs with
+virtio activity.  Its not perfect, because it cannot also avoid
+flooding from pr_debugs in serial_core or other potential sources.
+
+A more robust command is:
+
+  echo "module !virtio* +p % module serial -p" > /proc/dynamic_debug/control
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/tty/serial/serial_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ lib/dynamic_debug.c | 76 +++++++++++++++++++++++++++++++--------------
+ 1 file changed, 53 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 487756947a96..6db465619c70 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -1790,8 +1790,8 @@ static void uart_wait_until_sent(struct tty_struct *tty, int timeout)
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 80fa8d2143e8..a283d12fd64d 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -59,6 +59,10 @@ struct ddebug_query {
+ 	const char *format;
+ 	const char *class_string;
+ 	unsigned int first_lineno, last_lineno;
++	unsigned int filename_neg:1;
++	unsigned int module_neg:1;
++	unsigned int function_neg:1;
++	unsigned int format_neg:1;
+ };
  
- 	expire = jiffies + timeout;
+ struct ddebug_iter {
+@@ -163,11 +167,12 @@ static void vpr_info_dq(const struct ddebug_query *query, const char *msg)
+ 			fmtlen--;
+ 	}
  
--	pr_debug("uart_wait_until_sent(%u), jiffies=%lu, expire=%lu...\n",
--		port->line, jiffies, expire);
-+	pr_debug_ratelimited("waiting on (%u) jiffies=%lu, expire=%lu...\n",
-+			     port->line, jiffies, expire);
+-	v3pr_info("%s: func=\"%s\" file=\"%s\" module=\"%s\" format=\"%.*s\" lineno=%u-%u class=%s\n",
++	v3pr_info("%s: func%s=\"%s\" file%s=\"%s\" module%s=\"%s\" format%s=\"%.*s\" lineno=%u-%u class=%s\n",
+ 		  msg,
+-		  query->function ?: "",
+-		  query->filename ?: "",
+-		  query->module ?: "",
++		  query->function_neg ? "!" : "", query->function ?: "",
++		  query->filename_neg ? "!" : "", query->filename ?: "",
++		  query->module_neg ? "!" : "", query->module ?: "",
++		  query->format_neg ? "!" : "",
+ 		  fmtlen, query->format ?: "",
+ 		  query->first_lineno, query->last_lineno, query->class_string);
+ }
+@@ -268,32 +273,34 @@ static bool ddebug_match_desc(const struct ddebug_query *query,
+ 			      int selected_class)
+ {
+ 	struct _ddebug_class_map *site_map;
++	bool match;
  
- 	/*
- 	 * Check whether the transmitter is empty every 'char_time'.
+ 	/* match against the source filename */
+-	if (query->filename &&
+-	    !match_wildcard(query->filename, dp->filename) &&
+-	    !match_wildcard(query->filename,
+-			    kbasename(dp->filename)) &&
+-	    !match_wildcard(query->filename,
+-			    trim_prefix(dp->filename)))
+-		return false;
++	if (query->filename) {
++		match = match_wildcard(query->filename, dp->filename) ||
++			match_wildcard(query->filename, kbasename(dp->filename)) ||
++			match_wildcard(query->filename, trim_prefix(dp->filename));
++		if (match == query->filename_neg)
++			return false;
++	}
+ 
+ 	/* match against the function */
+-	if (query->function &&
+-	    !match_wildcard(query->function, dp->function))
+-		return false;
++	if (query->function) {
++		match = match_wildcard(query->function, dp->function);
++		if (match == query->function_neg)
++			return false;
++	}
+ 
+ 	/* match against the format */
+ 	if (query->format) {
+ 		if (*query->format == '^') {
+-			char *p;
+ 			/* anchored search. match must be at beginning */
+-			p = strstr(dp->format, query->format + 1);
+-			if (p != dp->format)
+-				return false;
+-		} else if (!strstr(dp->format, query->format)) {
+-			return false;
++			match = (strstr(dp->format, query->format + 1) == dp->format);
++		} else {
++			match = !!strstr(dp->format, query->format);
+ 		}
++		if (match == query->format_neg)
++			return false;
+ 	}
+ 
+ 	/* match against the line number range */
+@@ -345,9 +352,11 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
+ 		struct _ddebug_class_map *mods_map;
+ 
+ 		/* match against the module name */
+-		if (query->module &&
+-		    !match_wildcard(query->module, di->mod_name))
+-			continue;
++		if (query->module) {
++			bool match = match_wildcard(query->module, di->mod_name);
++			if (match == query->module_neg)
++				continue;
++		}
+ 
+ 		selected_class = _DPRINTK_CLASS_DFLT;
+ 		if (query->class_string) {
+@@ -514,6 +523,16 @@ static int parse_linerange(struct ddebug_query *query, const char *first)
+ 	return 0;
+ }
+ 
++static char *check_neg(char *src, unsigned int *neg)
++{
++	if (*src == '!') {
++		*neg = 1;
++		return src + 1;
++	}
++	*neg = 0;
++	return src;
++}
++
+ static int check_set(const char **dest, char *src, char *name)
+ {
+ 	int rc = 0;
+@@ -558,10 +577,15 @@ static int ddebug_parse_query(char *words[], int nwords,
+ 	for (i = 0; i < nwords; i += 2) {
+ 		char *keyword = words[i];
+ 		char *arg = words[i+1];
++		unsigned int neg;
+ 
+ 		if (!strcmp(keyword, "func")) {
++			arg = check_neg(arg, &neg);
++			query->function_neg = neg;
+ 			rc = check_set(&query->function, arg, "func");
+ 		} else if (!strcmp(keyword, "file")) {
++			arg = check_neg(arg, &neg);
++			query->filename_neg = neg;
+ 			if (check_set(&query->filename, arg, "file"))
+ 				return -EINVAL;
+ 
+@@ -572,6 +596,8 @@ static int ddebug_parse_query(char *words[], int nwords,
+ 			*fline++ = '\0';
+ 			if (isalpha(*fline) || *fline == '*' || *fline == '?') {
+ 				/* take as function name */
++				fline = check_neg(fline, &neg);
++				query->function_neg = neg;
+ 				if (check_set(&query->function, fline, "func"))
+ 					return -EINVAL;
+ 			} else {
+@@ -579,11 +605,15 @@ static int ddebug_parse_query(char *words[], int nwords,
+ 					return -EINVAL;
+ 			}
+ 		} else if (!strcmp(keyword, "module")) {
++			arg = check_neg(arg, &neg);
++			query->module_neg = neg;
+ 			rc = check_set(&query->module, arg, "module");
+ 		} else if (!strcmp(keyword, "format")) {
+ 			string_unescape_inplace(arg, UNESCAPE_SPACE |
+ 							    UNESCAPE_OCTAL |
+ 							    UNESCAPE_SPECIAL);
++			arg = check_neg(arg, &neg);
++			query->format_neg = neg;
+ 			rc = check_set(&query->format, arg, "format");
+ 		} else if (!strcmp(keyword, "line")) {
+ 			if (parse_linerange(query, arg))
 -- 
 2.53.0
 
