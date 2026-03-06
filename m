@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 578FFF01807
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:06:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9E13F01807
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:06:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC56E10E3A9;
-	Fri,  6 Mar 2026 08:06:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC3F10E3AB;
+	Fri,  6 Mar 2026 08:06:47 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF9E910E3AB
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 08:06:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7ABBA10E3AB
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 08:06:46 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 626864Ts1809249; Fri, 6 Mar 2026 13:36:04 +0530
+ 62686gwb1810346; Fri, 6 Mar 2026 13:36:42 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 626864qx1809248;
- Fri, 6 Mar 2026 13:36:04 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62686gmn1810345;
+ Fri, 6 Mar 2026 13:36:42 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v2 2/2] drm/amdgpu/userq: declutter the code with goto
-Date: Fri,  6 Mar 2026 13:36:01 +0530
-Message-Id: <20260306080601.1809204-2-sunil.khatri@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>,
+ Philip Yang <philip.yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH v1 1/2] drm/amdkd: fix the warning for potential insecure
+ string
+Date: Fri,  6 Mar 2026 13:36:35 +0530
+Message-Id: <20260306080636.1810291-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260306080601.1809204-1-sunil.khatri@amd.com>
-References: <20260306080601.1809204-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -44,113 +44,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Clean up the amdgpu_userq_create function clean up in
-failure condition using goto method. This avoid replication
-of cleanup for every failure conditon.
+Below is the warning thrown by the clang compiler:
+linux/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:588:9: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+                                           stats_dir_filename);
+                                           ^~~~~~~~~~~~~~~~~~
+linux/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:588:9: note: treat the string as an argument to avoid this
+                                           stats_dir_filename);
+                                           ^
+                                           "%s",
+linux/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:635:18: warning: format string is not a string literal (potentially insecure) [-Wformat-security]
+                                           p->kobj, counters_dir_filename);
+                                                    ^~~~~~~~~~~~~~~~~~~~~
+linux/drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_process.c:635:18: note: treat the string as an argument to avoid this
+                                           p->kobj, counters_dir_filename);
+                                                    ^
+                                                    "%s",
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+CC: Philip Yang <philip.yang@amd.com>
+CC: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 37 ++++++++++-------------
- 1 file changed, 16 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 937403beacdc..115f294ae8da 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -818,17 +818,15 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	    amdgpu_userq_input_va_validate(adev, queue, args->in.rptr_va, AMDGPU_GPU_PAGE_SIZE) ||
- 	    amdgpu_userq_input_va_validate(adev, queue, args->in.wptr_va, AMDGPU_GPU_PAGE_SIZE)) {
- 		r = -EINVAL;
--		kfree(queue);
--		goto unlock;
-+		goto free_queue;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 0b3b0c26e05c..d202827df66e 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -585,7 +585,7 @@ static void kfd_procfs_add_sysfs_stats(struct kfd_process *p)
+ 		ret = kobject_init_and_add(pdd->kobj_stats,
+ 					   &procfs_stats_type,
+ 					   p->kobj,
+-					   stats_dir_filename);
++					   "%s", stats_dir_filename);
  
- 	/* Convert relative doorbell offset into absolute doorbell index */
- 	index = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp);
- 	if (index == (uint64_t)-EINVAL) {
- 		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
--		kfree(queue);
- 		r = -EINVAL;
--		goto unlock;
-+		goto free_queue;
- 	}
+ 		if (ret) {
+ 			pr_warn("Creating KFD proc/stats_%s folder failed",
+@@ -632,7 +632,7 @@ static void kfd_procfs_add_sysfs_counters(struct kfd_process *p)
+ 			return;
  
- 	queue->doorbell_index = index;
-@@ -836,15 +834,13 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	r = amdgpu_userq_fence_driver_alloc(adev, queue);
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to alloc fence driver\n");
--		goto unlock;
-+		goto free_queue;
- 	}
- 
- 	r = uq_funcs->mqd_create(queue, &args->in);
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to create Queue\n");
--		amdgpu_userq_fence_driver_free(queue);
--		kfree(queue);
--		goto unlock;
-+		goto clean_fence_driver;
- 	}
- 
- 	/* don't map the queue if scheduling is halted */
-@@ -858,10 +854,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 		r = amdgpu_userq_map_helper(queue);
- 		if (r) {
- 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
--			uq_funcs->mqd_destroy(queue);
--			amdgpu_userq_fence_driver_free(queue);
--			kfree(queue);
--			goto unlock;
-+			goto clean_mqd;
- 		}
- 	}
- 
-@@ -877,12 +870,9 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 		if (!skip_map_queue)
- 			amdgpu_userq_unmap_helper(queue);
- 
--		uq_funcs->mqd_destroy(queue);
--		amdgpu_userq_fence_driver_free(queue);
--		kfree(queue);
--		r = -ENOMEM;
- 		up_read(&adev->reset_domain->sem);
--		goto unlock;
-+		r = -ENOMEM;
-+		goto clean_mqd;
- 	}
- 
- 	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue, GFP_KERNEL));
-@@ -891,11 +881,8 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 		if (!skip_map_queue)
- 			amdgpu_userq_unmap_helper(queue);
- 
--		uq_funcs->mqd_destroy(queue);
--		amdgpu_userq_fence_driver_free(queue);
--		kfree(queue);
- 		up_read(&adev->reset_domain->sem);
--		goto unlock;
-+		goto clean_mqd;
- 	}
- 	up_read(&adev->reset_domain->sem);
- 
-@@ -911,7 +898,15 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 
- 	args->out.queue_id = qid;
- 	atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
-+	mutex_unlock(&uq_mgr->userq_mutex);
-+	return 0;
- 
-+clean_mqd:
-+	uq_funcs->mqd_destroy(queue);
-+clean_fence_driver:
-+	amdgpu_userq_fence_driver_free(queue);
-+free_queue:
-+	kfree(queue);
- unlock:
- 	mutex_unlock(&uq_mgr->userq_mutex);
- 
+ 		ret = kobject_init_and_add(kobj_counters, &sysfs_counters_type,
+-					   p->kobj, counters_dir_filename);
++					   p->kobj, "%s", counters_dir_filename);
+ 		if (ret) {
+ 			pr_warn("Creating KFD proc/%s folder failed",
+ 				counters_dir_filename);
 -- 
 2.34.1
 
