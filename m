@@ -4,105 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC01DFCC04F
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 17:24:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 408FDFCC048
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 17:54:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4551410EDF1;
-	Fri,  6 Mar 2026 17:24:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C14E210E2C8;
+	Fri,  6 Mar 2026 17:54:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="I8DpK+G9";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="JdI7ateT";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013021.outbound.protection.outlook.com
- [40.93.196.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E01210EDEC
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 17:24:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v7ZSJeVlSymNl6p8bXZLggkNUtMPW8YJOaDloE+mq7yyWHajsMXAUUpEAVRGo47lfZu2+EVt8dSvHfLf/IKmvCsnuDEwV9r8BmlkgvgmDtvl+TcwgBN2TfRFuqOtTWNtE6/4EJHQtG/pmYns7A85Vm82AimkUHtjAu3Xoo9nsbQsSQvjwpA3JUcdkgdtIDvcEB06R0x4UZ/EGUx2/sWkXZ3XeXgfS39/XjRAjhoGnWVkjYnfvTXJnG+CnHNh1m4364SIKdSQ5vNw+vFEJ+04A8HArn9/WHUc1YUzWglFb0RMhcHg8GeZPPB6bIMSzCz4cl3NxKB9Ny36yOeG9kBz2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zuDewrXWrPCswxQ5ub17CswWakUfjHXRPGtVBxq5NQk=;
- b=TLwkyKErBFQhCByjh/M7xF0DfgXSxvXaLbrmDxTt1SQgzo0bySPTeBYUmV4XwsKFNNgMKGBglnu4nvHbdvUxlUHwLTxkzJT8h0ge8iMGoGAsnjwscjcl0BWMdDxeMxwSZtwpdEGSX9mMzXd4qklOUk3mi2eD/lKRImEFOS4nfUgXCU8ffi8EsFpuwze4iTdCZz2fyNaf/qI9gTSbRcGTXZ6r/xesI9EQVnce2wqXcB3q/OyxW4ytLuwObWnQta7sWPHTb/owdq9p+yU9PJcPrULk6W0xh0tolj6lV3tm8d8POppgQloCRzXhz8FCcMg6vSUOv0Vc2bP4HLSo8TuZfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zuDewrXWrPCswxQ5ub17CswWakUfjHXRPGtVBxq5NQk=;
- b=I8DpK+G9uqK9lhRJeti98WUyhN1O+Ros2RadShezrL4yf2Idi28qnIp0ZcCl0z2fyoSGMChHM35oA0YGleaqyzrD0b+5N3APWW/txRO701b23KnlnvHaJAdwo2gTYXPYMo6n+g/VJNTAe0lrSijBfaT+DErrbRkFqDyO+Csqilk=
-Received: from SJ0PR03CA0378.namprd03.prod.outlook.com (2603:10b6:a03:3a1::23)
- by CH3PR12MB9249.namprd12.prod.outlook.com (2603:10b6:610:1bc::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.5; Fri, 6 Mar
- 2026 17:24:30 +0000
-Received: from SJ5PEPF000001F2.namprd05.prod.outlook.com
- (2603:10b6:a03:3a1:cafe::c3) by SJ0PR03CA0378.outlook.office365.com
- (2603:10b6:a03:3a1::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.22 via Frontend Transport; Fri,
- 6 Mar 2026 17:24:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001F2.mail.protection.outlook.com (10.167.242.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Fri, 6 Mar 2026 17:24:29 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Fri, 6 Mar
- 2026 11:24:27 -0600
-Received: from satlexmb07.amd.com (10.181.42.216) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 6 Mar
- 2026 11:24:26 -0600
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Fri, 6 Mar 2026 11:24:26 -0600
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 6/9] drm/amdgpu/sdma_4.4.2: set SEM_WAIT_FAIL_TIMER_CNTL to a
- non-0 value
-Date: Fri, 6 Mar 2026 12:24:14 -0500
-Message-ID: <20260306172417.325169-6-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260306172417.325169-1-alexander.deucher@amd.com>
-References: <20260306172417.325169-1-alexander.deucher@amd.com>
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0A64A10E2C8
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 17:54:42 +0000 (UTC)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62680stG2069251; Fri, 6 Mar 2026 17:54:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=Q+QazG
+ roXq52bV9zrSAq9OVzyHhJtO5ltiVTmgA+XqU=; b=JdI7ateTfKYAkPmyTKe0K0
+ hdntQMeh5uoW+KkUA+pYtm758BQAc+NuT7vz1vWaE32VaucHjSG2MdTsu2+nfsqy
+ S6jXlrF6a+Yd4IYJhKX5ADgSQTZVbJwvakOmOjG/j3Q5ri4AzO8i49On6pHtc0wZ
+ z8i28Izf8JhlYQr+gYlOG5BmBV38ZSXX3w8Swe0NP80Udr5bJ5d6Hb1GtAQI9BWA
+ YlxSRy4LV6YztNOZiuatvhlWnaBDV+IClo1CbzwtdYxqDvxl8Z2uA/P4yL7dX5Ks
+ fYVUbUmGETbXKT07642wpA8Z553G2+9Bni3NdvZZp7jmSe5caIHptGpqiOicizag
+ ==
+Received: from ppma12.dal12v.mail.ibm.com
+ (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ckssn19ff-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 06 Mar 2026 17:54:39 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma12.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 626HGSOW029112;
+ Fri, 6 Mar 2026 17:54:38 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+ by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4cmapsh3er-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 06 Mar 2026 17:54:38 +0000
+Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com
+ [10.39.53.228])
+ by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 626Hsckj31982100
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 6 Mar 2026 17:54:38 GMT
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EE00658059;
+ Fri,  6 Mar 2026 17:54:37 +0000 (GMT)
+Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9405A58066;
+ Fri,  6 Mar 2026 17:54:34 +0000 (GMT)
+Received: from [9.39.17.192] (unknown [9.39.17.192])
+ by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Fri,  6 Mar 2026 17:54:34 +0000 (GMT)
+Message-ID: <3c9564d0-b9f1-44a1-bddc-e8548c96af32@linux.ibm.com>
+Date: Fri, 6 Mar 2026 23:24:32 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v3 0/6] drm/amd: Add support for non-4K page size
+ systems
+To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>
+References: <cover.1771656655.git.donettom@linux.ibm.com>
+Content-Language: en-US
+From: Donet Tom <donettom@linux.ibm.com>
+In-Reply-To: <cover.1771656655.git.donettom@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
- designate permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F2:EE_|CH3PR12MB9249:EE_
-X-MS-Office365-Filtering-Correlation-Id: d0be8b17-58c5-46a3-e6cc-08de7ba5395e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: 9P9DVX84QrqyXIeUAhQrKuOnWAyWR4gK1Sy6S000OjFMQ5pdjGvGLxUYne21eJ42kD7X9lQpa8WQvX3ijcXqThKv3XK/yqIzvHoN2P4sjyhROGY31VzcTB9D6+F7cyMtyoMRl1h67g71MwiOc3IntAQIBYiFq1i8nPQWJSCW8SrHcbvn93bbiPyBLU0sYXfoGmPyKBRDXP/LEzA4Wj6unMALC9NesOqqOhtvE96mHfvO8xBnjJDP/qNs15mvMeY7YL3rr5mH/hZiOOqduaiGF4krATWTBur8rdG09ljm2uvmYUWAQxzWJaWYuDItf1d5PwGamCHG1V0St3rtnHkhKghT2bhOZ6jTClJ4kMGxftvvTdQq8Wz4R24+NUN0QGDI7SGc6U6ztu9PrnVIf71qtOqhqlkBNh9CHU89KMQdWvkXFFA8mLW2oV3VBoVbFjz+14y6ooCGK0BER1auJLWfAQzDIrreaEOEtybol3p3ODP1/SiJSgrZAIHEzqV2DHOJIOV9F11fEjmXB8cokF5GiHP//UY6jLosmSHAEQtva238O438QFuBnL7JDO4PykspQTL6RhC37HfA/fYiL/q/xRMoGxdT3HQKl2YbRfpvgmzg0BMJRdUDDaQDbwdDv5Yqc7eFhIXAYsaUK6gwcCI1wZ61LfmH7lAG9MStjfXKAs5qi1wUmOPXeJpRv5KCKrsSQwHELFnVdxSa+1bmRi9SS8lITuN1TBhLbbsW/FsTu0KraiDSy22YI05TWOfR72FbOKO1GGyKU8UXVmV2sldgdA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /3sJxHet0x/7w1g0eyZEhOqvVGaEU80Fiax/ubmZ0O9cuRDsvcEr+BIhECSofre07Ryz86qEOR2SO9RBRITNWyh1DGfEP4QjGOnztEPQVRr32LcSE/fYkUXTxlheOYI1Un+fP+wuA6caNx3QEXVniyPvlhsCZLqIUKePkFxwwp43y1O+3FRj7pjwANnEZ16wQ7ue6xTXz+wxGLhgR+bzOUQ8gahPYX5MDis5v1XrxLtSPjIZle1tMkvXsCPB3LP4CvW10R8cEdYt35+Km/1CX4ajX0lvFCgnfYezV+jjxoC41ydX0WcVRMZZROe1OBmW2bFWMT2a9YtqAK83HPFZIH9YBJPvdtUwTKJJSXwaUhYy4F7fpxDWjlC1xmtiCcANNoW0nTMTX8WWpxWaascRWPwDCLkv4XyKUfTVrx7wyI7HZLvC4ccyG6xFV3RiKW0O
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 17:24:29.4179 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d0be8b17-58c5-46a3-e6cc-08de7ba5395e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9249
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA2MDE2NyBTYWx0ZWRfX7shO1s6EjZmB
+ kNvJkfTdU24/tX/8cUUtY/giH4hi5cmTIVvIJ+UX6QCMhckSlUAQlAZ4yyrEBbP5XF60bT2N1ih
+ Zg/PRmHDtYQggwGjS/lh4KzxYgSscHyuYi1ATaGzu3tFPtN8dKocxsl/DGDEVILPfQczjWX6r5P
+ xkKitU7BMBoCnTN6C4slmiPXj4b3Rj2GTWJPugzsAVT7/eghx1+cc5ASAFtSsTtTaWomcuswTYm
+ KEZD53GrdtjnUnIGKmfEXWWlddeWuCzRj/aLpTBy2C+n89uQdiGn05H8MMsTm5A5oqoZk3aRi6m
+ wDuCD6j5uK18DzILcAEZC2IyDcxW+fgZcWywPPTjXBsWy5LWwgGU7phmnsgJLYvMj9vUbNmwRRT
+ 8+TPWQwQ/vqLp0lv6/eDxkbCmUkUFmJKTgtGd0u+qs/v1H7owscmR+I9RIebHz9HjYCiblPr0Gj
+ yg7qPi/tH5eUAxXiy+g==
+X-Proofpoint-ORIG-GUID: OyIBGNgJDlC0-3J5F2BtXNG4Q1Gsd9eB
+X-Proofpoint-GUID: kb5mDJCc7YQ41NUgW1noIJzMqNkN9orF
+X-Authority-Analysis: v=2.4 cv=AobjHe9P c=1 sm=1 tr=0 ts=69ab14e0 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=P-IC7800AAAA:8 a=TBJuidF-hLD_KTCGJwAA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-06_05,2026-03-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 malwarescore=0
+ spamscore=0 clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603060167
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,28 +115,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-0 waits forever.  We don't actually use the HW semaphore anymore,
-but if someone uses the packet, set a time out value so we
-eventually time out and avoid a potential queue or GPU reset.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 2/21/26 12:39 PM, Donet Tom wrote:
+> This is v3 of the patch series enabling 64 KB system page size support
+> in AMDGPU. v2, part 1 of this series [1] has already been merged
+> upstream and provides the minimal infrastructure required for 64 KB
+> page support.
+>
+> This series addresses additional issues uncovered in AMDGPU when
+> running rccl unit tests and rocr-debug-agent tessts on 64KB page-size
+> systems.
+>
+> With this series applied, all RCCL unit tests and rocr-debug-agent
+> tests pass on systems using a 64 KB system page size, across
+> multi-GPU configurations, with XNACK both enabled and disabled.
+>
+> Patch 1 in this series (drm/amdgpu: Change AMDGPU_VA_RESERVED_TRAP_SIZE
+> to 2 * PAGE_SIZE) fixes a kernel crash observed when running rocminfo
+> on systems with a 64 KB page size. This patch is required to enable
+> minimal support for 64 KB system page sizes.
+>
+> Since RFC v2, we observed AQL queue creation failures while running
+> certain workloads on 64K page-size systems due to an expected queue size
+> mismatch. This issue is addressed in patch 2 of this series.
+>
+> The questions we had in this seres are:
+> =======================================
+> 1 When the control stack size is aligned to 64 KB, we consistently
+>    observe queue preemption or eviction failures on gfx9, on both
+>    4 KB and 64 KB system page-size configurations.
+>
+>    The control stack size is calculated based on the number of CUs and
+>    waves and is then aligned to PAGE_SIZE. On systems with a 64 KB
+>    system page size, this alignment always results in a 64 KB-aligned
+>    control stack size, after which queue preemption fails.
+>
+>    Is there any hardware-imposed limitation on gfx9 that prevents the
+>    control stack size from being 64 KB? For gfx10, I see explicit
+>    hardware limitations on the control stack size in the code [2].
+>    Is there anything similar for gfx9?
+>
+>    What is the correct or recommended control stack size for gfx9?
+>    With a 4 KB system page size, I observe a control stack size of
+>    around 44 KB—can it grow beyond this? If the control stack size
+>    is fixed for a given gfx version, do you see any issues with
+>    aligning the control stack size to the GPU page size?
+>
+> This series has 5 patches
+> =========================
+> 1. AMDGPU_VA_RESERVED_TRAP_SIZE was hard-coded to 8 KB while
+>     KFD_CWSR_TBA_TMA_SIZE is defined as 2 * PAGE_SIZE, which matches on
+>     4 KB page-size systems but results in a size mismatch on 64 KB
+>     systems, leading to kernel crashes when running rocminfo or RCCL
+>     unit tests.
+>     This patch updates AMDGPU_VA_RESERVED_TRAP_SIZE to 2 * PAGE_SIZE so
+>     that the reserved trap area matches the allocation size across all
+>     system page sizes. This is a must needed patch to enable minimal
+>     support for 64 KB system page sizes.
+>
+> 2. Aligned expected_queue_size to PAGE_SIZE to fix AQL queue creation
+>     failure.
+>
+> 3. Fix amdgpu page fault handler (for xnack) to pass the corresponding
+>     system pfn (instead of gpu pfn) for restoring SVM range mapping.
+>
+> 4. Updated AMDGPU_GTT_MAX_TRANSFER_SIZE to always match the PMD size
+>     across all page sizes.
+>
+> 5. On systems where the CPU page size is larger than the GPU’s 4 KB page
+>     size, the MQD and control stack were aligned to the CPU PAGE_SIZE,
+>     causing multiple GPU pages to incorrectly inherit the UC attribute.
+>     This change aligns both regions to the GPU page size, ensuring that
+>     the MQD is mapped as UC and the control stack as NC, restoring the
+>     correct behavior.
+>
+> 6. Queue preemption fails when the control stack size is aligned to
+>     64 KB. This patch fixes this issue by aligning the control stack
+>     size to gpu page size.
+>
+> Setup details:
+> ============
+> System details: Power10 LPAR using 64K pagesize.
+> AMD GPU:
+> Name:                    gfx90a
+> Marketing Name:          AMD Instinct MI210
+>
+> [1] https://lore.kernel.org/all/cover.1765519875.git.donettom@linux.ibm.com/
+> [2] https://elixir.bootlin.com/linux/v6.19-rc5/source/drivers/gpu/drm/amd/amdkfd/kfd_queue.c#L457
+>
+> RFC V2 - https://lore.kernel.org/all/cover.1769612973.git.donettom@linux.ibm.com/
+> RFC V1 - https://lore.kernel.org/all/cover.1765519875.git.donettom@linux.ibm.com/
+>
+>
+> Donet Tom (6):
+>    drm/amdgpu: Change AMDGPU_VA_RESERVED_TRAP_SIZE to 2 PAGE_SIZE pages
+>    drm/amdkfd: Align expected_queue_size to PAGE_SIZE
+>    drm/amdgpu: Handle GPU page faults correctly on non-4K page systems
+>    drm/amdgpu: Fix AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K page size
+>    drm/amd: Fix MQD and control stack alignment for non-4K
+>    drm/amdkfd: Fix queue preemption/eviction failures by aligning control
+>      stack size to GPU page size
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 78bdfed0a7fd3..cf4ad97a93652 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -992,7 +992,7 @@ static int sdma_v4_4_2_inst_start(struct amdgpu_device *adev,
- 	for_each_inst(i, tmp_mask) {
- 		uint32_t temp;
- 
--		WREG32_SDMA(i, regSDMA_SEM_WAIT_FAIL_TIMER_CNTL, 0);
-+		WREG32_SDMA(i, regSDMA_SEM_WAIT_FAIL_TIMER_CNTL, 10);
- 		sdma_v4_4_2_gfx_resume(adev, i, restore);
- 		if (adev->sdma.has_page_queue)
- 			sdma_v4_4_2_page_resume(adev, i, restore);
--- 
-2.53.0
 
+Hi All,
+
+Gentle ping.
+
+Could you please review this patch series and share your feedback?
+
+We have tested this series on both 4K and 64K page-size kernels, and all 
+RCCL tests and ROCR debug agent tests are passing. If everything looks 
+good, could we get this merged in the next kernel release (7.1)?
+
+Thanks for your review.
+
+-Donet
+
+
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      | 44 +++++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h      |  2 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 24 ++++------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  6 +--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/vce_v1_0.c         |  3 +-
+>   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 23 ++++++----
+>   drivers/gpu/drm/amd/amdkfd/kfd_queue.c        | 11 ++---
+>   9 files changed, 82 insertions(+), 35 deletions(-)
+>
