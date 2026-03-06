@@ -4,47 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1581F0182F
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 12:16:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4117F0182E
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 12:49:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76BC810ED17;
-	Fri,  6 Mar 2026 12:16:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9238210E1EC;
+	Fri,  6 Mar 2026 12:49:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=pp3345.net header.i=@pp3345.net header.b="5CoYmw8d";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A03hPHiJ";
 	dkim-atps=neutral
-X-Greylist: delayed 573 seconds by postgrey-1.36 at gabe;
- Fri, 06 Mar 2026 12:16:28 UTC
-Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
- [109.224.244.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26F3110ED17
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 12:16:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pp3345.net;
- s=protonmail; t=1772798801; x=1773058001;
- bh=sY10cI0Yc6VSJ62O1HxjimWLrNVHzBFl2lxlcN0A/oc=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=5CoYmw8ds9dPiUtIAk/UieusrsxDrveHP77HtMRlFv1grySIu8DNPF+JTDG3I4pFG
- hSApb57XTYyj1nDsd4rENp3Um4djNGL8KI0WClN9LwPjoyLu//wsu3iHJBhJYH7Q50
- PnUVdD4+DVMFbOoqgJsP9ZLpJkId0xf7EcfN1V+e5QGXDOncrLhLJSN3P5nDFcEpMc
- Cz4teqBQ15rmEd291zk/AVrjUW485ReQvWvtNpuZw2Zjryl/clRRVe5DG6h8TyDIoF
- 6MB6Y7PbBOFZ/cq3lzbLAxpoq513UwiIhr7hDdUXPZ8kZ+k4sWbt0UGg1kP5gbdgsn
- anvVMJP/YtpSw==
-Date: Fri, 06 Mar 2026 12:06:35 +0000
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org
-From: Yussuf Khalil <dev@pp3345.net>
-Cc: Yussuf Khalil <dev@pp3345.net>
-Subject: [PATCH] drm/amd/display: Do not skip unrelated mode changes in DSC
- validation
-Message-ID: <20260306120513.57826-1-dev@pp3345.net>
-Feedback-ID: 115742593:user:proton
-X-Pm-Message-ID: 841f2f9da501eb7c17e8583ed57a72410761f27c
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EED2510E1EC
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 12:49:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id B18AF40B69
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 12:49:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91E61C2BC9E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 12:49:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772801382;
+ bh=Fh+NyZlau2OdSQ/JKx9wPVCt/2AfUUmAUxF4YrxlwOs=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=A03hPHiJqHYOMYWJaGW+9GgNts7Id8nyZd997ggw5zBwfxIu3ebI8QEA3djxNiWig
+ EYO0JMn+Kz99xJmgUTFhBfGpetMsdQ71lkbKejyMsyrE5ON4QbtlKenbyiFFxeUrFY
+ WUGVQzyeIBycBOjlTSKJw+pvjVBwaGjDIwL4bCs107H8YRvtBSN+N+rcAdfmutFpQ9
+ uFnfM+ow9cxASHGicrPOvUM6LB7z0BT+5A76HwF4USD+E/0wIEgSPf3uSJ7TVtElPW
+ 5P1Agz1f37wOb6DwKRXe/hpfZv4PYyEeWUF/vhAc1+GulJjZYOAk6XsBEAgd2TtCwE
+ C7NULaFRfcPMA==
+Received: by mail-oa1-f43.google.com with SMTP id
+ 586e51a60fabf-4042905015cso2648738fac.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 06 Mar 2026 04:49:42 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWSwcE3IO9NrsOzrNaMQ9cZTnVHUelb1zanz80oYPAwBBzO1B35S77siZwp2oGlOD/LgXJ3Xr+z@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx/UAkNVWNLBv/SPUnijm0uDkI79IfDJYVsXWUrCMlurniiXLUH
+ 4UNcEbtyK+izaBjJniTIe9o6bgydNiuYHhYi+Bu7iCeCCcW1phhWJbdn7X7GKB4VUwYAykR0Axk
+ BwWabw0xJGih5NeuYZtZrkIE617Frfec=
+X-Received: by 2002:a05:6871:783:b0:3e8:5127:e75b with SMTP id
+ 586e51a60fabf-416e42a565fmr1215531fac.30.1772801381700; Fri, 06 Mar 2026
+ 04:49:41 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <4505861.ejJDZkT8p0@rafael.j.wysocki>
+ <2787819.X9hSmTKtgW@rafael.j.wysocki>
+ <ba409fad-7b2e-6fb1-eeee-8d9cacf4cb74@linux.intel.com>
+In-Reply-To: <ba409fad-7b2e-6fb1-eeee-8d9cacf4cb74@linux.intel.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 6 Mar 2026 13:49:30 +0100
+X-Gmail-Original-Message-ID: <CAJZ5v0jKwerODDUO1YB1rvyWe65RNUcB4kOdoEn5Ced=n70VxQ@mail.gmail.com>
+X-Gm-Features: AaiRm53acXR3cVXZ-K6nItG1yCmOj6dnDpCyj2HRDbgUvCO4DHhrgFDpuDjvGQ0
+Message-ID: <CAJZ5v0jKwerODDUO1YB1rvyWe65RNUcB4kOdoEn5Ced=n70VxQ@mail.gmail.com>
+Subject: Re: [PATCH v1 9/9] ACPI: AC: Define ACPI_AC_CLASS in one place
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Linux ACPI <linux-acpi@vger.kernel.org>, 
+ LKML <linux-kernel@vger.kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,137 +75,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Starting with commit 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation=
- in
-atomic check"), amdgpu resets the CRTC state mode_changed flag to false whe=
-n
-recomputing the DSC configuration results in no timing change for a particu=
-lar
-stream.
+On Fri, Mar 6, 2026 at 1:44=E2=80=AFPM Ilpo J=C3=A4rvinen
+<ilpo.jarvinen@linux.intel.com> wrote:
+>
+> On Thu, 5 Mar 2026, Rafael J. Wysocki wrote:
+>
+> > From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> >
+> > The ACPI_AC_CLASS symbol is defined in several places in the same way
+> > which is rather unfortunate.
+> >
+> > Instead, define it in one common header file (acpi_bus.h) that is
+> > already included by all of its users.
+>
+> It's a bit misleading to say it like that as acpi_bus.h is included only
+> through another include (at least acpi/acpi.h) for most of the
+> cases.
 
-However, this is incorrect in scenarios where a change in MST/DSC configura=
-tion
-happens in the same KMS commit as another (unrelated) mode change. For exam=
-ple,
-the integrated panel of a laptop may be configured differently (e.g., HDR
-enabled/disabled) depending on whether external screens are attached. In th=
-is
-case, plugging in external DP-MST screens may result in the mode_changed fl=
-ag
-being dropped incorrectly for the integrated panel if its DSC configuration
-did not change during precomputation in pre_validate_dsc().
+Well, I've cut a corner here. :-)
 
-At this point, however, dm_update_crtc_state() has already created new stre=
-ams
-for CRTCs with DSC-independent mode changes. In turn,
-amdgpu_dm_commit_streams() will never release the old stream, resulting in =
-a
-memory leak. amdgpu_dm_atomic_commit_tail() will never acquire a reference =
-to
-the new stream either, which manifests as a use-after-free when the stream =
-gets
-disabled later on:
+I can say "that will cause it to be accessible to all of its users" instead=
+.
 
-BUG: KASAN: use-after-free in dc_stream_release+0x25/0x90 [amdgpu]
-Write of size 4 at addr ffff88813d836524 by task kworker/9:9/29977
+> Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
 
-Workqueue: events drm_mode_rmfb_work_fn
-Call Trace:
- <TASK>
- dump_stack_lvl+0x6e/0xa0
- print_address_description.constprop.0+0x88/0x320
- ? dc_stream_release+0x25/0x90 [amdgpu]
- print_report+0xfc/0x1ff
- ? srso_alias_return_thunk+0x5/0xfbef5
- ? __virt_addr_valid+0x225/0x4e0
- ? dc_stream_release+0x25/0x90 [amdgpu]
- kasan_report+0xe1/0x180
- ? dc_stream_release+0x25/0x90 [amdgpu]
- kasan_check_range+0x125/0x200
- dc_stream_release+0x25/0x90 [amdgpu]
- dc_state_destruct+0x14d/0x5c0 [amdgpu]
- dc_state_release.part.0+0x4e/0x130 [amdgpu]
- dm_atomic_destroy_state+0x3f/0x70 [amdgpu]
- drm_atomic_state_default_clear+0x8ee/0xf30
- ? drm_mode_object_put.part.0+0xb1/0x130
- __drm_atomic_state_free+0x15c/0x2d0
- atomic_remove_fb+0x67e/0x980
+Thanks!
 
-Since there is no reliable way of figuring out whether a CRTC has unrelated
-mode changes pending at the time of DSC validation, remember the value of t=
-he
-mode_changed flag from before the point where a CRTC was marked as potentia=
-lly
-affected by a change in DSC configuration. Reset the mode_changed flag to t=
-his
-earlier value instead in pre_validate_dsc().
-
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5004
-Fixes: 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation in atomic che=
-ck")
-Signed-off-by: Yussuf Khalil <dev@pp3345.net>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 5 +++++
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h           | 1 +
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 4 +++-
- 3 files changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index b3d6f2cd8..4efd77477 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -12523,6 +12523,11 @@ static int amdgpu_dm_atomic_check(struct drm_devic=
-e *dev,
- =09}
-=20
- =09if (dc_resource_is_dsc_encoding_supported(dc)) {
-+=09=09for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_=
-state, i) {
-+=09=09=09dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_state);
-+=09=09=09dm_new_crtc_state->mode_changed_independent_from_dsc =3D new_crtc=
-_state->mode_changed;
-+=09=09}
-+
- =09=09for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_=
-state, i) {
- =09=09=09if (drm_atomic_crtc_needs_modeset(new_crtc_state)) {
- =09=09=09=09ret =3D add_affected_mst_dsc_crtcs(state, crtc);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 800813671..d15812d51 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -984,6 +984,7 @@ struct dm_crtc_state {
-=20
- =09bool freesync_vrr_info_changed;
-=20
-+=09bool mode_changed_independent_from_dsc;
- =09bool dsc_force_changed;
- =09bool vrr_supported;
- =09struct mod_freesync_config freesync_config;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/=
-drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 7be50e8c0..5d8c4c702 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -1744,9 +1744,11 @@ int pre_validate_dsc(struct drm_atomic_state *state,
- =09=09=09int ind =3D find_crtc_index_in_state_by_stream(state, stream);
-=20
- =09=09=09if (ind >=3D 0) {
-+=09=09=09=09struct dm_crtc_state *dm_new_crtc_state =3D to_dm_crtc_state(s=
-tate->crtcs[ind].new_state);
-+
- =09=09=09=09DRM_INFO_ONCE("%s:%d MST_DSC no mode changed for stream 0x%p\n=
-",
- =09=09=09=09=09=09__func__, __LINE__, stream);
--=09=09=09=09state->crtcs[ind].new_state->mode_changed =3D 0;
-+=09=09=09=09dm_new_crtc_state->base.mode_changed =3D dm_new_crtc_state->mo=
-de_changed_independent_from_dsc;
- =09=09=09}
- =09=09}
- =09}
---=20
-2.53.0
-
-
+> --
+>  i.
+>
+> > No intentional functional impact.
+> >
+> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> > ---
+> >  drivers/acpi/ac.c                         |    1 -
+> >  drivers/acpi/sbs.c                        |    1 -
+> >  drivers/gpu/drm/amd/include/amd_acpi.h    |    2 --
+> >  drivers/gpu/drm/radeon/radeon_acpi.c      |    2 --
+> >  drivers/platform/x86/hp/hp-wmi.c          |    2 --
+> >  drivers/platform/x86/lenovo/wmi-capdata.c |    1 -
+> >  include/acpi/acpi_bus.h                   |    2 ++
+> >  7 files changed, 2 insertions(+), 9 deletions(-)
+> >
+> > --- a/drivers/acpi/ac.c
+> > +++ b/drivers/acpi/ac.c
+> > @@ -21,7 +21,6 @@
+> >  #include <linux/acpi.h>
+> >  #include <acpi/battery.h>
+> >
+> > -#define ACPI_AC_CLASS                        "ac_adapter"
+> >  #define ACPI_AC_FILE_STATE           "state"
+> >  #define ACPI_AC_NOTIFY_STATUS                0x80
+> >  #define ACPI_AC_STATUS_OFFLINE               0x00
+> > --- a/drivers/acpi/sbs.c
+> > +++ b/drivers/acpi/sbs.c
+> > @@ -26,7 +26,6 @@
+> >
+> >  #include "sbshc.h"
+> >
+> > -#define ACPI_AC_CLASS                        "ac_adapter"
+> >  #define ACPI_SBS_DEVICE_NAME         "Smart Battery System"
+> >  #define ACPI_BATTERY_DIR_NAME                "BAT%i"
+> >  #define ACPI_AC_DIR_NAME             "AC0"
+> > --- a/drivers/gpu/drm/amd/include/amd_acpi.h
+> > +++ b/drivers/gpu/drm/amd/include/amd_acpi.h
+> > @@ -26,8 +26,6 @@
+> >
+> >  #include <linux/types.h>
+> >
+> > -#define ACPI_AC_CLASS           "ac_adapter"
+> > -
+> >  struct atif_verify_interface {
+> >       u16 size;               /* structure size in bytes (includes size=
+ field) */
+> >       u16 version;            /* version */
+> > --- a/drivers/gpu/drm/radeon/radeon_acpi.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_acpi.c
+> > @@ -44,8 +44,6 @@ bool radeon_atpx_dgpu_req_power_for_disp
+> >  static inline bool radeon_atpx_dgpu_req_power_for_displays(void) { ret=
+urn false; }
+> >  #endif
+> >
+> > -#define ACPI_AC_CLASS           "ac_adapter"
+> > -
+> >  struct atif_verify_interface {
+> >       u16 size;               /* structure size in bytes (includes size=
+ field) */
+> >       u16 version;            /* version */
+> > --- a/drivers/platform/x86/hp/hp-wmi.c
+> > +++ b/drivers/platform/x86/hp/hp-wmi.c
+> > @@ -58,8 +58,6 @@ enum hp_ec_offsets {
+> >  #define HP_POWER_LIMIT_DEFAULT        0x00
+> >  #define HP_POWER_LIMIT_NO_CHANGE 0xFF
+> >
+> > -#define ACPI_AC_CLASS "ac_adapter"
+> > -
+> >  #define zero_if_sup(tmp) (zero_insize_support?0:sizeof(tmp)) // use wh=
+en zero insize is required
+> >
+> >  enum hp_thermal_profile_omen_v0 {
+> > --- a/drivers/platform/x86/lenovo/wmi-capdata.c
+> > +++ b/drivers/platform/x86/lenovo/wmi-capdata.c
+> > @@ -53,7 +53,6 @@
+> >  #define LENOVO_CAPABILITY_DATA_01_GUID "7A8F5407-CB67-4D6E-B547-39B3BE=
+018154"
+> >  #define LENOVO_FAN_TEST_DATA_GUID "B642801B-3D21-45DE-90AE-6E86F164FB2=
+1"
+> >
+> > -#define ACPI_AC_CLASS "ac_adapter"
+> >  #define ACPI_AC_NOTIFY_STATUS 0x80
+> >
+> >  #define LWMI_FEATURE_ID_FAN_TEST 0x05
+> > --- a/include/acpi/acpi_bus.h
+> > +++ b/include/acpi/acpi_bus.h
+> > @@ -613,6 +613,8 @@ struct acpi_bus_event {
+> >       u32 data;
+> >  };
+> >
+> > +#define ACPI_AC_CLASS        "ac_adapter"
+> > +
+> >  extern struct kobject *acpi_kobj;
+> >  extern int acpi_bus_generate_netlink_event(const char*, const char*, u=
+8, int);
+> >  void acpi_bus_private_data_handler(acpi_handle, void *);
