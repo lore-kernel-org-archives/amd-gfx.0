@@ -4,30 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19038F01807
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:04:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4159AF01804
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 08:06:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E040810E3A7;
-	Fri,  6 Mar 2026 08:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA9F210E3AA;
+	Fri,  6 Mar 2026 08:06:09 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3191010E3A6
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 08:04:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9A8310E3AA
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 08:06:08 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 62684Kj01798503; Fri, 6 Mar 2026 13:34:20 +0530
+ 6268648K1809244; Fri, 6 Mar 2026 13:36:04 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 62684Kwc1798500;
- Fri, 6 Mar 2026 13:34:20 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 626864JG1809237;
+ Fri, 6 Mar 2026 13:36:04 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 2/4] drm/amdgpu/userq: declutter the code with goto
-Date: Fri,  6 Mar 2026 13:34:17 +0530
-Message-Id: <20260306080417.1798029-2-sunil.khatri@amd.com>
+Subject: [PATCH v2 1/2] drm/amdgpu/userq: defer queue publication until create
+ completes
+Date: Fri,  6 Mar 2026 13:36:00 +0530
+Message-Id: <20260306080601.1809204-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260306080417.1798029-1-sunil.khatri@amd.com>
-References: <20260306080417.1798029-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -44,113 +43,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Clean up the amdgpu_userq_create function clean up in
-failure condition using goto method. This avoid replication
-of cleanup for every failure conditon.
+The userq create path publishes queues to global xarrays such as
+userq_doorbell_xa and userq_xa before creation was fully complete.
+Later on if create queue fails, teardown could free an already
+visible queue, opening a UAF race with concurrent queue walkers.
+Also calling amdgpu_userq_put in such cases complicates the cleanup.
+
+Solution is to defer queue publication until create succeeds and no
+partially initialized queue is exposed.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 37 ++++++++++-------------
- 1 file changed, 16 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 67 ++++++++++++-----------
+ 1 file changed, 34 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 937403beacdc..115f294ae8da 100644
+index 7d2f78899c47..937403beacdc 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -818,17 +818,15 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	    amdgpu_userq_input_va_validate(adev, queue, args->in.rptr_va, AMDGPU_GPU_PAGE_SIZE) ||
- 	    amdgpu_userq_input_va_validate(adev, queue, args->in.wptr_va, AMDGPU_GPU_PAGE_SIZE)) {
- 		r = -EINVAL;
+@@ -758,7 +758,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	const struct amdgpu_userq_funcs *uq_funcs;
+ 	struct amdgpu_usermode_queue *queue;
+ 	struct amdgpu_db_info db_info;
+-	char *queue_name;
+ 	bool skip_map_queue;
+ 	u32 qid;
+ 	uint64_t index;
+@@ -848,32 +847,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		goto unlock;
+ 	}
+ 
+-	/* drop this refcount during queue destroy */
+-	kref_init(&queue->refcount);
+-
+-	/* Wait for mode-1 reset to complete */
+-	down_read(&adev->reset_domain->sem);
+-	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue, GFP_KERNEL));
+-	if (r) {
 -		kfree(queue);
+-		up_read(&adev->reset_domain->sem);
 -		goto unlock;
-+		goto free_queue;
- 	}
- 
- 	/* Convert relative doorbell offset into absolute doorbell index */
- 	index = amdgpu_userq_get_doorbell_index(uq_mgr, &db_info, filp);
- 	if (index == (uint64_t)-EINVAL) {
- 		drm_file_err(uq_mgr->file, "Failed to get doorbell for queue\n");
--		kfree(queue);
- 		r = -EINVAL;
--		goto unlock;
-+		goto free_queue;
- 	}
- 
- 	queue->doorbell_index = index;
-@@ -836,15 +834,13 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	r = amdgpu_userq_fence_driver_alloc(adev, queue);
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to alloc fence driver\n");
--		goto unlock;
-+		goto free_queue;
- 	}
- 
- 	r = uq_funcs->mqd_create(queue, &args->in);
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to create Queue\n");
+-	}
+-
+-	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
+-		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT), GFP_KERNEL);
+-	if (r) {
+-		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
 -		amdgpu_userq_fence_driver_free(queue);
+-		xa_erase_irq(&adev->userq_doorbell_xa, index);
+-		uq_funcs->mqd_destroy(queue);
 -		kfree(queue);
+-		r = -ENOMEM;
+-		up_read(&adev->reset_domain->sem);
 -		goto unlock;
-+		goto clean_fence_driver;
- 	}
- 
+-	}
+-	up_read(&adev->reset_domain->sem);
+-
  	/* don't map the queue if scheduling is halted */
-@@ -858,10 +854,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	if (adev->userq_halt_for_enforce_isolation &&
+ 	    ((queue->queue_type == AMDGPU_HW_IP_GFX) ||
+@@ -885,28 +858,56 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
  		r = amdgpu_userq_map_helper(queue);
  		if (r) {
  			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
--			uq_funcs->mqd_destroy(queue);
+-			xa_erase_irq(&adev->userq_doorbell_xa, index);
+-			xa_erase(&uq_mgr->userq_xa, qid);
 -			amdgpu_userq_fence_driver_free(queue);
--			kfree(queue);
--			goto unlock;
-+			goto clean_mqd;
+ 			uq_funcs->mqd_destroy(queue);
++			amdgpu_userq_fence_driver_free(queue);
+ 			kfree(queue);
+ 			goto unlock;
  		}
  	}
  
-@@ -877,12 +870,9 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 		if (!skip_map_queue)
- 			amdgpu_userq_unmap_helper(queue);
- 
--		uq_funcs->mqd_destroy(queue);
--		amdgpu_userq_fence_driver_free(queue);
--		kfree(queue);
--		r = -ENOMEM;
- 		up_read(&adev->reset_domain->sem);
--		goto unlock;
-+		r = -ENOMEM;
-+		goto clean_mqd;
+-	queue_name = kasprintf(GFP_KERNEL, "queue-%d", qid);
+-	if (!queue_name) {
++	/* drop this refcount during queue destroy */
++	kref_init(&queue->refcount);
++
++	/* Wait for mode-1 reset to complete */
++	down_read(&adev->reset_domain->sem);
++	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
++		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT), GFP_KERNEL);
++	if (r) {
++		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
++		if (!skip_map_queue)
++			amdgpu_userq_unmap_helper(queue);
++
++		uq_funcs->mqd_destroy(queue);
++		amdgpu_userq_fence_driver_free(queue);
++		kfree(queue);
+ 		r = -ENOMEM;
++		up_read(&adev->reset_domain->sem);
+ 		goto unlock;
  	}
  
- 	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue, GFP_KERNEL));
-@@ -891,11 +881,8 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 		if (!skip_map_queue)
- 			amdgpu_userq_unmap_helper(queue);
- 
--		uq_funcs->mqd_destroy(queue);
--		amdgpu_userq_fence_driver_free(queue);
--		kfree(queue);
- 		up_read(&adev->reset_domain->sem);
--		goto unlock;
-+		goto clean_mqd;
- 	}
- 	up_read(&adev->reset_domain->sem);
- 
-@@ -911,7 +898,15 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
++	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue, GFP_KERNEL));
++	if (r) {
++		xa_erase(&uq_mgr->userq_xa, qid);
++		if (!skip_map_queue)
++			amdgpu_userq_unmap_helper(queue);
++
++		uq_funcs->mqd_destroy(queue);
++		amdgpu_userq_fence_driver_free(queue);
++		kfree(queue);
++		up_read(&adev->reset_domain->sem);
++		goto unlock;
++	}
++	up_read(&adev->reset_domain->sem);
++
+ #if defined(CONFIG_DEBUG_FS)
++	char queue_name[32];
++
++	scnprintf(queue_name, sizeof(queue_name), "queue_%d", qid);
+ 	/* Queue dentry per client to hold MQD information   */
+ 	queue->debugfs_queue = debugfs_create_dir(queue_name, filp->debugfs_client);
+ 	debugfs_create_file("mqd_info", 0444, queue->debugfs_queue, queue, &amdgpu_mqd_info_fops);
+ #endif
+ 	amdgpu_userq_init_hang_detect_work(queue);
+-	kfree(queue_name);
  
  	args->out.queue_id = qid;
  	atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
-+	mutex_unlock(&uq_mgr->userq_mutex);
-+	return 0;
- 
-+clean_mqd:
-+	uq_funcs->mqd_destroy(queue);
-+clean_fence_driver:
-+	amdgpu_userq_fence_driver_free(queue);
-+free_queue:
-+	kfree(queue);
- unlock:
- 	mutex_unlock(&uq_mgr->userq_mutex);
- 
 -- 
 2.34.1
 
