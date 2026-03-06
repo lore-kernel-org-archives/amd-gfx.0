@@ -4,164 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F277EF0182F
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 14:00:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 157ADF01835
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 14:00:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 970AB10ED42;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88F9610ED41;
 	Fri,  6 Mar 2026 14:00:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TyR366hp";
+	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="Upy2xTSI";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDCA910E20D;
- Fri,  6 Mar 2026 09:15:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id DAE616012A;
- Fri,  6 Mar 2026 09:15:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C425BC4CEF7;
- Fri,  6 Mar 2026 09:14:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772788507;
- bh=7RvOdnrFs/iEe9G84pPe+q4PLv+gFd3Sa58Nl0eTC8M=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TyR366hpH5SBgvb3stJOO+3+JgB4eyp8Ub6SIcEY5Wv5+DIXq3qwQ1akUuyGzm4GI
- oVWqv0SYGKFQk/aIJcLbDc3SkZdh03GwnjPJPfc8DHBxnnTk3pTwokbH2aquirHejB
- nz1gJxpKMhkWSd0cvlbIm12Yo0dUUSzlaMGnA70lo5LCfYmGHYkoB3BEoaWxEw9skO
- 0XSBCv8+kTn/Gf5HrA+24udlPqxoLhC1731SEC00PUdG+t6hKArOjAPEtT/hHxR1LY
- s+VuE2scXcViJMBvNGcnMzw7bfK0RAeQxP1RLAMHfxMD+S62KQ5DOUo/0QF6h57vkJ
- rf8R3FiiVNktg==
-From: Christian Brauner <brauner@kernel.org>
-To: Jeff Layton <jlayton@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- nvdimm@lists.linux.dev, fsverity@lists.linux.dev, linux-mm@kvack.org,
- netfs@lists.linux.dev, linux-ext4@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-nfs@vger.kernel.org,
- linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
- linux-nilfs@vger.kernel.org, v9fs@lists.linux.dev,
- linux-afs@lists.infradead.org, autofs@vger.kernel.org,
- ceph-devel@vger.kernel.org, codalist@coda.cs.cmu.edu,
- ecryptfs@vger.kernel.org, linux-mtd@lists.infradead.org,
- jfs-discussion@lists.sourceforge.net, ntfs3@lists.linux.dev,
- ocfs2-devel@lists.linux.dev, devel@lists.orangefs.org,
- linux-unionfs@vger.kernel.org, apparmor@lists.ubuntu.com,
- linux-security-module@vger.kernel.org, linux-integrity@vger.kernel.org,
- selinux@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, netdev@vger.kernel.org,
- linux-perf-users@vger.kernel.org, linux-fscrypt@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-hams@vger.kernel.org,
- linux-x25@vger.kernel.org, audit@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-can@vger.kernel.org,
- linux-sctp@vger.kernel.org, bpf@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>, David Howells <dhowells@redhat.com>,
- Paulo Alcantara <pc@manguebit.org>,
- Andreas Dilger <adilger.kernel@dilger.ca>, Jan Kara <jack@suse.com>,
- Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu <chao@kernel.org>,
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
- Chuck Lever <chuck.lever@oracle.com>, NeilBrown <neil@brown.name>,
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>,
- Tom Talpey <tom@talpey.com>, Steve French <sfrench@samba.org>,
- Ronnie Sahlberg <ronniesahlberg@gmail.com>,
- Shyam Prasad N <sprasad@microsoft.com>,
- Bharath SM <bharathsm@microsoft.com>,
- Alexander Aring <alex.aring@gmail.com>,
- Ryusuke Konishi <konishi.ryusuke@gmail.com>,
- Viacheslav Dubeyko <slava@dubeyko.com>,
- Eric Van Hensbergen <ericvh@kernel.org>,
- Latchesar Ionkov <lucho@ionkov.net>,
- Dominique Martinet <asmadeus@codewreck.org>,
- Christian Schoenebeck <linux_oss@crudebyte.com>,
- David Sterba <dsterba@suse.com>, Marc Dionne <marc.dionne@auristor.com>,
- Ian Kent <raven@themaw.net>, Luis de Bethencourt <luisbg@kernel.org>,
- Salah Triki <salah.triki@gmail.com>,
- "Tigran A. Aivazian" <aivazian.tigran@gmail.com>,
- Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
- Jan Harkes <jaharkes@cs.cmu.edu>, coda@cs.cmu.edu,
- Nicolas Pitre <nico@fluxnic.net>, Tyler Hicks <code@tyhicks.com>,
- Amir Goldstein <amir73il@gmail.com>, Christoph Hellwig <hch@infradead.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
- Yangtao Li <frank.li@vivo.com>,
- Mikulas Patocka <mikulas@artax.karlin.mff.cuni.cz>,
- David Woodhouse <dwmw2@infradead.org>, Richard Weinberger <richard@nod.at>,
- Dave Kleikamp <shaggy@kernel.org>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Joseph Qi <joseph.qi@linux.alibaba.com>,
- Mike Marshall <hubcap@omnibond.com>,
- Martin Brandenburg <martin@omnibond.com>,
- Miklos Szeredi <miklos@szeredi.hu>, Anders Larsen <al@alarsen.net>,
- Zhihao Cheng <chengzhihao1@huawei.com>,
- Damien Le Moal <dlemoal@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>,
- Johannes Thumshirn <jth@kernel.org>,
- John Johansen <john.johansen@canonical.com>,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, Mimi Zohar <zohar@linux.ibm.com>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Eric Snowberg <eric.snowberg@oracle.com>, Fan Wu <wufan@kernel.org>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Ondrej Mosnacek <omosnace@redhat.com>,
- Casey Schaufler <casey@schaufler-ca.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>, Eric Dumazet <edumazet@google.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Willem de Bruijn <willemb@google.com>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- James Clark <james.clark@linaro.org>,
- "Darrick J. Wong" <djwong@kernel.org>, Martin Schiller <ms@dev.tdt.de>,
- Eric Paris <eparis@redhat.com>, Joerg Reuter <jreuter@yaina.de>,
- Marcel Holtmann <marcel@holtmann.org>,
- Johan Hedberg <johan.hedberg@gmail.com>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Marc Kleine-Budde <mkl@pengutronix.de>, David Ahern <dsahern@kernel.org>,
- Neal Cardwell <ncardwell@google.com>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Remi Denis-Courmont <courmisch@gmail.com>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>,
- Magnus Karlsson <magnus.karlsson@intel.com>,
- Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>
-Subject: Re: [PATCH v3 00/12] vfs: change inode->i_ino from unsigned long to
- u64
-Date: Fri,  6 Mar 2026 10:09:33 +0100
-Message-ID: <20260306-kennen-zubrot-2605fcfd6950@brauner>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
-References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.63.162])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E988310E3C3
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 08:48:35 +0000 (UTC)
+Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
+ by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4fS0Rt13H7z3yXr;
+ Fri,  6 Mar 2026 09:48:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1772786906;
+ bh=iYLAWAqdJS4uUCqz0qr0sNxQmBz2NGF4XjSuVdETqJA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=Upy2xTSIGa9ztyLpv1LwNlaHFB5DRcFXGhOULIAz4kFQBb91QBa1jt0NguMvaPdZv
+ Q4y2M9ZzWx/05xh1ZFbINr/jWLpfWN++oktBam3sqXVm6cv/wgMIHvDqHY2zOmbp/I
+ tSGYhACxP0DQy21qPNLkL96FC/nHzD0TJC79fKinDotaN4V/mcelBIsdi580c894Y5
+ yOv1m6QzdLlqkM5v0MxWCsZmyVOBUGfqs2wxkigStO4CWcWGtWUv2QfiqHhwnJ6Wos
+ QQGW+wuHJXza00jqwJGx1m9HjL4y7IMMLG7WU5RCfecpzAX85ADkAZPrnSyQO6DHUH
+ 8hYtlUrPxP3KA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4fS0Rt0Jcsz3yVW;
+ Fri,  6 Mar 2026 09:48:26 +0100 (CET)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4fS0Rr53PXz8sgW;
+ Fri,  6 Mar 2026 09:48:24 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id D60D0633EC;
+ Fri,  6 Mar 2026 09:48:23 +0100 (CET)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <c78f97a1-a9ba-4d63-a22b-f9ff8f240ba0@leemhuis.info>
+Date: Fri, 6 Mar 2026 09:48:22 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2708; i=brauner@kernel.org;
- h=from:subject:message-id; bh=7RvOdnrFs/iEe9G84pPe+q4PLv+gFd3Sa58Nl0eTC8M=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSumvWu2uNxbBFXikaZQKrMtl0PLj1c+kZGWOrvZiHz/
- W/CTGOed5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzk4A5GhimT869vPnNH4Vqj
- t6Tr0fqPLXs3v0g/qbXpwf6o52L5D7YyMnxU+idovG+O5JQe0WVOK45/sI9bw9AjJfah78/izrQ
- aXg4A
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Bug report] AMD Radeon R9 380 (Tonga) suspend resume regression:
+ black screen / no EDID on kernel 6.13+ (ref: Ubuntu #2142389)
+To: Alex Huang <huangalex409@gmail.com>,
+ Danilo Machado <danilomachado2002@hotmail.com>
+Cc: amd-gfx@lists.freedesktop.org, regressions@lists.linux.dev
+References: <CPUPR80MB65833AEF510B7D067FCCA46DA370A@CPUPR80MB6583.lamprd80.prod.outlook.com>
+ <CAOnW2VTGBP=MMWM=W41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <CAOnW2VTGBP=MMWM=W41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <177278690418.1187128.18288302240743858911@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: D60D0633EC
+X-NC-CID: M3fH9NEvobomdOjuclzFzxB084ZUP0HfrkS5N12Sb4vLbIe2qGw=
 X-Mailman-Approved-At: Fri, 06 Mar 2026 14:00:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -177,60 +82,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 04 Mar 2026 10:32:30 -0500, Jeff Layton wrote:
-> Christian said [1] to "just do it" when I proposed this, so here we are!
+On 3/3/26 15:26, Alex Huang wrote:
+> On Tue, Mar 3, 2026 at 7:30 AM Danilo Machado
+> <danilomachado2002@hotmail.com <mailto:danilomachado2002@hotmail.com>>
+> wrote:
 > 
-> For historical reasons, the inode->i_ino field is an unsigned long,
-> which means that it's 32 bits on 32 bit architectures. This has caused a
-> number of filesystems to implement hacks to hash a 64-bit identifier
-> into a 32-bit field, and deprives us of a universal identifier field for
-> an inode.
+>     To: freedesktop@lists.freedesktop.org
+>     <mailto:freedesktop@lists.freedesktop.org>
+>     Subject: [Bug report] AMD Radeon R9 380 (Tonga) suspend resume
+>     regression: black screen / no EDID on kernel 6.13+ (ref: Ubuntu
+>     #2142389)
 > 
-> [...]
+>     Dear AMDGPU/DRM maintainers,
+> 
+>     I'm reporting a suspend/resume regression affecting the Radeon R9
+>     380 (Tonga / GCN 3rd gen) on recent kernels (6.13+), observed on
+>     Ubuntu 24.10 derivatives (Zorin OS 18) with kernel 6.17.0-14-generic.
 
-This series makes me happy. We've been talking about this conversion for
-a while and I'm thankful that you did this work. Without the automation
-available this probably wouldn't have happened as quickly as it did now.
-Let's see what bits and pieces it missed.
+That is a vendor kernel that contains quite a few modifications that
+might contain the bug you are seeing; hence please either report the
+problem to your vendor or check with the latest vanilla mainline kernel
+(e.g. 7.0-rc2; latest 6.19.y might also suffice, but better test
+7.0-rc). The latter is needed anyway, as the bug might already be fixed.
+If the problem still happens there, you as mentioned by Alex most likely
+need to do a bisection to get some tracking on this.
 
----
+Ciao, Thorsten
 
-Applied to the vfs-7.1.kino branch of the vfs/vfs.git tree.
-Patches in the vfs-7.1.kino branch should appear in linux-next soon.
+> A nontrivial amount of pm/EDID changes occurred between 6.12 and 6.13,
+> are you able to bisect the kernel between those two revisions? Even
+> narrowing it down to a release candidate should be useful.
+> 
+> #regzbot introduced: v5.12..v5.13
+> #regzbot from: Danilo Machado <danilomachado2002@hotmail.com
+> <mailto:danilomachado2002@hotmail.com>>
+> #regzbot monitor: https://bugs.launchpad.net/ubuntu/+source/linux/
+> +bug/2142389 <https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389>
+> 
+> Best,
+> Alex H
+> 
+> 
+>     **Hardware:**
+>     - GPU: AMD Radeon R9 380 Series (Tonga XT, Tonga)
+>     - Motherboard: Gigabyte B450 AORUS PRO WIFI (BIOS F66)
+>     - CPU: AMD Ryzen 5 5500
+>     - Connection: Direct HDMI
+>     - Display server: X11
+>     - Power state: Deep sleep (S3)
+> 
+>     **Symptoms:**
+>     - After suspend (first cycle often works; subsequent cycles fail
+>     consistently):
+>       - System wakes (fans/LEDs active), but display shows black
+>     screen / no signal ("HDMI Out of Range" on monitor).
+>       - EDID read/handshake fails → no video output recovered.
+>       - Keyboard/mouse may respond briefly, but desktop freezes → hard
+>     reboot required.
+>     - Logs show:
+>       [drm] *ERROR* HDMI-A-1: probed a monitor but no|invalid EDID
+>       [drm] *ERROR* No EDID read.
+> 
+> 
+>     **Kernels tested:**
+>     - Broken: 6.13.12 → 6.17.0-14 (regression starts between 6.12 and 6.13)
+>     - Stable: 6.12.74 (LTS) – suspend/resume fully reliable, no EDID errors
+> 
+>     **GRUB parameters used:**
+>     quiet splash amdgpu.si_support=1 radeon.si_support=0 amdgpu.runpm=0
+>     amdgpu.dc=0
+> 
+>     **Reference:**
+>     This matches Ubuntu bug #2142389: https://bugs.launchpad.net/ubuntu/
+>     +source/linux/+bug/2142389 <https://bugs.launchpad.net/ubuntu/
+>     +source/linux/+bug/2142389>
+>     (Reported by me on Launchpad; includes full dmesg logs and attachments)
+> 
+>     The issue appears to be in the DRM/DC layer (HDMI EDID re-detection
+>     during multi-cycle suspend/resume on Tonga). Downgrading to 6.12.74
+>     resolves it completely.
+> 
+>     Is this a known regression? Any patches or additional debug info
+>     needed from my side?
+> 
+>     Happy to test patches, provide more logs (dmesg, journalctl -b -u
+>     systemd-suspend, full amdgpu debug), or try kernel builds.
+> 
+>     Thanks for your attention and work on amdgpu!
+> 
+> 
+>     Tested kernels:
+> 
+>     6.12.74 — stable, HDMI resume works
+>     6.13.12 — first resume OK, second suspend fails
+>     6.14.x — HDMI issues
+>     6.17.0-14 — frequent resume black screen
+> 
+>     Best regards,  
+>     Danilo Machado  
+>     Minas Gerais, Brazil  
+>     (Original reporter of Ubuntu bug #2142389)
+> 
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.1.kino
-
-[01/12] vfs: widen inode hash/lookup functions to u64
-        https://git.kernel.org/vfs/vfs/c/2412a9fa518a
-[02/12] audit: widen ino fields to u64
-        https://git.kernel.org/vfs/vfs/c/a5e863be4d02
-[03/12] net: change sock.sk_ino and sock_i_ino() to u64
-        https://git.kernel.org/vfs/vfs/c/c21144a0a33f
-[04/12] vfs: widen trace event i_ino fields to u64
-        https://git.kernel.org/vfs/vfs/c/5e5c380870b2
-[05/12] cachefiles: widen trace event i_ino fields to u64
-        https://git.kernel.org/vfs/vfs/c/25291f67aad7
-[06/12] ext2: widen trace event i_ino fields to u64
-        https://git.kernel.org/vfs/vfs/c/797d04a355e3
-[07/12] hugetlbfs: widen trace event i_ino fields to u64
-        https://git.kernel.org/vfs/vfs/c/3c976fb36a9a
-[08/12] zonefs: widen trace event i_ino fields to u64
-        https://git.kernel.org/vfs/vfs/c/988f68c01b3a
-[09/12] ext4: widen trace event i_ino fields to u64
-        https://git.kernel.org/vfs/vfs/c/1c1427c79bc2
-[10/12] f2fs: widen trace event i_ino fields to u64
-        https://git.kernel.org/vfs/vfs/c/6e62bf74bd8a
-[11/12] nilfs2: widen trace event i_ino fields to u64
-        https://git.kernel.org/vfs/vfs/c/6ce73711525a
-[12/12] treewide: change inode->i_ino from unsigned long to u64
-        https://git.kernel.org/vfs/vfs/c/af82d143e869
