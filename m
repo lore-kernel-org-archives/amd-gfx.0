@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44C57F513E9
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 03:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5324DF513EE
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 03:24:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0FF510E26B;
-	Fri,  6 Mar 2026 03:24:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE5A210E2F4;
+	Fri,  6 Mar 2026 03:24:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bhAAJC5m";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QAHULNse";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010015.outbound.protection.outlook.com [52.101.85.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F37510E26B
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 03:24:09 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011006.outbound.protection.outlook.com [40.107.208.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7488410E2F4
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 03:24:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qJ71cCP+tguegXYEbRbfQsLvKHLdP2DzZ+frz/4gxmozKit65cz9P4vwyht6PuQZrP9UiTy8wLacKr0R6OIljGxeFYAZ/HP0WqugXpPWZZRZ89jJZY+ghYElVRqljdJIWxJUQZebxQH3mqB7chN9LQkR7wFi75cfSNulztoDCQRfSRM5AmKSLf/Senm/ovCUjcdGqzcetfi5uZo/VIzA6KMMNSyJQp3BD3IOKm/zQR36hvvN7o9PRy0Dk6yLkq+s22jQ7UZ3Dgts9wdf7HI6qo6snylvD2pRemMLDrsMuneTXaqB3MabdkZrBtWrY1AlrORGgsVWr2NPM4Bf8eYUiQ==
+ b=OTwjjZZOp0dpfGAKSu/Ho916QlRd6pTHrOfrOic4+ozSMCftqxUEcX6ll5inL3S3xDH0FY29h3LEfXzmuYJvePycdRAyY5dGoSpxj3Znfqx6VJ43PLxme/mBuyshqGj0ex44kMa4EwKY0ElEL9/QBADXuQCtemupGepOBpyxyzheXZz0Z74U907iAmlmuUGyWVrtCv1P/XOUdT3EhDr3rd23kCrmQd7A7sCiqP+NszNqk00qDSaH7XSaNJfiRG2rGtdk6AQiSvwsbe9VeOaudJnZphze1mgkkqD9Z4InNvXVIe8qN3NNjxRuZj3rAYrJ7EU7vd5c5TQ+vSJx7CGnhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HGp6AoUPSlY9wr7a/t3VIAr+KKl100vvadLnYXE6znI=;
- b=nebdx5LG6pzzNUUUm9N3Vje866UfLjlEu5nEzGfTLsXmT0oCJRVZeZrm7+X3n9MfMcajJ+D6li2+S9W82Diyj9H/ZGQggq7Mx9oHQWq4SN6eZtSNPvnT+5xUYTkq7g19dHLgXaBm89qVCOu6vooOgP3V4rZn+tMi7gQdjq///4KLEh4HKowLEfbwA372pDnjWxBXuRviTCmIujVogAXj9rMQZJ65ey+ythVF2OgrNpf6sF1ePN2sfYhb6NzpKe3NQD92pw7Kyi9JA9bxYXB/6K7VNmYNfwPEOiIPmBJwvspX4dJ6RmWxnAEilFX7YA9IlZECEhWGwfzWq0H7c89wGw==
+ bh=yZnnxxnQnTnt8Pj6SJcLSxX9haPDhVLdmKPlk5Gdv2E=;
+ b=iwRvsqHPRInTk/z3bgflk0djglP8TKWAL10h+lKzivAOW7gmzRDsxxUcbhLJoiP0b3IZGX3/VoEHHDSpQvhqRQ9NCydXMKs5MdvPNA9kVPE6zf6yRo2H5nXIYAbF2arWPFcC5wpyJOkRG3nJX49GkuW1B3hnI1jqxLYmt8NKE92NIWL64BlO+35BJmNQhdH4zevLcbDd4xiFk+C0S8fRit81tqmqbxA+LQjBoEgjUOS8LzrVYs2AV1WmBKb3ybQKQvGrncFfD1iBZJ5vpKH32ezga+vLVrA8OdH7CdmrWpA+iPAh9PcqiXk8+B2FE9dfSAUoEj3yTpHJ7XHN8naESQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HGp6AoUPSlY9wr7a/t3VIAr+KKl100vvadLnYXE6znI=;
- b=bhAAJC5mXRSSXf585OiArxbInWF2AuDboR4l6Szg+x4zqnRJ7xknG3stuHQKJCYSc657RInDKbkY2uPM6BKwCsI10T99VKeEi7V8O2QU27rV0HWDHzBDlgPmJXvEIju2+xI8QwWRKqpYbHsOoPhtZaNRL5Wps3biKZiy7o/8pjM=
-Received: from SJ0PR05CA0007.namprd05.prod.outlook.com (2603:10b6:a03:33b::12)
- by LV8PR12MB9182.namprd12.prod.outlook.com (2603:10b6:408:192::11)
+ bh=yZnnxxnQnTnt8Pj6SJcLSxX9haPDhVLdmKPlk5Gdv2E=;
+ b=QAHULNse0rPIWx/mYkMVDr+4azI476AbK5biUyaU4LIHO11T5J7ZnvQSNUarkWiZNfpSWp0hAvQj3ibVp5I8YzvTnfeJQ9JxUxMjzrpJ6sw3vPLbW02fEV1xGWyHoRtULAoRBQXy3QTEnh6AlGR3WtY/p3ZO2hnTjpJkOTAMrPE=
+Received: from BYAPR04CA0017.namprd04.prod.outlook.com (2603:10b6:a03:40::30)
+ by IA1PR12MB9468.namprd12.prod.outlook.com (2603:10b6:208:596::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.18; Fri, 6 Mar
- 2026 03:24:02 +0000
-Received: from MWH0EPF000A6732.namprd04.prod.outlook.com
- (2603:10b6:a03:33b:cafe::6f) by SJ0PR05CA0007.outlook.office365.com
- (2603:10b6:a03:33b::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.13 via Frontend Transport; Fri,
- 6 Mar 2026 03:24:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Fri, 6 Mar
+ 2026 03:24:17 +0000
+Received: from MWH0EPF000A672E.namprd04.prod.outlook.com
+ (2603:10b6:a03:40:cafe::b5) by BYAPR04CA0017.outlook.office365.com
+ (2603:10b6:a03:40::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.23 via Frontend Transport; Fri,
+ 6 Mar 2026 03:24:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000A6732.mail.protection.outlook.com (10.167.249.24) with Microsoft
+ MWH0EPF000A672E.mail.protection.outlook.com (10.167.249.20) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Fri, 6 Mar 2026 03:24:00 +0000
+ 15.20.9678.18 via Frontend Transport; Fri, 6 Mar 2026 03:24:16 +0000
 Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 5 Mar
- 2026 21:23:58 -0600
+ 2026 21:24:11 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,11 +62,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Gaghik Khachatrian <gaghik.khachatrian@amd.com>, "Dillon
- Varone" <dillon.varone@amd.com>
-Subject: [PATCH 01/21] drm/amd/display: Clean up NULL pointer warnings in dml2
-Date: Thu, 5 Mar 2026 20:13:27 -0700
-Message-ID: <20260306031932.136179-2-alex.hung@amd.com>
+ <alex.hung@amd.com>, Peichen Huang <PeiChen.Huang@amd.com>, Robin Chen
+ <robin.chen@amd.com>, Wenjing Liu <wenjing.liu@amd.com>
+Subject: [PATCH 02/21] drm/amd/display: Return early from vesa replay enable
+ function
+Date: Thu, 5 Mar 2026 20:13:28 -0700
+Message-ID: <20260306031932.136179-3-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260306031932.136179-1-alex.hung@amd.com>
 References: <20260306031932.136179-1-alex.hung@amd.com>
@@ -78,29 +79,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6732:EE_|LV8PR12MB9182:EE_
-X-MS-Office365-Filtering-Correlation-Id: 72c767ce-cd29-407a-5f97-08de7b2fcf85
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A672E:EE_|IA1PR12MB9468:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73be7fe9-fd38-4735-678b-08de7b2fd8f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700016; 
-X-Microsoft-Antispam-Message-Info: b43bJrsKbPG3QKCz7BqR4I61e4D4THkpWQSb56ayGjGs25dBt2vInXRdV+sKdwDZON3qofrbdPIgijR4iSM8EkWdy8P9fiwCLEivtDQ0r7Ob/13s8tw37a/ixFt7FBp+VUfZEYGIowCPi6lMBygZ7kmRCt2Hlg+UQMxsAATgoeqUSllKegSanF1hPcqPpGqEtrwvDFjSzKXa9kBI/hq66D1gqk8Wbk6TwwlbAVkzc5yej4Q29JMoBF+sfIZb4P3ICnIrVow25wMX9ixxlCQ3wN8nvTZGUBzly9gNxe2rLJFK8q+5T10WjosLNdaysfcYXm+UzNHorTxpCdGC3juyxO05LpANiYF/dbCmZZtTLVu9pDzKKTyQp2RpZjvO1xYFETZUZ4ugWsP7DCTp1+cvzv4vlhA4lNuuJknaYxKKaqZP88WXzpSBhgnWeRvNj7Q1T+wF9BVWsJ17L27fyQ92dT9ZO1rfjKBhIOJz6rRPH51uolX5GUE3qPbi5t89W05tE5QezpKbPkIC/FXduKGwPTDJJtb0qAYakhnIpGLm6fLBaoRrTQagpOv4lEDzxxKKhbUHBUJcgvpW6xbmsFMIcyU6dmpQI2Ydm5Jq90Zu024JtEuJqIUT222yRibJzWk1K+YfzCsE1iMHt5kCSAui+Gv5rIJUCT8uKR48+jD8oCAaRHqsOwmggI7hnLHtjYcvze5ZXSAdWT7JCRJFVearqBianr+dwkFKmqaaX81gPnGUrD1dVKUXAzdcD4x69nNgopWXkDRD5a/HV5elH6JPOw==
+ ARA:13230040|1800799024|376014|82310400026|36860700016; 
+X-Microsoft-Antispam-Message-Info: bYW9OBBF5J7WWNQ76LmQ67EUVLdgq2ZoIBcdodwMjCH/O5Tr4xklNNGivdJ4QlxbMPEKyffQRIw0lcQGWnsbTDrbC188IAjWK8nZ4N86NLerF/XucurLcB4lyn5tqIvtMgF6SUYNJNnUhI+sSqka9cs98Sk7wIzQxpRWEWTJ8+6e7Jc4EAoANnt4bhW54GleChPFxnMhI8hKvzpFaRwvxrxXLfInBKN9Gh6wwf2Ntb0qAjVohl8J9cKpkWgWtHRrZxpRLFh9D9YY2CLF/W8CNoS5XElk9QoR2N92ex0PHClVuuqhMwOwAp+iNgPizTB23IdPVOgflxNTdmkoaXcUk14l1E38y/B89P4L5GD8UPoa/eAFhXug3lrQ70Wkf2yvmcMWkQxrUKx1oxI+44R+9MlN8uINoNs784GcT6Mpc5q2lOtxQofjP2uoIZsMlu565I6NyNf69KC+vruJ05KdL22/OR1wGrJMdKQOjcStAodBClV3W3Rmux3HtWWIrDPfp5pkSA/VQAh9833xxaFGF/B9U2vR7sE+Ix8sk0qs7an0mE0JtBCKUvtEyvDeYH1Qjt+yCmBcEhr2bCVMSg4e4XBrDgtp9F1VRYqzsrW432kZdwoL8tEvBidj5T/wGFewKa+k1JMGfDKv0fkEtf8GUG3ZSneQq8yFrAW6cwmIkz9QkU/MAl9L1wcfVqiwD+SY6XQ+56Fw93TQ05ZAhcKWqeVQdWK4tRw5TzESkQ01Fa4uNl/jd4TXhpmU5HlsZc6ikGwWhYEtgau8UefoSRS2Bg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016); DIR:OUT;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: RzcSqkFB+3oGoMeglJw1x/GwNawpzynmpb+hY1eRbRcZF54vihaeDvGdc2z+OT5Xo/klZMJ24aFJEiGt+OEWC4/l7jATcPAjbVxZ5lplsK90JnDAqU55By90uNECDxwjZLn8LVZAc2DHCGwwMlGo7UO8EeKFoPTtyYyDkJ97pTxmygPiJ3XY9aYbPioH/dt1vYiGQCTgD3R6eM4NiDjmIEhKSEeoNYG8d4c5KHa2i0hCj0DMRXcVel8d76bNBOS7tGd1NIh02VtMIxQoBQk+WleGbt6IPcvfqeBFcgUZxpf87URw6g232/yZ8GkbqQtq1DI3VMnZ+3FxXguAI6MpDN0ByMBORygQijolbr3kB7gCVrMiSPBleOdA7M4cjifVZdNuxv1nJRcQ/crVzEJOXF0Z8HhzBK29dcPCrN58Y6x5LFVtwRJHHBg7X1STAUvK
+X-MS-Exchange-AntiSpam-MessageData-0: ewfckLWm0abLKU4l7+f+qPQqztif/GvBRXdgS5K6uQs2DHhGHPDclNtQiWH2cFXY3rtQB1xe0WrsGm+LkmFj5h6NxOxArDPli8VU9i/yuSp9dnYMSGfWohB5Wj2/nfuTcdveVtNHsCnyhPaiDAucLLbBd3lp7pG3gfTHVdTVHiBjzn1+Y4otEOCl3uhtJyjnz84iiTJMNNsHW2etmv86oGYiH8CI5IuB1lRQgCiDlXPdDfoaOFsQRmHVZVCNuDOFYRRpAfEknYK5PPFTsC9m85YM8lACB80cXT7kgItdg6BwhaeO7WNLmdmn2kPKUGP8S01oUaSL9KfTEnvc0vj6AMmO9I8CO9MJ+zuOxPV1Xh/MPrGMDpJVfyl9Y23xLEYDGlAM0p1Wa41vOabjVjZGEqODkv8xUoLDKnJQADk+VVkjUuaSNjJkeNJJ00C6Aolc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 03:24:00.7117 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72c767ce-cd29-407a-5f97-08de7b2fcf85
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 03:24:16.5392 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73be7fe9-fd38-4735-678b-08de7b2fd8f4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6732.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A672E.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9182
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9468
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,127 +116,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+From: Peichen Huang <PeiChen.Huang@amd.com>
 
-This commit addresses multiple warnings by adding defensive
-checks for NULL pointers before dereferencing them. The changes ensure
-that pointers such as are validated, preventing potential undefined
-behavior.
+[WHY & HOW]
+If the enable state is already as expect then just return.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+Reviewed-by: Robin Chen <robin.chen@amd.com>
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Peichen Huang <PeiChen.Huang@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../amd/display/dc/dml2_0/dml2_mall_phantom.c | 41 +++++++++++++++++--
- 1 file changed, 38 insertions(+), 3 deletions(-)
+ .../dc/link/protocols/link_dp_panel_replay.c  | 23 ++++++++++---------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c
-index 66040c877d68..d56e58ce26c7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c
-@@ -357,7 +357,7 @@ static bool enough_pipes_for_subvp(struct dml2_context *ctx, struct dc_state *st
-  */
- static bool subvp_subvp_schedulable(struct dml2_context *ctx, struct dc_state *context)
- {
--	struct pipe_ctx *subvp_pipes[2];
-+	struct pipe_ctx *subvp_pipes[2] = { NULL, NULL };
- 	struct dc_stream_state *phantom = NULL;
- 	uint32_t microschedule_lines = 0;
- 	uint32_t index = 0;
-@@ -369,6 +369,9 @@ static bool subvp_subvp_schedulable(struct dml2_context *ctx, struct dc_state *c
- 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
- 		uint32_t time_us = 0;
- 
-+		if (pipe == NULL || pipe->stream == NULL)
-+			continue;
-+
- 		/* Loop to calculate the maximum microschedule time between the two SubVP pipes,
- 		 * and also to store the two main SubVP pipe pointers in subvp_pipes[2].
- 		 */
-@@ -386,14 +389,19 @@ static bool subvp_subvp_schedulable(struct dml2_context *ctx, struct dc_state *c
- 			if (time_us > max_microschedule_us)
- 				max_microschedule_us = time_us;
- 
--			subvp_pipes[index] = pipe;
--			index++;
-+			if (index < 2)
-+				subvp_pipes[index++] = pipe;
- 
- 			// Maximum 2 SubVP pipes
- 			if (index == 2)
- 				break;
- 		}
- 	}
-+
-+	/* Minimal guard to avoid C6001 before subvp_pipes[0]/[1] dereference */
-+	if (index < 2 || !subvp_pipes[0] || !subvp_pipes[1])
-+		return false;
-+
- 	vactive1_us = ((subvp_pipes[0]->stream->timing.v_addressable * subvp_pipes[0]->stream->timing.h_total) /
- 			(double)(subvp_pipes[0]->stream->timing.pix_clk_100hz * 100)) * 1000000;
- 	vactive2_us = ((subvp_pipes[1]->stream->timing.v_addressable * subvp_pipes[1]->stream->timing.h_total) /
-@@ -459,6 +467,11 @@ bool dml2_svp_drr_schedulable(struct dml2_context *ctx, struct dc_state *context
- 			break;
- 	}
- 
-+	if (pipe == NULL || pipe->stream == NULL) {
-+		// Defensive: should never happen, try to catch in debug
-+		ASSERT(0);
-+		return false;
-+	}
- 	phantom_stream = ctx->config.svp_pstate.callbacks.get_paired_subvp_stream(context, pipe->stream);
- 	main_timing = &pipe->stream->timing;
- 	phantom_timing = &phantom_stream->timing;
-@@ -549,6 +562,13 @@ static bool subvp_vblank_schedulable(struct dml2_context *ctx, struct dc_state *
- 		if (!subvp_pipe && pipe_mall_type == SUBVP_MAIN)
- 			subvp_pipe = pipe;
- 	}
-+
-+	if (subvp_pipe == NULL) {
-+		// Defensive: should never happen, catch in debug
-+		ASSERT(0);
-+		return false;
-+	}
-+
- 	// Use ignore_msa_timing_param flag to identify as DRR
- 	if (found && context->res_ctx.pipe_ctx[vblank_index].stream->ignore_msa_timing_param) {
- 		// SUBVP + DRR case
-@@ -753,6 +773,12 @@ static void enable_phantom_plane(struct dml2_context *ctx,
- 				return;
- 		}
- 
-+		/* Minimal NULL guard for C6011 */
-+		if (!phantom_plane) {
-+			ASSERT(0);
-+			continue;
-+		}
-+
- 		memcpy(&phantom_plane->address, &curr_pipe->plane_state->address, sizeof(phantom_plane->address));
- 		memcpy(&phantom_plane->scaling_quality, &curr_pipe->plane_state->scaling_quality,
- 				sizeof(phantom_plane->scaling_quality));
-@@ -880,6 +906,11 @@ bool dml2_svp_add_phantom_pipe_to_dc_state(struct dml2_context *ctx, struct dc_s
- 	if (ctx->config.svp_pstate.force_disable_subvp)
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_panel_replay.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_panel_replay.c
+index 6661078c0241..96afce4ffbfa 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_panel_replay.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_panel_replay.c
+@@ -252,23 +252,24 @@ bool dp_pr_enable(struct dc_link *link, bool enable)
+ 	if (!dp_pr_get_panel_inst(dc, link, &panel_inst))
  		return false;
  
-+	if (!state) {
-+		ASSERT(0);
-+		return false;
-+	}
++	if (link->replay_settings.replay_allow_active == enable)
++		return true;
 +
- 	if (!all_pipes_have_stream_and_plane(ctx, state))
- 		return false;
+ 	if (enable && !dc_is_embedded_signal(link->connector_signal))
+ 		dp_pr_set_static_screen_param(link);
  
-@@ -898,6 +929,10 @@ bool dml2_svp_add_phantom_pipe_to_dc_state(struct dml2_context *ctx, struct dc_s
- 	}
+-	if (link->replay_settings.replay_allow_active != enable) {
+-		//for sending PR enable commands to DMUB
+-		memset(&cmd, 0, sizeof(cmd));
++	// for sending PR enable commands to DMUB
++	memset(&cmd, 0, sizeof(cmd));
  
- 	if (enough_pipes_for_subvp(ctx, state) && assign_subvp_pipe(ctx, state, &dc_pipe_idx)) {
-+		if (state->res_ctx.pipe_ctx[dc_pipe_idx].stream == NULL) {
-+			ASSERT(0);
-+			return false;
-+		}
- 		dml_pipe_idx = dml2_helper_find_dml_pipe_idx_by_stream_id(ctx, state->res_ctx.pipe_ctx[dc_pipe_idx].stream->stream_id);
- 		svp_height = mode_support_info->SubViewportLinesNeededInMALL[dml_pipe_idx];
- 		vstartup = dml_get_vstartup_calculated(&ctx->v20.dml_core_ctx, dml_pipe_idx);
+-		cmd.pr_enable.header.type = DMUB_CMD__PR;
+-		cmd.pr_enable.header.sub_type = DMUB_CMD__PR_ENABLE;
+-		cmd.pr_enable.header.payload_bytes = sizeof(struct dmub_cmd_pr_enable_data);
+-		cmd.pr_enable.data.panel_inst = panel_inst;
+-		cmd.pr_enable.data.enable = enable ? 1 : 0;
++	cmd.pr_enable.header.type = DMUB_CMD__PR;
++	cmd.pr_enable.header.sub_type = DMUB_CMD__PR_ENABLE;
++	cmd.pr_enable.header.payload_bytes = sizeof(struct dmub_cmd_pr_enable_data);
++	cmd.pr_enable.data.panel_inst = panel_inst;
++	cmd.pr_enable.data.enable = enable ? 1 : 0;
++	dc_wake_and_execute_dmub_cmd(dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
+ 
+-		dc_wake_and_execute_dmub_cmd(dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
++	link->replay_settings.replay_allow_active = enable;
+ 
+-		link->replay_settings.replay_allow_active = enable;
+-	}
+ 	return true;
+ }
+ 
 -- 
 2.43.0
 
