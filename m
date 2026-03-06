@@ -4,103 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 408FDFCC048
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 17:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F897FCC062
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 20:26:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C14E210E2C8;
-	Fri,  6 Mar 2026 17:54:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B09F10E162;
+	Fri,  6 Mar 2026 20:26:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="JdI7ateT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HotZaTv/";
 	dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A64A10E2C8
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 17:54:42 +0000 (UTC)
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62680stG2069251; Fri, 6 Mar 2026 17:54:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=pp1; bh=Q+QazG
- roXq52bV9zrSAq9OVzyHhJtO5ltiVTmgA+XqU=; b=JdI7ateTfKYAkPmyTKe0K0
- hdntQMeh5uoW+KkUA+pYtm758BQAc+NuT7vz1vWaE32VaucHjSG2MdTsu2+nfsqy
- S6jXlrF6a+Yd4IYJhKX5ADgSQTZVbJwvakOmOjG/j3Q5ri4AzO8i49On6pHtc0wZ
- z8i28Izf8JhlYQr+gYlOG5BmBV38ZSXX3w8Swe0NP80Udr5bJ5d6Hb1GtAQI9BWA
- YlxSRy4LV6YztNOZiuatvhlWnaBDV+IClo1CbzwtdYxqDvxl8Z2uA/P4yL7dX5Ks
- fYVUbUmGETbXKT07642wpA8Z553G2+9Bni3NdvZZp7jmSe5caIHptGpqiOicizag
- ==
-Received: from ppma12.dal12v.mail.ibm.com
- (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ckssn19ff-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Mar 2026 17:54:39 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
- by ppma12.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 626HGSOW029112;
- Fri, 6 Mar 2026 17:54:38 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
- by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4cmapsh3er-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 06 Mar 2026 17:54:38 +0000
-Received: from smtpav01.wdc07v.mail.ibm.com (smtpav01.wdc07v.mail.ibm.com
- [10.39.53.228])
- by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 626Hsckj31982100
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 6 Mar 2026 17:54:38 GMT
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EE00658059;
- Fri,  6 Mar 2026 17:54:37 +0000 (GMT)
-Received: from smtpav01.wdc07v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9405A58066;
- Fri,  6 Mar 2026 17:54:34 +0000 (GMT)
-Received: from [9.39.17.192] (unknown [9.39.17.192])
- by smtpav01.wdc07v.mail.ibm.com (Postfix) with ESMTP;
- Fri,  6 Mar 2026 17:54:34 +0000 (GMT)
-Message-ID: <3c9564d0-b9f1-44a1-bddc-e8548c96af32@linux.ibm.com>
-Date: Fri, 6 Mar 2026 23:24:32 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v3 0/6] drm/amd: Add support for non-4K page size
- systems
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>
-References: <cover.1771656655.git.donettom@linux.ibm.com>
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010043.outbound.protection.outlook.com [52.101.85.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57FE110E162
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 20:26:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OAPpoO/YZ4hR/wk1czjBznw+rWbwScS1wuqi4TnK5u5U7B7fdq2JihChW91P656ticFdfOfoku1Kexjb+2GexVNMWq32a7WGaLhiRvM3mI3VJCZChnvrI2/tZ6zVhsHGvIQkXUZRom4Xfr6IiT/LRixs+qrS24NUtpkxgGIBz7pYagogHxKruQxFBDlkdT8zR69eFS8t9AA3o5sbX2gt3awYKkCdJrECl63yzVIx0QJseGRE6yIkAlujf+8zwWWyPz0A+859bw0u/nvBj7bzj5lDarkaMok0R/gQk58dnptZdg/51o7OLDYVy6hjjbu4e/+SA6LKhy2pl8KTlnvaAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SdN2mIgJPY0HifQqRgiJd1GaJSxbtDLnsNZAd8ZwdpI=;
+ b=HaoCp+9+3yVLJxv58m9HrpPniH9JBm+6L1MC8UHQqVGkRPLJQL0ViRDPeKr+TL5GPSPYpHvDZls07IjUy3BHmR95PNP4g0p2s/GDQxlBMqJqRU39e/K8ivYZvCkKyxn0T4kBpbahFk4uIS5xqu+htjQIPxFu0Lw9pQ5uI6Scp+NrqjVWY+LjKW8IemtwniDeq9xFceg7PDSpufGHbqkvLNcvc7cQ4w1sojnIcqVPVjYsxT1sej0qGlDEH4oJABPgkpuFQKCxMpzFL28FpV2ABNZP+6zX6fuU7jj3Zd+HzoEqHR9LK8a9UR7J7ba7j6qHJ8VoYe02KjN1KN2eKxlT0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SdN2mIgJPY0HifQqRgiJd1GaJSxbtDLnsNZAd8ZwdpI=;
+ b=HotZaTv/j6S/VOINJL740oK8006fv9kRY91MQqpumJnlIf8d3BrIOs1s5v70YMLCE2dKh09AiAcd6aaAguC5+Tg16paJcyuUAGOwoSAgp7fbjzVxX65lZGLotUVuQf4WH5UVokiWWj7HzjTzp5iViqv6W5bLc4xem4MW0mk8OmQ=
+Received: from SJ1PR12MB6121.namprd12.prod.outlook.com (2603:10b6:a03:45c::6)
+ by MN0PR12MB6200.namprd12.prod.outlook.com (2603:10b6:208:3c3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Fri, 6 Mar
+ 2026 20:26:42 +0000
+Received: from SJ1PR12MB6121.namprd12.prod.outlook.com
+ ([fe80::3fd:549f:f30:cd67]) by SJ1PR12MB6121.namprd12.prod.outlook.com
+ ([fe80::3fd:549f:f30:cd67%3]) with mapi id 15.20.9700.003; Fri, 6 Mar 2026
+ 20:26:42 +0000
+From: "Xie, Chenglei" <Chenglei.Xie@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chan,
+ Hing Pong" <Jeffrey.Chan@amd.com>, "Luo, Zhigang" <Zhigang.Luo@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Fix KIQ fence timeout after GPU reset on GFX
+ v9.4.3
+Thread-Topic: [PATCH] drm/amdgpu: Fix KIQ fence timeout after GPU reset on GFX
+ v9.4.3
+Thread-Index: AQHcqymFaz9nggN0iEiEJBN/VIYHfrWhszoAgAAxNKA=
+Date: Fri, 6 Mar 2026 20:26:42 +0000
+Message-ID: <SJ1PR12MB61217A1E333E25490C325B8B807AA@SJ1PR12MB6121.namprd12.prod.outlook.com>
+References: <20260303161921.435188-1-Chenglei.Xie@amd.com>
+ <CADnq5_OCRm7oVkr7TY_OCyfSnkPJXAY7ZhjThpEbAauQNz_T_g@mail.gmail.com>
+In-Reply-To: <CADnq5_OCRm7oVkr7TY_OCyfSnkPJXAY7ZhjThpEbAauQNz_T_g@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Donet Tom <donettom@linux.ibm.com>
-In-Reply-To: <cover.1771656655.git.donettom@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA2MDE2NyBTYWx0ZWRfX7shO1s6EjZmB
- kNvJkfTdU24/tX/8cUUtY/giH4hi5cmTIVvIJ+UX6QCMhckSlUAQlAZ4yyrEBbP5XF60bT2N1ih
- Zg/PRmHDtYQggwGjS/lh4KzxYgSscHyuYi1ATaGzu3tFPtN8dKocxsl/DGDEVILPfQczjWX6r5P
- xkKitU7BMBoCnTN6C4slmiPXj4b3Rj2GTWJPugzsAVT7/eghx1+cc5ASAFtSsTtTaWomcuswTYm
- KEZD53GrdtjnUnIGKmfEXWWlddeWuCzRj/aLpTBy2C+n89uQdiGn05H8MMsTm5A5oqoZk3aRi6m
- wDuCD6j5uK18DzILcAEZC2IyDcxW+fgZcWywPPTjXBsWy5LWwgGU7phmnsgJLYvMj9vUbNmwRRT
- 8+TPWQwQ/vqLp0lv6/eDxkbCmUkUFmJKTgtGd0u+qs/v1H7owscmR+I9RIebHz9HjYCiblPr0Gj
- yg7qPi/tH5eUAxXiy+g==
-X-Proofpoint-ORIG-GUID: OyIBGNgJDlC0-3J5F2BtXNG4Q1Gsd9eB
-X-Proofpoint-GUID: kb5mDJCc7YQ41NUgW1noIJzMqNkN9orF
-X-Authority-Analysis: v=2.4 cv=AobjHe9P c=1 sm=1 tr=0 ts=69ab14e0 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=P-IC7800AAAA:8 a=TBJuidF-hLD_KTCGJwAA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-06_05,2026-03-06_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 malwarescore=0
- spamscore=0 clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603060167
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-06T19:13:55.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ1PR12MB6121:EE_|MN0PR12MB6200:EE_
+x-ms-office365-filtering-correlation-id: ca561d3e-b47e-415e-032e-08de7bbeadbe
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|38070700021|7053199007; 
+x-microsoft-antispam-message-info: ygvUDl40QD/mDCuwGGDVuTxc2ER10LmtRDW4C5ZNL6ukS1QxpcAi3T3GJu/0V/lbcrtlXhuIIlUqKVOrPJPcAHs7SPYw7ZHI5FvqTeKvCu4+MbMKM/hijfp/pobB9Vt5648mUp2SaX460F6AVTEE6opw51SH6mb22lKCDxeM8J9hhLS5aJiwS/GMo27VakkesDp3zuSz2UvWXIOiZ+hejSfTCCO5EqRjW7TD3HqaAPotFYVKwXLgxTHXATgbCw9TgB0KRPclZDRlpamr2lIKvSvz8sGRqu1MOhIcEl+4pAN4XzhBhM9rFUYiLTJzNoMfBXPz0AIRMbrqmOSV+bvzGIJAuGnT2XX5fUfcmOkE24hzJic/haR63A2SkyJwaX9rUjSeY0eDoYTUeYGJD3gAyC/f6MCvmeMoWGmGcOieXgKhU+9oG4MvOx3cnXOMhQib5xXC8a6W+MtLJuSLqXbciqA7J6lSp7SwTVf1ffIPjp9j3gdrV6kP5QW4HO65XAjJZtLNSRLJ+I1PL0yxUNy+RS+fTDFpGOpbDa/dRTxHdtjHTcQpmIymVODYwu655vu9lZmXfvdvubJ7ghyuXqZi+ua0Nfr63L4M9pvwzYuI0xUODL6cS5rExLxTblEQ1kOHpinn1OedYlI0zX0c9eNQtYgXBHJMQ1BZKye6/yy+bWGlGH5Vv8PCLyV8gc+kIWYwK7OHu9gEGfCKhm0PgZPHWqfPGBkO7Jnq2nBnnMuFoPCcd0DbrAIGu43cOQY5yhZhh5O9Bf8vdKR0O2s6Onyopas7tahNQtqZ6lDuxZ96qSI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR12MB6121.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?cmF5U2tQVEdpUTVURDltYkF2MEk0ZENWRXFmeWEwWEtlSHdaSkJja3dONXU5?=
+ =?utf-8?B?b1hDQ2d3NXcyRFpxQlVFd3dHZ1AyV3BjSWpGWldmWFlYajVxTjJiU2N6SDFz?=
+ =?utf-8?B?QTRra3BOOGN1Qk1yTUdBVHBERlBjVzgrdjFhUFJOVHpmWXpudEtxQ1hvQzlX?=
+ =?utf-8?B?ZkZaRmMzcDVvUmgranZzRll5ZnV3bHp4dnF4dXdVRFZBT1R1YkVPZ3N1VTEy?=
+ =?utf-8?B?L3VrZEd1Zm9pcm93bFpMUVpTYlNUbS9sd04zQXNmdDBQdnJaV2tGdG9sekVB?=
+ =?utf-8?B?Qi9leXA2Q3VqaWJEZ3pWQ0RGRWg1SFV5cDltNGJLRGttOWdmbFc2MGlMaDk2?=
+ =?utf-8?B?M2hjNUJIajJEOFF0R1hwekpyUHFWV1FVSDFNTWs4b3lHcjNIWFB0R2RJcWJD?=
+ =?utf-8?B?NzJBTmxTb2MwZjJEa0J4cURXTlhmSWxCVjdlUHJSOFdiWVFVamo1bVcycHVD?=
+ =?utf-8?B?MWljcno1VWNkcW5JbWU5YUhWalFMNXl1T3JLSnVjWG1TcE5sSDNYbkpkeFp3?=
+ =?utf-8?B?NTFzaWZqYVRTaHo4Q3B5TmxjSkRDYkV5dExzMjR6dFcxbnFmVTlEWmJTN2Nh?=
+ =?utf-8?B?S1dVN21DNlZvbWVwQlM5b1ZRb1NQaDNVNlJqNEsyMHNmbHUyV1pQbnFuUkZU?=
+ =?utf-8?B?WXV5a3d3YjVUd05QUFRYMFdxNEhOanE5ejRNZHFlZzR5dXIzeVNQTlZEVmRL?=
+ =?utf-8?B?R1M5U01lVDlqQ0hxZnp2cXlzc3lyRVcyUjYvTjhZcmJlR3pmcDJmMHZvdlRm?=
+ =?utf-8?B?N2xDNW90Z3ppZXhBVjg5SGhtZnYwQU85ZkU2ZmxKTU5wZXhZdk92cXcvK3l3?=
+ =?utf-8?B?cnFJNDl5czVsQVRNWnBKMzMwUkZjaE9EdmZXSVNEMlEydFREZEpEWHVpc3RN?=
+ =?utf-8?B?ZmRWNzduV0VSS1Y3aEVyU0ptSktVSTA3Qmt2aHloMjRYZWdMQlVqR25DUE9V?=
+ =?utf-8?B?UzUyTk5OcjlOWXBjWWFiWXFqSjAxUWtnM1ZKV3EvL2VGTHBEUU50K2VJZmlS?=
+ =?utf-8?B?NTNTV00wK0JCVTQ0MjlUeU1jR1Y1NW12MytYTEdFckVuQUFzVk9Od2hta3VZ?=
+ =?utf-8?B?b1RHdTE3eDVldlpLbC9WQ1hMU0tuUXh5VlFTc0FmajZGa1dJaVlEaytnK29N?=
+ =?utf-8?B?WVVUdkxROXdJaFJKMDkrRkZ1SWRiVlJ3ZEhtbS9FTjRCS2xWUFdsRk9kRnRw?=
+ =?utf-8?B?TXBGWGMwM3NnWmZUVjc2cm9XR0Nhdk1HWjM3ZnIya2tpUnBjUUVEWFRTWU5q?=
+ =?utf-8?B?d3BsU3VzNUQ3YkMzcDJOWFNHeTFBRkJneXF2L21lelo1ekorR2tnWjQybzhw?=
+ =?utf-8?B?cjNkWTVObVVpdjZyc0JJbk9JbHlJT25KZ0pEcXlKVTNJMnhHbURqQTdyTlBN?=
+ =?utf-8?B?amZ1QlpXWE0vRXdkejBLMzRMeWY0QjRsQUxYWWVQVmNQSUxCRkFnbUhDZ1Vt?=
+ =?utf-8?B?aVJHRXRWbnJqNnJaSStkUXB6TzV6bTl5SmZudDFsWUJOSGNadzIwSVpmRkx4?=
+ =?utf-8?B?YkZnaDFBVW5ybUpBT0o0WHRRdnJTY1VaYXQ2L2ZIbHlhUE5QR1liSjJSam5G?=
+ =?utf-8?B?TUlWVjFobjgyTFF2a3ZuN3ZMeVlSTDBxZTVsMW9CMjJJUU0wbWFBd014RDBV?=
+ =?utf-8?B?L2psSlh3VkhjRTFxM1BLNThTOXJpTkJsZVJmNG1TK3YwbWNVbTNWczVEYjlw?=
+ =?utf-8?B?RGxoTHlmbFBoL044dXRiTlYvblJpMC9wZU9Na1RQeFV2cDZJemNDRDBiSThW?=
+ =?utf-8?B?Q2hQVEdEcDgwd3BPYnpTWVRNdFhyRGMxa1FocGdoYXN5amxmakErN0w4cXYx?=
+ =?utf-8?B?UmlqdHUzRUswcldJQjlnNWc4c3NpWTZLbHMvNURXa1JIaGc5UlN4TXNCQ0tz?=
+ =?utf-8?B?VU9kWmxRN2YreTFCc3E4TUdaM1J0cW5lR0hnb2M4LzluNWx4cUpOSGN5Z0J6?=
+ =?utf-8?B?U2RDclFEUGFyUU1sNkxiL08zOEtIN21EWDJHTyt2MU9WZXVLNnVZQ1UzYmVO?=
+ =?utf-8?B?L1pNUUxsanphOURvUWNoZDZYdEZ0UGJWRlU0c3RMQW1nV3dod1hSdVp4UUpl?=
+ =?utf-8?B?RW0waDNtVWhHeldaYnZLTWxqTTNxMUswNEo1RVNad1djZXVNWjU1c2xyUzJk?=
+ =?utf-8?B?c2lrdWJCdGpxZjF5MHpzQ1krZGh1S2kyUzByc0RUaHMyL3FlNFM5UzBHR0NW?=
+ =?utf-8?B?NFNIRTVSNUxNQmltcG1wNU90S09lOFcrVUc3SEFWL2NSekZRZWpEQTdpZ0hF?=
+ =?utf-8?B?dFR3MWJBYU95UWdFaFR2dzlRQVlCbXhLZ0dkMVhmeGVhMTZ0dXduMGZ2SDY5?=
+ =?utf-8?Q?tsYunXLQkjBqebU3lg?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6121.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca561d3e-b47e-415e-032e-08de7bbeadbe
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Mar 2026 20:26:42.1939 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: y5GQZqQWpEpYucwT8qmXEExTxkfMXN70/oIfU6uV5CIEMcUbC9sybAGdydPCf8ns4CipXjEnX1l1HQTTrJU43g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6200
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,132 +146,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2/21/26 12:39 PM, Donet Tom wrote:
-> This is v3 of the patch series enabling 64 KB system page size support
-> in AMDGPU. v2, part 1 of this series [1] has already been merged
-> upstream and provides the minimal infrastructure required for 64 KB
-> page support.
->
-> This series addresses additional issues uncovered in AMDGPU when
-> running rccl unit tests and rocr-debug-agent tessts on 64KB page-size
-> systems.
->
-> With this series applied, all RCCL unit tests and rocr-debug-agent
-> tests pass on systems using a 64 KB system page size, across
-> multi-GPU configurations, with XNACK both enabled and disabled.
->
-> Patch 1 in this series (drm/amdgpu: Change AMDGPU_VA_RESERVED_TRAP_SIZE
-> to 2 * PAGE_SIZE) fixes a kernel crash observed when running rocminfo
-> on systems with a 64 KB page size. This patch is required to enable
-> minimal support for 64 KB system page sizes.
->
-> Since RFC v2, we observed AQL queue creation failures while running
-> certain workloads on 64K page-size systems due to an expected queue size
-> mismatch. This issue is addressed in patch 2 of this series.
->
-> The questions we had in this seres are:
-> =======================================
-> 1 When the control stack size is aligned to 64 KB, we consistently
->    observe queue preemption or eviction failures on gfx9, on both
->    4 KB and 64 KB system page-size configurations.
->
->    The control stack size is calculated based on the number of CUs and
->    waves and is then aligned to PAGE_SIZE. On systems with a 64 KB
->    system page size, this alignment always results in a 64 KB-aligned
->    control stack size, after which queue preemption fails.
->
->    Is there any hardware-imposed limitation on gfx9 that prevents the
->    control stack size from being 64 KB? For gfx10, I see explicit
->    hardware limitations on the control stack size in the code [2].
->    Is there anything similar for gfx9?
->
->    What is the correct or recommended control stack size for gfx9?
->    With a 4 KB system page size, I observe a control stack size of
->    around 44 KB—can it grow beyond this? If the control stack size
->    is fixed for a given gfx version, do you see any issues with
->    aligning the control stack size to the GPU page size?
->
-> This series has 5 patches
-> =========================
-> 1. AMDGPU_VA_RESERVED_TRAP_SIZE was hard-coded to 8 KB while
->     KFD_CWSR_TBA_TMA_SIZE is defined as 2 * PAGE_SIZE, which matches on
->     4 KB page-size systems but results in a size mismatch on 64 KB
->     systems, leading to kernel crashes when running rocminfo or RCCL
->     unit tests.
->     This patch updates AMDGPU_VA_RESERVED_TRAP_SIZE to 2 * PAGE_SIZE so
->     that the reserved trap area matches the allocation size across all
->     system page sizes. This is a must needed patch to enable minimal
->     support for 64 KB system page sizes.
->
-> 2. Aligned expected_queue_size to PAGE_SIZE to fix AQL queue creation
->     failure.
->
-> 3. Fix amdgpu page fault handler (for xnack) to pass the corresponding
->     system pfn (instead of gpu pfn) for restoring SVM range mapping.
->
-> 4. Updated AMDGPU_GTT_MAX_TRANSFER_SIZE to always match the PMD size
->     across all page sizes.
->
-> 5. On systems where the CPU page size is larger than the GPU’s 4 KB page
->     size, the MQD and control stack were aligned to the CPU PAGE_SIZE,
->     causing multiple GPU pages to incorrectly inherit the UC attribute.
->     This change aligns both regions to the GPU page size, ensuring that
->     the MQD is mapped as UC and the control stack as NC, restoring the
->     correct behavior.
->
-> 6. Queue preemption fails when the control stack size is aligned to
->     64 KB. This patch fixes this issue by aligning the control stack
->     size to gpu page size.
->
-> Setup details:
-> ============
-> System details: Power10 LPAR using 64K pagesize.
-> AMD GPU:
-> Name:                    gfx90a
-> Marketing Name:          AMD Instinct MI210
->
-> [1] https://lore.kernel.org/all/cover.1765519875.git.donettom@linux.ibm.com/
-> [2] https://elixir.bootlin.com/linux/v6.19-rc5/source/drivers/gpu/drm/amd/amdkfd/kfd_queue.c#L457
->
-> RFC V2 - https://lore.kernel.org/all/cover.1769612973.git.donettom@linux.ibm.com/
-> RFC V1 - https://lore.kernel.org/all/cover.1765519875.git.donettom@linux.ibm.com/
->
->
-> Donet Tom (6):
->    drm/amdgpu: Change AMDGPU_VA_RESERVED_TRAP_SIZE to 2 PAGE_SIZE pages
->    drm/amdkfd: Align expected_queue_size to PAGE_SIZE
->    drm/amdgpu: Handle GPU page faults correctly on non-4K page systems
->    drm/amdgpu: Fix AMDGPU_GTT_MAX_TRANSFER_SIZE for non-4K page size
->    drm/amd: Fix MQD and control stack alignment for non-4K
->    drm/amdkfd: Fix queue preemption/eviction failures by aligning control
->      stack size to GPU page size
-
-
-Hi All,
-
-Gentle ping.
-
-Could you please review this patch series and share your feedback?
-
-We have tested this series on both 4K and 64K page-size kernels, and all 
-RCCL tests and ROCR debug agent tests are passing. If everything looks 
-good, could we get this merged in the next kernel release (7.1)?
-
-Thanks for your review.
-
--Donet
-
-
->
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c      | 44 +++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_gart.h      |  2 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 24 ++++------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |  6 +--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  2 +-
->   drivers/gpu/drm/amd/amdgpu/vce_v1_0.c         |  3 +-
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   | 23 ++++++----
->   drivers/gpu/drm/amd/amdkfd/kfd_queue.c        | 11 ++---
->   9 files changed, 82 insertions(+), 35 deletions(-)
->
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEFNRCBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0N
+Cg0KSGkgQWxleCwNCg0KYW1kZ3B1X2ZlbmNlX2RyaXZlcl9mb3JjZV9jb21wbGV0aW9uKCkgaXMg
+d29ya2luZyBidXQgaXQgd2FzIGNhbGxlZCBwcmlvciB0byBHUFUgcmVzZXQuDQoNCkhvd2V2ZXIs
+IGluIHRoaXMgZmFpbGluZyBjYXNlLCBkdXJpbmcgYSBHUFUgcmVzZXQsIHRoZSBLSVEgcmluZyBp
+cyBzdGlsbCB1c2VkIChlLmcuIGZvciBIRFAgZmx1c2ggaW4gYW1kZ3B1X2tpcV9oZHBfZmx1c2go
+KSkuIEVhY2ggb2YgdGhvc2Ugc3VibWlzc2lvbnMgZW1pdHMgYSBmZW5jZSBhbmQgaW5jcmVtZW50
+cyBzeW5jX3NlcS4gVGhlIGhhcmR3YXJlIHF1ZXVlIGlzIGxhdGVyIGNsZWFyZWQgYnkgdGhlIHJl
+c2V0IGFuZCBuZXZlciBydW5zIHRob3NlIGNvbW1hbmRzLCBzbyBpdCBuZXZlciB1cGRhdGVzIHRo
+ZSBmZW5jZSB3cml0ZWJhY2sgbG9jYXRpb24uIEFmdGVyIHJlc2V0LCB0aGUgd3JpdGViYWNrIG1l
+bW9yeSBzdGlsbCBob2xkcyB0aGUgbGFzdCB2YWx1ZSB3cml0dGVuIGJlZm9yZSByZXNldCB3aGls
+ZSBzeW5jX3NlcSBoYXMgbW92ZWQgZmFyIGFoZWFkLg0KDQpCZWZvcmUgZW1pdHRpbmcgYSBuZXcg
+ZmVuY2UsIGFtZGdwdV9mZW5jZV9lbWl0X3BvbGxpbmcoKSB3YWl0cyB1bnRpbCB0aGUgb2xkZXN0
+IGluLWZsaWdodCBmZW5jZSBpcyBkb25lOiBpdCBjYWxscyBhbWRncHVfZmVuY2Vfd2FpdF9wb2xs
+aW5nKHJpbmcsIHNlcSAtIHJpbmctPmZlbmNlX2Rydi5udW1fZmVuY2VzX21hc2ssIHRpbWVvdXQp
+LCB3aGljaCBidXN5IHdhaXRzIHVudGlsIHRoZSB3cml0ZWJhY2sgdmFsdWUgaXMgYXQgbGVhc3Qg
+dGhhdCBzZXF1ZW5jZS4gQmVjYXVzZSB0aGUgd3JpdGViYWNrIHZhbHVlIGlzIHN0aWxsIG5lYXIg
+dGhlIHByZS1yZXNldCB2YWx1ZSBhbmQgc3luY19zZXEgaGFzIGdyb3duLCB0aGUgcmVxdWlyZWQg
+c2VxdWVuY2UgKHN5bmNfc2VxIC0gbnVtX2ZlbmNlc19tYXNrKSBpcyBtdWNoIGxhcmdlciB0aGFu
+IHRoZSB3cml0ZWJhY2sgdmFsdWUuIFRoZSBkcml2ZXIgdGhlcmVmb3JlIHdhaXRzIGZvciBjb21w
+bGV0aW9uIG9mIGZlbmNlcyB0aGF0IHdlcmUgbG9zdCBpbiB0aGUgcmVzZXQgYW5kIHdpbGwgbmV2
+ZXIgY29tcGxldGUsIHRoZSB3YWl0IGhpdHMgdGhlIHRpbWVvdXQsIGFuZCBhbWRncHVfZmVuY2Vf
+ZW1pdF9wb2xsaW5nKCkgcmV0dXJucyAtRVRJTUVET1VULiBUaGUgZHJpdmVyIHRoZW4gcmVmdXNl
+cyB0byBlbWl0IG5ldyBLSVEgZmVuY2VzLCBhc3N1bWluZyB0aGUgcmluZyBpcyBmdWxsLCBhbmQg
+S0lRIHN1Ym1pc3Npb25zIGVmZmVjdGl2ZWx5IHN0YWxsLg0KDQpUbyBmaXggdGhpcywgd2hlbiBy
+ZS1pbml0aWFsaXppbmcgdGhlIEtJUSBhZnRlciBhIHJlc2V0LCB0aGUgY29kZSBub3cgc2V0cyB0
+aGUgZmVuY2Ugd3JpdGViYWNrIG1lbW9yeSB0byBzeW5jX3NlcS4gU28gaXQgbm8gbG9uZ2VyIHdh
+aXRzIGZvciB0aG9zZSBsb3N0IGZlbmNlcy4gYW1kZ3B1X2ZlbmNlX2VtaXRfcG9sbGluZygpIGNh
+biB0aGVuIGVtaXQgbmV3IGZlbmNlcyB3aXRob3V0IHRpbWluZyBvdXQsIGFuZCBLSVEgdXNhZ2Ug
+cmVzdW1lcyBhZnRlciByZXNldC4NCg0KUmVnYXJkcywNCkNoZW5nbGVpDQotLS0tLU9yaWdpbmFs
+IE1lc3NhZ2UtLS0tLQ0KRnJvbTogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+
+DQpTZW50OiBGcmlkYXksIE1hcmNoIDYsIDIwMjYgMTE6MTggQU0NClRvOiBYaWUsIENoZW5nbGVp
+IDxDaGVuZ2xlaS5YaWVAYW1kLmNvbT4NCkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZzsgQ2hhbiwgSGluZyBQb25nIDxKZWZmcmV5LkNoYW5AYW1kLmNvbT47IEx1bywgWmhpZ2FuZyA8
+WmhpZ2FuZy5MdW9AYW1kLmNvbT47IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5j
+b20+DQpTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBGaXggS0lRIGZlbmNlIHRpbWVv
+dXQgYWZ0ZXIgR1BVIHJlc2V0IG9uIEdGWCB2OS40LjMNCg0KW1lvdSBkb24ndCBvZnRlbiBnZXQg
+ZW1haWwgZnJvbSBhbGV4ZGV1Y2hlckBnbWFpbC5jb20uIExlYXJuIHdoeSB0aGlzIGlzIGltcG9y
+dGFudCBhdCBodHRwczovL2FrYS5tcy9MZWFybkFib3V0U2VuZGVySWRlbnRpZmljYXRpb24gXQ0K
+DQpPbiBUdWUsIE1hciAzLCAyMDI2IGF0IDExOjI54oCvQU0gQ2hlbmdsZWkgWGllIDxDaGVuZ2xl
+aS5YaWVAYW1kLmNvbT4gd3JvdGU6DQo+DQo+IEFmdGVyIEdQVSByZXNldCwgdGhlIGhhcmR3YXJl
+IHF1ZXVlIGlzIGNsZWFyZWQgYW5kIGFsbCBwZW5kaW5nIGZlbmNlcw0KPiBhcmUgbG9zdC4gSG93
+ZXZlciwgdGhlIGZlbmNlIHdyaXRlYmFjayBtZW1vcnkgcmVtYWlucyBzdGFsZSBmcm9tDQo+IGJl
+Zm9yZSByZXNldCwgd2hpbGUgc29mdHdhcmUgY29udGludWVzIGVtaXR0aW5nIGZlbmNlcyBhbmQg
+c3luY19zZXENCj4ga2VlcHMgaW5jcmVtZW50aW5nLiBUaGlzIGNhdXNlcyBhbWRncHVfZmVuY2Vf
+ZW1pdF9wb2xsaW5nKCkgdG8gd2FpdA0KPiBmb3IgZmVuY2VzIHRoYXQgd2VyZSBsb3N0IGR1cmlu
+ZyByZXNldCwgcmVzdWx0aW5nIGluIC1FVElNRURPVVQgZXJyb3JzLg0KPg0KPiBGaXggdGhpcyBi
+eSB1cGRhdGluZyB0aGUgZmVuY2Ugd3JpdGViYWNrIG1lbW9yeSB0byBtYXRjaCBzeW5jX3NlcQ0K
+PiBhZnRlciBHUFUgcmVzZXQgaW4gZ2Z4X3Y5XzRfM194Y2Nfa2lxX2luaXRfcXVldWUoKS4gVGhp
+cyBhbGlnbnMgdGhlDQo+IGhhcmR3YXJlJ3MgdmlldyBvZiBjb21wbGV0ZWQgZmVuY2VzIHdpdGgg
+c29mdHdhcmUncyB2aWV3IG9mIGVtaXR0ZWQNCj4gZmVuY2VzLCBwcmV2ZW50aW5nIHRpbWVvdXRz
+IHdoZW4gd2FpdGluZyBmb3IgZmVuY2VzIHRoYXQgbm8gbG9uZ2VyIGV4aXN0Lg0KPg0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBDaGVuZ2xlaSBYaWUgPENoZW5nbGVpLlhpZUBhbWQuY29tPg0KPiBDaGFuZ2Ut
+SWQ6IEk3MTdkZjUyZWQwZWYwYmI1MWE2OTAxZjIxODE5MWQ5ODM3YTc3ZjZmDQo+IC0tLQ0KPiAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzRfMy5jIHwgOSArKysrKysrKysNCj4g
+IDEgZmlsZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKykNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV80XzMuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dmeF92OV80XzMuYw0KPiBpbmRleCBhZDRkNDQyZTczNDVlLi42YjVmY2RkOTg3
+NjkzIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfNF8z
+LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzRfMy5jDQo+IEBA
+IC0yMTM1LDYgKzIxMzUsMTUgQEAgc3RhdGljIGludCBnZnhfdjlfNF8zX3hjY19raXFfaW5pdF9x
+dWV1ZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIGludCB4Y2NfaWQpDQo+ICAgICAgICAgICAg
+ICAgICBnZnhfdjlfNF8zX3hjY19raXFfaW5pdF9yZWdpc3RlcihyaW5nLCB4Y2NfaWQpOw0KPiAg
+ICAgICAgICAgICAgICAgc29jMTVfZ3JibV9zZWxlY3QoYWRldiwgMCwgMCwgMCwgMCwgR0VUX0lO
+U1QoR0MsIHhjY19pZCkpOw0KPiAgICAgICAgICAgICAgICAgbXV0ZXhfdW5sb2NrKCZhZGV2LT5z
+cmJtX211dGV4KTsNCj4gKw0KPiArICAgICAgICAgICAgICAgLyogVXBkYXRlIGZlbmNlIHdyaXRl
+YmFjayBtZW1vcnkgdG8gYWxpZ24gd2l0aCBzb2Z0d2FyZSBzdGF0ZSBhZnRlciByZXNldC4NCj4g
+KyAgICAgICAgICAgICAgICAqIEFmdGVyIEdQVSByZXNldCwgdGhlIGhhcmR3YXJlIHF1ZXVlIGlz
+IGNsZWFyZWQgYW5kIGFsbCBwZW5kaW5nIGZlbmNlcw0KPiArICAgICAgICAgICAgICAgICogYXJl
+IGxvc3QuIFRoZSBmZW5jZSB3cml0ZWJhY2sgbWVtb3J5IG1heSBiZSBzdGFsZSBmcm9tIGJlZm9y
+ZSByZXNldC4gVG8gcHJldmVudA0KPiArICAgICAgICAgICAgICAgICogd2FpdGluZyBmb3IgbG9z
+dCBmZW5jZXMsIHVwZGF0ZSB3cml0ZWJhY2sgbWVtb3J5IHRvIG1hdGNoIHN5bmNfc2VxLg0KPiAr
+ICAgICAgICAgICAgICAgICogVGhpcyBhdm9pZHMgd2FpdGluZyBmb3IgbG9zdCBmZW5jZXMgYW5k
+IHByZXZlbnRzIHRpbWVvdXRzLg0KPiArICAgICAgICAgICAgICAgICovDQoNClRoaXMgZG9lc24n
+dCBtYWtlIHNlbnNlLiAgTm8gb3RoZXIga2lxX2luaXRfcXVldWUoKSBmdW5jdGlvbiBkb2VzIHRo
+aXMuICBXaGVuIHRoZSBHUFUgaXMgcmVzZXQsIGFtZGdwdV9mZW5jZV9kcml2ZXJfZm9yY2VfY29t
+cGxldGlvbigpDQpzaG91bGQgZ2V0IGNhbGxlZCBmb3IgZWFjaCByaW5nLiAgVGhhdCB3aWxsIHNl
+dCBhbiBlcnJvciBvbiB0aGUgZmVuY2UgYW5kIHVwZGF0ZSB0aGUgZmVuY2Ugc2VxdWVuY2UuICBX
+aHkgaXMgdGhhdCBub3Qgd29ya2luZz8NCg0KQWxleA0KDQo+ICsgICAgICAgICAgICAgICAgaWYg
+KHJpbmctPmZlbmNlX2Rydi5jcHVfYWRkcikNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgKnJp
+bmctPmZlbmNlX2Rydi5jcHVfYWRkciA9DQo+ICsgY3B1X3RvX2xlMzIocmluZy0+ZmVuY2VfZHJ2
+LnN5bmNfc2VxKTsNCj4gICAgICAgICB9IGVsc2Ugew0KPiAgICAgICAgICAgICAgICAgbWVtc2V0
+KCh2b2lkICopbXFkLCAwLCBzaXplb2Yoc3RydWN0IHY5X21xZF9hbGxvY2F0aW9uKSk7DQo+ICAg
+ICAgICAgICAgICAgICAoKHN0cnVjdCB2OV9tcWRfYWxsb2NhdGlvbiAqKW1xZCktPmR5bmFtaWNf
+Y3VfbWFzayA9DQo+IDB4RkZGRkZGRkY7DQo+IC0tDQo+IDIuMzQuMQ0KPg0K
