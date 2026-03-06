@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDDEDF01829
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 11:33:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C83F3F0182B
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 11:33:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 49CB110ECFA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BBD710ECFD;
 	Fri,  6 Mar 2026 11:33:53 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.156.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9794C10ECFA
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97E8810ECFC
  for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 11:33:51 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 626BXk442412684; Fri, 6 Mar 2026 17:03:46 +0530
+ 626BXkP12412674; Fri, 6 Mar 2026 17:03:46 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 626BXkJd2412683;
- Fri, 6 Mar 2026 17:03:46 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 626BXjec2412667;
+ Fri, 6 Mar 2026 17:03:45 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v4 3/3] drm/amdgpu: push userq debugfs function in
- amdgpu_debugfs files
-Date: Fri,  6 Mar 2026 17:03:44 +0530
-Message-Id: <20260306113344.2412644-3-sunil.khatri@amd.com>
+Subject: [PATCH v4 1/3] drm/amdgpu/userq: defer queue publication until create
+ completes
+Date: Fri,  6 Mar 2026 17:03:42 +0530
+Message-Id: <20260306113344.2412644-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260306113344.2412644-1-sunil.khatri@amd.com>
-References: <20260306113344.2412644-1-sunil.khatri@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -45,177 +43,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Debugfs files for amdgpu are better to be handled in the dedicated
-amdgpu_debugfs.c/.h files.
+The userq create path publishes queues to global xarrays such as
+userq_doorbell_xa and userq_xa before creation was fully complete.
+Later on if create queue fails, teardown could free an already
+visible queue, opening a UAF race with concurrent queue walkers.
+Also calling amdgpu_userq_put in such cases complicates the cleanup.
+
+Solution is to defer queue publication until create succeeds and no
+partially initialized queue is exposed.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 53 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  4 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c   | 47 +-----------------
- 3 files changed, 58 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 66 +++++++++++------------
+ 1 file changed, 33 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index f51c3443159d..63b702ec972b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -39,6 +39,7 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 7d2f78899c47..a614b01b7eab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -758,7 +758,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	const struct amdgpu_userq_funcs *uq_funcs;
+ 	struct amdgpu_usermode_queue *queue;
+ 	struct amdgpu_db_info db_info;
+-	char *queue_name;
+ 	bool skip_map_queue;
+ 	u32 qid;
+ 	uint64_t index;
+@@ -848,32 +847,6 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		goto unlock;
+ 	}
  
- #include "amdgpu_reset.h"
- #include "amdgpu_psp_ta.h"
-+#include "amdgpu_userq.h"
+-	/* drop this refcount during queue destroy */
+-	kref_init(&queue->refcount);
+-
+-	/* Wait for mode-1 reset to complete */
+-	down_read(&adev->reset_domain->sem);
+-	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue, GFP_KERNEL));
+-	if (r) {
+-		kfree(queue);
+-		up_read(&adev->reset_domain->sem);
+-		goto unlock;
+-	}
+-
+-	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
+-		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT), GFP_KERNEL);
+-	if (r) {
+-		drm_file_err(uq_mgr->file, "Failed to allocate a queue id\n");
+-		amdgpu_userq_fence_driver_free(queue);
+-		xa_erase_irq(&adev->userq_doorbell_xa, index);
+-		uq_funcs->mqd_destroy(queue);
+-		kfree(queue);
+-		r = -ENOMEM;
+-		up_read(&adev->reset_domain->sem);
+-		goto unlock;
+-	}
+-	up_read(&adev->reset_domain->sem);
+-
+ 	/* don't map the queue if scheduling is halted */
+ 	if (adev->userq_halt_for_enforce_isolation &&
+ 	    ((queue->queue_type == AMDGPU_HW_IP_GFX) ||
+@@ -885,28 +858,55 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 		r = amdgpu_userq_map_helper(queue);
+ 		if (r) {
+ 			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
+-			xa_erase_irq(&adev->userq_doorbell_xa, index);
+-			xa_erase(&uq_mgr->userq_xa, qid);
+-			amdgpu_userq_fence_driver_free(queue);
+ 			uq_funcs->mqd_destroy(queue);
++			amdgpu_userq_fence_driver_free(queue);
+ 			kfree(queue);
+ 			goto unlock;
+ 		}
+ 	}
  
- #if defined(CONFIG_DEBUG_FS)
- 
-@@ -2156,6 +2157,53 @@ static const struct file_operations amdgpu_pt_info_fops = {
- 	.release = single_release,
- };
- 
-+static int amdgpu_mqd_info_read(struct seq_file *m, void *unused)
-+{
-+	struct amdgpu_usermode_queue *queue = m->private;
-+	struct amdgpu_bo *bo;
-+	int r;
+-	queue_name = kasprintf(GFP_KERNEL, "queue-%d", qid);
+-	if (!queue_name) {
++	/* drop this refcount during queue destroy */
++	kref_init(&queue->refcount);
 +
-+	if (!queue || !queue->mqd.obj)
-+		return -EINVAL;
-+
-+	bo = amdgpu_bo_ref(queue->mqd.obj);
-+	r = amdgpu_bo_reserve(bo, true);
++	/* Wait for mode-1 reset to complete */
++	down_read(&adev->reset_domain->sem);
++	r = xa_alloc(&uq_mgr->userq_xa, &qid, queue,
++		     XA_LIMIT(1, AMDGPU_MAX_USERQ_COUNT), GFP_KERNEL);
 +	if (r) {
-+		amdgpu_bo_unref(&bo);
-+		return -EINVAL;
++		if (!skip_map_queue)
++			amdgpu_userq_unmap_helper(queue);
++
++		uq_funcs->mqd_destroy(queue);
++		amdgpu_userq_fence_driver_free(queue);
++		kfree(queue);
+ 		r = -ENOMEM;
++		up_read(&adev->reset_domain->sem);
+ 		goto unlock;
+ 	}
+ 
++	r = xa_err(xa_store_irq(&adev->userq_doorbell_xa, index, queue, GFP_KERNEL));
++	if (r) {
++		xa_erase(&uq_mgr->userq_xa, qid);
++		if (!skip_map_queue)
++			amdgpu_userq_unmap_helper(queue);
++
++		uq_funcs->mqd_destroy(queue);
++		amdgpu_userq_fence_driver_free(queue);
++		kfree(queue);
++		up_read(&adev->reset_domain->sem);
++		goto unlock;
 +	}
++	up_read(&adev->reset_domain->sem);
 +
-+	seq_printf(m, "queue_type: %d\n", queue->queue_type);
-+	seq_printf(m, "mqd_gpu_address: 0x%llx\n", amdgpu_bo_gpu_offset(queue->mqd.obj));
-+
-+	amdgpu_bo_unreserve(bo);
-+	amdgpu_bo_unref(&bo);
-+
-+	return 0;
-+}
-+
-+static int amdgpu_mqd_info_open(struct inode *inode, struct file *file)
-+{
-+	return single_open(file, amdgpu_mqd_info_read, inode->i_private);
-+}
-+
-+static const struct file_operations amdgpu_mqd_info_fops = {
-+	.owner = THIS_MODULE,
-+	.open = amdgpu_mqd_info_open,
-+	.read = seq_read,
-+	.llseek = seq_lseek,
-+	.release = single_release,
-+};
-+
-+void amdgpu_debugfs_userq_init(struct drm_file *file, struct amdgpu_usermode_queue *queue, int qid)
-+{
+ #if defined(CONFIG_DEBUG_FS)
 +	char queue_name[32];
 +
 +	scnprintf(queue_name, sizeof(queue_name), "queue_%d", qid);
-+	queue->debugfs_queue = debugfs_create_dir(queue_name, file->debugfs_client);
-+	debugfs_create_file("mqd_info", 0444, queue->debugfs_queue, queue, &amdgpu_mqd_info_fops);
-+}
-+
- void amdgpu_debugfs_vm_init(struct drm_file *file)
- {
- 	debugfs_create_file("vm_pagetable_info", 0444, file->debugfs_client, file,
-@@ -2174,4 +2222,9 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
- void amdgpu_debugfs_vm_init(struct drm_file *file)
- {
- }
-+void amdgpu_debugfs_userq_init(struct drm_file *file,
-+			       struct amdgpu_usermode_queue *queue,
-+			       int qid)
-+{
-+}
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-index e7b3c38e5186..e88b4a1e564c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-@@ -25,6 +25,7 @@
- /*
-  * Debugfs
-  */
-+struct amdgpu_usermode_queue;
- 
- int amdgpu_debugfs_regs_init(struct amdgpu_device *adev);
- int amdgpu_debugfs_init(struct amdgpu_device *adev);
-@@ -34,4 +35,7 @@ void amdgpu_debugfs_firmware_init(struct amdgpu_device *adev);
- void amdgpu_debugfs_gem_init(struct amdgpu_device *adev);
- void amdgpu_debugfs_mes_event_log_init(struct amdgpu_device *adev);
- void amdgpu_debugfs_vm_init(struct drm_file *file);
-+void amdgpu_debugfs_userq_init(struct drm_file *file,
-+			       struct amdgpu_usermode_queue *queue,
-+			       int qid);
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 1543ca324f43..472936f90c19 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -709,46 +709,6 @@ static int amdgpu_userq_priority_permit(struct drm_file *filp,
- 	return -EACCES;
- }
- 
--#if defined(CONFIG_DEBUG_FS)
--static int amdgpu_mqd_info_read(struct seq_file *m, void *unused)
--{
--	struct amdgpu_usermode_queue *queue = m->private;
--	struct amdgpu_bo *bo;
--	int r;
--
--	if (!queue || !queue->mqd.obj)
--		return -EINVAL;
--
--	bo = amdgpu_bo_ref(queue->mqd.obj);
--	r = amdgpu_bo_reserve(bo, true);
--	if (r) {
--		amdgpu_bo_unref(&bo);
--		return -EINVAL;
--	}
--
--	seq_printf(m, "queue_type: %d\n", queue->queue_type);
--	seq_printf(m, "mqd_gpu_address: 0x%llx\n", amdgpu_bo_gpu_offset(queue->mqd.obj));
--
--	amdgpu_bo_unreserve(bo);
--	amdgpu_bo_unref(&bo);
--
--	return 0;
--}
--
--static int amdgpu_mqd_info_open(struct inode *inode, struct file *file)
--{
--	return single_open(file, amdgpu_mqd_info_read, inode->i_private);
--}
--
--static const struct file_operations amdgpu_mqd_info_fops = {
--	.owner = THIS_MODULE,
--	.open = amdgpu_mqd_info_open,
--	.read = seq_read,
--	.llseek = seq_lseek,
--	.release = single_release,
--};
--#endif
--
- static int
- amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- {
-@@ -886,12 +846,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
- 	up_read(&adev->reset_domain->sem);
- 
- #if defined(CONFIG_DEBUG_FS)
--	char queue_name[32];
--
--	scnprintf(queue_name, sizeof(queue_name), "queue_%d", qid);
--	/* Queue dentry per client to hold MQD information   */
--	queue->debugfs_queue = debugfs_create_dir(queue_name, filp->debugfs_client);
--	debugfs_create_file("mqd_info", 0444, queue->debugfs_queue, queue, &amdgpu_mqd_info_fops);
-+	amdgpu_debugfs_userq_init(filp, queue, qid);
+ 	/* Queue dentry per client to hold MQD information   */
+ 	queue->debugfs_queue = debugfs_create_dir(queue_name, filp->debugfs_client);
+ 	debugfs_create_file("mqd_info", 0444, queue->debugfs_queue, queue, &amdgpu_mqd_info_fops);
  #endif
  	amdgpu_userq_init_hang_detect_work(queue);
+-	kfree(queue_name);
  
+ 	args->out.queue_id = qid;
+ 	atomic_inc(&uq_mgr->userq_count[queue->queue_type]);
 -- 
 2.34.1
 
