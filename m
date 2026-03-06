@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CA8DF513EE
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 03:23:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44C57F513E9
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 03:24:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B6B210E0A9;
-	Fri,  6 Mar 2026 03:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0FF510E26B;
+	Fri,  6 Mar 2026 03:24:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wW3FFEoW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bhAAJC5m";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010032.outbound.protection.outlook.com [52.101.56.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 204B410E0A9
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 03:23:53 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010015.outbound.protection.outlook.com [52.101.85.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F37510E26B
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 03:24:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O/x0s4FqgurnK2PZ6vV0DBpCPzO0LP5OCZbx4Z1B7dbeQtpbiMClKIN6xASh5LcdWRHRhFvjdSE1Htl237NtGmGlQdqUiClkqXXEBegL3oZd0n9V5iYsiP/pVZi+j6mS0SR/uYhhGDSGeHx7o9SQqNETCxRLuq+A+6kteBrSN+9NgzXTlTfpQixkCSQu8D2WvR+nf5AWAV6ncmLeAkQJ+d8+D81PBdvDt/BUpRFF+y0gkg06xsqnBIjY9lkw5ErssganVystbqQ6MRnivEXQYjQ6KtVkHQdSezvPFa/XbDZZT2TcLd9LK2PJeaEsFDf8MEYQqML5PtW/JyYgfAOUzQ==
+ b=qJ71cCP+tguegXYEbRbfQsLvKHLdP2DzZ+frz/4gxmozKit65cz9P4vwyht6PuQZrP9UiTy8wLacKr0R6OIljGxeFYAZ/HP0WqugXpPWZZRZ89jJZY+ghYElVRqljdJIWxJUQZebxQH3mqB7chN9LQkR7wFi75cfSNulztoDCQRfSRM5AmKSLf/Senm/ovCUjcdGqzcetfi5uZo/VIzA6KMMNSyJQp3BD3IOKm/zQR36hvvN7o9PRy0Dk6yLkq+s22jQ7UZ3Dgts9wdf7HI6qo6snylvD2pRemMLDrsMuneTXaqB3MabdkZrBtWrY1AlrORGgsVWr2NPM4Bf8eYUiQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AwiJeeNYoIy6R6ToNKueWIJPweLUeWDCQ4tk6cP/rbg=;
- b=ZgEbwXJlbgM+qUlYJCsOOw72185xHwhv5LUDvlqR4efpC5LkCaCI9yS9VWdCOPjQnkxDy8BMTP4lZ942NxSZF/4z6gVE65vty1NpHkNVFl2McuZJBu9tepIsu9m0bLsk+q4mBHs4TakYVMFCtF0qbl6UrgwEHJR+S9fHev4KBR9pyEPwPNwO09IRRVl+56vQ6pZ1/lsNlm/lyInRq+Y5q3cXxEM4mmv/axALK2ABtLRQdnqc01/IPDNoHdaZIh96dcIiIbmJMcovIynfFDvuKuy64nZ1P30M0yL1/pkmL3C0fbZf4cqpuo/KMJCt8/TTwbJ385Nz50LmELpRaItp1g==
+ bh=HGp6AoUPSlY9wr7a/t3VIAr+KKl100vvadLnYXE6znI=;
+ b=nebdx5LG6pzzNUUUm9N3Vje866UfLjlEu5nEzGfTLsXmT0oCJRVZeZrm7+X3n9MfMcajJ+D6li2+S9W82Diyj9H/ZGQggq7Mx9oHQWq4SN6eZtSNPvnT+5xUYTkq7g19dHLgXaBm89qVCOu6vooOgP3V4rZn+tMi7gQdjq///4KLEh4HKowLEfbwA372pDnjWxBXuRviTCmIujVogAXj9rMQZJ65ey+ythVF2OgrNpf6sF1ePN2sfYhb6NzpKe3NQD92pw7Kyi9JA9bxYXB/6K7VNmYNfwPEOiIPmBJwvspX4dJ6RmWxnAEilFX7YA9IlZECEhWGwfzWq0H7c89wGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AwiJeeNYoIy6R6ToNKueWIJPweLUeWDCQ4tk6cP/rbg=;
- b=wW3FFEoWjmJNesVkp/dudyQjDDXdJZ1rxrxFnLoyuP0FHr8psgcjFdDKCN6W+Q2Lp3YwCOFuc3q1oodGsIOlx/2zd3yKbYNop2BkxBQ0cFaEFntXeqEomfYsExuuQ++hhx9lNs55FZ3VO8Ap4xq1nurahOZFnrL8pW/AHIHTuT4=
-Received: from BYAPR04CA0016.namprd04.prod.outlook.com (2603:10b6:a03:40::29)
- by SN7PR12MB7250.namprd12.prod.outlook.com (2603:10b6:806:2aa::21)
+ bh=HGp6AoUPSlY9wr7a/t3VIAr+KKl100vvadLnYXE6znI=;
+ b=bhAAJC5mXRSSXf585OiArxbInWF2AuDboR4l6Szg+x4zqnRJ7xknG3stuHQKJCYSc657RInDKbkY2uPM6BKwCsI10T99VKeEi7V8O2QU27rV0HWDHzBDlgPmJXvEIju2+xI8QwWRKqpYbHsOoPhtZaNRL5Wps3biKZiy7o/8pjM=
+Received: from SJ0PR05CA0007.namprd05.prod.outlook.com (2603:10b6:a03:33b::12)
+ by LV8PR12MB9182.namprd12.prod.outlook.com (2603:10b6:408:192::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Fri, 6 Mar
- 2026 03:23:48 +0000
-Received: from MWH0EPF000A672E.namprd04.prod.outlook.com
- (2603:10b6:a03:40:cafe::41) by BYAPR04CA0016.outlook.office365.com
- (2603:10b6:a03:40::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.23 via Frontend Transport; Fri,
- 6 Mar 2026 03:23:47 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.18; Fri, 6 Mar
+ 2026 03:24:02 +0000
+Received: from MWH0EPF000A6732.namprd04.prod.outlook.com
+ (2603:10b6:a03:33b:cafe::6f) by SJ0PR05CA0007.outlook.office365.com
+ (2603:10b6:a03:33b::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.13 via Frontend Transport; Fri,
+ 6 Mar 2026 03:24:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000A672E.mail.protection.outlook.com (10.167.249.20) with Microsoft
+ MWH0EPF000A6732.mail.protection.outlook.com (10.167.249.24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Fri, 6 Mar 2026 03:23:47 +0000
+ 15.20.9678.18 via Frontend Transport; Fri, 6 Mar 2026 03:24:00 +0000
 Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 5 Mar
- 2026 21:23:45 -0600
+ 2026 21:23:58 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,42 +62,45 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>
-Subject: [PATCH 00/21] DC Patches March 05, 2026
-Date: Thu, 5 Mar 2026 20:13:26 -0700
-Message-ID: <20260306031932.136179-1-alex.hung@amd.com>
+ <alex.hung@amd.com>, Gaghik Khachatrian <gaghik.khachatrian@amd.com>, "Dillon
+ Varone" <dillon.varone@amd.com>
+Subject: [PATCH 01/21] drm/amd/display: Clean up NULL pointer warnings in dml2
+Date: Thu, 5 Mar 2026 20:13:27 -0700
+Message-ID: <20260306031932.136179-2-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260306031932.136179-1-alex.hung@amd.com>
+References: <20260306031932.136179-1-alex.hung@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A672E:EE_|SN7PR12MB7250:EE_
-X-MS-Office365-Filtering-Correlation-Id: a39d910d-7a4b-4525-626d-08de7b2fc773
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6732:EE_|LV8PR12MB9182:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72c767ce-cd29-407a-5f97-08de7b2fcf85
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700016; 
-X-Microsoft-Antispam-Message-Info: bTOGV+Onds2QGc/9N/YgKedvc02NSx+H8bcCo68xZQlOMLk1CW1Y/W8DSm9MTWKEh+Qtqe5xts18tS+tDgNCmxZ1FS9CwhL7iXW+yjtN9vweh2H7GhaSJ42VX51qOhDcm+wurvbF0paOWpRkJK07ko44fe//tWmKOLqm7XXdOmPNTyE0H+4TuFTHiF4rhMCALc7p0pnI/ayVrHxGDv7monZB7wCBWxc+Vz5Bi6/u0qbMfBtYN51k6tCgQIQFKpvzwoK3tCoBx211g8GEOZTdm6quuId/0PbpxyQPetOib+FR7hBBMhCigGTl+ZocjKg1NADlRhTs7MQrKUV7chmFNCEVVe9oaJATks9a6nSVAU6LyQDvAd+7nYcpX0IUJ5GanCyDfEMQ2zwSEwVm9zNsUE7aCleQ4ZvXxtoGYeyn0Vv9xp4bxf3j6g0rMR3X7M1fQeC+sSI3DCWJlm7wJ01sHpH/mUykWzpFVGOtXp0wqULWm4sC3bfVX8MozaTI7zpnf3APAdxuSEZz6KzkzGoJ+4fdV37A0tCQx/KHD9wNgLERy8NKtxm3qFRjp0LpgyISDh3MhO8Hsz/Z2I8OdC9ZGs9945vqqiiskERgj2kWwsyONYBpHG50WWHAnnzm/KQq7dUmWDMOogXGxUD51i90akBNXD7TeW0KAInrreILYcLFtbrJ4cfoOvPoRB3sNC0NgIUdC5WJIIn3WDpYn1OWp0wxYkCgxGG35LG6p7qpB1I96v2i1f29CW8SVc6+xtUxDKYMf2V0wbVNCg9SdymMQQ==
+ ARA:13230040|1800799024|82310400026|376014|36860700016; 
+X-Microsoft-Antispam-Message-Info: b43bJrsKbPG3QKCz7BqR4I61e4D4THkpWQSb56ayGjGs25dBt2vInXRdV+sKdwDZON3qofrbdPIgijR4iSM8EkWdy8P9fiwCLEivtDQ0r7Ob/13s8tw37a/ixFt7FBp+VUfZEYGIowCPi6lMBygZ7kmRCt2Hlg+UQMxsAATgoeqUSllKegSanF1hPcqPpGqEtrwvDFjSzKXa9kBI/hq66D1gqk8Wbk6TwwlbAVkzc5yej4Q29JMoBF+sfIZb4P3ICnIrVow25wMX9ixxlCQ3wN8nvTZGUBzly9gNxe2rLJFK8q+5T10WjosLNdaysfcYXm+UzNHorTxpCdGC3juyxO05LpANiYF/dbCmZZtTLVu9pDzKKTyQp2RpZjvO1xYFETZUZ4ugWsP7DCTp1+cvzv4vlhA4lNuuJknaYxKKaqZP88WXzpSBhgnWeRvNj7Q1T+wF9BVWsJ17L27fyQ92dT9ZO1rfjKBhIOJz6rRPH51uolX5GUE3qPbi5t89W05tE5QezpKbPkIC/FXduKGwPTDJJtb0qAYakhnIpGLm6fLBaoRrTQagpOv4lEDzxxKKhbUHBUJcgvpW6xbmsFMIcyU6dmpQI2Ydm5Jq90Zu024JtEuJqIUT222yRibJzWk1K+YfzCsE1iMHt5kCSAui+Gv5rIJUCT8uKR48+jD8oCAaRHqsOwmggI7hnLHtjYcvze5ZXSAdWT7JCRJFVearqBianr+dwkFKmqaaX81gPnGUrD1dVKUXAzdcD4x69nNgopWXkDRD5a/HV5elH6JPOw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016); DIR:OUT;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: BtwtMmj5QhpDaP+jUL3B5+OgH0RmpIsTUUzmnKs4CxTj8rJV8V+a/yz0isfekQGaHs1rgn6jATAQmA/8kKF94Q1Y4bMLaFejOMgAcrVMsXk+wuUzBdb0PPUTCsFGNj6iX9jeXepO2hkIfH98k/esMglHCkH+CsEki5PuhCXSDGfOVShVp8LXFSj1tvo4NsdRBtwHsCHgl4TnUYEXZdm9XqIawGwN340Q3wANP/oe8x+vHhiHOSv5APYnrd4e3x8z/wmrPDxC1OZjK0ETG92ORtrd460aCgiuMqEj0/Itco8i78GRXOWDDDg4ly3qv2Ll3uy1OGctaoFGUtvyFR2RRt8S6L0l+WEYR09HzE68331G9HZScyvh3o6vRUGytFe4wEyzmC04P2Ch986/shg2VuGfL3wWtYh081aWFmQYlYudl2pRTLydOXXsJp30GeHL
+X-MS-Exchange-AntiSpam-MessageData-0: RzcSqkFB+3oGoMeglJw1x/GwNawpzynmpb+hY1eRbRcZF54vihaeDvGdc2z+OT5Xo/klZMJ24aFJEiGt+OEWC4/l7jATcPAjbVxZ5lplsK90JnDAqU55By90uNECDxwjZLn8LVZAc2DHCGwwMlGo7UO8EeKFoPTtyYyDkJ97pTxmygPiJ3XY9aYbPioH/dt1vYiGQCTgD3R6eM4NiDjmIEhKSEeoNYG8d4c5KHa2i0hCj0DMRXcVel8d76bNBOS7tGd1NIh02VtMIxQoBQk+WleGbt6IPcvfqeBFcgUZxpf87URw6g232/yZ8GkbqQtq1DI3VMnZ+3FxXguAI6MpDN0ByMBORygQijolbr3kB7gCVrMiSPBleOdA7M4cjifVZdNuxv1nJRcQ/crVzEJOXF0Z8HhzBK29dcPCrN58Y6x5LFVtwRJHHBg7X1STAUvK
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 03:23:47.1729 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a39d910d-7a4b-4525-626d-08de7b2fc773
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 03:24:00.7117 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72c767ce-cd29-407a-5f97-08de7b2fcf85
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A672E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6732.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7250
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9182
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,176 +115,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we highlight:
-* Fixes on compiler warnings
-* Introduction of NV12/P010 formats to color pipeline
-* Improvements on reply and DML2
-* Enablment on DCN42
+From: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
 
-Cc: Dan Wheeler <daniel.wheeler@amd.com>
+This commit addresses multiple warnings by adding defensive
+checks for NULL pointers before dereferencing them. The changes ensure
+that pointers such as are validated, preventing potential undefined
+behavior.
 
-Charlene Liu (1):
-  drm/amd/display: Update underflow detection
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
+---
+ .../amd/display/dc/dml2_0/dml2_mall_phantom.c | 41 +++++++++++++++++--
+ 1 file changed, 38 insertions(+), 3 deletions(-)
 
-ChunTao Tso (1):
-  drm/amd/display: Add new types to replay config
-
-Clay King (1):
-  drm/amd/display: Clean up unused code
-
-Gaghik Khachatrian (2):
-  drm/amd/display: Clean up NULL pointer warnings in dml2
-  drm/amd/display: Fix compile warnings in dml2_0
-
-Harry Wentland (3):
-  drm/amd/display: Set chroma taps to 1 if luma taps are 1
-  drm/amd/display: Add NV12/P010 formats to primary plane
-  drm/amd/display: Add COLOR_ENCODING/COLOR_RANGE to overlay planes
-
-Ivan Lipski (2):
-  drm/amd/display: Add missing DCCG register entries for DCN20-DCN316
-  drm/amd/display: Check for S0i3 to be done before DCCG init on DCN21
-
-Nicholas Kazlauskas (2):
-  drm/amd/display: Fix HWSS v3 fast path determination
-  drm/amd/display: Add documentation and cleanup DMUB HW lock manager
-
-Ovidiu Bunea (1):
-  drm/amd/display: Add min clock init for DML21 mode programming
-
-Peichen Huang (1):
-  drm/amd/display: Return early from vesa replay enable function
-
-Roman Li (3):
-  drm/amd/display: Enable dcn42 DC clk_mgr
-  drm/amd/display: Add DML support for dcn42
-  drm/amd/display: Sync dcn42 with DC 3.2.373
-
-Taimur Hassan (2):
-  drm/amd/display: [FW Promotion] Release 0.1.50.0
-  drm/amd/display: Promote DC to 3.2.373
-
-Tom Chung (1):
-  drm/amd/display: Add back missing memory type in array
-
-Weiguang Li (1):
-  drm/amd/display: Add ESD detection for replay recovery
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 +
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   6 +-
- .../gpu/drm/amd/display/dc/bios/bios_parser.c |  11 +-
- .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |  16 +
- .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |   1 +
- .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c  | 301 +++++-----
- .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h  |   2 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 134 ++---
- .../gpu/drm/amd/display/dc/core/dc_resource.c |   1 -
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |  41 +-
- .../gpu/drm/amd/display/dc/core/dc_surface.c  |   9 +
- drivers/gpu/drm/amd/display/dc/dc.h           |  61 +-
- .../gpu/drm/amd/display/dc/dc_bios_types.h    |   3 +-
- drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   2 +-
- drivers/gpu/drm/amd/display/dc/dc_plane.h     |   1 +
- .../gpu/drm/amd/display/dc/dc_spl_translate.c |   1 +
- drivers/gpu/drm/amd/display/dc/dc_trace.h     |   4 +-
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  26 +
- .../amd/display/dc/dccg/dcn20/dcn20_dccg.h    |   9 +-
- .../amd/display/dc/dccg/dcn21/dcn21_dccg.c    |  21 +-
- .../amd/display/dc/dccg/dcn301/dcn301_dccg.h  |   8 +-
- .../amd/display/dc/dccg/dcn31/dcn31_dccg.h    |   5 +-
- .../amd/display/dc/dccg/dcn314/dcn314_dccg.h  |   5 +-
- .../amd/display/dc/dccg/dcn401/dcn401_dccg.c  |  20 +
- .../amd/display/dc/dccg/dcn42/dcn42_dccg.c    |  59 +-
- .../amd/display/dc/dccg/dcn42/dcn42_dccg.h    |  11 +-
- .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.c |  16 +
- .../drm/amd/display/dc/dce/dmub_hw_lock_mgr.h |  31 +
- .../gpu/drm/amd/display/dc/dml2_0/Makefile    |   3 +
- .../amd/display/dc/dml2_0/display_mode_core.c |   4 +-
- .../dml2_0/dml21/dml21_translation_helper.c   |  56 +-
- .../dml2_0/dml21/dml21_translation_helper.h   |   1 +
- .../amd/display/dc/dml2_0/dml21/dml21_utils.c |   1 +
- .../display/dc/dml2_0/dml21/dml21_wrapper.c   |  15 +-
- .../dml21/inc/bounding_boxes/dcn42_soc_bb.h   | 263 +++++++++
- .../dml21/inc/dml_top_display_cfg_types.h     |  13 +
- .../dc/dml2_0/dml21/inc/dml_top_types.h       |   3 +
- .../dml21/src/dml2_core/dml2_core_dcn4.c      | 111 ++++
- .../dml21/src/dml2_core/dml2_core_dcn4.h      |   1 +
- .../dml21/src/dml2_core/dml2_core_factory.c   |   9 +
- .../dml21/src/dml2_core/dml2_core_utils.c     |  63 +-
- .../dml21/src/dml2_core/dml2_core_utils.h     |   2 +
- .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.c      |  33 ++
- .../dml21/src/dml2_dpmm/dml2_dpmm_dcn4.h      |   1 +
- .../dml21/src/dml2_dpmm/dml2_dpmm_factory.c   |   6 +
- .../dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn4.h |   2 +-
- .../dml21/src/dml2_mcg/dml2_mcg_dcn42.c       |  76 +++
- .../dml21/src/dml2_mcg/dml2_mcg_dcn42.h       |  12 +
- .../dml21/src/dml2_mcg/dml2_mcg_factory.c     |   6 +
- .../dml21/src/dml2_pmo/dml2_pmo_dcn4_fams2.c  |   6 +
- .../dml21/src/dml2_pmo/dml2_pmo_factory.c     |   4 +-
- .../dml21/src/dml2_pmo/dml2_pmo_factory.h     |   2 +-
- .../dml21/src/dml2_top/dml2_top_interfaces.c  |   2 +
- .../dml21/src/dml2_top/dml2_top_legacy.c      |   1 -
- .../src/inc/dml2_internal_shared_types.h      |   3 +
- .../amd/display/dc/dml2_0/dml2_mall_phantom.c |  41 +-
- .../drm/amd/display/dc/dml2_0/dml2_wrapper.c  |   3 +-
- .../drm/amd/display/dc/dpp/dcn10/dcn10_dpp.c  |   8 +-
- .../drm/amd/display/dc/dpp/dcn30/dcn30_dpp.c  |   8 +-
- .../amd/display/dc/dpp/dcn30/dcn30_dpp_cm.c   |   2 +
- .../display/dc/dpp/dcn401/dcn401_dpp_dscl.c   |  21 +
- .../hpo/dcn31/dcn31_hpo_dp_stream_encoder.c   |   5 +
- .../display/dc/hubbub/dcn401/dcn401_hubbub.c  |   4 -
- .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  | 201 ++++---
- .../amd/display/dc/hubp/dcn401/dcn401_hubp.h  |  23 +-
- .../amd/display/dc/hubp/dcn42/dcn42_hubp.c    |  85 ++-
- .../amd/display/dc/hubp/dcn42/dcn42_hubp.h    |  16 +-
- .../amd/display/dc/hwss/dce110/dce110_hwseq.c | 158 ++---
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   |  32 +-
- .../amd/display/dc/hwss/dcn31/dcn31_hwseq.c   |   1 -
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  12 +-
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 421 +++++--------
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   | 553 +++---------------
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.h   |  10 +-
- .../amd/display/dc/hwss/dcn42/dcn42_init.c    |   8 +-
- .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |   2 +-
- .../amd/display/dc/inc/hw/clk_mgr_internal.h  |  73 ++-
- drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |  36 +-
- .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |  18 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   | 112 ++--
- drivers/gpu/drm/amd/display/dc/inc/resource.h |   1 +
- .../drm/amd/display/dc/link/link_detection.c  |  12 +-
- .../dc/link/protocols/link_dp_irq_handler.c   |  36 +-
- .../dc/link/protocols/link_dp_panel_replay.c  |  23 +-
- .../link/protocols/link_edp_panel_control.c   |   3 +-
- .../drm/amd/display/dc/mpc/dcn10/dcn10_mpc.c  |   4 +-
- .../amd/display/dc/mpc/dcn401/dcn401_mpc.c    | 177 +++---
- .../amd/display/dc/mpc/dcn401/dcn401_mpc.h    |  25 +-
- .../drm/amd/display/dc/mpc/dcn42/dcn42_mpc.c  | 390 ++----------
- .../drm/amd/display/dc/mpc/dcn42/dcn42_mpc.h  |  50 +-
- .../amd/display/dc/optc/dcn10/dcn10_optc.h    |   8 +-
- .../amd/display/dc/optc/dcn31/dcn31_optc.c    |   2 +-
- .../amd/display/dc/optc/dcn42/dcn42_optc.c    | 105 +++-
- .../amd/display/dc/optc/dcn42/dcn42_optc.h    |  13 +-
- .../dc/resource/dcn20/dcn20_resource.c        |   2 -
- .../dc/resource/dcn42/dcn42_resource.c        |  10 +-
- .../display/dc/soc_and_ip_translator/Makefile |   3 +
- .../dcn401/dcn401_soc_and_ip_translator.c     |   3 +
- .../dcn42/dcn42_soc_and_ip_translator.c       | 163 +++++-
- .../dcn42/dcn42_soc_and_ip_translator.h       |   1 +
- .../soc_and_ip_translator.c                   |   4 +
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  71 ++-
- .../gpu/drm/amd/display/include/dpcd_defs.h   |   3 +
- .../include/asic_reg/clk/clk_15_0_0_offset.h  |  44 ++
- .../include/asic_reg/clk/clk_15_0_0_sh_mask.h |  52 ++
- .../include/asic_reg/dcn/dcn_4_2_0_offset.h   |   2 +
- .../include/asic_reg/dcn/dcn_4_2_0_sh_mask.h  |   9 +
- 108 files changed, 2675 insertions(+), 1902 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/bounding_boxes/dcn42_soc_bb.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn42.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_mcg/dml2_mcg_dcn42.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_0_offset.h
- create mode 100644 drivers/gpu/drm/amd/include/asic_reg/clk/clk_15_0_0_sh_mask.h
-
---
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c
+index 66040c877d68..d56e58ce26c7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c
+@@ -357,7 +357,7 @@ static bool enough_pipes_for_subvp(struct dml2_context *ctx, struct dc_state *st
+  */
+ static bool subvp_subvp_schedulable(struct dml2_context *ctx, struct dc_state *context)
+ {
+-	struct pipe_ctx *subvp_pipes[2];
++	struct pipe_ctx *subvp_pipes[2] = { NULL, NULL };
+ 	struct dc_stream_state *phantom = NULL;
+ 	uint32_t microschedule_lines = 0;
+ 	uint32_t index = 0;
+@@ -369,6 +369,9 @@ static bool subvp_subvp_schedulable(struct dml2_context *ctx, struct dc_state *c
+ 		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
+ 		uint32_t time_us = 0;
+ 
++		if (pipe == NULL || pipe->stream == NULL)
++			continue;
++
+ 		/* Loop to calculate the maximum microschedule time between the two SubVP pipes,
+ 		 * and also to store the two main SubVP pipe pointers in subvp_pipes[2].
+ 		 */
+@@ -386,14 +389,19 @@ static bool subvp_subvp_schedulable(struct dml2_context *ctx, struct dc_state *c
+ 			if (time_us > max_microschedule_us)
+ 				max_microschedule_us = time_us;
+ 
+-			subvp_pipes[index] = pipe;
+-			index++;
++			if (index < 2)
++				subvp_pipes[index++] = pipe;
+ 
+ 			// Maximum 2 SubVP pipes
+ 			if (index == 2)
+ 				break;
+ 		}
+ 	}
++
++	/* Minimal guard to avoid C6001 before subvp_pipes[0]/[1] dereference */
++	if (index < 2 || !subvp_pipes[0] || !subvp_pipes[1])
++		return false;
++
+ 	vactive1_us = ((subvp_pipes[0]->stream->timing.v_addressable * subvp_pipes[0]->stream->timing.h_total) /
+ 			(double)(subvp_pipes[0]->stream->timing.pix_clk_100hz * 100)) * 1000000;
+ 	vactive2_us = ((subvp_pipes[1]->stream->timing.v_addressable * subvp_pipes[1]->stream->timing.h_total) /
+@@ -459,6 +467,11 @@ bool dml2_svp_drr_schedulable(struct dml2_context *ctx, struct dc_state *context
+ 			break;
+ 	}
+ 
++	if (pipe == NULL || pipe->stream == NULL) {
++		// Defensive: should never happen, try to catch in debug
++		ASSERT(0);
++		return false;
++	}
+ 	phantom_stream = ctx->config.svp_pstate.callbacks.get_paired_subvp_stream(context, pipe->stream);
+ 	main_timing = &pipe->stream->timing;
+ 	phantom_timing = &phantom_stream->timing;
+@@ -549,6 +562,13 @@ static bool subvp_vblank_schedulable(struct dml2_context *ctx, struct dc_state *
+ 		if (!subvp_pipe && pipe_mall_type == SUBVP_MAIN)
+ 			subvp_pipe = pipe;
+ 	}
++
++	if (subvp_pipe == NULL) {
++		// Defensive: should never happen, catch in debug
++		ASSERT(0);
++		return false;
++	}
++
+ 	// Use ignore_msa_timing_param flag to identify as DRR
+ 	if (found && context->res_ctx.pipe_ctx[vblank_index].stream->ignore_msa_timing_param) {
+ 		// SUBVP + DRR case
+@@ -753,6 +773,12 @@ static void enable_phantom_plane(struct dml2_context *ctx,
+ 				return;
+ 		}
+ 
++		/* Minimal NULL guard for C6011 */
++		if (!phantom_plane) {
++			ASSERT(0);
++			continue;
++		}
++
+ 		memcpy(&phantom_plane->address, &curr_pipe->plane_state->address, sizeof(phantom_plane->address));
+ 		memcpy(&phantom_plane->scaling_quality, &curr_pipe->plane_state->scaling_quality,
+ 				sizeof(phantom_plane->scaling_quality));
+@@ -880,6 +906,11 @@ bool dml2_svp_add_phantom_pipe_to_dc_state(struct dml2_context *ctx, struct dc_s
+ 	if (ctx->config.svp_pstate.force_disable_subvp)
+ 		return false;
+ 
++	if (!state) {
++		ASSERT(0);
++		return false;
++	}
++
+ 	if (!all_pipes_have_stream_and_plane(ctx, state))
+ 		return false;
+ 
+@@ -898,6 +929,10 @@ bool dml2_svp_add_phantom_pipe_to_dc_state(struct dml2_context *ctx, struct dc_s
+ 	}
+ 
+ 	if (enough_pipes_for_subvp(ctx, state) && assign_subvp_pipe(ctx, state, &dc_pipe_idx)) {
++		if (state->res_ctx.pipe_ctx[dc_pipe_idx].stream == NULL) {
++			ASSERT(0);
++			return false;
++		}
+ 		dml_pipe_idx = dml2_helper_find_dml_pipe_idx_by_stream_id(ctx, state->res_ctx.pipe_ctx[dc_pipe_idx].stream->stream_id);
+ 		svp_height = mode_support_info->SubViewportLinesNeededInMALL[dml_pipe_idx];
+ 		vstartup = dml_get_vstartup_calculated(&ctx->v20.dml_core_ctx, dml_pipe_idx);
+-- 
 2.43.0
 
