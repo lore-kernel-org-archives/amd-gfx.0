@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92BA4F513EE
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 03:26:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F18B7F513EE
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2026 03:26:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 305D910E301;
-	Fri,  6 Mar 2026 03:26:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7212610E302;
+	Fri,  6 Mar 2026 03:26:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Tztis8eI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RDI1NuLh";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010024.outbound.protection.outlook.com
- [40.93.198.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A46F510E301
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 03:26:11 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010070.outbound.protection.outlook.com [52.101.56.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03DA210E302
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2026 03:26:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xsjeQLiG0iwQ1iJU5QWv9QAm5r5s4nCXiF7SaG9lW9dfKfbyRUZ2Lir/j5277QTYWVKTfA9t+p6UK3hID8ZuJc65dUSeDhgwfDz8onWPG9jsVRnbeKEW2GI2S/ewtCAh2nuNhQ3dWGHBp0VAIs1dWtvR9of5SjAY/cs/MFfQyvrqTzl+l50GUVoOZjQFNHduF3ggi4CsB+F55VKZHADVT6Bt8deqx/FQ13wI2TXEqyqYQ5AkMOHoTmmKHfSTZqxr4Unnw631vkgS6L3R+16KpyEuA+YmDUvIbJCSd8SAzmUAv+AX4E6fmCwLLp0V8ereQS5KkzVLQr1L3K1Sd6l1Ig==
+ b=NtCmifO6zJ5bzcCOa3X858/BcPjhPAthRh4kYOq17HxAGXWm4+hr1wsSY+IxPTWLbGT3PkfODJnkqoaRiuB4GmbkY8g8Pwk6OtcIhx9jtcw8WWrbyO1DmcWDeAf92WETBd6UX2MeWInHWG3FqWnnN2Bx0aPIiAzCctg/6huGZIqmiYEK3jQ0azp6ycMkC+W/Y2/+PLPzjhwmUxif6jFjR2SCc/wlhVpYu5zt0p7cCV9b36S+1l/hhEuH03oNCJZ/eK1VaVfJGgctWiX06BRF74cKh4GsTWhtv49cdGH7oVjFjbDfnXZsdo4Yjy/x0CYkAEesbKhnaA4XJEbkPQQ+Tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+N+6MKPqnQ6hMORotFFQ7N0mPUS8w8sMicHTVb3OKwI=;
- b=qAmnr/a78LcTUbCuurGi7iAV5BJddhXvAgKHX7OI1E0oJkXeji9+w6A0mO8dJ2JRyNYWH5G85QFQlOMlzWhCxq/V4ojutOOg4ORvZ4NqZ+6UWiY9fFjRyDSpse9fI8JWCbdM14c8jzI/lL/MyB76LRLTFGcbeCpLTsjCG0a/LpmsH5I6wCKVrHq2F2si+yXiu2qXkIs6rdo68U3ndymq8RCEOkYjTDzGLE9gaIVYdPgrsiUlBz/3vwXQqsjjGsrDcJM3cwmz3M7j9h8qAZ/UpGM+vj6NmSfN9SnDYNAuiTvgSrojweER0QB2m6qYHZBKM0v6qr/pKAwFNo1Ml7Z1yw==
+ bh=vlfEqnUXZaQRSmIzVpTBoK2zUhV96yrqFao6JPBe6eI=;
+ b=jJmKxb/a6QCYa/Vxy63PJwRlCfElp9+HWsWd+O1zbX0taUnrgxiBkMgJ7Ps/a1wzUVigG/lZgWGoD/9+fwUoeuWdZscBBqcaKmvCSkBDRhTklY4+VK9SpXrRBG8N+5htlBJeILSISncZb3AqL9JiT6ICBieZQ1bI6cesK+VUVHDCr/EGEpEPjHC3soKM6hZhJyieABGvj5hNiZ5S+awUW11H6wV1755TKt1MijmZRKVWkVaKOcw8Y4gy21q6gwj2VOALFksuHBz0zlevStP462NaLN2klYcb7v8+AG9g/6Tq5TZKHlJvRWK2dSYydcBjqJAMUSUIbzAPnzpgNQ0zhQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+N+6MKPqnQ6hMORotFFQ7N0mPUS8w8sMicHTVb3OKwI=;
- b=Tztis8eIdFje0bzpgJW0xiejjFTU6qFyTD0tXBhBosYYnJv+XcAlXYYPHOSgbHNJ9sMul1yVATvPGmq70STwzfJf04afi+VxI1m7clAf28XSG8f08UzHUBB3lcHkagmPe4+T6WWLCjVGOaxP8ocV9cVGtDfF+mw6Dhy+hxgzs4Y=
-Received: from BY3PR04CA0016.namprd04.prod.outlook.com (2603:10b6:a03:217::21)
- by MN2PR12MB4126.namprd12.prod.outlook.com (2603:10b6:208:199::12)
+ bh=vlfEqnUXZaQRSmIzVpTBoK2zUhV96yrqFao6JPBe6eI=;
+ b=RDI1NuLhRimQQzPapeNqYZkQ2o+Xv6fy4B5feLFVpnGLavMjO+5kSajzD1+0QBJ1FO3HI8jjK6JD+ZmiwzvB5MAlPoh96tGCS+i+BDp7Qm7tGBwx242fMU+9zQBam3wPdNovJckOY0bKumPDHEJkGiLO6IvpyUfe4gnVBrH9Nf4=
+Received: from SJ0PR03CA0235.namprd03.prod.outlook.com (2603:10b6:a03:39f::30)
+ by SA0PR12MB4430.namprd12.prod.outlook.com (2603:10b6:806:70::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.18; Fri, 6 Mar
- 2026 03:26:06 +0000
-Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
- (2603:10b6:a03:217:cafe::5) by BY3PR04CA0016.outlook.office365.com
- (2603:10b6:a03:217::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.18 via Frontend Transport; Fri,
- 6 Mar 2026 03:26:05 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.17; Fri, 6 Mar
+ 2026 03:26:22 +0000
+Received: from MWH0EPF000A6732.namprd04.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::1e) by SJ0PR03CA0235.outlook.office365.com
+ (2603:10b6:a03:39f::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.22 via Frontend Transport; Fri,
+ 6 Mar 2026 03:26:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000A672F.mail.protection.outlook.com (10.167.249.21) with Microsoft
+ MWH0EPF000A6732.mail.protection.outlook.com (10.167.249.24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Fri, 6 Mar 2026 03:26:05 +0000
+ 15.20.9678.18 via Frontend Transport; Fri, 6 Mar 2026 03:26:22 +0000
 Received: from kylin.lan (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 5 Mar
- 2026 21:26:01 -0600
+ 2026 21:26:14 -0600
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +62,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Dillon Varone <dillon.varone@amd.com>
-Subject: [PATCH 10/21] drm/amd/display: Fix HWSS v3 fast path determination
-Date: Thu, 5 Mar 2026 20:13:36 -0700
-Message-ID: <20260306031932.136179-11-alex.hung@amd.com>
+ <alex.hung@amd.com>, ChunTao Tso <chuntao.tso@amd.com>, Aric Cyr
+ <aric.cyr@amd.com>
+Subject: [PATCH 11/21] drm/amd/display: Add new types to replay config
+Date: Thu, 5 Mar 2026 20:13:37 -0700
+Message-ID: <20260306031932.136179-12-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260306031932.136179-1-alex.hung@amd.com>
 References: <20260306031932.136179-1-alex.hung@amd.com>
@@ -79,29 +78,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|MN2PR12MB4126:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7643e062-5d62-415f-e9eb-08de7b301a09
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6732:EE_|SA0PR12MB4430:EE_
+X-MS-Office365-Filtering-Correlation-Id: c769f56a-4293-483e-7f24-08de7b30240b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|1800799024; 
-X-Microsoft-Antispam-Message-Info: YRlNyVoJyxWt1/dGKTeZ/QtEaNnUU0iEHbmxJACZ3lJprBuLiTF8Rg6cWpGvu9/JWA3Me6BIyiy9dIWrbtbRMwOyAw269ZwVOmvv3q5PfbBxsRnUlNYw/nmg160Xwwkk8GSX668/WhnYOweEtzU7fEk5VFFz2uuU5ydwpTMcCmqD0FkKQlPItp2HBSPsh7Ivlo7+7eniykQW8qvPxUMlZiOmkT94HJhdwiRhaYRtQgEnnthjBkMZxqwkGbC+SNtEnTM5gOQCHQ1qh0mwg0+WtZ8WAaPdTUN5i68G269atLGG4Ls4lmSwa/OK0ZLXmQETyyd2FUhrRo8snJzOXxyds3wPsjJ2b0LzCF1AS2+ckiE57IpKaHatwhu/XrPm1w2XQN8HRob1s42dZOopAhS9eAEOjUGyeHD6ti3yF5sJTBrPTAopT/RTdd2cER0jBLcdq4X/ehYH/8gDIux+UT29GpD+BSd8LSEQyFUkzH5hokp8lJpLKwZqD+U8+PewFUobB4GyMhczaNNUgbzNQs/arM3Umai9mhSWu8OF6IttF7imqouGkmdQIXHiVuK3BvX68uLPJ5wd74lCTYndjRwq4UfuuO+1Lk0hwTMt510N1cW7FULRkTFJ2MN4Jqtx/uw9fJF91S1BD3bmhmVxRUBoWprJfFp657FtaS/JVjc8IY/8MZwgNRSpTo8kqISNcyI4wFE9BU4xZ7j5G5oucUEZ38BsDnbsMuzZutLFU+VqHup5tA6pdnwsqPtHvCZRg7/6JHui/FPuJdSkPstwhPbApw==
+ ARA:13230040|1800799024|82310400026|376014|36860700016; 
+X-Microsoft-Antispam-Message-Info: 4hVk0OH3/kmZ+a/JyxXnV6mc1CQH+p6JP6jasA+CSVRYWb9aEpmMxPI5pAVrnR3h+GP3YMdYoQKZihov4AHaqS/iONYGGdZLh11p6NLuRILNnYohwXBTVY3W2f0tmcSYrJpeEtmbOd0PptW8KDjMMG+UoLmMZoqnAv51AF/LFOZ5hvMqFGQuh6rI3pOEPh1MhQGNRUWZwFbuhVsk1WDAyknacguf0lgdZb3CGP0jInJVtRqop/sq+usot0y5jrDBaYMh6QormXshPrtFKlupBo+VRT/dLUIn/9+pDLqRLaui0vzAlTZDz5bjnSY1eH+/fZj3EzzpvoRL5dRrXETmqfV6VdlU+fzZIVjjJevssXvSUAvWWjR5aP1Nd6aeDqF59U5ICCTDBR1tHfXpmzYJxOIMpV6M0JaXoM6LLx1uNOEHEu7b2nifoOJw0MR86hXJ68RXfgFxdYBWjSEcJZF1JprYuXP13e31IOcpl8sqq1+jmEIpOHAfb6lR5xTxnaF+wxXqHNZG3lrd4PX3fCexz+Mh3GVrJhHx4O/IxWBBDpw8nqA4vCPQcvAD2GqRsgzMOSmUf8ZHDTjy6G3no4MbWhEn6AaUVJVrCFzewnTIKI26kRNG+ohIomaK4adYxCYYplCI0W9qw4GhSG3BUPhiQVj6wQejjVKf9ieAKkFvzZQlZ1+ygs97nTlWLLdN2MZ1AUi0h0EL1RfidC0Kx59lXBJfyx/SwlwttjrmvEIWo97u5K/yfAAPMK22m4M03p03o31eX9xVd4PNWwAI0ud+7g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024); DIR:OUT;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: BvaG/FEiMjymcjescG4hhpJi05WQUHWctNtrhtEEBaIiLzpozQ5xZqn7M3xLlZ201VkZuLboiCeVmF+4W7XGdy8gQPnORlPJze7ctkVdXk5L9t2gyfwtLGs9nZMTsOrWZAElfIezXQB+96MQCV5MUN4PTbeqZZEtCgIMz1/lU/JMbXtOpGajKloNVS21nmYPpj+d+VYn0Thu5YF2dxHP3pVF8XXclFio+XznuUtXQsudF4nvTn4ST0mDc0PR3DKbHm93s3go9GOsr8YZHuvhL6n2NLbDLRXQsuK5AFGoALWOeza70AXWBNoonHhJR3B0XcVI7otjTqJlRtqSz8ogEqhhiWWHfAcpM0XB/QXNy8s+Heaggw4JrJLW9c2wKz7WuHk+TSeTicDqe32MJMRoBepI6FnH2PbOcS2zYEO3OHxd4IyuJWsdEiV3Psacmm60
+X-MS-Exchange-AntiSpam-MessageData-0: R0g9iz2hlS6CbofYgjwipRmuoMISIM4NnZfegkpsKYGUx48UQvmpaJQcJFC/8W6nPdqWazhFxesUCSFmlQ4E8T7GtewPnk2J0zktkAfOBPmEhTsTosCvmtwza1j5KY64EwXejJJmcjyY+WzfIZ2veY/kxhoN9D5x28Mt9bGdkSfAodHmuDKp40q08yaNElQK3jKez7EKjbMZdMC0m8Cg+7BctcNImulWcjkHVLrO01wHbicurVSuZX1qJaShVX1qIaO5xlr+83aUceUhk7DL4Co1hpvWmwaXQDOApmlqtWj9rCyueev1WYe0OYsf7H6/cyBJfP18/irjtCfMRFuGfczkPXpUgpUaba+MYRJsnuc2xvnd3mUo2Td7eZAhJAIht73i6EAApliG73MnkM4YlrATZYufM9fwQamyL8iAw9E2z521K3cddNuUL9YWXLXp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 03:26:05.7306 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7643e062-5d62-415f-e9eb-08de7b301a09
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 03:26:22.5424 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c769f56a-4293-483e-7f24-08de7b30240b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A672F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6732.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4126
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4430
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,84 +115,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: ChunTao Tso <chuntao.tso@amd.com>
 
-[WHY]
-We're checking surface and stream updates after they've been applied to
-their respective states within `update_planes_and_stream_state`.
+[WHAT]
+Add FRAME_SKIPPING_ERROR_STATUS to dpcd_replay_configuration.
+Add received_frame_skipping_error_hpd to replay_config.
+Add REPLAY_GENERAL_CMD_SET_COASTING_VTOTAL_WITHOUT_FRAME_UPDATE to
+dmub_cmd_replay_general_subtype.
 
-Medium updates under the HWSS V3 fast path that are not supported or
-tested are getting implicitly if they don't trigger a DML validation
-and getting updated in place on the dc->current_state context.
-
-[HOW]
-Fix this issue by moving up the fast path determination check prior
-to `update_planes_and_stream_state`. This is how the V2 path works
-and how the V3 path used to work prior to the refactors in this area.
-
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Aric Cyr <aric.cyr@amd.com>
+Signed-off-by: ChunTao Tso <chuntao.tso@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 38 +++++++++++-------------
- 1 file changed, 18 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h    | 2 +-
+ drivers/gpu/drm/amd/display/dc/dc_types.h       | 2 ++
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h | 1 +
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index c17f065a88d4..fc94c002bd6a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -7296,6 +7296,23 @@ static bool update_planes_and_stream_prepare_v3(
- 	ASSERT(scratch->flow == UPDATE_V3_FLOW_INVALID);
- 	dc_exit_ips_for_hw_access(scratch->dc);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index 9540f0ead279..7fa336bf1115 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -1374,7 +1374,7 @@ union dpcd_replay_configuration {
+ 		unsigned char DESYNC_ERROR_STATUS              : 1;
+ 		unsigned char SINK_DEVICE_REPLAY_STATUS        : 3;
+ 		unsigned char SINK_FRAME_LOCKED                : 2;
+-		unsigned char RESERVED                         : 1;
++		unsigned char FRAME_SKIPPING_ERROR_STATUS      : 1;
+ 	} bits;
+ 	unsigned char raw;
+ };
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+index d2e60480fb2b..d0ae5c27a511 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+@@ -1194,6 +1194,8 @@ struct replay_config {
+ 	union replay_optimization replay_optimization;
+ 	/* Replay sub feature Frame Skipping is supported */
+ 	bool frame_skip_supported;
++	/* Replay Received Frame Skipping Error HPD. */
++	bool received_frame_skipping_error_hpd;
+ };
  
-+	/* HWSS path determination needs to be done prior to updating the surface and stream states. */
-+	struct dc_fast_update fast_update[MAX_SURFACES] = { 0 };
-+
-+	populate_fast_updates(fast_update,
-+			      scratch->surface_updates,
-+			      scratch->surface_count,
-+			      scratch->stream_update);
-+
-+	const bool is_hwss_fast_path_only =
-+		fast_update_only(scratch->dc,
-+				 fast_update,
-+				 scratch->surface_updates,
-+				 scratch->surface_count,
-+				 scratch->stream_update,
-+				 scratch->stream) &&
-+		!scratch->dc->check_config.enable_legacy_fast_update;
-+
- 	if (!update_planes_and_stream_state(
- 			scratch->dc,
- 			scratch->surface_updates,
-@@ -7311,26 +7328,7 @@ static bool update_planes_and_stream_prepare_v3(
- 	if (scratch->new_context == scratch->dc->current_state) {
- 		ASSERT(scratch->update_type < UPDATE_TYPE_FULL);
+ /* Replay feature flags*/
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 2abbc6c97850..f67a0ffb9335 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -4441,6 +4441,7 @@ enum dmub_cmd_replay_general_subtype {
+ 	REPLAY_GENERAL_CMD_SET_LOW_RR_ACTIVATE,
+ 	REPLAY_GENERAL_CMD_VIDEO_CONFERENCING,
+ 	REPLAY_GENERAL_CMD_SET_CONTINUOUSLY_RESYNC,
++	REPLAY_GENERAL_CMD_SET_COASTING_VTOTAL_WITHOUT_FRAME_UPDATE,
+ };
  
--		// TODO: Do we need this to be alive in execute?
--		struct dc_fast_update fast_update[MAX_SURFACES] = { 0 };
--
--		populate_fast_updates(
--				fast_update,
--				scratch->surface_updates,
--				scratch->surface_count,
--				scratch->stream_update
--		);
--		const bool fast = fast_update_only(
--				scratch->dc,
--				fast_update,
--				scratch->surface_updates,
--				scratch->surface_count,
--				scratch->stream_update,
--				scratch->stream
--		)
--		// TODO: Can this be used to skip `populate_fast_updates`?
--				&& !scratch->dc->check_config.enable_legacy_fast_update;
--		scratch->flow = fast
-+		scratch->flow = is_hwss_fast_path_only
- 				? UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FAST
- 				: UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FULL;
- 		return true;
+ struct dmub_alpm_auxless_data {
 -- 
 2.43.0
 
