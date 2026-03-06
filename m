@@ -4,130 +4,149 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35433FCC074
-	for <amd-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 14:14:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C28C7FC9EC8
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 14:14:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D1A110E453;
-	Sun,  8 Mar 2026 14:14:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89B5410E44C;
+	Sun,  8 Mar 2026 14:14:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=marc.alexander.philipp@gmx.de header.b="ceUSDanq";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="eXSfqUdd";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F03910E0F5
- for <amd-gfx@lists.freedesktop.org>; Sun,  8 Mar 2026 10:01:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1772964066; x=1773568866;
- i=marc.alexander.philipp@gmx.de;
- bh=ruMQ/6Fpyiisr9iQHUwWmGpNeJpPcQwKvm0yUefD+RU=;
- h=X-UI-Sender-Class:Date:From:To:CC:Subject:Message-ID:
- MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=ceUSDanq5qgZiDaHirVsXjuGkRKIwy456kWAMpB4hXfWrgo24+SbeuD6MkpKvoBu
- mzADmXXcl+E3djh88KCUjSHLooUVIYnEX2s8SF43O5rUuwBFrMKQvSvSSoVmw08+3
- Q582mdXErBWddEjCxYqjYinIJdrx16z0hMPMv1MlBV7UexXmVnMVw+zb1O4u3vvVC
- iHX3xVzWQHCYkfic8R4ZaneDLHOIlsUesuGlazD55ZRNadGsbH0jtjmPiVCDaL8+X
- YHoGksMqNZXdeoUJhFX+4nY1zdixpiC2CxnPVvRIKExfPF4AzRbkT7dvMLajv0r8Q
- bEmHDNGvze0MTe8fag==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1Mgeo8-1vREB33R1A-00kKlG; Sun, 08
- Mar 2026 11:01:05 +0100
-Date: Sun, 08 Mar 2026 11:01:04 +0100
-From: Marc <marc.alexander.philipp@gmx.de>
-To: developer.relations@amd.com
-CC: amd-gfx@lists.freedesktop.org, support@amd.com,
- Ailina Mettig <ailina.mettig@hotmail.de>
-Subject: =?US-ASCII?Q?Technical_Report=3A_RDNA_4_=28gfx1200=29_Compute_Regression?=
- =?US-ASCII?Q?s_on_Ubuntu_25=2E10_=7C_Request_for_AMD_Vanguard_Admission?=
-User-Agent: K-9 Mail for Android
-Message-ID: <82E6BCA5-155A-4453-8824-38574908185B@gmx.de>
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012010.outbound.protection.outlook.com [52.101.48.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1065E10E401;
+ Fri,  6 Mar 2026 20:37:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AHUXT+ER7C0VgvZu41Og3PucBHSEtYx3Fp5UfaJqVGnFDADl46xW9RIR5No8h/zxNZvtp6A4V6hCv0hHKAMUs0JanPUNJtII8lxoqv7IgnpajUilrMbnJKL+S9jYx2fsl2R/j6JTWZFO3lsOtOwhY1RuFs6uVKJJLqxqe/HTX2JbSENlazCIsMsTN4ShuYebKPq10B/25IlMBKY2JxeLZiKi1FWpuDy2AoruGRtDeo3PD4zdsvH9mEC+dnyLQvS1u0oI0Amv4AMLwo38V278t1LHOssX1hoZdpywWAeSVU1yv2Uro0IuDHLQBFfjM/ldkeoKYOOnZJHt1PN/bXqRnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PqwAtGr6lBx4Gr2Q5yfeZq1NZMiCotSNePc1frykR0Y=;
+ b=HhYAlFrBrZ31qRR1Eo6vou/87VWxAP5Aje7JZ/UNshZeyDs3F3i1mdBJfNzFlzm8IJazk13xMH0FByHuVn2omUWLMq5Vx6ZmAllMMV0E0P6B/aLux6ddTCqoReEXU8/1RO7w1ziWIrNmLS+i0MMYMeUtma8jDwGTp6/HIYCuX5XHe+O03RAL+S4RyilcBLARIUvUMUSWw2og0VhOpPQwT3cfohheFoFs+0v8y6Uf+m5KwstIB6ZoDegtXs1gvbCz8CBKuA0c3eklq1GrRBlVBUhCnh7DZxbYeEEhG26gHUWY3WSk/UqSwkjS7P++hBFinPEHhcJj8HF8DI67xbwUwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PqwAtGr6lBx4Gr2Q5yfeZq1NZMiCotSNePc1frykR0Y=;
+ b=eXSfqUddpIrIz5f/ZqfAyQjRq0LuFy8DkHM0htXKc5Oa5ki7KCvHeuH8ya5ajqETmUEc9DkG+nLuc70YQPNMTXHN1v5puLheu0NlE8HEZ3efMa/NtbhdeVn5ErChvdzhjhvUjQq57O+rUkgozmbY1UkmhCkchZu0X877z5nBoebHd/lV+MT8QEefSxwFRc0c3cWmBvbIrhPzFAJLkY5PBS8PNlI2TPYLkagqpa3GhFj4g3HcxfLo1Vr4tZrRhNJrxIDc12z5R3psuJ5X/6NuG6MSsc7AzXoj1FXnp3tZskbtXRcEH0jYsH806P/FChemFB5YqtpeD0i6EcWqR8Ngxw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ CY5PR12MB6528.namprd12.prod.outlook.com (2603:10b6:930:43::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9700.5; Fri, 6 Mar 2026 20:36:59 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9678.017; Fri, 6 Mar 2026
+ 20:36:59 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Alex Gaynor <alex.gaynor@gmail.com>, Danilo Krummrich <dakr@kernel.org>,
+ Dave Airlie <airlied@redhat.com>, David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>,
+ Nikola Djukic <ndjukic@nvidia.com>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
+ Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>,
+ Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Subject: [PATCH v12 1/1] rust: interop: Add list module for C linked list
+ interface
+Date: Fri,  6 Mar 2026 15:36:48 -0500
+Message-Id: <20260306203648.1136554-2-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260306203648.1136554-1-joelagnelf@nvidia.com>
+References: <20260306203648.1136554-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CY8P220CA0019.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:930:46::10) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary=----03RMOHF15DNCM1EG8JS11Q82JO9KF3
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:amW9ev4UnrmFkHl1MGj8CzWKtFBWHGTYAQ1Kim+1TuKOqiMy1VV
- /atnlCVHxMoIbQXV+cf6W/Hk2b+o5IFphnmiORiiLfaS7bBqifV8xAwvjVmlKrqKr2P2/lS
- EODXPrX9/zOL6pgtMSDbZ6CRgvytZ4TXLS5H/SDVNthKIPQdHOkc3b4VOm0j9glDz5pBWu7
- uo4gE03xUI2IdxHpgfb4Q==
-UI-OutboundReport: notjunk:1;M01:P0:D8+zHxE4GcY=;v0e2IaLgi7dGblIhYvx4IfH5Ax1
- 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
- 4nSwgJUJxjJ4nGxOxCj0TQnO4Nb+9pvIa1Ko=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|CY5PR12MB6528:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91786a50-36b2-4347-fba4-08de7bc01d8f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|7416014|366016|13003099007; 
+X-Microsoft-Antispam-Message-Info: V0hPppVDtt/CojlPl5X1ldVCPLMgXzWlBd4bpYD/u3eJx1hgGtD/nXjPVljQZkwg8fq4b5uinTxjKyvU8OI1s6yh16envCBxMXSefTVmql6BW7qrTnUTtYlTiO6JfAJ+3fNBJUMoECmwjhMtSQdGRoQgZFH2q+5W0xstZD3BrWFkMBuf4RgdPTPRG8DWTo4SxCBWJpvGczD8mY2oyFyJoIIvvWBUQShkjfxXp0QcrACn0E68AlewKqGeumoOWKKJoXkj3YYGz/vsIsLHcm+ctTj5gllNYuf17Wr+Wn+ZT1XrZGnnXze/b63Q78MOaosI4w2DsYp6/hRXtbkQtMsiY576Fc19IQVNqQXdN4GiyRmYVAmM81P6oe//oRowQsiRebF8UOFNsMdfGcx5bD9Oqu6hmPMv5ZmZREInlcuUGWHrqjd5FLll526I7SNo1w/I0rGl4M1FTatDdMMnFuIG9DfnCxRxQ4OKnfeZlVctLmcptDvt3FurCdntm/wIMtNhY7wF8lmGiqN5eWpagmXJMYWLFPM0TlEiK0vuA+HkXWiDKpxPkSLWNrH97VxTZs13m+RkHsKkDzriMhznBwaSdveF5m0OA24PBR136eZEh74+b2X+tfbu6abps4tQ+Pl45Z8LS24rZpcyxXDaWgGSQPhgx5BUnSZjflUnDlOTq/GiK36U66+gWivDbRuNBOpsvBLEsxBzeEhKEMykXD6TSOljWHU8OXNo+VaOmv4NvNA=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(7416014)(366016)(13003099007); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?QcTHCMLc7YqtQ1V3puUG8lQqRyC6hGaE7sQaqn5bK1u6bLCpHpa2lyWRHBTG?=
+ =?us-ascii?Q?u4CawUd0H8OW8d0OboveuDNkocq9pOXGE+Tdzqqaaz3gjjDn1Jw4PxqpY2eA?=
+ =?us-ascii?Q?5LpsRNscycqo0H8esnXZPCo2F5ozByO18JJN2t1JKgOKMOFuENC8cIO6wIAJ?=
+ =?us-ascii?Q?0W+ORa0astFxtlA5yTwPy2FM4CMe64C9FWKfUq3K9BmiDHv+M8KXgdLlr638?=
+ =?us-ascii?Q?8r+5pNJfk+OEHVC0+SMPWO/KlbXxC8yyZsCq+DynpIFcsCGow4ev5x6jend1?=
+ =?us-ascii?Q?mjwKRsBCPMylph6351zUIsN7kJUzGyVqcYOHlKskBrZl2lgAiR02gPl9tf6Z?=
+ =?us-ascii?Q?SE4lKKu+JnGhx6b3haHC/OP2IFIKQ67H25ZVMZtV/Ar/DGnBmT8CjFnLKU+N?=
+ =?us-ascii?Q?2ITAZ4vfzIvPMPB1JRq711GBhlVTkipcgo52PkM/U/d5wm/NFdI178Ovf59j?=
+ =?us-ascii?Q?eWbc2nUcmC1diogI1kj9JwxVYrnWRFDO/bndmoTuFODE2Q846VMqP2sjIlhx?=
+ =?us-ascii?Q?B9ASF5mUKCN0vpdlJ6ff248S9mVvYq7DD3MOEy20f7DJnkFZuQFVwWLx7IK5?=
+ =?us-ascii?Q?TLdiec/n8zUir3M8D0LCooWtxxXMW9tmTp6jhcpiRrl0oU13ow9uFAn/Pk73?=
+ =?us-ascii?Q?UdMyzdyYGwFFGiGNhXdN5fqzZoFgDcz+Mn00/bseouI3DBf+zWOb3ZYA8JRO?=
+ =?us-ascii?Q?QGkT5JYZYZRoUnfltdzvIJzR7N+3iHKGfLmcVjGn0K/DByEo8viswVEDjstg?=
+ =?us-ascii?Q?UPbrIXcqB29nEdhf8S/ev+Z6++rsNQbN79qwPzNvznuhCUrFptU1cq8YAE1C?=
+ =?us-ascii?Q?Ww8JB9iTwDLo8i+8+XMv+ECXJxC8K+GInt85tE6rYXgwczYbvOMwPhVq9bEj?=
+ =?us-ascii?Q?+zp/iKSk4MQu81viTPaNbpyw548qfk7f3N9f5WQI2FAo7Lpi04oOyEBa5Lp2?=
+ =?us-ascii?Q?2xuxqKROJ4LbN0mzNJokRHne6cV+QgQiCSbuVMYAOTXx2hZMAWqFhp/Q0iL2?=
+ =?us-ascii?Q?6h6eLjVkIHFNS3ls/sxtMvTH30bkAMKxkt/IjdpSdvkfW5tcCE7Zr/6GoQLb?=
+ =?us-ascii?Q?C9BYT2GaFMFgiYjvP8Y7lHoR/u0Z1bzY9bbQkZAOjqbiUcTXlehzW/sl2/X9?=
+ =?us-ascii?Q?DUnEcWwjFz9UvKnHsteRZIezAu2veaeJ68F4thonVjsybH92apnS+r6BPkcx?=
+ =?us-ascii?Q?1jgLdR5Q5y9PVIp1XtzCIzEIKu2R26i4TCx1xXmnorFA5df6h8BaQpjY9EIS?=
+ =?us-ascii?Q?UJY+FZGD6F4vPLPGMf4GNR9FZF+ONRplwHXjdopPkUWch6l37agPi+96/DWd?=
+ =?us-ascii?Q?tTU/EKztO1h7rzOZiUDQGOfdhqvVLzRMuDOpJZzWHsWfqDhPHF1QxM8YIcgX?=
+ =?us-ascii?Q?Lu378WAEyQ7UhaKVZ4sX+dg6ax9/UyCXD5skWxPbu+dhhXUCtmNqjGPegEFS?=
+ =?us-ascii?Q?qwX0VeCMLOiklcJq/nhbSsRg4AoIHB9HoKh6PlaU66kB7Zw5fPIOEOsbLh6g?=
+ =?us-ascii?Q?2kvr9YBOeGesRiKkqo4jkuhljcRGkuISdJRgxH0qYTS1aenFsyjpaFuKkENa?=
+ =?us-ascii?Q?vFf+j5UpfMevpY1VBo4afz/QUKYyRyOrg8JyWOxS7FQ9fTQZUNMF7FCKMlqQ?=
+ =?us-ascii?Q?n0Otav+YRtSGSTN0H+JIQ33hBxjFEjwsZAQQHzUCAPA4iqYV8p4NkqyNFwGk?=
+ =?us-ascii?Q?a/vHke03xJobjeALyBGDHJtlCHf6sBvrUWSjrOqnIojwgKUHzy7eCx4Lix0d?=
+ =?us-ascii?Q?5I/2FW0Fng=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91786a50-36b2-4347-fba4-08de7bc01d8f
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2026 20:36:59.6562 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TDFT/f3mA/wFFYrTNJSARUHk6NRh4GuX3o7oLsgVYZ7FqT/J+G+BX5BZZfhjTPhu8SXHUILpkzBtiG8mvglK1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6528
 X-Mailman-Approved-At: Sun, 08 Mar 2026 14:14:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,184 +162,464 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-------03RMOHF15DNCM1EG8JS11Q82JO9KF3
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Add a new module `kernel::interop::list` for working with C's doubly
+circular linked lists. Provide low-level iteration over list nodes.
 
-Marc Philipp=20
-Menzelstrasse 25
-12157 Berlin=20
-Germany=20
+Typed iteration over actual items is provided with a `clist_create`
+macro to assist in creation of the `CList` type.
 
+Cc: Nikola Djukic <ndjukic@nvidia.com>
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Acked-by: Alexandre Courbot <acourbot@nvidia.com>
+Acked-by: Gary Guo <gary@garyguo.net>
+Acked-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+---
+ MAINTAINERS                 |   8 +
+ rust/helpers/helpers.c      |   1 +
+ rust/helpers/list.c         |  17 ++
+ rust/kernel/interop/list.rs | 338 ++++++++++++++++++++++++++++++++++++
+ rust/kernel/interop/mod.rs  |   9 +
+ rust/kernel/lib.rs          |   2 +
+ 6 files changed, 375 insertions(+)
+ create mode 100644 rust/helpers/list.c
+ create mode 100644 rust/kernel/interop/list.rs
+ create mode 100644 rust/kernel/interop/mod.rs
 
-Dear AMD Developer Relations and ROCm Engineering Teams,
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2842d7529a65..4c66f8261ff2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23219,6 +23219,14 @@ T:	git https://github.com/Rust-for-Linux/linux.git alloc-next
+ F:	rust/kernel/alloc.rs
+ F:	rust/kernel/alloc/
+ 
++RUST [INTEROP]
++M:	Joel Fernandes <joelagnelf@nvidia.com>
++M:	Alexandre Courbot <acourbot@nvidia.com>
++L:	rust-for-linux@vger.kernel.org
++S:	Maintained
++T:	git https://github.com/Rust-for-Linux/linux.git interop-next
++F:	rust/kernel/interop/
++
+ RUST [NUM]
+ M:	Alexandre Courbot <acourbot@nvidia.com>
+ R:	Yury Norov <yury.norov@gmail.com>
+diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+index a3c42e51f00a..724fcb8240ac 100644
+--- a/rust/helpers/helpers.c
++++ b/rust/helpers/helpers.c
+@@ -35,6 +35,7 @@
+ #include "io.c"
+ #include "jump_label.c"
+ #include "kunit.c"
++#include "list.c"
+ #include "maple_tree.c"
+ #include "mm.c"
+ #include "mutex.c"
+diff --git a/rust/helpers/list.c b/rust/helpers/list.c
+new file mode 100644
+index 000000000000..18095a5593c5
+--- /dev/null
++++ b/rust/helpers/list.c
+@@ -0,0 +1,17 @@
++// SPDX-License-Identifier: GPL-2.0
++
++/*
++ * Helpers for C circular doubly linked list implementation.
++ */
++
++#include <linux/list.h>
++
++__rust_helper void rust_helper_INIT_LIST_HEAD(struct list_head *list)
++{
++	INIT_LIST_HEAD(list);
++}
++
++__rust_helper void rust_helper_list_add_tail(struct list_head *new, struct list_head *head)
++{
++	list_add_tail(new, head);
++}
+diff --git a/rust/kernel/interop/list.rs b/rust/kernel/interop/list.rs
+new file mode 100644
+index 000000000000..bd6409f8bca2
+--- /dev/null
++++ b/rust/kernel/interop/list.rs
+@@ -0,0 +1,338 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Rust interface for C doubly circular intrusive linked lists.
++//!
++//! This module provides Rust abstractions for iterating over C `list_head`-based
++//! linked lists. It should only be used for cases where C and Rust code share
++//! direct access to the same linked list through a C interop interface.
++//!
++//! Note: This *must not* be used by Rust components that just need a linked list
++//! primitive. Use [`kernel::list::List`] instead.
++//!
++//! # Examples
++//!
++//! ```
++//! use kernel::{
++//!     bindings,
++//!     clist_create,
++//!     types::Opaque,
++//! };
++//! # // Create test list with values (0, 10, 20) - normally done by C code but it is
++//! # // emulated here for doctests using the C bindings.
++//! # use core::mem::MaybeUninit;
++//! #
++//! # /// C struct with embedded `list_head` (typically will be allocated by C code).
++//! # #[repr(C)]
++//! # pub struct SampleItemC {
++//! #     pub value: i32,
++//! #     pub link: bindings::list_head,
++//! # }
++//! #
++//! # let mut head = MaybeUninit::<bindings::list_head>::uninit();
++//! #
++//! # let head = head.as_mut_ptr();
++//! # // SAFETY: head and all the items are test objects allocated in this scope.
++//! # unsafe { bindings::INIT_LIST_HEAD(head) };
++//! #
++//! # let mut items = [
++//! #     MaybeUninit::<SampleItemC>::uninit(),
++//! #     MaybeUninit::<SampleItemC>::uninit(),
++//! #     MaybeUninit::<SampleItemC>::uninit(),
++//! # ];
++//! #
++//! # for (i, item) in items.iter_mut().enumerate() {
++//! #     let ptr = item.as_mut_ptr();
++//! #     // SAFETY: `ptr` points to a valid `MaybeUninit<SampleItemC>`.
++//! #     unsafe { (*ptr).value = i as i32 * 10 };
++//! #     // SAFETY: `&raw mut` creates a pointer valid for `INIT_LIST_HEAD`.
++//! #     unsafe { bindings::INIT_LIST_HEAD(&raw mut (*ptr).link) };
++//! #     // SAFETY: `link` was just initialized and `head` is a valid list head.
++//! #     unsafe { bindings::list_add_tail(&mut (*ptr).link, head) };
++//! # }
++//!
++//! // Rust wrapper for the C struct.
++//! // The list item struct in this example is defined in C code as:
++//! //   struct SampleItemC {
++//! //       int value;
++//! //       struct list_head link;
++//! //   };
++//! //
++//! #[repr(transparent)]
++//! pub struct Item(Opaque<SampleItemC>);
++//!
++//! impl Item {
++//!     pub fn value(&self) -> i32 {
++//!         // SAFETY: [`Item`] has same layout as [`SampleItemC`].
++//!         unsafe { (*self.0.get()).value }
++//!     }
++//! }
++//!
++//! // Create typed [`CList`] from sentinel head.
++//! // SAFETY: head is valid and initialized, items are `SampleItemC` with
++//! // embedded `link` field, and `Item` is `#[repr(transparent)]` over `SampleItemC`.
++//! let list = clist_create!(unsafe { head, Item, SampleItemC, link });
++//!
++//! // Iterate directly over typed items.
++//! let mut found_0 = false;
++//! let mut found_10 = false;
++//! let mut found_20 = false;
++//!
++//! for item in list.iter() {
++//!     let val = item.value();
++//!     if val == 0 { found_0 = true; }
++//!     if val == 10 { found_10 = true; }
++//!     if val == 20 { found_20 = true; }
++//! }
++//!
++//! assert!(found_0 && found_10 && found_20);
++//! ```
++
++use core::{
++    iter::FusedIterator,
++    marker::PhantomData, //
++};
++
++use crate::{
++    bindings,
++    types::Opaque, //
++};
++
++use pin_init::{
++    pin_data,
++    pin_init,
++    PinInit, //
++};
++
++/// FFI wrapper for a C `list_head` object used in intrusive linked lists.
++///
++/// # Invariants
++///
++/// - The underlying `list_head` has been initialized (e.g. via `INIT_LIST_HEAD()`) and its
++///   `next`/`prev` pointers are valid and non-NULL.
++#[pin_data]
++#[repr(transparent)]
++pub struct CListHead {
++    #[pin]
++    inner: Opaque<bindings::list_head>,
++}
++
++impl CListHead {
++    /// Create a `&CListHead` reference from a raw `list_head` pointer.
++    ///
++    /// # Safety
++    ///
++    /// - `ptr` must be a valid pointer to an initialized `list_head` (e.g. via
++    ///   `INIT_LIST_HEAD()`), with valid non-NULL `next`/`prev` pointers.
++    /// - `ptr` must remain valid for the lifetime `'a`.
++    /// - The list and all linked `list_head` nodes must not be modified from
++    ///   anywhere for the lifetime `'a`, unless done so via any [`CListHead`] APIs.
++    #[inline]
++    pub unsafe fn from_raw<'a>(ptr: *mut bindings::list_head) -> &'a Self {
++        // SAFETY:
++        // - [`CListHead`] has same layout as `list_head`.
++        // - `ptr` is valid and unmodified for 'a per caller guarantees.
++        unsafe { &*ptr.cast() }
++    }
++
++    /// Get the raw `list_head` pointer.
++    #[inline]
++    pub fn as_raw(&self) -> *mut bindings::list_head {
++        self.inner.get()
++    }
++
++    /// Get the next [`CListHead`] in the list.
++    #[inline]
++    pub fn next(&self) -> &Self {
++        let raw = self.as_raw();
++        // SAFETY:
++        // - `self.as_raw()` is valid and initialized per type invariants.
++        // - The `next` pointer is valid and non-NULL per type invariants
++        //   (initialized via `INIT_LIST_HEAD()` or equivalent).
++        unsafe { Self::from_raw((*raw).next) }
++    }
++
++    /// Check if this node is linked in a list (not isolated).
++    #[inline]
++    pub fn is_linked(&self) -> bool {
++        let raw = self.as_raw();
++        // SAFETY: self.as_raw() is valid per type invariants.
++        unsafe { (*raw).next != raw && (*raw).prev != raw }
++    }
++
++    /// Pin-initializer that initializes the list head.
++    pub fn new() -> impl PinInit<Self> {
++        pin_init!(Self {
++            // SAFETY: `INIT_LIST_HEAD` initializes `slot` to a valid empty list.
++            inner <- Opaque::ffi_init(|slot| unsafe { bindings::INIT_LIST_HEAD(slot) }),
++        })
++    }
++}
++
++// SAFETY: `list_head` contains no thread-bound state; it only holds
++// `next`/`prev` pointers.
++unsafe impl Send for CListHead {}
++
++// SAFETY: `CListHead` can be shared among threads as modifications are
++// not allowed at the moment.
++unsafe impl Sync for CListHead {}
++
++impl PartialEq for CListHead {
++    #[inline]
++    fn eq(&self, other: &Self) -> bool {
++        core::ptr::eq(self, other)
++    }
++}
++
++impl Eq for CListHead {}
++
++/// Low-level iterator over `list_head` nodes.
++///
++/// An iterator used to iterate over a C intrusive linked list (`list_head`). Caller has to
++/// perform conversion of returned [`CListHead`] to an item (using `container_of` macro or similar).
++///
++/// # Invariants
++///
++/// [`CListHeadIter`] is iterating over an initialized and valid list.
++struct CListHeadIter<'a> {
++    /// Current position in the list.
++    current: &'a CListHead,
++    /// The sentinel head (used to detect end of iteration).
++    sentinel: &'a CListHead,
++}
++
++impl<'a> Iterator for CListHeadIter<'a> {
++    type Item = &'a CListHead;
++
++    #[inline]
++    fn next(&mut self) -> Option<Self::Item> {
++        // Check if we've reached the sentinel (end of list).
++        if self.current == self.sentinel {
++            return None;
++        }
++
++        let item = self.current;
++        self.current = item.next();
++        Some(item)
++    }
++}
++
++impl<'a> FusedIterator for CListHeadIter<'a> {}
++
++/// A typed C linked list with a sentinel head intended for FFI use-cases where
++/// C subsystem manages a linked list that Rust code needs to read. Generally
++/// required only for special cases.
++///
++/// A sentinel head [`CListHead`] represents the entire linked list and can be used
++/// for iteration over items of type `T`, it is not associated with a specific item.
++///
++/// The const generic `OFFSET` specifies the byte offset of the `list_head` field within
++/// the struct that `T` wraps.
++///
++/// # Invariants
++///
++/// - The sentinel [`CListHead`] has been initialized (e.g. via `INIT_LIST_HEAD()`) with valid
++///   non-NULL `next`/`prev` pointers.
++/// - `OFFSET` is the byte offset of the `list_head` field within the struct that `T` wraps.
++/// - All the list's `list_head` nodes have been initialized with valid non-NULL `next`/`prev`
++///   pointers.
++#[repr(transparent)]
++pub struct CList<T, const OFFSET: usize>(CListHead, PhantomData<T>);
++
++impl<T, const OFFSET: usize> CList<T, OFFSET> {
++    /// Create a typed [`CList`] reference from a raw sentinel `list_head` pointer.
++    ///
++    /// # Safety
++    ///
++    /// - `ptr` must be a valid pointer to an initialized sentinel `list_head` (e.g. via
++    ///   `INIT_LIST_HEAD()`), with valid non-NULL `next`/`prev` pointers.
++    /// - `ptr` must remain valid for the lifetime `'a`.
++    /// - The list and all linked nodes must not be concurrently modified for the lifetime `'a`.
++    /// - The list must contain items where the `list_head` field is at byte offset `OFFSET`.
++    /// - `T` must be `#[repr(transparent)]` over the C struct.
++    #[inline]
++    pub unsafe fn from_raw<'a>(ptr: *mut bindings::list_head) -> &'a Self {
++        // SAFETY:
++        // - [`CList`] has same layout as [`CListHead`] due to repr(transparent).
++        // - Caller guarantees `ptr` is a valid, sentinel `list_head` object.
++        unsafe { &*ptr.cast() }
++    }
++
++    /// Check if the list is empty.
++    #[inline]
++    pub fn is_empty(&self) -> bool {
++        !self.0.is_linked()
++    }
++
++    /// Create an iterator over typed items.
++    #[inline]
++    pub fn iter(&self) -> CListIter<'_, T, OFFSET> {
++        let head = &self.0;
++        CListIter {
++            head_iter: CListHeadIter {
++                current: head.next(),
++                sentinel: head,
++            },
++            _phantom: PhantomData,
++        }
++    }
++}
++
++/// High-level iterator over typed list items.
++pub struct CListIter<'a, T, const OFFSET: usize> {
++    head_iter: CListHeadIter<'a>,
++    _phantom: PhantomData<&'a T>,
++}
++
++impl<'a, T, const OFFSET: usize> Iterator for CListIter<'a, T, OFFSET> {
++    type Item = &'a T;
++
++    #[inline]
++    fn next(&mut self) -> Option<Self::Item> {
++        let head = self.head_iter.next()?;
++
++        // Convert to item using OFFSET.
++        // SAFETY: The pointer calculation is valid because `OFFSET` is derived
++        // from `offset_of!` per type invariants.
++        Some(unsafe { &*head.as_raw().byte_sub(OFFSET).cast::<T>() })
++    }
++}
++
++impl<'a, T, const OFFSET: usize> FusedIterator for CListIter<'a, T, OFFSET> {}
++
++/// Create a C doubly-circular linked list interface `CList` from a raw `list_head` pointer.
++///
++/// This macro creates a `CList<T, OFFSET>` that can iterate over items of type `$rust_type`
++/// linked via the `$field` field in the underlying C struct `$c_type`.
++///
++/// # Arguments
++///
++/// - `$head`: Raw pointer to the sentinel `list_head` object (`*mut bindings::list_head`).
++/// - `$rust_type`: Each item's rust wrapper type.
++/// - `$c_type`: Each item's C struct type that contains the embedded `list_head`.
++/// - `$field`: The name of the `list_head` field within the C struct.
++///
++/// # Safety
++///
++/// The caller must ensure:
++///
++/// - `$head` is a valid, initialized sentinel `list_head` (e.g. via `INIT_LIST_HEAD()`)
++///   pointing to a list that is not concurrently modified for the lifetime of the `CList`.
++/// - The list contains items of type `$c_type` linked via an embedded `$field`.
++/// - `$rust_type` is `#[repr(transparent)]` over `$c_type` or has compatible layout.
++///
++/// # Examples
++///
++/// Refer to the examples in this module's documentation.
++#[macro_export]
++macro_rules! clist_create {
++    (unsafe { $head:expr, $rust_type:ty, $c_type:ty, $($field:tt).+ }) => {{
++        // Compile-time check that field path is a list_head.
++        let _: fn(*const $c_type) -> *const $crate::bindings::list_head =
++            |p| unsafe { &raw const (*p).$($field).+ };
++
++        // Calculate offset and create `CList`.
++        const OFFSET: usize = ::core::mem::offset_of!($c_type, $($field).+);
++        // SAFETY: The caller of this macro is responsible for ensuring safety.
++        unsafe { $crate::interop::list::CList::<$rust_type, OFFSET>::from_raw($head) }
++    }};
++}
+diff --git a/rust/kernel/interop/mod.rs b/rust/kernel/interop/mod.rs
+new file mode 100644
+index 000000000000..b88140cf76dc
+--- /dev/null
++++ b/rust/kernel/interop/mod.rs
+@@ -0,0 +1,9 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Infrastructure for interfacing Rust code with C kernel subsystems.
++//!
++//! This module is intended for low-level, unsafe Rust infrastructure code
++//! that interoperates between Rust and C. It is NOT for use directly in
++//! Rust drivers.
++
++pub mod list;
+diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
+index 3da92f18f4ee..bb741f1e0dfd 100644
+--- a/rust/kernel/lib.rs
++++ b/rust/kernel/lib.rs
+@@ -28,6 +28,7 @@
+ #![feature(lint_reasons)]
+ //
+ // Stable since Rust 1.82.0.
++#![feature(offset_of_nested)]
+ #![feature(raw_ref_op)]
+ //
+ // Stable since Rust 1.83.0.
+@@ -103,6 +104,7 @@
+ #[doc(hidden)]
+ pub mod impl_flags;
+ pub mod init;
++pub mod interop;
+ pub mod io;
+ pub mod ioctl;
+ pub mod iommu;
+-- 
+2.34.1
 
-I am reaching out as an early adopter of the AMD RDNA 4 (gfx1200) architec=
-ture=2E=20
-
-My recent efforts to deploy Large Language Model (LLM) inference environme=
-nts on Ubuntu 25=2E10 have revealed a systemic failure in the current Linux=
- compute stack that prevents this next-generation hardware from being utili=
-zed for AI workloads=2E
-
-I have performed a comprehensive multi-day diagnostic cycle to isolate the=
-se failures=2E I am sharing these findings in the hope of assisting your en=
-gineering teams in stabilizing the platform ahead of the major Linux distri=
-bution updates expected this spring=2E
-
-Reference Environment:=20
-AI Workstation
-
-To ensure reproducibility, all diagnostics were performed on the following=
- hardware configuration:
-GPU: AMD Radeon RX 9060 XT (RDNA 4 / gfx1200) | 16GB VRAM
-CPU: AMD Ryzen 5 7600 (6C/12T)
-Motherboard: MSI MAG B650 TOMAHAWK WIFI (BIOS: AGESA 1=2E2=2E0=2E2+)
-Memory: 32GB DDR5-6000 MT/s (Micron | EXPO Profile 1 active)
-Storage: Lexar Professional NVMe Gen4 SSD
-OS: Ubuntu 25=2E10 (Kernel 6=2E12+ / Mesa 24=2E3+)
-
-I=2E Technical Diagnostic Summary
-
-My testing was conducted using the llama=2Ecpp (GGUF) framework across var=
-ious backends=2E The following critical roadblocks were identified:
-Vulkan/RADV Compute Instability: While the Mesa RADV driver correctly iden=
-tifies the gfx1200 ISA, the compute pipeline is currently unstable=2E Durin=
-g SPIR-V to ISA translation (ACO compiler), the runtime consistently trigge=
-rs a SIGSEGV (Exit Code 139) or enters an infinite loop at 100% CPU load=2E=
- This suggests the RADV compute path for RDNA 4 is not yet parity-stable wi=
-th the graphics path=2E
-
-ROCm Repository Dependency Mismatch:
-
-Official ROCm (6=2E2/6=2E3) support is currently limited to LTS releases (=
-22=2E04/24=2E04)=2E Attempting to use these on Ubuntu 25=2E10 creates catas=
-trophic dependency breaks with glibc and llvm-roc=2E There is currently no =
-official =E2=80=9Cinterim=E2=80=9D or =E2=80=9Cdistro-agnostic=E2=80=9D pat=
-h for HIP compute on the latest kernels required to fully drive RDNA 4=2E
-
-OpenCL Architecture Mapping:=20
-
-The OpenCL/CLBlast backends fail to correctly map the gfx1200 architecture=
-, defaulting to generic or incompatible mobile kernel parameters=2E This re=
-sults in compilation failures due to undefined SIMD-group widths specific t=
-o the RDNA 4 instruction set=2E
-Container/Host ISA Desync: Attempts to encapsulate the workload in an Ubun=
-tu 24=2E04 OCI container (to use stable ROCm libraries) failed due to a ver=
-sioning delta between the Host amdgpu kernel module (required for RDNA 4) a=
-nd the Container libhsa-runtime=2E
-
-II=2E Inquiry Regarding the April Roadmap (Ubuntu 26=2E04 LTS):
-
-With the upcoming release of Ubuntu 26=2E04 LTS, I would like to inquire a=
-bout AMD=E2=80=99s readiness regarding the following points:
-Synchronized ROCm Support: Will a native ROCm repository be available for =
-26=2E04 LTS on Day=E2=80=910?
-
-Mesa Upstream Status:=20
-Are the compute fixes for gfx1200 scheduled for inclusion in the Mesa vers=
-ions that will ship with the next LTS?
-
-III=2E AMD Vanguard Admission & Compensation Request
-
-The diagnostic work required to map these regressions represents a signifi=
-cant investment of professional time and specialized technical labor=2E I b=
-elieve that early adopters who provide this level of deep=E2=80=91dive feed=
-back are essential to the health of the ROCm ecosystem=2E
-
-I would like to be considered for the AMD Vanguard program to assist in th=
-e validation of RDNA 4 compute stability on Linux=2E Furthermore, given tha=
-t the hardware=E2=80=99s marketed AI capabilities are currently non-functio=
-nal in this environment, I would like to ask about potential goodwill gestu=
-res or compensation for developers providing these detailed diagnostic repo=
-rts=2E This could include:
-
-Direct enrollment in the AMD Vanguard or specialized beta-testing programs=
-=2E
-Access to pre-release ROCm builds or the AMD Developer Cloud=2E
-
-Credits or discounts toward future AMD compute/accelerator hardware=2E
-
-Conclusion:
-
-RDNA 4 is a remarkable achievement in silicon, but the current software fr=
-agmentation on Linux is a significant barrier to adoption=2E I am eager to =
-help bridge this gap and am available to provide full system logs and core =
-dumps to your engineering teams=2E
-
-I look forward to your response regarding the April roadmap and my potenti=
-al participation in the Vanguard program=2E
-
-Best regards from Berlin, Germany
-Marc Philipp
-------03RMOHF15DNCM1EG8JS11Q82JO9KF3
-Content-Type: text/html;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<!DOCTYPE html><html><body><div dir=3D"auto">Marc Philipp <br>Menzelstrasse=
- 25<br>12157 Berlin <br>Germany <br><br><br>Dear AMD Developer Relations an=
-d ROCm Engineering Teams,<br><br>I am reaching out as an early adopter of t=
-he AMD RDNA 4 (gfx1200) architecture=2E <br><br>My recent efforts to deploy=
- Large Language Model (LLM) inference environments on Ubuntu 25=2E10 have r=
-evealed a systemic failure in the current Linux compute stack that prevents=
- this next-generation hardware from being utilized for AI workloads=2E<br><=
-br>I have performed a comprehensive multi-day diagnostic cycle to isolate t=
-hese failures=2E I am sharing these findings in the hope of assisting your =
-engineering teams in stabilizing the platform ahead of the major Linux dist=
-ribution updates expected this spring=2E<br><br>Reference Environment: <br>=
-AI Workstation<br><br>To ensure reproducibility, all diagnostics were perfo=
-rmed on the following hardware configuration:<br>GPU: AMD Radeon RX 9060 XT=
- (RDNA 4 / gfx1200) | 16GB VRAM<br>CPU: AMD Ryzen 5 7600 (6C/12T)<br>Mother=
-board: MSI MAG B650 TOMAHAWK WIFI (BIOS: AGESA 1=2E2=2E0=2E2+)<br>Memory: 3=
-2GB DDR5-6000 MT/s (Micron | EXPO Profile 1 active)<br>Storage: Lexar Profe=
-ssional NVMe Gen4 SSD<br>OS: Ubuntu 25=2E10 (Kernel 6=2E12+ / Mesa 24=2E3+)=
-<br><br>I=2E Technical Diagnostic Summary<br><br>My testing was conducted u=
-sing the llama=2Ecpp (GGUF) framework across various backends=2E The follow=
-ing critical roadblocks were identified:<br>Vulkan/RADV Compute Instability=
-: While the Mesa RADV driver correctly identifies the gfx1200 ISA, the comp=
-ute pipeline is currently unstable=2E During SPIR-V to ISA translation (ACO=
- compiler), the runtime consistently triggers a SIGSEGV (Exit Code 139) or =
-enters an infinite loop at 100% CPU load=2E This suggests the RADV compute =
-path for RDNA 4 is not yet parity-stable with the graphics path=2E<br><br>R=
-OCm Repository Dependency Mismatch:<br><br>Official ROCm (6=2E2/6=2E3) supp=
-ort is currently limited to LTS releases (22=2E04/24=2E04)=2E Attempting to=
- use these on Ubuntu 25=2E10 creates catastrophic dependency breaks with gl=
-ibc and llvm-roc=2E There is currently no official =E2=80=9Cinterim=E2=80=
-=9D or =E2=80=9Cdistro-agnostic=E2=80=9D path for HIP compute on the latest=
- kernels required to fully drive RDNA 4=2E<br><br>OpenCL Architecture Mappi=
-ng: <br><br>The OpenCL/CLBlast backends fail to correctly map the gfx1200 a=
-rchitecture, defaulting to generic or incompatible mobile kernel parameters=
-=2E This results in compilation failures due to undefined SIMD-group widths=
- specific to the RDNA 4 instruction set=2E<br>Container/Host ISA Desync: At=
-tempts to encapsulate the workload in an Ubuntu 24=2E04 OCI container (to u=
-se stable ROCm libraries) failed due to a versioning delta between the Host=
- amdgpu kernel module (required for RDNA 4) and the Container libhsa-runtim=
-e=2E<br><br>II=2E Inquiry Regarding the April Roadmap (Ubuntu 26=2E04 LTS):=
-<br><br>With the upcoming release of Ubuntu 26=2E04 LTS, I would like to in=
-quire about AMD=E2=80=99s readiness regarding the following points:<br>Sync=
-hronized ROCm Support: Will a native ROCm repository be available for 26=2E=
-04 LTS on Day=E2=80=910?<br><br>Mesa Upstream Status: <br>Are the compute f=
-ixes for gfx1200 scheduled for inclusion in the Mesa versions that will shi=
-p with the next LTS?<br><br>III=2E AMD Vanguard Admission &amp; Compensatio=
-n Request<br><br>The diagnostic work required to map these regressions repr=
-esents a significant investment of professional time and specialized techni=
-cal labor=2E I believe that early adopters who provide this level of deep=
-=E2=80=91dive feedback are essential to the health of the ROCm ecosystem=2E=
-<br><br>I would like to be considered for the AMD Vanguard program to assis=
-t in the validation of RDNA 4 compute stability on Linux=2E Furthermore, gi=
-ven that the hardware=E2=80=99s marketed AI capabilities are currently non-=
-functional in this environment, I would like to ask about potential goodwil=
-l gestures or compensation for developers providing these detailed diagnost=
-ic reports=2E This could include:<br><br>Direct enrollment in the AMD Vangu=
-ard or specialized beta-testing programs=2E<br>Access to pre-release ROCm b=
-uilds or the AMD Developer Cloud=2E<br><br>Credits or discounts toward futu=
-re AMD compute/accelerator hardware=2E<br><br>Conclusion:<br><br>RDNA 4 is =
-a remarkable achievement in silicon, but the current software fragmentation=
- on Linux is a significant barrier to adoption=2E I am eager to help bridge=
- this gap and am available to provide full system logs and core dumps to yo=
-ur engineering teams=2E<br><br>I look forward to your response regarding th=
-e April roadmap and my potential participation in the Vanguard program=2E<b=
-r><br>Best regards from Berlin, Germany<br>Marc Philipp</div></body></html>
-------03RMOHF15DNCM1EG8JS11Q82JO9KF3--
