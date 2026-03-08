@@ -4,63 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40EDDF55102
-	for <amd-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 10:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 944DEF513F1
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 12:59:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A00B510E0FF;
-	Sun,  8 Mar 2026 10:11:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4009910E121;
+	Sun,  8 Mar 2026 12:59:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jm+8Zf+/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SdSvCNSF";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E50410E0FE;
- Sun,  8 Mar 2026 10:11:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1772964668; x=1804500668;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=e7VQSTQMtLAY116kGpVCvwpkviv2oXrPqJ9NjU7r+sg=;
- b=jm+8Zf+/baPy7ft2F0Vo7D06JypLZ5IpwN5V8nDQpAxMR1ON9bKq+GAK
- vAwVhH13tYv5ntrqKlEhQeceGhQWi45yiIWb7G2MV4eILB4IWbUv/P6zw
- J9bX/e6bqcnX74j/HEK4hbFOLsQS9YHBFElnzRiH9M/lp2MAK0vT+bA82
- ccHJz0Z/fMrCZXnAzN0MP7tCxyYj1448zJ9VwpZJhfCnoPW3qWNOWKG6u
- WezK14vaeFq6uMkmumKmHYdPocD2Qys2dRk5krweU6ICpBuVkOnnZ9LRu
- 8tY2TuOxeSHpcmfcZVyWKU+dBX2wih7ba854z6g+04iMQ6abSkbUuJDKy g==;
-X-CSE-ConnectionGUID: g5oCWI0dSXaN3kPb7DAc9A==
-X-CSE-MsgGUID: O9kJm/vTQ4etIBcG8YAAbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11722"; a="74086084"
-X-IronPort-AV: E=Sophos;i="6.23,108,1770624000"; d="scan'208";a="74086084"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2026 03:11:05 -0700
-X-CSE-ConnectionGUID: KcTc1s/DREKLcWZRphkk/A==
-X-CSE-MsgGUID: poFTVjzPQcyjufj83ZmODA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,108,1770624000"; d="scan'208";a="223572702"
-Received: from lkp-server01.sh.intel.com (HELO 058beb05654c) ([10.239.97.150])
- by orviesa003.jf.intel.com with ESMTP; 08 Mar 2026 03:11:02 -0700
-Received: from kbuild by 058beb05654c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vzB6A-0000000031R-3zWf;
- Sun, 08 Mar 2026 10:10:58 +0000
-Date: Sun, 8 Mar 2026 18:10:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- kernel-dev@igalia.com, intel-xe@lists.freedesktop.org,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Subject: Re: [PATCH v7 04/29] drm/sched: Add some scheduling quality unit tests
-Message-ID: <202603081744.gNhsEN20-lkp@intel.com>
-References: <20260306163445.97243-5-tvrtko.ursulin@igalia.com>
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E0AB10E04B
+ for <amd-gfx@lists.freedesktop.org>; Sun,  8 Mar 2026 12:59:45 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-439c4a93841so3438031f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 08 Mar 2026 05:59:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772974784; x=1773579584; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pCcvTZODN6sqyoYdkdvVRxc4wALvjVCgUO6jSwYiCpc=;
+ b=SdSvCNSF5HGbmIbCZrjV+nwxT6tVijagxjQxR0yglPgMDd1ld5kMTerHpV077gwPOK
+ B+CAi/ePiknVvI4XqaDlsrC8l89IBjmSUmfdXFzP1NzIoKtqLUAFpB4rjhZvsg1Iaj4H
+ RZsGD/FSUrDFEpFeV5bL9xEGNQvtYk1jeMz4pUD2uERxnzOCnP4iYEeSvR7h9O83aGE5
+ TtlR5xmthFgMnSIzsMOY4woawZ4wquKMYFDmF0lgjCtpJat72AZhxifr3xsWEAdPCwc3
+ hcRGc67WmTWYxzVy6ATX23FPruYu8LqdjtmSmjB+SXRVNmNoNHQ8OPcG3dpRxJ7705EY
+ UsXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772974784; x=1773579584;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=pCcvTZODN6sqyoYdkdvVRxc4wALvjVCgUO6jSwYiCpc=;
+ b=s5bPeWgid1pWObpQ5EYwQ+I8k0gUl1qcCHL6RKx9drpY1TA1WK4ZVc1oxJGgpgRvXg
+ rIm8avLP8D0I+BZ648aHm4S7DV8SZgptPu5AdJZYW4KRvh7b+HJXMs4D0XphtKKMHGNd
+ aLKY0O5Vsy/fc6H3V+37ea/KcR0P5TsQkF6d4iNXLO9WMoJXjAeG1F8LEj00xOnZQzJK
+ sk0ciIUPcfCYeoK6Tc6uLGOQaKrkZTcqGjEnJ+5sY5ceAEO8N/17vf2sBGWx4fb8H/f6
+ xaCBiJQr5+Zmda6XFJj1P4u6xT7DO5t2z6nfA25XfdC2DdAYiHzwinCk1HwylyXtRwdm
+ 6zzg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVdhL3nBzt9T+AxUDeF62i03y3g7UbXBo0/XqLelZTkp2nqxhUUSqvHOiMQ4lr66aOmFerTkqpT@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxl1+hxu5/v9yPMv0fb37nptiRufYTgpHL2lIPaNtQw+4oumoHx
+ QC9UhgjiCfCs8zshMS2djy7DWDlrpLlJJR5KUOH82grsl9PAI9jJpZ1Q
+X-Gm-Gg: ATEYQzy/Gxj8HvvvCX3ABDpmeBbtuJKzKyLg5WCTZo3gwtItdT4B2xcjBvS7PFnOWHr
+ FZaYfX1ChyWLxivf1IhiX0J1KM80EszpWEK62lEri4/zrjaf8uhdfEimDSCLif3NPYDHqBJx21n
+ AH8BbhEUJ65E6X2AkDeB9Be87vHQdb1HJmKOBsWi6XyCQdswR+QOnKk6nJBM33LJSz3tm9T3y8X
+ m8ljk6B6j+FX6w29/Dm7Yczq2PHvQytUJjCpviph7zWr2a5hNNpozx1YGjk/0AdXqksdjl5NgwS
+ USd5pZtavPjzP3nh7w6T7ZT5drszS3AGEHxXtB5r71/nIuTPtcxnWfP99Nlaae9PDhHL9+LEZw2
+ fWXyszYzWKmVEvpsYVorE8xl4te1Iu62slDMdyMvQPhdq8flMateFo5Ekgdjv2H8Eojp5Mp+OGH
+ 4O/qdrzhlP3cjJljWPie8PG0xz8B3qZOB2Oa2h6c7BDa9H1TsFnz/srPGl5KLI2E2cIc4VP9TMU
+ w5wKABqHm0=
+X-Received: by 2002:a05:6000:2911:b0:439:beee:43aa with SMTP id
+ ffacd0b85a97d-439da351b41mr14651067f8f.16.1772974783363; 
+ Sun, 08 Mar 2026 05:59:43 -0700 (PDT)
+Received: from timur-hyperion.localnet (5E1B97DE.dsl.pool.telekom.hu.
+ [94.27.151.222]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-439dad8dbb3sm16332342f8f.4.2026.03.08.05.59.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 08 Mar 2026 05:59:42 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: events@lists.x.org, xorg-devel@lists.x.org,
+ wayland-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ mesa-dev@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ etnaviv@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ libre-soc-dev@lists.libre-soc.org, elections@x.org, members@x.org,
+ xorg@lists.freedesktop.org
+Cc: Mark Filion <mark.filion@collabora.com>
+Subject: Re: Reminder: Deadline to renew X.Org memberships for 2026 is March
+ 16.
+Date: Sun, 08 Mar 2026 13:59:41 +0100
+Message-ID: <5818436.IbC2pHGDlb@timur-hyperion>
+In-Reply-To: <77e280436ec5b54973a11303dd0446e9f3ab2ba1.camel@collabora.com>
+References: <0070f3dd-a521-40ee-b6e7-8b1f82e48b66@amd.com>
+ <77e280436ec5b54973a11303dd0446e9f3ab2ba1.camel@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260306163445.97243-5-tvrtko.ursulin@igalia.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,51 +96,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Tvrtko,
+Hi,
 
-kernel test robot noticed the following build errors:
+This seems to be not working. I am not getting the confirmation email (yes,=
+ I=20
+checked the spam folder and it isn't there either).
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm-xe/drm-xe-next daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.0-rc2 next-20260306]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Is this a known issue?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Tvrtko-Ursulin/drm-sched-Disallow-initializing-entities-with-no-schedulers/20260307-012142
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260306163445.97243-5-tvrtko.ursulin%40igalia.com
-patch subject: [PATCH v7 04/29] drm/sched: Add some scheduling quality unit tests
-config: riscv-allyesconfig (https://download.01.org/0day-ci/archive/20260308/202603081744.gNhsEN20-lkp@intel.com/config)
-compiler: clang version 16.0.6 (https://github.com/llvm/llvm-project 7cbf1a2591520c2491aa35339f227775f4d3adf6)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260308/202603081744.gNhsEN20-lkp@intel.com/reproduce)
+Thanks,
+Tim
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603081744.gNhsEN20-lkp@intel.com/
+On Wednesday, March 4, 2026 5:12:37=E2=80=AFPM Central European Standard Ti=
+me Mark=20
+=46ilion wrote:
+> Hi everyone,
+>=20
+> Just a friendly reminder that the deadline to renew X.Org memberships
+> for 2026 is March 16.
+>=20
+> Membership renewal ensures you maintain your voting rights in the
+> upcoming foundation elections, but also helps strengthen the foundation
+> by giving it more credibility.
+>=20
+> https://members.x.org/
+>=20
+> Thank you for your continued support of the X.Org Foundation.
+>=20
+> Best,
+>=20
+> Mark
+>=20
+> On Wed, 2026-02-04 at 16:22 -0500, Harry Wentland wrote:
+> > Hi all,
+> >=20
+> > it's a new year and with that a new X.Org Board of Directors
+> > election. Please take the time to log in to members.x.org
+> > and renew your membership for the new period or sign up for
+> > the first time.
+> >=20
+> > These board members' periods will end this year:
+> > - Mark Filion
+> > - Erik Faye-Lund
+> > - Simon Ser
+> > - Neal Gompa
+> >=20
+> > The election dates will be as follows:
+> >     Nomination period Start: Mon February 9th
+> >     Nomination period End: Mon March 9th
+> >     Publication of Candidates & start of Candidate QA: Mon March 16th
+> >     Deadline of X.Org membership application or renewal: Mon March
+> > 16th
+> >     Election Planned Start: Mon March 23rd
+> >     Election Planned End: Mon April 13th
+> >=20
+> > If you have questions or encounter issues don't hesitate
+> > to reach out the Elections Committee at elections@x.org.
+> >=20
+> > Best Regards,
+> > Harry
 
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/scheduler/tests/tests_scheduler.c:676:10: error: initializer element is not a compile-time constant
-                                 drm_sched_scheduler_two_clients_attr),
-                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/kunit/test.h:224:13: note: expanded from macro 'KUNIT_CASE_PARAM_ATTR'
-                     .attr = attributes, .module_name = KBUILD_MODNAME}
-                             ^~~~~~~~~~
-   1 error generated.
 
 
-vim +676 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
 
-   672	
-   673	static struct kunit_case drm_sched_scheduler_two_clients_tests[] = {
-   674		KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_two_clients_test,
-   675				      drm_sched_scheduler_two_clients_gen_params,
- > 676				      drm_sched_scheduler_two_clients_attr),
-   677		{}
-   678	};
-   679	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
