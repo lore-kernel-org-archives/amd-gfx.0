@@ -4,121 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5CABF55105
-	for <amd-gfx@archiver.kernel.org>; Sat,  7 Mar 2026 20:19:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D2C4F5512F
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 06:11:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61DA210E199;
-	Sat,  7 Mar 2026 20:19:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0146810E0B7;
+	Sun,  8 Mar 2026 06:11:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E1bpGMzU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QJLDOXJk";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010069.outbound.protection.outlook.com [52.101.85.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30C4610E199
- for <amd-gfx@lists.freedesktop.org>; Sat,  7 Mar 2026 20:19:04 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012022.outbound.protection.outlook.com [52.101.43.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2504C10E062
+ for <amd-gfx@lists.freedesktop.org>; Sun,  8 Mar 2026 06:11:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KjC5jM/dtMugEYxh2zwgl9jedsA9SbeV5io6dZPX+Fw1bo7bw5BNmnDd6P/ZQO3WixoWRn0EiUDHBWyuJw+gxDXEM7t2TdaMaLVDyGwF2gV2wbzfvEkdURG6Wyt0Gihg2PKMBhBwp1CuncNBu2Y8/Evq7L7ZWGSDJOviOADwBQGD//VGfvMG4CCkeO/gxOwQej42i8zXWige8npckUe9MDfTzn2croi8I5I+LahHemO+I6i8SbChHXGBgZdQOv2kpHAoUcqMUf0GQUuJ2/stkyePPwiJXerRF1KgtGTQS2bA10sz/ddQuB4gOcPThpLYuRMQIEGEQfUZ7r/0SGs8cw==
+ b=YgcUjbp7Bkt+Mo/rSlxfS5M5iGDABc6RiQr8jLv59P1Jq9+zEo2favt0giJH/FZdRrgw/UQhcMZ33k+Wn/bv6MOpCSg4JROuFci6lPy4G/FLmErRJebGDnYgoU7eTIHAMJ+gSlMls8D/TIcnhwsZQ2Or4dskBKS8dnFuic11JYFg1MCRaJdhoCrUg2GpXA5A2/NoqVoqooW84uPLsNJ9/LEnWa1eioSdOviiuD67KZLFiB52jdTNgndpj4KiCxEhAuMLLDJ+roHVUZdmKYv9EdcYIf3gnnTvSpR1Vblb5H28+zASARMo/b6Vck51/BG7BvRnWgmKDG240JC7yQSYRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QdAgKxYgK2r4gnSO6nO6zSImZR/fcgtygPvwtgJeDno=;
- b=q1KyBtUr6VpA3c+1BHbWdUvsRi6ukaf3AMVIAK7c36vCLCnIOncfsa5yU1MTO3SxJE/+mqv45u9yvv0vyXFLJJQlJ2+jp9Erl2wH2PEL45FlOMsMk3d4nqeB9l2FIPzp2W5q83d07dtk22iF9o+fWe0z70X6qwovvCPV9AxoFhbOjQ9xmtXEEOv4vfwfnlK8iEte6omy5DZEi9+0W2+p7jsBrAUPb9dNOKpSwJd7MGuOp/6aVRRFBLtlfd6ci1FDwGrhqWx3ctzUazWSXAUWLwpNGiPC2Dh1acHxW2YoJZ9oUG/kUI3F3rh3NgIyHv5a/qFGAowp/hBrzIRAzo4EHg==
+ bh=DorQ2skH7o2rzYg/cpqZB8PZp6sqOl7A5K+bQisojEA=;
+ b=QMoAs4fN33wDtkblvz6PATFm6aLf4yK8O4lP2qdwtX65/7LX7DGwBMMxT6VEFEQsr6gqmZIYdrsb1tRpJEKGmat6GW2Dnqw4h8AbZX+dIiSb99XLS1lzDXFSPN5ZPTWI3n7QutjPcsMiIAOvIomWLdKSPpkDQPaR3v7nHvWGcUX/oyL/45gLDiHb0nCgV6h2abWI8XadHsIszUdo+Ps3CpvWn6/Zt4OeJobE/7sIeFnSZmNRb+taG5wr6Hhza+MFquDREBP24PQsdvrLa4HA151LXcvSGP9p0fOkEMh9kuHibbT0/VHNs9TVkT9duYSjDbeBTq5Dzu6I2VqQGrjMoA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QdAgKxYgK2r4gnSO6nO6zSImZR/fcgtygPvwtgJeDno=;
- b=E1bpGMzUz6CWrvu8c+IHoFlAen5zL9g9mKLuE9FkiISkcDDIvR6pxKKEdFckxPy8LGai8AyvNf409QYgEt4U518J9StRB+w4FsXq7lZYtE1CEDZPhtzTn3z1Vtr7fOshSVefIuBG64H09BgF/yzc42rPFRCE5KY+FFu6OB+OcJU=
+ bh=DorQ2skH7o2rzYg/cpqZB8PZp6sqOl7A5K+bQisojEA=;
+ b=QJLDOXJkPcBx5FlWYr4tNsw0o6hkvnuseT9dNVEWm9hAEq5Z3GroTaUUPt0TEW9K0iAaURaph5WZMN5EA4SRtaAIqZwrJyOUiaVREcOvQHKjAaw3UlvV+qBVDvxWah6K47Att7/tj5hMzadMYtlmUYxxcicHUBXIAwY7F51ruHo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com (2603:10b6:806:9d::10)
- by IA0PR12MB8206.namprd12.prod.outlook.com (2603:10b6:208:403::11)
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by PH7PR12MB6465.namprd12.prod.outlook.com (2603:10b6:510:1f7::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.8; Sat, 7 Mar
- 2026 20:19:02 +0000
-Received: from SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287]) by SA0PR12MB4557.namprd12.prod.outlook.com
- ([fe80::885a:79b3:8288:287%5]) with mapi id 15.20.9700.003; Sat, 7 Mar 2026
- 20:19:01 +0000
-Message-ID: <cf184113-6db5-455b-87a0-85af727ea377@amd.com>
-Date: Sat, 7 Mar 2026 14:18:59 -0600
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.9; Sun, 8 Mar
+ 2026 06:11:14 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9700.009; Sun, 8 Mar 2026
+ 06:11:13 +0000
+Message-ID: <92d5f227-2e94-4b3f-a910-124131074ad8@amd.com>
+Date: Sun, 8 Mar 2026 11:41:08 +0530
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/2] drm/amd: Fix more cases of NULL pointer deref at fini
-To: "Lazar, Lijo" <lijo.lazar@amd.com>, amd-gfx@lists.freedesktop.org
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ amd-gfx@lists.freedesktop.org
 References: <20260305220540.1354776-1-mario.limonciello@amd.com>
  <7305e3af-1960-4612-9dc5-fbf718b7fb7d@amd.com>
  <1decb90d-1b7a-450e-b846-d3dbabfd81f2@amd.com>
  <6ce53965-3e67-4164-979e-259e6b57a379@amd.com>
+ <cf184113-6db5-455b-87a0-85af727ea377@amd.com>
 Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <6ce53965-3e67-4164-979e-259e6b57a379@amd.com>
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <cf184113-6db5-455b-87a0-85af727ea377@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR04CA0097.namprd04.prod.outlook.com
- (2603:10b6:610:75::12) To SA0PR12MB4557.namprd12.prod.outlook.com
- (2603:10b6:806:9d::10)
+X-ClientProxiedBy: PN2PR01CA0168.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:26::23) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB4557:EE_|IA0PR12MB8206:EE_
-X-MS-Office365-Filtering-Correlation-Id: b28877b9-5365-4f56-70ea-08de7c86c583
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH7PR12MB6465:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2cf26da-32ab-418e-3ef2-08de7cd9802e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|366016|376014;
-X-Microsoft-Antispam-Message-Info: gnuPh9s66LKSaCEHI0NvuIRZ4IVOUAz5E7F7k3zzrhqloPbougOfMmFmA0Up5rkNAAa+is/vNmUbMx/FQP5EKdg4lb2dBxXrEMh4cyPOPss0FTU0v2VwpaK6Nd+PP3ErK3Jwr8rzz3m+uvtQgwDfrWmTsOVYnUfuypA7sQiYOs7HH7T5/LjlAJYGzDf3DINRI7gFFCIWttRxGEurspy7OMoZETQDvqg+yvhLbA9RjFWwyCIgmxkgVb7CKcieqnwW0uoYfoukfcU4KbCrCg73x6ikBxNao+QC4U1eBh5b7gww2N41cuWP076wC91kojdYygS/GrRIpcKf64uy+x0X6rb/+Os2G6xNMHetpWO1XvLYvosESfqH9wzq6qIBUPbtLGR2lZXX4U9MKWZrutJqTTF8TovdoKyuiiFdOvbgVn4xIDUgv475XVYkvuz05uFJ0m5TkcsOuYd4I4yIBhNgAThdevEi6QFEUacUEPUzzCKWJqWBKdjOhTa4YVHmXIXB76TpT8UFcPSDrLlf+oQftGGi7l6m0X15guyiL5ed6jUaFpwBGTLzUq+O8hLXg+dtZyYNQWmgbOClTtqsnvS75EYMBD+ysju0do9ZxaJEHLA0UeyMj8wUl9fC16MCkKqSrGrSxHlFubdYBCTg3qGMM3C3NpZ+F3ZSeBGQjGUgbbyMw3JlWW8K5Fd6yIS0cNcoBM4GO5pvEI7bHF8qQ/HjYIUmDjvezVge5Xb1lNEiiJU=
+X-Microsoft-Antispam-Message-Info: SQJRZxBXV5JqnAV98uVrMjHqL0z8jpoJ0fJGmN/lx/8bJVOwKZ8mNYeVucIitAxFqQo2UtNfkUWV3tVEHs+fpqZdTwTX6G0HFooJWmypIGzCf+BsFNfwJSdRM4UYhPT3yLR8KK/M4BPk6Rt0VzSM0oNWtS4ZHFQ5e2lPKcbGDhjzp8BWEUJuVVwAPXPRthKBKl5pPvW9edC/YG+jox3QyBT+xXAmAF1UGGB9tugZ6Y3wwSbXbAXO3OWRgOJda4OG5ucxw+iwAvRVk2NOufXPaiF77HpB2zOvvExFerPfm0rAmeKdugjoG238oVeIC6SkvgK8zLYnwPByX6W+/0jCbpYM9J+6lOXyObzd2GwHm5oMWWscN1nVzsSFaigQHwCGd84YStBT2uZpEAmAD6dKgwwgS/ak3IYVlC5U7sOFSxHibFWV2Q13lYlRLGNHkLZ7JoRz6TEZJXyw5mo9HVQ7GDl3RjxdYOy589IWT8yJASeswOs97AV9atKnRGbMewsmVorCiAmzc5Y5X70P++kl21+N5Ba9lvBN+sOwwUslIuNL/0nauVyA+iQ0V92UNMaBADNIn9fN309pmmEN6AEy2YO3eU7Hh5XedrJvog4ciA/fy60lW6YP+qOExio2my0DJUtmIzKTL2zWTtrzDZ4zXy4XItnPqdkKh7I8Mre7iDjHiMg8Vgv4ZM8ZA+u3TXSRdiGALlmN5MD2Xb7kR3/6UJg+7EjdnL42V0nKXjlj9os=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4557.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(366016)(376014); DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eUZxcTFEQk5VS3V5RE1vQWlGd0U5WWpUc3VVMlVOYndUaUV0czdQV2wrNnZk?=
- =?utf-8?B?TnJqM3FxdVJSdmtabDVlQk9UTnZLUXR0TkFQeHZweUhpR1B3NGxzTU9jVTcz?=
- =?utf-8?B?SFhaNURkbXh0Yjg0ZWFkck1maU85WGMxVDNHVTQ3SW1RQlZ5aE5kQTVVTDVQ?=
- =?utf-8?B?Umx0TngxNjRndU50dnJYTDA4S2hMdi9nQVVmN0Y1dlF0Q2J4VGhVNkh4UWJ6?=
- =?utf-8?B?QXcxRUF1czBPbTBxejdVS3dWVzZzcENXNHpVblRQc1N5MU94UDhhWnhGOTkx?=
- =?utf-8?B?UWdWaGlJMmZVajhLZFBVMHZvcGpwVHVVWkc5anFlek1GQUx2b3ZreGdOOHVL?=
- =?utf-8?B?dHhUT1pzMXpYdW55MW55Skd0RjgyWGNaN2ZIUnpiTXIydXJaR2F5MWRHUExW?=
- =?utf-8?B?ZzBGUXpqdVJ5TXoyVk8vbWRXaFZOVUMrMHNFSm05THJRYkI5cjdoYVdvNVNC?=
- =?utf-8?B?V0kyQXpIMStOaTEvRzhwblBlZVk2YUNYUEtlck40bjVnWlAzbjYrb1NEVXRo?=
- =?utf-8?B?RHo4WTlXSDZsR2tkSVlJZ0xiM2ZNZ2NORE80NWlUL1gzN0IxZ0NIejdRK3Iy?=
- =?utf-8?B?cjVWRk1UUStzTGd3R0dvK2Z4US90RXR4aGJaTW5Wai9DTjBFYS9CbWFXRW1H?=
- =?utf-8?B?Y0VtK1dQcGhObFlBYWhoOEVPeFl0SjNkTTZaZmNNemVIT3dtZDFHUU5FbnAr?=
- =?utf-8?B?dDNSSENKNGpFT213QUhWRGNwcDBiWWkrUW1qbmZrNWtzTXBvMzBhTk9naFND?=
- =?utf-8?B?UmphaTlzTDhwWUxlV0Z4NWJBMC9QcEg3TXFOL2V3ZWZkOGtROFN3d1YwdlZ5?=
- =?utf-8?B?SXJhSmIvR0xoQ0c4VG9vakhGRHJTUk1LN2VkZjhiQUZabXVIZDJKOG1aNVJw?=
- =?utf-8?B?djdhMVhIYlhmbWl2dDJCZHJxN0hEbDBKQVNNK1g4MjZsOUZPLzBYcUpvbTFa?=
- =?utf-8?B?Y2RnR1RoTnN4M1dCS21Sekl5T2taT25vNzU5QmtBZy9pWjZmdWNIYnpGTTB3?=
- =?utf-8?B?ZDRIdk1UWURBWi8zRXJQa3JlU1RBNE9BRU5lYkFUQ01FdHlmaGRwcWd0dEpn?=
- =?utf-8?B?UFpUSEJraG1ua2g2Qk9LMFl6NkZGSlk4dHVCUW8raXUyYTFNNnVZaGlCMzU3?=
- =?utf-8?B?QXJTTU8ya1NMa0xwbzNabiticXRyOVFoYjRZNkVUT2RnMUxUMll4Z201c1pk?=
- =?utf-8?B?aEx6SE1xWHBXVE82ZHp6d05DajdTN0QyR3RQTUhLc0p1U3U3RFB4UDVyN1Ny?=
- =?utf-8?B?RmtIa0xDeEVHNzZ4cVl5ZVdHd3d5eXl2OW1hREhtQ0pGY1ZVT1hNMlRGYUda?=
- =?utf-8?B?WmN4ZFJwTzhycE1xUmJibzh0ODlVU21MbFEyenBUdWNvK2gxU054dS9pMTRj?=
- =?utf-8?B?dXMwNnIyakcrSjFtR1VPRkFBekRtbnowT0ZZMWRjUEc2OFcwRXY2Sm1jalhz?=
- =?utf-8?B?SDFEUHRGUkM1RW1JK0xjMVZVT01iSTBjUkxYS0RuQm13TmMzSDZHTUdsbXcr?=
- =?utf-8?B?RGFoZEhrRktUb3BLTVhPRDJldWhaWk1uYVRCM0xpTE5qY2tzemtLTkFielhI?=
- =?utf-8?B?VnJOaHgycGJYRm9mV2g2Z0JSU2tuUVpyS3hlWHIvdEl4UDc3ekRJV1hrZjdo?=
- =?utf-8?B?V1ZVelNYU3h1ak51OFhaSTF1dUg3d3FPSVhrWG9MbzZMMFNyL1J6d3lnNGU5?=
- =?utf-8?B?S0s4ZVR3elE4MUZIN3hSU1kzNmdxMUlzT0pWLzdBNk9mbU9JYjByZGhkb2Zo?=
- =?utf-8?B?VDRoUVZrU0dNNFFtMWdBbDh4UWZnZFZ1VU1TZTg0S1laRkQ3MjhncFB2NUV4?=
- =?utf-8?B?WmxyMktVQ3h2cmpJYWlTK2ZrSldNZllqeEtjSDNQOGtOQUlyOXFnMTFFaytF?=
- =?utf-8?B?bHFOK1J2bXBLNzhicnJkci9wN0ZVZTYxdks4Y2JZREthWjJUZ2ptRXBhc2dR?=
- =?utf-8?B?c2U5NXk4elE4YzF6UGxaeFZnWUNsQ2IxdnFoUGhOTHpVOTB0NU4wQkx5ckdG?=
- =?utf-8?B?TjdQSTk1WWExY3V0ZFREU1FTU3F3R3E5MU1STUUwaUNOUUdJRHZ1OHdLSXkz?=
- =?utf-8?B?SVRQRVlXckdhbkdPbFk2c2VrS2IxbzEzZkRqYXZPNitpOGh6Q2s4Mi84cGVM?=
- =?utf-8?B?SzBBbmtEU2V2aWFNbWoyaE9qR2QzUi9BZXhpYnNxbWFlV2NsazVjMTk4WGcz?=
- =?utf-8?B?Yk8vZTllcjEybVUyelpWVHB3K3VKVDM3T3lqYkhaSUhac0NpOWZKU1RCMEZJ?=
- =?utf-8?B?Rm03YjNJRXZpQS9kU1ZnTHhoZTVTYksvTlFjOU16SHVneHloTVB3OGVLeEZq?=
- =?utf-8?B?MXoyUDMxQ0RBdEFybVFERCtFWkYzQ1d3MkZhdVZBZEVyd2NaMzluUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WFZ6T2ZZU2NYZjlsRWpyakpXZ0g2M25mVjI1RExtNXh4S2VZaUM5RVhOSEdk?=
+ =?utf-8?B?VXNkcFZCbkJZclJLWWF3N240WnVHQWZwbjlSQnpCMmxuYW94R2U4aVBxeTRL?=
+ =?utf-8?B?Y1BWZW5BemNzQit5SGltblRyNDVBSkMzRGp5OW03d2JBOVFFbmpTMjVZZTJ1?=
+ =?utf-8?B?bDc3MHh3amUxYzdXWHdma0t4SlhSSmtnNzE4ajdjLzE3R3JVS2JIVzBmZm1C?=
+ =?utf-8?B?RjR0OGRiakVQeHdPTDhSZDhlSVNVNXJKMmNNa3lvL0RuYTZVZ1FzL3B5RDFR?=
+ =?utf-8?B?aFdoUjdjaFhTcnNzdkI1RGRNaVF1cmtMaEcxVGhRSGkrMDR1WlBIUGxjNjhX?=
+ =?utf-8?B?ZG4rQjdvY09KM1JJcytCb3BVQmFVQTF6aXlkazcwcGtrNU5NdDVsUmkzcExh?=
+ =?utf-8?B?M0dsSGFwV29VdTA1aUUrTitnL1BUcC9Id1NoQU9vWHE5ZGQ1NE9Ca0x0N0c1?=
+ =?utf-8?B?dzJXcUFQWVVoNzNGdHltbDkvWE5yREdOMTgyNVpvMGNjd0pBcVo5MC8xUzdn?=
+ =?utf-8?B?ZVhhd29CRzhYYjYvY2Z0dVBFdTRlSnAvc0FGWHVkemZ3UXg4c05FRjhZbzR3?=
+ =?utf-8?B?Vm83S1ViVFVUcGVjc09qZUh2RmdDRXVXUjVMVkgwMkdGeTl5ZnpkRzZ3NHpa?=
+ =?utf-8?B?cGFOdmVDMm1jeklGN3RkbGlYdnliRittSFI3dTlkS2lnSS9QTG1udklsS2VF?=
+ =?utf-8?B?elVSYnYwT0Q3QUNSbTk2NEMvZFhuNXRIUkczTzd5WU9NUUUxdTBrVmhCZWVT?=
+ =?utf-8?B?dEI3YUlVd3htRkRIZTBSVlVXckxnQVJHMStsVklKRjdYVTRnbmJ3amc5MHp5?=
+ =?utf-8?B?RldhdUU3Lzh2aFdBc0hhRDZtSTZxb0paWDZjU1hyM1diT0l1cmtRYmtpaVRE?=
+ =?utf-8?B?U2c3MmNPU3BOazBkVnpvdWptNDMwbDRLR2JzR3dUQ092eVBCOUlIUWVFaTI2?=
+ =?utf-8?B?UVc3N2JEOTdZRnRjeFhIbHpLalQ2SlhiRWVSTjN2VVp0OXZ0QnRVVStna0xN?=
+ =?utf-8?B?V3ZrTGNkcG96RTZyWHVFZmdQa2x1SmpzWUJ0NmdMOGZieHVrLzVYcXcvK1pB?=
+ =?utf-8?B?cnJ4K0t1dDBOWE9zR2duanJUeFRObHMxSHdVSU5OeGFHMFdLUWFZSkxjN2NR?=
+ =?utf-8?B?WEtHeXVXcThoYmFmQzN6L3RQT3FLV0lsdnZnbmk4Q2U3dGxnUkRzb0YzMmhF?=
+ =?utf-8?B?RVhMN2RYRTJHYXc2S3Y0SzlueGp6andCd3h4anRuSVo4UVc2ZVgvc0tHUms5?=
+ =?utf-8?B?MmZsL3RoWjFPRUJFRzB5UThCaHRXb2lGb3pmRkpEbTRjMlp6aFRIbUJvMXFy?=
+ =?utf-8?B?aXNFYW1ROWo4NUpiVGxCUUpFZEFmUVZUd0R6VEg3cExacWZPN1U0Tzl0cUR1?=
+ =?utf-8?B?MHBEN3d6UzRJWFh5cWwxL1k2Y0FNNzZONUVxZHdpY2Z4RHB6QW1zajNpeXgz?=
+ =?utf-8?B?dTlvQUlXMW41dFE3dklCRXpabUpFQ2ZuVGxuMFVlTzBMVHA1a3JIdlozZXpG?=
+ =?utf-8?B?U0wyQlJBa2E0Um5Ob0VuRHZHR2gvZDBQaUk2c0VPeDl0T25pS1lQRTkxalB6?=
+ =?utf-8?B?R095cldoTjNxYWk4cWRCcG45K0FRMldMUXM4eWFaNlhhUG5KZzd2NDRrWnNI?=
+ =?utf-8?B?Yi9sSEtYZDVBd3Q5U09KbEYrblQ3WnVCMjJRejZZOFNHeHYzL0NsbTNWRDN3?=
+ =?utf-8?B?SURUSW1pb1M4b1Z4UldGV1l5WHRqaS9DWFF5clVMTHlKSlNaTVZrZkpsNU9x?=
+ =?utf-8?B?ZDNsaW9ZYUhTWStHYnlydzNISGdUNmxSSldVd3ZYZUtsMkFzdnpPdTlmak5k?=
+ =?utf-8?B?MUtySGZHTTl1OFdhbjR4emlqMWxtQU1XUWVRTWJqZHZLRU5TRWcvalU4NS8v?=
+ =?utf-8?B?V2hVSWVkcFpGL1ZhVXlaUU1aVnhkVGZ6c29iVG5UVW95NGd0NnQwaG1NdDFa?=
+ =?utf-8?B?clhkOEEyb0ExRC80a0FGL1R4d0kxUWRNZ0JReXUxN3I4Z1NVMFpZNlFtQ1A2?=
+ =?utf-8?B?WTNURFJDSzVURU1pVTNaN05nL1pzakx3cjRFTTMvU1RQWHkyczhCU2xXNlJJ?=
+ =?utf-8?B?aHNtMGNOTWt4cVhQYjlBSmcrYjV3QkxudmExWnBOQXRnSkJmQ2dDZUJVWno3?=
+ =?utf-8?B?bUdnbW43OC9PQ1gvd0RjQitkeFZlb1BGUGMydStrYktDaTN1YVoybzJnb0Nl?=
+ =?utf-8?B?bC83R3ArRkdNYUVuUVlQWnlKL2hVd3FNbGo4YmhRYVFTTjBuYWt1ZnB6UjZY?=
+ =?utf-8?B?amptVGVlY25LRUZGYWNtZmRZUmN0VHU1MmZOb01DZ1Rzd2Y3OXYvUmhPNXRm?=
+ =?utf-8?Q?r7H9/M3ehJOAtLwyMv?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b28877b9-5365-4f56-70ea-08de7c86c583
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB4557.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2cf26da-32ab-418e-3ef2-08de7cd9802e
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Mar 2026 20:19:01.7522 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Mar 2026 06:11:13.7253 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +8uLEc2De4JGd7jVcBlNyr+zwq25a8JCIUYyIeeD6B83Ptn5DFw7Ovd+U0KEjQcLp9kUxWpHbuyqWWsgMpNUmw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8206
+X-MS-Exchange-CrossTenant-UserPrincipalName: G6HKwr50J3aXCM6yqvxr7CIC1VjjkD7z/UUAeDoU9+Mryr/f1AgayM5uK4J8NwJl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6465
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,90 +137,113 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 3/6/2026 12:41 AM, Lazar, Lijo wrote:
+On 08-Mar-26 1:48 AM, Mario Limonciello wrote:
 > 
 > 
-> On 06-Mar-26 11:40 AM, Mario Limonciello wrote:
+> On 3/6/2026 12:41 AM, Lazar, Lijo wrote:
 >>
 >>
->> On 3/5/2026 11:07 PM, Lazar, Lijo wrote:
+>> On 06-Mar-26 11:40 AM, Mario Limonciello wrote:
 >>>
 >>>
->>> On 06-Mar-26 3:35 AM, Mario Limonciello wrote:
->>>> I found more case that a NULL version causes problems.
->>>> Add NULL checks as applicable.
+>>> On 3/5/2026 11:07 PM, Lazar, Lijo wrote:
 >>>>
->>>> Fixes: 39fc2bc4da00 ("drm/amdgpu: Protect GPU register accesses in 
->>>> powergated state in some paths")
->>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
->>>> ---
->>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
->>>>   1 file changed, 5 insertions(+)
 >>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/ 
->>>> gpu/ drm/amd/amdgpu/amdgpu_device.c
->>>> index bc6f714e8763a..74cbe58484fe2 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>>> @@ -3463,6 +3463,9 @@ static void amdgpu_ip_block_hw_fini(struct 
->>>> amdgpu_ip_block *ip_block)
->>>>       struct amdgpu_device *adev = ip_block->adev;
->>>>       int r;
->>>> +    if (!ip_block->version)
->>>> +        return;
->>>> +
+>>>> On 06-Mar-26 3:35 AM, Mario Limonciello wrote:
+>>>>> I found more case that a NULL version causes problems.
+>>>>> Add NULL checks as applicable.
+>>>>>
+>>>>> Fixes: 39fc2bc4da00 ("drm/amdgpu: Protect GPU register accesses in 
+>>>>> powergated state in some paths")
+>>>>> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
+>>>>>   1 file changed, 5 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/ 
+>>>>> gpu/ drm/amd/amdgpu/amdgpu_device.c
+>>>>> index bc6f714e8763a..74cbe58484fe2 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+>>>>> @@ -3463,6 +3463,9 @@ static void amdgpu_ip_block_hw_fini(struct 
+>>>>> amdgpu_ip_block *ip_block)
+>>>>>       struct amdgpu_device *adev = ip_block->adev;
+>>>>>       int r;
+>>>>> +    if (!ip_block->version)
+>>>>> +        return;
+>>>>> +
+>>>>
+>>>> ip block versions are set during discovery phase itself. This is a 
+>>>> very early init failure 
 >>>
->>> ip block versions are set during discovery phase itself. This is a 
->>> very early init failure 
->>
->> Yes; this case is NPI system that not all blocks are in discovery yet. 
->> System panics at bootup with NULL ptr deref in multiple places instead 
->> of a clean recovery and keep fbdev.  This patch series sorts it out.
->>
-> 
-> Blocks not in discovery shouldn't be added to ip list or should be added 
-> differently.
-> 
->>> and ideally the fix should be not to call any fini for such an early 
->>> failure.
->>
->> As an alternative to this series?
->>
-> 
-> Yes, if it's a failure as early as in discovery stage, probably we 
-> should skip amdgpu_device_fini_hw altogether.
-
-I experimented some more and feel that the solution I came up with is 
-correct. There are valid versions of everything at this time (the failed 
-IP block isn't there at that time).
-
-So how would you know to skip fini?  I guess check asic_funcs not to be 
-NULL?
-
-But then it's the same as the second commit is doing already.
-
-> 
-> Thanks,
-> Lijo
-> 
+>>> Yes; this case is NPI system that not all blocks are in discovery 
+>>> yet. System panics at bootup with NULL ptr deref in multiple places 
+>>> instead of a clean recovery and keep fbdev.  This patch series sorts 
+>>> it out.
 >>>
->>> Thanks,
->>> Lijo
+>>
+>> Blocks not in discovery shouldn't be added to ip list or should be 
+>> added differently.
+>>
+>>>> and ideally the fix should be not to call any fini for such an early 
+>>>> failure.
 >>>
->>>>       if (!ip_block->version->funcs->hw_fini) {
->>>>           dev_err(adev->dev, "hw_fini of IP block <%s> not defined\n",
->>>>               ip_block->version->funcs->name);
->>>> @@ -3496,6 +3499,8 @@ static void 
->>>> amdgpu_device_smu_fini_early(struct amdgpu_device *adev)
->>>>       for (i = 0; i < adev->num_ip_blocks; i++) {
->>>>           if (!adev->ip_blocks[i].status.hw)
->>>>               continue;
->>>> +        if (!adev->ip_blocks[i].version)
->>>> +            continue;
->>>>           if (adev->ip_blocks[i].version->type == 
->>>> AMD_IP_BLOCK_TYPE_SMC) {
->>>>               amdgpu_ip_block_hw_fini(&adev->ip_blocks[i]);
->>>>               break;
+>>> As an alternative to this series?
+>>>
+>>
+>> Yes, if it's a failure as early as in discovery stage, probably we 
+>> should skip amdgpu_device_fini_hw altogether.
+> 
+> I experimented some more and feel that the solution I came up with is 
+> correct. There are valid versions of everything at this time (the failed 
+> IP block isn't there at that time).
+> 
+
+My understanding of the situation is this is any early exit since driver 
+doesn't recognize one IP block and hence cannot assign corresponding 
+version functions. Without discovery mechanism, the equivalent case is 
+driver not detecting the device id. In both cases, there shouldn't be 
+any need to run through sw/hw fini sequences of ip block.
+
+> So how would you know to skip fini?  I guess check asic_funcs not to be 
+> NULL?
+> 
+
+One way is to undo the effect of set_ip_block within discovery itself. 
+For ex: if there is discovery error, call amdgpu_ip_block_clear() or 
+similar and remove any added ip blocks. num_ip_blocks will then be 0 and 
+in such cases don't run through any unwind sequence (that shouldn't 
+really be needed then). That is the same case if driver is not able 
+detect a valid discovery binary blob also.
+
+Thanks,
+Lijo
+
+> But then it's the same as the second commit is doing already.
+> 
+>>
+>> Thanks,
+>> Lijo
+>>
+>>>>
+>>>> Thanks,
+>>>> Lijo
+>>>>
+>>>>>       if (!ip_block->version->funcs->hw_fini) {
+>>>>>           dev_err(adev->dev, "hw_fini of IP block <%s> not defined\n",
+>>>>>               ip_block->version->funcs->name);
+>>>>> @@ -3496,6 +3499,8 @@ static void 
+>>>>> amdgpu_device_smu_fini_early(struct amdgpu_device *adev)
+>>>>>       for (i = 0; i < adev->num_ip_blocks; i++) {
+>>>>>           if (!adev->ip_blocks[i].status.hw)
+>>>>>               continue;
+>>>>> +        if (!adev->ip_blocks[i].version)
+>>>>> +            continue;
+>>>>>           if (adev->ip_blocks[i].version->type == 
+>>>>> AMD_IP_BLOCK_TYPE_SMC) {
+>>>>>               amdgpu_ip_block_hw_fini(&adev->ip_blocks[i]);
+>>>>>               break;
+>>>>
 >>>
 >>
 > 
