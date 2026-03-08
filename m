@@ -4,64 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC205F55132
-	for <amd-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 08:20:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40EDDF55102
+	for <amd-gfx@archiver.kernel.org>; Sun,  8 Mar 2026 10:11:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7115610E009;
-	Sun,  8 Mar 2026 08:20:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A00B510E0FF;
+	Sun,  8 Mar 2026 10:11:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cG69BamK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jm+8Zf+/";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE84310E009;
- Sun,  8 Mar 2026 08:20:21 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E50410E0FE;
+ Sun,  8 Mar 2026 10:11:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1772958023; x=1804494023;
+ t=1772964668; x=1804500668;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=Pe3lvvOiPMFQ46F7OuVkf8+omFdhw7YDqvcnRRAGsLQ=;
- b=cG69BamKluF1caNfEh5dVLWrVHbBCY8SHoyC+efyJvplN30iCLplnaue
- lLb4VE2/TwbGhmGuEoLjgjFeMy8jHPN2CwD6uOyPjBNyz8b/iHXZ76Fia
- hQmSshidyTS++UqD+8SovdSSQliaoIGigkjbX/kgPdb7Mez1eXgp+bDDr
- T1GcnoPfcv79OKMXIChqKSzgvhnXpusF4z4gXjd7PL0D/CTbgItXA++nv
- TazAe4/ZUiYvxq7nPDLFZQ6gmtOB97hUdR1iwTGKKGqBnjS2oKO8KB3YH
- hD9Ply3hoBL7r/p9jMV+aHsPnD1GHsFSxcYdJZCQRhkG7swptw1hPEIrP w==;
-X-CSE-ConnectionGUID: C/Q2ZzfqQcyas5/bETPWkA==
-X-CSE-MsgGUID: 76Q20NvHQRWX5UHf3ancQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11722"; a="73977855"
-X-IronPort-AV: E=Sophos;i="6.23,108,1770624000"; d="scan'208";a="73977855"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Mar 2026 00:20:22 -0800
-X-CSE-ConnectionGUID: lA4yGwBVQuKcjREHK06l5Q==
-X-CSE-MsgGUID: A+qRt4H6RvW8JfY0/nx6vA==
+ bh=e7VQSTQMtLAY116kGpVCvwpkviv2oXrPqJ9NjU7r+sg=;
+ b=jm+8Zf+/baPy7ft2F0Vo7D06JypLZ5IpwN5V8nDQpAxMR1ON9bKq+GAK
+ vAwVhH13tYv5ntrqKlEhQeceGhQWi45yiIWb7G2MV4eILB4IWbUv/P6zw
+ J9bX/e6bqcnX74j/HEK4hbFOLsQS9YHBFElnzRiH9M/lp2MAK0vT+bA82
+ ccHJz0Z/fMrCZXnAzN0MP7tCxyYj1448zJ9VwpZJhfCnoPW3qWNOWKG6u
+ WezK14vaeFq6uMkmumKmHYdPocD2Qys2dRk5krweU6ICpBuVkOnnZ9LRu
+ 8tY2TuOxeSHpcmfcZVyWKU+dBX2wih7ba854z6g+04iMQ6abSkbUuJDKy g==;
+X-CSE-ConnectionGUID: g5oCWI0dSXaN3kPb7DAc9A==
+X-CSE-MsgGUID: O9kJm/vTQ4etIBcG8YAAbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11722"; a="74086084"
+X-IronPort-AV: E=Sophos;i="6.23,108,1770624000"; d="scan'208";a="74086084"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 Mar 2026 03:11:05 -0700
+X-CSE-ConnectionGUID: KcTc1s/DREKLcWZRphkk/A==
+X-CSE-MsgGUID: poFTVjzPQcyjufj83ZmODA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,108,1770624000"; d="scan'208";a="218641940"
-Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2)
- ([10.211.93.152])
- by orviesa010.jf.intel.com with ESMTP; 08 Mar 2026 00:20:18 -0800
-Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vz9N1-000000002eD-2dND;
- Sun, 08 Mar 2026 08:20:15 +0000
-Date: Sun, 8 Mar 2026 09:19:42 +0100
+X-IronPort-AV: E=Sophos;i="6.23,108,1770624000"; d="scan'208";a="223572702"
+Received: from lkp-server01.sh.intel.com (HELO 058beb05654c) ([10.239.97.150])
+ by orviesa003.jf.intel.com with ESMTP; 08 Mar 2026 03:11:02 -0700
+Received: from kbuild by 058beb05654c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vzB6A-0000000031R-3zWf;
+ Sun, 08 Mar 2026 10:10:58 +0000
+Date: Sun, 8 Mar 2026 18:10:53 +0800
 From: kernel test robot <lkp@intel.com>
-To: Rafael Passos <rafael@rcpassos.me>, alexdeucher@gmail.com
-Cc: oe-kbuild-all@lists.linux.dev, BhuvanaChandra.Pinninti@amd.com,
- Harry.Wentland@amd.com, Martin.Leung@amd.com, Sunpeng.Li@amd.com,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org,
- daniel.wheeler@amd.com, davidbtadokoro@ime.usp.br,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rafael@rcpassos.me, ray.wu@amd.com, rcpassos@ime.usp.br,
- siqueira@igalia.com
-Subject: Re: [PATCH] drm/amd/display: fix resuming from S3 sleep for Renoir
- iGPU
-Message-ID: <202603080959.llKqWvRQ-lkp@intel.com>
-References: <20260308000515.890688-1-rafael@rcpassos.me>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ kernel-dev@igalia.com, intel-xe@lists.freedesktop.org,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Subject: Re: [PATCH v7 04/29] drm/sched: Add some scheduling quality unit tests
+Message-ID: <202603081744.gNhsEN20-lkp@intel.com>
+References: <20260306163445.97243-5-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260308000515.890688-1-rafael@rcpassos.me>
+In-Reply-To: <20260306163445.97243-5-tvrtko.ursulin@igalia.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,55 +75,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Rafael,
+Hi Tvrtko,
 
-kernel test robot noticed the following build warnings:
+kernel test robot noticed the following build errors:
 
-[auto build test WARNING on drm-misc/drm-misc-next]
-[also build test WARNING on linus/master v7.0-rc2 next-20260306]
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on drm-xe/drm-xe-next daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.0-rc2 next-20260306]
 [If your patch is applied to the wrong git tree, kindly drop us a note.
 And when submitting patch, we suggest to use '--base' as documented in
 https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Rafael-Passos/drm-amd-display-fix-resuming-from-S3-sleep-for-Renoir-iGPU/20260308-080715
+url:    https://github.com/intel-lab-lkp/linux/commits/Tvrtko-Ursulin/drm-sched-Disallow-initializing-entities-with-no-schedulers/20260307-012142
 base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260308000515.890688-1-rafael%40rcpassos.me
-patch subject: [PATCH] drm/amd/display: fix resuming from S3 sleep for Renoir iGPU
-config: x86_64-rhel-9.4-ltp (https://download.01.org/0day-ci/archive/20260308/202603080959.llKqWvRQ-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260308/202603080959.llKqWvRQ-lkp@intel.com/reproduce)
+patch link:    https://lore.kernel.org/r/20260306163445.97243-5-tvrtko.ursulin%40igalia.com
+patch subject: [PATCH v7 04/29] drm/sched: Add some scheduling quality unit tests
+config: riscv-allyesconfig (https://download.01.org/0day-ci/archive/20260308/202603081744.gNhsEN20-lkp@intel.com/config)
+compiler: clang version 16.0.6 (https://github.com/llvm/llvm-project 7cbf1a2591520c2491aa35339f227775f4d3adf6)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260308/202603081744.gNhsEN20-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603080959.llKqWvRQ-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603081744.gNhsEN20-lkp@intel.com/
 
-All warnings (new ones prefixed by >>):
+All errors (new ones prefixed by >>):
 
->> drivers/gpu/drm/amd/amdgpu/../display/dc/dccg/dcn21/dcn21_dccg.c:99:6: warning: no previous prototype for 'dccg21_init' [-Wmissing-prototypes]
-      99 | void dccg21_init(struct dccg *dccg)
-         |      ^~~~~~~~~~~
+>> drivers/gpu/drm/scheduler/tests/tests_scheduler.c:676:10: error: initializer element is not a compile-time constant
+                                 drm_sched_scheduler_two_clients_attr),
+                                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/kunit/test.h:224:13: note: expanded from macro 'KUNIT_CASE_PARAM_ATTR'
+                     .attr = attributes, .module_name = KBUILD_MODNAME}
+                             ^~~~~~~~~~
+   1 error generated.
 
 
-vim +/dccg21_init +99 drivers/gpu/drm/amd/amdgpu/../display/dc/dccg/dcn21/dcn21_dccg.c
+vim +676 drivers/gpu/drm/scheduler/tests/tests_scheduler.c
 
-    98	
-  > 99	void dccg21_init(struct dccg *dccg)
-   100	{
-   101		struct dcn_dccg *dccg_dcn = TO_DCN_DCCG(dccg);
-   102	
-   103		/* Hardcoded register values for DCN21
-   104		 * These are specific to 100Mhz refclk
-   105		 * Different ASICs with different refclk may override this in their own init
-   106		 */
-   107		REG_WRITE(MICROSECOND_TIME_BASE_DIV, 0x00120464);
-   108		REG_WRITE(MILLISECOND_TIME_BASE_DIV, 0x001186a0);
-   109		REG_WRITE(DISPCLK_FREQ_CHANGE_CNTL, 0x0e01003c);
-   110	
-   111		if (REG(REFCLK_CNTL))
-   112			REG_WRITE(REFCLK_CNTL, 0);
-   113	}
-   114	
+   672	
+   673	static struct kunit_case drm_sched_scheduler_two_clients_tests[] = {
+   674		KUNIT_CASE_PARAM_ATTR(drm_sched_scheduler_two_clients_test,
+   675				      drm_sched_scheduler_two_clients_gen_params,
+ > 676				      drm_sched_scheduler_two_clients_attr),
+   677		{}
+   678	};
+   679	
 
 -- 
 0-DAY CI Kernel Test Service
