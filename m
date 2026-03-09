@@ -4,125 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E11F4181F
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 17:12:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2372FCA16A
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 17:59:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78E1D10E571;
-	Mon,  9 Mar 2026 17:12:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 527A210E581;
+	Mon,  9 Mar 2026 17:59:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xieLtu1h";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="sytoAyoq";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013025.outbound.protection.outlook.com
- [40.93.201.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6379A10E571
- for <amd-gfx@lists.freedesktop.org>; Mon,  9 Mar 2026 17:12:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=faMbn9oAqV4M8JkAzVEz652tiMF42UWqVom3b/S4xx4IEBKkpW9lbCCAXZRSEDTCdUHmv/aBCuqe7PRxH/AG4AIe536m4LCT8NCigHCN4ejKCQZVKYMf588eQrgZJkJhyDum0nGbZIaFjf2D7dWOayDBWn6TDI/G/1JXxhh0J1rNQwKXqt6XKN/ys1EZr7fyasGKqhYhqa/pSCzy1bgCDIzRIgBQN0CSzlUYPWYgZgw0Vas/jwf9pNP7n8lVu32tuVpmZy/ARvtUmWY3/ol9EYq+lzURoidrn4nWr0JWMZk67BJHNBJyrtID+RFAqPYqBEjUcpXEhDJYAEeaA3shWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hzaItPK3bJMMoyattVKU3ENZog4X3WeVwxuCLhTp1Fg=;
- b=qT9rzWcm8zHC5BQ5sYNmuodL6iW/262qXCuSpTsC/cYG0zw25VsQitn46kARBLzr6zrzEBKZkYJQ2njXBOggjpCwrCXmrxz/6RMtvsZxRIZWjiY6YX8GyY2UhnM6XC7Yn2vW+ZIkyDEkH9KlYHdG7zPzaqmfGbMW8eSoJyO8TLJxiS12U9rCdtGOJurFuwp4yH7lAcLUqRzG+oTYOdq+FA3niX34brIwmJmoplYLDRtTkT69s1/27lQnO6AIR41S4FGjp1OgTesy7RxYBZ4BgXsHGd22y7p47U5amJtaUiZw+/771ip9Mv6wRkXKQGHlPpGOPSJ/MKkRbdVEuDs6QA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hzaItPK3bJMMoyattVKU3ENZog4X3WeVwxuCLhTp1Fg=;
- b=xieLtu1hsDvPovKFOIyq/D1XKljm3Q3BDJfacuLgEBgO3iLGYL0oUkvmhZR152AxUs4E/gyvmC6sqkIwo/IDQ3hGkCwC6y3OGD5WS4hjiv3pgEu/s9IU5iYMxqdmDMUv7TF5lcOTMd2hVrpuc+FdoxfJQXuJb0NlRLAqQKNGy2E=
-Received: from SJ1PR12MB6121.namprd12.prod.outlook.com (2603:10b6:a03:45c::6)
- by CY5PR12MB6369.namprd12.prod.outlook.com (2603:10b6:930:21::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Mon, 9 Mar
- 2026 17:12:38 +0000
-Received: from SJ1PR12MB6121.namprd12.prod.outlook.com
- ([fe80::3fd:549f:f30:cd67]) by SJ1PR12MB6121.namprd12.prod.outlook.com
- ([fe80::3fd:549f:f30:cd67%3]) with mapi id 15.20.9700.010; Mon, 9 Mar 2026
- 17:12:38 +0000
-From: "Xie, Chenglei" <Chenglei.Xie@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-CC: "Chan, Hing Pong" <Jeffrey.Chan@amd.com>, "Luo, Zhigang"
- <Zhigang.Luo@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH v2] drm/amdgpu: Avoid KIQ ring access during GPU reset to
- fix fence timeout
-Thread-Topic: [PATCH v2] drm/amdgpu: Avoid KIQ ring access during GPU reset to
- fix fence timeout
-Thread-Index: AQHcr+eSouiW8es7QEejVdRZt8DW67Wmb3pw
-Date: Mon, 9 Mar 2026 17:12:38 +0000
-Message-ID: <SJ1PR12MB61211876A96980487E022F118079A@SJ1PR12MB6121.namprd12.prod.outlook.com>
-References: <CADnq5_OCRm7oVkr7TY_OCyfSnkPJXAY7ZhjThpEbAauQNz_T_g@mail.gmail.com>
- <20260309170950.1982724-1-Chenglei.Xie@amd.com>
-In-Reply-To: <20260309170950.1982724-1-Chenglei.Xie@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-09T17:10:35.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ1PR12MB6121:EE_|CY5PR12MB6369:EE_
-x-ms-office365-filtering-correlation-id: d579d568-40d4-4b31-97a4-08de7dff10b8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|38070700021|7053199007; 
-x-microsoft-antispam-message-info: qHuol3oW6yMVvZnqkZSKSfxiGBbDmwIpiENZJnrr9wO/kYr+a2/2UppzZxx5mifsAnYgi+/cMPyFzgieokNf/WsZ0sgAREdwHz0tJ9byj1DwYDQiUw8CcEGn6rD/tuIMNsM/9Ae/hEcGdv20erUJVb1bkFXAb/6kgwdKmXLhI01TH2a0b8u3M7+AeeCCoEhpVGKzodw7gWhmK0Q/O17DWJedj/WC0F6NxBfqxzLMkKyVLg3aZ7aGUTfBBoDVz0n6b3yDbOJzg24ii3rqy8Bz1zxRDilJOzQhJC3FdMe88WQyarywsNexEEWr/5RMzC5HuKhn6fvy4sB0zpxutb7WC5w567vXi2+ZDworr6faNJKmmfXRM5hiVZV2kzO3YpKmrdP83JmgRZDt5zThF51Vr9OHqpk259b66hgzuyPwg0AJ5J7vcKT3BmCSrCKoABhpWbV34VhdWWODHZEKgDtP1q97bRQSSVgCMsbLaQubv2Vhv/kA7xP+vw/kXgFSShRIYBlyeKEyLzJOW5B8hRSlJDDKC3zcC9yoCeNS/799GEJf9vjGcxVoxO01H9mpZOsmDAgEj11z4YmiNAyJKhKB/Qns+AbHy4XCfmqKjQ6JV7sSl3eiCltSxlkX0BxaGYxU6JowPbwRz3sHqXi4SjKOd98B8cBXS1v+Q233/3nbS1DKnFFprFwRcR0HNbpiVDpfIwbSJChd3mE/bKlmmFnIdM6twXdO+6UM2vV0YdMEhn4moxNF77576od9Pl3iAAREbp5do6ZLdzyMV6mirlCdt+ZagsfGRZw6Ju/mx/eCTiY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ1PR12MB6121.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(7053199007); DIR:OUT;
- SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?STmglcZVFuhoVMALGdAYfyZW8PAhygkSUbhJK2CB8OxIh1sYZkWfiganJUuM?=
- =?us-ascii?Q?1t9OF0gKhdogW7Oyas8cp0rg5b7CPZUOhkPhbjOONp7LuZkyoCkMqn+5/iTP?=
- =?us-ascii?Q?XEpfNOxhUMsuXm0KOm2d7rgfCk6pQXyCVDE6bYAviZe5PenwgqOtc/qncG+d?=
- =?us-ascii?Q?7EAcvuTKarofEQOAhwygLw0Wk6zsWmYZPendogEbFpS5lHy8mLLUWifICIrW?=
- =?us-ascii?Q?7LsLfiNKQ00vStpKHhtrUMFeHDRQ0wjjLuDR/dYnkvq/qQ06EoNdII91bsB/?=
- =?us-ascii?Q?p9dsiPz00UOGffUG8bQl3JyPXu+GV4Ch5Uu/VvUTxm9tBNl0sw15rLfHO05M?=
- =?us-ascii?Q?bXXpj5FiMt2IO2k3nWWkMEtiLtAmz2pROBpczoHFotB/nFvvegEZQQK5YbDn?=
- =?us-ascii?Q?KFWpQXdyC5elmkwGDGm32uoC4eYqHsf/ZW+i7cqBVdbCWWrZ7VV34ZZb2oKc?=
- =?us-ascii?Q?M+kvFK9Lx0KBWPt6+C2ZZL3NklexQ8WXH38b0jOysCIxXEhyc7dLW0iMoJ7Y?=
- =?us-ascii?Q?+GZqk1EkNmKaYY35zsmFC5vPy3zaXwtkbPYQVXya2JJCvzp1x4MekFwJeFdK?=
- =?us-ascii?Q?uq6CWPwzhEzS0rdv1D5Lhste0tA7i0Z6uqmKOUGWLwEaSyf+qmnOyIz5CG4d?=
- =?us-ascii?Q?q8gi1TjDIFOEwcA8HLx7ou4kl4K90Hy2lzm5bYOoUu/pdSLJ9VagQ+00pRua?=
- =?us-ascii?Q?KLq9oap7Ukl8OF4zb2WIndKTOrzWkNZAGuVMeiNCd6PuFdnoRgffI19ss/62?=
- =?us-ascii?Q?xECaoScTgMxTjOcSl1QecDiXpPWZx3gc44eEb+AUrcSLltgJKktvjJBEEus/?=
- =?us-ascii?Q?9BEz/3DYtW8bFOy2zEDdexqYSbklwdS3DEXI0QKNVAKI6n8dAprL6MkEV41x?=
- =?us-ascii?Q?0z0l5hlwGEvsIkG9R6tdEyOuPSR1xRb7ZqNW6CBNOH/of6Mlz0hOLZ/Jlv9Z?=
- =?us-ascii?Q?d5PHZSTH5bbKyFJiddfKbl4P4C8dz/atm6nf6wqn6UuU4TZIKYrXfLZ9tJCg?=
- =?us-ascii?Q?ufo6uI6+ROLB9fN6/8iJAqgQReCp7P7cco7qrqK6lpjSWppQjfHFvz4oLU7S?=
- =?us-ascii?Q?mrU0LE0Bs0kri64vNAeclgxTUlC+/y6xUrcVnNZkoeNDLTJ6PKo6Wz+78R7K?=
- =?us-ascii?Q?xIjNfp2c/oZjpwsDHFyxvRCU+2Fch5iUy85444HThkCFIw6eZx/xgysqoly/?=
- =?us-ascii?Q?S1d+1cmiGRm86+w7Xc0iC5BvAP/AI2A2wsllZdxaFXODv0HGRgnBN8lC/q0A?=
- =?us-ascii?Q?DAirTAPFe9U06ABTPr34dkkVXWwo2zrWtNK2uBtdksqsa2mEsOAe+zd6uOis?=
- =?us-ascii?Q?q27lKxGCzM7AAOimYaCAVZLMAG+eF94JseqKUm6NuxxOMhoYboTTKjICRukZ?=
- =?us-ascii?Q?YRfbsLHWXC+NCOZ+oX9BUfpEkMPbeBimun14UAmn8nH7dZ/RiGfAYUu1M6sT?=
- =?us-ascii?Q?x5qHuOCkVDoR0aXR5z+zYSPKzDPoDi+ZlBGabJcXVPFGLNGgtLnIp2zdAJOa?=
- =?us-ascii?Q?ocFuidzqawM2eVv3zHtOiYynEl/XlFAg49GLetQRCadCAcDDDaLwZ8L3WkX/?=
- =?us-ascii?Q?GdzyoO2phxPmsYj0NFCc82l+d7CQYlzHr/CMtE27QKaVjYKKZHIVZwOxK911?=
- =?us-ascii?Q?YNFn7tXcFvNp0opaEver6SrDzYNccjN2VeSVXRhdeCQ9GjgVBGnO0GhDTpG+?=
- =?us-ascii?Q?yTczX0cdBGiYIeJcbb800G3wEoLaQSCDqlZtzzsbVm4lSHSD?=
-Content-Type: text/plain; charset="us-ascii"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 762AD10E581;
+ Mon,  9 Mar 2026 17:59:51 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8895D600AE;
+ Mon,  9 Mar 2026 17:59:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF2DC4CEF7;
+ Mon,  9 Mar 2026 17:59:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773079190;
+ bh=BYb8Q4I+dU4OWfDEfeeu912CnLq4YsMBTwSGhXV88iA=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=sytoAyoqRuqb7DYALeMfgGmFwJ/Gnq7PhmSsmZjb3Idg/HwBvfuZsGOsKOoEb4ATD
+ sNL1JTeDn0KBItNMUfMM8sl7+3QgkkVzNRPdXfiIX/FM78037uWHmKKhSbAmHrf4IH
+ e0otFYm4RNTeOtcwv5wvbMawAoPEO2T2ZX8k03N8US8APKwS4rDGcQnOHCnZoEi5y6
+ ihMnUzX+sa1TX2VQBqP2HLPfdCKhgqmyvLVdRj16S2R523CjWeM26qn1e3tCMxmywz
+ N6hxIDEPk1JA4enrgUR14S2JtF4kfmOi+o5dVSvCCBOgDlz4fDmen/eikhSqweb7f7
+ kinrKOOfx9+zw==
+Message-ID: <f22758116dabd3c135a833bcb5cfcd2ea4f6ecf4.camel@kernel.org>
+Subject: Re: [PATCH v3 00/12] vfs: change inode->i_ino from unsigned long to
+ u64
+From: Jeff Layton <jlayton@kernel.org>
+To: Mimi Zohar <zohar@linux.ibm.com>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
+ fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
+ linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+ samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
+ v9fs@lists.linux.dev, linux-afs@lists.infradead.org,
+ autofs@vger.kernel.org, 	ceph-devel@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, ecryptfs@vger.kernel.org, 
+ linux-mtd@lists.infradead.org, jfs-discussion@lists.sourceforge.net, 
+ ntfs3@lists.linux.dev, ocfs2-devel@lists.linux.dev,
+ devel@lists.orangefs.org, 	linux-unionfs@vger.kernel.org,
+ apparmor@lists.ubuntu.com, 	linux-security-module@vger.kernel.org,
+ linux-integrity@vger.kernel.org, 	selinux@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 	linaro-mm-sig@lists.linaro.org,
+ netdev@vger.kernel.org, 	linux-perf-users@vger.kernel.org,
+ linux-fscrypt@vger.kernel.org, 	linux-xfs@vger.kernel.org,
+ linux-hams@vger.kernel.org, linux-x25@vger.kernel.org, 
+ audit@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+ linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
+Date: Mon, 09 Mar 2026 13:59:43 -0400
+In-Reply-To: <05b5d55c49b5a1bbc43a5315e3c84872e7e634b3.camel@linux.ibm.com>
+References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
+ <05b5d55c49b5a1bbc43a5315e3c84872e7e634b3.camel@linux.ibm.com>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6121.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d579d568-40d4-4b31-97a4-08de7dff10b8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Mar 2026 17:12:38.3306 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ncrTFZLdXFNyXbcyENwk7ZAXBwcohqpr+ISawOHiQgQxwjDbC1s03HWt1GTPV1+fTl6dam5nW8rPnRBCEaOdiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6369
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,95 +152,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+On Mon, 2026-03-09 at 13:47 -0400, Mimi Zohar wrote:
+> [ I/O socket time out.  Trimming the To list.]
+>=20
+> On Wed, 2026-03-04 at 10:32 -0500, Jeff Layton wrote:
+> > This version squashes all of the format-string changes and the i_ino
+> > type change into the same patch. This results in a giant 600+ line patc=
+h
+> > at the end of the series, but it does remain bisectable.  Because the
+> > patchset was reorganized (again) some of the R-b's and A-b's have been
+> > dropped.
+> >=20
+> > The entire pile is in the "iino-u64" branch of my tree, if anyone is
+> > interested in testing this.
+> >=20
+> >     https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux.git/
+> >=20
+> > Original cover letter follows:
+> >=20
+> > ----------------------8<-----------------------
+> >=20
+> > Christian said [1] to "just do it" when I proposed this, so here we are=
+!
+> >=20
+> > For historical reasons, the inode->i_ino field is an unsigned long,
+> > which means that it's 32 bits on 32 bit architectures. This has caused =
+a
+> > number of filesystems to implement hacks to hash a 64-bit identifier
+> > into a 32-bit field, and deprives us of a universal identifier field fo=
+r
+> > an inode.
+> >=20
+> > This patchset changes the inode->i_ino field from an unsigned long to a
+> > u64. This shouldn't make any material difference on 64-bit hosts, but
+> > 32-bit hosts will see struct inode grow by at least 4 bytes. This could
+> > have effects on slabcache sizes and field alignment.
+> >=20
+> > The bulk of the changes are to format strings and tracepoints, since th=
+e
+> > kernel itself doesn't care that much about the i_ino field. The first
+> > patch changes some vfs function arguments, so check that one out
+> > carefully.
+> >=20
+> > With this change, we may be able to shrink some inode structures. For
+> > instance, struct nfs_inode has a fileid field that holds the 64-bit
+> > inode number. With this set of changes, that field could be eliminated.
+> > I'd rather leave that sort of cleanups for later just to keep this
+> > simple.
+> >=20
+> > Much of this set was generated by LLM, but I attributed it to myself
+> > since I consider this to be in the "menial tasks" category of LLM usage=
+.
+> >=20
+> > [1]: https://lore.kernel.org/linux-fsdevel/20260219-portrait-winkt-9590=
+70cee42f@brauner/
+> >=20
+> > Signed-off-by: Jeff Layton <jlayton@kernel.org>
+>=20
+> Jeff, missing from this patch set is EVM.  In hmac_add_misc() EVM copies =
+the
+> i_ino and calculates either an HMAC or file meta-data hash, which is then
+> signed.=20
+>=20
+>=20
 
-Hi Alex,
+Thanks Mimi, good catch.
 
-I updated the patch that skips KIQ ring access during reset to fix the issu=
-e. Please help review, thanks!
+It looks like we should just be able to change the ino field to a u64
+alongside everything else. Something like this:
 
-Regards,
-Chenglei
+diff --git a/security/integrity/evm/evm_crypto.c b/security/integrity/evm/e=
+vm_crypto.c
+index c0ca4eedb0fe..77b6c2fa345e 100644
+--- a/security/integrity/evm/evm_crypto.c
++++ b/security/integrity/evm/evm_crypto.c
+@@ -144,7 +144,7 @@ static void hmac_add_misc(struct shash_desc *desc, stru=
+ct inode *inode,
+                          char type, char *digest)
+ {
+        struct h_misc {
+-               unsigned long ino;
++               u64 ino;
+                __u32 generation;
+                uid_t uid;
+                gid_t gid;
 
------Original Message-----
-From: Xie, Chenglei <Chenglei.Xie@amd.com>
-Sent: Monday, March 9, 2026 1:10 PM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: Chan, Hing Pong <Jeffrey.Chan@amd.com>; Luo, Zhigang <Zhigang.Luo@amd.c=
-om>; amd-gfx@lists.freedesktop.org; Xie, Chenglei <Chenglei.Xie@amd.com>
-Subject: [PATCH v2] drm/amdgpu: Avoid KIQ ring access during GPU reset to f=
-ix fence timeout
 
-After GPU reset, the hardware queue is cleared and all pending fences are l=
-ost, but the fence writeback memory stays stale. If the driver keeps submit=
-ting to the KIQ ring during reset (e.g. HDP flush), sync_seq advances while=
- writeback does not, so amdgpu_fence_emit_polling() waits for lost fences a=
-nd hits -ETIMEDOUT, blocking further KIQ use.
 
-Fix this by skipping KIQ ring use when in reset.
+That should make no material difference on 64-bit hosts. What's the
+effect on 32-bit? Will they just need to remeasure everything or would
+the consequences be more dire? Do we have any clue whether anyone is
+using EVM in 32-bit environments?
 
-Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
-Change-Id: I717df52ed0ef0bb51a6901f218191d9837a77f6f
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 10 ++++++++++  drivers/gpu/drm/a=
-md/amdgpu/amdgpu_gmc.c |  3 +++
- 2 files changed, 13 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gfx.c
-index cab3196a87fb1..0021e763b753a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -1124,6 +1124,9 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, =
-uint32_t reg, uint32_t xcc_
-        if (adev->mes.ring[0].sched.ready)
-                return amdgpu_mes_rreg(adev, reg, xcc_id);
-
-+       if (amdgpu_in_reset(adev))
-+               return ~0;
-+
-        BUG_ON(!ring->funcs->emit_rreg);
-
-        spin_lock_irqsave(&kiq->ring_lock, flags); @@ -1202,6 +1205,9 @@ vo=
-id amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v, ui=
-nt3
-                return;
-        }
-
-+       if (amdgpu_in_reset(adev))
-+               return;
-+
-        spin_lock_irqsave(&kiq->ring_lock, flags);
-        r =3D amdgpu_ring_alloc(ring, 32);
-        if (r)
-@@ -1298,6 +1304,10 @@ int amdgpu_kiq_hdp_flush(struct amdgpu_device *adev)
-        if (adev->enable_mes_kiq && adev->mes.ring[0].sched.ready)
-                return amdgpu_mes_hdp_flush(adev);
-
-+       /* Avoid KIQ ring access during reset; caller will use amdgpu_hdp_f=
-lush fallback */
-+       if (amdgpu_in_reset(adev))
-+               return -EBUSY;
-+
-        if (!ring->funcs->emit_hdp_flush) {
-                return -EOPNOTSUPP;
-        }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gmc.c
-index 20e1395b39882..f9db2b17105b7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -876,6 +876,9 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_dev=
-ice *adev,
-                return;
-        }
-
-+       if (amdgpu_in_reset(adev))
-+               return;
-+
-        spin_lock_irqsave(&kiq->ring_lock, flags);
-        amdgpu_ring_alloc(ring, 32);
-        amdgpu_ring_emit_reg_write_reg_wait(ring, reg0, reg1,
---
-2.34.1
-
+Thanks,
+--=20
+Jeff Layton <jlayton@kernel.org>
