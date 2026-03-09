@@ -4,59 +4,116 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11F61FCC9D6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C077EEA854C
 	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 08:25:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FCFA10E681;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD51210E682;
 	Tue, 10 Mar 2026 08:25:16 +0000 (UTC)
-X-Greylist: delayed 32000 seconds by postgrey-1.36 at gabe;
- Tue, 10 Mar 2026 01:00:04 UTC
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
- [13.76.78.106])
- by gabe.freedesktop.org (Postfix) with ESMTP id 7F16610E137;
- Tue, 10 Mar 2026 01:00:04 +0000 (UTC)
-Received: from zju.edu.cn (unknown [10.98.66.117])
- by mtasvr (Coremail) with SMTP id _____wAH_GYHba9pz2IlAQ--.13752S3;
- Tue, 10 Mar 2026 08:59:52 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
- by mail-app2 (Coremail) with SMTP id zC_KCgDXOj0Gba9pjvsvBg--.5049S2;
- Tue, 10 Mar 2026 08:59:51 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="O46FAzGv";
+	dkim-atps=neutral
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 127A710E578;
+ Mon,  9 Mar 2026 17:47:21 +0000 (UTC)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 629F7to91275175; Mon, 9 Mar 2026 17:47:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=k/HLlQ
+ fqfXVQs+Pamcq/LePEaOpgjPTSxe75E2LQHmw=; b=O46FAzGvsE2YmZ6439UqTH
+ f//oqGS2NuJoB8xY2lcg12hMD2aNtQ4ID9XxubauhUUNB5XWruUCNbrIED9U/sy2
+ gQV+VyjgSVjVmAG4Kam45dqeg/cEF7wexHdqP7q6amhZ86wA+YW4+a7JvMwqNGHX
+ K+CR1szr/+ThnSfgYQtyXM8JHrNaKlVVJxj2UpO9B9nfw7GY0lpUaQgYj3FXUBhW
+ hCYFfYxjosdklAtClo/CAOyDK0Kz8Ak4d419uQhCeU81c/npAiEGpAq1IaGDP95R
+ 6czGdohxtpKDTNPNp0U2JdVL6ApX0w6YBruEMYsSerjEZYuw8x9syT1jr4FLueng
+ ==
+Received: from ppma11.dal12v.mail.ibm.com
+ (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4crcvr7huu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 Mar 2026 17:47:15 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma11.dal12v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 629FqYI5015725;
+ Mon, 9 Mar 2026 17:47:14 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+ by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4cs121wp59-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 09 Mar 2026 17:47:14 +0000
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com
+ [10.39.53.230])
+ by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 629HlDVJ60162522
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 9 Mar 2026 17:47:13 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5E5775805A;
+ Mon,  9 Mar 2026 17:47:13 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4442758054;
+ Mon,  9 Mar 2026 17:47:09 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown
+ [9.61.72.80]) by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Mon,  9 Mar 2026 17:47:09 +0000 (GMT)
+Message-ID: <05b5d55c49b5a1bbc43a5315e3c84872e7e634b3.camel@linux.ibm.com>
+Subject: Re: [PATCH v3 00/12] vfs: change inode->i_ino from unsigned long
+ to u64
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Jeff Layton <jlayton@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev,
+ fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev,
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org,
+ v9fs@lists.linux.dev, linux-afs@lists.infradead.org,
+ autofs@vger.kernel.org, ceph-devel@vger.kernel.org,
+ codalist@coda.cs.cmu.edu, ecryptfs@vger.kernel.org,
+ linux-mtd@lists.infradead.org, jfs-discussion@lists.sourceforge.net,
+ ntfs3@lists.linux.dev, ocfs2-devel@lists.linux.dev,
+ devel@lists.orangefs.org, linux-unionfs@vger.kernel.org,
+ apparmor@lists.ubuntu.com, linux-security-module@vger.kernel.org,
+ linux-integrity@vger.kernel.org, selinux@vger.kernel.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v2] drm/amdgpu: fix PASID task_info lookup race
-Date: Tue, 10 Mar 2026 00:58:48 +0000
-Message-Id: <20260310005848.614611-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <01de9910-3fe6-4683-b005-f41103a9bf89@amd.com>
-References: <01de9910-3fe6-4683-b005-f41103a9bf89@amd.com>
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ netdev@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ linux-fscrypt@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-hams@vger.kernel.org, linux-x25@vger.kernel.org,
+ audit@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
+In-Reply-To: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
+References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 09 Mar 2026 13:47:08 -0400
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zC_KCgDXOj0Gba9pjvsvBg--.5049S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?nRBQSQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
- sfncp7Oa4RjKRyNF7NkJaR8oJN8O+r/qLFIxzcK4BNfE4wg7DuyW4+V4p9keUxvixXzpsC
- ckGy0nBMooUrrLs/JHsB5rM+H8XhqwExY4Cjs2QP
-X-Coremail-Antispam: 1Uk129KBj93XoWxAr43urWfXF1ftFW8tr43urX_yoW5WF1kpF
- 4fGr1YyF4kZr4aqr18Jas5Zas0yw1kZw1jkrWfGw1F9as8J3Z5Xrn7CFWUZF9xCFWkCFW2
- qrWUJ3y8WFnFgFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
- wI0_Cr1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57
- IF6xkI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE
- 14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2
- IYc2Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I
- 3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxV
- WUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAF
- wI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcI
- k0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j
- 6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jbo7NUUUUU=
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzA5MDE1OCBTYWx0ZWRfX4MWriKER56jj
+ FHMwPduc6Ya80ytljBjcJCflJZJQpLHypO90MyIljV3F+YGnUEWqD2zkjjI4tBlT1Isyk88nQqD
+ Bxsi6y6lZ0wNsui73O82C4s92lOeLYZxoPRW/EZDUOjQSMymQTWQJKaIWTXxL4ETx9VAdofRsxH
+ 1pntH+n6NhQwxXW3M12fPcKiL5ADcuXldDKiDw4m+7ix+qwvBlo3nspOLghaJ2LE6mxrOiKA5Lh
+ GMTERNprgwZauxVcqC/p8dLI9p6C/LOkJmscaf6mdPih3AOPO2LV5vS62FSOrim10LguG5ezUsF
+ rdAkmDzMNpwcB3l0gkLlsufFyGUR7bS4yrPNzNHAbiSDJiUdpsUzX7AZ0qjMDEeQhvmbO0coQJz
+ 4Dc1QnM6RvCUkwZGaB0uRcWv6crLl/+68sTOTDKRYLJY7AFXUTAN+lczmFotg9pSQAz65D+NPWn
+ mWAaXfwB8yIBs0IZagQ==
+X-Proofpoint-GUID: k-5kS7gQwSwb7EbHSrKEnUBgm0EngagK
+X-Proofpoint-ORIG-GUID: k-5kS7gQwSwb7EbHSrKEnUBgm0EngagK
+X-Authority-Analysis: v=2.4 cv=QoFTHFyd c=1 sm=1 tr=0 ts=69af07a3 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=x61hcHDQ_TxU8J0rBBAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-09_04,2026-03-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1011 malwarescore=0 suspectscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2602130000
+ definitions=main-2603090158
 X-Mailman-Approved-At: Tue, 10 Mar 2026 08:25:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,84 +129,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_vm_get_task_info_pasid() currently looks up the VM from the
-PASID xarray, drops the xarray lock, and only then grabs the task_info
-reference through amdgpu_vm_get_task_info_vm().
+[ I/O socket time out.  Trimming the To list.]
 
-Take the task_info reference directly while holding the PASID xarray
-lock instead. This keeps the lookup and reference acquisition in the
-same critical section.
+On Wed, 2026-03-04 at 10:32 -0500, Jeff Layton wrote:
+> This version squashes all of the format-string changes and the i_ino
+> type change into the same patch. This results in a giant 600+ line patch
+> at the end of the series, but it does remain bisectable.  Because the
+> patchset was reorganized (again) some of the R-b's and A-b's have been
+> dropped.
+>=20
+> The entire pile is in the "iino-u64" branch of my tree, if anyone is
+> interested in testing this.
+>=20
+>     https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux.git/
+>=20
+> Original cover letter follows:
+>=20
+> ----------------------8<-----------------------
+>=20
+> Christian said [1] to "just do it" when I proposed this, so here we are!
+>=20
+> For historical reasons, the inode->i_ino field is an unsigned long,
+> which means that it's 32 bits on 32 bit architectures. This has caused a
+> number of filesystems to implement hacks to hash a 64-bit identifier
+> into a 32-bit field, and deprives us of a universal identifier field for
+> an inode.
+>=20
+> This patchset changes the inode->i_ino field from an unsigned long to a
+> u64. This shouldn't make any material difference on 64-bit hosts, but
+> 32-bit hosts will see struct inode grow by at least 4 bytes. This could
+> have effects on slabcache sizes and field alignment.
+>=20
+> The bulk of the changes are to format strings and tracepoints, since the
+> kernel itself doesn't care that much about the i_ino field. The first
+> patch changes some vfs function arguments, so check that one out
+> carefully.
+>=20
+> With this change, we may be able to shrink some inode structures. For
+> instance, struct nfs_inode has a fileid field that holds the 64-bit
+> inode number. With this set of changes, that field could be eliminated.
+> I'd rather leave that sort of cleanups for later just to keep this
+> simple.
+>=20
+> Much of this set was generated by LLM, but I attributed it to myself
+> since I consider this to be in the "menial tasks" category of LLM usage.
+>=20
+> [1]: https://lore.kernel.org/linux-fsdevel/20260219-portrait-winkt-959070=
+cee42f@brauner/
+>=20
+> Signed-off-by: Jeff Layton <jlayton@kernel.org>
 
-The task_info is dropped only after the VM is removed from the PASID
-mapping, so a regular kref_get() is sufficient here.
+Jeff, missing from this patch set is EVM.  In hmac_add_misc() EVM copies th=
+e
+i_ino and calculates either an HMAC or file meta-data hash, which is then
+signed.=20
 
-Also remove the now unnecessary amdgpu_vm_get_vm_from_pasid() helper.
-
-Fixes: b8f67b9ddf4f ("drm/amdgpu: change vm->task_info handling")
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
-v2:
-- grab the task_info reference directly under the PASID xarray lock
-- drop the extra local-variable comment
-- use kref_get() instead of kref_get_unless_zero()
-- simplify the changelog
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 35 +++++++++++++++-----------
- 1 file changed, 20 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index f2beb980e3c3..706ca8dd65d2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2468,19 +2468,6 @@ static void amdgpu_vm_destroy_task_info(struct kref *kref)
- 	kfree(ti);
- }
- 
--static inline struct amdgpu_vm *
--amdgpu_vm_get_vm_from_pasid(struct amdgpu_device *adev, u32 pasid)
--{
--	struct amdgpu_vm *vm;
--	unsigned long flags;
--
--	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
--	vm = xa_load(&adev->vm_manager.pasids, pasid);
--	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
--
--	return vm;
--}
--
- /**
-  * amdgpu_vm_put_task_info - reference down the vm task_info ptr
-  *
-@@ -2527,8 +2514,26 @@ amdgpu_vm_get_task_info_vm(struct amdgpu_vm *vm)
- struct amdgpu_task_info *
- amdgpu_vm_get_task_info_pasid(struct amdgpu_device *adev, u32 pasid)
- {
--	return amdgpu_vm_get_task_info_vm(
--			amdgpu_vm_get_vm_from_pasid(adev, pasid));
-+	struct amdgpu_vm *vm;
-+	unsigned long flags;
-+	struct amdgpu_task_info *ti = NULL;
-+
-+	/*
-+	 * Acquire the task_info reference while holding the pasids xarray
-+	 * lock to prevent a race with amdgpu_vm_fini() which removes the
-+	 * PASID mapping before freeing the VM (embedded in struct amdgpu_fpriv).
-+	 * Without this, the VM could be freed between xa_load() return and
-+	 * the task_info dereference.
-+	 */
-+	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
-+	vm = xa_load(&adev->vm_manager.pasids, pasid);
-+	if (vm && vm->task_info) {
-+		ti = vm->task_info;
-+		kref_get(&ti->refcount);
-+	}
-+	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
-+
-+	return ti;
- }
- 
- static int amdgpu_vm_create_task_info(struct amdgpu_vm *vm)
--- 
-2.34.1
-
+Mimi
