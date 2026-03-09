@@ -4,144 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6EF5FCA187
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 20:50:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D82EFCA192
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 21:37:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5022110E19F;
-	Mon,  9 Mar 2026 20:50:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 183A710E5C3;
+	Mon,  9 Mar 2026 21:37:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GN2SfUIA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FsKOUDjE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D9F510E19F;
- Mon,  9 Mar 2026 20:50:30 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 27180600AE;
- Mon,  9 Mar 2026 20:50:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A60CEC4CEF7;
- Mon,  9 Mar 2026 20:50:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773089428;
- bh=dtJOBl9/lJmcpYvbt08qDt0E/SeVly7fcddIRcZqnXs=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=GN2SfUIAcDhD4LMxiprRsW1sf9W9hWt/GriG8kxe1xaqweJf5Ad0KV2IQqbnKeTyL
- wWgNTFwCzpkw1wLZNbhHc+2MqKf/Z5AfIr4lf142GsKzSa2EBP7p7YMVUIwha2Toyp
- QeAdfA46F5M9KdAZ9NqbfwqR7WLYOKZp6BuhnBmCp93RoSkDgeQX6CfOQF/qXKKRkC
- tUICS2GIaGfT5Wif6XTDVX9vS/5QIFO6tWNB5fBJfpBKaJ+v9nPTCcYqnFcfZEqzL7
- BYgvspEDX+I9WWwoK4CrNBKnM/WSG7vQmkbE1cvlYpnfpqrD0OjbUjRZq5pDVtqLDe
- 0gLIDSTfrP25g==
-Message-ID: <71ea5f9ce0f0013f914fcd5fb87bdeb1646143cf.camel@kernel.org>
-Subject: Re: [PATCH v3 00/12] vfs: change inode->i_ino from unsigned long to
- u64
-From: Jeff Layton <jlayton@kernel.org>
-To: Mimi Zohar <zohar@linux.ibm.com>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, nvdimm@lists.linux.dev, 
- fsverity@lists.linux.dev, linux-mm@kvack.org, netfs@lists.linux.dev, 
- linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net, 
- linux-nfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
- samba-technical@lists.samba.org, linux-nilfs@vger.kernel.org, 
- v9fs@lists.linux.dev, linux-afs@lists.infradead.org,
- autofs@vger.kernel.org, 	ceph-devel@vger.kernel.org,
- codalist@coda.cs.cmu.edu, ecryptfs@vger.kernel.org, 
- linux-mtd@lists.infradead.org, jfs-discussion@lists.sourceforge.net, 
- ntfs3@lists.linux.dev, ocfs2-devel@lists.linux.dev,
- devel@lists.orangefs.org, 	linux-unionfs@vger.kernel.org,
- apparmor@lists.ubuntu.com, 	linux-security-module@vger.kernel.org,
- linux-integrity@vger.kernel.org, 	selinux@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, 	linaro-mm-sig@lists.linaro.org,
- netdev@vger.kernel.org, 	linux-perf-users@vger.kernel.org,
- linux-fscrypt@vger.kernel.org, 	linux-xfs@vger.kernel.org,
- linux-hams@vger.kernel.org, linux-x25@vger.kernel.org, 
- audit@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
- linux-can@vger.kernel.org, linux-sctp@vger.kernel.org, bpf@vger.kernel.org
-Date: Mon, 09 Mar 2026 16:50:22 -0400
-In-Reply-To: <0bd92b4fce00a6111a0fc7764904f7e6ae0ece3a.camel@linux.ibm.com>
-References: <20260304-iino-u64-v3-0-2257ad83d372@kernel.org>
- <05b5d55c49b5a1bbc43a5315e3c84872e7e634b3.camel@linux.ibm.com>
- <f22758116dabd3c135a833bcb5cfcd2ea4f6ecf4.camel@kernel.org>
- <c9500adc562665d44feaca9206f23a5ba07432c1.camel@linux.ibm.com>
- <dd3f9873c7939fba0ca2366effd24e4b6326f17b.camel@kernel.org>
- <0bd92b4fce00a6111a0fc7764904f7e6ae0ece3a.camel@linux.ibm.com>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010059.outbound.protection.outlook.com [52.101.61.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1BEE10E5C3
+ for <amd-gfx@lists.freedesktop.org>; Mon,  9 Mar 2026 21:37:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hmvLdLecLOXudYJeZQJjInn9kK9DfdT5xceeaHdiv0wVEGRwX4wjMqQwTFV3qrLjMD1gPT4FRu6mql8AyIehmTdIJtpDwwPxDTh1jVpYB0NcNhBFYAakZHF/EZfNSn6hLIjwzCOZ55Ekz+/fVA+isENMlRKoCIuaT78mn9r1wjYgqlS7Ku6eS/XOU/Kr1GVePVVCOEb+Pzeuh16XGXRu8vIjY+7RJEVLs7mRr9bcuj+MdNW19E4d55V3V503lhSx1xfkjvhkMDtpGUcIpjPTxrtpLJVqiYEsdfSaWjwpic/PuWRdC9IVpaFhHLSL8MgKMSdy4G6SNE2pCZjgOQ52YA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BaArG/ndOUI67QAFNlPJ/4k5PTu7v6aPXqkHsKHvsws=;
+ b=n0xzrSPP+o+rX3Gnmbt05X6HlAqvtT5ZEwFDhwqM9kg/njKWfv9FnNaY+AV/OD/Bfvw8QJT5Nag5++UxBabc+dGSVEVwb70awIMex1YI6Xwb2mUe55sxUkCUJgcuo09OWE8F83z+R3ZtnkGc+h21pKKNUesGVZTzy0jbADv9nZ1NnlLcNW5sreu1k/Ss9f29z8hiWSy+y6mzhnp9sFouWqqWfw5jxOHuEQFpkH8GZ3aGxvr6B6tT6iw22yadhg51LhwhX+37fAvyWuvBnngC4+AfZd5i6QSePM2yTFqIScZL+d2kjSZNy4RyuDBFto52upB1kOjxDxCCxVjf1P2diw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BaArG/ndOUI67QAFNlPJ/4k5PTu7v6aPXqkHsKHvsws=;
+ b=FsKOUDjELajZ3Cvhb4JXDy+7OOGMya1XL1zc/mmVcwL83judemR8QXGG9ITTCVH+11eb8ozegyeH1CmVaraLyHjQya2kErMpMqwxKKFpNr2mdg3kuEb5iStanW106Lb+UZv8TfqETPpsALGiKSaXqfrVcvUl8KO9Sbq5eFzjwBg=
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com (2603:10b6:208:316::6)
+ by CH3PR12MB8483.namprd12.prod.outlook.com (2603:10b6:610:15c::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Mon, 9 Mar
+ 2026 21:37:50 +0000
+Received: from BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::699b:1fb2:73:6a33]) by BL1PR12MB5144.namprd12.prod.outlook.com
+ ([fe80::699b:1fb2:73:6a33%6]) with mapi id 15.20.9700.010; Mon, 9 Mar 2026
+ 21:37:50 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Xie, Chenglei" <Chenglei.Xie@amd.com>
+CC: "Chan, Hing Pong" <Jeffrey.Chan@amd.com>, "Luo, Zhigang"
+ <Zhigang.Luo@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH v2] drm/amdgpu: Avoid KIQ ring access during GPU reset to
+ fix fence timeout
+Thread-Topic: [PATCH v2] drm/amdgpu: Avoid KIQ ring access during GPU reset to
+ fix fence timeout
+Thread-Index: AQHcr+eR4ak5mfZre0W4PCSb6ujZvbWmuekw
+Date: Mon, 9 Mar 2026 21:37:50 +0000
+Message-ID: <BL1PR12MB514440E60EE90386DB56E50CF779A@BL1PR12MB5144.namprd12.prod.outlook.com>
+References: <CADnq5_OCRm7oVkr7TY_OCyfSnkPJXAY7ZhjThpEbAauQNz_T_g@mail.gmail.com>
+ <20260309170950.1982724-1-Chenglei.Xie@amd.com>
+In-Reply-To: <20260309170950.1982724-1-Chenglei.Xie@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-03-09T21:37:10.0000000Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5144:EE_|CH3PR12MB8483:EE_
+x-ms-office365-filtering-correlation-id: 5b9b326b-634e-4065-8c49-08de7e241d39
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|38070700021|7053199007; 
+x-microsoft-antispam-message-info: ftyVlP5cCMLnDNVoH1/gYkZLx9DfniV8Tssx8guA66IujeXydOfU5XmYuUFj12wI6yMrFf5802oDPyM/ff65FlOcxOH4I9N3QllhldC2b0naIZdfGkLMOcrOdVv/mo0MjoojJcabE7dwEzRrG3ukS0lXSHvNNaxSI3JbVNo2s/Inhj0IDVas14FTFs6BNNXkC3/5UH4h00/WHx2JTf0nWUekJCLkUZ5rcyKHk/PA2pMm+cPUZ71Kl8E0C9LsEe/m9R84LGiCep2SrG+lSZXrJz6Qj8/dFZbE16n/Qg4DV8j5xXG9aYoUyVv7Hz5BWM6MR3JTe+CB3Hai69huprfL0mfj9JbQkg7+W6D73wNWTwJjrHHiCxslC/i6hwN3fdC5uipfqksCnwITxgXEltZ8/uqksTQX3woLWoGQwHF9igZzUikxGHsoMgv7mx7bIX++zBiYiNfjEpymTgT5P6Q5TUIm7JEZoR6tgcAxAUEFPjUqnuS6CCs4FogTHD4YpsrSqScGhHIfzc5pCFm4lKkAntZz4guCAPiOVE5KHACqlFvlmKUmzwjB9kgtjbRHAOnYz4VSkMxT81qcwI6qaw1j4dAT6uRm5DjmPNZnZj7TQpQapOm0+azqcvx18VGj0S+PAOVCJ+lEmdbz7wTCWkd8EBxsDWysi7G4oIdfxGUM+mKyTerOYNn8QPrWclCyWVciRXUp6rrExshsjaehP9JOLwUl52GkOCPrBVcXmNiW+dmx9YVGLjWpvzmSqvSXXDE2y/qR3PtRVdQuUBkDOP9gpA7eQfVfFJQNuYi6ZinqBrM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(38070700021)(7053199007); DIR:OUT;
+ SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?dfhm0jeSU1D0tviXzLmbfjqr/TTQTCyjX69XtI5KasEo4K0aqiqmQHTeRGtx?=
+ =?us-ascii?Q?eFIKth3b30cU/iy2bN/VrIkgq2N/pLk+w+zzWDaPwvs8q+Slyiu/74+P19hd?=
+ =?us-ascii?Q?cLmu2VQ6J22VfDjE3LR4/umwRlQcLPMF7c796JC7HGmbKZEJZQiWcr/X2AbD?=
+ =?us-ascii?Q?eOTy9YpnKKFORmLLJtTkqBtwn6AZTb96fNzTj5ANnVZz1B7oeXWRWkquEbnq?=
+ =?us-ascii?Q?NwOT0JOJtzsGT60o7GVTJV/6eHGlDc0+gZbrRUZyxcRufymUtNPBTYPlasfZ?=
+ =?us-ascii?Q?JORudsnIjquNApsLZOsuWRo4rQZ2UUbpUjCEjUNiGW6ZF10qdjF0TPnOgvWk?=
+ =?us-ascii?Q?iifmtS0wFoOsoLjCNYYj8V9uj3Xh+xf2gSHq6YjoyJIvUkC/Q3UXkEHNjfMI?=
+ =?us-ascii?Q?jt/buvrUAQJGMXTq/4Ems1UQdJdZytHHsjMz2NrL0rQBvZO47BIOI+oE4IAc?=
+ =?us-ascii?Q?X4ciBtFftTVmB3bnZznlCOcpEpZDt1gGVIY9n2kXdorqOYdf2T2C5TjgBeAo?=
+ =?us-ascii?Q?yxgdh2hBJvIXxEI3NGOPaQf5YJioFSbN5mGH2VemzetA9vV5nzvE+PPqRpa8?=
+ =?us-ascii?Q?3cj+L6ui21l2B2ahN1G3p+ZoIWJeZzI1Ezs/aZYQxxBtBB/SbmeyKpMilEg8?=
+ =?us-ascii?Q?xeAnocJ2W0VMhZk9AvbNAIcENLGDmn2aySld9HxkZaFUltvQ31XVyEa6nqJV?=
+ =?us-ascii?Q?jp4YhGyjrQ8EsDDpn0h1tB/YgLwzKqgf5MSfRC463KichsdqaQVNs9AYbDP0?=
+ =?us-ascii?Q?/3VVMzS3SyZT/sS+Jrx7OIjF2ED4JmtzaLZkrMmkpXb1W9GUFJ++W0OWL8JB?=
+ =?us-ascii?Q?0i7gRFzHvwYRzyYDiaZA5zjUdOpHt+Zqu65iNTR+I9aacR7DpVL1P2lmlY1y?=
+ =?us-ascii?Q?WJXucWjpK9A1zKSoude46Lqoacblo9v0bwn0w/4gRng0H7kgkEIRfSF39zbC?=
+ =?us-ascii?Q?VC/kgWFjTRIu9TLjhYUKT7UPerqfjCGC/o+Mt+Aie/2utWXlDOydnCNEz9/x?=
+ =?us-ascii?Q?Z6yhmUlN/ZrZTX/WMGUrFbQrprmZh7U8ECSWAOhThUYFP9jlBhBcW/l50y7w?=
+ =?us-ascii?Q?WBANRtWhvZpT0+cwA4c31MsFmy5hA1fbNZRYwwFkZhZiwrVVHXI03g0tTmeZ?=
+ =?us-ascii?Q?rQLpWz8RgWawUdSzoYrtoJ+f446ecK8F7kxLz9ZqMtfaaCt5g/d5loYQ1TSK?=
+ =?us-ascii?Q?Rb/r5v92Zkga8UMaVnDFyhmfb+ZhluBkkoHBaKzXxriM8/LCILdfG6Mbgp8I?=
+ =?us-ascii?Q?YI3ochEfK9eM1Q6/n5zHfopSGuI6pdsEiZtV80DmeyAiMs+6Rmfxy6WxlieU?=
+ =?us-ascii?Q?TjOF++d7Bv0Pmlwu4s+LE71nBfpICwQ8zmmOi67Uq8geVvIzN/7lEe0x2Bpy?=
+ =?us-ascii?Q?Y/8j9I52if8PDzlM3aVSEkj/LTXgZLeAhIMLv1dACwXJLBjAkLUiJFqVtmd+?=
+ =?us-ascii?Q?NpvItN52TkxMA98bzIyRINeKS10BFc9wB2iRzv4h39MSN/h0h+512whOEPFg?=
+ =?us-ascii?Q?7tVzvBmzl734oVICApxSzwdMnLHq7DsCaWAi5iPVgToAPO3XwyzNiqLecNnq?=
+ =?us-ascii?Q?0zzPNJpECpwcylTN7aDhiJvwQte2aRkdixr33j8lHyTRamarj3jxqAVxPeJ5?=
+ =?us-ascii?Q?6xb263SD6OazAHrOJ8Wlr9g8vHt2dXocqOcFX9sEOZJlqH5F8AapM42fFuLc?=
+ =?us-ascii?Q?F/ZUPddViyd1VrwrMqT/YEQaAPbgA1Uk3kGRzeHATNCB6qYf?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5144.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b9b326b-634e-4065-8c49-08de7e241d39
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Mar 2026 21:37:50.7337 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9peYyWoTOjW1IEsJp8ZmqbrrHBP4P6WFNxzn8dLcCqqx0KggNpVrzoBQPFVDftfS++FJVAsZt4xb84HeFhQ85g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8483
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,174 +135,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2026-03-09 at 16:11 -0400, Mimi Zohar wrote:
-> On Mon, 2026-03-09 at 15:33 -0400, Jeff Layton wrote:
-> > On Mon, 2026-03-09 at 15:00 -0400, Mimi Zohar wrote:
-> > > On Mon, 2026-03-09 at 13:59 -0400, Jeff Layton wrote:
-> > > > On Mon, 2026-03-09 at 13:47 -0400, Mimi Zohar wrote:
-> > > > > [ I/O socket time out.  Trimming the To list.]
-> > > > >=20
-> > > > > On Wed, 2026-03-04 at 10:32 -0500, Jeff Layton wrote:
-> > > > > > This version squashes all of the format-string changes and the =
-i_ino
-> > > > > > type change into the same patch. This results in a giant 600+ l=
-ine patch
-> > > > > > at the end of the series, but it does remain bisectable.  Becau=
-se the
-> > > > > > patchset was reorganized (again) some of the R-b's and A-b's ha=
-ve been
-> > > > > > dropped.
-> > > > > >=20
-> > > > > > The entire pile is in the "iino-u64" branch of my tree, if anyo=
-ne is
-> > > > > > interested in testing this.
-> > > > > >=20
-> > > > > >     https://git.kernel.org/pub/scm/linux/kernel/git/jlayton/lin=
-ux.git/
-> > > > > >=20
-> > > > > > Original cover letter follows:
-> > > > > >=20
-> > > > > > ----------------------8<-----------------------
-> > > > > >=20
-> > > > > > Christian said [1] to "just do it" when I proposed this, so her=
-e we are!
-> > > > > >=20
-> > > > > > For historical reasons, the inode->i_ino field is an unsigned l=
-ong,
-> > > > > > which means that it's 32 bits on 32 bit architectures. This has=
- caused a
-> > > > > > number of filesystems to implement hacks to hash a 64-bit ident=
-ifier
-> > > > > > into a 32-bit field, and deprives us of a universal identifier =
-field for
-> > > > > > an inode.
-> > > > > >=20
-> > > > > > This patchset changes the inode->i_ino field from an unsigned l=
-ong to a
-> > > > > > u64. This shouldn't make any material difference on 64-bit host=
-s, but
-> > > > > > 32-bit hosts will see struct inode grow by at least 4 bytes. Th=
-is could
-> > > > > > have effects on slabcache sizes and field alignment.
-> > > > > >=20
-> > > > > > The bulk of the changes are to format strings and tracepoints, =
-since the
-> > > > > > kernel itself doesn't care that much about the i_ino field. The=
- first
-> > > > > > patch changes some vfs function arguments, so check that one ou=
-t
-> > > > > > carefully.
-> > > > > >=20
-> > > > > > With this change, we may be able to shrink some inode structure=
-s. For
-> > > > > > instance, struct nfs_inode has a fileid field that holds the 64=
--bit
-> > > > > > inode number. With this set of changes, that field could be eli=
-minated.
-> > > > > > I'd rather leave that sort of cleanups for later just to keep t=
-his
-> > > > > > simple.
-> > > > > >=20
-> > > > > > Much of this set was generated by LLM, but I attributed it to m=
-yself
-> > > > > > since I consider this to be in the "menial tasks" category of L=
-LM usage.
-> > > > > >=20
-> > > > > > [1]: https://lore.kernel.org/linux-fsdevel/20260219-portrait-wi=
-nkt-959070cee42f@brauner/
-> > > > > >=20
-> > > > > > Signed-off-by: Jeff Layton <jlayton@kernel.org>
-> > > > >=20
-> > > > > Jeff, missing from this patch set is EVM.  In hmac_add_misc() EVM=
- copies the
-> > > > > i_ino and calculates either an HMAC or file meta-data hash, which=
- is then
-> > > > > signed.=20
-> > > > >=20
-> > > > >=20
-> > > >=20
-> > > > Thanks Mimi, good catch.
-> > > >=20
-> > > > It looks like we should just be able to change the ino field to a u=
-64
-> > > > alongside everything else. Something like this:
-> > > >=20
-> > > > diff --git a/security/integrity/evm/evm_crypto.c b/security/integri=
-ty/evm/evm_crypto.c
-> > > > index c0ca4eedb0fe..77b6c2fa345e 100644
-> > > > --- a/security/integrity/evm/evm_crypto.c
-> > > > +++ b/security/integrity/evm/evm_crypto.c
-> > > > @@ -144,7 +144,7 @@ static void hmac_add_misc(struct shash_desc *de=
-sc, struct inode *inode,
-> > > >                           char type, char *digest)
-> > > >  {
-> > > >         struct h_misc {
-> > > > -               unsigned long ino;
-> > > > +               u64 ino;
-> > > >                 __u32 generation;
-> > > >                 uid_t uid;
-> > > >                 gid_t gid;
-> > > >=20
-> > >=20
-> > > Agreed.
-> > >=20
-> > > >=20
-> > > > That should make no material difference on 64-bit hosts. What's the
-> > > > effect on 32-bit? Will they just need to remeasure everything or wo=
-uld
-> > > > the consequences be more dire? Do we have any clue whether anyone i=
-s
-> > > > using EVM in 32-bit environments?
-> > >=20
-> > > All good questions. Unfortunately I don't know the answer to most of =
-them. What
-> > > we do know: changing the size of the i_ino field would affect EVM fil=
-e metadata
-> > > verification and would require relabeling the filesystem.  Even packa=
-ges
-> > > containing EVM portable signatures, which don't include or verify the=
- i_ino
-> > > number, would be affected.
-> > >=20
-> >=20
-> > Ouch. Technically, I guess this is ABI...
-> >=20
-> > While converting to u64 seems like the ideal thing to do, the other
-> > option might be to just keep this as an unsigned long for now.
-> >=20
-> > No effect on 64-bit, but that could keep things working 32-bit when the
-> > i_ino casts properly to a u32. ext4 would be fine since they don't
-> > issue inode numbers larger than UINT_MAX. xfs and btrfs are a bit more
-> > iffy, but worst case they'd just need to be relabeled (which is what
-> > they'll need to do anyway).
-> >=20
-> > If we do that, then we should probably add a comment to this function
-> > explaining why it's an unsigned long.
->=20
-> Agreed.
->=20
+[Public]
 
-For now, I think that's the best approach. I'll spin up a patch to add
-the comment.
+> -----Original Message-----
+> From: Xie, Chenglei <Chenglei.Xie@amd.com>
+> Sent: Monday, March 9, 2026 1:10 PM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Cc: Chan, Hing Pong <Jeffrey.Chan@amd.com>; Luo, Zhigang
+> <Zhigang.Luo@amd.com>; amd-gfx@lists.freedesktop.org; Xie, Chenglei
+> <Chenglei.Xie@amd.com>
+> Subject: [PATCH v2] drm/amdgpu: Avoid KIQ ring access during GPU reset to
+> fix fence timeout
+>
+> After GPU reset, the hardware queue is cleared and all pending fences are=
+ lost,
+> but the fence writeback memory stays stale. If the driver keeps submittin=
+g to
+> the KIQ ring during reset (e.g. HDP flush), sync_seq advances while write=
+back
+> does not, so amdgpu_fence_emit_polling() waits for lost fences and hits -
+> ETIMEDOUT, blocking further KIQ use.
+>
+> Fix this by skipping KIQ ring use when in reset.
+>
+> Signed-off-by: Chenglei Xie <Chenglei.Xie@amd.com>
 
-> >=20
-> > Thoughts?
->=20
-> My concern would be embedded/IoT devices, but I don't have any insight in=
-to who
-> might be using it on 32 bit.
->=20
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Yep. This LWN article on Arnd's talk lays out the state of things:
+> Change-Id: I717df52ed0ef0bb51a6901f218191d9837a77f6f
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 10 ++++++++++
+> drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c |  3 +++
+>  2 files changed, 13 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> index cab3196a87fb1..0021e763b753a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -1124,6 +1124,9 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device
+> *adev, uint32_t reg, uint32_t xcc_
+>       if (adev->mes.ring[0].sched.ready)
+>               return amdgpu_mes_rreg(adev, reg, xcc_id);
+>
+> +     if (amdgpu_in_reset(adev))
+> +             return ~0;
+> +
+>       BUG_ON(!ring->funcs->emit_rreg);
+>
+>       spin_lock_irqsave(&kiq->ring_lock, flags); @@ -1202,6 +1205,9 @@
+> void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v=
+,
+> uint3
+>               return;
+>       }
+>
+> +     if (amdgpu_in_reset(adev))
+> +             return;
+> +
+>       spin_lock_irqsave(&kiq->ring_lock, flags);
+>       r =3D amdgpu_ring_alloc(ring, 32);
+>       if (r)
+> @@ -1298,6 +1304,10 @@ int amdgpu_kiq_hdp_flush(struct
+> amdgpu_device *adev)
+>       if (adev->enable_mes_kiq && adev->mes.ring[0].sched.ready)
+>               return amdgpu_mes_hdp_flush(adev);
+>
+> +     /* Avoid KIQ ring access during reset; caller will use
+> amdgpu_hdp_flush fallback */
+> +     if (amdgpu_in_reset(adev))
+> +             return -EBUSY;
+> +
+>       if (!ring->funcs->emit_hdp_flush) {
+>               return -EOPNOTSUPP;
+>       }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> index 20e1395b39882..f9db2b17105b7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+> @@ -876,6 +876,9 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct
+> amdgpu_device *adev,
+>               return;
+>       }
+>
+> +     if (amdgpu_in_reset(adev))
+> +             return;
+> +
+>       spin_lock_irqsave(&kiq->ring_lock, flags);
+>       amdgpu_ring_alloc(ring, 32);
+>       amdgpu_ring_emit_reg_write_reg_wait(ring, reg0, reg1,
+> --
+> 2.34.1
 
-    https://lwn.net/Articles/1035727/
-
-The upshot is that it's hard to buy 32-bit CPUs these days, and will
-only get harder. But, there are still a fair number of 32-bit devices
-out in the field and will be for some time.
-
-The big question is how many of those EVM users that intend to run new
-kernels. I have no idea how to answer that.
-
---=20
-Jeff Layton <jlayton@kernel.org>
