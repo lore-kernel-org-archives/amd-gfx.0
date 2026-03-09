@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91850F417F3
-	for <amd-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 14:56:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B47FF417F3
+	for <amd-gfx@archiver.kernel.org>; Mon,  9 Mar 2026 14:56:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 294C410E514;
-	Mon,  9 Mar 2026 14:56:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1716310E51A;
+	Mon,  9 Mar 2026 14:56:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v3jFk+FT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SjOZ8v2d";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012045.outbound.protection.outlook.com [52.101.48.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E63DA10E514
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012068.outbound.protection.outlook.com [52.101.53.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 372D210E517
  for <amd-gfx@lists.freedesktop.org>; Mon,  9 Mar 2026 14:56:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Glz7Rgx+0CxFGW/V6dd+2lYcy3t23OrQhkCRTyU+YRmuDfR6iTBBoy+Qn6W9zCLQMtHozGHKumj+sbQ6evrv8v5USjoJhmtnRK8Eu46nbLIJJay9wUjh6ilvqgla46yiF6zqmZ78h0pHCVcMuoU8VN+J2y+k+buel2LJQUZImq0VVRjAHCmr3ttB4o2yFK0gjokqJ/Ul6qPs/t2nw5fSjndHPF7yyes1qVVPHfROePRaqX/TuW9Z1+RwOF5vKCF5dM7EQMqS9VsopuJnAQDkDEQEhwCas0tNA0AzL3u6t0WjBgxp6guTKOxxIRsn7xjK+sarbR3pd8c1GVFQiCrh3Q==
+ b=FTwspBTZvU5qCddOudcFK3Uawx6rsY+TUHQo/3dOBB4ATMK+dpcYek0PYeU8PRjqfjL6LEKD2hRRCMyzv/3EEh7xhS0G2kgtLLpVkyXcenTv7HUkQzYVVsj8xWDmVuDMK86bnofUi+bfu2f8GwcS4FZFda6wbiRg8ZPT4M27LuyVkoHdMRV3vDga0QM+IicTmXTi3jPfzI0QbWOWJ0j8G0HOogl4b0mSjS8s/wkB20pRExScsL+ACInhvBR5upxKRRn+0z1zX+05j8s11e3sPLCiPYqC3iZQzyHPSxjgS0bVPOZfiKElrZGyIKB21uKPNL+yGVy604ccgtKpVizBpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SjoIQM1dP8A/JsZDK4hVBbOJXdyqyMkGTNsyEph3S1I=;
- b=a7sFhywWD0QZ7GIjJ9Kk2bpXVqhZwYFxwp8uSsfQQA9HUSzOdwEEVfKHQlsE/uiGhZHLI975ImhzRYvV44JZpg3TgH16lyiEh9zjnh4AfknpQP5bTt9U9rxZ9OLXUTW5NVctZBRl1ZsutMxm6wGREhMzmChh2y7HfvqEbj3hmRfz7u9O50e2+tVDVw2r2llugOIl2RS5L+v1+WGtL4lO1hMvLzmnJ6oVWw84YfpS465ao7EGDwkxRGTkF7TqH5s3U3qNDYehLdnTXnmpAcLtMElntmAyqSdq12CtuBoZep8D6AnyZazMm/JywLsxMnu1ccpwllMdjf+t9O9Lq6onpw==
+ bh=x2b5uBQETGb9bWt0BdbLeJ+sP+/RaT7YM383PtP6tjk=;
+ b=WYvtjGyOpXRD0Td6I/k8aua2XYyO2V2T2KotVG02qtAmQE4k8wdXPfyPi6t4gRpd8nh98uQ3wBXl3RTPS2ss5fkyj8yjU0xrYmnAVx1FA7skyv7IiyXwHdVkQB1HpB25Qjo9A4w9zj+flm05l+UljFake1kKdl485OpStmw80So6AEpF9zn6Hr73bs7l6OzGK1pHkCKGoU7ggwyUahy+71hZKkrlZMocG95vmClRI9Er/ywtJeV4k5v24fAXAkIpiZAzsZI5ifRVx598N/eovzr1WGoesyyGgjsnV2YuIOSWSo6Z6Te0jGKzh2joBo+wbe9ZA/LXtm+fZTq5KR0Q3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SjoIQM1dP8A/JsZDK4hVBbOJXdyqyMkGTNsyEph3S1I=;
- b=v3jFk+FTK9gwpdmM/0tPsV7tFDa1Hr9hWiybRL3YhUxGk5asKd97N1g9ZPUgHe0pf4nRYMdjg0YRtS/S4XNTkL3Q+Oh5VJxNkpHo5lLB7LQDuO7gseJ3g3i5iwp5V9w/bcaaxlEBew81RrQGQ50tsADpixt4N/Cl30YHkgucd7w=
-Received: from SJ0PR03CA0213.namprd03.prod.outlook.com (2603:10b6:a03:39f::8)
- by SJ1PR12MB6219.namprd12.prod.outlook.com (2603:10b6:a03:456::19)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=x2b5uBQETGb9bWt0BdbLeJ+sP+/RaT7YM383PtP6tjk=;
+ b=SjOZ8v2dgIwxnlZOm0nz2Kykf4ZbqxAdl/i3FHwLYnvnwAAImFfD6E2buIGb3fjS95WbH+Qf8Wq+dHs4k06twCRhMh+ULAK6P2fznQA6RKexZMKuvn3iNUTN8CAPmQiqDRHDvKCaABoFqFpj9FOdQqxA2V4XAFseOEbbYZgM3BU=
+Received: from SJ0PR03CA0221.namprd03.prod.outlook.com (2603:10b6:a03:39f::16)
+ by DS0PR12MB6582.namprd12.prod.outlook.com (2603:10b6:8:d2::14) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Mon, 9 Mar
- 2026 14:56:41 +0000
+ 2026 14:56:43 +0000
 Received: from CO1PEPF000066E8.namprd05.prod.outlook.com
- (2603:10b6:a03:39f:cafe::b0) by SJ0PR03CA0213.outlook.office365.com
- (2603:10b6:a03:39f::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.24 via Frontend Transport; Mon,
- 9 Mar 2026 14:56:38 +0000
+ (2603:10b6:a03:39f:cafe::bd) by SJ0PR03CA0221.outlook.office365.com
+ (2603:10b6:a03:39f::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.25 via Frontend Transport; Mon,
+ 9 Mar 2026 14:56:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,21 +50,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CO1PEPF000066E8.mail.protection.outlook.com (10.167.249.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Mon, 9 Mar 2026 14:56:41 +0000
+ 15.20.9678.18 via Frontend Transport; Mon, 9 Mar 2026 14:56:43 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Mon, 9 Mar
- 2026 09:56:41 -0500
+ 2026 09:56:42 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Mon, 9 Mar 2026 09:56:40 -0500
+ Transport; Mon, 9 Mar 2026 09:56:41 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, Felix Kuehling
- <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: Support forcing MTYPE_RW
-Date: Mon, 9 Mar 2026 10:56:12 -0400
-Message-ID: <20260309145629.2844495-2-alexander.deucher@amd.com>
+CC: Hawking Zhang <Hawking.Zhang@amd.com>, Le Ma <le.ma@amd.com>, Feifei Xu
+ <Feifei.Xu@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: Place gart and vram in sysvm aper for A + A
+Date: Mon, 9 Mar 2026 10:56:14 -0400
+Message-ID: <20260309145629.2844495-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260309145629.2844495-1-alexander.deucher@amd.com>
 References: <20260309145629.2844495-1-alexander.deucher@amd.com>
@@ -73,29 +73,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E8:EE_|SJ1PR12MB6219:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef3fb414-8c2f-477f-69fc-08de7dec12e1
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E8:EE_|DS0PR12MB6582:EE_
+X-MS-Office365-Filtering-Correlation-Id: 096e59b2-7e3f-4924-2a43-08de7dec13fa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|1800799024; 
-X-Microsoft-Antispam-Message-Info: RjUFOGcau66H0RyMj7F4+J2kWchzGn2ko2R6SW3q0YvbZCq6cs02fpDz4vD4V37q/5OVnKuMAXokJPzWqL2y7RYbxP20KcdX60tKhQioyxQiWEmUb1UAQqRVu8m5CVbPI809r/zFq7yRBb3A41kGxXzdSTlltA0+bNM7hCs8r/gh5vffXY/AOeW1tg9Cy231ZLzjUBICMj5hDKL0zu7eOxbMUQfMK6ZC2QivJU5f0p6DU/f853gJlAUQXHTaoAJ/is8oeLBGNlcYQ1vhHavpbeey+cjKmSDLZFlUiOby6tyT7Ku5YrygdVGZB0oVoZKj2E7/7f5zvMNivVZOWuQAdCEulPxz1hccCXyUr6+YqiCeQHxOVeCYsf+e5VKNtY/oki2TuGQTOnUp54PW37YmrEMsPIiuzoTjQZmmrKuNYDbx/NRzcK6JVYiXT+vPDlcmBo7wdTlxL9bFwbFZY7RfW5ibnmu15JflDGmxZUGW90jl+3z9UgdPeJ6D3c02s8ELWp8IfuQl9aoGEnutS4hSWAkYHUS4rNgWu+UUkkPA/ujv2Y5weh1gdAjFT+mrJMDAd4LL4NaXu2zmhwIHW/oTzhUR0GPF6PC4yMtz/r7x82vi3ZqF8XDheLuZh2R9Kbpg5bx3rxxhBNnY0RohXwQW760mSJuflS0hNnCFP+cqrbqcU+1XpQtt+mTQKjGwg84EUlRWMOl2g7dll2TJKvUhNugQFSbpd/lmVup8T0V2SyKZnlywLn1o6TI/g/JBGjPsxvrWM2tIM3ZVCInzlPsN2g==
+ ARA:13230040|376014|82310400026|1800799024|36860700016; 
+X-Microsoft-Antispam-Message-Info: 78/xTVkmj+z9Bn2L/UYxcfq32Q3+M69B9sdkQW7sVsG/D2lAHnkIAp1UgWZY/bSgih0eEv8O8iiMqquO/tumib0QqUZzwjpLi8r2xlMsi3muP29JcqbUhMHLqb92FJrXypGNYn5q557RZfwd2jOmM9t795Pz9+FYKMmkTqkyb5G6eXri+BErSi7rjd2D8szQ8HN24pd3XMGkU1/ZPBbQRiTaIpxrZymNKJzKWPI3nv3TWZWKkW1LaqodVCl1TwXCMA06JavLkkGxWTuOCnZ/5PMUhjvgRP87pGn+ibhVlJ+gC5m38KSo3W9DpO4mV0ETYyYVNjTWARNy9nb4cRpgpqX2CHUlQ1H7puAcFlmc+6ChgsHF+enmwrb/mbhu5QFJoRgmeaIfHJ40mJ7a9dAwuhY7lwbaXE4NsvjHlTD/Z+A1o2pI/+HPfR1DRH+yom00GwofzmnNY0s26gcpLm5ChGdOwE+iZLF1twIASOLMzbZlYIdtpHN35oMr/JsQR6l77QyBERM5mFhTo0cJXGk3o36xxBSnDK3GIzA1qzmnlwnZV84uQGyc8cjyyn8TdGsff///DI6PoO5PfXQ6v9mrYsLFqW/rsbWzNNLMcLloCe03u5CsRtesCDZHyW/XnbjqoSbg1t8jAZXermlVCOsBIQZrz0tRAIyUo7PeHXVy/SoMUZKM5QlJTDoE8z1NLZXMrPtgNZI/z27W7HSSpdMg0kHSGXFp07twsTA6i6KlKyiaJmHml+u/+r6AdFOe7S9y/GiFInQYEPYz87eHWQ7nBQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024); DIR:OUT;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +xy9c5df0Ky+JCvRSsp3Zohtte0dMT77ZX7oikbEaGvBGpS1viho8Xcr+A0sGWzDZtyZasWjQndncKkVDr3uOLTO9mAS2pOSGn9bus+nlZTFUAxjUMVlqTu/g6EVLXNENSxD0W1/XVEPZTFzgQq1I08Acn2hWMYH7ziXNV6eWFbLdy5lZVAphbrTOiNGpwosoSrf6Sfq5dsmAUEawM/0IZnNabU4nPokkWWYlYnXQose/yoIlFZjNjp1Vdh+vRKbfOY4OwjHKAzMRcHXv0HkpBH0/laMt8rPsWGpl6a9Qgxi+W2Ju7pijEXK1DJZpdwHjDtcqPDhc89TAWccz2Kruvvo5M7QyEmq+VJiSWpJeynf0wYHn45GEob8oWwmbIdxyHtuO8hJFMYX1yJKSJVZn9hsSHY6T5bp2J2tF6JSOVHImXEUG/mAAfXX9QfHS23I
+X-MS-Exchange-AntiSpam-MessageData-0: mBUsNV4HmWXDt//VofZa5GKZwBGt4l14jSuMV4xrEPBCb7eyyvPOIXDqqfRXzCYBAKOHV8z2a1F88pu9JAT9mJXmeljAwheZT67chOcJkGL8eOV2HY9r9F2mn7uqxkL8oh2dm1lxtI+X+5aTk55DEnWwYJBCM9M4J7mBZunQL0nMKn0WYOt1hvhD1kYv8W9q4948uapz+QTRIthmLHtHFAIzjQ9VJFd51w9eoaBoapO30NsN/eMWSeiYgt+8SA5WlqbDKStdWOL1f927OHcZVva/3b/ktchPNxq4ho1hpco6reyGHfYd3JFgOVUQPzeeUS6zTo9HjCEpt1N3FcJbQ6UeK9KRs1mu+LpRTVY/RXLJWqe0io7n3IbD4BIxu+gD78XKB4nhBjIt944EXhJkh5iv/CTdEJDXn6qQQ7w835N1Eha2ZeQ9AbT6rMStj0Sh
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2026 14:56:41.4898 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef3fb414-8c2f-477f-69fc-08de7dec12e1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2026 14:56:43.2773 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 096e59b2-7e3f-4924-2a43-08de7dec13fa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E8.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6219
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6582
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,111 +110,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Set default value of module parameter amdgpu_mtype_local to -1. This
-allows to force MTYPE_RW on ASICs where MTYPE_RW is not default.
+On A + A platform, sysvm aperture is used for both
+vram and gart access. In sysvm aperture, vram starts
+at 0, and gart starts right after vram.
 
-v2: Fix SDMA get_vm_pte_pde MTYPE
-
-Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Le Ma <le.ma@amd.com>
+Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c  |  9 ++++++---
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c  | 21 +++++++++++++++------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c    |  6 +++---
- 4 files changed, 26 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 03814a23eb540..9c50f054f1c10 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -839,8 +839,8 @@ module_param_named_unsafe(no_queue_eviction_on_vm_fault, amdgpu_no_queue_evictio
- /**
-  * DOC: mtype_local (int)
-  */
--int amdgpu_mtype_local;
--MODULE_PARM_DESC(mtype_local, "MTYPE for local memory (0 = MTYPE_RW (default), 1 = MTYPE_NC, 2 = MTYPE_CC)");
-+int amdgpu_mtype_local = -1;
-+MODULE_PARM_DESC(mtype_local, "MTYPE for local memory (default: ASIC dependent, 0 = MTYPE_RW, 1 = MTYPE_NC, 2 = MTYPE_CC)");
- module_param_named_unsafe(mtype_local, amdgpu_mtype_local, int, 0444);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+index da4a0cf4aad0c..a68a398afebec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+@@ -691,12 +691,15 @@ static void gmc_v12_0_vram_gtt_location(struct amdgpu_device *adev,
  
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-index bc86e6c8e063a..5e3102d072c4c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-@@ -534,13 +534,16 @@ static void gmc_v12_1_get_coherence_flags(struct amdgpu_device *adev,
+ 	base = adev->mmhub.funcs->get_fb_location(adev);
  
- 		mtype_local = is_aid_a1 ? MTYPE_RW : MTYPE_NC;
- 		mtype_remote = is_aid_a1 ? MTYPE_NC : MTYPE_UC;
--		if (amdgpu_mtype_local == 1) {
-+		if (amdgpu_mtype_local == 0) {
-+			DRM_INFO_ONCE("Using MTYPE_RW for local memory\n");
-+			mtype_local = MTYPE_RW;
-+		} else if (amdgpu_mtype_local == 1) {
- 			DRM_INFO_ONCE("Using MTYPE_NC for local memory\n");
- 			mtype_local = MTYPE_NC;
- 		} else if (amdgpu_mtype_local == 2) {
--			DRM_INFO_ONCE("MTYPE_CC not supported, using MTYPE_RW instead for local memory\n");
-+			DRM_INFO_ONCE("MTYPE_CC not supported, using %s for local memory\n", is_aid_a1 ? "MTYPE_RW" : "MTYPE_NC");
- 		} else {
--			DRM_INFO_ONCE("Using MTYPE_RW for local memory\n");
-+			DRM_INFO_ONCE("Using %s for local memory\n", is_aid_a1 ? "MTYPE_RW" : "MTYPE_NC");
- 		}
- 
- 		is_local = (is_vram && adev == bo_adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-index 03bf1f86098f1..f20e0fc3fc743 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c
-@@ -1129,12 +1129,21 @@ static void sdma_v7_1_vm_set_pte_pde(struct amdgpu_ib *ib,
- 	/* for physically contiguous pages (vram) */
- 	u32 header = SDMA_PKT_COPY_LINEAR_HEADER_OP(SDMA_OP_PTEPDE);
- 
--	if (amdgpu_mtype_local)
--		header |= SDMA_PKT_PTEPDE_COPY_HEADER_MTYPE(0x3);
--	else
--		header |= (SDMA_PKT_PTEPDE_COPY_HEADER_MTYPE(0x2) |
--			   SDMA_PKT_PTEPDE_COPY_HEADER_SNOOP(0x1) |
--			   SDMA_PKT_PTEPDE_COPY_HEADER_SCOPE(0x3));
-+	/* TODO:
-+	 * When VM_L2_CNTL5.WALKER_FETCH_PDE_MTYPE_ENABLE is enabled, change below MTYPE
-+	 * to RW for AID A1 and UC for AID A0. NC needs additional GCR flush and need not
-+	 * be supported. Also, honour amdgpu_mtype_local override. RW would additionally
-+	 * require setting SCOPE bits in the header.
-+	 *
-+	 * header |= (SDMA_PKT_PTEPDE_COPY_HEADER_MTYPE(0x2:RW) |
-+	 *           SDMA_PKT_PTEPDE_COPY_HEADER_SNOOP(0x1) |
-+	 *           SDMA_PKT_PTEPDE_COPY_HEADER_SCOPE(0x3:SYS_SCOPE));
-+	 */
-+
-+	/* VM_L2_CNTL5.WALKER_FETCH_PDE_MTYPE_ENABLE is 0 which defaults to UC. So,
-+	 * use MTYPE_UC (0x3). For ref. MTYPE_RW=0x2 MTYPE_NC=0x0
-+	 */
-+	header |= SDMA_PKT_PTEPDE_COPY_HEADER_MTYPE(0x3) | SDMA_PKT_PTEPDE_COPY_HEADER_SNOOP(0x1);
- 
- 	ib->ptr[ib->length_dw++] = header;
- 	ib->ptr[ib->length_dw++] = lower_32_bits(pe); /* dst addr */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 35c16c77ba65b..8167fe642341c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -1311,9 +1311,9 @@ svm_range_get_pte_flags(struct kfd_node *node, struct amdgpu_vm *vm,
- 		bool is_local = (domain == SVM_RANGE_VRAM_DOMAIN) &&
- 				(bo_node->adev == node->adev);
- 
--		mtype_local = amdgpu_mtype_local == 1 ? AMDGPU_VM_MTYPE_NC :
--							is_aid_a1 ?
--							AMDGPU_VM_MTYPE_RW : AMDGPU_VM_MTYPE_NC;
-+		mtype_local = amdgpu_mtype_local == 0 ? AMDGPU_VM_MTYPE_RW :
-+				amdgpu_mtype_local == 1 ? AMDGPU_VM_MTYPE_NC :
-+				is_aid_a1 ? AMDGPU_VM_MTYPE_RW : AMDGPU_VM_MTYPE_NC;
- 		mtype_remote = is_aid_a1 ? AMDGPU_VM_MTYPE_NC : AMDGPU_VM_MTYPE_UC;
- 		snoop = true;
- 
+-	amdgpu_gmc_set_agp_default(adev, mc);
+-	amdgpu_gmc_vram_location(adev, &adev->gmc, base);
+-	amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_LOW);
+-	if (!amdgpu_sriov_vf(adev) && (amdgpu_agp == 1))
+-		amdgpu_gmc_agp_location(adev, mc);
+-
++	if (amdgpu_gmc_is_pdb0_enabled(adev)) {
++		amdgpu_gmc_sysvm_location(adev, mc);
++	} else {
++		amdgpu_gmc_set_agp_default(adev, mc);
++		amdgpu_gmc_vram_location(adev, &adev->gmc, base);
++		amdgpu_gmc_gart_location(adev, mc, AMDGPU_GART_PLACEMENT_LOW);
++		if (!amdgpu_sriov_vf(adev) && (amdgpu_agp == 1))
++			amdgpu_gmc_agp_location(adev, mc);
++	}
+ 	/* base offset of vram pages */
+ 	if (amdgpu_sriov_vf(adev))
+ 		adev->vm_manager.vram_base_offset = 0;
 -- 
 2.53.0
 
