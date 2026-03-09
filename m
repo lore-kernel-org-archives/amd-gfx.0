@@ -4,83 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2475FEA854E
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 08:25:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0AFFEFCD9F
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 08:25:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3DFF10E67C;
-	Tue, 10 Mar 2026 08:25:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5815310E67D;
+	Tue, 10 Mar 2026 08:25:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=wbinvd.org header.i=@wbinvd.org header.b="Na5xSi4+";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="iEngbn6e";
 	dkim-atps=neutral
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26AFA10E651
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 05:54:36 +0000 (UTC)
-Received: by mail-dl1-f42.google.com with SMTP id
- a92af1059eb24-127380532eeso1156308c88.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 09 Mar 2026 22:54:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=wbinvd.org; s=wbinvd; t=1773122075; x=1773726875; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=AZrje2kJSd9Bh+vOqAe83fHEY512zOk+rc8eCAn6ioA=;
- b=Na5xSi4+kfDDOwlfSI3/D0wQPOuCZws8RWg9iJpxp7FLoTHZskMHTebsa4VgH0rfa6
- Rc2YwODn3RmRWh1A+vPcXfvG6z/ES9URMpev4sL1deFiO4QBZcL1IcWhu8MilrxD841R
- a6RmjoCPWQpPWAdE9OkQnp/swyvKsrf7rRn1KKB427p7WMGxYZG2A0rVSBZNVVAXRm72
- goQI76GkG3EA6q1F530qnvUG32Ab+knvx1SczsoFhr3tFY+J3wuw0hYXof5BHlySHgdj
- FvBnh1TQGopSUCNz0GfqioB+EdN9UeHXh9Yj/aJZnoAGas5zNZ70BGVJMotDB/6bgeYw
- DxwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773122075; x=1773726875;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=AZrje2kJSd9Bh+vOqAe83fHEY512zOk+rc8eCAn6ioA=;
- b=Q4GzvG+8yy2jSDhiPWX9z9U2+FROh1US1tfjqZt/6HWIUHTFz+erm7Pe2X6WC54DnA
- FiLAkjke4rMR4xwYGY4KZMnFHMET2Xy0S75L0z6HLC/whR3Rbfav61UKcuVZJ74yrdmA
- C4GxQkj6O9IX+Q0ybF6nA3PttXD5/uGSCBon4j6sK2tGNcdANFhQA69BaUUjr6p5oUkX
- gMBMSBmtc43SWwT3OmIyemI1wmP0FR/tsafYIdSuaxVcbwgbSimY1qn7oMUzHsWZNDZE
- rKEeCIvaXH8whZUFhjf+SPARG9cD3FA1uE68jSv7yp86mtoRaEZCxcntMSgHoFqHP8IN
- HKiw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVhe3SBuF1ibpjCjo/iT3XX8jsgEz1+GxcFOjJjmr8icaaYAlHcAwGzpxqOSWAtlu7y0EtWC68F@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwA0PLMdZv3DtZkG5IRknAz+DDBftWq8q/wsQ+s5qMLFFHzKnVY
- Y33AVXvnsy830aOn2vBVPxplYmNpdMKkh+4J4fhtxl18PBde0BB3NCwJ7k+32MBASJA=
-X-Gm-Gg: ATEYQzzMuQwkPNfmDnRCN7tJ7YShl1LvhhmTL9It8jdr8G1hYjXaJE6njlZvB7IS28q
- lXcalYj4qhj/DNGija5HcigWkp5vSy1U8lhDg0p3wghis/YXvEE+8PIkk9BsMAScv7WTSNmVHun
- 4U3+cQcA9ler3BgJyOJWZaUEZTAe2EjImiBUTlv5OWZbf5WJvsvY6fYiTpGPr+ZVXqtJ/9ROXnp
- CyucsRMe54ezDQMY8qwXTME+WPSuG7p+pWr3gpLMK1g+o2kgrzND5F3YUgPzrpP35hypkzYRnkK
- 64QlJZf6OcpVgQSdAKV1oAuS6TD9kQWzw+QYFtsli7/6945vGgsDMmWfDhkgvqdGwudP0su/Vm4
- 5ajfIi0dGITozXqi8XC7qxayusxPZdpL6Hwo2yrOVjt+N26ZrTD2kTliD8JD0gSYdmInrZLThy1
- UIrmFzy5cyVlzRGyu6XOr42OfX
-X-Received: by 2002:a05:7022:23a9:b0:11a:49bd:be28 with SMTP id
- a92af1059eb24-128c2d8ff9fmr6043992c88.4.1773122075270; 
- Mon, 09 Mar 2026 22:54:35 -0700 (PDT)
-Received: from mozart.vkv.me ([2001:5a8:468b:d015:d3b:fdd6:c26e:df86])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-128d989cd36sm7603986c88.1.2026.03.09.22.54.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Mar 2026 22:54:34 -0700 (PDT)
-Date: Mon, 9 Mar 2026 22:54:32 -0700
-From: Calvin Owens <calvin@wbinvd.org>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011058.outbound.protection.outlook.com [40.107.208.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3342410E4F4;
+ Mon,  9 Mar 2026 13:53:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vm6GdmmJNvguxP8sjwMOqV8V0VLvDBxjWz4QXlwXRBryP5b6xPU7ag3YgGYGUlJOwIUGLvVGJORfPoEka/Ei2naaa534q1ETot/mwl7nnho0vEIW76C/yrIBEIsEop/+4U/RGXZuAjpXTx7DBhatzSHjHpw8XAr+Y8ZouKiKM/Zkw3rJGLHKMCxYWv960XHimwfRMJvs6V4PdW3eAv5jfjClbsWtb8yoomh8kXl6Ivq4Ff7sSWIPZy0G33wsVrvv3kGwVNWIE4ofb1AIKCzG/YXtVZ1YZ3bLvJzcu+DGh34VuMqOGzGKLovSs2X6wdnOdKrCxoq6XTBWnFxnHfjhGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8TKBgpRZ1LF+riKYp7m4qyYg6CwL4avNKoePBXwYvXI=;
+ b=ptPCxw3HrqVnb9kGa9/OYUNtxbrFznBct0rzY9lZi313l172RJM5VpNqdU7ff1mQ65pSABwNG2dVLgZjJW3I8MeVIi3tL6q5EZY/LUF6a9hzS4wTjzBkBpTRCbNnGm3NgMw7/pAEzjHTz6BrSezmIxdYeNp1lrw5ROvqIQcvWTi27ojvt3kAo1V2RItJj+eCMlceKvkP28j0keA7XwkjGSYp99pjESt80N2rzExct3eV+mmLNwB4B00S2R7N6YPQTCpedi2cUamAMyTBBM0WkmC4xVaxT6rbyu24a1DDuqAr7w19WTlIhkYPLxitTZeodAGj2hrI/VFsVyFsPb5vlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8TKBgpRZ1LF+riKYp7m4qyYg6CwL4avNKoePBXwYvXI=;
+ b=iEngbn6eZ0cppiD5tykEGn06OAWDFQmI71sxcNjhNyCc+e72ftGr1ngIxmmssHRrxdp9JIOTpleGXe29El+FX7Hct3p4kAGaMyaprRMbjKx87lvFSfwWTrarbYlrPvs2/Nr69CnxRpuCE64cmMk45V+VwdCTs1HKd4Ek0ZLuDnYWlgwcW3X374q4FZTfPZJBgMa5HDuTubn2TReMOUsfrpYjuZbs0ykOer7etgCipsfcF4xCtGQphgDnf2HWDxNtTMZW6XssglQsoL7fqxgTVlNtW2NuAt77J5n9cAmeHGQ8woiMO95t3TCxG9hZy3fZ6oyMfzWPwEQtYl0f1QIcbw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ BY5PR12MB4082.namprd12.prod.outlook.com (2603:10b6:a03:212::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Mon, 9 Mar
+ 2026 13:53:49 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9700.009; Mon, 9 Mar 2026
+ 13:53:48 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Charlene Liu <charlene.liu@amd.com>,
- Ovidiu Bunea <ovidiu.bunea@amd.com>, Alex Hung <alex.hung@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
  Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Christian Koenig <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- llvm@lists.linux.dev
-Subject: Re: [REGRESSION][PATCH] drm/amd/display: Fix uninitialized variable
- which breaks full LTO
-Message-ID: <aa-yGMPCWwkjXNAb@mozart.vkv.me>
-References: <ef7266eb7802ce6d68ebd9356477e9671f0c94e0.1773116305.git.calvin@wbinvd.org>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [PATCH v12.1 0/1] Rust GPU buddy allocator bindings
+Date: Mon,  9 Mar 2026 09:53:37 -0400
+Message-Id: <20260309135338.3919996-1-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260308180407.3988286-1-joelagnelf@nvidia.com>
+References: <20260308180407.3988286-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CYZPR05CA0036.namprd05.prod.outlook.com
+ (2603:10b6:930:a3::24) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ef7266eb7802ce6d68ebd9356477e9671f0c94e0.1773116305.git.calvin@wbinvd.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BY5PR12MB4082:EE_
+X-MS-Office365-Filtering-Correlation-Id: 597b2e98-dc76-4f2b-dc99-08de7de349cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|366016|1800799024;
+X-Microsoft-Antispam-Message-Info: KYNmmuakd6CrA22J0broSzJgjvCoeeaX1OnUk3/zgg293mCMmvf59RjmmKMDvLiuFFHWbSMQEaz/ueoLHcscb3xMiTFBke54GRXUYhbLKscJR1GYFrbchpe4RNuXrI15G4KaXIlEspDfRG7a4ZgiJVTFL1QVFP1ofyfHFEZMhAwi7UsdwVKOYekUuqXB7OB2uVAltPf3SD7WtcRqNvwsI8Xd7quh90jIjPVxPjZB+gqnU+7JdHgUeiME5rHmL7OUkEdOif3JldgrI4WJsqHba5JeKPF4zOQtGGZ9FoDXMASj2LfWb26AgD+0Jodd123HSxL2lAPSdcp0iC8TY8L5gDdn4ut89oai+WVURwfZ/SQxSlgS24gt0LMTqKMVYhBEXwi5Q6lA8NrPf1hhYaA1mHlBYfPkC1C1xlcxY3PcZjQshyyTFtp6sObQqU5FeSpfbhOD12+idedcla0akvERX4NR3mzLnSNhtFZErdocBU3Ha0vloGvZRHmO/RPYRz5Ujfz7oec84ARNArhO6CaC8jFrWJKFZYE8t8gvJE+mSnZEtp28I8kcS4YxDMC6kDIPMWnVjGtROePAznoGwr+TWIMPuX9fUNaZhMwGiTwydZ38x9xDJKFvLdUt0Ra2I0ZxgJ07Y0DOrMFWzWH03lKthMz1sK1oDE23kPAvYYyGk65maAuldigLntWaUDcWLB3+5yyerltxRZIAjUoaPjBNOlXvdJXzh/SVixD3/AgGVx4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024); DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VRCdMjPMuU3PzfD4lp2NoNFYZqLRWvOUdM840gKiHmRbd80hYRYuXHKmmb1l?=
+ =?us-ascii?Q?PvdLBA6mxBkKOOu5QiliOSaRjrTzQ6Wh1PzaG/+G/+g2GrHqsatZce7miV6v?=
+ =?us-ascii?Q?GAmEnSYGE/aEByJHIK59PY+dQAbBjL9H7jsErw3yUF9/VUmQX/sUOofMVFoa?=
+ =?us-ascii?Q?YxYSXulKpa8o8E4IxQyssPyCOA3HWs9JUpQ1rjA7KzFzseHoFLRh9kBhbR2t?=
+ =?us-ascii?Q?R/gPzXt9BTTzFvEKAvB4OhCwY4cUWZhXU8D6rpF/5k8AW4XW9A0Itgj6GcyR?=
+ =?us-ascii?Q?6VxsK/tWkPieT5BBs9CWskWcK2asqslNO3sA4SHRus9Vnv4ndT14q5m7m4zw?=
+ =?us-ascii?Q?0ex2KO+NktiE/3IcIxFerqsoehZQZ5hvrYX6kRbkCPCw9J8OVxTwc7GVvLTV?=
+ =?us-ascii?Q?v3sXioqgqq291P5l/n9L8OFP+Kx44rDB312MHMBb1Z/0uQKYLdYGrja+BvMp?=
+ =?us-ascii?Q?j6+rkPtyvNQUh8laoXQRMvtChxprONG9g3dV669rKtmVE2AIWyJdbDznozcX?=
+ =?us-ascii?Q?kOhoEgodbZwGwtJ9hBSrGANyLt8ROHZ4QcCQ1duS8mmw8eu7lA/NefJwjnne?=
+ =?us-ascii?Q?4y/aHeS/can9JWXHUOth/9BiVQ0sgm1aXIJncP/i4x14YJlktqfXvbf/C5Qa?=
+ =?us-ascii?Q?dYOiu4pxtj4eFO3iNUhaVCpeuNVJElNnnbx2fMOVqWX7/GSf8QNx7vAXogn2?=
+ =?us-ascii?Q?M+h7YcLVrTfd2l5ZwKLj9OxaztspZZzzzE6hkvMm/1n/1EikTt/uBVxqK0+S?=
+ =?us-ascii?Q?DD6BH3FTDLTn1V9ghReKxgvqD1K0TrK8/EOfufouPWKXALAQdyHDpY5INr2j?=
+ =?us-ascii?Q?H5xoK6F1AyUndnbuyvhSIr9tqfxPmGSlm3IlvMJw7BJq5FMg1XE2DGyonK4L?=
+ =?us-ascii?Q?axOl0RURhLX11lDm0CrUwzPSwxNh2mBo3rxZCYr6nlL1IDh4fOaHJ1i2V2ZP?=
+ =?us-ascii?Q?hwVe6QBCJOfMT/+5CuxJqqkvw8i7iOOBS0KJj+egYsG8Fkvj2OQyZB/u/snS?=
+ =?us-ascii?Q?p99o+9PqpB1BLHETBvxUornWM8uAovICbpUGJqGy8GQ7F4CstsoT2ajsiHI6?=
+ =?us-ascii?Q?GLZX8ODoKtDHLZpGrvz+ZSyCeWHEV3jkyLfyEbkf0a7au0Bubc23MEvgCr+Z?=
+ =?us-ascii?Q?UTLKUR/iT1l7e3wCgoCzyByU6Jlo13HR8TdzMcyRJBBjPRbExCXBJiDD0CiA?=
+ =?us-ascii?Q?u74KgmRWPn7an9U9c9hJMlPM9cUC6PX8w/Qe1B/t9vIkMYnykPpYv1RyFwqu?=
+ =?us-ascii?Q?ffj0cshyOGPE5TX7/cFuQjFvpJ9G/fD8ZEYuislkSi+mCZ5kB4l/wKG7vCZd?=
+ =?us-ascii?Q?aZC6k7u+Nrj0iGJRki1okPihlygu4BUKWHx9m5CZlOTNwIEvDEse27ut18EU?=
+ =?us-ascii?Q?1NU+Gn/s81c3iv+W50vmnhCUcw3vtJ5GHzoKYcU+Ro3TWYEGQ8fuQcnEcN0j?=
+ =?us-ascii?Q?NproQ+SGbcya35ltmwYXLf06WXlr9tqo/iAhbr6cAUrpTJvCbF6D8GoqVT6R?=
+ =?us-ascii?Q?ZJEctUyqNVtdJqjb5CNQrnsfv/44ZtqxxK9h2rPVbtHGhR3E4hE2HrMaOwpu?=
+ =?us-ascii?Q?UzWNfG+ixQTCu5+idgEBHvAKu5k5yRB6O6A0Vbkx8kbQddBf01XxWlZWM23d?=
+ =?us-ascii?Q?euPZEPhNGB7F/nF8rzH1FPgEw4mLKTCgJ4G678YNynrgias+1O/+JkT2UAIx?=
+ =?us-ascii?Q?uplCjqMFBuYaopgDgMQ0ZUVT7ROgZupXvC4e75Gt5AAdErlhxLSMzlkJmLTt?=
+ =?us-ascii?Q?PVMFdzfNOg=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 597b2e98-dc76-4f2b-dc99-08de7de349cc
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Mar 2026 13:53:48.4213 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3zPvav3Y915nfftHR466eibh/OJnuhUDUmPm2IIJVI9CIxXM0U3ABmrcPUC38bG9uv8Gs1SmKyhu3UZuUkX63g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4082
 X-Mailman-Approved-At: Tue, 10 Mar 2026 08:25:11 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,48 +158,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday 03/09 at 21:24 -0700, Calvin Owens wrote:
-> Commit e1b385726f7f ("drm/amd/display: Add additional checks for PSP
-> footer size") introduced a use of an uninitialized stack variable
-> in dm_dmub_sw_init() (region_params.bss_data_size).
-> 
-> Interestingly, this seems to cause no issue on normal kernels. But when
-> full LTO is enabled, it causes the compiler to "optimize" out huge
-> swaths of amdgpu initialization code, and the driver is unusable:
-> 
->     amdgpu 0000:03:00.0: [drm] Loading DMUB firmware via PSP: version=0x07002F00
->     amdgpu 0000:03:00.0: sw_init of IP block <dm> failed 5
->     amdgpu 0000:03:00.0: amdgpu_device_ip_init failed
->     amdgpu 0000:03:00.0: Fatal error during GPU init
+This patch adds safe Rust abstractions over the Linux kernel's GPU buddy
+allocator for physical memory management. The prerequisite infrastructure
+patches (DRM buddy code movement and the uninitialized buddy fix) have been
+absorbed into upstream -next, so this is now a standalone patch.
 
-In case anybody wants to poke around, I uploaded the binaries here:
+The git tree with all patches can be found at:
+git://git.kernel.org/pub/scm/linux/kernel/git/jfern/linux.git (tag: gpu-buddy-bindings-v12.1-20260309)
 
-    https://github.com/jcalvinowens/lkml-debug/releases/tag/000001
+Change log:
 
-You can see in the diff of the disassembly that the "missing" piece of
-dm_sw_init() reappeared after reverting e1b38572:
+Changes from v12 to v12.1:
+- Fixed undeclared type `GpuBuddyFlags` in doc examples: renamed to
+  `GpuBuddyAllocFlags` in all seven doc test examples (found by kernel
+  test robot).
 
-    https://github.com/jcalvinowens/lkml-debug/blob/main/amdgpu-lto/not-working-to-working.diff
+Changes from v11 to v12:
+- Rebased on linux-next; this is now a standalone single patch as dependencies
+  are absorbed (but clist is a prerequisite).
+- Redesigned allocation API (Alexandre Courbot) for better Rust ergonomics.
+- Split single long example into 4 self-contained examples (Alexandre Courbot).
+- Several safety and invariant comment changes (Danilo).
+- MAINTAINERS changes (Arun, Mathew, Danilo, Dave).
+- Fixed `#[cfg(CONFIG_GPU_BUDDY)]` to `#[cfg(CONFIG_GPU_BUDDY = "y")]` (Danilo Krummrich).
+- Updated `ffi::clist::CListHead` to `interop::list::CListHead`.
 
-This is my bisect log:
+Changes from v10 to v11:
+- Dropped "rust: ffi: Convert pub use to pub mod and create ffi module" patch;
+  the ffi module restructuring will go through a different path.
+- Dropped "rust: clist: Add support to interface with C linked lists" patch;
+  the clist module will be submitted separately.
+- Dropped "nova-core: Kconfig: Sort select statements alphabetically" cosmetic
+  patch.
+- Patches 1-3 (DRM buddy movement and fix) are included as reference only;
+  they are already being pulled into upstream via drm-misc-next.
+- Removed clist patches as those can go in independently (Alice).
+- Moved the Kconfig GPU_BUDDY selection patch to nova-core mm series to enable
+  it when it is actually used.
+- Various nits to comments, etc.
 
-    bad: [1f318b96cc84d7c2ab792fcc0bfd42a7ca890681] Linux 7.0-rc3
-    good: [05f7e89ab9731565d8a62e3b5d1ec206485eeb0b] Linux 6.19
-    bad: [1c2b4a4c2bcb950f182eeeb33d94b565607608cf] Merge tag 'pci-v7.0-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci
-    good: [6589b3d76db2d6adbf8f2084c303fb24252a0dc6] Merge tag 'soc-dt-7.0' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc
-    bad: [a60f627cf4ab474aebf15f62c55eadabab9780da] Merge tag 'amd-drm-next-6.20-2026-01-30' of https://gitlab.freedesktop.org/agd5f/linux into drm-next
-    good: [83675851547e835c15252c601f41acf269c351d9] drm/xe: Cleanup unused header includes
-    bad: [71573db5ad74b2087a4688cd1dda73ff082620f6] drm/amd/display: switch to drm_dbg_ macros instead of DRM_DEBUG_ variants
-    bad: [3235a5b72317be613b69e22c3b2c9f2bec546253] drm/amdgpu: Update MES VM_CNTX_CNTL for XNACK off for GFX 12.1
-    bad: [e1b73b64271d706079370b58b81292dafd373163] amdkfd: remove DIQ support
-    good: [2634ef1b8c00207dde5101e926241957aa5652b8] drm/amdkfd: Fix PTE clearing during SVM unmap on GFX 12.1
-    bad: [af441be8b75deb93ded51c54b9a2ba1e048b1c91] drm/amdgpu: add support for sdma v7_1
-    good: [69249b477b95f91e56bb19ec53707253899458c4] drm/amd/display: Move dml2_validate to the non-FPU dml2_wrapper
-    bad: [ec62b7ded978957ec74add4c1feccc986e2baeef] drm/amdkfd: Uninitialized and Unused variables
-    good: [c7062be3380cb20c8b1c4a935a13f1848ead0719] drm/amd/display: Correct DSC padding accounting
-    bad: [d28e92093ceffb424b9b0e36bbd391c83b1cfe78] drm/amd/display: [FW Promotion] Release 0.1.37.0
-    bad: [e1b385726f7f7fc75b6cd3c2216430de8a625a2d] drm/amd/display: Add additional checks for PSP footer size
-    first bad commit: [e1b385726f7f7fc75b6cd3c2216430de8a625a2d] drm/amd/display: Add additional checks for PSP footer size
+Changes from v9 to v10:
+- Absorbed the DRM buddy code movement patches into this series as patches 1-2.
+  Dave Airlie reworked these into two parts for better git history.
+- Added "gpu: Fix uninitialized buddy for built-in drivers" fix by Koen Koning,
+  using subsys_initcall instead of module_init to fix NULL pointer dereference
+  when built-in drivers use the buddy allocator before initialization.
+- Added "rust: ffi: Convert pub use to pub mod and create ffi module" to prepare
+  the ffi module for hosting clist as a sub-module.
+- Moved clist from rust/kernel/clist.rs to rust/kernel/ffi/.
+- Added "nova-core: Kconfig: Sort select statements alphabetically" (Danilo).
 
-Thanks,
-Calvin
+Changes from v8 to v9:
+- Updated nova-core Kconfig patch: addressed sorting of Kconfig options.
+- Added Daniel Almeida's Reviewed-by tag to clist patch.
+- Minor refinements to GPU buddy bindings.
+
+Changes from v7 to v8:
+- Added nova-core Kconfig patch to select GPU_BUDDY for VRAM allocation.
+- Various changes suggested by Danilo Krummrich, Gary Guo, and Daniel Almeida.
+- Added Acked-by: Gary Guo for clist patch.
+
+Changes from v6 to v7:
+- Major restructuring: split the large 26-patch v6 RFC series. v7 only contains
+  the Rust infrastructure patches (clist + GPU buddy bindings), extracted from
+  the full nova-core MM series. The nova-core MM patches follow separately.
+- Rebased on linux-next.
+
+Link to v12: https://lore.kernel.org/all/20260308180407.3988286-1-joelagnelf@nvidia.com/
+Link to v11: https://lore.kernel.org/all/20260224224005.3232841-1-joelagnelf@nvidia.com/
+
+Joel Fernandes (1):
+  rust: gpu: Add GPU buddy allocator bindings
+
+ MAINTAINERS                     |   6 +-
+ rust/bindings/bindings_helper.h |  11 +
+ rust/helpers/gpu.c              |  23 ++
+ rust/helpers/helpers.c          |   1 +
+ rust/kernel/gpu/buddy.rs        | 611 ++++++++++++++++++++++++++++++++
+ rust/kernel/gpu/mod.rs          |   5 +
+ rust/kernel/lib.rs              |   2 +
+ 7 files changed, 658 insertions(+), 1 deletion(-)
+ create mode 100644 rust/helpers/gpu.c
+ create mode 100644 rust/kernel/gpu/buddy.rs
+ create mode 100644 rust/kernel/gpu/mod.rs
+
+-- 
+2.34.1
+
