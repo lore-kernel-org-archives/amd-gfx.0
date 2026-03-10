@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89175FD2D80
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E318FFD2D6D
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5CAC10E769;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AD5510E767;
 	Tue, 10 Mar 2026 12:41:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="OzCQWGEP";
+	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="PqCygKH8";
 	dkim-atps=neutral
-Received: from mail.avm.de (mail.avm.de [212.42.244.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F29A110E710;
- Tue, 10 Mar 2026 12:04:18 +0000 (UTC)
+Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A8D310E267;
+ Tue, 10 Mar 2026 12:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
- t=1773143729; bh=aOTa0J99wrUiCJDKciZIBaRSFy8AAIBeipk1P/Ry6Do=;
+ t=1773143728; bh=ljsuTOpGREUyGER98xbD6/ci86SD8pohlonTQBpqGIg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=OzCQWGEP3xIWg4aft9Gi61CqVxzVTLKLAimjDrWeQqUc3hUkPv1N3tKeXtgO8+TTP
- XhmqP+sFetcOut+NsJt0vEBnYbeIs2Hbr8gQtf+aklxbXgaq0RnUqAMfY7Dvjp000Y
- AkX7mNRKwyV5huTmoXbZ4xAO9eyZ3soV+HNDBiK0=
+ b=PqCygKH8TUTFzdsVoltpS6V+urh3nKuUaWPGyQ9+G5dBBIMLMlSqFUF2pQu2ztCks
+ nKjygDeUmN//qOptE9nqaXpkixC5XmuX8GEDJn5HpI8613PWAZldzQgtG5ilRHjEDe
+ PPv3OqXdqRSmvRO/4sRCoDxU/Kdn2GWugjDbKUbA=
 Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006b1-2367-7f0000032729-7f000001ca34-1
- for <multiple-recipients>; Tue, 10 Mar 2026 12:55:29 +0100
+ id 69b006b0-b734-7f0000032729-7f0000019cb0-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:28 +0100
 Received: from mail-auth.avm.de (dovecot-mx-01.avm.de
  [IPv6:2001:bf0:244:244::71]) by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:29 +0100 (CET)
+ Tue, 10 Mar 2026 12:55:28 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:49:23 +0100
-Subject: [PATCH 57/61] reset: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 12:49:25 +0100
+Subject: [PATCH 59/61] debugobjects: Drop likely() around !IS_ERR_OR_NULL()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-57-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-59-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -65,26 +65,27 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=968; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=aOTa0J99wrUiCJDKciZIBaRSFy8AAIBeipk1P/Ry6Do=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAaYTbMwEnKjO28t4NGQZrm6X1QSq5SK/k8qB
- qh4VPr1rLCJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGmAAKCRA0LQZT0ays
- 21umCACxIKapQYseolYqqyBm7SyLTZbMM7MUu/ruXbxGyc49Ef4ha2YprHG4wuhRGtqa+VJappe
- JyX0Z9X9KMdJsI/T+BsTdbSpg720pNSAKbSG/WcuoRUIgTiyuqx3+IKJLG0jtFT86FOozZPOWEy
- PPGiUFAfCi7lTKlHGrGHOhGX9fNEHoC67p+hbdbdmFe+ifTERx6lzSSYvUcvltMUMt2tdHG0fgm
- mbuvPyYzKrB65Gooayr+TJ6lncMe1eo3kIkCgAS0gJFF08HI7PwP3Atbb7J7YpFYREokazErNBn
- 540BWDngwOE49h53Z1ngLFPv4fl7uolW05pdRIimfw0qiceA
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Thomas Gleixner <tglx@kernel.org>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1116; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=ljsuTOpGREUyGER98xbD6/ci86SD8pohlonTQBpqGIg=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAafUF4Co3bKHEJh1nSPEbGPanpbmXqLGBVTE
+ nsli8aGTIqJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGnwAKCRA0LQZT0ays
+ 2/eqCACfKEiwIm4grjaffCaqYK9UtMC/I42k93h5L5QQzw4cYMYd8FGhvLp+Ug9Jk9iQltpydL0
+ M021kU+8e5LuC9HNGAP+FvXfKicTrLe4WOGLghTKJxJD0Qnwt87qFBwN4C5TgDS7lK8yPptqdRT
+ xavsstUunap8iVxwbzeUWdgcTpG4nsY9KAjliWo7xLgVYhCSEWYrkYbks39zWe9p1rptJWM2IT/
+ +/O3p9icHSV3twwgGTFQhBYPys+tvE7XNArxXHhB+XYW7AEdqLgSeLiL6ig5y++9xZFwEIcnWi0
+ 5dJklCZYTethhL0MgTuOAEkoSCl0Bk6MDrD8akTrSRkzdCkv
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143729-7B4FEE1F-3FF7DD9F/0/0
+X-purgate-ID: 149429::1773143728-7AAFCA3D-1B7F7E41/0/0
 X-purgate-type: clean
-X-purgate-size: 970
+X-purgate-size: 1118
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
 X-purgate: clean
-X-Mailman-Approved-At: Tue, 10 Mar 2026 12:41:15 +0000
+X-Mailman-Approved-At: Tue, 10 Mar 2026 12:41:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,35 +100,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
-check.
+IS_ERR_OR_NULL() already uses likely(!ptr) internally. checkpatch does
+not like nesting it:
+> WARNING: nested (un)?likely() calls, IS_ERR_OR_NULL already uses
+> unlikely() internally
+Remove the explicit use of likely().
 
-Semantich change: Previously the code only printed the warning on error,
-but not when the pointer was NULL. Now the warning is printed in both
-cases!
+Change generated with coccinelle.
 
-Change found with coccinelle.
-
-To: Philipp Zabel <p.zabel@pengutronix.de>
+To: Andrew Morton <akpm@linux-foundation.org>
+To: Thomas Gleixner <tglx@kernel.org>
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- drivers/reset/core.c | 2 +-
+ lib/debugobjects.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-index fceec45c8afc1e74fe46311bdc023ff257e8d770..649bb4ebabb20a09349ccbfc62f8280621df450e 100644
---- a/drivers/reset/core.c
-+++ b/drivers/reset/core.c
-@@ -715,7 +715,7 @@ EXPORT_SYMBOL_GPL(reset_control_bulk_acquire);
-  */
- void reset_control_release(struct reset_control *rstc)
- {
--	if (!rstc || WARN_ON(IS_ERR(rstc)))
-+	if (WARN_ON(IS_ERR_OR_NULL(rstc)))
+diff --git a/lib/debugobjects.c b/lib/debugobjects.c
+index 12f50de85b621a743a5b6f2638a308f6162c6fcc..12e2e42e6a31aa8706e859aca41b81c03889cffe 100644
+--- a/lib/debugobjects.c
++++ b/lib/debugobjects.c
+@@ -1024,7 +1024,7 @@ void debug_object_assert_init(void *addr, const struct debug_obj_descr *descr)
+ 	raw_spin_lock_irqsave(&db->lock, flags);
+ 	obj = lookup_object_or_alloc(addr, db, descr, false, true);
+ 	raw_spin_unlock_irqrestore(&db->lock, flags);
+-	if (likely(!IS_ERR_OR_NULL(obj)))
++	if (!IS_ERR_OR_NULL(obj))
  		return;
  
- 	if (reset_control_is_array(rstc))
+ 	/* If NULL the allocation has hit OOM */
 
 -- 
 2.43.0
