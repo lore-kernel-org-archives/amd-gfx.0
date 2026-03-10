@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C846FD2D70
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF9A6FD2D63
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25ED810E741;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB55F10E74C;
 	Tue, 10 Mar 2026 12:41:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="g+N0/sgS";
+	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="qDt+eOK1";
 	dkim-atps=neutral
-Received: from mail.avm.de (mail.avm.de [212.42.244.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BDA310E267;
- Tue, 10 Mar 2026 12:05:04 +0000 (UTC)
+Received: from mail.avm.de (mail.avm.de [212.42.244.119])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A981010E711;
+ Tue, 10 Mar 2026 12:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
- t=1773143726; bh=iG/6Gbypjz2OmWQb0dXEIiFm2wHO3xZ/QJrRffJjoq0=;
+ t=1773143725; bh=x2oaB0qg8CghMqZVE4wv6e6u03uqEA8RFTswQdfTK1Q=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=g+N0/sgSQ8SRQky5YcCPVvBqWjz0hDf6/mz5MXtIt5pp3nndKwnydeDBFFaGciw76
- fK8hCsX2XQfm37mz50EiEfGo9ClFJDaFX6LRzTWB5+xeibMvG/0El8aLjh4dU3qpIV
- pdtzYGFmANh8kH/hW7lr12MBHwTlKf1PiSqCWud4=
-Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
+ b=qDt+eOK17tgbgqdmabp3KToGWo0cL117JvmRPKJVxtawLwwb7ps7z1wEd3vWO7I7I
+ 4b7B5Oqe+82BCygMvdbmbm7KFHTrarRdpcpv9cxBTuo4h8o6I4dLLRK4rlBY6AdxnJ
+ EBWBkLJwSKE2HvUxw9o04CGzwbSOLqvvPPh3XW/0=
+Received: from [212.42.244.71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006ac-b734-7f0000032729-7f000001c052-1
- for <multiple-recipients>; Tue, 10 Mar 2026 12:55:24 +0100
-Received: from mail-auth.avm.de (dovecot-mx-01.avm.de
- [IPv6:2001:bf0:244:244::71]) by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:24 +0100 (CET)
+ id 69b006ad-2367-7f0000032729-7f0000019d98-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:25 +0100
+Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
+ by mail.avm.de (Postfix) with ESMTPS;
+ Tue, 10 Mar 2026 12:55:25 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:48:53 +0100
-Subject: [PATCH 27/61] net/netlink: Prefer IS_ERR_OR_NULL over manual NULL
- check
+Date: Tue, 10 Mar 2026 12:48:52 +0100
+Subject: [PATCH 26/61] net/core: Prefer IS_ERR_OR_NULL over manual NULL check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-27-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-26-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -66,23 +65,27 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+Cc: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Eric Dumazet <edumazet@google.com>, 
  Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1045; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=iG/6Gbypjz2OmWQb0dXEIiFm2wHO3xZ/QJrRffJjoq0=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAYxKX27oPhhgjZ9L2aN+uf2Pkd/lJuV0FZGx
- 7sT5NeXxfGJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGMQAKCRA0LQZT0ays
- 2910CACA5AX3Aqq6mMRjUqWLJkwISGQ/SClIom7gyl5y4YdXmFh365btAW6CDMrujm4g2yYHKMn
- icMIaMalhr2gJPGai/SU/Cr5CZi3ZY+4gua5T+uq+HkP8vLsixdy6MzBKvC4YJ7SQ9u1y3suTJ2
- dXw3LfFbSDyXJK4eAmt3Q9xLN+IDoqMq7+VyONJtkwZmjMDy5iHAJpd4FamMBrqSwy4GaDMKKm7
- glgw85FRb142AMKifN1ghWcWZj4AIrKdQR8M3/bZ64Q5ElxSWaeaZ0coUuPBsdwn1welLaCtuOr
- MNnjMGoWnx945CHnVYBBpgGh+sR8NWsokX9o62B2ZLaEYpxG
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1267; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=x2oaB0qg8CghMqZVE4wv6e6u03uqEA8RFTswQdfTK1Q=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAYuz1CTGrbQpXzwm84r9mgKg2KIh9nV8i33X
+ Xzcah43D7uJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGLgAKCRA0LQZT0ays
+ 231ZB/0bxZ/Qbs9IAD9kpPvo4QA+XnJGKWUdztF9j621/TW306I8+ggVrnqlG+FNuG2wVrw0WhJ
+ ixcD9BMxptD/u4aa6XFjRfTlj5zAYq7AiLoV88hQ2zukJ0WZTgZ9ho7LLdTHbtDdQJg3IZi/ib8
+ fJneCHe6P6SZ1m2EjqIO05fxr5kL7CgbuXZRdzSHe3+MgFHVghSrb0gT6dh9+gXstARt02FCx1t
+ CbFc8t5W3HCfOWn15oLGczjOwJcE0jsoiVRPvvyO1awUr0bgUV2AJDFjkVpAz2ZTueHBx4ee0oO
+ uXTsT9eV0KkVBz5xaaOgAyF5s8m06WIrMfH8OhTYPEwluE5m
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143724-DEDD0A3D-09A71CC5/0/0
+X-purgate-ID: 149429::1773143725-7ACF9E1F-2B37C654/0/0
 X-purgate-type: clean
-X-purgate-size: 1047
+X-purgate-size: 1269
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
@@ -107,31 +110,37 @@ check.
 
 Change generated with coccinelle.
 
+To: Alexei Starovoitov <ast@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>
 To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@google.com>
 To: Jakub Kicinski <kuba@kernel.org>
+To: Jesper Dangaard Brouer <hawk@kernel.org>
+To: John Fastabend <john.fastabend@gmail.com>
+To: Stanislav Fomichev <sdf@fomichev.me>
+To: Eric Dumazet <edumazet@google.com>
 To: Paolo Abeni <pabeni@redhat.com>
 To: Simon Horman <horms@kernel.org>
 Cc: netdev@vger.kernel.org
+Cc: bpf@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- net/netlink/af_netlink.c | 2 +-
+ net/core/xdp.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-index 4d609d5cf40653e04de60f2d28ee26b8bdcdc2ed..58707b9da84adf1002ab9eff9401fa2083374189 100644
---- a/net/netlink/af_netlink.c
-+++ b/net/netlink/af_netlink.c
-@@ -2667,7 +2667,7 @@ static void *netlink_seq_start(struct seq_file *seq, loff_t *posp)
+diff --git a/net/core/xdp.c b/net/core/xdp.c
+index 9890a30584ba7b08b246dacb984b639908f16242..c92cac2ccdb759457c7ce6a38e04e20190dff2a3 100644
+--- a/net/core/xdp.c
++++ b/net/core/xdp.c
+@@ -101,7 +101,7 @@ static void mem_allocator_disconnect(void *allocator)
+ 	do {
+ 		rhashtable_walk_start(&iter);
  
- 	netlink_walk_start(iter);
- 
--	for (pos = *posp; pos && obj && !IS_ERR(obj); pos--)
-+	for (pos = *posp; pos && !IS_ERR_OR_NULL(obj); pos--)
- 		obj = __netlink_seq_next(seq);
- 
- 	return obj;
+-		while ((xa = rhashtable_walk_next(&iter)) && !IS_ERR(xa)) {
++		while (!IS_ERR_OR_NULL((xa = rhashtable_walk_next(&iter)))) {
+ 			if (xa->allocator == allocator)
+ 				mem_xa_remove(xa);
+ 		}
 
 -- 
 2.43.0
