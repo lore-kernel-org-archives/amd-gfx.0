@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C52CFD2D6D
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22AD6FD2D72
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C00910E74B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07E9B10E744;
 	Tue, 10 Mar 2026 12:41:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="AHWaJPiB";
+	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="SxQcNNRu";
 	dkim-atps=neutral
 Received: from mail.avm.de (mail.avm.de [212.42.244.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A049F10E713;
- Tue, 10 Mar 2026 12:01:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99EEB10E710;
+ Tue, 10 Mar 2026 12:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
- t=1773143725; bh=lEmCou71DQIv3rJiH+2ZIvzOcBQ45/hCLHA8fjFTjEM=;
+ t=1773143727; bh=zh0NA9cMXwD2DkPFVL0EOnYz45KEbaJC9E9Miol506A=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=AHWaJPiBsL+GwFoetOExpKLG9cmnqvpt8xMBxHRmuFnKfjqJNAZAD1Wuu27hEzCjp
- yo/8LH57/iizP+bjiVmoMZwTMOiCMC/XLDqy5SSCcm+OQZZ/0iP8EPctZ2sQqxK7Ab
- XT9/JQSyTpsDOlLEGnKt3l1avwq96+RDdo3lipF8=
-Received: from [212.42.244.71] (helo=mail.avm.de)
+ b=SxQcNNRuEiFwL/5k7L3uNmiPeI5MF2imk5edf5+bENjDS759Fz4qD+/GE8T78XGoj
+ y3Anx7ULmIKK+LqK0b0jH70rnI3ftcXHXYxeZ0UjeUBfUOOob6Uk/Ag51Y5ZWXmM5b
+ 3t6vwVKkMaMk0t3qb5EymyzCnKyZ6WtwRBwC159Q=
+Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006ac-2367-7f0000032729-7f0000019d40-1
- for <multiple-recipients>; Tue, 10 Mar 2026 12:55:24 +0100
-Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
- by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:24 +0100 (CET)
+ id 69b006af-2367-7f0000032729-7f000001c9bc-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:27 +0100
+Received: from mail-auth.avm.de (dovecot-mx-01.avm.de
+ [IPv6:2001:bf0:244:244::71]) by mail.avm.de (Postfix) with ESMTPS;
+ Tue, 10 Mar 2026 12:55:27 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:48:41 +0100
-Subject: [PATCH 15/61] trace: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 12:49:12 +0100
+Subject: [PATCH 46/61] vfio: Prefer IS_ERR_OR_NULL over manual NULL check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-15-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-46-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -65,23 +65,21 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2257; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=lEmCou71DQIv3rJiH+2ZIvzOcBQ45/hCLHA8fjFTjEM=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAYJfb+qOowLIkUmfJbwapQWgbBrCmoY2MGV1
- kQO676TIO+JATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGCQAKCRA0LQZT0ays
- 264GB/0ePCsoEZ4dvusK/+59DK+nFUG4TMYrwfcQ9Aw8geb+nDTbFBXmGXKhwNE0FGNMoZ9u6w0
- 6Z8ff6aHriAkc9Kt7Cgo70KOX6BjUy2bKgpnqJ9UCEmLABUocGsnikIoRM/S+kmqBXC+hSxD7sM
- X70l7rxeP1jyVHxWJrxfa6E/R35lI3vjpmjnsYcBxz/fgBeGY30s+ys1gafR9RwiFHF5/fl9jcb
- Y3J+3Pom6JCnaZYPGyS2UG84plp5l+rENGjhP2UWug9tGkZ5pwYbuR79z7QaUT6EEnR3YbR314t
- 8SpG12KL4Vc7ZU5W2GsSc9E64021CyFWbNdSoNZGwreTwyp2
+Cc: Alex Williamson <alex@shazbot.org>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=940; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=zh0NA9cMXwD2DkPFVL0EOnYz45KEbaJC9E9Miol506A=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAZyWhsmplRS68Hjc75s841x9LkbYtnoYEUHf
+ 5sKSdvRLCOJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGcgAKCRA0LQZT0ays
+ 26J5B/950clmJMa20JiDvd2Y9XUU4IMRZvZhOhN1i+pY6SIYFFSSWrstAJqpIpGOZ3R9V9O+AHS
+ +c7Qni9AFhXI7buBYvtSAJWLJA8EJ41+9M8UOXpQoB5DcXO1c0CGt0ajsPjByLrSehp36R5PzH2
+ wWu5vJHC6K9Bj9PLCfIhxzyGkz/hL0gcZbuCGZMCsvjzhhK3aqUIEmC2PQzNoj/okoSky7H2ok5
+ Weutgt7pTJ9Q0oTr+n0PVtebcJ9O9+q3o9Yrs2sONA2GIXHGzM3vgOrYqV1Xoa6t/eWQHNiKxUs
+ zghoWpQpcWwkFeKxopN3kqosmr1/sM4hUF11IDDx0e4ZVVPT
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143724-764F0E1F-76E75FCD/0/0
+X-purgate-ID: 149429::1773143727-BACB9E1F-6BD158D9/0/0
 X-purgate-type: clean
-X-purgate-size: 2259
+X-purgate-size: 942
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
@@ -106,57 +104,27 @@ check.
 
 Change generated with coccinelle.
 
-To: Steven Rostedt <rostedt@goodmis.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: Alex Williamson <alex@shazbot.org>
+Cc: kvm@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Cc: linux-trace-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- kernel/trace/fprobe.c                | 2 +-
- kernel/trace/kprobe_event_gen_test.c | 2 +-
- kernel/trace/trace_events_hist.c     | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ drivers/vfio/vfio_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/trace/fprobe.c b/kernel/trace/fprobe.c
-index dcadf1d23b8a31f571392d0c49cbd22df1716b4f..a94ce810d83b90f55d1178a9bd29c78fd068df4c 100644
---- a/kernel/trace/fprobe.c
-+++ b/kernel/trace/fprobe.c
-@@ -607,7 +607,7 @@ static int fprobe_module_callback(struct notifier_block *nb,
- 	do {
- 		rhashtable_walk_start(&iter);
+diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+index 742477546b15d4dbaf9ebcfb2e67627db71521e0..d71922dfde5885967398deddec3e9e04b05adfec 100644
+--- a/drivers/vfio/vfio_main.c
++++ b/drivers/vfio/vfio_main.c
+@@ -923,7 +923,7 @@ vfio_ioctl_device_feature_mig_device_state(struct vfio_device *device,
  
--		while ((node = rhashtable_walk_next(&iter)) && !IS_ERR(node))
-+		while (!IS_ERR_OR_NULL((node = rhashtable_walk_next(&iter))))
- 			fprobe_remove_node_in_module(mod, node, &alist);
+ 	/* Handle the VFIO_DEVICE_FEATURE_SET */
+ 	filp = device->mig_ops->migration_set_state(device, mig.device_state);
+-	if (IS_ERR(filp) || !filp)
++	if (IS_ERR_OR_NULL(filp))
+ 		goto out_copy;
  
- 		rhashtable_walk_stop(&iter);
-diff --git a/kernel/trace/kprobe_event_gen_test.c b/kernel/trace/kprobe_event_gen_test.c
-index 5a4b722b50451bfdee42769a6d3be39c055690d1..a1735ca273f0b756aa1fcfcdab30ddad9bc51c5f 100644
---- a/kernel/trace/kprobe_event_gen_test.c
-+++ b/kernel/trace/kprobe_event_gen_test.c
-@@ -75,7 +75,7 @@ static struct trace_event_file *gen_kretprobe_test;
- 
- static bool trace_event_file_is_valid(struct trace_event_file *input)
- {
--	return input && !IS_ERR(input);
-+	return !IS_ERR_OR_NULL(input);
- }
- 
- /*
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 73ea180cad555898693e92ee397a1c9493c7c167..59df215e1dfd9349eca1c0823ed709ec7285f766 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -3973,7 +3973,7 @@ trace_action_create_field_var(struct hist_trigger_data *hist_data,
- 	 */
- 	field_var = create_target_field_var(hist_data, system, event, var);
- 
--	if (field_var && !IS_ERR(field_var)) {
-+	if (!IS_ERR_OR_NULL(field_var)) {
- 		save_field_var(hist_data, field_var);
- 		hist_field = field_var->var;
- 	} else {
+ 	return vfio_ioct_mig_return_fd(filp, arg, &mig);
 
 -- 
 2.43.0
