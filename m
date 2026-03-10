@@ -4,31 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F73FD2D6F
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CEDFD2D63
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F60F10E722;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A81B10E721;
 	Tue, 10 Mar 2026 12:41:16 +0000 (UTC)
-X-Greylist: delayed 314 seconds by postgrey-1.36 at gabe;
- Tue, 10 Mar 2026 12:00:39 UTC
 Received: from mail.avm.de (mail.avm.de [212.42.244.94])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91B3B10E703;
- Tue, 10 Mar 2026 12:00:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69C8210E711;
+ Tue, 10 Mar 2026 12:01:19 +0000 (UTC)
 Received: from [212.42.244.71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006ab-e21d-7f0000032729-7f000001d99c-1
+ id 69b006ac-e21d-7f0000032729-7f000001d9c0-1
  for <multiple-recipients>; Tue, 10 Mar 2026 12:55:24 +0100
 Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
  by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:23 +0100 (CET)
+ Tue, 10 Mar 2026 12:55:24 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:48:33 +0100
-Subject: [PATCH 07/61] erofs: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 12:48:37 +0100
+Subject: [PATCH 11/61] pstore: Prefer IS_ERR_OR_NULL over manual NULL check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-7-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-11-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -58,24 +56,22 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, 
- Yue Hu <zbestahu@gmail.com>, Jeffle Xu <jefflexu@linux.alibaba.com>, 
- Sandeep Dhavale <dhavale@google.com>, Hongbo Li <lihongbo22@huawei.com>, 
- Chunhai Guo <guochunhai@vivo.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1165; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=Wx/k10vuVbp8ZUI17J5Bmoq0XIce6rBC9+YI4+K5MhY=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAXuTWLAsZgE3CYfS0prKIO5oYoR3eM1fSwdn
- +XKr0TQn0GJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAF7gAKCRA0LQZT0ays
- 2/j8B/sEd5J2vRHsnvhncB2lMo9VZ5h3+ZMJUztWw9QhmuXX9Qx3HEdJ5GLZ84ct6sqOhNTdJzS
- JFD7aVZEzrOOhcVXC4LBSF/0LTyuRs08pHBx90juaWCHs505i/RK57onvWUjJYv2jNvBVJQQ+S6
- AU4u0SqHLiT0AAUqbjuiM2TTHxhB5xD59cg+mk4rXkCdmvt3sw2+h9McRwE+VdqWIniC4/IsZt/
- lSDklfOcCL2PaTrHCFhWHaM0/yrWd/ljPTRmFceOPsri9YRyl2VkofnQ4LBx/tIitZdlpukR5BZ
- 3gdZMB70thXOoVOpRxkVmdjJvHPiGXebLpJqAK8oxLcbLF+S
+Cc: Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=958; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=50ahf3Ovo2xs3bKtWfsEny3TDWNoY4zAg8ay7QEz3LI=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAX7sQcV3VwS+mx5jK1HizkW2meRfNqVaBq2u
+ sez6firU+2JATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAF+wAKCRA0LQZT0ays
+ 2xq8B/0SUo4r3rxVq9RsANPcVwQvjAVIq5IHS3vrGpufO9mdcUCVswBYAGcqVWlGUWYhZ9D5Afm
+ wOzPQKPaAOE+fY5h8prRvYwP+dSX3nADwI8Y6unKqygPjUrnO+GjcQ97MVfA906q0I9/A6k6cjF
+ jRX1r++tFvKvjX46AZyTpQKZC7YoNaBrH37lhDan3ZiZqsJrJDSI+f2JPLEkh5ffnrBrT1NRvPO
+ /GMhxFHqkXWNux7Q6NSnWc5GTjmQY/JD/+/V9BILGVpDvPcV2orOeVbtK+hA0s3T4ekXooFahFe
+ 5VVhIFMEZXUHZMw53adA+fpwHBkKMznHg4ePWJsQNeHf/dyM
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143724-8966EF2F-D5F13E8E/0/0
+X-purgate-ID: 149429::1773143724-9167EF2F-D7D1D994/0/0
 X-purgate-type: clean
-X-purgate-size: 1167
+X-purgate-size: 960
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
@@ -100,33 +96,28 @@ check.
 
 Change generated with coccinelle.
 
-To: Gao Xiang <xiang@kernel.org>
-To: Chao Yu <chao@kernel.org>
-To: Yue Hu <zbestahu@gmail.com>
-To: Jeffle Xu <jefflexu@linux.alibaba.com>
-To: Sandeep Dhavale <dhavale@google.com>
-To: Hongbo Li <lihongbo22@huawei.com>
-To: Chunhai Guo <guochunhai@vivo.com>
-Cc: linux-erofs@lists.ozlabs.org
+To: Kees Cook <kees@kernel.org>
+To: Tony Luck <tony.luck@intel.com>
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- fs/erofs/zdata.c | 2 +-
+ fs/pstore/zone.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/erofs/zdata.c b/fs/erofs/zdata.c
-index 3977e42b9516861bf3d59c072b6b8aaa6898dd8a..88c293ab2b1ef7962c6f5c0aa82639859e41b8e2 100644
---- a/fs/erofs/zdata.c
-+++ b/fs/erofs/zdata.c
-@@ -1227,7 +1227,7 @@ static int z_erofs_parse_in_bvecs(struct z_erofs_backend *be, bool *overlapped)
- 		struct page *page = bvec->page;
+diff --git a/fs/pstore/zone.c b/fs/pstore/zone.c
+index a3b003f9a3a079c482b673f57023ce88fc290dbf..dce8403ca18566cc4a7a853ccdc7e1c165666fcb 100644
+--- a/fs/pstore/zone.c
++++ b/fs/pstore/zone.c
+@@ -1226,7 +1226,7 @@ static struct pstore_zone **psz_init_zones(enum pstore_type_id type,
  
- 		/* compressed data ought to be valid when decompressing */
--		if (IS_ERR(page) || !page) {
-+		if (IS_ERR_OR_NULL(page)) {
- 			bvec->page = NULL;	/* clear the failure reason */
- 			err = page ? PTR_ERR(page) : -EIO;
- 			continue;
+ 	for (i = 0; i < c; i++) {
+ 		zone = psz_init_zone(type, off, record_size);
+-		if (!zone || IS_ERR(zone)) {
++		if (IS_ERR_OR_NULL(zone)) {
+ 			pr_err("initialize zones %s failed\n", name);
+ 			psz_free_zones(&zones, &i);
+ 			return (void *)zone;
 
 -- 
 2.43.0
