@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31721FD2D6C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 865E1FD2D6E
 	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFA0D10E729;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD68310E727;
 	Tue, 10 Mar 2026 12:41:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="r+Bm3oJS";
+	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="YXGm2fdd";
 	dkim-atps=neutral
-Received: from mail.avm.de (mail.avm.de [212.42.244.94])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A83710E714;
- Tue, 10 Mar 2026 12:01:17 +0000 (UTC)
+Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6252010E24D;
+ Tue, 10 Mar 2026 12:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
- t=1773143727; bh=tuKkFaje3/67N7+EgH43toSki2nfSyvowNLdXGdESEg=;
+ t=1773143727; bh=r2ZNUyu6wG+N08MfsdquggU1Q5xHuPu+4B/VYVv0t9Q=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=r+Bm3oJS8/+32ZYGJ4UVxlrt7f9UtpWnT+67BiHxtliz59uxMI5sUh7+OdyJZrU84
- oJKKVCJPxENp4cyPplGnJOyhV2Rya3i4aDtjbyK8DFhZzMmI64bq0RbYNiKKndHNeg
- obwacGvLiuG6y1WbSPM0lPtBbQUvyegsd7ixN734=
-Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
+ b=YXGm2fddB0bD05XRQUo0zroBzSiXv55w6mXtnC3/rbyTRBzDlz9PWwan2loANEchz
+ 3nUHhdwioF2zPrdtj5GGDiz2/RlpAekCz2aZgV1toF9qbrEYEb5oV3jU7h9yUVsShF
+ X4koU5bE7tqGGpl7IdLmkPqUNFFBIWSBlmjRRwMc=
+Received: from [212.42.244.71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006af-e21d-7f0000032729-7f000001ba70-1
+ id 69b006af-b734-7f0000032729-7f0000019c66-1
  for <multiple-recipients>; Tue, 10 Mar 2026 12:55:27 +0100
-Received: from mail-auth.avm.de (dovecot-mx-01.avm.de
- [IPv6:2001:bf0:244:244::71]) by mail.avm.de (Postfix) with ESMTPS;
+Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
+ by mail.avm.de (Postfix) with ESMTPS;
  Tue, 10 Mar 2026 12:55:27 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:49:08 +0100
-Subject: [PATCH 42/61] pmdomain: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 12:49:20 +0100
+Subject: [PATCH 54/61] aoe: Prefer IS_ERR_OR_NULL over manual NULL check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-42-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-54-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -65,26 +65,26 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, Heiko Stuebner <heiko@sntech.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=tuKkFaje3/67N7+EgH43toSki2nfSyvowNLdXGdESEg=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAZkDlGRZW4plkDdO/q/5zI0Z5Mh3aiEDX5Kr
- HkD8tDHTjSJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGZAAKCRA0LQZT0ays
- 22gFCACOZ3xbUn7DVys9f0zhKrFg1046b9jGtTeftFIaZ4sDTERX+NnuADwMWlcQi8MAEiX00cR
- w7aw6Pu5UwlIY4a//xAXQOD0Vq3vR2NLs/mYfOXBEyx8uBUm6hnHex2/TV3VaisJJ0c/nDfxiVS
- PU0p02U0cgmDRMbp/b1fSLFHzNrm+hO/7LNRD9bLaqTjGpZUScyufroKDOn5G4AkEBqNVNB17jO
- VAtR0IXhgFW2Uuc0XEKCg+KHshTFKSAPvKPonnlie/OWxc6MLfJtX+Szyr9D2UStWTYIluWdysV
- 1svYEoMi2X+1/dEnsAW5QR9/oHEWtkGT2aoEyJlhPvAZyp4m
+Cc: Justin Sanders <justin@coraid.com>, Jens Axboe <axboe@kernel.dk>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=955; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=r2ZNUyu6wG+N08MfsdquggU1Q5xHuPu+4B/VYVv0t9Q=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAaNWcUAch/xMnI0wAbOgPf41K9NsP36Msk7P
+ Nki6xRL5YKJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGjQAKCRA0LQZT0ays
+ 2xbWCACfzS98X1Mp5R5EwpIK0pTgqrssQIB840NNUj3GRa/d9D29Lch2JFjR2Yy+ldzvSmEDJYr
+ +FATwB8i4z+nArVkmYPgbG8vodjj8pep1H5lik7YhU3G9ClazVWr99T039Q+W8sEprULXLQ0dbA
+ 4Kpe3/L1QfxY1N+GchfqAHMv0rRJq1RvirATmISGmxTg7n0SEymJW83Bn4X8R0ZnvK6kohy5NEW
+ 2Ii5RKfTmBA8YgN2bfh5HrwrKAUrDiQU4qD40KTADcaRVC7Oxd160l9rFHE0+fB+GiDoct83TcC
+ /85+2RTmaR+Iva1VQ69ftJxFcgDmZC/vMk3mknKyTuNPcNM+
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143727-E2654F2F-96715D38/0/0
+X-purgate-ID: 149429::1773143727-DADD8A3D-0ED39ACF/0/0
 X-purgate-type: clean
-X-purgate-size: 1157
+X-purgate-size: 957
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
 X-purgate: clean
-X-Mailman-Approved-At: Tue, 10 Mar 2026 12:41:15 +0000
+X-Mailman-Approved-At: Tue, 10 Mar 2026 12:41:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,30 +104,28 @@ check.
 
 Change generated with coccinelle.
 
-To: Ulf Hansson <ulf.hansson@linaro.org>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: linux-pm@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
+To: Justin Sanders <justin@coraid.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- drivers/pmdomain/rockchip/pm-domains.c | 2 +-
+ drivers/block/aoe/aoecmd.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-index 44d34840ede7a8f483930044c96042dda9290809..4352aa40298a3bcfde90811258bac20a86068c10 100644
---- a/drivers/pmdomain/rockchip/pm-domains.c
-+++ b/drivers/pmdomain/rockchip/pm-domains.c
-@@ -746,7 +746,7 @@ static int rockchip_pd_attach_dev(struct generic_pm_domain *genpd,
- 	}
+diff --git a/drivers/block/aoe/aoecmd.c b/drivers/block/aoe/aoecmd.c
+index a4744a30a8af4ff05113f3234021eec728265b4f..b31e539a66433a0a5d6e81117a32d12735ffc1bc 100644
+--- a/drivers/block/aoe/aoecmd.c
++++ b/drivers/block/aoe/aoecmd.c
+@@ -1268,7 +1268,7 @@ aoe_ktstart(struct ktstate *k)
  
- 	i = 0;
--	while ((clk = of_clk_get(dev->of_node, i++)) && !IS_ERR(clk)) {
-+	while (!IS_ERR_OR_NULL((clk = of_clk_get(dev->of_node, i++)))) {
- 		dev_dbg(dev, "adding clock '%pC' to list of PM clocks\n", clk);
- 		error = pm_clk_add_clk(dev, clk);
- 		if (error) {
+ 	init_completion(&k->rendez);
+ 	task = kthread_run(kthread, k, "%s", k->name);
+-	if (task == NULL || IS_ERR(task))
++	if (IS_ERR_OR_NULL(task))
+ 		return -ENOMEM;
+ 	k->task = task;
+ 	wait_for_completion(&k->rendez); /* allow kthread to start */
 
 -- 
 2.43.0
