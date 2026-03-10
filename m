@@ -4,92 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48C2DFD2D6F
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:51:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB24DFD2D79
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 13:22:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F4310E277;
-	Tue, 10 Mar 2026 12:51:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E8EA10E286;
+	Tue, 10 Mar 2026 13:22:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fMfuhPa2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1uvZadXK";
 	dkim-atps=neutral
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2790F10E277
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 12:51:25 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-2be7ded9477so22583eec.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 05:51:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773147084; cv=none;
- d=google.com; s=arc-20240605;
- b=GRpk+qvf1XQ4T4zq0BFUx/RMc30cpW/WM95m9e/NQv9vNaNySz3OUv8JNJg/jCbXEm
- Ew2FkmFHfVaeB2feFWwZEV5FOk1ekuY4weVszRHcABLz6GCPLUhpYuzzSQpj4PFn8XSU
- wmN5O3ElLGDo4vkmU4Cpb6aee0byQzFbxTpJIjx0jKvQWfYjXsmb0ZP3ZTeE+evrxvw1
- xFeo2IIDiHCAmM8uZrQxm5iuKnNEDNe5Fe2qzzOAveGJOBBfcy46EcimyqwuOePoqRRc
- cp5Wh3RbtXM+rIY5kCRI1aPqsZkJnfcPj16rQKyEkm3vvDJZNa2iPMsigb6OvlLBR/Jr
- izLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=v7j1j9lCQ/4qqvX32waafbBeiK/2LmcSO3zw2TM6NA0=;
- fh=6mimR5sDrMt8IMUk1mYDJAnUOE36SgiIbpOp6WZLmeY=;
- b=kTCqhtj6xiC51EaWMhO4sjMty3hgh3MoKOfsztizs1Imt0hKmAAPWhTfb5sgstjvGx
- 3J0+lrrLj2JKwTOa7kt2NCbEJqWX1bxg57978Nc29YbLmpdEBy79L+Ff21laLoQCnX3x
- JuUcCPNl4NRD4eag/pOztjqPvY2tf8iHnntcimlKMmXEKvrAGAcH1bdI5O+ztcOorc4e
- wSk8Clj+aLBHA1OTXS6NOeD/Rtcnv8mCpsZq4Ol3X/jeG2uoUaiSgwe5ywVEsQkQq6NR
- SThFByJmQz+WsuhRIJKcJAY8rdUHf/bHJWgImwbBZRVwh8SKq6JU/O/hoE8a/dO3Q7x3
- HXrA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773147084; x=1773751884; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=v7j1j9lCQ/4qqvX32waafbBeiK/2LmcSO3zw2TM6NA0=;
- b=fMfuhPa2t16jzuE0ICTeJBWXJWNTIJaWiuj9K45umWNcCtw411bhoZFxprdFZzScsy
- //5emuUas6svIYuNkSUY6nENihXBYr1Pp7RA7seuR+vZ/sGUtKuLg5k4QkYiRirbdeKz
- xk2ZNsJUetwy3M+NkH3j7DE8v9L1ZENoVxe35ZDZbI+cihJdd7L8p3Nckp74hnrz8zBo
- Hup6eycJRiTBqscHWCvMRTWv/S7ZEwBampp3Mk+Sm8GFKAPQcEgvRuj3uEUk1r7OM3Mk
- 1pa8vnL7Q1tURVxzXsluyQQNtTLDwr2bP9J4LQ8euDHnpZH8lBEAZCWdgPMY2wG4lXPc
- yh1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773147084; x=1773751884;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=v7j1j9lCQ/4qqvX32waafbBeiK/2LmcSO3zw2TM6NA0=;
- b=wlsTs8YrmqM8sx0K4vvTNnBTrTCNJpTw3fuag32auotaxQaOONNj735ozVhQUHoOo6
- rvMuZ9heluRBTo2KnyV3dOeVPoNVRJpxTdW9AszcjVa7gQZuhul9JbhJRd3PeVILQMPn
- /WzCyCtmnCDzGT4EjjAPuXpawW0FaphDkvj34GWF2qJ1jpyLdcVuSmSxqWpf7CPypv7h
- U43aVV8ogxo3lLmpr4VPOEOzIZ4At0Oi/sGHhnK3FPllxdTKa9vN95VWrRblQ3TQY2U8
- 1vmDwrPaM0Z1om5YSUkh7vO6p8UwR6z8vechpj43JQ6navELr9PV7KIsXBQTE5tSgNy1
- GFEA==
-X-Gm-Message-State: AOJu0YxBfUdU2e08P+WDAYoH6JhIJyJlQ7WAvN2HM3eZLsz3C+wOFO1j
- vushkc2eo0sAkUTfSwt3PWeuQRYPvM9AMJ+cQSq2Rxa0zAfgOxFxXcsaQn+Bks6xBimIgg8K+gP
- ZQRKaUmQ+OQOe9AiPS7jZ/eVVLSkJ87k=
-X-Gm-Gg: ATEYQzzE7dKsPbcJ8sk2RJav6oriwFGClFdBl9TXfMwTO5KQeu5VPFPZSCwheQlyUU8
- fSAwkvvHpn3q+4azUYR/f6CPiG3AyyegWbcwWCKXPSD+x8XCLOFHAg8NUvyfx31zPTMfsFy8NGZ
- fJZtkTNYE+DFwea1iZu/geHtYgby7xXZRc/jl3rCvp+oeDN9hSTB0+9oNfLbdsmiKz7UmWlG4oz
- +y7Yf3vTCl996iDnco6q9fcLhwpWYhDxc2BiyOzFqwq/mzAGzdWQXgGWlfYJnrWiEUKdYi460r1
- c0i7+BJM/1nDPBijmYqcGBgylvn35ZDcg9uUOshh5oYe2Rj38nEpkH8alT6+NOfwn2Yfjw==
-X-Received: by 2002:a05:7301:1291:b0:2be:6e6:e47a with SMTP id
- 5a478bee46e88-2be4dd81d50mr2605244eec.0.1773147084275; Tue, 10 Mar 2026
- 05:51:24 -0700 (PDT)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012015.outbound.protection.outlook.com [52.101.53.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E679A10E286
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 13:22:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dJ/Q2y7aQC8sVzjY6ojLO5EjK2oZSHv7nRDf6TkyXOvJu5SB0L2DBXVgC4BJxBj7UQygt93M0oyhUHRFltwOJ+OAuifWt4RUk5MVsSbbGWvD46VVFtj8EM7J0blffZ4G7geo48gn8o9v0MQ+YGx+7wbxIoLtAlAFXABnVuywTorXWh3aLsCk11ep8l/ZgYRBk3N79bgdT5duZB0aDDPpMhjxPuWma1yv4pwLolc9OQqzayuxJ+Lyl6eYlvz2OorsTTf9S7hTkrkP6fmamkqeJE2LMYL7jD53+Wn9p3nx7Cw3hFaadn+s3GeVegDDg7XxoDQ1/7ma7qJFmIufL/3YVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D5e++sXwr2DQihatKpnQ9U0R5JeI0Te3f8RBLb444oc=;
+ b=liemOrGruPNMSMbzFKPj6dh5fAQPJ5/gK2apryDa0woSjV2+8Nq/sQ5+qosPmcGEy3YXsqi42m8iVvivdd4Mo8gItxQNWKtrU8vjKStrO8uLY1WYdEluroqOI5gw60MXwJDBNV9DtPo+O6rc/r9M+/W28c5HbGyQxrlsHVy7eggHdp0VOuoTdXSfFOMblShagbnOKIJK1826OWEOTzHQUxlauQ8z2C6G1nhkFll0VS+nw+sZcE3ddght5k/rlj0ZYV0UtIKF2EsrKT+25ja5UmQictdApPpuoCSPkX+cM72SBibqmjGm/14bTiVH+sSoJnki7DGwIljHpgTOPEAh9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D5e++sXwr2DQihatKpnQ9U0R5JeI0Te3f8RBLb444oc=;
+ b=1uvZadXKKaA+ZGWa137zKLPmopntYroC5m1K1VYev5asdoylA9nGQKENEnncQ0fy0D3O2JDHPtND72RKzzQbSXxvPIhiAAGkUuiDr125OZyM9xFaOIKztZDBvOp2rbWDG1A7vJdyVGeWg3AkeVCH5lAwpS8XnHdxwe6plQ9YkAU=
+Received: from SJ0PR03CA0353.namprd03.prod.outlook.com (2603:10b6:a03:39c::28)
+ by IA0PR12MB8983.namprd12.prod.outlook.com (2603:10b6:208:490::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Tue, 10 Mar
+ 2026 13:22:24 +0000
+Received: from SJ1PEPF00001CE9.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c:cafe::b0) by SJ0PR03CA0353.outlook.office365.com
+ (2603:10b6:a03:39c::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.25 via Frontend Transport; Tue,
+ 10 Mar 2026 13:22:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE9.mail.protection.outlook.com (10.167.242.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Tue, 10 Mar 2026 13:22:23 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 10 Mar
+ 2026 08:22:22 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 10 Mar
+ 2026 08:22:22 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 10 Mar 2026 08:22:21 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: YiPeng Chai <YiPeng.Chai@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: Add poison consumption handling for gfx v12_1
+Date: Tue, 10 Mar 2026 09:22:10 -0400
+Message-ID: <20260310132211.2867415-3-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260310132211.2867415-1-alexander.deucher@amd.com>
+References: <20260310132211.2867415-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-References: <CPUPR80MB6583D407EA175269FE066E77A379A@CPUPR80MB6583.lamprd80.prod.outlook.com>
-In-Reply-To: <CPUPR80MB6583D407EA175269FE066E77A379A@CPUPR80MB6583.lamprd80.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 10 Mar 2026 08:51:13 -0400
-X-Gm-Features: AaiRm53XLGSV7l4x4yoRycr-gF1UFHN1aq26PcEsjehf9C0Qm36ZLWbMabXXbMA
-Message-ID: <CADnq5_Pjyxet1qfpb3o1zGf517GQjOG-xnUVovVPLEJaDDswAw@mail.gmail.com>
-Subject: =?UTF-8?Q?Re=3A_=5BBUG_REPORT=5D_AMD_Radeon_R9_380_=28Tonga=29_=E2=80=93_HDMI_?=
- =?UTF-8?Q?no_signal_after_suspend_=28possible_EDID_regression_since_kern?=
- =?UTF-8?Q?el_6=2E13=29?=
-To: Danilo Machado <danilomachado2002@hotmail.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "kernel-team@lists.ubuntu.com" <kernel-team@lists.ubuntu.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
+ designate permitted sender hosts)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE9:EE_|IA0PR12MB8983:EE_
+X-MS-Office365-Filtering-Correlation-Id: a00e3b71-e4e1-4b6e-9115-08de7ea8109c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700016|22082099002; 
+X-Microsoft-Antispam-Message-Info: BQ9qfGl9o5e7Z2lRjwk7g5dYCwo8sl57ajnQXIKPD7mJ0pqgBtphvWlEGXFYVdaa6vV7wWn8FQ5i/+FlvzdIdzJEmlVHanCDuX5e7is5VvX6RtWZQ7q2HxfFlnYnjgA2+8r2m93TdLlmV7n9PI+6arrdiZI+2bJkkllVuUYsx2Yn8re++DbFPo4UZbp7Q2NoRZBTWn77WvG2zAe2nDFpRdtaZvEwAMHao4VCNFj6dQhHxmpAG9XS1tVULXdjspn5lpx8m1SEBcEiFBNFBc6fPLHXvTXPcPIt4bg2LyJGWlPI3/aVrrdf6d1/fgdzzUCHYEEiKucLXXXaa4wnTf2RqmedCXH9WxJu+eFbLA7dp5E8qLxlT/XGeAJpLFbTiVaj2ZojUtS2mBIdvF4MXJOSIo5W+JK8o9hmcIM6y34rMipwoN9aA1dZfwgmcWBDMc+CZag8DgsuYAUwDmlrIDu2NgyrahJ+JEcjzJXowu1UTnUS45d+3Po9rPjHRalnKVQxJPbh1JGpcMl36is1luNg25AhbsL09upXUmuFvdDIGtUzkQY/1MU1SkwaQ45AU3NuFbVEZNVKevOXhlDcII1Pfnhf0R0F7YeG3QpgTGhMBfJjrIue1YHYqsxzSffZHAlux6ybcFRh5tQGGOQZzz7Bhdes+xwOdnhSrublgmu8c50qmL9nGcBWamAGe0GtSFZYxXh3P6EiLkgPaXa+vFlyQL/mh3UECjNkMbiXnLs3/HjDCVQXwau8usPlUKQxOADADjF2lohpFMfLhCMnUVMwew==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(22082099002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: WHi0R2LannW520irvFNdc2xhfl3PljFjNqul3xgjPmZe/Xv2Vj6LDncamPJrpLCY/A6wS2T69AEaV5+oDD3QuvWKV9ADeo+AM4BtL8ktu5PLntzFi4wrCHpB2umNMy+aq2cCJqIq6l8K6vdyQ2J/msomNjL2i5uBrXFAyf/lOikTRRkWElJ5C0q7mAkkN63LCS23V9rgmbTKu9GmfhvmVWidEyAqzYTGHKmQFnchnLdNJ8GzpZgBebulebWq9YYc399hissgahGPKaEjbumB+xkZb58fCBNnILXBtw9FuWYbySg4t4J2G4SUdnwJHjttFOmrcLvI6rtr5wGvegOWzM9wa/8/Z7vlYzoErVEofy/RJnlhr26xI03Qlrw8/2vz+Ped/H4K41YrnQf316q2tA5mP7WvBVAUF1IvvzzCepX5xC9DOTW1PWZD2TCN/71/
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2026 13:22:23.0619 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a00e3b71-e4e1-4b6e-9115-08de7ea8109c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8983
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,98 +116,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 10, 2026 at 4:34=E2=80=AFAM Danilo Machado
-<danilomachado2002@hotmail.com> wrote:
->
-> Hello,
-> I am reporting a regression affecting my AMD Radeon R9 380 (Tonga / GCN 1=
-.2) related to HDMI output after system suspend. I am sharing detailed obse=
-rvations in case they help identify the cause.
-> This issue has also been reported in the Ubuntu bug tracker:
-> https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389
-> ________________________________
-> System information
-> GPU: AMD Radeon R9 380 (Tonga / GCN 1.2)
-> CPU: AMD Ryzen 5 5500
-> Motherboard: Gigabyte B450 AORUS PRO WIFI
-> Connection: HDMI directly to monitor
-> Distribution: Zorin OS 18 (Ubuntu-based)
-> Desktop environments tested: GNOME (Wayland and X11 sessions)
-> ________________________________
-> Summary of the issue
-> Since kernel 6.13, my system occasionally resumes from suspend with no HD=
-MI signal.
-> The system itself resumes normally, but the monitor remains black and rep=
-orts no input signal.
-> This behavior appears related to a failure in EDID detection or HDMI link=
- reinitialization after suspend.
-> Kernel 6.12 and earlier do not show this behavior.
-> ________________________________
-> Kernel behavior comparison
-> Kernel 6.12.x
-> Stable operation
-> Suspend and resume work correctly
-> HDMI output always restored
-> Kernel 6.13.x and newer
-> Regression observed
-> After suspend, the system resumes but HDMI signal is sometimes not restor=
-ed
+From: YiPeng Chai <YiPeng.Chai@amd.com>
 
-Can you bisect?  If 6.12 works and 6.13 is broken, you should be able
-to bisect between them to identify the bad commit.
+Add poison consumption handling for gfx v12_1.
 
-https://docs.kernel.org/admin-guide/bug-bisect.html
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c        | 44 +++++++++++++++++++
+ .../drm/amd/amdkfd/kfd_int_process_v12_1.c    | 12 ++++-
+ 3 files changed, 56 insertions(+), 1 deletion(-)
 
-Alex
-> ________________________________
-> Relevant kernel log excerpt
-> During resume when the issue occurs, the following messages appear in dme=
-sg:
-> [drm] ERROR HDMI-A-1: probed a monitor but no|invalid EDID
-> amdgpu 0000:0b:00.0: amdgpu: failed to read EDID from connector HDMI-A-1
-> amdgpu 0000:0b:00.0: amdgpu: link training failed during resume
-> These messages suggest that EDID detection or HDMI link reinitialization =
-may be failing during the resume sequence.
-> The complete logs and additional system information are available in the =
-Launchpad bug report linked above.
-> ________________________________
-> Wayland vs X11 behavior
-> I also tested different display sessions to help isolate the issue.
-> Wayland session:
-> Suspend and resume work reliably in my tests. The monitor wakes normally =
-and HDMI output is restored.
-> X11 session:
-> Short suspend cycles usually resume correctly. However, after longer susp=
-end periods (approximately 10=E2=80=9315 minutes or more), the system resum=
-es but the monitor receives no signal.
-> The system itself continues running normally in the background.
-> This suggests that the issue may involve display reinitialization during =
-deeper power-state transitions or differences in display management between=
- Wayland compositors and the X11 stack.
-> ________________________________
-> Troubleshooting attempts
-> Before reporting this bug, I performed several tests and troubleshooting =
-steps:
-> =E2=80=A2 Tested multiple kernel versions
-> =E2=80=A2 Confirmed stable behavior with kernel 6.12
-> =E2=80=A2 Reproduced the issue with newer kernels
-> =E2=80=A2 Tested both Wayland and X11 sessions
-> =E2=80=A2 Verified HDMI cable and monitor behavior
-> =E2=80=A2 Compared suspend durations to identify patterns
-> =E2=80=A2 Collected logs and monitored dmesg output
-> Because kernel 6.12 remains stable on this system, I have temporarily sta=
-yed on the LTS kernel (6.8 series) to maintain reliability.
-> ________________________________
-> Background
-> I was previously a long-time Windows user (from Windows XP through Window=
-s 11), but I recently migrated fully to Linux and do not plan to return to =
-Windows.
-> My goal is to maintain a stable Linux system and eventually upgrade to ne=
-wer kernels once this regression is fully resolved.
-> I appreciate the work of the kernel and AMDGPU developers and hope this r=
-eport helps identify the issue.
-> If additional logs, kernel parameters, or test kernels would be helpful, =
-I would be glad to assist with further testing.
-> Best regards,
-> Danilo Machado
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 720ed3a2c78c6..2785eda6fea52 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -463,6 +463,7 @@ struct amdgpu_gfx {
+ 	struct amdgpu_irq_src		cp_ecc_error_irq;
+ 	struct amdgpu_irq_src		sq_irq;
+ 	struct amdgpu_irq_src		rlc_gc_fed_irq;
++	struct amdgpu_irq_src		rlc_poison_irq;
+ 	struct sq_work			sq_work;
+ 
+ 	/* gfx status */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+index 1a7ccfed8f0ac..db49582a211f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -45,6 +45,7 @@
+ #include "v12_structs.h"
+ #include "gfx_v12_1.h"
+ #include "mes_v12_1.h"
++#include "amdgpu_ras_mgr.h"
+ 
+ #define GFX12_MEC_HPD_SIZE	2048
+ #define NUM_SIMD_PER_CU_GFX12_1	4
+@@ -1184,6 +1185,13 @@ static int gfx_v12_1_sw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
+ 
++	/* RLC POISON Error */
++	r = amdgpu_irq_add_id(adev, SOC_V1_0_IH_CLIENTID_RLC,
++				GFX_12_1_0__SRCID__RLC_POISON_INTERRUPT,
++				&adev->gfx.rlc_poison_irq);
++	if (r)
++		return r;
++
+ 	adev->gfx.gfx_current_status = AMDGPU_GFX_NORMAL_MODE;
+ 
+ 	r = gfx_v12_1_rlc_init(adev);
+@@ -3778,6 +3786,35 @@ static int gfx_v12_1_priv_inst_irq(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
++static int gfx_v12_1_rlc_poison_irq(struct amdgpu_device *adev,
++				  struct amdgpu_irq_src *source,
++				  struct amdgpu_iv_entry *entry)
++{
++	uint32_t rlc_fed_status = 0;
++	uint32_t ras_blk = RAS_BLOCK_ID__GFX;
++	struct ras_ih_info ih_info = {0};
++	int i, num_xcc;
++
++	num_xcc = NUM_XCC(adev->gfx.xcc_mask);
++	for (i = 0; i < num_xcc; i++)
++		rlc_fed_status |= RREG32(SOC15_REG_OFFSET(GC,
++					GET_INST(GC, i), regRLC_RLCS_FED_STATUS));
++
++	if (!rlc_fed_status)
++		return 0;
++
++	if (REG_GET_FIELD(rlc_fed_status, RLC_RLCS_FED_STATUS, SDMA0_FED_ERR) ||
++	    REG_GET_FIELD(rlc_fed_status, RLC_RLCS_FED_STATUS, SDMA1_FED_ERR))
++		ras_blk = RAS_BLOCK_ID__SDMA;
++
++	dev_warn(adev->dev, "RLC %d FED IRQ\n", ras_blk);
++
++	ih_info.block = ras_blk;
++	ih_info.reset = AMDGPU_RAS_GPU_RESET_MODE2_RESET;
++	amdgpu_ras_mgr_dispatch_interrupt(adev, &ih_info);
++	return 0;
++}
++
+ static void gfx_v12_1_emit_mem_sync(struct amdgpu_ring *ring)
+ {
+ 	const unsigned int gcr_cntl =
+@@ -3902,6 +3939,10 @@ static const struct amdgpu_irq_src_funcs gfx_v12_1_priv_inst_irq_funcs = {
+ 	.process = gfx_v12_1_priv_inst_irq,
+ };
+ 
++static const struct amdgpu_irq_src_funcs gfx_v12_1_rlc_poison_irq_funcs = {
++	.process = gfx_v12_1_rlc_poison_irq,
++};
++
+ static void gfx_v12_1_set_irq_funcs(struct amdgpu_device *adev)
+ {
+ 	adev->gfx.eop_irq.num_types = AMDGPU_CP_IRQ_LAST;
+@@ -3912,6 +3953,9 @@ static void gfx_v12_1_set_irq_funcs(struct amdgpu_device *adev)
+ 
+ 	adev->gfx.priv_inst_irq.num_types = 1;
+ 	adev->gfx.priv_inst_irq.funcs = &gfx_v12_1_priv_inst_irq_funcs;
++
++	adev->gfx.rlc_poison_irq.num_types = 1;
++	adev->gfx.rlc_poison_irq.funcs = &gfx_v12_1_rlc_poison_irq_funcs;
+ }
+ 
+ static void gfx_v12_1_set_imu_funcs(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
+index 5d8b5aa194da8..47947b94926ba 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v12_1.c
+@@ -28,6 +28,7 @@
+ #include "ivsrcid/vmc/irqsrcs_vmc_1_0.h"
+ #include "kfd_smi_events.h"
+ #include "kfd_debug.h"
++#include "amdgpu_ras_mgr.h"
+ 
+ /*
+  * GFX12.1 SQ Interrupts
+@@ -185,6 +186,7 @@ static void event_interrupt_poison_consumption_v12_1(struct kfd_node *node,
+ 	enum amdgpu_ras_block block = 0;
+ 	int ret = -EINVAL;
+ 	uint32_t reset = 0;
++	u64 event_id = RAS_EVENT_INVALID_ID;
+ 	struct kfd_process *p = kfd_lookup_process_by_pasid(pasid, NULL);
+ 
+ 	if (!p)
+@@ -220,7 +222,15 @@ static void event_interrupt_poison_consumption_v12_1(struct kfd_node *node,
+ 	 * resetting queue passes, do page retirement without gpu reset
+ 	 * resetting queue fails, fallback to gpu reset solution
+ 	 */
+-	amdgpu_amdkfd_ras_poison_consumption_handler(node->adev, block, reset);
++	if (amdgpu_uniras_enabled(node->adev))
++		event_id = amdgpu_ras_mgr_gen_ras_event_seqno(node->adev,
++					RAS_SEQNO_TYPE_POISON_CONSUMPTION);
++
++	RAS_EVENT_LOG(node->adev, event_id,
++		      "poison is consumed by source %d, kick off gpu reset flow\n", source_id);
++
++	amdgpu_amdkfd_ras_pasid_poison_consumption_handler(node->adev,
++				block, pasid, NULL, NULL, reset);
+ }
+ 
+ static bool event_interrupt_isr_v12_1(struct kfd_node *node,
+-- 
+2.53.0
+
