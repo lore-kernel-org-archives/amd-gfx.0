@@ -4,155 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BE83FD0658
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 08:09:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A7ACFD0653
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 08:10:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 538EB10E857;
-	Wed, 11 Mar 2026 08:09:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE28210E862;
+	Wed, 11 Mar 2026 08:10:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="h7K0qFC8";
+	dkim=pass (2048-bit key; secure) header.d=wbinvd.org header.i=@wbinvd.org header.b="DGPz8iSx";
 	dkim-atps=neutral
-X-Greylist: delayed 405 seconds by postgrey-1.36 at gabe;
- Tue, 10 Mar 2026 15:48:08 UTC
-Received: from mout.web.de (mout.web.de [212.227.17.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB6BC10E2C4;
- Tue, 10 Mar 2026 15:48:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1773157662; x=1773762462; i=markus.elfring@web.de;
- bh=ViIdeWt5br4rBsrGxHUMEkJDkD/ERSvSv/UV5SzvttY=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
- Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=h7K0qFC8lui0M3aEG2yhHOptmzLeK24S79cZCRktla9iVPsdh7MMZY9IQ+0fNsjy
- 1Jmj8tPDjUYGV0N31jChpPIbrmEGAAiLmOFKWubyE3NTttjDE8UYZYzPrHWHwqRbT
- ZmJLoNHR6+mwIgea1XMDsroKD1VkpdbtDpYP5RQOlLeXbFM1sGNyCjcqO4VGv6oH0
- or7WNvOJCD7wct+ITkk6hEn2pz09hvl0HnH1IXkz/NhmxM4+GPG6PRDdXRWJwhNqD
- E/CyuUCmqvUAopwe+bMtAzI3unk/5Tnu7dsxuDhsN1+B/BFgi6IvYkOUfIHgIX1fz
- IDA+/KUXvW7fGiboiQ==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1N5lj7-1vYM6w3zfn-012TrV; Tue, 10
- Mar 2026 16:41:18 +0100
-Message-ID: <924acf71-45df-4ea2-9bbd-b6f5ff262b2b@web.de>
-Date: Tue, 10 Mar 2026 16:41:12 +0100
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E220A10E2C1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 15:46:13 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-2be1b5fe11cso10448755eec.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 08:46:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=wbinvd.org; s=wbinvd; t=1773157573; x=1773762373; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=eWrM4zr6HsvGxIBz42uj8X29XvQLF5lH3Zcfuwu6Bmo=;
+ b=DGPz8iSxIuVNhJV6ddAnbe5YrIexWDgPfw/fijrMnRqTdwhXkknfjD1tkw2dR8V56P
+ 57sqe6cxirg+OuZ0evCf0W62nRUfCC/07n3DghLyti9iWme9ZE+euo1+XC7CGl+G1H7i
+ AS1ZO2DfLe8XEVAcfzHXYD5b5LfKHkl9Im5YqshJ1sAOeRfQCWsjt2jo+r376vtzO263
+ AKsxGCUMbLJESkGYvBDaaAKadQcvlh0jI0r06dbqqtUwIqyXIYIwowz6YvhSZIsrC7Wh
+ 9JzI2FURLvQQT1lI/+zUAHmZpqqLAH7RFMMFyRbl+AsHf7NvIt+rq7ntRz4KJ8bTHqz2
+ tgug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773157573; x=1773762373;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=eWrM4zr6HsvGxIBz42uj8X29XvQLF5lH3Zcfuwu6Bmo=;
+ b=BFKxGQfuWaYbDyutX9b9OH8UGrNtAy2ZqrL29uYDkSpDxevY76N0JYRkDZLVNYKBsD
+ MRvoz4T16jIlVyG4/0wm4xC8Nf4N92ZkwYbLW4BdjaXZbUQFfTI3LRSG75VrhjvCw/3K
+ E+U/opp1H1+jGX8dOexd2GYvMiM57KSNmjtRRqArZY6Ny30n4eajFnuxHLAtjM+unaA0
+ 1IA086/diTDApWU5aG79pf0Bex8mBWQhn1hiwIXHm0OnF6dZ+Uj0wGcdpam8AffqIGoK
+ Ub/1XexCqkzOZw0BeLy+Lm/SQBBx3D1pnI2UuL6fkb4btsksrj3OxBZJ+KrrbRKp6OVo
+ 4B1w==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCU2VMO7tjJFmeSbJmNTR5jMKJJWtU1M/VDSm93plJJaGczklfSe0+iYOlhTmJYQfECYov0JAcI7@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz/dk3sYUzlsQsaPO9+444m+z/KqFVd7DZkA1AnzFIQnj8V168T
+ 7RHQlmwV8G3Dk+MGa6bryTGAyVFYYywMZ5w/bI6JCa/3u9Lrb4EZAJamg2lXmgOHUSQ=
+X-Gm-Gg: ATEYQzygSb826xOziXJq2gC5/2xeJRzoQf368GG0GQY9/Jqw9g8bi5WhQhE5TYuUrXm
+ fKMiCVVtDujuYxpH1efYe8NBH5tB+THS7KMhMic7o11KwmauPJqnpI5LWRZWcut8Mj8/kQMT75W
+ i+9Xooxsk/gUAlnDl28gv5Ov1tMWtKW9gibWbs2LVnCDpWJAlMAslBHjWkiAMUIfW9x5W6fukDP
+ 4+7qiblBOqEgKtMbVOw7ewRZSzUfR/Adw6RP4q09IaTh1+aepH/farFl97FMLSeOO/b8/gApXuj
+ VyLzt4Lm6s8RfDPr+QWlWzYMcthYsFgq23vp9lQbBFJ5NU0WdarZplcRJV1hAuKiidDq8QAIoTx
+ zMNKpFcQBweVPOaj8LviyuYAENK91DCjoFWxCCbTGOx7587kZZLg+ApB4zWuC9yMCwfVdYUQPis
+ mcS3ol3by19QvXpMuVCSssI1qtDzbzO/GSzGw=
+X-Received: by 2002:a05:7300:a887:b0:2be:198e:438 with SMTP id
+ 5a478bee46e88-2be4e01914fmr6497991eec.16.1773157572941; 
+ Tue, 10 Mar 2026 08:46:12 -0700 (PDT)
+Received: from mozart.vkv.me ([2001:5a8:468b:d015:38dd:9485:6087:683])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2be645c89bfsm9743296eec.13.2026.03.10.08.46.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Mar 2026 08:46:12 -0700 (PDT)
+From: Calvin Owens <calvin@wbinvd.org>
+To: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Subject: [PATCH] drm/amd/display: Fix a benign uninitialized variable warning
+Date: Tue, 10 Mar 2026 08:46:06 -0700
+Message-ID: <6aaf2cf4bd19363a85f35e649685d7bdae400253.1773157137.git.calvin@wbinvd.org>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Philipp Hahn <phahn-oss@avm.de>, cocci@inria.fr,
- Julia Lawall <Julia.Lawall@inria.fr>
-Cc: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
- bpf@vger.kernel.org, ceph-devel@vger.kernel.org, dm-devel@lists.linux.dev,
- dri-devel@lists.freedesktop.org, gfs2@lists.linux.dev,
- intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
- iommu@lists.linux.dev, kvm@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-btrfs@vger.kernel.org,
- linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-media@vger.kernel.org, linux-mips@vger.kernel.org, linux-mm@kvack.org,
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- nicolas.palix@imag.fr, ntfs3@lists.linux.dev,
- samba-technical@lists.samba.org, sched-ext@lists.linux.dev,
- target-devel@vger.kernel.org, tipc-discussion@lists.sourceforge.net,
- v9fs@lists.linux.dev
-References: <20260310-b4-is_err_or_null-v1-1-bd63b656022d@avm.de>
-Subject: Re: [PATCH 01/61] Coccinelle: Prefer IS_ERR_OR_NULL over manual NULL
- check
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <20260310-b4-is_err_or_null-v1-1-bd63b656022d@avm.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:I49ufsxpBKiFBze+2Qm04f+elx94DZSymOaZcQTAnyd9Dy18WSZ
- l5PlqGBdCeQJnqXYHB7LM8JEThQzWaqt46DhF3JOnbIEKCtwYJeZnzJMAXhMu3h78zedo+b
- 2MDr9yfDF5xiOPbOsnoVg9HvEpZouoV7eAA1AasOX+/8mAaWp7eICgl3FZXuUGMMgTPEUmo
- 9zEXJmftCILFnPJ5epBUQ==
-UI-OutboundReport: notjunk:1;M01:P0:04WXpfHKV24=;XM8484Tl0Gel7LmfPFVAhD+GUiz
- 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
- WH56U++o=
-X-Mailman-Approved-At: Wed, 11 Mar 2026 08:09:26 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 11 Mar 2026 08:09:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -167,88 +91,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> Find and convert uses of IS_ERR() plus NULL check to IS_ERR_OR_NULL().
-=E2=80=A6
+This warning shows up with GCC at W=2:
 
-Can this information trigger any more consequences on corresponding summar=
-y phrases?
+    drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:3229:32: warning: ‘r’ may be used uninitialized [-Wmaybe-uninitialized]
+     3229 |                         return r;
+          |                                ^
+    drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:3133:13: note: ‘r’ was declared here
+     3133 |         int r;
+          |             ^
 
+The compiler can't know drm_atomic_helper_suspend() doesn't return NULL,
+so GCC is technically correct, that case would return `r` uninitialized.
 
-=E2=80=A6
-> +++ b/scripts/coccinelle/api/is_err_or_null.cocci
-> @@ -0,0 +1,125 @@
-=E2=80=A6
-> +virtual patch
-> +virtual report
-> +virtual org
+Fix the warning by using PTR_ERR_OR_ZERO() on the return value from
+drm_atomic_helper_suspend() like i915 does.
 
-How will interests evolve further for the support of the operation mode =
-=E2=80=9Ccontext=E2=80=9D?
+Signed-off-by: Calvin Owens <calvin@wbinvd.org>
+---
+This is pretty nitpicky and obviously benign IMO, I just happened to
+spot it while debugging [1]. No argument from me if you don't want it :)
 
+[1] https://lore.kernel.org/lkml/ef7266eb7802ce6d68ebd9356477e9671f0c94e0.1773116305.git.calvin@wbinvd.org/#t
 
-> +@p1 depends on patch@
-> +expression E;
-> +@@
-> +(
-> +-	E !=3D NULL && !IS_ERR(E)
-> ++	!IS_ERR_OR_NULL(E)
-> +|
-> +-	E =3D=3D NULL || IS_ERR(E)
-> ++	IS_ERR_OR_NULL(E)
-> +|
-> +-	!IS_ERR(E) && E !=3D NULL
-> ++	!IS_ERR_OR_NULL(E)
-> +|
-> +-	IS_ERR(E) || E =3D=3D NULL
-> ++	IS_ERR_OR_NULL(E)
-> +)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-Did you eventually check probabilities for the occurrence of mentioned cas=
-e distinctions?
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b3d6f2cd8ab6..9c5dce8d38b6 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3133,12 +3133,11 @@ static int dm_cache_state(struct amdgpu_device *adev)
+ 	int r;
+ 
+ 	adev->dm.cached_state = drm_atomic_helper_suspend(adev_to_drm(adev));
+-	if (IS_ERR(adev->dm.cached_state)) {
+-		r = PTR_ERR(adev->dm.cached_state);
++	r = PTR_ERR_OR_ZERO(adev->dm.cached_state);
++	if (r)
+ 		adev->dm.cached_state = NULL;
+-	}
+ 
+-	return adev->dm.cached_state ? 0 : r;
++	return r;
+ }
+ 
+ static void dm_destroy_cached_state(struct amdgpu_device *adev)
+-- 
+2.47.3
 
-
-> +@p2 depends on patch@
-=E2=80=A6
-
-I suggest to reconsider =E2=80=9Cside effects=E2=80=9D according to the sp=
-litting of these SmPL rules
-once more.
-
-
-=E2=80=A6
-> +@r2 depends on report || org@
-> +identifier I;
-> +expression E;
-> +position p;
-> +@@
-> +(
-> +*	(I =3D E) !=3D NULL && ... && !IS_ERR@p(I)
-> +|
-> +*	(I =3D E) =3D=3D NULL || ... || IS_ERR@p(I)
-> +)
-
-I doubt that the usage of SmPL asterisks fits to these two operation modes=
-.
-
-
-=E2=80=A6
-> +@p5 depends on patch disable unlikely @
-> +expression E;
-> +@@
-> +-\( likely \| unlikely \)(
-> +(
-> + IS_ERR_OR_NULL(E)
-> +|
-> + !IS_ERR_OR_NULL(E)
-> +)
-> +-)
-
-* Would it be nicer to move such SmPL code to the end of the patch rule li=
-sting?
-
-* Can this source code search pattern matter also for further operation mo=
-des?
-
-
-Regards,
-Markus
