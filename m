@@ -4,149 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76D3AFD0656
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C6BAFD0657
 	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 08:09:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B10410E837;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C602210E839;
 	Wed, 11 Mar 2026 08:09:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="k3GzwhZ1";
-	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010004.outbound.protection.outlook.com
- [40.93.198.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 919EF10E79A;
- Wed, 11 Mar 2026 00:40:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hckqOI20/XEsi360yvLqQ0NpUXpjCOCKGu5APWbVyfoJT8CJZHA0fBlo7KS1sN8siwHQje3AENpZ5gqBVF95lW/Jjck+ioKBvrV6n8j8T0LsFj1Lx1zKbY2nBMQyLdfxcclapq51dS8mO6o9HsrBhGRLwmSe+HhoUYMttr3bdAU/WWVBhG8u5UcVD/Xp7KCA5+g4GDc67liAieFNWrLJ0e5dYlMHHdv7ZmrLmyXFVdIKT+QqZOAPv0/vfGDt7+nNbQVJT9JIcCTQRuf0u63rEDEPriRjsT9s+hG8/oEjRTZJ8SlMZMVOtSJRBDJDilFLM7QMnaBeataM9apaSKLy4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qxuC+zfhLe5Q7zewzUbI0fSaDTYjR+lExDd5j90/3Gw=;
- b=i+KxCerYVH0tzOuiQpeM1fRJ/QfMN6qojaU5aGu41rY/13TypiAHbHAxN9oqYgDMmyxcnkEgAt3pJbyMAfLRGtNJgiKYglvjjOKqPCy4Rg6pouA3CYHvsgtqYfjNtU8Hg8EcKZmfT1koJ8TJ44lk1dWNcvFI6UHS5g1ObEWKUhf4CrBsQL7ukwXFXT9dNBL3Vuk+ATbVf9cFaCIMe6bwFs3K/NQhbF0jTFyYfSTa7GoUyBospo2mWHiWa2YvCdXcG4xNXd7C3dToamjKavxplZqKcPOS6/qDBsTTISb4uOeR46auvSrNzS6GSQMezfPOzzBiSS83aG/kw0S5fRn+Kg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qxuC+zfhLe5Q7zewzUbI0fSaDTYjR+lExDd5j90/3Gw=;
- b=k3GzwhZ1r8P8ZugPp0tVg2SAki/sDXhtnUgocVytA3hEMtP9ZKRlR024mfTIT4sqI1HJQJxzL4TB2sj4IO2MhLu5Fufs0tn8oHOaLLmz13VPthf3VhgpQylvJCbmov2sWwv4cUs2lfUnjN70KCWYbIWxM0pHIsKbUG8Y1JPn2C7pFvuH8lgBnfy9kyOvPc1WMUIHf0yAHdE98JU32RbSal8kBT1nhQn54dq9EQmIPxcGssiiN2w0SqV78wivMtV39DUmtb/SribFPrLpbVmp23UqushLxbAwxb0vKdP4blwetNFYM60DKBs6wPgppqqH07u1/nzGadaSkiWyq3H0pg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- BY5PR12MB4051.namprd12.prod.outlook.com (2603:10b6:a03:20c::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.11; Wed, 11 Mar 2026 00:40:23 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9700.010; Wed, 11 Mar 2026
- 00:40:23 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v9 02/23] gpu: nova-core: Kconfig: Sort select statements
- alphabetically
-Date: Tue, 10 Mar 2026 20:39:47 -0400
-Message-Id: <20260311004008.2208806-3-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260311004008.2208806-1-joelagnelf@nvidia.com>
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MN2PR11CA0020.namprd11.prod.outlook.com
- (2603:10b6:208:23b::25) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com
+ [216.40.44.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A05B910E712;
+ Tue, 10 Mar 2026 14:08:10 +0000 (UTC)
+Received: from omf14.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay01.hostedemail.com (Postfix) with ESMTP id 0CEFF1C171;
+ Tue, 10 Mar 2026 14:08:05 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
+ omf14.hostedemail.com (Postfix) with ESMTPA id 847E92D; 
+ Tue, 10 Mar 2026 14:07:40 +0000 (UTC)
+Date: Tue, 10 Mar 2026 10:07:50 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Philipp Hahn <phahn-oss@avm.de>
+Cc: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, Masami
+ Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>
+Subject: Re: [PATCH 15/61] trace: Prefer IS_ERR_OR_NULL over manual NULL check
+Message-ID: <20260310100750.303af303@gandalf.local.home>
+In-Reply-To: <20260310-b4-is_err_or_null-v1-15-bd63b656022d@avm.de>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+ <20260310-b4-is_err_or_null-v1-15-bd63b656022d@avm.de>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BY5PR12MB4051:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3334a87b-a9e1-425b-17f2-08de7f06c7b9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: CqSe19ykCwfxaXVexTaSyNmFarZdgb16nVBFtz1MTMdVpTOo7WSsy71LcENKr+E594fEe6Wv1bwXfAV4LEKMs7+yMSKnVqOI1t6+m6V+bZbn0k4UDuBYBnW6jX1JBBfHqpmBRR53GE1Wtta0NTTLrtheZ114Eyf2m2eE8BCzteoH80+089JmZmyNvQCRdIH9D3JcOejMdJkhHFCWcLCxk/5vPmxpvljr4TeGfMMDXY3HWpi9hY/NAycWIZhytl5DjSco+vRcaYRxlfYtE6g+StUXlRm88Z/d2vJbPz87jn2Xabxo4TMQ1fwfc4m8mw5jO5zLWMYQGma46OTG7n/3UMBxY24CGK9OVR7WaRvWFs9t8MSzFhchIuvvO4XYqnWK9F5575HM0wZGx90B0NqyW1c08zrPdQdcFCikgxRRrYNOkkKtB7X+3uCL/F3YW9GRuEwyoLQ8JCbR5IqCoRhDlzEp6gHLX4T+R+Ars99RuAKCqjcLnRozdps3xzgYDR3ByQk4mRDAuzsvDmEtfsYX96aq2WQmGPJNwdigN/rCxIB8cvKU+ulZkN9kc6nx6ZmKzyWh5sul6hE3l0m7/zht1MQythBkTSsLKEjpGDFWsGWAZKsoquud87d2deSSaZG+xpC/nPcE1xd2i1EAxFV+DBlgCWiqGvlvlZ0eskB4OiBdnBGQLlMwzxiu/SJxMKHKREHmYSsTUl8z32DKtvQ+c2Ve/UZwbf6X/keC0dExAGU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9YWWHxvnE4Im5W0Ayc4t33kIAimSCkAkJuMs20P27ovUxmKRT8+R3dcP4d98?=
- =?us-ascii?Q?nNQpv/Ci35Gw91lC4uE9E06Tuop88zVvEkImrnhnDNrEUtjftVmW4VjhyaXb?=
- =?us-ascii?Q?bxvn5EgN0S0z5Nq299R6HTMgtdyVEWxjQONRAIg7teXPeowuyHyQleNIRghc?=
- =?us-ascii?Q?yksC2b7Pkak/hOEH0GDx8fxcYjgSvtCb1fO2gUbFk/efvA5jyJZfImilGqe0?=
- =?us-ascii?Q?4GnJRdh+6Us47+Krgdv67/EarJJB+zCGKFxRb+0hOrNu5gT8sx7/+G3/QZm5?=
- =?us-ascii?Q?QTj80zFH+ybXW3Wi17hu2d6tTMPi0Z4cfcAR/9EOr9/UjET+zw2ABws8/Qaw?=
- =?us-ascii?Q?OolofFDS6XeGmZwCpjvWg9C8MK3Qk2CBTd7jQiWJ9XAL6KwYZYByo4n3yif4?=
- =?us-ascii?Q?gPXIuvar687amu0qJKkUx41Baczde5y2kY8SbV3o55xZ4Dg47SGZwCBw34tM?=
- =?us-ascii?Q?hR1hNHOzGMY0QVB0lc9NOKY04BJ0maXs7j0GB3qsWYBZpOQ/fajWEQx0Bz8M?=
- =?us-ascii?Q?Mj+QVtCqNZjB2GxM3QGosLy98I5p7RxrzF7LmnwO9wfn+OMpfSw3id5JW8IV?=
- =?us-ascii?Q?c8CqffDvZwPjVLElo6NTdTToe3mqqQo2OJ+P3P3wIvoDw8WbuilO+X4s0CHu?=
- =?us-ascii?Q?6qQLzFBSMX+eE1tGHkLwXc0euSdQOZvpA7V6WGdjX0Cr5q/yN+KFebnRg8P3?=
- =?us-ascii?Q?2Q1Fj8DJ0iDpyNOce+6KgHkfMdAqfL4sSe/fOo7A+nCwOe7E7pGjW5PLlbSE?=
- =?us-ascii?Q?3AYhbkvGzFZFfs26hjj90yUVBI4AHP0UFe1eoN5eSIkdPiZLt0iuGe0Y6Vbk?=
- =?us-ascii?Q?PutcdgKQ+N/BTf/b9RpHpx3BkxIUqsPogHjU5Q8oWDJAwuu7tFhtjYa5JEK2?=
- =?us-ascii?Q?Cj5KN0DaDD6I5KMxbViEB37UjrD3vNruTgFycMXl6VJCuHHHZ9bL68Zd+OEN?=
- =?us-ascii?Q?HgNrS2mAtX3FSY9xMUG1UdUx/Q0dlgSWbBX6EFKZI51OlRj/Dumf9LJsXKzh?=
- =?us-ascii?Q?kF/xgZ6k7Yn+So6qOuOedH5f9xmbKrgAnDQbJq8r0vC2xqKJeSCMBBH/oa6B?=
- =?us-ascii?Q?00n8T4TC+YwWyKFIs2lEiOpsitX6+6Y/cp5wcikjrDosmvx3hpucky2mcGjZ?=
- =?us-ascii?Q?Exah4qzll1ldeIkXHc7zqdg9TMI8UH29Uaat53O06msyiIUCDFDECcMV9i98?=
- =?us-ascii?Q?ihGobZb1ImuewesjMmN4PQFeqMnbLdCsBAxMSbtth0+vL1z10Wd9fBiP1b1q?=
- =?us-ascii?Q?u1uZfL8jPJXnZDajif/dhLbRuYEr9ULfqftOiQPmLoec2wH5UgsilcftIHtI?=
- =?us-ascii?Q?tRXzWGq61PO9jtrDMsKYIF1ZGjuIuPDBmdV7UXlgDmwn6UkQWs/jDYIeKex1?=
- =?us-ascii?Q?Yzimg1jrCYWzQ3jfkvHm0Tn3cHELIoznGHuYVADlxachJFYotf2CSqEPWzo1?=
- =?us-ascii?Q?NL7mCcoY4LsbDHlvIPfMTxU3I45LC2pQR7vowNKnT6gNs8Rlb6EmYD+vNuKD?=
- =?us-ascii?Q?e+KVAtPSXGJc/ltDnRsky6zAaotJrffoo/RTrFLANhI1woZUp+uGpK08TEgf?=
- =?us-ascii?Q?wTAdf7LscVYBKZS/eZ0e4LvjWgG4tK+daWaQJ0w/VaDvmBDNFhxkgRRxLNva?=
- =?us-ascii?Q?KOLOKi9TMsxSGeCuHRNzFfqxFLqGS3pEFbHXrvqBLq2UJ41kD9d+A/CS15/v?=
- =?us-ascii?Q?rMBQ8tK3vGEw772LS4hNEHermFi5nZaGomy4dSmKnwjzK/7Xl/FYrvlKZLQX?=
- =?us-ascii?Q?7Hp2Pc0ETg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3334a87b-a9e1-425b-17f2-08de7f06c7b9
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2026 00:40:23.2768 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eL/u/xjaGFVXQrxzOOt1Tw+1c8cFh54gIiV89ICw0BjpA1Qo7s7J/WKRVkOQWiqcsfwoheSjrPeVlp/o8OYWIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4051
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 847E92D
+X-Stat-Signature: 7qtdkkf3por5hcs9du9pir5nqq8uht35
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19Z3Tx1sMlUDFHS8YYPfSOpiqPw8cg/LfU=
+X-HE-Tag: 1773151660-993833
+X-HE-Meta: U2FsdGVkX1+JWrMXdInzvBx9l2WUqahyoYUezPLaF3HICGuHpiLcos2NJHmqwFPLfM8ZBXZ6/fmTg/vlHLcqcaFGukyEZOsOE3kBaCKhhIkGksjLucUHfFRW8KX39dTkHeOQhZTWX/A0f9Y+1fWRMEQzHGhaJF2wpPshgb4yUxNCAKdeI6QYyukTSlQGbTY7Uxizi79ndrJuznFkrJ0f1Gh3JC2I5gazyCY5QhqLMJ9a9ShPFpKdZ7NDaPeyx31oXfa0p+bWWHR1R5JbGDYWhbllAgJDuEbxQsOff6UlFUV0L3hTo0f3pFVAKw4ZSe/3wUeKTGah6IcaIcnei7ziR9eK5k/ow6hfmOBOZGq2CLBxHUplOJMJzaQEF/IeU48U6bUZ8WiPpl/JDxwK03ucqBa/7oG+YB+etWyAxh+TKdi7NbCLCb6PbeExJ2cO76n2AdjJCB03SaDGNN90kGsLmA==
 X-Mailman-Approved-At: Wed, 11 Mar 2026 08:09:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -162,30 +81,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reorder the select statements in NOVA_CORE Kconfig to be in
-alphabetical order.
+On Tue, 10 Mar 2026 12:48:41 +0100
+Philipp Hahn <phahn-oss@avm.de> wrote:
 
-Suggested-by: Danilo Krummrich <dakr@kernel.org>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- drivers/gpu/nova-core/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
 
-diff --git a/drivers/gpu/nova-core/Kconfig b/drivers/gpu/nova-core/Kconfig
-index 809485167aff..6513007bf66f 100644
---- a/drivers/gpu/nova-core/Kconfig
-+++ b/drivers/gpu/nova-core/Kconfig
-@@ -3,9 +3,9 @@ config NOVA_CORE
- 	depends on 64BIT
- 	depends on PCI
- 	depends on RUST
--	select RUST_FW_LOADER_ABSTRACTIONS
- 	select AUXILIARY_BUS
- 	select GPU_BUDDY
-+	select RUST_FW_LOADER_ABSTRACTIONS
- 	default n
- 	help
- 	  Choose this if you want to build the Nova Core driver for Nvidia
--- 
-2.34.1
+Why?
+
+> 
+> Change generated with coccinelle.
+> 
+> To: Steven Rostedt <rostedt@goodmis.org>
+> To: Masami Hiramatsu <mhiramat@kernel.org>
+> To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-trace-kernel@vger.kernel.org
+> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+> ---
+>  kernel/trace/fprobe.c                | 2 +-
+>  kernel/trace/kprobe_event_gen_test.c | 2 +-
+>  kernel/trace/trace_events_hist.c     | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/trace/fprobe.c b/kernel/trace/fprobe.c
+> index dcadf1d23b8a31f571392d0c49cbd22df1716b4f..a94ce810d83b90f55d1178a9bd29c78fd068df4c 100644
+> --- a/kernel/trace/fprobe.c
+> +++ b/kernel/trace/fprobe.c
+> @@ -607,7 +607,7 @@ static int fprobe_module_callback(struct notifier_block *nb,
+>  	do {
+>  		rhashtable_walk_start(&iter);
+>  
+> -		while ((node = rhashtable_walk_next(&iter)) && !IS_ERR(node))
+> +		while (!IS_ERR_OR_NULL((node = rhashtable_walk_next(&iter))))
+
+Ug, No!
+
+That looks so much worse than the original.
+
+-- Steve
+
+>  			fprobe_remove_node_in_module(mod, node, &alist);
+>  
+>  		rhashtable_walk_stop(&iter);
+> diff --git a/kernel/trace/kprobe_event_gen_test.c b/kernel/trace/kprobe_event_gen_test.c
+> index 5a4b722b50451bfdee42769a6d3be39c055690d1..a1735ca273f0b756aa1fcfcdab30ddad9bc51c5f 100644
+> --- a/kernel/trace/kprobe_event_gen_test.c
+> +++ b/kernel/trace/kprobe_event_gen_test.c
+> @@ -75,7 +75,7 @@ static struct trace_event_file *gen_kretprobe_test;
+>  
+>  static bool trace_event_file_is_valid(struct trace_event_file *input)
+>  {
+> -	return input && !IS_ERR(input);
+> +	return !IS_ERR_OR_NULL(input);
+>  }
+>  
+>  /*
+> diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+> index 73ea180cad555898693e92ee397a1c9493c7c167..59df215e1dfd9349eca1c0823ed709ec7285f766 100644
+> --- a/kernel/trace/trace_events_hist.c
+> +++ b/kernel/trace/trace_events_hist.c
+> @@ -3973,7 +3973,7 @@ trace_action_create_field_var(struct hist_trigger_data *hist_data,
+>  	 */
+>  	field_var = create_target_field_var(hist_data, system, event, var);
+>  
+> -	if (field_var && !IS_ERR(field_var)) {
+> +	if (!IS_ERR_OR_NULL(field_var)) {
+>  		save_field_var(hist_data, field_var);
+>  		hist_field = field_var->var;
+>  	} else {
+> 
 
