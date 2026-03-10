@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E231AFD2D63
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8938BFD2D7D
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4841210E755;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72C0F10E75A;
 	Tue, 10 Mar 2026 12:41:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="QeZmxS4Y";
+	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="lEAp/s1F";
 	dkim-atps=neutral
 Received: from mail.avm.de (mail.avm.de [212.42.244.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B59010E710;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD23F10E713;
  Tue, 10 Mar 2026 12:01:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
- t=1773143726; bh=w6c4PA3VGZ44yyLt8mghr+WTJ9TxkFa/GQpFHp0jaRg=;
+ t=1773143723; bh=wq/KSwJcA3hqLetMFo3dTHFYxjONcw4I7Ih9VV1gllk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=QeZmxS4Y9ZxzJ1P+c7PyBalRHGdguYBtzjQZ1WHuqnNfndJHBOWadzXneNpIO/Cpe
- WtbDE01JXbjsGwDZW/SJl+0F8SgXDtITpS9jrWOZKuA2MxhvXL4esHAjK0cxyNxT8g
- cX9nlCS2vI2XLhpV0lZEIvKvUcBSNRY+QxXEviZg=
+ b=lEAp/s1FGs3gh/G3BwLm92E1HCxjGWlqxsQSbz/j1CB+Vlb/y59DpH7suq9qWHqSS
+ sYNh9xzFzAwYyP3SKrKt2sCrYh94W00YkOJHULlnCDrzYXE+bJd6oNQ88ujEwWl/IW
+ WDyVvJrtHTQ4L2Ennx46mVzCXGqAvMhY+uWIILEA=
 Received: from [212.42.244.71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006ad-2367-7f0000032729-7f0000019da4-1
- for <multiple-recipients>; Tue, 10 Mar 2026 12:55:25 +0100
+ id 69b006ab-2367-7f0000032729-7f0000019cd2-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:23 +0100
 Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
  by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:25 +0100 (CET)
+ Tue, 10 Mar 2026 12:55:23 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:48:56 +0100
-Subject: [PATCH 30/61] net/sunrpc: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 12:48:30 +0100
+Subject: [PATCH 04/61] ext4: Prefer IS_ERR_OR_NULL over manual NULL check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-30-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-4-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -65,27 +65,21 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- Chuck Lever <chuck.lever@oracle.com>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2551; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=w6c4PA3VGZ44yyLt8mghr+WTJ9TxkFa/GQpFHp0jaRg=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAY7O6x5f/jrEOlM2kM2YjYC7Xq22wW3Mikry
- 9AY9ISieLCJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGOwAKCRA0LQZT0ays
- 24W7CACaVIegavbFPh1+6gPSjqv5T1Ou5hQU0OcaZ20nx5fdOimad+jK3UuGfZrC9Vgv0QMm0ym
- 3OSuSluEWbuIv6zcFp3UbdEj9aI7TM7en4Ha7pCkmDfNfPts09fhhi9VrPo390VGOMeNWeVMtD/
- CQde1U2q7DKI3QtGXyjY9I//uCPpAfeRw/e0X1QSKZ9eOdV+c4uWgQhNCPrPJZrHvycJx2lFn3Q
- ZNRGEplISNXY/bb/iuclRgqFYvGWnoUgBYQkpTrGJqDvFREwT8LcHN3+0nwKoz0xIqQbO7gBWgt
- +Dgbc3vk23keeP8aHFv6AZ7K16GCQyMm+zwDBr92eUq+pHvN
+Cc: Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2748; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=wq/KSwJcA3hqLetMFo3dTHFYxjONcw4I7Ih9VV1gllk=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAXjBVZQh0oHFoS6hdf46zx6cg9yKqCoM11bV
+ 3iWUec0h4iJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAF4wAKCRA0LQZT0ays
+ 29vPB/9f5lFIt+0FtFBJpiKbUGS7UgY9T4E/E6CJ5zu/RqCe6vd531NLZdsmBEosrdFBBXDX57H
+ sd8LCXF/sp89Zga6l1XIWkSIeHW4dDtT/UJNpkUGlvpmR4wd6cIocUQ2SKJZm2I5Ny799jzRqsU
+ 77XwGSzBy8rHgewt3q+d77K7620aLC+ceQfquSvw5IkT7R5aPt+VaJGvb/4d0wK060SD2e3AbrD
+ KG5aPg5rty9abqBDIFiMe9sH7jc7Ssmy8RQOhQUuB/vX9zXXRZULMf0v4sI8el0Gl3lDI9uBnpn
+ 7EXyqizDRxBWqqlsbAFrtlRuPcNXRB2sNpMKxVhp0my3RZH1
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143725-8A498E1F-7900509A/0/0
+X-purgate-ID: 149429::1773143723-7D482E1F-03DD7EA2/0/0
 X-purgate-type: clean
-X-purgate-size: 2553
+X-purgate-size: 2750
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
@@ -110,70 +104,70 @@ check.
 
 Change generated with coccinelle.
 
-To: Trond Myklebust <trondmy@kernel.org>
-To: Anna Schumaker <anna@kernel.org>
-To: Chuck Lever <chuck.lever@oracle.com>
-To: Jeff Layton <jlayton@kernel.org>
-To: NeilBrown <neil@brown.name>
-To: Olga Kornievskaia <okorniev@redhat.com>
-To: Dai Ngo <Dai.Ngo@oracle.com>
-To: Tom Talpey <tom@talpey.com>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@google.com>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Simon Horman <horms@kernel.org>
-Cc: linux-nfs@vger.kernel.org
-Cc: netdev@vger.kernel.org
+To: "Theodore Ts'o" <tytso@mit.edu>
+To: Andreas Dilger <adilger.kernel@dilger.ca>
+Cc: linux-ext4@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- net/sunrpc/xprtrdma/svc_rdma_transport.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ fs/ext4/fast_commit.c | 2 +-
+ fs/ext4/mballoc.c     | 2 +-
+ fs/ext4/namei.c       | 2 +-
+ fs/ext4/symlink.c     | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-index 9b623849723ed0eb74b827881c6f32d3434c891b..b4d03e59a8202f20360cff1e2e79b1e325396517 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-@@ -578,7 +578,7 @@ static struct svc_xprt *svc_rdma_accept(struct svc_xprt *xprt)
-  errout:
- 	/* Take a reference in case the DTO handler runs */
- 	svc_xprt_get(&newxprt->sc_xprt);
--	if (newxprt->sc_qp && !IS_ERR(newxprt->sc_qp))
-+	if (!IS_ERR_OR_NULL(newxprt->sc_qp))
- 		ib_destroy_qp(newxprt->sc_qp);
- 	rdma_destroy_id(newxprt->sc_cm_id);
- 	rpcrdma_rn_unregister(dev, &newxprt->sc_rn);
-@@ -608,7 +608,7 @@ static void svc_rdma_free(struct svc_xprt *xprt)
- 	might_sleep();
+diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
+index f575751f1cae430eead31afa4f7d03ade1099d4a..bc69ac1195acb823465e735572b8a21255d485f5 100644
+--- a/fs/ext4/fast_commit.c
++++ b/fs/ext4/fast_commit.c
+@@ -320,7 +320,7 @@ void ext4_fc_mark_ineligible(struct super_block *sb, int reason, handle_t *handl
+ 	if (ext4_fc_disabled(sb))
+ 		return;
  
- 	/* This blocks until the Completion Queues are empty */
--	if (rdma->sc_qp && !IS_ERR(rdma->sc_qp))
-+	if (!IS_ERR_OR_NULL(rdma->sc_qp))
- 		ib_drain_qp(rdma->sc_qp);
- 	flush_workqueue(svcrdma_wq);
+-	if (handle && !IS_ERR(handle))
++	if (!IS_ERR_OR_NULL(handle))
+ 		tid = handle->h_transaction->t_tid;
+ 	else {
+ 		read_lock(&sbi->s_journal->j_state_lock);
+diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
+index 20e9fdaf4301b61c9d54401ed95067db6b6b8173..d7f004817c1ff758e4e25f84b2c27238b7420f84 100644
+--- a/fs/ext4/mballoc.c
++++ b/fs/ext4/mballoc.c
+@@ -2870,7 +2870,7 @@ ext4_group_t ext4_mb_prefetch(struct super_block *sb, ext4_group_t group,
+ 		    EXT4_MB_GRP_NEED_INIT(grp) &&
+ 		    ext4_free_group_clusters(sb, gdp) > 0 ) {
+ 			bh = ext4_read_block_bitmap_nowait(sb, group, true);
+-			if (bh && !IS_ERR(bh)) {
++			if (!IS_ERR_OR_NULL(bh)) {
+ 				if (!buffer_uptodate(bh) && cnt)
+ 					(*cnt)++;
+ 				brelse(bh);
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index c4b5e252af0efbfcbaf83688a32d445327a74a02..4fdfc81f79028a588b3c1f912bff5e8a52cd9f13 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -723,7 +723,7 @@ struct stats dx_show_entries(struct dx_hash_info *hinfo, struct inode *dir,
+ 		struct stats stats;
+ 		printk("%s%3u:%03u hash %8x/%8x ",levels?"":"   ", i, block, hash, range);
+ 		bh = ext4_bread(NULL,dir, block, 0);
+-		if (!bh || IS_ERR(bh))
++		if (IS_ERR_OR_NULL(bh))
+ 			continue;
+ 		stats = levels?
+ 		   dx_show_entries(hinfo, dir, ((struct dx_node *) bh->b_data)->entries, levels - 1):
+diff --git a/fs/ext4/symlink.c b/fs/ext4/symlink.c
+index 645240cc0229fe4a2eda4499ae4a834fe3bd3a66..b612262719ede35d2612c5834d2bef7f18215516 100644
+--- a/fs/ext4/symlink.c
++++ b/fs/ext4/symlink.c
+@@ -92,7 +92,7 @@ static const char *ext4_get_link(struct dentry *dentry, struct inode *inode,
  
-@@ -619,16 +619,16 @@ static void svc_rdma_free(struct svc_xprt *xprt)
- 	svc_rdma_recv_ctxts_destroy(rdma);
- 
- 	/* Destroy the QP if present (not a listener) */
--	if (rdma->sc_qp && !IS_ERR(rdma->sc_qp))
-+	if (!IS_ERR_OR_NULL(rdma->sc_qp))
- 		ib_destroy_qp(rdma->sc_qp);
- 
--	if (rdma->sc_sq_cq && !IS_ERR(rdma->sc_sq_cq))
-+	if (!IS_ERR_OR_NULL(rdma->sc_sq_cq))
- 		ib_free_cq(rdma->sc_sq_cq);
- 
--	if (rdma->sc_rq_cq && !IS_ERR(rdma->sc_rq_cq))
-+	if (!IS_ERR_OR_NULL(rdma->sc_rq_cq))
- 		ib_free_cq(rdma->sc_rq_cq);
- 
--	if (rdma->sc_pd && !IS_ERR(rdma->sc_pd))
-+	if (!IS_ERR_OR_NULL(rdma->sc_pd))
- 		ib_dealloc_pd(rdma->sc_pd);
- 
- 	/* Destroy the CM ID */
+ 	if (!dentry) {
+ 		bh = ext4_getblk(NULL, inode, 0, EXT4_GET_BLOCKS_CACHED_NOWAIT);
+-		if (IS_ERR(bh) || !bh)
++		if (IS_ERR_OR_NULL(bh))
+ 			return ERR_PTR(-ECHILD);
+ 		if (!ext4_buffer_uptodate(bh)) {
+ 			brelse(bh);
 
 -- 
 2.43.0
