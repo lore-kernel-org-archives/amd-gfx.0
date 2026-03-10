@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE74FFD2D6D
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78889FD2D73
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8569E10E736;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7FA9E10E735;
 	Tue, 10 Mar 2026 12:41:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="arIjqC+e";
+	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="rc8Hq89F";
 	dkim-atps=neutral
 Received: from mail.avm.de (mail.avm.de [212.42.244.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 659B588E45;
- Tue, 10 Mar 2026 12:04:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 798AA10E719;
+ Tue, 10 Mar 2026 12:01:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
- t=1773143729; bh=Zdu+cVQUurUlnC57nYv7WmkJa7Su1n9ZL+7ubRQiCbU=;
+ t=1773143723; bh=DGbCaZBy1FpfvXwgzKpSCwa07WA8CY/Qb4IJHso0Te4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=arIjqC+eOW50ePPRI7IzTKWN2gbhB0tQ9WRbPXDZdH2y8Tl8MVJAS9gxKOCgGSNO1
- MKRth9R9YTwOofMsTkyRe5Kz4PcjK/cLboke0inMKDssNbfSjXTkXB1/ZhuTMFSoly
- YzXp7hvqApt2TDtbnjQwMPLewEHxBbUoVg9XuPpY=
-Received: from [212.42.244.71] (helo=mail.avm.de)
+ b=rc8Hq89Fb5fz3t9XGAV9DEbHVf5dfp7yp00Gf9MYpCbFElXUliv8K0TJ88EegoebM
+ lMHRZL83a9AqjbASsPk3qVgNFrp4VheSaUprtXI9vxtui90WS9FjZFrbxSMEBA+AFT
+ xc3KncdB3VgIsSI2EjPb3pbBX8z4jE0V+gxrfv0k=
+Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006b1-2367-7f0000032729-7f000001ca3e-1
- for <multiple-recipients>; Tue, 10 Mar 2026 12:55:29 +0100
-Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
- by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:29 +0100 (CET)
+ id 69b006ab-2367-7f0000032729-7f0000019cc4-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:23 +0100
+Received: from mail-auth.avm.de (dovecot-mx-01.avm.de
+ [IPv6:2001:bf0:244:244::71]) by mail.avm.de (Postfix) with ESMTPS;
+ Tue, 10 Mar 2026 12:55:23 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:49:24 +0100
-Subject: [PATCH 58/61] arch/x86: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 12:48:28 +0100
+Subject: [PATCH 02/61] btrfs: Prefer IS_ERR_OR_NULL over manual NULL check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-58-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-2-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -65,23 +65,21 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1972; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=Zdu+cVQUurUlnC57nYv7WmkJa7Su1n9ZL+7ubRQiCbU=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAabkCM/59lsV79Q3PWR22p56JLuGabUpuR4i
- qxQub+ly/qJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGmwAKCRA0LQZT0ays
- 2xXOB/9ZPHi30qdJIkWySghqlR16lgaAoi3kyqOX8y681/67uYGL/oYTixO52tnBrjVPqGtMJMl
- /Q1KhfevGkVNYzFAfMrFBpAZag+UIgbv/BCAd+mAYMHmfUSOVrYD15iCyuV/mzNjhjHEufwESj4
- I0XaRrF8IjuTyxoOaAktjvNz5kPAQuNzEBmaZ3v2GCRGsUPgyn1rW2fNRbOhVzN0Q0ZlAeRhTj/
- Qq0svuNBXvGJBVWHLKzaFNv3dtadS6o0vkr1vZsO43v1j0qtJ5bmVxhOhChUZ8M0SvSfZzOtGDb
- woeHnmnHVjGmRuu20BTVhdN6fCN/9hgCBGPx0vI7/S13IInk
+Cc: Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3017; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=DGbCaZBy1FpfvXwgzKpSCwa07WA8CY/Qb4IJHso0Te4=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAXVP8rQiO4oClcWoVpEQy4tTT6UufgJ8AjmW
+ meFZ085mAaJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAF1QAKCRA0LQZT0ays
+ 26ZTCACM3Mi9LEMEAWgAR6v8SxUVk3um+/46scAm+wvRfrMWEFwlnMkQBbCGIGZUNkKB1Pk7uvR
+ q9d3fZ689cKMySmmjPCYjQ/WgGDVLcywEn6In35Jwnklhlj4dYJLSL6WxXsza+vlAV93TQDvaTs
+ OFlLEsZ2j+XY+f2mrUOcVwOk+301k/goYUacbLoVSw0YZnroo7kAB2acRVGhOGAOOiJoiVAdHNU
+ Yf8QURa2qrPqHMwGd4SQRV57t+Grw+zEItF3L0eYw7mf41TaJcLeP7Vo+0nFp2D9QdrMND4nUec
+ WhX0remRDcBywCJPWh7SmqRiZyiXDaIfp9JkUkUr5yx6Wacb
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143729-8448CE1F-1FDA919B/0/0
+X-purgate-ID: 149429::1773143723-80C85E1F-0AA4A985/0/0
 X-purgate-type: clean
-X-purgate-size: 1974
+X-purgate-size: 3019
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
@@ -110,51 +108,72 @@ not like nesting it:
 > unlikely() internally
 Remove the explicit use of likely().
 
-Semantich change: Previously the code only printed the warning on error,
-but not when the pointer was NULL. Now the warning is printed in both
-cases!
+Change generated with coccinelle.
 
-Change found with coccinelle.
-
-To: Thomas Gleixner <tglx@kernel.org>
-To: Ingo Molnar <mingo@redhat.com>
-To: Borislav Petkov <bp@alien8.de>
-To: Dave Hansen <dave.hansen@linux.intel.com>
-To: x86@kernel.org
-To: "H. Peter Anvin" <hpa@zytor.com>
+To: Chris Mason <clm@fb.com>
+To: David Sterba <dsterba@suse.com>
+Cc: linux-btrfs@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- arch/x86/kernel/callthunks.c | 2 +-
- arch/x86/kernel/irq.c        | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ fs/btrfs/inode.c       | 2 +-
+ fs/btrfs/transaction.c | 2 +-
+ fs/btrfs/tree-log.c    | 2 +-
+ fs/btrfs/uuid-tree.c   | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/x86/kernel/callthunks.c b/arch/x86/kernel/callthunks.c
-index e37728f7032277a99ffb0e6bb7dfa318660e56a0..6dc45838d8e439e117815b85e2840bb3a6688ed8 100644
---- a/arch/x86/kernel/callthunks.c
-+++ b/arch/x86/kernel/callthunks.c
-@@ -212,7 +212,7 @@ static __init_or_module void patch_call(void *addr, const struct core_text *ct)
- 		return;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index a11fcc9e9f502c559148cf33679014fb83b0d3b0..7c26a0bf56bf7309e2ce8256854d760b2d64b16a 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -4683,7 +4683,7 @@ static noinline int may_destroy_subvol(struct btrfs_root *root)
+ 	dir_id = btrfs_super_root_dir(fs_info->super_copy);
+ 	di = btrfs_lookup_dir_item(NULL, fs_info->tree_root, path,
+ 				   dir_id, &name, 0);
+-	if (di && !IS_ERR(di)) {
++	if (!IS_ERR_OR_NULL(di)) {
+ 		btrfs_dir_item_key_to_cpu(path->nodes[0], di, &key);
+ 		if (key.objectid == btrfs_root_id(root)) {
+ 			ret = -EPERM;
+diff --git a/fs/btrfs/transaction.c b/fs/btrfs/transaction.c
+index 7ef8c9b7dfc17a5133b6d2dc134e288975ed98d1..40b83037725033d3178dc3fc2c1e347ad2c597f7 100644
+--- a/fs/btrfs/transaction.c
++++ b/fs/btrfs/transaction.c
+@@ -1737,7 +1737,7 @@ static noinline int create_pending_snapshot(struct btrfs_trans_handle *trans,
+ 	dir_item = btrfs_lookup_dir_item(NULL, parent_root, path,
+ 					 btrfs_ino(parent_inode),
+ 					 &fname.disk_name, 0);
+-	if (unlikely(dir_item != NULL && !IS_ERR(dir_item))) {
++	if (!IS_ERR_OR_NULL(dir_item)) {
+ 		pending->error = -EEXIST;
+ 		goto dir_item_existed;
+ 	} else if (IS_ERR(dir_item)) {
+diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
+index 780a06d592409b05fb42dc8079b019d23fe0cdfa..2e07ae393cf9d16f562047dd4cbfd7b4b9f2952e 100644
+--- a/fs/btrfs/tree-log.c
++++ b/fs/btrfs/tree-log.c
+@@ -5750,7 +5750,7 @@ static int btrfs_check_ref_name_override(struct extent_buffer *eb,
+ 		name_str.len = this_name_len;
+ 		di = btrfs_lookup_dir_item(NULL, inode->root, search_path,
+ 				parent, &name_str, 0);
+-		if (di && !IS_ERR(di)) {
++		if (!IS_ERR_OR_NULL(di)) {
+ 			struct btrfs_key di_key;
  
- 	dest = call_get_dest(addr);
--	if (!dest || WARN_ON_ONCE(IS_ERR(dest)))
-+	if (WARN_ON_ONCE(IS_ERR_OR_NULL(dest)))
- 		return;
+ 			btrfs_dir_item_key_to_cpu(search_path->nodes[0],
+diff --git a/fs/btrfs/uuid-tree.c b/fs/btrfs/uuid-tree.c
+index f24c14b9bb2fd7420b06263a5a0c4b889a859bc6..c497b287f3418933e532903b326b969416ae22cb 100644
+--- a/fs/btrfs/uuid-tree.c
++++ b/fs/btrfs/uuid-tree.c
+@@ -478,7 +478,7 @@ int btrfs_uuid_scan_kthread(void *data)
  
- 	if (!is_coretext(ct, dest))
-diff --git a/arch/x86/kernel/irq.c b/arch/x86/kernel/irq.c
-index ec77be217eaf5f558fa73c2ff6cf1ab8953ee2f8..81963909066d72607f58d3e443a21a3b3e701a99 100644
---- a/arch/x86/kernel/irq.c
-+++ b/arch/x86/kernel/irq.c
-@@ -282,7 +282,7 @@ static __always_inline bool call_irq_handler(int vector, struct pt_regs *regs)
- {
- 	struct irq_desc *desc = __this_cpu_read(vector_irq[vector]);
- 
--	if (likely(!IS_ERR_OR_NULL(desc))) {
-+	if (!IS_ERR_OR_NULL(desc)) {
- 		handle_irq(desc, regs);
- 		return true;
- 	}
+ out:
+ 	btrfs_free_path(path);
+-	if (trans && !IS_ERR(trans))
++	if (!IS_ERR_OR_NULL(trans))
+ 		btrfs_end_transaction(trans);
+ 	if (ret)
+ 		btrfs_warn(fs_info, "btrfs_uuid_scan_kthread failed %d", ret);
 
 -- 
 2.43.0
