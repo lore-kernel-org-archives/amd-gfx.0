@@ -4,148 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7A51FD065B
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 08:09:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 772C0FD0650
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 08:09:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A47110E85B;
-	Wed, 11 Mar 2026 08:09:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E31D510E858;
+	Wed, 11 Mar 2026 08:09:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="BmeylC7C";
+	dkim=pass (4096-bit key; unprotected) header.d=crudebyte.com header.i=@crudebyte.com header.b="dTpIUmFy";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011065.outbound.protection.outlook.com [52.101.62.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9BF10E7A8;
- Wed, 11 Mar 2026 00:40:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qCBHySP+amVp5fJxrfRxt/4LONNSFtfZJQYPNXNHFhYEY0nmx4Cvj3eH8oBGJYxHf4kHsIEckA0COx4V3kT9PNKS5NfK1guqZhBD8NNFE6422MLnRRKt7ZcvQm8ayIaKTYdVscotVJfcIeu9tibMt7OOituOuFlBOjFOaA4PAryrNJUYAdQ49EXS53p1FI6YhmXJE9t3DfLKLJNJyY/0kk4q50YLjTIGQfQ782vLrWHJpYmSLL21EbKmvVTAaAdbDLXsIFZCY6kqQdQZEl+CW9sm2My05FfLgFbQEJt4Hl0EyPf4OVZ+INAHeLprDnQTaINECO1G4VFgJa3FPYK2mw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kDDKdahD0WLulwq2RXGXGYX93ZqdDCekH3Wo8k9j+Jc=;
- b=QkUYBCexEzr1KPTVJnYFYQqXHL4UeoEkV7ow11geo5bIcxT9QC1ksrtgR6zc3g9qEN0yeFGTlAl5ZBcquRzz8xZRHHRxHmZnM+qUI7HkLgBjypGZiBuwBYxF5OVkBwI1Oq1DdWKiWMiSy+Anytql+Hcr06U8EIMA06GdzBxdRTPIRxojc6rlzJ4w++PN74PbY4/xyvOmk1Q92+viwPyGIFTpJiembpZ2F39OS0Jz0vZoCa3BtX9EcO0uoeoBg5K+A7iluCkowSFMISAevSmbHs4C82ujq7wa+QSG9+suXAw/cQg5VlQ0G0xel6zWflLGAVADR9vCiEagBO1eTP5MHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kDDKdahD0WLulwq2RXGXGYX93ZqdDCekH3Wo8k9j+Jc=;
- b=BmeylC7CrfddyhKG1XIiEDsBeDjsr5GUOexOThbQ5OnjsvPwO9lPfWJX3+2t6BPgi91jkRt70rIeAWhkwu2RJRLXRvv/WkRoMrvSdtmQYki+8zknILSS3fr8cZYkiwNH43G0hKEUOIVqza2mxmRoqA55Y+wTKzBNcxmKOAWJ9JGgFKx6tHECSqTqP1jSUy+IiQhLOIcPIFKqJMcxEFxhsXxLWJU0QFiy+P3dmy+aRHbIrjZ1dyN+JR9IvmiT0dgLjPy4YTHKpJJW4tmvo5fw2itr8CbRMr8Gw2r9vXNJh1Bv7ZpJ+BEo1DqFFg6c4MlLmFq5rXJY/CKjKyE1TyOxlw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- BY5PR12MB4051.namprd12.prod.outlook.com (2603:10b6:a03:20c::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.11; Wed, 11 Mar 2026 00:40:40 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9700.010; Wed, 11 Mar 2026
- 00:40:40 +0000
-From: Joel Fernandes <joelagnelf@nvidia.com>
-To: linux-kernel@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
- Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v9 10/23] gpu: nova-core: mm: Add GpuMm centralized memory
- manager
-Date: Tue, 10 Mar 2026 20:39:55 -0400
-Message-Id: <20260311004008.2208806-11-joelagnelf@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260311004008.2208806-1-joelagnelf@nvidia.com>
-References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: IA4P220CA0001.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:208:558::14) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Received: from kylie.crudebyte.com (kylie.crudebyte.com [5.189.157.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C12DA10E713;
+ Tue, 10 Mar 2026 13:47:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=crudebyte.com; s=kylie; h=Content-Type:Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:
+ Content-ID:Content-Description;
+ bh=aVv/PSZT5NGeZjfHxwg8OpWgNHlsgZDJ/5CMzeiUbdo=; b=dTpIUmFyfV+bP6Hy0ueZpN32tu
+ piiOrm2xYxIB724JO1nPYEvLrwNppM7ldi2VsLNiB9a22ZPzaNJQ0YaGHJwVuraOF2yk5SpAHZold
+ s8t7GSMCpZMXoj2MN+HCYF9oJcPgVF+TLl3oulmGF4t7YrhkwJ3IfsTmzXldUh96w/myd3pDSVX1g
+ /e8bzPXWMBYBNoEloTPI5IYSewDyrYj60Js0etFfclp4hEgkn7HaHPBIdN5mmqp8OC3Z4JyMZY1In
+ us3k02cy2EDC8Yr2DD9TZj2Bfv2JCzi8o1CBU/q/X+4deOd5/tymAnt0Bem3HGOfb0TZNQXc+sRV/
+ 1upKIM10UX7QbQ98BeJxn1cHAUt80a13aLlrns2kgX3r4ZD43IvQ3qOgYizweNeHFZvB+bpwBSNFD
+ hlDW1qIdKmIN+wC7qSL6cU7m+YgH+eIF1AeR8pLLvTFBNqmI6qti9D+O96RBcbYAwE/olpfjlTGn5
+ mdLSL9FFfI7mx4Sepl5WAdeD1XVerb2KTcAMA8AXYimzng7DssEnPDbX6u+t3yAcQjc1BrWIujZyx
+ Gao2D20IgKGUx784nxNUpYJ2ZiCkXzoDKyugnEIdTC+VrOwC2OEJanP1Uq3/BrGj0qOrmxYFeI51c
+ 48zjYWWU3v40e6itkF189TkI8Acs6/RLaheNlL7MM=;
+From: Christian Schoenebeck <linux_oss@crudebyte.com>
+To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, kvm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev,
+ Philipp Hahn <phahn-oss@avm.de>, Philipp Hahn <phahn-oss@avm.de>
+Cc: Eric Van Hensbergen <ericvh@kernel.org>,
+ Latchesar Ionkov <lucho@ionkov.net>,
+ Dominique Martinet <asmadeus@codewreck.org>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>
+Subject: Re: [PATCH 24/61] net/9p: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 14:47:03 +0100
+Message-ID: <1948861.tdWV9SEqCh@weasel>
+In-Reply-To: <20260310-b4-is_err_or_null-v1-24-bd63b656022d@avm.de>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+ <20260310-b4-is_err_or_null-v1-24-bd63b656022d@avm.de>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BY5PR12MB4051:EE_
-X-MS-Office365-Filtering-Correlation-Id: f45d9b8c-ba5b-442e-eef9-08de7f06d1f6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: B5DpnQLB7mwfDNtlNjPkkmdF+77c0UdAP2kNlUdf12l22K+m1uOM/umb9sSRG/wPBnUN+ZktwAkPYS3EVkYASw+uM9uvJpp7hJqJU0MfURG/ChP22XS8nuuaGxHpfOxgRvd0ZSmttvxgSnNviWYmuSMUu3INOUBh8rHG/PfS1zw2wOCJJd14ZHK99OpVxMGdoigQH6dmNi3dYj26s6YAfKltCu76Cpa8C+eC6mmzXofZwsCNuCmyKofEvCUUGtmAPwtfphkzfQUt59qEi8ZKaA4nKCMeJjqFDOS3cuqZYpz41pPxZycBH1S76X1fYBOJ5JLX5AE48opLTcgB8CmU91UVkdQG33YCPECld/Z4Nj/LoYOSOySx+xUvEAcaUVXanOUn+5VGHXKGjPtKUlvPqrLWDmVw/sx6grlxypUw3AlaTdUKZUQnwp2y25c/FTV46OQp+sQOmGMGPPsNU8r1yv3koPCqiyBsnGx8mJw+xzVG11w3EgVc35g/EdjwKnXxYQImjEUqydqnwZymDVTx6f+T4y100bn5oBWOhSA8glpke/+CJMWw3iwpzfXdSRXpt/aMj4mLAqMFkj7U9/CvOV44B9gzFdOrPUw3qkR2yisuHfW2D30k7Q2gth4hc0qy72fsob//Iiofj0aTk8ZnKDCGbuvmpQdbk0C6XwKFwTPg8974CR3o741UYBZPzfZznw/izlGbz5ojhFPNURN2RJf3MsagEBMuBSkeo1R2mDY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(1800799024)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?mHyAx39bgseubUDySbw+V80X9UgeB1KZXaBoIv6aFSBs2jhwi/Spk1CI/Q+V?=
- =?us-ascii?Q?3g0vS/1+UIc+vw6mRZY9qmWJ+AF7ax7u6BWBBnWXgx6Lx5pHByWJwugrOTVV?=
- =?us-ascii?Q?EZrynrV2PrIj905MubvQgSk3XSXtdY0qLsg7ZCNTAJKVpQiY/N+aGq4RibUB?=
- =?us-ascii?Q?ojOma1783TbOqBUTCqs2SUCbdURs994IymhaJoL0lCU1WICDQinl07JlSYch?=
- =?us-ascii?Q?yjv84MUhZ91W9B8d1PV3OrUfLu/kPntepUZaN5J755Uyq6xJlaIYl5czKXZo?=
- =?us-ascii?Q?iFQkpxM8jZFeA5Tq+SJE5S64BDHLfeQqhkCd4YwEgXRB+DOjhtmnM2Uesrou?=
- =?us-ascii?Q?ci8TEvejraZyXlf2VwGRE48OM26H4ihgZdlQaO2FnXF0oWsxIkD24RH7no22?=
- =?us-ascii?Q?F+YsxmI6ytfjXesnIBgxbA1VMQtruzM6Z260kTf5ai4Evc8kbWKUV4jS8s7l?=
- =?us-ascii?Q?6C8MKqinQQpzBOjpdLanixxAlqVAHknYTcRgOazBEwvO8BQbXnFh97GLR7aZ?=
- =?us-ascii?Q?2puvETIC83d78YPy9Gm0WTxg2Q8bK4mDW4gWMLIMf27HxYvk3DCOe2ceFm3K?=
- =?us-ascii?Q?D5qxo2uDy56Izb/Pgt00NP4eqexdfFbI5k0f7bmSVZIVqCxXqq19DCiKA7+Z?=
- =?us-ascii?Q?+3dbCCt4iooOijM2C1AzBKOA2klkaUwS9q6J701hw7UIQP6BpdZ/LOLNzOAq?=
- =?us-ascii?Q?XBrZ3V7T7ECHs1Lin69+vZ+Vf2c33u6fALuBT+CotdLGo54mb6GuU5ExPXNV?=
- =?us-ascii?Q?pf8BHLKJwPO2ePklcH30lJ0ZtWIlvzcrMxyEValGFgf6sAh+Vo7sPgxapao4?=
- =?us-ascii?Q?DHtt/a5Mv50g9cfsLQl8eTBBIELY7CADyeQ6NwxZbi/y/fHXIRMaNSs3WEKr?=
- =?us-ascii?Q?TYBtYT/89eGxYCn6Fiv/z9eB9ufc1JZ4I1IIdS0/AXK4XJrQKJfilc4RnS9/?=
- =?us-ascii?Q?H6BG3zUvBO0gfLm2E+oeZNo8YQlrxT/YPcdG7SS3azSZFE7YYryCB12u0Y31?=
- =?us-ascii?Q?/tv6Mxy/QandBSIFCELJ/EHIh/H3i1R4fgIvh5Hs7g+XOI/CJfu+CbTawtRY?=
- =?us-ascii?Q?yshMOddABiEsXw6cbxhdQv865v0KSskv4VTdv0rANmQytIuUdJsgn1XHChpo?=
- =?us-ascii?Q?Zs7O1NVmOtkXGjArC4LD2NaZF6NjwfofhUpvX+Qyby8uKz2Fs/ejrN/qYo4W?=
- =?us-ascii?Q?L9UZmcXJSoYXyZMOrKFFyATkbr2NcMvQP8RwXF3UNaDPCFnAlPzNlWUcIyQv?=
- =?us-ascii?Q?aL2d7EGtTUkD4CgldUdgl4+yRrGWAvyb6ZZzyui9VzgZ/3ZNBlEUzuLW5pCz?=
- =?us-ascii?Q?Bv0HbLRkLEwgFfdRnFEXuE19Vb/blM2KEmJHynbcgHoUUtjW3NHay1oxZqSz?=
- =?us-ascii?Q?ygrOdSMEyJermVcusGF6SPTuk3rUmiSkvkzvlsvnhqdfZkO99B1UDf1NIzib?=
- =?us-ascii?Q?qfA7VCkSR2AwIakcLbN7p/EGS87AL+BQDH0WUowOTawFLFYaEZweKUwh1CrL?=
- =?us-ascii?Q?iunSYv4b5IIQNiRAScrKuCUeay9NaiWETNZ295UDlLwlMhxUgZ88GhbeE/nR?=
- =?us-ascii?Q?mS8jd+zDtesJqs0CVLAYsIYgbtFyJ1BjZ1+EckrIDaVmlZNKY3s9qztX0f5b?=
- =?us-ascii?Q?Rr3xGxDmKBV2fYKyS0HavPQQTOIIgL3hY+hjEUaj6XaVqC1mwtyd7TW2ZAPc?=
- =?us-ascii?Q?0NcpZyXsw5j1CQOyqk6SzMu3c/AH1QueoZSIAbLzm6Brv1Ckp3QukTLG+/8g?=
- =?us-ascii?Q?lyQjtu21qA=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f45d9b8c-ba5b-442e-eef9-08de7f06d1f6
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2026 00:40:40.3605 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xk6nY6Q/Y95duDgbZtqE9lHcdCHaUSYeFWjE+BraOn/PxGCNQskAms6jD9tOWmZHKn5m55HuFEmblIc9hyPn+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4051
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 X-Mailman-Approved-At: Wed, 11 Mar 2026 08:09:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -161,186 +86,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Introduce GpuMm as the centralized GPU memory manager that owns:
-- Buddy allocator for VRAM allocation.
-- PRAMIN window for direct VRAM access.
-- TLB manager for translation buffer operations.
+On Tuesday, 10 March 2026 12:48:50 CET Philipp Hahn wrote:
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
+> 
+> Change generated with coccinelle.
+> 
+> To: Eric Van Hensbergen <ericvh@kernel.org>
+> To: Latchesar Ionkov <lucho@ionkov.net>
+> To: Dominique Martinet <asmadeus@codewreck.org>
+> To: Christian Schoenebeck <linux_oss@crudebyte.com>
+> To: "David S. Miller" <davem@davemloft.net>
+> To: Eric Dumazet <edumazet@google.com>
+> To: Jakub Kicinski <kuba@kernel.org>
+> To: Paolo Abeni <pabeni@redhat.com>
+> To: Simon Horman <horms@kernel.org>
+> Cc: v9fs@lists.linux.dev
+> Cc: netdev@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+> ---
+>  include/net/9p/client.h | 2 +-
+>  net/9p/trans_rdma.c     | 8 ++++----
+>  2 files changed, 5 insertions(+), 5 deletions(-)
 
-This provides clean ownership model where GpuMm provides accessor
-methods for its components that can be used for memory management
-operations.
+Reviewed-by: Christian Schoenebeck <linux_oss@crudebyte.com>
+ 
+> diff --git a/include/net/9p/client.h b/include/net/9p/client.h
+> index
+> 838a94218b593f3fb19e6827c472753380193461..4bde6bd716f323c819745e64c7aac0dea
+> 7beb72f 100644 --- a/include/net/9p/client.h
+> +++ b/include/net/9p/client.h
+> @@ -364,7 +364,7 @@ static inline struct p9_fid *p9_fid_get(struct p9_fid
+> *fid)
+> 
+>  static inline int p9_fid_put(struct p9_fid *fid)
+>  {
+> -	if (!fid || IS_ERR(fid))
+> +	if (IS_ERR_OR_NULL(fid))
+>  		return 0;
+> 
+>  	if (tracepoint_enabled(9p_fid_ref))
+> diff --git a/net/9p/trans_rdma.c b/net/9p/trans_rdma.c
+> index
+> aa5bd74d333f3b5e6fd1e4344d26bc0201ff7f7f..60461344b536bcb6e94112aace75a88b6
+> a99ad86 100644 --- a/net/9p/trans_rdma.c
+> +++ b/net/9p/trans_rdma.c
+> @@ -252,16 +252,16 @@ static void rdma_destroy_trans(struct p9_trans_rdma
+> *rdma) if (!rdma)
+>  		return;
+> 
+> -	if (rdma->qp && !IS_ERR(rdma->qp))
+> +	if (!IS_ERR_OR_NULL(rdma->qp))
+>  		ib_destroy_qp(rdma->qp);
+> 
+> -	if (rdma->pd && !IS_ERR(rdma->pd))
+> +	if (!IS_ERR_OR_NULL(rdma->pd))
+>  		ib_dealloc_pd(rdma->pd);
+> 
+> -	if (rdma->cq && !IS_ERR(rdma->cq))
+> +	if (!IS_ERR_OR_NULL(rdma->cq))
+>  		ib_free_cq(rdma->cq);
+> 
+> -	if (rdma->cm_id && !IS_ERR(rdma->cm_id))
+> +	if (!IS_ERR_OR_NULL(rdma->cm_id))
+>  		rdma_destroy_id(rdma->cm_id);
+> 
+>  	kfree(rdma);
 
-Cc: Nikola Djukic <ndjukic@nvidia.com>
-Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
----
- drivers/gpu/nova-core/gpu.rs          | 32 +++++++++++-
- drivers/gpu/nova-core/gsp/commands.rs |  2 -
- drivers/gpu/nova-core/mm.rs           | 70 ++++++++++++++++++++++++++-
- 3 files changed, 99 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index c324d96bd0c6..32266480bb0f 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -4,8 +4,10 @@
-     device,
-     devres::Devres,
-     fmt,
-+    gpu::buddy::GpuBuddyParams,
-     pci,
-     prelude::*,
-+    sizes::SZ_4K,
-     sync::Arc, //
- };
- 
-@@ -22,6 +24,7 @@
-         commands::GetGspStaticInfoReply,
-         Gsp, //
-     },
-+    mm::GpuMm,
-     regs,
- };
- 
-@@ -252,6 +255,9 @@ pub(crate) struct Gpu {
-     gsp_falcon: Falcon<GspFalcon>,
-     /// SEC2 falcon instance, used for GSP boot up and cleanup.
-     sec2_falcon: Falcon<Sec2Falcon>,
-+    /// GPU memory manager owning memory management resources.
-+    #[pin]
-+    mm: GpuMm,
-     /// GSP runtime data. Temporarily an empty placeholder.
-     #[pin]
-     gsp: Gsp,
-@@ -288,7 +294,31 @@ pub(crate) fn new<'a>(
- 
-             gsp <- Gsp::new(pdev),
- 
--            gsp_static_info: { gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)? },
-+            gsp_static_info: {
-+                let info = gsp.boot(pdev, bar, spec.chipset, gsp_falcon, sec2_falcon)?;
-+
-+                dev_info!(
-+                    pdev.as_ref(),
-+                    "Using FB region: {:#x}..{:#x}\n",
-+                    info.usable_fb_region.start,
-+                    info.usable_fb_region.end
-+                );
-+
-+                info
-+            },
-+
-+            // Create GPU memory manager owning memory management resources.
-+            mm <- {
-+                let usable_vram = &gsp_static_info.usable_fb_region;
-+                // PRAMIN covers all physical VRAM (including GSP-reserved areas
-+                // above the usable region, e.g. the BAR1 page directory).
-+                let pramin_vram_region = 0..gsp_static_info.total_fb_end;
-+                GpuMm::new(devres_bar.clone(), GpuBuddyParams {
-+                    base_offset: usable_vram.start,
-+                    physical_memory_size: usable_vram.end - usable_vram.start,
-+                    chunk_size: SZ_4K,
-+                }, pramin_vram_region)?
-+            },
- 
-             bar: devres_bar,
-         })
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index 389d215098c6..18dd86a38d46 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -191,10 +191,8 @@ fn init(&self) -> impl Init<Self::Command, Self::InitError> {
- pub(crate) struct GetGspStaticInfoReply {
-     gpu_name: [u8; 64],
-     /// Usable FB (VRAM) region for driver memory allocation.
--    #[expect(dead_code)]
-     pub(crate) usable_fb_region: Range<u64>,
-     /// End of VRAM.
--    #[expect(dead_code)]
-     pub(crate) total_fb_end: u64,
- }
- 
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index b02dc265a2c8..dd15175c841d 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -7,9 +7,75 @@
- pub(crate) mod pramin;
- pub(crate) mod tlb;
- 
--use kernel::sizes::SZ_4K;
-+use kernel::{
-+    devres::Devres,
-+    gpu::buddy::{
-+        GpuBuddy,
-+        GpuBuddyParams, //
-+    },
-+    prelude::*,
-+    sizes::SZ_4K,
-+    sync::Arc, //
-+};
- 
--use crate::num::u64_as_usize;
-+use crate::{
-+    driver::Bar0,
-+    num::u64_as_usize, //
-+};
-+
-+pub(crate) use tlb::Tlb;
-+
-+/// GPU Memory Manager - owns all core MM components.
-+///
-+/// Provides centralized ownership of memory management resources:
-+/// - [`GpuBuddy`] allocator for VRAM page table allocation.
-+/// - [`pramin::Pramin`] for direct VRAM access.
-+/// - [`Tlb`] manager for translation buffer flush operations.
-+#[pin_data]
-+pub(crate) struct GpuMm {
-+    buddy: GpuBuddy,
-+    #[pin]
-+    pramin: pramin::Pramin,
-+    #[pin]
-+    tlb: Tlb,
-+}
-+
-+impl GpuMm {
-+    /// Create a pin-initializer for `GpuMm`.
-+    ///
-+    /// `pramin_vram_region` is the full physical VRAM range (including GSP-reserved
-+    /// areas). PRAMIN window accesses are validated against this range.
-+    pub(crate) fn new(
-+        bar: Arc<Devres<Bar0>>,
-+        buddy_params: GpuBuddyParams,
-+        pramin_vram_region: core::ops::Range<u64>,
-+    ) -> Result<impl PinInit<Self>> {
-+        let buddy = GpuBuddy::new(buddy_params)?;
-+        let tlb_init = Tlb::new(bar.clone());
-+        let pramin_init = pramin::Pramin::new(bar, pramin_vram_region)?;
-+
-+        Ok(pin_init!(Self {
-+            buddy,
-+            pramin <- pramin_init,
-+            tlb <- tlb_init,
-+        }))
-+    }
-+
-+    /// Access the [`GpuBuddy`] allocator.
-+    pub(crate) fn buddy(&self) -> &GpuBuddy {
-+        &self.buddy
-+    }
-+
-+    /// Access the [`pramin::Pramin`].
-+    pub(crate) fn pramin(&self) -> &pramin::Pramin {
-+        &self.pramin
-+    }
-+
-+    /// Access the [`Tlb`] manager.
-+    pub(crate) fn tlb(&self) -> &Tlb {
-+        &self.tlb
-+    }
-+}
- 
- /// Page size in bytes (4 KiB).
- pub(crate) const PAGE_SIZE: usize = SZ_4K;
--- 
-2.34.1
 
