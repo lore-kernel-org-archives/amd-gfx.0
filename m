@@ -4,67 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AD9FFD2D63
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:40:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30ACCFD2D63
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A68310E6FF;
-	Tue, 10 Mar 2026 12:40:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A23D10E71C;
+	Tue, 10 Mar 2026 12:41:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZVgAtbeA";
+	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="pkZgS6E2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2267310E6E1;
- Tue, 10 Mar 2026 12:40:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773146449; x=1804682449;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=4n7SWzZw3HonRxcsYR4K9EQXN55FZ8Ptv8pjgw3X5aI=;
- b=ZVgAtbeATH2gPepv4Z+2jHCNIZ2n5tKLvg1Hrmecpec6ASlOj2nW/wO4
- F+6XIuoIxVEAqKi/dzbtG4tcy0BW+xKbROPxZFUwIsJHLVunZcHvoLigX
- sCAhcbIpbdh0YNs8mQsf3Lu20uK/9VVcvOhXOx2qAVANeWVrw8xqHEmQg
- yYSW4gxW8JZnQZr+9kenqpVI7j4DZiClXmRxC4/o/z0b3tku+QJfpmrEI
- Gmij16wLVOOILj8TAGg5xoysQc+kjq9w1/nRVrL6efG/+tIc2zkXpEpA4
- JXGVUnRKXKr49PcghveNC4sJY5KRliiuufF95LJYzZjptLo2tWZg/O0+r g==;
-X-CSE-ConnectionGUID: +Px5qBpATBOtDNZeAic2RQ==
-X-CSE-MsgGUID: ma9DedQySGa8vUxol0xpQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11724"; a="74268672"
-X-IronPort-AV: E=Sophos;i="6.23,112,1770624000"; d="scan'208";a="74268672"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2026 05:40:49 -0700
-X-CSE-ConnectionGUID: YN7AYaNRS1SW7BYHWz48Hw==
-X-CSE-MsgGUID: 8/8ToG5IQtCvFB7Zui+W9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,112,1770624000"; d="scan'208";a="225039280"
-Received: from wtcline-desk20.amr.corp.intel.com (HELO localhost)
- ([10.245.246.50])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2026 05:40:41 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, Philipp Hahn
- <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, 
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Zhenyu Wang
- <zhenyuw.linux@gmail.com>, Zhi Wang <zhi.wang.linux@gmail.com>, Joonas
- Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alex
- Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH 37/61] drm: Prefer IS_ERR_OR_NULL over manual NULL check
-In-Reply-To: <e8a328f9-568c-428c-9111-8742e5dc9a4e@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-37-bd63b656022d@avm.de>
- <e8a328f9-568c-428c-9111-8742e5dc9a4e@amd.com>
-Date: Tue, 10 Mar 2026 14:40:37 +0200
-Message-ID: <fcb42057cbea719f7f131f57a822822b37eddd48@intel.com>
+Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A21A710E279;
+ Tue, 10 Mar 2026 12:05:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
+ t=1773143724; bh=U4MQ2UyTEtTm9FfUFN8u0E2v86RR/vLyOkwrg7Rl0HM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=pkZgS6E2b6HyMFIjBzS/B+8+S0biV0Szf5QLvjvxmALO/k+UU3HGuHgtEcUK6r0hT
+ l3sidqEaLmVC6CjiI74oRmEKxGfUqB5EqeVLendnLbzsQ2HomXxjkzlaNLXsRLIGkS
+ uT2G4P9Dig0e7DdWmJ/gJ1GOA6l1sZgQVMwHxKoY=
+Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
+ by mail.avm.de with ESMTP (eXpurgate 4.55.2)
+ (envelope-from <phahn-oss@avm.de>)
+ id 69b006ac-b734-7f0000032729-7f000001c046-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:24 +0100
+Received: from mail-auth.avm.de (dovecot-mx-01.avm.de
+ [IPv6:2001:bf0:244:244::71]) by mail.avm.de (Postfix) with ESMTPS;
+ Tue, 10 Mar 2026 12:55:24 +0100 (CET)
+From: Philipp Hahn <phahn-oss@avm.de>
+Date: Tue, 10 Mar 2026 12:48:51 +0100
+Subject: [PATCH 25/61] net/bluetooth: Prefer IS_ERR_OR_NULL over manual
+ NULL check
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260310-b4-is_err_or_null-v1-25-bd63b656022d@avm.de>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr, 
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org, 
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org, 
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org, 
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org, 
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-mips@vger.kernel.org, linux-mm@kvack.org, 
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org, 
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org, 
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org, 
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
+ Philipp Hahn <phahn-oss@avm.de>
+Cc: Marcel Holtmann <marcel@holtmann.org>, 
+ Johan Hedberg <johan.hedberg@gmail.com>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1522; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=U4MQ2UyTEtTm9FfUFN8u0E2v86RR/vLyOkwrg7Rl0HM=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAYq6Vp4tN82O3UqmYAB2rCpxamSEi8qzxQbQ
+ a7J5ECg00uJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGKgAKCRA0LQZT0ays
+ 2zTjB/4mjCTr3iXgM6OBkpfxhcEN7EQQZ1y9EXzSAaaFnPJ4J6dbscyHQ/vrwihzqSCkid2ehYX
+ PXWgLr3enkVF+dbM8V9NRPpLg6F53eMyK7CDWQG9AEEJdJq5IDVkThiVxeIs2iOyPBRVnnYWh+Q
+ FhA5NtTEwVLOnsWfWahJLqDe7jVY+yfeXhrX4z5N5WnqSQs4m5vScZRnTkdBPMBPzYgMtNL5igV
+ SF/croNsrnotNJXtafaXYhWm05HCgfm5TNLHJLZIRe+0bC9Er8RwnfgRXEDKBgK6ljnqVy3QgCk
+ bdr+gnx+ukbOMXU8jf2GxeDozNZ6NjdS7QCYNHlx/c+fJCr+
+X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
+ fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
+X-purgate-ID: 149429::1773143724-27DC6A3D-212813DF/0/0
+X-purgate-type: clean
+X-purgate-size: 1524
+X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
+X-purgate: This mail is considered clean (visit https://www.eleven.de for
+ further information)
+X-purgate: clean
+X-Mailman-Approved-At: Tue, 10 Mar 2026 12:41:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,16 +102,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 10 Mar 2026, Christian K=C3=B6nig <christian.koenig@amd.com> wrote:
-> Alternatively when the i915 and rockship maintainers say that they are
-> fine with the change I'm happy to push this to drm-misc-next.
+Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+check.
 
-[dropped most Cc's because, well, there's no need to spam the world]
+Change generated with coccinelle.
 
-For the i915 parts,
+To: Marcel Holtmann <marcel@holtmann.org>
+To: Johan Hedberg <johan.hedberg@gmail.com>
+To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+---
+ net/bluetooth/mgmt.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Acked-by: Jani Nikula <jani.nikula@intel.com>
+diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
+index a7238fd3b03bb54f39af1afee74dc1acd931c324..06d2da67bbe14e17ee478aa939de26526c333d91 100644
+--- a/net/bluetooth/mgmt.c
++++ b/net/bluetooth/mgmt.c
+@@ -4169,7 +4169,7 @@ static void set_default_phy_complete(struct hci_dev *hdev, void *data, int err)
+ 		mgmt_phy_configuration_changed(hdev, cmd->sk);
+ 	}
+ 
+-	if (skb && !IS_ERR(skb))
++	if (!IS_ERR_OR_NULL(skb))
+ 		kfree_skb(skb);
+ 
+ 	mgmt_pending_free(cmd);
+@@ -5730,7 +5730,7 @@ static void read_local_oob_data_complete(struct hci_dev *hdev, void *data,
+ 			  MGMT_STATUS_SUCCESS, &mgmt_rp, rp_size);
+ 
+ remove:
+-	if (skb && !IS_ERR(skb))
++	if (!IS_ERR_OR_NULL(skb))
+ 		kfree_skb(skb);
+ 
+ 	mgmt_pending_free(cmd);
+@@ -8277,7 +8277,7 @@ static void read_local_oob_ext_data_complete(struct hci_dev *hdev, void *data,
+ 				 mgmt_rp, sizeof(*mgmt_rp) + eir_len,
+ 				 HCI_MGMT_OOB_DATA_EVENTS, cmd->sk);
+ done:
+-	if (skb && !IS_ERR(skb))
++	if (!IS_ERR_OR_NULL(skb))
+ 		kfree_skb(skb);
+ 
+ 	kfree(mgmt_rp);
 
+-- 
+2.43.0
 
---=20
-Jani Nikula, Intel
