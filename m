@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37141FD2D63
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1221FD2D71
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6359410E731;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5108F10E72F;
 	Tue, 10 Mar 2026 12:41:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="EmfqFdXE";
+	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="J3wSWYAg";
 	dkim-atps=neutral
-Received: from mail.avm.de (mail.avm.de [212.42.244.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF6CC10E712;
- Tue, 10 Mar 2026 12:01:18 +0000 (UTC)
+Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D69E10E267;
+ Tue, 10 Mar 2026 12:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
- t=1773143725; bh=uPgyjK+s+NGMdE+cG5MPshRhc7ZZgUWwr7PoRjCZSpk=;
+ t=1773143724; bh=1PXfnuytcDxCJ5WvjcpjD44YA1sDO5ZH9mYGPwGsGfw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=EmfqFdXEdiCWqgoXgX8BLevw6sTpNgfg8llLMS9eEaTKVg51Kp8K29SjBZVEdIV/s
- M7bvI3BPyHpPb6vMRi2BheqpUIfCWQ/6jm+gYuX79PpwCNDjLncHrcFsaokOkzLrgm
- dBKJjX9bdtP/6DkQEVr2DPx5QPmWYl9+WXcAxUUE=
-Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
+ b=J3wSWYAgTHffE/RASKBpQWq2ySnTd5MpW6YLASVrV89gusHRkOxfAkrwsTjGvFaNS
+ hDxuWWXJL4XVOl+LI/t97dlq56rN6Kpzc7n2jHPxY+V+uUTEo8r5Ulk5M3qiRSRkq1
+ dYJqASb6U15Y8KxN9uh8urreNs5K4N5plRC3Hf68=
+Received: from [212.42.244.71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006ad-2367-7f0000032729-7f0000019d9a-1
- for <multiple-recipients>; Tue, 10 Mar 2026 12:55:25 +0100
-Received: from mail-auth.avm.de (dovecot-mx-01.avm.de
- [IPv6:2001:bf0:244:244::71]) by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:25 +0100 (CET)
+ id 69b006ab-b734-7f0000032729-7f000001bff0-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:23 +0100
+Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
+ by mail.avm.de (Postfix) with ESMTPS;
+ Tue, 10 Mar 2026 12:55:23 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:48:55 +0100
-Subject: [PATCH 29/61] net/sctp: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 12:48:42 +0100
+Subject: [PATCH 16/61] sched: Prefer IS_ERR_OR_NULL over manual NULL check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-29-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-16-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -65,29 +65,33 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
- Xin Long <lucien.xin@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1169; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=uPgyjK+s+NGMdE+cG5MPshRhc7ZZgUWwr7PoRjCZSpk=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAY4baP8me9X19X7pKru5bhCt+OcLVsbTz9gw
- 3EXL2x+9HiJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGOAAKCRA0LQZT0ays
- 20eCB/9R10a8QtWnOE8FDIK68et8w+x4vBIl7DAH3ljWsVvEsJtllIM7WoriXoMKcy69weBfdTt
- udsIaDDf3FpSbi6d23LNVWvY7/j8StHi4Mb7YRTkDtjVuH7qFkxhMIEkO0P72RZbdjNmUsWZOT+
- 4yfdZZ4sqiFeE73LKQ05t8sm9/1XHgZKcnk5I6ebEYNeQeVfoiugFSvaTmWSBPUItBis/2y3N1h
- 19AfztgUerK/fadW7Y/vZ3pDRpIi5ZAslPLWaCgGa6B5OoDoVAvOz5XPc/Ut45LGyZkJYA2qiTr
- TmaKunQohnKINyK0THlxz9DBNJM47y+p9em5r+zCNMTJFQSn
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, 
+ Andrea Righi <arighi@nvidia.com>, Changwoo Min <changwoo@igalia.com>, 
+ Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1398; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=1PXfnuytcDxCJ5WvjcpjD44YA1sDO5ZH9mYGPwGsGfw=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAYMDPZu3smBGrrjEDAZgewRd/vSzrMtCJxCU
+ Ab0/aCneJOJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGDAAKCRA0LQZT0ays
+ 2yYuCACBFSism0sJT51wNOH3mmVipRWFOp8Vg+RkYWteB8QGePJlSbJv9OJm09HMkW7tLjwUyWX
+ VVHeC9B16w6ID+8gEcOTClH7t/fK4Dy8WecKHkh0F285AVZWcglgZ3SjIJUNbcIL4vnctyxVDTz
+ UXRKVqYZS83Tz67A8a3xEjr7wme1UPPk+FME5Cb8slTwxHRkeibjPT1wP0LHzCbUOIo6nCgv8R7
+ jLfvDCodAoO4aPJRzL3vfdPDFaqXegciQKVWThwHK6Iz+gXqJuudCNdAk8Oa0FFSpSor2eNbdWj
+ hK6ZRlUo0db2BRvH/nraA1HapgaLEA9P2vfUY2mJwp9Lzm4g
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143725-73CEFE1F-39E0F1CD/0/0
+X-purgate-ID: 149429::1773143723-E0DD4A3D-EB59D507/0/0
 X-purgate-type: clean
-X-purgate-size: 1171
+X-purgate-size: 1400
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
 X-purgate: clean
-X-Mailman-Approved-At: Tue, 10 Mar 2026 12:41:15 +0000
+X-Mailman-Approved-At: Tue, 10 Mar 2026 12:41:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,34 +111,39 @@ check.
 
 Change generated with coccinelle.
 
-To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
-To: Xin Long <lucien.xin@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@google.com>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Simon Horman <horms@kernel.org>
-Cc: linux-sctp@vger.kernel.org
-Cc: netdev@vger.kernel.org
+To: Tejun Heo <tj@kernel.org>
+To: David Vernet <void@manifault.com>
+To: Andrea Righi <arighi@nvidia.com>
+To: Changwoo Min <changwoo@igalia.com>
+To: Ingo Molnar <mingo@redhat.com>
+To: Peter Zijlstra <peterz@infradead.org>
+To: Juri Lelli <juri.lelli@redhat.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>
+To: Dietmar Eggemann <dietmar.eggemann@arm.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+To: Ben Segall <bsegall@google.com>
+To: Mel Gorman <mgorman@suse.de>
+To: Valentin Schneider <vschneid@redhat.com>
+Cc: sched-ext@lists.linux.dev
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- net/sctp/socket.c | 2 +-
+ kernel/sched/ext.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/sctp/socket.c b/net/sctp/socket.c
-index 05fb00c9c33576d1e18ee31c34974d8b76efa768..a0596c94be4ad6afae6be13adb3bce17140264e9 100644
---- a/net/sctp/socket.c
-+++ b/net/sctp/socket.c
-@@ -5349,7 +5349,7 @@ struct sctp_transport *sctp_transport_get_idx(struct net *net,
- 	if (!pos)
- 		return SEQ_START_TOKEN;
+diff --git a/kernel/sched/ext.c b/kernel/sched/ext.c
+index 1594987d637b09e586ae788b7f2e6336332d605a..cfa869bd7de5406a5ca094992ab04c62b0e92fd0 100644
+--- a/kernel/sched/ext.c
++++ b/kernel/sched/ext.c
+@@ -3688,7 +3688,7 @@ static void scx_sched_free_rcu_work(struct work_struct *work)
+ 	do {
+ 		rhashtable_walk_start(&rht_iter);
  
--	while ((t = sctp_transport_get_next(net, iter)) && !IS_ERR(t)) {
-+	while (!IS_ERR_OR_NULL((t = sctp_transport_get_next(net, iter)))) {
- 		if (!--pos)
- 			break;
- 		sctp_transport_put(t);
+-		while ((dsq = rhashtable_walk_next(&rht_iter)) && !IS_ERR(dsq))
++		while (!IS_ERR_OR_NULL((dsq = rhashtable_walk_next(&rht_iter))))
+ 			destroy_dsq(sch, dsq->id);
+ 
+ 		rhashtable_walk_stop(&rht_iter);
 
 -- 
 2.43.0
