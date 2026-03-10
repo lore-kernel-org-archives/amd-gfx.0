@@ -4,29 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8CEDFD2D63
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9C90FD2D6D
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A81B10E721;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99DC610E725;
 	Tue, 10 Mar 2026 12:41:16 +0000 (UTC)
-Received: from mail.avm.de (mail.avm.de [212.42.244.94])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C8210E711;
- Tue, 10 Mar 2026 12:01:19 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="vC8qGYtm";
+	dkim-atps=neutral
+Received: from mail.avm.de (mail.avm.de [212.42.244.119])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4C2C10E712;
+ Tue, 10 Mar 2026 12:01:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
+ t=1773143726; bh=Axff4FnAHPNmyZXZ2vgEuavJkfKhCKJPqZGqnoou9Q8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=vC8qGYtmoTTFtKG57rlNoXWnybB42U6r7mF3yDjZNK169i+LPPc6FbsKjJViJXz0P
+ z0SkvHe3S8CzlbyDQgjnVKCfReu3jwjo1Tnr6q9iIPykZjcNCRLdwFjqB3/YTiencA
+ upketXPZTZxW0W7lPSDpgLsiq82FnKI8pFh7qlSE=
 Received: from [212.42.244.71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006ac-e21d-7f0000032729-7f000001d9c0-1
- for <multiple-recipients>; Tue, 10 Mar 2026 12:55:24 +0100
+ id 69b006ae-2367-7f0000032729-7f000001c97e-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:26 +0100
 Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
  by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:24 +0100 (CET)
+ Tue, 10 Mar 2026 12:55:26 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:48:37 +0100
-Subject: [PATCH 11/61] pstore: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 12:48:59 +0100
+Subject: [PATCH 33/61] mm: Prefer IS_ERR_OR_NULL over manual NULL check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-11-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-33-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -56,22 +65,22 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=958; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=50ahf3Ovo2xs3bKtWfsEny3TDWNoY4zAg8ay7QEz3LI=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAX7sQcV3VwS+mx5jK1HizkW2meRfNqVaBq2u
- sez6firU+2JATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAF+wAKCRA0LQZT0ays
- 2xq8B/0SUo4r3rxVq9RsANPcVwQvjAVIq5IHS3vrGpufO9mdcUCVswBYAGcqVWlGUWYhZ9D5Afm
- wOzPQKPaAOE+fY5h8prRvYwP+dSX3nADwI8Y6unKqygPjUrnO+GjcQ97MVfA906q0I9/A6k6cjF
- jRX1r++tFvKvjX46AZyTpQKZC7YoNaBrH37lhDan3ZiZqsJrJDSI+f2JPLEkh5ffnrBrT1NRvPO
- /GMhxFHqkXWNux7Q6NSnWc5GTjmQY/JD/+/V9BILGVpDvPcV2orOeVbtK+hA0s3T4ekXooFahFe
- 5VVhIFMEZXUHZMw53adA+fpwHBkKMznHg4ePWJsQNeHf/dyM
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3181; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=Axff4FnAHPNmyZXZ2vgEuavJkfKhCKJPqZGqnoou9Q8=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAZGGzCaztqu0lpdWvBpBbRCmO+WdPRS9iZCq
+ y8ebihz4r+JATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGRgAKCRA0LQZT0ays
+ 21/8B/wPP7xI3S+6VTDXKISgyNvBqi0UZCbrYypvYfajV0SZbWCEuGKdkXjsEnnFt9YRKxoHeyi
+ XmpmbA47CMrp+VNl6him9YVO8BEPZHU4T3m6BB2+Ps31+3rQDfYs7d+nPEStYiJ7CseLk0vc9Xu
+ aMyI8bSdyPpcRveFxPuH/uy4iV8zrSXLAoi0Ddm83MyR2aRNl2iCZfPRsvcbR2T8dPBVJjhKzKb
+ 5v+Zz66IZ/QArfKSmSkUD+nw+Micr3w6XFCa9e1WMrdcQ/Zh9MZx0TWZwcRgOAgfEwQG/fxgX8/
+ bLP83oq+8G1pw01czFBtKoe7eUKh6J8z9KOOUPoqLrMipRXq
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143724-9167EF2F-D7D1D994/0/0
+X-purgate-ID: 149429::1773143726-05CBBE1F-4CFCA352/0/0
 X-purgate-type: clean
-X-purgate-size: 960
+X-purgate-size: 3183
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
@@ -94,30 +103,93 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
 check.
 
-Change generated with coccinelle.
+Change generated with coccinelle and adapted by hand.
 
-To: Kees Cook <kees@kernel.org>
-To: Tony Luck <tony.luck@intel.com>
-To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+To: Catalin Marinas <catalin.marinas@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- fs/pstore/zone.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/kmemleak.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/fs/pstore/zone.c b/fs/pstore/zone.c
-index a3b003f9a3a079c482b673f57023ce88fc290dbf..dce8403ca18566cc4a7a853ccdc7e1c165666fcb 100644
---- a/fs/pstore/zone.c
-+++ b/fs/pstore/zone.c
-@@ -1226,7 +1226,7 @@ static struct pstore_zone **psz_init_zones(enum pstore_type_id type,
+diff --git a/mm/kmemleak.c b/mm/kmemleak.c
+index d79acf5c51006c3ed42fd88a2246ca148e401999..91136be23a84d825698e98b4f2d0e666429dd593 100644
+--- a/mm/kmemleak.c
++++ b/mm/kmemleak.c
+@@ -1092,7 +1092,7 @@ void __ref kmemleak_alloc(const void *ptr, size_t size, int min_count,
+ {
+ 	pr_debug("%s(0x%px, %zu, %d)\n", __func__, ptr, size, min_count);
  
- 	for (i = 0; i < c; i++) {
- 		zone = psz_init_zone(type, off, record_size);
--		if (!zone || IS_ERR(zone)) {
-+		if (IS_ERR_OR_NULL(zone)) {
- 			pr_err("initialize zones %s failed\n", name);
- 			psz_free_zones(&zones, &i);
- 			return (void *)zone;
+-	if (kmemleak_enabled && ptr && !IS_ERR(ptr))
++	if (kmemleak_enabled && !IS_ERR_OR_NULL(ptr))
+ 		create_object((unsigned long)ptr, size, min_count, gfp);
+ }
+ EXPORT_SYMBOL_GPL(kmemleak_alloc);
+@@ -1152,7 +1152,7 @@ void __ref kmemleak_free(const void *ptr)
+ {
+ 	pr_debug("%s(0x%px)\n", __func__, ptr);
+ 
+-	if (kmemleak_free_enabled && ptr && !IS_ERR(ptr))
++	if (kmemleak_free_enabled && !IS_ERR_OR_NULL(ptr))
+ 		delete_object_full((unsigned long)ptr, 0);
+ }
+ EXPORT_SYMBOL_GPL(kmemleak_free);
+@@ -1170,7 +1170,7 @@ void __ref kmemleak_free_part(const void *ptr, size_t size)
+ {
+ 	pr_debug("%s(0x%px)\n", __func__, ptr);
+ 
+-	if (kmemleak_enabled && ptr && !IS_ERR(ptr))
++	if (kmemleak_enabled && !IS_ERR_OR_NULL(ptr))
+ 		delete_object_part((unsigned long)ptr, size, 0);
+ }
+ EXPORT_SYMBOL_GPL(kmemleak_free_part);
+@@ -1238,7 +1238,7 @@ void __ref kmemleak_not_leak(const void *ptr)
+ {
+ 	pr_debug("%s(0x%px)\n", __func__, ptr);
+ 
+-	if (kmemleak_enabled && ptr && !IS_ERR(ptr))
++	if (kmemleak_enabled && !IS_ERR_OR_NULL(ptr))
+ 		make_gray_object((unsigned long)ptr);
+ }
+ EXPORT_SYMBOL(kmemleak_not_leak);
+@@ -1255,7 +1255,7 @@ void __ref kmemleak_transient_leak(const void *ptr)
+ {
+ 	pr_debug("%s(0x%px)\n", __func__, ptr);
+ 
+-	if (kmemleak_enabled && ptr && !IS_ERR(ptr))
++	if (kmemleak_enabled && !IS_ERR_OR_NULL(ptr))
+ 		reset_checksum((unsigned long)ptr);
+ }
+ EXPORT_SYMBOL(kmemleak_transient_leak);
+@@ -1287,7 +1287,7 @@ void __ref kmemleak_ignore(const void *ptr)
+ {
+ 	pr_debug("%s(0x%px)\n", __func__, ptr);
+ 
+-	if (kmemleak_enabled && ptr && !IS_ERR(ptr))
++	if (kmemleak_enabled && !IS_ERR_OR_NULL(ptr))
+ 		make_black_object((unsigned long)ptr, 0);
+ }
+ EXPORT_SYMBOL(kmemleak_ignore);
+@@ -1307,7 +1307,7 @@ void __ref kmemleak_scan_area(const void *ptr, size_t size, gfp_t gfp)
+ {
+ 	pr_debug("%s(0x%px)\n", __func__, ptr);
+ 
+-	if (kmemleak_enabled && ptr && size && !IS_ERR(ptr))
++	if (kmemleak_enabled && size && !IS_ERR_OR_NULL(ptr))
+ 		add_scan_area((unsigned long)ptr, size, gfp);
+ }
+ EXPORT_SYMBOL(kmemleak_scan_area);
+@@ -1325,7 +1325,7 @@ void __ref kmemleak_no_scan(const void *ptr)
+ {
+ 	pr_debug("%s(0x%px)\n", __func__, ptr);
+ 
+-	if (kmemleak_enabled && ptr && !IS_ERR(ptr))
++	if (kmemleak_enabled && !IS_ERR_OR_NULL(ptr))
+ 		object_no_scan((unsigned long)ptr);
+ }
+ EXPORT_SYMBOL(kmemleak_no_scan);
 
 -- 
 2.43.0
