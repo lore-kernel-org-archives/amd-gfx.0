@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9875AFD4F32
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 19:13:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74A3AFD4F29
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 19:13:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2346110E780;
-	Tue, 10 Mar 2026 19:13:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 117C910E2D6;
+	Tue, 10 Mar 2026 19:13:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DDi8ahqC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="S7Ppaw5r";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0BEA810E2DF
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 19:13:37 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4852ff06541so35528995e9.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 12:13:36 -0700 (PDT)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA9910E77F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 19:13:39 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-48538c5956bso2186885e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 12:13:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773170015; x=1773774815; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773170018; x=1773774818; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
- :reply-to; bh=tZKe1g2ZiUVqR4Wi3Yaak7ZW5gE+gEzJGDoSB0QtD/k=;
- b=DDi8ahqCcHu4SYhkWWKoi5SFWqUxXVIEB5niobGJEr8ezSTynRRwZ1fP9s67PrZcFn
- cLjJVeGZ3mG/zUZE3qRdldDeqFq/YRGBgtcsC6mOlDsIHFWNZdJn3pQnpm4iAod0dBuP
- t1P7aHMMu2t7TMJf1nhJgNCBGQDmZbCdL6ZtgpcHQnFMMrSMb0sSV/yuRlcUI8U5ArBT
- BuDEaCeMPPKom728nYdtJDd4bM+PSr7kYcG8PKtw6mA3yNbYA7CcJqvXm3u7S76ABVOC
- HMGXIN5F35ZRPPgS4FFkcr873pYgkXtTCasotSlw3wzFc16fyEnjXXYFbA+9nHtyKeWV
- 5mdQ==
+ :reply-to; bh=BnJj5QHEpSddG2nK1WO8hg+Si/94+1hHmfM3oczxYjU=;
+ b=S7Ppaw5rNmK8/r2exHFrS1TMC2efzOpaLi0506IUqnS8aPtw151rUCIz0sQl51wOi5
+ 4MsMNNFC9QQxIR7GT5KjePcTae9n8iWqg11zuEgpWroAJnEf6SZn7BFivDdfe/UnVFiX
+ HK3ojwmDAcH2J7CCYxM2+TL86Ej6vkxo7tcrzJE+oK9A5jOsGuOkbTuFGTnk0EkELH4Q
+ 1miICvPRJsB4AjTjzm9awfEoIcCVNVyIVMAgLS42Jzmt7Lgmd2XNLGLDy+2/Ve9KAew6
+ 79R73FmmHLhFhJX0Gziu9Rx+Xn5n2/tQ+aUO2nno8f7JlLIg9LXMJiPabHM7Q8ScFTYs
+ iyQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773170015; x=1773774815;
+ d=1e100.net; s=20230601; t=1773170018; x=1773774818;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=tZKe1g2ZiUVqR4Wi3Yaak7ZW5gE+gEzJGDoSB0QtD/k=;
- b=t8TNV11KLfsiiPq5AWUT6oxA1PNDVsi/jItByRr5UQgkBRMf7SO6lfX1v3/Uziciap
- BwlzpQ9c+C0J0ycqTAnUJ5nBq5NmhFxVoKWrEE6Ft8FxHa6tQYvtSGicSXbUj7SzKRVM
- YLUY9cLibMFkRwo+4KlVPgBJOLgZ/rF/C68F/5U5X+GuAqCpmPdZ7N0oXw69wwKCFZnp
- 9ML6NpMAM68kdty5aulMRCKalut/zUd5o/8olmYQCf/VH+z1maSuDOVXhU6msvFNWBQR
- sXEUV9G+sO7zO3HwPWWF3SD03IbuJjjNz725V3MWYpT8jcjzlP/bGD2h4Mhmmjbm+9j1
- +U1A==
+ bh=BnJj5QHEpSddG2nK1WO8hg+Si/94+1hHmfM3oczxYjU=;
+ b=ImkUIem5ynO/dxobvvRkmBF/mLT6hY3TZDk8BAQ+VLsL7S113CjnRR3WKD5rC1hwrf
+ nrudAIjP3golrcOpUtu0FoEWeMhdx8ID6y0JHSWVbYPmXcO7WJ0E0vNbBGtFr/OvEuMp
+ F1eHIOLUe6O7OGJlo4R0UwyiK70rBz/ZQD2hJi1Al4trDVzJUivIMFXahXauavifQkql
+ cXVnN3rNBAam2zdkvccFY1X2reT0VgT0wk6w4jyDnlLh9vyAz34d4SiwqG1Rk5Rn7Ceq
+ GkMUFFYzvHoWSkhqARyhGoSFZEPmFifKsYWZTY/usJmPy/cJodzL5F0h4gX4uxJ2dJs2
+ GXVA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX2X2jNTx+6a3xL3+61D4EY5OvKDm3jKLO16v8hNzB/KgT9GRlaw8w/32THmMO70n1L9GVSjcGl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzphJ3oiPntKA3iv9TRfnk/T9a2zZrBv5KvluRD72ItN60ObduH
- XuqMhmPkXHN93rTAHNyDUiTauxyr83TLk/EWAddfNvsIf7lRgfneTBi9
-X-Gm-Gg: ATEYQzwA9tN84T3Krg7xF2Az2VabRTVFfE+CuGFt4MYEtSak/mIWRvmybbSpjg5gd+b
- pD75C6aMu/dJmvjSBnyrplbHXlCDXW8c1PO1TQsfsahdQw9Hbl3SSaI/yl/SE6WyZX1N7WT9aw+
- VE7MhN/QyeV9O/q4tcF+3BQ3yGa24QkeG3LqQpyerjhCGj3XFimQYbGaMxnVeTY2ppyMSkAMh4G
- cPneWHivY8DZ+uz+PWbfEQqzRbtjRhi/JFNBGEG6HGS1/SDBOZz3Df4L4MAbLaG4pqnDzrnIOd9
- 8a3dGWtVSS5y6Q93M6li6qWBAST/RGs7ccaimRpzCQP7Oaztt/+dWaBGiKA09ghOob0ZFKAw/Ou
- T03bGo+NX65u/VnhtiMol1nQQDkArK4OzzzRX8ZZ2Zz0s8BD6ECJYOKMSlL0XOMbeu13J8jmgdP
- YAXPH3gTFWZt82FNhqRHHOSLkwJWLmZsAKwSg=
-X-Received: by 2002:a05:600c:3492:b0:485:3e19:9e01 with SMTP id
- 5b1f17b1804b1-4853e19a14cmr121311995e9.28.1773170015355; 
- Tue, 10 Mar 2026 12:13:35 -0700 (PDT)
+ AJvYcCWC/ucCUszqPXGSvqfIiERsVqu0Fy/DZmgt5x0qeZ6JhwcroC/V4rdP0ngiXbFAcOehR+gs8Xz3@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyRxfWs5E1xCmovy4EOWLCfVSwxKqhHH7TqFlYYWetamG7svac7
+ wubaRYGjdC/QdaQwaTa2aska1vJ/yfHNGF6GBC6c5D+6osxip4af1Arf
+X-Gm-Gg: ATEYQzwec5xSmJiZjhDl8CNT3IjsVHR6h/Trj86aqbz7GXCOHpXRbZEAxSznI4oSCax
+ 2xbuHO0HrAZcxOs4wbmCDRaFta/jv+w0nlbJofx1ZcjCMapI4PL/UUXhdo5d9QgnzryrqIu46r6
+ DkCR4ZMZuGHQpDUERulbs5u/Qpok3/25lepLf9RYCKTFOY8ADFthSpED6rW/mp28aCfqodAre1J
+ ggoKXZzy18C7BRRm3IbzGjay9EuFCxk8OEyPt2S51LpKS3VA0d12nz9HGylfW0SA+fmOzq5XTsz
+ n1lTDExJrkzcPgOdh/6Y+2G3VBTm/FhlOcxE2jkdFuAt30UnxmO+0gy3tp7iFxCC9+mQrkRU+wA
+ zypB6CJoIvKNbQOSMaZ72UqbFTjd/sNKJFcAXCtk7E6bmpLl9r+p319xhSF+oUtEq4pHErCb6fF
+ aWsjx4A17SzQ69/SeCLFom0H+FkjhFMCKKoeo=
+X-Received: by 2002:a05:600c:8488:b0:485:3989:b3e4 with SMTP id
+ 5b1f17b1804b1-485419b61a2mr69865865e9.6.1773170017515; 
+ Tue, 10 Mar 2026 12:13:37 -0700 (PDT)
 Received: from able.fritz.box ([2a00:e180:15d0:d800:5198:df3e:59ca:cf4])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4854a3079efsm2601625e9.7.2026.03.10.12.13.34
+ 5b1f17b1804b1-4854a3079efsm2601625e9.7.2026.03.10.12.13.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Mar 2026 12:13:34 -0700 (PDT)
+ Tue, 10 Mar 2026 12:13:37 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: tursulin@ursulin.net, Alexander.Deucher@amd.com, Prike.Liang@amd.com,
  Yogesh.Mohanmarimuthu@amd.com, SRINIVASAN.SHANMUGAM@amd.com,
  Sunil.Khatri@amd.com, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 07/11] drm/amdgpu: rework amdgpu_userq_wait_ioctl v3
-Date: Tue, 10 Mar 2026 20:13:23 +0100
-Message-ID: <20260310191327.2279-7-christian.koenig@amd.com>
+Subject: [PATCH 10/11] drm/amdgpu: fix some more bug in amdgpu_gem_va_ioctl
+Date: Tue, 10 Mar 2026 20:13:26 +0100
+Message-ID: <20260310191327.2279-10-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260310191327.2279-1-christian.koenig@amd.com>
 References: <20260310191327.2279-1-christian.koenig@amd.com>
@@ -90,692 +90,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Lockdep was complaining about a number of issues here. Especially lock
-inversion between syncobj, dma_resv and copying things into userspace.
-
-Rework the functionality. Split it up into multiple functions,
-consistenly use memdup_array_user(), fix the lock inversions and a few
-more bugs in error handling.
-
-v2: drop the dma_fence leak fix, turned out that was actually correct,
-    just not well documented. Apply some more cleanup suggestion from
-    Tvrtko.
-v3: rebase on already done cleanups
+Some illegal combination of input flags were not checked and we need to
+take the PDEs into account when returning the fence as well.
 
 Signed-off-by: Christian König <christian.koenig@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 591 ++++++++++--------
- 1 file changed, 325 insertions(+), 266 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 76 +++++++++++--------------
+ 1 file changed, 34 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index 76f32fd768fb..14a289c782ea 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -617,339 +617,398 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
- 	return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 88a21400ae09..98276b55ad3c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -30,6 +30,7 @@
+ #include <linux/pagemap.h>
+ #include <linux/pci.h>
+ #include <linux/dma-buf.h>
++#include <linux/dma-fence-unwrap.h>
+ 
+ #include <drm/amdgpu_drm.h>
+ #include <drm/drm_drv.h>
+@@ -741,11 +742,10 @@ amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
+ 	struct dma_fence *fence;
+ 	int r = 0;
+ 
+-	/* Always start from the VM's existing last update fence. */
+-	fence = dma_fence_get(vm->last_update);
+-
++	/* If the VM is not ready return only a stub. */
+ 	if (!amdgpu_vm_ready(vm))
+-		return fence;
++		return dma_fence_get_stub();
++
+ 
+ 	/*
+ 	 * First clean up any freed mappings in the VM.
+@@ -754,7 +754,7 @@ amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
+ 	 * schedules GPU work. If nothing needs clearing, @fence can remain as
+ 	 * the original vm->last_update.
+ 	 */
+-	r = amdgpu_vm_clear_freed(adev, vm, &fence);
++	r = amdgpu_vm_clear_freed(adev, vm, &vm->last_update);
+ 	if (r)
+ 		goto error;
+ 
+@@ -771,47 +771,34 @@ amdgpu_gem_va_update_vm(struct amdgpu_device *adev,
+ 	if (r)
+ 		goto error;
+ 
+-	/*
+-	 * Decide which fence best represents the last update:
+-	 *
+-	 * MAP/REPLACE:
+-	 *   - For always-valid mappings, use vm->last_update.
+-	 *   - Otherwise, export bo_va->last_pt_update.
+-	 *
+-	 * UNMAP/CLEAR:
+-	 *   Keep the fence returned by amdgpu_vm_clear_freed(). If no work was
+-	 *   needed, it can remain as vm->last_pt_update.
+-	 *
+-	 * The VM and BO update fences are always initialized to a valid value.
+-	 * vm->last_update and bo_va->last_pt_update always start as valid fences.
+-	 * and are never expected to be NULL.
+-	 */
+-	switch (operation) {
+-	case AMDGPU_VA_OP_MAP:
+-	case AMDGPU_VA_OP_REPLACE:
++	if ((operation == AMDGPU_VA_OP_MAP ||
++	     operation == AMDGPU_VA_OP_REPLACE) &&
++	    !amdgpu_vm_is_bo_always_valid(vm, bo_va->base.bo)) {
++
+ 		/*
+-		 * For MAP/REPLACE, return the page table update fence for the
+-		 * mapping we just modified. bo_va is expected to be valid here.
++		 * For MAP/REPLACE of non per-VM BOs we need to sync to both the
++		 * bo_va->last_pt_update and vm->last_update or otherwise we
++		 * potentially miss the PDE updates.
+ 		 */
+-		dma_fence_put(fence);
+-
+-		if (amdgpu_vm_is_bo_always_valid(vm, bo_va->base.bo))
+-			fence = dma_fence_get(vm->last_update);
+-		else
+-			fence = dma_fence_get(bo_va->last_pt_update);
+-		break;
+-	case AMDGPU_VA_OP_UNMAP:
+-	case AMDGPU_VA_OP_CLEAR:
+-	default:
+-		/* keep @fence as returned by amdgpu_vm_clear_freed() */
+-		break;
++		fence = dma_fence_unwrap_merge(vm->last_update,
++					       bo_va->last_pt_update);
++		if (!fence) {
++			/* As fallback in OOM situations */
++			dma_fence_wait(vm->last_update, false);
++			dma_fence_wait(bo_va->last_pt_update, false);
++			fence = dma_fence_get_stub();
++		}
++	} else {
++		fence = dma_fence_get(vm->last_update);
+ 	}
+ 
++	return fence;
++
+ error:
+ 	if (r && r != -ERESTARTSYS)
+ 		DRM_ERROR("Couldn't update BO_VA (%d)\n", r);
+ 
+-	return fence;
++	return dma_fence_get(vm->last_update);
  }
  
--int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
--			    struct drm_file *filp)
-+/* Count the number of expected fences so userspace can alloc a buffer */
-+static int
-+amdgpu_userq_wait_count_fences(struct drm_file *filp,
-+			       struct drm_amdgpu_userq_wait *wait_info,
-+			       u32 *syncobj_handles, u32 *timeline_points,
-+			       u32 *timeline_handles,
-+			       struct drm_gem_object **gobj_write,
-+			       struct drm_gem_object **gobj_read)
- {
--	struct drm_amdgpu_userq_wait *wait_info = data;
--	const unsigned int num_write_bo_handles = wait_info->num_bo_write_handles;
--	const unsigned int num_read_bo_handles = wait_info->num_bo_read_handles;
--	struct drm_amdgpu_userq_fence_info *fence_info = NULL;
--	struct amdgpu_fpriv *fpriv = filp->driver_priv;
--	struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
--	struct drm_gem_object **gobj_write, **gobj_read;
--	u32 *timeline_points, *timeline_handles;
--	struct amdgpu_usermode_queue *waitq = NULL;
--	u32 *syncobj_handles, num_syncobj;
--	struct dma_fence **fences = NULL;
--	u16 num_points, num_fences = 0;
-+	int num_read_bo_handles, num_write_bo_handles;
-+	struct dma_fence_unwrap iter;
-+	struct dma_fence *fence, *f;
-+	unsigned int num_fences = 0;
+ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+@@ -832,7 +819,6 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 	struct amdgpu_bo_va *bo_va;
+ 	struct drm_syncobj *timeline_syncobj = NULL;
+ 	struct dma_fence_chain *timeline_chain = NULL;
+-	struct dma_fence *fence;
  	struct drm_exec exec;
--	int r, i, cnt;
--
--	if (!amdgpu_userq_enabled(dev))
--		return -ENOTSUPP;
--
--	if (wait_info->num_bo_write_handles > AMDGPU_USERQ_MAX_HANDLES ||
--	    wait_info->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
--		return -EINVAL;
--
--	num_syncobj = wait_info->num_syncobj_handles;
--	syncobj_handles = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_handles),
--					    num_syncobj, sizeof(u32));
--	if (IS_ERR(syncobj_handles))
--		return PTR_ERR(syncobj_handles);
--
-+	int i, r;
-+
-+	/*
-+	 * This needs to be outside of the lock provided by drm_exec for
-+	 * DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT to work correctly.
-+	 */
-+
-+	/* Count timeline fences */
-+	for (i = 0; i < wait_info->num_syncobj_timeline_handles; i++) {
-+		r = drm_syncobj_find_fence(filp, timeline_handles[i],
-+					   timeline_points[i],
-+					   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
-+					   &fence);
-+		if (r)
-+			return r;
-+
-+		dma_fence_unwrap_for_each(f, &iter, fence)
-+			num_fences++;
- 
--	num_points = wait_info->num_syncobj_timeline_handles;
--	timeline_handles = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_timeline_handles),
--					     num_points, sizeof(u32));
--	if (IS_ERR(timeline_handles)) {
--		r = PTR_ERR(timeline_handles);
--		goto free_syncobj_handles;
-+		dma_fence_put(fence);
+ 	uint64_t vm_size;
+ 	int r = 0;
+@@ -884,6 +870,10 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 		return -EINVAL;
  	}
  
--	timeline_points = memdup_array_user(u64_to_user_ptr(wait_info->syncobj_timeline_points),
--					    num_points, sizeof(u32));
-+	/* Count boolean fences */
-+	for (i = 0; i < wait_info->num_syncobj_handles; i++) {
-+		r = drm_syncobj_find_fence(filp, syncobj_handles[i], 0,
-+					   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
-+					   &fence);
-+		if (r)
-+			return r;
- 
--	if (IS_ERR(timeline_points)) {
--		r = PTR_ERR(timeline_points);
--		goto free_timeline_handles;
-+		num_fences++;
-+		dma_fence_put(fence);
- 	}
- 
--	r = drm_gem_objects_lookup(filp,
--				   u64_to_user_ptr(wait_info->bo_read_handles),
--				   num_read_bo_handles,
--				   &gobj_read);
--	if (r)
--		goto free_timeline_points;
--
--	r = drm_gem_objects_lookup(filp,
--				   u64_to_user_ptr(wait_info->bo_write_handles),
--				   num_write_bo_handles,
--				   &gobj_write);
--	if (r)
--		goto put_gobj_read;
--
-+	/* Lock all the GEM objects */
-+	/* TODO: It is actually not necessary to lock them */
-+	num_read_bo_handles = wait_info->num_bo_read_handles;
-+	num_write_bo_handles = wait_info->num_bo_write_handles;
- 	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT,
--		      (num_read_bo_handles + num_write_bo_handles));
-+		      num_read_bo_handles + num_write_bo_handles);
- 
--	/* Lock all BOs with retry handling */
- 	drm_exec_until_all_locked(&exec) {
--		r = drm_exec_prepare_array(&exec, gobj_read, num_read_bo_handles, 1);
-+		r = drm_exec_prepare_array(&exec, gobj_read,
-+					   num_read_bo_handles, 1);
- 		drm_exec_retry_on_contention(&exec);
--		if (r) {
--			drm_exec_fini(&exec);
--			goto put_gobj_write;
--		}
-+		if (r)
-+			goto error_unlock;
- 
--		r = drm_exec_prepare_array(&exec, gobj_write, num_write_bo_handles, 1);
-+		r = drm_exec_prepare_array(&exec, gobj_write,
-+					   num_write_bo_handles, 1);
- 		drm_exec_retry_on_contention(&exec);
--		if (r) {
--			drm_exec_fini(&exec);
--			goto put_gobj_write;
--		}
-+		if (r)
-+			goto error_unlock;
- 	}
- 
--	if (!wait_info->num_fences) {
--		if (num_points) {
--			struct dma_fence_unwrap iter;
--			struct dma_fence *fence;
--			struct dma_fence *f;
--
--			for (i = 0; i < num_points; i++) {
--				r = drm_syncobj_find_fence(filp, timeline_handles[i],
--							   timeline_points[i],
--							   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
--							   &fence);
--				if (r)
--					goto exec_fini;
--
--				dma_fence_unwrap_for_each(f, &iter, fence)
--					num_fences++;
--
--				dma_fence_put(fence);
--			}
--		}
-+	/* Count read fences */
-+	for (i = 0; i < num_read_bo_handles; i++) {
-+		struct dma_resv_iter resv_cursor;
-+		struct dma_fence *fence;
- 
--		/* Count syncobj's fence */
--		for (i = 0; i < num_syncobj; i++) {
--			struct dma_fence *fence;
-+		dma_resv_for_each_fence(&resv_cursor, gobj_read[i]->resv,
-+					DMA_RESV_USAGE_READ, fence)
-+			num_fences++;
-+	}
- 
--			r = drm_syncobj_find_fence(filp, syncobj_handles[i],
--						   0,
--						   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
--						   &fence);
--			if (r)
--				goto exec_fini;
-+	/* Count write fences */
-+	for (i = 0; i < num_write_bo_handles; i++) {
-+		struct dma_resv_iter resv_cursor;
-+		struct dma_fence *fence;
- 
-+		dma_resv_for_each_fence(&resv_cursor, gobj_write[i]->resv,
-+					DMA_RESV_USAGE_WRITE, fence)
- 			num_fences++;
--			dma_fence_put(fence);
--		}
-+	}
- 
--		/* Count GEM objects fence */
--		for (i = 0; i < num_read_bo_handles; i++) {
--			struct dma_resv_iter resv_cursor;
--			struct dma_fence *fence;
-+	wait_info->num_fences = num_fences;
-+	r = 0;
- 
--			dma_resv_for_each_fence(&resv_cursor, gobj_read[i]->resv,
--						DMA_RESV_USAGE_READ, fence)
--				num_fences++;
--		}
-+error_unlock:
-+	/* Unlock all the GEM objects */
-+	drm_exec_fini(&exec);
-+	return r;
-+}
- 
--		for (i = 0; i < num_write_bo_handles; i++) {
--			struct dma_resv_iter resv_cursor;
--			struct dma_fence *fence;
-+static int
-+amdgpu_userq_wait_return_fence_info(struct drm_file *filp,
-+				    struct drm_amdgpu_userq_wait *wait_info,
-+				    u32 *syncobj_handles, u32 *timeline_points,
-+				    u32 *timeline_handles,
-+				    struct drm_gem_object **gobj_write,
-+				    struct drm_gem_object **gobj_read)
-+{
-+	struct amdgpu_fpriv *fpriv = filp->driver_priv;
-+	struct amdgpu_userq_mgr *userq_mgr = &fpriv->userq_mgr;
-+	struct drm_amdgpu_userq_fence_info *fence_info;
-+	int num_read_bo_handles, num_write_bo_handles;
-+	struct amdgpu_usermode_queue *waitq;
-+	struct dma_fence **fences, *fence, *f;
-+	struct dma_fence_unwrap iter;
-+	int num_points, num_syncobj;
-+	unsigned int num_fences = 0;
-+	struct drm_exec exec;
-+	int i, cnt, r;
- 
--			dma_resv_for_each_fence(&resv_cursor, gobj_write[i]->resv,
--						DMA_RESV_USAGE_WRITE, fence)
--				num_fences++;
--		}
-+	fence_info = kmalloc_array(wait_info->num_fences, sizeof(*fence_info),
-+				   GFP_KERNEL);
-+	if (!fence_info)
-+		return -ENOMEM;
- 
--		/*
--		 * Passing num_fences = 0 means that userspace doesn't want to
--		 * retrieve userq_fence_info. If num_fences = 0 we skip filling
--		 * userq_fence_info and return the actual number of fences on
--		 * args->num_fences.
--		 */
--		wait_info->num_fences = num_fences;
--	} else {
--		/* Array of fence info */
--		fence_info = kmalloc_array(wait_info->num_fences, sizeof(*fence_info), GFP_KERNEL);
--		if (!fence_info) {
--			r = -ENOMEM;
--			goto exec_fini;
--		}
-+	fences = kmalloc_array(wait_info->num_fences, sizeof(*fences),
-+			       GFP_KERNEL);
-+	if (!fences) {
-+		r = -ENOMEM;
-+		goto free_fence_info;
-+	}
-+
-+	/* Retrieve timeline fences */
-+	num_points = wait_info->num_syncobj_timeline_handles;
-+	for (i = 0; i < num_points; i++) {
-+		r = drm_syncobj_find_fence(filp, timeline_handles[i],
-+					   timeline_points[i],
-+					   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
-+					   &fence);
-+		if (r)
-+			goto free_fences;
-+
-+		dma_fence_unwrap_for_each(f, &iter, fence) {
-+			if (num_fences >= wait_info->num_fences) {
-+				r = -EINVAL;
-+				goto free_fences;
-+			}
- 
--		/* Array of fences */
--		fences = kmalloc_array(wait_info->num_fences, sizeof(*fences), GFP_KERNEL);
--		if (!fences) {
--			r = -ENOMEM;
--			goto free_fence_info;
-+			fences[num_fences++] = dma_fence_get(f);
- 		}
- 
--		/* Retrieve GEM read objects fence */
--		for (i = 0; i < num_read_bo_handles; i++) {
--			struct dma_resv_iter resv_cursor;
--			struct dma_fence *fence;
-+		dma_fence_put(fence);
-+	}
-+
-+	/* Retrieve boolean fences */
-+	num_syncobj = wait_info->num_syncobj_handles;
-+	for (i = 0; i < num_syncobj; i++) {
-+		struct dma_fence *fence;
- 
--			dma_resv_for_each_fence(&resv_cursor, gobj_read[i]->resv,
--						DMA_RESV_USAGE_READ, fence) {
--				if (num_fences >= wait_info->num_fences) {
--					r = -EINVAL;
--					goto free_fences;
--				}
-+		r = drm_syncobj_find_fence(filp, syncobj_handles[i], 0,
-+					   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
-+					   &fence);
-+		if (r)
-+			goto free_fences;
- 
--				fences[num_fences++] = fence;
--				dma_fence_get(fence);
--			}
-+		if (num_fences >= wait_info->num_fences) {
-+			dma_fence_put(fence);
-+			r = -EINVAL;
-+			goto free_fences;
- 		}
- 
--		/* Retrieve GEM write objects fence */
--		for (i = 0; i < num_write_bo_handles; i++) {
--			struct dma_resv_iter resv_cursor;
--			struct dma_fence *fence;
-+		/* Give the reference to the fence array */
-+		fences[num_fences++] = fence;
-+	}
- 
--			dma_resv_for_each_fence(&resv_cursor, gobj_write[i]->resv,
--						DMA_RESV_USAGE_WRITE, fence) {
--				if (num_fences >= wait_info->num_fences) {
--					r = -EINVAL;
--					goto free_fences;
--				}
-+	/* Lock all the GEM objects */
-+	num_read_bo_handles = wait_info->num_bo_read_handles;
-+	num_write_bo_handles = wait_info->num_bo_write_handles;
-+	drm_exec_init(&exec, DRM_EXEC_INTERRUPTIBLE_WAIT,
-+		      num_read_bo_handles + num_write_bo_handles);
- 
--				fences[num_fences++] = fence;
--				dma_fence_get(fence);
--			}
--		}
-+	drm_exec_until_all_locked(&exec) {
-+		r = drm_exec_prepare_array(&exec, gobj_read,
-+					   num_read_bo_handles, 1);
-+		drm_exec_retry_on_contention(&exec);
-+		if (r)
-+			goto error_unlock;
-+
-+		r = drm_exec_prepare_array(&exec, gobj_write,
-+					   num_write_bo_handles, 1);
-+		drm_exec_retry_on_contention(&exec);
-+		if (r)
-+			goto error_unlock;
-+	}
- 
--		if (num_points) {
--			struct dma_fence_unwrap iter;
--			struct dma_fence *fence;
--			struct dma_fence *f;
--
--			for (i = 0; i < num_points; i++) {
--				r = drm_syncobj_find_fence(filp, timeline_handles[i],
--							   timeline_points[i],
--							   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
--							   &fence);
--				if (r)
--					goto free_fences;
--
--				dma_fence_unwrap_for_each(f, &iter, fence) {
--					if (num_fences >= wait_info->num_fences) {
--						r = -EINVAL;
--						dma_fence_put(fence);
--						goto free_fences;
--					}
--
--					dma_fence_get(f);
--					fences[num_fences++] = f;
--				}
--
--				dma_fence_put(fence);
-+	/* Retrieve GEM read objects fence */
-+	for (i = 0; i < num_read_bo_handles; i++) {
-+		struct dma_resv_iter resv_cursor;
-+		struct dma_fence *fence;
-+
-+		dma_resv_for_each_fence(&resv_cursor, gobj_read[i]->resv,
-+					DMA_RESV_USAGE_READ, fence) {
-+			if (num_fences >= wait_info->num_fences) {
-+				r = -EINVAL;
-+				goto error_unlock;
- 			}
--		}
- 
--		/* Retrieve syncobj's fence */
--		for (i = 0; i < num_syncobj; i++) {
--			struct dma_fence *fence;
-+			fences[num_fences++] = dma_fence_get(fence);
-+		}
-+	}
- 
--			r = drm_syncobj_find_fence(filp, syncobj_handles[i],
--						   0,
--						   DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT,
--						   &fence);
--			if (r)
--				goto free_fences;
-+	/* Retrieve GEM write objects fence */
-+	for (i = 0; i < num_write_bo_handles; i++) {
-+		struct dma_resv_iter resv_cursor;
-+		struct dma_fence *fence;
- 
-+		dma_resv_for_each_fence(&resv_cursor, gobj_write[i]->resv,
-+					DMA_RESV_USAGE_WRITE, fence) {
- 			if (num_fences >= wait_info->num_fences) {
- 				r = -EINVAL;
--				dma_fence_put(fence);
--				goto free_fences;
-+				goto error_unlock;
- 			}
- 
--			fences[num_fences++] = fence;
-+			fences[num_fences++] = dma_fence_get(fence);
- 		}
-+	}
- 
--		/*
--		 * Keep only the latest fences to reduce the number of values
--		 * given back to userspace.
--		 */
--		num_fences = dma_fence_dedup_array(fences, num_fences);
-+	drm_exec_fini(&exec);
- 
--		waitq = amdgpu_userq_get(userq_mgr, wait_info->waitq_id);
--		if (!waitq) {
--			r = -EINVAL;
--			goto free_fences;
--		}
-+	/*
-+	 * Keep only the latest fences to reduce the number of values
-+	 * given back to userspace.
-+	 */
-+	num_fences = dma_fence_dedup_array(fences, num_fences);
- 
--		for (i = 0, cnt = 0; i < num_fences; i++) {
--			struct amdgpu_userq_fence_driver *fence_drv;
--			struct amdgpu_userq_fence *userq_fence;
--			u32 index;
--
--			userq_fence = to_amdgpu_userq_fence(fences[i]);
--			if (!userq_fence) {
--				/*
--				 * Just waiting on other driver fences should
--				 * be good for now
--				 */
--				r = dma_fence_wait(fences[i], true);
--				if (r) {
--					dma_fence_put(fences[i]);
--					goto free_fences;
--				}
--
--				dma_fence_put(fences[i]);
--				continue;
--			}
-+	waitq = amdgpu_userq_get(userq_mgr, wait_info->waitq_id);
-+	if (!waitq) {
-+		r = -EINVAL;
-+		goto free_fences;
-+	}
-+
-+	for (i = 0, cnt = 0; i < num_fences; i++) {
-+		struct amdgpu_userq_fence_driver *fence_drv;
-+		struct amdgpu_userq_fence *userq_fence;
-+		u32 index;
- 
--			fence_drv = userq_fence->fence_drv;
-+		userq_fence = to_amdgpu_userq_fence(fences[i]);
-+		if (!userq_fence) {
- 			/*
--			 * We need to make sure the user queue release their reference
--			 * to the fence drivers at some point before queue destruction.
--			 * Otherwise, we would gather those references until we don't
--			 * have any more space left and crash.
-+			 * Just waiting on other driver fences should
-+			 * be good for now
- 			 */
--			r = xa_alloc(&waitq->fence_drv_xa, &index, fence_drv,
--				     xa_limit_32b, GFP_KERNEL);
-+			r = dma_fence_wait(fences[i], true);
- 			if (r)
--				goto free_fences;
-+				goto put_waitq;
-+
-+			continue;
-+		}
- 
--			amdgpu_userq_fence_driver_get(fence_drv);
-+		fence_drv = userq_fence->fence_drv;
-+		/*
-+		 * We need to make sure the user queue release their reference
-+		 * to the fence drivers at some point before queue destruction.
-+		 * Otherwise, we would gather those references until we don't
-+		 * have any more space left and crash.
-+		 */
-+		r = xa_alloc(&waitq->fence_drv_xa, &index, fence_drv,
-+			     xa_limit_32b, GFP_KERNEL);
-+		if (r)
-+			goto put_waitq;
- 
--			/* Store drm syncobj's gpu va address and value */
--			fence_info[cnt].va = fence_drv->va;
--			fence_info[cnt].value = fences[i]->seqno;
-+		amdgpu_userq_fence_driver_get(fence_drv);
- 
--			dma_fence_put(fences[i]);
--			/* Increment the actual userq fence count */
--			cnt++;
--		}
-+		/* Store drm syncobj's gpu va address and value */
-+		fence_info[cnt].va = fence_drv->va;
-+		fence_info[cnt].value = fences[i]->seqno;
- 
--		wait_info->num_fences = cnt;
--		/* Copy userq fence info to user space */
--		if (copy_to_user(u64_to_user_ptr(wait_info->out_fences),
--				 fence_info, wait_info->num_fences * sizeof(*fence_info))) {
--			r = -EFAULT;
--			goto free_fences;
--		}
-+		/* Increment the actual userq fence count */
-+		cnt++;
- 	}
-+	wait_info->num_fences = cnt;
-+
-+	/* Copy userq fence info to user space */
-+	if (copy_to_user(u64_to_user_ptr(wait_info->out_fences),
-+			 fence_info, cnt * sizeof(*fence_info)))
-+		r = -EFAULT;
-+	else
-+		r = 0;
-+
-+put_waitq:
-+	amdgpu_userq_put(waitq);
- 
- free_fences:
--	if (fences) {
--		while (num_fences-- > 0)
--			dma_fence_put(fences[num_fences]);
--		kfree(fences);
--	}
-+	while (num_fences--)
-+		dma_fence_put(fences[num_fences]);
-+	kfree(fences);
-+
- free_fence_info:
- 	kfree(fence_info);
--exec_fini:
-+	return r;
-+
-+error_unlock:
- 	drm_exec_fini(&exec);
--put_gobj_write:
--	for (i = 0; i < num_write_bo_handles; i++)
--		drm_gem_object_put(gobj_write[i]);
--	kfree(gobj_write);
-+	goto free_fences;
-+}
-+
-+int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
-+			    struct drm_file *filp)
-+{
-+	int num_points, num_syncobj, num_read_bo_handles, num_write_bo_handles;
-+	u32 *syncobj_handles, *timeline_points, *timeline_handles;
-+	struct drm_amdgpu_userq_wait *wait_info = data;
-+	struct drm_gem_object **gobj_write;
-+	struct drm_gem_object **gobj_read;
-+	void __user *ptr;
-+	int r;
-+
-+	if (!amdgpu_userq_enabled(dev))
-+		return -ENOTSUPP;
-+
-+	if (wait_info->num_bo_write_handles > AMDGPU_USERQ_MAX_HANDLES ||
-+	    wait_info->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
++	if (args->flags & AMDGPU_VM_DELAY_UPDATE &&
++	    args->vm_timeline_syncobj_out)
 +		return -EINVAL;
 +
-+	num_syncobj = wait_info->num_syncobj_handles;
-+	ptr = u64_to_user_ptr(wait_info->syncobj_handles);
-+	syncobj_handles = memdup_array_user(ptr, num_syncobj, sizeof(u32));
-+	if (IS_ERR(syncobj_handles))
-+		return PTR_ERR(syncobj_handles);
+ 	if ((args->operation != AMDGPU_VA_OP_CLEAR) &&
+ 	    !(args->flags & AMDGPU_VM_PAGE_PRT)) {
+ 		gobj = drm_gem_object_lookup(filp, args->handle);
+@@ -973,11 +963,13 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 	 * that represents the last relevant update for this mapping. This
+ 	 * fence can then be exported to the user-visible VM timeline.
+ 	 */
+-	if (!r && !(args->flags & AMDGPU_VM_DELAY_UPDATE) && !adev->debug_vm) {
++	if (!r && !(args->flags & AMDGPU_VM_DELAY_UPDATE) &&
++	    (!adev->debug_vm || timeline_syncobj)) {
++		struct dma_fence *fence;
 +
-+	num_points = wait_info->num_syncobj_timeline_handles;
-+	ptr = u64_to_user_ptr(wait_info->syncobj_timeline_handles);
-+	timeline_handles = memdup_array_user(ptr, num_points, sizeof(u32));
-+	if (IS_ERR(timeline_handles)) {
-+		r = PTR_ERR(timeline_handles);
-+		goto free_syncobj_handles;
-+	}
-+
-+	ptr = u64_to_user_ptr(wait_info->syncobj_timeline_points);
-+	timeline_points = memdup_array_user(ptr, num_points, sizeof(u32));
-+	if (IS_ERR(timeline_points)) {
-+		r = PTR_ERR(timeline_points);
-+		goto free_timeline_handles;
-+	}
-+
-+	num_read_bo_handles = wait_info->num_bo_read_handles;
-+	ptr = u64_to_user_ptr(wait_info->bo_read_handles),
-+	r = drm_gem_objects_lookup(filp, ptr, num_read_bo_handles, &gobj_read);
-+	if (r)
-+		goto free_timeline_points;
-+
-+	num_write_bo_handles = wait_info->num_bo_write_handles;
-+	ptr = u64_to_user_ptr(wait_info->bo_write_handles),
-+	r = drm_gem_objects_lookup(filp, ptr, num_write_bo_handles,
-+				   &gobj_write);
-+	if (r)
-+		goto put_gobj_read;
-+
-+	/*
-+	 * Passing num_fences = 0 means that userspace doesn't want to
-+	 * retrieve userq_fence_info. If num_fences = 0 we skip filling
-+	 * userq_fence_info and return the actual number of fences on
-+	 * args->num_fences.
-+	 */
-+	if (!wait_info->num_fences) {
-+		r = amdgpu_userq_wait_count_fences(filp, wait_info,
-+						   syncobj_handles,
-+						   timeline_points,
-+						   timeline_handles,
-+						   gobj_write,
-+						   gobj_read);
-+	} else {
-+		r = amdgpu_userq_wait_return_fence_info(filp, wait_info,
-+							syncobj_handles,
-+							timeline_points,
-+							timeline_handles,
-+							gobj_write,
-+							gobj_read);
-+	}
-+
-+	while (num_write_bo_handles--)
-+		drm_gem_object_put(gobj_write[num_write_bo_handles]);
-+	kvfree(gobj_write);
-+
- put_gobj_read:
--	for (i = 0; i < num_read_bo_handles; i++)
--		drm_gem_object_put(gobj_read[i]);
--	kfree(gobj_read);
-+	while (num_read_bo_handles--)
-+		drm_gem_object_put(gobj_read[num_read_bo_handles]);
-+	kvfree(gobj_read);
-+
- free_timeline_points:
- 	kfree(timeline_points);
- free_timeline_handles:
- 	kfree(timeline_handles);
- free_syncobj_handles:
- 	kfree(syncobj_handles);
+ 		fence = amdgpu_gem_va_update_vm(adev, &fpriv->vm, bo_va,
+ 						args->operation);
 -
--	if (waitq)
--		amdgpu_userq_put(waitq);
--
- 	return r;
- }
+-		if (timeline_syncobj && fence) {
++		if (timeline_syncobj) {
+ 			if (!args->vm_timeline_point) {
+ 				/* Replace the existing fence when no point is given. */
+ 				drm_syncobj_replace_fence(timeline_syncobj,
 -- 
 2.43.0
 
