@@ -4,38 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 470AAFD2D69
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37F73FD2D6F
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2026 12:41:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9504910E723;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F60F10E722;
 	Tue, 10 Mar 2026 12:41:16 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=avm.de header.i=@avm.de header.b="xKnBkg56";
-	dkim-atps=neutral
+X-Greylist: delayed 314 seconds by postgrey-1.36 at gabe;
+ Tue, 10 Mar 2026 12:00:39 UTC
 Received: from mail.avm.de (mail.avm.de [212.42.244.94])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 087F710E716;
- Tue, 10 Mar 2026 12:01:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
- t=1773143728; bh=sIEabNGpfTtaNmN5jdtpnoUYPpUdFMe596BbQNmq6Ew=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=xKnBkg5622xaCaFlGwFQ3bswFSgdcTVbCDHB3k8l65KFt6Ule9kyi3QR8HfOXuW5L
- MKbugm+H1wq/E04UmM1cfkP9mUjiEZ3Ws7yzlEjYYTJHZ64lqewOtbO15JI10WApm1
- CoPFx+DZxYAYXylALiT4nuOog37Am7eL2zh2ct4Q=
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91B3B10E703;
+ Tue, 10 Mar 2026 12:00:39 +0000 (UTC)
 Received: from [212.42.244.71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006b0-e21d-7f0000032729-7f000001bae4-1
- for <multiple-recipients>; Tue, 10 Mar 2026 12:55:28 +0100
+ id 69b006ab-e21d-7f0000032729-7f000001d99c-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:24 +0100
 Received: from mail-auth.avm.de (dovecot-mx-01.avm.de [212.42.244.71])
  by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:28 +0100 (CET)
+ Tue, 10 Mar 2026 12:55:23 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:49:19 +0100
-Subject: [PATCH 53/61] hyperv: Prefer IS_ERR_OR_NULL over manual NULL check
+Date: Tue, 10 Mar 2026 12:48:33 +0100
+Subject: [PATCH 07/61] erofs: Prefer IS_ERR_OR_NULL over manual NULL check
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260310-b4-is_err_or_null-v1-53-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-7-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -65,23 +58,24 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-Cc: "K. Y. Srinivasan" <kys@microsoft.com>, 
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1146; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=sIEabNGpfTtaNmN5jdtpnoUYPpUdFMe596BbQNmq6Ew=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAaKQPK6RykE0QE2RJD5htL1ZvRNh+zI6jTmu
- VOYpL5CXyeJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGigAKCRA0LQZT0ays
- 29fzB/oCGLAMazrUNiEmwKr9nq0MNT5XdhZH3wkJWE4yJ+UKMd35Xi9PPSb65qZMk+N4uMiZj2H
- T6Td1MreYgfIRLT7kTJk/n1BuSWWFP55nfvFZFjjhY5aoonvuH6RpMC7x9+9tNKQtJ7ne+y8JUp
- qmDL3C1GxXXFNKbwYmtZySONDO5gXmgMnGjDdckVFucnIkQYwHywWpIrPTZv3zUS9k6qS6F4HLs
- npSrcLjQ++9xnCfmtppGIezlVuCbkGtNbWVtJ6RuDAqRXXu4e1NER6f7pIlU/5AgYfpLOxyecDo
- JLi+d7tyzKhXU/h5ql9oJc0IZPZktOy6eLbVlaElpfc4YFhD
+Cc: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>, 
+ Yue Hu <zbestahu@gmail.com>, Jeffle Xu <jefflexu@linux.alibaba.com>, 
+ Sandeep Dhavale <dhavale@google.com>, Hongbo Li <lihongbo22@huawei.com>, 
+ Chunhai Guo <guochunhai@vivo.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1165; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=Wx/k10vuVbp8ZUI17J5Bmoq0XIce6rBC9+YI4+K5MhY=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAXuTWLAsZgE3CYfS0prKIO5oYoR3eM1fSwdn
+ +XKr0TQn0GJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAF7gAKCRA0LQZT0ays
+ 2/j8B/sEd5J2vRHsnvhncB2lMo9VZ5h3+ZMJUztWw9QhmuXX9Qx3HEdJ5GLZ84ct6sqOhNTdJzS
+ JFD7aVZEzrOOhcVXC4LBSF/0LTyuRs08pHBx90juaWCHs505i/RK57onvWUjJYv2jNvBVJQQ+S6
+ AU4u0SqHLiT0AAUqbjuiM2TTHxhB5xD59cg+mk4rXkCdmvt3sw2+h9McRwE+VdqWIniC4/IsZt/
+ lSDklfOcCL2PaTrHCFhWHaM0/yrWd/ljPTRmFceOPsri9YRyl2VkofnQ4LBx/tIitZdlpukR5BZ
+ 3gdZMB70thXOoVOpRxkVmdjJvHPiGXebLpJqAK8oxLcbLF+S
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143728-95676F2F-E8C255A2/0/0
+X-purgate-ID: 149429::1773143724-8966EF2F-D5F13E8E/0/0
 X-purgate-type: clean
-X-purgate-size: 1148
+X-purgate-size: 1167
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
@@ -106,35 +100,33 @@ check.
 
 Change generated with coccinelle.
 
-To: "K. Y. Srinivasan" <kys@microsoft.com>
-To: Haiyang Zhang <haiyangz@microsoft.com>
-To: Wei Liu <wei.liu@kernel.org>
-To: Dexuan Cui <decui@microsoft.com>
-To: Long Li <longli@microsoft.com>
-Cc: linux-hyperv@vger.kernel.org
+To: Gao Xiang <xiang@kernel.org>
+To: Chao Yu <chao@kernel.org>
+To: Yue Hu <zbestahu@gmail.com>
+To: Jeffle Xu <jefflexu@linux.alibaba.com>
+To: Sandeep Dhavale <dhavale@google.com>
+To: Hongbo Li <lihongbo22@huawei.com>
+To: Chunhai Guo <guochunhai@vivo.com>
+Cc: linux-erofs@lists.ozlabs.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- drivers/hv/mshv_eventfd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/erofs/zdata.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/hv/mshv_eventfd.c b/drivers/hv/mshv_eventfd.c
-index d8471546e6a0c7e6eca933c640459f1d02152cb2..24dff7a498ac9c3edd31f4c9bc2f23729ba2a6ce 100644
---- a/drivers/hv/mshv_eventfd.c
-+++ b/drivers/hv/mshv_eventfd.c
-@@ -516,10 +516,10 @@ static int mshv_irqfd_assign(struct mshv_partition *pt,
- 	if (irqfd->irqfd_resampler)
- 		mshv_irqfd_resampler_shutdown(irqfd);
+diff --git a/fs/erofs/zdata.c b/fs/erofs/zdata.c
+index 3977e42b9516861bf3d59c072b6b8aaa6898dd8a..88c293ab2b1ef7962c6f5c0aa82639859e41b8e2 100644
+--- a/fs/erofs/zdata.c
++++ b/fs/erofs/zdata.c
+@@ -1227,7 +1227,7 @@ static int z_erofs_parse_in_bvecs(struct z_erofs_backend *be, bool *overlapped)
+ 		struct page *page = bvec->page;
  
--	if (resamplefd && !IS_ERR(resamplefd))
-+	if (!IS_ERR_OR_NULL(resamplefd))
- 		eventfd_ctx_put(resamplefd);
- 
--	if (eventfd && !IS_ERR(eventfd))
-+	if (!IS_ERR_OR_NULL(eventfd))
- 		eventfd_ctx_put(eventfd);
- 
- out:
+ 		/* compressed data ought to be valid when decompressing */
+-		if (IS_ERR(page) || !page) {
++		if (IS_ERR_OR_NULL(page)) {
+ 			bvec->page = NULL;	/* clear the failure reason */
+ 			err = page ? PTR_ERR(page) : -EIO;
+ 			continue;
 
 -- 
 2.43.0
