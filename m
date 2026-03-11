@@ -4,94 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E738FED2E5
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 07:48:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D170FED2E6
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 07:48:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3B5810E989;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5F7F10E985;
 	Thu, 12 Mar 2026 07:48:12 +0000 (UTC)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com
- [209.85.217.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7457010E1FE
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 13:21:30 +0000 (UTC)
-Received: by mail-vs1-f54.google.com with SMTP id
- ada2fe7eead31-5ffa277c115so4957550137.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 06:21:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773235289; x=1773840089;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=34DR94e/1PAvLLEaib58vFA4GW0m5SGe6jvxchEhMek=;
- b=ClI5TnDFkoQKugjxhkWxEt090+6sD0SHJjc21i9GQVJMkUMx6VyiaO3jIhRrtABc3T
- Q/RMYNxJY61tMwc8IqG2jy2ZdwlaWxnQeXC828JTOirw2mtwzexKZQMvcvrwIpToT6UA
- k1LhmrGt7S5CB3bYhO59IatPbnfnlVRfo0V9dAsqM+oAIzF5msisth885X8N7W+Ln+Sy
- X7R1ugQkD9rVJKO7x4xIdF5YyspJGhbBIiq8/qCfFi6Lw7XPZL1X/ePcf+xuDz1YLqAY
- J72G5Y/jhs7BxewdAWzu/OSgUIk8YtaDdZT0Nd0X+xwB5R/Y9g5GoBoXQMkkTR7MrIyA
- zoEw==
-X-Gm-Message-State: AOJu0Yw+4M9QBpu9sFPjCCrl5LO+E6E8lewyYVqCNHbULu2ryrsANv3K
- u4x7LjyRD127o9HR7tluMH1u/rwO1Zp4ge1k3Tv2IBPGsndXC+YkUL2o7aBSBrfdZoI=
-X-Gm-Gg: ATEYQzxkuVpbMb9uO8n8hait07BiDK3Iq0arxShywNf+wuug0ZGgaOZP1nyLICgsVZW
- ChYQBpK+bzoiK7zvJ8tl67jsLNs5BsTcUPQl7a7EDq1uGKCXHpMmWZ3VdYMzxg2YoYFIAzNRTmf
- 6gyJ3OWEhiiax1m3ndQLlK8l27a0XM5nV2b0FzH6CxbUeF+LzjYPDuzIK5tiKjmtGiJX3aSRBTJ
- u/Wtb2lRI0lZCOiQ7fD8hRhBn41NczO6XDRKMJ8V7gge3YC8z4jGwr7OsEgSHfmbY/We1kQO5Q0
- jKRtpF5Oy/bvt/tdXFvS6hZhkVuAMmABRMITL+YALEgx1LIoBESfVp2oitLj6Cq+Io/+Dvnh2XL
- 3bw7DJqFtp/D7Df3yUvcway6jW2N0X+7GL2PG8xNHa58U8Fzizvt3hyk5SD0CYI0+kQ3LDjyw+g
- JK5PwCj6MuzCvH5v1h7IHNCTVeCiayL1tsXkHxe9R56cwJyX3QZ3TYqDiVisjm
-X-Received: by 2002:a05:6102:5127:b0:5e5:6eee:8adb with SMTP id
- ada2fe7eead31-601debc4075mr1016053137.4.1773235289272; 
- Wed, 11 Mar 2026 06:21:29 -0700 (PDT)
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com.
- [209.85.217.42]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-601de6c9c9bsm718623137.3.2026.03.11.06.21.29
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Mar 2026 06:21:29 -0700 (PDT)
-Received: by mail-vs1-f42.google.com with SMTP id
- ada2fe7eead31-5fff18d44fbso3420746137.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 06:21:29 -0700 (PDT)
-X-Received: by 2002:a05:6122:1d05:b0:55b:7494:177b with SMTP id
- 71dfb90a1353d-56b4752d806mr922396e0c.10.1773234967338; Wed, 11 Mar 2026
- 06:16:07 -0700 (PDT)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=codethink.co.uk header.i=@codethink.co.uk header.b="ZEskC8tv";
+	dkim-atps=neutral
+X-Greylist: delayed 1311 seconds by postgrey-1.36 at gabe;
+ Wed, 11 Mar 2026 14:43:38 UTC
+Received: from imap4.hz.codethink.co.uk (imap4.hz.codethink.co.uk
+ [188.40.203.114])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93FE910E92B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 14:43:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=codethink.co.uk; s=imap4-20230908; h=Sender:Content-Transfer-Encoding:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Reply-To:In-Reply-To:
+ References; bh=zoopHjIT5W4j178u0z5GQnK5VFOmQdcXXviuFKle2iA=; b=ZEskC8tvVD5jWr
+ pN0P4k2/ZrCiKlUUtQvWzacaygFSzu4YGFmigLeTBzhKA6XpR18/kdmR8Of3DCUXbPfp0D3XqDQ5a
+ 2hZyNucXvwVrqUUwGaTF0kLZvmXN53N/84RyDkkcOAtObKxYKiX9pSIyIAvyqUjkvhJA1614rJmet
+ txzgmCFtiQboa/Ymejxb6GvGYoQIXUJkd1h/n5O+8UBY8d+Ns1+MUkRDu7bNJq5vuWgk1aIO4QRba
+ 9CDyU+4d3M8L5fwpL67gRuuXsasKgrIlvtSKz5eDzYHqwv0iaFkwJ4ejXnLGjy1Z8X9steonmMD3m
+ wis1DruFY0oHwzY83EvA==;
+Received: from [63.135.74.212] (helo=rainbowdash)
+ by imap4.hz.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
+ id 1w0KRR-008K8m-P3; Wed, 11 Mar 2026 14:21:42 +0000
+Received: from ben by rainbowdash with local (Exim 4.99.1)
+ (envelope-from <ben@rainbowdash>) id 1w0KRR-00000002Dsh-1wGn;
+ Wed, 11 Mar 2026 14:21:41 +0000
+From: Ben Dooks <ben.dooks@codethink.co.uk>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Ben Dooks <ben.dooks@codethink.co.uk>
+Subject: [PATCH] drm/radeon: fix __user annotation in radeon_info_ioctl()
+Date: Wed, 11 Mar 2026 14:21:38 +0000
+Message-Id: <20260311142138.530006-1-ben.dooks@codethink.co.uk>
+X-Mailer: git-send-email 2.37.2.352.g3c44437643
 MIME-Version: 1.0
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-36-bd63b656022d@avm.de>
-In-Reply-To: <20260310-b4-is_err_or_null-v1-36-bd63b656022d@avm.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 11 Mar 2026 14:15:56 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXQ8Q4jvkgFRJYhghz2BZRDC-9Mk6DbXxuaOc6C9DFHZQ@mail.gmail.com>
-X-Gm-Features: AaiRm52J84H77ROK64ZWWtJfaiCpnFeKyoSRmPbi-NC8CN6Ju1TJEFxJU9gZQQ8
-Message-ID: <CAMuHMdXQ8Q4jvkgFRJYhghz2BZRDC-9Mk6DbXxuaOc6C9DFHZQ@mail.gmail.com>
-Subject: Re: [PATCH 36/61] arch/sh: Prefer IS_ERR_OR_NULL over manual NULL
- check
-To: Philipp Hahn <phahn-oss@avm.de>
-Cc: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
- bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr, 
- dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org, 
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, kvm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, 
- linux-bluetooth@vger.kernel.org, linux-btrfs@vger.kernel.org, 
- linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-hyperv@vger.kernel.org, linux-input@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-mips@vger.kernel.org, linux-mm@kvack.org, 
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org, 
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org, 
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
- samba-technical@lists.samba.org, sched-ext@lists.linux.dev, 
- target-devel@vger.kernel.org, tipc-discussion@lists.sourceforge.net, 
- v9fs@lists.linux.dev, Yoshinori Sato <ysato@users.sourceforge.jp>, 
- Rich Felker <dalias@libc.org>,
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 12 Mar 2026 07:48:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,28 +59,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 10 Mar 2026 at 12:56, Philipp Hahn <phahn-oss@avm.de> wrote:
-> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
-> check.
->
-> Change generated with coccinelle.
->
-> To: Yoshinori Sato <ysato@users.sourceforge.jp>
-> To: Rich Felker <dalias@libc.org>
-> To: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-> Cc: linux-sh@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+The radeon_info_ioctl() is obviously called from an ioctl()
+entry for this device, and uses copy_{to,from)_user() on
+the value_ptr variable.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+This is generating sparse warnings due to use lack of __user
+annotation on the value_ptr, so add this to remove the
+following warnings:
 
-Gr{oetje,eeting}s,
+drivers/gpu/drm/radeon/radeon_kms.c:262:43: warning: incorrect type in argument 2 (different address spaces)
+drivers/gpu/drm/radeon/radeon_kms.c:262:43:    expected void const [noderef] __user *from
+drivers/gpu/drm/radeon/radeon_kms.c:262:43:    got unsigned int [usertype] *[assigned] value_ptr
+drivers/gpu/drm/radeon/radeon_kms.c:319:43: warning: incorrect type in argument 2 (different address spaces)
+drivers/gpu/drm/radeon/radeon_kms.c:319:43:    expected void const [noderef] __user *from
+drivers/gpu/drm/radeon/radeon_kms.c:319:43:    got unsigned int [usertype] *[assigned] value_ptr
+drivers/gpu/drm/radeon/radeon_kms.c:331:43: warning: incorrect type in argument 2 (different address spaces)
+drivers/gpu/drm/radeon/radeon_kms.c:331:43:    expected void const [noderef] __user *from
+drivers/gpu/drm/radeon/radeon_kms.c:331:43:    got unsigned int [usertype] *[assigned] value_ptr
+drivers/gpu/drm/radeon/radeon_kms.c:467:43: warning: incorrect type in argument 2 (different address spaces)
+drivers/gpu/drm/radeon/radeon_kms.c:467:43:    expected void const [noderef] __user *from
+drivers/gpu/drm/radeon/radeon_kms.c:467:43:    got unsigned int [usertype] *[assigned] value_ptr
+drivers/gpu/drm/radeon/radeon_kms.c:592:43: warning: incorrect type in argument 2 (different address spaces)
+drivers/gpu/drm/radeon/radeon_kms.c:592:43:    expected void const [noderef] __user *from
+drivers/gpu/drm/radeon/radeon_kms.c:592:43:    got unsigned int [usertype] *[assigned] value_ptr
+drivers/gpu/drm/radeon/radeon_kms.c:609:26: warning: incorrect type in argument 1 (different address spaces)
+drivers/gpu/drm/radeon/radeon_kms.c:609:26:    expected void [noderef] __user *to
+drivers/gpu/drm/radeon/radeon_kms.c:609:26:    got unsigned int [usertype] *[assigned] value_ptr
 
-                        Geert
+Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
+---
+ drivers/gpu/drm/radeon/radeon_kms.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
+index dc43fd790a9c..57bc60c33937 100644
+--- a/drivers/gpu/drm/radeon/radeon_kms.c
++++ b/drivers/gpu/drm/radeon/radeon_kms.c
+@@ -231,13 +231,14 @@ int radeon_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 	struct radeon_device *rdev = dev->dev_private;
+ 	struct drm_radeon_info *info = data;
+ 	struct radeon_mode_info *minfo = &rdev->mode_info;
+-	uint32_t *value, value_tmp, *value_ptr, value_size;
++	uint32_t *value, value_tmp, value_size;
++	uint32_t __user *value_ptr;
+ 	struct ttm_resource_manager *man;
+ 	uint64_t value64;
+ 	struct drm_crtc *crtc;
+ 	int i, found;
+ 
+-	value_ptr = (uint32_t *)((unsigned long)info->value);
++	value_ptr = (uint32_t __user *)((unsigned long)info->value);
+ 	value = &value_tmp;
+ 	value_size = sizeof(uint32_t);
+ 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.37.2.352.g3c44437643
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
