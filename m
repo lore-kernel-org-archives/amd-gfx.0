@@ -4,69 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AFB3FED2DD
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 07:48:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52CB5FED2E3
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 07:48:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 114C610E98A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6C7010E988;
 	Thu, 12 Mar 2026 07:48:18 +0000 (UTC)
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com
- [216.40.44.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD48D10E205;
- Wed, 11 Mar 2026 14:03:44 +0000 (UTC)
-Received: from omf20.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay02.hostedemail.com (Postfix) with ESMTP id 4324D139CEA;
- Wed, 11 Mar 2026 14:03:38 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
- omf20.hostedemail.com (Postfix) with ESMTPA id 0CF3220025; 
- Wed, 11 Mar 2026 14:03:20 +0000 (UTC)
-Date: Wed, 11 Mar 2026 10:03:32 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
- apparmor@lists.ubuntu.com, bpf@vger.kernel.org, ceph-devel@vger.kernel.org,
- cocci@inria.fr, dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
- kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mm@kvack.org,
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
- sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, Mathieu
- Desnoyers <mathieu.desnoyers@efficios.com>
-Subject: Re: [PATCH 15/61] trace: Prefer IS_ERR_OR_NULL over manual NULL check
-Message-ID: <20260311100332.6a2ce4b1@gandalf.local.home>
-In-Reply-To: <20260311141332.b611237d36b61b2409e66cb3@kernel.org>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-15-bd63b656022d@avm.de>
- <20260310100750.303af303@gandalf.local.home>
- <20260311141332.b611237d36b61b2409e66cb3@kernel.org>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=codethink.co.uk header.i=@codethink.co.uk header.b="nPpcykP3";
+	dkim-atps=neutral
+X-Greylist: delayed 1866 seconds by postgrey-1.36 at gabe;
+ Wed, 11 Mar 2026 17:45:29 UTC
+Received: from imap5.colo.codethink.co.uk (imap5.colo.codethink.co.uk
+ [78.40.148.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9784510E321
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 17:45:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=codethink.co.uk; s=imap5-20230908; h=Sender:Content-Transfer-Encoding:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Reply-To:In-Reply-To:
+ References; bh=WpbKujUg/je3z1rxJtYDPy/DfekoUNAkqxPV46uYOx8=; b=nPpcykP3AI4ZPa
+ lZH+n4DMR1kMe3pVMqwIAwADp87XJJXyS11hSh6AHSLD0vOVoEX89/n6MarL+NpgDLM5ssvBEECuU
+ eeohTcej4Gi2Yoi3urJ7WUb7U6szlans9LrpUPOaJHwcK5bLbOwttsXywwl9mzjMevNPYd+ziq4ps
+ hRw7AGHVrxLPjjj9bEyh/xQ+Wft30vddEA4/NVWwVsXuGUZv2dbViUO6S8KCbTdlLiiG9AWefWgRD
+ UQn726fdDMa1SPXaPn16dfPcDXMl3C8pkZAnfAI67q2D+nNy9NGTiuPOUbGzCOphD9a2731hZG09M
+ heJuK2E0qOp2kuTnNXzA==;
+Received: from [63.135.74.212] (helo=rainbowdash)
+ by imap5.colo.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
+ id 1w0N8X-00G9Qs-0B; Wed, 11 Mar 2026 17:14:21 +0000
+Received: from ben by rainbowdash with local (Exim 4.99.1)
+ (envelope-from <ben@rainbowdash>) id 1w0N8W-00000002LTF-0opz;
+ Wed, 11 Mar 2026 17:14:20 +0000
+From: Ben Dooks <ben.dooks@codethink.co.uk>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Ben Dooks <ben.dooks@codethink.co.uk>
+Subject: [PATCH] drm/radeon/cik: fix endian cik_cp_gfx_load_microcode()
+Date: Wed, 11 Mar 2026 17:14:19 +0000
+Message-Id: <20260311171419.559180-1-ben.dooks@codethink.co.uk>
+X-Mailer: git-send-email 2.37.2.352.g3c44437643
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 0CF3220025
-X-Stat-Signature: ff8ct3tumfmuryqygkfkcm78w16u4scc
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+skqrXXDxm4il2tsYmj25H0/GTzSRdMUI=
-X-HE-Tag: 1773237800-364001
-X-HE-Meta: U2FsdGVkX1+aU4mY7bFvO8lRauP/vgjT20dobHa0QHVROVhTP6xZNvlHFy+HnthX7C3DUw86Ksayk8kipkioUde1pGRJffeDzlmGTmiRQAtxOhSsM3gHnZJQZGdgNXBABYZdeE7OsMEvCI5Ff4ZQbbyu3yXHRyZXg5AHof/AO0vcusmeqjpCWWhtLLOcuZIY7+tOVjT7VktVnLaFPp1jjRLc3JQ2sJ4jp/SiL4aHgDK/k//b9d34oAYT+AlJT32Fm0BFv3eObF3U3OAnj7CnGXu0MyQ+0edSgYKqKIiOybnUsF1fYSODF4X+zk3bqwV4HOqJnRMkZevrGktYEsiiqb8/qNY0d6MZ
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 12 Mar 2026 07:48:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,20 +59,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 11 Mar 2026 14:13:32 +0900
-Masami Hiramatsu (Google) <mhiramat@kernel.org> wrote:
+The cik_cp_gfx_load_microcode() has __be32 in one of
+the paths where it is assigning to an __le32. This looks
+to be a copy error from the other branch of the if in
+that code.
 
-> Hmm, now IS_ERR_OR_NULL() is an inline function, so it is safe.
-> But if you want to use IS_ERR_OR_NULL() here, it will be better something like
-> 
-> node = rhashtable_walk_next(&iter);
-> while (!IS_ERR_OR_NULL(node)) {
-> 	fprobe_remove_node_in_module(mod, node, &alist);
-> 	node = rhashtable_walk_next(&iter);
-> }
+Fix the following sparse warning by changing to __le32:
 
-But now you need to have a duplicate code in order to acquire "node"
+drivers/gpu/drm/radeon/cik.c:3926:25: warning: incorrect type in assignment (different base types)
+drivers/gpu/drm/radeon/cik.c:3926:25:    expected restricted __le32 const [usertype] *[assigned] fw_data
+drivers/gpu/drm/radeon/cik.c:3926:25:    got restricted __be32 const [usertype] *
 
-I think the patch just makes the code worse.
+Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
+---
+ drivers/gpu/drm/radeon/cik.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
--- Steve
+diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
+index 51a3e0fc2f56..1f9167d5ec6e 100644
+--- a/drivers/gpu/drm/radeon/cik.c
++++ b/drivers/gpu/drm/radeon/cik.c
+@@ -3923,7 +3923,7 @@ static int cik_cp_gfx_load_microcode(struct radeon_device *rdev)
+ 		WREG32(CP_CE_UCODE_ADDR, le32_to_cpu(ce_hdr->header.ucode_version));
+ 
+ 		/* ME */
+-		fw_data = (const __be32 *)
++		fw_data = (const __le32 *)
+ 			(rdev->me_fw->data + le32_to_cpu(me_hdr->header.ucode_array_offset_bytes));
+ 		fw_size = le32_to_cpu(me_hdr->header.ucode_size_bytes) / 4;
+ 		WREG32(CP_ME_RAM_WADDR, 0);
+-- 
+2.37.2.352.g3c44437643
+
