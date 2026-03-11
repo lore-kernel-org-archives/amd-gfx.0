@@ -4,95 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E4B8FCC9B1
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 06:05:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0F0FFD064D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 07:43:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEDEF10E0F0;
-	Wed, 11 Mar 2026 06:05:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 692B210E36F;
+	Wed, 11 Mar 2026 07:43:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KnIH1sBh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x67DD0+J";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010067.outbound.protection.outlook.com [52.101.46.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 254B910E0F0
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 06:05:42 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013049.outbound.protection.outlook.com
+ [40.93.196.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E71EC10E36F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 07:43:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hHxOCTJfWvZ9l8qkxHAdZAHZsrG87l4TQgR2d/WYszyJH2bGg0GbRzapzojAybQWfmUiK7TfCwK/piFJEBao+QC51mimLIZ3D7hjffqLyRqzIMCHEJm75uETK+kStcgSJAKZ0IN2lLh6Zed/42WWsf3MHLt5uKuieLpJhA1Sp9OdSCTqDJZWidkvki9d154S30k/Q4C2CYro6E7hqNhyr76XW6X9F7JzJoiaMb6l5yaXqoq6hKSjlq69jPLJFTLp5wzWev8yBTvLxO/C4fg/TQHnrDcAkME7jQhCDV236bmpL6egCpenFu1XBPp/bU89p8Jl6b7Jtb3GuTBK5L5p9g==
+ b=TJzo6VyeOCCYBfrEI7VOhWqJQe7NiZ0rAayF/O04hnt/eTCdnU2IKRxUDtO5FSV1xmr1gG/g2ERqF5nhPDKp13z5g9T0OKK3uiIgbmPkItcq+tiwXnkiwspDFgWD6lZyj+zt5j+RhROuKrljYJfrGignF3YRylrxrGN4hXYPKk+cEwhyPR/0SVMR3jhvgLnYbCz8xocFBvGrtEdGYgrwQ6TkqUy+hTSrgkU9clT4h/FZHXeG/6JVAtB2+D3dZZA8bOmUhFQLEksuQ0GUuCB8XuCQE3Ff7H2OZ1GyeeiaogvXxsng0FYXbBp+wyeA+zCdvH6BH0PWVnbxV5EKDMqgjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5EPEAT0aV3OR+njCFPhcAxSDk2S5z2OBOj3FeRsgRqg=;
- b=FnWlSmPB8q7Ib7XOQpGS6Lxz1U27oD5EtmQ+FqGOZp9TJwvbpQenAxHefEowecaOqVT8+ymtXRgyVVAYJI0O2ojRQXtYQsIXtVXGYjUitjpREY8Dq9s3mLFF7Rrx0wY4B3WfdxKA1HyeykiHkgXkUJckPQX4pqYbxX1aljaqGL36u6/eGhA85aD4+K8oZ54463hCbz9gsaClJrYYsExIghPuEewvV/F7EQcUxoNypDnMFZYiO7hynefvyFLphrOIC2EIXqvPOxK/4zKQWj9Q/UXHiZrYuwE9fkI3Mww3PcNDwD5mYpcyjCTo+7UtZI6RuPQHSlhWdXJce2f8CoKPRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=1vjXF3B2gFyOuPQi3kR/6u+cAO1MzuyutMniIvmg1Xg=;
+ b=egIlKr7hjr43QpuDnsI1rt+OmG90OeUM4bw0Q9BE9kd5paG23lD7Pulzk2PMq02MqpLlcvAVd3RYgAE4beAIzwb/K+XJp9x3vMFONrj/vx7Fg6rj1nNN1WDxUCqrOKpK640los+/Dm36oGYQTGZW7/tC4MGsHgHE86kJOHKMGowR5X94EnLQbJi+o3zR6ScJrXuyltIST8+ywpO5iQYe9dGWwGQbxec1IBqoiwkVrjTlyjPCc++DYzFwIpHc/z9xvhEdzNepRlvbXWepOo0K5vRJ/LzYM2J2VnHM9rHTRTRyNIN55mEYC0vTmGRnR4PmknpcbTgPBb0+oAvmtjtuWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5EPEAT0aV3OR+njCFPhcAxSDk2S5z2OBOj3FeRsgRqg=;
- b=KnIH1sBhktN3PNy7pwEVg9PeGx7IO3AV66NBTYSclyxDWoW7CHCEM0gXqhYL3lz+4bEK+rUAmvdhpvrMPt05QnA3mSkodPQDDAebx1mVCMRXlgtbkZwDcG7V525c1fo3pzAksNR+XXZZ/NaA7yl/hH6eY0OJxo3xvSF3aL0SuZQ=
-Received: from BN9PR03CA0448.namprd03.prod.outlook.com (2603:10b6:408:113::33)
- by DS5PPF4ACC15C0E.namprd12.prod.outlook.com (2603:10b6:f:fc00::64c)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Wed, 11 Mar
- 2026 06:05:38 +0000
-Received: from BN1PEPF00004681.namprd03.prod.outlook.com
- (2603:10b6:408:113:cafe::24) by BN9PR03CA0448.outlook.office365.com
- (2603:10b6:408:113::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.25 via Frontend Transport; Wed,
- 11 Mar 2026 06:05:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004681.mail.protection.outlook.com (10.167.243.87) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Wed, 11 Mar 2026 06:05:37 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 11 Mar
- 2026 01:05:35 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>, <Asad.Kamal@amd.com>
-Subject: [PATCH] drm/amdgpu: Use stack variable to fetch nps info
-Date: Wed, 11 Mar 2026 11:35:17 +0530
-Message-ID: <20260311060517.4010519-1-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
-MIME-Version: 1.0
+ bh=1vjXF3B2gFyOuPQi3kR/6u+cAO1MzuyutMniIvmg1Xg=;
+ b=x67DD0+JDNSk+9RSGrYtv1RKbQpZqgNRyrmXQCu44W/JSZ1yI1dRnGrIEn+L0GBZVvdxe0DeoVXqn/4w0mxVwRCnDUGG4KSxrNcuZnFvDUKYNt7zb/AuFo3DayVx5Bz3XBVYZdCsUC9sG7A8rCfjpxGmP+/8l1ph+kPWQrEUBms=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
+ by IA0PPF1D04084C7.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::bca) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.12; Wed, 11 Mar
+ 2026 07:43:21 +0000
+Received: from BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
+ ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9700.009; Wed, 11 Mar 2026
+ 07:43:21 +0000
+Message-ID: <9da5e092-a8da-4ce6-8776-258add4a9d22@amd.com>
+Date: Wed, 11 Mar 2026 13:13:15 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/11] drm/amdgpu: revert to old status lock handling v4
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ tursulin@ursulin.net, Alexander.Deucher@amd.com, Prike.Liang@amd.com,
+ Yogesh.Mohanmarimuthu@amd.com, SRINIVASAN.SHANMUGAM@amd.com,
+ Sunil.Khatri@amd.com, amd-gfx@lists.freedesktop.org
+References: <20260310191327.2279-1-christian.koenig@amd.com>
+Content-Language: en-US
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <20260310191327.2279-1-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: PN2PR01CA0135.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:6::20) To BL1PR12MB5753.namprd12.prod.outlook.com
+ (2603:10b6:208:390::15)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004681:EE_|DS5PPF4ACC15C0E:EE_
-X-MS-Office365-Filtering-Correlation-Id: da9340f8-c6be-4dce-cab3-08de7f343757
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|IA0PPF1D04084C7:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5f66f90-9830-4f76-7014-08de7f41de86
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|376014|1800799024|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: ft2t0b6ZrIdfFNoxOK2APFFNO07GgW1sEg6/UvunXIwsOT1emQVZ0H/FD0Q77j6MWQ/ryrkVqv0OhOBTc+ON99iWA6vH+pWrNgNBHbJXuENgFofSO9SupU1Z34whengYBBG2XqokGQ/qdJETLhqJHG1B1nNByiotBIuSMYzmC3SrlkMpaFRa2wQY221BN88wZwvre4JtXM1tVX1t3452E/SUvaG7J6hMz2dlmareoU1k705qMkbAkvbzAk9JHolZSZ8PhJNwbqKmUBOSk4ARdxrWcj+bdN5XUrN7R4an0Zv4fV5N6SvoNxXBTPsCiQ/qu8Or7WXW4Xu25xX/WZZK6vrAdRcmZkMVpBP4DZSl8ut/asr1FMr7Z+/HI0/rLAr1mGJBuWmhgTh3RENK/QhhR095AZFNZLCSftNjCJSkzusLvgXQ1FRvse8R53sO0c8HRO14Ek3uCpmsouPRdILCy3OCk5yUvWtbdZ2k80fScncgr5pRdLyKHP4qs6qI8hQPczpJrbqsrVImqfDwGfEksITVzA7wcH9iyXhXSvrDlk2Oe9CjKbez/5UEJHH0MfIDBtk8DNgjwislIt2TEF9CBerSyuqEdW2qnOc/KyQ3chmCQWjh/kmb1JWPVLG4my6ke6aycxV4gw3qA6/pNWitgznzzhR9cxmc1xoS6KQucm4nrgQj6ztY5VXwN/T2xsZKVs7vxRNRzFoycR2Awcu9/XzvhbeEMHaIKzRmg3yVCWUhq03U51UQK7seTVh+tCwgPMFhS3tE9RRf9OEw0u4Abg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(18002099003)(56012099003);
+ ARA:13230040|376014|366016|1800799024|22082099003|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: 4ZvRS5Rrvc7gCLCHhgxr//xP+n+0Js6/mkJXvpkKuS82NrOcJKtdUtNLPyX9LUek/u2i2w7vIZ1e8CeAyWfK8ICEO8lVvIs1dlSbA3Y6WGKsdAzfpTYJxtdXI9K2mq9+OsHf1uWY4guL6eNyeHP/5BfFwaseGuI0Nv6UUkdeJEa/qAbifUPZTUlxH6ZB1EItkAnIQ63cZccDKvynsTWwYwwC2T6KZvY9exqT5L0O2jxP/LuwI86nP/2jQ3ncPwW3ysQVz3NX5gsTdBOSMFFrAfjSJvesD3T2foeSI/kMSqa3aOzQ2zqWT0LuMyVgsUrJvSHVoaROIM75UyMBvG/5UFDoDBc7P0r/tubU0fLYetWm8vRyjjHzY8MFQkLKX6a7R92dfQhgTjhVuiXaOes90Y0cQhJH9RzWLATNfzHOHTEVW/BgfnyLemn0+03KPp+bY8Ao0TvYWIlYLx7BO3PRKk8chHaYCyoeQ8MqRPSQTnZrBeO9VJoGH9UjqOVBbCfXZHsp1/5wWXV5uSimJ+tj4EJ4HeTH1/G9d7dsdGNeBdQAQzt1tHcdsfOwoqtKKGyoRAuoV3cAXYvOLxeNLshbdPinoj9TOj8f+5K6Fhx5gKFhi2PrBJ2MF4LjrVdrhdGnKQeD4M0R3tvon8smNMK4hndQjbTSvB4gT5VwKPlbTYA/f/mPN3USLzwo9vIAvdUd1HjiXOZNa558FE91N6XMA+34XOGZLFoizR2Qa0P4474=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: khdaPK86yybxKq5ZqCGvrAG93YVS+YTz1DbtSernqN1p6oUk6ebfk4/EB+TBmgvBqBL9G0SMl2T+3JMiNKsfawbo8cl0Dk4vZCDYppq72QlSXMgInIPQoEfnOFFO4ENFasaxnGauU1mgcEBqX0oIMm1YEPRLAiPDL3f9zyum3HJ/sB1oHsJs6VeATfPQlFw+uIKzAzDafyRb87x9FwIfv7TjPNkFoySYUzB1ak7n7mkk3e3LuJUeoLQbdjKG2ry6ecOlfmRX7icyB+yqggnWscWEExQ9RjH4ZW122x/Qnnrq5yt3kDpuPFVnjl9FUbaMPYuCEHnrBCcNaLLL6lYTIO+E27GFZEtf1wiQUWKykhJnztLZcPmQt8BO/k7xxfWIVcFSMrV4btKeZ9YRBL5nXOCcy8Duqut9dDWBhPoPXigVYj3GmaAbf+HRu/BNw2Uv
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a0hEcUlIcXpKZ1BaU2pEcHoxTEpablcxNzE4WUJCRnhQQVlqYTlmKzB3ODE2?=
+ =?utf-8?B?SmJ4N25JY2RrWER6dnhXT2FGejVRU2dnMEdVRTcxeDNJa3RRRlg0aTREdXda?=
+ =?utf-8?B?aSt4Rmd1VzZvV3Foc0owSzVpUXJKdnJtYUlRYXpGbkVOdkZmUk9kQnF4eksy?=
+ =?utf-8?B?cXcrdGd1SzM1UmROWWdrdFRQWG5NUUt6K2RPU2VTUjJuNXBtREZrNStxODB1?=
+ =?utf-8?B?Y01nYmFKUFBMZ0F0YU9ac0w5NFBYNHVMUmtJaDdJRzk3ZzRZVGJOMGU3d2Yw?=
+ =?utf-8?B?L3F2RTc5Y1k4RlhtbnozT3JFZklEK01UTTkvbng2cUpjSEl2T0p0dDdYOU1y?=
+ =?utf-8?B?OUQxZjJoU0pVYmN3dTZmSlVKWXArdm1sRnBzRm1Ea3hURFh3S28vZzZKMTVi?=
+ =?utf-8?B?ckRkc251eTNDM3FubHJNYUhRUkpYNzU5NERNaGdyQmtqL1IrWTdVWlNiMG9h?=
+ =?utf-8?B?MXIxN09td01mTHlrczlxd3h3blJyMU1WL3N2LzlnMjRZY0JTWWpSSEwwYkxG?=
+ =?utf-8?B?enBnVmd6MFZsalVoa2tiek4rZHlxSDJyNVZEeWhuM2wzeXhGU0huZ1NqUWJU?=
+ =?utf-8?B?U3NKamdBQmVhUFFFeWpMam1GZFg4QlI0SzRYaGMvSG1iejJ2UVUrb3ZBbGIw?=
+ =?utf-8?B?cTlwQnVMeEV1TURDY2FOSGNjYTJEaS9UNStqZy83ZlhwZSsyY2s3M0VibDlM?=
+ =?utf-8?B?QXd0UHpzaXZPM0d6c0ZtSlYrM1krMXNrT3dBSE9HKysxdzZmZjNuamtXUmdB?=
+ =?utf-8?B?cnp3VzViOVN4VjJtc1NBQWcvMnNhSjVtRjN6cnBFYmpTenY1TXpqbXhtT3E1?=
+ =?utf-8?B?bW1MVlRqMjNHRVZtS0h6ekRuY1VWLzBUa2dSeEE4WVVYUEYyamRIQlJwY29L?=
+ =?utf-8?B?OXpOZGE5NmsreFN6QWg0M1R2WlJSMkQweDZQK1RrZktUaGxZdUY1V1ZnaWpx?=
+ =?utf-8?B?V28wblVweWxRN2xjV3hiN3RWTktDY3hZSHVCaFFwamp1K21WUnpxeFVyTlVz?=
+ =?utf-8?B?eXQreTVobE94V1ZPUTJzQ1kzai93Vjg4WHZpSFhCQlV5aWRxYmJrL0dWRys2?=
+ =?utf-8?B?YnZuUmMyV01iUWJjSGd5eTZGY2oxVVBRRmVkS0VXcW1UMFFZaGlXUElFSFc4?=
+ =?utf-8?B?WGczV0NwK1k1QTZjbXBIVFd2UW5OWWpodjVHTmtSSCtWZVVvMDdEUFZ0ZEYx?=
+ =?utf-8?B?QmM0MDI5OHR0NjVXRVAvdi9WQjRTSnZ2SmJJSTNRUlVSYUhHOHRkbys1ZVJ4?=
+ =?utf-8?B?NmcxNmJqd2k2YkRqemZ2VUlSVDM1S2gvK0hyQk41RWZJM1NPSmtQVVV5Nytj?=
+ =?utf-8?B?WHdGbEtmM0FQUExRdms3ZGYyQWtYQVVUSlRIVmhaWEtLaytjWFRnL1Q3S0Zn?=
+ =?utf-8?B?RGY2ZFl4bHQ2QVVqQ3JkcG9Nd2txYTIyS0JaN2tSNnhyN3pxUUk0VlMzVVZE?=
+ =?utf-8?B?dWhEc2pmeWN3dTdJUWorY2dITUJIb3RPZy9IZVBSUnZjNnY4U2tFcWMzbFpF?=
+ =?utf-8?B?Szc1VkV5UnZyNTRkQkNHK0JmSDNxcXZGSTljOG5TSDF6TEZwL1RCUTBKVmlN?=
+ =?utf-8?B?TGk2WWUzTzFhMTFpYys2cTlzRmhmaUZsb3Q2UE00a0xrSUZtQmNwbzVlb2tw?=
+ =?utf-8?B?Nm10ZmJqMmczMjBLOHpmeUFYT3pycTRiRTNCNGx5aFl1cWJDRHJEcUllZTQ0?=
+ =?utf-8?B?bXFHQTdqcHBxWFNpMndJd3g0QzBrdUMrdDEzbW5jODBYNCtZcEJ0dDRkQU5p?=
+ =?utf-8?B?QmErNkhZS04xZWwwTzg5L0wySW9FTGxoU0xLT2l6dXVqTDhyZ295a0dhUENl?=
+ =?utf-8?B?aWVDTEtJSXpqZU9uYzlRam9FUG4wM2lib3ZxYUdFbDdJVC8vb21WNmI5VzI3?=
+ =?utf-8?B?MEs3VDBhM2pxeHdvTDJieFQySUV4TG1oU05DeGdpODJTSG10VnVENkJOdHRB?=
+ =?utf-8?B?cnVaa2ZFN1dBR09RT0JnU2lyQ3o0Vlc1UnF3Y3ZzQis5bE94MWoySE1CNkVH?=
+ =?utf-8?B?dC9WWng3ZTVSam5CZ1c4RjY5ci9KMllJSU9ZNVJIQWdKZDFIYmdHVDloZEdC?=
+ =?utf-8?B?SlYvaFIxVk5NTUM1dURIL1NoVm9tak1iUG1QbVNNd08vR0VkRk1IcWdqV0Vk?=
+ =?utf-8?B?d1NmM3N1WUpqaXJGUlRlZ29xM1RoRHZIaVkxN1F1dk91a0Y4THFNVFJUbUJk?=
+ =?utf-8?B?bG5mT2RHMk8wV0V6SkxMcWJCc2w0c2M5RUdlZSt4TmUwNzhrd1NrT3A1N2lL?=
+ =?utf-8?B?ZmFTSUJQNGpiUWpPS2hMNmFRUUIxMDVkdWxnQlRQQnhvd28zMi9wQmt4WlFq?=
+ =?utf-8?B?Q0JzaHhVSDZwdVBTUEdJRklZQmY1cDV6TTVQVlI4ZjFyZUVSNk53QT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2026 06:05:37.6322 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: da9340f8-c6be-4dce-cab3-08de7f343757
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5f66f90-9830-4f76-7014-08de7f41de86
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2026 07:43:21.7598 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004681.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF4ACC15C0E
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FAuNShkRibXVLFbXzGRQz8Q06UTk1qFMPAbanQRqlx4jg1Y0f0CCuOhApqsJS5D3cU4pV6Z78uc45s0RV72fuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF1D04084C7
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,115 +136,598 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Instead of a dynamic allocation, use stack variable and let the caller
-pass the maximum ranges that can be held in the buffer.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 23 +++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       | 10 ++++----
- 3 files changed, 16 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-index fad53d8344b1..948c5f40f366 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-@@ -1932,11 +1932,10 @@ static int amdgpu_discovery_refresh_nps_info(struct amdgpu_device *adev,
- 
- int amdgpu_discovery_get_nps_info(struct amdgpu_device *adev,
- 				  uint32_t *nps_type,
--				  struct amdgpu_gmc_memrange **ranges,
-+				  struct amdgpu_gmc_memrange *ranges,
- 				  int *range_cnt, bool refresh)
- {
- 	uint8_t *discovery_bin = adev->discovery.bin;
--	struct amdgpu_gmc_memrange *mem_ranges;
- 	struct binary_header *bhdr;
- 	union nps_info *nps_info;
- 	union nps_info nps_data;
-@@ -1973,22 +1972,22 @@ int amdgpu_discovery_get_nps_info(struct amdgpu_device *adev,
- 
- 	switch (le16_to_cpu(nps_info->v1.header.version_major)) {
- 	case 1:
--		mem_ranges = kvcalloc(nps_info->v1.count,
--				      sizeof(*mem_ranges),
--				      GFP_KERNEL);
--		if (!mem_ranges)
--			return -ENOMEM;
- 		*nps_type = nps_info->v1.nps_type;
-+		if (*range_cnt < nps_info->v1.count) {
-+			dev_dbg(adev->dev,
-+				"not enough space for nps ranges: %d < %d\n",
-+				*range_cnt, nps_info->v1.count);
-+			return -ENOSPC;
-+		}
- 		*range_cnt = nps_info->v1.count;
- 		for (i = 0; i < *range_cnt; i++) {
--			mem_ranges[i].base_address =
-+			ranges[i].base_address =
- 				nps_info->v1.instance_info[i].base_address;
--			mem_ranges[i].limit_address =
-+			ranges[i].limit_address =
- 				nps_info->v1.instance_info[i].limit_address;
--			mem_ranges[i].nid_mask = -1;
--			mem_ranges[i].flags = 0;
-+			ranges[i].nid_mask = -1;
-+			ranges[i].flags = 0;
- 		}
--		*ranges = mem_ranges;
- 		break;
- 	default:
- 		dev_err(adev->dev, "Unhandled NPS info table %d.%d\n",
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-index c8242992c912..1220c0327275 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.h
-@@ -45,7 +45,7 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev);
- 
- int amdgpu_discovery_get_nps_info(struct amdgpu_device *adev,
- 				  uint32_t *nps_type,
--				  struct amdgpu_gmc_memrange **ranges,
-+				  struct amdgpu_gmc_memrange *ranges,
- 				  int *range_cnt, bool refresh);
- 
- void amdgpu_discovery_dump(struct amdgpu_device *adev, struct drm_printer *p);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 20e1395b3988..f165d4e401e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -1374,18 +1374,18 @@ int amdgpu_gmc_get_nps_memranges(struct amdgpu_device *adev,
- 				 struct amdgpu_mem_partition_info *mem_ranges,
- 				 uint8_t *exp_ranges)
- {
--	struct amdgpu_gmc_memrange *ranges;
-+	struct amdgpu_gmc_memrange ranges[AMDGPU_MAX_MEM_RANGES];
- 	int range_cnt, ret, i, j;
- 	uint32_t nps_type;
- 	bool refresh;
- 
- 	if (!mem_ranges || !exp_ranges)
- 		return -EINVAL;
--
-+	range_cnt = AMDGPU_MAX_MEM_RANGES;
- 	refresh = (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) &&
- 		  (adev->gmc.reset_flags & AMDGPU_GMC_INIT_RESET_NPS);
--	ret = amdgpu_discovery_get_nps_info(adev, &nps_type, &ranges,
--					    &range_cnt, refresh);
-+	ret = amdgpu_discovery_get_nps_info(adev, &nps_type, ranges, &range_cnt,
-+					    refresh);
- 
- 	if (ret)
- 		return ret;
-@@ -1446,8 +1446,6 @@ int amdgpu_gmc_get_nps_memranges(struct amdgpu_device *adev,
- 	if (!*exp_ranges)
- 		*exp_ranges = range_cnt;
- err:
--	kvfree(ranges);
--
- 	return ret;
- }
- 
--- 
-2.49.0
-
+On 11-03-2026 12:43 am, Christian König wrote:
+> It turned out that protecting the status of each bo_va with a
+> spinlock was just hiding problems instead of solving them.
+>
+> Revert the whole approach, add a separate stats_lock and lockdep
+> assertions that the correct reservation lock is held all over the place.
+>
+> This not only allows for better checks if a state transition is properly
+> protected by a lock, but also switching back to using list macros to
+> iterate over the state of lists protected by the dma_resv lock of the
+> root PD.
+>
+> v2: re-add missing check
+> v3: split into two patches
+> v4: re-apply by fixing holding the VM lock at the right places.
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c |   8 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    | 146 ++++++++--------------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h    |  15 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c |   4 -
+>   4 files changed, 68 insertions(+), 105 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> index 50e1b342f22f..32541f1bde6d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -1040,12 +1040,12 @@ amdgpu_userq_bo_validate(struct amdgpu_device *adev, struct drm_exec *exec,
+>   	struct amdgpu_bo *bo;
+>   	int ret;
+>   
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->invalidated_lock);
+>   	while (!list_empty(&vm->invalidated)) {
+>   		bo_va = list_first_entry(&vm->invalidated,
+>   					 struct amdgpu_bo_va,
+>   					 base.vm_status);
+> -		spin_unlock(&vm->status_lock);
+> +		spin_unlock(&vm->invalidated_lock);
+>   
+>   		bo = bo_va->base.bo;
+>   		ret = drm_exec_prepare_obj(exec, &bo->tbo.base, 2);
+> @@ -1062,9 +1062,9 @@ amdgpu_userq_bo_validate(struct amdgpu_device *adev, struct drm_exec *exec,
+>   		if (ret)
+>   			return ret;
+>   
+> -		spin_lock(&vm->status_lock);
+> +		spin_lock(&vm->invalidated_lock);
+>   	}
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->invalidated_lock);
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index 01fef0e4f408..b89013a6aa0b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -153,12 +153,10 @@ static void amdgpu_vm_bo_evicted(struct amdgpu_vm_bo_base *vm_bo)
+>   
+>   	vm_bo->moved = true;
+>   	amdgpu_vm_assert_locked(vm);
+> -	spin_lock(&vm_bo->vm->status_lock);
+>   	if (bo->tbo.type == ttm_bo_type_kernel)
+>   		list_move(&vm_bo->vm_status, &vm->evicted);
+>   	else
+>   		list_move_tail(&vm_bo->vm_status, &vm->evicted);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+>   }
+>   /**
+>    * amdgpu_vm_bo_moved - vm_bo is moved
+> @@ -171,9 +169,7 @@ static void amdgpu_vm_bo_evicted(struct amdgpu_vm_bo_base *vm_bo)
+>   static void amdgpu_vm_bo_moved(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+>   	amdgpu_vm_assert_locked(vm_bo->vm);
+> -	spin_lock(&vm_bo->vm->status_lock);
+>   	list_move(&vm_bo->vm_status, &vm_bo->vm->moved);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+>   }
+>   
+>   /**
+> @@ -187,9 +183,7 @@ static void amdgpu_vm_bo_moved(struct amdgpu_vm_bo_base *vm_bo)
+>   static void amdgpu_vm_bo_idle(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+>   	amdgpu_vm_assert_locked(vm_bo->vm);
+> -	spin_lock(&vm_bo->vm->status_lock);
+>   	list_move(&vm_bo->vm_status, &vm_bo->vm->idle);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+>   	vm_bo->moved = false;
+>   }
+>   
+> @@ -203,9 +197,9 @@ static void amdgpu_vm_bo_idle(struct amdgpu_vm_bo_base *vm_bo)
+>    */
+>   static void amdgpu_vm_bo_invalidated(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+> -	spin_lock(&vm_bo->vm->status_lock);
+> +	spin_lock(&vm_bo->vm->invalidated_lock);
+>   	list_move(&vm_bo->vm_status, &vm_bo->vm->invalidated);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+> +	spin_unlock(&vm_bo->vm->invalidated_lock);
+>   }
+>   
+>   /**
+> @@ -218,10 +212,9 @@ static void amdgpu_vm_bo_invalidated(struct amdgpu_vm_bo_base *vm_bo)
+>    */
+>   static void amdgpu_vm_bo_evicted_user(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+> +	amdgpu_vm_assert_locked(vm_bo->vm);
+>   	vm_bo->moved = true;
+> -	spin_lock(&vm_bo->vm->status_lock);
+>   	list_move(&vm_bo->vm_status, &vm_bo->vm->evicted_user);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+>   }
+>   
+>   /**
+> @@ -235,13 +228,10 @@ static void amdgpu_vm_bo_evicted_user(struct amdgpu_vm_bo_base *vm_bo)
+>   static void amdgpu_vm_bo_relocated(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+>   	amdgpu_vm_assert_locked(vm_bo->vm);
+> -	if (vm_bo->bo->parent) {
+> -		spin_lock(&vm_bo->vm->status_lock);
+> +	if (vm_bo->bo->parent)
+>   		list_move(&vm_bo->vm_status, &vm_bo->vm->relocated);
+> -		spin_unlock(&vm_bo->vm->status_lock);
+> -	} else {
+> +	else
+>   		amdgpu_vm_bo_idle(vm_bo);
+> -	}
+>   }
+>   
+>   /**
+> @@ -255,9 +245,7 @@ static void amdgpu_vm_bo_relocated(struct amdgpu_vm_bo_base *vm_bo)
+>   static void amdgpu_vm_bo_done(struct amdgpu_vm_bo_base *vm_bo)
+>   {
+>   	amdgpu_vm_assert_locked(vm_bo->vm);
+> -	spin_lock(&vm_bo->vm->status_lock);
+>   	list_move(&vm_bo->vm_status, &vm_bo->vm->done);
+> -	spin_unlock(&vm_bo->vm->status_lock);
+>   }
+>   
+>   /**
+> @@ -271,13 +259,13 @@ static void amdgpu_vm_bo_reset_state_machine(struct amdgpu_vm *vm)
+>   {
+>   	struct amdgpu_vm_bo_base *vm_bo, *tmp;
+>   
+> -	amdgpu_vm_assert_locked(vm);
+> -
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->invalidated_lock);
+>   	list_splice_init(&vm->done, &vm->invalidated);
+>   	list_for_each_entry(vm_bo, &vm->invalidated, vm_status)
+>   		vm_bo->moved = true;
+> +	spin_unlock(&vm->invalidated_lock);
+>   
+> +	amdgpu_vm_assert_locked(vm);
+>   	list_for_each_entry_safe(vm_bo, tmp, &vm->idle, vm_status) {
+>   		struct amdgpu_bo *bo = vm_bo->bo;
+>   
+> @@ -287,14 +275,13 @@ static void amdgpu_vm_bo_reset_state_machine(struct amdgpu_vm *vm)
+>   		else if (bo->parent)
+>   			list_move(&vm_bo->vm_status, &vm_bo->vm->relocated);
+>   	}
+> -	spin_unlock(&vm->status_lock);
+>   }
+>   
+>   /**
+>    * amdgpu_vm_update_shared - helper to update shared memory stat
+>    * @base: base structure for tracking BO usage in a VM
+>    *
+> - * Takes the vm status_lock and updates the shared memory stat. If the basic
+> + * Takes the vm stats_lock and updates the shared memory stat. If the basic
+>    * stat changed (e.g. buffer was moved) amdgpu_vm_update_stats need to be called
+>    * as well.
+>    */
+> @@ -307,7 +294,7 @@ static void amdgpu_vm_update_shared(struct amdgpu_vm_bo_base *base)
+>   	bool shared;
+>   
+>   	dma_resv_assert_held(bo->tbo.base.resv);
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->stats_lock);
+>   	shared = drm_gem_object_is_shared_for_memory_stats(&bo->tbo.base);
+>   	if (base->shared != shared) {
+>   		base->shared = shared;
+> @@ -319,7 +306,7 @@ static void amdgpu_vm_update_shared(struct amdgpu_vm_bo_base *base)
+>   			vm->stats[bo_memtype].drm.private += size;
+>   		}
+>   	}
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->stats_lock);
+>   }
+>   
+>   /**
+> @@ -344,11 +331,11 @@ void amdgpu_vm_bo_update_shared(struct amdgpu_bo *bo)
+>    *        be bo->tbo.resource
+>    * @sign: if we should add (+1) or subtract (-1) from the stat
+>    *
+> - * Caller need to have the vm status_lock held. Useful for when multiple update
+> + * Caller need to have the vm stats_lock held. Useful for when multiple update
+>    * need to happen at the same time.
+>    */
+>   static void amdgpu_vm_update_stats_locked(struct amdgpu_vm_bo_base *base,
+> -			    struct ttm_resource *res, int sign)
+> +					  struct ttm_resource *res, int sign)
+>   {
+>   	struct amdgpu_vm *vm = base->vm;
+>   	struct amdgpu_bo *bo = base->bo;
+> @@ -372,7 +359,8 @@ static void amdgpu_vm_update_stats_locked(struct amdgpu_vm_bo_base *base,
+>   		 */
+>   		if (bo->flags & AMDGPU_GEM_CREATE_DISCARDABLE)
+>   			vm->stats[res_memtype].drm.purgeable += size;
+> -		if (!(bo->preferred_domains & amdgpu_mem_type_to_domain(res_memtype)))
+> +		if (!(bo->preferred_domains &
+> +		      amdgpu_mem_type_to_domain(res_memtype)))
+>   			vm->stats[bo_memtype].evicted += size;
+>   	}
+>   }
+> @@ -391,9 +379,9 @@ void amdgpu_vm_update_stats(struct amdgpu_vm_bo_base *base,
+>   {
+>   	struct amdgpu_vm *vm = base->vm;
+>   
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->stats_lock);
+>   	amdgpu_vm_update_stats_locked(base, res, sign);
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->stats_lock);
+>   }
+>   
+>   /**
+> @@ -419,10 +407,10 @@ void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+>   	base->next = bo->vm_bo;
+>   	bo->vm_bo = base;
+>   
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->stats_lock);
+>   	base->shared = drm_gem_object_is_shared_for_memory_stats(&bo->tbo.base);
+>   	amdgpu_vm_update_stats_locked(base, bo->tbo.resource, +1);
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->stats_lock);
+>   
+>   	if (!amdgpu_vm_is_bo_always_valid(vm, bo))
+>   		return;
+> @@ -481,25 +469,25 @@ int amdgpu_vm_lock_done_list(struct amdgpu_vm *vm, struct drm_exec *exec,
+>   	int ret;
+>   
+>   	/* We can only trust prev->next while holding the lock */
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->invalidated_lock);
+>   	while (!list_is_head(prev->next, &vm->done)) {
+>   		bo_va = list_entry(prev->next, typeof(*bo_va), base.vm_status);
+>   
+>   		bo = bo_va->base.bo;
+>   		if (bo) {
+>   			amdgpu_bo_ref(bo);
+> -			spin_unlock(&vm->status_lock);
+> +			spin_unlock(&vm->invalidated_lock);
+>   
+>   			ret = drm_exec_prepare_obj(exec, &bo->tbo.base, 1);
+>   			amdgpu_bo_unref(&bo);
+>   			if (unlikely(ret))
+>   				return ret;
+>   
+> -			spin_lock(&vm->status_lock);
+> +			spin_lock(&vm->invalidated_lock);
+>   		}
+>   		prev = prev->next;
+>   	}
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->invalidated_lock);
+>   
+>   	return 0;
+>   }
+> @@ -595,7 +583,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   		       void *param)
+>   {
+>   	uint64_t new_vm_generation = amdgpu_vm_generation(adev, vm);
+> -	struct amdgpu_vm_bo_base *bo_base;
+> +	struct amdgpu_vm_bo_base *bo_base, *tmp;
+>   	struct amdgpu_bo *bo;
+>   	int r;
+>   
+> @@ -608,13 +596,7 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   			return r;
+>   	}
+>   
+> -	spin_lock(&vm->status_lock);
+> -	while (!list_empty(&vm->evicted)) {
+> -		bo_base = list_first_entry(&vm->evicted,
+> -					   struct amdgpu_vm_bo_base,
+> -					   vm_status);
+> -		spin_unlock(&vm->status_lock);
+> -
+> +	list_for_each_entry_safe(bo_base, tmp, &vm->evicted, vm_status) {
+>   		bo = bo_base->bo;
+>   
+>   		r = validate(param, bo);
+> @@ -627,26 +609,21 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   			vm->update_funcs->map_table(to_amdgpu_bo_vm(bo));
+>   			amdgpu_vm_bo_relocated(bo_base);
+>   		}
+> -		spin_lock(&vm->status_lock);
+>   	}
+> -	while (ticket && !list_empty(&vm->evicted_user)) {
+> -		bo_base = list_first_entry(&vm->evicted_user,
+> -					   struct amdgpu_vm_bo_base,
+> -					   vm_status);
+> -		spin_unlock(&vm->status_lock);
+>   
+> -		bo = bo_base->bo;
+> -		dma_resv_assert_held(bo->tbo.base.resv);
+> +	if (ticket) {
+> +		list_for_each_entry_safe(bo_base, tmp, &vm->evicted_user,
+> +					 vm_status) {
+> +			bo = bo_base->bo;
+> +			dma_resv_assert_held(bo->tbo.base.resv);
+>   
+> -		r = validate(param, bo);
+> -		if (r)
+> -			return r;
+> -
+> -		amdgpu_vm_bo_invalidated(bo_base);
+> +			r = validate(param, bo);
+> +			if (r)
+> +				return r;
+>   
+> -		spin_lock(&vm->status_lock);
+> +			amdgpu_vm_bo_invalidated(bo_base);
+> +		}
+>   	}
+> -	spin_unlock(&vm->status_lock);
+>   
+>   	amdgpu_vm_eviction_lock(vm);
+>   	vm->evicting = false;
+> @@ -675,9 +652,7 @@ bool amdgpu_vm_ready(struct amdgpu_vm *vm)
+>   	ret = !vm->evicting;
+>   	amdgpu_vm_eviction_unlock(vm);
+>   
+> -	spin_lock(&vm->status_lock);
+>   	ret &= list_empty(&vm->evicted);
+> -	spin_unlock(&vm->status_lock);
+>   
+>   	spin_lock(&vm->immediate.lock);
+>   	ret &= !vm->immediate.stopped;
+> @@ -971,18 +946,13 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   			  struct amdgpu_vm *vm, bool immediate)
+>   {
+>   	struct amdgpu_vm_update_params params;
+> -	struct amdgpu_vm_bo_base *entry;
+> +	struct amdgpu_vm_bo_base *entry, *tmp;
+>   	bool flush_tlb_needed = false;
+> -	LIST_HEAD(relocated);
+>   	int r, idx;
+>   
+>   	amdgpu_vm_assert_locked(vm);
+>   
+> -	spin_lock(&vm->status_lock);
+> -	list_splice_init(&vm->relocated, &relocated);
+> -	spin_unlock(&vm->status_lock);
+> -
+> -	if (list_empty(&relocated))
+> +	if (list_empty(&vm->relocated))
+>   		return 0;
+>   
+>   	if (!drm_dev_enter(adev_to_drm(adev), &idx))
+> @@ -998,7 +968,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   	if (r)
+>   		goto error;
+>   
+> -	list_for_each_entry(entry, &relocated, vm_status) {
+> +	list_for_each_entry(entry, &vm->relocated, vm_status) {
+>   		/* vm_flush_needed after updating moved PDEs */
+>   		flush_tlb_needed |= entry->moved;
+>   
+> @@ -1014,9 +984,7 @@ int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
+>   	if (flush_tlb_needed)
+>   		atomic64_inc(&vm->tlb_seq);
+>   
+> -	while (!list_empty(&relocated)) {
+> -		entry = list_first_entry(&relocated, struct amdgpu_vm_bo_base,
+> -					 vm_status);
+> +	list_for_each_entry_safe(entry, tmp, &vm->relocated, vm_status) {
+>   		amdgpu_vm_bo_idle(entry);
+>   	}
+>   
+> @@ -1243,9 +1211,9 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   void amdgpu_vm_get_memory(struct amdgpu_vm *vm,
+>   			  struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM])
+>   {
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->stats_lock);
+>   	memcpy(stats, vm->stats, sizeof(*stats) * __AMDGPU_PL_NUM);
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->stats_lock);
+>   }
+>   
+>   /**
+> @@ -1612,29 +1580,24 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+>   			   struct amdgpu_vm *vm,
+>   			   struct ww_acquire_ctx *ticket)
+>   {
+> -	struct amdgpu_bo_va *bo_va;
+> +	struct amdgpu_bo_va *bo_va, *tmp;
+>   	struct dma_resv *resv;
+>   	bool clear, unlock;
+>   	int r;
+>   
+> -	spin_lock(&vm->status_lock);
+> -	while (!list_empty(&vm->moved)) {
+> -		bo_va = list_first_entry(&vm->moved, struct amdgpu_bo_va,
+> -					 base.vm_status);
+> -		spin_unlock(&vm->status_lock);
+> -
+> +	list_for_each_entry_safe(bo_va, tmp, &vm->moved, base.vm_status) {
+>   		/* Per VM BOs never need to bo cleared in the page tables */
+>   		r = amdgpu_vm_bo_update(adev, bo_va, false);
+>   		if (r)
+>   			return r;
+> -		spin_lock(&vm->status_lock);
+>   	}
+>   
+> +	spin_lock(&vm->invalidated_lock);
+>   	while (!list_empty(&vm->invalidated)) {
+>   		bo_va = list_first_entry(&vm->invalidated, struct amdgpu_bo_va,
+>   					 base.vm_status);
+>   		resv = bo_va->base.bo->tbo.base.resv;
+> -		spin_unlock(&vm->status_lock);
+> +		spin_unlock(&vm->invalidated_lock);
+>   
+>   		/* Try to reserve the BO to avoid clearing its ptes */
+>   		if (!adev->debug_vm && dma_resv_trylock(resv)) {
+> @@ -1666,9 +1629,9 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+>   		     bo_va->base.bo->tbo.resource->mem_type == TTM_PL_SYSTEM))
+>   			amdgpu_vm_bo_evicted_user(&bo_va->base);
+>   
+> -		spin_lock(&vm->status_lock);
+> +		spin_lock(&vm->invalidated_lock);
+>   	}
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->invalidated_lock);
+>   
+>   	return 0;
+>   }
+> @@ -2211,9 +2174,9 @@ void amdgpu_vm_bo_del(struct amdgpu_device *adev,
+>   		}
+>   	}
+>   
+> -	spin_lock(&vm->status_lock);
+> +	spin_lock(&vm->invalidated_lock);
+>   	list_del(&bo_va->base.vm_status);
+> -	spin_unlock(&vm->status_lock);
+> +	spin_unlock(&vm->invalidated_lock);
+>   
+>   	list_for_each_entry_safe(mapping, next, &bo_va->valids, list) {
+>   		list_del(&mapping->list);
+> @@ -2321,10 +2284,10 @@ void amdgpu_vm_bo_move(struct amdgpu_bo *bo, struct ttm_resource *new_mem,
+>   	for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next) {
+>   		struct amdgpu_vm *vm = bo_base->vm;
+>   
+> -		spin_lock(&vm->status_lock);
+> +		spin_lock(&vm->stats_lock);
+>   		amdgpu_vm_update_stats_locked(bo_base, bo->tbo.resource, -1);
+>   		amdgpu_vm_update_stats_locked(bo_base, new_mem, +1);
+> -		spin_unlock(&vm->status_lock);
+> +		spin_unlock(&vm->stats_lock);
+>   	}
+>   
+>   	amdgpu_vm_bo_invalidate(bo, evicted);
+> @@ -2596,11 +2559,12 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+>   	INIT_LIST_HEAD(&vm->relocated);
+>   	INIT_LIST_HEAD(&vm->moved);
+>   	INIT_LIST_HEAD(&vm->idle);
+> +	spin_lock_init(&vm->invalidated_lock);
+>   	INIT_LIST_HEAD(&vm->invalidated);
+> -	spin_lock_init(&vm->status_lock);
+>   	INIT_LIST_HEAD(&vm->freed);
+>   	INIT_LIST_HEAD(&vm->done);
+>   	INIT_KFIFO(vm->faults);
+> +	spin_lock_init(&vm->stats_lock);
+>   
+>   	r = amdgpu_vm_init_entities(adev, vm);
+>   	if (r)
+> @@ -3068,7 +3032,6 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
+>   
+>   	amdgpu_vm_assert_locked(vm);
+>   
+> -	spin_lock(&vm->status_lock);
+>   	seq_puts(m, "\tIdle BOs:\n");
+>   	list_for_each_entry_safe(bo_va, tmp, &vm->idle, base.vm_status) {
+>   		if (!bo_va->base.bo)
+> @@ -3106,11 +3069,13 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
+>   	id = 0;
+>   
+>   	seq_puts(m, "\tInvalidated BOs:\n");
+> +	spin_lock(&vm->invalidated_lock);
+>   	list_for_each_entry_safe(bo_va, tmp, &vm->invalidated, base.vm_status) {
+>   		if (!bo_va->base.bo)
+>   			continue;
+>   		total_invalidated += amdgpu_bo_print_info(id++,	bo_va->base.bo, m);
+>   	}
+> +	spin_unlock(&vm->invalidated_lock);
+>   	total_invalidated_objs = id;
+>   	id = 0;
+>   
+> @@ -3120,7 +3085,6 @@ void amdgpu_debugfs_vm_bo_info(struct amdgpu_vm *vm, struct seq_file *m)
+>   			continue;
+>   		total_done += amdgpu_bo_print_info(id++, bo_va->base.bo, m);
+>   	}
+> -	spin_unlock(&vm->status_lock);
+>   	total_done_objs = id;
+>   
+>   	seq_printf(m, "\tTotal idle size:        %12lld\tobjs:\t%d\n", total_idle,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> index dc4b0ec672ec..ae9449d5b00c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -205,11 +205,11 @@ struct amdgpu_vm_bo_base {
+>   	/* protected by bo being reserved */
+>   	struct amdgpu_vm_bo_base	*next;
+>   
+> -	/* protected by vm status_lock */
+> +	/* protected by vm reservation and invalidated_lock */
+>   	struct list_head		vm_status;
+>   
+>   	/* if the bo is counted as shared in mem stats
+> -	 * protected by vm status_lock */
+> +	 * protected by vm BO being reserved */
+>   	bool				shared;
+>   
+>   	/* protected by the BO being reserved */
+> @@ -345,10 +345,8 @@ struct amdgpu_vm {
+>   	bool			evicting;
+>   	unsigned int		saved_flags;
+>   
+> -	/* Lock to protect vm_bo add/del/move on all lists of vm */
+> -	spinlock_t		status_lock;
+> -
+> -	/* Memory statistics for this vm, protected by status_lock */
+> +	/* Memory statistics for this vm, protected by stats_lock */
+> +	spinlock_t		stats_lock;
+>   	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
+>   
+>   	/*
+> @@ -356,6 +354,8 @@ struct amdgpu_vm {
+>   	 * PDs, PTs or per VM BOs. The state transits are:
+>   	 *
+>   	 * evicted -> relocated (PDs, PTs) or moved (per VM BOs) -> idle
+> +	 *
+> +	 * Lists are protected by the root PD dma_resv lock.
+>   	 */
+>   
+>   	/* Per-VM and PT BOs who needs a validation */
+> @@ -376,7 +376,10 @@ struct amdgpu_vm {
+>   	 * state transits are:
+>   	 *
+>   	 * evicted_user or invalidated -> done
+> +	 *
+> +	 * Lists are protected by the invalidated_lock.
+>   	 */
+> +	spinlock_t		invalidated_lock;
+>   
+>   	/* BOs for user mode queues that need a validation */
+>   	struct list_head	evicted_user;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> index 31a437ce9570..7bdd664f0770 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c
+> @@ -544,9 +544,7 @@ static void amdgpu_vm_pt_free(struct amdgpu_vm_bo_base *entry)
+>   	entry->bo->vm_bo = NULL;
+>   	ttm_bo_set_bulk_move(&entry->bo->tbo, NULL);
+>   
+> -	spin_lock(&entry->vm->status_lock);
+>   	list_del(&entry->vm_status);
+> -	spin_unlock(&entry->vm->status_lock);
+>   	amdgpu_bo_unref(&entry->bo);
+>   }
+>   
+> @@ -590,7 +588,6 @@ static void amdgpu_vm_pt_add_list(struct amdgpu_vm_update_params *params,
+>   	struct amdgpu_vm_pt_cursor seek;
+>   	struct amdgpu_vm_bo_base *entry;
+>   
+> -	spin_lock(&params->vm->status_lock);
+>   	for_each_amdgpu_vm_pt_dfs_safe(params->adev, params->vm, cursor, seek, entry) {
+>   		if (entry && entry->bo)
+>   			list_move(&entry->vm_status, &params->tlb_flush_waitlist);
+> @@ -598,7 +595,6 @@ static void amdgpu_vm_pt_add_list(struct amdgpu_vm_update_params *params,
+>   
+>   	/* enter start node now */
+>   	list_move(&cursor->entry->vm_status, &params->tlb_flush_waitlist);
+> -	spin_unlock(&params->vm->status_lock);
+>   }
+Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+>   
+>   /**
