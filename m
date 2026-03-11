@@ -4,114 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DE13FD88D6
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 02:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53BA7FD88E1
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 02:45:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E747F10E05F;
-	Wed, 11 Mar 2026 02:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9C2710E1FA;
+	Wed, 11 Mar 2026 02:45:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="nd7k/8xX";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BmFixu1W";
 	dkim-atps=neutral
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com
- [209.85.167.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F26F10E253
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 02:07:34 +0000 (UTC)
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5a13d1c6f25so4703786e87.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2026 19:07:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773194852; cv=none;
- d=google.com; s=arc-20240605;
- b=DhnNAssbgD+EMW+pJBgLncCd3JsOZX6NiI+XxcFntvMKQbdsDD4SmFx/I09LgPJw7L
- 7QXhdmrk51WVtElgK+vIjLF8qYIfv4x4t95PIXlNVqSjWaEkJhseK07IYOKN6CSpaiDl
- yTafQRUzt8/ptE1baIjXfZDFcuXcsavQL2iNsQfDiXWsyNP3tujE+IYmVovVq4cLlaHG
- JDNZApw2J3CdzixxTnQVHHVL03y5kePZD2MW4FQpM+nAROaUwgU8JnDZdfDyQV9UuQaA
- DA/qGpzsga8vag+nKUUI/UO7EV9/qVQs7yDwSfBdWrFQEHDbIdO7mxfhIPsEABn7BV58
- ZVxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=+zLBLQzKjcztDlxJqoLP6w+B6xnZmfHibV4jlBQCebA=;
- fh=0frPmOrWCwZtrrHHapnMWcdP2CQyCoszswiMMLRzeQ8=;
- b=cQc2U9uCCX1mgP3tcjw8w5dx0Iy95oCv+E+5Dr7SBj9j/XW4vmsesVWxn1AbN+3oL8
- BAhIsEftNNDmJlVkozAyrU/kQ/x/vj7VpwlMARz4ddC+jUcC+Ufpd4/yNJ2peWUwy3pC
- xvP61bICJZIQWDDZ6guwZnC0gqF4uoiFpsfpEp8qBURW2jHRJcpKEBpxznGe9/oSf6ki
- U4yjF5/n9ezqpR3C8TT9LQ1B9Y4XTX/P2/4euy93h+OEi0OdmOkodXuB8KCvHtA8tm9m
- Y39CfpEEdTk3YmvfOAnUucMzje7r+K+EVEywmV/TltXKlFCX7MzVHpkNkyVf2cXRlnBw
- 42ZA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1773194852; x=1773799652;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=+zLBLQzKjcztDlxJqoLP6w+B6xnZmfHibV4jlBQCebA=;
- b=nd7k/8xX4jYoots8KkbfkyPyDpGU+k9ydIKKC55qRoaqMjU864KI25IQNw1cw83xcU
- MN05V2yxwI7AV8sAHbEvs4phnlx1ZuezEZUNsu1KbKh+rjIuKOQPHccG7HkXkdCN/AzY
- Z/Y+1SmBbMXBBNVWAuu/jAClbL7mde3NiWUwQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773194852; x=1773799652;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=+zLBLQzKjcztDlxJqoLP6w+B6xnZmfHibV4jlBQCebA=;
- b=kupRucUy6gIb+6IIEeEqWdbfWUl+jDTXlNB99i8IPFd2xNTn/GfDOMaH88Og/7XONN
- jrQkiy6RxpD8HyrJVk7a70D9qJk7vmSSu+cau6rJsw9MZTHw9Mj3rwagZ0ammmAPI6eX
- kFmziT7xRCWjK+xYYg7+bko6Q9zD0RH7SCdV9lQBC6rpgWYMDigJkbfuLrqT3cCVJaRn
- 46Xj2qtQmnBIwApoUC2wy4gtTRK/kegSzPcYNXx9u7r6kptNefx48ju9MDm/+cVoKXPV
- XRGSr+hvVzPSzdlqP+F+WvLu3aYO5PjmsrccjfBVMUA7DXc88OIS2MLu1shlV9nFg6Lo
- ZbCQ==
-X-Gm-Message-State: AOJu0YyXrLnKo9JhR/M4oyCCzeNhQxiEGG3yV0pu/cP4+Ju7kroUBvb8
- GbRCiFS7Im/Xlr8CUxMtWCTxLLVuW4m+JqqJOQu+xhLUh3iqNNgc0JsibjTm5VXq9cleliu8LnA
- dA8TiQ992rP3R6fG30wPj2EU3ol3EmwX0+9wB5ZJN
-X-Gm-Gg: ATEYQzx48eVSRbxFCcL7sYxS9dbZVqr5UdyifQJZekup09CqvwxWs+D1Op9OWgY+XDH
- br1gW/Af9Bks9mOMNB1W6J9dplyp0969pcej1dh3ECEzxBgs/nWNKp8hnODOB4f60dt8PfhhGHf
- SevwnNq8UxAJXqJbVhI73I/SYjI1puUwLlL1g5KLn2O2rXRybEN3agp2fGAZpTPxk6hX7qaXX4w
- yMi8nE7+5LPRtapkaFP3SYQqyjoAvBSqhgvIDXBT88NQZXvPL11cnAFUBYXDvBfXKnrHVw66NEW
- SHGqSYMieg==
-X-Received: by 2002:ac2:4427:0:b0:5a1:3134:9bac with SMTP id
- 2adb3069b0e04-5a156cbd1bbmr169453e87.28.1773194852284; Tue, 10 Mar 2026
- 19:07:32 -0700 (PDT)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012014.outbound.protection.outlook.com
+ [40.93.195.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2A2810E1FA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 02:45:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ykeKc9s33AMG6Y4TIK3/CcKooPuF3ii/kt58JWNv05aAmt8zXBXlk7+8A9Piwn0qCMwfQwQOiIfobSAtC54MJXj3UwSlMfYksatopxnbDVZQ3Z5FBOh6TuPyBD9aDItQfLg1QEL8y0CUCsBPIrEOttlWVr4hMIaCnTe1/Q0xfaurhWjaWCsRS5zBrRTxEdqvIm5lGoI0XZNGRIhkOue3regPaxyJ8/n5dyL7/0j4g3WHfqvgAXY4l4Eheu4rhO8AJZ1Te6u8r+FipkVmrtZQYGr7JQtBUifReQ6HEFz3rp+WLB+OAyzuiialdY+qcvifPlBJgUMrGebX+5FOztMXCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QimPmUuz5QvBV5Vi6nkV+ojCuMkOrQbrS4hPlemHap0=;
+ b=HcwYOKfnPVugqbK0sH+NeKf6rsXa2e0Bx8X93lf1gIqvEY4yRG1AG1meC2KpQ7ARfHPv8Yz9SWYmYkI7EcCLF2c3NGUpkQULw8FnNcxNwIbrfPM0at5P9C+DJQF46rxcXBjejFNmc0MVi09L8k1rQBreVWCyr1zOXDDvlnPZyKQOvTIGvnbN/Td3Xid/My6gj/eyQPdJJG1NlkVhmpLSu76aLZb5GKynbDrstSIub5Z0AMyZ5ZpFXeknAtXbD968E6Yw63Iy4JUKmjgSrWwUofgu1FV6CcfgZ0NRlL5bAQdi8Ir1OGN3GckbvpxI6xy6bPkWLKpvoek5Y2k8AU0tdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QimPmUuz5QvBV5Vi6nkV+ojCuMkOrQbrS4hPlemHap0=;
+ b=BmFixu1WGkjGLzAkdpPeyDxYqOQYm4vqaYdq7fMPh0lJ22Pc6zkEpqxtJBI5XAsaBaKaLd7x3uqj1HjxxE3WNmUo+0fi/iLXZcM92v/Xh0+1fpolvxyIBqjyPyCioy+qrM7gNtI+3ABAyM8Wg87YTV8UWkBEIcB65+RFCMfCU4w=
+Received: from SJ0PR03CA0204.namprd03.prod.outlook.com (2603:10b6:a03:2ef::29)
+ by SA1PR12MB6822.namprd12.prod.outlook.com (2603:10b6:806:25d::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Wed, 11 Mar
+ 2026 02:45:30 +0000
+Received: from CO1PEPF000066E8.namprd05.prod.outlook.com
+ (2603:10b6:a03:2ef:cafe::55) by SJ0PR03CA0204.outlook.office365.com
+ (2603:10b6:a03:2ef::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.25 via Frontend Transport; Wed,
+ 11 Mar 2026 02:45:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000066E8.mail.protection.outlook.com (10.167.249.6) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9678.18 via Frontend Transport; Wed, 11 Mar 2026 02:45:29 +0000
+Received: from maxMSI.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 10 Mar
+ 2026 21:45:25 -0500
+From: ChuanYu Tseng <ChuanYu.Tseng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, ChuanYu Tseng <ChuanYu.Tseng@amd.com>
+Subject: DC Patches March 10, 2026
+Date: Wed, 11 Mar 2026 10:40:32 +0800
+Message-ID: <20260311024652.2668570-1-ChuanYu.Tseng@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-56-bd63b656022d@avm.de>
-In-Reply-To: <20260310-b4-is_err_or_null-v1-56-bd63b656022d@avm.de>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 11 Mar 2026 11:07:21 +0900
-X-Gm-Features: AaiRm5028PWt8n-JnveiRgn8oYMksdR_-_nk4JOkvxMfplWs-GDr7RRk-OxICyw
-Message-ID: <CAGXv+5FQAVaJjqhv+Xq-ysOc4SHQn2mCNTgCAp8XocmWBWGGoA@mail.gmail.com>
-Subject: Re: [PATCH 56/61] clk: Prefer IS_ERR_OR_NULL over manual NULL check
-To: Philipp Hahn <phahn-oss@avm.de>
-Cc: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
- bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr, 
- dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org, 
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, kvm@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, 
- linux-bluetooth@vger.kernel.org, linux-btrfs@vger.kernel.org, 
- linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-hyperv@vger.kernel.org, linux-input@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-mips@vger.kernel.org, linux-mm@kvack.org, 
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org, 
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org, 
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org, ntfs3@lists.linux.dev, 
- samba-technical@lists.samba.org, sched-ext@lists.linux.dev, 
- target-devel@vger.kernel.org, tipc-discussion@lists.sourceforge.net, 
- v9fs@lists.linux.dev, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E8:EE_|SA1PR12MB6822:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f2e73cd-7dc5-4198-78b7-08de7f1841f7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|36860700016|376014|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 4muuxIX5jyXfC4cCMcubGUnLgNhY84k1xgCrCiY53LkAUdHHmXgInWkv58KzTHxa3bDmIwK2WWLoZl0elzfrLM+tt2KL87DqcbGS87zTahqK5XaQF2f8rygK/HANhX9HEGSvKzcysKYqiRIQ/oeNd35VS0hIYQnjEI9MCwVLonqA4mXKnMvPy6eJ/PSTSi2J3ZjYWmhVwCtoeIa8N3CUBrn3V7JMs3Ur2uH3S9LJauFxca6M00yOkmsqUKj6q8yMQybc6aRgXKSdQnzAt1OBKLs35YvG6QUe3WtsQ8jmoRSgeQgrq9zWEFJpszlWxAlKH7lucFrculqmEOUXf4Iy7J29k9R15vj4Jz4WgAlUEPUnTbCMExhhHePOOz53/B9pNjpNGlv4Ch7pvV1dVCnpD2m6TVmUPjHCczlQAWD3YjPIL2fHsuhzqNZJdipGYaqsVXwqMGV922JcqBSPofNQEYcjdaxwemifECUZ6iVNcQO/yDIE0FmVwXy8GJHNNyUXUJjKjBnWVFAMMsVE4c/+pDG6F9px11o+p0FO/QyQUrynnwqB5UiR5QahVYBX3gXUW/fob8k7yWiTPw/LzV3oxVDEzFbw/JUZMPgS7DJ9JHKOXk7y2P2KNTKe8c6afNg/bR0c8dL2dG8EpDHFLWLWITD17lcgi0aLXIcdFp+U27ZnjbPwyLq/mVczSB+hYo3mBrGM22V0Jk6PZ7dBv3UxutpbzXk+c/j4uRFUTVwQEzXQaiBxEZQx+kx53pTJNtj2KYArAKxn+2+f6s4QJCqmJA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: W2HrnPfAL5Rj0ugjCvKXbRRupC8fRxLlDqdh/cWb+9s5MN6AFQoIA7HVcHEEq25XT7clWGWlO9DcIHZAfrfd2c9dajhPxz6qz1aDZyRNtlUIcvYdFK4K/r0hqRgI7S0ZJ0ylJ9StRKItPAji1Qw9khcEtvLiVBaJlnKXfK53VYD084DSwOgvj1jXNI+vaLnhe1uvIA2IRgPj0ANuAU3jFCKViWO+zzSvrJKpZd8FrcrSbtLq2kB9YM8t1uH4zby0o7NcTpO3yoI0oKD0PkyLoi+79OOJ//TJZxsTyGTpJQMGm03plMaUjCOJsbRwMLA9U8qkO7MvVmalTOicvzZqMAUmzgiqdLUjn95bLWiALh7FjFHYhLKS0fGw5yq3U+WL4ohqD2AzUmtlnJN1GhQRz9io1p+yoSj855M/MizunrhEH7S/GBl+dT1wJTg/ewft
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2026 02:45:29.4438 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f2e73cd-7dc5-4198-78b7-08de7f1841f7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6822
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,82 +113,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 10, 2026 at 9:57=E2=80=AFPM Philipp Hahn <phahn-oss@avm.de> wro=
-te:
->
-> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
-> check.
->
-> Semantich change: Previously the code only printed the warning on error,
-> but not when the pointer was NULL. Now the warning is printed in both
-> cases!
->
-> Change found with coccinelle.
->
-> To: Michael Turquette <mturquette@baylibre.com>
-> To: Stephen Boyd <sboyd@kernel.org>
-> To: Daniel Lezcano <daniel.lezcano@kernel.org>
-> To: Thomas Gleixner <tglx@kernel.org>
-> Cc: linux-clk@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
-> ---
->  drivers/clk/clk.c               | 4 ++--
->  drivers/clocksource/timer-pxa.c | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-> index 47093cda9df32223c1120c3710261296027c4cd3..35146e3869a7dd93741d10b72=
-23d4488a9216ed1 100644
-> --- a/drivers/clk/clk.c
-> +++ b/drivers/clk/clk.c
-> @@ -4558,7 +4558,7 @@ void clk_unregister(struct clk *clk)
->         unsigned long flags;
->         const struct clk_ops *ops;
->
-> -       if (!clk || WARN_ON_ONCE(IS_ERR(clk)))
-> +       if (WARN_ON_ONCE(IS_ERR_OR_NULL(clk)))
->                 return;
->
->         clk_debug_unregister(clk->core);
-> @@ -4744,7 +4744,7 @@ void __clk_put(struct clk *clk)
->  {
->         struct module *owner;
->
-> -       if (!clk || WARN_ON_ONCE(IS_ERR(clk)))
-> +       if (WARN_ON_ONCE(IS_ERR_OR_NULL(clk)))
+This DC patchset brings improvements in multiple areas. In summary, we have:
 
-clk_get_optional() returns NULL if the clk isn't present.
+- Clamp dc_cursor_position x_hotspot to prevent integer overflow
+- Query DC for gfx handling when setting linear tiling
+- Add a buffer for boot time crc
+- Silence C6001 warnings
+- Plumb MRQ programming out of DML for dml2_1
+- Add dcn_mrq_present Field
+- Fix number of opp
+- Add debugfs to disallow eDP Replay entry
 
-Drivers would just pass this to clk_put(). Your change here would cause
-this pattern to emit a very big warning.
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
-I don't think this change should be landed.
+Austin Zheng (2):
+  drm/amd/display: Fix number of opp
+  drm/amd/display: Add dcn_mrq_present Field
 
+Benjamin Nwankwo (1):
+  drm/amd/display: Clamp dc_cursor_position x_hotspot to prevent integer
+    overflow
 
-ChenYu
+Gaghik Khachatrian (1):
+  drm/amd/display: Silence C6001 warnings
 
->                 return;
->
->         clk_prepare_lock();
-> diff --git a/drivers/clocksource/timer-pxa.c b/drivers/clocksource/timer-=
-pxa.c
-> index 7ad0e5adb2ffac4125c34710fc67f4b45f30331d..f65fb0b7fc318b766227e5e7a=
-4c0fb08ba11c8f9 100644
-> --- a/drivers/clocksource/timer-pxa.c
-> +++ b/drivers/clocksource/timer-pxa.c
-> @@ -218,7 +218,7 @@ void __init pxa_timer_nodt_init(int irq, void __iomem=
- *base)
->
->         timer_base =3D base;
->         clk =3D clk_get(NULL, "OSTIMER0");
-> -       if (clk && !IS_ERR(clk)) {
-> +       if (!IS_ERR_OR_NULL(clk)) {
->                 clk_prepare_enable(clk);
->                 pxa_timer_common_init(irq, clk_get_rate(clk));
->         } else {
->
-> --
-> 2.43.0
->
->
+Nicholas Carbones (1):
+  drm/amd/display: Query DC for gfx handling when setting linear tiling
+
+Nicholas Kazlauskas (1):
+  drm/amd/display: Plumb MRQ programming out of DML for dml2_1
+
+Ray Wu (1):
+  drm/amd/display: Add debugfs to disallow eDP Replay entry
+
+Taimur Hassan (1):
+  drm/amd/display: Promote DC to 3.2.374
+
+Tom Chung (1):
+  drm/amd/display: Add a buffer for boot time crc
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 58 +++++++++++++++++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 21 +++++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 52 +++++++++++++++++
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 10 ++++
+ drivers/gpu/drm/amd/display/dc/dc.h           | 12 +++-
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 27 +++++++++
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |  9 +++
+ .../dc/dml/dcn21/display_mode_vba_21.c        |  2 +-
+ .../dc/dml/dcn32/display_mode_vba_util_32.c   |  6 +-
+ .../dml21/inc/dml_top_soc_parameter_types.h   |  1 +
+ .../dml21/src/dml2_core/dml2_core_dcn4.c      |  1 +
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      | 22 +++++++
+ .../amd/display/dc/hubp/dcn401/dcn401_hubp.c  |  7 ++-
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  1 +
+ .../dc/resource/dcn10/dcn10_resource.c        |  9 ++-
+ .../dc/resource/dcn10/dcn10_resource.h        |  2 +
+ .../dc/resource/dcn20/dcn20_resource.c        |  3 +-
+ .../dc/resource/dcn201/dcn201_resource.c      |  3 +-
+ .../dc/resource/dcn21/dcn21_resource.c        |  3 +-
+ .../dc/resource/dcn30/dcn30_resource.c        |  3 +-
+ .../dc/resource/dcn301/dcn301_resource.c      |  3 +-
+ .../dc/resource/dcn302/dcn302_resource.c      |  3 +-
+ .../dc/resource/dcn303/dcn303_resource.c      |  3 +-
+ .../dc/resource/dcn31/dcn31_resource.c        |  1 +
+ .../dc/resource/dcn314/dcn314_resource.c      |  3 +-
+ .../dc/resource/dcn315/dcn315_resource.c      |  3 +-
+ .../dc/resource/dcn316/dcn316_resource.c      |  3 +-
+ .../dc/resource/dcn32/dcn32_resource.c        |  1 +
+ .../dc/resource/dcn321/dcn321_resource.c      |  1 +
+ .../dc/resource/dcn35/dcn35_resource.c        |  3 +-
+ .../dc/resource/dcn351/dcn351_resource.c      |  3 +-
+ .../dc/resource/dcn36/dcn36_resource.c        |  3 +-
+ .../dc/resource/dcn401/dcn401_resource.c      |  9 ++-
+ .../dc/resource/dcn401/dcn401_resource.h      |  2 +
+ 34 files changed, 270 insertions(+), 23 deletions(-)
+
+-- 
+2.43.0
+
