@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5D66FD064E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF314FD0653
 	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 08:09:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0122A10E83D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 959E710E84C;
 	Wed, 11 Mar 2026 08:09:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="H1rvx1es";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="oh6wwh6O";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011002.outbound.protection.outlook.com [52.101.62.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62EFB10E825;
- Wed, 11 Mar 2026 00:41:07 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011055.outbound.protection.outlook.com
+ [40.93.194.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 120A610E801;
+ Wed, 11 Mar 2026 00:41:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I4kJ5jUUfmaQkPkJoMZwuS3Kne2n+BRMv6bv3OmIZVDSfy7q30TpKcUcxAz1owkt/+T5FN5tUY4z+qv8Ltkv1G2Nz1MOGHaa6bA8vsdp3m5x7s+1o5wBGwgIlX4RnLuxwlV62vauGg5okXdn0wkhHajD9NY7NLVlIaP4xM/6fE1hKRNltQ4SYmv6zlUzUVCLHTky/80J9hjtNcXbIuIxqi8aDGD6kIFariQI+O7yUMmTA7wpouBhA4szAISvpP3++GOb8eLlOgylw8z5hFKOTpcD2fdlf/NpK8jyFexmiGwtJmbc+7Yldo6/hEt77zs1ORPRhDAJg2Bov3UdKqYkTQ==
+ b=atzHcpjfkVXqouRu2gLXy9hI1nInJljR+Ii3A5+vISQrRkg8mTHEe8T7tXtDwkX0JENFdvJD3v2P7l6tB2HLdZ+M81XM1CmMU5cJwSFt/u3j3Q85K9mUGHHwIuFxOA3TABvR+qZI1qyljLNd0SMtXUfw00ffgXOHZNPioKwO0yqq3+VXQXYw2lJCMIPC9hSZjeplbFtJ4r2o2IxB3isXC5+UPFPMlymvUt99RRo8ke/lpmmaPrGZ95k4gNDrPUlvrcZZfIgpo6h5wHU73ox9mk8IpFP+lI+IovAGBgfqyKeyfJRZJPIChkaXVl96oWjdL+TZc15Ksm+dzScMCQClZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZYoJb2+lhbNuSrPzYkYIe8mKhqhfb+hP39OA/zUCiBI=;
- b=wFxFh7W0GP2WiaEQXCEjxPqYU1IAIjBKa4Tcvl2NYgPGP5qaOZum9o/+bJ6VMGMnOw/EHCK/r0CPdRwrvm0XA3jT/2ijRHadEwAa0wNMrY4mYYfdA3c71/aaBk76NOa1XGIeWezfl/DqUhmKIs0nCa3pUhIKvyGOPxbyFpSnUd6dQxutGdONE1XH8VUdQ2KxCculjFDWHPD9orzSITW6N8mCTnh02kbZB0EhLomBUOq1jnFvTf3uYTSlMBHZZQ9Um0J1XTBbtFBwNpkSTWFK8JKrlImTXR1WawUNX/xmhRQ2zCjLqFNmwQYP0aFkuT67aZrLfJbuGw1nu2fp+ZgWHA==
+ bh=S7D9QwBSigzdTXmi9ToGr7HTwvx7NgPULr/cTPH3BtU=;
+ b=s8P+V3VDxMhaqy189ZBjip1BvT6qDYfZA2jkIDvOCrfLEM6DrRHHznFJ/NHbjPeXLG0fqQrMbaxxGb8ARrz2umnOddPhd6CfFrp5dkfRnYnl3cQRbjU01S3heA8aEQkr16Yxi3ELzFYG4b3RbkgqBORQUEenpKH5tQbSJ5E2kXGeCuJE/dCsRp9FLDb77TnQQxBGKQqW/GmX4mw/IpdV9uDtktTM+PFu/YrOoFqIzxFPe9jOMkJVmWkGnHooEGzMb3Ms6qcDFP9blOFIcWWEBadrDUpDYxsdVaiPRDFCdZW4FrqGa+OVFyMu5v0IfCzpcWRnx+wwbuDZpbc8OUjHww==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZYoJb2+lhbNuSrPzYkYIe8mKhqhfb+hP39OA/zUCiBI=;
- b=H1rvx1esjl66MCf2kR9Lh+9x64KM4G9NPq7S3RPfR+4acGS3gRHO6NVe5PiEiyaehRyjfiNVqSVJNrm8vHRMBtmLhxj6bh/JFBkZtTOm+fPz6fMvG/4cW6wIu8dUjSkElz7V4/313eSZvOb++1Dtqud8Ohi3FcaKLJQMK2NasEPDaUgeWNWwlD6sFlzas+K8A0QQMoiJSiX/Hi0H+r8hL2AD6g46jwOcmGnGlLgJV4dLG5H13u9lHB8czReNvjNLb6oftsdy2jp5BkWv+5UPugyiyblOz+IZVrP3IbJVPRUc9ldEJudies03spVkRp8CoFDrE5EgfvIGNkqB58z0Rw==
+ bh=S7D9QwBSigzdTXmi9ToGr7HTwvx7NgPULr/cTPH3BtU=;
+ b=oh6wwh6OTYrHRQw7mLfTytaLKAVaA1KcouDl9LjK1RpmAaDShBnASxbT/ZTfQ5QdwNscQkRWHcJ0Sz4DENI2HR7++ZKBobcwtYCV/S04F6g1pNF59CfC4+xmqcoAaNvarKMITVcJNtaNQIq5os3304jN4EnZwZfpt6wqHZb6LTmXcXfGKp4ogFE1JXU4oUlNCUAlmG0VvbDTLTIBoriNkCLHOfMZZmbTKt1x1LQOteHM4avykT5MelSy6xMQVXEnhIbo2aXAmUQmyEuF+l8ywM+vA1ny/x6dnBX9zSxlTOYJfPFnP60cSWHOGJjfw6qlpMvoEhx6GQEubNGdNcWF0A==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- BN7PPF62A0C9A68.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6d2)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Wed, 11 Mar
- 2026 00:41:01 +0000
+ BY5PR12MB4051.namprd12.prod.outlook.com (2603:10b6:a03:20c::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9700.11; Wed, 11 Mar 2026 00:40:55 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9700.010; Wed, 11 Mar 2026
- 00:41:01 +0000
+ 00:40:55 +0000
 From: Joel Fernandes <joelagnelf@nvidia.com>
 To: linux-kernel@vger.kernel.org
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
@@ -80,72 +81,73 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
  intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
  linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
-Subject: [PATCH v9 20/23] gpu: nova-core: mm: Add BAR1 user interface
-Date: Tue, 10 Mar 2026 20:40:05 -0400
-Message-Id: <20260311004008.2208806-21-joelagnelf@nvidia.com>
+Subject: [PATCH v9 17/23] gpu: nova-core: mm: Add virtual address range
+ tracking to VMM
+Date: Tue, 10 Mar 2026 20:40:02 -0400
+Message-Id: <20260311004008.2208806-18-joelagnelf@nvidia.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260311004008.2208806-1-joelagnelf@nvidia.com>
 References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: BLAPR03CA0085.namprd03.prod.outlook.com
- (2603:10b6:208:329::30) To DS0PR12MB6486.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN2PR14CA0003.namprd14.prod.outlook.com
+ (2603:10b6:208:23e::8) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BN7PPF62A0C9A68:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32638861-af75-4596-1019-08de7f06de8c
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BY5PR12MB4051:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5008e937-5886-4566-3eb4-08de7f06da8c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 16724QOuySkm8TeGVwG6zc2mWotnYIwFaDXVlnDvg9+Ku949CqRkDnfv0tEGAyDC9RoXASR0rG0ah/ozXxJhOf823wPVfOGOyHCdwMp6486rTy03o9qCMJrqI1AtFAjak9yHdgtkIGQz8aoqew52k1u2mhXhTabZEEF9gsDKw9M7yuUuEiFL5RPyc5nGHmZqoTJuB5tcEJfkEOVHDqh9vQ+cueVQW3BmtYUQaDToIMBnDx0LFbzKC+Sp/N9T5j1frzinJW721plsWWUyo0YRjSRDXf56TDZbKQGB/uR8DGU44fHP3StiHvuYyunwirmst2/YI7l/a8pAb4NFrqwLAm7VfN8R7eV0+kuw8YmiwDybAytWm17ZaLH71XF7dzPFngbddzJNWiM4LZ5uCvd2HpdOwT5L6hlCmlRYu/OQZaNK2a1wTkONLtk/dYY33EI39V1Qfao8taL0GqGCOR2CHyMfd41CzZZ/cdDPwcsQkvI4DirApr27btr07tIYJ0BGLhDprNCMoF2Zv6sT1v3n9OVfh+rCVRJav7Lmr1AQclqwwxivWTUPGSNFpZ7PcpScxvXphX8KwGamR9ar6KbO+M42J083+drR5hfA/GOvMl7lcr4KNtxth1KQi/NSzZFQimBO+Cqnlo/53jh73AuV07fKG4pdtr9nbtkR6uGY34QFId1qoS/AZWfnNwO+/OVaEPDAiYucYIETzYFQWQXo8VZr1h2A/opfbct6o4HMbUE=
+ ARA:13230040|7416014|376014|366016|1800799024|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: cPNnBup+xFV4ndIvJ7oM+SCV7viRpwwundRlMJ3OEXbIVHXF4inuH11SsmNtJSgeartpbs/xK3ULF4qf6UORwkZpLtZW4kb5ZZWo+gebPazjrAK3xnP1vl4e7Y4UkB6ONTZPmokHS6NoiKH2VaoMxPyF6nBr/x7ZFCJyRm98lcdslC19eC0myWbVVj88rZXt22JGlo4vrgK+orMnuhcGNKqcBKCp9/EkB0yJKQCTxH4GUaCFl7qIFlVkp09pCAPgzFrnuFSjO8BVBUvxlIgOvqRIDJC/W40p2QUU4XAoKb7+7Pk6ljVFUWGHJ9FK/AGObb4zxGKfN8v0O6EeznUgFOA7d9e7c+XjDFUdimOe05MkpKPDCwOd37pRFwfFv3z5egxIpft2U5lzwcHzLjsCmbPKJFv6KIpgBEy5FLxNu8AKIYwoBxea9lka0IkSCL7gwnWS/oYT2ZQrgzEBeZ/YTwY0zvOoqUPVcOP1mNbVTnxMxPESeFdvS8dntC6Kqt6D8tOPYyGopBPN0s4kaUIMCZq/2PnZoPXnyNbLtHUHt0UBx1BVdC1e1xEPjxnQiNjonPHqMujE/S4JslDtDlnvIzazYlDIeaEzcz6iqdfl0wb77xTMH+WxF/qIdtcjc+PrbCt6o6KWLhS2+bLUQ70lRgMNbiaQghP3r9ZFLux1u9kz/H3K683EuGdiRLFXFf1RwNA46B/xnKpvqg1aMzl1hO8CzQis2f5zun4Jq9bPEdA=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(18002099003)(56012099003)(22082099003);
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(18002099003)(56012099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?nVGzoZw3CSUfghQWP/K+PnCmZ/SGpgW5XZk/Be3rJe84H5c65McGmGz6soZ/?=
- =?us-ascii?Q?mbzxXDfM4KHiX57y1SGVPRxR/uh8SQUs3DJf2BwtdGKifrQjCq2GrjnWDrqq?=
- =?us-ascii?Q?4OJJkyDQCzseEdTHFQ3/tdzL5h0nhvwDOlV8vcw245QgAon5GIiP3TXi7qcL?=
- =?us-ascii?Q?0AXOajkejbeaWIOhxdyoNigOW8v39dLAebEeoZRfrwYOlSB85ce+O1HwPuWh?=
- =?us-ascii?Q?KT9xdfYjrq4SqOv7jfLYbitXP9kCxiMdudGMnnqDN+KauGhNneWGsUdTWbFO?=
- =?us-ascii?Q?jYNj1mxFaigYm1IItRPTir4UXobBYu51yvwI2APB8T1fQEqcPdXJcUNp4Qjn?=
- =?us-ascii?Q?PtdamLUDJZkzzoy79TpQBt/vSFxfw42RpcWNS22kEZkq5SMCK2WdTdoNXnzw?=
- =?us-ascii?Q?QjCotngC4J3DiSMzeIQNbq6gi2YD1jHzAyts2KY7ChMOo+SlYsAZBGbXtfD4?=
- =?us-ascii?Q?mwrlFjvG8iKpdmBDr6O7UiT5i65TePeLNjJG722Lhb+oljTTCi9F71/vRxkT?=
- =?us-ascii?Q?Epl+WzdcX82OKbuyxgAhdIwzntuZLb/qvJ3W9r+AsupzIktd6N1sO3RMgvp4?=
- =?us-ascii?Q?0fFa5zeWOu2BgudH/XWa8AHoKsWyosowj3YGhUZbWziF8GLT3CvLuzXQNZbD?=
- =?us-ascii?Q?TdMDwZFjUQcro2yvE0hjP8N0jl/MO4W8rKGA1NqfYcTHy85sAOAGdGMYDnwY?=
- =?us-ascii?Q?JBVM4rCMZkN9VK08iG45KyoCnWvYzJ6MIhUcUVh7HIUSoZTvZikOCauAjkg2?=
- =?us-ascii?Q?eSxDnBYkvHCy38JwfJIrR38jQCXNlHwSe27AH9OqeRz8vdC6u9MVyY9yX3Jw?=
- =?us-ascii?Q?6G0PFTYCGEAKFEFWq+0L5fF8r5qlSz4efH+CTNDaJ5x+PqhYk3tLy54toRDI?=
- =?us-ascii?Q?rsJCxZ0ceCMagfIqfFet0IdHwmwhE7p7xzJ3rb6SXaG+wLumq9sHMZKdD7Nv?=
- =?us-ascii?Q?kgJ3DF0ctrZSBl/UKG3E2PeBq/tZmF7Ucuc247P4O+PWu05Gdcu8JaZ19dmm?=
- =?us-ascii?Q?y6ZlfIN75dFqGOC7xhIkpfQktBdQP1fs3/iRpNnPPoueEmjhWs7WAgeUWS3U?=
- =?us-ascii?Q?fI266HhNjlsZNZMSwqZnDlegOZYGEChNX4+WY42QFJOTsrGsxdqJoiENGp7n?=
- =?us-ascii?Q?rJliWeO04hgAkJICRVFFwp0ANbcU8r0ogZvOOQXKtBzMznybJHkCq9cdqTGF?=
- =?us-ascii?Q?TSIYngMXkvHmvk7Sw0rd5FI5noobxUiIlcoP3ydT4PkQhxF9cfggbaQU+EEZ?=
- =?us-ascii?Q?Xq8pwXlgr1K0gNFIvYNyMWTQ9zjpw0GUkSmjKLZSFsAmx/0RiNVXrxrwQxit?=
- =?us-ascii?Q?mdBDc/ZTGAVACj6to96PuAg4/lHEoOLb+y5PKme2GVc/jkVnQCb+Yk74N5pv?=
- =?us-ascii?Q?fYzDVgm0bz7IElY9Eo+CDD4x0nVV8sD/oFIXg83+787faU4dHym6h+FYHvO5?=
- =?us-ascii?Q?6xkQQrpz9Dn5PvV2F1XVG0iFgKTn00sENIfUSUV53AzlNT9wgcMaZrsD/bx8?=
- =?us-ascii?Q?lUv/qeUq/dfnLxnq0N5NdlUK7gjIzZjuBU73/uuOgnWZobL6cTaH6PvK84Bl?=
- =?us-ascii?Q?UtiBKpQm9ijm2mEmJmK4pWyv5kUu0/e4uXW01pBZU2YuDRueIyDzxGzoyoQd?=
- =?us-ascii?Q?DNv5tJ0rIjkhooYFSWoxTDDams9z0eyNBUsKOUsBIavSTHvFEdAF7+xbc/K8?=
- =?us-ascii?Q?cBGx3ptBh3UjCquRftXLbkmQeZZzPZvCIyX/p50XVMaUQ8gWL6ckqZ0XmuSC?=
- =?us-ascii?Q?7g+2L9XBCA=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9pyXArsBwqGMN+D97wJs4u6HZ6QzOTlP8LOePrdxB3O5RCGd995f537n+h7F?=
+ =?us-ascii?Q?HrDz9S5J6MMOK+gvNPMXiK2aVxxZ9af2UCDCC2/BH7ppRP64LMasmMV/JKoi?=
+ =?us-ascii?Q?a8HNx+xwKC92I/f14io2Bs/ABKudHFynxiNsSoFm7GMhZmfP49EGSIrJv0PQ?=
+ =?us-ascii?Q?FIwbFeD/5fx6SqLcQoxDGTr+AWAdDtE/YFNFuLrbDT9c32C3RKNAv9s05h+/?=
+ =?us-ascii?Q?uLn95xeWmMBfw8GeVPmGk8JJdL0COm3Fo9sUIjfcifmJhS0fTxZJr1wXffNv?=
+ =?us-ascii?Q?/vjk58WDQ5uCU67wV1+9EssbkLaBVc+lsdX11diEyxVg0KkB6FpVZfO6jh3X?=
+ =?us-ascii?Q?3UD3TLBNqU9UdX4vInoS0GxYNaHIPeZlAb2EPtNW4c0GfdqEafgAqBBryWrf?=
+ =?us-ascii?Q?hRJBHQSFm5unPW6BAJ9E+afd5pc9nSCZxGV+Crhto7Ps9bDow2VTKFXuW6yV?=
+ =?us-ascii?Q?SMuiJtJOEaCb6FxzmH5kNfFPV4CmOd/Ibpb72KOtCxjmCaFUrXabAo3Mi/HC?=
+ =?us-ascii?Q?8mldSFy+DLaPV3P4b4Vnf5ZLKc62QbXd7rxG2PGvLhEggDsfhwtbTkXNcVFr?=
+ =?us-ascii?Q?JdRzmAiWg7lv7DvFibiKWMmi7wvEZrFNRpWNgI2806HJnq8ipfkfRNV8NGFZ?=
+ =?us-ascii?Q?J/YUfeHmSMY+FQcikpEMA8S1yXr+2S57yoWLIOWCHnMa6i53zXegc08Np2nL?=
+ =?us-ascii?Q?3Z6bioe+/UkOD+VXmsQynfpsGHa+Nmq4VzJ63IF5HAVcXVp3yziAMWinBRqR?=
+ =?us-ascii?Q?/psnBFb6GO9m+XS1r0LN74JepCH/0osTGzFER3+46oFwKSOAd+l5Ktbg23IB?=
+ =?us-ascii?Q?ghK2BJ3KK39k6epv7rqbnA6uezrX3+9XZx5Ea7get0QfrEptrkLAAQhjvq71?=
+ =?us-ascii?Q?5c6UlXHSjTIzwPLme39CUbFN9G3MOXkIn1TtskUWQMOZFF+qwaD4a+U9dV+r?=
+ =?us-ascii?Q?CK0postG31jWd9d4gkMCRxWgSlUfBwns76wjDGmgNnoSsbfm00iBU5vsfFEu?=
+ =?us-ascii?Q?iUcSo86vguFzQcr1ISe0MzBmngDAzlVjTpsB8KYaBkzMoC5Udq/oweal+WSa?=
+ =?us-ascii?Q?ZfokilQPnQDYshF8ag0PrSP5fnHEyC9aqxjDCAsgX86DxK7CupbAU6ElUdqJ?=
+ =?us-ascii?Q?pB2iVhv+FDeRnO2ZfpZSR3pO0U6mzF8L6gKqgD9qrCjg0Qtf4g4290WxrmCz?=
+ =?us-ascii?Q?3PfqNvHPixPLNmbCZR6aWgdbS2op721XpWk8eCvr+F7s1PlDkHgvN7mpL4gO?=
+ =?us-ascii?Q?+2uC5Mgyz0Fi1jkaTibLOklMviRpeJ6WpXZI+QGQqVaAbZhsNv86UpyIK876?=
+ =?us-ascii?Q?tMcX3dDA39VbUkED7OaIeAfayogIfiR9P5/oy57YsbH4WN+Jeilv2NstjUP1?=
+ =?us-ascii?Q?FPX2yGkgQJqpAjOJCa9fcjSdzz8RO4PPG2vNw+YQvUJrRcDds5CxlkjOm07y?=
+ =?us-ascii?Q?UoYD/uByM/C683zUV4HpfJQDrSQit77pRLOGzlN/qkCNSycSCogOJQFhSZql?=
+ =?us-ascii?Q?+t7z59iumDEJV7Ew/Xn5nMFUlW22OU9XO9mlG1WrcRGCC1BT3vUbVIglXk7A?=
+ =?us-ascii?Q?igSfOE0meP1lgY8hm5zJ2060D9fdHI0OqYdY6auwaHVj5/ygAcNALK7OxoYS?=
+ =?us-ascii?Q?ULqBV1gsI+P3fc/FfeJeP7dpslOR6aFfkq8zM9a6BLel0YxUcMtnI8yS9GgR?=
+ =?us-ascii?Q?IoltmyiiwmYRGbFscsFU8qkzHO3XiG9q+AFiKldUxWAVbgSNM35yAU9QCSV4?=
+ =?us-ascii?Q?/i0Ha96MgA=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32638861-af75-4596-1019-08de7f06de8c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5008e937-5886-4566-3eb4-08de7f06da8c
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2026 00:41:01.5776 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2026 00:40:54.9291 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JYPb8ks4tF02ye2Gyy8YnVw6XsTZcl+UqYzXEm7eSMjN4tFOm3nWbcJA+DR2M0VjTAXp9QP/JqrkrdzfkjKpFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF62A0C9A68
-X-Mailman-Approved-At: Wed, 11 Mar 2026 08:09:26 +0000
+X-MS-Exchange-CrossTenant-UserPrincipalName: /4jOwahHPC3mh4eklt93EBEGQEKdF8hpmGgzL1XVQPyU40QVvtjZQJ6A/GUY/Ja6T+UnTABrX9WHqkskUhN+Sw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4051
+X-Mailman-Approved-At: Wed, 11 Mar 2026 08:09:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,260 +162,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the BAR1 user interface for CPU access to GPU video memory through
-the BAR1 aperture.
+Add virtual address range tracking to the VMM using a buddy allocator.
+This enables contiguous virtual address range allocation for mappings.
 
 Cc: Nikola Djukic <ndjukic@nvidia.com>
 Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 ---
- drivers/gpu/nova-core/driver.rs       |   1 -
- drivers/gpu/nova-core/gpu.rs          |  17 ++-
- drivers/gpu/nova-core/gsp/commands.rs |   1 -
- drivers/gpu/nova-core/mm.rs           |   1 +
- drivers/gpu/nova-core/mm/bar_user.rs  | 156 ++++++++++++++++++++++++++
- 5 files changed, 173 insertions(+), 3 deletions(-)
- create mode 100644 drivers/gpu/nova-core/mm/bar_user.rs
+ drivers/gpu/nova-core/mm/vmm.rs | 99 +++++++++++++++++++++++++++++----
+ 1 file changed, 88 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driver.rs
-index b4311adf4cef..3bc264a099de 100644
---- a/drivers/gpu/nova-core/driver.rs
-+++ b/drivers/gpu/nova-core/driver.rs
-@@ -51,7 +51,6 @@ pub(crate) struct NovaCore {
- const GPU_DMA_BITS: u32 = 47;
+diff --git a/drivers/gpu/nova-core/mm/vmm.rs b/drivers/gpu/nova-core/mm/vmm.rs
+index f0e6ffbe2b7a..78e614d8829d 100644
+--- a/drivers/gpu/nova-core/mm/vmm.rs
++++ b/drivers/gpu/nova-core/mm/vmm.rs
+@@ -7,19 +7,35 @@
+ //! and handles TLB flushing after modifications.
  
- pub(crate) type Bar0 = pci::Bar<BAR0_SIZE>;
--#[expect(dead_code)]
- pub(crate) type Bar1 = pci::Bar<BAR1_SIZE>;
- 
- kernel::pci_device_table!(
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 32266480bb0f..efff76313b89 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -24,7 +24,12 @@
-         commands::GetGspStaticInfoReply,
-         Gsp, //
-     },
--    mm::GpuMm,
-+    mm::{
-+        bar_user::BarUser,
-+        pagetable::MmuVersion,
-+        GpuMm,
-+        VramAddress, //
+ use kernel::{
+-    gpu::buddy::AllocatedBlocks,
+-    prelude::*, //
++    gpu::buddy::{
++        AllocatedBlocks,
++        GpuBuddy,
++        GpuBuddyAllocFlag,
++        GpuBuddyAllocMode,
++        GpuBuddyParams, //
 +    },
-     regs,
++    prelude::*,
++    ptr::Alignment,
++    sizes::SZ_4K, //
  };
  
-@@ -263,6 +268,8 @@ pub(crate) struct Gpu {
-     gsp: Gsp,
-     /// Static GPU information from GSP.
-     gsp_static_info: GetGspStaticInfoReply,
-+    /// BAR1 user interface for CPU access to GPU virtual memory.
-+    bar_user: BarUser,
- }
- 
- impl Gpu {
-@@ -320,6 +327,14 @@ pub(crate) fn new<'a>(
-                 }, pramin_vram_region)?
-             },
- 
-+            // Create BAR1 user interface for CPU access to GPU virtual memory.
-+            bar_user: {
-+                let pdb_addr = VramAddress::new(gsp_static_info.bar1_pde_base);
-+                let mmu_version = MmuVersion::from(spec.chipset.arch());
-+                let bar1_size = pdev.resource_len(1)?;
-+                BarUser::new(pdb_addr, mmu_version, bar1_size)?
-+            },
-+
-             bar: devres_bar,
-         })
-     }
-diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-index 1901c8928ab8..bfbe7bb05755 100644
---- a/drivers/gpu/nova-core/gsp/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/commands.rs
-@@ -191,7 +191,6 @@ fn init(&self) -> impl Init<Self::Command, Self::InitError> {
- pub(crate) struct GetGspStaticInfoReply {
-     gpu_name: [u8; 64],
-     /// BAR1 Page Directory Entry base address.
--    #[expect(dead_code)]
-     pub(crate) bar1_pde_base: u64,
-     /// Usable FB (VRAM) region for driver memory allocation.
-     pub(crate) usable_fb_region: Range<u64>,
-diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-index 6e58f597fadd..c053d4f3b26c 100644
---- a/drivers/gpu/nova-core/mm.rs
-+++ b/drivers/gpu/nova-core/mm.rs
-@@ -4,6 +4,7 @@
- 
- #![expect(dead_code)]
- 
-+pub(crate) mod bar_user;
- pub(crate) mod pagetable;
- pub(crate) mod pramin;
- pub(crate) mod tlb;
-diff --git a/drivers/gpu/nova-core/mm/bar_user.rs b/drivers/gpu/nova-core/mm/bar_user.rs
-new file mode 100644
-index 000000000000..0d083f3e72c2
---- /dev/null
-+++ b/drivers/gpu/nova-core/mm/bar_user.rs
-@@ -0,0 +1,156 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+//! BAR1 user interface for CPU access to GPU virtual memory. Used for USERD
-+//! for GPU work submission, and applications to access GPU buffers via mmap().
-+
-+use kernel::{
-+    io::Io,
-+    prelude::*, //
-+};
+-use crate::mm::{
+-    pagetable::{
+-        walk::{PtWalk, WalkResult},
+-        MmuVersion, //
++use core::ops::Range;
 +
 +use crate::{
-+    driver::Bar1,
 +    mm::{
-+        pagetable::MmuVersion,
-+        vmm::{
-+            MappedRange,
-+            Vmm, //
++        pagetable::{
++            walk::{PtWalk, WalkResult},
++            MmuVersion, //
 +        },
 +        GpuMm,
 +        Pfn,
 +        Vfn,
-+        VirtualAddress,
 +        VramAddress,
 +        PAGE_SIZE, //
 +    },
-+    num::IntoSafeCast,
-+};
-+
-+/// BAR1 user interface for virtual memory mappings.
-+///
-+/// Owns a VMM instance with virtual address tracking and provides
-+/// BAR1-specific mapping and cleanup operations.
-+pub(crate) struct BarUser {
-+    vmm: Vmm,
-+}
-+
-+impl BarUser {
-+    /// Create a new [`BarUser`] with virtual address tracking.
++    num::{
++        IntoSafeCast, //
+     },
+-    GpuMm,
+-    Pfn,
+-    Vfn,
+-    VramAddress, //
+ };
+ 
+ /// Virtual Memory Manager for a GPU address space.
+@@ -32,23 +48,84 @@ pub(crate) struct Vmm {
+     pub(crate) mmu_version: MmuVersion,
+     /// Page table allocations required for mappings.
+     page_table_allocs: KVec<Pin<KBox<AllocatedBlocks>>>,
++    /// Buddy allocator for virtual address range tracking.
++    virt_buddy: GpuBuddy,
+ }
+ 
+ impl Vmm {
+     /// Create a new [`Vmm`] for the given Page Directory Base address.
+-    pub(crate) fn new(pdb_addr: VramAddress, mmu_version: MmuVersion) -> Result<Self> {
++    ///
++    /// The [`Vmm`] will manage a virtual address space of `va_size` bytes.
 +    pub(crate) fn new(
 +        pdb_addr: VramAddress,
 +        mmu_version: MmuVersion,
 +        va_size: u64,
 +    ) -> Result<Self> {
-+        Ok(Self {
-+            vmm: Vmm::new(pdb_addr, mmu_version, va_size)?,
-+        })
-+    }
+         // Only MMU v2 is supported for now.
+         if mmu_version != MmuVersion::V2 {
+             return Err(ENOTSUPP);
+         }
+ 
++        let virt_buddy = GpuBuddy::new(GpuBuddyParams {
++            base_offset: 0,
++            physical_memory_size: va_size,
++            chunk_size: SZ_4K,
++        })?;
 +
-+    /// Map physical pages to a contiguous BAR1 virtual range.
-+    pub(crate) fn map<'a>(
-+        &'a mut self,
-+        mm: &'a GpuMm,
-+        bar: &'a Bar1,
-+        pfns: &[Pfn],
-+        writable: bool,
-+    ) -> Result<BarAccess<'a>> {
-+        if pfns.is_empty() {
-+            return Err(EINVAL);
-+        }
+         Ok(Self {
+             pdb_addr,
+             mmu_version,
+             page_table_allocs: KVec::new(),
++            virt_buddy,
+         })
+     }
+ 
++    /// Allocate a contiguous virtual frame number range.
++    ///
++    /// # Arguments
++    ///
++    /// - `num_pages`: Number of pages to allocate.
++    /// - `va_range`: `None` = allocate anywhere, `Some(range)` = constrain allocation to the given
++    ///   range.
++    pub(crate) fn alloc_vfn_range(
++        &self,
++        num_pages: usize,
++        va_range: Option<Range<u64>>,
++    ) -> Result<(Vfn, Pin<KBox<AllocatedBlocks>>)> {
++        let size = num_pages.checked_mul(PAGE_SIZE).ok_or(EOVERFLOW)?;
 +
-+        let mapped = self.vmm.map_pages(mm, pfns, None, writable)?;
-+
-+        Ok(BarAccess {
-+            vmm: &mut self.vmm,
-+            mm,
-+            bar,
-+            mapped: Some(mapped),
-+        })
-+    }
-+}
-+
-+/// Access object for a mapped BAR1 region.
-+///
-+/// Wraps a [`MappedRange`] and provides BAR1 access. When dropped,
-+/// unmaps pages and releases the VA range (by passing the range to
-+/// [`Vmm::unmap_pages()`], which consumes it).
-+pub(crate) struct BarAccess<'a> {
-+    vmm: &'a mut Vmm,
-+    mm: &'a GpuMm,
-+    bar: &'a Bar1,
-+    /// Needs to be an `Option` so that we can `take()` it and call `Drop`
-+    /// on it in [`Vmm::unmap_pages()`].
-+    mapped: Option<MappedRange>,
-+}
-+
-+impl<'a> BarAccess<'a> {
-+    /// Returns the active mapping.
-+    fn mapped(&self) -> &MappedRange {
-+        // `mapped` is only `None` after `take()` in `Drop`; accessors are
-+        // never called from within `Drop`, so unwrap() never panics.
-+        self.mapped.as_ref().unwrap()
-+    }
-+
-+    /// Get the base virtual address of this mapping.
-+    pub(crate) fn base(&self) -> VirtualAddress {
-+        VirtualAddress::from(self.mapped().vfn_start)
-+    }
-+
-+    /// Get the total size of the mapped region in bytes.
-+    pub(crate) fn size(&self) -> usize {
-+        self.mapped().num_pages * PAGE_SIZE
-+    }
-+
-+    /// Get the starting virtual frame number.
-+    pub(crate) fn vfn_start(&self) -> Vfn {
-+        self.mapped().vfn_start
-+    }
-+
-+    /// Get the number of pages in this mapping.
-+    pub(crate) fn num_pages(&self) -> usize {
-+        self.mapped().num_pages
-+    }
-+
-+    /// Translate an offset within this mapping to a BAR1 aperture offset.
-+    fn bar_offset(&self, offset: usize) -> Result<usize> {
-+        if offset >= self.size() {
-+            return Err(EINVAL);
-+        }
-+
-+        let base_vfn: usize = self.mapped().vfn_start.raw().into_safe_cast();
-+        let base = base_vfn.checked_mul(PAGE_SIZE).ok_or(EOVERFLOW)?;
-+        base.checked_add(offset).ok_or(EOVERFLOW)
-+    }
-+
-+    // Fallible accessors with runtime bounds checking.
-+
-+    /// Read a 32-bit value at the given offset.
-+    pub(crate) fn try_read32(&self, offset: usize) -> Result<u32> {
-+        self.bar.try_read32(self.bar_offset(offset)?)
-+    }
-+
-+    /// Write a 32-bit value at the given offset.
-+    pub(crate) fn try_write32(&self, value: u32, offset: usize) -> Result {
-+        self.bar.try_write32(value, self.bar_offset(offset)?)
-+    }
-+
-+    /// Read a 64-bit value at the given offset.
-+    pub(crate) fn try_read64(&self, offset: usize) -> Result<u64> {
-+        self.bar.try_read64(self.bar_offset(offset)?)
-+    }
-+
-+    /// Write a 64-bit value at the given offset.
-+    pub(crate) fn try_write64(&self, value: u64, offset: usize) -> Result {
-+        self.bar.try_write64(value, self.bar_offset(offset)?)
-+    }
-+}
-+
-+impl Drop for BarAccess<'_> {
-+    fn drop(&mut self) {
-+        if let Some(mapped) = self.mapped.take() {
-+            if self.vmm.unmap_pages(self.mm, mapped).is_err() {
-+                kernel::pr_warn_once!("BarAccess: unmap_pages failed.\n");
++        let mode = match va_range {
++            Some(r) => {
++                let range_size = r.end.checked_sub(r.start).ok_or(EOVERFLOW)?;
++                if range_size != size.into_safe_cast() {
++                    return Err(EINVAL);
++                }
++                GpuBuddyAllocMode::Range {
++                    start: r.start,
++                    end: r.end,
++                }
 +            }
-+        }
++            None => GpuBuddyAllocMode::Simple,
++        };
++
++        let alloc = KBox::pin_init(
++            self.virt_buddy.alloc_blocks(
++                mode,
++                size,
++                Alignment::new::<SZ_4K>(),
++                GpuBuddyAllocFlag::Contiguous,
++            ),
++            GFP_KERNEL,
++        )?;
++
++        // Get the starting offset of the first block (only block as range is contiguous).
++        let offset = alloc.iter().next().ok_or(ENOMEM)?.offset();
++        let page_size: u64 = PAGE_SIZE.into_safe_cast();
++        let vfn = Vfn::new(offset / page_size);
++
++        Ok((vfn, alloc))
 +    }
-+}
++
+     /// Read the [`Pfn`] for a mapped [`Vfn`] if one is mapped.
+     pub(crate) fn read_mapping(&self, mm: &GpuMm, vfn: Vfn) -> Result<Option<Pfn>> {
+         let walker = PtWalk::new(self.pdb_addr, self.mmu_version);
 -- 
 2.34.1
 
