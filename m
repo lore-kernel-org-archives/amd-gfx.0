@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1CD7FD88DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 02:45:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 084A8FD88E1
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2026 02:46:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 645B810E2E8;
-	Wed, 11 Mar 2026 02:45:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B47210E2EC;
+	Wed, 11 Mar 2026 02:46:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HW6voegf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u75omsy5";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010030.outbound.protection.outlook.com [52.101.61.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 941E610E79E
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 02:45:57 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011047.outbound.protection.outlook.com [52.101.57.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89AA310E2EC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 02:46:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F/lgouLNP/mV0C3tEMjCJzknOj/5XPjdskMrAY6JzPyzkmT7E4gqk3zwyhHcUIQHgN4WYB7JujtXSH3BlG2uk2rBvT7zXBMC2J8MBlx/qSFJZz9Xv5VP+qVTF6gTImM/ESZvq38VpKMtSppVvFWBHGB7GP6Hniy+c/ooCumuK3VJbwO0UnCFwjQY2XF71R5ClBdapZUeaWKdbjboi2fd9AwlRg5eFDkMFyhiSkd6MD/887gICg3YFBI651IRrRX99TGReLvt0uiDlTPM+vxvqJC4L3UD4rmcYPEfoTNtr23KrdYFm4s3Hru31e/51wXktdYF3fIfI8gKTLR1OVIdwQ==
+ b=raD3vyGNekN8yWlo+kodcWK6IuLF8cxxq9mcScU33v2NqhwpJddv8VS2hQI3NF1KTEJBxqgAeQPZz6ufsLJ36MiSQR/o/6Kz+bCnij4Bw4m65M40F6rJWocjYBZKZLO4FBK69huY22rowr0s3fdm6yQ16btoHgNQKH2rFN/XN8yMuCZom6s27gjc0jgyXmDPkrghvWP1pduo89BoxqbwFf4sy3gKr6x3aC7t2wG+gB7p4M+L/a7PoKGX8fU98CwnEQGh1bONjeqF8gAxrw83ca+G6/h98ugw93WRcsLytkKQf8mvhHtJpO3kQi0jZ/nLqy4OWqRO/PD2W9wLhupJMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4PU4RqW4+mYgh/+y3xamhQe2Q3oUSnu2oBYI3d7xFpA=;
- b=wPK4Mja6cBJZKEVPh5ch5mJ3+oYbYWZVTC5f/I4XauzDdSKOhcNe6kALmLa2RYrilFnpMVs7NdIjBfMWjDDJHpQ6uy6eHD+Wf60MjPi68D+KnBuTnhU2ylTdqOn69Fsdd3uXCb9qwcc0XjU5Dp+AbxOE0rZnmMvGuVG0lpGBR2+ej2yvxTnJzURssvUEVdXZx9xzSCKvPKvbx5M7Fg34+eNqIUmb84vVXMyF7xpVY1l/qMNi+tqk9a/yKdNRYWXwT0cDBcGJNbec2zNgQ4/TFr7Rhl/sQL92kfgw3vkwflK/Ure7Ff8VSZ7KOs1MX59+O0If3d72Rsl5aDQtfdzo/A==
+ bh=BZ5V7tz2E865sw9bdWBR6rwKah0WfDYn4oTZMFFgJkA=;
+ b=sKb2LC/I64m+2Q5V9ZZpbfp7LoLdKgm/GWPpC+om+UCqecL6XLZnCiuBcGzo68jAEOEaiheBvjtUA96esjm1zLhw9SYdKKu/HCT59fBZLo81PeNiLfoKXeSxyU5rCuBttS1wJehvkb/c9qzZq2hR4/Kuv2Hzu/FNbDKf8IzKSBbyi8d1fUV6iAZFY8LyuTQYr93uAE6kJrhbe2Yr7mVDJmsFut4Sdl6tzDYnihpG+fPgS1j+HB+4kJK4JAzi9oLVNAiFSchUdasyOjQfbncJZFNgkTryxjiS+qL5L9kU60oiTpTaMtJTGmLkg7ROOiEDnoMl0MgAWcnUgzHMPBHxZg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4PU4RqW4+mYgh/+y3xamhQe2Q3oUSnu2oBYI3d7xFpA=;
- b=HW6voegfytM2XLEF3qhhhAbL02fwqCqVnusqHXPWVXE1qH48BxBVIq0yBsDGOoOVQpve/4fK6BmqFtEj5H+ZTAoAvG6wSrvsfGHkT68iQ1ywhz+5TkFxIwLa+B7RoEiFslb2OafY5KcTEd3awwtQdusz7hiT2jEbsKcFHUDmhAQ=
-Received: from SJ0PR13CA0183.namprd13.prod.outlook.com (2603:10b6:a03:2c3::8)
- by CH3PR12MB8935.namprd12.prod.outlook.com (2603:10b6:610:169::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=BZ5V7tz2E865sw9bdWBR6rwKah0WfDYn4oTZMFFgJkA=;
+ b=u75omsy51HGj9J65d/QbRvT/YEXe5w+3fNNM4tjxMe0aN9dKLmkX8FCvZB+HvWS6941VFKbeiyG9fJ3tEZUtZC95w3DQs9NNKYXbD0BR05VqO8ca1DFSlHJ01EOz6lf9W5zaP0GuRjuQb1KRXXUzECZEg9eKguJzrluQER8rjuA=
+Received: from MW4PR04CA0161.namprd04.prod.outlook.com (2603:10b6:303:85::16)
+ by DS7PR12MB8274.namprd12.prod.outlook.com (2603:10b6:8:da::13) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.11; Wed, 11 Mar
- 2026 02:45:52 +0000
-Received: from CO1PEPF000066E6.namprd05.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::4a) by SJ0PR13CA0183.outlook.office365.com
- (2603:10b6:a03:2c3::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.24 via Frontend Transport; Wed,
- 11 Mar 2026 02:45:52 +0000
+ 2026 02:45:56 +0000
+Received: from CO1PEPF000066E7.namprd05.prod.outlook.com
+ (2603:10b6:303:85:cafe::6f) by MW4PR04CA0161.outlook.office365.com
+ (2603:10b6:303:85::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.25 via Frontend Transport; Wed,
+ 11 Mar 2026 02:45:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000066E6.mail.protection.outlook.com (10.167.249.4) with Microsoft
+ CO1PEPF000066E7.mail.protection.outlook.com (10.167.249.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Wed, 11 Mar 2026 02:45:52 +0000
+ 15.20.9678.18 via Frontend Transport; Wed, 11 Mar 2026 02:45:55 +0000
 Received: from maxMSI.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 10 Mar
- 2026 21:45:47 -0500
+ 2026 21:45:51 -0500
 From: ChuanYu Tseng <ChuanYu.Tseng@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -62,11 +62,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Gaghik Khachatrian <gaghik.khachatrian@amd.com>, "Dillon
- Varone" <dillon.varone@amd.com>, Chuanyu Tseng <chuanyu.tseng@amd.com>
-Subject: [PATCH 5/9] drm/amd/display: Silence C6001 warnings
-Date: Wed, 11 Mar 2026 10:40:37 +0800
-Message-ID: <20260311024652.2668570-6-ChuanYu.Tseng@amd.com>
+ <alex.hung@amd.com>, Chuanyu Tseng <chuanyu.tseng@amd.com>
+Subject: [PATCH 6/9] drm/amd/display: Add a buffer for boot time crc
+Date: Wed, 11 Mar 2026 10:40:38 +0800
+Message-ID: <20260311024652.2668570-7-ChuanYu.Tseng@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260311024652.2668570-1-ChuanYu.Tseng@amd.com>
 References: <20260311024652.2668570-1-ChuanYu.Tseng@amd.com>
@@ -78,29 +77,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E6:EE_|CH3PR12MB8935:EE_
-X-MS-Office365-Filtering-Correlation-Id: 66b1e563-db0d-4836-da57-08de7f184f8f
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E7:EE_|DS7PR12MB8274:EE_
+X-MS-Office365-Filtering-Correlation-Id: b544751f-3a83-4ae1-cba4-08de7f185182
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700016|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: vaby3UP5xHcMYXcXx28ugPQ3K8HU04+U/6YLhDLhRwfRQfJFHQHZov6hAYufl5RmSo1MOPDx2IgCGQoYW6YMVAVOdTyiaGOJ/oiHyIem+oLVM4N/VSumPsxQD54xR0Be5zt1qm/s6rswQAxytsLjtafMwSFq3TYVVnUq2m1Iz7FE3qIKr2GsQfU4YPwx59JyZOQmDsQoM/WpsallquZTl9UhpongxltH0hvBiDB2S4XeWoOcq81DS8tyg8cmzpp5AKKsK2xS30ApJl1HPSXHwsTrc705DORUDMYPR5svAHuVKW23uK8YNOAcE+vihxhgUogz9HyNxTReZl1jDzVcWW4/XKz18CJBZS63nM/gjQqDb6oa87h24KVq73LG4KK/5vygakyN9cfLq1PE3L+M6ZFS2dMpIHSaNrhrg91hoOe+61V0bQJw8hl3J8pZYgxFYWP96PnBeccnM+SLtNc2NLnHnnJZqLEU3lCthAahu6N//F9V2NmIpBu4TFEreY0HqrERNytXlvRL52OHvFGLliOArIJ7W+CO0UxXLvjTG0TYh5u7ISfLlKrEo2qknjoXQhy0zOCEyBnTeDiudBMT/S9oGpZ2UYIX7OkZhhxfXgERoILRFGm+cVCUmMyA9GJvp527f3o0rjaxg0kMLBYwjsBQrYoGMD0sHuywxExnYU/hyOoLAKHkSErTnY4/106e1eqcgvqV29mcY3TkMXeOGE2U3xDVje2ozinwJynlkFWQmXzvWaFBtjZbjhAOPlaiAHj5ouJMYkz0a3Fo/rK1SQ==
+ ARA:13230040|376014|36860700016|82310400026|1800799024|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: Vf+AZpKkty0qVd6Y9Kco8h9ixYFMG6DVjDzujBVtHjxu+lJrGWJIPqTowGO7yK1rOhUrpSBxZF8XrYZ6vs2xKm0DC63OPivlq0mKPH5WJJBiTLDAGNH2JR+K5w//e+3UO0Zp+NwDUnKWYFesg7+gz0XqRvCbLNvgmtgHP9iPHqA9vdtwlo1DXDavVgDbxLWfZ4sDRhQ9X3nJo5FGzfyiBOar4AAMygTBnOtTi0maimp9y6zL/+wUEqMhXHmhgJHm0rtD1Mmlo/2GimMaCR7XsUGTCFXakv9Fe7dI5KbCqeYb6Dcfh2GWZ6qEHbqVzaXeETBDS4zFOaIW02gjwNItiaOv/HjwWbl3w/lqCyYsjZwFxrBFMo4RAaDNQtCigzCEbRMUWfszkMu8tcdAoT22dSDzge9OeNsf9c1+8ciwTMVGrbUsVrmxSyZrwsLWcTZg3r9uvY86hPMYTvjab1+tgbHGein7oHkGwzNJj6lStiFmRlgaqfmytjJY61zMZ+GNGjjnNLoOHY+Ywgi8G/cg0WScONK8mTUap6BJ3D3aviIY5RC0TA+6eA8Vp4iNYbWDF7iGGqaXZ3C+875Ro9tfbDb5vwhW8NaAVsdsDXacTRj/QAy3vrNTJO0nWwHdQruky2VQ2w5zBgfmaT38NETMBlGj0starSMi7cErZ/i3vynmLmNqkLMVwGPpLIIaS4h58X9EHb3CP9e+Dsf12xCaZuj64OIRgmg6UYJt10BoV+Oc8L7xSOM4lC/Zt7Ccb6AVxbScSc/hCfRpiXe6OsjZiQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(56012099003)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: CNudzd4VOFIeIG4Y1IaI5iavtK5T/z+0Rbp+R0i7ivtafROOL6MrgRCTuGA/KYtjqeQOtRc8p5g8ff2T8ERh+qYbh3UPbdF3GKcMs90tP8OHNOUTUbydPkQsdQXZtXHQVbgHPX87lGPUhFL0pSmmokZCePo4HxFLWKt1oKoY34VmnNNmU6vGPGAvnaPg1eumB7sE46caKwI3ox+54MokwfrOeVnDSpIO0BOrNBEtFho9MrxXH562NmzsX1N0ztym4x+QGJ0oeGX/CIC1srgDSln+4aO3FxOBviVLpMvXU59FWmPLtmczbtWQdDd0/sNaTwY2NM7jEtwsmp/CdL1hwCA+li7a9cdkhCHpCCTlmInU67U0hu4jSawRRM+NvgqtGHCNKY0O0mXOgHJr9A5m2ZJ7LU8aff41DG7qYAAGcc2pdteQSJ261zNH8R3tgWdD
+X-MS-Exchange-AntiSpam-MessageData-0: Ili5pgZZ07ibeC2zTI7Mrfoe0rkDOQDYLTY09La78Ss0wxTeobgWfbbRfHdFiqqQgvJIjQoGqNvrXwtxDHlg7QiKWiExr7c23hTcL9VWWsJz3nLk7z+/cWTat86x93EIVMUIPxn1zC+65LE0JBjGoFUfiwKKzUZ2SJ3SK7aFEidOwMPcnUa0pop+XS8JH0Wfx8VJzR5v1Q1UPHlHuJn3gH/TjJZGiF/9d/A90xkZDh0mesliYcU0LYOhe5Mo84hdI/ibvLuHU4EQuUGm6IIjXh4mVl3oeCefqE0TvTtHeSg2TJBsbJstXSD9zmbU9n2jzujGQvmReEVn8ysnWdvJ787uZZlj8IFaUujO2T6U60MXr9o7gF7EZkFUyuLXT0Sg8+5gKxQHuJxXMgBh3jUCfLBR7wQiVnKNI6TvBeBIaafrKbFSvpDmeFf1Pf1mIfyt
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2026 02:45:52.3128 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66b1e563-db0d-4836-da57-08de7f184f8f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2026 02:45:55.5345 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b544751f-3a83-4ae1-cba4-08de7f185182
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E7.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8935
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8274
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,56 +114,206 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+From: Tom Chung <chiahsuan.chung@amd.com>
 
-Silence MSVC static analysis warning C6001 by ensuring swath size
-temporaries are initialized before use. No functional change intended.
+[Why]
+We need to reserve a memory buffer for boot time crc test
+during resume.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Gaghik Khachatrian <gaghik.khachatrian@amd.com>
+[How]
+Create a buffer during boot up and send the buffer info to
+DMUB.
+
+Reviewed-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 Signed-off-by: Chuanyu Tseng <chuanyu.tseng@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c  | 2 +-
- .../drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c | 6 +++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 58 +++++++++++++++++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h | 21 +++++++
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c  | 27 +++++++++
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h  |  9 +++
+ 4 files changed, 115 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-index cd8cca651419..48905ca39b70 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_mode_vba_21.c
-@@ -5304,7 +5304,7 @@ static void CalculateWatermarksAndDRAMSpeedChangeSupport(
- 	double LinesInDETC;
- 	unsigned int LinesInDETYRoundedDownToSwath[DC__NUM_DPP__MAX];
- 	unsigned int LinesInDETCRoundedDownToSwath;
--	double FullDETBufferingTimeY[DC__NUM_DPP__MAX];
-+	double FullDETBufferingTimeY[DC__NUM_DPP__MAX] = { 0 };
- 	double FullDETBufferingTimeC;
- 	double ActiveDRAMClockChangeLatencyMarginY;
- 	double ActiveDRAMClockChangeLatencyMarginC;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-index 0748ef36a16a..19b142412a84 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn32/display_mode_vba_util_32.c
-@@ -459,8 +459,8 @@ void dml32_CalculateSwathAndDETConfiguration(
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ff09a5371cb2..b1ac05abca07 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2286,6 +2286,11 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
+ 				      &adev->dm.dmub_bo_gpu_addr,
+ 				      &adev->dm.dmub_bo_cpu_addr);
+ 
++	if (adev->dm.boot_time_crc_info.bo_ptr)
++		amdgpu_bo_free_kernel(&adev->dm.boot_time_crc_info.bo_ptr,
++					&adev->dm.boot_time_crc_info.gpu_addr,
++					&adev->dm.boot_time_crc_info.cpu_addr);
++
+ 	if (adev->dm.hpd_rx_offload_wq && adev->dm.dc) {
+ 		for (i = 0; i < adev->dm.dc->caps.max_links; i++) {
+ 			if (adev->dm.hpd_rx_offload_wq[i].wq) {
+@@ -2735,6 +2740,54 @@ static int detect_mst_link_for_all_connectors(struct drm_device *dev)
+ 	return ret;
+ }
+ 
++static void amdgpu_dm_boot_time_crc_init(struct amdgpu_device *adev)
++{
++	struct dm_boot_time_crc_info *bootcrc_info = NULL;
++	struct dmub_srv *dmub = NULL;
++	union dmub_fw_boot_options option = {0};
++	int ret = 0;
++	const uint32_t fb_size = 3 * 1024 * 1024;	/* 3MB for DCC pattern */
++
++	if (!adev || !adev->dm.dc || !adev->dm.dc->ctx ||
++		!adev->dm.dc->ctx->dmub_srv) {
++		return;
++	}
++
++	dmub = adev->dm.dc->ctx->dmub_srv->dmub;
++	bootcrc_info = &adev->dm.boot_time_crc_info;
++
++	if (!dmub || !dmub->hw_funcs.get_fw_boot_option) {
++		drm_dbg(adev_to_drm(adev), "failed to init boot time crc buffer\n");
++		return;
++	}
++
++	option = dmub->hw_funcs.get_fw_boot_option(dmub);
++
++	/* Return if boot time CRC is not enabled */
++	if (option.bits.bootcrc_en_at_S0i3 == 0)
++		return;
++
++	/* Create a buffer for boot time CRC */
++	ret = amdgpu_bo_create_kernel(adev, fb_size, PAGE_SIZE,
++		AMDGPU_GEM_DOMAIN_VRAM | AMDGPU_GEM_DOMAIN_GTT,
++		&bootcrc_info->bo_ptr,
++		&bootcrc_info->gpu_addr,
++		&bootcrc_info->cpu_addr);
++
++	if (ret) {
++		drm_dbg(adev_to_drm(adev), "failed to create boot time crc buffer\n");
++	} else {
++		bootcrc_info->size = fb_size;
++
++		drm_dbg(adev_to_drm(adev), "boot time crc buffer created addr 0x%llx, size %u\n",
++			bootcrc_info->gpu_addr, bootcrc_info->size);
++
++		/* Send the buffer info to DMUB */
++		dc_dmub_srv_boot_time_crc_init(adev->dm.dc,
++			bootcrc_info->gpu_addr, bootcrc_info->size);
++	}
++}
++
+ static int dm_late_init(struct amdgpu_ip_block *ip_block)
  {
- 	unsigned int MaximumSwathHeightY[DC__NUM_DPP__MAX];
- 	unsigned int MaximumSwathHeightC[DC__NUM_DPP__MAX];
--	unsigned int RoundedUpMaxSwathSizeBytesY[DC__NUM_DPP__MAX];
--	unsigned int RoundedUpMaxSwathSizeBytesC[DC__NUM_DPP__MAX];
-+	unsigned int RoundedUpMaxSwathSizeBytesY[DC__NUM_DPP__MAX] = { 0 };
-+	unsigned int RoundedUpMaxSwathSizeBytesC[DC__NUM_DPP__MAX] = { 0 };
- 	unsigned int RoundedUpSwathSizeBytesY;
- 	unsigned int RoundedUpSwathSizeBytesC;
- 	double SwathWidthdoubleDPP[DC__NUM_DPP__MAX];
-@@ -2988,7 +2988,7 @@ void dml32_UseMinimumDCFCLK(
- 		for  (j = 0; j <= 1; ++j) {
- 			double PixelDCFCLKCyclesRequiredInPrefetch[DC__NUM_DPP__MAX];
- 			double PrefetchPixelLinesTime[DC__NUM_DPP__MAX];
--			double DCFCLKRequiredForPeakBandwidthPerSurface[DC__NUM_DPP__MAX];
-+			double DCFCLKRequiredForPeakBandwidthPerSurface[DC__NUM_DPP__MAX] = { 0 };
- 			double DynamicMetadataVMExtraLatency[DC__NUM_DPP__MAX];
- 			double MinimumTWait = 0.0;
- 			double DPTEBandwidth;
+ 	struct amdgpu_device *adev = ip_block->adev;
+@@ -2746,6 +2799,11 @@ static int dm_late_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	dmcu = adev->dm.dc->res_pool->dmcu;
+ 
++	/* Init the boot time CRC (skip in resume) */
++	if ((adev->in_suspend == 0) &&
++		(amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(3, 6, 0)))
++		amdgpu_dm_boot_time_crc_init(adev);
++
+ 	for (i = 0; i < 16; i++)
+ 		linear_lut[i] = 0xFFFF * i / 15;
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 800813671748..83fefd902355 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -123,6 +123,20 @@ struct dm_compressor_info {
+ 	uint64_t gpu_addr;
+ };
+ 
++/**
++ * struct dm_boot_time_crc_info - Buffer info used by boot time CRC
++ * @cpu_addr: MMIO cpu addr
++ * @bo_ptr: Pointer to the buffer object
++ * @gpu_addr: MMIO gpu addr
++ * @size: Size of the buffer
++ */
++struct dm_boot_time_crc_info {
++	void *cpu_addr;
++	struct amdgpu_bo *bo_ptr;
++	uint64_t gpu_addr;
++	uint32_t size;
++};
++
+ typedef void (*dmub_notify_interrupt_callback_t)(struct amdgpu_device *adev, struct dmub_notification *notify);
+ 
+ /**
+@@ -698,6 +712,13 @@ struct amdgpu_display_manager {
+ 		struct completion replied;
+ 		char reply_data[0x40];  // Cannot include dmub_cmd here
+ 	} fused_io[8];
++
++	/**
++	 * @dm_boot_time_crc_info:
++	 *
++	 * Buffer info for the boot time crc.
++	 */
++	struct dm_boot_time_crc_info boot_time_crc_info;
+ };
+ 
+ enum dsc_clock_force_state {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+index e4dd5ca70987..d6a08064456b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
+@@ -2349,6 +2349,33 @@ bool dc_dmub_srv_is_cursor_offload_enabled(const struct dc *dc)
+ 	return dc->ctx->dmub_srv && dc->ctx->dmub_srv->cursor_offload_enabled;
+ }
+ 
++void dc_dmub_srv_boot_time_crc_init(const struct dc *dc, uint64_t gpu_addr, uint32_t size)
++{
++	struct dc_dmub_srv *dc_dmub_srv;
++	struct dc_context *dc_ctx;
++	union dmub_rb_cmd cmd = {0};
++	bool result = false;
++
++	if (!dc || !dc->ctx || !dc->ctx->dmub_srv || size == 0)
++		return;
++
++	dc_dmub_srv = dc->ctx->dmub_srv;
++	dc_ctx = dc_dmub_srv->ctx;
++
++	memset(&cmd, 0, sizeof(cmd));
++	cmd.boot_time_crc_init.header.type = DMUB_CMD__BOOT_TIME_CRC;
++	cmd.boot_time_crc_init.header.sub_type = DMUB_CMD__BOOT_TIME_CRC_INIT_MEM;
++	cmd.boot_time_crc_init.header.payload_bytes =
++		sizeof(struct dmub_rb_cmd_boot_time_crc_init);
++	cmd.boot_time_crc_init.data.buffer_addr.quad_part = gpu_addr;
++	cmd.boot_time_crc_init.data.buffer_size = size;
++
++	result = dc_wake_and_execute_dmub_cmd(dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_NO_WAIT);
++
++	if (!result)
++		DC_ERROR("Boot time crc init failed in DMUB");
++}
++
+ void dc_dmub_srv_release_hw(const struct dc *dc)
+ {
+ 	struct dc_dmub_srv *dc_dmub_srv = dc->ctx->dmub_srv;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+index 72e0a41f39f0..6579cf9cce3c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+@@ -361,6 +361,15 @@ void dc_dmub_srv_program_cursor_now(struct dc *dc, const struct pipe_ctx *pipe);
+  */
+ bool dc_dmub_srv_is_cursor_offload_enabled(const struct dc *dc);
+ 
++/**
++ * dc_dmub_srv_boot_time_crc_init() - Initializes DMUB boot time CRC.
++ *
++ * @dc - pointer to DC object
++ * @gpu_addr - address for the boot time CRC buffer
++ * @size - size of the boot time CRC buffer
++ */
++void dc_dmub_srv_boot_time_crc_init(const struct dc *dc, uint64_t gpu_addr, uint32_t size);
++
+ /**
+  * dc_dmub_srv_release_hw() - Notifies DMUB service that HW access is no longer required.
+  *
 -- 
 2.43.0
 
