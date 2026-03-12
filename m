@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A93F106FD9F
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2817106FD9A
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B79D610EB3B;
-	Fri, 13 Mar 2026 08:55:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39C2310EB3E;
+	Fri, 13 Mar 2026 08:55:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="Qa46A1Mc";
+	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="N+o6W8oQ";
 	dkim-atps=neutral
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F203D10EA80
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 16:54:51 +0000 (UTC)
-Received: by mail-qt1-f177.google.com with SMTP id
- d75a77b69052e-509006c070eso10771451cf.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 09:54:51 -0700 (PDT)
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
+ [209.85.160.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD31310E9E2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 12:57:32 +0000 (UTC)
+Received: by mail-qt1-f176.google.com with SMTP id
+ d75a77b69052e-5094b54a250so5475771cf.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 05:57:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1773334491; x=1773939291; darn=lists.freedesktop.org; 
+ d=ziepe.ca; s=google; t=1773320252; x=1773925052; darn=lists.freedesktop.org; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=VQXCfPVu6b6dIVECzm0C8AUD7IL7VvpSkD5+M4S95sw=;
- b=Qa46A1McVwmlcasUD4+tK3sCeg3xRVUvmk3CAjnCoDU2/RZpYVx1vU9EUWEizf1BqX
- RgQI42Lc6KP2M/VxYTT1oDg+i1svtu4Hz0LeB7UQ9cZ0DM+mKi6hHM4qceJ1VtBqeSf2
- HU5UIaswuz45g1lXexUrhgosGjl0Z9qkdZ7NPpHMhc51O/jgkCL2Ufb5/LxuKynbNoID
- FjbRyLWHyb9Xe3DZs8KSGTsT+LmJ10RIzTlD61Dmphy2V2tKZ9iTjDkGwHV5WPxKjJKf
- zjuRRS+OUz+P13BkmCKTBoTHJeMgqwDb4XZ4geDWJ0ZJQIEUorRGky4P5uZp5nnjs+c4
- Oe0Q==
+ bh=J1SF1XBHkHR0j7NZVucv0LxpGoGXl67PUefLsfwpAbo=;
+ b=N+o6W8oQwaNn75PwxqY2ERViHP198Q2FUgE8iQA7+0gEKBKucnKn5t6Nu9vdLvWdvD
+ 2jpdcy72+laP9MHp8b/s8fHMXhQOO2SXTjcZe8JuZGRvRLE87p+Yedmf1fkTdLCHWNPW
+ kzwcg0h4Qi4aPEJFAVk6+v1RDZlU/+sfZYq6JUaT6zIMrXsfaov9viVgNmSM4DdNmXwB
+ LlOFEh6ApB+QTCn1NzAXLINlYA+ssTuTIfK9WJy7f7DfBO5ubXYiZ3BM1TgZlG/vyMbx
+ bMnz2mLLAZ4m+He8lKKQpvUrgkMYhGKAiaJUPIku9OHtvzbLeGqrgfkOaIvXnuLt8zyt
+ rBQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773334491; x=1773939291;
+ d=1e100.net; s=20230601; t=1773320252; x=1773925052;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=VQXCfPVu6b6dIVECzm0C8AUD7IL7VvpSkD5+M4S95sw=;
- b=XIkPpKk62UnuI5Vrglam5qnA/RWq5ouEIXILvrFQCdYqOU+pJ5HVlTm/Fq/LoG9i8Z
- TQfJXqM/H2eAG6yOlGcTblFItRHSrxafXf26OEh8KjikTvsFh/EMf0zKcUW2n5Lh5MUk
- 1TVYa/tdkSf4+1pYz5nM+khvJ8M1nc3ZnHcLyigc1W0YRMUHp8cpeDEZwh/kZmfquzKC
- qa8sC/oty1wxnreZuLbB6tQFFTQEIcnYFXOcZRzx3eXcph7H25/DNGtrsU5L0tk6wDB0
- AEEuZeo/j/gXVeXtDd3kp8DiXNS+HikSpXvFcEelwwbeMC1Nbwq4iY5ACs5pwX9zT3Oq
- Edwg==
+ bh=J1SF1XBHkHR0j7NZVucv0LxpGoGXl67PUefLsfwpAbo=;
+ b=mEnS5cVNoe4BbqylR9Ro7YLNfqoL9/hK53uJtAjWGOTh8NiHQyPBU/Fof8CS0bcAbY
+ 3nH72oYrKn+hXHwmrgzk+L1FMe/8JQH9N1hgKotKqyYczP7z6aB9jIaBB0OfqomxwhyG
+ Zuc2SuzV3BJBTLiY+NAlMR+Tnh7Vt9qBKbA2rwutYemDxbZM1RSEZKG4Ek3NfcZaqExQ
+ 9Q7fRLCIy39+Bxr+4TVXjmkkgvEOCaAIpezxOqhGULDMmnr+lyUCwhmjFedmoHgRm0Kp
+ GShdEMIMa7acy2Ix3IXB2+1+xnYctS7hq8T6d6G9I4pFYkP4bM7E83IbHgsMLI10TaCY
+ fcBA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVUAbxBWSyKFXY+CS928OOcBL9DaFBpNbgu/N1STXLjMdQ50fMqUgvWKXkz+hYbkUBchn5Mff1y@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwKKoAUTZoLFNy24MYWILHSMyQOoJUKfs7/5F6IHEbQv4JvRQrX
- V471PQSXRlblcr8is7ryd5H3DpOq5dNflgl04fMJPHQy5qPFCS7P5e3CK1vsMww2t60=
-X-Gm-Gg: ATEYQzy39XY3DUSyrfMfzau7n/eO9lR4YDiiXd5GZ8LByPjwV/FK25+axgDBUqa9484
- 0a7WKeIh5ABEYIyd605aUGyBmDVYeKdFsGuz5Bg/wOQFpnqXCi6hXcXsdRupvdQ5OEalax/6KLI
- H2WaUw2dZHG0kVo6+dHUs2X3ac9lG2l92yi2v3s2KfuD6OZzJiCwUuQxh4Mbpu8epnELcyivE5X
- WtvrAJUQP2EjGoG+7OXHM2XYJTEnTxXUCjpfqQ0qbRoA98zugw70o3YkNhGZwOx+1Cq625sHIkv
- Vjj6jvbLoI4hZ4c8PVAxx2H7VpJOr9+/XaQoqy+PEGtm7JqcuGU10V+VvV0DEDjP+qLPLf0Bgv/
- NhnsQoudmdpHLUCI3G4D2ATacjvPIgWJ3YmqTjrMd++f8FbcGd29xFZSBL7QTl1XvbV0GM8fQTR
- tgKWSFSkbKU76bx/xkoU/V8CXrAvB2Gd5GCjdEHA8EsT1bm0Fx8pJIBI0370+uIprli14BUS2xC
- sAgu0VP4jO1GZIeSpU=
-X-Received: by 2002:a05:622a:289:b0:509:44c3:5ffa with SMTP id
- d75a77b69052e-50957e10673mr1403911cf.52.1773334490530; 
- Thu, 12 Mar 2026 09:54:50 -0700 (PDT)
+ AJvYcCWrO5dKEQLe6hpRBfqK56X6TWHeZDAqFIF5klkHQB8GzI1+8zyau9+Z5MOY9/NmWqRtTHhsvp3q@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxG3xeiNxUo0MsGalaxyiiW8rpjTRstZmMysI32MYYSAcYRznAU
+ U8/pZ7aD+dNIRomiCiRAf0N32+/UaOV50fklAib76+6CUgIZxMDI8UJT3MBI7lG4OMA=
+X-Gm-Gg: ATEYQzz46Pl0L3dS5UKwd3BD0q+6He1v+31TxZ98SCd37EzbN9WyRYFf7gwUPkArMGp
+ MDVfUVFb0ynx8kjGQZtHZgabA+IVeOoA+7ef36nMQGsslPWeQBjsl2SWLtGq0Ez3qTsnzU8YPnx
+ ywgOBb1kqMoACCyAmghesrgc/j/0/cLsrlCrlVVQDK/hdhFSRxmIprx0dKv2ZcfrgbNNWa9v/QL
+ Bjl1q/0tJhNH7QQhfMYYV36E7Edaww1Be91MybGOlgIPXr6x2JMATSPEg4IsocmZUOpgPPf4A0G
+ 2vPVQWGldTmqv/znASYs48qpG7ujKeDU1YPagN5Qh51i4hScyLNrvJ0zqWakl4MGNvMvTLASjnO
+ WWfom0tWA6G6xm/W8E4PPmDNdSVWn9IrWQ8zFeicZYwfYKc8XXY0RLR4emuVESLLvXMiEf2e0ek
+ 9kGRXLFW9on72HJmFPnpaUD1Yve80O6SB4hlU5KjLvaQg6zS6gTo7H07ECvM5HSPeYmsGeNZAzx
+ ryanS5g
+X-Received: by 2002:ac8:5d4d:0:b0:509:cbc:127b with SMTP id
+ d75a77b69052e-5093a1bd58fmr77950521cf.60.1773320251710; 
+ Thu, 12 Mar 2026 05:57:31 -0700 (PDT)
 Received: from ziepe.ca
  (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
  [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-5093a119602sm36658181cf.28.2026.03.12.09.54.49
+ 6a1803df08f44-89a65bd318fsm33341196d6.8.2026.03.12.05.57.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Mar 2026 09:54:49 -0700 (PDT)
+ Thu, 12 Mar 2026 05:57:31 -0700 (PDT)
 Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1w0jJA-00000006i8N-40X9;
- Thu, 12 Mar 2026 13:54:48 -0300
-Date: Thu, 12 Mar 2026 13:54:48 -0300
+ (envelope-from <jgg@ziepe.ca>) id 1w0fbW-00000006fKD-1POa;
+ Thu, 12 Mar 2026 09:57:30 -0300
+Date: Thu, 12 Mar 2026 09:57:30 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
-To: James Bottomley <James.Bottomley@hansenpartnership.com>
-Cc: Kuan-Wei Chiu <visitorckw@gmail.com>, Philipp Hahn <phahn-oss@avm.de>,
- amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
- bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
+To: Kuan-Wei Chiu <visitorckw@gmail.com>
+Cc: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
+ apparmor@lists.ubuntu.com, bpf@vger.kernel.org,
+ ceph-devel@vger.kernel.org, cocci@inria.fr,
  dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
  gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
  intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
@@ -98,14 +98,13 @@ Cc: Kuan-Wei Chiu <visitorckw@gmail.com>, Philipp Hahn <phahn-oss@avm.de>,
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev
 Subject: Re: [PATCH 00/61] treewide: Use IS_ERR_OR_NULL over manual NULL
  check - refactor
-Message-ID: <20260312165448.GN1469476@ziepe.ca>
+Message-ID: <20260312125730.GI1469476@ziepe.ca>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <abBlpGKO842B3yl9@google.com> <20260312125730.GI1469476@ziepe.ca>
- <f5688b895eaebabae6545a0d9baf8f1404e8454e.camel@HansenPartnership.com>
+ <abBlpGKO842B3yl9@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <f5688b895eaebabae6545a0d9baf8f1404e8454e.camel@HansenPartnership.com>
+In-Reply-To: <abBlpGKO842B3yl9@google.com>
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,38 +120,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 12, 2026 at 11:32:37AM -0400, James Bottomley wrote:
-> On Thu, 2026-03-12 at 09:57 -0300, Jason Gunthorpe wrote:
-> > On Wed, Mar 11, 2026 at 02:40:36AM +0800, Kuan-Wei Chiu wrote:
-> > 
-> > > IMHO, the necessity of IS_ERR_OR_NULL() often highlights a
-> > > confusing or flawed API design. It usually implies that the caller
-> > > is unsure whether a failure results in an error pointer or a NULL
-> > > pointer. 
-> > 
-> > +1
-> > 
-> > IS_ERR_OR_NULL() should always be looked on with suspicion. Very
-> > little should be returning some tri-state 'ERR' 'NULL' 'SUCCESS'
-> > pointer. What does the middle condition even mean? IS_ERR_OR_NULL()
-> > implies ERR and NULL are semanticly the same, so fix the things to
-> > always use ERR.
-> 
-> Not in any way supporting the original patch.  However, the pattern
-> ERR, NULL, PTR is used extensively in the dentry code of filesystems. 
-> See the try_lookup..() set of functions in fs/namei.c
-> 
-> The meaning is
-> 
-> PTR - I found it
-> NULL - It definitely doesn't exist
-> ERR - something went wrong during the lookup.
-> 
-> So I don't think you can blanket say this pattern is wrong.
+On Wed, Mar 11, 2026 at 02:40:36AM +0800, Kuan-Wei Chiu wrote:
 
-Lots of places also would return ENOENT, I'd argue that is easier to
-use..
+> IMHO, the necessity of IS_ERR_OR_NULL() often highlights a confusing or
+> flawed API design. It usually implies that the caller is unsure whether
+> a failure results in an error pointer or a NULL pointer. 
 
-But yes, I did use the word "suspicion" not blanket wrong :)
++1
+
+IS_ERR_OR_NULL() should always be looked on with suspicion. Very
+little should be returning some tri-state 'ERR' 'NULL' 'SUCCESS'
+pointer. What does the middle condition even mean? IS_ERR_OR_NULL()
+implies ERR and NULL are semanticly the same, so fix the things to
+always use ERR.
+
+If you want to improve things work to get rid of the NULL checks this
+script identifies. Remove ERR or NULL because only one can ever
+happen, or fix the source to consistently return ERR.
 
 Jason
