@@ -4,125 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88640105A591
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 12:49:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5305105A591
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 12:51:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0560E10E42E;
-	Thu, 12 Mar 2026 12:49:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50BC610E9DD;
+	Thu, 12 Mar 2026 12:51:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0dKo8pOh";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="s2xgOEef";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012041.outbound.protection.outlook.com [52.101.53.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CEDF10E42E
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 12:49:35 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010065.outbound.protection.outlook.com [52.101.61.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9235410E9DD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 12:51:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kas2Snq8fqjBJoUNP3hmr86IDXNu3367Q+95g/kjC54IBjWAdndqWjzRFP40hD7R1BRCsD050w3Qwt+YDg/4LY/0R+cVvfpPYZUpiohCwCl8vzKPn7BWDUop/TbVH1wYL1L0J3jfo1ivOZtM8LO+IEDrdReFA604PK6hlgzrpk0UhiYpUw4KVbcj1ECMoGYM/gZq1KHId0SeiShY70jv/YD4BranDPJ705kDYPju/AosS2/X3hExzy4SFk7ixheg79IJY4FK/9SID6o3haoN6jawIDp5+g1gLPU+uCkR9oJbVQijx0wWi0/Y+y7V0hUFkHimdiSlg5U9rNn8IHabIQ==
+ b=xOn3um3lZTchzDk5uvbP4TBIzO9Z8eqaweDEzHvBA9Zu7AYBf8mFx3bsoQ6vYBTSaJfAc5M+Uq82SVK7RKlQ1aUMldOSX2DYbyZ41qksQhbK97PRcfDH8sB01pKcCovZAeUhE67ZnwC+Iq/Ux3Vvw0rVQBMB3Qgvoad2c3YZUVVoWTyGEpUz2nNhhukQWuTd0P4uQl5hNa/8BNnfgWbVQEa7NQoql+/GQA7iKtTxBqlsEqHeiZBUhkDXUA+APOnYcr/CahUjpITjyRrI5JReRTI3Qo7dpTJ0Zrfq88XyYcVRjyNkC9aEmhf5o4HUkpPXKtXwBvGiFcXGNzTiTtcfbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AV7F/wqOaDo6triZgMvDljPqi+A23iOzqcPI3XEials=;
- b=DnXXWwRH0e6atMSZdL0jwXh+uu5z20+MHqtUStotIK3uZHB4njTfF4h2xmBetgEKlR5A6wXp90UVInhaU3CNVVxWTuVwaXuR5igZtzc3dkshy0JVOTFGc08kZf+0vWh72NigSX1XOn0hRSRLKNJABxBpnnDWK97F0E1jABxy6HCB1C/nwWz9wAdqh+ocsi2MjuWKYFb6LEgva8Vjc2VONEas2DGfB1tIIXAbHVCdCoBpCo4IbFe+QHwCJvkQKLC7QtDsK7+HII6r20dl7N3mpmD9vPA0YQvYE1Cyegj96upBNz99DS9i4G7cy4BblEUa0XaNg8h27W/xBIF4evjCJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=LMZoLs9ZCGkrQ87A9MBqndZlxsySHZEFnbOm7D/93Y8=;
+ b=y4kynM6woPQIxdYIEmHhhh7ZRbJ6fu7PZ6W7dONC+dKY14zJJmBLZmxNDerK/WGOhcN/xVsCVh3en19Qv0vfbGr7Hr8hSpvddC3gfF9OwQpP2eykYf+uYzpikNlxKuJhcwMBWNYJnpNzG01G21WOC4tOFq06RY1kiI65mpfJMjYgc3VEGGX4jhv9X/ldEPaeG8Vdychf5enkK0PXmpNciRxvsLrMr1eeNbP2ccOYO5hAecvxrFZQ14BJyQdqnSNxNJ3Kn56imPJVbu7NVbj2Ul+j7jLk1ELP82C5ex1s4n3RyFJ1WJIe8I1KSYqdt4mm8QoWfqFJX/3L7DCuxrJBkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AV7F/wqOaDo6triZgMvDljPqi+A23iOzqcPI3XEials=;
- b=0dKo8pOh3LPjuB8QcnVOhD0XknjqkMVi0/KS2/0pj9GYpXrkYeXRIxXwwHpDwpuYd+/LpuxJwhOzPKndB7pRkcQsTBtauUkAGszl4PCqwFzRIb30GER9fny229+AwQHJJwiNw/bL0RqnF1nQxWAnoBF4wEtXKsgAInmqBGB2Edw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB9549.namprd12.prod.outlook.com (2603:10b6:8:24e::7) with
+ bh=LMZoLs9ZCGkrQ87A9MBqndZlxsySHZEFnbOm7D/93Y8=;
+ b=s2xgOEefP44DQAls5lypATNa8BcYWDXLURbaw6eutExOjCroy4OR2nZ3mjsDOvJQArW+uWqpMtLUWzMM3eCLURVGreHkQFl/VtQXPtvwSMDUCJ7SyGPR0oR3Hqp7Yarfs8x+l4Jfnv7Jauhv8BNynYUZF8hiP2B5cL3qkGUbY60=
+Received: from PH7P220CA0098.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:32d::9)
+ by CYXPR12MB9277.namprd12.prod.outlook.com (2603:10b6:930:d8::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Thu, 12 Mar
- 2026 12:49:32 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9700.010; Thu, 12 Mar 2026
- 12:49:32 +0000
-Message-ID: <72d9f9df-e762-4d9e-a351-91fa2c457600@amd.com>
-Date: Thu, 12 Mar 2026 13:49:26 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/11] drm/amdgpu: restructure VM state machine
-To: "Khatri, Sunil" <sukhatri@amd.com>, tursulin@ursulin.net,
- Alexander.Deucher@amd.com, Prike.Liang@amd.com,
- Yogesh.Mohanmarimuthu@amd.com, SRINIVASAN.SHANMUGAM@amd.com,
- Sunil.Khatri@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260310191327.2279-1-christian.koenig@amd.com>
- <20260310191327.2279-2-christian.koenig@amd.com>
- <20cd6ab0-97de-41c3-8bb0-56f6ec47ae19@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20cd6ab0-97de-41c3-8bb0-56f6ec47ae19@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0122.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ 2026 12:51:40 +0000
+Received: from SJ1PEPF000023D3.namprd21.prod.outlook.com
+ (2603:10b6:510:32d:cafe::a1) by PH7P220CA0098.outlook.office365.com
+ (2603:10b6:510:32d::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.27 via Frontend Transport; Thu,
+ 12 Mar 2026 12:51:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000023D3.mail.protection.outlook.com (10.167.244.68) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.1 via Frontend Transport; Thu, 12 Mar 2026 12:51:37 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Thu, 12 Mar 2026 07:51:34 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Bokun Zhang <Bokun.Zhang@amd.com>, Monk Liu
+ <monk.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Pack VF2PF ucode_info entries to keep struct size
+ 1KB
+Date: Thu, 12 Mar 2026 18:21:21 +0530
+Message-ID: <20260312125121.1838642-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB9549:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32fddec3-4d74-4d2d-d29c-08de8035ce86
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D3:EE_|CYXPR12MB9277:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f7dac97-fa7d-4a58-1602-08de8036196e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
-X-Microsoft-Antispam-Message-Info: yipyjfRXr+4bGj3A13Wy3ck52a7ikdosP5snXUajO1ZzhJitBV/hGibPYLSgkKiBwiM7Dp0aRYX/RPyaX2pFtTCX18iop2BdI3hRHLjx36+ER4L4cwapM3AWb0fEY7jBp9+GjPYwY2qKdX2teLycgEECuckzyvRA0bPyHQEkBshLf0yfcoPFT/dXCEMeERLzy1i582N6FPXgbiQmWD4M8wfAFm0+nOt8n2sQkVeLhJNoR6zkkN7nvt6rnadpboTeov1ekxE1cfDbHsDuPB2Cz32Bhztba5zXcUo54lmtVHYm0SaQTUyIDStC+LBi9rzXTUkM5IeZlVr6EOUTu6glVbtuBryCMH3lRYFZRka1IvvOx07paYEro/0BB7D7nTYYhHLbEQYNCTwTP4Olc8vuwP0K3iDC81FSLasIaBUT9Es3TGTmm9HaCyuL03JXL3ED0h7+MyE8CruYqSmPkeokaIReSJCbFjxmrVkBF1eDFmO59n1JU8RSoUTrB2MGlukFTfKWRYIIUQyZRsI3NWXACko68zPaOQWrVMyfKsh4ORGoZO/xttp1ot6LFfc2/kcrf6K3zlnB684PEMVcjMJYzFW3nGaD0qtq7aT0p/VSbJH73H+GPOkfxuPRPrd9MmifxTSYYJNZfgyR1zhCAlXWGx1wOa93ZTZeTcnnUj482Fr0HaD0aq92besbwvR3HmvwM+KTB4W7COa/braIjMeclJrGENAKjFG4Mt3zZsI6wOI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
+ ARA:13230040|1800799024|82310400026|36860700016|376014|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: xf9iV6KlWgMYuFMM/bgj0IHCxSSMf14Jz5TqoSjkd3oEhBSIE0Q+GlNOuJ7MTg+qn3+BfvvpI1rRKP4AhCwvJKYQpwKYMd2U5/zzCdzlmOb0IFR2EEiZRpEyYVFTbPGKBSmMr6fZK9EZzn2DRRefZM+2wN8OaxkhrDJ27XApM89s0Hu3rSWMPrdAcmfN1lrFdmU1aooJv9r3KRG6j3kZUNRRsdze6bZNGoJXxKRNI7no8uH8LiChHLYHGaJjhcquP27s/vhM7RD4UxOdNpQ/lhFADSdKd3NQb7i3GZY1F08LYQwOFL/HeQ6pOFP+Dii2IwPiyroze704ylNeMCi2k8zgQgYvWLuRDEcowNnHQMHdkgm8CJ9n2JGpFoeonn19OD/hgOGMponBSi8/D3ULoiRRhHkzBSUwAXqO458t11jKFsr6B8sLdL3Vtk1PNKnZt8Su8kqAve19MJWAANgGwNjUxQALXEwSAFq+FV9Ycz1WyNcE801WbbXNkNugRZFbDDHFZZVqDNFYfH21D7/NAMXRcv/ppowy3XiSWgsQJFLhskBw9+Lgn9iwX6BvqN523rZugZ5BBM+beSlGybK5b+KjMyv/FM4bFDBsMmu2JBfZuEn5Xqo2cClq1bG7tEL+ckjVxF3tYUK+iKXS7zsP+NzVw93eSL8OaggpjmcsWrvfGrAGkGYsGyi139gesJnZE3obl1sDHsUZwZhnfT9aCQUlrtL0+2Sa31AiHjbvI8ffikRbGG5uZODRB+lIi8ISlngV4fe26ulS2AJs1YeS2g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eGdZaUFTM0dMaXRWV1hlTmY1NFVWNW9rdFllcXdpWm9nSVk0M3ZHNlJHNVRB?=
- =?utf-8?B?b0dJTElEUmRFdlZUc2tEdzU1V0V2V0pDY3lCekp1d0xmZStuZWhOemtxb2dl?=
- =?utf-8?B?RUV6dmZBUTN4TDZlL1hGTkxyZWJ2TVpHbE5WK2JSc25TWUhVRDN6MVFPUisw?=
- =?utf-8?B?ZVRKN2lPQzhGMEkxUHRzSmV1MnBaeVlyWjI5Z1FEenZ6Mm83TlJzQkFYVnJ3?=
- =?utf-8?B?Q2ZBQkZNNHlodktGS2FEY1V2V0Z0dzBKbWtvZzBnOW92RisxOVpOeTdXeHgx?=
- =?utf-8?B?WkxWaXJyNkpPZkRKclQvSWE5T2dtOE1MbU5OV0EzS0dkVHgrNUp1VjlKd1RY?=
- =?utf-8?B?WXZlQ245N2Z4ampkOG1Tc0hWVW9CeW45WFF5dS8ybEd2NWFiL0doMGNPTUYz?=
- =?utf-8?B?WU01V1JWOGJsNHMzYlE1YjF0bUkrVnI2TE5BZWt4Q052aDhuZ05xTkN1ZW5P?=
- =?utf-8?B?TGVhQUczMjhDZGdLcUpaZnIyQ2N6d3NCRUJqRWZQL1pldjdlRE5UZDh2eEg2?=
- =?utf-8?B?TWFLMDYyL1FvQkJYS1dGUlBwRHhxMkNKbWcydVg0cGRrcU82QVB6R1F6U3pY?=
- =?utf-8?B?ZjRVQXhvNHh1c1R5MEpzQXNtNjRKT3ppdDZUcDJHN0YxcFZjUWVtMnJ2NFZM?=
- =?utf-8?B?clRHVndiQkorQ25Yb0IvQ1lXYkZFQVJhL0lGQWlWT3drT1A0SGhVT0M2YVA5?=
- =?utf-8?B?RzlpSGdSNGpCeEdsR3pwSW1wY0xKR21JUTU4NUtVYVNuaW00S0I0N1JtM3Yx?=
- =?utf-8?B?SGZhWWdUTW1OSEtwdStEZjB5cUdwbkM0eENBa2xYOVhSeXJCSkc5Y1lIc3NQ?=
- =?utf-8?B?R3hmd3Y5cnE1TkxGbWo5UlMyUG5nSHlVNDZ5dDU2QVVKYnNGdEVSb3FmOXlj?=
- =?utf-8?B?bnliemxORGdFWFZ2RTljZ1NMWVduaGp5VVR4cUxLRWI0RkhKYlFxeC9aVXR6?=
- =?utf-8?B?Vlc4aVhZbzB0cU5DaFN5K2NlTGgxQ1hBKytqRnhENTliK0JWaVFCN3huT3l6?=
- =?utf-8?B?MEhGV0JHQndESHEwV0Y4UmhsZnFYUUxZcUxqb09kZ3plemoxK3J0T1B2enhr?=
- =?utf-8?B?UUFPYU9FMVpxVzBFNEZVNEdzMnJmRXdPQW43OFZINzQyaGNlWDBnejZCS3ZU?=
- =?utf-8?B?VEs4T3dNcHB1S3B3b1dFVk93N3VIZlpKUm1ncVZ6cExjR3lOOWtYd2lvaUhs?=
- =?utf-8?B?aUVuVjBnYkVxbjIxVksxeERPT0ovMFFLbGQ4c2lGN2JiT0FlVW9LaUw2MVVi?=
- =?utf-8?B?NCtja1dRQURuOGJSQWVsZm5JT3Y4Q2V4K21QUzNOMGo5Z0pBRmVzQzNLSytK?=
- =?utf-8?B?bElVdHNrY29meGl6Qkg3K2JwZ2x0RW1TZnV5d2VFdTZkbTloMTNQdDVPY0hF?=
- =?utf-8?B?S2Jja1JvUWR0ZC91RFVKZ3hsZWVNeGdHb1Zac0NmeTVPWjJlc3VIWmVkUnl6?=
- =?utf-8?B?Mld6b0JxU0p2N0ZlWUwzVG5XeFlRdWNwSGl6NWkrNzNXSFQwUTdRdzlMSXNs?=
- =?utf-8?B?ckk1ekpsWi9VVTRnOGxrRVNYdk1memJVZU1xM2tlWVBPOUxoVGVxS1NFVlJC?=
- =?utf-8?B?bGlIUVdFWGZiL1I3VVo3d1QvK3dvVXZjRHMzblM1MDdoc2ZTanJyNDlXbDc5?=
- =?utf-8?B?d0hKd0ZEWndhOTdka2lIdEZiRjZTVXBpZjhaT2I5RFY2eGdJcEgvcVhKK2xs?=
- =?utf-8?B?dUJBRWRaZG9TdHdXZmp4MklTZ3ZYaU80QUFrcVB3Tmp2ak9TdTBHd3RhaTFt?=
- =?utf-8?B?TlZoRGpQYXNKTkJ1Z2IzQ1ZrSFZFTVUyMlRoL21SYkNISjNOS2JVbkVJVjVs?=
- =?utf-8?B?QmVFWGpTZGtHSnRlSWpMWk1xUytZT1BLMDZpS283QkRVS2lrNmVDM3FMN3J0?=
- =?utf-8?B?eFRwM3VkOWg4VjZybmlXQzR6cmdiaDVUOFVTM3BlazNGS2w1NFU0eFhqUVUr?=
- =?utf-8?B?T09uR05remZmRWZOcTJFZXpxdW9xMytTNXUreEIxdFk2cTc3Y21ZK3FrbGdB?=
- =?utf-8?B?ZWJNNXJVWDVSekN6YUtOc1VpNStFY3FpdzRaY3liMVoxRzlhUGhCS1BvV1Zh?=
- =?utf-8?B?dmExUFJpZGhDdENVM1FNaC94YWxnbmNPZ29QYVZZWWIvZFZ2VWg4YmpTVXRv?=
- =?utf-8?B?TWxxWkRiTTcweVZNYXFoeFpORlpqY29UbUtwMjRXeGpDWU1nL3QrZmlnY2Rk?=
- =?utf-8?B?SWI0QytwUlQybThySUV4NHBHNE5Ca1lmMnVMd3ZFSld3ZUY3NGdEWHFTYXVM?=
- =?utf-8?B?blpwbHJUbUVxQXBHYkl6b0hRVG1KOEJ5cUhsRSs2bit4dGorRko2ZEJSdDhU?=
- =?utf-8?Q?VwTKXTq+4yV2wk7yx7?=
+X-MS-Exchange-AntiSpam-MessageData-0: N0Lth5ZTqLLrLsmt4yRKK+PZ0PQuIcvLTtFrjMtwHorc0vIlM7GWj9cI7WOj9vP0KDNQ2rDxkwi0kfJJdGa0L2nNErwSpd/f3rXGelUJELSoQNY/jBY9Dyinj9nFNCKm2Clk0pGdbzK9vXLOEblsTiRPat2atBRzUTmniKnIaLi5DyOOUR4rVI4/rLWvoCKI1Lu9Cqg2FprNFiNs7NlJnHCNYk7bnJa5NLFLsWrVEfe0RR6/cuboGJ9sQdJ3Xm3N0sEDPZR3s4PS+NGa329QS9CN5XUz9xaGdvlHMwB+/WjjEvEU7wjA1DyFcwITjZQWstPH8wOqsETooT4zeUeMc04ov1e0Ufg2M9OUEmMj80K6+TxYxG4qCcnuN0E7RfkkoGgw3JAGoYdKfpYlY/MwWtSmY/cmN+YDsLx6PiuB2goxMSeB+kddAe9LZ8Metotp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32fddec3-4d74-4d2d-d29c-08de8035ce86
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 12:49:32.2947 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 12:51:37.5079 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f7dac97-fa7d-4a58-1602-08de8036196e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5GI1Hy9D4A/68DCDNeb3keba6a0qpM7FSYzOGJ+EognC4FFGibJNFO6jHijG4EYc
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9549
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D3.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9277
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,100 +111,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/11/26 09:47, Khatri, Sunil wrote:
-> 
-> On 11-03-2026 12:43 am, Christian König wrote:
->> Instead of comming up with more sophisticated names for states a VM BO
->> can be in group them by the type of BO first and then by the state.
->>
->> So we end with BO type kernel, shared_resv and individual_resv and then
->> states evicted, moved and idle.
->>
->> Not much functional change, except that evicted_user is moved back
->> together with the other BOs again which makes the handling in
->> amdgpu_vm_validate() a bit more complex. Also fixes a problem with user
->> queues and amdgpu_vm_ready().
-> Some typos in commit message.
+The VF2PF mailbox structure must be exactly 1KB, which is enforced by
+a compile-time static assertion.
 
-Can you point them out? I only the the extra "m" in the first sentence of hand.
+The ucode_info array currently uses a small struct containing:
 
+  uint8_t id
+  uint32_t version
 
->> @@ -349,46 +366,22 @@ struct amdgpu_vm {
->>  	spinlock_t		stats_lock;
->>  	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
->>  
->> -	/*
->> -	 * The following lists contain amdgpu_vm_bo_base objects for either
->> -	 * PDs, PTs or per VM BOs. The state transits are:
->> -	 *
->> -	 * evicted -> relocated (PDs, PTs) or moved (per VM BOs) -> idle
->> -	 *
->> -	 * Lists are protected by the root PD dma_resv lock.
->> -	 */
->> -
->> -	/* Per-VM and PT BOs who needs a validation */
->> -	struct list_head	evicted;
->> -
->> -	/* PT BOs which relocated and their parent need an update */
->> -	struct list_head	relocated;
->> +	/* kernel PD/Pts, resv is shared with the root PD */
->> +	struct amdgpu_vm_bo_status	kernel;
->>  
->> -	/* per VM BOs moved, but not yet updated in the PT */
->> -	struct list_head	moved;
->> -
->> -	/* All BOs of this VM not currently in the state machine */
->> -	struct list_head	idle;
->> +	/* userspace BOs where the resv object is shared with the root PD */
->> +	struct amdgpu_vm_bo_status	shared_resv;
->>  
->>  	/*
->>  	 * The following lists contain amdgpu_vm_bo_base objects for BOs which
->> -	 * have their own dma_resv object and not depend on the root PD. Their
->> -	 * state transits are:
->> -	 *
->> -	 * evicted_user or invalidated -> done
->> +	 * have their own dma_resv object and not depend on the root PD.
-> 
-> We might want to move the explanation before the individual_resv list for clarity. Grouping idea seems great and seems to simply the things to good extent. But just for better explanation and more clarity for others and documentation purposes if we want can add more details:
-> 
-> kernel:       BO's belonging to PD/PT and other BOs which are internal to the kernel.
-> 
-> shared_resv      BO's belonging to per process but still allocated by the driver/kernel for each process, for name can we says per_process
-> 
-> individual_resv : BO's whose memory is allocated by user for completely user managed buffers per process (User ptrs), alternate name : user_private or something.
+Without explicit packing, the compiler may insert padding after the
+uint8_t field so that the uint32_t field starts at a 4-byte aligned
+address. For example, the layout may become:
 
-Mhm, that description is actually not correct. Those are not necessarily userptrs but can also be normal BOs shared with other processes or devices.
+  id (1 byte) + 3 bytes padding + version (4 bytes)
 
-I will try to come up with some better comments.
+which makes the struct 8 bytes instead of the expected 5 bytes.
 
-> 
-> Apart from the nitpicks, the change looks great and simplify things.
-> 
-> Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+Since the structure contains multiple ucode_info entries, this padding
+can increase the total structure size beyond 1024 bytes and cause the
+1KB size check to fail.
 
-Thanks,
-Christian.
+Define the ucode_info entry as a packed struct to ensure each entry
+remains 5 bytes and the VF2PF mailbox structure stays exactly 1KB.
 
-> 
-> Regards Sunil Khatri
-> 
->>  	 *
->>  	 * Lists are protected by the invalidated_lock.
->>  	 */
->>  	spinlock_t		invalidated_lock;
->>  
->> -	/* BOs for user mode queues that need a validation */
->> -	struct list_head	evicted_user;
->> -
->> -	/* regular invalidated BOs, but not yet updated in the PT */
->> -	struct list_head	invalidated;
->> -
->> -	/* BOs which are invalidated, has been updated in the PTs */
->> -	struct list_head        done;
->> +	/* Userspace BOs with individual resv object */
->> +	struct amdgpu_vm_bo_status	individual_resv;
->>  
->>  	/*
->>  	 * This list contains amdgpu_bo_va_mapping objects which have been freed
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:510:49: error: static assertion failed: "amd_sriov_msg_vf2pf_info must be 1 KB"
+
+Fixes: 1721bc1b2afa ("drm/amdgpu: Update VF2PF interface")
+Cc: Bokun Zhang <Bokun.Zhang@amd.com>
+Cc: Monk Liu <monk.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+index 847cfd1fd004..31fc54111519 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+@@ -328,6 +328,11 @@ struct amd_sriov_msg_vf2pf_info_header {
+ 	uint32_t reserved[2];
+ };
+ 
++struct amd_sriov_msg_ucode_info {
++	u8 id;
++	u32 version;
++} __packed;
++
+ #define AMD_SRIOV_MSG_VF2PF_INFO_FILLED_SIZE (73)
+ struct amd_sriov_msg_vf2pf_info {
+ 	/* header contains size and version */
+@@ -367,10 +372,7 @@ struct amd_sriov_msg_vf2pf_info {
+ 	uint32_t fb_vis_size;
+ 	uint32_t fb_size;
+ 	/* guest ucode data, each one is 1.25 Dword */
+-	struct {
+-		uint8_t id;
+-		uint32_t version;
+-	} ucode_info[AMD_SRIOV_MSG_RESERVE_UCODE];
++	struct amd_sriov_msg_ucode_info ucode_info[AMD_SRIOV_MSG_RESERVE_UCODE];
+ 	uint64_t dummy_page_addr;
+ 	/* FB allocated for guest MES to record UQ info */
+ 	uint64_t mes_info_addr;
+-- 
+2.34.1
 
