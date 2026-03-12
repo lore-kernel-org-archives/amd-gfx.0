@@ -4,47 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52CB5FED2E3
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 07:48:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 112F2FED2E4
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 08:02:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6C7010E988;
-	Thu, 12 Mar 2026 07:48:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FCF610E994;
+	Thu, 12 Mar 2026 08:02:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=codethink.co.uk header.i=@codethink.co.uk header.b="nPpcykP3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="tNkVHSp8";
 	dkim-atps=neutral
-X-Greylist: delayed 1866 seconds by postgrey-1.36 at gabe;
- Wed, 11 Mar 2026 17:45:29 UTC
-Received: from imap5.colo.codethink.co.uk (imap5.colo.codethink.co.uk
- [78.40.148.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9784510E321
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2026 17:45:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=codethink.co.uk; s=imap5-20230908; h=Sender:Content-Transfer-Encoding:
- MIME-Version:Message-Id:Date:Subject:Cc:To:From:Reply-To:In-Reply-To:
- References; bh=WpbKujUg/je3z1rxJtYDPy/DfekoUNAkqxPV46uYOx8=; b=nPpcykP3AI4ZPa
- lZH+n4DMR1kMe3pVMqwIAwADp87XJJXyS11hSh6AHSLD0vOVoEX89/n6MarL+NpgDLM5ssvBEECuU
- eeohTcej4Gi2Yoi3urJ7WUb7U6szlans9LrpUPOaJHwcK5bLbOwttsXywwl9mzjMevNPYd+ziq4ps
- hRw7AGHVrxLPjjj9bEyh/xQ+Wft30vddEA4/NVWwVsXuGUZv2dbViUO6S8KCbTdlLiiG9AWefWgRD
- UQn726fdDMa1SPXaPn16dfPcDXMl3C8pkZAnfAI67q2D+nNy9NGTiuPOUbGzCOphD9a2731hZG09M
- heJuK2E0qOp2kuTnNXzA==;
-Received: from [63.135.74.212] (helo=rainbowdash)
- by imap5.colo.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
- id 1w0N8X-00G9Qs-0B; Wed, 11 Mar 2026 17:14:21 +0000
-Received: from ben by rainbowdash with local (Exim 4.99.1)
- (envelope-from <ben@rainbowdash>) id 1w0N8W-00000002LTF-0opz;
- Wed, 11 Mar 2026 17:14:20 +0000
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- alexander.deucher@amd.com, christian.koenig@amd.com
-Cc: linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Ben Dooks <ben.dooks@codethink.co.uk>
-Subject: [PATCH] drm/radeon/cik: fix endian cik_cp_gfx_load_microcode()
-Date: Wed, 11 Mar 2026 17:14:19 +0000
-Message-Id: <20260311171419.559180-1-ben.dooks@codethink.co.uk>
-X-Mailer: git-send-email 2.37.2.352.g3c44437643
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C67410E993;
+ Thu, 12 Mar 2026 08:02:51 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id EF78E42D74;
+ Thu, 12 Mar 2026 08:02:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCBEEC4CEF7;
+ Thu, 12 Mar 2026 08:02:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773302570;
+ bh=rOOCLsoaLb28ovZSPnnf45HbMo0fTfq5uGTva0TuFEQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tNkVHSp8aV7sS5Qk8ZaP4YOYE3mNMhJYj4DmpuqlQBMhNBxfQEgf8486GJNvAiRHp
+ MjMaRBZfReUBmhgrs6728xWBOWF4A4S/BzAg8r7uWZNZbdNRHCdSXfsVudVZ0J9JkZ
+ t+N18ZiT0BUcn1/TPy4tgu+nU+v4WT9jxXghR/jt6jIRgUFC75uUjFLMNde8af3N+r
+ G40d3r8OJ2fCn1AGmRFq7KBdbV7hFjbIIUDevdo7b+CZmaeZQdKDR/qkp6yrT80LSb
+ rUV58KFYHWBBd6nCzlm5zDNWGEQpM5nxfHp69ha3J7GZQjnJSu0J18yqnqsbePElLo
+ 4/rXki/MNjOKQ==
+Date: Thu, 12 Mar 2026 01:02:45 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Calvin Owens <calvin@wbinvd.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Charlene Liu <charlene.liu@amd.com>,
+ Ovidiu Bunea <ovidiu.bunea@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ llvm@lists.linux.dev
+Subject: Re: [REGRESSION][PATCH] drm/amd/display: Fix uninitialized variable
+ which breaks full LTO
+Message-ID: <20260312080245.GA3988095@ax162>
+References: <ef7266eb7802ce6d68ebd9356477e9671f0c94e0.1773116305.git.calvin@wbinvd.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 12 Mar 2026 07:48:09 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ef7266eb7802ce6d68ebd9356477e9671f0c94e0.1773116305.git.calvin@wbinvd.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,35 +65,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The cik_cp_gfx_load_microcode() has __be32 in one of
-the paths where it is assigning to an __le32. This looks
-to be a copy error from the other branch of the if in
-that code.
+Hi Calvin,
 
-Fix the following sparse warning by changing to __le32:
+On Mon, Mar 09, 2026 at 09:24:57PM -0700, Calvin Owens wrote:
+> Commit e1b385726f7f ("drm/amd/display: Add additional checks for PSP
+> footer size") introduced a use of an uninitialized stack variable
+> in dm_dmub_sw_init() (region_params.bss_data_size).
+> 
+> Interestingly, this seems to cause no issue on normal kernels. But when
+> full LTO is enabled, it causes the compiler to "optimize" out huge
+> swaths of amdgpu initialization code, and the driver is unusable:
 
-drivers/gpu/drm/radeon/cik.c:3926:25: warning: incorrect type in assignment (different base types)
-drivers/gpu/drm/radeon/cik.c:3926:25:    expected restricted __le32 const [usertype] *[assigned] fw_data
-drivers/gpu/drm/radeon/cik.c:3926:25:    got restricted __be32 const [usertype] *
+Yeah, this appears to be a very unfortunate case of "clang encountered known
+undefined behavior and stopped code generation", which we would like to
+avoid but figuring out a proper upstreamable solution is hard. The most
+recent attempt:
 
-Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
----
- drivers/gpu/drm/radeon/cik.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  https://github.com/llvm/llvm-project/pull/146791
 
-diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-index 51a3e0fc2f56..1f9167d5ec6e 100644
---- a/drivers/gpu/drm/radeon/cik.c
-+++ b/drivers/gpu/drm/radeon/cik.c
-@@ -3923,7 +3923,7 @@ static int cik_cp_gfx_load_microcode(struct radeon_device *rdev)
- 		WREG32(CP_CE_UCODE_ADDR, le32_to_cpu(ce_hdr->header.ucode_version));
- 
- 		/* ME */
--		fw_data = (const __be32 *)
-+		fw_data = (const __le32 *)
- 			(rdev->me_fw->data + le32_to_cpu(me_hdr->header.ucode_array_offset_bytes));
- 		fw_size = le32_to_cpu(me_hdr->header.ucode_size_bytes) / 4;
- 		WREG32(CP_ME_RAM_WADDR, 0);
--- 
-2.37.2.352.g3c44437643
+My guess is that LTO allows inlining of
+dmub_srv_get_fw_meta_info_from_raw_fw() into dm_dmub_sw_init(), at which
+point it can see that the result of accessing an uninitialized
+region_params.bss_data_size will be used through
+fw_meta_info_params.fw_bss_data and gives up generating the rest of the
+function.
 
+>     amdgpu 0000:03:00.0: [drm] Loading DMUB firmware via PSP: version=0x07002F00
+>     amdgpu 0000:03:00.0: sw_init of IP block <dm> failed 5
+>     amdgpu 0000:03:00.0: amdgpu_device_ip_init failed
+>     amdgpu 0000:03:00.0: Fatal error during GPU init
+> 
+> It surprises me that neither gcc nor clang emit a warning about this: I
+> only found it by bisecting the LTO breakage.
+
+gcc's -Wmaybe-uninitialized is disabled by default for the kernel but
+even enabling it with KCFLAGS does not show an instance here, which I
+find quite surprising... for clang, it is harder because the warning
+happens early in the frontend where it might not be able to track a
+value that well.
+
+> Fix by using the old value for region_params.bss_data_size in place of
+> the uninitialized reference, which makes amdgpu work with LTO again.
+> 
+> Fixes: e1b385726f7f ("drm/amd/display: Add additional checks for PSP footer size")
+> Signed-off-by: Calvin Owens <calvin@wbinvd.org>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index b3d6f2cd8ab6..e69e61163ae9 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2554,7 +2554,7 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
+>  	fw_meta_info_params.fw_inst_const = adev->dm.dmub_fw->data +
+>  					    le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
+>  					    PSP_HEADER_BYTES_256;
+> -	fw_meta_info_params.fw_bss_data = region_params.bss_data_size ? adev->dm.dmub_fw->data +
+> +	fw_meta_info_params.fw_bss_data = le32_to_cpu(hdr->bss_data_bytes) ? adev->dm.dmub_fw->data +
+
+Maybe it would be better to use fw_meta_info_params.bss_data_size
+instead of le32_to_cpu(hdr->bss_data_bytes)? Obviously it is the same
+value but it would result in a smaller change. It seems likely that this
+was just a copy and paste failure.
+
+>  					  le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
+>  					  le32_to_cpu(hdr->inst_const_bytes) : NULL;
+>  	fw_meta_info_params.custom_psp_footer_size = 0;
+> -- 
+> 2.47.3
+> 
