@@ -4,108 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4860A106ACF8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2D1E106ACF9
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBE310EB45;
-	Fri, 13 Mar 2026 08:55:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DACF10EB4C;
+	Fri, 13 Mar 2026 08:55:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="PCj4EbSo";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I70LgRYw";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B80C10E9D0;
- Thu, 12 Mar 2026 08:55:14 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 93869594;
- Thu, 12 Mar 2026 09:54:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1773305644;
- bh=Zlw2pnya/OaJ1VxnB8BPExMvf19QwK1ysreWBJN45KE=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=PCj4EbSo9M+nhHO3YMM4wzqVA4FGezdG+MvXFQFOZZ8CgexMrQdcoESlaOrLqzf2j
- QVCBNoXUx4jB/v0V61h//xEOqEOoBymApHk4BImhdAqPNKBFKFKADpMA2eIMmo0+B6
- ObAiKPqh8+BeAMCqndRA9HlNyI879370Uc/TD4y0=
-Message-ID: <19fef8f8-9746-426f-91e5-51ff8b13c441@ideasonboard.com>
-Date: Thu, 12 Mar 2026 10:55:07 +0200
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC59110EA90
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 19:16:13 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-1273c690e5bso106284c88.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 12:16:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773342973; cv=none;
+ d=google.com; s=arc-20240605;
+ b=Bjj49mBRDaqo7vUw+bcsEAOr3IoSg4wxJXka5x1NcDTRizsmyF4MHZl0QtcMY/ZBi0
+ TzD1/AmpP1hXkLTtg3xLhLeMjmUlgXEysq/Rzwv5eK73PWckZVTo4iUHSHMMc1ht0qky
+ M0SYh5JkZ6KqwlVMEy+t3BZbAoV3m+eNNbWZpmb6QTnm9aQBItyCcuK6XBz++owpMr87
+ DALyYJjFgU5c+5MJ1GKM/WGDTz5lJ9BVlUvQqmfCXjkHg4WzVyN9QEuQYk6MPpoBbPRH
+ AFy3BAj2a0hJ1DLpvjvqbDo1oLx0NAf3VEaZm3oBqgJKmLsWkDiRdUG+J4KNdEOXwMfW
+ jIGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=2hzSysAOGotLHY/Gk0vtKsQ07bdjUjpPdIHGXWzs09g=;
+ fh=S5/9mA9fQWpJ8WxlIENoFeKao3i2nJ4JwhFHpOu7CqY=;
+ b=RU1yBfUxB5XpEKbDRkDx9sDsd/3ut/tl2e7VEBmuoAETtu4uWCLK8kIe90pHqOHLd5
+ NzOZs8ciprIxBS+RdQsiC7RyVCc0qYAsu07SmId7WNbeCckEqQ5CqnG36M8KULXzz1t0
+ 95c3P2fq5EATg6GdNtL+8wMBlfbGK+tZw8MKK/vTJUyewQqTtyt4CEa609C/j0d7t89n
+ msfkHacQvsDBFSwGV9CQP1Mszla+HQItfi3BVM9iPqWJ4b2EAN3sKaetzCGoeRI6VWlC
+ wQSCpp4qIikLYqVrT4p0Wp416MMs99rhG01P0VVGzVLJUpciBC0TSHzbFa70D5Z0m1is
+ YF6Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773342973; x=1773947773; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=2hzSysAOGotLHY/Gk0vtKsQ07bdjUjpPdIHGXWzs09g=;
+ b=I70LgRYwmb1Kf3TSnl+ArSLtzExyTBoa7dl04aKCHbpIOVlt0pkM+kTuMC22F9ryVp
+ jUv01TLfI+UOeUVX6Sjz3kZS8LJyXET8ksAMjQMZzMqR2UNwz/RhUR0Dh0iVLA9TJZHL
+ QXDsAXdQJiSbkyV3ypZv6uYxCyR1eCY+nrb6KQRwRLstb0XzDVTra1OJoA7lxpmr4sXI
+ kaiXA9abzkmSNzENEsVuZBIyKPxgfqceCeSC5GzkFLFj33Ut8QJ5agezs64BnIL5WFv+
+ 4K0QJleWgs+yILD46TlDsM4JTXcyiLlouPXq9bhfJihv+HoQC5so3WutGFCQ5CAn3ICC
+ Xoxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773342973; x=1773947773;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=2hzSysAOGotLHY/Gk0vtKsQ07bdjUjpPdIHGXWzs09g=;
+ b=BqTF3r6Xg/ibX7MDrWLq4dxNT0Pb0jz4optaeNhPqo1BEPNrie5eCNhfPf6ZGl1Iwd
+ adXver2k+bGTr8GcFGKQMEJ+1IzKaVBMIpEyBnbKqNqbDralSdeXYp+PCyngT4TmKExV
+ t512Yh42LTa2JI/f6Fo5Ns4xcuppCdT8Tu7KDoCPmAASoYc4aIONKOPt8v+sIUCnyZ1S
+ j2iqq7b+82jrD5HTDK/T2e0UXHctSqFpKy8O6MQbAvK9ZirRlncAhQBnid+4NIU0vOin
+ R8jhhU6yMmOwxnGvQBYsBAxSwQqkcIs+tqFIU/aZTicnsk9cVeAfC/c/upiJ9smXNPYn
+ cVhA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVdfo8UBfoT95p7JKRlglyYA6zZaqGtIqAHyltoqrqsOmgusqUK7e5WEeVFT1j8kd8Zv4lAHAot@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyL+wPEJnuvdD3y38kqEjAVetZ5xKyWaYZvTE0jhFdIzhEdYVtg
+ oRUrhJClK1KLMuAQ/eFaBPNlRc/jKtHmN64ulAtSknj7CUuDUApb/M2eLOstpFu4i5CG44cs2sE
+ Q/OycVoAMuTqCk27wOPps65Z15cCkzlo=
+X-Gm-Gg: ATEYQzy35u6d05b6xFCSEwI96qdp7I5pOoknKEVYh9lRqjOxbgoRm0zED6l0RWES629
+ Hu+a8WcS/kaXE845n31WyBH/nhKCGSCr7Y/x4WodDg7syBhXgdSFo9hUEBcOeRSO1MNiAZOrhvz
+ tJolMG1Yht3js50fzX7vibgVe96LTBefkdKh9dQ3qN//QXmHWLIZY6qeXPv9rQl9N/Yo6EN+aKh
+ bRqh6TXlbsTdudjyWyU1VQ3o6qh6qWBVm2zMix+B5x0CZ1cNDJWonYqRSRWm2xF0z9VuRq8d3ay
+ rDsw4VrG8Tn9wEGA4N4575YoMM7A2CtiScl+wziS87B0NThKngjR1quexxUto4DnXsodCkChGVS
+ gwJHHOsaeijYcWeCzm0ygF6A=
+X-Received: by 2002:a05:7300:fd03:b0:2be:171c:2177 with SMTP id
+ 5a478bee46e88-2bea5744a60mr186533eec.7.1773342973060; Thu, 12 Mar 2026
+ 12:16:13 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/4] drm/atomic: Allocate drm_private_state through a
- callback
-To: Maxime Ripard <mripard@kernel.org>,
+References: <20260306203648.1136554-1-joelagnelf@nvidia.com>
+ <20260306203648.1136554-2-joelagnelf@nvidia.com>
+In-Reply-To: <20260306203648.1136554-2-joelagnelf@nvidia.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 12 Mar 2026 20:16:00 +0100
+X-Gm-Features: AaiRm537cVQtFBzSwOEaMgXdjzYeE0uMIzdX3f2cfwXX8kFS15LK67mGvYzfQo0
+Message-ID: <CANiq72m2Eo1UAuwMC0LhiD4+yqKixRm=+oHtEnpwY-VbNdR+fw@mail.gmail.com>
+Subject: Re: [PATCH v12 1/1] rust: interop: Add list module for C linked list
+ interface
+To: Joel Fernandes <joelagnelf@nvidia.com>
+Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Alex Gaynor <alex.gaynor@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Dave Airlie <airlied@redhat.com>, David Airlie <airlied@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org, Thierry Reding <thierry.reding@gmail.com>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
- <mcanal@igalia.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Paul Cercueil <paul@crapouillou.net>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- linux-mips@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, Jessica Zhang <jesszhan0024@gmail.com>
-References: <20260224-drm-private-obj-reset-v5-0-5a72f8ec9934@kernel.org>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-Autocrypt: addr=tomi.valkeinen@ideasonboard.com; keydata=
- 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
-In-Reply-To: <20260224-drm-private-obj-reset-v5-0-5a72f8ec9934@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, 
+ Nikola Djukic <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+ Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa <elle@weathered-steel.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, 
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,85 +139,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, Mar 6, 2026 at 9:37=E2=80=AFPM Joel Fernandes <joelagnelf@nvidia.co=
+m> wrote:
+>
+> Acked-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
 
-On 24/02/2026 18:10, Maxime Ripard wrote:
-> Hi,
-> 
-> This series started from my work on the hardware state readout[1], and
-> was suggested by Dmitry[2].
-> 
-> This series deal with the fact that drm_private_obj (and thus bridges)
-> are not initialized using the same pattern than any other object. This
-> series solves that inconsistency by aligning it to what we're doing for
-> all the other objects.
-> 
-> This was tested on a TI SK-AM62, with three bridges.
-> 
-> Let me know what you think,
-> Maxime
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 
-Looks fine to me, except for one thing: the return value of
-drm_atomic_private_obj_init() is ignored everywhere, so we won't catch
-ENOMEM. Is there a plan or follow-up series for that? If yes:
+> +//! # // SAFETY: head and all the items are test objects allocated in th=
+is scope.
 
-Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+`head`
 
- Tomi
+> +//! // Rust wrapper for the C struct.
 
-> 1: https://lore.kernel.org/dri-devel/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org/
-> 2: https://lore.kernel.org/dri-devel/zvqtehg66dbrrdmik6ylo2kdk74umfzo5hbfkizwsb352nlyqv@jgouvmbfwa4x/
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
-> ---
-> Changes in v5:
-> - Rebase to drm-misc-next
-> - Link to v4: https://lore.kernel.org/r/20260128-drm-private-obj-reset-v4-0-90891fa3d3b0@redhat.com
-> 
-> Changes in v4:
-> - Fix a circular dependencies between modules by calling
->   __drm_atomic_helper_private_obj_create_state from
->   __drm_atomic_helper_bridge_reset instead of
->   drm_bridge_atomic_create_priv_state()
-> - Link to v3: https://lore.kernel.org/r/20260119-drm-private-obj-reset-v3-0-b931abe3a5e3@redhat.com
-> 
-> Changes in v3:
-> - EDITME: describe what is new in this series revision.
-> - EDITME: use bulletpoints and terse descriptions.
-> - Link to v2: https://lore.kernel.org/r/20251014-drm-private-obj-reset-v2-0-6dd60e985e9d@kernel.org
-> 
-> Changes in v2:
-> - Switch to a new hook instead of reset since some drm_private_objs want
->   to persist across suspends
-> - Drop the call to drm_private_obj_funcs.reset in
->   drm_mode_config_reset()
-> - Link to v1: https://lore.kernel.org/r/20251008-drm-private-obj-reset-v1-0-805ab43ae65a@kernel.org
-> 
-> ---
-> Maxime Ripard (4):
->       drm/amdgpu: Switch private_obj initialization to atomic_create_state
->       drm/omapdrm: Switch private_obj initialization to atomic_create_state
->       drm/tegra: Switch private_obj initialization to atomic_create_state
->       drm/atomic: Remove state argument to drm_atomic_private_obj_init
-> 
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 51 ++++++++++++----------
->  .../drm/arm/display/komeda/komeda_private_obj.c    | 16 +++----
->  drivers/gpu/drm/display/drm_dp_mst_topology.c      |  1 -
->  drivers/gpu/drm/display/drm_dp_tunnel.c            |  2 +-
->  drivers/gpu/drm/drm_atomic.c                       | 22 +++-------
->  drivers/gpu/drm/drm_bridge.c                       |  1 -
->  drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  2 +-
->  drivers/gpu/drm/ingenic/ingenic-ipu.c              |  2 +-
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  1 -
->  drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  1 -
->  drivers/gpu/drm/omapdrm/omap_drv.c                 | 22 +++++++---
->  drivers/gpu/drm/tegra/hub.c                        | 22 +++++++---
->  drivers/gpu/drm/vc4/vc4_kms.c                      |  4 +-
->  include/drm/drm_atomic.h                           |  1 -
->  14 files changed, 76 insertions(+), 72 deletions(-)
-> ---
-> base-commit: 196b2b95fec447c2c4460f753b277d840633fbef
-> change-id: 20251008-drm-private-obj-reset-ae1e2741027a
-> 
-> Best regards,
+Empty newline comment between these:
 
+  //! //
+
+Actually, should this be `//! ///`?
+
+> +//! // The list item struct in this example is defined in C code as:
+> +//! //   struct SampleItemC {
+> +//! //       int value;
+> +//! //       struct list_head link;
+> +//! //   };
+> +//! //
+
+Let's try to use the usual style, i.e. no empty newline at the end of
+docs for an item.
+
+And the example should be in a proper code block with a C tag, so all
+together something like:
+
+    //! /// Rust wrapper for the C struct.
+    //! ///
+    //! /// The list item struct in this example is defined in C code as:
+    //! ///
+    //! /// ```c
+    //! /// struct SampleItemC {
+    //! ///     int value;
+    //! ///     struct list_head link;
+    //! /// };
+    //! /// ```
+
+> +//!         // SAFETY: [`Item`] has same layout as [`SampleItemC`].
+
+No need for intra-doc links in comments (for now at least).
+
+> +//! // Create typed [`CList`] from sentinel head.
+
+Empty newline comment.
+
+> +//! // SAFETY: head is valid and initialized, items are `SampleItemC` wi=
+th
+
+`head`
+
+However, this is giving me a Clippy issue (please see the other email).
+
+> +///   `next`/`prev` pointers are valid and non-NULL.
+
+We started using `NULL` recently as a convention for the null pointer.
+
+> +        // - [`CListHead`] has same layout as `list_head`.
+
+Intra-doc link not needed.
+
+> +        // - `ptr` is valid and unmodified for 'a per caller guarantees.
+
+`'a`
+
+> +        // SAFETY: self.as_raw() is valid per type invariants.
+
+`self.as_raw()`
+
+> +/// perform conversion of returned [`CListHead`] to an item (using `cont=
+ainer_of` macro or similar).
+
+Intra-doc link to `container_of`?
+
+> +        // - [`CList`] has same layout as [`CListHead`] due to repr(tran=
+sparent).
+
+Intra-doc link not needed.
+
+> +        // Convert to item using OFFSET.
+
+`OFFSET`
+
+Newline comment after this one.
+
+> +/// Create a C doubly-circular linked list interface `CList` from a raw =
+`list_head` pointer.
+
+[`CList`]
+
+> +///   pointing to a list that is not concurrently modified for the lifet=
+ime of the `CList`.
+
+[`CList`]
+
+> +/// Refer to the examples in this module's documentation.
+
+Perhaps we could have an intra-doc link here to the module.
+
+> +        // Compile-time check that field path is a list_head.
+
+`list_head`
+
+Cheers,
+Miguel
