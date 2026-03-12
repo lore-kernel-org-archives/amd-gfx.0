@@ -4,128 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58AB0106FD9F
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 129CA103E302
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BDE710EB41;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4172910EB3F;
 	Fri, 13 Mar 2026 08:55:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="homXtovm";
+	dkim=pass (2048-bit key; secure) header.d=wbinvd.org header.i=@wbinvd.org header.b="eQ+2Oj82";
 	dkim-atps=neutral
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D151710EA83
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 19:15:46 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-124b07e5fe4so81945c88.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 12:15:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773342946; cv=none;
- d=google.com; s=arc-20240605;
- b=VxA5AvOYuKP18eW+jpSxOUTH43zwsXfP+bmsDP8T7aSZDspotF8yY8Y96Wzd8OoVuk
- LWea3QZ+1s0rS0sgdw1t9jYT8a5ZdDSOH306/4SIsRqQ+Sc3JcIHzPnT/P2vnRM1YsQd
- WYwnXCmQCdmymHtxmUIfoZ+pOZI5YwWOMB4Ue2HLsDaV3bESjb6yxaEj28z2uTw9kmWj
- 3aojC4ZEG+ybNqRt4Yu658jzef+g6nTEsthwsiVsV9EDomZHMsORDn6U9CNQIZ5qMK7D
- EBdkbBlYOqE4tBbyKxUi3C2q2mIueQPPFAUU9OhOTdRFzb4SlSRD66bbbc1okSWMI18/
- g2uA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=4VzEC4HlHoK4vh0lvr6EYPz1Eqp/YdbOqaCW1vewwOg=;
- fh=/O/n7rzcKQc9i+LME983roHkGod15JNfnDb1VgkR55U=;
- b=aJFfI3BipK5+aU+PjzkykA46pxNCNlxHf+emV4m86MylRZIpRe8+NLXUFEo6vJ3eEc
- T9FMhh2ec3w/jL0RwTRUwW35S6O1vKvXoM8mHG7ned+Kp3qJYNORDQTsq84Z+YyAzx28
- Y10LpFCVt/PrB5aOUgVce1JfuREcwlY+XW6LdjxQjSelyWEORKxmWFT9gi4xnWfzEUAz
- as6UlAupg1etRHgb24GQR18QctUO/eSeAF8Dx/Ua2pWGkDELUAtxE3KXQ8rxNemEmcAT
- K2lHjPoL5ilvxNYtImF/Bz+4ByiSIF/Q17jpnOIITbNl6rv0ZNGqIK9vIhcaoX0/1DSB
- Y/nw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
+ [74.125.82.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5760310EA5D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 16:15:35 +0000 (UTC)
+Received: by mail-dy1-f178.google.com with SMTP id
+ 5a478bee46e88-2bd9a485bd6so438156eec.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 09:15:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773342946; x=1773947746; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4VzEC4HlHoK4vh0lvr6EYPz1Eqp/YdbOqaCW1vewwOg=;
- b=homXtovmL7d23e1KalTVecPCknznywPIJhKJxhlfi9r/A8gMAxe1ycrez11l4fcHPC
- UGvAcbrIPdP8O+4oEK+JchQu580zby3Tlf2fh6+ztzz+HhH8wE21U6foC5E2j5gyYoFM
- iVKydSWkzJza/5PFWOm3qlqzqrH0RYniiCSWHJ1PfXLSa0w+zNGzVtbdj14pTcR66X9s
- PMwush3kC20A/nl6ZSDn+yMNBkGgnQh7jo+XNOknpROw63oeMZPgx2RpLGBP9QLTA78P
- EDwErEtf6ttnw7STJmy01IEfICVkOTw7TU9vyyi7EmAcaP7446w5CnqMgfCZ9NDSjUeO
- zzog==
+ d=wbinvd.org; s=wbinvd; t=1773332134; x=1773936934; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=wYTHfLNKxvy35JvH8B5/QuRK+srFMTLyCSw6VerOpmQ=;
+ b=eQ+2Oj82pvx5Ky7KNDUV8ZEzz3wcITT3WyY8oogT73E63LbXrPtibaRdz+4MYdAYhT
+ V2RO5gAvCnDPRQHft+P6DFCRDIOddfPUYDcT8eDaGEpl9+76tdsYwx0iUZmoqnCBqW57
+ d+3HtPrK4TVTvoJgER2te0TxnT0iSutYXagJ5fYMSQsmCMrvqyEEdz/dJBRU/3Vk3ZRI
+ Xbh9osMVeSBmkPSv4YXSP/b3EM92XN/yWJUhlgIiVd10ckAIMe4s4S/iKpjFdsy6yeML
+ xfSYo9oNBETpuwNJCvd+XXpXBfVEZKdEcsboGEJY1WLDjQ/6/j9OrL0u6DTzesM22gYF
+ UpSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773342946; x=1773947746;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=4VzEC4HlHoK4vh0lvr6EYPz1Eqp/YdbOqaCW1vewwOg=;
- b=BHcGcLI6ZW+zRQvZAgVmOPZL2Z/k9WysNBPdNUh7n68G+s46WKURwp2mhaN4lUbFHr
- 2tuUq6nRm2XAJ4atqScS0CEeF2OTVbSMJCFn4R4A1fOuY0RxFv3IuKs17/11mtJi2a0U
- EDehAZ5Sy8gnNgEe9W/VZtsLpCF/cViLhe8A69AuStPHg24v7fR63pCkJONogXva70Pp
- 1Ts9mJkr20K2Csxw0H33oAVZ5Nzk8oR2cY1d8BUEO8O1qVCK2fHQAMZfS92t9dOQZUvC
- JQQUpd1fo2B8U97dTMouXKKC0E6hH9iNq0wsxKUuHzqimhwTPG8WToSKRUtZYeK08uQz
- CJ1g==
+ d=1e100.net; s=20230601; t=1773332134; x=1773936934;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=wYTHfLNKxvy35JvH8B5/QuRK+srFMTLyCSw6VerOpmQ=;
+ b=HN1UqVyjGEfTSnzz3PYb+Z0SQ9KXynokVg3zmgvTGh8EU+4lwIyWY6umyv7wXhhHP+
+ ePFMFufMXUv5sAUoPH/lEKsF3OqQHLwxemrwFq8rjSofkUvIincnpJA09JkAVRs1t0VY
+ A98PqeVVjIMPzdeZ6P5HSVwIBYe61MiDzDx8t59OPCFFKXIBMGIJE7LNbjrNT3LmZzMV
+ qF/0uKhnkQvtaMfn9QQjooBTe9bjrO3WginGrZ5wpw1a3jfc9e2Mb5mkBQrtovAHhna/
+ 4B8puJogI2suL2k5nbjwikAYd3l71o+aFo0j4p1Y9BWgw39D2Yw9lr7OSlI3q8321W3U
+ XV1g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVt/3TrT3ks0qc2L3LGmwmmUQqvTABjKffSNWUBj/j8PY8iYKGyjMylqXLoW7lpu1uPCVjGSrCu@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyChA5f1Vu9ASNIHgWTdviQLfsMbZv51Y3xxfAMTX+Ler3WTOSL
- PCIB56tc+3jWyjZBgjHcVwFVsTgV7Z/UHktBXz4u2DZTXP9Nzn5ZZMe7DWhESHPoerfYtg6mHoA
- zxKix5HiWXT7R6A4r3nv9dsJjBZ5QZ7M=
-X-Gm-Gg: ATEYQzyCqPomSGO5fpniXTsJ+LiB4BFDAJuDLHtaIU9ruAVhHBmhXW38peDEvxfKi3p
- fSf0sI4/wzrQYQOUz2HsS8vbcCnAD0fN+W8JcIHPISb4LLCKjK2RhzXySTvb5DfzM/p53Ht9uTq
- H5xh1T2U+R+I0WTMIIKouQrTxLxlOfYT65ytwiGtcDpMs9tpFUXDjkQ+X45MHpmeuh921RPJ+Rr
- DIRVJjRJNlfHfdmdbQQQmbaTKUyeCPJxIOlIMOTJhIofAOmVUjyAEBdWlqlH5zljZq9n41q8PeS
- j4pGK5MUfj0m1iEegrnWk1RfkpfQgOdcN/6csVDE5qLikxb8x61gde3DC7tJU1DjRtrz9vA6gdj
- w0uT3vbPkU14Q/1h4KQKAHHY=
-X-Received: by 2002:a05:7301:1924:b0:2bd:d8e6:90a0 with SMTP id
- 5a478bee46e88-2bea555c8d0mr231898eec.3.1773342945899; Thu, 12 Mar 2026
- 12:15:45 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260306203648.1136554-1-joelagnelf@nvidia.com>
- <20260306203648.1136554-2-joelagnelf@nvidia.com>
- <DH0ZMJKN6OE6.243UPT928HIIX@kernel.org>
-In-Reply-To: <DH0ZMJKN6OE6.243UPT928HIIX@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 12 Mar 2026 20:15:33 +0100
-X-Gm-Features: AaiRm53560zXAmoL0EVQHDBxYh33LaVByeeBz-QChPDevjdBJ65drv5v7FGkL1c
-Message-ID: <CANiq72n6ccEz71V3nkJxtY_BNbTw3F_eekt+Dyhvfb1FNP-srw@mail.gmail.com>
-Subject: Re: [PATCH v12 1/1] rust: interop: Add list module for C linked list
- interface
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Joel Fernandes <joelagnelf@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>, 
- linux-kernel@vger.kernel.org, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Alex Gaynor <alex.gaynor@gmail.com>, Dave Airlie <airlied@redhat.com>, 
- David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>, Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, Nikola Djukic <ndjukic@nvidia.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, Philipp Stanner <phasta@kernel.org>, 
- Elle Rhumsaa <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>, 
+ AJvYcCWmzgT0gogNcj9TGNK5gephQOa8b/ivTBjcXbw9KOKwCtZradv9LTwHkAzQHWXA/i+sm6dGq1ix@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyJG4B7YI+yZGpYwZ5ETEMyfCM0/OF7hgnTV8ZM9NEdi8buwuvX
+ jWk1tIT8mync08H2lpw32RXYCR6nxQgzveJgeOcp66ty8Zp0EvGDJDjORymnP8LexXc=
+X-Gm-Gg: ATEYQzzLZ4ahJ81YtcO9dvNglXb24yrgYwXgjDO1gKVp2y13rRlxoqqKwHk8HJq2gmE
+ 8l8oXaCFqwork1t9WwvOtFe9I1FTB6zZEsDkQvJbcjzmRJ3cRDhl/b3ZymJ/pDLxsVYy/reuFD5
+ +3LG/PXO7XHDcS59mylWtNUH+g0aXzVCBt97CNBosBACwDWg7VnOfHr1FaU8GhD1myqlYRR+T5+
+ hj5t5McxnZNAt0aVVJYhBk4Lxr6Mv+txO1En6t/s9LDJKi1dkVNEAIu5HKY1KFTZEVrykih5244
+ sx2KnZqQ+qN/woojt4hoVh7z4UwoN2tw8NdC+7aVkwkMZ+O9IazSx5hBVXN472NhgIdwaeVNGmI
+ /s4BgsCfngthxFv1IQL6ZfztfIV6YmDABwx5zZfn7jgXfhag6YDH2RzgiEc3nkJMrQ3xtHCTS22
+ QhGEHRCgdxpH5cb4ola0gRihEt3g==
+X-Received: by 2002:a05:7300:ec17:b0:2ba:7783:d1cd with SMTP id
+ 5a478bee46e88-2bea5475343mr137153eec.12.1773332134317; 
+ Thu, 12 Mar 2026 09:15:34 -0700 (PDT)
+Received: from mozart.vkv.me ([2001:5a8:468b:d015:53d0:dd05:1bb3:9034])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-2be8aa7413esm6963232eec.24.2026.03.12.09.15.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Mar 2026 09:15:33 -0700 (PDT)
+Date: Thu, 12 Mar 2026 09:15:30 -0700
+From: Calvin Owens <calvin@wbinvd.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Charlene Liu <charlene.liu@amd.com>,
+ Ovidiu Bunea <ovidiu.bunea@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, 
- Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, 
- Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
- Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ llvm@lists.linux.dev
+Subject: Re: [REGRESSION][PATCH] drm/amd/display: Fix uninitialized variable
+ which breaks full LTO
+Message-ID: <abLmonL-8QubcCpA@mozart.vkv.me>
+References: <ef7266eb7802ce6d68ebd9356477e9671f0c94e0.1773116305.git.calvin@wbinvd.org>
+ <20260312080245.GA3988095@ax162>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260312080245.GA3988095@ax162>
+X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,14 +98,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 12, 2026 at 6:42=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
-wrote:
->
-> Was this given off-list? I can't find a corresponding reply from Miguel.
+On Thursday 03/12 at 01:02 -0700, Nathan Chancellor wrote:
+> Hi Calvin,
+> 
+> On Mon, Mar 09, 2026 at 09:24:57PM -0700, Calvin Owens wrote:
+> > Commit e1b385726f7f ("drm/amd/display: Add additional checks for PSP
+> > footer size") introduced a use of an uninitialized stack variable
+> > in dm_dmub_sw_init() (region_params.bss_data_size).
+> > 
+> > Interestingly, this seems to cause no issue on normal kernels. But when
+> > full LTO is enabled, it causes the compiler to "optimize" out huge
+> > swaths of amdgpu initialization code, and the driver is unusable:
+> 
+> Yeah, this appears to be a very unfortunate case of "clang encountered known
+> undefined behavior and stopped code generation", which we would like to
+> avoid but figuring out a proper upstreamable solution is hard. The most
+> recent attempt:
+> 
+>   https://github.com/llvm/llvm-project/pull/146791
+> 
+> My guess is that LTO allows inlining of
+> dmub_srv_get_fw_meta_info_from_raw_fw() into dm_dmub_sw_init(), at which
+> point it can see that the result of accessing an uninitialized
+> region_params.bss_data_size will be used through
+> fw_meta_info_params.fw_bss_data and gives up generating the rest of the
+> function.
 
-Thanks for double-checking that -- it is fine.
+Thanks for looking Nathan. I'll keep an eye on that and see if it's able
+to catch this example. I've tried to come up with a minimal reproducer,
+but I haven't had any luck yet (so far I always get the warning), would
+that be helpful at all?
 
-I am sending some nits and Clippy issues independently though.
+I put the full W=2 output for the one file here in case anyone else
+wants to look:
 
-Cheers,
-Miguel
+   https://github.com/jcalvinowens/lkml-debug/blob/main/amdgpu-lto/gcc-warns.txt
+   https://github.com/jcalvinowens/lkml-debug/blob/main/amdgpu-lto/llvm-warns.txt
+
+Somehow 'make drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.o' doesn't
+work, I want to look at that later because it was mildly annoying while
+digging into this.
+
+> >     amdgpu 0000:03:00.0: [drm] Loading DMUB firmware via PSP: version=0x07002F00
+> >     amdgpu 0000:03:00.0: sw_init of IP block <dm> failed 5
+> >     amdgpu 0000:03:00.0: amdgpu_device_ip_init failed
+> >     amdgpu 0000:03:00.0: Fatal error during GPU init
+> > 
+> > It surprises me that neither gcc nor clang emit a warning about this: I
+> > only found it by bisecting the LTO breakage.
+> 
+> gcc's -Wmaybe-uninitialized is disabled by default for the kernel but
+> even enabling it with KCFLAGS does not show an instance here, which I
+> find quite surprising... for clang, it is harder because the warning
+> happens early in the frontend where it might not be able to track a
+> value that well.
+
+GCC does flag what seems to me to be a real but benign warning about an
+ERR_PTR check that doesn't handle NULL in the same file:
+
+    https://lore.kernel.org/lkml/6aaf2cf4bd19363a85f35e649685d7bdae400253.1773157137.git.calvin@wbinvd.org/
+
+I'm also trying to find a minimal reproducer for GCC, no luck yet.
+
+> > Fix by using the old value for region_params.bss_data_size in place of
+> > the uninitialized reference, which makes amdgpu work with LTO again.
+> > 
+> > Fixes: e1b385726f7f ("drm/amd/display: Add additional checks for PSP footer size")
+> > Signed-off-by: Calvin Owens <calvin@wbinvd.org>
+> > ---
+> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index b3d6f2cd8ab6..e69e61163ae9 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -2554,7 +2554,7 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
+> >  	fw_meta_info_params.fw_inst_const = adev->dm.dmub_fw->data +
+> >  					    le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
+> >  					    PSP_HEADER_BYTES_256;
+> > -	fw_meta_info_params.fw_bss_data = region_params.bss_data_size ? adev->dm.dmub_fw->data +
+> > +	fw_meta_info_params.fw_bss_data = le32_to_cpu(hdr->bss_data_bytes) ? adev->dm.dmub_fw->data +
+> 
+> Maybe it would be better to use fw_meta_info_params.bss_data_size
+> instead of le32_to_cpu(hdr->bss_data_bytes)? Obviously it is the same
+> value but it would result in a smaller change. It seems likely that this
+> was just a copy and paste failure.
+
+Agreed. That ends up being almost self evidently correct if I force git
+to add an extra context line with the assignment, I always forget I can
+do that:
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b3d6f2cd8ab6..0d1c772ef713 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2553,9 +2553,9 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
+ 	fw_meta_info_params.bss_data_size = le32_to_cpu(hdr->bss_data_bytes);
+ 	fw_meta_info_params.fw_inst_const = adev->dm.dmub_fw->data +
+ 					    le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
+ 					    PSP_HEADER_BYTES_256;
+-	fw_meta_info_params.fw_bss_data = region_params.bss_data_size ? adev->dm.dmub_fw->data +
++	fw_meta_info_params.fw_bss_data = fw_meta_info_params.bss_data_size ? adev->dm.dmub_fw->data +
+ 					  le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
+ 					  le32_to_cpu(hdr->inst_const_bytes) : NULL;
+ 	fw_meta_info_params.custom_psp_footer_size = 0;
+ 
+
+I'll send a v2 in a little bit.
+
+Thanks,
+Calvin
+
+> >  					  le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
+> >  					  le32_to_cpu(hdr->inst_const_bytes) : NULL;
+> >  	fw_meta_info_params.custom_psp_footer_size = 0;
+> > -- 
+> > 2.47.3
+> > 
