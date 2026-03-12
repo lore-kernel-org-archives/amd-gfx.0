@@ -4,131 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59438106ACEE
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 21:14:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98EED106ACEC
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 21:46:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5E3E10E199;
-	Thu, 12 Mar 2026 21:14:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CD2010E222;
+	Thu, 12 Mar 2026 21:46:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OhudFM3C";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="an2krcmw";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010061.outbound.protection.outlook.com [52.101.201.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9AA1510E199;
- Thu, 12 Mar 2026 21:14:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b7j2gXwFNYQCZhVuU8WyC9VEAjWUuGGSy0LKlCWc9QPXhFNC4wRQ7NUUwwiZKt6Ilng3Nvjo5Px3MWK4nhNfDlX5wkAi2G9LVpGana5tfnyxwslj+tfmX9ieekZqT4OC4yje5DjgvSwifGLSK8HHIsfBAptQeSDxhoAN3EdWbXH1KHaHpbJFHBQMwCpkZNkMMsp7VgUdrMtxN2EvCwwp3/KZ3fowU22yzxkA4kJzYzvdJTxgcp+LaLvlMl/z5RVSKpSqctmWt1WdMMpZ6gzw29UpHWo/ilbvO5/FCZU4bWf6RH4yh+BH/nKjfEd8tGpJN75o6artJ0mrcLaywBcfpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o8Rio0BOEwIErcLOfMSEX1Y1QOfuaFsDpAhCViRqW+o=;
- b=hub/cHDM9Xm7Wj3v3tfSGWHM12Fk1wtxKnxr2gxZN4GEXAxqwZ4RGDORrKUjBRrvYu+o1t/iLMEwSoaJ7h7NHlhXLLxcVfZnTrqfPlR0cr5g5K5cUiXMXV3fE3tewLIn5m4jT9B/jcyXhc2+6d41Tnwu4O40ZpneLrC167Yv+dpfEj8+F/Xw+qSe8W9mGJ4+gL77hQRLGO2J59A9A9GXDOXhzmixIzmaz+nVvcPH5MjQwlVdlh8R3FMto2Ud60LxRVv63o2k0IUQZoHw9GudppgOJN3WR7DS9jVMgbkzA3vfdF2z8CY2RW0ocveOCs5n4eCJcsTZ53KJkCanNpeezw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o8Rio0BOEwIErcLOfMSEX1Y1QOfuaFsDpAhCViRqW+o=;
- b=OhudFM3C99ybFsVyx+VmgenG3mT00PFQwXFGQNsJ7HSnQhvvTUFWLYxo2C1lUB6etUITK1zeb20rFz3UxA7mLk8WM/4YQDgdlWP7VQ1CJJ+F29DRi8G4+SKl62alJfHLL29fMmtamJ4+5mqGfGGXA4VWO2ldhN8yXJR+j5LUrbk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by PH0PR12MB7077.namprd12.prod.outlook.com (2603:10b6:510:21d::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Thu, 12 Mar
- 2026 21:14:27 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9723.004; Thu, 12 Mar 2026
- 21:14:27 +0000
-Message-ID: <ef24d3dc-28f8-4ca9-848a-c480337aac04@amd.com>
-Date: Thu, 12 Mar 2026 15:14:24 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/colorop: Fix blob property reference tracking in
- state lifecycle
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: Simon Ser <contact@emersion.fr>, Daniel Stone <daniels@collabora.com>,
- Melissa Wen <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>,
- Uma Shankar <uma.shankar@intel.com>,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Jani Nikula <jani.nikula@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- stable@vger.kernel.org
-References: <20260312204145.829714-1-harry.wentland@amd.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260312204145.829714-1-harry.wentland@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MW4PR03CA0117.namprd03.prod.outlook.com
- (2603:10b6:303:b7::32) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AB4710E222;
+ Thu, 12 Mar 2026 21:46:56 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2FE8B61336;
+ Thu, 12 Mar 2026 21:46:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E98BC19425;
+ Thu, 12 Mar 2026 21:46:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773352014;
+ bh=NwDzJSDpxtFSvPZOy19nkzCcGXaIV5w84KoC01820Eo=;
+ h=From:Date:Subject:To:Cc:From;
+ b=an2krcmwEQKGvOo/WYOQYpB8MBoeCrJua7aUbBNkTUFU1nLzEWUNQUrjqiOOswAvC
+ 2UXtqBTmh6/AtGUrz0CdY8nVXpLjBbYXDTq3eBiIe0YGOnExQ2e1iB3m5gNq7Dcc0O
+ ZKrwdUkcp8RmVGPUWsJI39VXd83LC9ugezgLDL9GKTsxOdHyveKjS70OrRSvAWP1fi
+ XgGl2WSmhVIotEg7qjgZkZXuwXCfEKzKbr3azE2VT4pOOydXZ+Z1hI10keair1YaE9
+ 4LVEmclf78OPCAY+j5fpvUDDvoYyuPvQAEmYQGW09X4QqDhLCgVFecEIrpR0T6Bzlr
+ POU8uL4U1Ghww==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Thu, 12 Mar 2026 14:46:48 -0700
+Subject: [PATCH] drm/amdgpu/discovery: Add braces to case statements in
+ amdgpu_discovery_table_check()
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|PH0PR12MB7077:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8716470-f6fe-45e9-3a94-08de807c57d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|56012099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: u6Dl/T0THSkQ8kyThYwdX3POncjAQMd5WzEagrEBAlntSMBWsBhdb/dlQ21IyS6MhHy5cGuuzfILZ5iHP0pofPbJVlVM0HM3XxKxE8XVJIxlGJsbj/whANQkwT0EF8Ye4wjUH/OoJBM1aDLaKUx91KxghTC935Is7bla7jqP/+XHlJBFcuiwzAkW7T2tT5jFfMfrU5HrjOApWmbXY4Swh4/+P4ogu7Wt7zHMNf0naXzfZEq+Cmdna/hsLcy6im/gFiMYCooJ7i5449tlOzaGRbpav98FXcTHuGXblYRbhidlLesGn6DvmdOZCfzi4Dc/2qI6KnGXcBicJodBfQrjIYOi6iCwEQSBOK1UYZ9InV58cDhGcbm16BicTyrUlYJnGbK+34T/9jupws1S9i4WFRldL4E15rH8S8pX8EvuSaRgbOG6nzans90K4lvEBjljjXAd7ckHcW30+lE0SW1Tv0tctbuSJIPQ6SMyaC3qdTcugnZaDzPZJ70uHcQvcD6fidSlcnlSl/+aAM+ebfXmw1wlDsh5A2kpv946B+WDHmuLFdSN1AZ1aRTyPg01aL0F41F9yZFjrIT+MpYBOhg+DPRtOH0FY3b/0Q95FON1EJ/SuXzQKcgWr1VeA9/bAOrOCaM7Ct4SiAzZAVkP7qZCJVDRKbzbgiW2QyYwGCtxTJYBiw7J+napOJw2Shn4kzAalDNtuEp3KyBEC1l2wgxQVrVI+nKgxIDFKAL6yUU+9m8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(56012099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ckRwaDUxVWQwa1lOWmluR2pDMnZIaGFhWndWeUUzb3FLc2hiMXhMc05iVUpP?=
- =?utf-8?B?RmlaeGJ0d1VtOWhPaDNFejVzY083Smh4bW4yODdqcVFTQjlWR21TTnIyRjFN?=
- =?utf-8?B?a2xCamp1ZU8wTWlLMGQ5cUszZUh0bGtsNjhEMnRYc1NhM08vRmtMRTNjSlVB?=
- =?utf-8?B?bkJwSmNQbDdLbVJqUTd6NmIvdEF5T2hyT3hyZ1ZXSTF4UnVBSEJsaWxIMmJ0?=
- =?utf-8?B?eFRkU0o4eXhJelVRbkcxY2FaeGNyMEMxVXUyZ1M4cXVab081Q2FhZjNybEVl?=
- =?utf-8?B?VGJQeWE4K3lqckVQNHpVdWFpN3ZaTnUvcnRWcllsZlpOamxadTJSN0cwY0Mw?=
- =?utf-8?B?NjNWbGNpVjc2VUI2b1lUR3poWGVBNEgvRWNCMXdQdjVyZmltOSt2bjJFTnZH?=
- =?utf-8?B?ZElwdi9nbVpidFVTdS82bW9ZTU9IeElXUHRuRG51TFU2NHBqa2hpTjE0RkFS?=
- =?utf-8?B?OTBWbEJ3elhWQlJpekhpWkk4UDN5RVpUTHA0TGliMUJsZldQcm8yY2ZCUm5O?=
- =?utf-8?B?OFlkbk1td2EyM1U3VlpZK0FSNlI1OUEydmhEWnlMNGZNSUNqRE5ER3YrUFhp?=
- =?utf-8?B?bGxSUncxTWpRVkh2UGVjYzNRTERLTXRzUU92TGNpVjdpd3ZYRG1NKzAzdllm?=
- =?utf-8?B?azRRbkZ6aGx4QXU5MzFPQ01idjRRbHBMN0ZjNVBxaGF0TDZmblFYOFFLd2FT?=
- =?utf-8?B?a3F5NGVvd1dqdWMxTTIwZWtkZEE0WWpKS091eit1SFZTemtuSXBsSW9rZHVS?=
- =?utf-8?B?QlE2Z1NnNkNuRXBlUWhMdEkzVnp0QVZVdGp4TUZ2R0JCSktsN2pPV3M2TnVT?=
- =?utf-8?B?Y2hHRW5SbEZNY0NaZ08wcnM2UjgxdWNqOFNSOS9sRjZyYWUwb0szNWdvczdl?=
- =?utf-8?B?aW1xUDZIN2h4UmdwZ0Jrd0xvNGszNXhxRFQySzhYVTZSL09FZzJZVmE4Ung2?=
- =?utf-8?B?dFdoQWl2WU1kRFdYdms2RCt5aDczejVaYkt4clpRcnJNRGhKeHh2dzVxTEdC?=
- =?utf-8?B?amEzQ1k0dGduSnlRMlliTGZzQjI0cEJhWnlCbndYazB2L2U0eUM0YVBtemti?=
- =?utf-8?B?WXZPSTh3RUdSUHdIeEtxK051S09pR1cvT2pHZ1U2Rko1azhBb2lqUnpTR1la?=
- =?utf-8?B?WVVtZjFDSUw4dDBDSWo3aUtCVTB3VWpQS0tjeUVlTEJSY3lEcmxxeUJPNVo3?=
- =?utf-8?B?ekF1MlhNMXF6SjBMQ1hDMzUvZVFreTYyem51LzdwUG1rS1ZQNWY0cURsa1Zi?=
- =?utf-8?B?VTRxQkp2Z2lySnZmQmxySjYwdjlpN1k4dk5BVWpRbjFxdVdSTENPSnB6M2U0?=
- =?utf-8?B?WjJ4ZWN6MklxZG5zblhrdDZiN1lKcFVCOWdiekR6UEdhZnd0aFRUMUFPbnpN?=
- =?utf-8?B?ZkFTWFJYN0pybnpRYTdjK2NJQ3JUOHpSNUlJL3ZkSndNci9tMEUwbUdwN1Nq?=
- =?utf-8?B?Q0RKWVVZTDJKMzgxajV2UEdlSnBDV2pGNnhQL3JpUDBuL05oOWdyWlpHT0ZV?=
- =?utf-8?B?bUh0OXJNd2kzcE1DOEE0Yk4weldnUGgzTHhiZW1wdFB5NmgydkRuUmlTbFEv?=
- =?utf-8?B?UzJlMDJ3WkZvd3U2V1dzNGxycXVySmp1SjE3dk1uWHRCZUFwcFFVK1NIL0g5?=
- =?utf-8?B?aHNuU3pMMktvWHFNRUxnemFJREFoVXdYOUVQeFhyTUErTHFSNkJwL1NqOFRu?=
- =?utf-8?B?eU1xY0JzSlkrNzd2RjRzWWoxVDlZb3BXVEtRcU5mZ3kxRjI0TXZMekNyVGNM?=
- =?utf-8?B?eG1lVjlpN24zblVpYm40QWtRWDkzT2FNTHgyMmRKOGduWnNkc2R6R1FkYmp2?=
- =?utf-8?B?cGpjaVBGUWxIcE9na05ld0RtWkYwZ1FqczlESjFnT0p2WVExYVJScFlRWTNz?=
- =?utf-8?B?d3F3NXdOMEg2N0hrL28yU05BbXp2VnFweGRDY3lOM3RaM3JKNGJTNEVZZmNx?=
- =?utf-8?B?K1RQUWFpUUtaNTQxSWo5SWI2bVYrMEcxUEMvSVFsV3YrK3hTTjhRQmFPQ2Vw?=
- =?utf-8?B?M0FQT3hRazlrNUpxdXN1cG9YcUxRa0I2dzlYcThDVHdNVWJYa2F4SkgwS1NO?=
- =?utf-8?B?RG1haFFoWnZiSkMyQnBwL2pLbEk3Zi9udmtCeUpLaElBYVNUNkhxWHp0RVk0?=
- =?utf-8?B?M041NWxzWm03SUhrTnRFaktYUUhuMVdZbTB6S3FxZmlFUlIzMnFnSzBZSytl?=
- =?utf-8?B?b2xkY2szNDNWa1BNNENobkVsWDZ4UngwVFR1UWdrdXVMNEppeFlnVi9qT3pU?=
- =?utf-8?B?dWZVb1dyMmV5UnFrSkhOUzhBbHo1RlMxekVLdDdrSWUzWnc4OHJzZGhmSUZq?=
- =?utf-8?B?bFhJNUxNNjQwak5sRzJsYm1jWWlROXhXdEhHNDAwUkZEUis3NzRkQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8716470-f6fe-45e9-3a94-08de807c57d2
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 21:14:27.1888 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: naIiMOVjTF/G1fDP+nJ3a+y2hA1gASryZLcSM9SjIv33MF23snH4HHNFHTKM6UFbGor2UaLAZAe0opHdBMJRYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7077
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260312-amdgpu-fix-clang-c23-extensions-v1-1-59883120a451@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWN0QqCQBBFf0XmuQF3DIl+JXrQ8WobtcmOiiD+e
+ 2M9Hjj33I0MOcLoWmyUsUSLn+QQTgXpo0kDOHbOJKXUZRWEm3c3jDP3cWV9ucAqFWOdkI6pceh
+ buQCozyrklTHD3d/D7f5nm9sndDqytO9f/timeoMAAAA=
+X-Change-ID: 20260312-amdgpu-fix-clang-c23-extensions-1fb28eee64c2
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ llvm@lists.linux.dev, patches@lists.linux.dev, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4596; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=NwDzJSDpxtFSvPZOy19nkzCcGXaIV5w84KoC01820Eo=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDJmbTXwUSpfrcoSzSGe/y7jIOrOF4/kn3q0/RRS2tiqsl
+ r0m7lXRUcrCIMbFICumyFL9WPW4oeGcs4w3Tk2CmcPKBDKEgYtTACZyZg7DP+MfTZLXVqwMVjTX
+ emXG7lraukOLzctoiqTf1RTV0nsn2xn+F7ZXquapWzcJb/Cf3hL/k0lhOlPWXofZIaUcz5/opDZ
+ zAgA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,105 +71,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+When building with a version of clang that supports the narrower
+'-fms-anonymous-structs' (as opposed to the wider '-fms-extensions')
+along with the associated kernel support (such as in next-20260312 [1]),
+there are warnings (or errors with CONFIG_WERROR=y / W=e) from the
+switch statement added by commit 47ab777c16c7 ("drm/amdgpu/discovery:
+use common function to check discovery table").
 
-On 3/12/26 14:41, Harry Wentland wrote:
-> The colorop state blob property handling had memory leaks during state
-> duplication, destruction, and reset operations. The implementation
-> failed to follow the established pattern from drm_crtc's handling of
-> DEGAMMA/GAMMA blob properties.
-> 
-> Issues fixed:
-> - drm_colorop_atomic_destroy_state() was freeing state memory without
->    releasing the blob reference, causing a leak
-> - drm_colorop_reset() was directly freeing old state with kfree()
->    instead of properly destroying it, leaking blob references
-> - drm_colorop_cleanup() had duplicate blob cleanup code
-> 
-> Changes:
-> - Add __drm_atomic_helper_colorop_destroy_state() helper to properly
->    release blob references before freeing state memory
-> - Update drm_colorop_atomic_destroy_state() to call the helper
-> - Fix drm_colorop_reset() to use drm_colorop_atomic_destroy_state()
->    for proper cleanup of old state
-> - Simplify drm_colorop_cleanup() to use the common destruction path
-> 
-> This matches the well-tested pattern used by drm_crtc since 2016 and
-> ensures proper reference counting throughout the state lifecycle.
-> 
-> Co-developed by Claude Sonnet 4.5.
-> 
-> Fixes: cfc27680ee20 ("drm/colorop: Introduce new drm_colorop mode object")
-> Cc: Simon Ser <contact@emersion.fr>
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Daniel Stone <daniels@collabora.com>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Sebastian Wick <sebastian.wick@redhat.com>
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Jani Nikula <jani.nikula@intel.com>
-> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> Cc: <stable@vger.kernel.org> #v6.19+
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->   drivers/gpu/drm/drm_colorop.c | 26 +++++++++++++++++++-------
->   1 file changed, 19 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index f421c623b3f0..647cf881f413 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -171,12 +171,8 @@ void drm_colorop_cleanup(struct drm_colorop *colorop)
->   	list_del(&colorop->head);
->   	config->num_colorop--;
->   
-> -	if (colorop->state && colorop->state->data) {
-> -		drm_property_blob_put(colorop->state->data);
-> -		colorop->state->data = NULL;
-> -	}
-> -
-> -	kfree(colorop->state);
-> +	if (colorop->state)
-> +		drm_colorop_atomic_destroy_state(colorop, colorop->state);
->   }
->   EXPORT_SYMBOL(drm_colorop_cleanup);
->   
-> @@ -485,9 +481,23 @@ drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop)
->   	return state;
->   }
->   
-> +/**
-> + * __drm_atomic_helper_colorop_destroy_state - release colorop state
-> + * @state: colorop state object to release
-> + *
-> + * Releases all resources stored in the colorop state without actually freeing
-> + * the memory of the colorop state. This is useful for drivers that subclass the
-> + * colorop state.
-> + */
-> +static void __drm_atomic_helper_colorop_destroy_state(struct drm_colorop_state *state)
-> +{
-> +	drm_property_blob_put(state->data);
-> +}
-> +
->   void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
->   				      struct drm_colorop_state *state)
->   {
-> +	__drm_atomic_helper_colorop_destroy_state(state);
->   	kfree(state);
->   }
->   
-> @@ -538,7 +548,9 @@ static void __drm_colorop_reset(struct drm_colorop *colorop,
->   
->   void drm_colorop_reset(struct drm_colorop *colorop)
->   {
-> -	kfree(colorop->state);
-> +	if (colorop->state)
-> +		drm_colorop_atomic_destroy_state(colorop, colorop->state);
-> +
->   	colorop->state = kzalloc_obj(*colorop->state);
->   
->   	if (colorop->state)
+  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:560:3: error: label followed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
+    560 |                 struct ip_discovery_header *ihdr =
+        |                 ^
+  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:568:3: error: label followed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
+    568 |                 struct gpu_info_header *ghdr =
+        |                 ^
+  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:576:3: error: label followed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
+    576 |                 struct harvest_info_header *hhdr =
+        |                 ^
+  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:584:3: error: label followed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
+    584 |                 struct vcn_info_header *vhdr =
+        |                 ^
+  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:592:3: error: label followed by a declaration is a C23 extension [-Werror,-Wc23-extensions]
+    592 |                 struct mall_info_header *mhdr =
+        |                 ^
+
+If '-fms-extensions' were not present, this would be a hard error in
+older clang versions.
+
+Add braces to the case statements that declare variables to clear up the
+warnings.
+
+Fixes: 47ab777c16c7 ("drm/amdgpu/discovery: use common function to check discovery table")
+Link: https://git.kernel.org/next/linux-next/c/0d3fccf68d9873a3c824fb70be0dbb2c4642aa90 [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index f9f785c5d8ac..4209945af66f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -556,7 +556,7 @@ static int amdgpu_discovery_table_check(struct amdgpu_device *adev,
+ 	checksum = le16_to_cpu(info->checksum);
+ 
+ 	switch (table_id) {
+-	case IP_DISCOVERY:
++	case IP_DISCOVERY: {
+ 		struct ip_discovery_header *ihdr =
+ 			(struct ip_discovery_header *)(discovery_bin + offset);
+ 		act_val = le32_to_cpu(ihdr->signature);
+@@ -564,7 +564,8 @@ static int amdgpu_discovery_table_check(struct amdgpu_device *adev,
+ 		table_size = le16_to_cpu(ihdr->size);
+ 		table_name = "data table";
+ 		break;
+-	case GC:
++	}
++	case GC: {
+ 		struct gpu_info_header *ghdr =
+ 			(struct gpu_info_header *)(discovery_bin + offset);
+ 		act_val = le32_to_cpu(ghdr->table_id);
+@@ -572,7 +573,8 @@ static int amdgpu_discovery_table_check(struct amdgpu_device *adev,
+ 		table_size = le16_to_cpu(ghdr->size);
+ 		table_name = "gc table";
+ 		break;
+-	case HARVEST_INFO:
++	}
++	case HARVEST_INFO: {
+ 		struct harvest_info_header *hhdr =
+ 			(struct harvest_info_header *)(discovery_bin + offset);
+ 		act_val = le32_to_cpu(hhdr->signature);
+@@ -580,7 +582,8 @@ static int amdgpu_discovery_table_check(struct amdgpu_device *adev,
+ 		table_size = sizeof(struct harvest_table);
+ 		table_name = "harvest table";
+ 		break;
+-	case VCN_INFO:
++	}
++	case VCN_INFO: {
+ 		struct vcn_info_header *vhdr =
+ 			(struct vcn_info_header *)(discovery_bin + offset);
+ 		act_val = le32_to_cpu(vhdr->table_id);
+@@ -588,7 +591,8 @@ static int amdgpu_discovery_table_check(struct amdgpu_device *adev,
+ 		table_size = le32_to_cpu(vhdr->size_bytes);
+ 		table_name = "vcn table";
+ 		break;
+-	case MALL_INFO:
++	}
++	case MALL_INFO: {
+ 		struct mall_info_header *mhdr =
+ 			(struct mall_info_header *)(discovery_bin + offset);
+ 		act_val = le32_to_cpu(mhdr->table_id);
+@@ -597,6 +601,7 @@ static int amdgpu_discovery_table_check(struct amdgpu_device *adev,
+ 		table_name = "mall table";
+ 		check_table = false;
+ 		break;
++	}
+ 	default:
+ 		dev_err(adev->dev, "invalid ip discovery table id %d specified\n", table_id);
+ 		check_table = false;
+
+---
+base-commit: 7a9419ab42699fd3d4c857ef81ae097d8d8d5899
+change-id: 20260312-amdgpu-fix-clang-c23-extensions-1fb28eee64c2
+
+Best regards,
+--  
+Nathan Chancellor <nathan@kernel.org>
 
