@@ -4,73 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F01B103E300
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A4E41067058
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89BE410EB48;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5AC9A10EB44;
 	Fri, 13 Mar 2026 08:55:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KCvpqIyy";
+	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="X0iHErfK";
 	dkim-atps=neutral
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
- [209.85.210.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A53F10E042
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 01:53:16 +0000 (UTC)
-Received: by mail-ot1-f42.google.com with SMTP id
- 46e09a7af769-7d73ccee442so1798771a34.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 18:53:16 -0700 (PDT)
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D571510EA30
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 15:06:06 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-7d77b179b52so672639a34.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 08:06:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773366795; x=1773971595; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Je77iCsOrEuw63H4T4mEYukShtJgkZJQLEZYMkoBqT4=;
- b=KCvpqIyylOCpqqTdkCPph5QbuCMofd5Mmn4OOSSTaPiz3xBpv0Tmr0uEIvSZHkpZcF
- csiCpnTDowMVyk3jzgERR3AVjzlZC8+fbpcfsjqYCkFEMSMIUOWGNjVMmhXNtLuDy8ed
- WKRvvH6dlK53SJde4x/uQAoiy+fpnw7svYPLmXqeBQprpD8UyA+prALQ4UqENyWp20km
- o0UEbbY/VnZjxQYcwlVAjSOFv7WNtAEv0lowiac56gv3dOQLLir8ivQeh0N02olB4WVw
- sYssViEWDLIXz8MdZOL9M8+LbMHZYKEOF1FyvyUBeMfU1EfVER4LRzMno/Tr2iL25uyT
- 0+KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773366795; x=1773971595;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=bitbyteword.org; s=google; t=1773327966; x=1773932766;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Je77iCsOrEuw63H4T4mEYukShtJgkZJQLEZYMkoBqT4=;
- b=nZaHv3Ejc9GbRCi2w8KAvPtVG5M+Po1MY68oiIOzsJt4yoBd3HpEeDF0vTKgZXckK4
- mQNjO/tTiWqTw5NVI1ZymHeT2rrVysMp/J+ZB+Wp5x3srlL5LjEYxmwugewGZ8L6tnVj
- qZQfbfi72qCRCSxJj43V22lgBd0Z9AbMLXttyD4RZp1ZyBcuDTjY+4aRVGBuO2HwkWbz
- 44gb7ASc8XqLbqhpZ0JwEKO4sgw4VTdByR6fwUdOOayfJpIO6oq0z52WZExT8Wut8qu3
- L4eHfJXffH/18G8zwZrpgP0r6T7M9uiPruGQHVOOSkhzU6G3VNGw1mtElJ/LkXY5xKVS
- Q6OQ==
+ bh=e8m3myjjGE3NHxUw5Y98XcFvEZdApgquTYgyBVq6daI=;
+ b=X0iHErfKLdoDKEjF4wjQup9gaZOvMNsjZ9TMNmuKWN+Q4yMJmVr5HI6DPhPNsnVKYu
+ oUGkmvzUDT12k19iHsTLMLH45MlCmcnLfKDcqE4O4DRQoSfZiPVL0kZAjIGq11r+ifCn
+ 56vP5o6xW2cOcnCXtkOHkruH9Cs2ONVPK8YhPjqnt/BiQ1wvpxUGwG4QbaSO30pWKsJO
+ VRwXz2SnCeaekvvNNh5q6xOFdhV8ZB4n2JDzbVN3OfosrbCfZhXSlFfBVkA/F3aHhkqK
+ QXZsm+qcyFspPesujnpvQ/z2PcGnJEcrcFr3WdMAJc0jVSELirL3uNCbJnR9RWiLnrCv
+ +s6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773327966; x=1773932766;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=e8m3myjjGE3NHxUw5Y98XcFvEZdApgquTYgyBVq6daI=;
+ b=ahYf6NRGNXII2sCGBmcG/3BWf3cbcDMPodkbm8z3vZsZ7LhGIsU4CQf/7CJ9T1Sn0S
+ ixiRqZBmX9aY1pF9u7xeu83MFTYfUjLGS7Ki0ZQGiFuIIQ9EGDUrjLq4pUuOxH5lGgVx
+ IZ0JCD3aarzAgU1rVrkiLwy22hIQOzuz2FQBoUziwlaHp+Z7OCaE027X5iYBDmCkakDa
+ Bx/7gTFAaLgKxaLR2IH+IoBjqpjagDljAXUAGoGTkUXbOP+6z4IlxezTBq1YYhZqbYc+
+ 5vQQ1UfsSekqQCc+4RgsC2IzzX8orHA4bIi67IRrKVGomZcEZaWyoMPxwlVI7HyuXvsO
+ cgGA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXY6BWrefPZngKOLlp0lplh21385kpemL/dCvPk7nnS53GawO88ijoAW+0mvxzhnnqbp+HLvmg/@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyWzhS3JNynNPpCYKMl3DG1ljwxmJUXFv+84vuNmLsNuX7XPNfd
- tU+ZnTKE3+gE+4fdkR6vbDnzxz0DnFB2p4gc2SMwoX+GNngklbd/9qc1
-X-Gm-Gg: ATEYQzwleT/p39RFeslB1+R1jZ5iQxDY8Wg7s+4ACpZ4i0vv3XqttybFOosWLA5wCUC
- 9/6hMDOaBiFwf9uVBsxJVcCxT/yw1pn7Ks6oG8VBhW8B3pouEqFGlZowifPxFI3gpmIXpydQcAw
- KfGhHTIDR8ldiuekbu1v2N4jcGmQD6VHD75PCTiFBLGOJQWo/V0FogQ5CDYcJLElKzVWFjiuEnq
- 8WpdQyIHuNi2WTNC9DscGMKTFcSorEVERR2Aln0AHqksoPGTVKWn2asZCtNW3VGzJBlCWguML0k
- 4xeeYZKA3Jnj6BQvYCfm0ab84fDn5o8MyfWqmdscXiNQ5UDB0sfVDN7N/NtsKaxrKCj8qZhMPXK
- Jj/FPThOLGq2cOxLohnIlo0fHjHXJeNLCgToMC2ol/vJg5Ngxu+zmdAta+hMsXyZdDti+3l96zO
- QAHFAAAKmG5dq/vDFRJ4khPcFJaXqIBzyylgMnqyd54RPC8+lp4sFbAYHgQS7gb9/ATwOM
-X-Received: by 2002:a05:6830:4903:b0:7d7:7b6f:d53e with SMTP id
- 46e09a7af769-7d782311bc6mr985481a34.0.1773366795315; 
- Thu, 12 Mar 2026 18:53:15 -0700 (PDT)
-Received: from Mac (c-76-107-126-43.hsd1.tn.comcast.net. [76.107.126.43])
- by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7d76ae68a4bsm5314729a34.19.2026.03.12.18.53.13
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 12 Mar 2026 18:53:14 -0700 (PDT)
-From: David Baum <davidbaum461@gmail.com>
-To: alex.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: lijo.lazar@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ AJvYcCUGyYN2wBC4FhkCAd1vhW4dlRHt/B7DU+Fuqq5OJ9jS+6+HuAsVEaHMjT66CoCiylR5W4ZFypRc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwNdt0YxpbnKI3xLMqkEy5Q68s7/kRUJ491oE0OvH0TK5PQfvqo
+ +WFig+9dJT/L7W2PEGFW5x7vH515iEQkddlmvRSZLucVizxuk6RnlU9XxoaJNni8ZF8=
+X-Gm-Gg: ATEYQzyXmKPRwLMeHKugeZwnPtvLagZFgWExhxnH1a5W1yQBNJD87pyZGf0jr+HFSuT
+ pSXjkkguvV/fgeSgB43cGUEoNg+fJEBVyxRRUH+BgUqq16adqS5Uv8R7rOGdATn4tC9N4PaxsA0
+ WH/Xl6OTvMYHf9ba2kh6rUgMsnLn6RVp6ZLNKeMN0ATvGQpMuDdqSVqPjnEmmkJP5K3WcRwE6jE
+ JuBUu6aKJ0EN5ccapbwDFNXNL0JMjX5m1s2YpA58+c6KB2Mjrp4aOfrHNWDe9ief2awrEzEVCQw
+ EJaGdQEegoPBQIpwIuJU+4e6SWnrMIAHpz9UE94Xu5khMC5UP61GuG6vk33+jdSsnB5vMwEyEna
+ rH1lteR/MG6Afwm4G8oW/B3s8TEnwmTGq9U6Bj7OpDXKuFOpEoSKdP1AYdnIFQr05QyStJIhBf5
+ dAAMTrDIvWZuvd0YFj5DfKRcZimPP+5+bzFmyboWRrX+jBC2IYT0vkqZymjrsVL5YkXA==
+X-Received: by 2002:a05:6830:4107:b0:7d7:466f:b2fd with SMTP id
+ 46e09a7af769-7d76a5a470fmr4892471a34.2.1773327966007; 
+ Thu, 12 Mar 2026 08:06:06 -0700 (PDT)
+Received: from vinmini.lan (c-73-143-21-186.hsd1.vt.comcast.net.
+ [73.143.21.186]) by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-7d76aedae57sm4321776a34.28.2026.03.12.08.06.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Mar 2026 08:06:05 -0700 (PDT)
+From: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
+To: 
+Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Sunil Khatri <sunil.khatri@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Liu01 Tong <Tong.Liu01@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Kees Cook <kees@kernel.org>,
+ Prike Liang <Prike.Liang@amd.com>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
+ "Jesse.Zhang" <Jesse.Zhang@amd.com>, Philip Yang <Philip.Yang@amd.com>,
+ Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Ray Wu <ray.wu@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Ivan Lipski <ivan.lipski@amd.com>,
+ Dominik Kaszewski <dominik.kaszewski@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- David Baum <davidbaum461@gmail.com>
-Subject: [PATCH] drm/amdgpu: switch XGMI sysfs show helpers to sysfs_emit_at()
-Date: Thu, 12 Mar 2026 20:52:26 -0500
-Message-ID: <20260313015226.39727-1-davidbaum461@gmail.com>
-X-Mailer: git-send-email 2.50.1
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Subject: [PATCH 10/15] drm: Use trace_invoke_##name() at guarded tracepoint
+ call sites
+Date: Thu, 12 Mar 2026 11:05:05 -0400
+Message-ID: <20260312150523.2054552-11-vineeth@bitbyteword.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260312150523.2054552-1-vineeth@bitbyteword.org>
+References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
@@ -88,58 +118,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The XGMI sysfs show helpers amdgpu_xgmi_show_num_hops() and
-amdgpu_xgmi_show_num_links() currently populate the output buffer with
-sprintf() and then call sysfs_emit(buf, "%s\n", buf) to append the final
-newline.
+Replace trace_foo() with the new trace_invoke_foo() at sites already
+guarded by trace_foo_enabled(), avoiding a redundant
+static_branch_unlikely() re-evaluation inside the tracepoint.
+trace_invoke_foo() calls the tracepoint callbacks directly without
+utilizing the static branch again.
 
-Convert both helpers to use sysfs_emit_at() while tracking the current
-offset. This keeps buffer construction in the sysfs helpers, avoids
-feeding the output buffer back into the final formatted write, and
-matches the style already used by
-amdgpu_xgmi_show_connected_port_num().
-
-Signed-off-by: David Baum <davidbaum461@gmail.com>
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+Assisted-by: Claude:claude-sonnet-4-6
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c            | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            | 4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ drivers/gpu/drm/scheduler/sched_entity.c          | 4 ++--
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-index 11e56df1d91b..13fc7247fe23 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -469,12 +469,12 @@ static ssize_t amdgpu_xgmi_show_num_hops(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	struct psp_xgmi_topology_info *top = &adev->psp.xgmi_context.top_info;
--	int i;
-+	int i, offset = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 24e4b4fc91564..cdcb33edb2bb6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1012,7 +1012,7 @@ static void trace_amdgpu_cs_ibs(struct amdgpu_cs_parser *p)
+ 		struct amdgpu_job *job = p->jobs[i];
  
- 	for (i = 0; i < top->num_nodes; i++)
--		sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_hops);
-+		offset += sysfs_emit_at(buf, offset, "%02x ", top->nodes[i].num_hops);
- 
--	return sysfs_emit(buf, "%s\n", buf);
-+	return offset + sysfs_emit_at(buf, offset, "\n");
+ 		for (j = 0; j < job->num_ibs; ++j)
+-			trace_amdgpu_cs(p, job, &job->ibs[j]);
++			trace_invoke_amdgpu_cs(p, job, &job->ibs[j]);
+ 	}
  }
  
- static ssize_t amdgpu_xgmi_show_num_links(struct device *dev,
-@@ -484,12 +484,12 @@ static ssize_t amdgpu_xgmi_show_num_links(struct device *dev,
- 	struct drm_device *ddev = dev_get_drvdata(dev);
- 	struct amdgpu_device *adev = drm_to_adev(ddev);
- 	struct psp_xgmi_topology_info *top = &adev->psp.xgmi_context.top_info;
--	int i;
-+	int i, offset = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index f2beb980e3c3a..2d34608fd7298 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1394,7 +1394,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
  
- 	for (i = 0; i < top->num_nodes; i++)
--		sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_links);
-+		offset += sysfs_emit_at(buf, offset, "%02x ", top->nodes[i].num_links);
+ 	if (trace_amdgpu_vm_bo_mapping_enabled()) {
+ 		list_for_each_entry(mapping, &bo_va->valids, list)
+-			trace_amdgpu_vm_bo_mapping(mapping);
++			trace_invoke_amdgpu_vm_bo_mapping(mapping);
+ 	}
  
--	return sysfs_emit(buf, "%s\n", buf);
-+	return offset + sysfs_emit_at(buf, offset, "\n");
+ error_free:
+@@ -2167,7 +2167,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, struct ww_acquire_ctx *ticket)
+ 				continue;
+ 		}
+ 
+-		trace_amdgpu_vm_bo_cs(mapping);
++		trace_invoke_amdgpu_vm_bo_cs(mapping);
+ 	}
  }
  
- static ssize_t amdgpu_xgmi_show_connected_port_num(struct device *dev,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index b3d6f2cd8ab6f..844b8fc5359a3 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5190,7 +5190,7 @@ static void amdgpu_dm_backlight_set_level(struct amdgpu_display_manager *dm,
+ 	}
+ 
+ 	if (trace_amdgpu_dm_brightness_enabled()) {
+-		trace_amdgpu_dm_brightness(__builtin_return_address(0),
++		trace_invoke_amdgpu_dm_brightness(__builtin_return_address(0),
+ 					   user_brightness,
+ 					   brightness,
+ 					   caps->aux_support,
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index fe174a4857be7..003c015b3bfcf 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -429,7 +429,7 @@ static bool drm_sched_entity_add_dependency_cb(struct drm_sched_entity *entity,
+ 
+ 	if (trace_drm_sched_job_unschedulable_enabled() &&
+ 	    !test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &entity->dependency->flags))
+-		trace_drm_sched_job_unschedulable(sched_job, entity->dependency);
++		trace_invoke_drm_sched_job_unschedulable(sched_job, entity->dependency);
+ 
+ 	if (!dma_fence_add_callback(entity->dependency, &entity->cb,
+ 				    drm_sched_entity_wakeup))
+@@ -586,7 +586,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 		unsigned long index;
+ 
+ 		xa_for_each(&sched_job->dependencies, index, entry)
+-			trace_drm_sched_job_add_dep(sched_job, entry);
++			trace_invoke_drm_sched_job_add_dep(sched_job, entry);
+ 	}
+ 	atomic_inc(entity->rq->sched->score);
+ 	WRITE_ONCE(entity->last_user, current->group_leader);
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
