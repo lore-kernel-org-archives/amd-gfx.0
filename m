@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70F62105F784
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07408105F786
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0232810EB59;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 899B510EB60;
 	Fri, 13 Mar 2026 08:55:42 +0000 (UTC)
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com
- [216.40.44.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC68D10EA3E;
- Thu, 12 Mar 2026 15:13:13 +0000 (UTC)
-Received: from omf11.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay07.hostedemail.com (Postfix) with ESMTP id ADC251602E0;
- Thu, 12 Mar 2026 15:13:07 +0000 (UTC)
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com
+ [216.40.44.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1681010EA65;
+ Thu, 12 Mar 2026 15:40:57 +0000 (UTC)
+Received: from omf02.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay09.hostedemail.com (Postfix) with ESMTP id F1E8B8B150;
+ Thu, 12 Mar 2026 15:40:52 +0000 (UTC)
 Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
- omf11.hostedemail.com (Postfix) with ESMTPA id 78D742002C; 
- Thu, 12 Mar 2026 15:12:41 +0000 (UTC)
-Date: Thu, 12 Mar 2026 11:12:55 -0400
+ omf02.hostedemail.com (Postfix) with ESMTPA id 3AE588000E; 
+ Thu, 12 Mar 2026 15:40:27 +0000 (UTC)
+Date: Thu, 12 Mar 2026 11:40:41 -0400
 From: Steven Rostedt <rostedt@goodmis.org>
-To: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>,
- Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, Jens
- Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, "David S. Miller"
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>, Peter Zijlstra
+ <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>, Jens Axboe
+ <axboe@kernel.dk>, io-uring@vger.kernel.org, "David S. Miller"
  <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
  <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov
  <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Marcelo Ricardo
@@ -60,22 +60,25 @@ Cc: Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>,
  Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
  linux-btrfs@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 01/15] tracepoint: Add trace_invoke_##name() API
-Message-ID: <20260312111255.7925b4e2@gandalf.local.home>
-In-Reply-To: <20260312150523.2054552-2-vineeth@bitbyteword.org>
+Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
+ at guarded call sites
+Message-ID: <20260312114041.5193c729@gandalf.local.home>
+In-Reply-To: <219d015d-076b-4c80-8f63-88569115fdad@efficios.com>
 References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
- <20260312150523.2054552-2-vineeth@bitbyteword.org>
+ <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
+ <20260312112354.3dd99e36@gandalf.local.home>
+ <219d015d-076b-4c80-8f63-88569115fdad@efficios.com>
 X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: ywcbaqn9zwge3gfga96u97w7nijzfb5x
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 78D742002C
+X-Stat-Signature: dizt9eoph1r46hcc7akmrtw69qmbfetk
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: 3AE588000E
 X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18ieAMVXlCsjfIHQB5VYSMKQawnv3xLXWM=
-X-HE-Tag: 1773328361-302890
-X-HE-Meta: U2FsdGVkX19212n5hf5VfWxxI3698ig+MYJ7h5PCrgzm7w3SBjXRVmntUgy1KAiA1j7ASoLiubrJUkhEQG+sVPUaqYvKVHrwHJfLEWqAblPMb1GCyB1vNtgXBTh0V0ySDjWK4c33hpSt6/UqWv2L0DWGvadPudlZSBYs0RHFEdqFbOLNYrAcOZsPRKT15ByTEqCfDyAmN0Qx4BlSkuaDuqx2DqlJVWxM1GIGcenYfKc4Oug4F+oj89fFXccHcftI8mvLFhHknaGUAcf5v6epx6ogBFZcEEfmCJxjXwE/1rjNLuPMol8FZX9cbSBPAiHoHDFNAmrC3azhj+xd+IQ9/nDUnOF7z/s7bbkZPpL2MZx7bw+9cK59bCAAmgXFQUGvGdwUDjf+aJ99jx8W6XuzQvGWj1cuLtlykLy1hAkh57CyBpLZSVzGcIlLV0+qfGz9ZsIFZ0fPg4pdG4v8JMXapSh4ZRe71DXAUeEQ5q5ubssZsWB5mqjTVA==
+X-Session-ID: U2FsdGVkX1/ZXXm4w5C9U5+099b/PvZQ7eUGtYiH+vY=
+X-HE-Tag: 1773330027-687590
+X-HE-Meta: U2FsdGVkX19Y0BxKc9hfd6/oWlCbD7knRVU4HNig4rSlbKfyoeUNxe0xLyOxKy2jHEKNmwC/SBnntITQ/gcP4GV84MGrzwGO/jSnmxSVU90QW1UewwurfqZf/IccLcQyMpO0NVm7ICOGECdjfFMFxxfbyCK2b8HRZTmFiNSnZRhQ3v2UxaLgnk4IGz6tQzClK6n9/8XrtKTpdPEXN08WeqXofu0CM6mgHZtypBJf2bNTx3bZ6VgbT/vGoPrjz+ku8bbQ/05BjCRjqyBZ8chjnNTTV2DkdRZQ/aDGM8chdSripiOGF3zSwSXCsldB5u/XfRMFDIioWgHfx7JpJLp63e8jmL0gMnugNLpYx40Y3FDqgXh+0wGRwMvubNhu5lNM
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,83 +94,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 12 Mar 2026 11:04:56 -0400
-"Vineeth Pillai (Google)" <vineeth@bitbyteword.org> wrote:
+On Thu, 12 Mar 2026 11:28:07 -0400
+Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
 
-> Add trace_invoke_##name() as a companion to trace_##name().  When a
-> caller already guards a tracepoint with an explicit enabled check:
+> > Note, Vineeth came up with the naming. I would have done "do" but when I
+> > saw "invoke" I thought it sounded better.  
 > 
->   if (trace_foo_enabled() && cond)
->       trace_foo(args);
-> 
-> trace_foo() internally repeats the static_branch_unlikely() test, which
-> the compiler cannot fold since static branches are patched binary
-> instructions.  This results in two static-branch evaluations for every
-> guarded call site.
-> 
-> trace_invoke_##name() calls __do_trace_##name() directly, skipping the
-> redundant static-branch re-check.  This avoids leaking the internal
-> __do_trace_##name() symbol into call sites while still eliminating the
-> double evaluation:
-> 
->   if (trace_foo_enabled() && cond)
->       trace_invoke_foo(args);   /* calls __do_trace_foo() directly */
-> 
-> Three locations are updated:
-> - __DECLARE_TRACE: invoke form omits static_branch_unlikely, retains
->   the LOCKDEP RCU-watching assertion.
-> - __DECLARE_TRACE_SYSCALL: same, plus retains might_fault().
-> - !TRACEPOINTS_ENABLED stub: empty no-op so callers compile cleanly
->   when tracepoints are compiled out.
-> 
-> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-> Suggested-by: Peter Zijlstra <peterz@infradead.org>
-> Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
-> Assisted-by: Claude:claude-sonnet-4-6
+> It works as long as you don't have a tracing subsystem called
+> "invoke", then you get into identifier clash territory.
 
-I'm guessing Claude helped with the other patches. Did it really help with this one?
+True. Perhaps we should do the double underscore trick.
+
+Instead of:  trace_invoke_foo()
+
+use:  trace_invoke__foo()
+
+
+Which will make it more visible to what the trace event is.
+
+Hmm, we probably should have used: trace__foo() for all tracepoints, as
+there's still functions that are called trace_foo() that are not
+tracepoints :-p
 
 -- Steve
-
-
-> ---
->  include/linux/tracepoint.h | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/include/linux/tracepoint.h b/include/linux/tracepoint.h
-> index 22ca1c8b54f32..07219316a8e14 100644
-> --- a/include/linux/tracepoint.h
-> +++ b/include/linux/tracepoint.h
-> @@ -294,6 +294,10 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
->  			WARN_ONCE(!rcu_is_watching(),			\
->  				  "RCU not watching for tracepoint");	\
->  		}							\
-> +	}								\
-> +	static inline void trace_invoke_##name(proto)			\
-> +	{								\
-> +		__do_trace_##name(args);				\
->  	}
->  
->  #define __DECLARE_TRACE_SYSCALL(name, proto, args, data_proto)		\
-> @@ -313,6 +317,11 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
->  			WARN_ONCE(!rcu_is_watching(),			\
->  				  "RCU not watching for tracepoint");	\
->  		}							\
-> +	}								\
-> +	static inline void trace_invoke_##name(proto)			\
-> +	{								\
-> +		might_fault();						\
-> +		__do_trace_##name(args);				\
->  	}
->  
->  /*
-> @@ -398,6 +407,8 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
->  #define __DECLARE_TRACE_COMMON(name, proto, args, data_proto)		\
->  	static inline void trace_##name(proto)				\
->  	{ }								\
-> +	static inline void trace_invoke_##name(proto)			\
-> +	{ }								\
->  	static inline int						\
->  	register_trace_##name(void (*probe)(data_proto),		\
->  			      void *data)				\
-
