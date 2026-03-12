@@ -4,95 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E1E5106703B
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 14:32:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B0DC106703F
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 14:39:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEEC110EA4A;
-	Thu, 12 Mar 2026 14:32:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04EB010EA28;
+	Thu, 12 Mar 2026 14:39:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XOcwu1Q4";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Ks6yBY7h";
 	dkim-atps=neutral
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8521F10EA44
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 14:32:55 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-2be22d699c9so47795eec.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 07:32:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773325974; cv=none;
- d=google.com; s=arc-20240605;
- b=NvB4JM9j4rHoFMfWUqCYTG+p+AUybyei51EDS3+NTKBcLzPb0QUP6qRRtX/+xGbYF+
- 8ZTOE4ZiLoQ3y2zEwn/fXtXrTU5ElmWcbcvq5b+AusNVB9HKCngMo829xoANI/RNN8cl
- epXNcbpMxewQEfmLcyDbs6C20Nwwdf/smYu8B1ExHoxX3Rztr8z9jZjgpDnNETKF1bne
- MrAyVtnvDCfB+otymyGYzjCXMjLEXjSJD7JGLuW1e+6uz/i8GYHQPHVhhqyPrJ1LvXMA
- cCzq52X/VrqlmXT9iMfik3nr5rN1NUyZNatZP2BX+omfIamZoXN63A9efIe2QnRKzmtn
- SN7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=dzPtc4ymmlAOyUPjTjfboEQPnFwau7qXTjbFtq64Ozk=;
- fh=VBSzNdaH58xBFNDsrgEck+9cT6J+ULkJDCz7Z70orr8=;
- b=kqmMm5u6NEQFcmh1tF0IT5WH5D2HpmfelGF7HSXNE3tE26OlgdqEuEBDU/Sb5NaoX6
- HGllMhBTkdnwvEQ+RI5mxvYB+gmiyZaG+jGXqGJs2D3X1U3lFnkTTHeEW3giSkbGLGqt
- jpiVyuKJEzhyfJm0sfaDVOvdrcoDDZWNlawE00okjUs/dnunRjlUJ1vIoHONHtt1pLV1
- mIzqDQ9DcdaEe1vivHXbCQdZYhLEY4Dv2BM8E/q8XgfYx39hZhfMSJRZ9OSZoBqCX/cS
- f7shKEo80jLw4uRnzPHxXU1VfVgyR7dgli3sUY3aE9SvzRQxCiL8tNXsSUNJFYNfZvoF
- UXEg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773325974; x=1773930774; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dzPtc4ymmlAOyUPjTjfboEQPnFwau7qXTjbFtq64Ozk=;
- b=XOcwu1Q4PPBHfHo56C2CWG0q1no3pCG9h++ZC29hikksAJzG85Ml1vCOkgO4OQ7k0l
- OQT/yuS4Nk16VDlzcdVO5A37gu3uBMx9jVy4jzg4a3WYNDYVKtR45RKkrc3CKxQxyBDC
- 4PUvPNGye4jsXizwYt/sMjtTIttJdQXD1NJ/iR9+7ne1LT+RMNQ0jW58ohu5afDr/N70
- EneiZ/rs+pl14orYyqN/aoALVXwbVwF6HNZGASsVBbxZ/az/oVYIEbbxTGJsmEmQcprU
- 2rZT4i7mQJImz9PtKySqz6chbiwl3bJoVJF9uLMyeNPaP2Eqbe9txxGhsuYw3O4vw9cd
- yRHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773325974; x=1773930774;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=dzPtc4ymmlAOyUPjTjfboEQPnFwau7qXTjbFtq64Ozk=;
- b=BWkS131cWUXOL966mISvYzfPFk9KTd4EVlMkBCxB93afZf6W3qC0BKyo/P1aUnUSYA
- NhjKSQA65UCfkGbTzATeeLSPM3FWsB4RwNoaRmOZcDlaLOeHV4Y8KQ+ummp9GftbP0c9
- RUNJKoAeoY79LdHfdFnDt982uLg6b8D1TGBUK+VfjoAi0MDQ+CeSOg8M2yud+VYCf3iF
- pynILxfqPWpVxqX1cUZxeioe/cDru/DWbsOZdsMQo8hZiWfPzPw2j+i89ssUHUBie+wb
- XzegBhlE4g39ZpNR1QLSBo6PNbn3I/fECFGkrFGDkJz4Dqh7OdMR9BuR/yusjECTVFpH
- bFsw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWDY8NfNcDCDVaz0WZL0rQOil42jgHBfGKxmn44/KJPgWlAYEALZ+/KcKKvIH29F8WIWe+wcSVg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoJXByt+FLb4vlY1gT1sHfgKSweQYYiFkS4vVTM4MgEgHO6Eo9
- ZcELqPto55OP+D/tjmd9oReAUlX9RT/vCj5G3jYDCXwRO6CnZOQiZ6BxVOa6e7kQz8Y6bQC5tdh
- 7M+tZMCqkjSo0MLAc/Y/SVH3sVAPu5JQ=
-X-Gm-Gg: ATEYQzzkHywNlbOTXm9+bOLdCkjjMlR2ac/pbqPYo80h+n09UrPpDCK/QcdBi+j0yDt
- ptQGkh9spVB2dgBqpr6gdA3qQWQZ2ZOSsocPxeZik9LNYL+VfdbbPV8qbsJkeaRkPZTU+Ca7qFP
- rbKWr0b5KZrNknhndpKCnQqOiB+xxxseJbmOuoOcXIyxiVbDfD4O38vsxZ28XgoN2dX+iQwFcBk
- aBETI3bj9eG++IIVj1ouSZk9SGb6QoUkBxKDqfAx0ULmXjLhrt5IJAQjFe1sFvVmdHNDQcySlM3
- CLdJxxf/TghVt8krnDI8DhaoS8RIqRRdSZGFND1ciPOLL9i2lLb42bQibJzjgcKcfmzLbA==
-X-Received: by 2002:a05:7301:1f12:b0:2be:6e6:e479 with SMTP id
- 5a478bee46e88-2be8a25c555mr1416151eec.2.1773325974370; Thu, 12 Mar 2026
- 07:32:54 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84A6010EA28
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 14:39:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+ References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hQU+hNRMd/LPPpIIVKBH5h0u4SkUWiz6tPQOcRE6bjc=; b=Ks6yBY7hDMk+67tyiJsXU1bVyH
+ g13mQdr9s27QoIRYzjKJDV/VToKIpyyiYN+WIsar4NjbSRznVERk31H+w3+wQYi3lD72bzBzed3bP
+ Qj1RszIUhp9NbBmoZaU6UDfe/mfEKXbq2czojgHwkSptyJSlRaqvZmelyDmWf+2Bh/ANKOXzNXt88
+ 3o2pVv7dAS2N8RnkIBkcGtSTHtfFtScO9OhHbYlVGj0pcYJswRo+tg5aRBhyegCS1swPdAAvBAteo
+ dk0hWfje/BR8L+aVWWua+qXjLEVbqGCaDTOfuK0iGkEm5WG9yKssPHFJ+tAaTDPOI8sH0cVmFoH1o
+ 9NVhAG1w==;
+Received: from [90.240.106.137] (helo=[192.168.0.101])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1w0hCJ-00EXci-7p; Thu, 12 Mar 2026 15:39:35 +0100
+Message-ID: <2bdb769a-7814-480c-932c-c0e44c58c2bd@igalia.com>
+Date: Thu, 12 Mar 2026 14:39:34 +0000
 MIME-Version: 1.0
-References: <20260312140331.1850721-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260312140331.1850721-1-srinivasan.shanmugam@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 12 Mar 2026 10:32:42 -0400
-X-Gm-Features: AaiRm50oNG98w9RHF_O3i4rBxj_XeAPp_6oysElG9jVo6WjMhXdJ3jDcI_cbA9o
-Message-ID: <CADnq5_PKW2BSQzSc3HBNzd1rqQ44ut-+AOE_arOhJBqvtjDL0Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Reject unknown digital connector IDs in DVI
- mode validation
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Dan Carpenter <dan.carpenter@linaro.org>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Add explicit NULL check for bo in
+ amdgpu_vm_bo_update()
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Dan Carpenter <dan.carpenter@linaro.org>
+References: <20260312141315.1851106-1-srinivasan.shanmugam@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260312141315.1851106-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,67 +62,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 12, 2026 at 10:19=E2=80=AFAM Srinivasan Shanmugam
-<srinivasan.shanmugam@amd.com> wrote:
->
-> amdgpu_connector_dvi_mode_valid() assigns max_digital_pixel_clock_khz
-> from a switch on connector_object_id, but the switch has no default
-> case.
->
-> Simply initializing the variable would silence the warning, but it would
-> also hide an unexpected connector_object_id and continue mode validation
-> with an arbitrary fallback limit. That makes the code less explicit and
-> can mask invalid hardware or BIOS data.
 
-I think this fix is effectively dead code.  The existing cases should
-cover all possible digital connector types that this function would be
-used for so we'd never hit that case.  I suppose if this function ever
-got used for some other connector types it might be a problem, but
-there would be other things missing as well, plus this is legacy code
-so it won't be used on any new hardware.  If you update the commit
-message along those lines and note that it's good practice to have a
-default case, but it shouldn't ever be hit here, the patch is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-Alex
-
->
-> Handle this by rejecting unknown digital connector IDs with MODE_BAD.
-> This keeps the behavior explicit, avoids using an uninitialized value,
-> and preserves the intended validation logic for known connector types.
->
-> Fixes the below:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c:1243 amdgpu_connector_dvi_=
-mode_valid() error: uninitialized symbol 'max_digital_pixel_clock_khz'.
->
-> Fixes: 585b2f685c56 ("drm/amdgpu: Respect max pixel clock for HDMI and DV=
-I-D (v2)")
+On 12/03/2026 14:13, Srinivasan Shanmugam wrote:
+> amdgpu_vm_bo_update() allows bo_va->base.bo to be NULL in some paths,
+> such as PRT-only updates.
+> 
+> Although amdgpu_vm_is_bo_always_valid() already returns false for a NULL
+> BO, Smatch still warns that bo may be NULL before it is dereferenced
+> later in the block.
+> 
+> Add an explicit `bo &&` check before calling
+> amdgpu_vm_is_bo_always_valid() to make the non-NULL condition clear and
+> fixes the below smatch error
+> 
+> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:1353 amdgpu_vm_bo_update() error: we previously assumed 'bo' could be null (see line 1292)
+> 
+> Fixes: 26e20235ce00 ("drm/amdgpu: Add amdgpu_bo_is_vm_bo helper")
 > Cc: Dan Carpenter <dan.carpenter@linaro.org>
-> Cc: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Christian König <christian.koenig@amd.com>
 > Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
 > Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_connectors.c
-> index 04842e3f1ccc..a8ccc1602eb5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> @@ -1231,6 +1231,8 @@ static enum drm_mode_status amdgpu_connector_dvi_mo=
-de_valid(struct drm_connector
->                 case CONNECTOR_OBJECT_ID_HDMI_TYPE_B:
->                         max_digital_pixel_clock_khz =3D max_dvi_single_li=
-nk_pixel_clock * 2;
->                         break;
-> +               default:
-> +                       return MODE_BAD;
->                 }
->
->                 /* When the display EDID claims that it's an HDMI display=
-,
-> --
-> 2.34.1
->
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> index b89013a6aa0b..0d26346178d4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -1349,7 +1349,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
+>   	 * the evicted list so that it gets validated again on the
+>   	 * next command submission.
+>   	 */
+> -	if (amdgpu_vm_is_bo_always_valid(vm, bo)) {
+> +	if (bo && amdgpu_vm_is_bo_always_valid(vm, bo)) {
+
+That would be unfortunate:
+
+bool amdgpu_vm_is_bo_always_valid(struct amdgpu_vm *vm, struct amdgpu_bo 
+*bo)
+{
+	return bo && bo->tbo.base.resv == vm->root.bo->tbo.base.resv;
+}
+
+Maybe Dan can make smatch smarter? :) Because I don't think papering 
+randomly at a single call site is great. It is even in the same 
+compilation unit. Hmm does the order matter to smatch? Should we maybe 
+move amdgpu_vm_is_bo_always_valid() to be earlier in the file?
+
+Regards,
+
+Tvrtko
+
+>   		if (bo->tbo.resource &&
+>   		    !(bo->preferred_domains &
+>   		      amdgpu_mem_type_to_domain(bo->tbo.resource->mem_type)))
+
