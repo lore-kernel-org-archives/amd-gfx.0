@@ -4,104 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BF0A106ACEA
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 20:42:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5E0B106ACE4
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 20:44:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0991610EAB4;
-	Thu, 12 Mar 2026 20:42:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E8E110EAB3;
+	Thu, 12 Mar 2026 20:44:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pc2NZscn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c5F1lj/5";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010005.outbound.protection.outlook.com [52.101.56.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93A1E10EAB3;
- Thu, 12 Mar 2026 20:42:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a09gpEHHJWVekoKjiCDUEydrag2HSdpcjYnS54dDfeQBByBl1vLgFrS/ix15PMAlb3Ll4v+ZvE6ByVIkuOT2qtZ3I6RiZTPdNnU/QzGThSkHD54eF5fZVjqaFvSYXiOIhq0G2pxwjbaZb/roCs0q4d0BSQd8xRTHUGZ0zr0BcjsfOOz1ShmWCz1kRl/6tU64McIx3DiU+5zchUjbjtq4d5v8IA0ACvvMJ84cS8Fm51wQYCOm5M+Qc7EVrN8JtZOCcetzs7ZbaIL0M4iVkIc8VW5D/iHE4RMQjbuuumJMwsx4mQZkfgLqZMrs4PQOTDcjcK2kSNbTMZwc+JYcT2sOsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z+KY8B5juyyE6Q5qeQHHQuQCXcQW9Gc70WTK45N1As0=;
- b=FHeG27LIcPWLWpuE4URRqaGG+n1XYHd9npf7tftr/ymU2BjLE1pqQ/dj8Uj5TV3ilsM8Gt578foiFdrze8CWrVTUkFZILIgH7TTQDBm7Ya4Gxcv+SRFgvpq5bzBdQeEnaBNnVdwmeiRCJcBnLacKVnd4InfG1lN0W//A4uBtc/gZr1E2fFDOpvGdC7S8O1NbgW3zELPP4CED0uZ3E0Iz+YPQhi1hNX7q4W9qWV/TwGwR7thSrikRoFijNPdPODiIl8YvNFYmvz28UsIEaSvx+FNCmzQq9XQALN4t6ZNJukrTI395PdXod72dnCm1VQuM2zloqI8MOvI2mL/zI4GUnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z+KY8B5juyyE6Q5qeQHHQuQCXcQW9Gc70WTK45N1As0=;
- b=pc2NZscnCjeihIYSbIii8NkGNz9CgUSGstIEuWadh4BKVgkyUEE7DYHbkAOqjR9AB0SQp7tXNWF2udDtIFrM8CDuT0eachFTGP82ecL4l1O44HTsi4s+o42Krs2W7G5FZKr1+VPAIZ9eDEi7vAG9zb0KEDLgSyPh4SLFjarxhpw=
-Received: from BN1PR13CA0019.namprd13.prod.outlook.com (2603:10b6:408:e2::24)
- by SA5PPFB2BF91BC0.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8de) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.3; Thu, 12 Mar
- 2026 20:41:53 +0000
-Received: from BN1PEPF00006001.namprd05.prod.outlook.com
- (2603:10b6:408:e2:cafe::dd) by BN1PR13CA0019.outlook.office365.com
- (2603:10b6:408:e2::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.12 via Frontend Transport; Thu,
- 12 Mar 2026 20:41:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN1PEPF00006001.mail.protection.outlook.com (10.167.243.233) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Thu, 12 Mar 2026 20:41:51 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 12 Mar
- 2026 15:41:50 -0500
-Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 12 Mar 2026 15:41:48 -0500
-From: Harry Wentland <harry.wentland@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Simon Ser <contact@emersion.fr>, 
- Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
- "Melissa
- Wen" <mwen@igalia.com>, Sebastian Wick <sebastian.wick@redhat.com>, "Uma
- Shankar" <uma.shankar@intel.com>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?=
- <ville.syrjala@linux.intel.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Jani Nikula <jani.nikula@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Chaitanya Kumar Borah
- <chaitanya.kumar.borah@intel.com>, <stable@vger.kernel.org>
-Subject: [PATCH] drm/colorop: Fix blob property reference tracking in state
- lifecycle
-Date: Thu, 12 Mar 2026 16:41:45 -0400
-Message-ID: <20260312204145.829714-1-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.53.0
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com
+ [209.85.160.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F32210EAB3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 20:44:33 +0000 (UTC)
+Received: by mail-oa1-f51.google.com with SMTP id
+ 586e51a60fabf-4172269edceso76766fac.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 13:44:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773348272; cv=none;
+ d=google.com; s=arc-20240605;
+ b=dTqC9UFu39I3oss0zF0Mskq3EYOBHW92nSoxz7BE/+sQKXMQY8ZWX2pD4VLt3Y1PMM
+ 7kl06adTC+kuuxdDbjpK6+mhDb9YzfcErW6XDMl0tP/ukATcOOiqqrLyNxxfa3LskCtc
+ MUbsWFNFcJzziMyNg9HHmq5pNyBXdH7kwZmGoBFvhTBZtIY/61cFu0Z75vNLCIQHq3g5
+ WhjcwylenM6TIVBHy3WZ88K0XEIVWzr/xPvWeH5GcCGnKBMbPa4BKgHCR38dQUXH1sye
+ TyIakvqflxBWsUumtw4WnFKRDlojL8XjFUyHhdyKHb8PbQsYycyPoWLBfC1CWri9/3tC
+ 7lOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=pNBA3kLHIy0t3IxW/xplXzcmay1Hab2qbZgo6SmXgBY=;
+ fh=bsmiZQ/hOuCC8TmxKx+weCDo2M07dKiDPKEJvfYix70=;
+ b=lkgI9mrNWwRMfx9/5L+Y6BaYCC0Gdlej2cfG8dFiiSpoK+i3WoQAy5zsLFRgb0rHg4
+ 6VQre34OeX40FCgutwTMRJOLiJOmBZmjaeF2MQz+WRHJ32fIEpip2BhxYQaFZnTe8N6X
+ u67EcsVMYw2tlQ0DoSpqsqTRRCtjXy2ZgROgk/SmuRTObDzGyqFTZP4BCL0CPHEQun5p
+ /gqQkLqOePoQuNWme0uyYgQzGV8S0j0WenJ3afiJnQEmOqx1EOL1aXlXoC9r/3dxDE3I
+ QzysTEK/AN/ZSGr792trCMvWgZD2ZISXWhLAeQecw/LjWNmKtXAVapqCd+ZntDBxj7C7
+ lZOA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773348272; x=1773953072; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=pNBA3kLHIy0t3IxW/xplXzcmay1Hab2qbZgo6SmXgBY=;
+ b=c5F1lj/5aaiVKJGjLMGc7+ch1j7TFNKqM/fxcnFUppAXhd2HZAWxYg9gF2ZH5A7Bak
+ w9cv/jS8HWTf3uTohTAcMAJv5HeV3zKMrW0qLnFCEuAzbLRrMvLHXKdyOoNA+9nJ+0jK
+ E6Lzjr6owg0SzFRR2jnvZbnKjOva5P4tYEKu/vUJNePnG5YXHygENyU8R0ImY9pO4QM1
+ G90XkrypiEzqmbQHXDOMxQFfIC8gjZysi7pjjYOfHnPldvlMBtCCUsB84mWz1v7Mxq6t
+ Nz8oFVYYGjniJN0ENlTe69ulzVSaDJwinnE3e4bJqckTuVxI1L4bggsOuA6mMDQGlKHH
+ Babg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773348272; x=1773953072;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=pNBA3kLHIy0t3IxW/xplXzcmay1Hab2qbZgo6SmXgBY=;
+ b=TIDGmLs5lHz37kp9SRIOKV6jRPOeayuy5dtT4m2jAT7Ss0kPPxH/RH56D7cGZy0GOA
+ +PeoqOtrcc1+Hu/s/p03uVDuMJJs5jIdKZMYOo/u+n/0JfBFLIOkSutArll1WQzw1EEf
+ vqdI4iRRCGWr2C3OPd2XNJXgxedusb51OHYd6n0zmRlfn5SV29aCaPgPYEfj3cHmPrYD
+ x5g1fhNQ1QWGEBob/n7mV4X6gvNaZprxiI9HWddEkhnuYooXvBv5v+8JMLbmA4ngRSmr
+ f/oTUd7rnDFuLhRkpOexwXzbAmXjMJqZWdtaEGI0Z2CKc9DDn02q1EnBT4kJ+HUGBdoW
+ iOyA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV9MagA/GN3CQPGqUhuBgDouXm9czB0I4t797kUIpEOFjNouZgCgcA5UWsXLBRcJTRvK9bBpEPY@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw9fSM73UaAd5OhSxC3GVQToV+BTsPDIOm14foji7mOeFZLU0fs
+ 4YmxqFQXPmoxUaIL4390GRJpGP/+xYLqrGv/7O5YEhqoBG9HlF4rjaVyfZhD7JuOF940rhqTfOP
+ qpwGvfn1Nbg98kDgR0c6h2NpW5kzA1BM=
+X-Gm-Gg: ATEYQzw7oicLYoUNlrQK8MMPp2C0z0zSq2yiErGv9M7ldJyBMH75gNegsv/82DrQiWT
+ LqYWyTSnVnjT4TZIxIrJFrw0EKZUvJhu/u+pvnDuSnXqoG4CQAmERGUQsF9sa5o+IeK1HTbFbFY
+ Vad3xdDVtpJ8EbnQ3tiiokRv2AfnTxLPs3E2yfpOj3keblGFA65Lj1ZU1ETuIIcqKhxWLPZ/g8m
+ 42sCBck6vBfMibsfvQv8QCDJQ/3ig8lnFYrUDrY2O83e2TiDkm4MDLYyCyGgzvAoQ7WPiiPejXn
+ Sb0DbdIg
+X-Received: by 2002:a05:6871:5221:b0:417:1862:ba10 with SMTP id
+ 586e51a60fabf-417b9059aadmr400339fac.2.1773348272117; Thu, 12 Mar 2026
+ 13:44:32 -0700 (PDT)
 MIME-Version: 1.0
+References: <20260312101334.1500935-1-Jesse.Zhang@amd.com>
+ <CADnq5_PXhLYs85cU2FZ6ZYtBBtv1wOmwiJL-rDbYsCFXpTL_cw@mail.gmail.com>
+ <d1ef0e7f-ff3f-4012-9074-b87425fa2fc2@amd.com>
+In-Reply-To: <d1ef0e7f-ff3f-4012-9074-b87425fa2fc2@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Thu, 12 Mar 2026 16:43:56 -0400
+X-Gm-Features: AaiRm53n4ZGmdqvuKwGIwEqYNiyJsW04RCjt5i1dmbtY5AW-BpusKWZx9gDijgc
+Message-ID: <CAAxE2A5qX2e8rzZvSdUUbCvz2AN64=HU49pQptkYodOXiv32_Q@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Limit BO list entry count to prevent
+ resource exhaustion
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, "Jesse.Zhang" <Jesse.Zhang@amd.com>, 
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00006001:EE_|SA5PPFB2BF91BC0:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27634b8f-9862-431b-b2c9-08de8077ca11
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|82310400026|376014|36860700016|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: cJx34eXi/vvPprzwvX2fN/kozHuQezDC1XhBcsC+u6f/rS3DozKBntq7I/c/cDGkNztZsEmuEv7hiMDSfAL+DJrm4GGuVCHnVziy+iUKjXrHvFsdFuagXN7yal5UWoCDLtu2pchNyOR8l6rvCWTXwlSGqb8wLjQGt6+0dbrJ4O87rnzB492A5Z2NJRg2wwCoWSugRZw+hFkCdlyqVwcm9Puna/ne7382IJumAZZckphR278ZQaIok1QxWH4zm+x1LEOZ/0j3orGSHlnh1KSwyr1xYkM54+vXr8GoEm0zmG84ZJvL+V/PXxzGTw4QhYTHl0VOyPZBpj4lbfOQLJ/rShOpIFqSG9bd8EoT/udhpytKBTYf8Zl9D+zGVbs3Em4yVHWloMMUIN3ukmo7ZnF37aJUpQwmORlzbZ+ufk/l7ZlvCWnMV+k+bRvu9WRPRbJNSZ4PhyfEErWA02LIMSSL8vzrA+nlQtDOylIPyfA5wzFBijfzodvgfPWUCycfo1fFUqg8KwJrhIudQWRpdTcrHIQriY9LiXKvyEOkFC/S5v8nrSFX1k00bcfZO8MIndV576Zxpb2mBUXcA31+CKcV7ZsCxFH/y1mvX/i+gaQ6Ak3EcBA195df+fUSihTJJKhXmtr1uiq6R9U4SUdmWbt/kah0uiBCPvEvvRzxXFySuyOfSyHZDoy0gg5aEW/a8WFB+tNaAgL5wAIta3CRHxjfw9EaBNp5ed1NJbu4HClHU2F6QBVl/aQ3/i2o8pIKfcuHd74W1hP29toOx4lPQrl9IA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(82310400026)(376014)(36860700016)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: h9YC0aGmmmvU6ix14HpnWwwUzvzkAdWht6eYqRDFgQ018TEYvIBdEgoF16lCNlX+xh3vuLWEnnhybFsyxSuW8Cfqq/vGj8a2zr42C/yIRZkmlMkPRt6OAZEfpjwUOHUEX0MveE6g9hwGSzkzc1LL4CSMwcTnWYE6YhlfMk/Pu7okHb9P+3615TxaavQ63VqYSc6tMPwRGnxY51kGq7gBVeveMTyyGe1XB+e+rLsTwOeTucuxENe98ZZkvlAly3YODinVDgj/n0X43r6vqQwBVZMrTXpV41iiHsTZ5TTkWG8tdRMwK1vNN1uAZ7KzvbnezRx4E5PDf5Dkgsgo4+3UITz41NmAXIWxsK8gItocL1efHkTlgikmRiXv1HOvWnC6qSnw1T9ahzNz/trZoSkITuO1P321phaDCwgxvnLX0c4Nf7yFwNcyRaYGK8V1sePl
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 20:41:51.2382 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27634b8f-9862-431b-b2c9-08de8077ca11
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00006001.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFB2BF91BC0
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,104 +108,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The colorop state blob property handling had memory leaks during state
-duplication, destruction, and reset operations. The implementation
-failed to follow the established pattern from drm_crtc's handling of
-DEGAMMA/GAMMA blob properties.
+I have just gathered real data on this and the result is surprising.
+Viewperf 13, Viewperf 2020, Unigine benchmarks, and others have been
+used to gather BO list data.
 
-Issues fixed:
-- drm_colorop_atomic_destroy_state() was freeing state memory without
-  releasing the blob reference, causing a leak
-- drm_colorop_reset() was directly freeing old state with kfree()
-  instead of properly destroying it, leaking blob references
-- drm_colorop_cleanup() had duplicate blob cleanup code
+The maximum number of BOs that has been observed in the CS ioctl for
+radeonsi is 283, even though the actual number of OpenGL BOs can be on
+the order of 50k. That's thanks to the slab allocator in the Mesa
+amdgpu winsys.
 
-Changes:
-- Add __drm_atomic_helper_colorop_destroy_state() helper to properly
-  release blob references before freeing state memory
-- Update drm_colorop_atomic_destroy_state() to call the helper
-- Fix drm_colorop_reset() to use drm_colorop_atomic_destroy_state()
-  for proper cleanup of old state
-- Simplify drm_colorop_cleanup() to use the common destruction path
+RADV uses VM_ALWAYS_VALID by default currently. radeonsi could also
+start using it if the kernel memory management behaves optimally.
 
-This matches the well-tested pattern used by drm_crtc since 2016 and
-ensures proper reference counting throughout the state lifecycle.
+Old Mesa drivers might use more BOs, especially RADV which doesn't
+have a slab allocator.
 
-Co-developed by Claude Sonnet 4.5.
+Some limit may also be needed for lists of sync objects in all our
+ioctls and all arrays in general.
 
-Fixes: cfc27680ee20 ("drm/colorop: Introduce new drm_colorop mode object")
-Cc: Simon Ser <contact@emersion.fr>
-Cc: Alex Hung <alex.hung@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Daniel Stone <daniels@collabora.com>
-Cc: Melissa Wen <mwen@igalia.com>
-Cc: Sebastian Wick <sebastian.wick@redhat.com>
-Cc: Uma Shankar <uma.shankar@intel.com>
-Cc: Ville Syrjälä <ville.syrjala@linux.intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Cc: <stable@vger.kernel.org> #v6.19+
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/drm_colorop.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+Marek
 
-diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-index f421c623b3f0..647cf881f413 100644
---- a/drivers/gpu/drm/drm_colorop.c
-+++ b/drivers/gpu/drm/drm_colorop.c
-@@ -171,12 +171,8 @@ void drm_colorop_cleanup(struct drm_colorop *colorop)
- 	list_del(&colorop->head);
- 	config->num_colorop--;
- 
--	if (colorop->state && colorop->state->data) {
--		drm_property_blob_put(colorop->state->data);
--		colorop->state->data = NULL;
--	}
--
--	kfree(colorop->state);
-+	if (colorop->state)
-+		drm_colorop_atomic_destroy_state(colorop, colorop->state);
- }
- EXPORT_SYMBOL(drm_colorop_cleanup);
- 
-@@ -485,9 +481,23 @@ drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop)
- 	return state;
- }
- 
-+/**
-+ * __drm_atomic_helper_colorop_destroy_state - release colorop state
-+ * @state: colorop state object to release
-+ *
-+ * Releases all resources stored in the colorop state without actually freeing
-+ * the memory of the colorop state. This is useful for drivers that subclass the
-+ * colorop state.
-+ */
-+static void __drm_atomic_helper_colorop_destroy_state(struct drm_colorop_state *state)
-+{
-+	drm_property_blob_put(state->data);
-+}
-+
- void drm_colorop_atomic_destroy_state(struct drm_colorop *colorop,
- 				      struct drm_colorop_state *state)
- {
-+	__drm_atomic_helper_colorop_destroy_state(state);
- 	kfree(state);
- }
- 
-@@ -538,7 +548,9 @@ static void __drm_colorop_reset(struct drm_colorop *colorop,
- 
- void drm_colorop_reset(struct drm_colorop *colorop)
- {
--	kfree(colorop->state);
-+	if (colorop->state)
-+		drm_colorop_atomic_destroy_state(colorop, colorop->state);
-+
- 	colorop->state = kzalloc_obj(*colorop->state);
- 
- 	if (colorop->state)
--- 
-2.53.0
-
+On Thu, Mar 12, 2026 at 1:59=E2=80=AFPM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 3/12/26 18:44, Alex Deucher wrote:
+> > + Marek,
+> >
+> > This was the feedback from Marek the last time this was brought up:
+> >
+> > "USHRT_MAX seems too low. Traces for workstation apps create 20-30k
+> > BOs, which is not very far from the limit. RADV doesn't suballocate
+> > BOs. Neither GL nor VK has a ilmit on the number of BOs that can be
+> > created. The hypothetical maximum number of BOs that can be allocated
+> > on a GPU with 32GB of addressable memory is 8 million."
+> >
+> > Does 128K sound more reasonable?
+>
+> I think so, yes. Event 64k seems reasonable large to me considering that =
+only BOs which are not per VM need to be in the list.
+>
+> E.g. RADV barely uses this feature as far as I know.
+>
+> Regards,
+> Christian.
+>
+> >
+> > Alex
+> > On Thu, Mar 12, 2026 at 6:13=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.co=
+m> wrote:
+> >>
+> >> Userspace can pass an arbitrary number of BO list entries via the
+> >> bo_number field. Although the previous multiplication overflow check
+> >> prevents out-of-bounds allocation, a large number of entries could sti=
+ll
+> >> cause excessive memory allocation (up to potentially gigabytes) and
+> >> unnecessarily long list processing times.
+> >>
+> >> Introduce a hard limit of 128k entries per BO list, which is more than
+> >> sufficient for any realistic use case (e.g., a single list containing =
+all
+> >> buffers in a large scene). This prevents memory exhaustion attacks and
+> >> ensures predictable performance.
+> >>
+> >> Return -EINVAL if the requested entry count exceeds the limit
+> >>
+> >> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> >> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+> >> ---
+> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 4 ++++
+> >>  1 file changed, 4 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_bo_list.c
+> >> index 87ec46c56a6e..3270ea50bdc7 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+> >> @@ -36,6 +36,7 @@
+> >>
+> >>  #define AMDGPU_BO_LIST_MAX_PRIORITY    32u
+> >>  #define AMDGPU_BO_LIST_NUM_BUCKETS     (AMDGPU_BO_LIST_MAX_PRIORITY +=
+ 1)
+> >> +#define AMDGPU_BO_LIST_MAX_ENTRIES     (128 * 1024)
+> >>
+> >>  static void amdgpu_bo_list_free_rcu(struct rcu_head *rcu)
+> >>  {
+> >> @@ -188,6 +189,9 @@ int amdgpu_bo_create_list_entry_array(struct drm_a=
+mdgpu_bo_list_in *in,
+> >>         const uint32_t bo_number =3D in->bo_number;
+> >>         struct drm_amdgpu_bo_list_entry *info;
+> >>
+> >> +       if (bo_number > AMDGPU_BO_LIST_MAX_ENTRIES)
+> >> +               return -EINVAL;
+> >> +
+> >>         /* copy the handle array from userspace to a kernel buffer */
+> >>         if (likely(info_size =3D=3D bo_info_size)) {
+> >>                 info =3D vmemdup_array_user(uptr, bo_number, info_size=
+);
+> >> --
+> >> 2.49.0
+> >>
+>
