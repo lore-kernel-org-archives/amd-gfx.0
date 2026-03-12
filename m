@@ -4,141 +4,171 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBF0A105F787
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A12A105F781
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7202410EB5E;
-	Fri, 13 Mar 2026 08:55:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C4E4710EB58;
+	Fri, 13 Mar 2026 08:55:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="djt0k3hV";
+	dkim=pass (2048-bit key; unprotected) header.d=efficios.com header.i=@efficios.com header.b="QOwG2WEt";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7146A10EA5D
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 16:09:02 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-799569f6e9dso13123807b3.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 09:09:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773331741; cv=none;
- d=google.com; s=arc-20240605;
- b=LTiX0jdqAKin7UXP9nb39gemxyNmLjBHa+YVmHymQvmFMxgwkKX25dbCBbdOCuvtk3
- tWc8Bn/DPPfW5hiFnFxLe0ebYiQVkpydHeKYee0lFxEHwLU9hYQ98Ofoen2u9xbFsr0V
- DzFpQXJBUzY67EJVugXPd3VKOzmkKRyfAo8xaU6DM63vpQ1FKynDQcEwGLONhfrXOeCV
- AzerfGHb+jEZSqODYvi54DdtorzdNALCMX9MNIrw8jTl+qwmpJtNkfQxLpJYGOVTvOn3
- 9fkqItjeyR8rI/aOycJXgH+brDxXjYsCniqytShrWh06HpJqbi+2FlrMyccTW6j3cmPO
- xxpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=kI5PTFr09piXXwe+dHgxbmefu5uh1N96l8rxcGpDT20=;
- fh=Upi2MgkPcH7oglcJquoebJfwSvAfHaxaibvfRvO/+Co=;
- b=YO/HyGYAqv6lFJBUzHsGFnGaa/fn+fO68FvUGAcGabP7U/qgF0gRJ5NIrCOYMsX3V8
- NGXrPPfGGcGvoXRZ27mOsaIKC3gKSFk4LkrUi9+QCpP8m4O9/WG9DkEwXY6gFhxms/jY
- 1g7OH42Eo1gRLEwkAiv8n44hhfwA8dcOaHb4tR6fzJgHRpBjyS3vmtZGTOVtXFnndXnj
- rdYMK6GsaUMpOLjD4kYq25NHIW+Bbrk7ELFyonw4wzNb8r4s04VTBxU2YF+wCe5Hcinx
- jca5ZT7aa8n/UFoCQoBN1Epm+D6eisHc6VI7dRwy5mD/DuBmoTEGEtL1mqfGaAhwGPkj
- 4C8g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bitbyteword.org; s=google; t=1773331741; x=1773936541;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=kI5PTFr09piXXwe+dHgxbmefu5uh1N96l8rxcGpDT20=;
- b=djt0k3hVDFJGreJ12+f86xeUGd8Whif7lOAhQ73hsr+DWs5WvKnpXLwJ5/4A1aPvdT
- UNAwotzKkDEV91p4vZBhWHcL6LfvRuXGTg6xnU70+QpWO4S2yWvt8awhB3NXfMgM5o3L
- u8pylWxHVnA9gRkRsG3C2eRmAD+GAt007PF14TqZWYE9UdrhkaRLM7TFkok72LFlvmgr
- 7aIE2cEDvZIw0xsuEpdqLUOoMRuyBKQfP91G0xytXw1dtp8xiD5e28YC8kwLoB++6ji/
- RCnLkxQU3FZVY+2GEggWnzMx1QcPvE0aE9IF2SnpSUR8QdJo2ZGW/OPV4DxvPa7CUP+C
- 40Sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773331741; x=1773936541;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=kI5PTFr09piXXwe+dHgxbmefu5uh1N96l8rxcGpDT20=;
- b=lHlnCCdE7U691Ug7QBHGSNKNddPhF1/dlFq0injUX+KJKDt0Z50C06KshDE4VQnb4Z
- /AaCq0OWsgLhi/Set0GQbSmVLykdobeSjdnsKZQv2qDzCOfYdFh9GvurXRvJg5VuGBEl
- j/Wz6AltxBMOGxD1uLY9iAwNhS5hRUxq14YuKhRWZ+l0wF+spSKSI7DF9BPLQVH0sNbm
- U2thqrFDMAJTdHCNRNmjtcibD99twXawjOVrkzb1RfwoDoAB9lHWA0iIhI/EcUIpLOLO
- AfVoY0D6QiH3/9zfqY/zMhYF0RiQJdip5fzvqjHYciTZIROq8vZb5B4P5v6F44G+es4v
- LImQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUZMD4zvKAqJAGA4pZw01wtph3MIZfDlYiwlNdUjkBT7Y8h+dPWkTmw4Y5JtULnAQuovPr2JKcd@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyvEToSE1j5y7VzK2RehrBrz1AbirKRms5q6UB+gcTPUyRuYnmD
- kWpKsvWL3IGg7WtAiX06RNWqLEqJAG93v9wh5xOhR91R5ZFXkLZDt6hU0RNoLqViADydawoYP9q
- CkWSb6D3LGcIDqwF5FgcwzjY31hlDCmz3vsdOZhPqhg==
-X-Gm-Gg: ATEYQzydQ5U+789IjLpRMhdoEaS5f4rMjyOvKzYxb4NT6fz8phy4K1HQOesWAQ8lBnC
- bXzeCSmKGiQSFqDCO2F30ak57RYFYe7eb7CSfONYBxso3Z1ccH6cJB53M4BWRZbrJBk3hfrlov2
- gje4nCpM55BXRIRCTCsf/gqZNwN10MFWKSzPF5bBuuz/gKWhI97+9VYMFR0TKgTnJhFEt4xERET
- VSmoOU35q2mKKuhJ9BXkMboybMIrpiq+sR5Bk31bYp7IUAZvEhoYCDICZoBkOuISyPglVoUGoUd
- hOIP8BQ=
-X-Received: by 2002:a05:690e:448d:b0:64a:e799:1d9c with SMTP id
- 956f58d0204a3-64e63079bb0mr62693d50.60.1773331741406; Thu, 12 Mar 2026
- 09:09:01 -0700 (PDT)
-MIME-Version: 1.0
+Received: from YT5PR01CU002.outbound.protection.outlook.com
+ (mail-canadacentralazon11021124.outbound.protection.outlook.com
+ [40.107.192.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A11C210EA49;
+ Thu, 12 Mar 2026 15:49:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bhi48NCjGTLHjCSLcJjjhyVCIlwH2yhBLY++GM7K4Gt+nM0TCziV5JCP0MZlgJrcCgpufDVTnbpgy4nmZUmNPnRAwQZRYXWW/8lTkzcWHv9GlnCkd633ti++3MU2THvGVBBmCOvMktO1o8MpoWRT/IK4JqvI7oIa00q13sVWpXZ0WoUZlk1kRj+BnCtr+of1ZJ2UV/2LnardH2ULsGQtlOgPmjO6a2Xs9OjrckXcMXFLi7MJr14CjJxr0S9voVM3/Y29hDHMBaVY0TTl5s3si+V1YM3BvZ2KSiP7dJq2IqIEDf7U9i/AViMq7jOjUSEycBgtghM4TTU6UKCFGWTO+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r+f1OS1gXJn7QXukqE5ZKY8YOg8IHXLISgDrGg7moAU=;
+ b=yKq0x4NdnjLpubIFr1q7w4HSz8QFflJEdPWJaijELdoaTylt6ou4+Wtcr5bRdpEQ2Yn797YxE0ox0Uwr1zlLY0zhM/3VHuYJtr422ux9eRdwGFE2u9PJi4IauTOrGkvu9OwRCdqLOhMjF+9b5dasI1r8h2n6VaBFbCSO0+EiJ3M+ce+/pQHdeF6SWiWCum7O/iT/LLLliGnwKtL+fr2wFHVT53kmfmNNfBgV6XKBt3KItTbe7ERYXv2j6hp7xgtHuXFYcxBF/TB7dHd7kUe6WKusxiRCKpYAtyoe2ujjgILQaFdNpot1F0IhXZko9xkKy8/9k8Xu6PMT8a+lDMh3Xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r+f1OS1gXJn7QXukqE5ZKY8YOg8IHXLISgDrGg7moAU=;
+ b=QOwG2WEtH2lDIceIgFCkJgqLqfqdRUE1HV4yNavueIqrG3i4mQR8US7PtMHNHa1DyijRze1BRay9V3zKoqSXyOQkGiAHUMFf3bbt2KKb3szm7YrPETalck/Pk5tfaRsmS7vgAZcM9la34fUXVjwsTZF3k83MQ9ewI49vaubVcxsUOecwRKhHKfmrB8WO8hk+vJ6Exh5FXGGWdDwetpupTxmHp+lYqzcnF4sGYcZTYvwZQ7oKduPvYIpBXmljvu+8+xpB/Wg4BxmLX04vNE/RShTAzCC/QLeabhcWZEW69+pza5NKJIW5YdqSNYzVhoUxPJCUa3lFRE79DMiovqePew==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:be::5)
+ by YT1PPF9FBEE6684.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b08::56e) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.16; Thu, 12 Mar
+ 2026 15:49:27 +0000
+Received: from YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6004:a862:d45d:90c1]) by YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6004:a862:d45d:90c1%3]) with mapi id 15.20.9700.015; Thu, 12 Mar 2026
+ 15:49:24 +0000
+Message-ID: <1becdbce-2c01-468a-bbab-42b5dea9fdf8@efficios.com>
+Date: Thu, 12 Mar 2026 11:49:23 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
+ at guarded call sites
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+ Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, Jon Maloy <jmaloy@redhat.com>,
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ Ilya Maximets <i.maximets@ovn.org>, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org,
+ Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>,
+ dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
+ Eddie James <eajames@linux.ibm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>,
+ linux-fsi@lists.ozlabs.org, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-scsi@vger.kernel.org, Chris Mason <clm@fb.com>,
+ David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
  <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
  <20260312112354.3dd99e36@gandalf.local.home>
  <219d015d-076b-4c80-8f63-88569115fdad@efficios.com>
  <20260312114041.5193c729@gandalf.local.home>
- <1becdbce-2c01-468a-bbab-42b5dea9fdf8@efficios.com>
-In-Reply-To: <1becdbce-2c01-468a-bbab-42b5dea9fdf8@efficios.com>
-From: Vineeth Remanan Pillai <vineeth@bitbyteword.org>
-Date: Thu, 12 Mar 2026 12:08:49 -0400
-X-Gm-Features: AaiRm50l09G2avZYKQas6kLTqrDst8ZjnHTnngudy3h6MyVa79lzABXaRh3Trz0
-Message-ID: <CAO7JXPjnnruhM5oC6xMgnYaQ9efzYFqMCFiJLNM3HCQ+ZeCiJw@mail.gmail.com>
-Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
- at guarded call sites
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Peter Zijlstra <peterz@infradead.org>,
- Dmitry Ilvokhin <d@ilvokhin.com>, Masami Hiramatsu <mhiramat@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, 
- Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>,
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, 
- Xin Long <lucien.xin@gmail.com>, Jon Maloy <jmaloy@redhat.com>, 
- Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>, 
- Ilya Maximets <i.maximets@ovn.org>, netdev@vger.kernel.org, bpf@vger.kernel.org,
- linux-sctp@vger.kernel.org, tipc-discussion@lists.sourceforge.net, 
- dev@openvswitch.org, Oded Gabbay <ogabbay@kernel.org>,
- Koby Elbaz <koby.elbaz@intel.com>, 
- dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>, 
- Huang Rui <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
- Len Brown <lenb@kernel.org>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
- linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, 
- Eddie James <eajames@linux.ibm.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>, Danilo Krummrich <dakr@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, 
- Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, 
- Mark Brown <broonie@kernel.org>,
- Michael Hennerich <michael.hennerich@analog.com>, 
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, 
- Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
- linux-btrfs@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:38 +0000
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <20260312114041.5193c729@gandalf.local.home>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT3PR01CA0018.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:86::22) To YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:be::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT2PR01MB9175:EE_|YT1PPF9FBEE6684:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b2414cd-f9a0-4f3b-2712-08de804eef5d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|366016|1800799024|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: CCU/Y6dWVcv//xk15ypG7eITc5aQM5bWdOX1u0Bg7LwgrkyHe1wzrwTN5wXXfc5xJCRIakvlCYqdfwdCceaIQFvddxgxCzlQs/IBorNWI0UEoO+mq924zyCtOX4JBRa9rN9zpPbp0JJNTHvaa0PV9WUYu6shnbacYkirruurEEK5KveBdc8qAokvYzgv9O0kPSU4X7J8jC2TYPGjzHTVggJjJtd95SQPMUpF/8bKPRuJXBsks3p7pm8rNuLzkRmYYe7TFfQgh9bFzduN8qrPz6le68qUPo14DQU0vcQnMs7+4yOl0RApfwCBfOJuWhj+bHD+VWbOz83lUg/el537KTfDaV75oL7RowCGOziZZUdlPQ0xJ3hDGclxiISSslmDImqoqyLCKnWtOPnGSZZ0l0MiAZztX8uVJlx5pHuKEjWD38UG7InzMrY68f0dFRTCnw2RzIAPDNtYwiZKROkRI0Hxp6WJR8TlRKr++J3/9hzixnMjukIKvL8Zbktg0i8t4OmfhXCadZTLkQJ/GMS7S13YFu5nFRltQ+CjQzTXIQGu+TVLFMzAL/4WObVG8i/knmreglFb335L29gNuWMmaDQpb7vdXnytVPYuURluTd0taHORk0p76aBppL8BFumWY8JawPXZm//vYPDc14V5XI00ex6bVQMllVX8jN/WF142cQg6/4zy/SZPWX6OTLLE
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(366016)(1800799024)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlVoOVVSRkVTdmhnT29ncDBnZDZ1a0REMDBxWUx2cXk5NlpLeVpyWWhxWWYv?=
+ =?utf-8?B?UWZScCtxTVU0aU01dENzakdVMGNEaDNDaGRDcTFrc1dLeFI5WlB1RmZmeWFY?=
+ =?utf-8?B?d25rYTRjajB5Qm1CblJEbkc3WjZlU0Y5bkRuUG1VUG1OTk12UVlmUmJ4YUxa?=
+ =?utf-8?B?UGJUc0pxdVVteEdHbXlDT1ZJS1JJM1lyRE16NFdpRTMxejJvemhscXpDdDBw?=
+ =?utf-8?B?cGxsOFhqVWJ2SFpYanBibHQ5cG9hNDZPZGdHc2VYTXVFUGdoZ3BibW5aSG92?=
+ =?utf-8?B?Z1pXbHdJNklnd0JQU3hiYzcxT0JEWkk3NG0rdmQvclVmNndwVWErOU9ldmJ5?=
+ =?utf-8?B?LzRYS2dsMk5jR3NoQi9aRnJzWGh0UUJqZC84UXk1L09JWng3bmIxZ0EvWU5L?=
+ =?utf-8?B?b0laaENpWkxrbkhnazZMN1F1WXI1Q0FVdy9IeFI0ZXU5aG1wNUxLNnRyVVRU?=
+ =?utf-8?B?R0Ura05JVkxwR1JnOFBHWUZBWTdLZjhlU1V6U3pubHFCc1gySE5ZK2wydkhR?=
+ =?utf-8?B?NHhHSjhkVkJoZXc5N0l6WFh2WWtqcC80Q1IvVVF5OTFlQy81U1NSNzlWSWpk?=
+ =?utf-8?B?dnNPb01QcmNjWHRYdTYyMXlpcFhhaHFUUHBQdkRpMVBSaGRGRnREUHZiclhP?=
+ =?utf-8?B?Q2RNS293SVdEWmZDdkV1Qi8yQ2V2b3hleHRib1VOQ0xQcWNPTnNkWlVkZHVV?=
+ =?utf-8?B?Y2plczlBZ2k5Uzl1Sm1wdnFzMzZ1RHI3a3NoaWdOMC9KMlYzeFhxcUExbzBa?=
+ =?utf-8?B?WHdvZzRtMVo2RjBQMFB5UkFqTktVZERsQVlZWktEVFo2bmtkUk9zbGwxcm5P?=
+ =?utf-8?B?R2JEZTNqRjV2VHpqT01EWFdzVE1weU9KR0JGLzl6N2pxa1I2WFdzR1NDMDVw?=
+ =?utf-8?B?d3BMaEVxcyszREx4U0dyRHNWVlRTNUQ4VUZYVU16NWZ6WnVSMk5rS2NaMllP?=
+ =?utf-8?B?K1owbWpid0RsZlVEZG4ybkZpbittdTVnOFhLMXpUei9iWnZNWm5PeWY3WXhn?=
+ =?utf-8?B?TGwya21OYlNMWlpISDdiOXhWb2tHM1AxTmZQblYrdXJobmF0akZhaThtdXVr?=
+ =?utf-8?B?R2dHVGowb0tybkdVeis1SW14bEp3c2h6Z0o4Y0dBcnpuV3cvK1gwY2pmTVBq?=
+ =?utf-8?B?Zld6UHZGQStORyt1VHEzRDFURDJ0UnNneHhzelJreURtVWIvSXhsRWVhQkJr?=
+ =?utf-8?B?MU9KL1RoWVpFS2VSSUxmZFFlaGF1SDh5Z1NBQ3lUQUd4aXRqWTgwd25ET1F4?=
+ =?utf-8?B?eDI0b0h2bnpWMUJQUDI2ZEpvMDF2TWJVTStQNFcwQ2g0M3R3QTJ0WVJRTGx6?=
+ =?utf-8?B?Q3JOZ0RrSnJZUjBGY1dpSG96VloyR21zczM2YklzYm9PN211dFVnNUx2YlNa?=
+ =?utf-8?B?MmZiMXYyb1E5T3RrdmxEVGJHaThqZU5pY0JzQXRWZEZUM0JhR0N3aXBIK0VO?=
+ =?utf-8?B?elhUb0JoQTVTRldxN3VXYndZazdJMGFHRFZuN0NjTDgxaGZBNDA3c3JOaGlD?=
+ =?utf-8?B?Tk45NExwZk9rM2FtMXRsY09yZUtLcFNRQU5pN0lBMUpLNDJKNXRLMlE3RWIx?=
+ =?utf-8?B?Q250QW5CQ2F4cE4vcHZCVXE1aUZFaUZlZll1OXVsZHF3NEp2Z1BMN2dRRGdM?=
+ =?utf-8?B?L3lQemhHMVN3QkZaNHRaekNpaml6YVIvTjlTbXFvWGNKc3MvUTBuQTV3Ymp1?=
+ =?utf-8?B?NlB2c3JEQmZNWGE0aDA2UXdXWU1JZFJwUlQvYkUvSVlQb1Y5anE5ZjNzR3Rj?=
+ =?utf-8?B?Y0RJOUtJeWpiUTB4N2xUR3JYRE9ZVWRvbndGWmFhcEJpTGtZTEhQNVZmVWJH?=
+ =?utf-8?B?NHhUcEtyTkhHNnBzWU9aVEpoYlkwSi85UnlnVitobk5EcFVtajBZNG9hRCtp?=
+ =?utf-8?B?cnRxbzhxNGVvRmhpSTBaSjQ2bXI4RFJlcG13UU5aenpvYi9IMDRLSkpwejdB?=
+ =?utf-8?B?SVN3alZkWmJyUFpjWDdnMis1N05rNGRuaWhGNkUxQmxTcXdrYjZJZTRnWXI2?=
+ =?utf-8?B?UGVqUmkydUxRbG9UL296T2ZmNnFldXQ4aXZRMDluNEYxenFyL3JKNlhjZFB6?=
+ =?utf-8?B?OUlMYUpGcHl4dnZFTVR1S25RSUExV0R4cWtsZEwvZ043KzZYRkJhWUs4RDVu?=
+ =?utf-8?B?dlpmdU84bXRHSjdKNi9TT0Z6Zm5xdTlLb1ptdzE1Y1lYNkhiem9Celo0UDhR?=
+ =?utf-8?B?ZXBqNDUxZ0pDVDBReTB4bWkrVnkrczJZNVMxRnhRaWpMR3BvazdPNG9BbzlT?=
+ =?utf-8?B?SlZWcTBlY3h6THVCRnR0QmN5YzZGREtOLzFycURlMlNBQ2sydzgyV2lXbS8x?=
+ =?utf-8?B?RmRLVWtQbjVDRHI5QlY5VCtpaUxvMG9NYmY4aWhMdjRTRmMvRE9PZTQ2TGpG?=
+ =?utf-8?Q?uF1Lyn94eYFiXfV0=3D?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b2414cd-f9a0-4f3b-2712-08de804eef5d
+X-MS-Exchange-CrossTenant-AuthSource: YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 15:49:24.6247 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +5uLUtuitkHCTOMsAWxUvvwujOax/8mw+bzWboKw/HDzJRI5hQJwSWEeZOaUhAFcH+15CaSGPnUpnk/IrPZfDmb5LWggTp1PlNuqINXqnKM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT1PPF9FBEE6684
+X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,59 +183,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 12, 2026 at 11:49=E2=80=AFAM Mathieu Desnoyers
-<mathieu.desnoyers@efficios.com> wrote:
->
-> On 2026-03-12 11:40, Steven Rostedt wrote:
-> > On Thu, 12 Mar 2026 11:28:07 -0400
-> > Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
-> >
-> >>> Note, Vineeth came up with the naming. I would have done "do" but whe=
-n I
-> >>> saw "invoke" I thought it sounded better.
-> >>
-> >> It works as long as you don't have a tracing subsystem called
-> >> "invoke", then you get into identifier clash territory.
-> >
-> > True. Perhaps we should do the double underscore trick.
-> >
-> > Instead of:  trace_invoke_foo()
-> >
-> > use:  trace_invoke__foo()
-> >
-> >
-> > Which will make it more visible to what the trace event is.
-> >
-> > Hmm, we probably should have used: trace__foo() for all tracepoints, as
-> > there's still functions that are called trace_foo() that are not
-> > tracepoints :-p
->
-> One certain way to eliminate identifier clash would be to go for a
-> prefix to "trace_", e.g.
->
-> do_trace_foo()
-> call_trace_foo()
+On 2026-03-12 11:40, Steven Rostedt wrote:
+> On Thu, 12 Mar 2026 11:28:07 -0400
+> Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
+> 
+>>> Note, Vineeth came up with the naming. I would have done "do" but when I
+>>> saw "invoke" I thought it sounded better.
+>>
+>> It works as long as you don't have a tracing subsystem called
+>> "invoke", then you get into identifier clash territory.
+> 
+> True. Perhaps we should do the double underscore trick.
+> 
+> Instead of:  trace_invoke_foo()
+> 
+> use:  trace_invoke__foo()
+> 
+> 
+> Which will make it more visible to what the trace event is.
+> 
+> Hmm, we probably should have used: trace__foo() for all tracepoints, as
+> there's still functions that are called trace_foo() that are not
+> tracepoints :-p
 
-This was the initial idea, but it had conflict in the existing source:
-call_trace_sched_update_nr_running. do_trace_##name also had
-collisions when I checked. So, went with trace_invoke_##name. Did not
-check rest of the suggestions here though.
+One certain way to eliminate identifier clash would be to go for a
+prefix to "trace_", e.g.
+
+do_trace_foo()
+call_trace_foo()
+emit_trace_foo()
+__trace_foo()
+invoke_trace_foo()
+dispatch_trace_foo()
 
 Thanks,
-Vineeth
 
-> emit_trace_foo()
-> __trace_foo()
-> invoke_trace_foo()
-> dispatch_trace_foo()
->
-> Thanks,
->
-> Mathieu
->
->
->
-> --
-> Mathieu Desnoyers
-> EfficiOS Inc.
-> https://www.efficios.com
+Mathieu
+
+
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
