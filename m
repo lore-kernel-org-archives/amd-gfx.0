@@ -4,107 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2817106FD9A
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6B8A103E300
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39C2310EB3E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C4B510EB42;
 	Fri, 13 Mar 2026 08:55:40 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ziepe.ca header.i=@ziepe.ca header.b="N+o6W8oQ";
-	dkim-atps=neutral
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
- [209.85.160.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD31310E9E2
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 12:57:32 +0000 (UTC)
-Received: by mail-qt1-f176.google.com with SMTP id
- d75a77b69052e-5094b54a250so5475771cf.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 05:57:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ziepe.ca; s=google; t=1773320252; x=1773925052; darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=J1SF1XBHkHR0j7NZVucv0LxpGoGXl67PUefLsfwpAbo=;
- b=N+o6W8oQwaNn75PwxqY2ERViHP198Q2FUgE8iQA7+0gEKBKucnKn5t6Nu9vdLvWdvD
- 2jpdcy72+laP9MHp8b/s8fHMXhQOO2SXTjcZe8JuZGRvRLE87p+Yedmf1fkTdLCHWNPW
- kzwcg0h4Qi4aPEJFAVk6+v1RDZlU/+sfZYq6JUaT6zIMrXsfaov9viVgNmSM4DdNmXwB
- LlOFEh6ApB+QTCn1NzAXLINlYA+ssTuTIfK9WJy7f7DfBO5ubXYiZ3BM1TgZlG/vyMbx
- bMnz2mLLAZ4m+He8lKKQpvUrgkMYhGKAiaJUPIku9OHtvzbLeGqrgfkOaIvXnuLt8zyt
- rBQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773320252; x=1773925052;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=J1SF1XBHkHR0j7NZVucv0LxpGoGXl67PUefLsfwpAbo=;
- b=mEnS5cVNoe4BbqylR9Ro7YLNfqoL9/hK53uJtAjWGOTh8NiHQyPBU/Fof8CS0bcAbY
- 3nH72oYrKn+hXHwmrgzk+L1FMe/8JQH9N1hgKotKqyYczP7z6aB9jIaBB0OfqomxwhyG
- Zuc2SuzV3BJBTLiY+NAlMR+Tnh7Vt9qBKbA2rwutYemDxbZM1RSEZKG4Ek3NfcZaqExQ
- 9Q7fRLCIy39+Bxr+4TVXjmkkgvEOCaAIpezxOqhGULDMmnr+lyUCwhmjFedmoHgRm0Kp
- GShdEMIMa7acy2Ix3IXB2+1+xnYctS7hq8T6d6G9I4pFYkP4bM7E83IbHgsMLI10TaCY
- fcBA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWrO5dKEQLe6hpRBfqK56X6TWHeZDAqFIF5klkHQB8GzI1+8zyau9+Z5MOY9/NmWqRtTHhsvp3q@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxG3xeiNxUo0MsGalaxyiiW8rpjTRstZmMysI32MYYSAcYRznAU
- U8/pZ7aD+dNIRomiCiRAf0N32+/UaOV50fklAib76+6CUgIZxMDI8UJT3MBI7lG4OMA=
-X-Gm-Gg: ATEYQzz46Pl0L3dS5UKwd3BD0q+6He1v+31TxZ98SCd37EzbN9WyRYFf7gwUPkArMGp
- MDVfUVFb0ynx8kjGQZtHZgabA+IVeOoA+7ef36nMQGsslPWeQBjsl2SWLtGq0Ez3qTsnzU8YPnx
- ywgOBb1kqMoACCyAmghesrgc/j/0/cLsrlCrlVVQDK/hdhFSRxmIprx0dKv2ZcfrgbNNWa9v/QL
- Bjl1q/0tJhNH7QQhfMYYV36E7Edaww1Be91MybGOlgIPXr6x2JMATSPEg4IsocmZUOpgPPf4A0G
- 2vPVQWGldTmqv/znASYs48qpG7ujKeDU1YPagN5Qh51i4hScyLNrvJ0zqWakl4MGNvMvTLASjnO
- WWfom0tWA6G6xm/W8E4PPmDNdSVWn9IrWQ8zFeicZYwfYKc8XXY0RLR4emuVESLLvXMiEf2e0ek
- 9kGRXLFW9on72HJmFPnpaUD1Yve80O6SB4hlU5KjLvaQg6zS6gTo7H07ECvM5HSPeYmsGeNZAzx
- ryanS5g
-X-Received: by 2002:ac8:5d4d:0:b0:509:cbc:127b with SMTP id
- d75a77b69052e-5093a1bd58fmr77950521cf.60.1773320251710; 
- Thu, 12 Mar 2026 05:57:31 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-162-112-119.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.162.112.119]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-89a65bd318fsm33341196d6.8.2026.03.12.05.57.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Mar 2026 05:57:31 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
- (envelope-from <jgg@ziepe.ca>) id 1w0fbW-00000006fKD-1POa;
- Thu, 12 Mar 2026 09:57:30 -0300
-Date: Thu, 12 Mar 2026 09:57:30 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Kuan-Wei Chiu <visitorckw@gmail.com>
-Cc: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
- apparmor@lists.ubuntu.com, bpf@vger.kernel.org,
- ceph-devel@vger.kernel.org, cocci@inria.fr,
- dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
- kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mm@kvack.org,
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
- sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev
-Subject: Re: [PATCH 00/61] treewide: Use IS_ERR_OR_NULL over manual NULL
- check - refactor
-Message-ID: <20260312125730.GI1469476@ziepe.ca>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <abBlpGKO842B3yl9@google.com>
+Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com
+ [216.40.44.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81E9010EA52;
+ Thu, 12 Mar 2026 15:24:12 +0000 (UTC)
+Received: from omf01.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay05.hostedemail.com (Postfix) with ESMTP id 386F0576F9;
+ Thu, 12 Mar 2026 15:24:06 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
+ omf01.hostedemail.com (Postfix) with ESMTPA id 087CE60010; 
+ Thu, 12 Mar 2026 15:23:39 +0000 (UTC)
+Date: Thu, 12 Mar 2026 11:23:54 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>, Peter Zijlstra
+ <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>, Jens Axboe
+ <axboe@kernel.dk>, io-uring@vger.kernel.org, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Marcelo Ricardo
+ Leitner <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Jon
+ Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, Eelco
+ Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, Oded Gabbay
+ <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>,
+ dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, "Gautham R. Shenoy"
+ <gautham.shenoy@amd.com>, Huang Rui <ray.huang@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>, Srinivas
+ Pandruvada <srinivas.pandruvada@linux.intel.com>, linux-pm@vger.kernel.org,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Kyungmin Park
+ <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, Eddie James
+ <eajames@linux.ibm.com>, Andrew Jeffery <andrew@codeconstruct.com.au>, Joel
+ Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alex Deucher
+ <alexander.deucher@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, Harry
+ Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, Benjamin
+ Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, Mark Brown
+ <broonie@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, Chris
+ Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
+ linux-btrfs@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
+ at guarded call sites
+Message-ID: <20260312112354.3dd99e36@gandalf.local.home>
+In-Reply-To: <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
+References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
+ <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <abBlpGKO842B3yl9@google.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: h3739pmr1eu9bg7iohjao1rrs3tokc6z
+X-Rspamd-Server: rspamout08
+X-Rspamd-Queue-Id: 087CE60010
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18y4imWQ5s/jJLRD+ifAQxkW+/MJIrfF8g=
+X-HE-Tag: 1773329019-951038
+X-HE-Meta: U2FsdGVkX19VCvtnyeXLm8RYcE/0528Of+u4uh+xWXIoIUAMDgzoBtHgAKGT8nAF/MB27RV3F/HBU7N8Yq3nctz4CjyozsdN+JtQpjXgcPgQ91Udi/zn6KJIrxNJApkTGgQNfwjA1AIJPhvzXyH3aMyWbdyoGtBKFOnq4RRJYVOvsob0d/ffWToVP4J5RUsRMz0qpdmi3Iljf9FrVu7POde112UEVgFi8OQXvPdVYuTecw25DZQQ5ipeWXW6Kr0xXH7b2TXafPsVNaEyw+eNEKMINQbygT33slpoLqfF/VxxC3FTWBQ/CxruNZ4auDV5bvilUFV4TL+gv3A/9X1r2mUEs0jEp6JnA2gRI3WDauIvML8TIfmFKXYkIboJC7/W
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -120,22 +92,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 11, 2026 at 02:40:36AM +0800, Kuan-Wei Chiu wrote:
+On Thu, 12 Mar 2026 11:12:41 -0400
+Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
 
-> IMHO, the necessity of IS_ERR_OR_NULL() often highlights a confusing or
-> flawed API design. It usually implies that the caller is unsure whether
-> a failure results in an error pointer or a NULL pointer. 
+> >    if (trace_foo_enabled() && cond)
+> >        trace_invoke_foo(args);   /* calls __do_trace_foo() directly */  
+> 
+> FYI, we have a similar concept in LTTng-UST for userspace
+> instrumentation already:
+> 
+> if (lttng_ust_tracepoint_enabled(provider, name))
+>          lttng_ust_do_tracepoint(provider, name, ...);
+> 
+> Perhaps it can provide some ideas about API naming.
 
-+1
+I find the word "invoke" sounding more official than "do" ;-)
 
-IS_ERR_OR_NULL() should always be looked on with suspicion. Very
-little should be returning some tri-state 'ERR' 'NULL' 'SUCCESS'
-pointer. What does the middle condition even mean? IS_ERR_OR_NULL()
-implies ERR and NULL are semanticly the same, so fix the things to
-always use ERR.
+Note, Vineeth came up with the naming. I would have done "do" but when I
+saw "invoke" I thought it sounded better.
 
-If you want to improve things work to get rid of the NULL checks this
-script identifies. Remove ERR or NULL because only one can ever
-happen, or fix the source to consistently return ERR.
-
-Jason
+-- Steve
