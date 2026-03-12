@@ -4,83 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FD671067058
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4497E11258BE
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BEAF10EB53;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5357810EB51;
 	Fri, 13 Mar 2026 08:55:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=wbinvd.org header.i=@wbinvd.org header.b="CzTEz6iN";
+	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="RgyT9Yd+";
 	dkim-atps=neutral
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5295B10EA7F
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 17:13:38 +0000 (UTC)
-Received: by mail-dl1-f46.google.com with SMTP id
- a92af1059eb24-12732e6a123so128463c88.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 10:13:38 -0700 (PDT)
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
+ [209.85.210.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCA4610EA30
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 15:05:31 +0000 (UTC)
+Received: by mail-ot1-f46.google.com with SMTP id
+ 46e09a7af769-7d4c383f2fcso932274a34.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 08:05:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=wbinvd.org; s=wbinvd; t=1773335617; x=1773940417; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=P2G1AlBOtI0pVNQJ415mQN+VxqBlOoCSVpFjY0Duwoo=;
- b=CzTEz6iNgR4+UeF4zGvZBnFkWDA4goliYp1MeBontdJ+rK7kErUfGJPGnDPQ5xoo3L
- nPDgZMngmQlpoVgKq1uxqLWekIv1EQ4+WWIASbIC2h/4V2qDWY9eoYQ2dlsyAsHPZATp
- beO3lYkppahbX5D7xRIeNiXDMo8Rx7bAdhzkQIAHjUHiwqjnaDLFECDJUCD25QwPPrT3
- NzKt578DgZeq2wBWK32fBNWBNEj01pW0OvI6iVHyh+cT+bvzcgR+87o/b7oYmYvr1fXa
- X3JFn9lUVLs6oRQ1MzztulbWJGSz4jEC0i7QLzUK8ncn2U4idAyB+lg+cHf8e0Ni2wzu
- a0/Q==
+ d=bitbyteword.org; s=google; t=1773327931; x=1773932731;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=p/UukkhQcW1lhFqWI/Fw5V3bxdryulukbz8WWfM9zNY=;
+ b=RgyT9Yd+9yKLjLeSjjnyu5O61d62qJzVe+eWhL04PiHVk2Hv49sxxpuep9AkBHvNt+
+ ur34sWdbKqzd1u2IxscDfIbBBSi8leM/z9SOwk2ZHfGUyPB84XtNfCCsSvwr6GWsyp9H
+ rNNPCiR+UJOLUdfD8j32aYxRp26vO3eLcykgnBFFaRM0dzBLndKcEIKzgFxNnI16HgCL
+ 5XD2zW0QOLnHq8Tie5+VWFEoyaCj+PR3J59KzoPG1ePC14tJgr/15ftMwx+Uz1YLFpo1
+ T5mF4hdoD/nPYL5M6My/Y6bGr3BX6Hvy5MKWziCHsIW1KcMqC/4m2+gtn2t7B32ClULv
+ rO+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773335617; x=1773940417;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=P2G1AlBOtI0pVNQJ415mQN+VxqBlOoCSVpFjY0Duwoo=;
- b=X1W2cqSppJN6WvO8g75UhEKDjBjgjbQEVHJcmL+fOWnvrgQJAia8X6TTP5pMxqV/7l
- 5ekhNKXoqHjhFg6pvT/SPcDSScHFr3J+R1kT2r7SflP/Lh9yWt6GM+HQyLtUHofgnNSu
- BB7RxwB/N5twWXTZRT12Uj9cM6tLmHEPquMYhsh8XGuAR4UeDsxVWZz6qxbl5715K9aF
- YZuB3fEOFj47Y662i66lqXF9WeTRHz5dfVaGLFp34tlIuireLk5dWV3QFqu+81ArO5Ju
- +2vDXZSZ0bY1A2XGkJDY7d16LQeTdL+FBiqG0nPP/cqOJaDqZ1gffOLb3i3JCEQXQ4Sc
- OoDQ==
+ d=1e100.net; s=20230601; t=1773327931; x=1773932731;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=p/UukkhQcW1lhFqWI/Fw5V3bxdryulukbz8WWfM9zNY=;
+ b=BHVAm1TOgc+72vCA6P+SxEL1DO1i8KHwY7qFQ/Xhya3v29G0PObHjZYQRz/OuIyjrI
+ Bt3/YYAwVDpWhoHffBKB3KBvvJbZGGaf9WZcc0SJJZQvAk9UP6mm31dQSQdp32LtMnft
+ TZXGrqELsDI+svCnMMHcJdCSavpH8QZGXt+whUVyRxZhKuQKo+vP1fnreCZqdn4TmIG5
+ 6HJpGg4haa/wxuU2a+wreg00mZuOeIHba/aMxlHiB8TxBYUL9FrwNQsWPq1ZR2M+SeCF
+ imVom+sTKkoWLjHlT9QPudNx8R9as5Ep1hO+IcORBkY233v2/71DtUNGktOhmlRDvd74
+ Kk/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW7g4hlbZvjWSJ4j2NoKmfWxW4snCT6stoIZOF7Eu6IQGEH+3Pa8ZFpeTchjw8utepvAdtmPkpq@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJo6kLhIpjpW77mUQxADcLecGg3Gc96wtsB4f4b2ZeUt11wuAl
- gCRZQOzWlMOeyf1SOIMlXVQ7GzurcmIP67rSS6JAm5R7W2g/ls+LLgwKYEDAYYY2ewE=
-X-Gm-Gg: ATEYQzxwtXvvj36QObbyd4rte1yK9+oje/QIXgZmkVloPOK7uJFdJ1mOtmDfMXiHS/O
- 1GM6p0xiAhhlEQAg+4pn8Ri64mz4uVCVfpQad6G6I3PB1S/4/MyVn4MzN73Ac2W9fA+ugA6c+Yb
- OQelpFlzgrPdQcTY4QZmzmtniD0gqtFfXfYctIbDktD0Hio7AKyhvSdvkroEHAAqLvfourLbTon
- obQ5BVrtKG2w/+PYyiNjlqyGPQczY9jYaZNGpfXOCeJQmXOwiW/zeBd23v2JJEqWwByyDn1J7J5
- 2TjTqpW9moKKa4qpPYTDskQheqko6yb5Z57FzVjwZqkeuWZR0IgtF/5/yW2dkmLMAPPC0wB8VoR
- uKeFDnWJ1MZZNL6BX9+nRM+wEPD6cND6/wDSyh0XDYMUuk54IqgPCzOh4yciBXUewHL7M7Z5tGF
- Y46QJETHJmpN/yHUxpYiYLq9Ae
-X-Received: by 2002:a05:7022:4397:b0:127:345c:439c with SMTP id
- a92af1059eb24-128f3e29d9dmr154759c88.45.1773335617192; 
- Thu, 12 Mar 2026 10:13:37 -0700 (PDT)
-Received: from mozart.vkv.me ([2001:5a8:468b:d015:b160:d8b0:a73a:3f1])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-128e7ce52aasm9466780c88.15.2026.03.12.10.13.36
+ AJvYcCUct9guD5JV+cnrQdYUBbyfqCLOhSXfDhTKCj7z1iL0pVpkoJ0rnzFytqoMa23NThFuGU2gfriG@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzrZWh5RiqNq1anX7d5y/ZrOO59CGxzVU1g/2VAbYD8yHP4GtWv
+ K5Smg0FfKkKT4+I0VgGa2IbUk3fMjhlBWZ812xDP7EBkLUQn85IQqLHocq1zj3c4Y18=
+X-Gm-Gg: ATEYQzx4J3p29R9UnHgvTlAhN73uQPGXaDqEpcLMSHi5v/7xZmotTNghlhFxOafrqAn
+ SlxmgN2GZ81GnMbOT/09lZ9WcWydSYmivRwjSLoT3srby4eyQP9pLjJ8l/4fbFedLIZaDpBtvWC
+ Yq2l10ofivkN/sqSIlMrzPVT9qqOvls4ABGNcKpowd8R5BDYiMy/UDNhn2fxBtscy0IZs0zoKI8
+ Mh3LcnICoF/4azr9962T58SCuk/mDme1zeF/uMW7YOMmxoqqZWNB9XUj9uzhcSIU8WsMxsTT8A3
+ qpQryjXhd//2EhrV03uiBwIzKkIw+YRYLzCVrELDt1UONzM2FtHfmFiCzgkeRNRiyCm2/dVwbon
+ gJEea6tAbbjjp9EoOCaCj4l8ccD7qvOGjpkxSAvaR+c4KV0DFpzUTV3JzLFHJY+ocShlJrb1WPm
+ 4DOPjnGLG6maxr//wPFn2bAvDBYRhp/EPNpyKoJtW/wjMGtL1tIOVu/Kne45aOQU8yMA==
+X-Received: by 2002:a05:6830:488d:b0:7d5:1101:9196 with SMTP id
+ 46e09a7af769-7d76a6bdefamr3754389a34.6.1773327930614; 
+ Thu, 12 Mar 2026 08:05:30 -0700 (PDT)
+Received: from vinmini.lan (c-73-143-21-186.hsd1.vt.comcast.net.
+ [73.143.21.186]) by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-7d76aedae57sm4321776a34.28.2026.03.12.08.05.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Mar 2026 10:13:36 -0700 (PDT)
-Date: Thu, 12 Mar 2026 10:13:34 -0700
-From: Calvin Owens <calvin@wbinvd.org>
-To: linux-kernel@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Charlene Liu <charlene.liu@amd.com>,
- Ovidiu Bunea <ovidiu.bunea@amd.com>, Alex Hung <alex.hung@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Christian Koenig <christian.koenig@amd.com>,
+ Thu, 12 Mar 2026 08:05:29 -0700 (PDT)
+From: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+ Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Ingo Molnar <mingo@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+ io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, Jon Maloy <jmaloy@redhat.com>,
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ Ilya Maximets <i.maximets@ovn.org>, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org,
+ Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>,
+ dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
+ Huang Rui <ray.huang@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
+ Eddie James <eajames@linux.ibm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- llvm@lists.linux.dev
-Subject: [PATCH v2] drm/amd/display: Fix uninitialized variable use which
- breaks full LTO
-Message-ID: <abL0PlD1FDnfrX4o@mozart.vkv.me>
-References: <ef7266eb7802ce6d68ebd9356477e9671f0c94e0.1773116305.git.calvin@wbinvd.org>
+ Alex Deucher <alexander.deucher@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-scsi@vger.kernel.org, Chris Mason <clm@fb.com>,
+ David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation at
+ guarded call sites
+Date: Thu, 12 Mar 2026 11:04:55 -0400
+Message-ID: <20260312150523.2054552-1-vineeth@bitbyteword.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ef7266eb7802ce6d68ebd9356477e9671f0c94e0.1773116305.git.calvin@wbinvd.org>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,50 +133,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit e1b385726f7f ("drm/amd/display: Add additional checks for PSP
-footer size") introduced a use of an uninitialized stack variable
-in dm_dmub_sw_init() (region_params.bss_data_size).
+When a caller already guards a tracepoint with an explicit enabled check:
 
-Interestingly, this seems to cause no issue on normal kernels. But when
-full LTO is enabled, it causes the compiler to "optimize" out huge
-swaths of amdgpu initialization code, and the driver is unusable:
+  if (trace_foo_enabled() && cond)
+      trace_foo(args);
 
-    amdgpu 0000:03:00.0: [drm] Loading DMUB firmware via PSP: version=0x07002F00
-    amdgpu 0000:03:00.0: sw_init of IP block <dm> failed 5
-    amdgpu 0000:03:00.0: amdgpu_device_ip_init failed
-    amdgpu 0000:03:00.0: Fatal error during GPU init
+trace_foo() internally re-evaluates the static_branch_unlikely() key.
+Since static branches are patched binary instructions the compiler cannot
+fold the two evaluations, so every such site pays the cost twice.
 
-It surprises me that neither gcc nor clang emit a warning about this: I
-only found it by bisecting the LTO breakage.
+This series introduces trace_invoke_##name() as a companion to
+trace_##name().  It calls __do_trace_##name() directly, bypassing the
+redundant static-branch re-check, while preserving all other correctness
+properties of the normal path (RCU-watching assertion, might_fault() for
+syscall tracepoints).  The internal __do_trace_##name() symbol is not
+leaked to call sites; trace_invoke_##name() is the only new public API.
 
-Fix by using the bss_data_size field from fw_meta_info_params, as was
-presumably intended.
+  if (trace_foo_enabled() && cond)
+      trace_invoke_foo(args);   /* calls __do_trace_foo() directly */
 
-Fixes: e1b385726f7f ("drm/amd/display: Add additional checks for PSP footer size")
-Signed-off-by: Calvin Owens <calvin@wbinvd.org>
----
-Changes in v2:
-* Use fw_meta_info_params.bss_data_size instead of repeating the load
-  from the payload header field [Nathan]
+The first patch adds the three-location change to
+include/linux/tracepoint.h (__DECLARE_TRACE, __DECLARE_TRACE_SYSCALL,
+and the !TRACEPOINTS_ENABLED stub).  The remaining 14 patches
+mechanically convert all guarded call sites found in the tree:
+kernel/, io_uring/, net/, accel/habanalabs, cpufreq/, devfreq/,
+dma-buf/, fsi/, drm/, HID, i2c/, spi/, scsi/ufs/, and btrfs/.
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This series is motivated by Peter Zijlstra's observation in the discussion
+around Dmitry Ilvokhin's locking tracepoint instrumentation series, where
+he noted that compilers cannot optimize static branches and that guarded
+call sites end up evaluating the static branch twice for no reason, and
+by Steven Rostedt's suggestion to add a proper API instead of exposing
+internal implementation details like __do_trace_##name() directly to
+call sites:
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index b3d6f2cd8ab6..0d1c772ef713 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2553,9 +2553,9 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
- 	fw_meta_info_params.bss_data_size = le32_to_cpu(hdr->bss_data_bytes);
- 	fw_meta_info_params.fw_inst_const = adev->dm.dmub_fw->data +
- 					    le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
- 					    PSP_HEADER_BYTES_256;
--	fw_meta_info_params.fw_bss_data = region_params.bss_data_size ? adev->dm.dmub_fw->data +
-+	fw_meta_info_params.fw_bss_data = fw_meta_info_params.bss_data_size ? adev->dm.dmub_fw->data +
- 					  le32_to_cpu(hdr->header.ucode_array_offset_bytes) +
- 					  le32_to_cpu(hdr->inst_const_bytes) : NULL;
- 	fw_meta_info_params.custom_psp_footer_size = 0;
- 
+  https://lore.kernel.org/linux-trace-kernel/8298e098d3418cb446ef396f119edac58a3414e9.1772642407.git.d@ilvokhin.com
+
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+
+Vineeth Pillai (Google) (15):
+  tracepoint: Add trace_invoke_##name() API
+  kernel: Use trace_invoke_##name() at guarded tracepoint call sites
+  io_uring: Use trace_invoke_##name() at guarded tracepoint call sites
+  net: Use trace_invoke_##name() at guarded tracepoint call sites
+  accel/habanalabs: Use trace_invoke_##name() at guarded tracepoint call
+    sites
+  cpufreq: Use trace_invoke_##name() at guarded tracepoint call sites
+  devfreq: Use trace_invoke_##name() at guarded tracepoint call sites
+  dma-buf: Use trace_invoke_##name() at guarded tracepoint call sites
+  fsi: Use trace_invoke_##name() at guarded tracepoint call sites
+  drm: Use trace_invoke_##name() at guarded tracepoint call sites
+  HID: Use trace_invoke_##name() at guarded tracepoint call sites
+  i2c: Use trace_invoke_##name() at guarded tracepoint call sites
+  spi: Use trace_invoke_##name() at guarded tracepoint call sites
+  scsi: ufs: Use trace_invoke_##name() at guarded tracepoint call sites
+  btrfs: Use trace_invoke_##name() at guarded tracepoint call sites
+
+ drivers/accel/habanalabs/common/device.c          | 12 ++++++------
+ drivers/accel/habanalabs/common/mmu/mmu.c         |  3 ++-
+ drivers/accel/habanalabs/common/pci/pci.c         |  4 ++--
+ drivers/cpufreq/amd-pstate.c                      | 10 +++++-----
+ drivers/cpufreq/cpufreq.c                         |  2 +-
+ drivers/cpufreq/intel_pstate.c                    |  2 +-
+ drivers/devfreq/devfreq.c                         |  2 +-
+ drivers/dma-buf/dma-fence.c                       |  4 ++--
+ drivers/fsi/fsi-master-aspeed.c                   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c            |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |  4 ++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ drivers/gpu/drm/scheduler/sched_entity.c          |  4 ++--
+ drivers/hid/intel-ish-hid/ipc/pci-ish.c           |  2 +-
+ drivers/i2c/i2c-core-slave.c                      |  2 +-
+ drivers/spi/spi-axi-spi-engine.c                  |  4 ++--
+ drivers/ufs/core/ufshcd.c                         | 12 ++++++------
+ fs/btrfs/extent_map.c                             |  4 ++--
+ fs/btrfs/raid56.c                                 |  4 ++--
+ include/linux/tracepoint.h                        | 11 +++++++++++
+ io_uring/io_uring.h                               |  2 +-
+ kernel/irq_work.c                                 |  2 +-
+ kernel/sched/ext.c                                |  2 +-
+ kernel/smp.c                                      |  2 +-
+ net/core/dev.c                                    |  2 +-
+ net/core/xdp.c                                    |  2 +-
+ net/openvswitch/actions.c                         |  2 +-
+ net/openvswitch/datapath.c                        |  2 +-
+ net/sctp/outqueue.c                               |  2 +-
+ net/tipc/node.c                                   |  2 +-
+ 30 files changed, 62 insertions(+), 50 deletions(-)
+
 -- 
-2.47.3
+2.53.0
 
