@@ -4,79 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6B8A103E300
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58AB0106FD9F
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C4B510EB42;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BDE710EB41;
 	Fri, 13 Mar 2026 08:55:40 +0000 (UTC)
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com
- [216.40.44.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81E9010EA52;
- Thu, 12 Mar 2026 15:24:12 +0000 (UTC)
-Received: from omf01.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay05.hostedemail.com (Postfix) with ESMTP id 386F0576F9;
- Thu, 12 Mar 2026 15:24:06 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
- omf01.hostedemail.com (Postfix) with ESMTPA id 087CE60010; 
- Thu, 12 Mar 2026 15:23:39 +0000 (UTC)
-Date: Thu, 12 Mar 2026 11:23:54 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>, Peter Zijlstra
- <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>, Jens Axboe
- <axboe@kernel.dk>, io-uring@vger.kernel.org, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov
- <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Marcelo Ricardo
- Leitner <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Jon
- Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, Eelco
- Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, Oded Gabbay
- <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>,
- dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, "Gautham R. Shenoy"
- <gautham.shenoy@amd.com>, Huang Rui <ray.huang@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>, Srinivas
- Pandruvada <srinivas.pandruvada@linux.intel.com>, linux-pm@vger.kernel.org,
- MyungJoo Ham <myungjoo.ham@samsung.com>, Kyungmin Park
- <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, Eddie James
- <eajames@linux.ibm.com>, Andrew Jeffery <andrew@codeconstruct.com.au>, Joel
- Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alex Deucher
- <alexander.deucher@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
- Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, Harry
- Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, Benjamin
- Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, Wolfram Sang
- <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, Mark Brown
- <broonie@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
- Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, Chris
- Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
- linux-btrfs@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
- at guarded call sites
-Message-ID: <20260312112354.3dd99e36@gandalf.local.home>
-In-Reply-To: <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
-References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
- <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="homXtovm";
+	dkim-atps=neutral
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D151710EA83
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 19:15:46 +0000 (UTC)
+Received: by mail-dl1-f46.google.com with SMTP id
+ a92af1059eb24-124b07e5fe4so81945c88.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 12:15:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773342946; cv=none;
+ d=google.com; s=arc-20240605;
+ b=VxA5AvOYuKP18eW+jpSxOUTH43zwsXfP+bmsDP8T7aSZDspotF8yY8Y96Wzd8OoVuk
+ LWea3QZ+1s0rS0sgdw1t9jYT8a5ZdDSOH306/4SIsRqQ+Sc3JcIHzPnT/P2vnRM1YsQd
+ WYwnXCmQCdmymHtxmUIfoZ+pOZI5YwWOMB4Ue2HLsDaV3bESjb6yxaEj28z2uTw9kmWj
+ 3aojC4ZEG+ybNqRt4Yu658jzef+g6nTEsthwsiVsV9EDomZHMsORDn6U9CNQIZ5qMK7D
+ EBdkbBlYOqE4tBbyKxUi3C2q2mIueQPPFAUU9OhOTdRFzb4SlSRD66bbbc1okSWMI18/
+ g2uA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=4VzEC4HlHoK4vh0lvr6EYPz1Eqp/YdbOqaCW1vewwOg=;
+ fh=/O/n7rzcKQc9i+LME983roHkGod15JNfnDb1VgkR55U=;
+ b=aJFfI3BipK5+aU+PjzkykA46pxNCNlxHf+emV4m86MylRZIpRe8+NLXUFEo6vJ3eEc
+ T9FMhh2ec3w/jL0RwTRUwW35S6O1vKvXoM8mHG7ned+Kp3qJYNORDQTsq84Z+YyAzx28
+ Y10LpFCVt/PrB5aOUgVce1JfuREcwlY+XW6LdjxQjSelyWEORKxmWFT9gi4xnWfzEUAz
+ as6UlAupg1etRHgb24GQR18QctUO/eSeAF8Dx/Ua2pWGkDELUAtxE3KXQ8rxNemEmcAT
+ K2lHjPoL5ilvxNYtImF/Bz+4ByiSIF/Q17jpnOIITbNl6rv0ZNGqIK9vIhcaoX0/1DSB
+ Y/nw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773342946; x=1773947746; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=4VzEC4HlHoK4vh0lvr6EYPz1Eqp/YdbOqaCW1vewwOg=;
+ b=homXtovmL7d23e1KalTVecPCknznywPIJhKJxhlfi9r/A8gMAxe1ycrez11l4fcHPC
+ UGvAcbrIPdP8O+4oEK+JchQu580zby3Tlf2fh6+ztzz+HhH8wE21U6foC5E2j5gyYoFM
+ iVKydSWkzJza/5PFWOm3qlqzqrH0RYniiCSWHJ1PfXLSa0w+zNGzVtbdj14pTcR66X9s
+ PMwush3kC20A/nl6ZSDn+yMNBkGgnQh7jo+XNOknpROw63oeMZPgx2RpLGBP9QLTA78P
+ EDwErEtf6ttnw7STJmy01IEfICVkOTw7TU9vyyi7EmAcaP7446w5CnqMgfCZ9NDSjUeO
+ zzog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773342946; x=1773947746;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=4VzEC4HlHoK4vh0lvr6EYPz1Eqp/YdbOqaCW1vewwOg=;
+ b=BHcGcLI6ZW+zRQvZAgVmOPZL2Z/k9WysNBPdNUh7n68G+s46WKURwp2mhaN4lUbFHr
+ 2tuUq6nRm2XAJ4atqScS0CEeF2OTVbSMJCFn4R4A1fOuY0RxFv3IuKs17/11mtJi2a0U
+ EDehAZ5Sy8gnNgEe9W/VZtsLpCF/cViLhe8A69AuStPHg24v7fR63pCkJONogXva70Pp
+ 1Ts9mJkr20K2Csxw0H33oAVZ5Nzk8oR2cY1d8BUEO8O1qVCK2fHQAMZfS92t9dOQZUvC
+ JQQUpd1fo2B8U97dTMouXKKC0E6hH9iNq0wsxKUuHzqimhwTPG8WToSKRUtZYeK08uQz
+ CJ1g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVt/3TrT3ks0qc2L3LGmwmmUQqvTABjKffSNWUBj/j8PY8iYKGyjMylqXLoW7lpu1uPCVjGSrCu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyChA5f1Vu9ASNIHgWTdviQLfsMbZv51Y3xxfAMTX+Ler3WTOSL
+ PCIB56tc+3jWyjZBgjHcVwFVsTgV7Z/UHktBXz4u2DZTXP9Nzn5ZZMe7DWhESHPoerfYtg6mHoA
+ zxKix5HiWXT7R6A4r3nv9dsJjBZ5QZ7M=
+X-Gm-Gg: ATEYQzyCqPomSGO5fpniXTsJ+LiB4BFDAJuDLHtaIU9ruAVhHBmhXW38peDEvxfKi3p
+ fSf0sI4/wzrQYQOUz2HsS8vbcCnAD0fN+W8JcIHPISb4LLCKjK2RhzXySTvb5DfzM/p53Ht9uTq
+ H5xh1T2U+R+I0WTMIIKouQrTxLxlOfYT65ytwiGtcDpMs9tpFUXDjkQ+X45MHpmeuh921RPJ+Rr
+ DIRVJjRJNlfHfdmdbQQQmbaTKUyeCPJxIOlIMOTJhIofAOmVUjyAEBdWlqlH5zljZq9n41q8PeS
+ j4pGK5MUfj0m1iEegrnWk1RfkpfQgOdcN/6csVDE5qLikxb8x61gde3DC7tJU1DjRtrz9vA6gdj
+ w0uT3vbPkU14Q/1h4KQKAHHY=
+X-Received: by 2002:a05:7301:1924:b0:2bd:d8e6:90a0 with SMTP id
+ 5a478bee46e88-2bea555c8d0mr231898eec.3.1773342945899; Thu, 12 Mar 2026
+ 12:15:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: h3739pmr1eu9bg7iohjao1rrs3tokc6z
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 087CE60010
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18y4imWQ5s/jJLRD+ifAQxkW+/MJIrfF8g=
-X-HE-Tag: 1773329019-951038
-X-HE-Meta: U2FsdGVkX19VCvtnyeXLm8RYcE/0528Of+u4uh+xWXIoIUAMDgzoBtHgAKGT8nAF/MB27RV3F/HBU7N8Yq3nctz4CjyozsdN+JtQpjXgcPgQ91Udi/zn6KJIrxNJApkTGgQNfwjA1AIJPhvzXyH3aMyWbdyoGtBKFOnq4RRJYVOvsob0d/ffWToVP4J5RUsRMz0qpdmi3Iljf9FrVu7POde112UEVgFi8OQXvPdVYuTecw25DZQQ5ipeWXW6Kr0xXH7b2TXafPsVNaEyw+eNEKMINQbygT33slpoLqfF/VxxC3FTWBQ/CxruNZ4auDV5bvilUFV4TL+gv3A/9X1r2mUEs0jEp6JnA2gRI3WDauIvML8TIfmFKXYkIboJC7/W
+References: <20260306203648.1136554-1-joelagnelf@nvidia.com>
+ <20260306203648.1136554-2-joelagnelf@nvidia.com>
+ <DH0ZMJKN6OE6.243UPT928HIIX@kernel.org>
+In-Reply-To: <DH0ZMJKN6OE6.243UPT928HIIX@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 12 Mar 2026 20:15:33 +0100
+X-Gm-Features: AaiRm53560zXAmoL0EVQHDBxYh33LaVByeeBz-QChPDevjdBJ65drv5v7FGkL1c
+Message-ID: <CANiq72n6ccEz71V3nkJxtY_BNbTw3F_eekt+Dyhvfb1FNP-srw@mail.gmail.com>
+Subject: Re: [PATCH v12 1/1] rust: interop: Add list module for C linked list
+ interface
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Joel Fernandes <joelagnelf@nvidia.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ linux-kernel@vger.kernel.org, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Alex Gaynor <alex.gaynor@gmail.com>, Dave Airlie <airlied@redhat.com>, 
+ David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Simona Vetter <simona@ffwll.ch>, Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, Nikola Djukic <ndjukic@nvidia.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Philipp Stanner <phasta@kernel.org>, 
+ Elle Rhumsaa <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, 
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, 
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com, 
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,23 +140,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 12 Mar 2026 11:12:41 -0400
-Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
+On Thu, Mar 12, 2026 at 6:42=E2=80=AFPM Danilo Krummrich <dakr@kernel.org> =
+wrote:
+>
+> Was this given off-list? I can't find a corresponding reply from Miguel.
 
-> >    if (trace_foo_enabled() && cond)
-> >        trace_invoke_foo(args);   /* calls __do_trace_foo() directly */  
-> 
-> FYI, we have a similar concept in LTTng-UST for userspace
-> instrumentation already:
-> 
-> if (lttng_ust_tracepoint_enabled(provider, name))
->          lttng_ust_do_tracepoint(provider, name, ...);
-> 
-> Perhaps it can provide some ideas about API naming.
+Thanks for double-checking that -- it is fine.
 
-I find the word "invoke" sounding more official than "do" ;-)
+I am sending some nits and Clippy issues independently though.
 
-Note, Vineeth came up with the naming. I would have done "do" but when I
-saw "invoke" I thought it sounded better.
-
--- Steve
+Cheers,
+Miguel
