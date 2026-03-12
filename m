@@ -4,58 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDAD1106FD9F
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CC96103E305
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7A5E10EB4A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF22A10EB49;
 	Fri, 13 Mar 2026 08:55:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=efficios.com header.i=@efficios.com header.b="EEjqtu3m";
+	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="LZq/2ZuL";
 	dkim-atps=neutral
-Received: from YT6PR01CU002.outbound.protection.outlook.com
- (mail-canadacentralazon11022078.outbound.protection.outlook.com
- [40.107.193.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A502410EA35;
- Thu, 12 Mar 2026 15:12:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LE0j6b/XlkqTG3UaFNtuIfldwOrBDEgS3vF/VJcu60LW8Fdo7IglnfZZKZ3UZy4siIKpK637RDhVePq01pfs6wqD7B3BRsNvTs3WSnbHT7nU2pvXI67O8mY69oDf+4bJlZT4voHaSoBsHonM1aFKY0WOHbSk/4XucjlzCfmwwK/3Sraeor0gI3B2CKRXIAzjSTvdseIgUz2Dia5ghBL4wtF28pYx+JCisAEQPBTAgKQs0zXZ/Tf9xYx7L+yhOWFW8QF3zCC0s/J7Aqr+X6YkvVbG4jTCGIfkDfeOvJVHj/IUtLofHvUtyFT4rrCMc032EaFfHwuVdlpXnH90uDZoGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nj8argWr4IskjNTGftv6XszdapFwrTl0xocj+akkcx8=;
- b=VpDU4DiUrDRoAoZTeE2/VUy7DqmYcznCgNnlmJybfBFoj2Zc0pN60E9lmYItwo0zRAQSCFbByp78r9WHygz61JZGOGhoT0MUQKBSmTyL4SSGHzng/jy+TPQSaWFNoQXqGhoggv7x/Zq6AUEDxmjr1++sq2YQWUe1GSEs5Riic6g6UC2Q+Efm5IKkniVa2FbLkgb/7GPzn5pyPDwse4lGdznwiSo4Uks8R994VgoCmEB6eJIzXgeMaI9+wbJxq3m3tmpa4PiUs6NIwAFu6AE1BQyaZgqDTs5WNWjL8rJJTe0ywalW0i2KlLDX/rtKqEfvm380EHWLKUbJhZhend7+0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
- dkim=pass header.d=efficios.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nj8argWr4IskjNTGftv6XszdapFwrTl0xocj+akkcx8=;
- b=EEjqtu3m32bZZNeYz/Ni/jn6l8HwpWiMBvzmpp7x0ZwrjK5A+3Rz6popPvTBe0nfvgWqE5CE0NQ9mtt8oFKqUEfTSLNYXRwAjwjHBpkkyVsLqnGDLo2bHTg4X/Y+K63eaMr54Yea83ipPWcnI6L9D0+tPaNObs1OMAiHjiOMGfMP8Na7nlt83laxVIxQq7qYYEhknwObBfIgnJ3g1VQZ0iGkJh6m2Q0wbamqUGkdJBHMwPtuIrnMY2iZifElYewky6cmDRtJgnf5SVGOpzU7a00RJp13F+rro4qIr8OQtCac4/K2XsaHSJFdkiQ4uwA+6JTVfKgcpL+pkZljlwjoDg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=efficios.com;
-Received: from YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:be::5)
- by YT3PR01MB10299.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:90::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.16; Thu, 12 Mar
- 2026 15:12:50 +0000
-Received: from YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6004:a862:d45d:90c1]) by YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM
- ([fe80::6004:a862:d45d:90c1%3]) with mapi id 15.20.9700.015; Thu, 12 Mar 2026
- 15:12:46 +0000
-Message-ID: <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
-Date: Thu, 12 Mar 2026 11:12:41 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
- at guarded call sites
-To: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
- Steven Rostedt <rostedt@goodmis.org>, Peter Zijlstra <peterz@infradead.org>,
- Dmitry Ilvokhin <d@ilvokhin.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Jens Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
+ [209.85.210.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 479C410EA34
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 15:05:39 +0000 (UTC)
+Received: by mail-ot1-f42.google.com with SMTP id
+ 46e09a7af769-7d7653db148so821262a34.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 08:05:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bitbyteword.org; s=google; t=1773327938; x=1773932738;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=cNc1V3lTb2QUW0xjd0W9BOVRtnhujjy4WaV1yGr6BKQ=;
+ b=LZq/2ZuLY9AgMoYSWTubX/qsG6sRFdco6GSeMtPlizBO92vftgr1cYKukcuJIpiFAV
+ Sazbu9ftqSo5vPflBZEV8gvCt/klZ7xCTzviVH9iaVdhU1h22mWJ1FS41WWyU0iOkcHd
+ seHvraATsw3KUoIZfZgxzakRExs1+vVOisNfLucfw75gfa+TCdnf36+ezjf7Tm2il4uQ
+ zMBMKeFv51OkuBco7wZPBBX7I9Mf8ACh2B5NVWeCQSI61K0sCZTiEeVk4mcWeYD0IkSO
+ UTh56AcTnq8eDeS8fMd1s7ZUkH2ipXKuXOevJdJIORqgJaRtG666amDo3FpsYPeL1H4X
+ wPRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773327938; x=1773932738;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=cNc1V3lTb2QUW0xjd0W9BOVRtnhujjy4WaV1yGr6BKQ=;
+ b=JhC3ObfoNRq/wMQb1jwLTQXmVftzfIe5EA5Gwp7K8d45HLCm92x3fsytjj3IXJdsFw
+ 4AjSyqHUnf8A5xbFSK219XkZ2/VfUyZ0KSdgtercDjYZyZid6QJWUW8tYeZY8KVu+MdJ
+ 3bvQgsiQDzLBKFwYAzRWVN1lXtPUaz4dVci1s0LyhYQTicVHsRkYUaiV659c3I6wLa+o
+ 3KdM7EgyPFy7xValS+bf8PndnwvRDmkOhMnnsytXeIEA25VdaJE9AIyNffH5uZrit1CU
+ l7LO19zuWh+tDzmp7hwUmdW2w8ARI3ze3yLFSn0rahZZBTvNl8q95Xy3aNP1KutUxIhN
+ QwPg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXHSdnK9qmA7tykQ8JIYh4zTNS/bHg9RO9/idAL3NCldn0UFZIh0rDPQTdOkbCwAZvy0feaCaz6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzoqyXDY6PjItBYGbWPwE2ynJk8YrhVKM2HuFl94rS7k7phCGW4
+ 0LMmGCcXVuHZPg67FhJU9jEi2NuYWyEKUGIbLpyltNxPqju26f1iURu088k02tOBBpc=
+X-Gm-Gg: ATEYQzzmI1z4XuiDKR1qJ2OFLPgJNDoM7KPd5Qc/ikvESryCCLaEQKUVZa4/HSoMuKz
+ lponxx0m4c2FOaen+0ZZPEotGs8qCYgu65H+60vl7pq4yypaaT1lIUVNTJ3gqbUmHnFCle+D3pY
+ nisk51o//+7+52GzYu/ij+OvxmIN0eit4CtZuGq7PQPTJDw8iVFKwjZgRIPwZl89Sg71r2/FT6V
+ TA1XNFwnDYTiZjsB3AfluYnPInVgInzBel0QHKDOEDELCpfWxBIGTwomJ+ZLOSm6yW4ON7J05uI
+ bzb7d5J+eDfV8YgkdGIO183YaT//jO0k300rHk9UuIuHdw6Ip+v5A+6g0nHKwwLguAdmUEJlZy0
+ p2396YZiCumgR0brhtkK3IvrQdH0vUWBonIfpFyaf97BbBoFG2R8KYNxS8y7rh9AU+U8PpqB8/C
+ hXaTY1Q6bya0g7KaqWXqW9WT27fECxSGHlIZkKYsNjVz8V9T4HyA049km9MtlBJlxjDfEGlaWkE
+ o0g
+X-Received: by 2002:a05:6830:3113:b0:7c6:d001:afb2 with SMTP id
+ 46e09a7af769-7d76a85b34cmr3668805a34.35.1773327936791; 
+ Thu, 12 Mar 2026 08:05:36 -0700 (PDT)
+Received: from vinmini.lan (c-73-143-21-186.hsd1.vt.comcast.net.
+ [73.143.21.186]) by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-7d76aedae57sm4321776a34.28.2026.03.12.08.05.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Mar 2026 08:05:36 -0700 (PDT)
+From: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+ Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Ingo Molnar <mingo@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+ io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
  Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
  Xin Long <lucien.xin@gmail.com>, Jon Maloy <jmaloy@redhat.com>,
  Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
@@ -65,105 +84,43 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>,
  Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>,
  dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>,
  Viresh Kumar <viresh.kumar@linaro.org>,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>, Huang Rui <ray.huang@amd.com>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
+ Huang Rui <ray.huang@amd.com>,
  Mario Limonciello <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>,
  Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
  linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>,
  Kyungmin Park <kyungmin.park@samsung.com>,
  Chanwoo Choi <cw00.choi@samsung.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
  Eddie James <eajames@linux.ibm.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, Joel Stanley <joel@jms.id.au>,
- linux-fsi@lists.ozlabs.org, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>,
  Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org,
  Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org,
  Mark Brown <broonie@kernel.org>,
  Michael Hennerich <michael.hennerich@analog.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
  "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
  "Martin K. Petersen" <martin.petersen@oracle.com>,
  linux-scsi@vger.kernel.org, Chris Mason <clm@fb.com>,
  David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Content-Language: en-US
+Subject: [PATCH 01/15] tracepoint: Add trace_invoke_##name() API
+Date: Thu, 12 Mar 2026 11:04:56 -0400
+Message-ID: <20260312150523.2054552-2-vineeth@bitbyteword.org>
+X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260312150523.2054552-1-vineeth@bitbyteword.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0182.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8b::24) To YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:be::5)
+References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: YT2PR01MB9175:EE_|YT3PR01MB10299:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4297b093-1e48-489f-e898-08de8049d0c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 5kQMFGQNndT0kf70A5gsZUpmCWqs49Hfw7ehDi9le4rZ505JRhw7ub4zBvwYRvsNZ/o45yBwYOpKUBk9fS6dDxmGD02UpIxHZujK0R3KpRBuHcmjQjdvGIoBT9oPrGHrx2PF8SQ15hCYmDMMRfot3XxyQeOyTFQDpfP84yToZaV7xZ97FsJDcfR0LClkCryl3O+dE+e39WIXC+zDhj7/07icyUQOPv3fmuoELvrJn6Rmhr75Xk0/HzI5rY9awHNUB3OblKczO9dbgcgaHUT1Wesf/RARUw592JBLVjFIQCDeK/95NQd5M3+EXz5j+Xzm5Ca0BOYtTxGCmYTpKlQBhyFM/DilxSb/tsHLcENRDPX84AlU3vlewQ1B53s7ucDns8JONVubrpIgAOt8aWHmiGr8MA6qv8ZvM+TNVjMWH8Eq7D9hGmrfVeG/008Ns5fR+qyAvQigD0jv5LjDTUje8/kD9BgnRwJYyV2Jcj6P8NqjgOC5V2KShlNHbmF4EAtJLjazA/q38RrgaoSaayiRLrdmtTpFxXRhgOfBv8V9NBZ9YTiQplRFVxZdO722U+ZxnG/jdFdoJ3Bf+WRYw41J8RVPRUqKcCw+IjnYvsU6SQ54nbpGggZW7mnt/+SDngXZQAcrJFz3ApWCFQiJXIBmguCiC7NQeTdNyjcrd0ByTNGud16Fg8bvpoqZ8FK6OKNa
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnUzSGFGQlhPaFc1Z0liamQ1N2Fpc1puWGNXeWpzdS9xR2x4ajFjVDlJMmVk?=
- =?utf-8?B?R2pHQUxpVnpNREpuU2tUenphcTdwSGhWUW1Ea2VRbUlrUHZqd2h2bXB2TVBa?=
- =?utf-8?B?MlgzSnJGTjYvWDcrOU9QdWJnWm5PdzNrdGdzVHVFNEI4Y2tEZ1c4OVREc1dK?=
- =?utf-8?B?WllNUitqQkNtUkpZTGhuSVEwRm9pT3hXdEdKem5UKzQxa2laeUFTWkk4dWNS?=
- =?utf-8?B?VzFobHRYVnpFUGhYOEVBLzh3YWFoRUl2NDE0Q0hMV29TT0JOWTVFYnpaTmZE?=
- =?utf-8?B?dGRvVWdZcUwyY2lwNGt4YVZnRlQ3bmtHam8zMStUTkx6c295VWZNaXM5c2tR?=
- =?utf-8?B?UGJQN3RNNGRKVnhleUgvdW5FLy9yMmNrbDZZaXZTT3Q2dm1mRitXc2JRYW96?=
- =?utf-8?B?V2x1dEtyK1BpaEtGd25ldTc2NEFPWHVqeWVnQXJyWlVOb0ZZYVdXMzNwc1VV?=
- =?utf-8?B?cmhYUjdVOHh3YWhzRG1rMW1VRTh4Z3I4dHcvR0kwWUh1RWJHVEVLTzFXZ2Ix?=
- =?utf-8?B?MTBzU01FRkVlak5wQk83WGRJWS85ejVWaWRIUVRuUTFHWCtvdXNmc1ZHc2NN?=
- =?utf-8?B?WWhlRE4xUTFZMktWa015UWoweE5RekVJOWFuWkVPLzhGNmZTMkZyZkpJSEh0?=
- =?utf-8?B?UmtiWllIZVdzd3lSZE1VdWtUak9hRjRLR09wOHNqdndiUlZyNTZkbXBJSnRX?=
- =?utf-8?B?YkkybzRwc2FNcERGNjNSeXV6VENzVmY0RlcrZ1FPVTA5NkV5OFhOVTlyWXpp?=
- =?utf-8?B?dG5BZ3RWejdkaVJJZG5CaDdDZVJ3UFovUFE2bU0wNkxUbkhsZER0dFdqakUr?=
- =?utf-8?B?ZmZRbWFkY2E0bmxpM3daL3pzc1hZRjljaVErZTNJYnk5ZmJ3M3lSUm1nRkFp?=
- =?utf-8?B?QXRTNWRyZldJbitmL3EzNzlCRmFSRkZZbTNjeHdjWFczdmVHcWkrL0M0cmZM?=
- =?utf-8?B?K1FYeGZVbHNjTWdOcUtHVnRDSEpKK1FmMEpHQ1dWOUp2QUU0bS9xVk0zMXhP?=
- =?utf-8?B?K1cwQzNyN0s5T2pjcnZ3TVQwWTdMS2l6bzNHajYrbit3a1c4OHFNK1dESnpp?=
- =?utf-8?B?a0wyZDgzSWgxZStnMlhVRU84N0paNGx5QU1tcisxQzZlNXkxNWNRMTlHTkwz?=
- =?utf-8?B?YTd2S2FZSTF4U0Y3ZExUNHdCc2VZN2ZtL3JJVE1Dc1pSOTBhbkpPQ0RkbzNX?=
- =?utf-8?B?WUNYbmpKZldNd1RkTHRHSjlWNTIxVStGdnY3M2hNZHBCdFl2QUhIeGg0aHor?=
- =?utf-8?B?L201U3h1RXNOcldwNXhjYjJNVHhzcHliVktlN1Q5K3REWnAvU25KdlNWQldl?=
- =?utf-8?B?MHJoQzUyV0NQR3NKTzIwQm45ZTl3N3NTZHlDTkZ1bTZXMUhnZEQ3QzVra01m?=
- =?utf-8?B?MXZCNWVlQ0lkRUhUcE94L21zeWpRSlVUd09NdjRUL05ZK0Y5Qk85ZmM3SUZw?=
- =?utf-8?B?RGNFalpYcUpsVVZFRW1NUEtQOUpkSktCZFdOQ1ZDNmZPY005OE43bVBjREN3?=
- =?utf-8?B?dUNnZlJPb05KTDhHdWNKeGIvZXdrQVhGRDg0NndTT1hpbWY2NXhabDBnVnEr?=
- =?utf-8?B?bk0vSFNxdnJIRVNUVHhkdnVXVDNkYW5PZ3JDakNiU2RqazVIb3d0aVpTdGoy?=
- =?utf-8?B?ZUowUVM4Mk45MDJZYWZKbm1DVS9LWnN5UEYrQk9oVE5UVzJxNGhkQ3BkbnJK?=
- =?utf-8?B?dkl2UzlSWHc5am5MMXR0VlNiSDkvYXFXTGVUNFRIdGpYMWl2SGhrdC9lcDJD?=
- =?utf-8?B?WStFQjJHK3VHTitZOVN5eW9La2FGU2s3ODBBQzVPek11SzNMRkRwbm1FZWNN?=
- =?utf-8?B?SWxhUUZQck84ckt5aWdaMXQvTmRDQ3diMEN0NXhKdmd1SmJ4eUthTk0rQ2tr?=
- =?utf-8?B?cWpqeHFTSjVjWThDNUtkLzBZRU5rVERGWDJ4a3IxMitmMTJuY3ppUUxkZXJz?=
- =?utf-8?B?ckE1U28wY2dTd1lNajhRYkx5S0h6TXd0RWQvbWhkQk1WT3dybWd2WkRhbCs5?=
- =?utf-8?B?WTB2bWJ5YytMQWlVaXA2MmhzVnF3QlJzSUxQQXJLUTh3MTdsWHc3V3E3ejJK?=
- =?utf-8?B?YXpqSDFOeFRvS1VkVVh0RGFIQjZ6M3laU1ZEQVVTMDlKcFpBcWxVaVJ6RDZK?=
- =?utf-8?B?NGRqU3Q4OWJua1N2WjVWZnBxdVVlTllzMnlUMjQ1eVErUWtqcU00Q0x6UUM2?=
- =?utf-8?B?WERUM1JHQnVVeklJTmYxOTNSVG5uRHZ2YU9KbHpFOWp0eEtOalJjZUdzMmZZ?=
- =?utf-8?B?d2ZzS05JM2ZzSDZocFlyMTc4N1lXc3NZZTNPYjJ6TzFKZEozRXV6S2EvVE1x?=
- =?utf-8?B?TVBRc2Jnd0U3YVdROE1GSnB1MjFLdms2UzlsbFV6bitXUmVoUmcvV2VodWRH?=
- =?utf-8?Q?iiGXhwuhmwDu58Lo=3D?=
-X-OriginatorOrg: efficios.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4297b093-1e48-489f-e898-08de8049d0c7
-X-MS-Exchange-CrossTenant-AuthSource: YT2PR01MB9175.CANPRD01.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 15:12:45.8608 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2k9rS5kk9/fiMIPTdG3OWGYlodtiZTRGXp/7mV52e2o0TtaUWxB/ks/sHiJVyQHF3VxZWPF+2hYkF1WUhD3xam1jbrEdqicVbSTEDpwqYmU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT3PR01MB10299
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -179,39 +136,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-03-12 11:04, Vineeth Pillai (Google) wrote:
-> When a caller already guards a tracepoint with an explicit enabled check:
-> 
->    if (trace_foo_enabled() && cond)
->        trace_foo(args);
-> 
-> trace_foo() internally re-evaluates the static_branch_unlikely() key.
-> Since static branches are patched binary instructions the compiler cannot
-> fold the two evaluations, so every such site pays the cost twice.
-> 
-> This series introduces trace_invoke_##name() as a companion to
-> trace_##name().  It calls __do_trace_##name() directly, bypassing the
-> redundant static-branch re-check, while preserving all other correctness
-> properties of the normal path (RCU-watching assertion, might_fault() for
-> syscall tracepoints).  The internal __do_trace_##name() symbol is not
-> leaked to call sites; trace_invoke_##name() is the only new public API.
-> 
->    if (trace_foo_enabled() && cond)
->        trace_invoke_foo(args);   /* calls __do_trace_foo() directly */
+Add trace_invoke_##name() as a companion to trace_##name().  When a
+caller already guards a tracepoint with an explicit enabled check:
 
-FYI, we have a similar concept in LTTng-UST for userspace
-instrumentation already:
+  if (trace_foo_enabled() && cond)
+      trace_foo(args);
 
-if (lttng_ust_tracepoint_enabled(provider, name))
-         lttng_ust_do_tracepoint(provider, name, ...);
+trace_foo() internally repeats the static_branch_unlikely() test, which
+the compiler cannot fold since static branches are patched binary
+instructions.  This results in two static-branch evaluations for every
+guarded call site.
 
-Perhaps it can provide some ideas about API naming.
+trace_invoke_##name() calls __do_trace_##name() directly, skipping the
+redundant static-branch re-check.  This avoids leaking the internal
+__do_trace_##name() symbol into call sites while still eliminating the
+double evaluation:
 
-Thanks,
+  if (trace_foo_enabled() && cond)
+      trace_invoke_foo(args);   /* calls __do_trace_foo() directly */
 
-Mathieu
+Three locations are updated:
+- __DECLARE_TRACE: invoke form omits static_branch_unlikely, retains
+  the LOCKDEP RCU-watching assertion.
+- __DECLARE_TRACE_SYSCALL: same, plus retains might_fault().
+- !TRACEPOINTS_ENABLED stub: empty no-op so callers compile cleanly
+  when tracepoints are compiled out.
 
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+Assisted-by: Claude:claude-sonnet-4-6
+---
+ include/linux/tracepoint.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/include/linux/tracepoint.h b/include/linux/tracepoint.h
+index 22ca1c8b54f32..07219316a8e14 100644
+--- a/include/linux/tracepoint.h
++++ b/include/linux/tracepoint.h
+@@ -294,6 +294,10 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+ 			WARN_ONCE(!rcu_is_watching(),			\
+ 				  "RCU not watching for tracepoint");	\
+ 		}							\
++	}								\
++	static inline void trace_invoke_##name(proto)			\
++	{								\
++		__do_trace_##name(args);				\
+ 	}
+ 
+ #define __DECLARE_TRACE_SYSCALL(name, proto, args, data_proto)		\
+@@ -313,6 +317,11 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+ 			WARN_ONCE(!rcu_is_watching(),			\
+ 				  "RCU not watching for tracepoint");	\
+ 		}							\
++	}								\
++	static inline void trace_invoke_##name(proto)			\
++	{								\
++		might_fault();						\
++		__do_trace_##name(args);				\
+ 	}
+ 
+ /*
+@@ -398,6 +407,8 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+ #define __DECLARE_TRACE_COMMON(name, proto, args, data_proto)		\
+ 	static inline void trace_##name(proto)				\
+ 	{ }								\
++	static inline void trace_invoke_##name(proto)			\
++	{ }								\
+ 	static inline int						\
+ 	register_trace_##name(void (*probe)(data_proto),		\
+ 			      void *data)				\
 -- 
-Mathieu Desnoyers
-EfficiOS Inc.
-https://www.efficios.com
+2.53.0
+
