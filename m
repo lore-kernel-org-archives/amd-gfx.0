@@ -4,124 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B42F3105A589
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 11:32:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88640105A591
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 12:49:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4223D10E064;
-	Thu, 12 Mar 2026 11:32:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0560E10E42E;
+	Thu, 12 Mar 2026 12:49:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yYa51GBL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0dKo8pOh";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011000.outbound.protection.outlook.com [52.101.62.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4808D10E064
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 11:32:43 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012041.outbound.protection.outlook.com [52.101.53.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CEDF10E42E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 12:49:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LvLDJO0chVPOGHsyfDUpk1FwzQD3zUlLMvqgywywE+RpCbyGjiEsGWAid0LolOnTIHFIrG4eAcRi+tuA6BQlhdZ4ggKoGLkHfTK3GoSAV/XKa1fyt4clGREDSC5wHwB/jNkx3RCFNEwfYKcwiWfhkkC1sIApIlmLosv2RAC+ba9XxIrjpXk3EBKpEXnwHvaduItlOoPeoG876VdyY5eOlVj2OBYlkmtP68gOVx3AMhxwVFjL+hOnoD3TBsshPiLfoB2lOXvFBeH1rzxjvKpMhrCdaa9u2FrlVI0MDIGIoTqs75EJbeEFDpLhGI1kT0yaScOxFDx3Uy1GTNvoCX580Q==
+ b=Kas2Snq8fqjBJoUNP3hmr86IDXNu3367Q+95g/kjC54IBjWAdndqWjzRFP40hD7R1BRCsD050w3Qwt+YDg/4LY/0R+cVvfpPYZUpiohCwCl8vzKPn7BWDUop/TbVH1wYL1L0J3jfo1ivOZtM8LO+IEDrdReFA604PK6hlgzrpk0UhiYpUw4KVbcj1ECMoGYM/gZq1KHId0SeiShY70jv/YD4BranDPJ705kDYPju/AosS2/X3hExzy4SFk7ixheg79IJY4FK/9SID6o3haoN6jawIDp5+g1gLPU+uCkR9oJbVQijx0wWi0/Y+y7V0hUFkHimdiSlg5U9rNn8IHabIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S5gxvgF/4Xz3lVHe3lIlhf6aUx6DoJEBIFLM44l4p1Y=;
- b=T+tuhTYy6KGyA1oSa2iiE99zrbyiapazo8YuRSEYy9Xk2eP9x2HU5KYsyQs4donO9LuV8cJ5PHsSgUyGrHKOdlgRDy2aCX4BcSByxRACyRMF2tV/wKVV5dj8Y/5VlTtaUOZ07eTIdk4MXKOG1XBQ+LD4nkJFXPF0p+ffisy18W9mMi+d+DBzc5KNIWvNoMReawjj4vnSbUs2ZAZ4sfvTTGnznzZZMdyFE0osZ0RnzuA55DaCySmsjQ7C4vmj4eAPxq4n5MvWhz3lAHku0Pd4sbNsJopWd8F3GkTCpg/jHcni9/SwKwBA8Tr5PgMYN+BIv2ecMDyAKulCjSchji/8Ew==
+ bh=AV7F/wqOaDo6triZgMvDljPqi+A23iOzqcPI3XEials=;
+ b=DnXXWwRH0e6atMSZdL0jwXh+uu5z20+MHqtUStotIK3uZHB4njTfF4h2xmBetgEKlR5A6wXp90UVInhaU3CNVVxWTuVwaXuR5igZtzc3dkshy0JVOTFGc08kZf+0vWh72NigSX1XOn0hRSRLKNJABxBpnnDWK97F0E1jABxy6HCB1C/nwWz9wAdqh+ocsi2MjuWKYFb6LEgva8Vjc2VONEas2DGfB1tIIXAbHVCdCoBpCo4IbFe+QHwCJvkQKLC7QtDsK7+HII6r20dl7N3mpmD9vPA0YQvYE1Cyegj96upBNz99DS9i4G7cy4BblEUa0XaNg8h27W/xBIF4evjCJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S5gxvgF/4Xz3lVHe3lIlhf6aUx6DoJEBIFLM44l4p1Y=;
- b=yYa51GBLgRnR0NjZQkHqkK8+chRJ3BURzT+fWtxgZMXKFBrir4Fc/mqIIdDq0gtoVzHVohcg5PHe2ssqS3OMqsw6D8UnAbfKTUbFQdH5PwS2Vl2UHi0SnhQeJpZkpOn8eMUTCY2RkAPIjJZv9/CTmT26qMwSoakYXr1xj9MXqgI=
+ bh=AV7F/wqOaDo6triZgMvDljPqi+A23iOzqcPI3XEials=;
+ b=0dKo8pOh3LPjuB8QcnVOhD0XknjqkMVi0/KS2/0pj9GYpXrkYeXRIxXwwHpDwpuYd+/LpuxJwhOzPKndB7pRkcQsTBtauUkAGszl4PCqwFzRIb30GER9fny229+AwQHJJwiNw/bL0RqnF1nQxWAnoBF4wEtXKsgAInmqBGB2Edw=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by DS7PR12MB8201.namprd12.prod.outlook.com (2603:10b6:8:ef::13) with
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB9549.namprd12.prod.outlook.com (2603:10b6:8:24e::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.6; Thu, 12 Mar
- 2026 11:32:39 +0000
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9700.009; Thu, 12 Mar 2026
- 11:32:39 +0000
-Content-Type: multipart/alternative;
- boundary="------------6binA0VmODOQaL87CNYn32kp"
-Message-ID: <4f194096-ad01-4b5b-a5cc-3cefd59f31a9@amd.com>
-Date: Thu, 12 Mar 2026 17:02:34 +0530
+ 2026 12:49:32 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9700.010; Thu, 12 Mar 2026
+ 12:49:32 +0000
+Message-ID: <72d9f9df-e762-4d9e-a351-91fa2c457600@amd.com>
+Date: Thu, 12 Mar 2026 13:49:26 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] drm/amdgpu/userq: unlock cancel_delayed_work_sync for
- hang_detect_work
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sunil Khatri <sunil.khatri@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260312091655.1948356-1-sunil.khatri@amd.com>
- <a55dc4d8-d137-466f-8cc8-de79e02a28ef@amd.com>
+Subject: Re: [PATCH 02/11] drm/amdgpu: restructure VM state machine
+To: "Khatri, Sunil" <sukhatri@amd.com>, tursulin@ursulin.net,
+ Alexander.Deucher@amd.com, Prike.Liang@amd.com,
+ Yogesh.Mohanmarimuthu@amd.com, SRINIVASAN.SHANMUGAM@amd.com,
+ Sunil.Khatri@amd.com, amd-gfx@lists.freedesktop.org
+References: <20260310191327.2279-1-christian.koenig@amd.com>
+ <20260310191327.2279-2-christian.koenig@amd.com>
+ <20cd6ab0-97de-41c3-8bb0-56f6ec47ae19@amd.com>
 Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <a55dc4d8-d137-466f-8cc8-de79e02a28ef@amd.com>
-X-ClientProxiedBy: PN3PR01CA0175.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:de::20) To BL1PR12MB5753.namprd12.prod.outlook.com
- (2603:10b6:208:390::15)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20cd6ab0-97de-41c3-8bb0-56f6ec47ae19@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0122.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|DS7PR12MB8201:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5089eb1b-f5fc-49da-485a-08de802b114f
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB9549:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32fddec3-4d74-4d2d-d29c-08de8035ce86
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|22082099003|18002099003|56012099003|8096899003;
-X-Microsoft-Antispam-Message-Info: yUFKoTc1YL4seoND31pN+88M4zdZJ0vomD5lF7vc6Rald9f0XujZmHfMBBq7hSJi3aVbNEU3m25qC1XE5p1XLMewbg565W9Mm0wduPSF5Y9Wqn4wSyTJafhGPyxRL9EAlbc4uS/xzwvitBQDPY74OovtpNJCB+ACRCqq56Tijz0+AbMd8HwxBlQFQRATd/9rSlnWywT+ryIABnJf4I1WQF1lCgIbcCptZsQ/ek2NJ+AKc+KfhWOi7HjQzXyR2/9kwg6r9bjm/Qx07YE6ihvyRsk1jw6Jqx91RAJCWFT/vqTSyBQGsI1R6v2hiVRO1iISQekwk6bwRQAOE9UAT/oVXtr9AWedxjq/5MyJVBr2Imq+RQVU539yI++Pgza/Qv2FhnMRSQVk/bqlEmlvUXZqmImz66/BzkilBmru45sGePWePT6dYVqEF7q0ci5TVn/RrwAOcHojgSXEkRueX+vd8452C3sUaWeeYqGZHXortfHrYRItb4Y+st51WstkFTGox0Mh5sq+HNTwOeopKZEeUe4XQlFEL6zn1teiV8AAgaLzyMufwRYIFZsKxo6qU7LCK25UmvZloZCVPkZB1xO2XBsg/EkxLPpppq3dPRn+Qt1WQnEpnMZ/qNq0sW+so0ZYMTl+FFIDqTOWwNGzKuq4VGJ/FrUnIAc2sbHpgyfw5wbxCWYk3C/6if030/muHJ9fNhoV0ViDiaUIgijLu1zmPeQ52gHa2V88o5IoZBxigH0=
+ ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003; 
+X-Microsoft-Antispam-Message-Info: yipyjfRXr+4bGj3A13Wy3ck52a7ikdosP5snXUajO1ZzhJitBV/hGibPYLSgkKiBwiM7Dp0aRYX/RPyaX2pFtTCX18iop2BdI3hRHLjx36+ER4L4cwapM3AWb0fEY7jBp9+GjPYwY2qKdX2teLycgEECuckzyvRA0bPyHQEkBshLf0yfcoPFT/dXCEMeERLzy1i582N6FPXgbiQmWD4M8wfAFm0+nOt8n2sQkVeLhJNoR6zkkN7nvt6rnadpboTeov1ekxE1cfDbHsDuPB2Cz32Bhztba5zXcUo54lmtVHYm0SaQTUyIDStC+LBi9rzXTUkM5IeZlVr6EOUTu6glVbtuBryCMH3lRYFZRka1IvvOx07paYEro/0BB7D7nTYYhHLbEQYNCTwTP4Olc8vuwP0K3iDC81FSLasIaBUT9Es3TGTmm9HaCyuL03JXL3ED0h7+MyE8CruYqSmPkeokaIReSJCbFjxmrVkBF1eDFmO59n1JU8RSoUTrB2MGlukFTfKWRYIIUQyZRsI3NWXACko68zPaOQWrVMyfKsh4ORGoZO/xttp1ot6LFfc2/kcrf6K3zlnB684PEMVcjMJYzFW3nGaD0qtq7aT0p/VSbJH73H+GPOkfxuPRPrd9MmifxTSYYJNZfgyR1zhCAlXWGx1wOa93ZTZeTcnnUj482Fr0HaD0aq92besbwvR3HmvwM+KTB4W7COa/braIjMeclJrGENAKjFG4Mt3zZsI6wOI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(18002099003)(56012099003)(8096899003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1UxNXN3TFZEUDRLNkxEZkYzTnRrRTYrNVlEUHUxUXNHL2p0QWFIaTltcmU5?=
- =?utf-8?B?K1BCUDNjdzBkaEY1REgwc2M4QU9UZWxpU01LS0hRSndJTkNyUU9GekN2VWs5?=
- =?utf-8?B?ajR4YTVuUnAvcXFCVlhUK3VoSjF6YjB3YVU4QmdtM2lrZGR5NXBiNVFvOThr?=
- =?utf-8?B?dnhheWFIZ0dzS2daeGRxRXJza2YrL3NoN3ZPeHhBK0ZweVpkS3ZQVGtraTdh?=
- =?utf-8?B?OUFSSzhIZ0QvTWdQU0ZpUVpRZ3VrZ3p2djQxSGI3TWtQZERzc1ZhQnpqUGVu?=
- =?utf-8?B?Q0FjTGVsL2ZMRzdzMnpOcUplZXdKVVI4ZVZFRVhyZmZ2ajNyaHh6N3AzOVBE?=
- =?utf-8?B?dUwzRU5pZys3MFZ1TzdNVlBka3BrbnhGVnl2dFpqTVZIUWxjOE8zMTJ0cUpq?=
- =?utf-8?B?VVltMW0rdTZlMGY5alhlYm5XWGFlRGlSd0UxaDNhNzZTL2RzazJMcVFnem5w?=
- =?utf-8?B?c2krN0xVUG80dWhKN3dCSDc4b05lcDdmRm5tN3RESDYyZEhNUThJbWljbXRU?=
- =?utf-8?B?aGkwTVkwZXVYOHZTWVZxSkhDL2tjVGoxMERuZ3BGdTd3Vk5KS0JzbU5IcCtP?=
- =?utf-8?B?ejg5Y3R6WTJkbDI2dWhPbCtrZTE5SmVwdjh0dEg2UStxaHd0WVpLaUxaN3Zm?=
- =?utf-8?B?ZktFOVVYaXJPa3ZtSFBoT2ZONHVYUWFDcDUzSmhYMHliei9QSlozYWsvQ09I?=
- =?utf-8?B?ZDNmeElzZjlWVzlVQkhZaHVPREE4TjdlczlpNnZJcEtzeFBFNmE0Kzk4UW50?=
- =?utf-8?B?eWNyeUNpUGEwWkFhM000SVJUejg5aVMrS2JveXNvMldlYndxTk95WG5nWnMy?=
- =?utf-8?B?S1EwdHR0WWdUTXJIMzVyTVVGWlJtSmwvb0plWE1VcUNaZ3ZDYlJVbFZJd2h4?=
- =?utf-8?B?M01hMGduWUxlZ1dGRlZZcDJPeFVjOTlFYmQ3TmlhejR6TksvWDVNZU0wbDUv?=
- =?utf-8?B?S0N0cTFTTEo3NnVjKzA3d0I0YVRWcTdabVZuYXMrK0piNjhWNVRoOTNRNDRr?=
- =?utf-8?B?UWdzTTg1SlVQZnlFQlFwTGZyb1c5bzJnK3FrWk9IOVhpMHdqaXV2QysxY1py?=
- =?utf-8?B?cW44TlMxZG1pV2dBZTNJRmd3dmdJUlE0Sm1kL3lLVVd6S1VJSnZqVHZZL2cz?=
- =?utf-8?B?Qi8vclZWN1M5eEY1S0hlVHdhMWFxVkVJRHNWVUtkTjErdlZmWWJkT3hvanRz?=
- =?utf-8?B?eG5HVXVGTmEvcm1aRnJId2xtcTVkcE9IMmZaNGwrZ05XYlJIa1V0NnVEREt3?=
- =?utf-8?B?dE5WSiswczJKRXNrazB1UGxwME1wRG1TandXYm84eVlGWFdnQW9aUEZ2QlJk?=
- =?utf-8?B?TGR1blY5c2ltMmZkdmVYd1pDcElBOHhxWHlLWnhVdXorRWNnTEtiV2dlWjVM?=
- =?utf-8?B?ZllYRlAyckRYaWQwN3ArQTgzTWd1Tlhyekc3a055KzB6MDRrT05ua1VTaU12?=
- =?utf-8?B?VTUvTm56UE4xSTNtZlYyMU40TkU1VnEvYWF1OEtndXQzWmlTWVQ2bndKNzhU?=
- =?utf-8?B?V1QxdUJoU2pyTkJUODgyNWE0eHUzellTUjY0RmIrMDROL1FFVkZ3NUxMOFVR?=
- =?utf-8?B?T1NKUVNnWERDcG43djdtM1djajl3dzJnWDB3ZVBiZEVzTk8zMXdUWFB3ajR4?=
- =?utf-8?B?Zy9OUUFpOHRELzh6UGxtYW9QTDZyZ0hHRDNmK085NDBVMWdnc3BveWtoRExD?=
- =?utf-8?B?b1J2NDdmSWdKVXNqQ1dZeUh5V291andHSE43aHdFZmVCWVN0MEFaWEM3cWdY?=
- =?utf-8?B?NWZjcUhvS1I2RU1OUlJpajdxZFJxVjJ4QUIvSWsxL2xLYXVrNGo0YkxQc3Ba?=
- =?utf-8?B?b1RUYi91TWFDSDRoaldiQTZLdWwvc1pQU1ZHelZ0VnJpWFRUUUlSNHZwY0ti?=
- =?utf-8?B?aUdXNE5BVDJ1TUErQUV6RkU3QlJpTTN1U25CUjV1MjRNUHQvWks4ZHJVMFln?=
- =?utf-8?B?aVJZdTlDSVBKREpoR3RQMEFjZFBnVHZBN0J5Z1B4T2I0eTg1QzlIOThOK2V4?=
- =?utf-8?B?VlFGd0Z6SDJtdm5HVzVGYmRCcFVFeEhmdFlnVmlrK0RiMlhscjZMQ3JJWUMy?=
- =?utf-8?B?eHExbXRYSzhCMXQrYTA1K3E0S2V4S0dRSGlHZC80bXhtUGdGTUx4R3Q0WkNP?=
- =?utf-8?B?WmdKaHNFYzdPNC96MUFSNHlMajFpNzV2cHJPUXlrcWZuUnVnR2lEMXNpeERH?=
- =?utf-8?B?d2w2TlVkejRhSERxRTk4NzNuenlRdUNHWjg2WVV3d043MGZKNDFWaGNzdTNO?=
- =?utf-8?B?RXFuNFhMSTdVaFdBZkdENkpuTnd6cVNFRWJNMlJERzZIN1B4Ry9hWmhiQUQ2?=
- =?utf-8?B?MFZhUVc5eDZ2bndkTEIxZVdVbThMNWRmOHZmZEEyTkZ0SGwvSFZ3UT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eGdZaUFTM0dMaXRWV1hlTmY1NFVWNW9rdFllcXdpWm9nSVk0M3ZHNlJHNVRB?=
+ =?utf-8?B?b0dJTElEUmRFdlZUc2tEdzU1V0V2V0pDY3lCekp1d0xmZStuZWhOemtxb2dl?=
+ =?utf-8?B?RUV6dmZBUTN4TDZlL1hGTkxyZWJ2TVpHbE5WK2JSc25TWUhVRDN6MVFPUisw?=
+ =?utf-8?B?ZVRKN2lPQzhGMEkxUHRzSmV1MnBaeVlyWjI5Z1FEenZ6Mm83TlJzQkFYVnJ3?=
+ =?utf-8?B?Q2ZBQkZNNHlodktGS2FEY1V2V0Z0dzBKbWtvZzBnOW92RisxOVpOeTdXeHgx?=
+ =?utf-8?B?WkxWaXJyNkpPZkRKclQvSWE5T2dtOE1MbU5OV0EzS0dkVHgrNUp1VjlKd1RY?=
+ =?utf-8?B?WXZlQ245N2Z4ampkOG1Tc0hWVW9CeW45WFF5dS8ybEd2NWFiL0doMGNPTUYz?=
+ =?utf-8?B?WU01V1JWOGJsNHMzYlE1YjF0bUkrVnI2TE5BZWt4Q052aDhuZ05xTkN1ZW5P?=
+ =?utf-8?B?TGVhQUczMjhDZGdLcUpaZnIyQ2N6d3NCRUJqRWZQL1pldjdlRE5UZDh2eEg2?=
+ =?utf-8?B?TWFLMDYyL1FvQkJYS1dGUlBwRHhxMkNKbWcydVg0cGRrcU82QVB6R1F6U3pY?=
+ =?utf-8?B?ZjRVQXhvNHh1c1R5MEpzQXNtNjRKT3ppdDZUcDJHN0YxcFZjUWVtMnJ2NFZM?=
+ =?utf-8?B?clRHVndiQkorQ25Yb0IvQ1lXYkZFQVJhL0lGQWlWT3drT1A0SGhVT0M2YVA5?=
+ =?utf-8?B?RzlpSGdSNGpCeEdsR3pwSW1wY0xKR21JUTU4NUtVYVNuaW00S0I0N1JtM3Yx?=
+ =?utf-8?B?SGZhWWdUTW1OSEtwdStEZjB5cUdwbkM0eENBa2xYOVhSeXJCSkc5Y1lIc3NQ?=
+ =?utf-8?B?R3hmd3Y5cnE1TkxGbWo5UlMyUG5nSHlVNDZ5dDU2QVVKYnNGdEVSb3FmOXlj?=
+ =?utf-8?B?bnliemxORGdFWFZ2RTljZ1NMWVduaGp5VVR4cUxLRWI0RkhKYlFxeC9aVXR6?=
+ =?utf-8?B?Vlc4aVhZbzB0cU5DaFN5K2NlTGgxQ1hBKytqRnhENTliK0JWaVFCN3huT3l6?=
+ =?utf-8?B?MEhGV0JHQndESHEwV0Y4UmhsZnFYUUxZcUxqb09kZ3plemoxK3J0T1B2enhr?=
+ =?utf-8?B?UUFPYU9FMVpxVzBFNEZVNEdzMnJmRXdPQW43OFZINzQyaGNlWDBnejZCS3ZU?=
+ =?utf-8?B?VEs4T3dNcHB1S3B3b1dFVk93N3VIZlpKUm1ncVZ6cExjR3lOOWtYd2lvaUhs?=
+ =?utf-8?B?aUVuVjBnYkVxbjIxVksxeERPT0ovMFFLbGQ4c2lGN2JiT0FlVW9LaUw2MVVi?=
+ =?utf-8?B?NCtja1dRQURuOGJSQWVsZm5JT3Y4Q2V4K21QUzNOMGo5Z0pBRmVzQzNLSytK?=
+ =?utf-8?B?bElVdHNrY29meGl6Qkg3K2JwZ2x0RW1TZnV5d2VFdTZkbTloMTNQdDVPY0hF?=
+ =?utf-8?B?S2Jja1JvUWR0ZC91RFVKZ3hsZWVNeGdHb1Zac0NmeTVPWjJlc3VIWmVkUnl6?=
+ =?utf-8?B?Mld6b0JxU0p2N0ZlWUwzVG5XeFlRdWNwSGl6NWkrNzNXSFQwUTdRdzlMSXNs?=
+ =?utf-8?B?ckk1ekpsWi9VVTRnOGxrRVNYdk1memJVZU1xM2tlWVBPOUxoVGVxS1NFVlJC?=
+ =?utf-8?B?bGlIUVdFWGZiL1I3VVo3d1QvK3dvVXZjRHMzblM1MDdoc2ZTanJyNDlXbDc5?=
+ =?utf-8?B?d0hKd0ZEWndhOTdka2lIdEZiRjZTVXBpZjhaT2I5RFY2eGdJcEgvcVhKK2xs?=
+ =?utf-8?B?dUJBRWRaZG9TdHdXZmp4MklTZ3ZYaU80QUFrcVB3Tmp2ak9TdTBHd3RhaTFt?=
+ =?utf-8?B?TlZoRGpQYXNKTkJ1Z2IzQ1ZrSFZFTVUyMlRoL21SYkNISjNOS2JVbkVJVjVs?=
+ =?utf-8?B?QmVFWGpTZGtHSnRlSWpMWk1xUytZT1BLMDZpS283QkRVS2lrNmVDM3FMN3J0?=
+ =?utf-8?B?eFRwM3VkOWg4VjZybmlXQzR6cmdiaDVUOFVTM3BlazNGS2w1NFU0eFhqUVUr?=
+ =?utf-8?B?T09uR05remZmRWZOcTJFZXpxdW9xMytTNXUreEIxdFk2cTc3Y21ZK3FrbGdB?=
+ =?utf-8?B?ZWJNNXJVWDVSekN6YUtOc1VpNStFY3FpdzRaY3liMVoxRzlhUGhCS1BvV1Zh?=
+ =?utf-8?B?dmExUFJpZGhDdENVM1FNaC94YWxnbmNPZ29QYVZZWWIvZFZ2VWg4YmpTVXRv?=
+ =?utf-8?B?TWxxWkRiTTcweVZNYXFoeFpORlpqY29UbUtwMjRXeGpDWU1nL3QrZmlnY2Rk?=
+ =?utf-8?B?SWI0QytwUlQybThySUV4NHBHNE5Ca1lmMnVMd3ZFSld3ZUY3NGdEWHFTYXVM?=
+ =?utf-8?B?blpwbHJUbUVxQXBHYkl6b0hRVG1KOEJ5cUhsRSs2bit4dGorRko2ZEJSdDhU?=
+ =?utf-8?Q?VwTKXTq+4yV2wk7yx7?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5089eb1b-f5fc-49da-485a-08de802b114f
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32fddec3-4d74-4d2d-d29c-08de8035ce86
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 11:32:39.8763 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 12:49:32.2947 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yYBgnot489Azcqsw/LxTcjhOzI6I/uLEDa0slu5IsvrF0QPrD715Q+xHb8lMWeLedTdu7nOR8iC1TbTjt0Jlyg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8201
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5GI1Hy9D4A/68DCDNeb3keba6a0qpM7FSYzOGJ+EognC4FFGibJNFO6jHijG4EYc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9549
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,216 +137,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------6binA0VmODOQaL87CNYn32kp
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 12-03-2026 02:50 pm, Christian König wrote:
-> On 3/12/26 10:16, Sunil Khatri wrote:
->> cancel_delayed_work_sync for work hand_detect_work should not be
->> locked since the amdgpu_userq_hang_detect_work also need the same
->> mutex and when they run together it could be a deadlock.
+On 3/11/26 09:47, Khatri, Sunil wrote:
+> 
+> On 11-03-2026 12:43 am, Christian König wrote:
+>> Instead of comming up with more sophisticated names for states a VM BO
+>> can be in group them by the type of BO first and then by the state.
 >>
->> we do not need to hold the mutex for
->> cancel_delayed_work_sync(&queue->hang_detect_work). With this in place
->> if cancel and worker thread run at same time they will not deadlock.
+>> So we end with BO type kernel, shared_resv and individual_resv and then
+>> states evicted, moved and idle.
 >>
->> Due to any failures if there is a hand detect and reset that there a
->> deadlock scenarios between cancel and running the main thread.
->>
->> [ 243.118276] task:kworker/9:0 state:D stack:0 pid:73 tgid:73 ppid:2 task_flags:0x4208060 flags:0x00080000
->> [ 243.118283] Workqueue: events amdgpu_userq_hang_detect_work [amdgpu]
->> [ 243.118636] Call Trace:
->> [ 243.118639] <TASK>
->> [ 243.118644] __schedule+0x581/0x1810
->> [ 243.118649] ? srso_return_thunk+0x5/0x5f
->> [ 243.118656] ? srso_return_thunk+0x5/0x5f
->> [ 243.118659] ? wake_up_process+0x15/0x20
->> [ 243.118665] schedule+0x64/0xe0
->> [ 243.118668] schedule_preempt_disabled+0x15/0x30
->> [ 243.118671] __mutex_lock+0x346/0x950
->> [ 243.118677] __mutex_lock_slowpath+0x13/0x20
->> [ 243.118681] mutex_lock+0x2c/0x40
->> [ 243.118684] amdgpu_userq_hang_detect_work+0x63/0x90 [amdgpu]
->> [ 243.118888] process_scheduled_works+0x1f0/0x450
->> [ 243.118894] worker_thread+0x27f/0x370
->> [ 243.118899] kthread+0x1ed/0x210
->> [ 243.118903] ? __pfx_worker_thread+0x10/0x10
->> [ 243.118906] ? srso_return_thunk+0x5/0x5f
->> [ 243.118909] ? __pfx_kthread+0x10/0x10
->> [ 243.118913] ret_from_fork+0x10f/0x1b0
->> [ 243.118916] ? __pfx_kthread+0x10/0x10
->> [ 243.118920] ret_from_fork_asm+0x1a/0x30
-> Good catch, but userq destruction is completely broken in quite a number of ways.
->
-> Have you taken a look at my patch "drm/amdgpu: fix eviction fence and userq manager shutdown"? How does this here interacts with that?
-Yeah even after that patch the below is still open, and a deadlock with 
-amdgpu_userq_hang_detect_work is still possible. So i guess we need this 
-fix still, irrespective of your fixes in drm/amdgpu: fix eviction fence 
-and userq manager shutdown
-if(queue->hang_detect_fence) {
-cancel_delayed_work_sync(&queue->hang_detect_work);
-queue->hang_detect_fence=NULL;
-         }
+>> Not much functional change, except that evicted_user is moved back
+>> together with the other BOs again which makes the handling in
+>> amdgpu_vm_validate() a bit more complex. Also fixes a problem with user
+>> queues and amdgpu_vm_ready().
+> Some typos in commit message.
+
+Can you point them out? I only the the extra "m" in the first sentence of hand.
 
 
-Regards
-Sunil Khatri
+>> @@ -349,46 +366,22 @@ struct amdgpu_vm {
+>>  	spinlock_t		stats_lock;
+>>  	struct amdgpu_mem_stats stats[__AMDGPU_PL_NUM];
+>>  
+>> -	/*
+>> -	 * The following lists contain amdgpu_vm_bo_base objects for either
+>> -	 * PDs, PTs or per VM BOs. The state transits are:
+>> -	 *
+>> -	 * evicted -> relocated (PDs, PTs) or moved (per VM BOs) -> idle
+>> -	 *
+>> -	 * Lists are protected by the root PD dma_resv lock.
+>> -	 */
+>> -
+>> -	/* Per-VM and PT BOs who needs a validation */
+>> -	struct list_head	evicted;
+>> -
+>> -	/* PT BOs which relocated and their parent need an update */
+>> -	struct list_head	relocated;
+>> +	/* kernel PD/Pts, resv is shared with the root PD */
+>> +	struct amdgpu_vm_bo_status	kernel;
+>>  
+>> -	/* per VM BOs moved, but not yet updated in the PT */
+>> -	struct list_head	moved;
+>> -
+>> -	/* All BOs of this VM not currently in the state machine */
+>> -	struct list_head	idle;
+>> +	/* userspace BOs where the resv object is shared with the root PD */
+>> +	struct amdgpu_vm_bo_status	shared_resv;
+>>  
+>>  	/*
+>>  	 * The following lists contain amdgpu_vm_bo_base objects for BOs which
+>> -	 * have their own dma_resv object and not depend on the root PD. Their
+>> -	 * state transits are:
+>> -	 *
+>> -	 * evicted_user or invalidated -> done
+>> +	 * have their own dma_resv object and not depend on the root PD.
+> 
+> We might want to move the explanation before the individual_resv list for clarity. Grouping idea seems great and seems to simply the things to good extent. But just for better explanation and more clarity for others and documentation purposes if we want can add more details:
+> 
+> kernel:       BO's belonging to PD/PT and other BOs which are internal to the kernel.
+> 
+> shared_resv      BO's belonging to per process but still allocated by the driver/kernel for each process, for name can we says per_process
+> 
+> individual_resv : BO's whose memory is allocated by user for completely user managed buffers per process (User ptrs), alternate name : user_private or something.
 
->
-> Thanks,
-> Christian.
->
->> Signed-off-by: Sunil Khatri<sunil.khatri@amd.com>
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 9 ++++++++-
->>   1 file changed, 8 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> index 32541f1bde6d..c5875e175918 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> @@ -621,15 +621,22 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
->>   {
->>   	struct amdgpu_device *adev = uq_mgr->adev;
->>   	int r = 0;
->> +	bool hang_detect_fence = false;
->>   
->>   	cancel_delayed_work_sync(&uq_mgr->resume_work);
->>   	mutex_lock(&uq_mgr->userq_mutex);
->>   	amdgpu_userq_wait_for_last_fence(queue);
->>   	/* Cancel any pending hang detection work and cleanup */
->>   	if (queue->hang_detect_fence) {
->> -		cancel_delayed_work_sync(&queue->hang_detect_work);
->> +		hang_detect_fence = true;
->>   		queue->hang_detect_fence = NULL;
->>   	}
->> +	mutex_unlock(&uq_mgr->userq_mutex);
->> +
->> +	if (hang_detect_fence)
->> +		cancel_delayed_work_sync(&queue->hang_detect_work);
->> +
->> +	mutex_lock(&uq_mgr->userq_mutex);
->>   	r = amdgpu_bo_reserve(queue->db_obj.obj, true);
->>   	if (!r) {
->>   		amdgpu_bo_unpin(queue->db_obj.obj);
---------------6binA0VmODOQaL87CNYn32kp
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mhm, that description is actually not correct. Those are not necessarily userptrs but can also be normal BOs shared with other processes or devices.
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 12-03-2026 02:50 pm, Christian König
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:a55dc4d8-d137-466f-8cc8-de79e02a28ef@amd.com">
-      <pre wrap="" class="moz-quote-pre">On 3/12/26 10:16, Sunil Khatri wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">cancel_delayed_work_sync for work hand_detect_work should not be
-locked since the amdgpu_userq_hang_detect_work also need the same
-mutex and when they run together it could be a deadlock.
+I will try to come up with some better comments.
 
-we do not need to hold the mutex for
-cancel_delayed_work_sync(&amp;queue-&gt;hang_detect_work). With this in place
-if cancel and worker thread run at same time they will not deadlock.
-
-Due to any failures if there is a hand detect and reset that there a
-deadlock scenarios between cancel and running the main thread.
-
-[ 243.118276] task:kworker/9:0 state:D stack:0 pid:73 tgid:73 ppid:2 task_flags:0x4208060 flags:0x00080000
-[ 243.118283] Workqueue: events amdgpu_userq_hang_detect_work [amdgpu]
-[ 243.118636] Call Trace:
-[ 243.118639] &lt;TASK&gt;
-[ 243.118644] __schedule+0x581/0x1810
-[ 243.118649] ? srso_return_thunk+0x5/0x5f
-[ 243.118656] ? srso_return_thunk+0x5/0x5f
-[ 243.118659] ? wake_up_process+0x15/0x20
-[ 243.118665] schedule+0x64/0xe0
-[ 243.118668] schedule_preempt_disabled+0x15/0x30
-[ 243.118671] __mutex_lock+0x346/0x950
-[ 243.118677] __mutex_lock_slowpath+0x13/0x20
-[ 243.118681] mutex_lock+0x2c/0x40
-[ 243.118684] amdgpu_userq_hang_detect_work+0x63/0x90 [amdgpu]
-[ 243.118888] process_scheduled_works+0x1f0/0x450
-[ 243.118894] worker_thread+0x27f/0x370
-[ 243.118899] kthread+0x1ed/0x210
-[ 243.118903] ? __pfx_worker_thread+0x10/0x10
-[ 243.118906] ? srso_return_thunk+0x5/0x5f
-[ 243.118909] ? __pfx_kthread+0x10/0x10
-[ 243.118913] ret_from_fork+0x10f/0x1b0
-[ 243.118916] ? __pfx_kthread+0x10/0x10
-[ 243.118920] ret_from_fork_asm+0x1a/0x30
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-Good catch, but userq destruction is completely broken in quite a number of ways.
-
-Have you taken a look at my patch &quot;drm/amdgpu: fix eviction fence and userq manager shutdown&quot;? How does this here interacts with that?</pre>
-    </blockquote>
-    Yeah even after that patch the below is still open, and a deadlock
-    with amdgpu_userq_hang_detect_work is still possible. So i guess we
-    need this fix still, irrespective of your fixes in drm/amdgpu: fix
-    eviction fence and userq manager shutdown
-    <div style="color: #cccccc;background-color: #1f1f1f;font-family: Consolas, 'Courier New', monospace;font-weight: normal;font-size: 14px;line-height: 19px;white-space: pre;"><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #c586c0;">if</span><span style="color: #cccccc;"> (</span><span style="color: #9cdcfe;">queue</span><span style="color: #cccccc;">-&gt;</span><span style="color: #9cdcfe;">hang_detect_fence</span><span style="color: #cccccc;">) {</span></div><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #dcdcaa;">cancel_delayed_work_sync</span><span style="color: #cccccc;">(</span><span style="color: #d4d4d4;">&amp;</span><span style="color: #9cdcfe;">queue</span><span style="color: #cccccc;">-&gt;</span><span style="color: #9cdcfe;">hang_detect_work</span><span style="color: #cccccc;">);</span></div><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; &nbs
- p; &nbsp; &nbsp; &nbsp; </span><span style="color: #9cdcfe;">queue</span><span style="color: #cccccc;">-&gt;</span><span style="color: #9cdcfe;">hang_detect_fence</span><span style="color: #cccccc;"> </span><span style="color: #d4d4d4;">=</span><span style="color: #cccccc;"> </span><span style="color: #569cd6;">NULL</span><span style="color: #cccccc;">;</span></div><div><span style="color: #cccccc;">&nbsp; &nbsp; &nbsp; &nbsp; }</span></div></div>
-    <p><br>
-    </p>
-    <p>Regards<br>
-      Sunil Khatri</p>
-    <blockquote type="cite" cite="mid:a55dc4d8-d137-466f-8cc8-de79e02a28ef@amd.com">
-      <pre wrap="" class="moz-quote-pre">
+> 
+> Apart from the nitpicks, the change looks great and simplify things.
+> 
+> Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
 
 Thanks,
 Christian.
 
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-Signed-off-by: Sunil Khatri <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> Regards Sunil Khatri
+> 
+>>  	 *
+>>  	 * Lists are protected by the invalidated_lock.
+>>  	 */
+>>  	spinlock_t		invalidated_lock;
+>>  
+>> -	/* BOs for user mode queues that need a validation */
+>> -	struct list_head	evicted_user;
+>> -
+>> -	/* regular invalidated BOs, but not yet updated in the PT */
+>> -	struct list_head	invalidated;
+>> -
+>> -	/* BOs which are invalidated, has been updated in the PTs */
+>> -	struct list_head        done;
+>> +	/* Userspace BOs with individual resv object */
+>> +	struct amdgpu_vm_bo_status	individual_resv;
+>>  
+>>  	/*
+>>  	 * This list contains amdgpu_bo_va_mapping objects which have been freed
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 32541f1bde6d..c5875e175918 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -621,15 +621,22 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- {
- 	struct amdgpu_device *adev = uq_mgr-&gt;adev;
- 	int r = 0;
-+	bool hang_detect_fence = false;
- 
- 	cancel_delayed_work_sync(&amp;uq_mgr-&gt;resume_work);
- 	mutex_lock(&amp;uq_mgr-&gt;userq_mutex);
- 	amdgpu_userq_wait_for_last_fence(queue);
- 	/* Cancel any pending hang detection work and cleanup */
- 	if (queue-&gt;hang_detect_fence) {
--		cancel_delayed_work_sync(&amp;queue-&gt;hang_detect_work);
-+		hang_detect_fence = true;
- 		queue-&gt;hang_detect_fence = NULL;
- 	}
-+	mutex_unlock(&amp;uq_mgr-&gt;userq_mutex);
-+
-+	if (hang_detect_fence)
-+		cancel_delayed_work_sync(&amp;queue-&gt;hang_detect_work);
-+
-+	mutex_lock(&amp;uq_mgr-&gt;userq_mutex);
- 	r = amdgpu_bo_reserve(queue-&gt;db_obj.obj, true);
- 	if (!r) {
- 		amdgpu_bo_unpin(queue-&gt;db_obj.obj);
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------6binA0VmODOQaL87CNYn32kp--
