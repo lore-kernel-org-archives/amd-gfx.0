@@ -4,49 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE569105F783
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70F62105F784
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFACD10EB57;
-	Fri, 13 Mar 2026 08:55:41 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XmqDeHBb";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B08C10E154
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 20:12:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E8EA2439A5;
- Thu, 12 Mar 2026 20:12:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 663C7C4CEF7;
- Thu, 12 Mar 2026 20:12:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
- s=korg; t=1773346375;
- bh=lEuAdZ10LDvQEj5laWRX7VDTIw8ad3Pkcdd59W8pTAM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XmqDeHBbJhyoGAz9WmYfT7Gxm+xU9oXrUMzKlv1jxy2t+N/5wQQIfBuM63AL3tonk
- LVLaVeM3CXYVi8OgILgfy/rMGhdwbdZAMlhSEuiBArc57Mn987S4wTbMDATsTxslKW
- L07C+oJyh53WIiEN3KIdfEX/rBBKvVRANNwnIa54=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Yang Wang <kevinyang.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- amd-gfx@lists.freedesktop.org, Bart Van Assche <bvanassche@acm.org>,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 028/265] drm/amdgpu: Unlock a mutex before destroying it
-Date: Thu, 12 Mar 2026 21:06:55 +0100
-Message-ID: <20260312201019.202372766@linuxfoundation.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260312201018.128816016@linuxfoundation.org>
-References: <20260312201018.128816016@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0232810EB59;
+	Fri, 13 Mar 2026 08:55:42 +0000 (UTC)
+Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com
+ [216.40.44.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC68D10EA3E;
+ Thu, 12 Mar 2026 15:13:13 +0000 (UTC)
+Received: from omf11.hostedemail.com (a10.router.float.18 [10.200.18.1])
+ by unirelay07.hostedemail.com (Postfix) with ESMTP id ADC251602E0;
+ Thu, 12 Mar 2026 15:13:07 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
+ omf11.hostedemail.com (Postfix) with ESMTPA id 78D742002C; 
+ Thu, 12 Mar 2026 15:12:41 +0000 (UTC)
+Date: Thu, 12 Mar 2026 11:12:55 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Vineeth Pillai (Google)" <vineeth@bitbyteword.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, Jens
+ Axboe <axboe@kernel.dk>, io-uring@vger.kernel.org, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Marcelo Ricardo
+ Leitner <marcelo.leitner@gmail.com>, Xin Long <lucien.xin@gmail.com>, Jon
+ Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, Eelco
+ Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, Oded Gabbay
+ <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>,
+ dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, "Gautham R. Shenoy"
+ <gautham.shenoy@amd.com>, Huang Rui <ray.huang@amd.com>, Mario Limonciello
+ <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>, Srinivas
+ Pandruvada <srinivas.pandruvada@linux.intel.com>, linux-pm@vger.kernel.org,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Kyungmin Park
+ <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, Eddie James
+ <eajames@linux.ibm.com>, Andrew Jeffery <andrew@codeconstruct.com.au>, Joel
+ Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alex Deucher
+ <alexander.deucher@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, Harry
+ Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, Benjamin
+ Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, Wolfram Sang
+ <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, Mark Brown
+ <broonie@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
+ Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, Chris
+ Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
+ linux-btrfs@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 01/15] tracepoint: Add trace_invoke_##name() API
+Message-ID: <20260312111255.7925b4e2@gandalf.local.home>
+In-Reply-To: <20260312150523.2054552-2-vineeth@bitbyteword.org>
+References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
+ <20260312150523.2054552-2-vineeth@bitbyteword.org>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: ywcbaqn9zwge3gfga96u97w7nijzfb5x
+X-Rspamd-Server: rspamout08
+X-Rspamd-Queue-Id: 78D742002C
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18ieAMVXlCsjfIHQB5VYSMKQawnv3xLXWM=
+X-HE-Tag: 1773328361-302890
+X-HE-Meta: U2FsdGVkX19212n5hf5VfWxxI3698ig+MYJ7h5PCrgzm7w3SBjXRVmntUgy1KAiA1j7ASoLiubrJUkhEQG+sVPUaqYvKVHrwHJfLEWqAblPMb1GCyB1vNtgXBTh0V0ySDjWK4c33hpSt6/UqWv2L0DWGvadPudlZSBYs0RHFEdqFbOLNYrAcOZsPRKT15ByTEqCfDyAmN0Qx4BlSkuaDuqx2DqlJVWxM1GIGcenYfKc4Oug4F+oj89fFXccHcftI8mvLFhHknaGUAcf5v6epx6ogBFZcEEfmCJxjXwE/1rjNLuPMol8FZX9cbSBPAiHoHDFNAmrC3azhj+xd+IQ9/nDUnOF7z/s7bbkZPpL2MZx7bw+9cK59bCAAmgXFQUGvGdwUDjf+aJ99jx8W6XuzQvGWj1cuLtlykLy1hAkh57CyBpLZSVzGcIlLV0+qfGz9ZsIFZ0fPg4pdG4v8JMXapSh4ZRe71DXAUeEQ5q5ubssZsWB5mqjTVA==
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,47 +91,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On Thu, 12 Mar 2026 11:04:56 -0400
+"Vineeth Pillai (Google)" <vineeth@bitbyteword.org> wrote:
 
-------------------
+> Add trace_invoke_##name() as a companion to trace_##name().  When a
+> caller already guards a tracepoint with an explicit enabled check:
+> 
+>   if (trace_foo_enabled() && cond)
+>       trace_foo(args);
+> 
+> trace_foo() internally repeats the static_branch_unlikely() test, which
+> the compiler cannot fold since static branches are patched binary
+> instructions.  This results in two static-branch evaluations for every
+> guarded call site.
+> 
+> trace_invoke_##name() calls __do_trace_##name() directly, skipping the
+> redundant static-branch re-check.  This avoids leaking the internal
+> __do_trace_##name() symbol into call sites while still eliminating the
+> double evaluation:
+> 
+>   if (trace_foo_enabled() && cond)
+>       trace_invoke_foo(args);   /* calls __do_trace_foo() directly */
+> 
+> Three locations are updated:
+> - __DECLARE_TRACE: invoke form omits static_branch_unlikely, retains
+>   the LOCKDEP RCU-watching assertion.
+> - __DECLARE_TRACE_SYSCALL: same, plus retains might_fault().
+> - !TRACEPOINTS_ENABLED stub: empty no-op so callers compile cleanly
+>   when tracepoints are compiled out.
+> 
+> Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+> Suggested-by: Peter Zijlstra <peterz@infradead.org>
+> Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+> Assisted-by: Claude:claude-sonnet-4-6
 
-From: Bart Van Assche <bvanassche@acm.org>
+I'm guessing Claude helped with the other patches. Did it really help with this one?
 
-[ Upstream commit 5e0bcc7b88bcd081aaae6f481b10d9ab294fcb69 ]
-
-Mutexes must be unlocked before these are destroyed. This has been detected
-by the Clang thread-safety analyzer.
-
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian König <christian.koenig@amd.com>
-Cc: Yang Wang <kevinyang.wang@amd.com>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Fixes: f5e4cc8461c4 ("drm/amdgpu: implement RAS ACA driver framework")
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Bart Van Assche <bvanassche@acm.org>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 270258ba320beb99648dceffb67e86ac76786e55)
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index a7ecc33ddf223..ef5356b5a65ec 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -583,6 +583,7 @@ static void aca_error_fini(struct aca_error *aerr)
- 		aca_bank_error_remove(aerr, bank_error);
- 
- out_unlock:
-+	mutex_unlock(&aerr->lock);
- 	mutex_destroy(&aerr->lock);
- }
- 
--- 
-2.51.0
+-- Steve
 
 
+> ---
+>  include/linux/tracepoint.h | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/include/linux/tracepoint.h b/include/linux/tracepoint.h
+> index 22ca1c8b54f32..07219316a8e14 100644
+> --- a/include/linux/tracepoint.h
+> +++ b/include/linux/tracepoint.h
+> @@ -294,6 +294,10 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+>  			WARN_ONCE(!rcu_is_watching(),			\
+>  				  "RCU not watching for tracepoint");	\
+>  		}							\
+> +	}								\
+> +	static inline void trace_invoke_##name(proto)			\
+> +	{								\
+> +		__do_trace_##name(args);				\
+>  	}
+>  
+>  #define __DECLARE_TRACE_SYSCALL(name, proto, args, data_proto)		\
+> @@ -313,6 +317,11 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+>  			WARN_ONCE(!rcu_is_watching(),			\
+>  				  "RCU not watching for tracepoint");	\
+>  		}							\
+> +	}								\
+> +	static inline void trace_invoke_##name(proto)			\
+> +	{								\
+> +		might_fault();						\
+> +		__do_trace_##name(args);				\
+>  	}
+>  
+>  /*
+> @@ -398,6 +407,8 @@ static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
+>  #define __DECLARE_TRACE_COMMON(name, proto, args, data_proto)		\
+>  	static inline void trace_##name(proto)				\
+>  	{ }								\
+> +	static inline void trace_invoke_##name(proto)			\
+> +	{ }								\
+>  	static inline int						\
+>  	register_trace_##name(void (*probe)(data_proto),		\
+>  			      void *data)				\
 
