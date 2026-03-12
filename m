@@ -4,96 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5E0B106ACE4
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 20:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32911106ACEE
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2026 20:59:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E8E110EAB3;
-	Thu, 12 Mar 2026 20:44:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B107E10EAB7;
+	Thu, 12 Mar 2026 20:59:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="c5F1lj/5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vXYHvlLp";
 	dkim-atps=neutral
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com
- [209.85.160.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F32210EAB3
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 20:44:33 +0000 (UTC)
-Received: by mail-oa1-f51.google.com with SMTP id
- 586e51a60fabf-4172269edceso76766fac.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 13:44:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773348272; cv=none;
- d=google.com; s=arc-20240605;
- b=dTqC9UFu39I3oss0zF0Mskq3EYOBHW92nSoxz7BE/+sQKXMQY8ZWX2pD4VLt3Y1PMM
- 7kl06adTC+kuuxdDbjpK6+mhDb9YzfcErW6XDMl0tP/ukATcOOiqqrLyNxxfa3LskCtc
- MUbsWFNFcJzziMyNg9HHmq5pNyBXdH7kwZmGoBFvhTBZtIY/61cFu0Z75vNLCIQHq3g5
- WhjcwylenM6TIVBHy3WZ88K0XEIVWzr/xPvWeH5GcCGnKBMbPa4BKgHCR38dQUXH1sye
- TyIakvqflxBWsUumtw4WnFKRDlojL8XjFUyHhdyKHb8PbQsYycyPoWLBfC1CWri9/3tC
- 7lOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=pNBA3kLHIy0t3IxW/xplXzcmay1Hab2qbZgo6SmXgBY=;
- fh=bsmiZQ/hOuCC8TmxKx+weCDo2M07dKiDPKEJvfYix70=;
- b=lkgI9mrNWwRMfx9/5L+Y6BaYCC0Gdlej2cfG8dFiiSpoK+i3WoQAy5zsLFRgb0rHg4
- 6VQre34OeX40FCgutwTMRJOLiJOmBZmjaeF2MQz+WRHJ32fIEpip2BhxYQaFZnTe8N6X
- u67EcsVMYw2tlQ0DoSpqsqTRRCtjXy2ZgROgk/SmuRTObDzGyqFTZP4BCL0CPHEQun5p
- /gqQkLqOePoQuNWme0uyYgQzGV8S0j0WenJ3afiJnQEmOqx1EOL1aXlXoC9r/3dxDE3I
- QzysTEK/AN/ZSGr792trCMvWgZD2ZISXWhLAeQecw/LjWNmKtXAVapqCd+ZntDBxj7C7
- lZOA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773348272; x=1773953072; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=pNBA3kLHIy0t3IxW/xplXzcmay1Hab2qbZgo6SmXgBY=;
- b=c5F1lj/5aaiVKJGjLMGc7+ch1j7TFNKqM/fxcnFUppAXhd2HZAWxYg9gF2ZH5A7Bak
- w9cv/jS8HWTf3uTohTAcMAJv5HeV3zKMrW0qLnFCEuAzbLRrMvLHXKdyOoNA+9nJ+0jK
- E6Lzjr6owg0SzFRR2jnvZbnKjOva5P4tYEKu/vUJNePnG5YXHygENyU8R0ImY9pO4QM1
- G90XkrypiEzqmbQHXDOMxQFfIC8gjZysi7pjjYOfHnPldvlMBtCCUsB84mWz1v7Mxq6t
- Nz8oFVYYGjniJN0ENlTe69ulzVSaDJwinnE3e4bJqckTuVxI1L4bggsOuA6mMDQGlKHH
- Babg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773348272; x=1773953072;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=pNBA3kLHIy0t3IxW/xplXzcmay1Hab2qbZgo6SmXgBY=;
- b=TIDGmLs5lHz37kp9SRIOKV6jRPOeayuy5dtT4m2jAT7Ss0kPPxH/RH56D7cGZy0GOA
- +PeoqOtrcc1+Hu/s/p03uVDuMJJs5jIdKZMYOo/u+n/0JfBFLIOkSutArll1WQzw1EEf
- vqdI4iRRCGWr2C3OPd2XNJXgxedusb51OHYd6n0zmRlfn5SV29aCaPgPYEfj3cHmPrYD
- x5g1fhNQ1QWGEBob/n7mV4X6gvNaZprxiI9HWddEkhnuYooXvBv5v+8JMLbmA4ngRSmr
- f/oTUd7rnDFuLhRkpOexwXzbAmXjMJqZWdtaEGI0Z2CKc9DDn02q1EnBT4kJ+HUGBdoW
- iOyA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV9MagA/GN3CQPGqUhuBgDouXm9czB0I4t797kUIpEOFjNouZgCgcA5UWsXLBRcJTRvK9bBpEPY@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9fSM73UaAd5OhSxC3GVQToV+BTsPDIOm14foji7mOeFZLU0fs
- 4YmxqFQXPmoxUaIL4390GRJpGP/+xYLqrGv/7O5YEhqoBG9HlF4rjaVyfZhD7JuOF940rhqTfOP
- qpwGvfn1Nbg98kDgR0c6h2NpW5kzA1BM=
-X-Gm-Gg: ATEYQzw7oicLYoUNlrQK8MMPp2C0z0zSq2yiErGv9M7ldJyBMH75gNegsv/82DrQiWT
- LqYWyTSnVnjT4TZIxIrJFrw0EKZUvJhu/u+pvnDuSnXqoG4CQAmERGUQsF9sa5o+IeK1HTbFbFY
- Vad3xdDVtpJ8EbnQ3tiiokRv2AfnTxLPs3E2yfpOj3keblGFA65Lj1ZU1ETuIIcqKhxWLPZ/g8m
- 42sCBck6vBfMibsfvQv8QCDJQ/3ig8lnFYrUDrY2O83e2TiDkm4MDLYyCyGgzvAoQ7WPiiPejXn
- Sb0DbdIg
-X-Received: by 2002:a05:6871:5221:b0:417:1862:ba10 with SMTP id
- 586e51a60fabf-417b9059aadmr400339fac.2.1773348272117; Thu, 12 Mar 2026
- 13:44:32 -0700 (PDT)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013030.outbound.protection.outlook.com
+ [40.93.201.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 708CE10E305;
+ Thu, 12 Mar 2026 20:59:46 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QuLHsz4tE7GZT/TTA0xb00UmMLer0wps54i9ODZjQYil8PMwzFyO7RIwn0gDlNE6gNdvuPIjFeQDA/tC89Pt7H9P6qMpN8B2bW5N94B2rjzBZNygpUEXkjifX53dq7upAKIAWlsFi5MgdztscDfoWuqsx03JR6EAn2nHdGaE15ChQRqe4ewRlKR26RvV//ZlBbStnJc9BAu74l/cZgVB4bVMRwTDIEMPTRnDfKfXq+m0Fo0Bxmr+3eWWPrtxGyYqDvy9m/ZJDHUUGbFPpASPOy5HhSnIRXV4cDyTsWVUw0VoJPK6rx8ofHpaAxw/2T4FKHg7qmJ6xy7/BzG1quC37w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jlAufmVX7khTnepUgmlAjuMlIpKIOKJ2UdD/8lqur8Q=;
+ b=OMD2XkDDAiWotySiLZJR6LnH7y50Q2YX0gmRlqttNvbBug/FjQyplBhmejunXX7GZxbj/3CY7sskbFbf+SWmoPxRTt6UZyf3kByqNjOowdW8KR2qEFWDLnlVhZSdlqxiqFYolW0Scn6+SE03c60d6P3FBjBjw7+VfxMOaeG650vsiWS1SJN+0Ua0NhTYyJJwgb1B6SQEttqG6Qwz1Om88D53zdFxR39REjIwXx39lbOeAAwh1zYxsd45tyVTqwFTCXO++ZXic58U64x6dpIRifD0mDuig6iOo9reIU9k+K0SlfV95PisCsKLGkCOs8tnmHmgU3nWNgARDP0YeTgW2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jlAufmVX7khTnepUgmlAjuMlIpKIOKJ2UdD/8lqur8Q=;
+ b=vXYHvlLp95iWkzmjMjhjgrmoYWI8iJiiNXlbWr/Dj0MeawVIjgcGfNy63Riko38mCAw2Zc7wi7mX50kbrdR3RlON+6DBTKpMsMj15ZEiyHKivI3MG7+VDmltAawPmAJ6jqVXOBCV0JrHdRkWpVba8xloDkTXeZs1PG07zXBCcfw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by SN7PR12MB7934.namprd12.prod.outlook.com (2603:10b6:806:346::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.4; Thu, 12 Mar
+ 2026 20:59:42 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9723.004; Thu, 12 Mar 2026
+ 20:59:42 +0000
+Message-ID: <44081170-4572-4807-9ac8-0886c77e6e0b@amd.com>
+Date: Thu, 12 Mar 2026 14:59:39 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Wrap dcn32_override_min_req_memclk() in
+ DC_FP_{START,END}
+To: Xi Ruoyao <xry111@xry111.site>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: loongarch@lists.linux.dev, Mingcong Bai <jeffbai@aosc.io>,
+ Zixing Liu <liushuyu@aosc.io>, Ard Biesheuvel <ardb@kernel.org>,
+ LiarOnce <liaronce@hotmail.com>, stable@vger.kernel.org,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alvin Lee <alvin.lee2@amd.com>,
+ Dillon Varone <Dillon.Varone@amd.com>, Ray Wu <ray.wu@amd.com>,
+ Kees Cook <kees@kernel.org>, Yan Li <yan.li@amd.com>,
+ Ryan Seto <ryanseto@amd.com>, Saaem Rizvi <SyedSaaem.Rizvi@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260306062805.1464383-2-xry111@xry111.site>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260306062805.1464383-2-xry111@xry111.site>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0310.namprd04.prod.outlook.com
+ (2603:10b6:303:82::15) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-References: <20260312101334.1500935-1-Jesse.Zhang@amd.com>
- <CADnq5_PXhLYs85cU2FZ6ZYtBBtv1wOmwiJL-rDbYsCFXpTL_cw@mail.gmail.com>
- <d1ef0e7f-ff3f-4012-9074-b87425fa2fc2@amd.com>
-In-Reply-To: <d1ef0e7f-ff3f-4012-9074-b87425fa2fc2@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Thu, 12 Mar 2026 16:43:56 -0400
-X-Gm-Features: AaiRm53n4ZGmdqvuKwGIwEqYNiyJsW04RCjt5i1dmbtY5AW-BpusKWZx9gDijgc
-Message-ID: <CAAxE2A5qX2e8rzZvSdUUbCvz2AN64=HU49pQptkYodOXiv32_Q@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: Limit BO list entry count to prevent
- resource exhaustion
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>, "Jesse.Zhang" <Jesse.Zhang@amd.com>, 
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>, 
- amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SN7PR12MB7934:EE_
+X-MS-Office365-Filtering-Correlation-Id: 946a4f27-ec29-4203-1d9b-08de807a4891
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|22082099003|56012099003|18002099003|7053199007;
+X-Microsoft-Antispam-Message-Info: Cf+hU5sC8nrJAZFSX7d3zVZvAhwbU5qrOKH8Hprfrs8LQbmyaRjqqRC2yTPITKSM7Nupc8wNMcP3FeU2x8m+ucneugc95NOAt8kGlAfNsNL88Tme0hwQL+8Pg1vdvHpT0tpE8dptsR02CzlCW6Il2a9SGGWZP2SCAh/sNfECQmXMCH97+WI/DtK93SPcl/aWDEcDeI8tE1N+hio7CIBZGVsHq4H+0CDxi325z2dyvR+xc9fSgCgZMneSZG/dZP2GL0KXe8z+yfu6gCFMXuRM+W6KSwRqXiwFbulnISrVos4LUMvw2c7roiLGQnTFzNvjAEHBTLJDQyxN/YbFTDZriw8+JgwUEBFmKJXXxWan3VTnisOpUxpPlpODfdjHz1a/QlOHJHSypF7ZtXe/sOcv1K3xIjc9dJ0nooGEJk4SLYAiSkHV2dfbr38aTU5VbE9+F6RqfJhiiK8ZAVnurFitBVCmWr0qTL4GM37B8Ds0LScGL56ygyK94vXA2g4OtSlJkEk+UH4QsIJPA0PlkeJ4AF/KPBwqHjYIrpAwRH/pHwgo1O4H0fhipvHugB7urkdI20fBXG/IpVkigIhzxi+DugPJ7NVOecy/9koRIO4bu7GK1kbEf6urD4mssGpVEMP1f8PO1iNB6AbJh8I+fSkRGtTZd9XjOjzpu/nYzwFYYS+0RAWnsBjU92/AuI68Wdw4KxqOcxCOxxEgnWDzuO3imPltnPtYNg1ndUH7tExuWJ0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(22082099003)(56012099003)(18002099003)(7053199007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UENhQWxpUWF0WnlOa3ZTbWllUDgxUnJRQWYrZWRQRHZzc2tRODVhSVJUbXR5?=
+ =?utf-8?B?RXF4TzIxdkhlVldFLzFVVnRCS3hMNThlVVVJdDcvcTUrc2MxRzQ4U20wZStu?=
+ =?utf-8?B?ZllhcDJkcWYvcEw1RGhXTERETy9Vdzk4dGYxOXNNSG1DT2Rya3lxdERuUnpy?=
+ =?utf-8?B?dmdZU01GN3FDYkE4cVJjVXlsb2xLcnEwL0kwMTBJelJYZWl0ZmxnaGdhSVIy?=
+ =?utf-8?B?bEdUUUZlSFVxWGlDMmdMOVlTZk8xZ1A1c05saVBKNjhwZHduSCtaaXRFOEtn?=
+ =?utf-8?B?MjhTdnhrV3F1ZkxwVUVtUEhKYmhwekVpQ1JNTEcyeWN0TVNxZFRxMmJiV1pW?=
+ =?utf-8?B?YWt6cHRkeTVIQXJFNUVqaXRaTEllSWxod3ZVbFNVTFlydnJrQUNaaUdDZFFY?=
+ =?utf-8?B?bHlzcWZLOXNGTmlYa0k5WkxPVG1oVFpIcXhubkF4cUozVlIwMjQzZ1V2Qy9a?=
+ =?utf-8?B?RXRyMUo0WWxxc3RLYmdDSlZYQmdjZlAzWkluZ1VuR3lSYkVMWGh4QUNObGE1?=
+ =?utf-8?B?cTNpcWFKcTRhdVBKb1JBQ09qWXdyVDJqcHh6ZVhsRXh2eFh3dFMxbFZLdkpp?=
+ =?utf-8?B?WUdLUThpakpWaWF2RFlSV0hTTmVUOHNsdVVJRlQydGZ3QzZ2aDhHODlkZnR1?=
+ =?utf-8?B?WjVoMlh4SkpSS3d3RFhRN1N5S01TS2pYM1haUTVGWkREdHM3K1JpcFQ1U2Zj?=
+ =?utf-8?B?MWNPdHA0NUpyY2JkcWF0ejE5bFk2L3VTTDBjTkdEQW55dFl4QXlhU0ZSb1ZH?=
+ =?utf-8?B?UDdwdXZMKzdIdkNRSGdXRkc1R09ydkRQYUl0Y0pqYUMvLzBEVUV6a0dRY1J3?=
+ =?utf-8?B?QnZId0lWazRVN0VFS3BhcUwzS2hDVmxHZTU1bzdTNHJ6Y3BDUkVNMVpMZ0lw?=
+ =?utf-8?B?WHpRUkNmQ0E3ZWUwRnlxa0hrQ01WUmZEbDlpT0d1RGxPT2ZaMlNLRUs2R0FQ?=
+ =?utf-8?B?QVVyUmlkODdHMTZ0VzZLR0VoZmc4VzBJUE56R2ZkV214ajcwVExxTDhrOVp2?=
+ =?utf-8?B?Ly9JRUw2NFpGUzVmREJmZkZPLzJTeXNOdSs1ODc2Y3RsTVlobUpwaUJmZnpF?=
+ =?utf-8?B?US9MVXhRL3lCNVpBSHQ1N1B4MFpXbyt1WDdPaHlZSkd4NFhBWlF5TnlqMVd5?=
+ =?utf-8?B?YzZ5QllEdEptZzRMRld6aWc0ZGNnLytqck1pczJYWC82UllHeTBhdWtDcDJU?=
+ =?utf-8?B?eHgrZW9USHgzdm9uaUREVFFDM1VnT0lobnNaSmFIeEZHNWZ1QVdaQy9FSXJR?=
+ =?utf-8?B?ZHdnOFd4TC9UVVkzdndRa2ptWVozQlZwZ2JreFJ0QnVzMjk1LzRBSzBtWmRJ?=
+ =?utf-8?B?ZFZPRlB4Mms2dk1lY0hHUDcxV3VuOVl4cWVtbEhPRUZ1YkFqZmJiVnJwVlh3?=
+ =?utf-8?B?R0NnUmh1MVQxUUhjekNJaGwxK2xGei9FbkRXSTBpaVpNVFI0a1M0NFc5WCti?=
+ =?utf-8?B?aTVTcUs3cTB3U3hnUTVaUVVlbjhCSURsZHdoMW83ZDlONHFBSTNmaStZc0hx?=
+ =?utf-8?B?M2E4elJyc3pKUDRIa0VvaSttd1I1WnlGbTZsMHA0NXRXT1E3R1lzNHlLa3lq?=
+ =?utf-8?B?RGo5Y0UyaStIY3dXWEhpQ29pNVpOdXNkcDdVSEZxa1h4WkJrV1pIeVJ1MU1I?=
+ =?utf-8?B?WTE4K3BBMDYrM0ZQNlhMTEZDMHhsSHpBQTUvdkFvQmQwdDRpVGZ1eE54UFVj?=
+ =?utf-8?B?emRVZ0lRZEUwN05MaTNtVGhHMXd6K1c4alRNd0ZBMUVBWExhWVE1L2RpMjhp?=
+ =?utf-8?B?anlicFZYTFkyek1oZmpTVnNQMS9xNzVnWlpqbnJmZGJhMitMS3dlVmxFSGJ4?=
+ =?utf-8?B?cExhWlYrbGVIbG5zWXZIU0k1NGp1dGhPRndOWFdkMGlIa1hxOURDTHJNMkNw?=
+ =?utf-8?B?ZUo4ZVlYTFJFQWNWcnJPd0ZmbEptV2d1VTZNK1M2ZFZLa3BYdlpSR1k1T2U0?=
+ =?utf-8?B?d0RyQ2E1UWl5Uk1LcHJWblFLK21CM3RmY2RuZzI3ZnpNNWZPbEttTE5lMnBM?=
+ =?utf-8?B?b04rcERZTENLbTB6bUhsSHQ3aFBGN2JyVVA4RE0rS0kyVEJsWG4rbmEzYmlQ?=
+ =?utf-8?B?WFo3cXdQM3dJTGFrN2QxZlJFMlg1TnFDSkZ1T2tYUmUzcFk5TEJvdGY1a2sx?=
+ =?utf-8?B?enJVLzJ3TUZsWnVHNnpXT3p6YVh3MUdQYnhrTlh2Rk1uVmtIQk13c1dicDRn?=
+ =?utf-8?B?UVFUMXV4SjJ1M2xYa0gvaWFITGxvY3BIbE5yTXZ5S1YxWm9lazR0djZtU1BW?=
+ =?utf-8?B?WndOUmhrOEZrOThJeVV2eDhTWjBvSCtQOXRONUFSVHRTL0dDUXFLMlRwK1hj?=
+ =?utf-8?B?QTR1dE1iRHhIbEtGdmx3WTM3cUovWm84RFFYYjU0SXppU1VOMGtqZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 946a4f27-ec29-4203-1d9b-08de807a4891
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 20:59:42.7328 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Q2Kx9Ufm706v5ouN7ISEmc7ObJmdYGBgUVq8CEBSQg0uB0bI4Ux8dAB5f9MRzIbj2P24cOCrQxj4bE9H3H6Xeg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7934
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,103 +146,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I have just gathered real data on this and the result is surprising.
-Viewperf 13, Viewperf 2020, Unigine benchmarks, and others have been
-used to gather BO list data.
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-The maximum number of BOs that has been observed in the CS ioctl for
-radeonsi is 283, even though the actual number of OpenGL BOs can be on
-the order of 50k. That's thanks to the slab allocator in the Mesa
-amdgpu winsys.
+On 3/5/26 23:28, Xi Ruoyao wrote:
+> [Why]
+> The dcn32_override_min_req_memclk function is in dcn32_fpu.c, which is
+> compiled with CC_FLAGS_FPU into FP instructions.  So when we call it we
+> must use DC_FP_{START,END} to save and restore the FP context, and
+> prepare the FP unit on architectures like LoongArch where the FP unit
+> isn't always on.
+> 
+> Reported-by: LiarOnce <liaronce@hotmail.com>
+> Fixes: ee7be8f3de1c ("drm/amd/display: Limit DCN32 8 channel or less parts to DPM1 for FPO")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xi Ruoyao <xry111@xry111.site>
+> ---
+>   drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+> index 7ebb7d1193af..c7fd604024d6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.c
+> @@ -1785,7 +1785,10 @@ static bool dml1_validate(struct dc *dc, struct dc_state *context, enum dc_valid
+>   
+>   	dc->res_pool->funcs->calculate_wm_and_dlg(dc, context, pipes, pipe_cnt, vlevel);
+>   
+> +	DC_FP_START();
+>   	dcn32_override_min_req_memclk(dc, context);
+> +	DC_FP_END();
+> +
+>   	dcn32_override_min_req_dcfclk(dc, context);
+>   
+>   	BW_VAL_TRACE_END_WATERMARKS();
 
-RADV uses VM_ALWAYS_VALID by default currently. radeonsi could also
-start using it if the kernel memory management behaves optimally.
-
-Old Mesa drivers might use more BOs, especially RADV which doesn't
-have a slab allocator.
-
-Some limit may also be needed for lists of sync objects in all our
-ioctls and all arrays in general.
-
-Marek
-
-On Thu, Mar 12, 2026 at 1:59=E2=80=AFPM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> On 3/12/26 18:44, Alex Deucher wrote:
-> > + Marek,
-> >
-> > This was the feedback from Marek the last time this was brought up:
-> >
-> > "USHRT_MAX seems too low. Traces for workstation apps create 20-30k
-> > BOs, which is not very far from the limit. RADV doesn't suballocate
-> > BOs. Neither GL nor VK has a ilmit on the number of BOs that can be
-> > created. The hypothetical maximum number of BOs that can be allocated
-> > on a GPU with 32GB of addressable memory is 8 million."
-> >
-> > Does 128K sound more reasonable?
->
-> I think so, yes. Event 64k seems reasonable large to me considering that =
-only BOs which are not per VM need to be in the list.
->
-> E.g. RADV barely uses this feature as far as I know.
->
-> Regards,
-> Christian.
->
-> >
-> > Alex
-> > On Thu, Mar 12, 2026 at 6:13=E2=80=AFAM Jesse.Zhang <Jesse.Zhang@amd.co=
-m> wrote:
-> >>
-> >> Userspace can pass an arbitrary number of BO list entries via the
-> >> bo_number field. Although the previous multiplication overflow check
-> >> prevents out-of-bounds allocation, a large number of entries could sti=
-ll
-> >> cause excessive memory allocation (up to potentially gigabytes) and
-> >> unnecessarily long list processing times.
-> >>
-> >> Introduce a hard limit of 128k entries per BO list, which is more than
-> >> sufficient for any realistic use case (e.g., a single list containing =
-all
-> >> buffers in a large scene). This prevents memory exhaustion attacks and
-> >> ensures predictable performance.
-> >>
-> >> Return -EINVAL if the requested entry count exceeds the limit
-> >>
-> >> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> >> Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
-> >> ---
-> >>  drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 4 ++++
-> >>  1 file changed, 4 insertions(+)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_bo_list.c
-> >> index 87ec46c56a6e..3270ea50bdc7 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-> >> @@ -36,6 +36,7 @@
-> >>
-> >>  #define AMDGPU_BO_LIST_MAX_PRIORITY    32u
-> >>  #define AMDGPU_BO_LIST_NUM_BUCKETS     (AMDGPU_BO_LIST_MAX_PRIORITY +=
- 1)
-> >> +#define AMDGPU_BO_LIST_MAX_ENTRIES     (128 * 1024)
-> >>
-> >>  static void amdgpu_bo_list_free_rcu(struct rcu_head *rcu)
-> >>  {
-> >> @@ -188,6 +189,9 @@ int amdgpu_bo_create_list_entry_array(struct drm_a=
-mdgpu_bo_list_in *in,
-> >>         const uint32_t bo_number =3D in->bo_number;
-> >>         struct drm_amdgpu_bo_list_entry *info;
-> >>
-> >> +       if (bo_number > AMDGPU_BO_LIST_MAX_ENTRIES)
-> >> +               return -EINVAL;
-> >> +
-> >>         /* copy the handle array from userspace to a kernel buffer */
-> >>         if (likely(info_size =3D=3D bo_info_size)) {
-> >>                 info =3D vmemdup_array_user(uptr, bo_number, info_size=
-);
-> >> --
-> >> 2.49.0
-> >>
->
