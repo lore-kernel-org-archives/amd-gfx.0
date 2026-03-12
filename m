@@ -4,81 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A279A106ACEB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1377106FD9A
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C973E10EB4B;
-	Fri, 13 Mar 2026 08:55:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 026E310EB40;
+	Fri, 13 Mar 2026 08:55:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=hansenpartnership.com header.i=@hansenpartnership.com header.b="pcvJZxMl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ISOm+kS3";
 	dkim-atps=neutral
-X-Greylist: delayed 482 seconds by postgrey-1.36 at gabe;
- Thu, 12 Mar 2026 15:40:43 UTC
-Received: from lamorak.hansenpartnership.com (lamorak.hansenpartnership.com
- [198.37.111.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E83E10E3DB;
- Thu, 12 Mar 2026 15:40:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=hansenpartnership.com; s=20151216; t=1773329560;
- bh=zTDNMMg/o0AbpOakTawLJV8HRHueJx9lUWpbuHSD3BU=;
- h=Message-ID:Subject:From:To:Date:In-Reply-To:References:From;
- b=pcvJZxMlUnyDHCQWdoy7oBw4t3ApqjoLShbfu4EGfeRRF/0XvwrUC3nRWEDXXVQdM
- hMwbriKe/NL1VZ4m3mEc/Q/oxiEwEcX/NNUV+xlSHstrQ2AykR2/lPVz8ssLEFKVvD
- cNP4AXmMocQMY4pE83K1rY1dx5NyhQ9bJbZtUZWw=
-Received: from [IPv6:2601:5c4:4300:d341::a774] (unknown
- [IPv6:2601:5c4:4300:d341::a774])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by lamorak.hansenpartnership.com (Postfix) with ESMTPSA id 599341C02A4;
- Thu, 12 Mar 2026 11:32:38 -0400 (EDT)
-Message-ID: <f5688b895eaebabae6545a0d9baf8f1404e8454e.camel@HansenPartnership.com>
-Subject: Re: [PATCH 00/61] treewide: Use IS_ERR_OR_NULL over manual NULL
- check - refactor
-From: James Bottomley <James.Bottomley@HansenPartnership.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Kuan-Wei Chiu <visitorckw@gmail.com>
-Cc: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org, 
- apparmor@lists.ubuntu.com, bpf@vger.kernel.org, ceph-devel@vger.kernel.org,
- cocci@inria.fr, dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org, 
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
- kvm@vger.kernel.org,  linux-arm-kernel@lists.infradead.org,
- linux-block@vger.kernel.org,  linux-bluetooth@vger.kernel.org,
- linux-btrfs@vger.kernel.org,  linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org,  linux-erofs@lists.ozlabs.org,
- linux-ext4@vger.kernel.org,  linux-fsdevel@vger.kernel.org,
- linux-gpio@vger.kernel.org,  linux-hyperv@vger.kernel.org,
- linux-input@vger.kernel.org,  linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org,  linux-media@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-mm@kvack.org, 
- linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org, 
- linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-pm@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org, 
- linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
- ntfs3@lists.linux.dev,  samba-technical@lists.samba.org,
- sched-ext@lists.linux.dev,  target-devel@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net,  v9fs@lists.linux.dev
-Date: Thu, 12 Mar 2026 11:32:37 -0400
-In-Reply-To: <20260312125730.GI1469476@ziepe.ca>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <abBlpGKO842B3yl9@google.com> <20260312125730.GI1469476@ziepe.ca>
-Autocrypt: addr=James.Bottomley@HansenPartnership.com; prefer-encrypt=mutual;
- keydata=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
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 549B410EA8D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 16:54:44 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-359f35dfef6so729599a91.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 09:54:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773334484; cv=none;
+ d=google.com; s=arc-20240605;
+ b=QpEl5zqsyoxrH9btTYTUQ7JPav9ZQIyflTre6oxmimMrEInZZvPUg3pnDHuBgmPjUi
+ TZrQUt+yWEp3NCCFwNPiE8gHrhkM1ygH/8Sixkk2tFSCV1ziNAkJqPlM+ZoRpVlWWzD5
+ jaKiBwrIwcBIf599ZgEjhftFhoSLFqfZGODVhAxb1bX/bNImyjLmsPCZsy3a03RIioYh
+ ljyR9U5JcYto167dD8HksjrkFwuJCoa0ASEz1rB8EMZAaQk3vqeUOweqKuwVLFspGD9b
+ MgloZ/bvVoU+IcXjyLZJYHTv6qY7vN2xRCLUcqcKThY0YKqLvcoErYWZA5jRQIALXmZ/
+ ehOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+kWy5KRAZzJ0k+gfnUe4+KiD3cukw8nZMNARL7dWDnQ=;
+ fh=XPdxs8CPFN03gjyEM3vzgkVFOhftRsugoYkJ6u2AbX4=;
+ b=OeT4yq+FMDmdXgV30eAfnXzAiHGqgn55VZVIOOwoia+8DrbuWLFLnEN2qdsGSCwmsM
+ 9C3Nx4pTkBuW68ybT0H2eVEEeuATRj0ZZhQbiGJdAoqhc2e3of8/1SGpFzjGa48PEac+
+ r357Gt1os5Jc6F9UUyaNhuwEZTBZSO2+TzvXrK2ore3wUZUByYve9i5KXkIV/MBxjH+Q
+ 4L9Bc946difsYeGT7DZUfSU/SLvntWOIf/fmHUa7CIeAMiqJ+F9YPqfQMTYxzhVy73Wh
+ QEUhn5bK3oTmhGayzmoYxZuSVjaIYk4nS9RDrSP/DUZ5OMGtvi3O6No3wN0dmRTMGLQk
+ wvPw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773334484; x=1773939284; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=+kWy5KRAZzJ0k+gfnUe4+KiD3cukw8nZMNARL7dWDnQ=;
+ b=ISOm+kS3Rwsg0aGDOR3bJ28z57pbDPY2RAPyQt4eZFz/obKDFQrUwlZsN6ovv5bdjd
+ EVC7ZoHWfaocLpRdqLi8LiJ05lAPPmM7d8gD6XoJAvmre/ySwJ86cnuxA6hnIZvDLvF9
+ PPH9Xd1v2TzS+7lzNdGgYSQNg4BAbRTpUJJXr3Q+8u/3vgeAj+g9BB4Gq5mMomUGlpWZ
+ d+YX9s3k0vkGJD6AFmRoj2LuOCWnYApD6Vbepdofevo150hzDm8hZLD8oCcxA96Y1kv3
+ 5vG5vf85A91aM7JKm8O7Z/SSta82Vnw5nBWh7ceb2FA/uAeMYFzfEaNht0jQcMCrDKDo
+ nMgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1773334484; x=1773939284;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=+kWy5KRAZzJ0k+gfnUe4+KiD3cukw8nZMNARL7dWDnQ=;
+ b=SwwLLX+EVzGeBdSuw95oInOu+8sj1/DdB/d3d0+kGcZd0jn4h0Bb4j7VAjzl5O+9x3
+ D8F7SASjpPb+mqMzVUazFNS8W8rHHbC9t5pSwcRP5+knTnqXGmTH3ks1hTKkkqGPl1/v
+ Yerlkv7XpzDzTKTmU/bKdeNwA6rNRsdsTqDII5sHqT++T2LaYqP5DkJvO5ebdLoydhni
+ q8TVyoa20FGk6ZXqZskhWmOqimYxM1ny8e9fPO7blQEnOx2tx32WIhb62rColHUE3TAt
+ P3aZjqDjPOLVwHo7M0L/Wzlrzqgro/A+C8W2dfz4HmoElUdvRoPUylh1yGgXwu/8ATop
+ +BEg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWUm27nBYhZs4F6rofaXdnBezCwyAMrdiVRf231RGKZTRVafROuFKFwIAq7tGG01eIGbVQmAzNP@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxKg6uwEsSvLGa8wpTLXFDWtoeWKDslL99ha+liC26s5vS0mTNy
+ y3cd0tdf4qFTY2R9AHdgdOn5ovVDTKFs5yz1I8Blqda7uLgnPSAZuJgGLq7XXyM44FkDkmIYXia
+ mOWAgKCsxeK1VXLGslPWcfSv5Z4rXXR0=
+X-Gm-Gg: ATEYQzxA11ws0/859NCUeD2z+TQpyBqVUgsokX/8Z5N5UsyLytWNH2+KbFj8ZHc0hzP
+ zRjdD8hrmzhYX0/yuh2b3L1UMyXszahDv4cL7iMv7wryziM+LzTtUXuTVc2OAURHv+2A8D9sNiS
+ xDV13+aNUZkBdAU3JZb2V5HscdeBsn1xSEBQxlLCXYOmTsFMnUcdfmncs8GJP1rzX4asdZNhxts
+ pb5dABGKgKZh+zfTnNjzln/qLfh5xsKsWCpCO34Jhe6gpXtlNLuO/6fvSb5h93gAX+/UZy0987U
+ kvUftPTMOV1MxkpqcTs8A7I=
+X-Received: by 2002:a17:90b:288e:b0:359:8d0d:5905 with SMTP id
+ 98e67ed59e1d1-35a21eba194mr250522a91.9.1773334483388; Thu, 12 Mar 2026
+ 09:54:43 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
+ <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
+ <20260312112354.3dd99e36@gandalf.local.home>
+ <219d015d-076b-4c80-8f63-88569115fdad@efficios.com>
+ <20260312114041.5193c729@gandalf.local.home>
+ <1becdbce-2c01-468a-bbab-42b5dea9fdf8@efficios.com>
+ <CAO7JXPjnnruhM5oC6xMgnYaQ9efzYFqMCFiJLNM3HCQ+ZeCiJw@mail.gmail.com>
+In-Reply-To: <CAO7JXPjnnruhM5oC6xMgnYaQ9efzYFqMCFiJLNM3HCQ+ZeCiJw@mail.gmail.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Thu, 12 Mar 2026 09:54:29 -0700
+X-Gm-Features: AaiRm51tg7oVvkVGab0X55k0oYxIuUltKNvtNsrbO-Cw57of2y67mwv1ziUvJS0
+Message-ID: <CAEf4BzbnfyhCqp0ne=2gRnVxp-mdGmuZwDeFRyhRYH+eDcz2-w@mail.gmail.com>
+Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
+ at guarded call sites
+To: Vineeth Remanan Pillai <vineeth@bitbyteword.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Jens Axboe <axboe@kernel.dk>, 
+ io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, 
+ Jon Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, 
+ Eelco Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org, 
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, 
+ Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>, 
+ dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+ Len Brown <lenb@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+ linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, 
+ Eddie James <eajames@linux.ibm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alex Deucher <alexander.deucher@amd.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, 
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>, 
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, 
+ Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
+ linux-btrfs@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.50.3 
-MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
+X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,35 +154,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2026-03-12 at 09:57 -0300, Jason Gunthorpe wrote:
-> On Wed, Mar 11, 2026 at 02:40:36AM +0800, Kuan-Wei Chiu wrote:
->=20
-> > IMHO, the necessity of IS_ERR_OR_NULL() often highlights a
-> > confusing or flawed API design. It usually implies that the caller
-> > is unsure whether a failure results in an error pointer or a NULL
-> > pointer.=20
->=20
-> +1
->=20
-> IS_ERR_OR_NULL() should always be looked on with suspicion. Very
-> little should be returning some tri-state 'ERR' 'NULL' 'SUCCESS'
-> pointer. What does the middle condition even mean? IS_ERR_OR_NULL()
-> implies ERR and NULL are semanticly the same, so fix the things to
-> always use ERR.
+On Thu, Mar 12, 2026 at 9:15=E2=80=AFAM Vineeth Remanan Pillai
+<vineeth@bitbyteword.org> wrote:
+>
+> On Thu, Mar 12, 2026 at 11:49=E2=80=AFAM Mathieu Desnoyers
+> <mathieu.desnoyers@efficios.com> wrote:
+> >
+> > On 2026-03-12 11:40, Steven Rostedt wrote:
+> > > On Thu, 12 Mar 2026 11:28:07 -0400
+> > > Mathieu Desnoyers <mathieu.desnoyers@efficios.com> wrote:
+> > >
+> > >>> Note, Vineeth came up with the naming. I would have done "do" but w=
+hen I
+> > >>> saw "invoke" I thought it sounded better.
+> > >>
+> > >> It works as long as you don't have a tracing subsystem called
+> > >> "invoke", then you get into identifier clash territory.
+> > >
+> > > True. Perhaps we should do the double underscore trick.
+> > >
+> > > Instead of:  trace_invoke_foo()
+> > >
+> > > use:  trace_invoke__foo()
+> > >
+> > >
+> > > Which will make it more visible to what the trace event is.
+> > >
+> > > Hmm, we probably should have used: trace__foo() for all tracepoints, =
+as
+> > > there's still functions that are called trace_foo() that are not
+> > > tracepoints :-p
+> >
+> > One certain way to eliminate identifier clash would be to go for a
+> > prefix to "trace_", e.g.
+> >
+> > do_trace_foo()
+> > call_trace_foo()
+>
+> This was the initial idea, but it had conflict in the existing source:
+> call_trace_sched_update_nr_running. do_trace_##name also had
+> collisions when I checked. So, went with trace_invoke_##name. Did not
+> check rest of the suggestions here though.
+>
+> Thanks,
+> Vineeth
+>
+> > emit_trace_foo()
+> > __trace_foo()
 
-Not in any way supporting the original patch.  However, the pattern
-ERR, NULL, PTR is used extensively in the dentry code of filesystems.=20
-See the try_lookup..() set of functions in fs/namei.c
+this seems like the best approach, IMO. double-underscored variants
+are usually used for some specialized/internal version of a function
+when we know that some conditions are correct (e.g., lock is already
+taken, or something like that). Which fits here: trace_xxx() will
+check if tracepoint is enabled, while __trace_xxx() will not check and
+just invoke the tracepoint? It's short, it's distinct, and it says "I
+know what I am doing".
 
-The meaning is
-
-PTR - I found it
-NULL - It definitely doesn't exist
-ERR - something went wrong during the lookup.
-
-So I don't think you can blanket say this pattern is wrong.
-
-Regards,
-
-James
-
+> > invoke_trace_foo()
+> > dispatch_trace_foo()
+> >
+> > Thanks,
+> >
+> > Mathieu
+> >
+> >
+> >
+> > --
+> > Mathieu Desnoyers
+> > EfficiOS Inc.
+> > https://www.efficios.com
+>
