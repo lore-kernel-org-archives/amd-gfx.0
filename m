@@ -4,84 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C5FC105F784
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 09:35:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E391105F79D
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 11:49:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1030210EB6A;
-	Fri, 13 Mar 2026 09:35:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0053D10E075;
+	Fri, 13 Mar 2026 11:49:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="wRmmcK/X";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VY2c7QI/";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6268A10EB6C
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 09:35:18 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-48334ee0aeaso17753665e9.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 02:35:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1773394517; x=1773999317; darn=lists.freedesktop.org;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=X5KVDLLntEY3aBzaW52KhFCsM3B+1B+kRyqqtuMhIdk=;
- b=wRmmcK/XE4LmkVk4PtZ7/JEu7CpnmCbNU4aiuVpl/P/nU+35mxfTpgNgC8Qv9M6g3Z
- lBLoykjOMeLgV5tQ6yC5Quabve0BHTFs4UmHc/OjiE0tvhTGzo5HQdUx1D+vRgWCk86a
- S3GtjxSZ2XkLz5yS/M1xSuEwM5ho5jr5LqBmwvW7HBX3s1lDdRTpFslsvFtpBAl9j8b2
- ICSkTv0sWQFvnOlrOI0MH6OHs8VIPGczILZqqY7Lno9uWy9zFQf2Jesma2Hgp/FalBXN
- Ua3yyH1KoPIzVnH58mOYoDWpyUEthgvBR8dt1AqeXsmsJd3UxB4Jo1BJRac2o2/MS6GT
- l+Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773394517; x=1773999317;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=X5KVDLLntEY3aBzaW52KhFCsM3B+1B+kRyqqtuMhIdk=;
- b=gqj/aZaNjkhSTgep+F2Z/XlXzUevRez0KxOjahlgIcFq2CCTz81SzQxELl5YmuxN8j
- UXpFtN2+BnZbCVwA1r7xgXtUFnvNJHXCPrjWc6sqTFvDURJNu0jLOjBszs3YcUB0y8u7
- I9/hndiNur20i771PCv3J+iBIFM7l4WMhg0IIXtw5twafj3I0RXvufeIK+DGs2ZugLKi
- mvrhDq1HIhoYDz9theFTQmLQwr0brTApHYeukmQXxJN9XR2rFjfgGBwwvXpjGwpP9MhU
- 6v44UZ8iZv1YQId/4pyP4Yp3CoMZc6jh0U/+ZtrpHtQyKSzZCDwt9ax6sulqgML/TYq+
- mLZA==
-X-Gm-Message-State: AOJu0YxGD6aITG3f13PLTCjDvXbB27zFhVcSfKOPpy0tiT1TkrvmPOTS
- coZVSjEJ8I4euLJA37py1kiWiZxp0t6y7nzi2+E2tfAUJH0hDRNEdIZBD9QH6EDH9Zo=
-X-Gm-Gg: ATEYQzzlZBMiZR9MJ5DJZrmXN6i8pYSm465YJ9PKilVxIudezeCwYPTHbCzvFS4O2aE
- 4ZmF25anJ5hBez7kdBNLMh82xzl8fafmB99VBbJFEF1UL3u8GnutKOdaGPyMLpsywgT6j5fFjPN
- FM2/S+HLgpL5n22Me+aflrBUgKkv/GFPwmC6NT3Col3aP6VSPWTVS9fPh54WtF9dnAZ6tZfEr1Y
- 9Z6s5GJu1N+EegEKtgmn2Kb5s2BimcNrXixUICuUdn2ZTNsxNpk4F6Eapp80el1ogNvCzOlF3/a
- jCfuwA7hEuXAm4TPehm9OhnRuVTY2BiAP/aG5pDW0aDj2EkfBVkYL3sRKJ5e622qUNHQP12NgY3
- 0XQ8PEiFHbTmr0vcBe3as0Q7JF+TBx58Dk11aoInGNKzDDfdlvAasvbOpN/j+LVt9Al0JtGZYNm
- TMNKb39UVpKfNEEuYdXs8kAXm5GQ80SFrjgz5Xv4KGm1Q/
-X-Received: by 2002:a05:600c:3b16:b0:480:69b6:dfed with SMTP id
- 5b1f17b1804b1-4855671e83bmr38061235e9.24.1773394516446; 
- Fri, 13 Mar 2026 02:35:16 -0700 (PDT)
-Received: from [192.168.0.101] ([90.240.106.137])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48541aa73easm284418175e9.3.2026.03.13.02.35.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Mar 2026 02:35:15 -0700 (PDT)
-Message-ID: <29ce6e2c-5a86-4898-99ee-95711b6f83ff@ursulin.net>
-Date: Fri, 13 Mar 2026 09:35:15 +0000
-MIME-Version: 1.0
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013065.outbound.protection.outlook.com
+ [40.93.196.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C867610E075
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 11:49:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ArYRT7e81Ab1l5vdnR9/AJ/ta2WidZFu6jPr3OVRna838h76AKvytIxT3NooNPO+Px8u4nb2K0CznYQvZrG4uR6T0MBfnApAlG8+6V904KVaKgnHdcEVpBaMQ52TiZwWjYkR5o37cezv/5L8GNMfvsFK1rocTvGcC7NFfR8bE5FuIVaN+NOFKc3/mws0nfKnDbVuDvRmks7Lq+Rok59PalyhVttTh59o81TIaYtCn8nfSOOj9VzvAH5+2yyYlsovMTmFJd1D3XVwaWPS0pYbFjYonkUdL4Ck8uCApHeZTklR/TJkU3WqH98oXG5bt3q8DphAG58BS8xpzfFroTQr4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=egHueVqSqb9kH9EC2G3A+CeFTGvzRoHZjZscmxXCTPc=;
+ b=HEUo0FBgtZ3/VUDJfrv+PEqCV26jJmQFq4Af4vy3MHnICUGX6/7YC9L9qmmlpXOYiCMfqljCJRamJoAjzNDsIWe1NReTrK32ENWlgHN7kZVdGoZHibIdQQuPhBqOEivjXnti17aJwr5j+zLRqA+wcHIx8wKyGHty358imXsImJuWvKb04EAqknKUc8hoXw3I+q3Cd7fQeUIV0eJkeiVKvtFls36hhItUZnXLyC8Cm9NboL6bpTMZ+rdAmiG5U3yCYZQIm+FhfcxLAjjUdO5qxnOMHj1gFqG24D8xDUqycxtzTeCwFDFUmAqfIin3ICmxxIhj5dzGQGSaH1W6p7vwDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=egHueVqSqb9kH9EC2G3A+CeFTGvzRoHZjZscmxXCTPc=;
+ b=VY2c7QI/euOz7tu+91VSqdIJAAFw6LdknnxVE6rGnnwET2p/CR4KPyNksQwaVV3AirxenUNUobVJeruvHfoLNWGWlBGuEtS4WVKctHMwITw+PTryX1kRG11b1WoaqQiv1ft39lwDBdFKqbXujKJMohGJLuFDgRK1KDQEL4c+hiM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV9PR12MB9829.namprd12.prod.outlook.com (2603:10b6:408:2eb::9)
+ by CY5PR12MB6382.namprd12.prod.outlook.com (2603:10b6:930:3e::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.8; Fri, 13 Mar
+ 2026 11:49:25 +0000
+Received: from LV9PR12MB9829.namprd12.prod.outlook.com
+ ([fe80::2bc0:451f:661a:ac32]) by LV9PR12MB9829.namprd12.prod.outlook.com
+ ([fe80::2bc0:451f:661a:ac32%3]) with mapi id 15.20.9723.006; Fri, 13 Mar 2026
+ 11:49:25 +0000
+Message-ID: <8a9ffdb8-d76a-43e7-ad3a-3b0f45d04b1b@amd.com>
+Date: Fri, 13 Mar 2026 19:49:19 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 3/3] drm/amdgpu/userq: fix dma_fence refcount underflow
- in userq path
-To: "Khatri, Sunil" <sukhatri@amd.com>, Sunil Khatri <sunil.khatri@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-References: <20260313072140.3327678-1-sunil.khatri@amd.com>
- <20260313072140.3327678-3-sunil.khatri@amd.com>
- <344dec42-00b1-4870-9f09-8b5fae61878b@ursulin.net>
- <86643e4a-15fb-414a-a06a-a3936413696b@amd.com>
- <a28f8697-da5a-4128-93b2-a06243cc6524@ursulin.net>
- <609153ab-f4b9-4501-8f8c-970847746870@amd.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <609153ab-f4b9-4501-8f8c-970847746870@amd.com>
+Subject: Re: [PATCH v1] drm/amdgpu: Fix ISP regression issue in kernel v7.0
+To: "Nirujogi, Pratap" <Pratap.Nirujogi@amd.com>,
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: "rafael.j.wysocki@intel.com" <rafael.j.wysocki@intel.com>,
+ "Chan, Benjamin (Koon Pan)" <Benjamin.Chan@amd.com>,
+ "Li, King" <King.Li@amd.com>
+References: <20260309215052.1417114-1-pratap.nirujogi@amd.com>
+ <9e175890-0927-4626-9613-7ea9e3f54b21@amd.com>
+ <653ccfa8-8b92-4c47-ae45-5bfa91302f50@amd.com>
+ <0fb83ff2-33ef-443d-a4a1-1608d52d34cc@amd.com>
+ <46fa7959-ff84-4ea8-a17b-3825876b64eb@amd.com>
+Content-Language: en-US
+From: "Du, Bin" <bin.du@amd.com>
+In-Reply-To: <46fa7959-ff84-4ea8-a17b-3825876b64eb@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TP0P295CA0051.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:3::10) To LV9PR12MB9829.namprd12.prod.outlook.com
+ (2603:10b6:408:2eb::9)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV9PR12MB9829:EE_|CY5PR12MB6382:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9786d647-886f-49c4-88bc-08de80f6935a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|921020|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: AXSeB9cJjlL8rlHvXxLLJe/mFQcwp+AGwlx+mTLQtIJr03hSaq2GfpzJbpXti3aDftVFLthDodCJh2MhgjXqVXfGzwILKMGJyNOBt1/5KegZrJBWiZ6+wiFlLFpLKHr7U5VgdZWywek8bKJAf4CXmhXyV+mGzQSQebROMqFyd5HbRjaPfZyMU8wftOJJDUeHXvfaySJWOUjJOw8TaiX7fjG7V76gBrxvJtNb/NR21hbt3WfQbXHzA/pAuQuV1SjxGQauM7PcTdlSeq5RDQ/Y8/Yj9ZHP3UQxTZdAfnNiBUX8xheL0nZypfTMlL6Tlxivj7TH+PJIdwl7eO7v1s/UMQedZ6042hsU2ok+BGMIkVCA/FablDnM5T8YB6Ou0F0z5NDdncV7CaUwKJCniLCaPK6xA3YPhVSICIB56wX7RKMEt3L0Db78VotZK6VflyZt4WYMOuDqvRyamuwvARrfPOwQuNxJD6A2vnubpBHo3uQpvanVze3Zk1KEux2UEVUv9OGcpZjOmBxlWq7LxeuAO2A5/X/bmmdXNmNiUOm/y7R5encDRX0Wwhiq7SfosfAn4cX0htMl6SAAS7qcevF7TL3eVW3xLiom38Fxb7FxATyUHB398Ix9HfhngMjCVHPIMj1VPSyDPvbzwagZ7YjuP/LLjMmMTIQG+BFAELDb9/VGNYRhBqc4bRYA3Cri+Lm5JRNrRp1N8klFXF5TLtA7J+L7kh1IoowHWEni83LxsTVvI260IvPOze1NDFUCJfZ82m+HUs8Ssttu34dUsB1t+hAKthIKSHzRF/GzT+AhgiU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV9PR12MB9829.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(921020)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aEJ6RkpYM1FpVytaTGcveDZkbU5UQXU5Q243VldXNVJKdllIekdvbHlkYU8x?=
+ =?utf-8?B?MWZCQWpxMjNJbHk0aW45VG9FWlF1NiswK0VTZExCTmE0ZlBJWFhDMUhLUVR2?=
+ =?utf-8?B?NW5tQ2YvYU9FZll4Q3BDUGVoZ3N5MzFyWDFKSDdkUXZXclh0bCtjVm05Q3By?=
+ =?utf-8?B?MkFIeUxXd0VaSEZoN3lESWpTckhNZmpUUDFEejVVekQ5RkYxMFRxVTJMa0Ry?=
+ =?utf-8?B?dXZJWHlQQjRmY2tGSG1ZOTZQbUtIV2VXTDhDRVhlTy96QXJiZk9yLzVEZjlI?=
+ =?utf-8?B?dWdJdDI4TmthZCtpaVJvNkpxWHdCQkdNcGRBaDNDNmh1NmZJNDBsODU3QTcx?=
+ =?utf-8?B?eVdhSHZnMnNpaExqTkpVNUxXZjkxbHdnT1FOdENhNXJyb2p4VUJoVjZoV052?=
+ =?utf-8?B?alBIaERMUndKTDI5V2pxSXBvZHp2OUZIK25zRDAwaFlkU1lsSkZjUnZud1pB?=
+ =?utf-8?B?QVJNa1ZaY04vR1Roc2daRU5aNm9wTnN3aDBVM0ZFRytvaE9WMTZRWUR1a1Jj?=
+ =?utf-8?B?NXNmeFFuczFEYzFKQ0VCbGZubERSdnNkc0paRmtUWVJqZm9YR0hZS3pseVBO?=
+ =?utf-8?B?Ti96eUFOR0FWSzU0RWVGYTRFM0hLV0FLb0dIcVpnZnBxcjNtWk5BdWtmQnA2?=
+ =?utf-8?B?M1U0dkZzd2NVRlp0V2VGZDVZU2NZZ3AyUEVSYzVLUkNkUnpyQ3FKaTF4cnFk?=
+ =?utf-8?B?UkR1UmhvYkI1c0toZW5LOS9DVGJNZmMyZVhpb2MremJEZ0g4eVBiMVNidUJr?=
+ =?utf-8?B?OXpISHhYbzFGLy92SGMvUWsvQmlqNTlWcTlhUFdPNXFyYmd1cERIL25nbm1k?=
+ =?utf-8?B?TldNWTZ4U1NnZ1Z4dEpGVE4yR00wS2U2Rm9nRzBMbk1xd25oamVYTHhLdzRk?=
+ =?utf-8?B?Y0R4enQwbEJZQTA2QVcrSE1zV1gvNmNya0o5eHF0WkxvazlsbDBUeWRpWStP?=
+ =?utf-8?B?VTUwczdEeTIrcXV6ZUJOcTZ5dllxbitxNXB2K0VCM21uUytxM2l5YlNadGVS?=
+ =?utf-8?B?ZkhxaFFWcFNqWUFHRWtwQWcyOE1OaTMwT0lybzR5QTBQNWhPVnFLVFJzaG1y?=
+ =?utf-8?B?TVF4bm93QjA2NXJDTkhKeTdKSE1mWGFRQWIxZUp0QUNTcmxVR2FXY1ZyMEE3?=
+ =?utf-8?B?VUh5c1hIL3FidjkrTFJqMGI5YXhFdU9zVmtGdk04cEtGbU5uQ1dFT01Wajk5?=
+ =?utf-8?B?aXZHL09TMnZqMEQrQkJEcDRmd3ZLMHVWTkhOVFdIU2FVRFFzKyszSU5VdXQ4?=
+ =?utf-8?B?WFdxRFVkZThtaU5KMm9heWpUKzU5MVFVMEhhZk1uVmRIV0ZHSjE2dVMrcWs0?=
+ =?utf-8?B?aWt4bmVCeC9Dc1dvcFZGVkRDWEhuRWxLVnRUemZ5T1JHTURPVVVsVEV1aHVO?=
+ =?utf-8?B?cHZPMnR4SU1DK0orbzJLNkJ6aFFxaFZUb2Z3a0x0YXhOSEsrdmpqZnZPUVl5?=
+ =?utf-8?B?UkFhWmc1UTJ6WTVRMkVhanJwWW95N3RSRjZTbzM5eDA5ZmIvNEhtQWp2YU1i?=
+ =?utf-8?B?WFBPdGoyYXRIbkRNbUtyYVJaNEwyUms1N2VVMVBiMW9pS3RqbC93RGIrdHFW?=
+ =?utf-8?B?U21mMTlxUk94NjNwajFMNHpjNDMxNUZiK0FPMG5UcHMyRXJiY09KaDgweGdj?=
+ =?utf-8?B?TWIyREV0N3QvdmRIalUyTmw2V3VSL21lc2hLSDVQVFAxR25jdU9aZE5zZk9l?=
+ =?utf-8?B?Yldxa0NnQStWKzgwR2V2bzhndFZXZ3BiWlVxbkNXWXFpbVRzVEdtNHczclVG?=
+ =?utf-8?B?MkdobnFoN3ZyVXdqeU9OTmhiNjFxcmxhMm9GY2VWdEhOT09TUUo3bEowQ3BU?=
+ =?utf-8?B?b29odi9qelRHZDlkVWpPR092WWVBaTVpM0U3ejloUjZZcElhY0I1aXpCSDVy?=
+ =?utf-8?B?eUhRN3FXc1VVUVlyMnpxcmwvR2R6bUpGK0F3SExDNGNQQzBFK3VPc2tQU2lJ?=
+ =?utf-8?B?MHA3dWZ5QmJud2VnVjN6bUVhZUJPVEtmNXNVa1RPMWg1emdiMHA5UDlCSGdt?=
+ =?utf-8?B?SjNYeGorTGR2RDAxdkYrUGM2RVdnNXNKa3FUU1M5eFJvZGl1c2RJdE5YbXJK?=
+ =?utf-8?B?UkFhSzZxT0JMQnBMQUlSYzJmcmFsL1RmWXdpR1M0d3YwRHEzcTBYM2VFNXJ3?=
+ =?utf-8?B?NlpXeUhwZ1NXaUJUNlJ2dWptSmdtYTNJcFgzQ1pUYW1OSEt5dkMxbTFhbW0r?=
+ =?utf-8?B?WGNkeUYvT0M0eUVHN3FZKzl5aXFQRVdqQTFIeWJaZ3NiMm5vcExLMzRNaGRF?=
+ =?utf-8?B?dDhOa3NiQ1FsRDA3MThBNFZGaE1EdkY1NXZheUNna1RhN1BsOWJEV3pJSVA5?=
+ =?utf-8?Q?gkqGsu6T4xhiTI1CtH?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9786d647-886f-49c4-88bc-08de80f6935a
+X-MS-Exchange-CrossTenant-AuthSource: LV9PR12MB9829.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 11:49:25.8428 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mfm9vhmSqKM8+SPoMel1BYLtVqSb0Pf5xVMcu/eEfI/uRBzE/V8zgBFeRTPnSBSl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6382
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,227 +145,232 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Pratap,
 
-On 13/03/2026 08:53, Khatri, Sunil wrote:
-> 
-> On 13-03-2026 02:20 pm, Tvrtko Ursulin wrote:
+FYI, the following patch may resolve the AMD ISP driver not auto-loading 
+issue (without using MODULE_SOFTDEP). Please double check.
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c 
+b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 920595f0d22c..95d26f086d54 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -3212,4 +3212,3 @@ module_exit(amdgpu_exit);
+  MODULE_AUTHOR(DRIVER_AUTHOR);
+  MODULE_DESCRIPTION(DRIVER_DESC);
+  MODULE_LICENSE("GPL and additional rights");
+-MODULE_SOFTDEP("post: amd_isp4_capture i2c-designware-amdisp 
+pinctrl-amdisp");
+\ No newline at end of file
+diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c 
+b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+index 485ecdec9618..409c1ca5a5e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+@@ -118,6 +118,29 @@ static int isp_set_performance_state(struct 
+generic_pm_domain *genpd,
+         return 0;
+  }
+
++/*
++ * MFD core sets the parent GPU's ACPI companion (LNXVIDEO) on each
++ * child, giving them modalias "acpi:LNXVIDEO:" instead of
++ * "platform:<name>".  Clear it and retrigger the uevent so udev
++ * sees the correct platform modalias for module autoloading.
++ */
++static int isp_clear_acpi_fwnode(struct device *dev, void *data)
++{
++       struct platform_device *pdev;
++
++       if (!dev->type || !dev->type->name ||
++           strcmp(dev->type->name, "mfd_device"))
++               return 0;
++
++       pdev = to_platform_device(dev);
++       if (pdev->mfd_cell) {
++               device_set_node(dev, NULL);
++               kobject_uevent(&dev->kobj, KOBJ_ADD);
++       }
++
++       return 0;
++}
++
+  static int isp_genpd_add_device(struct device *dev, void *data)
+  {
+         struct generic_pm_domain *gpd = data;
+@@ -375,6 +398,13 @@ static int isp_v4_1_1_hw_init(struct amdgpu_isp *isp)
+                 goto failure;
+         }
+
++       /*
++        * MFD core sets the parent GPU's ACPI companion (LNXVIDEO) on
++        * each child, giving them modalias "acpi:LNXVIDEO:" instead of
++        * "platform:<name>". Clear it so udev matches by platform alias.
++        */
++       device_for_each_child(isp->parent, NULL, isp_clear_acpi_fwnode);
++
+         return 0;
+
+  failure:
+
+>-----Original Message-----
+>From: Nirujogi, Pratap <Pratap.Nirujogi@amd.com>
+>Sent: Wednesday, March 11, 2026 11:29 PM
+>To: Limonciello, Mario <Mario.Limonciello@amd.com>; Nirujogi, Pratap
+><Pratap.Nirujogi@amd.com>; amd-gfx@lists.freedesktop.org; Deucher,
+>Alexander <Alexander.Deucher@amd.com>; Limonciello, Mario
+><Mario.Limonciello@amd.com>; Koenig, Christian
+><Christian.Koenig@amd.com>
+>Cc: rafael.j.wysocki@intel.com; Chan, Benjamin (Koon Pan)
+><Benjamin.Chan@amd.com>; Du, Bin <Bin.Du@amd.com>; Li, King
+><King.Li@amd.com>
+>Subject: Re: [PATCH v1] drm/amdgpu: Fix ISP regression issue in kernel v7.0
+>
+>
+>
+>On 3/11/2026 1:26 AM, Mario Limonciello wrote:
 >>
->> On 13/03/2026 08:43, Khatri, Sunil wrote:
+>>
+>> On 3/10/2026 5:52 PM, Nirujogi, Pratap wrote:
 >>>
->>> On 13-03-2026 02:07 pm, Tvrtko Ursulin wrote:
+>>>
+>>> On 3/9/2026 5:58 PM, Mario Limonciello wrote:
 >>>>
->>>> On 13/03/2026 07:21, Sunil Khatri wrote:
->>>>> An extra dma_fence_put() can drop the last reference to a fence 
->>>>> while it is
->>>>> still attached to a dma_resv object. This frees the fence 
->>>>> prematurely via
->>>>> dma_fence_release() while other users still hold the pointer.
+>>>>
+>>>> On 3/9/2026 4:50 PM, Pratap Nirujogi wrote:
+>>>>> Add NULL pointer checks for dev->type before accessing
+>>>>> dev->type->name in ISP genpd add/remove functions to
+>>>>> prevent kernel crashes. Also add MODULE_SOFTDEP to ensure ISP
+>>>>> driver dependencies are loaded in correct order.
 >>>>>
->>>>> Later accesses through dma_resv iteration may then operate on the 
->>>>> freed
->>>>> fence object, leading to refcount underflow warnings and potential 
->>>>> hangs
->>>>> when walking reservation fences.
+>>>>> The regression was introduced in kernel v7.0 where MFD ISP device
+>>>>> enumeration doesn't complete by the time it is added to gendp. The
+>>>>> timing of ISP device enumeration has changed because of the changes
+>>>>> in registering the device sources in the device hierarchy.
+>>>>
+>>>> It's a little bit pedantic; but I /think/ there are two different
+>>>> problems here with two different root causes that both happened in
+>>>> 7.0-rc.
+>>>>
+>>>> As a consequence I think you should have this split out as two
+>>>> separate patches in a series linked to a Fixes tag with the reason
+>>>> for each of them.
+>>>>
+>>> Hi Mario,
+>>>
+>>> Few things to clarify before I split into 2 patches and submit v2.
+>>>
+>>> - Yes, you are correct, the changes in this patch are not directly
+>>> related to the Fixes tag 02c057ddefef mentioned. But since it has the
+>>> dependency on the below patch for automatic modprobe of isp to work,
+>>> I have used the same tag to cover the dependency. My apologies if
+>>> this approach is incorrect and misleading.
+>>>
+>>> https://lore.kernel.org/all/5986516.DvuYhMxLoT@rafael.j.wysocki/
+>>>
+>>> - NULL dereferencing issue with dev->type observed on v7.0 is
+>>> specific to this commit 057edc58aa5926d63840c7f30afe0953d3994fa3. As
+>>> the wakeup sources are registered using physical device instead of
+>>> ACPI device, wakeup source device (wakeup14) is added as the first
+>>> child of AMDGPU device; and since its dev->type is not initialized
+>>> properly it has resulted in segfault.
+>>
+>> Sure this makes sense and is a no brainer to get in.  I would just
+>> send this one right now and we can keep noodling on MODULE_SOFTDEP
+>> (more comments below).
+>>
+>thanks, I’ll go ahead and send this one out now and will submit the
+>MODULE_SOFTDEP change separately after the root cause is identified ( more
+>details below ).
+>
+>>>
+>>> In 6.19-rc4 or earlier versions, this issue was not observed as the
+>>> wakeup source device was never part of AMDGPU children list.
+>>>
+>>> For the changes in isp_v4_1_1.c, I will use Fixes tag 057edc58aa59 in v2.
+>>>
+>>> - MODULE_SOFTDEP change in amdgpu_drv.c is needed for automatic
+>>> modprobe of isp (and other amdgpu mfd child devices) to work in v7.0.
+>>> But couldn't identify the specific commit in v7.0 that is causing the
+>>> issue. I can confirm it is not because of commit 057edc58aa59 as the
+>>> automatic modprobe doesn't work even on reverting this commit. Can I
+>>> submit this as the fix needed for isp probe to work in v7.0 without
+>>> the fixes tag?
+>>>
+>>
+>> MODULE_SOFTDEP is generally for ordering, but I don't think you have
+>> an issue with those modules loading before amdgpu do you?  I'm not
+>> really following why the modaliases stopped working and I'm a bit
+>> worried that it's papering over a more nuanced issue still.
+>>
+>yes, this explicit load‑order dependency was not required earlier. I agree that
+>the regression point is not clearly identified. I will identify the bisected commit
+>and submit the patch later.
+>
+>> To identify the root cause, it might be helpful to do a bisect,
+>> although it's a bit complicated.
+>> 1) At any point that has that platform driver conversion you need to
+>> either revert or add the change to auxillary
+>> 2) At any point that has 057edc58aa5926d63840c7f30afe0953d3994fa3 you
+>> need to apply the NULL pointer derf fix
+>> 3) At any point that has the changes in linux-media for API
+>> adjustments in 7.0 you'll need to pick what version of ISP series to apply.
+>>
+>I tried #1, #2 and few other combinations, but none of them helped. I will
+>investigate further to identify the commit causing the issue.
+>>
+>>> Thanks,
+>>> Pratap
+>>>
 >>>>>
->>>>> Fix this by correcting the fence lifetime so the dma_resv object 
->>>>> retains a
->>>>> valid reference until it is done with the fence.
->>>>>
->>>>> [   31.133803] refcount_t: underflow; use-after-free.
->>>>> [   31.133805] WARNING: lib/refcount.c:28 at 
->>>>> refcount_warn_saturate+0x58/0x90, CPU#18: kworker/u96:1/188
->>>>> [   31.133815] Modules linked in: snd_seq_dummy snd_hrtimer qrtr 
->>>>> binfmt_misc nls_iso8859_1 snd_hda_codec_alc882 
->>>>> snd_hda_codec_realtek_lib snd_hda_codec_generic 
->>>>> snd_hda_codec_atihdmi snd_hda_codec_hdmi snd_hda_intel amd_atl 
->>>>> snd_hda_codec intel_rapl_msr intel_rapl_common amdgpu snd_hda_core 
->>>>> snd_intel_dspcfg amdxcp snd_intel_sdw_acpi 
->>>>> drm_panel_backlight_quirks snd_hwdep gpu_sched drm_buddy snd_pcm 
->>>>> drm_ttm_helper ttm drm_exec drm_suballoc_helper snd_seq_midi 
->>>>> drm_client_lib snd_seq_midi_event drm_display_helper snd_rawmidi 
->>>>> cec snd_seq edac_mce_amd ghash_clmulni_intel snd_seq_device 
->>>>> aesni_intel rc_core drm_kms_helper gigabyte_wmi snd_timer wmi_bmof 
->>>>> rapl k10temp video i2c_piix4 snd i2c_smbus input_leds soundcore 
->>>>> joydev ccp mac_hid sch_fq_codel msr parport_pc ppdev lp parport drm 
->>>>> efi_pstore nfnetlink dmi_sysfs autofs4 hid_generic usbhid hid nvme 
->>>>> igb ahci i2c_algo_bit dca libahci nvme_core wmi
->>>>> [   31.133932] CPU: 18 UID: 0 PID: 188 Comm: kworker/u96:1 Not 
->>>>> tainted 6.19.0-amd-staging-drm-next #28 PREEMPT(voluntary)
->>>>> [   31.133937] Hardware name: Gigabyte Technology Co., Ltd. X570 
->>>>> AORUS ELITE/X570 AORUS ELITE, BIOS F37c 05/12/2022
->>>>> [   31.133940] Workqueue: sdma1 drm_sched_run_job_work [gpu_sched]
->>>>> [   31.133951] RIP: 0010:refcount_warn_saturate+0x58/0x90
->>>>> [   31.133955] Code: 74 2f 83 fe 01 75 38 48 8d 3d a4 2c 91 01 67 
->>>>> 48 0f b9 3a eb 36 48 8d 3d a6 2c 91 01 67 48 0f b9 3a eb 28 48 8d 
->>>>> 3d a8 2c 91 01 <67> 48 0f b9 3a eb 1a 48 8d 3d aa 2c 91 01 67 48 0f 
->>>>> b9 3a eb 0c 48
->>>>> [   31.133959] RSP: 0018:ffffca16807dfd68 EFLAGS: 00010246
->>>>> [   31.133962] RAX: ffff89e988f05600 RBX: 0000000000000000 RCX: 
->>>>> 0000000000000000
->>>>> [   31.133965] RDX: 0000000000000000 RSI: 0000000000000003 RDI: 
->>>>> ffffffffa1fd2f30
->>>>> [   31.133967] RBP: ffffca16807dfd68 R08: 0000000000000000 R09: 
->>>>> 0000000000000000
->>>>> [   31.133969] R10: 0000000000000000 R11: 0000000000000000 R12: 
->>>>> ffff89e98edf1308
->>>>> [   31.133971] R13: ffff89e9d3001380 R14: ffff89e9dab5f800 R15: 
->>>>> ffff89e9dab5f880
->>>>> [   31.133974] FS:  0000000000000000(0000) 
->>>>> GS:ffff89ed0cc3e000(0000) knlGS:0000000000000000
->>>>> [   31.133976] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->>>>> [   31.133979] CR2: 00007f3050081c28 CR3: 0000000117f06000 CR4: 
->>>>> 0000000000350ef0
->>>>> [   31.133982] Call Trace:
->>>>> [   31.133985]  <TASK>
->>>>> [   31.133989]  drm_sched_entity_pop_job+0x414/0x420 [gpu_sched]
->>>>> [   31.133997]  drm_sched_run_job_work+0x15f/0x3c0 [gpu_sched]
->>>>> [   31.134003]  process_scheduled_works+0x1f0/0x450
->>>>> [   31.134011]  worker_thread+0x27f/0x370
->>>>> [   31.134016]  kthread+0x1ed/0x210
->>>>> [   31.134020]  ? __pfx_worker_thread+0x10/0x10
->>>>> [   31.134023]  ? srso_return_thunk+0x5/0x5f
->>>>> [   31.134027]  ? __pfx_kthread+0x10/0x10
->>>>> [   31.134031]  ret_from_fork+0x10f/0x1b0
->>>>> [   31.134035]  ? __pfx_kthread+0x10/0x10
->>>>> [   31.134039]  ret_from_fork_asm+0x1a/0x30
->>>>> [   31.134047]  </TASK>
->>>>> [   31.134049] ---[ end trace 0000000000000000 ]---
->>>>> ...
->>>>> [   56.544104] watchdog: BUG: soft lockup - CPU#9 stuck for 26s! 
->>>>> [glxgears:cs0:3483]
->>>>> [   56.544108] Modules linked in: snd_seq_dummy snd_hrtimer qrtr 
->>>>> binfmt_misc nls_iso8859_1 snd_hda_codec_alc882 
->>>>> snd_hda_codec_realtek_lib snd_hda_codec_generic 
->>>>> snd_hda_codec_atihdmi snd_hda_codec_hdmi snd_hda_intel amd_atl 
->>>>> snd_hda_codec intel_rapl_msr intel_rapl_common amdgpu snd_hda_core 
->>>>> snd_intel_dspcfg amdxcp snd_intel_sdw_acpi 
->>>>> drm_panel_backlight_quirks snd_hwdep gpu_sched drm_buddy snd_pcm 
->>>>> drm_ttm_helper ttm drm_exec drm_suballoc_helper snd_seq_midi 
->>>>> drm_client_lib snd_seq_midi_event drm_display_helper snd_rawmidi 
->>>>> cec snd_seq edac_mce_amd ghash_clmulni_intel snd_seq_device 
->>>>> aesni_intel rc_core drm_kms_helper gigabyte_wmi snd_timer wmi_bmof 
->>>>> rapl k10temp video i2c_piix4 snd i2c_smbus input_leds soundcore 
->>>>> joydev ccp mac_hid sch_fq_codel msr parport_pc ppdev lp parport drm 
->>>>> efi_pstore nfnetlink dmi_sysfs autofs4 hid_generic usbhid hid nvme 
->>>>> igb ahci i2c_algo_bit dca libahci nvme_core wmi
->>>>> [   56.544166] CPU: 9 UID: 0 PID: 3483 Comm: glxgears:cs0 Tainted: 
->>>>> G        W           6.19.0-amd-staging-drm-next #28 
->>>>> PREEMPT(voluntary)
->>>>> [   56.544170] Tainted: [W]=WARN
->>>>> [   56.544171] Hardware name: Gigabyte Technology Co., Ltd. X570 
->>>>> AORUS ELITE/X570 AORUS ELITE, BIOS F37c 05/12/2022
->>>>> [   56.544172] RIP: 0010:dma_resv_iter_walk_unlocked+0x4e/0x180
->>>>> [   56.544179] Code: 45 31 ed eb 0e 41 8b 46 08 41 3b 46 18 0f 83 
->>>>> 23 01 00 00 49 8b 46 10 48 85 c0 74 20 48 8d 78 38 b9 ff ff ff ff 
->>>>> f0 0f c1 48 38 <83> f9 01 75 07 e8 78 ce ff ff eb 06 0f 8c e3 00 00 
->>>>> 00 41 8b 46 1c
->>>>> [   56.544180] RSP: 0018:ffffca16865bb870 EFLAGS: 00000217
->>>>> [   56.544182] RAX: ffff89e997f38d80 RBX: 0000000000000005 RCX: 
->>>>> 0000000000000006
->>>>> [   56.544183] RDX: 0000000000000001 RSI: 0000000000000000 RDI: 
->>>>> ffff89e997f38db8
->>>>> [   56.544184] RBP: ffffca16865bb898 R08: 0000000000000000 R09: 
->>>>> 0000000000000000
->>>>> [   56.544185] R10: 0000000000000000 R11: 0000000000000000 R12: 
->>>>> ffffca16865bb8c0
->>>>> [   56.544186] R13: 0000000000000000 R14: ffffca16865bb8a8 R15: 
->>>>> ffff89e997f38d80
->>>>> [   56.544187] FS:  00007f8f8d3ff6c0(0000) 
->>>>> GS:ffff89ed0c9fe000(0000) knlGS:0000000000000000
->>>>> [   56.544189] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->>>>> [   56.544190] CR2: 00007f8f9b735020 CR3: 0000000117f06000 CR4: 
->>>>> 0000000000350ef0
->>>>> [   56.544191] Call Trace:
->>>>> [   56.544193]  <TASK>
->>>>> [   56.544197]  dma_resv_wait_timeout+0x55/0x190
->>>>> [   56.544202]  amdgpu_bo_kmap+0x3a/0xa0 [amdgpu]
->>>>> [   56.544502]  amdgpu_userq_fence_read_wptr+0x130/0x2e0 [amdgpu]
->>>>> [   56.544670]  amdgpu_userq_signal_ioctl+0x1f6/0x5e0 [amdgpu]
->>>>> [   56.544847]  ? srso_return_thunk+0x5/0x5f
->>>>> [   56.544851]  ? amdgpu_userq_wait_ioctl+0xab7/0xb80 [amdgpu]
->>>>> [   56.545021]  ? __pfx_amdgpu_userq_signal_ioctl+0x10/0x10 [amdgpu]
->>>>> [   56.545190]  drm_ioctl_kernel+0xd9/0x150 [drm]
->>>>> [   56.545222]  drm_ioctl+0x29a/0x4a0 [drm]
->>>>> [   56.545245]  ? __pfx_amdgpu_userq_signal_ioctl+0x10/0x10 [amdgpu]
->>>>> [   56.545422]  ? srso_return_thunk+0x5/0x5f
->>>>> [   56.545426]  amdgpu_drm_ioctl+0x46/0x90 [amdgpu]
->>>>> [   56.545595]  __se_sys_ioctl+0x73/0xd0
->>>>> [   56.545600]  __x64_sys_ioctl+0x1d/0x30
->>>>> [   56.545602]  x64_sys_call+0x1715/0x2d00
->>>>> [   56.545604]  do_syscall_64+0x7c/0x6a0
->>>>> [   56.545608]  ? __pfx_amdgpu_userq_wait_ioctl+0x10/0x10 [amdgpu]
->>>>> [   56.545778]  ? srso_return_thunk+0x5/0x5f
->>>>> [   56.545781]  ? amdgpu_drm_ioctl+0x6c/0x90 [amdgpu]
->>>>> [   56.545950]  ? srso_return_thunk+0x5/0x5f
->>>>>
->>>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+>>>>> Co-developed-by: Bin Du <Bin.Du@amd.com>
+>>>>> Fixes: 02c057ddefef ("ACPI: video: Convert the driver to a platform
+>>>>> one")
+>>>>> Signed-off-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
 >>>>> ---
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 6 +-----
->>>>>   1 file changed, 1 insertion(+), 5 deletions(-)
+>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
+>>>>>   drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c | 4 ++--
+>>>>>   2 files changed, 3 insertions(+), 2 deletions(-)
 >>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/ 
->>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>>> index 146ca6d7f4f5..442c08b69f7c 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>>> @@ -882,12 +882,9 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
->>>>> *dev, void *data,
->>>>>                    * be good for now
->>>>>                    */
->>>>>                   r = dma_fence_wait(fences[i], true);
->>>>> -                if (r) {
->>>>> -                    dma_fence_put(fences[i]);
->>>>> +                if (r)
->>>>>                       goto free_fences;
->>>>> -                }
->>>>>   -                dma_fence_put(fences[i]);
->>>>>                   continue;
->>>>>               }
->>>>>   @@ -909,7 +906,6 @@ int amdgpu_userq_wait_ioctl(struct drm_device 
->>>>> *dev, void *data,
->>>>>               fence_info[cnt].va = fence_drv->va;
->>>>>               fence_info[cnt].value = fences[i]->seqno;
->>>>>   -            dma_fence_put(fences[i]);
->>>>>               /* Increment the actual userq fence count */
->>>>>               cnt++;
->>>>>           }
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/
+>>>>> drm/amd/amdgpu/amdgpu_drv.c index 95d26f086d545..920595f0d22ca
+>>>>> 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+>>>>> @@ -3212,3 +3212,4 @@ module_exit(amdgpu_exit);
+>>>>>   MODULE_AUTHOR(DRIVER_AUTHOR);
+>>>>>   MODULE_DESCRIPTION(DRIVER_DESC);
+>>>>>   MODULE_LICENSE("GPL and additional rights");
+>>>>> +MODULE_SOFTDEP("post: amd_isp4_capture i2c-designware-amdisp
+>>>>> pinctrl- amdisp");
+>>>>> \ No newline at end of file
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c b/drivers/gpu/
+>>>>> drm/amd/amdgpu/isp_v4_1_1.c index b3590b33cab9e..485ecdec96184
+>>>>> 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c
+>>>>> @@ -129,7 +129,7 @@ static int isp_genpd_add_device(struct device
+>>>>> *dev, void *data)
+>>>>>       if (!pdev)
+>>>>>           return -EINVAL;
+>>>>> -    if (!dev->type->name) {
+>>>>> +    if (!dev->type || !dev->type->name) {
+>>>>>           drm_dbg(&adev->ddev, "Invalid device type to add\n");
+>>>>>           goto exit;
+>>>>>       }
+>>>>> @@ -165,7 +165,7 @@ static int isp_genpd_remove_device(struct
+>>>>> device *dev, void *data)
+>>>>>       if (!pdev)
+>>>>>           return -EINVAL;
+>>>>> -    if (!dev->type->name) {
+>>>>> +    if (!dev->type || !dev->type->name) {
+>>>>>           drm_dbg(&adev->ddev, "Invalid device type to remove\n");
+>>>>>           goto exit;
+>>>>>       }
 >>>>
->>>> I have to say the commit message confused me a bit, but the fix 
->>>> looks correct. I say confused because isn't it a simple case of 
->>>> amdgpu_userq_wait_ioctl() doing a potential double put? First one 
->>>> when the dma_fence_wait() above fails or succeeds, and the second 
->>>> one in the unwind loop. Which means it was me who broke it yet 
->>>> again. :(
 >>>>
->>>> Fixes: bea29bb0dd29 ("drm/amdgpu/userq: Consolidate wait ioctl exit 
->>>> path")
->>>>
->>>> Right? But please double check because I am obviously having a bad 
->>>> period.
->>> Haha it happens and very easy to miss such things. But yes, this 
->>> happens with that patch as it seems to be working fine for some time 
->>> when i tested before. Yes that triggered that and doing the dma_put 
->>> more in clean up too. It is getting fixes with this patch for sure.
+>>>
 >>
->> I forgot a:
->>
->> Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->>
->> But please improve the commit message because the bug is much simpler 
->> than it currently describes. Simple double put in all cases if I am 
->> not blind.
-> Sure
->>
->> Btw does something from IGT catch these bugs?
-> 
-> IGT Still passes the test. I ran glxgears test with multiple threads, 
-> but i think a single thread should also catch this as it is seen every 
-> time. I run such with every commit i push in userq since there is no CI 
-> validation in userqueues yet.
-
-Is a special Mesa build needed or some environment variable for this?
 
 Regards,
-
-Tvrtko
-
+Bin
