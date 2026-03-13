@@ -4,79 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45E2F107BCD6
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C45CF107BCD4
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:51:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E561210ECC0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AF6810ECB5;
 	Fri, 13 Mar 2026 16:51:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jVhvGoYp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Xf6siehN";
 	dkim-atps=neutral
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEDC010EC00
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:40 +0000 (UTC)
-Received: by mail-oi1-f179.google.com with SMTP id
- 5614622812f47-466f935a82fso1463813b6e.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:40 -0700 (PDT)
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
+ [209.85.167.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09C3E10EC2D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:11 +0000 (UTC)
+Received: by mail-oi1-f176.google.com with SMTP id
+ 5614622812f47-45f053b7b90so1445182b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408220; x=1774013020; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408310; x=1774013110; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=o/myr2hp6uBA+KWlkM+krb2AJfDnLypCssuuL9Sraxc=;
- b=jVhvGoYp6rfuAQ10yhKjzqhklqPSPBHipCLjN+5ipZaKcS6lRYc07qkGIYRis3KARY
- mqs/lChGHPzbTEkbh1s/OyV7/RhOlJ6YwXganhTkOa1hLMQD/aBOsNvKg+MWYP1eyp3o
- 0rd7HrhtNT7WxPEnARIwgGzS4oLabp1S0v8zpwNrpLDK1sAV2ALupqwdDa1m/dRbmLm7
- cv9LwknhqO2C8HcGchR9mozFcudxXyRxDxdrIGms9/auXb2tiK27NEigRaasXZOrG8sp
- FdiUj6HMfsxVJiwzIxGeNBay4fTcN2UyL0a34x9kZ4Ih6p+x4dN77aE5WIq/UXMSlL1U
- Iblg==
+ bh=BxHe4+DOmq20FSC3herHJvg5metbXtBJFuJ219tBZ0M=;
+ b=Xf6siehNjFLZmeEgQQjXRyZVc6onqF1TTF0KANSL+iqu1ysJM/IcBVie0OhbepNZgD
+ JIVWUUgJQ3u/d3nm4jFrBp9UcD6aA5PTkHPMbUTh//17JBrKPPWftJ8PKzNo3ZyUv7de
+ Fd1VN3FR6n0Q1p6Az/4Oo9YCfm1ie7xFbsLaNtTr6MlxwRerxmfevrDwGEErEcfnSbtD
+ y0DRjv8zS6+DgKKjzJ/ZrlJebW2YNHhGAhFo3e6HQrb/tzxhQdQ/r4MeQdjX6aDQVNkG
+ Pw+/iz5idWPoJ3Y6+o5j3xedMJCycXyoikbhYygCvfU4UZoOWvmu3bWK6CYwUB8+LPV+
+ WF3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408220; x=1774013020;
+ d=1e100.net; s=20251104; t=1773408310; x=1774013110;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=o/myr2hp6uBA+KWlkM+krb2AJfDnLypCssuuL9Sraxc=;
- b=Z71o5ZoDOPqTzQ7LQ47ivtVxtmBM8DKRe7XsKg7NKV4wqyI0CwHUGdwYZCmZ49g1QE
- o3x+vM8Xuf+S+uU9vg4xZ6QEY349Kj57DEI+7gMNeFIAQkIOcfUJrcvckF5sBj1W8AgP
- 1hH0EBbc8+ubdI5IDScdABnob/gBePehfL7pJj4FZZUh+LCnWyD8dQujxntOLis5uDPu
- EcLYe01QgH4AH7UsooIhsUEj8kiL2WrKDnrc5VILY07EsOFazeS9ylNGJpFngou+NE7I
- 7LCc2I6+1Zeiq50bWkcFZa/sUAuSkoPmsUbpxRjdBVcbpAyjV5IMSkRl5AePxVas3k8K
- WFVQ==
+ bh=BxHe4+DOmq20FSC3herHJvg5metbXtBJFuJ219tBZ0M=;
+ b=K89B6P+KBuP1t0VhdlYwionuFM5of0q44wgfLY4Qtf7dIvYKAEOIabVaYnX3b1RbAp
+ r6ho5M9N1Vbss380QBBcPFM1djCESJZA/0tNDDE0atHV/rCHdrjl4RpxbcyGS/F1sW95
+ iryOwx4oUMhy+WID5GU56MWrkZVbVZBDaWgX7gr5j/JRZ49UAPxnLehhRrO7z2L7Ew5w
+ ZC/TTgIFKUNMX/S+HVXqJWuIyZdAlD6V6q7AXUDF10IocEumcWNApTC4bcvWb0Zexh4U
+ OjPTfeCZW8mw9lr7pefXxdAItKPTzp00KuXAMFQQ4KOwU43wXtiLaitu50cO0MqQ+XpT
+ 1FlA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVv8EXJBlx9L0jCWTxHOQC9+BvMCP7kWkcc0yVhhCHAb5sIXwEKOFgzpjTFe5X29jOFZyHlooU9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwmwDF+D4UqjdxsyC+mPccuL5imO72qjfd/RXbq3WsxwBIYNqOj
- M6gW96OmzDHfckZwm3rhYes5TGHMgDocfgGV+uSf5l0r+98fb6DDGtur
-X-Gm-Gg: ATEYQzwYyQJE2mmb0SqQtb0P67YvNvxQssB6OzWl1ckPMlqGNO6AXFun+4yVTgH1Htk
- SkGSaeEMVrhnT226Hp2jxK7RQZSISzKuwFj4GDndYVnJVAFt0IT/WvE2aY4+oc3jYk9RnUPrMW8
- 3rSHlOvZzQyUNn24mkVqiU8ATxy8Rda9hpgF51Kk02BghQQpVY5oyr4yd/tpY7Z6KCNjGad8hi3
- 0oq5oB2we16YV7RYWTFhm/pm8AEPu4I9wsd+VxcHlmOFZed2EPi7XQ8mucztrRxAxHR8ZyjxKVO
- yOUrVKINtMkPFm+YPQgT1CmfQ+82POU5EDqYR+EnEeCDq8Pwx076juzMzhS+Pc8bOeFBfUrjkSN
- 1fNlbnOu7N4q1hDzi+sPmvgGgu0reQM/ZC+AfAnev5Tjx0YyTexSRQc/VohwojdspDMyO+t/Roz
- pTvt61GJfwMkIKsiOKLdBLUu7eE5VEwTW+DEIhzty2K3AsfVXE
-X-Received: by 2002:a05:6808:6604:b0:45c:8fa8:7497 with SMTP id
- 5614622812f47-46757530482mr1581686b6e.34.1773408220142; 
- Fri, 13 Mar 2026 06:23:40 -0700 (PDT)
+ AJvYcCWoYrX0Gpps+P+nAyrEuCdAH3GN8KN+PP4YIzQpudto5RzsM12EMClu5Rkp5J9lCZwviYJXi3w2@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzfkmNDI5ssZ0F7uKATp3jWbDIVqDOVMtQXTsxxu7OlDZDYee4p
+ 9/8LsJNZbdZcDXYfv3duMC8YyXuGvWwCpNaen7bkgwjlDB2x5vUN2RNc
+X-Gm-Gg: ATEYQzy0W83TBnWy14tzC/8M9em65UFN23ruTEo7FhJZdLjYvR+bDDGl22QHEplPQJx
+ C+sAwXF6JubVO0mYDl5NfHAbezwgUi2IwgshaeUFlhcokOcGubdIIHdYNRe7lG6R2xKbJPg68y6
+ lP6GKCnjWjwSuCKpoXHSeUmlbIJreQ9tG5Zt+3ZvL1QdhmgJeFYwRuI3WqMz0/uAJ9iWpWn42WL
+ 2WRH7Oq85FtJ5Bh7XDJhSoZlmdMTZsfULv4Y6EQxnns/KqJFOXR8E/ny752WPTOXmvZR++ys1ij
+ sx1zY1q4WBIIL+5YXW7DytbFYu/0WMFXTQ095oI7bQY1vCMjcumRh1DNRLENHKaZMRHPbRJRfB3
+ PNYTwUeKoWUIKnYDDxcey9NjY7aMrAoMBfZrUk9CGwL3RRGFeyQz1TC6J/aDjiS678PmG/d8M2Y
+ 8Uuc75YHSFGDUkZ4BgZG7+QyC4MwunIFhXKMIgpBVRxiEnRdtl
+X-Received: by 2002:a05:6808:118e:b0:467:268d:31cc with SMTP id
+ 5614622812f47-46757144050mr1803892b6e.26.1773408310188; 
+ Fri, 13 Mar 2026 06:25:10 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.38
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.25.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:39 -0700 (PDT)
+ Fri, 13 Mar 2026 06:25:09 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
+ gregkh@linuxfoundation.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 21/65] dyndbg: change __dynamic_func_call_cls* macros into
- expressions
-Date: Fri, 13 Mar 2026 07:19:46 -0600
-Message-ID: <20260313132103.2529746-22-jim.cromie@gmail.com>
+Subject: [PATCH v11 65/65] drm_vblank: use dyndbg's static-key to avoid
+ flag-check
+Date: Fri, 13 Mar 2026 07:20:30 -0600
+Message-ID: <20260313132103.2529746-66-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -97,60 +99,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The Xe driver's XE_IOCTL_DBG macro calls drm_dbg() from inside an if
-(expression).  This breaks when CONFIG_DRM_USE_DYNAMIC_DEBUG=y because
-the invoked macro has a do-while-0 wrapper, and is not an expression.
+drm_crtc_vblank_helper_get_vblank_timestamp_internal() is called about
+~100 times per sec, on a single display. It currently calls
+drm_debug_enabled(DRM_UT_VBL) to avoid doing ktime_to_timespec64()
+conversions when the debug logging is disabled.
 
-   if (cond && (drm_dbg("expr-form"),1)) {
-      ... do some more stuff
-   }
+When CONFIG_DRM_USE_DYNAMIC_DEBUG=Y, the drm_debug_enabled() is
+redundant, because the following drm_dbg_vbl() already carries a
+static-key optimization.
 
-Fix for this usage by changing __dynamic_func_call_cls{,_no_desc}
-macros into expressions, by replacing the do-while-0s with a ({ })
-wrapper.  In the common usage, the trailing ';' converts the
-expression into a statement.
+So move the ktime conversions into the drm_dbg_vbl() argument list,
+then they are guarded natively by the static key. This avoids the
+double-check entirely.
 
-   drm_dbg("statement form");
+TBD: if CONFIG_DRM_USE_DYNAMIC_DEBUG=N, this does the ktime
+conversions unconditionally, so this might not be prudent (yet).
 
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_vblank.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index b6198ecc854d..80160028461a 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -224,24 +224,24 @@ void __dynamic_ibdev_dbg(struct _ddebug *descriptor,
-  * (|_cls):	adds in _DPRINT_CLASS_DFLT as needed
-  * (|_no_desc):	former gets callsite descriptor as 1st arg (for prdbgs)
-  */
--#define __dynamic_func_call_cls(id, cls, fmt, func, ...) do {	\
-+#define __dynamic_func_call_cls(id, cls, fmt, func, ...) ({	\
- 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);	\
- 	if (DYNAMIC_DEBUG_BRANCH(id)) {				\
- 		func(&id, ##__VA_ARGS__);			\
- 		__dynamic_dump_stack(id);			\
- 	}							\
--} while (0)
-+})
- #define __dynamic_func_call(id, fmt, func, ...)				\
- 	__dynamic_func_call_cls(id, _DPRINTK_CLASS_DFLT, fmt,		\
- 				func, ##__VA_ARGS__)
+diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+index f78bf37f1e0a..0dac7eec2066 100644
+--- a/drivers/gpu/drm/drm_vblank.c
++++ b/drivers/gpu/drm/drm_vblank.c
+@@ -803,15 +803,11 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+ 	 */
+ 	*vblank_time = ktime_sub_ns(etime, delta_ns);
  
--#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) do {	\
-+#define __dynamic_func_call_cls_no_desc(id, cls, fmt, func, ...) ({	\
- 	DEFINE_DYNAMIC_DEBUG_METADATA_CLS(id, cls, fmt);		\
- 	if (DYNAMIC_DEBUG_BRANCH(id)) {					\
- 		func(__VA_ARGS__);					\
- 		__dynamic_dump_stack(id);				\
- 	}								\
--} while (0)
-+})
- #define __dynamic_func_call_no_desc(id, fmt, func, ...)			\
- 	__dynamic_func_call_cls_no_desc(id, _DPRINTK_CLASS_DFLT,	\
- 					fmt, func, ##__VA_ARGS__)
+-	if (!drm_debug_enabled(DRM_UT_VBL))
+-		return true;
+-
+-	ts_etime = ktime_to_timespec64(etime);
+-	ts_vblank_time = ktime_to_timespec64(*vblank_time);
+-
+ 	drm_dbg_vbl(dev,
+ 		    "crtc %u : v p(%d,%d)@ %ptSp -> %ptSp [e %d us, %d rep]\n",
+-		    pipe, hpos, vpos, &ts_etime, &ts_vblank_time,
++		    pipe, hpos, vpos,
++		    (ts_etime = ktime_to_timespec64(etime), &ts_etime),
++		    (ts_vblank_time = ktime_to_timespec64(*vblank_time), &ts_vblank_time),
+ 		    duration_ns / 1000, i);
+ 
+ 	return true;
 -- 
 2.53.0
 
