@@ -4,85 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 438EC107BCD8
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A280107BCD9
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:51:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55AB210ECC4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD27210ECC6;
 	Fri, 13 Mar 2026 16:51:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MdycYuDm";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="L9ZDUkRP";
 	dkim-atps=neutral
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
- [209.85.167.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F5C210EC13
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:19 +0000 (UTC)
-Received: by mail-oi1-f176.google.com with SMTP id
- 5614622812f47-463a0e14abfso1412722b6e.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:19 -0700 (PDT)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
+ [209.85.218.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED12710E0B0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 14:30:58 +0000 (UTC)
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-b942a41c5fcso307114466b.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 07:30:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773412257; cv=none;
+ d=google.com; s=arc-20240605;
+ b=V14B1MKEQ9n9TJklfzdF4+kOMoFmpygnTUsvRsAirTakNBkbpqZL02dqd6eGwvvybO
+ dgSmCl9TT/It8B3R2+DKf4qUYkohfP4rOaJvy3+boUxWf5murIgYpJAoW1WVbUIYfZAA
+ iWODx1uyQLiUMTRyN9W3l8mzexcVjT1PF4+1uIBSedlVAd5NOII0iqa0uPoo0mFTbTMN
+ LNZKkvYPRBPSONTgdAdcxxs+7IckMArhPSzwVZEruMYaBkFSOfDwCv1+qrAnBnUcmd+Q
+ KFUTm6H9o1BVD36UQLXgNBTE581Py79585s2Kvoa24VtFqZn06MVh9VJXJ0egNlGrbRg
+ ZOUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=LRxonFHxKOFtwLU4vtjcCaWjDuObgsewD5LZ6SLLhBw=;
+ fh=tj7oNe0FIQcyPhn7ErbiBZSRBO2uL9RHfu/yiwRRy2I=;
+ b=ilDtN+v2Yxc7W/x3n7EoNoQRKIEdwOnP31CxheJR574Q2aVpv+8GLvUQ89UdDy7nTO
+ mI002rW0VjG3wXfndj62uG3d3yIFrpgSljwODAXP2EGYk3sXLYdH8MlhcPM+CTEJ4Adc
+ MOQR6fargbvi/5+sK2ofkVRPpm9NGHS7MT27v/vbIme09JqR/hqNW8xKx74AnzIzS7Zd
+ jvFARkwLBKzL7P3Lca/0rSxtH27TC6U1MGixptGbdPauzOr+Aik4pkjjEkSictqKAIwF
+ CYYLY+Z8IRToEzmwnfPAeJFTwlO7mJiDGR1gxCWofcPw93K9YcihBVvX0Bsf3pgj0oJd
+ 7ncw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408259; x=1774013059; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=suse.com; s=google; t=1773412257; x=1774017057; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=vB+cc01KMDy+1bX+9nVaruepBX97i9TSrBfN/R0HMBE=;
- b=MdycYuDmncXDn72uVtohze40ooYOKurGUI/qdNe/ZB4SqtcJ6UOZ1evgz6TjfxEn7M
- TzEcPj0dcDuAtgIhUp2CPCRdZyUkwzbsKJ+gz6WNobXgGxSYGb3ap3CBx5TiDxFIrh04
- ZwUruwihvmdFrf5pAjRYL7T7GD4/I7J7Zrz318HclYkOFWgLJYBED5dSqBgWMfGocq26
- yDg5XU++iXE+KqoIy50za8+xt53xn+CaJM9bjXY+/urLvx6KKq+x3YWAJZfLhsRhBzRU
- mcIbHZDu9vdVPAB0ZFbaRwrx6BPvAO4jZIw3lsKo4kfmunlG6BOHx+D8vz0GwDsu2wCJ
- uVIA==
+ bh=LRxonFHxKOFtwLU4vtjcCaWjDuObgsewD5LZ6SLLhBw=;
+ b=L9ZDUkRPDOqVJMDjsyN83qRs9iD5TquISN6oD/q4YF8hNSbvtYOe0eorLHilqylYOS
+ /KJNHrsT12T43TlXOrONJjDSOJ+RF2r3eRPQyCCfBNzNyDCw4gdRqM1FJqou9bnraFJu
+ 8h3FCATlqtCsLsXrygRIOGSarcLpfLw1ieCBuxBfx4zZcI2GkGeKpKCwjV+ZLMSpq8yX
+ S3+H7NFW536oLYcSLXpMBK7CSxX+3ds8QwxsAwDyFnT+f2VCHUNFI3aoEcrR76sB4Mp6
+ BpOEYbnRv8e/082Wnhi3tE2P10ck4J1nYx2td+29Y8ZYKO9mMuZqBv/YYNNT0QyLcOSb
+ 5ivA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408259; x=1774013059;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1773412257; x=1774017057;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=vB+cc01KMDy+1bX+9nVaruepBX97i9TSrBfN/R0HMBE=;
- b=i1wrztgERP7hQh0G0JmrNmZEsty0i1eMThBPP9UZrRqYPhvs2lyQkDpPxzrwf2z4wY
- XlDGXtXtmrfYwIDR0h+JcxXehfXTD6HxU+PPbiWTaU1KJlQbHbVU+6PlookwyUL8Qdn0
- /9N+NE82/Ut2XRzfc49m+6GynHGJAgHUwnJcGZNC4J+k36R2VRc7PaFLwnWHJ+tfTm2N
- UPxZRnmQo6eijfUVLqymZ89iXTk3Zfl9/ygPjrSSItfsXxXdED51cgdvstWsb7zamwhJ
- ZtyITa+sSG8HGBKCo11EbcxmJZnxVdGLL/bFg7Hex2Z4y3HB9AVQhNTmfdCOPidCvSrA
- QLWQ==
+ bh=LRxonFHxKOFtwLU4vtjcCaWjDuObgsewD5LZ6SLLhBw=;
+ b=iGGDQnMxuKgpYAetzdDVNzT9yYF+VW5KiFnT257TPJ2+mxDTrlYiLAdgcpZDg+w6/Y
+ fFWjRyYJFPLqvILZScihxokMRb74dlu6xqq7nXhTJuD5Ujf7w2/EiNYLi6mrob4HwDrA
+ 6Pgzez3AvI92mOJyUSiMMwl9fbFRBEyk8mucmCD3OhkVo7JbVTflyA3n7TIeja6AGF7D
+ m8oVPWqlyw+vJh+9Ww+q/Wgti+7ZRVpFrUw24Gasqhevkci1OtM7eZhZa01AQB5ftcat
+ Gr0NtNd4+QP8W+e4iMhsMNMa1ptOu0CCZTzVlS8Hc1RgktrMB6GDe//LKfP/jYvGpdSm
+ HTmg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUPjs/PAZAUoXRYSXY0q5FlGJK3CCALmplWuoGYSv78O1XI+dJ+0To/0vNJazOXOB6Thwz+rTtc@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyS/cdqIcBtXluCjUq4NxgJ/gA/9HmotBvPOfCROO8qgOzPerMz
- GbMW2O8hMZcqLukLYtT6QM1SmDNWrZ9EhEZCA1BGnN12Ncx5n+SWohn2
-X-Gm-Gg: ATEYQzyJStUSXyvlUuxp0q2kcJNhWYAZgGE3f9NcmWcRrs+4bbnZhqTk+fyh3mPZsnD
- kPyCNqv5McQqqs1b6J7KNgtLoWF7bsN2f0yMTA7+mSfS8kH6CgX85XfiyBC7IEErzJURK+bVmqa
- a1/xz4uVd6QaTf7iEskeisR7fAeO+nTeZcDMpgBIYsYKJALcX4bPLAGqFXgzzQ4OrivhXGHUXms
- PYYyqdpqpKiQzIa5VhvBgtRB0K/akz9akOFz6evqRjSBrxMEj0FpTe8z5iMkenV/qpiDXh/t/En
- 8CH47q/jpENLnkEXvDpFlKpYV9e7cfSWEIw6qCXjmvbQ+ZwIyqocvL69PP6q31olSM3JoCrg7P0
- /cLJM2BF8rQ4yqGDH1C0KlJkpm8gfsEzDCWdjCZijGtZ9ylH86rVf1ruBWvxG0WipwNOQGoT3kS
- IwanhSkI4r7v/kGPIkHaBrTL681Jm9yrF3lYG8fy+CkS8oO524
-X-Received: by 2002:a05:6808:158e:b0:45e:e07d:85af with SMTP id
- 5614622812f47-467570a2be8mr1585147b6e.2.1773408258671; 
- Fri, 13 Mar 2026 06:24:18 -0700 (PDT)
-Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
- by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:18 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 38/65] drm-print: fix config-dependent unused variable
-Date: Fri, 13 Mar 2026 07:20:03 -0600
-Message-ID: <20260313132103.2529746-39-jim.cromie@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ AJvYcCWQwRcUASYNF3mGecneYOdfH22sR8i088efGlN/G9wm0yQwjC+B5/QzBC4GC4pZnnRf6rQ+RyxC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxTV2loc0fMOC+1eigGJFYlAdfB5m5UXYFcUJPZ//tLz2CVOP9g
+ 9YsjXYgjvxI9PIXPRU5DWA+ieo+TFtcTKVPI5pBL4otj+CO7KNh1Ozs9c0QlvVERqnoFlsToC5B
+ vvE0Us46FuCKk1RYxcolsLWxb97GqD1fENF6zmTSXnA==
+X-Gm-Gg: ATEYQzzNmHCIWtfT6uJQTstA0UqiYKSV/riNXtp9F8jAcgef0nG0oWjuVU28UkQNL6k
+ dtq3bSNAysW4pfe/+h8/KTy9B8ijiJTB524HmNtTvwHc+f66XusAslRRYQh8VeUHjBgrycaAv+K
+ s6uQq8CyLax5FFOwPcAyjBg+Ipx5sP4yfKhEXJfQZz5s3RuPllMYlQm7pJ0Hs6zcZ5eDEDTIxiM
+ /RMVC+zqsg0fCo3cOLLQjiExhnS04DjooAXrQXlSVlCqfjWULrhnFQECH/1z6J6GkOy4jtPje7E
+ lZooCpKG0NRoeYhencuzclMUA+Zfn5uBeeer1Ii8
+X-Received: by 2002:a17:907:c11:b0:b87:1c20:7c63 with SMTP id
+ a640c23a62f3a-b97650e6e92mr207376766b.20.1773412256991; Fri, 13 Mar 2026
+ 07:30:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20251224144708.61167-1-marco.crivellari@suse.com>
+ <CAAofZF5XSUVn+XW75rC76-Amibc3rZnG3QQhWxPtk7K6YMQx4w@mail.gmail.com>
+ <50e3d83a-c90b-40a4-85d4-f5b0b474ab97@amd.com>
+In-Reply-To: <50e3d83a-c90b-40a4-85d4-f5b0b474ab97@amd.com>
+From: Marco Crivellari <marco.crivellari@suse.com>
+Date: Fri, 13 Mar 2026 15:30:44 +0100
+X-Gm-Features: AaiRm50wX-gvpB6CSw1TM_ZxnjyuF9CD-NmCqCiMXD1oDbU4mspiNqOOHLx64Tw
+Message-ID: <CAAofZF493ZvbZa0qpTjKU7VZgnGcG6HFuPF1SMDk1+S3kiW77Q@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] Replace old wq name and add WQ_PERCPU and
+ WQ_UNBOUND to alloc_workqueue users
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Tejun Heo <tj@kernel.org>, 
+ Lai Jiangshan <jiangshanlai@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Michal Hocko <mhocko@suse.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Philip Yang <yangp@amd.com>, 
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 13 Mar 2026 16:51:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,38 +115,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-With CONFIG_DRM_USE_DYNAMIC_DEBUG=y, __drm_printfn_dbg() gets an
-unused variable warning/error on 'category', even though the usage
-follows immediately, in drm_debug_enabled(category).
+On Mon, Feb 23, 2026 at 11:51=E2=80=AFAM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+> [...]
+> I don't have time to go over that again in detail, but skimming over it l=
+ooks good to me.
+>
+> Feel free to add Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com=
+> to the radeon and amdgpu patches.
+>
+> Felix or Philip might want to check the amdkfd patches.
 
-For static-key optimized dyndbg, the macro doesn't actually check the
-category var, since the static-key patches in the proper state.  The
-compiler evidently sees this lack of reference and complains.
+Thanks for the ack, Christian!
 
-So this drops the local var and refs the field directly in the
-macro-call, which avoids the warning/error.
+--=20
 
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
----
- drivers/gpu/drm/drm_print.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Marco Crivellari
 
-diff --git a/drivers/gpu/drm/drm_print.c b/drivers/gpu/drm/drm_print.c
-index 93dd714d4533..ceede094ff13 100644
---- a/drivers/gpu/drm/drm_print.c
-+++ b/drivers/gpu/drm/drm_print.c
-@@ -213,9 +213,8 @@ void __drm_printfn_dbg(struct drm_printer *p, struct va_format *vaf)
- {
- 	const struct drm_device *drm = p->arg;
- 	const struct device *dev = drm ? drm->dev : NULL;
--	enum drm_debug_category category = p->category;
- 
--	if (!__drm_debug_enabled(category))
-+	if (!__drm_debug_enabled(p->category))
- 		return;
- 
- 	__drm_dev_vprintk(dev, KERN_DEBUG, p->origin, p->prefix, vaf);
--- 
-2.53.0
-
+L3 Support Engineer
