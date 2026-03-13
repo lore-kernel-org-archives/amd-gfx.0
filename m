@@ -4,75 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABD4F106FD9A
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F01B103E300
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:55:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5073E10EB43;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89BE410EB48;
 	Fri, 13 Mar 2026 08:55:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FTe2ydBk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KCvpqIyy";
 	dkim-atps=neutral
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
- [209.85.167.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F2B710EA34
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 15:08:34 +0000 (UTC)
-Received: by mail-lf1-f50.google.com with SMTP id
- 2adb3069b0e04-5a12c310e8aso1188841e87.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 08:08:34 -0700 (PDT)
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
+ [209.85.210.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A53F10E042
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 01:53:16 +0000 (UTC)
+Received: by mail-ot1-f42.google.com with SMTP id
+ 46e09a7af769-7d73ccee442so1798771a34.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2026 18:53:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1773328113; x=1773932913; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=g73dHOMHtG4L3LkXal4Y77T3TPFEUJ1oLGYicL2Ezq4=;
- b=FTe2ydBkJSt/JXYH4Xo6vMekZ9XyRbQXH+IG4sIvn0kjZDNuV6hXDrRWf1aZ7fCZy2
- QGHfM/t/1P0EL+L8OATD6q7Ej2BprxRBqYFP09xH0zWw09061bppeM8LLeMBNsuwg6de
- YXWNEOYFwh+8DIPMi5zX7jwos1wnVcYXaJ7wVKlUU5h1o8xal3WlE7hsZMuvJ0lSGtMs
- WYOfScBCjAt49GXKpTMMAX5ZBJkBtx6bg2pgTBP+w9XjnvtjxRymzN6S66AW05Kt+Vcn
- HvUugNzE4r6bAJFjJOjNSlCp1kDKb+/GOjsy58gBR2+0h3N5xpvaO1Fgu8okKzq3mMP+
- Mwfw==
+ d=gmail.com; s=20230601; t=1773366795; x=1773971595; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Je77iCsOrEuw63H4T4mEYukShtJgkZJQLEZYMkoBqT4=;
+ b=KCvpqIyylOCpqqTdkCPph5QbuCMofd5Mmn4OOSSTaPiz3xBpv0Tmr0uEIvSZHkpZcF
+ csiCpnTDowMVyk3jzgERR3AVjzlZC8+fbpcfsjqYCkFEMSMIUOWGNjVMmhXNtLuDy8ed
+ WKRvvH6dlK53SJde4x/uQAoiy+fpnw7svYPLmXqeBQprpD8UyA+prALQ4UqENyWp20km
+ o0UEbbY/VnZjxQYcwlVAjSOFv7WNtAEv0lowiac56gv3dOQLLir8ivQeh0N02olB4WVw
+ sYssViEWDLIXz8MdZOL9M8+LbMHZYKEOF1FyvyUBeMfU1EfVER4LRzMno/Tr2iL25uyT
+ 0+KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773328113; x=1773932913;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=g73dHOMHtG4L3LkXal4Y77T3TPFEUJ1oLGYicL2Ezq4=;
- b=nKCtZlk2G1PDdWnf3/2xQayuhvS293yte5ZeN3nnrKHMAhJ0KG1dfI3CDEWppJY6ak
- Uk2MDutkWvvHRv+7kqeig800QbGGZPHVB73qAuBwBg1K8gOaM+hyr16ytExBYXfvBTkW
- IEXKgBK8QYnOJKxpv0GNapXug5Kl86TYvy6iK+jaZ35ZIyf7GP9829ZQlkUS4Yvl9CC2
- QoTgxvd5EVhpixZAZTNYxx2Xez2Zb8HNp/oaWjW2KcI62nOtZ8llEBcFby1r9GqimLaZ
- Wf0tbYwORsh1GFNtQ7t2eaGkvO8y2nTVrMgkHLeRFyOiUGcefQHBmYsce7h+p0tfcdlX
- ykaA==
+ d=1e100.net; s=20251104; t=1773366795; x=1773971595;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Je77iCsOrEuw63H4T4mEYukShtJgkZJQLEZYMkoBqT4=;
+ b=nZaHv3Ejc9GbRCi2w8KAvPtVG5M+Po1MY68oiIOzsJt4yoBd3HpEeDF0vTKgZXckK4
+ mQNjO/tTiWqTw5NVI1ZymHeT2rrVysMp/J+ZB+Wp5x3srlL5LjEYxmwugewGZ8L6tnVj
+ qZQfbfi72qCRCSxJj43V22lgBd0Z9AbMLXttyD4RZp1ZyBcuDTjY+4aRVGBuO2HwkWbz
+ 44gb7ASc8XqLbqhpZ0JwEKO4sgw4VTdByR6fwUdOOayfJpIO6oq0z52WZExT8Wut8qu3
+ L4eHfJXffH/18G8zwZrpgP0r6T7M9uiPruGQHVOOSkhzU6G3VNGw1mtElJ/LkXY5xKVS
+ Q6OQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWH7fAGoZett12mUlMSQXf3jIl6YBUjeV35qAq9/pAX/h7s4J8P9wGp3oCp+mVegcojs/h+e4bX@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxNouFF77ayP/ArD5kmnVFWU8JOsUP2ARk8dU6yIyjPe6aHMlit
- JPRFMQcqdCpU+rM4YFaPO5oiQ7/NGPNspaQndlgOFttbU7P8WML0+TzOE+ewa5FfQwc=
-X-Gm-Gg: ATEYQzzEl44lWZ7vhPx0fGk49cV0iM9eeqPLMo3inOf3ys4LXHe2tN1+ySLGIyoZQ9N
- bm9j+/kxJWRnaXftHs+4Di4v/ZQ24nUjCzhVXIn2I2zGeEURF5bb+rD9cvwi8ZKY/K1oAu5EFqz
- qEqgnJt4141YvzWEe1G/RgdtKR27i/fms1qzuHPgTnFUN7mkvXMEGAYBgMca8rM+L27k0efr1dM
- Diu4weLRTz7ICu9vwodxdWdjIkxhaZW9BMeCa5g0TjNq5Z9yb630EWdW9nijxYrAk9qbsDTX4pd
- rgLq5o5De5DUVH2/0JHD/RqTD75LzDB+83J6VkSUvW/EJtoR0f7uAFykRHaFj5/rhXSDu8DSguT
- A1Zc6yMp22HMEPXwUXfj2hn7zoLSRWRtTaNq5G1ppIg0q5XnBsYEmdMhMEhMKQ3uHTH3ZXh4Yyr
- eLInsMRFp8+mtyOiOB90PScZ2hUjEz
-X-Received: by 2002:a05:6512:2242:b0:5a1:3da4:e92f with SMTP id
- 2adb3069b0e04-5a156ddc9f3mr2520677e87.43.1773328112722; 
- Thu, 12 Mar 2026 08:08:32 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a15636227asm1013714e87.68.2026.03.12.08.08.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 12 Mar 2026 08:08:32 -0700 (PDT)
-Date: Thu, 12 Mar 2026 18:08:29 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] drm/amdgpu: Make amdgpu_dma_buf_attach() return paths
- consistent
-Message-ID: <abLW7eM5VVLDNtu6@stanley.mountain>
-References: <20260312134415.1839742-1-srinivasan.shanmugam@amd.com>
+ AJvYcCXY6BWrefPZngKOLlp0lplh21385kpemL/dCvPk7nnS53GawO88ijoAW+0mvxzhnnqbp+HLvmg/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyWzhS3JNynNPpCYKMl3DG1ljwxmJUXFv+84vuNmLsNuX7XPNfd
+ tU+ZnTKE3+gE+4fdkR6vbDnzxz0DnFB2p4gc2SMwoX+GNngklbd/9qc1
+X-Gm-Gg: ATEYQzwleT/p39RFeslB1+R1jZ5iQxDY8Wg7s+4ACpZ4i0vv3XqttybFOosWLA5wCUC
+ 9/6hMDOaBiFwf9uVBsxJVcCxT/yw1pn7Ks6oG8VBhW8B3pouEqFGlZowifPxFI3gpmIXpydQcAw
+ KfGhHTIDR8ldiuekbu1v2N4jcGmQD6VHD75PCTiFBLGOJQWo/V0FogQ5CDYcJLElKzVWFjiuEnq
+ 8WpdQyIHuNi2WTNC9DscGMKTFcSorEVERR2Aln0AHqksoPGTVKWn2asZCtNW3VGzJBlCWguML0k
+ 4xeeYZKA3Jnj6BQvYCfm0ab84fDn5o8MyfWqmdscXiNQ5UDB0sfVDN7N/NtsKaxrKCj8qZhMPXK
+ Jj/FPThOLGq2cOxLohnIlo0fHjHXJeNLCgToMC2ol/vJg5Ngxu+zmdAta+hMsXyZdDti+3l96zO
+ QAHFAAAKmG5dq/vDFRJ4khPcFJaXqIBzyylgMnqyd54RPC8+lp4sFbAYHgQS7gb9/ATwOM
+X-Received: by 2002:a05:6830:4903:b0:7d7:7b6f:d53e with SMTP id
+ 46e09a7af769-7d782311bc6mr985481a34.0.1773366795315; 
+ Thu, 12 Mar 2026 18:53:15 -0700 (PDT)
+Received: from Mac (c-76-107-126-43.hsd1.tn.comcast.net. [76.107.126.43])
+ by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-7d76ae68a4bsm5314729a34.19.2026.03.12.18.53.13
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 12 Mar 2026 18:53:14 -0700 (PDT)
+From: David Baum <davidbaum461@gmail.com>
+To: alex.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: lijo.lazar@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ David Baum <davidbaum461@gmail.com>
+Subject: [PATCH] drm/amdgpu: switch XGMI sysfs show helpers to sysfs_emit_at()
+Date: Thu, 12 Mar 2026 20:52:26 -0500
+Message-ID: <20260313015226.39727-1-davidbaum461@gmail.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260312134415.1839742-1-srinivasan.shanmugam@amd.com>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:55:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,24 +88,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 12, 2026 at 07:14:15PM +0530, Srinivasan Shanmugam wrote:
-> amdgpu_dma_buf_attach() locks bo->tbo.base.resv before updating the BO
-> sharing state and unlocks it before returning.
-> 
-> Return the local status variable after the unlock so the function has a
-> single consistent success return path, which avoids the Smatch warning
-> about inconsistent reservation lock handling.
-> 
-> Fixes the below:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c:111 amdgpu_dma_buf_attach() warn: inconsistent returns 'bo->tbo.base.resv'.
-> 
+The XGMI sysfs show helpers amdgpu_xgmi_show_num_hops() and
+amdgpu_xgmi_show_num_links() currently populate the output buffer with
+sprintf() and then call sysfs_emit(buf, "%s\n", buf) to append the final
+newline.
 
-This seems like a false positive to me and I don't like this solution
-very much really... :/
+Convert both helpers to use sysfs_emit_at() while tracking the current
+offset. This keeps buffer construction in the sysfs helpers, avoids
+feeding the output buffer back into the final formatted write, and
+matches the style already used by
+amdgpu_xgmi_show_connected_port_num().
 
-I don't get this warning on my system on linux-next.  I have tested the
-released version with and without the database...  :/
+Signed-off-by: David Baum <davidbaum461@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-regards,
-dan carpenter
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 11e56df1d91b..13fc7247fe23 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -469,12 +469,12 @@ static ssize_t amdgpu_xgmi_show_num_hops(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	struct psp_xgmi_topology_info *top = &adev->psp.xgmi_context.top_info;
+-	int i;
++	int i, offset = 0;
+ 
+ 	for (i = 0; i < top->num_nodes; i++)
+-		sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_hops);
++		offset += sysfs_emit_at(buf, offset, "%02x ", top->nodes[i].num_hops);
+ 
+-	return sysfs_emit(buf, "%s\n", buf);
++	return offset + sysfs_emit_at(buf, offset, "\n");
+ }
+ 
+ static ssize_t amdgpu_xgmi_show_num_links(struct device *dev,
+@@ -484,12 +484,12 @@ static ssize_t amdgpu_xgmi_show_num_links(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+ 	struct psp_xgmi_topology_info *top = &adev->psp.xgmi_context.top_info;
+-	int i;
++	int i, offset = 0;
+ 
+ 	for (i = 0; i < top->num_nodes; i++)
+-		sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_links);
++		offset += sysfs_emit_at(buf, offset, "%02x ", top->nodes[i].num_links);
+ 
+-	return sysfs_emit(buf, "%s\n", buf);
++	return offset + sysfs_emit_at(buf, offset, "\n");
+ }
+ 
+ static ssize_t amdgpu_xgmi_show_connected_port_num(struct device *dev,
+-- 
+2.50.1 (Apple Git-155)
 
