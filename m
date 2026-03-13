@@ -4,81 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46166107BCD0
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:51:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD8BB107BCCC
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:52:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 658AF10ECC9;
-	Fri, 13 Mar 2026 16:51:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A6F910ECB9;
+	Fri, 13 Mar 2026 16:52:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aJsTz4Cv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WlPnBfD2";
 	dkim-atps=neutral
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E83B10EC1D
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:45 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-4671cbce626so1073255b6e.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:45 -0700 (PDT)
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
+ [209.85.167.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF3CB10EBF1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:14 +0000 (UTC)
+Received: by mail-oi1-f170.google.com with SMTP id
+ 5614622812f47-46702742c99so1401118b6e.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408284; x=1774013084; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408194; x=1774012994; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=TGwHOHakhEHhnxVqmZq5DXxfR0MylvY9XafKKBqzVj0=;
- b=aJsTz4CvCeOsXdRdEquKBA5SJsAyDCqUEOQyu1zTmEpIT1RFS6MmIrUm4cq87fB3Oc
- eRvF27tONI6SmsBFv0ISviq8x+1AjSFZx8jXAug6Vi9LirRI0vUC6vQjzBRpSPfaFkWy
- MnQhVWJyl/euCKqDkqgoHajbwk6LNujk0L3V/p5b8ma1XGLL9bkiR/ZypLl2Ql+5XtPT
- 0yVD6zjIbYgiaemj3uRPIGcqzqFJccqusbe4eOD61qsI1fuynjDJVa7C+XGStlBoDP8D
- yQ5R97NZCNqGRK7Al5aZEdcUtxXttB8R2gfMctVQdu9MrQQPZ8IvKIeCJhLafYZiaMGk
- 9q7Q==
+ bh=q4prZoq+o67W5OQsgLrKexlAzQC80y9w+24uEfnXM5Y=;
+ b=WlPnBfD2ikkHx6z98gzW9KZsxQ79SjmFVGsIFvb4gIeRclv9o/NVPVmmklXGIPliZU
+ EpnR6Ch/Shbs+/lo0h/8ggG1/aijyiogv93k3Aouta1SpEsg2gbY7a02rLUQ83OJzlsV
+ dYwiC8t0ROXtgwhHWVNeGdo+7ro6C+OKyX9+1Mf5z38mNfOjX66SCmuudX9EdlnVNTR2
+ 0lKTjka44O4biP3/aPrqeRzCG5FPwKoPVS5EA/jSXmOvAepyinUADi70Qb+L0pJn/Jq8
+ tOkrkXSZIMoyXQWA1A+xnTduz0g6ZMekSyjYxSKoQJXQoPk8bVR9EH3YONHt/iyhO3C0
+ KgSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408284; x=1774013084;
+ d=1e100.net; s=20251104; t=1773408194; x=1774012994;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=TGwHOHakhEHhnxVqmZq5DXxfR0MylvY9XafKKBqzVj0=;
- b=s9VuBUYWWa33ew+51+3sIroiR/3PC1nxkYeQ4EpSd+fKxA3ZD1zKGFtFapSje/fwG9
- AOb8r1rZzqBSwkhG3Y5iuquBavtUHabWEx7W32RjIiuoggBdXNcKVXT4g8xr5wFemFeI
- f98EyUxdHstjnjVchgQlT9PJoQ64FTpImeJx6b91dz/xwMg6zvKQmjcFJYXJ/dOKdqAa
- geLNsIsQEWDaMG2zoUo/EPG9Wwlpu41Ndk/oR6ngI73VrNs8i9JhfBNfiWcMeOXwspG4
- DU5KAMsmY01BuIrnI+4HL7OSr4qgedQLSNTLZynjuhB/Zir9IP52wlD8TgIymMukI1UA
- QEzg==
+ bh=q4prZoq+o67W5OQsgLrKexlAzQC80y9w+24uEfnXM5Y=;
+ b=haKak1HqlJIkf6ABGIsDtnHFQGNIbzafdTwMbEl6gvQP3JpSLNb/PDfdbQIamzM3vz
+ yb+iY3eiyI6m6KyzlBMKa7lW+IRbNoe4iTb0jqLu9n13ARYOmcvAE3fwFcOqxwewnL8A
+ lAHxtvAQxA12e4TLbZx0sOPJLh3XNT0SNYplv37xySEMci4jstgs5vxM18fdVYr0BLCA
+ lP2bJm0D5Nu7c5+JvbJR1usTgWEt/tpm04nrusD51RnDbidA0WolEEcYjQwnKIQi2/1W
+ ghYJ0RAXFtpvkQwMWcfwwxQduhi2tE0DU89IcP7P8xyS3+PCtGYZA5t98y34nmqg+2yz
+ g5bA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW3WPlWPoLPC9gFTdnWhSYi6f3NRSPXJ+r6nZoQNCAOMz1XvkZAnjdSwiZ+mfJ6QgY8bLdFFwgC@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz6TjUj9AWBuGhG4SriuW30MgmyIFANX5R3FQk6KiMZm1oDue9E
- hlLnUkGgDHKzlbJrxFvpOvZffLbVhN+VG9HXILV/qzh6Rnxk1YTymYK0
-X-Gm-Gg: ATEYQzwPMTjY4oIc3lOiUva+zjDiUI2JJhAG6ye29KRSYnMKYJpkRWDPdW50/0wSlYd
- +h+UVB0zv3mNH9Weqr8U4mhb4BMO1c+lU8CY19UiV5c9Pa72DN53PudjN6WoW349dVbbXb47fKS
- cXBxjIoYik/g2fqBOrdN6W4gNOvbk2P0Xt0RsqI40TYub51DUdVjhgAEgzxQ/mhDEBRvT1y6Poi
- OWFLwSJxij9BhZiJtZnkCXl5Yzd2LvyFJMdB5xBC8Tl6lGCF/PyTizyxHGjA8q9N9J0faaqO7oF
- DjKRvoWn2i0Z2+RwTS1vVnNlti4i/NAX6JcxZe+enRy7pZY8up234L2MuaeoVaLWwnPVsWAAhay
- y0emMrHxMb74HP5rqmKWA3Lua2SgBzYgCHPLT5L0iwZ/GZzYLfP/vJtIjgsYvym0IVbb2OmSiEi
- gixAbS4IXnYOIZsZCn2CTov5SjyDKFoKRJq1o7ZBeyKfJ4HFmh
-X-Received: by 2002:a05:6808:1a21:b0:464:3d5d:d9d4 with SMTP id
- 5614622812f47-467572d38bcmr1582676b6e.39.1773408284383; 
- Fri, 13 Mar 2026 06:24:44 -0700 (PDT)
+ AJvYcCVQ9kJPUGkbGa+8xfszXX5Y16tgdYObt3BHLQzDKBQKAQjtRwNTXMna7aOaaxJEUPbupRn39Cep@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzYdWbJOOxE5PbHh3usDQSv/3CbLyyHPrBU/edIlyD5XsGF71vo
+ 7LQH5BQAoD0J8UpjrHm8MHqavzkcATYkbth0JrmT9YKVKz2VUglxtVX8
+X-Gm-Gg: ATEYQzxtT+XtqofZ/Fe+NjPoxa4fplzA4x2DJByMfX6wrv60gfOamlznVrMYRF4HX22
+ 4e+OhqsoptWR4+dCov3UjUSGiAVCLMdWO7S1glpoe0oF4EUrTFIy5enUL3OwjmOiXpf8xV4/aKV
+ XW7OkJcWZc4bWY2/Sejv/WKk3GRWMd9K6iOIA2ZXM0C286bTAXeAGeVBy0vJxeMEmwrPAZScPOc
+ ARAz4ooFEz+wPiChA8BZaBzvxNZKR631V1akqzolQ6tBXMwzvPbDIPcWdC/rjP7K2nIDBHT/Y3U
+ TnVU7BRF4VjijnExJPup+x2vgrS2bnjjyHyvYquyWYCFU5AFmHB3+NLRPl/jygi4RBCZ+G4OeG1
+ Ghp0XOzwsQDrIm5JOaMZxVQyIL/5P+FO2dHaeJTZC+xiPL8eEC/BY3bUogTXwWkLPcQnNmu+vR5
+ wB7S75ynMEpWSymjbTWGRXYAyBSr+9n/pX4nVBxxDZRpYWwyx8
+X-Received: by 2002:a05:6808:1b24:b0:450:d471:dce5 with SMTP id
+ 5614622812f47-4675701babbmr1568851b6e.6.1773408193868; 
+ Fri, 13 Mar 2026 06:23:13 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.43
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:43 -0700 (PDT)
+ Fri, 13 Mar 2026 06:23:13 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
  linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
+Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 51/65] drm-dyndbg: add DRM_CLASSMAP_USE to vmwgfx driver
-Date: Fri, 13 Mar 2026 07:20:16 -0600
-Message-ID: <20260313132103.2529746-52-jim.cromie@gmail.com>
+Subject: [PATCH v11 09/65] dyndbg: drop NUM_TYPE_ARRAY
+Date: Fri, 13 Mar 2026 07:19:34 -0600
+Message-ID: <20260313132103.2529746-10-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -99,28 +96,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The vmwgfx driver has a number of DRM_UT_* debugs, make them
-controllable when CONFIG_DRM_USE_DYNAMIC_DEBUG=y by telling dyndbg
-that the module uses them.
+ARRAY_SIZE works here, since array decl is complete.
 
+no functional change
+
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c | 2 ++
- 1 file changed, 2 insertions(+)
+ include/linux/dynamic_debug.h | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index 0f101aedb49a..d877d0a8c830 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -259,6 +259,8 @@ static int vmw_probe(struct pci_dev *, const struct pci_device_id *);
- static int vmwgfx_pm_notifier(struct notifier_block *nb, unsigned long val,
- 			      void *ptr);
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index 441305277914..92627a03b4d1 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -132,11 +132,9 @@ struct ddebug_class_param {
+ 		.mod_name = KBUILD_MODNAME,				\
+ 		.base = _base,						\
+ 		.map_type = _maptype,					\
+-		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
++		.length = ARRAY_SIZE(_var##_classnames),		\
+ 		.class_names = _var##_classnames,			\
+ 	}
+-#define NUM_TYPE_ARGS(eltype, ...)				\
+-	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
  
-+DRM_CLASSMAP_USE(drm_debug_classes);
-+
- MODULE_PARM_DESC(restrict_iommu, "Try to limit IOMMU usage for TTM pages");
- module_param_named(restrict_iommu, vmw_restrict_iommu, int, 0600);
- MODULE_PARM_DESC(force_coherent, "Force coherent TTM pages");
+ extern __printf(2, 3)
+ void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
 -- 
 2.53.0
 
