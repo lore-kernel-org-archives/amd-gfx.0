@@ -4,128 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D0DC107BCCE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9FB3107BCD3
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:52:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C3F110ECD1;
-	Fri, 13 Mar 2026 16:52:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04DD410ECDA;
+	Fri, 13 Mar 2026 16:52:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="rpEAal92";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A8yP/26X";
 	dkim-atps=neutral
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazolkn19013078.outbound.protection.outlook.com [52.103.43.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF2F210E179;
- Fri, 13 Mar 2026 15:14:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pFv4riX73ZbnzNXiQK0kZc99IZApvOP29YUB979Sd20VuRnI/fgihtvJsNJrpT4EXL/fiLzQfTk5csXM1S+aqVFQICHjNdylfsqpa7YMyJl9c/f2FmW/c7B8hrdT4f0RW5BNk1otG2x+5fOqB+rAB7Xjs2plrqmM0p9/o2z+shhPS35jndMqZ5Uei2DJrxG2YVQ9tK0Q5NNKkc0gQGgXikEjt8zWyc6Th/6wt+Ky+3K3JN5kZcxINkyBXpDGvEP4cja9WN4A8vmpnqIPmZ2EBhSKdqzwVnTn25CPVuMhlEDvtQz6sp4K0zBQouBh331JX6QaM3JUvrFWwWP19cdarA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f7BZUCuOJx41yQeZyG46SsSwCxOGOPDD1N01Rn2DD/8=;
- b=U5SpFAAJVbFxJ7u0HB3s48QkFDvyAehLEVORykENmTxHEoFWTBLUnNQuSTl9gfw4D5wIqQz8cE1TKulDRvokPD7cMewLmOoLBY47Rd9zbpIfCJ/fzVjcO5TWhPFHW7mTJWpklUGYNsTvtImcekD4k5Tl7/h8VMrCtYuLxK+NDCnDv5aRsEOscgnkrBBM9B6j7407SfcCp3RJz/cmYoqHSTgJqomqLbJYPYXKsTNAtYFKBcbRC+Q4tw7R5rQ26SNSDyJYLB7qIsi/1vFNqi0WMM8gIIiiUWFXKgOiCB88SZkKS2SXE4CAO+tA9ZNgeZqvY1fLuZ9hainHHZ3B9FJPNg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f7BZUCuOJx41yQeZyG46SsSwCxOGOPDD1N01Rn2DD/8=;
- b=rpEAal92I0bsjWpi1lJGdFtzQT0RdQvUNjr3xHZqPX3yNHLiHTxqniV/o1wuM+l2aVME6R1S/CqCqy5pISgL6k3Y+MT0fPRAYoWfIYHT47Pl6xbQe87TUQ4WoyC09tnZa73LsyqGrBjVi+1zbIna82VV5LUGfjEDiLn3CXyVD969Fc1pUa/LB7+9InlDZ2uJFM0ID02MRuIacZCxIGFXlkKxk/yilzJzH8ZhBtvS+5/rylJMjcBQy9GPsz6384i5TH12q13attlZr/nKI2uhErwhXJYRT83/z6Pp4TK3x6IOnS2gx4nkxuxqVfnWq/f49XdwtXHXSaazTCPZ8yGWgQ==
-Received: from KUZPR04MB9265.apcprd04.prod.outlook.com (2603:1096:d10:5a::6)
- by KL1PR04MB7254.apcprd04.prod.outlook.com (2603:1096:820:fe::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.16; Fri, 13 Mar
- 2026 15:14:14 +0000
-Received: from KUZPR04MB9265.apcprd04.prod.outlook.com
- ([fe80::c938:f5bf:d734:436f]) by KUZPR04MB9265.apcprd04.prod.outlook.com
- ([fe80::c938:f5bf:d734:436f%4]) with mapi id 15.20.9700.015; Fri, 13 Mar 2026
- 15:14:14 +0000
-From: Zhang Zhenzhe <zhenzhe.zhang@outlook.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?iso-8859-1?Q?Christian_K=F6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Austin Zheng <austin.zheng@amd.com>, Jun Lei
- <jun.lei@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH] drm/amd/display: Increase DCN314 SR latency by 1us
-Thread-Topic: [PATCH] drm/amd/display: Increase DCN314 SR latency by 1us
-Thread-Index: AQHcsvuFzeiUQFQOEEa7ePJTe6Ab+A==
-Date: Fri, 13 Mar 2026 15:14:14 +0000
-Message-ID: <KUZPR04MB9265F4DDEF7627D2E3747BBBE645A@KUZPR04MB9265.apcprd04.prod.outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: KUZPR04MB9265:EE_|KL1PR04MB7254:EE_
-x-ms-office365-filtering-correlation-id: acdc86dc-edd9-427c-9ae2-08de81132feb
-x-microsoft-antispam: BCL:0;
- ARA:14566002|7071999006|22091999003|24121999003|31061999003|39105399006|24071999003|55001999003|20031999003|8060799015|19110799012|461199028|15080799012|15030799006|8062599012|1602099012|41105399003|40105399003|3412199025|4302099013|440099028|10035399007|102099032|3430499032;
-x-microsoft-antispam-message-info: =?iso-8859-1?Q?x/Zm7IeqVyBuXPEvU0DsXkZW/80cej66hukTpnq5mA11xUGzS+MawGdQEe?=
- =?iso-8859-1?Q?P5dZVxpOkgILi6TcZwIvm+2QTfYVzLG0JffIp3zO1srdKznvgAtfymn2/m?=
- =?iso-8859-1?Q?ZTeq03gUZmZ90cmKH0IOnh5VXk+dj52X3b3NYmOaMGvLm/RVyJKiwWrPSm?=
- =?iso-8859-1?Q?m+Pr1s/m00GmvlQVlg+5DNzJWRCfidEjuGnsKnQEVhdOGRMnHmOAc+dQl5?=
- =?iso-8859-1?Q?5CvINCts0iH3r/Y8Mph1ZVBP7o7T6O1/H/egNNfA/s5YfiQFxQ7xgxC9ea?=
- =?iso-8859-1?Q?EoKKTG+dqqKDs9VUzUddWAjQnmVlzCTNc2miQ56YFFcONm6Mrd8gV1pFqZ?=
- =?iso-8859-1?Q?Leku0PN8HMdhZT+Olbuzw3B71TdkisGNzY4prbWxl/Ka/KoiOuFpycykJ0?=
- =?iso-8859-1?Q?jDU+zbtFRybRLyWJYxDI6yDWngx4oJGtq+k0pu1Q9A2UZ7gPcSWjWXwEE2?=
- =?iso-8859-1?Q?0lL0cqbMwi3eM1n1ZrhcLnU0Cl0rteGiXLz4HNVqATCw7xWFiLrNvMcHu0?=
- =?iso-8859-1?Q?ENk9rcR76Uq/tEuZzo9GtrSahWmp45nQKAN0yy6gLn/vi+1PG6YtPPUjvH?=
- =?iso-8859-1?Q?5l7rrIZZmCkOllJHf0lr77n1YIHDVsJyHNNyfuYbpYruMGT2EbNGjg/MjZ?=
- =?iso-8859-1?Q?zYoNaEb99qq1awf9vPHpDjbvgJEOYoeqe5C3r21fhutNiJnFWkz6dHrqOq?=
- =?iso-8859-1?Q?Fh+M7RHdJfQPZsFPo6tynszDvzqdEbThWmqzBt/PDSHJhZakeJPZYXzZIg?=
- =?iso-8859-1?Q?IjR4XWp4pLVm+WjzsiKOOpGLW4SK9yB6XTLpF7SfI9xTB1K817kaqRPwka?=
- =?iso-8859-1?Q?HLmRk0jj+sx4BK9YjBAVtIViSodacDDFeVCWa5+UFK5jYyJl739ViUKjLt?=
- =?iso-8859-1?Q?DJdq1cDQ6STiPC3ATKgyu7H1/mHJMmnALs46TaGim7PL4hvrjJjTLCCvLG?=
- =?iso-8859-1?Q?bbuWeADebwyZgb4FI33j6x//NzIrpVIIfar9B4ppyYIaBMO45E41h3LRiA?=
- =?iso-8859-1?Q?k7eagvg99+suBU/nB2ZT1MAKCgnrWgok2ASyuLgf9j0/waaLjsvt6+I2bW?=
- =?iso-8859-1?Q?7zOl7918s+0sOyPH/mewXhRPncG58tQXC7dNzpzrDnaYDQZiiuEgXXCF9i?=
- =?iso-8859-1?Q?ijqlxIxAIlkWaO20Z+9HE2xidBLsbmlmSOIRkwno7/zIWM1AX+QdvcF7FB?=
- =?iso-8859-1?Q?9kUzA1O85y4nlrS4Cbmw5TcIv+aEC84hIXm5pzoo2ZDxxnkvxJMXVbw+Nn?=
- =?iso-8859-1?Q?zXr3kkaxEzKdZRdeWbmwp04ilU7f7XWmgLP5FlJ3g=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?PjwMGwryODJS6WcwIgQFSyE9nD+0Qts9103qDWTJSnwE8TLAtdcR8RCISr?=
- =?iso-8859-1?Q?jyxZLyoZFr5/se7h7/pU/ZnhEoB26Nn17jW72ZvfbKnj+ejEkgUXUFFbYx?=
- =?iso-8859-1?Q?tFF88e/yxoLfwVbg8Ih+6ExC10L4ElHmXcGdIO87SCpLF3n8H/rfDGLftK?=
- =?iso-8859-1?Q?tUb///+RkPjM0qlgbWDF/XW6exzXbW4RdGIHyDyOCqByZP9TXEbJ0+Bgc2?=
- =?iso-8859-1?Q?vJuW8u+ef0BCVGJQMP9syOsHeWrA2YiRCQ+cmhvRt0Iz9g/J303x58DrY5?=
- =?iso-8859-1?Q?5Nb2k3ZLWU9JXNNMdB5L/nzbSxMaTBfhNJqGV+W/SqknRPRUWKWX1Qh0Hy?=
- =?iso-8859-1?Q?6W1X0GOao+4VnCAeAOBC1i8nYXga3CC36EEoMQQ5Jg74qbuVguZAUbgZki?=
- =?iso-8859-1?Q?A/q7S9kjJpho76X3OLzrOR6lp3aFNki4aICrwjz/fNmUuVYI8vXezVOnh8?=
- =?iso-8859-1?Q?wAzjRqXFaeQXbjAQy4XTd9m2IqE2bld4NDpFSILI6v3Vi4ghuY09hjbAIE?=
- =?iso-8859-1?Q?z9TLpedfPEM6NdUglwCKnGp1ZktYU0XVkokgPwnEyCollE1Ijaix3/lkDP?=
- =?iso-8859-1?Q?ScozS2tsX2eWKjBX0fIAhqWLYf1B+gf5ZZMzRmEhcneTGHeRzbt0fYROjB?=
- =?iso-8859-1?Q?sU7ZK0PB96zG53VvuCSzjn7F1L4afZwXfv7cS4HJC37Z2dMGabFsOmZ99z?=
- =?iso-8859-1?Q?KM7qcmxZ7bO1SY8FtGJY0ulXR8I6NUVkQFb6h13PIR8JSy8hypmSWWSXt7?=
- =?iso-8859-1?Q?JtipLUbMCIsSQFyLgFP8taZwlMNMhD3/FCf7rB4MP8iD3FaH23bT3PGvgt?=
- =?iso-8859-1?Q?lx0m7LYLW1daS/1z9N54GQuFyt3ZSUdzA618EfmkpMAA119m1Ml0YxzwwC?=
- =?iso-8859-1?Q?LxLG5H3aMnpI67SGkIibcXCyx3PCWC3MKQ/Lw5VRNHC8LJ+05hx3KyR1jy?=
- =?iso-8859-1?Q?hrzA4T6MhLW5FGVZhc+I0bFH8d2v239PL16E/R9qzZVyPK3529RcPiKl3P?=
- =?iso-8859-1?Q?+yzLbpa/dbKDgW6VU6evhNn9AEOJ8yOPm/zC4nSYHAKx2JkcsSIHlSBean?=
- =?iso-8859-1?Q?VMtZvgR0HR4FAQ+616jWuhQXannVRN7g0BxHi3//5bNRQAdU/F4tMwxrsm?=
- =?iso-8859-1?Q?PbyZ1NdNeZc309Onu748BMoTYbrrj9SSuWFWyZKOhmohaPOF1HT6Hy2wWB?=
- =?iso-8859-1?Q?UYm94WV9EPMW0p1m8xJXqYuCvsa6WuRvDv4uoB9BK75sIoKRvnGa2HtRAB?=
- =?iso-8859-1?Q?rQaoPsU+atCyZYMHR/kkNFIfDhpxVltC1pWtCbY57RD3dE9N0UYiEM1jt8?=
- =?iso-8859-1?Q?A3dboyPOsDcpXJMX44GywCw+0QQC1nQe9/+KIhCbGYMIfHij9Zdmq3sYxL?=
- =?iso-8859-1?Q?vZzR6vm5LP1Mhf0kHCSOm3QGrdOA98kK2G/61zSlDMtqY6+dUs6z1KTquV?=
- =?iso-8859-1?Q?rA7T1uLaw+1gxclL?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D978010EC06
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:51 +0000 (UTC)
+Received: by mail-oi1-f178.google.com with SMTP id
+ 5614622812f47-4645dde00a7so2693192b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773408231; x=1774013031; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6HuyybZs7Z0tHabOQHGkaDjwue2hifxy3VAIL8mPUeE=;
+ b=A8yP/26XKFGvYc0WwI+3mpJkAjP6dlqjSPiRV6oESiRwnFCVTyWnl5fPdWKg2sER+v
+ /D647+lHEaLAaq9kVfSxfgB1nRGsKlSeRNPAI4KKIBlrWh39MeaaA6kFvKNwpqCOtfxM
+ ZK8JlS4JnSvGD+iO4KUVp4JqESy8NfJJC1V6hhq0WmScLrergo6Vv5o/9BeSg80EaJz6
+ gJUZHbgNqzVw5j1dGYa47kasPFDLyQS7r1Ebqm+FJFxFXu8HB8SloGV/H7zBqdnWlKYJ
+ dVYovk56EAEAfdnIT5fBm2U+BmEDLc+Qc1xExJncBidqgfntSL/Me/WaT5IGUFKzd8z6
+ GDag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773408231; x=1774013031;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=6HuyybZs7Z0tHabOQHGkaDjwue2hifxy3VAIL8mPUeE=;
+ b=bIf/JOogGlnjdaqAKhqjiFJmvLb3bJF5olDpCV6A9TxJI0KO2DM/2ZDnMeyHrrex2m
+ g5fuF0TMq2WfCEePJWfXTxX9p+jghjCCIAmFjotIAT1CyN4DVisv6kohW5ZdiET+XkIR
+ 2F+7phQgg4UGBSMagy0n2468GcdL4penSIR14eKtP7MkfGaJQG1i68r1EvwbPqdyhU4I
+ 72eDiTk3OhcQEOY5vvgUd0oXS0lEw766epfYVjmrCVszFflZr/Omb9a2ZeeTleEg97uQ
+ pPLz4+AbVwUZbFKPaTan5vK0JL+AQKo9r/yfgd++qTFEu5sgII8flzCMwpJuLggDI+hG
+ wzHg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVm8FOmvCElaTDqTNRD8TANcbUxsTTPL4e1vY8sx2hD8TlwpPk7s1k1DLXMoSQXDNbwvn0BhXqX@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQsaMn7OsCbmMhfgbodHBGKBC9tk8C2l2FYAy0LcSPOHuZp4ok
+ 3qf6fflhbbjvfX/cbho8h4GnADUWH/Nk20iZF7DF31yRN32E1tMMH6YF
+X-Gm-Gg: ATEYQzzEqEsXayK69RXNiFYBnZfgDXsywqR+KggyI3TlhmPD0qMbH502zJaIW3htJ6Q
+ Z5rbrT8idO05fhejk2GzvfQLPx2f+fRY3S0dZWDOuR9dpoEJfNkvDAAaRnqkyZrMqFJTpjGMHOy
+ NxJSW3LY0Da/G3H7yU98nFpUNaqVZrNiT26SytFCe8LsRbjbhiurd7lVXTLFegMoQsu42nTGtzb
+ zLd3egxFc98rAuhPGwMR5R+CIgeZHna3w05PzHbdoNWKHqz57Hw6WbmyA6dwkEw+ZPkntnQmmi6
+ DZ6zvk9Z2U9ydLp/fnmX/+mxKb3JS+65iOK9viFY1Xj1VNiXekr2361IID7EjxCza5EmEXKL3hl
+ Bxvfj8QniyasPZBZVoCZ7sfYqRgq3AlUT0aiMXQnhoIk8iShxU1MABmzf3EcpSwyoimteI9Dcev
+ lzOI63HtTKCaZeLHcUXtpyvnmx0YMsroniwqb7lNb0eKt4hyjb
+X-Received: by 2002:a05:6808:17a8:b0:466:f6ee:5bc6 with SMTP id
+ 5614622812f47-467557ec7d9mr1854894b6e.27.1773408230845; 
+ Fri, 13 Mar 2026 06:23:50 -0700 (PDT)
+Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+ by smtp.googlemail.com with ESMTPSA id
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2026 06:23:50 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
+ gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
+Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 25/65] dyndbg-test: change do_prints testpoint to accept a
+ loopct
+Date: Fri, 13 Mar 2026 07:19:50 -0600
+Message-ID: <20260313132103.2529746-26-jim.cromie@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: KUZPR04MB9265.apcprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: acdc86dc-edd9-427c-9ae2-08de81132feb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2026 15:14:14.1002 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR04MB7254
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Mar 2026 16:51:10 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -141,81 +97,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why & How]=0A=
-=0A=
-On laptops with LPDDR5 modules, underflow can be observed.=0A=
-It's unclear why it only occurs on specific desktop contents. However,=0A=
-increasing enter/exit latencies by 1us seems to resolve it.=0A=
-=0A=
-Fixes: https://gitlab.freedesktop.org/drm/amd/-/issues/5065=0A=
-Signed-off-by: Zhenzhe Zhang <zhenzhe.zhang@outlook.com>=0A=
----=0A=
- .../display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c   | 16 ++++++++--------=0A=
- .../drm/amd/display/dc/dml/dcn314/dcn314_fpu.c   |  4 ++--=0A=
- 2 files changed, 10 insertions(+), 10 deletions(-)=0A=
-=0A=
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c=
- b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c=0A=
-index 0cb37827a..7a910cc6d 100644=0A=
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c=0A=
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn314/dcn314_clk_mgr.c=0A=
-@@ -450,32 +450,32 @@ static struct wm_table lpddr5_wm_table =3D {=0A=
- 			.wm_inst =3D WM_A,=0A=
- 			.wm_type =3D WM_TYPE_PSTATE_CHG,=0A=
- 			.pstate_latency_us =3D 11.65333,=0A=
--			.sr_exit_time_us =3D 30.0,=0A=
--			.sr_enter_plus_exit_time_us =3D 32.0,=0A=
-+			.sr_exit_time_us =3D 31.0,=0A=
-+			.sr_enter_plus_exit_time_us =3D 33.0,=0A=
- 			.valid =3D true,=0A=
- 		},=0A=
- 		{=0A=
- 			.wm_inst =3D WM_B,=0A=
- 			.wm_type =3D WM_TYPE_PSTATE_CHG,=0A=
- 			.pstate_latency_us =3D 11.65333,=0A=
--			.sr_exit_time_us =3D 30.0,=0A=
--			.sr_enter_plus_exit_time_us =3D 32.0,=0A=
-+			.sr_exit_time_us =3D 31.0,=0A=
-+			.sr_enter_plus_exit_time_us =3D 33.0,=0A=
- 			.valid =3D true,=0A=
- 		},=0A=
- 		{=0A=
- 			.wm_inst =3D WM_C,=0A=
- 			.wm_type =3D WM_TYPE_PSTATE_CHG,=0A=
- 			.pstate_latency_us =3D 11.65333,=0A=
--			.sr_exit_time_us =3D 30.0,=0A=
--			.sr_enter_plus_exit_time_us =3D 32.0,=0A=
-+			.sr_exit_time_us =3D 31.0,=0A=
-+			.sr_enter_plus_exit_time_us =3D 33.0,=0A=
- 			.valid =3D true,=0A=
- 		},=0A=
- 		{=0A=
- 			.wm_inst =3D WM_D,=0A=
- 			.wm_type =3D WM_TYPE_PSTATE_CHG,=0A=
- 			.pstate_latency_us =3D 11.65333,=0A=
--			.sr_exit_time_us =3D 30.0,=0A=
--			.sr_enter_plus_exit_time_us =3D 32.0,=0A=
-+			.sr_exit_time_us =3D 31.0,=0A=
-+			.sr_enter_plus_exit_time_us =3D 33.0,=0A=
- 			.valid =3D true,=0A=
- 		},=0A=
- 	}=0A=
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c b/drive=
-rs/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c=0A=
-index df9d50b9b..37c760fbb 100644=0A=
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c=0A=
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn314/dcn314_fpu.c=0A=
-@@ -148,8 +148,8 @@ static struct _vcs_dpi_soc_bounding_box_st dcn3_14_soc =
-=3D {=0A=
- 		},=0A=
- 	},=0A=
- 	.num_states =3D 5,=0A=
--	.sr_exit_time_us =3D 16.5,=0A=
--	.sr_enter_plus_exit_time_us =3D 18.5,=0A=
-+	.sr_exit_time_us =3D 17.5,=0A=
-+	.sr_enter_plus_exit_time_us =3D 19.5,=0A=
- 	.sr_exit_z8_time_us =3D 268.0,=0A=
- 	.sr_enter_plus_exit_z8_time_us =3D 393.0,=0A=
- 	.writeback_latency_us =3D 12.0,=0A=
--- =0A=
-2.53.0=0A=
+echo 1000 > /sys/module/test_dynamic_debug/parameters/do_prints
+
+This allows its use as a scriptable load generator, to generate
+dynamic-prefix-emits for flag combinations vs undecorated messages.
+This will make it easy to assess the cost of the prefixing.
+
+Reading the ./do_prints node also prints messages (once) to the-log.
+
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+---
+ lib/test_dynamic_debug.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
+
+diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
+index b2bdfdfb6ba1..fa81177e8089 100644
+--- a/lib/test_dynamic_debug.c
++++ b/lib/test_dynamic_debug.c
+@@ -29,18 +29,25 @@
+ 
+ #include <linux/module.h>
+ 
+-/* re-gen output by reading or writing sysfs node: do_prints */
+-
+-static void do_prints(void); /* device under test */
++/* re-trigger debug output by reading or writing sysfs node: do_prints */
++static void do_prints(unsigned int); /* device under test */
+ static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
+ {
+-	do_prints();
++	int rc;
++	unsigned int ct;
++
++	rc = kstrtouint(instr, 0, &ct);
++	if (rc) {
++		pr_err("expecting numeric input, using 1 instead\n");
++		ct = 1;
++	}
++	do_prints(ct);
+ 	return 0;
+ }
+ static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
+ {
+-	do_prints();
+-	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
++	do_prints(1);
++	return scnprintf(buffer, PAGE_SIZE, "did 1 do_prints\n");
+ }
+ static const struct kernel_param_ops param_ops_do_prints = {
+ 	.set = param_set_do_prints,
+@@ -191,17 +198,20 @@ static void do_levels(void)
+ 	prdbg(V7);
+ }
+ 
+-static void do_prints(void)
++static void do_prints(unsigned int ct)
+ {
+-	pr_debug("do_prints:\n");
+-	do_cats();
+-	do_levels();
++	/* maybe clamp this */
++	pr_debug("do-prints %d times:\n", ct);
++	for (; ct; ct--) {
++		do_cats();
++		do_levels();
++	}
+ }
+ 
+ static int __init test_dynamic_debug_init(void)
+ {
+ 	pr_debug("init start\n");
+-	do_prints();
++	do_prints(1);
+ 	pr_debug("init done\n");
+ 	return 0;
+ }
+-- 
+2.53.0
+
