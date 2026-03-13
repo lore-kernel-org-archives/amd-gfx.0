@@ -4,83 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3D1E107BCDE
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:51:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27BB4107BCD1
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:51:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56DCB10ECA3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F00410ECA9;
 	Fri, 13 Mar 2026 16:51:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P6vP+0xY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eQ/ULjna";
 	dkim-atps=neutral
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
- [209.85.167.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8D4710EBF0
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:22:33 +0000 (UTC)
-Received: by mail-oi1-f178.google.com with SMTP id
- 5614622812f47-464bc03efd8so1513985b6e.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:22:33 -0700 (PDT)
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
+ [209.85.210.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7DE010EBEA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:12:07 +0000 (UTC)
+Received: by mail-ot1-f42.google.com with SMTP id
+ 46e09a7af769-7d76a331ebbso1423565a34.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:12:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408153; x=1774012953; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773407527; x=1774012327; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=J7LRJl13Yqup7eJj7JB8u2raYRuugKEd6d7nm5DRaag=;
- b=P6vP+0xYxO9sZtCWii4VtPh5zzqKSuFYLYAw0VtG421GZefD8mQfEpEb/KZhx8+8e7
- 1ZBCYP9X4EzER48qBQs0of/nEhW0v+LPzSjV6k2oz6Ob67ttyiwDRjoS0oMVgReLvQUa
- 6SgpW0fezSZshQwOOKO135t7Roqo8KdfKymO8bMBG5EHpS4D9Cy2sjumcp5+Xe7ZsiKy
- QmKnVJbpA6CIGM24SKwVGFtSOuU/s/k0kUMPTF3Xkr7XjJpXsRnavkEHGTZ3vY+YZXIL
- P9Zz78XJbgWe2OG3xUtp2QJtDq9Oc2XQE9dDxFoFjK1RuABq2pS878adfB2TAgwOB+rA
- A8Uw==
+ bh=vePjq7+VFJ5ZhNc2ZqKhZQksj6wQ9j47ntZTNCfs3mg=;
+ b=eQ/ULjnaqKu27dgcYx6ISKGTt3dDhRu+UXIH7gH4shZ5/zTnnQHZL+eJk4JSIIigtf
+ 4d4u9gyltZHXmA5UaRIP1HhrkAVtm44YzAeNpIu+rgKwejT/phvx34/P99G/0+lc3S9u
+ ZLdlRix/elXTVF7z0akOGbtM6pYxx1o7i/HMPmCp6i7rGCiqEYssCxIlZxZL4lXpaqI9
+ QQARYMfgWNRB81W4rB8ZoMbshMJIFn3jFtkUAVU7eZutXVwGmc28L1mx4CZ7/XPytwIR
+ V3CP7nSDlpUySyWUTNuuDeV6ePlk3AuwfbPYCG9MENqfORflCmP/wiFmAi8agOibcq2M
+ 5dEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408153; x=1774012953;
+ d=1e100.net; s=20251104; t=1773407527; x=1774012327;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=J7LRJl13Yqup7eJj7JB8u2raYRuugKEd6d7nm5DRaag=;
- b=C66D2vF2SE3uQhBjkuG1r0313WrEAAYomHsaoUlpYzDyuwFrtiJPxDpWqgK8dw5oXt
- I7XkNxrmMuNarFIlG9MgsokevPVstYyTRXJDO0PB7WKV4qFkfrcZm+Us3yVyaqiionqd
- SXNlIIBAxZLeMKYjjUGBnWly5DOpMG2VtpV2RQebKNr4kBfb5GgbujY7gtJgED+sT/nz
- +i4ZWc5F5Q7/37utfl2kJu9vvJn8USSND9/l7ySzAsSOkVZdHErSPscjfXsnug5Q5lLP
- mTKF1/iaEfwJDzJ4QjTZXwNagTwve/t3MmLDufhequRO4s3erZ70rOMXX1AZPdZon93c
- WHGQ==
+ bh=vePjq7+VFJ5ZhNc2ZqKhZQksj6wQ9j47ntZTNCfs3mg=;
+ b=qvGNp06xMUutUWesf+eY+0juzK1Z2s2hrKE4Js88cVlSgrZoy/+6f7G5TL5CY8wfMu
+ 49lKYG0lUBpKOl1rFOrG2FtWCbATGJ5Aetk6epEYEykdxXmpunaEIp3jwnV8rp8OFQHN
+ EUjNUBeZXVmGCAnrbzlFDX7fYwNeElhfpC4s6tUOGND3QfO8HfTjnoGVaQjud5I3t7+e
+ jbaBv5vCMrfOjMvsYq2ajOvIkIQXGM78csfVfUYzbzxHWSmadyxii7uqlLBqn715nM1J
+ yGbAteNdgq89c5Jveg8x82MGp+Mv268N9523hJ5B+gmq0Yuh7+hL+0p4Cn8cw6PHrZlf
+ A/Mw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVcYwnPZqUGACr7VPzNfsDwtrykYyAEtz2EVWqRGxtcu0eImE/LLlJPy796ZMXMJ2CLQvhhSISy@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxxNpm5ghw4+Vac8S7EYhwGzf4Ysx5MdPzpHK/jW9CDVmtjtRI8
- vguBdWyz8u1fNUpwg3qxsLb1qeug6cj/rBs4WkP9azi0F8uuBn2F8Vdx
-X-Gm-Gg: ATEYQzxo3MRpiOYs7a38t4i7fT6Csw0i/EQykem9bXYnumrMko71KtWPh9OI3y6WTr7
- tZRQdVbl80AkWocS9ltsfZIu2CrR+myca+KugPrHKKm5dPFWrvUm+uQ/+wXmPNfUe+qzDI3NG7J
- j+IibTwXVoQrbYfZl8JIu2wkCFsVw77cBPZroZWJt1NZiM79lpM2g2mFPIfAmDpO/Xy65rsxxyw
- MdFiiXAzON18U9Muc0ASaPnT4lslgjNY+aAg5T168JBsvnn+tg35h4egRZhO49xj5l8rgAaKdAi
- SGJp38KaLfm3bNFDeL3rFApWtc16dIVpV/I8ZR1suB7eEpiTpNi5AQT5gc5ySi66hzeVenZYFeC
- DCfWYZMfMYtp0ZSf/Qv2HdUOCzyzbOMyc5cYlfbdPE1Pxs93bt98AlmtQng0xUL4zMLfiokTPsK
- K2cAlc2p4AyERwgw0wTs/Wc5fPo8w/juH1lYROYlmNKY4Xy0hc
-X-Received: by 2002:a05:6808:1b24:b0:450:d471:dce5 with SMTP id
- 5614622812f47-4675701babbmr1567747b6e.6.1773408152897; 
- Fri, 13 Mar 2026 06:22:32 -0700 (PDT)
+ AJvYcCXhovjULY1JvpYLYKycMCGW1R9QGF4zE8w6CjpNzrbvNTzakQFAZ9FsER1zFkGsUpz0Yv/FNMhC@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzleUG8JznJGu0b7PrNZ2jXFwqDjM9P7oDoGLaZlbCrWnltwE2t
+ MTAGnQrtwtZ6CxGvFaC+pr4axOZ1KP/KQ/lag30GXVCuDgNyY1IWAGa3
+X-Gm-Gg: ATEYQzyqwpADt7Dz4yJgWE6163/QczCGVFUgi5LfGeZeYIBU4PE9BebHxC34kDhfMOE
+ 5YhJpDH/0IRI6H4TcMXDcHmbfCKhosh8Oxbkjm8kdIVITSp1pa0D8djPy5fadWGGi5yumhNEMsU
+ Y32pH00v0HZ36nGS17fP8tCd+zQVJ0jzVaSuoQaA+685xSfaK9QobVMQS97v/OPsXawC1naiA9u
+ YQp67kTA87mRat1ebvSM8OATTVO0XwQhQ0hG+Hi11ZduGbiXefzbnJAUVYM3MZ4F2yIMX93TXXH
+ emC10qywEKaXoUC523Jbh/nUONeybvAEwE6OoS7LLe9BJkAPmUq9huyzZTc3vo0JCP/ccxSkYX3
+ HmdJ/g680wvfJ+DQBAYHnUJ/Ymez6R/fmy+deZhfQz9QUXz1t1CEqLCz5fOuSWnQ50giPG1gLsa
+ 13A+e5DruH6pTnSy0pdC9rrLF9dDzGY2PyYJOsM4JHvz1BqvmLI2fLa47YhxY=
+X-Received: by 2002:a05:6830:64c8:b0:7d7:5bb2:568d with SMTP id
+ 46e09a7af769-7d7825771e3mr1924422a34.28.1773407526988; 
+ Fri, 13 Mar 2026 06:12:06 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.22.31
+ 46e09a7af769-7d76ae90586sm6733728a34.22.2026.03.13.06.12.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:22:32 -0700 (PDT)
+ Fri, 13 Mar 2026 06:12:06 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Arnd Bergmann <arnd@arndb.de>,
- linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
- maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
- ville.syrjala@linux.intel.com, christian.koenig@amd.com,
- matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
- ukaszb@chromium.org, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- kernel test robot <oliver.sang@intel.com>
-Subject: [PATCH v11 01/65] dyndbg: fix NULL ptr on i386 due to section
- alignment
-Date: Fri, 13 Mar 2026 07:19:26 -0600
-Message-ID: <20260313132103.2529746-2-jim.cromie@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Jason Baron <jbaron@akamai.com>,
+ Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org
+Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
+ jani.nikula@intel.com, ville.syrjala@linux.intel.com,
+ christian.koenig@amd.com, matthew.auld@intel.com,
+ arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
+ skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 02/65] dyndbg: factor ddebug_match_desc out from
+ ddebug_change
+Date: Fri, 13 Mar 2026 07:09:09 -0600
+Message-ID: <20260313131045.2526422-3-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
-References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+In-Reply-To: <20260313131045.2526422-1-jim.cromie@gmail.com>
+References: <20260313131045.2526422-1-jim.cromie@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 13 Mar 2026 16:51:10 +0000
@@ -98,87 +96,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When dyndbg classmaps get used (later in this series), the
-__dyndbg_classes section (which has 28 byte structs on i386), causes
-mis-alignment of the following __dyndbg section, resulting in a NULL
-pointer deref in dynamic_debug_init().
+ddebug_change() is a big (~100 lines) function with a nested for loop.
 
-To fix this, employ belt + suspenders:
+The outer loop walks the per-module ddebug_tables list, and does
+module stuff: it filters on a query's "module FOO*" and "class BAR",
+failures here skip the entire inner loop.
 
-1. move __dyndbg section above __dyndbg_classes.  This restores it to
-its original position directly after the ALIGN(8), and fixes the
-immediate problem.
+The inner loop (60 lines) scans a module's descriptors.  It starts
+with a long block of filters on function, line, format, and the
+validated "BAR" class (or the legacy/_DPRINTK_CLASS_DFLT).
 
-2. add ALIGN(8) to the BOUNDED_SECTION* macros.  This aligns all
-existing sections using the macro, and also fixes a future
-dyndbg_class_* addition which would suffer the same misalignment on
-i386.  Many of the existing macro uses already have a preceding ALIGN,
-these are now redundant, but are harmless, so are left to avoid churn.
+These filters "continue" past pr_debugs that don't match the query
+criteria, before it falls through the code below that counts matches,
+then adjusts the flags and static-keys.  This is unnecessarily hard to
+think about.
 
-3. remove BOUNDED_SECTION* uses in ORC_UNWINDER sections.  These have
-smaller alignments, *and* scripts/sorttable.c does not tolerate the
-added ALIGN(8) padding.
+So move the per-descriptor filter-block into a boolean function:
+ddebug_match_desc(desc), and change each "continue" to "return false".
+This puts a clear interface in place, so any future changes are either
+inside, outside, or across this interface.
 
-Reported-by: kernel test robot <oliver.sang@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202601211325.7e1f336-lkp@intel.com
+also fix checkpatch complaints about spaces and braces.
+
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/asm-generic/vmlinux.lds.h | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ lib/dynamic_debug.c | 83 +++++++++++++++++++++++++--------------------
+ 1 file changed, 47 insertions(+), 36 deletions(-)
 
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index eeb070f330bd..a2ba7e3d9994 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -212,11 +212,13 @@
- #endif
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index 18a71a9108d3..6b1e983cfedc 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -172,6 +172,52 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
+  * callsites, normally the same as number of changes.  If verbose,
+  * logs the changes.  Takes ddebug_lock.
+  */
++static bool ddebug_match_desc(const struct ddebug_query *query,
++			      struct _ddebug *dp,
++			      int valid_class)
++{
++	/* match site against query-class */
++	if (dp->class_id != valid_class)
++		return false;
++
++	/* match against the source filename */
++	if (query->filename &&
++	    !match_wildcard(query->filename, dp->filename) &&
++	    !match_wildcard(query->filename,
++			    kbasename(dp->filename)) &&
++	    !match_wildcard(query->filename,
++			    trim_prefix(dp->filename)))
++		return false;
++
++	/* match against the function */
++	if (query->function &&
++	    !match_wildcard(query->function, dp->function))
++		return false;
++
++	/* match against the format */
++	if (query->format) {
++		if (*query->format == '^') {
++			char *p;
++			/* anchored search. match must be at beginning */
++			p = strstr(dp->format, query->format + 1);
++			if (p != dp->format)
++				return false;
++		} else if (!strstr(dp->format, query->format)) {
++			return false;
++		}
++	}
++
++	/* match against the line number range */
++	if (query->first_lineno &&
++	    dp->lineno < query->first_lineno)
++		return false;
++	if (query->last_lineno &&
++	    dp->lineno > query->last_lineno)
++		return false;
++
++	return true;
++}
++
+ static int ddebug_change(const struct ddebug_query *query,
+ 			 struct flag_settings *modifiers)
+ {
+@@ -204,42 +250,7 @@ static int ddebug_change(const struct ddebug_query *query,
+ 		for (i = 0; i < dt->num_ddebugs; i++) {
+ 			struct _ddebug *dp = &dt->ddebugs[i];
  
- #define BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	. = ALIGN(8);							\
- 	_BEGIN_##_label_ = .;						\
- 	KEEP(*(_sec_))							\
- 	_END_##_label_ = .;
+-			/* match site against query-class */
+-			if (dp->class_id != valid_class)
+-				continue;
+-
+-			/* match against the source filename */
+-			if (query->filename &&
+-			    !match_wildcard(query->filename, dp->filename) &&
+-			    !match_wildcard(query->filename,
+-					   kbasename(dp->filename)) &&
+-			    !match_wildcard(query->filename,
+-					   trim_prefix(dp->filename)))
+-				continue;
+-
+-			/* match against the function */
+-			if (query->function &&
+-			    !match_wildcard(query->function, dp->function))
+-				continue;
+-
+-			/* match against the format */
+-			if (query->format) {
+-				if (*query->format == '^') {
+-					char *p;
+-					/* anchored search. match must be at beginning */
+-					p = strstr(dp->format, query->format+1);
+-					if (p != dp->format)
+-						continue;
+-				} else if (!strstr(dp->format, query->format))
+-					continue;
+-			}
+-
+-			/* match against the line number range */
+-			if (query->first_lineno &&
+-			    dp->lineno < query->first_lineno)
+-				continue;
+-			if (query->last_lineno &&
+-			    dp->lineno > query->last_lineno)
++			if (!ddebug_match_desc(query, dp, valid_class))
+ 				continue;
  
- #define BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)	\
-+	. = ALIGN(8);							\
- 	_label_##_BEGIN_ = .;						\
- 	KEEP(*(_sec_))							\
- 	_label_##_END_ = .;
-@@ -383,8 +385,8 @@
- 	*(__tracepoints)						\
- 	/* implement dynamic printk debug */				\
- 	. = ALIGN(8);							\
--	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
- 	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)				\
-+	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
- 	CODETAG_SECTIONS()						\
- 	LIKELY_PROFILE()		       				\
- 	BRANCH_PROFILE()						\
-@@ -867,15 +869,21 @@
- #ifdef CONFIG_UNWINDER_ORC
- #define ORC_UNWIND_TABLE						\
- 	.orc_header : AT(ADDR(.orc_header) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(.orc_header, _orc_header)		\
-+		__start_orc_header = .;					\
-+		KEEP(*(.orc_header))					\
-+		__stop_orc_header = .;					\
- 	}								\
- 	. = ALIGN(4);							\
- 	.orc_unwind_ip : AT(ADDR(.orc_unwind_ip) - LOAD_OFFSET) {	\
--		BOUNDED_SECTION_BY(.orc_unwind_ip, _orc_unwind_ip)	\
-+		__start_orc_unwind_ip = .;				\
-+		KEEP(*(.orc_unwind_ip))					\
-+		__stop_orc_unwind_ip = .;				\
- 	}								\
- 	. = ALIGN(2);							\
- 	.orc_unwind : AT(ADDR(.orc_unwind) - LOAD_OFFSET) {		\
--		BOUNDED_SECTION_BY(.orc_unwind, _orc_unwind)		\
-+		__start_orc_unwind = .;					\
-+		KEEP(*(.orc_unwind))					\
-+		__stop_orc_unwind = .;					\
- 	}								\
- 	text_size = _etext - _stext;					\
- 	. = ALIGN(4);							\
+ 			nfound++;
 -- 
 2.53.0
 
