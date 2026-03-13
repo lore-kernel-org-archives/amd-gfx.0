@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B940107BCDA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C647107BCD0
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:51:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51CAB10ECA2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6067010ECA7;
 	Fri, 13 Mar 2026 16:51:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gaPvrfBk";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BQxb+M3M";
 	dkim-atps=neutral
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
- [209.85.167.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6434010EC05
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:47 +0000 (UTC)
-Received: by mail-oi1-f173.google.com with SMTP id
- 5614622812f47-46702742c7dso499728b6e.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:47 -0700 (PDT)
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EA0110E121
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:22:54 +0000 (UTC)
+Received: by mail-oi1-f174.google.com with SMTP id
+ 5614622812f47-467161c4b89so1364614b6e.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:22:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408226; x=1774013026; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408173; x=1774012973; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=So1OTSMskFHrYYWc+bNZ+5Ly0eOy3XxdufShv2uDEDM=;
- b=gaPvrfBkXcQpC1LYAo1ReApEuCBQc3X6A6P58QI2uez9l/Boc4sAH1KdJYNkLOC2K+
- 9PGE52w4yF/rwI8c9TU1DJuHg+7WHy9Yd429tM+/lNEc59ZTcWCAIfHwAQDNJK6Cn1cK
- SCfzJ7OWqUFojm1z7F8e3lA0vd/bx12QntJ0HYYtMm5rUHAe7+FUo3Yf183kSyfATuqv
- MGQnl2xil9R3i8CF4oPqoCREB+Ym0Dlxcq33M44a1szdOGpHH/tPpIr4zszn1QwMsoux
- VCZGd5LI3Cfd1bSBWFU4bt5nS/mIp29/BDku38c/y96ib3uhhi41GryLrZn5llB24uRh
- 1Fbw==
+ bh=vePjq7+VFJ5ZhNc2ZqKhZQksj6wQ9j47ntZTNCfs3mg=;
+ b=BQxb+M3M8sWjG7rgFPAs4psBxvxkYKcRwfWYMoD+sMfaU0Dfu78TXmNtkje/jzXwkn
+ Yx1X6aM9sQG/Vp4Qa5RM8TCW5UvxAJT1fFKF6gfgk7CvELqBZHtorQp5UYv520ICwhbO
+ P3nsgdW/7wz3mpI8mOb/QJIZJPVcCB/9zOMXqAoV2xT2ShurvMfvLV3BAtK/LrxSg5Z+
+ DdLt+NGEgtLEJ0hQnjZKUeizQeSs2cfPLvXJqOftvB19TPOO8FF49yCJuQ0cNm3ZyqbG
+ hPiVUAfPPojiGjccbZkznakIVRJWWAJXqYRPJ1wuG+9/vXfmRwo7LlVGg6660WmAg/m+
+ AkIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408226; x=1774013026;
+ d=1e100.net; s=20251104; t=1773408173; x=1774012973;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=So1OTSMskFHrYYWc+bNZ+5Ly0eOy3XxdufShv2uDEDM=;
- b=hL4jwlu3ALUs+o+hblZKZdOgPvzu4vLjIJaV41TBOv0ThfAlpTWoTs7o3faLhJFZmo
- Le+LDFnnPnqMQXhfNErBmUQs3EH02nAiUPI2XEA0kDc/h6X/A190AqVw/YKmXXSurVam
- N/nCBdmAc1wsYDlMhGO9V1vRLOyAnDSMR3vgk6MYKAahYr3WK1xZ4DVFfOPsJMAMPhzw
- 7GdV91U7TdBAjSIlDdTOgaoCTXLlQeliTi0/iKMLw5WosXn1DD/XtN5w36E57fQwoRg2
- zaIm8rLKF0RnXFW4CpIFlsVoRU8j/4uvaWl2kR4ilX86B3y1kTH1095kkSmGmRqYxGEa
- 4b0A==
+ bh=vePjq7+VFJ5ZhNc2ZqKhZQksj6wQ9j47ntZTNCfs3mg=;
+ b=oc6inQUNu/hndaxts/90monEGPY581DvXkFCi7TvZLvW2FPKFvogmZn/0+MBPWe9ve
+ BjwJlxIuwUEiECEIO1bs5hvG9J17/XlJN7i9x5ybVSCeKI3Cm7odPURYZEqCMZ256DPn
+ xqoxVHx9hPtwli12dbZUNRxPlu7HAWJpIE4lnLLc0JZtNHoU9fiQsLhrHfy0HoDQkaNh
+ LzC2lskAGV/K72AkqQbMwhdpbGpZc9dwiEkbn/zrsbHQbGc6RnLQ256UJuLbQBw5VDa4
+ 5sVw8yS5mpOyq+b8OSWPque2OvFBdleTM0s5aZ7gwBCJEvTujFemWvqkGi5496DJlXmC
+ IuLQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWkN/gVcadmT9UGDWrOmASEBamkv3/lW1GHsaa4E6gA3RBVFr7tItKYivEmjfuV2GgxKC46Nf0O@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxKxSUjC2wX/fvzNjz9xqPTk+bBDNWAKJC95RZhF30WXNXYNlif
- 2iVP6e1L6d6hNW9KXGM70VhIkMXJAZpXqU8K+w9l8S1Vi9ty0ZUogYb5
-X-Gm-Gg: ATEYQzxG7cWdSz4a/BoGbiDsYff0akn9N+q6FtxqfC1X4JiWzZDkODKTIq/GfjBAZHr
- qAzqYmK/F3tMIPNruFaEHKOZi6G53tuAL8fpY1ZrBFbIMhMvjUnljPJBtLwdJT6biMeVjNoXppm
- EhbKHahwnDNenojtqNKistJ0nH+mzqycCaaup+0pT5fR9ZSD6givx4IBg2EuEJU19AqMjfMCPqi
- IrLbRLdOqVI1Rr4Avf6Xjs48JRiD9hJB+xAZkY4wm5ds0wUj+mqZby1OVvlCbeMI/oPhAsOxX0A
- dbHhjrwS4D6OA4f2EOWQBKcF76eWARnkvpYMvCMmqYUuAjy0GukDt5M90M6PwMunOSu/lpsSe4n
- QZ4gjXlY0MgLvqB+6yGBwUtDeIgndYwQA918GsbbqOUBuqm62P9sxeCNPbg1APtGr4Lyk9F5dM+
- eampHvS1fG0Rja7OvgP7oGrf6Uk5iTDURV+48mhgTr8qcGULL+
-X-Received: by 2002:a05:6808:6717:b0:467:462b:ab0 with SMTP id
- 5614622812f47-46757050cfbmr1535486b6e.2.1773408226613; 
- Fri, 13 Mar 2026 06:23:46 -0700 (PDT)
+ AJvYcCUXVpLBQ4mqQXqx1jMqA21MDx3tYkPNr8YAJ1ORrlEsLzWKER0Ca6zUP9ETHiCBch64hK9usJtN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwjZ+hE1DIVxM7xCVdo+fyKJuCgGhKa7gShX5sL6g+zOpbkxFmE
+ lUuvhsAO64MLyTfZq0phPxX7FWo0Th8eIVrmzflBPQmk+20WvIwV4JaY
+X-Gm-Gg: ATEYQzwViCuV3Mw9CQ9bjP+lsHUfDL0vt8k4bZS56SOPtwD3CXYmOoLk0Hw+wy3gLFb
+ s9ZXEeL3XlKz8RSZU9lneaJ7NYJgEVa5W2VrsVTXg6hH+XCF4DFT0hV1x1vvGtTd50opglAUHFM
+ szM4ARSEyOxRWf8D4BYwFF8kAz4Vhdxd/r6zgQRVvuxDhzMPiJroZRO78t8Y0gp9UoyitGda3pp
+ S8pnEnLqWnuIg+V0CK8MppDHF0B1H8FRqN9vziAVXJ+ZuDBseh1EDnJT/rp5ixRhqd0LJz2rg6u
+ ILoQH9EO7zjyBK27r/wldoZgAKkobKZ3omWYhs+OkYQPyTM97QpX7mSLL186Yx/NKIrQ453Y5Vz
+ PDYKiQZvE+ULdgv/KlyRlbiBCugNc6ZM9fHmORaqE2KK60Zk4tcSRxYu5Uhr//eufo8MVposMHV
+ ZUweU8pWOc65kkjRkzkVQWR9BD1hATdMdPHJGBTdp39pmF0OlA
+X-Received: by 2002:a05:6808:158e:b0:45e:e07d:85af with SMTP id
+ 5614622812f47-467570a2be8mr1583016b6e.2.1773408173272; 
+ Fri, 13 Mar 2026 06:22:53 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.45
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.22.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:45 -0700 (PDT)
+ Fri, 13 Mar 2026 06:22:52 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
+ gregkh@linuxfoundation.org, Andrew Morton <akpm@linux-foundation.org>,
+ Jim Cromie <jim.cromie@gmail.com>, linux-kernel@vger.kernel.org
 Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
  jani.nikula@intel.com, ville.syrjala@linux.intel.com,
  christian.koenig@amd.com, matthew.auld@intel.com,
@@ -73,9 +73,10 @@ Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
  skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
  dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 23/65] dyndbg: detect class_id reservation conflicts
-Date: Fri, 13 Mar 2026 07:19:48 -0600
-Message-ID: <20260313132103.2529746-24-jim.cromie@gmail.com>
+Subject: [PATCH v11 02/65] dyndbg: factor ddebug_match_desc out from
+ ddebug_change
+Date: Fri, 13 Mar 2026 07:19:27 -0600
+Message-ID: <20260313132103.2529746-3-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -96,86 +97,134 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If a module _DEFINEs 2 or more classmaps, it must devise them to share
-the per-module 0..62 class-id space; ie their respective base,+length
-reservations cannot overlap.
+ddebug_change() is a big (~100 lines) function with a nested for loop.
 
-To detect conflicts at modprobe, add ddebug_class_range_overlap(),
-call it from ddebug_add_module(), and WARN and return -EINVAL when
-they're detected.
+The outer loop walks the per-module ddebug_tables list, and does
+module stuff: it filters on a query's "module FOO*" and "class BAR",
+failures here skip the entire inner loop.
 
-This insures that class_id -> classname lookup has just 1 answer, so
-the 1st-found search in find-class-name works properly.
+The inner loop (60 lines) scans a module's descriptors.  It starts
+with a long block of filters on function, line, format, and the
+validated "BAR" class (or the legacy/_DPRINTK_CLASS_DFLT).
 
-test_dynamic_debug.c:
+These filters "continue" past pr_debugs that don't match the query
+criteria, before it falls through the code below that counts matches,
+then adjusts the flags and static-keys.  This is unnecessarily hard to
+think about.
 
-If built with -DFORCE_CLASSID_CONFLICT, the test-modules invoke 2
-conflicting DYNAMIC_DEBUG_CLASSMAP_DEFINE() declarations, into parent
-and the _submod.  These conflict with one of the good ones in the
-parent (D2_CORE..etc), causing the modprobe(s) to warn
+So move the per-descriptor filter-block into a boolean function:
+ddebug_match_desc(desc), and change each "continue" to "return false".
+This puts a clear interface in place, so any future changes are either
+inside, outside, or across this interface.
+
+also fix checkpatch complaints about spaces and braces.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
-v9 - fix WARN() by adding new 1st arg 1.
----
- lib/dynamic_debug.c      | 10 ++++++++++
- lib/test_dynamic_debug.c |  8 ++++++++
- 2 files changed, 18 insertions(+)
+ lib/dynamic_debug.c | 83 +++++++++++++++++++++++++--------------------
+ 1 file changed, 47 insertions(+), 36 deletions(-)
 
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 66f4bfe39e89..ec0d1c427d59 100644
+index 18a71a9108d3..6b1e983cfedc 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1317,6 +1317,7 @@ static int ddebug_add_module(struct _ddebug_info *di)
- 	struct ddebug_table *dt;
- 	struct _ddebug_class_map *cm;
- 	struct _ddebug_class_user *cli;
-+	u64 reserved_ids = 0;
- 	int i;
- 
- 	if (!di->descs.len)
-@@ -1341,6 +1342,11 @@ static int ddebug_add_module(struct _ddebug_info *di)
- 	dd_mark_vector_subrange(i, cli, &dt->info, users, dt);
- 	/* now di is stale */
- 
-+	/* insure 2+ classmaps share the per-module 0..62 class_id space */
-+	for_subvec(i, cm, &dt->info, maps)
-+		if (ddebug_class_range_overlap(cm, &reserved_ids))
-+			goto cleanup;
+@@ -172,6 +172,52 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct ddebug_table cons
+  * callsites, normally the same as number of changes.  If verbose,
+  * logs the changes.  Takes ddebug_lock.
+  */
++static bool ddebug_match_desc(const struct ddebug_query *query,
++			      struct _ddebug *dp,
++			      int valid_class)
++{
++	/* match site against query-class */
++	if (dp->class_id != valid_class)
++		return false;
 +
- 	mutex_lock(&ddebug_lock);
- 	list_add_tail(&dt->link, &ddebug_tables);
- 	mutex_unlock(&ddebug_lock);
-@@ -1353,6 +1359,10 @@ static int ddebug_add_module(struct _ddebug_info *di)
- 	vpr_info("%3u debug prints in module %s\n",
- 		 dt->info.descs.len, dt->info.mod_name);
- 	return 0;
-+cleanup:
-+	WARN_ONCE(1, "dyndbg multi-classmap conflict in %s\n", di->mod_name);
-+	kfree(dt);
-+	return -EINVAL;
- }
- 
- /* helper for ddebug_dyndbg_(boot|module)_param_cb */
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 6c4548f63512..1ba4be9a403a 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -128,6 +128,14 @@ DYNAMIC_DEBUG_CLASSMAP_DEFINE(map_level_num, DD_CLASS_TYPE_LEVEL_NUM,
- DYNAMIC_DEBUG_CLASSMAP_PARAM(disjoint_bits, p);
- DYNAMIC_DEBUG_CLASSMAP_PARAM(level_num, p);
- 
-+#ifdef FORCE_CLASSID_CONFLICT
-+/*
-+ * Enable with -Dflag on compile to test overlapping class-id range
-+ * detection.  This should warn on modprobes.
-+ */
-+DYNDBG_CLASSMAP_DEFINE(classid_range_conflict, 0, D2_CORE + 1, "D3_CORE");
-+#endif
++	/* match against the source filename */
++	if (query->filename &&
++	    !match_wildcard(query->filename, dp->filename) &&
++	    !match_wildcard(query->filename,
++			    kbasename(dp->filename)) &&
++	    !match_wildcard(query->filename,
++			    trim_prefix(dp->filename)))
++		return false;
 +
- #else /* TEST_DYNAMIC_DEBUG_SUBMOD */
++	/* match against the function */
++	if (query->function &&
++	    !match_wildcard(query->function, dp->function))
++		return false;
++
++	/* match against the format */
++	if (query->format) {
++		if (*query->format == '^') {
++			char *p;
++			/* anchored search. match must be at beginning */
++			p = strstr(dp->format, query->format + 1);
++			if (p != dp->format)
++				return false;
++		} else if (!strstr(dp->format, query->format)) {
++			return false;
++		}
++	}
++
++	/* match against the line number range */
++	if (query->first_lineno &&
++	    dp->lineno < query->first_lineno)
++		return false;
++	if (query->last_lineno &&
++	    dp->lineno > query->last_lineno)
++		return false;
++
++	return true;
++}
++
+ static int ddebug_change(const struct ddebug_query *query,
+ 			 struct flag_settings *modifiers)
+ {
+@@ -204,42 +250,7 @@ static int ddebug_change(const struct ddebug_query *query,
+ 		for (i = 0; i < dt->num_ddebugs; i++) {
+ 			struct _ddebug *dp = &dt->ddebugs[i];
  
- /*
+-			/* match site against query-class */
+-			if (dp->class_id != valid_class)
+-				continue;
+-
+-			/* match against the source filename */
+-			if (query->filename &&
+-			    !match_wildcard(query->filename, dp->filename) &&
+-			    !match_wildcard(query->filename,
+-					   kbasename(dp->filename)) &&
+-			    !match_wildcard(query->filename,
+-					   trim_prefix(dp->filename)))
+-				continue;
+-
+-			/* match against the function */
+-			if (query->function &&
+-			    !match_wildcard(query->function, dp->function))
+-				continue;
+-
+-			/* match against the format */
+-			if (query->format) {
+-				if (*query->format == '^') {
+-					char *p;
+-					/* anchored search. match must be at beginning */
+-					p = strstr(dp->format, query->format+1);
+-					if (p != dp->format)
+-						continue;
+-				} else if (!strstr(dp->format, query->format))
+-					continue;
+-			}
+-
+-			/* match against the line number range */
+-			if (query->first_lineno &&
+-			    dp->lineno < query->first_lineno)
+-				continue;
+-			if (query->last_lineno &&
+-			    dp->lineno > query->last_lineno)
++			if (!ddebug_match_desc(query, dp, valid_class))
+ 				continue;
+ 
+ 			nfound++;
 -- 
 2.53.0
 
