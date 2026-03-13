@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9FB3107BCD3
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:52:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BB76107BCD2
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:52:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04DD410ECDA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2446910ECDB;
 	Fri, 13 Mar 2026 16:52:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A8yP/26X";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WdlIUNs8";
 	dkim-atps=neutral
-Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
- [209.85.167.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D978010EC06
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:51 +0000 (UTC)
-Received: by mail-oi1-f178.google.com with SMTP id
- 5614622812f47-4645dde00a7so2693192b6e.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:51 -0700 (PDT)
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
+ [209.85.167.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B1B510EC1F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:25:04 +0000 (UTC)
+Received: by mail-oi1-f177.google.com with SMTP id
+ 5614622812f47-46701f2077cso2600383b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:25:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408231; x=1774013031; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408303; x=1774013103; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=6HuyybZs7Z0tHabOQHGkaDjwue2hifxy3VAIL8mPUeE=;
- b=A8yP/26XKFGvYc0WwI+3mpJkAjP6dlqjSPiRV6oESiRwnFCVTyWnl5fPdWKg2sER+v
- /D647+lHEaLAaq9kVfSxfgB1nRGsKlSeRNPAI4KKIBlrWh39MeaaA6kFvKNwpqCOtfxM
- ZK8JlS4JnSvGD+iO4KUVp4JqESy8NfJJC1V6hhq0WmScLrergo6Vv5o/9BeSg80EaJz6
- gJUZHbgNqzVw5j1dGYa47kasPFDLyQS7r1Ebqm+FJFxFXu8HB8SloGV/H7zBqdnWlKYJ
- dVYovk56EAEAfdnIT5fBm2U+BmEDLc+Qc1xExJncBidqgfntSL/Me/WaT5IGUFKzd8z6
- GDag==
+ bh=ZmHuo2gpKk+a4rM0v+S94FJooBnanLI4bt90pYFjtcE=;
+ b=WdlIUNs8jVU09TTFtkAQFzt/PZG5qNnFsuuiRJ/khBU3BGmXcnCbsIcu8vfLV3fcgT
+ apUX3jzndETlbFP1+3sIKYcSjCAEmZYSh6l1qlZ6tluzI5vmqMRavC0h/Eb9Gv29rpQ+
+ fLnJCVCH6tuQWZkUc9HwIWzbwDScdvApQGdljvcugN5aWzqOPXNVoF1UNe9SbAfqjvHI
+ CJVBZRUXPXny05aMX/zJu8wptnX0vM2v8L046QZfXYUY+OU3s4AESnIcN79Qkn49byZ7
+ 6oXusQ86GB2d/ktYEzZpQU0mHHWjvym6L64cm339HFCLL8wlh4KqeL1YkebgbO9TMmCr
+ Z/cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408231; x=1774013031;
+ d=1e100.net; s=20251104; t=1773408303; x=1774013103;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=6HuyybZs7Z0tHabOQHGkaDjwue2hifxy3VAIL8mPUeE=;
- b=bIf/JOogGlnjdaqAKhqjiFJmvLb3bJF5olDpCV6A9TxJI0KO2DM/2ZDnMeyHrrex2m
- g5fuF0TMq2WfCEePJWfXTxX9p+jghjCCIAmFjotIAT1CyN4DVisv6kohW5ZdiET+XkIR
- 2F+7phQgg4UGBSMagy0n2468GcdL4penSIR14eKtP7MkfGaJQG1i68r1EvwbPqdyhU4I
- 72eDiTk3OhcQEOY5vvgUd0oXS0lEw766epfYVjmrCVszFflZr/Omb9a2ZeeTleEg97uQ
- pPLz4+AbVwUZbFKPaTan5vK0JL+AQKo9r/yfgd++qTFEu5sgII8flzCMwpJuLggDI+hG
- wzHg==
+ bh=ZmHuo2gpKk+a4rM0v+S94FJooBnanLI4bt90pYFjtcE=;
+ b=IpyrhbJTOyHBC7qm2wnnSXftlgBT7XrponAfOX4k09lqhzC+GGGIKFeSVaNi/2Sg2v
+ 4oYvkbhk6KQMiqEbMiN+gSWfnEUDQhkU/0ZuHeoOMTLz+iwbV2/QiWDje9LhlZdswupM
+ 3YK2RgzfiugBSQN5QpIUEXV50DZTQ8xINFuUCP0/CVhq58NEVb5brKWf2KtDjp/L901E
+ P8KZItWy9+nKFC8Y21yNUqN6jzrMSUXQ8TjBPxXu9I/FcBsDk78zN8KYjbSmo13xSjX9
+ 6UEva9oPZcpVXuLoYspSXJ9MCpgaDOSXqgqg9wZjPYMLB1BIHCSZrnBHnEe8H5PoXjE0
+ +cOw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVm8FOmvCElaTDqTNRD8TANcbUxsTTPL4e1vY8sx2hD8TlwpPk7s1k1DLXMoSQXDNbwvn0BhXqX@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyQsaMn7OsCbmMhfgbodHBGKBC9tk8C2l2FYAy0LcSPOHuZp4ok
- 3qf6fflhbbjvfX/cbho8h4GnADUWH/Nk20iZF7DF31yRN32E1tMMH6YF
-X-Gm-Gg: ATEYQzzEqEsXayK69RXNiFYBnZfgDXsywqR+KggyI3TlhmPD0qMbH502zJaIW3htJ6Q
- Z5rbrT8idO05fhejk2GzvfQLPx2f+fRY3S0dZWDOuR9dpoEJfNkvDAAaRnqkyZrMqFJTpjGMHOy
- NxJSW3LY0Da/G3H7yU98nFpUNaqVZrNiT26SytFCe8LsRbjbhiurd7lVXTLFegMoQsu42nTGtzb
- zLd3egxFc98rAuhPGwMR5R+CIgeZHna3w05PzHbdoNWKHqz57Hw6WbmyA6dwkEw+ZPkntnQmmi6
- DZ6zvk9Z2U9ydLp/fnmX/+mxKb3JS+65iOK9viFY1Xj1VNiXekr2361IID7EjxCza5EmEXKL3hl
- Bxvfj8QniyasPZBZVoCZ7sfYqRgq3AlUT0aiMXQnhoIk8iShxU1MABmzf3EcpSwyoimteI9Dcev
- lzOI63HtTKCaZeLHcUXtpyvnmx0YMsroniwqb7lNb0eKt4hyjb
-X-Received: by 2002:a05:6808:17a8:b0:466:f6ee:5bc6 with SMTP id
- 5614622812f47-467557ec7d9mr1854894b6e.27.1773408230845; 
- Fri, 13 Mar 2026 06:23:50 -0700 (PDT)
+ AJvYcCXjajDJorrZg8lAGP8mD0ZxcT9S3IOo5LYXx5jljF8fxLW8dEI77UtGKgzukE7p82szYnsGDmK9@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwSHjjlDtgHkjuA30uGpQbx3hQJFqOnXMAUwgAOhC+5P4GqXxFK
+ Ngt7jtpc5gNC0p5JNs0D/p8HdTjIn3TJAHmDJyehL2JH8GTHoOZT9CxLxi3I7xXk
+X-Gm-Gg: ATEYQzwpoSCLTyuMlPzdz7BFzRpteHU78c69ulu2j/nDCj7RWgyiT7A5fbSHm2uabtH
+ QWUvRUDC2l+jx1Gx6+2SQlqonddPbMbuqwT6+RyangF5rLSmPLPHuUkttXuam6+6gRob5XVlLrn
+ 50iR/w2oixungXexzLJnH1vc8xCZFFV6ecqsjH4jcTmR+I3YVQ86su/88DZslY+vm9MDV80CM2t
+ 7FTYfuOGht0XF8/dA2Yoiq1jLIn/7Ved0h40PQ9fJn7iq39ZbdyAlOTlbROTpm25e98j+qBhozC
+ qwiZQMu6PpaL6LtQmP10CBetCusvhrgKABPwVajnFGAkoHtfg2hdXdRYY1cTbq/Ibnx2AQmKd37
+ c5w6NWcEEV2co7GF08vUS4WxyLHN/1NWLj0FHKpO+CtUo17ski7YsMurYj9U7orCUsIsV2oZWS7
+ /jdcm6AlZEXlblQIPHOp9PdRUiiz3m6PgQa+Vw7u+DRn1Njgiq
+X-Received: by 2002:a05:6808:190e:b0:467:2be4:9e33 with SMTP id
+ 5614622812f47-4675552dd65mr1929280b6e.6.1773408303348; 
+ Fri, 13 Mar 2026 06:25:03 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.49
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.25.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:23:50 -0700 (PDT)
+ Fri, 13 Mar 2026 06:25:03 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Jim Cromie <jim.cromie@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org
-Cc: mripard@kernel.org, tzimmermann@suse.de, maarten.lankhorst@linux.intel.com,
- jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, "Rob Herring (Arm)" <robh@kernel.org>,
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com,
+ ukaszb@chromium.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 25/65] dyndbg-test: change do_prints testpoint to accept a
- loopct
-Date: Fri, 13 Mar 2026 07:19:50 -0600
-Message-ID: <20260313132103.2529746-26-jim.cromie@gmail.com>
+Subject: [PATCH v11 61/65] accel/ethosu: enable drm.debug control
+Date: Fri, 13 Mar 2026 07:20:26 -0600
+Message-ID: <20260313132103.2529746-62-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -97,81 +97,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-echo 1000 > /sys/module/test_dynamic_debug/parameters/do_prints
-
-This allows its use as a scriptable load generator, to generate
-dynamic-prefix-emits for flag combinations vs undecorated messages.
-This will make it easy to assess the cost of the prefixing.
-
-Reading the ./do_prints node also prints messages (once) to the-log.
+ethosu.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
+to tell dynamic-debug what classmap enables them.
+Also include drm/drm_print.h explicitly.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/test_dynamic_debug.c | 32 +++++++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 11 deletions(-)
+ drivers/accel/ethosu/ethosu_drv.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index b2bdfdfb6ba1..fa81177e8089 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -29,18 +29,25 @@
+diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
+index 9992193d7338..a0b8cb81a359 100644
+--- a/drivers/accel/ethosu/ethosu_drv.c
++++ b/drivers/accel/ethosu/ethosu_drv.c
+@@ -17,12 +17,15 @@
+ #include <drm/drm_gem.h>
+ #include <drm/drm_accel.h>
+ #include <drm/ethosu_accel.h>
++#include <drm/drm_print.h>
  
- #include <linux/module.h>
+ #include "ethosu_drv.h"
+ #include "ethosu_device.h"
+ #include "ethosu_gem.h"
+ #include "ethosu_job.h"
  
--/* re-gen output by reading or writing sysfs node: do_prints */
--
--static void do_prints(void); /* device under test */
-+/* re-trigger debug output by reading or writing sysfs node: do_prints */
-+static void do_prints(unsigned int); /* device under test */
- static int param_set_do_prints(const char *instr, const struct kernel_param *kp)
- {
--	do_prints();
-+	int rc;
-+	unsigned int ct;
++DRM_CLASSMAP_USE(drm_debug_classes);
 +
-+	rc = kstrtouint(instr, 0, &ct);
-+	if (rc) {
-+		pr_err("expecting numeric input, using 1 instead\n");
-+		ct = 1;
-+	}
-+	do_prints(ct);
- 	return 0;
- }
- static int param_get_do_prints(char *buffer, const struct kernel_param *kp)
+ static int ethosu_ioctl_dev_query(struct drm_device *ddev, void *data,
+ 				  struct drm_file *file)
  {
--	do_prints();
--	return scnprintf(buffer, PAGE_SIZE, "did do_prints\n");
-+	do_prints(1);
-+	return scnprintf(buffer, PAGE_SIZE, "did 1 do_prints\n");
- }
- static const struct kernel_param_ops param_ops_do_prints = {
- 	.set = param_set_do_prints,
-@@ -191,17 +198,20 @@ static void do_levels(void)
- 	prdbg(V7);
- }
- 
--static void do_prints(void)
-+static void do_prints(unsigned int ct)
- {
--	pr_debug("do_prints:\n");
--	do_cats();
--	do_levels();
-+	/* maybe clamp this */
-+	pr_debug("do-prints %d times:\n", ct);
-+	for (; ct; ct--) {
-+		do_cats();
-+		do_levels();
-+	}
- }
- 
- static int __init test_dynamic_debug_init(void)
- {
- 	pr_debug("init start\n");
--	do_prints();
-+	do_prints(1);
- 	pr_debug("init done\n");
- 	return 0;
- }
 -- 
 2.53.0
 
