@@ -4,81 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 902A2107BCCD
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E3C107BCCC
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 16:51:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26FF910E44E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2948710E44F;
 	Fri, 13 Mar 2026 16:51:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OI0Ulaf9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FrZEtlKu";
 	dkim-atps=neutral
-Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
- [209.85.167.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF09D10EC15
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:24:29 +0000 (UTC)
-Received: by mail-oi1-f176.google.com with SMTP id
- 5614622812f47-4671cbce2feso975924b6e.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:24:29 -0700 (PDT)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B28DF10E060
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 13:23:06 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id
+ 5614622812f47-4670464029eso1288815b6e.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 06:23:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773408269; x=1774013069; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773408186; x=1774012986; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=omqdlqhqg9w8rP5QQ/+0ZYQHRwMpTry/COrsHclV4zI=;
- b=OI0Ulaf9MBkuL8UHNfULduu+KrXKjJsEIpkkpzwthZOaB/jUt/HI5VxNXqC3g5stHo
- BVzKDTh3tHvsNdfLFLW3rJwKuE3u76XK+HN1Xx7ITnv7+8vxGxIDNkOu/ROULNSljE5Z
- 2TvmxnBVrCjwbdlMJUGqBwB1dg8fq4Lkz7Usd22Mqaw8k1ufRrbbtouXRFkxCtyIM2E2
- y4Y8ItWCXeHlE2qDR5c0DUcLmlZHxV/cMcBNdS3KjSgZePxZ4IhpYDJOX/Xce/JJ1y8X
- 4OgJsFhhP82cg+dwVudc26cunjG6PupJDZ8RJQWR8yZFWDA8Mr3P8aYbW8MOFWseB52e
- SYsQ==
+ bh=4wIIBK2xLHmy9ZZczWpP2RzFmOx4bELZz7aMw+RGO2w=;
+ b=FrZEtlKuDuEfFlrIRTNM2hGm6GGCDKItlzdd/w8l+TdKrX2ND6iD0ziBfgO5Czgs62
+ 9evv8DmgMv/EnjUId0sgIcXW9ofQkAZ0YzGJaIf74VUMUqufCsJuCbKmbSfaiD61G7cq
+ JtDRg+ZpKIfMvVDi9DFkwo6kxRs/p1pYU4EEwCVUBrqxG4mc3XTVETEkFWPAGEWnqP8b
+ iU11ycRAOS+IrY6RDnJLFGb7KSRPDZS/mi5VAN3zcYC43jiQ4ZiNCZdBwJW1nYY8V6uH
+ T1w31A7U0xz0CcMYcraNWtgFfeMNjaU1TK8KD5T9bIam1lHNQ6HCbaSdRi62IS1S9VTK
+ DFNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773408269; x=1774013069;
+ d=1e100.net; s=20251104; t=1773408186; x=1774012986;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=omqdlqhqg9w8rP5QQ/+0ZYQHRwMpTry/COrsHclV4zI=;
- b=gUj+j3119yhoL2pA6i+gwnLyl8vVwKmNF/60joBOXYcw0tVhAiDK2AITHHkMmzbVqB
- L6UHkJMg/f6D0MV71mzorcTJJlV1B1NHLLiGp9VfNfcuIzbQaxFZh0XNJiib1UWojRQx
- A1K0Y9QC2I/5pOPTAZbUa5b2/cST3CAaHBQB/NZgYILn87RQp9C2oYF3BPAbEaO9mFLv
- kRWN7nVOOR4spheA9hXRsQdWTtHbpbCGwY/jFl462yX/SnLAO4mCxgD7nsyy6Hv/W3hJ
- YeijIH/sd9NpzWn1r95hfeobpQQex39aKCToPCFsd1TzuiEU0EdZtk5A7uOJSQCnqqe6
- lpiQ==
+ bh=4wIIBK2xLHmy9ZZczWpP2RzFmOx4bELZz7aMw+RGO2w=;
+ b=sVZq7u7ZleHC5xP1NJZfaDVq82Y0zqk17thBxkM7W4vwAigjZXkwwwQikKoIGu6dJ/
+ BYHvr0Y56eHpf21pWdgTEL3DgeiYRWm7jJSZ9sazooD6vi33P3n4T9nHMcc+7Gkvn6JZ
+ AviGBYujkmuJN73ZOrGUCiTTdn5QLsyvhVRxb/bHLixnMsMpKcOCubxVZgXd7xp+Vxwb
+ RLjQcc31hMJ+rIkYJhlBa3IgzmJ6urFI10gaxDDwYSVfiObySssuyv3JsrM/5F20UQUJ
+ 7m2RDF0xlHPEzzGQQasC0ypS+MWHhYx44+6ktZ89qX4aqYbXuWklorn5x9MGPWiQk59G
+ dTRA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXq9jC9TDKIqz9/63DZTE/ZVQwtGJ76UvMEQG+kkgdkQcHdz/AXaEDmt3nrpwAwsno4xbCbG4L3@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRTVEKtL+GvKC/V0Po5jMQor7AbSbAXM0wbHzOC+NI2amv1a5h
- ek3XJmN65wAleWf77rSMka+MUnhkYQQEGf6uz8fo1zbFI6BJGOSPx4YO
-X-Gm-Gg: ATEYQzy2HRkO9FYaKl4TRGRa9P0dUPEkKs19eLmHSSs+xLBuoXXdYNvPRlR6/UJCxsI
- N5kZMDG/DbWQa69KrXHLyr3gyhnzd72fNv1FhN9MX28bj6dgqm8WlxjX6jzAnG2VyGW5ak2fF9N
- OvL3QmOwa4McCp7kMZcnZiobM7xK0KMOZEbVFZEM3XKhCw8tYuvJ56LRqbBxnEgUN0HJ2fbpm0j
- lOu3Ecmuh2/f+Klj43pKPMAiOsArbPCak9dU7r0XLyZHhx1Ab9VgvCrO+i6QL2rnBdPLu/ldWKj
- /+y2kkLYJv0xac3qzCfZr4dhGm/a1KxNvC5XzvQ+flOhbzlyPdgPnVIIuaIRDW9dBrq7XRsZT2G
- o1fpE854RweKzbMR+S6/iOVR3HordqJScfI+OY3nxf0iuRlmXurQGWKv3MPv0Sz5nM/iY/WL7ET
- mLkhe9qZjmtGWXNPfHHlZ9e6A+Astui6/lRu0jFvgN4mSZ1Dc1
-X-Received: by 2002:a05:6808:2218:b0:467:cda:f189 with SMTP id
- 5614622812f47-467572ede3dmr1790509b6e.32.1773408268910; 
- Fri, 13 Mar 2026 06:24:28 -0700 (PDT)
+ AJvYcCWgXUbidLsgBt7kK32606y5eL7qZNT6Qmnuvk5V86m6p11fYhQKhjG0kxXYlmgYQK2ALEuWkuLu@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwvmokWqjSxJVCqJ6MUN2CPBX9acOo9ZynwKbc+pV6Ij+S+tD2P
+ wx0OdZgzaiyuDO7OasRFiKWR7BjridDHdYTpREvR/zXbvlNZ5U8zCreA
+X-Gm-Gg: ATEYQzz2iUTeH48Rzr1lAQzJbrPOnsW5Gj8400+RPBt+32U7DHXUho/Q2DAEjeoHy8G
+ y2Nwaga+QN5okJ28nXrW+6GF4jayf1eigqq38cDshsV+8BcRdGnWPmfac6Rwb1FZyqXd+U43mgh
+ vWufOE5GC/mhapQwkCcIvPEuri1HXXOSIJs4oCm6JPanUGBl1ggNueAHqe39kfHyygQZVkDZ8gs
+ 76qxJe92ZDWwbkPgYFBvE3HuWJEmR9ig0WaK+JJpq6EbbUu6sPLRgUdPnD299xNhHS4iUfwfkJO
+ yVb9LNoHTYK5So4NUgKveXnCl2I3DaIf/kyyKzRP/KIPrFvVsdSMYGvYthAImF+NN+HLkb3LehF
+ qiN7NtrAnMaB3T8XwRynsyOjjQn35QdCeHhwlGoa9K6eG9AiWmg8449PV9B1sR4vVMiqVMpkE7I
+ 04yOTvCvNTH0Osymb7oceealhbt+wuAshmce8Q+cKTHRAvK/eO
+X-Received: by 2002:a05:6808:15a2:b0:467:1e5:6766 with SMTP id
+ 5614622812f47-4675766748fmr1758674b6e.45.1773408185885; 
+ Fri, 13 Mar 2026 06:23:05 -0700 (PDT)
 Received: from frodo (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
  by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.24.27
+ 5614622812f47-4673434a35csm4795987b6e.20.2026.03.13.06.23.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Mar 2026 06:24:28 -0700 (PDT)
+ Fri, 13 Mar 2026 06:23:05 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
 To: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com,
- gregkh@linuxfoundation.org, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Jim Cromie <jim.cromie@gmail.com>,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Cc: jani.nikula@intel.com, ville.syrjala@linux.intel.com,
- christian.koenig@amd.com, matthew.auld@intel.com,
- arunpravin.paneerselvam@amd.com, louis.chauvet@bootlin.com,
- skhan@linuxfoundation.org, pmladek@suse.com, ukaszb@chromium.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH v11 43/65] drm-dyndbg: DRM_CLASSMAP_USE in nouveau
-Date: Fri, 13 Mar 2026 07:20:08 -0600
-Message-ID: <20260313132103.2529746-44-jim.cromie@gmail.com>
+Cc: Jim Cromie <jim.cromie@gmail.com>, mripard@kernel.org, tzimmermann@suse.de,
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com,
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com,
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
+ louis.chauvet@bootlin.com, pmladek@suse.com, ukaszb@chromium.org,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH v11 05/65] docs/dyndbg: explain flags parse 1st
+Date: Fri, 13 Mar 2026 07:19:30 -0600
+Message-ID: <20260313132103.2529746-6-jim.cromie@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260313132103.2529746-1-jim.cromie@gmail.com>
 References: <20260313132103.2529746-1-jim.cromie@gmail.com>
@@ -99,43 +97,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Following the dyndbg-api-fix, replace DECLARE_DYNDBG_CLASSMAP with
-DRM_CLASSMAP_USE.  This refs the defined & exported classmap, rather
-than re-declaring it redundantly, and error-prone-ly.
+When writing queries to >control, flags are parsed 1st, since they are
+the only required field, and they require specific compositions.  So
+if the flags draw an error (on those specifics), then keyword errors
+aren't reported.  This can be mildly confusing/annoying, so explain it
+instead.
 
-This resolves the appearance of "class:_UNKNOWN_" in the control file
-for the driver's drm_dbg()s.
-
-Fixes: f158936b60a7 ("drm: POC drm on dyndbg - use in core, 2 helpers, 3 drivers.")
-
+cc: linux-doc@vger.kernel.org
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nouveau_drm.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ .../admin-guide/dynamic-debug-howto.rst         | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 5d8475e4895e..d205b58aff70 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -74,17 +74,7 @@
- #include "nouveau_uvmm.h"
- #include "nouveau_sched.h"
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index 4b14d9fd0300..9c2f096ed1d8 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -109,10 +109,19 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
+ the flags-spec, all constraints are ANDed together.  An absent keyword
+ is the same as keyword "*".
  
--DECLARE_DYNDBG_CLASSMAP(drm_debug_classes, DD_CLASS_TYPE_DISJOINT_BITS, 0,
--			"DRM_UT_CORE",
--			"DRM_UT_DRIVER",
--			"DRM_UT_KMS",
--			"DRM_UT_PRIME",
--			"DRM_UT_ATOMIC",
--			"DRM_UT_VBL",
--			"DRM_UT_STATE",
--			"DRM_UT_LEASE",
--			"DRM_UT_DP",
--			"DRM_UT_DRMRES");
-+DRM_CLASSMAP_USE(drm_debug_classes);
+-
+-A match specification is a keyword, which selects the attribute of
+-the callsite to be compared, and a value to compare against.  Possible
+-keywords are:::
++Note that since the match-spec can be empty, the flags are checked 1st,
++then the pairs of keyword and value.  Flag errs will hide keyword errs::
++
++  bash-5.2# ddcmd mod bar +foo
++  dyndbg: read 13 bytes from userspace
++  dyndbg: query 0: "mod bar +foo" mod:*
++  dyndbg: unknown flag 'o'
++  dyndbg: flags parse failed
++  dyndbg: processed 1 queries, with 0 matches, 1 errs
++
++So a match-spec is a keyword, which selects the attribute of the
++callsite to be compared, and a value to compare against.  Possible
++keywords are::
  
- MODULE_PARM_DESC(config, "option string to pass to driver core");
- static char *nouveau_config;
+   match-spec ::= 'func' string |
+ 		 'file' string |
 -- 
 2.53.0
 
