@@ -4,78 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 545A2106FD9F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC0B2106FD9E
 	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 08:25:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E19410EB24;
-	Fri, 13 Mar 2026 08:25:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E346410EB28;
+	Fri, 13 Mar 2026 08:25:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="EnrDENXX";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="WvIWWQao";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CC7B10EB24
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 08:25:11 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-4853fd7b59aso11758315e9.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 01:25:11 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71C2E10EB28
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 08:25:16 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4853fd7b59aso11758955e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 01:25:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1773390310; x=1773995110; darn=lists.freedesktop.org;
+ d=ursulin.net; s=google; t=1773390315; x=1773995115; darn=lists.freedesktop.org;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=BJUMCG4fpNCoIIG5/bZYmCQOy6xMcQVKtg4qMy6XBHM=;
- b=EnrDENXXUODlH8jaRzIaZ0diDUkMa0r8ozphhonJisuPW1zpomSodjR/TalfQ/TX2N
- jOREqZjREtbMIUIY04UJ2og+ACEZawLjliRnZLpOa3sArWcs3HnygqSR2tGI3thoozam
- VPhhuptL6iI1+dj1B+CE1eUYJ9OmSJW0XGD7kFm9F4FX3p5dIFDxgElxSCvLA7czgqbe
- kbkjDbSL+x7EaC2HwbFB5WcmMaj2JfI5z3l2cGja61PrLLRioCZJpOvQEM58VclztLGk
- azYHDJWQ4nVixDaNjzMVnT0Jh/7CRQhp7Ad5Q+zQvL5wA/mmGv/dLIe8zD4jHuDlOn3H
- Ar+w==
+ bh=HbwFsW/ffBNv/udCrxKZCmfWCQvOiNCdNcwbOwm4wk8=;
+ b=WvIWWQaodJGdKWM1+TH3V14wFAv6T1acRwaLkYpCnVBgEZ8vqWCASmGq5k2Zam7WPM
+ W0OBE+PjDfvU+z9dLjiDs7QQc4QLC8tc6gHcsAmwr/n3En+eTnqPaVkgShH1NowolL+j
+ 0LsGMo+YRtHo11msQI3CKHXoskxVhUy/786GUZxvn2FRWr66Nxhz4Mz7iBWvp+nwqvcc
+ VSpUomr/KJZkfQYAamh2XrAUotBr4yK5GMwcUas1DZ7lcVaxWHFGO/XTyRmjOkO1rRlW
+ kfFK/PFGXcVCQFurOVrhCZQWP4WdwairZWJIBZDF3xaZ33+TJ/5kf2KxRiorq+RlUW3m
+ fKdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773390310; x=1773995110;
+ d=1e100.net; s=20251104; t=1773390315; x=1773995115;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=BJUMCG4fpNCoIIG5/bZYmCQOy6xMcQVKtg4qMy6XBHM=;
- b=X/5iajwPHLqMXIhkFKOagjM8Yf5laftcOK65qjCekIurjWdrBbuUjwCGzZ5MxXELLs
- ah8BMSZ2JUr2ufui8HpmsBz0+LJ04hmQGxEK2j4T8XPz0s1iegHQFhvw69c3Phl2twWz
- UcaaUjJcihGfP7+NEqxSjndyJfqOllXIJLuKQCiHvAY0ZA6hpsZwTba5+VOjPFNFo1Td
- 1C1pEs4rWA4aGZvIwvf04oT5z3phsKNPDWzZwHDVuigeBKTlOKBOsmrVZ8ZQTfYn3ZDA
- 8ePYOHtUG3If2iMmfQ0RmF5fWx7d7/oy7iVjsIxsvF9iTH/FYV3qJGfozpo8gR2ZpcWP
- J4kg==
-X-Gm-Message-State: AOJu0YzC+2Dl6KM2bkY9sztaph73vbNSj8Bh3Mff3QM8O30QfEEkwjqg
- ls4w3XaoGJwxB43dwBSmrRNCmvhErx8o+o9pqr1rmpb0SYa4yEHDM28hVoiWTK3JakQ=
-X-Gm-Gg: ATEYQzwQFXMafcjR96JXnZmL1H3bPcjZtqm+CN0K1oY8mBG9rhrA8Tf/w+vNP7xnuTE
- Bw/PcJB0wg533Q/lN0ZnW67KJ+s+lb+p0I9zQt9cSgk1kIxYfsuv8Ld1oDMpp75l8YIIgEjeaQl
- 4OjLIABae19rQvN7ThTgyfAWU4ehEgfkH3doGlWRb+EY4eaHzp1CopLuDqvmgGe0q+XgzVLzIkS
- B4Lim2SqIzV0JchZDf0aagMO5N5P3LpMQBiCh1oEotAzlnYwGaPhYM1BJZUdSrv1nROSFjYxBUr
- Qz7MNt6ZMFVvLLtTvJRNiwDTV0POjqKmSpzETf18WUlHdEROvhPQQxzXr7u0ZogD6oqwR654DPV
- sJknrrBj4cxGkKHrCLHZ9FXb9b966cTIfH/7w6bZr7SzcalqQNQiHS2krYp9uLpyYzzMBwsBDUX
- NFhCwYarVWgJk/vRTNzCFYQm4NouG7G3cxmazNI95agtYa
-X-Received: by 2002:a05:600c:3b98:b0:477:6d96:b3c8 with SMTP id
- 5b1f17b1804b1-48556707127mr35852305e9.23.1773390309661; 
- Fri, 13 Mar 2026 01:25:09 -0700 (PDT)
+ bh=HbwFsW/ffBNv/udCrxKZCmfWCQvOiNCdNcwbOwm4wk8=;
+ b=J8pISw8Wxv6YXQjtWJ9Fw8DDNa1PB9kRQbREY48GNhtwF94+Mqc74BC/bT5eOMtGMA
+ ZRMJgPS583PtHUy/C9qdfEa9TgP2RkbH/t0EWML8723kZK3Af9IEpTOBdVY6Ow67Vx/L
+ GMlG4byoUDh4Nj1MCOrG4+iRzKZsfiDhYEgsM4DLZKdKo8CrldnfIG8cqF5ZFKbZ4YbF
+ Pm2+nM+Tj/7RGkS3U9U8nG3cmWVIt83pFpGDBJf6c0noBffCGsORqYLmN2ryoH9G0JYj
+ YNNAl9nns5eCbd1aYdctGf/a4KHBaS8DDtlLjE3353bkaOWi/Xp0nSA0XPPF+si5bYdM
+ tjUg==
+X-Gm-Message-State: AOJu0Yzdw3jraBZPH/rvTvO+181kbYLOzbBFb9C2fHs46L7+FMRNjoCK
+ hasIb6psfMCfbSafBmzeNbFIXRZUQcJhVMhIHPAy+aa1hpUmK7E1dSlTJVNvGcGCClI=
+X-Gm-Gg: ATEYQzxyMKWlzbS7WpwrtpAEnz/Rbqqyu6iMLsInnC0xYxWDSVPhNi//wwqATbuIv+x
+ tG67pQpspIjLKTTZTXVAoHRiLa3h3XH1wsP7B24KgMdlh9Pg2fjn1GCuJ171BuUzLyR4O2BN0UY
+ Vs0DQ77moActYqe12J9sI6bfzeALTCkC8oXT5xXA9D9OwsNv1Cajm39dWdZgjvijajgc4QS0Eab
+ n83Wo/uufklcN0rWT64fhtpYxIRjtGf2Dl5gv7YUpw4Wiw7bz7RHoCRFosl4KTZ+sRU23z5DZ82
+ N9W0GiYPQeoPxN6a6YB0qnoQzYCYEL3N1fxUpToQz6LPKZu7W+a8OlMIR7b4+PA6raV5+WKZxmQ
+ jzSFSiyXjew4NlVKk41v40FctIlCwBjVFE5LRIv3ggPpYql6ob3WH6D/TvIyZOMWFiEsjpiKa/J
+ NE/p16qEepEJZ+aBKqPgex8PoJWe0wGEKdXD3BogAdrM+6
+X-Received: by 2002:a05:600c:1e8c:b0:485:41c4:e2e5 with SMTP id
+ 5b1f17b1804b1-485567090cdmr31379785e9.27.1773390314651; 
+ Fri, 13 Mar 2026 01:25:14 -0700 (PDT)
 Received: from [192.168.0.101] ([90.240.106.137])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48541aac28bsm274812015e9.1.2026.03.13.01.25.09
+ 5b1f17b1804b1-48541aac28bsm274812015e9.1.2026.03.13.01.25.14
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Mar 2026 01:25:09 -0700 (PDT)
-Message-ID: <a798c30e-68e2-4242-8d93-65bfff9b15d1@ursulin.net>
-Date: Fri, 13 Mar 2026 08:25:08 +0000
+ Fri, 13 Mar 2026 01:25:14 -0700 (PDT)
+Message-ID: <49f1aa0b-6ac5-4850-ace9-38b0570872e8@ursulin.net>
+Date: Fri, 13 Mar 2026 08:25:14 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] drm/amdgpu/userq: Use kvfree instead of kfree in
- amdgpu_userq_signal_ioctl
+Subject: Re: [PATCH v1 1/3] drm/amdgpu/userq: Use kvfree instead of kfree in
+ amdgpu_userq_wait_ioctl
 To: Sunil Khatri <sunil.khatri@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org
 References: <20260313072140.3327678-1-sunil.khatri@amd.com>
- <20260313072140.3327678-2-sunil.khatri@amd.com>
 Content-Language: en-GB
 From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <20260313072140.3327678-2-sunil.khatri@amd.com>
+In-Reply-To: <20260313072140.3327678-1-sunil.khatri@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -94,7 +93,7 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 13/03/2026 07:21, Sunil Khatri wrote:
-> In function amdgpu_userq_signal_ioctl, drm_gem_objects_lookup allocates
+> In function amdgpu_userq_wait_ioctl, drm_gem_objects_lookup allocates
 > memory via kvmalloc and hence when that memory is freed the memory
 > via kvfree.
 > 
@@ -104,10 +103,10 @@ On 13/03/2026 07:21, Sunil Khatri wrote:
 >   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index fad595401a77..146ca6d7f4f5 100644
+> index 76f32fd768fb..fad595401a77 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -598,11 +598,11 @@ int amdgpu_userq_signal_ioctl(struct drm_device *dev, void *data,
+> @@ -936,11 +936,11 @@ int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
 >   put_gobj_write:
 >   	for (i = 0; i < num_write_bo_handles; i++)
 >   		drm_gem_object_put(gobj_write[i]);
@@ -118,14 +117,15 @@ On 13/03/2026 07:21, Sunil Khatri wrote:
 >   		drm_gem_object_put(gobj_read[i]);
 > -	kfree(gobj_read);
 > +	kvfree(gobj_read);
->   free_syncobj:
->   	while (entry-- > 0)
->   		if (syncobj[entry])
+>   free_timeline_points:
+>   	kfree(timeline_points);
+>   free_timeline_handles:
 
-Oops, my bad.
 
-Fixes: 4ca06f6fb45d ("drm/amdgpu/userq: Use drm_gem_objects_lookup in 
-amdgpu_userq_signal_ioctl")
+Oops, my bad again.
+
+2de9353e193f ("drm/amdgpu/userq: Use drm_gem_objects_lookup in 
+amdgpu_userq_wait_ioctl")
 Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
 Regards,
