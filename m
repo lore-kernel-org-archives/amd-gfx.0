@@ -4,93 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E229105F7AF
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 14:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DDEB3105F7A6
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 14:17:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8D4010EC54;
-	Fri, 13 Mar 2026 14:04:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C11C10E241;
+	Fri, 13 Mar 2026 14:17:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cw2W3XLQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ScpIYM26";
 	dkim-atps=neutral
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 334FD10EBAA
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 14:04:51 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-128d600ad25so81756c88.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 07:04:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773410690; cv=none;
- d=google.com; s=arc-20240605;
- b=YwU25BH/ykgB7C+gZ5DKn+zD6IA/CzyueM9A3y1IME9BweWBez9/XP7MyOoWXT2Juw
- doo1E4AudKMqHRI4+F9t3/6+fvCBqlaFe3SoSBTG0JH+1V8L6GBkfS1gqQlxY4CxHzz+
- TKU81qF/gu3SqACK43M5wcFyz6iiZhIukCcssLxWa5A23RS4VReRgLCOTVkVp4bbi8bH
- gN4Ir56nE1EcC8RAWV8hirLAcGjHZU9rpAdLW4ev12ny+ZGt3BJxn/fgEGBwreluDed5
- aL6RTmRJd3hixXuW2j6AJOT5MY9CUvuJZqv704pxvAIdcmWHrGZ/vEKrQ0KeDf2Z40Ot
- m4MA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=5E88w3jX+YSLLylZTFGH+to3tZ27lkENQ9LYovk5WCw=;
- fh=QgGSmuAcw4+9mSJ220NN6DgGyurJbisaDxZ2fMKpo2U=;
- b=bmAUUHTC6O8+/bxULp88eMcVK+tRxIq1OKJQy8gXIk+ISIIJ4Ldejn1Lh5B23531Iy
- kltpvvUPvKl3DF3nU9s0zJ5CbuRqyybL5HuElLq6Hc6hDYUMw6e3lEOvDNqrltfk5vwZ
- ZT3+ZMK3UPxHeAJ1ic5376iPxclwQPbwdJw7GAr6w0Z4UUEw75ckDH4XflyIZ9J73sXl
- 02WpgYwd/5MVFHr2fNkYYmqSWdSu8kKVTnBWvZ+X8AblQUm5d1NtlZUrWte1tLe9LD+g
- 8ylzpumXmvpe+We1SCBrnuTN09tq3YWLkQ7dCUc6tJziL4GJCJkPnuDjLpJ2sCot+8+5
- gfJA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773410690; x=1774015490; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5E88w3jX+YSLLylZTFGH+to3tZ27lkENQ9LYovk5WCw=;
- b=cw2W3XLQocKGWFmvdO3nn2yKb+60GiM6NiskuCbCYqm1HJb1yR7f4BeiJwU714iwHW
- ex/82wipCBzJI85H9tZm9q8JJynHw1i3J/mgXksX6jn04I5b4WDYoFgDPmGkpvRVkoD/
- JD1BT6iU3mzJ7DHQtyydC/3lXM6eKSpnV0vFs2wrf+7lZTQxoQope/13tiJBIF5iUvwv
- fvWAheonQdvcWzPSMgd370fG4IO9SR0r/zy6K68YrN/I7u2vi6XJsyBCsbuXlwSRamG7
- biRDbsHfxeDBwcHnIWI3A17Pm0/j9Xq1DQ/4riJNt+HH6Es07VbZX/JLMtiFFDkQiOB5
- jk/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773410690; x=1774015490;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5E88w3jX+YSLLylZTFGH+to3tZ27lkENQ9LYovk5WCw=;
- b=i00wu8iyh12LVxJrh4JAZlxMSpMfDN9F754Ay6Z4B5iZwGGU6nL4Tz0J48+BW4Sr0n
- +N6xtZdz5eXV7qapBavQPZfON15PJeLML4f+6fsF4/8J3nX5N3vD38ENY2R/yZ12AKDf
- TZMq+7Ei8u2n3YDm4zuk29z6yflyfFxVOXJ6uEywDXBdFGRhcE5ea1o9FSa1JWt0bCk6
- Qhl3q8BqhZUA2NbSP9zgjoGxPJD1SdYR7OwX50xBar1QYZUCRTtFP/jg0k/YN5YRH98x
- l77hhTXFzAFwhtubgXdCahND0lNnZUZhtqoIrHICy35N64awBxZJWc5zu87UOt1+riDa
- 0gjA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVKUq8SQB29r+ncvx2anngSPZUe/rxjQCEK+S6mOg9LjHx23ZJAaI9278svi0wKv//ZBA0g3zRp@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxxOmNmrgjljglf6gYH/XpVTKw0D1KBvdoPf2PZ5Wz1YA4Urn78
- /scZVUUn5CuFvZMGdasSZ5xiQYdJfRJgKA3xzGJlajwTJzaIFazySgPybpvVAwmH9X7MAOjPGC1
- cCkurP91j9C1rapKuua8dPPjXvNj7ViY=
-X-Gm-Gg: ATEYQzwH+VWCuaAxJgK72Me37WmII5qQJBAw+3RKmYXzZyxWLJICrjFbqPEK2FpSWLQ
- ZmC/AKHNnDY9UX06FoBvXTry2RbKbYw6RUuJ3Q76MfPe8TszduMcayEgLOVLpIYDNuZcCYKqpl8
- /kHpuO+4gNd7ytiwEfbp5Nx47aErEzPt1Vr9D/AD3T+s0M9Ybm8Zo6ZAcNhw8S6EaiA7T9n850y
- +7j3Ec5rHXM0TvUzQEQlXKCWuHS6m1x/54jhThZ8+IKRqwgIiiOw6da0H9jzYmUnppvHqU2PX9R
- /sbBs6ss3BTMcCshArhaomxyuXxSNFXLfNj3MYou8PxlXVIvK+1Wm4+t1I67LAo7UPKZyw==
-X-Received: by 2002:a05:7022:418a:b0:123:2d38:929b with SMTP id
- a92af1059eb24-128f3e33d01mr793389c88.6.1773410690364; Fri, 13 Mar 2026
- 07:04:50 -0700 (PDT)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011070.outbound.protection.outlook.com [52.101.62.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8997510E241
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 14:17:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=khq+k3enYv5M0M2w6oXNktVpgMeArzjvcyB40ICwEkb/nUZQ6aYgKco3VxKHYzo1WRP3bF7tlMTe8xMBXd2q+gXlXgVphpeiBD70ys+hEEEeJXL9G/4B76V6PdHw2k7oTpiawHUTmwyvBz3dEYU0lRXVlpRv9QHTUio4mR+WJm5KfCCO1HC/eCmp7sde3sq6Mn0s8XnRvSiii8+YPrHGv7aebyGp0IvCYGJuQbIQPLbSU/H/5FpHDVfmsYGfkc6RTw72b/sKXPrGhRCiq6DFiQuky7kZVnvJf1kx2sEj+nZ748Mhac7ahoGoLKLAZmOW2eW/rzIw4HJHGRkQWEPXzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p96QeSG75KIFFskeuqcPOX9WE22WepSYqi8C5Daz5mM=;
+ b=rtoeagv+l2TitkVyxqGmsBkpQqMEMZgWSDTVD1+mgrsn4+N2Or/lxX6IQnv49c/RSkXmsfcLrKtYD3bY1KNZomtPyaHEupqCrgq8ImglxgkNLGdP2YMZ4Cuy9nJQ0TZl8Io+Ks4vhgyZoWHQlO12DtJsHR2OTHu543YF9WpxNiB3E8EXRy7cE5TC9zUDS5YL8xMK50uZ+4rHsRURW8CJFs/L6573Ajq7xoKo+zlssie8Vw/I4c/s3uj6MnCy/QqzIyB+8j7Az0zL6r+yMgPUAD+tbrF85gyyHPM91ENEpz/D3IufY8wRW0QPh5Z3vE8sacuLjrSmVw4PvGf0tVWS8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p96QeSG75KIFFskeuqcPOX9WE22WepSYqi8C5Daz5mM=;
+ b=ScpIYM26zOIiPzUdDaUIPHi7nEse0MQs3mmJHNviEVmnm6QVdk3ADFq/NrKtIYO0DhksQcfBCkDUW/glXr881aMZynZEXt7Wob0ZehvISDOljlWLl9SFjDnnn8Dg6uROrnIbkOTekM9tijfDVbkEu6JWzSb/SdyvJz8fGVakazU=
+Received: from DS0PR12MB8813.namprd12.prod.outlook.com (2603:10b6:8:14e::11)
+ by DS7PR12MB5910.namprd12.prod.outlook.com (2603:10b6:8:7b::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.4; Fri, 13 Mar 2026 14:16:58 +0000
+Received: from DS0PR12MB8813.namprd12.prod.outlook.com
+ ([fe80::fda:ada6:cb9f:85d9]) by DS0PR12MB8813.namprd12.prod.outlook.com
+ ([fe80::fda:ada6:cb9f:85d9%4]) with mapi id 15.20.9723.008; Fri, 13 Mar 2026
+ 14:16:56 +0000
+From: "Zhang, Bokun" <Bokun.Zhang@amd.com>
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liu,
+ Monk" <Monk.Liu@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Pack VF2PF ucode_info entries to keep struct
+ size 1KB
+Thread-Topic: [PATCH] drm/amdgpu: Pack VF2PF ucode_info entries to keep struct
+ size 1KB
+Thread-Index: AQHcsh76ZCImVFFx7Eyr3TT/DOMU7LWsg0jg
+Date: Fri, 13 Mar 2026 14:16:56 +0000
+Message-ID: <DS0PR12MB8813F2DF9593AD35A2D7F03FF445A@DS0PR12MB8813.namprd12.prod.outlook.com>
+References: <20260312125121.1838642-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260312125121.1838642-1-srinivasan.shanmugam@amd.com>
+Accept-Language: en-US, en-CA
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-13T14:16:55.982Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB8813:EE_|DS7PR12MB5910:EE_
+x-ms-office365-filtering-correlation-id: 9e83b2d5-89ee-4d46-ec86-08de810b2f10
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|8096899003|18002099003|56012099003|22082099003|7053199007|38070700021;
+x-microsoft-antispam-message-info: qPpd3FYVKBZJ/hfuQXWqWgNj1M72WJlgZTigIl6oE0HFvreIOW9DchHHzhcO7pfhjKpkSth85AOBtn+/Y4CaQp5jvu1L07ONe8cSXctOSpXK7UaAXHcooqYt2AflbCd9z+Z77fiGRowa/0tMJJk4lYz4HyW4XGehnG2vDl+xEfeuAAwChkQI1nQwGKi2cESlVYtdWfACBCzHsGd6t03n0iNIO3H39TEG47KO8BlA6qyaqwHOIQUb4cBGW01ghTn28EZLKXN+TgfUML/UuT4WXukWJcLzh0fMKLuRwil+uXTQ/RjcQMZ6Ck8vqeLpVPEas2goQ7CuRw6MyOW0zZPLjzltI8M/hYQ2LUQViBtX7h4YZ8rtU6IEas8vuhHYq9HiNeSjtQe+MGN32u9sjxGJyYX9Bxmrp2L3sNUulLJEHsCZxYPVWIOYqP5KoRQatDbuEl4KOQN0NsuOb/LJe92InSGSX70funUkMVS3yaAhVHl7vrRLmgYd0202K7FOb8W/ASGkjCq9KMlFRdYH2vHlS8/8BBjOdqPmf+yyEICMCnS9TbD1MLE6Dhrh8VIKEKVqj8cwsy4cxSCFrlc+g0Z00TDqPuD58vU63QsEDIZelVS0ygHW/N3z55m452NR6QjfDz/bmZDzbyMVXkJI3u89hqqV8YwVFSpVFfQJ5gbBh/WzJuPmCI13Dt3pWbKbY8tJtCZg5W5QOeViWZj34FJZK/h1PPo9BYh+rAxlhpnDdO9CiZBiYjGUs6P9pRPl2+kGXwskgWocRTDI8i4jHxyRxr4HTJbKM/LgYC8U8QtjzAw=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB8813.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(8096899003)(18002099003)(56012099003)(22082099003)(7053199007)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?FJ1QffjXE5afPJeUoELGrcdJTq2j73Dp7UAHnPE3ttrziuRtDfgwbUrnlR?=
+ =?iso-8859-1?Q?B5/ZyTCji72qomLOcJ0gMP8KVCbcfpYppI599TiwDjT8piLXQZGwrrH6mM?=
+ =?iso-8859-1?Q?YzYZwD99foS+gek48ILWSepNu0uwr5Gj9E2sJPK9IZ4xAu3qSP1+XNI05V?=
+ =?iso-8859-1?Q?aWTYPqtnuxjfeo4cIYgWRrAq7FIdfvSBeRfdCodJ1+i9nbZQLZSqv6G3M9?=
+ =?iso-8859-1?Q?S3/MRjFughBPkumvmY51fOtX52/J0fHQ2nZ7Ra/v8Xv9lf58xgi+fn6jkc?=
+ =?iso-8859-1?Q?dNrUb/UoaTv4GKezXghVe7/PiAVw7+T/spv6nwnjfVGTTqLgxgOzGWfJSI?=
+ =?iso-8859-1?Q?crJlpcNR5Yzkpv8+04T9ZLmOr/m3wQEziWt4ymnWZuLOnj12ltN4XBGAXO?=
+ =?iso-8859-1?Q?XurceT+XiRaCqmRHWJ7F6F/LkDDuzJfEjEqersJUWsrEw/JQBfek0VK8E1?=
+ =?iso-8859-1?Q?CSdMYznBJoaMXxJotHWtMMJOuGy0/YtQ/AwqTRMiHWCnbA5Nsyq/7bXm2T?=
+ =?iso-8859-1?Q?2shoj0Fgngo4ZkxRffOyhsYTgfFZNaRNveg7E5MkGgjJi+7uXAwzOOfHat?=
+ =?iso-8859-1?Q?Yc8Ts9A3leoDUNMnQVZxEjrVzcDqG/3purCMBv0XsLUWACRyGNU8aO8s9Y?=
+ =?iso-8859-1?Q?utZHXAkIWd+LEiGHhv2InHGkTqPI2rFox8Rre01PWi64epWQ2H045FJ+mZ?=
+ =?iso-8859-1?Q?Cqky0XMPPBogaLvSXhp9J2zahD3AdMFR+JGB3/BYMlUgbzeGWdzyiK5B07?=
+ =?iso-8859-1?Q?g5j+bgxLb+oMqbbM5HBZ+UsxP/lpn6txE6OWzn/DkZhxdLjdXXRQ2WNWep?=
+ =?iso-8859-1?Q?HeQQVmYYiu2xbB1yQY+3TKjLIBBL9ylr3dM7w58BP6ppL9UbMHjm8XFJqw?=
+ =?iso-8859-1?Q?CqAY+BBur9MsEQ9SbSH0ppgOxh535XzRZmWcawoGx8Ix6EnhnKX4eKfB4E?=
+ =?iso-8859-1?Q?c2vjrb0gBGy5OrruyuUoNhg2MlwtdqkzRjphkK+gVnMA4/w7JI0gvLKCKi?=
+ =?iso-8859-1?Q?CCPdsrsIzWeyM5q4Kw2g6iC4DImTcqWzqAzHBPtV1xTUlOZGZirHxD01CK?=
+ =?iso-8859-1?Q?Z42CaZG76+WjUIVJJacZRgjRKVy4Nz3S8A7W80ZxA9zeUCjt7K3ISlltdk?=
+ =?iso-8859-1?Q?04HRl827T8HaxcYoBQVAbkByQ5+nsol4pvS9yHpkZueg+QdqO/cb7U+wQ2?=
+ =?iso-8859-1?Q?LwPYxQh2n7pFn2tzMd7Cy4x7mA0do1jGICFN79WF5otA++FbRhbDzAiYbb?=
+ =?iso-8859-1?Q?QNP1kf8iumdJM7brEC/G5E/n/REn2WmbWq4Dn6giMpHbKfpGc5vW3I4Tpf?=
+ =?iso-8859-1?Q?uI9oMkRnjZ/vZzKFoZI4fE8ydHjwCS7l/ApDpE+xDgNyzU/S+hFwEEFWNH?=
+ =?iso-8859-1?Q?W/DK0xZBDb4moAueGnyCl/O6969mye6ALfQCON6azmwg1AfWIKzerq/CNL?=
+ =?iso-8859-1?Q?UYBOFuCRgT9DVwsi5cekDPj5RKwMhlKgLMy/nx61NQOTvISH131CFEVj+3?=
+ =?iso-8859-1?Q?4gztolxqIjHvXxIkAUGxgBSKW1KjrFV53e8BLwkMvJtqZ41lzuFUqlK/GJ?=
+ =?iso-8859-1?Q?TiLDM0VUt2O2Yb4EE3KR6vqbR7FyR00xcie5/oo5QOwZkRzUn2t6uCQCa6?=
+ =?iso-8859-1?Q?9k8aVwshUrfhZyFeh3DogG20gpuaA7XAEDpIor+q0wehFhNHno6j5uYQcI?=
+ =?iso-8859-1?Q?wpGZNrrVcj7UcrJnU+QMfOYoDSshF4hOUF5sLs+dm9VLsGKQzG+7p3HJPg?=
+ =?iso-8859-1?Q?NM0d0RjKay7UPzDJDkyufFOW1Zn9y0xJOb8Uw/mp18w1IQ?=
+Content-Type: multipart/alternative;
+ boundary="_000_DS0PR12MB8813F2DF9593AD35A2D7F03FF445ADS0PR12MB8813namp_"
 MIME-Version: 1.0
-References: <20260313015226.39727-1-davidbaum461@gmail.com>
-In-Reply-To: <20260313015226.39727-1-davidbaum461@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 13 Mar 2026 10:04:38 -0400
-X-Gm-Features: AaiRm50d_WEY5sRN59yLf89uD38vQ-LQP7kESvNrj1X-FqVXwJ8QeTLcGXASPgE
-Message-ID: <CADnq5_O=Ycrhk1uXO2EfPimZ8EP=nVX4sJ4BUkaB8e0Hwp3_eg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: switch XGMI sysfs show helpers to
- sysfs_emit_at()
-To: David Baum <davidbaum461@gmail.com>
-Cc: alex.deucher@amd.com, christian.koenig@amd.com, lijo.lazar@amd.com, 
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB8813.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e83b2d5-89ee-4d46-ec86-08de810b2f10
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2026 14:16:56.7050 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: o8cgHkz2mrRgDfqJUBNT4MAMaVhrKJlBAmRRg+4vDitAUh1XYoPaF0u4dBG02zWQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5910
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,72 +136,272 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+--_000_DS0PR12MB8813F2DF9593AD35A2D7F03FF445ADS0PR12MB8813namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Alex
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-On Fri, Mar 13, 2026 at 4:55=E2=80=AFAM David Baum <davidbaum461@gmail.com>=
- wrote:
+Hey there,
+    Thank you for the change, but this header is already packed.
+
+#pragma pack(push, 1) // PF2VF / VF2PF data areas are byte packed
+...
+#pragma pack(pop) // Restore previous packing option
+    Please check these 2 macros.
+    The header mush also match across platforms, so we prefer do not change=
+ it.
+
+Thanks!
+
+________________________________
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Sent: Thursday, March 12, 2026 8:51 AM
+To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexa=
+nder.Deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; SHANMUGA=
+M, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Zhang, Bokun <Bokun.Zhang@amd=
+.com>; Liu, Monk <Monk.Liu@amd.com>
+Subject: [PATCH] drm/amdgpu: Pack VF2PF ucode_info entries to keep struct s=
+ize 1KB
+
+The VF2PF mailbox structure must be exactly 1KB, which is enforced by
+a compile-time static assertion.
+
+The ucode_info array currently uses a small struct containing:
+
+  uint8_t id
+  uint32_t version
+
+Without explicit packing, the compiler may insert padding after the
+uint8_t field so that the uint32_t field starts at a 4-byte aligned
+address. For example, the layout may become:
+
+  id (1 byte) + 3 bytes padding + version (4 bytes)
+
+which makes the struct 8 bytes instead of the expected 5 bytes.
+
+Since the structure contains multiple ucode_info entries, this padding
+can increase the total structure size beyond 1024 bytes and cause the
+1KB size check to fail.
+
+Define the ucode_info entry as a packed struct to ensure each entry
+remains 5 bytes and the VF2PF mailbox structure stays exactly 1KB.
+
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:510:49: error: static assertion=
+ failed: "amd_sriov_msg_vf2pf_info must be 1 KB"
+
+Fixes: 1721bc1b2afa ("drm/amdgpu: Update VF2PF interface")
+Cc: Bokun Zhang <Bokun.Zhang@amd.com>
+Cc: Monk Liu <monk.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian K=F6nig <christian.koenig@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgv_sriovmsg.h
+index 847cfd1fd004..31fc54111519 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h
+@@ -328,6 +328,11 @@ struct amd_sriov_msg_vf2pf_info_header {
+         uint32_t reserved[2];
+ };
+
++struct amd_sriov_msg_ucode_info {
++       u8 id;
++       u32 version;
++} __packed;
++
+ #define AMD_SRIOV_MSG_VF2PF_INFO_FILLED_SIZE (73)
+ struct amd_sriov_msg_vf2pf_info {
+         /* header contains size and version */
+@@ -367,10 +372,7 @@ struct amd_sriov_msg_vf2pf_info {
+         uint32_t fb_vis_size;
+         uint32_t fb_size;
+         /* guest ucode data, each one is 1.25 Dword */
+-       struct {
+-               uint8_t id;
+-               uint32_t version;
+-       } ucode_info[AMD_SRIOV_MSG_RESERVE_UCODE];
++       struct amd_sriov_msg_ucode_info ucode_info[AMD_SRIOV_MSG_RESERVE_UC=
+ODE];
+         uint64_t dummy_page_addr;
+         /* FB allocated for guest MES to record UQ info */
+         uint64_t mes_info_addr;
+--
+2.34.1
+
+
+--_000_DS0PR12MB8813F2DF9593AD35A2D7F03FF445ADS0PR12MB8813namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+[AMD Official Use Only - AMD Internal Distribution Only]</div>
+<br>
+</div>
+Hey there,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+&nbsp; &nbsp; Thank you for the change, but this header is already packed.<=
+/div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+&nbsp; &nbsp;&nbsp;</div>
+<div style=3D"margin-top: 1em; margin-bottom: 1em; margin-left: 40px; font-=
+family: Consolas, Courier, monospace; font-size: 11pt; color: rgb(0, 0, 0);=
+" class=3D"elementToProof">
+<b>#pragma pack(push, 1) </b>// PF2VF / VF2PF data areas are byte packed</d=
+iv>
+<div style=3D"margin-top: 1em; margin-bottom: 1em; margin-left: 40px; font-=
+family: Consolas, Courier, monospace; font-size: 11pt; color: rgb(0, 0, 0);=
+" class=3D"elementToProof">
+...</div>
+<div style=3D"margin-top: 1em; margin-bottom: 1em; margin-left: 40px; font-=
+family: Consolas, Courier, monospace; font-size: 11pt; color: rgb(0, 0, 0);=
+" class=3D"elementToProof">
+<b>#pragma pack(pop) </b>// Restore previous packing option</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+&nbsp; &nbsp; Please check these 2 macros.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+&nbsp; &nbsp; The header mush also match across platforms, so we prefer do =
+not change it.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Thanks!</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"display: inline-block; width: 98%;">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<b>From:</b>&nbsp;Srinivasan Shanmugam &lt;srinivasan.shanmugam@amd.com&gt;=
+<br>
+<b>Sent:</b>&nbsp;Thursday, March 12, 2026 8:51 AM<br>
+<b>To:</b>&nbsp;Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Deucher=
+, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Cc:</b>&nbsp;amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop=
+.org&gt;; SHANMUGAM, SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;; Zhang=
+, Bokun &lt;Bokun.Zhang@amd.com&gt;; Liu, Monk &lt;Monk.Liu@amd.com&gt;<br>
+<b>Subject:</b>&nbsp;[PATCH] drm/amdgpu: Pack VF2PF ucode_info entries to k=
+eep struct size 1KB
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-size: 11pt;">The VF2PF mailbox structure must be exactly=
+ 1KB, which is enforced by<br>
+a compile-time static assertion.<br>
+<br>
+The ucode_info array currently uses a small struct containing:<br>
+<br>
+&nbsp; uint8_t id<br>
+&nbsp; uint32_t version<br>
+<br>
+Without explicit packing, the compiler may insert padding after the<br>
+uint8_t field so that the uint32_t field starts at a 4-byte aligned<br>
+address. For example, the layout may become:<br>
+<br>
+&nbsp; id (1 byte) + 3 bytes padding + version (4 bytes)<br>
+<br>
+which makes the struct 8 bytes instead of the expected 5 bytes.<br>
+<br>
+Since the structure contains multiple ucode_info entries, this padding<br>
+can increase the total structure size beyond 1024 bytes and cause the<br>
+1KB size check to fail.<br>
+<br>
+Define the ucode_info entry as a packed struct to ensure each entry<br>
+remains 5 bytes and the VF2PF mailbox structure stays exactly 1KB.<br>
+<br>
+Fixes the below:<br>
+drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h:510:49: error: static assertion=
+ failed: &quot;amd_sriov_msg_vf2pf_info must be 1 KB&quot;<br>
+<br>
+Fixes: 1721bc1b2afa (&quot;drm/amdgpu: Update VF2PF interface&quot;)<br>
+Cc: Bokun Zhang &lt;Bokun.Zhang@amd.com&gt;<br>
+Cc: Monk Liu &lt;monk.liu@amd.com&gt;<br>
+Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Cc: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
+Signed-off-by: Srinivasan Shanmugam &lt;srinivasan.shanmugam@amd.com&gt;<br=
 >
-> The XGMI sysfs show helpers amdgpu_xgmi_show_num_hops() and
-> amdgpu_xgmi_show_num_links() currently populate the output buffer with
-> sprintf() and then call sysfs_emit(buf, "%s\n", buf) to append the final
-> newline.
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h | 10 ++++++----<br>
+&nbsp;1 file changed, 6 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgv_sriovmsg.h<br>
+index 847cfd1fd004..31fc54111519 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h<br>
+@@ -328,6 +328,11 @@ struct amd_sriov_msg_vf2pf_info_header {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t reserved[2];<br>
+&nbsp;};<br>
+&nbsp;<br>
++struct amd_sriov_msg_ucode_info {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u8 id;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 version;<br>
++} __packed;<br>
++<br>
+&nbsp;#define AMD_SRIOV_MSG_VF2PF_INFO_FILLED_SIZE (73)<br>
+&nbsp;struct amd_sriov_msg_vf2pf_info {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* header contains size an=
+d version */<br>
+@@ -367,10 +372,7 @@ struct amd_sriov_msg_vf2pf_info {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fb_vis_size;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fb_size;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* guest ucode data, each =
+one is 1.25 Dword */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; uint8_t id;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; uint32_t version;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } ucode_info[AMD_SRIOV_MSG_RESERVE_UC=
+ODE];<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amd_sriov_msg_ucode_info ucode=
+_info[AMD_SRIOV_MSG_RESERVE_UCODE];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t dummy_page_addr;<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* FB allocated for guest =
+MES to record UQ info */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t mes_info_addr;<br=
 >
-> Convert both helpers to use sysfs_emit_at() while tracking the current
-> offset. This keeps buffer construction in the sysfs helpers, avoids
-> feeding the output buffer back into the final formatted write, and
-> matches the style already used by
-> amdgpu_xgmi_show_connected_port_num().
->
-> Signed-off-by: David Baum <davidbaum461@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_xgmi.c
-> index 11e56df1d91b..13fc7247fe23 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -469,12 +469,12 @@ static ssize_t amdgpu_xgmi_show_num_hops(struct dev=
-ice *dev,
->         struct drm_device *ddev =3D dev_get_drvdata(dev);
->         struct amdgpu_device *adev =3D drm_to_adev(ddev);
->         struct psp_xgmi_topology_info *top =3D &adev->psp.xgmi_context.to=
-p_info;
-> -       int i;
-> +       int i, offset =3D 0;
->
->         for (i =3D 0; i < top->num_nodes; i++)
-> -               sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_hops);
-> +               offset +=3D sysfs_emit_at(buf, offset, "%02x ", top->node=
-s[i].num_hops);
->
-> -       return sysfs_emit(buf, "%s\n", buf);
-> +       return offset + sysfs_emit_at(buf, offset, "\n");
->  }
->
->  static ssize_t amdgpu_xgmi_show_num_links(struct device *dev,
-> @@ -484,12 +484,12 @@ static ssize_t amdgpu_xgmi_show_num_links(struct de=
-vice *dev,
->         struct drm_device *ddev =3D dev_get_drvdata(dev);
->         struct amdgpu_device *adev =3D drm_to_adev(ddev);
->         struct psp_xgmi_topology_info *top =3D &adev->psp.xgmi_context.to=
-p_info;
-> -       int i;
-> +       int i, offset =3D 0;
->
->         for (i =3D 0; i < top->num_nodes; i++)
-> -               sprintf(buf + 3 * i, "%02x ", top->nodes[i].num_links);
-> +               offset +=3D sysfs_emit_at(buf, offset, "%02x ", top->node=
-s[i].num_links);
->
-> -       return sysfs_emit(buf, "%s\n", buf);
-> +       return offset + sysfs_emit_at(buf, offset, "\n");
->  }
->
->  static ssize_t amdgpu_xgmi_show_connected_port_num(struct device *dev,
-> --
-> 2.50.1 (Apple Git-155)
->
+--<br>
+2.34.1<br>
+<br>
+</div>
+</body>
+</html>
+
+--_000_DS0PR12MB8813F2DF9593AD35A2D7F03FF445ADS0PR12MB8813namp_--
