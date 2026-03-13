@@ -4,84 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89065F013E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 08:53:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23B39F46436
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 09:35:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFC7F10E372;
-	Mon, 16 Mar 2026 08:53:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9214410E392;
+	Mon, 16 Mar 2026 09:35:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J9dZvd++";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.cz header.i=@suse.cz header.b="cwr9QvSb";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="K+U59XI2";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="cwr9QvSb";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="K+U59XI2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7950610E372;
- Mon, 16 Mar 2026 08:53:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773651191; x=1805187191;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=PI/mAYTBRcU4Lz4+ZDh76VUhW4ibWpPBttE/6cvygZQ=;
- b=J9dZvd++TIebHJ+eUE9x2UeLKTz1Br5cRi2xOHadbR1MjV+ZZAjIupps
- WK/nx/63RhxuGEBtJeaLh7OGBsnvasZStfPrOAMRYlCwAGUvDG7wQdyKn
- EYit7vuP2Kfjxzjyln0tOvUj5s44VqjOHckpr2KCbkIffoVg4t7abhERp
- +CeBdRy9EidwuezAn91C0ZZj+2PR7sJzSiQ6c6C9zvdAD5Opbq2BteYSe
- d/Y4grqq2/k8iPkCPQ4v5uc7hPlaz+Ds2SKWbPOV2sn1DMGeluqT+EXrq
- ha8s0Eh+MW+1N911OKSTyG3t8tJ1AhVmooucDP9s+S0McwooaOmPBZW/7 Q==;
-X-CSE-ConnectionGUID: t69z6jfAQ1GowT1BuRir8A==
-X-CSE-MsgGUID: esM36LXnSE6dqoE54y0qoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11730"; a="74697098"
-X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="74697098"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2026 01:53:10 -0700
-X-CSE-ConnectionGUID: lbZZBjlgQ7iKsGNu2li5Ig==
-X-CSE-MsgGUID: salQm0erT+KA4U7veGXdBA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="222050115"
-Received: from mjarzebo-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.246.238])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Mar 2026 01:52:54 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Hou Wenlong <houwenlong.hwl@antgroup.com>, linux-kernel@vger.kernel.org
-Cc: Hou Wenlong <houwenlong.hwl@antgroup.com>, Alex Deucher
- <alexander.deucher@amd.com>, Alex Hung <alex.hung@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>, amd-gfx@lists.freedesktop.org, Ankit Nautiyal
- <ankit.k.nautiyal@intel.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Ausef Yousof <auyousof@amd.com>, Bhuvanachandra Pinninti
- <bpinnint@amd.com>, Chaitanya Kumar Borah
- <chaitanya.kumar.borah@intel.com>, Charlene Liu <charlene.liu@amd.com>,
- Chenyu Chen <chen-yu.chen@amd.com>, Chris Park <chris.park@amd.com>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
- <airlied@gmail.com>, Dillon Varone <dillon.varone@amd.com>, Dmytro
- Laktyushkin <dmytro.laktyushkin@amd.com>, dri-devel@lists.freedesktop.org,
- Gustavo Sousa <gustavo.sousa@intel.com>, Harold Sun <Harold.Sun@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Jun Lei
- <jun.lei@amd.com>, Karthi Kandasamy <karthi.kandasamy@amd.com>, Leo Chen
- <leo.chen@amd.com>, Leo Li <sunpeng.li@amd.com>, Lohita Mudimela
- <lohita.mudimela@amd.com>, Lucas De Marchi <demarchi@kernel.org>,
- Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>,
- Nicholas Carbones <Nicholas.Carbones@amd.com>, Ray Wu <ray.wu@amd.com>,
- Relja Vojvodic <rvojvodi@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Ryan Seto <ryanseto@amd.com>,
- Samson Tam <Samson.Tam@amd.com>, Simona Vetter <simona@ffwll.ch>, Timur
- =?utf-8?Q?Krist=C3=B3f?= <timur.kristof@gmail.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>,
- Wayne Lin <wayne.lin@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Yan Li
- <yan.li@amd.com>, Zhenyu Wang <zhenyuw.linux@gmail.com>, Zhi Wang
- <zhi.wang.linux@gmail.com>
-Subject: Re: [PATCH 1/2] drm/i915/gvt: Rename struct 'pixel_format' to
- 'gvt_pixel_format'
-In-Reply-To: <f5e603648f6733047bbf74a5af6ae4b4436a44f6.1773629419.git.houwenlong.hwl@antgroup.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <cover.1773629419.git.houwenlong.hwl@antgroup.com>
- <f5e603648f6733047bbf74a5af6ae4b4436a44f6.1773629419.git.houwenlong.hwl@antgroup.com>
-Date: Mon, 16 Mar 2026 10:52:51 +0200
-Message-ID: <832d5f67f05edfb9c97694a8f7bada0104d1be67@intel.com>
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 166FC10E42B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 19:22:26 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B208C4D943;
+ Fri, 13 Mar 2026 19:22:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1773429744;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lEZDbFbdaiqtR0DORmYiMySif6us6CTI89GNtF8koIU=;
+ b=cwr9QvSbf3addifFtJFaEE3S5jwqDpZlb749Rs1kTiqHHQe0wIw+TMnTma/8mfA3QiWv+t
+ IZuKpLsIb+k3xwyZAXuL8F5GTiyGUJh1olDjZfpDExV1+UvdVwgZIIojOm6APRysjO8/lt
+ 9WDXlxlJVmMpUXoO3id4LXjiv7t5UI0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1773429744;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lEZDbFbdaiqtR0DORmYiMySif6us6CTI89GNtF8koIU=;
+ b=K+U59XI2u6gqS+yANGWtG/Pii/V0SpIQQ7wMg6BtOp5KKFcWyvgFtoDkwX90d0NOWdybeR
+ Ua+tdtixGZm/opAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+ t=1773429744;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lEZDbFbdaiqtR0DORmYiMySif6us6CTI89GNtF8koIU=;
+ b=cwr9QvSbf3addifFtJFaEE3S5jwqDpZlb749Rs1kTiqHHQe0wIw+TMnTma/8mfA3QiWv+t
+ IZuKpLsIb+k3xwyZAXuL8F5GTiyGUJh1olDjZfpDExV1+UvdVwgZIIojOm6APRysjO8/lt
+ 9WDXlxlJVmMpUXoO3id4LXjiv7t5UI0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+ s=susede2_ed25519; t=1773429744;
+ h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+ cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=lEZDbFbdaiqtR0DORmYiMySif6us6CTI89GNtF8koIU=;
+ b=K+U59XI2u6gqS+yANGWtG/Pii/V0SpIQQ7wMg6BtOp5KKFcWyvgFtoDkwX90d0NOWdybeR
+ Ua+tdtixGZm/opAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6F14A406AC;
+ Fri, 13 Mar 2026 19:22:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 6cTyGvBjtGnfZAAAD6G6ig
+ (envelope-from <dsterba@suse.cz>); Fri, 13 Mar 2026 19:22:24 +0000
+Date: Fri, 13 Mar 2026 20:22:15 +0100
+From: David Sterba <dsterba@suse.cz>
+To: Philipp Hahn <phahn-oss@avm.de>
+Cc: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev,
+ Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>
+Subject: Re: [PATCH 02/61] btrfs: Prefer IS_ERR_OR_NULL over manual NULL check
+Message-ID: <20260313192215.GH5735@twin.jikos.cz>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+ <20260310-b4-is_err_or_null-v1-2-bd63b656022d@avm.de>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260310-b4-is_err_or_null-v1-2-bd63b656022d@avm.de>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spamd-Result: default: False [-2.50 / 50.00]; BAYES_HAM(-3.00)[99.99%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ HAS_REPLYTO(0.30)[dsterba@suse.cz];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MIME_TRACE(0.00)[0:+]; FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLk9qejt5hbtemdgupcccnrijf)];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+ RCPT_COUNT_GT_50(0.00)[56]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,imap1.dmz-prg2.suse.org:helo]; 
+ REPLYTO_ADDR_EQ_FROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_SOME(0.00)[]; REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
+X-Mailman-Approved-At: Mon, 16 Mar 2026 09:35:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,53 +134,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: dsterba@suse.cz
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 16 Mar 2026, Hou Wenlong <houwenlong.hwl@antgroup.com> wrote:
-> Rename the local struct 'pixel_format' to 'gvt_pixel_format' to avoid
-> potential name conflicts with the 'pixel_format' struct defined in
-> include/video/pixel_format.h.
->
-> Signed-off-by: Hou Wenlong <houwenlong.hwl@antgroup.com>
+On Tue, Mar 10, 2026 at 12:48:28PM +0100, Philipp Hahn wrote:
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
+> 
+> IS_ERR_OR_NULL() already uses likely(!ptr) internally. checkpatch does
+> not like nesting it:
+> > WARNING: nested (un)?likely() calls, IS_ERR_OR_NULL already uses
+> > unlikely() internally
+> Remove the explicit use of likely().
+> 
+> Change generated with coccinelle.
+> 
+> To: Chris Mason <clm@fb.com>
+> To: David Sterba <dsterba@suse.com>
+> Cc: linux-btrfs@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
-
-and ack for merging via whichever branch you prefer.
-
-> ---
->  drivers/gpu/drm/i915/gvt/fb_decoder.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gvt/fb_decoder.c b/drivers/gpu/drm/i915/gvt/fb_decoder.c
-> index d7abf38df532..25fffc77f138 100644
-> --- a/drivers/gpu/drm/i915/gvt/fb_decoder.c
-> +++ b/drivers/gpu/drm/i915/gvt/fb_decoder.c
-> @@ -48,13 +48,13 @@
->  #include "i915_reg.h"
->  
->  #define PRIMARY_FORMAT_NUM	16
-> -struct pixel_format {
-> +struct gvt_pixel_format {
->  	int drm_format;	/* Pixel format in DRM definition */
->  	int bpp; /* Bits per pixel, 0 indicates invalid */
->  	const char *desc; /* The description */
->  };
->  
-> -static const struct pixel_format bdw_pixel_formats[] = {
-> +static const struct gvt_pixel_format bdw_pixel_formats[] = {
->  	{DRM_FORMAT_C8, 8, "8-bit Indexed"},
->  	{DRM_FORMAT_RGB565, 16, "16-bit BGRX (5:6:5 MSB-R:G:B)"},
->  	{DRM_FORMAT_XRGB8888, 32, "32-bit BGRX (8:8:8:8 MSB-X:R:G:B)"},
-> @@ -67,7 +67,7 @@ static const struct pixel_format bdw_pixel_formats[] = {
->  	{}
->  };
->  
-> -static const struct pixel_format skl_pixel_formats[] = {
-> +static const struct gvt_pixel_format skl_pixel_formats[] = {
->  	{DRM_FORMAT_YUYV, 16, "16-bit packed YUYV (8:8:8:8 MSB-V:Y2:U:Y1)"},
->  	{DRM_FORMAT_UYVY, 16, "16-bit packed UYVY (8:8:8:8 MSB-Y2:V:Y1:U)"},
->  	{DRM_FORMAT_YVYU, 16, "16-bit packed YVYU (8:8:8:8 MSB-U:Y2:V:Y1)"},
-
--- 
-Jani Nikula, Intel
+Added to for-next, we seem to be using IS_ERR_OR_NULL() already in a
+few other places so this is makes sense for consistency. Thanks.
