@@ -4,53 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A855107BCD1
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2026 23:58:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFC43107BCEE
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Mar 2026 00:24:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 784DB10E432;
-	Fri, 13 Mar 2026 23:58:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4231510E099;
+	Sat, 14 Mar 2026 00:24:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="pQIdOvS2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i0nggihj";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C0DF10E432
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 23:58:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12283891B8;
+ Sat, 14 Mar 2026 00:24:18 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 7795B60008;
- Fri, 13 Mar 2026 23:58:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58FA8C19421;
- Fri, 13 Mar 2026 23:58:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1B71A408E8;
+ Sat, 14 Mar 2026 00:24:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 088E7C19421;
+ Sat, 14 Mar 2026 00:24:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773446320;
- bh=r0cd1om1L6suNE9Lk75EmKlOheDhnjQsUXN8RTmJ/4k=;
- h=Date:Subject:To:References:From:In-Reply-To:From;
- b=pQIdOvS2pxXA+S6o8XdE1bHXV5zwfTlMN7oxfo9KOA2YTgCRpYY+GWBazM2Ib9Izc
- LH+2vpOw1ZNQpCLTx86m+sn3gCo/G7phK1YX9/viqGM6PDXVmPeBUCtAZ1qoJr/e1D
- a+6eOPa9Ug1yoWGTEHYaZ53ITjC7CXX/yiNVMy5Mrj8/q94s5IZbxp51hdbelRMWlf
- pe4CCl24ovfVw63wEO30ENTge2+K1ZtH24gHqpEZSntBz3T3nOcO5rJY9ednyHFemQ
- HElOkJEsAwTvxwQ6mt8L4dPcE7ZkVddw0FTfPWvHXe8o2dEQijO00LI6qKZkVySPXP
- EPUa1Fv90xTPA==
-Message-ID: <9bbdbe21-010a-4fe3-b480-1a94c55a0ea3@kernel.org>
-Date: Fri, 13 Mar 2026 18:58:37 -0500
+ s=k20201202; t=1773447856;
+ bh=WQRXpjIwf6KYkSpJNf4xnZTekqBOFUxWV+yK0mOoxb8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=i0nggihjXmXTKML8sut6lB5srcFWHmMKN3tSb0vnbiKDcMNVltZU2CmPxcxFrG3o3
+ nQrXA1wQ5YuTbmhgcTPNORS+379TzqDGm/7lSrQ1+WOrB6YJhRCIjKA7zUUcBgPch0
+ EYChM4p2xmMbNvogwcdaYFHJ9nHAZ56sOZLrj4G67jwJtQWWuJzeM6LK+rXxZtPvPL
+ 7hsCy1/fez24lkAmdr6y8xZG7yqBOpidyJ0h37yL3W7fcEPRQk675mEsDmHjbA8Xn+
+ hN93oY8bX37rGdXAEkgAe3QI7f5zrI2DHLm42gIk1V7HmETARtzUHgwH52MHcPBfBz
+ VF6ZMYEbGWSgg==
+Date: Fri, 13 Mar 2026 18:24:12 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Vineeth Remanan Pillai <vineeth@bitbyteword.org>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Dmitry Ilvokhin <d@ilvokhin.com>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Ingo Molnar <mingo@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+ io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, Jon Maloy <jmaloy@redhat.com>,
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ Ilya Maximets <i.maximets@ovn.org>, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-sctp@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org,
+ Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>,
+ dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
+ Huang Rui <ray.huang@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>, Len Brown <lenb@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ linaro-mm-sig@lists.linaro.org, Eddie James <eajames@linux.ibm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org,
+ Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>,
+ linux-input@vger.kernel.org,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ linux-i2c@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-scsi@vger.kernel.org, Chris Mason <clm@fb.com>,
+ David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 01/15] tracepoint: Add trace_invoke_##name() API
+Message-ID: <abSqrJ1J59RQC47U@kbusch-mbp>
+References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
+ <20260312150523.2054552-2-vineeth@bitbyteword.org>
+ <20260312111255.7925b4e2@gandalf.local.home>
+ <CAO7JXPhg-Etspj9YahZrq8cmZ2K6AGWDrMnHO+oD96P_SmOLBw@mail.gmail.com>
+ <20260312155326.GB1282955@noisy.programming.kicks-ass.net>
+ <CAO7JXPiu8-LE_gG001_GQLoGVYakPdzmH2SXLqfzJjEUxbn1Rw@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "drm/amdgpu: attach tlb fence to the PTs update"
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- "Liang, Prike" <Prike.Liang@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260304135425.18729-1-alexander.deucher@amd.com>
- <bae8f0a1-2dba-4286-ae28-78f0a3c63faa@amd.com>
- <MN0PR12MB6004C9B59FDA8BDC2F45AD32FB7DA@MN0PR12MB6004.namprd12.prod.outlook.com>
- <541ae425-cd9b-4088-addf-0a212df9dd8e@amd.com>
- <39534a37-ace9-4623-9bce-dee0f7e7fa06@amd.com>
- <2bce8ba2-c36f-4c64-b54e-aeb964a47ebc@amd.com>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <2bce8ba2-c36f-4c64-b54e-aeb964a47ebc@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAO7JXPiu8-LE_gG001_GQLoGVYakPdzmH2SXLqfzJjEUxbn1Rw@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,93 +109,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Well the original patch was intended for userq but is causing issues on 
-systems without userq.  How about just narrowing it down to only userq 
-for now until we have a root cause?
+On Thu, Mar 12, 2026 at 12:05:37PM -0400, Vineeth Remanan Pillai wrote:
+> On Thu, Mar 12, 2026 at 11:53 AM Peter Zijlstra <peterz@infradead.org> wrote:
+> >
+> > That seems like an unreasonable waste of energy. You could've had claude
+> > write a Coccinelle script for you and saved a ton of tokens.
+> 
+> Yeah true, Steve also mentioned this to me offline. Haven't used
+> Coccinelle before, but now I know :-)
 
-On 3/13/26 7:03 AM, Christian König wrote:
-> Yeah, but that is still not the root cause.
-> 
-> Attaching the TLB fence all the time just makes more use of the MES, it doesn't cause any additional problems which wouldn't have been there before.
-> 
-> Regards,
-> Christian.
-> 
-> On 3/12/26 22:08, Mario Limonciello wrote:
->> There is actually a contingent of two people who claim that this patch is the cause for MES resets here:
->>
->> https://gitlab.freedesktop.org/drm/amd/-/issues/4749
->>
->>
->> On 3/5/2026 3:43 AM, Christian König wrote:
->>> The original reporter already mentioned on the ticket that this patch is not the actual cause of the issues.
->>>
->>> It basically just changes timing to create and eventually wait for the TLB fence to signal.
->>>
->>> Let's see what the reporter finds with his extended bisect.
->>>
->>> Regards,
->>> Christian.
->>>
->>> On 3/5/26 07:48, Liang, Prike wrote:
->>>> [Public]
->>>>
->>>> It’s possible that we failed to save and invalidate some active pages during suspend, which then prevents those pages from being restored correctly on resume.
->>>>
->>>> For now, we still rely on this patch to keep the userq page tables updated and synchronized. Until the full solution is ready, how about we fall back to the initial approach and restrict this TLB flush to only the userq path?
->>>>
->>>> Regards,
->>>>         Prike
->>>>
->>>>> -----Original Message-----
->>>>> From: Koenig, Christian <Christian.Koenig@amd.com>
->>>>> Sent: Wednesday, March 4, 2026 9:57 PM
->>>>> To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-
->>>>> gfx@lists.freedesktop.org
->>>>> Cc: Liang, Prike <Prike.Liang@amd.com>
->>>>> Subject: Re: [PATCH] Revert "drm/amdgpu: attach tlb fence to the PTs update"
->>>>>
->>>>> On 3/4/26 14:54, Alex Deucher wrote:
->>>>>> This reverts commit f3854e04b708d73276c4488231a8bd66d30b4671.
->>>>>>
->>>>>> This causes framebuffer corruption after suspend.
->>>>>
->>>>> But prevents massive memory corruption with userqueues.
->>>>>
->>>>> I have strong doubts that this is related to the FB corruption in any way, it will just
->>>>> change the timing.
->>>>>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>>>
->>>>>> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4798
->>>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>>> Cc: Prike Liang <Prike.Liang@amd.com>
->>>>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>>>>> ---
->>>>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
->>>>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>> index 01fef0e4f4085..25b1d679ba262 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->>>>>> @@ -1073,7 +1073,7 @@ amdgpu_vm_tlb_flush(struct
->>>>> amdgpu_vm_update_params *params,
->>>>>>       }
->>>>>>
->>>>>>       /* Prepare a TLB flush fence to be attached to PTs */
->>>>>> -   if (!params->unlocked) {
->>>>>> +   if (!params->unlocked && vm->is_compute_context) {
->>>>>>               amdgpu_vm_tlb_fence_create(params->adev, vm, fence);
->>>>>>
->>>>>>               /* Makes sure no PD/PT is freed before the flush */
->>>>
->>>
->>>
->>
-> 
-> 
+[+ Chris Mason]
 
+At the risk of creating a distraction...
+
+This discussion got me thinking the right skill loaded should have the
+AI implicitly use coccinelle to generate the patchset rather than do it
+by hand. You could prompt with simple language for a pattern
+substitution rather than explicitly request coccinelle, and it should
+generate a patch set using a script rather than spending tokens on doing
+it "by hand".
+
+I sent such a "skill" to Chris' kernel "review-prompts":
+
+  https://github.com/masoncl/review-prompts/pull/35
+
+I used patch one from this series as the starting point and let the AI
+figure the rest out. The result actually found additional patterns that
+could take advantage of the optimisation that this series did not
+include. The resulting kernel tree that the above github pull request
+references cost 2.8k tokens to create with the skill.
