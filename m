@@ -4,82 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FE4F107BCF1
-	for <amd-gfx@archiver.kernel.org>; Sat, 14 Mar 2026 04:37:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E620AD58B08
+	for <amd-gfx@archiver.kernel.org>; Sun, 15 Mar 2026 06:25:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5314B10ECF3;
-	Sat, 14 Mar 2026 04:37:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39A9B10E038;
+	Sun, 15 Mar 2026 06:25:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qr+P7cnz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LAKfqIUJ";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D67DC10ECEE
- for <amd-gfx@lists.freedesktop.org>; Sat, 14 Mar 2026 04:37:51 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-b9704cd6951so297806766b.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2026 21:37:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773463070; cv=none;
- d=google.com; s=arc-20240605;
- b=O0abJYYBt/RN2PvKRnF0wtVpam1qjCyHDnzMkCYSjZp8DppCR4Ytk95R/M2nTgBJjk
- WXEX93h5RxDDAJOQmtzjA8t/diqcXKyCI5Avgf0MfbTrfohafQyFA3MiqUmYZZpRCqcJ
- TxwoodVwUApwsDb8KsjGAwZy3VizD61jqFNT6uW9B4jd6MjTu1Cl118fGNRdet1ntrGY
- cZ8cX6d1GNpNjPL02NpxvwnD6rrUCzVXeIoKu4s7SnqKWSnSKjeoqxfJYNDJG599h72Z
- HVthZAtJnzhEVyzDEm0TCWe7PQR8dcHVxnCHBWjKfYp8ic7j2t2Qmr/3NmNizkeqjcv8
- tUsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=/sRCj6aQjSil4dc0t3El4MUftedrp9NNBVb/SpPKT0Y=;
- fh=hs9oynQb3YjZT40omR8IZyt+l0QN8nu4Bye5abBVWug=;
- b=Vo0pEzt2dYq5PQ0FOEkJefuknvGLCgJmIVi2y2PVroJvUe/r6V38crb6/bAkpA4+ya
- 2/4uIXKf62LZ3dbiuEGdHLHgScgtKrDVBoKhCAPnnX3DpH86JPMNqaJ/gnMUF2eHs0i1
- 5f7/d8bGumvL5Atwm7c4Vih9CCYjkbeomKbN7DDLm3ii+6P3dC2hL4h6aWyGjoA6BuRd
- 1WNWUl4658gHRNtDeuidvP8xrxlBkyWBc4YH6BTKPQiTmXRDMQgtWc2V0uYFakSN4mMi
- 0YTIJ5z3n1EW3WWlw5FbFm6KBvFuyrroT63xTCipqVFBC+DJrUhis6TyYa+7GqDILutw
- oMpw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773463070; x=1774067870; darn=lists.freedesktop.org;
- h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
- :date:message-id:reply-to;
- bh=/sRCj6aQjSil4dc0t3El4MUftedrp9NNBVb/SpPKT0Y=;
- b=Qr+P7cnzhR6fyz1IjblXk4ZAZgiOpTe6pxK5esAfFv/sANJ+LPtrPTDO356Lbz+/bF
- bBGeXVtHTyCOcDWSgLrdZxyOjx+rSLynQTDQHiF3SjakAP4y69tnkRUXh4Q1SYRQ7c+S
- FmJuCD4MW/m2GBZ0eX9n1A79KcZjo2FZnarPRT7RkGYa1nu9fStmYVf+6PQgo8c7ZXcp
- 3jIQ29whZlBohcx/QT6tk8f8l5WahhfuJ7O6JDsiMVsGV90+fUeZ7pjORweI3zSeeR07
- nQjsyg29TxwT8Bs3816ErkduAZj9Ikzor94agey4Rx3fxJB89z3h0s5quUkEa2N/cYsf
- C32w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773463070; x=1774067870;
- h=to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/sRCj6aQjSil4dc0t3El4MUftedrp9NNBVb/SpPKT0Y=;
- b=tAfA/sE/1vkHB26Kciepf7E2ateYGJxxZLc6rOld+2bsv0LCza4VhbmtTIqlDh/tu0
- 73MSvR2HXy1o9APzkLZ4xzZL/FLcQU/KwAI7gIP6HQaT/3Jgn6nFNL2NX204fX6HNILK
- +usfrRwLT9cXh9GbNveixV3h0V7lEnFxQ/zF1BALTOqcHTt6lCjkaog/57jo9uyLIilX
- FjM0H2Ef+AsIO6hX28zYrODFE1cKJ2N0x9E833y+8EOflHQvS9TRnqfSsJnNKljeF7Lu
- 4FbVMzzdkcuSmPwf6nT7BBj7QMLjXJbzT3cH8uhbJB/PzEE+kOS51+Xjfoqe1wukXcuo
- 9p3w==
-X-Gm-Message-State: AOJu0YyxTRe1LbQWPYq4HwESykhXlfz3dRB1pmMmXLNOSCnW3MeR17Xz
- EQr1tAc4M3HMi17dOVE/D573XPiryKzrbLe/pKRxJCIEUI/0lexiIRQjSPGDQO09w5/JTui1yUj
- 7OsJEDrA91QOFOaBXz3Y5J2zBQepuXukq81DRjSs=
-X-Gm-Gg: ATEYQzydTT2sv8+o6m0iM7WBEjOuTsHUFmTwLb9ctGhS90ZL+Tly/Zw2wNWSc6dSHIG
- ldvdfjA2QhSGgFyQRTHrlgMgu1ijwxsuTYnMpVrBA+BY0OX6EnVLDinJ5T9+AiYr+2CmBrfS3Ta
- YN/qbgBtWALETDnAtRHBiXSTpFirW/RDp2SzyhniLmPunjx5DLxrhCk7CGmXpXJj8CrpxBeVdlW
- Gq9IDvGop+vGqH0dgKUCa3RVO9Vja4AUqBvmIlvFFjN9fC8VP6faQ0mdrifSUiFMr+O9RFgopfv
- y3A+iq3EUJ3+nPkakA==
-X-Received: by 2002:a17:906:68d:b0:b97:3db:c7cb with SMTP id
- a640c23a62f3a-b9765376704mr286663866b.46.1773463069827; Fri, 13 Mar 2026
- 21:37:49 -0700 (PDT)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011061.outbound.protection.outlook.com
+ [40.93.194.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1074110E038
+ for <amd-gfx@lists.freedesktop.org>; Sun, 15 Mar 2026 06:25:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=N+9Z8AC2iQUFO9ZU0gM3KpS8twWBJrS6wNUK08FmrXtxJ4ae4dHqqcR3SfaNfNEAkRJ1mj4be7FDL1wm0L1fD0LX0e2FOUoFIoirkojx6jnzJc2mzqfo/s6wCdkV7SjBxpRHsd+hypmTQ3cnBPPdU0Fr0Y2dfYSbDPGbC0l+aKVakMKShx+CVtV5YMDD6lxbFtlm4zVHeFZOMhWU6V0lVoaaPp9pDEgT0bn5H9OZx++lEkDU4UTF8BRIxiRatAOnejLTwoHs61Hlw1PB/fTwSZmEaLuXVJfluDgTcxTFwbEwsYNrO9fEEqZTSV0p6EdSI8xqSYunqy/d2htYYUiQ4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KVYN7eR6yM6Pul8EvacDapibOVhHl5QOslx4ho2Dp5I=;
+ b=Izc69qfHoRUHezbBUuGKEaV4mlhkA5K45aEJvF+lUEQ+zp5TqqiC+xTfbrM/TKqvMkSsuAXyB+xEpAblU6QZsgyuXNSEGU++sjCZNOHTZNw7l6UzQ5v0H5mt/Y8TPfaqeM/u01WmTdbqxHIQBVPUmnRF/U40v1jkdiO9rWH79a5i5WEjjpR6A2OEE3kb3odL3+hwDTofXTlY1C++xI5TsV1uH/aL/f+MZV6HooTRzWg8rCi2EjzNghbZ3qwEF1NhCC6USvrCH3fkFmdTqaycSQVSkKm7e9nNZ7fyNM9aHKH83kUNGuohoeD+Qfb9veZMiBloPeDKL9nIgTEU526mUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KVYN7eR6yM6Pul8EvacDapibOVhHl5QOslx4ho2Dp5I=;
+ b=LAKfqIUJI9yIQqqp+BBOusA0IDPknTiOyj1iCxjlVcdDpPTuwoNIiwmf62efqMD5BW3kAKnOHjrI2guYbiIGpMWKlGF/fMjaDtWIfdjIR6RmmHrdUoFfDhJolzCfuwV7GhniTHFPRxBESKKA497m/a+PCCo3OZRQhLrkaNB2Tl8=
+Received: from DM6PR10CA0004.namprd10.prod.outlook.com (2603:10b6:5:60::17) by
+ DM4PR12MB6565.namprd12.prod.outlook.com (2603:10b6:8:8c::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.13; Sun, 15 Mar 2026 06:25:31 +0000
+Received: from DM2PEPF00003FC3.namprd04.prod.outlook.com
+ (2603:10b6:5:60:cafe::21) by DM6PR10CA0004.outlook.office365.com
+ (2603:10b6:5:60::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.21 via Frontend Transport; Sun,
+ 15 Mar 2026 06:25:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DM2PEPF00003FC3.mail.protection.outlook.com (10.167.23.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9700.17 via Frontend Transport; Sun, 15 Mar 2026 06:25:31 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Sun, 15 Mar 2026 01:25:28 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Dan Carpenter <dan.carpenter@linaro.org>,
+ YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou <tao.zhou1@amd.com>, "Hawking
+ Zhang" <Hawking.Zhang@amd.com>
+Subject: [PATCH] drm/amd/ras: Remove redundant NULL check in pending bad-bank
+ list iteration
+Date: Sun, 15 Mar 2026 11:55:09 +0530
+Message-ID: <20260315062509.1931432-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-From: Boddin Gregory <bodimode@gmail.com>
-Date: Sat, 14 Mar 2026 05:37:39 +0100
-X-Gm-Features: AaiRm51jhsYX3ADZqJjZshyhah-fKAyYtv91q6NTGZG5zRl6RVH6vzIGqK2ir2k
-Message-ID: <CANHGPmVhS3CzfBw+9u6X=cx6d9=PG=XTmnv4yWEWe9QXd4CbjA@mail.gmail.com>
-Subject: Issues with 7900 XTX power management.
-To: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC3:EE_|DM4PR12MB6565:EE_
+X-MS-Office365-Filtering-Correlation-Id: 916f469b-3e59-4ba3-f053-08de825ba86d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: qwMo+yLVtDCY0noy5BAbIyc8Jorn9T2Bi4gNONkyLHr8poeJaqYs2Wq1LYD/+7ZAp4iUJsp3x8lgFoxRL/rDvuAPoPUfrAXoHhRrS2jeiF3b2UJEWvQKzmKp1UrxNTLzdG20GRuDtApq2UDH6DQKHMmkiVB6vK/IzcZg3PwKl33GHPc5PHxOZ/R0WQHyZvo8QPNcpbEVwkd8fz+rhB56OKpCZYaw8TzDzbvuW4XN07wG2OV65Y4iZmKrsW9ybd6rM0uDijYl4xAQq8oPwD83G+IgOTFcwcuxZOBEOKAnOXxtZVtU38sr8zuKJYuY1Kmp7osztoJ+SVmyFRs5AJuYZSmpm57MumMEgOTwzTCbdrlRUcnutkmpuHcBfnVaKCzA9FBaPIMnOWKuHCQg1SyyN3GWSCYswLL3mvomNFZQaWQM0Hq16VEaEvhw3kWUdLwaCCow1hVXXwNCRmBchaZTOR0OJlwUs22ai+T3MdLNq+PJRVodcyojhrVNG73P2NVHFi7urMzSt+cJO+tv8XY+xx/1BdgZx5/+KKA4LGTgd1slXBfiG/LWO7qLDqx2eRWNZEgK4Xvh39YRk5Gl3AsvHsXZusLUwYovjwAbOe6ZS0qX1EbHrmJUq8q+ygx69w1BfuFXLcAQejhWAhMgtuoaesPkDToiKQp7csbJRg+Nz3qxC6Ny1iJXHDa7Fz+PybpJUuJwlqRaqE10vwrypxRcNpCtzjw/swhCqVKU4qVAww5yzOgGtZ2+eYdRztkvP7TDkABmAFBXGtogu6udWmYQqA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: TOIVU5nn+jLyQzhwzvDT37VbCMLQb0lUyf2NWkDOEmElFNoDfwoviiJugwfUM6JcjIp+g3GaZKL81ypkt+d16WqQGT/cn2LuEI4MQe68NWjdp9WItiFhfFNbef6hDFC/CnSFFV0qAt74qUlakR74ALC6DQJECAcQYwdpMzI2xgyCmLVNvzA7uixxLVNx3B7aR6mUb0Nbs9NaualfCLc/zh0vvCZ2/wPh5Ops2H2gJC++HV+qkxOAGMWTOTJgu3UZBY2u1FVDeTsR1eZ/OlGihpnoKo9t53HMpBUrfZtfCC1DmZKfr9A3asag/fPkr7a2JdNizee005mdD/K/wd+IeWdectMbe8AijVK6xA+O1LMV4GQr/YwWR/88EE8ZThn7rCdkKtCLDJGpm5JLzWbxBKUKkGjIbObxNi/HDTUFx4mUg6RXF/Ee4Aa9yxcxdJGU
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Mar 2026 06:25:31.1702 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 916f469b-3e59-4ba3-f053-08de825ba86d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DM2PEPF00003FC3.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6565
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,39 +113,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+ras_umc_log_pending_bad_bank() walks through a list of pending ECC
+bad-bank entries. These entries are saved when a bad-bank error cannot
+be processed immediately, for example during a GPU reset.
 
-I recently entered the wonderful world of freebsd and have been
-playing with a lot of video encoding and 3D rendering on my
-workstation.
-I noticed however, that the fans on the GPU were always silent, and,
-now that I think of it, they never ran on Linux either.
-A crash showing clear memory corruption on the screen and a GPU I
-couldn't touch while its FAN were sleeping prompted me to investigate
-if I could ramp the fans up myself.
-It does require a working SMU, this card uses SMU 13 for its power management
+Later, this function iterates over the pending list and retries logging
+each bad-bank error. If logging succeeds, the entry is removed from the
+list and the memory for that node is freed.
 
-The firmware that have been provided by AMD so far:
+The loop uses list_for_each_entry_safe(), which already guarantees that
+ecc_node points to a valid list entry while the loop body is executing.
 
-SMU 13 with version 3c ( waaay back then )
-SMU 13 with version 40 ( now )
+Checking "ecc_node &&" inside the loop is therefore unnecessary and
+redundant.
 
-So I've been checking the source
-(drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_0.h),
-and in every fork (mainline, amd-next) I could find we're still at 3C.
+Fixes the below:
+drivers/gpu/drm/amd/amdgpu/../ras/rascore/ras_umc.c:225 ras_umc_log_pending_bad_bank() warn: variable dereferenced before check 'ecc_node' (see line 223)
 
-I haven't checked the driver packages provided by AMD yet.
+Fixes: 7a3f9c0992c4 ("drm/amd/ras: Add umc common ras functions")
+Cc: Dan Carpenter <dan.carpenter@linaro.org>
+Cc: YiPeng Chai <YiPeng.Chai@amd.com>
+Cc: Tao Zhou <tao.zhou1@amd.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I'd like to make sure my understanding is correct and that there's
-nothing I can do at the moment ?
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+index 6074807ef6b7..d4072350f48f 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+@@ -222,7 +222,7 @@ int ras_umc_log_pending_bad_bank(struct ras_core_context *ras_core)
+ 	mutex_lock(&ras_umc->pending_ecc_lock);
+ 	list_for_each_entry_safe(ecc_node,
+ 		tmp, &ras_umc->pending_ecc_list, node){
+-		if (ecc_node && !ras_umc_log_bad_bank(ras_core, &ecc_node->ecc)) {
++		if (!ras_umc_log_bad_bank(ras_core, &ecc_node->ecc)) {
+ 			list_del(&ecc_node->node);
+ 			kfree(ecc_node);
+ 		}
+-- 
+2.34.1
 
-- AMD hasn't provided the structs for 3c or 40
-- AMD hasn't provided the SMU firmware for 3d
-
-Oh btw, relevent lines:
-
-drmn0: smu driver if version = 0x0000003d, smu fw if version =
-0x00000040, smu fw program = 0, smu fw version = 0x004e8000 (78.128.0)
-drmn0: SMU driver if version not matched
-
-Regards,
