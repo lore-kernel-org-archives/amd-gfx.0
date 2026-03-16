@@ -4,46 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5561AF506D0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C83EEF506D3
 	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 13:28:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFB2610E53D;
-	Mon, 16 Mar 2026 13:28:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 168EB10E549;
+	Mon, 16 Mar 2026 13:28:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="d2YN0kHV";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="lZKCOgNP";
 	dkim-atps=neutral
-Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06EE610E0C6
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 12:34:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
- ; s=bytemarkmx;
- h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
- :Subject; bh=jXGgFgqB4BxvA1eW+U+dcsXLOTHmiNtfZM8O6r6zgF8=; b=d2YN0kHVc9VUdF6L
- N6CY7vuBtaPaqAfQxBZ/76taAPV/OpLMD8WGdLHRIBHhY+enwRA5iwEItw+pdfuSUmbg8Ii3oLnOj
- wFzmWKxUCNfzitvC6kW9fFNXR+noketLf1QElazBSaScZ8EZdD+khM7lEhoGh9klTfEvnr+m4UOdW
- VewGD+lXU6aQxjVw38B+pPVhiyi0xXuAUqQQOYnNb33r4azrOrGbSEMcLGwliaZjYJKqIjtD7HvvJ
- KHBxE2RG/NGJ1UGYzJn3/O/fRGn/7D7vjdb+jdXZzC7u2K5oIQLEJfKsKxnTTdk0QpChaTUYsTK+M
- EG7UVX5b8QNMuqqFFQ==;
-Received: from dg by mx.treblig.org with local (Exim 4.98.2)
- (envelope-from <dg@treblig.org>) id 1w279t-00000000f9I-0Tp6;
- Mon, 16 Mar 2026 12:34:57 +0000
-Date: Mon, 16 Mar 2026 12:34:57 +0000
-From: "Dr. David Alan Gilbert" <dave@treblig.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-Subject: Re: oops/null pointer in 0010:dma_fence_is_signaled+0x12/0x60 [amdgpu]
-Message-ID: <abf48cuwzRBczbeA@gallifrey>
-References: <abdVX_LJiNvkm4tW@gallifrey>
- <41627fc7-a0d8-44bf-982d-334f548d9f88@amd.com>
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013070.outbound.protection.outlook.com
+ [40.93.201.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D271710E1C8;
+ Mon, 16 Mar 2026 13:18:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bBQ7NDfFfQCVQHjilcyKwV995B4GNXFh1Vzh4BgWQCZlj/kPWcE8D7jxWh9bX2Ky+1dsKoPUDuGfVph8dkCAEytmlzUpsB2y2lz/BAv/4P7/iBCsG/fxxnTkw941wjk9XKm3AeEqvY8esXNRSbCq4x6NxLXcA4ZCiP2ZwadFe7NjTXj2sA9Xib1acKdgOcmLfD9JwTn9qWeFTHL5O0xC8OZBRNKPboc3GEczoylCkcIfFCEf6yxqB/x5PrnmvKDOGoo+SxUb7IQXijhP+Hcsa/bx4gDvBulGIH2a0y4uIIQxhvBbG2qhcL00lrzQ8InHM1B7YzMxr+gsqkAkrX4wMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q5An+9Ya+9wveM9sgFfUHcjSOQ+oCBk+Vbivxs++ggg=;
+ b=CgXFxcSkSieC8bRikI++1khPRm2f/dm4VmSZVhvFJFqDI+ZBjsvyiE1KR4Up9CihblcSXFYTCLKIijG3MCk7cOuu+ayMrmacxdElpaMoZJLvVIxhYqKxeuBWc57JuRg00610YvrVWmXnf5wWTvgGr3hcKEGRzTRTe1vaaC07uG4ql6Wa2ZPixCA2cxnA2F8LOuEhEbIIeaIg9gkLR7K08gdkhMI5Lt/9yT+INkqemLxyXXi+U2qcVyQTqotfl3S5gO48c1SpEx/4IQRD3RSs8axlljYOPpGxRadtDXBGui5vFCfVUmJbWYbQDW7J50yIBNBfvpdJT89CFRcnZiQInQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q5An+9Ya+9wveM9sgFfUHcjSOQ+oCBk+Vbivxs++ggg=;
+ b=lZKCOgNPliYyfcxH2WodkeuR+rpXLG59dkytEgnYej/UfHevqEZQ7iw66Zw6mbisDZTAZpEnRQ8zpQ1QH9DOEmeu/HDmkHG/G4b9anALLv9kDN3P5725ihBPGRXs7r67GVLibN/bLmqWSE2OHxEu7EtxoCDiEVL+8N1VQKlTvMK2eZs6g7RNDRny0dMTngBXmytOGff+ryR+0QwUDgC8ORztUeDaAtz1478bhFw7kn8z7tqAocBBcpIzgudVMB/pfRNYLg8GStm+2wO1sumsWvkVfCSq7uBQYQi97qS2yAxqWn4CLRktJDZn9AWsSZdWC5zYJAz2J3ub+O8aoWVovw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by MW4PR12MB7013.namprd12.prod.outlook.com (2603:10b6:303:218::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.17; Mon, 16 Mar
+ 2026 13:18:39 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9723.016; Mon, 16 Mar 2026
+ 13:18:38 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Mar 2026 22:18:35 +0900
+Message-Id: <DH48IO1JI6HF.37NLGWHY2LY3O@nvidia.com>
+To: "Joel Fernandes" <joelagnelf@nvidia.com>
+Cc: <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
+ "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Koen Koning"
+ <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
+ <nouveau@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>, "Nikola
+ Djukic" <ndjukic@nvidia.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet"
+ <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
+ <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
+ <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
+ "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
+ "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ "Helge Deller" <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>,
+ "Boqun Feng" <boqun.feng@gmail.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Edwin Peer" <epeer@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, "Andy
+ Ritger" <aritger@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Balbir Singh"
+ <balbirs@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, "Elle Rhumsaa"
+ <elle@weathered-steel.dev>, <alexeyi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, <joel@joelfernandes.org>,
+ <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-fbdev@vger.kernel.org>
+Subject: Re: [PATCH v9 04/23] gpu: nova-core: gsp: Extract usable FB region
+ from GSP
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260311004008.2208806-1-joelagnelf@nvidia.com>
+ <20260311004008.2208806-5-joelagnelf@nvidia.com>
+In-Reply-To: <20260311004008.2208806-5-joelagnelf@nvidia.com>
+X-ClientProxiedBy: TY4P301CA0048.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36b::19) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <41627fc7-a0d8-44bf-982d-334f548d9f88@amd.com>
-X-Chocolate: 70 percent or better cocoa solids preferably
-X-Operating-System: Linux/6.12.74+deb13+1-amd64 (x86_64)
-X-Uptime: 12:33:40 up 3 days, 13:47, 2 users, load average: 0.03, 0.01, 0.00
-User-Agent: Mutt/2.2.13 (2024-03-09)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MW4PR12MB7013:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf165337-0032-41f7-9c38-08de835e8924
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|10070799003|376014|7416014|1800799024|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: pifTIbYi0e+EOgBxpk9wb2CUTBYBdhZegdebGnuHvZOsrstf+Sm3vy+49Gdnc5h8AQXURgNCM76ZNbU/HXmlCrkXefVPxBo0N2j9mVJV/AubeZkDFSdJFN2wLtr/ngIJoacdspEPdBMnmS6E8NgnRLiwjC+mlMEC6zOWxhc0J6WCVknpTjefC9IcTiSOjFNDkq30Ha/NKsyYFZhGGppozjjY88fnJekTVlMxyIKQ/PqnBd+xW7KeAJ1vIjuDqcJtocIdyu09qV5hnfQ+eamtBpvnW4M3FNSyLnFeOt59sEVQcCE/7LcLcf5duwSnWWlEtUdPwYZVCpOrAjwA3nmIL27I9g4M8NewRfafAcPFcGZr54lIjqc7kWdUdmYKu6VTovJXCZH2KFa1kTzC8eidct9CZHPKZDwXHq1PSXKlvScb1kDxiVuXVApXLhrLHdvcTsgw+Kk+3OT2iAelYHq16U2lTqWo8CtztwQylwM8PSMPoM4sFwwo3tZrd5DXGt5nyhdSvs2Y+wSOzouMP/962EVYgF+395HbnDdGeqtMu05tkzJdFrk60NRnikqcqfVHy3WeV8ACASJeGtFrntP/kapjCLW5KDRXqu/Ea1pVviyRbTicieBLJw1jzDDcEei/zJtcR4kj2537swevLNCkc6T03vr35HgYBCLFjFOgnXZccgT49EmNC3HRqNBewtnRPoURG9/Wur7G7phHkZk/UuhBBaLM+VExjy8mQ9vLhW4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(10070799003)(376014)(7416014)(1800799024)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N3BENGRhM0MwWHJHcDRiQWpPNWU2dWp6dkRRK2NWSEkyN09xRjJnUWVWVHdV?=
+ =?utf-8?B?TnV5YkNaSVRSdVZXTXdxdVE4ZCtEWmZqTW5XcjI5U2tNNlNvaGp3YzM0YW84?=
+ =?utf-8?B?YW9KU0ZyTlVqMnpvam1ONndpZm1WWGh0U0hsZS80MVhMNVJKYSthcDROUXBm?=
+ =?utf-8?B?VEVrYkpLVHprbFF6L0lDTVc4ZmNQbXFOZVJrbmFPYzhKcUp6aGd4b2hvQXNr?=
+ =?utf-8?B?UWhNdHU1Sk9jNjZKelRSNlZiTlRPOGU1T0FHbzJ1WGtJT0VVOHhoL2RSaFp0?=
+ =?utf-8?B?MUp3eXpCOFp0amQ2bCtaMDB1SUIxajFvZExEc0dXV0ExT3A3dTN2aTVXczkw?=
+ =?utf-8?B?bWR1NUxZUjZ4aUtsQVk4R25XSTlxaFpHUkFrTnBERzRQZmVkVTEvTjhneWt4?=
+ =?utf-8?B?cXN0akNucEZUODNUT0ZMODBON1FlMDBqSXo3WFkrMEJ1dkxvMGttNU15c2ox?=
+ =?utf-8?B?MTRSWVp0MHdMaCtCZjNIRUNCUHdJSnh3d3gzOGExZTdtQ25zM0IxNlprc2hM?=
+ =?utf-8?B?TUF2RTRYbTFRQ1VYcTRoK3BnYWt6M0FLNENFcENaNUdmSXF3d0UweENhaGdC?=
+ =?utf-8?B?Vk5MZEFRcDlTYnFGOVhwRG5qS1JiRG4xNmtsYkRGcEplZTdpT01lcXZhaXMy?=
+ =?utf-8?B?VFlyTExpRVNWY1VyYjg3MXdUTHpmTDhpbjR3Ulk1WDY5V2FNY0JFTXJBVkp1?=
+ =?utf-8?B?OG1sZmlITFlJRDB3T0g3dFFXWmVqRWdFcjZidUcwMC8vRHROekIya0t0V3k4?=
+ =?utf-8?B?WWU0REhTTlRRM2R1SU5pQUNwQzRWZFdRV2xrSUFZYlFaamlSTUlORGc5UG1W?=
+ =?utf-8?B?TWJSM3JIUTZRaFZVV1JEcU5INFRnVk1TZTFvOENOeHF6Q0dpaHo1TVlOTStk?=
+ =?utf-8?B?U2J2aHR4VFR5dWJhY0M5amN6YmpKK2I1YmlMUmExcExMeDNmTzhDVW93YmJa?=
+ =?utf-8?B?aEU1SUpteitRa01YdzI4RVVLNUZkVGx6UzNzV3llbnhjM3YyVzhveEdvaXB2?=
+ =?utf-8?B?YlovNWlHeVg4THR2UllKUVJLeTBFQ1J3a2lSd3RnMWNkeGw1L21mVHltK3Ey?=
+ =?utf-8?B?OGRJTkNHak1lUXBRb3IzMkxUNmhCcTNWZG9EbHlCT1pyeVBrMWFDYnBWQVMw?=
+ =?utf-8?B?M2xpaU5DVkZKa2RPY0cxZkhQWU1qZThxUWRuMnhrYW5aUE1PYzdNM0RoT3Nj?=
+ =?utf-8?B?YmNtLzJwOTc0UDREdzRBMVNkRWxxd3JTOWpBYnE1eW5EK2ZmT2lsSnQ1cmxu?=
+ =?utf-8?B?Z1p0MkxmakYxcmw2SkxadnpuMUd2YXdKVDdBVjEwV0RSNnV0NUdXNzNKOGhS?=
+ =?utf-8?B?TEprZU5pVWJVUi9EUjBrVFQ3QWlGbTVSaDZTTFk5c1JWVWVmb1hDejJJRGJw?=
+ =?utf-8?B?OGVJVTBaYWd3VDVKTTlPU0tHQ3RWTUt6MGJHbmN0Y2NmZ1BuN3RabDBNTk5z?=
+ =?utf-8?B?ZTd4NVFnaUtjOUJpL3VnaGt3VCtQdloxbUVCUlVHZEV6aVhpRGRJMTh2eHZX?=
+ =?utf-8?B?N3YrbnErU0paK0hlVVB2YjIzUVZqWEw1dEZ4WXBGT0U0QlNJOFRWeXE4UWtk?=
+ =?utf-8?B?Tk1OTzU2TkRhcUpZTmdqQWJUSC9ZM1ZMd0xkS2l0cTFhbmhWZkR6dEJFcEdw?=
+ =?utf-8?B?UWZOby9kUXZKUVErMlQreGM4QkRveUlUaFZBL1JGWWFnbm5yOXlVclkxTHJz?=
+ =?utf-8?B?RG5iVzMzK1FnbnVlczlBTmc4TS9rd0F2OUcvUkFqT0l1cUFOY3VqcFNvcWY1?=
+ =?utf-8?B?akl6cGY4NitaT1dIR1hwZis1eW1uRXhKbTFmaHVBbjdlVFNOSzBFbW1JYXZu?=
+ =?utf-8?B?NDdNVUZMQnI0Z2ZITzBydkFIZnJvZFdxTFJxbE53NmUvc05jaE4rdHNPdGdw?=
+ =?utf-8?B?RUk4ZVZkd3h4K1B1bE1JWmM2ZG1oWFRzV0dWRGwwSlZvV3RNdWRtY1RlSTdt?=
+ =?utf-8?B?WS9qa3FHZDNJamlmWGV0Z2V5a3VjZ0lSMndRQjVrSmhaUE10ekFaZ05kOXlP?=
+ =?utf-8?B?WGV4OCtTZUhYcDJ4QmN0Y2x3dUlvbnZDckdMclp3UllxVGNudmJtRDgvc0lz?=
+ =?utf-8?B?aktTdjRMTlF5L2pnVlBVSU96MUgrN2l2NUgra3BYaXdSczYrOERqL1g5UEl3?=
+ =?utf-8?B?N2prYi9rV2VvSGJEanNtN3JNL2pZL0FITWZ3NHFqTitRSmxhVUhKTDBMRDdB?=
+ =?utf-8?B?bFhEd2lYT0FYQXJOODJhNFpqV3IzUEUyb0ZPeTI1MSthOUZtS0N4ZTRUb3Ft?=
+ =?utf-8?B?VWk2a0RPRXBmcThhNnJ3b1ZRNU1tc2hGSGNMQUFlczdaUk54QU5xN3NadEpr?=
+ =?utf-8?B?Z2MyZEdFNWUvUWRuUXVPUHlld3ZoRkk5eTd5OWhLMEtpRFFPS0FJcytUYXUz?=
+ =?utf-8?Q?Q1NQmMr8iSC1mxztld2LqqmTDuDmbTfbXNxJPvTsOh3jn?=
+X-MS-Exchange-AntiSpam-MessageData-1: klTB6yAdbbzdMA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf165337-0032-41f7-9c38-08de835e8924
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 13:18:38.6031 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ozkUJZ9VcBXwLKGE2AI5FDgPMuoQYYzKoeEG3fBjV3gQbJG/vXOOnoCcBOBl30jD1X2CpetdmoFBCCDQiHGh4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7013
 X-Mailman-Approved-At: Mon, 16 Mar 2026 13:28:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,133 +169,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-* Christian König (christian.koenig@amd.com) wrote:
-> Hi,
-> 
-> On 3/16/26 01:57, Dr. David Alan Gilbert wrote:
-> > Hi,
-> >   I'm not sure if this is repeatable, but I landed with a null
-> > pointer during a GPU reset, so thought I should probably
-> > report it:
-> >    6.19.7-300.fc44.x86_64
-> > Mar 16 00:24:39 dalek kernel: BUG: kernel NULL pointer dereference, address: 0000000000000018
-> > Mar 16 00:24:39 dalek kernel: #PF: supervisor read access in kernel mode
-> > ....
-> > Mar 16 00:24:39 dalek kernel: Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
-> > Mar 16 00:24:39 dalek kernel: RIP: 0010:dma_fence_is_signaled+0x12/0x60 [amdgpu]
-> > 
-> > see full oops below;
-> > 
-> > 09:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Lexa PRO [Radeon 540/540X/550/550X / RX 540X/550/550X] (rev c7)
-> > AMD Ryzen 9 3950X
-> > 
-> > I suspect the timeout was real, and caused by a runaway llama, I forgot the
-> > flag to stop it trying to use the GPU for image encoding; but the null page
-> > seems unfortunate.  Impressively the audio still kept playing via it:
-> > 
-> > I have the devcoredump copied if it's of interest
-> > (Note for self: ~/amd.core-2026-03-16)
-> 
-> 
-> Can you open up a bug report for that
+On Wed Mar 11, 2026 at 9:39 AM JST, Joel Fernandes wrote:
+> Add first_usable_fb_region() to GspStaticConfigInfo to extract the first
+> usable FB region from GSP's fbRegionInfoParams. Usable regions are those
+> that are not reserved or protected.
+>
+> The extracted region is stored in GetGspStaticInfoReply and exposed via
+> usable_fb_region() API for use by the memory subsystem.
+>
+> Cc: Nikola Djukic <ndjukic@nvidia.com>
+> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
 
-Sure; on bugzilla.kernel.org ?
+This doesn't take into account the feedback I gave in [1]. In
+particular, a TODO to handle the remaining regions looks important to
+me.
 
-> and please provide what line of code amdgpu_device_gpu_recover.cold+0x244 decodes to.
+[1] https://lore.kernel.org/all/DGRGDFASWXB7.3NAK8RRTCV88P@nvidia.com/
 
-Yeh, let me see what I can do with the Fedora symbol packages.
-
-Dave
-
-> 
-> Thanks,
-> Christian.
-> 
-> > 
-> > Dave
-> > 
-> > 
-> > Mar 16 00:24:28 dalek kernel: amdgpu 0000:09:00.0: amdgpu: Dumping IP State
-> > Mar 16 00:24:28 dalek kernel: amdgpu 0000:09:00.0: amdgpu: Dumping IP State Completed
-> > Mar 16 00:24:28 dalek kernel: amdgpu 0000:09:00.0: amdgpu: [drm] AMDGPU device coredump file has been created
-> > Mar 16 00:24:28 dalek kernel: amdgpu 0000:09:00.0: amdgpu: [drm] Check your /sys/class/drm/card1/device/devcoredump/data
-> > Mar 16 00:24:28 dalek kernel: amdgpu 0000:09:00.0: amdgpu: ring gfx timeout, signaled seq=1705630, emitted seq=1705633
-> > Mar 16 00:24:28 dalek kernel: amdgpu 0000:09:00.0: amdgpu:  Process llama-mtmd-cli pid 299886 thread llama-mtmd-cli pid 299886
-> > Mar 16 00:24:28 dalek kernel: amdgpu 0000:09:00.0: amdgpu: GPU reset begin!. Source:  1
-> > Mar 16 00:24:32 dalek kernel: amdgpu 0000:09:00.0: amdgpu: failed to suspend display audio
-> > Mar 16 00:24:32 dalek kernel: amdgpu 0000:09:00.0: amdgpu: Guilty job already signaled, skipping HW reset
-> > Mar 16 00:24:32 dalek kernel: amdgpu 0000:09:00.0: amdgpu: GPU reset(1) succeeded!
-> > Mar 16 00:24:32 dalek kernel: amdgpu 0000:09:00.0: [drm] device wedged, but recovered through reset
-> > Mar 16 00:24:34 dalek lightdm[40555]: ATTENTION: default value of option mesa_glthread overridden by environment.
-> > Mar 16 00:24:34 dalek kernel: amdgpu 0000:09:00.0: amdgpu: Dumping IP State
-> > Mar 16 00:24:34 dalek kernel: amdgpu 0000:09:00.0: amdgpu: Dumping IP State Completed
-> > Mar 16 00:24:34 dalek kernel: amdgpu 0000:09:00.0: amdgpu: [drm] AMDGPU device coredump file has been created
-> > Mar 16 00:24:34 dalek kernel: amdgpu 0000:09:00.0: amdgpu: [drm] Check your /sys/class/drm/card1/device/devcoredump/data
-> > Mar 16 00:24:34 dalek kernel: amdgpu 0000:09:00.0: amdgpu: ring gfx timeout, signaled seq=1705632, emitted seq=1705637
-> > Mar 16 00:24:34 dalek kernel: amdgpu 0000:09:00.0: amdgpu: GPU reset begin!. Source:  1
-> > Mar 16 00:24:38 dalek kernel: amdgpu 0000:09:00.0: amdgpu: failed to suspend display audio
-> > Mar 16 00:24:39 dalek kernel: BUG: kernel NULL pointer dereference, address: 0000000000000018
-> > Mar 16 00:24:39 dalek kernel: #PF: supervisor read access in kernel mode
-> > Mar 16 00:24:39 dalek kernel: #PF: error_code(0x0000) - not-present page
-> > Mar 16 00:24:39 dalek kernel: PGD 849708067 P4D 849708067 PUD 15d277067 PMD 0
-> > Mar 16 00:24:39 dalek kernel: Oops: Oops: 0000 [#1] SMP NOPTI
-> > Mar 16 00:24:39 dalek kernel: CPU: 7 UID: 0 PID: 298062 Comm: kworker/u128:2 Not tainted 6.19.7-300.fc44.x86_64 #1 PREEMPT(lazy)
-> > Mar 16 00:24:39 dalek kernel: Hardware name: To Be Filled By O.E.M. To Be Filled By O.E.M./X570 Pro4, BIOS P3.10 07/13/2020
-> > Mar 16 00:24:39 dalek kernel: Workqueue: amdgpu-reset-dev drm_sched_job_timedout [gpu_sched]
-> > Mar 16 00:24:39 dalek kernel: RIP: 0010:dma_fence_is_signaled+0x12/0x60 [amdgpu]
-> > Mar 16 00:24:39 dalek kernel: Code: 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 48 8b 47 30 48 d1 e8 89 c2 83 e2 01 75 2c 48 8b>
-> > Mar 16 00:24:39 dalek kernel: RSP: 0018:ffffcf349c553d20 EFLAGS: 00010246
-> > Mar 16 00:24:39 dalek kernel: RAX: 0000000000000000 RBX: ffffcf349c553da0 RCX: 0000000000000000
-> > Mar 16 00:24:39 dalek kernel: RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff8bce4ecd4380
-> > Mar 16 00:24:39 dalek kernel: RBP: 0000000000000000 R08: 0000000010000020 R09: ffff8bc9c0400b68
-> > Mar 16 00:24:39 dalek kernel: R10: 0000000000000080 R11: ffffffffa16760a0 R12: ffff8bc9e9100000
-> > Mar 16 00:24:39 dalek kernel: R13: ffff8bca7ccab200 R14: 0000000000000000 R15: 0000000000000000
-> > Mar 16 00:24:39 dalek kernel: FS:  0000000000000000(0000) GS:ffff8bd90c066000(0000) knlGS:0000000000000000
-> > Mar 16 00:24:39 dalek kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > Mar 16 00:24:39 dalek kernel: CR2: 0000000000000018 CR3: 00000001c591f000 CR4: 0000000000350ef0
-> > Mar 16 00:24:39 dalek kernel: Call Trace:
-> > Mar 16 00:24:39 dalek kernel:  <TASK>
-> > Mar 16 00:24:39 dalek kernel:  amdgpu_device_gpu_recover.cold+0x244/0x2ec [amdgpu]
-> > Mar 16 00:24:39 dalek kernel:  amdgpu_job_timedout.cold+0x218/0x258 [amdgpu]
-> > Mar 16 00:24:39 dalek kernel:  ? srso_return_thunk+0x5/0x5f
-> > Mar 16 00:24:39 dalek kernel:  drm_sched_job_timedout+0x8b/0x190 [gpu_sched]
-> > Mar 16 00:24:39 dalek kernel:  ? srso_return_thunk+0x5/0x5f
-> > Mar 16 00:24:39 dalek kernel:  process_one_work+0x190/0x350
-> > Mar 16 00:24:39 dalek kernel:  worker_thread+0x18d/0x2f0
-> > Mar 16 00:24:39 dalek kernel:  ? __pfx_worker_thread+0x10/0x10
-> > Mar 16 00:24:39 dalek kernel:  kthread+0xfa/0x240
-> > Mar 16 00:24:39 dalek kernel:  ? finish_task_switch.isra.0+0x82/0x2a0
-> > Mar 16 00:24:39 dalek kernel:  ? __pfx_kthread+0x10/0x10
-> > Mar 16 00:24:39 dalek kernel:  ? __pfx_kthread+0x10/0x10
-> > Mar 16 00:24:39 dalek kernel:  ret_from_fork+0x130/0x1a0
-> > Mar 16 00:24:39 dalek kernel:  ? __pfx_kthread+0x10/0x10
-> > Mar 16 00:24:39 dalek kernel:  ret_from_fork_asm+0x1a/0x30
-> > Mar 16 00:24:39 dalek kernel:  </TASK>
-> > Mar 16 00:24:39 dalek kernel: Modules linked in: dm_crypt snd_seq_dummy snd_hrtimer nft_masq nft_reject_ipv4 act_csum cls_u32 sch_htb nf_nat_tftp nf_conntr>
-> > Mar 16 00:24:39 dalek kernel:  drm_panel_backlight_quirks gpu_sched drm_suballoc_helper video drm_buddy drm_display_helper nvme nvme_core cec ghash_clmulni>
-> > Mar 16 00:24:39 dalek kernel: CR2: 0000000000000018
-> > Mar 16 00:24:39 dalek kernel: ---[ end trace 0000000000000000 ]---
-> > Mar 16 00:24:39 dalek kernel: RIP: 0010:dma_fence_is_signaled+0x12/0x60 [amdgpu]
-> > Mar 16 00:24:39 dalek kernel: Code: 0f 1f 84 00 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 48 8b 47 30 48 d1 e8 89 c2 83 e2 01 75 2c 48 8b>
-> > Mar 16 00:24:39 dalek kernel: RSP: 0018:ffffcf349c553d20 EFLAGS: 00010246
-> > Mar 16 00:24:39 dalek kernel: RAX: 0000000000000000 RBX: ffffcf349c553da0 RCX: 0000000000000000
-> > Mar 16 00:24:39 dalek kernel: RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff8bce4ecd4380
-> > Mar 16 00:24:39 dalek kernel: RBP: 0000000000000000 R08: 0000000010000020 R09: ffff8bc9c0400b68
-> > Mar 16 00:24:39 dalek kernel: R10: 0000000000000080 R11: ffffffffa16760a0 R12: ffff8bc9e9100000
-> > Mar 16 00:24:39 dalek kernel: R13: ffff8bca7ccab200 R14: 0000000000000000 R15: 0000000000000000
-> > Mar 16 00:24:39 dalek kernel: FS:  0000000000000000(0000) GS:ffff8bd90c066000(0000) knlGS:0000000000000000
-> > Mar 16 00:24:39 dalek kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > Mar 16 00:24:39 dalek kernel: CR2: 0000000000000018 CR3: 00000001c591f000 CR4: 0000000000350ef0
-> > Mar 16 00:24:39 dalek kernel: note: kworker/u128:2[298062] exited with irqs disabled
-> > 
-> > --
-> >  -----Open up your eyes, open up your mind, open up your code -------
-> > / Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \
-> > \        dave @ treblig.org |                               | In Hex /
-> >  \ _________________________|_____ http://www.treblig.org   |_______/
-> 
--- 
- -----Open up your eyes, open up your mind, open up your code -------   
-/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
-\        dave @ treblig.org |                               | In Hex /
- \ _________________________|_____ http://www.treblig.org   |_______/
