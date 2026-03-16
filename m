@@ -4,69 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CB77F3380F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6FAE9F3380E
 	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 08:18:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D7E810E56C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA08E10E57B;
 	Tue, 17 Mar 2026 08:18:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ieee.org header.i=@ieee.org header.b="XZIHs5xK";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="ccMtjOOO";
 	dkim-atps=neutral
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
- [209.85.219.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0368410E3EF
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 20:11:34 +0000 (UTC)
-Received: by mail-qv1-f42.google.com with SMTP id
- 6a1803df08f44-89a0d53f3d1so65913936d6.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 13:11:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ieee.org; s=google; t=1773691893; x=1774296693; darn=lists.freedesktop.org; 
- h=mime-version:user-agent:date:to:from:subject:message-id:from:to:cc
- :subject:date:message-id:reply-to;
- bh=WzvFHP1OoHExF7Y6Jo5Vp4O7ewqr7NmzZhKN2hl2HlA=;
- b=XZIHs5xKQdbRgQbX/miU0c7YGbl8Jf8OvD9WSOTfd0lkHb5M/yfMke/rJjYGIwPDmy
- PB5nLpxEX7KDKohya05tKDZCJpLKaDyeQW3og0MFB5AAmNtl506QXbN+aEG201p1eaWh
- z1ViaAXVs6sMPSTI/F7CWTzxkTKdy7CmXKtis=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773691893; x=1774296693;
- h=mime-version:user-agent:date:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=WzvFHP1OoHExF7Y6Jo5Vp4O7ewqr7NmzZhKN2hl2HlA=;
- b=OG23ayouX3lSMn/L79J6x4Fs75fCfcL1ibVPp2r59z7KyNoPpgccFx/BcTksPOzvGM
- kUiAz7aDdgj6tUmukBZpmOS2WD9QCEJt9aabU+JB/wBAPOkaSqRT0W5kSX71r9kybMYb
- 8Qh/Jds5jfzblt0Jtm1uzDF2LiVS3JsF2R53abjzbfDfXQYheqEz8hsuA6d4289uRBq1
- hWbk7oSOR+JbyBI+ovXPzUZLtCKtnwvhYUmtGfLI5C61Ao/lbYQjiAnVvceIAriwK8Qp
- af9M1kaSvCG9kVUWTGsIhOvOMs0ytMs3LL0LX2c+mlP54icStmABOb0xMK7iADRaJuFD
- AtVg==
-X-Gm-Message-State: AOJu0Yw8BLuteuSB5ZB7VeVnDlNT5S1l+zRqnlxa4nqB5va3VTXTqb84
- qgpqLfGCyMC1+EG5WUbZg9ZgiqzDz3hqZsGqnh/CC6rQ4oQKo3j6l3U6znqzXuEQ3zjDSeLTpwK
- stdYufohmgC/XpkKdKuMnA96wJl5O6wAIH2Cls8sa4gpulYdmH8lZsVCtMlav/g0oZr3ftvWNGm
- 2/HHdYL6947VhHssfqvB5VPNzp2K8fJYB3tsQPdFuNVg==
-X-Gm-Gg: ATEYQzzaYbzM/UUUxInW4MIghfxHZ6hKWBwgCv79BcNlpnUjV07yM+ZHQYD7cu3bkFL
- titGp6ftbEAQXODAPYr1RQ5f2DuXsuleyoQ4okGhuScnZfxUIdQzyQZ+kA4F/ZHRVNdy4B9CErG
- /y81vfH3hGGWLPQ2Ss+aR3yGoUnrB/4E6kph+syaS4mZ8aKuKmZu3pVdl+wfsDOSbOrVD8uhhB8
- tljv1aR8q50OtEpiFQm0f75MKTLFdp65nlqnRg7JrIdt98jfOKOaEJbBVzs6rQZzYJ/t0JeX0iK
- fQ8v4fn28LfcPBDs45fxSiXFGu3rC0ikz5csf0AtmI62A2+8yKevpRbO4jDSZgGvOxHGYvAEEi3
- Hw30NaSsEdxpsrsz3Lcz47gzDugwDYPcxOyFQTYfrVK1j5MOG9oo6mB+oZovfwpQLKXytRVSEhv
- bBvM6BAV/U9nkYUcoEW/U+EmjG8UgzzQy+WQ==
-X-Received: by 2002:ad4:5ceb:0:b0:89c:5289:4bf5 with SMTP id
- 6a1803df08f44-89c52894ddfmr67675416d6.3.1773691892102; 
- Mon, 16 Mar 2026 13:11:32 -0700 (PDT)
-Received: from [192.168.153.215] ([73.29.38.247])
- by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-89c440d4594sm51898636d6.5.2026.03.16.13.11.31
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Mar 2026 13:11:31 -0700 (PDT)
-Message-ID: <dfce5e070c5857aaebd8e7136011b90e7d888eb1.camel@ieee.org>
-Subject: [Bug report] RADV GFX1200 (Navi 44 / RX 9060 XT): NULL page fault
- at 0x0 on gfxhub during Vulkan rendering
-From: Cristian Cocos <cristi@ieee.org>
-To: amd-gfx@lists.freedesktop.org
-Date: Mon, 16 Mar 2026 16:11:12 -0400
-Content-Type: multipart/alternative; boundary="=-lcVi9yoMsE/TZHB2CJMI"
-User-Agent: Evolution 3.58.3 (by Flathub.org) 
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E53010E3BE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 21:03:00 +0000 (UTC)
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62GExFWt622825; Mon, 16 Mar 2026 21:02:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=tYj+FTbKeDciaSlkJFVGvqQ6WvZQvv
+ aTJjaCeiN3lY4=; b=ccMtjOOOCo1dEduYFTExRhlopX3L2Cp8Unr7heT0EwhxvD
+ KX5JkPXrX9atM5357Wwj8axLdekrkUaf/lSyntlrsLtfTTv83hXQ8rbRz0s1LcY5
+ klMW3uz07A77s7S3+Qndi7BpDz83nHRu+8LZr01B++p6uUMaRzjbdeQImDAb9ysj
+ zh81vl9PVb2sRP95Vlqe1CHOKmZea2Ua4oMq4VdPiaiXD2iaZRFTfU1kJCBsIqYW
+ E1SMemjD5GqNxtHvRnkamgsog10OOSE74pVT19lGxYy7m2Q7CTKV62odPESptEy1
+ mAB8lR7dZS2A7DurRCMoToPAPY2l/8tC3vNQB+iw==
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4cvx3cscrc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 16 Mar 2026 21:02:57 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.2/8.18.1.2) with ESMTP id 62GKVtU9028753;
+ Mon, 16 Mar 2026 21:02:56 GMT
+Received: from smtprelay02.dal12v.mail.ibm.com ([172.16.1.4])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4cwkgk68w2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 16 Mar 2026 21:02:56 +0000
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com
+ [10.39.53.232])
+ by smtprelay02.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 62GL2tEc29033144
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 16 Mar 2026 21:02:56 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9D66858043;
+ Mon, 16 Mar 2026 21:02:55 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 363DF58059;
+ Mon, 16 Mar 2026 21:02:55 +0000 (GMT)
+Received: from [9.61.247.28] (unknown [9.61.247.28])
+ by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Mon, 16 Mar 2026 21:02:55 +0000 (GMT)
+Content-Type: multipart/alternative;
+ boundary="------------qVH0eePotoFEHbraDmtYK0KG"
+Message-ID: <da93575e-92ad-4a7b-83df-1cb956bd2bc2@linux.ibm.com>
+Date: Mon, 16 Mar 2026 16:02:54 -0500
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: amdgpu driver fails to initialize on ppc64le in 7.0-rc1 and newer
+To: =?UTF-8?Q?Dan_Hor=C3=A1k?= <dan@danny.cz>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Cc: linuxppc-dev@lists.ozlabs.org, amd-gfx@lists.freedesktop.org,
+ Donet Tom <donettom@linux.ibm.com>
+References: <20260313142351.609bc4c3efe1184f64ca5f44@danny.cz>
+ <1phlu3bs.ritesh.list@gmail.com>
+ <20260315105021.667e52d4a99b154ef1e6aa34@danny.cz>
+Content-Language: en-US
+From: Gaurav Batra <gbatra@linux.ibm.com>
+In-Reply-To: <20260315105021.667e52d4a99b154ef1e6aa34@danny.cz>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=arO/yCZV c=1 sm=1 tr=0 ts=69b87001 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=Yq5XynenixoA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=r77TgQKjGQsHNAKrUKIA:9 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8 a=e5mUnYsNAAAA:8 a=pGLkceISAAAA:8
+ a=qgMqNXEgndFwA8iqf38A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=u5tx-guY5AZpxSE8hFAA:9 a=gU3KwZq02wXRGdE0:21 a=_W_S_7VecoQA:10
+ a=lqcHg5cX4UMA:10 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE2MDE2OCBTYWx0ZWRfXwbZWIEwQiHp7
+ rgyEEa3eGEoUoPMH3BwjNo9lbc0L5agmt3mrQWfjF3nXkPR3T79p/+HdXQ8YSXgu6EpzCqet2fG
+ foV0kWAIVAAExJpTFz6OuvUXrsn+VaFPQlFWHPtq6dkn5mUB6J6ZqnyDtKxdZkj8WwF+Ak5s+rv
+ 6k6UWd5uV5JvDzHa7qX4DRy1CNvxz3dZqLjB0xoZKpYSLGKUu+Lfuv+Vt8rrZGIRF9hkDX15sFN
+ MMA5UtLzF5QTga5Wp2YUL6drUnVPzdMdjETYmOobaHiFpuDoZcHBDOTdnr2Y8Uj66QtD4LVv94a
+ vOiRsDVHZJ09Zeli8vWXZIQoa7hC4NEtacouTwHRjkBWtvnEHU8oo2kGUyY08TQCaizZe/L2r0x
+ /WWnT4BpPCVdT2U5TTEVn48KK09Yi1WxPb9xdfn5U7fZh9V50pioXZP27+F3o3S4YIYksoDuQjN
+ eVuHCetGoayxGuEIO6g==
+X-Proofpoint-GUID: ojIvxJrdipc3Fgy-PqMLQw_39WD3KUxW
+X-Proofpoint-ORIG-GUID: XGfn86bUe0ubAEUwJkiI5a0lHzmFN6Jg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-16_05,2026-03-16_06,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 spamscore=0 lowpriorityscore=0 impostorscore=0
+ adultscore=0 bulkscore=0 suspectscore=0 malwarescore=0 clxscore=1011
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603160168
 X-Mailman-Approved-At: Tue, 17 Mar 2026 08:18:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,339 +116,496 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---=-lcVi9yoMsE/TZHB2CJMI
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This is a multi-part message in MIME format.
+--------------qVH0eePotoFEHbraDmtYK0KG
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-## Summary
+Hello Ritesh/Dan,
 
-RADV crashes with a `[gfxhub] Page fault at address:
-0x0000000000000000` when performing Vulkan rendering on an AMD RX 9060
-XT (Navi 44, GFX1200). The crash occurs ~20-30 seconds into video
-playback in mpv using `vo=3Dgpu-next` with `gpu-api=3Dvulkan` (libplacebo).
-Multiple GPU rings (sdma0, gfx_0.0.0, comp_1.x.x) time out
-simultaneously. The kernel driver recovers the rings, but the Vulkan
-context is lost.
 
-**Critically, the crash also occurs when video decode is offloaded to
-VA-API on a separate Intel iGPU** =E2=80=94 only the Vulkan rendering path
-(libplacebo =E2=86=92 RADV =E2=86=92 `vkQueueSubmit2`) is involved. This ru=
-les out
-VK_KHR_video_decode_queue as the cause.
+Here is the motivation for my patch and thoughts on the issue.
 
-## System Information
 
-| Component | Version |
-|-----------|---------|
-| GPU | AMD Radeon RX 9060 XT =E2=80=94 Navi 44, RDNA 4, GFX1200 [1002:7590=
-]
-(rev c0) |
-| Mesa | 26.0.2-1 (also reproduced on 26.0.1) |
-| vulkan-radeon | 26.0.2-1 |
-| libplacebo | v7.360.0 |
-| Kernel | 6.19.8-zen1-1-zen |
-| Firmware | linux-firmware-amdgpu 20260309-1 (SMC firmware 102.70.0) |
-| CPU | 13th Gen Intel Core i7-1360P |
-| Distro | blendOS (Arch-based, rolling) |
-| mpv | v0.41.0, FFmpeg n8.0.1 |
-| Connection | eGPU via Thunderbolt 4 (Razer Core X V2), PCIe 32 GT/s
-x16 link |
+Before my patch, there were 2 scenarios to consider where, even when the 
+memory
+was pre-mapped for DMA, coherent allocations were getting mapped from 2GB
+default DMA Window. In case of pre-mapped memory, the allocations should 
+not be
+directed towards 2GB default DMA window.
 
-### Module parameters
+1. AMD GPU which has device DMA mask > 32 bits but less then 64 bits. In 
+this
+case the PHB is put into Limited Addressability mode.
 
-```
-options amdgpu runpm=3D0 rebar=3D0 ppfeaturemask=3D0xFFFF7FFF
-```
+    This scenario doesn't have vPMEM
 
-- `runpm=3D0` =E2=80=94 runtime PM disabled (TB eGPU SMU limitation)
-- `rebar=3D0` =E2=80=94 BIOS assigns full 16 GB BAR, driver does not resize
-- `ppfeaturemask=3D0xFFFF7FFF` =E2=80=94 GFXOFF disabled (bit 15) due to SM=
-U IF
-version mismatch (driver 0x2E vs firmware 0x33)
+2. Device that supports 64-bit DMA mask. The LPAR has vPMEM assigned.
 
-**Note:** The SMU interface version mismatch (`smu_v14_0: SMU driver if
-version not matched`) is a separate known issue. GFXOFF is disabled to
-prevent a bus-loss crash, but the rendering crash described here is
-unrelated =E2=80=94 it occurs during active rendering, not during idle.
 
-## Steps to Reproduce
+In both the above scenarios, IOMMU has pre-mapped RAM from DDW (64-bit 
+PPC DMA
+window).
 
-1. Install an AMD RX 9060 XT (Navi 44)
-2. Configure mpv with Vulkan rendering:
-```
-vo=3Dgpu-next
-gpu-api=3Dvulkan
-gpu-context=3Dwaylandvk
-vulkan-device=3D'AMD Radeon RX 9060 XT (RADV GFX1200)'
-vulkan-async-compute=3Dyes
-vulkan-async-transfer=3Dyes
-```
-3. Play any video file: `mpv /path/to/video.mkv`
-4. Wait ~20-30 seconds
 
-### Test 1: Vulkan decode + Vulkan rendering (`hwdec=3Dvulkan`)
+Lets consider code paths for both the case, before my patch
 
-Crashes after ~26 seconds.
+1. AMD GPU
 
-### Test 2: VA-API decode (Intel iGPU) + Vulkan rendering
-(`hwdec=3Dvaapi`)
+dev->dma_ops_bypass = true
 
-**Also crashes after ~26 seconds.** VA-API decode runs on the Intel
-iGPU (`iHD_drv_video.so`), only Vulkan rendering runs on the AMD GPU
-via RADV. This isolates the bug to the RADV rendering path.
+dev->bus_dma_limit = 0
 
-## RADV Error Output
+- Here the AMD controller shows 3 functions on the PHB.
 
-```
-radv/amdgpu: The CS has been cancelled because the context is lost.
-This context is guilty of a hard recovery.
+- After the first function is probed, it sees that the memory is pre-mapped
+   and doesn't direct DMA allocations towards 2GB default window.
+   So, dma_go_direct() worked as expected.
 
-[vo/gpu-next/libplacebo] vkQueueSubmit2: VK_ERROR_DEVICE_LOST
-(../src/vulkan/command.c:514)
-[vo/gpu-next/libplacebo] Retrieving query pool results:
-VK_ERROR_DEVICE_LOST (../src/vulkan/gpu.c:105)
-[vo/gpu-next/libplacebo] Failed holding swapchain image for
-presentation
-[vo/gpu-next] Failed presenting frame!
-[ffmpeg] vk: Unable to submit command buffer: VK_ERROR_DEVICE_LOST
-[ffmpeg/video] h264: hardware accelerator failed to decode picture
-```
+- AMD GPU driver, adds device memory to system pages. The stack is as below
 
-## Kernel Log (Crash 1 =E2=80=94 hwdec=3Dvulkan, Mesa 26.0.2)
+add_pages+0x118/0x130 (unreliable)
+pagemap_range+0x404/0x5e0
+memremap_pages+0x15c/0x3d0
+devm_memremap_pages+0x38/0xa0
+kgd2kfd_init_zone_device+0x110/0x210 [amdgpu]
+amdgpu_device_ip_init+0x648/0x6d8 [amdgpu]
+amdgpu_device_init+0xb10/0x10c0 [amdgpu]
+amdgpu_driver_load_kms+0x2c/0xb0 [amdgpu]
+amdgpu_pci_probe+0x2e4/0x790 [amdgpu]
 
-```
-amdgpu 0000:06:00.0: amdgpu: Dumping IP State
-amdgpu 0000:06:00.0: amdgpu: [drm] AMDGPU device coredump file has been
-created
-amdgpu 0000:06:00.0: amdgpu: ring sdma0 timeout, signaled seq=3D11425,
-emitted seq=3D11427
-amdgpu 0000:06:00.0: amdgpu: Starting sdma0 ring reset
-amdgpu 0000:06:00.0: amdgpu: Ring sdma0 reset succeeded
-amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset
-amdgpu 0000:06:00.0: amdgpu: ring gfx_0.0.0 timeout, signaled
-seq=3D16289, emitted seq=3D16291
-amdgpu 0000:06:00.0: amdgpu: Process mpv pid 44985 thread vo pid 45004
-amdgpu 0000:06:00.0: amdgpu: Ring gfx_0.0.0 reset succeeded
-amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset
-amdgpu 0000:06:00.0: amdgpu: ring comp_1.1.0 timeout, signaled seq=3D13,
-emitted seq=3D14
-amdgpu 0000:06:00.0: amdgpu: Process mpv pid 44985 thread vo pid 45004
-amdgpu 0000:06:00.0: amdgpu: Ring comp_1.1.0 reset succeeded
-amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset
-amdgpu 0000:06:00.0: amdgpu: Fence fallback timer expired on ring sdma1
-amdgpu 0000:06:00.0: [drm] *ERROR* [CRTC:416:crtc-0] flip_done timed
-out
-```
+- This changed max_pfn to some high value beyond max RAM.
 
-## Kernel Log (Crash 2 =E2=80=94 hwdec=3Dvaapi, Mesa 26.0.2)
+- Subsequently, for each other functions on the PHB, the call to
+   dma_go_direct() will return false which will then direct DMA 
+allocations towards
+   2GB Default DMA window even if the memory is pre-mapped.
 
-```
-amdgpu 0000:06:00.0: amdgpu: ring sdma0 timeout, signaled seq=3D13615,
-emitted seq=3D13617
-amdgpu 0000:06:00.0: amdgpu: Ring sdma0 reset succeeded
-amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset
-amdgpu 0000:06:00.0: amdgpu: ring gfx_0.0.0 timeout, signaled
-seq=3D30731, emitted seq=3D30733
-amdgpu 0000:06:00.0: amdgpu: Process mpv pid 66481 thread vo pid 66500
-amdgpu 0000:06:00.0: amdgpu: Ring gfx_0.0.0 reset succeeded
-amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset
-amdgpu 0000:06:00.0: amdgpu: ring comp_1.1.1 timeout, signaled seq=3D312,
-emitted seq=3D313
-```
+    dev->dma_ops_bypass is true, dma_direct_get_required_mask() resulted 
+in large
+    value for the mask (due to changed max_pfn) which is beyond AMD GPU 
+device DMA mask
 
-## GPU Device Coredump (Crash 1)
 
-```
-**** AMDGPU Device Coredump ****
-version: 1
-kernel: 6.19.8-zen1-1-zen
-module: amdgpu
-time: 3054.167340782
+2. Device supports 64-bit DMA mask. The LPAR has vPMEM assigned
 
-SOC Device id: 30096
-SOC Family: 152
-SOC External Revision id: 65
+dev->dma_ops_bypass = false
+dev->bus_dma_limit = has some value depending on size of RAM (eg.  
+0x0800001000000000)
 
-HWIP: GC[1][0]: v12.0.0.0.0
-HWIP: SDMA0[3][0]: v7.0.0.0.0
-HWIP: MMHUB[12][0]: v4.1.0.0.0
+- Here the call to dma_go_direct() returns false since 
+dev->dma_ops_bypass = false.
 
-Ring timed out details
-IP Type: 2 Ring Name: sdma0
 
-[gfxhub] Page fault observed
-Faulty page starting at address: 0x0000000000000000
-Protection fault status register: 0x0
-```
 
-**Full coredump available on request** (543 KB).
+I crafted the solution to cover both the case. I tested today on an LPAR
+with 7.0-rc4 and it works with AMDGPU.
 
-## Analysis
+With my patch, allocations will go towards direct only when 
+dev->dma_ops_bypass = true,
+which will be the case for "pre-mapped" RAM.
 
-- The crash is a **NULL pointer dereference at GPU virtual address
-0x0** =E2=80=94 RADV is submitting commands that reference unmapped memory.
-- The `Protection fault status register: 0x0` suggests the fault info
-itself is zeroed, which may indicate the fault occurred very early in
-command processing or in an SDMA copy from a NULL source.
-- The fault hits sdma0 first, then cascades to gfx_0.0.0 and a compute
-ring =E2=80=94 consistent with a resource upload (SDMA) referencing a NULL
-buffer, followed by the GFX/compute rings trying to use the result.
-- After ring resets, the GPU fully recovers (all fences drain, PCIe
-link stays up at 32 GT/s x16), confirming this is a userspace (RADV)
-command stream issue, not a hardware or kernel driver bug.
-- The `flip_done timed out` on CRTC-0 is a secondary effect =E2=80=94 the
-compositor's page flip can't complete while rings are being reset,
-which restarts the GNOME session.
+Ritesh mentioned that this is PowerNV. I need to revisit this patch and 
+see why it
+is failing on PowerNV. From the logs, I do see some issue. The log indicates
+dev->bus_dma_limit is set to 0. This is incorrect. For pre-mapped RAM, 
+with my
+patch, bus_dma_limit should always be set to some value.
 
-## Additional Notes
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: iommu: 
+64-bit OK but direct DMA is limited by *0*
 
-- The GPU is connected via Thunderbolt 4 (eGPU enclosure), but the PCIe
-link stays healthy through the crash =E2=80=94 this is not a link/BAR issue=
-.
-- This was also reproduced on Mesa 26.0.1 with kernel 6.19.6 and
-firmware 20260221 (SMC 102.69.0) =E2=80=94 same crash signature.
-- Desktop compositing (GNOME Shell / Mutter on Wayland) works fine on
-this GPU =E2=80=94 only mpv's libplacebo rendering pipeline triggers the cr=
-ash.
-- `vulkan-async-compute=3Dyes` was enabled. Not yet tested with async
-compute disabled, though the fault is on sdma0, not a compute ring.
+Thanks,
 
---=-lcVi9yoMsE/TZHB2CJMI
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Gaurav
 
-<html><head><style>pre,code,address {
-  margin: 0px;
-}
-h1,h2,h3,h4,h5,h6 {
-  margin-top: 0.2em;
-  margin-bottom: 0.2em;
-}
-ol,ul {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-blockquote {
-  margin-top: 0em;
-  margin-bottom: 0em;
-}
-</style></head><body><div>## Summary</div><div><br></div><div>RADV crashes =
-with a `[gfxhub] Page fault at address: 0x0000000000000000` when performing=
- Vulkan rendering on an AMD RX 9060 XT (Navi 44, GFX1200). The crash occurs=
- ~20-30 seconds into video playback in mpv using `vo=3Dgpu-next` with `gpu-=
-api=3Dvulkan` (libplacebo). Multiple GPU rings (sdma0, gfx_0.0.0, comp_1.x.=
-x) time out simultaneously. The kernel driver recovers the rings, but the V=
-ulkan context is lost.</div><div><br></div><div>**Critically, the crash als=
-o occurs when video decode is offloaded to VA-API on a separate Intel iGPU*=
-* =E2=80=94 only the Vulkan rendering path (libplacebo =E2=86=92 RADV =E2=
-=86=92 `vkQueueSubmit2`) is involved. This rules out VK_KHR_video_decode_qu=
-eue as the cause.</div><div><br></div><div>## System Information</div><div>=
-<br></div><div>| Component | Version |</div><div>|-----------|---------|</d=
-iv><div>| GPU | AMD Radeon RX 9060 XT =E2=80=94 Navi 44, RDNA 4, GFX1200 [1=
-002:7590] (rev c0) |</div><div>| Mesa | 26.0.2-1 (also reproduced on 26.0.1=
-) |</div><div>| vulkan-radeon | 26.0.2-1 |</div><div>| libplacebo | v7.360.=
-0 |</div><div>| Kernel | 6.19.8-zen1-1-zen |</div><div>| Firmware | linux-f=
-irmware-amdgpu 20260309-1 (SMC firmware 102.70.0) |</div><div>| CPU | 13th =
-Gen Intel Core i7-1360P |</div><div>| Distro | blendOS (Arch-based, rolling=
-) |</div><div>| mpv | v0.41.0, FFmpeg n8.0.1 |</div><div>| Connection | eGP=
-U via Thunderbolt 4 (Razer Core X V2), PCIe 32 GT/s x16 link |</div><div><b=
-r></div><div>### Module parameters</div><div><br></div><div>```</div><div>o=
-ptions amdgpu runpm=3D0 rebar=3D0 ppfeaturemask=3D0xFFFF7FFF</div><div>```<=
-/div><div><br></div><div>- `runpm=3D0` =E2=80=94 runtime PM disabled (TB eG=
-PU SMU limitation)</div><div>- `rebar=3D0` =E2=80=94 BIOS assigns full 16 G=
-B BAR, driver does not resize</div><div>- `ppfeaturemask=3D0xFFFF7FFF` =E2=
-=80=94 GFXOFF disabled (bit 15) due to SMU IF version mismatch (driver 0x2E=
- vs firmware 0x33)</div><div><br></div><div>**Note:** The SMU interface ver=
-sion mismatch (`smu_v14_0: SMU driver if version not matched`) is a separat=
-e known issue. GFXOFF is disabled to prevent a bus-loss crash, but the rend=
-ering crash described here is unrelated =E2=80=94 it occurs during active r=
-endering, not during idle.</div><div><br></div><div>## Steps to Reproduce</=
-div><div><br></div><div>1. Install an AMD RX 9060 XT (Navi 44)</div><div>2.=
- Configure mpv with Vulkan rendering:</div><div>   ```</div><div>   vo=3Dgp=
-u-next</div><div>   gpu-api=3Dvulkan</div><div>   gpu-context=3Dwaylandvk</=
-div><div>   vulkan-device=3D'AMD Radeon RX 9060 XT (RADV GFX1200)'</div><di=
-v>   vulkan-async-compute=3Dyes</div><div>   vulkan-async-transfer=3Dyes</d=
-iv><div>   ```</div><div>3. Play any video file: `mpv /path/to/video.mkv`</=
-div><div>4. Wait ~20-30 seconds</div><div><br></div><div>### Test 1: Vulkan=
- decode + Vulkan rendering (`hwdec=3Dvulkan`)</div><div><br></div><div>Cras=
-hes after ~26 seconds.</div><div><br></div><div>### Test 2: VA-API decode (=
-Intel iGPU) + Vulkan rendering (`hwdec=3Dvaapi`)</div><div><br></div><div>*=
-*Also crashes after ~26 seconds.** VA-API decode runs on the Intel iGPU (`i=
-HD_drv_video.so`), only Vulkan rendering runs on the AMD GPU via RADV. This=
- isolates the bug to the RADV rendering path.</div><div><br></div><div>## R=
-ADV Error Output</div><div><br></div><div>```</div><div>radv/amdgpu: The CS=
- has been cancelled because the context is lost.</div><div>This context is =
-guilty of a hard recovery.</div><div><br></div><div>[vo/gpu-next/libplacebo=
-] vkQueueSubmit2: VK_ERROR_DEVICE_LOST (../src/vulkan/command.c:514)</div><=
-div>[vo/gpu-next/libplacebo] Retrieving query pool results: VK_ERROR_DEVICE=
-_LOST (../src/vulkan/gpu.c:105)</div><div>[vo/gpu-next/libplacebo] Failed h=
-olding swapchain image for presentation</div><div>[vo/gpu-next] Failed pres=
-enting frame!</div><div>[ffmpeg] vk: Unable to submit command buffer: VK_ER=
-ROR_DEVICE_LOST</div><div>[ffmpeg/video] h264: hardware accelerator failed =
-to decode picture</div><div>```</div><div><br></div><div>## Kernel Log (Cra=
-sh 1 =E2=80=94 hwdec=3Dvulkan, Mesa 26.0.2)</div><div><br></div><div>```</d=
-iv><div>amdgpu 0000:06:00.0: amdgpu: Dumping IP State</div><div>amdgpu 0000=
-:06:00.0: amdgpu: [drm] AMDGPU device coredump file has been created</div><=
-div>amdgpu 0000:06:00.0: amdgpu: ring sdma0 timeout, signaled seq=3D11425, =
-emitted seq=3D11427</div><div>amdgpu 0000:06:00.0: amdgpu: Starting sdma0 r=
-ing reset</div><div>amdgpu 0000:06:00.0: amdgpu: Ring sdma0 reset succeeded=
-</div><div>amdgpu 0000:06:00.0: [drm] device wedged, but recovered through =
-reset</div><div>amdgpu 0000:06:00.0: amdgpu: ring gfx_0.0.0 timeout, signal=
-ed seq=3D16289, emitted seq=3D16291</div><div>amdgpu 0000:06:00.0: amdgpu: =
- Process mpv pid 44985 thread vo pid 45004</div><div>amdgpu 0000:06:00.0: a=
-mdgpu: Ring gfx_0.0.0 reset succeeded</div><div>amdgpu 0000:06:00.0: [drm] =
-device wedged, but recovered through reset</div><div>amdgpu 0000:06:00.0: a=
-mdgpu: ring comp_1.1.0 timeout, signaled seq=3D13, emitted seq=3D14</div><d=
-iv>amdgpu 0000:06:00.0: amdgpu:  Process mpv pid 44985 thread vo pid 45004<=
-/div><div>amdgpu 0000:06:00.0: amdgpu: Ring comp_1.1.0 reset succeeded</div=
-><div>amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset=
-</div><div>amdgpu 0000:06:00.0: amdgpu: Fence fallback timer expired on rin=
-g sdma1</div><div>amdgpu 0000:06:00.0: [drm] *ERROR* [CRTC:416:crtc-0] flip=
-_done timed out</div><div>```</div><div><br></div><div>## Kernel Log (Crash=
- 2 =E2=80=94 hwdec=3Dvaapi, Mesa 26.0.2)</div><div><br></div><div>```</div>=
-<div>amdgpu 0000:06:00.0: amdgpu: ring sdma0 timeout, signaled seq=3D13615,=
- emitted seq=3D13617</div><div>amdgpu 0000:06:00.0: amdgpu: Ring sdma0 rese=
-t succeeded</div><div>amdgpu 0000:06:00.0: [drm] device wedged, but recover=
-ed through reset</div><div>amdgpu 0000:06:00.0: amdgpu: ring gfx_0.0.0 time=
-out, signaled seq=3D30731, emitted seq=3D30733</div><div>amdgpu 0000:06:00.=
-0: amdgpu:  Process mpv pid 66481 thread vo pid 66500</div><div>amdgpu 0000=
-:06:00.0: amdgpu: Ring gfx_0.0.0 reset succeeded</div><div>amdgpu 0000:06:0=
-0.0: [drm] device wedged, but recovered through reset</div><div>amdgpu 0000=
-:06:00.0: amdgpu: ring comp_1.1.1 timeout, signaled seq=3D312, emitted seq=
-=3D313</div><div>```</div><div><br></div><div>## GPU Device Coredump (Crash=
- 1)</div><div><br></div><div>```</div><div>**** AMDGPU Device Coredump ****=
-</div><div>version: 1</div><div>kernel: 6.19.8-zen1-1-zen</div><div>module:=
- amdgpu</div><div>time: 3054.167340782</div><div><br></div><div>SOC Device =
-id: 30096</div><div>SOC Family: 152</div><div>SOC External Revision id: 65<=
-/div><div><br></div><div>HWIP: GC[1][0]: v12.0.0.0.0</div><div>HWIP: SDMA0[=
-3][0]: v7.0.0.0.0</div><div>HWIP: MMHUB[12][0]: v4.1.0.0.0</div><div><br></=
-div><div>Ring timed out details</div><div>IP Type: 2 Ring Name: sdma0</div>=
-<div><br></div><div>[gfxhub] Page fault observed</div><div>Faulty page star=
-ting at address: 0x0000000000000000</div><div>Protection fault status regis=
-ter: 0x0</div><div>```</div><div><br></div><div>**Full coredump available o=
-n request** (543 KB).</div><div><br></div><div>## Analysis</div><div><br></=
-div><div>- The crash is a **NULL pointer dereference at GPU virtual address=
- 0x0** =E2=80=94 RADV is submitting commands that reference unmapped memory=
-.</div><div>- The `Protection fault status register: 0x0` suggests the faul=
-t info itself is zeroed, which may indicate the fault occurred very early i=
-n command processing or in an SDMA copy from a NULL source.</div><div>- The=
- fault hits sdma0 first, then cascades to gfx_0.0.0 and a compute ring =E2=
-=80=94 consistent with a resource upload (SDMA) referencing a NULL buffer, =
-followed by the GFX/compute rings trying to use the result.</div><div>- Aft=
-er ring resets, the GPU fully recovers (all fences drain, PCIe link stays u=
-p at 32 GT/s x16), confirming this is a userspace (RADV) command stream iss=
-ue, not a hardware or kernel driver bug.</div><div>- The `flip_done timed o=
-ut` on CRTC-0 is a secondary effect =E2=80=94 the compositor's page flip ca=
-n't complete while rings are being reset, which restarts the GNOME session.=
-</div><div><br></div><div>## Additional Notes</div><div><br></div><div>- Th=
-e GPU is connected via Thunderbolt 4 (eGPU enclosure), but the PCIe link st=
-ays healthy through the crash =E2=80=94 this is not a link/BAR issue.</div>=
-<div>- This was also reproduced on Mesa 26.0.1 with kernel 6.19.6 and firmw=
-are 20260221 (SMC 102.69.0) =E2=80=94 same crash signature.</div><div>- Des=
-ktop compositing (GNOME Shell / Mutter on Wayland) works fine on this GPU =
-=E2=80=94 only mpv's libplacebo rendering pipeline triggers the crash.</div=
-><div>- `vulkan-async-compute=3Dyes` was enabled. Not yet tested with async=
- compute disabled, though the fault is on sdma0, not a compute ring.</div><=
-div><span></span></div></body></html>
+On 3/15/26 4:50 AM, Dan Horák wrote:
+> Hi Ritesh,
+>
+> On Sun, 15 Mar 2026 09:55:11 +0530
+> Ritesh Harjani (IBM)<ritesh.list@gmail.com> wrote:
+>
+>> Dan Horák<dan@danny.cz> writes:
+>>
+>> +cc Gaurav,
+>>
+>>> Hi,
+>>>
+>>> starting with 7.0-rc1 (meaning 6.19 is OK) the amdgpu driver fails to
+>>> initialize on my Linux/ppc64le Power9 based system (with Radeon Pro WX4100)
+>>> with the following in the log
+>>>
+>>> ...
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: GART: 256M 0x000000FF00000000 - 0x000000FF0FFFFFFF
+>>                    ^^^^
+>> So looks like this is a PowerNV (Power9) machine.
+> correct :-)
+>   
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] Detected VRAM RAM=4096M, BAR=4096M
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] RAM width 128bits GDDR5
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: iommu: 64-bit OK but direct DMA is limited by 0
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: dma_iommu_get_required_mask: returning bypass mask 0xfffffffffffffff
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  4096M of VRAM memory ready
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  32570M of GTT memory ready.
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) failed to allocate kernel bo
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] Debug VRAM access will use slowpath MM access
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] GART: num cpu pages 4096, num gpu pages 65536
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F4FFF80000).
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) failed to allocate kernel bo
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) create WB bo failed
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: amdgpu_device_wb_init failed -12
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: amdgpu_device_ip_init failed
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: Fatal error during GPU init
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: finishing device.
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: probe with driver amdgpu failed with error -12
+>>> bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  ttm finalized
+>>> ...
+>>>
+>>> After some hints from Alex and bisecting and other investigation I have
+>>> found thathttps://github.com/torvalds/linux/commit/1471c517cf7dae1a6342fb821d8ed501af956dd0
+>>> is the culprit and reverting it makes amdgpu load (and work) again.
+>> Thanks for confirming this. Yes, this was recently added [1]
+>>
+>> [1]:https://lore.kernel.org/linuxppc-dev/20251107161105.85999-1-gbatra@linux.ibm.com/ 
+>>
+>>
+>> @Gaurav,
+>>
+>> I am not too familiar with the area, however looking at the logs shared
+>> by Dan, it looks like we might be always going for dma direct allocation
+>> path and maybe the device doesn't support this address limit.
+>>
+>>   bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: iommu: 64-bit OK but direct DMA is limited by 0
+>>   bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: dma_iommu_get_required_mask: returning bypass mask 0xfffffffffffffff
+> a complete kernel log is at
+> https://gitlab.freedesktop.org/-/project/4522/uploads/c4935bca6f37bbd06bb4045c07d00b5b/kernel.log
+>
+> Please let me know if you need more info.
+>
+>
+> 		Dan
+>
+>   
+>> Looking at the code..
+>>
+>> diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
+>> index fe7472f13b10..d5743b3c3ab3 100644
+>> --- a/kernel/dma/mapping.c
+>> +++ b/kernel/dma/mapping.c
+>> @@ -654,7 +654,7 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
+>>   	/* let the implementation decide on the zone to allocate from: */
+>>   	flag &= ~(__GFP_DMA | __GFP_DMA32 | __GFP_HIGHMEM);
+>>   
+>> -	if (dma_alloc_direct(dev, ops)) {
+>> +	if (dma_alloc_direct(dev, ops) || arch_dma_alloc_direct(dev)) {
+>>   		cpu_addr = dma_direct_alloc(dev, size, dma_handle, flag, attrs);
+>>   	} else if (use_dma_iommu(dev)) {
+>>   		cpu_addr = iommu_dma_alloc(dev, size, dma_handle, flag, attrs);
+>>
+>> Now, do we need arch_dma_alloc_direct() here? It always returns true if
+>> dev->dma_ops_bypass is set to true, w/o checking for checks that
+>> dma_go_direct() has.
+>>
+>> whereas...
+>>
+>> /*
+>>   * Check if the devices uses a direct mapping for streaming DMA operations.
+>>   * This allows IOMMU drivers to set a bypass mode if the DMA mask is large
+>>   * enough.
+>>   */
+>> static inline bool
+>> dma_alloc_direct(struct device *dev, const struct dma_map_ops *ops)
+>> ..dma_go_direct(dev, dev->coherent_dma_mask, ops);
+>> ....  ...
+>>        #ifdef CONFIG_DMA_OPS_BYPASS
+>>            if (dev->dma_ops_bypass)
+>>                return min_not_zero(mask, dev->bus_dma_limit) >=
+>>                        dma_direct_get_required_mask(dev);
+>>        #endif
+>>
+>> dma_alloc_direct() already checks for dma_ops_bypass and also if
+>> dev->coherent_dma_mask >= dma_direct_get_required_mask(). So...
+>>
+>> .... Do we really need the machinary of arch_dma_{alloc|free}_direct()?
+>> Isn't dma_alloc_direct() checks sufficient?
+>>
+>> Thoughts?
+>>
+>> -ritesh
+>>
+>>
+>>> for the record, I have originally openedhttps://gitlab.freedesktop.org/drm/amd/-/issues/5039
+>>>
+>>>
+>>> 	With regards,
+>>>
+>>> 		Dan
+--------------qVH0eePotoFEHbraDmtYK0KG
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---=-lcVi9yoMsE/TZHB2CJMI--
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>Hello Ritesh/Dan,</p>
+    <p><br>
+    </p>
+    <p>Here is the motivation for my patch and thoughts on the issue. </p>
+    <p><br>
+    </p>
+    <p>Before my patch, there were 2 scenarios to consider where, even
+      when the memory<br>
+      was pre-mapped for DMA, coherent allocations were getting mapped
+      from 2GB<br>
+      default DMA Window. In case of pre-mapped memory, the allocations
+      should not be<br>
+      directed towards 2GB default DMA window.<br>
+      <br>
+      1. AMD GPU which has device DMA mask &gt; 32 bits but less then 64
+      bits. In this<br>
+      case the PHB is put into Limited Addressability mode.<br>
+        <br>
+         This scenario doesn't have vPMEM<br>
+        <br>
+      2. Device that supports 64-bit DMA mask. The LPAR has vPMEM
+      assigned.<br>
+      <br>
+        <br>
+      In both the above scenarios, IOMMU has pre-mapped RAM from DDW
+      (64-bit PPC DMA<br>
+      window).<br>
+        <br>
+      <br>
+      Lets consider code paths for both the case, before my patch<br>
+      <br>
+      1. AMD GPU<br>
+          <br>
+      dev-&gt;dma_ops_bypass = true<br>
+              <br>
+      dev-&gt;bus_dma_limit = 0<br>
+              <br>
+      - Here the AMD controller shows 3 functions on the PHB.<br>
+      <br>
+      - After the first function is probed, it sees that the memory is
+      pre-mapped<br>
+        and doesn't direct DMA allocations towards 2GB default window.<br>
+        So, dma_go_direct() worked as expected.<br>
+              <br>
+      - AMD GPU driver, adds device memory to system pages. The stack is
+      as below<br>
+              <br>
+      add_pages+0x118/0x130 (unreliable)<br>
+      pagemap_range+0x404/0x5e0<br>
+      memremap_pages+0x15c/0x3d0<br>
+      devm_memremap_pages+0x38/0xa0<br>
+      kgd2kfd_init_zone_device+0x110/0x210 [amdgpu]<br>
+      amdgpu_device_ip_init+0x648/0x6d8 [amdgpu]<br>
+      amdgpu_device_init+0xb10/0x10c0 [amdgpu]<br>
+      amdgpu_driver_load_kms+0x2c/0xb0 [amdgpu]<br>
+      amdgpu_pci_probe+0x2e4/0x790 [amdgpu]<br>
+      <br>
+      - This changed max_pfn to some high value beyond max RAM.<br>
+      <br>
+      - Subsequently, for each other functions on the PHB, the call to<br>
+        dma_go_direct() will return false which will then direct DMA
+      allocations towards<br>
+        2GB Default DMA window even if the memory is pre-mapped.<br>
+        <br>
+         dev-&gt;dma_ops_bypass is true, dma_direct_get_required_mask()
+      resulted in large<br>
+         value for the mask (due to changed max_pfn) which is beyond AMD
+      GPU device DMA mask<br>
+      <br>
+          <br>
+      2. Device supports 64-bit DMA mask. The LPAR has vPMEM assigned<br>
+      <br>
+      dev-&gt;dma_ops_bypass = false<br>
+      dev-&gt;bus_dma_limit = has some value depending on size of RAM
+      (eg.  0x0800001000000000)<br>
+        <br>
+      - Here the call to dma_go_direct() returns false since
+      dev-&gt;dma_ops_bypass = false.<br>
+        <br>
+      <br>
+        <br>
+      I crafted the solution to cover both the case. I tested today on
+      an LPAR<br>
+      with 7.0-rc4 and it works with AMDGPU.<br>
+      <br>
+      With my patch, allocations will go towards direct only when
+      dev-&gt;dma_ops_bypass = true,<br>
+      which will be the case for "pre-mapped" RAM.<br>
+      <br>
+      Ritesh mentioned that this is PowerNV. I need to revisit this
+      patch and see why it<br>
+      is failing on PowerNV. From the logs, I do see some issue. The log
+      indicates<br>
+      dev-&gt;bus_dma_limit is set to 0. This is incorrect. For
+      pre-mapped RAM, with my<br>
+      patch, bus_dma_limit should always be set to some value.<br>
+      <br>
+      bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: iommu:
+      64-bit OK but direct DMA is limited by <b>0</b><br>
+           </p>
+    <p>Thanks,</p>
+    <p>Gaurav</p>
+    <div class="moz-cite-prefix">On 3/15/26 4:50 AM, Dan Horák wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20260315105021.667e52d4a99b154ef1e6aa34@danny.cz">
+      <pre wrap="" class="moz-quote-pre">Hi Ritesh,
+
+On Sun, 15 Mar 2026 09:55:11 +0530
+Ritesh Harjani (IBM) <a class="moz-txt-link-rfc2396E" href="mailto:ritesh.list@gmail.com">&lt;ritesh.list@gmail.com&gt;</a> wrote:
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Dan Horák <a class="moz-txt-link-rfc2396E" href="mailto:dan@danny.cz">&lt;dan@danny.cz&gt;</a> writes:
+
++cc Gaurav,
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">Hi,
+
+starting with 7.0-rc1 (meaning 6.19 is OK) the amdgpu driver fails to
+initialize on my Linux/ppc64le Power9 based system (with Radeon Pro WX4100)
+with the following in the log
+
+...
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: GART: 256M 0x000000FF00000000 - 0x000000FF0FFFFFFF
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+                  ^^^^
+So looks like this is a PowerNV (Power9) machine.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+correct :-)
+ 
+</pre>
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] Detected VRAM RAM=4096M, BAR=4096M
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] RAM width 128bits GDDR5
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: iommu: 64-bit OK but direct DMA is limited by 0
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: dma_iommu_get_required_mask: returning bypass mask 0xfffffffffffffff
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  4096M of VRAM memory ready
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  32570M of GTT memory ready.
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) failed to allocate kernel bo
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] Debug VRAM access will use slowpath MM access
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] GART: num cpu pages 4096, num gpu pages 65536
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F4FFF80000).
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) failed to allocate kernel bo
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) create WB bo failed
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: amdgpu_device_wb_init failed -12
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: amdgpu_device_ip_init failed
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: Fatal error during GPU init
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: finishing device.
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: probe with driver amdgpu failed with error -12
+bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  ttm finalized
+...
+
+After some hints from Alex and bisecting and other investigation I have
+found that <a class="moz-txt-link-freetext" href="https://github.com/torvalds/linux/commit/1471c517cf7dae1a6342fb821d8ed501af956dd0">https://github.com/torvalds/linux/commit/1471c517cf7dae1a6342fb821d8ed501af956dd0</a>
+is the culprit and reverting it makes amdgpu load (and work) again.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+Thanks for confirming this. Yes, this was recently added [1]
+
+[1]: <a class="moz-txt-link-freetext" href="https://lore.kernel.org/linuxppc-dev/20251107161105.85999-1-gbatra@linux.ibm.com/">https://lore.kernel.org/linuxppc-dev/20251107161105.85999-1-gbatra@linux.ibm.com/</a> 
+
+
+@Gaurav,
+
+I am not too familiar with the area, however looking at the logs shared
+by Dan, it looks like we might be always going for dma direct allocation
+path and maybe the device doesn't support this address limit. 
+
+ bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: iommu: 64-bit OK but direct DMA is limited by 0
+ bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: dma_iommu_get_required_mask: returning bypass mask 0xfffffffffffffff
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+a complete kernel log is at
+<a class="moz-txt-link-freetext" href="https://gitlab.freedesktop.org/-/project/4522/uploads/c4935bca6f37bbd06bb4045c07d00b5b/kernel.log">https://gitlab.freedesktop.org/-/project/4522/uploads/c4935bca6f37bbd06bb4045c07d00b5b/kernel.log</a>
+
+Please let me know if you need more info.
+
+
+		Dan
+
+ 
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">Looking at the code..
+
+diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
+index fe7472f13b10..d5743b3c3ab3 100644
+--- a/kernel/dma/mapping.c
++++ b/kernel/dma/mapping.c
+@@ -654,7 +654,7 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
+ 	/* let the implementation decide on the zone to allocate from: */
+ 	flag &amp;= ~(__GFP_DMA | __GFP_DMA32 | __GFP_HIGHMEM);
+ 
+-	if (dma_alloc_direct(dev, ops)) {
++	if (dma_alloc_direct(dev, ops) || arch_dma_alloc_direct(dev)) {
+ 		cpu_addr = dma_direct_alloc(dev, size, dma_handle, flag, attrs);
+ 	} else if (use_dma_iommu(dev)) {
+ 		cpu_addr = iommu_dma_alloc(dev, size, dma_handle, flag, attrs);
+
+Now, do we need arch_dma_alloc_direct() here? It always returns true if
+dev-&gt;dma_ops_bypass is set to true, w/o checking for checks that
+dma_go_direct() has.
+
+whereas...
+
+/*
+ * Check if the devices uses a direct mapping for streaming DMA operations.
+ * This allows IOMMU drivers to set a bypass mode if the DMA mask is large
+ * enough.
+ */
+static inline bool
+dma_alloc_direct(struct device *dev, const struct dma_map_ops *ops)
+..dma_go_direct(dev, dev-&gt;coherent_dma_mask, ops);
+....  ...
+      #ifdef CONFIG_DMA_OPS_BYPASS
+          if (dev-&gt;dma_ops_bypass)
+              return min_not_zero(mask, dev-&gt;bus_dma_limit) &gt;=
+                      dma_direct_get_required_mask(dev);
+      #endif
+
+dma_alloc_direct() already checks for dma_ops_bypass and also if
+dev-&gt;coherent_dma_mask &gt;= dma_direct_get_required_mask(). So...
+
+.... Do we really need the machinary of arch_dma_{alloc|free}_direct()?
+Isn't dma_alloc_direct() checks sufficient?
+
+Thoughts?
+
+-ritesh
+
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">
+for the record, I have originally opened <a class="moz-txt-link-freetext" href="https://gitlab.freedesktop.org/drm/amd/-/issues/5039">https://gitlab.freedesktop.org/drm/amd/-/issues/5039</a>
+
+
+	With regards,
+
+		Dan
+</pre>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
+
+--------------qVH0eePotoFEHbraDmtYK0KG--
+
