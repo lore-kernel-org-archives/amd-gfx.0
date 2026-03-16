@@ -4,90 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04543F53D69
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 15:40:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FEDCF53D82
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 17:56:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 964F710E27D;
-	Mon, 16 Mar 2026 15:40:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4235710E0AC;
+	Mon, 16 Mar 2026 17:56:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DS5I3Hlb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iVk9mVeB";
 	dkim-atps=neutral
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F5EC10E27D
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 15:40:45 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-2bda3b4318dso340000eec.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 08:40:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773675644; cv=none;
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E997810E0AC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 17:56:41 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-12711867ca1so266432c88.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 10:56:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773683801; cv=none;
  d=google.com; s=arc-20240605;
- b=OGSKdtCg3c+yFk8T2eBs0L4FKBeJlFmNEkBiwfT9z7dSNWAW3HBgjrY+p83j6AFhCp
- kyAn2RRZ3LDkeg4zwniPNto9NyO1zahkpHBWrHSK9Ml+X8NmA/wNywSmIYfK/CSeHqNb
- uGNpk5p7HEWN7C4rb9zGmxS7ZLEMaxrHH5DT+TioxwyUQsrSrcGIFLws+5h7xbSAr7vs
- tPk0jGSd3jUAD7qalFh00npf/ZEw+DEMkazqBrrM9wOnL6wj18M7w1Cv+uiuH0siPZUo
- IHqFI0HXKGi+yfPsy0/MdAtDom4coS+1WO4w8aH78YB9ICcxJbK1JlqYvl8tvgta4hcH
- j+cg==
+ b=HgRvHqWtf9KJf2U/zTGj3OB94NfEIETUAOh1wzsGI1hIuiAWQMY1Jf+nevCSRQpjY0
+ E/2sIF9Nk9C31Y1JChgf28pZ14rn6ha9yYSE4a3SELdXQ48PhFOJ1SePaJ0pMFHHYtHM
+ lR/mHJbHshUfWnbuHv6OgQzI9VLg7+A8cUT5yur0rt5fDLwHMDcAL1VGOmh3Jlz+tuHj
+ r/uysM3aEECUZw5qYga4bPlZSns0yArElBoDMyLb8LziuzlUAjvMi5ID1OlaBOIWouHr
+ z5Kela7qQHsw3B/D+YTg7xLSdqwNGqM/JpS4JI1hX3KyARwWy3hEJo0GjjGYlaoWlAZn
+ TQnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=3Th86OCrfoM7Qg+thEo2YLJ1Ly2fj9GSUGK0sj3CGks=;
- fh=henvRaYNNNePVa7PxIZjNlhVmlhJvZQ6EBPrmTEkVWY=;
- b=R/7VzureVlViYK8dajiNjOjrA1HXIq+IjReJ6Zkw+w8qXmE7oiS2o0skJEnuEBZdbl
- cc+Fd2fri31gq3Q71RJRxt8/YmD9QRiI2JenQgrv6P/Fftv0xTYm1k1DeMZSGivES4eh
- CB2o401B38dtYK+xhGyVdPhTR19NpTSLmC7bEXga2vXzB4UBohlUE6KusHe5chFccvm7
- r3b0Wk4Lcj5WK0nnfUJoo1nIQU0rxVGIjB2q2imAIb/Ocj7EMSLqcAvxHrhxTLBWImem
- ir31YXFqBpgfzFSz/hLGPStm+UN8ozgZv6borRa5ha16S1To5Qpj8IWV1CUkkvFM/vFl
- mbYQ==; darn=lists.freedesktop.org
+ bh=CwwBHwyqZWt8hMwcERqPQNytRT4JFrihhfaIt7JvawQ=;
+ fh=u5hM9wggNTIVHRAuBhN45t8qgfQoQ+eH6M0P+claHfk=;
+ b=hODEBWnyMWNx7K7lsdL2L9BEGSTyr1GzWjvYGo32xOJ/+RE9o0lQH91L/i+PqGb2LR
+ 55IrwGwreHBT2H/WQj0+7R/Ye8SPrVR5kOh6EIWSLo+IYpFYNU8LxSRoIy9IVXYQpvNc
+ GBxkzg7LGsD4hW4ou0935xfnbAgS1soKulOdZ1JdCO1UfNoyYYGcEuJwUd+dxRWuUplc
+ TUHnUBgvhqrxif4paZo6QyRDEL20PnGc88ydhbn5bHU+tLxxb88zCOBqB+tazmWw9BoA
+ KcxD7df4ccXcNcfHC7C3RNcjEPphi2qM4P5/BDklNJF12Ex1J9ytfEhv1hW4UxYcf6L0
+ teWQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773675644; x=1774280444; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773683801; x=1774288601; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3Th86OCrfoM7Qg+thEo2YLJ1Ly2fj9GSUGK0sj3CGks=;
- b=DS5I3HlbehEHgkc9DUjTvp3HIsIg9drbbb5UyzxxUkqRMVhfSnc4lqSN6PBEKPlwDb
- QoGsrSaJj+O7aAJYExw+L44LukDPEFNOGoNniHr3Jg56g7hBu2fW2ygim9c/Pf17Lgs+
- IrN1FIICSq7zOxSVwswgIAA6BWix5ueEfWh1ECz8i+4ZYNIMs0KWI6qWT0se1K2YkqCN
- 1o/toTPv9E45upzzpWm3dKlZkrvx4X9uHmJKwP3RVOyjT5SCBRKm6GrroAmF++NrP9Jl
- XBdF4POBm8Jc40EwsS4qKAHADBxZYw5fhO1ZSWfXVyoVCK49RAu9kp0ftj9Y+Lj35lp6
- 2JOg==
+ bh=CwwBHwyqZWt8hMwcERqPQNytRT4JFrihhfaIt7JvawQ=;
+ b=iVk9mVeBp5K+71JeWT97VFRQ0XdN4vPw+Yi6LDNsfKr9AgJnv0KwKtqhNg06XvLdHi
+ FszdcIwm0+Xk9+QAdN0BGJHkK0A3CJr7h2Rh+S6gr1Z5s4VMN7hZ4LwI3KVvlZZMlcXI
+ MAzMIDER6Iy5jLJ/0I1DgxSZ9Qiqur+rD2XevSYlB8bfAOUgcRA6u80DJZh3ArgHOHSg
+ AXJlu4CzlfH6jYGlefAZ4TLsnLPG6ATNsRdPV9M6VGY5m0Nu8ibsHAdnk7Ub9rr94ki+
+ z5JdWmbXGAJeRQtDYUNO6wc+jEvYX29U8zQPeosS/JKNgY+CZALrvNJon+llbPiOjyUO
+ quPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773675644; x=1774280444;
+ d=1e100.net; s=20251104; t=1773683801; x=1774288601;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=3Th86OCrfoM7Qg+thEo2YLJ1Ly2fj9GSUGK0sj3CGks=;
- b=BR7/Nr670Yacc9FW2PezrZi/snrB27Ceb6iifMqGJxLfziAg28VsEyQkY+367rc8Tz
- Da50Af4kXrHxvx5n/D/hRbBvZhasKr9Dzx/T1Qj70LZZLynBq7UL+v0/RfIRUUVuoOZZ
- 6alG1GilQ8DP0nUlUSSptSlTlJRQzC3EcZYIh3VLNPRB5qkHII22CADAlzuQYA5aoKZg
- bG0Y74ZoAReLvfNP8XrYqDdz2rMh5TzZuoxMcXDvdlHcP9z91Ee4NQLeEk/N8ouC+zMm
- z0OaT/Rm2+arFDHMfS2oaH8/rmnQXXfDV42yB1sPeIPmEAZ1xm/2SMCO8DlyHHEwQWrv
- LaBQ==
+ bh=CwwBHwyqZWt8hMwcERqPQNytRT4JFrihhfaIt7JvawQ=;
+ b=EKlA7bFoQIc/4ZGdnXvUaS6n3oGIVdaH107zGY/83ZQndWaUpwPgtFKGDlrEFsci2d
+ k5Nq7v3Lk0V8drWse4zj1lUWOcZO6IerFUjb/BeaTEn3Fetwoc7zA+g4Vzi47M7Ix9XH
+ lXG3cWXxFYISBuTeOLDJpOfW/+MMgQ3ahvtVqS0x3+aEkjORQpJWUFchV6iNgwdZJRab
+ d/08mXeuctCphxKzjjO4L+y0hpaHioRAzEvuIQBDUCcNjdSDUQ0LnDauydqRslKgeBmK
+ DoqF5dP/5IiE4zxlaF+AlNQTDqeLOnjTUQpEwM83r9gmPPKUfVY+sayNAKQ+fbKp3gtN
+ 4nRQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVuEwvosMAKZD0CwKgCrjlkyjCIRucRKvkYN5YQ7cPwUHvXBA9TWPxC+Q88UNbTWl0AeIkHCKX9@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyFHtexpBE82gsb7iUl9A5E4cFKjq6p6IMHe1yMa/MOXUmJth6U
- bSXSpMoHZYT5vbKnXzplgn/kHZznu1X6sq+nWLVi9CDXp8e2pz5T2lMtlI2RGwpBlspj2/NSNdV
- obxAHpz+un6LmhyEzvnOs1pBQWSmPqr6W8A==
-X-Gm-Gg: ATEYQzz073mnWYx1a1s1XpPlUtBAncPZiBGlx4CCrSnMhS72NOV+xLYtD+4TEv4zjpr
- rsiXb9GZEkFRTkvYnviQXSv94cIYBrleVCguqI6r8hWuTRp6ljdBFl494XgyyESiJYmUZXtKeDJ
- pK76p3zGPPhz1YYWIv5qzp++Sms4xSyDOQTzGPOCQVcD8/nkCCg0l0KBSVfKME5Wpy5DVLNhj+A
- bfpC7bJ9I7wb/Vr2oVpEp3qQCm8BXI9ZQKbHCIaOwMbrOqeGeJPxiUHmQILWe2FfzwCdaCyQnIA
- TmkGBPeS36rXvwAAIl18cfoIe9L6RWCNprDc4yz2jzL4thMmg4iXAOGMGDH5TJS0o+RVE0uIZ4Q
- KHxBZ
-X-Received: by 2002:a05:7023:88c:b0:128:d359:92bb with SMTP id
- a92af1059eb24-128f3cf6959mr2336731c88.1.1773675644026; Mon, 16 Mar 2026
- 08:40:44 -0700 (PDT)
+ AJvYcCWezQqZWFljP5UYw+Ce/GkMyeq6gKI1B0NY6MMA9krayMt+Y2ufKx5p64U43zqRMWhBSaNcM/Rh@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx0n0hYfm+siBuAv1O6USlSf3yFIJJWM67VYGQ3BSykp9JxJT6C
+ sH9jgUKbAqRI8u+c5l+9knTENlS4Cq93KtkrpyLR+45mcSSjrIkGbrXY4TVbIQ//l7i1xobB4md
+ KgCxup6wlpRoRNzEVtWywmSsA0glBBq4=
+X-Gm-Gg: ATEYQzyfVSzrspD9afChrdlSuePYnFs64rRyNjdVetwkcaIaAzWW64szJfyw+zCapt5
+ yAieBb0l72UXTsuP6it2sEZBhkCgFbh+lKz9oo4mImTAJ2lI0XOZKhDVAapB5UJ1xuzgfu4frLR
+ 6kgzlvggmQIslQOeyIg3SyobkQUrRxNohIhCF+5En95erA47TkarDoTAXV4Bnbhhk/auWoUGJda
+ dJeKv3GFTL+37CVA6fhvpQxZBwFMq/dQtdvi3faEKeFDhL6C2itiP0t5kcskZDfadZ/0NC1w6LN
+ cVw2aheX4Yj0HyoBe+bACK/JwDp4khNpUCPDZ73497c/aZxahr1qTjKuAlVuZuz/1tUhrw==
+X-Received: by 2002:a05:7300:2316:b0:2be:1f56:ed0d with SMTP id
+ 5a478bee46e88-2bea552ea64mr3206501eec.6.1773683801013; Mon, 16 Mar 2026
+ 10:56:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260315165147.61189-1-theofficialflow1996@gmail.com>
-In-Reply-To: <20260315165147.61189-1-theofficialflow1996@gmail.com>
+References: <20260304222732.2403409-1-alexander.deucher@amd.com>
+ <42e624f7-5190-49b4-95c4-dc22a6ba1ab8@amd.com>
+ <CADnq5_Md6LQ2n7ciXKuhvvbcq7NZxHZ2VsY0TpPQyDNwAko7iA@mail.gmail.com>
+In-Reply-To: <CADnq5_Md6LQ2n7ciXKuhvvbcq7NZxHZ2VsY0TpPQyDNwAko7iA@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 16 Mar 2026 11:40:32 -0400
-X-Gm-Features: AaiRm53E8tpIH9wP_O5X9HA46HodvoyxnIZyurQrHqn9mz2aTC_KxPh2Q6Aw3oQ
-Message-ID: <CADnq5_M_0rMa9d2qqsU3Tkt=RjaCOi0iK=6qS6WRTdQCDw+PRw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd: fix dcn 2.01 check
-To: Andy Nguyen <theofficialflow1996@gmail.com>
-Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+Date: Mon, 16 Mar 2026 13:56:28 -0400
+X-Gm-Features: AaiRm50mJvwYtVHH2zPB8KeShwgCTLvErqo48JJZGSvIY61GSdIqv7uaz-L1_2c
+Message-ID: <CADnq5_NGVphuiyT9Tyo73o2D7e4a5Y0unm7Ppht-+kmjDCyQ5A@mail.gmail.com>
+Subject: Re: [PATCH 1/7] drm/amdgpu/mmhub2.0: add bounds checking for cid
+To: "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,57 +104,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Ping on this series.
 
 Alex
 
-On Mon, Mar 16, 2026 at 9:34=E2=80=AFAM Andy Nguyen
-<theofficialflow1996@gmail.com> wrote:
+On Thu, Mar 5, 2026 at 11:16=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
 >
-> The ASICREV_IS_BEIGE_GOBY_P check always took precedence, because it incl=
-udes all chip revisions upto NV_UNKNOWN.
+> On Thu, Mar 5, 2026 at 10:24=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> =
+wrote:
+> >
+> >
+> >
+> > On 05-Mar-26 3:57 AM, Alex Deucher wrote:
+> > > The value should never exceed the array size as those
+> > > are the only values the hardware is expected to return,
+> > > but add checks anyway.
+> > >
+> > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > > ---
+> > >   drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 9 ++++++---
+> > >   1 file changed, 6 insertions(+), 3 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/dr=
+m/amd/amdgpu/mmhub_v2_0.c
+> > > index a0cc8e218ca1e..534cb4c544dc4 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> > > @@ -154,14 +154,17 @@ mmhub_v2_0_print_l2_protection_fault_status(str=
+uct amdgpu_device *adev,
+> > >       switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
+> > >       case IP_VERSION(2, 0, 0):
+> > >       case IP_VERSION(2, 0, 2):
+> > > -             mmhub_cid =3D mmhub_client_ids_navi1x[cid][rw];
+> > > +             mmhub_cid =3D cid < ARRAY_SIZE(mmhub_client_ids_navi1x)=
+ ?
+> >
+> > Does this introduce speculation and requirement to use array_index_nosp=
+ec?
 >
-> Fixes: 54b822b3eac3 ("drm/amd/display: Use dce_version instead of chip_id=
-")
-> Signed-off-by: Andy Nguyen <theofficialflow1996@gmail.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+> I don't think so, but I'm not really an expert on side channel attacks.
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c b/drivers/g=
-pu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> index 08d0e05a313e..d237d7b41dfd 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-> @@ -255,6 +255,10 @@ struct clk_mgr *dc_clk_mgr_create(struct dc_context =
-*ctx, struct pp_smu_funcs *p
->                         BREAK_TO_DEBUGGER();
->                         return NULL;
->                 }
-> +               if (ctx->dce_version =3D=3D DCN_VERSION_2_01) {
-> +                       dcn201_clk_mgr_construct(ctx, clk_mgr, pp_smu, dc=
-cg);
-> +                       return &clk_mgr->base;
-> +               }
->                 if (ASICREV_IS_SIENNA_CICHLID_P(asic_id.hw_internal_rev))=
- {
->                         dcn3_clk_mgr_construct(ctx, clk_mgr, pp_smu, dccg=
-);
->                         return &clk_mgr->base;
-> @@ -267,10 +271,6 @@ struct clk_mgr *dc_clk_mgr_create(struct dc_context =
-*ctx, struct pp_smu_funcs *p
->                         dcn3_clk_mgr_construct(ctx, clk_mgr, pp_smu, dccg=
-);
->                         return &clk_mgr->base;
->                 }
-> -               if (ctx->dce_version =3D=3D DCN_VERSION_2_01) {
-> -                       dcn201_clk_mgr_construct(ctx, clk_mgr, pp_smu, dc=
-cg);
-> -                       return &clk_mgr->base;
-> -               }
->                 dcn20_clk_mgr_construct(ctx, clk_mgr, pp_smu, dccg);
->                 return &clk_mgr->base;
->         }
-> --
-> 2.43.0
+> Alex
 >
+> >
+> > Thanks,
+> > Lijo
+> >
+> > > +                     mmhub_client_ids_navi1x[cid][rw] : NULL;
+> > >               break;
+> > >       case IP_VERSION(2, 1, 0):
+> > >       case IP_VERSION(2, 1, 1):
+> > > -             mmhub_cid =3D mmhub_client_ids_sienna_cichlid[cid][rw];
+> > > +             mmhub_cid =3D cid < ARRAY_SIZE(mmhub_client_ids_sienna_=
+cichlid) ?
+> > > +                     mmhub_client_ids_sienna_cichlid[cid][rw] : NULL=
+;
+> > >               break;
+> > >       case IP_VERSION(2, 1, 2):
+> > > -             mmhub_cid =3D mmhub_client_ids_beige_goby[cid][rw];
+> > > +             mmhub_cid =3D cid < ARRAY_SIZE(mmhub_client_ids_beige_g=
+oby) ?
+> > > +                     mmhub_client_ids_beige_goby[cid][rw] : NULL;
+> > >               break;
+> > >       default:
+> > >               mmhub_cid =3D NULL;
+> >
