@@ -4,96 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 115FBF53D89
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 19:15:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E53E4F53D87
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 19:20:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A640F10E023;
-	Mon, 16 Mar 2026 19:15:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D3DA10E118;
+	Mon, 16 Mar 2026 19:20:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xeVgROXa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tXNa3HKt";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013023.outbound.protection.outlook.com
- [40.93.201.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71A6510E023
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 19:15:48 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010045.outbound.protection.outlook.com
+ [40.93.198.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F33410E118
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 19:20:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BbQYnPbZTR/lPB2MnBNvh+x0ebBAKWMnydBNrkPOxkQaH2nSAsaEaLMa0aMnG6ruBeL65o93/8fXQKq779IEDvxYA+HYnRdkqv1O5ASR5Q3Gj6og83lylETmMtVzmEPpuNrJDGRUHuDUaEuLsv9gGwXXXJyz6U3VyDSK4elx4yXuE4XhOYu37PuJ8OW7a5NVV2AzpDsb2E5qQeRm1Wh7AIstm4MS6eLgUKDSlDWddhdOOanqwhZIZDUIObgpcJtoGHJukggtdTxYJJnSlYr1fgWkH5l1GzWk14uZPy3qUtR0l3e1tsKUuKahJB/X2+CpH5LFjWHtUdw6jkmYRdRrYw==
+ b=CutB/uHuIEmIgW89LDgQUyElOUTijiUZEr+3zPeAHY0QBFmUnUjIoH/9EZpuustMbaZ0ehVQrOyU6hoScO+xgGmGGyXYKw2B8mjfVlISBvzwTiC+qHqQdqgvhGhtgQzhU1pQ3pJ3fMB2+8x80Zd/gASh4tVWoyN0ZXSYZUAB6kYoX7FvfX41Pdbsb+G+Oido2W4PU3hLlS9b2/opYSMngzdL1KbyGsixtYb9D2m3kjlNldQtsMMfWWy5NufoMiDaChfr2awonk2bc6itwIomoZ2rQgj4Td4GUwbJD9SdjGpIQrx5DmzkcDVwYUxRoIoSJFOTc9vDYAUKovq5nMoMuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zbxyQGMbDpB2rkeOEDQhWYFCSfYdL/L8X5PE4Zvc1gM=;
- b=fx12lqcH4GW2LBpW0atryBcppgSIJXo/FphM/XWNCbBreOE8l/PhaDMNd7scoqYJkeP1qHSeDNs9KRpXtvAWuhiMJ9RJwoDcnrLadsH4KkQmsxSF/YCeU6FAUg2lKHnC0Oxvy4n3sn4m0qiw2/DwjX0Od71dC0sggQGuRoeBSh2sIYUsYVbKgPdOdqz/M2LimESoZCDk0Wfev1xE8whUfAE39qkuqdThgm9pz8j4AKAzaVsjwpdMXhjdk6XzJQ58cq85QEc+nugDjp+EpxHIUBX91cPHE6REM6+jxjfVw7xesg3+Uo0ZACC8lTLqGI6qT+4/HKaiZ7Kd8WAcIE7VQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=C/7fHghBu0Y9dt0i68ye6QxXvfd8znPOErE2u7QzwRs=;
+ b=E/Ksd/RAV4LRTz/6GIEqXfM7S8fc9r406810r2E6Bc5uGK4pwgclKPMNSzvBXnHs9OmsvPLJRYiGSy+c3Nw+bVI0Ow+HLBtPRJbgr9CeWyuQpjx2UUO913t9DNUXeSQB/kBtbzczdEgJz/mfKLqfAwr2sDzmuKFHZOflZXJVgN5dpl8+De84wJso7s1q/iwADkyPQngeZunntDqqjyyWb6Kzb9jfB+xZCWD5kcTFvDTUfs+0GvJe2kvdpmWp9lR6ZCUH1+CTq1MiuW8TFOGPUkaNWkL7zN9hO/5fJav9RTPpt1HhwGPyXtKJVOM+LUnZ0jNauDiQoRmWjAS1XxC4cQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zbxyQGMbDpB2rkeOEDQhWYFCSfYdL/L8X5PE4Zvc1gM=;
- b=xeVgROXaFT7hcazkD29VvEx6LOXSNzDANAEhNpCCvGDtjfQVsVD0ZrzTBeb6cwZmw5XbK8aftUuYIgkDxoWlWgHHs282O+p16aog5PBSI0KPAPLgpBcVNTX4x4rOMvokQeOsU2g2gqCqtHqyiEIP/pyqxjSTRD3OQM16ovXjieQ=
-Received: from SJ0PR03CA0117.namprd03.prod.outlook.com (2603:10b6:a03:333::32)
- by IA1PR12MB6258.namprd12.prod.outlook.com (2603:10b6:208:3e6::17)
+ bh=C/7fHghBu0Y9dt0i68ye6QxXvfd8znPOErE2u7QzwRs=;
+ b=tXNa3HKt/l49T9hCnE+w6G3Hn+Y6MBc/qbu5TY/Zi6dJ1adpjAS5mG5lX0fg5EvCqu8zK/kfcmMJD7SNG0wzFEjd3fFdFBA3IKWAr7wMpBtSNC5LRBaUOxGGftEBIUfE4SPq+UnAa49sIhquNFvL3FXQ94uc9IVLDosmukjjBgs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5805.namprd12.prod.outlook.com (2603:10b6:510:1d1::13)
+ by MW6PR12MB8957.namprd12.prod.outlook.com (2603:10b6:303:23a::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Mon, 16 Mar
- 2026 19:15:39 +0000
-Received: from SJ1PEPF00001CE1.namprd05.prod.outlook.com
- (2603:10b6:a03:333:cafe::90) by SJ0PR03CA0117.outlook.office365.com
- (2603:10b6:a03:333::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.24 via Frontend Transport; Mon,
- 16 Mar 2026 19:15:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE1.mail.protection.outlook.com (10.167.242.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Mon, 16 Mar 2026 19:15:39 +0000
-Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 16 Mar 2026 14:15:37 -0500
-From: Eric Huang <jinhuieric.huang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Felix.Kuehling@amd.com>, Eric Huang <jinhuieric.huang@amd.com>
-Subject: [PATCH] drm/amdgpu: prevent PASID reuse until poll is exhausted
-Date: Mon, 16 Mar 2026 15:15:07 -0400
-Message-ID: <20260316191507.288273-1-jinhuieric.huang@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.14; Mon, 16 Mar
+ 2026 19:20:27 +0000
+Received: from PH7PR12MB5805.namprd12.prod.outlook.com
+ ([fe80::35dc:5b7a:52da:c8f1]) by PH7PR12MB5805.namprd12.prod.outlook.com
+ ([fe80::35dc:5b7a:52da:c8f1%5]) with mapi id 15.20.9723.013; Mon, 16 Mar 2026
+ 19:20:27 +0000
+Message-ID: <dd5aa9ee-989a-4d32-ba9e-9b9232fe164f@amd.com>
+Date: Mon, 16 Mar 2026 15:20:21 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/7] drm/amdgpu/mmhub2.0: add bounds checking for cid
+To: Alex Deucher <alexdeucher@gmail.com>, "Lazar, Lijo" <lijo.lazar@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20260304222732.2403409-1-alexander.deucher@amd.com>
+ <42e624f7-5190-49b4-95c4-dc22a6ba1ab8@amd.com>
+ <CADnq5_Md6LQ2n7ciXKuhvvbcq7NZxHZ2VsY0TpPQyDNwAko7iA@mail.gmail.com>
+Content-Language: en-US
+From: Benjamin Cheng <benjamin.cheng@amd.com>
+In-Reply-To: <CADnq5_Md6LQ2n7ciXKuhvvbcq7NZxHZ2VsY0TpPQyDNwAko7iA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: YT4PR01CA0347.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fc::18) To PH7PR12MB5805.namprd12.prod.outlook.com
+ (2603:10b6:510:1d1::13)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE1:EE_|IA1PR12MB6258:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba1f6650-aa76-49b4-e3e9-08de839068f8
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5805:EE_|MW6PR12MB8957:EE_
+X-MS-Office365-Filtering-Correlation-Id: a584fbba-817f-49b5-38f0-08de839114c4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|36860700016|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 4zVP3fF1ViM57hPovBO3lOe0EgRB57Jgxzfx8DAbzdo2r6yMGRw6DfAGlX247TBkgtX4JUPrNuwjWCn01hTpV5kad5+mGFd6fxlctu9yop4+PMVzdWGCU3uXXLpTWukCix/LOnLU3BeMZsMnbPx+rX5fm9BWhCzctaAwEIxtcCFM7hATzxBD9u2NQtLCMFPZ1sgnmoKK7lE+Ta92AIm8Re6ugI5zM5FqPd9odVQs+kWZu1YdmS2u4p8PDOkMXMrZi839tSvlKBM/QHjUzDfDtP7O/CDu59APqWrqFrV/0s0GCJtQizJlDwsl6L5urEkq8LNDIui1M6dPwGbZfgiSmfZYb3oR1OOe0tiQVZgGosTFEFNXbH2segP+8of+fnHQJwqJYuOlAAnbYQjwT+zLe3lDqfnzljTzB+82veLxwoogvzieV7l/20Pu/4PLHQjOda8ehzKiDG3MbeI35YwUZ54MhnvCxIc6y1zA1CTQG9njfhhWlBbGtlzsbcTLt1z9ub1TEm90JbbSoL26lhNRMdRalg0AfkK5l5STeGZJfpV+oBtzhjRn5foNP8H9SwsB185r7R16WrTSv5gV+echWBVe8ci1SxEPo6zT4jZSc2AVnUKsZBEZZHXmqEvt/7bNDIfHx1lGfQd0zCNRngq0asPslBERkeQ3MGNieqTMMBi7vHzq7Cru/XF1WDj/ftQSHlCmqtwX5wmTOTzGSbVEYd8MwJ0MtbBaDQlyXDzSy6Qao/SwRXrBNP6Zx1NDunlRm9yN568ggbidTLoHkevmKg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(56012099003)(18002099003);
+ ARA:13230040|376014|1800799024|366016|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: oSyRkuo6d4R0slIP7AFMSiZGzavYNtJ6ufCUk9xV6qe59P78og+MvwP4XjXSntmjF4+is3w7KHO+Lh12vfDHjNveIFnGyzZ7ugHggWrug1NgloAWJomcNAEcJZAvccmJmN6A51s7xYXwqvoGDGPM0OKTdO3t8FDU8zViWNPUz9KkDvtCKdK4Gekt7zulQW8pNcE/6kfCyBlFeaRVjXbWdRzvdgkvmTEdAFT3XyskC4TcFWV4ay+AOW8Cc9fDru58LC8+UzoUv2KMdKzZggmkpfVbclsehNqiwArhhCsn8rncM/0wNZN+oFrzlzMfwQ+cuJfUyMA77Wf71LFOGokvv27xto+Ozp+GnNOIrvaVap/rCxOPXmBuJ4YdrAoS6Hr+uknTTYDpmeG/YvG+MxwTtJ+OWXKab13SYJ/5IZdKIcTzpZLDDiFkJ8ILUjiJeu6NSq2MM6R5coXt75kmLBrTdtxshnePz8eb53hY62+JkVaWu1CWtrRe5nb/PTQkIgI8njkrQ7UHVoukhxChALE/V1LKhuC6R5HuCeS99pm7Z+FfOkbFoI1/pkvWzUAWQFCHZHmRsjv8Iu9mxbf/5TfJ58zklUKCRS3ch6XWoUAGik3YJyuNOWmGSfTNynO5VE21c/5+LPjDgeCALTNeBClz4JH3H+jlLP0ySvMh6L6COBmWC5v6ijnQJbl9e4wrMsMIB62Y58PdkT7f0hd6NpEy4kzAjmAp0HhkqeDY+F1FbzU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5805.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: B1NkoQIhJ53Xp9D8XMEWKfn7PKc0z/dTygvmmYAKbeplPMBh9Ig67R7S4tLIGn7nWgY2Sl16p9hvUrrnNzJP2PVEdyqcW5DSt3PG6g/kmwXA9YN6zzA+Z3B+hLFdJzovceYV5yeAF508ohnZuTwdxQhoNKySKqa4iiVJahuztpYNMB4yWM/71HJ2vi4mtuX18VsjA98vHjKBwPbQdRBXsZ2tARAMiYbQAc1JW1VOSvhcaXJEiEmb9sxr0/Xn7y5D4yScMaYQGLPlLyjvSTkQ+myHjZXMHvvvgIMh8hncJiFA0JWpZyE66cn0IUA5gwbO3onCiAjctW6hk8XLDGvX3A6RpgpDICl5uqP4ACO7jt0I4NDw8mlAgPpD5d5CtwrWPa8UskhH78tXHpVuLZTaAH0LrSjaodnci8+fI5oiMHRjI+XjH04ocmcidDM1Ubov
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VjBhVjBQbzR6elFkZ2ZzN2dINzFDVGgvc3hVWDJRVUlhbmNCVnA1M3dqdFFS?=
+ =?utf-8?B?d1ZIdmNNdlBQN3N1TDBKNmNiN2hmOVllOGUrOFVaZldvWHd0ckkwYjJJeXFU?=
+ =?utf-8?B?OHVvRWhJNjNjSjVpaWM1b3dlMWY0USsyMkxQKzRyRmM4K3R0OEcrU0JDNmsr?=
+ =?utf-8?B?Z1NuK1Evc3NHVUpMS2ZVK0t0d2FOTGVBRjNiZzk2dlltZjh6VDM1eTU2c2Jo?=
+ =?utf-8?B?dWhMVEhRTzFTMDFXMzNSMG41MWxKZlhXendURGxabnpkWXZmVnZ6MHN4a3Jj?=
+ =?utf-8?B?aWpRYnRxZDZoTkthTjNRUzQxYmNYTURySVAvUE4rVzg0RVNpZFY5enF0M0F1?=
+ =?utf-8?B?c0NVc2FMMDB4QU5HeWFYMlJ4VzZwWEhrSmdkWng3SzY0Qm9DTlRaYXcxV3VP?=
+ =?utf-8?B?aEhINVQyTnhKakNucnk5ZFRyYTVOMDI3MW5SZXZlclpqVTREOFJHM0NYeVVm?=
+ =?utf-8?B?djhpRktrTm8zTWZDWEUwK2NKT3FvYkZ5ZGM0d0R3cXEvRUZMZW5JcGdiU0dQ?=
+ =?utf-8?B?ZEE2M3l1alNOeFdpN1ozeVdhVVlCWW91K0NoRkROTU9TQm5hdDdzbHZISENT?=
+ =?utf-8?B?UjZBSDQyNUpSYnNtZ2grcEJrbVpZU0dhdnJpWkN1U29rSGFRdTN1M2dzbVUy?=
+ =?utf-8?B?Q1Azakl2cHI5OHV5N0VEcTNBWEJtK3VaUUdXaUZmeGlKVUdmRXNkWUl1cWNR?=
+ =?utf-8?B?M0NNZFU3akJhcWZRZVBKbVBTMzFkbHlaVGpueTNLaW14Y1daT3Joc1ZOSXNP?=
+ =?utf-8?B?a1ZpcjduMEl2TllQQ0o0OUpUVG53Yld3Z3RxT1IzbEJBVGJRdEpwSjZFUk85?=
+ =?utf-8?B?ZXliNWJDc0kzc3QvdkRHaDkzejk2aE5vS09sSndveFluRkp0bWdzaTRKbnNG?=
+ =?utf-8?B?akhrWnhzMVNCMVV0R0RBdnU4d3lHb2haMU1MOXlRR3JrV09OSDJxRkZXbzZo?=
+ =?utf-8?B?aUwxUWpnenA0cm51czhuYlVCaDd2TnEwSHRZTVVVcEtvWGJCMjR1QjV0eHZp?=
+ =?utf-8?B?TkJlNi91cUNxSXlBUi9HZFppbi9YUkE4ZXVVZFk2dStVUm1leS9BNEZxbWo5?=
+ =?utf-8?B?aE5vNS80dUxKQm5mWTVVZFAxY2lMS2YwMnB2ZytCZStlL0JhUUNkWVRYWitG?=
+ =?utf-8?B?cFB1ZDV0WjVKVVBpYjNBeGlZeGg4bWNOVlhUOXF6NnNZQWNXQ0o4YXB5TUpC?=
+ =?utf-8?B?TThON3EvdnFnQ0R5aFNLa2VPRUN0eWNqMmYvQTAvd0VJR3NVeGJ3M3FXZSti?=
+ =?utf-8?B?MEg3NnVOU2tVMXJva3dldFhFQ053YUdXNmY2bGtoVnIwaUJ3SjEwZW5iM05V?=
+ =?utf-8?B?dGFwdFZkZHlFbUNMNWNLYnVCMCtVTnBTb3czalVRbG1icWIrajQzQlRSNDVJ?=
+ =?utf-8?B?RFJocTdUL0RBbmpLRnVYdlZ2eFhMV1VGUUU1UGZjQmdDOUVrd2daT1RZZnZB?=
+ =?utf-8?B?bkF2VDNxNkpHTzhpUGU2Mzc2RmNLSzNJSjVzQ3YxWkU2bjBNNzF2a0lKSnNQ?=
+ =?utf-8?B?UXh3SXVDNjNEZjMxamJHRjVtODZxSzZwWjRkSjRCbHpVTXdCSDE4OW9tN1dZ?=
+ =?utf-8?B?NGRPZXgzaGh3N3ZRQkhSRi9kUmJtdU0xaU84Y2swNHBpTXFHbGR1WUltWkZ6?=
+ =?utf-8?B?bWRJNWhEL1NiU1luWUJGN05wQTVMM2hpc2srTldHSzE1bTBTZnVGV3ZHM2FY?=
+ =?utf-8?B?Q3JKcHRRQkM5WGZ6WW9vbFFaNmZiYit4Zm5vWThFUXRBWExaZ1VQa2tqRXY3?=
+ =?utf-8?B?c2tzTElCY2VmcmNMNTdxd0p3L2ZKRTJYeWxhcVhpM042MTdUdUlJMUFSWG9q?=
+ =?utf-8?B?bmNycXhnVHg5b3dvZGFtL3dyYlZ1TkpQZEpPNWJEZEUzZzlxKzRyV2JaSHlU?=
+ =?utf-8?B?TElBcjZoaXU0WW81VDZ5K2ZIUEtVVFNwNjYzbDBwMzZ3cGcxSjhRdGFYb0NQ?=
+ =?utf-8?B?bkE5d3NULzl2alU1SlduRzl4aWpoeU5acVVlQVJFVXZVc21MdUNLSVYwT3lK?=
+ =?utf-8?B?aGZCMUlWRHRtQ2JhL0VsYXVIU0NmWjFNMElxb3BWaWxkelI4R3M2TGFZUTh5?=
+ =?utf-8?B?QmlxYWEzQ0V3NERIYzBXcFBWYkRRYkJjNG1yTmdYTythUGpqQVRJelVBWVBD?=
+ =?utf-8?B?MmR5dk9IbWZtdC92UWVqYXRzNTZ2MkJJYlpXZHFoZ2FSNUZ6RE9xNloyeHla?=
+ =?utf-8?B?T0xvR2pGQWxYVm9pRzkxMWcwc1FkT0dlczdYcElIM3FxWk1odFVGM2tpaDRy?=
+ =?utf-8?B?RzdYNExiVkVYaXVhUE5lcmFGK0oyM3lKY3lseEdMNXd6UjlxYzdDa0E0WEY1?=
+ =?utf-8?B?TlFGV1JMTFQ1T0F3VUk2YktlQitGdU5wSHlud3IvN3NLdFN6VlRYUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 19:15:39.1751 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba1f6650-aa76-49b4-e3e9-08de839068f8
+X-MS-Exchange-CrossTenant-Network-Message-Id: a584fbba-817f-49b5-38f0-08de839114c4
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5805.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 19:20:27.7280 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE1.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6258
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BVEkcKitHhfUx+nk/fMzQkzBSTMJv8TCfqCi+0077GHmOo4+U3Lsc8SwyowI5d/HPdgK05zOySFymjn0NmNjgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8957
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,177 +136,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PASID resue could cause cache, TLBs and interrupt issues
-when process immediately runs into hw states left by previous
-process exited with the same PASID, to prevent the case, it
-introduces a freed list to store used ids to provid maximum
-safety avoiding resue.
 
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 87 +++++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |  1 +
- 3 files changed, 85 insertions(+), 4 deletions(-)
+On 2026-03-05 11:16, Alex Deucher wrote:
+> On Thu, Mar 5, 2026 at 10:24 AM Lazar, Lijo <lijo.lazar@amd.com> wrote:
+>>
+>>
+>> On 05-Mar-26 3:57 AM, Alex Deucher wrote:
+>>> The value should never exceed the array size as those
+>>> are the only values the hardware is expected to return,
+>>> but add checks anyway.
+>>>
+>>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 9 ++++++---
+>>>   1 file changed, 6 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+>>> index a0cc8e218ca1e..534cb4c544dc4 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+>>> @@ -154,14 +154,17 @@ mmhub_v2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
+>>>       switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
+>>>       case IP_VERSION(2, 0, 0):
+>>>       case IP_VERSION(2, 0, 2):
+>>> -             mmhub_cid = mmhub_client_ids_navi1x[cid][rw];
+>>> +             mmhub_cid = cid < ARRAY_SIZE(mmhub_client_ids_navi1x) ?
+>> Does this introduce speculation and requirement to use array_index_nospec?
+> I don't think so, but I'm not really an expert on side channel attacks.
+>
+> Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-index 9cab36322c16..0443b05ddb1d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
-@@ -40,6 +40,21 @@
-  */
- static DEFINE_IDA(amdgpu_pasid_ida);
- 
-+/*
-+ * Freed PASID pool - PASIDs are stored here after being freed and only
-+ * reused when no fresh PASIDs are available from the main allocator.
-+ * This prevents immediate PASID reuse and gives hardware time to flush
-+ * all references (caches, IOMMU TLBs and firmware state).
-+ */
-+struct amdgpu_pasid_freed {
-+	struct list_head list;
-+	u32 pasid;
-+};
-+
-+static bool mpool_exhausted = false;
-+static LIST_HEAD(amdgpu_pasid_freed_list);
-+static DEFINE_SPINLOCK(amdgpu_pasid_freed_lock);
-+
- /* Helper to free pasid from a fence callback */
- struct amdgpu_pasid_cb {
- 	struct dma_fence_cb cb;
-@@ -51,7 +66,8 @@ struct amdgpu_pasid_cb {
-  * @bits: Maximum width of the PASID in bits, must be at least 1
-  *
-  * Allocates a PASID of the given width while keeping smaller PASIDs
-- * available if possible.
-+ * available if possible. Prefers to allocate fresh PASIDs from the
-+ * main pool. Only reuses freed PASIDs when the main pool is exhausted.
-  *
-  * Returns a positive integer on success. Returns %-EINVAL if bits==0.
-  * Returns %-ENOSPC if no PASID was available. Returns %-ENOMEM on
-@@ -61,13 +77,34 @@ int amdgpu_pasid_alloc(unsigned int bits)
- {
- 	int pasid = -EINVAL;
- 
--	for (bits = min(bits, 31U); bits > 0; bits--) {
-+	/* First, try to allocate a fresh PASID from the main pool */
-+	for (bits = min(bits, 31U); bits > 0 && !mpool_exhausted; bits--) {
- 		pasid = ida_alloc_range(&amdgpu_pasid_ida, 1U << (bits - 1),
- 					(1U << bits) - 1, GFP_KERNEL);
- 		if (pasid != -ENOSPC)
- 			break;
- 	}
- 
-+	if (pasid == -ENOSPC && !mpool_exhausted)
-+		mpool_exhausted = true;
-+
-+	/* If main pool is exhausted, try to reuse a freed PASID */
-+	if (pasid < 0) {
-+		struct amdgpu_pasid_freed *entry;
-+
-+		spin_lock(&amdgpu_pasid_freed_lock);
-+		if (!list_empty(&amdgpu_pasid_freed_list)) {
-+			entry = list_first_entry(&amdgpu_pasid_freed_list,
-+						 struct amdgpu_pasid_freed, list);
-+			pasid = entry->pasid;
-+			list_del(&entry->list);
-+			spin_unlock(&amdgpu_pasid_freed_lock);
-+			kfree(entry);
-+		} else {
-+			spin_unlock(&amdgpu_pasid_freed_lock);
-+		}
-+	}
-+
- 	if (pasid >= 0)
- 		trace_amdgpu_pasid_allocated(pasid);
- 
-@@ -75,13 +112,34 @@ int amdgpu_pasid_alloc(unsigned int bits)
- }
- 
- /**
-- * amdgpu_pasid_free - Free a PASID
-+ * amdgpu_pasid_free - Free a PASID to the freed pool
-  * @pasid: PASID to free
-+ *
-+ * Add the PASID to the freed list instead of immediately returning it
-+ * to the allocator. This PASID will only be reused when the main pool
-+ * is exhausted, providing maximum delay before reuse and allowing time
-+ * for hardware caches, IOMMU TLBs, and firmware to clear all references.
-  */
- void amdgpu_pasid_free(u32 pasid)
- {
-+	struct amdgpu_pasid_freed *entry;
-+
-+	entry = kmalloc(sizeof(*entry), GFP_KERNEL);
-+	if (!entry) {
-+		/* Fallback: free directly to IDA if allocation fails */
-+		trace_amdgpu_pasid_freed(pasid);
-+		ida_free(&amdgpu_pasid_ida, pasid);
-+		mpool_exhausted = false;
-+		return;
-+	}
-+
-+	entry->pasid = pasid;
-+
-+	spin_lock(&amdgpu_pasid_freed_lock);
-+	list_add_tail(&entry->list, &amdgpu_pasid_freed_list);
-+	spin_unlock(&amdgpu_pasid_freed_lock);
-+
- 	trace_amdgpu_pasid_freed(pasid);
--	ida_free(&amdgpu_pasid_ida, pasid);
- }
- 
- static void amdgpu_pasid_free_cb(struct dma_fence *fence,
-@@ -616,3 +674,24 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev)
- 		}
- 	}
- }
-+
-+/**
-+ * amdgpu_pasid_mgr_cleanup - cleanup PASID manager
-+ *
-+ * Free all PASIDs from the freed list back to the IDA pool.
-+ * This should be called during driver cleanup.
-+ */
-+void amdgpu_pasid_mgr_cleanup(void)
-+{
-+	struct amdgpu_pasid_freed *entry, *tmp;
-+
-+	spin_lock(&amdgpu_pasid_freed_lock);
-+	list_for_each_entry_safe(entry, tmp, &amdgpu_pasid_freed_list, list) {
-+		list_del(&entry->list);
-+		/* Return PASID to the IDA pool during cleanup */
-+		ida_free(&amdgpu_pasid_ida, entry->pasid);
-+		kfree(entry);
-+	}
-+	spin_unlock(&amdgpu_pasid_freed_lock);
-+	mpool_exhausted = false;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-index b3649cd3af56..a57919478d3b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
-@@ -74,6 +74,7 @@ int amdgpu_pasid_alloc(unsigned int bits);
- void amdgpu_pasid_free(u32 pasid);
- void amdgpu_pasid_free_delayed(struct dma_resv *resv,
- 			       u32 pasid);
-+void amdgpu_pasid_mgr_cleanup(void);
- 
- bool amdgpu_vmid_had_gpu_reset(struct amdgpu_device *adev,
- 			       struct amdgpu_vmid *id);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index b89013a6aa0b..5b9bdb79efcf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2864,6 +2864,7 @@ void amdgpu_vm_manager_fini(struct amdgpu_device *adev)
- 	xa_destroy(&adev->vm_manager.pasids);
- 
- 	amdgpu_vmid_mgr_fini(adev);
-+	amdgpu_pasid_mgr_cleanup();
- }
- 
- /**
--- 
-2.34.1
+Also not an expert here but I don't think this can be used as an exploit. The cid is read from HW and is not controllable by users.
 
+This series is:
+
+Reviewed-by: Benjamin Cheng <benjamin.cheng@amd.com>
+
+>
+>> Thanks,
+>> Lijo
+>>
+>>> +                     mmhub_client_ids_navi1x[cid][rw] : NULL;
+>>>               break;
+>>>       case IP_VERSION(2, 1, 0):
+>>>       case IP_VERSION(2, 1, 1):
+>>> -             mmhub_cid = mmhub_client_ids_sienna_cichlid[cid][rw];
+>>> +             mmhub_cid = cid < ARRAY_SIZE(mmhub_client_ids_sienna_cichlid) ?
+>>> +                     mmhub_client_ids_sienna_cichlid[cid][rw] : NULL;
+>>>               break;
+>>>       case IP_VERSION(2, 1, 2):
+>>> -             mmhub_cid = mmhub_client_ids_beige_goby[cid][rw];
+>>> +             mmhub_cid = cid < ARRAY_SIZE(mmhub_client_ids_beige_goby) ?
+>>> +                     mmhub_client_ids_beige_goby[cid][rw] : NULL;
+>>>               break;
+>>>       default:
+>>>               mmhub_cid = NULL;
