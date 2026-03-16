@@ -4,160 +4,117 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 529B0F33815
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 08:18:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B70CF3380E
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 08:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA4E110E597;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 875A610E593;
 	Tue, 17 Mar 2026 08:18:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="gNidhsZM";
+	dkim=permerror (0-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="eyO5nsRG";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="guCypQjf";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010068.outbound.protection.outlook.com [52.101.85.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 675AE10E407;
- Tue, 17 Mar 2026 01:58:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FUqxFubqcQ+fKj5nW4zC1doouJVGmSQ+ji63RPa5gIc7LWQs4r76rpth47c1tejJMxrYnbCWXSrJcKsUhyj7y+XsreLv3axZOuGR7n8l/ZqQTcnRvClqEVecR7bBZg5o8A6YeRPSv9LJmsuUTlNPjVr1bAlAiJHYtbNDJ/3y1agNGECBFFNB87p1hp1VSAxZ7Rjri36B53H1tu2CpVPvke2RSVfcUsNLJCnBgYl1m7oXHRv6qnHcQjsrG7SZ8X1uELNGcb9kiEqE/rn3J9qf9W/K3H3nwVtiIcnjLqbR+qSj8pLat/IvTHGdK4+aeNy73PCOW4z72ozxeSRTi5kgsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PHcUStEndTFaP7ZEnPa+nUjL+xEC5T7WFlLw66jOQGU=;
- b=WuQXm5CidfbhUmiVxe9s5l+16kE8JzzEJsnSxaQvxjOFUUjxVlJE76/IVTYNNNKieybJyB9zcX4jjYsB/FDhE6CwE+a7yCswIH1FAFR8d0cr+JcuerQNbLrv73T79al9ALTRxgvUBfTTwyGT9hFXTDV8wkTy5o3M5qViipOZzk+EpZasZW7fxrWTsc4mP18yJzkpEI+kxT7uO07ByilmQ6ciSviNrGiQ37o+E83bjhbJGvcJHqJxXaRHFV2h7iyQRTyzpUXP7mO+QaQ8TfQ0If4cDbChyJBave/LjJfdXJgMjPDH8xKC3tcAaWZB7VZgTBb44iXuZXi9tjbLzBEBHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PHcUStEndTFaP7ZEnPa+nUjL+xEC5T7WFlLw66jOQGU=;
- b=gNidhsZMbA3ix3GdCZ162H4KCMaAEAcqkRQSxVYCFvr1tnqeLh4+hCFzDKGDdfN1KkK6cqlWkvspIzZampt+AdZ8hiQsJbwEDvyo0IFqEth0wskXN28VGYSxm3Swl7kE34UHhR96iU+N1B8Tj1moift8zJsQeJ7U4Oz9FVM9LgSa8l6vFUHo18K3t8M4HAgZaCBInQCdJhjF48MSCk1GgkZT3ILmDw4h5hVs3oCxGExDTyT4UAhXUYLofecIrwpI05f3hNCtPHSrKM/QieHagZKn12K9O7WNPNydiBNjvCHjGD8rPQV0vaBBobjDFrjl59858QAqb5j3s00ZV6mUNA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by PH7PR12MB9075.namprd12.prod.outlook.com (2603:10b6:510:2f0::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.17; Tue, 17 Mar
- 2026 01:58:14 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9723.016; Tue, 17 Mar 2026
- 01:58:14 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Mar 2026 10:58:10 +0900
-Message-Id: <DH4OO8Y9NQ3E.1QXSL63B225V2@nvidia.com>
-Cc: "Joel Fernandes" <joelagnelf@nvidia.com>,
- <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Koen Koning"
- <koen.koning@linux.intel.com>, <dri-devel@lists.freedesktop.org>,
- <nouveau@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>, "Nikola
- Djukic" <ndjukic@nvidia.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Jonathan Corbet"
- <corbet@lwn.net>, "Alex Deucher" <alexander.deucher@amd.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Jani Nikula"
- <jani.nikula@linux.intel.com>, "Joonas Lahtinen"
- <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi" <rodrigo.vivi@intel.com>,
- "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang Rui" <ray.huang@amd.com>,
- "Matthew Auld" <matthew.auld@intel.com>, "Matthew Brost"
- <matthew.brost@intel.com>, "Lucas De Marchi" <lucas.demarchi@intel.com>,
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- "Helge Deller" <deller@gmx.de>, "Alex Gaynor" <alex.gaynor@gmail.com>,
- "Boqun Feng" <boqun.feng@gmail.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer"
- <epeer@nvidia.com>, "Andrea Righi" <arighi@nvidia.com>, "Andy Ritger"
- <aritger@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "Balbir Singh"
- <balbirs@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, "Elle Rhumsaa"
- <elle@weathered-steel.dev>, <alexeyi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <joel@joelfernandes.org>,
- <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH v12.1 1/1] rust: gpu: Add GPU buddy allocator bindings
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-References: <20260308180407.3988286-1-joelagnelf@nvidia.com>
- <20260309135338.3919996-1-joelagnelf@nvidia.com>
- <20260309135338.3919996-2-joelagnelf@nvidia.com>
- <DH48DNAQCE0Z.2EX23VD27CQVX@nvidia.com>
- <efc10902-2ee9-4cb3-a4cc-442998eef01a@nvidia.com>
- <DH4NHGJ54F7M.2R42KYTV1700M@nvidia.com>
- <d7e618ce-4e1e-47c7-9633-b36809d33bd7@nvidia.com>
-In-Reply-To: <d7e618ce-4e1e-47c7-9633-b36809d33bd7@nvidia.com>
-X-ClientProxiedBy: OSTPR01CA0080.jpnprd01.prod.outlook.com
- (2603:1096:604:218::16) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+X-Greylist: delayed 315 seconds by postgrey-1.36 at gabe;
+ Mon, 16 Mar 2026 22:16:12 UTC
+Received: from flow-a3-smtp.messagingengine.com
+ (flow-a3-smtp.messagingengine.com [103.168.172.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF93510E3F8;
+ Mon, 16 Mar 2026 22:16:12 +0000 (UTC)
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailflow.phl.internal (Postfix) with ESMTP id 96E81138028E;
+ Mon, 16 Mar 2026 18:10:56 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-01.internal (MEProxy); Mon, 16 Mar 2026 18:10:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm3; t=1773699056;
+ x=1773706256; bh=pZj8f0JboyjKt94J8KB7OLIiCOoml43GOZ4w8rDpLPA=; b=
+ eyO5nsRGgscBaSPTlSrjx8D8qsmxFZTD+YBT90C8JLtkSU+JG9otBsGP68/aDjfq
+ Ip8/CY7pDqj8uLfl6tk9PaoCLmHFx9BmC+OLDsgQIKz5wruWwvglBIFTzX8Bgo1G
+ D7tyDhfcq/yYvbxAZYbPlVlov+W1BUQwVVZx34myYfSzzczy+o0TvO2AJR+dEy1d
+ h9Fy4zA0IHy3AyAu2lJw7cTPeRVsoH7Q9DZJUhPGVmEq8IZ5byXvr46eUf3RwYLV
+ Pd21rN+O2sxo21UD0KoApMpHYwnhY5vI1CKlHqs6nb1Q0ON5mjBcz18/WvPyI4M2
+ g7ed/wORmv3aHNEvlM9NEQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1773699056; x=
+ 1773706256; bh=pZj8f0JboyjKt94J8KB7OLIiCOoml43GOZ4w8rDpLPA=; b=g
+ uCypQjfxr+Zi7JxdTC/p3wGQ4VV0q/Wv3rf4QuOSSvRwPZ4hwWoKXSQwRlJppx/A
+ eTD/kX8ytMBkqeeAHXi8QojGoDJPwhemKEl1A5BQyy+VTfQ0kjCklEhRU0D9TNU6
+ QzoouUhJdY7Fi24kVLMS4vkfF5Xif+sxcGuZ+ZH9bmNOAZhg/6jHFnuxjrIUYo4Y
+ sJAjmQ/c58h+MsTVokuL8c2t4xBbVGwnTgXIvKplEwnaY81NNzKXbPGa+zPU58N/
+ vwQ/zZfUYT5zYdyXfBWrfC5sZSkqzhpuD1WACxXIM/TD7Jh2N1ZXy8qS+O1DtSBY
+ h24uS6YuZ9c79L+rKNYRA==
+X-ME-Sender: <xms:73-4aYdtUUIQC679P0YPl8k6UZ10Tz8-qTD319yDZEtXusdBhZuXRA>
+ <xme:73-4aTUav9FvduIIOmc0jldmINr5W_MhUsWQFGzP1fBm1dpf8ggOxSMvCMHniLmCu
+ LbRPk360ujIo39hLA6fsP95YlnCLki5WcrUsiuRyEwh6NcxWlxF>
+X-ME-Received: <xmr:73-4aSY56rJyFtQwMFw-H9dfM29zbbMWxWkWrpi3kYaZ1kbqDyXdf5bHU5U>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeefgedrtddtgddvleelheegucetufdoteggodetrf
+ dotffvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfurfetoffkrfgpnffqhgenuceu
+ rghilhhouhhtmecufedttdenucenucfjughrpeffhffvvefukfgjfhfogggtgfesthejre
+ dtredtvdenucfhrhhomheptehlvgigucghihhllhhirghmshhonhcuoegrlhgvgiesshhh
+ rgiisghothdrohhrgheqnecuggftrfgrthhtvghrnhepvdekfeejkedvudfhudfhteekud
+ fgudeiteetvdeukedvheetvdekgfdugeevueeunecuvehluhhsthgvrhfuihiivgeptden
+ ucfrrghrrghmpehmrghilhhfrhhomheprghlvgigsehshhgriigsohhtrdhorhhgpdhnsg
+ gprhgtphhtthhopeehhedpmhhouggvpehsmhhtphhouhhtpdhrtghpthhtohepphhhrghh
+ nhdqohhsshesrghvmhdruggvpdhrtghpthhtoheprghmugdqghhfgieslhhishhtshdrfh
+ hrvggvuggvshhkthhophdrohhrghdprhgtphhtthhopegrphhprghrmhhorheslhhishht
+ shdruhgsuhhnthhurdgtohhmpdhrtghpthhtohepsghpfhesvhhgvghrrdhkvghrnhgvlh
+ drohhrghdprhgtphhtthhopegtvghphhdquggvvhgvlhesvhhgvghrrdhkvghrnhgvlhdr
+ ohhrghdprhgtphhtthhopegtohgttghisehinhhrihgrrdhfrhdprhgtphhtthhopegumh
+ dquggvvhgvlheslhhishhtshdrlhhinhhugidruggvvhdprhgtphhtthhopegurhhiqdgu
+ vghvvghlsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhgpdhrtghpthhtohepgh
+ hfshdvsehlihhsthhsrdhlihhnuhigrdguvghv
+X-ME-Proxy: <xmx:73-4aQltNdDVIdEqvCmz7Mlt0qW50NA4CHgJQUMNlacMN4MGiVKHfA>
+ <xmx:73-4acHdFw15OLpR73_B1AdIXJMG-pYssiD_C0T2dj2N-8ux7fVHFg>
+ <xmx:73-4aU6P6J2BtdvPwSPzfrUNjz9-qYacHOOWBucSAMlha23fXDTcIg>
+ <xmx:73-4aaO5YEqAXlnOLRO88GZx1RbxPW8QtXAeqZQNaqmxlgOL7PgFkQ>
+ <xmx:8H-4abIvs_QYur641c9BpnDuFQ6ssCC-7-o-rPLEHWyRxStBDxJEr6SL>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 16 Mar 2026 18:10:52 -0400 (EDT)
+Date: Mon, 16 Mar 2026 16:10:50 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Philipp Hahn <phahn-oss@avm.de>
+Cc: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
+ bpf@vger.kernel.org, ceph-devel@vger.kernel.org, cocci@inria.fr,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ gfs2@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev,
+ kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-block@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ linux-btrfs@vger.kernel.org, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+ linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-hyperv@vger.kernel.org,
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mips@vger.kernel.org, linux-mm@kvack.org,
+ linux-modules@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-nfs@vger.kernel.org, linux-omap@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-pm@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sctp@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev,
+ alex@shazbot.org
+Subject: Re: [PATCH 46/61] vfio: Prefer IS_ERR_OR_NULL over manual NULL check
+Message-ID: <20260316161050.01c82973@shazbot.org>
+In-Reply-To: <20260310-b4-is_err_or_null-v1-46-bd63b656022d@avm.de>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+ <20260310-b4-is_err_or_null-v1-46-bd63b656022d@avm.de>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.51; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH7PR12MB9075:EE_
-X-MS-Office365-Filtering-Correlation-Id: ed86cb07-a5d9-426d-17f7-08de83c8a637
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|10070799003|366016|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: eFNq4QJQbOZtrnv686fMdk3XFOyJUcqJRFyykRPXcloS3+KPoQXbsuAOukrVhHEfXJMUBzs3i9QPB6sUkS8oSpuffBcBIku7De2PZn8daVnT9qy5vH7mA+tD77ExTNXjMORoPpX/QG0CrkTfGrj0UJqd213GD8U1H4gXhZirsppC0wMaXHjMySiQ3T1cC+JXZDVj5okfgR6Cbu63wBPe7lN9+0OysACaKLSyyMv5CfpzFmlj0hixUZd/FKdkSPE5clVA+bA52ZzJkhZlyOilpRKAKHyX/401QF1T0GNBWvQklc4W8Kz8BX0fYNPZ8izgtIOQQ16bCq1c8sbdxlhbz9De0IQF+eCL+MrGN3jS/kmbu7v7CMBbD337Tj1DQjfJC36XVNF4LlNStGq+qzHRybyc7u1/v3DImn/pLa7ZTjDPEhOf0GNOsfqJ1xPWSUIoNB97Qe5ZQjALWACYvyFY1Gttya4UG0JGgzEj4knFLeAvXLgRKbc9WPJDvOqDrLEt19Nj5vEBmYtS7M/tPSmyCWLlH3ymysB3E0VhKa60BN3QMB8CzGqDRLx48pi58HSifGtldqdnUHZhc+8hI7QnA7d2zosuAHPxJjTRun0KKvCLvIVs0V65DXgQMWrvE0N0t635bE9AD3PeeDiaFyNqvWcEwLdaQFQPUjJiZVoqcwhyJTON6arR/7NzWxGLFdnNAeXL8s4WoSXs6wutXM1SDp/RtUbxPmIEh4nHc3dHVhw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(10070799003)(366016)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RnpDS09Ja1JGNEM2dlhkQ3pKQWprMjlNNUlGaXdzNlF0YUN5c05iemMvWjFT?=
- =?utf-8?B?NUNGNVJVSnloZFFzckw0d0NQTDhTanJXcjY5aUI5ZXptZnBPMDFJTXpSaTFY?=
- =?utf-8?B?N2xQeVY3amZ6ZEJqeFpmV1hWSDUvZm9BN0F5akIxS2VOOE1RdHZ4ZVN5a2gy?=
- =?utf-8?B?UC9iTmtvTTdkY2x4c1Q2OHU4WHJ0NC9yZzV0ZHZ6NGVrdisxUHAvM2FFZWd1?=
- =?utf-8?B?Y2Y4MU83RHlrZ1E3SlNGK29NSVlIWUpCUllxMUplaTFaMCsxTVFsMGVyRWh3?=
- =?utf-8?B?T1l4UnI2aWpPMGk1Z1lERGMyZC9qZU80MklKOFAyK0oxc0FDQklEdHVlbUF5?=
- =?utf-8?B?Y3VQWTBkMVNTQmtOSGRGWnZ2M3MxaStLemdEa0VwS0MrK3Y1K1NhNXU4QXE4?=
- =?utf-8?B?QWUxazNDU2JVZHNvMXk5VmI4WkovSU1pY2ZpQ3BTS1A2SzhQVG1VYUU2M2dl?=
- =?utf-8?B?M2xXMEVwRkRCSTVXNExFSm1VbnY2b3I3ZVBaVWhhdkNvTUU0OU8wNTRtSU01?=
- =?utf-8?B?Z1c4RzJWZ3VVNGdaYmhPRkFJNFRTbUdkRkZxekJxSXBtclRCZFl0bndiTE9Q?=
- =?utf-8?B?eW82QW9nZERMb0xmMDhxYmRYNjZtOU41QVVEWnpJYUpZRC8zajcrblhOSC9a?=
- =?utf-8?B?K2lRY05HYVgxL0s3ajRqc0owRVdBTUd4Y29tTlJOYUtKWXpKdHh5VXBVNTN5?=
- =?utf-8?B?YUV0a2c4dG11WnIzUGpwZDFHRXBQUUhxZUtnOXRlV3FuaHpSdTBzSG5lS1pz?=
- =?utf-8?B?QzVIYWh3RWQ5OHJ2M2JLQjJSVnRnQzh2cWlSZFlVcWhJYUxLYnRPZXZwV3dX?=
- =?utf-8?B?Y0pBazEvR1REMUNFeFBQaTI3a2pmWjIwT0c3dGxXRzZBYkswZ1Y5VG54UDRF?=
- =?utf-8?B?anAvc1ZkOGcwTWxqb01sNThXeERRb21ER0VFaDFCbkxQSjFXRmR1bkd6TTEw?=
- =?utf-8?B?bE9CNVB5ZTN5SThickFiNGtzdkU0d2lUcEI0ekVOWDQ1RjNrcHRxQi9aNitp?=
- =?utf-8?B?ejl6aUxGMG5BVGlTb1ZjR094MHNrbWlWaFRFTkFSVE1QbFpyMkxJMU9QR1F1?=
- =?utf-8?B?bWtTZWZHcUl4RFg3VndQcE43dUJZYStMYWkvK1VXeFJ0enBQSWVGeTh6WDV6?=
- =?utf-8?B?aHM4Nm90dHk4S1lxWVd6NXR0V01odElpMlZ3cFIyeVN2dC9nOUgwbTNqZmFJ?=
- =?utf-8?B?RUlyYWtZc2ZvV05rMStFWWxXdXlyZmZkTys5d0FyeFFQUEp3WUVDWEl3YXJm?=
- =?utf-8?B?T25VTkNwY25sa2oweW51UU1odXhUbW9DSXpRVm8rYjVGVzcyd3lIQXA5ZS84?=
- =?utf-8?B?eFlRQll2SFVOT2g1NTB0dmxqMDVsOGdySlZ3WE9oRlpnZ2hPU0xETWw4VTZM?=
- =?utf-8?B?aXBJMUtKdTZzOUM2cUM0UjBpSE5EelE2YXYrQ2k2R2F1a1ZmVzlJanFyTEJ2?=
- =?utf-8?B?dmlhcmIzcnRkeEhxWUVGQmh4YjlRcVYrejE3cVRxRUp3VENTM3ZlNGJhc09X?=
- =?utf-8?B?cU55T2llclhTS01lMWlWTEN3anJ0bDNPNXVTTElUZEZhMHVISktmS050UVl3?=
- =?utf-8?B?Y1FzMzYxemZOYXlQNnVkcUxYZEdWZzlDZHQwQXUzcUEzeWVrS0ptRXFDTVU3?=
- =?utf-8?B?OHBVVENpTXRnMytObEdOdnd3eFMzaWszWS9QNUZFa0lhVmZoWmFhbGdzMlZZ?=
- =?utf-8?B?L0E2MXJhV3VGajN6UENZckMrQmxQanljZE04aU5nSHRPUUJ1WFVvR1VWWW1a?=
- =?utf-8?B?K25KclV3TlcrTEhCWDdETHRFOFQxaVpGS0ZyQ085N2VxV24vNUdFLzdEZmJ3?=
- =?utf-8?B?TE4wWXErbmtTQS9hU21janJRc0JJMEdpMDNRSFJGZUJnWFhSeTg3SkU4OTR6?=
- =?utf-8?B?Tk1ud1dDMktSbEZtblN2RTZSU1RSV2hXL3ZndUpBSGtNL1pta055NmhlWVVo?=
- =?utf-8?B?VTBUMlN2cDRTalpKdHJGQ1R4T3N3Q2VWVjlBZ29rMTZQZVpUbkloZnUwL2ht?=
- =?utf-8?B?U3RDOVcyM0NqUnE3ekZ1ZjFxYmhmNUpmdmFnNWt5blVhcWsrc01mY25QM3Bw?=
- =?utf-8?B?TTM0WkhTc0pWeDVnYzZGcGNlb1JKOGJPejY1eWxjZklwOFNuTzEvWkxKLzdv?=
- =?utf-8?B?TG1va21HSDhxWTB5cjZhc3pMTWlGWlVxYVlkVmxZZnhwblpkZUJwdkpoNVA2?=
- =?utf-8?B?ZUllZ2dYb2pJZk02RUpRMHFFS21taWwyUlVWMWwwaVVBcGZ3Rm1JeVpFcVJ2?=
- =?utf-8?B?eTdIUkU1d2V2dFh6Sm84YUxKVmkyMy9wa2s1SWZGUERnNm9HeURSQ21hclQw?=
- =?utf-8?B?dzcwM1BmcUVNK2U5T3oxRHVaZkNtbFBnL0prUTlZTi9RWmdZdGVkTDBTakt6?=
- =?utf-8?Q?2kD5cgGSgi5A4obJHl/1PpygbhRrrSZm3ygVZFYXPB9Go?=
-X-MS-Exchange-AntiSpam-MessageData-1: x4YC56m2S7sfbw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed86cb07-a5d9-426d-17f7-08de83c8a637
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 01:58:14.0312 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JdSUxLzzZuLjA5k//D46+ydMU4xS3O8JFMP2bVtXrw5G2XnkVCFRJem7cDPZQEezmMxP1tUhQ170jRAUQHqVdA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9075
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 17 Mar 2026 08:18:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -173,36 +130,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue Mar 17, 2026 at 10:10 AM JST, John Hubbard wrote:
-> On 3/16/26 6:02 PM, Alexandre Courbot wrote:
->> On Tue Mar 17, 2026 at 3:51 AM JST, John Hubbard wrote:
->>> On 3/16/26 6:12 AM, Alexandre Courbot wrote:
->>>> On Mon Mar 9, 2026 at 10:53 PM JST, Joel Fernandes wrote:
->>> ...
->>>> I'm a bit torn as to whether we should use a `u64` to conform with the=
- C
->>>> API, but doing so would mean we cannot use an `Alignment`...
->>>
->>> Alex, have you seen my Alignment patch [1], for that? It's sitting=20
->>> around with only Miguel having responded, but seems like exactly
->>> what you're talking about here.
->>=20
->> Not exactly - this patch provides a shortcut for creating an Alignment
->> from a u64, but it doesn't allow to store alignments larger than 4GB on
->> a 32-bit architecture since the value itself is still stored as a `usize=
-`.
->>=20
->> But that's really a theoretical worry of mine anyway - nobody will ever
->> work with buffers larger than 4GB on a 32-bit arch to begin with.
->
-> Actually, in the CPU world, this claim was made early and often, but
-> turned out to be wildly wrong! That's why we have "high mem" in
-> linux-mm (a constant source of suffering for kernel devs).
->
-> The 32-bit systems designer do not feel constrained to keep their
-> memory sizes below that which they can directly address. :)
+On Tue, 10 Mar 2026 12:49:12 +0100
+Philipp Hahn <phahn-oss@avm.de> wrote:
 
-Yet IIUC PAE still limits a single process to a 4GB address space (and
-`usize` is still 32-bit anyway), so hopefully we will be spared that
-pain. :)
+> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
+> check.
+> 
+> Change generated with coccinelle.
+> 
+> To: Alex Williamson <alex@shazbot.org>
+> Cc: kvm@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+> ---
+>  drivers/vfio/vfio_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+> index 742477546b15d4dbaf9ebcfb2e67627db71521e0..d71922dfde5885967398deddec3e9e04b05adfec 100644
+> --- a/drivers/vfio/vfio_main.c
+> +++ b/drivers/vfio/vfio_main.c
+> @@ -923,7 +923,7 @@ vfio_ioctl_device_feature_mig_device_state(struct vfio_device *device,
+>  
+>  	/* Handle the VFIO_DEVICE_FEATURE_SET */
+>  	filp = device->mig_ops->migration_set_state(device, mig.device_state);
+> -	if (IS_ERR(filp) || !filp)
+> +	if (IS_ERR_OR_NULL(filp))
+>  		goto out_copy;
+>  
+>  	return vfio_ioct_mig_return_fd(filp, arg, &mig);
+> 
 
+As others have expressed in general, this doesn't seem to be cleaner
+and tends to mask that we consider IS_ERR() and NULL as separate cases
+in the goto.  This code looks like it could use some refactoring, and
+likely that refactoring should handle the IS_ERR() and NULL cases
+separately, but conflating them here is not an improvement.  Thanks,
+
+Alex
