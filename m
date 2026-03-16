@@ -4,128 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06F38F013CA
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 08:26:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74985F013CA
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2026 08:30:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83A7A10E319;
-	Mon, 16 Mar 2026 08:26:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1E4110E35F;
+	Mon, 16 Mar 2026 08:30:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yzDgdouP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dJhV7Ems";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011015.outbound.protection.outlook.com [40.107.208.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33C4410E319
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2026 08:26:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tuZHlf46AppYULzpLRE2xpYNcMs33roReFfGOetFzaUXowP1HhDZ9o+/BcBg1PjwJA+o90zJGNRTVpH65eBXtphyOYCeWxRhACFlMDjCDOXN5ITb1sLQDRZTrbTDmxelhdIOQA6EqBaVJcQRf7YUbbBPIBsRHNDTL+8ra8kyFAbesquv6v10bj1DvRQ99T5J3T4PFTAS+ml5ksn6kEiWV3Z5X2GCCofy/yxHLG442cOVYpFrSXEwJoPnk4OASdq4C9PXVX0spAGPoO2jiaGU9QGq3cRsyRChlilE1YsYLMc8DNHJXNxs5Znxzd0mGmui/S4b1612ZlCSiOUnew9SJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=30pbxWklKHgUhg+Niq+xnS5K72MbJ7Q2fUR6i4tk46Y=;
- b=Y1snFKaaq+e8ssbM9k2G8xsV1IVvQm6Smxc5RfcoL9dVQSZCZyVHX+An4FKmirobHUP3HKfpUrlPwRe5Rz5COSNTz/pRLWcTbddR8GPL9CZhxqKin+YstsG+WOW9PN8ZLm7cV4x27M7Buv0DZgnmkJrCvX7SlQusj+ASO5/3OxekOYzpOPA1xciKdJ+7j/sebHoZsC28J0c44ZiHNksheiJmJogB5v6dnknC1Z9ja69kedcGPSEdwUSPKw1hDmdr5eURhia2LPQNUhy5QoQ1trUMpnzyPjIyXhhapJR7oB5EPegMic2gI557XhFw2UefPMJFFT10i2j10Y5v8Nhh/g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=30pbxWklKHgUhg+Niq+xnS5K72MbJ7Q2fUR6i4tk46Y=;
- b=yzDgdouPQ3HiZcLz5+A1OaDQ92/UcY1+MT9So1188T8Ln3VqRPdWed4w2x86LGFzrqqJhekKMucMyBIzn9pPVH8PEvkxh8tvyAvXsCP0h+GQ2inuf71VkoWdzS15aUjc5gfqxZa7aeeJnFjAIV+/yGtSygdEdz2Lh0gc1oQlm+w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB7459.namprd12.prod.outlook.com (2603:10b6:a03:48d::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Mon, 16 Mar
- 2026 08:26:49 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9723.013; Mon, 16 Mar 2026
- 08:26:49 +0000
-Message-ID: <397ee8b6-13ee-403d-b664-f86143f7c622@amd.com>
-Date: Mon, 16 Mar 2026 09:26:43 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Make emit_vm_flush() check explicit in
- amdgpu_vm_flush()
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- Dan Carpenter <dan.carpenter@linaro.org>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Lazar, Lijo" <Lijo.Lazar@amd.com>
-References: <20260315065528.1932950-1-srinivasan.shanmugam@amd.com>
- <bb50bb58-4101-4908-aec4-be7003321f79@amd.com>
- <IA0PR12MB8208E15658F04F7E3A6A345B9040A@IA0PR12MB8208.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <IA0PR12MB8208E15658F04F7E3A6A345B9040A@IA0PR12MB8208.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN0PR04CA0100.namprd04.prod.outlook.com
- (2603:10b6:408:ec::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0BD189870;
+ Mon, 16 Mar 2026 08:30:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773649837; x=1805185837;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=aRM3qd+6F6N7GpoYtfIBeQSbvfWgtoGFVl5Adw4VJro=;
+ b=dJhV7EmsUOuKhpDFCDlG4+TpNgiPAWZquRLSeNb5m1IWZXN7hYIBH8RG
+ fM8X5ocfMvqaRWn60iAShR77Ln9dBawou4i4y+yxVhNZeC5ScEbFzrPDo
+ c5u70seKh9fOcov0Vv/vj5o4uW+8kRHrbjg27aCJ3NIuxC0uEmaPZ+0SN
+ ETd7N+diyEQA0ACA8K9JpAXcMcCvM9K0AQH1DFkPLEz8e7VEqblvbN4ct
+ xQs8f34TvdBcWxfqBkHW2+mKDEHLDfgMlD0NSFgf4QSIV5KmYzqyfLBFR
+ eurslkqT8iy9L7jlqvWi+aCjWxm+Gbp0+fmWRrCVbWteux3kKHgz+mj2c g==;
+X-CSE-ConnectionGUID: CSQ7t79oRMSpIKcK5Jgt3A==
+X-CSE-MsgGUID: G0xS5iQxR7KtF2tdgh6xGA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11730"; a="77268176"
+X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="77268176"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 16 Mar 2026 01:30:36 -0700
+X-CSE-ConnectionGUID: PYw3hLuIRgCceOEhjDSOaw==
+X-CSE-MsgGUID: pL2WZByGRnaBzy52hfC9BQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,123,1770624000"; d="scan'208";a="220888952"
+Received: from kandpal-x299-ud4-pro.iind.intel.com ([10.190.239.10])
+ by orviesa006.jf.intel.com with ESMTP; 16 Mar 2026 01:30:28 -0700
+From: Suraj Kandpal <suraj.kandpal@intel.com>
+To: freedreno@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kernel-list@raspberrypi.com, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org
+Cc: ankit.k.nautiyal@intel.com, uma.shankar@intel.com,
+ dmitry.baryshkov@oss.qualcomm.com, arun.r.murthy@intel.com,
+ jani.nikula@intel.com, harry.wentland@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, liviu.dudau@arm.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, robin.clark@oss.qualcomm.com, abhinav.kumar@linux.dev,
+ tzimmermann@suse.de, sean@poorly.ru, marijn.suijten@somainline.org,
+ laurent.pinchart+renesas@ideasonboard.com, dave.stevenson@raspberrypi.com,
+ tomi.valkeinen+renesas@ideasonboard.com,
+ kieran.bingham+renesas@ideasonboard.com,
+ Suraj Kandpal <suraj.kandpal@intel.com>
+Subject: [PATCH v3 0/7] Refactor drm_writeback_connector structure
+Date: Mon, 16 Mar 2026 14:00:02 +0530
+Message-Id: <20260316083008.87466-1-suraj.kandpal@intel.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB7459:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba2037ee-4e03-4868-959e-08de8335c4d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|22082099003|56012099003|18002099003|7053199007;
-X-Microsoft-Antispam-Message-Info: HlKDqc+hpXqnv64jXCLjLDoVs8zthVyfBybKTB4O4HeWjRvahdaNdDXLNCpO30Yo8VteI80lXtwVz/c4IInI3ZbDbUATa9mPUUxB0+Zjkw585phYqaazKcSwYDSb2LPdcrYByq0vei1whmtErcOcx5kvO9yIJpp2AFw0AWrodjtnQn7LISsWNPe4VUIKOcLwMuonkhlve40DH7NfVDVSWjV0AVfWodyBkshlpk9nByz8x5RwIECPr9hb6ENNfwWYCSrrg3X1obwhqtH/LiJotk2oAPjhQCL6/rikv5QTPHTQdvojB0xlcTV4eVuAwKxZraeL9N7FQsecbOvy+o+L/TKat0O8lW2HcXBWz6Ws68JJ9LRbmSoova/eyEodU8LsF4uu5tCIo7FubczQa37BFnkAAQJ+eOichDHn7XL1vOIOGsf7phtBAN7cs5/1Q/w+rvKxXlUTtlIOwdR+5ObMPv3B5bBqY9CgyMFx6LfI2G8gyCutTKkqcdHDPIgpoKMaFcuxBBQHDADgzV2hm67ln+hEUlE1k1ocUdPnmNeaKpmmu6kEA5YVKrPR3vOasQALk66A0cJ7AaoRhLEZm87kDJIKp0gX4EJs+M6+TvPjcrLg7uN0vGIuxQ2vZnJPAHEnyRmKtOsGyQ/acyHLJnKEN36sfB7mOjjTSAHlYfASUqZL+au441u4YMsS3bzmUaJUC18YdnlLxcrg9jN2EZEVdsjw06oJaXQ22opi+VnHAwQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(22082099003)(56012099003)(18002099003)(7053199007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UVJuZmpiZjk4T0lVTU1BeUhSN2p2disvcllDRWpRS01EQjZ1TlZOT1hDUkpF?=
- =?utf-8?B?VU1sVUdpVk5DRUthalF3aFAycHN6cS9GTzR4cTFaQ3JuaW9JWnRaSjFmT3d5?=
- =?utf-8?B?UEhmV0pHQ2ZYTytwQ2dVYk5Cc3FmY1lTOUdYS0pVTmYrQ29NUXBObitMNy9r?=
- =?utf-8?B?dTZDMUh0cDNnbW0vNTI5V21IaWhTZllLb3FSYlRZYmVlOXlSeXVOdlFoODN3?=
- =?utf-8?B?UjBZNSszTTkxZTluWVRJTVhkNFVOa3ZvWVBJa1ArMWZURWF3c256RldKMWE2?=
- =?utf-8?B?ZEVlYTYrKzlHYlhsTldybUxBY1R0WUIzbDZyL1dYby9jSTFzTE9WZHBZT1pm?=
- =?utf-8?B?M29vQ0RkbTR2ZFdXSmphejBwQzhvUkMrL25rSnhMSmdzYlZOWUV2M0laVXlm?=
- =?utf-8?B?dlQ3VGUvRTZmK2x4NHpVWjFtY2FMenMvNDRRUnRqejB2VmpzMWI1ZDZoTnRo?=
- =?utf-8?B?bWIvbTQ4VHNkNGRnM0RnTDZsZDU0L2ljdXFSU0dacmhSaUFhL2NQQWRtRVRp?=
- =?utf-8?B?WWU4K3d6OVZkZ01lUjdmVVQycWR3aFNONnArRVlsRDBjajNEbmJNTnFCbWMw?=
- =?utf-8?B?S2NaM3huQm5IMGhCRmY5YTJXNjZpVTUwbVZpVXdDOTFWaGtYdzlmWEw1eUpT?=
- =?utf-8?B?Y2QrZ0kzN2p1LzNCbTZCQ3grdG5HV1pVRkIwRHBNdjg5bWM1VkxPdkV2UUdG?=
- =?utf-8?B?cGpHUnhmcENkK0pka0lwOUFzK0pEbTZTWlo2QmhtUWp1OEJjL1d5SzBvYS9u?=
- =?utf-8?B?Rm5aNnovRE1jcWhyTExpN2ZveHNjWlhUWlR0RlZWZnlGM0N2MEhYcVA3VXM4?=
- =?utf-8?B?S3liaG5oQmRoRVVRSncyTzhDRmJPdHNWNTI0SEhxMG5CYzliRG5iSDM0Tjk0?=
- =?utf-8?B?TGt4VU8wUUtBMjdoeDc0anRveXZvU1dGelBDQlkwMStkSVQ2b1lQeU1NUXNS?=
- =?utf-8?B?U0R0a2lscERvTFR5MkM4VDhXRmI3NENhSTd6UkZKN1pLRHVmUUsvM3IwNGFH?=
- =?utf-8?B?ZU5MVG9RbnZ2UjNKTUd1SnJZOUJrbGhHV3kvRTQ1M05rVDFJUUZlZUVnaWJP?=
- =?utf-8?B?cVBCQXhUb2VtN2FST002bjhUaWl3S2RLNGZLSm80Q2wvMSttNE9KbDltM1hV?=
- =?utf-8?B?K3JtK212aWw5ZlhFU05keUJCZkh6azlYZVJDMVVVV1NBOFFVR0NqNlNKYlJS?=
- =?utf-8?B?ZGc0WU5qSCttWkR0YzduL2JFOEpRZlJoaG96dzQ0VE1RbU9SUzB5Y2N4ODFu?=
- =?utf-8?B?UGJEcWl4R1pxMG9lZG1jcTdzYWlNQWlOMnB0Y1ZEa2hvalpBRnVrWnBmTHdI?=
- =?utf-8?B?TkZOTDhxNVFpSW9yWHQ2YkNWZXExYStxTzRRUENMclNzdHdxYXpjai9qWDk1?=
- =?utf-8?B?V212REZrVkN5WWJOZlpyMDU2YTVUUzBFMzhBTkl5QjkwRVRPdmdVaGVGUlpD?=
- =?utf-8?B?TFRyOTU5eERFK2Zsbm9IL0NHVy9aOU1IQ0syYkFYRlRobjcxRGx1WGFlamY0?=
- =?utf-8?B?eGdUWWc4enFrZ2Z6VXk2b3dyWkRpcmhkZnpRVlFoU1ROMzN3LzRZUXc3Tzg1?=
- =?utf-8?B?TTJyV1FoVVAxcHhMaHJvbHNBR1RzbE82QW90YjJ3ckM2dS9xMktEM1hCKzZl?=
- =?utf-8?B?Rkd6MFB0ZUpreDZsNDFkVFVGWllHNjVUbThoZTZyckR1SjA1b25qc0xaVUNo?=
- =?utf-8?B?bW1yejBtdU9hSFhMMzFLMytzTERmL1Vadi9GTWtPb3JZSzZEeXU3ZHpCdzI0?=
- =?utf-8?B?d3Qrdjd2ek1XZ1VKTEhCV21Rcy9VMlJSTmcrSXJXYTRXbFIvN2JNdWN0ZWdS?=
- =?utf-8?B?NXZTMkpUQ1BSSUc3SEtvei9iNjFMd3daOGN1WlBiN0JwY3lEcjFrYW0vak5L?=
- =?utf-8?B?ZXpLK2F0VVpEb3E2NjNyTUdhOHFYTjBwVkhZYm9iRkgzcWVhNUdPSWlpMlF3?=
- =?utf-8?B?YlB4aU5oRWFzUXR2TDJRUkdzNGFWN1JhZEd2NzY3K1NpR3kyY3pWVktZclBR?=
- =?utf-8?B?TE9WSUVUUGRBQllpL1ZmSzZNWVhHN1hFb1RHWkhBS1VIWEIyWDgvUE16eEV0?=
- =?utf-8?B?SXFVUGxoQzdmRHFWa0xTRVdLL3RET0NHREZvbGM3OVAxelR6THNHOGxDYS9h?=
- =?utf-8?B?M0JJNGlLa2R3QVZKRzJKM05TelBDeDRycHhyNEhkWlVFWHRoV2ZGOENmS2RF?=
- =?utf-8?B?aE90WVlrYmI4ZDJRTVVvNFMweXhlTzIxWThQQ2E3amRFc2o3Q2tzb0QreE1q?=
- =?utf-8?B?T2t1MTJ0cCtEU3hkVzd6VERHZXBsYi8ycGZiVFdTcmE5dVMzc3ZhdGowSUlB?=
- =?utf-8?Q?8tX30WNM/M0VG8YGXP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba2037ee-4e03-4868-959e-08de8335c4d2
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 08:26:49.3418 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P8VzVT6pU8WNch+WGMHmtfmL51NMb222GKwQ5VHyqpYkMSHYuPOSG2dzhpJ2c1gk
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7459
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,73 +76,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 3/16/26 08:04, SHANMUGAM, SRINIVASAN wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
-> 
->> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Monday, March 16, 2026 12:19 PM
->> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
->> Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org; Dan Carpenter <dan.carpenter@linaro.org>;
->> Kuehling, Felix <Felix.Kuehling@amd.com>
->> Subject: Re: [PATCH] drm/amdgpu: Make emit_vm_flush() check explicit in
->> amdgpu_vm_flush()
->>
->>
->>
->> On 15-Mar-26 12:25 PM, Srinivasan Shanmugam wrote:
->>> amdgpu_vm_flush() sends commands to the GPU to update the VM page
->>> tables for a job.
->>>
->>> When a job uses a GPU virtual address space, the GPU needs to refresh
->>> its address translations after the driver updates the page tables.
->>> A VM flush tells the GPU to forget old address translations and use
->>> the updated page table mappings.
->>>
->>> This flush command is not supported on all rings. Only rings that
->>> implement the emit_vm_flush() callback know how to emit the correct
->>> hardware command for this operation.
->>>
->>> The function already gates vm_flush_needed on the presence of
->>> ring->funcs->emit_vm_flush earlier in the logic. However, static
->>> analysis tools such as Smatch may not track this relationship through
->>> the vm_flush_needed boolean and warn that emit_vm_flush() could be
->>> NULL when the VM flush command is emitted later.
->>>
->>> Fixes the below:
->>> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:826 amdgpu_vm_flush() error: we
->>> previously assumed 'ring->funcs->emit_vm_flush' could be null (see
->>> line 788)
->>>
->>
->> I think the code logic is correct and the check is implicit in vm_flush_needed. We
->> don't need to write code to eliminate 'false warnings'. Moreover, it is inappropriate to
->> use a Fixes tag for this.
-> 
-> 
-> My initial thought was that the earlier gating of vm_flush_needed on
-> ring->funcs->emit_vm_flush would make the later call safe, but Smatch
-> still reports the following warning:
-> 
-> drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c:826 amdgpu_vm_flush()
-> error: we previously assumed 'ring->funcs->emit_vm_flush' could be null
+Some drivers cannot work with the current design where the connector
+is embedded within the drm_writeback_connector such as intel and
+some drivers that can get it working end up adding a lot of checks
+all around the code to check if it's a writeback conenctor or not.
+This is due to the inheritance limitation in C.
+This series intends to solve it by moving the drm_writeback_connector
+within the drm_connector and remove the drm_connector base which was in
+drm_writeback_connector. This is done in union with hdmi connector
+within drm_connector to save memory and since drm_connector cannot be
+both hdmi and writeback it serves is well.
+A RFC version was floated and discussion had taken place at [1] which
+kicked of this more cleaner series. 
+We do all other required modifications that come with these changes
+along with addition of new function which returns the drm_connector when
+drm_writeback_connector is present.
+This series also contains some writeback API cleanups as a consequence
+of writeback connector moving into drm_connector
+All drivers will be expected to allocate the drm_connector.
+This discussion was tiggered from [2] and sits on top of Dmitry's series
+see [3].
 
-Yeah that looks like smatch is either not analyzing the code correctly or we are missing something.
+[1] https://patchwork.freedesktop.org/series/152758/
+[2] https://patchwork.freedesktop.org/series/152106/
+[3] https://patchwork.freedesktop.org/series/152420/
 
-Regards,
-Christian.
+Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 
-> 
-> Dan, could you please confirm whether this is expected to be a false
-> positive from Smatch due to the vm_flush_needed boolean, or if there
-> is a recommended pattern to help Smatch track this relationship?
-> 
-> Best regards,
-> Srini
-> 
->>
->> Thanks,
->> Lijo
+Suraj Kandpal (7):
+  drm: writeback: Refactor drm_writeback_connector structure
+  drm: writeback: Modify writeback init helpers
+  drm: writeback: Modify drm_writeback_queue_job params
+  drm: writeback: Modify drm_writeback_signal_completion param
+  drm: writeback: Modify params for drm_writeback_get_out_fence
+  drm/connector: Modify prepare_writeback_job helper
+  drm/connector: Modify cleanup_writeback_job helper
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c  | 12 +--
+ .../gpu/drm/arm/display/komeda/komeda_crtc.c  |  2 +-
+ .../gpu/drm/arm/display/komeda/komeda_kms.h   |  6 +-
+ .../arm/display/komeda/komeda_wb_connector.c  | 11 +--
+ drivers/gpu/drm/arm/malidp_crtc.c             |  2 +-
+ drivers/gpu/drm/arm/malidp_drv.h              |  2 +-
+ drivers/gpu/drm/arm/malidp_mw.c               |  7 +-
+ drivers/gpu/drm/drm_atomic_uapi.c             |  4 +-
+ drivers/gpu/drm/drm_writeback.c               | 51 ++++++++-----
+ .../drm/msm/disp/dpu1/dpu_encoder_phys_wb.c   |  9 ++-
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.c | 10 +--
+ drivers/gpu/drm/msm/disp/dpu1/dpu_writeback.h |  4 +-
+ .../gpu/drm/renesas/rcar-du/rcar_du_crtc.h    |  4 +-
+ .../drm/renesas/rcar-du/rcar_du_writeback.c   | 12 ++-
+ drivers/gpu/drm/vc4/vc4_txp.c                 |  8 +-
+ drivers/gpu/drm/vkms/vkms_drv.h               |  2 +-
+ drivers/gpu/drm/vkms/vkms_writeback.c         | 15 ++--
+ include/drm/drm_connector.h                   | 69 ++++++++++++++++-
+ include/drm/drm_modeset_helper_vtables.h      |  4 +-
+ include/drm/drm_writeback.h                   | 76 ++-----------------
+ 22 files changed, 162 insertions(+), 160 deletions(-)
+
+-- 
+2.34.1
 
