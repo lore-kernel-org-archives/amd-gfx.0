@@ -4,73 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CF8AFF6E8C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E44610854D6
 	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 08:34:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D713010E75F;
-	Wed, 18 Mar 2026 08:34:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD0B610E76D;
+	Wed, 18 Mar 2026 08:34:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ieee.org header.i=@ieee.org header.b="Fhxge7Fs";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="sMd/ONVz";
 	dkim-atps=neutral
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9397010E4AA
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 14:48:54 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-8cd75abd09dso698185185a.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 07:48:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ieee.org; s=google; t=1773758933; x=1774363733; darn=lists.freedesktop.org; 
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
- :date:message-id:reply-to;
- bh=6QTFDPyJK9loFucZq2khlxngKi04ZppTVp9BJcNudiM=;
- b=Fhxge7FsiIDLJtXzpljB1i7quW7opbs08l/LP1SoSRyi4eN72DHyNWfx+oXdQ4Ev9Q
- 8tk8iRegsQmsjFkKRGu8ZyqXq3Hb3Or+HrRd/NChCbCR/OIAuwTte5/Ckd3izXXCLdS4
- QdI4ZKgHzvI6kbZSDzlqITvlBg6e1uIxWRfAw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773758933; x=1774363733;
- h=mime-version:user-agent:content-transfer-encoding:references
- :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=6QTFDPyJK9loFucZq2khlxngKi04ZppTVp9BJcNudiM=;
- b=lIXCKY4T03URY4OixDRy6Vn5b1WAlPdzmbQKeGdII237HduXSoy7jdCAiHPHNpiEXX
- aqaswpPhrIlxvneDwAxxC85hhA9mkdkW4gTAR2ncXALO9k6aTP5Up59s2i+aHJIAL1/M
- 3KJNvnpvcj6Cah/LgMZ6RNWoK5TE6Km/b2wQO9VoFgFZwuyzsf2vGjm2LASmhjf7DNqq
- eB3rmbfmTTD1LP7TkKk4QbGiqQnf/lVytQfps8/ktkiJ7iwXlmZzsHmSYuc1PYDA+C0R
- 2+1dPnYqQ8rtWq+igfWecswflLE6iSqqcd5G0HArxUJEIdY61hxboZMYtM5uj61yNOP/
- RrsA==
-X-Gm-Message-State: AOJu0YzJaNZ0FNpolUX4FEicLHLUtMJ7Ve+ve9qFW/9jcvPxzZeKiIS9
- TiYzowbIPY5el6s/gd6orMewcC8EmxIIu/px1jQ9L6257Qhgw+ap1cEuySxErvM8AA==
-X-Gm-Gg: ATEYQzyA6EC/UZ97k89c76OaKvA3E3Vw3zFskIvJcK6xmu23piTRdZs6WM0BvKfs+vU
- bYAcN+Esil3yaG+dMhUAltdjz9gfSBWIxR2h257BjoN7sf3qRSrmDYjjWCGINcIA5SniJoTTOGY
- aVazIXe1NWRsYHrOlNsIilk+aOfvJ90LVuort3XzKIrstGM8M3PTFGJYSuQYhMyIw/QhSzN2LMm
- m/iMsRjnyVbppo2gGu7lZILluYo6coIDpcjGq5rmA885HKK72IH7cDIa/I+FoUtHaWCxOFthOUE
- aLeeOXgIrpziZi+hxrRtb4EZNomolfoGfiEtghnUcKjniGROyq2IKozAyTxlHXrPWk5wB5T/PY5
- WUw90yLsfmxjpX0IaZdJILTuz3CSnSomRGZC57BGWw01As6qtJZhFsOmoVuIsr8xLHCaUTsKzRk
- abvzLGvkoZPvkjk+VrMyNpA74=
-X-Received: by 2002:a05:622a:1a87:b0:509:4091:affe with SMTP id
- d75a77b69052e-50957e28510mr241846851cf.69.1773758932727; 
- Tue, 17 Mar 2026 07:48:52 -0700 (PDT)
-Received: from [192.168.153.215] ([73.29.38.247])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50b1348a168sm182431cf.5.2026.03.17.07.48.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Mar 2026 07:48:52 -0700 (PDT)
-Message-ID: <c1d7dd3c64791c3c1ba4e295eebb98fe6ad7a848.camel@ieee.org>
-Subject: Re: [Bug report] RADV GFX1200 (Navi 44 / RX 9060 XT): NULL page
- fault at 0x0 on gfxhub during Vulkan rendering
-From: Cristian Cocos <cristi@ieee.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org
-Date: Tue, 17 Mar 2026 10:48:32 -0400
-In-Reply-To: <CADnq5_Nha0KqzAuoJayXtiFjsXq8DqbbPyWfoFinc=vPaAf9gg@mail.gmail.com>
-References: <dfce5e070c5857aaebd8e7136011b90e7d888eb1.camel@ieee.org>
- <CADnq5_Nha0KqzAuoJayXtiFjsXq8DqbbPyWfoFinc=vPaAf9gg@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (by Flathub.org) 
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013029.outbound.protection.outlook.com
+ [40.93.201.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9323E10E1C6;
+ Tue, 17 Mar 2026 22:04:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HdXl3bDRZcV8mRrXg2SpLAZni/Cr9z/izWVvhOI7g5tBeVCWPK9BD8ATeO9eAaxTX8IVY66VW5foNu4kB4+VM2mPCBbCMfCgKaIvWTpxleoJPw1WpzWnaluth8NralXzEK+9XZ1k+74Fj4024OTFaaNEuo9ce//cf1ajBBEd9DJHCL+dC2IQ6etmlOvoVOxEPmDKvGTG9kzC1nmeME8lbytu5vFBQKWqhJuuu46p5avGef5DDcaIDOni293vkMe9JIspIxro4rLvOZvOcfkk+o6xxEGPGpWzPA7XWGjS6Ro2wRe7ohKng2MORF5lNJ2SiSKWWODujoyx0IeZUR2GYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RWJ3bnDLN8jIluX4UAOSpnG0ssV2foinopiIbZOvdY0=;
+ b=hCZLkGdwX6rCA0WvU4CUgbK/wFv7ykPkmpSyePnLN3Ji2vQgwpbTjFnXFDL8AyAF/epO0YICseNi5rZa1TasYNlwmya0q34JgW5K3l2eSE5j4asQtZEz7Mf8rjt9YRv3jGWiLCF5WC8NZYZSmujuL5OV5p7YPoSKoIXNTtnqJpwWKYkBSWuKJw137vnmH0aWJkljF4CPc/ziFAqlCbixhYAU1h13GMeYIE6Chlyw85688oRDJBFFs1YERTOT3ghODeJ4rAz90uXf0M4ZlPIodJtLjg+W5bum245bSmxeZNLkz971MOxX6dFrhyRVuLbh0fmqFj0pNkQzEGxEUHBEQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RWJ3bnDLN8jIluX4UAOSpnG0ssV2foinopiIbZOvdY0=;
+ b=sMd/ONVzjo+i0LXLQD5bkVqIphOQpWykVPXeRydwbarmRqVhy7lLZ5dLp6fjuQsjpAacyTsv/0oZw0VWSos4rp9tdKv8XkO8LxtLjmDZoRL6x/5x2OAAnndSMZdiErI9lqNdiwYgqIcptMDkSzgYaeVIx571aoheoc1mRIO2zshLbI1D0Cmgz4sVSp/gveCIitE2Gn96hyOvy7sK8QPxKxBDwrS0/Qk5mqv1/T1pp5Ry6xdcVftvJFr6NQ2xHjTbuDG5QNcCi5/fwHgEDHOlavnEvetPs0zHyN4NzvmBU/nyv6nSWefUDik4pmT/h1QkUnKpm9dyUXpx5v9WNsmOow==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ DM4PR12MB9735.namprd12.prod.outlook.com (2603:10b6:8:225::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.16; Tue, 17 Mar 2026 22:04:01 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9723.014; Tue, 17 Mar 2026
+ 22:04:01 +0000
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: linux-kernel@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, Nikola Djukic <ndjukic@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Andrea Righi <arighi@nvidia.com>, Andy Ritger <aritger@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, Balbir Singh <balbirs@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
+ linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, Joel Fernandes <joelagnelf@nvidia.com>
+Subject: [PATCH v13 0/2] Rust GPU buddy allocator bindings
+Date: Tue, 17 Mar 2026 18:03:21 -0400
+Message-Id: <20260317220323.1909618-1-joelagnelf@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260308180407.3988286-1-joelagnelf@nvidia.com>
+References: <20260308180407.3988286-1-joelagnelf@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MN2PR04CA0034.namprd04.prod.outlook.com
+ (2603:10b6:208:d4::47) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|DM4PR12MB9735:EE_
+X-MS-Office365-Filtering-Correlation-Id: 691fc461-9612-4eb9-460c-08de84711842
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: T03g+rKVAzO6Kr7R7ZtPKMuYvzNMqMU0aG5QJxOOGkT0+3J/1Rp2O3xLUWh+q/brVM5O3X6KrEQfVnDZTN0whWUnTnT8uFMpktdzqRSzye6j/bmF3ENQHVGoePp+iKhf+VWeVcxHBGeUTjsFiNoeRTlSZXKNRhmN9MpCI2nF5ATvwl3axEyj9jjKGgHJtCtqH14+f0lxA9TBll4WV3HE2YxZVDsRQPllnsCNiMys1d4AarlWyhfBahsUeA2z+18i5kpwG9F1SA4eJoeu3GP5F/E9eyY9KNWayepD5v8ynQCx93N7x/02rT+msy1aJjXPef4YS/B4mXEvtASKdrHd/xBoTx+GpsPzzROD5kxosGE3mnv5PK6J/SM1gWNJlSF3u9HlqmBCATWHc6EAeCoVIsyqy57+ss4z9R0nmAC07rNzeD2as9RkQsfBRnurr/vXrL66LC5tdPOHWifLQyJyNOcu2/BgBSCGx5Tx0krAg00MLs0k38idyt+c5bp+3xnpV3RikvDQMWpX6AgUJfiSVkMX9GI6TzKvoNgzt+iW5c9IZ1+JrD2gITRYXu3T8uZiVmFXlKVfkXE1gPZybJbltG7CowHo3hqY5W7yGUR6N4y/rMboGTjilg+pYOLOQeoL+bvxgOeDQTkXPBeRB8lHQyVMJWUhDmck+NyH7mL+lNYsBaOWXwzvTJMnAqWtV5iotbpQi5KjWf2fMdv2Xcymcl/G4rBIsYNl+/NfeoczR0k=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(56012099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?IftdwGE8A0opFVnc56Dh0pE33w1LjCwiV4sF9TtBMiT3upgF4SVIk66xzjuh?=
+ =?us-ascii?Q?bhV3fZ1q5bBS92goRrGOvmsFi24ebe9PTydiVul/fqEIP/U22ueP8aW6Oqfm?=
+ =?us-ascii?Q?LdGEJnQA6FEssa6Dvc92lJHxD+UHpm9HS7OFvLV0wC6XYS5QfB7WgiEg505w?=
+ =?us-ascii?Q?XwDzLs9HYL0WYNsvWzg/VN2XnpKTun0iNxkLzrrwHho3PIMttwtTivI025nd?=
+ =?us-ascii?Q?ACs5rhwtt91YPtcDG1TDP7gnN+chc1atKCBms3qXGbTMF+9JxjrJa84SjDAb?=
+ =?us-ascii?Q?lCjGCXJJLcN7vpVp1N524pib1JYQ1hcjh8E3vajvvDffDkelhzLzvTLsjiyD?=
+ =?us-ascii?Q?/eeJnHlpr5mDMM75UFsniiHqmUulHOCoySFRwAm3VcyOm6+Ud3OTJCs/tVW9?=
+ =?us-ascii?Q?8aKwfbPZuQzGek4x0pj0p/TCNZxxU0cC7T2n+rCVlB/+nLWRIWQH0F/Jkadf?=
+ =?us-ascii?Q?R5kG9DUJIWUzNO4MlNVQeYCopsiA3O5y3iXM0x9GUlJYOmVzo074QdrZEcOK?=
+ =?us-ascii?Q?I8uTPFLn4nPmfI1Tn5VHjoj0KZ90qfXVdEBbbHM+4yO7GG6QlO/QV4SuSr4O?=
+ =?us-ascii?Q?FD7nNYAU9JB5SyNvdbxOirFv1dZlxE7hODJ47rc1ifV/e0FRpVeUTKlSnvH4?=
+ =?us-ascii?Q?oMPsl+PI0bzlzdlAj2xP8QsOWH9MwrsbbpQTdq8FWOFwHnA+Ajil31U+iXgI?=
+ =?us-ascii?Q?Wc8qnhh8M3Ol/6Yn2ijXT7+Q74iVnB5TZSRzUhaGGfBVP1t9Ncc8soveu4O3?=
+ =?us-ascii?Q?NAsOvJlVmpNlmf6E9Xk6BBs0lboQaFE8GN6D14DrcYsxuLrYPfgMT89xofe9?=
+ =?us-ascii?Q?f2boBD0hG1z6atRgsqI+WmUMSNqBxM+WOVrXJzU80BXzoyb8+BjLO/7uSCX7?=
+ =?us-ascii?Q?xuPqdDOJeiiaz+/FHnGV1drdW1Cn2O4HOcum1mI28mNxla4ln5xqk4iwsISI?=
+ =?us-ascii?Q?1ltKQmFZx0czE1/KmASfz7s8SiQRWgpfblZWJUiznOoETdp+kiPNN/lWB6Xk?=
+ =?us-ascii?Q?cELTexlPJYpDSRAgvWoY3GIGmtnBRHfVb3/2TBk3lHMn+FpxqNlEBf4leNb7?=
+ =?us-ascii?Q?R40yUPKevW+4jaUw+f/DeLkFdjtqpXjo8N7kCA9l0T0k20WMwONvPOBLzTyg?=
+ =?us-ascii?Q?ys/0DscpbkSAjknl85oaHKKhA//pfcziBxhb4dpZH/SPVzy6zm5ceRSY0JLi?=
+ =?us-ascii?Q?NmhtQCJDhTSYNZ0XmwN+v939JJetx9SVj/VWydKymbu8SlETJsZ8nmMrElNZ?=
+ =?us-ascii?Q?vrkmN0yxKd45pC9P2lJM1xbzCSWIN3/+VH9jd5Cdi1ZnjmHNHG9YGUE8107m?=
+ =?us-ascii?Q?wNPuOze/j+XNyKXeUDUj4jW/dmODl8dBTxR8geQgy3ZEM11OBuoBa4vYCs8j?=
+ =?us-ascii?Q?7fK3GkLIntJBS7Y4IY9l3IT1mAWuVJBqiRpClowAeOJmDyk39D8c+2ah9J9q?=
+ =?us-ascii?Q?5Vnur+2TF94i5+DIMrMUdePtEZBV66Pu+ldbH6181ddk8N2Phe3ZOCbP9GFI?=
+ =?us-ascii?Q?C4sp/zgPF1OWhO78fk5/L8pnu0CqFzWaREOkjhUpi7VaYUlvxMZ6NeJV2F8C?=
+ =?us-ascii?Q?8u2ycT76EKkiNM9oOfbxpDUBvsI31jMJvV9qGaC75kYpfzWkE5XZjjfndLkA?=
+ =?us-ascii?Q?VGQhpAjNx3ZzRC5EjP9DhswQHrQbhqQOv/4sa905GhvsRH3a5JatX4JPKSiC?=
+ =?us-ascii?Q?DeXKpYCKQrAwUq1xkfl/feJg0Y2hzZsrSyVuXxQvI/xcPr7be+vBSvaWSf/k?=
+ =?us-ascii?Q?Zhf/XzFXtA=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 691fc461-9612-4eb9-460c-08de84711842
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 22:04:00.8590 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Oc2pQYYq5q7SHhFUTImKUiKxtZG1n0j8/YAEL1AVuWAbpCmxKiCgT7waMv8fwkzsNm4mp97qXY8K+nxucyhQLg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9735
 X-Mailman-Approved-At: Wed, 18 Mar 2026 08:34:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,229 +160,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Mesa ticket:=C2=A0https://gitlab.freedesktop.org/mesa/mesa/-
-/issues/15037#note_3376627
+This patch adds safe Rust abstractions over the Linux kernel's GPU buddy
+allocator for physical memory management. The prerequisite infrastructure
+patches (DRM buddy code movement and the uninitialized buddy fix) have been
+absorbed into upstream -next, so this is now a standalone patch.
 
-On Tue, 2026-03-17 at 09:00 -0400, Alex Deucher wrote:
-> On Tue, Mar 17, 2026 at 4:24=E2=80=AFAM Cristian Cocos <cristi@ieee.org>
-> wrote:
-> >=20
-> > ## Summary
-> >=20
-> > RADV crashes with a `[gfxhub] Page fault at address:
-> > 0x0000000000000000` when performing Vulkan rendering on an AMD RX
-> > 9060 XT (Navi 44, GFX1200). The crash occurs ~20-30 seconds into
-> > video playback in mpv using `vo=3Dgpu-next` with `gpu-api=3Dvulkan`
-> > (libplacebo). Multiple GPU rings (sdma0, gfx_0.0.0, comp_1.x.x)
-> > time out simultaneously. The kernel driver recovers the rings, but
-> > the Vulkan context is lost.
-> >=20
-> > **Critically, the crash also occurs when video decode is offloaded
-> > to VA-API on a separate Intel iGPU** =E2=80=94 only the Vulkan renderin=
-g
-> > path (libplacebo =E2=86=92 RADV =E2=86=92 `vkQueueSubmit2`) is involved=
-. This rules
-> > out VK_KHR_video_decode_queue as the cause.
-> >=20
->=20
-> Please file a mesa ticket:
-> https://gitlab.freedesktop.org/mesa/mesa/-/issues
-> And include your full dmesg output from boot to when the issue
-> happens.
->=20
-> Alex
->=20
-> > ## System Information
-> >=20
-> > > Component | Version |
-> > > -----------|---------|
-> > > GPU | AMD Radeon RX 9060 XT =E2=80=94 Navi 44, RDNA 4, GFX1200
-> > > [1002:7590] (rev c0) |
-> > > Mesa | 26.0.2-1 (also reproduced on 26.0.1) |
-> > > vulkan-radeon | 26.0.2-1 |
-> > > libplacebo | v7.360.0 |
-> > > Kernel | 6.19.8-zen1-1-zen |
-> > > Firmware | linux-firmware-amdgpu 20260309-1 (SMC firmware
-> > > 102.70.0) |
-> > > CPU | 13th Gen Intel Core i7-1360P |
-> > > Distro | blendOS (Arch-based, rolling) |
-> > > mpv | v0.41.0, FFmpeg n8.0.1 |
-> > > Connection | eGPU via Thunderbolt 4 (Razer Core X V2), PCIe 32
-> > > GT/s x16 link |
-> >=20
-> > ### Module parameters
-> >=20
-> > ```
-> > options amdgpu runpm=3D0 rebar=3D0 ppfeaturemask=3D0xFFFF7FFF
-> > ```
-> >=20
-> > - `runpm=3D0` =E2=80=94 runtime PM disabled (TB eGPU SMU limitation)
-> > - `rebar=3D0` =E2=80=94 BIOS assigns full 16 GB BAR, driver does not re=
-size
-> > - `ppfeaturemask=3D0xFFFF7FFF` =E2=80=94 GFXOFF disabled (bit 15) due t=
-o SMU
-> > IF version mismatch (driver 0x2E vs firmware 0x33)
-> >=20
-> > **Note:** The SMU interface version mismatch (`smu_v14_0: SMU
-> > driver if version not matched`) is a separate known issue. GFXOFF
-> > is disabled to prevent a bus-loss crash, but the rendering crash
-> > described here is unrelated =E2=80=94 it occurs during active rendering=
-,
-> > not during idle.
-> >=20
-> > ## Steps to Reproduce
-> >=20
-> > 1. Install an AMD RX 9060 XT (Navi 44)
-> > 2. Configure mpv with Vulkan rendering:
-> > ```
-> > vo=3Dgpu-next
-> > gpu-api=3Dvulkan
-> > gpu-context=3Dwaylandvk
-> > vulkan-device=3D'AMD Radeon RX 9060 XT (RADV GFX1200)'
-> > vulkan-async-compute=3Dyes
-> > vulkan-async-transfer=3Dyes
-> > ```
-> > 3. Play any video file: `mpv /path/to/video.mkv`
-> > 4. Wait ~20-30 seconds
-> >=20
-> > ### Test 1: Vulkan decode + Vulkan rendering (`hwdec=3Dvulkan`)
-> >=20
-> > Crashes after ~26 seconds.
-> >=20
-> > ### Test 2: VA-API decode (Intel iGPU) + Vulkan rendering
-> > (`hwdec=3Dvaapi`)
-> >=20
-> > **Also crashes after ~26 seconds.** VA-API decode runs on the Intel
-> > iGPU (`iHD_drv_video.so`), only Vulkan rendering runs on the AMD
-> > GPU via RADV. This isolates the bug to the RADV rendering path.
-> >=20
-> > ## RADV Error Output
-> >=20
-> > ```
-> > radv/amdgpu: The CS has been cancelled because the context is lost.
-> > This context is guilty of a hard recovery.
-> >=20
-> > [vo/gpu-next/libplacebo] vkQueueSubmit2: VK_ERROR_DEVICE_LOST
-> > (../src/vulkan/command.c:514)
-> > [vo/gpu-next/libplacebo] Retrieving query pool results:
-> > VK_ERROR_DEVICE_LOST (../src/vulkan/gpu.c:105)
-> > [vo/gpu-next/libplacebo] Failed holding swapchain image for
-> > presentation
-> > [vo/gpu-next] Failed presenting frame!
-> > [ffmpeg] vk: Unable to submit command buffer: VK_ERROR_DEVICE_LOST
-> > [ffmpeg/video] h264: hardware accelerator failed to decode picture
-> > ```
-> >=20
-> > ## Kernel Log (Crash 1 =E2=80=94 hwdec=3Dvulkan, Mesa 26.0.2)
-> >=20
-> > ```
-> > amdgpu 0000:06:00.0: amdgpu: Dumping IP State
-> > amdgpu 0000:06:00.0: amdgpu: [drm] AMDGPU device coredump file has
-> > been created
-> > amdgpu 0000:06:00.0: amdgpu: ring sdma0 timeout, signaled
-> > seq=3D11425, emitted seq=3D11427
-> > amdgpu 0000:06:00.0: amdgpu: Starting sdma0 ring reset
-> > amdgpu 0000:06:00.0: amdgpu: Ring sdma0 reset succeeded
-> > amdgpu 0000:06:00.0: [drm] device wedged, but recovered through
-> > reset
-> > amdgpu 0000:06:00.0: amdgpu: ring gfx_0.0.0 timeout, signaled
-> > seq=3D16289, emitted seq=3D16291
-> > amdgpu 0000:06:00.0: amdgpu: Process mpv pid 44985 thread vo pid
-> > 45004
-> > amdgpu 0000:06:00.0: amdgpu: Ring gfx_0.0.0 reset succeeded
-> > amdgpu 0000:06:00.0: [drm] device wedged, but recovered through
-> > reset
-> > amdgpu 0000:06:00.0: amdgpu: ring comp_1.1.0 timeout, signaled
-> > seq=3D13, emitted seq=3D14
-> > amdgpu 0000:06:00.0: amdgpu: Process mpv pid 44985 thread vo pid
-> > 45004
-> > amdgpu 0000:06:00.0: amdgpu: Ring comp_1.1.0 reset succeeded
-> > amdgpu 0000:06:00.0: [drm] device wedged, but recovered through
-> > reset
-> > amdgpu 0000:06:00.0: amdgpu: Fence fallback timer expired on ring
-> > sdma1
-> > amdgpu 0000:06:00.0: [drm] *ERROR* [CRTC:416:crtc-0] flip_done
-> > timed out
-> > ```
-> >=20
-> > ## Kernel Log (Crash 2 =E2=80=94 hwdec=3Dvaapi, Mesa 26.0.2)
-> >=20
-> > ```
-> > amdgpu 0000:06:00.0: amdgpu: ring sdma0 timeout, signaled
-> > seq=3D13615, emitted seq=3D13617
-> > amdgpu 0000:06:00.0: amdgpu: Ring sdma0 reset succeeded
-> > amdgpu 0000:06:00.0: [drm] device wedged, but recovered through
-> > reset
-> > amdgpu 0000:06:00.0: amdgpu: ring gfx_0.0.0 timeout, signaled
-> > seq=3D30731, emitted seq=3D30733
-> > amdgpu 0000:06:00.0: amdgpu: Process mpv pid 66481 thread vo pid
-> > 66500
-> > amdgpu 0000:06:00.0: amdgpu: Ring gfx_0.0.0 reset succeeded
-> > amdgpu 0000:06:00.0: [drm] device wedged, but recovered through
-> > reset
-> > amdgpu 0000:06:00.0: amdgpu: ring comp_1.1.1 timeout, signaled
-> > seq=3D312, emitted seq=3D313
-> > ```
-> >=20
-> > ## GPU Device Coredump (Crash 1)
-> >=20
-> > ```
-> > **** AMDGPU Device Coredump ****
-> > version: 1
-> > kernel: 6.19.8-zen1-1-zen
-> > module: amdgpu
-> > time: 3054.167340782
-> >=20
-> > SOC Device id: 30096
-> > SOC Family: 152
-> > SOC External Revision id: 65
-> >=20
-> > HWIP: GC[1][0]: v12.0.0.0.0
-> > HWIP: SDMA0[3][0]: v7.0.0.0.0
-> > HWIP: MMHUB[12][0]: v4.1.0.0.0
-> >=20
-> > Ring timed out details
-> > IP Type: 2 Ring Name: sdma0
-> >=20
-> > [gfxhub] Page fault observed
-> > Faulty page starting at address: 0x0000000000000000
-> > Protection fault status register: 0x0
-> > ```
-> >=20
-> > **Full coredump available on request** (543 KB).
-> >=20
-> > ## Analysis
-> >=20
-> > - The crash is a **NULL pointer dereference at GPU virtual address
-> > 0x0** =E2=80=94 RADV is submitting commands that reference unmapped mem=
-ory.
-> > - The `Protection fault status register: 0x0` suggests the fault
-> > info itself is zeroed, which may indicate the fault occurred very
-> > early in command processing or in an SDMA copy from a NULL source.
-> > - The fault hits sdma0 first, then cascades to gfx_0.0.0 and a
-> > compute ring =E2=80=94 consistent with a resource upload (SDMA) referen=
-cing
-> > a NULL buffer, followed by the GFX/compute rings trying to use the
-> > result.
-> > - After ring resets, the GPU fully recovers (all fences drain, PCIe
-> > link stays up at 32 GT/s x16), confirming this is a userspace
-> > (RADV) command stream issue, not a hardware or kernel driver bug.
-> > - The `flip_done timed out` on CRTC-0 is a secondary effect =E2=80=94 t=
-he
-> > compositor's page flip can't complete while rings are being reset,
-> > which restarts the GNOME session.
-> >=20
-> > ## Additional Notes
-> >=20
-> > - The GPU is connected via Thunderbolt 4 (eGPU enclosure), but the
-> > PCIe link stays healthy through the crash =E2=80=94 this is not a link/=
-BAR
-> > issue.
-> > - This was also reproduced on Mesa 26.0.1 with kernel 6.19.6 and
-> > firmware 20260221 (SMC 102.69.0) =E2=80=94 same crash signature.
-> > - Desktop compositing (GNOME Shell / Mutter on Wayland) works fine
-> > on this GPU =E2=80=94 only mpv's libplacebo rendering pipeline triggers=
- the
-> > crash.
-> > - `vulkan-async-compute=3Dyes` was enabled. Not yet tested with async
-> > compute disabled, though the fault is on sdma0, not a compute ring.
+The series along with all dependencies, including clist and nova-core mm
+patches, are available at:
+git://git.kernel.org/pub/scm/linux/kernel/git/jfern/linux.git (tag: buddy-bindings-v13-20260317)
+
+Change log:
+
+Changes from v12 to v13:
+- Split MAINTAINERS reviewer update into a separate patch (Danilo).
+- Adjustments to use the Alignment type chunk size parameters (Alex).
+- Fixed doctest assertion due to blocks landing on top of range.
+- Changed chunk_size local vars to Alignment.
+- Changed block size to u64 from usize.
+- Renamed rust/kernel/gpu/mod.rs to rust/kernel/gpu.rs.
+- Several other adjustments (Alex).
+
+Changes from v11 to v12:
+- Rebased on linux-next his is now a standalone single patch as dependencies
+  are absorbed (but not clist is a prequisite)
+- Redesigned allocation API (Alexandre Courbot) for better Rust ergonomics.
+- Split single long example into 4 self-contained examples (Alexandre Courbot).
+- Several safety and invariant comment changes (Danilo).
+- MAINTAINERS changes (Arun, Mathew, Danilo, Dave).
+- Fixed `#[cfg(CONFIG_GPU_BUDDY)]` to `#[cfg(CONFIG_GPU_BUDDY = "y")]` (Danilo Krummrich).
+- Updated `ffi::clist::CListHead` to `interop::list::CListHead`.
+
+Changes from v10 to v11:
+- Dropped "rust: ffi: Convert pub use to pub mod and create ffi module" patch;
+  the ffi module restructuring will go through a different path.
+- Dropped "rust: clist: Add support to interface with C linked lists" patch;
+  the clist module will be submitted separately.
+- Dropped "nova-core: Kconfig: Sort select statements alphabetically" cosmetic
+  patch.
+- Patches 1-3 (DRM buddy movement and fix) are included as reference only;
+  they are already being pulled into upstream via drm-misc-next.
+- Removed clist patches as those can go in independently (Alice).
+- Moved the Kconfig GPU_BUDDY selection patch to nova-core mm series to enable
+  it when it is actually used.
+- Various nits to comments, etc.
+
+Changes from v9 to v10:
+- Absorbed the DRM buddy code movement patches into this series as patches 1-2.
+  Dave Airlie reworked these into two parts for better git history.
+- Added "gpu: Fix uninitialized buddy for built-in drivers" fix by Koen Koning,
+  using subsys_initcall instead of module_init to fix NULL pointer dereference
+  when built-in drivers use the buddy allocator before initialization.
+- Added "rust: ffi: Convert pub use to pub mod and create ffi module" to prepare
+  the ffi module for hosting clist as a sub-module.
+- Moved clist from rust/kernel/clist.rs to rust/kernel/ffi/.
+- Added "nova-core: Kconfig: Sort select statements alphabetically" (Danilo).
+
+Changes from v8 to v9:
+- Updated nova-core Kconfig patch: addressed sorting of Kconfig options.
+- Added Daniel Almeida's Reviewed-by tag to clist patch.
+- Minor refinements to GPU buddy bindings.
+
+Changes from v7 to v8:
+- Added nova-core Kconfig patch to select GPU_BUDDY for VRAM allocation.
+- Various changes suggested by Danilo Krummrich, Gary Guo, and Daniel Almeida.
+- Added Acked-by: Gary Guo for clist patch.
+
+Changes from v6 to v7:
+- Major restructuring: split the large 26-patch v6 RFC series. v7 only contains
+  the Rust infrastructure patches (clist + GPU buddy bindings), extracted from
+  the full nova-core MM series. The nova-core MM patches follow separately.
+- Rebased on linux-next.
+
+Changes from v5 to v6:
+- Rebased on drm-rust-kernel/drm-rust-next.
+- Expanded from 6 to 26 patches with full nova-core MM infrastructure including
+  page table walker, VMM, BAR1 user interface, TLB flush, and GpuMm manager.
+
+Changes from v4 to v5:
+- Added PRAMIN aperture support with documentation and self-tests.
+- Improved buddy allocator bindings (fewer lines of code).
+- Based on drm-rust-next instead of linux-next.
+
+Changes from v3 to v4:
+- Combined the clist and DRM buddy series into a single coherent series.
+- Added DRM buddy allocator movement from drivers/gpu/drm/ up to drivers/gpu/,
+  renaming API from drm_buddy to gpu_buddy.
+- Added Rust bindings for the GPU buddy allocator.
+
+Changes from v2 to v3:
+- Squashed 3 clist patches into one due to inter-dependencies.
+- Changed Clist to Clist<'a, T> using const generic offset (Alex Courbot).
+- Simplified C helpers to only list_add_tail (Alex Courbot, John Hubbard).
+- Added init_list_head() Rust function (Alex Courbot).
+- Added FusedIterator, PartialEq/Eq impls.
+- Added MAINTAINERS entry (Miguel Ojeda).
+
+Changes from v1 (RFC) to v2:
+- Dropped DRM buddy allocator patches; series focuses solely on clist module.
+- Dropped sample modules, replaced with doctests.
+- Added proper lifetime management similar to scatterlist.
+- Split clist into 3 separate patches.
+
+Link to v12: https://lore.kernel.org/all/20260308180407.3988286-1-joelagnelf@nvidia.com/
+Link to v11: https://lore.kernel.org/all/20260224224005.3232841-1-joelagnelf@nvidia.com/
+
+Joel Fernandes (2):
+  rust: gpu: Add GPU buddy allocator bindings
+  MAINTAINERS: gpu: buddy: Update reviewer
+
+ MAINTAINERS                     |   8 +-
+ rust/bindings/bindings_helper.h |  11 +
+ rust/helpers/gpu.c              |  23 ++
+ rust/helpers/helpers.c          |   1 +
+ rust/kernel/gpu.rs              |   6 +
+ rust/kernel/gpu/buddy.rs        | 623 ++++++++++++++++++++++++++++++++
+ rust/kernel/lib.rs              |   2 +
+ 7 files changed, 673 insertions(+), 1 deletion(-)
+ create mode 100644 rust/helpers/gpu.c
+ create mode 100644 rust/kernel/gpu.rs
+ create mode 100644 rust/kernel/gpu/buddy.rs
+
+-- 
+2.34.1
+
