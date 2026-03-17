@@ -4,87 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0048FD875E
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 12:55:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E315FD8765
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 13:00:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51B9A10E2CF;
-	Tue, 17 Mar 2026 12:55:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B4DB10E010;
+	Tue, 17 Mar 2026 13:00:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KsdqE9YW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XHA0gJ+D";
 	dkim-atps=neutral
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0280E10E47E
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 10:03:28 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-667800aaa32so11514a12.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 03:03:27 -0700 (PDT)
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E11A10E010
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 13:00:15 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-128bae6a35aso235061c88.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 06:00:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773752414; cv=none;
+ d=google.com; s=arc-20240605;
+ b=R3xqNFlid6w+l4hVXAqLYh0iTS34rZjBaVIrr90Vy4IjixCVwJrcrWqp3VnjtL9LAH
+ Rr71MknPArbl3vK9Ha8N7fJDy/nf1S02qLgkPXQSwRP3acZlo9V5pHE5T8aZm5vyMI3x
+ /g9uvcWuVQGkBAw10RZH6dsnEvRr2axsqroXWIMu6UUklzq2m0oemcl1A9b8CjuD44Jm
+ 7/ukX1qV+eKhpNfgTnL5rSIjxWPXPd16KtamW9p0Cqp8yAZfZwx+gtq8O0Hf8T3LzMgo
+ Zu6h4vUYfe9/6tW280V6ldWZUkZ8u4RXwb/fgmQOmmjBP0rtr3HRASOm52n2Xb/pJgBZ
+ 7jZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=91gwtsKWq2ZMo7Ncq5Q9UNpQBa245zsBfX5xNWPTmuw=;
+ fh=0wWEBRPlODUfTvdkl0Nzk+pKVwC5+qJM6Ea17tyM5Xk=;
+ b=BoOjDQmPSp8dLQHar9fOM4rAydliOIIIQn4p6F7NifYqu5PJuW7bfT9l6xaakKC6Jn
+ dI8CsnJDOW2HR6FV2L/ARL29y3z/++/Y1JA+Dc/huqjl2OeFNaL1yg3vjYgqLsYlK6RV
+ TDRtNj1LNDLbeVn0aavUAj1SiR8MzxvS3GqR6FElGhbe8Qx7vrsacv5cVbc5GYLYhnOA
+ iry+a0yix9hgOXpeAwNUuSF2unT0000wBoKcKzUU2qkRBzhiX7KDae+WoY7KfaFbX+wE
+ +P09g54MyLUeoz/5Bm4eUTwojEEzAZVeKhNUpHSxxfljqi6OiYgZjwkzKrp9S5FrbW98
+ qurg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773741806; x=1774346606; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=LXDnZwc0UQAioOB74HdZQyDfdGqfb34J+A9oDeiAkgU=;
- b=KsdqE9YWReiEqYyBrck8IoXxBUE4enjNnwkEIYIngEQYrFyRk2ugaOKDexHa2jqnEm
- 8ALfXQQFiDBpbWc8/kButdleSblzEFwx22Dbylek+lgD7tH9gmylw0gi0ooKJZ8d8VJQ
- hc6G75K9CvKXkXxCL1p8MDi9alp7pYlgje42kD48VFQIm0FkESZU+hrCcLgbYTswRA6z
- S32aXYk0RlX9y/wbduE+43IgZqYoQMQYvnVROtJaMi5BTuOBncfrx2pgfAilTwLGfNVp
- 1cqO0F1i/Js9lHe7n0JnpYr74/uNkoO2tPm5qBjNUsOcWN00vDaMfre48fBz8ObNu7pQ
- Mnhw==
+ d=gmail.com; s=20230601; t=1773752414; x=1774357214; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=91gwtsKWq2ZMo7Ncq5Q9UNpQBa245zsBfX5xNWPTmuw=;
+ b=XHA0gJ+DufgaoOdZ9WMk/FQoi8eWM3GHr+smAkBhfMl4J08tlWV4rqydX0shqMnhho
+ 98dZsv+wOxJps1qRIwd2vr96uTN/zk+1epL5TEV9iPWTGVHdW6WqtXDpkLFFTCSEnEKe
+ n0+LIT+jpOWhDiw0nql58hPmppVTP9WIEZJ/Joem8s+LGaFkzEpMHehRx5ER+28+Qfp2
+ j73jsPUEJmRxvppU9iQ/7kSQretc+2xJaj8e6tqWN5QoeZ2EydTkPryQP/TQ+TJjIsw1
+ op8E1Y1uURIrJgCQRTTvmvhjkWKTfjwpBjvItfQmkUwI7sVGzNYdvehWpDxlKADqkP/8
+ mklQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773741806; x=1774346606;
- h=mime-version:user-agent:content-transfer-encoding
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=LXDnZwc0UQAioOB74HdZQyDfdGqfb34J+A9oDeiAkgU=;
- b=sNU0y976HdFRNGvF7DJ+3FX0Yt4CL3b6/g0NbcQeT8u0PenXDHpq0M41cvbGngTUpu
- guvtzpF54LJ/hB6hM3+YgqgnDqXlj0dtuW7RkTDQbzfMLRUMid0fQG5EPg8yixj1q7Qm
- T62KIMuDeSpFeOOvqyEz/lcdiEP0NE9hVN94pqkNqWQgZbTlFfp1Jw7qfLOVjI11LzXb
- sNJNNJIf7E+DYF5QgfdMZPDj4pXc/9nwChqfdXzJE/X2ty1dvE0oMszl5OJHS5jKUPdU
- bBFP6STvoeqBvn5eJqDKRzcf9811dpTLa6x2Oe5djHjdkV6JtDzegMUhrTMvPOb3Zdnv
- i5iQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCX9VyuLhRv8Z/WSv28q8wqlOu+VaRNXhLSFKxLCBm0LjCezo+2fv7d4hH+UZ5NxLg7aaeRK+l0S@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzG6vF7aoZVECpqC4HQCQsOIsocoEjxG/mdAcCwAmtEeC253GU+
- gQmLBwUeMvTs3J4qygQHiShikxtBiKt0DTEzbmS7jfXnFVLi1Kpv0stn
-X-Gm-Gg: ATEYQzy4359wgTDDzFEr34uE2Drf1GdBc+1I6by6fHapwGd6xfbbSg8M6CvN+XmCevx
- 7xZnNUXnniyWqYy8ECrCCoss+cwUlN3qHKa1pYVNWFoiff9QRxz189yVe/yC2/Q/+bsqaWYDm+u
- a7i/sSPiELHmWLkUebwZTxGh03S8VQmDG6K5mViSLB3UHXHxBXPngSDx3Bo9B4KLnE79zFNCnD+
- lwqejaNugCUn6lsPQDCUjP5ndFUWgJ7ca2OHmXljZXDMrmjwzNKiVbUm7TEETbMhSUJsjGcVeHh
- tGBwy8N6J3I5v4EvIEMRDbgvfkKjFAIoDlYHUJWpARoO52eGSeWgNV36fA8I7LCgZ2Jwasfwbuq
- YyxGns+vjQAR7kAhe2A0tuBVxyFKQ6NMliPgfgW/xU+5dxUqID8xxr1S31lUYlMVMOWEsbGHoZu
- 2h5w6S2A3lC2LKR1fh8ScERyBzoQrLqTm08W7cXXn1aNxJmHEcCnuDoitSJe9VmKDNXhhnbEUlH
- yT70/ap0w==
-X-Received: by 2002:a05:6402:3548:b0:663:4965:6bac with SMTP id
- 4fb4d7f45d1cf-663babc294dmr4693237a12.3.1773741806180; 
- Tue, 17 Mar 2026 03:03:26 -0700 (PDT)
-Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
- [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6635088fa23sm6336330a12.16.2026.03.17.03.03.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Mar 2026 03:03:25 -0700 (PDT)
-Message-ID: <5649c232fa0243c2c3ca7be91529409921604d69.camel@gmail.com>
-Subject: Re: [PATCH v4 07/27] drm/amd/display: Use bigger VRR range if found
- in AMD vsdb
-From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, alexander.deucher@amd.com, 
- harry.wentland@amd.com, sunpeng.li@amd.com
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
- siqueira@igalia.com, 	dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
- bernhard.berger@gmail.com, 	michel.daenzer@mailbox.org, daniel@fooishbar.org
-Date: Tue, 17 Mar 2026 11:03:22 +0100
-In-Reply-To: <7da80c4be3e20c126017646f783b80136bb0700e@intel.com>
-References: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
- <20260216164516.36803-8-tomasz.pakula.oficjalny@gmail.com>
- <7da80c4be3e20c126017646f783b80136bb0700e@intel.com>
+ d=1e100.net; s=20251104; t=1773752414; x=1774357214;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=91gwtsKWq2ZMo7Ncq5Q9UNpQBa245zsBfX5xNWPTmuw=;
+ b=oiF7n7meoiiwkm4iks4ETK44EcupVEwF/jG6vqqjQ/xTXEtxKE1jDygySC9fphDbsD
+ yj0Xc1nxX0jqPOQH13TOi8tdfOq1ZkJATfZTTjTsl8GlYsqQ1jlfBAUup3XPcJ48cWgZ
+ AjltJfUTwAtwN8mv0oRwf/SPfb1lLS74dtW8mYVlbqHNEmlBRlLx1UC01iuuNUKa5FW6
+ Bh/MTezVX/obZoVWvrtj0Q1esMZFBoiPz+yVLgnOztvwR71lNruTKGo2m/aiK+cLAx3H
+ A1LNjt1vAALSnlT183VHlPm8IOo22u+tXqplohRbrPWsDUtXsdeD9YKidAp/Q5Rx05cQ
+ qhuQ==
+X-Gm-Message-State: AOJu0Yx2YBBFW9XTgMDxynto3r77fzt3tS7X78AWWIT8KXXggGqy93kA
+ MXV3rVMj4Vuv4vKNoQLZJj+JSLcQY72yJRoPTm4TqdH2S5V9xhRjHYsOcvg8VkgZ0f2K5NAR1Fm
+ +m4C+qDJHidEE5J294w9PRAdqve1hIYv/qPsz
+X-Gm-Gg: ATEYQzw07qWu3rE2Jv9/fhBIhzwriLf4JB/ASgzNeAyjWC14ESVmSQU9JQ1T55f8DEv
+ qnK+hDftYxeOGxVAnFHw6dhXnExnWqNtjTlTIjBiJ/WMG1Yx6EYvrVX1rdga0u5c4+tJItvXlar
+ X0BesUexBS9eDUZrWzxiGwFal2hnSn3Bj+KZioGk10EGsdXCMtlBgTsuEac9IRwnNuCxAYe+XVF
+ fQboCzR3YAb1hSpyisBGNTEXusTbGPQmMznRYdDMbxJP8nz/AzpR0xQtaqn8p+NR7pDKMOm2/9z
+ AvB9xqLEvSG/GzLaE6KTvSV7xWSaTyuFLmGadv2dwERu9k9VGaBXli6VllQQjacaqRG4mA==
+X-Received: by 2002:a05:7022:2391:b0:128:d4d5:93b9 with SMTP id
+ a92af1059eb24-128f3ddb7e9mr3474949c88.7.1773752413954; Tue, 17 Mar 2026
+ 06:00:13 -0700 (PDT)
+MIME-Version: 1.0
+References: <dfce5e070c5857aaebd8e7136011b90e7d888eb1.camel@ieee.org>
+In-Reply-To: <dfce5e070c5857aaebd8e7136011b90e7d888eb1.camel@ieee.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 17 Mar 2026 09:00:02 -0400
+X-Gm-Features: AaiRm51OkZsgiLLo-dHci_ueRRDakzVVt35Hta2irDxRsk1Ntk6RCAqBgeURggI
+Message-ID: <CADnq5_Nha0KqzAuoJayXtiFjsXq8DqbbPyWfoFinc=vPaAf9gg@mail.gmail.com>
+Subject: Re: [Bug report] RADV GFX1200 (Navi 44 / RX 9060 XT): NULL page fault
+ at 0x0 on gfxhub during Vulkan rendering
+To: Cristian Cocos <cristi@ieee.org>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
-MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 17 Mar 2026 12:55:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,112 +101,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, 2026-02-26 at 14:36 +0200, Jani Nikula wrote:
-> On Mon, 16 Feb 2026, Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.co=
-m> wrote:
-> > [Why]
-> > Some monitors only expose their full VRR range in AMD vsdb for some
-> > reason.
-> >=20
-> > [How]
-> > Compare exposed ranges and use the bigger one.
-> > Only adjust lower limit if it doesn't support LFC
-> >=20
-> > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4177
-> > Signed-off-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
-> > ---
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 +++++++++++++++++++
-> >  1 file changed, 31 insertions(+)
-> >=20
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
-s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > index b3bf5e0c19a5..f36059bb0324 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > @@ -13269,6 +13269,34 @@ static bool copy_range_to_amdgpu_connector(str=
-uct drm_connector *conn)
-> >  	return is_freesync_capable(range);
-> >  }
-> > =20
-> > +static void extend_range_from_vsdb(struct drm_display_info *display,
-> > +				   const struct amdgpu_hdmi_vsdb_info *vsdb)
-> > +{
-> > +	u16 vrr_min =3D display->monitor_range.min_vfreq;
-> > +	u16 vrr_max =3D display->monitor_range.max_vfreq;
-> > +
-> > +	/* Always extend upper limit */
-> > +	if (vsdb->max_refresh_rate_hz > vrr_max)
-> > +		vrr_max =3D vsdb->max_refresh_rate_hz;
-> > +
-> > +	/*
-> > +	 * Only extend lower limit if current one disables LFC.
-> > +
-> > +	 * During widespread testing, we found that some manufacturers probab=
-ly
-> > +	 * had issues with their monitors' lower VRR boundaries and adjusted
-> > +	 * them up (Gigabyte X34GS with official range 48 - 180, AMD vsdb 48 =
--
-> > +	 * 180 yet Monitor Ranges 55 - 180). After setting the lower boundary
-> > +	 * from AMD vsdb, such monitors start having blanking issues.
-> > +	 *
-> > +	 * Work around that by not touching VRR min if it still supports LFC.
-> > +	 */
-> > +	if (vsdb->min_refresh_rate_hz < vrr_min && (vrr_min * 2 >=3D vrr_max)=
-)
-> > +		vrr_min =3D vsdb->min_refresh_rate_hz;
-> > +
-> > +	display->monitor_range.min_vfreq =3D vrr_min;
-> > +	display->monitor_range.max_vfreq =3D vrr_max;
->=20
-> Random driver code should *not* modify struct drm_display_info,
-> especially the fields that drm_edid.c parses. Drivers should cease to
-> parse EDID and DisplayID altogether.
->=20
-> I'm on the verge of NAKing, to the extent that I have control over this,
-> any further improvements on driver EDID/DisplayID parsing, with the
-> expectation that everything's moved to shared EDID parser in drm_edid.c
-> first, and improved there.
->=20
-> BR,
-> Jani.
+On Tue, Mar 17, 2026 at 4:24=E2=80=AFAM Cristian Cocos <cristi@ieee.org> wr=
+ote:
+>
+> ## Summary
+>
+> RADV crashes with a `[gfxhub] Page fault at address: 0x0000000000000000` =
+when performing Vulkan rendering on an AMD RX 9060 XT (Navi 44, GFX1200). T=
+he crash occurs ~20-30 seconds into video playback in mpv using `vo=3Dgpu-n=
+ext` with `gpu-api=3Dvulkan` (libplacebo). Multiple GPU rings (sdma0, gfx_0=
+.0.0, comp_1.x.x) time out simultaneously. The kernel driver recovers the r=
+ings, but the Vulkan context is lost.
+>
+> **Critically, the crash also occurs when video decode is offloaded to VA-=
+API on a separate Intel iGPU** =E2=80=94 only the Vulkan rendering path (li=
+bplacebo =E2=86=92 RADV =E2=86=92 `vkQueueSubmit2`) is involved. This rules=
+ out VK_KHR_video_decode_queue as the cause.
+>
 
-Hi!
+Please file a mesa ticket:
+https://gitlab.freedesktop.org/mesa/mesa/-/issues
+And include your full dmesg output from boot to when the issue happens.
 
-So I prepared a version which completely removes the drm_display_info
-modifications from this part of the driver, but I think I know why it
-was there in there in the first place. Without changing these fields,
-the dri debug information, reports wrong vrr range vs what the driver
-decided to do.
+Alex
 
-Basically, with monitor that have different vrr range in 'monitor
-ranges' and AMD vsdb, it only reports the range from monitor ranges,
-worse, for monitors that report GTF range (all HDMI TV, even some DP
-monitors) the vrr_range for the connector in dri debug is reported to be
-0 - 0 even though the correct range was picked up from other places like
-DisplayID, AMD vsdb, HDMI Forum vsdb or nvidia specific vsdb.
-
-Moving all this into generic edid handling could be quite a problem as
-well since different manufacturers might want to handle VRR differenty.
-For example, Intel could decide to support FreeSync sinnalling or just
-getting the range from there, or not. HDMI VRR is another issue where
-one brand could decide to prioritize their own solution over the generic
-one (FreeSync over HDMI vs HDMI VRR).
-
-The vrr_range in debug ony exposes display_info.monitor_range but it's
-name suggests that it does something different. Maybe it needs a
-dedicated place for drivers to show what they ended up deciding upon?
-monitr_range alrady is only used to expose the range if it has 'range
-limits only' flag so only for VRR. My concern is that we would have bad
-debug info in there now.
-
-I'm working on adding a drp connector property that would expose the vrr
-range so compositors could easily parse it instead of relying on edid
-parsing, that will be impossible to match.
-
-And again, I'm just a guy providing fixes, I think bigger changes should
-be taken with AMD. The functionality is already in the driver and my
-patches do not change what it does with it. I'm not even changing how it
-parses anything when it comes to edid, just using what's already there
-to decide how to handle VRR.
-
-Tomasz
+> ## System Information
+>
+> | Component | Version |
+> |-----------|---------|
+> | GPU | AMD Radeon RX 9060 XT =E2=80=94 Navi 44, RDNA 4, GFX1200 [1002:75=
+90] (rev c0) |
+> | Mesa | 26.0.2-1 (also reproduced on 26.0.1) |
+> | vulkan-radeon | 26.0.2-1 |
+> | libplacebo | v7.360.0 |
+> | Kernel | 6.19.8-zen1-1-zen |
+> | Firmware | linux-firmware-amdgpu 20260309-1 (SMC firmware 102.70.0) |
+> | CPU | 13th Gen Intel Core i7-1360P |
+> | Distro | blendOS (Arch-based, rolling) |
+> | mpv | v0.41.0, FFmpeg n8.0.1 |
+> | Connection | eGPU via Thunderbolt 4 (Razer Core X V2), PCIe 32 GT/s x16=
+ link |
+>
+> ### Module parameters
+>
+> ```
+> options amdgpu runpm=3D0 rebar=3D0 ppfeaturemask=3D0xFFFF7FFF
+> ```
+>
+> - `runpm=3D0` =E2=80=94 runtime PM disabled (TB eGPU SMU limitation)
+> - `rebar=3D0` =E2=80=94 BIOS assigns full 16 GB BAR, driver does not resi=
+ze
+> - `ppfeaturemask=3D0xFFFF7FFF` =E2=80=94 GFXOFF disabled (bit 15) due to =
+SMU IF version mismatch (driver 0x2E vs firmware 0x33)
+>
+> **Note:** The SMU interface version mismatch (`smu_v14_0: SMU driver if v=
+ersion not matched`) is a separate known issue. GFXOFF is disabled to preve=
+nt a bus-loss crash, but the rendering crash described here is unrelated =
+=E2=80=94 it occurs during active rendering, not during idle.
+>
+> ## Steps to Reproduce
+>
+> 1. Install an AMD RX 9060 XT (Navi 44)
+> 2. Configure mpv with Vulkan rendering:
+> ```
+> vo=3Dgpu-next
+> gpu-api=3Dvulkan
+> gpu-context=3Dwaylandvk
+> vulkan-device=3D'AMD Radeon RX 9060 XT (RADV GFX1200)'
+> vulkan-async-compute=3Dyes
+> vulkan-async-transfer=3Dyes
+> ```
+> 3. Play any video file: `mpv /path/to/video.mkv`
+> 4. Wait ~20-30 seconds
+>
+> ### Test 1: Vulkan decode + Vulkan rendering (`hwdec=3Dvulkan`)
+>
+> Crashes after ~26 seconds.
+>
+> ### Test 2: VA-API decode (Intel iGPU) + Vulkan rendering (`hwdec=3Dvaapi=
+`)
+>
+> **Also crashes after ~26 seconds.** VA-API decode runs on the Intel iGPU =
+(`iHD_drv_video.so`), only Vulkan rendering runs on the AMD GPU via RADV. T=
+his isolates the bug to the RADV rendering path.
+>
+> ## RADV Error Output
+>
+> ```
+> radv/amdgpu: The CS has been cancelled because the context is lost.
+> This context is guilty of a hard recovery.
+>
+> [vo/gpu-next/libplacebo] vkQueueSubmit2: VK_ERROR_DEVICE_LOST (../src/vul=
+kan/command.c:514)
+> [vo/gpu-next/libplacebo] Retrieving query pool results: VK_ERROR_DEVICE_L=
+OST (../src/vulkan/gpu.c:105)
+> [vo/gpu-next/libplacebo] Failed holding swapchain image for presentation
+> [vo/gpu-next] Failed presenting frame!
+> [ffmpeg] vk: Unable to submit command buffer: VK_ERROR_DEVICE_LOST
+> [ffmpeg/video] h264: hardware accelerator failed to decode picture
+> ```
+>
+> ## Kernel Log (Crash 1 =E2=80=94 hwdec=3Dvulkan, Mesa 26.0.2)
+>
+> ```
+> amdgpu 0000:06:00.0: amdgpu: Dumping IP State
+> amdgpu 0000:06:00.0: amdgpu: [drm] AMDGPU device coredump file has been c=
+reated
+> amdgpu 0000:06:00.0: amdgpu: ring sdma0 timeout, signaled seq=3D11425, em=
+itted seq=3D11427
+> amdgpu 0000:06:00.0: amdgpu: Starting sdma0 ring reset
+> amdgpu 0000:06:00.0: amdgpu: Ring sdma0 reset succeeded
+> amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset
+> amdgpu 0000:06:00.0: amdgpu: ring gfx_0.0.0 timeout, signaled seq=3D16289=
+, emitted seq=3D16291
+> amdgpu 0000:06:00.0: amdgpu: Process mpv pid 44985 thread vo pid 45004
+> amdgpu 0000:06:00.0: amdgpu: Ring gfx_0.0.0 reset succeeded
+> amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset
+> amdgpu 0000:06:00.0: amdgpu: ring comp_1.1.0 timeout, signaled seq=3D13, =
+emitted seq=3D14
+> amdgpu 0000:06:00.0: amdgpu: Process mpv pid 44985 thread vo pid 45004
+> amdgpu 0000:06:00.0: amdgpu: Ring comp_1.1.0 reset succeeded
+> amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset
+> amdgpu 0000:06:00.0: amdgpu: Fence fallback timer expired on ring sdma1
+> amdgpu 0000:06:00.0: [drm] *ERROR* [CRTC:416:crtc-0] flip_done timed out
+> ```
+>
+> ## Kernel Log (Crash 2 =E2=80=94 hwdec=3Dvaapi, Mesa 26.0.2)
+>
+> ```
+> amdgpu 0000:06:00.0: amdgpu: ring sdma0 timeout, signaled seq=3D13615, em=
+itted seq=3D13617
+> amdgpu 0000:06:00.0: amdgpu: Ring sdma0 reset succeeded
+> amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset
+> amdgpu 0000:06:00.0: amdgpu: ring gfx_0.0.0 timeout, signaled seq=3D30731=
+, emitted seq=3D30733
+> amdgpu 0000:06:00.0: amdgpu: Process mpv pid 66481 thread vo pid 66500
+> amdgpu 0000:06:00.0: amdgpu: Ring gfx_0.0.0 reset succeeded
+> amdgpu 0000:06:00.0: [drm] device wedged, but recovered through reset
+> amdgpu 0000:06:00.0: amdgpu: ring comp_1.1.1 timeout, signaled seq=3D312,=
+ emitted seq=3D313
+> ```
+>
+> ## GPU Device Coredump (Crash 1)
+>
+> ```
+> **** AMDGPU Device Coredump ****
+> version: 1
+> kernel: 6.19.8-zen1-1-zen
+> module: amdgpu
+> time: 3054.167340782
+>
+> SOC Device id: 30096
+> SOC Family: 152
+> SOC External Revision id: 65
+>
+> HWIP: GC[1][0]: v12.0.0.0.0
+> HWIP: SDMA0[3][0]: v7.0.0.0.0
+> HWIP: MMHUB[12][0]: v4.1.0.0.0
+>
+> Ring timed out details
+> IP Type: 2 Ring Name: sdma0
+>
+> [gfxhub] Page fault observed
+> Faulty page starting at address: 0x0000000000000000
+> Protection fault status register: 0x0
+> ```
+>
+> **Full coredump available on request** (543 KB).
+>
+> ## Analysis
+>
+> - The crash is a **NULL pointer dereference at GPU virtual address 0x0** =
+=E2=80=94 RADV is submitting commands that reference unmapped memory.
+> - The `Protection fault status register: 0x0` suggests the fault info its=
+elf is zeroed, which may indicate the fault occurred very early in command =
+processing or in an SDMA copy from a NULL source.
+> - The fault hits sdma0 first, then cascades to gfx_0.0.0 and a compute ri=
+ng =E2=80=94 consistent with a resource upload (SDMA) referencing a NULL bu=
+ffer, followed by the GFX/compute rings trying to use the result.
+> - After ring resets, the GPU fully recovers (all fences drain, PCIe link =
+stays up at 32 GT/s x16), confirming this is a userspace (RADV) command str=
+eam issue, not a hardware or kernel driver bug.
+> - The `flip_done timed out` on CRTC-0 is a secondary effect =E2=80=94 the=
+ compositor's page flip can't complete while rings are being reset, which r=
+estarts the GNOME session.
+>
+> ## Additional Notes
+>
+> - The GPU is connected via Thunderbolt 4 (eGPU enclosure), but the PCIe l=
+ink stays healthy through the crash =E2=80=94 this is not a link/BAR issue.
+> - This was also reproduced on Mesa 26.0.1 with kernel 6.19.6 and firmware=
+ 20260221 (SMC 102.69.0) =E2=80=94 same crash signature.
+> - Desktop compositing (GNOME Shell / Mutter on Wayland) works fine on thi=
+s GPU =E2=80=94 only mpv's libplacebo rendering pipeline triggers the crash=
+.
+> - `vulkan-async-compute=3Dyes` was enabled. Not yet tested with async com=
+pute disabled, though the fault is on sdma0, not a compute ring.
