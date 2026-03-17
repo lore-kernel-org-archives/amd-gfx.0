@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3988FD875D
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 12:26:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0757FD875E
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 12:26:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E72E10E353;
-	Tue, 17 Mar 2026 12:26:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81D5710E4DE;
+	Tue, 17 Mar 2026 12:26:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fAZcRhPm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uSrZRiJF";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011004.outbound.protection.outlook.com [52.101.62.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9333C10E351
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 12:25:58 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013054.outbound.protection.outlook.com
+ [40.93.196.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CE9410E581
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 12:26:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LN1Hfw6Ghj9AzuENGcd087ZPfwlEJBNfqgpsV8LmP8EXAo4eMVu+9EFo+F0nxFCqRFQekoKm6cwXejyUfjsA2DaAkUb3MUTURPEvgh3w4nXPktFIF0xKwVJS7K0DHGF/eNdg+sucf+k/ZxDijGGpaaNXEattCRhr1T2INSBLhxSRirkcKiwzTZhdf8+zw9bBJd+fXcP24K0Ox9RtYqym/OhgwYIDvaWIR/dREexEwEPMe1dYRagY9qlwP7OwSr5e3i/5VMyAuBtGx5v7aWGry+PDs15RWkSIuNT4iwqBHIWQqVLRk66T1OlzUdfwBbrTOaCeIrGEbLiL90FGzoBaJg==
+ b=Ao9LG7Ojb2qcEKswkDekByhM4iq36+xklBrTdIyX9Xd6zigekuuebYA/xDuNdBFilPmnWACb79VG+5zfF/TdrnI37VUQJt8/l9dPqFdTK7+mVeFbVkBdtWzGreDWEwLBpOpdv04BF41PjYjbwsOO2Iclgvr9i/WQcP5LuOLH8TgQMX/FJc8g5FCyjDXvNBQCLgdDSSO0ttf0BdPsvr0eLocH/Qe3NdCGrrvzuM4JcVfq0mS4tIUfPYBJtTxl/cnkmDwbzxJe4rWC2Udsfk8qK5kSrznScw/7OhY4kDlzVLgjHB0nRgj3OQC34YSbLxHZNngrxov1VZg4V4bNlV+IGw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MfFs8Vqka9iZO17iZ0uTL75GtGrdRzEW1FCEtO+GT9o=;
- b=FSQozR37zc6rJPDav6DXg4rl0ktNScPPjpQfQTZbahXo7iJMgwnhDq5+SSh54J87i84phi4FV7r44aKBxRz/JXm5igf0RESGNK5EfRarVnVaxf2XOndIgI4KFlQtzAUsHiadss+UkPEk4o2ZZxUllolP6QSS+6tZ4VNWG1oRHvQTIEYjY1Mzwhpk/EHbEpII24J5t7RLpnuZ8ayztLr5Mo32TPIrHVnP3GnuqMmKO5K3yPijR49+pcdffnskVWYd9TWKmzH+REnYmcPOu07hIVx/7bcmJppgLhk+qzhJM/S5GeiziddWAy2HUnAay4Y0mM7oY+b6Low1hQKyBzTrDA==
+ bh=Hvot0kMzbtlAVY6943UzE3l6NKloqMKFHEbiCZ+ThGQ=;
+ b=bX/d3k2D3Gl0AZmRT8QzXUOZRjPXOQWIms0lDGc7HzmCc5knxPMN8Ue/mcDZ5mOENigOZHK7ZfvSbWwWbMTeMqKBQ6n8lYT+G5zw/AKLXkvbpaE7A/jnLd5RyEtuPKz1UMXPuK9a+UVptGInRB1BvXsYDev+lXIwyCzWZGM/qkhnCGpOvaOr0hPPtgK7Ka98N653bCcwPkE6JP8Xky7kqvCqelgaX9PYHWd4BYI1X1dfvkc86akFFM7lHf3cXevoAFlTtOerJfrkGFdNsbej01V+6njdThhmWZo37RdyUlAt9y3v9ga/r85JJoKQU3/f9XJ91gJxmniGcB/VbhPZmQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MfFs8Vqka9iZO17iZ0uTL75GtGrdRzEW1FCEtO+GT9o=;
- b=fAZcRhPmCxTmWvbQgvhGNhyk3iSNV4yJPRu/mqhw0y3eioBBDNhxGRnqY95T6/qSMHyXv002iqTPJphPRuClfKTeJLc/BEdxY6fb8voQTrLmC4OJZ0PBz/VZdNIe1Zc6ju2Xfzzq1s7I1P/wt2ui7LtgqFMFUydPl+AYSIh2AcQ=
-Received: from PH8P223CA0010.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:2db::20)
- by BY5PR12MB4292.namprd12.prod.outlook.com (2603:10b6:a03:212::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 17 Mar
- 2026 12:25:54 +0000
-Received: from CY4PEPF0000FCBF.namprd03.prod.outlook.com
- (2603:10b6:510:2db:cafe::2a) by PH8P223CA0010.outlook.office365.com
- (2603:10b6:510:2db::20) with Microsoft SMTP Server (version=TLS1_3,
+ bh=Hvot0kMzbtlAVY6943UzE3l6NKloqMKFHEbiCZ+ThGQ=;
+ b=uSrZRiJFDfgo/g4uKZ/75/ie5ABnGxmC+Nyjc0wHPpoU9oRarejyMyNIacc+Eq2/6kw7m7dD4FMpZaTTZYrPA0dDFHJ+Jgs871MGYy1zo3klRiqn4gp8W+XW9Yyan4SbNaWbuAv+J69Vy7jh3jHHVDBl7416AJGUahY9psQlTQ0=
+Received: from DS7P220CA0007.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:1ca::14) by
+ DS0PR12MB7780.namprd12.prod.outlook.com (2603:10b6:8:152::6) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19; Tue, 17 Mar 2026 12:25:55 +0000
+Received: from CY4PEPF0000FCC5.namprd03.prod.outlook.com
+ (2603:10b6:8:1ca:cafe::7d) by DS7P220CA0007.outlook.office365.com
+ (2603:10b6:8:1ca::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Tue,
- 17 Mar 2026 12:25:53 +0000
+ 17 Mar 2026 12:26:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,19 +49,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000FCBF.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ CY4PEPF0000FCC5.mail.protection.outlook.com (10.167.242.107) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 12:25:53 +0000
+ 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 12:25:54 +0000
 Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
- 2026 07:25:51 -0500
+ 2026 07:25:53 -0500
 From: Lijo Lazar <lijo.lazar@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>
-Subject: [PATCH 2/5] drm/amdgpu: Add client ids for mmhub v4.x
-Date: Tue, 17 Mar 2026 17:55:26 +0530
-Message-ID: <20260317122529.361748-2-lijo.lazar@amd.com>
+Subject: [PATCH 3/5] drm/amdgpu: Add client ids for mmhub v3.x
+Date: Tue, 17 Mar 2026 17:55:27 +0530
+Message-ID: <20260317122529.361748-3-lijo.lazar@amd.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20260317122529.361748-1-lijo.lazar@amd.com>
 References: <20260317122529.361748-1-lijo.lazar@amd.com>
@@ -72,29 +73,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCBF:EE_|BY5PR12MB4292:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d76f061-eea6-44fe-82a3-08de8420553b
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC5:EE_|DS0PR12MB7780:EE_
+X-MS-Office365-Filtering-Correlation-Id: 769d1748-f9e0-4505-4154-08de842055f7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: P6jt0o44f80n7dUnP53RDeWPvWqqB9a3CzFC6ZbCQhCPhFDRyDOSYeYtw9mdKH0LzA4V2UyCcSDPJvt+Kt7HfhGh4N62sOOeCLNB7HTbVnpMybJxee/cafkj2QFer9ZcLsbRoSTCiZL4bxet1pYZ/J0i5kETr6XVxxDmrnntV/04DVX/wYp8s7hOiHMod9fttLdBpKVRxNTLihaRQIAfbz8EKvvrnr3npqT0SkY0TfrwfXeFTYeuXAI8nFkh4+81l7fAizfjBZtGKOeI/VgW48PgJATF893UbAKuHNGRJUI4q/zFPOpJ/sqawhjYqWAUzV3yY6Px2GX3Ul3dJGg0G94VUpEoKGzFnGe6Dvp0eCSLmf1Op0PYGdaX1Pb4q3MVImYCnlr+JL3YC6/HjMgsueW8Syz4OScpGALYg+nyPPio07APlDns18EUJQNcYUknG/42pijMCxzY7p3o7TSAxygeoI945hktwkSz37MhWxrZ40mY2Ojp5cV/mI12uvORrq+LLXTuXsrr308lkDTosicExczlzg3bShfxrolh/i2tJDyg/8UFCLwR2ER15iTUoKf7iG/yd9zhT5iyamThXa5Zq7LRWUMwStWpEKxfc3CYjYfbK+a/RHr8V2EnXYPnnl1PNzwssXXpZWdmlEZr0bfQ3PEk9gddo08jD+dkcWFRO75PziOOw0rfUofuR5hW14AbVzQ5aecC8IYNPaBw5CVv3AwTEqJNGZg9qM7F8xVUlYtfIyGupSYV9isVlgdcnX/sRroCkeCHJ8vG7pXMJg==
+ ARA:13230040|1800799024|82310400026|36860700016|376014|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: t/OjuqODM/Aia22qEUG9dQH4lXUavABtSbTVpAfpIdvNppmOId6QEyjIPB5YmtABVhs/8uRcmnqFUFj0a/AuqEY/GY2GwKMAMcJS5KOaHQ0+RjzX/8U66+Sy6PIsEWEJP+sPOYdMO4MZP6IojeFaRAdjdQomizyACPL0VRs3RAhP9wxnS5c/Y0Khk52eBckpI3Y6wD83ma2Htht/xDeeRSA4+/vPKUMuSG7zqEn0DTdSThWtxTff/zU2vJy4KX1ch5MLRGdAzdWIH9X6JYJ84RMYQRFqkqd6tk9syXf2wyG+BjQ4yujLA8Xpu9qyEG03w6w6yRbwGOKcREIih1whQ059FSs8obQ0n5jbHt5xr/VNFtMr+ZqZ0KimWWRRwDMUrhXCkp7J1aCw6oM8HDLyUUv4pr2WUu0zmQUvhzNOEwmUaIMTY4ypUszaDX9Q3hn+7A8cxbm6AvG0fAXceFzm9VKg5sqTWu3EYWRY67c3uffUvVT7v27jG6dzJDteN6CTZTpy03EXNEMPUWJdFE0BUFV+zA74a/aHOB4/6coTiqzofQ1k+iGjX7G/LAhZk7EfPEukIzl6BXgWDrXR1UDaGvE3ddX2edoBks79SK0XZySjLcaggEHVTWqbXUb+k0kZckiV/H4AOXitMdZJMTuR+CrZTyKgWuJ6ZdsrcLMqtspVP2WlLM2NAd+Ld8iNtduufCt+8lgb6cHggEezOIrNJOOIa6sJe/e0GV/t2nTuw1pW1HiQ/hwVrbRKyN0r7ig6+3kCqAC73LiguExpuqOfZg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(22082099003)(18002099003)(56012099003);
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: xbZCEBBdGT6k3+nBUbNaMF2Uvj1VrDG6pgnvY+pN92f8UhGdiVWOTay8zNQd54OHhNx4Nfw55RI4AOBVuHWBRO+VyIn+GrcRziQRW9LG91NWhZUI4RJpmq6/2ExlZba5Q+2stMsw9ocUjOe19us2sSI/7bwrBQ1lbbc93Ji6yewnj9ttztm0KA9VUWp4bfGEdJ4snbcM7mWWpx5rsSGbK9OntY+dXjpoXtCetGC3cjAmFFQuSeTlfwifBkrKATN+MA9nX41IkTXA65RdxyTUrRiWM3RWXw1PxzNFsffP6qyg5pJciXttDdS31BOH5z/T9iWfYpSkCoerZtlOpVtkyUr4qyQumNnBbiJ3CLmKcPHmeJ3qcB7lZO8B5CF+cr+Fj06ovZk7HkxvzktUOBkqh+rzGI7ncwjcHRlIiiofMY/tO0DVl3eJBaHsArFLhEc2
+X-MS-Exchange-AntiSpam-MessageData-0: gSGwze3OOC5B80WJuya2vMo7DHASsIB73pVGJgNoD0hlOisDh3VfT8D9/6MuArVwme8WVB87hC7RL7mhb3u967PqCmpqjqzNIv7e26d66hfbLZ4FoP2huIK1g3PvxW6Hohlb5Z98zrG02vAm/z3EG31ri0yQKzT8TiF4T9qEHtQou1CIxwxmrcQtgcWbXws4cVST0yyuMhjV9SxdP/nVwFcvlvFuhsnZrmxQAhkNOWSGq0gZGDe6UnTGKxkpOIduVrnykzFfRNWFHl5Dizh0i8BiqB62xolMyfBCTDTE90yL2Pw6kAaRQUOpIvatfnsZyk9dcw8HFRD2130puLE/nRhNwShd4YEjVWE+5n3RzYJpDUHDl/dAQeXl0ysZbEQsdWkPHQ00SL/aixVF5H7NS0nZlqfzAS32rht03rY4TdMcSh/yVLPEJe+sX2AXFNPe
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 12:25:53.6066 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d76f061-eea6-44fe-82a3-08de8420553b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 12:25:54.8367 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 769d1748-f9e0-4505-4154-08de842055f7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCBF.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC5.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4292
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7780
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,34 +110,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Initialize client ids for mmhub v4.x
+Initialize client ids for mmhub v3.x
 
 Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mmhub_v4_1_0.c | 15 ++++++---------
- drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c | 15 ++++++---------
- 2 files changed, 12 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c   | 16 +++----
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c | 17 +++----
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c |  9 ++--
+ drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c   | 55 +++++++++++++----------
+ 4 files changed, 49 insertions(+), 48 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v4_1_0.c
-index 951998454b25..bef75c4c48d3 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v4_1_0.c
-@@ -90,7 +90,7 @@ mmhub_v4_1_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
- 					      uint32_t status)
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
+index 7d5242df58a5..3d82cfa0f1b5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0.c
+@@ -97,7 +97,7 @@ mmhub_v3_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
+ 					     uint32_t status)
  {
  	uint32_t cid, rw;
 -	const char *mmhub_cid = NULL;
 +	const char *mmhub_cid;
  
  	cid = REG_GET_FIELD(status,
- 			    MMVM_L2_PROTECTION_FAULT_STATUS_LO32, CID);
-@@ -100,14 +100,7 @@ mmhub_v4_1_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
+ 			    MMVM_L2_PROTECTION_FAULT_STATUS, CID);
+@@ -107,15 +107,7 @@ mmhub_v3_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
  	dev_err(adev->dev,
- 		"MMVM_L2_PROTECTION_FAULT_STATUS_LO32:0x%08X\n",
+ 		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
  		status);
 -	switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
--	case IP_VERSION(4, 1, 0):
--		mmhub_cid = mmhub_client_ids_v4_1_0[cid][rw];
+-	case IP_VERSION(3, 0, 0):
+-	case IP_VERSION(3, 0, 1):
+-		mmhub_cid = mmhub_client_ids_v3_0_0[cid][rw];
 -		break;
 -	default:
 -		mmhub_cid = NULL;
@@ -146,22 +150,22 @@ index 951998454b25..bef75c4c48d3 100644
  	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
  		mmhub_cid ? mmhub_cid : "unknown", cid);
  	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-@@ -514,6 +507,10 @@ static void mmhub_v4_1_0_init(struct amdgpu_device *adev)
+@@ -520,6 +512,10 @@ static void mmhub_v3_0_init(struct amdgpu_device *adev)
  		SOC15_REG_OFFSET(MMHUB, 0, regMMVM_CONTEXTS_DISABLE);
  
- 	hub->vmhub_funcs = &mmhub_v4_1_0_vmhub_funcs;
+ 	hub->vmhub_funcs = &mmhub_v3_0_vmhub_funcs;
 +
 +	amdgpu_mmhub_init_client_info(&adev->mmhub,
-+				     mmhub_client_ids_v4_1_0,
-+				     ARRAY_SIZE(mmhub_client_ids_v4_1_0));
++				     mmhub_client_ids_v3_0_0,
++				     ARRAY_SIZE(mmhub_client_ids_v3_0_0));
  }
  
- static u64 mmhub_v4_1_0_get_fb_location(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
-index 97a00075aa7a..29f7ed466858 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v4_2_0.c
-@@ -716,7 +716,7 @@ mmhub_v4_2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
+ static u64 mmhub_v3_0_get_fb_location(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
+index 910337dc28d1..a1b0b7b39a42 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_1.c
+@@ -104,7 +104,7 @@ mmhub_v3_0_1_print_l2_protection_fault_status(struct amdgpu_device *adev,
  					      uint32_t status)
  {
  	uint32_t cid, rw;
@@ -169,34 +173,157 @@ index 97a00075aa7a..29f7ed466858 100644
 +	const char *mmhub_cid;
  
  	cid = REG_GET_FIELD(status,
- 			    MMVM_L2_PROTECTION_FAULT_STATUS_LO32, CID);
-@@ -726,14 +726,7 @@ mmhub_v4_2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
+ 			    MMVM_L2_PROTECTION_FAULT_STATUS, CID);
+@@ -114,16 +114,7 @@ mmhub_v3_0_1_print_l2_protection_fault_status(struct amdgpu_device *adev,
  	dev_err(adev->dev,
- 		"MMVM_L2_PROTECTION_FAULT_STATUS_LO32:0x%08X\n",
+ 		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
  		status);
+-
 -	switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
--	case IP_VERSION(4, 2, 0):
--		mmhub_cid = mmhub_client_ids_v4_2_0[cid][rw];
+-	case IP_VERSION(3, 0, 1):
+-		mmhub_cid = mmhub_client_ids_v3_0_1[cid][rw];
 -		break;
 -	default:
 -		mmhub_cid = NULL;
 -		break;
 -	}
+-
 +	mmhub_cid = amdgpu_mmhub_client_name(&adev->mmhub, cid, rw);
  	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
  		mmhub_cid ? mmhub_cid : "unknown", cid);
  	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-@@ -824,6 +817,10 @@ static void mmhub_v4_2_0_init(struct amdgpu_device *adev)
+@@ -503,6 +494,10 @@ static void mmhub_v3_0_1_init(struct amdgpu_device *adev)
+ 		MMVM_CONTEXT1_CNTL__EXECUTE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK;
  
- 	mid_mask = adev->aid_mask;
- 	mmhub_v4_2_0_mid_init(adev, mid_mask);
+ 	hub->vmhub_funcs = &mmhub_v3_0_1_vmhub_funcs;
 +
 +	amdgpu_mmhub_init_client_info(&adev->mmhub,
-+				     mmhub_client_ids_v4_2_0,
-+				     ARRAY_SIZE(mmhub_client_ids_v4_2_0));
++				     mmhub_client_ids_v3_0_1,
++				     ARRAY_SIZE(mmhub_client_ids_v3_0_1));
  }
  
- static void
+ static u64 mmhub_v3_0_1_get_fb_location(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
+index f0f182f033b9..34e8dbd47c0f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_0_2.c
+@@ -97,7 +97,7 @@ mmhub_v3_0_2_print_l2_protection_fault_status(struct amdgpu_device *adev,
+ 					     uint32_t status)
+ {
+ 	uint32_t cid, rw;
+-	const char *mmhub_cid = NULL;
++	const char *mmhub_cid;
+ 
+ 	cid = REG_GET_FIELD(status,
+ 			    MMVM_L2_PROTECTION_FAULT_STATUS, CID);
+@@ -107,8 +107,7 @@ mmhub_v3_0_2_print_l2_protection_fault_status(struct amdgpu_device *adev,
+ 	dev_err(adev->dev,
+ 		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
+ 		status);
+-
+-	mmhub_cid = mmhub_client_ids_v3_0_2[cid][rw];
++	mmhub_cid = amdgpu_mmhub_client_name(&adev->mmhub, cid, rw);
+ 	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
+ 		mmhub_cid ? mmhub_cid : "unknown", cid);
+ 	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
+@@ -509,6 +508,10 @@ static void mmhub_v3_0_2_init(struct amdgpu_device *adev)
+ 		SOC15_REG_OFFSET(MMHUB, 0, regMMVM_L2_BANK_SELECT_RESERVED_CID2);
+ 
+ 	hub->vmhub_funcs = &mmhub_v3_0_2_vmhub_funcs;
++
++	amdgpu_mmhub_init_client_info(&adev->mmhub,
++				     mmhub_client_ids_v3_0_2,
++				     ARRAY_SIZE(mmhub_client_ids_v3_0_2));
+ }
+ 
+ static u64 mmhub_v3_0_2_get_fb_location(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
+index daf1f8ad4cca..cfce7e1297d4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v3_3.c
+@@ -217,7 +217,7 @@ mmhub_v3_3_print_l2_protection_fault_status(struct amdgpu_device *adev,
+ 					      uint32_t status)
+ {
+ 	uint32_t cid, rw;
+-	const char *mmhub_cid = NULL;
++	const char *mmhub_cid;
+ 
+ 	cid = REG_GET_FIELD(status,
+ 			    MMVM_L2_PROTECTION_FAULT_STATUS, CID);
+@@ -227,29 +227,10 @@ mmhub_v3_3_print_l2_protection_fault_status(struct amdgpu_device *adev,
+ 	dev_err(adev->dev,
+ 		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
+ 		status);
+-
+-	switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
+-	case IP_VERSION(3, 3, 0):
+-	case IP_VERSION(3, 3, 2):
+-		mmhub_cid = cid < ARRAY_SIZE(mmhub_client_ids_v3_3) ?
+-			    mmhub_client_ids_v3_3[cid][rw] :
+-			    cid == 0x140 ? "UMSCH" : NULL;
+-		break;
+-	case IP_VERSION(3, 3, 1):
+-		mmhub_cid = cid < ARRAY_SIZE(mmhub_client_ids_v3_3_1) ?
+-			    mmhub_client_ids_v3_3_1[cid][rw] :
+-			    cid == 0x140 ? "UMSCH" : NULL;
+-		break;
+-	case IP_VERSION(3, 4, 0):
+-		mmhub_cid = cid < ARRAY_SIZE(mmhub_client_ids_v3_4) ?
+-			mmhub_client_ids_v3_4[cid][rw] :
+-		cid == 0x140 ? "UMSCH" : NULL;
+-		break;
+-	default:
+-		mmhub_cid = NULL;
+-		break;
+-	}
+-
++	if (cid == 0x140)
++		mmhub_cid = "UMSCH";
++	else
++		mmhub_cid = amdgpu_mmhub_client_name(&adev->mmhub, cid, rw);
+ 	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
+ 		mmhub_cid ? mmhub_cid : "unknown", cid);
+ 	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
+@@ -640,6 +621,30 @@ static const struct amdgpu_vmhub_funcs mmhub_v3_3_vmhub_funcs = {
+ 	.get_invalidate_req = mmhub_v3_3_get_invalidate_req,
+ };
+ 
++static void mmhub_v3_3_init_client_info(struct amdgpu_device *adev)
++{
++	switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
++	case IP_VERSION(3, 3, 0):
++	case IP_VERSION(3, 3, 2):
++		amdgpu_mmhub_init_client_info(&adev->mmhub,
++					     mmhub_client_ids_v3_3,
++					     ARRAY_SIZE(mmhub_client_ids_v3_3));
++		break;
++	case IP_VERSION(3, 3, 1):
++		amdgpu_mmhub_init_client_info(&adev->mmhub,
++					     mmhub_client_ids_v3_3_1,
++					     ARRAY_SIZE(mmhub_client_ids_v3_3_1));
++		break;
++	case IP_VERSION(3, 4, 0):
++		amdgpu_mmhub_init_client_info(&adev->mmhub,
++					     mmhub_client_ids_v3_4,
++					     ARRAY_SIZE(mmhub_client_ids_v3_4));
++		break;
++	default:
++		break;
++	}
++}
++
+ static void mmhub_v3_3_init(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB0(0)];
+@@ -680,6 +685,8 @@ static void mmhub_v3_3_init(struct amdgpu_device *adev)
+ 		MMVM_CONTEXT1_CNTL__EXECUTE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK;
+ 
+ 	hub->vmhub_funcs = &mmhub_v3_3_vmhub_funcs;
++
++	mmhub_v3_3_init_client_info(adev);
+ }
+ 
+ static u64 mmhub_v3_3_get_fb_location(struct amdgpu_device *adev)
 -- 
 2.49.0
 
