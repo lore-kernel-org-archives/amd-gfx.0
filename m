@@ -4,78 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51FDDFCD0DC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4DB110854D0
 	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 08:34:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2463710E766;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BFC910E767;
 	Wed, 18 Mar 2026 08:34:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k+Xqoybt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZunXHt+Q";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 274B510E66F
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 20:38:32 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-4852b81c73aso55777925e9.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 13:38:32 -0700 (PDT)
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A0EA10E638
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 13:20:44 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-35a1f549e7eso2805440a91.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 06:20:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773779910; x=1774384710; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=tq+9vciNJQvrVg3r3vbNnrgNdZFTOiV9Ezi7YDsDMj8=;
- b=k+XqoybtB7OPjVOY/On5quQQ9vfeGWEOvyEXPuoipdif/3su100BcJlJy7mSt82fjN
- zwerI7pifaDASKHz1M0VblTcucBzjAcj+rDwS91D2VW1cF/vnYmcbwNJA1i3SzJhj5Gl
- pu2APAsRLc2FS8Z8UyT9snfxZiq/PQT4GYgdCYAazhy7rnKlO/ctmAhjNOnJALWCTmtm
- 5bynZ4Se9FW7tK7BzDj1K7ei0DRiStaQyZgAkMoj2rsCVao5i9WC6HomlIxkiF45483y
- B1I6YBP0PFYoDQQLSP6v675OwUqylKWxshpwrV9bsrQkIeSwIdYfif2V8yIU9pPCmFUp
- eshg==
+ d=gmail.com; s=20230601; t=1773753644; x=1774358444; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:message-id:date
+ :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=TjpfVxjcr+NMQLZx4OdK5lf1pCwYZzZGvbDIy4rSp4w=;
+ b=ZunXHt+QOz25YAckt7IDU7V5nZYMEns5b6q0Srmxf23w3sV6skiLlQAFqz2ijGPBzf
+ jwHtnKlDZJILgTRY21JzcA/SjIoMAz3D7OUy5OPyU0XYmN+9dlzP1Vpf+BwV1FlbIh+P
+ pevzNJ5rkmNwSd2oXsr3f7skWbLrfxjXJc+eyzhQlml8jpHFegwgi+KzMzGztiWllxvW
+ UHBzRKivWd0OBgqynnxy9QmpLaCddSB/Cq1aLgIB7sODmZqlTS77yEkb2ExYDkRm6eyI
+ lGnPxPIfFfNmYcxtNIlTUadB2tksmkj+DHeZRdS3gJJy8sXqdYd26clEO3b5RWbb6jfp
+ 8WSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773779910; x=1774384710;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=tq+9vciNJQvrVg3r3vbNnrgNdZFTOiV9Ezi7YDsDMj8=;
- b=hPE6tizqKKbi/0PjswF0vZbV8PInnBW26T4KtidfR70T4tIzTSy5B0+iEi5+LRKVaX
- cvp8iYJISjXVo7rV4pFKzSxocuqX7YM4vDkYD9T2j+IipwSjUtKekWscczP4j+XC9p+v
- tBb8ZpMH0DxN1A7TB3XTsXPpMu2SUYw9by12MWWJSKAqJw8VElFDDO9wRV8QOyO0Qi9j
- PB0HTr8pburjhVvooU0JtrBvWhgEtr66tCKksYMqIBe2vpLctQqJ9m80Q1drTOhQOinL
- 3Skz9spEsuSMBukzKJR00Q4dYQSqaiBZ+NTGgSYaRFAzXemBcgQ2/xE0Agi41OyopNvU
- FnKA==
-X-Gm-Message-State: AOJu0YzCbdVBAgrC+7X8k75YolLlyGL74AIjh/IZRsBzZJaMiDdQZ1m0
- cqoeMWXeEdBqQJBIXk3Wpdhp+WL6NJdBmpMexUgDuKRoh+TSb/Dppg5R+ZBK5j+9
-X-Gm-Gg: ATEYQzxiFSuqD0uEY2I3SDWXZP3m+tUI/sl1NzTEI0On5pFRFlV1frPJRO9J41n7nA5
- kJkA0okf+XXFaPamirZXkpH4yIY86aEl5Nau03Dz0qUYjXOW+0ZkXAsR0vxq0YdIu1tizxB0OTn
- w8L5182b+e/Rghd6gB/9zxkwfXQKIiDth4mxBf6IWt6Iwi/u1tBqS/NGf1DcGMnk8T7cXoWTBAR
- bF4MN1fvCNAHv5LGcL4aouZEw0KnLoquEEI3I4TaJtLKFdWeIslElPBJaU0uz2tm9oLxpnoC9jk
- bKCsRZv335HWj2uVxRGUzastRC4/AOfzFfN8FvZUw5klIAY0nUT9URhq5MuNuX0VpCeM0esfVBD
- KYUXy7u2uZwZfGguO8winK+r70TxLXMRkPYYqSGu9wqB5dQSTUn6ZYnojbfHn13qImTgYkvGSLu
- pDbdDQs5EBa3xj9mHN6uMJ0B2MHQfO7drKmmj9wGsYxMt4tOW+Npqkie3w59ZAg4dcdoSl6IDx2
- JLc7GNtkodEAbt+x/hxU8+SifIk
-X-Received: by 2002:a05:600c:4c24:b0:485:3a93:3a9e with SMTP id
- 5b1f17b1804b1-486f4422015mr8515695e9.10.1773779910120; 
- Tue, 17 Mar 2026 13:38:30 -0700 (PDT)
-Received: from rhel.homenet.telecomitalia.it
- (host-82-51-8-214.retail.telecomitalia.it. [82.51.8.214])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-486f4bc96c6sm2813695e9.5.2026.03.17.13.38.28
+ d=1e100.net; s=20251104; t=1773753644; x=1774358444;
+ h=content-transfer-encoding:mime-version:references:message-id:date
+ :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=TjpfVxjcr+NMQLZx4OdK5lf1pCwYZzZGvbDIy4rSp4w=;
+ b=W8k1HBTyQt11vBhxBLQEtf2dmtpravY+qclLR07MIWZiyp4iSDHhCwu6ZSDJFbEKmb
+ l7Oj9Y/pE4f+/YYTyJ7tgSKpGU5zfBf5VwgAdxHOEJsxdPLPxevCcpwqh53+xu3TjscA
+ P3iuZaKtK5rHM2xJFbtv5bvEPVDGfwMnAe2iPvHw6/dTKR/nW4x4fSR6mJGYBEilz3vU
+ uwKQTSQd4VDJVh1J0lawf7FT9ZoCyQp6tj2AVCMYWjbfN5A/RPuLQ6KOtidii1dYB9Fu
+ cxndDTY1XuutTChBiH2CmmCjoioHdwKvGvJu/MDdkB0KQf2DaQ3AAkR2NQqupVxGVeWp
+ /w6Q==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXzOJOBuq0bcc87sKImC+Nm86h53XeaMnm/TdPl0BkaxaeHqllQbN3MBKroPKPIFC7igLv8Np27@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyhzw7LoC74StqYLbDhSjGsD0xXH7T0zopwVran+3eIl4XMEcb2
+ NqHPeq0Syuj2E9pPDfIDILbqdF2lSCEEtaT4AkU2r+qw9xUTy/yjzDwO
+X-Gm-Gg: ATEYQzzzNyvDjYqm7efpftoRyPZ6ZSayHy+QqS24lLz7teafGtZsZk99k6s2WpR4qMG
+ vo7scDuMq9YE+vb/4EdnzjajN9thWPIdNr1Mnoq3DQdxA6t31voqZzacNn/gq3di18IfM+9r9TS
+ 6ZM9/ocs/wKA34Rr3aLSXYdR4bpE2o/uK4CZrYAzyAbdjH4DJZaSxdsSygaz3l1BVIrcaEl7MLZ
+ NgDqFL4Iu+UB3QyS0uNLQu46OYHbtXwRcqQ8ZS+aZ1sC0S3ZlkPIelvEeMw/KhDCfTawZSLQRyX
+ puVJAImXHk69tRf3xSarUHkWMprPJKZGF0hhCuAMvJugl7NwXuIZM6HRsDoZxOxfdI4vVWwBfyd
+ Uxn/r3pqhDSYLzFgVP6gTXtCggHXm8nf6XZE74DnLWPWDkW+fJIhkVarGZq/wUfhv88dSh2r3PW
+ huqdLEsWC+hJecehD2UajUiQ==
+X-Received: by 2002:a17:90b:2496:b0:35b:952c:43b9 with SMTP id
+ 98e67ed59e1d1-35b952c450amr5243491a91.10.1773753643761; 
+ Tue, 17 Mar 2026 06:20:43 -0700 (PDT)
+Received: from pve-server ([49.205.216.49]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35bada5d18fsm2970098a91.7.2026.03.17.06.20.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Mar 2026 13:38:29 -0700 (PDT)
-From: Adriano Vero <litaliano00.contact@gmail.com>
-To: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com,
- alexander.deucher@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- Adriano Vero <litaliano00.contact@gmail.com>
-Subject: [PATCH v2] drm/amd/display: clean up typecasts and constants in
- dcn4_calcs
-Date: Tue, 17 Mar 2026 21:36:13 +0100
-Message-ID: <20260317203613.5783-1-litaliano00.contact@gmail.com>
-X-Mailer: git-send-email 2.47.3
-MIME-Version: 1.0
+ Tue, 17 Mar 2026 06:20:42 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Dan =?utf-8?Q?Hor=C3=A1k?= <dan@danny.cz>
+Cc: linuxppc-dev@lists.ozlabs.org, Gaurav Batra <gbatra@linux.ibm.com>,
+ amd-gfx@lists.freedesktop.org, Donet Tom <donettom@linux.ibm.com>
+Subject: Re: amdgpu driver fails to initialize on ppc64le in 7.0-rc1 and newer
+In-Reply-To: <20260315105021.667e52d4a99b154ef1e6aa34@danny.cz>
+Date: Tue, 17 Mar 2026 17:13:31 +0530
+Message-ID: <ms06y93w.ritesh.list@gmail.com>
+References: <20260313142351.609bc4c3efe1184f64ca5f44@danny.cz>
+ <1phlu3bs.ritesh.list@gmail.com>
+ <20260315105021.667e52d4a99b154ef1e6aa34@danny.cz>
+MIME-version: 1.0
+Content-type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 18 Mar 2026 08:34:38 +0000
+X-Mailman-Approved-At: Wed, 18 Mar 2026 08:34:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,97 +89,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Signed-off-by: Adriano Vero <litaliano00.contact@gmail.com>
----
- .../src/dml2_core/dml2_core_dcn4_calcs.c      | 32 +++++++++----------
- 1 file changed, 16 insertions(+), 16 deletions(-)
+Dan Horák <dan@danny.cz> writes:
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index ca5ac3c0d..b7fe4fc92 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -202,7 +202,7 @@ static unsigned int dml_round_to_multiple(unsigned int num, unsigned int multipl
- 		return (num - remainder);
- }
- 
--static unsigned int dml_get_num_active_pipes(int unsigned num_planes, const struct core_display_cfg_support_info *cfg_support_info)
-+static unsigned int dml_get_num_active_pipes(unsigned int num_planes, const struct core_display_cfg_support_info *cfg_support_info)
- {
- 	unsigned int num_active_pipes = 0;
- 
-@@ -546,9 +546,9 @@ static bool dml_is_vertical_rotation(enum dml2_rotation_angle Scan)
- 	return is_vert;
- }
- 
--static int unsigned dml_get_gfx_version(enum dml2_swizzle_mode sw_mode)
-+static unsigned int dml_get_gfx_version(enum dml2_swizzle_mode sw_mode)
- {
--	int unsigned version = 0;
-+	unsigned int version = 0;
- 
- 	if (sw_mode == dml2_sw_linear ||
- 		sw_mode == dml2_sw_256b_2d ||
-@@ -1761,7 +1761,7 @@ static unsigned int CalculateVMAndRowBytes(struct dml2_core_shared_calculate_vm_
- 		*p->PixelPTEBytesPerRow = (unsigned int)((double)*p->dpte_row_width_ub / (double)*p->PixelPTEReqWidth * *p->PTERequestSize);
- 
- 		// VBA_DELTA, VBA doesn't have programming value for pte row height linear.
--		*p->dpte_row_height_linear = (unsigned int)1 << (unsigned int)math_floor2(math_log((float)(p->PTEBufferSizeInRequests * PixelPTEReqWidth_linear / p->Pitch), 2.0), 1);
-+		*p->dpte_row_height_linear = 1U << (unsigned int)math_floor2(math_log((float)(p->PTEBufferSizeInRequests * PixelPTEReqWidth_linear / p->Pitch), 2.0), 1);
- 		if (*p->dpte_row_height_linear > 128)
- 			*p->dpte_row_height_linear = 128;
- 
-@@ -3377,7 +3377,7 @@ static void calculate_cursor_req_attributes(
- 	DML_LOG_VERBOSE("DML::%s: cursor_bytes_per_line = %d\n", __func__, *cursor_bytes_per_line);
- 	DML_LOG_VERBOSE("DML::%s: cursor_bytes_per_chunk = %d\n", __func__, *cursor_bytes_per_chunk);
- 	DML_LOG_VERBOSE("DML::%s: cursor_bytes = %d\n", __func__, *cursor_bytes);
--	DML_LOG_VERBOSE("DML::%s: cursor_pitch = %d\n", __func__, cursor_bpp == 2 ? 256 : (unsigned int)1 << (unsigned int)math_ceil2(math_log((float)cursor_width, 2), 1));
-+	DML_LOG_VERBOSE("DML::%s: cursor_pitch = %d\n", __func__, cursor_bpp == 2 ? 256 : 1U << (unsigned int)math_ceil2(math_log((float)cursor_width, 2), 1));
- #endif
- }
- 
-@@ -12205,15 +12205,15 @@ static void rq_dlg_get_wm_regs(const struct dml2_display_cfg *display_cfg, const
- {
- 	double refclk_freq_in_mhz = (display_cfg->overrides.hw.dlg_ref_clk_mhz > 0) ? (double)display_cfg->overrides.hw.dlg_ref_clk_mhz : mode_lib->soc.dchub_refclk_mhz;
- 
--	wm_regs->fclk_pstate = (int unsigned)(mode_lib->mp.Watermark.FCLKChangeWatermark * refclk_freq_in_mhz);
--	wm_regs->sr_enter = (int unsigned)(mode_lib->mp.Watermark.StutterEnterPlusExitWatermark * refclk_freq_in_mhz);
--	wm_regs->sr_exit = (int unsigned)(mode_lib->mp.Watermark.StutterExitWatermark * refclk_freq_in_mhz);
--	wm_regs->sr_enter_z8 = (int unsigned)(mode_lib->mp.Watermark.Z8StutterEnterPlusExitWatermark * refclk_freq_in_mhz);
--	wm_regs->sr_exit_z8 = (int unsigned)(mode_lib->mp.Watermark.Z8StutterExitWatermark * refclk_freq_in_mhz);
--	wm_regs->temp_read_or_ppt = (int unsigned)(mode_lib->mp.Watermark.temp_read_or_ppt_watermark_us * refclk_freq_in_mhz);
--	wm_regs->uclk_pstate = (int unsigned)(mode_lib->mp.Watermark.DRAMClockChangeWatermark * refclk_freq_in_mhz);
--	wm_regs->urgent = (int unsigned)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
--	wm_regs->usr = (int unsigned)(mode_lib->mp.Watermark.USRRetrainingWatermark * refclk_freq_in_mhz);
-+	wm_regs->fclk_pstate = (unsigned int)(mode_lib->mp.Watermark.FCLKChangeWatermark * refclk_freq_in_mhz);
-+	wm_regs->sr_enter = (unsigned int)(mode_lib->mp.Watermark.StutterEnterPlusExitWatermark * refclk_freq_in_mhz);
-+	wm_regs->sr_exit = (unsigned int)(mode_lib->mp.Watermark.StutterExitWatermark * refclk_freq_in_mhz);
-+	wm_regs->sr_enter_z8 = (unsigned int)(mode_lib->mp.Watermark.Z8StutterEnterPlusExitWatermark * refclk_freq_in_mhz);
-+	wm_regs->sr_exit_z8 = (unsigned int)(mode_lib->mp.Watermark.Z8StutterExitWatermark * refclk_freq_in_mhz);
-+	wm_regs->temp_read_or_ppt = (unsigned int)(mode_lib->mp.Watermark.temp_read_or_ppt_watermark_us * refclk_freq_in_mhz);
-+	wm_regs->uclk_pstate = (unsigned int)(mode_lib->mp.Watermark.DRAMClockChangeWatermark * refclk_freq_in_mhz);
-+	wm_regs->urgent = (unsigned int)(mode_lib->mp.Watermark.UrgentWatermark * refclk_freq_in_mhz);
-+	wm_regs->usr = (unsigned int)(mode_lib->mp.Watermark.USRRetrainingWatermark * refclk_freq_in_mhz);
- 	wm_regs->refcyc_per_trip_to_mem = (unsigned int)(mode_lib->mp.UrgentLatency * refclk_freq_in_mhz);
- 	wm_regs->refcyc_per_meta_trip_to_mem = (unsigned int)(mode_lib->mp.MetaTripToMemory * refclk_freq_in_mhz);
- 	wm_regs->frac_urg_bw_flip = (unsigned int)(mode_lib->mp.FractionOfUrgentBandwidthImmediateFlip * 1000);
-@@ -12670,7 +12670,7 @@ static void rq_dlg_get_dlg_reg(
- 			disp_dlg_regs->refcyc_per_vm_req_flip = (unsigned int)(math_pow(2, 23) - 1);
- 
- 
--		DML_ASSERT(disp_dlg_regs->dst_y_after_scaler < (unsigned int)8);
-+		DML_ASSERT(disp_dlg_regs->dst_y_after_scaler < 8U);
- 		DML_ASSERT(disp_dlg_regs->refcyc_x_after_scaler < (unsigned int)math_pow(2, 13));
- 
- 		if (disp_dlg_regs->dst_y_per_pte_row_nom_l >= (unsigned int)math_pow(2, 17)) {
-@@ -13226,7 +13226,7 @@ void dml2_core_calcs_get_informative(const struct dml2_core_internal_display_mod
- 
- 	out->informative.misc.cstate_max_cap_mode = dml_get_cstate_max_cap_mode(mode_lib);
- 
--	out->min_clocks.dcn4x.dpprefclk_khz = (int unsigned)dml_get_global_dppclk_khz(mode_lib);
-+	out->min_clocks.dcn4x.dpprefclk_khz = (unsigned int)dml_get_global_dppclk_khz(mode_lib);
- 
- 	out->informative.qos.max_active_fclk_change_latency_supported = dml_get_fclk_change_latency(mode_lib);
- 
--- 
-2.47.3
+> Hi Ritesh,
+>
+> On Sun, 15 Mar 2026 09:55:11 +0530
+> Ritesh Harjani (IBM) <ritesh.list@gmail.com> wrote:
+>
+>> Dan Horák <dan@danny.cz> writes:
+>> 
+>> +cc Gaurav,
+>> 
+>> > Hi,
+>> >
+>> > starting with 7.0-rc1 (meaning 6.19 is OK) the amdgpu driver fails to
+>> > initialize on my Linux/ppc64le Power9 based system (with Radeon Pro WX4100)
+>> > with the following in the log
+>> >
+>> > ...
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: GART: 256M 0x000000FF00000000 - 0x000000FF0FFFFFFF
+>> 
+>>                   ^^^^
+>> So looks like this is a PowerNV (Power9) machine.
+>
+> correct :-)
+>  
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] Detected VRAM RAM=4096M, BAR=4096M
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] RAM width 128bits GDDR5
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: iommu: 64-bit OK but direct DMA is limited by 0
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: dma_iommu_get_required_mask: returning bypass mask 0xfffffffffffffff
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  4096M of VRAM memory ready
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  32570M of GTT memory ready.
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) failed to allocate kernel bo
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] Debug VRAM access will use slowpath MM access
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] GART: num cpu pages 4096, num gpu pages 65536
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F4FFF80000).
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) failed to allocate kernel bo
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) create WB bo failed
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: amdgpu_device_wb_init failed -12
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: amdgpu_device_ip_init failed
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: Fatal error during GPU init
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: finishing device.
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: probe with driver amdgpu failed with error -12
+>> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  ttm finalized
+>> > ...
+>> >
+>> > After some hints from Alex and bisecting and other investigation I have
+>> > found that https://github.com/torvalds/linux/commit/1471c517cf7dae1a6342fb821d8ed501af956dd0
+>> > is the culprit and reverting it makes amdgpu load (and work) again.
+>> 
+>> Thanks for confirming this. Yes, this was recently added [1]
+>> 
+>> [1]: https://lore.kernel.org/linuxppc-dev/20251107161105.85999-1-gbatra@linux.ibm.com/ 
+>> 
+>> 
+>> @Gaurav,
+>> 
+>> I am not too familiar with the area, however looking at the logs shared
+>> by Dan, it looks like we might be always going for dma direct allocation
+>> path and maybe the device doesn't support this address limit. 
+>> 
+>>  bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: iommu: 64-bit OK but direct DMA is limited by 0
+>>  bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: dma_iommu_get_required_mask: returning bypass mask 0xfffffffffffffff
+>
+> a complete kernel log is at
+> https://gitlab.freedesktop.org/-/project/4522/uploads/c4935bca6f37bbd06bb4045c07d00b5b/kernel.log
+>
+> Please let me know if you need more info.
 
+Hi Dan,
+
+Thanks for sharing the kernel log. Is it also possible to kindly share
+your full kernel config with which you saw this issue.
+
+I think Gaurav, is still looking into reported issue. However I was
+interested in this kernel log output..
+
+bře 05 08:35:34 talos.danny.cz kernel: radix-mmu: Mapped 0x00002007fad00000-0x00002007fcd00000 with 64.0 KiB pages
+
+This shows that the system is using 64K pagesize. So I was interested in
+knowing the kernel configs you have enabled. Donet has recently posted
+64K pagesize support with amdgpu [1][2] on Power. However, I think, we
+can still use it w/o Donet's changes if we have CONFIG_HSA_AMD_SVM
+disabled.
+
+So, can you kindly share the kernel configs and the AMD GPU HW details
+attached to your Power9 baremetal system, if it's possible?
+
+[1]: https://lore.kernel.org/amd-gfx/cover.1768223974.git.donettom@linux.ibm.com/#t     #merged
+[2]: https://lore.kernel.org/amd-gfx/cover.1771656655.git.donettom@linux.ibm.com/       #in-review
+
+-ritesh
