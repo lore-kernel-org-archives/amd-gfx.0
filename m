@@ -4,97 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EFBCBFD875A
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 12:26:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0048FD875E
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 12:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CDE210E581;
-	Tue, 17 Mar 2026 12:26:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51B9A10E2CF;
+	Tue, 17 Mar 2026 12:55:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SismgTPO";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KsdqE9YW";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011041.outbound.protection.outlook.com [40.107.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E826610E581
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 12:26:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vU/qB09xUzDp1pxelKKMtxT0g5hUnX+lkmkOTVU324JPfbKPVILKE26ZbkwHR5EHUVtXPZDZ471XLMRwy52Mw+RXjoNq84tndIBSv63ygT7f5Fvwgt4PTFOVLqw32Ho0pKE49eh0qu9xZe/8RZghW63/uezDTr9VOks4I6V59br0ir8h5cyrlWg+D7WaEloOHDQGAk5rVaHKhwGm6amMxNI93+hOiBfFI1Okl/Ukv0oz66AS+plE0TVpddYr94/4mLV+P+nFFNOyW+XZgaq9GlE9diiXSfcSOrs4veJGjFMlzXERPbK1dT6b2jDD/4HbYhjs2A+Rv5yUH3Oc/gUpZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B1vdFDunE1W/z/Lhu7QzUoWe/JG3q7WPWyLbbIPH1WM=;
- b=giRUQ+TCow3vQ8fq2IMGXyXvqtqsV90sm8JwDmrYAkebi2uHstAb+N2j5tkKDdMWZBsqerrMS6A+3GWt8IfOSyWFpOFt1XXMmddEltp8leo+r8eW9nSaOsd1myYa7nyiFI3mGOI74iXJG/qZxKoHmjUo34O8bn8KrxBy+k3lMIP1h7nZYv/fzJEHiJO1ehyRhyXsFZots3JzB9VOjryZlxz6gfBsUdPLOLQOygzgjMe/vVWKGBpsXHEPRwtGJ5q8rOcTCr9seD+Eiq9Sxb+820xSo3bqzCYjKtmoc18O7IVrdDdhXTeFzh5BCLhX+unLebHQT1PI1mUtCwcQzpN2pw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B1vdFDunE1W/z/Lhu7QzUoWe/JG3q7WPWyLbbIPH1WM=;
- b=SismgTPOmjrv8hI9alv5AjYhiMhjgLjemY4OH7aVIofWttJE4BUNE1+NQZNMjPKBT+OP9HwJUBPaRsKpbYQ2YpmMUrvUTXkUmJuRE9SOVBszwXLERpQSlvKWc4qxhROdnWrs66NEsfdwQB6MQu45rOc2l6ixtw4aM6BjqUIm+dU=
-Received: from DS7P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:1ca::15) by
- CYXPR12MB9278.namprd12.prod.outlook.com (2603:10b6:930:e5::11) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.17; Tue, 17 Mar 2026 12:25:57 +0000
-Received: from CY4PEPF0000FCC5.namprd03.prod.outlook.com
- (2603:10b6:8:1ca:cafe::a2) by DS7P220CA0008.outlook.office365.com
- (2603:10b6:8:1ca::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Tue,
- 17 Mar 2026 12:26:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000FCC5.mail.protection.outlook.com (10.167.242.107) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 12:25:57 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
- 2026 07:25:54 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>
-Subject: [PATCH 4/5] drm/amdgpu: Add client ids for mmhub v2.x
-Date: Tue, 17 Mar 2026 17:55:28 +0530
-Message-ID: <20260317122529.361748-4-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260317122529.361748-1-lijo.lazar@amd.com>
-References: <20260317122529.361748-1-lijo.lazar@amd.com>
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0280E10E47E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 10:03:28 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-667800aaa32so11514a12.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 03:03:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773741806; x=1774346606; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=LXDnZwc0UQAioOB74HdZQyDfdGqfb34J+A9oDeiAkgU=;
+ b=KsdqE9YWReiEqYyBrck8IoXxBUE4enjNnwkEIYIngEQYrFyRk2ugaOKDexHa2jqnEm
+ 8ALfXQQFiDBpbWc8/kButdleSblzEFwx22Dbylek+lgD7tH9gmylw0gi0ooKJZ8d8VJQ
+ hc6G75K9CvKXkXxCL1p8MDi9alp7pYlgje42kD48VFQIm0FkESZU+hrCcLgbYTswRA6z
+ S32aXYk0RlX9y/wbduE+43IgZqYoQMQYvnVROtJaMi5BTuOBncfrx2pgfAilTwLGfNVp
+ 1cqO0F1i/Js9lHe7n0JnpYr74/uNkoO2tPm5qBjNUsOcWN00vDaMfre48fBz8ObNu7pQ
+ Mnhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773741806; x=1774346606;
+ h=mime-version:user-agent:content-transfer-encoding
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to;
+ bh=LXDnZwc0UQAioOB74HdZQyDfdGqfb34J+A9oDeiAkgU=;
+ b=sNU0y976HdFRNGvF7DJ+3FX0Yt4CL3b6/g0NbcQeT8u0PenXDHpq0M41cvbGngTUpu
+ guvtzpF54LJ/hB6hM3+YgqgnDqXlj0dtuW7RkTDQbzfMLRUMid0fQG5EPg8yixj1q7Qm
+ T62KIMuDeSpFeOOvqyEz/lcdiEP0NE9hVN94pqkNqWQgZbTlFfp1Jw7qfLOVjI11LzXb
+ sNJNNJIf7E+DYF5QgfdMZPDj4pXc/9nwChqfdXzJE/X2ty1dvE0oMszl5OJHS5jKUPdU
+ bBFP6STvoeqBvn5eJqDKRzcf9811dpTLa6x2Oe5djHjdkV6JtDzegMUhrTMvPOb3Zdnv
+ i5iQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX9VyuLhRv8Z/WSv28q8wqlOu+VaRNXhLSFKxLCBm0LjCezo+2fv7d4hH+UZ5NxLg7aaeRK+l0S@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzG6vF7aoZVECpqC4HQCQsOIsocoEjxG/mdAcCwAmtEeC253GU+
+ gQmLBwUeMvTs3J4qygQHiShikxtBiKt0DTEzbmS7jfXnFVLi1Kpv0stn
+X-Gm-Gg: ATEYQzy4359wgTDDzFEr34uE2Drf1GdBc+1I6by6fHapwGd6xfbbSg8M6CvN+XmCevx
+ 7xZnNUXnniyWqYy8ECrCCoss+cwUlN3qHKa1pYVNWFoiff9QRxz189yVe/yC2/Q/+bsqaWYDm+u
+ a7i/sSPiELHmWLkUebwZTxGh03S8VQmDG6K5mViSLB3UHXHxBXPngSDx3Bo9B4KLnE79zFNCnD+
+ lwqejaNugCUn6lsPQDCUjP5ndFUWgJ7ca2OHmXljZXDMrmjwzNKiVbUm7TEETbMhSUJsjGcVeHh
+ tGBwy8N6J3I5v4EvIEMRDbgvfkKjFAIoDlYHUJWpARoO52eGSeWgNV36fA8I7LCgZ2Jwasfwbuq
+ YyxGns+vjQAR7kAhe2A0tuBVxyFKQ6NMliPgfgW/xU+5dxUqID8xxr1S31lUYlMVMOWEsbGHoZu
+ 2h5w6S2A3lC2LKR1fh8ScERyBzoQrLqTm08W7cXXn1aNxJmHEcCnuDoitSJe9VmKDNXhhnbEUlH
+ yT70/ap0w==
+X-Received: by 2002:a05:6402:3548:b0:663:4965:6bac with SMTP id
+ 4fb4d7f45d1cf-663babc294dmr4693237a12.3.1773741806180; 
+ Tue, 17 Mar 2026 03:03:26 -0700 (PDT)
+Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
+ [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6635088fa23sm6336330a12.16.2026.03.17.03.03.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Mar 2026 03:03:25 -0700 (PDT)
+Message-ID: <5649c232fa0243c2c3ca7be91529409921604d69.camel@gmail.com>
+Subject: Re: [PATCH v4 07/27] drm/amd/display: Use bigger VRR range if found
+ in AMD vsdb
+From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>, alexander.deucher@amd.com, 
+ harry.wentland@amd.com, sunpeng.li@amd.com
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, 	airlied@gmail.com, simona@ffwll.ch,
+ siqueira@igalia.com, 	dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, 	linux-kernel@vger.kernel.org,
+ bernhard.berger@gmail.com, 	michel.daenzer@mailbox.org, daniel@fooishbar.org
+Date: Tue, 17 Mar 2026 11:03:22 +0100
+In-Reply-To: <7da80c4be3e20c126017646f783b80136bb0700e@intel.com>
+References: <20260216164516.36803-1-tomasz.pakula.oficjalny@gmail.com>
+ <20260216164516.36803-8-tomasz.pakula.oficjalny@gmail.com>
+ <7da80c4be3e20c126017646f783b80136bb0700e@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC5:EE_|CYXPR12MB9278:EE_
-X-MS-Office365-Filtering-Correlation-Id: acb86d5e-02d0-434b-d07a-08de84205791
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: +iKJXAQjcKW1tdDpHPcThID7cB9E6MiDsV7I5n4UiHs5ulGlc0/riTyqVqiboyuMKgc5arzx/gOm5zHIzMJCZJjED3YOdvCD+xFqTFcE4mAt32ZLlbEuSbKVlF39Gr/sDceIyH4mhsXsKuCkzQ11zmxF/TCMJYWrhBO+6YlnrAy2BLoR2TYnjTqn7oVFTbp7WYY9aTCVkPcd0mtPIiXUDkYCxTYKvcLFn8P4R+8tSQ684UDQ352Fdh6RF6Oaxkxy2Ow+f/5RcmWOHtCdQCuSR3dgBzTj7JhY59fpQBOjqLz/Sb6XWdox6Ks9WA+cMMSu4jlIDGKYr5l06ZOfU71IK/Xm0vkj1VODZinySVTVuvdRsmcWvrZgAutSx+SdgCJC0uVr8MKqrQF7SFRFm+7qmuE6CToCX/OJ8kCp4DqmSim7/DSoaF3DOyoRf7eISDS2LOJLBTzqd2zunvhGFNA/eAy7Mbmqhkf1hhy6/FYgsWQNfFOJTXWGlGatfcCI8m5EKLoP5wn8APFuuCPtXDBhem+eNfAMRPmyhVoDX/ucXZFh5nJndvc+eyTO8oPhv3eJ0w6bLHonrPgrK7XzUK2zJ+9BKFeAuyfgEqa07DJ1G1x/YfXNJpaHIrazEndZafzOw8s1VAqeoFAs49+jegt9s7E2kXvFPkD97615vdj+o/i+kWe+V7C9A59f1aq1OvZs6sqg+ihOWe8Da6+Z222QLrnpLLZSlWvZG1N9ql+wePPmejGvKAbvL+H7I0SqchkA1ramBdySIBD30rK4KFfemQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: zWdj4QOFh3hJDCu5X1slbHHJIoZjzCgzRhH72ESyhOpJaca8SW7+4r/2N7VLKwrk4VlvabULaSdLZgqNvr92wZXz7GU3NQvoMKGrU0rKPAo3Y9/cRuhgxokJ0va+FQH7a3WSKbZCur/TcI7FhAz+5OAkglCQ8AXig8NIUW48EN5TfXhLYhepASaRsLZATYg3XXqrbhdrgMazBWos+D0cDOv1xG0wlx9RUf862Fwm6TTrOwn00nGlRTV/+vQSC8GW9L61PHXP0uWrx7UZybWtIDrXIzxigx6kOmeVwLxj+fePfkUwdvS6QUVci2xCtH7fAa8qiZzLhRphgdnQjw7A/Q6PJjZgBEWidb86in0UJvrGbN1UUfFo9PxpabLJIKegz+Ku4FN+On1qGNWF1WjdcTZphC06boZrSqOrMcL9lqPMqBaBRs/1VZLCqCj2Ogh+
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 12:25:57.5242 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: acb86d5e-02d0-434b-d07a-08de84205791
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC5.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9278
+X-Mailman-Approved-At: Tue, 17 Mar 2026 12:55:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,134 +99,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Initialize client ids for mmhub v2.x
+On Thu, 2026-02-26 at 14:36 +0200, Jani Nikula wrote:
+> On Mon, 16 Feb 2026, Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.co=
+m> wrote:
+> > [Why]
+> > Some monitors only expose their full VRR range in AMD vsdb for some
+> > reason.
+> >=20
+> > [How]
+> > Compare exposed ranges and use the bigger one.
+> > Only adjust lower limit if it doesn't support LFC
+> >=20
+> > Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/4177
+> > Signed-off-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
+> > ---
+> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 31 +++++++++++++++++++
+> >  1 file changed, 31 insertions(+)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
+s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index b3bf5e0c19a5..f36059bb0324 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -13269,6 +13269,34 @@ static bool copy_range_to_amdgpu_connector(str=
+uct drm_connector *conn)
+> >  	return is_freesync_capable(range);
+> >  }
+> > =20
+> > +static void extend_range_from_vsdb(struct drm_display_info *display,
+> > +				   const struct amdgpu_hdmi_vsdb_info *vsdb)
+> > +{
+> > +	u16 vrr_min =3D display->monitor_range.min_vfreq;
+> > +	u16 vrr_max =3D display->monitor_range.max_vfreq;
+> > +
+> > +	/* Always extend upper limit */
+> > +	if (vsdb->max_refresh_rate_hz > vrr_max)
+> > +		vrr_max =3D vsdb->max_refresh_rate_hz;
+> > +
+> > +	/*
+> > +	 * Only extend lower limit if current one disables LFC.
+> > +
+> > +	 * During widespread testing, we found that some manufacturers probab=
+ly
+> > +	 * had issues with their monitors' lower VRR boundaries and adjusted
+> > +	 * them up (Gigabyte X34GS with official range 48 - 180, AMD vsdb 48 =
+-
+> > +	 * 180 yet Monitor Ranges 55 - 180). After setting the lower boundary
+> > +	 * from AMD vsdb, such monitors start having blanking issues.
+> > +	 *
+> > +	 * Work around that by not touching VRR min if it still supports LFC.
+> > +	 */
+> > +	if (vsdb->min_refresh_rate_hz < vrr_min && (vrr_min * 2 >=3D vrr_max)=
+)
+> > +		vrr_min =3D vsdb->min_refresh_rate_hz;
+> > +
+> > +	display->monitor_range.min_vfreq =3D vrr_min;
+> > +	display->monitor_range.max_vfreq =3D vrr_max;
+>=20
+> Random driver code should *not* modify struct drm_display_info,
+> especially the fields that drm_edid.c parses. Drivers should cease to
+> parse EDID and DisplayID altogether.
+>=20
+> I'm on the verge of NAKing, to the extent that I have control over this,
+> any further improvements on driver EDID/DisplayID parsing, with the
+> expectation that everything's moved to shared EDID parser in drm_edid.c
+> first, and improved there.
+>=20
+> BR,
+> Jani.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 46 ++++++++++++++++---------
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c | 17 ++++-----
- 2 files changed, 35 insertions(+), 28 deletions(-)
+Hi!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-index a0cc8e218ca1..42a09a277ec3 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-@@ -141,7 +141,7 @@ mmhub_v2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
- 					     uint32_t status)
- {
- 	uint32_t cid, rw;
--	const char *mmhub_cid = NULL;
-+	const char *mmhub_cid;
- 
- 	cid = REG_GET_FIELD(status,
- 			    MMVM_L2_PROTECTION_FAULT_STATUS, CID);
-@@ -151,22 +151,7 @@ mmhub_v2_0_print_l2_protection_fault_status(struct amdgpu_device *adev,
- 	dev_err(adev->dev,
- 		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
- 		status);
--	switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
--	case IP_VERSION(2, 0, 0):
--	case IP_VERSION(2, 0, 2):
--		mmhub_cid = mmhub_client_ids_navi1x[cid][rw];
--		break;
--	case IP_VERSION(2, 1, 0):
--	case IP_VERSION(2, 1, 1):
--		mmhub_cid = mmhub_client_ids_sienna_cichlid[cid][rw];
--		break;
--	case IP_VERSION(2, 1, 2):
--		mmhub_cid = mmhub_client_ids_beige_goby[cid][rw];
--		break;
--	default:
--		mmhub_cid = NULL;
--		break;
--	}
-+	mmhub_cid = amdgpu_mmhub_client_name(&adev->mmhub, cid, rw);
- 	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
- 		mmhub_cid ? mmhub_cid : "unknown", cid);
- 	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-@@ -518,6 +503,31 @@ static const struct amdgpu_vmhub_funcs mmhub_v2_0_vmhub_funcs = {
- 	.get_invalidate_req = mmhub_v2_0_get_invalidate_req,
- };
- 
-+static void mmhub_v2_0_init_client_info(struct amdgpu_device *adev)
-+{
-+	switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
-+	case IP_VERSION(2, 0, 0):
-+	case IP_VERSION(2, 0, 2):
-+		amdgpu_mmhub_init_client_info(&adev->mmhub,
-+					     mmhub_client_ids_navi1x,
-+					     ARRAY_SIZE(mmhub_client_ids_navi1x));
-+		break;
-+	case IP_VERSION(2, 1, 0):
-+	case IP_VERSION(2, 1, 1):
-+		amdgpu_mmhub_init_client_info(&adev->mmhub,
-+					     mmhub_client_ids_sienna_cichlid,
-+					     ARRAY_SIZE(mmhub_client_ids_sienna_cichlid));
-+		break;
-+	case IP_VERSION(2, 1, 2):
-+		amdgpu_mmhub_init_client_info(&adev->mmhub,
-+					     mmhub_client_ids_beige_goby,
-+					     ARRAY_SIZE(mmhub_client_ids_beige_goby));
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
- static void mmhub_v2_0_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_MMHUB0(0)];
-@@ -558,6 +568,8 @@ static void mmhub_v2_0_init(struct amdgpu_device *adev)
- 		MMVM_CONTEXT1_CNTL__EXECUTE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK;
- 
- 	hub->vmhub_funcs = &mmhub_v2_0_vmhub_funcs;
-+
-+	mmhub_v2_0_init_client_info(adev);
- }
- 
- static void mmhub_v2_0_update_medium_grain_clock_gating(struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-index 5eb8122e2746..31c479d76c42 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_3.c
-@@ -80,7 +80,7 @@ mmhub_v2_3_print_l2_protection_fault_status(struct amdgpu_device *adev,
- 					     uint32_t status)
- {
- 	uint32_t cid, rw;
--	const char *mmhub_cid = NULL;
-+	const char *mmhub_cid;
- 
- 	cid = REG_GET_FIELD(status,
- 			    MMVM_L2_PROTECTION_FAULT_STATUS, CID);
-@@ -90,16 +90,7 @@ mmhub_v2_3_print_l2_protection_fault_status(struct amdgpu_device *adev,
- 	dev_err(adev->dev,
- 		"MMVM_L2_PROTECTION_FAULT_STATUS:0x%08X\n",
- 		status);
--	switch (amdgpu_ip_version(adev, MMHUB_HWIP, 0)) {
--	case IP_VERSION(2, 3, 0):
--	case IP_VERSION(2, 4, 0):
--	case IP_VERSION(2, 4, 1):
--		mmhub_cid = mmhub_client_ids_vangogh[cid][rw];
--		break;
--	default:
--		mmhub_cid = NULL;
--		break;
--	}
-+	mmhub_cid = amdgpu_mmhub_client_name(&adev->mmhub, cid, rw);
- 	dev_err(adev->dev, "\t Faulty UTCL2 client ID: %s (0x%x)\n",
- 		mmhub_cid ? mmhub_cid : "unknown", cid);
- 	dev_err(adev->dev, "\t MORE_FAULTS: 0x%lx\n",
-@@ -486,6 +477,10 @@ static void mmhub_v2_3_init(struct amdgpu_device *adev)
- 		MMVM_CONTEXT1_CNTL__EXECUTE_PROTECTION_FAULT_ENABLE_INTERRUPT_MASK;
- 
- 	hub->vmhub_funcs = &mmhub_v2_3_vmhub_funcs;
-+
-+	amdgpu_mmhub_init_client_info(&adev->mmhub,
-+				     mmhub_client_ids_vangogh,
-+				     ARRAY_SIZE(mmhub_client_ids_vangogh));
- }
- 
- static void
--- 
-2.49.0
+So I prepared a version which completely removes the drm_display_info
+modifications from this part of the driver, but I think I know why it
+was there in there in the first place. Without changing these fields,
+the dri debug information, reports wrong vrr range vs what the driver
+decided to do.
 
+Basically, with monitor that have different vrr range in 'monitor
+ranges' and AMD vsdb, it only reports the range from monitor ranges,
+worse, for monitors that report GTF range (all HDMI TV, even some DP
+monitors) the vrr_range for the connector in dri debug is reported to be
+0 - 0 even though the correct range was picked up from other places like
+DisplayID, AMD vsdb, HDMI Forum vsdb or nvidia specific vsdb.
+
+Moving all this into generic edid handling could be quite a problem as
+well since different manufacturers might want to handle VRR differenty.
+For example, Intel could decide to support FreeSync sinnalling or just
+getting the range from there, or not. HDMI VRR is another issue where
+one brand could decide to prioritize their own solution over the generic
+one (FreeSync over HDMI vs HDMI VRR).
+
+The vrr_range in debug ony exposes display_info.monitor_range but it's
+name suggests that it does something different. Maybe it needs a
+dedicated place for drivers to show what they ended up deciding upon?
+monitr_range alrady is only used to expose the range if it has 'range
+limits only' flag so only for VRR. My concern is that we would have bad
+debug info in there now.
+
+I'm working on adding a drp connector property that would expose the vrr
+range so compositors could easily parse it instead of relying on edid
+parsing, that will be impossible to match.
+
+And again, I'm just a guy providing fixes, I think bigger changes should
+be taken with AMD. The functionality is already in the driver and my
+patches do not change what it does with it. I'm not even changing how it
+parses anything when it comes to edid, just using what's already there
+to decide how to handle VRR.
+
+Tomasz
