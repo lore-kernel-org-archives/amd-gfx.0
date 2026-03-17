@@ -4,102 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 695B6FD707A
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 20:13:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ABCAFD708D
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 20:13:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10F5A10E48F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF84D10E5E2;
 	Tue, 17 Mar 2026 20:13:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e3b/mMYa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NAA4sivT";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012034.outbound.protection.outlook.com [52.101.43.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F9E110E647
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 20:13:16 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010044.outbound.protection.outlook.com [52.101.201.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4376410E63D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 20:13:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zRkIuNv5d6OvQP5C71ByMegS0Jopuz7QmwXzeFftWODrYpNNCki256/6+hRaRicqmewl/tTOhPnw/br9WQGqcGqWMOdN9hieEUdIqEDZywUv3nfRm1++GFTfz1jnscAekRCeZDaia4rT6D3z5RjTaH/NE18AgaCMQLQWpMEXvKYucG7P0HoKVgTjXed1MKDfO7OoGb04aSM2Uzngo8f7AjK5QW5Eurf9KSKnhsilH0GaeMg7L2yVeA0iVcYAUrb1Z9B2Ve7fMKbcpD8HvVe/HERTJMHIZOT/i4T0i6O/Rd+XOxHI+DU8Oqn1xwMv8j7FGziZAgR4qFURd2AMVLfr0w==
+ b=A6QwTsmZk2zMocNgbvDNrs2/yxo/ByVmq0c5r1g0oyk/qE6e5i8dLpD0qFsEGhin9tAsmi3KZz+xxtrizfkbnh1726g6nueKjM3seiLzPOSQ+9IVGR9P0OKsuZgRUkiqTEByPnuxTqNQdPw52o3XwsdO8xip/vn1Q9MVf72WoIlwSr7SmcP6X0DQReP36RqusJXlGgGNvZv7byodwHbPmH22HnOMpHhlnvw+KNVuy7geMngRkVz3Bu1qv0ybH7Axx4oX6Vs2cScMWUtaLI8jssHqeP8j25YnNphnkt1g1fT2U5lEzsrIXbPfrheOA2YBmrLTBSNmBs1axUHW5/DSlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rREVsXmsNoFcaRraFjy1sz2xcw4vBAsWAHo1+7KFiKE=;
- b=ZheYMdID/3V4lF6g0yk9NkStHdLZPD0wAZQWulbtntIO7TPbqV9oUt9XiY6RiQNZcAdwEFNG8MD39qMiwYgJyvr7D5qWnQIi2yANG0NGTfr+eBNztHpdYAK7z4q8HNH4bjyvNjXyxALS7WdzqXH8zr34R5+xycCLAzSYDdWbPdgxhTa7c9znvXKFgw+1MyZAt8bF1/dVrZIgCnN6YstwOgL6BI0oUK3+BHR8JdH34cIT1MYDCP7K0E4pSJE4IWKJD0B501mdTiLY6Vl7EFjWhJq9eDaqQhrULwdFEVX7y8A1K/hTw0R+EOofR76rL1dN1mxfSiQpFahb6PGLRNJ1Cg==
+ bh=v5EyDL5EOF7EsB5yr95IbRWBPXOWKYGIl4WK+sggFFg=;
+ b=JOiFSmNTdhYT8D4sJ5GmBmMeYXLFxrE9R9ng/VQbgifQzuuebOXTzLFX0++J9khmsHwWFB8+0SE7c/BTVtMT7ZPOe3rc/ILjslMRVzVisTYew4PWWjSAgcrAZuepTZQ5y4cyeib6ov0ztgPjXDholTuAz0udey5EDqndasnWmufGZ7JkePevs/PTkg7JbMLPUiv/8y57VN7RT6y3/2gglZVZeG//WV86PQopeowDI1x6KGbDwNpGIBK2Z6KbCE5vDIXoAyZ+wgOTqLGEJ4meSWV/l+2s+qHJntaqoLl1qNU/gUbYBLcC3hPkD6Auzpt8/tFOnuW8xOfBsi5NE8Eg7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rREVsXmsNoFcaRraFjy1sz2xcw4vBAsWAHo1+7KFiKE=;
- b=e3b/mMYa5mUMovGbU89LlYfYdCb2/QjLffHto09GB7z4mPR1BP6qmSXz+IrITai1p2i3U49JcpPMD3H2BNChNMrQqs1IQrn1ZOaPV+fOHVOahvtzCbcz9ScYBzN4JxUfSrmqUjLAYhMyqQYxPyTXGR1wDtDAEKCxHK70Gvm2sNQ=
-Received: from BY1P220CA0021.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5c3::16)
- by SJ1PR12MB6076.namprd12.prod.outlook.com (2603:10b6:a03:45d::10)
+ bh=v5EyDL5EOF7EsB5yr95IbRWBPXOWKYGIl4WK+sggFFg=;
+ b=NAA4sivTlFkS2OtEQdLvwnODV0cYdklb3PoPkduWssTlVEldEagPtV5TdNp+MgLc30WqpIKGEddR9xnqXE8jPhYJ4Y0Vs+pSd+q3KrNIb00BdMIAboF0SMaQcrBt4z7AS5UzPuyCimHTlFcYUeTor0hWH+OooUkuY/qE1TkyuWk=
+Received: from PH7PR17CA0017.namprd17.prod.outlook.com (2603:10b6:510:324::13)
+ by IA0PR12MB8973.namprd12.prod.outlook.com (2603:10b6:208:48e::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 17 Mar
- 2026 20:13:12 +0000
-Received: from SJ1PEPF00002316.namprd03.prod.outlook.com
- (2603:10b6:a03:5c3:cafe::fa) by BY1P220CA0021.outlook.office365.com
- (2603:10b6:a03:5c3::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.17; Tue, 17 Mar
+ 2026 20:13:13 +0000
+Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com
+ (2603:10b6:510:324:cafe::e2) by PH7PR17CA0017.outlook.office365.com
+ (2603:10b6:510:324::13) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Tue,
- 17 Mar 2026 20:13:23 +0000
+ 17 Mar 2026 20:13:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00002316.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 20:13:12 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
- 2026 15:13:01 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
- 2026 13:13:01 -0700
+Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.17; Tue, 17 Mar
+ 2026 15:13:04 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Tue, 17 Mar
+ 2026 15:13:04 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 17 Mar 2026 15:13:00 -0500
+ Transport; Tue, 17 Mar 2026 15:13:04 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Asad Kamal <asad.kamal@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH 09/25] drm/amd/pm: Add default dpm table support for smu 15.0.8
-Date: Tue, 17 Mar 2026 16:12:25 -0400
-Message-ID: <20260317201242.3808136-9-alexander.deucher@amd.com>
+Subject: [PATCH 14/25] drm/amd/pm: Add emit clock support
+Date: Tue, 17 Mar 2026 16:12:30 -0400
+Message-ID: <20260317201242.3808136-14-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260317201242.3808136-1-alexander.deucher@amd.com>
 References: <20260317201242.3808136-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+Received-SPF: None (SATLEXMB04.amd.com: alexander.deucher@amd.com does not
+ designate permitted sender hosts)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002316:EE_|SJ1PR12MB6076:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f72e32b-63b4-4127-04e5-08de84619da4
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|IA0PR12MB8973:EE_
+X-MS-Office365-Filtering-Correlation-Id: fdc3aecc-af93-48e2-728a-08de84619dea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|82310400026|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: KYFZvSXiNAJ7vFhj/iqFtn3vlI5fyrEE27yuv49sZFrA0QUgiBOrWWL3+YVpTAEASg18FYBR7uy5qRsvh11sIaRG3AGKBDOxMZJnZLekABH7OwB+PBNP8KrurRe8lB9+U6MKX8AnSzFswTQZID6TR46OY9T3DiadNSQ/hlMf66Ut7VJRqeMliqUrtT8igTNk29hJSdD1pzDx8pFzP4Z9CNJEyh/spCi28XbHnjdau/O5Qwqr1w7SuOwcmuFuAJvpmBH5/8QGp3mOphlf8Tzqw7urRfJzAWeatuBD59u4NLJEBy1vsbLZdEoBihzHzYqc+g6d0cbWQOnDAJJjYDwrQiRwRGEZVKohnPygV1eHV97pQ1UJ+gACePyai2eupeqxGXTxK9/SVfUItoPorE9OIVRMJc2BBGITXHiYUk2uhdrc+XmAQ0KcqDlJyk7BMZqf9dfmVCfBr/If2sJuWNKpI5dx+vFFCJIiQmjBRRSTqlCZQf4/e/k1Dt695xorqO6HCU+hPWbWFRvBeEV7nf6JxbxImmtSZ84OfLj5WBw3dWsENJocjOdvYOklJFv8hC0GhBXMUKFR5KiEhADpjPeXQGRKKAl2az4/X8hzafQwGNDLSD4g20k7e80uuI2NqdHoBuBGmvuGpz771YBpS4yS0wMF2PB5Hhle2fTNk+Gqfjb2dh7x9Ao4A/VerQ40myB1LHZvWvDYbazfYRGLq+bG8Tu6Mh9AQP88gqAo1X7TiWB0hwvu+gz6DugWaiSFYhuiSv64nQdou9jBHGFEhWUICQ==
+ ARA:13230040|376014|82310400026|36860700016|1800799024|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: LXLG8bZdj2sW/ox/B2ykL1VUTOqh9FxoLAKzkCsm2+KQM3XeGrIc8te1bfMYPp567t/xdjNv8FqlJ5PmibVdsb7gssBvrfAjjEmzaQdj9De80zPaxhYMuoq09CzYIN4oz3BdzZ9sJn5Rd/h4nJfgeC2qqg2P4URsKpeVc2MW7Rp3U/Qt3Wxmmq2quaYYGgS+7UZGGaLuHZP8hrU2ShYET0j5fpilCgUEJ0Ea50mp3xU6WEGzQ1jiUY/M9+LAIgM21sIeHSnIjl8GF1hFPGlJRSwhZYMQ35F0c9a2Yp8ob9kZIMV5DFaMRcxl+iwiQ+BaB2Qa5vBjw3zP2W7HIfrLWwu4D3Bk+zQGgAlEbVot29RKm3JaoDmwEfGCY/04PU/p83wzXkeC8ryD7e//BE7vhM3otpEUWB0Zi7FgHjR1+0ESmeSH+nhOBu6fih+0ykshH59K+yXUhv8Vd8TaBs40Z/Lpg2v/SdydKA5/WwzPn+EMLYhya0tm2R2UoYiVNSO3lfunnXzisvH/lRVpETA+ddvvHnEEnX7yvzPFzO+KdEWhHhhKfsuuq/3VsOSdYbKcifxkea5aIZAIRnltuIRUUAoySz3Ix9lllDYn4Pg9Ey/xg/yGyHqQY+msZKrUe8Id38vvrYZlLZplOqVT6gLJM6XMOrl63tvUP16ST442soRxV9dwJyWdx/qS2H56p3iPRQrb2/CxEGdXVkjq6gRpA1peE7YN5FE7FvP5FbXQuTkcWjBnGzd8YKDgRfjU7a+xPg+halpK9HcLtfIxbBU5DQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(18002099003)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ZNfG8VeNLoYTa2hZIvOQTcHusqiiJlpnhoKnexytQgHo/+A5gR72umhsgIjv+/9HTdns8ge8v9EarsPR2drG6g8f+Ynsus21QWCyXUu1VnhXf0qrF9uvx3vB2hNH3/aT1csMgZnqqExaz24jyO/Sj0Wn+cczgRWre0w8Mx8eVuTsVYTCHpTu5hrr6rLDlGYbCDPhrU3N5RoryFRkCMYK3nBblMjNUlTa5CmuH9x2fXL4hc1gD8i/jp8UHcECAgwuQs+RhO6SF5EtYNSt5Zk/GovZKSMBKp8qE5pEVwbKOuGV8eE0JBOSQuc8heph8/RaKit2jt6URiONF9hUhtIYt3tgJcttB2jk8M5otcClYGLMV40CzmPj9YxzmkFO2xzZUI8kr0tU710TszX6Lv/pFowoLZzzNqlACRE8DHjnW6Btz4v7uwUYCu+v6upHp2cC
+X-MS-Exchange-AntiSpam-MessageData-0: xdbBdaJKjj+GC84kskVykyvjb1EcYgLm59PxkY8f216u+9doPdiQxKzyNZFQsSyZRBdjAsCoc/N9yKPSKq2OKXtSLRD46Fh26e9jSLzPDD0NCWozlNDfG19Xy0M99z4Dzw386M414jZpBFTE1aniIlL4KUpbzCj/rIMg9HujiKYi+svLO/iBsjUQxA4TZHZIBttN4j1EJX8knaz5X0VyWRErQ1IXipp+7Eexa58NXfcGjARoPDHxD6VkelNozn7LokmFIF+K8X8zPam/HqPtBeLDihFbSBMa+YxdZLlZ9GmaLyFDu0wfClyQyJr/ggY5gSnCU+dTLHUzgAsUrZH4o6Tl4OF3dDsQJjzJ1RAWupusJ7tNu6I/zEz1EHJXTrvaVX2MKjglvLk0Wzt82pRjcl/soIw47PlJZB3QDThi8fYeX1JR1AdfwOHvyHetAveH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 20:13:12.3392 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f72e32b-63b4-4127-04e5-08de84619da4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 20:13:12.7863 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fdc3aecc-af93-48e2-728a-08de84619dea
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002316.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3F.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6076
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8973
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,276 +118,233 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Asad Kamal <asad.kamal@amd.com>
 
-Add default dpm table support for smu 15.0.8
+Add emit clock support and fetching other metrics data like temperature,
+clock for smu_v15_0_8
 
-v2: Remove lclk, move pptable check up, add missing clk (Lijo)
+v2: Use umc count for hbm stack temperature (Lijo)
+
+v3: Use correct logic for hbm stacks (Lijo)
 
 Signed-off-by: Asad Kamal <asad.kamal@amd.com>
 Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |   1 +
- drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h  |   1 +
- .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  | 211 ++++++++++++++++++
- 3 files changed, 213 insertions(+)
+ .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  | 198 ++++++++++++++++++
+ 1 file changed, 198 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-index 5f77749998e32..d4801a5ebc30c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
-@@ -339,6 +339,7 @@ enum smu_clk_type {
- 	SMU_OD_FAN_MINIMUM_PWM,
- 	SMU_OD_FAN_ZERO_RPM_ENABLE,
- 	SMU_OD_FAN_ZERO_RPM_STOP_TEMP,
-+	SMU_GL2CLK,
- 	SMU_CLK_COUNT,
- };
- 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
-index 3c8c086f0f9d8..e6fd8be2cc4a0 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
-@@ -81,6 +81,7 @@ struct smu_15_0_dpm_tables {
- 	struct smu_dpm_table        phy_table;
- 	struct smu_dpm_table        fclk_table;
- 	struct smu_pcie_table       pcie_table;
-+	struct smu_dpm_table        gl2_table;
- };
- 
- struct smu_15_0_dpm_context {
 diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-index 82b09fe7fccd5..149421b1c6cbf 100644
+index d7d40985b0b71..9b48c258b1f20 100644
 --- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
 +++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-@@ -263,6 +263,212 @@ static int smu_v15_0_8_init_allowed_features(struct smu_context *smu)
- 	return 0;
+@@ -311,6 +311,203 @@ static int smu_v15_0_8_get_metrics_table_internal(struct smu_context *smu, uint3
+ 	return ret;
  }
  
-+static int smu_v15_0_8_get_dpm_ultimate_freq(struct smu_context *smu,
-+					     enum smu_clk_type clk_type,
-+					     uint32_t *min, uint32_t *max)
++static int smu_v15_0_8_get_smu_metrics_data(struct smu_context *smu,
++					    MetricsMember_t member, uint32_t *value)
 +{
-+	struct smu_15_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
 +	struct smu_table_context *smu_table = &smu->smu_table;
-+	PPTable_t *pptable = (PPTable_t *)smu_table->driver_pptable;
-+	struct smu_dpm_table *dpm_table;
-+	uint32_t min_clk = 0, max_clk = 0;
++	MetricsTable_t *metrics = (MetricsTable_t *)smu_table->metrics_table;
++	struct amdgpu_device *adev = smu->adev;
++	int ret, xcc_id;
 +
-+	if (!pptable->init)
-+		return -EINVAL;
++	ret = smu_v15_0_8_get_metrics_table_internal(smu, 10, NULL);
++	if (ret)
++		return ret;
 +
-+	/* Try cached DPM tables first */
-+	if (dpm_context) {
-+		switch (clk_type) {
-+		case SMU_MCLK:
-+		case SMU_UCLK:
-+			dpm_table = &dpm_context->dpm_tables.uclk_table;
-+			break;
-+		case SMU_GFXCLK:
-+		case SMU_SCLK:
-+			dpm_table = &dpm_context->dpm_tables.gfx_table;
-+			break;
-+		case SMU_SOCCLK:
-+			dpm_table = &dpm_context->dpm_tables.soc_table;
-+			break;
-+		case SMU_FCLK:
-+			dpm_table = &dpm_context->dpm_tables.fclk_table;
-+			break;
-+		case SMU_GL2CLK:
-+			dpm_table = &dpm_context->dpm_tables.gl2_table;
-+			break;
-+		case SMU_VCLK:
-+			dpm_table = &dpm_context->dpm_tables.vclk_table;
-+			break;
-+		case SMU_DCLK:
-+			dpm_table = &dpm_context->dpm_tables.dclk_table;
-+			break;
-+		default:
-+			dpm_table = NULL;
-+			break;
-+		}
++	switch (member) {
++	case METRICS_CURR_GFXCLK:
++	case METRICS_AVERAGE_GFXCLK:
++			xcc_id = GET_INST(GC, 0);
++			*value = SMUQ10_ROUND(metrics->GfxclkFrequency[xcc_id]);
++		break;
++	case METRICS_CURR_SOCCLK:
++	case METRICS_AVERAGE_SOCCLK:
++		*value = SMUQ10_ROUND(metrics->SocclkFrequency[0]);
++		break;
++	case METRICS_CURR_UCLK:
++	case METRICS_AVERAGE_UCLK:
++		*value = SMUQ10_ROUND(metrics->UclkFrequency[0]);
++		break;
++	case METRICS_CURR_VCLK:
++		*value = SMUQ10_ROUND(metrics->VclkFrequency[0]);
++		break;
++	case METRICS_CURR_DCLK:
++		*value = SMUQ10_ROUND(metrics->DclkFrequency[0]);
++		break;
++	case METRICS_CURR_FCLK:
++		*value = SMUQ10_ROUND(metrics->FclkFrequency[0]);
++		break;
++	case METRICS_AVERAGE_GFXACTIVITY:
++		*value = SMUQ10_ROUND(metrics->SocketGfxBusy);
++		break;
++	case METRICS_AVERAGE_MEMACTIVITY:
++		*value = SMUQ10_ROUND(metrics->DramBandwidthUtilization);
++		break;
++	case METRICS_CURR_SOCKETPOWER:
++		*value = SMUQ10_ROUND(metrics->SocketPower) << 8;
++		break;
++	case METRICS_TEMPERATURE_HOTSPOT:
++		*value = SMUQ10_ROUND(metrics->MaxSocketTemperature) *
++			 SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		break;
++	case METRICS_TEMPERATURE_MEM:
++	{
++		struct amdgpu_device *adev = smu->adev;
++		u32 max_hbm_temp = 0;
 +
-+		if (dpm_table && dpm_table->count > 0) {
-+			min_clk = SMU_DPM_TABLE_MIN(dpm_table);
-+			max_clk = SMU_DPM_TABLE_MAX(dpm_table);
++		/* Find max temperature across all HBM stacks */
++		if (adev->umc.active_mask) {
++			u64 mask = adev->umc.active_mask;
++			int stack_idx;
 +
-+			if (min_clk && max_clk) {
-+				if (min)
-+					*min = min_clk;
-+				if (max)
-+					*max = max_clk;
-+				return 0;
++			for_each_hbm_stack(stack_idx, mask) {
++				u32 temp;
++
++				if (!hbm_stack_mask_valid(mask))
++					continue;
++
++				temp = SMUQ10_ROUND(metrics->HbmTemperature[stack_idx]);
++				if (temp > max_hbm_temp)
++					max_hbm_temp = temp;
 +			}
 +		}
++		*value = max_hbm_temp * SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		break;
++	}
++	/* This is the max of all VRs and not just SOC VR.
++	 */
++	case METRICS_TEMPERATURE_VRSOC:
++		*value = SMUQ10_ROUND(metrics->MaxVrTemperature) *
++			 SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
++		break;
++	default:
++		*value = UINT_MAX;
++		break;
 +	}
 +
-+	/* Fall back to pptable */
++	return 0;
++}
++
++static int smu_v15_0_8_get_current_clk_freq_by_table(struct smu_context *smu,
++						     enum smu_clk_type clk_type,
++						     uint32_t *value)
++{
++	MetricsMember_t member_type;
++
++	if (!value)
++		return -EINVAL;
++
 +	switch (clk_type) {
 +	case SMU_GFXCLK:
 +	case SMU_SCLK:
-+		min_clk = pptable->MinGfxclkFrequency;
-+		max_clk = pptable->MaxGfxclkFrequency;
++		member_type = METRICS_CURR_GFXCLK;
 +		break;
-+	case SMU_FCLK:
-+		min_clk = pptable->MinFclkFrequency;
-+		max_clk = pptable->MaxFclkFrequency;
-+		break;
-+	case SMU_GL2CLK:
-+		min_clk = pptable->MinGl2clkFrequency;
-+		max_clk = pptable->MaxGl2clkFrequency;
-+		break;
-+	case SMU_MCLK:
 +	case SMU_UCLK:
-+		min_clk = pptable->UclkFrequencyTable[0];
-+		max_clk = pptable->UclkFrequencyTable[ARRAY_SIZE(pptable->UclkFrequencyTable) - 1];
++	case SMU_MCLK:
++		member_type = METRICS_CURR_UCLK;
 +		break;
 +	case SMU_SOCCLK:
-+		min_clk = pptable->SocclkFrequency;
-+		max_clk = pptable->SocclkFrequency;
++		member_type = METRICS_CURR_SOCCLK;
 +		break;
 +	case SMU_VCLK:
-+		min_clk = pptable->VclkFrequency;
-+		max_clk = pptable->VclkFrequency;
++		member_type = METRICS_CURR_VCLK;
 +		break;
 +	case SMU_DCLK:
-+		min_clk = pptable->DclkFrequency;
-+		max_clk = pptable->DclkFrequency;
++		member_type = METRICS_CURR_DCLK;
++		break;
++	case SMU_FCLK:
++		member_type = METRICS_CURR_FCLK;
 +		break;
 +	default:
 +		return -EINVAL;
 +	}
 +
-+	if (min)
-+		*min = min_clk;
-+	if (max)
-+		*max = max_clk;
-+
-+	return 0;
++	return smu_v15_0_8_get_smu_metrics_data(smu, member_type, value);
 +}
 +
-+static int smu_v15_0_8_set_dpm_table(struct smu_context *smu)
++static int smu_v15_0_8_emit_clk_levels(struct smu_context *smu,
++				       enum smu_clk_type type, char *buf,
++				       int *offset)
 +{
-+	struct smu_table_context *smu_table = &smu->smu_table;
-+	struct smu_15_0_dpm_context *dpm_context = smu->smu_dpm.dpm_context;
-+	struct smu_dpm_table *dpm_table;
-+	PPTable_t *pptable = (PPTable_t *)smu_table->driver_pptable;
-+	int i, ret;
-+	uint32_t gfxclkmin, gfxclkmax;
++	struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
++	struct smu_15_0_dpm_context *dpm_context;
++	struct smu_dpm_table *single_dpm_table = NULL;
++	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
++	int ret, now, size = *offset;
 +
-+	/* gfxclk dpm table setup - fine-grained */
-+	dpm_table = &dpm_context->dpm_tables.gfx_table;
-+	dpm_table->clk_type = SMU_GFXCLK;
-+	dpm_table->flags = SMU_DPM_TABLE_FINE_GRAINED;
-+	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_GFXCLK_BIT)) {
-+		ret = smu_v15_0_8_get_dpm_ultimate_freq(smu, SMU_GFXCLK,
-+							&gfxclkmin, &gfxclkmax);
-+		if (ret)
++	if (amdgpu_ras_intr_triggered()) {
++		sysfs_emit_at(buf, size, "unavailable\n");
++		return -EBUSY;
++	}
++
++	dpm_context = smu_dpm->dpm_context;
++
++	switch (type) {
++	case SMU_OD_SCLK:
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_SCLK");
++		size += sysfs_emit_at(buf, size, "0: %uMhz\n1: %uMhz\n",
++				      pstate_table->gfxclk_pstate.curr.min,
++				      pstate_table->gfxclk_pstate.curr.max);
++		break;
++	case SMU_OD_MCLK:
++		size += sysfs_emit_at(buf, size, "%s:\n", "OD_MCLK");
++		size += sysfs_emit_at(buf, size, "0: %uMhz\n1: %uMhz\n",
++				      pstate_table->uclk_pstate.curr.min,
++				      pstate_table->uclk_pstate.curr.max);
++		break;
++	case SMU_SCLK:
++	case SMU_GFXCLK:
++		single_dpm_table = &dpm_context->dpm_tables.gfx_table;
++		break;
++	case SMU_MCLK:
++	case SMU_UCLK:
++		single_dpm_table = &dpm_context->dpm_tables.uclk_table;
++		break;
++	case SMU_SOCCLK:
++		single_dpm_table = &dpm_context->dpm_tables.soc_table;
++		break;
++	case SMU_FCLK:
++		single_dpm_table = &dpm_context->dpm_tables.fclk_table;
++		break;
++	case SMU_VCLK:
++		single_dpm_table = &dpm_context->dpm_tables.vclk_table;
++		break;
++	case SMU_DCLK:
++		single_dpm_table = &dpm_context->dpm_tables.dclk_table;
++		break;
++	default:
++		break;
++	}
++
++	if (single_dpm_table) {
++		ret = smu_v15_0_8_get_current_clk_freq_by_table(smu, type, &now);
++		if (ret) {
++			dev_err(smu->adev->dev,
++				"Attempt to get current clk Failed!");
++			return ret;
++		}
++		ret = smu_cmn_print_dpm_clk_levels(smu, single_dpm_table, now,
++						   buf, offset);
++		if (ret < 0)
 +			return ret;
 +
-+		dpm_table->count = 2;
-+		dpm_table->dpm_levels[0].value = gfxclkmin;
-+		dpm_table->dpm_levels[0].enabled = true;
-+		dpm_table->dpm_levels[1].value = gfxclkmax;
-+		dpm_table->dpm_levels[1].enabled = true;
-+	} else {
-+		dpm_table->count = 1;
-+		dpm_table->dpm_levels[0].value = pptable->MinGfxclkFrequency;
-+		dpm_table->dpm_levels[0].enabled = true;
++		return 0;
 +	}
 +
-+	/* fclk dpm table setup - fine-grained */
-+	dpm_table = &dpm_context->dpm_tables.fclk_table;
-+	dpm_table->clk_type = SMU_FCLK;
-+	dpm_table->flags = SMU_DPM_TABLE_FINE_GRAINED;
-+	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_FCLK_BIT)) {
-+		dpm_table->count = 2;
-+		dpm_table->dpm_levels[0].value = pptable->MinFclkFrequency;
-+		dpm_table->dpm_levels[0].enabled = true;
-+		dpm_table->dpm_levels[1].value = pptable->MaxFclkFrequency;
-+		dpm_table->dpm_levels[1].enabled = true;
-+	} else {
-+		dpm_table->count = 1;
-+		dpm_table->dpm_levels[0].value = pptable->MinFclkFrequency;
-+		dpm_table->dpm_levels[0].enabled = true;
-+	}
-+
-+	/* gl2clk dpm table setup - fine-grained */
-+	dpm_table = &dpm_context->dpm_tables.gl2_table;
-+	dpm_table->flags = SMU_DPM_TABLE_FINE_GRAINED;
-+	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_GL2CLK_BIT)) {
-+		dpm_table->count = 2;
-+		dpm_table->dpm_levels[0].value = pptable->MinGl2clkFrequency;
-+		dpm_table->dpm_levels[0].enabled = true;
-+		dpm_table->dpm_levels[1].value = pptable->MaxGl2clkFrequency;
-+		dpm_table->dpm_levels[1].enabled = true;
-+	} else {
-+		dpm_table->count = 1;
-+		dpm_table->dpm_levels[0].value = pptable->MinGl2clkFrequency;
-+		dpm_table->dpm_levels[0].enabled = true;
-+	}
-+
-+	/* uclk dpm table setup - discrete levels */
-+	dpm_table = &dpm_context->dpm_tables.uclk_table;
-+	dpm_table->clk_type = SMU_UCLK;
-+	dpm_table->flags = 0;
-+	if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT)) {
-+		dpm_table->count = ARRAY_SIZE(pptable->UclkFrequencyTable);
-+		for (i = 0; i < dpm_table->count; ++i) {
-+			dpm_table->dpm_levels[i].value = pptable->UclkFrequencyTable[i];
-+			dpm_table->dpm_levels[i].enabled = true;
-+		}
-+	} else {
-+		dpm_table->count = 1;
-+		dpm_table->dpm_levels[0].value = pptable->UclkFrequencyTable[0];
-+		dpm_table->dpm_levels[0].enabled = true;
-+	}
-+
-+	/* socclk dpm table setup - single boot-time value */
-+	dpm_table = &dpm_context->dpm_tables.soc_table;
-+	dpm_table->clk_type = SMU_SOCCLK;
-+	dpm_table->flags = 0;
-+	dpm_table->count = 1;
-+	dpm_table->dpm_levels[0].value = pptable->SocclkFrequency;
-+	dpm_table->dpm_levels[0].enabled = true;
-+
-+	/* vclk dpm table setup - single boot-time value */
-+	dpm_table = &dpm_context->dpm_tables.vclk_table;
-+	dpm_table->clk_type = SMU_VCLK;
-+	dpm_table->flags = 0;
-+	dpm_table->count = 1;
-+	dpm_table->dpm_levels[0].value = pptable->VclkFrequency;
-+	dpm_table->dpm_levels[0].enabled = true;
-+
-+	/* dclk dpm table setup - single boot-time value */
-+	dpm_table = &dpm_context->dpm_tables.dclk_table;
-+	dpm_table->clk_type = SMU_DCLK;
-+	dpm_table->flags = 0;
-+	dpm_table->count = 1;
-+	dpm_table->dpm_levels[0].value = pptable->DclkFrequency;
-+	dpm_table->dpm_levels[0].enabled = true;
++	*offset = size;
 +
 +	return 0;
 +}
 +
- static int smu_v15_0_8_setup_pptable(struct smu_context *smu)
- {
- 	struct smu_table_context *table_context = &smu->smu_table;
-@@ -455,6 +661,10 @@ static int smu_v15_0_8_set_default_dpm_table(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
-+	ret = smu_v15_0_8_set_dpm_table(smu);
-+	if (ret)
-+		return ret;
-+
- 	return 0;
- }
- 
-@@ -714,6 +924,7 @@ static const struct pptable_funcs smu_v15_0_8_ppt_funcs = {
- 	.get_pp_feature_mask = smu_cmn_get_pp_feature_mask,
- 	.wait_for_event = smu_v15_0_wait_for_event,
- 	.mode2_reset = smu_v15_0_8_mode2_reset,
-+	.get_dpm_ultimate_freq = smu_v15_0_8_get_dpm_ultimate_freq,
+ static int smu_v15_0_8_get_dpm_ultimate_freq(struct smu_context *smu,
+ 					     enum smu_clk_type clk_type,
+ 					     uint32_t *min, uint32_t *max)
+@@ -1206,6 +1403,7 @@ static const struct pptable_funcs smu_v15_0_8_ppt_funcs = {
+ 	.get_unique_id = smu_v15_0_8_get_unique_id,
+ 	.get_power_limit = smu_v15_0_8_get_power_limit,
+ 	.set_power_limit = smu_v15_0_set_power_limit,
++	.emit_clk_levels = smu_v15_0_8_emit_clk_levels,
  };
  
  static void smu_v15_0_8_init_msg_ctl(struct smu_context *smu,
