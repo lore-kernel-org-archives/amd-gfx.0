@@ -4,155 +4,151 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7389F33813
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44417F33810
 	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 08:18:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E772010E59A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A88610E58F;
 	Tue, 17 Mar 2026 08:18:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="kLzDUHZz";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="jNoRx4WK";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011000.outbound.protection.outlook.com [52.101.57.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 04F5D10E3D8;
- Mon, 16 Mar 2026 18:43:26 +0000 (UTC)
+Received: from SY8PR01CU002.outbound.protection.outlook.com
+ (mail-australiaeastazolkn19010073.outbound.protection.outlook.com
+ [52.103.72.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34D0710E2DA;
+ Tue, 17 Mar 2026 03:16:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XR96MLWyvhvmfOeVUkNZvZJQmyToBf+5EQDneRsm4ydyr54ZclyjliPrmC2UYJHr+dfP9UmGuieoh7TjHMqulZT65Fo331jHRgxMlHVe90j5fRfBQBFSVLHR6TushDb7b9o60dvLspdTb8UP+WfMWoC94or0nlxi3snMp0qqF9NRfCvye+zQ0qayOM4uf8TcuT/73iyICiULm+U9U02lAVxUjsrQ26u9+VAeE19r9ngxa8mLtd7TXbyHsy5kBmRf71UrYoBNrzpkvOHwozAj/fOZfbhqU6yW4hDgCubNgzrclYD5DXdDyszawEZ1lxbhGxEZVSXrWA6bMbBTQfUVQw==
+ b=PAPA0xh4oFt2TiaFGOaeqJ4l5Y3V4EK0APc50JeQPwOAtWqNAOJhub3KzLF9L7+I8CaJfxvBj2WEyCOJ614HfmikkX+x9CJRxHTZFTUfgR645schS1pvweyhyQhjlJC28ABFQmIIXnEF+I6jkSJb50+Y3OYz3HZCeFQ6mhwjizJxencyNy60VmRc3V9ha8OyjwC+uwriucQlu5Mx8V+14Dj0VjfFRsleb+SGXZQ4b0qNiFLspsemYIlOvW5UcPijTB8HBOhYWaaHG3FCOWMzYBtElBrhSz+W36U1c7zuxkHFWIeENeVweXvTW8jwVajcji+zwB/GYhnfdV8ZvsMG5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=897PCkEdDBhRPvr1FE7K3td53l27ejLdHpW+XtQWK/Y=;
- b=j6HJjJk2nnJYVjUlEvIYIsqXEC8aS43uH4You8pMQ8JV3z468ntTAflNBC774ba1OHoRhpVkVr4jztUn5dFY/QU+c2mHhF4QmF057PzCL4Y+7tMED5aMKICdgRNAzkxkmFWp2rtClrafMW7ChgMDb3P4G5Z6BFc7jqOB+qhqGItQ1bl8OfNz3LITlEUb7mrMqALioxgvDsfhE4uxu+GOwyfOlVPF88bO3jP1kZU2M9eBoTtp+Ti2Nth+sKzE5uboG/xMvOJDmgPWFdEmo95SeyoEoYgxhRDPJJgO17fXiRjrGfbw87iDePKNkBsOemLgGwGRjoWIy5Wps/pqQQ6E+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=qFXM5P4q7n8kTcG4vRUrwSmRbH0UQ5LhH+6tkLONhNQ=;
+ b=wMRomeH3SwABGRlXZEd5Z8P47sMRdqgGeCiyus/q1pxejYhNkEK+Dfsw8Q/YQAbstQ968CkiPsJS6V3+qusB5214eUo3fVdBfFZub9bWAwDdYyaHxUrj0jo+ezaFIYiF1yJzKSXx0l7XKXqZYs50grBljZjcWbGeNrA4y7uPf2s60EzqDSZC89C/HV8Vj7+ARRzIPFdQW5iQBdZKhh/Zwci4Doij68Qj/mrOpuvDZEdBzmgTrI6wuyYfNzdxy0TLPYZC4k6fXGyP6AcjP3wmsc8/xRDpbscievIU7CvmSKr1yzvL6iA7O70s0I1SN4Q/wKANRH+ZNN/ILJ6mhZVk3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=897PCkEdDBhRPvr1FE7K3td53l27ejLdHpW+XtQWK/Y=;
- b=kLzDUHZzQ1uuLrCUsu6BAil8IfpveQvkElCWFtxPOxwAQEP3P3zMdrOTg1BAgAOceHrezNikwx2hUAewQP+ZlRkKE1708JDJMzSMNtuhMkAyp0fMLsucM7ewrb5p9jCv0MDs8xPw4BJ4S/9KfZGE2N+kmdlUpSOafOsVxxdjg+iRT5caBO74FB9t6yVYZ/UaCw7H30eF7RIzMvDi6L6jSuLh8Aj80DXQc2bHzqYl/xLzIo8LRTynnwnwK3ZWDBhQQTPVqzHEmJMkGGkm+b2DupkR0VH8XNkxN4PCThiSKZFSF63E5VLbUfbBeD2DhDDvQWxcRTtDvk3vsgg35f/oMA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- MW4PR12MB5643.namprd12.prod.outlook.com (2603:10b6:303:188::16) with
+ bh=qFXM5P4q7n8kTcG4vRUrwSmRbH0UQ5LhH+6tkLONhNQ=;
+ b=jNoRx4WKb1hN7EWAw1jrW8fR45cRl9gzmUfEd2oW8meNM4+/4/YyE948vvs1cFx7Ypi23RPBIUAwc7tfH7wMelZtcNBQoH5zPIQC8fknAUZnUfYYoTk9VnBSDRBuR3mK1IeuxvZIzSwjSNQVBOFtne+RNQfMDhTgfMBlVT6BxXm9FCp0l+HIp5VU+9f5BwR1bKx8bHC7PZuMeJc9H60JgBuY6ewcEXBLm90/G4z/GPyMyMSkiSaZp2hInWYLtyGFdPfFLir0AJ4zzmeTEqzo7uy6CY3lWPyR6ahm1ggrvi3gHjRZCwgfYXtL5jlax6VMntO0fnbhycsiVLoYK3o+9Q==
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
+ by SYBPR01MB7115.ausprd01.prod.outlook.com (2603:10c6:10:14e::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Mon, 16 Mar
- 2026 18:43:17 +0000
-Received: from DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
- ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9723.014; Mon, 16 Mar 2026
- 18:43:17 +0000
-Message-ID: <c750e3ce-db4b-4cf4-9254-c381c118d103@nvidia.com>
-Date: Mon, 16 Mar 2026 14:43:13 -0400
-User-Agent: Mozilla Thunderbird
-From: Joel Fernandes <joelagnelf@nvidia.com>
-Subject: Re: [PATCH v12.1 1/1] rust: gpu: Add GPU buddy allocator bindings
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Koen Koning <koen.koning@linux.intel.com>, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- Nikola Djukic <ndjukic@nvidia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Lucas De Marchi <lucas.demarchi@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Helge Deller <deller@gmx.de>, Alex Gaynor <alex.gaynor@gmail.com>,
- Boqun Feng <boqun.feng@gmail.com>, John Hubbard <jhubbard@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
- Edwin Peer <epeer@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
- Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Philipp Stanner <phasta@kernel.org>,
- Elle Rhumsaa <elle@weathered-steel.dev>, alexeyi@nvidia.com,
- Eliot Courtney <ecourtney@nvidia.com>, joel@joelfernandes.org,
- linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org
-References: <DH48DNAQCE0Z.2EX23VD27CQVX@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <DH48DNAQCE0Z.2EX23VD27CQVX@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.25; Tue, 17 Mar
+ 2026 03:16:14 +0000
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c%5]) with mapi id 15.20.9700.024; Tue, 17 Mar 2026
+ 03:16:14 +0000
+From: Junrui Luo <moonafterrain@outlook.com>
+Date: Tue, 17 Mar 2026 11:14:50 +0800
+Subject: [PATCH] drm/amdgpu/userq: refactor MQD init into per-IP helpers
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR22CA0020.namprd22.prod.outlook.com
- (2603:10b6:208:238::25) To DS0PR12MB6486.namprd12.prod.outlook.com
- (2603:10b6:8:c5::21)
+Message-ID: <SYBPR01MB7881D8124681BC48D009E222AF41A@SYBPR01MB7881.ausprd01.prod.outlook.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDY0Nz3bTMitRi3WQLg7QUM1OLZPMUUyWg2oKiVLAEUGl0bG0tAOEb91x
+ XAAAA
+X-Change-ID: 20260317-fixes-c80fd658c7d5
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ "Liang, Prike" <Prike.Liang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Markus Elfring <Markus.Elfring@web.de>, 
+ Junrui Luo <moonafterrain@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7837;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=lEJK+hppw3xTpgIZfNN612BGZla7z1Jn+bsQnuiWY/w=;
+ b=owGbwMvMwCVW+MIioLvvgwPjabUkhswdxzWPdL/z8dOZbbqkpORVpE3dYV7+7qOrj6YU+5op2
+ v/5EtrQUcrCIMbFICumyHK84NI3C98tult8tiTDzGFlAhnCwMUpABOZ/ISRYVWhrIekcIz7Fd9z
+ ZrasDloW1SkROb8X+8XXTn83c76DGCPDa7PqSRK5Z6ar2fUueVQwd+HzKjOWRcqJPM2uga4Hps5
+ jBgA=
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-ClientProxiedBy: TY4P286CA0039.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b2::7) To SYBPR01MB7881.ausprd01.prod.outlook.com
+ (2603:10c6:10:1b0::5)
+X-Microsoft-Original-Message-ID: <20260317-fixes-v1-1-0feec64edc30@outlook.com>
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|MW4PR12MB5643:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8957a09e-e9b9-4046-2e22-08de838be377
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
+X-MS-TrafficTypeDiagnostic: SYBPR01MB7881:EE_|SYBPR01MB7115:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9fdc0760-a5ca-4151-1d11-08de83d38b6d
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|366016|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: s9d5wKe+6i0axdSCPJXhzRac4E3m8qVYuUiw+ua0sdkceHfW5BEYDQnzLRAbzScHaKKZfZs5TZgbidXa5/T7WCO+SLFInlzXvl4pUYGGzhEZFbcqajyNcKEYodl8P0AqsaJcFkHEhVpvueWfUD7KoNk8WlGaN3DmXn46G2amiCupYnmZdzsoR5z6+pxrVeIegWOMDbKgkvKr2Wt4jwsvrFn23m7/FyKoSd7OzhegwwlUlmsD1nbcHmZv1do96lTpOHnfu9GT91J7ga5Z/+KFG+0nqg3t6EUxHlupOU+aQuxDxx5kODXj9wFfpTGm2JR72RgQDV0ttEXWIF/WGFLtNFRQunNCM2Efh4B5jmueVGJVDJKZOw2Hb7+dUtH7rOTQtTufVpS2fM88sIKkVBvAielu5T5/RhOVc/EMlmX/S+k2DOkrK9i/gl+hLTEPtCoUuem3NxwDI6OmgKDZwDc15mGOqSERrCgxL5p3t3sWWr3/YHVALTFonInL4w1ihxvVLXQksnRmwvkEWcFXu8BgWRuHTcLkWyCquLjejloBJpjzIZBjIHHYEVhci22DyizwlC7pWJZdk4wYuF+etSeYXQK0N00eT635Q7hJleTr7xFAOgguyQnTU6Zgo83osOwQV4hh222wFVw0CFh9y1RnmcyuJ62Eeo+Ub1Z6hRoc9JA4xgBXqGolVgFY/WnK4/XCoNFc5UKwZjGzOoimh4dIiL9NE8C7GJq7tUGJ7AovaPQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(366016)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
+ ARA:14566002|23021999003|19110799012|12121999013|5072599009|8060799015|5062599005|15080799012|41001999006|6090799003|461199028|51005399006|24121999003|22091999003|10035399007|3412199025|4302099013|440099028|12091999003|1602099012|40105399003|1710799026;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?UkxHek0ydmVWYWY4WGIzODlrallKQXNtWURXNTB3VzcwYm1CNjgyR3V6eDVD?=
+ =?utf-8?B?ZGNENUllWEJ2UklnV1VUQWJzK3R0S1JYVkQzLzFvNDJ1eWxxbDhodGZnNWFi?=
+ =?utf-8?B?blhjelVNYUg3S3ZoS2wzZWNGeS9yUWhERTBhWGtQdnlRcExqVWs2V1dLNE1S?=
+ =?utf-8?B?UFA5Mk1WYmxxR2wrVzJwRzZmdDFXek9mUVVNSUs2MVpyMjltTHNDbi85YjFa?=
+ =?utf-8?B?ZWlkcmlSa3B2akxmVGwvc0t2cHQvQWJoSmJUeXA0aUhXaEdBNkpkUlQ3ZGoz?=
+ =?utf-8?B?M0s3alpYeTJ5MDdJRnlGZHM3WUtZd1pQWm9tY2xhWG1RODlBeXhYVG5hc2R5?=
+ =?utf-8?B?OVEvL0I2cVM0V25ySUc0UGZqZ2VMMzBKRUpTSCt5SklsRDl0YmdzaXdIYkho?=
+ =?utf-8?B?RWZiZ3l2TWRVYWlPYkF1WWwyQ011cENPdE9hSmhreUxoMVNMb29MZTgzSVFG?=
+ =?utf-8?B?QVdpb1VNNWs0TUNiTldBaCs4U0xSME43YXRPYU9vVlNDMDZMbDBOQUdvZG5K?=
+ =?utf-8?B?RFJITlRxalJ1Rm5yL2xHbWozcGNManF2RXJKNTFjbzNWN21aQU9RMEFrQXhm?=
+ =?utf-8?B?NFdhTUtoQVJuZHlNV3BkUnRVdm9MSkNkMmVvRGxRR2tlQmR6aGE2Z3R3QkN4?=
+ =?utf-8?B?NGlUZmkwQ0pkM0ZrdHM2cU1zVTVTL1hsZjNBN3puczMwS3lESThwR2dCQ0hq?=
+ =?utf-8?B?SVdTNHdoTERFUERhV2NZbkRKclhBU0w1V29NZjdSc3hyZjgxcHZzMWl2UTBL?=
+ =?utf-8?B?d05vZ3d4MnVPTW92MVBKZ2w3YkZmNTEzRDhXRGJKb0NXOXlzcTAzdjk5OTZX?=
+ =?utf-8?B?dlJsZDZMWUFtMXA4NDRaeUdYZjVZYWtqZE9rL3V6amxQQytrMmU0UGUxamhM?=
+ =?utf-8?B?TEhvN2NBM0s2eFhZZUY4VnRNV2liVDkwTjlFdDdaWlR3Tk9BTjNpUVNaSWJj?=
+ =?utf-8?B?bXVvdXFCaVh2SWtOaVd6dG43OEh5SXY4SnppVDBUYWt0blM4Qk1Uanh6Sjhk?=
+ =?utf-8?B?TWJwKzkxWW9WTGh1c2dCV05iWWhUcDBiL2xldDlUZkN1VGpGd2xEWGNVTVh4?=
+ =?utf-8?B?bFJlQXNZSjhOZUFKR1AxVDljSmNEWnZKdUNyMEg3UVlXN2I4dGxJOHA4Y0lT?=
+ =?utf-8?B?UHRpS3FtbGtZQ1RNRUJrV2lueGxuM2R6L2pkTS9lTUFFSHZnaXdqVXlqVDYx?=
+ =?utf-8?B?NjBic0pLWk03MGFwV2MrWlZvUWcvM3JxcGl6TVdPdHJhaTJLRlRiZmNKaWIv?=
+ =?utf-8?B?MklZcmVHYnYzd0RWenpUODY2WjBIOHRMTEFrSGxiVEVGTWdpWlcxajZvN3ph?=
+ =?utf-8?B?eEpqUm5KN1ZGM0JxS2w3OFJHV0hIMHJUdFgyV2tNamxwaEdvaEFTTExNRHJ0?=
+ =?utf-8?B?eStTQkY2UWhMTHY1ZllJTzUzc3A1VUR6d1BDQzFKdy9HRFlveW8wamZwRzBw?=
+ =?utf-8?B?amNlbzg5dGZUdGlyTUFJeVMwb2h4cUlwSlYxU21GTW9mcm5PQXI4bW1wU1ZM?=
+ =?utf-8?B?VlIzM0lneFZadkswaUQ1QWF0ZkNEL2JFNkJlTUFIa05KU2g5UUdNbjhtaFVD?=
+ =?utf-8?B?UzJhMFJhcUt6Q1FqbWQvUHFqUzJha04wdFc0YmtzUStJaktWc0pseFd6eXpE?=
+ =?utf-8?B?WXpkVDZjMkJHZ1JzQk1VMThYS3oycGthWUdzM2ZkOXY3RjRlL3M2VmVZY1VY?=
+ =?utf-8?B?T2ZGQVdKMWhXSVJra3k5Q2JZNlhVRFUzamREbEZkMnkySXBiUHR5dmdBPT0=?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnIremNDZGQ0NEdmdlNzSFVPbEJ5RjdmVlF1UTNKcGMvSFQyNUM3MUhkZUdB?=
- =?utf-8?B?K1VJb3ZsVkFhRFE5b1FiVHN1dkduS3krZzhuaGVWazBNNWpPS2EwNEZmbmlk?=
- =?utf-8?B?OFVub0Y2RUd5eTJhNk9mUUxJbnJCeGVuci9Rd0J3bW9MNXlXbHFZYzBlREQx?=
- =?utf-8?B?eU5JYW11TkN5V2ZyTldnNDBpUGRLWTRGOEtVaUhMdk5SYnFvTFQyZGpmVlVM?=
- =?utf-8?B?KzVVYU5oQnJYVFVUdTkwQ0YxQnlZYndybU5iMVkxd3ZDNDJ4M0RYVGt2RmdL?=
- =?utf-8?B?MHR3OHRTN3JDbi9TTjRDcjB0U3lTTG1pWmFTcWRKM2plOWhSMEkrVmpWRGM0?=
- =?utf-8?B?Q2hDMUlqaXFseSt6RmJSZVRPVnIwSDFqclVKTTk1WDI0a1A1TlJyTEIrTUp0?=
- =?utf-8?B?T2xhQU9KS3NqaW45VGE5dyt4QkloL3YyTkhFc0RTT2I2ai9VSkFTckpoOE9k?=
- =?utf-8?B?Z1k0dnV2cC9hN0pEM0RTUUVlcXpUWS9oTGRzUjZPTkdOVWkxUTQ5bjdUaVFl?=
- =?utf-8?B?VWl6ZWM3L2VEUVl3dWZXNFcwY0IvQll6MmZFQWZsb0tvbHlLbVBPNjE4MGMz?=
- =?utf-8?B?ZlZTMm5FeGZWTmZtQTIzZjM0azZDY2hycjJjRDk0OW1tODNIcTFkSHc1VElz?=
- =?utf-8?B?eGNJSllGNSsyaXRVTFQ4Q1FyUlA0WEIvOVE2ZjJ2YUZGYWZFUlorOVJSQ0dp?=
- =?utf-8?B?Y1ZLb2lscGRXUndmRDNlSXRFNWpldHF6dkR4SG9aZTFzZ1MvZHE1Sy82djV3?=
- =?utf-8?B?SURZTjF0V0NQbUFZWnk5b2VMTmVFMTNkRjRzU282cExiNlpET21JdlMrcndJ?=
- =?utf-8?B?WDJlZkQvNzYxVFc3UkFab2s1K29MTmRHTGVVZjlHSk1wOWczTUE3ak9VdEJv?=
- =?utf-8?B?YXJmYTZhVnUzVDVWQ2dSUk1ZMGRVZjNTcy9WZFl1emlTS2g1clNCYmZ4aHZs?=
- =?utf-8?B?bzhiOXpLYmQ5WU93cldrcW9KcjNxUlgvL3FmazJIZ3M0UEpRNXBiQlpVWktL?=
- =?utf-8?B?OTFueGFaeTFvdW5wemZCTW1mZVErQUozTjd6NFlWTHdpbFpPMzF2ZFJzMmtj?=
- =?utf-8?B?L3pZVkdBdUViYzFqcHdDSWhRYVQvZ3UvbVlFeUV6eDhPbmtEZm9UaWF2R0cr?=
- =?utf-8?B?T2dtYi9zNHFGYzNhWUZNdjVzblN0RU5VaktwY2J0cTdoN3orV0dqd2tDeE85?=
- =?utf-8?B?c3ROYTJMYkxJbWk1ZUtSWWN5ZkptZzJFQmxsYTl2aC85KzhFR2FVTHJqcU1O?=
- =?utf-8?B?K0x6TTZaVjRLR05URS9LRDdKaEthcyt1bVJlSE1JZE5RSVU0Uml0R2FZZEZB?=
- =?utf-8?B?WmljTVpQQ2RMZUNFcXFxS3Y3VEpCTUd0M2pSankrdjNHYzBCWUY2SEwzMUNM?=
- =?utf-8?B?eWtTaFlJeDdCYVlCcmtkd1ZGcFFtOW8vNlBCUkZXR1lZSFNNRVJEYkxjaXJ3?=
- =?utf-8?B?RWFKbVZlcGtDS2J5R2owQ2dOT2tsaTFPNUNvMnZMVlM2RjFYUHFRWm1mTlhh?=
- =?utf-8?B?V0l2bVMwTEJwYUdrQ0tzbC9ITXFOSUp0MmlGOEl5b2lLNWRteHF5VUlXckUy?=
- =?utf-8?B?Wlk3dWRrODhkcmpGNlRXbE12MTRKZFIwcE9COWNkcHhJazdpWkRuNFNLaVNG?=
- =?utf-8?B?cmU2UTU0ZUhtQ0daQ014bjRSS2VMTGYvUitkZWdJZi84cDRXQjRCN041K2xn?=
- =?utf-8?B?cE5sSHNQeGpwUVkzelZjSFN4MW50N3FlaEY5eEdTZDRyUXFVQ2Ywc3JtOVA1?=
- =?utf-8?B?akp0VTBib0s1Uzh3eU9aVzlCcjk0d2ZZY2ZLWW54RlhXWllSSzJtWkVudzF1?=
- =?utf-8?B?czFMcTBZTEk3R2dCTmo0ZGczZTNHaytVb1J2NUovYVhzdzFnRG5XMWFZcGVJ?=
- =?utf-8?B?Mjg2MTRrOVVXZE5jeS9jNURwUE1KZWZET1JFM083bEpZR05nVmpoa2JjOU1Q?=
- =?utf-8?B?VUJRbld6Z3M0cGlmVXBFTXFhV3RKSGsxTk5HajJ6cnJmVDd4MFJYTEJsNWZ4?=
- =?utf-8?B?WXhDVWxwcFpiUEZSczZ5c3Jwb0NkMGZlU0g2OUVPNGpiZ3VmYUlzMzFaczAy?=
- =?utf-8?B?U1ltZG15dkF0Mm11WlBhclZHVWs4U2pMRXkyWHJVMkl3NU9JV25rNkVKbVB0?=
- =?utf-8?B?czZIN1lTWGFFd25EbklrbTQvQUlnQnQvN0l2SEVlNTJjc3dnelRDY3lRMHhh?=
- =?utf-8?B?eTgydlVDZGdoc2ZpVUJpT0FxbUJPYlByY0NWbnhlM3Z2aTRFMDBRYkNVODJE?=
- =?utf-8?B?QzBVYmRYYlJZYUQ1QmdYa0dBM0pTU1pkSHhvL1VwOTB4Q2hpTTZQK2kyT1dK?=
- =?utf-8?B?aFN5Yk05YlErMHUrNnMzbUZBZXJVS0RXL1kyODVJUWZYWnlJc3hkdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8957a09e-e9b9-4046-2e22-08de838be377
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U2wwRWxPYWJFUGJodCt2aUVxbG9qMk9SVFRHQk9yYUZ4cEVxaGpCV2d4WWJn?=
+ =?utf-8?B?WWt6anliVHp4UUFrSEFvTnJ0aTY2emFXclRUWDVPNEdVQXFGcUFJbkhqbHpp?=
+ =?utf-8?B?K3V2N2hUZEpEOHJ0WU93VS8xcWMyK1FYQVN2OStTNCtOZVpzUkhYTnVhd2Ew?=
+ =?utf-8?B?ZTV3dmE2TDQ1UURkOGJ1dTJ2b0pxTkE4aWtYWGw1RFdpMStlSzZKQmtZV29X?=
+ =?utf-8?B?QVBYcVlYdXRNWkVWRkpJWFJGQklpQVZJODNNRm8yaFVJSVhHN1ZvVUJtdDN0?=
+ =?utf-8?B?eTRwdnBud2FjNWxoL0MrUGRDb2o5YUFDN2NXdkkvZXRNOWJBTE02a3A1eUJK?=
+ =?utf-8?B?aDY0SmszOFROb2FjNzFqSUFOY1RIZlBLTS8wZURHWmFudDZUU2VBeC96UHVC?=
+ =?utf-8?B?cC9rQUdaS0JpWGJmWkNvVlhiSTc4TkRrUkhvZEhleFJlenZveldOYWhtUVVm?=
+ =?utf-8?B?LzcwWjJuSytqeDBTYmIzVnQ0M2lDeGc3QkhSSlpKVmxGMnBzOGJ2WlN0TmRr?=
+ =?utf-8?B?R3A5QWtTVDVsckdSa0MxQ042QW1SL29HaUxKZ1pMT05INTZBVTEwYmtmTVBp?=
+ =?utf-8?B?aEVEUjRpYkVkTDUxd3EyZkRLc2tWUUZNZXNrVUlJRWRGN2xrL2dKL3RmMnJj?=
+ =?utf-8?B?ZWUzS1lGYnN0MmFOYkp0S3EyemZhbXJYaUNpSUtQQm95L25XalBxN3VudDVD?=
+ =?utf-8?B?VFptKzVNMmpzWERSczhRVms4L21ieWxRdENtWjgwSFAxdnhyY29kZy85Vndh?=
+ =?utf-8?B?UlFMWWh6WDNZYXB1WTJwd293YlZGZjBaY3NQdFE5YkxBakk1WnBzQU9NMmI4?=
+ =?utf-8?B?aHB4RVlpd3VGaWx5bDJlWmFuWHVQVUZyOWtuZDRpRFBwbEJhYUhwK21uK0Jy?=
+ =?utf-8?B?T0pLcGRWbC82NEIzcC9reW9QbjdEeVQxeGNZVTZ2ejJkdzl5R29wbXdEOCtr?=
+ =?utf-8?B?cUQ2ZmNBOEc0OVI3UWlxaDMyK21CaktZcUpydWUxVURoMGJPYmMzalptNWta?=
+ =?utf-8?B?MXlKVm9LNzlPbFA2c0hwc3R4RWczZFRHV0JJU2h2QVRaMGVRZkxMeDJYMGk4?=
+ =?utf-8?B?bHpCaG94RUhlQko1ZjJodlpRSjJDd1dwUE1mQkpZcmdiQlRCOE1JSVhwM0JZ?=
+ =?utf-8?B?WmkvUS9JSm9ETTNQaUZYWnFkQzNKM2VQMWIvNDAxNEliSk8yZmNkZ3AydHhM?=
+ =?utf-8?B?eUpGdGFFOUZDc3FQa05ONGJSQjFSZXE2WllLUkNOQ25aWmUxa0l5bWJWWll2?=
+ =?utf-8?B?Y1IvWFJGczlvTXZrZnh3M2JZbmY5REVjTDlFVXd2cGtGTFY5K2VncDRjRFN4?=
+ =?utf-8?B?bUhkR3k4enFSSWtBT2tLUDU2eWU1WG5rUlBjRjhTcXh4ejZlL3JMbnJCTkk3?=
+ =?utf-8?B?MHNnMEpvUWM5TElqbldJcWxSQ25QMEpka0JTcVJLQkdLRkxpdWFkS09nRE81?=
+ =?utf-8?B?R3hTV2dQUk9vaDhUT3djR0crTDZkaml2WkNpeGd2M2xROHdzU0tNTFcwMDll?=
+ =?utf-8?B?dDBuVnJYZzdvRXdjRXJJemNHOVBvSEdMd0tVbDN0cEtZcnVLT0pVSUFpbERy?=
+ =?utf-8?B?dWZ1cmVLeEc1Ym01UCtWZWRjVUxJZDdKcVBUVXBsdnBneEVkMUlSQjk2Y29F?=
+ =?utf-8?B?dVlpemxpbjR0blhWZTFnZVJtK2lVbjFFY1dEYWMyQ29rb0dhYXU3WE5FZU1r?=
+ =?utf-8?B?REpZRURKb1EzYklDNG51T2ZndnBEUExhb2ZFY2ZCVTg5L0VtOU5veWZYaHVh?=
+ =?utf-8?B?aERRa2VGN2dGblJ4ekloUFRrQjJVUTd0YklQYTVPRG45RFFVcG5FOWpoSFE0?=
+ =?utf-8?B?UUY2VlA2MldscEY3YUloSmdMV05MM3gzdlk0anBpR0JiRm8zV2o0OWZkV002?=
+ =?utf-8?B?Z2pNeVF1ZXlNRHFGaGZOb2RrWFFXZ0p1WnpsQVRrWlFOaVE9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fdc0760-a5ca-4151-1d11-08de83d38b6d
+X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2026 18:43:17.4989 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 03:16:13.9774 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U6o141cMUmjRNH2EsKLs3aYHZnYv8zq3/XrgZ/FteAOOd6tJ4CuSlgQNZ7DoDHT6KTYdee+jd2KEmkaXvw6REw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5643
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SYBPR01MB7115
 X-Mailman-Approved-At: Tue, 17 Mar 2026 08:18:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -168,204 +164,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Alex,
+The three IP-type branches in mes_userq_mqd_create() share a repeated
+pattern. Extract each branch into a dedicated helper function and
+introduce mes_userq_mqd_read() to deduplicate the common
+memdup_user + size check logic.
 
-On Mon Mar 16, 2026 at 10:12 PM JST, Alexandre Courbot wrote:
-> This is getting close IMHO. But `make rustdoc` fails on the examples,
-> and there are still clippy warnings - please make sure to address them.
+Each helper uses __free(kfree) for cleanup of the memdup'd
+MQD struct.
 
-Fixed.
+Link: https://lore.kernel.org/all/SYBPR01MB7881A279A361F81B670CDEEAAF42A@SYBPR01MB7881.ausprd01.prod.outlook.com/
+Suggested-by: Markus Elfring <Markus.Elfring@web.de>
+Suggested-by: Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 205 +++++++++++++++--------------
+ 1 file changed, 108 insertions(+), 97 deletions(-)
 
->> +//! use kernel::{
->> +//!     gpu::buddy::{GpuBuddy, GpuBuddyAllocMode, GpuBuddyAllocFlags, GpuBuddyParams},
->
-> nit: should also use kernel formatting style.
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index faac21ee5739..0d7ccecf7c1e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -272,6 +272,105 @@ static int mes_userq_detect_and_reset(struct amdgpu_device *adev,
+ 	return r;
+ }
+ 
++static void *mes_userq_mqd_read(struct drm_amdgpu_userq_in *mqd_user,
++				size_t size, const char *ip_name)
++{
++	void *mqd;
++
++	if (mqd_user->mqd_size != size || !mqd_user->mqd) {
++		DRM_ERROR("Invalid %s MQD\n", ip_name);
++		return ERR_PTR(-EINVAL);
++	}
++
++	mqd = memdup_user(u64_to_user_ptr(mqd_user->mqd), size);
++	if (IS_ERR(mqd)) {
++		DRM_ERROR("Failed to read %s user MQD\n", ip_name);
++		return ERR_PTR(-ENOMEM);
++	}
++
++	return mqd;
++}
++
++static int mes_userq_mqd_init_compute(struct amdgpu_device *adev,
++				      struct amdgpu_usermode_queue *queue,
++				      struct drm_amdgpu_userq_in *mqd_user,
++				      struct amdgpu_mqd_prop *userq_props)
++{
++	struct drm_amdgpu_userq_mqd_compute_gfx11 *mqd __free(kfree) =
++		mes_userq_mqd_read(mqd_user, sizeof(*mqd), "compute");
++	int r;
++
++	if (IS_ERR(mqd))
++		return PTR_ERR(mqd);
++
++	r = amdgpu_userq_input_va_validate(adev, queue, mqd->eop_va, 2048);
++	if (r)
++		return r;
++
++	userq_props->eop_gpu_addr = mqd->eop_va;
++	userq_props->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_NORMAL;
++	userq_props->hqd_queue_priority = AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM;
++	userq_props->hqd_active = false;
++	userq_props->tmz_queue =
++		mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
++	return 0;
++}
++
++static int mes_userq_mqd_init_gfx(struct amdgpu_device *adev,
++				  struct amdgpu_usermode_queue *queue,
++				  struct drm_amdgpu_userq_in *mqd_user,
++				  struct amdgpu_mqd_prop *userq_props)
++{
++	struct drm_amdgpu_userq_mqd_gfx11 *mqd __free(kfree) =
++		mes_userq_mqd_read(mqd_user, sizeof(*mqd), "GFX");
++	struct amdgpu_gfx_shadow_info shadow_info;
++	int r;
++
++	if (IS_ERR(mqd))
++		return PTR_ERR(mqd);
++
++	if (adev->gfx.funcs->get_gfx_shadow_info)
++		adev->gfx.funcs->get_gfx_shadow_info(adev, &shadow_info, true);
++	else
++		return -EINVAL;
++
++	userq_props->shadow_addr = mqd->shadow_va;
++	userq_props->csa_addr = mqd->csa_va;
++	userq_props->tmz_queue =
++		mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
++
++	r = amdgpu_userq_input_va_validate(adev, queue, mqd->shadow_va,
++					   shadow_info.shadow_size);
++	if (r)
++		return r;
++
++	r = amdgpu_userq_input_va_validate(adev, queue, mqd->csa_va,
++					   shadow_info.csa_size);
++	if (r)
++		return r;
++	return 0;
++}
++
++static int mes_userq_mqd_init_sdma(struct amdgpu_device *adev,
++				   struct amdgpu_usermode_queue *queue,
++				   struct drm_amdgpu_userq_in *mqd_user,
++				   struct amdgpu_mqd_prop *userq_props)
++{
++	struct drm_amdgpu_userq_mqd_sdma_gfx11 *mqd __free(kfree) =
++		mes_userq_mqd_read(mqd_user, sizeof(*mqd), "SDMA");
++	int r;
++
++	if (IS_ERR(mqd))
++		return PTR_ERR(mqd);
++
++	r = amdgpu_userq_input_va_validate(adev, queue, mqd->csa_va, 32);
++	if (r)
++		return r;
++
++	userq_props->csa_addr = mqd->csa_va;
++	return 0;
++}
++
+ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 				struct drm_amdgpu_userq_in *args_in)
+ {
+@@ -306,104 +405,16 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 	userq_props->doorbell_index = queue->doorbell_index;
+ 	userq_props->fence_address = queue->fence_drv->gpu_addr;
+ 
+-	if (queue->queue_type == AMDGPU_HW_IP_COMPUTE) {
+-		struct drm_amdgpu_userq_mqd_compute_gfx11 *compute_mqd;
+-
+-		if (mqd_user->mqd_size != sizeof(*compute_mqd)) {
+-			DRM_ERROR("Invalid compute IP MQD size\n");
+-			r = -EINVAL;
+-			goto free_mqd;
+-		}
+-
+-		compute_mqd = memdup_user(u64_to_user_ptr(mqd_user->mqd), mqd_user->mqd_size);
+-		if (IS_ERR(compute_mqd)) {
+-			DRM_ERROR("Failed to read user MQD\n");
+-			r = -ENOMEM;
+-			goto free_mqd;
+-		}
+-
+-		r = amdgpu_userq_input_va_validate(adev, queue, compute_mqd->eop_va,
+-						   2048);
+-		if (r) {
+-			kfree(compute_mqd);
+-			goto free_mqd;
+-		}
+-
+-		userq_props->eop_gpu_addr = compute_mqd->eop_va;
+-		userq_props->hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_NORMAL;
+-		userq_props->hqd_queue_priority = AMDGPU_GFX_QUEUE_PRIORITY_MINIMUM;
+-		userq_props->hqd_active = false;
+-		userq_props->tmz_queue =
+-			mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
+-		kfree(compute_mqd);
+-	} else if (queue->queue_type == AMDGPU_HW_IP_GFX) {
+-		struct drm_amdgpu_userq_mqd_gfx11 *mqd_gfx_v11;
+-		struct amdgpu_gfx_shadow_info shadow_info;
+-
+-		if (adev->gfx.funcs->get_gfx_shadow_info) {
+-			adev->gfx.funcs->get_gfx_shadow_info(adev, &shadow_info, true);
+-		} else {
+-			r = -EINVAL;
+-			goto free_mqd;
+-		}
+-
+-		if (mqd_user->mqd_size != sizeof(*mqd_gfx_v11) || !mqd_user->mqd) {
+-			DRM_ERROR("Invalid GFX MQD\n");
+-			r = -EINVAL;
+-			goto free_mqd;
+-		}
+-
+-		mqd_gfx_v11 = memdup_user(u64_to_user_ptr(mqd_user->mqd), mqd_user->mqd_size);
+-		if (IS_ERR(mqd_gfx_v11)) {
+-			DRM_ERROR("Failed to read user MQD\n");
+-			r = -ENOMEM;
+-			goto free_mqd;
+-		}
+-
+-		userq_props->shadow_addr = mqd_gfx_v11->shadow_va;
+-		userq_props->csa_addr = mqd_gfx_v11->csa_va;
+-		userq_props->tmz_queue =
+-			mqd_user->flags & AMDGPU_USERQ_CREATE_FLAGS_QUEUE_SECURE;
+-
+-		r = amdgpu_userq_input_va_validate(adev, queue, mqd_gfx_v11->shadow_va,
+-						   shadow_info.shadow_size);
+-		if (r) {
+-			kfree(mqd_gfx_v11);
+-			goto free_mqd;
+-		}
+-		r = amdgpu_userq_input_va_validate(adev, queue, mqd_gfx_v11->csa_va,
+-						   shadow_info.csa_size);
+-		if (r) {
+-			kfree(mqd_gfx_v11);
+-			goto free_mqd;
+-		}
+-
+-		kfree(mqd_gfx_v11);
+-	} else if (queue->queue_type == AMDGPU_HW_IP_DMA) {
+-		struct drm_amdgpu_userq_mqd_sdma_gfx11 *mqd_sdma_v11;
++	if (queue->queue_type == AMDGPU_HW_IP_COMPUTE)
++		r = mes_userq_mqd_init_compute(adev, queue, mqd_user,
++					       userq_props);
++	else if (queue->queue_type == AMDGPU_HW_IP_GFX)
++		r = mes_userq_mqd_init_gfx(adev, queue, mqd_user, userq_props);
++	else if (queue->queue_type == AMDGPU_HW_IP_DMA)
++		r = mes_userq_mqd_init_sdma(adev, queue, mqd_user, userq_props);
+ 
+-		if (mqd_user->mqd_size != sizeof(*mqd_sdma_v11) || !mqd_user->mqd) {
+-			DRM_ERROR("Invalid SDMA MQD\n");
+-			r = -EINVAL;
+-			goto free_mqd;
+-		}
+-
+-		mqd_sdma_v11 = memdup_user(u64_to_user_ptr(mqd_user->mqd), mqd_user->mqd_size);
+-		if (IS_ERR(mqd_sdma_v11)) {
+-			DRM_ERROR("Failed to read sdma user MQD\n");
+-			r = -ENOMEM;
+-			goto free_mqd;
+-		}
+-		r = amdgpu_userq_input_va_validate(adev, queue, mqd_sdma_v11->csa_va,
+-						   32);
+-		if (r) {
+-			kfree(mqd_sdma_v11);
+-			goto free_mqd;
+-		}
+-
+-		userq_props->csa_addr = mqd_sdma_v11->csa_va;
+-		kfree(mqd_sdma_v11);
+-	}
++	if (r)
++		goto free_mqd;
+ 
+ 	queue->userq_prop = userq_props;
+ 
 
-Fixed.
+---
+base-commit: 0079dcb07e98346c0722f376ae3436cd28a71fdd
+change-id: 20260317-fixes-c80fd658c7d5
 
->> +//!     ptr::Alignment,
->> +//!     sizes::*, //
->> +//! };
->> +//!
->> +//! // Create a 1GB buddy allocator with 4KB minimum chunk size.
->> +//! let buddy = GpuBuddy::new(GpuBuddyParams {
->> +//!     base_offset: 0,
->> +//!     physical_memory_size: SZ_1G as u64,
->> +//!     chunk_size: SZ_4K,
->
-> `chunk_size` is an interesting case. The C API uses a `u64`, but I think
-> we can reasonably consider that we won't ever need chunks larger than
-> 4GB (or can we :O). I'm actually ok with using a `usize` for this one.
->
-> One of the first things the C code does is throwing an error if it is
-> not a power of 2, so maybe we can even request an `Alignment`?
->
-> I'm a bit torn as to whether we should use a `u64` to conform with the C
-> API, but doing so would mean we cannot use an `Alignment`...
+Best regards,
+-- 
+Junrui Luo <moonafterrain@outlook.com>
 
-I prefer to keep it simple and use `usize` for now. I cannot imagine
-chunk_size ever exceeding 4GB, and given our stance on rejecting invalid
-inputs, this sounds reasonable. Regarding `Alignment`, I still prefer
-`usize` here since it makes the caller-side simpler and as you noted the
-C code already does error-checking. Let's revisit if needed once this
-lands.
-
->> +//!         GpuBuddyAllocMode::Range { start: 0, end: 0 },
->
-> This zero-sized range looks confusing for the example. I understand the
-> C API allows this, but I don't think we should. Is there a difference
-> with just using `GpuBuddyAllocMode::Simple`? If not, let's switch to
-> that, and reject zero-sized ranges in the same spirit as we don't allow
-> invalid flag combinations.
-
-Good point. Switched to use `GpuBuddyAllocMode::Simple` and
-added validation.
-
->> +//! assert_eq!(block.offset(), 0);
->> +//! assert_eq!(block.order(), 12); // 2^12 pages = 16MB
->> +//! assert_eq!(block.size(), SZ_16M);
->
-> Here we should also check that there is not a second block.
-
-Added.
-
->> +//! // Dropping the allocation returns the memory to the buddy allocator.
->
-> s/memory/range - technically we are not returning physical memory.
-
-Fixed.
-
->> +//! let (mut count, mut total) = (0u32, 0usize);
->> +//! for block in fragmented.iter() {
->> +//!     assert_eq!(block.size(), SZ_4M);
->> +//!     total += block.size();
->> +//!     count += 1;
->> +//! }
->
-> Note that we can avoid mutable variables with this:
->
-> //! let total_size: usize = fragmented.iter()
-> //!      .inspect(|block| assert_eq!(block.size(), SZ_4M))
-> //!      .map(|block| block.size())
-> //!      .sum();
-> //! assert_eq!(total_size, SZ_8M);
-> //! assert_eq!(fragmented.iter().count(), 2);
->
-> But your call as to whether this is an improvement.
-
-I feel the current for-loop version is slightly more readable,
-especially in a doc example aimed at new users, so I'd like to keep
-it as-is.
-
->> +//! # };
->> +//! # let buddy = GpuBuddy::new(GpuBuddyParams {
->> +//! #     base_offset: 0,
->> +//! #     physical_memory_size: SZ_1G as u64,
->> +//! #     chunk_size: SZ_4K,
->> +//! # })?;
->> +//! # let initial_free = buddy.free_memory();
->
-> `make rustdoc` fails to build:
->
-> error[E0433]: failed to resolve: use of undeclared type `GpuBuddyAllocFlags`
-
-Fixed. I'll try to run this before submissions henceforth.
-
->> +/// # Synchronization
->> +///
->> +/// The C `gpu_buddy` API requires synchronization (see `include/linux/gpu_buddy.h`).
->> +/// [`GpuBuddyGuard`] ensures that the lock is held for all
->> +/// allocator and free operations, preventing races between concurrent allocations
->> +/// and the freeing that occurs when [`AllocatedBlocks`] is dropped.
->
-> `GpuBuddyGuard` is now private, so we should avoid mentioning it in the
-> public documentation as it will just confuse users.
->
-> Users won't care about such implementation details - we can just say
-> that internal locking ensures all operations are properly synchronized.
-
-Done.
-
->> +    pub fn new(params: GpuBuddyParams) -> Result<Self> {
->> +        Ok(Self(Arc::pin_init(GpuBuddyInner::new(params), GFP_KERNEL)?))
->
-> Can be written as:
->
->         Arc::pin_init(GpuBuddyInner::new(params), GFP_KERNEL).map(Self)
->
-> I prefer this form as it avoids the `?` and re-wrapping into `Ok` for
-> something that is already a `Result`.
-
-Done.
-
->> +    /// Allocate blocks from the buddy allocator.
->> +    ///
->> +    /// Returns a pin-initializer for [`AllocatedBlocks`].
->> +    ///
->> +    /// Takes `&self` instead of `&mut self` because the internal [`Mutex`] provides
->> +    /// synchronization - no external `&mut` exclusivity needed.
->
-> This is another implementation detail - the fact this takes `&self` and
-> is not `unsafe` is already proof that synchronization is taken care of.
-
-Removed the comment.
-
->> +    pub fn alloc_blocks(
->> +        &self,
->> +        mode: GpuBuddyAllocMode,
->> +        size: usize,
->
-> For this parameter I am pretty sure we want to conform to the C API and
-> use a `u64` - there is no benefit in not doing so, and buffers larger
-> than 4GB *are* a reality nowadays, (maybe not for graphics, but this
-> will also be used in compute scenarios).
-
-Agreed. Though, note this adds 7 more `as` usages, but I guess there's
-nothing we can do till the IntoSafe stuff is moved to core rust, I think.
-
->> +    fn offset(&self) -> u64 {
->> +        // SAFETY: `self.as_raw()` is valid per the type's invariants.
->> +        unsafe { bindings::gpu_buddy_block_offset(self.as_raw()) }
->> +    }
->> +
->> +    /// Get the block order.
->> +    fn order(&self) -> u32 {
->> +        // SAFETY: `self.as_raw()` is valid per the type's invariants.
->> +        unsafe { bindings::gpu_buddy_block_order(self.as_raw()) }
->> +    }
->
-> Speaking of synchronization - I only had a quick look at the C API, but
-> are we sure these methods can all be called without holding the lock?
-
-Yes, sure. Locking is only required around alloc/free operations. Additionally,
-`AllocatedBlock` borrows a reference to `AllocatedBlocks`, so the borrow checker
-prevents `AllocatedBlocks` from being dropped.
-
->> diff --git a/rust/kernel/gpu/mod.rs b/rust/kernel/gpu/mod.rs
->
-> Let's use `gpu.rs` as the file for this module.
-
-Done, renamed and also updated the MAINTAINERS entries.
-
->> +pub mod buddy;
->
-> IMHO we should have a `#[cfg(CONFIG_GPU_BUDDY = "y")]` here for
-> defensiveness...
-
-Added.
-
->> +#[cfg(CONFIG_GPU_BUDDY = "y")]
->> +pub mod gpu;
->
-> ... because in the future I suspect the condition for enabling that
-> module will become broader. I think it's fine to keep it as-is for now
-> though.
-
-Noted, agreed, keeping it as-is for now.
-
-Thanks for the thorough review! Will respin and send likely tomorrow or day after.
-
-thanks,
-
---
-Joel Fernandes
