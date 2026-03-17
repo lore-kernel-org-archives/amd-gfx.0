@@ -4,134 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AD71FB5EAB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB3FA10854D3
 	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 08:34:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D40E10E75E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA0A710E75B;
 	Wed, 18 Mar 2026 08:34:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="EPwiq9Sy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="brUwZJ5Q";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.15.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE01310E63B;
- Tue, 17 Mar 2026 13:58:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1773755879; x=1774360679; i=markus.elfring@web.de;
- bh=MaNG8uCPQyO6FAqh3I9totg0QV7pWK+opadzzs4G6CA=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=EPwiq9SyFXri0MejIq3rTJ8W2Oi0oGEwrpfnyz12QWk47qZv4OVc7MG3P9lijLuS
- ikvwcuMTaPRKjuEM+X89BfzeifmykDecGk9QGBf+QuEFwODJGiVxOHw2d7y1T8/j3
- Jz+Kk+gMo5Qe7kfgjPSqWCFDUn164gwjvgXB3Pdhb51hEeUHrvjfU51iYCT6CK+bT
- Hh5Wa/owEF0iWLynT7v+ZDxnaJ3UgnJGVeDVQY2VgY8JksExCwUfO+m5qP6tUXqsQ
- Dyo6fALZ1ph0yQiJrgsjrI4YNLE6khGJaQ5u8/IFE+8TKF8/C+J+pY0er8jmgybON
- ZVicnOgnshAWFi8Stw==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb005
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MftC1-1vMXHS3GED-00kw0X; Tue, 17
- Mar 2026 14:57:59 +0100
-Message-ID: <3c71bfaf-1470-4115-aaa3-5427f3cd13d0@web.de>
-Date: Tue, 17 Mar 2026 14:57:58 +0100
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2870C8985A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 20:41:01 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4852b81c73aso55794325e9.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 13:41:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773780060; cv=none;
+ d=google.com; s=arc-20240605;
+ b=GFanOGW4XzocEWuWyQNZH69lhNMpEmCxZojejTZ4Ya/ddjf8UkdHZI8CgbGhLeUUYQ
+ j6WkFWZ5iZ46Vptl3VJlRwmAx0AMwSJLDEz/p3bUopTSVAHXnd9Rca+anIzwCWMM2iQs
+ yH4g0QoWoDQ1fhRvP1suG6es427bn7CjhN0J9mwRbIIZosqgLR5Lz7/BqURCMWhy45GY
+ 1/rI6M9+9pj3vxUB/1dLCg6QIhWqVEggGx854Z7UAZOIDtsUpsTU386NBjbt7C3cCmNf
+ LNbm+LSdOAU181C6oXyYa3o+zFeRxX/BSSQAXiY6C1lRrE9dCX+at9pyCyIdvqvmfn+t
+ MjcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=rhv6AjfBMDAJLnR5ORgFiY/Hkt76XAnFcNgN33rpKMw=;
+ fh=2SH6jEBmmW2m5BUr6cM8Ej8440MTBqF8ejZlF1b0u2c=;
+ b=JPgK+oD9cGpPBr7A8SYAzeehjHq3T84guthkVsznsdMO/5NAPRb6ctONnAkRiJJwj1
+ 8VVDqHnBN8X5G5OwbWnLdFkzOOZnr8q9dcw+dHpJDcJAqKL2HFXttyhqS5qDzklGhn/K
+ BQpz9BugYr7lxBe5HQWEL1zoekrwM/aUQPV5JP4ksSGt90a3PW7LgBxM54dJVwsZOQ47
+ xjNVLxVAoaST1GTycO1OPSUAtdqAUD3qxZV+VriQZBw3eTQvVecSXCqyBv8+/kZoA+S/
+ A8Ezd+g+N9bwBnCBV8DcboEBGKF5U15Kn7tHl2WQGT41osmi7f0xRb7xX+zWMAKeK9sf
+ lIoA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773780060; x=1774384860; darn=lists.freedesktop.org;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:from:to:cc:subject:date:message-id:reply-to;
+ bh=rhv6AjfBMDAJLnR5ORgFiY/Hkt76XAnFcNgN33rpKMw=;
+ b=brUwZJ5QCzmyA/qoyiI2fsl0+jbyss8G8mLtu5iekNr8Xg9FT/YW/RPxubG7SU1ZWZ
+ Wl5EfL+IZZWq5KSs34x6P+9656iYD96mtXKpz8PxPLjQX6OGakBo2BxevpvOBRq/uELv
+ DPT1APwXthFFoW8BNcVonaA8pA/JdMFTvXNk7ij3MraDdUAICemRAc9bJqQn93935hJI
+ Qe6ccf2ZufPjNwf9vVayZXBj/mZy5fOeBJ5WK30xyq+QrXlFs56mJ89e/jy1prRq2o4B
+ bQMulxkUbIsm+ZEaIkoP5wjAWGA7PCm3kiWFD/5oEdyfM57F3Hg6HND27wQ3Cs4EVSUR
+ oHzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773780060; x=1774384860;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=rhv6AjfBMDAJLnR5ORgFiY/Hkt76XAnFcNgN33rpKMw=;
+ b=cj8wXVq/3KSVoNSg/p+/GySz6PnDxqp7JYF3pY3aZU4b22VYe1vVMUVU+W79wYtMum
+ UTXawkQmH8Ya2rNj5RTXDqlcdM8BDlKuXT/lLvfdGrKyonOsolQy90KBl4tVphITXHx6
+ A+DyCrPsmTv3zJ9RiSKLSgDzCJINAoZk0Yl/X01VTlT/05XbNtxf8caFntqQG/EFHhDv
+ 7w9bDooKu/+rHhX7YpkBfhIWtfWCSKg/IJHCyXqfBJB1mgNk+irDiHXzkIPF2wyz6tWP
+ QOzocLhENGZHrEovmQY3tklvAxg/0Xlg4G5osj2Zy45MxTyms8fvsE1PeHPip3DVLIb/
+ 6qKg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWnB49G0swKm/N6LN3qafQhM85vYvDlqTKwnbdlcFTcr7e766gVS7sd9FsdwLAzbGOOSLLX9Nps@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywh8aMRnV7r/9GhNaCZKurkNEOKLJgww6XVXXwVzzaJXwOKumR+
+ wa/upm2zQo7cF0fHTlFbDp0ak7LNXD4FVhZpxHd4J+YSD+1UlO2Wf7NdZ6eQBGvJGDqCXDiXnuM
+ o4jl+wLU1KRzB6Vvy636YgwPBj7yFGDZG+DZiMuA=
+X-Gm-Gg: ATEYQzx2enYqApiXXa3wGPcU+y4iZMUZuiUSRS+UIJN2ZAgpg+ttkcwEmqxIptK7qwG
+ +Lhf5D1Ym4WcUtf/pwtkjDFFxdKY7VvRxCLf27wJX94Va0AQwIvwgrFbNyIJoiylTURdoZKoloo
+ lwcj6VuwVB8g59D+mbEx+yJ6GocZCLbnE4ojE/cMEQF9qxFQLoMNb71YBGRT7YPoiPEobWnUK2i
+ 3ljE6mrW5ftz5szz49xyyc75ad+JAD+GuiYGysCq6K83tYTpRZ+hnF+V4QpeE6cwvXh48THpv8s
+ pY92
+X-Received: by 2002:a05:600c:4e49:b0:485:4136:99a8 with SMTP id
+ 5b1f17b1804b1-486f4441072mr13816905e9.22.1773780059448; Tue, 17 Mar 2026
+ 13:40:59 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/userq: refactor MQD init into per-IP helpers
-To: Prike Liang <Prike.Liang@amd.com>, Junrui Luo
- <moonafterrain@outlook.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Yuhao Jiang <danisjiang@gmail.com>
-References: <SYBPR01MB7881D8124681BC48D009E222AF41A@SYBPR01MB7881.ausprd01.prod.outlook.com>
- <8aea894a-1dd3-48d3-b21e-23b8c2796e0b@amd.com>
- <PH7PR12MB60009289D930B947E2775B64FB41A@PH7PR12MB6000.namprd12.prod.outlook.com>
-Content-Language: en-GB, de-DE
-From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <PH7PR12MB60009289D930B947E2775B64FB41A@PH7PR12MB6000.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:UFxO8nyX9iTuWzZl1yELADNFVYahDKa1d6LmMclv8X6VKSLeefU
- Thr0WMp9RZtFYgYywLF9sZmJT3s7jkY+3U5LzsSU2jchiM90R/9jtmvytXlca+EJdMAg86x
- kSLF+vwFgZbW6UQCpGQJBv68zhHTgc5i5YaLFG7x8rwpJT3i5GEX80AAavy+mweX+bcp7RH
- upEGDLEn2Ydpl+m0/Fk/A==
-UI-OutboundReport: notjunk:1;M01:P0:8MtufmNMwg0=;lka5w25/eIRNjfXjIYCdhZRjgGn
- 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
+References: <20260316214041.6275-1-litaliano00.contact@gmail.com>
+ <CADnq5_MN=TTOHc86oxEuApUMCc9R57MxQvF82uyYh_fsMou1Ew@mail.gmail.com>
+In-Reply-To: <CADnq5_MN=TTOHc86oxEuApUMCc9R57MxQvF82uyYh_fsMou1Ew@mail.gmail.com>
+From: litaliano00 <litaliano00.contact@gmail.com>
+Date: Tue, 17 Mar 2026 21:40:48 +0100
+X-Gm-Features: AaiRm511McaT5L26PgfiAIy6cGRWWS4_GhW3qkw-VwVBl3KFCHyeF3n_pSZARdk
+Message-ID: <CAK-CEVM19BtYmExUq8sedSZGfO81HZrZae-q1EhP6C=ZUjqqBg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: clean up typecasts and ordering in
+ dcn4_calcs
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: austin.zheng@amd.com, jun.lei@amd.com, harry.wentland@amd.com, 
+ sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="0000000000005a6851064d3e5a31"
 X-Mailman-Approved-At: Wed, 18 Mar 2026 08:34:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -147,12 +106,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> We may need to clear mqd before returning on error to guarantee kfree() =
-won=E2=80=99t see an error pointer at scope exit.
+--0000000000005a6851064d3e5a31
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Would you like to take another look at a corresponding implementation deta=
-il?
-https://elixir.bootlin.com/linux/v7.0-rc4/source/include/linux/slab.h#L517
+Hi Alex,
 
-Regards,
-Markus
+Thank you for the feedback. I apologize for the oversight in the previous
+submission=E2=80=94I managed to catch the 8U and 1U constants this time and
+corrected the unsigned int ordering throughout the file.
+
+I have just submitted a [PATCH v2] with these cleanups.
+
+Best regards,
+Adriano
+
+On Tue, Mar 17, 2026 at 8:26=E2=80=AFPM Alex Deucher <alexdeucher@gmail.com=
+> wrote:
+
+> On Tue, Mar 17, 2026 at 4:18=E2=80=AFAM Adriano Vero
+> <litaliano00.contact@gmail.com> wrote:
+> >
+> > Signed-off-by: Adriano Vero <litaliano00.contact@gmail.com>
+> > ---
+> >  .../dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c      | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git
+> a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn=
+4_calcs.c
+> b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn=
+4_calcs.c
+> > index ca5ac3c0d..3e63320fd 100644
+> > ---
+> a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn=
+4_calcs.c
+> > +++
+> b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn=
+4_calcs.c
+> > @@ -12670,7 +12670,7 @@ static void rq_dlg_get_dlg_reg(
+> >                         disp_dlg_regs->refcyc_per_vm_req_flip =3D
+> (unsigned int)(math_pow(2, 23) - 1);
+> >
+> >
+> > -               DML_ASSERT(disp_dlg_regs->dst_y_after_scaler < (unsigne=
+d
+> int)8);
+> > +               DML_ASSERT(disp_dlg_regs->dst_y_after_scaler < (int
+> unsigned)8);
+>
+> Isn't this just doing what you are claiming to fix?
+>
+> >                 DML_ASSERT(disp_dlg_regs->refcyc_x_after_scaler <
+> (unsigned int)math_pow(2, 13));
+> >
+> >                 if (disp_dlg_regs->dst_y_per_pte_row_nom_l >=3D (unsign=
+ed
+> int)math_pow(2, 17)) {
+> > @@ -13226,7 +13226,7 @@ void dml2_core_calcs_get_informative(const
+> struct dml2_core_internal_display_mod
+> >
+> >         out->informative.misc.cstate_max_cap_mode =3D
+> dml_get_cstate_max_cap_mode(mode_lib);
+> >
+> > -       out->min_clocks.dcn4x.dpprefclk_khz =3D (int
+> unsigned)dml_get_global_dppclk_khz(mode_lib);
+> > +       out->min_clocks.dcn4x.dpprefclk_khz =3D (unsigned
+> int)dml_get_global_dppclk_khz(mode_lib);
+> >
+> >         out->informative.qos.max_active_fclk_change_latency_supported =
+=3D
+> dml_get_fclk_change_latency(mode_lib);
+> >
+> > --
+> > 2.47.3
+> >
+>
+
+--0000000000005a6851064d3e5a31
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Alex,<br><br>Thank you for the feedback. I apologize fo=
+r the oversight in the previous<br>submission=E2=80=94I managed to catch th=
+e 8U and 1U constants this time and<br>corrected the unsigned int ordering =
+throughout the file.<br><br>I have just submitted a [PATCH v2] with these c=
+leanups.<br><br>Best regards,<br>Adriano</div><br><div class=3D"gmail_quote=
+ gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 1=
+7, 2026 at 8:26=E2=80=AFPM Alex Deucher &lt;<a href=3D"mailto:alexdeucher@g=
+mail.com">alexdeucher@gmail.com</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">On Tue, Mar 17, 2026 at 4:18=E2=80=AFAM Ad=
+riano Vero<br>
+&lt;<a href=3D"mailto:litaliano00.contact@gmail.com" target=3D"_blank">lita=
+liano00.contact@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Signed-off-by: Adriano Vero &lt;<a href=3D"mailto:litaliano00.contact@=
+gmail.com" target=3D"_blank">litaliano00.contact@gmail.com</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 .../dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c=C2=A0 =
+=C2=A0 =C2=A0 | 4 ++--<br>
+&gt;=C2=A0 1 file changed, 2 insertions(+), 2 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core=
+/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/d=
+ml2_core/dml2_core_dcn4_calcs.c<br>
+&gt; index ca5ac3c0d..3e63320fd 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_c=
+ore_dcn4_calcs.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_c=
+ore_dcn4_calcs.c<br>
+&gt; @@ -12670,7 +12670,7 @@ static void rq_dlg_get_dlg_reg(<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0disp_dlg_regs-&gt;refcyc_per_vm_req_flip =3D (unsigned =
+int)(math_pow(2, 23) - 1);<br>
+&gt;<br>
+&gt;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DML_ASSERT(dis=
+p_dlg_regs-&gt;dst_y_after_scaler &lt; (unsigned int)8);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DML_ASSERT(dis=
+p_dlg_regs-&gt;dst_y_after_scaler &lt; (int unsigned)8);<br>
+<br>
+Isn&#39;t this just doing what you are claiming to fix?<br>
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DML_ASSER=
+T(disp_dlg_regs-&gt;refcyc_x_after_scaler &lt; (unsigned int)math_pow(2, 13=
+));<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (disp_=
+dlg_regs-&gt;dst_y_per_pte_row_nom_l &gt;=3D (unsigned int)math_pow(2, 17))=
+ {<br>
+&gt; @@ -13226,7 +13226,7 @@ void dml2_core_calcs_get_informative(const str=
+uct dml2_core_internal_display_mod<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0out-&gt;informative.misc.cstate_max_c=
+ap_mode =3D dml_get_cstate_max_cap_mode(mode_lib);<br>
+&gt;<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0out-&gt;min_clocks.dcn4x.dpprefclk_khz =3D=
+ (int unsigned)dml_get_global_dppclk_khz(mode_lib);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0out-&gt;min_clocks.dcn4x.dpprefclk_khz =3D=
+ (unsigned int)dml_get_global_dppclk_khz(mode_lib);<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0out-&gt;informative.qos.max_active_fc=
+lk_change_latency_supported =3D dml_get_fclk_change_latency(mode_lib);<br>
+&gt;<br>
+&gt; --<br>
+&gt; 2.47.3<br>
+&gt;<br>
+</blockquote></div>
+
+--0000000000005a6851064d3e5a31--
