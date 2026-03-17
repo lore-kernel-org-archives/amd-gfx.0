@@ -4,97 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 909B8F3380B
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 07:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96727F3380B
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 07:48:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D01C10E510;
-	Tue, 17 Mar 2026 07:48:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36FA010E51A;
+	Tue, 17 Mar 2026 07:48:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MCpkKVvY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OZiGScsz";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012065.outbound.protection.outlook.com [52.101.48.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75A3A10E510
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 07:48:19 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010035.outbound.protection.outlook.com [52.101.56.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7153110E51A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 07:48:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=anKHXkBN/XMfsTXAzSqkZecDksBDkW1CH983Lhv1nrbCRWmrD7lPmg8Z+JH1SgyU4fZUfXul2sc8TlpZ1mC6Kizgz4JWxcopPXMV0qdHg+oMFbTWCpphoAigp3NLohBqDP+gIOtlJJEHlT6g+ygGSNQPl/H+imtfQPLr0B7LYUrJr9vsbQs18QT1Oi3qUC9BFiLDuNKt91kMbGPANBArpTJXW8fExOY9YbNpwB/0Ya4QZYFSHotFGYtCpHBM6lEeoBDuPnLH1/Aytf3zMZ34hwAbAoBXHXyxA1UVH/rRs4C0nnaoa7/djpYN5rTKkPav7WPE4VYfr6qiO88xHaicbQ==
+ b=o5RHRHVegOx67fPll2gP87dsI6q+KcDDiBev6L+TXPlM5U07FGyZQTf5DsLrrXsSCCRYtqdbqhJ5H9c8Ccj7x3FzAZRcvgxnMGxcj67ZTveXCuEDBOewIHUuQvwh3MibytpdPTsVJQzhgCK4bqChcY60p4sdKHyjqiCH6LPKF8y8FAYm0CWq4VUStv8IrjzH7DMeS43jDLeGFKLqDhrvOqyqrL7fjnf4RNCwvtVFMhrNB6m+c9zyntpz+dZEFUWkhWZeA4GMLflhhAwZVL2BQ6PbvFakfdHFbu/jpVhZd0ezuWndJUuUIdr+PN2tZ1uEcCO4WJpzQk6oaiH/ulfjdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5XReyvw5lj4CJaCKNoCmdGjCkGFiCkK7mMLFLLB5+pE=;
- b=HT2wqcGS+CvGetxhktqgsSl6vlGWCbiZtNYlS5SuXkVPvJDxSbs0b5bEwBYOd17MlWXyRKRy8sjLM95SNRve8Hdd1yh36zY9WzOTQ6OIvtC0+K5mlQtKnZ02axnzUiTYdK6A9pc2eJW7/y13kSZ1FcOM4FQNC1RnAcjJuCuqWmyWUsup6DF+pTrsytd2eMiUVCwQHqWeuhC7TO+CaFp9uF/Xy4CY7U3VYhdz8vnzyyqYurimpy6GlTw57UFwXjuWGgcLAJel1QD1d/CBmiJfSjkHUB6cDkMPAHvYEE8ZUk//o0yabxMwFQ3vRhlJR49MC/GA3ZSJ3LI1P7YH7VnYNg==
+ bh=RvR70M44Y06MGDEw6lLGTmFlRvtGXTAbImTNGgFEP98=;
+ b=PMha73MP+BhBS0q1RjzlXawCAMnhikiAwc84H2flpDlnzS6GQhKehLyONYtCBKXRzfHaDitgDkHIOqzMpN0Q9HFAF5rJSEAIiVoai4XNB+5efDIR7FoYs2XP5QVqFNXBdjACA/UDZI+gh8CacbFMDDyBhTXFyTkhbRCe94z3eWfQ4sHwIFK1XS7vnVYgulddwrCA8tMtFEje/E3dgy32ex2gX6GgTxEtyEUOz6Ea2Ej3X8X5EHieUJoHkdNO4m6GuADhzUv0N+hyl6dk8pPvaVt/CB2G3ljsSSovPE17xPrsK9ndyQADJnzLEkO3L6oL4z+F/rt+ti/ADfAHBK5zLA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5XReyvw5lj4CJaCKNoCmdGjCkGFiCkK7mMLFLLB5+pE=;
- b=MCpkKVvYRl/mzS6AKGHDiwOkiNbiLINVAfFXUmJBSrJJUvb+/3whSFKbDGfFE9gyQSipDjTrcSfHPBd9pRY0Xuo9ls3Vnfy7MRA3AJoc2HNBLjhSRR2Wi1X7S2jx4PR9XihQ7xDIGGt6rjkRrbJNTaliSmjvnqE9MZPZFRr4A2Q=
-Received: from DM6PR05CA0043.namprd05.prod.outlook.com (2603:10b6:5:335::12)
- by DM4PR12MB9736.namprd12.prod.outlook.com (2603:10b6:8:225::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.13; Tue, 17 Mar
- 2026 07:48:14 +0000
-Received: from CH3PEPF00000016.namprd21.prod.outlook.com
- (2603:10b6:5:335:cafe::ff) by DM6PR05CA0043.outlook.office365.com
- (2603:10b6:5:335::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.25 via Frontend Transport; Tue,
- 17 Mar 2026 07:47:47 +0000
+ bh=RvR70M44Y06MGDEw6lLGTmFlRvtGXTAbImTNGgFEP98=;
+ b=OZiGScszMVZ2TEfEqHNYeeD0TTTFwJUxvyVWgLL/0IJOL8IGIxTcIVseldjlAlw0ln3QYhkFJk6MpxuGtSFmmB8mxo4XjNOvG1HuM2XgEMnSuyFhSelL1Edd94lTTqKXeo53oa6iXI/owxjobuSQLbQSQ5v84p4L6ODOWo3yafo=
+Received: from BN9P223CA0029.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::34)
+ by IA0PR12MB7722.namprd12.prod.outlook.com (2603:10b6:208:432::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.17; Tue, 17 Mar
+ 2026 07:48:20 +0000
+Received: from BN2PEPF00004FBD.namprd04.prod.outlook.com
+ (2603:10b6:408:10b:cafe::14) by BN9P223CA0029.outlook.office365.com
+ (2603:10b6:408:10b::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Tue,
+ 17 Mar 2026 07:48:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000016.mail.protection.outlook.com (10.167.244.121) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF00004FBD.mail.protection.outlook.com (10.167.243.183) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.0 via Frontend Transport; Tue, 17 Mar 2026 07:48:13 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 07:48:19 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
- 2026 02:48:12 -0500
+ 2026 02:48:19 -0500
 Received: from JesseDEV.guestwireless.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17
- via Frontend Transport; Tue, 17 Mar 2026 02:48:05 -0500
+ via Frontend Transport; Tue, 17 Mar 2026 02:48:12 -0500
 From: Jesse.Zhang <Jesse.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Jesse.Zhang <Jesse.Zhang@amd.com>, Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Jesse Zhang <jesse.zhang@amd.com>
-Subject: [PATCH v3 1/3] drm/amdgpu: validate fence_count in wait_fences ioctl
-Date: Tue, 17 Mar 2026 15:47:26 +0800
-Message-ID: <20260317074804.2363458-1-Jesse.Zhang@amd.com>
+ Jesse.Zhang <Jesse.Zhang@amd.com>, Jesse Zhang <jesse.zhang@amd.com>,
+ "Vitaly Prosyak" <vitaly.prosyak@amd.com>
+Subject: [PATCH v3 2/3] drm/amdgpu: replace WARN with DRM_ERROR for invalid
+ sched priority
+Date: Tue, 17 Mar 2026 15:47:27 +0800
+Message-ID: <20260317074804.2363458-2-Jesse.Zhang@amd.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20260317074804.2363458-1-Jesse.Zhang@amd.com>
+References: <20260317074804.2363458-1-Jesse.Zhang@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000016:EE_|DM4PR12MB9736:EE_
-X-MS-Office365-Filtering-Correlation-Id: 325b1597-fd3e-4bc7-ff1d-08de83f98b01
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBD:EE_|IA0PR12MB7722:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6a57e11-3fc4-4b64-992f-08de83f98eba
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: EjESBEUDyW51SbcfV2xZdEl7QW9RaA5mMKLyLMaDXng9LRW7STfiGMhwc2Kc0KA/O2O1GeYG4tYuNsPqhPb9nE4cWbUD18uPn/lT701KnZrz9Mf45IYbCdqarnRZJBAVmnIte6qZS05oV2ZqH6srRnx0UmegdmppOopbDpfzdV/kuXG2bdcpXWKTvKp/Xljj/8gquMwwDVWykikQSz8msSwRZ9pbzlKQGjhsPe/+D9+y9O29WLzQEHkykfq5Q5gk7f3rvjHH8eCMmI8rnZ+lGx8RZmVJ5YPgwalKjVSJYiXBrd8JIGQWpj0V0c7PKIFOFnbntQWZjSqqPRHyvz8wheLq57LZEh00AnONZ33M1oGGAK35OTrBhZF9uGldYINmp+EvowyOgzmydNkRT73aZfu2tXmCyq5oaEWdKLW2DkvR7bYjeYGfu5UbPnGd2SBOqUMMjb+vW2fNbbS+So8+DuuZt+S/Tjp/ai2CHMKcEGJ0q/d50cy9MqO2Hryk9BLHXJ+OhycQgj0FcHi63X4sM0aDYLVn605Vob3jOIu9G039orLwTS/z7RQfXERIGYAgZ8TPQ1Lv/Cqk2Kz1XDMrwCU+Ly5a7ZuMhwJOc6GQEj3b+C2YnjBnF6w2zdqE6JrFlaN4RoleFygpb3yGX72kzL+0lsx5AFjzOr/usBuCAytWR0mT+nQq6FZ6bf7NsAyaXmbtu09YcEz/3Qe+S64GzCv4xzB8WLIvY1AmDW1C2F1koig0kFZsiiA7J9+o9+e9B4aHOlo8CfDA7htR+k5zxg==
+ ARA:13230040|82310400026|1800799024|376014|36860700016|18002099003|22082099003|56012099003;
+X-Microsoft-Antispam-Message-Info: bJbCt1Zzt94cvahatjYRPm2wWpv+Zxo66URkYkFvd4PzTdNl1z79ZyweiP4zLgZq2DW50qWnOpORFN1h6232tO/9mDnVGyJ2QCBMgZv9YwKuoKk0gtPYlBe+NR29hQ0OJRx1PUrySuerdqYWIV2DlOCjtZ9UEFRaU78LbiLD8VOXW93BaGauyJZ3+Zg1WORhGjvgZRMoBLNsSWHnvFJ52F8F0jDPCpdt7V/xM/zI5rcgCK2W5KZDvzyAwWBXPda0ioKz+9FeEchmZKNnSFU53d53adtrgIktxO2xf30fSccXdDHKlbdHsTKhK0J+JlfpZWJGLb6x8wDHUJOIYlqlbtmRnWcmkF4lyrDpiYle5CzV0wRprePvoEIVOhZXkFHbb4+P4x5CuXMiWJCaILBmcnsU/p2Wd9PzKx1DClgoGOircA/n6QLK1FNkp5334VcPFSLsE5L1waZfiMsB2Btb2Ao1IjJD3o2/PAdaM/5fNhRR0/oUcIyfc0uEDys45c3QK/QO91fou563QKq1qP/y2TKu8RDxCSIqSb+14jgigBNnqN3iFnDyBr9cI6BozZ9MUmKanwPoGODgZGpkWkwMdoNCDy0pNfws4QDLtq1UUDPdkpwlH+vo0nfBZGYlf2z0ACMOqWBPbyIqMkaScRmaayWnAl98q+yTYw3+DyuYXRhfbwMnAtkiYubSspfSO6ElnajUvOno1BRfElX7B6sjDryUWZ/gNnqumb8BKZK92SC6S+WKnpFhQW0s/3Q3t54ZsgX+QkD2rTxz2tZH3JWunw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(18002099003)(56012099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2JgXMZ9knZP4d+qy10chYCuLjO8QNKC1BtkVIYv7CxZWYBWJwZRJNvRpuJVyYaLhXi1h4EsZ2M8r33DNJ1U8gpmIgpoyC0fZaqw9ak6LRFi4B8blZZRcziuP4kdFLIHNZaZnVY6Gzx2nTV299ef3fuuFn38OD7GiCuj5YpEmAoDKSawjqe2BRFaJmAZ1+NPtkRPDxO+TNIAhS/hzXtUyTWKEt9wwoc+nzko3VX6BC5slDlJeu0r+DZqNNXiztL3AjpT/+AaIr3IKGGysr1sY7++VW5gSEW2VCu3BmxPVlghsZBnMTUEmD8ocv5auRxHe1BVp4pd6AW65DOj12TF5w7t6kRKiVj3EB3OUR6C5+ALCbSH/E+XCE+yoXmyGXympIJvW6YH0lLmei8Hx+gcwt3jsy1IxRRco6mgp0EMyEV96yagJ2r50X0Nu+nXH9T9G
+X-MS-Exchange-AntiSpam-MessageData-0: U+rGQdS7eI6f2euRtLXQogrcxRfcitmgq/XuU+Y05DJZq5o+rVaff9PfDnX+SqIZRLEhdQKUtvcrctq2aUK85D71GK241SMl2ZFpC3JdS05aooJW9z4CR2NpKz+Vddvis/o+QDhFFR6WoslKWzZnDkwMAtb4Bubpa3KBQcfxtmXSe2ZutGFl/kBConVmquQAnFTMwoARY5utg9chOGZYfHD59aC3VDCPVGPymFhBNfv82P1cb2pH6oWlWYDMuOQ1gaXekNBe7hd8V+6fTh5/hhwmJwf5MVOa8Hlw9Evau1Sk1nDCtbKdnKOOqQGyWld+3EZV+DMY8+8nA9an0NdX4IQP9bl6J9MxKFzHvncUxWxmNSW4owtPyBo27OhwfK//VaNgavXGomg3ZE7j2s4LJuSWcSwO2+G+nqDGXVQkalQKNLoYQ5RmAnlcMJ3kJQim
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 07:48:13.5184 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 325b1597-fd3e-4bc7-ff1d-08de83f98b01
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 07:48:19.7461 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6a57e11-3fc4-4b64-992f-08de83f98eba
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000016.namprd21.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBD.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9736
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7722
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,48 +112,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add an early parameter check in amdgpu_cs_wait_fences_ioctl() to reject
-a zero fence_count with -EINVAL.
+amdgpu_sched_ioctl() currently uses WARN(1, ...) when userspace passes
+an out-of-range context priority value. WARN(1, ...) is unconditional
+and produces a full stack trace, which is disproportionate for a simple
+input validation failure -- the invalid value is already rejected with
+-EINVAL on the next line.
 
-dma_fence_wait_any_timeout() requires count > 0. When userspace passes
-fence_count == 0, the call propagates down to dma_fence core which does
-not expect a zero-length array and triggers a WARN_ON.
-
-Return -EINVAL immediately so the caller gets a clear error instead of
-hitting an unexpected warning in the DMA fence subsystem.
+Replace WARN(1, ...) with DRM_ERROR() to log the invalid value at an
+appropriate level without generating a stack dump. The -EINVAL return
+to userspace is unchanged.
 
 No functional change for well-formed userspace callers.
 
 v2:
-- Reworked commit message to clarify the parameter validation rationale
-- Removed verbose crash log from commit description
-- Simplified inline code comment
+- Reworked commit message to focus on appropriate log level for
+  parameter validation
+- Clarified that -EINVAL behavior is preserved (Vitaly)
 
-Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+v3: completely drop that warning.
+   Invalid parameters should never clutter the system log. (Christian)
+
 Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
+Reviewed-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index b8d23a9f6dd3..22aafa969b3d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1743,6 +1743,13 @@ int amdgpu_cs_wait_fences_ioctl(struct drm_device *dev, void *data,
- 	struct drm_amdgpu_fence *fences;
- 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+index 341beec59537..0eecfaa3a94c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sched.c
+@@ -103,10 +103,8 @@ int amdgpu_sched_ioctl(struct drm_device *dev, void *data,
+ 		return -EINVAL;
+ 	}
  
-+	/*
-+	 * fence_count must be non-zero; dma_fence_wait_any_timeout()
-+	 * does not accept an empty fence array.
-+	 */
-+	if (!wait->in.fence_count)
-+		return -EINVAL;
-+
- 	/* Get the fences from userspace */
- 	fences = memdup_array_user(u64_to_user_ptr(wait->in.fences),
- 				   wait->in.fence_count,
+-	if (!amdgpu_ctx_priority_is_valid(args->in.priority)) {
+-		WARN(1, "Invalid context priority %d\n", args->in.priority);
++	if (!amdgpu_ctx_priority_is_valid(args->in.priority))
+ 		return -EINVAL;
+-	}
+ 
+ 	switch (args->in.op) {
+ 	case AMDGPU_SCHED_OP_PROCESS_PRIORITY_OVERRIDE:
 -- 
 2.49.0
 
