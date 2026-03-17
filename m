@@ -4,38 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E65FFD877B
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 14:31:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55265FED9E4
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 16:04:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E22310E3BA;
-	Tue, 17 Mar 2026 14:31:10 +0000 (UTC)
-Received: from redcrew.org (redcrew.org [37.157.195.192])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D7A110E3BA
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 14:31:07 +0000 (UTC)
-Received: from server.danny.cz (85-71-161-19.rce.o2.cz [85.71.161.19])
- by redcrew.org (Postfix) with ESMTP id D2BA5D4;
- Tue, 17 Mar 2026 15:31:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 redcrew.org D2BA5D4
-Received: from talos.danny.cz (talos
- [IPv6:2001:470:5c11:160:47df:83f6:718e:218])
- by server.danny.cz (Postfix) with SMTP id 9BE0A16A001;
- Tue, 17 Mar 2026 15:31:05 +0100 (CET)
-Date: Tue, 17 Mar 2026 15:31:05 +0100
-From: Dan =?UTF-8?B?SG9yw6Fr?= <dan@danny.cz>
-To: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Cc: linuxppc-dev@lists.ozlabs.org, Gaurav Batra <gbatra@linux.ibm.com>,
- amd-gfx@lists.freedesktop.org, Donet Tom <donettom@linux.ibm.com>
-Subject: Re: amdgpu driver fails to initialize on ppc64le in 7.0-rc1 and newer
-Message-Id: <20260317153105.99c2618bdfd3f8c49c0c2779@danny.cz>
-In-Reply-To: <ms06y93w.ritesh.list@gmail.com>
-References: <20260313142351.609bc4c3efe1184f64ca5f44@danny.cz>
- <1phlu3bs.ritesh.list@gmail.com>
- <20260315105021.667e52d4a99b154ef1e6aa34@danny.cz>
- <ms06y93w.ritesh.list@gmail.com>
-X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; powerpc64le-redhat-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF12110E6D6;
+	Tue, 17 Mar 2026 16:04:06 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q2kHU3bD";
+	dkim-atps=neutral
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012019.outbound.protection.outlook.com [52.101.48.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEB2110E5A4;
+ Tue, 17 Mar 2026 16:04:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JD4UkV2mQ7KNFNVGuBguqTQBSQ6W8RWjDceQvpRIYAkLnwOLF6y41zhp5lgEmnsx1yvAs9s/E7j4kQ4UJA5Sa11j7JHXiful4ZDCqY1iwK9mXHW8cXzA/ArwKJvcNUwVfzFeJcD2fwtk938ub0ZA8R0sN4AZqFsTUQC4ZaE1/fc/F9Qf26vQPyZLglRUwEz0JYWc6yuhoaJqSADh0RkcayqHBcHHUn1ln+KZsK/JxYkcEHkU5tQ4/7f9vR9OomyVhXe2j0Y1GpzRDiIvVbFyP5wYK1AcTxpP9BLoSIW0yMAIuukDhoRUn4WXgb3MkqXiQDeIvlQcBzYlh7EK8h6vcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FDPh7tQQX4HMDEd05x+7LRQqDfmKR6oXLj/ebylJ6xM=;
+ b=qw4ZZEJW3P1OokqaanPF2GzBw87bCEL+FSxIrghRfANUGbnVH2ggGfqg5a7cFRxqGgf2qOkQUZy5ue4JihQCSKjYgZtPuyV6kWrX0Cpc54oN697afuVWzx7G1GMoaJuc7zOULlWgHJhKaGWP51MU+fDMuo45SHV4knceTi0SlfNteoAZlCh+pteOs7bOW0T37l/x7H39rqAvQBY0gJv/9xwWPBiqW8M4hjQqagrlDGVNDJkfkINifoccv1SsbXmDYRB3eJXE0sMuMYZqZ6dC3CDUEes4NAZlyt+ngkRWTmIj4NMvZkGIS8I0EuRKitWt97M7+4YMXMokGXY7bHSMqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FDPh7tQQX4HMDEd05x+7LRQqDfmKR6oXLj/ebylJ6xM=;
+ b=q2kHU3bDtg8Pm1AB+02h5S/9HeD8glbQaKyoXV77pMY8objmkQOpvGsR1rS6T6OgWZ50vA8376wKCP8Xb0L0fsW0UDJv6/uqu9D+YmT2gDIw43Txc1OtV3ZigNomWB7Ud47Y+tBddJpKTeUbzoNTP1/BCmFde7Fl7DJ6NAYZRuw=
+Received: from SJ0PR05CA0098.namprd05.prod.outlook.com (2603:10b6:a03:334::13)
+ by IA1PR12MB6138.namprd12.prod.outlook.com (2603:10b6:208:3ea::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.17; Tue, 17 Mar
+ 2026 16:04:02 +0000
+Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
+ (2603:10b6:a03:334:cafe::5b) by SJ0PR05CA0098.outlook.office365.com
+ (2603:10b6:a03:334::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.16 via Frontend Transport; Tue,
+ 17 Mar 2026 16:04:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 16:04:02 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
+ 2026 11:04:01 -0500
+Received: from hwentlanryzen (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
+ Transport; Tue, 17 Mar 2026 11:04:01 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>
+Subject: [RFC PATCH 02/10] drm/colorop: Add CSC colorop initialization helper
+Date: Tue, 17 Mar 2026 12:03:42 -0400
+Message-ID: <20260317160350.229028-3-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260317160350.229028-1-harry.wentland@amd.com>
+References: <20260317160350.229028-1-harry.wentland@amd.com>
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|IA1PR12MB6138:EE_
+X-MS-Office365-Filtering-Correlation-Id: eecc7c6c-769d-4626-8143-08de843ece98
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700016|82310400026|22082099003|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: bdAyijlKu5FF+Rtrhsm4TLfoAvCdBbZa5b7DSKwIb4B03YDs/a44mLsooS9Bw+V2QxgoGF8AWSeMUM9prDuZ6lT6TeoW8ynhsy09hCs9KwSrWxJEas6m2Q/VYsViCwK+p1oInTj/g2S1nRY1IrWNBLEBsOB8vOOhKJ0wDFiIX/PJIh6zM85wF73gzXShH7SuyMFYqpvOQAz8mVRl3lg6YB4ILTvnKrWmVPo2VLxXpGvR68P1ya7ymNw46gAgk4tLAjbhtWDqgusjbp2m5eiixy1vTFT20vJxvSrd28am88V5s6TEEzexDPtif1xJK1ZPfmUnxxHaDfpYfrjZAv25Aqx6Go51Nsm7xXdpEjdFcBq6+tGOoAVea69YY28MMh87s5b/2nnWaPHKPm63SA9NdB/3n+WqcFdqkGJTKDO8JWZkOVu1m6Bsl9NqpbfOnOuZOQl4nvZNgiSln2ne7JHWKfmd5w8OwYQBIIr2hsvhMnBDJbzS4XzSz+LVfsGlFbvvN06BgF4JE2rOLXM/QS5rnGlq6cowW9lgkVfI/XURaCzJtfLJGXGDITlfG0+5aFU7/bqSS9PRKTIxvQy0dsHH6Tz1tDXBw29uvL3Yvi1V0Pq4FPnx3889YWPYD4LPQwkniL4QmMckZBGAXsHd/L//QqIGhABHKTq1jvKhidkQYyFYF6L0wreWpGZ7cPzStijALQURwiDTNL1XsraQuLoh1MzFPt8Tp7+yjmJHHuiumVMhnJhaHWI+Wsd7dKvuG82Vxn0E4eE02Nwmg4BT96Dcyg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(22082099003)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: YPHxY9USVDc+jgwpcBRaM+MoOLN37WEcQ87QMryNZUyENl5fbgAVJTvu9e2M81nBVq18PzL8rFhaTQwaF6/LtxOrJa6WfenRwcyXD0XY5Dam/A/vK9qxGbEvUIL7hzQMSIQ239/3KT4eYS9roSx8zsl9Lj7kIU1IGCGaLF1bzSIfZbvuqFUYN0VdjXjsYGPI6aidclvu2KjNL2s002q9WncZjZxIV2+jJh2nKMJczXJOr/mOO1aJztQPAdf33uKR8ndQQe7GX1X/3cZl2HL6qJuJlv7LJ+JJw+aMhZKhP2ZbK16jJkYLKfYCiY9t0sWH1x3n8nSTYAK5JDDRj9QE4WtS8+aScdJdhNGx4Kf5bn1PAqik7DNdj5C8xFUxUOvdPfwEVrKU7neaH3fkSt8YIK1fn7E1fukq24UfJTntX3l9y8YNUZawZuIdvLrW2OFC
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 16:04:02.1356 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eecc7c6c-769d-4626-8143-08de843ece98
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075ED.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6138
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,210 +109,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Ritesh,
+Add drm_plane_colorop_csc_init() helper function to initialize a CSC
+(Color Space Conversion) colorop with COLOR_ENCODING and COLOR_RANGE
+properties.
 
-On Tue, 17 Mar 2026 17:13:31 +0530
-Ritesh Harjani (IBM) <ritesh.list@gmail.com> wrote:
+This function allows drivers to create CSC colorops with configurable
+YUV encoding standards (BT.601, BT.709, BT.2020) and range types
+(limited/full range), which control the YUV-to-RGB conversion matrix.
 
-> Dan Horák <dan@danny.cz> writes:
-> 
-> > Hi Ritesh,
-> >
-> > On Sun, 15 Mar 2026 09:55:11 +0530
-> > Ritesh Harjani (IBM) <ritesh.list@gmail.com> wrote:
-> >
-> >> Dan Horák <dan@danny.cz> writes:
-> >> 
-> >> +cc Gaurav,
-> >> 
-> >> > Hi,
-> >> >
-> >> > starting with 7.0-rc1 (meaning 6.19 is OK) the amdgpu driver fails to
-> >> > initialize on my Linux/ppc64le Power9 based system (with Radeon Pro WX4100)
-> >> > with the following in the log
-> >> >
-> >> > ...
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: GART: 256M 0x000000FF00000000 - 0x000000FF0FFFFFFF
-> >> 
-> >>                   ^^^^
-> >> So looks like this is a PowerNV (Power9) machine.
-> >
-> > correct :-)
-> >  
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] Detected VRAM RAM=4096M, BAR=4096M
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] RAM width 128bits GDDR5
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: iommu: 64-bit OK but direct DMA is limited by 0
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: dma_iommu_get_required_mask: returning bypass mask 0xfffffffffffffff
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  4096M of VRAM memory ready
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  32570M of GTT memory ready.
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) failed to allocate kernel bo
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] Debug VRAM access will use slowpath MM access
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] GART: num cpu pages 4096, num gpu pages 65536
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: [drm] PCIE GART of 256M enabled (table at 0x000000F4FFF80000).
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) failed to allocate kernel bo
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: (-12) create WB bo failed
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: amdgpu_device_wb_init failed -12
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: amdgpu_device_ip_init failed
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: Fatal error during GPU init
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: finishing device.
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: probe with driver amdgpu failed with error -12
-> >> > bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0:  ttm finalized
-> >> > ...
-> >> >
-> >> > After some hints from Alex and bisecting and other investigation I have
-> >> > found that https://github.com/torvalds/linux/commit/1471c517cf7dae1a6342fb821d8ed501af956dd0
-> >> > is the culprit and reverting it makes amdgpu load (and work) again.
-> >> 
-> >> Thanks for confirming this. Yes, this was recently added [1]
-> >> 
-> >> [1]: https://lore.kernel.org/linuxppc-dev/20251107161105.85999-1-gbatra@linux.ibm.com/ 
-> >> 
-> >> 
-> >> @Gaurav,
-> >> 
-> >> I am not too familiar with the area, however looking at the logs shared
-> >> by Dan, it looks like we might be always going for dma direct allocation
-> >> path and maybe the device doesn't support this address limit. 
-> >> 
-> >>  bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: iommu: 64-bit OK but direct DMA is limited by 0
-> >>  bře 05 08:35:40 talos.danny.cz kernel: amdgpu 0000:01:00.0: dma_iommu_get_required_mask: returning bypass mask 0xfffffffffffffff
-> >
-> > a complete kernel log is at
-> > https://gitlab.freedesktop.org/-/project/4522/uploads/c4935bca6f37bbd06bb4045c07d00b5b/kernel.log
-> >
-> > Please let me know if you need more info.
-> 
-> Hi Dan,
-> 
-> Thanks for sharing the kernel log. Is it also possible to kindly share
-> your full kernel config with which you saw this issue.
+The colorop state structure is extended with color_encoding and
+color_range fields to hold the current property values.
 
-the log is from an official Fedora kernel, thus the config is
-https://src.fedoraproject.org/rpms/kernel/blob/8477f609d4875a2c20717519243fb2e6fb1cdb8f/f/kernel-ppc64le-fedora.config
+Co-developed by Claude Sonnet 4.5.
 
-and yes, Fedora, like RHEL, uses 64k kernel page size for ppc64le and
-except years ago I haven't had a 64k related issue with my card. IIRC
-there were page size related issues with the newer (Navi?) cards, but
-those also had been solved.
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+---
+ drivers/gpu/drm/drm_colorop.c | 89 +++++++++++++++++++++++++++++++++++
+ include/drm/drm_colorop.h     | 39 +++++++++++++++
+ 2 files changed, 128 insertions(+)
 
+diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
+index 11b2f11db874..5329eeb0ae1b 100644
+--- a/drivers/gpu/drm/drm_colorop.c
++++ b/drivers/gpu/drm/drm_colorop.c
+@@ -621,6 +621,95 @@ const char *drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_inte
+ 	return colorop_lu3d_interpolation_name[type];
+ }
  
-> I think Gaurav, is still looking into reported issue. However I was
-> interested in this kernel log output..
-> 
-> bře 05 08:35:34 talos.danny.cz kernel: radix-mmu: Mapped 0x00002007fad00000-0x00002007fcd00000 with 64.0 KiB pages
-> 
-> This shows that the system is using 64K pagesize. So I was interested in
-> knowing the kernel configs you have enabled. Donet has recently posted
-> 64K pagesize support with amdgpu [1][2] on Power. However, I think, we
-> can still use it w/o Donet's changes if we have CONFIG_HSA_AMD_SVM
-> disabled.
-> 
-> So, can you kindly share the kernel configs and the AMD GPU HW details
-> attached to your Power9 baremetal system, if it's possible?
++/**
++ * drm_plane_colorop_csc_init - Initialize a CSC colorop
++ * @dev: DRM device
++ * @colorop: the color operation to initialize
++ * @plane: plane object that this colorop will belong to
++ * @supported_encodings: Bitmask of supported encodings (BIT(DRM_COLOR_YCBCR_*))
++ * @supported_ranges: Bitmask of supported ranges (BIT(DRM_COLOR_YCBCR_*_RANGE))
++ * @default_encoding: Default COLOR_ENCODING value
++ * @default_range: Default COLOR_RANGE value
++ * @flags: Flags for this colorop (DRM_COLOROP_FLAG_*)
++ *
++ * Initializes a CSC (Color Space Conversion) colorop suitable for YUV to RGB
++ * conversion. Creates COLOR_ENCODING and COLOR_RANGE properties that control
++ * which conversion matrix is used.
++ *
++ * Returns:
++ * Zero on success, negative errno on failure.
++ */
++int drm_plane_colorop_csc_init(struct drm_device *dev, struct drm_colorop *colorop,
++			       struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
++			       u32 supported_encodings, u32 supported_ranges,
++			       enum drm_color_encoding default_encoding,
++			       enum drm_color_range default_range,
++			       uint32_t flags)
++{
++	struct drm_property *prop;
++	struct drm_prop_enum_list enum_list[max_t(int, DRM_COLOR_ENCODING_MAX,
++						       DRM_COLOR_RANGE_MAX)];
++	int i, len, ret;
++
++	ret = drm_plane_colorop_init(dev, colorop, plane, funcs, DRM_COLOROP_CSC, flags);
++	if (ret)
++		return ret;
++
++
++	if (WARN_ON(supported_encodings == 0 ||
++		    (supported_encodings & -BIT(DRM_COLOR_ENCODING_MAX)) != 0 ||
++		    (supported_encodings & BIT(default_encoding)) == 0))
++		return -EINVAL;
++
++	if (WARN_ON(supported_ranges == 0 ||
++		    (supported_ranges & -BIT(DRM_COLOR_RANGE_MAX)) != 0 ||
++		    (supported_ranges & BIT(default_range)) == 0))
++		return -EINVAL;
++
++	len = 0;
++	for (i = 0; i < DRM_COLOR_ENCODING_MAX; i++) {
++		if ((supported_encodings & BIT(i)) == 0)
++			continue;
++
++		enum_list[len].type = i;
++		enum_list[len].name = drm_get_color_encoding_name(i);
++		len++;
++	}
++
++	prop = drm_property_create_enum(dev, 0, "COLOR_ENCODING",
++					enum_list, len);
++	if (!prop)
++		return -ENOMEM;
++	colorop->color_encoding_property = prop;
++	drm_object_attach_property(&colorop->base, prop, default_encoding);
++	if (colorop->state)
++		colorop->state->color_encoding = default_encoding;
++
++	len = 0;
++	for (i = 0; i < DRM_COLOR_RANGE_MAX; i++) {
++		if ((supported_ranges & BIT(i)) == 0)
++			continue;
++
++		enum_list[len].type = i;
++		enum_list[len].name = drm_get_color_range_name(i);
++		len++;
++	}
++
++	prop = drm_property_create_enum(dev, 0, "COLOR_RANGE",
++					enum_list, len);
++	if (!prop)
++		return -ENOMEM;
++	colorop->color_range_property = prop;
++	drm_object_attach_property(&colorop->base, prop, default_range);
++	if (colorop->state)
++		colorop->state->color_range = default_range;
++
++	drm_colorop_reset(colorop);
++
++	return 0;
++}
++EXPORT_SYMBOL(drm_plane_colorop_csc_init);
++
+ /**
+  * drm_colorop_set_next_property - sets the next pointer
+  * @colorop: drm colorop
+diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
+index bd082854ca74..09844e8885e2 100644
+--- a/include/drm/drm_colorop.h
++++ b/include/drm/drm_colorop.h
+@@ -30,6 +30,8 @@
+ #include <drm/drm_mode_object.h>
+ #include <drm/drm_mode.h>
+ #include <drm/drm_property.h>
++#include <drm/drm_color_mgmt.h>
++
+ 
+ /* DRM colorop flags */
+ #define DRM_COLOROP_FLAG_ALLOW_BYPASS	(1<<0)	/* Allow bypass on the drm_colorop */
+@@ -183,6 +185,20 @@ struct drm_colorop_state {
+ 	 */
+ 	struct drm_property_blob *data;
+ 
++	/**
++	 * @color_encoding:
++	 *
++	 * Color encoding for YUV-to-RGB conversion
++	 */
++	enum drm_color_encoding color_encoding;
++
++	/**
++	 * @color_range:
++	 *
++	 * Color range
++	 */
++	enum drm_color_range color_range;
++
+ 	/** @state: backpointer to global drm_atomic_state */
+ 	struct drm_atomic_state *state;
+ };
+@@ -357,6 +373,23 @@ struct drm_colorop {
+ 	 */
+ 	struct drm_property *lut3d_interpolation_property;
+ 
++	/**
++	 * @color_encoding_property:
++	 *
++	 * "COLOR_ENCODING" enum property for specifying the YUV-to-RGB
++	 * conversion matrix on a DRM_COLOROP_CSC.
++	 */
++
++	struct drm_property *color_encoding_property;
++
++	/**
++	 * @color_range_property:
++	 *
++	 * "COLOR_RANGE" enum property for specifying color range
++	 * for a YUV-to-RGB conversion matrix on DRM_COLOROP_CSC.
++	 */
++	struct drm_property *color_range_property;
++
+ 	/**
+ 	 * @data_property:
+ 	 *
+@@ -424,6 +457,12 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
+ 				 uint32_t lut_size,
+ 				 enum drm_colorop_lut3d_interpolation_type interpolation,
+ 				 uint32_t flags);
++int drm_plane_colorop_csc_init(struct drm_device *dev, struct drm_colorop *colorop,
++			       struct drm_plane *plane, const struct drm_colorop_funcs *funcs,
++			       u32 supported_encodings, u32 supported_ranges,
++			       enum drm_color_encoding default_encoding,
++			       enum drm_color_range default_range,
++			       uint32_t flags);
+ 
+ struct drm_colorop_state *
+ drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop);
+-- 
+2.53.0
 
-output of "lspci -nn -vvv"
-
-0000:01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Baffin [Radeon Pro WX 4100] [1002:67e3] (prog-if 00 [VGA controller])
-        Subsystem: Advanced Micro Devices, Inc. [AMD/ATI] Device [1002:0b0d]
-        Device tree node: /sys/firmware/devicetree/base/pciex@600c3c0000000/pci@0/vga@0
-        Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr+ Stepping- SERR+ FastB2B- DisINTx+
-        Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
-        Latency: 0
-        Interrupt: pin A routed to IRQ 194
-        NUMA node: 0
-        IOMMU group: 0
-        Region 0: Memory at 6000000000000 (64-bit, prefetchable) [size=4G]
-        Region 2: Memory at 6000100000000 (64-bit, prefetchable) [size=2M]
-        Region 5: Memory at 600c000000000 (32-bit, non-prefetchable) [size=256K]
-        Expansion ROM at 600c000040000 [disabled] [size=128K]
-        Capabilities: [48] Vendor Specific Information: Len=08 <?>
-        Capabilities: [50] Power Management version 3
-                Flags: PMEClk- DSI- D1+ D2+ AuxCurrent=0mA PME(D0-,D1+,D2+,D3hot+,D3cold+)
-                Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
-        Capabilities: [58] Express (v2) Legacy Endpoint, IntMsgNum 0
-                DevCap: MaxPayload 256 bytes, PhantFunc 0, Latency L0s <4us, L1 unlimited
-                        ExtTag+ AttnBtn- AttnInd- PwrInd- RBE+ FLReset- TEE-IO-
-                DevCtl: CorrErr- NonFatalErr+ FatalErr+ UnsupReq+
-                        RlxdOrd+ ExtTag+ PhantFunc- AuxPwr- NoSnoop+
-                        MaxPayload 256 bytes, MaxReadReq 512 bytes
-                DevSta: CorrErr- NonFatalErr- FatalErr- UnsupReq- AuxPwr- TransPend-
-                LnkCap: Port #0, Speed 8GT/s, Width x8, ASPM L1, Exit Latency L1 <1us
-                        ClockPM- Surprise- LLActRep- BwNot- ASPMOptComp+
-                LnkCtl: ASPM Disabled; RCB 64 bytes, LnkDisable- CommClk-
-                        ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt- FltModeDis-
-                LnkSta: Speed 8GT/s, Width x8
-                        TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
-                DevCap2: Completion Timeout: Not Supported, TimeoutDis- NROPrPrP- LTR+
-                         10BitTagComp- 10BitTagReq- OBFF Not Supported, ExtFmt+ EETLPPrefix+, MaxEETLPPrefixes 1
-                         EmergencyPowerReduction Not Supported, EmergencyPowerReductionInit-
-                         FRS-
-                         AtomicOpsCap: 32bit+ 64bit+ 128bitCAS-
-                DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-
-                         AtomicOpsCtl: ReqEn-
-                         IDOReq- IDOCompl- LTR- EmergencyPowerReductionReq-
-                         10BitTagReq- OBFF Disabled, EETLPPrefixBlk-
-                LnkCap2: Supported Link Speeds: 2.5-8GT/s, Crosslink- Retimer- 2Retimers- DRS-
-                LnkCtl2: Target Link Speed: 8GT/s, EnterCompliance- SpeedDis-
-                         Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
-                         Compliance Preset/De-emphasis: -6dB de-emphasis, 0dB preshoot
-                LnkSta2: Current De-emphasis Level: -6dB, EqualizationComplete+ EqualizationPhase1+
-                         EqualizationPhase2+ EqualizationPhase3+ LinkEqualizationRequest-
-                         Retimer- 2Retimers- CrosslinkRes: unsupported, FltMode-
-        Capabilities: [a0] MSI: Enable+ Count=1/1 Maskable- 64bit+
-                Address: 1000000000000000  Data: 0000
-        Capabilities: [100 v1] Vendor Specific Information: ID=0001 Rev=1 Len=010 <?>
-        Capabilities: [150 v2] Advanced Error Reporting
-                UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP-
-                        ECRC- UnsupReq- ACSViol- UncorrIntErr- BlockedTLP- AtomicOpBlocked- TLPBlockedErr-
-                        PoisonTLPBlocked- DMWrReqBlocked- IDECheck- MisIDETLP- PCRC_CHECK- TLPXlatBlocked-
-                UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP-
-                        ECRC- UnsupReq- ACSViol- UncorrIntErr- BlockedTLP- AtomicOpBlocked- TLPBlockedErr-
-                        PoisonTLPBlocked- DMWrReqBlocked- IDECheck- MisIDETLP- PCRC_CHECK- TLPXlatBlocked-
-                UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt- RxOF+ MalfTLP+
-                        ECRC- UnsupReq- ACSViol- UncorrIntErr+ BlockedTLP- AtomicOpBlocked- TLPBlockedErr-
-                        PoisonTLPBlocked- DMWrReqBlocked- IDECheck- MisIDETLP- PCRC_CHECK- TLPXlatBlocked-
-                CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr- CorrIntErr- HeaderOF-
-                CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr+ CorrIntErr- HeaderOF-
-                AERCap: First Error Pointer: 00, ECRCGenCap+ ECRCGenEn+ ECRCChkCap+ ECRCChkEn+
-                        MultHdrRecCap- MultHdrRecEn- TLPPfxPres- HdrLogCap-
-                HeaderLog: 00000000 00000000 00000000 00000000
-        Capabilities: [200 v1] Physical Resizable BAR
-                BAR 0: current size: 4GB, supported: 256MB 512MB 1GB 2GB 4GB
-        Capabilities: [270 v1] Secondary PCI Express
-                LnkCtl3: LnkEquIntrruptEn- PerformEqu-
-                LaneErrStat: 0
-        Capabilities: [2b0 v1] Address Translation Service (ATS)
-                ATSCap: Invalidate Queue Depth: 00
-                ATSCtl: Enable-, Smallest Translation Unit: 00
-        Capabilities: [2c0 v1] Page Request Interface (PRI)
-                PRICtl: Enable- Reset-
-                PRISta: RF- UPRGI- Stopped+ PASID-
-                Page Request Capacity: 00000020, Page Request Allocation: 00000000
-        Capabilities: [2d0 v1] Process Address Space ID (PASID)
-                PASIDCap: Exec+ Priv+, Max PASID Width: 10
-                PASIDCtl: Enable- Exec- Priv-
-        Capabilities: [320 v1] Latency Tolerance Reporting
-                Max snoop latency: 0ns
-                Max no snoop latency: 0ns
-        Capabilities: [328 v1] Alternative Routing-ID Interpretation (ARI)
-                ARICap: MFVC- ACS-, Next Function: 1
-                ARICtl: MFVC- ACS-, Function Group: 0
-        Capabilities: [370 v1] L1 PM Substates
-                L1SubCap: PCI-PM_L1.2+ PCI-PM_L1.1+ ASPM_L1.2+ ASPM_L1.1+ L1_PM_Substates+
-                          PortCommonModeRestoreTime=0us PortTPowerOnTime=170us
-                L1SubCtl1: PCI-PM_L1.2- PCI-PM_L1.1- ASPM_L1.2- ASPM_L1.1-
-                           T_CommonMode=0us LTR1.2_Threshold=0ns
-                L1SubCtl2: T_PwrOn=10us
-        Kernel driver in use: amdgpu
-        Kernel modules: amdgpu
-
-
-> [1]: https://lore.kernel.org/amd-gfx/cover.1768223974.git.donettom@linux.ibm.com/#t     #merged
-> [2]: https://lore.kernel.org/amd-gfx/cover.1771656655.git.donettom@linux.ibm.com/       #in-review
-> 
-> -ritesh
-
-if some other is needed, let me know
-
-
-		Dan
