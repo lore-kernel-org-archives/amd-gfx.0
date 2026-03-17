@@ -4,98 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 396FAFED9F6
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 17:53:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 577E3FED9FD
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 18:18:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDF6510E17F;
-	Tue, 17 Mar 2026 17:53:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E795610E105;
+	Tue, 17 Mar 2026 18:18:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hoymnsVS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3h7XUHzY";
 	dkim-atps=neutral
 Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012051.outbound.protection.outlook.com [52.101.43.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EE0210E70A
- for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 17:53:44 +0000 (UTC)
+ (mail-westusazon11012001.outbound.protection.outlook.com [52.101.43.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8546C10E105
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2026 18:18:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SzA2eT41C7SLk09ApEnok/IlUBkWOsUl6HUBuPipUJnb2QixQcVcGCVO6jm0vvCYvd5VX2BDuKVdN7U911sB8OpF609RvKq+Mf60ypV0477a2q+zl/P6C2PZLJeO9JBS1aFxNWoIDIhy8oQ76L6yEXtNBZMSq5/7eCVxYQxXiuOa4ZAYP6d3Er/8VZR2xvgefByc9rRGQ+3yh3n8K4oRdqazu7lFCQLTU+jQg1x+4LV6bCE++Z9mrV9izNC1TxAPVO4+31i/kukQJqX3XcFt4ALl0wW8U7BEwdJ1+4qOsL76CyoNw1eaxxKUu6qC+FKT5Lsuxwknc1qX5hMExTY7Yg==
+ b=YodL5Jup6zKawnasB0HkHZb1IbIAdHlNC2ZHZbuH8HedjNtntCcOzXKzvRuA5BXrxTd2FFAyXFeLt8SnNQn4eCyVZFcKezMyS+AIxEiI5SewUH7ZYCyOmlXLm6UB2NQkvk+cBQu+3DdNyJqiBxCGcQF0CrPM9tDS85nbonJwhYNbUViA43q9MKr60MeueY2Dh6lke6zuQ7YOeTf0AjgKT0MQ+cgq9WfHeWEghO7cAqp0wDccfUyFsl5Ae9RINcX2dle+2kNRhu9wWc2ZAIh+p7tbvp/u7hFDu1ff9Z3CExFdcsQQHhBSOFFcK1TnUnsG9uMyWOCbViccSLxCIbJwvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pXPdaZin6lG1tJM4XS5DCE1CoWRUawiZ2UFJymFtp8Q=;
- b=k5vClmaB6KRP/oQZ3h3CnNOXOx7D2k0bN2BJOm4ApeQCb8cIDjOOgyijd5RaVXXUe+otLV3k/hr873a3F4xZOUysb3iVhXiM7kyhvQYkOMLj27Sg9dg1/v/SxbysjOC4UC/2cJgYS3mTDkeWdMwH/+A67O7ZzXfxTlD4xUXsDWNH62HUT/VW/Hcn2y/RSAHeYDRvu7+oe520iqPbrsumKh7fgSHcg436V+EUba6lxYGxZP8MtyODCJgTQg8X68pgqILoPZ53V76gQ+7sjmroSC3oudaVgJmPxz47eYiziR/pUxp8FBglKxP+8Qs3/TfI5UVOK0rGfSukxYRQOgZryQ==
+ bh=W44TUauBJcET5FPW5niusR/AZubGQ87VAzeeaPo3ruc=;
+ b=bBHciFO6S8nYs9wdLDa83AarjIfE0HtM9jfUD4G7nd0MSvhJSptVqmwP6qYYnO1choY7TB+SO+ayFBb751DP+acvkpJXRNssZhPcQjc6r9q9V9ed3Xpk3jOFwYZKFGtLUj7wH8pk+SRiWNm+MSXx3YypLd+/75Jcr7ikvQfksYOtbxH80RvSF0Y8NIb3trz3qzsBW5GM0bj+rFB2waV1TczrvOcALOTkF8m1qZbjZJtY9CC6IJpMyX87XbkWSiA4/ock3he6exMVkoP6Lb36EB28iTd/G5797ljwgPR6SSsray8Tprc6ro4yszqHpbrV4wMhsLE41X2urfA7Eh9Hbw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pXPdaZin6lG1tJM4XS5DCE1CoWRUawiZ2UFJymFtp8Q=;
- b=hoymnsVSMWpPUw55K3V/F21KW8IOtgxtkbyGBMCZz99M2tKQxQe7fqflvUiwBknyXY3rrh0T3aQnPrCGvZM3BRgkIwiXsSyQ89OsrHBHqUj4td35NjzujBOaElL+hIs7nZzq71GMoMFHcvGHnUMTLALQiE4qtwHtwN8TVVxO7tw=
-Received: from BYAPR05CA0088.namprd05.prod.outlook.com (2603:10b6:a03:e0::29)
- by BN7PPF39B20C1D8.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6cc) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.3; Tue, 17 Mar
- 2026 17:49:31 +0000
-Received: from MWH0EPF000A6731.namprd04.prod.outlook.com
- (2603:10b6:a03:e0:cafe::a) by BYAPR05CA0088.outlook.office365.com
- (2603:10b6:a03:e0::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.24 via Frontend Transport; Tue,
- 17 Mar 2026 17:49:30 +0000
+ bh=W44TUauBJcET5FPW5niusR/AZubGQ87VAzeeaPo3ruc=;
+ b=3h7XUHzYIVYcPq5ZsIUl3gUEvJt6dfzsDka+PCbOjRji/15OAP9FThFhsL/ghBebrWL4NHcF8a0aJ2cy+ya+MDpBc8mXZZum2/ndEPahGpwPV46hmzDUA+TnS0L8ybC7RQLXx3r7/UaVsFWI2KNMTTLqKGJs8lEM1v/7UeMkGDM=
+Received: from BN0PR04CA0125.namprd04.prod.outlook.com (2603:10b6:408:ed::10)
+ by CH1PPF0B4A257F6.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::605) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.8; Tue, 17 Mar
+ 2026 18:18:15 +0000
+Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
+ (2603:10b6:408:ed:cafe::2a) by BN0PR04CA0125.outlook.office365.com
+ (2603:10b6:408:ed::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Tue,
+ 17 Mar 2026 18:18:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000A6731.mail.protection.outlook.com (10.167.249.23) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 17:49:30 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 18:18:14 +0000
+Received: from ruijing-dev0.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
- 2026 12:49:29 -0500
-Received: from [10.254.92.47] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Tue, 17 Mar 2026 12:49:29 -0500
-Message-ID: <ec2ae9de-db16-466b-b35a-1804172698a9@amd.com>
-Date: Tue, 17 Mar 2026 13:49:28 -0400
+ 2026 13:18:13 -0500
+From: Ruijing Dong <ruijing.dong@amd.com>
+To: <Christian.Koenig@amd.com>, <Alexander.Deucher@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <ruijing.dong@amd.com>, <leo.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: fix strsep() corrupting lockup_timeout module
+ parameter on multi-GPU
+Date: Tue, 17 Mar 2026 14:17:59 -0400
+Message-ID: <20260317181759.34331-1-ruijing.dong@amd.com>
+X-Mailer: git-send-email 2.49.0.593.gd86a19f485
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "drm/amd/display: Add NV12/P010 formats to primary
- plane"
-To: Harry Wentland <harry.wentland@amd.com>, <amd-gfx@lists.freedesktop.org>
-References: <20260317170851.296517-1-harry.wentland@amd.com>
-Content-Language: en-US
-From: Leo Li <sunpeng.li@amd.com>
-In-Reply-To: <20260317170851.296517-1-harry.wentland@amd.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6731:EE_|BN7PPF39B20C1D8:EE_
-X-MS-Office365-Filtering-Correlation-Id: 24ffd6c5-c805-4167-763e-08de844d8aa5
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|CH1PPF0B4A257F6:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70d57e13-70d9-4928-54f2-08de84518e2d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|42112799006|376014|82310400026|36860700016|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: p5lomzyLLiSEdQMFi5q2uYHTDj9MAgGHgKSTxVLMSpQAgbXVoukWQT8EWUCLra6TXbtvZg8fwnl3lQg+zoOG+r5X7KXX6EOtWCBEiR89eQS8oVO27U7Rj/xPN4LZDfilV6/94PWwXiMWI7b+SberIWhRHROmNg3I6QULpfwhk3+AM0p1kbBiwykoQllkLsidpkf6YyC7IvNHu31EKRUVFRWqZ+dY2xDKA1dB9C3nwD4SO8zJkt4OvZzfMVeFfobJtIM0K17yoGVv+QUPeeKn2EM6pXEyaTYCx0SXgYS1lKENrjvfQP6iNglPAJAgUKIfHC2JZBtSgrZTIeYBUeFNUIPxT5a9jh5mv6RYw9hjIVY4zkQwvkj/f0y2ckqoiqVAucYw233Yl/eAM8sthKJG0x+44bgxq+22MJcqzrMHjLcEdWADiLBaEkVxNqmZXd//MP/vHkCsNrX/fBtXHiN/21Uw+F5mRh9QflDNTB/w44SHjGrFeU2JuaIdzjEz9umgnACu45WtFmzq0QPTKBkHR5OxhE3Rn30VokiaCZw2K8oL7TBNzP9sP2+/UyRhbLAk65RenbrwxEjCITuKRO5fgljfE509Yap82QJbb8tRnTPIflYUgKxPk/9U+t5H2c7zWU1hnQ/YfnWxWuNVdqANU3p5iPyG3nNndrchxfUxa+Ahy3AEdCsCsn/fHGa7AgYZe3Vo8X1e/V9o6uNvMb27CvyVl5qZIXo75sgNf/XhWJuaewRA0MxLRMmn4072PV5B0oUG1Mv5XGXyg6FbccpFCw==
+ ARA:13230040|1800799024|82310400026|376014|36860700016|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: lqh1cF1MJxy+HW5HBeh+KULdmsH5lIjhqZ8hhwwkl8a60caxnV8bx7qR8Z+3oqzruX6yvmwJ1B2ZkNez5hC9ydHgjNaNjjx4R+llFAprCEFGSXvpBhBfQj2ydgIhULu1sApMYO3YhVX3pczlXG14uz/wtFkxWZQMM3j7BoRFrYJICxUE52i+m8SzNnJN3j9q4us+tIS2I1rTy5MMDwhyYTSS5jGPVnEqGnCupXpqAz1mURmHKMFv/WeG3OSYHT1noy6kyr5qg9OAWxkN9akwrWuh3jvxn1F6e2UwZNfwyeWrS0y+V1cdr/FCuZw/kDFpa7QYvijlLOKfctIpLPpGML7mOL26O2Cfb9t6y7nZlylC4VOjDwYRXFWZlfS/h2I02X6kjQhvfkE52uuG3O6PrQ7eSLJBOFfiN0GXaLrJQLP2J/+Y1xiuMeG9NAOFwl0r0Eb0fEFHpIiqzceuXYqaUx9gQ4rUgMHvb2naCvNUjLwGFrLZmVDHnADEzQHuXcjHHQGYIlXYVPxZzURZZgMetWfZkDWfiHWNU++CAoOaLl8OKqFAJJdcvjUCMap++hEcaXsnG3Pdfh6DTeytqYON3/CPZq7ug07QoX846HPfspirRonHz7kdnpAzJaMaJ7ZgN7VUtHScR4RnOH2FpZIgg8KCbeETr5o3yrFpLJzr6fBr/um6Zu/ugFNYvLkqoZXtE9W6Mg/u1EA51iequCGJDY3n6N8Ks6V8ckK4ouMGReEJ1iaVV9jQ/Eqizftzb6EP+kULRxqqEqXYq+fnwFv5Zg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(42112799006)(376014)(82310400026)(36860700016)(56012099003)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5eZrIgmPnBvZsaPJJsqWsCaTPpb40sJc+MBNAPSVsKnHyMYq7oUtFKJr3ALpXhjAbl5SaI6k6t6+Z5pjVfkz0bkRo1U6k6c6sXCORcy01EmEq7VgOi8gnM9y3RxhdTQ+JMHEvH2EJK2LXIS4ookvYJDBAH8H72Tblnt/QYy8RQ+nuUqIzCN4KdZ3KeUswNl5G71bdkgaQj/cUSeTC9WmnA9L+3EsuFGkdBN3XMkHkMuj0LMk9N0bCIRDq4S6xOoifNIBBgVSAfYN3//zNaj2MqOznjOPfU2e+/b0IwFlmI4TwkbYWfIThwvw42kBGbqYyE5TtFw1FaH9ABiizHK/dgSWTlhhU4DMrGYy2oU5iKqCKsdzLsG7vua1uKCg5LF+5Qp8Tu0OvmUqBPNKeUyddTl8d5+y94kFMZ6215MHZf+P2c0DcNV8EtpcUvqKWmiK
+X-MS-Exchange-AntiSpam-MessageData-0: xQB84JhWIgzN6SJ8vTRvi++IZtgKXpJvXPTD1NvhPCAHh5+st5J2z/GCuBQ5xg6GMpzAysBDgARrIV4MplP627o4MiJ6wtVWmJnsrzmRNKnUbnP1qS1B8ExJlsb/cK0mFwE5y6QK04CD6x1UFvxFXRZ92rMT00zCciQhwIc20vD85U859F+pHof7UyfMJBO3f1RZkl8vUplYo5Ozhuz0YfdzKrvfdWQjfS14jH5FWtCNqiinrVffPF6OMYbOfXliS0cPH2YuSIjC+YP1Q8VMmF+039+SdCuBk/occgNE3R3R000EHjaFWoY594ChGNkoHbAWQtLoI3/5zIWhDklPApuHsNQT1K+T0mpeJVKmiqDTdJ4A8oNoPiEn2xLqtq8ZodCge60G2J+tdIR+V2FKtDoTMb7XJMqhsJOJHjxC/jgiTFFCeIoJk0MZ5sSW0D0c
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 17:49:30.5810 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24ffd6c5-c805-4167-763e-08de844d8aa5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 18:18:14.5295 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70d57e13-70d9-4928-54f2-08de84518e2d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6731.namprd04.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECDB.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF39B20C1D8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF0B4A257F6
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,36 +109,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+amdgpu_device_get_job_timeout_settings() passes a pointer directly to
+the global amdgpu_lockup_timeout[] buffer into strsep(). strsep()
+destructively replaces delimiter characters with '\0' in-place.
 
+On multi-GPU systems, this function is called once per device. When a
+multi-value setting like "0,0,0,-1" is used, the first GPU's call
+transforms the global buffer into "0\00\00\0-1". The second GPU then
+sees only "0" (terminated at the first '\0'), parses a single value,
+hits the single-value fallthrough (index == 1), and applies timeout=0
+to all rings — causing immediate false job timeouts.
 
-On 2026-03-17 13:08, Harry Wentland wrote:
-> With this change we're adding NV12 and P010 twice to reported
-> formats on a primary plane, which causes us to hit an assert
-> in Weston.
-> 
-> This reverts commit e01716e8352a3cf504058fd6ab90d8969e379275.
-> 
-> Fixes: e01716e8352a ("drm/amd/display: Add NV12/P010 formats to primary plane")
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Fix this by using kstrdup() to make a local copy before calling strsep(),
+so the global module parameter buffer remains intact across calls. A
+separate pointer is kept to the allocation start since strsep() advances
+the working pointer to NULL by the end of parsing.
 
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 3 ---
->  1 file changed, 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> index 0638f77c511b..812497d428aa 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> @@ -62,9 +62,6 @@ static const uint32_t rgb_formats[] = {
->  	DRM_FORMAT_XBGR8888,
->  	DRM_FORMAT_ABGR8888,
->  	DRM_FORMAT_RGB565,
-> -	DRM_FORMAT_NV21,
-> -	DRM_FORMAT_NV12,
-> -	DRM_FORMAT_P010
->  };
->  
->  static const uint32_t overlay_formats[] = {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index dcae77b6c272..97ebcc5bb763 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3498,7 +3498,7 @@ static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
+ 
+ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+ {
+-	char *input = amdgpu_lockup_timeout;
++	char *input, *input_copy;
+ 	char *timeout_setting = NULL;
+ 	int index = 0;
+ 	long timeout;
+@@ -3508,14 +3508,25 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+ 	adev->gfx_timeout = adev->compute_timeout = adev->sdma_timeout =
+ 		adev->video_timeout = msecs_to_jiffies(2000);
+ 
+-	if (!strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
++	if (!strnlen(amdgpu_lockup_timeout, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
+ 		return 0;
+ 
++	/*
++	 * strsep() destructively modifies its input by replacing delimiters
++	 * with '\0'. Make a local copy so the global module parameter buffer
++	 * remains intact for multi-GPU systems where this function is called
++	 * once per device.
++	 */
++	input = kstrdup(amdgpu_lockup_timeout, GFP_KERNEL);
++	if (!input)
++		return -ENOMEM;
++	input_copy = input;
++
+ 	while ((timeout_setting = strsep(&input, ",")) &&
+ 	       strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+ 		ret = kstrtol(timeout_setting, 0, &timeout);
+ 		if (ret)
+-			return ret;
++			goto out_free;
+ 
+ 		if (timeout == 0) {
+ 			index++;
+@@ -3551,6 +3562,8 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+ 		adev->gfx_timeout = adev->compute_timeout = adev->sdma_timeout =
+ 			adev->video_timeout = timeout;
+ 
++out_free:
++	kfree(input_copy);
+ 	return ret;
+ }
+ 
+-- 
+2.49.0.593.gd86a19f485
 
