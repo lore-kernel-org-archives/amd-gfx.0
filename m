@@ -4,95 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 873C0103E168
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 12:53:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C1C8FCD0C4
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 13:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AAC210E3A5;
-	Wed, 18 Mar 2026 12:53:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0CFF10E0CA;
+	Wed, 18 Mar 2026 13:12:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q/SyYOsr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U5cGnC3d";
 	dkim-atps=neutral
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6F4C10E3A5
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 12:53:18 +0000 (UTC)
-Received: by mail-dl1-f53.google.com with SMTP id
- a92af1059eb24-12734af2cdcso314999c88.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 05:53:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773838398; cv=none;
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 58A6210E0CA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 13:12:28 +0000 (UTC)
+Received: by mail-dl1-f52.google.com with SMTP id
+ a92af1059eb24-12734af2cdcso317115c88.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 06:12:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773839547; cv=none;
  d=google.com; s=arc-20240605;
- b=Hj5IrkAnJbFiDKk5HVwYr8Cd+946h17oF+tOwHjS5s+9qWyDdybA/X6+wes7TWdhM0
- h+Eyr3oy0WI58FcEaTxwROgPIju2sIoxxVQeWnbylmjVzNQtImKexxZY5l4cUjOQFIvb
- 99QYlkvmXvVUnFeC8BdWzVLVTzhX4D87osNiSj+kIjFnNP+UDsNKjGBZfxewupzSP+hY
- tNtfN9tOWzVZwcengGySvE14+r/Vz1dW+pi66UUHYqwOeNj81BbxvPPcMuYhqzI40rvX
- Q5zraxS3127ZHJl/wmcwQS5woVAfX48thBa7OqS8/SnBLhIhKDSF3dlfzCiQ7+CzVjFp
- CBVQ==
+ b=XxotqDlCMxhLJcVDPVihDDGl/iMM66CB3iGeamzTM5sfhSLRFOzFV9topd18rfW9M5
+ sJhhtb6PkvssvkzLgs/TmniNbzEJwcyGVkLkI2ZkotIwC4xp9XWdsiYNL5jUO50vsNEn
+ eLZymwOXom3+LxZvyQsV2qFezmn0SouWwVlscOZx7cGi9QdtaU7j2yzAbs6qyQR9wU3e
+ Z+G6fLMstNsGdzQfzoVI+OMSg/sxkFhUF2oIz/g7LW2T7RXD5/KhmHYr5g02dzS7HHis
+ VZFp0Dt9fzASBuCvWA8/I2PMilmYD7XH8xY2OU6MoGGYP/qBCBRa6SiFPa8n5EP2zryT
+ 88UA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=41IjNqbC7hVmDY7TmMFLjxcbEwtMNrf6OaOcq6+N7lo=;
- fh=l3eoYdYAnt4lYm9FGg/FDgc/xxtBVzyVw0u/PZzbCWU=;
- b=VksvXKW1AchopawHP6Q2K6sr3Wes0nO4ZlO1qOYvFDfs7xCV+DQfsAgWLU4/6oFUpX
- R5+blZYlbQKN9qA7pVDktdhKFdbpFEo+rXWT3Ou9W6nuFZ2mzoAVQbjamIqJcr0/FHNv
- kkEKs9LIhJBi9ChZJB4O3KFsLsKU3YiUuX1TqX3/jAEsJxTsRSRXh3jrijHe6kf/e6qO
- vuPnv/mrLI3zVxgvun/Pzd9+wbWyLGsIIjINxSvRJnIMU19XmRT5OdvVGqVPbQau4LQt
- dCQZqQIVy8SSwYG0Kb00Lzeg2CvXXjsdHGDU+zZVWBmMpAVVzek+Pav7Jc13S2PXlK5D
- jykw==; darn=lists.freedesktop.org
+ bh=fCZVVUxNMAnAlrRNwKH1qIToPVFuh8cbnjHj2aVzUvg=;
+ fh=eClSOvX3Ufrk3xmew2bENE0C3juJ/fkpDTmR/fycvps=;
+ b=WNv0s8PUCZPxlMvZILnUx9puo5Cdq8FNJTVtPhiYinrVL6snS4bAILEWTPjfg3KrSA
+ lpFImmQ2NgchwSzZcibXPWWToDpOqaOUic6cRNnslIA4Gb0PzzWJa4eWt0ujCiVA3WvM
+ 6KKVmDvQFMn7J+VJOZe+XbJ9pql4DfDdRgJxQ8jH+09cOLj5x33rsPxJe2VU4qx+QQ+o
+ zcNUs9akxeCODXWiYJQ1s11F+sXcHa2T5Mnb4XkKoXY5TmfT/NcVwtCwiYWvX7LzGuYA
+ AqNXyzchg9XGPXPiohHtCJLBPeQ9d4bIKL5Z30hq7rQ7JeDAbMV9M6AmqludIU8S48UV
+ umJQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773838398; x=1774443198; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773839547; x=1774444347; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=41IjNqbC7hVmDY7TmMFLjxcbEwtMNrf6OaOcq6+N7lo=;
- b=Q/SyYOsrRS7N2opahs8eDDJXADului9vY9QpVMd9vzLO28uue427GLngwf1Dii1Gy7
- 0Y02weHJ0FRIZ3p5epH6BKZERuUWBFuXd/+4PuVAuyGSsWdoTl4TpEPGzzP14/6FDNlb
- X4O2JlmkRWtVdoK1o+oBRNKOOsAX2xcg0iD7BzFViw5IWUL0E8yb+8zsjXtYDm1XnQm9
- U++pVIeuxTevK1zpHBi0q/jpDo2RO2op4FoXRqN8FR4fIK6s+tpi5/CM7JUy6D0KZG2Z
- Q8jpooq7yW+wvhzPZ9ynWtGPILwVZXEoSC7YyDGMotwto+0Ls2pFf9YIPxsZOXFkQw8a
- sS2g==
+ bh=fCZVVUxNMAnAlrRNwKH1qIToPVFuh8cbnjHj2aVzUvg=;
+ b=U5cGnC3deGUj1E3jAwtE8cUuwzF8adlqfTTD/6MYf9+GahzXGcLiWTgW52wpBGn52a
+ IipaCyJwpNBcpk6n6M7uBKBlbTEJxI4u1JCo02LbFimH3ABRSjT91p7yMFy05oLaeuQb
+ N/GTLFvDxz1IScoZpW5gXFSEsQmT8KjH3++dbTXYApnKZN7km+A/2AVkyjQvWO7qWot8
+ IYTPF7Oiujj5YuDkftetmhvGU8+Vl3g2RKiUA9WxPqqmFKowyCGPEyvueHBOMt7J7qsU
+ UEQTFYCQHLLxBrmMfUCHe8I3wYSHtbeE0VEgHSeSojE8Srzt7hjXPvGiXm1chX7h0vYs
+ ZmRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773838398; x=1774443198;
+ d=1e100.net; s=20251104; t=1773839547; x=1774444347;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=41IjNqbC7hVmDY7TmMFLjxcbEwtMNrf6OaOcq6+N7lo=;
- b=lVZRDzqNffd+RIdpBxd1U47VIy2gfa1oOQwtcm6OuomL7vJoAeLvhqJeZ5XJ2MhGd8
- F/+GeG0Otxfhwwbh0By09hEfhpVXu1j7ty8zntEN9Tu93/LbvjBDXVodVqJKskBekDuz
- oBxkKwwVBf5CgJ73UutWIssuRUl3MyuYWKQpvccv/N4FNVSb1qNp0kgzPTmNJP9Dlf3w
- dS8KLHxP+QmFgTL+hilAhzqJKn/HRxmw5OCIxE3yMFBKs7D7tlvUfhJVMtPeXux9usgx
- D3+Rcy2Qgjqc1YH1atT/kFj/sJhz/wY+YV+UBf/wLDig1XRUhg7CGwmInmbph61Mso60
- 2F/A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUFHr2J9vNTJFDDAZXVHdLXg92XR9RsjdUbEiq7zsGyRZZzK/qjmEA/3fUI0tephUoTLaYy3sLg@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzGIBCT1cM2bFp0IL5zUrLRTirztKxi58OhZ1K25BuTPoM+zrFM
- C1pjWtQNFBm49zj14HvcUvy8GauG1qKAfe45O4vcidOsT5cwOZWPQ8dSwf7NP90VIPqbs+LYzKO
- NpRUnGfs3+PZWM6x0GAnvPOCxrWKXK8Q=
-X-Gm-Gg: ATEYQzx2uvQY88yMaT25AN9olVoHLzGhvsIUL/VkGkXtEhKl4egFev+UnKM6zhsdJsp
- TlUgMi7Jb6SENFZ6h5mej4TB196EyU9ixjRBkvxXvAvyJuLgNHUHcv1fPIWMWzKXslYfo+Wam6c
- IHCF+tDcz0gX0BXf9yjNPcR1UBPa6ADEgcu6d47q04Bgp8vlkc09qeQxVDEj7fRSsKRhnIuHN/e
- FR1wV4dqUb5Hq7etxXzOwaq389ZFtfyG7XNJei9gXmv8gnAh4sgSAQWOsobpLyh4Fy8RcIRt1z+
- jOtJu45TPKYRsbSA8cSsljlxgX9H4vNkkFNmOHbo8VKIFy38lJ/Q4tx4duSEoyX8dOCERibfjjd
- d1P6p
-X-Received: by 2002:a05:7022:3f0d:b0:128:d0cb:7a97 with SMTP id
- a92af1059eb24-129a70e3947mr547387c88.3.1773838397597; Wed, 18 Mar 2026
- 05:53:17 -0700 (PDT)
+ bh=fCZVVUxNMAnAlrRNwKH1qIToPVFuh8cbnjHj2aVzUvg=;
+ b=j6jTBtTB++dqoMzdk0hnyWWHYSRB+x0xft312zfmDZKxkWGswitzPBhzNxgyvKVK0l
+ OgM4pouTqBnYs5Cx7c7G6x1TtEk6X0bCGSQyX/JT7L8omgreaf9URUC0qFev8asdZUFK
+ J4nARwQ3A9KfC6nrsfIzEUYBHMbA8Y4uxn63D8nHlm5EfDKsAvlJx07Q3hsye/j4zJhU
+ cbnzHLiA3Gf7ovSL7D6AI1J6GpIrcHUraue/CEV3DlKNxjW20HLGIEBltMK3hmNUS/9J
+ IT6DRkc9ivqMI1i+hykWPj7gPirpoNdNklbAgOEkWl5TjSFndk2XljzA40IiXdq3C5B+
+ nsUw==
+X-Gm-Message-State: AOJu0YyjQrxCBxnofsCGRT8fyGTVZYGX7iTjqJpgQIDKyiaTlSl5FWz+
+ mgZbUuwJxwN+PFpgYkV45iNZIM3Vh0VlIfWr0fKV/xeGHRSymJAHVeqFIIVvWAWxqUmLpFEkagI
+ DFO467KVWvNJ1YTPQxLhgTL29V9e3scE=
+X-Gm-Gg: ATEYQzzevx7VaNlkPAxyS57QeI70q05i2kL4OolUjSdlZtkAQOllFw/hBvURw7byVEF
+ tCofyMHlgmtmHPYF6CiXhc9RByAcKdtdoVoVPaa/XpLwyj4tPl56ub3JG09KsvSUE27Zf/Y+X4N
+ uLoqx6hIv+is2CvzlrXLc/nY0YVT7yR5w3rFCc3xLzcct3He0oUgAf4u5hgbZGay4zMXXqXzOhA
+ ApLNLR5wV0qBmwXIR5G1h1vqjmTbzxJrzwV8UYyWsOK09rjABD1k5edav6THiHn7FCT6Z+FqE7S
+ jCF8rBl044Zy6eAlKK/P+Bn61ACcBP13YLHaeZpBaOw+7gYj/LIISBOSkXpFx0x/vuLxHg==
+X-Received: by 2002:a05:7022:1503:b0:128:d4d5:93b9 with SMTP id
+ a92af1059eb24-129a710b536mr760994c88.7.1773839547393; Wed, 18 Mar 2026
+ 06:12:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260306120513.57826-1-dev@pp3345.net>
-In-Reply-To: <20260306120513.57826-1-dev@pp3345.net>
+References: <20260318112201.3779461-1-Stanley.Yang@amd.com>
+In-Reply-To: <20260318112201.3779461-1-Stanley.Yang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 18 Mar 2026 08:53:05 -0400
-X-Gm-Features: AaiRm53W0wqHwWOZQryLUHuYnj_UK63FoqSdVyXvsgcd1PMM3eZeKbidyOHVnNE
-Message-ID: <CADnq5_NtxbGSj9vVpEOn7-8BZ15ZDP-6HEna+jLJ9EjCn3W_Lw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Do not skip unrelated mode changes in
- DSC validation
-To: Yussuf Khalil <dev@pp3345.net>, "Wentland, Harry" <Harry.Wentland@amd.com>,
- "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org
+Date: Wed, 18 Mar 2026 09:12:15 -0400
+X-Gm-Features: AaiRm52OsVEbnfK4aGDe282mXkPx08REzb1FT_OQ_ckvKdZX3uXiSI-C8pw9g8E
+Message-ID: <CADnq5_OgqwDNZHQm=JJvwHZeUjifxyJ4kgm8=nyURDOLoeAobw@mail.gmail.com>
+Subject: Re: [PATCH Review 1/1] drm/amdgpu: Add amdgpu_regs_pcie64 debugfs node
+To: "Stanley.Yang" <Stanley.Yang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -109,157 +100,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-@Wentland, Harry
-, @Leo (Sunpeng) Li Can you take a look at this?  I'm not familiar
-enough with kms state handling.
+On Wed, Mar 18, 2026 at 7:22=E2=80=AFAM Stanley.Yang <Stanley.Yang@amd.com>=
+ wrote:
+>
+> Add amdgpu_regs_pcie64 debugfs node to
+> read/write 64bit PCIE registers.
+>
+> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
 
-Thanks,
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
-On Fri, Mar 6, 2026 at 7:24=E2=80=AFAM Yussuf Khalil <dev@pp3345.net> wrote=
-:
->
-> Starting with commit 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validati=
-on in
-> atomic check"), amdgpu resets the CRTC state mode_changed flag to false w=
-hen
-> recomputing the DSC configuration results in no timing change for a parti=
-cular
-> stream.
->
-> However, this is incorrect in scenarios where a change in MST/DSC configu=
-ration
-> happens in the same KMS commit as another (unrelated) mode change. For ex=
-ample,
-> the integrated panel of a laptop may be configured differently (e.g., HDR
-> enabled/disabled) depending on whether external screens are attached. In =
-this
-> case, plugging in external DP-MST screens may result in the mode_changed =
-flag
-> being dropped incorrectly for the integrated panel if its DSC configurati=
-on
-> did not change during precomputation in pre_validate_dsc().
->
-> At this point, however, dm_update_crtc_state() has already created new st=
-reams
-> for CRTCs with DSC-independent mode changes. In turn,
-> amdgpu_dm_commit_streams() will never release the old stream, resulting i=
-n a
-> memory leak. amdgpu_dm_atomic_commit_tail() will never acquire a referenc=
-e to
-> the new stream either, which manifests as a use-after-free when the strea=
-m gets
-> disabled later on:
->
-> BUG: KASAN: use-after-free in dc_stream_release+0x25/0x90 [amdgpu]
-> Write of size 4 at addr ffff88813d836524 by task kworker/9:9/29977
->
-> Workqueue: events drm_mode_rmfb_work_fn
-> Call Trace:
->  <TASK>
->  dump_stack_lvl+0x6e/0xa0
->  print_address_description.constprop.0+0x88/0x320
->  ? dc_stream_release+0x25/0x90 [amdgpu]
->  print_report+0xfc/0x1ff
->  ? srso_alias_return_thunk+0x5/0xfbef5
->  ? __virt_addr_valid+0x225/0x4e0
->  ? dc_stream_release+0x25/0x90 [amdgpu]
->  kasan_report+0xe1/0x180
->  ? dc_stream_release+0x25/0x90 [amdgpu]
->  kasan_check_range+0x125/0x200
->  dc_stream_release+0x25/0x90 [amdgpu]
->  dc_state_destruct+0x14d/0x5c0 [amdgpu]
->  dc_state_release.part.0+0x4e/0x130 [amdgpu]
->  dm_atomic_destroy_state+0x3f/0x70 [amdgpu]
->  drm_atomic_state_default_clear+0x8ee/0xf30
->  ? drm_mode_object_put.part.0+0xb1/0x130
->  __drm_atomic_state_free+0x15c/0x2d0
->  atomic_remove_fb+0x67e/0x980
->
-> Since there is no reliable way of figuring out whether a CRTC has unrelat=
-ed
-> mode changes pending at the time of DSC validation, remember the value of=
- the
-> mode_changed flag from before the point where a CRTC was marked as potent=
-ially
-> affected by a change in DSC configuration. Reset the mode_changed flag to=
- this
-> earlier value instead in pre_validate_dsc().
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5004
-> Fixes: 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation in atomic c=
-heck")
-> Signed-off-by: Yussuf Khalil <dev@pp3345.net>
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 5 +++++
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h           | 1 +
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 4 +++-
->  3 files changed, 9 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 113 ++++++++++++++++++++
+>  1 file changed, 113 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index b3d6f2cd8..4efd77477 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -12523,6 +12523,11 @@ static int amdgpu_dm_atomic_check(struct drm_dev=
-ice *dev,
->         }
->
->         if (dc_resource_is_dsc_encoding_supported(dc)) {
-> +               for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state=
-, new_crtc_state, i) {
-> +                       dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_s=
-tate);
-> +                       dm_new_crtc_state->mode_changed_independent_from_=
-dsc =3D new_crtc_state->mode_changed;
-> +               }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_debugfs.c
+> index 6fdcd9c78324..e15b3aa02919 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -622,6 +622,111 @@ static ssize_t amdgpu_debugfs_regs_pcie_write(struc=
+t file *f, const char __user
+>         amdgpu_virt_disable_access_debugfs(adev);
+>         return r;
+>  }
+> +/**
+> + * amdgpu_debugfs_regs_pcie64_read - Read from a 64-bit PCIE register
+> + *
+> + * @f: open file handle
+> + * @buf: User buffer to store read data in
+> + * @size: Number of bytes to read
+> + * @pos:  Offset to seek to
+> + */
+> +static ssize_t amdgpu_debugfs_regs_pcie64_read(struct file *f, char __us=
+er *buf,
+> +                    size_t size, loff_t *pos)
+> +{
+> +       struct amdgpu_device *adev =3D file_inode(f)->i_private;
+> +       ssize_t result =3D 0;
+> +       int r;
 > +
->                 for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state=
-, new_crtc_state, i) {
->                         if (drm_atomic_crtc_needs_modeset(new_crtc_state)=
-) {
->                                 ret =3D add_affected_mst_dsc_crtcs(state,=
- crtc);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 800813671..d15812d51 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -984,6 +984,7 @@ struct dm_crtc_state {
->
->         bool freesync_vrr_info_changed;
->
-> +       bool mode_changed_independent_from_dsc;
->         bool dsc_force_changed;
->         bool vrr_supported;
->         struct mod_freesync_config freesync_config;
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index 7be50e8c0..5d8c4c702 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -1744,9 +1744,11 @@ int pre_validate_dsc(struct drm_atomic_state *stat=
-e,
->                         int ind =3D find_crtc_index_in_state_by_stream(st=
-ate, stream);
->
->                         if (ind >=3D 0) {
-> +                               struct dm_crtc_state *dm_new_crtc_state =
-=3D to_dm_crtc_state(state->crtcs[ind].new_state);
+> +       if (size & 0x7 || *pos & 0x7)
+> +               return -EINVAL;
 > +
->                                 DRM_INFO_ONCE("%s:%d MST_DSC no mode chan=
-ged for stream 0x%p\n",
->                                                 __func__, __LINE__, strea=
-m);
-> -                               state->crtcs[ind].new_state->mode_changed=
- =3D 0;
-> +                               dm_new_crtc_state->base.mode_changed =3D =
-dm_new_crtc_state->mode_changed_independent_from_dsc;
->                         }
->                 }
->         }
+> +       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+> +       if (r < 0) {
+> +               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +               return r;
+> +       }
+> +
+> +       r =3D amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0) {
+> +               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +               return r;
+> +       }
+> +
+> +       while (size) {
+> +               uint64_t value;
+> +
+> +               value =3D RREG64_PCIE_EXT(*pos);
+> +
+> +               r =3D put_user(value, (uint64_t *)buf);
+> +               if (r)
+> +                       goto out;
+> +
+> +               result +=3D 8;
+> +               buf +=3D 8;
+> +               *pos +=3D 8;
+> +               size -=3D 8;
+> +       }
+> +
+> +       r =3D result;
+> +out:
+> +       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+> +       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +       amdgpu_virt_disable_access_debugfs(adev);
+> +       return r;
+> +}
+> +
+> +/**
+> + * amdgpu_debugfs_regs_pcie64_write - Write to a 64-bit PCIE register
+> + *
+> + * @f: open file handle
+> + * @buf: User buffer to write data from
+> + * @size: Number of bytes to write
+> + * @pos:  Offset to seek to
+> + */
+> +static ssize_t amdgpu_debugfs_regs_pcie64_write(struct file *f, const ch=
+ar __user *buf,
+> +                     size_t size, loff_t *pos)
+> +{
+> +       struct amdgpu_device *adev =3D file_inode(f)->i_private;
+> +       ssize_t result =3D 0;
+> +       int r;
+> +
+> +       if (size & 0x7 || *pos & 0x7)
+> +               return -EINVAL;
+> +
+> +       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
+> +       if (r < 0) {
+> +               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +               return r;
+> +       }
+> +
+> +       r =3D amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0) {
+> +               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +               return r;
+> +       }
+> +
+> +       while (size) {
+> +               uint64_t value;
+> +
+> +               r =3D get_user(value, (uint64_t *)buf);
+> +               if (r)
+> +                       goto out;
+> +
+> +               WREG64_PCIE_EXT(*pos, value);
+> +
+> +               result +=3D 8;
+> +               buf +=3D 8;
+> +               *pos +=3D 8;
+> +               size -=3D 8;
+> +       }
+> +
+> +       r =3D result;
+> +out:
+> +       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
+> +       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+> +       amdgpu_virt_disable_access_debugfs(adev);
+> +       return r;
+> +}
+>
+>  /**
+>   * amdgpu_debugfs_regs_didt_read - Read from a DIDT register
+> @@ -1544,6 +1649,12 @@ static const struct file_operations amdgpu_debugfs=
+_regs_pcie_fops =3D {
+>         .write =3D amdgpu_debugfs_regs_pcie_write,
+>         .llseek =3D default_llseek
+>  };
+> +static const struct file_operations amdgpu_debugfs_regs_pcie64_fops =3D =
+{
+> +       .owner =3D THIS_MODULE,
+> +       .read =3D amdgpu_debugfs_regs_pcie64_read,
+> +       .write =3D amdgpu_debugfs_regs_pcie64_write,
+> +       .llseek =3D default_llseek
+> +};
+>  static const struct file_operations amdgpu_debugfs_regs_smc_fops =3D {
+>         .owner =3D THIS_MODULE,
+>         .read =3D amdgpu_debugfs_regs_smc_read,
+> @@ -1606,6 +1717,7 @@ static const struct file_operations *debugfs_regs[]=
+ =3D {
+>         &amdgpu_debugfs_gprwave_fops,
+>         &amdgpu_debugfs_regs_didt_fops,
+>         &amdgpu_debugfs_regs_pcie_fops,
+> +       &amdgpu_debugfs_regs_pcie64_fops,
+>         &amdgpu_debugfs_regs_smc_fops,
+>         &amdgpu_debugfs_gca_config_fops,
+>         &amdgpu_debugfs_sensors_fops,
+> @@ -1623,6 +1735,7 @@ static const char * const debugfs_regs_names[] =3D =
+{
+>         "amdgpu_gprwave",
+>         "amdgpu_regs_didt",
+>         "amdgpu_regs_pcie",
+> +       "amdgpu_regs_pcie64",
+>         "amdgpu_regs_smc",
+>         "amdgpu_gca_config",
+>         "amdgpu_sensors",
 > --
-> 2.53.0
->
+> 2.25.1
 >
