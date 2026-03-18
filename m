@@ -4,123 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D98F9FF6E9A
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 00:20:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3832BFEDA09
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 01:01:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79E0610E659;
-	Wed, 18 Mar 2026 00:20:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBFC210E074;
+	Wed, 18 Mar 2026 01:01:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="keF4k4rQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cWElc/s7";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012051.outbound.protection.outlook.com [52.101.48.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E60810E0E5
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 00:20:06 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011022.outbound.protection.outlook.com [52.101.57.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 246D710E074
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 01:01:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ov9pAZCtcL9LsVHwUigw9oh9vPFt4idtIyDDWWhAQw6tzDOMdrC7np1DLhFQcQTRQDoyYs9ajhv4QDezYe+mQDngjnfz6YnSXT8jszJIUboqrbjSMPudw5xbU09jJljh2PC1zDUA9n7Yq0k2leN9yQzFXz/XmdY6o9w6pg7PleBNqoffqJiTCxKbeUx1S1iysalTkGF627/+wTrvc4m5VUYNpi6ktkAW0E22cHcmYnSt96XFlxYbI1n27xzRa6aJR1PUBiBccDdXoO5mDEDsFVBbqMVfVRfn/2QG+XCgZUfzJiuh8BpupBNhFg6I8rzDYIBXPKz+Xjrm/s03lV2UTg==
+ b=ZufMuj3IrMBTFHADwjiSujK+DlZvGDnMux9PxRF2CC5rWD1ZtEMtzyasVSm0XXYYc+GaMziuHyw6w397Jft3IDo7qSU+TNH6YyatcAz2Kn+/qNSFAFk+tqCFTKh31e9ulGbeUjoB5QS1bwP+jHQL/cKrABV2BlPikF5cfSW4+nJCMWAyWNRwC+qSYoP896+WExt2FbzN0IcnQfZzT94IgOw73ZUPM60998bViJIQXwyfodZS9e52GVI1Uj7ilOlavrfe0i8B0IWdkkJwLqaLTDus/fLky/wHNpBnp0qykBiD14s6x79i+kSRUGd6RmmJxGKfvGK2JBNN45xEBZ86ZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v4Ln/okJ1rbd5rV/cFI8KGUnWWtz9aT8ojv2SLI2cR0=;
- b=Incrl1tpwX1d5gv7wUhItBfebxqy+kYW1zRk/nLknpreOT11X10bjJ/p7jYkIF9Cl+tS7XV7fa3wC+aTSWVqQNWZMSxeB/g+G4Q6IE88o2iuxXPp8MkWvI+J6MH0E55Z+wXZH8quwx0n+KozgaW8/5nfvPjaacecZLffEeKBeriqUVLZpttl1Nhy528k2jyd6lAbyoUo/CoTr/zUb8jrdMhh87xqa0xB5yDcj4aYRpve6lPt4bYR7JMPi5nUmuA6Mlpojo+hza7KG/94skC8i5X5Gk1RJH0C83nXxtg/MGhbBh+6s7MKYYgGxvwoEeABbchtBf9ly9ys+Hb2I0ZQGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=74DgE1FuVjH0uN7f8EG0FCMywhRMw3tU+LJjq2fFUdY=;
+ b=RgDD8hP0RhZzdVz13WHKWcMm7Dv6Q6+8KVytHh5si8xXehPfz9v6ICHSGYTvePPjz/aDludauPR7P0Z566b4Yhh72yV4N7jcnJaq5laB+Jfn8G+HmKTYsyrhIAM82ujTqTDxLzYBsb1KM/g8svz7Qg1xHO5p+RldmuyGbyGZyUNG0T8irOERSp/uHNFGrG+/nBWXmfEgxqUq7U5B5nD+7egl/n0W9ZZQ5eJ9gU00jkEnlXEzM+eQ1IACma5eRcMfpKAvdqfHST7mhTNK3OVvZuwapFISNur0CYuTEJnd/MTo4HiiC9ymUZW5oMMbYNvQP0Z4VtVzCBSnsZ+T+mnxzQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v4Ln/okJ1rbd5rV/cFI8KGUnWWtz9aT8ojv2SLI2cR0=;
- b=keF4k4rQKTPCROd4gAr/vy9rpB3cK78lxdLkEDTsrvJ+by7TisTHksaf8a0oDiKakcqGQo/QybVIJiALZD9/Y5T/e7W2sbJF0XeMDY7dgu1MviFnMhW0pCbfeLrh6sutui1+A1nT3fAizweZkAYMgVDiYEHWec2+vFzzwgsETX8=
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
- CY1PR12MB9584.namprd12.prod.outlook.com (2603:10b6:930:fe::14) with
- Microsoft
+ bh=74DgE1FuVjH0uN7f8EG0FCMywhRMw3tU+LJjq2fFUdY=;
+ b=cWElc/s7entLcaZb6afwQnzJWd3fnc14ArPVTAnqxJR6nTa6N88eYrlJwar3YQUcC0uz4REMtShGjIK49CjnMEiCSBN3SDUdyVQUu8w9O/xJ0xW28zDXV5js+9X8sB4M8oQulb0xvnbqaNXl2oF7vEWI/APM9Uo1ssz8gZ2fPP4=
+Received: from SA0PR11CA0003.namprd11.prod.outlook.com (2603:10b6:806:d3::8)
+ by BY5PR12MB4289.namprd12.prod.outlook.com (2603:10b6:a03:204::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
+ 2026 01:01:00 +0000
+Received: from SN1PEPF000397B0.namprd05.prod.outlook.com
+ (2603:10b6:806:d3:cafe::a0) by SA0PR11CA0003.outlook.office365.com
+ (2603:10b6:806:d3::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Wed,
+ 18 Mar 2026 01:00:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B0.mail.protection.outlook.com (10.167.248.54) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19; Wed, 18 Mar 2026 00:20:03 +0000
-Received: from DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
- ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.20.9700.006; Wed, 18 Mar 2026
- 00:20:03 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar, Lijo"
- <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH] drm/amdgpu/pm: drop SMU driver if version not matched
- messages
-Thread-Topic: [PATCH] drm/amdgpu/pm: drop SMU driver if version not matched
- messages
-Thread-Index: AQHctk5rswxCtGvSyEyWBIYag9gAbLWzagPg
-Date: Wed, 18 Mar 2026 00:20:03 +0000
-Message-ID: <DM6PR12MB2972DDDCA2A35F95CBA2883D824EA@DM6PR12MB2972.namprd12.prod.outlook.com>
-References: <20260317204110.3833021-1-alexander.deucher@amd.com>
-In-Reply-To: <20260317204110.3833021-1-alexander.deucher@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-18T00:08:13.0000000Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|CY1PR12MB9584:EE_
-x-ms-office365-filtering-correlation-id: d200e9bd-1093-4341-d2fb-08de848419b9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|38070700021|7053199007|22082099003|56012099003|18002099003;
-x-microsoft-antispam-message-info: eINILjZCkdrBf2x44B/jDKwkGjrw73/QVZ3vOrBGEIqD/CiwaLerrQyQUtD8aILH32P1c8WJN3GERvm8MrlA1tRhzLmvcIDhx/p9Vh/nFvm47Hk/1ZQxhe+8InmtrSDz4kRfY5s8VTOTwzLwb4Vu9SnwhajSqCe3zZ9XFgcXfs0/5UebROaxM2esikyPVtoA/kKRAe9VO8+C5kPkcZleMrcALxL0xZrWN/+eZOmX5RJ/h9WkJbK4f5rrQ28DVWi751s8xrC/YMYXWkDWuXY9uKRPSABDb6UFfHsB169crcNOn6L2qTH9igYp/PsNSrRXxvyatZrNgMaHejBamsq7Kl7pxgjbHJQ0MlTF0R0TweajJVb78x+0o/003rFU9lpFra7yYLRugxMOkdIeieIvW5NB4HDK0Vz2mriG/EFA72s2HBKOqJVRU9l/fnYvCCScKM4xNlDQIeywsVDpAjpDSJJl/zAGuSD33rjlqlTZd6qEJehrJoaPMXJrmkasvrbWD48lIqCWklwifaI4IQxOT+0GOIZ3g5a0z6kX/PO/G0C1Lew2A1eNAYmdHlZbSSYbRdi/SuBEnSyS4D1skv+5f3kN8WEsFxxxfci0qT8/4PCscUzT+9U6Zb3rdmPR6pLUUbvl60PEqc8VkBc+AE+UL0gNYENn1kOL3BxlJ8M82j56QvFUVe7BA3oqJW0eRs404WS9OvWIBRtPGH3LXRDQsHtABNEo+CVKBh9B5DHkckfV+9ZJMBXa1QCgxxtFK/ZC1yMPw+wXKPJJKZ6TCTzI2ajspWiVMtaPiSFkPB12dXs=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(7053199007)(22082099003)(56012099003)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DvElKEGU8tCOitZYEKQmHw4x7BBhbpT51mCIornsC/G8MRSv4n1scllpxXKO?=
- =?us-ascii?Q?lGXOyv8lb6KvcFC0pKuaxLdEciscdUfBCBhWpnKPO0cb09PiNBfuVkiE2ogb?=
- =?us-ascii?Q?JIdUUCU1Xzs65lb3jF0vaFbi8Cz1vugJRFucG+PVH1yQ/PsQOHNxTN8MX4AT?=
- =?us-ascii?Q?PTdwbG2DRGeMzl/9SYUkr9G2WBOcckGPjGzNJmLcYSXyzijLVJKZiO3nOwiD?=
- =?us-ascii?Q?6X2djMVRcqwyhoybdxn/vGH5QUruCJZYwM2LeH9EVRQAppCv252ZP2lFyg48?=
- =?us-ascii?Q?rDV/JBMg25Mp3KP6rvgUqJ/5EmwFsZxJ3VJVa8kZM0La2tGnAWckyTI6mVx0?=
- =?us-ascii?Q?XrqyBVHIvJKzramAXs03m6tUlo/VsQncCq2pbwx7GghPl6SZfjweaDtyyoCR?=
- =?us-ascii?Q?N+b8sRigDs+8myMcQfnEmQbzz2jmZnFr9tQL8RHsk6xoNkxlOSH7fqARdHbF?=
- =?us-ascii?Q?M9/cVH58XwVoXDqVaN+Tjvd5Ujs0AtYAkdm18v4tdJJQdlWquRVCnrkCwyiF?=
- =?us-ascii?Q?gqOI8TV5ROfIJBL0cCiSRYXXmkHk/fPdd+Q12NyiNaTHK8fOPl/vnPNVulGN?=
- =?us-ascii?Q?poxxZuewxVitCkjPKWDYuhNjr4iMUxo5Y7xTAoovMlRLJcfIc0oMGL5Trs1T?=
- =?us-ascii?Q?gHxX5Vr73lcb0XBpHo0fMW3dXMLHJbLmc3hxO+c3IXiui3K47Bh5R92MygGU?=
- =?us-ascii?Q?FmM/f2nvHMYewODUG3Rkp7rk43aurR/BeJv5+kt9J+/dDr39tJJqs/8X8pDW?=
- =?us-ascii?Q?eRS8PvG7+aZCXsdfwC9ZrQjLzFoTUw3aD+uQWBP+NDtv5K2Fzao/CjT5/UrZ?=
- =?us-ascii?Q?vzO7GLQKqvaj259mAkqItzM6YeA3c1iSLBDyJFU1XN2nJXq9z8W2NtAmCc1n?=
- =?us-ascii?Q?Eu1nmOTMptS9lmGcXJopzeM+tkCHtJ1tY+9CccY//l2JdYtoIblVFvul4y8X?=
- =?us-ascii?Q?yebIHnZJ/4u5fzbyXo+XWqCG2Ai5LZqe42VE5FdtHC3107CLKgCfOT1PcENq?=
- =?us-ascii?Q?okohRg0/5Hj0JIkT1NoJGreBfPoLF7LcPWolxMaiF3e0LKj3XkVbmUe8kpgX?=
- =?us-ascii?Q?QWJmQ2CK6ExRsFvpHoyr6XHezbBiEuSB3YLJ2ZCM6e0fEcKEMOTxpsTY381L?=
- =?us-ascii?Q?nPVw/cn+2vXRP1eAmYP2Uuq49POxlxQ6maGq2z1tFxVeKko+gzRA36V9lg+l?=
- =?us-ascii?Q?j7FS9CGkXourXd0qgxEiDkOf2sR7z+ph2DqA0nDIa1hSaw16xYsYCxW/4YH/?=
- =?us-ascii?Q?sQJkcyTZtK6CldsrM54pb26ouF6qElH5RWf4HE4EAiT1LbWPR7kl/0kiDR+w?=
- =?us-ascii?Q?4HUl90wfe2I6rMvFmnAbBsDz3julXq4gPYF1ulUbqzA+mxkXSjK9ff4AaWJk?=
- =?us-ascii?Q?4RuOzvyF4bV8h8Q3DC8spO+QroHFYVgVRBe1BVyaAza6BLmUF8P3ygC64Sko?=
- =?us-ascii?Q?uC+Vec6XX0cYta7GICjc2UIhtHBtwo9dGptQAGTMnmzLfaBsNEeKjrFuT8Y/?=
- =?us-ascii?Q?NwEwRvXJ1IBxIoa32DqzojXTp7xt7OfarootSp95E8gzN5dFntv3nu10o04+?=
- =?us-ascii?Q?Dn78rSd+9VwiaNUskDFeb17zMlnlU5Jn7iJHVGWmprAV+bLeeY6pjuFAes7B?=
- =?us-ascii?Q?dxMYtZs/NvB6XG60n0gthvsZfW/SgOc69k7VS/tGdSMsZ9aaPSAS5RYRLgQW?=
- =?us-ascii?Q?lRpQT8U7ecjzyy6sLpw381/pqnXDrZe+Yl+GzUkjgj6mJh78?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 15.20.9700.17 via Frontend Transport; Wed, 18 Mar 2026 01:00:59 +0000
+Received: from maxMSI.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
+ 2026 20:00:55 -0500
+From: ChuanYu Tseng <ChuanYu.Tseng@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+ Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+ <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+ <alex.hung@amd.com>, ChuanYu Tseng <ChuanYu.Tseng@amd.com>
+Subject: [PATCH 00/31] DC Patches Mar 16 2026
+Date: Wed, 18 Mar 2026 08:59:09 +0800
+Message-ID: <20260318010224.513094-1-ChuanYu.Tseng@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B0:EE_|BY5PR12MB4289:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2f1f1c64-208a-4168-17f4-08de8489d1b1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|376014|82310400026|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: g7rIO8ftK1gWUNd0ZYajIFoT0wvZtqcnzcewJekmqdoUDPNfX6QUlANd8wWisKCI1MfLOY1v6gx8ZuD8baujsfLBOPi2oZ1z+lB+l+I5q7yFr2dkml9ufeNXYDoL8ZLMx3SDiRLBKN4XtzgK9pCI5sRJycw2E20nsriSt4ETUgCDpdMcNkug2I7GEmHlbho6hwAO34kEjgVnNNv1gQwNOUhG72nYlU9cjaxpNkhRuWrt2rvN/UvJvEMESPmJ/Wf9OayYnwBcnEA3ovRspgMPnal1Hl5uubruk9+8gWdu/nEJkSEnN4NDj+nT2Oydm1rynrx6vD8SKTtnDtl0brB0px7kCBhaHA6ytTyKRliPbLvrBpv2d8tuIrWGeqpLaO6Ww2YtVS+kz9BW1u+WwxrkWyrXzrJFQ9eRHtjT6X7vs8JnZtf40H++5oTkh310Rts9o7awkRWFMIPpbKVzfZDmhuhIaoygHV7Zzt/rQGtWy8JQzeGp2wmroLyLY9kpQiTpJB8jlqcyG2Ce2FgIrsQ6LN46l4KLu2r7rKfMnE7AYst+WkhYBofN7a7En5ocsBvFclYc+anbmINZ4KG5L3mWz9UVB0lvdcWWQK9o7qPoH37Q9rKjPs/X8vnac/nKxg7/dw8tbxsqlXTeRTTVwksK+tyEVYEB8bKL5rMMV9ofthofdu+SR1CMGlUnrjetJpk/N7GAYP/3CsKLEjbVEb2Y53y7uWf+gM9epyGMahTaSpWNRTYy6miXqC8XjZp0qcUD1k+jpVgVTd0YBd9qrrGyEg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Q9unB7eMHHjJozdUQskERAa/d0VgJai3J+ZlgAhPGplaR0gjjOrWX/K9f6GDzU5M79WL2RoudQaeY89ZqY4W8y8sijGczyRTAv28piJgdnjzqzH7fqvqqgFyikdljrbzS33Go81ol5gWQZEKqWsuGw6QFOCtOIl2mtKmmFe+rslm9u61MuE9zn1mPv4aWttiAbs+5/sXieS+V1x8n6gfJnoCoNsJEc+vddnHSn64BNyNH6O9GZZywX4j3BV3sbc0fAgI5vpLXoNYOk05ysU/zHEoBalUzIisw7Atn7otQc8K62o1YDRNLG2JW4JyCfBrQbULxpiluzYT0oxLQhHREUUfNvinwcRzP6o31Oha1ccqpab6UHuf5544T4lJ9EoQ0b/mr3UYjwf7MvbEvLTp+wz+rFExKGW65aDqe7LubzQbysHLvLaRHVr2f7+pKz+h
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d200e9bd-1093-4341-d2fb-08de848419b9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2026 00:20:03.4906 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0kZlnJ5hOcgqoylnXK09YCv9COn3FQJAf4Opxol5AkAKiNp1HHSVDvNcroXLX1Mq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9584
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 01:00:59.6246 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f1f1c64-208a-4168-17f4-08de8489d1b1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B0.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4289
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,103 +112,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - AMD Internal Distribution Only]
+This DC patchset brings improvements in multiple areas. In summary, we highlight:
 
-Yes, I agree.
-This string may cause confusion for customers, but keeping the other versio=
-n information is necessary for issue identification and debugging.
+- Rework YCbCr422 DSC policy
+- Restore full update for tiling change to linear
+- add dccg FGCG mask init
+- Remove unnecessary completion flag for secure display
+- Agument live + capture with CVT case.
+- remove dc_clock_limit for apu
+- Fix Signed/Unsigned Int Usage Compiler Warning
+- Hardcode dtbclk value in bw_params
+- Revert inbox0 lock for cursor due to deadlock
+- Add 3DLUT DMA broadcast support
+- Fix Silence warnings
+- export get_power_profile interface for later use
+- pg cntl update based on previous asic.
+- remove disable_sutter touch pstate debug code
+- Refactor DC update checks
+- Fix drm_edid leak in amdgpu_dm
+- Add Extra SMU Log for dtbclk
+- Clamp min DS DCFCLK value to DCN limit
+- Update dpia supported configuration
+- Multiple DCN42 updates
 
-Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+Cc: Daniel Wheeler <daniel.wheeler@amd.com>
 
-Best Regards,
-Kevin
+Alex Hung (1):
+  drm/amd/display: Fix drm_edid leak in amdgpu_dm
 
------Original Message-----
-From: Alex Deucher <alexander.deucher@amd.com>
-Sent: Wednesday, March 18, 2026 04:41
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <Kevi=
-nYang.Wang@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
-Subject: [PATCH] drm/amdgpu/pm: drop SMU driver if version not matched mess=
-ages
+Alexander Chechik (1):
+  drm/amd/display: Fix DCN42 memory clock table using MemClk instead of
+    UClk
 
-It just leads to user confusion.
+Charlene Liu (8):
+  drm/amd/display: dcn42 don't round up disclk and dppclk
+  drm/amd/display: System Hang When System enters to S0i3 w/ iGPU
+  drm/amd/display: Add Extra SMU Log for dtbclk
+  drm/amd/display: remove disable_sutter touch pstate debug code
+  drm/amd/display: pg cntl update based on previous asic.
+  drm/amd/display: export get_power_profile interface for later use
+  drm/amd/display: remove dc_clock_limit for apu
+  drm/amd/display: add dccg FGCG mask init
 
-Cc: Yang Wang <kevinyang.wang@amd.com>
-Cc: Lijo Lazar <lijo.lazar@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 1 -  drivers/gpu/drm/amd/=
-pm/swsmu/smu12/smu_v12_0.c | 1 -  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v1=
-4_0.c | 1 -
- drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c         | 4 ----
- 4 files changed, 7 deletions(-)
+ChunTao Tso (1):
+  drm/amd/display: Agument live + capture with CVT case.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu11/smu_v11_0.c
-index 56efcfa327dfd..1eec1a88e05f8 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -262,7 +262,6 @@ int smu_v11_0_check_fw_version(struct smu_context *smu)
-                        "smu fw program =3D %d, version =3D 0x%08x (%d.%d.%=
-d)\n",
-                        smu->smc_driver_if_version, if_version,
-                        smu_program, smu_version, smu_major, smu_minor, smu=
-_debug);
--               dev_info(smu->adev->dev, "SMU driver if version not matched=
-\n");
-        }
+Dillon Varone (2):
+  drm/amd/display: Refactor DC update checks
+  drm/amd/display: Add 3DLUT DMA broadcast support
 
-        return ret;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu12/smu_v12_0.c
-index 2c20624caca45..ac5e44dff6c97 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
-@@ -101,7 +101,6 @@ int smu_v12_0_check_fw_version(struct smu_context *smu)
-                        "smu fw program =3D %d, smu fw version =3D 0x%08x (=
-%d.%d.%d)\n",
-                        smu->smc_driver_if_version, if_version,
-                        smu_program, smu_version, smu_major, smu_minor, smu=
-_debug);
--               dev_info(smu->adev->dev, "SMU driver if version not matched=
-\n");
-        }
+Dmytro Laktyushkin (1):
+  drm/amd/display: move dcn42 bw_params init
 
-        return ret;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/d=
-rm/amd/pm/swsmu/smu14/smu_v14_0.c
-index 7dc6687c3693b..9f01bed3970ee 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-@@ -284,7 +284,6 @@ int smu_v14_0_check_fw_version(struct smu_context *smu)
-                         "smu fw program =3D %d, smu fw version =3D 0x%08x =
-(%d.%d.%d)\n",
-                         smu->smc_driver_if_version, if_version,
-                         smu_program, smu_version, smu_major, smu_minor, sm=
-u_debug);
--               dev_info(adev->dev, "SMU driver if version not matched\n");
-        }
+Gaghik Khachatrian (2):
+  drm/amd/display: Fix Silence warnings
+  drm/amd/display: Fix Signed/Unsigned Int Usage Compiler Warning
 
-        return ret;
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
-m/swsmu/smu_cmn.c
-index a644579903f40..5ec2b4e6f3f35 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
-@@ -1057,10 +1057,6 @@ int smu_cmn_check_fw_version(struct smu_context *smu=
-)
-                      smu->smc_driver_if_version, if_version,
-                      smu_program, smu_version, smu_major, smu_minor, smu_d=
-ebug);
+Ivan Lipski (2):
+  drm/amd/display: Move DPM clk read to clk_mgr_construct in DCN42
+  drm/amd/display: Move DPM clk read to clk_mgr_construct in DCN42
 
--       if (smu->smc_driver_if_version !=3D SMU_IGNORE_IF_VERSION &&
--           if_version !=3D smu->smc_driver_if_version)
--               dev_info(adev->dev, "SMU driver if version not matched\n");
--
-        return 0;
- }
+Joshua Aberback (1):
+  drm/amd/display: Restore full update for tiling change to linear
 
---
-2.53.0
+Matthew Stewart (1):
+  drm/amd/display: Hardcode dtbclk value in bw_params
+
+Meenakshikumar Somasundaram (1):
+  drm/amd/display: Update dpia supported configuration
+
+Nicholas Kazlauskas (3):
+  drm/amd/display: Add MRQ programming for DCN42
+  drm/amd/display: Split arbiter programming for DCN42
+  drm/amd/display: Revert inbox0 lock for cursor due to deadlock
+
+Relja Vojvodic (1):
+  drm/amd/display: Rework YCbCr422 DSC policy
+
+Roman Li (4):
+  drm/amd/display: Add get_default_tiling_info for dcn42
+  drm/amd/display: Add missing dcn42 hubbub function pointers
+  drm/amd/display: Clamp min DS DCFCLK value to DCN limit
+  drm/amd/display: Update underflow detection for DCN42
+
+Taimur Hassan (1):
+  drm/amd/display: Promote DC to 3.2.375
+
+Wayne Lin (1):
+  drm/amd/display: Remove unnecessary completion flag for secure display
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   9 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c |   7 -
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_crc.h |   1 -
+ .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   2 +-
+ .../display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c  | 263 ++++-----
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 500 +++++++-----------
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |  30 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  25 +-
+ drivers/gpu/drm/amd/display/dc/dc_dsc.h       |   1 +
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |   4 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |   8 +-
+ .../amd/display/dc/dccg/dcn42/dcn42_dccg.h    |   1 +
+ .../display/dc/dml2_0/dml2_dc_resource_mgmt.c |   2 +-
+ .../dc/dml2_0/dml2_translation_helper.c       |   6 +-
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c   |  13 +-
+ .../drm/amd/display/dc/dsc/dcn20/dcn20_dsc.c  |   2 +-
+ .../drm/amd/display/dc/dsc/dcn35/dcn35_dsc.c  |   2 +-
+ .../amd/display/dc/dsc/dcn401/dcn401_dsc.c    |   2 +-
+ .../display/dc/hubbub/dcn42/dcn42_hubbub.c    |  63 ++-
+ .../amd/display/dc/hubp/dcn42/dcn42_hubp.c    |  35 +-
+ .../amd/display/dc/hubp/dcn42/dcn42_hubp.h    |   6 +
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c | 108 ++--
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |   3 +-
+ .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   |   3 +-
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |   2 +-
+ .../drm/amd/display/dc/link/link_detection.c  |  10 +-
+ .../gpu/drm/amd/display/dc/link/link_dpms.c   |   3 +-
+ .../amd/display/dc/pg/dcn42/dcn42_pg_cntl.c   |   9 +-
+ .../dc/resource/dcn31/dcn31_resource.c        |   2 +
+ .../dc/resource/dcn315/dcn315_resource.c      |   2 +
+ .../dc/resource/dcn401/dcn401_resource.c      |   2 +-
+ .../dc/resource/dcn401/dcn401_resource.h      |   1 +
+ .../dc/resource/dcn42/dcn42_resource.c        |   5 +-
+ .../dc/resource/dcn42/dcn42_resource.h        |   3 +
+ .../dcn42/dcn42_soc_and_ip_translator.c       |   8 +
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |   1 +
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn42.c |   7 +-
+ .../amd/display/modules/color/color_gamma.c   |   2 +
+ .../amd/display/modules/freesync/freesync.c   |   6 +
+ .../gpu/drm/amd/display/modules/hdcp/hdcp.h   |   1 +
+ .../include/asic_reg/dcn/dcn_4_2_0_offset.h   |   6 +
+ 41 files changed, 588 insertions(+), 578 deletions(-)
+
+-- 
+2.43.0
 
