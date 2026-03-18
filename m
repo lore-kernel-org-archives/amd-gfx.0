@@ -4,129 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 793AF10854DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 09:39:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA415107BCF2
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 10:22:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 055CF10E781;
-	Wed, 18 Mar 2026 09:39:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49FFD10E03E;
+	Wed, 18 Mar 2026 10:22:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mr4gCREv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4AybqZ+V";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010057.outbound.protection.outlook.com
- [52.101.193.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6143910E781
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 09:39:21 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010035.outbound.protection.outlook.com [52.101.85.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7AB10E03E
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 10:22:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ADwHmx8y9rl2AbEF1UEmXZDGK/0ido1HyGlKM3pO7FNg4ZEQgNyQN3m9LqugfrP8e6XLaGGosgRI/01OVpc/4LAX69u4jxepsGjoEWzGUle7wuzOpzNe7nzZcGiTUlAJmNw0pECyK/sLN1Esm/cOs/QR/rZVKfc/oV2+7QvqU/uQQt30TvtRLPURh49qskOXZvKQjg0lxZj5FAXkYmj5Cxia4xZkHR6E18+eY4/x5dVs4l6jQuObD+4oVDOZ6ckD9GvYDxI8DS/YxM3djoTWdYWYVcOG2YAUtb3XcTH7rfQNGxR+dsN1ImPC32D1VDqfCjkuoaJUPYdhV8BS4erPRQ==
+ b=tmZmsK2WkkYLw4TxqxHaDVwwnpUncYD7mXRvM64dk5kZ+x3CgvSnzXefrY1BG7OUF04Zq2uEDlVDQAIAG6e8iQ7Xsl6bmzEvEirw0YDz8Ym5pRDoX2XGahit+JXhArJ25XmIt+atlVJCCMHlbsIZrjhb9r8S7tycmgWj4fZVr8Bhd5HuCYkbbhvYRWBwMpQYjLsQbUUtMXXHEUZBMIWIGPVZdBx5at4eQRdw9nYHzxvRyWSrTVMl/CPsI5CDRx3yD4ScCH6DVBnitH/GLzEb+TKm5LXbk9JXxkrKgxwYhGDMWQ9emJUnFfdozgwqL1o5AjGo0fhoBqXDt6LJ9AkE3w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nZhXuze5s7fPSA0o804kkDw4OUo84t5a4hxNGfiCURw=;
- b=QwfD47ncBz6vD9Mach99+VyaRoQZShjehsY1xBsUByYXARi+6U515ZWRCpeqG/OzrBEUdn0zPnhA/OJwg3iqGFYGZ8f0o1b0jFW9+Zv+GfrriLzAPY2b6CvtNm/XRVErzyC4wGa9vDVE5IXebMYGDS8fHA8C9roXW0PlZsxHN6lYN4cv+4i5OgqOabSNKjAb2Ycd0o9O9BYgOz3+DyttclJs/EZHFojX0NfRwAqpSI9f22CFJppXeKxxvskfC7e4PYZyd5mGdYKPdlRK1UVjhED2MiqCJJYouaJEK6kD5ZVFW8wqpT3WyGrBkLcSyebAjSJdsHdwXisB/ONI/g5NfQ==
+ bh=eqFe3lF8piAZUAlALYTqqbddBdyQbpWxfUJrdvCrwnI=;
+ b=CW0OD+au1BAExhm1nUt9myQAtZBklxauwRPIiMMXKuLaT7QyyNPaHTts8G6p0nP/zRQrtBN7weovA8yXtCh2mcb0pdolXxvxMEuAu5tnjiNKqmyaRTfztSY1S+Et2LG5yzF/2cx9b+XIy63L/g5hfenoC9IaBs9NW0+axbfeBOCmBP+TURJdPUIVXzIpWM9eJMOGi6lL9st7TjGMrUCSxWSNpNExho0aYmDhCAKQHwLu0p6SimiFufYf0DEg3VS/J4VJVI/6H1oXcEGHqLvgkksIYqqAPsON5hQ1AL0geTrsWP6xj/xZryCYgPYOYDykwTGqc8q6IZbujSu99+8B0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nZhXuze5s7fPSA0o804kkDw4OUo84t5a4hxNGfiCURw=;
- b=mr4gCREvbsAbmIusE8hapzV/EeObfutFcujfYi5JyIFyix/4i48wf9oLI3r8IW/GT0p+wMuqp6W5THUdk7bR88AK2EAiON9Akna5HV+hzzRBlEQE8RtiJOloxXIUrBI74xT9XmHkVkSVRYI3tqeTsLyaQdwL3zNTdSMtvzEzfCo=
+ bh=eqFe3lF8piAZUAlALYTqqbddBdyQbpWxfUJrdvCrwnI=;
+ b=4AybqZ+VERSFJNFvnhje6kjT8dMD3XHlHnqBqQ96hSmjBSovQ+YgC3HBSUvlzavzYoEXdizDGh0EeWeNqnXVsNHxQ+6gd+LFCG1Xf050CbKY0LzPVTmNCn1rjTzP5jBOcNxYz7K9rIL6CvJpbt4LQwQz2ormeA2wiOcfOeFY4cA=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com (2603:10b6:208:390::15)
- by DS0PR12MB9322.namprd12.prod.outlook.com (2603:10b6:8:1bd::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 09:39:18 +0000
-Received: from BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2]) by BL1PR12MB5753.namprd12.prod.outlook.com
- ([fe80::81e6:908a:a59b:87e2%4]) with mapi id 15.20.9723.016; Wed, 18 Mar 2026
- 09:39:18 +0000
-Message-ID: <2e6d0e34-e093-41a9-a4b3-59afe3050dfc@amd.com>
-Date: Wed, 18 Mar 2026 15:09:12 +0530
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ2PR12MB8925.namprd12.prod.outlook.com (2603:10b6:a03:542::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Wed, 18 Mar
+ 2026 10:21:54 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9723.016; Wed, 18 Mar 2026
+ 10:21:54 +0000
+Message-ID: <52105602-a811-4452-8aac-ec8aa58ad606@amd.com>
+Date: Wed, 18 Mar 2026 11:21:49 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument
- validation"
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>,
- "Khatri, Sunil" <Sunil.Khatri@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260318074708.2078535-1-sunil.khatri@amd.com>
- <dfca1bb0-26dd-45bd-ac11-c3756ce808ac@amd.com>
- <48df3b31-724a-4548-a52b-9f034664d422@amd.com>
- <DM4PR12MB5152791EDD4F7021198821E3E34EA@DM4PR12MB5152.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v2] drm/amdgpu: Avoid NULL dereference in discovery
+ topology coredump path v2
+To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+References: <20260318092314.1975879-1-srinivasan.shanmugam@amd.com>
 Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <DM4PR12MB5152791EDD4F7021198821E3E34EA@DM4PR12MB5152.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260318092314.1975879-1-srinivasan.shanmugam@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0254.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:21a::20) To BL1PR12MB5753.namprd12.prod.outlook.com
- (2603:10b6:208:390::15)
+X-ClientProxiedBy: BN0PR10CA0006.namprd10.prod.outlook.com
+ (2603:10b6:408:143::32) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5753:EE_|DS0PR12MB9322:EE_
-X-MS-Office365-Filtering-Correlation-Id: 85292ed3-0cfe-4675-ea79-08de84d2398c
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8925:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5b19bf76-4aa9-4bdb-d725-08de84d82d5b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|7053199007|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: MxMqKa3a6Nf1f0IgBsiDMRFxjh+9IlN45GZc+O7x5lq02YzEQ45GlLaqebJh0q6yiPZydWq1Eo/G6tsxXgr9Kmaj8RXI8G+b6g0QOlSOTp07GHrt0kUjSoGp+jlzR7/nzK8ARvvv3im931keGoT741YHdo6VfNJ9hm+b426H7nBHMoozB2khqTLW8+UexbqDxSsT/e76BUxafBC0sYzYyahj3aZpCw3gXSMt4UsOHyATFXKzhbo5ATXH+RwiNv5G8aohg4Tvrn6+3NDQCQGA3blhsoz5QX7+hFLPWp0DthSrfjcV5NNwXpgZaeKr3QbahgGPGkMM8G5sFjpZqEOF0rNxim58VuzHrYPIZsrgGqSEY4guHYkmfvkTNzOZGbw+ozYwcsPuj9MSnhOLxLJinyqxPsJVzxljnzocNW5cOhdE3V+ZNIK39ilkeReTL7iOuj7Ortx8JDpntGOXFRuswiD2aAleIe7/1ELQBo6ihfI6LkfXi4CQzT4zEAWlPCfYvDKByZxuGbJGoj+lNMOl0v+cKS+uUPsRRjd7utKbYDaMG1duwySBpERwvfqb0fk46Ejqx2AIbVD1aTpZoqy0OJUJMKrSXehGJGZp+6wbdjPCj7taun3Y5JD7XPbgkZ4W6VHNmWZ2c36Z5ubvJXBo0/6VPLgCqH2vYc+dH7BX7IuvgVFfVJ+zre+7mlB3oIQW8hYkNR5Qi1ROX73XzhDFvqndS79ctKvghMWTr8LcVdA=
+ ARA:13230040|366016|1800799024|376014|18002099003|22082099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: VFvvjA2CNwSlMuJRckyC7bQuRUU7yU1XcVDCSGi8hkMhFjU8OCzlAkJwqMqciHmkAqXEXrQTiCLw0ITq8x5hIcyAOhlchhvjf0wFMpTQCoqyzMQbVG+xs88D4hFvl7u104jppq/eZrvGqjSsGA3qcsTF4CK0tSAkHXayjPTmCP9SB7bDdiU7zIk/eeEoWKmMLJ6HOylmFxWhWGy0Fp5QppOXXlpu3pZmhRqrNa45q3wMrBbDFA7jK33nSCj9eXQ1zrUq6CBmx42VcYCMAJPPgLJkXcCDSVjLjeS6oKb/qV14cZdk2eLtQ+sQDFdZ8EHewOkoZ96ItqW16M08aSw+oxkYRmMS9jXm057NSjWZBQZZ8NMDcC9m7Z0eTYXjXGdmmEONgW/GwwPpC92pE4j1xWxCw3KLlEThmH6JKDQFzHHmyqPw+AlXu1aD7CUeOUghRnETjBUpqAJepoEyH6jBRCSecVMrJArspnq21IjbbAq5hRVTHLvVUbF4t+ZTl9K7/hxtnDo5GkLZr7QhhL2ZzFSyblJ+n3ZwO7jGJ3TTTT6pHhOeQsh0pc1UzkJ+vebiwiFMYYFSQ1Zem6FhmHvQTf2ipboSYB53A3ZyDPgVy0S3asfeEKjXkoFlXDQg/9y/6kYYO70T0BQoICX+mshXYQTcdVdikB1jX2B56ytWXuZBJUdymFaMQMTrXaUYUgTDb3Zxbc6YSAgpAe667U2NPOfzBrps5SseaDe9I2l+Ttk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5753.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(7053199007)(18002099003)(56012099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(18002099003)(22082099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cm5iM29rdEZuV2FlWXJFRVlyMHBjSlhUYjYza1lwWXZpUGtsZHVOSE9HRWJF?=
- =?utf-8?B?dDJ3RzR4NTI0ZmlZc0p6VW02Tllrakt6VFBNc0ZwZVh1dGRjN2RwY0Z1MHBB?=
- =?utf-8?B?VGJHVmNNOFdBMHcrVVl5WUJOTHJ2ZjV2T2UwWWNlUEMwU1gvSlRSV3daekRC?=
- =?utf-8?B?YXYyV1QwNktGcTZNRzJXNWQ5Mnl2U0hyUGhKSUdib2IyaG0zaWZabEM2ckxi?=
- =?utf-8?B?THFOdjRvS3pJQUdSbVF4anhUTm56dVhBeCs5N2lTcjNNekRZbExOY0tSdEtt?=
- =?utf-8?B?TFVSNTRKOTNXb2orQUg3LzBlazE3VWswTTVNVTY3RTY1NXlReE9ZTi85RVBL?=
- =?utf-8?B?N2djREJOc2txUU56KzRIcDdYQTdUU1lQRHNqTW1oSk1WMVdnWHdLVnRSQm5E?=
- =?utf-8?B?dWhXTzAwZFpqRm8rS013Rzk4cVZwYjkyZVE2VHdWZkVpdWtRNm1yZVI2NDF4?=
- =?utf-8?B?L09iR1RsSWYvL1MzYTVRd1BrczdLdU0xTERSbGdFWmltS3BjRHo2alpmK210?=
- =?utf-8?B?QnBTQVcvVHh0bE5FRVV3T25QSEROSXFsWDdQd2UxaURweTRwNGlNQlFxZ1NJ?=
- =?utf-8?B?bll6TGw1cE5KVWdUUkQzcTJuRzYvVk5RL0ZGN2NpK3NqR2ROS21MdlRJSVUv?=
- =?utf-8?B?MWkzejl2YnUwYndVT3ZkMWxSZWNPUkV3K0d4R3VmWEtpTWRYbU9uWUR2eWtQ?=
- =?utf-8?B?NmR4QWRoSGZ3NlZNR3I5Qll2cVovVkszcStLd0FQaG04c2VCS1lUc3lMd0VZ?=
- =?utf-8?B?QnRXa2xtdDJKVytUQkt0bU5ZSUdMbVFPdElXZ1duN1FTbXRXbkZuVUs5czh5?=
- =?utf-8?B?SVRnZTRoYXpnOEJ3V1ZhbGNqMjloN0JUS0s4YSsxTVhja2FyelRWY3A3c3J5?=
- =?utf-8?B?b1l0aE9weWtlWGhlUnJjZURUbHpnenpFcnJ0V2V1a3ZOSG1RajlpTWdLWHF5?=
- =?utf-8?B?UFZsNTgxSnVueEM1a0Mrb0pzeWtuYkpKUm1tZERuUDZhaUo1WmZPeE9VYzRx?=
- =?utf-8?B?NkdIZG4xQkdCNjBtR1ZhUXg4bXVqbERPNTNkeVlVajdEYXI0VzF4d09KYXRK?=
- =?utf-8?B?SjBaejBxK1hPRDNOZjlkQ01TTm55WDdZaGVjSGFiY2F1Y1duaUFVQmoxTXkr?=
- =?utf-8?B?VUd1eWVrb1lJOTRxUTYraHIxY3VhT3oraE5IcUFWQXA2MDJxNmdiZDRDS3h3?=
- =?utf-8?B?U094Y0VDb2lCeTZiMkFQbXpBNDZKbStUWms0dHJyanB5Vytwc1FCRE5sZlNq?=
- =?utf-8?B?TU9jL01uWjlHWHk0UWc5UXlCOStwQUxvdjFITGE1bGgrMkh1cDEzZXRXMjhi?=
- =?utf-8?B?UkFJWEtqaUg5ckJJVUxBTXNzdVVFTkM2Qzc1Wi9zRjZEU3BVRlJkaXZjUHo5?=
- =?utf-8?B?K0FIQ3hwNW83ZE1icngyWm1kbVR3UWROV3Y2ZmI1YUNXVjZIMlhJRHZOY1U1?=
- =?utf-8?B?cnhSZkVoNnJES1p6TnBPQ0JybU9MVVpQSnlxbEVlZWhiV0NMUnFLZFFnQ1Uz?=
- =?utf-8?B?L1lJVDJJSFNoSXhJUHJ4OHpKVndzUkFmM2pKaldwWDBJM3lxWW1wMWE1TE9K?=
- =?utf-8?B?bmpibTQxU3o2UXlBR2YxaUtsMjM1cWdlZGpQRVdvRUhFeWNFb3hVS2hPUGcx?=
- =?utf-8?B?dXhEdVF1K0wxQXJqdVY1T2wvN1R5MEp3eU5IZXN3OXd5czRheW54L28yekpH?=
- =?utf-8?B?MG1RZ3paU2N5V05NQ1hsQWFPclUwVDlBYUZRQ1VaNGRyRTc1Z01scVB4a2dY?=
- =?utf-8?B?TlcrQjc0VTVXRnJmQzFuV1BiTVliazUrMXdtYnF6MHJlSHJkNTBPb2ZKUUxG?=
- =?utf-8?B?WGxpM1VOTU5idVVONlN3bEU1a1hBSGZrVXBpYTJERVpydEJjVzJ3blAzV0FN?=
- =?utf-8?B?Z2JXbUg2T2czZk9zR25ScUMyQmxRK1N3dzh3RkZiRjU1a3ZRSGRyR1dhdkV0?=
- =?utf-8?B?ci96UHF5S1haOXVIRVN1Nnp1MnM1OHBSY3dKMmxDNXl6SXFRaTJqMlZuNWZ1?=
- =?utf-8?B?VW5OdXFhOVhhVHFhZ2VIS0tPVjZwZE1xNW8yOEE4eTFVWldQYjVvaXRaWmdP?=
- =?utf-8?B?Um5IK2Y3eUhxZnJQSGVKN0RpK2NmMC9YUyttT2N5allmTlhhV2RNZTlDNnMr?=
- =?utf-8?B?c3lsNzZUS1Z2N0M1MWJrQjdVYmFkcHFsc3pnR1c2WUYvWXgvZlZwU1pNdmJo?=
- =?utf-8?B?T2k5SUo4cWd0eURFZXVJRndlRGFIUk96YWhBZHEwR2NjY21idzUrd2pudm1S?=
- =?utf-8?B?RTdmeHY5aDdFZHFuRTAxamxPc2NZTEJLcmU0U1MyYlBXcTVVdUd0OEUzNFJL?=
- =?utf-8?B?c00rUlVDU1JFbWZjTUNUNFJ2d1dIMDFsaUlvNDBrcUZPUDdGczRRdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dk15L1JKbWorRy8yZ29VUXhOTEtYUzgzMG5pMzRJVVFzbHNES2RtaDBlck1y?=
+ =?utf-8?B?OUxTQXlRZktqZnZyb0FyM0ZmRDAzUUpWdVZjbFd0R3RVMkcrcmsrRzJtLzZP?=
+ =?utf-8?B?d1ZYZFNHTExVTWpUaFViYTJQTGZiMWFlOFRoYTVuYzYzQjl5bmpEQ2szKy9v?=
+ =?utf-8?B?ZmZzZlpOMm9xUGFyUUkvN3NCL3lvbEptL240R0w1c0lCVjlVM1pZQWI1M0Zk?=
+ =?utf-8?B?bmFURkc5MjUvVDlHTE9VUXd2T3lwa1BDMmtRR2FCWGRHTmtXb3dNb0RkTXdw?=
+ =?utf-8?B?Um9EdzhTZ0xuMm4zSG5oUVpEQzl2MndoaXErLy9kaHl6Z2hHaHBlQklxNzBz?=
+ =?utf-8?B?Y1dadmZRY1cvcmdiUEZSSHF1L2RtTEcyZjZGNG1INVlEYTN1RzViK1d1UEJU?=
+ =?utf-8?B?SEg4c2lDSW4yM0tPQmZROExTdVNxZzZmMlp4cVJhS2t2TUJkc0d5aGZxcEZx?=
+ =?utf-8?B?ZzMvMUNuQ2lyWTNUZUdVVmZlcEgxSmFSV3JtRE9UeXN2MDQwd09rRWNIVDl5?=
+ =?utf-8?B?MXJuUGorQ2p5emdwZ09tTDFPNUt6alJ4QVpzVkd6bFQ0MlhURU9zZlhzWVAy?=
+ =?utf-8?B?YlJEQ2tQQTlRRWt5S05LQjZ4QnFjb3VibGtRNVRQdGxsODgzZUZDUmRjYWpT?=
+ =?utf-8?B?L1ZoeFlZUkFjRDBDTHVaNUN1QUJzWVUxcit1aTBjaTdsL1B4UUl1TmxjSkdz?=
+ =?utf-8?B?Q0FlVlBYMURPdDk5aTQxZ21iWVlhVkdHeTVzd0didmVxUlpPK1FJQis3aDcz?=
+ =?utf-8?B?NWJmUjNQNEJJSkRyaFRxNzFXWUNHT3cwZXBBekxlV2llS3BzcDllTHRyajBG?=
+ =?utf-8?B?NjNBeXdZeHdtV3pVMlROZ3NpZ0M2SkliTDNuR2tMUmF3RUZKd3N1OVBxUnR4?=
+ =?utf-8?B?ak1lR3R5a25qSGxlRTMzLzRwWjZBNjBRbGhmbkZvbGc3S3VSTDRzN3JuWEhp?=
+ =?utf-8?B?Z28vcURoSWFKU2xKMTBib1U4Y01iOSt2Y2l1alJDK3dqZWFjU2c4RGhTbVJq?=
+ =?utf-8?B?MEJkY1RHQzFUWkh3SHdsQzJXb3BJbmJ4dzh2bVpxYm5kN09ITm1RaEJ3SkU0?=
+ =?utf-8?B?VGdodU8yWDE5UmM1RmlEN2YrL1d6d05LbTFWVFA0YkUxZllhYnB4eERpYTJn?=
+ =?utf-8?B?VWR0Ukx5UjF6czVhWUxOL3FlM3JaY0NKTzlvc2RLM3duaVFqUTBEUUpZTDRR?=
+ =?utf-8?B?N2pyNDczcGNOcE1VRlIzazV2TlRlTjFDM2pTTXpNR3V4cEgxVCtWb0dtMTRS?=
+ =?utf-8?B?OUV4eVhCdWdYQ2Z2b3BqZk1XMGxMbXQxOGVXbW9VVWtjQ1lvMGFwajhaUGZl?=
+ =?utf-8?B?ak9mSzg2bTZQYWpnV0NDNEVpdElHRmM1NFNHdkozM2dBYVBKRmxrUnRTdGdJ?=
+ =?utf-8?B?M0dJN004NVhSSndUTWtzV2MzeTJ5ZFlzZ29NV2czSkx4TzF0Skc1bkoxb0xy?=
+ =?utf-8?B?VFg2T1QwU0ZoUXJYTm9MVXVSU0xWQ2tML2xGV3MxMlNLQjN0eEZaWDFRN2sy?=
+ =?utf-8?B?TmVuR1dSb2JhVlhvOHFqcm4xODUxTG9Za0JUY3NucTdyaTBPQXE1SXoyeWdk?=
+ =?utf-8?B?bTRCRFJvTmkrSmZ4YlA4blFCZzQvR1ZXSVIyc3ZYTTJVb3VNai9iWSt5bkVh?=
+ =?utf-8?B?YzBFUlBZQ3FIaHpqdFJpNjg4VUQ5L2U1MnhldVVSVEpibmVKNnN1YTIyKzRp?=
+ =?utf-8?B?NjZwWWVHd0liSlUxTFI2NnNrSlkwMW9ibkpzNVVLcWVDVWgyaFJ1cUlmc3hB?=
+ =?utf-8?B?V21ab2k0S3hzV2xMdWFoN3o1dU91RlN6TVVqc3U1dWlCcEFGVjNwZXArbU1F?=
+ =?utf-8?B?S1Z2d3FaTFVnNXFHY2twbFlqWkpsVFAzTWZUTGRvM2RlYnp3aC80WUhScThq?=
+ =?utf-8?B?THpOWGNWd2R1YVFGd0FkQ3NqVVhncng3QmNqekI3SzdCYlExSG1WOWJBYXpt?=
+ =?utf-8?B?bnVWUzB5ZGUycnh4YnlEMnZLVlFFWHhpdEdobllhalNZYkt5NkdsMTE2NXV4?=
+ =?utf-8?B?VGlaQlRZNmVnV3RFaURWTW5EMlFIRzdwdS9IUnU1aVhjaTNkc2VieE9BeGZl?=
+ =?utf-8?B?TUZFbm1nbkVNMGUxb1M2QzcyY1RheElDbHE0djlqWktZMkx1RDF1cHlWckRW?=
+ =?utf-8?B?SzlMUWxFQ2RscFk4UTh1Nm1ZVnJxVUpuYmRUcTN2Mnl1NExBOG9rb3o0RXF1?=
+ =?utf-8?B?b3lrWUJEN3VmU1lHcFEwNG0yYWtKeHB1cjV0THgrTm9jb0VXenpFQWtncjQ2?=
+ =?utf-8?B?RmFnZ09kV3JYZkYyeDB1MndKdVdta1g2bmhhYVFqYk1JZ2xNdHBIVUFhVXE5?=
+ =?utf-8?Q?5jj0uIjoVfy56Qu/I2?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85292ed3-0cfe-4675-ea79-08de84d2398c
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5753.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b19bf76-4aa9-4bdb-d725-08de84d82d5b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 09:39:18.0557 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 10:21:54.3334 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hB/vD5uTZs/xHxWS7G0NCClR2CMcfsgEKdo4CwkR4I6CmiE+LJcvDLJDIkSb14rGUA6V+M85ZYtY7ag5wkq9WQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB9322
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1fTKP57/KyYPhq1D1AuumsswlccubP1yCtZE77aSdjkv7WDB1yjwVTeSTzlkmdFr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8925
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,152 +137,123 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 18-03-2026 03:02 pm, Zhang, Jesse(Jie) wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
->
->> -----Original Message-----
->> From: Khatri, Sunil <Sunil.Khatri@amd.com>
->> Sent: Wednesday, March 18, 2026 4:22 PM
->> To: Koenig, Christian <Christian.Koenig@amd.com>; Khatri, Sunil
->> <Sunil.Khatri@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
->> Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument
->> validation"
->>
->>
->> On 18-03-2026 01:29 pm, Christian König wrote:
->>> On 3/18/26 08:47, Sunil Khatri wrote:
->>>> This reverts commit 0cdff8eb31c139dde4716e4aa37198c16364629e.
->>>>
->>>> The patch has caused regression for userqueues where user is stuck
->>>> and is waiting for fences and a gpu reset is triggered in kernel.
->>>> Also for any of the parameters when count is zero, the driver does
->>>> not read from the pointer and having that check is overkill.
->>>>
->>>> Application:
->>>> MESA: error: amdgpu: getting wait num_fences failed
->>>> MESA: error: amdgpu: getting wait fences failed
->>>> MESA: error: amdgpu: getting wait num_fences failed
->>>> MESA: error: amdgpu: getting wait fences failed
-> After I reverted this patch, the error still occurs when running glxgears.
-> Does it work fine on your end if you don't apply this patch?
->
-> amdgpu: getting wait fences failed
-> amdgpu: getting wait fences failed
-> amdgpu: getting wait fences failed
 
-Yes, it works. You might need to update mesa too. I am using the latest 
-mesa with ubuntu and i dont see those error. with your patch they do show.
+On 3/18/26 10:23, Srinivasan Shanmugam wrote:
+> When a GPU fault or timeout happens, the driver creates a devcoredump
+> to collect debug information.
+> 
+> During this, amdgpu_devcoredump_format() calls
+> amdgpu_discovery_dump() to print IP discovery data.
+> 
+> amdgpu_discovery_dump() uses:
+>   adev->discovery.ip_top
+> 
+> and then accesses:
+>   ip_top->die_kset
+> 
+> amdgpu_discovery_dump() uses adev->discovery.ip_top. However,
+> ip_top may be NULL if the discovery topology was never initialized.
+> 
+> The current code does not check for this before using ip_top. As a
+> result, when ip_top is NULL, the coredump worker crashes while taking
+> the spinlock for ip_top->die_kset.
+> 
+> Fix this by checking for a missing ip_top before walking the discovery
+> topology. If it is unavailable, print a short message in the dump and
+> return safely.
+> 
+> - If ip_top is NULL, print a message and skip the dump
+> - Also add the same check in the cleanup path
+> 
+> This makes the coredump and cleanup paths safe even when the
+> discovery topology is not available.
+> 
+> KASAN trace:
+> [  522.228252] [IGT] amd_deadlock: starting subtest amdgpu-deadlock-sdma
+> [  522.240681] [IGT] amd_deadlock: starting dynamic subtest amdgpu-deadlock-sdma
+> 
+> ...
+> 
+> [  522.952317] Write of size 4 at addr 0000000000000050 by task kworker/u129:5/5434
+> [  522.937526] BUG: KASAN: null-ptr-deref in _raw_spin_lock+0x66/0xc0
+> [  522.967659] Workqueue: events_unbound amdgpu_devcoredump_deferred_work [amdgpu]
+> 
+> ...
+> 
+> [  522.969445] Call Trace:
+> [  522.969508]  _raw_spin_lock+0x66/0xc0
+> [  522.969518]  ? __pfx__raw_spin_lock+0x10/0x10
+> [  522.969534]  amdgpu_discovery_dump+0x61/0x530 [amdgpu]
+> [  522.971346]  ? pick_next_task_fair+0x3f6/0x1c60
+> [  522.971363]  amdgpu_devcoredump_format+0x84f/0x26f0 [amdgpu]
+> [  522.973188]  ? __pfx_amdgpu_devcoredump_format+0x10/0x10 [amdgpu]
+> [  522.975012]  ? psi_task_switch+0x2b5/0x9b0
+> [  522.975027]  ? __pfx___drm_printfn_coredump+0x10/0x10 [drm]
+> [  522.975198]  ? __pfx___drm_puts_coredump+0x10/0x10 [drm]
+> [  522.975366]  ? __schedule+0x113c/0x38d0
+> [  522.975381]  amdgpu_devcoredump_deferred_work+0x4c/0x1f0 [amdgpu]
+> 
+> v2: Updated commit message - Clarified that ip_top is not freed, it can
+>     just be NULL if discovery was not initialized. (Christian/Lijo)
+> 
+> Fixes: 7083eb8982fb ("drm/amdgpu: include ip discovery data in devcoredump")
+> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 16 ++++++++++++++--
+>  1 file changed, 14 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> index f7f37d93d0ce..40ce95a604ff 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+> @@ -1395,6 +1395,9 @@ static void amdgpu_discovery_sysfs_fini(struct amdgpu_device *adev)
+>  	struct list_head *el, *tmp;
+>  	struct kset *die_kset;
+>  
+> +	if (!ip_top)
+> +		return;
+> +
+>  	die_kset = &ip_top->die_kset;
+>  	spin_lock(&die_kset->list_lock);
+>  	list_for_each_prev_safe(el, tmp, &die_kset->list) {
+> @@ -1419,9 +1422,15 @@ void amdgpu_discovery_dump(struct amdgpu_device *adev, struct drm_printer *p)
+>  	struct ip_hw_instance *ip_inst;
+>  	int i = 0, j;
+>  
+> +	drm_printf(p, "\nHW IP Discovery\n");
+> +
+> +	if (!ip_top) {
+> +		drm_printf(p, "ip discovery topology unavailable\n");
+> +		return;
+> +	}
+> +
+>  	die_kset = &ip_top->die_kset;
+>  
+> -	drm_printf(p, "\nHW IP Discovery\n");
+>  	spin_lock(&die_kset->list_lock);
+>  	list_for_each(el_die, &die_kset->list) {
+>  		drm_printf(p, "die %d\n", i++);
+> @@ -3028,7 +3037,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+>  	}
+>  
+>  	amdgpu_discovery_init_soc_config(adev);
+> -	amdgpu_discovery_sysfs_init(adev);
+> +	r = amdgpu_discovery_sysfs_init(adev);
+> +	if (r)
+> +		drm_warn(&adev->ddev,
+> +			 "ip discovery sysfs init failed: %d\n", r);
 
-Regards
-Sunil Khatri
->
-> Thanks
-> Jesse
->
->
->>>> Dmesg:
->>>> [  122.668493] amdgpu 0000:0a:00.0: sq_intr: error, detail
->>>> 0x00000000, type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_id 0 [
->>>> 122.668504] amdgpu 0000:0a:00.0: sq_intr: error, detail 0x00000000,
->>>> type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_id 0 [  124.687518]
->>>> amdgpu 0000:0a:00.0: Dumping IP State [  124.688351] amdgpu
->>>> 0000:0a:00.0: Dumping IP State Completed [  124.688355] amdgpu
->>>> 0000:0a:00.0: [drm] AMDGPU device coredump file has been created [
->>>> 124.688357] amdgpu 0000:0a:00.0: [drm] Check your
->>>> /sys/class/drm/card0/device/devcoredump/data
->>>> [  124.688361] amdgpu 0000:0a:00.0: ring gfx_0.0.0 timeout, signaled
->>>> seq=569, emitted seq=571 [  124.688366] amdgpu 0000:0a:00.0:  Process
->>>> Xwayland pid 3471 thread Xwayland:cs0 pid 3479 [  124.688369] amdgpu
->>>> 0000:0a:00.0: Starting gfx_0.0.0 ring reset [  126.560451] amdgpu
->>>> 0000:0a:00.0: MES(0) failed to respond to msg=RESET [  126.560456]
->>>> amdgpu 0000:0a:00.0: failed to detect and reset [  126.560460] amdgpu
->>>> 0000:0a:00.0: Failed to detect and reset queues, err (-110) [
->>>> 128.789840] amdgpu 0000:0a:00.0: Ring gfx_0.0.0 reset failed [
->>>> 128.789848] amdgpu 0000:0a:00.0: GPU reset begin!. Source:  1 [
->>>> 128.790161] amdgpu 0000:0a:00.0: Guilty job already signaled, skipping HW
->> reset [  128.790174] amdgpu 0000:0a:00.0: GPU reset(1) succeeded!
->>>> [  128.804538] amdgpu 0000:0a:00.0: [drm] device wedged, but
->>>> recovered through reset [  128.804574] amdgpu 0000:0a:00.0: GPU reset
->>>> begin!. Source:  6 [  128.816663] amdgpu 0000:0a:00.0: Dumping IP
->>>> State [  128.817458] amdgpu 0000:0a:00.0: Dumping IP State Completed
->>>> [  130.963939] amdgpu 0000:0a:00.0: MES(1) failed to respond to
->>>> msg=REMOVE_QUEUE [  130.963949] amdgpu 0000:0a:00.0: failed to unmap
->>>> legacy queue
->>>>
->>>> Cc: Jesse Zhang <jesse.zhang@amd.com>
->>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
->>>> ---
->>>>    .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 29 -------------------
->>>>    1 file changed, 29 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>> index 3fcd70a38374..0d9a13081f2f 100644
->>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->>>> @@ -484,16 +484,6 @@ int amdgpu_userq_signal_ioctl(struct drm_device
->> *dev, void *data,
->>>>         args->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
->>>>             return -EINVAL;
->>>>
->>>> -  /* Reject non-NULL pointers paired with a zero count. */
->>>> -  if (!args->num_syncobj_handles && args->syncobj_handles)
->>>> -          return -EINVAL;
->>>> -
->>>> -  if (!args->num_bo_read_handles && args->bo_read_handles)
->>>> -          return -EINVAL;
->>>> -
->>>> -  if (!args->num_bo_write_handles && args->bo_write_handles)
->>>> -          return -EINVAL;
->>>> -
->>>>     num_syncobj_handles = args->num_syncobj_handles;
->>>>     syncobj_handles = memdup_array_user(u64_to_user_ptr(args-
->>> syncobj_handles),
->>>>                                         num_syncobj_handles, sizeof(u32)); @@ -
->> 950,25 +940,6 @@
->>>> int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->>>>         wait_info->num_bo_read_handles >
->> AMDGPU_USERQ_MAX_HANDLES)
->>>>             return -EINVAL;
->>>>
->>>> -  /* Reject non-NULL pointers paired with a zero count: the pointer
->>>> -   * is meaningless and indicates inconsistent input from userspace.
->>>> -   */
->>>> -  if (!wait_info->num_syncobj_handles && wait_info->syncobj_handles)
->>>> -          return -EINVAL;
->>>> -
->>>> -  if (!wait_info->num_syncobj_timeline_handles &&
->>>> -      (wait_info->syncobj_timeline_handles || wait_info-
->>> syncobj_timeline_points))
->>>> -          return -EINVAL;
->>>> -
->>>> -  if (!wait_info->num_bo_read_handles && wait_info->bo_read_handles)
->>>> -          return -EINVAL;
->>>> -
->>>> -  if (!wait_info->num_bo_write_handles && wait_info->bo_write_handles)
->>>> -          return -EINVAL;
->>>> -
->>>> -  if (!wait_info->num_fences && wait_info->out_fences)
->>>> -          return -EINVAL;
->>>> -
->>> Mhm, in general such checks look valid to me.
->>>
->>> My educated guess is that userspace sets num_fences = 0 to query if it needs to
->> resize the pointer out_fences or not.
->>> If you have time please double check which check fails here.
->> Sure, i will check on that but for now i have pushed this revert.
->>
->> regards
->>
->> sunil khatri
->>
->>> Apart from that Reviewed-by: Christian König <christian.koenig@amd.com>.
->>>
->>> Regards,
->>> Christian.
->>>
->>>>     num_syncobj = wait_info->num_syncobj_handles;
->>>>     ptr = u64_to_user_ptr(wait_info->syncobj_handles);
->>>>     syncobj_handles = memdup_array_user(ptr, num_syncobj,
->>>> sizeof(u32));
+I think that this is superfluous here.
+
+sysfs itself will complain about files not being able to be created.
+
+Regards,
+Christian.
+
+>  
+>  	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
+>  	case IP_VERSION(9, 0, 1):
+
