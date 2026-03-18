@@ -4,156 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 121D1103E168
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B182D103E16F
 	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 12:46:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02DA010E7FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 153EF10E800;
 	Wed, 18 Mar 2026 12:46:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="lsdtkf2c";
+	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="Q+gK1WmE";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011065.outbound.protection.outlook.com [40.107.208.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5C6F10E7C0;
- Wed, 18 Mar 2026 10:53:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=STkg1Lp/5X25KqYvCbztwX6w9yoTa2JeOW63ONl+EzckZVoJ+Pmlnj66yOBIy76EIlyAyYXqmm3epX5Hry3QOWc+7udxsa5KwjZDCK3JTJwiIgd7TnlORuTOfzfICjZNRuRAjPRAUZeg8NFroBnbgD5aL2JdBk7yajgelZEbJRxRwDRcz5/PHy7LS/uzDXKRPOCErQZHjGOjJhZyjQMtJfAjYAXZiVq+DHyrJWcz07HPABXhFrjtL/iOv5p0g15tN5hnCgHo/6/CmG8NYnqErs7F6iXX6TBzgkH50xktz9eMgKPgVC769JxBbZYtEeH3YdmVVboBKLP69+ReQ36fZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r4FC3alME1o83dSXWr/NNL6b59JOeZobm5kra7KDq9o=;
- b=pmJx+UL25xPocwkyu/kvZGN4Y13lb+gnQkZoL0NybcVq3ZVBtxhQ8uIhREnN0j9XwAepLfUDbzUeTXIzOaLl0K8oU/NjA+qE2zk3S1ajyQfiztAmo+/CzBdmGWYrc0aWHBTgkPqlA/IrjpFSXq7a20lTOETqe4whInynDGuQHXoY+mp44AyhsKbXB+2QWbOVWjZzq0ZFDcYgjKIl0Yeg7c3BxYk3IKnp+4bZGP5LIhXXRa97ZGevbu/9x+QVeIBjMi1Z/4wrDoUhtuZyf7kbw7y0R39PqdgFlyzt6IAbu1zbQanY4bpvVXuEORaGOEKYdVvoDqBU+KhLBowFfiwBsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r4FC3alME1o83dSXWr/NNL6b59JOeZobm5kra7KDq9o=;
- b=lsdtkf2cDGRhlwEqchJkymgdPbQBmTPVQAfXV045RyB4xKwUNFOTbna7V510RNcVpkLp+A0ss/4jP3iLZSOQbi1/M+wA3Jopf1smbEp7GohcqSdbTcbyarD5o6UIcHwtPEeQvlwYZ1wM0YBaa1EjpfzOn/zJdvAdhZHpcit8hoiF3yDt3SNJALoMNeRB5m5hNWPXs1m+JME7RMpGXqLOn2LRVncHT55D2RiKcEn+yjzsKrGFVtgc1hQFLapqkCB+Yt9NnuXEKLzw5VM/0qYoJjda/DS8V+FHG/Xcs4T31SAFZfpqAFAmkFKqSUYrupHe8cnGPGMp9Gy7eoIcn4k0JQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SN7PR12MB6960.namprd12.prod.outlook.com (2603:10b6:806:260::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Wed, 18 Mar
- 2026 10:53:42 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.20.9745.007; Wed, 18 Mar 2026
- 10:53:42 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 18 Mar 2026 19:53:38 +0900
-Message-Id: <DH5UOS96171T.Z8XSRX583Q60@nvidia.com>
-Cc: "Joel Fernandes" <joelagnelf@nvidia.com>,
- <linux-kernel@vger.kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
- Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Danilo
- Krummrich" <dakr@kernel.org>, "Dave Airlie" <airlied@redhat.com>, "David
- Airlie" <airlied@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Koen
- Koning" <koen.koning@linux.intel.com>, "Nikola Djukic"
- <ndjukic@nvidia.com>, "Philipp Stanner" <phasta@kernel.org>, "Elle Rhumsaa"
- <elle@weathered-steel.dev>, "Jonathan Corbet" <corbet@lwn.net>, "Alex
- Deucher" <alexander.deucher@amd.com>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Jani Nikula" <jani.nikula@linux.intel.com>,
- "Joonas Lahtinen" <joonas.lahtinen@linux.intel.com>, "Rodrigo Vivi"
- <rodrigo.vivi@intel.com>, "Tvrtko Ursulin" <tursulin@ursulin.net>, "Huang
- Rui" <ray.huang@amd.com>, "Matthew Auld" <matthew.auld@intel.com>, "Matthew
- Brost" <matthew.brost@intel.com>, "Lucas De Marchi"
- <lucas.demarchi@intel.com>, =?utf-8?q?Thomas_Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, "Helge Deller" <deller@gmx.de>, "John
- Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
- "Timur Tabi" <ttabi@nvidia.com>, "Edwin Peer" <epeer@nvidia.com>, "Andrea
- Righi" <arighi@nvidia.com>, "Andy Ritger" <aritger@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "Balbir Singh" <balbirs@nvidia.com>,
- <alexeyi@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>,
- <linux-doc@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <linux-fbdev@vger.kernel.org>
-Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked
- list interface
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Alice Ryhl" <aliceryhl@google.com>
-References: <20260317201710.934932-1-joelagnelf@nvidia.com>
- <20260317201710.934932-2-joelagnelf@nvidia.com>
- <46986da6-8c89-475c-8561-964adaa7d034@nvidia.com>
- <abppV3e91iVzplcv@google.com>
-In-Reply-To: <abppV3e91iVzplcv@google.com>
-X-ClientProxiedBy: TYCP286CA0216.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:3c5::12) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
+ [209.85.128.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B42A510E7C6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 10:58:58 +0000 (UTC)
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-79a60975dc5so23527397b3.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 03:58:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773831537; cv=none;
+ d=google.com; s=arc-20240605;
+ b=i47XOIcRRDmX7LkbYNWKv+OxzYqIoqQO+KYBYwa2YM4hDK0sjRudcIUzod4mhyFe21
+ 8z6zxnlc9W/h/VOSHzy33IjMlXvufnbFlgg/4bs3/lHqG87hImhOw25oiqa6PPX7RIeU
+ 3nsWcyt79Ndfwg67qU6BwJTv0SRFpQ/B5nDH8jgERDRc1HeP/AkSNw0+3MwXnOa8nxRn
+ 62exFHXDm3OVW71XxSFwgqCQR9ADqEEmde6WPKaJJcirAFbuEWxia4UiG9oUChEbLvsF
+ qTlvYSAXECDUTLyejSouJGfiXBsZ1HBGPN0lDKd+gwNpVmBbz7YLCPx9MhmrV/bTT6XO
+ Iiyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=LVVELEXkmiKTU/p+oy+of4jebFSUmNrxF9w9nex4moo=;
+ fh=6nzInEacPxZyBLsjY+24XgXxWsjRztL5XLBNxMl0TxU=;
+ b=K1/DTJ3JwJQHKAKtg2GlhTua5sSSJI8NVgsf95t+TgRWJFKM+cfSAJgYTFRdI8ae5b
+ X3lXeyaL7jI8OIi32CTBTJwVKpLVLOf2+NAsnpcOzRA8N9XTqZt2d/YDzFYxhwH/Uccu
+ dtsmHkE9G81EQwHCeFCjJPY6QdsK3ESYq1JDSVpHQXK1vGjb8N5MQPostcwUfXvwOY7b
+ uRdUzbBYNXyIs5bX0Lm8HqbZQvjRhDfdLxXhl77M6zfkPoqvtM0UNpr3YiEo3zYbb5Nm
+ aPRVWCBGb2JVAQmuHQnu6jp6e10wIs56B28TZtyKAYYd7ZReBdYR72OShAJcbfTZ1cNX
+ 2t4g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bitbyteword.org; s=google; t=1773831537; x=1774436337;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=LVVELEXkmiKTU/p+oy+of4jebFSUmNrxF9w9nex4moo=;
+ b=Q+gK1WmEqDF4mF72MTu1sD58qmH2l7gDUyNHroy8YKaXRllnW6ZH/bWrqxiIBMOPPt
+ mEZOH0d00AT9gulIa2j/pmFLCExv7q+cILjFyKgRPUkF/5sTxWXZmatpY4DHw5pz0aVh
+ t25EbnIGVgVQNOljYhqrDNSf9JhZ1hZZPmhjNSHsk031DQq+p6++On3bwtm/Magsdl4n
+ URnoHP85UA7vE0VCqJ/abuqek+rX3nyKC7C9GnP119YYtp0qda7MqOjKWoeDAMpzkZge
+ zB77cRnOWGuxlqyDCpRQNQ4f0DpPGglirfTnVJJFGlacQtY0gchElop0p2ai3pg05lBQ
+ AGlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773831537; x=1774436337;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=LVVELEXkmiKTU/p+oy+of4jebFSUmNrxF9w9nex4moo=;
+ b=J9gTnEFQstMvOIuK3iqLAiT93fsY6voVwuCH77pxIDCkcCiDWD3pzTQpONN0n/ctDB
+ WjDFdtI9RQDwHSIOYS+YH/VU7DUjMkXq3P//IADLfYfNrH1AiVDW1QPcVg9eALQSvRcz
+ nly8kJ4jBObUbX/FA07td8xdHBIgbbhutZHg6XhR71Yz7kXG2ch3fryevoi2Cx6pBtw4
+ asqOwReNpDYmWCgfQFoKcj4xbNCcYubR0raiv0X+ghQ6pI7g+mA4j2o8Gby6aHs0XGqC
+ YQJ4U2mlBm3L6ygplPd91eaQsm68NLsp0ZEnYINj15P90wCE5Vm6ex7eyop0E6vv+mYx
+ Borg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWl4eydsu4ge6zi6dMnfIEXnTOw6SHZ8riAEzqjW96HFNa+g2DQ6DCJkYYaKK7eyaYlEq29gJVQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywo/v3KoDVlhv++MBkeYpTX9QQadjQxRow9mMS71a7V5HqS2HSO
+ FDGQmG1AyQRxYKjBCimHilxZON1sF+IMcNAuvizORV70GT7f91fSeTLeEDZwsQw9F2kktNxXFBz
+ otnt5LBopnnWlwPGrDCUSPiOH3s6AiI+IBBZTUfO4UA==
+X-Gm-Gg: ATEYQzx/lFUPnPneP+L7qNpTdQnwyIuMN5M1Y7iiN8ooOxB6Y3Xvi69TXBdiEqdJmrL
+ aiyytIAKH/3sPt3yqiOLUR9uhUzlFfqptnRmA8lz0yE+QHj2w2Z1hm43jYI5enCOLpmMRZEsks5
+ HXpzAkLDcp5hhiG4OSCYGYpP+A40J+7eWOyYLdX6PhDuBGOKO/li5JQCeLmaqkABatSM69WBPbc
+ bXMxB2/SXr3rrUlWTm/+/GN2TOJcQv6slX/KhqxxsKstU1RZuTLvPAFP8BrBkimWCWchucuYlc9
+ o/m5vr4=
+X-Received: by 2002:a05:690c:c50e:b0:79a:3a33:933 with SMTP id
+ 00721157ae682-79a71ad413dmr29714557b3.31.1773831537485; Wed, 18 Mar 2026
+ 03:58:57 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SN7PR12MB6960:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac12986b-f350-466d-cf7b-08de84dc9e88
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|10070799003|366016|1800799024|13003099007|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: +7J4rMQJAoIEdHzztsRIRTRHKPk6ThsWJoYS2aBdx4RyAi7YbnsZanSKMYGyateFqLsOGLVqxkm/3Qk3mwqkAj8G5qijNrAID6XfDhuX8g1xmsMZtcuuWdWzd8lM/Law8+ih8mJVZ0O5VdFgOU/90A8+2Qvptx9ni1RJVA/jzbSGb0MFpBi3GojiMLehZQ/UOPzjkt2H9HzxJxx1YEtvTVxcXjdEZbW74U7U0Txojo+BFR97GNy3zhA1EkZyCxh+aH+D+odT3KrXDVdNG02oneM3bHHMySgTjtG/1KN0y9r6ziFjxVLt16tzUayKt188xi3U6mXq+tlR/bLRDxJUH9jBgzlXFEXfdLj7p1i3wMh5iIqF5Ev9zdb4W/SVOQvSsPZhxYJHKS8I4zi5+tQfhd5BKOwdf7yg5RlAx/yYHQLZVqt6mMD7qqinn5anWLQdQ7KSUPm+kwU2V+bSSQOoJSvilbiklvFroDyMloaUMUjuhVA42Kjuvy3u9dmqm5eDZk/N4671o+slyvk5pYwdHY+2r9/vk2vJybU04OOmThdTLJnSRruqKLip/tfyz3xPUE47m9Y0kLhtQZWfCYdJO50HUvlGpP5v9xYs+O+OyBaJU+yJQefbOOtnsa0r9J+jPVAJuuQ1qj6nmD3Yi9fCvj94KTZOavmRpNrxolvM0vMnTwVNB2pQitH7ZvJUGvFeAIcGHhCMSNwafppC9SYkzc0TW83TCOspP+LlA91WKvw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(10070799003)(366016)(1800799024)(13003099007)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Vm9XUytWdGZ3dHNPYnVzV1Z5a3QrK20xZThDaU4ySmlYbC85RkJpeXpOU1Rm?=
- =?utf-8?B?WkVZUjQ2LzlIblhYcURhYldzbkRkdHh6azc5WVE0bk52OGRjWVZ4TjRrQWtN?=
- =?utf-8?B?MzNzZWI2N0Y1d0FMN2MrMERHTllYVzJMcTk5NUlGdWNpbVVlWkxRalcrNEp5?=
- =?utf-8?B?UU9MWlNxQy9xZEYxb1drT0l6NURqSkE3NG5iT3ZrRE5TaGRBZFk0bU5EQWhV?=
- =?utf-8?B?d2ZETndoSFU2eU0vQVhLZktHc21oeHRBQTF6a1dNQzFKK0I2WWRSbGdpaTRR?=
- =?utf-8?B?b1J3cyt4YTZKNWdXb0p0UFFWTmdjZVBXRGdmbGJQeGdLdFZJSGYxb2JPTUNR?=
- =?utf-8?B?RTIvUkpCd3UxSHljWVpSV09DMDZZOVJ2MjQxSHhhMnZMeFRFdjZDTVExNWc0?=
- =?utf-8?B?TE5yTEh6R09VWnV0a0NsdjVTVFgyN2M5WlpKVTRHL3pTWHBpMk0xLzFIeHll?=
- =?utf-8?B?UmhndHl5RFMvZTZwd25BZ0VuNXUwVGJreUlCS2xvVzVxQUo3NFJseFBNSHRN?=
- =?utf-8?B?MnRCalhpMUk4MzBDZU51eWdFQjJZL0dDbzA1dVY5bFdCcGtTS0JyWU1RcGVa?=
- =?utf-8?B?L0lEYkhVWC90a211TFlVT1ZHZnNkWjdDSk9IYzBMQUROM1o3a1hwTTdQR3Vp?=
- =?utf-8?B?bzlVeE1tay9lSzdHdUR5dmxQY1dlaHEyWkZTemJEM05DNTZ3QkFyS3hwMitP?=
- =?utf-8?B?MlhVZk5jMFpVWDFnc3Z1Qk9Db3BzSTZYOVJ1L0p0NEhTRitBRm8ya3FiMldP?=
- =?utf-8?B?cTUvQVFwZ0pRSnhGSkVUMG4wODFFdlpSdWlNU0FvSU1RNm1YcXBXbUtib0pQ?=
- =?utf-8?B?N1BhelkvNUFPVXlhL01tTjAyd1ZyMjBPbFl5b2xVb3F6eWhiYlpMNk1sREYx?=
- =?utf-8?B?QlEvWkR4TENrTGVqd2JCUWluRGYvUTFVNzdPSDN5Wjd4UjErVzBKNkV0V3pj?=
- =?utf-8?B?REhreDJRNVFrTWdIVEJmWkpSSjB6eks4T2F3Sk5JTEVMckJYdldJaktEWnFq?=
- =?utf-8?B?d3RjNnFQd3N1KzVpWnZWaitqNXVxSVhWbjBSWllSaHluZWZiZjBVKytzVHhk?=
- =?utf-8?B?NDFOT0lMOThzRk1JVXRUL09lQ2JmVDRucWZEZWs2cXZONnpuc3FQaWU4NzB2?=
- =?utf-8?B?bFdwUHg4bGtnRmY3eE9DWlhGZU9DVVRhSmpUc1BqVGlOWVZ5VkQ1YXc3aEVU?=
- =?utf-8?B?Sm5paWM2eEhKVzhjcytFSmh4d3Bwalc4dHlPUXZhaWxGcFZ4UzIwemRyYUs5?=
- =?utf-8?B?c3RjYlhqcVFlU2VEZ2p5VjdsWjdRMTdhS1RKSzNtQnpoRm9uY1lTa2RCRzAz?=
- =?utf-8?B?cm5HZHF5NXEzbFVjTHNXeHIvVkZHTlhvS2xmWUh2SHo4TEhLdG5xeHgwdllx?=
- =?utf-8?B?Q0ZFdUptSDlhVzBXenZWUjlzRUpIbkRMRktZbWoyVU5BUXo2SHJlckpZcmFB?=
- =?utf-8?B?ZnlVeENXbGhRbWhuV1MzYVVpeDQ3SnZCQ3kxR2dvbTZJVW1OV0VqeHRkR3U2?=
- =?utf-8?B?eUxabW12S09vTWc5SVplNG9GakNlUS8rNHBMQzNESHN5Rk9EVVIwYmxDdVpP?=
- =?utf-8?B?OW93UG5yQThJUzNXRVFFbmJRTzVXRHlVVU9hN0VMWDEzaXdYZGU2clQ3WndM?=
- =?utf-8?B?MGlBMCttM2FjWDduVjBIU2dUU2lXRzdJdi9TcG4vd2lHOEJKRnEwaGlLV0pS?=
- =?utf-8?B?OXdYRVRFd0JET3VuQlJrZkdPY001VjNQN2E1dnR0cUFmd3htc1FXTitra0JQ?=
- =?utf-8?B?d0pUTms4TjhXRkZEMlByMXFGM1U2V1o4VWNLRXVEQWVqMm5hdUVub1dWQ2Nr?=
- =?utf-8?B?MlRkUVZya3Yvc2VSRHFCdFNzVnNQekVkV1BUYXYwYS9TRHdOeUFVREV0MFRo?=
- =?utf-8?B?QmRvcFp3cDVzaGx2c1oxVHhCUi9Obk9udlc0WnBMamtidmVPWFVLWWJRRTBs?=
- =?utf-8?B?dXMxa1VRaHFMc09hNHhaNk1TSTFoU214MDFOR3NBYUJXRUZORC9DSnphR1J1?=
- =?utf-8?B?VUJmSktuY2V1aHRHQTlWcWwzRHJVRmpZTmd3RXB4TWdWN0NlZlR3SXNzNkFq?=
- =?utf-8?B?dnN4YlVTdWFtcVVWOXgwUzZtM3FVWko3YllVYnl2TC9iQS9JV3NjM1ZOc0pl?=
- =?utf-8?B?Z0w2VWZUU2dmN2FRZW9LU3BTWjdCemN1OTVWaTNNU0U3WWRRcXR4cFRZaHJW?=
- =?utf-8?B?dGhEdlhIdk9JWDg1NFBZUEw4RlV4RGIrY1BkeEt3cTNET1kyc3ZXMko2Rklm?=
- =?utf-8?B?RkZCNVE0aCtrTGQzVW9rUFdRemttaHF1Mk4yT2lUUHBxQlFQOEJxSVRvU2VI?=
- =?utf-8?B?cFEvQ29WSzBLM0lTbENZQWFheEdXSmUxZ0tFVDd6VEFKN1FTNVFWNlhyWUQ5?=
- =?utf-8?Q?fDmhQTHaz8rjfKPP2oKnsqlWyK/pf5IHGPjEcawPHZ3vW?=
-X-MS-Exchange-AntiSpam-MessageData-1: 7CS1c9pkVMvq3w==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac12986b-f350-466d-cf7b-08de84dc9e88
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 10:53:42.3133 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +hYPXzgVMy1MKRIZDOtlrlAZiNrb3DsO9gd864V/4glJwoBh3xs0SFyzmkp0QGPvZ1YdeGkz5ZW3D/HyoZZPjQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6960
+References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
+ <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
+ <20260312112354.3dd99e36@gandalf.local.home>
+ <219d015d-076b-4c80-8f63-88569115fdad@efficios.com>
+ <20260312114041.5193c729@gandalf.local.home>
+ <1becdbce-2c01-468a-bbab-42b5dea9fdf8@efficios.com>
+ <CAO7JXPjnnruhM5oC6xMgnYaQ9efzYFqMCFiJLNM3HCQ+ZeCiJw@mail.gmail.com>
+ <CAEf4BzbnfyhCqp0ne=2gRnVxp-mdGmuZwDeFRyhRYH+eDcz2-w@mail.gmail.com>
+ <20260312130255.6476e560@gandalf.local.home>
+ <CAO7JXPgHYZ9zF1HFahb2447X85YRZCQQBHB6ihOwKSDtiZi8kQ@mail.gmail.com>
+ <20260317120049.6a60fa88@gandalf.local.home>
+ <6ca9f884-9566-4a82-9995-4c802a0bf8a0@efficios.com>
+In-Reply-To: <6ca9f884-9566-4a82-9995-4c802a0bf8a0@efficios.com>
+From: Vineeth Remanan Pillai <vineeth@bitbyteword.org>
+Date: Wed, 18 Mar 2026 06:58:46 -0400
+X-Gm-Features: AaiRm52iP799baA3h48fwfLjW02Pe87nEMlmDoXLIPKYRV2LFYQQkuww_KlSUU0
+Message-ID: <CAO7JXPgbERfc_P+aPFB1+nR5ua3mZGbhdkbxCr0TFR4Cr6Khuw@mail.gmail.com>
+Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
+ at guarded call sites
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+ Andrii Nakryiko <andrii.nakryiko@gmail.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Jens Axboe <axboe@kernel.dk>, 
+ io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, 
+ Jon Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, 
+ Eelco Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org, 
+ tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, 
+ Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>, 
+ dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ "Gautham R. Shenoy" <gautham.shenoy@amd.com>, 
+ Huang Rui <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
+ Len Brown <lenb@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
+ linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, 
+ Eddie James <eajames@linux.ibm.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alex Deucher <alexander.deucher@amd.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, 
+ Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, 
+ Mark Brown <broonie@kernel.org>,
+ Michael Hennerich <michael.hennerich@analog.com>, 
+ =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org, 
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, 
+ Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
+ linux-btrfs@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 18 Mar 2026 12:46:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -169,63 +160,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed Mar 18, 2026 at 5:59 PM JST, Alice Ryhl wrote:
-> On Tue, Mar 17, 2026 at 04:18:46PM -0400, Joel Fernandes wrote:
->>=20
->>=20
->> On 3/17/2026 4:17 PM, Joel Fernandes wrote:
->> > Add a new module `kernel::interop::list` for working with C's doubly
->> > circular linked lists. Provide low-level iteration over list nodes.
->> >=20
->> > Typed iteration over actual items is provided with a `clist_create`
->> > macro to assist in creation of the `CList` type.
->> >=20
->> > Cc: Nikola Djukic <ndjukic@nvidia.com>
->> > Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
->> > Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
->> > Acked-by: Alexandre Courbot <acourbot@nvidia.com>
->> > Acked-by: Gary Guo <gary@garyguo.net>
->> > Acked-by: Miguel Ojeda <ojeda@kernel.org>
->> > Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
->> > ---
->> >  MAINTAINERS                 |   8 +
->> >  rust/helpers/helpers.c      |   1 +
->> >  rust/helpers/list.c         |  17 ++
->> >  rust/kernel/interop.rs      |   9 +
->> >  rust/kernel/interop/list.rs | 342 +++++++++++++++++++++++++++++++++++=
-+
->> >  rust/kernel/lib.rs          |   2 +
->> >  6 files changed, 379 insertions(+)
->> >  create mode 100644 rust/helpers/list.c
->> >  create mode 100644 rust/kernel/interop.rs
->> >  create mode 100644 rust/kernel/interop/list.rs
->> >=20
->> > diff --git a/MAINTAINERS b/MAINTAINERS
->> > index 4bd6b538a51f..e847099efcc2 100644
->> > --- a/MAINTAINERS
->> > +++ b/MAINTAINERS
->> > @@ -23251,6 +23251,14 @@ T:	git https://github.com/Rust-for-Linux/linu=
-x.git alloc-next
->> >  F:	rust/kernel/alloc.rs
->> >  F:	rust/kernel/alloc/
->> > =20
->> > +RUST [INTEROP]
->> > +M:	Joel Fernandes <joelagnelf@nvidia.com>
->> > +M:	Alexandre Courbot <acourbot@nvidia.com>
->> > +L:	rust-for-linux@vger.kernel.org
->> > +S:	Maintained
->> > +T:	git https://github.com/Rust-for-Linux/linux.git interop-next
->> > +F:	rust/kernel/interop/
->>=20
->> Sorry, I forgot to add an additional F: for the rust/kernel/interop.rs f=
-ile.
->> Danilo/Miguel, do you mind adding this when applying?
+On Tue, Mar 17, 2026 at 12:02=E2=80=AFPM Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
 >
-> I think you should consider a mod.rs file to avoid this. It's tiny, and
-> just re-exports submodules, so I don't think the "mod.rs name in file
-> view" concern is that big, and IMO having files related to interop/
-> inside the directory is much better than having them outside.
+> On 2026-03-17 12:00, Steven Rostedt wrote:
+> > On Fri, 13 Mar 2026 10:02:32 -0400
+> > Vineeth Remanan Pillai <vineeth@bitbyteword.org> wrote:
+> >
+> >>>
+> >>> Perhaps: call_trace_foo() ?
+> >>>
+> >> call_trace_foo has one collision with the tracepoint
+> >> sched_update_nr_running and a function
+> >> call_trace_sched_update_nr_running. I had considered this and later
+> >> moved to trace_invoke_foo() because of the collision. But I can rename
+> >> call_trace_sched_update_nr_running to something else if call_trace_foo
+> >> is the general consensus.
+> >
+> > OK, then lets go with: trace_call__foo()
+> >
+> > The double underscore should prevent any name collisions.
+> >
+> > Does anyone have an objections?
+> I'm OK with it.
+>
+Great thanks! I shall send a v2 with s/trace_invoke_foo/trace_call__foo/ so=
+on.
 
-Ah, so there is a rationale for using a `mod.rs` file after all. What
-are the project-wide guidelines re: `foo.rs` vs `foo/mod.rs`?
-
+Thanks,
+Vineeth
