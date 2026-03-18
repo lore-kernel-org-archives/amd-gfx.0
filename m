@@ -4,60 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 782C3103E168
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 12:46:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E6D1103E16F
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 12:46:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02A1110E7FA;
-	Wed, 18 Mar 2026 12:46:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F33AA10E357;
+	Wed, 18 Mar 2026 12:46:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="tJeTZuwb";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="AdFXKhWb";
 	dkim-atps=neutral
-Received: from mail-wm1-f74.google.com (mail-wm1-f74.google.com
- [209.85.128.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D733810E075
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 12:40:52 +0000 (UTC)
-Received: by mail-wm1-f74.google.com with SMTP id
- 5b1f17b1804b1-485375aa56eso50142265e9.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 05:40:52 -0700 (PDT)
+Received: from mail-wr1-f73.google.com (mail-wr1-f73.google.com
+ [209.85.221.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2AE310E774
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 08:59:06 +0000 (UTC)
+Received: by mail-wr1-f73.google.com with SMTP id
+ ffacd0b85a97d-43b4085da48so2904047f8f.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 01:59:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1773837651; x=1774442451;
+ d=google.com; s=20251104; t=1773824345; x=1774429145;
  darn=lists.freedesktop.org; 
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:from:to:cc:subject:date:message-id:reply-to;
- bh=nWiNwiZcBmYWVTTl9iPT0XLfb7VjL0dMPy7l1+Lqx3k=;
- b=tJeTZuwbe2+HIRO9+QmL5bVXp9uJgM0QjZqw5d6K1FpgIzxtWTxChAUA7VvI2IB//1
- FGDg6/c10X/Fpoc7cuhdAQRrkt6Al6mg74aK269/iPYsG02ECp3NYXYI7liYpIjyYMVL
- YNs2vrB+NP4kTXAedCfuWuCq22CshTV/msnEUggaPjU2DYE1il4toTf5Lwp8LGfHb9IC
- r4oMOkIo9ZJIslQ0dS4bK5hi4ghwV5wxU1M/dTMtrg1sHgKmazBvG/5H2I+0NbruSWdp
- wIcseVm0PRjo5M9S3fDUPr1jnfxtMAclDbLdVbA9pdYt4M2oNuMBaDx72H42Vwixe5jb
- RQug==
+ bh=MXY9EHBXCnPWVfnYnREpBujBITTjaoQ0F5qTzNSzUus=;
+ b=AdFXKhWbzkC/P817pKAHLvAFJFesMoJvZ6h/nH+QUkSIxbKYNe61F/ZctegLuzcC3s
+ G9kENx49LoQ8X7AJnMlIN/HkepXTElQDuybO69SK4QlStqtJ/Z7fK/eD++u9/4USNR1Q
+ KzHRdBmKmr6aOlD1HdiZGsW4+DkrPcd76+Rk+jn25js/y5pxkE9I5BLYjdNnfNHf5kqJ
+ wVGwcWtc8vUXLYnxQTG7DeEZa7MVwHSpfRAQwovjjHfRfZNOusOliqfICJtt2fvD5aJE
+ J1TjfeGrEPXDPZPqLJCzJbj4ckHZ8AcMQMlxMr2bKdxhKUjc8Iziuw9LOnkK0TFTw6rS
+ XLWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773837651; x=1774442451;
+ d=1e100.net; s=20251104; t=1773824345; x=1774429145;
  h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
  :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=nWiNwiZcBmYWVTTl9iPT0XLfb7VjL0dMPy7l1+Lqx3k=;
- b=nrQzwbCaKWltoJBkREAS7PUyZsXajc5FuTV+v/92KaNQbSPF3Rwfl8boQPMl68pkbn
- eBuTIYyNhS58hMekOMPEdtE/0gI1E+3Is8wE4m2jZxDUTfHCtDvvsDY+RSgf4WY8NpZP
- 7ZjgyokTupUktc+XyBB6f565EHo+ZdTf2cwP5nXOUrv1hrx9SckwVLaVc2gEIFqYrusB
- C+y6WH2FoKtQYp4Mbf9p2x3qeCcbxMxp8BQaS6AMs3RX2pmANAY1T47dzadNtVGQ29DA
- +4re8iAhtvMvv44NzXjBPM3WsOedw1on1eoDFmlyjaPrZnR4PhgIF/A3e2Q/LG25s2lt
- W8mw==
+ bh=MXY9EHBXCnPWVfnYnREpBujBITTjaoQ0F5qTzNSzUus=;
+ b=kb2oJmF/PlHyh+PfeqgWR0lcduBC1AGOxYzzPeH94VPYoNpl1sXyOZjDQW3vTLkMtG
+ QJUkYBCCHzvZUp5uoBg5wRrJxXktlKQGZs0GzYYJ+meKbL4XnRKeixktONhrqSUHB3FC
+ hl9jO7YvjiTeRG1FHvPL3tTiwNh89xw+pZryRsW2CDq5gAw2b61v6rEpDUmpPuJgxmTD
+ 0/SawnLTpCbpSt+X6x995FYpsCDiEH2wLWiyctueeZKX0I21qauKOnH0eXeDpEqASM6E
+ hBHdJ6WzHBK9Yo8hYxr6PqDvrq/UedeFTHc8OruL3lISMYnOxvTqesTVlpUeg9WJXGLv
+ 8jeg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUHlNP9qiKDV6bPz+SfQ9DP0JVurK4J4lyzK9BPssOrLLuCEEbJuJRPmzBWFOEmbpZZPXkSyvod@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy9o8r+WpJMZuWVzFWAxXR1dXnSeor7aReZLQKMAQi10x6qFDwI
- z7xOn5+ime+btNq+Zaf+LmdmYvooFXQLH2UZUHRxgzSQkDozkK0/lctvLJ3xmDfFxrVxn1IbWey
- xuRY2vsGlK0/UQgAs0A==
-X-Received: from wmnp7.prod.google.com ([2002:a05:600c:2e87:b0:485:6c28:2360])
+ AJvYcCXxhXWAugN0yV8QEjq634FblXxgCIk5z4WMzwDTArejQjj9Rr0WydLHupbE3/UjBn8SWCEF8+Vf@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwTG/vLOPCTdq8Ei1iJ8OEfdA1f9RCh8Uo50itBfK0GX1TJRNVz
+ YAke70YHo6s1HesQVxJd3uu0BcXiQEbyfmX/76YvlrJGNDV+x1Q7NHVG1TsVzVoSC9wQMEcKP38
+ rTguiDJLGL7vjIsiJcg==
+X-Received: from wmqe14.prod.google.com ([2002:a05:600c:4e4e:b0:485:3539:bc05])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:5491:b0:485:3983:aba2 with SMTP id
- 5b1f17b1804b1-486f4451354mr52065225e9.23.1773837650627; 
- Wed, 18 Mar 2026 05:40:50 -0700 (PDT)
-Date: Wed, 18 Mar 2026 12:40:48 +0000
-In-Reply-To: <20260317201710.934932-2-joelagnelf@nvidia.com>
+ 2002:a05:600c:a20b:b0:485:3bb5:92cf with SMTP id
+ 5b1f17b1804b1-486f4422300mr29381305e9.12.1773824344660; 
+ Wed, 18 Mar 2026 01:59:04 -0700 (PDT)
+Date: Wed, 18 Mar 2026 08:59:03 +0000
+In-Reply-To: <46986da6-8c89-475c-8561-964adaa7d034@nvidia.com>
 Mime-Version: 1.0
 References: <20260317201710.934932-1-joelagnelf@nvidia.com>
  <20260317201710.934932-2-joelagnelf@nvidia.com>
-Message-ID: <abqdUBqchnVFo7Qk@google.com>
+ <46986da6-8c89-475c-8561-964adaa7d034@nvidia.com>
+Message-ID: <abppV3e91iVzplcv@google.com>
 Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
  interface
 From: Alice Ryhl <aliceryhl@google.com>
@@ -112,207 +113,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 17, 2026 at 04:17:10PM -0400, Joel Fernandes wrote:
-> Add a new module `kernel::interop::list` for working with C's doubly
-> circular linked lists. Provide low-level iteration over list nodes.
+On Tue, Mar 17, 2026 at 04:18:46PM -0400, Joel Fernandes wrote:
 > 
-> Typed iteration over actual items is provided with a `clist_create`
-> macro to assist in creation of the `CList` type.
 > 
-> Cc: Nikola Djukic <ndjukic@nvidia.com>
-> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-> Acked-by: Alexandre Courbot <acourbot@nvidia.com>
-> Acked-by: Gary Guo <gary@garyguo.net>
-> Acked-by: Miguel Ojeda <ojeda@kernel.org>
-> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
-> ---
->  MAINTAINERS                 |   8 +
->  rust/helpers/helpers.c      |   1 +
->  rust/helpers/list.c         |  17 ++
->  rust/kernel/interop.rs      |   9 +
->  rust/kernel/interop/list.rs | 342 ++++++++++++++++++++++++++++++++++++
->  rust/kernel/lib.rs          |   2 +
->  6 files changed, 379 insertions(+)
->  create mode 100644 rust/helpers/list.c
->  create mode 100644 rust/kernel/interop.rs
->  create mode 100644 rust/kernel/interop/list.rs
+> On 3/17/2026 4:17 PM, Joel Fernandes wrote:
+> > Add a new module `kernel::interop::list` for working with C's doubly
+> > circular linked lists. Provide low-level iteration over list nodes.
+> > 
+> > Typed iteration over actual items is provided with a `clist_create`
+> > macro to assist in creation of the `CList` type.
+> > 
+> > Cc: Nikola Djukic <ndjukic@nvidia.com>
+> > Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+> > Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+> > Acked-by: Alexandre Courbot <acourbot@nvidia.com>
+> > Acked-by: Gary Guo <gary@garyguo.net>
+> > Acked-by: Miguel Ojeda <ojeda@kernel.org>
+> > Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+> > ---
+> >  MAINTAINERS                 |   8 +
+> >  rust/helpers/helpers.c      |   1 +
+> >  rust/helpers/list.c         |  17 ++
+> >  rust/kernel/interop.rs      |   9 +
+> >  rust/kernel/interop/list.rs | 342 ++++++++++++++++++++++++++++++++++++
+> >  rust/kernel/lib.rs          |   2 +
+> >  6 files changed, 379 insertions(+)
+> >  create mode 100644 rust/helpers/list.c
+> >  create mode 100644 rust/kernel/interop.rs
+> >  create mode 100644 rust/kernel/interop/list.rs
+> > 
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 4bd6b538a51f..e847099efcc2 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -23251,6 +23251,14 @@ T:	git https://github.com/Rust-for-Linux/linux.git alloc-next
+> >  F:	rust/kernel/alloc.rs
+> >  F:	rust/kernel/alloc/
+> >  
+> > +RUST [INTEROP]
+> > +M:	Joel Fernandes <joelagnelf@nvidia.com>
+> > +M:	Alexandre Courbot <acourbot@nvidia.com>
+> > +L:	rust-for-linux@vger.kernel.org
+> > +S:	Maintained
+> > +T:	git https://github.com/Rust-for-Linux/linux.git interop-next
+> > +F:	rust/kernel/interop/
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 4bd6b538a51f..e847099efcc2 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23251,6 +23251,14 @@ T:	git https://github.com/Rust-for-Linux/linux.git alloc-next
->  F:	rust/kernel/alloc.rs
->  F:	rust/kernel/alloc/
->  
-> +RUST [INTEROP]
-> +M:	Joel Fernandes <joelagnelf@nvidia.com>
-> +M:	Alexandre Courbot <acourbot@nvidia.com>
-> +L:	rust-for-linux@vger.kernel.org
-> +S:	Maintained
-> +T:	git https://github.com/Rust-for-Linux/linux.git interop-next
-> +F:	rust/kernel/interop/
-> +
->  RUST [NUM]
->  M:	Alexandre Courbot <acourbot@nvidia.com>
->  R:	Yury Norov <yury.norov@gmail.com>
-> diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
-> index a3c42e51f00a..724fcb8240ac 100644
-> --- a/rust/helpers/helpers.c
-> +++ b/rust/helpers/helpers.c
-> @@ -35,6 +35,7 @@
->  #include "io.c"
->  #include "jump_label.c"
->  #include "kunit.c"
-> +#include "list.c"
->  #include "maple_tree.c"
->  #include "mm.c"
->  #include "mutex.c"
-> diff --git a/rust/helpers/list.c b/rust/helpers/list.c
-> new file mode 100644
-> index 000000000000..18095a5593c5
-> --- /dev/null
-> +++ b/rust/helpers/list.c
-> @@ -0,0 +1,17 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +/*
-> + * Helpers for C circular doubly linked list implementation.
-> + */
-> +
-> +#include <linux/list.h>
-> +
-> +__rust_helper void rust_helper_INIT_LIST_HEAD(struct list_head *list)
-> +{
-> +	INIT_LIST_HEAD(list);
-> +}
-> +
-> +__rust_helper void rust_helper_list_add_tail(struct list_head *new, struct list_head *head)
-> +{
-> +	list_add_tail(new, head);
-> +}
-> diff --git a/rust/kernel/interop.rs b/rust/kernel/interop.rs
-> new file mode 100644
-> index 000000000000..b88140cf76dc
-> --- /dev/null
-> +++ b/rust/kernel/interop.rs
-> @@ -0,0 +1,9 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Infrastructure for interfacing Rust code with C kernel subsystems.
-> +//!
-> +//! This module is intended for low-level, unsafe Rust infrastructure code
-> +//! that interoperates between Rust and C. It is NOT for use directly in
-> +//! Rust drivers.
-> +
-> +pub mod list;
-> diff --git a/rust/kernel/interop/list.rs b/rust/kernel/interop/list.rs
-> new file mode 100644
-> index 000000000000..328f6b0de2ce
-> --- /dev/null
-> +++ b/rust/kernel/interop/list.rs
-> @@ -0,0 +1,342 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Rust interface for C doubly circular intrusive linked lists.
-> +//!
-> +//! This module provides Rust abstractions for iterating over C `list_head`-based
-> +//! linked lists. It should only be used for cases where C and Rust code share
-> +//! direct access to the same linked list through a C interop interface.
-> +//!
-> +//! Note: This *must not* be used by Rust components that just need a linked list
-> +//! primitive. Use [`kernel::list::List`] instead.
-> +//!
-> +//! # Examples
-> +//!
-> +//! ```
-> +//! use kernel::{
-> +//!     bindings,
-> +//!     clist_create,
-> +//!     types::Opaque,
-> +//! };
-> +//! # // Create test list with values (0, 10, 20) - normally done by C code but it is
-> +//! # // emulated here for doctests using the C bindings.
-> +//! # use core::mem::MaybeUninit;
-> +//! #
-> +//! # /// C struct with embedded `list_head` (typically will be allocated by C code).
-> +//! # #[repr(C)]
-> +//! # pub struct SampleItemC {
-> +//! #     pub value: i32,
-> +//! #     pub link: bindings::list_head,
-> +//! # }
-> +//! #
-> +//! # let mut head = MaybeUninit::<bindings::list_head>::uninit();
-> +//! #
-> +//! # let head = head.as_mut_ptr();
-> +//! # // SAFETY: `head` and all the items are test objects allocated in this scope.
-> +//! # unsafe { bindings::INIT_LIST_HEAD(head) };
-> +//! #
-> +//! # let mut items = [
-> +//! #     MaybeUninit::<SampleItemC>::uninit(),
-> +//! #     MaybeUninit::<SampleItemC>::uninit(),
-> +//! #     MaybeUninit::<SampleItemC>::uninit(),
-> +//! # ];
-> +//! #
-> +//! # for (i, item) in items.iter_mut().enumerate() {
-> +//! #     let ptr = item.as_mut_ptr();
-> +//! #     // SAFETY: `ptr` points to a valid `MaybeUninit<SampleItemC>`.
-> +//! #     unsafe { (*ptr).value = i as i32 * 10 };
-> +//! #     // SAFETY: `&raw mut` creates a pointer valid for `INIT_LIST_HEAD`.
-> +//! #     unsafe { bindings::INIT_LIST_HEAD(&raw mut (*ptr).link) };
-> +//! #     // SAFETY: `link` was just initialized and `head` is a valid list head.
-> +//! #     unsafe { bindings::list_add_tail(&mut (*ptr).link, head) };
-> +//! # }
-> +//!
-> +//! //
-> +//! /// Rust wrapper for the C struct.
-> +//! ///
-> +//! /// The list item struct in this example is defined in C code as:
-> +//! ///
-> +//! /// ```c
-> +//! /// struct SampleItemC {
-> +//! ///     int value;
-> +//! ///     struct list_head link;
-> +//! /// };
-> +//! /// ```
-> +//! #[repr(transparent)]
-> +//! pub struct Item(Opaque<SampleItemC>);
-> +//!
-> +//! impl Item {
-> +//!     pub fn value(&self) -> i32 {
-> +//!         // SAFETY: `Item` has same layout as `SampleItemC`.
-> +//!         unsafe { (*self.0.get()).value }
-> +//!     }
-> +//! }
-> +//!
-> +//!
-> +//! // Create typed [`CList`] from sentinel head.
-> +//! // SAFETY: `head` is valid and initialized, items are `SampleItemC` with
-> +//! // embedded `link` field, and `Item` is `#[repr(transparent)]` over `SampleItemC`.
-> +//! let list = clist_create!(unsafe { head, Item, SampleItemC, link });
+> Sorry, I forgot to add an additional F: for the rust/kernel/interop.rs file.
+> Danilo/Miguel, do you mind adding this when applying?
 
-Bad news.
-
-My build triggers this warning:
-
-error: statement has unnecessary safety comment
-    --> rust/doctests_kernel_generated.rs:7103:1
-     |
-7103 | let list = clist_create!(unsafe { head, Item, SampleItemC, link });
-     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-     |
-help: consider removing the safety comment
-    --> rust/doctests_kernel_generated.rs:7101:4
-     |
-7101 | // SAFETY: `head` is valid and initialized, items are `SampleItemC` with
-     |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-     = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#unnecessary_safety_comment
-     = note: `-D clippy::unnecessary-safety-comment` implied by `-D warnings`
-     = help: to override `-D warnings` add `#[allow(clippy::unnecessary_safety_comment)]`
-
-This probably needs to be:
-
-	unsafe { clist_create!(head, Item, SampleItemC, link) }
+I think you should consider a mod.rs file to avoid this. It's tiny, and
+just re-exports submodules, so I don't think the "mod.rs name in file
+view" concern is that big, and IMO having files related to interop/
+inside the directory is much better than having them outside.
 
 Alice
