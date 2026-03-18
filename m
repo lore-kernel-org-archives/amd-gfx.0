@@ -4,127 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E67F0FF6E85
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2026 21:25:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D98F9FF6E9A
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 00:20:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68D5E10E5D8;
-	Tue, 17 Mar 2026 21:25:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79E0610E659;
+	Wed, 18 Mar 2026 00:20:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O6b0sPeU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="keF4k4rQ";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012067.outbound.protection.outlook.com [40.107.209.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A51E010E41B;
- Tue, 17 Mar 2026 21:25:16 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012051.outbound.protection.outlook.com [52.101.48.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E60810E0E5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 00:20:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gu/Ok+ULr90x0XZPbr5ri7Ioro6aqHM08fsUwIi+sZ3OqbKvlkacmttnvEs2wqHCQ0uk3zni0L0axqKvN72Qv+411D57O7rSsIpXPK6N6V1jx+yzVjiN8ekWJ48Erpdatdj2ZT+rCrkaBnch5GU3kDBOvQLkwLGtELn47/fhm+c9WpSnIaV0FzB3Rrb2bt2PxLO7B4VoxEB4W1Lojbr9FJWyge8tCdSPnmdMsproA8z9UDsIpotOOnnvZKiwR4o/GMIH3bZdwt4komYHyHiWMUo2LJqU/DU8iHe8MhY1wsQLBtAWYIaXRS0YXx0KpnZvDFhEboi86Ds1Cr0BmS7J+Q==
+ b=Ov9pAZCtcL9LsVHwUigw9oh9vPFt4idtIyDDWWhAQw6tzDOMdrC7np1DLhFQcQTRQDoyYs9ajhv4QDezYe+mQDngjnfz6YnSXT8jszJIUboqrbjSMPudw5xbU09jJljh2PC1zDUA9n7Yq0k2leN9yQzFXz/XmdY6o9w6pg7PleBNqoffqJiTCxKbeUx1S1iysalTkGF627/+wTrvc4m5VUYNpi6ktkAW0E22cHcmYnSt96XFlxYbI1n27xzRa6aJR1PUBiBccDdXoO5mDEDsFVBbqMVfVRfn/2QG+XCgZUfzJiuh8BpupBNhFg6I8rzDYIBXPKz+Xjrm/s03lV2UTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h9Yd9Y9dFhbC4I9sSqaiWRyQ4obQP70f8fN7/QUBDnE=;
- b=oPldoT/lGjPUytfRmfmlu9MVKxDXxqKR1MjBxrW8Wxa81YNEDNww6PI1MjZYmTf6mtIWYYDY5g9jhz25O1bfThm9+zIqTB5hy5GXZbYir0znEZdVtwkQiAKLtjMTR+WnMpbN2gZNgoH+nRqIBVmG+Tl4aoT1hL43IMcWkuRq4VD/IHwqVmp1POmkOcDSuoeYCsZgj6/u4L5cuMOCix2e6nIfnookSuW9IFR6MPxlGn0aqwZMPHzQzUTY1t+8sq3YsGbLOIwQRfkVyWlXLK9w8vUZ/Av+ZdsESfZ8tJkyuXa5xSKUvqyh1jMtFQ5QvnW/mYuOVHKxsaqj6PvtTnSNQA==
+ bh=v4Ln/okJ1rbd5rV/cFI8KGUnWWtz9aT8ojv2SLI2cR0=;
+ b=Incrl1tpwX1d5gv7wUhItBfebxqy+kYW1zRk/nLknpreOT11X10bjJ/p7jYkIF9Cl+tS7XV7fa3wC+aTSWVqQNWZMSxeB/g+G4Q6IE88o2iuxXPp8MkWvI+J6MH0E55Z+wXZH8quwx0n+KozgaW8/5nfvPjaacecZLffEeKBeriqUVLZpttl1Nhy528k2jyd6lAbyoUo/CoTr/zUb8jrdMhh87xqa0xB5yDcj4aYRpve6lPt4bYR7JMPi5nUmuA6Mlpojo+hza7KG/94skC8i5X5Gk1RJH0C83nXxtg/MGhbBh+6s7MKYYgGxvwoEeABbchtBf9ly9ys+Hb2I0ZQGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h9Yd9Y9dFhbC4I9sSqaiWRyQ4obQP70f8fN7/QUBDnE=;
- b=O6b0sPeUoU8syrFk0Kz8PWlrGM0/h9KnOks1sfcpN3o9MajPkheAufiQVxMzN9H9bsGZei/tmQpWS6+AZETF0Ky5c461amFzFyrQyxpCbpevH/JCN8A1ibYNZ8AmlgyOSppIrVZGlPCEQfHkwNT1x2dmmgLMbSEEUFfIr9wreeQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by DM4PR12MB5747.namprd12.prod.outlook.com (2603:10b6:8:5e::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Tue, 17 Mar
- 2026 21:25:12 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.20.9723.018; Tue, 17 Mar 2026
- 21:25:11 +0000
-Message-ID: <d84adc4c-fb8e-43ec-8ea9-7a2fd9dcfdff@amd.com>
-Date: Tue, 17 Mar 2026 15:25:09 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/drm_atomic: duplicate colorop states if plane color
- pipeline in use
-To: Melissa Wen <mwen@igalia.com>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- contact@emersion.fr, harry.wentland@amd.com, sebastian.wick@redhat.com,
- daniels@collabora.com
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20260316210055.234498-1-mwen@igalia.com>
+ bh=v4Ln/okJ1rbd5rV/cFI8KGUnWWtz9aT8ojv2SLI2cR0=;
+ b=keF4k4rQKTPCROd4gAr/vy9rpB3cK78lxdLkEDTsrvJ+by7TisTHksaf8a0oDiKakcqGQo/QybVIJiALZD9/Y5T/e7W2sbJF0XeMDY7dgu1MviFnMhW0pCbfeLrh6sutui1+A1nT3fAizweZkAYMgVDiYEHWec2+vFzzwgsETX8=
+Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
+ CY1PR12MB9584.namprd12.prod.outlook.com (2603:10b6:930:fe::14) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19; Wed, 18 Mar 2026 00:20:03 +0000
+Received: from DM6PR12MB2972.namprd12.prod.outlook.com
+ ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
+ ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.20.9700.006; Wed, 18 Mar 2026
+ 00:20:03 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Lazar, Lijo"
+ <Lijo.Lazar@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/pm: drop SMU driver if version not matched
+ messages
+Thread-Topic: [PATCH] drm/amdgpu/pm: drop SMU driver if version not matched
+ messages
+Thread-Index: AQHctk5rswxCtGvSyEyWBIYag9gAbLWzagPg
+Date: Wed, 18 Mar 2026 00:20:03 +0000
+Message-ID: <DM6PR12MB2972DDDCA2A35F95CBA2883D824EA@DM6PR12MB2972.namprd12.prod.outlook.com>
+References: <20260317204110.3833021-1-alexander.deucher@amd.com>
+In-Reply-To: <20260317204110.3833021-1-alexander.deucher@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260316210055.234498-1-mwen@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW3PR05CA0025.namprd05.prod.outlook.com
- (2603:10b6:303:2b::30) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DM4PR12MB5747:EE_
-X-MS-Office365-Filtering-Correlation-Id: d716dd31-bba7-40a3-cc57-08de846babdc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|1800799024|921020|18002099003|56012099003|22082099003|7053199007;
-X-Microsoft-Antispam-Message-Info: v4Bxi5Xd0MUky6MR6Waqcbx7VxOzHIvLzJHEfLJplRRClcI2mBeDNqLvQBRBahTq1Q+RovC1ttoZn1YfbroiSBLVk4nNeMKHbKxFs4LLS84kiDT2RXa6z4e0uuqz1J7jzCxhhL3Vmwp8wgTdm0LhTl8ZjwnNYsT/UI64IckGeasSQeNbXpOVp7hircwPMwUX4LEC5M3QEHp5oay1p1dC0G/1XwVhwGHJZCGwfb1UE5OlIYKZ5Jqgxzv/AyqdXvJWuYEAJdlpB0ZRY2bDZmviWHCg3hFEZsSc8VfhmkrN1ZAddQN7V/oVWJHkm4ZPxGa4eFwjiUU+QSALl8xlFuzbz0mteStanNC2Bwo2yT/GnzKC7Pzemq59MZM2K2NvgN/4X8bQXKgdCUd4p8V4XT/3y9ck3U1lJQ2bWtLinB0j5339fvBxqAYtAuHtsqyambKPsM0GDDx3dWeRT3Xzv/fE2NNatZGp9t4jKoMImPsfzU/9OraAdln+uVVL3biBCGjYJptkqspL1fGBxlpyRp/qikS0Cybg1qZZqlpmyxom9QN9Ag53x1ok5puYQr0zuuDc1J3RQERDqNr6/yQTxv57vLrznCrTAWaWupMX3pMNe7Hf19BVILHh9UiYdn+P0t3xPaVO/SlrE12il/2hbijgj7DyO2UPD2L2pcrNHfxp90+ZJp0G303fGyNeXEqYArYsPyshBoYSlMNQ8NRlH7EJZSo9kR/PP7Bo/1rgfoG/xoeScba0y6wiaNbMaPq67Y5APV4W0NH9wQcNtjZTtf2VrI+gw5lqFVeJlk3ntO9mJz8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(1800799024)(921020)(18002099003)(56012099003)(22082099003)(7053199007);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-18T00:08:13.0000000Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=3;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|CY1PR12MB9584:EE_
+x-ms-office365-filtering-correlation-id: d200e9bd-1093-4341-d2fb-08de848419b9
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|1800799024|38070700021|7053199007|22082099003|56012099003|18002099003;
+x-microsoft-antispam-message-info: eINILjZCkdrBf2x44B/jDKwkGjrw73/QVZ3vOrBGEIqD/CiwaLerrQyQUtD8aILH32P1c8WJN3GERvm8MrlA1tRhzLmvcIDhx/p9Vh/nFvm47Hk/1ZQxhe+8InmtrSDz4kRfY5s8VTOTwzLwb4Vu9SnwhajSqCe3zZ9XFgcXfs0/5UebROaxM2esikyPVtoA/kKRAe9VO8+C5kPkcZleMrcALxL0xZrWN/+eZOmX5RJ/h9WkJbK4f5rrQ28DVWi751s8xrC/YMYXWkDWuXY9uKRPSABDb6UFfHsB169crcNOn6L2qTH9igYp/PsNSrRXxvyatZrNgMaHejBamsq7Kl7pxgjbHJQ0MlTF0R0TweajJVb78x+0o/003rFU9lpFra7yYLRugxMOkdIeieIvW5NB4HDK0Vz2mriG/EFA72s2HBKOqJVRU9l/fnYvCCScKM4xNlDQIeywsVDpAjpDSJJl/zAGuSD33rjlqlTZd6qEJehrJoaPMXJrmkasvrbWD48lIqCWklwifaI4IQxOT+0GOIZ3g5a0z6kX/PO/G0C1Lew2A1eNAYmdHlZbSSYbRdi/SuBEnSyS4D1skv+5f3kN8WEsFxxxfci0qT8/4PCscUzT+9U6Zb3rdmPR6pLUUbvl60PEqc8VkBc+AE+UL0gNYENn1kOL3BxlJ8M82j56QvFUVe7BA3oqJW0eRs404WS9OvWIBRtPGH3LXRDQsHtABNEo+CVKBh9B5DHkckfV+9ZJMBXa1QCgxxtFK/ZC1yMPw+wXKPJJKZ6TCTzI2ajspWiVMtaPiSFkPB12dXs=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(7053199007)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TmZPcEN2L0pxQjNlbU90OFZIRjRBZWJObTB0UllOb1l6NEFaa2VlZkpmaUZB?=
- =?utf-8?B?eTJrL2doN1FrekZxMnh2UmhnZjFFLzVNbHhjSjNCQSt0VWxNUEwxSGVDUkNQ?=
- =?utf-8?B?M3ZGUkdZNmhYcU1QdUc3dVVGb04yV3A3NGF6dzdOUUdSRmdPMldMa3Exeitx?=
- =?utf-8?B?WDlBdHk1Z0ZtajdPRHNtaDZDY05YSmYxTG1IS1VXRmVoNDQ5WGdTaFUrSXBn?=
- =?utf-8?B?cWpyM2pzY1ptelFlVUhFbXdNR0tyYWZRbGIxaWVtVDlGMFZueURKdjJVdy81?=
- =?utf-8?B?NnhycEU2MDdxeE8wZlBERWZHQXJXeE5nY1FlNWo2T3VxVHNraU5QeTZPUkEz?=
- =?utf-8?B?RnlXR2xROW9UdmNJNnZiU21nTUZQM3ZRbHNadXBhOTVOcmNRUGhYT3RMaFlI?=
- =?utf-8?B?NDdRakxvM1NrUWJGTzZWWjVCeXNrRG5iYW5wVUpvZnFnbHhpR1lVYzF1NFQ3?=
- =?utf-8?B?ZU8rRzZwcjlUdVBQSEQ2c2wzcW0xeVNYSkZ4MHN4SWlVYmd5cXdWMTFHVi9h?=
- =?utf-8?B?ODBIbjRWbW5haFFHM3EvUkZuUnAxd1VPbXB4SHpRVVEyWTBjcVNuWGE5MFpO?=
- =?utf-8?B?aWorRWREZE56T2YzZlQyUWQ3OU5Uc2xwSFVxbVNUN1BTR2hzQ0NNOGJpWkJT?=
- =?utf-8?B?bXZPVTliQ2VVQVI4b0haR1RpWDJjSHk5WUJ1N2hKMzBiNm9yWlZFV1FpNDFC?=
- =?utf-8?B?TjBFdnVhcHhjcHhSTHAzams4TlQwejc3NzZDd3p0T01iNGNjN2kwNEp2YVpK?=
- =?utf-8?B?bU9rWjJjdXNCMHdjdHplQ3V3WGhPODdrTkRpNytNdTBHTUtpRVZnR20xVkVJ?=
- =?utf-8?B?Y2xzTW8weGRLMUJ5QXExQXhNbksyKzNwNXUyd3dtblhxcEduODZNcW5uWUxt?=
- =?utf-8?B?QW91M2xJS3FXenVGL2dRZUNlR1hmbS9hR2EySUpMd1RjUEE2RDhuL2ZBQnI0?=
- =?utf-8?B?U2ZCRk9QYTk1djlDYnZCU3RwZTNaZnp0dzkvZ3huNWtTZTNqMXpERDdNdS93?=
- =?utf-8?B?d245R2JhSWRBU3hZc25RQXVvRDhYZ053aUFuOG5qN0dnUjBwYVVNbWpQUkJs?=
- =?utf-8?B?a0R6WEZSVHE5M3k0cmdGQnJ4STZjU0t6eFN5eG9qaGN0MVliQ0hIUFVhS3ht?=
- =?utf-8?B?K2xGeldzc1V5OGJ5OENXbEwzRG1aajJsYWFBSngwc1JnbVJJYVBvdlcwcG9T?=
- =?utf-8?B?MDhzN3hoakowM3g3MnpVZWtmQkRQWWZVdWk2TmNxcGZpV042dDB6cmk5aEM0?=
- =?utf-8?B?a1VlMVFHbzZQTFNVMVlRRmk5RUs0NXVpYXNIMlpRbXhYbEpQcDByMkRXYTcr?=
- =?utf-8?B?V3ROc0I5YzdLRHJzYkdLY2M0QitUQXBGZHRNWnl0NzVmVWZMd0hSUnE2UFc4?=
- =?utf-8?B?bThVNUZDODJDNHpnUnpLaVVwMGx2RE9ma3k4YTMrb3l5SHlrV09wK09yWkJI?=
- =?utf-8?B?cDdDcXNEaEtpQm9mTVd2Ylo1UTA3aE01SnFtZzdwZU5aOVhwbVdjelF5dTh3?=
- =?utf-8?B?NWxySDA1dngvMXdqbHB2MDVMSFROdkxiQjViUytCd25ZbGZsRitacnNOUjd5?=
- =?utf-8?B?TGUvbTVpNmRiQ0hvR25XeE5Idk1QVGNEcUJJVllHZDFMNkEvWU9RZ0Z2cXdZ?=
- =?utf-8?B?TUQ2MldickhGTDJPOVorNjlmYUxwWm9qT1dxSnZJUm5yZHlRTlBSV1FwWFov?=
- =?utf-8?B?SSs2QXhZa3dkWDVpa2Q4REkyQ3FjcFBxdU96RDJIVVJQNW1iNllpVkM0ZXJF?=
- =?utf-8?B?OWRnV09NeHNCY2dWOXlNeVIrR3ZVci9sb1BsZzU3bDRYVHlqUkNnRGQrWjFh?=
- =?utf-8?B?WkJsR0owa1JCZTIwRGQrZFR5ZkxRQmZiMDF2dytDVjcwcjc1WWV3QkxJdm42?=
- =?utf-8?B?cm5uVXhyQXNrQ2l2MEovc1hTTk1veHlJK0pmSWFJQlNFV0tIeUJBbGI5RGZ3?=
- =?utf-8?B?dHRpUjFwOTJFWGV2TVZSSTFqSVhadmtueFIvSFZwU1J5UERmOFZCUDVQZElX?=
- =?utf-8?B?dUY1SGd3OWJ3ZTFERWt2ckRJTHJwTEg5WThsMWRmVXYwaEhCem50ODRlVDhI?=
- =?utf-8?B?RUpPUXQ1ZUhZVlpETlpFV2J4bFZpUXg0MTB2SlEwZ0ZGcUNWcW9tK2pSb2Q3?=
- =?utf-8?B?RW1XS09mTUM4YVhEY01FOWpZSkd2Z1dFSGxyNE5CTGJRaFNvYWxKYzNYdVgv?=
- =?utf-8?B?TVZ1bHN1N2h3SWhDWXdndHRlcGlLL3NKRG8yWFVXY0hkSnRKWmtFSzZ1V24v?=
- =?utf-8?B?Mno4SVRmVDdwMThhOTR2dDU0MzdpbWtTaGl6d3hVTjBkSlEzdlBMbXBCZkx4?=
- =?utf-8?Q?a4V2IjYvDJxcf6/Gvv?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?DvElKEGU8tCOitZYEKQmHw4x7BBhbpT51mCIornsC/G8MRSv4n1scllpxXKO?=
+ =?us-ascii?Q?lGXOyv8lb6KvcFC0pKuaxLdEciscdUfBCBhWpnKPO0cb09PiNBfuVkiE2ogb?=
+ =?us-ascii?Q?JIdUUCU1Xzs65lb3jF0vaFbi8Cz1vugJRFucG+PVH1yQ/PsQOHNxTN8MX4AT?=
+ =?us-ascii?Q?PTdwbG2DRGeMzl/9SYUkr9G2WBOcckGPjGzNJmLcYSXyzijLVJKZiO3nOwiD?=
+ =?us-ascii?Q?6X2djMVRcqwyhoybdxn/vGH5QUruCJZYwM2LeH9EVRQAppCv252ZP2lFyg48?=
+ =?us-ascii?Q?rDV/JBMg25Mp3KP6rvgUqJ/5EmwFsZxJ3VJVa8kZM0La2tGnAWckyTI6mVx0?=
+ =?us-ascii?Q?XrqyBVHIvJKzramAXs03m6tUlo/VsQncCq2pbwx7GghPl6SZfjweaDtyyoCR?=
+ =?us-ascii?Q?N+b8sRigDs+8myMcQfnEmQbzz2jmZnFr9tQL8RHsk6xoNkxlOSH7fqARdHbF?=
+ =?us-ascii?Q?M9/cVH58XwVoXDqVaN+Tjvd5Ujs0AtYAkdm18v4tdJJQdlWquRVCnrkCwyiF?=
+ =?us-ascii?Q?gqOI8TV5ROfIJBL0cCiSRYXXmkHk/fPdd+Q12NyiNaTHK8fOPl/vnPNVulGN?=
+ =?us-ascii?Q?poxxZuewxVitCkjPKWDYuhNjr4iMUxo5Y7xTAoovMlRLJcfIc0oMGL5Trs1T?=
+ =?us-ascii?Q?gHxX5Vr73lcb0XBpHo0fMW3dXMLHJbLmc3hxO+c3IXiui3K47Bh5R92MygGU?=
+ =?us-ascii?Q?FmM/f2nvHMYewODUG3Rkp7rk43aurR/BeJv5+kt9J+/dDr39tJJqs/8X8pDW?=
+ =?us-ascii?Q?eRS8PvG7+aZCXsdfwC9ZrQjLzFoTUw3aD+uQWBP+NDtv5K2Fzao/CjT5/UrZ?=
+ =?us-ascii?Q?vzO7GLQKqvaj259mAkqItzM6YeA3c1iSLBDyJFU1XN2nJXq9z8W2NtAmCc1n?=
+ =?us-ascii?Q?Eu1nmOTMptS9lmGcXJopzeM+tkCHtJ1tY+9CccY//l2JdYtoIblVFvul4y8X?=
+ =?us-ascii?Q?yebIHnZJ/4u5fzbyXo+XWqCG2Ai5LZqe42VE5FdtHC3107CLKgCfOT1PcENq?=
+ =?us-ascii?Q?okohRg0/5Hj0JIkT1NoJGreBfPoLF7LcPWolxMaiF3e0LKj3XkVbmUe8kpgX?=
+ =?us-ascii?Q?QWJmQ2CK6ExRsFvpHoyr6XHezbBiEuSB3YLJ2ZCM6e0fEcKEMOTxpsTY381L?=
+ =?us-ascii?Q?nPVw/cn+2vXRP1eAmYP2Uuq49POxlxQ6maGq2z1tFxVeKko+gzRA36V9lg+l?=
+ =?us-ascii?Q?j7FS9CGkXourXd0qgxEiDkOf2sR7z+ph2DqA0nDIa1hSaw16xYsYCxW/4YH/?=
+ =?us-ascii?Q?sQJkcyTZtK6CldsrM54pb26ouF6qElH5RWf4HE4EAiT1LbWPR7kl/0kiDR+w?=
+ =?us-ascii?Q?4HUl90wfe2I6rMvFmnAbBsDz3julXq4gPYF1ulUbqzA+mxkXSjK9ff4AaWJk?=
+ =?us-ascii?Q?4RuOzvyF4bV8h8Q3DC8spO+QroHFYVgVRBe1BVyaAza6BLmUF8P3ygC64Sko?=
+ =?us-ascii?Q?uC+Vec6XX0cYta7GICjc2UIhtHBtwo9dGptQAGTMnmzLfaBsNEeKjrFuT8Y/?=
+ =?us-ascii?Q?NwEwRvXJ1IBxIoa32DqzojXTp7xt7OfarootSp95E8gzN5dFntv3nu10o04+?=
+ =?us-ascii?Q?Dn78rSd+9VwiaNUskDFeb17zMlnlU5Jn7iJHVGWmprAV+bLeeY6pjuFAes7B?=
+ =?us-ascii?Q?dxMYtZs/NvB6XG60n0gthvsZfW/SgOc69k7VS/tGdSMsZ9aaPSAS5RYRLgQW?=
+ =?us-ascii?Q?lRpQT8U7ecjzyy6sLpw381/pqnXDrZe+Yl+GzUkjgj6mJh78?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d716dd31-bba7-40a3-cc57-08de846babdc
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 21:25:11.4783 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: emPh2mnaTNUKNBTQ1JlHOHq/OkUYjDsrBKOOxwf/ujtUyBEWKSToKTknsZiFHLKyDu1Emzm7ch9K0RmvqHInvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5747
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d200e9bd-1093-4341-d2fb-08de848419b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2026 00:20:03.4906 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0kZlnJ5hOcgqoylnXK09YCv9COn3FQJAf4Opxol5AkAKiNp1HHSVDvNcroXLX1Mq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9584
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,86 +135,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-On 3/16/26 14:52, Melissa Wen wrote:
-> For suspend/resume to work correctly, do for colorop state the same we
-> do for plane/crtc/connector states: duplicate the state of colorops in a
-> color pipeline if it's in use by a given plane when suspending and
-> restore cached colorop states when resuming.
-> 
-> Fixes: 2afc3184f3b3 ("drm/plane: Add COLOR PIPELINE property")
-> Signed-off-by: Melissa Wen <mwen@igalia.com>
-> ---
-> 
-> Hi,
-> 
-> I've been working on making gamescope use KMS plane color API, instead
-> of AMD driver-specific color properties [1] and I found this issue
-> during Steam Deck suspend/resume process.
-> 
-> Initially I thought I should also set plane color_mgmt_changed to make
-> AMD driver reprogram the color state, but looks like it's not needed
-> (still testing). Therefore, I think the change here is enough to fix it.
-> 
-> It applies on top of drm-misc-next and is inspired by commit
-> 6955d6bca053 ("drm/atomic: Add affected colorops with affected planes").
-> 
-> [1] https://github.com/ValveSoftware/gamescope/pull/2113
-> 
->   drivers/gpu/drm/drm_atomic_helper.c | 12 ++++++++++++
->   include/drm/drm_atomic.h            |  3 ++-
->   2 files changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index 26953ed6b53e..683a0e207f71 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -3751,6 +3751,13 @@ drm_atomic_helper_duplicate_state(struct drm_device *dev,
->   			err = PTR_ERR(plane_state);
->   			goto free;
->   		}
-> +
-> +		if (plane_state->color_pipeline) {
-> +			err = drm_atomic_add_affected_colorops(state, plane);
-> +			if (err)
-> +				goto free;
-> +		}
-> +
->   	}
->   
->   	drm_connector_list_iter_begin(dev, &conn_iter);
-> @@ -3856,6 +3863,8 @@ int drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state *state,
->   	int i, ret;
->   	struct drm_plane *plane;
->   	struct drm_plane_state *new_plane_state;
-> +	struct drm_colorop *colorop;
-> +	struct drm_colorop_state *new_colorop_state;
->   	struct drm_connector *connector;
->   	struct drm_connector_state *new_conn_state;
->   	struct drm_crtc *crtc;
-> @@ -3866,6 +3875,9 @@ int drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state *state,
->   	for_each_new_plane_in_state(state, plane, new_plane_state, i)
->   		state->planes[i].old_state = plane->state;
->   
-> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i)
-> +		state->colorops[i].old_state = colorop->state;
-> +
->   	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i)
->   		state->crtcs[i].old_state = crtc->state;
->   
-> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-> index 0b1b32bcd2bd..96fd32a3e92c 100644
-> --- a/include/drm/drm_atomic.h
-> +++ b/include/drm/drm_atomic.h
-> @@ -1102,7 +1102,8 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
->   		for_each_if ((__state)->colorops[__i].ptr &&		\
->   			     ((colorop) = (__state)->colorops[__i].ptr,	\
->   			      (void)(colorop) /* Only to avoid unused-but-set-variable warning */, \
-> -			      (new_colorop_state) = (__state)->colorops[__i].new_state, 1))
-> +			      (new_colorop_state) = (__state)->colorops[__i].new_state,\
-> +			      (void)(new_colorop_state) /* Only to avoid unused-but-set-variable warning */, 1))
->   
->   /**
->    * for_each_oldnew_plane_in_state - iterate over all planes in an atomic update
+Yes, I agree.
+This string may cause confusion for customers, but keeping the other versio=
+n information is necessary for issue identification and debugging.
+
+Reviewed-by: Yang Wang <kevinyang.wang@amd.com>
+
+Best Regards,
+Kevin
+
+-----Original Message-----
+From: Alex Deucher <alexander.deucher@amd.com>
+Sent: Wednesday, March 18, 2026 04:41
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Yang(Kevin) <Kevi=
+nYang.Wang@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
+Subject: [PATCH] drm/amdgpu/pm: drop SMU driver if version not matched mess=
+ages
+
+It just leads to user confusion.
+
+Cc: Yang Wang <kevinyang.wang@amd.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c | 1 -  drivers/gpu/drm/amd/=
+pm/swsmu/smu12/smu_v12_0.c | 1 -  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v1=
+4_0.c | 1 -
+ drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c         | 4 ----
+ 4 files changed, 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu11/smu_v11_0.c
+index 56efcfa327dfd..1eec1a88e05f8 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
+@@ -262,7 +262,6 @@ int smu_v11_0_check_fw_version(struct smu_context *smu)
+                        "smu fw program =3D %d, version =3D 0x%08x (%d.%d.%=
+d)\n",
+                        smu->smc_driver_if_version, if_version,
+                        smu_program, smu_version, smu_major, smu_minor, smu=
+_debug);
+-               dev_info(smu->adev->dev, "SMU driver if version not matched=
+\n");
+        }
+
+        return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu12/smu_v12_0.c
+index 2c20624caca45..ac5e44dff6c97 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/smu_v12_0.c
+@@ -101,7 +101,6 @@ int smu_v12_0_check_fw_version(struct smu_context *smu)
+                        "smu fw program =3D %d, smu fw version =3D 0x%08x (=
+%d.%d.%d)\n",
+                        smu->smc_driver_if_version, if_version,
+                        smu_program, smu_version, smu_major, smu_minor, smu=
+_debug);
+-               dev_info(smu->adev->dev, "SMU driver if version not matched=
+\n");
+        }
+
+        return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/d=
+rm/amd/pm/swsmu/smu14/smu_v14_0.c
+index 7dc6687c3693b..9f01bed3970ee 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
+@@ -284,7 +284,6 @@ int smu_v14_0_check_fw_version(struct smu_context *smu)
+                         "smu fw program =3D %d, smu fw version =3D 0x%08x =
+(%d.%d.%d)\n",
+                         smu->smc_driver_if_version, if_version,
+                         smu_program, smu_version, smu_major, smu_minor, sm=
+u_debug);
+-               dev_info(adev->dev, "SMU driver if version not matched\n");
+        }
+
+        return ret;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/p=
+m/swsmu/smu_cmn.c
+index a644579903f40..5ec2b4e6f3f35 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+@@ -1057,10 +1057,6 @@ int smu_cmn_check_fw_version(struct smu_context *smu=
+)
+                      smu->smc_driver_if_version, if_version,
+                      smu_program, smu_version, smu_major, smu_minor, smu_d=
+ebug);
+
+-       if (smu->smc_driver_if_version !=3D SMU_IGNORE_IF_VERSION &&
+-           if_version !=3D smu->smc_driver_if_version)
+-               dev_info(adev->dev, "SMU driver if version not matched\n");
+-
+        return 0;
+ }
+
+--
+2.53.0
 
