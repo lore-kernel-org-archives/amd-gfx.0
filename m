@@ -4,182 +4,158 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEA62107528C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D651107528D
 	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 09:46:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B482010E940;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96ADE10E93C;
 	Thu, 19 Mar 2026 09:46:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="a5GXEzUD";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="KAYl3pMC";
 	dkim-atps=neutral
-Received: from OS0P286CU011.outbound.protection.outlook.com
- (mail-japanwestazolkn19010019.outbound.protection.outlook.com [52.103.66.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C6EA10E8BD;
- Thu, 19 Mar 2026 07:40:00 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011023.outbound.protection.outlook.com [40.107.208.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF0EB10E481;
+ Wed, 18 Mar 2026 18:43:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mQgzxLpvgWC727IRq888j8lXIm2t2zPjPLFwfO3i9ShueQsUHYxCw6PygBHdJXHX6qLGuAT/Ujypz2W8XtPKiOROfael+9NSKw0EhGA5QqtIqsuO4O1/l6cmlgaVH9eaJ5M/rlrokPA0pMMLUlsEvn17WTB9XrzgwnPwWJ9e0Qcq8MtKaSK7sg1ZKhAcDatngWcrsnPxdS6+yjUP3gRxDY7qBJ/P40ksCsYiwN3TQVybscxjKrz3tbNxEWdGLtOMOWOUlLdx3gNLYhlvRGtL8jo8Ld5aGfFKHKUC0HgakWdBYZB9yjqHh+l/lgV4Pam1F/zBpR5iT5y1PuNaofQlTA==
+ b=Rf20mv4D2eshhMyQVwO66Y7GpKUJGU8ZVwTgda3oI2dSrEEEr2hzavt0XvFCS6h4wW0s+KQtoFH17td/WeRirPqrfkHBFDwdob8pGHbqugrGy/id1us+P4J1PjhWsT7E54pBAcHqw21OlprqkG+mVkkIEbCjPVtZDVSH8NFUL7rsFrpmSEJxOGoBU7wI0yvFCueIwA70lF3XQqHkFVGm5twptElcU5JQ77LIf4eRXl4c1KdPgMMkdkb7oUZoAAjvq8z7B+pknTLJyWmexXRvRx80FO9n0mKb+phwY3ahwAqs2AGwMj9bx8e/p3//GusogNiz1lyokdDkec+bIyvH/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NeextjWLmJCqBtiJijQOTcDJAwoN4syDzoKP2Yfbdvc=;
- b=N+PaTZLLNl2nE1GXo39L8OLm0HD1CkiAEpYigL+OROUHkDf/C1RnfyQfSamiJNpXVF6fg+rAPPPhgo1vOyBupU7Rr2ScnT9puwTfbxvt5cbhkkb/GIMEBOBSYJNXdzWnkdAbhhypCkw3rseRUgUr4xPlTZP2ogRZIAFL9b/Z7MWwuW3kmoMOvYhQurt83KIikvT4BXqXsrNoThgCkJggrgI6+EJpDIJCovSrgOAovam9sxDUA/9vX9VhrNaQftYftHsvRdddaBVKU40LP3rGRkO4kju26JulyYaYWW219MqaddNjabBa1DQrOFIwVyz0CRG6cZZfQ4fHnq5tUd9fsA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
+ bh=KDmXe+fLpovnXVh5IWeiaUuArwbnzwgViwnkWlB3tyg=;
+ b=cvBUfS4Z6Hk7uzxbrU9WlLGsJv+Tp8QagZ/RpwQpytzNOLwUbPFp+wTvhInLFIKRPu6nZck64YN2ARROuJHhl4L+3R8Z4qH7OcYBSyEhQ0WXG0bl9U3MeMKSgYaKtBmSThOr2VJbzYOc8t7s15am+rSueQhxadtSW9bs1V1iFhvjjgQWQqNixS6ackYh5EgHMkA3YwaC/DKAuMQhQQ0B0PuMjKJH/4XaLuUeHohTwOAuts+A6otLEHWe4QG4lEpThLiJzJlahwcrNEwG+9KKR32zEgTseQtVdOX21lqcjVF3cmCibsfvk5KYOXZRMw9IMsj1EnL7yrqB7XeXE9nuXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NeextjWLmJCqBtiJijQOTcDJAwoN4syDzoKP2Yfbdvc=;
- b=a5GXEzUDCgINTsq8W+6YADFpmHYiDNxapMAupj6zr43QboH3mkGqGy/NbkDkfOjgrtmy+TWEXGZXLHBE7ThzddYA9jFvb2WT/PylthbEnEFAC4ySrwtCBlaSSyUaD9ewR80FyIKjXNSv/6uCJuwDhVqYb9vom8n4mxB/FWFquRIJaDZdzmCt1WadGAWfc7xyeiEu52q6AfsQRSBFWSRbG1+nCt7t7jPy9MFbsOm6ew13RfMZSUctNp0mSrSCXPCGSvIOIIkzPmpF2eQukBQrRhPneA+HOGvmCO/W3cEHOs6yGwptSPvO7kWVEfOuJo0IlKNYdxcB0x53dIVe8l+G4w==
-Received: from TY4PR01MB14432.jpnprd01.prod.outlook.com
- (2603:1096:405:235::10) by TY4PR01MB15020.jpnprd01.prod.outlook.com
- (2603:1096:405:25c::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.22; Thu, 19 Mar
- 2026 07:39:54 +0000
-Received: from TY4PR01MB14432.jpnprd01.prod.outlook.com
- ([fe80::de2b:6c81:9bd7:99c2]) by TY4PR01MB14432.jpnprd01.prod.outlook.com
- ([fe80::de2b:6c81:9bd7:99c2%6]) with mapi id 15.20.9723.018; Thu, 19 Mar 2026
- 07:39:54 +0000
-Message-ID: <TY4PR01MB14432E63B2557DA61090D0517984FA@TY4PR01MB14432.jpnprd01.prod.outlook.com>
-Date: Thu, 19 Mar 2026 15:39:50 +0800
+ bh=KDmXe+fLpovnXVh5IWeiaUuArwbnzwgViwnkWlB3tyg=;
+ b=KAYl3pMCohvhvdLUx/oHdnyOZEvsJvzcAsI3V0r6oRUqFTkQ0oXE/etgx5ktJ8GJSepS2hdosJ0qbuz4xoaVEd5LFGZnfSiPxEE97t64mDwposBn8f06+fLZj6AZlxhY7xQPHHmnKy8MldwsuG5VR0JZaGV7h+W1eRatit5/J63mINxwEMBq/EOPUL7kYFuvvjJUWw0M9RswMqXJQnTnjn/IwbcDtRi5+FQXb1oGG/WqyYLNO//ThX+lx/AicJp1oXodR/MRhAzIPO3dlgwC1UYLdGU6mZwTy93cT21caXLW+jSUZdMYLapSxakbvSIDhSkTsnzfwuw1EsrOn93EVA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
+ PH7PR12MB7987.namprd12.prod.outlook.com (2603:10b6:510:27c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.16; Wed, 18 Mar
+ 2026 18:43:17 +0000
+Received: from DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
+ ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9723.016; Wed, 18 Mar 2026
+ 18:43:17 +0000
+Message-ID: <2fc5435c-bcfa-4677-8930-eb646593c2bb@nvidia.com>
+Date: Wed, 18 Mar 2026 14:43:11 -0400
 User-Agent: Mozilla Thunderbird
-Cc: wiagn233@outlook.com, Alex Hung <alex.hung@amd.com>,
- Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>
-Subject: Re: [RFC PATCH 00/10] CSC Colorop with COLOR_RANGE and COLOR_ENCODING
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-References: <20260317160350.229028-1-harry.wentland@amd.com>
-From: Shengyu Qu <wiagn233@outlook.com>
+Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
+ interface
+From: Joel Fernandes <joelagnelf@nvidia.com>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Alex Gaynor <alex.gaynor@gmail.com>,
+ Danilo Krummrich <dakr@kernel.org>, Dave Airlie <airlied@redhat.com>,
+ David Airlie <airlied@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Koen Koning <koen.koning@linux.intel.com>, Nikola Djukic
+ <ndjukic@nvidia.com>, Alexandre Courbot <acourbot@nvidia.com>,
+ Philipp Stanner <phasta@kernel.org>, Elle Rhumsaa
+ <elle@weathered-steel.dev>, Jonathan Corbet <corbet@lwn.net>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Lucas De Marchi <lucas.demarchi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Helge Deller <deller@gmx.de>, John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Edwin Peer <epeer@nvidia.com>, Andrea Righi <arighi@nvidia.com>,
+ Andy Ritger <aritger@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, alexeyi@nvidia.com,
+ Eliot Courtney <ecourtney@nvidia.com>, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+References: <20260317201710.934932-1-joelagnelf@nvidia.com>
+ <20260317201710.934932-2-joelagnelf@nvidia.com> <abqdUBqchnVFo7Qk@google.com>
+ <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
 Content-Language: en-US
-Autocrypt: addr=wiagn233@outlook.com; keydata=
- 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
-In-Reply-To: <20260317160350.229028-1-harry.wentland@amd.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------WTF63Vqr7bBKenqCjcQYzCZV"
-X-ClientProxiedBy: TY4P301CA0039.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:2be::14) To TY4PR01MB14432.jpnprd01.prod.outlook.com
- (2603:1096:405:235::10)
-X-Microsoft-Original-Message-ID: <c0cabdf5-1f1c-4435-b848-d55483d8cd3a@outlook.com>
+In-Reply-To: <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CY8PR11CA0022.namprd11.prod.outlook.com
+ (2603:10b6:930:48::6) To DS0PR12MB6486.namprd12.prod.outlook.com
+ (2603:10b6:8:c5::21)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY4PR01MB14432:EE_|TY4PR01MB15020:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d6c676a-bf89-41f5-4d84-08de858ab638
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|PH7PR12MB7987:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6476308b-3c3c-4fea-007d-08de851e3846
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:14566002|51005399006|5072599009|12121999013|461199028|15080799012|8060799015|6092099016|23021999003|19110799012|1602099012|40105399003|20055399003|440099028|4302099013|3412199025|26104999006|23131999003|1710799026;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q3Q2cGR2N2RsOWVhWmtobzIxcTJmZjBEQThDakw0THN2YTdXeEVlZEkzeHY1?=
- =?utf-8?B?MUhTUXdmT2RCNmZleGxPQ3RPUmY3UUlFTzBQbVNWNi9UNkNKR1lWQlBBdko2?=
- =?utf-8?B?OGp6c0l0TGtQRENVSVVHcTBWVzkraDhCSm13ZVdMUzM2VzAvYWw4NFhVYklE?=
- =?utf-8?B?dTB2ekxWRlBmTFFKaDBqS3l4ejBPMVpVVTlhSFQ4TDc0MFhlSFhvZTAzTCsy?=
- =?utf-8?B?bENZd3RoZmNGL01KUzNpbTUrdDhOUmo5WFNYLzZxYVgyc3NERzhnaXhYekhj?=
- =?utf-8?B?RWJYNmswb2hXaldRbUVoQzVHcCtRN01nMjhLc1lHR0xuRzdscExzK29rL3lB?=
- =?utf-8?B?RnQ0VTJpdVlJcFpORkt0RDBRL0V2ckpLM3pObDhiUFhSZkl1R2Rlay95R1p0?=
- =?utf-8?B?T0l0WExueE10aDVDZ2ZoM3VTOUJoeUxkZ1dtVWozNHFDekZQbmx2YTFYaHpG?=
- =?utf-8?B?SjQ5Q1ZBdFM0Tk1nT2tFNU01UUlMWVB4WUg4US84azdSWWxSVmV2UWgxbGRO?=
- =?utf-8?B?dE82blJKTkcrQnduRE9semtLd0ZSelJILy8zeEI4V29mZ2JMbXRSdllPU3Nt?=
- =?utf-8?B?WUVOZzZ1azBVZktQMTd1OGFIR3RpVXVjYmFLNTgyNWUraWppVzd1Z256Z08w?=
- =?utf-8?B?MDRtaW5HR1p3UU9pWTBGYzlGQ01NVzlNK1JraFU4dGFzYWJMdVNpeWNjakRV?=
- =?utf-8?B?bS9Qazl2bzZQRlg1Y090RTlIeGwwbjRBMS9xVHg4TDMyK3RvRFh6Q3RXaEhI?=
- =?utf-8?B?MzRJNEZjM013OVRNNDdDREZ3Vkt3ZWNyMFJrVlg0clMzNXNYVjNpYy9FRW9N?=
- =?utf-8?B?ZitJWEZUTHl3RFd6b0tXVU9Zak4zWUZERFZ6MG1SZGc0aVN3UG4yc0t4ZTA3?=
- =?utf-8?B?K3VWTXFoUHFEb2sweGIvZkRsdjlheFZvbkdsTHBjaGFIWnllcVdOUFdkVlZB?=
- =?utf-8?B?bkV6NmlnVFRZK3pQRHRQYU9jTEd6dnBRcnlsMXJtL2JZMHhweUtGaTVBQzhK?=
- =?utf-8?B?OTJnYTBNVmNYWHNuT1N2WFF0U2YydDJYRHhFN20wSVVvZ3pUOElnbmErckg3?=
- =?utf-8?B?Q2F4bUl3Yi9ha0FncS9WWDdJN1JFSkV4clNkNFlMZUZqWDBpdmM3NVBHL0Uw?=
- =?utf-8?B?bUFJaGl3dkFMeG9XNExWdUJ0WXVTaFhzTDZRWWd2YVFNSStacDNlVDlkdjN6?=
- =?utf-8?B?M3BNM0dldHVyZ2FaQTZQaW1RRDg2Y2J2RkdBeDY4eHZzR1hQdFhqUlJ1MHZS?=
- =?utf-8?B?UU9TUjQ0NE81b0dySkZpeDVnUUduTnJqUGpWZ1g1SDk5bm1EQ09xdmNwYWxS?=
- =?utf-8?B?YnJ3Unh1My9xTHZva1RRSFF6TlV6b0ZEZ1h3dmJHdnFRMEtwUWdlT2g1R1pW?=
- =?utf-8?B?dkliNzBkbk5LcHRQRnQ1eEhmZC9mVmd1UUNpV0Uvc1NkOVVDR3RHWDVzSnZk?=
- =?utf-8?B?d3Y4WmFGb1BRdUFCSXFkZ0RIOGlpdGl2YlJIRm81VGd5T01ncTg4anpHWEdh?=
- =?utf-8?Q?jmqnVsN31lMEdtUsti7wKKan62g?=
+ ARA:13230040|1800799024|7416014|376014|366016|13003099007|18002099003|56012099003|22082099003;
+X-Microsoft-Antispam-Message-Info: aQz8SUppTPOMB+w0ZF51b0qAEthAFRAZvxHNNEKAnJkVqltwegY0y2f0gtcEmwvSKydyfiNKhgcj/AYB2QttyNR/bQoTx18p5vbPf8Ewx8L0lhE5IFEZjMv5DedXhKwPTmRb67JAclgr7m0dEifu2LpcyJs6FumaxOp3cF+sj32CP1Y0Hm0BzCLs+C3IrbviP5vhMKmBDe+dPGiGkaMSOA9F/cAYYEAuZrj6k+d0KWOyjZRxE0KVSRKt05mF1NZ8ZFxmC/j96gGmNLfvpIN9rSseBlPffV/Lwagy/GSiHb+FZEzjs8kOz/YVau32o/bE1p/h0mg5EVSeooS8ZMk7JYup1z3Lphk0i5Y25kKjInyPQQBRz2OlI5+bGdonqSLvuL+8RN64LVwJsv0/cLwNyvozZtOpryVb0chHdHEJRFRo5DnuCeI8bB9lHWK5oY8sCM30c6alXD449Bm7k3OYtiCPNLthXHhY1+v79l4N/7k4RwBATDiO1kQQ/3/i4OSk7FXyqrZdVZdTKIbd2392vjTKYOxNJbDUbTIC3NKnkMg3o8WQmU75VeSn7/IQP5JIdHOWbZhDt8ffFlQ0fSVNRi9k4OX56+rUibUh8qkwlc4juyQ3Gdj850jBw6oUW3v2raaFSOIEEMYDMPoRYAZjMcb4QfVcNS2vxQgIM0mwtc7FWPKC5TYN8vfX0W9CDu3dYbiF6OJ2t3ZGKpEqX7PRFjvJMWn/nOBm26XMo6oML/TKTCUq6a6SzvkTZNq49gwU
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(376014)(366016)(13003099007)(18002099003)(56012099003)(22082099003);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXNmeTVUMVVmSnJKUm9CVGp4TmZNUUN5T2hxTlVGSkFQR2FNbnVUbXZ1UFVC?=
- =?utf-8?B?dzRHNVlXeW5Zc0tONEw4MUlneVNxL095RnVncWQ3VmtiRG8rQmJQQm9lMVdl?=
- =?utf-8?B?Rjd1REJ1SlI0Qnh4ODNkU05lZ21GeitjRWhTQWJ5VFVpd1BLYktIZ0VyZDN4?=
- =?utf-8?B?UlpxV1MrR2l5Q0RrSlFQbEtmMmNFNU1pMGYraG8zYzc5K0p5OElreGN2TzJp?=
- =?utf-8?B?eEx4bndNdVVtWmdaTVBSYU1UWHVPajZ6THNRM2xzK2ZlUEZNNzNDMGp4c1Bx?=
- =?utf-8?B?TVJwVUdZZEdDUXVQTllGL2Fxc2VwQ0JOc1hpLzBlc1FWaGNwd3ROMEZMeXhM?=
- =?utf-8?B?S2hXdXNGQmxLRjZYWFhwd3NtQ1ltdmZlTUx2anZlUHBEM09PV3MzcVd1WUdS?=
- =?utf-8?B?a1ByU1hzZFFRdHVVYnh1YXdVRktjNWJwYyt2WmNBSERWeGZiNnRjU2N3MnpU?=
- =?utf-8?B?QkxvcTBsNW1MYllGTlhhYW5UVmd1VDNhRE5PK0pFRnliUWpBYldCSjhIcWRE?=
- =?utf-8?B?RzJ4ZTFzZ1BCOGlrV0VjVDNtWTZ5MXMzbzRxSmRHWjVVd2NHckc4SHp4TmtY?=
- =?utf-8?B?NHd0YnJRaVpQcFJWenJYVlZUZjdxMHl0S0xNNndSZ0JxSXRlRjBsQnBoWUNO?=
- =?utf-8?B?ZllINjVSNXFYak5BZ2JhRlFPZzVFTDczNFJxT2MyNncrYnV4WGRWN2xyRlMz?=
- =?utf-8?B?dGduZ0RDKzRrRC9ndmdabFZHMVhvSXJvVml0WjhRaFJqc0wyL2kwVElXNzV3?=
- =?utf-8?B?NWl6dkY2clg4VlVIazI4Y1gzenU1dWpBOW1PYVFxK2g0aFBXZTdyell1WTlM?=
- =?utf-8?B?L3YyQWUwY0VmSkI5dmtUdndsZ3VHaFM5VG5Jd2daRExIQXVsdzlsQ2lhUHNw?=
- =?utf-8?B?QmVnd2hQOTBMZ0pBeG93TVVwaldPb04vTWdmbWVNcjM3UGFZamlack40R2JS?=
- =?utf-8?B?dVRDT3gyRnVvYldLZ2YwcHRQM1BURnVPUHpudVJnYisxSUpIQjQ5WFNOdjYr?=
- =?utf-8?B?alk4aU5pMENqcW5aZHBFT0tWTFdaOUw1dkVFL2ljRWpRbTM2blJQNHltZkFM?=
- =?utf-8?B?dmtvVjhKVVVZQmk1NkJKYm0wQ0ZEWDFZZnRQNW5GOURUQWx3T2sxNzE0TUh1?=
- =?utf-8?B?am5BVk4yYTNzTUc5bldoWE5MUTZOL2dibnFFS2VVS2p3Mnk3V1lsT2dnVnIx?=
- =?utf-8?B?VmZwbHJiMDFtbTRyZHd5SVNUZk04ZVRFcmFselR4RmJGMW1ET05FS2ZIOHZI?=
- =?utf-8?B?cU1xRXFMb3FaV3IwRFYwNk5RcmN2MHFqWXdFNnhCbUM5a1lpbmVmQjZuMnlW?=
- =?utf-8?B?WFRVcUNaU0FWSGpKT3Z1emd6cTdKQzlzTVhjZjFDUmdWR3JqK04xbmtzeXQx?=
- =?utf-8?B?M0VNaEJaRjdLb2x0UWd1ZEhjRkRaNHFRS1RxSDF4dVk2TytFWWJPTkxMUDJB?=
- =?utf-8?B?Z1N2ZmNyN0V5ZDRyVmF6Um5HNm9QVFY4U0ROb2gvUlg2MVJMUXNWQVZBTmNV?=
- =?utf-8?B?RXRyU2N6aGd1ZWcrMW43MGFoTDFzT2k1Y1lJUEZVRGQ4K25UY1l1L1hLeFFS?=
- =?utf-8?B?VThRY2xaMmp3aklBTSthZlhQTlRkaDI1ejV3aTFaYTVsUmpEeXdLWk5HOVBG?=
- =?utf-8?B?RDAxbzlMVHEwZ2xxTkh0c0dJZlE0UUV0R3lkTzI1bGJPVWo0bDROZWVvK1Fa?=
- =?utf-8?B?aFFaaUFlVnJac0pwZHZ5OWxlVXM0bWFNRnBvaHBsWUE3L0ZmNkQyamM2MTli?=
- =?utf-8?B?U1FvRXRIdEZMN1o0ZS9qZjVxYzRQbnBHUW01SWhhTTgwZ09iak40U0xRVlNY?=
- =?utf-8?B?U0RkbnFTbHJlMEloTllSNEFmc3M1byt2RHdWM1c5c2hmUkdQZnVxblR5UXRr?=
- =?utf-8?B?WkJ5Q2hVMzZFbUt6TEZ2WkNZY2QzZlpMcDl1VDgxZGcyUFVCRjZITWYrMFli?=
- =?utf-8?Q?MH76DzlEQO3/TFI1lo6w2v3eGhXAt8d+?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d6c676a-bf89-41f5-4d84-08de858ab638
-X-MS-Exchange-CrossTenant-AuthSource: TY4PR01MB14432.jpnprd01.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eWE0MEFKZTdrbnl2cmU5VEhEUllwSkxaUkx5MDV6ZVpQUGNNN1Y3SUM5V2RX?=
+ =?utf-8?B?UWFhSDR3NmI4RkVrTWtleUozbmxCdU1EUjNXTmlxcE5wdFRLTEpPK3k5ejNH?=
+ =?utf-8?B?REtNWmo0cTlYSVJ5NFVaM3M4d0pRalh4M1Y4Q1VWVFRZeStGZHVkdmVLVmlI?=
+ =?utf-8?B?QnZHYkR0WEQvdTRNY3YvVm1FWlRFNDZFUkxoYkVaK2M1TW5hUk9iRDFQdjE1?=
+ =?utf-8?B?VnRJRmRBZEpLYXg0VlZ1Z1JPWnBmaERXYmIvNkhKdE1heVNGeUxGUis2K2JB?=
+ =?utf-8?B?YUhxbHgyeHhrSjkxS1QwVGlYejVLSU9pbCsyODIyR0ZmSU1maS9sN1RTWldV?=
+ =?utf-8?B?cnhaRi9aRlgzRkhHNGJGbGZYTTFJK2s3dlBaVTVMOG1yajEzbGpiTlNlMEIw?=
+ =?utf-8?B?bGFGYWxNVjgwQWJuMHNydWlSSEtHWEJSbFprQ2M3YmJCdFNKcVVNd24vMytU?=
+ =?utf-8?B?dWIrOXBSeDhhQkQ5bUhFaTV2QlJvLzlPUExNbGRuSkR1MU1Pa0oyc1FIZnQz?=
+ =?utf-8?B?YnJXc3BYaXdIVEtGNmFhYUNiNnRJTFF6Zk9iZ0tKSENVdEhTSngrNCt4N0Rz?=
+ =?utf-8?B?TnZIV2FZdDRNcUIyUWZaZEdiY0E5QnAzc0oyL0J1RytzNHNlUmtScEY2cHRw?=
+ =?utf-8?B?N21ZclBuVG9UZ0FOS2QyYkpqa2VMYjZ5dWJoNGRSbElla0NJbzVQVGI3dFQz?=
+ =?utf-8?B?a3dnWjI5NTFkYUttSGZJZDBDM0JuZDAvNFF5WDJxM0IyVnFtNDd4bXdXQXBi?=
+ =?utf-8?B?bkNzWWh3ZWlkZTVpUVUxRERKTENyRzJPT2djNElhUy9xRkZDYVZlNmplZWk0?=
+ =?utf-8?B?K2JDOHF6dUZKQm16TGh6dFdESDlPNDVYS2cyYkdXQlhlaHR0SWp1NXUwSEg3?=
+ =?utf-8?B?WmFkZyswYzhkNVZRZ1ltbUxtWS83SDN3M2ZFUkhwN3grTXIrcUFKUDN0dy9p?=
+ =?utf-8?B?MFp4NCtKSzlxVmJ2eWdoZEgvditoUFFVWlRKWUcyUTNKVlRkREtLSldaM2Y5?=
+ =?utf-8?B?R0NVci9NblEyVEJaSlBrS0ppcGJhdWd2MVpQd2lUMUZISFZVT0pvcTRSamx2?=
+ =?utf-8?B?K2hYNTc0VUkxQ2ZsRHZrSFpFeFRjdkdrNU52UE85SDIrZzl1MVF3cGNObEI2?=
+ =?utf-8?B?YytWSkpuUUdUdDFPNG5GVitUZFExOVZnR3gxQXFUdkhkVjdUQlJJUHFsbHJs?=
+ =?utf-8?B?dG5FcVBkNUNELzR0dWY3b0NMNVl3UkEzL0daNnQrYk81NlJNcS9lNVV1SDJK?=
+ =?utf-8?B?UUpwMnpadFFvRTV0YzJJZDV5dG41QzM4ekQ2cExqSGlJdjUvd1gwYzR0TUdF?=
+ =?utf-8?B?WTZtWHpVNER0ZkhlTUpDZ2dZbzE1emh0TDg1R05oMG05bXkwR1QxNzlnV05o?=
+ =?utf-8?B?Yk4vMlJkZ2k1VFNvK3hVTTF0YmZROVk4ZlRRSHk3dW1KOVNrZHFLdzJLT1dY?=
+ =?utf-8?B?OE45RkVqKyttUEozbldaTHVaTnJmaXdPMGgyMUpmTmxvRlNUUmdEaE5JTU5T?=
+ =?utf-8?B?a2dSQW8yK0kzd0hnNkFPWlp0VUg1dkRzSlMzR1NzMkNCeEE1TFRvYUsxK09O?=
+ =?utf-8?B?Wjk4cDd3d0JSTXZleW1FV2tEU0FHeExlUFFSaVFWRWZPemxTUXdmVHF6N1dx?=
+ =?utf-8?B?Sk5GeXlCSFNMT2Nhcjk3TDBKbUFEWk4reVBGNjlaN05CQUFxSzRCWG9KMHZC?=
+ =?utf-8?B?NkJuMWgrbHU4WXFLRkt5NXVLbmwvMDJWSWxpaFIyaVFTaDlZRGMyS1VHYTJC?=
+ =?utf-8?B?TFU1dlRxb2U1TExhbWxKaE1wR0dWS09paFNzRU9JYXNxSW9IalVHSTZHYU8r?=
+ =?utf-8?B?MHUvQVZRNVFVWUNwRnRNRHc3UEFIL3cwcmp5c2dPZGUxTkNUWHlkQXRTTzFT?=
+ =?utf-8?B?V0dmdnU4RThOalJIQlppRURSVTlYR0JiKzFnN2tFa2ppaGhBN1U2OTcrcEF2?=
+ =?utf-8?B?U0p2bmp2VnBjT09ydHpERWt0NFB2UVpZYVRWQWN3WlF4eFBQdGh4cGFMcWEy?=
+ =?utf-8?B?SlpCWWZwVnlibDZUVU1CaW5SeDdwWCtWTmVJa2VHYVROb291YzZiVmVCSGEw?=
+ =?utf-8?B?aHJnWi9FVE1mMHp4bnB5SklLMWV5K215SjgzeHhEMWt0MC8rWlVGZk04c1hQ?=
+ =?utf-8?B?N3lWS09tclZYMkY2L2E1VXg1dkhlV2VpMC9JRlVWbGxWUWFaWXd6VUpmWDNk?=
+ =?utf-8?B?QUVwNU8vdzduTnpOYzBLWDhXWUNrRW9LbktvdDcvMmtnMGU0LzFackFnVFg5?=
+ =?utf-8?B?VThRdHNzVEdWZEZUNDN3aXZwVDJJekQvQmZxQzhrMVh3UXhSdXRaNktNU2hN?=
+ =?utf-8?B?aU45SnB2TlNpTzNYMGZSTnFpV3FkRVZ4UkpPSmpmbDA5V2NrWkszdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6476308b-3c3c-4fea-007d-08de851e3846
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 07:39:54.5613 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 18:43:17.5340 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB15020
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sqqhFXm1Op2RyvWcWwIMgzzmL9Y1WL6uN31J4h6Z+LOVi0c1Rx5tyJ3NW5sCjco2Ts8JR57/GI3CkO9eoYVLCA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7987
 X-Mailman-Approved-At: Thu, 19 Mar 2026 09:46:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -195,233 +171,228 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------WTF63Vqr7bBKenqCjcQYzCZV
-Content-Type: multipart/mixed; boundary="------------EvTQqknfvxLifdCqkPalaazv";
- protected-headers="v1"
-From: Shengyu Qu <wiagn233@outlook.com>
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: wiagn233@outlook.com, Alex Hung <alex.hung@amd.com>,
- Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>
-Message-ID: <c0cabdf5-1f1c-4435-b848-d55483d8cd3a@outlook.com>
-Subject: Re: [RFC PATCH 00/10] CSC Colorop with COLOR_RANGE and COLOR_ENCODING
-References: <20260317160350.229028-1-harry.wentland@amd.com>
-In-Reply-To: <20260317160350.229028-1-harry.wentland@amd.com>
 
---------------EvTQqknfvxLifdCqkPalaazv
-Content-Type: multipart/mixed; boundary="------------VWm7RvLpPHIE5z6dCC50w2zq"
 
---------------VWm7RvLpPHIE5z6dCC50w2zq
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+On 3/18/2026 2:31 PM, Joel Fernandes wrote:
+> 
+> 
+> On 3/18/2026 8:40 AM, Alice Ryhl wrote:
+>> On Tue, Mar 17, 2026 at 04:17:10PM -0400, Joel Fernandes wrote:
+>>> Add a new module `kernel::interop::list` for working with C's doubly
+>>> circular linked lists. Provide low-level iteration over list nodes.
+>>>
+>>> Typed iteration over actual items is provided with a `clist_create`
+>>> macro to assist in creation of the `CList` type.
+>>>
+>>> Cc: Nikola Djukic <ndjukic@nvidia.com>
+>>> Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+>>> Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+>>> Acked-by: Alexandre Courbot <acourbot@nvidia.com>
+>>> Acked-by: Gary Guo <gary@garyguo.net>
+>>> Acked-by: Miguel Ojeda <ojeda@kernel.org>
+>>> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
+>>> ---
+>>>  MAINTAINERS                 |   8 +
+>>>  rust/helpers/helpers.c      |   1 +
+>>>  rust/helpers/list.c         |  17 ++
+>>>  rust/kernel/interop.rs      |   9 +
+>>>  rust/kernel/interop/list.rs | 342 ++++++++++++++++++++++++++++++++++++
+>>>  rust/kernel/lib.rs          |   2 +
+>>>  6 files changed, 379 insertions(+)
+>>>  create mode 100644 rust/helpers/list.c
+>>>  create mode 100644 rust/kernel/interop.rs
+>>>  create mode 100644 rust/kernel/interop/list.rs
+>>>
+>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>> index 4bd6b538a51f..e847099efcc2 100644
+>>> --- a/MAINTAINERS
+>>> +++ b/MAINTAINERS
+>>> @@ -23251,6 +23251,14 @@ T:	git https://github.com/Rust-for-Linux/linux.git alloc-next
+>>>  F:	rust/kernel/alloc.rs
+>>>  F:	rust/kernel/alloc/
+>>>  
+>>> +RUST [INTEROP]
+>>> +M:	Joel Fernandes <joelagnelf@nvidia.com>
+>>> +M:	Alexandre Courbot <acourbot@nvidia.com>
+>>> +L:	rust-for-linux@vger.kernel.org
+>>> +S:	Maintained
+>>> +T:	git https://github.com/Rust-for-Linux/linux.git interop-next
+>>> +F:	rust/kernel/interop/
+>>> +
+>>>  RUST [NUM]
+>>>  M:	Alexandre Courbot <acourbot@nvidia.com>
+>>>  R:	Yury Norov <yury.norov@gmail.com>
+>>> diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
+>>> index a3c42e51f00a..724fcb8240ac 100644
+>>> --- a/rust/helpers/helpers.c
+>>> +++ b/rust/helpers/helpers.c
+>>> @@ -35,6 +35,7 @@
+>>>  #include "io.c"
+>>>  #include "jump_label.c"
+>>>  #include "kunit.c"
+>>> +#include "list.c"
+>>>  #include "maple_tree.c"
+>>>  #include "mm.c"
+>>>  #include "mutex.c"
+>>> diff --git a/rust/helpers/list.c b/rust/helpers/list.c
+>>> new file mode 100644
+>>> index 000000000000..18095a5593c5
+>>> --- /dev/null
+>>> +++ b/rust/helpers/list.c
+>>> @@ -0,0 +1,17 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>> +
+>>> +/*
+>>> + * Helpers for C circular doubly linked list implementation.
+>>> + */
+>>> +
+>>> +#include <linux/list.h>
+>>> +
+>>> +__rust_helper void rust_helper_INIT_LIST_HEAD(struct list_head *list)
+>>> +{
+>>> +	INIT_LIST_HEAD(list);
+>>> +}
+>>> +
+>>> +__rust_helper void rust_helper_list_add_tail(struct list_head *new, struct list_head *head)
+>>> +{
+>>> +	list_add_tail(new, head);
+>>> +}
+>>> diff --git a/rust/kernel/interop.rs b/rust/kernel/interop.rs
+>>> new file mode 100644
+>>> index 000000000000..b88140cf76dc
+>>> --- /dev/null
+>>> +++ b/rust/kernel/interop.rs
+>>> @@ -0,0 +1,9 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>> +
+>>> +//! Infrastructure for interfacing Rust code with C kernel subsystems.
+>>> +//!
+>>> +//! This module is intended for low-level, unsafe Rust infrastructure code
+>>> +//! that interoperates between Rust and C. It is NOT for use directly in
+>>> +//! Rust drivers.
+>>> +
+>>> +pub mod list;
+>>> diff --git a/rust/kernel/interop/list.rs b/rust/kernel/interop/list.rs
+>>> new file mode 100644
+>>> index 000000000000..328f6b0de2ce
+>>> --- /dev/null
+>>> +++ b/rust/kernel/interop/list.rs
+>>> @@ -0,0 +1,342 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>> +
+>>> +//! Rust interface for C doubly circular intrusive linked lists.
+>>> +//!
+>>> +//! This module provides Rust abstractions for iterating over C `list_head`-based
+>>> +//! linked lists. It should only be used for cases where C and Rust code share
+>>> +//! direct access to the same linked list through a C interop interface.
+>>> +//!
+>>> +//! Note: This *must not* be used by Rust components that just need a linked list
+>>> +//! primitive. Use [`kernel::list::List`] instead.
+>>> +//!
+>>> +//! # Examples
+>>> +//!
+>>> +//! ```
+>>> +//! use kernel::{
+>>> +//!     bindings,
+>>> +//!     clist_create,
+>>> +//!     types::Opaque,
+>>> +//! };
+>>> +//! # // Create test list with values (0, 10, 20) - normally done by C code but it is
+>>> +//! # // emulated here for doctests using the C bindings.
+>>> +//! # use core::mem::MaybeUninit;
+>>> +//! #
+>>> +//! # /// C struct with embedded `list_head` (typically will be allocated by C code).
+>>> +//! # #[repr(C)]
+>>> +//! # pub struct SampleItemC {
+>>> +//! #     pub value: i32,
+>>> +//! #     pub link: bindings::list_head,
+>>> +//! # }
+>>> +//! #
+>>> +//! # let mut head = MaybeUninit::<bindings::list_head>::uninit();
+>>> +//! #
+>>> +//! # let head = head.as_mut_ptr();
+>>> +//! # // SAFETY: `head` and all the items are test objects allocated in this scope.
+>>> +//! # unsafe { bindings::INIT_LIST_HEAD(head) };
+>>> +//! #
+>>> +//! # let mut items = [
+>>> +//! #     MaybeUninit::<SampleItemC>::uninit(),
+>>> +//! #     MaybeUninit::<SampleItemC>::uninit(),
+>>> +//! #     MaybeUninit::<SampleItemC>::uninit(),
+>>> +//! # ];
+>>> +//! #
+>>> +//! # for (i, item) in items.iter_mut().enumerate() {
+>>> +//! #     let ptr = item.as_mut_ptr();
+>>> +//! #     // SAFETY: `ptr` points to a valid `MaybeUninit<SampleItemC>`.
+>>> +//! #     unsafe { (*ptr).value = i as i32 * 10 };
+>>> +//! #     // SAFETY: `&raw mut` creates a pointer valid for `INIT_LIST_HEAD`.
+>>> +//! #     unsafe { bindings::INIT_LIST_HEAD(&raw mut (*ptr).link) };
+>>> +//! #     // SAFETY: `link` was just initialized and `head` is a valid list head.
+>>> +//! #     unsafe { bindings::list_add_tail(&mut (*ptr).link, head) };
+>>> +//! # }
+>>> +//!
+>>> +//! //
+>>> +//! /// Rust wrapper for the C struct.
+>>> +//! ///
+>>> +//! /// The list item struct in this example is defined in C code as:
+>>> +//! ///
+>>> +//! /// ```c
+>>> +//! /// struct SampleItemC {
+>>> +//! ///     int value;
+>>> +//! ///     struct list_head link;
+>>> +//! /// };
+>>> +//! /// ```
+>>> +//! #[repr(transparent)]
+>>> +//! pub struct Item(Opaque<SampleItemC>);
+>>> +//!
+>>> +//! impl Item {
+>>> +//!     pub fn value(&self) -> i32 {
+>>> +//!         // SAFETY: `Item` has same layout as `SampleItemC`.
+>>> +//!         unsafe { (*self.0.get()).value }
+>>> +//!     }
+>>> +//! }
+>>> +//!
+>>> +//!
+>>> +//! // Create typed [`CList`] from sentinel head.
+>>> +//! // SAFETY: `head` is valid and initialized, items are `SampleItemC` with
+>>> +//! // embedded `link` field, and `Item` is `#[repr(transparent)]` over `SampleItemC`.
+>>> +//! let list = clist_create!(unsafe { head, Item, SampleItemC, link });
+>>
+>> Bad news.
+>>
+>> My build triggers this warning:
+>>
+>> error: statement has unnecessary safety comment
+>>     --> rust/doctests_kernel_generated.rs:7103:1
+>>      |
+>> 7103 | let list = clist_create!(unsafe { head, Item, SampleItemC, link });
+>>      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>>      |
+>> help: consider removing the safety comment
+>>     --> rust/doctests_kernel_generated.rs:7101:4
+>>      |
+>> 7101 | // SAFETY: `head` is valid and initialized, items are `SampleItemC` with
+>>      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>>      = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#unnecessary_safety_comment
+>>      = note: `-D clippy::unnecessary-safety-comment` implied by `-D warnings`
+>>      = help: to override `-D warnings` add `#[allow(clippy::unnecessary_safety_comment)]`
+>>
+>> This probably needs to be:
+>>
+>> 	unsafe { clist_create!(head, Item, SampleItemC, link) }
+> 
+> Oops, I sometimes run clippy wrong. I did: "CLIPPY=1 make" instead of "make
+> CLIPPY=1", the reason is habit. I have been doing "LLVM=1 make" for llvm
+> builds since many years.
+> 
+> Anyway, the fix is simple, just need to do // SAFETY*: as Miguel suggests
+> here, instead of // SAFETY:
+> https://lore.kernel.org/all/CANiq72kEnDyUpnWMZmheJytjioeiJUK_C-yQJk77dPid89LExw@mail.gmail.com/
+> 
+> Should be easy to do on apply if Danilo doesn't mind. :) I verified on my
+> setup that it fixes it.
+Here is the clist fixup fixing both the clippy errors in list.rs:
 
-SGVsbG8sDQoNClBlcnNvbmFsbHkgSSB0aGluayJjb2xvciBzcGFjZSBjb252ZXJzaW9uIiBp
-cyBxdWl0ZSBjb25mdXNpbmcuIFdoYXQgDQphYm91dCB1c2luZyAiY29sb3IgZm9ybWF0IGNv
-bnZlcnNpb24iKHNhbWUgYXMgTmljb2xhcycgcGF0Y2ggc2VyaWVzKSBvciANCmp1c3QgImNv
-bG9yIGVuY29kaW5nIGNvbnZlcnNpb24iIGluc3RlYWQ/DQoNCkJlc3QgcmVnYXJkcywNClNo
-ZW5neXUNCg0K5ZyoIDIwMjYvMy8xOCAwOjAzLCBIYXJyeSBXZW50bGFuZCDlhpnpgZM6DQo+
-IFdoZW4gd2UgbWVyZ2VkIHRoZSBkcm1fcGxhbmUgY29sb3IgcGlwZWxpbmUgQVBJIHRoZSBt
-YWpvciBnYXANCj4gdGhhdCBleGlzdGVkIHdhcyB0aGUgbGFjayBvZiBhIGNvbG9yLXNwYWNl
-IGNvbnZlcnNpb24gY29sb3JvcC4NCj4gV2UgZGVwcmVjYXRlZCBhbnkgbGVnYWN5IGRybV9w
-bGFuZSBjb2xvciBwcm9wZXJ0aWVzLCB3aGljaA0KPiBtZWFucyB0aGF0IHRoZSBDT0xPUl9S
-QU5HRSBhbmQgQ09MT1JfRU5DT0RJTkcgcHJvcGVydGllcyBjYW4ndA0KPiBiZSB1c2VkIHdp
-dGggdGhlIENPTE9SX1BJUEVMSU5FIHByb3BlcnR5IG9uIGEgZHJtX3BsYW5lLiBJbg0KPiBw
-cmFjdGljZSB0aGlzIG1lYW5zIHRoYXQgd2UgY2FuJ3QgdXNlIGEgQ09MT1JfUElQRUxJTkUg
-b24NCj4gWUNiQ3IgZW5jb2RlZCBmcmFtZWJ1ZmZlcnMuDQo+IA0KPiBUaGlzIHBhdGNoc2V0
-IGFkZHMgYSBDU0MgY29sb3JvcCB3aXRoIHRoZSBDT0xPUl9SQU5HRSBhbmQNCj4gQ09MT1Jf
-RU5DT0RJTkcgcHJvcGVydGllcyBhbmQgaW1wbGVtZW50cyBzdXBwb3J0IGluIFZLTVMgYW5k
-DQo+IGFtZGdwdS4NCj4gDQo+IEFuIGFsdGVybmF0ZSB3YXkgb2YgcG9zc2libHkgcmVwcmVz
-ZW50aW5nIHRoaXMgaGFzIGJlZW4gcHJvcG9zZWQNCj4gaGVyZToNCj4gaHR0cHM6Ly9wYXRj
-aHdvcmsuZnJlZWRlc2t0b3Aub3JnL3BhdGNoLzcwOTg2MA0KPiANCj4gVGhpcyBjb2RlIGhh
-cyBiZWVuIHRlc3RlZCB3aXRoIElHVCBhbmQgYW4gZXhwZXJpbWVudGFsIEtXaW4gYnJhbmNo
-Lg0KPiANCj4gSUdUIGJyYW5jaDoNCj4gaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3Jn
-L2h3ZW50bGFuZC9pZ3QtZ3B1LXRvb2xzLy0vdHJlZS9jc2MtY29sb3JvcA0KPiANCj4gS1dp
-biBicmFuY2g6DQo+IGh0dHBzOi8vaW52ZW50LmtkZS5vcmcvaHdlbnRsYW4va3dpbi8tL3Ry
-ZWUvY3NjLTNkbHV0DQo+IA0KPiBUaGUga2VybmVsIGJyYW5jaCBjb250YWluaW5nIHRoZXNl
-IGNoYW5nZXMsIGJhc2VkIG9uIGRybS1taXNjLW5leHQNCj4gY2FuIGJlIGZvdW5kIGF0Og0K
-PiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvaHdlbnRsYW5kL2xpbnV4Ly0vdHJl
-ZS9jc2MtY29sb3JvcA0KPiANCj4gSW4gb3JkZXIgdG8gc3VjY2Vzc2Z1bGx5IHVzZSB0aGlz
-IGJyYW5jaCB5b3UgbWlnaHQgbmVlZCBhIGZldw0KPiBidWdmaXhlcy4gVGhlIGtlcm5lbCB0
-cmVlIGNvbnRhaW5pbmcgdGhvc2UgZml4ZXMgcGx1cyB0aGVzZSBwYXRjaGVzDQo+IGNhbiBi
-ZSBmb3VuZCBhdDoNCj4gaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2h3ZW50bGFu
-ZC9saW51eC8tL3RyZWUvY3NjLWNvbG9yb3AtYWxsDQo+IA0KPiBGdXJ0aGVyIGJhY2tncm91
-bmQgb24gdGhpcyB3b3JrIGNhbiBiZSBmb3VuZCBhdDoNCj4gaHR0cHM6Ly9od2VudGxhbmQu
-Z2l0aHViLmlvLzIwMjYvMDMvMTAvcGxhbmUtY29sb3ItcGlwZWxpbmUtY3NjLTNkLWx1dC1r
-d2luLmh0bWwNCj4gDQo+IENjOiBBbGV4IEh1bmcgPGFsZXguaHVuZ0BhbWQuY29tPg0KPiBD
-YzogRGFuaWVsIFN0b25lIDxkYW5pZWxzQGNvbGxhYm9yYS5jb20+DQo+IENjOiBDaGFpdGFu
-eWEgS3VtYXIgQm9yYWggPGNoYWl0YW55YS5rdW1hci5ib3JhaEBpbnRlbC5jb20+DQo+IENj
-OiBVbWEgU2hhbmthciA8dW1hLnNoYW5rYXJAaW50ZWwuY29tPg0KPiBDYzogTG91aXMgQ2hh
-dXZldCA8bG91aXMuY2hhdXZldEBib290bGluLmNvbT4NCj4gQ2M6IE1lbGlzc2EgV2VuIDxt
-d2VuQGlnYWxpYS5jb20+DQo+IENjOiBTaW1vbiBTZXIgPGNvbnRhY3RAZW1lcnNpb24uZnI+
-DQo+IA0KPiBIYXJyeSBXZW50bGFuZCAoMTApOg0KPiAgICBkcm0vY29sb3JvcDogQWRkIENT
-QyBjb2xvcm9wIHR5cGUNCj4gICAgZHJtL2NvbG9yb3A6IEFkZCBDU0MgY29sb3JvcCBpbml0
-aWFsaXphdGlvbiBoZWxwZXINCj4gICAgZHJtL2F0b21pYzogQWRkIENTQyBjb2xvcm9wIHN0
-YXRlIGhhbmRsaW5nDQo+ICAgIGRybS92a21zOiBBZGQgQ1NDIGNvbG9yb3Agc3VwcG9ydA0K
-PiAgICBkcm0vdmttczogQWRkIGF0b21pYyBjaGVjayBhbmQgbWF0cml4IGhhbmRsaW5nIGZv
-ciBDU0MgY29sb3JvcA0KPiAgICBkcm0vYW1kL2Rpc3BsYXk6IEltcGxlbWVudCBDU0MgY29s
-b3JvcCBzdXBwb3J0DQo+ICAgIGRybS9hbWQvZGlzcGxheTogVXNlIEdBTUNPUiBmb3IgZmly
-c3QgVEYgaWYgQ1NDIGlzIHVzZWQNCj4gICAgZHJtL2FtZC9kaXNwbGF5OiBDaGVjayBDU0Mg
-Y29sb3JvcCBieXBhc3MgYmVmb3JlIHByb2dyYW1taW5nDQo+ICAgIGRybS9hbWQvZGlzcGxh
-eTogQ2hlY2sgYWN0dWFsIHN0YXRlIGR1cmluZyBjb21taXRfdGFpbA0KPiAgICBkcm0vYW1k
-L2Rpc3BsYXk6IFNldCBjb2xvcl9zcGFjZSB0byBwbGFuZV9pbmZvcw0KPiANCj4gICAuLi4v
-Z3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCAgMTQgKystDQo+
-ICAgLi4uL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fY29sb3IuYyAgIHwgMTE1
-ICsrKysrKysrKysrKysrKysrLQ0KPiAgIC4uLi9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
-Z3B1X2RtX2NvbG9yb3AuYyB8ICAyNSArKystDQo+ICAgZHJpdmVycy9ncHUvZHJtL2RybV9h
-dG9taWMuYyAgICAgICAgICAgICAgICAgIHwgICA2ICsNCj4gICBkcml2ZXJzL2dwdS9kcm0v
-ZHJtX2F0b21pY191YXBpLmMgICAgICAgICAgICAgfCAgIDggKysNCj4gICBkcml2ZXJzL2dw
-dS9kcm0vZHJtX2NvbG9yb3AuYyAgICAgICAgICAgICAgICAgfCAgOTEgKysrKysrKysrKysr
-KysNCj4gICBkcml2ZXJzL2dwdS9kcm0vdmttcy92a21zX2NvbG9yb3AuYyAgICAgICAgICAg
-fCAgNjQgKysrKysrKy0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS92a21zL3ZrbXNfY29tcG9z
-ZXIuYyAgICAgICAgICB8ICAgNSArDQo+ICAgZHJpdmVycy9ncHUvZHJtL3ZrbXMvdmttc19w
-bGFuZS5jICAgICAgICAgICAgIHwgIDUwICsrKysrKystDQo+ICAgaW5jbHVkZS9kcm0vZHJt
-X2NvbG9yb3AuaCAgICAgICAgICAgICAgICAgICAgIHwgIDM5ICsrKysrKw0KPiAgIGluY2x1
-ZGUvdWFwaS9kcm0vZHJtX21vZGUuaCAgICAgICAgICAgICAgICAgICB8ICAgMSArDQo+ICAg
-MTEgZmlsZXMgY2hhbmdlZCwgMzg4IGluc2VydGlvbnMoKyksIDMwIGRlbGV0aW9ucygtKQ0K
-PiANCj4gLS0NCj4gMi41My4wDQo+IA0KDQo=
---------------VWm7RvLpPHIE5z6dCC50w2zq
-Content-Type: application/pgp-keys; name="OpenPGP_0xE3520CC91929C8E7.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xE3520CC91929C8E7.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+https://git.kernel.org/pub/scm/linux/kernel/git/jfern/linux.git/commit/?h=nova/mm&id=226e1c75932aec3fde66b4b4a36abd8de919c6da
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Thanks.
 
-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
-lMSoVV3z1s8dA1DK95ykSdIFtVZT
-=3Dr4B8
------END PGP PUBLIC KEY BLOCK-----
-
---------------VWm7RvLpPHIE5z6dCC50w2zq--
-
---------------EvTQqknfvxLifdCqkPalaazv--
-
---------------WTF63Vqr7bBKenqCjcQYzCZV
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-wsF5BAABCAAjFiEET/yoGP3p5Zl+RKVuX75KBAfJsRkFAmm7qEYFAwAAAAAACgkQX75KBAfJsRlR
-hw/8CH5+8cWku+YmX/wRw9R7m7dU7kc0+HLfkQNfEONDyY6Dqd7JWGgHcptWbyOGICXMCiJNmVFt
-26VitA585FPeXnGAnJRrGWzQW/iXNgZSngchdDhowMkPbiLC48yppEjm6Ue6mLU8IX5kOOsGR1eO
-O+0p1L55VjphdvjVNlO3t7JsmFkU6+CA2AshCufT95tzcKRGr6GFB0uL2YmatcJSBi3jMeh+ClaR
-DwbhENxZvuzIzcuQZt7uVWPrJSZBD+CSKX1bntAYj9NImkZ5UXJh47Hwkj+EPlbEzZbwhpLK+Pd/
-ZBJfr+iIVzEGYoB8N8UBLHLHbAufNL5Jh0sGKNimsZrK1BzwWjOYHt6ezlRIeqr5GHC+1+PO40sn
-gLh2xvGWiO7c1MnoaLjeS9Vo5kWqBjkduG/RG4shaU/XlMWesXuQqlyR70f1gldlRKYp2WxmByZx
-qQXEbwEycgKHIsGC2Rm5bWMh3XES/gsNWmaKaPBt0W18Zbx+B35veyCncrFWjP0w4CDGIjMkyTiy
-wruCOy4HFYXDdSDnnoBOYru3zPX1PLe2+j3sJ7I6tOfBF3uBx18Q+ErRczAzIhXxj7Jod54sf7iN
-z9Mx287IVzkb/ZdWsYKZG7WfOnDJD8HP77cVfCOsU46juwqe+edySyEQWRMolTb4hy6t7pQLgq4l
-01Q=
-=B6/L
------END PGP SIGNATURE-----
-
---------------WTF63Vqr7bBKenqCjcQYzCZV--
