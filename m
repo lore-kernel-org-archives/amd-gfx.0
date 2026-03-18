@@ -4,94 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FEDF107528A
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 09:46:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8356107528B
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 09:46:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DD2E10E93A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7F8810E93E;
 	Thu, 19 Mar 2026 09:46:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hls9sLPd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SP3day0O";
 	dkim-atps=neutral
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
- [74.125.82.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4A9210E715
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 18:57:27 +0000 (UTC)
-Received: by mail-dy1-f170.google.com with SMTP id
- 5a478bee46e88-2c0e158158eso6621eec.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 11:57:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773860247; cv=none;
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A51810E06C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 14:03:59 +0000 (UTC)
+Received: by mail-dl1-f44.google.com with SMTP id
+ a92af1059eb24-124b07e5fe4so375509c88.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 07:03:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773842639; cv=none;
  d=google.com; s=arc-20240605;
- b=g+1S9pxnk+NhXNIBFuKjr+rOF6J+V9jAR1JfknyiWs2I9yi7GHgBStYSYKRI4lrZgo
- AEVlZdSuOfk4sprwCZRr+JZ+s1XLSKwJGLalkVSlkU6dFKVcq/MmsjZZdUbBwTtv/Wzi
- hqw01YwnD1nwFm4IVltCJIFiQ5lmuJIEqyaCYnPW3fBvS5TvfQvrEcsMGvVmIHOAcUza
- eetGjwDE8jocJnVDb5/1JmtyKGfpmF5Km3Vkpkce546Gq/lT0g1KsCX22sqk2us6oURQ
- K3R/3Ubjp5kAO6IV9vAFM5T/p+2Cr/LrRiFPW53bc+iBFNWqJMQ2fJbvZpcLOOzOYS9R
- jhyA==
+ b=SlTfGVH2ePfvyQqTI9z9w/4zad0pTNe6rCvOf3uQd8+gLR9Z4w6Yl3UyuSUkt5iUtR
+ 2QYREwIsGEAanGoiufTtdLRhT/wIioo92NPFGL91xpq+HSaDhRFv/11DGRWQriq9c+lu
+ Iw/YgZZkomIji2tS1t/Ni00SfmDNwI4twoxhamlOP3RN6dmT07axl01/TIzwko2OKvn9
+ j1zOU5sP1EnQCtW0FcYgKlBwM1U0nflwrEth4kOY7JB7SzsHCQHTE6Ts+mrrFrlc3EDO
+ 24EqVWKNBQlha0SSTceR0hIPq6s7+T4ykqMOm1aSEQGYhx7oHvmxOmL70DgAiKGdwVhH
+ NmSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=d3bcHjPGT0Fov9B4KoCksRHw66Y8wxvQ5LjIruDyWqI=;
- fh=adOLyB3887bIPTaZ9N2+olz+84cXiLxoBYszBFcPXvs=;
- b=VO2q1XoVljrHwHED9QRbGyxzG7fReo76as73aq+sMzks2zKzhDckezCQRwi68d2DJq
- gqiAgcKKyH7jWSjO7bXUzt7uSgkF795KgWwUu4Ys5QWIoZwmLdeAvcQ6cY6Rm87lE3TN
- ze57ukJanVFNFl3pf6rvqXjmP2RV6F/2n1eEYMrD5C9u+3/8RDOrihGSxG7b0sKbnwvt
- QH0rrhpJSBKdt0rK7K47tjtHhFLhUtVS7nZjx7Qe4KTtgPJJp/PjRq7lePYES9WoQ5rU
- kRoPyGaY8PpYrIYH5WqDLNF64M9O98sLI8mmJSidWb9fH034i4+GoDx+STivOtzd14Rh
- lwmg==; darn=lists.freedesktop.org
+ bh=k/U8OvDUcJJhqeuFuNoQEHJ2yWsVYBLtuE+GiuKyXfU=;
+ fh=7MQ3oiETcvNXTu5PQtMJjWPd+a4YBoMARpMxLxgDdbI=;
+ b=iSy7HvutW898U+L+OQd8eZblEuM+muZJd0Nrhe4fDgb8AZh/klvFd8522LrtwsRykl
+ gEgli5T0sJCNomQRuNoEpXtvuXfxeVKLqxkE+R1cpJf0XLNCY3X1HgAEAVsb+wJH1rdE
+ aYK8QFMEjhSHxVVDS+Lp3ALRm01i4RlyCDT1BEHAfV17Ix1uKcYTZs/DSnLab1Lnl9bD
+ 5D3R39A9SmRuz3p15Io9RWKM9uRu1A6KhWxUjuVWz+DkRoosyF1VbwlRQ/efH6OGLV5N
+ jGbEAF6/QgKni9qvH/6q+94zirlEXrGdQwtzgZD7mFTk/3ANt+rJeZGE0oeSlvLeBuSn
+ /TAQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773860247; x=1774465047; darn=lists.freedesktop.org;
+ d=gmail.com; s=20230601; t=1773842639; x=1774447439; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=d3bcHjPGT0Fov9B4KoCksRHw66Y8wxvQ5LjIruDyWqI=;
- b=hls9sLPdPRx7gKm2di3aMw2U4eOoEz7UL1WQuwlgmSVnwttmdt5y3dmL6ifcOEIPm6
- vrrOEbeNXy3TVfnEm89bUrAf2dQ2n2Hg7X5bICkUMdC1wuJgnDVthMzkTACUH0dki0Pa
- ba8a7Yr0Qd5tu4BFRsVH/vFH95M2ttgA5ZlLadSrmsZTog02L1DjqGm1IKAk9IyBp3Kf
- 7pq9Uem0z0W1RHuHX3+FZyMXfWHEcl04Ue1fqTnqdjs3o4ftWaGArAH66masDZ8xzSm/
- 4ZPs2eD8zzbFGTW5Tgn7LwbRB+LF5nwVfebtJzIv6vm3rVID9I5dt03Z0uautMoxF6oh
- DK7A==
+ bh=k/U8OvDUcJJhqeuFuNoQEHJ2yWsVYBLtuE+GiuKyXfU=;
+ b=SP3day0Oj1/DjmRsdSyPMUjcp7kcdrq1r2LXRBcppvHqjaVbg2DfE3Tt2aO9sP+SCL
+ FlumoOqH/KiCk+ke+0A+w6l4K+3rQA929h8DWAlc98BtNpAYgAM5ST6OUNaoZMfq3apA
+ trVFMVqhsG6ESM3trF/LoKrJ1/QvbpZqLyM6iG6yLu4oSWMJnwadH7ovP3j6n7oDDf49
+ YDFX1qOuZNNu8rCyHXzZ7857+F1qSq6KrjnCp9mHCnXNjnLWMoK7WT2TN1eg9UpToaiK
+ iZosSFEBYX/VOD5d0F++HRFKCfCqz8wGlL8opS1K+hQsXqLQ9HvqwlLUV5JfyihExxX5
+ IEkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773860247; x=1774465047;
+ d=1e100.net; s=20251104; t=1773842639; x=1774447439;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=d3bcHjPGT0Fov9B4KoCksRHw66Y8wxvQ5LjIruDyWqI=;
- b=pfOj/JQT3TQ7/EWv0vHOnCB5Fjiwqdqz5nttfK4yAfHy6K20aaR1gtgzhvtSSfnj4D
- O0dgH8dl5V8x1ze74crdlW9tuNErRclWk5DqY/qw/RZHWMbPsZLYp82g3c814NbvbC2V
- dlk+7JIHS2hYcCC9FlzqrZx6nt7l7fYLd/QF8SYy7uw2ZyATAXEA5XZzfjX6HCk4P5yb
- itOCZ2ZVnQWrwMxozGc4BiclVJ4P7mjCMSAI3lGpu4hbQNbxawECKYCSSe3OT/9bGmkB
- IkQ4ZXby9i3xcEZATSmon0ghpW/aAjI8HBcRSJ25vuTncRHlUbrYIulJdppja+DPt7cP
- ks8A==
+ bh=k/U8OvDUcJJhqeuFuNoQEHJ2yWsVYBLtuE+GiuKyXfU=;
+ b=KtQfRjLe1+eLv5SUzbmI4phlLZRcS5c13X7n5PrbcQ0XPWLyXLxHLRvadIx88FeX6T
+ +IyfFee2pphAwyAZOU0oCXlPPRBSkaYnidHb+soBQz7exDe1S11O0wplqdhe6ImZwAFc
+ 8xhD6Aj3bUGoXgpcxSAxONYCyHwfPytswUEiAPM35D9YMH3EsU/lfLPu85uVPdv057ci
+ FkLp4W8NGoeZ+o5D224FkSGp0GHQLHntvTI13vp4xiA7tCJu61LOxR8IFngE/5IP0CUg
+ W9xRe1HVpbed5eLoBS9wHX/D0QKr4urXm8w5LqY7F/Iuk9eFNMsN1ow3CXgjOa51QaTp
+ D8yg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVEtxrj6FlNV8c3LWc1zxrLjt1+hu/6oKZI8HxKOmTZc3rjTRMMNM3lYselCIzgLQJlSYP6uB1r@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxHgOT3OBZyOMshhkFu0wni+etvDLJ3quYSsfospQv64kPBWySg
- WokbpaqNnPm9xKkCVNPysrqzrY9Lj8o3PqsVH07DNDKZ5xx5RKWDPvcqe9BN2lnV3Uebnadq3ua
- Db2ZwjHCMKTmMP0iZoUfMobIfenvVzik=
-X-Gm-Gg: ATEYQzxsq5u2RRxIfLSEvNdgDvy9o7mvbJQ1LanbGcXsJgy6XdIjHKwvNyhqC/PWR5n
- fZv6tOPq1dgUhYJ2UZZtilBytGajs6LSEe/aPYTjBqt0RKSFZdCDsB5YVNxE9W36J65J5GVOIsV
- rgYgWJOoABdB2me8yXbCdO5r4Ekm05O+08ltQEbDM6dX6uHmc0GmYSV9faNyUwvtHWGzHgRiMUd
- DC2vc9m4HIiFoh7Iu4JofkrQlX8gvb+In9QwQbyUaNtG9oZCeWN+OKzqzwah2X2rrPBeU+YfITt
- uoICItcTBbSlvMnad2ZShaso1WQqp9tyGz9C1CI3b6809srt8zt3xBU3MmkR9dbx/IpcLQuScSh
- WC7xoKAuz4lvBQ2O6XavjL9g=
-X-Received: by 2002:a05:7300:f191:b0:2be:9886:d4ff with SMTP id
- 5a478bee46e88-2c0e50fefe8mr982481eec.2.1773860246896; Wed, 18 Mar 2026
- 11:57:26 -0700 (PDT)
+ AJvYcCXTI9xdBHnXH4cIvWQl6+u/cNtOE9zN80p1VuZYXoINw1TN53u0EAkLfqiigxdms7DV0NBBnia/@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YznHcVIjXYlNJna2TYBKxy1v4yGkkrPkjXMBCL3yERD1xVBoQVu
+ rX5AwULm7F1Anc2H5VdQbnhqeSqjXAmZBugU6pfomuIiYAawK8hWHBiAfI6MiL4N3qOsn4snHc0
+ +L5PjQBzeLpbJavqVYvbgm79B5d5eD0g=
+X-Gm-Gg: ATEYQzx+s9FTK0ijih9PPm6IEmzD3xudLV7LFosPTcZ02XCYXZa9wSfNB/ftW4U6y4n
+ HmOXMwcMkRLOZBFHyaOhfYTnJ/cDb1zgvGkJGtfJU8DuHXNADSdYT70UeNUtDreJPtx83zQ0Ibj
+ A3rh2QbtUcQe34tEcC+dLiIqAUpHolHfxPQiGMSH1AMLczw0dqVq9CBAc9tZhcQi48Two3HKWFY
+ Hp0m0QncW15y0FTIG16P6ITNDZpVuIN4hieAmqBDjV5eCpY4XsIw8ru4QqkdVRQGrPjOKkQdEt2
+ Y5U2Do2RNBuqXDwTGsYxF1wE446RU5GXHqYDD4duv7saWXgPgQYrk5qbGQAVqeKntJZjiOwOoPb
+ IHwPyz+JuztwlD/QQ2pt1KTg=
+X-Received: by 2002:a05:7301:1e92:b0:2bd:d8e6:90a0 with SMTP id
+ 5a478bee46e88-2c0e5071063mr859030eec.3.1773842638629; Wed, 18 Mar 2026
+ 07:03:58 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260317201710.934932-1-joelagnelf@nvidia.com>
  <20260317201710.934932-2-joelagnelf@nvidia.com> <abqdUBqchnVFo7Qk@google.com>
- <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
-In-Reply-To: <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
+In-Reply-To: <abqdUBqchnVFo7Qk@google.com>
 From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 18 Mar 2026 19:57:14 +0100
-X-Gm-Features: AaiRm52hIUr0vzgoavDmbzyJmg3hgU_AUfgRxMfUiR8zNc5S5daML4wMbNTdaCA
-Message-ID: <CANiq72nZKx7pw_rZK2mHHvR=TaeGvMRvg5GTHOd58X17oyxieg@mail.gmail.com>
+Date: Wed, 18 Mar 2026 15:03:46 +0100
+X-Gm-Features: AaiRm52jPRFXXf03k9diVYR0ZGnNxGkoAlPwk0mwDAEpyLjxWwYifunzB4OTgFU
+Message-ID: <CANiq72koBNCeXFh7uX5GHRJoAu7fyhttDHHN0WZzx9Q74F=mWg@mail.gmail.com>
 Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
  interface
-To: Joel Fernandes <joelagnelf@nvidia.com>,
- =?UTF-8?Q?Alejandra_Gonz=C3=A1lez?= <blyxyas@gmail.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, linux-kernel@vger.kernel.org, 
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Joel Fernandes <joelagnelf@nvidia.com>, linux-kernel@vger.kernel.org, 
  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Gary Guo <gary@garyguo.net>, 
  =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
@@ -142,30 +139,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 7:31=E2=80=AFPM Joel Fernandes <joelagnelf@nvidia.c=
-om> wrote:
+On Wed, Mar 18, 2026 at 1:40=E2=80=AFPM Alice Ryhl <aliceryhl@google.com> w=
+rote:
 >
-> Anyway, the fix is simple, just need to do // SAFETY*: as Miguel suggests
-> here, instead of // SAFETY:
-> https://lore.kernel.org/all/CANiq72kEnDyUpnWMZmheJytjioeiJUK_C-yQJk77dPid=
-89LExw@mail.gmail.com/
+> My build triggers this warning:
 
-So, to clarify, I suggested it as a temporary thing we could do if we
-want to use that "fake `unsafe` block in macro matcher" pattern more
-and more.
+I reported that in the previous version -- Joel, you said you used the
+workaround I mentioned, but I don't see it here.
 
-i.e. if we plan to use the pattern more, then I am happy to ask
-upstream if it would make sense for Clippy to recognize it (or perhaps
-it is just a false negative instead of a false positive, given
-`impl_device_context_deref`), so that we don't need a hacked safety
-tag (Cc'ing Alejandra).
+Did you decide otherwise and retested and you couldn't reproduce it?
 
-But if we could put it outside, then we wouldn't need any of that.
-Unsafe macros support could help perhaps here, which I have had it in
-our wishlist too (https://github.com/Rust-for-Linux/linux/issues/354),
-but I guess the fake block could still be useful to make only certain
-macro arms unsafe? (Perhaps Rust could allow `unsafe` just at the
-start of each arm for that...).
+It is fine either way -- I am asking because if we decide to keep and
+use that "fake `unsafe` block" pattern, then I should create the issue
+to ask Clippy to support it.
+
+Thanks!
 
 Cheers,
 Miguel
