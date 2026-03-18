@@ -4,53 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0F4010775E8
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 16:24:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C458910775E8
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 16:29:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB1FA10E459;
-	Wed, 18 Mar 2026 16:24:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35A7910E462;
+	Wed, 18 Mar 2026 16:29:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="CVizvEnR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DgT2k0w4";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51E9210E42C;
- Wed, 18 Mar 2026 16:24:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
- Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=GYf3S03ywfT6Zbn0KxwuVTuTbGZ2BA4UOnyb4AVQNBI=; b=CVizvEnRUFo2Ee+xY8YJm6Lcvd
- QvSnxQ9eERPBUJWtt5t0FeNneLAnLrqygEEduQnZpjNymoiSIXzjrgiUTVN9N9I+IN37KRuwTrt4C
- XGA7IJP1fn9gW6amv9eJJO64ZftWQA6S4IUOHsqEv+5SB4NjTvtnsqL12LV6e0szUqhTQXzs2TaW/
- L84MDrmI3Zw+CtgljYXwen2tZgmahrkjt4YoUR8ADCIxzHIj/4p3wTfpk5HES+bdJsFlEVTbhVuQv
- r8KUumH7th8U8kvC6wPbfRf1XgXhBnhxMdxzD91VnWktRnnTDvDys55eS/G8cLVi+lEAX+7Ptf6MO
- rHLbTLvg==;
-Received: from [186.208.74.38] (helo=killbill.home)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1w2tgm-002siJ-Eg; Wed, 18 Mar 2026 17:24:08 +0100
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Simon Ser <contact@emersion.fr>, Uma Shankar <uma.shankar@intel.com>,
- Xaver Hugl <xaver.hugl@kde.org>, amd-gfx@lists.freedesktop.org,
- kernel-dev@igalia.com, dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amd/display: use plane color_mgmt_changed to track
- colorop changes
-Date: Wed, 18 Mar 2026 13:12:38 -0300
-Message-ID: <20260318162348.299807-3-mwen@igalia.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260318162348.299807-1-mwen@igalia.com>
-References: <20260318162348.299807-1-mwen@igalia.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57BB010E45D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 16:29:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id C25F161119
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 16:29:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 608EDC2BCC9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 16:29:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773851344;
+ bh=PJ8mloUGDA8ehxs/h4FzGNYzy8GviZKual04ClMGe4Y=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=DgT2k0w44MSp7UcVOrGuwuhsFQHI+gCGXnvQPieMCYBeU0YJRpRR+UqIOGFEBLvsc
+ Cruk707J8mgIe0etqcvafy6FyVVTSp+BnlwypK93FsXzSaV8n+Motv35aR17Tt4+GO
+ hEG6Znfa+B5wifyHOFJVf6F8gJqwts9YaxEcNMtINR9KcTsxj0MaZnpPlUFR3/v3PW
+ UVPdXrdKcQxZ71gYrchrhatXNrKJqqjFI7CKwZ3F8+Vl9E3S/1eVXGoIKyr3U5okLC
+ ZQAItxssWEVHMGDXsOHprvrQ/4OOlRNDIoYdQPg4EA26vG8V9cwhk5ugKligLi8VxO
+ KNX/RHZSqlpcw==
+Received: by mail-ed1-f54.google.com with SMTP id
+ 4fb4d7f45d1cf-6676d55d01dso100019a12.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 09:29:04 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWNHsLm3qy6p+2ZqHfVo3PnQk4Kdmji4u6yvJ23YxIHHR0JLxYepFFPnArxt6RFJuTnVaK1dGsr@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyfkbTQZp1D2vBaKrSg2WK+YcI2Pt/sZQ5t2zoeEk/YosRH2aZ9
+ tSzwmd8fVEx4h59+iuDdMG7DdpDQ+q+u17cScFgvFq84WeEzyMwTGbPFgU7CVRUo+io7T2vAh3R
+ EAaglh8wqOF0wQ0ylSrCPh01AASIkpg==
+X-Received: by 2002:a05:6402:5203:b0:65b:a2b5:5320 with SMTP id
+ 4fb4d7f45d1cf-667b2c0bf49mr2499956a12.26.1773851342697; Wed, 18 Mar 2026
+ 09:29:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260313132103.2529746-1-jim.cromie@gmail.com>
+ <20260313132103.2529746-62-jim.cromie@gmail.com>
+In-Reply-To: <20260313132103.2529746-62-jim.cromie@gmail.com>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 18 Mar 2026 11:28:51 -0500
+X-Gmail-Original-Message-ID: <CAL_Jsq+n2rWsRA-fdB+csE9+A_tCL5fjSdGWxA+1P6Sbafs7Ag@mail.gmail.com>
+X-Gm-Features: AaiRm50ju3fsACxEcH_HswXEtjwvyHmrjX0DVJy6kYjxOD6TIzPhRqn10EQHqBA
+Message-ID: <CAL_Jsq+n2rWsRA-fdB+csE9+A_tCL5fjSdGWxA+1P6Sbafs7Ag@mail.gmail.com>
+Subject: Re: [PATCH v11 61/65] accel/ethosu: enable drm.debug control
+To: Jim Cromie <jim.cromie@gmail.com>
+Cc: airlied@gmail.com, simona@ffwll.ch, jbaron@akamai.com, 
+ gregkh@linuxfoundation.org, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, mripard@kernel.org, tzimmermann@suse.de, 
+ maarten.lankhorst@linux.intel.com, jani.nikula@intel.com, 
+ ville.syrjala@linux.intel.com, christian.koenig@amd.com, 
+ matthew.auld@intel.com, arunpravin.paneerselvam@amd.com, 
+ louis.chauvet@bootlin.com, skhan@linuxfoundation.org, pmladek@suse.com, 
+ ukaszb@chromium.org, intel-gfx@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,41 +78,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ensure the driver tracks changes in any colorop property of a plane
-color pipeline by using the same mechanism of CRTC color management and
-update plane color blocks when any colorop property changes. It fixes an
-issue observed on gamescope settings for night mode which is done via
-shaper/3D-LUT updates.
+On Fri, Mar 13, 2026 at 8:25=E2=80=AFAM Jim Cromie <jim.cromie@gmail.com> w=
+rote:
+>
+> ethosu.ko has several drm*dbg() calls, it must call DRM_CLASSMAP_USE
+> to tell dynamic-debug what classmap enables them.
+> Also include drm/drm_print.h explicitly.
+>
+> Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+> ---
+>  drivers/accel/ethosu/ethosu_drv.c | 3 +++
+>  1 file changed, 3 insertions(+)
 
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index dfe95c9b8746..dc3f284d0834 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -9955,7 +9955,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			continue;
- 
- 		bundle->surface_updates[planes_count].surface = dc_plane;
--		if (new_pcrtc_state->color_mgmt_changed) {
-+		if (new_pcrtc_state->color_mgmt_changed || new_plane_state->color_mgmt_changed) {
- 			bundle->surface_updates[planes_count].gamma = &dc_plane->gamma_correction;
- 			bundle->surface_updates[planes_count].in_transfer_func = &dc_plane->in_transfer_func;
- 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
-@@ -11695,6 +11695,10 @@ static bool should_reset_plane(struct drm_atomic_state *state,
- 	if (new_crtc_state->color_mgmt_changed)
- 		return true;
- 
-+	/* Plane color pipeline or its colorop changes. */
-+	if (new_plane_state->color_mgmt_changed)
-+		return true;
-+
- 	/*
- 	 * On zpos change, planes need to be reordered by removing and re-adding
- 	 * them one by one to the dc state, in order of descending zpos.
--- 
-2.51.0
-
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
