@@ -4,148 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B182D103E16F
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 12:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 873C0103E168
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 12:53:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 153EF10E800;
-	Wed, 18 Mar 2026 12:46:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2AAC210E3A5;
+	Wed, 18 Mar 2026 12:53:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=bitbyteword.org header.i=@bitbyteword.org header.b="Q+gK1WmE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Q/SyYOsr";
 	dkim-atps=neutral
-Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
- [209.85.128.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B42A510E7C6
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 10:58:58 +0000 (UTC)
-Received: by mail-yw1-f174.google.com with SMTP id
- 00721157ae682-79a60975dc5so23527397b3.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 03:58:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773831537; cv=none;
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6F4C10E3A5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 12:53:18 +0000 (UTC)
+Received: by mail-dl1-f53.google.com with SMTP id
+ a92af1059eb24-12734af2cdcso314999c88.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 05:53:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773838398; cv=none;
  d=google.com; s=arc-20240605;
- b=i47XOIcRRDmX7LkbYNWKv+OxzYqIoqQO+KYBYwa2YM4hDK0sjRudcIUzod4mhyFe21
- 8z6zxnlc9W/h/VOSHzy33IjMlXvufnbFlgg/4bs3/lHqG87hImhOw25oiqa6PPX7RIeU
- 3nsWcyt79Ndfwg67qU6BwJTv0SRFpQ/B5nDH8jgERDRc1HeP/AkSNw0+3MwXnOa8nxRn
- 62exFHXDm3OVW71XxSFwgqCQR9ADqEEmde6WPKaJJcirAFbuEWxia4UiG9oUChEbLvsF
- qTlvYSAXECDUTLyejSouJGfiXBsZ1HBGPN0lDKd+gwNpVmBbz7YLCPx9MhmrV/bTT6XO
- Iiyw==
+ b=Hj5IrkAnJbFiDKk5HVwYr8Cd+946h17oF+tOwHjS5s+9qWyDdybA/X6+wes7TWdhM0
+ h+Eyr3oy0WI58FcEaTxwROgPIju2sIoxxVQeWnbylmjVzNQtImKexxZY5l4cUjOQFIvb
+ 99QYlkvmXvVUnFeC8BdWzVLVTzhX4D87osNiSj+kIjFnNP+UDsNKjGBZfxewupzSP+hY
+ tNtfN9tOWzVZwcengGySvE14+r/Vz1dW+pi66UUHYqwOeNj81BbxvPPcMuYhqzI40rvX
+ Q5zraxS3127ZHJl/wmcwQS5woVAfX48thBa7OqS8/SnBLhIhKDSF3dlfzCiQ7+CzVjFp
+ CBVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=LVVELEXkmiKTU/p+oy+of4jebFSUmNrxF9w9nex4moo=;
- fh=6nzInEacPxZyBLsjY+24XgXxWsjRztL5XLBNxMl0TxU=;
- b=K1/DTJ3JwJQHKAKtg2GlhTua5sSSJI8NVgsf95t+TgRWJFKM+cfSAJgYTFRdI8ae5b
- X3lXeyaL7jI8OIi32CTBTJwVKpLVLOf2+NAsnpcOzRA8N9XTqZt2d/YDzFYxhwH/Uccu
- dtsmHkE9G81EQwHCeFCjJPY6QdsK3ESYq1JDSVpHQXK1vGjb8N5MQPostcwUfXvwOY7b
- uRdUzbBYNXyIs5bX0Lm8HqbZQvjRhDfdLxXhl77M6zfkPoqvtM0UNpr3YiEo3zYbb5Nm
- aPRVWCBGb2JVAQmuHQnu6jp6e10wIs56B28TZtyKAYYd7ZReBdYR72OShAJcbfTZ1cNX
- 2t4g==; darn=lists.freedesktop.org
+ bh=41IjNqbC7hVmDY7TmMFLjxcbEwtMNrf6OaOcq6+N7lo=;
+ fh=l3eoYdYAnt4lYm9FGg/FDgc/xxtBVzyVw0u/PZzbCWU=;
+ b=VksvXKW1AchopawHP6Q2K6sr3Wes0nO4ZlO1qOYvFDfs7xCV+DQfsAgWLU4/6oFUpX
+ R5+blZYlbQKN9qA7pVDktdhKFdbpFEo+rXWT3Ou9W6nuFZ2mzoAVQbjamIqJcr0/FHNv
+ kkEKs9LIhJBi9ChZJB4O3KFsLsKU3YiUuX1TqX3/jAEsJxTsRSRXh3jrijHe6kf/e6qO
+ vuPnv/mrLI3zVxgvun/Pzd9+wbWyLGsIIjINxSvRJnIMU19XmRT5OdvVGqVPbQau4LQt
+ dCQZqQIVy8SSwYG0Kb00Lzeg2CvXXjsdHGDU+zZVWBmMpAVVzek+Pav7Jc13S2PXlK5D
+ jykw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bitbyteword.org; s=google; t=1773831537; x=1774436337;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20230601; t=1773838398; x=1774443198; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=LVVELEXkmiKTU/p+oy+of4jebFSUmNrxF9w9nex4moo=;
- b=Q+gK1WmEqDF4mF72MTu1sD58qmH2l7gDUyNHroy8YKaXRllnW6ZH/bWrqxiIBMOPPt
- mEZOH0d00AT9gulIa2j/pmFLCExv7q+cILjFyKgRPUkF/5sTxWXZmatpY4DHw5pz0aVh
- t25EbnIGVgVQNOljYhqrDNSf9JhZ1hZZPmhjNSHsk031DQq+p6++On3bwtm/Magsdl4n
- URnoHP85UA7vE0VCqJ/abuqek+rX3nyKC7C9GnP119YYtp0qda7MqOjKWoeDAMpzkZge
- zB77cRnOWGuxlqyDCpRQNQ4f0DpPGglirfTnVJJFGlacQtY0gchElop0p2ai3pg05lBQ
- AGlw==
+ bh=41IjNqbC7hVmDY7TmMFLjxcbEwtMNrf6OaOcq6+N7lo=;
+ b=Q/SyYOsrRS7N2opahs8eDDJXADului9vY9QpVMd9vzLO28uue427GLngwf1Dii1Gy7
+ 0Y02weHJ0FRIZ3p5epH6BKZERuUWBFuXd/+4PuVAuyGSsWdoTl4TpEPGzzP14/6FDNlb
+ X4O2JlmkRWtVdoK1o+oBRNKOOsAX2xcg0iD7BzFViw5IWUL0E8yb+8zsjXtYDm1XnQm9
+ U++pVIeuxTevK1zpHBi0q/jpDo2RO2op4FoXRqN8FR4fIK6s+tpi5/CM7JUy6D0KZG2Z
+ Q8jpooq7yW+wvhzPZ9ynWtGPILwVZXEoSC7YyDGMotwto+0Ls2pFf9YIPxsZOXFkQw8a
+ sS2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773831537; x=1774436337;
+ d=1e100.net; s=20251104; t=1773838398; x=1774443198;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=LVVELEXkmiKTU/p+oy+of4jebFSUmNrxF9w9nex4moo=;
- b=J9gTnEFQstMvOIuK3iqLAiT93fsY6voVwuCH77pxIDCkcCiDWD3pzTQpONN0n/ctDB
- WjDFdtI9RQDwHSIOYS+YH/VU7DUjMkXq3P//IADLfYfNrH1AiVDW1QPcVg9eALQSvRcz
- nly8kJ4jBObUbX/FA07td8xdHBIgbbhutZHg6XhR71Yz7kXG2ch3fryevoi2Cx6pBtw4
- asqOwReNpDYmWCgfQFoKcj4xbNCcYubR0raiv0X+ghQ6pI7g+mA4j2o8Gby6aHs0XGqC
- YQJ4U2mlBm3L6ygplPd91eaQsm68NLsp0ZEnYINj15P90wCE5Vm6ex7eyop0E6vv+mYx
- Borg==
+ bh=41IjNqbC7hVmDY7TmMFLjxcbEwtMNrf6OaOcq6+N7lo=;
+ b=lVZRDzqNffd+RIdpBxd1U47VIy2gfa1oOQwtcm6OuomL7vJoAeLvhqJeZ5XJ2MhGd8
+ F/+GeG0Otxfhwwbh0By09hEfhpVXu1j7ty8zntEN9Tu93/LbvjBDXVodVqJKskBekDuz
+ oBxkKwwVBf5CgJ73UutWIssuRUl3MyuYWKQpvccv/N4FNVSb1qNp0kgzPTmNJP9Dlf3w
+ dS8KLHxP+QmFgTL+hilAhzqJKn/HRxmw5OCIxE3yMFBKs7D7tlvUfhJVMtPeXux9usgx
+ D3+Rcy2Qgjqc1YH1atT/kFj/sJhz/wY+YV+UBf/wLDig1XRUhg7CGwmInmbph61Mso60
+ 2F/A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWl4eydsu4ge6zi6dMnfIEXnTOw6SHZ8riAEzqjW96HFNa+g2DQ6DCJkYYaKK7eyaYlEq29gJVQ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywo/v3KoDVlhv++MBkeYpTX9QQadjQxRow9mMS71a7V5HqS2HSO
- FDGQmG1AyQRxYKjBCimHilxZON1sF+IMcNAuvizORV70GT7f91fSeTLeEDZwsQw9F2kktNxXFBz
- otnt5LBopnnWlwPGrDCUSPiOH3s6AiI+IBBZTUfO4UA==
-X-Gm-Gg: ATEYQzx/lFUPnPneP+L7qNpTdQnwyIuMN5M1Y7iiN8ooOxB6Y3Xvi69TXBdiEqdJmrL
- aiyytIAKH/3sPt3yqiOLUR9uhUzlFfqptnRmA8lz0yE+QHj2w2Z1hm43jYI5enCOLpmMRZEsks5
- HXpzAkLDcp5hhiG4OSCYGYpP+A40J+7eWOyYLdX6PhDuBGOKO/li5JQCeLmaqkABatSM69WBPbc
- bXMxB2/SXr3rrUlWTm/+/GN2TOJcQv6slX/KhqxxsKstU1RZuTLvPAFP8BrBkimWCWchucuYlc9
- o/m5vr4=
-X-Received: by 2002:a05:690c:c50e:b0:79a:3a33:933 with SMTP id
- 00721157ae682-79a71ad413dmr29714557b3.31.1773831537485; Wed, 18 Mar 2026
- 03:58:57 -0700 (PDT)
+ AJvYcCUFHr2J9vNTJFDDAZXVHdLXg92XR9RsjdUbEiq7zsGyRZZzK/qjmEA/3fUI0tephUoTLaYy3sLg@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzGIBCT1cM2bFp0IL5zUrLRTirztKxi58OhZ1K25BuTPoM+zrFM
+ C1pjWtQNFBm49zj14HvcUvy8GauG1qKAfe45O4vcidOsT5cwOZWPQ8dSwf7NP90VIPqbs+LYzKO
+ NpRUnGfs3+PZWM6x0GAnvPOCxrWKXK8Q=
+X-Gm-Gg: ATEYQzx2uvQY88yMaT25AN9olVoHLzGhvsIUL/VkGkXtEhKl4egFev+UnKM6zhsdJsp
+ TlUgMi7Jb6SENFZ6h5mej4TB196EyU9ixjRBkvxXvAvyJuLgNHUHcv1fPIWMWzKXslYfo+Wam6c
+ IHCF+tDcz0gX0BXf9yjNPcR1UBPa6ADEgcu6d47q04Bgp8vlkc09qeQxVDEj7fRSsKRhnIuHN/e
+ FR1wV4dqUb5Hq7etxXzOwaq389ZFtfyG7XNJei9gXmv8gnAh4sgSAQWOsobpLyh4Fy8RcIRt1z+
+ jOtJu45TPKYRsbSA8cSsljlxgX9H4vNkkFNmOHbo8VKIFy38lJ/Q4tx4duSEoyX8dOCERibfjjd
+ d1P6p
+X-Received: by 2002:a05:7022:3f0d:b0:128:d0cb:7a97 with SMTP id
+ a92af1059eb24-129a70e3947mr547387c88.3.1773838397597; Wed, 18 Mar 2026
+ 05:53:17 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260312150523.2054552-1-vineeth@bitbyteword.org>
- <1e3c2830-765e-4271-89f7-0b6784b37597@efficios.com>
- <20260312112354.3dd99e36@gandalf.local.home>
- <219d015d-076b-4c80-8f63-88569115fdad@efficios.com>
- <20260312114041.5193c729@gandalf.local.home>
- <1becdbce-2c01-468a-bbab-42b5dea9fdf8@efficios.com>
- <CAO7JXPjnnruhM5oC6xMgnYaQ9efzYFqMCFiJLNM3HCQ+ZeCiJw@mail.gmail.com>
- <CAEf4BzbnfyhCqp0ne=2gRnVxp-mdGmuZwDeFRyhRYH+eDcz2-w@mail.gmail.com>
- <20260312130255.6476e560@gandalf.local.home>
- <CAO7JXPgHYZ9zF1HFahb2447X85YRZCQQBHB6ihOwKSDtiZi8kQ@mail.gmail.com>
- <20260317120049.6a60fa88@gandalf.local.home>
- <6ca9f884-9566-4a82-9995-4c802a0bf8a0@efficios.com>
-In-Reply-To: <6ca9f884-9566-4a82-9995-4c802a0bf8a0@efficios.com>
-From: Vineeth Remanan Pillai <vineeth@bitbyteword.org>
-Date: Wed, 18 Mar 2026 06:58:46 -0400
-X-Gm-Features: AaiRm52iP799baA3h48fwfLjW02Pe87nEMlmDoXLIPKYRV2LFYQQkuww_KlSUU0
-Message-ID: <CAO7JXPgbERfc_P+aPFB1+nR5ua3mZGbhdkbxCr0TFR4Cr6Khuw@mail.gmail.com>
-Subject: Re: [PATCH 00/15] tracepoint: Avoid double static_branch evaluation
- at guarded call sites
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
- Andrii Nakryiko <andrii.nakryiko@gmail.com>, 
- Peter Zijlstra <peterz@infradead.org>, Dmitry Ilvokhin <d@ilvokhin.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Jens Axboe <axboe@kernel.dk>, 
- io-uring@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
- Xin Long <lucien.xin@gmail.com>, 
- Jon Maloy <jmaloy@redhat.com>, Aaron Conole <aconole@redhat.com>, 
- Eelco Chaudron <echaudro@redhat.com>, Ilya Maximets <i.maximets@ovn.org>,
- netdev@vger.kernel.org, bpf@vger.kernel.org, linux-sctp@vger.kernel.org, 
- tipc-discussion@lists.sourceforge.net, dev@openvswitch.org, 
- Oded Gabbay <ogabbay@kernel.org>, Koby Elbaz <koby.elbaz@intel.com>, 
- dri-devel@lists.freedesktop.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>, 
- Huang Rui <ray.huang@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, 
- Len Brown <lenb@kernel.org>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
- linux-pm@vger.kernel.org, MyungJoo Ham <myungjoo.ham@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+References: <20260306120513.57826-1-dev@pp3345.net>
+In-Reply-To: <20260306120513.57826-1-dev@pp3345.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 18 Mar 2026 08:53:05 -0400
+X-Gm-Features: AaiRm53W0wqHwWOZQryLUHuYnj_UK63FoqSdVyXvsgcd1PMM3eZeKbidyOHVnNE
+Message-ID: <CADnq5_NtxbGSj9vVpEOn7-8BZ15ZDP-6HEna+jLJ9EjCn3W_Lw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Do not skip unrelated mode changes in
+ DSC validation
+To: Yussuf Khalil <dev@pp3345.net>, "Wentland, Harry" <Harry.Wentland@amd.com>,
+ "Leo (Sunpeng) Li" <Sunpeng.Li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org, 
- Eddie James <eajames@linux.ibm.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Joel Stanley <joel@jms.id.au>, linux-fsi@lists.ozlabs.org, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Alex Deucher <alexander.deucher@amd.com>, Danilo Krummrich <dakr@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- amd-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>, 
- Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, 
- Mark Brown <broonie@kernel.org>,
- Michael Hennerich <michael.hennerich@analog.com>, 
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, linux-spi@vger.kernel.org, 
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, 
- Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
- linux-btrfs@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Wed, 18 Mar 2026 12:46:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,32 +109,157 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 17, 2026 at 12:02=E2=80=AFPM Mathieu Desnoyers
-<mathieu.desnoyers@efficios.com> wrote:
->
-> On 2026-03-17 12:00, Steven Rostedt wrote:
-> > On Fri, 13 Mar 2026 10:02:32 -0400
-> > Vineeth Remanan Pillai <vineeth@bitbyteword.org> wrote:
-> >
-> >>>
-> >>> Perhaps: call_trace_foo() ?
-> >>>
-> >> call_trace_foo has one collision with the tracepoint
-> >> sched_update_nr_running and a function
-> >> call_trace_sched_update_nr_running. I had considered this and later
-> >> moved to trace_invoke_foo() because of the collision. But I can rename
-> >> call_trace_sched_update_nr_running to something else if call_trace_foo
-> >> is the general consensus.
-> >
-> > OK, then lets go with: trace_call__foo()
-> >
-> > The double underscore should prevent any name collisions.
-> >
-> > Does anyone have an objections?
-> I'm OK with it.
->
-Great thanks! I shall send a v2 with s/trace_invoke_foo/trace_call__foo/ so=
-on.
+@Wentland, Harry
+, @Leo (Sunpeng) Li Can you take a look at this?  I'm not familiar
+enough with kms state handling.
 
 Thanks,
-Vineeth
+
+Alex
+
+On Fri, Mar 6, 2026 at 7:24=E2=80=AFAM Yussuf Khalil <dev@pp3345.net> wrote=
+:
+>
+> Starting with commit 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validati=
+on in
+> atomic check"), amdgpu resets the CRTC state mode_changed flag to false w=
+hen
+> recomputing the DSC configuration results in no timing change for a parti=
+cular
+> stream.
+>
+> However, this is incorrect in scenarios where a change in MST/DSC configu=
+ration
+> happens in the same KMS commit as another (unrelated) mode change. For ex=
+ample,
+> the integrated panel of a laptop may be configured differently (e.g., HDR
+> enabled/disabled) depending on whether external screens are attached. In =
+this
+> case, plugging in external DP-MST screens may result in the mode_changed =
+flag
+> being dropped incorrectly for the integrated panel if its DSC configurati=
+on
+> did not change during precomputation in pre_validate_dsc().
+>
+> At this point, however, dm_update_crtc_state() has already created new st=
+reams
+> for CRTCs with DSC-independent mode changes. In turn,
+> amdgpu_dm_commit_streams() will never release the old stream, resulting i=
+n a
+> memory leak. amdgpu_dm_atomic_commit_tail() will never acquire a referenc=
+e to
+> the new stream either, which manifests as a use-after-free when the strea=
+m gets
+> disabled later on:
+>
+> BUG: KASAN: use-after-free in dc_stream_release+0x25/0x90 [amdgpu]
+> Write of size 4 at addr ffff88813d836524 by task kworker/9:9/29977
+>
+> Workqueue: events drm_mode_rmfb_work_fn
+> Call Trace:
+>  <TASK>
+>  dump_stack_lvl+0x6e/0xa0
+>  print_address_description.constprop.0+0x88/0x320
+>  ? dc_stream_release+0x25/0x90 [amdgpu]
+>  print_report+0xfc/0x1ff
+>  ? srso_alias_return_thunk+0x5/0xfbef5
+>  ? __virt_addr_valid+0x225/0x4e0
+>  ? dc_stream_release+0x25/0x90 [amdgpu]
+>  kasan_report+0xe1/0x180
+>  ? dc_stream_release+0x25/0x90 [amdgpu]
+>  kasan_check_range+0x125/0x200
+>  dc_stream_release+0x25/0x90 [amdgpu]
+>  dc_state_destruct+0x14d/0x5c0 [amdgpu]
+>  dc_state_release.part.0+0x4e/0x130 [amdgpu]
+>  dm_atomic_destroy_state+0x3f/0x70 [amdgpu]
+>  drm_atomic_state_default_clear+0x8ee/0xf30
+>  ? drm_mode_object_put.part.0+0xb1/0x130
+>  __drm_atomic_state_free+0x15c/0x2d0
+>  atomic_remove_fb+0x67e/0x980
+>
+> Since there is no reliable way of figuring out whether a CRTC has unrelat=
+ed
+> mode changes pending at the time of DSC validation, remember the value of=
+ the
+> mode_changed flag from before the point where a CRTC was marked as potent=
+ially
+> affected by a change in DSC configuration. Reset the mode_changed flag to=
+ this
+> earlier value instead in pre_validate_dsc().
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5004
+> Fixes: 17ce8a6907f7 ("drm/amd/display: Add dsc pre-validation in atomic c=
+heck")
+> Signed-off-by: Yussuf Khalil <dev@pp3345.net>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c           | 5 +++++
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h           | 1 +
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 4 +++-
+>  3 files changed, 9 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index b3d6f2cd8..4efd77477 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -12523,6 +12523,11 @@ static int amdgpu_dm_atomic_check(struct drm_dev=
+ice *dev,
+>         }
+>
+>         if (dc_resource_is_dsc_encoding_supported(dc)) {
+> +               for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state=
+, new_crtc_state, i) {
+> +                       dm_new_crtc_state =3D to_dm_crtc_state(new_crtc_s=
+tate);
+> +                       dm_new_crtc_state->mode_changed_independent_from_=
+dsc =3D new_crtc_state->mode_changed;
+> +               }
+> +
+>                 for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state=
+, new_crtc_state, i) {
+>                         if (drm_atomic_crtc_needs_modeset(new_crtc_state)=
+) {
+>                                 ret =3D add_affected_mst_dsc_crtcs(state,=
+ crtc);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> index 800813671..d15812d51 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+> @@ -984,6 +984,7 @@ struct dm_crtc_state {
+>
+>         bool freesync_vrr_info_changed;
+>
+> +       bool mode_changed_independent_from_dsc;
+>         bool dsc_force_changed;
+>         bool vrr_supported;
+>         struct mod_freesync_config freesync_config;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 7be50e8c0..5d8c4c702 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -1744,9 +1744,11 @@ int pre_validate_dsc(struct drm_atomic_state *stat=
+e,
+>                         int ind =3D find_crtc_index_in_state_by_stream(st=
+ate, stream);
+>
+>                         if (ind >=3D 0) {
+> +                               struct dm_crtc_state *dm_new_crtc_state =
+=3D to_dm_crtc_state(state->crtcs[ind].new_state);
+> +
+>                                 DRM_INFO_ONCE("%s:%d MST_DSC no mode chan=
+ged for stream 0x%p\n",
+>                                                 __func__, __LINE__, strea=
+m);
+> -                               state->crtcs[ind].new_state->mode_changed=
+ =3D 0;
+> +                               dm_new_crtc_state->base.mode_changed =3D =
+dm_new_crtc_state->mode_changed_independent_from_dsc;
+>                         }
+>                 }
+>         }
+> --
+> 2.53.0
+>
+>
