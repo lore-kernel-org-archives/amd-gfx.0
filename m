@@ -4,94 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00908107528F
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98BEB107528B
 	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 09:46:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ED2810E945;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0515110E944;
 	Thu, 19 Mar 2026 09:46:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="tZiWVFHj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="APFO8JnJ";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7A8710E120
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 14:31:26 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-439b7c2788dso4401012f8f.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 07:31:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773844285; cv=none;
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4205810E11C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 14:30:46 +0000 (UTC)
+Received: by mail-dl1-f42.google.com with SMTP id
+ a92af1059eb24-124713e4244so474902c88.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 07:30:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773844245; cv=none;
  d=google.com; s=arc-20240605;
- b=GfvuRms0Dco0lb36jwWP4TS4wgEk4O14XrSvjX9fIVg1NtkzDBoJ0aHULakdKR11Ag
- p2fuHscQpyb0Ncu8bWSuWChJyXSRzP+L7pa/Giuu6gZgpbMB0o5XQqMOEDsBwQPpqusT
- IPVwjNaDJicLEnLyZdI6rVkOFgOhUpDpzgPKXFD8JPea1lMdO7Msz1913u7wEg8Ih5Ys
- eF0Ko6vK8+sp97WuHE7J0+ZCWeBPg7DCHZv4H0+qTfy/cUqms807P7g8PqkmYuNIii7f
- XH7cdWBr3Z1/oS2ghBa/jwa0Dq3LditHZ6e7ujx1O8Absz0u7hKH5dMukN6VkdOE6l3V
- GJFQ==
+ b=Fy4d+ixEcDVUj/7mYad/MFmU6V4jv7uncPfE8wqQ4rWTEllriKmsYIyJBpxFQQVrLp
+ zmaIiX035B9cb5aIUPlpS9lSluoQWpulvwcbz8LUs5Dj0QxI4Ys6wLak6BCfkREiklwI
+ O5jUhE1/+BOwK+wYNIddMvC3nQL7ZSZ67py5HVhdH9vmMj5MTOzb7GUBoHi15LDIW+yl
+ w+muku5n9oqGk0epA5Z+aRqE/ZlyKUoUW3VcG6O71+wt2AEGJgEL3MHL0W++iGWWWVLC
+ yRsdfQcnOdLFB4FzHsT5sSrw7etGhkLwyLzeXHpiS77kRrjYI6k9waZ4S8/R8vGqUP6H
+ LY5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=9Oke8F3j0iNZ3cSK0OCeOVMy+GmzWDcEKfA0PeIuC3c=;
- fh=QZesh3aT39A9zgu8MyNbw3tfZCmuwuT4z/HXx3X6Qpc=;
- b=lZfCWtXuSAaxYPRSoJPxF9hHCIZFwnO8EnaOSAJMqaG1usgOUk6Pzpkq6uhAr9g097
- DBTJjEYHvMAPjmb59f+bgZ6onoAPiVgteczr5Pco/XLZzIcy45RnCaytEnS0hxlQb7mo
- qHCceY0c1Fa5dS2/vBfJMVdZszoUq57R7ns4DlRMwXTM9FMdnyDM83DgN2V/OpZlf2Oj
- /mMgHb8Hixr6+sxIjivSK+1sVSDPwbHMB9fyo95C16Gsxyyc7aUXWxtye8zSB0GuTSD0
- fKEE1TVguk+frJlAHh+Oe9x40VjZayUlRApOlBCoiypTeBYfQW6KXCXVMlnS62vYlBfw
- /USA==; darn=lists.freedesktop.org
+ bh=Lz2XCxRPQhc2ZncmeIQiQRFj2Y2HhTtKvhZaZiMtVkM=;
+ fh=tsZUM3bHvaOnx+IwC94EFMexIlu291znanSiZ9SphRs=;
+ b=LTD3gufKHMngeXRP1TyZlbSP+VJDuHX1vtcSDzJmW796h5TCKdB8qzQFJFSaSsMltl
+ v53zZnR3jpPWD7e2IH1smT9EnYScSEigPYxLZmPWKyStEyYW58bayKDWBzYPt90J2Cdh
+ m+lODC5eA7YA/WBDDtftpMRwAQsldExhjOQtg4x1Xdlw4felMhUi6nVvuuHa+vvd9fBE
+ GyqKPzpI5IvvI3tiwii38ain/Ektpef0ZNJYg3cYZXOd8tplLU46f6svK74pja5/0r/g
+ XAEVEbAoy9k5A2Vcq4Vtxp3aG1DA6O7oghsaBeUxRe63PrMTfE8GIeG090Sngzgayqab
+ D5VA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1773844285; x=1774449085;
- darn=lists.freedesktop.org; 
+ d=gmail.com; s=20230601; t=1773844245; x=1774449045; darn=lists.freedesktop.org;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:from:to:cc:subject:date
  :message-id:reply-to;
- bh=9Oke8F3j0iNZ3cSK0OCeOVMy+GmzWDcEKfA0PeIuC3c=;
- b=tZiWVFHj2+g9DuubpbvnUXJzjWS5yRLIEcmLhSkfowhQcU3h/pW3rjvyiXbGjc+J/c
- yMXzCnq5OHsbQLHh4+cBCjDzAMD/CWOZz+ZIib1V9AfKHxoUg6I6Sstd6ZwvHtXhhnvu
- Le9Pe1kBpFN1rF8CWmgr+R2SZT1/2+bgHO9STvNDgbH0RHMrGJvOWtiSDTBHKi1Up97I
- Vm4gFHYOBRIfifX6Of4PjHpHX1fogGRo6PaqPa/7hsv56sri5qan9WKTEzb7iMUUV6Uo
- rlE1gPcXYzpDPNPYKYLtupYS2L64GX0H45xTr4ip0Ra8LQNhT46Mvpvy9/Da4Nb8lTwp
- ZVsw==
+ bh=Lz2XCxRPQhc2ZncmeIQiQRFj2Y2HhTtKvhZaZiMtVkM=;
+ b=APFO8JnJ1yOoESUujcgaa6jVuaKJ+IvM89d3gFOWGcbiaYfaF8HgHZ5zc6lRral7r3
+ ux2M8j6RSBU0vZ24PNLPK15xLa+ASU6gnt5Op8mDHwASbjJEuDEvQylNbQz8yO/G7yw9
+ DdKbVOiN8J3DWqQADX4jPbr/V25XaW/0jzMyeHfCLkPViNXj3thVDqhw0/WzU7R3m55R
+ SHZ/rziRd90fvETjLOvH3outj3i1jSnekOBcz+ZjlwuwgEZ+x1CTXb9dVZ4rikrJDYPo
+ EpOAWkx+JhMC61oj78qloUcNQ+bL+a4xRuEgJ9QTSFKz3nt2QlvH3RysOtepAOYQhDm7
+ S4WQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773844285; x=1774449085;
+ d=1e100.net; s=20251104; t=1773844245; x=1774449045;
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=9Oke8F3j0iNZ3cSK0OCeOVMy+GmzWDcEKfA0PeIuC3c=;
- b=hF7LZXvWWBdf1/aXwIMns2wk1lYVJO6nyzvQQV/+T46ZQqPW/R0kyfcH6IX97aRKLE
- yAiIi8KB31+3MzkdGX7KKMz1rNgw9t/1acifysmdaWNkmIISDs3HOGaWgIhhDcy5lpyL
- 8wEyeqQrS2Pz9WVwy9RvtAAc1xQI4QSCU3gad0ZIAs9K3u9IgEtAMnrUXFFL57McT03j
- /MZtFet8AojlV0blUf5yu/yqqM3gRCZ4MS6saqnX39IOeLnraqyrDJW8orEVApVSEOHk
- /3Co47EwxhcZP3RoVE5VqS7Nmq766dsyStOqgETtIugJvOobA0xhZiWYM+pw6pZLECrv
- hG1w==
+ bh=Lz2XCxRPQhc2ZncmeIQiQRFj2Y2HhTtKvhZaZiMtVkM=;
+ b=bvkLb1JJAMtRbJsbyPVQF0Yk1qUQyRuyVOkvRWZ3QcrBqb5Zwbhzos0eu1+Eyf5sBK
+ gqddnWOoXVuPbWfS8G2CLSzqgte4JNqIHT3lRSRGtR17/e4w6Yy6vJesQ++9nxyss1xD
+ agKkMGPAIcXqJiIrfOXKp0GFL/PTWVoi5xlneXznoHlbVpjLmt20A9j0LzYIv9u03sT2
+ PSYadAyUs2PWNyfi+NwsjtoyD/FdXvW3ARkKOKkdiIU4GCyQSh/BcsOMOLeaiR+SIy/F
+ wwJgwVO//6lyOCuLHOVY0+O05j9aiHHU1QtbBY/cDeQJqqXU/4KuWRmLdY3LeIywNlil
+ h5BQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVTnBZtGT2v3ls4P2o5i6WvBk8LjUQNentk0crBJYND8iHpcm3gL0MH7VCqjNkAc+GcRzxWmsk4@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwvOh/Nzh01ymoJUAO/Wvhta4Uey24uIAiSu3LesVJEWG7kAz42
- CpXpZ4B+pE7m4lh0xtFGAvVbdQm6d3jXz/Rj0UKsJkAFMlJ9XpnwMVBYxyLzDwD/BG5o8db7803
- HMp/b2R+zpMhNsTIi1lEU09BZq/9IZy2cPyf+W7Qx
-X-Gm-Gg: ATEYQzwkYOGryYQGiTv8q58dVVWq7oDrWRuonrS80EiMPvWDMbxe51cVf3O9Mxi13yL
- QhP4sRqIagOgw9H/Pyd7nIwSs/uWkrOAeQucY3jnkKeOeP4MZWZ2KMMGTGgn+w7F+YuB1FP/7qs
- YV/Ks4id12d2OOBUB4SeyORryDvHBR41SqfiTg1U8pIeiJsAg+bggJ3K4zNDJzbXHAoB+OV5KXZ
- fW1M9bwTe2p7Z6YkYGvOUtQFf0UtYkjgvgb8K1UHHpbgfdrhT0qsHFpt7j9JDcxBEBLmkbKJ+tG
- 4PBZcl+h/I86QY7/ebLtWCwuL2AyuipEdxCiXPWsYZ4s5TeAdv8sxXvGhC496ttzUc35Yg==
-X-Received: by 2002:a5d:5f43:0:b0:439:ca85:8848 with SMTP id
- ffacd0b85a97d-43b527aa344mr6004289f8f.16.1773844284463; Wed, 18 Mar 2026
- 07:31:24 -0700 (PDT)
+ AJvYcCXahNNEarnx7Ws+/cUuOzfiH9mFdnz36MlM1tRVWO/VJdyItWv79vDUxse0p+W6L4wQkcosVjOa@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxuxIthLJIQ6K49BIbrhvEOkK+Q847GQTnIMAZSSacDjgjt9K9O
+ azVIE7dmwqv7r3Ln6c+hcDZ3o1M3303Tn+IS0HFgOCtLsrS6EFqt3TM0I3SDHcFUSPj0VpYeYuM
+ 5vJcnn8/4qOrL/8b9yBnUr9JE9qXqdxE=
+X-Gm-Gg: ATEYQzy9/6i1aqk8IXgKtMp9hy7euV4UMVbsHfjg6HfuNr3uD5XdZ11GTVNLF5JcoX7
+ N75gEIepekZP3qrJ6A/NJdYuGQPpjgbzKVb17h2EvZmvndcDulGClIJzcvEgbyn+qjZ44hlvUPM
+ F2uO1JFvDg2y4a9ZuJaXis9ojCrS+SNz647lRpGteZEiyen4+k6xG7YzHgzLj4XnaSM3cWmazEQ
+ dFBmn+cBQNjblb6YViiXnL4KVFJ6+nEruQInFq2FwvCCuOJIGsZIzgngr7XzdR+8EWXBzfE/lM0
+ RD4r3BbmF/LsO1AspoCCqrk7Yz/X+JLb/p2ge0U162djlwfRFanEF+KvHXoaC4pkCbnGqs9646E
+ 7y0s71oM2
+X-Received: by 2002:a05:7301:1e96:b0:2bd:fa8f:77f4 with SMTP id
+ 5a478bee46e88-2c0e518610dmr846274eec.4.1773844245396; Wed, 18 Mar 2026
+ 07:30:45 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260317201710.934932-1-joelagnelf@nvidia.com>
  <20260317201710.934932-2-joelagnelf@nvidia.com>
  <46986da6-8c89-475c-8561-964adaa7d034@nvidia.com>
  <abppV3e91iVzplcv@google.com> <DH5UOS96171T.Z8XSRX583Q60@nvidia.com>
- <CANiq72=bmJ_GWKowAgv+DWQ8FcWK_HePwjaVgeDmRH+gVD-z5g@mail.gmail.com>
-In-Reply-To: <CANiq72=bmJ_GWKowAgv+DWQ8FcWK_HePwjaVgeDmRH+gVD-z5g@mail.gmail.com>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Wed, 18 Mar 2026 15:31:12 +0100
-X-Gm-Features: AaiRm51O3ZORqMPG2oSnP3bbIvsHXlypg7QXuPo86XIFyKOog2BgXzbGuVDuzJY
-Message-ID: <CAH5fLgg-kgeBw3Py-EZmAEJhm357u5NJP6na4qJe8v3aeFW5Cg@mail.gmail.com>
+ <CAH5fLgjUMaC5v3SERZLosdD1ajU-fvKSgNq6OgbBBcoTS21-Sg@mail.gmail.com>
+In-Reply-To: <CAH5fLgjUMaC5v3SERZLosdD1ajU-fvKSgNq6OgbBBcoTS21-Sg@mail.gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 18 Mar 2026 15:30:32 +0100
+X-Gm-Features: AaiRm50bVmwgAQrBl1Sd2LWxaRmG-ZY7uRxgxq5LrbNAlb0we3rijRktUCTLM4o
+Message-ID: <CANiq72=GGicUCODkY3C8U53wQfsuRYeu9GiwrM5eFhkP99kiHw@mail.gmail.com>
 Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
  interface
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+To: Alice Ryhl <aliceryhl@google.com>
 Cc: Alexandre Courbot <acourbot@nvidia.com>,
  Joel Fernandes <joelagnelf@nvidia.com>, 
  linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>, 
@@ -144,16 +143,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 3:21=E2=80=AFPM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
-> [*] I would have preferred a middle ground like  modules being inside
-> but repeating the folder name, e.g. `.../pci/pci.rs`, but I doubt that
-> will ever be supported upstream since one probably wants to support
-> the other ways at the same time.
+On Wed, Mar 18, 2026 at 11:59=E2=80=AFAM Alice Ryhl <aliceryhl@google.com> =
+wrote:
+>
+> I'm not sure we have discussed it in detail yet. Both are used in-tree.
 
-In principle this is possible using
+Yeah, we have discussed this several times in the list and in meetings
+-- please see by other reply.
 
-#[path =3D "pci/pci.rs"]
-pub mod pci;
+The handful existing ones I think were all created by Lina (so perhaps
+some were kept as-is to avoid extra modifications of the patch -- not
+sure) or by you (so those don't count ;)
 
-Alice
+Cheers,
+Miguel
