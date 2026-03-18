@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67770FEDA09
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 01:01:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99268FEDA09
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 01:01:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9E2510E5AC;
-	Wed, 18 Mar 2026 01:01:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 022FA10E5AE;
+	Wed, 18 Mar 2026 01:01:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u0aBfqan";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x9qt9kjF";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010069.outbound.protection.outlook.com
- [52.101.193.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0226510E5AC
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 01:01:08 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013034.outbound.protection.outlook.com
+ [40.93.201.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9B010E5AE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 01:01:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LQHvZzWcKqneoWILyCsYSKqV0yXmwmbmCVI/lbZ2oJwBmrwHW2yfQAiQ8hubp9RYVsIopbqFc0BSDN/2n2WwPImcJud4Ujs4H/LLJjp9bIN5ryw4wHOfem6AYM8e1od9EFJfg6kZyQsToOAS8aOSY5aahJky0zg/gq8L++hkUHGLQymdFxkMxGFXJqyA573Z6IrQJb6QhpopiqaR33mNDv1WZTA0pNB9ocOgdEVgH75iyvrE6+CWG6FR5TrqrdYR6rYTfiJEQ0JH/CdBxS0ZGPeB/k2JQF71/ZoLeCiMHS9ggAaEWOHBcwko4Kqd6+sdV/TFVP/W/pUsoZU3qD77fg==
+ b=p4BDfmN2OX8M3XijktBCZ0G1yZpRVGJFx9W66BPAvkYj52MjTA8rzrpUxwxz38PolkPHhxlVFN2REi3TyaR1WdUvoM1n1p80Zmeb28gkWEaOd3+47VRWhUdCnn2TjEnP76j/7RUY98tdiOD4Hi9MG3nf9GcTlm6W6OH/3L6+JN9fzU+6yH9UacQhIQOD5N4rs4F4Azg63njuEmxB5sSz2KUMr52G3abmb9fAjQDl3PLxbSZYNrKGSALMgpUolj5d1Yl4VX25yjYzJ0ZOg9ig8ph+BxggdX7sZYMwDq9rYOKOoDJ5MiSdkpfTVhlS2NwOoZI+JtA1oBNQWMkTZymaAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=arEitOjt9j3Yy63IxGKyAV5/tj8/7uSL/1RZF39UmA4=;
- b=veCrtcFDtqMc4+PXE+NMd1JzCqQs4F97ke0mmm8HM2VW7JZuL+Zwf/nFJ07a8HftwJYmPBUDhYla+Yz2gmsUhlIx5/uusNv5D/B03oC3Blk0nnS7LggOxwVkTlBQTIIa8NPTDtizZ7mCHSVMF/e3uJmubmHT563Fj/in/2Co+JFntoGGkPGU4LGIMkQBCFNJSeU9vH+I9w7aFeoSvPDXjqPiuJkztUO0v0uf4jjY3GNQSWfF+WJ+O3scoDQzG4z/cQhIgH1sH4Frb1USu4ok/HSCHM5INAQtgaqbGoMRgzpaxoECG2RqjAwbt7mps7Dv2M9neA2Cu+z0J9V6UfEJDg==
+ bh=6iS5PxBwFL3XZvHhScxyp8fVhTAEkPGtyrSngj/qIWE=;
+ b=swGQK08H/aFANnE8HmVtHiyXGcvTHWyi9rqAUClgBgmubfO3CRKo0OwoQuqsBSVmWxL0Skvic79qNLyHzVou4icqaMozVcosXYhyWu/aydWqpUtne+JCkK+BYDh1/6+bZrM7q3Ihd2wynCZXDqwwXJAIBHxx8kpWH+isKbAwv/UnYL1xRAkjFBSgkc0yUIG1fj501U2si/bkmYbQhJDwpIZWVSQCBfBkhDr5kZBR/I8VZafymrmvjR3Hr0dIsQN9ge8NLqSMBLgvrM0FCEGVdAm3O73CzX91sgxbmfcwnhFMLIonDz9QxhkK3oghlYHX/c1JWs4qMgi+frEmQMxW7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=arEitOjt9j3Yy63IxGKyAV5/tj8/7uSL/1RZF39UmA4=;
- b=u0aBfqanviii4RO2Q4WxPaHhmyqSl2xwlc7IDECf9nKfYMpfkXgnxinVLhO1ZWTjWQrN0n3SBu+umYSQA8MJVgb0LRELLm5Ok3YuY4mGLCg74BMctzN9QxLkXTDZ+oEgW8o8VdPuKieJu1+OL/nkIrQPLP2bRoFJUkMKejhyCJU=
-Received: from PH8P222CA0022.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:2d7::33)
- by CH2PR12MB4262.namprd12.prod.outlook.com (2603:10b6:610:af::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=6iS5PxBwFL3XZvHhScxyp8fVhTAEkPGtyrSngj/qIWE=;
+ b=x9qt9kjFvXceR2Y45HP6KFGJx9iNwCQ8md6ircj/je5b4NwwlOdo3HKErAnwi8+eea3U1jxHRtWmDUtTITAvbNl4NIgrUlw5Ov9M3+hnMeWwMsDfAx10ExISYu5uTTtw8qFEZjwdpS3+btBL+W8g9QNlLWhSdhpvdLaI7EPv7u4=
+Received: from PH8P222CA0027.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:2d7::28)
+ by IA1PR12MB8467.namprd12.prod.outlook.com (2603:10b6:208:448::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 01:01:04 +0000
+ 2026 01:01:11 +0000
 Received: from SN1PEPF000397B5.namprd05.prod.outlook.com
- (2603:10b6:510:2d7:cafe::7b) by PH8P222CA0022.outlook.office365.com
- (2603:10b6:510:2d7::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.25 via Frontend Transport; Wed,
- 18 Mar 2026 01:01:04 +0000
+ (2603:10b6:510:2d7:cafe::e1) by PH8P222CA0027.outlook.office365.com
+ (2603:10b6:510:2d7::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.24 via Frontend Transport; Wed,
+ 18 Mar 2026 01:01:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,11 +51,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SN1PEPF000397B5.mail.protection.outlook.com (10.167.248.59) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Wed, 18 Mar 2026 01:01:03 +0000
+ 15.20.9700.17 via Frontend Transport; Wed, 18 Mar 2026 01:01:11 +0000
 Received: from maxMSI.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Tue, 17 Mar
- 2026 20:00:59 -0500
+ 2026 20:01:07 -0500
 From: ChuanYu Tseng <ChuanYu.Tseng@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,12 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, Meenakshikumar Somasundaram
- <meenakshikumar.somasundaram@amd.com>, Ovidiu Bunea <ovidiu.bunea@amd.com>,
- Chuanyu Tseng <Chuanyu.Tseng@amd.com>
-Subject: [PATCH 01/31] drm/amd/display: Update dpia supported configuration
-Date: Wed, 18 Mar 2026 08:59:10 +0800
-Message-ID: <20260318010224.513094-2-ChuanYu.Tseng@amd.com>
+ <alex.hung@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, "Leo
+ Chen" <leo.chen@amd.com>, Chuanyu Tseng <Chuanyu.Tseng@amd.com>
+Subject: [PATCH 03/31] drm/amd/display: Add MRQ programming for DCN42
+Date: Wed, 18 Mar 2026 08:59:12 +0800
+Message-ID: <20260318010224.513094-4-ChuanYu.Tseng@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260318010224.513094-1-ChuanYu.Tseng@amd.com>
 References: <20260318010224.513094-1-ChuanYu.Tseng@amd.com>
@@ -80,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B5:EE_|CH2PR12MB4262:EE_
-X-MS-Office365-Filtering-Correlation-Id: 215c816e-6506-45bb-fbe2-08de8489d423
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B5:EE_|IA1PR12MB8467:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c961ccc-26a3-46e6-1fd4-08de8489d89d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|36860700016|22082099003|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: i9QYIBJ4Nph865Mf1VJeqT9eB6+ADRk+nVY7K1XZXNzYxjajxPV+WTPCPR2f0P/2uaH/pvoEy64jHJiszMoDHt5B8nLXU2d+N7p5ZezxKAICEfhSBtG97TjRH55o9uTyQKhh6M9GyJjwzUybkhniXKznIEyJ4gIFL9gM6ap1Ax7hCecvL2X4w6qjo1rMfB4CrfpLo/2Xkdob+yfmNeHWz/f7wcEyaTKOmIjFaqNLzvK/VzHArtT6KuUXCS6sfvVGJXUnxHTdpVW1SdnKmeZPcME4vnguUrhQmx9hknMT3/3YIwhdJ7B8amZqXuWOGK2Mtcm1pCLe5zwIxxbh0WZlDyj6ypTzLIzbhAFEuG/+VbsLSLShrWagIuyw9Es6xlsxG4Jt+CNe4x3Z8tW1rqn30lukRy3uTuRC4dvyupIbxs+EBeAZ3kyZ8fks5J7v4spDfsVF+WLIud9R0REBhdCQuFEMkF2RVYKhuXM56i9lL1VCpzu5dqepSy0Cy8YHNBJGLM2YHKzE8tXEtboUGQ98G5eJgOSiVLI8pd0f14SAYT+7jcxH7P+jEF1vBCFQ0KDOUYa3UGAxI/0LSdKJlhLG/lKX2Viea4TTyEv6mTnlLGbCxJcGA7pa/5zPDxRksJ7rYt5+trjaL49AjcqrvXjQIw+OBN7EcorYR/q20jNXWxocwTm2ZaIfXoG8qhLu4VTTt/2mSuT0Ww+jf+xWwvJW1Xp5aG3GJTyclN7KKjNWY4s4a5Peln6LgpbnWZX/EFz4taleqVHfkNp7/x2PpfGDLQ==
+ ARA:13230040|82310400026|36860700016|1800799024|376014|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Svco/amWygZmExZ1NgwDiDVFoyoknBKmELo03VHW5g+o5zk5BWZDSt6oXJH/XICNpDLJSjxRDu+mi4Ug1D3znf9xh7vDOhX8MAf2BM14awyw2+0kBd+DzZYNkDCzcYzTSffJlS3wLiVtr/IyHxHgyUeWGM62+XqCYxPZGwZLBd0Q3oTvRADN1xrjdKYdyEj0M6GURXR/xsOzzD26EazVLqvjIplVml2Ml/LXXg8ksqCocXV9qYSkYBM6JK+8jG0t09klO7pHm6qrSPR3Epy/oZQOQmRhpCKzbNumNNvrtyzEr0uHDi7qPs6esBg/Zgvw8IUlTC+W2nRNUThIssCN+W9oGTfhuhFMINSjg0Ilcyvoyh/THRR3xM7izRPpCtsmTEdSFmAZbKB2AWDyt/crcaknFd0OKoQOaru+Mvkoa1/3iaYxPdocqg8kvhTBLfn081v/AWEXONcJWDtfHDJs70SVUpOHR/xSlfNQIOQJr67uW2BXeo1DiJoqcV/GCsQs/QAjSnBeawU+PrNOq5f/vPJGsDppyZGsHB1USbvSYQZKF6OFnUevrmln34NXfD6dzJ0RMXxid1n4/P+LK4oyD1K4pE/bc3Gy0FN/vLvQ6csKPe73PU8Qca5zBPqj3PCLGOKVpGvLzrWpRCB1cKxvNrR2lYvwuN2Wj81XiN+sVYHmVx3LC84WXttP6BecD/KeRpjecXOtKGfj13Vpi42KkHM+RFxorOwgAEWTM/TfvsGklQzct1yPYAt3nBN0roxsWKOSEVcZa9mnlMr8Zc6OYA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(22082099003)(56012099003)(18002099003);
+ SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6uhTA+7dt4P6u20aMJmEuB/gVORnEh1R10Hsow1V/wZW0PTBI+BiyZuurr1Gc5cNEOzG06HTrLrWWegH+D1UoXAwHtzYqraBleI77uyV2q8+HJtgrLrBv9aK5kXIYKAaOf8OU/C86qdvG8+JaJnSSPL8O4Zu65uVsrMLuMXQ95XknQWe7KAboZ+Ph0fl5xqmiETfyinA8ZvuOHkyPNsog2bzW/7ubYI6H16f+3zrLqT+KCA43yHqnzWKlBaWGgkApfV3IdXQHYxiXkTmEfvWZEBFthN4YeZPqXjl0kWEVZJDJ1Jq94jMYE9LOA3XMkh5xqcuAlhFdOme7y/yGdI/PXAEGfWGvZbfZrEgqNnFtLuYIMMUk3F3AJFsmQRx3BJjJQMJQygLpr5lW/mp5sZ3aP25Ap5retY3IxO9MTdXLStuOVTzygonf5gtPsJXi8uV
+X-MS-Exchange-AntiSpam-MessageData-0: EcIPDB2kzv5SSV25GvGY3UYTJxHGl4gkjOTb73X0GG5r5K1IzzwS5axAI+CJk7r5XWYGvPUKRK5De1F+UFBREthgWp09lvVwKFG555HPIHtOHRSwm6dbXQTXcYO2WxEGlvrDx5L55HyHmsNBGCQ7m1lgj02bi5LGyNARkmGhO18Fh9ijVCFYfVP9llmhbgFOCHSPXQAXNEa8Axur5+3gcj/nWW7wZGJ5iNmBQxD69YWtroXmTGctemU9X2NQnByeBNWZVjRumrxAnEqHTZDvcgr44vV6Wu5LjLm9tx9rL0A0sUV7JTxECfI/J9c3YfURtk3+ctNbp1KzfmqjdfGeMT+lTdBb3pLO6+V5AneXFebLLZXtcCor3KsUkZJOVZQf652hbU/BqMjwopM8qnEfFImZCejeMV5rMQlzyOLmheVNfQjgl8IhYTUXXqZ2Itse
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 01:01:03.6181 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 215c816e-6506-45bb-fbe2-08de8489d423
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 01:01:11.2399 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c961ccc-26a3-46e6-1fd4-08de8489d89d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4262
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8467
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,42 +116,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[Why & How]
-Init a flag to track if dpia enabled previously
-and update that to boot options.
+[Why]
+DCN401 didn't have a MRQ present so these fields didn't exist.
 
-Reviewed-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
-Signed-off-by: Meenakshikumar Somasundaram <meenakshikumar.somasundaram@amd.com>
+They are still present on DCN42 so we need to continue programming
+them like we did on DCN35 or we can block have poor meta requesting
+efficiency which blocks p-state.
+
+[How]
+Add `hubp42_program_requestor` which takes DML21 input and programs
+the registers like DCN35 and prior.
+
+Reviewed-by: Leo Chen <leo.chen@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 Signed-off-by: Chuanyu Tseng <Chuanyu.Tseng@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ .../amd/display/dc/hubp/dcn42/dcn42_hubp.c    | 35 ++++++++++++++++++-
+ .../amd/display/dc/hubp/dcn42/dcn42_hubp.h    |  6 ++++
+ 2 files changed, 40 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c
-index 4d274b7034e8..7833a4fb7fbf 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn42.c
-@@ -39,13 +39,14 @@ void dmub_srv_dcn42_regs_init(struct dmub_srv *dmub, struct dc_context *ctx)
- void dmub_dcn42_enable_dmub_boot_options(struct dmub_srv *dmub, const struct dmub_srv_hw_params *params)
- {
- 	union dmub_fw_boot_options boot_options = {0};
--	union dmub_fw_boot_options cur_boot_options = {0};
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.c
+index 0e33c739f459..d85a4ab957a4 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.c
+@@ -245,6 +245,39 @@ static void hubp42_program_deadline(
+ 			REFCYC_PER_VM_DMDATA, dlg_attr->refcyc_per_vm_dmdata);
+ }
  
--	cur_boot_options = dmub_dcn42_get_fw_boot_option(dmub);
-+	if (!dmub->dpia_supported) {
-+		dmub->dpia_supported = dmub_dcn42_get_fw_boot_option(dmub).bits.enable_dpia;
-+	}
++void hubp42_program_requestor(
++		struct hubp *hubp,
++		struct dml2_display_rq_regs *rq_regs)
++{
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++
++	REG_UPDATE(HUBPRET_CONTROL,
++			DET_BUF_PLANE1_BASE_ADDRESS, rq_regs->plane1_base_address);
++	REG_SET_4(DCN_EXPANSION_MODE, 0,
++			DRQ_EXPANSION_MODE, rq_regs->drq_expansion_mode,
++			PRQ_EXPANSION_MODE, rq_regs->prq_expansion_mode,
++			MRQ_EXPANSION_MODE, rq_regs->mrq_expansion_mode,
++			CRQ_EXPANSION_MODE, rq_regs->crq_expansion_mode);
++	REG_SET_8(DCHUBP_REQ_SIZE_CONFIG, 0,
++		CHUNK_SIZE, rq_regs->rq_regs_l.chunk_size,
++		MIN_CHUNK_SIZE, rq_regs->rq_regs_l.min_chunk_size,
++		META_CHUNK_SIZE, rq_regs->rq_regs_l.meta_chunk_size,
++		MIN_META_CHUNK_SIZE, rq_regs->rq_regs_l.min_meta_chunk_size,
++		DPTE_GROUP_SIZE, rq_regs->rq_regs_l.dpte_group_size,
++		VM_GROUP_SIZE, rq_regs->rq_regs_l.mpte_group_size,
++		SWATH_HEIGHT, rq_regs->rq_regs_l.swath_height,
++		PTE_ROW_HEIGHT_LINEAR, rq_regs->rq_regs_l.pte_row_height_linear);
++	REG_SET_7(DCHUBP_REQ_SIZE_CONFIG_C, 0,
++		CHUNK_SIZE_C, rq_regs->rq_regs_c.chunk_size,
++		MIN_CHUNK_SIZE_C, rq_regs->rq_regs_c.min_chunk_size,
++		META_CHUNK_SIZE_C, rq_regs->rq_regs_c.meta_chunk_size,
++		MIN_META_CHUNK_SIZE_C, rq_regs->rq_regs_c.min_meta_chunk_size,
++		DPTE_GROUP_SIZE_C, rq_regs->rq_regs_c.dpte_group_size,
++		SWATH_HEIGHT_C, rq_regs->rq_regs_c.swath_height,
++		PTE_ROW_HEIGHT_LINEAR_C, rq_regs->rq_regs_c.pte_row_height_linear);
++}
++
++
+ void hubp42_setup(
+ 		struct hubp *hubp,
+ 	    struct dml2_dchub_per_pipe_register_set *pipe_regs,
+@@ -255,7 +288,7 @@ void hubp42_setup(
+ 	 * disable the requestors is not needed
+ 	 */
+ 	hubp401_vready_at_or_After_vsync(hubp, pipe_global_sync, timing);
+-	hubp401_program_requestor(hubp, &pipe_regs->rq_regs);
++	hubp42_program_requestor(hubp, &pipe_regs->rq_regs);
+ 	hubp42_program_deadline(hubp, &pipe_regs->dlg_regs, &pipe_regs->ttu_regs);
+ }
+ static void hubp42_program_surface_config(
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.h b/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.h
+index 486c8907413a..88bb1337ab9d 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn42/dcn42_hubp.h
+@@ -48,6 +48,8 @@
+ 	HUBP_SF(CURSOR0_0_HUBP_3DLUT_ADDRESS_LOW, HUBP_3DLUT_ADDRESS_LOW, mask_sh),\
+ 	HUBP_SF(CURSOR0_0_HUBP_3DLUT_DLG_PARAM, REFCYC_PER_3DLUT_GROUP, mask_sh)
  
- 	boot_options.bits.z10_disable = params->disable_z10;
- 	boot_options.bits.dpia_supported = params->dpia_supported;
--	boot_options.bits.enable_dpia = cur_boot_options.bits.enable_dpia && !params->disable_dpia;
-+	boot_options.bits.enable_dpia = dmub->dpia_supported && !params->disable_dpia;
- 	boot_options.bits.usb4_cm_version = params->usb4_cm_version;
- 	boot_options.bits.dpia_hpd_int_enable_supported = params->dpia_hpd_int_enable_supported;
- 	boot_options.bits.power_optimization = params->power_optimization;
++struct dml2_display_rq_regs;
++
+ bool hubp42_construct(
+ 	struct dcn20_hubp *hubp2,
+ 	struct dc_context *ctx,
+@@ -64,6 +66,10 @@ void hubp42_program_3dlut_fl_config(struct hubp *hubp,
+ 
+ void hubp42_read_state(struct hubp *hubp);
+ 
++void hubp42_program_requestor(
++		struct hubp *hubp,
++		struct dml2_display_rq_regs *rq_regs);
++
+ void hubp42_setup(
+ 		struct hubp *hubp,
+ 	    struct dml2_dchub_per_pipe_register_set *pipe_regs,
 -- 
 2.43.0
 
