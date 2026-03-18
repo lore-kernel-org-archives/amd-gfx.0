@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B91BF1075290
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 09:46:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 667B11075286
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 09:46:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73CCA10E94B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D856610E951;
 	Thu, 19 Mar 2026 09:46:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aYvbAkJj";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="pDYWZy3c";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012019.outbound.protection.outlook.com [52.101.43.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25F3110E44B;
- Wed, 18 Mar 2026 18:31:51 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011021.outbound.protection.outlook.com [52.101.62.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7215810E083;
+ Wed, 18 Mar 2026 18:55:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BL9l/dQLANhGwRbJ1to0Dxraa5VK1IQupMWNU/3ux3L03zSVpIXdaIYNyoCbWHByecDYSqKlfGf6MneHKxA36PSoaxukc8Eu+SvM6Y6UwK5IdU4r2VJAww1SZrcXwFqxPXv4xYRaMG9Ud7MHstHj0h9HvTw3y8nZ9Irr+j71grNMB8rGLjuXKtC62LnPzY6Anm+I+HVZ5LppaU1XwBISRIbe2rzTuJA6cr/l0Sbl+MqSw5agILsiIEQBbB2NtHdne9UytsUlWU8UYH/JqdvjDokyI2lqkTEqDFDdtdLg7R7yU5EZfuM2qrd+eyo+jOh43o2e/dlsH6hVVweQu5E/xw==
+ b=mbHyH++QEkdpdLtCjf7hTwamKLoxXn6jVl1zDlmn0J9CpLacX9fi0QOoCKrlOlDeRYHAjBETSB4pxi4dmwL2WcyZPY3+x/BdeKlFe/XrNmc5ei8ZrKMKcSLzr3dmTdA2a5kSfXjl3egiC8YuFFNGbRzqtk0vzKt3KLDYt40eQ/BkP48KO5ol7xeRE1jm2YVp/cEGUsj3GRI/+7aec5lQ8Bi1BwYc8TTcFk5Ty30RHgSKs/oMj4/fJxoe/4U5HWnZ1mJlrXVfMPursahl4kXiH0cSgL7e9pt0WcEGRXQrYnavbYar8+Jt4iJg38zNENJVzWR0bNGEf3VTdeDbaMeARQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D4AkG5cRtnPgWmqUJTVT65dV47m4s54uQtF2MkJlhN4=;
- b=n4jwwL+IEZ68nvq2+K8yb50Jt9DmEO+kskR4QS025hrIiRu4OomypbHyWPg298IGqD4R9dLxdpFa2HWEW2cSUKNv9JmR5LVk3/42ak2j7KGsFkaaI6L3gfKoBJZkERGdIXGYFypADkDIUlQ8dF7Rcqdqo2LTDd/JAr3JYVG5BM1a8vLZa+RLcHKtDNv9bzCcoLUMhYjwb9MSWu6NKn4nyN2XaDFwm8Jrg/EjzLQRgWUT7pvduoLpSg7LRRtkgjtGXcrCPDrivR4e3QxwZLe8NVz31CUuslvcLq46FPpJyka8jL1iMUd/2oo5mUtOSt6gsAAmeAL6EAm082DEF/3vug==
+ bh=6bdteLddc+7br2YpmZBoXQD0YuAtFeUubDHx11rQ0zQ=;
+ b=dlN/WjR726rlrP0l1d4u5z9FMaioCr7NYbz6nVDi44Sb7CDj8etJgqeL+rSzZ8KCsR9tvY8RhZ2K2OjyMpSbcavJR7U4yXete6seeC1Ei6hJETfvlBQIOtw/3K/X0irZKwFoe6y10tyq4UPgWQ0Hkz3Xym25lEii/8zUOaDBxxttM9y1k4TjTi6HLyHH4YnEflDK+hs+JILD6xtFwlMg3IS70Kw4+NBUjIIkMWWVrKNXeod4Utm18vQZTs5SzyfQBvwFdPz+PcHbRoq05nopbm/sz6Fjoje3Q0mtzJTaknOUfCAoPGBP8jolgZhqhrybeSenutZwNZgVf21hkPSMNQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D4AkG5cRtnPgWmqUJTVT65dV47m4s54uQtF2MkJlhN4=;
- b=aYvbAkJjGaG1ZrlLmrzSr5qJI7o7OX3trbQSziX+kOs8s0PNw8PmPNuAdMTpqiF3P021HAAfOtjK+Og8LyNRJPqUE6W/3c9soTs2plIgK14GSj5wxkGGYZzttNFGCc7DmD8H1KKnvH74E671lTu9bD8sXk1f3nxNtNh1cVu37PsnQ6XcUgw6ceE8OzpI1LWXRp4C6qXU6wR3z/FsaRenmaI1/IydJTWn3ftML2Qpu9TpZgdPEbAAhSY8aMM7Jnw9zDeDkI5YF6CXL61cGwLbj+6vscaI2/u2o9P1TpmZPTM25rajby9CcymuPUDKmoaIpovmRR08Oe+4lc5GbBnvZQ==
+ bh=6bdteLddc+7br2YpmZBoXQD0YuAtFeUubDHx11rQ0zQ=;
+ b=pDYWZy3cxvT4+DNYqiW3/HuCgOlkTsl39jGWwAKYWvFVtFteIlc9PmU03uR2BzbL1sU5xr15MN5rYwzTBf3SCHQN5ii73mVsF/JKpay1KtiNj2cg81wDzwAUYc2DrAfRYcde2YYC8+aksJB3Lc8t11otQzCCY4Pu0Be9Z3vhFLI98NeKy7WJJ/E5yBbFusqgrwNQ0OIK+zQFDnmWLyzIuCplR9FKyvvRpygm8k3vUd4z+jBcAMsnxKrmmtqdJGFjJdacvZHRjMoyCaZVbBsyyWZLRWtcxHRuTraAW213aTM2ir2RMrHAgCW18IyJ1RWikJMiQmSLmaHgvxWprHddJg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com (2603:10b6:8:c5::21) by
- IA0PR12MB8373.namprd12.prod.outlook.com (2603:10b6:208:40d::11) with
+ BL1PR12MB5899.namprd12.prod.outlook.com (2603:10b6:208:397::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Wed, 18 Mar
- 2026 18:31:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Wed, 18 Mar
+ 2026 18:55:25 +0000
 Received: from DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33]) by DS0PR12MB6486.namprd12.prod.outlook.com
  ([fe80::88a9:f314:c95f:8b33%4]) with mapi id 15.20.9723.016; Wed, 18 Mar 2026
- 18:31:39 +0000
-Message-ID: <71b6a115-98f1-4b09-9c04-a99349f51e49@nvidia.com>
-Date: Wed, 18 Mar 2026 14:31:35 -0400
+ 18:55:24 +0000
+Message-ID: <a9377b60-a60d-462b-bd66-e7890ee88c60@nvidia.com>
+Date: Wed, 18 Mar 2026 14:55:17 -0400
 User-Agent: Mozilla Thunderbird
-From: Joel Fernandes <joelagnelf@nvidia.com>
 Subject: Re: [PATCH v13 1/1] rust: interop: Add list module for C linked list
  interface
 To: Alice Ryhl <aliceryhl@google.com>
@@ -84,77 +83,78 @@ Cc: linux-kernel@vger.kernel.org, Miguel Ojeda <ojeda@kernel.org>,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, linux-fbdev@vger.kernel.org
 References: <20260317201710.934932-1-joelagnelf@nvidia.com>
- <20260317201710.934932-2-joelagnelf@nvidia.com> <abqdUBqchnVFo7Qk@google.com>
+ <20260317201710.934932-2-joelagnelf@nvidia.com> <abpr65jD6esHysWO@google.com>
 Content-Language: en-US
-In-Reply-To: <abqdUBqchnVFo7Qk@google.com>
+From: Joel Fernandes <joelagnelf@nvidia.com>
+In-Reply-To: <abpr65jD6esHysWO@google.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BN9PR03CA0514.namprd03.prod.outlook.com
- (2603:10b6:408:131::9) To DS0PR12MB6486.namprd12.prod.outlook.com
+X-ClientProxiedBy: CY5PR04CA0021.namprd04.prod.outlook.com
+ (2603:10b6:930:1e::12) To DS0PR12MB6486.namprd12.prod.outlook.com
  (2603:10b6:8:c5::21)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|IA0PR12MB8373:EE_
-X-MS-Office365-Filtering-Correlation-Id: f833a112-5658-4f8a-e273-08de851c97ee
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6486:EE_|BL1PR12MB5899:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcf9434a-ac4d-401e-9ea5-08de851fe947
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|7416014|376014|1800799024|56012099003|22082099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info: N/VKZLJw7OR5lDMwCThwp0vnoty1XmLMbm4zAM45gBYfHJQBp3jDg/aN0GlXb7OxXHn+DXDAHWWgtxYbpn1syJUMK/E/8p5IeSyv2laOZG0//PvT5GMMtqFvTG3nynBTVRTRkbEA71npzKiH9YBOkmWhptpmCfcCfCFlOf646sjv3bMkAZwRm2q2W55tXWUpWrHGVZYpZ6RdG36lxp2MyWBC1Vz9Ku7WGw9KJZ30/7+xum00Z2wX+GoZ6A/mqru8tr+vD3mzRrzin9Job1TeHFWTNdot8skfO+/7PQKGEp2prbkpbpscQj63c1sX2qAtE8Majyb2WzdRLMHHvO0JJ44t8dUpPAKp8IGS92m57iPTycGwlc4unD4KnoeSngboe+ouzYkn5TORItXpLMw2cUyySOGF3VjxHh1m5eBJHHM9iC1diB7//5ww6TyrnTgTBLdYVoMTvJ94BKCmxe8/OQ5A3Lmmgjw3rF9pfTSk3GtTIF4IeHUbeW1FvMhA6WCO95uvuUR5yQgsDWpQ1rzJXbqVOrpjoMq+AH0Newaf4XR77BERyQTeb5MtQwDw5XA0AfsqMQOLYGZ1MLUAlt6Jjql2pF/xT9/xaj/OUEj0ZssPyKoW6cqi3L185rugKO3/nBcoEHb3xu7N6ucwrvcXH3N3+ixnFIzDPdHbcXwR9DE/7QhxALAWJGPJf1FawumAC6dhwyDTNqKwT9FGe5OpgHvdwYgWo4EobwwGAyRfN3c6jk31N6BmHeWO1NvZbP9+
+ ARA:13230040|366016|1800799024|7416014|376014|18002099003|22082099003|7053199007|56012099003;
+X-Microsoft-Antispam-Message-Info: R56ED/L1VmDaoaSe3ktUvlQqyv7oGLdwt21tHi4lsQ2UQpIySy4P28nag3XPUpNcpNz4lGEo7jGbTrIjz49H/IJEsvsJ1apyx18CzH/sR+pWnyuMdcXx+oTDps+HFY1zgBI2boQ06VImLuAEjszKIl55BLO/OOHotBW/RMHYKcB5xCg0F4jqBz+Heb0Qu8dpKzK2/7w26huEM5u3Kln9eetuBoeIl9bG/kiNVESkFnhADRFkXGptBFemQy2uxVoDcEo5vfMgL7bZg3U4WVQCjag55kezIni8Lk0Cq8eqP1+KQUgJ3FkDcxraCHSjfQUg4Bu3AVHzY4HFWPmcPV/q1hMnO6eK/vnc4Bxn+/9GTN07GPzpo6+rTsmq3TGNGlgtcD6yDlAZ2WnrJbr7Q37JXvFrQBBFV+q1GRFm64edqyqRu7pfG/1w+LDrFx5MesC7hLc+/ySrG0i3gFRDcxNwnJrkcKD0v9mDB9ln4ZiVIaKjslWNf+5UnrnL/yakbjovs6f+BrW6tnWxnFcGh30q3Eft+Cy14jmjsHhIW6fNJ/Q2miyCVAE2eSyQy9wsYgx19FQwzSy9+fnmBWuDbcUTvsabo7BMDcFymil6DhbOf24kblOtt7mJWIUMvJEQ/HCkxfzK/kS4vOXJpxNUUqZio5wTK9RLj/Jijnzg4cI7ntcYwKMX7a6qPZ+RWZY0zmDSs/x3XivLAbWOK6z6a0HDaliwPiWp3khXuy3kON3KXT8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB6486.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(7416014)(376014)(1800799024)(56012099003)(22082099003)(18002099003)(13003099007);
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(18002099003)(22082099003)(7053199007)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHpjZms4KzNXSVdYSjFZc3ZpNDU1eW52bmlVMlgwc2pKa2Q1QUJxWFFiZFFZ?=
- =?utf-8?B?MFcvR3NkWUVsdUU3VVRkOTNDU0NnZ0JYSEZDcmFLZ09jV0NYVk5YdXpoNkhF?=
- =?utf-8?B?QTRqb1VNYmh5R3VuTWJzWDdDVC9NeStHMVBqWjBnMTZwRnRNQXpBTk51M2Rp?=
- =?utf-8?B?OVI1UGdIQnJxbWsvaXZWNGlBL3B3bUx2b2FMc21HTk9YZ3VvMmJQN3dsMDJr?=
- =?utf-8?B?OXd1SEp5Z0RtWUlteUgrSWxBd2tTdllBaFM3VWlCSWlURlVQRFNaN2c2T203?=
- =?utf-8?B?OTRMTERiZ25jc3RVMFF3dDNTamN1UjNRVVdnc2RFWHhuRGdWZGhBWW1tRDYx?=
- =?utf-8?B?TEVmL0dWS0JmUmsvcUE5Y1c4MlJST1dWRlA4VFVSQWxTT0YxdFpvMXdENWVM?=
- =?utf-8?B?QlpRWG43L1p1WXVXWnJXYzRvZlQxSGhQblF5bys5dll3clZ4MExLYjBnb1o3?=
- =?utf-8?B?MGM5WHJNaC9NUTU4UmEvWUQ5M3dUVVREMldNM05MZDFsbzRVOUxoQ3ZnYkRm?=
- =?utf-8?B?Z1krRXJQcWNKVUo4QnpDYVJ5bWVzdEZSQ2Y2a0dSdURNbTFKRGNyY1ErS3NZ?=
- =?utf-8?B?Rmg5OFc4UnNzRTBieGVmU0NUVkd6SHN5cTFGNHRTdFdvZXE5MndhS0hPQkpT?=
- =?utf-8?B?eHpSMmQyZE1rb1lCdFJLYlJVT2hxRFFncGd1MlVkcFVYbGxYTnBWMEdvMTNZ?=
- =?utf-8?B?cnpHSEhlUEg0RS9VbDE0b0xXOW1wQzJhQlBuMXc4ZWtlRFdxdTBpTVFxeUoz?=
- =?utf-8?B?MERaOG56VkxVVHRUSWNGVHdNUnZnNUt3M0FSVFNyRy9aNkhyTTNveWV0Q29I?=
- =?utf-8?B?L05hOUZHRDRHdXBJaUZzQk5ycndMaXNxQW92Q25LY0xiK2NxUmhWZEJncllP?=
- =?utf-8?B?cDVjVFJKeWVHRnZpaEhUa250MVpLWFYrSVdCN214OHdEbUhtNzBaajYwaVk4?=
- =?utf-8?B?MzFjbHhMVUJsb1ZFdHpIUDJQa0lsQjBaWUV4TjBBbjBXSzlWeUZxM2Jlb0Z0?=
- =?utf-8?B?czREb2t2RWNyRWFEY3A4SzE0eHNlK2hSTEtpSndURk5JT1NOaGZ1VkttcVht?=
- =?utf-8?B?RldMNHF1UzJtR2hPS2lnNGVDVVY1Y1N3bFN5elZzcVVYNE5BYncyelJ6TU93?=
- =?utf-8?B?MzF1blNkUmhVZWkyelFaTkw5aUQ1YzhWaTNaSFV0NUNKclJxbExFTXdxWUVv?=
- =?utf-8?B?ejMvQnQyRWxhWWtrcHNnY1dQNXZ0ZnZZNU5lV0FrbjNHZ3JLeHJoLzVGOTRO?=
- =?utf-8?B?MVk5WFE0TXYvQnBDZVVTRFNFT0k5cEtJZGtnYWlBektvTHowMlVYZ1dKVXE5?=
- =?utf-8?B?dmk0S29vN1ptN0xxMXZ3WE5pdDZLeUZFVVByMmMxYytBcldIU3RnbHFNNm5J?=
- =?utf-8?B?STBYZitXY0hydkg1RDRDWVJJMHkwRStZdmdob0FlMkdVYUs1ZEduMkZqbE9p?=
- =?utf-8?B?bXMySFEyRzkwUlEzV2VyUVczdmxmYzdqVkZXbHd5UHFwck5PdTY2QWxBY3dq?=
- =?utf-8?B?bzBwSkFETm9TMno0WnRKVzlTTDlVYXpRU1BBbHZwQk5GM0E5Uy92UGZqRWtP?=
- =?utf-8?B?WFV3VDFERi9DenhQVG9oTlQzeFR5bWtmMU9YdHJ3MnJJbmxtVU5hN0pGcUpM?=
- =?utf-8?B?dnA3S3VMTTNqSHhOQ29odjcyT1pMNFJSYTRnN2M4aE1wMEZ2cnkvZHhMdVAr?=
- =?utf-8?B?SGtmMHdoMCtpVTdSckhEQlRpVkhtWmY0eUp4TmxITXkvWDgvdk1xWFJyUGti?=
- =?utf-8?B?OVlkbHd1YXJjS2Fzc0h4VS9JbjFLVVFtWlhEWHpYYnZhY3FxdENsVXJ1aUpY?=
- =?utf-8?B?em1tdEdrTXJYS2RPckxCbEUxeTJKNVZVdm9EaE83Mm9CSlhaNDY5cjlSTjdv?=
- =?utf-8?B?TzJhUzh3M0EwRVhITlg3NEN4a3RMRlAvV1kwa2VETVhXazFKM3dielZDK1Bx?=
- =?utf-8?B?S2xreFNYTTV4cTFZdmlUSE16VXpPRHpmVHlBYUlXYkFYWFFJSkJTekVLQmtB?=
- =?utf-8?B?OS9JOUlFK1Z5clQ5VmpmQmxuQWRLd0hJVGNCL0dOZThZb2dDT2ZrZzE3ZWha?=
- =?utf-8?B?RWtVZWhXRGZPU2ZHam9GNzRTWTlvZ0d0ajkwN3I3RjhxUGZDcHIwQXBseXg1?=
- =?utf-8?B?VmY0a3JVNkNDV1gyRzVWczNoaVlmOHFNN3p3cHhhZTBYR2NmcEUzYWlGOW50?=
- =?utf-8?B?YXBNVkZtcHl1NkVkcVV5ZitBUjhkN1lxNlNJdlpFaW9sWUlBRkR6aGlKWnhi?=
- =?utf-8?B?WjZHdDJFN3FSdWtUODlrTXBobzhjelFXeWJlUDFPOHcraThjS3FJK1g2L2VO?=
- =?utf-8?B?bm1ldzRRaVJSckUwenltZldvNHRjRTZDSVNyZjU0UVN0UDQ4VmJMZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFdtZ1J1RE9EcDRXOUtubG45UUprK2puajJpY2JTcndOSEtYTmYwR0N3UUFs?=
+ =?utf-8?B?RjFHWE01cUQ5WmRYUWp2ZmpsZ0x4TEhxZll2R3ZkNytkbVhPOFZmWjkyNlpL?=
+ =?utf-8?B?SWpNUEhTa085Y2VDa2hJOG1kMi9tUVhIdmtEVlExOEZGQnpmOVZ5OUg2OWRa?=
+ =?utf-8?B?a0ZGdnhPWGgxZ25yRVFEZklMN0hFTjZUOFpJTURkeXJYYVpQMXBlRUdTU0Ur?=
+ =?utf-8?B?a1VETUFOWVpWdzVUbXV0Smx5NHJhZlp4ZzNZam9xL2NmckR0MkRVczJSQ2Qv?=
+ =?utf-8?B?NStEdXFCTjNic1hJU3pxejU3WUZUNSthd1N4VklYektPK20wZVlpRTFjUU1q?=
+ =?utf-8?B?Vks3NE9sRE9CRHVISmhhR2xJSWtlSUM4eGlmeXJDOVF5SVBpc3ZXUCt1b0lX?=
+ =?utf-8?B?WnJxZ09wWlFNNUpSL2FVWDFhY09sV05QcDkydEJOUHkwUVF6bVloaVczZFlS?=
+ =?utf-8?B?WVNNeHVoclpHVUI3dUVwdDh0b1NYemYra1pjSjNsdit2elkyNFFuUmo1N3Yw?=
+ =?utf-8?B?NWl6UWRHek9ZOXlwa2k0RDJ3bUw2aHdET0laMUZxSFZnN3lLZkY4dFNTeGM4?=
+ =?utf-8?B?RmV0ZHpCODhJTGR2L1UyUWVoWU1oVzlyRmZzL3laYmRhQmpCSzJacGo5bFIr?=
+ =?utf-8?B?RWhNRHBSQmEyK2VyMlBYTGdmZGNSRDFpNElRcmtkN0xhRm1SL3NRMTVhRVBP?=
+ =?utf-8?B?SDA0a0ptcjZqMjl2TWpWRmd1SEZIeHBqbUpHaXgwVnEwcEFOeXNJNEZBM3NM?=
+ =?utf-8?B?c1F2RGoybWhXTlZEWnlPQ3hwUG5kS1JwTU9lQTBsZEV3UFl3enVUUUFwbFI4?=
+ =?utf-8?B?NHIxem0wdDlHQkdxdFFmV0NBbEhhSi9oWVZDaXZ5OTNpZ0ladVFuQVJFbith?=
+ =?utf-8?B?TVVZME44a0EyQllURHhBSEpTOGgvMHM1RzFnS1N0VUh4eTdocHA3bEdqMlp3?=
+ =?utf-8?B?cmwxdU5tZVhtekJBdzF0NVFKTGRISnNCR1IzZEwwYVU0czV0RmdvbEM4TVd4?=
+ =?utf-8?B?Mm1HK0RRVXhVVHV3d1RkcnlDalFoMmNhaGRyQzhWMzFZUUF5eGc5T29jQ1Rx?=
+ =?utf-8?B?VmZ5ZmhiT0gzUWZvcTdNVmtkKzYxenZXcUtVamQ3c1JYbm1pU1VrdGZSVE5m?=
+ =?utf-8?B?UVVxTVR1RjZNWmQ3ZU5GaVBmUVZCNlRZQk5vTUtJWjRETHVTdUUvUWxkckdO?=
+ =?utf-8?B?bWFUaEN6Umt0THI4ekVXMVNKRTZ4TjhFeHE2UUpBamM5WVlaSVk0V1dUN3VK?=
+ =?utf-8?B?aGRDTmxJdnZrdFBUQlZwall1WEVLT0ZXT016bGIvRndtNzRBQ3hXWUl2Tm1N?=
+ =?utf-8?B?QnpHaXBsanlRV0I5RHAvS2d0OTlvTlAzUDY3QVc1TTRCaWlpT3Z4ZmFZVFRE?=
+ =?utf-8?B?OE5mQUY2am1nMllpb1pya3pLWjRxWlIxeDBIVEN2MmJialo5WXJ3Nk5jMUMx?=
+ =?utf-8?B?VHBoUEtuNlE4WHR0bkRreGZLUGtFV2ViSFE4aXJjcUwrLzlTNGhyVnhhYmRn?=
+ =?utf-8?B?ZkJwekxQT0t3aXNoaDNsRDBJSm9nV0lCWFFORTgwS0lYbzRodmxrSWxOZlhi?=
+ =?utf-8?B?dTRLMWlYbWNNaitzbDQ1Wm96T1FxZ0lMTmxvSVg3dUlFV0E2Sy9EMHdvVDRw?=
+ =?utf-8?B?S3U1QjB0NDI3dkdyb28yVko5TW9HYm14OGFQdkxoRklGaTJsS1ZWZUlsNjVa?=
+ =?utf-8?B?ZVpJMHBERjY0VmlvcnNLRXV2L1QzRXpxN1d6akdPbkF6WlJiaG5oNFl3TDhn?=
+ =?utf-8?B?Y0V2YmhHcVlLWVplUDQ1clZORjltQUw5QVZab1F2MGh6L1pkU1FnUzFHbXR0?=
+ =?utf-8?B?VGNJNkNxc054dmswMzRvaUJaU2ZTMzhCUUhNYUdldDViU1Uxb2JGMUpuc3Na?=
+ =?utf-8?B?Z0JudWZsazhmeC9SS2N5YUJnS3NsR1U2TzVTYVRnaEl6RVJEZXhmVm9QZ05o?=
+ =?utf-8?B?eFhjWkhWTlJ6d1hQMXBxNmdJOW5QVWZTcGtkSnd5cHdPK1AyeEl3NU91WnU2?=
+ =?utf-8?B?U1dGbDNvSUp5SHFqbWwwVFhkT1ZQemZvWU4weG9ITVJjODlwSW9MMkVOQkpa?=
+ =?utf-8?B?VGNpYzBISzBpUWtXVmE1cnB0WFBqcnJybzBiWDRJVy9ubnJWOFVoZVpnZXQ5?=
+ =?utf-8?B?dWs0ODBLR2tTZ05mazJIZEpuTlBXTXViVWRxUFRqbUxJSkp5MStmNnc0WGRw?=
+ =?utf-8?B?OXB0NHhhVDBqb1NNOHZjMGNJQksxSWhuak4zZ2VoTyt3aWg3VVUwbTBQbVpY?=
+ =?utf-8?B?bVQyUm00bjhHNXg3NzE5QVgra0hjVllFR2tWVU5QVHA5QjBGaEhGQVhkM2JE?=
+ =?utf-8?B?VkJuL1licGJLMUJjY2FQcHlpZHIxV2ZSZlNZa3cxZEJKUW5venRGUT09?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f833a112-5658-4f8a-e273-08de851c97ee
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcf9434a-ac4d-401e-9ea5-08de851fe947
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6486.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 18:31:39.3045 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 18:55:24.5374 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WAnMFH+Cud/kLxIZiETdrQiq029r8Cx7OH4EfeqF/1p8/yPvsKEYv2YHbdLNov+Y6W9sbAQOlJhJGFdOXW6AhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8373
+X-MS-Exchange-CrossTenant-UserPrincipalName: x+ZHgSeeSz2SzQl7JFBwm0pfkPkoSy3qIyi1pq63uTq9J+rgEXHdgSrwJ9b/MAjYsEWwUXMD7XPDN0V07e1TvQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5899
 X-Mailman-Approved-At: Thu, 19 Mar 2026 09:46:17 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -172,7 +172,7 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 3/18/2026 8:40 AM, Alice Ryhl wrote:
+On 3/18/2026 5:10 AM, Alice Ryhl wrote:
 > On Tue, Mar 17, 2026 at 04:17:10PM -0400, Joel Fernandes wrote:
 >> Add a new module `kernel::interop::list` for working with C's doubly
 >> circular linked lists. Provide low-level iteration over list nodes.
@@ -187,207 +187,83 @@ On 3/18/2026 8:40 AM, Alice Ryhl wrote:
 >> Acked-by: Gary Guo <gary@garyguo.net>
 >> Acked-by: Miguel Ojeda <ojeda@kernel.org>
 >> Signed-off-by: Joel Fernandes <joelagnelf@nvidia.com>
->> ---
->>  MAINTAINERS                 |   8 +
->>  rust/helpers/helpers.c      |   1 +
->>  rust/helpers/list.c         |  17 ++
->>  rust/kernel/interop.rs      |   9 +
->>  rust/kernel/interop/list.rs | 342 ++++++++++++++++++++++++++++++++++++
->>  rust/kernel/lib.rs          |   2 +
->>  6 files changed, 379 insertions(+)
->>  create mode 100644 rust/helpers/list.c
->>  create mode 100644 rust/kernel/interop.rs
->>  create mode 100644 rust/kernel/interop/list.rs
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 4bd6b538a51f..e847099efcc2 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -23251,6 +23251,14 @@ T:	git https://github.com/Rust-for-Linux/linux.git alloc-next
->>  F:	rust/kernel/alloc.rs
->>  F:	rust/kernel/alloc/
->>  
->> +RUST [INTEROP]
->> +M:	Joel Fernandes <joelagnelf@nvidia.com>
->> +M:	Alexandre Courbot <acourbot@nvidia.com>
->> +L:	rust-for-linux@vger.kernel.org
->> +S:	Maintained
->> +T:	git https://github.com/Rust-for-Linux/linux.git interop-next
->> +F:	rust/kernel/interop/
->> +
->>  RUST [NUM]
->>  M:	Alexandre Courbot <acourbot@nvidia.com>
->>  R:	Yury Norov <yury.norov@gmail.com>
->> diff --git a/rust/helpers/helpers.c b/rust/helpers/helpers.c
->> index a3c42e51f00a..724fcb8240ac 100644
->> --- a/rust/helpers/helpers.c
->> +++ b/rust/helpers/helpers.c
->> @@ -35,6 +35,7 @@
->>  #include "io.c"
->>  #include "jump_label.c"
->>  #include "kunit.c"
->> +#include "list.c"
->>  #include "maple_tree.c"
->>  #include "mm.c"
->>  #include "mutex.c"
->> diff --git a/rust/helpers/list.c b/rust/helpers/list.c
->> new file mode 100644
->> index 000000000000..18095a5593c5
->> --- /dev/null
->> +++ b/rust/helpers/list.c
->> @@ -0,0 +1,17 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +
->> +/*
->> + * Helpers for C circular doubly linked list implementation.
->> + */
->> +
->> +#include <linux/list.h>
->> +
->> +__rust_helper void rust_helper_INIT_LIST_HEAD(struct list_head *list)
->> +{
->> +	INIT_LIST_HEAD(list);
->> +}
->> +
->> +__rust_helper void rust_helper_list_add_tail(struct list_head *new, struct list_head *head)
->> +{
->> +	list_add_tail(new, head);
->> +}
->> diff --git a/rust/kernel/interop.rs b/rust/kernel/interop.rs
->> new file mode 100644
->> index 000000000000..b88140cf76dc
->> --- /dev/null
->> +++ b/rust/kernel/interop.rs
->> @@ -0,0 +1,9 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +
->> +//! Infrastructure for interfacing Rust code with C kernel subsystems.
->> +//!
->> +//! This module is intended for low-level, unsafe Rust infrastructure code
->> +//! that interoperates between Rust and C. It is NOT for use directly in
->> +//! Rust drivers.
->> +
->> +pub mod list;
->> diff --git a/rust/kernel/interop/list.rs b/rust/kernel/interop/list.rs
->> new file mode 100644
->> index 000000000000..328f6b0de2ce
->> --- /dev/null
->> +++ b/rust/kernel/interop/list.rs
->> @@ -0,0 +1,342 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +
->> +//! Rust interface for C doubly circular intrusive linked lists.
->> +//!
->> +//! This module provides Rust abstractions for iterating over C `list_head`-based
->> +//! linked lists. It should only be used for cases where C and Rust code share
->> +//! direct access to the same linked list through a C interop interface.
->> +//!
->> +//! Note: This *must not* be used by Rust components that just need a linked list
->> +//! primitive. Use [`kernel::list::List`] instead.
->> +//!
->> +//! # Examples
->> +//!
+> 
+> I have a few nits below. But overall I think this looks ok:
+> 
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> 
+> Please do consider my mod.rs suggestion too, though.
+
+sure.
+
+> 
 >> +//! ```
 >> +//! use kernel::{
 >> +//!     bindings,
 >> +//!     clist_create,
->> +//!     types::Opaque,
->> +//! };
->> +//! # // Create test list with values (0, 10, 20) - normally done by C code but it is
->> +//! # // emulated here for doctests using the C bindings.
->> +//! # use core::mem::MaybeUninit;
->> +//! #
->> +//! # /// C struct with embedded `list_head` (typically will be allocated by C code).
->> +//! # #[repr(C)]
->> +//! # pub struct SampleItemC {
->> +//! #     pub value: i32,
->> +//! #     pub link: bindings::list_head,
->> +//! # }
->> +//! #
->> +//! # let mut head = MaybeUninit::<bindings::list_head>::uninit();
->> +//! #
->> +//! # let head = head.as_mut_ptr();
->> +//! # // SAFETY: `head` and all the items are test objects allocated in this scope.
->> +//! # unsafe { bindings::INIT_LIST_HEAD(head) };
->> +//! #
->> +//! # let mut items = [
->> +//! #     MaybeUninit::<SampleItemC>::uninit(),
->> +//! #     MaybeUninit::<SampleItemC>::uninit(),
->> +//! #     MaybeUninit::<SampleItemC>::uninit(),
->> +//! # ];
->> +//! #
->> +//! # for (i, item) in items.iter_mut().enumerate() {
->> +//! #     let ptr = item.as_mut_ptr();
->> +//! #     // SAFETY: `ptr` points to a valid `MaybeUninit<SampleItemC>`.
->> +//! #     unsafe { (*ptr).value = i as i32 * 10 };
->> +//! #     // SAFETY: `&raw mut` creates a pointer valid for `INIT_LIST_HEAD`.
->> +//! #     unsafe { bindings::INIT_LIST_HEAD(&raw mut (*ptr).link) };
->> +//! #     // SAFETY: `link` was just initialized and `head` is a valid list head.
->> +//! #     unsafe { bindings::list_add_tail(&mut (*ptr).link, head) };
->> +//! # }
->> +//!
->> +//! //
->> +//! /// Rust wrapper for the C struct.
->> +//! ///
->> +//! /// The list item struct in this example is defined in C code as:
->> +//! ///
->> +//! /// ```c
->> +//! /// struct SampleItemC {
->> +//! ///     int value;
->> +//! ///     struct list_head link;
->> +//! /// };
->> +//! /// ```
->> +//! #[repr(transparent)]
->> +//! pub struct Item(Opaque<SampleItemC>);
->> +//!
->> +//! impl Item {
->> +//!     pub fn value(&self) -> i32 {
->> +//!         // SAFETY: `Item` has same layout as `SampleItemC`.
->> +//!         unsafe { (*self.0.get()).value }
->> +//!     }
->> +//! }
->> +//!
->> +//!
+> 
+> IMO the automatic re-exports of macros at the root shouldn't be used.
+> Import it from kernel::interop::list::clist_create instead.
+> 
+> Note that you need to put a re-export below macro definition to do this.
+> 
+> 	macro_rules! clist_create {
+> 	    (unsafe { $head:ident, $rust_type:ty, $c_type:ty, $($field:tt).+ }) => {{
+> 	        // Compile-time check that field path is a `list_head`.
+> 	        // SAFETY: `p` is a valid pointer to `$c_type`.
+> 	        let _: fn(*const $c_type) -> *const $crate::bindings::list_head =
+> 	            |p| unsafe { &raw const (*p).$($field).+ };
+> 	
+> 	        // Calculate offset and create `CList`.
+> 	        const OFFSET: usize = ::core::mem::offset_of!($c_type, $($field).+);
+> 	        // SAFETY: The caller of this macro is responsible for ensuring safety.
+> 	        unsafe { $crate::interop::list::CList::<$rust_type, OFFSET>::from_raw($head) }
+> 	    }};
+> 	}
+> 	pub use clist_create; // <-- you need this
+> 
+> See tracepoint.rs or any of the other macros for an example.
+
+Ok.
+
+> 
 >> +//! // Create typed [`CList`] from sentinel head.
 >> +//! // SAFETY: `head` is valid and initialized, items are `SampleItemC` with
 >> +//! // embedded `link` field, and `Item` is `#[repr(transparent)]` over `SampleItemC`.
 >> +//! let list = clist_create!(unsafe { head, Item, SampleItemC, link });
 > 
-> Bad news.
-> 
-> My build triggers this warning:
-> 
-> error: statement has unnecessary safety comment
->     --> rust/doctests_kernel_generated.rs:7103:1
->      |
-> 7103 | let list = clist_create!(unsafe { head, Item, SampleItemC, link });
->      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->      |
-> help: consider removing the safety comment
->     --> rust/doctests_kernel_generated.rs:7101:4
->      |
-> 7101 | // SAFETY: `head` is valid and initialized, items are `SampleItemC` with
->      |    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->      = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.94.0/index.html#unnecessary_safety_comment
->      = note: `-D clippy::unnecessary-safety-comment` implied by `-D warnings`
->      = help: to override `-D warnings` add `#[allow(clippy::unnecessary_safety_comment)]`
-> 
-> This probably needs to be:
-> 
-> 	unsafe { clist_create!(head, Item, SampleItemC, link) }
+> Did you try using this in your real use-case? You require `head` to be
+> an :ident, but I think for any 'struct list_head' not stored on the
+> stack, accepting an :expr would be easier to use so that you can just
+> pass `&raw mut my_c_struct.the_list_head` directly to the macro. Right
+> now you have to put the raw pointer in a local variable first.
+For buddy.rs usecase, currently we do put it in a local variable so it
+works fine. Not doing :ident was causing clippy errors.
 
-Oops, I sometimes run clippy wrong. I did: "CLIPPY=1 make" instead of "make
-CLIPPY=1", the reason is habit. I have been doing "LLVM=1 make" for llvm
-builds since many years.
 
-Anyway, the fix is simple, just need to do // SAFETY*: as Miguel suggests
-here, instead of // SAFETY:
-https://lore.kernel.org/all/CANiq72kEnDyUpnWMZmheJytjioeiJUK_C-yQJk77dPid89LExw@mail.gmail.com/
+warning: this macro expands metavariables in an unsafe block
+   --> rust/kernel/interop/list.rs:341:9
+    |
+341 |         unsafe { $crate::interop::list::CList::<$rust_type,
+OFFSET>::from_raw($head) }
+    |
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: this allows the user of the macro to write unsafe code outside
+of an unsafe block
+    = help: consider expanding any metavariables outside of this block,
+e.g. by storing them in a variable
+    = help: ... or also expand referenced metavariables in a safe context
+to require an unsafe block at callsite
+    = help: for further information visit
+https://rust-lang.github.io/rust-clippy/master/index.html#macro_metavars_in_unsafe
+    = note: `-W clippy::macro-metavars-in-unsafe` implied by `-W clippy::all`
+    = help: to override `-W clippy::all` add
+`#[allow(clippy::macro_metavars_in_unsafe)]`
 
-Should be easy to do on apply if Danilo doesn't mind. :) I verified on my
-setup that it fixes it.
 
 thanks,
 
 --
 Joel Fernandes
+
