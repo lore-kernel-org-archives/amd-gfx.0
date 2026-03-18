@@ -4,88 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C1C8FCD0C4
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 13:12:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2500FCD0C4
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2026 13:32:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B0CFF10E0CA;
-	Wed, 18 Mar 2026 13:12:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 758AC10E829;
+	Wed, 18 Mar 2026 13:32:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="U5cGnC3d";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BVxBz+rG";
 	dkim-atps=neutral
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58A6210E0CA
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 13:12:28 +0000 (UTC)
-Received: by mail-dl1-f52.google.com with SMTP id
- a92af1059eb24-12734af2cdcso317115c88.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 06:12:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773839547; cv=none;
- d=google.com; s=arc-20240605;
- b=XxotqDlCMxhLJcVDPVihDDGl/iMM66CB3iGeamzTM5sfhSLRFOzFV9topd18rfW9M5
- sJhhtb6PkvssvkzLgs/TmniNbzEJwcyGVkLkI2ZkotIwC4xp9XWdsiYNL5jUO50vsNEn
- eLZymwOXom3+LxZvyQsV2qFezmn0SouWwVlscOZx7cGi9QdtaU7j2yzAbs6qyQR9wU3e
- Z+G6fLMstNsGdzQfzoVI+OMSg/sxkFhUF2oIz/g7LW2T7RXD5/KhmHYr5g02dzS7HHis
- VZFp0Dt9fzASBuCvWA8/I2PMilmYD7XH8xY2OU6MoGGYP/qBCBRa6SiFPa8n5EP2zryT
- 88UA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=fCZVVUxNMAnAlrRNwKH1qIToPVFuh8cbnjHj2aVzUvg=;
- fh=eClSOvX3Ufrk3xmew2bENE0C3juJ/fkpDTmR/fycvps=;
- b=WNv0s8PUCZPxlMvZILnUx9puo5Cdq8FNJTVtPhiYinrVL6snS4bAILEWTPjfg3KrSA
- lpFImmQ2NgchwSzZcibXPWWToDpOqaOUic6cRNnslIA4Gb0PzzWJa4eWt0ujCiVA3WvM
- 6KKVmDvQFMn7J+VJOZe+XbJ9pql4DfDdRgJxQ8jH+09cOLj5x33rsPxJe2VU4qx+QQ+o
- zcNUs9akxeCODXWiYJQ1s11F+sXcHa2T5Mnb4XkKoXY5TmfT/NcVwtCwiYWvX7LzGuYA
- AqNXyzchg9XGPXPiohHtCJLBPeQ9d4bIKL5Z30hq7rQ7JeDAbMV9M6AmqludIU8S48UV
- umJQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773839547; x=1774444347; darn=lists.freedesktop.org;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=fCZVVUxNMAnAlrRNwKH1qIToPVFuh8cbnjHj2aVzUvg=;
- b=U5cGnC3deGUj1E3jAwtE8cUuwzF8adlqfTTD/6MYf9+GahzXGcLiWTgW52wpBGn52a
- IipaCyJwpNBcpk6n6M7uBKBlbTEJxI4u1JCo02LbFimH3ABRSjT91p7yMFy05oLaeuQb
- N/GTLFvDxz1IScoZpW5gXFSEsQmT8KjH3++dbTXYApnKZN7km+A/2AVkyjQvWO7qWot8
- IYTPF7Oiujj5YuDkftetmhvGU8+Vl3g2RKiUA9WxPqqmFKowyCGPEyvueHBOMt7J7qsU
- UEQTFYCQHLLxBrmMfUCHe8I3wYSHtbeE0VEgHSeSojE8Srzt7hjXPvGiXm1chX7h0vYs
- ZmRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773839547; x=1774444347;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=fCZVVUxNMAnAlrRNwKH1qIToPVFuh8cbnjHj2aVzUvg=;
- b=j6jTBtTB++dqoMzdk0hnyWWHYSRB+x0xft312zfmDZKxkWGswitzPBhzNxgyvKVK0l
- OgM4pouTqBnYs5Cx7c7G6x1TtEk6X0bCGSQyX/JT7L8omgreaf9URUC0qFev8asdZUFK
- J4nARwQ3A9KfC6nrsfIzEUYBHMbA8Y4uxn63D8nHlm5EfDKsAvlJx07Q3hsye/j4zJhU
- cbnzHLiA3Gf7ovSL7D6AI1J6GpIrcHUraue/CEV3DlKNxjW20HLGIEBltMK3hmNUS/9J
- IT6DRkc9ivqMI1i+hykWPj7gPirpoNdNklbAgOEkWl5TjSFndk2XljzA40IiXdq3C5B+
- nsUw==
-X-Gm-Message-State: AOJu0YyjQrxCBxnofsCGRT8fyGTVZYGX7iTjqJpgQIDKyiaTlSl5FWz+
- mgZbUuwJxwN+PFpgYkV45iNZIM3Vh0VlIfWr0fKV/xeGHRSymJAHVeqFIIVvWAWxqUmLpFEkagI
- DFO467KVWvNJ1YTPQxLhgTL29V9e3scE=
-X-Gm-Gg: ATEYQzzevx7VaNlkPAxyS57QeI70q05i2kL4OolUjSdlZtkAQOllFw/hBvURw7byVEF
- tCofyMHlgmtmHPYF6CiXhc9RByAcKdtdoVoVPaa/XpLwyj4tPl56ub3JG09KsvSUE27Zf/Y+X4N
- uLoqx6hIv+is2CvzlrXLc/nY0YVT7yR5w3rFCc3xLzcct3He0oUgAf4u5hgbZGay4zMXXqXzOhA
- ApLNLR5wV0qBmwXIR5G1h1vqjmTbzxJrzwV8UYyWsOK09rjABD1k5edav6THiHn7FCT6Z+FqE7S
- jCF8rBl044Zy6eAlKK/P+Bn61ACcBP13YLHaeZpBaOw+7gYj/LIISBOSkXpFx0x/vuLxHg==
-X-Received: by 2002:a05:7022:1503:b0:128:d4d5:93b9 with SMTP id
- a92af1059eb24-129a710b536mr760994c88.7.1773839547393; Wed, 18 Mar 2026
- 06:12:27 -0700 (PDT)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012043.outbound.protection.outlook.com [52.101.53.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 275D910E829
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2026 13:32:09 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CcrQFVRjcNoF/t5OrNf3QFsZUuvhb8f/3CKrxFpHzr+InuFAnlVfqzHb4ETqjoBqvyXY/Fae2zW13+x8xmu3SBIUBfZG5muYGwhAJoXVdm0C7mB7RQLaNG4fP9cWEAQRWgCbbzcsR9hA7Y1Y+VTqq9HcF3l2+1zmt2A868DAUKd4fZphO9geKNSzR70v3d9qRk42zgo4W/vXGaSWMRoTIKHJAT2MRs2E6Ir4FKNIVgDpyEAgpggUV5kU8eVRgA2PWvDoKHHviLYB6bfZqzPZ4u0BFms6wVSNbZGmEXLcMgpmjBS6RhdrCGQfDRiF6jX+bFUEfA59/+Ngb2A921LhHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lTfF+slcE4NpqQYQYk3ZfNef5fjBcC/fiP18zWdOolE=;
+ b=p0C4QROlTPUgv8mzzvkoOLQphab2QcnJP2VVXbzvpScUHGcMYE9kqdwqZbhIpo93AwmD7gJk6LyKnj9KxuZHSx5XoQFkj5Fu0KXY82iWR8WhPntXTC5YEI6K2l33yX9RSHRK7LdW7mtOWbDqCW37noZp1Czt2YbbPFXvQlKSELbSmmj99p4O1t2S4QJmGIcnymS8wFqNVr9VIS8iJnRf5rvdNFaGwbuFZVJpUf8H2aO2MRXn52GG8/lOnZ8yj8z90oEtFy73luECBD5nckIxZqx621kxJp8wSbYGQQXoul4oJ6C/9JecBkYug/5oKbAKgqqDLu3thxGeJimDiOyeag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lTfF+slcE4NpqQYQYk3ZfNef5fjBcC/fiP18zWdOolE=;
+ b=BVxBz+rGPJ+FjhpvDp0CmBhnnBcg1CbiO8AFbgPHd8HxC3PZyP0MKcSoo8fKzj3QY/GOjbal5H3D4WWDe9uEhjn9si+p4lzqzF6YYY0P3mKaAK+VMdu+QP0g/mqbCbZncx3ZqZfrPQwrSvFWW5K6WEW+8ZkX97pWPTrvD06bTnQ=
+Received: from DM6PR11CA0062.namprd11.prod.outlook.com (2603:10b6:5:14c::39)
+ by SA1PR12MB8946.namprd12.prod.outlook.com (2603:10b6:806:375::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Wed, 18 Mar
+ 2026 13:32:03 +0000
+Received: from DS1PEPF0001709C.namprd05.prod.outlook.com
+ (2603:10b6:5:14c:cafe::28) by DM6PR11CA0062.outlook.office365.com
+ (2603:10b6:5:14c::39) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Wed,
+ 18 Mar 2026 13:32:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF0001709C.mail.protection.outlook.com (10.167.18.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Wed, 18 Mar 2026 13:32:03 +0000
+Received: from ruijing-dev0.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Wed, 18 Mar
+ 2026 08:32:02 -0500
+From: Ruijing Dong <ruijing.dong@amd.com>
+To: <Christian.Koenig@amd.com>, <Alexander.Deucher@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <ruijing.dong@amd.com>, <leo.liu@amd.com>
+Subject: [PATCH v3] drm/amdgpu: fix strsep() corrupting lockup_timeout on
+ multi-GPU (v3)
+Date: Wed, 18 Mar 2026 09:31:52 -0400
+Message-ID: <20260318133152.18900-1-ruijing.dong@amd.com>
+X-Mailer: git-send-email 2.49.0.593.gd86a19f485
 MIME-Version: 1.0
-References: <20260318112201.3779461-1-Stanley.Yang@amd.com>
-In-Reply-To: <20260318112201.3779461-1-Stanley.Yang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 18 Mar 2026 09:12:15 -0400
-X-Gm-Features: AaiRm52OsVEbnfK4aGDe282mXkPx08REzb1FT_OQ_ckvKdZX3uXiSI-C8pw9g8E
-Message-ID: <CADnq5_OgqwDNZHQm=JJvwHZeUjifxyJ4kgm8=nyURDOLoeAobw@mail.gmail.com>
-Subject: Re: [PATCH Review 1/1] drm/amdgpu: Add amdgpu_regs_pcie64 debugfs node
-To: "Stanley.Yang" <Stanley.Yang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709C:EE_|SA1PR12MB8946:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7cb7de11-a2cd-47ae-836f-08de84f2bdce
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|82310400026|1800799024|36860700016|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info: lIHwspG1LC42IIFE34QWTqHu/OMPo+xosH8XlEo+0Ww89B+UXN3xEThhyzwcrlSdKLmZU+If2M/bemS8Lv/X6vGyM+UIB+93eyiVdEZeDtEGCSIm7Qu8ehcKpTkg8iVT0+rvcL3KfKe946s8YKa0rtKd+fYL9HXiCWK8/XoO9MheRjr+NcU/wr1RdwlBeufu8Kk5eVvdwzKsaynSSSEZOxeZZQHr1clUurO4lxULvc5+CtmxcbrFda1nIpIVlBaMoBbTlWXJl6JVKSvS29yyDrEkHqSttPH5CF+rlAgIv1T4FQ7V+a0nHWmbh1Uv1+R7xElhiSgKYtENCo6yy3enHj+kxCzZSSzSc9bEs6IEUYcwB8PrHCHb1nCih09Oxx8WSGqZgdfHhUYoG7HeJwHcGUfmLeBYZgPJybelFr+XcyPFYwth6ABIDLB2LET7H2+ElxvMUOeDJhKvswGY8SU/Zxl/mdhFwWtI184W0eBgnnrgbxdRtz9TAOynBgc5W4OYRdo7Rk6eJK2aoOq96YN4Whdmt1MtkxiycQ8xfhf8jKnslPrg7o5qQ7S5eIztHX0HYctH+BCbSrl9POjMc+dx7xB4sb/3bmTliLQVyzQSy4faLXocJtebhkSyeqbICaw1EsGEMeXDpGyjmnUya3a3WcqYRIxan2MEEuGsOo7eF+6YTjeFs/OgglZt1asMh9jV0QyqFxIehRcGKmYtNYB5+FQjTJAZZ5jD7HB5pI0gNBsd8Mrl9134Zhf58+gcjrJDZGiUctwEJ6EgnQV+R69NEQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(18002099003)(56012099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: zGY2k+eP4t6nzq4ZRoFXBY0uzgHqtmnmuDZjjhz3IJ1WXfm0rp1bmsGx0c37kkDmavceOsXHywKjbtFVe6RdbZfXGGFnL35QLhzGQfGMVUCX3oBF8567aBtDWNQl1yJDcMrHxor70DA9r16LBb5Wk5YbsHbsdOE87kk+LO4U6pwfzonDe6og/olyI6LpXSi2u8gPh7ztqt7tsA6kpARyJWna985vH3Wbi/r4rxRejjH9UgrhmGgvoZ9ExW1hxFGYCwSATtrgXbUJEsbfw0G2SqSHdtJ3cAkLpIvKdFnnNmyGI+mSdw900ql7yJosy/scPfl0pAUeh2pdnDbC17Y/FjnRCRk1a3KkLboHQ2OJPBa5i6KYRObQP2qMba5j/GwglTECd1BZjKZQiRPHWBWNdogVEQzgrkD+OJFjLNnx3AE8Smmw6TpxVys6BrjwT8br
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2026 13:32:03.4142 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7cb7de11-a2cd-47ae-836f-08de84f2bdce
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8946
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,173 +109,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2026 at 7:22=E2=80=AFAM Stanley.Yang <Stanley.Yang@amd.com>=
- wrote:
->
-> Add amdgpu_regs_pcie64 debugfs node to
-> read/write 64bit PCIE registers.
->
-> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+amdgpu_device_get_job_timeout_settings() passes a pointer directly
+to the global amdgpu_lockup_timeout[] buffer into strsep().
+strsep() destructively replaces delimiter characters with '\0'
+in-place.
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+On multi-GPU systems, this function is called once per device.
+When a multi-value setting like "0,0,0,-1" is used, the first
+GPU's call transforms the global buffer into "0\00\00\0-1". The
+second GPU then sees only "0" (terminated at the first '\0'),
+parses a single value, hits the single-value fallthrough
+(index == 1), and applies timeout=0 to all rings — causing
+immediate false job timeouts.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 113 ++++++++++++++++++++
->  1 file changed, 113 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_debugfs.c
-> index 6fdcd9c78324..e15b3aa02919 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -622,6 +622,111 @@ static ssize_t amdgpu_debugfs_regs_pcie_write(struc=
-t file *f, const char __user
->         amdgpu_virt_disable_access_debugfs(adev);
->         return r;
->  }
-> +/**
-> + * amdgpu_debugfs_regs_pcie64_read - Read from a 64-bit PCIE register
-> + *
-> + * @f: open file handle
-> + * @buf: User buffer to store read data in
-> + * @size: Number of bytes to read
-> + * @pos:  Offset to seek to
-> + */
-> +static ssize_t amdgpu_debugfs_regs_pcie64_read(struct file *f, char __us=
-er *buf,
-> +                    size_t size, loff_t *pos)
-> +{
-> +       struct amdgpu_device *adev =3D file_inode(f)->i_private;
-> +       ssize_t result =3D 0;
-> +       int r;
-> +
-> +       if (size & 0x7 || *pos & 0x7)
-> +               return -EINVAL;
-> +
-> +       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
-> +       if (r < 0) {
-> +               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +               return r;
-> +       }
-> +
-> +       r =3D amdgpu_virt_enable_access_debugfs(adev);
-> +       if (r < 0) {
-> +               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +               return r;
-> +       }
-> +
-> +       while (size) {
-> +               uint64_t value;
-> +
-> +               value =3D RREG64_PCIE_EXT(*pos);
-> +
-> +               r =3D put_user(value, (uint64_t *)buf);
-> +               if (r)
-> +                       goto out;
-> +
-> +               result +=3D 8;
-> +               buf +=3D 8;
-> +               *pos +=3D 8;
-> +               size -=3D 8;
-> +       }
-> +
-> +       r =3D result;
-> +out:
-> +       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-> +       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +       amdgpu_virt_disable_access_debugfs(adev);
-> +       return r;
-> +}
-> +
-> +/**
-> + * amdgpu_debugfs_regs_pcie64_write - Write to a 64-bit PCIE register
-> + *
-> + * @f: open file handle
-> + * @buf: User buffer to write data from
-> + * @size: Number of bytes to write
-> + * @pos:  Offset to seek to
-> + */
-> +static ssize_t amdgpu_debugfs_regs_pcie64_write(struct file *f, const ch=
-ar __user *buf,
-> +                     size_t size, loff_t *pos)
-> +{
-> +       struct amdgpu_device *adev =3D file_inode(f)->i_private;
-> +       ssize_t result =3D 0;
-> +       int r;
-> +
-> +       if (size & 0x7 || *pos & 0x7)
-> +               return -EINVAL;
-> +
-> +       r =3D pm_runtime_get_sync(adev_to_drm(adev)->dev);
-> +       if (r < 0) {
-> +               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +               return r;
-> +       }
-> +
-> +       r =3D amdgpu_virt_enable_access_debugfs(adev);
-> +       if (r < 0) {
-> +               pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +               return r;
-> +       }
-> +
-> +       while (size) {
-> +               uint64_t value;
-> +
-> +               r =3D get_user(value, (uint64_t *)buf);
-> +               if (r)
-> +                       goto out;
-> +
-> +               WREG64_PCIE_EXT(*pos, value);
-> +
-> +               result +=3D 8;
-> +               buf +=3D 8;
-> +               *pos +=3D 8;
-> +               size -=3D 8;
-> +       }
-> +
-> +       r =3D result;
-> +out:
-> +       pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-> +       pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
-> +       amdgpu_virt_disable_access_debugfs(adev);
-> +       return r;
-> +}
->
->  /**
->   * amdgpu_debugfs_regs_didt_read - Read from a DIDT register
-> @@ -1544,6 +1649,12 @@ static const struct file_operations amdgpu_debugfs=
-_regs_pcie_fops =3D {
->         .write =3D amdgpu_debugfs_regs_pcie_write,
->         .llseek =3D default_llseek
->  };
-> +static const struct file_operations amdgpu_debugfs_regs_pcie64_fops =3D =
-{
-> +       .owner =3D THIS_MODULE,
-> +       .read =3D amdgpu_debugfs_regs_pcie64_read,
-> +       .write =3D amdgpu_debugfs_regs_pcie64_write,
-> +       .llseek =3D default_llseek
-> +};
->  static const struct file_operations amdgpu_debugfs_regs_smc_fops =3D {
->         .owner =3D THIS_MODULE,
->         .read =3D amdgpu_debugfs_regs_smc_read,
-> @@ -1606,6 +1717,7 @@ static const struct file_operations *debugfs_regs[]=
- =3D {
->         &amdgpu_debugfs_gprwave_fops,
->         &amdgpu_debugfs_regs_didt_fops,
->         &amdgpu_debugfs_regs_pcie_fops,
-> +       &amdgpu_debugfs_regs_pcie64_fops,
->         &amdgpu_debugfs_regs_smc_fops,
->         &amdgpu_debugfs_gca_config_fops,
->         &amdgpu_debugfs_sensors_fops,
-> @@ -1623,6 +1735,7 @@ static const char * const debugfs_regs_names[] =3D =
-{
->         "amdgpu_gprwave",
->         "amdgpu_regs_didt",
->         "amdgpu_regs_pcie",
-> +       "amdgpu_regs_pcie64",
->         "amdgpu_regs_smc",
->         "amdgpu_gca_config",
->         "amdgpu_sensors",
-> --
-> 2.25.1
->
+Fix this by copying into a stack-local array before calling
+strsep(), so the global module parameter buffer remains intact
+across calls. The buffer is AMDGPU_MAX_TIMEOUT_PARAM_LENGTH
+(256) bytes, which is safe for the stack.
+
+v2: wrap commit message to 72 columns, add Assisted-by tag.
+v3: use stack array with strscpy() instead of kstrdup()/kfree()
+    to avoid unnecessary heap allocation (Christian).
+
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: Ruijing Dong <ruijing.dong@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index dcae77b6c272..fbe553c38583 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3498,7 +3498,8 @@ static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
+ 
+ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+ {
+-	char *input = amdgpu_lockup_timeout;
++	char buf[AMDGPU_MAX_TIMEOUT_PARAM_LENGTH];
++	char *input = buf;
+ 	char *timeout_setting = NULL;
+ 	int index = 0;
+ 	long timeout;
+@@ -3508,9 +3509,17 @@ static int amdgpu_device_get_job_timeout_settings(struct amdgpu_device *adev)
+ 	adev->gfx_timeout = adev->compute_timeout = adev->sdma_timeout =
+ 		adev->video_timeout = msecs_to_jiffies(2000);
+ 
+-	if (!strnlen(input, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
++	if (!strnlen(amdgpu_lockup_timeout, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH))
+ 		return 0;
+ 
++	/*
++	 * strsep() destructively modifies its input by replacing delimiters
++	 * with '\0'. Use a stack copy so the global module parameter buffer
++	 * remains intact for multi-GPU systems where this function is called
++	 * once per device.
++	 */
++	strscpy(buf, amdgpu_lockup_timeout, sizeof(buf));
++
+ 	while ((timeout_setting = strsep(&input, ",")) &&
+ 	       strnlen(timeout_setting, AMDGPU_MAX_TIMEOUT_PARAM_LENGTH)) {
+ 		ret = kstrtol(timeout_setting, 0, &timeout);
+-- 
+2.49.0.593.gd86a19f485
+
