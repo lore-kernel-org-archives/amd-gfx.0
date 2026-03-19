@@ -4,59 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43C271075271
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 07:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9EF41075275
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 08:14:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDCDB10E8C2;
-	Thu, 19 Mar 2026 07:47:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 88BD110E484;
+	Thu, 19 Mar 2026 08:14:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zT1a82Zg";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e+v1Hqsg";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013032.outbound.protection.outlook.com
- [40.93.201.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D26C10E8BE
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 07:47:57 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010045.outbound.protection.outlook.com [52.101.201.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1B2D10E484
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 08:14:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DhjZZR+pUvTY+2yxmrob4v2yE9zyxTFe2fnkzMSrJ8YjkFFmOVobQju49EmX0YPclGFb5yyU38fBhSvF1g9m0wrAIoUCBUZdgrN3reusG+H9k1bsy1uOKGiyuwdOfVq08wSUhoS3rnFGL5uTLX7V0avW/WLmcrliBSZJfiS7lt3/te6idLIED6rQxEcKmXBctQLcPuel6QlCKfh7KcgoPl7VvNhqVtp5x0NgUOgrQm3cdcNUDO7zS+/PfBBEaKYKzOs534bSWRStgQp0SLyt5KteZzPVU83d0vewRTqbszTV4+MeegQGiueDk/OBQ996/3r8zKw4laG28GDaQdBseg==
+ b=UXRmWL23Oorfu9xfk+07ZmAOWAk0ZzXDDk1j0XEhQz9Ci9iXVjnuJwI7++/vjcqQYhDCL8Zo2jRk2nRI+ssSW5N+c6wBhMGUqzsYiZSMs6ovKZzem99oBo83/Sf27h565dnoHF6+S+Frq3t+8Kk/lOG72tdldGwxFBKiTWG2Gwxd7xlUHAOOuRUTzSHsBaTM+WVQCixLR7d3jDeU8nszU/Ed/UpFRyQfVjCT600x+8qSJ87abAnlf5Dnjgy6Qvdqitb0aJ0C3KrZtkdz0Laa4sIK2JIW82B5ITwjaR1c5EmNhOg2iSv4dPLGFpx8lO2jnsmq5209pboWeEOX1cQqLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8UdMnt/HboGS0MAzwNWzVjexNXQ2HFZ5OuiRV2vEBKA=;
- b=BPU6V8NpNdvHN09UU4+XAEBUvc1mcM0rbC+q6lszW8R0ugdIGV6/f0f1M+0H4IUOUsHJEsHP3fuca8WKkoG00DPHYEF0cc+CxR4/UqK8KC6hpQ/fr+gH721AQ3sf0tIMGSnUSJBu6umnKKm6CGK81et+S5E3Ys2IK8vkUGRSKyru+vleU8RBp9/QuCJT6cZrJJ88Iotbt//ppoziTmDHIdX7UK90Koe2vGNId7xk+w0R8ZsK8kEVT6nGi3MqOAZjOJ4PVTgRRJXmT7uHL0sla3i+8AQObVP+JpW/0mLD80x50dBuTWI2LcaPfuS5xGPjXNh7wx6Vd57OLInLXZpCzQ==
+ bh=+fe5GS0BOEuca241Ktdlue2hCeQLMvrZujBIDtNBcgc=;
+ b=Tj3eAZ7EKc+Xj1MG60o846wisin5uvZVS6osdZW724n0NaWdAPheV2XrJYRgRnfWSo6uZwb9sbfL1nFMbzLfm3lSnWwZH2FkXJLHgs8RTmi+FegjqeZazewHQI+UcSmqqIuIBni8P+qB2jkDBgIbXKxJFM5fgOEEABrnCQg8iD9ceO9eeXe8A2SCTQIzw5j0XkOqqFtXj8/jYOuuO2XswXRETxWMdiYj1aZ1sNLPIVBtX8hNTz8DkhPbECvZFl/YY4wPFnG/vS7/SzGcfXyGHk1yXpgOeZWWhPnATUWjQiZFEQ1Ag63RQUh9K0eb62ox/igpbe6vVi4tDQNXjU1w3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8UdMnt/HboGS0MAzwNWzVjexNXQ2HFZ5OuiRV2vEBKA=;
- b=zT1a82Zgjo7R7+OxMY9Tfk0jMm+Y5Cm8ioejpDlgkNZLTdj5S8eRrsjNTGngCdGW+obZ7bJcjitJZDuJ67gHrb466+RMxADa328/SoIrQl/vgEAoixs7SZq9ewLaZtYTWlXAllwNnyf58mC+Ef6kz7uxOEIaaI4a390dTOo6btE=
-Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
- by DM6PR12MB4403.namprd12.prod.outlook.com (2603:10b6:5:2ab::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.10; Thu, 19 Mar
- 2026 07:47:51 +0000
-Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
- ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
- ([fe80::fcf5:4106:dc85:4819%5]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
- 07:47:50 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+ bh=+fe5GS0BOEuca241Ktdlue2hCeQLMvrZujBIDtNBcgc=;
+ b=e+v1Hqsg1umDoUfJYYpak/ebphMBOR0+25EPg7NR7KlT6bVnnrgyCrNHbG+mJ9LNWj4IRM9pPzAuLFjMMRsmjw7nU1ZnaCllaB0W9LacCTYXV7p4XReFGGI6ZNeg3Z+81Xq59QmKLOk8UMpS1J0B4CpovK5kWfgaZUhUMpIxmHU=
+Received: from DM6PR12MB2972.namprd12.prod.outlook.com (2603:10b6:5:39::31) by
+ CH1PPF5EBD457EF.namprd12.prod.outlook.com (2603:10b6:61f:fc00::610)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.8; Thu, 19 Mar
+ 2026 08:14:40 +0000
+Received: from DM6PR12MB2972.namprd12.prod.outlook.com
+ ([fe80::574d:7c2d:4d0a:855e]) by DM6PR12MB2972.namprd12.prod.outlook.com
+ ([fe80::574d:7c2d:4d0a:855e%6]) with mapi id 15.20.9700.006; Thu, 19 Mar 2026
+ 08:14:40 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
  <Hawking.Zhang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
-Subject: Re: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to
+Subject: RE: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to
  unify msg sending logic
 Thread-Topic: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to
  unify msg sending logic
-Thread-Index: AQHct0VyqZvhVAM9RkGgI7r97Rm3d7W1NymAgAAjnACAAB3anw==
-Date: Thu, 19 Mar 2026 07:47:50 +0000
-Message-ID: <SJ0PR12MB70821C13DE8260DE5CBABA48974FA@SJ0PR12MB7082.namprd12.prod.outlook.com>
+Thread-Index: AQHct0VzirRXPXvRu0CtVZo/CbX0SrW1NymAgAAhNvCAACJ0AIAABABg
+Date: Thu, 19 Mar 2026 08:14:40 +0000
+Message-ID: <DM6PR12MB297226DA71F3FADC5F4C1E6B824FA@DM6PR12MB2972.namprd12.prod.outlook.com>
 References: <20260319020910.2620721-1-kevinyang.wang@amd.com>
  <a5044ebf-d4e3-4363-a211-9b6144c37c29@amd.com>
  <DM6PR12MB2972BD4381815DDFD4C650A0824FA@DM6PR12MB2972.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB2972BD4381815DDFD4C650A0824FA@DM6PR12MB2972.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ <SJ0PR12MB70821C13DE8260DE5CBABA48974FA@SJ0PR12MB7082.namprd12.prod.outlook.com>
+In-Reply-To: <SJ0PR12MB70821C13DE8260DE5CBABA48974FA@SJ0PR12MB7082.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -66,65 +66,63 @@ msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
  Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
  MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
-x-ms-reactions: allow
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB7082:EE_|DM6PR12MB4403:EE_
-x-ms-office365-filtering-correlation-id: 46bbfc25-bbeb-462a-cd8c-08de858bd22d
+x-ms-traffictypediagnostic: DM6PR12MB2972:EE_|CH1PPF5EBD457EF:EE_
+x-ms-office365-filtering-correlation-id: c7a973eb-f973-4e8d-3d1f-08de858f91a3
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|8096899003|38070700021|7053199007|56012099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: viVAtjwg267+iWmE5cNlugKytY7q87pcJLAspySRWAAxT0KIWyFJ11mf7aAMPdGos58NFN9fwPOqTG3+Ha+BtFQZuUxm1oBPvHeyLNc8RkB3SU6WZ2FyE2Df5PejKzlPMChD+Yz6nPvXP1Mr9aZnwJKQ0l4FWZ7H4cDKQFAxj8Qp46bxJ2GjzVr8IFGUMNl1rGn/JLYtczB+plXWaiTwCkEzKiWEidkq99EzJPJ0nvgYm0dDRoPuZ3OCKMnL7Fu+Yf+fqJJIyrQxJAOoZ0/O5o1kRcDaIYwM2q2Zpbt0FLNyKSzdEoZhQnTjzj7ox1VlHMAbN21Gp+4b8VazsWNUBLIk7jQlvhK5ZGKsyHjQX5OvvfEMLlYACngW1+NL078GHq/yg4ekPusoP+6guluemJomARxIaNxkNC7rnLJuYuFk3HTwylsD6Q2JdKylBnlWNKvgH7ITGyaRnRyLr9tZEjCcjBLpoa/JBRMQ7QkbD9BbdF+U28uFvBY6Tdq1w7E4dCJtneMgpd3Ef/EyvDZovOuAj1ua2N88TLsO9nbs1em14OztVz/ppqa+xOfjrzqa64RTJBc09SiXcM/cfiypU9mAj66HX83ycjli9p0aTnlsp173JMyNBCbZlsOkgd85Nt2MpRF3uyk9IaeGU1kP99CNebMTkKg9H37N3AdirxoKltb5GrfZ7Hiob+W85Cw6Vk6sC233xENytgpOm9g47MTNdt25TYsYIiC0ixlvAoCJhBuF8WB1OKpUky2siyZZaA6wfUqsIioIbw3w/5VwqRvusZ6T/trFh1yFX3ZjfX4=
+ ARA:13230040|366016|1800799024|376014|38070700021|7053199007|18002099003|22082099003|56012099003|8096899003;
+x-microsoft-antispam-message-info: FM79mzUETl3MKJ1JGOTfZpuGbdrg4ra7vxHiOs8IUHWzcFW0sE4LuTEXAs9fg9633EScqzX9Lx3a3rnADnOZK19YkK4YtsD96asNlVi6lL6EIK256vLsdbzYXbbSmHhjdy2YXhtGW8oqLZh6wLT8GYq3gpuJmMdwkW7IiLjPxCyLzS4X02y3+oNvAAa+zMAgQxIrKQSkKN5hdk7AJX9MLIM4Rc1IBGo5P2x3WdKlps7TgV5/7h8WG8g13kdWQEw9MjjUWd96L+YxlG4fb+a3GDoL/Lw1/SLxgNu49nrnexzwQOT4VENILcBVbzDVweVXS/s0k6cklhVFMtwprJACDDr0znZrQca3SPPklTCYUmeD06L771tHP9qWB6ZoI04uo4RFpmoa4AgGoi3RqUldR+68ea2BRhMbdWeOmKmw/5jmqHlbkBJcLFmrQ67YYMZ76EWtqrlN/1ZfauZon+rdNEmpPIY/D46qis9gPNe1VKMjU9kaSF8L0Pm2Uj+JBBFGKvlTJ1wUCzYcTMr6Zuhn7aJnhCTr6HRhr7frZ17iAA30gJeQEJG09BwkZa+FG1BAzhDerBA6vDsfi4Ust3oRFPnU21TyjcljRJjx1I8OAOf0HDprx7VWsD/4Odry2kzVaLHOLW9sOnJeRa8aW21HF15F2vPUEIkpAsrguH3FhmIuy8JnnTH7PY04ZDk7TIb6OcsgyWXeyArECgURR2XBC5ctXNzKZt2YveoNBe8gmDXw2MFKHEkrPiIYuKYXuoD8sNepcE9EjLjO5Fy/xQuwW+SDuyEJtUjGQ/+UcPMdJrE=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(8096899003)(38070700021)(7053199007)(56012099003)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2972.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(38070700021)(7053199007)(18002099003)(22082099003)(56012099003)(8096899003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0YSureyanUIMpoGBjK3U4D/q8PS1po8Y58rgVkMU2wvalIE5E6weox2j1Epi?=
- =?us-ascii?Q?LPvlvSrSIa+0BjNRegZDYPqVTQp5SQ6xvsI9k5472DO0pBy4D9lUeTAPqRjj?=
- =?us-ascii?Q?TDKvjbsBVVgcl87nolgfq5a1ke0hUrOyXiz4G/nT8yiq4v+UY1GSpOPEID6k?=
- =?us-ascii?Q?hKwfbdYKs30GKuZv7O/oQqSBU4Ril+NqI3S74YqRhopdNURpHx9aKM9sLCSs?=
- =?us-ascii?Q?MclTkp90YpxGYCjRZo1lEVWPTIySTW94GMiiUtlA5vT5Iac/QDEe+y5gtkB/?=
- =?us-ascii?Q?xmorSy6CbfzvBw7abaJ29TKAAKTk8NStw3Hr9MBHEbCH/DrWsv+LA5Ane1gv?=
- =?us-ascii?Q?NkToZZOnIMziMPBSSbpCeaI0LXDs+eupCb0mDA6Ke/zky5q3tO3WeEkdDKu2?=
- =?us-ascii?Q?EcWvKPD4qNLsgI8+Z2hL8wu4+OaJLU+YLAHrNI4QQKrLTPun7ITDEvwHj6W/?=
- =?us-ascii?Q?2E5UeWBK85HyhRb6WnPm/gSshlSJ9qv1ETROuJHl0m5Ayjh4LI+valuSvrEx?=
- =?us-ascii?Q?bGdlh457mR0/2M1LJQzP1IqKfj5nNRJKOlAo7TEmIAT/TDyguaJiZy/sqgzl?=
- =?us-ascii?Q?81kOe7tQE5Xw4Yxow9vVY9yWDWTu2U/qSvfdvbTkXwGcIGgJCkTRYT8VzXqS?=
- =?us-ascii?Q?5yyfh0LeTi72QoKqKn4lpB176ToiLl89EfebLR3rxKI2+bH7xdUNjyCeGG5u?=
- =?us-ascii?Q?61VpMlH/6+/g26esM+J+2SaC5E00RlpenVkeNx93mxmXXJc9KufQhpPkFZNI?=
- =?us-ascii?Q?yS7wV3hYuCD2FAU8n1dTLS2/jzU1aMU5yvf/hbL1ie6Q+4P9X5rDvqyUfgmB?=
- =?us-ascii?Q?2xM2iUITxua/wCQ147GLcv9kxMAOabCyQHaEYNaawM0zCKq+fLkvAdLTaZWk?=
- =?us-ascii?Q?nu8Lz4O3NEdsWzesHAzkDWHRwIUzNlwjs5vTSj+v+rSwJho6oQwEK7GYCtRD?=
- =?us-ascii?Q?pjp7D816o2w9yenPtNyAV1pf8lpv0MJmDzvjIgf3yClHuFFy97QDRZTZSaEr?=
- =?us-ascii?Q?uLlIEM2PW2/s3KBCWFlWzUIpJDslLXUi5gNBBVk9RAw1JMhDKrtI1H2AZFZt?=
- =?us-ascii?Q?ariVQmXm/gASDne9UxCs6ol3GSA6ZmY3fLKw79pW5fyNryjL+DNRY7e8CBuP?=
- =?us-ascii?Q?7sECpvX5LGZVgHqUfez88gyM0nF71oN7c29xlbYYeIv4xVGNkp1Ic+n7tefy?=
- =?us-ascii?Q?9Krw1o0wvgTstVwZuwhD6Oh4DNv0kGxRYgd/4Mjyw7SMxDg91DcFgpHnmHt7?=
- =?us-ascii?Q?CA++kd/dxvcIwK+B6r/sQM0TaX5g1E52b9OU1TaS0JzsrBOBNGL452fa81+N?=
- =?us-ascii?Q?4ABKPHlSgAQdDDsNGLqhIXt9nCGpiQ6jyk0pFfak2+rfcBrIwHSwRwAx+epf?=
- =?us-ascii?Q?rAmo23t4GEVLSoe2qaSyqhHH5viUW6/GUl8Rci9FeTO5qTuf0FWY2h5isMrf?=
- =?us-ascii?Q?LlPPiTIdQ2XWDsJ2GxmwP8YsEpVhwrp8N13eeHU4AN9mS4aIT12fEItjs1RS?=
- =?us-ascii?Q?z3Hh2MMB2Hdr7eSkWIaba3I53vvWvVkri54TTNS98ik/WvKcEVZUmjA99e6N?=
- =?us-ascii?Q?CU6+yFu87gTor0oeKJSBSKt0rfr9ws2ULLP0xWB5hu0Qrx/aF9o7TlDsNHQ9?=
- =?us-ascii?Q?2r1CtyTxNHbDaP5QUXVq8nBgCRhGJphI32VaevO5ErfaBTFPUe7illtsdKHi?=
- =?us-ascii?Q?ayI6CKiz81M0AKCoYZfJA02w94+J8CFrXcxECVAw4YcEH22o4pED0ra15915?=
- =?us-ascii?Q?n74TXjiWEg=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Kxo/iHZ2puJscJTzNqOmHi3Xnpye2kMps9wyCrIPUuDZ0hnIYnSXWlfYC9DX?=
+ =?us-ascii?Q?Hph3hNS3t3oefFT0XJ9x1fsNVw6NfVVzaQJerX+YmBduc4sRd5sVsZo+eHgP?=
+ =?us-ascii?Q?PLfw3PqZEuE2bdEHxUM+uVdN1CvJem55EVLlfOVE13grKeeHXxvcmypeAy/F?=
+ =?us-ascii?Q?rgeK7crp7d/p7GZLZzVojyUey9Sx3KNrfMRvtMKKYBY5sVJDvLPLcJkLkXMf?=
+ =?us-ascii?Q?8wFl+gWOtUqbcZmgZlU+EKk49jmBKKCWqpmiNB/bPEA718FJEhE875VspTsF?=
+ =?us-ascii?Q?RDWsMMsmYLvAYLw5Uwe+PCKpBSCx6CaLpuosKSh7UEx5G99ia6iw9XCl2PWk?=
+ =?us-ascii?Q?hndNWY8K4LmiBf4JpeSp2kQLoBfNCFQ4dwjaosjkxH30a3RInSq0yAUmzGRr?=
+ =?us-ascii?Q?X0SYjYaPLo2CQ1a5Z3rX98esR4PHKmnAkemeMyxerT4l80fkVr8lp3+y53zC?=
+ =?us-ascii?Q?a3zpBUB93KOOQ3PhwGsQ+SfSP/DruDVKEhBTqGwDIZaEgjkueuB4n0VqlumQ?=
+ =?us-ascii?Q?zu8RFh4JZMvXp4fkv7PxWgRblR8KRDm8+iYpVSzr8Q7x//vkIBRYnQufpO3B?=
+ =?us-ascii?Q?kSf2Melb+0BmCLeiTKpNzZH4JQoCY9KWoYm1AL53ACgtU7tWkHeVkn5O4x2W?=
+ =?us-ascii?Q?KxAODlMGe1SyR0wz5jKhFCUQzoS0H1EW8cSqQq7fz6++60PxTqkqz6R19V3J?=
+ =?us-ascii?Q?a1PAraUDjM27l0C+tZxykHfA9UMCLk9ijNlM7kRqPHFEGTSTm62NO7Pi6mkp?=
+ =?us-ascii?Q?GTsAuo9YUpohxtOain+aFdyKddjEl7pqr8INDKiuwPK1io90mO6/9L0oJD+l?=
+ =?us-ascii?Q?6n8gPXq74tseuxUPTj+LDDVMXi6SvFQXJaTyFmCV9OYD/doUvA70boKEdk5k?=
+ =?us-ascii?Q?XNYL+G0oJRfG1sbTxMxsQVPn+JvcYKzZCBehzffHbdPdyT8qrEKP+wwITl8B?=
+ =?us-ascii?Q?cdyQkj2hEfXmtEevA3ETB6gKl3m/N1WoNCzUeXPGhxrX3uf+fGVbOmKpvu/T?=
+ =?us-ascii?Q?WHqrE0jpGyQgb85CUgMVLaboyzMjRxdvBId/8GHsMVCgIy2jWTs/zLA5uzHu?=
+ =?us-ascii?Q?xETunH3vitY0wC9ATNtk0pqhFRghH40h5qQAa5sgJSihPMd2RZkmBBBIbEOU?=
+ =?us-ascii?Q?SzMlRKFStqCJarUAcZoTOMF7443mBlfQL3iYBi1kadQsVJtqouMOW1Twod48?=
+ =?us-ascii?Q?Sr+qlVgDPnYHqBFQSiKBHOGOnIaX6XFPNFko1aLTo7OWvIIs1xLRXSLO2062?=
+ =?us-ascii?Q?o+EP64LMK8DEwM8S1iRpkg/Y3xbRfiGL9Sv/68g0aPzNVD526xXvdUNF8Dpi?=
+ =?us-ascii?Q?qjfzM3npz7XZVN4GLyEkzj3eZPs0Kln2+QqCxCtBrr40yydhSTz3urzSt5Lv?=
+ =?us-ascii?Q?6f1KzVjFVPv5+xWi89oAT7C60QfsfOgPUbzopYxGS8bOjSMmMp6rlmDcFVhC?=
+ =?us-ascii?Q?hRPky9R/Vx5vTSRcYcYqOHkOYQMReK5NFjVU9m8usUDmzh60XVI8bUAMsJlh?=
+ =?us-ascii?Q?tcvnZLnhUoyK1TK+e4ifqE6LysBLF+wWMCw56LYAHC6ryWR2NsnQtqYjqnsH?=
+ =?us-ascii?Q?ojPCqMWYw+fY5qyvAM6rIHt8VxfeDmv5/cUZCRqQ3XoFB6tz86uvXeKUoYyI?=
+ =?us-ascii?Q?TZNpDtrXINiw26gJb7Fyk5ixKGL9/6+IO5I0vbCBqDyJvNv8uUBQE4dL0/ik?=
+ =?us-ascii?Q?7PenrHAidBWkkAWTH1c4uI+Vl5l9JwJ+GDyxdFfl/tpTeCU1?=
 Content-Type: multipart/alternative;
- boundary="_000_SJ0PR12MB70821C13DE8260DE5CBABA48974FASJ0PR12MB7082namp_"
+ boundary="_000_DM6PR12MB297226DA71F3FADC5F4C1E6B824FADM6PR12MB2972namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 46bbfc25-bbeb-462a-cd8c-08de858bd22d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2026 07:47:50.5743 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB2972.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7a973eb-f973-4e8d-3d1f-08de858f91a3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2026 08:14:40.2856 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: AK+LDmpVKqDLFIwmITfd5/P6FDWkDrlDNT/z+H81Z1r5lQnf2998cLHLp6GG3WPK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4403
+X-MS-Exchange-CrossTenant-userprincipalname: JzGmEEt83ftWCLGkfcNAMbyMgC9cj9VBqJfGzOkbgiApNS3soVx2gCeUQxbmS5Y+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF5EBD457EF
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,9 +137,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SJ0PR12MB70821C13DE8260DE5CBABA48974FASJ0PR12MB7082namp_
+--_000_DM6PR12MB297226DA71F3FADC5F4C1E6B824FADM6PR12MB2972namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+whether to support the 'timeout' parameter can be decided later based on ac=
+tual needs.
+at this stage, no known code or scenarios that requires its use.
+the parameter of 'timeout' is usually for corner cases and special situatio=
+ns,
+which are not suitable for the 'cmn' helper, for these cases, using the low=
+-level API directly is better.
+
+Best Regards,
+Kevin
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Thursday, March 19, 2026 3:48 PM
+To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.o=
+rg
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: Re: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to=
+ unify msg sending logic
+
 
 [Public]
 
@@ -154,12 +174,15 @@ n cmn helper functions.
 Thanks,
 Lijo
 ________________________________
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com<mailto:KevinYang.Wang@amd.c=
+om>>
 Sent: Thursday, March 19, 2026 11:23:06 AM
-To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
-x@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+To: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>; amd-gfx@li=
+sts.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.fr=
+eedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
+amd.com>>; Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.c=
+om>>; Feng, Kenneth <Kenneth.Feng@amd.com<mailto:Kenneth.Feng@amd.com>>
 Subject: RE: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to=
  unify msg sending logic
 
@@ -181,12 +204,13 @@ We do not have to choose one or the other exclusively.
 Best Regards,
 Kevin
 -----Original Message-----
-From: Lazar, Lijo <Lijo.Lazar@amd.com>
+From: Lazar, Lijo <Lijo.Lazar@amd.com<mailto:Lijo.Lazar@amd.com>>
 Sent: Thursday, March 19, 2026 11:46 AM
-To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.o=
-rg
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com<mailto:KevinYang.Wang@amd.com=
+>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
+amd.com>>; Zhang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.c=
+om>>; Feng, Kenneth <Kenneth.Feng@amd.com<mailto:Kenneth.Feng@amd.com>>
 Subject: Re: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to=
  unify msg sending logic
 
@@ -220,7 +244,8 @@ t memory copies of in/out arguments.
 Thanks,
 Lijo
 
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com<mailto:kevinyang.wang@am=
+d.com>>
 > ---
 >   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 79 ++++++++++++++++++++++++++
 >   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h | 22 +++++++
@@ -366,67 +391,175 @@ ed on the number of input parameters.
 >
 >   /* Attribute ID mapping */
 
-
---_000_SJ0PR12MB70821C13DE8260DE5CBABA48974FASJ0PR12MB7082namp_
+--_000_DM6PR12MB297226DA71F3FADC5F4C1E6B824FADM6PR12MB2972namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><!--[if gte mso 9]><xml>
+<w:WordDocument>
+<w:DontUseAdvancedTypographyReadingMail/>
+<w:DontUseJustificationAdvancedTypographyReadingMail/>
+<w:DontUseHyphenationAdvancedTypographyReadingMail/>
+</w:WordDocument>
+</xml><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#467886;
+	text-decoration:underline;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Aptos",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body>
+<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
+break-word">
 <p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
 t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
 [Public]<br>
 </p>
 <br>
 <div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(3=
-3, 33, 33);">
-The variadic wrapper assigns different argument meanings based on number of=
- parameters used and the position. It will be hard to read code based on it=
-. There is an optional timeout parameter which will need a 5-argument funct=
-ion. Just don't want to miss out
- on that if everyone starts focusing only on cmn helper functions.</div>
-<div id=3D"ms-outlook-mobile-body-separator-line" data-applydefaultfontstyl=
-es=3D"true" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system=
-, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"auto">
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">whether to support the &#8216;timeout&#8217; paramet=
+er can be decided later based on actual needs.<o:p></o:p></p>
+<p class=3D"MsoNormal">at this stage, no known code or scenarios that requi=
+res its use.<o:p></o:p></p>
+<p class=3D"MsoNormal">the parameter of &#8216;timeout&#8217; is usually fo=
+r corner cases and special situations,<o:p></o:p></p>
+<p class=3D"MsoNormal">which are not suitable for the &#8216;cmn&#8217; hel=
+per, for these cases, using the low-level API directly is better.<o:p></o:p=
+></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Best Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Kevin<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
+font-family:&quot;Calibri&quot;,sans-serif"> Lazar, Lijo &lt;Lijo.Lazar@amd=
+.com&gt;
 <br>
-</div>
-</div>
-<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
-o, Arial, Helvetica, sans-serif; font-size: 12pt;" id=3D"ms-outlook-mobile-=
-signature" dir=3D"auto">
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
-Thanks,</div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
-Lijo</div>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wang, Yang(Kevin) &lt=
-;KevinYang.Wang@amd.com&gt;<br>
-<b>Sent:</b> Thursday, March 19, 2026 11:23:06 AM<br>
-<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
-p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Sent:</b> Thursday, March 19, 2026 3:48 PM<br>
+<b>To:</b> Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; amd-gfx@lists.=
+freedesktop.org<br>
 <b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Haw=
 king &lt;Hawking.Zhang@amd.com&gt;; Feng, Kenneth &lt;Kenneth.Feng@amd.com&=
 gt;<br>
-<b>Subject:</b> RE: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_m=
-sg() to unify msg sending logic</font>
-<div>&nbsp;</div>
+<b>Subject:</b> Re: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_m=
+sg() to unify msg sending logic<o:p></o:p></span></p>
 </div>
-<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
- style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">[AMD Official Use Onl=
-y - AMD Internal Distribution Only]<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"color:#212121">The variadic wrapper a=
+ssigns different argument meanings based on number of parameters used and t=
+he position. It will be hard to read code based on it. There is an optional=
+ timeout parameter which will need a
+ 5-argument function. Just don't want to miss out on that if everyone start=
+s focusing only on cmn helper functions.<o:p></o:p></span></p>
+</div>
+<div id=3D"ms-outlook-mobile-body-separator-line">
+<div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</div>
+<div id=3D"ms-outlook-mobile-signature">
+<div>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Lijo<o:p></o:p></p>
+</div>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
+size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Wang, =
+Yang(Kevin) &lt;<a href=3D"mailto:KevinYang.Wang@amd.com">KevinYang.Wang@am=
+d.com</a>&gt;<br>
+<b>Sent:</b> Thursday, March 19, 2026 11:23:06 AM<br>
+<b>To:</b> Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar=
+@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
+freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om">Alexander.Deucher@amd.com</a>&gt;; Zhang, Hawking &lt;<a href=3D"mailto=
+:Hawking.Zhang@amd.com">Hawking.Zhang@amd.com</a>&gt;; Feng, Kenneth &lt;<a=
+ href=3D"mailto:Kenneth.Feng@amd.com">Kenneth.Feng@amd.com</a>&gt;<br>
+<b>Subject:</b> RE: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_m=
+sg() to unify msg sending logic</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><a name=3D"BM_BEGIN">=
+</a><span style=3D"font-size:11.0pt;font-family:&quot;Times New Roman&quot;=
+,serif">[AMD Official Use Only - AMD Internal Distribution Only]<br>
 <br>
 This patch simplifies the development flow with a unified interface and red=
 uces overhead for developers.<br>
@@ -444,12 +577,17 @@ We do not have to choose one or the other exclusively.<br>
 Best Regards,<br>
 Kevin<br>
 -----Original Message-----<br>
-From: Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
+From: Lazar, Lijo &lt;<a href=3D"mailto:Lijo.Lazar@amd.com">Lijo.Lazar@amd.=
+com</a>&gt;<br>
 Sent: Thursday, March 19, 2026 11:46 AM<br>
-To: Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; amd-gfx@lists.freedes=
-ktop.org<br>
-Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Hawking &l=
-t;Hawking.Zhang@amd.com&gt;; Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;<br>
+To: Wang, Yang(Kevin) &lt;<a href=3D"mailto:KevinYang.Wang@amd.com">KevinYa=
+ng.Wang@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+Cc: Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Ale=
+xander.Deucher@amd.com</a>&gt;; Zhang, Hawking &lt;<a href=3D"mailto:Hawkin=
+g.Zhang@amd.com">Hawking.Zhang@amd.com</a>&gt;; Feng, Kenneth &lt;<a href=
+=3D"mailto:Kenneth.Feng@amd.com">Kenneth.Feng@amd.com</a>&gt;<br>
 Subject: Re: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to=
  unify msg sending logic<br>
 <br>
@@ -489,7 +627,8 @@ ents.<br>
 Thanks,<br>
 Lijo<br>
 <br>
-&gt; Signed-off-by: Yang Wang &lt;kevinyang.wang@amd.com&gt;<br>
+&gt; Signed-off-by: Yang Wang &lt;<a href=3D"mailto:kevinyang.wang@amd.com"=
+>kevinyang.wang@amd.com</a>&gt;<br>
 &gt; ---<br>
 &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 79 ++++++++++++++=
 ++++++++++++<br>
@@ -690,12 +829,14 @@ __VA_ARGS__))(smu, msg,<br>
 &gt; +<br>
 &gt;&nbsp;&nbsp; /*SMU gpu metrics */<br>
 &gt;<br>
-&gt;&nbsp;&nbsp; /* Attribute ID mapping */<br>
-<br>
-</span></font></div>
-</span></font></div>
+&gt;&nbsp;&nbsp; /* Attribute ID mapping */</span><span style=3D"font-famil=
+y:&quot;Times New Roman&quot;,serif"><o:p></o:p></span></p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_SJ0PR12MB70821C13DE8260DE5CBABA48974FASJ0PR12MB7082namp_--
+--_000_DM6PR12MB297226DA71F3FADC5F4C1E6B824FADM6PR12MB2972namp_--
