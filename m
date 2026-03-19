@@ -4,96 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88DD7107526C
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 07:33:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A01F107526D
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 07:38:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27BBC10E8BA;
-	Thu, 19 Mar 2026 07:33:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2237810E8B8;
+	Thu, 19 Mar 2026 07:38:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ynV4QQA/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wsUeEMKR";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012036.outbound.protection.outlook.com [52.101.48.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A85C810E8B8
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 07:33:11 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010030.outbound.protection.outlook.com [52.101.85.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA37F10E8B8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 07:38:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=obW8diSfAiXzMai1N5DGrEsisQMMhdz0d+/8Ngy3/OfpBAKrHPRROVpT64/P1lx8+NfTwl3/uCuiSvmlw67xOXGBgPdkk17pOR9EWCmWYxIIgKtrQJK7+CuLp6uoj22BigVv/XnnUByGPOoVpd+7TDW3TYsc0O1ltQrAO973IR8AIx7VcxaVE4rKkMwKR84lRXPB40Idx8X50g/pq+piYmIM5EEU5hFclxGIFDX4xsoEwtZ11Xb9SK7oPRfyxdXXdeX2pbduUdmXH4jfeH/t+WoxeeBt8gmjzTb2zi7qe2+QmPtQCsODglb/5njGCsUqeKqHZovWqdjuO9/AHxkfMA==
+ b=ixgYj70jeTFrholK0Isn+jLculbYLw49SZRF/TLwKnnnKueQyuJ141R4vKUcOJ3CsRuWie0ptaMkNmpyxtlBQk8ZQhwWJZoLMMxn+aTFntEO0mFoUqLqE3KoXUoV9IJMQyQldOmsf8nhnVm0mvVYRdg5+2mnenxjNBa/TwRtVT9961s49SaGu2GS7uYni9IePMA4TycwNUPeO295EHkg6fgtrKc17geywKpVom7verAI7TfUiRrrlwsgJz19l4cawAyz00DjgKT94ChHrmK09wbgRQJbtewRRbC8ofRAiuB9nGCB4z8ekbUFJzlUVMs+VG0ExExfr/2HkvKyDe/GtA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HRXuPBPNmX9Xqs7qxobtfh+RWrOF0f+wMEzlJqZZ2e0=;
- b=qX4Y2PnFe7ExK7Joxmzr0BvJRSKaNi6h0siLc1+cG37fMVtafaIHY3tIpXcPkoX7OmI4ACxCExZUA/+FRWusNZxqJOIj6Dr/5fkwr9K/RodR6SlWwlv+XYhSLNqQA5Edx3WDE5/QpdHBCgLAC7jmN60W+SPX3+UrWL5ZLU1+lW9ozzUQ3zxdnMI6+RFcrnbiTj23xuxFH12R2OqNLsQI3eQRONzCHyUO8UckraeWoGP61B/W3DdS9m1fuvjovq9SBc+Z2hWxpGZfkCDoNmehnxCLvkt3k1Dqmn+zmfPfHo/gl+QfreqfJU/2KuejbFGWAzd7bvkZ9Re5g81X2G+qzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=nJNxi4vWqnWLX5elrFXSBCzI/zF0yur3XzOQqcDZkM0=;
+ b=UpOyfT1oalE0tZXADORMBDdOuJ/egssr34VIRfxChMsGvZ1KP4v31QBwiOTvQCvY0ZAn4+dA6hq1z/ElvMdQWYI9J3vVghnSbkiVDg/FUr0FhHevccvFa2Cp3mTICZ4uR0YmzPB1OUzfOicIiBT9W5kB0CMWEl0ZzEehjF/WNefZDJNLdd78fQWhqkiQG+TRf8G9iy7kdWqQbkirlZDnexOF926Zq20MqNtYY4wZKtZRXRlqGWTzOtVewd1oZcASwocGnF+z3UVoAADJPEOzMs9M4hytgOM4sStvA53B2rEM0cyQYxskLXoqaMPxBidhcu6pD8BUmtg9JUNMUWg6Yg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HRXuPBPNmX9Xqs7qxobtfh+RWrOF0f+wMEzlJqZZ2e0=;
- b=ynV4QQA/QRg0YM/NR9y+YpTPUmCmDQAb/S5HS0P0RZXel8CQvpzOVQHRqznSN9LNCFol4ITY8UuTX4TMoikE4uHLRcSYumPCfrXxh7JKpAZnkM68LNznlSIqmUI+KtsDzraTvC9B6WvtuXIclVC+nXv4E0tFP9giwnaQRo5iCTM=
-Received: from SJ0PR03CA0100.namprd03.prod.outlook.com (2603:10b6:a03:333::15)
- by MW4PR12MB7238.namprd12.prod.outlook.com (2603:10b6:303:229::16)
+ bh=nJNxi4vWqnWLX5elrFXSBCzI/zF0yur3XzOQqcDZkM0=;
+ b=wsUeEMKRUGF9FMlkG84WvG811vlPU5+aHh/PmlRLhd5+WTnpAxcT3kcawsbjJfFYJh7n/uhYt8GBq52UeUf4iRP9jGKDm+cmlzm5ZBqKyMbTmJkDiM786LuEd4dpTUr8iBR0fmPrwM6cZave+UgZsxlGuT5RO6t+6A5nt84Tf5E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH2PR12MB4056.namprd12.prod.outlook.com (2603:10b6:610:a5::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Thu, 19 Mar
- 2026 07:33:07 +0000
-Received: from SJ5PEPF000001E9.namprd05.prod.outlook.com
- (2603:10b6:a03:333:cafe::e) by SJ0PR03CA0100.outlook.office365.com
- (2603:10b6:a03:333::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19 via Frontend Transport; Thu,
- 19 Mar 2026 07:33:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001E9.mail.protection.outlook.com (10.167.242.197) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Thu, 19 Mar 2026 07:33:07 +0000
-Received: from yifan.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 19 Mar
- 2026 02:33:04 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <christian.koenig@amd.com>,
- <mlimonci@amd.com>, <Perry.Yuan@amd.com>, Yifan Zhang <yifan1.zhang@amd.com>
-Subject: [PATCH v2] drm/amdkfd: check system memory when set apu_prefer_gtt
-Date: Thu, 19 Mar 2026 15:32:50 +0800
-Message-ID: <20260319073250.147808-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.43.0
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
+ 2026 07:38:05 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
+ 07:38:04 +0000
+Message-ID: <69f6c193-b0b0-4e67-8bb0-d34b9a3b34fd@amd.com>
+Date: Thu, 19 Mar 2026 08:38:00 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/amdgpu: Avoid NULL dereference in discovery
+ topology coredump path v3
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
+References: <20260318103059.1976682-1-srinivasan.shanmugam@amd.com>
+ <edc9d882-76f3-4d1a-a9a5-698752984716@amd.com>
+ <IA0PR12MB8208A7A18B8626B723B2D5FD904EA@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <01fbbf0b-72ba-4df9-a3cc-d0bce429a5be@amd.com>
+ <IA0PR12MB82083457A40B3AAD336605A6904FA@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <SJ0PR12MB708298F39630A4EA6264DB36974FA@SJ0PR12MB7082.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <SJ0PR12MB708298F39630A4EA6264DB36974FA@SJ0PR12MB7082.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: FR4P281CA0145.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b8::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E9:EE_|MW4PR12MB7238:EE_
-X-MS-Office365-Filtering-Correlation-Id: ae25ffc1-980e-4a6d-bb6c-08de8589c3a8
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB4056:EE_
+X-MS-Office365-Filtering-Correlation-Id: e52bdbd8-c61a-4aa2-b379-08de858a74f9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|376014|56012099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 4+ZpBXzfGPNeU5X4RSHxO9FGmww54P3GFCtK4IfbMr2XEcUQyrWwK4Bgarjh/6uQUXZuKRRbqPQN9TNpxKpASkvc24mAZsobzZXhzN0+XyCNjSEFZ7kFxlGCgscH4AsTgVp84PFLAigfSUh/XMmwtbc3a9XWmP3pKw3X9rZRvzZqgHAC5F/fX2jGkzzKC3CN70HmjeW4C1tdXa3shmpxwLkhI5xoly70Br2IeRD+E3Bvwa69R4LNLBdiz58MJRslClhERL6S6Og2PdERMePxte3yRzmBbCFNMR8e624e0rKMuFU+GNUbqNTH4M7JWnBAh2KxtC5pcpLkAbD8QgpPIwSaMKRRASQwuHm2bSIC+7rAMjfpNds3cwr20cZIBA49DXl44A6TDA96roM3oWlIQ9RyCUxND5atACHm/jkDlbWNPuV9odUIvawEclnKLWUfkYHm9cSzoDB0Hdi6+sgzzTfSr1L3v4yd0UlYGxBMaT39fG8u4OKlWKbCgqDyJlabBXnizgnPcOVcTkHxa3pN1qe6KAjTbpXNMhkntXm9aPk5iU3a1UUT0Nn2J3FKl+U+atzepRRwjBBnDlnFywuwphm6quPUM0Jw0/KQMRsEgsU9Zv0jQtrrcxMIaRjTYPOeVgTYjPq3Q1DiVQK45UESq4SI1IAP7lRv/GxF+POom/pDRXv7xRHp8NjyalsZM2982Bkmdv9xrXee/W/0UWeLW0+EnCZZCIsHhV6vQlS8u7KWlmseUkPVKXd4MvfkPeC3zQhqqqI75enZUw9msnzOSA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(56012099003)(18002099003);
+ ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003|7053199007;
+X-Microsoft-Antispam-Message-Info: dMTBSGwSCHx0gF0jB+2pmzwEByP2aawmmOsGrbp9uxCAjBbooeVKK4LIfIc/Dq/O/gYVinuZ1nqTZoOPr2wmhDzPxv93fT4szx2HrYdWBvCLNoQQYdRKAWYbAP3kSDN2UzOgrcjAantrR4voqtRc/MaUzXCo+1qIg8b8OekSULn8Xucqa/fZKqWukb0eKYqBsr0IaIKRY5thCA9EOUjcyaVJBUX5opAG9Gq3MFty9hnyM08Rz95yqPYeuhwCFAdGqZAszB64DUM4ei/bKV/T725tMbyDNiGoK65cpD0EAXEKksJa9udqihvFOujUDr4wlf6Xjj5Jdcu825MU68IdD0TekEUbFHHeTOShEi0DXZA/Bnmab2PG24l7AXTfvzoIsUAdbLIdGQAIGqXyzflwN4Q3/PlAVGqPfT7bt5PmupBpkuJbeQf2+6QOwIEszSwceW8UXTR/a0VSbWzj3cIr1yHePEOW/LgtMkMLmaArGsWAkhqIJ3N4Ujl6Kx0Du44KIOfyRXUbmRFGdwLl+1bEyqRaOkbuaInZWG64J2ZCltk6Vc9p8/6dFio2qYvOSUcFuGsf7xY0gdkqTJdYUq1vzohuTN5oJehNU9xRFq4U9SD/jb0fHiL9sUriy2vet6N4jaoyaz0lyl/LPm4hAP+zMKp14Dv5xHTAjfRGTasq+8faCjIJeD9gEstti+3M+rigBq2+Lyx/SEtPK3y62eDCeXV7hZ+tVskUoBHoSbrNkKQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003)(7053199007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: EJGy9U0fj2KJpGxy5eaavyQU+a4cqMLSJf/BWchpUYXrj76r+WGVhlH4ZzLIJAF2sq3FgX0JzQCfsEnZBCZsjGCsmqX2ZREc9qwF5FFk3rUkjwTdlKVyMBrYFIgG6fOFhgAtueyzXYQfAIzBhU/p7UxQybW9WrtkHZYyb5c90paW/xnCmZqKBb2I/LdZG9Hmg2kYr6d/E8N2DHxJSYlpB2NVSuLhGdsMyhmdPZR5+HZAiC9Nc/rkXZ50xj0eX+v7hvHyujAzxbLxTg9DmB25xmpujToUGpI2MgemtyLrnt1b1lkXUi878obxDo7IQryGw/tS86qa4cKAULVNaMxvbiBYdNSCCeRf/FG7M0CBVZKzBAmSQEt/SrrXbkX0sohGXeotffsU9ctQ8ZZQgLMu8sywUH2vrYudyuErQywY+NylwcTihZzoUHBN+1dpVGSV
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VWo2ZE9ReFFYQktmOXFJNEFwdEU4VkluNlV2NnhqbTJNcENzZ2FJeURZZjlT?=
+ =?utf-8?B?NkVlVmxlcC85YkcxdEU1cUpmOGtjR1FIbEx1dmZjTmxLeUlmUHkxbEtKSDVE?=
+ =?utf-8?B?cHNCeGdWa3hKNHB1Q09FS0czNzNJODBwV2o1VTVwL29yblZQRE4yZ1VVYVA4?=
+ =?utf-8?B?M0RHSHFqeWhzVDR2Z0ljQmdlRW5aVzJYWko4Ulp4MSt1SWFHN1I2NW1YakpB?=
+ =?utf-8?B?bStIR1h3QlFVejlSODV4RTIwZkZ6TE9pQ09MMFF3V1QyeUNOUXdvWW9iRDdR?=
+ =?utf-8?B?cXk5R2tSdUdENkxrMkx0VXQ5L0MxYk1mMEZabG4yUkRQM0ZMTkh1KzAyaFpV?=
+ =?utf-8?B?TVU2WHlUZXZjcXZlNjA3VHFhSUZpMngwNUFXWFVVL2NRV1laUUxIdkgvVnlD?=
+ =?utf-8?B?UEl1Vkw0eTF0Umlzb2J2RGwyNis0c3ZQVFJ0Z2xHekRTcXUvT3pITlRUU2Qr?=
+ =?utf-8?B?ZmJEdGJNTFZ0ZGhKMU1vR1hFZlBVMkFjUDg0L3ptMUJUdkxvdDYzdnFoTFE3?=
+ =?utf-8?B?aXh1SXRHRHFSVHJhc3kyeUNLSGYxYjJUa2JCZ0VrWXFDaTJ5TER4bmdDQk5G?=
+ =?utf-8?B?bVdUVDdUU1NVV2VtRW5ZcVN0blgzcE53Wjloejh1NE5kMGZZVlEvY1RXV3JE?=
+ =?utf-8?B?STNkbEhBNVl5akpNMm5idHFta3lGd000VjQ0TW52SEtBMFdod3kvNWt5eHN5?=
+ =?utf-8?B?bjRIbkhyZHFWS3liZE5RcW95R0piTXdQTFU0TnQvWVVhT3pTL1ZjSGhtNkVl?=
+ =?utf-8?B?TkMwblAvSkViZkt3R0ZCZWVYZEx5aUhaaWlsR1dFckdMQ0VTUGVsQzBlRFhN?=
+ =?utf-8?B?a1lQQ0pTalF3T3kyMGhBVGNPdzMvaStQWHpZT2RWaFhBZFpjUDVzejR1dDl2?=
+ =?utf-8?B?TndDRWQzWmVCOVJEc0VveDQydDAzR3M5cjl5R2pVa1J5NFVVdXNmVnR2Yk0z?=
+ =?utf-8?B?cHF4bWFUNVByaXhxQmRMbVZxU1N6eUJ3dktYMTU3YlhQZHpqMlVFNktCckR3?=
+ =?utf-8?B?MHUvaDBkNXl6OUtuZU56dGZ3OXB0L2xCY0dHUjEyNFJCUVkyR01OTENmZEN1?=
+ =?utf-8?B?dUkrbXQ3K0kyeHZKQW5kWmJJWlJwZEFhUEtwME5naUpBRnRTOWhzZVFOYk82?=
+ =?utf-8?B?QmVMbjhlbWoxOGJSOXFWL0FTMnV2STNFR21tYzQvWWR1c1Y4RWY2NWtBZGVR?=
+ =?utf-8?B?bjEwaE1aOG1keVI4b1p3aEZTNHVZbCtvTFJBa0l5K0FiVUpGeGF6Z3dZeGE1?=
+ =?utf-8?B?M2tuaEdtRWIwVjBLd05oTUY4T2tDSFI0ZERRV21oOHl5aXFoZktPL3IzbzMx?=
+ =?utf-8?B?eEt5dWZGdmNWamtsdzA4LzMxblJWUVJrTW5jU3hpTEFBYXFqSnVuVUxpYmdC?=
+ =?utf-8?B?amM1Z2JKVWs2cXROelIyanh4UEttYmVwZTRqV2E5NndjcGoxYXg2NmQzVXBK?=
+ =?utf-8?B?QUcySDRuN1NObmdCM0ZPMUNiMCtYL2dHSm4vdVpNQitPaTlYa2dORjU5T1ZU?=
+ =?utf-8?B?amoxZ2ZYaFJaaXFWMlB2REo0MXdndS9Bb2M2WHJObi9VL3BLRVNWZFRPUlVs?=
+ =?utf-8?B?TS9QV3hxU3JlOWVtcTZuZVA4ODhYK2FjeS90V29zOVVLbzJqanh2dDRidVov?=
+ =?utf-8?B?d3h1cFliQVBURHJJYjdoeE1XbUlpa1BPZmRmYlRkaWM3ODJKbE91N1pjK21V?=
+ =?utf-8?B?M3JEZ1AxdlpnZEM0U3YxTEUyMHhySFB6VVU0UmF3dFE1Z2pQTE9VdXpvZE9Q?=
+ =?utf-8?B?VnNnVDlMR0dld0RKMFFsd0VlTHhxbTREbnRXRWEvSWl1TmVvZkhUUGo2aGp3?=
+ =?utf-8?B?Ymk5UWM4YUNBQ1diWGtZQkNQOWRrbE9COWpXZ2szQW15MTJTWU9XVWZXYkxK?=
+ =?utf-8?B?cmNWWmFBYzZLdnBDQjl3RVJaM2puWnMzMG5wSXlQYlVHdUVZRXR3SlpPd2cv?=
+ =?utf-8?B?NjJGdFd5b1RuLzdUQVlqSUwxQW9aRWJRRFRSMll0K3NOM2k3b09XSnR6dGpw?=
+ =?utf-8?B?aGNRekdJbmFPTmpFczM5ZTJUNmYyUHVFWU5OMnArVWhZVG1CeHNPcWptWTho?=
+ =?utf-8?B?dUZjSTMxK0pIemdlVlVXRnBkbzZJL3VTVzUyRVlVVzdkb0tFUlFFeTdackFr?=
+ =?utf-8?B?YkpHNVFqejllQkttZTR3U2pubEJRZFNPbG4xOUx1ODc2TGF5QXk3UGFsK2kv?=
+ =?utf-8?B?OXl0aTFreG9WcVR0L2U3ajk4dDB3ZmVwQjlMQUV3amxNbkQyaUpOVURWU0Ra?=
+ =?utf-8?B?c3FOQ1lIL3R2Y0k0Y21SNjVPRDAwaUxZdmdDamlRZEgwd3VlYVNScTJjWml4?=
+ =?utf-8?Q?hz4F3PqgJsaMSxKE/t?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 07:33:07.1497 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae25ffc1-980e-4a6d-bb6c-08de8589c3a8
+X-MS-Exchange-CrossTenant-Network-Message-Id: e52bdbd8-c61a-4aa2-b379-08de858a74f9
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 07:38:04.9138 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001E9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7238
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1K/g0LHJkEy/LvBb6EkIMSxGYPJ1m8Jx61kqhDj7YuBiivlVyr3PpRYdpiqSju+g
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4056
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,111 +142,230 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Current apu_prefer_gtt setting only check gtt_size, which could be set
-by user to a larger than system memory value (via ttm modules parameter
-pages_limit). E.g. carveout vram 32GB, gtt_size 50GB (via ttm modules
-parameter pages_limit), system memory 31GB. In that case, apu_prefer_gtt
-will be set incorrectly. Take system memory into account when set
-apu_prefer_gtt.
+I kind of agree with Lijo.
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c       | 2 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h       | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 6 ++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c          | 7 ++++++-
- 4 files changed, 12 insertions(+), 7 deletions(-)
+We clearly should have a NULL pointer check, but when the information isn't=
+ available it's perfectly fine to not print the section for it. That's what=
+ we do when other information isn't available as well.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 3bfd79c89df3..a6ee9d9bfafb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -170,8 +170,6 @@ void amdgpu_amdkfd_device_init(struct amdgpu_device *adev)
- 	int i;
- 	int last_valid_bit;
- 
--	amdgpu_amdkfd_gpuvm_init_mem_limits();
--
- 	if (adev->kfd.dev) {
- 		struct kgd2kfd_shared_resources gpu_resources = {
- 			.compute_vmid_bitmap =
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index cdbab7f8cee8..13cada7da4a9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -369,7 +369,7 @@ u64 amdgpu_amdkfd_xcp_memory_size(struct amdgpu_device *adev, int xcp_id);
- 
- 
- #if IS_ENABLED(CONFIG_HSA_AMD)
--void amdgpu_amdkfd_gpuvm_init_mem_limits(void);
-+uint64_t amdgpu_amdkfd_gpuvm_init_mem_limits(void);
- void amdgpu_amdkfd_gpuvm_destroy_cb(struct amdgpu_device *adev,
- 				struct amdgpu_vm *vm);
- 
-@@ -382,7 +382,7 @@ void amdgpu_amdkfd_release_notify(struct amdgpu_bo *bo);
- void amdgpu_amdkfd_reserve_system_mem(uint64_t size);
- #else
- static inline
--void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
-+uint64_t amdgpu_amdkfd_gpuvm_init_mem_limits(void)
- {
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 8a869fe41acd..4fba7d2f34a9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -109,13 +109,13 @@ static bool reuse_dmamap(struct amdgpu_device *adev, struct amdgpu_device *bo_ad
-  *  System (TTM + userptr) memory - 15/16th System RAM
-  *  TTM memory - 3/8th System RAM
-  */
--void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
-+uint64_t amdgpu_amdkfd_gpuvm_init_mem_limits(void)
- {
- 	struct sysinfo si;
- 	uint64_t mem;
- 
- 	if (kfd_mem_limit.max_system_mem_limit)
--		return;
-+		return kfd_mem_limit.max_system_mem_limit;
- 
- 	si_meminfo(&si);
- 	mem = si.totalram - si.totalhigh;
-@@ -132,6 +132,8 @@ void amdgpu_amdkfd_gpuvm_init_mem_limits(void)
- 	pr_debug("Kernel memory limit %lluM, TTM limit %lluM\n",
- 		(kfd_mem_limit.max_system_mem_limit >> 20),
- 		(kfd_mem_limit.max_ttm_mem_limit >> 20));
-+
-+	return kfd_mem_limit.max_system_mem_limit;
- }
- 
- void amdgpu_amdkfd_reserve_system_mem(uint64_t size)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 714fd8d12ca5..df98ece071e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2071,6 +2071,7 @@ static void amdgpu_ttm_buffer_entity_fini(struct amdgpu_gtt_mgr *mgr,
- int amdgpu_ttm_init(struct amdgpu_device *adev)
- {
- 	uint64_t gtt_size;
-+	uint64_t max_system_mem_limit;
- 	int r;
- 
- 	dma_set_max_seg_size(adev->dev, UINT_MAX);
-@@ -2210,8 +2211,12 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 	dev_info(adev->dev, " %uM of GTT memory ready.\n",
- 		 (unsigned int)(gtt_size / (1024 * 1024)));
- 
-+
-+	max_system_mem_limit = amdgpu_amdkfd_gpuvm_init_mem_limits();
-+
- 	if (adev->flags & AMD_IS_APU) {
--		if (adev->gmc.real_vram_size < gtt_size)
-+		if (adev->gmc.real_vram_size < gtt_size &&
-+			adev->gmc.real_vram_size < max_system_mem_limit)
- 			adev->apu_prefer_gtt = true;
- 	}
- 
--- 
-2.43.0
+So just completely skipping the "drm_printf(p, "\nHW IP Discovery\n");" wou=
+ld work for me as well.
+
+Regards,
+Christian.
+
+On 3/19/26 06:00, Lazar, Lijo wrote:
+> [Public]
+>=20
+>=20
+> To run coredump logic, driver needs to be loaded first. For driver load t=
+o work on all new SOCs, it needs discovery.=C2=A0
+>=20
+> Other SOCs which depend on pci id mechanism don't need discovery and they=
+ don't have discovery section either.
+>=20
+> Thanks,
+> Lijo
+> -------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+-----------------
+> *From:* SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
+> *Sent:* Thursday, March 19, 2026 10:17:09 AM
+> *To:* Lazar, Lijo <Lijo.Lazar@amd.com>; Koenig, Christian <Christian.Koen=
+ig@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
+> *Cc:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Pell=
+oux-Prayer, Pierre-Eric <Pierre-eric.Pelloux-prayer@amd.com>
+> *Subject:* RE: [PATCH v3] drm/amdgpu: Avoid NULL dereference in discovery=
+ topology coredump path v3
+> =C2=A0
+> [AMD Official Use Only - AMD Internal Distribution Only]
+>=20
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Thursday, March 19, 2026 9:46 AM
+>> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
+>> Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
+>> <Alexander.Deucher@amd.com>
+>> Cc: amd-gfx@lists.freedesktop.org; Pelloux-Prayer, Pierre-Eric <Pierre-
+>> eric.Pelloux-prayer@amd.com>
+>> Subject: Re: [PATCH v3] drm/amdgpu: Avoid NULL dereference in discovery
+>> topology coredump path v3
+>>
+>>
+>>
+>> On 18-Mar-26 4:41 PM, SHANMUGAM, SRINIVASAN wrote:
+>> > [AMD Official Use Only - AMD Internal Distribution Only]
+>> >
+>> >> -----Original Message-----
+>> >> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> >> Sent: Wednesday, March 18, 2026 4:28 PM
+>> >> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
+>> Koenig,
+>> >> Christian <Christian.Koenig@amd.com>; Deucher, Alexander
+>> >> <Alexander.Deucher@amd.com>
+>> >> Cc: amd-gfx@lists.freedesktop.org; Pelloux-Prayer, Pierre-Eric
+>> >> <Pierre- eric.Pelloux-prayer@amd.com>
+>> >> Subject: Re: [PATCH v3] drm/amdgpu: Avoid NULL dereference in
+>> >> discovery topology coredump path v3
+>> >>
+>> >>
+>> >>
+>> >> On 18-Mar-26 4:00 PM, Srinivasan Shanmugam wrote:
+>> >>> When a GPU fault or timeout happens, the driver creates a
+>> >>> devcoredump to collect debug information.
+>> >>>
+>> >>> During this, amdgpu_devcoredump_format() calls
+>> >>> amdgpu_discovery_dump() to print IP discovery data.
+>> >>>
+>> >>> amdgpu_discovery_dump() uses:
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0 adev->discovery.ip_top
+>> >>>
+>> >>> and then accesses:
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0 ip_top->die_kset
+>> >>>
+>> >>> amdgpu_discovery_dump() uses adev->discovery.ip_top. However, ip_top
+>> >>> may be NULL if the discovery topology was never initialized.
+>> >>>
+>> >>> The current code does not check for this before using ip_top. As a
+>> >>> result, when ip_top is NULL, the coredump worker crashes while
+>> >>> taking the spinlock for ip_top->die_kset.
+>> >>>
+>> >>> Fix this by checking for a missing ip_top before walking the
+>> >>> discovery topology. If it is unavailable, print a short message in
+>> >>> the dump and return safely.
+>> >>>
+>> >>> - If ip_top is NULL, print a message and skip the dump
+>> >>> - Also add the same check in the cleanup path
+>> >>>
+>> >>> This makes the coredump and cleanup paths safe even when the
+>> >>> discovery topology is not available.
+>> >>>
+>> >>> KASAN trace:
+>> >>> [=C2=A0 522.228252] [IGT] amd_deadlock: starting subtest
+>> >>> amdgpu-deadlock-sdma [=C2=A0 522.240681] [IGT] amd_deadlock: startin=
+g
+>> >>> dynamic subtest amdgpu-deadlock-sdma
+>> >>>
+>> >>> ...
+>> >>>
+>> >>> [=C2=A0 522.952317] Write of size 4 at addr 0000000000000050 by task
+>> >>> kworker/u129:5/5434 [=C2=A0 522.937526] BUG: KASAN: null-ptr-deref i=
+n
+>> >>> _raw_spin_lock+0x66/0xc0 [=C2=A0 522.967659] Workqueue: events_unbou=
+nd
+>> >>> amdgpu_devcoredump_deferred_work [amdgpu]
+>> >>>
+>> >>> ...
+>> >>>
+>> >>> [=C2=A0 522.969445] Call Trace:
+>> >>> [=C2=A0 522.969508]=C2=A0 _raw_spin_lock+0x66/0xc0 [=C2=A0 522.96951=
+8]=C2=A0 ?
+>> >>> __pfx__raw_spin_lock+0x10/0x10 [=C2=A0 522.969534]
+>> >>> amdgpu_discovery_dump+0x61/0x530 [amdgpu] [=C2=A0 522.971346]=C2=A0 =
+?
+>> >>> pick_next_task_fair+0x3f6/0x1c60 [=C2=A0 522.971363]
+>> >>> amdgpu_devcoredump_format+0x84f/0x26f0 [amdgpu] [=C2=A0 522.973188]=
+=C2=A0 ?
+>> >>> __pfx_amdgpu_devcoredump_format+0x10/0x10 [amdgpu] [=C2=A0 522.97501=
+2]=C2=A0 ?
+>> >>> psi_task_switch+0x2b5/0x9b0 [=C2=A0 522.975027]=C2=A0 ?
+>> >>> __pfx___drm_printfn_coredump+0x10/0x10 [drm] [=C2=A0 522.975198]=C2=
+=A0 ?
+>> >>> __pfx___drm_puts_coredump+0x10/0x10 [drm] [=C2=A0 522.975366]=C2=A0 =
+?
+>> >>> __schedule+0x113c/0x38d0 [=C2=A0 522.975381]
+>> >>> amdgpu_devcoredump_deferred_work+0x4c/0x1f0 [amdgpu]
+>> >>>
+>> >>> v2: Updated commit message - Clarified that ip_top is not freed, it =
+can
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 just be NULL if discovery was no=
+t initialized.
+>> >>> (Christian/Lijo)
+>> >>>
+>> >>> v3: Removed the extra drm_warn() for sysfs init failure as sysfs alr=
+eady
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reports errors. (Christian)
+>> >>>
+>> >>> Fixes: 7083eb8982fb ("drm/amdgpu: include ip discovery data in
+>> >>> devcoredump")
+>> >>> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> >>> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+>> >>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>> >>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+>> >>> ---
+>> >>>=C2=A0=C2=A0=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 11=
+ ++++++++++-
+>> >>>=C2=A0=C2=A0=C2=A0 1 file changed, 10 insertions(+), 1 deletion(-)
+>> >>>
+>> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> >>> index f7f37d93d0ce..6be1f971a31a 100644
+>> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+>> >>> @@ -1395,6 +1395,9 @@ static void amdgpu_discovery_sysfs_fini(struct
+>> >> amdgpu_device *adev)
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct list_head *el, *tmp;
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct kset *die_kset;
+>> >>>
+>> >>> +=C2=A0=C2=A0 if (!ip_top)
+>> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return=
+;
+>> >>> +
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 die_kset =3D &ip_top->die_kset;
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&die_kset->list_lock);
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 list_for_each_prev_safe(el, tmp, &die_=
+kset->list) { @@ -1419,9
+>> >>> +1422,15 @@ void amdgpu_discovery_dump(struct amdgpu_device *adev,
+>> >> struct drm_printer *p)
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ip_hw_instance *ip_inst;
+>> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int i =3D 0, j;
+>> >>>
+>> >>> +=C2=A0=C2=A0 drm_printf(p, "\nHW IP Discovery\n");
+>> >>> +
+>> >>> +=C2=A0=C2=A0 if (!ip_top) {
+>> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_pr=
+intf(p, "ip discovery topology unavailable\n");
+>> >>
+>> >> Is this type of printing really required or just skipping the whole
+>> >> section good enough?
+>> >
+>> >
+>> > Silently skipping the rest may look like incomplete or missing data in
+>> > the coredump.
+>> >
+>> > Adding a one-line message makes it clear that the topology was not
+>> > available, rather than leaving an empty section.
+>> >
+>>
+>> Here is my take - Discovery is the basic requirement for SOCs which make=
+ use of
+>> that mechanism and it is always expected to be present for those, otherw=
+ise driver
+>> load will fail.
+>>
+>> For those which don't make use of discovery, the section will not be pre=
+sent. There
+>> is no special message required for that. There is no harm to keep that, =
+it only adds
+>> extra parsing.
+>=20
+> It's ok for normal cases. However, this runs in the *coredump/debug path
+> during error conditions* - where the discovery topology may not be
+> initialized. instead of leaving the section empty, which can be confusing
+> during debugging.
+>=20
+> Best,
+> Srini
+>=20
 
