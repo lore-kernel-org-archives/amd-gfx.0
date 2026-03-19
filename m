@@ -4,98 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D84F1075274
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 08:22:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 038F21075276
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 08:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F29D10E8E6;
-	Thu, 19 Mar 2026 08:22:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E71CD10E8E9;
+	Thu, 19 Mar 2026 08:29:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vA7uDyXx";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="S+AgGMCS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8pcZ2dwV";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="S+AgGMCS";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8pcZ2dwV";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010026.outbound.protection.outlook.com [52.101.85.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0943010E8E6
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 08:22:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=baJxWsUkCSHi2aiKd8O/KzLWM86E8Sc7xnFzJNCoaFSBysLlBgbbybiuVPZG6T6APBcyAqTyURltj8Z5qbvJpwsxmJy8M7ARgRLnSWlnngyPnJPioQgVEukIQPUMRL0VoZWadHOtASCMaijCQmYvI/TbHt5H2BAG9W1S/fhBoE5Ou3vCaQBlkswSgsBMjOghsoQcIt7mI9/y9AMtLLqAx/yKYgod2xQbv2AjCujEj+L+unV76btLSyziykVir6TRmSA8bUvf4/5CK68g54PTKYa7qUpr518jWc2NdPUP/zWZ8EPWMjXtByeDuc8cnkQfLhQA8QoChy/iQ4aLmTAYxg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XAfySSH3w7jJ+x9qJLAVpxU8IcRu5fML9NTv/CfReQI=;
- b=jxtC89d3XaXlHF/8W0aRv4D02sUXmpVUCG0yicPTWsd9XVB3VpsBZq9gXehQrso1ZsvT0kNQDoSd/B7NMhtGhMhtqKDKvZ++CSeSmne50M9wpyKX8m5CmaEC1Q/Lti3/PYvpkJYiZT9XMxbEBKks5AUl0H+gc8JBTIzen97AAbP4MrSs/Htzl3xZGyjcdZzOWVmQQnpa0ySirlzOLWfz24xj6aT+1ngZcBcGL/iS1tdS/K404mVVsqF69jhLpjjbajKZs9Nzt4mWhav74QcKO7Q+KtpZIlaNKIrBt4oJGva7JvI0z8P80PPNkG/tICewKhiXyGJHJumcnUHGj+cC+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XAfySSH3w7jJ+x9qJLAVpxU8IcRu5fML9NTv/CfReQI=;
- b=vA7uDyXxiFKtqp0f1Uw/ijOkKYu53rwIM/WGh+ozlNlJmnEqxnrHYQCtzDnNAmEs+4Xezc7wH8peReqnyAq8PzbWGWYUq9t5y95NB3M6LjZ2ONecH/l5cfZ9lnlkeml2ZfJkDKwYeroqQrt2JDjqfeFgezxTOZNtvpec59snCPw=
-Received: from BY5PR17CA0007.namprd17.prod.outlook.com (2603:10b6:a03:1b8::20)
- by SA1PR12MB8722.namprd12.prod.outlook.com (2603:10b6:806:373::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
- 2026 08:22:11 +0000
-Received: from SJ5PEPF000001E8.namprd05.prod.outlook.com
- (2603:10b6:a03:1b8:cafe::5b) by BY5PR17CA0007.outlook.office365.com
- (2603:10b6:a03:1b8::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19 via Frontend Transport; Thu,
- 19 Mar 2026 08:22:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001E8.mail.protection.outlook.com (10.167.242.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Thu, 19 Mar 2026 08:22:10 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.17; Thu, 19 Mar
- 2026 03:22:03 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>, Prike Liang
- <Prike.Liang@amd.com>
-Subject: [PATCH 3/3] drm/amdgpu: fix the userq destroy dead lock
-Date: Thu, 19 Mar 2026 16:21:50 +0800
-Message-ID: <20260319082150.3324177-3-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260319082150.3324177-1-Prike.Liang@amd.com>
-References: <20260319082150.3324177-1-Prike.Liang@amd.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AB5410E8E8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 08:29:23 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0919C5BD23;
+ Thu, 19 Mar 2026 08:29:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773908962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uepIOdIe1KDBAdOR2nVFfKPb1oLN4//z8c2D1VPKCns=;
+ b=S+AgGMCSXeJliUMRbJImB4/IfpfwkHgvUO7xXbehPl6BSsU8qP1/tqAKtzzkZ2TDvspYYM
+ xp0lW+/DeyF2ROg5CCKt7W413Tzs9QFuTE8fEf0Qw/viAUB9yDKBheoXXyIRQx/03PkbJe
+ IB7wGLlKvhu6a/xa7SqJUfO8erhCdCg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773908962;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uepIOdIe1KDBAdOR2nVFfKPb1oLN4//z8c2D1VPKCns=;
+ b=8pcZ2dwVitZL8DLsqHjvhQci1vcFMh5jy1/u9c91WLJ82iDazWply9/R8OnN7C09QiHQF0
+ RYdYYThEEJTD97Cg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1773908962; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uepIOdIe1KDBAdOR2nVFfKPb1oLN4//z8c2D1VPKCns=;
+ b=S+AgGMCSXeJliUMRbJImB4/IfpfwkHgvUO7xXbehPl6BSsU8qP1/tqAKtzzkZ2TDvspYYM
+ xp0lW+/DeyF2ROg5CCKt7W413Tzs9QFuTE8fEf0Qw/viAUB9yDKBheoXXyIRQx/03PkbJe
+ IB7wGLlKvhu6a/xa7SqJUfO8erhCdCg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1773908962;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=uepIOdIe1KDBAdOR2nVFfKPb1oLN4//z8c2D1VPKCns=;
+ b=8pcZ2dwVitZL8DLsqHjvhQci1vcFMh5jy1/u9c91WLJ82iDazWply9/R8OnN7C09QiHQF0
+ RYdYYThEEJTD97Cg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 030304273B;
+ Thu, 19 Mar 2026 08:29:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id JuLvOeCzu2n6dgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 19 Mar 2026 08:29:20 +0000
+Message-ID: <29c59b0f-c86c-4197-8cf5-47e4132c730b@suse.de>
+Date: Thu, 19 Mar 2026 09:29:20 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/4] drm/atomic: Allocate drm_private_state through a
+ callback
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Liviu Dudau <liviu.dudau@arm.com>, =?UTF-8?Q?Ma=C3=ADra_Canal?=
+ <mcanal@igalia.com>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Paul Cercueil <paul@crapouillou.net>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ linux-mips@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, Jessica Zhang <jesszhan0024@gmail.com>
+References: <20260224-drm-private-obj-reset-v5-0-5a72f8ec9934@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260224-drm-private-obj-reset-v5-0-5a72f8ec9934@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E8:EE_|SA1PR12MB8722:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6eeeb796-5e9e-4805-e63f-08de85909dfa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|376014|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: lz6N+iXvmbzmOU/52k24mlVQB9ZoTt+E2EobvVVxTYDfmat5LTmtVXzNDzZ44LbnZ24wZaR1n4B28OegQpUks3IMA2ye3Tx+BfgKOjYj9aS5SPWnUNuvUy6jN2V80rbM0jc1bw+lrRoL4BFOnXcr34e6PYmkn4qRBTsXJJKwD+S/X+SNYUCZtVdY439WjegKoRapkJGqZVzZFfxAGsfVHVMrldN5gSjPeHKr7pYnPEnc6AhHpuI4QdGhz9pnwIbhSiK7ner1U9nujSgbEj41FHckyjdRKNBygjPrZStqWsVrNFO0hYlkUwXioQasYaL2glOiRCUvADB5VkUnVMgQEp6n3BupRECykpkax77bGhPxt/m8mEQF/N79sO9obrl1cV33m0vVkIdbaKLSayOy7j65GLSa+GjMhpTBSu/ml7VDOr7LR3/07Vyrnfc+AU19bFlvKfmlzbKcxNxa+VlktmgOy+acRrN4cjEB926Xw6SfelNSgIts8wBFCCe2ExQYSgo6/KcbstR8jNkCaFTiP9z56ofPExx7TnTtFPPRIqc/+Haq97jJUm82jQI9jLmYo8bgdfha+lj6u1ER1sExrolZSdSy94ZVhj01tKbyje6mtrODYiUnA1Jshs1KuPui71GyME/yR4JM0xH9C7aAAtQvzN+rfP37lBMjoOmalH0Op4NHbUMCC0Bf6RqgvXK/1PcFfCCJo00W8nxpYO8Krbd83y0H6Mzjml7sK7FzWyl/V5+w9DHUXZX5c4KatM8lOTw+GM9HFg+3RcJEypxW/w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: CpfuBgIgsywsX6meDAGCCYnGmFu0FGClc216wWH8rBlU/xEdySlXVX2Ru0BNaMA7Gq3DEdajdpXSo7WaFSZrmj3r8+7TboJJ+olUh3Je3s0gTE2LbtmGtru3W0vOgPliGZxqZuQXqyg9/3i3Ckk3xHrFhoTov/7rHS1QbvNFMcZptRnuj8JvfRFhXCM2Oev5kZB0TFM0cEfn1hCLkAmXi/8s8quj0R32vIiUQtUr63ptXAHU48lEBaDb2JQOPDxaZ7zeekdr8YuVg7u4ShlhHfA37mL1X10hTlwIYXb/kI/Bkq1P6GwePQX4AxWfb2zDR1vom6Z5FvHRjzCZaUvhdI/A4YDa+QpkBF9zArEhGzbaTJubD5dS/2T55LDLSam3Koe05EKIovel/jmYBANzdjYHL6v77FyRgbl5yzDK0kN9qD8eKe3pLld85Q4zVcTL
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 08:22:10.4123 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6eeeb796-5e9e-4805-e63f-08de85909dfa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001E8.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8722
+X-Spamd-Result: default: False [-2.80 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ RCVD_TLS_ALL(0.00)[]; ARC_NA(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; TO_DN_SOME(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[35]; TAGGED_RCPT(0.00)[];
+ MID_RHS_MATCH_FROM(0.00)[];
+ R_RATELIMIT(0.00)[to_ip_from(RLq3cifbxyhc6qbbynzfc6amns)];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,amd.com,igalia.com,ideasonboard.com,gmail.com,nvidia.com,vger.kernel.org,oss.qualcomm.com,arm.com,intel.com,linaro.org,kernel.org,crapouillou.net,raspberrypi.com,kwiboo.se,linux.dev,poorly.run,somainline.org];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.de:mid,
+ suse.de:email]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,129 +164,94 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In the userq destroy routine, the queue refcount
-should be 0 and the queue already removed from the
-manager list, so it must not be touched. Attempting
-to lock the userq mutex here would deadlock, as it
-is already held by the eviction suspend work like as
-following.
+Hi
 
-[  107.881652] ============================================
-[  107.881866] WARNING: possible recursive locking detected
-[  107.882081] 6.19.0-custom #16 Tainted: G     U     OE
-[  107.882305] --------------------------------------------
-[  107.882518] kworker/15:1/158 is trying to acquire lock:
-[  107.882728] ffff8f2854b3d110 (&userq_mgr->userq_mutex){+.+.}-{4:4}, at: amdgpu_userq_kref_destroy+0x57/0x540 [amdgpu]
-[  107.883462]
-               but task is already holding lock:
-[  107.883701] ffff8f2854b3d110 (&userq_mgr->userq_mutex){+.+.}-{4:4}, at: amdgpu_eviction_fence_suspend_worker+0x31/0xc0 [amdgpu]
-[  107.884485]
-               other info that might help us debug this:
-[  107.884751]  Possible unsafe locking scenario:
+Am 24.02.26 um 17:10 schrieb Maxime Ripard:
+> Hi,
+>
+> This series started from my work on the hardware state readout[1], and
+> was suggested by Dmitry[2].
+>
+> This series deal with the fact that drm_private_obj (and thus bridges)
+> are not initialized using the same pattern than any other object. This
+> series solves that inconsistency by aligning it to what we're doing for
+> all the other objects.
+>
+> This was tested on a TI SK-AM62, with three bridges.
+>
+> Let me know what you think,
+> Maxime
+>
+> 1: https://lore.kernel.org/dri-devel/20250902-drm-state-readout-v1-0-14ad5315da3f@kernel.org/
+> 2: https://lore.kernel.org/dri-devel/zvqtehg66dbrrdmik6ylo2kdk74umfzo5hbfkizwsb352nlyqv@jgouvmbfwa4x/
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> ---
+> Changes in v5:
+> - Rebase to drm-misc-next
+> - Link to v4: https://lore.kernel.org/r/20260128-drm-private-obj-reset-v4-0-90891fa3d3b0@redhat.com
+>
+> Changes in v4:
+> - Fix a circular dependencies between modules by calling
+>    __drm_atomic_helper_private_obj_create_state from
+>    __drm_atomic_helper_bridge_reset instead of
+>    drm_bridge_atomic_create_priv_state()
+> - Link to v3: https://lore.kernel.org/r/20260119-drm-private-obj-reset-v3-0-b931abe3a5e3@redhat.com
+>
+> Changes in v3:
+> - EDITME: describe what is new in this series revision.
+> - EDITME: use bulletpoints and terse descriptions.
+> - Link to v2: https://lore.kernel.org/r/20251014-drm-private-obj-reset-v2-0-6dd60e985e9d@kernel.org
+>
+> Changes in v2:
+> - Switch to a new hook instead of reset since some drm_private_objs want
+>    to persist across suspends
+> - Drop the call to drm_private_obj_funcs.reset in
+>    drm_mode_config_reset()
+> - Link to v1: https://lore.kernel.org/r/20251008-drm-private-obj-reset-v1-0-805ab43ae65a@kernel.org
+>
+> ---
+> Maxime Ripard (4):
+>        drm/amdgpu: Switch private_obj initialization to atomic_create_state
+>        drm/omapdrm: Switch private_obj initialization to atomic_create_state
+>        drm/tegra: Switch private_obj initialization to atomic_create_state
+>        drm/atomic: Remove state argument to drm_atomic_private_obj_init
 
-[  107.884993]        CPU0
-[  107.885100]        ----
-[  107.885207]   lock(&userq_mgr->userq_mutex);
-[  107.885385]   lock(&userq_mgr->userq_mutex);
-[  107.885561]
-                *** DEADLOCK ***
+Nice cleanup. For the whole series:
 
-[  107.885798]  May be due to missing lock nesting notation
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-[  107.886069] 4 locks held by kworker/15:1/158:
-[  107.886247]  #0: ffff8f2840057558 ((wq_completion)events){+.+.}-{0:0}, at: process_one_work+0x455/0x650
-[  107.886630]  #1: ffffd32f01a4fe18 ((work_completion)(&evf_mgr->suspend_work)){+.+.}-{0:0}, at: process_one_work+0x1f3/0x650
-[  107.887075]  #2: ffff8f2854b3d110 (&userq_mgr->userq_mutex){+.+.}-{4:4}, at: amdgpu_eviction_fence_suspend_worker+0x31/0xc0 [amdgpu]
-[  107.887799]  #3: ffffffffb8d3f700 (dma_fence_map){++++}-{0:0}, at: amdgpu_eviction_fence_suspend_worker+0x36/0xc0 [amdgpu]
-[  107.888457]
+Best regards
+Thomas
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 50 +++++++++++++++++++++--
- 1 file changed, 47 insertions(+), 3 deletions(-)
+>
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 51 ++++++++++++----------
+>   .../drm/arm/display/komeda/komeda_private_obj.c    | 16 +++----
+>   drivers/gpu/drm/display/drm_dp_mst_topology.c      |  1 -
+>   drivers/gpu/drm/display/drm_dp_tunnel.c            |  2 +-
+>   drivers/gpu/drm/drm_atomic.c                       | 22 +++-------
+>   drivers/gpu/drm/drm_bridge.c                       |  1 -
+>   drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  2 +-
+>   drivers/gpu/drm/ingenic/ingenic-ipu.c              |  2 +-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |  1 -
+>   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c           |  1 -
+>   drivers/gpu/drm/omapdrm/omap_drv.c                 | 22 +++++++---
+>   drivers/gpu/drm/tegra/hub.c                        | 22 +++++++---
+>   drivers/gpu/drm/vc4/vc4_kms.c                      |  4 +-
+>   include/drm/drm_atomic.h                           |  1 -
+>   14 files changed, 76 insertions(+), 72 deletions(-)
+> ---
+> base-commit: 196b2b95fec447c2c4460f753b277d840633fbef
+> change-id: 20251008-drm-private-obj-reset-ae1e2741027a
+>
+> Best regards,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index bb5d572f5a3c..c7a9306a1c01 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -148,6 +148,52 @@ amdgpu_userq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr)
- 	return r;
- }
- 
-+static int
-+amdgpu_userq_perq_detect_and_reset_queues(struct amdgpu_userq_mgr *uq_mgr,
-+			struct amdgpu_usermode_queue *queue)
-+{
-+	struct amdgpu_device *adev = uq_mgr->adev;
-+	bool gpu_reset = false;
-+	int r = 0;
-+
-+	/* Warning if current process mutex is not held */
-+	if (refcount_read(&queue->refcount.refcount))
-+		WARN_ON(!mutex_is_locked(&uq_mgr->userq_mutex));
-+
-+	if (unlikely(adev->debug_disable_gpu_ring_reset)) {
-+		dev_err(adev->dev, "userq reset disabled by debug mask\n");
-+		return 0;
-+	}
-+
-+	/*
-+	 * If GPU recovery feature is disabled system-wide,
-+	 * skip all reset detection logic
-+	 */
-+	if (!amdgpu_gpu_recovery)
-+		return 0;
-+
-+	/*
-+	 * Iterate through all queue types to detect and reset problematic queues
-+	 * Process each queue type in the defined order
-+	 */
-+	int ring_type = queue->queue_type;
-+	const struct amdgpu_userq_funcs *funcs = adev->userq_funcs[ring_type];
-+
-+	if (!amdgpu_userq_is_reset_type_supported(adev, ring_type, AMDGPU_RESET_TYPE_PER_QUEUE))
-+			return r;
-+
-+	if (atomic_read(&uq_mgr->userq_count[ring_type]) > 0 &&
-+	    funcs && funcs->detect_and_reset) {
-+		r = funcs->detect_and_reset(adev, ring_type);
-+		if (r)
-+			gpu_reset = true;
-+	}
-+
-+	if (gpu_reset)
-+		amdgpu_userq_gpu_reset(adev);
-+
-+	return r;
-+}
- static void amdgpu_userq_hang_detect_work(struct work_struct *work)
- {
- 	struct amdgpu_usermode_queue *queue = container_of(work,
-@@ -627,7 +673,6 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- 	/* Cancel any pending hang detection work and cleanup */
- 	cancel_delayed_work_sync(&queue->hang_detect_work);
- 
--	mutex_lock(&uq_mgr->userq_mutex);
- 	queue->hang_detect_fence = NULL;
- 	amdgpu_userq_wait_for_last_fence(queue);
- 
-@@ -649,7 +694,7 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- #if defined(CONFIG_DEBUG_FS)
- 	debugfs_remove_recursive(queue->debugfs_queue);
- #endif
--	amdgpu_userq_detect_and_reset_queues(uq_mgr);
-+	amdgpu_userq_perq_detect_and_reset_queues(uq_mgr, queue);
- 	r = amdgpu_userq_unmap_helper(queue);
- 	/*TODO: It requires a reset for userq hw unmap error*/
- 	if (unlikely(r != AMDGPU_USERQ_STATE_UNMAPPED)) {
-@@ -657,7 +702,6 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
- 		queue->state = AMDGPU_USERQ_STATE_HUNG;
- 	}
- 	amdgpu_userq_cleanup(queue);
--	mutex_unlock(&uq_mgr->userq_mutex);
- 
- 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
- 
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
+
 
