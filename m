@@ -4,132 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 813A01075261
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 06:27:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 163761075262
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 06:38:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E78B10E0E6;
-	Thu, 19 Mar 2026 06:27:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A30210E8A4;
+	Thu, 19 Mar 2026 06:38:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GlrvoTcV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="cNNS+jdN";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012057.outbound.protection.outlook.com
- [40.107.200.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFF8510E0E6
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 06:27:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01DD610E8A3;
+ Thu, 19 Mar 2026 06:38:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773902301; x=1805438301;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=OGQ6ZD2goOgAZvaVgJ6r8MWTkhKhlBbef3KxCsgtIH4=;
+ b=cNNS+jdNVbrbCytPTndBneS03ZBUjdy5DaKg5HhxdQDkDp0gULJEfJGc
+ X9vZo5dEDxsV+VT85lJI1SygYepkorOhO/gw49b7EZ5qtNrSU7pfwav9O
+ eXFGxkr9sRhzzX8Pi7TUXJyUSxQ1nh3vQaGLXRyxF5c48Udyd+MYxfoGt
+ sCeKFBiHQijAVphX1FIGuIyA7i+4Ili8bd2Pjq1nYl69kWmnjCEfS6JY7
+ 4vr36Riwi5YT8AIBMEAq/t5sOoRROiZnc1dT4oUgpraplbqA3QB28wLgH
+ ncAnkzV0wMXUUVsir0gfyZ6iYBEGMlYGRVf1sj9naxWsruFWo3L3Mr40L w==;
+X-CSE-ConnectionGUID: X4HnroOuRO6BBHb5pgNBow==
+X-CSE-MsgGUID: BvrAbkRCQ7eTUjKjKTrM9A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11733"; a="74853891"
+X-IronPort-AV: E=Sophos;i="6.23,128,1770624000"; d="scan'208";a="74853891"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2026 23:38:20 -0700
+X-CSE-ConnectionGUID: 58qpwIQgTzGjc1F6UJzGMA==
+X-CSE-MsgGUID: UDRbMaE3QCSm/3RvHIoxrA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,128,1770624000"; d="scan'208";a="221972974"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+ by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 18 Mar 2026 23:38:20 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 18 Mar 2026 23:38:18 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Wed, 18 Mar 2026 23:38:18 -0700
+Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.49) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Wed, 18 Mar 2026 23:38:18 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ouiMfrTWzLl8US6kVhfcg5/ihZc4QtIHcpFhRxY3bqwPU2QDjh/xjcj0dlXRmcF9XKR1R2csf9J3/g4tD70NzflY7CTZmVGqezhdPhWdQWMTftKXCHm7LMkNnyqqflvdMgUcBgoZqovBIdQMKLGnkBpJUzS2Moq7Z8rDJo1yrXyetCqYjyDejnlvoSg/XiB0S9T9Wjs1Kpv0ER/183dlCXS6nhgnL9A8d2o9F4kA0q9FjtUHIH8rZq+nylGqfVtZ+FLjAlNI9Ayf5QbyPzZu0LZTbylJYkSBa/31Z2665WmSmDID9ipag+cvhgHB3OVARBTlvkTgHLiZrU8KbLdn1Q==
+ b=GcyY4VNQwhG7nAzi4GwtUdrG1YVIWfH0fEdz3+K/4Kiv9MU4W5zlmmIAG2C+Gft6cpD4sI8jlKpSFAe6Nos870DXqY1Rf08d9V0jdi1qnh98qTyg2EF9+OG877fJ66gStaogG+praeRgJcW6Arycq3qfkV77m6MZeRqrsiXYuw3moF7O0bJPQesj+2EKl9imo4NxXVzJbvuvnD0LmVux08H5iuZMg2KxM6+4puxoO3qC8iMu6/dgUzzq7MlMpE7+xeiGAmJkn7lrdET8XaKOS0vR5NgW8kEYv0o0VUUAKv2Psk2DiCALAIIuU29B+udcWJjuBits3EuZlv9tOzaDCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7yLEdMX4/tMonqvxV741GOd3MgZ5cgEZBoWoWOuxBk0=;
- b=qYB0D9znKjMxUAoldTH8H4TN3w1Gps6SQLMA39KgYdela0ds2SXY1lsWRt7644M69ez9EtaLnXl2udzZoXUxa5as9tXxjRWkweUBL5gHU75jIDemZCWhBFf2Lao4RlmrIvqXDes+KLgxkbZNjXsUj25onknkJE+MDL41DHVcfqIbR9LKG6pqViWSvcumvDJPZPIYkJuHxyvlhCpNG5Cc77bfmopf1AloYRl2+HOCDO7Wom2OO4BOyQNv1NN4Ongf/Sbyptjdmzdzm5EYjNvJt8N85TftKjg2VCMCOYnEdJoFEbABeKhOPfubJ0a9i0uNS7uuKpK+vrOuUz8Yw2IGZg==
+ bh=2XQ/HuMX+XR4LUKuWPkZcjHP+inEf0xy9D5b40CG40I=;
+ b=IT3nXlpHxMaJv5y8bpe87aFEQ82/C6bgJJkzgrh8JfmNJ2ZVHPx7WJP7T9vdCluZW4TjKfImDzThI3qE1f61Ev8fiJjCX6zEzPZGfZk4+ySQpGaKHi1RfrVCYi9/Dckc8HYV0aV6U/DpohKFvAYD3nFvv1OetVdM0PL8OSD+PnfRCTSkDKZsgVFq3UnBI8dfJP2VTk8y15vW6UVKCPQyNHl9RSYIwP8IzvJjwtg9YSyHmhHm7A9dXkI9X0zbXD1j8Cabgy51herl+v0G3ZRu0RrJKREaucM8+0uxsYEQvLQm9cKEbEvFQqDkpqtgIh1EqXnB7zU+qe/W9nrifEQ2ew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7yLEdMX4/tMonqvxV741GOd3MgZ5cgEZBoWoWOuxBk0=;
- b=GlrvoTcVStekzPWDNzKhoyFvGb2daihNwQ9bNEmGAJQPfXMnLP4j7JDUcM9nv25UxJyXnQVD38NaxWMusS4voUWbkCXMdYd99Tha/fbNwYIW98dFjLzghqvLgBLDd/LjWXOriUIRbZYr9YdR63NtJxhzihrLHj1EeGI8RZytFl4=
-Received: from PH7PR12MB6000.namprd12.prod.outlook.com (2603:10b6:510:1dc::15)
- by SA1PR12MB7173.namprd12.prod.outlook.com (2603:10b6:806:2b4::5)
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com (2603:10b6:a03:488::12)
+ by IA1PR11MB7269.namprd11.prod.outlook.com (2603:10b6:208:42b::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Thu, 19 Mar
- 2026 06:27:05 +0000
-Received: from PH7PR12MB6000.namprd12.prod.outlook.com
- ([fe80::757b:8342:952f:7cb4]) by PH7PR12MB6000.namprd12.prod.outlook.com
- ([fe80::757b:8342:952f:7cb4%2]) with mapi id 15.20.9723.018; Thu, 19 Mar 2026
- 06:27:04 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>, "Khatri, Sunil"
- <Sunil.Khatri@amd.com>, "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "Khatri,
- Sunil" <Sunil.Khatri@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
- "Olsak, Marek" <Marek.Olsak@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument
- validation"
-Thread-Topic: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument
- validation"
-Thread-Index: AQHctq0to8syQiKarkGCBSlqkqwr77Wz802AgAATn4CAAAHhAIABF5rAgAA1ZACAAA5UoA==
-Date: Thu, 19 Mar 2026 06:27:04 +0000
-Message-ID: <PH7PR12MB6000366C1E6582CD02D90AD6FB4FA@PH7PR12MB6000.namprd12.prod.outlook.com>
-References: <20260318074708.2078535-1-sunil.khatri@amd.com>
- <dfca1bb0-26dd-45bd-ac11-c3756ce808ac@amd.com>
- <48df3b31-724a-4548-a52b-9f034664d422@amd.com>
- <DM4PR12MB5152791EDD4F7021198821E3E34EA@DM4PR12MB5152.namprd12.prod.outlook.com>
- <2e6d0e34-e093-41a9-a4b3-59afe3050dfc@amd.com>
- <PH7PR12MB6000DAD5B8EFDBCB3F3F4663FB4FA@PH7PR12MB6000.namprd12.prod.outlook.com>
- <PH7PR12MB6633BABDE8B0785EF6ADA694FF4FA@PH7PR12MB6633.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB6633BABDE8B0785EF6ADA694FF4FA@PH7PR12MB6633.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-03-19T05:31:01.5800000Z;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
- Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
- MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB6000:EE_|SA1PR12MB7173:EE_
-x-ms-office365-filtering-correlation-id: 2ca1c825-4b53-4747-dab7-08de858089bb
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|8096899003|921020|38070700021|22082099003|18002099003|7053199007|56012099003;
-x-microsoft-antispam-message-info: lt2yh77bgVqwB6wNunQtpGqioICqCQhTR/AKkC5DZRcEgBqsyhC9Ehj+DuR803RnOBbK6WMJ01/VxAzSUSj9IuMeR5/pzmDd2ymW8i5zPUtW0AOichRw3Vjh90i6NqZ19A4tuDmYUdWG4OeKHLYAw0Ive+sE5VBfyhRUbYyBqFgUrhV6wLPBbqVPjxs7lrClWWfh9YL9EKccF78UicHhEKyhF0RFziBJZIYBky/BCTQJ1mxaEdBW5EHcJcwmqqWem+7iANi630row3CvxvT4mNH8ySga9Lcsd9cjb1RkXSklTeteRqOv6fkyLRYsY1bCKwV6LvyWDxstO98by99w5cXK9Dw3vQvLpFEjZkgiT11lyemRJVfChNqcHM7ojr4JRsl1fjPXKb5bHPkaMgCKRKonMR6xa7qQZCxQR4icLvOnGbsa5zvu2lnBlaXolXHeG5RU934Dkq3tS1geGtAGtV7n0CM5xoxZCq0wj0E0VjyabD+hhFQpRu0DKXvdXKvYFH3y2Re8/H6soj2e9kqlg4gJGuHQ5DaN8cP6hoGpbEKSc0bwrCcoyuXXdJbWpis02tg67OF1iTnaHCiugJpjxerOI0FLctvsuMqoSqzN0T1p900pHix493z8K6Qv7d9P8PJWW69Uat/r0fVzq53T1PFfhsXy1RktN+D2BsdN/DcMPB6UZtWfCCLDoDnUFBmClDoPMhxIaVflUyqDxNdj1eiA45niNxdfMOktZOVctAnrb8baRKJNOrpFgjZcN3KKHAkPkZOU3Z/78s+yK9HL/h1MQvpGhKqV08SM0O/KrgKblK0TVBj3FESvOgZ6moNl
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB6000.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(8096899003)(921020)(38070700021)(22082099003)(18002099003)(7053199007)(56012099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?TRrjDWq7N3prqofwUtIrPKKHnvn5PORt9azfjq/lwi58KgkN/wqDMOr6YX?=
- =?iso-8859-1?Q?Y0DToUvWjBoGYBilZV4U1f0w8ndu/SqzgzrITijNjDlTsQd6TKkfHo9Ds9?=
- =?iso-8859-1?Q?kLrK12EJYan1lZfBzL5LppYEYQbxPKH0gJ4ykknE+Ozn6n2imhlxOSe3kg?=
- =?iso-8859-1?Q?Jv05pvnhMRf+4AvryKqoHLpzt+MVU9n+3CWkmR9YlLsFhfTju+Tsz9+bE7?=
- =?iso-8859-1?Q?QsKAKFU1Ork+LDjdHZmLeAliOeiti+wRKJbC0yqGyXPLIVcRmUNetOdWr+?=
- =?iso-8859-1?Q?SqHFBJPkGT4QfCvSPabO5jyKWzS76jsq1ncceUPYTvTXGAUo1PTttcUoiD?=
- =?iso-8859-1?Q?x/sWCbbXJuvAyckUtnldXmUzTFVfaUxnb/r1kjHdV8cmzyZp84ZxMr2hCp?=
- =?iso-8859-1?Q?gQzdBzo5agwdLwG80p/ssxvapbURZV6CyVTzTt+9yeQGdpHKMcHC55THTl?=
- =?iso-8859-1?Q?trtTZfBt/C7wq3vpOCZQu44wdX+oQArpyuLRfQPu8O50PIzUoB0lF2E6ot?=
- =?iso-8859-1?Q?ur47pt3Im7BQJSL+Y4n8Rzx9YmUkqGsWY0mzwioWipfxJb0gIheQS8bXQM?=
- =?iso-8859-1?Q?G4BVvUPWViyr7040G97iFgMjS+CNbuE26BCZyMnYpGLtJQacmRWcz45uwh?=
- =?iso-8859-1?Q?9U5aTQeDz/ekinGIojdPqEROirnWUPbSpKjyw5JLqzXVfP6e+eS8g9aUbc?=
- =?iso-8859-1?Q?rOhISn9KRxM+/IBu0u/RItubZvo5GIpcdYJfEe0pVo9o9kEnsrUzUsFTug?=
- =?iso-8859-1?Q?rXYEbUaFrDp/Fo12k+qMOAWese/MdpCqz6X3L8NytnmtvTgccIVuwnF+qq?=
- =?iso-8859-1?Q?Dkpdb1nCXXqLkjyIuFhaLI7DTYXcx6vSwbxpRVHemC+zbdjpbIa+2yY6WO?=
- =?iso-8859-1?Q?eRE0p6d9FxVjRb/xH6Xc9adBNpwQWZuUONuoU00T/kgyQL+5JaubWJT+oE?=
- =?iso-8859-1?Q?jiSzYNruWZky+LoPEZON26pQ3dITX5S6BSXK/Se9a37JYxJpaECnfz4x/R?=
- =?iso-8859-1?Q?C1mTRINFX2SnnUZF6DevX72zchgSe7g6GfFPN9a3nqKsD2pMf0dD4mAGc1?=
- =?iso-8859-1?Q?wXPWzIretjRI37w0cOKyB8ss6Fu02cCrubFdWu/s+Od6cID77tGmB7lVB/?=
- =?iso-8859-1?Q?amX1o5kkMokFYHjrDaqRTDaoPYBzMYcJoPyh3lo0YJLAs4IY5LcC8y+9bg?=
- =?iso-8859-1?Q?1LBQeFoQWpayYEogxAlkTdGccyCfaETqCOfP3UO0NdwA2omTmM7BHlMYx4?=
- =?iso-8859-1?Q?7YEsZSUYDKcNZA26zF0SDXIAtqA4Pm4jmZkSk/aOHHdfzk+CPsKWZDcXTY?=
- =?iso-8859-1?Q?Tc1qIIhGeiTmiK7BNPSK3wsIlmLe0mVLIGw3TPlAPZIiDW6Bgis658RNKe?=
- =?iso-8859-1?Q?GcXQEvmF9siEGgw51cNkoKSDMw37vXAndW3jquTjgfh1Hk70BPfmtrahBO?=
- =?iso-8859-1?Q?SKgqPHK/4WDtW6SdMbLCV6PH962Jmwh+UonTOwxodqvhHYUwfcjJup+38z?=
- =?iso-8859-1?Q?QC2IsmbFwgIzUTqQUEGDg9Oq8ZkheIQMXgvyxWBmmsEYFQFgRrWu+27D6e?=
- =?iso-8859-1?Q?H85XC/kaFQGMw3ilu7+PZ+rOByvEazDcM/1Nx7eYSurNh34Nt3T6hT3T+t?=
- =?iso-8859-1?Q?9vbvysk+xlfFYBQa308ZZVNx9qcpNoUwv/r6q/KtIsZIw9Zl37VIiqDJMo?=
- =?iso-8859-1?Q?C/HNCNSLDYkbEVD9RnTlHYnA4MCVDfct9czGOVhmujoa1KUM8x1x//GtbO?=
- =?iso-8859-1?Q?aQ9+9+afkNTodzjN5uX66GdTUv0YyBkmI0WUqcBRBBX/aH?=
-Content-Type: multipart/alternative;
- boundary="_000_PH7PR12MB6000366C1E6582CD02D90AD6FB4FAPH7PR12MB6000namp_"
+ 2026 06:38:11 +0000
+Received: from SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b]) by SJ1PR11MB6129.namprd11.prod.outlook.com
+ ([fe80::45f:5907:efdb:cb5b%3]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
+ 06:38:10 +0000
+Message-ID: <7139d8f8-36df-4951-a3c9-d82f6ac636be@intel.com>
+Date: Thu, 19 Mar 2026 12:08:00 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/drm_atomic: duplicate colorop states if plane
+ color pipeline in use
+To: Melissa Wen <mwen@igalia.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <contact@emersion.fr>, <sebastian.wick@redhat.com>,
+ <harry.wentland@amd.com>, <daniels@collabora.com>
+CC: Alex Hung <alex.hung@amd.com>, Uma Shankar <uma.shankar@intel.com>, "Xaver
+ Hugl" <xaver.hugl@kde.org>, <amd-gfx@lists.freedesktop.org>,
+ <kernel-dev@igalia.com>, <dri-devel@lists.freedesktop.org>
+References: <20260318163629.300627-1-mwen@igalia.com>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260318163629.300627-1-mwen@igalia.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0237.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f4::13) To SJ1PR11MB6129.namprd11.prod.outlook.com
+ (2603:10b6:a03:488::12)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR11MB6129:EE_|IA1PR11MB7269:EE_
+X-MS-Office365-Filtering-Correlation-Id: c696a799-1e6c-4d0a-7a7d-08de85821644
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|921020|18002099003|56012099003|22082099003|7053199007;
+X-Microsoft-Antispam-Message-Info: LDwbQAbO4JoZUvkukvTOU8IcxNoaXEA71Abno0U7LREWNsD1DjxMjmrn6ImXDG4mWJrxOXNGXpyckkeq/emgOke2Q5DlOv6rDkm846Mvo+fQQilb6YpUGMewKS5oZQjBRc2L0gIWPT/AhZilXbNqwMuo7Y53SA33pzv+wrAS3EWtablGCDuDe5mGRkUdZNIdLM8JjqmmcGCp3sbGW5iGPyNRJVUm3dDkxAlfQNZbk+85+e0c2BkGImmzpOtwyxA/ZfyJAe5SQUdbtBqb8AMsEa8yk05HQiCABdUva7rEMhBVBtzpFhRtDELgLxiFDd6bxNLuZirpyKiRjzRRdX75fE3ItrQ3IrMLjvezi42KEnz871enhbg+lyRX3lHuGKUX0JMYtt3hRLUyJWYxvDwp8VS0bNsLGW2edVm50uAeaHqJKfeAeogS0piH7W6K2gkEt/hXRfAm7C3ovlJHQ4wtEH+E/WZUGBuyP/epxh32xEJ9RKskSKG+EaXlYdgHZqMGmLzGObIL5eF8GU88qJ4CfqsC4FI2eVuek91QO+ZBswrGZlogqSMvdfAJ/ohzKKJITvArceVfjMjE4C82eTJN/VFjbb5pxjsQU0zd6/NuFP7MJQwlA3Lty5ub4bCXdo4ix1CRxJ7K1MmarWvhf0DjHnCPEKthUQoXNjfbVy13W5pKku3IWbSpUXvaeeCKEzbrFVxYKOlprtYgOBPflS0IH6uuAa1VtJbIJ0UiqBcy2+bMT1puL+vhrg9UGL8mre8oid7kI8vgpE7JlMQ4wEtGwtWpxicA99RE66QwPaoOfP8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ1PR11MB6129.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(921020)(18002099003)(56012099003)(22082099003)(7053199007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TnhHVDJzcHJlRXVjNGkxckxGL0ZuaklHNHV6WXRBaWVHNVE3aDk1OG41NEJL?=
+ =?utf-8?B?ZEdhdzhwWGFkdTJwWmEreVNVRTlGaXUvRWRCK3BHc2VRd1ZCN0lITFAxeldv?=
+ =?utf-8?B?eFYxSVgyS2FuVGpZQkNnOWkweWJ4MTVFZDVORXllODJCQ0hRREdTV1phQkQy?=
+ =?utf-8?B?LzNRMlZ4dHpvcWNydFc0UzhaUU1BU0tnbktDSUtQVEc1NWpqNnQ2TGhpUFV2?=
+ =?utf-8?B?OHVQeDd2U2RjOEYzV0dCcGhTUEs1Wm5TMU9sK3lvT0ZxUmo2NE5hOUY3WFI1?=
+ =?utf-8?B?Y1VTSTZSRzhxNEZYU3ZOVDVmd0xmbExjYjNiV3V2b2lEdEMvOVgrMWZDUERq?=
+ =?utf-8?B?SHhpTzE0U25FYzN1UTNLY3Naa28vVFhRT2dkWUhWSWs1S2xWSDNZWTBOQVBX?=
+ =?utf-8?B?QnNuNHlmaWw1SDlhSVNTVFNxdDdhd2dMR2Fmdi91dTN6TU5Wend3YU5YU2NM?=
+ =?utf-8?B?ZllrQzZVMHlnVy9JS3kyTUkwV1BLR3hlcU43MGZoRnd6WC82QmRMbmxKaER0?=
+ =?utf-8?B?bkRsRzVmVzdZMDVxZk5PRC9YWklFcWpyY1ZjOXQxa3F1c3BUUG1wODYvSEVC?=
+ =?utf-8?B?dkRrd3lDMzgzT0xGYzZGYXFyYm94QXFsU0JhaWwzejJaTk9rbnRveVQ3dHIx?=
+ =?utf-8?B?V0o3S3duOGpPK29oUDIwRkhON2VmWVhrUFRVR3ZxUVkySjdnR0dweVlpRHR2?=
+ =?utf-8?B?aUVESkRzKy9ZS3VWbU40Vk9Cc0dpaEZkRUw5ZkIvRkRZc0xLVVVXdm5QeWVi?=
+ =?utf-8?B?bHV5Um1QdGFWRkVsZmJPUUYxazhualVmbDU3cVo5SHBvWDlhMFZMQ3FWaVl3?=
+ =?utf-8?B?OVg4V01ZdEhqb0pKNWNXQUNFWldtR2ZBb3NOOWVGNEsrZFNTRjFDVk1qUHdz?=
+ =?utf-8?B?cDk1WFNucDA0eGRXTXJQSC9KcWh2czFhVStnVEY3OGJtaFlsQjRWaEtjTE55?=
+ =?utf-8?B?MDhjUlRPeFc2c1RON1VzM0lYS0RBZ3JabzBMWGJ2QitUYmNvb1RWSTRPbllR?=
+ =?utf-8?B?SjlsbFRsSlRHcm5MY1NWb0pTUklGbUdIeHFkMXVTb1haQnQwNFlhcmxmZnlC?=
+ =?utf-8?B?WFYvWGorMmlCb1BDQStZSUNjWGZNS3JnNHRNbHprQ0wyQ2ovei81ZEp5R3Q2?=
+ =?utf-8?B?ZExhdG5WUEtOQTU4TUIwekdSWHZWRnpiT08zZlh1VkdweHNVK0lTSnhRN0ov?=
+ =?utf-8?B?SDJmY2VpbXVqaXJuNmZOTHF1dGZRZ3M0U3B3dmU3WVBUbUZ0ZDE1Rk1FZ2ZG?=
+ =?utf-8?B?d28rR0tnZUJaTDlucVl3UU15RHhETzBDZk52bkJpRW4xM2FoN3gyWmFEOW9x?=
+ =?utf-8?B?UGdJMEZCTnZVT3hUTjBvSkZ4Z0pjWTdzWlhiOVM1T2pwK3VqaFBrZy8xS3k3?=
+ =?utf-8?B?elU3eUhqL3d4R1FSREdlNkI1dEVyc0daM1B6NzJXSUZzaXNoTTYzQmZFRnp6?=
+ =?utf-8?B?dmZKTEtKbXZyR1pqVk5NUkoxWVF0WEZQQUk4aXNjUkxQWm94eUc5TVZxTlI2?=
+ =?utf-8?B?L3AyZ0h6KzZBSFNPa0twc05Wb3k3ekNCdGpOWUo5TkdidlUyZTlDMmxMbERB?=
+ =?utf-8?B?cC8yTVUrZ2puZy9sMVRNT3lOLytrTi9HUUdRVG9jQ1g4ejg2M2U0QmQwTHF0?=
+ =?utf-8?B?djRaOGhXQVgrS1gxVy9oMUVUZHhZcGRjOWpRY0RSdEpkSFpLZitHOFNYVVdt?=
+ =?utf-8?B?dkpHMDN3OTM1dVNsS3ZYL0hSdjN0TmN6VVc4elVyb0F6UGE2TGRyWEQ5TkVJ?=
+ =?utf-8?B?bms4aFE2ckRiczR3TXZ2d2xROFFvN3JZNDFOMy9wTktkQmVrVWN4NE1nd1A0?=
+ =?utf-8?B?TXhGMGdZMWEydHRGVHNEdWpjV2IrSnVMNElsQmRNMGU4OHNZdHpMQ2xVbGJp?=
+ =?utf-8?B?bTJWUXhWMTlldndvZi9LNjdueU1Nc29tWG1XWFdFR1Q0QkxlQkM1SWxDUzBV?=
+ =?utf-8?B?Z2NPTnJoRkJUeFZMdTZ3VzF6bXRkTlFqaThVVG0rdUZJUUZCNHJFZEpSYldn?=
+ =?utf-8?B?SlBHanJpMzRpOGhmbTdJK0hJWFZ1MWJ3akdES2huejVNQzVKTzJrQlFJdldB?=
+ =?utf-8?B?aENkVzdEYWpvWmtNd0s1ZXM5VlVJQ21qczRHRkVZSktUQUp4WFZrZU1rREZT?=
+ =?utf-8?B?Tk5pNUFac1Z5TkY0UTB3ZzFGS1pWV3hoVnVkZW9NWGoyZmxWT2NRSVdQMW40?=
+ =?utf-8?B?aWdZNEtSOExDYVpkSVJYT3NGK2pNWmp6YzErOFZIcFVsczdRRDg2bUJ2aE9w?=
+ =?utf-8?B?MmtvZ1Nta0l0aU16SGUyVUxLU2k3UmljalhZYi9HVnpSM0hMZmRwR1lWZSth?=
+ =?utf-8?B?SU5ZN3o0TUpaeWhGV2lXWnoyd0JKalJ6bE1FaGY1SDFHQTlDQU9QNXFXVGc2?=
+ =?utf-8?Q?y0dbNjncrUd984cs=3D?=
+X-Exchange-RoutingPolicyChecked: bQaad1k4lI79Obmll24z310az/JrxbprrIEFTPKxpMeTLgV2xpBTdK7SO72dbTVGRz/8oulmtdipgYYxiy7LiZuf/ov4378RzRVQUlJsEHZzaFzqhqwpUGgKJVuGQsYBFYi/fwREEUxY4H57Sb3zm437fiQRkFUWj8XNQUZf9JIsME4t0TLwQbNc5FdCQERpx7Xu1GccAltVH0+7r9JCVQ9c4HfaASCrzPkSOKaYpBYrgiM3Z+nNy+oLJicV9+bt9o3ADNkMN9suf3B9eEivWTv/VtIUVyL+H6URsc2VNPTs5Hix4Ld/GVUL6Yf9mRWVm98amksg6d9c4Vm7eyKYgA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: c696a799-1e6c-4d0a-7a7d-08de85821644
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6129.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6000.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ca1c825-4b53-4747-dab7-08de858089bb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2026 06:27:04.6219 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 36pHPpDaQ5WizgxzQ7BALcKi73HhUoj5kpubnq5mJODdpYalUuRBNCw9EN5o6AJv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7173
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 06:38:10.2656 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +cCrsKCTRM6fNf5bluc8JQ+Hxu1PoJsm1pcdvr0L198hZXbeo+WCMnNeEE0kdpI4Gp2q1jMempFXBgZUnPJBNJv+GUe4vg9eqdFI6m1wSqM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB7269
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,763 +174,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH7PR12MB6000366C1E6582CD02D90AD6FB4FAPH7PR12MB6000namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-[Public]
-
-Thanks for the confirmation. If Mesa doesn't zero the handle buffer, I'm go=
-ing to drop this validation check in the kernel and then leave a debug mess=
-age for this case.
-
-Regards,
-      Prike
-
-From: Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com>
-Sent: Thursday, March 19, 2026 1:31 PM
-To: Liang, Prike <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com=
->; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd=
-.com>; Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Al=
-exander.Deucher@amd.com>; Olsak, Marek <Marek.Olsak@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument =
-validation"
-
-[Public]
-
-Hi Prike,
-
-Regarding below check in the Kernel patch,
-
-/* Reject non-NULL pointers paired with a zero count. */
-if (!args->num_syncobj_handles && args->syncobj_handles)
-          return -EINVAL;
-
-Mesa uses alloca for args->syncobj_handles, alloca(0) returns non NULL.
 
 
-I think the check "Reject non-NULL pointers paired with a zero count" in Ke=
-rnel can be skipped.
+On 3/18/2026 9:57 PM, Melissa Wen wrote:
+> For suspend/resume to work correctly, do for colorop state the same we
+> do for plane/crtc/connector states: duplicate the state of colorops in a
+> color pipeline if it's in use by a given plane when suspending and
+> restore cached colorop states when resuming.
+> 
+> Fixes: 2afc3184f3b3 ("drm/plane: Add COLOR PIPELINE property")
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Alex Hung <alex.hung@amd.com>
+> Reviewed-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+> 
+> Changes from v1 (https://lore.kernel.org/dri-devel/20260316210055.234498-1-mwen@igalia.com/):
+> - keep the object hierarchy (Chaitanya)
+> - add r-b from Harry, Alex H. and Chaitanya (pending to confirm)
+> 
+> Chaitanya,
+> 
+> I kept the fix for unused-variable warning together because the warning
+> only appears with this new usage of for_each_new_colorop_in_state() in
+> drm_atomic_helper_commit_duplicated_state() here. Let me know if you
+> don't agree with this approach.
+> 
 
+Please go ahead. Just add a "while at it" to the commit message.
 
-Thank you,
-Yogesh
+> Melissa
+> 
+> ---
+>   drivers/gpu/drm/drm_atomic_helper.c | 12 ++++++++++++
+>   include/drm/drm_atomic.h            |  3 ++-
+>   2 files changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+> index 26953ed6b53e..481f92a03683 100644
+> --- a/drivers/gpu/drm/drm_atomic_helper.c
+> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+> @@ -3751,6 +3751,13 @@ drm_atomic_helper_duplicate_state(struct drm_device *dev,
+>   			err = PTR_ERR(plane_state);
+>   			goto free;
+>   		}
+> +
+> +		if (plane_state->color_pipeline) {
+> +			err = drm_atomic_add_affected_colorops(state, plane);
+> +			if (err)
+> +				goto free;
+> +		}
+> +
+>   	}
+>   
+>   	drm_connector_list_iter_begin(dev, &conn_iter);
+> @@ -3856,6 +3863,8 @@ int drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state *state,
+>   	int i, ret;
+>   	struct drm_plane *plane;
+>   	struct drm_plane_state *new_plane_state;
+> +	struct drm_colorop *colorop;
+> +	struct drm_colorop_state *new_colorop_state;
+>   	struct drm_connector *connector;
+>   	struct drm_connector_state *new_conn_state;
+>   	struct drm_crtc *crtc;
+> @@ -3863,6 +3872,9 @@ int drm_atomic_helper_commit_duplicated_state(struct drm_atomic_state *state,
+>   
+>   	state->acquire_ctx = ctx;
+>   
+> +	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i)
+> +		state->colorops[i].old_state = colorop->state;
+> +
+>   	for_each_new_plane_in_state(state, plane, new_plane_state, i)
+>   		state->planes[i].old_state = plane->state;
+>   
+> diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
+> index 0b1b32bcd2bd..96fd32a3e92c 100644
+> --- a/include/drm/drm_atomic.h
+> +++ b/include/drm/drm_atomic.h
+> @@ -1102,7 +1102,8 @@ void drm_state_dump(struct drm_device *dev, struct drm_printer *p);
+>   		for_each_if ((__state)->colorops[__i].ptr &&		\
+>   			     ((colorop) = (__state)->colorops[__i].ptr,	\
+>   			      (void)(colorop) /* Only to avoid unused-but-set-variable warning */, \
+> -			      (new_colorop_state) = (__state)->colorops[__i].new_state, 1))
+> +			      (new_colorop_state) = (__state)->colorops[__i].new_state,\
+> +			      (void)(new_colorop_state) /* Only to avoid unused-but-set-variable warning */, 1))
+>   
+>   /**
+>    * for_each_oldnew_plane_in_state - iterate over all planes in an atomic update
 
-________________________________
-From: Liang, Prike <Prike.Liang@amd.com<mailto:Prike.Liang@amd.com>>
-Sent: Thursday, March 19, 2026 8:03 AM
-To: Khatri, Sunil <Sunil.Khatri@amd.com<mailto:Sunil.Khatri@amd.com>>; Zhan=
-g, Jesse(Jie) <Jesse.Zhang@amd.com<mailto:Jesse.Zhang@amd.com>>; Khatri, Su=
-nil <Sunil.Khatri@amd.com<mailto:Sunil.Khatri@amd.com>>; Koenig, Christian =
-<Christian.Koenig@amd.com<mailto:Christian.Koenig@amd.com>>; Deucher, Alexa=
-nder <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.com>>; Mohan M=
-arimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com<mailto:Yogesh.Mohanmarimuth=
-u@amd.com>>; Olsak, Marek <Marek.Olsak@amd.com<mailto:Marek.Olsak@amd.com>>
-Cc: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Subject: RE: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument =
-validation"
-
-[Public]
-
-Add @Mohan Marimuthu, Yogesh/@Olsak, Marek
-
-It looks like the validation in several places doesn't match how Mesa alloc=
-ates these buffers. i.e when num_syncobj_handles is zero, syncobj_handles m=
-ust not be required to be NULL, because Mesa leaves it uninitialized when a=
-llocating it on the stack. We should either implement a proper fix in Mesa =
-for this case or drop the known broken validation check.
-
-Regards,
-      Prike
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounc=
-es@lists.freedesktop.org>> On Behalf Of Khatri, Sunil
-> Sent: Wednesday, March 18, 2026 5:39 PM
-> To: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com<mailto:Jesse.Zhang@amd.com>>; =
-Khatri, Sunil
-> <Sunil.Khatri@amd.com<mailto:Sunil.Khatri@amd.com>>; Koenig, Christian <C=
-hristian.Koenig@amd.com<mailto:Christian.Koenig@amd.com>>;
-> Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@am=
-d.com>>
-> Cc: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argumen=
-t
-> validation"
->
->
-> On 18-03-2026 03:02 pm, Zhang, Jesse(Jie) wrote:
-> > [AMD Official Use Only - AMD Internal Distribution Only]
-> >
-> >> -----Original Message-----
-> >> From: Khatri, Sunil <Sunil.Khatri@amd.com<mailto:Sunil.Khatri@amd.com>=
->
-> >> Sent: Wednesday, March 18, 2026 4:22 PM
-> >> To: Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koeni=
-g@amd.com>>; Khatri, Sunil
-> >> <Sunil.Khatri@amd.com<mailto:Sunil.Khatri@amd.com>>; Deucher, Alexande=
-r
-> >> <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@amd.com>>
-> >> Cc: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org=
->; Zhang, Jesse(Jie)
-> >> <Jesse.Zhang@amd.com<mailto:Jesse.Zhang@amd.com>>
-> >> Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl
-> >> argument validation"
-> >>
-> >>
-> >> On 18-03-2026 01:29 pm, Christian K=F6nig wrote:
-> >>> On 3/18/26 08:47, Sunil Khatri wrote:
-> >>>> This reverts commit 0cdff8eb31c139dde4716e4aa37198c16364629e.
-> >>>>
-> >>>> The patch has caused regression for userqueues where user is stuck
-> >>>> and is waiting for fences and a gpu reset is triggered in kernel.
-> >>>> Also for any of the parameters when count is zero, the driver does
-> >>>> not read from the pointer and having that check is overkill.
-> >>>>
-> >>>> Application:
-> >>>> MESA: error: amdgpu: getting wait num_fences failed
-> >>>> MESA: error: amdgpu: getting wait fences failed
-> >>>> MESA: error: amdgpu: getting wait num_fences failed
-> >>>> MESA: error: amdgpu: getting wait fences failed
-> > After I reverted this patch, the error still occurs when running glxgea=
-rs.
-> > Does it work fine on your end if you don't apply this patch?
-> >
-> > amdgpu: getting wait fences failed
-> > amdgpu: getting wait fences failed
-> > amdgpu: getting wait fences failed
->
-> Yes, it works. You might need to update mesa too. I am using the latest m=
-esa with
-> ubuntu and i dont see those error. with your patch they do show.
->
-> Regards
-> Sunil Khatri
-> >
-> > Thanks
-> > Jesse
-> >
-> >
-> >>>> Dmesg:
-> >>>> [  122.668493] amdgpu 0000:0a:00.0: sq_intr: error, detail
-> >>>> 0x00000000, type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_id 0 [
-> >>>> 122.668504] amdgpu 0000:0a:00.0: sq_intr: error, detail 0x00000000,
-> >>>> type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_id 0 [  124.687518]
-> >>>> amdgpu 0000:0a:00.0: Dumping IP State [  124.688351] amdgpu
-> >>>> 0000:0a:00.0: Dumping IP State Completed [  124.688355] amdgpu
-> >>>> 0000:0a:00.0: [drm] AMDGPU device coredump file has been created [
-> >>>> 124.688357] amdgpu 0000:0a:00.0: [drm] Check your
-> >>>> /sys/class/drm/card0/device/devcoredump/data
-> >>>> [  124.688361] amdgpu 0000:0a:00.0: ring gfx_0.0.0 timeout,
-> >>>> signaled seq=3D569, emitted seq=3D571 [  124.688366] amdgpu
-> >>>> 0000:0a:00.0:  Process Xwayland pid 3471 thread Xwayland:cs0 pid
-> >>>> 3479 [  124.688369] amdgpu
-> >>>> 0000:0a:00.0: Starting gfx_0.0.0 ring reset [  126.560451] amdgpu
-> >>>> 0000:0a:00.0: MES(0) failed to respond to msg=3DRESET [  126.560456]
-> >>>> amdgpu 0000:0a:00.0: failed to detect and reset [  126.560460]
-> >>>> amdgpu
-> >>>> 0000:0a:00.0: Failed to detect and reset queues, err (-110) [
-> >>>> 128.789840] amdgpu 0000:0a:00.0: Ring gfx_0.0.0 reset failed [
-> >>>> 128.789848] amdgpu 0000:0a:00.0: GPU reset begin!. Source:  1 [
-> >>>> 128.790161] amdgpu 0000:0a:00.0: Guilty job already signaled,
-> >>>> skipping HW
-> >> reset [  128.790174] amdgpu 0000:0a:00.0: GPU reset(1) succeeded!
-> >>>> [  128.804538] amdgpu 0000:0a:00.0: [drm] device wedged, but
-> >>>> recovered through reset [  128.804574] amdgpu 0000:0a:00.0: GPU
-> >>>> reset begin!. Source:  6 [  128.816663] amdgpu 0000:0a:00.0:
-> >>>> Dumping IP State [  128.817458] amdgpu 0000:0a:00.0: Dumping IP
-> >>>> State Completed [  130.963939] amdgpu 0000:0a:00.0: MES(1) failed
-> >>>> to respond to msg=3DREMOVE_QUEUE [  130.963949] amdgpu 0000:0a:00.0:
-> >>>> failed to unmap legacy queue
-> >>>>
-> >>>> Cc: Jesse Zhang <jesse.zhang@amd.com<mailto:jesse.zhang@amd.com>>
-> >>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com<mailto:sunil.khatr=
-i@amd.com>>
-> >>>> ---
-> >>>>    .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 29 --------------=
------
-> >>>>    1 file changed, 29 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> >>>> index 3fcd70a38374..0d9a13081f2f 100644
-> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> >>>> @@ -484,16 +484,6 @@ int amdgpu_userq_signal_ioctl(struct
-> >>>> drm_device
-> >> *dev, void *data,
-> >>>>         args->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
-> >>>>             return -EINVAL;
-> >>>>
-> >>>> -  /* Reject non-NULL pointers paired with a zero count. */
-> >>>> -  if (!args->num_syncobj_handles && args->syncobj_handles)
-> >>>> -          return -EINVAL;
-> >>>> -
-> >>>> -  if (!args->num_bo_read_handles && args->bo_read_handles)
-> >>>> -          return -EINVAL;
-> >>>> -
-> >>>> -  if (!args->num_bo_write_handles && args->bo_write_handles)
-> >>>> -          return -EINVAL;
-> >>>> -
-> >>>>     num_syncobj_handles =3D args->num_syncobj_handles;
-> >>>>     syncobj_handles =3D memdup_array_user(u64_to_user_ptr(args-
-> >>> syncobj_handles),
-> >>>>                                         num_syncobj_handles,
-> >>>> sizeof(u32)); @@ -
-> >> 950,25 +940,6 @@
-> >>>> int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
-> >>>>         wait_info->num_bo_read_handles >
-> >> AMDGPU_USERQ_MAX_HANDLES)
-> >>>>             return -EINVAL;
-> >>>>
-> >>>> -  /* Reject non-NULL pointers paired with a zero count: the pointer
-> >>>> -   * is meaningless and indicates inconsistent input from userspace=
-.
-> >>>> -   */
-> >>>> -  if (!wait_info->num_syncobj_handles && wait_info->syncobj_handles=
-)
-> >>>> -          return -EINVAL;
-> >>>> -
-> >>>> -  if (!wait_info->num_syncobj_timeline_handles &&
-> >>>> -      (wait_info->syncobj_timeline_handles || wait_info-
-> >>> syncobj_timeline_points))
-> >>>> -          return -EINVAL;
-> >>>> -
-> >>>> -  if (!wait_info->num_bo_read_handles && wait_info->bo_read_handles=
-)
-> >>>> -          return -EINVAL;
-> >>>> -
-> >>>> -  if (!wait_info->num_bo_write_handles && wait_info->bo_write_handl=
-es)
-> >>>> -          return -EINVAL;
-> >>>> -
-> >>>> -  if (!wait_info->num_fences && wait_info->out_fences)
-> >>>> -          return -EINVAL;
-> >>>> -
-> >>> Mhm, in general such checks look valid to me.
-> >>>
-> >>> My educated guess is that userspace sets num_fences =3D 0 to query if
-> >>> it needs to
-> >> resize the pointer out_fences or not.
-> >>> If you have time please double check which check fails here.
-> >> Sure, i will check on that but for now i have pushed this revert.
-> >>
-> >> regards
-> >>
-> >> sunil khatri
-> >>
-> >>> Apart from that Reviewed-by: Christian K=F6nig <christian.koenig@amd.=
-com<mailto:christian.koenig@amd.com>>.
-> >>>
-> >>> Regards,
-> >>> Christian.
-> >>>
-> >>>>     num_syncobj =3D wait_info->num_syncobj_handles;
-> >>>>     ptr =3D u64_to_user_ptr(wait_info->syncobj_handles);
-> >>>>     syncobj_handles =3D memdup_array_user(ptr, num_syncobj,
-> >>>> sizeof(u32));
-
---_000_PH7PR12MB6000366C1E6582CD02D90AD6FB4FAPH7PR12MB6000namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><!--[if gte mso 9]><xml>
-<w:WordDocument>
-<w:DontUseAdvancedTypographyReadingMail/>
-<w:DontUseJustificationAdvancedTypographyReadingMail/>
-<w:DontUseHyphenationAdvancedTypographyReadingMail/>
-</w:WordDocument>
-</xml><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:Aptos;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#467886;
-	text-decoration:underline;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Arial",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;
-	mso-ligatures:none;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-[Public]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif">Thanks for the confirmation. If Mesa doesn&#8217;t ze=
-ro the handle buffer, I&#8217;m going to drop this validation check in the =
-kernel and then leave a debug message for this case.
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;mso-ligatures:standa=
-rdcontextual">Regards,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;mso-ligatures:standa=
-rdcontextual">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Prike<o:p></o:p></span></p>
-</div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
-ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> Mohan Marimuthu, Yogesh &lt;Yo=
-gesh.Mohanmarimuthu@amd.com&gt;
-<br>
-<b>Sent:</b> Thursday, March 19, 2026 1:31 PM<br>
-<b>To:</b> Liang, Prike &lt;Prike.Liang@amd.com&gt;; Khatri, Sunil &lt;Suni=
-l.Khatri@amd.com&gt;; Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com&gt;; Khatri=
-, Sunil &lt;Sunil.Khatri@amd.com&gt;; Koenig, Christian &lt;Christian.Koeni=
-g@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;;
- Olsak, Marek &lt;Marek.Olsak@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org<br>
-<b>Subject:</b> Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAIT ioc=
-tl argument validation&quot;<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"margin-left:5.0pt">
-<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:green">[Public]<o:p></o:p></span></p>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black">Hi Prike,<o:p></o:p></sp=
-an></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black">Regarding below check in=
- the Kernel patch,<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
-</p>
-</div>
-<div style=3D"margin-left:30.0pt">
-<p class=3D"MsoNormal"><span style=3D"color:black">/* Reject non-NULL point=
-ers paired with a zero count. */<o:p></o:p></span></p>
-</div>
-<div style=3D"margin-left:30.0pt">
-<p class=3D"MsoNormal"><span style=3D"color:black">if (!args-&gt;num_syncob=
-j_handles &amp;&amp; args-&gt;syncobj_handles)<o:p></o:p></span></p>
-</div>
-<div style=3D"margin-left:30.0pt">
-<p class=3D"MsoNormal"><span style=3D"color:black">&nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; return -EINVAL;<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black">Mesa uses alloca for arg=
-s-&gt;syncobj_handles, alloca(0) returns non NULL.<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
-</p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"color:black">I think the check &quot;=
-Reject non-NULL pointers paired with a zero count&quot; in Kernel can be sk=
-ipped.<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black">Thank you,<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black">Yogesh<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div>
-<p class=3D"MsoNormal"><b><span style=3D"font-family:&quot;Calibri&quot;,sa=
-ns-serif;color:black">From:</span></b><span style=3D"font-family:&quot;Cali=
-bri&quot;,sans-serif;color:black">&nbsp;Liang, Prike &lt;<a href=3D"mailto:=
-Prike.Liang@amd.com">Prike.Liang@amd.com</a>&gt;<br>
-<b>Sent:</b>&nbsp;Thursday, March 19, 2026 8:03 AM<br>
-<b>To:</b>&nbsp;Khatri, Sunil &lt;<a href=3D"mailto:Sunil.Khatri@amd.com">S=
-unil.Khatri@amd.com</a>&gt;; Zhang, Jesse(Jie) &lt;<a href=3D"mailto:Jesse.=
-Zhang@amd.com">Jesse.Zhang@amd.com</a>&gt;; Khatri, Sunil &lt;<a href=3D"ma=
-ilto:Sunil.Khatri@amd.com">Sunil.Khatri@amd.com</a>&gt;; Koenig,
- Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com">Christian.Koenig=
-@amd.com</a>&gt;; Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deuche=
-r@amd.com">Alexander.Deucher@amd.com</a>&gt;; Mohan Marimuthu, Yogesh &lt;<=
-a href=3D"mailto:Yogesh.Mohanmarimuthu@amd.com">Yogesh.Mohanmarimuthu@amd.c=
-om</a>&gt;;
- Olsak, Marek &lt;<a href=3D"mailto:Marek.Olsak@amd.com">Marek.Olsak@amd.co=
-m</a>&gt;<br>
-<b>Cc:</b>&nbsp;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@li=
-sts.freedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org=
-">amd-gfx@lists.freedesktop.org</a>&gt;<br>
-<b>Subject:</b>&nbsp;RE: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAI=
-T ioctl argument validation&quot;
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><a name=3D"BM_BEGIN"></a><span style=3D"font-size:11=
-.0pt;font-family:&quot;Times New Roman&quot;,serif">[Public]<br>
-<br>
-Add @Mohan Marimuthu, Yogesh/@Olsak, Marek<br>
-<br>
-It looks like the validation in several places doesn&#8217;t match how Mesa=
- allocates these buffers. i.e when num_syncobj_handles is zero, syncobj_han=
-dles must not be required to be NULL, because Mesa leaves it uninitialized =
-when allocating it on the stack. We should
- either implement a proper fix in Mesa for this case or drop the known brok=
-en validation check.<br>
-<br>
-Regards,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Prike<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.=
-org">amd-gfx-bounces@lists.freedesktop.org</a>&gt; On Behalf Of Khatri, Sun=
-il<br>
-&gt; Sent: Wednesday, March 18, 2026 5:39 PM<br>
-&gt; To: Zhang, Jesse(Jie) &lt;<a href=3D"mailto:Jesse.Zhang@amd.com">Jesse=
-.Zhang@amd.com</a>&gt;; Khatri, Sunil<br>
-&gt; &lt;<a href=3D"mailto:Sunil.Khatri@amd.com">Sunil.Khatri@amd.com</a>&g=
-t;; Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com">Chris=
-tian.Koenig@amd.com</a>&gt;;<br>
-&gt; Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Al=
-exander.Deucher@amd.com</a>&gt;<br>
-&gt; Cc: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.fre=
-edesktop.org</a><br>
-&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAIT ioctl=
- argument<br>
-&gt; validation&quot;<br>
-&gt;<br>
-&gt;<br>
-&gt; On 18-03-2026 03:02 pm, Zhang, Jesse(Jie) wrote:<br>
-&gt; &gt; [AMD Official Use Only - AMD Internal Distribution Only]<br>
-&gt; &gt;<br>
-&gt; &gt;&gt; -----Original Message-----<br>
-&gt; &gt;&gt; From: Khatri, Sunil &lt;<a href=3D"mailto:Sunil.Khatri@amd.co=
-m">Sunil.Khatri@amd.com</a>&gt;<br>
-&gt; &gt;&gt; Sent: Wednesday, March 18, 2026 4:22 PM<br>
-&gt; &gt;&gt; To: Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@=
-amd.com">Christian.Koenig@amd.com</a>&gt;; Khatri, Sunil<br>
-&gt; &gt;&gt; &lt;<a href=3D"mailto:Sunil.Khatri@amd.com">Sunil.Khatri@amd.=
-com</a>&gt;; Deucher, Alexander<br>
-&gt; &gt;&gt; &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Alexander.De=
-ucher@amd.com</a>&gt;<br>
-&gt; &gt;&gt; Cc: <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@=
-lists.freedesktop.org</a>; Zhang, Jesse(Jie)<br>
-&gt; &gt;&gt; &lt;<a href=3D"mailto:Jesse.Zhang@amd.com">Jesse.Zhang@amd.co=
-m</a>&gt;<br>
-&gt; &gt;&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/W=
-AIT ioctl<br>
-&gt; &gt;&gt; argument validation&quot;<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; On 18-03-2026 01:29 pm, Christian K=F6nig wrote:<br>
-&gt; &gt;&gt;&gt; On 3/18/26 08:47, Sunil Khatri wrote:<br>
-&gt; &gt;&gt;&gt;&gt; This reverts commit 0cdff8eb31c139dde4716e4aa37198c16=
-364629e.<br>
-&gt; &gt;&gt;&gt;&gt;<br>
-&gt; &gt;&gt;&gt;&gt; The patch has caused regression for userqueues where =
-user is stuck<br>
-&gt; &gt;&gt;&gt;&gt; and is waiting for fences and a gpu reset is triggere=
-d in kernel.<br>
-&gt; &gt;&gt;&gt;&gt; Also for any of the parameters when count is zero, th=
-e driver does<br>
-&gt; &gt;&gt;&gt;&gt; not read from the pointer and having that check is ov=
-erkill.<br>
-&gt; &gt;&gt;&gt;&gt;<br>
-&gt; &gt;&gt;&gt;&gt; Application:<br>
-&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait num_fences failed<b=
-r>
-&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait fences failed<br>
-&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait num_fences failed<b=
-r>
-&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait fences failed<br>
-&gt; &gt; After I reverted this patch, the error still occurs when running =
-glxgears.<br>
-&gt; &gt; Does it work fine on your end if you don't apply this patch?<br>
-&gt; &gt;<br>
-&gt; &gt; amdgpu: getting wait fences failed<br>
-&gt; &gt; amdgpu: getting wait fences failed<br>
-&gt; &gt; amdgpu: getting wait fences failed<br>
-&gt;<br>
-&gt; Yes, it works. You might need to update mesa too. I am using the lates=
-t mesa with<br>
-&gt; ubuntu and i dont see those error. with your patch they do show.<br>
-&gt;<br>
-&gt; Regards<br>
-&gt; Sunil Khatri<br>
-&gt; &gt;<br>
-&gt; &gt; Thanks<br>
-&gt; &gt; Jesse<br>
-&gt; &gt;<br>
-&gt; &gt;<br>
-&gt; &gt;&gt;&gt;&gt; Dmesg:<br>
-&gt; &gt;&gt;&gt;&gt; [&nbsp; 122.668493] amdgpu 0000:0a:00.0: sq_intr: err=
-or, detail<br>
-&gt; &gt;&gt;&gt;&gt; 0x00000000, type 1, sh 1, priv 0, wave_id 0, simd_id =
-0, wgp_id 0 [<br>
-&gt; &gt;&gt;&gt;&gt; 122.668504] amdgpu 0000:0a:00.0: sq_intr: error, deta=
-il 0x00000000,<br>
-&gt; &gt;&gt;&gt;&gt; type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_id 0 =
-[&nbsp; 124.687518]<br>
-&gt; &gt;&gt;&gt;&gt; amdgpu 0000:0a:00.0: Dumping IP State [&nbsp; 124.688=
-351] amdgpu<br>
-&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: Dumping IP State Completed [&nbsp; 124.=
-688355] amdgpu<br>
-&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: [drm] AMDGPU device coredump file has b=
-een created [<br>
-&gt; &gt;&gt;&gt;&gt; 124.688357] amdgpu 0000:0a:00.0: [drm] Check your<br>
-&gt; &gt;&gt;&gt;&gt; /sys/class/drm/card0/device/devcoredump/data<br>
-&gt; &gt;&gt;&gt;&gt; [&nbsp; 124.688361] amdgpu 0000:0a:00.0: ring gfx_0.0=
-.0 timeout,<br>
-&gt; &gt;&gt;&gt;&gt; signaled seq=3D569, emitted seq=3D571 [&nbsp; 124.688=
-366] amdgpu<br>
-&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0:&nbsp; Process Xwayland pid 3471 thread =
-Xwayland:cs0 pid<br>
-&gt; &gt;&gt;&gt;&gt; 3479 [&nbsp; 124.688369] amdgpu<br>
-&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: Starting gfx_0.0.0 ring reset [&nbsp; 1=
-26.560451] amdgpu<br>
-&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: MES(0) failed to respond to msg=3DRESET=
- [&nbsp; 126.560456]<br>
-&gt; &gt;&gt;&gt;&gt; amdgpu 0000:0a:00.0: failed to detect and reset [&nbs=
-p; 126.560460]<br>
-&gt; &gt;&gt;&gt;&gt; amdgpu<br>
-&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: Failed to detect and reset queues, err =
-(-110) [<br>
-&gt; &gt;&gt;&gt;&gt; 128.789840] amdgpu 0000:0a:00.0: Ring gfx_0.0.0 reset=
- failed [<br>
-&gt; &gt;&gt;&gt;&gt; 128.789848] amdgpu 0000:0a:00.0: GPU reset begin!. So=
-urce:&nbsp; 1 [<br>
-&gt; &gt;&gt;&gt;&gt; 128.790161] amdgpu 0000:0a:00.0: Guilty job already s=
-ignaled,<br>
-&gt; &gt;&gt;&gt;&gt; skipping HW<br>
-&gt; &gt;&gt; reset [&nbsp; 128.790174] amdgpu 0000:0a:00.0: GPU reset(1) s=
-ucceeded!<br>
-&gt; &gt;&gt;&gt;&gt; [&nbsp; 128.804538] amdgpu 0000:0a:00.0: [drm] device=
- wedged, but<br>
-&gt; &gt;&gt;&gt;&gt; recovered through reset [&nbsp; 128.804574] amdgpu 00=
-00:0a:00.0: GPU<br>
-&gt; &gt;&gt;&gt;&gt; reset begin!. Source:&nbsp; 6 [&nbsp; 128.816663] amd=
-gpu 0000:0a:00.0:<br>
-&gt; &gt;&gt;&gt;&gt; Dumping IP State [&nbsp; 128.817458] amdgpu 0000:0a:0=
-0.0: Dumping IP<br>
-&gt; &gt;&gt;&gt;&gt; State Completed [&nbsp; 130.963939] amdgpu 0000:0a:00=
-.0: MES(1) failed<br>
-&gt; &gt;&gt;&gt;&gt; to respond to msg=3DREMOVE_QUEUE [&nbsp; 130.963949] =
-amdgpu 0000:0a:00.0:<br>
-&gt; &gt;&gt;&gt;&gt; failed to unmap legacy queue<br>
-&gt; &gt;&gt;&gt;&gt;<br>
-&gt; &gt;&gt;&gt;&gt; Cc: Jesse Zhang &lt;<a href=3D"mailto:jesse.zhang@amd=
-.com">jesse.zhang@amd.com</a>&gt;<br>
-&gt; &gt;&gt;&gt;&gt; Signed-off-by: Sunil Khatri &lt;<a href=3D"mailto:sun=
-il.khatri@amd.com">sunil.khatri@amd.com</a>&gt;<br>
-&gt; &gt;&gt;&gt;&gt; ---<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; .../gpu/drm/amd/amdgpu/amdgpu_userq=
-_fence.c&nbsp;&nbsp; | 29 -------------------<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 1 file changed, 29 deletions(-)<br>
-&gt; &gt;&gt;&gt;&gt;<br>
-&gt; &gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_=
-fence.c<br>
-&gt; &gt;&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c<br>
-&gt; &gt;&gt;&gt;&gt; index 3fcd70a38374..0d9a13081f2f 100644<br>
-&gt; &gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c=
-<br>
-&gt; &gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c=
-<br>
-&gt; &gt;&gt;&gt;&gt; @@ -484,16 +484,6 @@ int amdgpu_userq_signal_ioctl(st=
-ruct<br>
-&gt; &gt;&gt;&gt;&gt; drm_device<br>
-&gt; &gt;&gt; *dev, void *data,<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-=
-&gt;num_bo_read_handles &gt; AMDGPU_USERQ_MAX_HANDLES)<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt; &gt;&gt;&gt;&gt;<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp; /* Reject non-NULL pointers paired with a zer=
-o count. */<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!args-&gt;num_syncobj_handles &amp;&amp; =
-args-&gt;syncobj_handles)<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EINVAL;<br>
-&gt; &gt;&gt;&gt;&gt; -<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!args-&gt;num_bo_read_handles &amp;&amp; =
-args-&gt;bo_read_handles)<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EINVAL;<br>
-&gt; &gt;&gt;&gt;&gt; -<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!args-&gt;num_bo_write_handles &amp;&amp;=
- args-&gt;bo_write_handles)<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EINVAL;<br>
-&gt; &gt;&gt;&gt;&gt; -<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; num_syncobj_handles =3D args-=
-&gt;num_syncobj_handles;<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; syncobj_handles =3D memdup_ar=
-ray_user(u64_to_user_ptr(args-<br>
-&gt; &gt;&gt;&gt; syncobj_handles),<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_syncobj_handles,<br>
-&gt; &gt;&gt;&gt;&gt; sizeof(u32)); @@ -<br>
-&gt; &gt;&gt; 950,25 +940,6 @@<br>
-&gt; &gt;&gt;&gt;&gt; int amdgpu_userq_wait_ioctl(struct drm_device *dev, v=
-oid *data,<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait_=
-info-&gt;num_bo_read_handles &gt;<br>
-&gt; &gt;&gt; AMDGPU_USERQ_MAX_HANDLES)<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt; &gt;&gt;&gt;&gt;<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp; /* Reject non-NULL pointers paired with a zer=
-o count: the pointer<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp; * is meaningless and indicates inconsis=
-tent input from userspace.<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp; */<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_syncobj_handles &amp;&=
-amp; wait_info-&gt;syncobj_handles)<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EINVAL;<br>
-&gt; &gt;&gt;&gt;&gt; -<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_syncobj_timeline_handl=
-es &amp;&amp;<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (wait_info-&gt;syncob=
-j_timeline_handles || wait_info-<br>
-&gt; &gt;&gt;&gt; syncobj_timeline_points))<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EINVAL;<br>
-&gt; &gt;&gt;&gt;&gt; -<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_bo_read_handles &amp;&=
-amp; wait_info-&gt;bo_read_handles)<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EINVAL;<br>
-&gt; &gt;&gt;&gt;&gt; -<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_bo_write_handles &amp;=
-&amp; wait_info-&gt;bo_write_handles)<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EINVAL;<br>
-&gt; &gt;&gt;&gt;&gt; -<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_fences &amp;&amp; wait=
-_info-&gt;out_fences)<br>
-&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EINVAL;<br>
-&gt; &gt;&gt;&gt;&gt; -<br>
-&gt; &gt;&gt;&gt; Mhm, in general such checks look valid to me.<br>
-&gt; &gt;&gt;&gt;<br>
-&gt; &gt;&gt;&gt; My educated guess is that userspace sets num_fences =3D 0=
- to query if<br>
-&gt; &gt;&gt;&gt; it needs to<br>
-&gt; &gt;&gt; resize the pointer out_fences or not.<br>
-&gt; &gt;&gt;&gt; If you have time please double check which check fails he=
-re.<br>
-&gt; &gt;&gt; Sure, i will check on that but for now i have pushed this rev=
-ert.<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; regards<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; sunil khatri<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt;&gt; Apart from that Reviewed-by: Christian K=F6nig &lt;<a hre=
-f=3D"mailto:christian.koenig@amd.com">christian.koenig@amd.com</a>&gt;.<br>
-&gt; &gt;&gt;&gt;<br>
-&gt; &gt;&gt;&gt; Regards,<br>
-&gt; &gt;&gt;&gt; Christian.<br>
-&gt; &gt;&gt;&gt;<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; num_syncobj =3D wait_info-&gt=
-;num_syncobj_handles;<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; ptr =3D u64_to_user_ptr(wait_=
-info-&gt;syncobj_handles);<br>
-&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; syncobj_handles =3D memdup_ar=
-ray_user(ptr, num_syncobj,<br>
-&gt; &gt;&gt;&gt;&gt; sizeof(u32));<o:p></o:p></span></p>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_PH7PR12MB6000366C1E6582CD02D90AD6FB4FAPH7PR12MB6000namp_--
