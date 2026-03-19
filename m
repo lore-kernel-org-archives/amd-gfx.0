@@ -4,130 +4,134 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A01F107526D
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 07:38:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C12F107526F
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 07:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2237810E8B8;
-	Thu, 19 Mar 2026 07:38:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A73510E8C1;
+	Thu, 19 Mar 2026 07:43:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wsUeEMKR";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3u02e87e";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010030.outbound.protection.outlook.com [52.101.85.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA37F10E8B8
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 07:38:07 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010051.outbound.protection.outlook.com [52.101.46.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 29F5F10E8C1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 07:43:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ixgYj70jeTFrholK0Isn+jLculbYLw49SZRF/TLwKnnnKueQyuJ141R4vKUcOJ3CsRuWie0ptaMkNmpyxtlBQk8ZQhwWJZoLMMxn+aTFntEO0mFoUqLqE3KoXUoV9IJMQyQldOmsf8nhnVm0mvVYRdg5+2mnenxjNBa/TwRtVT9961s49SaGu2GS7uYni9IePMA4TycwNUPeO295EHkg6fgtrKc17geywKpVom7verAI7TfUiRrrlwsgJz19l4cawAyz00DjgKT94ChHrmK09wbgRQJbtewRRbC8ofRAiuB9nGCB4z8ekbUFJzlUVMs+VG0ExExfr/2HkvKyDe/GtA==
+ b=gDjZbLHYrbnSgpwkrJ8OQzldwZist9pmHpxcwjipzM94N8mSH+XUoe60cy6dk6HT2mIeP/Id9nbcH8jhXXBPCnxyjrVmmTlCgDobFZ9mdNMD/87vLrfW0euupuGyAVOTWHPHQ+vZ/4LuFf+SyFiKlLk3erA3wuNEvQtDc+9wYAk0zGCyvR4jhJe+cZHXBO4jYRJRub3HSqBCiG40d1VIi1Vc9dHLU4jTnjRXtVdAHCtD36FJqq5jIg9LSV+yMhnELaz0pQLK+p39CvXWZnRC36I/gNf4ko4dIHegf1tpLT87fffbNEFrjeaXSNCTPKHxyNqkcego1ycT9PQe11Xffw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nJNxi4vWqnWLX5elrFXSBCzI/zF0yur3XzOQqcDZkM0=;
- b=UpOyfT1oalE0tZXADORMBDdOuJ/egssr34VIRfxChMsGvZ1KP4v31QBwiOTvQCvY0ZAn4+dA6hq1z/ElvMdQWYI9J3vVghnSbkiVDg/FUr0FhHevccvFa2Cp3mTICZ4uR0YmzPB1OUzfOicIiBT9W5kB0CMWEl0ZzEehjF/WNefZDJNLdd78fQWhqkiQG+TRf8G9iy7kdWqQbkirlZDnexOF926Zq20MqNtYY4wZKtZRXRlqGWTzOtVewd1oZcASwocGnF+z3UVoAADJPEOzMs9M4hytgOM4sStvA53B2rEM0cyQYxskLXoqaMPxBidhcu6pD8BUmtg9JUNMUWg6Yg==
+ bh=+uZQ40zdJsThnCntxkZ2KyFijOsLorgy4tgLrgWQaEo=;
+ b=ypI1pPluPZVeS+j52wEuzEq2Xi5j6VwGgEtSwvKvN2Tg/UlnQ/heHSS9m1BJ/9UMXr426xc62ONE7uMNa/kyPj/bAC2M2GatKGlNRhup3Ao8pEMc+NMNFd+WTt2xGcSWRzjSUU3JDFABOarJQzTadweLrXjHflkh3GO63LuWl0/jJJEtP9/t+tSsKZyZbTERZ9cQduj6RkWal4oYahj7MOBsfcC+fWsPxcaVwPCNMy057BRp4QcH8K78orUPHvKD9P06I+V7KXm0Ya+aWSsmZ4xAS0RcyqNj1xZZ3DbNjaz3VKuPy8oZDCCJMCE/84DEGKdreU1arO4Pav88K7lmRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nJNxi4vWqnWLX5elrFXSBCzI/zF0yur3XzOQqcDZkM0=;
- b=wsUeEMKRUGF9FMlkG84WvG811vlPU5+aHh/PmlRLhd5+WTnpAxcT3kcawsbjJfFYJh7n/uhYt8GBq52UeUf4iRP9jGKDm+cmlzm5ZBqKyMbTmJkDiM786LuEd4dpTUr8iBR0fmPrwM6cZave+UgZsxlGuT5RO6t+6A5nt84Tf5E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH2PR12MB4056.namprd12.prod.outlook.com (2603:10b6:610:a5::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
- 2026 07:38:05 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
- 07:38:04 +0000
-Message-ID: <69f6c193-b0b0-4e67-8bb0-d34b9a3b34fd@amd.com>
-Date: Thu, 19 Mar 2026 08:38:00 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdgpu: Avoid NULL dereference in discovery
- topology coredump path v3
-To: "Lazar, Lijo" <Lijo.Lazar@amd.com>,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Pelloux-Prayer, Pierre-Eric" <Pierre-eric.Pelloux-prayer@amd.com>
-References: <20260318103059.1976682-1-srinivasan.shanmugam@amd.com>
- <edc9d882-76f3-4d1a-a9a5-698752984716@amd.com>
- <IA0PR12MB8208A7A18B8626B723B2D5FD904EA@IA0PR12MB8208.namprd12.prod.outlook.com>
- <01fbbf0b-72ba-4df9-a3cc-d0bce429a5be@amd.com>
- <IA0PR12MB82083457A40B3AAD336605A6904FA@IA0PR12MB8208.namprd12.prod.outlook.com>
- <SJ0PR12MB708298F39630A4EA6264DB36974FA@SJ0PR12MB7082.namprd12.prod.outlook.com>
+ bh=+uZQ40zdJsThnCntxkZ2KyFijOsLorgy4tgLrgWQaEo=;
+ b=3u02e87eqCDj/RxZxm2JAQQz6orJx0rxak9YbwmK7zqyrKcMfE5uf+jCAlorwqrPJfLMJdJ64Ig6nP+yqSXxsCiFkZL4ydaW93v0B9/c+lW73ZbRvgdWxcJp/b6nb3B1bqovYrxcamIl5gQAF6rrPKEi1Zy7QinJvLUaqegOrE0=
+Received: from PH7PR12MB6633.namprd12.prod.outlook.com (2603:10b6:510:1ff::20)
+ by DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Thu, 19 Mar
+ 2026 07:43:33 +0000
+Received: from PH7PR12MB6633.namprd12.prod.outlook.com
+ ([fe80::fbd5:79fe:588c:41c3]) by PH7PR12MB6633.namprd12.prod.outlook.com
+ ([fe80::fbd5:79fe:588c:41c3%6]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
+ 07:43:32 +0000
+From: "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Liang, Prike"
+ <Prike.Liang@amd.com>, "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Zhang,
+ Jesse(Jie)" <Jesse.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Olsak, Marek" <Marek.Olsak@amd.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument
+ validation"
+Thread-Topic: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument
+ validation"
+Thread-Index: AQHctq0tde2MDjjZ2kW1JaItaybTorWz802AgAATn4CAAAHhAIABG2YAgAAwkJOAABCwAIAAEdmAgAAC+mE=
+Date: Thu, 19 Mar 2026 07:43:32 +0000
+Message-ID: <PH7PR12MB6633C6E2C2034AF93CCECDAEFF4FA@PH7PR12MB6633.namprd12.prod.outlook.com>
+References: <20260318074708.2078535-1-sunil.khatri@amd.com>
+ <dfca1bb0-26dd-45bd-ac11-c3756ce808ac@amd.com>
+ <48df3b31-724a-4548-a52b-9f034664d422@amd.com>
+ <DM4PR12MB5152791EDD4F7021198821E3E34EA@DM4PR12MB5152.namprd12.prod.outlook.com>
+ <2e6d0e34-e093-41a9-a4b3-59afe3050dfc@amd.com>
+ <PH7PR12MB6000DAD5B8EFDBCB3F3F4663FB4FA@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <PH7PR12MB6633BABDE8B0785EF6ADA694FF4FA@PH7PR12MB6633.namprd12.prod.outlook.com>
+ <PH7PR12MB6000366C1E6582CD02D90AD6FB4FA@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <74e768dc-d4a1-445b-b699-e837a1d20234@amd.com>
+In-Reply-To: <74e768dc-d4a1-445b-b699-e837a1d20234@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <SJ0PR12MB708298F39630A4EA6264DB36974FA@SJ0PR12MB7082.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: FR4P281CA0145.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b8::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB4056:EE_
-X-MS-Office365-Filtering-Correlation-Id: e52bdbd8-c61a-4aa2-b379-08de858a74f9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|56012099003|22082099003|18002099003|7053199007;
-X-Microsoft-Antispam-Message-Info: dMTBSGwSCHx0gF0jB+2pmzwEByP2aawmmOsGrbp9uxCAjBbooeVKK4LIfIc/Dq/O/gYVinuZ1nqTZoOPr2wmhDzPxv93fT4szx2HrYdWBvCLNoQQYdRKAWYbAP3kSDN2UzOgrcjAantrR4voqtRc/MaUzXCo+1qIg8b8OekSULn8Xucqa/fZKqWukb0eKYqBsr0IaIKRY5thCA9EOUjcyaVJBUX5opAG9Gq3MFty9hnyM08Rz95yqPYeuhwCFAdGqZAszB64DUM4ei/bKV/T725tMbyDNiGoK65cpD0EAXEKksJa9udqihvFOujUDr4wlf6Xjj5Jdcu825MU68IdD0TekEUbFHHeTOShEi0DXZA/Bnmab2PG24l7AXTfvzoIsUAdbLIdGQAIGqXyzflwN4Q3/PlAVGqPfT7bt5PmupBpkuJbeQf2+6QOwIEszSwceW8UXTR/a0VSbWzj3cIr1yHePEOW/LgtMkMLmaArGsWAkhqIJ3N4Ujl6Kx0Du44KIOfyRXUbmRFGdwLl+1bEyqRaOkbuaInZWG64J2ZCltk6Vc9p8/6dFio2qYvOSUcFuGsf7xY0gdkqTJdYUq1vzohuTN5oJehNU9xRFq4U9SD/jb0fHiL9sUriy2vet6N4jaoyaz0lyl/LPm4hAP+zMKp14Dv5xHTAjfRGTasq+8faCjIJeD9gEstti+3M+rigBq2+Lyx/SEtPK3y62eDCeXV7hZ+tVskUoBHoSbrNkKQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(56012099003)(22082099003)(18002099003)(7053199007);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-19T07:43:31.922Z;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
+ Internal Distribution
+ Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
+ MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR12MB6633:EE_|DS0PR12MB6413:EE_
+x-ms-office365-filtering-correlation-id: d87c9c7f-293f-484f-2e7b-08de858b3880
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|1800799024|8096899003|7053199007|18002099003|56012099003|22082099003|921020|38070700021;
+x-microsoft-antispam-message-info: g7W9WIPBRw5aHhikrs7KKWCNAtu2vfSQfwJ82uNTQVHTfXMomeGYte6eABidoLMAutQMJ3Al9ZnPxJGjCZY8wdPcj9uaMB6RHve2ANBgQlbUT69aQSZLjjxw/ku2I+rD4JCDQ1LlBizUzW5JXr+MH5AqvBVmUa4iIwyn6yE2+AW7vo8vnyM98PQ8kWlRX78pjryjygbneHZu0CaMZ6QpcQqaAXdbPBdd8xEHeUFsEYU2smNH9UlVMrxzMKVIJSFSly5jlGc8N+9ig8p6rycKz0ChO38Rp/cwEgdHWjwIkVSWAaNQ7gD9xvZWtn5BZFVJr4zCBfjUmRqoM5mZt2wbX0FfBfd+/bS3CeYrEgv+ia9tO65HSjzv0QNdm+IXvfObdanVTBzc1VILcOup3mce1/v5TQglepVkhB/UoPCHDUoJENRKaTEOUZEeNhwvfoGtr/ZUdqwXa/1DR/Tdt+Ao/zWEvsCpTFDlnYs1zGpEsRiKvHEV1MKBFFJs2OnjZ2voj6OW2DxUf5cyaJLSKeRVqyRPetB9la3G9wzoU2woJT89q3O4FZK37b93TcmsPncoSCqiVRpwgB74MsYAye9Gu1N8p6nf/djGa5wnXZ58oIwBqxXcXX2cHE3zZDqDLHrWWUVutoM560bleevalGo00xJHGMO6k3Xtrin5/ImeJ8XiWI83eatq+Pq1CQ9NmhPp+avEqUAHiEuSwZiIYH/C0UWgXVGOyU0EzUCyI+7d/4wmjhcyBGGtSoAnuVmAIaqH5G924RV7wogKrDGyFYHB2kKh4PVJRlg8S3Rpr8i4wvLflKRPBIyEZEB705CKN4n/
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB6633.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(1800799024)(8096899003)(7053199007)(18002099003)(56012099003)(22082099003)(921020)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VWo2ZE9ReFFYQktmOXFJNEFwdEU4VkluNlV2NnhqbTJNcENzZ2FJeURZZjlT?=
- =?utf-8?B?NkVlVmxlcC85YkcxdEU1cUpmOGtjR1FIbEx1dmZjTmxLeUlmUHkxbEtKSDVE?=
- =?utf-8?B?cHNCeGdWa3hKNHB1Q09FS0czNzNJODBwV2o1VTVwL29yblZQRE4yZ1VVYVA4?=
- =?utf-8?B?M0RHSHFqeWhzVDR2Z0ljQmdlRW5aVzJYWko4Ulp4MSt1SWFHN1I2NW1YakpB?=
- =?utf-8?B?bStIR1h3QlFVejlSODV4RTIwZkZ6TE9pQ09MMFF3V1QyeUNOUXdvWW9iRDdR?=
- =?utf-8?B?cXk5R2tSdUdENkxrMkx0VXQ5L0MxYk1mMEZabG4yUkRQM0ZMTkh1KzAyaFpV?=
- =?utf-8?B?TVU2WHlUZXZjcXZlNjA3VHFhSUZpMngwNUFXWFVVL2NRV1laUUxIdkgvVnlD?=
- =?utf-8?B?UEl1Vkw0eTF0Umlzb2J2RGwyNis0c3ZQVFJ0Z2xHekRTcXUvT3pITlRUU2Qr?=
- =?utf-8?B?ZmJEdGJNTFZ0ZGhKMU1vR1hFZlBVMkFjUDg0L3ptMUJUdkxvdDYzdnFoTFE3?=
- =?utf-8?B?aXh1SXRHRHFSVHJhc3kyeUNLSGYxYjJUa2JCZ0VrWXFDaTJ5TER4bmdDQk5G?=
- =?utf-8?B?bVdUVDdUU1NVV2VtRW5ZcVN0blgzcE53Wjloejh1NE5kMGZZVlEvY1RXV3JE?=
- =?utf-8?B?STNkbEhBNVl5akpNMm5idHFta3lGd000VjQ0TW52SEtBMFdod3kvNWt5eHN5?=
- =?utf-8?B?bjRIbkhyZHFWS3liZE5RcW95R0piTXdQTFU0TnQvWVVhT3pTL1ZjSGhtNkVl?=
- =?utf-8?B?TkMwblAvSkViZkt3R0ZCZWVYZEx5aUhaaWlsR1dFckdMQ0VTUGVsQzBlRFhN?=
- =?utf-8?B?a1lQQ0pTalF3T3kyMGhBVGNPdzMvaStQWHpZT2RWaFhBZFpjUDVzejR1dDl2?=
- =?utf-8?B?TndDRWQzWmVCOVJEc0VveDQydDAzR3M5cjl5R2pVa1J5NFVVdXNmVnR2Yk0z?=
- =?utf-8?B?cHF4bWFUNVByaXhxQmRMbVZxU1N6eUJ3dktYMTU3YlhQZHpqMlVFNktCckR3?=
- =?utf-8?B?MHUvaDBkNXl6OUtuZU56dGZ3OXB0L2xCY0dHUjEyNFJCUVkyR01OTENmZEN1?=
- =?utf-8?B?dUkrbXQ3K0kyeHZKQW5kWmJJWlJwZEFhUEtwME5naUpBRnRTOWhzZVFOYk82?=
- =?utf-8?B?QmVMbjhlbWoxOGJSOXFWL0FTMnV2STNFR21tYzQvWWR1c1Y4RWY2NWtBZGVR?=
- =?utf-8?B?bjEwaE1aOG1keVI4b1p3aEZTNHVZbCtvTFJBa0l5K0FiVUpGeGF6Z3dZeGE1?=
- =?utf-8?B?M2tuaEdtRWIwVjBLd05oTUY4T2tDSFI0ZERRV21oOHl5aXFoZktPL3IzbzMx?=
- =?utf-8?B?eEt5dWZGdmNWamtsdzA4LzMxblJWUVJrTW5jU3hpTEFBYXFqSnVuVUxpYmdC?=
- =?utf-8?B?amM1Z2JKVWs2cXROelIyanh4UEttYmVwZTRqV2E5NndjcGoxYXg2NmQzVXBK?=
- =?utf-8?B?QUcySDRuN1NObmdCM0ZPMUNiMCtYL2dHSm4vdVpNQitPaTlYa2dORjU5T1ZU?=
- =?utf-8?B?amoxZ2ZYaFJaaXFWMlB2REo0MXdndS9Bb2M2WHJObi9VL3BLRVNWZFRPUlVs?=
- =?utf-8?B?TS9QV3hxU3JlOWVtcTZuZVA4ODhYK2FjeS90V29zOVVLbzJqanh2dDRidVov?=
- =?utf-8?B?d3h1cFliQVBURHJJYjdoeE1XbUlpa1BPZmRmYlRkaWM3ODJKbE91N1pjK21V?=
- =?utf-8?B?M3JEZ1AxdlpnZEM0U3YxTEUyMHhySFB6VVU0UmF3dFE1Z2pQTE9VdXpvZE9Q?=
- =?utf-8?B?VnNnVDlMR0dld0RKMFFsd0VlTHhxbTREbnRXRWEvSWl1TmVvZkhUUGo2aGp3?=
- =?utf-8?B?Ymk5UWM4YUNBQ1diWGtZQkNQOWRrbE9COWpXZ2szQW15MTJTWU9XVWZXYkxK?=
- =?utf-8?B?cmNWWmFBYzZLdnBDQjl3RVJaM2puWnMzMG5wSXlQYlVHdUVZRXR3SlpPd2cv?=
- =?utf-8?B?NjJGdFd5b1RuLzdUQVlqSUwxQW9aRWJRRFRSMll0K3NOM2k3b09XSnR6dGpw?=
- =?utf-8?B?aGNRekdJbmFPTmpFczM5ZTJUNmYyUHVFWU5OMnArVWhZVG1CeHNPcWptWTho?=
- =?utf-8?B?dUZjSTMxK0pIemdlVlVXRnBkbzZJL3VTVzUyRVlVVzdkb0tFUlFFeTdackFr?=
- =?utf-8?B?YkpHNVFqejllQkttZTR3U2pubEJRZFNPbG4xOUx1ODc2TGF5QXk3UGFsK2kv?=
- =?utf-8?B?OXl0aTFreG9WcVR0L2U3ajk4dDB3ZmVwQjlMQUV3amxNbkQyaUpOVURWU0Ra?=
- =?utf-8?B?c3FOQ1lIL3R2Y0k0Y21SNjVPRDAwaUxZdmdDamlRZEgwd3VlYVNScTJjWml4?=
- =?utf-8?Q?hz4F3PqgJsaMSxKE/t?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?j6Xo16aN95+MxF75j+Kve/te+EUmJMRzIk8oXev9l16ziXTqbmvYKf+3?=
+ =?Windows-1252?Q?8ykSJ/iXqgPUEgPW0NvCO1cwJx3MGvty8rSwHmy0tgXoZ4C7zR2Xul8D?=
+ =?Windows-1252?Q?0f8HnWbp9IiV5eF0ORD3dck736THeCvzS0ERo+Ixlbcf2xpmURXHuCqt?=
+ =?Windows-1252?Q?ITZXnFbPzsO/8dA4F0zXiITnrxHgcP/n1COjQ6AzLSl4e2jT8ULlhuPe?=
+ =?Windows-1252?Q?xHG2wxAM3ft1xw5gFTrTwEB70vVCop1YRxBqRso0FS8ZpTu532cMAIKi?=
+ =?Windows-1252?Q?TTrcTTsN9kS2cxZQvCfzl+Z8FWVRQOIhFsDKTaHc73zoOsVC5qxkYIv/?=
+ =?Windows-1252?Q?oRfIJ+Oi5M6+P+Vj7lD2c/vqoY6hq3AlAodrHZX5iwRUm3jVRXBlxa+w?=
+ =?Windows-1252?Q?AqnsmawdKNrLKECTuft/i3VY9WzRYKgUWFx1sj355FaFiyNtP/UGHe0I?=
+ =?Windows-1252?Q?nl29JgheptHVG0DDIfFzRq9tIBAScFmPXx1UkWRxFAXbi/lCDyOO3jEE?=
+ =?Windows-1252?Q?tYZ32hkHoolvOjLLnSUtTYOKdoNloxJ/9y9H6K0dtBUrBv8+W7SGqrmS?=
+ =?Windows-1252?Q?prG1A9wz/8lOVRskLOyMsFoae3h2YwX/+CghdIVdQAkxOk6oe38pRjET?=
+ =?Windows-1252?Q?jDunBruPuN6PQmiIs2eRBbzbV48dJPwYoWoz1M19xLmjuwvxqboh39c3?=
+ =?Windows-1252?Q?J0dundMBg/nx3v0l+uEAh+ozfETZFm+KjeuVa09wQgD3Q8ZLwUCe6FNb?=
+ =?Windows-1252?Q?gMWiEwlsOThXbjdtbneenJMnO2QOBomdibKPfCbAYwTiWOSVwsnXSsp3?=
+ =?Windows-1252?Q?XzEJY8gmYBMgZ68ao8PwU8x02wUuHBE04e23AdFCKulN64zEF51veV+p?=
+ =?Windows-1252?Q?db4vK8QURw60PnLegVRsgVGEYHWoAt5AQyO/ztU6d7X6Fu53YNUe4nPm?=
+ =?Windows-1252?Q?wvx7OwufxmLbxIRq+zIsomZ1gfKjE8g2i4YmapT0ydVWz2cttLOYEACa?=
+ =?Windows-1252?Q?lhOh38AsQGAJedTf78zzusHtWQk/VJ2OS7ytNaMyrCN1Xx3y5mK00NH4?=
+ =?Windows-1252?Q?yU5pKKLNfE+zhPEbJNI31MG3ozIQy8EMnYL8sjNw85apIPB+R8Q4mPU+?=
+ =?Windows-1252?Q?7zzrhnz83PH2aIK7kiRSp78GcUZUOB4QPNQrfuhQpBjyMU3s2qyu+xqp?=
+ =?Windows-1252?Q?8n4HVUcczngEeh8n673Xyg4s6wtvs5xGeT9ow5e0VAs1o8meHKhpl+2C?=
+ =?Windows-1252?Q?MmPjH9ZqXqYgYjppa2z+ZnwJ7p72QMw4/CYUB9jewWhjzU0/+C2iICmw?=
+ =?Windows-1252?Q?4qL2iZYrUYMEjZ3LzJmbde3c3h67rLHcjo0s4S/n2Rrdv8lxcq5CwgDj?=
+ =?Windows-1252?Q?AUQ0yRNIhdndhAgn0JcWENNu3zebNoXPSvwaknaM6nqXb0JoyZ0KXQns?=
+ =?Windows-1252?Q?eAkootOjyZH3bfxMgGdSnFlwr8X3HlMg//doSJjQwPlktBh0hKiEqUD5?=
+ =?Windows-1252?Q?8Ped2YG/SkW0blPzJrLxq3UtPrrC5aHZJti9/OhXTFZYpTwb9ugOqbMc?=
+ =?Windows-1252?Q?PeGvZmcF9e6QFmZcHBBH8Ay15PRgFvTPxDb05n9jLBg03Q94Oekxlj7u?=
+ =?Windows-1252?Q?XA6aUyzcTNeGE5H0xiqy4YxR+mhNtC9Kd0eoa1+kZWJu/IjirqWpWEdP?=
+ =?Windows-1252?Q?adZ7VVn8Jsn2DVsaFZmHqt3g7i/fgOVOj95gMEzItcDJHe+Z7U/XN+tj?=
+ =?Windows-1252?Q?vgDRbu1IAUhFxiTpD2t51O9Dg2IpbflwYsKCI8WhVOaMn8Ha7P7DkD/2?=
+ =?Windows-1252?Q?5TFU++MQMnv33PRfqQosvxlzOW7Ta6yKdEFGrTGWro9EQ5Bm?=
+Content-Type: multipart/alternative;
+ boundary="_000_PH7PR12MB6633C6E2C2034AF93CCECDAEFF4FAPH7PR12MB6633namp_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e52bdbd8-c61a-4aa2-b379-08de858a74f9
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 07:38:04.9138 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1K/g0LHJkEy/LvBb6EkIMSxGYPJ1m8Jx61kqhDj7YuBiivlVyr3PpRYdpiqSju+g
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4056
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6633.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d87c9c7f-293f-484f-2e7b-08de858b3880
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2026 07:43:32.7775 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qEOe1y6CqtYqqs1lZQw8SL+I8s4R3J5yMYTKUH1SJ8RwPoIiZ89kwY3q9+gVHlcwdDzU1FKwY6cxcD1P7NYXNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6413
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,30 +146,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I kind of agree with Lijo.
+--_000_PH7PR12MB6633C6E2C2034AF93CCECDAEFF4FAPH7PR12MB6633namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
 
-We clearly should have a NULL pointer check, but when the information isn't=
- available it's perfectly fine to not print the section for it. That's what=
- we do when other information isn't available as well.
+[AMD Official Use Only - AMD Internal Distribution Only]
 
-So just completely skipping the "drm_printf(p, "\nHW IP Discovery\n");" wou=
-ld work for me as well.
+Hi,
+
+alloca(0) will point to current top of stack and hence it can be said the f=
+ield is initialized.
+
+Thank you,
+Yogesh
+
+________________________________
+From: Koenig, Christian <Christian.Koenig@amd.com>
+Sent: Thursday, March 19, 2026 1:00 PM
+To: Liang, Prike <Prike.Liang@amd.com>; Mohan Marimuthu, Yogesh <Yogesh.Moh=
+anmarimuthu@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>; Zhang, Jesse(Ji=
+e) <Jesse.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; O=
+lsak, Marek <Marek.Olsak@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument =
+validation"
+
+Hi guys,
+
+well when mesa leaves some fields in the structure uninitialized then that =
+is a pretty bad idea and we should eventually fix that.
+
+But always setting the pointers to valid arrays and just setting the number=
+ of array elements to zero is perfectly valid.
+
+That doesn't even needs a debug message.
 
 Regards,
 Christian.
 
-On 3/19/26 06:00, Lazar, Lijo wrote:
+On 3/19/26 07:27, Liang, Prike wrote:
 > [Public]
->=20
->=20
-> To run coredump logic, driver needs to be loaded first. For driver load t=
-o work on all new SOCs, it needs discovery.=C2=A0
->=20
-> Other SOCs which depend on pci id mechanism don't need discovery and they=
- don't have discovery section either.
->=20
-> Thanks,
-> Lijo
+>
+>
+> Thanks for the confirmation. If Mesa doesn=92t zero the handle buffer, I=
+=92m going to drop this validation check in the kernel and then leave a deb=
+ug message for this case.
+>
+>
+>
+> Regards,
+>
+>       Prike
+>
+>
+>
+> *From:*Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com>
+> *Sent:* Thursday, March 19, 2026 1:31 PM
+> *To:* Liang, Prike <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd=
+.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Khatri, Sunil <Sunil.Khatri=
+@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander=
+ <Alexander.Deucher@amd.com>; Olsak, Marek <Marek.Olsak@amd.com>
+> *Cc:* amd-gfx@lists.freedesktop.org
+> *Subject:* Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argum=
+ent validation"
+>
+>
+>
+> [Public]
+>
+>
+>
+> Hi Prike,
+>
+>
+>
+> Regarding below check in the Kernel patch,
+>
+>
+>
+> /* Reject non-NULL pointers paired with a zero count. */
+>
+> if (!args->num_syncobj_handles && args->syncobj_handles)
+>
+>           return -EINVAL;
+>
+>
+>
+> Mesa uses alloca for args->syncobj_handles, alloca(0) returns non NULL.
+>
+>
+>
+>
+>
+> I think the check "Reject non-NULL pointers paired with a zero count" in =
+Kernel can be skipped.
+>
+>
+>
+>
+>
+> Thank you,
+>
+> Yogesh
+>
+>
+>
 > -------------------------------------------------------------------------=
 ---------------------------------------------------------------------------=
 ---------------------------------------------------------------------------=
@@ -180,192 +265,737 @@ o work on all new SOCs, it needs discovery.=C2=A0
 ---------------------------------------------------------------------------=
 ---------------------------------------------------------------------------=
 -----------------
-> *From:* SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-> *Sent:* Thursday, March 19, 2026 10:17:09 AM
-> *To:* Lazar, Lijo <Lijo.Lazar@amd.com>; Koenig, Christian <Christian.Koen=
-ig@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-> *Cc:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Pell=
-oux-Prayer, Pierre-Eric <Pierre-eric.Pelloux-prayer@amd.com>
-> *Subject:* RE: [PATCH v3] drm/amdgpu: Avoid NULL dereference in discovery=
- topology coredump path v3
-> =C2=A0
-> [AMD Official Use Only - AMD Internal Distribution Only]
->=20
+>
+> *From:* Liang, Prike <Prike.Liang@amd.com <mailto:Prike.Liang@amd.com>>
+> *Sent:* Thursday, March 19, 2026 8:03 AM
+> *To:* Khatri, Sunil <Sunil.Khatri@amd.com <mailto:Sunil.Khatri@amd.com>>;=
+ Zhang, Jesse(Jie) <Jesse.Zhang@amd.com <mailto:Jesse.Zhang@amd.com>>; Khat=
+ri, Sunil <Sunil.Khatri@amd.com <mailto:Sunil.Khatri@amd.com>>; Koenig, Chr=
+istian <Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>; Deuche=
+r, Alexander <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>=
+; Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com <mailto:Yogesh.Moh=
+anmarimuthu@amd.com>>; Olsak, Marek <Marek.Olsak@amd.com <mailto:Marek.Olsa=
+k@amd.com>>
+> *Cc:* amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org=
+> <amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>>
+> *Subject:* RE: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argum=
+ent validation"
+>
+>
+>
+> [Public]
+>
+> Add @Mohan Marimuthu, Yogesh/@Olsak, Marek
+>
+> It looks like the validation in several places doesn=92t match how Mesa a=
+llocates these buffers. i.e when num_syncobj_handles is zero, syncobj_handl=
+es must not be required to be NULL, because Mesa leaves it uninitialized wh=
+en allocating it on the stack. We should either implement a proper fix in M=
+esa for this case or drop the known broken validation check.
+>
+> Regards,
+>       Prike
+>
 >> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Thursday, March 19, 2026 9:46 AM
->> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
->> Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
->> <Alexander.Deucher@amd.com>
->> Cc: amd-gfx@lists.freedesktop.org; Pelloux-Prayer, Pierre-Eric <Pierre-
->> eric.Pelloux-prayer@amd.com>
->> Subject: Re: [PATCH v3] drm/amdgpu: Avoid NULL dereference in discovery
->> topology coredump path v3
+>> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org <mailto:amd-gfx-bou=
+nces@lists.freedesktop.org>> On Behalf Of Khatri, Sunil
+>> Sent: Wednesday, March 18, 2026 5:39 PM
+>> To: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com <mailto:Jesse.Zhang@amd.com>>=
+; Khatri, Sunil
+>> <Sunil.Khatri@amd.com <mailto:Sunil.Khatri@amd.com>>; Koenig, Christian =
+<Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>;
+>> Deucher, Alexander <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@=
+amd.com>>
+>> Cc: amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>> Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argume=
+nt
+>> validation"
 >>
 >>
->>
->> On 18-Mar-26 4:41 PM, SHANMUGAM, SRINIVASAN wrote:
+>> On 18-03-2026 03:02 pm, Zhang, Jesse(Jie) wrote:
 >> > [AMD Official Use Only - AMD Internal Distribution Only]
 >> >
 >> >> -----Original Message-----
->> >> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> >> Sent: Wednesday, March 18, 2026 4:28 PM
->> >> To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
->> Koenig,
->> >> Christian <Christian.Koenig@amd.com>; Deucher, Alexander
->> >> <Alexander.Deucher@amd.com>
->> >> Cc: amd-gfx@lists.freedesktop.org; Pelloux-Prayer, Pierre-Eric
->> >> <Pierre- eric.Pelloux-prayer@amd.com>
->> >> Subject: Re: [PATCH v3] drm/amdgpu: Avoid NULL dereference in
->> >> discovery topology coredump path v3
+>> >> From: Khatri, Sunil <Sunil.Khatri@amd.com <mailto:Sunil.Khatri@amd.co=
+m>>
+>> >> Sent: Wednesday, March 18, 2026 4:22 PM
+>> >> To: Koenig, Christian <Christian.Koenig@amd.com <mailto:Christian.Koe=
+nig@amd.com>>; Khatri, Sunil
+>> >> <Sunil.Khatri@amd.com <mailto:Sunil.Khatri@amd.com>>; Deucher, Alexan=
+der
+>> >> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>
+>> >> Cc: amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.o=
+rg>; Zhang, Jesse(Jie)
+>> >> <Jesse.Zhang@amd.com <mailto:Jesse.Zhang@amd.com>>
+>> >> Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl
+>> >> argument validation"
 >> >>
 >> >>
->> >>
->> >> On 18-Mar-26 4:00 PM, Srinivasan Shanmugam wrote:
->> >>> When a GPU fault or timeout happens, the driver creates a
->> >>> devcoredump to collect debug information.
->> >>>
->> >>> During this, amdgpu_devcoredump_format() calls
->> >>> amdgpu_discovery_dump() to print IP discovery data.
->> >>>
->> >>> amdgpu_discovery_dump() uses:
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0 adev->discovery.ip_top
->> >>>
->> >>> and then accesses:
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0 ip_top->die_kset
->> >>>
->> >>> amdgpu_discovery_dump() uses adev->discovery.ip_top. However, ip_top
->> >>> may be NULL if the discovery topology was never initialized.
->> >>>
->> >>> The current code does not check for this before using ip_top. As a
->> >>> result, when ip_top is NULL, the coredump worker crashes while
->> >>> taking the spinlock for ip_top->die_kset.
->> >>>
->> >>> Fix this by checking for a missing ip_top before walking the
->> >>> discovery topology. If it is unavailable, print a short message in
->> >>> the dump and return safely.
->> >>>
->> >>> - If ip_top is NULL, print a message and skip the dump
->> >>> - Also add the same check in the cleanup path
->> >>>
->> >>> This makes the coredump and cleanup paths safe even when the
->> >>> discovery topology is not available.
->> >>>
->> >>> KASAN trace:
->> >>> [=C2=A0 522.228252] [IGT] amd_deadlock: starting subtest
->> >>> amdgpu-deadlock-sdma [=C2=A0 522.240681] [IGT] amd_deadlock: startin=
-g
->> >>> dynamic subtest amdgpu-deadlock-sdma
->> >>>
->> >>> ...
->> >>>
->> >>> [=C2=A0 522.952317] Write of size 4 at addr 0000000000000050 by task
->> >>> kworker/u129:5/5434 [=C2=A0 522.937526] BUG: KASAN: null-ptr-deref i=
-n
->> >>> _raw_spin_lock+0x66/0xc0 [=C2=A0 522.967659] Workqueue: events_unbou=
-nd
->> >>> amdgpu_devcoredump_deferred_work [amdgpu]
->> >>>
->> >>> ...
->> >>>
->> >>> [=C2=A0 522.969445] Call Trace:
->> >>> [=C2=A0 522.969508]=C2=A0 _raw_spin_lock+0x66/0xc0 [=C2=A0 522.96951=
-8]=C2=A0 ?
->> >>> __pfx__raw_spin_lock+0x10/0x10 [=C2=A0 522.969534]
->> >>> amdgpu_discovery_dump+0x61/0x530 [amdgpu] [=C2=A0 522.971346]=C2=A0 =
-?
->> >>> pick_next_task_fair+0x3f6/0x1c60 [=C2=A0 522.971363]
->> >>> amdgpu_devcoredump_format+0x84f/0x26f0 [amdgpu] [=C2=A0 522.973188]=
-=C2=A0 ?
->> >>> __pfx_amdgpu_devcoredump_format+0x10/0x10 [amdgpu] [=C2=A0 522.97501=
-2]=C2=A0 ?
->> >>> psi_task_switch+0x2b5/0x9b0 [=C2=A0 522.975027]=C2=A0 ?
->> >>> __pfx___drm_printfn_coredump+0x10/0x10 [drm] [=C2=A0 522.975198]=C2=
-=A0 ?
->> >>> __pfx___drm_puts_coredump+0x10/0x10 [drm] [=C2=A0 522.975366]=C2=A0 =
-?
->> >>> __schedule+0x113c/0x38d0 [=C2=A0 522.975381]
->> >>> amdgpu_devcoredump_deferred_work+0x4c/0x1f0 [amdgpu]
->> >>>
->> >>> v2: Updated commit message - Clarified that ip_top is not freed, it =
-can
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 just be NULL if discovery was no=
-t initialized.
->> >>> (Christian/Lijo)
->> >>>
->> >>> v3: Removed the extra drm_warn() for sysfs init failure as sysfs alr=
-eady
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 reports errors. (Christian)
->> >>>
->> >>> Fixes: 7083eb8982fb ("drm/amdgpu: include ip discovery data in
->> >>> devcoredump")
->> >>> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> >>> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
->> >>> Cc: Alex Deucher <alexander.deucher@amd.com>
->> >>> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
->> >>> ---
->> >>>=C2=A0=C2=A0=C2=A0 drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 11=
- ++++++++++-
->> >>>=C2=A0=C2=A0=C2=A0 1 file changed, 10 insertions(+), 1 deletion(-)
->> >>>
->> >>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->> >>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->> >>> index f7f37d93d0ce..6be1f971a31a 100644
->> >>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->> >>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
->> >>> @@ -1395,6 +1395,9 @@ static void amdgpu_discovery_sysfs_fini(struct
->> >> amdgpu_device *adev)
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct list_head *el, *tmp;
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct kset *die_kset;
->> >>>
->> >>> +=C2=A0=C2=A0 if (!ip_top)
->> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return=
-;
->> >>> +
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 die_kset =3D &ip_top->die_kset;
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 spin_lock(&die_kset->list_lock);
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 list_for_each_prev_safe(el, tmp, &die_=
-kset->list) { @@ -1419,9
->> >>> +1422,15 @@ void amdgpu_discovery_dump(struct amdgpu_device *adev,
->> >> struct drm_printer *p)
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct ip_hw_instance *ip_inst;
->> >>>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int i =3D 0, j;
->> >>>
->> >>> +=C2=A0=C2=A0 drm_printf(p, "\nHW IP Discovery\n");
->> >>> +
->> >>> +=C2=A0=C2=A0 if (!ip_top) {
->> >>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_pr=
-intf(p, "ip discovery topology unavailable\n");
->> >>
->> >> Is this type of printing really required or just skipping the whole
->> >> section good enough?
+>> >> On 18-03-2026 01:29 pm, Christian K=F6nig wrote:
+>> >>> On 3/18/26 08:47, Sunil Khatri wrote:
+>> >>>> This reverts commit 0cdff8eb31c139dde4716e4aa37198c16364629e.
+>> >>>>
+>> >>>> The patch has caused regression for userqueues where user is stuck
+>> >>>> and is waiting for fences and a gpu reset is triggered in kernel.
+>> >>>> Also for any of the parameters when count is zero, the driver does
+>> >>>> not read from the pointer and having that check is overkill.
+>> >>>>
+>> >>>> Application:
+>> >>>> MESA: error: amdgpu: getting wait num_fences failed
+>> >>>> MESA: error: amdgpu: getting wait fences failed
+>> >>>> MESA: error: amdgpu: getting wait num_fences failed
+>> >>>> MESA: error: amdgpu: getting wait fences failed
+>> > After I reverted this patch, the error still occurs when running glxge=
+ars.
+>> > Does it work fine on your end if you don't apply this patch?
 >> >
->> >
->> > Silently skipping the rest may look like incomplete or missing data in
->> > the coredump.
->> >
->> > Adding a one-line message makes it clear that the topology was not
->> > available, rather than leaving an empty section.
->> >
+>> > amdgpu: getting wait fences failed
+>> > amdgpu: getting wait fences failed
+>> > amdgpu: getting wait fences failed
 >>
->> Here is my take - Discovery is the basic requirement for SOCs which make=
- use of
->> that mechanism and it is always expected to be present for those, otherw=
-ise driver
->> load will fail.
+>> Yes, it works. You might need to update mesa too. I am using the latest =
+mesa with
+>> ubuntu and i dont see those error. with your patch they do show.
 >>
->> For those which don't make use of discovery, the section will not be pre=
-sent. There
->> is no special message required for that. There is no harm to keep that, =
-it only adds
->> extra parsing.
->=20
-> It's ok for normal cases. However, this runs in the *coredump/debug path
-> during error conditions* - where the discovery topology may not be
-> initialized. instead of leaving the section empty, which can be confusing
-> during debugging.
->=20
-> Best,
-> Srini
->=20
+>> Regards
+>> Sunil Khatri
+>> >
+>> > Thanks
+>> > Jesse
+>> >
+>> >
+>> >>>> Dmesg:
+>> >>>> [  122.668493] amdgpu 0000:0a:00.0: sq_intr: error, detail
+>> >>>> 0x00000000, type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_id 0 [
+>> >>>> 122.668504] amdgpu 0000:0a:00.0: sq_intr: error, detail 0x00000000,
+>> >>>> type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_id 0 [  124.687518]
+>> >>>> amdgpu 0000:0a:00.0: Dumping IP State [  124.688351] amdgpu
+>> >>>> 0000:0a:00.0: Dumping IP State Completed [  124.688355] amdgpu
+>> >>>> 0000:0a:00.0: [drm] AMDGPU device coredump file has been created [
+>> >>>> 124.688357] amdgpu 0000:0a:00.0: [drm] Check your
+>> >>>> /sys/class/drm/card0/device/devcoredump/data
+>> >>>> [  124.688361] amdgpu 0000:0a:00.0: ring gfx_0.0.0 timeout,
+>> >>>> signaled seq=3D569, emitted seq=3D571 [  124.688366] amdgpu
+>> >>>> 0000:0a:00.0:  Process Xwayland pid 3471 thread Xwayland:cs0 pid
+>> >>>> 3479 [  124.688369] amdgpu
+>> >>>> 0000:0a:00.0: Starting gfx_0.0.0 ring reset [  126.560451] amdgpu
+>> >>>> 0000:0a:00.0: MES(0) failed to respond to msg=3DRESET [  126.560456=
+]
+>> >>>> amdgpu 0000:0a:00.0: failed to detect and reset [  126.560460]
+>> >>>> amdgpu
+>> >>>> 0000:0a:00.0: Failed to detect and reset queues, err (-110) [
+>> >>>> 128.789840] amdgpu 0000:0a:00.0: Ring gfx_0.0.0 reset failed [
+>> >>>> 128.789848] amdgpu 0000:0a:00.0: GPU reset begin!. Source:  1 [
+>> >>>> 128.790161] amdgpu 0000:0a:00.0: Guilty job already signaled,
+>> >>>> skipping HW
+>> >> reset [  128.790174] amdgpu 0000:0a:00.0: GPU reset(1) succeeded!
+>> >>>> [  128.804538] amdgpu 0000:0a:00.0: [drm] device wedged, but
+>> >>>> recovered through reset [  128.804574] amdgpu 0000:0a:00.0: GPU
+>> >>>> reset begin!. Source:  6 [  128.816663] amdgpu 0000:0a:00.0:
+>> >>>> Dumping IP State [  128.817458] amdgpu 0000:0a:00.0: Dumping IP
+>> >>>> State Completed [  130.963939] amdgpu 0000:0a:00.0: MES(1) failed
+>> >>>> to respond to msg=3DREMOVE_QUEUE [  130.963949] amdgpu 0000:0a:00.0=
+:
+>> >>>> failed to unmap legacy queue
+>> >>>>
+>> >>>> Cc: Jesse Zhang <jesse.zhang@amd.com <mailto:jesse.zhang@amd.com>>
+>> >>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com <mailto:sunil.kha=
+tri@amd.com>>
+>> >>>> ---
+>> >>>>    .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 29 -------------=
+------
+>> >>>>    1 file changed, 29 deletions(-)
+>> >>>>
+>> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> >>>> index 3fcd70a38374..0d9a13081f2f 100644
+>> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+>> >>>> @@ -484,16 +484,6 @@ int amdgpu_userq_signal_ioctl(struct
+>> >>>> drm_device
+>> >> *dev, void *data,
+>> >>>>         args->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
+>> >>>>             return -EINVAL;
+>> >>>>
+>> >>>> -  /* Reject non-NULL pointers paired with a zero count. */
+>> >>>> -  if (!args->num_syncobj_handles && args->syncobj_handles)
+>> >>>> -          return -EINVAL;
+>> >>>> -
+>> >>>> -  if (!args->num_bo_read_handles && args->bo_read_handles)
+>> >>>> -          return -EINVAL;
+>> >>>> -
+>> >>>> -  if (!args->num_bo_write_handles && args->bo_write_handles)
+>> >>>> -          return -EINVAL;
+>> >>>> -
+>> >>>>     num_syncobj_handles =3D args->num_syncobj_handles;
+>> >>>>     syncobj_handles =3D memdup_array_user(u64_to_user_ptr(args-
+>> >>> syncobj_handles),
+>> >>>>                                         num_syncobj_handles,
+>> >>>> sizeof(u32)); @@ -
+>> >> 950,25 +940,6 @@
+>> >>>> int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
+>> >>>>         wait_info->num_bo_read_handles >
+>> >> AMDGPU_USERQ_MAX_HANDLES)
+>> >>>>             return -EINVAL;
+>> >>>>
+>> >>>> -  /* Reject non-NULL pointers paired with a zero count: the pointe=
+r
+>> >>>> -   * is meaningless and indicates inconsistent input from userspac=
+e.
+>> >>>> -   */
+>> >>>> -  if (!wait_info->num_syncobj_handles && wait_info->syncobj_handle=
+s)
+>> >>>> -          return -EINVAL;
+>> >>>> -
+>> >>>> -  if (!wait_info->num_syncobj_timeline_handles &&
+>> >>>> -      (wait_info->syncobj_timeline_handles || wait_info-
+>> >>> syncobj_timeline_points))
+>> >>>> -          return -EINVAL;
+>> >>>> -
+>> >>>> -  if (!wait_info->num_bo_read_handles && wait_info->bo_read_handle=
+s)
+>> >>>> -          return -EINVAL;
+>> >>>> -
+>> >>>> -  if (!wait_info->num_bo_write_handles && wait_info->bo_write_hand=
+les)
+>> >>>> -          return -EINVAL;
+>> >>>> -
+>> >>>> -  if (!wait_info->num_fences && wait_info->out_fences)
+>> >>>> -          return -EINVAL;
+>> >>>> -
+>> >>> Mhm, in general such checks look valid to me.
+>> >>>
+>> >>> My educated guess is that userspace sets num_fences =3D 0 to query i=
+f
+>> >>> it needs to
+>> >> resize the pointer out_fences or not.
+>> >>> If you have time please double check which check fails here.
+>> >> Sure, i will check on that but for now i have pushed this revert.
+>> >>
+>> >> regards
+>> >>
+>> >> sunil khatri
+>> >>
+>> >>> Apart from that Reviewed-by: Christian K=F6nig <christian.koenig@amd=
+.com <mailto:christian.koenig@amd.com>>.
+>> >>>
+>> >>> Regards,
+>> >>> Christian.
+>> >>>
+>> >>>>     num_syncobj =3D wait_info->num_syncobj_handles;
+>> >>>>     ptr =3D u64_to_user_ptr(wait_info->syncobj_handles);
+>> >>>>     syncobj_handles =3D memdup_array_user(ptr, num_syncobj,
+>> >>>> sizeof(u32));
+>
 
+
+--_000_PH7PR12MB6633C6E2C2034AF93CCECDAEFF4FAPH7PR12MB6633namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+[AMD Official Use Only - AMD Internal Distribution Only]</div>
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Hi,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+alloca(0) will point to current top of stack and hence it can be said the f=
+ield is initialized.</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Thank you,</div>
+<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
+Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
+s=3D"elementToProof">
+Yogesh</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"display: inline-block; width: 98%;">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<b>From:</b>&nbsp;Koenig, Christian &lt;Christian.Koenig@amd.com&gt;<br>
+<b>Sent:</b>&nbsp;Thursday, March 19, 2026 1:00 PM<br>
+<b>To:</b>&nbsp;Liang, Prike &lt;Prike.Liang@amd.com&gt;; Mohan Marimuthu, =
+Yogesh &lt;Yogesh.Mohanmarimuthu@amd.com&gt;; Khatri, Sunil &lt;Sunil.Khatr=
+i@amd.com&gt;; Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com&gt;; Deucher, Alex=
+ander &lt;Alexander.Deucher@amd.com&gt;; Olsak, Marek &lt;Marek.Olsak@amd.c=
+om&gt;<br>
+<b>Cc:</b>&nbsp;amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop=
+.org&gt;<br>
+<b>Subject:</b>&nbsp;Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAI=
+T ioctl argument validation&quot;
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-size: 11pt;">Hi guys,<br>
+<br>
+well when mesa leaves some fields in the structure uninitialized then that =
+is a pretty bad idea and we should eventually fix that.<br>
+<br>
+But always setting the pointers to valid arrays and just setting the number=
+ of array elements to zero is perfectly valid.<br>
+<br>
+That doesn't even needs a debug message.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+On 3/19/26 07:27, Liang, Prike wrote:<br>
+&gt; [Public]<br>
+&gt;<br>
+&gt;<br>
+&gt; Thanks for the confirmation. If Mesa doesn=92t zero the handle buffer,=
+ I=92m going to drop this validation check in the kernel and then leave a d=
+ebug message for this case.<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt;<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Prike<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; *From:*Mohan Marimuthu, Yogesh &lt;Yogesh.Mohanmarimuthu@amd.com&gt;<b=
+r>
+&gt; *Sent:* Thursday, March 19, 2026 1:31 PM<br>
+&gt; *To:* Liang, Prike &lt;Prike.Liang@amd.com&gt;; Khatri, Sunil &lt;Suni=
+l.Khatri@amd.com&gt;; Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com&gt;; Khatri=
+, Sunil &lt;Sunil.Khatri@amd.com&gt;; Koenig, Christian &lt;Christian.Koeni=
+g@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Olsak,
+ Marek &lt;Marek.Olsak@amd.com&gt;<br>
+&gt; *Cc:* amd-gfx@lists.freedesktop.org<br>
+&gt; *Subject:* Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAIT ioc=
+tl argument validation&quot;<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; [Public]<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; Hi Prike,<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; Regarding below check in the Kernel patch,<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; /* Reject non-NULL pointers paired with a zero count. */<br>
+&gt;<br>
+&gt; if (!args-&gt;num_syncobj_handles &amp;&amp; args-&gt;syncobj_handles)=
+<br>
+&gt;<br>
+&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return -EINVAL;<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; Mesa uses alloca for args-&gt;syncobj_handles, alloca(0) returns non N=
+ULL.<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; I think the check &quot;Reject non-NULL pointers paired with a zero co=
+unt&quot; in Kernel can be skipped.<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; Thank you,<br>
+&gt;<br>
+&gt; Yogesh<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; ----------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+---------------------------------------------------------------------------=
+--------------------<br>
+&gt;<br>
+&gt; *From:*&nbsp;Liang, Prike &lt;Prike.Liang@amd.com &lt;<a class=3D"OWAA=
+utoLink" id=3D"OWA4bfe5349-c817-2b56-80a8-37b1e7685e30" href=3D"mailto:Prik=
+e.Liang@amd.com">mailto:Prike.Liang@amd.com</a>&gt;&gt;<br>
+&gt; *Sent:*&nbsp;Thursday, March 19, 2026 8:03 AM<br>
+&gt; *To:*&nbsp;Khatri, Sunil &lt;Sunil.Khatri@amd.com &lt;<a class=3D"OWAA=
+utoLink" id=3D"OWA9731cae4-1810-8939-30bd-3596b397aba8" href=3D"mailto:Suni=
+l.Khatri@amd.com">mailto:Sunil.Khatri@amd.com</a>&gt;&gt;; Zhang, Jesse(Jie=
+) &lt;Jesse.Zhang@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OWAc1f77a63-e2=
+1b-5792-9b33-9ff9d131ffd9" href=3D"mailto:Jesse.Zhang@amd.com">mailto:Jesse=
+.Zhang@amd.com</a>&gt;&gt;;
+ Khatri, Sunil &lt;Sunil.Khatri@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"=
+OWA395f71c8-71c1-b4b0-10bf-5aa5591ce661" href=3D"mailto:Sunil.Khatri@amd.co=
+m">mailto:Sunil.Khatri@amd.com</a>&gt;&gt;; Koenig, Christian &lt;Christian=
+.Koenig@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OWA5db2f4f6-53a4-0719-8d=
+c9-9139c80cc606" href=3D"mailto:Christian.Koenig@amd.com">mailto:Christian.=
+Koenig@amd.com</a>&gt;&gt;;
+ Deucher, Alexander &lt;Alexander.Deucher@amd.com &lt;<a class=3D"OWAAutoLi=
+nk" id=3D"OWA86ed15a5-3272-365a-6753-46bbd20639e1" href=3D"mailto:Alexander=
+.Deucher@amd.com">mailto:Alexander.Deucher@amd.com</a>&gt;&gt;; Mohan Marim=
+uthu, Yogesh &lt;Yogesh.Mohanmarimuthu@amd.com &lt;<a class=3D"OWAAutoLink"=
+ id=3D"OWA8e0e471e-9020-2c51-2593-ec14f7482679" href=3D"mailto:Yogesh.Mohan=
+marimuthu@amd.com">mailto:Yogesh.Mohanmarimuthu@amd.com</a>&gt;&gt;;
+ Olsak, Marek &lt;Marek.Olsak@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OW=
+A4db333b2-421a-3a1a-6841-27ce13af298f" href=3D"mailto:Marek.Olsak@amd.com">=
+mailto:Marek.Olsak@amd.com</a>&gt;&gt;<br>
+&gt; *Cc:*&nbsp;amd-gfx@lists.freedesktop.org &lt;<a class=3D"OWAAutoLink" =
+id=3D"OWA17a5ed4d-9c4e-f53d-02aa-a7ac031f787c" href=3D"mailto:amd-gfx@lists=
+.freedesktop.org">mailto:amd-gfx@lists.freedesktop.org</a>&gt; &lt;amd-gfx@=
+lists.freedesktop.org &lt;<a class=3D"OWAAutoLink" id=3D"OWA7326371a-f0dc-5=
+20d-a3aa-1a5a57b0c64e" href=3D"mailto:amd-gfx@lists.freedesktop.org">mailto=
+:amd-gfx@lists.freedesktop.org</a>&gt;&gt;<br>
+&gt; *Subject:*&nbsp;RE: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAI=
+T ioctl argument validation&quot;<br>
+&gt;<br>
+&gt; &nbsp;<br>
+&gt;<br>
+&gt; [Public]<br>
+&gt;<br>
+&gt; Add @Mohan Marimuthu, Yogesh/@Olsak, Marek<br>
+&gt;<br>
+&gt; It looks like the validation in several places doesn=92t match how Mes=
+a allocates these buffers. i.e when num_syncobj_handles is zero, syncobj_ha=
+ndles must not be required to be NULL, because Mesa leaves it uninitialized=
+ when allocating it on the stack. We
+ should either implement a proper fix in Mesa for this case or drop the kno=
+wn broken validation check.<br>
+&gt;<br>
+&gt; Regards,<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Prike<br>
+&gt;<br>
+&gt;&gt; -----Original Message-----<br>
+&gt;&gt; From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org &lt;<a cla=
+ss=3D"OWAAutoLink" id=3D"OWAa7ab9b90-07c0-0619-6a64-b4d71bbd5aa8" href=3D"m=
+ailto:amd-gfx-bounces@lists.freedesktop.org">mailto:amd-gfx-bounces@lists.f=
+reedesktop.org</a>&gt;&gt; On Behalf Of Khatri, Sunil<br>
+&gt;&gt; Sent: Wednesday, March 18, 2026 5:39 PM<br>
+&gt;&gt; To: Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com &lt;<a class=3D"OWAA=
+utoLink" id=3D"OWAd6edc85e-4081-9596-3221-d8acf2eb9af9" href=3D"mailto:Jess=
+e.Zhang@amd.com">mailto:Jesse.Zhang@amd.com</a>&gt;&gt;; Khatri, Sunil<br>
+&gt;&gt; &lt;Sunil.Khatri@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OWA371=
+1c294-16d2-2428-0726-9ecd8a7deb5b" href=3D"mailto:Sunil.Khatri@amd.com">mai=
+lto:Sunil.Khatri@amd.com</a>&gt;&gt;; Koenig, Christian &lt;Christian.Koeni=
+g@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OWAf4369d89-5995-20f5-46d3-6c1=
+b8c91215a" href=3D"mailto:Christian.Koenig@amd.com">mailto:Christian.Koenig=
+@amd.com</a>&gt;&gt;;<br>
+&gt;&gt; Deucher, Alexander &lt;Alexander.Deucher@amd.com &lt;<a class=3D"O=
+WAAutoLink" id=3D"OWAe2105c77-cd2b-d07a-1304-83077abb4a0b" href=3D"mailto:A=
+lexander.Deucher@amd.com">mailto:Alexander.Deucher@amd.com</a>&gt;&gt;<br>
+&gt;&gt; Cc: amd-gfx@lists.freedesktop.org &lt;<a class=3D"OWAAutoLink" id=
+=3D"OWAb21ac47b-9338-b3f0-45d1-1fe1c9785ae7" href=3D"mailto:amd-gfx@lists.f=
+reedesktop.org">mailto:amd-gfx@lists.freedesktop.org</a>&gt;<br>
+&gt;&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAIT i=
+octl argument<br>
+&gt;&gt; validation&quot;<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; On 18-03-2026 03:02 pm, Zhang, Jesse(Jie) wrote:<br>
+&gt;&gt; &gt; [AMD Official Use Only - AMD Internal Distribution Only]<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt;&gt; -----Original Message-----<br>
+&gt;&gt; &gt;&gt; From: Khatri, Sunil &lt;Sunil.Khatri@amd.com &lt;<a class=
+=3D"OWAAutoLink" id=3D"OWA84dcfcde-109d-4294-c791-337586d0fe9d" href=3D"mai=
+lto:Sunil.Khatri@amd.com">mailto:Sunil.Khatri@amd.com</a>&gt;&gt;<br>
+&gt;&gt; &gt;&gt; Sent: Wednesday, March 18, 2026 4:22 PM<br>
+&gt;&gt; &gt;&gt; To: Koenig, Christian &lt;Christian.Koenig@amd.com &lt;<a=
+ class=3D"OWAAutoLink" id=3D"OWA571a8c72-efc5-be3c-d058-09b21d3c2c5c" href=
+=3D"mailto:Christian.Koenig@amd.com">mailto:Christian.Koenig@amd.com</a>&gt=
+;&gt;; Khatri, Sunil<br>
+&gt;&gt; &gt;&gt; &lt;Sunil.Khatri@amd.com &lt;<a class=3D"OWAAutoLink" id=
+=3D"OWA141b7cc4-6a36-4291-e78b-03e8b718c2aa" href=3D"mailto:Sunil.Khatri@am=
+d.com">mailto:Sunil.Khatri@amd.com</a>&gt;&gt;; Deucher, Alexander<br>
+&gt;&gt; &gt;&gt; &lt;Alexander.Deucher@amd.com &lt;<a class=3D"OWAAutoLink=
+" id=3D"OWAc4849d85-aa37-8655-bff8-efe821d8027e" href=3D"mailto:Alexander.D=
+eucher@amd.com">mailto:Alexander.Deucher@amd.com</a>&gt;&gt;<br>
+&gt;&gt; &gt;&gt; Cc: amd-gfx@lists.freedesktop.org &lt;<a class=3D"OWAAuto=
+Link" id=3D"OWA99c9e2ce-328b-e770-b1cc-375b9d955ee0" href=3D"mailto:amd-gfx=
+@lists.freedesktop.org">mailto:amd-gfx@lists.freedesktop.org</a>&gt;; Zhang=
+, Jesse(Jie)<br>
+&gt;&gt; &gt;&gt; &lt;Jesse.Zhang@amd.com &lt;<a class=3D"OWAAutoLink" id=
+=3D"OWAbf359516-6256-c66f-c318-a619690c928f" href=3D"mailto:Jesse.Zhang@amd=
+.com">mailto:Jesse.Zhang@amd.com</a>&gt;&gt;<br>
+&gt;&gt; &gt;&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGN=
+AL/WAIT ioctl<br>
+&gt;&gt; &gt;&gt; argument validation&quot;<br>
+&gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt; On 18-03-2026 01:29 pm, Christian K=F6nig wrote:<br>
+&gt;&gt; &gt;&gt;&gt; On 3/18/26 08:47, Sunil Khatri wrote:<br>
+&gt;&gt; &gt;&gt;&gt;&gt; This reverts commit 0cdff8eb31c139dde4716e4aa3719=
+8c16364629e.<br>
+&gt;&gt; &gt;&gt;&gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; The patch has caused regression for userqueues wh=
+ere user is stuck<br>
+&gt;&gt; &gt;&gt;&gt;&gt; and is waiting for fences and a gpu reset is trig=
+gered in kernel.<br>
+&gt;&gt; &gt;&gt;&gt;&gt; Also for any of the parameters when count is zero=
+, the driver does<br>
+&gt;&gt; &gt;&gt;&gt;&gt; not read from the pointer and having that check i=
+s overkill.<br>
+&gt;&gt; &gt;&gt;&gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; Application:<br>
+&gt;&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait num_fences fail=
+ed<br>
+&gt;&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait fences failed<b=
+r>
+&gt;&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait num_fences fail=
+ed<br>
+&gt;&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait fences failed<b=
+r>
+&gt;&gt; &gt; After I reverted this patch, the error still occurs when runn=
+ing glxgears.<br>
+&gt;&gt; &gt; Does it work fine on your end if you don't apply this patch?<=
+br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; amdgpu: getting wait fences failed<br>
+&gt;&gt; &gt; amdgpu: getting wait fences failed<br>
+&gt;&gt; &gt; amdgpu: getting wait fences failed<br>
+&gt;&gt;<br>
+&gt;&gt; Yes, it works. You might need to update mesa too. I am using the l=
+atest mesa with<br>
+&gt;&gt; ubuntu and i dont see those error. with your patch they do show.<b=
+r>
+&gt;&gt;<br>
+&gt;&gt; Regards<br>
+&gt;&gt; Sunil Khatri<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Thanks<br>
+&gt;&gt; &gt; Jesse<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; Dmesg:<br>
+&gt;&gt; &gt;&gt;&gt;&gt; [&nbsp; 122.668493] amdgpu 0000:0a:00.0: sq_intr:=
+ error, detail<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 0x00000000, type 1, sh 1, priv 0, wave_id 0, simd=
+_id 0, wgp_id 0 [<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 122.668504] amdgpu 0000:0a:00.0: sq_intr: error, =
+detail 0x00000000,<br>
+&gt;&gt; &gt;&gt;&gt;&gt; type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_i=
+d 0 [&nbsp; 124.687518]<br>
+&gt;&gt; &gt;&gt;&gt;&gt; amdgpu 0000:0a:00.0: Dumping IP State [&nbsp; 124=
+.688351] amdgpu<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: Dumping IP State Completed [&nbsp; =
+124.688355] amdgpu<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: [drm] AMDGPU device coredump file h=
+as been created [<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 124.688357] amdgpu 0000:0a:00.0: [drm] Check your=
+<br>
+&gt;&gt; &gt;&gt;&gt;&gt; /sys/class/drm/card0/device/devcoredump/data<br>
+&gt;&gt; &gt;&gt;&gt;&gt; [&nbsp; 124.688361] amdgpu 0000:0a:00.0: ring gfx=
+_0.0.0 timeout,<br>
+&gt;&gt; &gt;&gt;&gt;&gt; signaled seq=3D569, emitted seq=3D571 [&nbsp; 124=
+.688366] amdgpu<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0:&nbsp; Process Xwayland pid 3471 thr=
+ead Xwayland:cs0 pid<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 3479 [&nbsp; 124.688369] amdgpu<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: Starting gfx_0.0.0 ring reset [&nbs=
+p; 126.560451] amdgpu<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: MES(0) failed to respond to msg=3DR=
+ESET [&nbsp; 126.560456]<br>
+&gt;&gt; &gt;&gt;&gt;&gt; amdgpu 0000:0a:00.0: failed to detect and reset [=
+&nbsp; 126.560460]<br>
+&gt;&gt; &gt;&gt;&gt;&gt; amdgpu<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: Failed to detect and reset queues, =
+err (-110) [<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 128.789840] amdgpu 0000:0a:00.0: Ring gfx_0.0.0 r=
+eset failed [<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 128.789848] amdgpu 0000:0a:00.0: GPU reset begin!=
+. Source:&nbsp; 1 [<br>
+&gt;&gt; &gt;&gt;&gt;&gt; 128.790161] amdgpu 0000:0a:00.0: Guilty job alrea=
+dy signaled,<br>
+&gt;&gt; &gt;&gt;&gt;&gt; skipping HW<br>
+&gt;&gt; &gt;&gt; reset [&nbsp; 128.790174] amdgpu 0000:0a:00.0: GPU reset(=
+1) succeeded!<br>
+&gt;&gt; &gt;&gt;&gt;&gt; [&nbsp; 128.804538] amdgpu 0000:0a:00.0: [drm] de=
+vice wedged, but<br>
+&gt;&gt; &gt;&gt;&gt;&gt; recovered through reset [&nbsp; 128.804574] amdgp=
+u 0000:0a:00.0: GPU<br>
+&gt;&gt; &gt;&gt;&gt;&gt; reset begin!. Source:&nbsp; 6 [&nbsp; 128.816663]=
+ amdgpu 0000:0a:00.0:<br>
+&gt;&gt; &gt;&gt;&gt;&gt; Dumping IP State [&nbsp; 128.817458] amdgpu 0000:=
+0a:00.0: Dumping IP<br>
+&gt;&gt; &gt;&gt;&gt;&gt; State Completed [&nbsp; 130.963939] amdgpu 0000:0=
+a:00.0: MES(1) failed<br>
+&gt;&gt; &gt;&gt;&gt;&gt; to respond to msg=3DREMOVE_QUEUE [&nbsp; 130.9639=
+49] amdgpu 0000:0a:00.0:<br>
+&gt;&gt; &gt;&gt;&gt;&gt; failed to unmap legacy queue<br>
+&gt;&gt; &gt;&gt;&gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; Cc: Jesse Zhang &lt;jesse.zhang@amd.com &lt;<a cl=
+ass=3D"OWAAutoLink" id=3D"OWA13625298-8b04-d9c8-98f0-fa604b828342" href=3D"=
+mailto:jesse.zhang@amd.com">mailto:jesse.zhang@amd.com</a>&gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; Signed-off-by: Sunil Khatri &lt;sunil.khatri@amd.=
+com &lt;<a class=3D"OWAAutoLink" id=3D"OWAd83430b3-77d2-c460-8ffa-e69074df9=
+d5f" href=3D"mailto:sunil.khatri@amd.com">mailto:sunil.khatri@amd.com</a>&g=
+t;&gt;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; ---<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; .../gpu/drm/amd/amdgpu/amdgpu_u=
+serq_fence.c&nbsp;&nbsp; | 29 -------------------<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 1 file changed, 29 deletions(-)=
+<br>
+&gt;&gt; &gt;&gt;&gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_us=
+erq_fence.c<br>
+&gt;&gt; &gt;&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c=
+<br>
+&gt;&gt; &gt;&gt;&gt;&gt; index 3fcd70a38374..0d9a13081f2f 100644<br>
+&gt;&gt; &gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fen=
+ce.c<br>
+&gt;&gt; &gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fen=
+ce.c<br>
+&gt;&gt; &gt;&gt;&gt;&gt; @@ -484,16 +484,6 @@ int amdgpu_userq_signal_ioct=
+l(struct<br>
+&gt;&gt; &gt;&gt;&gt;&gt; drm_device<br>
+&gt;&gt; &gt;&gt; *dev, void *data,<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a=
+rgs-&gt;num_bo_read_handles &gt; AMDGPU_USERQ_MAX_HANDLES)<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;&gt; &gt;&gt;&gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; /* Reject non-NULL pointers paired with a=
+ zero count. */<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!args-&gt;num_syncobj_handles &amp;&a=
+mp; args-&gt;syncobj_handles)<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; return -EINVAL;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!args-&gt;num_bo_read_handles &amp;&a=
+mp; args-&gt;bo_read_handles)<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; return -EINVAL;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!args-&gt;num_bo_write_handles &amp;&=
+amp; args-&gt;bo_write_handles)<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; return -EINVAL;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; num_syncobj_handles =3D a=
+rgs-&gt;num_syncobj_handles;<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; syncobj_handles =3D memdu=
+p_array_user(u64_to_user_ptr(args-<br>
+&gt;&gt; &gt;&gt;&gt; syncobj_handles),<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_syncobj_handles,<br>
+&gt;&gt; &gt;&gt;&gt;&gt; sizeof(u32)); @@ -<br>
+&gt;&gt; &gt;&gt; 950,25 +940,6 @@<br>
+&gt;&gt; &gt;&gt;&gt;&gt; int amdgpu_userq_wait_ioctl(struct drm_device *de=
+v, void *data,<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; w=
+ait_info-&gt;num_bo_read_handles &gt;<br>
+&gt;&gt; &gt;&gt; AMDGPU_USERQ_MAX_HANDLES)<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;&gt; &gt;&gt;&gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; /* Reject non-NULL pointers paired with a=
+ zero count: the pointer<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp; * is meaningless and indicates inco=
+nsistent input from userspace.<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp; */<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_syncobj_handles &a=
+mp;&amp; wait_info-&gt;syncobj_handles)<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; return -EINVAL;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_syncobj_timeline_h=
+andles &amp;&amp;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (wait_info-&gt;sy=
+ncobj_timeline_handles || wait_info-<br>
+&gt;&gt; &gt;&gt;&gt; syncobj_timeline_points))<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; return -EINVAL;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_bo_read_handles &a=
+mp;&amp; wait_info-&gt;bo_read_handles)<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; return -EINVAL;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_bo_write_handles &=
+amp;&amp; wait_info-&gt;bo_write_handles)<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; return -EINVAL;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_fences &amp;&amp; =
+wait_info-&gt;out_fences)<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; return -EINVAL;<br>
+&gt;&gt; &gt;&gt;&gt;&gt; -<br>
+&gt;&gt; &gt;&gt;&gt; Mhm, in general such checks look valid to me.<br>
+&gt;&gt; &gt;&gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt; My educated guess is that userspace sets num_fences =
+=3D 0 to query if<br>
+&gt;&gt; &gt;&gt;&gt; it needs to<br>
+&gt;&gt; &gt;&gt; resize the pointer out_fences or not.<br>
+&gt;&gt; &gt;&gt;&gt; If you have time please double check which check fail=
+s here.<br>
+&gt;&gt; &gt;&gt; Sure, i will check on that but for now i have pushed this=
+ revert.<br>
+&gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt; regards<br>
+&gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt; sunil khatri<br>
+&gt;&gt; &gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt; Apart from that Reviewed-by: Christian K=F6nig &lt;ch=
+ristian.koenig@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OWA1acd249f-4cad-=
+6caf-62af-fdf1ea2c1534" href=3D"mailto:christian.koenig@amd.com">mailto:chr=
+istian.koenig@amd.com</a>&gt;&gt;.<br>
+&gt;&gt; &gt;&gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt; Regards,<br>
+&gt;&gt; &gt;&gt;&gt; Christian.<br>
+&gt;&gt; &gt;&gt;&gt;<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; num_syncobj =3D wait_info=
+-&gt;num_syncobj_handles;<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; ptr =3D u64_to_user_ptr(w=
+ait_info-&gt;syncobj_handles);<br>
+&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; syncobj_handles =3D memdu=
+p_array_user(ptr, num_syncobj,<br>
+&gt;&gt; &gt;&gt;&gt;&gt; sizeof(u32));<br>
+&gt;<br>
+<br>
+</div>
+</body>
+</html>
+
+--_000_PH7PR12MB6633C6E2C2034AF93CCECDAEFF4FAPH7PR12MB6633namp_--
