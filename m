@@ -4,123 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B2C6FB5EAA
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 03:38:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2F971088E70
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 03:45:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F16F810E86F;
-	Thu, 19 Mar 2026 03:38:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C2DB10E866;
+	Thu, 19 Mar 2026 03:45:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QMMC0kSW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b6IQ0quJ";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011019.outbound.protection.outlook.com [40.107.208.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 429C510E86F
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 03:38:37 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011042.outbound.protection.outlook.com
+ [40.93.194.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9604B10E866
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 03:45:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gmDUFCMKMa08NRMsd7Pj6wVrfSEv5evbUExpW5n1Pk99zNH46LJEjU9bWqWeHU7gXCRrgB6gYnFPSKTdyl3FZ76H4JFWNmjqBZGRSRHnQTPkU8Az70wMxfZ9tjfiBQJ1cVVc+zrMue6sdGnNIxeBkp5hHv2JMMc8v/Va1PZK028Bzu/G06iuz/x3lt5i5O1DCbpg5rgAV2Vxn4lSJgD/M8KYLzFuxy0eMBaXsP4BE9vb4ECEOGPVEN0Qtw95/hd/BBnNEg+a8QeqqZZli02TjLE/7M7IPQM172zb8CgnPsacP2zimHNZBAHIDdNO+41KVPZSqrnvtFTc8M7O56XSig==
+ b=E+kc1FEQ+V7XHahiXkvSN5XI0w7FkZxSou1H1TY5FwmXPxnMtZgFZurcHlSNnGtz/AE2CtfmQkz7kEi6UnKkLcTc1MR3UlZaTC0M7x1Vv8MZ2GQyTzGkaNy0POQot/L+KgjJRSSUW3seofU3r1RungLE1HuFDh/kib3JDkyvjCUV98q6TP5DQRO7PGGZUuxlvo2tkU+03/MtGIwaA145oIOh2H4rQhY74Le+VdMnr/YnIsFScEmQbEdYypw9914ZOhQEMTs5vAPvUHJI4IWIgl+jsC5DLP/Uc9ZgEwBhK7Pr/hmDnp2KnJouLAJzc3wsBqf/hc1xKRM8tbrOVaC8WQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N5dTUyHTyXq/oW8QP3EMamMJ5TEOZSX5d3TGxu7H9oE=;
- b=nqFiQZReIvuTMw8Bjx6mGQzdWJA7VaX490xeTtoYnz472bXAYxI2Tv4VzWgBDUaopwpFlUmp32UCsPzZF8qiNl2GPJ7Xd4u5UQLHIU8l674Ed4ED9/UTjW9tHi6wP9MoItetsEz31rEZuttDnlgZGpdr5bSoggTuY7FGoBpQIM0PDjaG1zHl2Vd4xlIZ5BPcP1az2TcsTwK8RM4p2QAfyVa7f83+jNKk3VmZGVfZg11N7/0mZn77stbnWEEOhUSba6MEkbQ1DPY5nNee56LYc/tR6HQ+klCPLCj2ohuoCXCEE+FMCgpO+LLlfA3pGbmAU/9uo+FDd4ODQ3G62mdflw==
+ bh=g6lqsQobPkc9e6f+86kssKJZSQFsNF90XMHS/7CPFJs=;
+ b=HsDWQ9mUl57UpTbj4dEgkfeXuHcO+jtdmgLJHzp6wsL8cyF0SFzMivKJ+G6iC9K4ZhHQ5jm3qtNOK/JsLVF1CI5BpodkW4DQo9T9rVJj3pTYZxAakNRE/Nr1iBGzpKIz6llImbBpt7LD8iv+08PhGE2dLa1qfmYTrPl4T9H/rAtaY1gyssunhinGPzGCtlOpqe57Z4VzMSOZ8cNqIrmtC8cjfzI/L+iRRRwmtIoQbsFp/tIsKXFsdzTAPaYG97lPc9V9qRWrIVOpga804HQGqdiBoxgcb2hVMhoW/ooCf7Zdt6ATMl8FyPHl6Zk+/9XOuCnSfPMv3MagARLEWego3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N5dTUyHTyXq/oW8QP3EMamMJ5TEOZSX5d3TGxu7H9oE=;
- b=QMMC0kSWbzWXv1M0PQMjk524Vw7o9zEKXw9N/QHuFGsnk0z5cX6QibdVh0I04EER+UVNijuywcRPL9pnWftJhy6SjsIubZpg2x3ZNbx+wqescpYdABAUuQJNBYyaXnzf0sT8Qipai0ftMCjVzw2/Oqq/IAu3e0YWh3Ip8e4YTY8=
+ bh=g6lqsQobPkc9e6f+86kssKJZSQFsNF90XMHS/7CPFJs=;
+ b=b6IQ0quJaJOjDgZWaUWJrYYs8iXutiAnxeuyHyO2DfLs+nWoeIbK/c9msj34lWGHKYHIXo6ojdsYi47pIGNEiYyd+Hh/bpVO1Tp843gU+2PRaBVY6USIHPs0gj4vIV5CNp7A1MWNcO1ouucK0y9u2KceM7Q+/oNFoRGWk3ypFGI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by PH8PR12MB7181.namprd12.prod.outlook.com (2603:10b6:510:22a::17)
+ by LV8PR12MB9111.namprd12.prod.outlook.com (2603:10b6:408:189::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Thu, 19 Mar
- 2026 03:38:29 +0000
+ 2026 03:45:46 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
- 03:38:29 +0000
-Message-ID: <c9603e2e-a55f-4a98-8d5d-86285d6f28dc@amd.com>
-Date: Thu, 19 Mar 2026 09:08:24 +0530
+ 03:45:45 +0000
+Message-ID: <a5044ebf-d4e3-4363-a211-9b6144c37c29@amd.com>
+Date: Thu, 19 Mar 2026 09:15:39 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH Review 1/1] drm/amdgpu: Add amdgpu_regs_pcie64 debugfs node
-To: "Yang, Stanley" <Stanley.Yang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260318112201.3779461-1-Stanley.Yang@amd.com>
- <f65148cd-5cf6-49c6-82de-9d0c22684656@amd.com>
- <PH7PR12MB7988DA658EB703CDFB61F4759A4FA@PH7PR12MB7988.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to
+ unify msg sending logic
+To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
+References: <20260319020910.2620721-1-kevinyang.wang@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <PH7PR12MB7988DA658EB703CDFB61F4759A4FA@PH7PR12MB7988.namprd12.prod.outlook.com>
+In-Reply-To: <20260319020910.2620721-1-kevinyang.wang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0049.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:22::24) To SA0PR12MB7091.namprd12.prod.outlook.com
+X-ClientProxiedBy: PN2PR01CA0031.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:22::6) To SA0PR12MB7091.namprd12.prod.outlook.com
  (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH8PR12MB7181:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2d3fe18d-9d3b-4f86-c71b-08de8568fc46
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|LV8PR12MB9111:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ac77b0c-590d-4b97-19b7-08de856a0076
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|366016|18002099003|22082099003|56012099003|7053199007;
-X-Microsoft-Antispam-Message-Info: LxHnA6WG6oMzC6AjpcMLLSrLHIN6oqf2wvH9H7bxZUMBsXF6qLkaDX+K0gLaRAvIQNPjhP4U76UpAVEyWcRXm1sc8EFKTwudOrhs8Ekv8680ZWO8Rn4l9JT89Tq6Hea1VFP/AVJN3fOaOu5kQBeGtZtV6gcufI0ppRqrC64BksWDbd41cclzDCWQKcLnBjAzWOGzV6y3cCFpHjNL5BbqJec1GMC1Vt5J/mFIzrH6hHSVBwDppezH2zb+XR/7kul/v6baTaNMo+1hhoy4acErAoQcI17aL3lh2qY+zBQ9eUJHHv4tQQoU7H4f1fO+vY5p+YVHs+CWdiNerE+/fYWJO9IR0EXeO3kx7pJQe1O18HS7dX8BLq9G2mlaQlEBdqYk7g0VgyRo0wmECWXQH4xmpaxuJUyG3hv/t8PPXoi5ehfL2ovr1RkSatYBgobRx/SFaSo5JLK0LJw5DEKttI32fr7E/z2Uh4aN9m8Igjw5RHTjx/jXxHx6cf26tD0fp+PpSBtrRXBhABdKDEpfWfG50TI53CYbOL2wnHHVt468yNrqxMjm11mpBh1zN+vbcu74nv4R6/6XQr2mSEp/L+FLHqmCt0wpeNSTl/RmG3qe9irDBraxwZ+zIMhkziH4rIDl/0fhWccfpHF3f/uOq+AsXrZ53xKernATGtPcLpcmpaDfaWDwQFxHYFRHwEy/wXxMj973l3RcESQntF5n0YalTBwIj9BFFT6mE9FZiSgS6xEgu7NWfK717me+H1ySm9No
+ ARA:13230040|1800799024|376014|366016|22082099003|18002099003|56012099003; 
+X-Microsoft-Antispam-Message-Info: R39FAK2JAy12VGSTSYhzvVZ5cUgiRGIa8yUrtS3zf6emXdzeo2hBAZLS0QO4g8Ihz4GyzDip94uBz17WCUUthKMFs3V8MGr2XtmAXro2zETCZqv2yfixQHV9pbjgDKRlpeJC2T4J2Ek5RsXIv5LbLgau1nHzZwydwvk/ZzrAG+cxlrzcdGXO5sLnnq4xi0haI+pvRoKO1l2exGTK+nnuOlA0wS+FoUoQtTRgClkIRd3ORhfseeUgAxCv22N4u/Zdnhlx4NqeiORLavGdF+gnNB7dhAeY0R0zsYN+0p1kKhppAkCGyHRvgu2dIa/UZXh4XNiYnOy+VYVpHyiuImkIje9X6bL5eFSVC3FKw2thoc6a4fZI1E5hx3Q+HjHGd/w0FTpiJ1hrVyN1ui8NhdKuG7SW1MGu7918ZiNUQVpEq2QSaxDaIenYNxWnOTkY5s+xfcU9zYFAEL+UIZ47EB+qvQA8oXLI6trxwwXXKLDeJN16+T1ydZzjK0cRmpdTPodh9lQ4iysl/EpZ9JREmawTfP+en9vVm7zJltt5WiKWJV6durfV/g6jIlrzFG1DnwKbZEjzYfR0cWVB59Yb///YZP6+uyW8WSqkhrew265qGVPk9ygfzSgq/misUtT/22sapCUPXnGMow5mcanuaCTFxe54ZZ8vtDUWNlbFayMTEP5+Ujt+n3sYEI6D9XoWGnmgJB5NV5xLsd4yK5rfYYCxNF8UKAELkuWUBC+fAmwqWLs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(366016)(18002099003)(22082099003)(56012099003)(7053199007);
+ SFS:(13230040)(1800799024)(376014)(366016)(22082099003)(18002099003)(56012099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WlArR1NSQUtZMWZidnFCdGZYQ3BpcUY0MEhjSWpBU2RVZnVWYWdEcmlZNzBJ?=
- =?utf-8?B?bXVlWmJKcnRGU3NmYUIvNkkrWE1KU3BCOHZRK1ZxL0I3SGo5dk1WUGRPRTVU?=
- =?utf-8?B?U3o4ZkZ6QXNZbUZzbGlub2VxRS9CM1p6T3BPZjR4MFRWeW5xdUFVbDRkb0lO?=
- =?utf-8?B?eWdzTGY2eTEwRy85cXl3cEt0QXdlR0NyWjYzbkh1MitQYm9BaWJlQk1MUVVG?=
- =?utf-8?B?N1JZWWpTMUJaS3FZRFNFWVlNenRTOGVoKzB5cGJ3QzZrM0ZRSFBEa1ZDek1D?=
- =?utf-8?B?NmczMENiL2tnQVhrdGthUzJZYndBdTZtSURLNEVmSS9hR0M5ZU9aVmtuWlRq?=
- =?utf-8?B?dytFUUl3dDdkN05XVU9jeWpCZ2RDdWM3OVV6NGpkQzE1d1cxeTFZbHF4S3NO?=
- =?utf-8?B?bW1UV1ZXZG1jRlpDMEg5RkpzRFZtYTFqWnBOV3JUZjh0bi9lVTMxanZTdXA0?=
- =?utf-8?B?TnNwM2ZQY29Zd0RNelVRbnI3MDZncmRaM1FiaGZNalZid1dScllTb2cxMUR1?=
- =?utf-8?B?bHdxclFUbi9YaCtHaGlzdHQ3RzVxam5tbi9nUG16eDM0UmRFLzhCa203a2l2?=
- =?utf-8?B?dWpyWDZzSjYvOVNTUDNFM2hwUC9kYWpJTXdSZHY3OEVOa3VhSnIrVFRneEgz?=
- =?utf-8?B?VGRZQ1FuMDFWTnVMeThad0ZYT1VZTDcvR3htR0k2RUVBQTRJdHU0bUF3S1pt?=
- =?utf-8?B?SGw1R1hmTS9CY3BsZnAwU3VJZW1YMkRvTThPa1lYdkJoM1d0OGVKSkNKMmxF?=
- =?utf-8?B?aS9USjlteHN4NVJJZGlBdmdhc1E3WjhRekFiVGRmN21IWWU5bHBXRC93bkJp?=
- =?utf-8?B?dnZOSUlTY2h4WWJqMmwxVHNZbEk0ZTBVZmdOZ2hDYnRId3Rjd2MyZDVmOXVk?=
- =?utf-8?B?S3NoSm1KOTJieE1GTG1RS2FJNjMzSmtRejdNblo4clJFbGt2c2x0ekFCNy8w?=
- =?utf-8?B?cmU4NjhWbU9DbjRxYjBzM0pZbmdXNHg3alpZOFlYdmZZN3pnd3lsbnBBWG9K?=
- =?utf-8?B?TkJETEZNYUtTY09ad1NhZHdPK0lrV0tGb3JrMnhzNWx2MlRVOU5JRzNLb3Fw?=
- =?utf-8?B?VDJrREZYQlN5d2RSTVhmT2R3NXJsNWNXRVNwM1FUYTFzL1ZpeHV4N0g5Nytn?=
- =?utf-8?B?ek1PcXBiaE9QYnJOQlNkbXNEbE5FMnJMTTJ0QXhrVStxNnE0dmZwZjQyVnZs?=
- =?utf-8?B?aVNPU0J2cEx0N1RzalA3VmVoSlpydVYwR3kxRkVDU0hPblpKNGdBSi91azJo?=
- =?utf-8?B?b3R4UFJid1QwS2JGOEhPcjlpMURGdC8vYmh1TjJPdU1SZ2dWZHc3LzkxbHRw?=
- =?utf-8?B?Yk1FV0Q4K1pJS2h1VW03b0VjK2JkNlF5akhUV2xwODkxN2xxSklnYzNhdmNS?=
- =?utf-8?B?d3pjZWhpZ0hNSk4ySjhYaTZEYmpiT1Bha21QQ0pnN21LcmxGcGd3M2FELytn?=
- =?utf-8?B?UHZGd1k2NEVwdi9Dek94Ly9jcEZldWx5UnV5VXBIdWtjVUxONTdxbFozVGQw?=
- =?utf-8?B?a2FWSkdlMVZFWWtXOStQdlBWWlRMbzRWVTg3RCt4TU9DTERVMlhlSnducW5Y?=
- =?utf-8?B?SmU3SHc0M0JkbjZkM1NqZG8vMHJBM1RKN3Z5YlJoaGpQdEduL0Z0OXZBMFBz?=
- =?utf-8?B?MTFnYVg4NXFaMmxjcWo5eVdKdk1vU25zUnVUeHp6dDFiSXhMbmcwdjg4WGhS?=
- =?utf-8?B?b21UdkV6b0NXR2pleW1VNzZrYzhNN2MybnI1SkxIc0NDb3U1c0l5c2ZMV29t?=
- =?utf-8?B?eFFnK1c5VmpFU3VqZHlwb0F2R3JDKzU0K2xRc2VGMTlRRkxlUTRYM3U3d1Vw?=
- =?utf-8?B?QVZyU3c0cDY2OUQyaWt3NjgzeTJsUmRRNTgxMGF6bEpJSCtxWUdRdzJlMGoz?=
- =?utf-8?B?WXdWQmdZcXF5VG5pSDBWT3A1NTNDR1VKM2V4QTRPZm02K3Y2MFFPQlczenh6?=
- =?utf-8?B?ZDdHRFNrYThxQVJJRGRTRU9Nd1FQZmhEYllRRmdZaWpqaitzaE5jZ0JYczdm?=
- =?utf-8?B?RkROczRtaXhpUHcrU2xaNzNpaFN2bGk0elB2dVROb3NTZzVwd2NFUEk5YzNW?=
- =?utf-8?B?clMyR0pBbjI3aXZCdVJZaEFTc3ZLT0VUUjR0UHV1RGNRS3kvZTY2SEJhdThY?=
- =?utf-8?B?aVBVMWliK2tqQkV0TWE5dzlXcjdIbFc5MW1ZK0swdVE0TmRMeGs3TGZkckNS?=
- =?utf-8?B?NUwyeThNYWZReDhJSDc1UmhlNGN3SVEyQ2trLzBUSno2dEUzWGpBN1hsOU91?=
- =?utf-8?B?UDlTYXViNzV6L0w5MEJ0N2d6Vy8xRy9CUmhqSUtjeU5XTzNTRzd4N1NCTjlH?=
- =?utf-8?B?UzM0LzFoRlZZT2hjUVgyMmxlTHdjNmVZT3k4L1c4aTFud2pySVRmZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S24rMnk5RUIzOFdUYThlOURTK041dWxyOEl1d05WejEyekcyYU5RaVIyT2FX?=
+ =?utf-8?B?NXk5WFM3bTJjcnhsNHZhM3cwellxc2lyaGYzcTNLS0phVzVYQi9Xam91Y2F2?=
+ =?utf-8?B?aS9ORWV3YnJnZkJqRG1FQzBjRVRnY0d1MW1IQ3BIOWlGcFZnT3NPY0dWM2hX?=
+ =?utf-8?B?SDA5OWVrdGkvYmxya1ZIV0s2NGNnVGJtOUM3S2hMd0F1WnE3c3ErQVFuMXda?=
+ =?utf-8?B?NlpkR1hiajgwUmtDcldVVHBnQ2dHM2lQVWV1T0FnL296bXRxR3p2djMwbmM2?=
+ =?utf-8?B?djVEK1NocTFzU3NPMEJ3cXo1NXlTUEFDTm1la2FmZzJ1MmxZY3d4K2NaSldt?=
+ =?utf-8?B?eWEyYUw5SUd2Y0NBa1VNZzZ5bS85bGFrK3ZHNUF4czQxQjVrQU1UUlZibTZy?=
+ =?utf-8?B?TnNEaVFUajI5dlVEcG1lYWw4akpXUzNKNnpFU20wRlV2WkV5cWpWcyt6UmMw?=
+ =?utf-8?B?NjBoamFqSnR5RFB5YUV2Zmpzb2lleTRZdE84QlpEMTVMck9rR2xzVk9QTnFQ?=
+ =?utf-8?B?WUZSSGNZK3FMQlBHVVJDc3VJYUFINS96THVoNm12d3Z4NG5KRWZmVGhoRXBK?=
+ =?utf-8?B?RHpVTzFFSlBLN2s3QlB1ckhlM0U4VWNSTTNDa0RrS3JGQWF2SXNEemRoWGMv?=
+ =?utf-8?B?SmVsM0JTWG9YcTBLNWFpMjBpUG8zcFJ6eG9kaGNzRDdNWmVMZ1VMSHd4dFJI?=
+ =?utf-8?B?K0R0OWxJNVBtRFpzYm9sUDN3MDJEdGNpK0luVzN2bzRRSGFOREhTYXdqbDl0?=
+ =?utf-8?B?eitiYmpRbkdOTWhsZzREZ0gxUVd2TVp4QTdaOVVYRFcxcDIzUUJWSUpxNTk2?=
+ =?utf-8?B?Tlo1VFBtTGxLcVp4WE1rc3g1Mnl3OEJIcjdiMDhEeDcxTVBXdG5UYUpRWHN3?=
+ =?utf-8?B?MDBtS21zTjhqQXdVdHAxTVNpaGN2d1JtQVU1Mk12VzlzUnNjQll3eGZNTGNY?=
+ =?utf-8?B?dHYxd3NsdEZnWDVZSE9SV0g5eFRVU2ZoTVJhRFlnYW8ydytVaHlQM1VEbG5h?=
+ =?utf-8?B?VjRzTXB5bmJnNGxSSVFUSDdqUWQ2dzRCSzNqK1luZGp6dHJacSt4azJCRUE1?=
+ =?utf-8?B?RXd3Tk9vOGt4N2twOWZBYTNuM0lIQklJT3ZiRU5CcnZndnRqczV0QjUwVDgz?=
+ =?utf-8?B?dDN6NlFJNmFHR1VUbnk1cWFla0hvMytOZUlaUnVyRkxwOG5HQ2JxYUN6M296?=
+ =?utf-8?B?eXk5TGoyWHVBUEUvMnd3TkhNV09yMXhPSWw0ZEM3UnRlOWNlOGZHem50aU9V?=
+ =?utf-8?B?Y3AxNXhQYk5xUzdlR1FlbERRbzBMcnlpeE1WZDVXQmlmM0tQako0RGJVZU1y?=
+ =?utf-8?B?bEJJZld4ZmF2ekhmRlh5bGIyYnFhL3l6ZHZFWG15bGxzVXBWVGlka0RtYWI3?=
+ =?utf-8?B?d0NyZ0pWM2tGQXJOcDY0NXdrZkxVZEEzK3VsTS9NV2NzU05ZNFFxK2s4VHFi?=
+ =?utf-8?B?Y0tTREhMdmx3OUZhUEdYVFhsMXVCK3AzR0tRNTN6MmFMZXhDZitqdUxxMmxz?=
+ =?utf-8?B?SU9YMG5MbEJuY3dtMHVrZm9YaGlJNjd0dXpNVld4NUhJSG5sUnBkdk41dU1F?=
+ =?utf-8?B?VEJLK21ac2ovbGhsY0VBVnZWUENrdEdycFpJZEVybTd6VW92NUJ1Z2xVTEVy?=
+ =?utf-8?B?aGh4SG1EaFZDc1B5b2hrMDFhSFdwdTN2VGpUbm1lenNXQ005Z0t1QmtoWUVJ?=
+ =?utf-8?B?THE2dCtmR1IrYXkzNmxwTnM4Q1I2WmpsbHNwMklPeUxRNjN5OXdMM2ZsTEh6?=
+ =?utf-8?B?YW9GOUZ1MGsyMHRLd3NpMDBBN0tHWGZRTy8vN0NyRXJYTHRxKzRaby9SaGJl?=
+ =?utf-8?B?Zyt1Smowd0dsTHJPY3htZXQxRUI1ZXhTcmxuT1grS3dxdmR0UzJvengzNnVR?=
+ =?utf-8?B?d0ZCZ1FnZkY3U3RNcUY0aDlxOHFtRXBsRGROUUpsTldCVjhaUWJUTmZMaHNi?=
+ =?utf-8?B?T3JiUDU2ZFJEVThiSWdEUGkvWlI1UnFjcmlqZDFDb00reGlrOXVHNXhmNnFu?=
+ =?utf-8?B?N1dKNEdENWRUTEdpR25nbkc3Wk5lcmRvQmVNcGIzekx5MTF1Z1RGdmIzZzB4?=
+ =?utf-8?B?ODVHR0xDbElhSUROaGFvS09kdDJvcTNCbmNnWjMvd0MwaFZPUzYyd0Q2YkVF?=
+ =?utf-8?B?MmNvcThqVlBOeDU4ZXVhMkVCRmp1VmtSSjF3WHJIZkVoQzAwelJwRCt6b0Q4?=
+ =?utf-8?B?RDlhQXJERkVTR29nbmJnUkZIbDdIWWcrdW04MzZxWmNsblRoRWtDM2syWmpH?=
+ =?utf-8?B?ZjlBcW14WGJKSmFka0R1NERuWlRaMTFtRW9lRUQ4VS9jcXpyMVZxYmx3ZkR1?=
+ =?utf-8?B?MEtrOFhkUnBDcTlvOERTVGhCSU85cGtsTTZPbWpLc1djWnJhMitnQT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d3fe18d-9d3b-4f86-c71b-08de8568fc46
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ac77b0c-590d-4b97-19b7-08de856a0076
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 03:38:29.3041 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 03:45:45.8227 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7o3a2f2c/tA8Eb4H749wqYS9q2AIisyWiZS7QZvYZbA4h+cKWAf6Fi3ldMcHp6pn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7181
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7hMK36F/PRLB59VISbBBfVH5zfhRKg2xNJtXIT6YL4Mxb9w3O6Z0K5CfcB/TJNIx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9111
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,198 +137,158 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 19-Mar-26 8:47 AM, Yang, Stanley wrote:
-> [AMD Official Use Only - AMD Internal Distribution Only]
+On 19-Mar-26 7:39 AM, Yang Wang wrote:
+> add variant func smu_cmn_send_msg() to unify smu message sending logic,
+> and enabling support for newer ASIC interfaces such as SMU v15 and upcoming devices.
+> (support multi-param/multi-response, standardize code across all smu code layers)
 > 
->> -----Original Message-----
->> From: Lazar, Lijo <Lijo.Lazar@amd.com>
->> Sent: Wednesday, March 18, 2026 10:43 PM
->> To: Yang, Stanley <Stanley.Yang@amd.com>; amd-gfx@lists.freedesktop.org
->> Subject: Re: [PATCH Review 1/1] drm/amdgpu: Add amdgpu_regs_pcie64
->> debugfs node
->>
->>
->>
->> On 18-Mar-26 4:52 PM, Stanley.Yang wrote:
->>> Add amdgpu_regs_pcie64 debugfs node to read/write 64bit PCIE
->>> registers.
->>>
->>> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 113
->> ++++++++++++++++++++
->>>    1 file changed, 113 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> index 6fdcd9c78324..e15b3aa02919 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
->>> @@ -622,6 +622,111 @@ static ssize_t
->> amdgpu_debugfs_regs_pcie_write(struct file *f, const char __user
->>>      amdgpu_virt_disable_access_debugfs(adev);
->>>      return r;
->>>    }
->>> +/**
->>> + * amdgpu_debugfs_regs_pcie64_read - Read from a 64-bit PCIE register
->>> + *
->>> + * @f: open file handle
->>> + * @buf: User buffer to store read data in
->>> + * @size: Number of bytes to read
->>> + * @pos:  Offset to seek to
->>> + */
->>> +static ssize_t amdgpu_debugfs_regs_pcie64_read(struct file *f, char __user
->> *buf,
->>> +                    size_t size, loff_t *pos) {
->>> +   struct amdgpu_device *adev = file_inode(f)->i_private;
->>> +   ssize_t result = 0;
->>> +   int r;
->>> +
->>> +   if (size & 0x7 || *pos & 0x7)
->>> +           return -EINVAL;
->>> +
->>> +   r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->>> +   if (r < 0) {
->>> +           pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>> +           return r;
->>> +   }
->>> +
->>> +   r = amdgpu_virt_enable_access_debugfs(adev);
->>> +   if (r < 0) {
->>> +           pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>> +           return r;
->>> +   }
->>> +
->>> +   while (size) {
->>> +           uint64_t value;
->>> +
->>> +           value = RREG64_PCIE_EXT(*pos);
->>> +
->>> +           r = put_user(value, (uint64_t *)buf);
->>> +           if (r)
->>> +                   goto out;
->>> +
->>> +           result += 8;
->>> +           buf += 8;
->>> +           *pos += 8;
->>> +           size -= 8;
->>> +   }
->>> +
->>> +   r = result;
->>> +out:
->>> +   pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>> +   pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>
->> autosuspend also marks last_busy, it's no longer required to call it separately.
-> 
-> pm_runtime_put_autosuspend and pm_runtime_get_sync are paired, autosuspend is used to release runtime pm usage count,
-> and it reads last_busy not marks last_busy.
+> The smu_cmn_send_msg() API will expand to the following prototypes based on the number of input parameters.
+> e.g:
+> 1. r = smu_cmn_send_msg(smu, msg_id);
+> 2. r = smu_cmn_send_msg(smu, msg_id, &read_arg);
+> 3. r = smu_cmn_send_msg(smu, msg_id, param, &read_arg);
+> 4. r = smu_cmn_send_msg(smu, msg_id,
+> 			num_param, [param0, param1, ...],
+> 			num_response, [arg0, arg1, ...]
 > 
 
-This is a recent change -
-
-https://lore.kernel.org/linux-pm/20250704075225.3212486-1-sakari.ailus@linux.intel.com/
+The intent behind message control is to make the message protocol 
+transparent to IP versions and specific IP versions to have more control 
+over them - if they need to override a message mechanisms, add specific 
+timeouts to particular messages etc. Overall, they are expected to move 
+away from using 'cmn' and directly use message control operations. That 
+also avoids redundant memory copies of in/out arguments.
 
 Thanks,
 Lijo
 
-> Regards,
-> Stanley
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 79 ++++++++++++++++++++++++++
+>   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h | 22 +++++++
+>   2 files changed, 101 insertions(+)
 > 
->>
->> Thanks,
->> Lijo
->>
->>> +   amdgpu_virt_disable_access_debugfs(adev);
->>> +   return r;
->>> +}
->>> +
->>> +/**
->>> + * amdgpu_debugfs_regs_pcie64_write - Write to a 64-bit PCIE register
->>> + *
->>> + * @f: open file handle
->>> + * @buf: User buffer to write data from
->>> + * @size: Number of bytes to write
->>> + * @pos:  Offset to seek to
->>> + */
->>> +static ssize_t amdgpu_debugfs_regs_pcie64_write(struct file *f, const char
->> __user *buf,
->>> +                     size_t size, loff_t *pos) {
->>> +   struct amdgpu_device *adev = file_inode(f)->i_private;
->>> +   ssize_t result = 0;
->>> +   int r;
->>> +
->>> +   if (size & 0x7 || *pos & 0x7)
->>> +           return -EINVAL;
->>> +
->>> +   r = pm_runtime_get_sync(adev_to_drm(adev)->dev);
->>> +   if (r < 0) {
->>> +           pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>> +           return r;
->>> +   }
->>> +
->>> +   r = amdgpu_virt_enable_access_debugfs(adev);
->>> +   if (r < 0) {
->>> +           pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>> +           return r;
->>> +   }
->>> +
->>> +   while (size) {
->>> +           uint64_t value;
->>> +
->>> +           r = get_user(value, (uint64_t *)buf);
->>> +           if (r)
->>> +                   goto out;
->>> +
->>> +           WREG64_PCIE_EXT(*pos, value);
->>> +
->>> +           result += 8;
->>> +           buf += 8;
->>> +           *pos += 8;
->>> +           size -= 8;
->>> +   }
->>> +
->>> +   r = result;
->>> +out:
->>> +   pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
->>> +   pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
->>> +   amdgpu_virt_disable_access_debugfs(adev);
->>> +   return r;
->>> +}
->>>
->>>    /**
->>>     * amdgpu_debugfs_regs_didt_read - Read from a DIDT register @@
->>> -1544,6 +1649,12 @@ static const struct file_operations
->> amdgpu_debugfs_regs_pcie_fops = {
->>>      .write = amdgpu_debugfs_regs_pcie_write,
->>>      .llseek = default_llseek
->>>    };
->>> +static const struct file_operations amdgpu_debugfs_regs_pcie64_fops = {
->>> +   .owner = THIS_MODULE,
->>> +   .read = amdgpu_debugfs_regs_pcie64_read,
->>> +   .write = amdgpu_debugfs_regs_pcie64_write,
->>> +   .llseek = default_llseek
->>> +};
->>>    static const struct file_operations amdgpu_debugfs_regs_smc_fops = {
->>>      .owner = THIS_MODULE,
->>>      .read = amdgpu_debugfs_regs_smc_read, @@ -1606,6 +1717,7 @@
->> static
->>> const struct file_operations *debugfs_regs[] = {
->>>      &amdgpu_debugfs_gprwave_fops,
->>>      &amdgpu_debugfs_regs_didt_fops,
->>>      &amdgpu_debugfs_regs_pcie_fops,
->>> +   &amdgpu_debugfs_regs_pcie64_fops,
->>>      &amdgpu_debugfs_regs_smc_fops,
->>>      &amdgpu_debugfs_gca_config_fops,
->>>      &amdgpu_debugfs_sensors_fops,
->>> @@ -1623,6 +1735,7 @@ static const char * const debugfs_regs_names[] =
->> {
->>>      "amdgpu_gprwave",
->>>      "amdgpu_regs_didt",
->>>      "amdgpu_regs_pcie",
->>> +   "amdgpu_regs_pcie64",
->>>      "amdgpu_regs_smc",
->>>      "amdgpu_gca_config",
->>>      "amdgpu_sensors",
-> 
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index a644579903f4..bc2ac5ae6a48 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -193,6 +193,85 @@ int smu_cmn_send_smc_msg(struct smu_context *smu,
+>   					       read_arg);
+>   }
+>   
+> +static inline int smu_cmn_send_msg_internal(struct smu_context *smu, enum smu_message_type msg,
+> +					    int num_in_args, u32 *in_args,
+> +					    int num_out_args, u32 *out_args)
+> +{
+> +	struct smu_msg_ctl *ctl = &smu->msg_ctl;
+> +	struct smu_msg_args args = { 0 };
+> +	int ret;
+> +
+> +	if (msg >= SMU_MSG_MAX_COUNT)
+> +		return -EINVAL;
+> +
+> +	if ((num_in_args >= ARRAY_SIZE(args.args) || num_in_args < 0) ||
+> +	    (num_out_args >= ARRAY_SIZE(args.out_args) || num_out_args < 0))
+> +		return -EINVAL;
+> +
+> +	if ((num_in_args > 0 && !in_args) || (num_out_args > 0 && !out_args))
+> +		return -EINVAL;
+> +
+> +	if (!ctl->ops || !ctl->ops->send_msg)
+> +		return -EOPNOTSUPP;
+> +
+> +	args.msg = msg;
+> +	args.num_args = num_in_args;
+> +	args.num_out_args = num_out_args;
+> +	args.flags = 0;
+> +	args.timeout = 0;
+> +
+> +	if (num_in_args)
+> +		memcpy(&args.args[0], in_args, num_in_args * sizeof(u32));
+> +
+> +	ret = ctl->ops->send_msg(ctl, &args);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (num_out_args)
+> +		memcpy(out_args, &args.out_args[0], num_out_args * sizeof(u32));
+> +
+> +	return ret;
+> +}
+> +
+> +/*
+> + * NOTE: To ensure compatibility with the behavioral logic of the legacy API,
+> + * it is required to explicitly set the parameter "param" to 0 when invoking
+> + * the msg_0 and msg_1 functions.
+> + * */
+> +
+> +int __smu_cmn_send_msg_0(struct smu_context *smu, enum smu_message_type msg)
+> +{
+> +	return __smu_cmn_send_msg_2(smu, msg, 0, NULL);
+> +}
+> +
+> +int __smu_cmn_send_msg_1(struct smu_context *smu, enum smu_message_type msg,
+> +			 u32 *read_arg)
+> +{
+> +	return __smu_cmn_send_msg_2(smu, msg, 0, read_arg);
+> +}
+> +
+> +int __smu_cmn_send_msg_2(struct smu_context *smu, enum smu_message_type msg,
+> +			 u32 param, u32 *read_arg)
+> +{
+> +	int ret;
+> +
+> +	if (read_arg)
+> +		ret = smu_cmn_send_msg_internal(smu, msg, 1, &param, 1, read_arg);
+> +	else
+> +		ret = smu_cmn_send_msg_internal(smu, msg, 1, &param, 0, NULL);
+> +
+> +	return ret;
+> +}
+> +
+> +int __smu_cmn_send_msg_4(struct smu_context *smu, enum smu_message_type msg,
+> +			 int num_in_args, u32 *in_args,
+> +			 int num_out_args, u32 *out_args)
+> +{
+> +	return smu_cmn_send_msg_internal(smu, msg,
+> +					 num_in_args, in_args,
+> +					 num_out_args, out_args);
+> +}
+> +
+>   int smu_cmn_send_debug_smc_msg(struct smu_context *smu,
+>   			 uint32_t msg)
+>   {
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> index e4d282d8bcae..f48356c22dbb 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> @@ -209,6 +209,28 @@ int smu_cmn_dpm_pcie_gen_idx(int gen);
+>   int smu_cmn_dpm_pcie_width_idx(int width);
+>   int smu_cmn_check_fw_version(struct smu_context *smu);
+>   
+> +int __smu_cmn_send_msg_0(struct smu_context *smu, enum smu_message_type msg);
+> +int __smu_cmn_send_msg_1(struct smu_context *smu, enum smu_message_type msg,
+> +			 u32 *read_arg);
+> +int __smu_cmn_send_msg_2(struct smu_context *smu, enum smu_message_type msg,
+> +			 u32 param, u32 *read_arg);
+> +int __smu_cmn_send_msg_4(struct smu_context *smu, enum smu_message_type msg,
+> +			 int num_in_args, u32 *in_args,
+> +			 int num_out_args, u32 *out_args);
+> +
+> +/*
+> +* The smu_cmn_send_msg() API will expand to the following prototypes based on the number of input parameters.
+> +* e.g:
+> +* 1. r = smu_cmn_send_msg(smu, msg_id);
+> +* 2. r = smu_cmn_send_msg(smu, msg_id, &read_arg);
+> +* 3. r = smu_cmn_send_msg(smu, msg_id, param, &read_arg);
+> +* 4. r = smu_cmn_send_msg(smu, msg_id,
+> +*			  num_param, [param0, param1, ...],
+> +*			  num_response, [arg0, arg1, ...]
+> +*/
+> +#define smu_cmn_send_msg(smu, msg, ...) \
+> +	CONCATENATE(__smu_cmn_send_msg_, COUNT_ARGS(__VA_ARGS__))(smu, msg, ##__VA_ARGS__)
+> +
+>   /*SMU gpu metrics */
+>   
+>   /* Attribute ID mapping */
 
