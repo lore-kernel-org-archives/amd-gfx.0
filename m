@@ -4,134 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C12F107526F
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 07:43:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43C271075271
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2026 07:48:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A73510E8C1;
-	Thu, 19 Mar 2026 07:43:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDCDB10E8C2;
+	Thu, 19 Mar 2026 07:47:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3u02e87e";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zT1a82Zg";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010051.outbound.protection.outlook.com [52.101.46.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29F5F10E8C1
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 07:43:37 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013032.outbound.protection.outlook.com
+ [40.93.201.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D26C10E8BE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2026 07:47:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gDjZbLHYrbnSgpwkrJ8OQzldwZist9pmHpxcwjipzM94N8mSH+XUoe60cy6dk6HT2mIeP/Id9nbcH8jhXXBPCnxyjrVmmTlCgDobFZ9mdNMD/87vLrfW0euupuGyAVOTWHPHQ+vZ/4LuFf+SyFiKlLk3erA3wuNEvQtDc+9wYAk0zGCyvR4jhJe+cZHXBO4jYRJRub3HSqBCiG40d1VIi1Vc9dHLU4jTnjRXtVdAHCtD36FJqq5jIg9LSV+yMhnELaz0pQLK+p39CvXWZnRC36I/gNf4ko4dIHegf1tpLT87fffbNEFrjeaXSNCTPKHxyNqkcego1ycT9PQe11Xffw==
+ b=DhjZZR+pUvTY+2yxmrob4v2yE9zyxTFe2fnkzMSrJ8YjkFFmOVobQju49EmX0YPclGFb5yyU38fBhSvF1g9m0wrAIoUCBUZdgrN3reusG+H9k1bsy1uOKGiyuwdOfVq08wSUhoS3rnFGL5uTLX7V0avW/WLmcrliBSZJfiS7lt3/te6idLIED6rQxEcKmXBctQLcPuel6QlCKfh7KcgoPl7VvNhqVtp5x0NgUOgrQm3cdcNUDO7zS+/PfBBEaKYKzOs534bSWRStgQp0SLyt5KteZzPVU83d0vewRTqbszTV4+MeegQGiueDk/OBQ996/3r8zKw4laG28GDaQdBseg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+uZQ40zdJsThnCntxkZ2KyFijOsLorgy4tgLrgWQaEo=;
- b=ypI1pPluPZVeS+j52wEuzEq2Xi5j6VwGgEtSwvKvN2Tg/UlnQ/heHSS9m1BJ/9UMXr426xc62ONE7uMNa/kyPj/bAC2M2GatKGlNRhup3Ao8pEMc+NMNFd+WTt2xGcSWRzjSUU3JDFABOarJQzTadweLrXjHflkh3GO63LuWl0/jJJEtP9/t+tSsKZyZbTERZ9cQduj6RkWal4oYahj7MOBsfcC+fWsPxcaVwPCNMy057BRp4QcH8K78orUPHvKD9P06I+V7KXm0Ya+aWSsmZ4xAS0RcyqNj1xZZ3DbNjaz3VKuPy8oZDCCJMCE/84DEGKdreU1arO4Pav88K7lmRw==
+ bh=8UdMnt/HboGS0MAzwNWzVjexNXQ2HFZ5OuiRV2vEBKA=;
+ b=BPU6V8NpNdvHN09UU4+XAEBUvc1mcM0rbC+q6lszW8R0ugdIGV6/f0f1M+0H4IUOUsHJEsHP3fuca8WKkoG00DPHYEF0cc+CxR4/UqK8KC6hpQ/fr+gH721AQ3sf0tIMGSnUSJBu6umnKKm6CGK81et+S5E3Ys2IK8vkUGRSKyru+vleU8RBp9/QuCJT6cZrJJ88Iotbt//ppoziTmDHIdX7UK90Koe2vGNId7xk+w0R8ZsK8kEVT6nGi3MqOAZjOJ4PVTgRRJXmT7uHL0sla3i+8AQObVP+JpW/0mLD80x50dBuTWI2LcaPfuS5xGPjXNh7wx6Vd57OLInLXZpCzQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+uZQ40zdJsThnCntxkZ2KyFijOsLorgy4tgLrgWQaEo=;
- b=3u02e87eqCDj/RxZxm2JAQQz6orJx0rxak9YbwmK7zqyrKcMfE5uf+jCAlorwqrPJfLMJdJ64Ig6nP+yqSXxsCiFkZL4ydaW93v0B9/c+lW73ZbRvgdWxcJp/b6nb3B1bqovYrxcamIl5gQAF6rrPKEi1Zy7QinJvLUaqegOrE0=
-Received: from PH7PR12MB6633.namprd12.prod.outlook.com (2603:10b6:510:1ff::20)
- by DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) with
+ bh=8UdMnt/HboGS0MAzwNWzVjexNXQ2HFZ5OuiRV2vEBKA=;
+ b=zT1a82Zgjo7R7+OxMY9Tfk0jMm+Y5Cm8ioejpDlgkNZLTdj5S8eRrsjNTGngCdGW+obZ7bJcjitJZDuJ67gHrb466+RMxADa328/SoIrQl/vgEAoixs7SZq9ewLaZtYTWlXAllwNnyf58mC+Ef6kz7uxOEIaaI4a390dTOo6btE=
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com (2603:10b6:a03:4ae::12)
+ by DM6PR12MB4403.namprd12.prod.outlook.com (2603:10b6:5:2ab::24) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.9; Thu, 19 Mar
- 2026 07:43:33 +0000
-Received: from PH7PR12MB6633.namprd12.prod.outlook.com
- ([fe80::fbd5:79fe:588c:41c3]) by PH7PR12MB6633.namprd12.prod.outlook.com
- ([fe80::fbd5:79fe:588c:41c3%6]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
- 07:43:32 +0000
-From: "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Liang, Prike"
- <Prike.Liang@amd.com>, "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Zhang,
- Jesse(Jie)" <Jesse.Zhang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Olsak, Marek" <Marek.Olsak@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument
- validation"
-Thread-Topic: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument
- validation"
-Thread-Index: AQHctq0tde2MDjjZ2kW1JaItaybTorWz802AgAATn4CAAAHhAIABG2YAgAAwkJOAABCwAIAAEdmAgAAC+mE=
-Date: Thu, 19 Mar 2026 07:43:32 +0000
-Message-ID: <PH7PR12MB6633C6E2C2034AF93CCECDAEFF4FA@PH7PR12MB6633.namprd12.prod.outlook.com>
-References: <20260318074708.2078535-1-sunil.khatri@amd.com>
- <dfca1bb0-26dd-45bd-ac11-c3756ce808ac@amd.com>
- <48df3b31-724a-4548-a52b-9f034664d422@amd.com>
- <DM4PR12MB5152791EDD4F7021198821E3E34EA@DM4PR12MB5152.namprd12.prod.outlook.com>
- <2e6d0e34-e093-41a9-a4b3-59afe3050dfc@amd.com>
- <PH7PR12MB6000DAD5B8EFDBCB3F3F4663FB4FA@PH7PR12MB6000.namprd12.prod.outlook.com>
- <PH7PR12MB6633BABDE8B0785EF6ADA694FF4FA@PH7PR12MB6633.namprd12.prod.outlook.com>
- <PH7PR12MB6000366C1E6582CD02D90AD6FB4FA@PH7PR12MB6000.namprd12.prod.outlook.com>
- <74e768dc-d4a1-445b-b699-e837a1d20234@amd.com>
-In-Reply-To: <74e768dc-d4a1-445b-b699-e837a1d20234@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.10; Thu, 19 Mar
+ 2026 07:47:51 +0000
+Received: from SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819]) by SJ0PR12MB7082.namprd12.prod.outlook.com
+ ([fe80::fcf5:4106:dc85:4819%5]) with mapi id 15.20.9745.007; Thu, 19 Mar 2026
+ 07:47:50 +0000
+From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
+Subject: Re: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to
+ unify msg sending logic
+Thread-Topic: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to
+ unify msg sending logic
+Thread-Index: AQHct0VyqZvhVAM9RkGgI7r97Rm3d7W1NymAgAAjnACAAB3anw==
+Date: Thu, 19 Mar 2026 07:47:50 +0000
+Message-ID: <SJ0PR12MB70821C13DE8260DE5CBABA48974FA@SJ0PR12MB7082.namprd12.prod.outlook.com>
+References: <20260319020910.2620721-1-kevinyang.wang@amd.com>
+ <a5044ebf-d4e3-4363-a211-9b6144c37c29@amd.com>
+ <DM6PR12MB2972BD4381815DDFD4C650A0824FA@DM6PR12MB2972.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB2972BD4381815DDFD4C650A0824FA@DM6PR12MB2972.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Enabled=True;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_SetDate=2026-03-19T07:43:31.922Z;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Name=AMD
- Internal Distribution
- Only; MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_ContentBits=1;
- MSIP_Label_dce362fe-1558-4fb5-9f64-8a6240d76441_Method=Standard; 
+msip_labels: MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Enabled=True;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_SetDate=2026-03-19T07:40:07.1669361Z;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Name=Open
+ Source; MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_ContentBits=3;
+ MSIP_Label_f265efc6-e181-49d6-80f4-fae95cf838a0_Method=Privileged
+x-ms-reactions: allow
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH7PR12MB6633:EE_|DS0PR12MB6413:EE_
-x-ms-office365-filtering-correlation-id: d87c9c7f-293f-484f-2e7b-08de858b3880
+x-ms-traffictypediagnostic: SJ0PR12MB7082:EE_|DM6PR12MB4403:EE_
+x-ms-office365-filtering-correlation-id: 46bbfc25-bbeb-462a-cd8c-08de858bd22d
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|8096899003|7053199007|18002099003|56012099003|22082099003|921020|38070700021;
-x-microsoft-antispam-message-info: g7W9WIPBRw5aHhikrs7KKWCNAtu2vfSQfwJ82uNTQVHTfXMomeGYte6eABidoLMAutQMJ3Al9ZnPxJGjCZY8wdPcj9uaMB6RHve2ANBgQlbUT69aQSZLjjxw/ku2I+rD4JCDQ1LlBizUzW5JXr+MH5AqvBVmUa4iIwyn6yE2+AW7vo8vnyM98PQ8kWlRX78pjryjygbneHZu0CaMZ6QpcQqaAXdbPBdd8xEHeUFsEYU2smNH9UlVMrxzMKVIJSFSly5jlGc8N+9ig8p6rycKz0ChO38Rp/cwEgdHWjwIkVSWAaNQ7gD9xvZWtn5BZFVJr4zCBfjUmRqoM5mZt2wbX0FfBfd+/bS3CeYrEgv+ia9tO65HSjzv0QNdm+IXvfObdanVTBzc1VILcOup3mce1/v5TQglepVkhB/UoPCHDUoJENRKaTEOUZEeNhwvfoGtr/ZUdqwXa/1DR/Tdt+Ao/zWEvsCpTFDlnYs1zGpEsRiKvHEV1MKBFFJs2OnjZ2voj6OW2DxUf5cyaJLSKeRVqyRPetB9la3G9wzoU2woJT89q3O4FZK37b93TcmsPncoSCqiVRpwgB74MsYAye9Gu1N8p6nf/djGa5wnXZ58oIwBqxXcXX2cHE3zZDqDLHrWWUVutoM560bleevalGo00xJHGMO6k3Xtrin5/ImeJ8XiWI83eatq+Pq1CQ9NmhPp+avEqUAHiEuSwZiIYH/C0UWgXVGOyU0EzUCyI+7d/4wmjhcyBGGtSoAnuVmAIaqH5G924RV7wogKrDGyFYHB2kKh4PVJRlg8S3Rpr8i4wvLflKRPBIyEZEB705CKN4n/
+ ARA:13230040|376014|1800799024|366016|8096899003|38070700021|7053199007|56012099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: viVAtjwg267+iWmE5cNlugKytY7q87pcJLAspySRWAAxT0KIWyFJ11mf7aAMPdGos58NFN9fwPOqTG3+Ha+BtFQZuUxm1oBPvHeyLNc8RkB3SU6WZ2FyE2Df5PejKzlPMChD+Yz6nPvXP1Mr9aZnwJKQ0l4FWZ7H4cDKQFAxj8Qp46bxJ2GjzVr8IFGUMNl1rGn/JLYtczB+plXWaiTwCkEzKiWEidkq99EzJPJ0nvgYm0dDRoPuZ3OCKMnL7Fu+Yf+fqJJIyrQxJAOoZ0/O5o1kRcDaIYwM2q2Zpbt0FLNyKSzdEoZhQnTjzj7ox1VlHMAbN21Gp+4b8VazsWNUBLIk7jQlvhK5ZGKsyHjQX5OvvfEMLlYACngW1+NL078GHq/yg4ekPusoP+6guluemJomARxIaNxkNC7rnLJuYuFk3HTwylsD6Q2JdKylBnlWNKvgH7ITGyaRnRyLr9tZEjCcjBLpoa/JBRMQ7QkbD9BbdF+U28uFvBY6Tdq1w7E4dCJtneMgpd3Ef/EyvDZovOuAj1ua2N88TLsO9nbs1em14OztVz/ppqa+xOfjrzqa64RTJBc09SiXcM/cfiypU9mAj66HX83ycjli9p0aTnlsp173JMyNBCbZlsOkgd85Nt2MpRF3uyk9IaeGU1kP99CNebMTkKg9H37N3AdirxoKltb5GrfZ7Hiob+W85Cw6Vk6sC233xENytgpOm9g47MTNdt25TYsYIiC0ixlvAoCJhBuF8WB1OKpUky2siyZZaA6wfUqsIioIbw3w/5VwqRvusZ6T/trFh1yFX3ZjfX4=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB6633.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(8096899003)(7053199007)(18002099003)(56012099003)(22082099003)(921020)(38070700021);
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(8096899003)(38070700021)(7053199007)(56012099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?j6Xo16aN95+MxF75j+Kve/te+EUmJMRzIk8oXev9l16ziXTqbmvYKf+3?=
- =?Windows-1252?Q?8ykSJ/iXqgPUEgPW0NvCO1cwJx3MGvty8rSwHmy0tgXoZ4C7zR2Xul8D?=
- =?Windows-1252?Q?0f8HnWbp9IiV5eF0ORD3dck736THeCvzS0ERo+Ixlbcf2xpmURXHuCqt?=
- =?Windows-1252?Q?ITZXnFbPzsO/8dA4F0zXiITnrxHgcP/n1COjQ6AzLSl4e2jT8ULlhuPe?=
- =?Windows-1252?Q?xHG2wxAM3ft1xw5gFTrTwEB70vVCop1YRxBqRso0FS8ZpTu532cMAIKi?=
- =?Windows-1252?Q?TTrcTTsN9kS2cxZQvCfzl+Z8FWVRQOIhFsDKTaHc73zoOsVC5qxkYIv/?=
- =?Windows-1252?Q?oRfIJ+Oi5M6+P+Vj7lD2c/vqoY6hq3AlAodrHZX5iwRUm3jVRXBlxa+w?=
- =?Windows-1252?Q?AqnsmawdKNrLKECTuft/i3VY9WzRYKgUWFx1sj355FaFiyNtP/UGHe0I?=
- =?Windows-1252?Q?nl29JgheptHVG0DDIfFzRq9tIBAScFmPXx1UkWRxFAXbi/lCDyOO3jEE?=
- =?Windows-1252?Q?tYZ32hkHoolvOjLLnSUtTYOKdoNloxJ/9y9H6K0dtBUrBv8+W7SGqrmS?=
- =?Windows-1252?Q?prG1A9wz/8lOVRskLOyMsFoae3h2YwX/+CghdIVdQAkxOk6oe38pRjET?=
- =?Windows-1252?Q?jDunBruPuN6PQmiIs2eRBbzbV48dJPwYoWoz1M19xLmjuwvxqboh39c3?=
- =?Windows-1252?Q?J0dundMBg/nx3v0l+uEAh+ozfETZFm+KjeuVa09wQgD3Q8ZLwUCe6FNb?=
- =?Windows-1252?Q?gMWiEwlsOThXbjdtbneenJMnO2QOBomdibKPfCbAYwTiWOSVwsnXSsp3?=
- =?Windows-1252?Q?XzEJY8gmYBMgZ68ao8PwU8x02wUuHBE04e23AdFCKulN64zEF51veV+p?=
- =?Windows-1252?Q?db4vK8QURw60PnLegVRsgVGEYHWoAt5AQyO/ztU6d7X6Fu53YNUe4nPm?=
- =?Windows-1252?Q?wvx7OwufxmLbxIRq+zIsomZ1gfKjE8g2i4YmapT0ydVWz2cttLOYEACa?=
- =?Windows-1252?Q?lhOh38AsQGAJedTf78zzusHtWQk/VJ2OS7ytNaMyrCN1Xx3y5mK00NH4?=
- =?Windows-1252?Q?yU5pKKLNfE+zhPEbJNI31MG3ozIQy8EMnYL8sjNw85apIPB+R8Q4mPU+?=
- =?Windows-1252?Q?7zzrhnz83PH2aIK7kiRSp78GcUZUOB4QPNQrfuhQpBjyMU3s2qyu+xqp?=
- =?Windows-1252?Q?8n4HVUcczngEeh8n673Xyg4s6wtvs5xGeT9ow5e0VAs1o8meHKhpl+2C?=
- =?Windows-1252?Q?MmPjH9ZqXqYgYjppa2z+ZnwJ7p72QMw4/CYUB9jewWhjzU0/+C2iICmw?=
- =?Windows-1252?Q?4qL2iZYrUYMEjZ3LzJmbde3c3h67rLHcjo0s4S/n2Rrdv8lxcq5CwgDj?=
- =?Windows-1252?Q?AUQ0yRNIhdndhAgn0JcWENNu3zebNoXPSvwaknaM6nqXb0JoyZ0KXQns?=
- =?Windows-1252?Q?eAkootOjyZH3bfxMgGdSnFlwr8X3HlMg//doSJjQwPlktBh0hKiEqUD5?=
- =?Windows-1252?Q?8Ped2YG/SkW0blPzJrLxq3UtPrrC5aHZJti9/OhXTFZYpTwb9ugOqbMc?=
- =?Windows-1252?Q?PeGvZmcF9e6QFmZcHBBH8Ay15PRgFvTPxDb05n9jLBg03Q94Oekxlj7u?=
- =?Windows-1252?Q?XA6aUyzcTNeGE5H0xiqy4YxR+mhNtC9Kd0eoa1+kZWJu/IjirqWpWEdP?=
- =?Windows-1252?Q?adZ7VVn8Jsn2DVsaFZmHqt3g7i/fgOVOj95gMEzItcDJHe+Z7U/XN+tj?=
- =?Windows-1252?Q?vgDRbu1IAUhFxiTpD2t51O9Dg2IpbflwYsKCI8WhVOaMn8Ha7P7DkD/2?=
- =?Windows-1252?Q?5TFU++MQMnv33PRfqQosvxlzOW7Ta6yKdEFGrTGWro9EQ5Bm?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0YSureyanUIMpoGBjK3U4D/q8PS1po8Y58rgVkMU2wvalIE5E6weox2j1Epi?=
+ =?us-ascii?Q?LPvlvSrSIa+0BjNRegZDYPqVTQp5SQ6xvsI9k5472DO0pBy4D9lUeTAPqRjj?=
+ =?us-ascii?Q?TDKvjbsBVVgcl87nolgfq5a1ke0hUrOyXiz4G/nT8yiq4v+UY1GSpOPEID6k?=
+ =?us-ascii?Q?hKwfbdYKs30GKuZv7O/oQqSBU4Ril+NqI3S74YqRhopdNURpHx9aKM9sLCSs?=
+ =?us-ascii?Q?MclTkp90YpxGYCjRZo1lEVWPTIySTW94GMiiUtlA5vT5Iac/QDEe+y5gtkB/?=
+ =?us-ascii?Q?xmorSy6CbfzvBw7abaJ29TKAAKTk8NStw3Hr9MBHEbCH/DrWsv+LA5Ane1gv?=
+ =?us-ascii?Q?NkToZZOnIMziMPBSSbpCeaI0LXDs+eupCb0mDA6Ke/zky5q3tO3WeEkdDKu2?=
+ =?us-ascii?Q?EcWvKPD4qNLsgI8+Z2hL8wu4+OaJLU+YLAHrNI4QQKrLTPun7ITDEvwHj6W/?=
+ =?us-ascii?Q?2E5UeWBK85HyhRb6WnPm/gSshlSJ9qv1ETROuJHl0m5Ayjh4LI+valuSvrEx?=
+ =?us-ascii?Q?bGdlh457mR0/2M1LJQzP1IqKfj5nNRJKOlAo7TEmIAT/TDyguaJiZy/sqgzl?=
+ =?us-ascii?Q?81kOe7tQE5Xw4Yxow9vVY9yWDWTu2U/qSvfdvbTkXwGcIGgJCkTRYT8VzXqS?=
+ =?us-ascii?Q?5yyfh0LeTi72QoKqKn4lpB176ToiLl89EfebLR3rxKI2+bH7xdUNjyCeGG5u?=
+ =?us-ascii?Q?61VpMlH/6+/g26esM+J+2SaC5E00RlpenVkeNx93mxmXXJc9KufQhpPkFZNI?=
+ =?us-ascii?Q?yS7wV3hYuCD2FAU8n1dTLS2/jzU1aMU5yvf/hbL1ie6Q+4P9X5rDvqyUfgmB?=
+ =?us-ascii?Q?2xM2iUITxua/wCQ147GLcv9kxMAOabCyQHaEYNaawM0zCKq+fLkvAdLTaZWk?=
+ =?us-ascii?Q?nu8Lz4O3NEdsWzesHAzkDWHRwIUzNlwjs5vTSj+v+rSwJho6oQwEK7GYCtRD?=
+ =?us-ascii?Q?pjp7D816o2w9yenPtNyAV1pf8lpv0MJmDzvjIgf3yClHuFFy97QDRZTZSaEr?=
+ =?us-ascii?Q?uLlIEM2PW2/s3KBCWFlWzUIpJDslLXUi5gNBBVk9RAw1JMhDKrtI1H2AZFZt?=
+ =?us-ascii?Q?ariVQmXm/gASDne9UxCs6ol3GSA6ZmY3fLKw79pW5fyNryjL+DNRY7e8CBuP?=
+ =?us-ascii?Q?7sECpvX5LGZVgHqUfez88gyM0nF71oN7c29xlbYYeIv4xVGNkp1Ic+n7tefy?=
+ =?us-ascii?Q?9Krw1o0wvgTstVwZuwhD6Oh4DNv0kGxRYgd/4Mjyw7SMxDg91DcFgpHnmHt7?=
+ =?us-ascii?Q?CA++kd/dxvcIwK+B6r/sQM0TaX5g1E52b9OU1TaS0JzsrBOBNGL452fa81+N?=
+ =?us-ascii?Q?4ABKPHlSgAQdDDsNGLqhIXt9nCGpiQ6jyk0pFfak2+rfcBrIwHSwRwAx+epf?=
+ =?us-ascii?Q?rAmo23t4GEVLSoe2qaSyqhHH5viUW6/GUl8Rci9FeTO5qTuf0FWY2h5isMrf?=
+ =?us-ascii?Q?LlPPiTIdQ2XWDsJ2GxmwP8YsEpVhwrp8N13eeHU4AN9mS4aIT12fEItjs1RS?=
+ =?us-ascii?Q?z3Hh2MMB2Hdr7eSkWIaba3I53vvWvVkri54TTNS98ik/WvKcEVZUmjA99e6N?=
+ =?us-ascii?Q?CU6+yFu87gTor0oeKJSBSKt0rfr9ws2ULLP0xWB5hu0Qrx/aF9o7TlDsNHQ9?=
+ =?us-ascii?Q?2r1CtyTxNHbDaP5QUXVq8nBgCRhGJphI32VaevO5ErfaBTFPUe7illtsdKHi?=
+ =?us-ascii?Q?ayI6CKiz81M0AKCoYZfJA02w94+J8CFrXcxECVAw4YcEH22o4pED0ra15915?=
+ =?us-ascii?Q?n74TXjiWEg=3D=3D?=
 Content-Type: multipart/alternative;
- boundary="_000_PH7PR12MB6633C6E2C2034AF93CCECDAEFF4FAPH7PR12MB6633namp_"
+ boundary="_000_SJ0PR12MB70821C13DE8260DE5CBABA48974FASJ0PR12MB7082namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB6633.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d87c9c7f-293f-484f-2e7b-08de858b3880
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2026 07:43:32.7775 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7082.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46bbfc25-bbeb-462a-cd8c-08de858bd22d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Mar 2026 07:47:50.5743 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qEOe1y6CqtYqqs1lZQw8SL+I8s4R3J5yMYTKUH1SJ8RwPoIiZ89kwY3q9+gVHlcwdDzU1FKwY6cxcD1P7NYXNg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6413
+X-MS-Exchange-CrossTenant-userprincipalname: AK+LDmpVKqDLFIwmITfd5/P6FDWkDrlDNT/z+H81Z1r5lQnf2998cLHLp6GG3WPK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4403
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,856 +139,563 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_PH7PR12MB6633C6E2C2034AF93CCECDAEFF4FAPH7PR12MB6633namp_
-Content-Type: text/plain; charset="Windows-1252"
+--_000_SJ0PR12MB70821C13DE8260DE5CBABA48974FASJ0PR12MB7082namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+[Public]
+
+The variadic wrapper assigns different argument meanings based on number of=
+ parameters used and the position. It will be hard to read code based on it=
+. There is an optional timeout parameter which will need a 5-argument funct=
+ion. Just don't want to miss out on that if everyone starts focusing only o=
+n cmn helper functions.
+
+Thanks,
+Lijo
+________________________________
+From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+Sent: Thursday, March 19, 2026 11:23:06 AM
+To: Lazar, Lijo <Lijo.Lazar@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
+x@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: RE: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to=
+ unify msg sending logic
 
 [AMD Official Use Only - AMD Internal Distribution Only]
 
-Hi,
+This patch simplifies the development flow with a unified interface and red=
+uces overhead for developers.
+Most developers can implement features without focusing on low-level detail=
+s, while complex message sending scenarios can still use the low-level msg =
+sending APIs directly.
 
-alloca(0) will point to current top of stack and hence it can be said the f=
-ield is initialized.
+Btw,
+The scattered APIs hurt maintainability, and most developers should focus o=
+n business logic rather than low-level details.
+Thus, the "cmn" helper is necessary, it only simplifies the common path whi=
+le keeping full flexibility for advanced use cases.
+We do not have to choose one or the other exclusively.
 
-Thank you,
-Yogesh
-
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Thursday, March 19, 2026 1:00 PM
-To: Liang, Prike <Prike.Liang@amd.com>; Mohan Marimuthu, Yogesh <Yogesh.Moh=
-anmarimuthu@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>; Zhang, Jesse(Ji=
-e) <Jesse.Zhang@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; O=
-lsak, Marek <Marek.Olsak@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argument =
-validation"
-
-Hi guys,
-
-well when mesa leaves some fields in the structure uninitialized then that =
-is a pretty bad idea and we should eventually fix that.
-
-But always setting the pointers to valid arrays and just setting the number=
- of array elements to zero is perfectly valid.
-
-That doesn't even needs a debug message.
-
-Regards,
-Christian.
-
-On 3/19/26 07:27, Liang, Prike wrote:
-> [Public]
->
->
-> Thanks for the confirmation. If Mesa doesn=92t zero the handle buffer, I=
-=92m going to drop this validation check in the kernel and then leave a deb=
-ug message for this case.
->
->
->
-> Regards,
->
->       Prike
->
->
->
-> *From:*Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com>
-> *Sent:* Thursday, March 19, 2026 1:31 PM
-> *To:* Liang, Prike <Prike.Liang@amd.com>; Khatri, Sunil <Sunil.Khatri@amd=
-.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>; Khatri, Sunil <Sunil.Khatri=
-@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander=
- <Alexander.Deucher@amd.com>; Olsak, Marek <Marek.Olsak@amd.com>
-> *Cc:* amd-gfx@lists.freedesktop.org
-> *Subject:* Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argum=
-ent validation"
->
->
->
-> [Public]
->
->
->
-> Hi Prike,
->
->
->
-> Regarding below check in the Kernel patch,
->
->
->
-> /* Reject non-NULL pointers paired with a zero count. */
->
-> if (!args->num_syncobj_handles && args->syncobj_handles)
->
->           return -EINVAL;
->
->
->
-> Mesa uses alloca for args->syncobj_handles, alloca(0) returns non NULL.
->
->
->
->
->
-> I think the check "Reject non-NULL pointers paired with a zero count" in =
-Kernel can be skipped.
->
->
->
->
->
-> Thank you,
->
-> Yogesh
->
->
->
-> -------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
------------------
->
-> *From:* Liang, Prike <Prike.Liang@amd.com <mailto:Prike.Liang@amd.com>>
-> *Sent:* Thursday, March 19, 2026 8:03 AM
-> *To:* Khatri, Sunil <Sunil.Khatri@amd.com <mailto:Sunil.Khatri@amd.com>>;=
- Zhang, Jesse(Jie) <Jesse.Zhang@amd.com <mailto:Jesse.Zhang@amd.com>>; Khat=
-ri, Sunil <Sunil.Khatri@amd.com <mailto:Sunil.Khatri@amd.com>>; Koenig, Chr=
-istian <Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>; Deuche=
-r, Alexander <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>=
-; Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com <mailto:Yogesh.Moh=
-anmarimuthu@amd.com>>; Olsak, Marek <Marek.Olsak@amd.com <mailto:Marek.Olsa=
-k@amd.com>>
-> *Cc:* amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org=
-> <amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>>
-> *Subject:* RE: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argum=
-ent validation"
->
->
->
-> [Public]
->
-> Add @Mohan Marimuthu, Yogesh/@Olsak, Marek
->
-> It looks like the validation in several places doesn=92t match how Mesa a=
-llocates these buffers. i.e when num_syncobj_handles is zero, syncobj_handl=
-es must not be required to be NULL, because Mesa leaves it uninitialized wh=
-en allocating it on the stack. We should either implement a proper fix in M=
-esa for this case or drop the known broken validation check.
->
-> Regards,
->       Prike
->
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org <mailto:amd-gfx-bou=
-nces@lists.freedesktop.org>> On Behalf Of Khatri, Sunil
->> Sent: Wednesday, March 18, 2026 5:39 PM
->> To: Zhang, Jesse(Jie) <Jesse.Zhang@amd.com <mailto:Jesse.Zhang@amd.com>>=
-; Khatri, Sunil
->> <Sunil.Khatri@amd.com <mailto:Sunil.Khatri@amd.com>>; Koenig, Christian =
-<Christian.Koenig@amd.com <mailto:Christian.Koenig@amd.com>>;
->> Deucher, Alexander <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@=
-amd.com>>
->> Cc: amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
->> Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl argume=
-nt
->> validation"
->>
->>
->> On 18-03-2026 03:02 pm, Zhang, Jesse(Jie) wrote:
->> > [AMD Official Use Only - AMD Internal Distribution Only]
->> >
->> >> -----Original Message-----
->> >> From: Khatri, Sunil <Sunil.Khatri@amd.com <mailto:Sunil.Khatri@amd.co=
-m>>
->> >> Sent: Wednesday, March 18, 2026 4:22 PM
->> >> To: Koenig, Christian <Christian.Koenig@amd.com <mailto:Christian.Koe=
-nig@amd.com>>; Khatri, Sunil
->> >> <Sunil.Khatri@amd.com <mailto:Sunil.Khatri@amd.com>>; Deucher, Alexan=
-der
->> >> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>>
->> >> Cc: amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.o=
-rg>; Zhang, Jesse(Jie)
->> >> <Jesse.Zhang@amd.com <mailto:Jesse.Zhang@amd.com>>
->> >> Subject: Re: [PATCH] Revert "drm/amdgpu: harden SIGNAL/WAIT ioctl
->> >> argument validation"
->> >>
->> >>
->> >> On 18-03-2026 01:29 pm, Christian K=F6nig wrote:
->> >>> On 3/18/26 08:47, Sunil Khatri wrote:
->> >>>> This reverts commit 0cdff8eb31c139dde4716e4aa37198c16364629e.
->> >>>>
->> >>>> The patch has caused regression for userqueues where user is stuck
->> >>>> and is waiting for fences and a gpu reset is triggered in kernel.
->> >>>> Also for any of the parameters when count is zero, the driver does
->> >>>> not read from the pointer and having that check is overkill.
->> >>>>
->> >>>> Application:
->> >>>> MESA: error: amdgpu: getting wait num_fences failed
->> >>>> MESA: error: amdgpu: getting wait fences failed
->> >>>> MESA: error: amdgpu: getting wait num_fences failed
->> >>>> MESA: error: amdgpu: getting wait fences failed
->> > After I reverted this patch, the error still occurs when running glxge=
-ars.
->> > Does it work fine on your end if you don't apply this patch?
->> >
->> > amdgpu: getting wait fences failed
->> > amdgpu: getting wait fences failed
->> > amdgpu: getting wait fences failed
->>
->> Yes, it works. You might need to update mesa too. I am using the latest =
-mesa with
->> ubuntu and i dont see those error. with your patch they do show.
->>
->> Regards
->> Sunil Khatri
->> >
->> > Thanks
->> > Jesse
->> >
->> >
->> >>>> Dmesg:
->> >>>> [  122.668493] amdgpu 0000:0a:00.0: sq_intr: error, detail
->> >>>> 0x00000000, type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_id 0 [
->> >>>> 122.668504] amdgpu 0000:0a:00.0: sq_intr: error, detail 0x00000000,
->> >>>> type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_id 0 [  124.687518]
->> >>>> amdgpu 0000:0a:00.0: Dumping IP State [  124.688351] amdgpu
->> >>>> 0000:0a:00.0: Dumping IP State Completed [  124.688355] amdgpu
->> >>>> 0000:0a:00.0: [drm] AMDGPU device coredump file has been created [
->> >>>> 124.688357] amdgpu 0000:0a:00.0: [drm] Check your
->> >>>> /sys/class/drm/card0/device/devcoredump/data
->> >>>> [  124.688361] amdgpu 0000:0a:00.0: ring gfx_0.0.0 timeout,
->> >>>> signaled seq=3D569, emitted seq=3D571 [  124.688366] amdgpu
->> >>>> 0000:0a:00.0:  Process Xwayland pid 3471 thread Xwayland:cs0 pid
->> >>>> 3479 [  124.688369] amdgpu
->> >>>> 0000:0a:00.0: Starting gfx_0.0.0 ring reset [  126.560451] amdgpu
->> >>>> 0000:0a:00.0: MES(0) failed to respond to msg=3DRESET [  126.560456=
-]
->> >>>> amdgpu 0000:0a:00.0: failed to detect and reset [  126.560460]
->> >>>> amdgpu
->> >>>> 0000:0a:00.0: Failed to detect and reset queues, err (-110) [
->> >>>> 128.789840] amdgpu 0000:0a:00.0: Ring gfx_0.0.0 reset failed [
->> >>>> 128.789848] amdgpu 0000:0a:00.0: GPU reset begin!. Source:  1 [
->> >>>> 128.790161] amdgpu 0000:0a:00.0: Guilty job already signaled,
->> >>>> skipping HW
->> >> reset [  128.790174] amdgpu 0000:0a:00.0: GPU reset(1) succeeded!
->> >>>> [  128.804538] amdgpu 0000:0a:00.0: [drm] device wedged, but
->> >>>> recovered through reset [  128.804574] amdgpu 0000:0a:00.0: GPU
->> >>>> reset begin!. Source:  6 [  128.816663] amdgpu 0000:0a:00.0:
->> >>>> Dumping IP State [  128.817458] amdgpu 0000:0a:00.0: Dumping IP
->> >>>> State Completed [  130.963939] amdgpu 0000:0a:00.0: MES(1) failed
->> >>>> to respond to msg=3DREMOVE_QUEUE [  130.963949] amdgpu 0000:0a:00.0=
-:
->> >>>> failed to unmap legacy queue
->> >>>>
->> >>>> Cc: Jesse Zhang <jesse.zhang@amd.com <mailto:jesse.zhang@amd.com>>
->> >>>> Signed-off-by: Sunil Khatri <sunil.khatri@amd.com <mailto:sunil.kha=
-tri@amd.com>>
->> >>>> ---
->> >>>>    .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 29 -------------=
-------
->> >>>>    1 file changed, 29 deletions(-)
->> >>>>
->> >>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> >>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> >>>> index 3fcd70a38374..0d9a13081f2f 100644
->> >>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> >>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
->> >>>> @@ -484,16 +484,6 @@ int amdgpu_userq_signal_ioctl(struct
->> >>>> drm_device
->> >> *dev, void *data,
->> >>>>         args->num_bo_read_handles > AMDGPU_USERQ_MAX_HANDLES)
->> >>>>             return -EINVAL;
->> >>>>
->> >>>> -  /* Reject non-NULL pointers paired with a zero count. */
->> >>>> -  if (!args->num_syncobj_handles && args->syncobj_handles)
->> >>>> -          return -EINVAL;
->> >>>> -
->> >>>> -  if (!args->num_bo_read_handles && args->bo_read_handles)
->> >>>> -          return -EINVAL;
->> >>>> -
->> >>>> -  if (!args->num_bo_write_handles && args->bo_write_handles)
->> >>>> -          return -EINVAL;
->> >>>> -
->> >>>>     num_syncobj_handles =3D args->num_syncobj_handles;
->> >>>>     syncobj_handles =3D memdup_array_user(u64_to_user_ptr(args-
->> >>> syncobj_handles),
->> >>>>                                         num_syncobj_handles,
->> >>>> sizeof(u32)); @@ -
->> >> 950,25 +940,6 @@
->> >>>> int amdgpu_userq_wait_ioctl(struct drm_device *dev, void *data,
->> >>>>         wait_info->num_bo_read_handles >
->> >> AMDGPU_USERQ_MAX_HANDLES)
->> >>>>             return -EINVAL;
->> >>>>
->> >>>> -  /* Reject non-NULL pointers paired with a zero count: the pointe=
-r
->> >>>> -   * is meaningless and indicates inconsistent input from userspac=
-e.
->> >>>> -   */
->> >>>> -  if (!wait_info->num_syncobj_handles && wait_info->syncobj_handle=
-s)
->> >>>> -          return -EINVAL;
->> >>>> -
->> >>>> -  if (!wait_info->num_syncobj_timeline_handles &&
->> >>>> -      (wait_info->syncobj_timeline_handles || wait_info-
->> >>> syncobj_timeline_points))
->> >>>> -          return -EINVAL;
->> >>>> -
->> >>>> -  if (!wait_info->num_bo_read_handles && wait_info->bo_read_handle=
-s)
->> >>>> -          return -EINVAL;
->> >>>> -
->> >>>> -  if (!wait_info->num_bo_write_handles && wait_info->bo_write_hand=
-les)
->> >>>> -          return -EINVAL;
->> >>>> -
->> >>>> -  if (!wait_info->num_fences && wait_info->out_fences)
->> >>>> -          return -EINVAL;
->> >>>> -
->> >>> Mhm, in general such checks look valid to me.
->> >>>
->> >>> My educated guess is that userspace sets num_fences =3D 0 to query i=
-f
->> >>> it needs to
->> >> resize the pointer out_fences or not.
->> >>> If you have time please double check which check fails here.
->> >> Sure, i will check on that but for now i have pushed this revert.
->> >>
->> >> regards
->> >>
->> >> sunil khatri
->> >>
->> >>> Apart from that Reviewed-by: Christian K=F6nig <christian.koenig@amd=
-.com <mailto:christian.koenig@amd.com>>.
->> >>>
->> >>> Regards,
->> >>> Christian.
->> >>>
->> >>>>     num_syncobj =3D wait_info->num_syncobj_handles;
->> >>>>     ptr =3D u64_to_user_ptr(wait_info->syncobj_handles);
->> >>>>     syncobj_handles =3D memdup_array_user(ptr, num_syncobj,
->> >>>> sizeof(u32));
->
+Best Regards,
+Kevin
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Thursday, March 19, 2026 11:46 AM
+To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-gfx@lists.freedesktop.o=
+rg
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: Re: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to=
+ unify msg sending logic
 
 
---_000_PH7PR12MB6633C6E2C2034AF93CCECDAEFF4FAPH7PR12MB6633namp_
-Content-Type: text/html; charset="Windows-1252"
+
+On 19-Mar-26 7:39 AM, Yang Wang wrote:
+> add variant func smu_cmn_send_msg() to unify smu message sending
+> logic, and enabling support for newer ASIC interfaces such as SMU v15 and=
+ upcoming devices.
+> (support multi-param/multi-response, standardize code across all smu
+> code layers)
+>
+> The smu_cmn_send_msg() API will expand to the following prototypes based =
+on the number of input parameters.
+> e.g:
+> 1. r =3D smu_cmn_send_msg(smu, msg_id);
+> 2. r =3D smu_cmn_send_msg(smu, msg_id, &read_arg); 3. r =3D
+> smu_cmn_send_msg(smu, msg_id, param, &read_arg); 4. r =3D
+> smu_cmn_send_msg(smu, msg_id,
+>                       num_param, [param0, param1, ...],
+>                       num_response, [arg0, arg1, ...]
+>
+
+The intent behind message control is to make the message protocol transpare=
+nt to IP versions and specific IP versions to have more control over them -=
+ if they need to override a message mechanisms, add specific timeouts to pa=
+rticular messages etc. Overall, they are expected to move away from using '=
+cmn' and directly use message control operations. That also avoids redundan=
+t memory copies of in/out arguments.
+
+Thanks,
+Lijo
+
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 79 ++++++++++++++++++++++++++
+>   drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h | 22 +++++++
+>   2 files changed, 101 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> index a644579903f4..bc2ac5ae6a48 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c
+> @@ -193,6 +193,85 @@ int smu_cmn_send_smc_msg(struct smu_context *smu,
+>                                              read_arg);
+>   }
+>
+> +static inline int smu_cmn_send_msg_internal(struct smu_context *smu, enu=
+m smu_message_type msg,
+> +                                         int num_in_args, u32 *in_args,
+> +                                         int num_out_args, u32 *out_args=
+) {
+> +     struct smu_msg_ctl *ctl =3D &smu->msg_ctl;
+> +     struct smu_msg_args args =3D { 0 };
+> +     int ret;
+> +
+> +     if (msg >=3D SMU_MSG_MAX_COUNT)
+> +             return -EINVAL;
+> +
+> +     if ((num_in_args >=3D ARRAY_SIZE(args.args) || num_in_args < 0) ||
+> +         (num_out_args >=3D ARRAY_SIZE(args.out_args) || num_out_args < =
+0))
+> +             return -EINVAL;
+> +
+> +     if ((num_in_args > 0 && !in_args) || (num_out_args > 0 && !out_args=
+))
+> +             return -EINVAL;
+> +
+> +     if (!ctl->ops || !ctl->ops->send_msg)
+> +             return -EOPNOTSUPP;
+> +
+> +     args.msg =3D msg;
+> +     args.num_args =3D num_in_args;
+> +     args.num_out_args =3D num_out_args;
+> +     args.flags =3D 0;
+> +     args.timeout =3D 0;
+> +
+> +     if (num_in_args)
+> +             memcpy(&args.args[0], in_args, num_in_args * sizeof(u32));
+> +
+> +     ret =3D ctl->ops->send_msg(ctl, &args);
+> +     if (ret)
+> +             return ret;
+> +
+> +     if (num_out_args)
+> +             memcpy(out_args, &args.out_args[0], num_out_args * sizeof(u=
+32));
+> +
+> +     return ret;
+> +}
+> +
+> +/*
+> + * NOTE: To ensure compatibility with the behavioral logic of the
+> +legacy API,
+> + * it is required to explicitly set the parameter "param" to 0 when
+> +invoking
+> + * the msg_0 and msg_1 functions.
+> + * */
+> +
+> +int __smu_cmn_send_msg_0(struct smu_context *smu, enum
+> +smu_message_type msg) {
+> +     return __smu_cmn_send_msg_2(smu, msg, 0, NULL); }
+> +
+> +int __smu_cmn_send_msg_1(struct smu_context *smu, enum smu_message_type =
+msg,
+> +                      u32 *read_arg)
+> +{
+> +     return __smu_cmn_send_msg_2(smu, msg, 0, read_arg); }
+> +
+> +int __smu_cmn_send_msg_2(struct smu_context *smu, enum smu_message_type =
+msg,
+> +                      u32 param, u32 *read_arg)
+> +{
+> +     int ret;
+> +
+> +     if (read_arg)
+> +             ret =3D smu_cmn_send_msg_internal(smu, msg, 1, &param, 1, r=
+ead_arg);
+> +     else
+> +             ret =3D smu_cmn_send_msg_internal(smu, msg, 1, &param, 0, N=
+ULL);
+> +
+> +     return ret;
+> +}
+> +
+> +int __smu_cmn_send_msg_4(struct smu_context *smu, enum smu_message_type =
+msg,
+> +                      int num_in_args, u32 *in_args,
+> +                      int num_out_args, u32 *out_args)
+> +{
+> +     return smu_cmn_send_msg_internal(smu, msg,
+> +                                      num_in_args, in_args,
+> +                                      num_out_args, out_args);
+> +}
+> +
+>   int smu_cmn_send_debug_smc_msg(struct smu_context *smu,
+>                        uint32_t msg)
+>   {
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> index e4d282d8bcae..f48356c22dbb 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h
+> @@ -209,6 +209,28 @@ int smu_cmn_dpm_pcie_gen_idx(int gen);
+>   int smu_cmn_dpm_pcie_width_idx(int width);
+>   int smu_cmn_check_fw_version(struct smu_context *smu);
+>
+> +int __smu_cmn_send_msg_0(struct smu_context *smu, enum
+> +smu_message_type msg); int __smu_cmn_send_msg_1(struct smu_context *smu,=
+ enum smu_message_type msg,
+> +                      u32 *read_arg);
+> +int __smu_cmn_send_msg_2(struct smu_context *smu, enum smu_message_type =
+msg,
+> +                      u32 param, u32 *read_arg);
+> +int __smu_cmn_send_msg_4(struct smu_context *smu, enum smu_message_type =
+msg,
+> +                      int num_in_args, u32 *in_args,
+> +                      int num_out_args, u32 *out_args);
+> +
+> +/*
+> +* The smu_cmn_send_msg() API will expand to the following prototypes bas=
+ed on the number of input parameters.
+> +* e.g:
+> +* 1. r =3D smu_cmn_send_msg(smu, msg_id);
+> +* 2. r =3D smu_cmn_send_msg(smu, msg_id, &read_arg);
+> +* 3. r =3D smu_cmn_send_msg(smu, msg_id, param, &read_arg);
+> +* 4. r =3D smu_cmn_send_msg(smu, msg_id,
+> +*                      num_param, [param0, param1, ...],
+> +*                      num_response, [arg0, arg1, ...]
+> +*/
+> +#define smu_cmn_send_msg(smu, msg, ...) \
+> +     CONCATENATE(__smu_cmn_send_msg_, COUNT_ARGS(__VA_ARGS__))(smu, msg,
+> +##__VA_ARGS__)
+> +
+>   /*SMU gpu metrics */
+>
+>   /* Attribute ID mapping */
+
+
+--_000_SJ0PR12MB70821C13DE8260DE5CBABA48974FASJ0PR12MB7082namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
 </head>
-<body dir=3D"ltr">
+<body>
+<p style=3D"font-family:Calibri;font-size:10pt;color:#008000;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+[Public]<br>
+</p>
+<br>
 <div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-[AMD Official Use Only - AMD Internal Distribution Only]</div>
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(3=
+3, 33, 33);">
+The variadic wrapper assigns different argument meanings based on number of=
+ parameters used and the position. It will be hard to read code based on it=
+. There is an optional timeout parameter which will need a 5-argument funct=
+ion. Just don't want to miss out
+ on that if everyone starts focusing only on cmn helper functions.</div>
+<div id=3D"ms-outlook-mobile-body-separator-line" data-applydefaultfontstyl=
+es=3D"true" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system=
+, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"auto">
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
 <br>
 </div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Hi,</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-<br>
 </div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-alloca(0) will point to current top of stack and hence it can be said the f=
-ield is initialized.</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
+<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
+o, Arial, Helvetica, sans-serif; font-size: 12pt;" id=3D"ms-outlook-mobile-=
+signature" dir=3D"auto">
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+Thanks,</div>
+<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
+system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
+Lijo</div>
 </div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Thank you,</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Yogesh</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wang, Yang(Kevin) &lt=
+;KevinYang.Wang@amd.com&gt;<br>
+<b>Sent:</b> Thursday, March 19, 2026 11:23:06 AM<br>
+<b>To:</b> Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Haw=
+king &lt;Hawking.Zhang@amd.com&gt;; Feng, Kenneth &lt;Kenneth.Feng@amd.com&=
+gt;<br>
+<b>Subject:</b> RE: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_m=
+sg() to unify msg sending logic</font>
+<div>&nbsp;</div>
 </div>
-<hr style=3D"display: inline-block; width: 98%;">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<b>From:</b>&nbsp;Koenig, Christian &lt;Christian.Koenig@amd.com&gt;<br>
-<b>Sent:</b>&nbsp;Thursday, March 19, 2026 1:00 PM<br>
-<b>To:</b>&nbsp;Liang, Prike &lt;Prike.Liang@amd.com&gt;; Mohan Marimuthu, =
-Yogesh &lt;Yogesh.Mohanmarimuthu@amd.com&gt;; Khatri, Sunil &lt;Sunil.Khatr=
-i@amd.com&gt;; Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com&gt;; Deucher, Alex=
-ander &lt;Alexander.Deucher@amd.com&gt;; Olsak, Marek &lt;Marek.Olsak@amd.c=
-om&gt;<br>
-<b>Cc:</b>&nbsp;amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop=
-.org&gt;<br>
-<b>Subject:</b>&nbsp;Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAI=
-T ioctl argument validation&quot;
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
+ style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
+<div><font size=3D"2"><span style=3D"font-size:11pt;">[AMD Official Use Onl=
+y - AMD Internal Distribution Only]<br>
 <br>
-</div>
-<div style=3D"font-size: 11pt;">Hi guys,<br>
+This patch simplifies the development flow with a unified interface and red=
+uces overhead for developers.<br>
+Most developers can implement features without focusing on low-level detail=
+s, while complex message sending scenarios can still use the low-level msg =
+sending APIs directly.<br>
 <br>
-well when mesa leaves some fields in the structure uninitialized then that =
-is a pretty bad idea and we should eventually fix that.<br>
+Btw,<br>
+The scattered APIs hurt maintainability, and most developers should focus o=
+n business logic rather than low-level details.<br>
+Thus, the &quot;cmn&quot; helper is necessary, it only simplifies the commo=
+n path while keeping full flexibility for advanced use cases.<br>
+We do not have to choose one or the other exclusively.<br>
 <br>
-But always setting the pointers to valid arrays and just setting the number=
- of array elements to zero is perfectly valid.<br>
+Best Regards,<br>
+Kevin<br>
+-----Original Message-----<br>
+From: Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;<br>
+Sent: Thursday, March 19, 2026 11:46 AM<br>
+To: Wang, Yang(Kevin) &lt;KevinYang.Wang@amd.com&gt;; amd-gfx@lists.freedes=
+ktop.org<br>
+Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Hawking &l=
+t;Hawking.Zhang@amd.com&gt;; Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;<br>
+Subject: Re: [PATCH 1/3] drm/amd/pm: add variant func smu_cmn_send_msg() to=
+ unify msg sending logic<br>
 <br>
-That doesn't even needs a debug message.<br>
 <br>
-Regards,<br>
-Christian.<br>
 <br>
-On 3/19/26 07:27, Liang, Prike wrote:<br>
-&gt; [Public]<br>
-&gt;<br>
-&gt;<br>
-&gt; Thanks for the confirmation. If Mesa doesn=92t zero the handle buffer,=
- I=92m going to drop this validation check in the kernel and then leave a d=
-ebug message for this case.<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt;<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Prike<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; *From:*Mohan Marimuthu, Yogesh &lt;Yogesh.Mohanmarimuthu@amd.com&gt;<b=
+On 19-Mar-26 7:39 AM, Yang Wang wrote:<br>
+&gt; add variant func smu_cmn_send_msg() to unify smu message sending<br>
+&gt; logic, and enabling support for newer ASIC interfaces such as SMU v15 =
+and upcoming devices.<br>
+&gt; (support multi-param/multi-response, standardize code across all smu<b=
 r>
-&gt; *Sent:* Thursday, March 19, 2026 1:31 PM<br>
-&gt; *To:* Liang, Prike &lt;Prike.Liang@amd.com&gt;; Khatri, Sunil &lt;Suni=
-l.Khatri@amd.com&gt;; Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com&gt;; Khatri=
-, Sunil &lt;Sunil.Khatri@amd.com&gt;; Koenig, Christian &lt;Christian.Koeni=
-g@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Olsak,
- Marek &lt;Marek.Olsak@amd.com&gt;<br>
-&gt; *Cc:* amd-gfx@lists.freedesktop.org<br>
-&gt; *Subject:* Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAIT ioc=
-tl argument validation&quot;<br>
+&gt; code layers)<br>
 &gt;<br>
-&gt; &nbsp;<br>
+&gt; The smu_cmn_send_msg() API will expand to the following prototypes bas=
+ed on the number of input parameters.<br>
+&gt; e.g:<br>
+&gt; 1. r =3D smu_cmn_send_msg(smu, msg_id);<br>
+&gt; 2. r =3D smu_cmn_send_msg(smu, msg_id, &amp;read_arg); 3. r =3D<br>
+&gt; smu_cmn_send_msg(smu, msg_id, param, &amp;read_arg); 4. r =3D<br>
+&gt; smu_cmn_send_msg(smu, msg_id,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_param, [p=
+aram0, param1, ...],<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_response,=
+ [arg0, arg1, ...]<br>
 &gt;<br>
-&gt; [Public]<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; Hi Prike,<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; Regarding below check in the Kernel patch,<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; /* Reject non-NULL pointers paired with a zero count. */<br>
-&gt;<br>
-&gt; if (!args-&gt;num_syncobj_handles &amp;&amp; args-&gt;syncobj_handles)=
 <br>
-&gt;<br>
-&gt; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return -EINVAL;<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; Mesa uses alloca for args-&gt;syncobj_handles, alloca(0) returns non N=
-ULL.<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; I think the check &quot;Reject non-NULL pointers paired with a zero co=
-unt&quot; in Kernel can be skipped.<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; Thank you,<br>
-&gt;<br>
-&gt; Yogesh<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; ----------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
---------------------<br>
-&gt;<br>
-&gt; *From:*&nbsp;Liang, Prike &lt;Prike.Liang@amd.com &lt;<a class=3D"OWAA=
-utoLink" id=3D"OWA4bfe5349-c817-2b56-80a8-37b1e7685e30" href=3D"mailto:Prik=
-e.Liang@amd.com">mailto:Prike.Liang@amd.com</a>&gt;&gt;<br>
-&gt; *Sent:*&nbsp;Thursday, March 19, 2026 8:03 AM<br>
-&gt; *To:*&nbsp;Khatri, Sunil &lt;Sunil.Khatri@amd.com &lt;<a class=3D"OWAA=
-utoLink" id=3D"OWA9731cae4-1810-8939-30bd-3596b397aba8" href=3D"mailto:Suni=
-l.Khatri@amd.com">mailto:Sunil.Khatri@amd.com</a>&gt;&gt;; Zhang, Jesse(Jie=
-) &lt;Jesse.Zhang@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OWAc1f77a63-e2=
-1b-5792-9b33-9ff9d131ffd9" href=3D"mailto:Jesse.Zhang@amd.com">mailto:Jesse=
-.Zhang@amd.com</a>&gt;&gt;;
- Khatri, Sunil &lt;Sunil.Khatri@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"=
-OWA395f71c8-71c1-b4b0-10bf-5aa5591ce661" href=3D"mailto:Sunil.Khatri@amd.co=
-m">mailto:Sunil.Khatri@amd.com</a>&gt;&gt;; Koenig, Christian &lt;Christian=
-.Koenig@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OWA5db2f4f6-53a4-0719-8d=
-c9-9139c80cc606" href=3D"mailto:Christian.Koenig@amd.com">mailto:Christian.=
-Koenig@amd.com</a>&gt;&gt;;
- Deucher, Alexander &lt;Alexander.Deucher@amd.com &lt;<a class=3D"OWAAutoLi=
-nk" id=3D"OWA86ed15a5-3272-365a-6753-46bbd20639e1" href=3D"mailto:Alexander=
-.Deucher@amd.com">mailto:Alexander.Deucher@amd.com</a>&gt;&gt;; Mohan Marim=
-uthu, Yogesh &lt;Yogesh.Mohanmarimuthu@amd.com &lt;<a class=3D"OWAAutoLink"=
- id=3D"OWA8e0e471e-9020-2c51-2593-ec14f7482679" href=3D"mailto:Yogesh.Mohan=
-marimuthu@amd.com">mailto:Yogesh.Mohanmarimuthu@amd.com</a>&gt;&gt;;
- Olsak, Marek &lt;Marek.Olsak@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OW=
-A4db333b2-421a-3a1a-6841-27ce13af298f" href=3D"mailto:Marek.Olsak@amd.com">=
-mailto:Marek.Olsak@amd.com</a>&gt;&gt;<br>
-&gt; *Cc:*&nbsp;amd-gfx@lists.freedesktop.org &lt;<a class=3D"OWAAutoLink" =
-id=3D"OWA17a5ed4d-9c4e-f53d-02aa-a7ac031f787c" href=3D"mailto:amd-gfx@lists=
-.freedesktop.org">mailto:amd-gfx@lists.freedesktop.org</a>&gt; &lt;amd-gfx@=
-lists.freedesktop.org &lt;<a class=3D"OWAAutoLink" id=3D"OWA7326371a-f0dc-5=
-20d-a3aa-1a5a57b0c64e" href=3D"mailto:amd-gfx@lists.freedesktop.org">mailto=
-:amd-gfx@lists.freedesktop.org</a>&gt;&gt;<br>
-&gt; *Subject:*&nbsp;RE: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAI=
-T ioctl argument validation&quot;<br>
-&gt;<br>
-&gt; &nbsp;<br>
-&gt;<br>
-&gt; [Public]<br>
-&gt;<br>
-&gt; Add @Mohan Marimuthu, Yogesh/@Olsak, Marek<br>
-&gt;<br>
-&gt; It looks like the validation in several places doesn=92t match how Mes=
-a allocates these buffers. i.e when num_syncobj_handles is zero, syncobj_ha=
-ndles must not be required to be NULL, because Mesa leaves it uninitialized=
- when allocating it on the stack. We
- should either implement a proper fix in Mesa for this case or drop the kno=
-wn broken validation check.<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Prike<br>
-&gt;<br>
-&gt;&gt; -----Original Message-----<br>
-&gt;&gt; From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org &lt;<a cla=
-ss=3D"OWAAutoLink" id=3D"OWAa7ab9b90-07c0-0619-6a64-b4d71bbd5aa8" href=3D"m=
-ailto:amd-gfx-bounces@lists.freedesktop.org">mailto:amd-gfx-bounces@lists.f=
-reedesktop.org</a>&gt;&gt; On Behalf Of Khatri, Sunil<br>
-&gt;&gt; Sent: Wednesday, March 18, 2026 5:39 PM<br>
-&gt;&gt; To: Zhang, Jesse(Jie) &lt;Jesse.Zhang@amd.com &lt;<a class=3D"OWAA=
-utoLink" id=3D"OWAd6edc85e-4081-9596-3221-d8acf2eb9af9" href=3D"mailto:Jess=
-e.Zhang@amd.com">mailto:Jesse.Zhang@amd.com</a>&gt;&gt;; Khatri, Sunil<br>
-&gt;&gt; &lt;Sunil.Khatri@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OWA371=
-1c294-16d2-2428-0726-9ecd8a7deb5b" href=3D"mailto:Sunil.Khatri@amd.com">mai=
-lto:Sunil.Khatri@amd.com</a>&gt;&gt;; Koenig, Christian &lt;Christian.Koeni=
-g@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OWAf4369d89-5995-20f5-46d3-6c1=
-b8c91215a" href=3D"mailto:Christian.Koenig@amd.com">mailto:Christian.Koenig=
-@amd.com</a>&gt;&gt;;<br>
-&gt;&gt; Deucher, Alexander &lt;Alexander.Deucher@amd.com &lt;<a class=3D"O=
-WAAutoLink" id=3D"OWAe2105c77-cd2b-d07a-1304-83077abb4a0b" href=3D"mailto:A=
-lexander.Deucher@amd.com">mailto:Alexander.Deucher@amd.com</a>&gt;&gt;<br>
-&gt;&gt; Cc: amd-gfx@lists.freedesktop.org &lt;<a class=3D"OWAAutoLink" id=
-=3D"OWAb21ac47b-9338-b3f0-45d1-1fe1c9785ae7" href=3D"mailto:amd-gfx@lists.f=
-reedesktop.org">mailto:amd-gfx@lists.freedesktop.org</a>&gt;<br>
-&gt;&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGNAL/WAIT i=
-octl argument<br>
-&gt;&gt; validation&quot;<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; On 18-03-2026 03:02 pm, Zhang, Jesse(Jie) wrote:<br>
-&gt;&gt; &gt; [AMD Official Use Only - AMD Internal Distribution Only]<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; -----Original Message-----<br>
-&gt;&gt; &gt;&gt; From: Khatri, Sunil &lt;Sunil.Khatri@amd.com &lt;<a class=
-=3D"OWAAutoLink" id=3D"OWA84dcfcde-109d-4294-c791-337586d0fe9d" href=3D"mai=
-lto:Sunil.Khatri@amd.com">mailto:Sunil.Khatri@amd.com</a>&gt;&gt;<br>
-&gt;&gt; &gt;&gt; Sent: Wednesday, March 18, 2026 4:22 PM<br>
-&gt;&gt; &gt;&gt; To: Koenig, Christian &lt;Christian.Koenig@amd.com &lt;<a=
- class=3D"OWAAutoLink" id=3D"OWA571a8c72-efc5-be3c-d058-09b21d3c2c5c" href=
-=3D"mailto:Christian.Koenig@amd.com">mailto:Christian.Koenig@amd.com</a>&gt=
-;&gt;; Khatri, Sunil<br>
-&gt;&gt; &gt;&gt; &lt;Sunil.Khatri@amd.com &lt;<a class=3D"OWAAutoLink" id=
-=3D"OWA141b7cc4-6a36-4291-e78b-03e8b718c2aa" href=3D"mailto:Sunil.Khatri@am=
-d.com">mailto:Sunil.Khatri@amd.com</a>&gt;&gt;; Deucher, Alexander<br>
-&gt;&gt; &gt;&gt; &lt;Alexander.Deucher@amd.com &lt;<a class=3D"OWAAutoLink=
-" id=3D"OWAc4849d85-aa37-8655-bff8-efe821d8027e" href=3D"mailto:Alexander.D=
-eucher@amd.com">mailto:Alexander.Deucher@amd.com</a>&gt;&gt;<br>
-&gt;&gt; &gt;&gt; Cc: amd-gfx@lists.freedesktop.org &lt;<a class=3D"OWAAuto=
-Link" id=3D"OWA99c9e2ce-328b-e770-b1cc-375b9d955ee0" href=3D"mailto:amd-gfx=
-@lists.freedesktop.org">mailto:amd-gfx@lists.freedesktop.org</a>&gt;; Zhang=
-, Jesse(Jie)<br>
-&gt;&gt; &gt;&gt; &lt;Jesse.Zhang@amd.com &lt;<a class=3D"OWAAutoLink" id=
-=3D"OWAbf359516-6256-c66f-c318-a619690c928f" href=3D"mailto:Jesse.Zhang@amd=
-.com">mailto:Jesse.Zhang@amd.com</a>&gt;&gt;<br>
-&gt;&gt; &gt;&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: harden SIGN=
-AL/WAIT ioctl<br>
-&gt;&gt; &gt;&gt; argument validation&quot;<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; On 18-03-2026 01:29 pm, Christian K=F6nig wrote:<br>
-&gt;&gt; &gt;&gt;&gt; On 3/18/26 08:47, Sunil Khatri wrote:<br>
-&gt;&gt; &gt;&gt;&gt;&gt; This reverts commit 0cdff8eb31c139dde4716e4aa3719=
-8c16364629e.<br>
-&gt;&gt; &gt;&gt;&gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; The patch has caused regression for userqueues wh=
-ere user is stuck<br>
-&gt;&gt; &gt;&gt;&gt;&gt; and is waiting for fences and a gpu reset is trig=
-gered in kernel.<br>
-&gt;&gt; &gt;&gt;&gt;&gt; Also for any of the parameters when count is zero=
-, the driver does<br>
-&gt;&gt; &gt;&gt;&gt;&gt; not read from the pointer and having that check i=
-s overkill.<br>
-&gt;&gt; &gt;&gt;&gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; Application:<br>
-&gt;&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait num_fences fail=
-ed<br>
-&gt;&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait fences failed<b=
-r>
-&gt;&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait num_fences fail=
-ed<br>
-&gt;&gt; &gt;&gt;&gt;&gt; MESA: error: amdgpu: getting wait fences failed<b=
-r>
-&gt;&gt; &gt; After I reverted this patch, the error still occurs when runn=
-ing glxgears.<br>
-&gt;&gt; &gt; Does it work fine on your end if you don't apply this patch?<=
-br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; amdgpu: getting wait fences failed<br>
-&gt;&gt; &gt; amdgpu: getting wait fences failed<br>
-&gt;&gt; &gt; amdgpu: getting wait fences failed<br>
-&gt;&gt;<br>
-&gt;&gt; Yes, it works. You might need to update mesa too. I am using the l=
-atest mesa with<br>
-&gt;&gt; ubuntu and i dont see those error. with your patch they do show.<b=
-r>
-&gt;&gt;<br>
-&gt;&gt; Regards<br>
-&gt;&gt; Sunil Khatri<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Thanks<br>
-&gt;&gt; &gt; Jesse<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; Dmesg:<br>
-&gt;&gt; &gt;&gt;&gt;&gt; [&nbsp; 122.668493] amdgpu 0000:0a:00.0: sq_intr:=
- error, detail<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 0x00000000, type 1, sh 1, priv 0, wave_id 0, simd=
-_id 0, wgp_id 0 [<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 122.668504] amdgpu 0000:0a:00.0: sq_intr: error, =
-detail 0x00000000,<br>
-&gt;&gt; &gt;&gt;&gt;&gt; type 1, sh 1, priv 0, wave_id 0, simd_id 0, wgp_i=
-d 0 [&nbsp; 124.687518]<br>
-&gt;&gt; &gt;&gt;&gt;&gt; amdgpu 0000:0a:00.0: Dumping IP State [&nbsp; 124=
-.688351] amdgpu<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: Dumping IP State Completed [&nbsp; =
-124.688355] amdgpu<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: [drm] AMDGPU device coredump file h=
-as been created [<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 124.688357] amdgpu 0000:0a:00.0: [drm] Check your=
+The intent behind message control is to make the message protocol transpare=
+nt to IP versions and specific IP versions to have more control over them -=
+ if they need to override a message mechanisms, add specific timeouts to pa=
+rticular messages etc. Overall,
+ they are expected to move away from using 'cmn' and directly use message c=
+ontrol operations. That also avoids redundant memory copies of in/out argum=
+ents.<br>
 <br>
-&gt;&gt; &gt;&gt;&gt;&gt; /sys/class/drm/card0/device/devcoredump/data<br>
-&gt;&gt; &gt;&gt;&gt;&gt; [&nbsp; 124.688361] amdgpu 0000:0a:00.0: ring gfx=
-_0.0.0 timeout,<br>
-&gt;&gt; &gt;&gt;&gt;&gt; signaled seq=3D569, emitted seq=3D571 [&nbsp; 124=
-.688366] amdgpu<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0:&nbsp; Process Xwayland pid 3471 thr=
-ead Xwayland:cs0 pid<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 3479 [&nbsp; 124.688369] amdgpu<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: Starting gfx_0.0.0 ring reset [&nbs=
-p; 126.560451] amdgpu<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: MES(0) failed to respond to msg=3DR=
-ESET [&nbsp; 126.560456]<br>
-&gt;&gt; &gt;&gt;&gt;&gt; amdgpu 0000:0a:00.0: failed to detect and reset [=
-&nbsp; 126.560460]<br>
-&gt;&gt; &gt;&gt;&gt;&gt; amdgpu<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 0000:0a:00.0: Failed to detect and reset queues, =
-err (-110) [<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 128.789840] amdgpu 0000:0a:00.0: Ring gfx_0.0.0 r=
-eset failed [<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 128.789848] amdgpu 0000:0a:00.0: GPU reset begin!=
-. Source:&nbsp; 1 [<br>
-&gt;&gt; &gt;&gt;&gt;&gt; 128.790161] amdgpu 0000:0a:00.0: Guilty job alrea=
-dy signaled,<br>
-&gt;&gt; &gt;&gt;&gt;&gt; skipping HW<br>
-&gt;&gt; &gt;&gt; reset [&nbsp; 128.790174] amdgpu 0000:0a:00.0: GPU reset(=
-1) succeeded!<br>
-&gt;&gt; &gt;&gt;&gt;&gt; [&nbsp; 128.804538] amdgpu 0000:0a:00.0: [drm] de=
-vice wedged, but<br>
-&gt;&gt; &gt;&gt;&gt;&gt; recovered through reset [&nbsp; 128.804574] amdgp=
-u 0000:0a:00.0: GPU<br>
-&gt;&gt; &gt;&gt;&gt;&gt; reset begin!. Source:&nbsp; 6 [&nbsp; 128.816663]=
- amdgpu 0000:0a:00.0:<br>
-&gt;&gt; &gt;&gt;&gt;&gt; Dumping IP State [&nbsp; 128.817458] amdgpu 0000:=
-0a:00.0: Dumping IP<br>
-&gt;&gt; &gt;&gt;&gt;&gt; State Completed [&nbsp; 130.963939] amdgpu 0000:0=
-a:00.0: MES(1) failed<br>
-&gt;&gt; &gt;&gt;&gt;&gt; to respond to msg=3DREMOVE_QUEUE [&nbsp; 130.9639=
-49] amdgpu 0000:0a:00.0:<br>
-&gt;&gt; &gt;&gt;&gt;&gt; failed to unmap legacy queue<br>
-&gt;&gt; &gt;&gt;&gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; Cc: Jesse Zhang &lt;jesse.zhang@amd.com &lt;<a cl=
-ass=3D"OWAAutoLink" id=3D"OWA13625298-8b04-d9c8-98f0-fa604b828342" href=3D"=
-mailto:jesse.zhang@amd.com">mailto:jesse.zhang@amd.com</a>&gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; Signed-off-by: Sunil Khatri &lt;sunil.khatri@amd.=
-com &lt;<a class=3D"OWAAutoLink" id=3D"OWAd83430b3-77d2-c460-8ffa-e69074df9=
-d5f" href=3D"mailto:sunil.khatri@amd.com">mailto:sunil.khatri@amd.com</a>&g=
-t;&gt;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; ---<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; .../gpu/drm/amd/amdgpu/amdgpu_u=
-serq_fence.c&nbsp;&nbsp; | 29 -------------------<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 1 file changed, 29 deletions(-)=
+Thanks,<br>
+Lijo<br>
 <br>
-&gt;&gt; &gt;&gt;&gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_us=
-erq_fence.c<br>
-&gt;&gt; &gt;&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c=
+&gt; Signed-off-by: Yang Wang &lt;kevinyang.wang@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c | 79 ++++++++++++++=
+++++++++++++<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h | 22 +++++++<br>
+&gt;&nbsp;&nbsp; 2 files changed, 101 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c<br>
+&gt; b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c<br>
+&gt; index a644579903f4..bc2ac5ae6a48 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.c<br>
+&gt; @@ -193,6 +193,85 @@ int smu_cmn_send_smc_msg(struct smu_context *smu,=
 <br>
-&gt;&gt; &gt;&gt;&gt;&gt; index 3fcd70a38374..0d9a13081f2f 100644<br>
-&gt;&gt; &gt;&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fen=
-ce.c<br>
-&gt;&gt; &gt;&gt;&gt;&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fen=
-ce.c<br>
-&gt;&gt; &gt;&gt;&gt;&gt; @@ -484,16 +484,6 @@ int amdgpu_userq_signal_ioct=
-l(struct<br>
-&gt;&gt; &gt;&gt;&gt;&gt; drm_device<br>
-&gt;&gt; &gt;&gt; *dev, void *data,<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a=
-rgs-&gt;num_bo_read_handles &gt; AMDGPU_USERQ_MAX_HANDLES)<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt;&gt; &gt;&gt;&gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; /* Reject non-NULL pointers paired with a=
- zero count. */<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!args-&gt;num_syncobj_handles &amp;&a=
-mp; args-&gt;syncobj_handles)<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return -EINVAL;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!args-&gt;num_bo_read_handles &amp;&a=
-mp; args-&gt;bo_read_handles)<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return -EINVAL;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!args-&gt;num_bo_write_handles &amp;&=
-amp; args-&gt;bo_write_handles)<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return -EINVAL;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; num_syncobj_handles =3D a=
-rgs-&gt;num_syncobj_handles;<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; syncobj_handles =3D memdu=
-p_array_user(u64_to_user_ptr(args-<br>
-&gt;&gt; &gt;&gt;&gt; syncobj_handles),<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_syncobj_handles,<br>
-&gt;&gt; &gt;&gt;&gt;&gt; sizeof(u32)); @@ -<br>
-&gt;&gt; &gt;&gt; 950,25 +940,6 @@<br>
-&gt;&gt; &gt;&gt;&gt;&gt; int amdgpu_userq_wait_ioctl(struct drm_device *de=
-v, void *data,<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; w=
-ait_info-&gt;num_bo_read_handles &gt;<br>
-&gt;&gt; &gt;&gt; AMDGPU_USERQ_MAX_HANDLES)<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt;&gt; &gt;&gt;&gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; /* Reject non-NULL pointers paired with a=
- zero count: the pointer<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp; * is meaningless and indicates inco=
-nsistent input from userspace.<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp; */<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_syncobj_handles &a=
-mp;&amp; wait_info-&gt;syncobj_handles)<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return -EINVAL;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_syncobj_timeline_h=
-andles &amp;&amp;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (wait_info-&gt;sy=
-ncobj_timeline_handles || wait_info-<br>
-&gt;&gt; &gt;&gt;&gt; syncobj_timeline_points))<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return -EINVAL;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_bo_read_handles &a=
-mp;&amp; wait_info-&gt;bo_read_handles)<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return -EINVAL;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_bo_write_handles &=
-amp;&amp; wait_info-&gt;bo_write_handles)<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return -EINVAL;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp; if (!wait_info-&gt;num_fences &amp;&amp; =
-wait_info-&gt;out_fences)<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; return -EINVAL;<br>
-&gt;&gt; &gt;&gt;&gt;&gt; -<br>
-&gt;&gt; &gt;&gt;&gt; Mhm, in general such checks look valid to me.<br>
-&gt;&gt; &gt;&gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt; My educated guess is that userspace sets num_fences =
-=3D 0 to query if<br>
-&gt;&gt; &gt;&gt;&gt; it needs to<br>
-&gt;&gt; &gt;&gt; resize the pointer out_fences or not.<br>
-&gt;&gt; &gt;&gt;&gt; If you have time please double check which check fail=
-s here.<br>
-&gt;&gt; &gt;&gt; Sure, i will check on that but for now i have pushed this=
- revert.<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; regards<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; sunil khatri<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt; Apart from that Reviewed-by: Christian K=F6nig &lt;ch=
-ristian.koenig@amd.com &lt;<a class=3D"OWAAutoLink" id=3D"OWA1acd249f-4cad-=
-6caf-62af-fdf1ea2c1534" href=3D"mailto:christian.koenig@amd.com">mailto:chr=
-istian.koenig@amd.com</a>&gt;&gt;.<br>
-&gt;&gt; &gt;&gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt; Regards,<br>
-&gt;&gt; &gt;&gt;&gt; Christian.<br>
-&gt;&gt; &gt;&gt;&gt;<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; num_syncobj =3D wait_info=
--&gt;num_syncobj_handles;<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; ptr =3D u64_to_user_ptr(w=
-ait_info-&gt;syncobj_handles);<br>
-&gt;&gt; &gt;&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; syncobj_handles =3D memdu=
-p_array_user(ptr, num_syncobj,<br>
-&gt;&gt; &gt;&gt;&gt;&gt; sizeof(u32));<br>
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; read_arg);<br>
+&gt;&nbsp;&nbsp; }<br>
 &gt;<br>
+&gt; +static inline int smu_cmn_send_msg_internal(struct smu_context *smu, =
+enum smu_message_type msg,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; int num_in_args, u32 *in_args,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; int num_out_args, u32 *out_args) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct smu_msg_ctl *ctl =3D &amp;smu-&gt;msg=
+_ctl;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct smu_msg_args args =3D { 0 };<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (msg &gt;=3D SMU_MSG_MAX_COUNT)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return -EINVAL;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if ((num_in_args &gt;=3D ARRAY_SIZE(args.arg=
+s) || num_in_args &lt; 0) ||<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (num_out_args &gt;=
+=3D ARRAY_SIZE(args.out_args) || num_out_args &lt; 0))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return -EINVAL;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if ((num_in_args &gt; 0 &amp;&amp; !in_args)=
+ || (num_out_args &gt; 0 &amp;&amp; !out_args))<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return -EINVAL;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!ctl-&gt;ops || !ctl-&gt;ops-&gt;send_ms=
+g)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return -EOPNOTSUPP;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; args.msg =3D msg;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; args.num_args =3D num_in_args;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; args.num_out_args =3D num_out_args;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; args.flags =3D 0;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; args.timeout =3D 0;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (num_in_args)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; memcpy(&amp;args.args[0], in_args, num_in_args * sizeof(u32));<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; ret =3D ctl-&gt;ops-&gt;send_msg(ctl, &amp;a=
+rgs);<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return ret;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (num_out_args)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; memcpy(out_args, &amp;args.out_args[0], num_out_args * sizeof(u32));<br=
+>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +/*<br>
+&gt; + * NOTE: To ensure compatibility with the behavioral logic of the<br>
+&gt; +legacy API,<br>
+&gt; + * it is required to explicitly set the parameter &quot;param&quot; t=
+o 0 when<br>
+&gt; +invoking<br>
+&gt; + * the msg_0 and msg_1 functions.<br>
+&gt; + * */<br>
+&gt; +<br>
+&gt; +int __smu_cmn_send_msg_0(struct smu_context *smu, enum<br>
+&gt; +smu_message_type msg) {<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return __smu_cmn_send_msg_2(smu, msg, 0, NUL=
+L); }<br>
+&gt; +<br>
+&gt; +int __smu_cmn_send_msg_1(struct smu_context *smu, enum smu_message_ty=
+pe msg,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 *read_arg)<br=
+>
+&gt; +{<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return __smu_cmn_send_msg_2(smu, msg, 0, rea=
+d_arg); }<br>
+&gt; +<br>
+&gt; +int __smu_cmn_send_msg_2(struct smu_context *smu, enum smu_message_ty=
+pe msg,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 param, u32 *r=
+ead_arg)<br>
+&gt; +{<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (read_arg)<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ret =3D smu_cmn_send_msg_internal(smu, msg, 1, &amp;param, 1, read_arg)=
+;<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ret =3D smu_cmn_send_msg_internal(smu, msg, 1, &amp;param, 0, NULL);<br=
+>
+&gt; +<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt; +}<br>
+&gt; +<br>
+&gt; +int __smu_cmn_send_msg_4(struct smu_context *smu, enum smu_message_ty=
+pe msg,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int num_in_args, =
+u32 *in_args,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int num_out_args,=
+ u32 *out_args)<br>
+&gt; +{<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return smu_cmn_send_msg_internal(smu, msg,<b=
+r>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; num_in_args, in_args,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; num_out_args, out_args);<br>
+&gt; +}<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp; int smu_cmn_send_debug_smc_msg(struct smu_context *smu,<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_=
+t msg)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h<br>
+&gt; b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h<br>
+&gt; index e4d282d8bcae..f48356c22dbb 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h<br>
+&gt; +++ b/drivers/gpu/drm/amd/pm/swsmu/smu_cmn.h<br>
+&gt; @@ -209,6 +209,28 @@ int smu_cmn_dpm_pcie_gen_idx(int gen);<br>
+&gt;&nbsp;&nbsp; int smu_cmn_dpm_pcie_width_idx(int width);<br>
+&gt;&nbsp;&nbsp; int smu_cmn_check_fw_version(struct smu_context *smu);<br>
+&gt;<br>
+&gt; +int __smu_cmn_send_msg_0(struct smu_context *smu, enum<br>
+&gt; +smu_message_type msg); int __smu_cmn_send_msg_1(struct smu_context *s=
+mu, enum smu_message_type msg,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 *read_arg);<b=
+r>
+&gt; +int __smu_cmn_send_msg_2(struct smu_context *smu, enum smu_message_ty=
+pe msg,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 param, u32 *r=
+ead_arg);<br>
+&gt; +int __smu_cmn_send_msg_4(struct smu_context *smu, enum smu_message_ty=
+pe msg,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int num_in_args, =
+u32 *in_args,<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int num_out_args,=
+ u32 *out_args);<br>
+&gt; +<br>
+&gt; +/*<br>
+&gt; +* The smu_cmn_send_msg() API will expand to the following prototypes =
+based on the number of input parameters.<br>
+&gt; +* e.g:<br>
+&gt; +* 1. r =3D smu_cmn_send_msg(smu, msg_id);<br>
+&gt; +* 2. r =3D smu_cmn_send_msg(smu, msg_id, &amp;read_arg);<br>
+&gt; +* 3. r =3D smu_cmn_send_msg(smu, msg_id, param, &amp;read_arg);<br>
+&gt; +* 4. r =3D smu_cmn_send_msg(smu, msg_id,<br>
+&gt; +*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_param, [para=
+m0, param1, ...],<br>
+&gt; +*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_response, [a=
+rg0, arg1, ...]<br>
+&gt; +*/<br>
+&gt; +#define smu_cmn_send_msg(smu, msg, ...) \<br>
+&gt; +&nbsp;&nbsp;&nbsp;&nbsp; CONCATENATE(__smu_cmn_send_msg_, COUNT_ARGS(=
+__VA_ARGS__))(smu, msg,<br>
+&gt; +##__VA_ARGS__)<br>
+&gt; +<br>
+&gt;&nbsp;&nbsp; /*SMU gpu metrics */<br>
+&gt;<br>
+&gt;&nbsp;&nbsp; /* Attribute ID mapping */<br>
 <br>
+</span></font></div>
+</span></font></div>
 </div>
 </body>
 </html>
 
---_000_PH7PR12MB6633C6E2C2034AF93CCECDAEFF4FAPH7PR12MB6633namp_--
+--_000_SJ0PR12MB70821C13DE8260DE5CBABA48974FASJ0PR12MB7082namp_--
